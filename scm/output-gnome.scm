@@ -120,13 +120,13 @@ lilypond -fgnome input/simple-song.ly
 		 (+ #x80 (modulo y #x40))))))
    (else (begin (stderr "programming-error: utf-8 too big:~x\n" i)
 		(list (integer->char 32))))))
-  
+
 (define (integer->utf8-string integer)
   (list->string (utf8 integer)))
 
 (define (char->utf8-string char)
   (list->string (utf8 (char->integer char))))
-  
+
 (define (string->utf8-string string)
   (apply
    string-append
@@ -227,14 +227,13 @@ lilypond -fgnome input/simple-song.ly
     bezier))
 
 (define (square-beam width slope thick blot)
-  (let*
-      ((def (make <gnome-canvas-path-def>))
-       (y (* (- width) slope))
-       (props (make <gnome-canvas-bpath>
-		   #:parent (canvas-root)
-		   #:fill-color "black"
-		   #:outline-color "black"
-		   #:width-units 0.0)))
+  (let* ((def (make <gnome-canvas-path-def>))
+	 (y (* (- width) slope))
+	 (props (make <gnome-canvas-bpath>
+		  #:parent (canvas-root)
+		  #:fill-color "black"
+		  #:outline-color "black"
+		  #:width-units 0.0)))
     
     (reset def)
     (moveto def 0 0)
@@ -245,7 +244,7 @@ lilypond -fgnome input/simple-song.ly
     (closepath def)
     (set-path-def props def)
     props))
-    
+
 ;; two beziers
 (define (bezier-sandwich lst thick)
   (let* ((def (make <gnome-canvas-path-def>))
@@ -262,16 +261,16 @@ lilypond -fgnome input/simple-song.ly
     ;; cl cr r l  0 1 2 3 
     ;; cr cl l r  4 5 6 7
     
-     (moveto def (car (list-ref lst 3)) (- (cdr (list-ref lst 3))))
-     (curveto def (car (list-ref lst 0)) (- (cdr (list-ref lst 0)))
+    (moveto def (car (list-ref lst 3)) (- (cdr (list-ref lst 3))))
+    (curveto def (car (list-ref lst 0)) (- (cdr (list-ref lst 0)))
  	     (car (list-ref lst 1)) (- (cdr (list-ref lst 1)))
  	     (car (list-ref lst 2)) (- (cdr (list-ref lst 2))))
 
-     (lineto def (car (list-ref lst 7)) (- (cdr (list-ref lst 7))))
-     (curveto def (car (list-ref lst 4)) (- (cdr (list-ref lst 4)))
+    (lineto def (car (list-ref lst 7)) (- (cdr (list-ref lst 7))))
+    (curveto def (car (list-ref lst 4)) (- (cdr (list-ref lst 4)))
  	     (car (list-ref lst 5)) (- (cdr (list-ref lst 5)))
  	     (car (list-ref lst 6)) (- (cdr (list-ref lst 6))))
-     (lineto def (car (list-ref lst 3)) (- (cdr (list-ref lst 3))))
+    (lineto def (car (list-ref lst 3)) (- (cdr (list-ref lst 3))))
 
     (closepath def)
     (set-path-def bezier def)
@@ -332,7 +331,7 @@ lilypond -fgnome input/simple-song.ly
 		  #:fill-color "black"
 		  #:outline-color "black"
 		  #:join-style 'round)
-		  #:width-units blot-diameter)
+		#:width-units blot-diameter)
 	 (points (ly:list->offsets '() coords))
 	 (last-point (car (last-pair points))))
     
@@ -342,7 +341,7 @@ lilypond -fgnome input/simple-song.ly
     (closepath def)
     (set-path-def props def)
     props))
-    
+
 (define (round-filled-box breapth width depth height blot-diameter)
   (let ((r (/ blot-diameter 2)))
     (make <gnome-canvas-rect>
@@ -371,7 +370,7 @@ lilypond -fgnome input/simple-song.ly
 	   ;;scaling:29.7046771653543
 	   ;;magnification:0.569055118110236
 	   ;;design:20.0
-  
+	   
 	   ;; ugh, experimental sizing
 	   ;; where does factor ops come from?
 	   ;; Hmm, design size: 26/20 

@@ -20,31 +20,30 @@
 
   ;; JUNK this -- see lily.scm: ly:all-output-backend-commands
   #:export (unknown
-	     blank
-	     dot
-	     white-dot
-	     beam
-	     bracket
-	     dashed-slur
-	     char
-	     named-glyph
-	     dashed-line
-	     zigzag-line
-	     ez-ball
-	     comment
-	     repeat-slash
-	     placebox
-	     bezier-sandwich
-	     horizontal-line
-	     embedded-ps
-	     filledbox
-	     round-filled-box
-	     text
-	     white-text
-	     polygon
-	     draw-line
-	     no-origin
-	     ))
+	    blank
+	    dot
+	    white-dot
+	    beam
+	    bracket
+	    dashed-slur
+	    char
+	    named-glyph
+	    dashed-line
+	    zigzag-line
+	    ez-ball
+	    comment
+	    repeat-slash
+	    placebox
+	    bezier-sandwich
+	    horizontal-line
+	    embedded-ps
+	    filledbox
+	    round-filled-box
+	    text
+	    white-text
+	    polygon
+	    draw-line
+	    no-origin))
 
 
 (use-modules (guile)
@@ -113,12 +112,12 @@
 
 (define (char font i)
   (string-append 
-    (ps-font-command font) " setfont " 
+   (ps-font-command font) " setfont " 
    "(\\" (ly:inexact->string i 8) ") show" ))
 
 (define (named-glyph font glyph)
   (string-append 
-    (ps-font-command font) " setfont " 
+   (ps-font-command font) " setfont " 
    "/" glyph " glyphshow "))
 
 (define (dashed-line thick on off dx dy)
@@ -144,7 +143,7 @@
    (ly:number->string (* 10 thick))
    " ] 0 draw_dashed_slur"))
 
-; todo: merge with tex-font-command?
+					; todo: merge with tex-font-command?
 
 (define (embedded-ps string)
   string)
@@ -211,19 +210,16 @@
    " draw_repeat_slash"))
 
 (define (round-filled-box x y width height blotdiam)
-   (string-append
-    (ly:numbers->string
-     (list x y width height blotdiam)) " draw_round_box"))
+  (string-append
+   (ly:numbers->string
+    (list x y width height blotdiam)) " draw_round_box"))
 
 (define (old-text font s)
-  (let*
-      
-      ;; ugh, we should find a better way to
-      ;; extract the hsbw for /space from the font.
-      
-      ((space-length (cdar (ly:text-dimension font " "))) 
-       (commands '())
-       (add-command (lambda (x) (set! commands (cons x commands)))) )
+  ;; ugh, we should find a better way to
+  ;; extract the hsbw for /space from the font.
+  (let* ((space-length (cdar (ly:text-dimension font " "))) 
+	 (commands '())
+	 (add-command (lambda (x) (set! commands (cons x commands)))) )
 
     (string-fold
      (lambda (chr word)
@@ -244,18 +240,16 @@
 
     (string-append
      (ps-font-command font) " setfont "
-     (string-join (reverse commands)))
-    ))
+     (string-join (reverse commands)))))
 
 (define (new-text font s)
-  (let*
-      ((space-length (cdar (ly:text-dimension font " ")))
-       (space-move (string-append (number->string space-length) " 0.0 rmoveto "))
-       
-       (input-enc (assoc-get 'input-name
-			     (ly:font-encoding-alist font)
-			     'latin1))
-       (out-vec (decode-byte-string input-enc s)))
+  (let* ((space-length (cdar (ly:text-dimension font " ")))
+	 (space-move (string-append (number->string space-length) " 0.0 rmoveto "))
+	 
+	 (input-enc (assoc-get 'input-name
+			       (ly:font-encoding-alist font)
+			       'latin1))
+	 (out-vec (decode-byte-string input-enc s)))
 
 
     (string-append
@@ -268,30 +262,29 @@
 	  (if (eq? sym 'space)
 	      space-move
 	      (string-append "/" (symbol->string sym) " glyphshow")))
-	out-vec)))
-     )))
+	out-vec))))))
 
-;(define text old-text)
+					;(define text old-text)
 (define text new-text)
 
 (define (white-text scale s)
-   (let ((mystring (string-append "(" s  ") " (number->string scale)   " /Helvetica-Bold "
-          " draw_white_text")))
-  mystring))
+  (let ((mystring (string-append "(" s  ") " (number->string scale)   " /Helvetica-Bold "
+				 " draw_white_text")))
+    mystring))
 
 (define (unknown) 
   "\n unknown\n")
 
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (string-append
-    (if centre? "true" "false") " "
-    (ly:number->string zzw) " "
-    (ly:number->string zzh) " "
-    (ly:number->string thick) " "
-    "0 0 "
-    (ly:number->string dx) " "
-    (ly:number->string dy)
-    " draw_zigzag_line"))
+   (if centre? "true" "false") " "
+   (ly:number->string zzw) " "
+   (ly:number->string zzh) " "
+   (ly:number->string thick) " "
+   "0 0 "
+   (ly:number->string dx) " "
+   (ly:number->string dy)
+   " draw_zigzag_line"))
 
 
 (define (grob-cause grob)

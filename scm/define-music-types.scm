@@ -5,14 +5,13 @@
 ;;;; (c)  1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
-
 ;; TODO: should link back into user manual.
 
 (define-public music-descriptions
   `(
     (AbsoluteDynamicEvent
      . (
-   (description . "Creates a dynamic mark.
+	(description . "Creates a dynamic mark.
 
 Syntax: @var{note}@code{\\x},
 where x is one of \\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.")
@@ -57,7 +56,7 @@ Syntax:
     ;; separate non articulation scripts  
     (ArticulationEvent
      . (
-   (description .  "Adds an articulation marking to a note.  
+	(description .  "Adds an articulation marking to a note.  
 
 Syntax:
 @var{note}@code{X}@code{Y}, where X is a direction (up @code{^}, down
@@ -93,7 +92,7 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 	))
     (BeamEvent
      . (
-   (description .  "Starts or stops a beam.  
+	(description .  "Starts or stops a beam.  
 
 Syntax for manual control:
 c8-[ c c-] c8")
@@ -102,7 +101,7 @@ c8-[ c c-] c8")
 	))
     (BreakEvent
      . (
-   (description .  "Create a line break, Syntax: \\break or page break, Syntax: \\pagebreak.")
+	(description .  "Create a line break, Syntax: \\break or page break, Syntax: \\pagebreak.")
 
 	(internal-class-name . "Event")
 	(types . (general-music break-event event))
@@ -139,7 +138,7 @@ Syntax @code{\\translator Staff = @var{new-id}}.")
 	(description .	"A note that is part of a cluster.")
 	(internal-class-name . "Event")
 
-	; not a note-event, to ensure that Note_engraver doesn't eat it. 
+					; not a note-event, to ensure that Note_engraver doesn't eat it. 
 	(types . (general-music cluster-note-event melodic-event rhythmic-event event))
 	))
     
@@ -169,7 +168,7 @@ Syntax: @var{note}\\cr
 	(internal-class-name . "Event")
 	(types . (general-music dynamic-event decrescendo-event event))
 	))
- 
+    
     (ExtenderEvent
      . (
 	(description .	"Extend lyrics.")
@@ -620,7 +619,7 @@ Syntax: @code{\\skip }@var{duration}.")
 	(iterator-ctor . ,Simple_music_iterator::constructor)
 	(types . (general-music event rhythmic-event skip-event))
 	))
-     
+    
     (SkipEvent
      . (
 	(description .	"Filler that takes up duration, but does not print anything.
@@ -765,7 +764,6 @@ Syntax: @code{\\\\}")
 
 (define music-name-to-property-table (make-vector 59 '()))
 
-
 ;; init hash table,
 ;; transport description to an object property.
 (set!
@@ -774,8 +772,7 @@ Syntax: @code{\\\\}")
 	(set-object-property! (car x)
 			      'music-description
 			      (cdr (assq 'description (cdr x))))
-	(let
-	    ((l (cdr x)))
+	(let ((l (cdr x)))
 	  (set! l (assoc-set! l 'name (car x)))
 	  (set! l (assq-remove!	 l 'description))
 	  (hashq-set! music-name-to-property-table (car x) l)
@@ -805,7 +802,6 @@ and values. E.g:
 	      (set-props (cddr mus-props)))))
       (set-props music-properties)
       m)))
-
 
 (define-public (make-repeated-music name)
   (let* ((handle (assoc name '(("volta" . VoltaRepeatedMusic)

@@ -30,8 +30,7 @@
 
     (string-append
      "magfont" (string-encode-integer (hashq  name 1000000))
-     "m" (string-encode-integer (inexact->exact (round (* 1000 magnify))))
-     )))
+     "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
 
 (define (tex-font? fontname)
   (or
@@ -39,15 +38,14 @@
    (equal? (substring fontname 0 2) "ec")))
 
 (define (ps-embed-cff body font-set-name version)
-  (let*
-      ((binary-data 
-	(string-append
-	 (format "/~a ~s StartData " font-set-name (string-length body))
-	 body)))
+  (let* ((binary-data 
+	  (string-append
+	   (format "/~a ~s StartData " font-set-name (string-length body))
+	   body)))
     
     (string-append
      (format
-    "%!PS-Adobe-3.0 Resource-FontSet
+      "%!PS-Adobe-3.0 Resource-FontSet
 %%DocumentNeededResources: ProcSet (FontSetInit)
 %%EndComments
 %%IncludeResource: ProcSet (FontSetInit)
@@ -57,27 +55,24 @@
 /FontSetInit /ProcSet findresource begin
 %%BeginData: ~s Binary Bytes
 "
-    font-set-name font-set-name version (string-length binary-data)
-    )
-    binary-data
-   "\n%%EndData
+      font-set-name font-set-name version (string-length binary-data))
+     binary-data
+     "\n%%EndData
 %%EndResource
 %%EOF
-"
-
-   )))
+")))
 
 
 (define (load-fonts paper)
   (let* ((fonts (ly:paper-fonts paper))
 	 (all-font-names
-	   (map
-		     (lambda (font)
-		       (if (string? (ly:font-file-name font))
-			   (list (ly:font-file-name font))
-			   (ly:font-sub-fonts font)))
+	  (map
+	   (lambda (font)
+	     (if (string? (ly:font-file-name font))
+		 (list (ly:font-file-name font))
+		 (ly:font-sub-fonts font)))
 
-		     fonts))
+	   fonts))
 	 (font-names
 	  (uniq-list
 	   (sort (apply append all-font-names) string<?)))
@@ -115,7 +110,7 @@
   (define (standard-tex-font? x)
     (or (equal? (substring x 0 2) "ms")
 	(equal? (substring x 0 2) "cm")))
- 
+  
   (define (font-load-command font)
     (let* ((specced-font-name (ly:font-name font))
 	   (fontname (if specced-font-name
@@ -170,24 +165,23 @@
    (number->string (ly:output-def-lookup layout 'outputscale))
    " lily-output-units mul def \n"
    (output-entry "page-height" 'vsize)
-   (output-entry "page-width" 'hsize)
-   ))
+   (output-entry "page-width" 'hsize)))
 
 (define (dump-page outputter page page-number page-count landscape?) 
   (ly:outputter-dump-string outputter
-   (string-append
-    "%%Page: "
-    (number->string page-number) " " (number->string page-count) "\n"
+			    (string-append
+			     "%%Page: "
+			     (number->string page-number) " " (number->string page-count) "\n"
 
-    "%%BeginPageSetup\n"
-    (if landscape?
-	"page-width output-scale mul 0 translate 90 rotate\n"
-	"")
-    "%%EndPageSetup\n"
+			     "%%BeginPageSetup\n"
+			     (if landscape?
+				 "page-width output-scale mul 0 translate 90 rotate\n"
+				 "")
+			     "%%EndPageSetup\n"
 
-    "start-system { "
-    "set-ps-scale-to-lily-scale "
-    "\n"))
+			     "start-system { "
+			     "set-ps-scale-to-lily-scale "
+			     "\n"))
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
 
@@ -229,20 +223,20 @@
 	 (page-number (1- (ly:output-def-lookup paper 'firstpagenumber)))
 	 (page-count (length pages)))
     
-  (for-each
-   (lambda (x)
-     (ly:outputter-dump-string outputter x))
-   (cons
-    (page-header paper page-count)
-    (preamble paper)))
-  
-  (for-each
-   (lambda (page)
-     (set! page-number (1+ page-number))
-     (dump-page outputter page page-number page-count landscape?))
-   pages)
-  
-  (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")))
+    (for-each
+     (lambda (x)
+       (ly:outputter-dump-string outputter x))
+     (cons
+      (page-header paper page-count)
+      (preamble paper)))
+    
+    (for-each
+     (lambda (page)
+       (set! page-number (1+ page-number))
+       (dump-page outputter page page-number page-count landscape?))
+     pages)
+    
+    (ly:outputter-dump-string outputter "%%Trailer\n%%EOF\n")))
 
 (define-public (output-preview-framework outputter book scopes fields basename)
   (let* ((paper (ly:paper-book-paper book))
@@ -263,29 +257,28 @@
 	     (if (or (nan? x) (inf? x))
 		 0.0 x))
 	   (list (car xext) (car yext)
-		 (cdr xext) (cdr yext)))	       
-	 ))
+		 (cdr xext) (cdr yext)))	       ))
     
-  (for-each
-   (lambda (x)
-     (ly:outputter-dump-string outputter x))
-   (cons
-    (eps-header paper
-		(map
-		 (lambda (x)
-		   (inexact->exact
-		    (round (* x scale mm-to-bigpoint))))
-		 bbox))
-    (preamble paper)))
+    (for-each
+     (lambda (x)
+       (ly:outputter-dump-string outputter x))
+     (cons
+      (eps-header paper
+		  (map
+		   (lambda (x)
+		     (inexact->exact
+		      (round (* x scale mm-to-bigpoint))))
+		   bbox))
+      (preamble paper)))
 
 
-  (ly:outputter-dump-string outputter
-			    (string-append "start-system { "
-					   "set-ps-scale-to-lily-scale "
-					   "\n"))
+    (ly:outputter-dump-string outputter
+			      (string-append "start-system { "
+					     "set-ps-scale-to-lily-scale "
+					     "\n"))
 
-  (ly:outputter-dump-stencil outputter dump-me)
-  (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")))
+    (ly:outputter-dump-stencil outputter dump-me)
+    (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")))
 
 (define-public (convert-to-pdf book name)
   (let* ((defs (ly:paper-book-paper book))
@@ -295,7 +288,7 @@
 	(ly:warn "Can't convert <stdout> to PDF")
 	(postscript->pdf (if (string? papersizename) papersizename "a4")
 			 name))))
-  
+
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
 	 (resolution (ly:output-def-lookup defs 'pngresolution)))

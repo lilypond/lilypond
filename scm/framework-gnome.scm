@@ -37,7 +37,7 @@
 (define (debugf string . rest)
   (if #f
       (apply stderr (cons string rest))))
-      
+
 (define-class <gnome-outputter> ()
   (name #:init-value "untitled" #:init-keyword #:name #:accessor name)
 
@@ -183,7 +183,7 @@
   (if (not ifs)
       (set! ifs " 	"))
   ifs)
-      
+
 (define (spawn-editor location)
   (let* ((file-name (car location))
 	 (line (cadr location))
@@ -206,7 +206,7 @@
 	(let ((command-list (string-split command #\ )));; (get-ifs))))
 	  (apply execlp command-list)
 	  (primitive-exit)))))
-	  
+
 (define location-callback spawn-editor)
 
 (define (get-location grob)
@@ -236,17 +236,16 @@
 				     (offset-add origin offset))))))
 
 (define-method (save-tweaks (go <gnome-outputter>))
-  (let*
-      ((dumper (ly:make-dumper))
-       (tweaks (ly:all-tweaks))
-       (serialized-tweaks (map
-			   (lambda (tweak)
-			     (append 
-			      (list
-			       (ly:dumper-key-serial dumper (car tweak))
-			       (list 'unquote (procedure-name (cadr tweak))))
-			      (cddr tweak)))
-			  tweaks)))
+  (let* ((dumper (ly:make-dumper))
+	 (tweaks (ly:all-tweaks))
+	 (serialized-tweaks (map
+			     (lambda (tweak)
+			       (append 
+				(list
+				 (ly:dumper-key-serial dumper (car tweak))
+				 (list 'unquote (procedure-name (cadr tweak))))
+				(cddr tweak)))
+			     tweaks)))
 
     (if (not (null? serialized-tweaks))
 	(let ((file (open-file (string-append (name go) ".twy") "w")))
@@ -300,51 +299,50 @@
 	     (begin
 	       (stderr "CLICK WITH MODIFIERS: ~S\n"
 		       (gdk-event-button:modifiers event))
-	     
+	       
 	       ;; some modifier, do jump to source
 	       (and-let* ((grob (hashq-ref (item-grobs go) item #f))
 			  (location (get-location grob)))
 			 (location-callback location)))))
 	((= button 2)
-	 (and-let*
-	  ((grob (hashq-ref (item-grobs go) item #f)))
-	  
-	  (let ((properties (ly:grob-properties grob))
-		(basic-properties (ly:grob-basic-properties grob))
-		(x (inexact->exact (gdk-event-button:x-root event)))
-		(y (inexact->exact (gdk-event-button:y-root event))))
-	       
-	    (debugf "GROB: ~S\n" grob)
-	    (debugf "PROPERTIES: ~S\n" properties)
-	    (debugf "BASIC PROPERTIES: ~S\n" basic-properties)
+	 (and-let* ((grob (hashq-ref (item-grobs go) item #f)))
+		   
+		   (let ((properties (ly:grob-properties grob))
+			 (basic-properties (ly:grob-basic-properties grob))
+			 (x (inexact->exact (gdk-event-button:x-root event)))
+			 (y (inexact->exact (gdk-event-button:y-root event))))
+		     
+		     (debugf "GROB: ~S\n" grob)
+		     (debugf "PROPERTIES: ~S\n" properties)
+		     (debugf "BASIC PROPERTIES: ~S\n" basic-properties)
 
-	    ;; FIXME: dialog iso window?
-	    ;; http://www.gtk.org/tutorial/sec-textentries.html
-	    (let ((window (make <gtk-window>))
-		  (vbox (make <gtk-vbox>))
-		  (ok (make <gtk-button> #:label "Ok")))
-	      
-	      (add window vbox)
-	      (connect ok 'clicked (lambda (b) (destroy window)))
+		     ;; FIXME: dialog iso window?
+		     ;; http://www.gtk.org/tutorial/sec-textentries.html
+		     (let ((window (make <gtk-window>))
+			   (vbox (make <gtk-vbox>))
+			   (ok (make <gtk-button> #:label "Ok")))
+		       
+		       (add window vbox)
+		       (connect ok 'clicked (lambda (b) (destroy window)))
 
-	      (for-each
-	       (lambda (x)
-		 (let ((label (make <gtk-label>
-				;;#:label (symbol->string (car x))))
-				#:label (format #f "~S" (car x))))
-		       ;;(symbol->string (car x))))
-		       (entry (make <gtk-entry>
-				#:text (format #f "~S" (cdr x))))
-		       (hbox (make <gtk-hbox>)))
-		   (add hbox label)
-		   (add hbox entry)
-		   (set-size-request label 150 BUTTON-HEIGHT)
-		   (add vbox hbox)))
-	       (append properties basic-properties))
-	      (add vbox ok)
-	      
-	      (show-all window)
-	      (move window x y))))))))
+		       (for-each
+			(lambda (x)
+			  (let ((label (make <gtk-label>
+					 ;;#:label (symbol->string (car x))))
+					 #:label (format #f "~S" (car x))))
+				;;(symbol->string (car x))))
+				(entry (make <gtk-entry>
+					 #:text (format #f "~S" (cdr x))))
+				(hbox (make <gtk-hbox>)))
+			    (add hbox label)
+			    (add hbox entry)
+			    (set-size-request label 150 BUTTON-HEIGHT)
+			    (add vbox hbox)))
+			(append properties basic-properties))
+		       (add vbox ok)
+		       
+		       (show-all window)
+		       (move window x y))))))))
     
     ((2button-press) (gobject-set-property item 'fill-color "green"))
     ((key-press)
@@ -374,7 +372,7 @@
 	   (points (gobject-get-property x 'size-points)))
        ;;(gobject-set-property x 'scale pixels-per-unit)
        (gobject-set-property x 'size-points (* points factor))))
-     (text-items go)))
+   (text-items go)))
 
 (define (key-press-event go item event)
   (let ((keyval (gdk-event-key:keyval event))

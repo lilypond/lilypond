@@ -4,8 +4,6 @@
 ;;;; 
 ;;;; (c) 2004 Carl D. Sorensen <c_sorensen@byu.edu>
 
-
-
 (define (fret-parse-marking-list marking-list fret-count)
    (let* ((fret-range (list 1 fret-count))
           (barre-list '())

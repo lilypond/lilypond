@@ -47,20 +47,19 @@ is then separated.
     (pitch . pitch)
     (duration . duration)
     (octave . octave)
-    (step . step)
-    ))
+    (step . step)))
 
 (define (musicxml-node->string node)
   (let ((xml-name (assoc-get (node-name node) node-names #f)))
-  (string-append
-   (if xml-name (open-tag xml-name '() '()) "")
-   (if (equal? (node-value node) "")
-       (string-append
-	(if xml-name "\n" "")
-	(apply string-append (map musicxml-node->string (node-children node))))
-       (node-value node))
-   (if xml-name (close-tag xml-name) "")
-   (if xml-name "\n" ""))))
+    (string-append
+     (if xml-name (open-tag xml-name '() '()) "")
+     (if (equal? (node-value node) "")
+	 (string-append
+	  (if xml-name "\n" "")
+	  (apply string-append (map musicxml-node->string (node-children node))))
+	 (node-value node))
+     (if xml-name (close-tag xml-name) "")
+     (if xml-name "\n" ""))))
 
 (define (xml-node->string node)
   (string-append
@@ -106,7 +105,7 @@ is then separated.
     #:attributes `((octave . ,(ly:pitch-octave p))
 		   (notename . ,(ly:pitch-notename p))
 		   (alteration . ,(ly:pitch-alteration p)))))
-			       
+
 (define (music->xml-node music)
   (let* ((name (ly:music-property music 'name))
 	 (e (ly:music-property music 'element))
@@ -136,8 +135,8 @@ is then separated.
 ]>
 
 "))
-  
- 
+
+
 ;; as computed from input/trip.ly, by
 ;; http://www.pault.com/pault/dtdgenerator/
 
@@ -211,20 +210,16 @@ is then separated.
     (not (memq (car x) exceptions)))
   
   (define (dump-attr sym-val)
-    (let*
-	(
-	(sym (car sym-val))
-	(val (cdr sym-val))
-	)
+    (let* ((sym (car sym-val))
+	   (val (cdr sym-val)))
       
-    (string-append
-     "\n   "
-    (symbol->string sym)
-    "=\""
-    (let ((s (call-with-output-string (lambda (port) (display val port)))))
-      (re-sub-alist s xml-entities-alist))
-    "\""
-    )))
+      (string-append
+       "\n   "
+       (symbol->string sym)
+       "=\""
+       (let ((s (call-with-output-string (lambda (port) (display val port)))))
+	 (re-sub-alist s xml-entities-alist))
+       "\"")))
 
   (string-append
    "<" (symbol->string tag)

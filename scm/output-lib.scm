@@ -5,22 +5,20 @@
 ;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-; Tablature functions, by Jiba (jiba@tuxfamily.org)
+;;; Tablature functions, by Jiba (jiba@tuxfamily.org)
 
-; The TabNoteHead stem attachment function.
+;; The TabNoteHead stem attachment function.
 (define (tablature-stem-attachment-function style duration)
   (cons 0.0 0.5))
 
-
-; The TabNoteHead tablatureFormat callback.
-; Compute the text grob-property
+;; The TabNoteHead tablatureFormat callback.
+;; Compute the text grob-property
 (define-public (fret-number-tablature-format string tuning pitch)
   (number->string
    (- (ly:pitch-semitones pitch)
       (list-ref tuning
-                (- string 1) ; remove 1 because list index starts at 0 and guitar string at 1.
-                )
-      ))) 
+		;; remove 1 because list index starts at 0 and guitar string at 1. 
+                (- string 1)))))
 
 (define-public (hammer-print-function grob)
   (let* ((note-collums (ly:grob-property grob 'note-columns))
@@ -35,11 +33,9 @@
          (letter       (cond
 			((< fret1 fret2) "H")
 			((> fret1 fret2) "P")
-			(else "")))
-                                   
-         )
-    (let* (
-	   (slur ; (Slur::print grob)
+			(else ""))))
+    (let* ((slur
+	    ;; (Slur::print grob)
 
 	    ;; 
 	    ;; FIXME: a hammer is not a slur.
@@ -50,24 +46,21 @@
 		  layout
 		  (ly:grob-alist-chain grob (ly:output-def-lookup layout 'text-font-defaults))
 		  letter)))
-    
-      (let ((x (/ (- (cdr (ly:stencil-extent slur 0)) 
-                     (/ (cdr (ly:stencil-extent text 0)) 2.0)
-                     )
-                  -2.0)))
       
+      (let ((x (/ (- (cdr (ly:stencil-extent slur 0)) 
+                     (/ (cdr (ly:stencil-extent text 0)) 2.0))
+                  -2.0)))
+	
         (ly:stencil-set-extent! text 0 (cons x x))
-        (ly:stencil-align-to! text 0 1)
-        )
+        (ly:stencil-align-to! text 0 1))) ) )
 
-;      (ly:stencil-combine-at-edge slur 1 1 text -0.6)
-      ) ) )
+					;      (ly:stencil-combine-at-edge slur 1 1 text -0.6)
 
 
 
 (define-public guitar-tunings '(4 -1 -5 -10 -15 -20))
 
-; end of tablature functions
+					; end of tablature functions
 
 
 (define-public (make-stencil-boxer line-thick x-padding y-padding callback)
@@ -80,8 +73,7 @@
 	 (y-ext (interval-widen (ly:stencil-extent mol 1) y-padding))
 	 (x-rule (make-filled-box-stencil (interval-widen x-ext line-thick)
 					  (cons 0 line-thick)))
-	 (y-rule (make-filled-box-stencil (cons 0 line-thick) y-ext))
-	 )
+	 (y-rule (make-filled-box-stencil (cons 0 line-thick) y-ext)))
 
       (set! mol (ly:stencil-combine-at-edge mol 0 1 y-rule x-padding))
       (set! mol (ly:stencil-combine-at-edge mol 0 -1 y-rule x-padding))
@@ -138,40 +130,38 @@
 (define (scm-scm action-name)
   1)
 
-
 ;; silly, use alist? 
 (define-public (find-notehead-symbol duration style)
   (case style
-   ((xcircle) "2xcircle")
-   ((harmonic) "0harmonic")
-   ((baroque) 
-    ;; Oops, I actually would not call this "baroque", but, for
-    ;; backwards compatibility to 1.4, this is supposed to take
-    ;; brevis, longa and maxima from the neo-mensural font and all
-    ;; other note heads from the default font.  -- jr
-    (if (< duration 0)
-	(string-append (number->string duration) "neomensural")
-	(number->string duration)))
-   ((mensural)
-    (string-append (number->string duration) (symbol->string style)))
-   ((neomensural)
-    (string-append (number->string duration) (symbol->string style)))
-   ((default)
-    ;; The default font in mf/feta-bolletjes.mf defines a brevis, but
-    ;; neither a longa nor a maxima.  Hence let us, for the moment,
-    ;; take these from the neo-mensural font.  TODO: mf/feta-bolletjes
-    ;; should define at least a longa for the default font.  The longa
-    ;; should look exactly like the brevis of the default font, but
-    ;; with a stem exactly like that of the quarter note. -- jr
-    (if (< duration -1)
-	(string-append (number->string duration) "neomensural")
-	(number->string duration)))
-   (else
-    (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
-	(symbol->string style)
-	(string-append (number->string (max 0 duration))
-		       (symbol->string style))))))
-
+    ((xcircle) "2xcircle")
+    ((harmonic) "0harmonic")
+    ((baroque) 
+     ;; Oops, I actually would not call this "baroque", but, for
+     ;; backwards compatibility to 1.4, this is supposed to take
+     ;; brevis, longa and maxima from the neo-mensural font and all
+     ;; other note heads from the default font.  -- jr
+     (if (< duration 0)
+	 (string-append (number->string duration) "neomensural")
+	 (number->string duration)))
+    ((mensural)
+     (string-append (number->string duration) (symbol->string style)))
+    ((neomensural)
+     (string-append (number->string duration) (symbol->string style)))
+    ((default)
+     ;; The default font in mf/feta-bolletjes.mf defines a brevis, but
+     ;; neither a longa nor a maxima.  Hence let us, for the moment,
+     ;; take these from the neo-mensural font.  TODO: mf/feta-bolletjes
+     ;; should define at least a longa for the default font.  The longa
+     ;; should look exactly like the brevis of the default font, but
+     ;; with a stem exactly like that of the quarter note. -- jr
+     (if (< duration -1)
+	 (string-append (number->string duration) "neomensural")
+	 (number->string duration)))
+    (else
+     (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
+	 (symbol->string style)
+	 (string-append (number->string (max 0 duration))
+			(symbol->string style))))))
 
 ;; TODO junk completely?
 (define (note-head-style->attachment-coordinates grob axis)
@@ -179,8 +169,7 @@
 bounding box, where to attach the stem. e.g.: X==0 means horizontally
 centered, X==1 is at the right, X == -1 is at the left."
 
-   '(1.0 . 0.0))
-
+  '(1.0 . 0.0))
 
 (define-public (string-encode-integer i)
   (cond
@@ -190,14 +179,13 @@ centered, X==1 is at the right, X == -1 is at the left."
 	  (make-string 1 (integer->char (+ 65 (modulo i 26))))
 	  (string-encode-integer (quotient i 26))))))
 
-
 (define-public ((every-nth-bar-number-visible n) barnum) (= 0 (modulo barnum n)))
 
 (define-public ((modulo-bar-number-visible n m) barnum) (and (> barnum 1) (= m (modulo barnum n))))
 
 (define-public ((set-bar-number-visibility n) tr)
   (let* ((bn (ly:context-property tr 'currentBarNumber)))
-   (ly:context-set-property! tr 'barNumberVisibility (modulo-bar-number-visible n (modulo bn n)))))
+    (ly:context-set-property! tr 'barNumberVisibility (modulo-bar-number-visible n (modulo bn n)))))
 
 (define-public (default-bar-number-visibility barnum) (> barnum 1))
 
@@ -215,42 +203,36 @@ centered, X==1 is at the right, X == -1 is at the left."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Bar lines.
 
-;
-; How should a  bar line behave at a break? 
-;
+;;
+;; How should a  bar line behave at a break? 
+;;
 ;; Why prepend `default-' to every scm identifier?
 (define-public (default-break-barline glyph dir)
-   (let ((result (assoc glyph 
-			'((":|:" . (":|" . "|:"))
-			  ("||:" . ("||" . "|:"))
-			  ("|" . ("|" . ()))
-			  ("||:" . ("||" . "|:"))
-			  ("|s" . (() . "|"))
-			  ("|:" . ("|" . "|:"))
-			  ("|." . ("|." . ()))
+  (let ((result (assoc glyph 
+		       '((":|:" . (":|" . "|:"))
+			 ("||:" . ("||" . "|:"))
+			 ("|" . ("|" . ()))
+			 ("||:" . ("||" . "|:"))
+			 ("|s" . (() . "|"))
+			 ("|:" . ("|" . "|:"))
+			 ("|." . ("|." . ()))
 
-			  ;; hmm... should we end with a bar line here?
-			  (".|" . ("|" . ".|"))
-			  (":|" . (":|" . ()))
-			  ("||" . ("||" . ()))
-			  (".|." . (".|." . ()))
-			  ("" . ("" . ""))
-			  (":" . (":" . ""))
-			  ("empty" . (() . ()))
-			  ("brace" . (() . "brace"))
-			  ("bracket" . (() . "bracket"))  
-			  )
-			)))
+			 ;; hmm... should we end with a bar line here?
+			 (".|" . ("|" . ".|"))
+			 (":|" . (":|" . ()))
+			 ("||" . ("||" . ()))
+			 (".|." . (".|." . ()))
+			 ("" . ("" . ""))
+			 (":" . (":" . ""))
+			 ("empty" . (() . ()))
+			 ("brace" . (() . "brace"))
+			 ("bracket" . (() . "bracket"))  ))))
 
-     (if (equal? result #f)
-	 (ly:warn "Unknown bar glyph: `~S'" glyph)
-	 (index-cell (cdr result) dir))
-     ) )
-     
-
+    (if (equal? result #f)
+	(ly:warn "Unknown bar glyph: `~S'" glyph)
+	(index-cell (cdr result) dir))) )
 
 (define-public (shift-right-at-line-begin g)
   "Shift an item to the right, but only at the start of the line."
   (if (and (ly:item? g)  (equal? (ly:item-break-dir g) RIGHT))
-      (ly:grob-translate-axis! g 3.5 X)
-  ))
+      (ly:grob-translate-axis! g 3.5 X)))

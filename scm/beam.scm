@@ -31,9 +31,7 @@
 
 
 ;;
-;
-; DOCME: what goes into this func, what comes out.
-
+;; DOCME: what goes into this func, what comes out.
 (define (dir-compare up down)
   (sign (- up down)))
 
@@ -46,9 +44,7 @@
   (let ((maj (dir-compare (car count) (cdr count))))
     (if (not (= maj 0))
 	maj
-	(beam-dir-median count total))
-    ))
-
+	(beam-dir-median count total))))
 
 (define-public (beam-dir-mean count total)
   (dir-compare (car total) (cdr total)))
@@ -58,45 +54,39 @@
 	   (> (cdr count) 0))
       (dir-compare (/ (car total) (car count)) (/ (cdr total) (cdr count)))
       (dir-compare (car count) (cdr count))))
-	    
 
 (define ((check-beam-quant posl posr) beam)
   "Check whether BEAM has POSL and POSR quants.  POSL are (POSITION
 . QUANT) pairs, where QUANT is -1 (hang), 0 (center), 1 (sit) or -2/ 2 (inter) 
 
 "
-  (let*
-      ((posns (ly:grob-property beam 'positions))
-       (thick (ly:grob-property beam 'thickness))
-       (layout (ly:grob-layout beam))
-       (lthick (ly:output-def-lookup layout 'linethickness))
-       (staff-thick lthick) ; fixme.
-       (quant->coord (lambda (p q)
-		       (if (= 2 (abs q))
-			   (+ p (/ q 4.0))
-			   (+ p (- (* 0.5 q thick) (* 0.5 q lthick))))))
-       (want-l (quant->coord (car posl) (cdr posl))) 
-       (want-r (quant->coord (car posr) (cdr posr)))
-       (almost-equal (lambda (x y) (< (abs (- x y)) 1e-3))))
+  (let* ((posns (ly:grob-property beam 'positions))
+	 (thick (ly:grob-property beam 'thickness))
+	 (layout (ly:grob-layout beam))
+	 (lthick (ly:output-def-lookup layout 'linethickness))
+	 (staff-thick lthick) ; fixme.
+	 (quant->coord (lambda (p q)
+			 (if (= 2 (abs q))
+			     (+ p (/ q 4.0))
+			     (+ p (- (* 0.5 q thick) (* 0.5 q lthick))))))
+	 (want-l (quant->coord (car posl) (cdr posl))) 
+	 (want-r (quant->coord (car posr) (cdr posr)))
+	 (almost-equal (lambda (x y) (< (abs (- x y)) 1e-3))))
     
     (if (or (not (almost-equal want-l (car posns)))
 	    (not (almost-equal want-r (cdr posns))))
 	(begin
 	  (ly:warn
-	    "Error in beam quanting found. Want (~S,~S) found (~S)."
-		   want-l want-r posns )
+	   "Error in beam quanting found. Want (~S,~S) found (~S)."
+	   want-l want-r posns )
 	  (set! (ly:grob-property beam 'quant-score)
 		(format "(~S,~S)" want-l want-r)))
-	(set! (ly:grob-property beam 'quant-score) "")
-
-	
-	  )))
+	(set! (ly:grob-property beam 'quant-score) ""))))
 (define ((check-beam-slope-sign comparison) beam)
   "Check whether the slope of BEAM is correct wrt. COMPARISON."
-  (let*
-      ((posns (ly:grob-property beam 'positions))
-       (slope-sign (- (cdr posns) (car posns)))
-       (correct (comparison slope-sign 0)))
+  (let* ((posns (ly:grob-property beam 'positions))
+	 (slope-sign (- (cdr posns) (car posns)))
+	 (correct (comparison slope-sign 0)))
 
     
     (if (not correct)
@@ -105,28 +95,22 @@
 		   (procedure-name comparison) slope-sign)
 	  (set! (ly:grob-property beam 'quant-score)
 		(format "~S 0" (procedure-name comparison) )))
-	(set! (ly:grob-property beam 'quant-score) "")
+	(set! (ly:grob-property beam 'quant-score) ""))))
 
-	
-	)))
-		 
 (define-public (check-quant-callbacks l r)
   (list Beam::least_squares
-    Beam::check_concave
-    Beam::slope_damping
-    Beam::shift_region_to_valid
-    Beam::quanting
-    (check-beam-quant l r)
-    ))
+	Beam::check_concave
+	Beam::slope_damping
+	Beam::shift_region_to_valid
+	Beam::quanting
+	(check-beam-quant l r)))
 
-		 
+
 (define-public (check-slope-callbacks comparison)
   (list Beam::least_squares
-    Beam::check_concave
-    Beam::slope_damping
-    Beam::shift_region_to_valid
-    Beam::quanting
-    (check-beam-slope-sign comparison)
-    ))
+	Beam::check_concave
+	Beam::slope_damping
+	Beam::shift_region_to_valid
+	Beam::quanting
+	(check-beam-slope-sign comparison)))
 
-  

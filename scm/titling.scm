@@ -24,35 +24,33 @@ page:last?, page:page-number-string and page:page-number
 
   (define (interpret-in-page-env potential-markup)
     (if (markup? potential-markup)
-	(let*
-	    ((alists  (map ly:module->alist scopes))
-	     (prefixed-alists
-	      (map (lambda (alist)
-		     (map (lambda (entry)
-			    (cons
-			     (string->symbol
-			      (string-append
-			       "header:"
-			       (symbol->string (car entry))))
-			     (cdr entry)
-			     ))
-			  alist))
-		   alists))
-	     (tagline (ly:modules-lookup scopes 'tagline)) 
+	(let* ((alists  (map ly:module->alist scopes))
+	       (prefixed-alists
+		(map (lambda (alist)
+		       (map (lambda (entry)
+			      (cons
+			       (string->symbol
+				(string-append
+				 "header:"
+				 (symbol->string (car entry))))
+			       (cdr entry)))
+			    alist))
+		     alists))
+	       (tagline (ly:modules-lookup scopes 'tagline)) 
 
-	     (pgnum-alist
-	       (list
-		(cons 'header:tagline (if (markup? tagline)
-					  tagline
-					  TAGLINE))
-		(cons 'page:last? last?)
-		(cons 'page:page-number-string
-		      (number->string page-number))
-		(cons 'page:page-number  page-number)))
-	     (props (append
-		     (list pgnum-alist)
-		     prefixed-alists
-		     (page-properties layout))))
+	       (pgnum-alist
+		(list
+		 (cons 'header:tagline (if (markup? tagline)
+					   tagline
+					   TAGLINE))
+		 (cons 'page:last? last?)
+		 (cons 'page:page-number-string
+		       (number->string page-number))
+		 (cons 'page:page-number  page-number)))
+	       (props (append
+		       (list pgnum-alist)
+		       prefixed-alists
+		       (page-properties layout))))
 
 	  (interpret-markup layout props potential-markup))
 	
@@ -74,28 +72,23 @@ PROPS argument will include variables set in SCOPES (prefixed with
     (let ((x (ly:modules-lookup scopes sym)))
       (if (markup? x) x #f)))
 
-  (let*
-      ((alists  (map ly:module->alist scopes))
-       (prefixed-alist
-	(map (lambda (alist)
-	       (map (lambda (entry)
-		      (cons
-		       (string->symbol
-			(string-append
-			 "header:"
-			 (symbol->string (car entry))))
-		       (cdr entry)
-		      ))
-		    alist))
-	     alists))
-       (props (append prefixed-alist
-		      (page-properties layout)))
+  (let* ((alists  (map ly:module->alist scopes))
+	 (prefixed-alist
+	  (map (lambda (alist)
+		 (map (lambda (entry)
+			(cons
+			 (string->symbol
+			  (string-append
+			   "header:"
+			   (symbol->string (car entry))))
+			 (cdr entry)))
+		      alist))
+	       alists))
+	 (props (append prefixed-alist
+			(page-properties layout)))
 
-       (markup (ly:output-def-lookup layout what))
-       )
+	 (markup (ly:output-def-lookup layout what)))
 
     (if (markup? markup)
 	(interpret-markup layout props markup)
-	(ly:make-stencil '() '(1 . -1) '(1 . -1)))
-  ))
-
+	(ly:make-stencil '() '(1 . -1) '(1 . -1)))))

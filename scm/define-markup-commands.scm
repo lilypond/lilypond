@@ -17,19 +17,16 @@
   "Stencil as markup"
   stil)
 
-
 (def-markup-command (score layout props score) (ly:score?)
   "Inline an image of music."
-  (let*
-      ((systems (ly:score-embedded-format score layout)))
+  (let* ((systems (ly:score-embedded-format score layout)))
 
     (if (= 0 (vector-length systems))
 	(begin
 	  (ly:warn "No systems found in \\score markup. Did you forget \\layout?")
 	  empty-markup)
 	(begin
-	  (let*
-	      ((stencil (ly:paper-system-stencil  (vector-ref systems 0)))) 
+	  (let* ((stencil (ly:paper-system-stencil  (vector-ref systems 0)))) 
 
 	    (ly:stencil-align-to! stencil Y CENTER)
 	    stencil)))))
@@ -37,13 +34,13 @@
 (def-markup-command (simple layout props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
-    (interpret-markup layout props str))
+  (interpret-markup layout props str))
 
 (def-markup-command (encoded-simple layout props sym str) (symbol? string?)
   "A text string, encoded with encoding @var{sym}. See
 @usermanref{Text encoding} for more information."
   (Text_interface::interpret_string layout
-			       props sym str))
+				    props sym str))
 
 
 ;; TODO: use font recoding.
@@ -100,8 +97,8 @@ gsave /ecrm10 findfont
 "
 
   (let* ((orig-stencils
-		    (map (lambda (x) (interpret-markup layout props x))
-			markups))
+	  (map (lambda (x) (interpret-markup layout props x))
+	       markups))
 	 (stencils
 	  (map (lambda (stc)
 		 (if (ly:stencil-empty? stc)
@@ -147,8 +144,7 @@ determines the space between each markup in @var{args}."
 
 (def-markup-command (fromproperty layout props symbol) (symbol?)
   "Read the @var{symbol} from property settings, and produce a stencil from the markup contained within. If @var{symbol} is not defined, it returns an empty markup"
-  (let*
-      ((m (chain-assoc-get symbol props)))
+  (let* ((m (chain-assoc-get symbol props)))
 
     (if (markup? m)
 	(interpret-markup layout props m)
@@ -158,23 +154,20 @@ determines the space between each markup in @var{args}."
 (def-markup-command (on-the-fly layout props procedure arg) (symbol? markup?)
   "Apply the @var{procedure} markup command to
 @var{arg}. @var{procedure} should take a single argument."
-  (let*
-      ((anonymous-with-signature (lambda (layout props arg) (procedure layout props arg))))
+  (let* ((anonymous-with-signature (lambda (layout props arg) (procedure layout props arg))))
 
     (set-object-property! anonymous-with-signature
-			 'markup-signature
-			 (list markup?))
+			  'markup-signature
+			  (list markup?))
     
-    (interpret-markup layout props (list anonymous-with-signature arg))
-  ))
+    (interpret-markup layout props (list anonymous-with-signature arg))))
 
 
 (def-markup-command (combine layout props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
-  (let*
-      ((s1 (interpret-markup layout props m1))
-       (s2 (interpret-markup layout props m2)))
-	     
+  (let* ((s1 (interpret-markup layout props m1))
+	 (s2 (interpret-markup layout props m2)))
+    
     (ly:stencil-add s1 s2)))
 
 (def-markup-command (finger layout props arg) (markup?)
@@ -258,9 +251,9 @@ some punctuation. It doesn't have any letters.  "
   "Set @code{font-shape} to @code{caps}."
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
-;(def-markup-command (latin-i layout props arg) (markup?)
-;  "TEST latin1 encoding."
-;  (interpret-markup layout (prepend-alist-chain 'font-shape 'latin1 props) arg))
+					;(def-markup-command (latin-i layout props arg) (markup?)
+					;  "TEST latin1 encoding."
+					;  (interpret-markup layout (prepend-alist-chain 'font-shape 'latin1 props) arg))
 
 (def-markup-command (dynamic layout props arg) (markup?)
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
@@ -334,7 +327,7 @@ of the @code{#'direction} layout property."
     (stack-lines
      (if (number? dir) dir -1)
      0.0
-      (chain-assoc-get 'baseline-skip props)
+     (chain-assoc-get 'baseline-skip props)
      (map (lambda (x) (interpret-markup layout props x)) args))))
 
 (def-markup-command (center-align layout props args) (markup-list?)
@@ -366,8 +359,7 @@ of the @code{#'direction} layout property."
   (let* ((m (interpret-markup layout props arg)))
 
     (ly:stencil-align-to! m axis dir)
-    m
-  ))
+    m))
 
 (def-markup-command (halign layout props dir arg) (number? markup?)
   "Set horizontal alignment. If @var{dir} is @code{-1}, then it is
@@ -386,14 +378,14 @@ See @usermanref{The Feta font} for  a complete listing of the possible glyphs.
 "
   (ly:font-get-glyph
    (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
-                                  props))
+				   props))
    glyph-name))
 
 
 (def-markup-command (lookup layout props glyph-name) (string?)
   "Lookup a glyph by name."
   (ly:font-get-glyph (ly:paper-get-font layout props)
-                         glyph-name))
+		     glyph-name))
 
 (def-markup-command (char layout props num) (integer?)
   "Produce a single character, e.g. @code{\\char #65} produces the 
@@ -420,7 +412,7 @@ and/or @code{extra-offset} properties. "
 
   
   (ly:stencil-translate-axis (interpret-markup layout props arg)
-                              amount Y))
+			     amount Y))
 
 (def-markup-command (fraction layout props arg1 arg2) (markup? markup?)
   "Make a fraction of two markups."
@@ -451,8 +443,8 @@ and/or @code{extra-offset} properties. "
 	 (size (chain-assoc-get 'font-size props 0))
          (stem-length (* (magstep size) (max 3 (- log 1))))
          (head-glyph (ly:font-get-glyph
-                  font
-                  (string-append "noteheads-s" (number->string (min log 2)))))
+		      font
+		      (string-append "noteheads-s" (number->string (min log 2)))))
          (stem-thickness 0.13)
          (stemy (* dir stem-length))
          (attachx (if (> dir 0)
@@ -460,11 +452,11 @@ and/or @code{extra-offset} properties. "
                       0))
          (attachy (* dir 0.28))
          (stem-glyph (and (> log 0)
-                      (ly:round-filled-box
-                       (cons attachx (+ attachx  stem-thickness))
-                       (cons (min stemy attachy)
-                             (max stemy attachy))
-                       (/ stem-thickness 3))))
+			  (ly:round-filled-box
+			   (cons attachx (+ attachx  stem-thickness))
+			   (cons (min stemy attachy)
+				 (max stemy attachy))
+			   (/ stem-thickness 3))))
          (dot (ly:font-get-glyph font "dots-dot"))
          (dotwid (interval-length (ly:stencil-extent dot X)))
          (dots (and (> dot-count 0)
@@ -476,9 +468,9 @@ and/or @code{extra-offset} properties. "
          (flaggl (and (> log 2)
                       (ly:stencil-translate
                        (ly:font-get-glyph font
-                                              (string-append "flags-"
-                                                             (if (> dir 0) "u" "d")
-                                                             (number->string log)))
+					  (string-append "flags-"
+							 (if (> dir 0) "u" "d")
+							 (number->string log)))
                        (cons (+ attachx (/ stem-thickness 2)) stemy)))))
     (if flaggl
         (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
@@ -489,13 +481,13 @@ and/or @code{extra-offset} properties. "
         (set! stem-glyph
               (ly:stencil-add
                (ly:stencil-translate-axis dots
-                                           (+ (if (and (> dir 0) (> log 2))
-                                                  (* 1.5 dotwid)
-                                                  0)
-                                              ;; huh ? why not necessary?
-                                              ;;(cdr (ly:stencil-extent head-glyph X))
-                                              dotwid)
-                                           X)
+					  (+ (if (and (> dir 0) (> log 2))
+						 (* 1.5 dotwid)
+						 0)
+					     ;; huh ? why not necessary?
+					     ;;(cdr (ly:stencil-extent head-glyph X))
+					     dotwid)
+					  X)
                stem-glyph)))
     stem-glyph))
 
@@ -531,10 +523,10 @@ a shortened down stem."
   "Set @var{arg} in superscript with a normal font size."
   
   (ly:stencil-translate-axis (interpret-markup
-                               layout
-                               props arg)
-                              (* 0.5  (chain-assoc-get 'baseline-skip props))
-                              Y))
+			      layout
+			      props arg)
+			     (* 0.5  (chain-assoc-get 'baseline-skip props))
+			     Y))
 
 (def-markup-command (super layout props arg) (markup?)
   "
@@ -576,7 +568,7 @@ that.
 "
   
   (ly:stencil-translate (interpret-markup  layout props arg)
-                         offset))
+			offset))
 
 (def-markup-command (sub layout props arg) (markup?)
   "Set @var{arg} in subscript."
@@ -660,7 +652,7 @@ around the markup."
         (m (interpret-markup layout props arg)))
     (box-stencil m th pad)))
 
-;FIXME: is this working? 
+					;FIXME: is this working? 
 (def-markup-command (strut layout props) ()
   
   "Create a box of the same height as the space in the current font."
@@ -681,22 +673,19 @@ around the markup."
 
 (define (number->markletter-string n)
   "Double letters for big marks."
-  (let*
-      ((l (vector-length number->mark-letter-vector)))
+  (let* ((l (vector-length number->mark-letter-vector)))
     
-  (if (>= n l)
-      (string-append (number->markletter-string (1- (quotient n l)))
-                     (number->markletter-string (remainder n l)))
-      (make-string 1 (vector-ref number->mark-letter-vector n)))))
+    (if (>= n l)
+	(string-append (number->markletter-string (1- (quotient n l)))
+		       (number->markletter-string (remainder n l)))
+	(make-string 1 (vector-ref number->mark-letter-vector n)))))
 
 
 (def-markup-command (markletter layout props num) (integer?)
-   "Make a markup letter for @var{num}.  The letters start with A to Z
+  "Make a markup letter for @var{num}.  The letters start with A to Z
  (skipping I), and continues with double letters."
- 
-   (Text_interface::interpret_markup layout props (number->markletter-string num)))
-
-
+  
+  (Text_interface::interpret_markup layout props (number->markletter-string num)))
 
 
 (def-markup-command (bracketed-y-column layout props indices args)
@@ -704,14 +693,14 @@ around the markup."
   "Make a column of the markups in @var{args}, putting brackets around
 the elements marked in @var{indices}, which is a list of numbers."
 
-    (define (sublist l start stop)
+  (define (sublist l start stop)
     (take (drop l start)  (- (1+ stop) start)) )
 
   (define (stencil-list-extent ss axis)
     (cons
      (apply min (map (lambda (x) (car (ly:stencil-extent x axis))) ss))
      (apply max (map (lambda (x) (cdr (ly:stencil-extent x axis))) ss))))
-	    
+  
   (define (stack-stencils stencils bskip last-stencil)
     (cond
      ((null? stencils) '())
@@ -719,65 +708,49 @@ the elements marked in @var{indices}, which is a list of numbers."
       (cons (car stencils)
 	    (stack-stencils (cdr stencils) bskip (car stencils))))
      (else
-      (let*
-	  ((orig (car stencils))
-	   (dir (chain-assoc-get 'direction  props DOWN))
-	   (new (ly:stencil-moved-to-edge last-stencil Y dir
-					  orig
-					  0.1 bskip))
-	   )
+      (let* ((orig (car stencils))
+	     (dir (chain-assoc-get 'direction  props DOWN))
+	     (new (ly:stencil-moved-to-edge last-stencil Y dir
+					    orig
+					    0.1 bskip)))
 
-	(cons new (stack-stencils (cdr stencils) bskip new))))
-    ))
+	(cons new (stack-stencils (cdr stencils) bskip new))))))
 
   (define (make-brackets stencils indices acc)
     (if (and stencils
 	     (pair? indices)
 	     (pair? (cdr indices)))
-	(let*
-	    ((encl (sublist stencils (car indices) (cadr indices)))
-	     (x-ext (stencil-list-extent encl X))
-	     (y-ext (stencil-list-extent encl Y))
-	     (thick 0.10)
-	     (pad 0.35)
-	     (protusion (* 2.5 thick))
-	     (lb
-	      (ly:stencil-translate-axis 
-	       (ly:bracket Y y-ext thick protusion)
-	       (- (car x-ext) pad) X))
-	     (rb (ly:stencil-translate-axis
-		  (ly:bracket Y y-ext thick (- protusion))
-		  (+ (cdr x-ext) pad) X))
-	     )
+	(let* ((encl (sublist stencils (car indices) (cadr indices)))
+	       (x-ext (stencil-list-extent encl X))
+	       (y-ext (stencil-list-extent encl Y))
+	       (thick 0.10)
+	       (pad 0.35)
+	       (protusion (* 2.5 thick))
+	       (lb
+		(ly:stencil-translate-axis 
+		 (ly:bracket Y y-ext thick protusion)
+		 (- (car x-ext) pad) X))
+	       (rb (ly:stencil-translate-axis
+		    (ly:bracket Y y-ext thick (- protusion))
+		    (+ (cdr x-ext) pad) X)))
 
 	  (make-brackets
 	   stencils (cddr indices)
 	   (append
 	    (list lb rb)
-	     acc)))
+	    acc)))
 	acc))
 
-  (let*
-      ((stencils
-	(map (lambda (x)
-	       (interpret-markup
-		layout
-		props
-		x)) args))
-       (leading
-	 (chain-assoc-get 'baseline-skip props))
-       (stacked (stack-stencils stencils 1.25 #f))
-       (brackets (make-brackets stacked indices '()))
-       )
+  (let* ((stencils
+	  (map (lambda (x)
+		 (interpret-markup
+		  layout
+		  props
+		  x)) args))
+	 (leading
+	  (chain-assoc-get 'baseline-skip props))
+	 (stacked (stack-stencils stencils 1.25 #f))
+	 (brackets (make-brackets stacked indices '())))
 
     (apply ly:stencil-add
-	   (append stacked brackets)
-	   )))
-
-
-	     
-
-  
-  
-
-     
+	   (append stacked brackets))))

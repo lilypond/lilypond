@@ -43,8 +43,9 @@ File_path::parse_path (String p)
 
 /** Find a file.
     
-  Seach in the current dir (DUH! FIXME?), in the construction-arg
-  (what's that?, and in any other appended directory, in this order.
+  Check absolute file name, search in the current dir (DUH! FIXME!),
+  in the construction-arg (what's that?), and in any other appended
+  directory, in this order.
 
   @return
   The file name if found, or empty string if not found. */
@@ -55,13 +56,14 @@ File_path::find (String name) const
   if (!name.length () || (name == "-") )
     return name;
 
-  /*
-    TODO:  should check for absolute path
-   */
-  if (FILE *f =fopen (name.to_str0 (), "r"))
+  /* Handle absolute file name.  */
+  if (name[0] == DIRSEP)
     {
-      fclose (f);
-      return name;
+      if (FILE *f = fopen (name.to_str0 (), "r"))
+	{
+	  fclose (f);
+	  return name;
+	}
     }
        
   for (int i = 0; i < size (); i++)

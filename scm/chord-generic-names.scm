@@ -1,7 +1,7 @@
 ;;;; chord-generic-names.scm -- Compile chord names
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2003-2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -24,15 +24,11 @@
 
 (define-public (banter-chord-names pitches bass inversion context)
   (ugh-compat-double-plus-new-chord->markup
-   'banter pitches bass inversion context '())
-  )
-
+   'banter pitches bass inversion context '()))
 
 (define-public (jazz-chord-names pitches bass inversion context)
   (ugh-compat-double-plus-new-chord->markup
-   'jazz pitches bass inversion context '())
-  )
-
+   'jazz pitches bass inversion context '()))
 
 (define-public (ugh-compat-double-plus-new-chord->markup
 		style pitches bass inversion context options)
@@ -45,14 +41,13 @@ BASS and INVERSION are lily pitches.  OPTIONS is an alist-alist (see
 input/test/dpncnt.ly).
  "
 
-  
   (define (step-nr pitch)
     (let* ((pitch-nr (+ (* 7 (ly:pitch-octave pitch))
 			(ly:pitch-notename pitch)))
 	   (root-nr (+ (* 7 (ly:pitch-octave (car pitches)))
 			(ly:pitch-notename (car pitches)))))
       (+ 1 (- pitch-nr root-nr))))
-    
+
   (define (next-third pitch)
     (ly:pitch-transpose pitch
 			(ly:make-pitch 0 2 (if (or (= (step-nr pitch) 3)
@@ -64,7 +59,7 @@ input/test/dpncnt.ly).
 	   (normalized-pitch (ly:pitch-transpose pitch diff))
 	   (alteration (ly:pitch-alteration normalized-pitch)))
       (if (= (step-nr pitch) 7) (+ alteration SEMI-TONE) alteration)))
-    
+
   (define (pitch-unalter pitch)
     (let ((alteration (step-alteration pitch)))
       (if (= alteration 0)
@@ -89,7 +84,7 @@ input/test/dpncnt.ly).
 	 ((NATURAL) "")
 	 ((SHARP) "+")
 	 ((DOUBLE-SHARP) "++"))))))
-  
+
   (define (step->markup-accidental pitch)
     (make-line-markup
      (list (accidental->markup (step-alteration pitch))
@@ -102,16 +97,16 @@ input/test/dpncnt.ly).
 	 (list (ly:context-property context 'majorSevenSymbol))
 	 (list (accidental->markup (step-alteration pitch))
 	       (make-simple-markup (number->string (step-nr pitch)))))))
-	 
+	
   ;; tja, kennok
   (define (make-sub->markup step->markup)
     (lambda (pitch)
       (make-line-markup (list (make-simple-markup "no")
 			      (step->markup pitch)))))
-			 
+			
   (define (step-based-sub->markup step->markup pitch)
     (make-line-markup (list (make-simple-markup "no") (step->markup pitch))))
-			 
+			
   (define (get-full-list pitch)
     (if (<= (step-nr pitch) (step-nr (last pitches)))
 	(cons pitch (get-full-list (next-third pitch)))
@@ -144,7 +139,7 @@ input/test/dpncnt.ly).
 	      (partial-match (cdr exceptions))))
 	#f))
 
-  (if #f (begin  
+  (if #f (begin
 	   (write-me "pitches: " pitches)))
   (let* ((full-exceptions
 	  (ly:context-property context 'chordNameExceptionsFull))
@@ -167,7 +162,7 @@ input/test/dpncnt.ly).
 	 ;; (all pitches)
 	 (all (append (take full (length partial-pitches) )
 		      (drop pitches (length partial-pitches) )))
-	      
+	
 	 (highest (last all))
 	 (missing (list-minus full (map pitch-unalter all)))
 	 (consecutive (get-consecutive 1 all))
@@ -175,7 +170,7 @@ input/test/dpncnt.ly).
 	 (altered (filter step-even-or-altered? all))
 	 (cons-alt (filter step-even-or-altered? consecutive))
 	 (base (list-minus consecutive altered)))
-	 
+	
 
     (if #f (begin
 	     (write-me "full:" full)
@@ -195,7 +190,7 @@ input/test/dpncnt.ly).
        ;;    root
        ;;    + steps:altered + (highest all -- if not altered)
        ;;    + subs:missing
-       
+
        (let* ((root->markup (assoc-get
 			      'root->markup options note-name->markup))
 	      (step->markup (assoc-get
@@ -206,11 +201,11 @@ input/test/dpncnt.ly).
 			      (step-based-sub->markup step->markup x))))
 	      (sep (assoc-get
 		    'separator options (make-simple-markup "/"))))
-	 
+	
 	 (if
 	  (pair? full-markup)
 	  (make-line-markup (list (root->markup root) full-markup))
-	    
+	
 	  (make-line-markup
 	   (list
 	    (root->markup root)
@@ -227,8 +222,8 @@ input/test/dpncnt.ly).
 		      (list partial-markup-suffix)
 		     (list (map sub->markup missing)))
 	      sep)))))))
-       
-      
+
+
       ((jazz)
        ;;    root
        ;;    + steps:(highest base) + cons-alt
@@ -245,11 +240,11 @@ input/test/dpncnt.ly).
 		    'separator options (make-simple-markup " ")))
 	      (add-prefix (assoc-get 'add-prefix options
 					     (make-simple-markup " add"))))
-	 
+	
 	 (if
 	  (pair? full-markup)
 	  (make-line-markup (list (root->markup root) full-markup))
-	  
+	
 	  (make-line-markup
 	   (list
 	    (root->markup root)
@@ -257,11 +252,11 @@ input/test/dpncnt.ly).
 	    (make-normal-size-super-markup
 	     (make-line-markup
 	      (list
-	       
+	
 	       ;; kludge alert: omit <= 5
 	       ;;(markup-join (map step->markup
 	       ;;			 (cons (last base) cons-alt)) sep)
-	       
+	
 	       ;; This fixes:
 	       ;;  c     C5       -> C
 	       ;;  c:2   C5 2     -> C2
@@ -273,11 +268,11 @@ input/test/dpncnt.ly).
   				   (if (> (step-nr tb) 5)
   				       (cons tb cons-alt)
   				       cons-alt))) sep)
-	       
+	
 	       (if (pair? rest)
 		   add-prefix
 		   empty-markup)
 	       (markup-join (map step->markup rest) sep)
 	       partial-markup-suffix))))))))
-       
+
        (else empty-markup))))

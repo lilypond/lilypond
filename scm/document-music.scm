@@ -10,37 +10,26 @@
     #:name "Music properties"
     #:desc "All music properties, including descriptions"
     #:text
-  (let* (
-	 (ps (sort (map symbol->string all-music-properties) string<?))
-	 (descs (map (lambda (prop)
-		       (property->texi 'music (string->symbol prop)))
-		     ps))
-	 (texi (description-list->texi descs))
-	 )
-    texi)
-  ))
+    (let* ((ps (sort (map symbol->string all-music-properties) string<?))
+	   (descs (map (lambda (prop)
+			 (property->texi 'music (string->symbol prop)))
+		       ps))
+	   (texi (description-list->texi descs)))
+      texi)))
 
 (define music-types->names (make-vector 61 '()))
 (map (lambda (entry)
-       (let*
-	   (
-	    (types (cdr (assoc 'types (cdr entry) )))
-	    )
+       (let* ((types (cdr (assoc 'types (cdr entry)))))
 	 (map (lambda (type)
 		(hashq-set! music-types->names type
 			    (cons (car entry)
-				  (hashq-ref music-types->names type '())))
-			    
-		) types)
-	 
-	 ))
-  music-descriptions)
-
-
+				  (hashq-ref music-types->names type '()))))
+	      types)))
+     music-descriptions)
 
 (define (strip-description x)
-    (cons (symbol->string (car x))
-	  ""))
+  (cons (symbol->string (car x))
+	""))
 
 (define (music-type-doc entry)
   (make <texi-node>
@@ -53,7 +42,7 @@
      (human-listify
       (sort
        (map (lambda (x) (ref-ify (symbol->string x)))
-	     (cdr entry)) string<?))
+	    (cdr entry)) string<?))
 
      "\n\nAccepted by: "
      (human-listify
@@ -62,8 +51,7 @@
 		(map ly:translator-name
 		     (filter
 		      (lambda (x) (engraver-accepts-music-type? (car entry) x)) all-engravers-list)))))
-     "\n\n"
-     )))
+     "\n\n")))
 
 (define (music-types-doc)
   (make <texi-node>
@@ -71,16 +59,12 @@
     #:children 
     (map music-type-doc
 	 (sort
-	  (hash-table->alist music-types->names) alist<?))
-    ))
+	  (hash-table->alist music-types->names) alist<?))))
 
 (define (music-doc-str obj)
-  (let*
-      (
-       (namesym  (car obj))
-       (props (cdr obj))
-       (types (cdr (assoc  'types props)))
-       )
+  (let* ((namesym  (car obj))
+	 (props (cdr obj))
+	 (types (cdr (assoc  'types props))))
     
     (string-append
      (object-property namesym 'music-description)
@@ -91,31 +75,26 @@
      (human-listify
       (map ref-ify
 	   (map symbol->string (map ly:translator-name
-		(filter
-		 (lambda (x) (engraver-accepts-music-types? types x)) all-engravers-list)))))
+				    (filter
+				     (lambda (x) (engraver-accepts-music-types? types x)) all-engravers-list)))))
      "\n\nProperties: \n"
      (description-list->texi
       (map
        (lambda (x) (property->texi 'music  x props))
-       (map car props)))
-     
-     )
-    ))
+       (map car props))))))
 
 (define (music-object-doc obj)
   (make <texi-node>
     #:name (symbol->string (car obj))
-    #:text (music-doc-str obj)
-    ))
+    #:text (music-doc-str obj)))
 
 (define (music-expressions-doc)
   (make <texi-node>
     #:name "Music expressions"
     #:desc "Objects that represent music."
     #:children
-     (map music-object-doc music-descriptions)
-  ))
-  
+    (map music-object-doc music-descriptions)))
+
 (define (music-doc-node)
   (make <texi-node>
     #:name "Music definitions"
@@ -124,9 +103,4 @@
     (list
      (music-expressions-doc)
      (music-types-doc)
-     (music-props-doc))
-    ))
-
-  
-  
-
+     (music-props-doc))))
