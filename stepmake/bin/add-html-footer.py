@@ -235,6 +235,7 @@ def do_file (f):
 		else:
 			s = s + footer
 
+	s = i18n (f, s)
 
 	#URUGRGOUSNGUOUNRIU
 	index = index_url
@@ -263,10 +264,8 @@ def do_file (f):
 
 	subst = globals ()
 	subst.update (locals())
-	
-	
 	s = s % subst
-	
+
 	# urg
 	# maybe find first node?
 	fallback_web_title = '-- --'
@@ -282,6 +281,77 @@ def do_file (f):
 
 	open (f, 'w').write (s)
 
+
+
+localedir = 'out/locale'
+try:
+	import gettext
+	gettext.bindtextdomain ('newweb', localedir)
+	gettext.textdomain ('newweb')
+	_ = gettext.gettext
+except:
+	def _ (s):
+		return s
+underscore = _
+
+
+LANGUAGES = (
+	('site', 'English'),
+	('nl', 'Nederlands'),
+	)
+
+language_available = _ ("Other languages: %s.") % "%(language_menu)s"
+browser_language = _ ("Using <A HREF='%s'>automatic language selection</A>.") \
+		      % "%(root_url)sabout/browser-language"
+
+LANGUAGES_TEMPLATE = '''\
+<P>
+  %(language_available)s
+  <BR>
+  %(browser_language)s
+</P>
+''' % vars ()
+
+def file_lang (file, lang):
+	(base, ext) = os.path.splitext (file)
+	base = os.path.splitext (base)[0]
+	if lang and lang != 'site':
+		return base + '.' + lang + ext
+	return base + ext
+
+
+def i18n (file_name, page):
+	# ugh
+	root_url = "/web/"
+
+	base_name = os.path.basename (file_name)
+
+	lang = ''
+	m = re.match ('.*[.]([^.]*).html', file_name)
+	if m:
+		lang = m.group (1)
+
+	# Find available translations of this page.
+	available = filter (lambda x: lang != x[0] \
+			    and os.path.exists (file_lang (file_name, x[0])),
+			    LANGUAGES)
+
+	# Strip .html, .png suffix for auto language selection.
+	page = re.sub ('''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html(#[^"]*)|.png)[\'"]''',
+		       '\\1="\\2"', page)
+
+	# Create language menu.
+	language_menu = ''
+	for (prefix, name) in available:
+		lang_file = file_lang (base_name, prefix)
+		language_menu += '<a href="%(lang_file)s">%(name)s</a>' % vars ()
+
+	languages = ''
+	if language_menu:
+		languages = LANGUAGES_TEMPLATE % vars ()
+
+	return page + languages
+	## end i18n
 
 for f in files:
 	do_file (f)
