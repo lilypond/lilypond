@@ -2,7 +2,7 @@
 title= "The Feta font";
 subtitle = "proofsheet"; 
 enteredby =	 "jcn";
-copyright =	 "PD";
+copyright =	 "public domain";
 TestedFeatures =	 "This file tests the Feta music-font"
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
@@ -40,6 +40,14 @@ TestedFeatures =	 "This file tests the Feta music-font"
 
 		\octave c'';
 		\meter 4/4;
+		\textstyle "finger";
+		c4^"1" d^"2" e^"3" f^"4" g^"5"
+		< bes4^"1" e_"2" c_"4" >
+		a'^"0"
+		
+		% ugh, \flageolet is like open, but maybe a perfect circle
+		a^\open
+		\textstyle "roman";
 %{		% default abbreviations
 		c4 c4: c4:32 c4: c4 c2.
 		'a1

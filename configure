@@ -674,7 +674,7 @@ if test x$MINGWPREFIX != xno; then
 fi
 
 if test $optimise_b = yes; then
-    DEFINES="$DEFINES -O2 -DSTRING_UTILS_INLINED"
+    DEFINES="$DEFINES -finline-functions -O2 -DSTRING_UTILS_INLINED"
 fi
 
 if test "x$OSTYPE" = "xWindows_NT"; then

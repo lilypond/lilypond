@@ -37,8 +37,11 @@ IImenuetto = \melodic{
 	\duration 8;
 		< a2 f2 d2 \f > bes4-.  |
 %%2
+	\textstyle "finger";		% ugh.
+	
 	< [ bes8^"1" e8 c8_"2"_"4" >
 		a8 bes8-. g8-. ] a4-.^"4" |
+
 %%3
 	< d4 'bes4-. > g4-. [ f8-. e8-. ] |
 %%4
@@ -100,6 +103,7 @@ IImenuetto = \melodic{
 %%23
 	[ 'g8 g8 ] < e4. 'a4. > d8-\upbow |
 %%24
+	\textstyle "roman";		% ugh
 	< d2.^"fine" 'a2. 'd2._"3 mins."> 
 	\bar ":|";
 }

@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Wed Dec  3 11:10:44 1997
+% on Fri Dec  5 11:52:40 1997
 % Do not edit
 % input from out/feta16.log
 % name=\symboltables {
@@ -9,11 +9,11 @@
         "0o"	"\\outsidewholerest"	-2.50\pt	8.50\pt	-2.50\pt	0.40\pt	
         "1o"	"\\outsidehalfrest"	-2.50\pt	8.50\pt	-0.40\pt	2.50\pt	
         "2"	"\\quartrest"	-0.00\pt	4.32\pt	3.00\pt	14.40\pt	
-        "3"	"\\eighthrest"	-0.00\pt	5.33\pt	4.00\pt	11.47\pt	
-        "4"	"\\sixteenthrest"	-0.00\pt	6.23\pt	-0.00\pt	11.47\pt	
-        "5"	"\\thirtysecondrest"	-0.00\pt	7.03\pt	-0.00\pt	15.47\pt	
-        "6"	"\\sixtyfourthrest"	-0.00\pt	7.53\pt	-0.00\pt	19.47\pt	
-        "7"	"\\hundredtwentyeighthrest"	-0.00\pt	8.38\pt	-0.00\pt	23.47\pt	
+        "3"	"\\eighthrest"	-0.00\pt	5.33\pt	4.00\pt	11.27\pt	
+        "4"	"\\sixteenthrest"	-0.00\pt	6.18\pt	-0.00\pt	11.27\pt	
+        "5"	"\\thirtysecondrest"	-0.00\pt	6.98\pt	-0.00\pt	15.27\pt	
+        "6"	"\\sixtyfourthrest"	-0.00\pt	7.49\pt	-0.00\pt	19.27\pt	
+        "7"	"\\hundredtwentyeighthrest"	-0.00\pt	8.34\pt	-0.00\pt	23.27\pt	
         }
     "accidentals"	 = \table {
         "1"	"\\sharp"	-0.00\pt	4.40\pt	-6.00\pt	6.00\pt	
