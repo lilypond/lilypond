@@ -11,19 +11,20 @@
 /// ideal spacing between two columns
 struct Idealspacing {
 
-    /// the ideal distance
-    Real space_f_;
+  /// the ideal distance
+  Real space_f_;
 
-    /// Hooke's constant: how strong are the "springs" attached to columns
-    Real hooke_f_;
+  /// Hooke's constant: how strong are the "springs" attached to columns
+  Real hooke_f_;
 
-    /// the two columns
-    int left_i_;
-    int right_i_;
+  /// the two columns
+  int left_i_;
+  int right_i_;
     
-    void print() const;
-    void OK() const ;
-    Idealspacing();
+  Real energy_f (Real x) const;
+  void print() const;
+  void OK() const ;
+  Idealspacing();
 };
 
 

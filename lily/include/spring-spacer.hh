@@ -87,6 +87,7 @@ class Spring_spacer : public Line_spacer {
   Score_column* scol_l (int);
   void connect (int i,int j, Real,Real);
   Line_of_cols error_pcol_l_arr() const;
+  Real calculate_energy_f (Vector) const;
 public:
   static Line_spacer *constructor();
 
