@@ -30,3 +30,4 @@ of Steve Martland's Dance Works. "
 			   }
 	     }
 	 }
+%% new-chords-done %%

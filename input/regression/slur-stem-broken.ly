@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc="Trend of broken slur with user-overridden stem attachment should also
 follow the same vertical direction it would have had in unbroken state."
@@ -13,3 +13,4 @@ follow the same vertical direction it would have had in unbroken state."
     linewidth=40*\staffspace
   }
 }
+%% new-chords-done %%

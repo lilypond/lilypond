@@ -125,11 +125,12 @@ def sub_chords (str):
 
 	str = re.sub ('<([^?])', r'%s\1' % simstart, str)
 	str = re.sub ('>([^?])', r'%s\1' % simend,  str)
-	str= re.sub ('@STARTCRESC@', r'\\<', str)
-	str= re.sub ('@STARTDECRESC@', r'\\>' ,str)
-	str= re.sub ('@STARTCHORD@', chordstart, str)
-	str= re.sub ('@ENDCHORD@', chordend, str)
-	str= re.sub (r'@ACCENT@', '>', str)
+	str = re.sub ('@STARTCRESC@', r'\\<', str)
+	str = re.sub ('@STARTDECRESC@', r'\\>' ,str)
+	str = re.sub (r'\\context *Voice *@STARTCHORD@', '@STARTCHORD@', str)
+	str = re.sub ('@STARTCHORD@', chordstart, str)
+	str = re.sub ('@ENDCHORD@', chordend, str)
+	str = re.sub (r'@ACCENT@', '>', str)
 	return str
 
 (opts, files)= getopt.getopt( sys.argv[1:], 'e',['edit'])
@@ -140,8 +141,10 @@ for (o,a) in opts:
 
 for a in files:
 	str = open (a).read()
-	if re.search (str, marker_str):
+	if re.search (marker_str, str):
 		continue
+
+	sys.stderr.write ("processing %s\n" %a)
 	
 	str = sub_chords (str)  + marker_str + '\n'
 

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 texidoc  = " Ez-notation prints names in note heads.
@@ -14,3 +14,4 @@ You also get ledger lines, of course."
 		 linewidth = -1. 
 	     } 
 }
+%% new-chords-done %%

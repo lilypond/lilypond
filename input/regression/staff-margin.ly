@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc="
 Staff margins are also markings attached to barlines.  They should be
@@ -22,3 +22,4 @@ be on normal staves, but also on compound staves, like the PianoStaff
 linewidth=-1.0
 }}
 
+%% new-chords-done %%

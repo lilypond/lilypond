@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 texidoc = "Accidentals sticking out to the left
@@ -14,3 +14,4 @@ of a note will take a little more space, but only if the spacing is tight."
 
 }
 
+%% new-chords-done %%

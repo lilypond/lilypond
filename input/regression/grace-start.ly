@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 texidoc = "Pieces may begin with grace notes."
 }
@@ -10,3 +10,4 @@ texidoc = "Pieces may begin with grace notes."
   }
   \paper { linewidth = -1. }
 }
+%% new-chords-done %%

@@ -5,7 +5,7 @@ NB should have no bracket, B should have bracket.
 }
  
 
-\version "1.5.68"
+\version "1.7.6"
 
 
 \score { 
@@ -41,3 +41,4 @@ NB should have no bracket, B should have bracket.
 
     }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header { texidoc = "Key signatures can be set per pitch
 individually. This can be done bby setting @code{Staff.keySignature}
@@ -14,3 +14,4 @@ directly."
   e a, g a
 }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
     texidoc = "LilyPond correctly determines the size of every
@@ -20,3 +20,4 @@
 	     }
     }
 }
+%% new-chords-done %%

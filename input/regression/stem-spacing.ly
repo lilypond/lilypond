@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -31,4 +31,4 @@ effects.  In this example, space for opposite pointed stems is adjuste
     SpacingSpanner \override #'stem-spacing-correction = #0.0
   }  }
 }
- 
+ %% new-chords-done %%

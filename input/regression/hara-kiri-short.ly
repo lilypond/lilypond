@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc="
 Hara kiri staves kill themselves if they are empty.  This example really
@@ -46,3 +46,4 @@ zagers =  \context StaffGroup <
 }
 
 
+%% new-chords-done %%

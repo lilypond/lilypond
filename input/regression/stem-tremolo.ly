@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc="
 Stem tremolos or rolls are tremolo signs that look like beam segments
@@ -28,3 +28,4 @@ tremolo must be centered on the note.
 		c8:32 f: b: e:
 	}
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 texidoc="Simple beams.  This broke somewhere < 1.3.110
@@ -28,3 +28,4 @@ ex = \notes \relative c' {
 }
 
 \score { \context Staff { \notes { \ex } } }
+%% new-chords-done %%

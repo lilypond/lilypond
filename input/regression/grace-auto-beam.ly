@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header
 {
     texidoc = "The autobeamer is not confusde by grace notes."
@@ -11,3 +11,4 @@
         \grace a8 g16 f e f |
   }
 }
+%% new-chords-done %%

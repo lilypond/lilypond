@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
     texidoc =
 
@@ -26,3 +26,4 @@ vielt __ Zeit. __ " "
 \paper { linewidth = 5.0\cm
 }
 }
+%% new-chords-done %%

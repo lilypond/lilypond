@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header { texidoc = "
 
 A voicelet (a very short voice to get polyphonic chords correct)
@@ -24,3 +24,4 @@ should not confuse the spacing engine."
 }}
 \paper { linewidth = -1. }
 }
+%% new-chords-done %%

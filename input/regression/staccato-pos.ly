@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -14,3 +14,4 @@ not be on staff lines.
     linewidth=-1.0
   }  
 }
+%% new-chords-done %%

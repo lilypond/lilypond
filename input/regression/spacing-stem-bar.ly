@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
 texidoc = "Upstem notes before a barline are printed with some extra
@@ -25,3 +25,4 @@ e e e
 }
 \paper { linewidth = -1. }
 }
+%% new-chords-done %%

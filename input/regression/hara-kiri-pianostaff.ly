@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header {
 texidoc = "Hara kiri should not upset fixed distance alignment like in pianostaff. In this example the middle staff is harakiried."
 }
@@ -17,3 +17,4 @@ texidoc = "Hara kiri should not upset fixed distance alignment like in pianostaf
  }
 }
 
+%% new-chords-done %%

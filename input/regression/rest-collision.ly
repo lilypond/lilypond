@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header{
 texidoc="
 Rests should not collide with beams, stems and noteheads.  Rests may
@@ -60,3 +60,4 @@ restsII =  \context Staff \notes {
 }	
 
 
+%% new-chords-done %%

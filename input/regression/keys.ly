@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc="
 Key signatures appear on key  changes. They may also
@@ -25,3 +25,4 @@ also created on a clef change.
 	e2
   }
 }
+%% new-chords-done %%

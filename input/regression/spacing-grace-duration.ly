@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
     texidoc = "Spacing uses the duration of the notes, but disregards
@@ -19,3 +19,4 @@
 
 	 \paper { linewidth = -1. }
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc="The partcombiner should not combine two small slurs into a big one."
 }
@@ -24,3 +24,4 @@ texidoc="The partcombiner should not combine two small slurs into a big one."
 }
 
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 
@@ -9,9 +9,10 @@
 \score  {
 \notes \relative c'' {
   c4
-  <c d c'-\marcato>
+  <<c d c'>>-\marcato
   < \context Voice = VA { \voiceOne c4^^ }
     \context Voice = VB { \voiceTwo d4_^} >
     }
 \paper { linewidth = -1. }
     }
+%% new-chords-done %%

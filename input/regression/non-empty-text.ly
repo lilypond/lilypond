@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
     texidoc="
@@ -20,3 +20,4 @@ TextScript.no-spacing-rods is used to control the horizontal size of text.
 	linewidth  = 3.0\cm
     }
 }
+%% new-chords-done %%

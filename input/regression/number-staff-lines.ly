@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc=" The number of stafflines of a staff can be set.  Ledger
@@ -17,3 +17,4 @@ StaffSymbol \override #'line-count = #3
 }  }
   \midi { }
 }
+%% new-chords-done %%

@@ -1076,6 +1076,9 @@ if 1:
 
 if 1:
 	def conv(str):
+		if re.search ('new-chords-done',str):
+			return str
+		
 		str = re.sub (r'<<', '< <', str)
 		str = re.sub (r'>>', '> >', str)
 		return str

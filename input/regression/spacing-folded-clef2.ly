@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
 texidoc = "A clef can be folded below notes in a different staff, if
@@ -22,3 +22,4 @@ show where columns are in the score."
 	}
 	}}
 
+%% new-chords-done %%

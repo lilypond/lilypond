@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc="
 Slurs should look nice and symmetric.  The curvature may increase
@@ -22,3 +22,4 @@ run through noteheads or stems.
 		linewidth = 120.\mm
 	}
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.5"
+\version "1.7.6"
 \header {
     
 texidoc = "There is limited support for mensural notation: note head
@@ -14,3 +14,4 @@ both for up and down stems."
 \transpose c d'' {  c4 c2 c8  c16 c16  c1 c\breve c\longa }
 \transpose c c' { c4 c2 c8  c16 c16  c1 c\breve c\longa }
 }}}
+%% new-chords-done %%

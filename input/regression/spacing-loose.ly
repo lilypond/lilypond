@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -11,3 +11,4 @@ Loose:
 	indent = 0.0
 	}
 }
+%% new-chords-done %%

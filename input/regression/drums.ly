@@ -8,10 +8,10 @@ texidoc = "Drum notation, although kludgy, should work. "
 
 \include "drumpitch-init.ly"
 
-\version "1.5.68"
+\version "1.7.6"
 
 drh = \notes { cymc4.^"crash" hhc16^"h.h." hh \repeat "unfold" 5 {hhc8 hho hhc8 hh16 hh} hhc4 r4 r2 }
-drl = \notes {\repeat "unfold" 3 {bd4 sn8 bd bd4 <bd ss>} bd8 tommh tommh bd toml toml bd tomfh16 tomfh }
+drl = \notes {\repeat "unfold" 3 {bd4 sn8 bd bd4 <<bd ss>>} bd8 tommh tommh bd toml toml bd tomfh16 tomfh }
 timb = \notes \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8 cb}
 
 \score { \repeat "volta" 2
@@ -61,3 +61,4 @@ timb = \notes \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8
   \midi{ \tempo 4=120 }
 }
 
+%% new-chords-done %%

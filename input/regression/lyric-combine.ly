@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc= "Lyrics can be set to a melody automatically.  Excess lyrics will be
@@ -44,3 +44,4 @@ textII = \context LyricsVoice = "middle-1" \lyrics { da -- da __ da -- da da da 
     >
 }
 
+%% new-chords-done %%

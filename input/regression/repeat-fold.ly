@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -16,3 +16,4 @@ Folded.  This doesn't make sense without alternatives, but it works.
   }
 }
 
+%% new-chords-done %%

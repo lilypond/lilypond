@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 \header {
   texidoc="Manual hack for nested tuplets, move outer tuplet up."
 }
@@ -30,3 +30,4 @@
   }
   \paper { linewidth = -1. }
 }
+%% new-chords-done %%

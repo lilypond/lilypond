@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {
 texidoc ="Broken volta spanners behave correctly at left edge in all cases."
@@ -136,3 +136,4 @@ voiceE = \notes {
 	    }
 	}
 }
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header  {
   texidoc = "grace notes in different voices/staves are synchronized."
 }
@@ -14,3 +14,4 @@
 		>
 		\paper { linewidth = -1. }
  } 
+%% new-chords-done %%

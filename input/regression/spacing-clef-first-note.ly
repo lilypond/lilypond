@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 
     texidoc = "clef changes at the start of a line get much more space
@@ -22,3 +22,4 @@ than clef changes halfway the line."
 	 }
 
      }}
+%% new-chords-done %%

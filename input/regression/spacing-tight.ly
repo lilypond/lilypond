@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -15,3 +15,4 @@ must stretch like the space within the measure.
 	indent = 0.0
 	}
 }
+%% new-chords-done %%

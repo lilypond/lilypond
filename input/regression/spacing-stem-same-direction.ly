@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header {
 	texidoc = "For juxtaposed chords with the same direction, a
 slight optical correction is used. It is constant, and only works if
@@ -12,3 +12,4 @@ two chords have no common head-positions range."
 }
 \paper { linewidth = -1. }
 }
+%% new-chords-done %%

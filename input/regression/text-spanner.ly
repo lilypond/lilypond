@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 % text spanners should not repeat start text when broken
 
@@ -13,3 +13,4 @@
     linewidth = 40*\staffspace
   }
 }
+%% new-chords-done %%

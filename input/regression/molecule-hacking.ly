@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.6"
 
 \header { texidoc=" You can write molecule callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -74,3 +74,4 @@ GROB.  The dimensions of the molecule is not affected.
 	\paper { linewidth = -1. }
 	}
 
+%% new-chords-done %%

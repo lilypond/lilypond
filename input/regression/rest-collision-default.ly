@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header
 {
@@ -14,3 +14,4 @@ texidoc = "Rests in collisions sit opposite of the note if no direction is
     r4 }
 \context Voice=lower {\voiceTwo
 b8  }>}
+%% new-chords-done %%

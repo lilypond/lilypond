@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -25,3 +25,4 @@ Unfolded behavior:
 \repeat unfold 2 { c^"2x 3a" d } \alternative { e f g } 
 }}
 
+%% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 \header{
 texidoc="
 The same goes for slurs. They behave decently when broken across
@@ -47,3 +47,4 @@ linebreak.
 }
 
 
+%% new-chords-done %%

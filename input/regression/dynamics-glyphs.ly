@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header {texidoc = "Dynamic letters are kerned, and their weight
 matches that of the hairpin signs.  The dynamic scripts should be
@@ -9,12 +9,13 @@ closer to the note head (staccato, accent) are reckoned with.
 \score {
     
 \notes\relative c'' { c1-\ff
-		      e,-.-> \f
+		      e,-.-> -\f
 		      e \rfz		      
-		      c' \mf
-		      c \mp \> \!
+		      c' -\mf
+		      c -\mp \> \!
 		      c \ppppp \< \!
 		      c \sfp
 		      
 }
 }
+%% new-chords-done %%

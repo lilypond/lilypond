@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.6"
 
 \header{
 texidoc="
@@ -21,3 +21,4 @@ If they don't barlines should still be shown.
   \midi {}
 }
 
+%% new-chords-done %%
