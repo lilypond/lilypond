@@ -194,25 +194,28 @@ Modified_font_metric::text_dimension (String text)
     {
       if (!gh_vector_p (coding_vector_))
 	{
-	  coding_vector_ = scm_call_1 (ly_scheme_function ("get-coding-vector"),
-				       scm_makfrom0str (coding_scheme_.to_str0 ()));
+	  coding_vector_
+	    = scm_call_1 (ly_scheme_function ("get-coding-vector"),
+			  scm_makfrom0str (coding_scheme_.to_str0 ()));
 
 	  if (!gh_vector_p (coding_vector_))
 	    {
 	      programming_error ("get-coding-vector  should return vector");
-	      coding_vector_ = scm_c_make_vector (256, ly_symbol2scm (".notdef"));
+	      coding_vector_ = scm_c_make_vector (256,
+						  ly_symbol2scm (".notdef"));
 	    }
 
-	  coding_table_ = scm_call_1 (ly_scheme_function ("get-coding-table"),
-				      scm_makfrom0str (orig_->coding_scheme ().to_str0 ()));
+	  coding_table_
+	    = scm_call_1 (ly_scheme_function ("get-coding-table"),
+			  scm_makfrom0str (orig_->coding_scheme ().to_str0 ()));
 	  
-	  coding_permutation_  = scm_call_2 (ly_scheme_function ("make-encoding-permutation"),
-					     coding_vector_,
-					     coding_table_);
+	  coding_permutation_
+	    = scm_call_2 (ly_scheme_function ("make-encoding-permutation"),
+			  coding_vector_, coding_table_);
 	}
 	  
       Interval ydims;
-      Real w=0.0;
+      Real w = 0.0;
 
       for (int i = 0; i < text.length (); i++) 
 	{
