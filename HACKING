@@ -16,8 +16,7 @@ clily:
 
 [ -x configure ] || ./autogen.sh --noconf
 rm -f config.cache
-./configure --prefix=$(pwd) --infodir=$(pwd)/share/info --disable-optimising
---enable-gui "$@"
+./configure --prefix=$(pwd) --infodir=$(pwd)/share/info --disable-optimising --enable-gui "$@"
 
 here-lily:
 # source me
@@ -35,8 +34,6 @@ TFMFONTS=:
 datadir=$(pwd)/share/lilypond
 export TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
 
-export
-GS_FONTPATH="$datadir/fonts/type1:/usr/share/texmf/fonts/type1/bluesky/cm:/usr/share/texmf/fonts/ty
-pe1/public/ec-fonts-mftraced"
+export GS_FONTPATH="$datadir/fonts/type1:/usr/share/texmf/fonts/type1/bluesky/cm:/usr/share/texmf/fonts/type1/public/ec-fonts-mftraced"
 export GS_LIB="$datadir/ps:$GS_FONTPATH"
 
