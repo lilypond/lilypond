@@ -6,6 +6,7 @@
   (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "main.hh"
 #include "super-elem.hh"
 #include "debug.hh"
 #include "lookup.hh"
@@ -207,6 +208,8 @@ Paper_score::tex_output ()
     }
 
   tex_out << "\n "<<  paper_l_->lookup_l ()->texsetting << "%(Tex id)\n";
+  if (experimental_features_global_b)
+    tex_out << "\\turnOnExperimentalFeatures%\n";
   super_elem_l_->output_all ();
   tex_out << "\n\\EndLilyPondOutput";
   outputter_l_ = 0;

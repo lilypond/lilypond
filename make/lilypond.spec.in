@@ -3,8 +3,8 @@ Version: @TOPLEVEL_VERSION@
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: pcnov095.win.tue.nl:/pub/lilypond/lilypond-@TOPLEVEL_VERSION@.tar.gz
-Summary: A preprocessor to make TeX typeset music.
+Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
+Summary: A program for typesetting music.
 URL: http://www.stack.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
 Icon: lelie_icon.gif
@@ -19,10 +19,12 @@ MIDI file.  Features include multiple staffs, meters,
 clefs, keys, lyrics, versatile input-language, 
 cadenzas, beams, slurs, triplets.
 
+[you need the musixtex fonts to use LilyPond]
+
 %prep
 %setup
 %build
-./configure --enable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared
+./configure --disable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared
 make all
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -43,7 +45,7 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/man/man1/mudela-book.1
 /usr/man/man1/convert-mudela.1
 /usr/lib/texmf/texmf/tex/lilypond/
-/usr/lib/texmf/texmf/fonts/source/lilypond
+/usr/lib/texmf/texmf/fonts/source/public/lilypond
 /usr/share/lilypond/
 %post
 

@@ -6,8 +6,8 @@ package=lilypond
 
 build:
 	$(checkdir)
-	./configure --enable-checking --disable-debugging \
-		--enable-printing --prefix=/usr --enable-optimize \
+	./configure --disable-checking --disable-debugging \
+		--disable-printing --prefix=/usr --enable-optimise \
 		--enable-shared
 	make all
 

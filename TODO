@@ -7,6 +7,8 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr
 
 	* LILYSOURCEDIR
+	
+	* documentation
 
 	* spurious "Junk beam" warnings
 
@@ -50,7 +52,7 @@ grep for TODO and ugh/ugr
 	* Score_bar/Piano_braces, are *not* ordinary bars 
 
 3RD PARTY BUGS:
-* Rational infty(HUGE_VAL) on glibc / w32
+	* Rational infty(HUGE_VAL) on glibc / w32
 
 	* Fix profiling. gprof bugreport?
 
@@ -74,7 +76,6 @@ PROJECTS
 	- adapt make-website to use \header info.
 
 	* Makefile stuff:
-	- have make dist produce tarball in out/ directory.
 	- Use Automake
 	- shared lib on Solaris too.
 	- check libtool
@@ -192,7 +193,6 @@ languages:
 	* lines:
 	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines
 	- set different line sizes / thicknesses
-	- stem down too far right
 	- beam stem showthrough, inter beam sizes (french vs german style)
 
 	* Collisions
@@ -407,7 +407,6 @@ Mudela.
 
 	* pushgroup/popgroup
 
-	* whole head on ledger line
 
 	* multi threading?
 	  - 1 thread per element/ 1 thread per line

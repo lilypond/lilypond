@@ -1,7 +1,7 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Tue Oct 28 12:15:08 1997
+% on Wed Oct 29 09:54:07 1997
 % Do not edit
-% input from out/font-en-tja20.log
+% input from out/feta20.log
 % name=\symboltables {
     "rests"	 = \table {
         "0"	"\\wholerest"	-0.00\pt	7.50\pt	-3.13\pt	0.00\pt	

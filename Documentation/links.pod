@@ -63,6 +63,8 @@ These development releases will also be at
 
 =over 4
 
+The following newsgroups all contain material relevant to LilyPond
+
 =item news:comp.music.research
 
 =item news:rec.music.compose

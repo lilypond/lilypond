@@ -5,14 +5,14 @@
 % font_size 16pt#;
 
 input autometric;
-fet_beginfont("font-en-tja", 16);
+fet_beginfont("feta", 16);
 staffsize#:=16pt#;
 test:=0;
 
 
 input feta-generic;
 
-fet_endfont("font-en-tja");
+fet_endfont("feta");
 
 end.
 

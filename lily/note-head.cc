@@ -61,7 +61,7 @@ Note_head::brew_molecule_p() const
   Real inter_f = p->internote_f ();
 
   // ugh
-  int streepjes_i = abs(position_i_) < staff_size_i_/2 
+  int streepjes_i = abs (position_i_) < staff_size_i_/2 
     ? 0
     : (abs(position_i_) - staff_size_i_/2) /2;
   
@@ -72,14 +72,18 @@ Note_head::brew_molecule_p() const
   if (streepjes_i) 
     {
       int dir = sign (position_i_);
+      Atom streepje = p->lookup_l ()->streepje (balltype_i_);
+      
+      int parity =  (position_i_ % 2) ? 1 : 0;
 	
-      Atom streepje = p->lookup_l()->streepjes (balltype_i_, dir* streepjes_i);
-
-      Molecule sm;
-      sm.add (streepje);
-      if (position_i_ % 2)
-	sm.translate_axis (-inter_f* dir, Y_AXIS);
-      out->add (sm);
+      
+      for (int i=0; i < streepjes_i; i++)
+	{
+	  Atom s = streepje;
+	  s.translate_axis (-dir * inter_f * (i*2 + parity),
+			   Y_AXIS);
+	  out->add (s);
+	}
     }
   
   out->translate_axis (inter_f*position_i_, Y_AXIS);

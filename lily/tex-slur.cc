@@ -15,6 +15,7 @@
 #include "paper-def.hh"
 #include "string-convert.hh"
 
+#include "main.hh"
 
 static char
 direction_char (Direction y_sign)
@@ -148,22 +149,18 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
 
   // duh
   // let's try the embedded stuff
-  bool embedded_b = true;
+  bool embedded_b = experimental_features_global_b;
   if (embedded_b)
     {
       // huh, factor 8?
-      Real fdy = dy*paper_l_->interline_f ();
+      Real fdy = dy*paper_l_->internote_f ();
       Real fdx = dx;
       String ps = "\\embeddedps{\n";
       // ugh, how bout " /draw_slur { ... } def "
-      ps += "0 0 moveto\n";
-      ps += String_convert::int_str (fdx/2) + " " 
-      	+ String_convert::int_str (fdy/2) + " "
-        + String_convert::int_str (fdx) + " " 
-      	+ String_convert::int_str (fdy) + " curveto\n";
-      ps += "closepath\n";
-      ps += "fill\n";
-      ps += "}\n";
+      ps += String_convert::int_str (fdx) + " " 
+      	+ String_convert::int_str (fdy) + " "
+	+ String_convert::int_str (dir) +
+	" drawslur}";
 
       String mf = "\\embeddedmf{\n";
       mf += "input feta-sleur;\n";
@@ -175,13 +172,6 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
       ps += "}\n";
 
       s.tex_ = ps + mf;
-      s.translate_axis (dx/2, X_AXIS);
-      // huh, extra translate?
-
-      s.translate_axis (-1.5*paper_l_->note_width (), X_AXIS);
-      // mmm, does embedded slur always start at y = 0?
-//      s.translate_axis (-1.5*paper_l_->note_width (), Y_AXIS);
-
       return s;
     }
 

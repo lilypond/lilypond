@@ -4,13 +4,13 @@
 staffsize#:=20pt#;
 
 input autometric;
-fet_beginfont("font-en-tja", 20);
+fet_beginfont("feta", 20);
 
 test := 0;
 
 input feta-generic;
 
-fet_endfont("font-en-tja");
+fet_endfont("feta");
 
 end.
 

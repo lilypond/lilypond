@@ -145,35 +145,14 @@ Lookup::flag (int j, Direction d) const
 }
 
 Atom
-Lookup::streepjes (int type, int i) const
+Lookup::streepje (int type) const
 {
-  assert (i);
+  if (type > 2)
+    type = 2;
 
-  int arg;
-  String idx;
-
-  if (i < 0)
-    {
-      idx = "botlines";
-      arg = -i;
-    }
-  else
-    {
-      arg = i;
-      idx = "toplines";
-    }
-
-  // ugh
-  Real w = ball (type).dim_[X_AXIS].length ();
-
-  Atom ret = (*symtables_)("streepjes")->lookup (idx);
-
-  Array<String> a;
-  a.push (String (w) + "pt");
-  a.push (arg);
-  ret.tex_ = substitute_args (ret.tex_, a);
-
-  return ret;
+  Symtable * st = (*symtables_)("balls");
+  
+  return st->lookup (String (type) + 'l');
 }
 
 Atom

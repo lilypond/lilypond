@@ -20,9 +20,10 @@
 #include "debug.hh"
 #include "my-lily-parser.hh"
 
+static bool version_ignore_b = false;
 Sources* source_l_g = 0;
 bool only_midi = false;
-bool version_ignore_b_ = false;
+bool experimental_features_global_b = false;
 int exit_status_i_;
 
 void destill_inname (String &name_str_r);
@@ -31,6 +32,7 @@ Long_option_init theopts[] = {
   {1, "output", 'o'},
   {0, "warranty", 'w'},
   {0, "help", 'h'},
+  {0, "test", 't'},
   {0, "debug", 'd'},
   {1, "init", 'i'},
   {1, "include", 'I'},
@@ -53,6 +55,7 @@ usage()
     "  -h, --help             this help\n"
     "  -w, --warranty         show warranty and copyright\n"
     "  -o, --output=FILE      set FILE as default output\n"
+    "  -t, --test             switch on experimental features\n"
     "  -M, --midi             produce midi output only\n"
     "  -V, --ignore-version   ignore mudela version\n"
     "\n"
@@ -122,7 +125,7 @@ do_one_file (String init_str, String file_str)
   source_l_g->set_path (&path);
   {
     My_lily_parser parser (source_l_g);
-    parser.set_version_check (version_ignore_b_);
+    parser.set_version_check (version_ignore_b);
     parser.parse_file (init_str, file_str);
     exit_status_i_ |= parser.error_level_i_;
   }
@@ -155,6 +158,9 @@ main (int argc, char **argv)
     {
       switch (opt->shortname)
 	{
+	case 't':
+	  experimental_features_global_b = true;
+	  break;
 	case 'o':
 	  set_default_output (oparser.optional_argument_ch_C_);
 	  break;
@@ -173,7 +179,7 @@ main (int argc, char **argv)
 	  exit (0);
 	  break;
 	case 'V':
-	  version_ignore_b_ = true;
+	  version_ignore_b = true;
 	  break;
 	case 'd':
 	  set_debug (true);

@@ -32,6 +32,10 @@ Turn debugging info on.  GNU LilyPond reads the file F<.dstreamrc>,
 which lists what functions and classes may produce copious debugging
 output.
 
+=item B<-t,--test>,
+
+Switch on any experimental features.  Not for general public use.
+
 =item B<-w,--warranty>,
 
 Show the warranty with which GNU LilyPond comes. (It comes with B<NO

@@ -5,7 +5,7 @@ from lilypython import *
 os.chdir(lilydirs.topdir)
 os.system('make dist')
 cur_ver = lilydirs.version_tuple()
-
+print tarball(cur_ver)
 os.rename('out/' + tarball(cur_ver), released_tarball(cur_ver))
 os.chdir('../test')
 os.system('pwd')

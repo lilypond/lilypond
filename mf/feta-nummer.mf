@@ -2,6 +2,7 @@
 % part of LilyPond's pretty-but-neat music font
 
 fet_begingroup("nummer")
+code := 47;
 
 define_pixels(height,thick,norm,thin,hair);
 foot_top#:=2thin#;
@@ -161,10 +162,11 @@ fet_beginchar("Numeral 2", "2", "two")
 	penpos5(norm,0);
 	z5r=(w-thin,.72h);
 	penpos6(thin,90);
-	z6r=(w/2-thin,h);
+	z6r=(w/2-thin-hair,h);
 	penlabels(4,5,6);
-	save t; t=0.90;
-	fill z1l{dir(beta)}..z4l{dir(15)}..z5r{up}..tension t..z6r{left}
+	fill z1l{dir(beta)}..z4l{dir(15)}..z5r{up}..
+		tension 0.9 ..		
+		z6r{left}
 		..z6l{right}..z5l{down}..z4r{dir(180+15)}
 		..{dir(180+beta)}z1r..cycle;
 	draw_flare(z6r,180,90,thin,thick);

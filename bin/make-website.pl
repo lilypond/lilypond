@@ -95,6 +95,7 @@ local @examples=("twinkle-pop",
 		 "twinkle", 
 		 "collisions",
 		 "font",
+		 "font20",
 		 #"scales", 
 		 "rhythm", 
 		 "multi" );
