@@ -12,8 +12,7 @@
 #include "real.hh"
 
 
-/// a T interval
-/**
+/**  a T interval. 
   this represents the closed interval [left,right].
   No invariants. T must be a totally ordered ring
   */
@@ -73,16 +72,16 @@ struct Interval_t {
     bool elt_q(T r);
 };
 
-/// partial ordering
-template<class T>
-int Interval__compare(const Interval_t<T>&,Interval_t<T> const&);
+
 /**
   inclusion ordering. Crash if not comparable.
   */
+template<class T>
+int Interval__compare(const Interval_t<T>&,Interval_t<T> const&);
 
-/****************************************************************
+/*
   INLINE
- ****************************************************************/
+ */
 
 #include "compare.hh"
 

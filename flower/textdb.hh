@@ -3,8 +3,8 @@
 
 #include "textstr.hh"
 
-/** do "#" comments, read quote enclosed  fields */
-/// a "const" Array. Contents can't be changed.
+/**a "const" Array. Contents can't be changed. do "#" comments, read quote enclosed  fields */
+
 class Text_record : Array<String>  
 {
     int line_no;
@@ -27,10 +27,10 @@ public:
     Array<String>::size;           
 };
 
-/**
+/** abstraction for a datafile.
     add a subrec/fieldsep/record separator
     */
-/// abstraction for a datafile
+
 class Text_db : private Data_file
 {
     void gobble_leading_white();

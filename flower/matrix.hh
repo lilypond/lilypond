@@ -5,8 +5,7 @@
 #include "vsmat.hh"
 #include "vector.hh"
 
-/// a Real matrix
-/** This is a class for a nonsquare block of #Real#s.  The
+/**  a Real matrix.  This is a class for a nonsquare block of #Real#s.  The
     implementation of sparse matrices is done in the appropriate #smat#
     class. Matrix only does the mathematical actions (adding,
     multiplying, etc.)
@@ -24,9 +23,8 @@ public:
     int cols() const { return dat->cols(); }
     int rows() const { return dat->rows(); }
 
-    /// return the size of a matrix
-    /**
-      @pre
+    /**  return the size of a matrix. 
+      PRE
       the matrix needs to be square.
     */
     int dim() const;
@@ -49,8 +47,7 @@ public:
     void operator*=(Real a);
     void operator/=(Real a) { (*this) *= 1/a; }
     
-    /// add a row
-    /**
+    /**  add a row. 
       add a row to the matrix before  row k
 
       PRE
@@ -58,8 +55,7 @@ public:
       0 <= k <= rows()
     */
     void insert_row(Vector v,int k);
-    ///
-    /**
+    /** . 
       delete a row from this matrix.
 
       PRE
@@ -107,15 +103,13 @@ public:
     Matrix transposed() const ;
 
     Real norm() const;
-    /// swap
-    /**
+    /**  swap. 
       PRE
       0 <= c1,c2 < cols()
     */
     void swap_columns(int c1, int c2);
 
-    /// swap
-    /**
+    /**  swap. 
       PRE
       0 <= c1,c2 < rows()
     */

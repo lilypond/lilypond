@@ -23,8 +23,8 @@ struct Scalar : public String {
     bool isnum();
     operator Real();
     operator int();
-    ///
-    /** perl -like string to bool conversion
+
+    /**   perl -like string to bool conversion.
      */
     operator bool() const;
 

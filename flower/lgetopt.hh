@@ -15,9 +15,9 @@ struct long_option_init {
 };
 
 
-///  C++ for version of long_getopt.
-/** For processing GNU style command line arguments.  No pointer
-  (return values, arguments) contents are copied.  */
+/** C++ for version of long_getopt.  For processing GNU style command
+  line arguments.  No pointer (return values, arguments) contents are
+  copied.  */
 class Getopt_long {
 public:
     /** errorcodes: no error, argument expected, no argument expected,
@@ -48,8 +48,7 @@ private:
     /// report an error and abort
     void report(Errorcod c);
 public:
-    /// what to do with  errors
-    /**
+    /**  what to do with  errors. 
        report messages on  #*os#, and abort.
        if #os# is null, then do not report nor abort, just set #error#
       */
@@ -73,8 +72,7 @@ public:
     /// construct: pass arguments and option info.
     Getopt_long(int c,  char **v, long_option_init *lo);
 
-    /// get the next option
-    /**
+    /**  get the next option. 
       @return pointer to next option found.
       0 if error occurred, or next argument is no option.
       */
