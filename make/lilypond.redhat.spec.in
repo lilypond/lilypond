@@ -48,11 +48,6 @@ Documentation and example files of LilyPond. An index is available at
 
 
 make all
-
-# make info
-make -C Documentation
-
-# make  html
 make web
 make -C Documentation/user local_package_docdir=%{docdir} omf
 
