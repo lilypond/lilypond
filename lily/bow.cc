@@ -39,7 +39,6 @@ Bow::brew_molecule_p() const
   
   Real nw_f = paper()->note_width ();
   Real nh_f = paper()->internote_f ();
-
   
   w+= (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]) * nw_f ;
   Real round_w = w;		// slur lookup rounds the slurwidth .
