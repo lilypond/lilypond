@@ -64,6 +64,9 @@ System::spanner_count () const
 void
 System::typeset_grob (Grob * elem)
 {
+  if (elem->pscore_)
+    programming_error ("Adding element twice.");
+  
   elem->pscore_ = pscore_;
   Pointer_group_interface::add_grob (this, ly_symbol2scm ("all-elements"),elem);
   scm_gc_unprotect_object (elem->self_scm ());
@@ -265,11 +268,9 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
     }
 }
 
-
 void
 System::output_molecule (SCM expr, Offset o)
 {
-
   while (1)
     {
       if (!gh_pair_p (expr))

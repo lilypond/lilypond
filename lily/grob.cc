@@ -133,7 +133,7 @@ Grob::Grob (Grob const&s)
    */
   
   status_ = s.status_;
-  pscore_ = s.pscore_;
+  pscore_ = 0;
 
   smobify_self ();
 
