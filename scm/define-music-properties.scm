@@ -82,6 +82,7 @@ For chord inversions, this is negative.")
 (music-property-description 'types list? "The types of this music object. Determines iteration in some cases.")
 (music-property-description 'repeat-count  integer? "do a @code{\repeat} how ofen?")
 (music-property-description 'span-direction ly:dir? "Does this start or stop a spanner?")
+(music-property-description 'split-list list? "splitting moments for part combiner.")
 
 (music-property-description 'start-moment-function procedure? "Function to compute the negative length of
 starting grace notes.")

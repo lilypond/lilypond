@@ -121,7 +121,7 @@ Ottava_spanner_engraver::finalize ()
 
 ENTER_DESCRIPTION(Ottava_spanner_engraver,
 /* descr */       "Create a text spanner when the ottavation property changes..",
-/* creats*/       "OttavaSpanner",
+/* creats*/       "OttavaBracket",
 /* accepts */     "",
 /* acks  */      "note-column-interface",
 /* reads */       "ottavation",
