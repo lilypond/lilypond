@@ -74,3 +74,16 @@ PS output
 </a
 >
 
+=item *
+<a href=wohltemperirt.midi
+>
+MIDI output
+</a
+>
+
+=item *
+<a href=docxx/index.html
+>
+The DOC++ documentation of the C++ sources.
+</a
+>
