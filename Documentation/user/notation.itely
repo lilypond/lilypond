@@ -1003,12 +1003,12 @@ possibilities when setting properties manually.
 
 @lilypond[quote,raggedright,verbatim]
 {
-  \set Staff.clefGlyph = #"clefs-F"
+  \set Staff.clefGlyph = #"clefs.F"
   \set Staff.clefPosition = #2
   c'4
-  \set Staff.clefGlyph = #"clefs-G"
+  \set Staff.clefGlyph = #"clefs.G"
   c'4
-  \set Staff.clefGlyph = #"clefs-C"
+  \set Staff.clefGlyph = #"clefs.C"
   c'4
   \set Staff.clefOctavation = #7
   c'4

@@ -13,6 +13,7 @@
 #(ly:set-point-and-click #f)
 #(define toplevel-scores '())
 #(define $globalheader #f)
+#(define version-seen? #f)
 
 \maininput
 %% there is a problem at the end of the input file
@@ -28,6 +29,11 @@
 	    "\n"
 	    input-file-name ": old relative compatibility was not used."
 	)))%% there is a problem at the end of the input file
+
+#(if (not version-seen?)
+  (ly:warn "No \\version included in input file.\nAdd\n\n\t\\version \"~a\"\n\nfor future compatibility" (lilypond-version)))
+  
+
 
 #(if (pair? toplevel-scores)
   (ly:parser-print-book parser
