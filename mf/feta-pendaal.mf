@@ -19,7 +19,7 @@ fet_begingroup("pedal")
 pedalpha = 40;
 pedbeta = 25;
 
-penh#=0.7stafflinethickness#;
+penh#=0.7linethickness#;
 
 penw# = 2penh# + 0.14 staff_space#;
 
@@ -38,7 +38,7 @@ fet_beginchar("Pedal asterisk", "*", "pedalasterisk")
 	save bulb, p, radius, thin;
 	path p;
 
-	thin = 0.8 stafflinethickness;
+	thin = 0.8 linethickness;
 
 	bulb + 2 radius = w;
 	0.9 thin +  bulb = (radius * pi * 2) / 8;

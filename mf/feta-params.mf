@@ -8,18 +8,26 @@ stafflines = 5;
 staff_space# = staffsize#/(stafflines-1);
 
 
-
 % measuring on pocket scores turns out: stafflinethickness is
-% independent on staff size, and generally 0.5 pt.
+% largely independent on staff size, and generally about 0.5 pt.
+%
+% by request of WL, we tune down the blackness a little
+% for increased contrast with beams.
 
-stafflinethickness#  = 0.5 pt#; 
+%% !! synchronize with paper.scm
+stafflinethickness#  = 0.3 pt# + 0.04 staff_space#; 
+
+%
+% The following tunes the general blackness of the glyphs. 
+%
+linethickness# = stafflinethickness#; %%   0.5 pt#;
 
 %
 % bigger puff_up_factor, relatively thicker stafflines.
 % 20 pt = puff_up_factor 0.
 % 10 pt = puff_up_factor 1
 %
-puff_up_factor =  (stafflinethickness# - 0.1 staff_space#) / (0.1 staff_space#);
+puff_up_factor =  (linethickness# - 0.1 staff_space#) / (0.1 staff_space#);
 
 
 
@@ -27,7 +35,7 @@ stemthickness# := 1.3 stafflinethickness#;
 ledgerlinethickness# := 2 stafflinethickness#;
 
 define_pixels(staff_space, stemthickness);
-define_pixels(stafflinethickness,ledgerlinethickness);
+define_pixels(stafflinethickness, ledgerlinethickness, linethickness);
 
 
 % 

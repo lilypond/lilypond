@@ -26,8 +26,8 @@ right_downflag_space# = .0 downflag_width#;
 
 save hip_thickness, foot_thickness;
 
-hip_thickness# = 1.0 stafflinethickness# + 0.069 staff_space#;
-foot_thickness# =   1.2055 stafflinethickness# + 0.06 staff_space#;
+hip_thickness# = 1.0 linethickness# + 0.069 staff_space#;
+foot_thickness# =   1.2055 linethickness# + 0.06 staff_space#;
 
 %
 % Inspired by Adobe Sonata and [Wanske]

@@ -462,13 +462,17 @@ Stem::position_noteheads (Grob*me)
     }
   
   bool parity= true;
-  int lastpos = int (Staff_symbol_referencer::get_position (heads[0]));
+  Real lastpos = Real (Staff_symbol_referencer::get_position (heads[0]));
   for (int i=1; i < heads.size (); i ++)
     {
       Real p = Staff_symbol_referencer::get_position (heads[i]);
-      int dy =abs (lastpos- (int)p);
+      Real dy =fabs (lastpos- p);
 
-      if (dy <= 1)
+      /*
+       dy should always be 0.5, 0.0, 1.0, but provide safety margin
+       for rounding errors.
+      */
+      if (dy < 1.1)		
 	{
 	  if (parity)
 	    {

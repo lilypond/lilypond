@@ -61,7 +61,7 @@ def draw_vaticana_do_clef(expr exact_center, reduction) =
 
 	define_pixels(reduced_il);
 
-	pickup pencircle xscaled 0.6stafflinethickness yscaled 0.6reduced_il;
+	pickup pencircle xscaled 0.6linethickness yscaled 0.6 reduced_il;
 
 	save za, zb, zc, zd, ze, zf;
 	pair za, zb, zc, zd, ze, zf;
@@ -98,14 +98,14 @@ def draw_vaticana_fa_clef(expr exact_center, reduction) =
 	pair za, zb, zc, zd, ze;
 
 	%left-handed punctum
-	pickup pencircle xscaled 0.6stafflinethickness yscaled 0.5reduced_il;
+	pickup pencircle xscaled 0.6linethickness yscaled 0.5reduced_il;
 	lft za = exact_center + (+0.00reduced_il, +0.00reduced_il);
 	    zb = exact_center + (+0.25reduced_il, +0.05reduced_il);
 	rt  zc = exact_center + (+0.50reduced_il, -0.05reduced_il);
 	draw za .. zb .. zc;
 
 	%stem
-	pickup pencircle scaled 0.6stafflinethickness;
+	pickup pencircle scaled 0.6linethickness;
 	xpart zc = xpart zd = xpart ze;
 	ypart zd = ypart exact_center = bot ypart ze + 1.5reduced_il;
 	draw zd -- ze;
@@ -141,7 +141,7 @@ fet_endchar;
 def draw_medicaea_do_clef(expr exact_center, reduction) = 
 	save reduced_il, reduced_slt;
 	reduced_il# = staff_space# * reduction;
-	reduced_slt# = stafflinethickness# * reduction;
+	reduced_slt# = linethickness# * reduction;
 	define_pixels(reduced_il);
 	define_pixels(reduced_slt);
 
@@ -207,7 +207,7 @@ def draw_medicaea_fa_clef(expr exact_center, reduction) =
 
 	save reduced_il, reduced_slt;
 	reduced_il# = staff_space# * reduction;
-	reduced_slt# = stafflinethickness# * reduction;
+	reduced_slt# = linethickness# * reduction;
 	define_pixels(reduced_il);
 	define_pixels(reduced_slt);
 
@@ -215,7 +215,7 @@ def draw_medicaea_fa_clef(expr exact_center, reduction) =
 	pair za, zb, zc, zd, ze;
 
 	%stem
-	pickup pencircle scaled stafflinethickness;
+	pickup pencircle scaled linethickness;
 	xpart za = xpart zb =
 		xpart exact_center + 0.4reduced_il;
 	ypart za = ypart exact_center = bot ypart zb + 1.5reduced_il;
@@ -312,7 +312,7 @@ enddef;
 def draw_neo_mensural_c_clef(expr exact_center, reduction) = 
 	save reduced_il, reduced_slt, stem_width;
 	reduced_il# = staff_space# * reduction;
-	reduced_slt# = stafflinethickness# * reduction;
+	reduced_slt# = linethickness# * reduction;
 	stem_width# = 1.4 reduced_slt#;
 	define_pixels(reduced_il, reduced_slt, stem_width);
 
@@ -363,7 +363,7 @@ def draw_petrucci_c_clef(expr exact_center, flare_align, reduction) =
 
 	save reduced_il, reduced_slt;
 	reduced_il# = staff_space# * reduction;
-	reduced_slt# = stafflinethickness# * reduction;
+	reduced_slt# = linethickness# * reduction;
 	define_pixels(reduced_il);
 
 	draw_brevis(exact_center + (0, 0.5staff_space#),
@@ -384,7 +384,7 @@ def draw_petrucci_c_clef(expr exact_center, flare_align, reduction) =
 	yoffs# = ypart exact_center;
 	define_pixels(xoffs, yoffs);
 
-	pickup pencircle xscaled 1.4 stafflinethickness yscaled blot_diameter;
+	pickup pencircle xscaled 1.4 linethickness yscaled blot_diameter;
 	lft x8 = lft x9 = xoffs;
 	top y8 = yoffs + left_height;
 	bot y9 = yoffs - left_depth;
@@ -460,7 +460,7 @@ def draw_mensural_c_clef(expr exact_center, reduction) =
 	save reduced_il;
 	reduced_il# = staff_space# * reduction;
 	draw_brevis(exact_center + (0, 0.5staff_space#),
-		    2reduced_il#, 0.8staff_space#, 0.8stafflinethickness#);
+		    2reduced_il#, 0.8staff_space#, 0.8linethickness#);
 	define_pixels(reduced_il);
 	addto currentpicture also currentpicture shifted (0, -staff_space);
 	addto currentpicture also currentpicture shifted (0, -staff_space);
@@ -474,7 +474,7 @@ def draw_mensural_c_clef(expr exact_center, reduction) =
 	yoffs# = ypart exact_center;
 	define_pixels(xoffs, yoffs);
 
-	pickup pencircle xscaled 1.4 stafflinethickness yscaled blot_diameter;
+	pickup pencircle xscaled 1.4 linethickness yscaled blot_diameter;
 	lft x8 = lft x9 = xoffs;
 	top y8 = yoffs + 2.2 half_reduced_il;
 	bot y9 = yoffs - 2.2 half_reduced_il - staff_space;
@@ -544,7 +544,7 @@ def draw_petrucci_f_clef(expr exact_center, reduction) =
 
 	save reduced_il, reduced_slt;
 	reduced_il# = staff_space# * reduction;
-	reduced_slt# = stafflinethickness# * reduction;
+	reduced_slt# = linethickness# * reduction;
 	define_pixels(reduced_il);
 	define_pixels(reduced_slt);
 
@@ -618,7 +618,7 @@ def draw_mensural_f_clef(expr exact_center, reduction) =
 	save width, reduced_slt, stem_width, dot_diameter;
 
 	width# = 1.2staff_space# * reduction;
-	reduced_slt# = stafflinethickness# * reduction;
+	reduced_slt# = linethickness# * reduction;
 	stem_width# = 1.4 reduced_slt#;
 	dot_diameter# = 0.1 reduction * staff_space#;
 	define_pixels(width, stem_width, staff_space, dot_diameter);
@@ -694,7 +694,7 @@ def draw_mensural_g_clef(expr exact_center, reduction) =
 	height# = 1.5 reduced_il#;
 	width# = 1.13 reduced_il#;
 	apex_o# = 0.02 reduced_il#;
-	hair# =  3 stafflinethickness#;
+	hair# =  3 linethickness#;
 	define_pixels(reduced_il, stem_width, height, width, apex_o, hair);
 
 	penpos1(2 stem_width, -142);
@@ -770,7 +770,7 @@ def draw_petrucci_g_clef(expr exact_center, reduction) =
 	save reduced_il, reduced_slt;
 
 	reduced_il# = staff_space# * reduction;
-	reduced_slt# = stafflinethickness# * reduction;
+	reduced_slt# = linethickness# * reduction;
 	define_pixels(reduced_il, reduced_slt);
 
 	set_char_box(0 - xpart exact_center,

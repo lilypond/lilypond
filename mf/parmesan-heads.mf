@@ -168,7 +168,7 @@ def draw_neo_mensural_open_head (expr wid, height)=
 	
 	save hole_widthNW, hole_widthSW;
 	hole_widthNW = 0.34 diamNW ;
-	hole_widthSW + 2.6 stafflinethickness = diamSW;
+	hole_widthSW + 2.6 linethickness = diamSW;
 
 	(z7 + z5)/2 = (w/2, 0);
 	(z8 + z6)/2 = (w/2, 0);
@@ -259,7 +259,7 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 	head_height#/2, head_height#/2);
       
       charwx := head_width# / 2;
-      charwy := head_height# / 2 - stafflinethickness#;
+      charwy := head_height# / 2 - linethickness#;
 
       pickup pencircle
 	     xscaled (min(blot_diameter, pen_w * head_width))
@@ -368,7 +368,7 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 		fi
 
 		define_pixels(convexity, excentricity, yoffs, ht, wd);
-		pickup pencircle scaled stafflinethickness;
+		pickup pencircle scaled linethickness;
 
 		path p;
 		save height, yoffs_bt;
@@ -385,9 +385,9 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 		save box_top, box_bt;
 
 		if auctum:
-			z1a = (0.00wd + stafflinethickness/2, yoffs_bt);
+			z1a = (0.00wd + linethickness/2, yoffs_bt);
 			z2a = (0.21wd, yoffs_bt + 1.0*convexity);
-			z3a = (0.42wd - stafflinethickness/2,
+			z3a = (0.42wd - linethickness/2,
 			       yoffs_bt + 1.0*excentricity);
 			box_top# = height# + yoffs_bt# +
 				max(0, 1.0*convexity#, 1.0*excentricity#);
@@ -396,10 +396,10 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 			p = z1a .. {right}z2a .. {direction}z3a --
 			    z3b{-direction} .. z2b{left} .. z1b -- cycle;
 		elseif excentric:
-			z1a = (0.00wd + stafflinethickness/2,
+			z1a = (0.00wd + linethickness/2,
 			       yoffs_bt - 1.0*convexity);
 			z2a = (0.08wd, yoffs_bt + 1.4*convexity);
-			z3a = (0.42wd - stafflinethickness/2,
+			z3a = (0.42wd - linethickness/2,
 			       yoffs_bt - 1.0*convexity);
 			box_top# = height# + yoffs_bt# +
 				max(-1.0*convexity#, 1.4*convexity#, 0);
@@ -408,9 +408,9 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 			p = z1a{direction} .. z2a{right} .. z3a --
 			    z3b .. {left}z2b .. {-direction}z1b -- cycle;
 		else:
-			z1a = (0.00wd + stafflinethickness/2, yoffs_bt);
+			z1a = (0.00wd + linethickness/2, yoffs_bt);
 			z2a = (0.21wd, yoffs_bt + 1.0*convexity);
-			z3a = (0.42wd - stafflinethickness/2, yoffs_bt);
+			z3a = (0.42wd - linethickness/2, yoffs_bt);
 			box_top# = height# + yoffs_bt# +
 				max(0, 1.0*convexity#);
 			box_bt# = yoffs_bt# +
@@ -425,18 +425,18 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 			filldraw p;
 		fi;
 
-		pickup pencircle scaled 0.6stafflinethickness;
+		pickup pencircle scaled 0.6linethickness;
 
 		save stem_bt;
 
 		if left_stem:
-			z5=(0.00wd + 0.6stafflinethickness/2, yoffs);
-			z6=(0.00wd + 0.6stafflinethickness/2, yoffs - 1.1ht);
+			z5=(0.00wd + 0.6linethickness/2, yoffs);
+			z6=(0.00wd + 0.6linethickness/2, yoffs - 1.1ht);
 			draw z5 -- z6;
 			stem_bt# = yoffs# - 1.1ht#;
 		elseif right_stem:
-			z5=(0.42wd - 0.6stafflinethickness/2, yoffs);
-			z6=(0.42wd - 0.6stafflinethickness/2, yoffs - 1.5ht);
+			z5=(0.42wd - 0.6linethickness/2, yoffs);
+			z6=(0.42wd - 0.6linethickness/2, yoffs - 1.5ht);
 			draw z5 -- z6;
 			stem_bt# = yoffs# - 1.5ht#;
 		else:
@@ -444,12 +444,12 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 		fi;
 
 		set_char_box(0.00wd#, 0.42wd#,
-			     max(0, -box_bt#, -stem_bt#) + stafflinethickness#/2,
-			     max(0, box_top#) + stafflinethickness#/2);
+			     max(0, -box_bt#, -stem_bt#) + linethickness#/2,
+			     max(0, box_top#) + linethickness#/2);
 
 		if linea:
 			save linea_width, linea_height;
-			linea_width# = 0.6 stafflinethickness#;
+			linea_width# = 0.6 linethickness#;
 			linea_height# = 0.7 ht#;
 			define_pixels (linea_width, linea_height);
 			draw_block ((-0.10wd - linea_width/2,
@@ -499,10 +499,10 @@ def inclinatum_char(expr verbose_name, internal_name, ly_name,
 		fi;
 
 		if auctum:
-			pickup pencircle scaled stafflinethickness;
+			pickup pencircle scaled linethickness;
 			save za, zb, zc;
 			pair za, zb, zc;
-			za = (0, -0.5 head_height + stafflinethickness);
+			za = (0, -0.5 head_height + linethickness);
 			zb = 0.6 (za + zc);
 			zc = za + (0.52 head_width, 0);
 			draw za{(0,-1) rotated alpha#} .. {right}zb{right} ..
@@ -618,7 +618,7 @@ fet_beginchar("Ed. Vat. quilisma", "vaticana_quilisma", "vatquilismahead")
 	black_notehead_width# := wd#;
 
 	define_pixels(ht, wd);
-	pickup pencircle xscaled stafflinethickness yscaled 0.44ht;
+	pickup pencircle xscaled linethickness yscaled 0.44ht;
 	lft x1 = 0.00wd; bot y1 = -0.28ht;
 	x2 = 0.11wd;     y2 = -0.14ht;
 	x3 = 0.12wd;     y3 = +0.03ht;
@@ -725,17 +725,17 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 		draw z1 .. z2;
 
 		pickup pencircle
-			xscaled stafflinethickness
+			xscaled linethickness
 			yscaled blot_diameter;
 
 		if left_down_stem:
-			z4=(0.00wd + stafflinethickness/2, blot_diameter/2);
-			z5=(0.00wd + stafflinethickness/2, - 1.25ht);
+			z4=(0.00wd + linethickness/2, blot_diameter/2);
+			z5=(0.00wd + linethickness/2, - 1.25ht);
 			draw z4 .. z5;
 			set_char_box(0.0, 0.4wd#, 1.25ht#, 0.25ht#);
 		elseif left_up_stem:
-			z4=(0.00wd + stafflinethickness/2, blot_diameter/2);
-			z5=(0.00wd + stafflinethickness/2, + 1.25ht);
+			z4=(0.00wd + linethickness/2, blot_diameter/2);
+			z5=(0.00wd + linethickness/2, + 1.25ht);
 			draw z4 .. z5;
 			set_char_box(0.0, 0.4wd#, 0.25ht#, 1.25ht#);
 		else:
@@ -804,7 +804,7 @@ fet_beginchar("Hufnagel pes lower punctum", "hufnagel_lpes", "huflpeshead")
 
 	set_char_box(0, width#, height#/2, height#/2);
 
-	pickup pencircle scaled stafflinethickness;
+	pickup pencircle scaled linethickness;
 	define_pixels(width, height);
 
 	rt x3 = -lft x1 = width/2;
