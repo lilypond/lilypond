@@ -45,3 +45,10 @@ bc=\melodic{
   }
 }
 ***************************
+
+	\score { < 
+		\melodic { \id "Staff" ""; c'4 g'4 }
+		\lyric {   \id "Lyric" ""; hello4 bye4 < a chord > }
+		\lyric {   \id "Lyric" ""; bye4 hello4 }
+		\melodic { \id "Staff" ""; c'4 g'4 }
+	> }
