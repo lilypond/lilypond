@@ -377,7 +377,7 @@ You can also compile a RPM for SUSE yourself.  A spec file is in
 the Red Hat RPM.
 
 You must have the following packages: guile tcsh tetex te_latex te_kpath
-te_mpost libpng python gpp libgpp gettext autoconf netpbm libnetpb
+te_mpost libpng python gpp libgpp gettext autoconf253 netpbm libnetpb
 gs_serv gs_lib gs_fonts guile
 
 @subsection Slackware

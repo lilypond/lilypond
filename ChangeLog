@@ -1,5 +1,21 @@
 2002-06-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* GNUmakefile.in (short-examples):
+	(long-examples): Bugfix for --srcdir build.
+
+	* stepmake/bin/config.sub: 
+	* stepmake/bin/config.guess: Update from latest autotools.
+
+	* aclocal.m4:
+	* autogen.sh: Regenerate.
+	
+	* configure.in: 
+	* stepmake/configure.in: 
+	* stepmake/aclocal.m4: Run autoupdate.  Creating ./configure now
+	requires autoconf >= 2.50.
+
+	* stepmake/autogen.sh: Check for autoconf >= 2.50.
+
 	* Documentation/user/refman.itely: Bugfix for tablature example.
 
 	* Documentation/windows/compiling.texi: Update for new and

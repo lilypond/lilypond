@@ -1,4 +1,5 @@
 GNUmakefile
+autom4te.cache
 configure
 config.cache
 config.h
