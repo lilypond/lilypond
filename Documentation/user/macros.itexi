@@ -75,7 +75,7 @@
 @c using @ref without punctuation is OK without for formats other than info
 @ref{\NAME\,,,lilypond-internals}@c
 @c should we do this? 
-@cindex @code{\NAME\}
+@findex \NAME\
 @end macro
 
  @c what is this? -- jcn
@@ -85,7 +85,7 @@
  @c should we do this? 
  @c using @ref without punctuation is OK without for formats other than info
  @ref{\NODENAME\,,\NAME\,lilypond-internals}@c
- @cindex @code{\NAME\}
+ @findex \NAME\
  @end macro
 
  @macro inputfileref{DIR,NAME}
@@ -104,14 +104,14 @@
  @c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
  @inforef{\NAME\,,lilypond-internals}@c
  @c should we do this? 
- @cindex @code{\NAME\}
+ @findex @code{\NAME\}
  @end macro
 
  @macro hyphenatedinternalsref{NAME,NODENAME}
  @c @uref{../lilypond-internals/\NODENAME\.html,\NAME\}@c
  @inforef{\NODENAME\,,lilypond-internals}@c
  @c should we do this? 
- @cindex @code{\NAME\}
+ @findex @code{\NAME\}
  @end macro
 
  @macro inputfileref{DIR,NAME}
@@ -125,14 +125,14 @@
 @c **** INFO ****
 @macro internalsref{NAME}
 @inforef{\NAME\,,lilypond/lilypond-internals}@c
-@cindex \NAME\@c
+@findex \NAME\@c
 @end macro
 
 @macro hyphenatedinternalsref{NAME,NODENAME}
 @c FIXME: suspicious info file name?
 @inforef{\NODENAME\,,lilypond-internals}@c
 @c should we do this? 
-@cindex @code{\NAME\}
+@findex @code{\NAME\}
 @end macro
 
 @macro inputfileref{DIR,NAME}
@@ -150,7 +150,7 @@
 @c **** TEX ****
 
 @macro internalsref{NAME}@c
-@cindex @code{\NAME\} @c
+@findex \NAME\ @c
 @code{\NAME\}@c
 @end macro
 
@@ -205,7 +205,7 @@ internals document,  @internalsref{\NAME\}
 
 @macro context{NAME}@c
 @code{\NAME\}@c should use internalsref
-@cindex \NAME\@c
+@findex \NAME\@c
 @end macro
 
 
@@ -218,6 +218,6 @@ internals document,  @internalsref{\NAME\}
 @c   --hwn
 
 @macro refcommand{WHAT}
-@cindex @code{\WHAT\}
-@code{\WHAT\}, 
+@findex \WHAT\
+@code{\WHAT\} 
 @end macro

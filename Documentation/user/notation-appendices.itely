@@ -8,8 +8,6 @@
 * Chord name chart::            
 * MIDI instruments::            
 * The Feta font::               
-* All context properties::      
-* Layout properties::           
 @end menu
 
 
@@ -88,15 +86,16 @@ accessed directly using text markup such as @code{g^\markup @{
 @lilypondfile[noindent]{parmesan16list.ly}
 
 
-
+@ignore
 @node All context properties
-@appendixsec All context properties
+@a ppendixsec All context properties
 
-@include context-properties.tely
+@i nclude context-properties.tely
 
 
 @node Layout properties
-@appendixsec Layout properties
+@ap pendixsec Layout properties
 
-@include layout-properties.tely
+@in clude layout-properties.tely
 
+@end ignore

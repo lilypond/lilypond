@@ -4,7 +4,7 @@
 
 @node Top, , , 
 @top
-@unnumbered New features in 2.3 since 2.2
+@unnumbered New features in 2.4 since 2.2
 
 @itemize @bullet
 @item @code{\bookpaper} and @code{\paper} have been renamed to
