@@ -19,7 +19,6 @@ public:
 
   static Array<int> note_head_positions (Grob*);
   static  int duration_log (Grob*) ;
-  static int beam_count (Grob*,Direction) ;
   static void set_beaming (Grob*,int,  Direction d);
   static Grob * beam_l (Grob*);
   static Grob * first_head (Grob*) ;

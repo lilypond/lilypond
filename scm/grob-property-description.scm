@@ -104,7 +104,13 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'beamed-lengths list? "list of stem lengths given beam multiplicity .")
 (grob-property-description 'beamed-minimum-lengths list? "list of minimum stem lengths given beam multiplicity.")
 (grob-property-description 'beamed-stem-shorten list? "shorten beamed stems in forced direction.")
-(grob-property-description 'beaming number-pair? "number of beams extending to left and right.")
+(grob-property-description 'beaming pair?
+			   "Pair of number lists. Each number list
+specifies which beams to make. 0 is the central beam, 1 is the next
+beam toward the note etc. This information is used to determine how to
+connect the beaming patterns from stem to stem inside a beam.")
+
+
 (grob-property-description 'beautiful number? "number that dictates when a slur should be de-uglyfied.  It correlates with the enclosed area between noteheads and slurs.  A value of 0.1 yields only undisturbed slurs, a value of 5 will tolerate quite high blown slurs.")
 (grob-property-description 'before-line-breaking-callback procedure? "Procedure taking grob as argument.
 This procedure is called (using dependency resolution) before line breaking, but after generating discretionary items. Return value is ignored.")
@@ -206,6 +212,8 @@ collision_note_width that overides automatic collision settings. This
 is used by @ref{note-collision-interface}.")
 
 (grob-property-description 'fraction number-pair? "fraction of a time signature.")
+(grob-property-description 'french-beaming boolean? "Use French
+beaming style: stems stop at innermost beams.")
 (grob-property-description 'full-size-change boolean? "if set, don't make a change clef smaller.")
 
 (grob-property-description 'glyph string? "a string determining what (style) of  glyph is typeset. Valid choices depend on the function that is reading this property. .")

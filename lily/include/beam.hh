@@ -24,13 +24,14 @@ public:
   static void add_stem (Grob*,Grob*);
   static void set_beaming (Grob*,Beaming_info_list *);
   static void set_stemlens (Grob*);
-  static int get_multiplicity (Grob*me);
-  static Real get_interbeam (Grob*me);
+  static int get_beam_count (Grob*me);
+  static Real get_beam_space (Grob*me);
+  static void connect_beams (Grob*me);
   DECLARE_SCHEME_CALLBACK (space_function, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
-
+  
   /* position callbacks */
   DECLARE_SCHEME_CALLBACK (least_squares, (SCM));
   DECLARE_SCHEME_CALLBACK (check_concave, (SCM));
@@ -47,15 +48,12 @@ public:
 				      int, Direction, Direction);
   
   
-  static Molecule stem_beams (Grob*,Item *here, Item *next, Item *prev,
-			      Real dydx);
-
 private:
   static Direction get_default_dir (Grob*);
   static void set_stem_directions (Grob*, Direction );
   static void consider_auto_knees (Grob*, Direction d);
   static void set_stem_shorten (Grob*);
-  static Real calc_stem_y (Grob*, Grob* s, Interval pos, bool correct);
+  static Real calc_stem_y (Grob*, Grob* s, Interval pos, bool french);
   static void set_stem_lengths (Grob*);
   static int forced_stem_count (Grob*);
 };

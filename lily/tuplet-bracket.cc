@@ -178,11 +178,11 @@ Tuplet_bracket::brew_molecule (SCM smob)
       do {
 	width[d] =  height[d] = shorten[d] = 0.0;
 	if ( ly_number_pair_p (ew) )
-	  width[d] +=  gh_scm2double (index_cell (ew, d));
+	  width[d] +=  gh_scm2double (index_get_cell (ew, d));
 	if ( ly_number_pair_p (eh) )
-	  height[d] += gh_scm2double (index_cell (eh, d)) * - dir;
+	  height[d] += gh_scm2double (index_get_cell (eh, d)) * - dir;
 	if ( ly_number_pair_p (sp) )
-	  shorten[d] +=  gh_scm2double (index_cell (sp, d));
+	  shorten[d] +=  gh_scm2double (index_get_cell (sp, d));
       }
       while (flip (&d) != LEFT);
       

@@ -28,7 +28,7 @@ Script_interface::get_molecule (Grob * me, Direction d)
   if (key == ly_symbol2scm ("feta"))
     {
       return Font_interface::get_default_font (me)->find_by_name ("scripts-" +
-				    ly_scm2string (index_cell (ly_cdr (s), d)));
+				    ly_scm2string (index_get_cell (ly_cdr (s), d)));
     }
   else if (key == ly_symbol2scm ("accordion"))
     {

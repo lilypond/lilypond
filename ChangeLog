@@ -1,3 +1,11 @@
+2002-07-13  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/beam.cc: complete rewrite of multiplicity. This fixes 16th
+	knees code.
+	(quanting): add french beaming support (property french-beaming)
+
+
+	
 2002-07-12  Han-Wen  <hanwen@cs.uu.nl>
 
 	* input/regression/grace-auto-beam.ly: new file

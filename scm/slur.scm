@@ -69,7 +69,7 @@
 		       (let ((beaming (ly-get-grob-property stem 'beaming)))
 			 ;; (display "beaming (") (display dir) (display "): ") (write beaming) (newline)
 			 (if (pair? beaming)
-			     (>= (if (= dir -1) (cdr beaming) (car beaming))
+			     (>= (length (if (= dir -1) (cdr beaming) (car beaming)))
 				1)
 			     #f))))))
 	 'stem)

@@ -107,23 +107,27 @@ Stem_tremolo::brew_molecule (SCM smob)
 
     --hwn.
    */
-  Real interbeam = beam ? Beam::get_interbeam (beam) : 0.81;
+  Real beam_space = beam ? Beam::get_beam_space (beam) : 0.81;
 
   Molecule mol; 
   for (int i = 0; i < tremolo_flags; i++)
     {
       Molecule b (a);
-      b.translate_axis (interbeam * i, Y_AXIS);
+      b.translate_axis (beam_space * i, Y_AXIS);
       mol.add_molecule (b);
     }
   Direction stemdir = Stem::get_direction (stem);
   Interval mol_ext = mol.extent (Y_AXIS);
 
   // ugh, rather calc from Stem_tremolo_req
-  int beams_i = (beam)
-    ? (Stem::beam_count (stem, RIGHT) >? Stem::beam_count (stem, LEFT))
-    : 0;
+
+  /*
+    TODO.
+   */
   
+  assert(false);
+
+  int beams_i = 0;  
   Real beamthickness = 0.0;
   SCM sbt = (beam) ? beam->get_grob_property ("thickness") : SCM_EOL ;
   if (gh_number_p (sbt))
@@ -134,7 +138,7 @@ Stem_tremolo::brew_molecule (SCM smob)
   Real end_y
     = Stem::stem_end_position (stem) *ss/2 
     - stemdir * (beams_i * beamthickness
-		 + ((beams_i -1) >? 0) * interbeam);
+		 + ((beams_i -1) >? 0) * beam_space);
 
   /*
     the 0.33 ss is to compensate for the size of the note head
@@ -142,7 +146,7 @@ Stem_tremolo::brew_molecule (SCM smob)
   Real chord_start_y = Stem::chord_start_y (stem) +
     0.33 * ss * stemdir;
 
-  Real padding = interbeam;
+  Real padding = beam_space;
 
   /*
     if there is not enough space, center on remaining space,
@@ -154,7 +158,7 @@ Stem_tremolo::brew_molecule (SCM smob)
     }
   else
     {
-      mol.translate_axis (end_y - stemdir * interbeam
+      mol.translate_axis (end_y - stemdir * beam_space
 			  -mol_ext [stemdir]
 			  , Y_AXIS);
     }
