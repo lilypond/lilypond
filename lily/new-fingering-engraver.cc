@@ -187,7 +187,9 @@ New_fingering_engraver::position_scripts ()
     }
   
   fingerings_.sort (&Finger_tuple::compare);
-  if (to_boolean (get_property ("fingersHorizontal")))
+  SCM fhd = get_property ("fingerHorizontalDirection");
+  
+  if (ly_dir_p (fhd))
     {
       up.push (fingerings_.pop());
       down.push (fingerings_[0]);
@@ -211,7 +213,8 @@ New_fingering_engraver::position_scripts ()
       f->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, Y_AXIS);
       f->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, Y_AXIS);
       f->add_offset_callback (Side_position_interface::aligned_side_proc, X_AXIS);
-      f->set_grob_property( "direction", gh_int2scm (RIGHT));
+
+      f->set_grob_property( "direction", fhd);
       typeset_grob (f);
     }
 
@@ -256,7 +259,7 @@ New_fingering_engraver::stop_translation_timestep ()
   if (fingerings_.size ())
     {
       position_scripts();
-        fingerings_.clear ();
+      fingerings_.clear ();
     }
   
   for (int i =  articulations_.size(); i--;)

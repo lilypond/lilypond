@@ -15,6 +15,13 @@
 
 2003-01-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/new-fingering-engraver.cc (position_scripts): use
+	fingerHorizontalDirection to determine fingering horizontal
+	directions.
+ 
+	* lily/accidental-engraver.cc (acknowledge_grob): add accidental to
+	fingering support.
+
 	* scripts/convert-ly.py	(FatalConversionError.conv): add style
 	conversion rule. 
 

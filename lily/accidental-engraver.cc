@@ -16,7 +16,6 @@
 #include "engraver.hh"
 #include "arpeggio.hh"
 #include "warn.hh"
-
 #include "translator-group.hh"
 
 /**
@@ -71,19 +70,16 @@ public:
     Urgh. Since the accidentals depend on lots of variables, we have to
     store all information before we can really create the accidentals.
   */
-  Link_array<Grob> arpeggios_;
+  Link_array<Grob> left_objects_;
+  Link_array<Grob> right_objects_;
 
   Grob * accidental_placement_;
-  
 
   /*
     The next 
    */
   Array<Accidental_entry> accidentals_;
-  
   Link_array<Grob> ties_;
-
-
 };
 
 
@@ -334,8 +330,10 @@ Accidental_engraver::process_acknowledged_grobs ()
 	accidentals. 
 	
       */
-	      for (int i = 0;  i < arpeggios_.size ();  i++)
-		Side_position_interface::add_support (arpeggios_[i], a);
+	      for (int i = 0;  i < left_objects_.size ();  i++)
+		Side_position_interface::add_support (left_objects_[i], a);
+	      for (int i = 0;  i < right_objects_.size ();  i++)
+		Side_position_interface::add_support (a, right_objects_[i]);
 	    }
 	  
 
@@ -422,7 +420,8 @@ Accidental_engraver::stop_translation_timestep ()
   accidental_placement_ = 00;
   
   accidentals_.clear();
-  arpeggios_.clear ();
+  left_objects_.clear ();
+  right_objects_.clear ();
   ties_.clear ();
 }
 
@@ -448,9 +447,12 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
     }
   else if (Arpeggio::has_interface (info.grob_))
     {
-      arpeggios_.push (info.grob_); 
+      left_objects_.push (info.grob_); 
     }
-  
+  else if (info.grob_->internal_has_interface (ly_symbol2scm("finger-interface")))
+    {
+      left_objects_.push (info.grob_); 
+    }
 }
 
 void
@@ -485,6 +487,6 @@ ENTER_DESCRIPTION (Accidental_engraver,
 " with note heads), this needs to be in a context higher than Tie_engraver.",
 	       "Accidental",
 /* accepts */     "",
-	       "rhythmic-head-interface tie-interface arpeggio-interface",
+	       "finger-interface rhythmic-head-interface tie-interface arpeggio-interface",
 	       "localKeySignature extraNatural autoAccidentals autoCautionaries",
 		   "localKeySignature");

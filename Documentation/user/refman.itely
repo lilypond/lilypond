@@ -3594,7 +3594,7 @@ at the beginning of the next line, opposite to what you want for the
 fermata. This can be corrected by the following property setting
 @example
 \property Score.RehearsalMark \override
-  #'visibility-lambda = #begin-of-line-invisible
+  #'break-visibility = #begin-of-line-invisible
 @end example
 
 @cindex fermatas
