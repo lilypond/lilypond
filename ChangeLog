@@ -1,8 +1,12 @@
 2002-08-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	 * scm/output-lib.scm: Support of hammers and pulls in tablature
+	* VERSION: 1.73 released.
+
+2002-08-14 <jiba@tuxfamily.org>
+
+	* scm/output-lib.scm: Support of hammers and pulls in tablature
 	-- Hammers and pulls are inserted exactly like slurs, and a "H" or
-	a "P" is added over the slur as needed.  The file
+	a "P" is added over the slur as needed.  
 
 	* ./input/test/tablature-hammer.ly: example of hammer, pull and
 	legato in a tablature.
