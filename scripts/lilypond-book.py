@@ -408,10 +408,12 @@ output_dict= {
 %% generated: %(fn)s.eps
 ''',
 		'output-latex-quoted': r'''{\preLilyPondExample
+\def\lilypondbook{}
 \input %(fn)s.tex
 \postLilyPondExample}''',
 		'output-latex-noquote': r'''{\parindent 0pt
 \preLilyPondExample
+\def\lilypondbook{}
 \input %(fn)s.tex
 \postLilyPondExample}''',
 		'pagebreak': r'\pagebreak',
