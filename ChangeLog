@@ -1,3 +1,12 @@
+2004-05-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/parser.yy (Generic_prefix_music): allow generic
+	music-transformation functions.	
+
+	* lily/include/music-head.hh (is_music_head): new file.
+
+	* lily/music-head.cc (get_music_head_transform): new file.
+
 2004-05-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/ottava-bracket.cc (print): use coordinate, not (0,0) for
