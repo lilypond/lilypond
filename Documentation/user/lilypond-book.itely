@@ -331,10 +331,9 @@ affects LilyPond, not the text layout.
 @item notexidoc
 Do not include the .texidoc header. This is only for Texinfo output.
 
-@item noquote
-By default, @command{lilypond-book} puts both La@TeX{} and texinfo output
-into a quotation block.  Using this option prevents this; no indentation
-will be used.
+@item quote
+Instruct @command{lilypond-book} to put La@TeX{} and texinfo output
+into a quotation block.
 
 @item printfilename
 Prints the file name before the music example.  Useful in conjunction

@@ -1110,15 +1110,15 @@ def schedule_lilypond_block (chunk):
 		if 'eps' in opts:
 			s = 'output-eps'
 		else:
-			if 'noquote' in opts:
-				s = 'output-latex-noquote'
-			else:
+			if 'quote' in opts:
 				s = 'output-latex-quoted'
+			else:
+				s = 'output-latex-noquote'
 	elif format == 'texi':
-		if 'noquote' in opts:
-			s = 'output-texi-noquote'
-		else:
+		if 'quote' in opts:
 			s = 'output-texi-quoted'
+		else:
+			s = 'output-texi-noquote'
 	else: # format == 'html'
 		s = 'output-html'
 	newbody = newbody + get_output (s) % {'fn': basename }
