@@ -30,7 +30,7 @@
 
     */
 struct Spanner:Staff_elem {
-    PCol *left, *right;
+    PCol *left_col_l_, *right_col_l_;
 
     
     /* *************** */
