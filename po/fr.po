@@ -672,8 +672,8 @@ msgstr "aucun fichier spéficié sur la ligne de commande"
 #. # do -P or -p by default?
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
 #: ly2dvi.py:121
-msgid "Run LilyPond, add titles, generate printable document"
-msgstr "Exéctuer LilyPond, ajouter les titres et générer les documents imprimables"
+msgid "Run LilyPond, add titles, generate printable document."
+msgstr "Exéctuer LilyPond, ajouter les titres et générer les documents imprimables."
 
 #: ly2dvi.py:127 main.cc:115
 msgid "write Makefile dependencies for every input file"

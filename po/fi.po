@@ -674,8 +674,8 @@ msgstr "tiedostoja ei m‰‰ritelty komentorivill‰"
 #. # do -P or -p by default?
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
 #: ly2dvi.py:121
-msgid "Run LilyPond, add titles, generate printable document"
-msgstr "Aja LilyPond, lis‰‰ otsikot, tuota tulostettava dokumentti"
+msgid "Run LilyPond, add titles, generate printable document."
+msgstr "Aja LilyPond, lis‰‰ otsikot, tuota tulostettava dokumentti."
 
 #: ly2dvi.py:127 main.cc:115
 msgid "write Makefile dependencies for every input file"
