@@ -1988,6 +1988,10 @@ inserting @code{\startGraceMusic} before handling the grace notes, and
 these definitions to globally change grace note formatting. The
 standard definitions are in @file{ly/grace-init.ly}.
 
+Notice how the @code{\override} is carefully matched with a @code{\revert}.
+
+@cindex slash
+@cindex grace slash
 
 @lilypond[fragment,verbatim]
 \relative c'' \context Voice {
@@ -1999,6 +2003,8 @@ standard definitions are in @file{ly/grace-init.ly}.
   } c4
 }
 @end lilypond
+
+
 
 If you want to end a note with a grace note, then the standard trick
 is to put the grace notes before a phantom ``space note'', e.g.
