@@ -173,6 +173,17 @@ public:
        fixed_p_->dict_arr_[l].name_ = s;
        return fixed_p_->dict_arr_[l].value_;
     }
+  V elem (String s) const
+    {
+      return const_elem (s);
+    }
+  V const_elem (String k) const
+  {
+      V retval;
+      if (elem_b (k))
+	retval = ((Dictionary<V>*)this)->elem (k);
+      return retval;
+  }
   V& operator [] (String k)
     {
       return elem (k);
@@ -180,10 +191,7 @@ public:
 
   V operator [] (String k) const
     {
-      V retval;
-      if (!elem_b (k))
-	return retval ;
-      return ((Dictionary<V> *) this)->elem (k);
+      return const_elem (k);
     }
 
   V remove (String s)
