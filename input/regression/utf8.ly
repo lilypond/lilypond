@@ -31,8 +31,8 @@ will render Japanese, Hebrew and Cyrillic.
 japanese = \lyricsto "melody" \new Lyrics {  
 
   いろはにほへど ちりぬるを
-  わがよたれぞ つねならむ
-  うゐのおくやまけふこえて
+  わがよたれぞ  つねならむ
+  うゐのおくや  まけふこえて
   あさきゆめみじ ゑひもせず 
 
  }
@@ -59,6 +59,6 @@ hebrew = \lyricsto "melody" \new Lyrics {
 
   %% no support for TTF  yet.
   
-%  \japanese
+  \japanese
   
 >>

@@ -10,7 +10,7 @@ depth = .
 # 
 SUBDIRS = buildscripts python scripts \
 	elisp \
-	flower lily \
+	flower ttftool lily \
 	mf ly tex ps scm \
 	po make \
 	cygwin debian stepmake \

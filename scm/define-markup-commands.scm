@@ -487,7 +487,7 @@ and/or @code{extra-offset} properties. "
 			   (cons (min stemy attachy)
 				 (max stemy attachy))
 			   (/ stem-thickness 3))))
-         (dot (ly:font-get-glyph font "dots-dot"))
+         (dot (ly:font-get-glyph font "dots.dot"))
          (dotwid (interval-length (ly:stencil-extent dot X)))
          (dots (and (> dot-count 0)
                     (apply ly:stencil-add

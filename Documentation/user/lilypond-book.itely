@@ -239,18 +239,18 @@ defined by the user.
 @cindex fetachar
 
 To include feta symbols (such as flat, segno, etc) in a LaTeX
-document, use @code{\input{titledefs}
+document, use @code{\input@{titledefs@}}
 
 @example
-\documentclass[a4paper]{article}
+\documentclass[a4paper]@{article@}
 
-\input{titledefs}
+\input@{titledefs@}
 
-\begin{document}
+\begin@{document@}
 
 \fetachar\fetasharp
 
-\end{document}
+\end@{document@}
 @end example
 
 The font symbol names are defined in the file feta20.tex; to find

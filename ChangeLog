@@ -1,3 +1,26 @@
+2005-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/pfb.cc (LY_DEFINE): ly:ttf->pfa, new function.
+
+	* THANKS: add Steve D
+
+	* ttftool/*.c: add TTF -> Type42 conversion library.
+
+2005-02-20  Tatsuya Ono  <tats_ono@infoseek.jp>
+
+	* mf/parmesan-heads.mf: "0harmonic" -> "s0harmonic"
+	to show harmonic notes
+	* scm/define-markup-commands.scm: in \markup-by-number
+	"dots-dot" -> "dots.dot" to show dotted notes
+
+2005-02-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* flower/include/memory-stream.hh (class Memory_out_stream): new file.
+
+	* flower/memory-stream.cc (writer): new file.
+
+	* configure.in: add endian test.
+
 2005-02-19  Jürgen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/examples.itely: small
