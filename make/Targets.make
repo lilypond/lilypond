@@ -30,10 +30,8 @@ endif
 # dependency list of executable:
 #
 
-$(EXECUTABLE): $(build) $(OFILES) $(outdir)/version.hh
+$(EXECUTABLE):  $(OFILES) $(outdir)/version.hh
 	$(MAKE) $(MODULE_LIBDEPS) 
-	$(INCREASE_BUILD)
-	$(MAKE) -S $(OFILES)  $(SILENT_LOG)
 ifdef STABLEOBS
 	$(DO_STRIP) $(STABLEOBS)
 endif
@@ -41,22 +39,14 @@ endif
 
 exe: $(EXECUTABLE)
 
-$(build): $(depth)/VERSION
-	echo 0 > $@
 
 # dependency list of library:
 #
-LIBRARY = $(outdir)/$(LIB_PREFIX)$(NAME).a
-$(LIBRARY): $(build) $(OFILES)
-	$(INCREASE_BUILD)
-	$(MAKE) $(OFILES)  $(SILENT_LOG)
+$(LIBRARY):  $(OFILES)
 	$(AR_COMMAND) $(OFILES)
 	$(RANLIB_COMMAND)
 
-SHAREDLIBRARY=$(outdir)/$(LIB_PREFIX)$(NAME).so
-$(SHAREDLIBRARY):  $(build) $(OFILES) $(MODULE_LIBDEPS)
-	$(INCREASE_BUILD)
-	$(MAKE) $(OFILES)  $(SILENT_LOG)
+$(SHAREDLIBRARY):   $(OFILES) $(MODULE_LIBDEPS)
 	$(LD_COMMAND) $(OFILES) -o $@.$(VERSION)
 	rm -f $@
 	ln -sf $(outdir)/$(LIB_PREFIX)$(NAME).so.$(VERSION) $@.$(MAJOR_VERSION)
@@ -66,18 +56,24 @@ $(SHAREDLIBRARY):  $(build) $(OFILES) $(MODULE_LIBDEPS)
 lib: $(LIBRARY)
 #
 
+
+make-all-outdirs: make-outdir
+	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i make-all-outdirs; done
+
+make-outdir:
+	-mkdir $(OUTDIR_NAME)
+
 # be careful about deletion.
 clean: localclean
-	rm -f core 
-ifdef EXECUTABLE
-	rm -f $(EXECUTABLE)
+	rm -f $(outdir)/*
+	touch $(outdir)/dummy.dep
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
 endif
-ifdef OFILES
-	rm -f $(OFILES)
-endif
-ifdef DEPFILES
-	rm -f $(DEPFILES)
-endif
+
+distclean: subdir-distclean local-distclean
+
+subdir-distclean:
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
 endif
@@ -111,12 +107,13 @@ dos:
 # target help:
 #
 help:
+	@echo "Makefile for LilyPond $(TOPLEVEL_VERSION)"
 	@echo "Usage:"
 	@echo "	$(MAKE) ["VARIABLE=value" ...] [target]"
 	@echo
 	@echo "targets:"
 	@echo "	all clean config dist distclean doc doc++"
-	@echo "	exe help lib moduledist TAGS"
+	@echo "	exe help lib TAGS"
 	@echo "	dos:	xcomplile to dos"
 	@echo "	windows32: native cygnus-gnu compile" 
 #
@@ -127,6 +124,7 @@ doc:
 
 # ugh. should generate in out/
 dist:
+	rm -rf $(distdir)
 	-mkdir $(distdir)
 	$(MAKE) localdist
 	chmod -R a+r $(distdir)
@@ -167,18 +165,6 @@ ifdef SUBDIRS
 		$(MAKE) localdir=$(localdir)/$$i -C $$i localdist; done
 endif
 
-moduledist:
-	-mkdir $(module-distdir)
-	$(MAKE) localmoduledist
-	(cd $(depth)/$(outdir); $(TAR) cfz $(MODULE_DIST_NAME).tar.gz $(MODULE_DIST_NAME))
-	rm -rf $(module-distdir)/ 
-
-localmoduledist:
-	$(LN) $(DISTFILES) $(module-distdir)/$(localdir)
-ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do mkdir $(module-distdir)/$(localdir)/$$i; done
-	set -e; for i in $(SUBDIRS); do $(MAKE) localdir=$(localdir)/$$i -C $$i localmoduledist; done
-endif
 
 TAGS:$(all-tag-sources)
 ifdef all-tag-sources
@@ -203,6 +189,8 @@ configure: configure.in aclocal.m4
 	chmod +x configure
 
 localclean:
+
+local-distclean:
 
 install-strip:
 	$(MAKE) INSTALL="$(INSTALL) -s" install
@@ -255,12 +243,6 @@ check-mf-deps:
 
 
 
-installexe:
-	$(INSTALL) -d $(bindir)
-	$(INSTALL) -m 755 $(EXECUTABLES) $(bindir)
-
-uninstallexe:
-	for a in $(EXECUTABLES); do rm -f $(bindir)/`basename $$a`; done
 
 ifneq ($(DEPFILES),)
 include $(DEPFILES)
