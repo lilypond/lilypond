@@ -718,18 +718,14 @@ def filter_pipe (input, cmd):
 def run_filter (s):
 	return filter_pipe (s, filter_cmd)
 
-def is_derived (object, base):
-	def recurse (cl,  baseclass):
-		if cl == baseclass:
+def is_derived_class (cl,  baseclass):
+	if cl == baseclass:
+		return True
+	for b in cl.__bases__:
+		if is_derived_class (b, baseclass):
 			return True
-		for b in cl.__bases__:
-			if recurse (b, baseclass):
-				return True
-		return False
-			
-	cl = object.__class__
-	return recurse (cl, base)
-	
+	return False
+
 
 def process_snippets (cmd, snippets):
 	names = filter (lambda x: x, map (Lilypond_snippet.basename, snippets))
@@ -891,7 +887,7 @@ def do_file (input_filename):
 		
 		
 	elif process_cmd:
-		outdated = filter (lambda x: is_derived (x, Lilypond_snippet) \
+		outdated = filter (lambda x: is_derived_class (x.__class__, Lilypond_snippet) \
 				   and x.is_outdated (), chunks)
 		ly.progress (_ ("Writing snippets..."))
 		map (Lilypond_snippet.write_ly, outdated)
@@ -917,7 +913,7 @@ def do_file (input_filename):
 		do_file (name)
 		
 	map (process_include,
-	     filter (lambda x: is_derived (x, Include_snippet), chunks))
+	     filter (lambda x: is_derived_class (x.__class__, Include_snippet), chunks))
 
 def do_options ():
 	global format, output_name
