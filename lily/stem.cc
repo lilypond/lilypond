@@ -24,7 +24,7 @@
 #include "beam.hh"
 #include "rest.hh"
 #include "group-interface.hh"
-#include "cross-staff.hh"
+// #include "cross-staff.hh"
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 
@@ -639,7 +639,10 @@ Stem::calc_stem_info (Grob*me)
   if (gh_number_p (s))
     info.idealy_f_ -= gh_scm2double (s);
 
-  Real interstaff_f = -beam_dir* calc_interstaff_dist (dynamic_cast<Item*> (me), dynamic_cast<Spanner*> (beam));
+ Grob *common = me->common_refpoint (beam, Y_AXIS);
+  Real interstaff_f = beam_dir *
+    (me->relative_coordinate (common, Y_AXIS)
+     - beam->relative_coordinate (common, Y_AXIS));
 
   info.idealy_f_ += interstaff_f;
   info.miny_f_ += interstaff_f;
