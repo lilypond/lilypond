@@ -287,6 +287,24 @@ FRAGMENT_LY = r'''\score{
 }'''
 FULL_LY = '%(code)s'
 
+def classic_lilypond_book_compatibility (o):
+	if o == 'singleline':
+		return 'raggedright'
+	m = re.search ('relative\s*([-0-9])', o)
+	if m:
+		return 'relative=%s' % m.group (1)
+	m = re.match ('([0-9]+)pt', o)
+	if m:
+		return 'staffsize=%s' % m.group (1)
+	m = re.match ('indent=([-.0-9]+)(cm|in|mm|pt)', o)
+	if m:
+		f = float (m.group (1))
+		return 'indent=%f\\%s' % (f, m.group (2))
+	m = re.match ('linewidth=([-.0-9]+)(cm|in|mm|pt)', o)
+	if m:
+		f = float (m.group (1))
+		return 'linewidth=%f\\%s' % (f, m.group (2))
+	return None
 
 def compose_ly (code, option_string):
 	options = []
@@ -315,6 +333,13 @@ def compose_ly (code, option_string):
 	paper_options = []
 	preamble_options = []
 	for i in options:
+		c = classic_lilypond_book_compatibility (i)
+		if c:
+			ly.warning (_ ("deprecated ly-option used: %s" % i))
+			ly.warning (_ ("compatibility mode translation: %s" \
+				       % c))
+			i = c
+		
 		if string.find (i, '=') > 0:
 			key, value = string.split (i, '=')
 			# hmm

@@ -1,3 +1,8 @@
+2004-02-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/filter-lilypond-book.py
+	(classic_lilypond_book_compatibility): New function.
+
 2004-02-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Grand 2003 -> 2004 search replace. 
@@ -74,7 +79,8 @@
 
 	* lily/note-heads-engraver.cc (process_music): robustification.
 
-	* lily/accidental-engraver.cc (process_acknowledged_grobs): robustification.
+	* lily/accidental-engraver.cc (process_acknowledged_grobs):
+	robustification.
 
 	* lily/parser.yy (simple_element): add \drums mode.
 	(simple_element): remove \pitchnames , \chordmodifiers. Use
