@@ -16,7 +16,7 @@
 
 2004-11-20  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
-	* VERSION: release 2.5.3
+	* VERSION: release 2.4.3
 
 	* scm/define-markup-commands.scm (fill-line): use stack-stencils
 	iso. stack-stencils-line. Fixes putting centered objects into
