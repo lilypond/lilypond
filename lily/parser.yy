@@ -8,8 +8,9 @@
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
-
+#include <ctype.h>
 #include <iostream.h>
+
 #include "translator-def.hh"
 #include "lily-guile.hh"
 #include "change-iterator.hh"
@@ -44,6 +45,24 @@
 #include "auto-change-iterator.hh"
 #include "un-relativable-music.hh"
 #include "chord.hh"
+
+
+
+bool
+regular_identifier_b (SCM id)
+{
+  String str = ly_scm2string (id);
+  char const *s = str.ch_C() ;
+
+  bool v = true;
+  while (*s && v)
+   {
+        v = v && isalpha (*s);
+        s++;
+   }
+  return v;
+}
+
 
 bool
 is_duration_b (int t)
@@ -384,6 +403,9 @@ assignment:
 		THIS->remember_spot ();
 	}
 	/* cont */ '=' identifier_init  {
+		if (! regular_identifier_b ($1))
+			THIS->parser_error (_ ("Identifier should have  alphabetic characters only"));
+
 	        THIS->lexer_p_->set_identifier (ly_scm2string ($1), $4);
 
 /*
@@ -1222,7 +1244,7 @@ request_that_take_dir:
 	gen_text_def
 	| verbose_request
 	| script_abbreviation {
-		SCM s = THIS->lexer_p_->lookup_identifier ("dash-" + ly_scm2string ($1));
+		SCM s = THIS->lexer_p_->lookup_identifier ("dash" + ly_scm2string ($1));
 		Articulation_req *a = new Articulation_req;
 		if (gh_string_p (s))
 			a->set_mus_property ("articulation-type", s);
@@ -1476,22 +1498,22 @@ gen_text_def:
 
 script_abbreviation:
 	'^'		{
-		$$ = gh_str02scm ("hat");
+		$$ = gh_str02scm ("Hat");
 	}
 	| '+'		{
-		$$ = gh_str02scm ("plus");
+		$$ = gh_str02scm ("Plus");
 	}
 	| '-' 		{
-		$$ = gh_str02scm ("dash");
+		$$ = gh_str02scm ("Dash");
 	}
  	| '|'		{
-		$$ = gh_str02scm ("bar");
+		$$ = gh_str02scm ("Bar");
 	}
 	| '>'		{
-		$$ = gh_str02scm ("larger");
+		$$ = gh_str02scm ("Larger");
 	}
 	| '.' 		{
-		$$ = gh_str02scm ("dot");
+		$$ = gh_str02scm ("Dot");
 	}
 	;
 
