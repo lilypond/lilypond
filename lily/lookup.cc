@@ -239,6 +239,9 @@ Lookup::stem(Real y1,Real y2) const
     return s;
 }
 
+/*
+  should be handled via TeX code and Lookup::bar()
+ */
 Symbol
 Lookup::vbrace(Real &y) const
 {
@@ -254,10 +257,20 @@ Lookup::vbrace(Real &y) const
     int idx = int(rint((y/2.0 - 20 ) + 148));
     
     Symbol s = (*symtables_)("param")->lookup("brace");
-    
-    Array<String> a;
-    a.push(idx);
-    s.tex = substitute_args(s.tex,a);
-    s.dim.y = Interval(0,y);
+    {
+	Array<String> a;
+	a.push(idx);
+	s.tex = substitute_args(s.tex,a);
+	s.dim.y = Interval(0,y);
+    }
+    {
+	Array<String> a;
+	a.push(print_dimen( y/2 ));
+	a.push(print_dimen(0));
+	a.push(s.tex);
+	s.tex = substitute_args("\\placebox{%}{%}{%}", a);
+    }
+
+	
     return s;
 }
