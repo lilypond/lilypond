@@ -1,3 +1,4 @@
+#include "script.hh"
 #include "request.hh"
 #include "beam.hh"
 #include "stem.hh"
@@ -7,6 +8,7 @@
 #include "debug.hh"
 #include "complexstaff.hh"
 #include "textspanner.hh"
+#include "textitem.hh"
 
 Stem_beam_register::Stem_beam_register(Complex_walker*w)
     :Request_register(w)
@@ -14,6 +16,8 @@ Stem_beam_register::Stem_beam_register(Complex_walker*w)
     do_post_move_process();
     current_grouping = 0;
     beam_p_ = 0;
+    set_dir(0);
+    start_req_l_ = 0;
 }
 
 bool
@@ -48,10 +52,12 @@ void
 Stem_beam_register::process_request()
 {
     if (beam_req_l_) {
-	if (beam_req_l_->spantype == Span_req::STOP)
+	if (beam_req_l_->spantype == Span_req::STOP) {
 	    end_beam_b_ = true;
-	else {
+	    start_req_l_ = 0;
+	} else {
 	    beam_p_ = new Beam;
+	    start_req_l_ = beam_req_l_;
 //	    walk_l_->announce_element(Staff_elem_info(beam_p_, ))
 	    current_grouping = new Rhythmic_grouping;
 	    if (beam_req_l_->nplet) {
@@ -75,7 +81,11 @@ Stem_beam_register::process_request()
 	stem_p_->flag = stem_req_l_->balltype;
 
 	if (beam_p_) {
-	    beam_p_->add(stem_p_);
+	    if (stem_req_l_->balltype<= 4)
+		warning( "stem doesn't fit in Beam.",
+			 stem_req_l_->defined_ch_c_l_m);
+	    else
+		beam_p_->add(stem_p_);
 	    stem_p_->print_flag = false;
 	} else {
 	    stem_p_->print_flag = true;
@@ -102,6 +112,9 @@ void
 Stem_beam_register::do_pre_move_process()
 {
     if (stem_p_) {
+	if (default_dir_i_)
+	    stem_p_->dir = default_dir_i_;
+	
 	walk_l_->typeset_element(stem_p_);
 	stem_p_ = 0;
     }
@@ -127,5 +140,105 @@ Stem_beam_register::do_post_move_process()
 Stem_beam_register::~Stem_beam_register()
 {
     if (beam_p_)
-	error("unterminated beam");
+	warning("unterminated beam", start_req_l_->defined_ch_c_l_m);
+}
+
+void
+Stem_beam_register::set_dir(int i)
+{
+    default_dir_i_ = i;
+}
+/****************/
+
+Script_register::Script_register(Complex_walker*w)
+    : Request_register(w)
+{
+    script_p_ = 0;
+}
+
+bool
+Script_register::try_request(Request *r_l)
+{
+    if (!r_l->script())
+	return false ;
+
+    if (accepted_req_arr_.size()
+	&& Script_req::compare(
+	    *accepted_req_arr_[0]->script(), *r_l->script()))
+	
+	return false;
+
+    accepted_req_arr_.push(r_l);
+    
+    return true;
+}
+void
+Script_register::process_request()
+{
+    if (accepted_req_arr_.size() ) {
+	script_p_ = new Script(accepted_req_arr_[0]->script(), 10);
+	walk_l_->announce_element(
+	    Staff_elem_info(script_p_, accepted_req_arr_[0], this));
+    }
+}
+
+void
+Script_register::acknowledge_element(Staff_elem_info info)
+{
+    if (!script_p_)
+	return;
+    if (info.elem_p_->name() == String("Stem"))
+	script_p_->set_stem((Stem*)info.elem_p_);
+    else if (info.req_l_->rhythmic())
+	script_p_->set_support(info.elem_p_->item());
+}
+
+void
+Script_register::do_pre_move_process()
+{
+    if (script_p_){
+	walk_l_->typeset_element(script_p_);
+	script_p_ = 0;
+    }
+}
+/******************/
+
+
+Text_register::Text_register(Complex_walker*w)
+    : Request_register(w)
+{
+    text_p_ = 0;
+}
+
+bool
+Text_register::try_request(Request*req_l)
+{
+    if (!req_l->text())
+	return false;
+    if (accepted_req_arr_.size() &&
+	Text_req::compare(*req_l->text(), *accepted_req_arr_[0]->text()))
+
+	return false;
+
+    accepted_req_arr_.push(req_l);
+    return true;
+}
+
+void
+Text_register::process_request()
+{
+    
+    if (accepted_req_arr_.size()) {
+	text_p_ = new Text_item(accepted_req_arr_[0]->text(), 10);
+	walk_l_->announce_element(Staff_elem_info(text_p_,
+						  accepted_req_arr_[0], this));
+    }
+}
+void
+Text_register::do_pre_move_process()
+{
+    if (text_p_) {
+	walk_l_->typeset_element(text_p_);
+	text_p_ = 0;
+    }
 }
