@@ -294,6 +294,9 @@ g''4 \property Voice.stemLength = #14  g4 \property Voice.stemLength = #3 g4  g,
     note.  Overrides automatic beaming.  The value is only used once,
     and then it is erased.
 
+  @item @code{tieDash}@indexcode{tieDash} @propertytype{integer}
+    Set dashing of ties. See also @code{slurDash}
+
   @item @code{tieVerticalDirection}@indexcode{tieVerticalDirection} @propertytype{direction}
     Set to @code{\free} for free choice of tie direction, set to
     @code{\up} to force ties up, set to @code{\down} to force ties

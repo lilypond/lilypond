@@ -105,7 +105,10 @@ All_font_metrics::find_font (String name)
   warning (_ ("Loading default font"));
   
   String def_name = default_font_sz_;
-  SCM l = ly_eval_str ("(style-to-cmr \"default\")");
+  SCM l = scm_eval (gh_list (ly_symbol2scm ("style-to-cmr"),
+			    ly_str02scm ("default"),
+			    SCM_UNDEFINED));
+  
   if (l != SCM_BOOL_F)
     def_name = ly_scm2string (gh_cdr (l));
 

@@ -13,7 +13,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "lily-guile.icc"
+
 
 /*
   TODO: move text lookup out of Chord_name
@@ -63,7 +63,7 @@ Molecule
 Chord_name::pitch2molecule (Musical_pitch p) const
 {
   SCM name = scm_eval (gh_list (ly_symbol2scm ("user-pitch-name"),
-				ly_quote_scm (to_scm (p)),
+				ly_quote_scm (p.to_scm ()),
 				SCM_UNDEFINED));
 
   if (name != SCM_UNSPECIFIED)
@@ -116,13 +116,10 @@ Chord_name::user_chord_name (Array<Musical_pitch> pitch_arr, Chord_mol* name_p) 
   Array<Musical_pitch> chord_type = pitch_arr;
   Chord::rebuild_transpose (&chord_type, diff_pitch (pitch_arr[0], Musical_pitch (0)), false);
 
-#if 0
   SCM chord = SCM_EOL;
   for (int i= chord_type.size (); i--; )
-    chord = gh_cons (to_scm (chord_type[i]), chord);
-#else
-  SCM chord = array_to_scm (chord_type);
-#endif
+    chord = gh_cons (chord_type[i].to_scm (), chord);
+
 
   SCM name = scm_eval (gh_list (ly_symbol2scm ("user-chord-name"),
 				ly_quote_scm (chord),
@@ -225,7 +222,10 @@ Molecule
 Chord_name::do_brew_molecule () const
 {
   Array<Musical_pitch> pitch_arr;
-  scm_to_array (get_elt_property ("pitches"), &pitch_arr);
+  
+  for (SCM s = get_elt_property ("pitches"); s != SCM_EOL; s = gh_cdr (s))
+    pitch_arr.push (Musical_pitch (gh_car (s)));
+  
   Musical_pitch tonic = pitch_arr[0];
   
   Chord_mol name;
@@ -265,8 +265,8 @@ Chord_name::do_brew_molecule () const
   if (s != SCM_UNDEFINED)
     {
       name.inversion_mol = lookup_l ()->text ("", "/", paper_l ());
-      Musical_pitch p;
-      p = scm_to (s, &p);
+      Musical_pitch p (s);
+
       Molecule mol = pitch2molecule (p);
       name.inversion_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
     }
@@ -275,8 +275,7 @@ Chord_name::do_brew_molecule () const
   if (s != SCM_UNDEFINED)
     {
       name.bass_mol = lookup_l ()->text ("", "/", paper_l ());
-      Musical_pitch p;
-      p = scm_to (s, &p);
+      Musical_pitch p (s);
       Molecule mol = pitch2molecule (p);
       name.bass_mol.add_at_edge (X_AXIS, RIGHT, mol, 0);
     }

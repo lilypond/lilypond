@@ -199,7 +199,7 @@ Clef_engraver::do_pre_move_processing()
     {
       if(to_boolean (clef_p_->remove_elt_property("non-default")))
 	 clef_p_->set_elt_property("visibility-lambda",
-				   ly_eval_str ("all-visible"));
+				   scm_eval (ly_symbol2scm ("all-visible")));
       
       typeset_element (clef_p_);
       clef_p_ =0;

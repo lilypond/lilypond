@@ -71,7 +71,7 @@ Dynamic_performer::do_process_music ()
 	 (ly_symbol2scm ("dynamic-absolute-volume"),
 	  ly_quote_scm (ly_str02scm (text_script_req_l_->text_str_.ch_C ())),
 	  SCM_UNDEFINED));
-      Real volume = gh_scm2double (ly_eval_str ("dynamic-default-volume"));
+      Real volume = gh_scm2double (scm_eval (ly_symbol2scm ("dynamic-default-volume")));
       if (gh_number_p (s))
 	volume = gh_scm2double (s);
       

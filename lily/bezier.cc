@@ -56,11 +56,6 @@ translate (Array<Offset>* arr_p, Offset o)
   sum_{j=0}^3  (3 over j) z_j (1-t)^(3-j)  t^j
  */
 
-Bezier::Bezier ()
-  : control_ (CONTROL_COUNT)
-{
-}
-
 Real
 Bezier::get_other_coordinate (Axis a,  Real x) const
 {
@@ -177,19 +172,23 @@ Bezier::extent (Axis a)const
 void
 Bezier::flip (Axis a)
 {
-  ::flip (&control_, a);
+  for (int i = CONTROL_COUNT; i--;)
+    control_[i][a] = - control_[i][a];
 }
 
 void
 Bezier::rotate (Real phi)
 {
-  ::rotate (&control_, phi);
+  Offset rot (complex_exp (Offset (0, phi)));
+  for (int i = 0; i < CONTROL_COUNT; i++)
+    control_[i] = complex_multiply (rot, control_[i]);
 }
 
 void
 Bezier::translate (Offset o)
 {
-  ::translate (&control_, o);
+  for (int i = 0; i < CONTROL_COUNT; i++)
+    control_[i] += o;
 }
 
 void

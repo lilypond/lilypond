@@ -25,7 +25,7 @@
 #include "group-interface.hh"
 #include "cross-staff.hh"
 #include "staff-symbol-referencer.hh"
-#include "lily-guile.icc"
+
 
 
 void
@@ -252,6 +252,11 @@ Stem::get_default_dir () const
   return Direction (int(paper_l ()->get_var ("stem_default_neutral_direction")));
 }
 
+/*
+  ugh. A is used for different purposes. This functionality should be
+  moved into scheme at some point to get rid of the silly
+  conversions. (but lets wait till we have namespaces in SCM)
+ */
 Real
 Stem::get_default_stem_end_position () const
 {
@@ -268,15 +273,20 @@ Stem::get_default_stem_end_position () const
     }
   else
     {
-      s = ly_eval_str (type_str + "stem-length");
-      scm_to_array (s, &a);
+      s = scm_eval (ly_symbol2scm ((type_str + "stem-length").ch_C()));
+      for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
+	a.push (gh_scm2double (gh_car (q)));
+		
       // stem uses half-spaces
       length_f = a[((flag_i () - 2) >? 0) <? (a.size () - 1)] * 2;
     }
 
 
-  s = ly_eval_str (type_str + "stem-shorten");
-  scm_to_array (s, &a);
+  a.clear ();
+  s = scm_eval (ly_symbol2scm ((type_str + "stem-shorten").ch_C()));
+  for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
+    a.push (gh_scm2double (gh_car (q)));
+
 
   // stem uses half-spaces
 
@@ -545,12 +555,19 @@ Stem::calc_stem_info () const
   SCM s;
   String type_str = grace_b ? "grace-" : "";
   
-  s = ly_eval_str (type_str + "beamed-stem-minimum-length");
-  scm_to_array (s, &a);
-  Real minimum_length = a[multiplicity <? (a.size () - 1)] * staff_space;
+  s = scm_eval (ly_symbol2scm ((type_str + "beamed-stem-minimum-length").ch_C()));
+  a.clear ();
+  for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
+    a.push (gh_scm2double (gh_car (q)));
 
-  s = ly_eval_str (type_str + "beamed-stem-length");
-  scm_to_array (s, &a);
+
+  Real minimum_length = a[multiplicity <? (a.size () - 1)] * staff_space;
+  s = scm_eval (ly_symbol2scm ((type_str + "beamed-stem-length").ch_C()));
+
+  a.clear();
+  for (SCM q = s; q != SCM_EOL; q = gh_cdr (q))
+    a.push (gh_scm2double (gh_car (q)));
+
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 
   if (!beam_dir || (beam_dir == directional_element (this).get ()))

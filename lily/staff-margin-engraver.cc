@@ -188,7 +188,7 @@ Staff_margin_engraver::do_pre_move_processing ()
 	make a properly ordered Right_edge_item, if that need arises.
        */
       text_p_->set_elt_property("visibility-lambda",
-      			      ly_eval_str ("begin-of-line-visible"));
+				scm_eval (ly_symbol2scm ("begin-of-line-visible")));
       typeset_element (text_p_);
       text_p_ = 0;
       assert (left_edge_p_);

@@ -31,7 +31,7 @@
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "cross-staff.hh"
-#include "lily-guile.icc"
+
 
 Beam::Beam ()
 {
@@ -232,17 +232,19 @@ Beam::set_stem_shorten ()
     return;
 
   int multiplicity = get_multiplicity ();
-  // grace stems?
-  SCM shorten = ly_eval_str ("beamed-stem-shorten");
 
-  Array<Real> a;
-  scm_to_array (shorten, &a);
-  if (!a.size ())
+  // grace stems?
+  SCM shorten = scm_eval (ly_symbol2scm ("beamed-stem-shorten"));
+
+  if (shorten == SCM_EOL)
     return;
 
+  int sz = scm_ilength (shorten);
+  
   Staff_symbol_referencer_interface st (this);
   Real staff_space = st.staff_space ();
-  Real shorten_f = a[multiplicity <? (a.size () - 1)] * staff_space;
+  SCM shorten_elt = scm_list_ref (shorten, gh_int2scm (multiplicity <? (sz - 1)));
+  Real shorten_f = gh_scm2double (shorten_elt) * staff_space;
 
   /* cute, but who invented this -- how to customise ? */
   if (forced_fraction < 1)
@@ -511,10 +513,10 @@ Beam::set_stem_length (Real y, Real dy)
 Real
 Beam::quantise_dy_f (Real dy) const
 {
-  SCM quants = ly_eval_str ("beam-height-quants");
-
   Array<Real> a;
-  scm_to_array (quants, &a);
+  for (SCM s = scm_eval (ly_symbol2scm ("beam-height-quants")); s !=SCM_EOL; s = gh_cdr (s))
+    a.push (gh_scm2double (gh_car (s)));
+  
   if (a.size () <= 1)
     return dy;
 
@@ -543,13 +545,16 @@ Beam::quantise_y_f (Real y, Real dy, int quant_dir)
   int multiplicity = get_multiplicity ();
   Staff_symbol_referencer_interface st (this);
   Real staff_space = st.staff_space ();
-  SCM quants = scm_eval (gh_list (
-				  ly_symbol2scm ("beam-vertical-position-quants"),
+  SCM quants = scm_eval (gh_list (ly_symbol2scm ("beam-vertical-position-quants"),
 				  gh_int2scm (multiplicity),
 				  gh_double2scm (dy/staff_space),
 				  SCM_UNDEFINED));
+
   Array<Real> a;
-  scm_to_array (quants, &a);
+
+  for (; quants != SCM_EOL; quants = gh_cdr (quants))
+    a.push (gh_scm2double (gh_car (quants)));
+
   if (a.size () <= 1)
     return y;
 

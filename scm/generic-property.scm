@@ -1,4 +1,19 @@
 
+;
+; Format: 
+; (cons "Type name"
+;    (list PROPERTYDESCRIPTIONS))
+; 
+; where
+; PROPERTYDESCRIPTION
+; is
+;
+;  (list 'translatorPropertySymbol type-predicate backend-property-symbol)
+;
+; Descriptions earlier in the list take precedence over later descriptions.
+;
+
+
 (define generic-beam-properties
   (cons "Beam"
 	(list
@@ -16,8 +31,8 @@
 (define generic-stem-properties
   (cons "Stem"
 	(list
-	 (list 'verticalDirection dir? 'direction)	 
 	 (list 'stemVerticalDirection dir? 'direction)
+	 (list 'verticalDirection dir? 'direction)	 
 	 (list 'stemLength number? 'length)
 	 (list 'flagStyle string? 'flag-style)
 	 (list 'stemCentered boolean? 'stem-centered)
@@ -28,8 +43,8 @@
 
 (define generic-dot-properties
   (cons "Dots" (list
-		(list 'verticalDirection dir? 'direction)
 		(list 'dotDirection dir? 'direction)
+		(list 'verticalDirection dir? 'direction)
 		)
 	))
 
@@ -91,8 +106,8 @@
 (define generic-breathing-sign-properties
   (cons "Breathing_sign"
 	(list
-	 (list 'verticalDirection dir? 'direction)
 	 (list 'breathingSignVerticalDirection dir? 'direction)
+	 (list 'verticalDirection dir? 'direction)
 	 )))
 
 (define generic-clef-properties
@@ -113,15 +128,16 @@
 
 (define generic-tie-properties
   (cons "Tie" (list
-	       (list 'verticalDirection dir? 'direction)
 	       (list 'tieVerticalDirection dir? 'direction)
-  )))
-(define generic-tie-column-properties
-  (cons "Tie_column" (list
-		      (list 'verticalDirection dir? 'direction)
-		      (list 'tieVerticalDirection dir? 'direction)
+	       (list 'verticalDirection dir? 'direction)
+(list 'tieDash number? 'dashed)
   )))
 
+(define generic-tie-column-properties
+  (cons "Tie_column" (list
+		      (list 'tieVerticalDirection dir? 'direction)
+		      (list 'verticalDirection dir? 'direction)
+  )))
 
 (define generic-note-column-properties
   (cons "Note_column"
@@ -141,8 +157,8 @@
 (define generic-slur-properties
   (cons "Slur"
 	(list
-	 (list 'verticalDirection dir? 'direction)	 
 	 (list 'slurVerticalDirection dir? 'direction)
+	 (list 'verticalDirection dir? 'direction)	 
 	 (list 'slurDash number? 'dashed))))
 
 (define generic-timesig-properties

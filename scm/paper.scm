@@ -7,6 +7,9 @@
 ;;; All dimensions are measured in staff-spaces
 
 
+; This is a mess : global namespace pollution. We should wait
+;  till guile has proper toplevel environment support.
+
 
 ;; Beams should be prevented to conflict with the stafflines, 
 ;; especially at small slopes

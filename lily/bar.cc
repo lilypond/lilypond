@@ -157,7 +157,10 @@ Bar::staff_brace (Real y)  const
   int idx = int (((maxht - step) <? y - minht) / step);
   idx = idx >? 0;
 
-  SCM l = ly_eval_str ("(style-to-cmr \"brace\")");
+  SCM l = scm_eval (gh_list (ly_symbol2scm ("style-to-cmr"),
+			    ly_str02scm ("brace"),
+			    SCM_UNDEFINED));
+  
   String nm = "feta-braces";
   if (l != SCM_BOOL_F)
     nm = ly_scm2string (gh_cdr (l));

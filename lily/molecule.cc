@@ -63,7 +63,7 @@ Molecule::translate (Offset o)
     }
 
   expr_ = gh_list (ly_symbol2scm ("translate-molecule"),
-		   to_scm (o),
+		   ly_offset2scm (o),
 		   expr_, SCM_UNDEFINED);
   if (!empty_b ())
     dim_.translate (o);

@@ -30,13 +30,12 @@
 
   */
 class Spanner : public  Score_element {
-  // SCMify me
   Drul_array<Item*> spanned_drul_;
 
 public:
-  // SCMify me
   Link_array<Spanner> broken_into_l_arr_;
 
+  // TODO: make virtual and do this for Items as well.
   Interval_t<int> spanned_rank_iv ();
   void set_bound (Direction d, Item*);
   Item *get_bound (Direction d) const;

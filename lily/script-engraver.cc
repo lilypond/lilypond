@@ -60,7 +60,9 @@ Script_engraver::do_process_music()
     {
       Articulation_req* l=script_req_l_arr_[i];
 
-      SCM list = ly_eval_str (("(articulation-to-scriptdef \"" + l->articulation_str_ + "\")").ch_C());
+      SCM list = scm_eval (gh_list (ly_symbol2scm ("articulation-to-scriptdef"),
+				    ly_str02scm (l->articulation_str_.ch_C()),
+				    SCM_UNDEFINED));
       
       if (list == SCM_BOOL_F)
 	{

@@ -21,7 +21,6 @@ public:
   Notename_table (Notename_table const&);
   Musical_pitch get_pitch(String s) const;
   void add_note_name (String, Musical_pitch const *p);
-  String get_name (Musical_pitch) const;
   bool elem_b (String )const;
 };
   

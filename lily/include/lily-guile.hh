@@ -15,17 +15,26 @@
 #include <libguile.h>
 #include "direction.hh"
 
-SCM ly_str02scm (char const*c);
-SCM ly_eval_str (String s);
-SCM ly_symbol2scm (char const *);
-String ly_symbol2string (SCM);
-SCM ly_type (SCM);
+/*
+  conversion functions follow the GUILE naming convention, i.e.
 
-SCM ly_eval (SCM a);
+    A ly_B2A (B b);
+ */
+SCM ly_str02scm (char const*c);
+SCM ly_symbol2scm (char const *);
+String ly_scm2string (SCM s);
+String ly_symbol2string (SCM);
+SCM ly_offset2scm (Offset);
+Offset ly_scm2offset (SCM);
+
 SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
+SCM ly_type (SCM);
+
+/*
+  display and print newline.
+ */
 void ly_display_scm (SCM s);
-String ly_scm2string (SCM s);
 
 #include "array.hh"
 
@@ -33,8 +42,13 @@ void read_lily_scm_file (String);
 void init_lily_guile ();
 
 bool isdir_b (SCM s);
-Direction to_dir (SCM s);
 
+/*
+  these conversion functions also do a typecheck on the argument, and
+  return a default value if S has the wrong type.
+*/
+
+Direction to_dir (SCM s);
 bool to_boolean (SCM s);
 
 void init_ly_protection ();
@@ -43,18 +57,6 @@ unsigned int ly_scm_hash (SCM s);
 SCM index_cell (SCM cellp, Direction d);
 SCM index_set_cell (SCM cellp, Direction d, SCM val);
 
-template<class T>SCM array_to_scm (Array<T> arr);
-template<class T>void scm_to_array (SCM s, Array<T>* arr);
-
-//URG how templates suck!
-SCM to_scm (int i);
-int scm_to (SCM s, int* i);
-
-SCM to_scm (Real r);
-Real scm_to (SCM s, Real* r);
-
-SCM to_scm (Offset o);
-Offset scm_to (SCM s, Offset* o);
 
 /*
   snarfing.

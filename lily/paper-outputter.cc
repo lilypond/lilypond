@@ -40,11 +40,14 @@ Paper_outputter::output_header ()
 {
   if (safe_global_b)
     {
-
       gh_define ("security-paranoia", SCM_BOOL_T);      
     }
-  String s = String ("(eval (") + output_global_ch + "-scm 'all-definitions))";
-  ly_eval_str (s.ch_C ());
+
+  SCM exp = gh_list (ly_symbol2scm ((String (output_global_ch) + "-scm").ch_C()),
+		     ly_quote_scm (ly_symbol2scm ("all-definitions")),
+		     SCM_UNDEFINED);
+  exp = scm_eval (exp);
+  scm_eval (exp);
   
   String creator;
   if (no_timestamps_global_b)
@@ -92,7 +95,7 @@ enter:
   SCM head =gh_car (expr);
   if (head == offset_sym)
     {
-      o += scm_to (gh_cadr (expr), &o);
+      o += ly_scm2offset (gh_cadr (expr));
       expr = gh_caddr (expr);
       goto enter;
     }

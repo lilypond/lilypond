@@ -9,8 +9,6 @@
 ; This file contains various routines in Scheme that are easier to 
 ; do here than in C++.  At present it is a unorganised mess. Sorry. 
 ;
-;
-
 
 
 ;(debug-enable 'backtrace)

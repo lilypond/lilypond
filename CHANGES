@@ -1,3 +1,22 @@
+1.3.38
+======
+
+1.3.37.hwn1
+===========
+
+* (generic-property.scm) added tieDash
+
+* Removed  ly_eval_str(), we should use scm_eval (Scm_object).
+
+* Removed scm_to_array (), array_to_scm (), associated junk. Reverted
+undocumented .29 patch that made Bezier::control_ into an
+Array<Offset>.  Added some comments documenting the reasons for the
+changes.
+
+* Revert generic-property.scm of .37 fix, fix the real problem in
+property-engraver.cc: use the right symbol to check if element
+property is already set.
+
 1.3.37.jcn2
 ===========
 
@@ -30,8 +49,6 @@
       # uses config.make and config.h; output goes to out-WWW.
       #
 
-1.3.37.jcn1
-===========
 
 * Fixed performance of (de)crescendi.
 
@@ -48,6 +65,8 @@
 * Added warning for spanners that are not fully contained in parent spanner.
 
 
+1.3.37
+======
 1.3.36.hwn1
 ===========
 

@@ -183,6 +183,13 @@ centered in the gap in the bracket.
 
 @mudelafile{tup.ly}
 
+@section Property details
+
+More specific settings take precendence over less specific settings. The
+second slur has slurDirection set to down, overriding the stemup  setting.
+
+@mudelafile{generic-property-override.ly}
+
 @section Repeats
 
 LilyPond has three modes for repeats: folded, unfolded and
