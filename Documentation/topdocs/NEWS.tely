@@ -29,6 +29,9 @@ See user manual, \NAME\
 
 
 @itemize @bullet
+@item
+@TeX{}'s @code{kpathsea} library is loaded dynamically, so installing
+LilyPond does not require installing @TeX{} anymore.
 
 @item
 Point and click editing is now supported in the PS/PDF backend as
@@ -68,6 +71,7 @@ Individual objects may be assigned colors, for example,
 @item
 The PostScript backend is now used by default.  This backend requires
 less machinery to run, and gives more consistent results.
+
 
 GhostScript 8.x is required for PDF output.  Earlier versions may hang
 while converting PostScript to PDF. 
