@@ -48,10 +48,9 @@ void
 message( String message_str, char const* context_ch_c_l )
 {
     String str = "lilypond: ";
-    Source_file* sourcefile_l = source_l->sourcefile_l( context_ch_c_l );
+    Source_file* sourcefile_l = source_global_l->sourcefile_l( context_ch_c_l );
     if ( sourcefile_l ) {
-	str += sourcefile_l->name_str() + ": ";
-	str += String( sourcefile_l->line_i( context_ch_c_l ) ) + ": ";
+	str += sourcefile_l->file_line_no_str(context_ch_c_l);
     }
     str += message_str;
     if ( sourcefile_l ) {
