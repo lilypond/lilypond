@@ -7,16 +7,10 @@ but was merged back into the lilypond package
 as of Mon, 16 Apr 2001 21:58:42 -0600
 
 It was downloaded from
-      ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/
-
-It is also available at: 
-      ftp://ftp.lilypond.org/pub/LilyPond/
+    ftp://ftp.lilypond.org/pub/LilyPond/
 
 For more information about GNU LilyPond, please visit:
-      http://www.cs.uu.nl/~hanwen/lilypond/
-  or  http://www.xs4all.nl/~jantien/
-  or  http://www.lilypond.org/
-  or  http://sca.uwaterloo.ca/lilypond/
+    http://www.lilypond.org/
 
 Authors:
       Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -24,7 +18,7 @@ Authors:
  
 Copyright:
 
-  GNU LilyPond is Copyright (C) 1996-2002
+  GNU LilyPond is Copyright (C) 1996-2003
   Jan Nieuwenhuizen & Han-Wen Nienhuys
 
     This program is free software; you can redistribute it and/or modify
