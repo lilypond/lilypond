@@ -1,3 +1,7 @@
+2004-06-19  Heikki Junes  <hjunes@cc.hut.fi> 
+
+        * Documentation/index.html.in: use black thin <hr>.
+
 2004-06-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/fret-diagrams.scm: Use UNIX style line endings.
