@@ -82,6 +82,8 @@
 
 2002-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.5.65 released. 
+	
 	* scripts/lilypond-book.py: patches by Tom Cato Amundsen.  Adds
 	support for the columnsep when using the geometry package.
 	
