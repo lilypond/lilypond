@@ -2,7 +2,7 @@
 
 '''
 TODO:
-      intertext
+      ly-options: intertext, quote ?
       --linewidth
       check latex parameters, twocolumn
       multicolumn?
@@ -109,9 +109,11 @@ output_name = 0
 latex_filter_cmd = 'latex "\\nonstopmode \input /dev/stdin"'
 ##filter_cmd = 'convert-ly --no-version --from=2.0.0 -'
 filter_cmd = 0
+
 #process_cmd = 'convert-ly --no-version --from=2.0.0'
 #process_cmd = 0
-process_cmd = 'lilypond-bin'
+# process_cmd = 'lilypond-bin'
+process_cmd = 'lilypond-bin -I ../../../input/test'
 default_ly_options = { }
 
 LATEX = 'latex'
@@ -159,8 +161,6 @@ re_dict = {
 		},
 
 	LATEX: {
-		'junkmeinput': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
-		'junkmeinclude': r'(?m)^[^%\n]*?(?P<match>\\mbinclude{(?P<filename>[^}]+)})',
 		'include': r'(?m)^[^%\n]*?(?P<match>\\input{(?P<filename>[^}]+)})',
 		'option-sep' : ',\s*',
 		'header': r"\n*\\documentclass\s*(\[.*?\])?",
@@ -292,12 +292,13 @@ def compose_ly (code, option_string):
 		vars ()[i] = default_ly_options[i]
 
 	if option_string:
-		options = options + string.split (option_string, ',')
+		options = options + split_options (option_string)
 	
 	m = re.search (r'''\\score''', code)
 	if not m and (not options \
 		      or not 'nofragment' in options \
 		      or 'fragment' in options):
+		options.append ('raggedright')
 		body = FRAGMENT_LY
 	else:
 		body = FULL_LY
@@ -369,6 +370,9 @@ def verbatim_texinfo (s):
 		       re.sub ('}', '@}',
 			       re.sub ('@', '@@', s)))
 
+def split_options (option_string):
+	return re.split (re_dict[format]['option-sep'], option_string)
+	
 class Snippet:
 	def __init__ (self, type, index, match):
 		self.type = type
@@ -424,8 +428,7 @@ class Snippet:
 	def output_html (self, source):
 		base = self.basename (source)
 		option_string = self.match.group ('options')
-		if option_string and VERBATIM in string.split (option_string,
-							       ',')\
+		if option_string and VERBATIM in split_options (option_string)\
 		   and format == HTML:
 			verb = verbatim_html (self.substring (source, 'code'))
 			h.write (output[HTML][VERBATIM] % vars ())
@@ -435,8 +438,7 @@ class Snippet:
 			
 	def output_latex (self, source):
 		option_string = self.match.group ('options')
-		if option_string and VERBATIM in string.split (option_string,
-							       ',')\
+		if option_string and VERBATIM in split_options (option_string)\
 		   and format == LATEX:
 			verb = self.substring (source, 'code')
 			h.write (output[LATEX][VERBATIM] % vars ())
@@ -447,8 +449,7 @@ class Snippet:
 			
 	def output_texinfo (self, source):
 		option_string = self.match.group ('options')
-		if option_string and VERBATIM in string.split (option_string,
-							       ','):
+		if option_string and VERBATIM in split_options (option_string):
 			verb = verbatim_texinfo (self.substring (source,
 								 'code'))
 			h.write (output[TEXINFO][VERBATIM] % vars ())
@@ -640,7 +641,8 @@ def do_file (input_filename):
 	ly.progress ('\n')
 
 	ly.progress (_ ("Dissecting..."))
-	snippet_types = ('verbatim', 'verb', 'multiline-comment',
+	snippet_types = ('verbatim', 'verb',
+			 'multiline-comment', 'singleline-comment',
 			 'lilypond', 'lilypond-block', 'lilypond-file',
 			 'include',)
 	snippets = []
