@@ -1,3 +1,29 @@
+
+pl 30.jcn1
+	- sm fixes, intl/ fixes
+
+pl 30.mb1
+	- Added support for magnification of TeX fonts ==> 
+	  larger dynamics in 20pt scores. (Doesn't work in Postscript)
+
+pl 30.hwn1
+	- Debian patches (thanks, Anthony)
+	- Italian support (thanks, Maurizio)
+	- parser cleanup
+	- minor chord.cc cleanups.
+	- bf: \rc \rced 
+	- hara kiri doesn't do suicide with normal rests.
+	- Hara_kiri_vertical_group_spanner generalised
+	- extender engraver rewrite, now __ is like ~ [] |, ie. in between
+notes/lyrics.
+	- lyric engraver now engraves only single voices.  Use
+separate LyricVoices to get stacked lyrics.
+	- bf: bar(Non)Auto first barline  
+	- barAuto -> barNonAuto
+
+
+*******
+
 pl 30 (feb 15)
 
 pl 29.uu1
