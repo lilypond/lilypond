@@ -3,7 +3,7 @@
  filename: collisions.ly
  title:
  description:  random counterpoint to test collisions
- composer(s): HWN,JCN
+ composer(s): 
  entered-by: HWN,JCN
  copyright: public domain
 

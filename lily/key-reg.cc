@@ -20,7 +20,20 @@
 
 Key_register::Key_register()
 {
+    kit_p_ = 0;
     do_post_move_processing();
+}
+
+void
+Key_register::create_key()
+{
+    if (!kit_p_) {
+	int c0_i= *get_staff_info().c0_position_i_l_;	
+	
+	kit_p_ = new Key_item(c0_i);
+	announce_element(Score_elem_info(kit_p_,keyreq_l_));
+    	kit_p_->read(*this);
+    }
 }
 
 bool
@@ -33,7 +46,6 @@ Key_register::do_try_request(Request * req_l)
     if (keyreq_l_)
 	return false;		// TODO
     keyreq_l_ = creq_l->keychange();
-    change_key_b_ = true;
     read_req(keyreq_l_);
     return true;
 }
@@ -41,23 +53,13 @@ Key_register::do_try_request(Request * req_l)
 void
 Key_register::acknowledge_element(Score_elem_info info)
 {
-    int c0_i= *get_staff_info().c0_position_i_l_;	
-	 Command_req * r_l = info.req_l_->command() ;
+    Command_req * r_l = info.req_l_->command() ;
     if (r_l && r_l->clefchange()) {
-
-	 if (!kit_p_) {
-	    kit_p_ = new Key_item(c0_i);
-	    announce_element(Score_elem_info(kit_p_,0));
-	 }
-	 change_key_b_ = true;
-    }
-    
-    if (info.elem_l_->name() == Bar::static_name()) {
-	default_key_b_ = true;
-	 if (!kit_p_) {
-	    kit_p_ = new Key_item(c0_i);
-	    announce_element(Score_elem_info(kit_p_,0));
-	 }
+	create_key();
+    } else if (info.elem_l_->name() == Bar::static_name()) {
+	if ( !keyreq_l_)
+	    default_key_b_ = true;
+	create_key();
     }
 
 }
@@ -65,14 +67,10 @@ Key_register::acknowledge_element(Score_elem_info info)
 void
 Key_register::do_process_requests()
 {
-    int c0_i= *get_staff_info().c0_position_i_l_;
-
     if (key_.multi_octave_b_)
 	assert(false); // TODO . 
     else if (keyreq_l_) {
-	kit_p_ = new Key_item(c0_i);
-	kit_p_->read(*this);
-	announce_element(Score_elem_info(kit_p_, keyreq_l_));
+	create_key();
     }
 }
 
@@ -80,6 +78,7 @@ void
 Key_register::do_pre_move_processing()
 { 
     if (kit_p_) {
+	kit_p_->default_b_ = default_key_b_;
 	typeset_breakable_item( kit_p_);
 	kit_p_ = 0;
     }
@@ -110,9 +109,8 @@ Key_register::do_post_move_processing()
 {
     keyreq_l_ = 0;
     default_key_b_ = false;
-    kit_p_ = 0;
-    change_key_b_ = false;
 }
+
 IMPLEMENT_STATIC_NAME(Key_register);
 IMPLEMENT_IS_TYPE_B1(Key_register,Request_register);
 ADD_THIS_REGISTER(Key_register);
