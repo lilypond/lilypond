@@ -1,3 +1,7 @@
+2003-04-22  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond.words: added words for chant notation
+
 2003-04-22  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* ly/gregorian-init.ly, ly/script-init.ly, mf/parmesan-scripts.mf,

@@ -1,4 +1,5 @@
 \\accent
+\\accentus
 \\accepts
 Accidentals
 \\accompany
@@ -48,6 +49,7 @@ ChordNames
 \\ChordNamesContext
 \\chords
 \\chordstest
+\\circulus
 \\clef
 \\clipping
 \\cm
@@ -139,6 +141,7 @@ Hairpin
 \\huge
 \\Huge
 \\hsize
+\\ictus
 \\improOff
 \\improOn
 \\in
@@ -315,6 +318,7 @@ Score
 \\scscore
 \\sd
 \\segno
+\\semicirculus
 \\sequential
 \\set
 \\setMmRestFermata
