@@ -101,7 +101,43 @@ circulus = #(make-articulation "circulus")
 episemInitium = #(make-span-event 'TextSpanEvent START)
 episemFinis = #(make-span-event 'TextSpanEvent STOP)
 
+%
+% shortcut music functions for Liber Hymnarius neumes table
+% (experimental)
+%
+%#(define (make-script x)
+%   (make-music 'ArticulationEvent
+%               'articulation-type x))
+%    
+%#(define (add-script m x)
+%   (if
+%     (equal? (ly:music-property m 'name) 'EventChord)
+%     (set! (ly:music-property m 'elements)
+%           (cons (make-script x)
+%                 (ly:music-property m 'elements))))
+%   m)
+%
+%#(define (add-staccato m)
+%   (add-script m "staccato"))
+%
+% % \applymusic #(lambda (x) (music-map add-staccato x)) { c c }
+%
+% % \climacus { x y z ... }:
+% % \[ \virga x \inclinatum y \inclinatum z ... \]
+%
+%#(defmacro def-climacus-function (start stop)
+%  `(def-music-function (location music) (ly:music?)
+%     (make-music 'SequentialMusic
+%        'elements (list 'LigatureStartEvent
+%			(ly:music-deep-copy ,start)
+%                        music
+%                        (ly:music-deep-copy ,stop)
+%			'LigatureStopEvent))))
+%climacus = #(def-climacus-function startSequentialMusic stopSequentialMusic)
 
+%
+% example paper block for gregorian chant notation
+%
 
 neumeDemoPaper = \paper {
     interscoreline = 1

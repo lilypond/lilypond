@@ -662,7 +662,7 @@ EasyNotation = \context {	% TODO: why \context override?
   \consists "Vaticana_ligature_engraver"
 
   % Set default head for notes outside of \[ \].
-  \override NoteHead #'style = #'vaticana_punctum
+  \override NoteHead #'style = #'vaticana-punctum
 
   % Put some space before and after divisiones.
   % FIXME: This does not seem to show any effect.
@@ -702,7 +702,7 @@ EasyNotation = \context {	% TODO: why \context override?
   % \override StaffSymbol #'width = #60.0
 
   % Choose vaticana do clef on 3rd line as default.
-  clefGlyph = #"clefs-vaticana_do"
+  clefGlyph = #"clefs-vaticana-do"
   middleCPosition = #1
   clefPosition = #1
   clefOctavation = #0

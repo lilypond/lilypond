@@ -150,11 +150,11 @@
     ;; brevis, longa and maxima from the neo-mensural font and all
     ;; other note heads from the default font.  -- jr
     (if (< duration 0)
-	(string-append (number->string duration) "neo_mensural")
+	(string-append (number->string duration) "neomensural")
 	(number->string duration)))
    ((mensural)
     (string-append (number->string duration) (symbol->string style)))
-   ((neo_mensural)
+   ((neomensural)
     (string-append (number->string duration) (symbol->string style)))
    ((default)
     ;; The default font in mf/feta-bolletjes.mf defines a brevis, but
@@ -164,7 +164,7 @@
     ;; should look exactly like the brevis of the default font, but
     ;; with a stem exactly like that of the quarter note. -- jr
     (if (< duration -1)
-	(string-append (number->string duration) "neo_mensural")
+	(string-append (number->string duration) "neomensural")
 	(number->string duration)))
    (else
     (if (string-match "vaticana*|hufnagel*|medicaea*" (symbol->string style))
