@@ -27,6 +27,7 @@ struct Scalar : public String {
   bool isnum_b() const;
   operator Real();
   operator int();
+  bool to_bool () const;
 
   /**   perl -like string to bool conversion.
    */

@@ -191,6 +191,15 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
       skip_p->set_spot (here_input());
       velt_p->add (skip_p);
     }
+  else if ((duration_p->plet_.type_i_ == 1) && (duration_p->plet_.iso_i_ > 1))
+    {
+      Multi_measure_rest_req* m = new Multi_measure_rest_req;
+      plet_.iso_i_ = 1;
+      default_duration_.plet_.iso_i_ = 1;
+      m->duration_ = *duration_p;
+      m->set_spot (here_input());
+      velt_p->add (m);
+    }
   else
     {
       Rest_req * rest_req_p = new Rest_req;

@@ -7,7 +7,9 @@
 */
 #include <math.h>
 
+#ifndef STANDALONE
 #include "string.hh"
+#endif
 #include "offset.hh"
 
 

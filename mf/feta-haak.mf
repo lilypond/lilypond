@@ -1,5 +1,6 @@
 input feta-macros;
 input feta-params;
+input feta-autometric;
 
 save code;
 code :=0;
@@ -39,13 +40,34 @@ def draw_bracket( expr height_sharp, width_sharp) =
 	filldraw z5{dir(180+alpha)}..{left}z1--z2--z3..{up}z4{right}
 		..{dir(alpha)}z6..cycle;
 
-	labels(1,2,3,4,5,6);
+%	% try control points to do this in ps
+%	currentpicture:=currentpicture shifted (-x5/2,(x5-x4)/2);
+%
+%	s7 := 0.4*(x5-x1);
+%	x7 = x1 + s7 * cosd(0);
+%	y7 = y1 + s7 * sind(0);
+%
+%	s8 := -0.25*(x5-x1);
+%	x8 := x5 + s8 * cosd(alpha);
+%	y8 := y5 + s8 * sind(alpha);
+%
+%	s9 := 0.5*(x5-x4);
+%	x9 := x4 + s9 * cosd(0);
+%	y9 := y4 + s9 * sind(0);
+%
+%	s10 := -0.15*(x5-x4);
+%	x10 := x5 + s10 * cosd(alpha);
+%	y10 := y5 + s10 * sind(alpha);
+%
+%	draw z5..controls z8 and z7..z1--z2--z3..{up}z4
+%		..controls z9 and z10..z6..cycle;
+%
+%	labels(1,2,3,4,5,6,7,8,9,10);
 	addto currentpicture also currentpicture yscaled -1;
 endchar;
 enddef;
 
-
-% for h :=  staffsize# step 1 pt# until (2 * staffsize#):
+% for h :=  staffsize# step 1 pt# until (1.1 * staffsize#):
 for h :=  staffsize# step 1 pt# until (7 * staffsize#):
 	draw_bracket(h, 2interline# );
 endfor

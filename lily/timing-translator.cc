@@ -11,10 +11,12 @@
 #include "command-request.hh"
 #include "translator-group.hh"
 #include "global-translator.hh"
+#include "multi-measure-rest.hh"
 
 Timing_translator::Timing_translator ()
 {
   default_grouping_ = Rhythmic_grouping (MInterval (0, 1), 4); // ugh
+  mmrest_b_ = false;
 }
 
 bool
@@ -113,8 +115,9 @@ Timing_translator::do_pre_move_processing()
   Global_translator *global_l =
     daddy_trans_l_->ancestor_l (100)->global_l (); // ugh 100.
 
-  if (!time_.cadenza_b_)
+  if (!time_.cadenza_b_ && !mmrest_b_)
     global_l->add_moment_to_process (time_.next_bar_moment ());
+//  mmrest_b_ = false;
 }
 
 IMPLEMENT_IS_TYPE_B1(Timing_translator, Translator);

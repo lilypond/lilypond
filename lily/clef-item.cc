@@ -6,6 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include <ctype.h>
 #include "clef-item.hh"
 #include "string.hh"
 #include "molecule.hh"
@@ -55,7 +56,7 @@ Clef_item::read (String t)
   else if (t == "G" || t == "G2" || t == "treble")
     {
       symbol_ = "violin";
-      y_position_i_ == -2;
+      y_position_i_ = -2;
     }
   else if (t == "french" || t == "G1") 
     {

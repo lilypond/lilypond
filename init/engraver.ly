@@ -38,16 +38,17 @@ Staff = \translator {
 
 Rhythmic_staff = \translator
 {
-	  \type "Engraver_group_engraver";
+	\type "Engraver_group_engraver";
 	nolines  = "1";
-	  \consists "Pitch_squash_engraver";
+	\consists "Pitch_squash_engraver";
 
-	  \consists "Bar_engraver";
-	  \consists "Meter_engraver";
-	  \consists "Staff_sym_engraver";
-	  \consists "Line_group_engraver";
-	  \accepts "Voice";
+	\consists "Bar_engraver";
+	\consists "Meter_engraver";
+	\consists "Staff_sym_engraver";
+	\consists "Line_group_engraver";
+	\accepts "Voice";
 }
+
 Voice = \translator {
 	\type "Engraver_group_engraver";
 	\consists "Dynamic_engraver";
@@ -56,6 +57,7 @@ Voice = \translator {
 	\consists "Plet_engraver";
 	\consists "Beam_engraver";
 	\consists "Abbreviation_beam_engraver";
+	\consists "Multi_measure_rest_engraver";
 	\consists "Script_engraver";
 	\consists "Rhythmic_column_engraver";
 	\consists "Slur_engraver";

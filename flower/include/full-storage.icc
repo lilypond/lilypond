@@ -15,8 +15,10 @@ INLINE void
 Full_storage::init()
 {
   els_p_p_=0;
+  band_i_ = 0;    
   height_i_=width_i_=max_height_i_=max_width_i_=0;
 }
+
 INLINE bool
 Full_storage::valid (int i, int j) const
 {
@@ -27,7 +29,6 @@ Full_storage::valid (int i, int j) const
 
 INLINE
 Full_storage::Full_storage (Full_storage const&s)
-  : Matrix_storage (s)
 {
   init();
   (*this) = s;
@@ -57,11 +58,13 @@ Full_storage::rows() const
 {
   return height_i_;
 }
+
 INLINE int
 Full_storage::cols() const
 {
   return width_i_;
 }
+
 INLINE int
 Full_storage::dim() const
 {
@@ -88,8 +91,46 @@ Full_storage::Full_storage (int i)
   init();
   set_size (i);
 }
- 
-//INLINE
-//IMPLEMENT_VIRTUAL_COPY_CONS(Full_storage,Matrix_storage);
 
+
+INLINE
+bool
+Full_storage::mult_ok (int i, int ) const
+{
+  return i < height_i_;
+}
+
+INLINE
+bool
+Full_storage::trans_ok (int , int j) const
+{
+  return j < width_i_;
+} 
+
+
+INLINE
+void
+Full_storage::trans_next (int &i, int &j) const
+{
+  assert (trans_ok (i,j));
+  i++;
+  if (i >= height_i_) 
+    {
+      i= (0 >? j - band_i_);
+      j ++;
+    }
+}
+
+INLINE
+void
+Full_storage::mult_next (int &i, int &j) const
+{
+  assert (mult_ok (i,j));
+  j++;
+  if (j >= width_i_) 
+    {
+      j= 0 >? (i - band_i_);
+      i++;
+    }
+}
 #endif // FULL_STORAGE_ICC

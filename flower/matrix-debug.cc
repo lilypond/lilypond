@@ -9,15 +9,13 @@
 
 #include "flower-debug.hh"
 #include "matrix.hh"
-#include "matrix-storage.hh"
-
 
 Matrix::operator String() const
 {
   String s;
 #ifndef NPRINT
-  Matrix_storage const * stor_c_l = dat;
-  s=String ("matrix { (")  + dat->name() + ")\n";
+  Full_storage const * stor_c_l = dat_;
+  s=String ("matrix {");
   for (int i=0; i< rows(); i++)
     {
       for (int j = 0; j < cols(); j++) 
@@ -49,7 +47,7 @@ Vector::operator String() const
     {
       s += String (dat[i], "%6f") + String (' ');
     }
-  s+="]";
+  s+="]\n";
 #endif
   return s;
 }

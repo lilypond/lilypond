@@ -81,7 +81,7 @@ Choleski_decomposition::band_matrix_solve (Vector &out, Vector const &rhs) const
 void
 Choleski_decomposition::solve (Vector &x, Vector const &rhs) const
 {
-  if (L.band_b()) 
+  if (band_b_) 
     {
       band_matrix_solve (x,rhs);
     }
@@ -145,8 +145,8 @@ Choleski_decomposition::band_matrix_decompose (Matrix const &P)
       Real d = P(i,i) - sum;
       D(i) = d;
     }
-  L.try_set_band();
-  assert (L.band_i() == P.band_i ());
+  L.set_band();
+  band_b_ = true;
 }
 
 
@@ -162,11 +162,14 @@ Choleski_decomposition::Choleski_decomposition (Matrix const & P)
 #ifdef PARANOID
   assert ((P-P.transposed()).norm ()/P.norm () < EPS);
 #endif
-  if  (P.band_b()) 
+  band_b_ = false;
+
+  int b = P.calc_band_i ();
+
+  if (b <= P.dim ()/2)  
     band_matrix_decompose (P);
   else
     full_matrix_decompose (P);
- 
 
 #ifdef PARANOID
   assert ((original()-P).norm () / P.norm () < EPS);

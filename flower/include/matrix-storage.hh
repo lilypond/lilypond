@@ -13,9 +13,6 @@
 #include "varray.hh"
 #include "real.hh"
 
-// oo, noo!
-#include "virtual-methods.hh"
-
 /** 
 
     base class for interface with matrix storageclasses.  There are no
@@ -33,143 +30,123 @@ class Matrix_storage {
     
 
 public:
-    /// check invariants
-    virtual void OK() const=0;
+  /// check invariants
+  void OK() const;
     
-    /// height of matrix
-    virtual int rows() const = 0;
+  /// height of matrix
+  int rows() const;
 
-    /// width of matrix
-    virtual int cols() const = 0;
+  /// width of matrix
+  int cols() const;
 
-    /// size if square
-    virtual int dim() const =0;
+  /// size if square
+  int dim() const;
       
-    /**  set the size. contents lost.       
-      PRE
-      i >=0, j>=0
-    */
-    virtual void set_size (int rows, int cols) ;
+  /**  set the size. contents lost.       
+       PRE
+       i >=0, j>=0
+  */
+  void set_size (int rows, int cols) ;
 
  
-    /**set the size to square dimen. contents lost
-      PRE
-      i>=0
-    */
-    virtual void set_size (int i) ;
-     /**set the size to i.
+  /**set the size to square dimen. contents lost
+     PRE
+     i>=0
+  */
+  void set_size (int i) ;
+  /**set the size to i.
 
-      keep contents. If enlarged contents unspecified
+     keep contents. If enlarged contents unspecified
         
-      PRE
-      i>=0, j>=0
+     PRE
+     i>=0, j>=0
     
-    */
-    virtual void resize (int rows, int cols) = 0;
+  */
+  void resize (int rows, int cols);
  
   /**    
-    set the size to square dimen. contents kept
-    Keep contents. If enlarged contents are unspecified
+	 set the size to square dimen. contents kept
+	 Keep contents. If enlarged contents are unspecified
     
-    PRE
-    i>=0  
-    */
-    virtual void resize (int i) = 0;
+	 PRE
+	 i>=0  
+  */
+  void resize (int i);
   
     
-    /**
-    access an element.
+  /**
+     access an element.
 
-    Generate an errormessage, if this happens
-    in the 0-part of a sparse matrix.
-    */
+     Generate an errormessage, if this happens
+     in the 0-part of a sparse matrix.
+  */
 
-    virtual Real& elem (int i,int j) = 0;
+  Real& elem (int i,int j);
 
-    /// access a element, no modify
-    virtual Real elem (int i, int j) const = 0;
+  /// access a element, no modify
+  Real elem (int i, int j) const;
 
-    virtual Array<Real> row (int i) const ;
-    virtual Array<Real> column (int j) const;
-
-    
-    /**
-    add a row to the matrix before  row k. Contents
-    of added row are unspecified
-
-      0 <= k <= rows()
-    */
-    virtual void insert_row (int k)=0;
+  Array<Real> row (int i) const ;
+  Array<Real> column (int j) const;
 
     
-      /**
-      delete a row from this matrix.
+  /**
+     add a row to the matrix before  row k. Contents
+     of added row are unspecified
 
-      PRE
-      0 <= k < rows();
-    */
-    virtual void delete_row (int k)=0;
-        virtual void delete_column (int k)=0;
-    virtual ~Matrix_storage() { }
-    virtual Matrix_storage *clone() const=0;
-
+     0 <= k <= rows()
+  */
+  void insert_row (int k);
 
     
-    /**
-      at end of matrix?. when doing loop
+  /**
+     delete a row from this matrix.
 
-      for (i=0; i<h; i++)
-        for (j=0; j<w; j++)
-          ..
-
-    */
-    virtual bool mult_ok (int i, int j) const=0;
-
-    /**
-      walk through matrix (regular multiply).
-      get next j for row i, or get next row i and reset j.
-      this will make sparse matrix implementation easy.
-    
-      PRE
-      mult_ok (i,j)
-     */
-    virtual void mult_next (int &i, int &j) const  = 0;
-
-    /**
-      valid matrix entry. return false if at end of row
-    */
-    virtual bool trans_ok (int i, int j) const=0;
-
-    /**
-      walk through matrix (transposed multiply).
-      Get next i (for column j)
-    
-      PRE
-      ver_ok (i,j)
-     */
-
-    virtual void trans_next (int &i, int &j) const  = 0;
-    
-    /// generate a "Full_storage" matrix    
-    static Matrix_storage *get_full (int n, int m);
-    static void set_band (Matrix_storage*&, int band);
-    static void set_full (Matrix_storage*&);
-    virtual bool try_right_multiply (Matrix_storage *dest, 
-				    const Matrix_storage *fact) const ;
-    /**
-      RTTI.
-     */
-    DECLARE_MY_RUNTIME_TYPEINFO;
+     PRE
+     0 <= k < rows();
+  */
+  void delete_row (int k);
+  void delete_column (int k);
+  ~Matrix_storage() { }
 
     
-    static Matrix_storage* get_product_result (Matrix_storage *left, 
-					      Matrix_storage *right);
+  /**
+     at end of matrix?. when doing loop
+
+     for (i=0; i<h; i++)
+     for (j=0; j<w; j++)
+     ..
+
+  */
+  bool mult_ok (int i, int j) const;
+
+  /**
+     walk through matrix (regular multiply).
+     get next j for row i, or get next row i and reset j.
+     this will make sparse matrix implementation easy.
     
+     PRE
+     mult_ok (i,j)
+  */
+  void mult_next (int &i, int &j) const;
+
+  /**
+     valid matrix entry. return false if at end of row
+  */
+  bool trans_ok (int i, int j) const;
+
+  /**
+     walk through matrix (transposed multiply).
+     Get next i (for column j)
     
-    static void set_addition_result (
-	Matrix_storage *&dat, Matrix_storage *right);
-    static void set_product_result (
-	Matrix_storage*&dest, Matrix_storage*left, Matrix_storage*right);
+     PRE
+     ver_ok (i,j)
+  */
+
+  void trans_next (int &i, int &j) const;
+    
+  /// generate a "Full_storage" matrix    
+  static void set_band (Matrix_storage*&, int band);
 };
 
 #endif // MATRIX_STORAGE_HH

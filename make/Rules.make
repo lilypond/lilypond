@@ -44,7 +44,14 @@ $(outdir)/%: %.m4
 %.dep:
 	touch $@
 
+%.gz: %
+	gzip -c9 $< > $@
+
 
 $(depth)/%.txt: check-doc-deps
 	rm -f $@
 	ln `find ${depth}/Documentation -name $@ -print|head -1 ` .
+
+$(outdir)/%.ps: $(outdir)/%.dvi
+	dvips -o $@ $<
+

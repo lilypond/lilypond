@@ -16,6 +16,7 @@ table_eleven  = \symboltables {
 		"finger"	"\setfinger{%}"	0.0\pt	0.0\pt	0.0\pt	5.0\pt
 		"italic"	"\setitalic{%}"	0.0\pt	0.0\pt	0.0\pt	10.0\pt
 		"large"	"\setlarge{%}"	0.0\pt	9.50\pt	0.0\pt	12.0\pt
+		"number"	"\setnumber{%}"	0.0\pt	9.50\pt	0.0\pt	12.0\pt
 		"roman"	"\settext{%}"	0.0\pt	7.5\pt	0.0\pt	10.0\pt
      }
 

@@ -8,6 +8,8 @@
 
 #include "bar-grav.hh"
 #include "bar.hh"
+#include "musical-request.hh"
+#include "multi-measure-rest.hh"
 #include "command-request.hh"
 #include "time-description.hh"
 #include "engraver-group.hh"
@@ -42,6 +44,25 @@ Bar_engraver::create_bar ()
       bar_p_->break_priority_i_  = 0;
       announce_element (Score_elem_info (bar_p_, bar_req_l_));
     }
+}
+
+void
+Bar_engraver::acknowledge_element (Score_elem_info i)
+{
+  if (!bar_p_ || !i.elem_l_->is_type_b (Multi_measure_rest::static_name ()))
+    return;
+
+#if 0
+  if (!bar_p_ || !i.req_l_ || !i.req_l_->musical () 
+    || !i.req_l_->musical ()->multi_measure ())
+    return;
+
+  // would this be enough?
+  //urg segfault
+  bar_p_->unlink ();
+  delete bar_p_;
+  bar_p_ = 0;
+#endif
 }
 
 void 

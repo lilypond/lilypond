@@ -40,6 +40,7 @@ public:
   virtual Plet_req* plet() { return 0; }
   virtual Span_dynamic_req * span_dynamic() { return 0; }
   virtual Abbreviation_req* abbrev() { return 0; }
+  virtual Multi_measure_rest_req* multi_measure() { return 0; }
   REQUESTMETHODS(Musical_req, musical);
 };
 
@@ -84,7 +85,6 @@ struct Abbreviation_req : public Musical_req {
 class Blank_req  : public Spacing_req, Rhythmic_req  {
 public:
   REQUESTMETHODS(Spacing_req, spacing);
-    
 };
 
 /// Put a text above or below (?) this staff.
@@ -156,7 +156,14 @@ public:
   REQUESTMETHODS(Rest_req,rest);
 };
 
-
+/**
+ Part: typeset a measure with the number of measures rest
+ Score: typeset all individual measures ass full rests
+ */
+class Multi_measure_rest_req : public Rhythmic_req  {
+public:
+  REQUESTMETHODS(Multi_measure_rest_req, multi_measure);
+};
 
 /**
   Requests to start or stop something.

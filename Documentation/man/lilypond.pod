@@ -1,0 +1,329 @@
+=head1 NAME
+
+lilypond - the GNU music typesetter
+
+=head1 SYNOPSIS
+
+	lilypond [options] [inputfiles]
+
+=head1 DESCRIPTION
+
+LilyPond is the GNU Project music typesetter.  The program generates
+visual or auditive output from a music definition file: it can typeset 
+formatted sheet music to a TeX file and play (mechanical) performances 
+to a MIDI file.
+
+=head1 OPTIONS
+
+=over 5
+
+=item B<-I,--include>=F<FILE>,
+
+add F<FILE> to the search path for input files.
+
+=item B<-M,--midi>
+
+This disables TeX output. If you have a \midi definition, it will do
+the midi output only.
+
+=item B<-d,--debug>,
+
+Turn debugging info on.  GNU LilyPond reads the file F<.dstreamrc>, 
+which lists what functions and classes may produce copious debugging
+output.
+
+=item B<-t,--test>,
+
+Switch on any experimental features.  Not for general public use.
+
+=item B<-w,--warranty>,
+
+Show the warranty with which GNU LilyPond comes. (It comes with B<NO
+WARRANTY>!)
+
+=item B<-o,--output=>F<FILE>,
+
+Set the default output file to F<FILE>.
+
+=item B<-h,--help>,
+
+Show a summary of usage.
+
+=item B<-i,--init=>F<FILE>,
+
+Set init file to F<FILE> (default: F<lily-init.ly>).
+
+=item B<--include, -I>=F<DIRECTORY>,
+
+Add F<DIRECTORY> to the search path for input files.
+
+=item B<--ignore-version, -V>,
+
+Make incompatible mudela version non-fatal.
+
+=item B<--no-postscript, -P>,
+
+Don't generate embedded PostScript (or MetaFont) symbols, but resort to
+less beautiful fixed-size versions.
+
+LilyPond uses PostScript for variable symbols where possible.  (For some 
+of these symbols runtime MetaFont source will be genarated too.  These are 
+not used unless you also include the appropriate  TeX file too.  See 
+F<tex/fetdefs.tex>.)
+
+=back
+
+=head1 FEATURES
+
+This is an overview of the features that GNU LilyPond supports.  For
+details on how to use them, you should consult mudela(5).
+
+=over 5
+
+=item *
+
+ASCII script input, with identifiers (for music reuse),
+customizable notenames, customisable fontset.
+
+=item *
+
+MIDI output lets you check if you have entered the correct notes.
+
+=item *
+
+MIDI to Mudela conversion through the mi2mu program.
+
+=item *
+
+Multiple staffs in one score.  Each staff can have different meters.
+
+=item *
+
+Beams, slurs, ties, chords, super/subscripts (accents and text)
+triplets, general n-plet (triplet, quadruplets, etc.), lyrics,
+transposition dynamics (both absolute and hairpin style).
+
+=item *
+
+Multiple voices within one staff; beams optionally shared
+between voices.  Up to four voices is handled cleanly.
+
+=item *
+
+Multiple scores within one input file.  Each score is output to
+a different file.
+
+=item *
+
+Clef changes, meter changes, cadenza-mode, key changes, repeat bars.
+
+=back
+
+=head1 DISCLAIMER AND COPYING POLICY
+
+GNU LilyPond is copyright 1996-1998 by its authors.  GNU LilyPond is
+distributed under the terms of the GNU General Public License.  GNU LilyPond 
+is provided without any warranty what so ever.
+GNU LilyPond may be freely distributed.  For further information consult 
+the GNU General Public License, from the file F<COPYING>.
+
+=head1 AUTHORS
+
+Please consult the documentation file AUTHORS for more detailed
+information, and small contributions. 
+
+=over 4
+
+=item *
+
+Han-Wen Nienhuys <hanwen@cs.ruu.nl>, http://www.cs.ruu.nl/people/hanwen
+
+=item *
+
+Jan Nieuwenhuizen <jan@digicash.com>,  http://www.digicash.com/~jan.
+
+=back
+
+
+=head1 PROBLEMS
+
+
+There is an extensive list of todoes and bugs.  See F<TODO>.  If you
+have a problem you should try to find out
+
+=over 4
+
+=item *
+
+If the bug has been fixed in a newer release.  
+
+=item *
+
+If the bug has been found earlier, consult F<TODO> and F<BUGS>.
+
+=back 
+
+If you have found a bug, then you should send a bugreport.
+
+=over 4
+
+=item *
+Send a copy of the input which causes the error.
+
+=item *
+Send a description of the platform you use.
+
+=item *
+Send a description of the LilyPond version you use (with
+compile/configure options please).
+
+=item *
+Send a description of the bug itself.
+
+=item *
+Send it to bug-gnu-music@gnu.org (you don't have to subscribe
+to this mailinglist).
+
+=back
+
+It does help if you can find out where the bug comes from: if GNU
+LilyPond bombs out, then please recompile using with debugging info
+turned on, and send gdb stacktrace of the crash.  It also helps if you
+can print the values of the objects.  So if your trace is
+
+	received SIGSEGV 
+	(gdb) backtrace 12
+	#0  Interval::operator+= (this=0x11fffec60..)
+	    at ../flower/interval.hh:50
+	#1  0x12005195c in Item::width (this=0x14008a680) at src/item.cc:39
+	#2  0x12008fdbc in itemlist_width (its=0x11fffed58 ..
+	  :
+	  :
+
+Than it would help if you send a dump of the Interval and the Item
+(use: C<print *this> or use LilyPond C<print()> methods).
+
+
+=head1 FILES
+
+=over 5
+
+=item F<lily-init.ly>
+
+The initialisation file with symbol tables etc.  It
+includes files from the directory F<init/>.
+
+=back
+
+=head1 ENVIRONMENT
+
+B<LILYINCLUDE> an (one) additional directory for finding lilypond data.
+
+=head1 BUGS
+
+Lots of them.  See F<TODO> and F<BUGS>
+
+=head1 SEE ALSO
+
+=over 4
+
+=item internals
+
+On technical details of LilyPond
+
+=item mudela-man
+
+On the input format.  This is a LilyPond-enhanced LaTeX document.
+
+=item MANIFESTO
+
+Goals of the GNU LilyPond project.
+
+=item FAQ
+
+The GNU LilyPond FAQ list
+
+=item http://www.cs.ruu.nl/people/hanwen/lilypond/index.html
+
+GNU LilyPond has her own webpage.  This webpage contains the MIDI, GIF
+and PS files for some standard music files.  It also has the complete
+LilyPond documentation
+
+=back
+
+GNU LilyPond is
+updated very frequently, the latest version is always available at:
+ftp://pcnov095.win.tue.nl/pub/lilypond and
+ftp://alpha.gnu.org/gnu/lilypond/
+
+
+For programs which are part of the GNU music project, the following
+mailing list have been setup:
+
+
+=over 4
+
+=item info-gnu-music@gnu.org
+
+For information on the GNU Music project, to subscribe: send mail with
+subject "subscribe" to info-gnu-music-request@gnu.org
+
+=item help-gnu-music@gnu.org
+
+For help with programs from the GNU music project.  To subscribe: send
+mail with subject "subscribe" to
+help-gnu-music-request@gnu.org
+
+=item bug-gnu-music@gnu.org
+
+If you have bugreports, you should send them to this list.  If you want
+to read all bugreports, you should subscribe to this list.  To
+subscribe: send mail with subject "subscribe" to
+bug-gnu-music-request@gnu.org
+
+=item gnu-music-discuss@gnu.org,
+
+For discussions concerning the GNU Music project, to subscribe: send
+mail with subject "subscribe" to
+gnu-music-discuss-request@gnu.org,
+
+
+=back
+
+Announces of new versions will be sent to info-gnu-music and
+gnu-music-discuss.
+
+=head1  REMARKS
+
+GNU LilyPond has no connection with the music package Rosegarden, other
+than the names being similar :-)
+
+=head1 HISTORY
+
+(for a  detailed changelog, see F<NEWS>)
+
+GNU LilyPond's roots lie in MPP, a preprocessor to the rather arcane
+MusiXTeX macro package for TeX.  A friend of mine, Jan Nieuwenhuizen
+wrote the first 44 versions (0.01 to 0.44), then his program caught my
+attention, and I was slowly sucked in to the interesting problem of
+easily producing beautifully printed music.  I contributed some
+code.  We soon realised that MPP's design was too fundamentally broken
+to be repaired, so it was decided to rewrite MPP.  We debated a lot about
+the requirements to an inputformat (fall 1995).  I sat down and started
+with a parser-first, bottom-up rewrite called mpp95 (which totally
+failed, obviously).
+
+After long and hard thinking, I came up with an algorithm for the
+horizontal spacing of multiple staffs (april 1996) I coded it (and did
+not test it).  After starting with this fundamental piece, I slowly
+added the stages which come before spacing, and after.  A half year
+later, I had a first working version, (october 1996).  I announced
+Patchlevel 0.0.7 (or 8) to the mutex list after asking some technical
+details on spacing; it was downloaded approximately 4 times.  Then I
+got the hang of it, and in the subsequent two months, I coded until it
+had doubled in size (pl 23).
+
+Most the other history is described in the NEWS file.  The first large
+scale release (0.1) was done after approximately 78 patchlevels on
+August 1, 1997.
+

@@ -10,7 +10,7 @@
 #ifndef MATRIX_HH
 #define MATRIX_HH
 
-#include "matrix-storage.hh"
+#include "full-storage.hh"
 #include "vector.hh"
 #include "offset.hh"
 
@@ -28,13 +28,14 @@ class Matrix {
   friend Matrix operator *(Matrix const &m1, Matrix const &m2);
 
 protected:
-  Matrix_storage *dat;
+  Full_storage *dat_;
   void set (Matrix_storage*);
-  Matrix (Matrix_storage*);
 public:
-  void OK() const { dat->OK(); }
-  int cols() const { return dat->cols (); }
-  int rows() const { return dat->rows (); }
+  void OK() const { dat_->OK(); }
+  void set_band ();
+  int calc_band_i () const;
+  int cols() const { return dat_->cols (); }
+  int rows() const { return dat_->rows (); }
 
   /**  return the size of a matrix. 
     PRE
@@ -49,10 +50,6 @@ public:
     0 <= band_i() <= dim
     */
   int band_i() const;
-  bool band_b() const;
-  void set_full() const;
-  void try_set_band() const;
-  ~Matrix() { delete dat; }
 
   /// set entries to r 
   void fill (Real r);
@@ -83,8 +80,8 @@ public:
     PRE
     0 <= k < rows();
     */
-  void delete_row (int k) { dat->delete_row (k); }
-  void delete_column (int k) { dat->delete_column (k); }
+  void delete_row (int k) { dat_->delete_row (k); }
+  void delete_column (int k) { dat_->delete_column (k); }
 
   /**
     square n matrix, initialised to null
@@ -102,10 +99,10 @@ public:
   void operator=(Matrix const &m);
 
   /// access an element
-  Real operator()(int i,int j) const { return dat->elem (i,j); }
+  Real operator()(int i,int j) const { return dat_->elem (i,j); }
 
   /// access an element
-  Real &operator()(int i, int j) { return dat->elem (i,j); }
+  Real &operator()(int i, int j) { return dat_->elem (i,j); }
 
   /// Matrix multiply with vec (from right)
   Vector operator *(Vector const &v) const;
@@ -142,6 +139,7 @@ public:
 
   operator String() const;
   void print() const;
+  ~Matrix ();
 };
 
 inline Vector

@@ -16,6 +16,8 @@ struct Choleski_decomposition {
   /// lower triangle of Choleski decomposition
   Matrix L;
 
+  bool band_b_;
+
   /// diagonal 
   Vector D;
 

@@ -76,6 +76,13 @@ public:
   Array() 
     { array_p_ = 0; max_ =0; size_ =0; }
 
+  // ugh, get around gcc 2.8.1 ice; see bezier.cc
+  Array (int i) 
+  { 
+    max_ = size_ = i; 
+    array_p_ = new T[i];
+  }
+
 
   /** set the size_ to #s#.
       POST: size() == s.

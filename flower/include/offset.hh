@@ -39,7 +39,7 @@ public:
     Offset o = *this;
     o.x () = - o.x ();
     o.y () = - o.y ();
-    return *this;
+    return o;
   }
   Offset& operator-=(Offset o) {
     x()-=o.x ();

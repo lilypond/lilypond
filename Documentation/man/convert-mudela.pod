@@ -1,0 +1,49 @@
+=head1 NAME
+
+convert-mudela  - convert mudela to newer versions
+
+=head1 SYNOPSIS
+
+	convert-mudela [options] [files]
+
+=head1 DESCRIPTION
+
+convert-mudela sequentially applies different mudela-conversions to
+upgrade a Mudela input file from FROM_PATCHLEVEL to TO_PATCHLEVEL.
+If no files are given, the standard input and output are used
+
+=head1 OPTIONS
+
+=over 4
+
+=item B<--output>
+
+The output file to write
+
+=item B<--edit> 
+
+Do an inline edit of the input file. override B<--output>
+
+=item B<--show-rules>
+
+shows all known conversions.
+
+=item B<--from>=FROM_PATCHLEVEL
+
+Set the level to convert from. If this is not set, convert-mudela will
+guess this, on the basis of C<\version> strings in the file
+
+=item B<--to>=TO_PATCHLEVEL
+
+Set the goal version of the conversion. It defaults to the latest
+available version.  
+
+=back
+
+=head1 BUGS
+
+Not all language changes are handled. Multiple output options won't work
+
+=head1 AUTHOR
+
+Han-Wen Nienhuys <hanwen@gnu.org>

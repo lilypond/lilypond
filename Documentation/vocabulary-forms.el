@@ -4,7 +4,7 @@
 ; Forms by Han-Wen Nienhuys
 
 (setq forms-file "vocabulary-data")
-(setq forms-number-of-fields 6)
+(setq forms-number-of-fields 7)
 (setq forms-read-only nil)                 ; to make sure
 (setq forms-field-sep ":")
 (setq forms-multi-line nil)
@@ -13,9 +13,11 @@
       (list
        "*** Musical vocabulary ***\n"
        "\nItaliano:          " 6
-       "\nFrancais:           " 1
-       "\nUS English:       " 2
+       "\nFrancais:          " 1
+       "\nUS English:        " 2
        "\nDeutsch:           " 3
-       "\nBritish English:  " 4
-       "\nNederlands:            " 5
+       "\nBritish English:   " 4
+       "\nNederlands:        " 5
+       "\n\nExplanation\n\n" 7
+
 	))

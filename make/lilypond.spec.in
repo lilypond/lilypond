@@ -3,7 +3,7 @@ Version: @TOPLEVEL_VERSION@
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
+Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
 Summary: A program for typesetting music.
 URL: http://www.cs.ruu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
@@ -36,12 +36,14 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 %doc Documentation/out/lelie_logo.gif
 /usr/bin/convert-mudela
 /usr/bin/mudela-book
+/usr/bin/ly2dvi
 /usr/bin/lilypond
-/usr/lib/libflower.so
 /usr/bin/mi2mu
+# /usr/lib/libflower.so
 /usr/man/man1/mi2mu.1
 /usr/man/man1/lilypond.1
 /usr/man/man1/mudela-book.1
+/usr/man/man1/ly2dvi.1
 /usr/man/man1/convert-mudela.1
 /usr/lib/texmf/texmf/tex/lilypond/
 /usr/lib/texmf/texmf/fonts/source/public/lilypond

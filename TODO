@@ -4,17 +4,14 @@ This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 Most of the items are marked in the code as well, with full explanation. 
-grep for TODO and ugh/ugr
+grep for TODO and ugh/ug
 
 0.2:
-	* junk embedded mf
-
-
-
 
 	* ly2dvi seams to eat accents as in \'el\'egant
 
 	* libtoolize flowerlib
+
 	* shared lib
 
 	* bf: abbrevbeam? 
@@ -36,8 +33,6 @@ grep for TODO and ugh/ugr
 	* nicen examples:
 	- remove all \multi
 	- break-up heavily-nested score blocks
-
-	* --metafont
 
 	* disable spaces in TeX stuff
 	
@@ -120,7 +115,9 @@ STUFF
 
 	* AFM for font input?
 
+
 3RD PARTY BUGS:
+
 	* tried egcs 1.0.2: failed on lily/stem.cc -> flower/include/interval.hh
 	  should narrow down and send bug report
 
@@ -153,6 +150,7 @@ PROJECTS
 
 	* a musical dictionary. See Documentation/vocabulary-*, other
 languages:
+	- explanation
 	- italian
 	- german
 	- dutch
@@ -192,8 +190,6 @@ languages:
 	- make encapsulated spacing problems.
 
 	* accidentals per Voice_group
-
-	* Convert all ref/bib stuff into BibTeX.
 
 	* Output class, handles : (smallish)
 	- help text /(c) notice?
@@ -326,7 +322,7 @@ SMALLISH PROJECTS
 	* adaptive accidental spacing.
 
 	* handle EOF graciously in error messages.
-
+oo
 	* caching Item/spanner dimensions.
 
 	* centered whole rest

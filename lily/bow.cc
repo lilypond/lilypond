@@ -26,15 +26,13 @@ Bow::brew_molecule_p () const
 {
   Molecule* mol_p = new Molecule;
   
-  Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
-  
-  Real dx_f = width ().length ();
-  dx_f += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-  
-  Atom a = paper ()->lookup_l ()->slur (get_controls ());
+  Array<Offset> c = get_controls ();
+  Atom a = paper ()->lookup_l ()->slur (c);
+//  a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
+  a.translate (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT] - c[0].y ()));
 
-  a.translate (Offset (dx_f + dx_f_drul_[LEFT], dy_f + dy_f_drul_[LEFT]));
   mol_p->add (a);
+
   return mol_p;
 }
 

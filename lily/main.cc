@@ -26,9 +26,8 @@ Sources* source_global_l = 0;
 bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
 
-bool embedded_mf_global_b = false;
 bool experimental_features_global_b = false;
-bool postscript_global_b = true;
+
 int exit_status_i_;
 
 void destill_inname (String &name_str_r);
@@ -42,7 +41,7 @@ Long_option_init theopts[] = {
   {1, "init", 'i'},
   {1, "include", 'I'},
   {0, "no-paper", 'M'},
-  {0, "no-postscript", 'P'},
+
   {0, "no-timestamps", 'T'},
   {0, "ignore-version", 'V'},
   {0,0,0}
@@ -65,7 +64,7 @@ usage ()
     "  -t, --test             switch on experimental features\n"
     "  -M, --no-paper         produce midi output only\n"
     "  -V, --ignore-version   ignore mudela version\n"
-    "  -P, --no-postscript    don't use PostScript\n"
+
     "  -T, --no-timestamps    don't timestamp the output\n"
     "\n"
     "GNU LilyPond was compiled with the following settings:\n")
@@ -211,9 +210,6 @@ main (int argc, char **argv)
 	  break;
 	case 'V':
 	  version_ignore_b = true;
-	  break;
-	case 'P':
-	  postscript_global_b = false;
 	  break;
 	case 'd':
 	  set_debug (true);

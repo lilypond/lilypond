@@ -183,10 +183,7 @@ Slur::get_encompass_offset_arr () const
       first = 0;
       left_x = spanned_drul_[LEFT]->width ().length ();
       left_x -= 2 * notewidth;
-//      left_y = 0;
-      Stem* stem = encompass_arr_[last]->stem_l_;
-      left_y = stem->dir_ == dir_ ? stem->stem_end_f ()
-	: stem->stem_begin_f () + 0.5 * dir_;
+      left_y = encompass_arr_[last]->stem_l_->height ()[dir_];
       dy = 0;
     }
   if (encompass_arr_.top () != spanned_drul_[RIGHT])
@@ -195,8 +192,15 @@ Slur::get_encompass_offset_arr () const
       dy = 0;
     }
 
+#define RESIZE_ICE
+#ifndef RESIZE_ICE
   Array<Offset> notes;
   notes.push (Offset (0,0));
+#else
+  int n = last - first + 2;
+  Array<Offset> notes (n);
+  notes[0] = Offset (0,0);
+#endif
   for (int i = first; i < last; i++)
     {
       Stem* stem = encompass_arr_[i]->stem_l_;
@@ -213,25 +217,27 @@ Slur::get_encompass_offset_arr () const
 
       x -= left_x;
 
-      Real y = stem->dir_ == dir_ ? stem->stem_end_f ()
-	: stem->stem_begin_f () + 0.5 * dir_;
+      Real y = stem->height ()[dir_];
 
       /*
 	leave a gap: slur mustn't touch head/stem
        */
-      y += 2.5 * dir_;
+      y += 2.5 * internote * dir_;
 
-      // ugh: huh?
       if (dir_ == DOWN)
-	y += 1.5 * dir_;
+	y += 1.5 * internote * dir_;
 
-      y *= internote;
       y -= left_y;
 
+#ifndef RESIZE_ICE
       notes.push (Offset (x, y));
     }
-
   notes.push (Offset (dx, dy));
+#else
+      notes[i - first + 1] = Offset (x, y);
+    }
+  notes[n - 1] = Offset (dx, dy);
+#endif
 
   return notes;
 }

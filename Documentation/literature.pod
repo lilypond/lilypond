@@ -13,8 +13,9 @@ too seriously]
 
 =head2 Music engraving: references
 
-Helene Wanske.  ``Musiknotation --- Von der Syntax des Notenstichs zum
-EDV-gesteuerten Notensatz'', Schott-Verlag, Mainz 1988.ISBN 3-7957-2886-x.
+Helene Wanske. ``Musiknotation --- Von der Syntax des Notenstichs zum
+EDV-gesteuerten Notensatz'', Schott-Verlag, Mainz 1988.  ISBN
+3-7957-2886-x.
 
 [I. A very thorough overview of engraving practices of various
 craftsmen. It includes detailed specs of characters, dimensions etc.
@@ -22,7 +23,7 @@ II. a thorough overview of a anonymous (by now antiquated) automated
 system. EDV Means e(lektronischen) D(aten)v(erarbeitung), electronic
 data processing HWN]
 
-Maxwell Weaner and Walter Boelke, Standard Music Notation Practice,
+Maxwell Weaner and Walter Boelke. ``Standard Music Notation Practice'',
 revised edition by Arnold Broido and Daniel Dorff. Music Publisher's
 Association of the United States Inc., 1993.
 
@@ -68,22 +69,22 @@ distilled from [Ross] HWN]
 
 =head2 Notation with computers
 
-Donald Byrd.  ``Music Notation by Computer''.  Dissertation Indiana
+Donald Byrd. ``Music Notation by Computer''.  Dissertation Indiana
 University, 1985.
 
-Donald Byrd.  ``A System for Music Printing by Computer.''  Computers
+Donald Byrd. ``A System for Music Printing by Computer.''  Computers
 and the Humanities, 8 (1974), 161-72.
 
-Leland Smith.  ``Editing and Printing Music by Computer.''  Journal of
+Leland Smith. ``Editing and Printing Music by Computer.''  Journal of
 Music Theory, 17 (1973), 292-309.
 
 [If I remember correctly, this was concerned more with an input
 language than with the typography. SP.]
 
-David A Gomberg.  ``A Computer-Oriented System for Music Printing.''
+David A Gomberg. ``A Computer-Oriented System for Music Printing.''
 Dissertation Washington University. 1975.
 
-Walter B Hewlett. and Eleanor Selfridge-Field.  ``Directory of Computer
+Walter B Hewlett. and Eleanor Selfridge-Field. ``Directory of Computer
 Assisted Research in Musicology''.  Menlo Park, CA: Center for Computer
 Assisted Research in the Humanities.
 
@@ -161,28 +162,28 @@ of the ACM, Vol. 29(5), 388--401, 1986.
 [This paper describes the MusiCopy musicsetting system and an input
 language to go with it. HWN]
 
-Dorothea Blostein and Lippold Haken, ``The Lime Music Editor: A Diagram
+Dorothea Blostein and Lippold Haken. ``The Lime Music Editor: A Diagram
 Editor Involving Complex Translations'', Software Practice and
 Experience, Vol. 24, No. 3, March 1994, pp. 289-306.
 
 [A description of various conversions, decisions and issues relating
 to this interactive editor HWN]
 
-Lippold Haken and Dorothea Blostein, ``The Tilia Music Representation:
+Lippold Haken and Dorothea Blostein. ``The Tilia Music Representation:
 Extensibility, Abstraction, and Notation Contexts for the Lime Music
 Editor'', Computer Music Journal, Vol. 17, No. 3, 1993, pp. 43-58
 
 [A description of Lime internals (which resemble older (before
 0.0.68pre) LilyPond data structures somewhat) HWN]
 
-Lippold Haken and Dorothea Blostein, ``A New Algorithm for Horizontal
+Lippold Haken and Dorothea Blostein. ``A New Algorithm for Horizontal
 Spacing of Printed Music'', International Computer Music Conference,
 Banff, Sept. 1995, pp. 118-119.
 
 [This describes an algorithm which uses springs between adjacent
 columns. This algorithm is a "subclass" of the LilyPond algorithm. HWN]
 
-Dorothea Blostein and Lippold Haken, ``Justification of Printed Music'',
+Dorothea Blostein and Lippold Haken. ``Justification of Printed Music'',
 Communications of the ACM, VolJ34, No. 3, March 1991, pp. 88-99.
 
 [This paper provides a shallow overview of the algorithm used in LIME
@@ -195,7 +196,7 @@ Gary M. Rader. ``Creating Printed Music Automatically''. Computer Vol
 "constraints" (which go unexplained) to automatically position various
 elements. HWN]
 
-Stephen Dowland Page.  ``Computer Tools for Music Information
+Stephen Dowland Page. ``Computer Tools for Music Information
 Retrieval''.  Dissertation University of Oxford, 1988.
 
 [Don't ask Stephen for a copy. Write to the Bodleian Library, Oxford,
@@ -214,21 +215,21 @@ Miguel Filgueiras and Jos\'e Paulo Leal. ``Representation and
 manipulation of music documents in SceX''.  Electronic Publishing,
 vol. 6 (4), 507--518, 1993.
 
-Eric Foxley, Music --- A language for typesetting music scores.
+Eric Foxley, ``Music --- A language for typesetting music scores''.
 Software --- Practice and Experience, Vol. 17(8), 485--502, 1987.
 
 [A paper on a TROFF preprocessor to typeset music. The output shown is
 not very sophisticated, and contains some typographical atrocities HWN]
 
-Miguel Filgueiras, ``Implementing a Symbolic Music Processing
+Miguel Filgueiras. ``Implementing a Symbolic Music Processing
 System''. LIACC, Universidade do Porto, 1996; submitted.
 
-Miguel Filgueiras, ``Some Music Typesetting Algorithms''. LIACC,
+Miguel Filgueiras. ``Some Music Typesetting Algorithms''. LIACC,
 Universidade do Porto, forthcoming.
 
 =head2 Engraving: further reading
 
-Tom Gerou and Linda Lusk.  ``Essential Dictionary of Music Notation''
+Tom Gerou and Linda Lusk. ``Essential Dictionary of Music Notation''
 Alfred Publishing, Van Nuys CA, 1996.  ISBN 0-88284-768-6.
 
 [A concise, alphabetically ordered list of typesetting and music
@@ -257,18 +258,18 @@ Prentice-Hall, 1963.
 
 Donemus. ``Uitgeven van muziek''. Donemus Amsterdam, 1900
 
-George Heussenstamm. The Norton Manual of Music Notation. New York:
+George Heussenstamm. ``The Norton Manual of Music Notation''. New York:
 Norton, 1987.
 
 Erdhard Karkoshka. ``Notation in New Music. Trans. Ruth
 Koenig''. Praeger Publishers, New York, 1972.  (Out of print)
 
-C. Roemer, The Art of Music Copying. Roerick music co., Sherman Oaks
+C. Roemer, ``The Art of Music Copying''. Roerick music co., Sherman Oaks
 (CA), 1973.
 
-Glen Rosecrans. Music Notation Primer. New York: Passantino, 1979.
+Glen Rosecrans. ``Music Notation Primer''. New York: Passantino, 1979.
 
-Kurt Stone. Music Notation in the Twentieth Century. New York: Norton,
+Kurt Stone. ``Music Notation in the Twentieth Century''. New York: Norton,
 1980.  (Out of print)
 
 
@@ -276,7 +277,7 @@ Kurt Stone. Music Notation in the Twentieth Century. New York: Norton,
 =head2 Other stuff
 
 
-Peter S. Langston, ``Unix music tools at Bellcore''.  Software ---
+Peter S. Langston. ``Unix music tools at Bellcore''.  Software ---
 Practice and Experience, Vol. 20(S1), S1/47--S1/61, 1990.
 
 [This paper deals with some command-line tools for music editing and
@@ -287,15 +288,14 @@ your nuclear plant supervisor to use AC/DC for checking the reactor HWN]
 
 =head2 File formats
 
-Howard Wright <Howard.Wright@ed.ac.uk>, how to read and write tab: a
-guide to tab notation,
+Howard Wright <Howard.Wright@ed.ac.uk>, ``how to read and write tab: a
+guide to tab notation''.
 http://wabakimi.carleton.ca/~phacket2/guitar/tabfaq.html
 
 [FAQ (with answers) about TAB, the ASCII variant of Tablature. HWN]
 
-Cindy Grande, NIFF6a Notation Interchange File Format.  Grande
-Software Inc., 1995.  ftp://blackbox.cartah.washington.edu/pub/,
-http://www.jtauber.com/music/encoding/niff/
+Cindy Grande, ``NIFF6a Notation Interchange File Format''.  Grande
+Software Inc., 1995.  http://www.jtauber.com/music/encoding/niff/
 
 [Specs for NIFF, a comprehensive but binary (yuk) format for notation HWN]
 

@@ -1,4 +1,14 @@
+/*   
+  vector.cc --  implement Vector
+  
+  source file of the Flower Library
+  
+  (c) 1996-98 Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  
+ */
+
 #include "vector.hh"
+
 Vector::Vector (Array<Real> d)
      : dat (d)
 {

@@ -8,20 +8,29 @@
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
 
-VERSION="0.8"
+VERSION="0.9"
 NAME=ly2dvi.sh
 IDENTIFICATION="$NAME $VERSION" 
 NOW=`date`
 echo "$IDENTIFICATION" 1>&2
 
+KEEP_LILY_OUTPUT=N
+
 # NEWS
+
+#0.9.hwn1
+#       - option to remove output of lily
+
+# 0.9	- Trap Lilypond abort
+#	- Replaced "\usepackage[T1]{fontenc}" with
+#	  \usepackage[latin1]{inputenc} (takk, Mats)
+#	- Removed "()" around "\LilyIdString" (Janne didn't want it)
 
 # 0.8	- Trap Lilypond segmentation fault
 #	- Function for cleanup
 #	- Trap line
 #	- More human-readable variables
 #	- Some logics concerning rc-files
-
 # 0.7
 #	- Improved Lilypond error checking
 #	- Output orientation (landscape...). Overrides mudela file
@@ -46,7 +55,7 @@ echo "$IDENTIFICATION" 1>&2
 #	- Handles margins for A4 paper (equal on both sides)
 #	- new option -s (--separate) for one LaTeX run per file,
 #	  else all files are run together
-
+#
 # 0.5
 #	- More useful ("two-level") debug.
 #	- The Q&D hack to find file names and not handling \include
@@ -129,7 +138,7 @@ echo "$IDENTIFICATION" 1>&2
 #
 cleanup() {
   $debug_echo "("$LF")("$FN")("$LOGFILE")"
-  if [ "$KEEP" != "Y" ]
+  if [ "$KEEP_LY2DVI_OUTPUT" != "Y" ]
   then
     [ -n "$LF" -a -f "$LF" ]           && rm -f $LF
     [ -n "$LOGFILE" -a -f "$LOGFILE" ] && rm -f $LOGFILE
@@ -172,7 +181,7 @@ then
 fi
 LOGFILE=$TMP/lilylog.$$			# Logfile for lilypond
 PWIDTH=600;				# Width of A4 paper!
-PHEIGTH=830;                            # Heigth of A4 paper!
+PHEIGTH=845;                            # Heigth of A4 paper!
 #
 # RC-files ?
 #
@@ -219,7 +228,7 @@ SEPFILE=N
 #
 # "x:" x takes argument
 #
-switches="DO:hkl:o:p:s\?"
+switches="DO:hkl:o:Kp:s\?"
 options=""
 #
 # ugh, "\-" is a hack to support long options
@@ -242,8 +251,12 @@ do
       exit 0
       ;;
     k  )
-      KEEP=Y
+      KEEP_LY2DVI_OUTPUT=Y
       ;;
+    K  )
+      KEEP_LILY_OUTPUT=Y
+      ;;
+    
     l  )
       LANGUAGE=$OPTARG
       ;;
@@ -273,7 +286,7 @@ do
 	  exit 0
           ;;
         k*|-k*)
-          KEEP=Y
+          KEEP_LY2DVI_OUTPUT=Y
           ;;
         l*|-l*)
           LANGUAGE=`echo $OPTARG | sed -e s/"^.*="//`
@@ -315,7 +328,7 @@ startFile(){
 #
 BN=`basename $File .tex`
 FN=$BN.$$
-if [ "$KEEP" != "Y" ]
+if [ "$KEEP_LY2DVI_OUTPUT" != "Y" ]
 then
   LF=$TMP/$FN.tex
 else
@@ -414,7 +427,8 @@ cat << EOF > $LF
 \nonstopmode
 $LLNG
 \usepackage{geometry}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
 %\addtolength{\oddsidemargin}{-1cm}
 %\addtolength{\topmargin}{-1cm}
 \setlength{\textwidth}{$TW}
@@ -435,7 +449,7 @@ do
     LLL=`echo $LL | sed -e 's/}.*$//' -e 's/.*{//'`
     if [ "$LLL" != "" ]
     then
-      echo '\'$L'{'$LLL'}%'                                >> $LF
+      echo "\\"$L'{'$LLL'}%'                                >> $LF
     fi
   fi
 done
@@ -449,7 +463,7 @@ EOF
 #
 endFile(){
 cat << EOF >> $LF
-\vfill\hfill{(\LilyIdString)}
+\vfill\hfill{\LilyIdString}
 \end{document}
 EOF
 #
@@ -503,6 +517,9 @@ findInput() {
 #
 # Loop through all files
 #
+
+LILY_OUTPUT_FILES=
+
 for GF in $*
 do
     findInput $GF
@@ -552,7 +569,7 @@ do
     OF=`egrep '^TeX output to ' $LOGFILE | \\
         sed -e 's/TeX output to//' -e 's/\.\.\.//'`
     $debug_echo "==> "$OF
-    STATUS=`egrep -i "error|segmentation" $LOGFILE`
+    STATUS=`egrep -i "error|segmentation|abort" $LOGFILE`
     echo $STATUS
     if [ ! -z "$STATUS" ]
     then
@@ -589,11 +606,19 @@ EOF
       FFile=""
       endFile
     fi
+    LILY_OUTPUT_FILES="$LILY_OUTPUT_FILES $OF"
   done
 done
 if [ $SEPFILE = N ]
 then
   endFile
+fi
+
+
+
+if [ $KEEP_LILY_OUTPUT = N ]
+then
+    rm $LILY_OUTPUT_FILES
 fi
 #
 # OK - finished

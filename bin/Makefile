@@ -8,6 +8,6 @@ EXTRA_DISTFILES =   install-sh config.sub config.guess ltconfig
 
 include $(depth)/make/Scripts.make
 
-EXECUTABLES=convert-mudela mudela-book
+EXECUTABLES=convert-mudela mudela-book ly2dvi
 
 include $(depth)/make/Executable.make

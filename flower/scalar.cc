@@ -55,8 +55,13 @@ Scalar::operator int()
   return value_i ();
 }
 
-
 Scalar::operator bool () const
+{
+  return to_bool ();
+}
+
+bool
+Scalar::to_bool () const
 {
   if (!length_i ())
     return false;

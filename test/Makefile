@@ -44,7 +44,4 @@ include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
 #
 
-EXECUTABLES=bow
-include $(depth)/make/Executable.make
-
 
