@@ -1424,10 +1424,12 @@ if 1:
 		return str
 	
 	def conv (str):
+		str = re.sub (r"#'\(\)", "@SCM_EOL@", str)
 		str =  conv_relative (str)
 		str = sub_chords (str)
 
 		str = articulation_substitute (str)
+		str = re.sub ("@SCM_EOL@", "#'()", str)
 		
 		return str
 	

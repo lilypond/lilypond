@@ -25,8 +25,7 @@ class Mark_engraver : public Engraver
 public:
   TRANSLATOR_DECLARATIONS (Mark_engraver);
 protected:
-  Item* text_;
-  
+  Item *text_;
 protected:
   virtual void stop_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
@@ -46,6 +45,7 @@ Mark_engraver::Mark_engraver ()
 {
   text_ =0;
   mark_ev_ = 0;
+  staff_ = 0;
 }
 
 void
@@ -68,7 +68,8 @@ Mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      text_->set_property ("side-support-elements" , get_property ("stavesFound"));
+      SCM lst = get_property ("stavesFound");
+      text_->set_property ("side-support-elements" , lst);
       typeset_grob (text_);
       text_ =0;
     }
@@ -141,7 +142,13 @@ Mark_engraver::process_music ()
 }
 
 ENTER_DESCRIPTION (Mark_engraver,
-/* descr */       "",
+/* descr */       "This engraver will create RehearsalMark objects. "
+		   "It puts them on top of all staves (which is taken from "
+		   "the property @code{stavesFound}). If moving this engraver "
+		   "to a different context, "
+		   "@ref{Staff_collecting_engraver} must move along, otherwise all marks"
+		   "end up on the same Y-location"
+		   ,
 /* creats*/       "RehearsalMark",
 /* accepts */     "mark-event",
 /* acks  */       "bar-line-interface",
