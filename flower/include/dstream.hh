@@ -10,7 +10,7 @@
 #define DSTREAM_HH
 
 #include "string.hh"
-#include "scalar.hh"
+
 
 const char eol= '\n';
 
@@ -51,12 +51,12 @@ public:
   virtual ~Dstream();
   Dstream &identify_as (String s);
 
-  /** 
-    Output a Scalar via the Dstream.  This is the only output
-    interface.  It explicitely delegates all implicit conversion 
-    to Scalar class.  
-    */
-  Dstream &operator << (Scalar);
+
+  Dstream &operator << (String);
+  Dstream &operator << (Real);
+  Dstream &operator << (int);  
+  Dstream &operator << (Rational);
+  Dstream &operator << (char);  
   /**
      Output memory locations.
   */
