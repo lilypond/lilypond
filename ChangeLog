@@ -1,3 +1,10 @@
+2004-03-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* Documentation/user/lilypond-book.itely (Integrating LaTeX and
+	music), Documentation/user/invoking.itexi (Invoking lilypond): 
+	Move documentation of LaTeX packages for latin1 characters to the
+	lilypond-book manual.
+
 2004-03-01  Heikki Junes <hjunes@cc.hut.fi>
 
 	* Documentation/topdocs/INSTALL.texi: small fix (by Matthias Kilian).

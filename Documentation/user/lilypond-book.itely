@@ -164,6 +164,10 @@ and the
 @end ignore
 are also interpreted.
 
+@cindex titling and lilypond-book
+@cindex lilypond-book and titling
+@cindex @code{\header} in La@TeX{} documents
+
 The titling from the @code{\header} section of the fragments can be
 imported by adding the following to the top of the La@TeX{} file:
 
@@ -174,17 +178,6 @@ imported by adding the following to the top of the La@TeX{} file:
 
 The music will be surrounded by @code{\preLilyPondExample} and
 @code{\postLilyPondExample}, which are defined to be empty by default.
-
-@cindex titling and lilypond-book
-@cindex lilypond-book and titling
-@cindex @code{\header} in La@TeX{} documents
-
-To add titling from the @code{\header} section of the files, add the
-following to the top of the La@TeX{} file:
-@example
-\input titledefs.tex
-\def\preLilyPondExample@{\def\mustmakelilypondtitle@{@}@}
-@end example
 
 @cindex outline fonts
 @cindex type1 fonts
@@ -200,6 +193,21 @@ the dvips command line:
 
 @noindent
 PDF can then be produced with @code{ps2pdf}.
+
+@cindex international characters
+@cindex latin1
+
+LilyPond does not use the LaTeX font handling scheme for lyrics and text
+markups, so if you use non-anglosaxian characters in your lilypond-book
+documents, include @code{\usepackage[latin1]@{inputenc@}} in the file
+header but do not include @code{\usepackage[[T1]@{fontenc@}}. Character
+sets other than latin1 are not supported directly but may be handled by
+explicitly specifying the @code{font-name} property in LilyPond and
+using the corresponding LaTeX packages. Please consult the mailing list
+for more details.
+
+
+
 
 
 @node Integrating HTML and music
