@@ -22,7 +22,7 @@ struct Input_command {
 };
 
 Input_command* get_meterchange_command( int,int);
-Input_command* get_key_interpret_command(svec<String>);
+Input_command* get_key_interpret_command(svec<int >);
 Input_command* get_clef_interpret_command(String w);
 Input_command *get_reset_command();
 Input_command *get_partial_command(Real u);

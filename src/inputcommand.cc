@@ -61,13 +61,13 @@ get_grouping_command(svec<int>a )
 }
 
 Input_command*
-get_key_interpret_command(svec<String>a ) 
+get_key_interpret_command(svec<int >a ) 
 {
     Input_command*c = new Input_command;
     c->args.add("KEY");
-    for (int i=0; i < a.sz(); i ++)
+    for (int i=0; i < a.sz(); i ++) {
 	c->args.add(a[i]);
-    
+    }
     return c;
 }
 
