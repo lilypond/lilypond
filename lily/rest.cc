@@ -54,11 +54,10 @@ Rest::after_line_breaking (SCM smob)
   make this function easily usable in C++
  */
 String
-Rest::glyph_name (Grob *me, int balltype, String style)
+Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 {
   bool ledgered_b = false;
-
-  if (balltype == 0 || balltype == 1)
+  if (try_ledgers && (balltype == 0 || balltype == 1))
     {
       Real rad = Staff_symbol_referencer::staff_radius (me) * 2.0;
       Real pos = Staff_symbol_referencer::get_position (me);
@@ -115,7 +114,7 @@ Rest::glyph_name (Grob *me, int balltype, String style)
 MAKE_SCHEME_CALLBACK (Rest,print,1);
 
 SCM
-Rest::brew_internal_stencil (SCM smob)
+Rest::brew_internal_stencil (SCM smob, bool ledgered)
 {
   Grob* me = unsmob_grob (smob);
 
@@ -131,7 +130,7 @@ Rest::brew_internal_stencil (SCM smob)
     style = ly_scm2string (scm_symbol_to_string (style_scm));
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  String font_char = glyph_name (me, balltype, style);
+  String font_char = glyph_name (me, balltype, style, ledgered);
   Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
     me->warning (_f ("rest `%s' not found", font_char.to_str0 ()));
@@ -142,7 +141,7 @@ Rest::brew_internal_stencil (SCM smob)
 SCM 
 Rest::print (SCM smob) 
 {
-  return brew_internal_stencil (smob);
+  return brew_internal_stencil (smob, true);
 }
 MAKE_SCHEME_CALLBACK (Rest,extent_callback,2);
 /*
@@ -152,7 +151,16 @@ SCM
 Rest::extent_callback (SCM smob, SCM ax)
 {
   Axis a = (Axis) ly_scm2int (ax);
-  SCM m = brew_internal_stencil (smob);
+
+  /*
+    Don't want ledgers: ledgers depend on Y position, which depends on
+    rest collision, which depends on stem size which depends on beam
+    slop of opposite note column.
+
+    consequence: we get too small extents and potential collisions
+    with ledgered rests.
+   */
+  SCM m = brew_internal_stencil (smob, a != X_AXIS);
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
 

@@ -1109,19 +1109,13 @@ Prefix_composite_music:
 		SCM nn = THIS->lexer_->lookup_identifier ("drumPitchNames");
 		THIS->lexer_->push_note_state (alist_to_hashq (nn));
 	}
-	/* FIXME: This used to be: */
-	Music
-/*	Grouped_music_list */
+	Music 
 		{ $$ = $3;
 		  THIS->lexer_->pop_state ();
 		}
 	| FIGURES
 		{ THIS->lexer_->push_figuredbass_state (); }
-	/* FIXME: This used to be:
 	Music
- 	but that breaks web build
-	*/
-	Grouped_music_list
 		{
 		  Music *chm = MY_MAKE_MUSIC ("UntransposableMusic");
 		  chm->set_property ("element", $3->self_scm ());
@@ -1137,10 +1131,7 @@ Prefix_composite_music:
 		THIS->lexer_->push_chord_state (alist_to_hashq (nn));
 
 	}
-	/* FIXME:
 	Music
-*/
-	Grouped_music_list
 	{
 		  Music *chm = MY_MAKE_MUSIC ("UnrelativableMusic");
 		  chm->set_property ("element", $3->self_scm ());
@@ -1151,10 +1142,7 @@ Prefix_composite_music:
 	}
 	| LYRICS
 		{ THIS->lexer_->push_lyric_state (); }
-	/* FIXME:
 	Music
-*/
-	Grouped_music_list
 		{
 		  $$ = $3;
 		  THIS->lexer_->pop_state ();

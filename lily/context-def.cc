@@ -291,9 +291,10 @@ Context_def::instantiate (SCM ops)
 	  if (tr->must_be_last ())
 	    {
 	      SCM cons = scm_cons (str, SCM_EOL);
-	      trans_list = ly_c_pair_p (trans_list)
-		? scm_set_cdr_x (scm_last_pair (trans_list), cons)
-		: cons;
+	      if (ly_c_pair_p (trans_list))
+		scm_set_cdr_x (scm_last_pair (trans_list), cons);
+	      else
+		trans_list= cons;
 	    }
 	  else
 	    {

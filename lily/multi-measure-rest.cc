@@ -146,7 +146,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
     {
       if (to_boolean (sml))
 	{
-	  Stencil s = musfont->find_by_name (Rest::glyph_name (me, -1, ""));
+	  Stencil s = musfont->find_by_name (Rest::glyph_name (me, -1, "", false));
 
 	  s.translate_axis ((space - s.extent (X_AXIS).length ())/2, X_AXIS);
       
@@ -154,7 +154,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 	}
       else
 	{
-	  Stencil s = musfont->find_by_name (Rest::glyph_name (me, 0, ""));
+	  Stencil s = musfont->find_by_name (Rest::glyph_name (me, 0, "", true));
 
 	  /*
 	    ugh.

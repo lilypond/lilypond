@@ -151,7 +151,7 @@ kpathsea_gulp_file_to_string (String name)
 
 LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
 	   1, 0, 0, (SCM name),
-	   "Read the file @var{name}, and return its expanded path, or "
+	   "Return the expanded path of @var{name}, or"
 	   "@code{#f} if not found.")
 {
   SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");

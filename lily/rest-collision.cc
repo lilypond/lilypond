@@ -60,20 +60,6 @@ Rest_collision::add_column (Grob*me,Grob *p)
 }
 
 
-/*
-  Combination of dot-count and duration-log.
- */
-static SCM
-head_characteristic (Grob * col)
-{
-  Grob * s = unsmob_grob (col->get_property ("rest"));
-
-  if (!s)
-    return SCM_BOOL_F;
-  else
-    return scm_cons (s->get_property ("duration-log"),
-		    scm_int2num (Rhythmic_head::dot_count (s)));
-}
 
 /*
   TODO: look at horizontal-shift to determine ordering between rests
