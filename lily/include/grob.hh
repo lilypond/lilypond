@@ -119,7 +119,9 @@ public:
   bool has_offset_callback (SCM callback, Axis) const;
   void add_offset_callback (SCM callback, Axis);
   bool has_extent_callback (SCM, Axis) const;
+  void flush_extent_cache (Axis);
   void set_extent (SCM, Axis);
+  void set_extent_callback (SCM, Axis);
   Real get_offset (Axis a) const;
   
   void set_parent (Grob* e, Axis);

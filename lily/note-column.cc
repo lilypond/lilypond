@@ -130,6 +130,8 @@ Note_column::translate_rests (Grob*me, int dy)
   if (r && !scm_is_number (r->get_property ("staff-position")))
     {
       r->translate_axis (dy * Staff_symbol_referencer::staff_space (r)/2.0, Y_AXIS);
+      Grob *p = r->get_parent (Y_AXIS);
+      p->flush_extent_cache (Y_AXIS);
     }
 }
 

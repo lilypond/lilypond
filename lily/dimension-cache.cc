@@ -33,6 +33,7 @@ void
 Dimension_cache::init ()
 {
   dimension_ = SCM_EOL;
+  dimension_callback_ = SCM_EOL; 
 
   offsets_left_ = 0;
   offset_callbacks_ = SCM_EOL;

@@ -99,18 +99,23 @@ Grob::Grob (SCM basicprops,
 	programming_error ("[XY]-offset-callbacks must be a list");
 
       SCM cb = get_property (enames[a]);
+      if (cb == SCM_BOOL_F)
+	{
+	  dim_cache_[a].dimension_ = SCM_BOOL_F;
+	}
+      
       SCM xt = get_property (xnames[a]);
-
-      /* Should change default to empty?  */
       if (is_number_pair (xt))
-	cb = xt;
-      else if (cb != SCM_BOOL_F
-	  && !ly_c_procedure_p (cb) && !scm_is_pair (cb)
-	  && ly_c_procedure_p (get_property ("print-function")))
-	cb = stencil_extent_proc;
-
-      dim_cache_[a].dimension_callback_ = cb;
-      dim_cache_[a].dimension_ = cb;
+	{
+	  dim_cache_[a].dimension_ = xt;
+	}
+      else if (ly_c_procedure_p (cb))
+	{
+	  dim_cache_[a].dimension_callback_ = cb;
+	}
+      else if (cb == SCM_EOL
+	       && ly_c_procedure_p (get_property ("print-function")))
+	dim_cache_[a].dimension_callback_ = stencil_extent_proc;
     }
 }
 
@@ -320,6 +325,9 @@ Grob::suicide ()
   set_extent (SCM_EOL, Y_AXIS);
   set_extent (SCM_EOL, X_AXIS);
 
+  set_extent_callback (SCM_EOL, Y_AXIS);
+  set_extent_callback (SCM_EOL, X_AXIS);
+
   for (int a = X_AXIS; a <= Y_AXIS; a++)
     {
       dim_cache_[a].offset_callbacks_ = SCM_EOL;
@@ -400,8 +408,23 @@ Grob::get_offset (Axis a) const
 bool
 Grob::is_empty (Axis a) const
 {
-  return ! (scm_is_pair (dim_cache_[a].dimension_)
-	    || ly_c_procedure_p (dim_cache_[a].dimension_));
+  return !(scm_is_pair (dim_cache_[a].dimension_)
+	   || ly_c_procedure_p (dim_cache_[a].dimension_callback_));
+}
+
+void
+Grob::flush_extent_cache (Axis axis)
+{
+  Dimension_cache * d = &dim_cache_[axis];
+  if (ly_c_procedure_p (d->dimension_callback_)
+      && scm_is_pair (d->dimension_))
+    {
+      d->dimension_ = SCM_EOL;
+
+
+      if (get_parent (axis))
+	get_parent(axis)->flush_extent_cache (axis);
+    }
 }
 
 Interval
@@ -415,8 +438,9 @@ Grob::extent (Grob *refp, Axis a) const
   SCM dimpair = d->dimension_;
   if (scm_is_pair (dimpair))
     ;
-  else if (ly_c_procedure_p (d->dimension_))
-    d->dimension_ = scm_call_2 (d->dimension_, self_scm (), scm_int2num (a));
+  else if (ly_c_procedure_p (d->dimension_callback_)
+	   && d->dimension_ == SCM_EOL)
+    d->dimension_ = scm_call_2 (d->dimension_callback_, self_scm (), scm_int2num (a));
   else
     return ext;
 
@@ -514,9 +538,9 @@ Grob::add_offset_callback (SCM cb, Axis a)
 }
 
 bool
-Grob::has_extent_callback (SCM cb, Axis a)const
+Grob::has_extent_callback (SCM cb, Axis a) const
 {
-  return scm_equal_p (cb, dim_cache_[a].dimension_) == SCM_BOOL_T;
+  return scm_equal_p (cb, dim_cache_[a].dimension_callback_) == SCM_BOOL_T;
 }
 
 bool
@@ -529,6 +553,12 @@ void
 Grob::set_extent (SCM dc, Axis a)
 {
   dim_cache_[a].dimension_ = dc;
+}
+
+void
+Grob::set_extent_callback (SCM dc, Axis a)
+{
+  dim_cache_[a].dimension_callback_ = dc;
 }
 
 void
