@@ -15,6 +15,10 @@
 
 	* lilypond.words: add useful `\context Staff =' and `\context Voice ='.
 	
+	* lilypond-mode.el: add menu keywords separately.
+
+	* lilypond.words: post-syntaxed slur pairs and syntax for \times.
+	
 2003-08-01  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* Documentation/topdocs/INSTALL.texi (Top): Documentation of the
