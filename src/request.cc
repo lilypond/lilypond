@@ -8,6 +8,7 @@
 #define RCONS(T) VIRTUALCONS(T, Request)
 
 RCONS(Rest_req);
+RCONS(Barcheck_req);
 RCONS(Text_req);
 RCONS(Rhythmic_req);
 RCONS(Stem_req);
@@ -19,6 +20,14 @@ RCONS(Slur_req);
 RCONS(Beam_req);
 
 void
+Barcheck_req::print() const    
+{
+#ifndef NPRINT
+    mtor << "Barcheck\n";
+#endif
+}
+
+void
 Request::print() const    
 {
 #ifndef NPRINT
@@ -26,11 +35,22 @@ Request::print() const
 #endif
 }
 
-Request::Request()
+void
+Span_req::print() const    
 {
-    elt = 0;
+#ifndef NPRINT
+    mtor << "Span_req {" << spantype << "}\n";
+#endif
 }
 
+Request::Request()
+{
+    elt_l_ = 0;
+}
+Request::Request(Request const&)
+{
+    elt_l_ = 0;
+}
 Melodic_req::Melodic_req()
 {
     name = 0;
@@ -105,6 +125,12 @@ Script_req::Script_req(int d , Script_def*def)
     scriptdef = def;
 }
 
+Script_req::Script_req(Script_req const &s)
+{
+    dir = s.dir;
+    scriptdef = new Script_def(*s.scriptdef);
+}
+
 void
 Script_req::print() const
 {
@@ -118,7 +144,11 @@ Script_req::~Script_req()
     delete scriptdef;
 }
 
-
+Text_req::Text_req(Text_req const& s)
+{
+    spec = new Text_def(*s.spec);
+    dir = s.dir;
+}
 Text_req::Text_req(int d , Text_def*def)
 {
     dir = d;
