@@ -16,12 +16,9 @@
   (let*
       ((dur  (ly:get-mus-property event 'tempo-unit))
        (count (ly:get-mus-property event 'metronome-count))
-       (note-mark     (make-note-markup (ly:duration-log dur)
-					(ly:duration-dot-count dur)
-					1)
-		      )
-       )
-
+       (note-mark (make-note-by-number-markup (ly:duration-log dur)
+					      (ly:duration-dot-count dur)
+					      1) ) ) 
     (make-line-markup
      (list
       note-mark

@@ -279,18 +279,26 @@ Syntax: \\fraction MARKUP1 MARKUP2."
 
 
 (define-public (note-markup paper props . rest)
+  "This produces a note with a stem pointing in @var{dir} direction, with
+the @var{duration} for the note head type and augmentation dots. For
+example, @code{\note #\"4.\" #-0.75} creates a dotted quarter note, with
+a shortened down stem."
+
   (let*
       ((parsed (parse-simple-duration (car rest)))
        (dir (cadr rest)))
-    (make-note paper props (car parsed) (cadr parsed) dir)
+    (note-by-number-markup paper props (car parsed) (cadr parsed) dir)
   ))
 
-(define-public (make-note paper props log dot-count dir)
+(define-public (note-by-number-markup paper props . rest )
   "Syntax: \\note #LOG #DOTS #DIR.  By using fractional values
 for DIR, you can obtain longer or shorter stems."
  
   (let*
       (
+       (log (car rest))
+       (dot-count (cadr  rest))
+       (dir (caddr rest))
        (font (ly:paper-get-font paper (cons '((font-family .  music)) props)))
        (stemlen (max 3 (- log 1)))
        (headgl
@@ -634,6 +642,7 @@ any sort of property supported by @ref{font-interface} and
    (cons hbracket-markup  (list markup?))
    (cons bracket-markup  (list markup?))
    (cons note-markup (list string? number?))
+   (cons note-by-number-markup (list number? number? number?))
    (cons fraction-markup (list markup? markup?))
    
    (cons column-markup (list markup-list?))
