@@ -7,6 +7,34 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+	* uniformise property names.
+
+	ydirection <-> yDirection
+
+	* 
+   \score{
+      \notes { \property Staff.defaultclef = bass    a b c d }
+      \paper{
+
+
+   Staff = \translator {
+	   \type "Line_group_engraver_group";
+	   \consists "Bar_engraver";
+	   \consists "Clef_engraver";
+	   \consists "Key_engraver";
+	   \consists "Local_key_engraver";
+	   \consists "Time_signature_engraver";
+	   \consists "Staff_sym_engraver";
+	   \consists "Collision_engraver";
+	   \consists "Rest_collision_engraver";
+	   \consists "Separating_line_group_engraver";
+	   \accepts "Voice";
+	}
+   }
+}
+
+	* typo checks on property names?
+
 	* egcs-1.1 support
 
 	* make engraver hacking robust.
@@ -33,6 +61,8 @@ grep for TODO and ugh/ugr/urg
 	* junking \skip req in lyrics
 
 	* \shape 1st dim skipped? 
+
+	* Choire -> Choir
 
 	* Language:
 	- general plet mechanism.

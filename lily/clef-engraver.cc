@@ -182,8 +182,9 @@ void
 Clef_engraver::do_creation_processing()
 {
   Scalar def = get_property ("defaultclef");
-  if (def.operator bool ()) // egcs: Scalar to bool is ambiguous
+  if (def.to_bool ()) // egcs: Scalar to bool is ambiguous
     set_type (def);
+  
   if (clef_type_str_.length_i ())
     { 
       create_clef();
