@@ -50,9 +50,11 @@
     (if (even? page-number)
         (set! line (reverse line)))
     
-    (if (< (ly:output-def-lookup paper 'firstpagenumber) page-number)
-        (interpret-markup
-         paper props (make-fill-line-markup line))
+    (if ((if (ly:output-def-lookup paper 'printfirstpagenumber)
+             <=
+             <)
+         (ly:output-def-lookup paper 'firstpagenumber) page-number)
+        (interpret-markup paper props (make-fill-line-markup line))
         '())))
 
 ;; TODO: add publisher ID on non-first page.
