@@ -91,24 +91,24 @@
 (define (draw-thick-top-fret props string-count th size)
  "Draw a thick top fret for a fret diagram whose base fret is not 1."
    (let* ((sth (* th size))
-          (top-fret-thick (* sth (chain-assoc-get 'top-fret-thickness props 3.0)))
-          (top-half-thick (* top-fret-thick 0.5))
+;          (top-fret-thick (* sth (chain-assoc-get 'top-fret-thickness props 3.0)))
+          (top-fret-thick (* sth 3.0))
+;          (top-half-thick (* top-fret-thick 0.5))
           (half-thick (* sth 0.5))
           (x1 half-thick)
           (x2 (+ half-thick (* size (- string-count 1))))
-          (y1 0)
-          (y2 top-fret-thick)
+          (y1 (- half-thick))
+          (y2 (+ top-fret-thick half-thick))
           (x-extent (cons (- x1) x2))
           (y-extent (cons 0 y2)))
-          (ly:make-stencil (list 'round-filled-box x1 x2 y1 y2 th)
+          (ly:make-stencil (list 'round-filled-box x1 x2 y1 y2 sth)
                             x-extent y-extent)))           
  
  
 (define (draw-frets paper props fret-range string-count th size)
  "Draw the frets (horizontal lines) for a fret diagram with @var{string-count} strings and frets as indicated
    in @var{fret-range}.  Line thickness is given by @var{th}, fret & string spacing by @var{size}. "
-  (let* ((top-fret-thick (* th (chain-assoc-get 'top-fret-thickness props 3.0)))
-         (fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
+  (let* ((fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
          (fret-length (* (- string-count 1) size))
          (half-thickness (* th 0.5))
          (base-fret (car fret-range)))
@@ -134,10 +134,14 @@
   "Make dots for fret diagram."
   (let* ((scale-dot-radius (* size dot-radius))
          (dot-color (chain-assoc-get 'dot-color props 'black))
-         (finger-xoffset (chain-assoc-get 'finger-xoffset props -0.25))
-         (finger-yoffset (chain-assoc-get 'finger-yoffset props (- size)))
-         (dot-label-font-mag (* scale-dot-radius (chain-assoc-get 'dot-label-font-mag props 1.0)))
-         (string-label-font-mag (* size (chain-assoc-get 'string-label-font-mag props 0.6)))
+;         (finger-xoffset (chain-assoc-get 'finger-xoffset props -0.25))
+;         (finger-yoffset (chain-assoc-get 'finger-yoffset props (- size)))
+         (finger-xoffset -0.25)
+         (finger-yoffset (- size))
+;         (dot-label-font-mag (* scale-dot-radius (chain-assoc-get 'dot-label-font-mag props 1.0)))
+         (dot-label-font-mag scale-dot-radius)
+;         (string-label-font-mag (* size (chain-assoc-get 'label-font-mag props 0.7)))
+         (string-label-font-mag (* size 0.7))
          (fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
          (mypair (car dot-list))
          (restlist (cdr dot-list))
@@ -197,8 +201,10 @@
 (define (draw-xo paper props string-count fret-range size xo-list) 
 "Put open and mute string indications on diagram, as contained in @var{xo-list}."
     (let* ((fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
-           (xo-font-mag (* size (chain-assoc-get 'xo-font-magnification props 0.5)))
-           (xo-horizontal-offset (* size (chain-assoc-get 'xo-horizontal-offset props -0.35)))
+;           (xo-font-mag (* size (chain-assoc-get 'xo-font-magnification props 0.5)))
+           (xo-font-mag (* size 0.5))
+;           (xo-horizontal-offset (* size (chain-assoc-get 'xo-horizontal-offset props -0.35)))
+           (xo-horizontal-offset (* size -0.35))
            (font (ly:paper-get-font paper `(((font-encoding . ,my-font-encoding)(font-family . sans)
                                         (font-series . medium) (font-shape . upright)
                                         (font-size . ,(stepmag (* size xo-font-mag)))))))
@@ -240,8 +246,10 @@
             (bottom (+  dot-center-y (* barre-vertical-offset scale-dot-radius)))
             (left (* size (- string-count string1)))
             (right (* size (- string-count string2)))
-            (bezier-thick (chain-assoc-get 'bezier-thickness props 0.1))
-            (bezier-height (chain-assoc-get 'bezier-height props 0.5))
+;            (bezier-thick (chain-assoc-get 'bezier-thickness props 0.1))
+            (bezier-thick 0.1)
+;            (bezier-height (chain-assoc-get 'bezier-height props 0.5))
+            (bezier-height 0.5)
             (bezier-list (make-bezier-sandwich-list left right bottom (* size bezier-height) (* size bezier-thick)))
             (barre-stencil (if (eq? barre-type 'straight)
                               (ly:make-stencil (list 'draw-line (* size dot-radius) left dot-center-y right dot-center-y)
@@ -264,8 +272,10 @@
 (define (label-fret paper props string-count fret-range size)
    "Label the base fret on a fret diagram"
    (let* ((base-fret (car fret-range))
-          (label-font-mag (chain-assoc-get 'fret-label-font-magnification props 0.7))
-          (label-vertical-offset (chain-assoc-get 'fret-label-vertical-offset props -0.2))
+;          (label-font-mag (chain-assoc-get 'label-font-mag props 0.7))
+          (label-font-mag 0.7)
+;          (label-vertical-offset (chain-assoc-get 'fret-label-vertical-offset props -0.2))
+          (label-vertical-offset -0.2)
           (fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
           (font (ly:paper-get-font paper `(((font-encoding . ,my-font-encoding)(font-family . sans)
                                             (font-series . medium) (font-shape . upright)
@@ -328,8 +338,9 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
          (th (* (ly:paper-lookup paper 'linethickness)
                 (chain-assoc-get 'thickness props 0.5))) ; needed for both draw-frets and draw-strings
                 
-         (alignment (chain-assoc-get 'alignment props -0.4)) ; needed only here
-         (xo-padding (* th (chain-assoc-get 'xo-padding props 2))) ; needed only here
+         (alignment (chain-assoc-get 'align-dir props -0.4)) ; needed only here
+;         (xo-padding (* th (chain-assoc-get 'padding props 2))) ; needed only here
+         (xo-padding (* th 2))
 
          (parameters (fret-parse-marking-list marking-list fret-count))
          (dot-list (cdr (assoc 'dot-list parameters)))
