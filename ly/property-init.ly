@@ -149,11 +149,6 @@ glissando = #(make-music 'GlissandoEvent)
 
 fermataMarkup = \markup { \musicglyph #"scripts-ufermata" } 
 
-setMmRestFermata =
-  \once \override MultiMeasureRestNumber  #'text =
-    #fermataMarkup 
-
-
 hideNotes =\sequential {
 				% hide notes, accidentals, etc.
     \override Dots  #'transparent = ##t
