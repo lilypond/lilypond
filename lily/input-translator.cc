@@ -27,6 +27,8 @@ void
 Input_translator::print() const
 {
 #ifndef NPRINT
+    if ( ! check_debug)
+	return ;
     mtor << base_str_ <<" " << type_str_<<" {\n";
     mtor << "Consists of ";
     for (int i=0; i< consists_str_arr_.size(); i++)
