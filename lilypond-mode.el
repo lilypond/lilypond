@@ -22,7 +22,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.19"
+(defconst LilyPond-version "1.7.21"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -1106,8 +1106,19 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   ;; In Emacs blink-...-on-screen needs to be declared.
   (if (not (string-match "XEmacs\\|Lucid" emacs-version))
       (progn
-	(make-local-variable 'blink-matching-paren-on-screen)
-	(setq blink-matching-paren-on-screen t)))
+	(make-local-variable 'show-paren-mode)
+	(setq show-paren-mode t))
+    (paren-set-mode 'paren))
+
+  (if (not (string-match "XEmacs\\|Lucid" emacs-version))
+      (progn
+	(make-local-variable 'show-paren-function)
+	;;(setq show-paren-function 'LilyPond-show-paren-function) ; possible ?
+	)
+    (progn
+      (make-local-variable 'paren-highlight)
+      ;;(setq paren-highlight 'LilyPond-paren-highlight) ; possible ?
+      ))
 
   ;; In XEmacs imenu was synched up with: FSF 20.4
   (make-local-variable 'imenu-generic-expression)

@@ -1,3 +1,15 @@
+2003-06-16  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: Set show-paren-mode local; minor-mode
+	show-paren-mode sets blink-matching-paren-on-screen local.
+	Try to make show-paren-function to paren-highlight local.
+
+	* lilypond-indent.el (LilyPond-scan-sexps): mew function.
+	Copy definitions of Emacs' show-paren-function and
+	XEmacs' paren-highlight and make minimal changes;
+	add comments about locality. 
+	Fix matching first open-paren-char in '<< .. >>'.
+	
 2003-06-16  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/g*: added texidoc index.
