@@ -152,6 +152,7 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     optimise_b=yes
     profile_b=no
     debug_b=yes
+    pipe_b=yes
 
     AC_ARG_ENABLE(checking,
     [  --enable-checking       set runtime checks (assert calls).  Default: on],
@@ -169,6 +170,9 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     [  --enable-profiling      compile with gprof support.  Default: off],
     [profile_b=$enableval])
     
+    AC_ARG_ENABLE(pipe, 
+    [  --enable-pipe           compile with -pipe.  Default: on],
+    [pipe_b=$enableval])
 
     if test "$checking_b" = no; then
 	# ugh
@@ -180,21 +184,34 @@ AC_DEFUN(STEPMAKE_COMPILE, [
 	OPTIMIZE="-O2 -finline-functions"
     fi
 
-
     if test $profile_b = yes; then
 	EXTRA_LIBES="-pg"
 	OPTIMIZE="$OPTIMIZE -pg"
     fi
 
-    if test $debug_b = yes; then	
+    if test $debug_b = yes; then
 	OPTIMIZE="$OPTIMIZE -g"
     fi
-
-
+ 
     AC_PROG_CC
     STEPMAKE_OPTIONAL_REQUIRED(CC, cc, $1)
     LD='$(CC)'
     AC_SUBST(LD)
+
+    # If -pipe requested, test if it works and add to CFLAGS.
+    if test "$pipe_b" = yes; then
+	save_cflags="$CFLAGS"
+	CFLAGS="-pipe $CFLAGS";
+	AC_CACHE_CHECK([whether compiler understands -pipe],
+	    [stepmake_cflags_pipe],
+	    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[/* -pipe test */]])],
+		[stepmake_cflags_pipe=yes],
+		[stepmake_cflags_pipe=no]))
+	CFLAGS=$save_cflags
+	if test $stepmake_cflags_pipe = yes; then
+	    OPTIMIZE="$OPTIMIZE -pipe"
+	fi
+    fi
 
     CFLAGS="$CFLAGS $OPTIMIZE"
     CPPFLAGS=${CPPFLAGS-""}
@@ -211,6 +228,7 @@ AC_DEFUN(STEPMAKE_COMPILE, [
 	    AC_MSG_RESULT([none])
 	    ;;
     esac
+
     AC_SUBST(cross_compiling)
     AC_SUBST(CFLAGS)
     AC_SUBST(CPPFLAGS)
