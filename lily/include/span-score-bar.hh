@@ -11,28 +11,27 @@
 #define SPAN_SCORE_BAR_HH
 
 #include "span-bar.hh"
+#include "score-bar.hh"
 
-class Span_score_bar : public Span_bar
+class Span_score_bar : public Span_bar, public Score_bar
 {
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    SCORE_ELEM_CLONE(Span_score_bar);
-    Span_score_bar();
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  SCORE_ELEM_CLONE(Span_score_bar);
+  Span_score_bar();
 protected:
-    
-    
-    virtual void do_pre_processing();
+  virtual void do_pre_processing();
 };
 
 
 class Piano_brace : public Span_score_bar
 {
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    SCORE_ELEM_CLONE(Piano_brace);
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  SCORE_ELEM_CLONE(Piano_brace);
 protected:
-    virtual Interval do_width() const;
-    virtual Atom get_bar_sym (Real) const;
+  virtual Interval do_width() const;
+  virtual Atom get_bar_sym (Real) const;
 };
 
 #endif // SPAN_SCORE_BAR_HH

@@ -3,9 +3,8 @@
 	- y-refpoint for rests should be the 4th staffline (gclef: b')
 	- versioning	
 	- lo-res fixes.
+	- work out sizes of character fonts.
 	- more symbols
-	  * stem-notehead attachments.
-	  * clefs
 	  * some scripts:
 	  * piano pedals,
 	  * braces.

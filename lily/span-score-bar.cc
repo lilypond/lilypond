@@ -13,14 +13,12 @@
 
 Span_score_bar::Span_score_bar()
 {
-  type_str_ = "|";
 }
 
 void
-Span_score_bar::do_pre_processing()
+Score_bar::do_pre_processing ()
 {
-  Span_bar::do_pre_processing();
-  
+  type_str_ = "|";
   if (break_status_i() != 1) 
     {
       set_empty (true);
@@ -28,12 +26,22 @@ Span_score_bar::do_pre_processing()
     }
 }
 
+void
+Span_score_bar::do_pre_processing()
+{
+  /*
+    duh.  The order of these two is subtle. 
+   */
+  Score_bar::do_pre_processing ();
+  //  Span_bar::do_pre_processing();
+}
 
 Atom
 Piano_brace::get_bar_sym (Real dy) const
 {
   return paper()->lookup_l ()->vbrace (dy);
 }
+
 Interval
 Piano_brace::do_width() const
 {
@@ -41,7 +49,7 @@ Piano_brace::do_width() const
 }
 
 
-IMPLEMENT_IS_TYPE_B1(Span_score_bar, Span_bar);
+IMPLEMENT_IS_TYPE_B2(Span_score_bar, Span_bar, Score_bar);
 IMPLEMENT_IS_TYPE_B1(Piano_brace, Span_score_bar);
 
   

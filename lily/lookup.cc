@@ -107,9 +107,9 @@ Lookup::bar (String s, Real h) const
 {
   Array<String> a;
   a.push (print_dimen (h));
-  Atom ret=(*symtables_p_)("bars")->lookup (s);;
+  Atom ret=(*symtables_p_)("bars")->lookup (s);
   ret.tex_ = substitute_args (ret.tex_, a);
-  ret.dim_.y() = Interval (0, h);
+  ret.dim_.y() = Interval (-h/2, h/2);
   return ret;
 }
 
@@ -227,14 +227,7 @@ Lookup::vbrace (Real &y) const
     Array<String> a;
     a.push (idx);
     s.tex_ = substitute_args (s.tex_,a);
-    s.dim_.y() = Interval (0,y);
-  }
-  {
-    Array<String> a;
-    a.push (print_dimen (y/2));
-    a.push (print_dimen (0));
-    a.push (s.tex_);
-    s.tex_ = substitute_args ("\\placebox{%}{%}{%}", a);
+    s.dim_.y() = Interval (-y/2,y/2);
   }
 
 

@@ -1,0 +1,43 @@
+This package was debianized by Anthony Fok foka@gpu.srv.ualberta.ca on
+Wed,  6 Aug 1997 04:30:28 -0600
+
+It was downloaded from
+    ftp://pcnov095.win.tue.nl/pub/lilypond/development/lilypond-0.1.29.tar.gz
+
+It is also available from:
+    ftp://alpha.gnu.org/gnu/
+
+For more information about GNU LilyPond, please visit:
+    http://www.stack.nl/~hanwen/lilypond/ for more information.
+
+Authors:
+    Han-Wen Nienhuys <hanwen@stack.nl>
+    Jan Nieuwenhuizen <jan@digicash.com>
+ 
+Copyright:
+
+  GNU LilyPond is Copyright (C) 1996,1997 
+  Jan Nieuwenhuizen & Han-Wen Nienhuys
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 59 Temple Place - Suite 330,
+    Boston, MA  02111-1307, USA.
+
+
+All the other scripts and control files for building and installing
+GNU LilyPond under Debian GNU/Linux are also under the GNU General
+Public License (GPL) version 2 or later.  
+
+On Debian GNU/Linux systems, the complete text of the GNU General
+Public License can be found in `/usr/doc/copyright/GPL.gz'.

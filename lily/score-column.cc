@@ -44,7 +44,14 @@ Score_column::preprocess()
 void
 Score_column::add_duration (Moment d)
 {
-  assert (d);
+  if (!d)
+    {
+      warning (_("Ignoring zero duration added to column at ")
+	       + String (when_)
+	       );
+      return;
+    }
+  
   for (int i = 0; i< durations.size(); i++) 
     {
       if (d == durations[i])

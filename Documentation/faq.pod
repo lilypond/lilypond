@@ -8,7 +8,7 @@ Some questions that have been answered before.
 
 =head2 Installing
 
-Q: I get all kinds of errors while  compiling parser.cc
+Q: I get all kinds of errors while  compiling F<parser.cc>
 
 A: LilyPond uses features of bison version 1.25. Please confirm that
 you are using a version 1.25 or better, that is B<GNU> bison
@@ -135,13 +135,14 @@ translated into printable items is complex: it is not always possible
 to associate one Request with one Item or Spanner.
 
 As a further notice, we want to move away from TeX (and perhaps
-output PostScript or render to an X window too)
+output PostScript or render to an X window too), so  using TeX will
+make sources non-portable at some time.
 
 =head2 Miscellaneous
 
 Q: Do you support pop songs (chords, single staff, lyrics)?
 
-A: Yes, see the twinkle-pop example
+A: Yes, see the F<twinkle-pop> example
 
 Q: Do you support guitar chord diagrams?
 
@@ -153,15 +154,16 @@ Q: Do you support TAB notation
 
 A: No. The same as for the previous question goes, but TAB is a lot
 more work than diagrams (TAB needs modification of Parser, Lexer,
-Notehead, Stem, and stem-code. )
+Staff, Notehead, Stem code and all the code that creates these graphic
+elements.)
 
 Q: How do I change the TeX layout?
 
-A: See lilyponddefs.tex, it has some comments.
+A: See F<lilyponddefs.tex>, it has some comments.
 
 Q: How do I learn the C++ code?
 
-A: The entry point is in main(). Good luck. :-)
+A: The entry point is in C<main()>. Good luck. :-)
 
 Seriously, read, reread and reread lilygut and CodingStyle, and
 just start anywhere. 
@@ -195,6 +197,20 @@ finding a cute syntax (such as YYYY) isn't very hard. The complicated
 issue how to adapt the internals to do XXXX. The parser is really a
 simple front end to the complicated internals. 
 
+
+Q: I want to implement XXXX!  Should I do this?
+
+A: There might be better ways of doing XXXX, so it's a good thing to
+ask about this before you start hacking.  If you want to keep in touch
+current developments, you should subscribe to the mailing list.
+
+
+Q: I want to implement XXXX!  How should I do this?
+
+A: Your best bet of getting me to include code, is to present it as a
+"fait accompli", ie., to send me a patch.
+
+
 Q: Why do I need g++ >= 2.7?
 
 A: By using g++, GNU LilyPond is portable to all platforms which support
@@ -208,7 +224,7 @@ Q: I don't get midi-output, even if I use B<-M>
 A: Your \score should include a \midi block, eg.
 
 	\score {
-		\melodic { c c g g }
+		\melodic { c4 c g g }
 		\paper {}	
 		\midi {
 			\output "myfile.mid";
@@ -217,6 +233,13 @@ A: Your \score should include a \midi block, eg.
 
 The B<-M> option was added to LilyPond because processing the \paper
 block is so slow.
+
+Q: A lot of musical stuff doesn't make it to the MIDI file (dynamics,
+articulation, etc).
+
+A: The MIDI output was originally put in as a proof that MIDI could be
+done, and as a method of proof"reading" the input.  The MIDI support
+is by no means finished. 
 
 Q: I get 
 
@@ -238,9 +261,11 @@ Have a look at http://www.cygnus.com/gnu-win32.  To make GNU LilyPond
 type C<make>. (I am not promising to maintain this platform, it is just
 that when forced into doze, i'm sometimes too lazy to reboot.)
 
-A.2: I haven't had time to find a GCC crosscompiler (I<with> g++ and
-libg++, mind you) to DOS/Windows (in rpm, please :-)
+A.2: I haven't had time to find a Linux GCC crosscompiler (I<with> g++
+and libg++, mind you) to DOS/Windows (in rpm, please :-)
 
+A.3: If you are knowledgeable enough to make w32 compiles from time to
+time, please do so!  We want to keep away from w32 as far as possible.
 
 Q: I just love to blindly run the (sometimes bit stale) .exe's you distribute. 
 Why do i need cygwin.dll?

@@ -18,7 +18,8 @@ Foundation to create a system of free software for the world-community
 
 =item http://www.zib.de/Visual/software/doc++/index.html
 
-The documentation system for C++ sources, which the LilyPond sources use.
+The documentation system for C++ sources, which is used for the
+LilyPond sources.
 
 =item http://www.iat.unc.edu/technology/music/music.html
 
@@ -64,10 +65,9 @@ These development releases will also be at
 
 =head2 News
 
+The following newsgroups all contain material relevant to LilyPond
 
 =over 4
-
-The following newsgroups all contain material relevant to LilyPond
 
 =item news:comp.music.research
 

@@ -10,6 +10,7 @@ TestedFeatures =	 "This file tests the Feta music-font"
 \score{
 	\melodic{ 
 		\octave c';
+		\bar "|:";
 		\meter 4/4;
 		\multi 2  < { \stemup e'\longa a\breve | }
 		{ \stemdown
@@ -17,7 +18,7 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		c2 g c' a'
 		} >
 		\stemboth
-		c4 g c' a' |
+		c4 g c' a' \bar ":|";
 		a\ppp-\upbow a\pp-\downbow a\p^\turn a\mp^\fermata |
 		a\mf_\fermata a\f-\stopped a\ff-\open a\fff^\trill|
 		a\fp a4.\sf a4.\sfz | % a\fz a\rf

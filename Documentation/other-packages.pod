@@ -13,13 +13,13 @@ packages. Feel free to add info (and mail it to me).
 
 =item Rosegarden, http://www.bath.ac.uk/~masjpf/rose.html
 
-A Notation editor/Sequencer for X (windows95 port underway). Outputs musictex.
+A Notation editor/Sequencer for X. Also outputs musictex.
 
 =item Common Notation,
 http://www-ccrma.stanford.edu/CCRMA/Software/cmn/cmn.html
 
 A versatile lisp package. Part of the Common Music system. Input is in
-Lisp. It needs some Adobe fonts
+Lisp. It needs the Adobe Sonata or Finale Petrucci font.
 
 =item Vivace, http://www.calband.berkeley.edu/~gmeeker/vivace
 
@@ -36,18 +36,22 @@ Added for completeness. You are currently reading her documentation.
 
 =item Music, http://www.cs.nott.ac.uk/Department/Staff/ef/printing.html
 
-A TROFF preprocessor by Eric Foxley
+A TROFF preprocessor by Eric Foxley.
 
 =item PMX, http://www.gmd.de/Misc/Music/
 
-A Preprocessor for MusiXTeX by Don Simons
+A Preprocessor for MusiXTeX by Don Simons.
+
+=item M-Tx, 
+
+A Preprocessor to PMX by Dirk Laurie.
 
 =item Musictex, http://www.gmd.de/Misc/Music/
 
 MusicTeX is a macro package for TeX to typeset polyphonic or
 instrumental music.  It was originally written by Daniel Taupin.  
 
-It includes a full-featured set of fonts.
+It includes a full-featured (but slightly unsightly) set of fonts.
 
 =item MusiXTeX, http://www.gmd.de/Misc/Music/
 
@@ -86,7 +90,7 @@ Schofer & Andrea Steinbach. With some fonts
 
 =item Calliope, http://www.cl.cam.ac.uk/users/wfc/
 
-A NeXT package by William F. Clocksin. Requires Adobe fonts.
+A NeXT package by William F. Clocksin. Requires the Adobe Sonata font.
 
 =back
 
@@ -116,15 +120,13 @@ Notation editor for W95 and Mac
 Notation editor on Acorn machines.  Their developers call it ``best
 notation program available''.  In any case, they are good at bragging.
 
-=item ? [``EDV-Notensatz'']
+=item [``EDV-Notensatz'']
 
 URW's music-engraving system described by [Wanske].  (Although URW
 used ~DM 1.000.000 while developing this, it didn't buy them a cute
 name.)
 
 =item Logic,
-
-=item Personal Composer
 
 =item Finale
 
@@ -164,13 +166,25 @@ different Unix clones.  It uses MIDI-keyboard input
 A-R Music Engraving, by A-R Editions, Inc. Professional engraving on
 Sun boxen.
 
-=item MusiCopy, ? 
+=item MusiCopy, [no WWW address]
 
 A project at Ohio State university, which was discontinued in 1987.
+The technical reports that have resulted from MusiCopy can still be
+obtained.
+
 
 =item Berlioz, http://www.?.fr/
 
 Dominique Montel (a professional music typesetter) is now working
 together with computer scientists on his own software for music
 publishing, called "Berlioz".
+
+=head2 Other stuff
+
+=item Sonata, http://www.adobe.com/type/browser/F/F_SONA.html
+
+The music font by Adobe.
+
+
+
 

@@ -6,7 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "span-bar.hh"
+#include "normal-span-bar.hh"
 #include "span-bar-grav.hh"
 #include "vertical-align-spanner.hh"
 
@@ -19,7 +19,7 @@ Span_bar_engraver::Span_bar_engraver()
 Span_bar*
 Span_bar_engraver::get_span_bar_p() const
 {
-  return  new Span_bar;
+  return new Normal_span_bar;
 }
 
 void
@@ -35,6 +35,7 @@ Span_bar_engraver::acknowledge_element (Score_elem_info i)
 	{
 	  spanbar_p_ = get_span_bar_p();
 	  announce_element (Score_elem_info (spanbar_p_,0));
+	  spanbar_p_-> type_str_ = bar_l_arr_[0]->type_str_;
 	}
     }
   else if  (i.elem_l_->is_type_b (Vertical_align_spanner::static_name()) 

@@ -23,9 +23,11 @@ do_scores()
   for (int i=0; i < global_score_array.size(); i++)
     {
       Score *&is_p = global_score_array[i];
-      if (is_p->header_p_)
-	is_p->header_p_->lily_id_str_ = "Lily was here, " +
-	  get_version_number_str();
+      if (!is_p->header_p_)
+	is_p->header_p_ = new Header;
+      
+      is_p->header_p_->lily_id_str_ = "Lily was here, " +
+	get_version_number_str();
       if (is_p->errorlevel_i_)
 	{
 	  is_p->warning (_("Score contains errors. Will not process it. "));

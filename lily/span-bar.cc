@@ -17,7 +17,6 @@
 void
 Span_bar::add (Bar*b)
 {
-  b->spanned_i_ ++;
   spanning_l_arr_.push (b);
   add_dependency (b);
 }
@@ -27,21 +26,7 @@ Span_bar::add (Bar*b)
 void
 Span_bar::do_substitute_dependency (Score_elem*o, Score_elem*n)
 {
-  Bar * bold = 0;
-  if  (o->is_type_b (Bar::static_name())) 
-    bold = (Bar*)o->item();
-  else
-    return;
-
-  bold->spanned_i_ --;
-  Bar * b =0;
-  if (n && n->is_type_b (Bar::static_name())) 
-    {
-      b = (Bar*)n->item();
-      b->spanned_i_ ++;
-    }
-  
-  spanning_l_arr_.substitute (bold , b);
+  spanning_l_arr_.unordered_substitute (o, n);
 }
 
 
@@ -61,28 +46,25 @@ Span_bar::do_width() const
 void
 Span_bar::do_pre_processing()
 {
+  Bar::do_pre_processing ();
+  
   if (spanning_l_arr_.size() < 1) 
     {
       transparent_b_ = true;
       set_empty (true);   
     }
-  else 
+  if (type_str_.empty_b ()) 
     {
-      if (type_str_.empty_b ())
-	type_str_ = spanning_l_arr_[0]->type_str_;
-      if (type_str_.empty_b ()) 
-	{
-	  transparent_b_=true;
-	  set_empty (true);
-	}
-      else if (type_str_ == "|:") 
-	{
-	  type_str_ = ".|";
-	}
-      else if (type_str_ == ":|")
-	{
-	  type_str_ = "|.";
-	}
+      transparent_b_=true;
+      set_empty (true);
+    }
+  else if (type_str_ == "|:") 
+    {
+      type_str_ = ".|";
+    }
+  else if (type_str_ == ":|")
+    {
+      type_str_ = "|.";
     }
 }
 
@@ -110,7 +92,7 @@ Span_bar::brew_molecule_p() const
 
   Atom s = get_bar_sym (y_int.length());
   Molecule*output = new Molecule (Atom (s));
-  output->translate_axis (y_int[-1], Y_AXIS);
+  output->translate_axis (y_int.center(), Y_AXIS);
   return output;
 }
 

@@ -21,6 +21,8 @@ global =
     \melodic {
          \meter 4/4;                % should be \meter C
          \keyCminor 
+	 \skip 1*32;
+	 \bar "|.";
     }
   
 dux =

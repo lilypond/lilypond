@@ -5,6 +5,7 @@
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
+
 #include "span-score-bar.hh"
 #include "span-score-bar-grav.hh"
 

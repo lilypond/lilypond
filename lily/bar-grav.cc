@@ -7,7 +7,7 @@
 */
 
 #include "bar-grav.hh"
-#include "bar.hh"
+#include "normal-bar.hh"
 #include "command-request.hh"
 #include "time-description.hh"
 #include "engraver-group.hh"
@@ -40,14 +40,14 @@ Bar_engraver::do_process_requests()
   
   if (bar_req_l_) 
     {
-      bar_p_ = new Bar;
+      bar_p_ = new Normal_bar;
       bar_p_->type_str_=bar_req_l_->type_str_;
     }
   else 
     {
       Time_description const *time = get_staff_info().time_C_;
       if (time && !time->whole_in_measure_) 
- 	bar_p_ = new Bar;
+ 	bar_p_ = new Normal_bar;
     }
   
   if (bar_p_)
