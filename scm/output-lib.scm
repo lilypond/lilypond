@@ -103,7 +103,6 @@
 ;;  (* (/ 72.27 25.40) x))
 
 ;; do nothing in .scm output
-(define-public (comment s) "")
 
 (define-public (ly:numbers->string lst)
   (string-join (map ly:number->string lst) " "))

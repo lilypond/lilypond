@@ -157,8 +157,6 @@ export LD_LIBRARY_PATH=$HOME/usr/pkg/guile-gnome/lib:$LD_LIBRARY_PATH
 
 # simple test
 guile -s ../src/libgnomecanvas/examples/canvas.scm
-=======
->>>>>>> 1.21
 
 
 (debug-enable 'backtrace)
@@ -173,20 +171,10 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
  (srfi srfi-13)
  (lily)
  (gnome gtk)
-<<<<<<< output-gnome.scm
  (gnome gtk gdk-event)
  ;; the name of the module will change to canvas rsn
  (gnome gw libgnomecanvas))
  ;;(gnome gw canvas))
-=======
- (gnome gtk gdk-event))
-
-;; the name of the module will change to canvas rsn
-(if (resolve-module '(gnome gw canvas))
-    (use-modules (gnome gw canvas))
-    (use-modules (gnome gw libgnomecanvas)))
-
->>>>>>> 1.21
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; module entry
@@ -244,15 +232,9 @@ guile -s ../src/libgnomecanvas/examples/canvas.scm
 
 ;; minimal intercept list:
 (define output-interface-intercept
-<<<<<<< output-gnome.scm
   '(
     no-origin
 ))
-=======
-  '(comment
-    define-origin
-    no-origin))
->>>>>>> 1.21
 
 (map (lambda (x) (module-define! this-module x dummy))
      output-interface-intercept)

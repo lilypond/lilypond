@@ -100,16 +100,6 @@
     (string-append "\\embeddedpdf{" (get-output-string os) "}")))
 
 
-(define (comment s)
-  (simple-format #f "% ~a\n" s))
-
-(define (end-output) 
-  (begin
-					; uncomment for some stats about lily memory	  
-					;		(display (gc-stats))
-    (string-append "%\n\\lilypondend\n"
-					; Put GC stats here.
-		   )))
 
 (define (experimental-on)
   "")

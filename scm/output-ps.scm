@@ -17,9 +17,7 @@
 
 (define-module (scm output-ps)
   #:re-export (quote)
-  #:export (define-fonts
-	     unknown
-	     select-font
+  #:export (unknown
 	     blank
 	     dot
 	     beam
@@ -31,16 +29,9 @@
 	     symmetric-x-triangle
 	     ez-ball
 	     comment
-	     end-output
-	     experimental-on
 	     repeat-slash
-	     header-end
-	     header
 	     placebox
 	     bezier-sandwich
-	     start-system
-	     stop-system
-	     stop-last-system
 	     horizontal-line
 	     filledbox
 	     round-filled-box
@@ -50,8 +41,6 @@
 	     draw-line
 	     define-origin
 	     no-origin
-	     start-page
-	     stop-page
 	     ))
 
 (use-modules (guile)
@@ -113,9 +102,6 @@
     (ps-font-command font) " setfont " 
    "(\\" (ly:inexact->string i 8) ") show" ))
 
-(define (comment s)
-  (string-append "% " s "\n"))
-
 (define (dashed-line thick on off dx dy)
   (string-append 
    (ly:number->string dx) " "
@@ -159,9 +145,6 @@
    (ly:number->string y1) " moveto "
    (ly:number->string x2) " "
    (ly:number->string y2) " lineto stroke"))
-
-(define (end-output)
-  "\nend-lilypond-output\n")
 
 (define (ez-ball ch letter-col ball-col)
   (string-append
