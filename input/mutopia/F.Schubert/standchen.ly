@@ -152,7 +152,7 @@ trebleVerseOne =  \notes\relative c{
 	r8 <<f g b>> <<g b d>> <<f g b>> <<g b d>> <<f g b>> |
 	r8 <<es g c>> <<g c es>> <<es g c>> <<g c es>> <<es g c>> |
 	<<g'' b,>>4.-( <<f d>>8-)
-	\times 2/3 { <<f d>>-(-[ <<es c>>-]-) <<d b>> }
+	\times 2/3 { <<f d>>-(-[ <<es c>> <<d b>>-)-] }
 
 	%10
 	<<c es>>2. |
@@ -165,7 +165,7 @@ trebleVerseOne =  \notes\relative c{
 	<<es g bes>>
 	<<g bes es>>-]
 	<<es' c'>>-(
-	<<d bes>>4.-(-)
+	<<d bes'>>4.-(-)
 	<<f as>>8-)
 	
 	\times 2/3 { <<f as>>-(-[ <<es g>> <<d f>>-)-] }
@@ -185,7 +185,7 @@ trebleVerseOne =  \notes\relative c{
 	r8 <<e g>> <<g c>> <<e g>> <<g c>> <<e g>> |
 	r8 <<f a c>> <<a c f>> <<f a c>> <<a c f>> <<f a c>> |
 	r8 <<e g c>> <<g c e>> <<e g c>> <<g c e>> <<e g c>> |
-	\times 2/3  { <<f f'>>-\f-( <<e e'>> <<f f'>> }
+	\times 2/3  { <<f' f'>>-\f-( <<e e'>> <<f f'>> }
 	<<a a'>>4.-> <<f f'>>8-)  |
 }
 
@@ -250,7 +250,7 @@ trebleThrough =  \notes \relative c'{
 	%80
 
 	\property Voice . TextScript \override #'font-shape = #'italic
-	<<e g>>_"dim."
+	<<e g>>2._"dim."
 	\property Voice . TextScript \revert #'font-shape
 
 	<<g, e' g>>2. |
