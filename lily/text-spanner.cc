@@ -244,7 +244,7 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   if ( to_boolean (me->get_grob_property ("text-start")) )
     {
       height[LEFT] = 0;
-      Grob * textbit = me->get_parent(Y_AXIS);
+      Grob * textbit = unsmob_grob (me->get_grob_property("pedal-text"));
       extra_short = padding;
       if (textbit->internal_has_interface(ly_symbol2scm("text-interface"))) 
 	// for plain text, e.g., Sost. Ped.
@@ -287,7 +287,7 @@ struct Pianopedal
 };
 ADD_INTERFACE (Pianopedal,"piano-pedal-interface",
 	       "",
-	       "pedal-type edge-widen edge-height shorten-pair text-start left-widen right-widen");
+	       "pedal-type edge-widen edge-height shorten-pair text-start left-widen right-widen pedal-text");
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
 	       "generic text spanner",

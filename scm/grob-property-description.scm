@@ -267,6 +267,7 @@ FIXME: also pair? (cons LEFT RIGHT)
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'pedal-type symbol? "Style of piano pedal: text, bracket or mixed.")
+(grob-property-description 'pedal-text ly-grob? "Pointer to the text of a mixed-style piano pedal.")
 (grob-property-description 'penalty number? "Penalty for breaking at
 this column. 10000 or more means forbid linebreak, -10000 or less
 means force linebreak.  Other values influence linebreaking decisions

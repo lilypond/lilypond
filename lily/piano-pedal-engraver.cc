@@ -352,10 +352,12 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 				       gh_bool2scm (false));
 
       /*
-       Warning: we can't hang the bracket on an item in Y-direction:
-       it will cause problems when the bracket is broken, because the
-       item can be on another line.
+	Mixed style: Store a pointer to the preceding text for use in
+	calculating the length of the line 
       */
+      if (p->item_p_)
+	p->bracket_p_->set_grob_property ("pedal-text", p->item_p_->self_scm ());
+      
       p->bracket_p_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
       Axis_group_interface::add_element (p->line_spanner_, p->bracket_p_);	      
 
