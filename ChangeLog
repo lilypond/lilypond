@@ -1,5 +1,8 @@
 2002-11-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Analysis brackets): add
+	horizontal bracket doco.
+
 	* ly/property-init.ly (setMmRestFermata): added.
 
 	* Documentation/user/refman.itely (Multi measure rests): fermatas
