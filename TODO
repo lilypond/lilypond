@@ -11,6 +11,9 @@ grep for TODO and ugh/ugr/urg
 BUGS:
 	
 
+	* egcs-1.1 -O2 -finline-functions  causes crash
+
+
 	* formatting of input stuff. 
 
 	* use real RTTI iso access_Stuff.
