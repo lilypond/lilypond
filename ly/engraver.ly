@@ -113,7 +113,7 @@ VoiceContext = \translator {
 	\type "Engraver_group_engraver";
 	\name Voice;
 
-	dynamicPadding = #2.0
+	dynamicPadding = #10  % urg, in \pt
 	Generic_property_list = #generic-voice-properties
 	\consists "Output_property_engraver";	
 

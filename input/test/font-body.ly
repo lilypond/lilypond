@@ -51,8 +51,8 @@ c\longa*1/4 c\breve*1/2 c1 c2 c4 c8
 			a'^\flageolet
 			\property Voice . textStyle =  "roman"
 			\time 1/2; a2 |
-		%	\time 3/2; < a1.
-		%	{ s4 \ppp \< s4 \! s4 \fff  s4 \> s4 \! s4\ppp} >
+			\time 3/2; < a1.
+			{ s4 \ppp \< s4 \! s4 \fff  s4 \> s4 \! s4\ppp} >
 			|
 			\time 2/4; a2 |
 			\time 5/4; a1.. |
