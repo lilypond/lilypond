@@ -33,7 +33,7 @@
      ly:duration<?
      ly:duration?
      ly:export
-     ly:find-glyph-by-name
+     ly:font-get-glyph
      ly:font-design-size
      ly:font-encoding-alist
      ly:font-file-name

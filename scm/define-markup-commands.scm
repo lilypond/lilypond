@@ -383,7 +383,7 @@ alignment accordingly."
 #\"accidentals-0\"} will select the natural sign from the music font.
 See @usermanref{The Feta font} for  a complete listing of the possible glyphs.
 "
-  (ly:find-glyph-by-name
+  (ly:font-get-glyph
    (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
                                   props))
    glyph-name))
@@ -391,7 +391,7 @@ See @usermanref{The Feta font} for  a complete listing of the possible glyphs.
 
 (def-markup-command (lookup layout props glyph-name) (string?)
   "Lookup a glyph by name."
-  (ly:find-glyph-by-name (ly:paper-get-font layout props)
+  (ly:font-get-glyph (ly:paper-get-font layout props)
                          glyph-name))
 
 (def-markup-command (char layout props num) (integer?)
@@ -449,7 +449,7 @@ and/or @code{extra-offset} properties. "
   (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)) props)))
 	 (size (chain-assoc-get 'font-size props 0))
          (stem-length (* (magstep size) (max 3 (- log 1))))
-         (head-glyph (ly:find-glyph-by-name
+         (head-glyph (ly:font-get-glyph
                   font
                   (string-append "noteheads-s" (number->string (min log 2)))))
          (stem-thickness 0.13)
@@ -464,7 +464,7 @@ and/or @code{extra-offset} properties. "
                        (cons (min stemy attachy)
                              (max stemy attachy))
                        (/ stem-thickness 3))))
-         (dot (ly:find-glyph-by-name font "dots-dot"))
+         (dot (ly:font-get-glyph font "dots-dot"))
          (dotwid (interval-length (ly:stencil-extent dot X)))
          (dots (and (> dot-count 0)
                     (apply ly:stencil-add
@@ -474,7 +474,7 @@ and/or @code{extra-offset} properties. "
                                 (iota dot-count 1)))))
          (flaggl (and (> log 2)
                       (ly:stencil-translate
-                       (ly:find-glyph-by-name font
+                       (ly:font-get-glyph font
                                               (string-append "flags-"
                                                              (if (> dir 0) "u" "d")
                                                              (number->string log)))

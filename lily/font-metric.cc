@@ -130,14 +130,12 @@ IMPLEMENT_DEFAULT_EQUAL_P (Font_metric);
 IMPLEMENT_TYPE_P (Font_metric, "ly:font-metric?");
 
 
-LY_DEFINE (ly_find_glyph_by_name, "ly:font-get-glyph",
+LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
 	   2, 0, 0,
 	  (SCM font, SCM name),
-	  "This function retrieves a Stencil for the glyph named @var{name} "
-	   "in "
-	   "@var{font}.  "
-	   "The font must be available as an AFM file. If the glyph "
-	   "is not found, @code{#f} is returned. ")
+	   "Return a Stencil from @var{font} for the glyph named @var{name}.  "
+	   "@var{font} must be available as an AFM file.  If the glyph "
+	   "is not available, return @code{#f}.")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
