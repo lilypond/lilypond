@@ -1,5 +1,5 @@
 /* -*-c++-*-
-  plist.inl -- part of flowerlib
+  plist.icc -- part of flowerlib
 
   (c) 1996 Han-Wen Nienhuys& Jan Nieuwenhuizen
 */
