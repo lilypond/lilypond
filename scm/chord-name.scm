@@ -392,6 +392,8 @@ dump reinterpret the markup as a molecule.
 "
   (let* ((tonic-markup (pitch->chord-name-markup-banter tonic steps))
 	 (except-markup (if exception-part exception-part empty-markup))
+	 ;; UGR.  How do we know if we should add a separator or not?
+	 ;; maybe just add extra column to exception list?
 	 (sep-markup (if (and exception-part
 			      (let ((s (format "~s" except-markup)))
 				(and
@@ -510,13 +512,15 @@ dump reinterpret the markup as a molecule.
   (make-override-markup '(font-family . math) (make-simple-markup "N")))
 
 (define (step->markup-accidental pitch)
+  (make-line-markup
+   (list
     (case (caddr pitch)
       ((-2) (accidental->markup -2))
       ((-1) (accidental->markup -1))
       ((0) empty-markup)
       ((1) (accidental->markup 1))
       ((2) (accidental->markup 2)))
-    (make-simple-markup (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))
+    (make-simple-markup (number->string (+ (cadr pitch) (if (= (car pitch) 0) 1 8)))))))
 
 (define-public chord::exception-alist-american 
   `(
@@ -603,7 +607,18 @@ dump reinterpret the markup as a molecule.
 				  bass-and-inversion steps)
   (let* ((tonic-markup (pitch->chord-name-markup-banter tonic steps))
 	 (except-markup (if exception-part exception-part empty-markup))
-	 (sep-markup (if (and (string-match "super" (format "~s" except-markup))
+	 ;; UGR.  How do we know if we should add a separator or not?
+	 ;; maybe just add extra column to exception list?
+	 (sep-markup (if (and exception-part
+			      (let ((s (format "~s" except-markup)))
+				(and
+				 (string-match "super" s)
+				 ;; ugh ugh
+				 ;; python: `except_markup`[-7:] != '"o"))'
+				 (not (equal?
+				       "\"o\"))))"
+				       (substring s
+						  (- (string-length s) 7))))))
 			      (or (pair? additions)
 				  (pair? subtractions)))
 			 (make-super-markup (make-simple-markup "/"))
@@ -775,7 +790,18 @@ dump reinterpret the markup as a molecule.
 				bass-and-inversion steps)
   (let* ((tonic-markup (pitch->chord-name-markup-banter tonic steps))
 	 (except-markup (if exception-part exception-part empty-markup))
-	 (sep-markup (if (and (string-match "super" (format "~s" except-markup))
+	 ;; UGR.  How do we know if we should add a separator or not?
+	 ;; maybe just add extra column to exception list?
+	 (sep-markup (if (and exception-part
+			      (let ((s (format "~s" except-markup)))
+				(and
+				 (string-match "super" s)
+				 ;; ugh ugh
+				 ;; python: `except_markup`[-7:] != '"o"))'
+				 (not (equal?
+				       "\"o\"))))"
+				       (substring s
+						  (- (string-length s) 7))))))
 			      (or (pair? additions)
 				  (pair? subtractions)))
 			 (make-super-markup (make-simple-markup "/"))
