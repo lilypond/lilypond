@@ -1,32 +1,40 @@
-input/abbrev.ly
+
+This documents serious bugs 
 
 ********
-\score{
-	\melodic{
-	        [c2 c]
+
+
+[All platforms] 
+
+When dealing with beaming that is not correct (eg quarter notes in
+beams.), you can get the following assert.  This is a serious bug, but
+a good solution is quite a lot of work.
+
+	\score{
+		\melodic{
+			[c2 c]
+		}
 	}
-}
-lilypond: ../flower/include/varray.hh:141: struct Rhythmic_grouping *& Array<Rhythmic_grouping *>::elem(int) const: Assertion `i >=0&&i<size_' failed.
-Aborted (core dumped)
-*********
-\score{
-	\melodic{
-	        [c]
+
+results in
+
+	lilypond: ../flower/include/varray.hh:141: struct Rhythmic_grouping *& Array<Rhythmic_grouping *>::elem(int) const: Assertion `i >=0&&i<size_' failed.
+
+And this
+
+	\score{
+		\melodic{
+			[c]
+		}
 	}
-}
-lilypond: ../flower/include/cursor.tcc:104: int Cursor<void *>::operator -(class Cursor<void *>) const: Assertion `c.ok()' failed.
-Aborted (core dumped)
+
+in
+
+	lilypond: ../flower/include/cursor.tcc:104: int Cursor<void *>::operator -(class Cursor<void *>) const: Assertion `c.ok()' failed.
+	Aborted (core dumped)
 
 
-
-[GNU libc]
-
-The GNU extension memmem() is known to be buggy on linux libc 5.0.9
-and before. Glibc upto 2.0.5 also has problems with memmem (), but
-these should not affect LilyPond.
-
-
-[Linux Intel]
+[Linux libg++ 2.7]
 
 LilyPond occasionally crashes while parsing the initialisation files.
 This is a very obscure bug, and usually entering the commandline
@@ -49,11 +57,9 @@ Typical stacktrace:
 	Includable_lexer::new_input (this=0x8209a00, s={strh_ = {
 		:
 
+This behaviour has been observed with machines that have old libg++
+versions (LinuxPPC feb '98, RedHat 4.x).  
 
-I get bitten by this every once in a while, and I am very interested
-in hints what might be wrong.  This problem has only been identified
-with libc-5.3 and libc-5.4 platforms, so you might try upgrading to
-6.0, ie. GNU libc-2.
 
 
 [Linux Intel]
