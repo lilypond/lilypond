@@ -1,5 +1,36 @@
-1.3.63.uu1
+1.3.64.uu1
 ==========
+
+* Bugfix: translate volta spanner at start of line.
+
+* Changed directional_element() calls to instantiations
+of Directional_element_interface.
+
+* Removed Dynamic_line_spanner, and cleaned up Dynamic_engraver.
+
+* Removed Staff_info type. Information about columns is now transferred
+via currentMusicalColumn and currentCommandColumn.
+
+
+1.3.64.jcn2
+============
+
+* Made slur attachment position user settable; properties:
+slurBeginAttachment slurEndAttachment, values: 'head 'stem
+'along-side-stem.  See input/test/slur-attachment.ly and ophee-slurs.ly.
+
+* Fixed slur attachment positions, added missing rule and use simple
+default starting positions for attachments.
+
+* Started rewrite of slur ending code, interstaff slurs are broken for
+now.
+
+* Fixed download URL of the webpage.
+
+* Moved direction.cc to flower/.
+
+1.3.64
+======
 
 * Lyrics centered on notehead.
 

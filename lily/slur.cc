@@ -11,6 +11,9 @@
   [TODO]
     * begin and end should be treated as a/acknowledge Scripts.
     * broken slur should have uniform trend
+    * smart changing of endings
+    * smart changing of (Y-?)offsets to avoid ugly beziers
+       (along-side-stem)
  */
 
 #include "directional-element-interface.hh"
@@ -23,203 +26,16 @@
 #include "paper-column.hh"
 #include "molecule.hh"
 #include "debug.hh"
-#include "box.hh"
-#include "bezier-bow.hh"
+#include "slur-bezier-bow.hh"
 #include "main.hh"
 #include "cross-staff.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 
-class Slur_bezier_bow : public Bezier_bow
-{
-public:
-  Slur_bezier_bow (Array<Offset> encompass, Direction dir);
-  Array<Real> area_x_gradients_array (Real area);
-  void blow_fit ();
-  Real enclosed_area_f () const;
-  Real fit_factor () const;
-  void minimise_enclosed_area (Paper_def* paper_l, Real default_height);
-};
-
-Slur_bezier_bow::Slur_bezier_bow (Array<Offset> encompass, Direction dir)
-  : Bezier_bow (encompass, dir)
-{
-}
-
-void
-Slur_bezier_bow::blow_fit ()
-{
-  Real len = curve_.control_[3][X_AXIS]; 
-  Real h = curve_.control_[1][Y_AXIS] * fit_factor () / len;
-  curve_.control_[1][Y_AXIS] = h * len;
-  curve_.control_[2][Y_AXIS] = h * len;  
-  curve_.assert_sanity ();
-}
-
-
-Real
-Slur_bezier_bow::enclosed_area_f () const
-{
-  Real a = 0;
-  for (int i=0; i < encompass_.size (); i++)
-    {
-      Interval x;
-      Interval y;
-      if (i == 0)
-	{
-	  x = Interval (0, encompass_[1][X_AXIS] / 2);
-	  y = Interval (0,
-			curve_.get_other_coordinate (X_AXIS,
-						     encompass_[1][X_AXIS]
-						     / 2));
-	}
-      else if (i == encompass_.size () - 1)
-	{
-	  x = Interval ((encompass_[i-1][X_AXIS] + encompass_[i][X_AXIS])/2, 
-			encompass_[i][X_AXIS]);
-	  y = Interval (0,
-			(curve_.get_other_coordinate (X_AXIS,
-						      (x[MIN] + x[MAX]) / 2)));
-	}
-      else
-	{
-	  x = Interval ((encompass_[i-1][X_AXIS] + encompass_[i][X_AXIS]) / 2, 
-			(encompass_[i][X_AXIS] + encompass_[i+1][X_AXIS]) / 2);
-	  y = Interval (encompass_[i][Y_AXIS],
-			(curve_.get_other_coordinate (X_AXIS, x[MIN])
-			 + curve_.get_other_coordinate (X_AXIS,
-							(x[MIN] + x[MAX]) / 2)
-			 + curve_.get_other_coordinate (X_AXIS, x[MAX])) / 3);
-	}
-      
-      Real da = x.length () * y.length ();
-      a += da;
-    }
-  return a;
-}
-
-Array<Real>
-Slur_bezier_bow::area_x_gradients_array (Real area)
-{
-  Real len = curve_.control_[3][X_AXIS]; 
-  Real grow = len / 10.0;
-  Array<Real> da (2);
-  for (int i=0; i < 2; i++)
-    {
-      Real r = curve_.control_[i+1][X_AXIS];
-      curve_.control_[i+1][X_AXIS] += grow;
-      da[i] = (enclosed_area_f () - area) / grow;
-      curve_.control_[i+1][X_AXIS] = r; 
-    }
-  return da;
-}
-
-void
-Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l,
-					 Real default_height)
-{
-  Real length = curve_.control_[3][X_AXIS]; 
-  Real sb = paper_l->get_var ("slur_beautiful");
-  Real beautiful = length * default_height * sb;
-
-  DEBUG_OUT << to_str ("Beautiful: %f\n", beautiful);
-  DEBUG_OUT << to_str ("Length: %f\n", length);
-  DEBUG_OUT << to_str ("D-height: %f\n", default_height);
-  DEBUG_OUT << to_str ("FitFac: %f\n", fit_factor ());
-
-  if (fit_factor () > 1.0)
-    blow_fit ();
-  
-  Real pct_c0 = paper_l->get_var ("bezier_pct_c0");
-  Real pct_c3 = paper_l->get_var ("bezier_pct_c3");
-  Real pct_in_max = paper_l->get_var ("bezier_pct_in_max");
-  Real pct_out_max = paper_l->get_var ("bezier_pct_out_max");
-  Real steps = paper_l->get_var ("bezier_area_steps");
-
-  for (int i=0; i < steps; i++)
-    {
-      Real area = enclosed_area_f ();
-      if (!i)
-	DEBUG_OUT << to_str ("Init area: %f\n", area);
-
-      if (area <= beautiful)
-	break;
-
-      Array<Real> da = area_x_gradients_array (area);
-
-      // urg
-      Real pct = pct_c0 + pct_c3 * length * length * length;
-      pct *= (steps - i) / steps;
-      if (da[0] > 0 || da[1] < 0)
-	pct = pct <? pct_out_max;
-      else
-	pct = pct <? pct_in_max;
-
-      Real u = (abs (curve_.control_[1][X_AXIS] / da[0])
-		<? abs ((curve_.control_[3][X_AXIS]
-			 - curve_.control_[2][X_AXIS]) / da[1]));
-
-      DEBUG_OUT << to_str ("pct: %f\n", pct);
-      DEBUG_OUT << to_str ("u: %f\n", u);
-
-      DEBUG_OUT << to_str ("da: (%f, %f)\n", da[0], da[1]);
-      DEBUG_OUT << to_str ("da*u: (%f, %f)\n", da[0]*u*pct, da[1]*u*pct);
-      DEBUG_OUT << to_str ("cx: (%f, %f)\n", curve_.control_[1][X_AXIS],
-			   curve_.control_[2][X_AXIS]);
-
-      curve_.control_[1][X_AXIS] -= da[0] * u * pct;
-      curve_.control_[2][X_AXIS] -= da[1] * u * pct;
-    }
-
-  Real area = enclosed_area_f ();
-  DEBUG_OUT << to_str ("Exarea: %f\n", area);
-}
-
-
-
-/*
-  max ( encompass.y / curve.y )
-  
- */
-Real
-Slur_bezier_bow::fit_factor () const
-{
-  Real x1 = encompass_[0][X_AXIS];
-  Real x2 = encompass_.top ()[X_AXIS];
-
-  Real factor = 0.0;
-  for (int i=1; i < encompass_.size ()-1; i++)
-    {
-      if (encompass_[i][X_AXIS] > x1 && encompass_[i][X_AXIS] < x2)
-	{
-	 Real y = curve_.get_other_coordinate (X_AXIS, encompass_[i][X_AXIS]);
-	 if (y>0)
-	   {
-	     Real f = encompass_[i][Y_AXIS] / y;
-	     factor = factor >? f;
-	   }
-	}
-    }
-
-
-  return factor;
-}
-
-
-
-
-
-/*
-  Slur
-*/
-
 Slur::Slur (SCM s)
   : Spanner (s)
 {
-  // URG
-  dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
-  dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
-
+  set_elt_property ("attachment", gh_cons (SCM_BOOL_F, SCM_BOOL_F));
   set_elt_pointer ("note-columns", SCM_EOL);
   set_elt_property ("control-points", SCM_EOL);
 }
@@ -234,6 +50,8 @@ Slur::add_column (Note_column*n)
       Pointer_group_interface (this, "note-columns").add_element (n);
       add_dependency (n);
     }
+
+  add_bound_item (this, n);
 }
 
 void
@@ -287,6 +105,7 @@ Slur::get_default_dir () const
 void
 Slur::do_add_processing ()
 {
+#if 0
   Link_array<Note_column> encompass_arr =
     Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
 
@@ -296,6 +115,7 @@ Slur::do_add_processing ()
       if (encompass_arr.size () > 1)
 	set_bound (RIGHT, encompass_arr.top ());
     }
+#endif
 }
 
 
@@ -305,7 +125,7 @@ Slur::encompass_offset (Note_column const* col) const
 {
   Offset o;
   Stem* stem_l = col->stem_l ();
-  Direction dir = directional_element (this).get ();
+  Direction dir = Directional_element_interface (this).get ();
   
   if (!stem_l)
     {
@@ -314,7 +134,7 @@ Slur::encompass_offset (Note_column const* col) const
       o[Y_AXIS] = col->extent (Y_AXIS)[dir];
       return o;  
     }
-  Direction stem_dir = directional_element (stem_l).get ();
+  Direction stem_dir = Directional_element_interface (stem_l).get ();
   o[X_AXIS] = stem_l->relative_coordinate (0, X_AXIS);
 
   /*
@@ -351,167 +171,154 @@ Slur::member_after_line_breaking ()
   return SCM_UNDEFINED;
 } 
 
-/*
-  urg
-  FIXME
- */
+SCM
+slur_get_bound (SCM slur, SCM dir)
+{
+  return ((Slur*)unsmob_element (slur))->get_bound (to_dir (dir))->self_scm_;
+}
+
+SCM
+score_element_get_pointer (SCM se, SCM name)
+{
+  SCM s = scm_assq (name, unsmob_element (se)->pointer_alist_);
+  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
+}
+
+SCM
+score_element_get_property (SCM se, SCM name)
+{
+  SCM s = scm_assq (name, unsmob_element (se)->property_alist_);
+  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
+}
+
+void
+init_score_elts ()
+{
+  scm_make_gsubr ("get-pointer", 2 , 0, 0,  
+		  (SCM(*)(...)) score_element_get_pointer);
+  scm_make_gsubr ("get-property", 2 , 0, 0,  
+		  (SCM(*)(...)) score_element_get_property);
+  scm_make_gsubr ("get-bound", 2 , 0, 0,  
+		  (SCM(*)(...)) slur_get_bound);
+}
+
+ADD_SCM_INIT_FUNC (score_elt, init_score_elts);
+
 void
 Slur::set_extremities ()
 {
-  Link_array<Note_column> encompass_arr =
-    Pointer_group_interface__extract_elements (this, (Note_column*)0, "note-columns");
+  if (!Directional_element_interface (this).get ())
+    Directional_element_interface (this).set (get_default_dir ());
 
-  if (!encompass_arr.size ())
-    {
-      suicide();
-      return;
-    }
-
-  if (!directional_element (this).get ())
-    directional_element (this).set (get_default_dir ());
-
-
-  /* 
-   Slur and tie placement [OSU]
-
-   Slurs:
-   * x = centre of head - d * x_gap_f
-
-   TODO:
-   * y = length < 5ss : horizontal tangent + d * 0.25 ss
-     y = length >= 5ss : y next interline - d * 0.25 ss
-   */
-
-  Real staff_space = paper_l ()->get_var ("interline");
-  Real half_staff_space = staff_space / 2;
-
-  Real x_gap_f = paper_l ()->get_var ("slur_x_gap");
-  Real y_gap_f = paper_l ()->get_var ("slur_y_gap");
-
-  Drul_array<Note_column*> note_column_drul;
-  note_column_drul[LEFT] = encompass_arr[0];
-  note_column_drul[RIGHT] = encompass_arr.top ();
-
-  bool fix_broken_b = false;
-
-  Direction my_dir = directional_element (this).get ();
-  
-  Direction d = LEFT;
+  Direction dir = LEFT;
   do 
     {
-      dx_f_drul_[d] = 0;
-      dy_f_drul_[d] = 0;
-      
-      if ((note_column_drul[d] == get_bound (d))
-	  && note_column_drul[d]->first_head ()
-	  && (note_column_drul[d]->stem_l ()))
+      if (!gh_symbol_p (index_cell (get_elt_property ("attachment"), dir)))
 	{
-	  Stem* stem_l = note_column_drul[d]->stem_l ();
-	  /*
-	    side directly attached to note head;
-	    no beam getting in the way
-	  */
-	  if ((stem_l->extent (Y_AXIS).empty_b ()
-	       || !((stem_l->get_direction () == my_dir) && (my_dir != d)))
-	      && !((my_dir == stem_l->get_direction ())
-		   && stem_l->beam_l () && (stem_l->beam_count (-d) >= 1)))
+	  
+	  // for (SCM s = get_elt_property ("slur-extremity-rules"); s != SCM_EOL; s = gh_cdr (s))
+	  for (SCM s = scm_eval (ly_symbol2scm ("slur-extremity-rules"));
+	       s != SCM_EOL; s = gh_cdr (s))
 	    {
-	      dx_f_drul_[d] = get_bound (d)->extent (X_AXIS).length () / 2;
-	      dx_f_drul_[d] -= d * x_gap_f;
-
-	      if (stem_l->get_direction () != my_dir)
+	      SCM r = scm_eval (scm_listify (gh_caar (s),
+					     this->self_scm_,
+					     gh_int2scm ((int)dir),
+					     SCM_UNDEFINED));
+	      if (r != SCM_BOOL_F)
 		{
-		  dy_f_drul_[d] = note_column_drul[d]->extent (Y_AXIS)[my_dir];
-		}
-	      else
-		{
-		  dy_f_drul_[d] = stem_l->chord_start_f ()
-		    + my_dir * half_staff_space;
-		}
-	      dy_f_drul_[d] += my_dir * y_gap_f;
-	    }
-	  /*
-	    side attached to (visible) stem
-	  */
-	  else
-	    {
-	      dx_f_drul_[d] = stem_l->relative_coordinate (0, X_AXIS)
-		- get_bound (d)->relative_coordinate (0, X_AXIS);
-	      /*
-		side attached to beamed stem
-	       */
-	      if (stem_l->beam_l () && (stem_l->beam_count (-d) >= 1))
-		{
-		  dy_f_drul_[d] = stem_l->extent (Y_AXIS)[my_dir];
-		  dy_f_drul_[d] += my_dir * 2 * y_gap_f;
-		}
-	      /*
-		side attached to notehead, with stem getting in the way
-	       */
-	      else
-		{
-		  dx_f_drul_[d] -= d * x_gap_f;
-		  
-		  dy_f_drul_[d] = stem_l->chord_start_f ()
-		    + my_dir * half_staff_space;
-		  dy_f_drul_[d] += my_dir * y_gap_f;
+		  index_set_cell (get_elt_property ("attachment"), dir,
+				  gh_cdar (s));
+		  break;
 		}
 	    }
 	}
-      /*
-	loose end
-      */
-      else
-	{
-	  dx_f_drul_[d] = get_broken_left_end_align ();
-	  	
-	  /*
-	    broken: should get y from other piece, so that slur
-	    continues up/down trend
-
-	    for now: be horizontal..
-	  */
-	  fix_broken_b = true;
-	}
     }
-  while (flip (&d) != LEFT);
-
-  int cross_count =  cross_staff_count ();
-  bool interstaff_b = (0 < cross_count) && (cross_count < encompass_arr.size ());
-
-  Drul_array<Offset> info_drul;
-  Drul_array<Real> interstaff_interval;
-
-  do
-    {
-      info_drul[d] = encompass_offset (encompass_arr.boundary (d, 0));
-      interstaff_interval[d] = - calc_interstaff_dist (encompass_arr.boundary (d,0),
-						     this);
-    }
-  while (flip (&d) != LEFT);
-  
-  Real interstaff_f = interstaff_interval[RIGHT] - interstaff_interval[LEFT];
-
-  if (fix_broken_b)
-    {
-      Direction d = (encompass_arr.top () != get_bound (RIGHT)) ?
-	RIGHT : LEFT;
-      dy_f_drul_[d] = info_drul[d][Y_AXIS];
-      if (!interstaff_b)
-	{
-	  dy_f_drul_[d] -= interstaff_interval[d];
-	  if (cross_count)	// interstaff_i  ? 
-	    {
-	      dy_f_drul_[LEFT] += interstaff_interval[d];
-	      dy_f_drul_[RIGHT] += interstaff_interval[d];
-	    }
-	}
-    }
-	
-  if (!fix_broken_b)
-    dy_f_drul_[RIGHT] += interstaff_f;
+  while (flip (&dir) != LEFT);
 }
 
+Offset
+Slur::get_attachment (Direction dir) const
+{
+  SCM s = get_elt_property ("attachment");
+  SCM a = dir == LEFT ? gh_car (s) : gh_cdr (s);
+  String str = ly_symbol2string (a);
+  Real ss = Staff_symbol_referencer_interface (this).staff_space ();
+  Real hs = ss / 2.0;
+  Offset o;
+  if (Note_column* n = dynamic_cast<Note_column*> (get_bound (dir)))
+    {
+      if (Stem* st = dynamic_cast<Stem*> (n->stem_l ()))
+	{
+	  if (str == "head")
+	    {
+	      o = Offset (0, st->chord_start_f ());
+	      /*
+		Default position is centered in X, on outer side of head Y
+	       */
+	      o += Offset (0.5 * n->extent (X_AXIS).length (),
+			   0.5 * ss * Directional_element_interface (this).get ());
+	    }
+	  else if (str == "alongside-stem")
+	    {
+	      o = Offset (0, st->chord_start_f ());
+	      /*
+		Default position is on stem X, on outer side of head Y
+	       */
+	      o += Offset (n->extent (X_AXIS).length ()
+			   * (1 + st->get_direction ()),
+			   0.5 * ss * Directional_element_interface (this).get ());
+	    }
+	  else if (str == "stem")
+	    {
+	      o = Offset (0, st->stem_end_position () * hs);
+	      /*
+		Default position is on stem X, at stem end Y
+	       */
+	      o += Offset (0.5 *
+			   (n->extent (X_AXIS).length ()
+			    - st->extent (X_AXIS).length ())
+			    * (1 + st->get_direction ()),
+			    0);
+	    }
+	  else if (str == "loose-end")
+	    {
+	      SCM other_a = dir == LEFT ? gh_cdr (s) : gh_car (s);
+	      if (ly_symbol2string (other_a) != "loose-end")
+		{
+		  o = Offset (0, get_attachment (-dir)[Y_AXIS]);
+		}
+	    }
+
+	  
+	  SCM l = scm_assoc
+	    (scm_listify (a,
+			  gh_int2scm (st->get_direction () * dir),
+			  gh_int2scm (Directional_element_interface (this).get () * dir),
+			  SCM_UNDEFINED),
+	     scm_eval (ly_symbol2scm ("slur-extremity-offset-alist")));
+	  
+	  if (l != SCM_BOOL_F)
+	    {
+	      o += ly_scm2offset (gh_cdr (l)) * ss * dir;
+	    }
+	}
+    }
+
+
+  /*
+    URG
+   */
+
+  if (str != "loose-end")
+    {
+      Link_array<Note_column> encompass_arr =
+	Pointer_group_interface__extract_elements (this, (Note_column*)0,
+						   "note-columns");
+      o -= Offset (0, calc_interstaff_dist (dir == LEFT ? encompass_arr[0]
+					    : encompass_arr.top (), this));
+    }
+  return o;
+}
 
 int
 Slur::cross_staff_count ()const
@@ -538,33 +345,26 @@ Slur::get_encompass_offset_arr () const
   
   Array<Offset> offset_arr;
 
-#if 0
-  /*
-    check non-disturbed slur
-    FIXME: x of ends off by a tiny bit!!
-  */
-  offset_arr.push (Offset (0, dy_f_drul_[LEFT]));
-  offset_arr.push (Offset (0, dy_f_drul_[RIGHT]));
-  return offset_arr;
-#endif
-  
   Offset origin (relative_coordinate (0, X_AXIS), 0);
 
   int first = 1;
   int last = encompass_arr.size () - 2;
 
-  offset_arr.push (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
+  offset_arr.push (get_attachment (LEFT));
 
   /*
     left is broken edge
   */
-
   int cross_count  = cross_staff_count ();
+
+  /*
+    URG
+  */
   bool cross_b = cross_count && cross_count < encompass_arr.size ();
   if (encompass_arr[0] != get_bound (LEFT))
     {
       first--;
-      Real is   = calc_interstaff_dist (encompass_arr[0], this);
+      Real is = calc_interstaff_dist (encompass_arr[0], this);
       if (cross_b)
 	offset_arr[0][Y_AXIS] += is;
     }
@@ -583,8 +383,7 @@ Slur::get_encompass_offset_arr () const
       offset_arr.push (o - origin);
     }
 
-  offset_arr.push (Offset (spanner_length ()+  dx_f_drul_[RIGHT],
-			   dy_f_drul_[RIGHT]));
+  offset_arr.push (Offset (spanner_length (), 0) + get_attachment (RIGHT));
 
   return offset_arr;
 }
@@ -620,7 +419,7 @@ Slur::member_brew_molecule () const
   if (gh_number_p (d))
     a = lookup_l ()->dashed_slur (one, thick, thick * gh_scm2double (d));
   else
-    a = lookup_l ()->slur (one, directional_element (this).get () * thick, thick);
+    a = lookup_l ()->slur (one, Directional_element_interface (this).get () * thick, thick);
 
   return a.create_scheme();
 }
@@ -629,7 +428,7 @@ void
 Slur::set_control_points ()
 {
   Slur_bezier_bow bb (get_encompass_offset_arr (),
-		      directional_element (this).get ());
+		      Directional_element_interface (this).get ());
 
   Real staff_space = Staff_symbol_referencer_interface (this).staff_space ();
   Real h_inf = paper_l ()->get_var ("slur_height_limit_factor") * staff_space;
@@ -676,7 +475,8 @@ Slur::get_curve () const
   Bezier b;
   int i = 0;
 
-  if (!directional_element (this).get ())
+  if (!Directional_element_interface (this).get ()
+      || ! gh_symbol_p (index_cell (get_elt_property ("attachment"), LEFT)))
     ((Slur*)this)->set_extremities ();
   
   if (!gh_pair_p (get_elt_property ("control-points")))
@@ -690,7 +490,7 @@ Slur::get_curve () const
     }
   
   Array<Offset> enc (get_encompass_offset_arr ());
-  Direction dir = directional_element (this).get ();
+  Direction dir = Directional_element_interface (this).get ();
   
   Real x1 = enc[0][X_AXIS];
   Real x2 = enc.top ()[X_AXIS];
