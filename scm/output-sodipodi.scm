@@ -39,7 +39,6 @@
 
 ;;; and should intercept: 
 ;;;
-;;;    fontify
 ;;;    lily-def
 ;;;    header-end
 ;;;    define-fonts
@@ -62,7 +61,6 @@
     (cond
      ((eq? keyword 'some-func) "")
      ;;((eq? keyword 'placebox) (dispatch (cadddr expr)))
-     ;;((eq? keyword 'fontify) (dispatch (caddr expr)))
      (else
       (if (module-defined? this-module keyword)
 	  (apply (eval keyword this-module) (cdr expr))
@@ -290,10 +288,6 @@
 	(begin
 	  (format #t "font not found: ~s\n" (caadr name-mag-pair))
 	  (cdr (assoc "feta20" font-alist))))))
-
-(define (fontify name-mag-pair expr)
-  (string-append
-   (tagify "text" (dispatch expr) (cons 'style (get-font name-mag-pair)))))
 
 (define (header-end)
   (comment "header-end"))

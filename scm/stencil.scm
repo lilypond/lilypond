@@ -24,12 +24,6 @@
 	   (stack-lines dir padding baseline (cdr stils))
 	   padding baseline))))
 
-(define-public (fontify-text font-metric text)
-  "Set TEXT with font FONT-METRIC, returning a stencil."
-  (let* ((b  (ly:text-dimension font-metric text)))
-    (ly:make-stencil
-     (ly:fontify-atom font-metric `(text ,text)) (car b) (cdr b))))
-
 (define-public (bracketify-stencil stil axis thick protusion padding)
   "Add brackets around STIL, producing a new stencil."
 
