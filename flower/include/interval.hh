@@ -29,13 +29,13 @@ struct Interval_t : public Drul_array<T>
   }
   void translate (T t)
     {
-      elem (LEFT) += t;
-      elem (RIGHT) += t;
+      elem_ref (LEFT) += t;
+      elem_ref (RIGHT) += t;
     }
   void widen (T t)
   {
-    elem (LEFT) -= t;
-    elem (RIGHT) += t;    
+    elem_ref (LEFT) -= t;
+    elem_ref (RIGHT) += t;    
   }
   
   /**
@@ -46,8 +46,8 @@ struct Interval_t : public Drul_array<T>
   void intersect (Interval_t<T> h);
   void add_point (T p)
   {
-    elem(LEFT) = elem (LEFT) <? p;
-    elem(RIGHT) = elem (RIGHT) >? p;
+    elem_ref(LEFT) = elem (LEFT) <? p;
+    elem_ref(RIGHT) = elem (RIGHT) >? p;
   }
   T length () const;
   T delta () const;
@@ -75,15 +75,15 @@ struct Interval_t : public Drul_array<T>
   }
 
   Interval_t<T> &operator += (T r) {
-    elem (LEFT) += r;
-    elem (RIGHT) +=r;
+    elem_ref (LEFT) += r;
+    elem_ref (RIGHT) +=r;
     return *this;
   }
   Interval_t<T> &operator *= (T r) {
     if (!is_empty ())
       {
-	elem (LEFT) *= r;
-	elem (RIGHT) *= r;
+	elem_ref (LEFT) *= r;
+	elem_ref (RIGHT) *= r;
 	if (r < T (0))
 	  swap();
 
@@ -103,15 +103,15 @@ struct Interval_t : public Drul_array<T>
   {
     T r = -elem (LEFT);
     T l = -elem (RIGHT);
-    elem (LEFT) = l;
-    elem (RIGHT) =r;
+    elem_ref (LEFT) = l;
+    elem_ref (RIGHT) =r;
   }
 
   void swap ()
   {
     T t = elem (LEFT);
-    elem (LEFT) = elem (RIGHT);
-    elem (RIGHT) = t;
+    elem_ref (LEFT) = elem (RIGHT);
+    elem_ref (RIGHT) = t;
   }
 };
 

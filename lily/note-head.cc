@@ -137,6 +137,7 @@ internal_print (Grob *me, bool with_ledgers)
       me->warning (_f ("note head `%s' not found", font_char.to_str0 ()));
     }
 
+#if 0
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
   int pos = Staff_symbol_referencer::get_rounded_position (me);
   if (with_ledgers && interspaces >= 0
@@ -175,6 +176,8 @@ internal_print (Grob *me, bool with_ledgers)
 						      left_shorten,
 						      false));
     }
+#endif
+      
   return out;
 }
 
