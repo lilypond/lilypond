@@ -176,6 +176,7 @@ mean centre distance weighted per note
 (grob-property-description 'extra-extent-X number-pair? "enlarge in X dimension by this much, measured in staff space.")
 (grob-property-description 'extra-extent-Y number-pair? "see @code{extra-extent-Y}.")
 (grob-property-description 'extent-X number-pair? "Store extent. internal use only. ")
+(grob-property-description 'extent-Y number-pair? "Store extent. internal use only. ")
 (grob-property-description 'extra-offset number-pair? "pair of reals
 (a cons) forcing an extra offset before outputting.
 @code{extra-offset} is added just before `printing' the grob, so the
@@ -502,8 +503,7 @@ no extent.
 (grob-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems.")
 (grob-property-description 'y-offset number? "extra vertical offset for ties away from the center line.")
 
-;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;; INTERNAL
+;;; INTERNAL
 
 (grob-property-description 'left-neighbors grob-list? " List of
 spacing-wish grobs that are close to the current column.

@@ -864,9 +864,10 @@ is also an abstract grob: it only moves around chords, but doesn't print
 anything.
 ",
   "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause
-Y-extent-callback molecule-callback extra-offset
-spacing-procedure
-staff-symbol interfaces dependencies extra-extent-X causes meta
-layer before-line-breaking-callback after-line-breaking-callback extra-extent-Y minimum-extent-X minimum-extent-Y transparent");
+Y-extent-callback molecule-callback extra-offset spacing-procedure
+staff-symbol interfaces dependencies extent-X extent-Y extra-extent-X
+causes meta layer before-line-breaking-callback
+after-line-breaking-callback extra-extent-Y minimum-extent-X
+minimum-extent-Y transparent");
 
 

@@ -1,5 +1,10 @@
 2002-07-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/grob-property-description.scm (conditional-elements): Add
+	extent-X.
+
+	* lily/grob.cc: Add extent-X and extent-Y to interface.
+
 	* lily/grob-scheme.cc (ly_get_parent): Don't dereference null
 	parent. (Han-Wen)
 
