@@ -36,6 +36,7 @@ Timing_engraver::do_try_music (Music*m)
   
   return Timing_translator::do_try_music (m);
 }
+
 #if 0
 String
 Timing_engraver::do_process_music ()
@@ -54,6 +55,9 @@ Timing_engraver::do_process_music ()
 #endif
 
 
+/*
+  TODO make properties of this.
+ */
 String
 Timing_engraver::which_bar ()
 {

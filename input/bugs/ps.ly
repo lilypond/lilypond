@@ -5,7 +5,7 @@
       \notes { a' b' c' d' }
     }
 
-%    \break
+    \break
 
     \context PianoStaff <
       \context Staff = i {

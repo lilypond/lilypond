@@ -135,8 +135,8 @@ fugaIILeft = \notes {
     \context Voice = two { \stemdown s2 e4 |
       fis2 fis4 }
   >
-  \stemdown cis2 e4 |
-  b4. b8 b4 |
+  \stemboth cis2 [e16( fis a \clef "treble"; b] |
+  d'4 ) b8 b8 b4 |
   %19
 }
 
@@ -152,8 +152,6 @@ fugaIIPedal = \notes \relative c {
   %19
 }
 
-
-
 % these should be two separate scores...
 \score{
   \context Score  \notes <
@@ -166,14 +164,18 @@ fugaIIPedal = \notes \relative c {
 
 
  	\property Score.midiInstrument = "church organ"
-        \praeludiumRight r1 \fugaIIRight }
-      \context Staff = bass { 
+        \praeludiumRight 
+	 r1 \mark "B";
+	   \fugaIIRight }
+      \context Staff = bass {
+	\property Staff.instrument = #"left"
+	\property Staff.instr = #"lt"
         \praeludiumLeft r1 \fugaIILeft }
     > 
     \context Staff = pedal \relative c  <
       {
-	\property Staff.instrument = #"left"
-	\property Staff.instr = #"lt"
+        \property Staff.instrument = #"bass"
+        \property Staff.instr = #"bs"	
 
         \time 4/4;
 	\key e; 
@@ -197,7 +199,9 @@ fugaIIPedal = \notes \relative c {
 
   \paper {
 
-   \translator { \OrchestralScoreContext }
+	\translator {
+		\OrchestralScoreContext
+	}
 	\translator { \PianoStaffContext
 		\consists "Instrument_name_engraver";
 	}

@@ -7,6 +7,10 @@ property is listed in parentheses after the property name.
  (\t\)
 @end macro
 
+
+TODO:
+
+
 @table @samp
   @item @code{Generic_property_list}
     Defines names and types for generic properties. These are properties
@@ -591,6 +595,9 @@ no clef is printed upon creation.
 
 @cindex properties!Score
 
+
+
+
 @table @samp
   @item @code{skipBars}@indexcode{skipBars} @propertytype{boolean}
     Set to 1 to skip the empty bars that are produced by
@@ -621,6 +628,28 @@ r1 r1*3 R1*3\property Score.skipBars=1 r1*3 R1*3
 	  "Time_signature"
 	)
 @end example
+
+
+@item @code{timing}@indexcode{timing} @propertytype{boolean}
+  Keep administration of measure length, position, bar number, etc?
+Switch off for cadenzas.
+
+@item @code{currentBarNumber}@indexcode{currentBarNumber} @propertytype{integer}
+  Contains the current barnumber. This property is incremented at
+every barline.
+
+@item @code{measurePosition}@indexcode{measurePosition} @propertytype{Moment}
+
+  How much of the current measure (measured in whole notes) have we had?
+
+@item @code{oneBeat}@indexcode{oneBeat} @propertytype{Moment}
+
+  How long does one beat in the current time signature last?
+
+@item @code{measureLength}@indexcode{measureLength} @propertytype{Moment}
+
+  How long does one measure in the current time signature last?
+
 @end table
 
 @subsubheading ChordNamesVoice properties

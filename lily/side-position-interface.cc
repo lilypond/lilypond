@@ -71,7 +71,7 @@ Side_position_interface::side_position (Dimension_cache const * c)
   SCM support = me->get_elt_property ("side-support");
   for (SCM s = support; s != SCM_EOL; s = gh_cdr (s))
     {
-      Score_element * e  = unsmob_element ( gh_car (s));
+      Score_element * e  = unsmob_element (gh_car (s));
       if (e)
 	common = common->common_refpoint (e, axis);
     }

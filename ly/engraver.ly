@@ -242,7 +242,7 @@ StaffGroupContext= \translator {
        systemStartDelimiterGlyph = #'bracket
        
 
-	\consistsend "Axis_group_engraver" ;
+
 
 
 	\name StaffGroup;
@@ -372,6 +372,7 @@ ScoreContext = \translator {
 	  Time_signature
 	)
 	\consists "Spacing_engraver";
+
 	\consists "Vertical_align_engraver";
 	alignmentReference = \down;
 	defaultClef = #"treble"

@@ -1,0 +1,3 @@
+(autoload 'lilypond-mode "lilypond-mode" nil t)
+(setq auto-mode-alist (cons '("\\.ly$" . lilypond-mode) auto-mode-alist))
+(add-hook 'lilypond-mode-hook (lambda () (turn-on-font-lock)))

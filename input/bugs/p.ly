@@ -1,31 +1,3 @@
-\header {
-  filename =    "praeludium-fuga-E.ly";
-  title =       "praeludium and fuga in E-major";
-  opus =        "BWV 566";
-  composer =    "Johann Sebastian Bach (1685-1750)";
-  enteredby =   "JCN";
-  copyright =   "public domain";
-}
-%{
-  description
-
-  Praeludium 3 bar excerpt,
-	2nd fuga transposed subject -- 4 bar excerpt. 
-        We try to imitate the Griepenkerl/Keller edition which
-	gives the best approximation to Bach's original layout
-
-%}
-%{
- Tested Features:
- purpose of this file is testing: 
-   * real-life collisions
-   * multi-voice input --- splitting?
-   * organ staff...
-%}
-
-\version "1.3.4";
-
-
 
 praeludium_commands = \notes {
   \time 4/4;

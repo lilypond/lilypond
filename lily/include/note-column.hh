@@ -31,7 +31,6 @@ public:
 
 
   Interval_t<int> head_positions_interval() const;
-  //  Interval width () const;
 
   void translate_rests(int dy);
   Note_head * first_head ()const;
