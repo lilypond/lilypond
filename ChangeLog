@@ -1,3 +1,7 @@
+2004-10-19  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/examples.itely: added texidoc lilypond-book template.
+
 2004-10-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/lilypond.hint: Update.

@@ -1274,9 +1274,22 @@ d4 c b a
 You can include LilyPond fragments in texinfo; in fact, this entire manual
 is written in texinfo.
 
-TODO: obviously to fill in the example.  :)  -gp
-
 @example
+\input texinfo
+@@node Top
 
+Texinfo text
+
+@@lilypond[verbatim,fragment,raggedright]
+a4 b c d
+@@end lilypond
+
+More texinfo text
+
+@@lilypond[verbatim,fragment,raggedright]
+d4 c b a
+@@end lilypond
+
+@@bye
 @end example
 
