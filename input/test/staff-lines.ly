@@ -3,8 +3,10 @@
 
 \header {
 
-    texidoc="@cindex Staff Lines Staff symbol properties may also be
- set with @code{\\property}. "
+    texidoc="@cindex Staff Lines 
+The number of lines in a staff may changed by overriding @code{line-count}
+in the properties of @code{StaffSymbol}.
+"
 	  
 }
 

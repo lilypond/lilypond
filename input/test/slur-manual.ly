@@ -2,14 +2,17 @@
 \header {
 
 
-    texidoc = "In extreme cases, you can resort to setting slur
-    control-points manually. This involves a lot of trial and error,
-    though. Be sure to force line breaks at both sides, since
+    texidoc = "In extreme cases, you can resort to setting the 
+    @code{control-points} of a slur manually, althout it involves 
+    a lot of trial and error. Be sure to force line breaks at both sides, since
     different horizontal spacing will require rearrangement of the
     slur."
  
     }
 
+%% This slur does not look good. Looks like there have not been a line 
+%% break at some point, it is then added, but the slur does not break 
+%% in the case of a line break. -HJJ
 
 \score {\notes \new PianoStaff  <<
     \context Staff = up { \clef bass s1 * 6 } 

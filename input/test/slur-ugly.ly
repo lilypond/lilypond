@@ -2,7 +2,7 @@
 \version "2.1.26"
 
 \header { texidoc="@cindex Slur Ugly
-You can get ugly slurs, if you want. "
+Strange slurs can be produced by setting properties by hand. "
 }
 
 baseWalk = \notes \relative c {

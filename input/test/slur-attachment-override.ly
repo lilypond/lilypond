@@ -3,7 +3,8 @@
 
 \header{
 texidoc="@cindex Slur Attachment Override
-In some cases you may want to set slur attachments by hand. "
+In some cases, you may want to control the attachment points of a slur 
+by hand. "
 }
 
 

@@ -2,7 +2,7 @@
 \version "2.1.26"
 
 \header { texidoc = "@cindex Stacked Text Articulation
-You can stack text and articulations. "
+Text and articulations may be stacked on top of each other. "
 }
 
 \score {

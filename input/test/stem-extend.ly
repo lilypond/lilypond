@@ -1,7 +1,8 @@
 \version "2.1.26"
 
 \header { texidoc = "@cindex Stem Extend
-You can stop LilyPond from extending stems to the center line. "
+Extending stems to the center line may be prevented using @code{no-stem-extend}.
+"
 }
 
 \score { 

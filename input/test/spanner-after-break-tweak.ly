@@ -3,9 +3,9 @@
 
 \header { texidoc = "@cindex Spanner after break
 
-To selectively tweak spanners after the linebreaking
-process, Scheme code must be used.  In this simple example, the tie
-after the line break is moved around. "
+In order to selectively change the properties of spanners after 
+a line break, Scheme code must be used.  In thas manner, the tie
+after the line break in this example is moved around. "
 
       }
 
