@@ -36,6 +36,32 @@ Midi_walker::do_stop_notes(Moment max_moment)
 	output_event(note, stop_moment);
     }
 }
+/**
+  Find out if start_note event is needed,  and do it if needed.
+ */
+void 
+Midi_walker::do_start_note(Note_req*note_l)
+{
+    Moment stop=note_l->duration() + ptr()->when();
+    for(int i=0; i < stop_notes.size(); i++)
+	if (stop_notes.value_arr_[i]->melodic()->pitch() ==
+	    note_l->pitch()) {
+	     if ( stop_notes.indices_arr_[i] < stop){
+	     	 
+		 stop_notes.del(i);
+		 return ;  // removing this gives a feature ( ${c2 c4}$ output correctly)
+	     }
+	     else
+		 return; // skip the stop note 
+	     break;// do the stop note	  	     
+	}
+    
+    stop_notes.enter(note_l,  stop);
+    Midi_note note(note_l, track_l_->number_i_, true);
+    output_event(note, ptr()->when());
+}
+
+
 /** advance the track to #now#, output the item, and adjust current
   "moment".  */
 void
@@ -58,10 +84,8 @@ Midi_walker::process_requests()
 	Note_req * note_l = n->note();
 	if (!note_l)
 	    continue;
+	do_start_note(note_l);
 	
-	Midi_note note(note_l, track_l_->number_i_, true);
-	stop_notes.enter(note_l, n->duration() + ptr()->when() );
-	output_event(note, ptr()->when());
     }
 }
 
