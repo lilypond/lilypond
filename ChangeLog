@@ -1,3 +1,7 @@
+2002-10-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/bar-scripts.ly: Blunt documentation build fix.
+
 2002-10-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Actually merge changes since 1.6.4 besides ChangeLog, and
