@@ -38,7 +38,7 @@
 melodie = music { $ \clef\violin
 	\key{bes}
 	\duration{ 8 }
-	r_"\pp" { [ d `a-| } f-| { d `a-| } f-| { d `a-| ] } |
+	r\pp { [ d `a-| } f-| { d `a-| } f-| { d `a-| ] } |
 %%2
 	r { [ d `bes-| } f-| { d `bes-| } f-| { d `bes-| ] } |
 %%3
@@ -51,11 +51,11 @@ melodie = music { $ \clef\violin
 %%5
 	[ a()bes a ]2/3  'd4. a |
 %%6
-	[ g()a g ]2/3  'd4 a r |
+	[ g()a g ]2/3  'd4 g r |
 %#%\tighten
 %#%\newline
 %%7
-	a4.^> g  [ g( f )e ]2/3  |
+	a4.^> g  [ g()f e ]2/3  |
 %%8
 	f2 r4 |
 %%9
@@ -64,15 +64,15 @@ melodie = music { $ \clef\violin
 %%10
 	{ 'f2. 'd2. } |
 %%11
-	[ a_"\pp"( )bes a ]2/3  'f4. a |
+	[ a\pp( )bes a ]2/3  'f4. a |
 %%12
 	[ g( ) a g ]2/3  'e4. 'd |
 %%13
 	'c4. bes  [ bes( ) a g ]2/3  |
 %%14
 	a2 r 
-%	{ \music{ 'd( | )'c4. g  [ bes a g ]2/3  } \music{ f_"\p"( | )e4._"dolce" bes  [ g ]2/3  } } |
-	{ \music{ 'd( | )'c4. g  [ bes a g ]2/3  } \music{ f_"\p"( | )e4._"dolce" bes  \plet{ 2/3 } g \plet{ 1/1 }  } } |
+%	{ \music{ 'd( | )'c4. g  [ bes a g ]2/3  } \music{ f\p( | )e4._"dolce" bes  [ g ]2/3  } } |
+	{ \music{ 'd( | )'c4. g  [ bes a g ]2/3  } \music{ f\p( | )e4._"dolce" bes  \plet{ 2/3 } g \plet{ 1/1 }  } } |
 %%16
 	{ a2. f2. } |
 %%17
@@ -83,7 +83,7 @@ melodie = music { $ \clef\violin
 	[ 'd8. a16 ] f4. d |
 %%19
 %#%	'c\grace\stemup
-	[ bes_"\pp"( ) a bes ]2/3  'd4. bes |
+	[ bes\pp( ) a bes ]2/3  'd4. bes |
 %%20
 	a2. |
 %%21
@@ -93,28 +93,28 @@ melodie = music { $ \clef\violin
 %#%	=f2. |
 	f2. |
 %%23
-	[ a8._"\mf" 'cis16 ] 'f4. 'e |
+	[ a8._\mf 'cis16 ] 'f4. 'e |
 %%24
 	[ 'd8. a16 ] fis4. d |
 %%25
 %#%	'cis\grace\stemup
-	[ b_"\mf"( ) ais b ]2/3 'd4. b |
+	[ b_\mf( ) ais b ]2/3 'd4. b |
 %%26
 	{ a2. fis2. } |
 %#%\tighten\newline
 %%27
-	[ 'e_"\f"( )'dis 'e ]2/3 'g4. 'cis |
+	[ 'e_\f( )'dis 'e ]2/3 'g4. 'cis |
 %%28
 	{ 'd2. fis2. } |
 %#%\volta1
 %%29
-	{ \music { bes2( [ 'd8.( ))g16 ] } \music{ g2_"\mf" [ bes8. bes16 ] } } |
+	{ \music { bes2( [ 'd8.( ))g16 ] } \music{ g2_\mf [ bes8. bes16 ] } } |
 %%30
-	{ \music{ a4. [ a-. a-. a-. ] } \music{ fis4. [ f-.( f-. )f-. ] } } |
+	{ \music{ a4. [ a-. a-. a-. ] } \music{ fis4. [ fis-.( fis-. )fis-. ] } } |
 %%31  
 	{ \music{ a4. [ a-. a-. a-. ] } \music{ g4. [ cis-.( e-. )g-. ] } } |
 %%32
-	{ a2 fis2_"\pp" } { a4 fis4 } |
+	{ a2 fis2_\pp } { a4 fis4 } |
 %%33
 %#%	{ b2(^ g2 } [v { 'd8.( b8. } { b16 ) ) g16 } ] |
 	{ \music{ b2( [ 'd8.( ) )g16 ] } \music{ g2 [ b8. b16 ] } } |
@@ -141,23 +141,23 @@ melodie = music { $ \clef\violin
 	'cis2 r4 |
 %%41
 %#%	{ > 'fis4. 'cis4._f } 'e [ 'e( ) 'd >! 'cis ]  |
-	{ 'fis4. 'cis4._"\f" } 'e  [ 'e( )'d 'cis ]2/3  |
+	{ 'fis4. 'cis4.\f } 'e  [ 'e( )'d 'cis ]2/3  |
 %%42
 	[ b8. 'cis16 ] 'd4^> b r |
 %%43
 %#%	[^ { b8._{ }_{ }_{ }_{ }_{ }_f g2. } 'cis16 ] 'd4^> b r |
-	[ b8._"\f" 'cis16 ] 'd4^> b r |
+	[ b8.\f 'cis16 ] 'd4^> b r |
 %%44
 %#%	[^ { > b8. fis2 } 'cis16 ] 'd4^> b >! r |
 	[ b8. 'cis16 ] 'd4^> b r |
 %%45
 %#%	'cis\grace\stemup
-	[ b_"\p"( )ais b ]2/3  'd4. b |
+	[ b\p( )ais b ]2/3  'd4. b |
 %%46
 %#%	{ =a2. fis2. } |
 	{ a2. fis2. } |
 %%47
-	[ 'e_"\f"( )'dis 'e ]2/3  'g4.^> 'cis |
+	[ 'e\f( )'dis 'e ]2/3  'g4.^> 'cis |
 %%48
 %#%	{ fis2.(v ='d2.\stemup(^ }
 %	{ fis2. 'd2. } |
@@ -171,7 +171,7 @@ melodie = music { $ \clef\violin
 %%51
 	{ a2. cis2. } |
 %%52
-	{ fis2 d2 } { a4 f4_"\pp" } |
+	{ fis2 d2 } { a4 fis4_\pp } |
 %%53
 %#%	{ bes2 g2 } [ { 'd8.^>( bes8. } { ) bes16 g16 } ] |
 	{ bes2 g2 } { [ 'd8.^> bes8. } { bes16 g16 ] } |
@@ -220,7 +220,7 @@ begeleiding = music { $
 %%8
 	{ \multivoice \music{ \stem{ 1 } [ `d `a d `a d `a ] } \music { \stem{ -1 } `d2 r4 } } |
 %%9
-	[ `a e f e f e ] |
+	[ `a e g e g e ] |
 %%10
 	[ `d `a d `a d `a ] |
 %%11
@@ -228,7 +228,7 @@ begeleiding = music { $
 %%12 == 6
 	{ \multivoice \music{ \stem{ 1 } [ `d `e `g `e `g `e ] } \music { \stem{ -1 } ``bes2 r4 } } |
 %13
-	{ \multivoice \music{ [ `e `e `g `e `g `e ] } \music { \stem{ -1 } ``bes2 r4 } } |
+	{ \multivoice \music{ [ `e `g `bes `g `bes `g ] } \music { \stem{ -1 } `c2 r4 } } |
 %%14
 	{ \multivoice \music{ \stem{ 1 } [ `a c f c f c ] } \music { \stem{ -1 } `f2 r4 } } |
 %%15
@@ -268,7 +268,7 @@ begeleiding = music { $
 %%30 
 	[ `d `fis `a `fis `a `fis ] |
 %%31
-	[ `a `e `a `e `a `e ] |
+	[ ``a `e `a `e `a `e ] |
 %%32
 	[ `d `fis `a `fis `a `fis ] |
 %%33
@@ -276,21 +276,21 @@ begeleiding = music { $
 %%34
 	[ `d `fis `a `fis `a `fis ] |
 %%35
-	[ `a `e `a `e `a `e ] |
+	[ ``a `e `a `e `a `e ] |
 %%36
 	[ `d `fis `a `fis `a `fis ] |
 %#%\volta2
 %#%:|
 %%37
-	[ `a `e `g `e ``bes^> `e ] |
+	[ ``a `e `g `e ``bes^> `e ] |
 %%38
-	[ `a { e cis `a } { e cis `a } { e cis `a } { e cis `a } { e cis `a ] }  |
+	[ ``a { e cis `a } { e cis `a } { e cis `a } { e cis `a } { e cis `a ] }  |
 %%39
-	[ `a `e `g `e ``bes^> `e ] |
+	[ ``a `e `g `e ``bes^> `e ] |
 %%40
-	[ `a { e cis `a } { e cis `a } { e cis `a } { e cis `a } { e cis `a ] }  |
+	[ ``a { e cis `a } { e cis `a } { e cis `a } { e cis `a } { e cis `a ] }  |
 %%41
-	[ `ais `e `gis `e `gis `e ] |
+	[ ``ais `e `fis `e `fis `e ] |
 %%42
 	{ [ `d ``b } `fis `b `fis `b `fis ] |
 %%43
@@ -311,7 +311,7 @@ begeleiding = music { $
 %%50
  	[ ``g `e `g `e `g `e ] |
 %%51
-	[ `a `e `g `e `g `e ] |
+	[ ``a `e `g `e `g `e ] |
 %%52
 	[ ``d `d `fis `d `fis `d ] |
 %%53
@@ -319,7 +319,7 @@ begeleiding = music { $
 %%54
 	[ `d `fis `a `fis `a `fis ] |
 %%55
-	[ `a `e `g `e `g `e ] |
+	[ ``a `e `g `e `g `e ] |
 %%56
 	[ ``d ``a `d ``a `d ``a ] |
 %%57
@@ -487,6 +487,6 @@ score {
 		output "standchen.out"
 	}
 	midi {
-		tempo 4:60
+		tempo 4:54
 	}
 }
