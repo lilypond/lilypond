@@ -6,12 +6,13 @@
 ;;  * Emacs-mode: new keywords, reserved words, identifiers, notenames, 
 ;;    some dynamics and brackets are font-lock-keywords
 ;;  * File lilypond.words gives keywords, identifiers and reserved words
+;;  * context-dependent syntax-tables
 ;; Author: 1997: Han-Wen Nienhuys
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.7.20
-;; Last Modified: 9JUN2003
+;; Version:       1.7.25
+;; Last Modified: 20JUL2003
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -125,14 +126,13 @@
   "Syntax table used in `LilyPond-mode' buffers.")
 
 (defun LilyPond-mode-set-syntax-table (&optional not-punct)
-  "Change syntax table which can be customized according to a context."
-  (interactive)
+  "Change syntax table according to the argument `not-punct' which contains characters which are given a context dependent non-punctuation syntax: parentheses may be set to parenthesis syntax and characters `-', `^' and `_' may be set to escape syntax."
   (if (not not-punct) (setq not-punct '()))
   (setq LilyPond-mode-syntax-table (make-syntax-table))
   (let ((defaults 	  
 	  '(
 	    ;; NOTE: Emacs knows only "13"-style (used), XEmacs knows also "1b3b", etc.
-	    ( ?\%  .  "< 13" ) ; comment starter, 1st char in block-comments
+	    ( ?\% . "< 13" )   ; comment starter, 1st char in block-comments
 	    ( ?\n . ">")       ; newline: comment ender
 	    ( ?\r . ">")       ; formfeed: comment ender
 	    ( ?\\ . "\\" )     ; escape characters (as '\n' in strings)
@@ -169,15 +169,15 @@
     (set-syntax-table LilyPond-mode-syntax-table)))
 
 (defun LilyPond-mode-context-set-syntax-table ()
-  "Change syntax table which can be customized according to a context."
-  ;; make a syntax table without parentheses
+  "Change syntax table according to current context."
   (interactive)
-  ;; default map sets parentheses to punctuation characters
+  ;; default syntax table sets parentheses to punctuation characters
   (LilyPond-mode-set-syntax-table) 
-  ;; find the context
+  ;; find current context
   (setq context (parse-partial-sexp (point-min) (point)))
   (cond ((nth 3 context)) ; inside string
 	((nth 4 context)) ; inside a comment
+	((eq (char-syntax (char-before (point))) ?\\)) ; found escape-char
 	((memq (char-before (point)) '( ?\) ))
 	 (LilyPond-mode-set-syntax-table '( ?\( ?\) )))
 	((memq (char-before (point)) '( ?\] ))

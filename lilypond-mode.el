@@ -22,7 +22,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.24"
+(defconst LilyPond-version "1.7.25"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -689,7 +689,6 @@ command."
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "]" 'LilyPond-electric-close-paren)
-  (define-key LilyPond-mode-map "\C-c\C-x" 'LilyPond-mode-context-set-syntax-table) ; try it
   (if (string-match "XEmacs\\|Lucid" emacs-version)
       (define-key LilyPond-mode-map [iso-left-tab] 'LilyPond-autocompletion)
     (define-key LilyPond-mode-map [iso-lefttab] 'LilyPond-autocompletion))
@@ -1000,13 +999,6 @@ command."
 	     ["(Un)comment Region" LilyPond-comment-region t]
 	     ["Refontify buffer" font-lock-fontify-buffer t]
 	     ["Add index menu" LilyPond-add-imenu-menu]
-	     ["LilyPond Paren Mode" 
-	      (if (not (string-match "XEmacs\\|Lucid" emacs-version))
-		  (LilyPond-show-paren-mode (not LilyPond-show-paren-mode))
-		(LilyPond-paren-set-mode (if (not paren-mode) 'paren -1)))
-	      :style toggle :selected 
-	      (if (not (string-match "XEmacs\\|Lucid" emacs-version))
-		  LilyPond-show-paren-mode paren-mode)]
  	     ))
 	  '(("Info"
 	     ["LilyPond" LilyPond-info t]
@@ -1135,21 +1127,16 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
       (setq zmacs-regions nil)
     (setq mark-even-if-inactive t))
 
-  ;; In Emacs blink-...-on-screen needs to be declared.
-  (if (not (string-match "XEmacs\\|Lucid" emacs-version))
+  ;; Context dependent syntax tables in Lilypond-mode
+  (make-local-hook 'post-command-hook) ; XEmacs requires
+  (add-hook 'post-command-hook 'LilyPond-mode-context-set-syntax-table nil t)
+
+  ;; Turn on paren-mode buffer-locally, i.e., in LilyPond-mode
+  (if (string-match "XEmacs\\|Lucid" emacs-version)
       (progn
-;; Commented-out: there may be several idle-timers
-;;	(make-local-variable 'show-paren-mode)
-;;	(show-paren-mode nil)
-;;	(make-local-variable 'LilyPond-show-paren-mode)
-;;	(LilyPond-show-paren-mode t)
-	)
-    (progn
-;; Commented-out: show-paren-command-hook should not be deleted from post-command-hook
-;;	(make-local-variable 'paren-mode) ; used in LilyPond-paren-set-mode
-;;	(paren-set-mode -1)               ; disable default hook
-;;	(LilyPond-paren-set-mode 'paren)  ; define buffer-local hook
-      ))
+	(make-local-variable 'paren-mode)
+	(paren-set-mode 'paren)
+	))
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated
   (run-hooks 'LilyPond-mode-hook))
