@@ -160,7 +160,8 @@ lilypond -fgnome input/simple-song.ly
 	   (list (+ #xe0 x)
 		 (+ #x80 (quotient y #x40))
 		 (+ #x80 (modulo y #x40))))))
-   (else FIXME)))
+   (else (begin (stderr "programming-error: utf-8 too big:~x\n" i)
+		(list (integer->char 32))))))
   
 (define (integer->utf8-string font integer)
   (list->string (utf8 integer)))
