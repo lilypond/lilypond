@@ -16,4 +16,6 @@ examples=standje gallina
 #
 # generic stuff/Makefile
 #
-include ./$(depth)/make/Mutopia.make
+include $(depth)/make/Mutopia.make
+
+include $(depth)/make/WWW.make
