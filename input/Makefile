@@ -4,7 +4,8 @@ DISTFILES=Makefile  kortjakje.ly pavane.ly  maartje.ly\
 	cadenza.ly scales.ly standchen.ly twinkle.ly\
 	wohltemperirt.ly error.ly\
 	martien.ly mlalt.ly mlvio1.ly mlvio2.ly mlcello.ly\
-	standchen.tex pavane.tex  scsii-menuetto.tex martien.tex
+	standchen.tex pavane.tex scsii-menuetto.tex scsii-menuetto.ly\
+	martien.tex
 
 
 dist:

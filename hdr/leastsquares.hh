@@ -12,6 +12,7 @@
 struct Least_squares {
     Array<Offset> input;
     void minimise(Real &coef, Real &offset);
+    void OK() const;
 };
 
 
