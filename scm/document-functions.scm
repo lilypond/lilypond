@@ -6,8 +6,7 @@
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 (use-modules
- (ice-9 regex)
- )
+ (ice-9 regex))
 
 (define (dashify-underscores str)
    (regexp-substitute/global #f "_" str 'pre "-" 'post))
@@ -23,8 +22,7 @@
   (string-append
    "@defun " (symbol->string name)  " " (format-c-header c-header) "\n"
    doc-string
-   "\n@end defun\n\n")
-   )
+   "\n@end defun\n\n"))
 
 (define all-scheme-functions
    (hash-fold
@@ -39,10 +37,7 @@
 		)
 	      all-scheme-functions)
 	 )
-       (sfdocs (sort fdocs string<?))
-       
-       )
-
+       (sfdocs (sort fdocs string<?))) 
     (make <texi-node>
       #:name "Scheme functions"
       #:desc "Primitive functions exported by LilyPond"
