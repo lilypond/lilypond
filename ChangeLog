@@ -1,3 +1,8 @@
+2004-02-29  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/introduction.itely (Automated engraving):
+	rewrite introduction using website text.
+
 2004-02-28  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/*.scm: make-music-by-name is replaced by make-music, which
