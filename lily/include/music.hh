@@ -42,13 +42,6 @@ public:
 
   SCM internal_get_mus_property (SCM) const;
   void internal_set_mus_property (SCM , SCM val);
-#if 0
-  void set_immutable_mus_property (const char * , SCM val);
-  void set_immutable_mus_property (SCM key, SCM val);
-
-  SCM remove_mus_property (const char* nm);
-#endif
-
 
   virtual Pitch to_relative_octave (Pitch);
 

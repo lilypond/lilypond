@@ -10,6 +10,12 @@
 ;;; Running LilyPond on this file generates the documentation
 
 
+
+
+;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;; TODO : make modules of these!
+;;;;;;;;;;;;;;;;
+
 (define load-files '("documentation-lib.scm"
 		     "engraver-documentation-lib.scm"
 		     "music-documentation-lib.scm"

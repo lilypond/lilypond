@@ -164,7 +164,7 @@ void ly_display_scm (SCM s);
 #include "array.hh"
 
 void read_lily_scm_file (String);
-void init_lily_guile ();
+void init_lily_guile (String dir);
 
 bool isdir_b (SCM s);
 bool isaxis_b (SCM s);

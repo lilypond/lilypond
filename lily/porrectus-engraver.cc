@@ -39,25 +39,7 @@
 #include "score-engraver.hh"
 #include "pqueue.hh"
 #include "warn.hh"
-
-// TODO: PHead_melodic_tuple is duplicated code from tie-engraver.cc.
-// Maybe put this into public class?
-struct PHead_melodic_tuple {
-  Melodic_req *req_l_;
-  Grob *head_l_;
-  Moment end_;
-  PHead_melodic_tuple ();
-  PHead_melodic_tuple (Grob*, Melodic_req*, Moment);
-  static int pitch_compare (PHead_melodic_tuple const &,
-			    PHead_melodic_tuple const &);
-  static int time_compare (PHead_melodic_tuple const &,
-			   PHead_melodic_tuple const &);  
-};
-
-inline int compare (PHead_melodic_tuple const &a, PHead_melodic_tuple const &b)
-{
-  return PHead_melodic_tuple::time_compare (a,b);
-}
+#include "grob-pitch-tuple.hh"
 
 class Porrectus_engraver : public Engraver {
 public:
@@ -72,10 +54,10 @@ protected:
   virtual void acknowledge_grob (Grob_info);
 
 private:
-  PQueue<PHead_melodic_tuple> past_notes_pq_;
+  PQueue<Grob_pitch_tuple> past_notes_pq_;
   Porrectus_req *porrectus_req_l_;
-  Array<PHead_melodic_tuple> left_heads_;
-  Array<PHead_melodic_tuple> right_heads_;
+  Array<Grob_pitch_tuple> left_heads_;
+  Array<Grob_pitch_tuple> right_heads_;
   Link_array<Grob> porrectus_p_arr_;
 };
 
@@ -101,20 +83,7 @@ Porrectus_engraver::process_music ()
 {
   if (porrectus_req_l_)
     {
-      // TODO: Move code that forbids breaking into ligature music
-      // wrapper?
-      Score_engraver *engraver = 0;
-      for (Translator *translator = daddy_grav_l ();
-	   translator && !engraver;
-	   translator = translator->daddy_trans_l_)
-	{
-	  engraver = dynamic_cast<Score_engraver*> (translator);
-	}
-      
-      if (!engraver)
-	programming_error ("No score engraver!");
-      else
-	engraver->forbid_breaks ();
+      top_engraver ()->forbid_breaks ();
     }
 }
 
@@ -126,7 +95,7 @@ Porrectus_engraver::acknowledge_grob (Grob_info info_l_)
       Note_req *note_req_l_ = dynamic_cast <Note_req *> (info_l_.req_l_);
       if (!note_req_l_)
 	return;
-      right_heads_.push (PHead_melodic_tuple (info_l_.grob_l_, note_req_l_,
+      right_heads_.push (Grob_pitch_tuple (info_l_.grob_l_, note_req_l_,
 					      now_mom () +
 					      note_req_l_->length_mom ()));
     }
@@ -137,8 +106,8 @@ Porrectus_engraver::create_grobs ()
 {
   if (porrectus_req_l_)
     {
-      left_heads_.sort (PHead_melodic_tuple::pitch_compare);
-      right_heads_.sort (PHead_melodic_tuple::pitch_compare);
+      left_heads_.sort (Grob_pitch_tuple::pitch_compare);
+      right_heads_.sort (Grob_pitch_tuple::pitch_compare);
       int i = left_heads_.size () - 1;
       int j = right_heads_.size () - 1;
 
@@ -196,45 +165,6 @@ Porrectus_engraver::start_translation_timestep ()
 
 
 
-// TODO: PHead_melodic_tuple is duplicated code from tie-engraver.cc.
-// Maybe put this into public class?
-
-PHead_melodic_tuple::PHead_melodic_tuple ()
-{
-  head_l_ = 0;
-  req_l_ = 0;
-  end_ = 0;
-}
-
-PHead_melodic_tuple::PHead_melodic_tuple (Grob *h, Melodic_req*m, Moment mom)
-{
-  head_l_ = h;
-  req_l_ = m;
-  end_ = mom;
-}
-
-/*
-  signed compare, should use pitch<? 
- */
-int
-PHead_melodic_tuple::pitch_compare (PHead_melodic_tuple const&h1,
-				    PHead_melodic_tuple const &h2)
-{
-  SCM p1 = h1.req_l_->get_mus_property ("pitch");
-  SCM p2 = h2.req_l_->get_mus_property ("pitch");
-  
-  int result = Pitch::compare (*unsmob_pitch (p1),
-			       *unsmob_pitch (p2));
-  return result;
-}
-
-int
-PHead_melodic_tuple::time_compare (PHead_melodic_tuple const&h1,
-				   PHead_melodic_tuple const &h2)
-{
-  int result = Moment::compare(h1.end_,  h2.end_);
-  return result;
-}
 ENTER_DESCRIPTION(Porrectus_engraver,
 /* descr */       "Join adjacent notes to a porrectus ligature.",
 /* creats*/       "Porrectus",

@@ -25,8 +25,7 @@ int
 Rhythmic_head::balltype_i (Grob*me) 
 {
   SCM s = me->get_grob_property ("duration-log");
-  
-  return gh_number_p (s) ? gh_scm2int (s) : 0;
+  return gh_number_p (s) ? gh_scm2int (s) <? 2 : 0;
 }
 
 Item*

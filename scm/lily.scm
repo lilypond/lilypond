@@ -119,11 +119,11 @@
 
 
 
+
 (use-modules (scm tex)
 	     (scm ps)
 	     (scm pysk)
 	     (scm ascii-script)
-	     (scm sketch)
 	     )
 
 (define output-alist
@@ -133,7 +133,6 @@
     ("scm" . ,write)
     ("as" . ,as-output-expression)
     ("pysk" . ,pysk-output-expression)
-    ("sketch" . ,sketch-output-expression)
 ))
 
 

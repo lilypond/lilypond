@@ -73,17 +73,11 @@ Translator::now_mom () const
   return daddy_trans_l_->now_mom ();
 }
 
-
-
-
-
-
 void
 Translator::removal_processing ()
 {
   finalize ();
 }
-
 
 void
 Translator::announces ()
@@ -91,19 +85,11 @@ Translator::announces ()
   do_announces ();
 }
 
-
 Music_output_def *
 Translator::output_def_l () const
 {
   return output_def_l_;
 }
-#if 0
-SCM
-Translator::get_property (char const * id) const
-{
-  return daddy_trans_l_->get_property (ly_symbol2scm (id));
-}
-#endif
 
 SCM
 Translator::internal_get_property (SCM sym) const

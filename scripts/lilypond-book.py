@@ -945,6 +945,39 @@ def system (cmd):
 		error ('Error command exited with value %d\n' % st)
 	return st
 
+
+def get_bbox (filename):
+	f = open (filename)
+	gr = []
+	while 1:
+		l =f.readline ()
+		m = re.match ('^%%BoundingBox: ([0-9]+) ([0-9]+) ([0-9]+) ([0-9]+)', l)
+		if m:
+			gr = map (string.atoi, m.groups ())
+			break
+
+	return gr
+
+def make_pixmap (name):
+	bbox = get_bbox (name + '.eps')
+
+	fo = open (name + '.trans.eps' , 'w')
+	fo.write ('%d %d translate\n' % (-bbox[0], -bbox[1]))
+	fo.close ()
+	
+	res = 90
+	x = (bbox[2] - bbox[0]) * res / 72.
+	y = (bbox[3] - bbox[1]) * res / 72.
+
+	cmd = r"""gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s"""
+	
+	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.eps',name + '.png')
+	try:
+		status = system (cmd)
+	except:
+		os.unlink (name + '.png')
+		error ("Removing output file")
+
 def compile_all_files (chunks):
 	global foutn
 	eps = []
@@ -1001,14 +1034,9 @@ def compile_all_files (chunks):
 	for e in eps:
 		system(r"tex '\nonstopmode \input %s'" % e)
 		system(r"dvips -E -o %s %s" % (e + '.eps', e))
+		
 	for g in png:
-		cmd = r"""gs -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r90 -dNOPAUSE %s -c quit | pnmcrop | pnmtopng > %s"""
-		cmd = cmd % (g + '.eps', g + '.png')
-		try:
-			status = system (cmd)
-		except:
-			os.unlink (g + '.png')
-			error ("Removing output file")
+		make_pixmap (g)
 		
 	os.chdir (d)
 

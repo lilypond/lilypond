@@ -11,7 +11,8 @@
 #include "engraver-group-engraver.hh"
 #include "grob.hh"
 #include "main.hh"
-
+#include "score-engraver.hh"
+#include "warn.hh"
 
 void
 Engraver::announce_grob (Grob_info inf)
@@ -62,5 +63,22 @@ Engraver::Engraver()
 }
 
 
+Score_engraver* 
+Engraver::top_engraver () const
+{
+  /*
+    ugh.
+   */
+  if (dynamic_cast<Score_engraver*>((Engraver*)this))
+    return dynamic_cast<Score_engraver*> ((Engraver*)this);
+
+  if (daddy_trans_l_)
+    return dynamic_cast<Engraver*> (daddy_trans_l_)->top_engraver ();
+
+  programming_error ("No score engraver!");
+  return 0;
+}
+
 ENTER_DESCRIPTION(Engraver,
 		   "", "", "", "", "");
+

@@ -17,21 +17,7 @@
 #include "pqueue.hh"
 #include "engraver.hh"
 #include "item.hh"
-
-struct CHead_melodic_tuple {
-  Melodic_req *req_l_ ;
-  Grob *head_l_;
-  Moment end_;
-  CHead_melodic_tuple ();
-  CHead_melodic_tuple (Grob*, Melodic_req*, Moment);
-  static int pitch_compare (CHead_melodic_tuple const &, CHead_melodic_tuple const &);
-  static int time_compare (CHead_melodic_tuple const &, CHead_melodic_tuple const &);  
-};
-
-inline int compare (CHead_melodic_tuple const &a, CHead_melodic_tuple const &b)
-{
-  return CHead_melodic_tuple::time_compare (a,b);
-}
+#include "grob-pitch-tuple.hh"
 
 
 /**
@@ -41,16 +27,20 @@ inline int compare (CHead_melodic_tuple const &a, CHead_melodic_tuple const &b)
 
    TODO: junk the pq; the PQ is overkill if we assume that no
    different durations occur in parallel.
+
+   TODO: Remove the dependency on musical info. We should tie on the
+   basis of position and duration-log of the heads (not of the reqs).
+
 */
 class Tie_engraver : public Engraver
 {
-  PQueue<CHead_melodic_tuple> past_notes_pq_;
+  PQueue<Grob_pitch_tuple> past_notes_pq_;
   Moment end_mom_;
   Moment next_end_mom_;
 
   Tie_req *req_l_;
-  Array<CHead_melodic_tuple> now_heads_;
-  Array<CHead_melodic_tuple> stopped_heads_;
+  Array<Grob_pitch_tuple> now_heads_;
+  Array<Grob_pitch_tuple> stopped_heads_;
   Link_array<Grob> tie_p_arr_;
 
   Spanner * tie_column_p_;
@@ -111,7 +101,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
       Note_req * m = dynamic_cast<Note_req* > (i.req_l_);
       if (!m)
 	return;
-      now_heads_.push (CHead_melodic_tuple (i.grob_l_, m, now_mom ()+ m->length_mom ()));
+      now_heads_.push (Grob_pitch_tuple (i.grob_l_, m, now_mom () + m->length_mom ()));
     }
 }
 
@@ -121,8 +111,8 @@ Tie_engraver::create_grobs ()
 {
   if (req_l_)
     {
-      now_heads_.sort (CHead_melodic_tuple::pitch_compare);
-      stopped_heads_.sort (CHead_melodic_tuple::pitch_compare);
+      now_heads_.sort (Grob_pitch_tuple::pitch_compare);
+      stopped_heads_.sort (Grob_pitch_tuple::pitch_compare);
 
       SCM head_list = SCM_EOL;
       
@@ -132,8 +122,8 @@ Tie_engraver::create_grobs ()
       while (i >= 0 && j >=0)
 	{
 	  int comp
-	    = Pitch::compare (*unsmob_pitch (now_heads_[i].req_l_->get_mus_property ("pitch")),
-				      *unsmob_pitch (stopped_heads_[j].req_l_->get_mus_property ("pitch")));
+	    = Pitch::compare (now_heads_[i].pitch_,
+			      stopped_heads_[j].pitch_);
 
 	  if (comp)
 	    {
@@ -201,6 +191,7 @@ Tie_engraver::create_grobs ()
 void
 Tie_engraver::stop_translation_timestep ()
 {
+  req_l_ = 0;
   for (int i=0; i < now_heads_.size (); i++)
     {
       past_notes_pq_.insert (now_heads_[i]);
@@ -210,15 +201,6 @@ Tie_engraver::stop_translation_timestep ()
   /*
     we don't warn for no ties, since this happens naturally when you
     use skipTypesetting.  */
-  
-#if 0
-  if (req_l_ && !tie_p_arr_.size ())
-    {
-      /* How to shut up this warning, when no notes appeared because
-	 they were suicided by Thread_devnull_engraver? */
-      req_l_->origin ()->warning (_ ("No ties were created!"));
-    }
-#endif
   
   for (int i=0; i<  tie_p_arr_.size (); i++)
    {
@@ -261,7 +243,7 @@ Tie_engraver::start_translation_timestep ()
     {
       set_melisma (false);
     }
-  req_l_ = 0;
+
   Moment now = now_mom ();
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();
@@ -275,42 +257,6 @@ Tie_engraver::start_translation_timestep ()
 }
 
 
-
-
-CHead_melodic_tuple::CHead_melodic_tuple ()
-{
-  head_l_ =0;
-  req_l_ =0;
-  end_ = 0;
-}
-
-CHead_melodic_tuple::CHead_melodic_tuple (Grob *h, Melodic_req*m, Moment mom)
-{
-  head_l_ = h;
-  req_l_ = m;
-  end_ = mom;
-}
-
-/*
-  signed compare, should use pitch<? 
- */
-int
-CHead_melodic_tuple::pitch_compare (CHead_melodic_tuple const&h1,
-			     CHead_melodic_tuple const &h2)
-{
-  SCM p1  = h1.req_l_->get_mus_property ("pitch");
-  SCM p2  = h2.req_l_->get_mus_property ("pitch");
-  
-  return Pitch::compare (*unsmob_pitch (p1),
-			 *unsmob_pitch (p2));
-}
-
-int
-CHead_melodic_tuple::time_compare (CHead_melodic_tuple const&h1,
-				   CHead_melodic_tuple const &h2)
-{
-  return Moment::compare(h1.end_,  h2.end_);
-}
 ENTER_DESCRIPTION(Tie_engraver,
 /* descr */       "Generate ties between noteheads of equal pitch.",
 /* creats*/       "Tie TieColumn",

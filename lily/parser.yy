@@ -1333,7 +1333,8 @@ verbose_request:
 			TODO: junkme, use text-type == dynamic
 		*/
 		Text_script_req *d = new Text_script_req;
-		d->set_mus_property ("text-type" , ly_symbol2scm ("dynamic"));
+		SCM dyn = ly_symbol2scm ("dynamic");
+		d->set_mus_property ("text-type" , dyn);
 		d->set_mus_property ("text", $2);
 		d->set_spot (THIS->here_input ());
 		$$ = d;
@@ -1548,9 +1549,9 @@ gen_text_def:
 	| DIGIT {
 		String ds = to_str ($1);
 		Text_script_req* t = new Text_script_req;
-
+		SCM finger = ly_symbol2scm ("finger");
 		t->set_mus_property ("text",  ly_str02scm (ds.ch_C ()));
-		t->set_mus_property ("text-type" , ly_symbol2scm ("finger"));
+		t->set_mus_property ("text-type" , finger);
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	}

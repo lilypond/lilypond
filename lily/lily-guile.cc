@@ -249,11 +249,26 @@ void add_scm_init_func (void (*f) ())
 extern  void init_cxx_function_smobs ();
 
 void
-init_lily_guile ()
+prepend_load_path (String p )
 {
+  char s[1024];
+  sprintf (s, 
+	   "(set! %%load-path (cons \"%s\" %%load-path))", p.ch_C());
+
+  scm_c_eval_string (s);
+}
+
+void
+init_lily_guile (String p )
+{
+  prepend_load_path (p);
+
+  // todo: junk this. We should make real modules iso. just loading files.
+  prepend_load_path (p + "/scm/");
+
   SCM last_mod = scm_current_module ();
   scm_set_current_module (scm_c_resolve_module ("guile"));
-
+  
   init_cxx_function_smobs ();
   for (int i=scm_init_funcs_->size () ; i--;)
     (scm_init_funcs_->elem (i)) ();

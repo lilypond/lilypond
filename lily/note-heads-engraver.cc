@@ -68,9 +68,9 @@ Note_heads_engraver::process_music ()
       
       Music * req = note_req_l_arr_[i];
       
-      Duration dur   = *unsmob_duration (req->get_mus_property ("duration"));
-      note_p->set_grob_property ("duration-log",
-				gh_int2scm (dur.duration_log () <? 2));
+      Duration dur = *unsmob_duration (req->get_mus_property ("duration"));
+
+      note_p->set_grob_property ("duration-log", gh_int2scm (dur.duration_log ()));
 
       if (dur.dot_count ())
 	{
@@ -129,26 +129,7 @@ void
 Note_heads_engraver::start_translation_timestep ()
 {
   
-  /*
-    TODO: make this settable?
-
-    TODO: what if someone wants a line break in a grace note section??
-   */
-  //  if (note_end_mom_ > now_mom ())  
-  if (note_end_mom_.main_part_ > now_mom ().main_part_)
-    {
-      Score_engraver * e = 0;
-      Translator * t  =  daddy_grav_l ();
-      for (; !e && t;  t = t->daddy_trans_l_)
-	{
-	  e = dynamic_cast<Score_engraver*> (t);
-	}
-
-      if (!e)
-	programming_error ("No score engraver!");
-      else
-	e->forbid_breaks ();	// guh. Use properties!
-    }
+  
 }
 
 Note_heads_engraver::Note_heads_engraver()

@@ -14,6 +14,7 @@
 #include "font-interface.hh"
 #include "molecule.hh"
 #include "musical-request.hh"
+#include "rhythmic-head.hh"
 
 #include "staff-symbol-referencer.hh"
 
@@ -98,7 +99,7 @@ Note_head::brew_molecule (SCM smob)
 
     UGH: use grob-property.
   */
-  SCM log = me->get_grob_property ("duration-log");
+  SCM log = gh_int2scm (Rhythmic_head::balltype_i (me));
   SCM exp = scm_list_n (ly_symbol2scm ("find-notehead-symbol"), log,
 			ly_quote_scm (style),
 			SCM_UNDEFINED);
@@ -132,7 +133,7 @@ SCM
 Note_head::brew_ez_molecule (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  int l = gh_scm2int (me->get_grob_property ("duration-log"));
+  int l = Rhythmic_head::balltype_i (me);
 
   int b = (l >= 2);
   SCM at = scm_list_n (ly_symbol2scm ("ez-ball"),

@@ -78,6 +78,7 @@ Rest::brew_internal_molecule (SCM smob)
   SCM balltype_scm = me->get_grob_property ("duration-log");
   if (!gh_number_p (balltype_scm))
     return Molecule ().smobbed_copy ();
+
   int balltype = gh_scm2int (balltype_scm);
   
   String style; 
