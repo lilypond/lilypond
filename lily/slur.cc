@@ -186,7 +186,12 @@ Slur::do_post_processing ()
       */
       else
 	{
-	  dx_f_drul_[d] -= d * x_gap_f;
+	  /*
+	    need break-align too.  what about other spanners?
+	   */
+	  if (d == LEFT)
+	    dx_f_drul_[d] = spanned_drul_[LEFT]->extent (X_AXIS).length ();
+	  	
 	  /*
 	    broken: should get y from other piece, so that slur
 	    continues up/down trend
@@ -241,18 +246,21 @@ Slur::do_post_processing ()
   Real height_damp_f;
   Real slope_damp_f;
   Real snap_f;
+  Real snap_max_dy_f;
 
   if (!interstaff_b)
     {
       height_damp_f = paper_l ()->get_var ("slur_height_damping");
       slope_damp_f = paper_l ()->get_var ("slur_slope_damping");
       snap_f = paper_l ()->get_var ("slur_snap_to_stem");
+      snap_max_dy_f = paper_l ()->get_var ("slur_snap_max_slope_change");
     }
   else
     {
       height_damp_f = paper_l ()->get_var ("slur_interstaff_height_damping");
       slope_damp_f = paper_l ()->get_var ("slur_interstaff_slope_damping");
       snap_f = paper_l ()->get_var ("slur_interstaff_snap_to_stem");
+      snap_max_dy_f = paper_l ()->get_var ("slur_interstaff_snap_max_slope_change");
     }
 
   Real ratio_f;
@@ -287,17 +295,20 @@ Slur::do_post_processing ()
    */
   for (int i = 0; i < 3; i++)
     {
-      Real height_f = do_height ().length ();
+      Drul_array<Interval> curve_xy_drul = curve_extent_drul ();
+      Real height_f = curve_xy_drul[Y].length ();
+      Real width_f = curve_xy_drul[X].length ();
+      
       dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
 
-      ratio_f = abs (height_f / dx_f);
+      ratio_f = abs (height_f / width_f);
       if (ratio_f > height_damp_f)
 	{
 	  Direction d = (Direction)(- dir_ * (sign (dy_f)));
 	  if (!d)
 	    d = LEFT;
 	  /* take third step */
-	  Real damp_f = (ratio_f - height_damp_f) * dx_f / 3;
+	  Real damp_f = (ratio_f - height_damp_f) * width_f / 3;
 	  /*
 	    if y positions at about the same height, correct both ends
 	  */
@@ -320,6 +331,10 @@ Slur::do_post_processing ()
   /*
     If, after correcting, we're close to stem-end...
   */
+  Drul_array<Real> snapy_f_drul;
+  snapy_f_drul[LEFT] = snapy_f_drul[RIGHT] = 0;
+  Drul_array<Real> snapx_f_drul;
+  snapx_f_drul[LEFT] = snapx_f_drul[RIGHT] = 0;
   do
     {
       if ((note_column_drul[d] == spanned_drul_[d])
@@ -330,17 +345,53 @@ Slur::do_post_processing ()
 	      <= snap_f))
 	{
 	  /*
-	    attach to stem-end
+	    prepare to attach to stem-end
 	  */
 	  Stem* stem_l = note_column_drul[d]->stem_l_;
-	  dx_f_drul_[d] = stem_l->hpos_f ()
+	  snapx_f_drul[d] = stem_l->hpos_f ()
 	    - spanned_drul_[d]->absolute_coordinate (X_AXIS);
-	  dy_f_drul_[d] = stem_l->extent (Y_AXIS)[dir_];
-	  dy_f_drul_[d] += info_drul[d].interstaff_f_;
-	  dy_f_drul_[d] += dir_ * 2 * y_gap_f;
+	  snapy_f_drul[d] = stem_l->extent (Y_AXIS)[dir_];
+	  snapy_f_drul[d] += info_drul[d].interstaff_f_;
+	  snapy_f_drul[d] += dir_ * 2 * y_gap_f;
 	}
     }
   while (flip (&d) != LEFT);
+
+  /*
+    only use snapped positions if sign (dy) will not change
+    and dy doesn't change too much
+    */
+  if (snapy_f_drul[LEFT] && snapy_f_drul[RIGHT]
+      && ((sign (snapy_f_drul[RIGHT] - snapy_f_drul[LEFT]) == sign (dy_f)))
+      && (!dy_f || (abs (snapy_f_drul[RIGHT] - snapy_f_drul[LEFT] - dy_f) 
+		    < abs (dy_f * snap_max_dy_f))))
+    {
+      do
+	{
+	  dy_f_drul_[d] = snapy_f_drul[d];
+	  dx_f_drul_[d] = snapx_f_drul[d];
+	}
+      while (flip (&d) != LEFT);
+  
+    }
+  else if (snapy_f_drul[LEFT]
+      && ((sign (dy_f_drul_[RIGHT] - snapy_f_drul[LEFT]) == sign (dy_f)))
+      && (!dy_f || (abs (dy_f_drul_[RIGHT] - snapy_f_drul[LEFT] - dy_f) 
+		    < abs (dy_f * snap_max_dy_f))))
+    {
+      Direction d = LEFT;
+      dy_f_drul_[d] = snapy_f_drul[d];
+      dx_f_drul_[d] = snapx_f_drul[d];
+    }
+  else if (snapy_f_drul[RIGHT]
+      && ((sign (snapy_f_drul[RIGHT] - dy_f_drul_[LEFT]) == sign (dy_f)))
+      && (!dy_f || (abs (snapy_f_drul[RIGHT] - dy_f_drul_[LEFT] - dy_f) 
+		    < abs (dy_f * snap_max_dy_f))))
+    {
+      Direction d = RIGHT;
+      dy_f_drul_[d] = snapy_f_drul[d];
+      dx_f_drul_[d] = snapx_f_drul[d];
+    }
 }
 
 Array<Offset>

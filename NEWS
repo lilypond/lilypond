@@ -1,7 +1,34 @@
+pl 60.jcn2
+	- moved creation of $BUILDDIR/share/locale into set-lily.sh
+	- slur slope change constraints when snapping
+	- slur height damping based on bow height
+	- don't typeset unfinished (auto) beams
+
+pl 60.jbr1
+        - Documentation/ntweb/angels.y,Documentation/ntweb/guile.patch: added
+        - Documentation/ntweb/GNUmakefile: add above to EXTRA_DIST_FILES
+
+pl 59.mb2
+	- Tempo changes in MIDI output!
+	- gallina.ly:auto-beaming
+	- added property articulationScriptVerticalDirection
+	  (useful in N.W.Gade/score.ly)
+	- bf, N.W.Gade: removed some more misprints
+
+pl 60.uu1
+	- bf: hara-kiri.ly
+
+pl 60.jcn1
+	- interstaff slur tuning
+	- added some regtests
+	- removed now silly check in encompass-info
+
+**********
+
 pl 59.uu1
 	- papervar loose_column_distance
 	- scripts don't collide.
-	- midi2ly outputs \context iso \type
+	- bf: midi2ly outputs \context iso \type
 
 pl 59.jbr1
         - lily/colhpos.cc: fixed typo

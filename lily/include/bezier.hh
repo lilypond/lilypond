@@ -13,6 +13,8 @@
 
 #include "real.hh"
 #include "curve.hh"
+#include "drul-array.hh"
+#include "interval.hh"
 
 /**
   Simple bezier curve
@@ -72,6 +74,7 @@ public:
   Real alpha_;
   Offset origin_;
   Curve return_;
+  Drul_array<Interval> curve_extent_drul_;
 };
 
 

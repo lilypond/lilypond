@@ -18,6 +18,8 @@ typeface. ie. leading is vertical space  --hwn]
 . * Rewrite \rhythm to be during interpreting.
 . * move \version check to lexer.ll
 . * junk delayed spanner breaking.
+. * core dump on broken (de)crescendo
+. * align left edge of broken (de)cresc/slur/tie/tuplet/volta
 . * check dangling_scm_sym working.
 . * spacing of accidentals
 . * key restorations & repeats
@@ -68,6 +70,7 @@ one of the spacing bugs mentioned in the TODO.
 
 - The paper11/13/26 files have to be updated.
 . * Grace_slur_engraver.
+. * (gulp-file-to-str) for LilyPond
 . * input/star-spangled-banner.ly: fold for lyrics?
 . * don't create $srcdir/share/
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
@@ -114,11 +117,6 @@ following example.
 .  * deps for ly2dvi
 . * indent = 0.0 with linewidth=-1.0
 . * collisions & accidentals.
-. * auto-beaming in input/test/spacing.ly:
-Non-finished auto-beams (consider_end_and_begin didn't decide to
-end beam), that get typeset in removal_processing (eg: end of a piece)
-Huh, snap niks van: gewone beam gaat wel goed.  hoe kan abe nu
-invloed hebben op beam-creatie, stopt toch gewoon stokken in?
 . * music ending in grace notes.
 . * PostScript
 .  * half notes in pfa
@@ -147,9 +145,15 @@ invloed hebben op beam-creatie, stopt toch gewoon stokken in?
 . * Duration
 . * clef engraver 
 . * parser
+. * Bezier
 
 .* BUGS
 . * [c8. c16 c16 c16] in 6/8 timesig. 
+. * 
+> \context Staff <
+>   {\voiceone c''4. r8}
+>   {\voicetwo c,4 r4}
+> >
 
 .* STUFF
 . * break priority setting from SCM.
@@ -395,7 +399,6 @@ languages:
 
 . * add to MIDI output:
 .  * sharp / flat on trills (in MIDI ??)
-.  * tempo change
 .  * ornaments (and trills?)
 .  * slurs
 .  * accents

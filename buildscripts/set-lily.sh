@@ -61,6 +61,26 @@ testmkdir $prefix/share
 rm -rf $prefix/share/lilypond
 showln -sf $sources/lilypond $prefix/share/lilypond
 
+
+BUILDDIR=`pwd`
+LOCALES="it nl"
+for i in $LOCALES; do
+	dir=$BUILDDIR/share/locale/$i/LC_MESSAGES
+	if test ! -x $dir ; then
+		mkdir -p $dir
+	fi
+	rm -f $dir/lilypond.mo 
+	showln -sf $BUILDDIR/po/out/$i.mo $dir/lilypond.mo
+done
+rm -f afm; showln -sf $BUILDDIR/mf/out afm
+rm -f tfm; showln -sf $BUILDDIR/mf/out tfm
+if test "x$TEX_TFMDIR" = "x" ; then
+	CMR10=`kpsewhich tfm cmr10.tfm`
+	TEX_TFMDIR=`dirname $CMR10`
+fi
+rm -f cmtfm; showln -sf $TEX_TFMDIR $BUILDDIR/cmtfm
+
+
 if [ -f ../.gdbinit ];
 then
     showln -f ../.gdbinit .

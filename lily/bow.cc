@@ -58,8 +58,6 @@ Bow::center () const
   return Offset (dx / 2, dy);
 }
 
-
-
 /*
    Ugh.  Control points are too crude measures.
  */
@@ -76,6 +74,14 @@ Bow::do_height () const
   return iv;
 }
 
+Drul_array<Interval>
+Bow::curve_extent_drul () const
+{
+  Bezier_bow b (paper_l ());
+  b.set (get_encompass_offset_arr (), dir_);
+  b.calc ();
+  return b.curve_extent_drul_;
+}
 
 Array<Offset>
 Bow::get_controls () const

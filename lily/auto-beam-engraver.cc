@@ -259,9 +259,11 @@ Auto_beam_engraver::do_pre_move_processing ()
 void
 Auto_beam_engraver::do_removal_processing ()
 {
-  if (stem_l_arr_p_)
-    end_beam ();
+  /* finished beams may be typeset */
   typeset_beam ();
+  /* but unfinished may need another announce/acknoledge pass */
+  if (stem_l_arr_p_)
+    junk_beam ();
 }
 
 bool

@@ -24,7 +24,9 @@ enum Direction
   SMALLER=-1,
   BIGGER=1,
   START = -1,
-  STOP = 1
+  STOP = 1,
+  X=1,
+  Y=-1,
 };
 
 inline Direction

@@ -92,14 +92,18 @@ slur_y_free = 0.75 * \interline;
 slur_x_minimum = 3.0 * \interline;
 
 % slope damping: keep dy/dx < slur_slope_damping
-slur_slope_damping = 0.35;
-slur_interstaff_slope_damping = 0.8;
+slur_slope_damping = 0.3;
+slur_interstaff_slope_damping = 0.6;
 % height damping: keep h/dx < slur_height_damping
-slur_height_damping = 0.45;
-slur_interstaff_height_damping = 1.2;
+slur_height_damping = 0.5;
+slur_interstaff_height_damping = 0.5;
 % snap to stem if slur ends closer to stem than
-slur_snap_to_stem = 1.5 * \interline;
+slur_snap_to_stem = 1.75 * \interline;
 slur_interstaff_snap_to_stem = 2.5 * \interline;
+% maximum dy change allowed by snapping
+slur_snap_max_slope_change = 0.5;
+slur_interstaff_snap_max_slope_change = 0.5;
+
 
 
 tie_x_minimum = \slur_x_minimum;
