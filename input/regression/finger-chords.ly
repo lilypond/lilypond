@@ -12,7 +12,9 @@ easier to process."
 
 \score {
     \notes \relative c'{
-	<<c-1 e-2 g-3 b-4 d-5 f-6 a-7 c-8 >> 4	
+
+	%% input order is not 1 2 3 , output is.
+	<<c-1 g'-3 e-2  b'-4 d-5 f-6 a-7 c-8 >> 4	
 
 	\property Voice.fingeringOrientations = #'(left)
 	<< c-1  e-2 g-3 b-5 >> 4

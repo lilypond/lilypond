@@ -1446,9 +1446,10 @@ if 1:
 			      'acciaccatura', str)
 
 		if re.search ("context-spec-music"):
-			sys.stderr.write ("context-spec-music takes a symbol for the context now. Update by hand."
+			sys.stderr.write ("context-spec-music takes a symbol for the context now. Update by hand.")
+					  
 			raise FatalConversionError()
-
+		
 		str = re.sub ('fingerHorizontalDirection *= *#(LEFT|-1)',
 			      "fingeringOrientations = #'(up down left)", str)
 		str = re.sub ('fingerHorizontalDirection *= *#(RIGHT|1)',

@@ -2881,8 +2881,8 @@ half.  Another dot adds yet a fourth of the duration.
 %\property Score.TextScript \set #'font-style = #'large
 \notes\relative c'' {
   \time 4/4
-  g4._"pointed" g8 g2 | g4 () g8 g g2 \bar "||"
-  g4.._"double pointed" g16 g2 | g4 () g8 () g16 g g2 \bar "||" }
+  g4._"pointed" g8 g2 | g4 ~ g8 g g2 \bar "||"
+  g4.._"double pointed" g16 g2 | g4 ~ g8 ~ g16 g g2 \bar "||" }
 @end lilypond
 
 Alternatively note values may be subdivided by other ratios.  Most common is
@@ -2972,9 +2972,9 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
     }
   }
   \notes\relative c'' {
-    a4 [c16 b a b] c2
-    g4 a [b16 a b8] a4
-    e'4 [e32 d e d ~ d8] c2
+    a4 c16[ b a b] c2
+    g4 a  b16-[ a b8] a4
+    e'4 e32[ d e d ~ d8] c2
   }
 >
 @end lilypond
@@ -4255,7 +4255,7 @@ line.  @aref{measure}, @aref{meter}.
 \time 4/4
 \notes\relative c' {
   \partial 4 f4 | bes4. a8 bes4 c |
-  bes () a g f | bes4. a8 bes4 c | f,2. \bar "||" }
+  bes( a) g f | bes4. a8 bes4 c | f,2. \bar "||" }
 @end lilypond
 
 @aitem{voice}
