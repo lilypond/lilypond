@@ -1,5 +1,7 @@
 2002-07-07  Han-Wen  <hanwen@cs.uu.nl>
 
+	* scm/font.scm (change-rhs-size): add support for "paper19.ly"
+
 	* VERSION: 1.5.66 released
 
 	* scm/grob-description.scm (all-grob-descriptions): add
