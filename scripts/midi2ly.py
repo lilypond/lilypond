@@ -22,37 +22,73 @@ TODO:
      other converters, while leaving midi specific stuff here
 '''
 
+import os
+import sys
 import getopt
-import __main__
 import sys
 import string
 
-sys.path.append ('@datadir@/python')
-sys.path.append ('@datadir@/buildscripts/out')
-sys.path.append ('@datadir@/modules/out')
+
+# do fuddling: we must load the midi module from the right directory. 
+datadir = '@datadir@'
+if os.environ.has_key ('LILYPONDPREFIX'):
+	datadir = os.environ['LILYPONDPREFIX']
+else:
+	datadir = '@datadir@'
+
+sys.path.append (os.path.join (datadir, 'python'))
+sys.path.append (os.path.join (datadir, 'python/out'))
 
 import midi
 
+################################################################
+################ CONSTANTS
+
+
+output_name = ''
+LINE_BELL = 60
+scale_steps = [0,2,4,5,7,9,11]
+
+clocks_per_1 = 1536
+clocks_per_4 = 0
+key = 0
+time = 0
+reference_note = 0
+start_quant = 0
+start_quant_clocks = 0
+duration_quant = 0
+duration_quant_clocks = 0
+allowed_tuplets = []
+allowed_tuplet_clocks = []
+absolute_p = 0
+explicit_durations_p = 0
+text_lyrics_p = 0
+
+
+
+################################################################
+
+localedir = '@localedir@'
 try:
 	import gettext
-	gettext.bindtextdomain ('lilypond', '@localedir@')
+	gettext.bindtextdomain ('lilypond', localedir)
 	gettext.textdomain ('lilypond')
 	_ = gettext.gettext
 except:
 	def _ (s):
 		return s
 
-# Attempt to fix problems with limited stack size set by Python!
-# Sets unlimited stack size. Note that the resource module only
-# is available on UNIX.
-try:
-       import resource
-       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
-except:
-       pass
+program_name = 'midi2ly'
+program_version = '@TOPLEVEL_VERSION@'
 
-program_name = 'midi2ly [experimental]'
-package_name = 'lilypond'
+errorport = sys.stderr
+verbose_p = 0
+
+# temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+# original_dir = os.getcwd ()
+# keep_temp_dir_p = 0
+
+
 help_summary = _ ("Convert MIDI to LilyPond source")
 
 option_definitions = [
@@ -70,7 +106,186 @@ option_definitions = [
 	('', 'x', 'text-lyrics', _ ("treat every text as a lyric")),
 	]
 
-from lilylib import *
+################################################################
+# lilylib.py -- options and stuff
+# 
+# source file of the GNU LilyPond music typesetter
+
+import os
+
+try:
+	import gettext
+	gettext.bindtextdomain ('lilypond', localedir)
+	gettext.textdomain ('lilypond')
+	_ = gettext.gettext
+except:
+	def _ (s):
+		return s
+
+if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
+	program_version = '1.5.17'
+
+def identify ():
+	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
+
+def warranty ():
+	identify ()
+	sys.stdout.write ('\n')
+	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001'))
+	sys.stdout.write ('\n')
+	sys.stdout.write ('  Han-Wen Nienhuys')
+	sys.stdout.write ('  Jan Nieuwenhuizen')
+	sys.stdout.write ('\n')
+	sys.stdout.write (_ (r'''
+Distributed under terms of the GNU General Public License. It comes with
+NO WARRANTY.'''))
+	sys.stdout.write ('\n')
+
+def progress (s):
+	errorport.write (s + '\n')
+
+def warning (s):
+	progress (_ ("warning: ") + s)
+		
+def error (s):
+
+
+	'''Report the error S.  Exit by raising an exception. Please
+	do not abuse by trying to catch this error. If you do not want
+	a stack trace, write to the output directly.
+
+	RETURN VALUE
+
+	None
+	
+	'''
+	
+	progress (_ ("error: ") + s)
+	raise _ ("Exiting ... ")
+
+def getopt_args (opts):
+	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''
+	short = ''
+	long = []
+	for o in opts:
+		if o[1]:
+			short = short + o[1]
+			if o[0]:
+				short = short + ':'
+		if o[2]:
+			l = o[2]
+			if o[0]:
+				l = l + '='
+			long.append (l)
+	return (short, long)
+
+def option_help_str (o):
+	'''Transform one option description (4-tuple ) into neatly formatted string'''
+	sh = '  '	
+	if o[1]:
+		sh = '-%s' % o[1]
+
+	sep = ' '
+	if o[1] and o[2]:
+		sep = ','
+		
+	long = ''
+	if o[2]:
+		long= '--%s' % o[2]
+
+	arg = ''
+	if o[0]:
+		if o[2]:
+			arg = '='
+		arg = arg + o[0]
+	return '  ' + sh + sep + long + arg
+
+
+def options_help_str (opts):
+	'''Convert a list of options into a neatly formatted string'''
+	w = 0
+	strs =[]
+	helps = []
+
+	for o in opts:
+		s = option_help_str (o)
+		strs.append ((s, o[3]))
+		if len (s) > w:
+			w = len (s)
+
+	str = ''
+	for s in strs:
+		str = str + '%s%s%s\n' % (s[0], ' ' * (w - len(s[0])  + 3), s[1])
+	return str
+
+def help ():
+	ls = [(_ ("Usage: %s [OPTION]... FILE") % program_name),
+		('\n\n'),
+		(help_summary),
+		('\n\n'),
+		(_ ("Options:")),
+		('\n'),
+		(options_help_str (option_definitions)),
+		('\n\n'),
+		(_ ("Report bugs to %s") % 'bug-lilypond@gnu.org'),
+		('\n')]
+	map (sys.stdout.write, ls)
+	
+def setup_temp ():
+	"""
+	Create a temporary directory, and return its name. 
+	"""
+	global temp_dir
+	if not keep_temp_dir_p:
+		temp_dir = tempfile.mktemp (program_name)
+	try:
+		os.mkdir (temp_dir, 0777)
+	except OSError:
+		pass
+
+	return temp_dir
+
+
+def system (cmd, ignore_error = 0):
+	"""Run CMD. If IGNORE_ERROR is set, don't complain when CMD returns non zero.
+
+	RETURN VALUE
+
+	Exit status of CMD
+	"""
+	
+	if verbose_p:
+		progress (_ ("Invoking `%s\'") % cmd)
+	st = os.system (cmd)
+	if st:
+		name = re.match ('[ \t]*([^ \t]*)', cmd).group (1)
+		msg = name + ': ' + _ ("command exited with value %d") % st
+		if ignore_error:
+			warning (msg + ' ' + _ ("(ignored)") + ' ')
+		else:
+			error (msg)
+
+	return st
+
+
+def cleanup_temp ():
+	if not keep_temp_dir_p:
+		if verbose_p:
+			progress (_ ("Cleaning %s...") % temp_dir)
+		shutil.rmtree (temp_dir)
+
+
+def strip_extension (f, ext):
+	(p, e) = os.path.splitext (f)
+	if e == ext:
+		e = ''
+	return p + e
+
+################################################################
+# END Library
+################################################################
+
+
 
 
 class Duration:
@@ -234,6 +449,7 @@ class Note:
 
 		global reference_note
 		reference_note = self
+		
 		# TODO: move space
 		return s + ' '
 
@@ -351,25 +567,6 @@ class Text:
 			s = '\n  % [' + self.text_types[self.type] + '] ' + self.text + '\n  '
 		return s
 
-
-output_name = ''
-LINE_BELL = 60
-scale_steps = [0,2,4,5,7,9,11]
-
-clocks_per_1 = 1536
-clocks_per_4 = 0
-key = 0
-time = 0
-reference_note = 0
-start_quant = 0
-start_quant_clocks = 0
-duration_quant = 0
-duration_quant_clocks = 0
-allowed_tuplets = []
-allowed_tuplet_clocks = []
-absolute_p = 0
-explicit_durations_p = 0
-text_lyrics_p = 0
 
 def split_track (track):
 	chs = {}
@@ -807,7 +1004,7 @@ def convert_midi (f, o):
 	h.close ()
 
 
-(sh, long) = getopt_args (__main__.option_definitions)
+(sh, long) = getopt_args (option_definitions)
 try:
 	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
 except getopt.error, s:
@@ -867,10 +1064,8 @@ for opt in options:
 		global key
 		key = Key (sharps, flats, minor)
 	elif o == '--start-quant' or o == '-s':
-		global start_quant, start_quant_clocks
 		start_quant = string.atoi (a)
 	elif o == '--allow-tuplet' or o == '-t':
-		global allowed_tuplets
 		a = string.replace (a, '/', '*')
 		tuplet = map (string.atoi, string.split (a, '*'))
 		allowed_tuplets.append (tuplet)
