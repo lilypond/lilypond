@@ -15,7 +15,12 @@
 #include "font-interface.hh"
 #include "warn.hh"
 #include "paper-def.hh"
+#include "paper-column.hh"
 
+/*
+ * This class implements the notation specific aspects of Vaticana
+ * style ligatures for Gregorian chant notation.
+ */
 class Vaticana_ligature_engraver : public Gregorian_ligature_engraver
 {
 
@@ -58,6 +63,7 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 					      Real join_thickness,
 					      Real distance)
 {
+  Real next_distance = distance;
   if (primitive)
     {
       // determine width of previous head and x-offset
@@ -128,7 +134,7 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 	   * Create a small overlap of adjacent heads so that the join
 	   * can be drawn perfectly between them.
 	   */
-	  distance -= join_thickness;
+	  next_distance -= join_thickness;
 	}
       else if (!String::compare (glyph_name, ""))
 	{
@@ -143,17 +149,19 @@ Vaticana_ligature_engraver::finish_primitive (Item *first_primitive,
 	  /*
 	   * Make a small space after a virga.
 	   */
-	  distance += 2 * join_thickness;
+	  next_distance += 2 * join_thickness;
 	}
 
       /*
        * Horizontally line-up this head to form a ligature.
        */
       get_set_column (primitive, first_primitive->get_column ());
-      primitive->translate_axis (distance, X_AXIS);
-      distance += head_width;
+      primitive->translate_axis (next_distance, X_AXIS);
+      next_distance += head_width;
+
     }
-  return distance;
+
+  return next_distance;
 }
 
 void
@@ -320,9 +328,27 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
   /*
    * Finish head of last iteration for backend.
    */
-  finish_primitive (first_primitive, prev_primitive,
-		    prev_context_info, prev_glyph_name, prev_pitch_delta,
-		    flexa_width, join_thickness, prev_distance);
+  prev_distance =
+    finish_primitive (first_primitive, prev_primitive,
+		      prev_context_info, prev_glyph_name, prev_pitch_delta,
+		      flexa_width, join_thickness, prev_distance);
+
+  /* TODO: make this cfg'able via SCM */
+  Real padding = join_thickness;
+
+  /* horizontal padding space after ligature */
+  prev_distance += padding;
+
+#if 0 // experimental code to collapse spacing after ligature
+  /* TODO: set to max(old/new spacing-increment), since other
+     voices/staves also may want to set this property. */
+  Paper_column *paper_column = first_primitive->get_column();
+  paper_column->warning (_f ("Vaticana_ligature_engraver: "
+			     "setting `spacing-increment = %f': ptr=%ul",
+			     prev_distance, paper_column));
+  paper_column->
+    set_grob_property("forced-spacing", gh_double2scm (prev_distance));
+#endif
 }
 
 

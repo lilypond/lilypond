@@ -7,7 +7,7 @@
  */
 
 #include "mensural-ligature.hh"
-#include "ligature-engraver.hh"
+#include "coherent-ligature-engraver.hh"
 #include "event.hh"
 #include "warn.hh"
 #include "item.hh"
@@ -22,19 +22,6 @@
 #include "font-interface.hh"
 
 /*
- * TODO: local accidentals: collect accidentals that occur within a
- * ligature and put them before the ligature.  If an accidental
- * changes within a ligature, print a warning (user error) and ignore
- * any further accidental for that pitch within that ligature
- * (actually, in such a case, the user should split the ligature into
- * two separate ligatures).  Similarly, any object that, in ordinary
- * notation, may be put to the left or to the right of a
- * note-head/ligature-head, should be collected and put before or
- * after the ligature.
- *
- * TODO: make spacing more robust: do not screw up spacing if user
- * erroneously puts rest in ligature.
- *
  * TODO: My resources on Franco of Cologne's rules claim that his
  * rules map ligature<->mensural timing in a non-ambigous way, but in
  * fact, as presented in these resources, the rules become ambigous as
@@ -54,37 +41,17 @@
  *
  * TODO: prohibit multiple voices within a ligature.
  *
- * TODO: for each ligature, add Rod that represents the total length
- * of the ligature (to preemptively avoid collision with adjacent
- * notes); or maybe just additionally create a mensural-ligature grob
- * (via Mensural_ligature::brew_molecule(SCM)) that just consists of a
- * bounding box around all primitives of the ligature.
- *
  * TODO: enhance robustness: in case of an illegal ligature (e.g. the
  * user events for a ligature that contains a minima or STATE_ERROR
  * is reached), automatically break the ligature into smaller, valid
  * pieces.
- *
- * TODO: In the future, there will be further ligature engravers
- * implemented, such as a Vaticana_ligature_engraver.  There will be
- * redundant code between these engravers and the
- * Mensural_ligature_engraver.  In particular these are functions
- * set_column_, fold_up_primitives, join_primitives, and
- * ackowledge_grob; further the code for handling accidentals.  It is
- * not appropriate to put these things into Ligature_engraver, since,
- * for example, Ligature_bracket_engraver does not share any of this
- * code.  Hence, we might to introduce a further subclass of
- * Ligature_engraver which serves as super class for
- * Mensural_ligature_engraver, Vaticana_ligature_engraver, among
- * others.
  */
-class Mensural_ligature_engraver : public Ligature_engraver
+class Mensural_ligature_engraver : public Coherent_ligature_engraver
 {
 
 protected:
   virtual Spanner *create_ligature_spanner ();
-  virtual void typeset_ligature (Spanner *ligature,
-				 Array<Grob_info> primitives);
+  virtual void build_ligature (Spanner *ligature, Array<Grob_info> primitives);
 
 public:
   TRANSLATOR_DECLARATIONS(Mensural_ligature_engraver);
@@ -96,7 +63,6 @@ private:
   void propagate_properties (Spanner *ligature, Array<Grob_info> primitives);
   void fold_up_primitives (Array<Grob_info> primitives);
   void join_primitives (Array<Grob_info> primitives);
-  void get_set_column (Item *item, Paper_column *new_col);
 };
 
 
@@ -108,43 +74,6 @@ Spanner *
 Mensural_ligature_engraver::create_ligature_spanner ()
 {
   return new Spanner (get_property ("MensuralLigature"));
-}
-
-/*
- * TODO: move this function to class Item?
- */
-void
-Mensural_ligature_engraver::get_set_column (Item *item, Paper_column *column)
-{
-  Item *parent = dynamic_cast<Item*> (item->get_parent (X_AXIS));
-  if (!parent)
-    {
-      programming_error ("failed tweaking paper column in ligature");
-      return;
-    }
-
-  String name = parent->name ();
-  if (!String::compare (name, "PaperColumn"))
-    {
-      // Change column not only for targeted item (NoteColumn), but
-      // also for all associated grobs (NoteSpacing, SeparationItem).
-      Grob *sl = Staff_symbol_referencer::get_staff_symbol (item);
-      for (SCM tail = parent->get_grob_property ("elements");
-	   gh_pair_p (tail);
-	   tail = ly_cdr (tail))
-	{
-	  Item *sibling = unsmob_item (ly_car (tail));
-	  if ((sibling) &&
-	      (Staff_symbol_referencer::get_staff_symbol (sibling) == sl))
-	    {
-	      sibling->set_parent (column, X_AXIS);
-	    }
-	}
-    }
-  else
-    {
-      get_set_column (parent, column);
-    }
 }
 
 /*
@@ -528,18 +457,13 @@ Mensural_ligature_engraver::join_primitives (Array<Grob_info> primitives)
 }
 
 void
-Mensural_ligature_engraver::typeset_ligature (Spanner *ligature,
-					      Array<Grob_info> primitives)
+Mensural_ligature_engraver::build_ligature (Spanner *ligature,
+					    Array<Grob_info> primitives)
 {
   transform_heads (primitives);
   propagate_properties (ligature, primitives);
   fold_up_primitives (primitives);
   join_primitives (primitives);
-
-  for (int i = 0; i < primitives.size (); i++)
-    {
-      typeset_grob (primitives[i].grob_);
-    }
 }
 
 ENTER_DESCRIPTION (Mensural_ligature_engraver,

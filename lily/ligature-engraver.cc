@@ -15,6 +15,38 @@
 #include "warn.hh"
 
 /*
+ * This abstract class provides the general framework for ligatures of
+ * any kind.  It cares for handling start/stop ligatures requests and
+ * collecting all noteheads inbetween, but delegates creation of a
+ * ligature spanner for each start/stop pair and typesetting of the
+ * ligature spanner to a concrete subclass.
+ *
+ * A concrete ligature engraver must subclass this class and provide
+ * functions create_ligature_spanner () and typeset_ligature
+ * (Spanner *, Array<Grob_info>).  Subclasses of this class basically
+ * fall into two categories.
+ *
+ * The first category consists of engravers that engrave ligatures in
+ * a way that really deserves the name ligature.  That is, they
+ * produce a single connected graphical object of fixed width,
+ * consisting of noteheads and other primitives.  Space may be
+ * inserted only after each ligature, if necessary, but in no case
+ * between the primitives of the ligature.  Accidentals have to be put
+ * to the left of the ligature, and not to the left of individual
+ * noteheads.  Class Coherent_ligature_engraver is the common
+ * superclass for all of these engravers.
+ *
+ * The second category is for engravers that are relaxed in the sense
+ * that they do not require to produce a single connected graphical
+ * object.  For example, in contemporary editions, ligatures are often
+ * marked, but otherwise use contemporary notation and spacing.  In
+ * this category, there is currently only a single class,
+ * Ligature_bracket_engraver, which marks each ligature with a
+ * horizontal sqare bracket, but otherwise leaves the appearance
+ * untouched.
+ */
+
+/*
  * TODO: lyrics/melisma/syllables: there should be at most one
  * syllable of lyrics per ligature (i.e. for the lyrics context, a
  * ligature should count as a single note, regardless of how many
