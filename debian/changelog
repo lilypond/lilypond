@@ -1,3 +1,44 @@
+lilypond (1.4.8-1) unstable; urgency=high
+
+  * New upstream release.  (Closes: Bug#111132)
+  * Stopped using $(PWD) in make, as it doesn't seems to work on
+    potato systems with older "make".  Reverted to `pwd`.
+    Thanks to Wolfgang Schnitker for notifying me this problem.
+  * Changed the lilypond1.3 dummy package's Architecture from "all"
+    to "arm i386 m68k powerpc sparc".  Also, as upstream updated
+    config.sub and config.guess to recognize ia64 and hppa.
+    Thanks to Anthony Towns for the bug report.  (Closes: Bug#114266)
+  * Versioned Build-Depends: flex (>= 2.5.4a-14) to ensure gcc-3.0
+    compatibility.
+
+ -- Anthony Fok <foka@debian.org>  Sun, 14 Oct 2001 18:28:45 +0800
+
+lilypond (1.4.5-1) unstable; urgency=low
+
+  * New upstream release.
+  * Upstream includes lexer-gcc-3.0.patch which should fix compilation
+    problems with g++-3.0.  (Closes: Bug#105001)
+  * Hurray!  texinfo-4.0b is finally in Debian!  Thanks, Josip!  :-)
+    Updated Build-Depends.
+
+ -- Anthony Fok <foka@debian.org>  Wed, 25 Jul 2001 03:04:37 +0800
+
+lilypond (1.4.3-1) unstable; urgency=high
+
+  * New upstream release.
+  * Urgency high because Lilypond-1.2.17 is too buggy and yet it has
+    been stuck in testing forever.  Lilypond-1.4.x fixes multiple
+    serious bugs.  :-)
+  * Ah, silly me, lilypond was conflicting against itself!  I forgot
+    to remove this relics during the switch from lilypond1.3 to lilypond.
+  * Fixed a new bug in lily/main.cc which caused lilypond to skip over every
+    other command-line argument.
+  * [configure.in]: Added -mieee to CFLAGS and CXXFLAGS when building on
+     Alpha to prevent FP exception.  Thanks to Christopher C. Chimelis
+     for the fix!
+
+ -- Anthony Fok <foka@debian.org>  Fri, 15 Jun 2001 00:42:46 -0600
+
 lilypond (1.4.2-1) unstable; urgency=low
 
   * New upstream release.
