@@ -26,6 +26,7 @@ public:
   Rhythmic_grouping  default_grouping_;
   Link_array<Timing_req> timing_req_l_arr_;
 protected: 
+  virtual void do_print () const;
   virtual void do_creation_processing ();
   virtual bool do_try_request (Request *req_l);
   virtual void do_process_requests();
