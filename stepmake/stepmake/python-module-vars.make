@@ -7,4 +7,5 @@ else
 SHARED_MODULE_SUFFIX = .so
 endif
 OUT_SO_MODULES = $(addprefix $(outdir)/, $(C_FILES:.c=$(SHARED_MODULE_SUFFIX)))
+EXTRA_DIST_FILES += $(PY_MODULES_IN)
 
