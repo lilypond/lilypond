@@ -19,25 +19,11 @@
 #include "beam.hh"
 #include "rest.hh"
 
-void
-Stem::set_direction (Direction d)
-{
-  if  (!get_direction ())
-    warning (_ ("stem direction set already!"));
-
-  dir_ = d;
-
-  /*
-    todo
-  */
-}
-
 Stem::Stem ()
 {
   beams_i_drul_[LEFT] = beams_i_drul_[RIGHT] = -1;
   yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
   flag_i_ = 2;
-  set_direction (CENTER);
   beam_l_ = 0;
 }
 

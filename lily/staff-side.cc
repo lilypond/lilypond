@@ -16,7 +16,6 @@
 
 Staff_side_element::Staff_side_element ()
 {
-  set_direction (CENTER);
   to_position_l_ = 0;
   set_elt_property ("transparent", SCM_BOOL_T);
   axis_ = Y_AXIS;
