@@ -8,6 +8,10 @@
 
 	* Documentation/user/refman.itely: Mention Info inside emacs.
 	
+	* lilypond.suse.spec.in:
+	* lilypond.redhat.spec.in: 
+	* lilypond.mandrake.spec.in: Set root-owner for doc (tobbe@nyvalls.se). 
+
 2002-11-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/ly2dvi.py (run_dvips): Use ly.read_pipe () instead of
