@@ -153,7 +153,7 @@ Walker_registers::try_request(Request * r)
 	    change_group(cr_l->groupchange(), 0, 0);
 	} else 
 	    warning("junking request: "  + String(r->name()),
-		    r->defined_ch_c_l_);
+		    r->defined_ch_C_);
     }
     return b;
 }
@@ -166,8 +166,8 @@ Walker_registers::get_staff_info() return inf;
 	inf.break_allowed_b_ = walk_l_->score_walk_l_->break_allowed_b();
     inf.c0_position_i_ = &walk_l_->c0_position_i_;
     inf.walk_l_ = walk_l_;
-    inf.time_c_l_ = &walk_l_->time_;
-    inf.rhythmic_c_l_ = walk_l_->default_grouping;
+    inf.time_C_ = &walk_l_->time_;
+    inf.rhythmic_C_ = walk_l_->default_grouping;
 }
 
 Paper_def*

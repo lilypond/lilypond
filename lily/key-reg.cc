@@ -49,7 +49,7 @@ Key_register::acknowledge_element(Staff_elem_info info)
 void
 Key_register::process_requests()
 {
-    Time_description const *time_l = get_staff_info().time_c_l_;
+    Time_description const *time_l = get_staff_info().time_C_;
 
     if (!keyreq_l_ &&
 	(!time_l->whole_in_measure_|| !time_l->when_)) {

@@ -14,12 +14,13 @@ yyerror(char const* sz_l )
 
 My_midi_parser* midi_parser_l_g = 0;
 
-My_midi_parser::My_midi_parser( String filename_str )
+My_midi_parser::My_midi_parser( String filename_str, Sources *sources_l )
 {
-	midi_parser_l_g = this;
 	filename_str_ = filename_str;
-	midi_lexer_p_ = new My_midi_lexer( filename_str_ );
-	defined_ch_c_l_ = 0;
+	midi_lexer_p_ = new My_midi_lexer( filename_str_,sources_l );
+	midi_lexer_l_g = midi_lexer_p_;	// ugh
+
+	defined_ch_C_ = 0;
 	fatal_error_i_ = 0;
 	midi_key_p_ = 0;
 	midi_score_p_ = 0;
@@ -32,8 +33,9 @@ My_midi_parser::My_midi_parser( String filename_str )
 
 My_midi_parser::~My_midi_parser()
 {
+    midi_lexer_l_g = 0;	// ugh
+
 	delete midi_lexer_p_;
-	midi_parser_l_g = 0;
 	delete midi_key_p_;
 	delete midi_tempo_p_;
 	delete midi_time_p_;

@@ -213,7 +213,7 @@ Midi_track::Midi_track( int number_i )
 
     number_i_ = number_i;
 	
-    char const* data_ch_c_l = ""
+    char const* data_ch_C = ""
 //        "00" "ff58" "0404" "0218" "08"
 //	"00" "ff51" "0307" "a120"
 // why a key at all, in midi?
@@ -225,10 +225,10 @@ Midi_track::Midi_track( int number_i )
 
     String data_str;
     // only for format 0 (currently using format 1)?
-    data_str += String_convert::hex2bin_str( data_ch_c_l );
+    data_str += String_convert::hex2bin_str( data_ch_C );
 
-    char const* footer_ch_c_l = "00" "ff2f" "00";
-    String footer_str = String_convert::hex2bin_str( footer_ch_c_l );
+    char const* footer_ch_C = "00" "ff2f" "00";
+    String footer_str = String_convert::hex2bin_str( footer_ch_C );
 
     set( "MTrk", data_str, footer_str );
 }

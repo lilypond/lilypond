@@ -1,4 +1,6 @@
 before 0.1
+	
+	* fix -O2 -NDEBUG compile
 
 	* remove spurious/outdated comments in .ly, debug .ly
 
@@ -8,13 +10,15 @@ before 0.1
 
 	* decent TeX page layout
 
+	* per-pstaff item-widths
+	
 	* remove unnecessary or confusing constructs from .ly
 
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 PARSER
-	* Duration
+	* Duration-> Musical_duration, typedef Rational Duration?
 
 MAKE-STUFF
 
@@ -89,9 +93,8 @@ SMALLISH PROJECTS
 
 	* parshape
 
-	* a pure parser?
-
-	* read from mmap directly: study yy_scan_buffer
+	* read from mmap directly: bugreport to flex developers->
+	yy_scan_buffer in C++..
 
 	* binsearch/hash for identifiers
 
@@ -140,6 +143,10 @@ DOC
 
 FUTURE
 
+	* slur parts as a script
+	
+	* multiple scripst.
+
 	* mixed  fontsizes
 
 	* put scripts on bars
@@ -173,8 +180,6 @@ IDEAS
 	* Horizontal_align_item, Vertical_align_item.
 
 	* move MIDI io to a ANSI C libmidi library.
-
-	* fold indentifiers and notenames?
 
 	* itemcolumns: Use dummy items.
 

@@ -40,7 +40,7 @@ Input_score::Input_score(Input_score const&s)
 {
     paper_p_ = (s.paper_p_)? new Paper_def(*s.paper_p_) :0;
     midi_p_ = (s.midi_p_)? new Midi_def(*s.midi_p_) : 0;
-    defined_ch_c_l_ = s.defined_ch_c_l_;
+    defined_ch_C_ = s.defined_ch_C_;
     errorlevel_i_ = s.errorlevel_i_;
 }
 
@@ -48,7 +48,7 @@ Score*
 Input_score::parse()
 {
     Score *s_p = new Score;
-    s_p->defined_ch_c_l_= defined_ch_c_l_;
+    s_p->defined_ch_C_= defined_ch_C_;
     s_p->errorlevel_i_ = errorlevel_i_;
     if (midi_p_)
 	s_p->set(new Midi_def(*midi_p_));
@@ -72,7 +72,7 @@ Input_score::~Input_score()
 
 Input_score::Input_score()
 {
-    defined_ch_c_l_=0;
+    defined_ch_C_=0;
     paper_p_= 0;
     midi_p_ = 0;
     errorlevel_i_ = 0;

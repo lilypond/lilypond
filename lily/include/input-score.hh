@@ -19,7 +19,7 @@
 /// the total music def of one movement
 struct Input_score {
     /// defined where?    
-    char const * defined_ch_c_l_;
+    char const * defined_ch_C_;
     int errorlevel_i_;
     
     /// paper_, staffs_ and commands_ form the problem definition.

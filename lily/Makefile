@@ -69,7 +69,7 @@ include ./$(depth)/make/Rules.make
 
 # force these: Make can't know these have to be generated in advance
 my-lily-lexer.cc: $(outdir)/parser.hh
-lexer.l: $(outdir)/parser.hh
+$(outdir)/lexer.cc: $(outdir)/parser.hh
 
 #
 

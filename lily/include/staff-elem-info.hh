@@ -28,8 +28,8 @@ struct Staff_elem_info {
 struct Staff_info {
     int *c0_position_i_;
     Staff_walker *walk_l_;
-    Time_description const *time_c_l_;
-    Rhythmic_grouping const *rhythmic_c_l_;
+    Time_description const *time_C_;
+    Rhythmic_grouping const *rhythmic_C_;
     bool break_allowed_b_;
 };
 

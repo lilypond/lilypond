@@ -54,20 +54,20 @@ friend class String_handle;
     void tighten();
 
     // assignment.
-    void set( Byte const* byte_c_l, int length_i );
+    void set( Byte const* byte_C, int length_i );
 
-    void set( char const* ch_c_l );
+    void set( char const* ch_C );
     
     /// concatenation.
-    void append( Byte const* byte_c_l, int length_i );
+    void append( Byte const* byte_C, int length_i );
 
-    void operator += ( char const* ch_c_l );
+    void operator += ( char const* ch_C );
 
-    char const* ch_c_l() const; 
+    char const* ch_C() const; 
 
     char* ch_l();
 
-    Byte const* byte_c_l() const;
+    Byte const* byte_C() const;
 
     // idem, non const
     Byte* byte_l();

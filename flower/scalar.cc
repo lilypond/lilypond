@@ -26,7 +26,7 @@ Scalar::isnum()
     int conv = false;
     if (len()) {
 	long l =0;
-	conv = sscanf(strh_.ch_c_l(), "%ld", &l);
+	conv = sscanf(strh_.ch_C(), "%ld", &l);
     }
     return len() && conv;
 }

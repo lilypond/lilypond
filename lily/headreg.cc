@@ -48,9 +48,8 @@ Notehead_register::process_requests()
 	n_p->position = note_req_l_->note()->height() +
 	    *get_staff_info().c0_position_i_;
     } else {
-	note_p_ = new Rest ( note_req_l_->rhythmic()->balltype,
-			     note_req_l_->rhythmic()->dots);
-	if (note_req_l_->rhythmic()->balltype <= 2)
+	note_p_ = new Rest ( note_req_l_->rhythmic()->duration_);
+	if (note_req_l_->rhythmic()->duration_.type_i_ <= 2)
 	    note_p_->translate(
 		Offset(0,
 		       6 * paper()->internote()));

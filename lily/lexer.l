@@ -17,16 +17,19 @@
 	yy_push_state(quote);\
 	yylval.string = new String
 
+#define yylval (*(YYSTYPE*)lexval_l)
 
+#define YY_USER_ACTION	add_lexed_char(YYLeng());
 %}
 
 %option c++
 %option noyywrap
 %option nodefault
-%option yylineno
 %option debug
 %option yyclass="My_lily_lexer"
 %option stack
+%option never-interactive 
+%option warn
 
 %x incl
 %x lyrics
@@ -64,16 +67,17 @@ COMMENT		%.*\n
 
 
 
-^include           {
+include           {
 	yy_push_state(incl);
 }
 <incl>{WHITE}*      { /* eat the whitespace */ }
 <incl>\"[^"]*\"   { /* got the include file name */
-   String s (YYText()+1);
-   s = s.left_str(s.length_i()-1);
-   defined_ch_c_l = here_ch_c_l() - String( YYText() ).length_i() - 1;
-   new_input(s);
-   yy_pop_state();
+	String s (YYText()+1);
+	s = s.left_str(s.length_i()-1);
+	mtor << "#include `" << s << "\'\n";
+//	defined_ch_C = here_ch_C() - String( YYText() ).length_i() - 1;
+	new_input(s,source_l_g);
+	yy_pop_state();
 }
 
 <notes>{RESTNAME} 	{
@@ -92,6 +96,18 @@ COMMENT		%.*\n
 	s=s.left_str(s.length_i() - 1);
 	return scan_bare_word(s);
 }
+<notes>{ALPHAWORD}/\'	{
+	post_quotes_b_ = true;
+	return scan_bare_word(YYText());
+}
+<notes>\'+		{
+	yylval.i = YYLeng();
+	if (post_quotes_b_) {
+		post_quotes_b_ = false;
+		return POST_QUOTES;
+	} else
+		return PRE_QUOTES;
+}
 <notes>{ALPHAWORD}	{
 	return scan_bare_word(YYText());
 
@@ -109,22 +125,20 @@ COMMENT		%.*\n
 	yylval.i = String_convert::dec2_i( String( YYText() ) );
 	return INT;
 }
-<notes>[ \t\n]+		{
 
-}
 <notes>\+\+		{
 	return CONCAT;
 }
 <notes>\" {
 	start_quote();
 }
-<notes>.	{
-	return yylval.c = YYText()[0];
-}
 
 
 \"		{
 	start_quote();
+}
+<quote>\\\\	{
+	*yylval.string += '\\';
 }
 <quote>\\\"	{
 	*yylval.string +='\"';
@@ -176,14 +190,13 @@ COMMENT		%.*\n
 <lyrics>[()\[\]|/.^>_-] {
 	return yylval.c = YYText()[0];
 }
-<lyrics>[ \t\n]+		{
-}
 
 <<EOF>> {
-	mtor << "<<EOF>>";
+	mtor << "<<eof>>";
 
-	if (! close_input())
+	if (! close_input()) { 
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL
+	}
 }
 {WORD}	{
 	return scan_bare_word(YYText());
@@ -210,15 +223,15 @@ COMMENT		%.*\n
 	mtor << "misc char" <<c<<"\n";
 	return c;
 }
-[ \t\n]+	{
+<*>{WHITE}+ 	{
 	
 }
-
-{COMMENT}		{
-	//ignore
+<notes>.	{
+	return yylval.c = YYText()[0];
 }
-.		{
-	error( String( "illegal character: " ) + String( YYText()[0] ), here_ch_c_l() );
+
+<*>.		{
+	error( String( "illegal character: " ) + String( YYText()[0] ), here_ch_C() );
 	return YYText()[0];
 }
 

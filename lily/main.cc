@@ -1,3 +1,11 @@
+/*
+  main.cc -- implement main: entrypoints
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include <iostream.h>
 #include <assert.h>
 #include "proto.hh"
@@ -8,12 +16,10 @@
 #include "main.hh"
 #include "path.hh"
 #include "config.hh"
-#include "source-file.hh"
 #include "source.hh"
+#include "my-lily-parser.hh"
 
-Source source;
-Source* source_l_g = &source;
-String infile_str_g;
+Sources* source_l_g = 0;
 bool only_midi = false;
 extern void parse_file(String,String);
 
@@ -98,6 +104,18 @@ struct Main_init {
     }
 } main_init;
 
+void
+do_one_file(String init_str, String file_str)
+{
+    source_l_g = new Sources;
+    source_l_g->set_path(path);
+    My_lily_parser parser(source_l_g);
+    parser.parse_file(init_str, file_str);
+    do_scores();
+    delete source_l_g;
+    source_l_g = 0;
+}
+
 int
 main (int argc, char **argv)
 {    
@@ -141,19 +159,15 @@ main (int argc, char **argv)
     while ( (arg= oparser.get_next_arg()) ) {
 	String f(arg);
 	destill_inname(f);
-	infile_str_g = f;
-	parse_file(init_str,f);
-	do_scores();
+	do_one_file(init_str,f);
 	p++;
     }
     if (!p) {
-	parse_file(init_str, "");	
-	do_scores();
+	do_one_file(init_str, "");	
     }
 
     return 0;
 }
-
 String
 find_file(String f)
 {

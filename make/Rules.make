@@ -40,7 +40,7 @@ $(outdir)/%.hh: %.y
 	mv $(shell basename $@ .hh ).tab.c $(outdir)/$(shell basename $@ .hh).cc
 
 $(outdir)/%.cc: %.l
-	$(FLEX)  -t $< > $@
+	$(FLEX) -Cfe -p -p -t $< > $@
 
 $(outdir)/%.text: $(outdir)/%.1
 	groff -man -Tascii $< > $@
@@ -64,22 +64,4 @@ $(outdir)/%.1: %.pod
 #
 %/.build:
 	echo 0 >$@
-
-
-# specific stuff:
-#
-$(LIBFLOWER): check-flower-deps
-
-check-flower-deps:
-	$(MAKE)  -C $(depth)/flower/ $(outdir)/$(notdir $(LIBFLOWER))
-
-check-lily-deps: check-flower-deps
-	$(MAKE)  -C $(depth)/lib
-
-check-doc-deps:
-	$(MAKE) -C $(depth)/Documentation
-
-$(LIBLILY): dummy
-	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/lib
-#
 

@@ -31,7 +31,7 @@ include ./$(depth)/make/out/Site.make
 EXECUTABLE = $(lily_bindir)/$(NAME)
 $(EXECUTABLE): $(build) $(OFILES) $(CUSTOMLIBES) 
 	$(INCREASE_BUILD)
-	$(MAKE) $(OFILES)  $(SILENT_LOG)
+	$(MAKE) -S $(OFILES)  $(SILENT_LOG)
 #	$(STRIPDEBUG) $(STABLEOBS)
 	$(LD_COMMAND) $(OFILES) $(LOADLIBES)
 
@@ -138,20 +138,19 @@ ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do $(MAKE) localdir=$(localdir)/$$i -C $$i localmoduledist; done
 endif
 
-all-tags: TAGS
-ifdef SUBDIRS
-	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i all-tags; done
-endif
-
-TAGS: $(all-tag-sources)
+TAGS:$(all-tag-sources)
 ifdef all-tag-sources
 	-etags -CT $(all-tag-sources) /dev/null
 endif
+ifdef SUBDIRS
+	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i TAGS ; done
+endif
+
 
 # version stuff:
 #
 
-out/version.hh: .version
+$(outdir)/version.hh: .version
 	./$(lily_bindir)/make_version > $@
 
 
@@ -176,3 +175,21 @@ ifdef SUBDIRS
 endif
 
 localuninstall:
+
+# specific stuff:
+#
+$(LIBFLOWER): check-flower-deps
+
+check-flower-deps:
+	$(MAKE)  -C $(depth)/flower/ $(outdir)/$(notdir $(LIBFLOWER))
+
+check-lily-deps: check-flower-deps
+	$(MAKE)  -C $(depth)/lib
+
+check-doc-deps:
+	$(MAKE) -C $(depth)/Documentation
+
+$(LIBLILY): dummy
+	$(MAKE) ./$(outdir)/$(@F) -C $(depth)/lib
+#
+

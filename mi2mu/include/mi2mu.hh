@@ -32,8 +32,8 @@
 #include "lgetopt.hh"
 
 #include "moment.hh"
+#include "duration-convert.hh"
 #include "duration.hh"
-#include "input-file.hh"
 #include "source-file.hh"
 #include "source.hh"
 

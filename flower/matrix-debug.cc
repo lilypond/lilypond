@@ -1,15 +1,6 @@
-#include "dstream.hh"
+#include "flower-debug.hh"
 #include "matrix.hh"
 
-static Dstream *dout = 0;
-
-/**
-  Set the debugging output. Will not delete/swallow argument.
- */
-void set_matrix_debug(Dstream&ds)
-{
-    dout = &ds;
-}
 
 Matrix::operator String() const
 {
@@ -32,9 +23,7 @@ void
 Matrix::print() const
 {
 #ifndef NPRINT
-    if (!dout)
-	return;
-    *dout << *this;
+    fdebug << *this;
 #endif
 }
 
@@ -56,8 +45,6 @@ void
 Vector::print() const
 {
 #ifndef NDEBUG
-    if (!dout)
-	return;
-    *dout << *this<<'\n';
+    fdebug << *this<<'\n';
 #endif
 }

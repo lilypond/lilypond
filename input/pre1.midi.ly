@@ -37,36 +37,36 @@ track1 = \music {
 	b16 d16 f16 b16 } } { \music{ d16 f16 b16 d16 f16 
 	b16 } } { \music{ c16 g16 c'16 c16 g16 c'16 } } { 
 	\music{ c16 g16 c'16 c16 g16 c'16 } } { \music{ 
-	`a16 c16 f16 `a16 c16 f16 } } { \music{ `a16 c16 
-	f16 `a16 c16 f16 } } { \music{ `a16 c16 f16 `a16 
-	c16 f16 } } { \music{ `a16 c16 f16 `a16 c16 f16 } } 
-	{ \music{ `g16 `b16 f16 `g16 `b16 f16 } } { \music{ 
-	`g16 `b16 f16 `g16 `b16 f16 } } { \music{ `g16 c16 
-	e16 `g16 c16 e16 } } { \music{ `g16 c16 e16 `g16 
-	c16 e16 } } { \music{ `ais16 c16 e16 `ais16 c16 e16 
-	} } { \music{ `ais16 c16 e16 `ais16 c16 e16 } } { 
-	\music{ `a16 c16 e16 `a16 c16 e16 } } { \music{ 
-	`a16 c16 e16 `a16 c16 e16 } } { \music{ `a16 c16 
-	dis16 `a16 c16 dis16 } } { \music{ `a16 c16 dis16 
-	`a16 c16 dis16 } } { \music{ `b16 c16 d16 `b16 c16 
-	d16 } } { \music{ `b16 c16 d16 `b16 c16 d16 } } { 
-	\music{ `g16 `b16 d16 `g16 `b16 d16 } } { \music{ 
-	`g16 `b16 d16 `g16 `b16 d16 } } { \music{ `g16 c16 
-	e16 `g16 c16 e16 } } { \music{ `g16 c16 e16 `g16 
-	c16 e16 } } { \music{ `g16 c16 f16 `g16 c16 f16 } } 
-	{ \music{ `g16 c16 f16 `g16 c16 f16 } } { \music{ 
-	`g16 `b16 f16 `g16 `b16 f16 } } { \music{ `g16 `b16 
-	f16 `g16 `b16 f16 } } { \music{ `a16 c16 fis16 `a16 
-	c16 fis16 } } { \music{ `a16 c16 fis16 `a16 c16 
-	fis16 } } { \music{ `g16 c16 g16 `g16 c16 g16 } } { 
-	\music{ `g16 c16 g16 `g16 c16 g16 } } { \music{ 
-	`g16 c16 f16 `g16 c16 f16 } } { \music{ `g16 c16 
-	f16 `g16 c16 f16 } } { \music{ `g16 `b16 f16 `g16 
-	`b16 f16 } } { \music{ `g16 `b16 f16 `g16 `b16 f16 }
-	 } { \music{ `g16 `ais16 e16 `g16 `ais16 e16 } } { 
-	\music{ `g16 `ais16 e16 `g16 `ais16 e16 } } { 
-	\music{ `f16 `a16 c16 f16 c16 `a16 c16 `a16 `f16 
-	`a16 `f16 `d16 `f16 `d16 } } { \music{ g16 b16 d'16 
+	'a16 c16 f16 'a16 c16 f16 } } { \music{ 'a16 c16 
+	f16 'a16 c16 f16 } } { \music{ 'a16 c16 f16 'a16 
+	c16 f16 } } { \music{ 'a16 c16 f16 'a16 c16 f16 } } 
+	{ \music{ 'g16 'b16 f16 'g16 'b16 f16 } } { \music{ 
+	'g16 'b16 f16 'g16 'b16 f16 } } { \music{ 'g16 c16 
+	e16 'g16 c16 e16 } } { \music{ 'g16 c16 e16 'g16 
+	c16 e16 } } { \music{ 'ais16 c16 e16 'ais16 c16 e16 
+	} } { \music{ 'ais16 c16 e16 'ais16 c16 e16 } } { 
+	\music{ 'a16 c16 e16 'a16 c16 e16 } } { \music{ 
+	'a16 c16 e16 'a16 c16 e16 } } { \music{ 'a16 c16 
+	dis16 'a16 c16 dis16 } } { \music{ 'a16 c16 dis16 
+	'a16 c16 dis16 } } { \music{ 'b16 c16 d16 'b16 c16 
+	d16 } } { \music{ 'b16 c16 d16 'b16 c16 d16 } } { 
+	\music{ 'g16 'b16 d16 'g16 'b16 d16 } } { \music{ 
+	'g16 'b16 d16 'g16 'b16 d16 } } { \music{ 'g16 c16 
+	e16 'g16 c16 e16 } } { \music{ 'g16 c16 e16 'g16 
+	c16 e16 } } { \music{ 'g16 c16 f16 'g16 c16 f16 } } 
+	{ \music{ 'g16 c16 f16 'g16 c16 f16 } } { \music{ 
+	'g16 'b16 f16 'g16 'b16 f16 } } { \music{ 'g16 'b16 
+	f16 'g16 'b16 f16 } } { \music{ 'a16 c16 fis16 'a16 
+	c16 fis16 } } { \music{ 'a16 c16 fis16 'a16 c16 
+	fis16 } } { \music{ 'g16 c16 g16 'g16 c16 g16 } } { 
+	\music{ 'g16 c16 g16 'g16 c16 g16 } } { \music{ 
+	'g16 c16 f16 'g16 c16 f16 } } { \music{ 'g16 c16 
+	f16 'g16 c16 f16 } } { \music{ 'g16 'b16 f16 'g16 
+	'b16 f16 } } { \music{ 'g16 'b16 f16 'g16 'b16 f16 }
+	 } { \music{ 'g16 'ais16 e16 'g16 'ais16 e16 } } { 
+	\music{ 'g16 'ais16 e16 'g16 'ais16 e16 } } { 
+	\music{ 'f16 'a16 c16 f16 c16 'a16 c16 'a16 'f16 
+	'a16 'f16 'd16 'f16 'd16 } } { \music{ g16 b16 d'16 
 	f'16 d'16 b16 d'16 b16 g16 b16 d16 f16 e64 } } { 
 	\music{ f64 } } { } { \music{ e32 } } { \music{ d16 
 	} } { \music{ c'1 } \music{ g1 } \music{ e1 } } 
@@ -82,36 +82,36 @@ track2 = \music {
 	e4. } } { \music{ e4. } } { \music{ d4. } } { 
 	\music{ d4. } } { \music{ d4. } } { \music{ d4. } } 
 	{ \music{ c4. } } { \music{ c4. } } { \music{ c4. } 
-	} { \music{ c4. } } { \music{ `a4. } } { \music{ 
-	`a4. } } { \music{ `b4. } } { \music{ `b4. } } { 
-	\music{ `ais4. } } { \music{ `ais4. } } { \music{ 
-	`a4. } } { \music{ `a4. } } { \music{ `gis4. } } { 
-	\music{ `gis4. } } { \music{ `g4. } } { \music{ 
-	`g4. } } { \music{ `f4. } } { \music{ `f4. } } { 
-	\music{ `f4. } } { \music{ `f4. } } { \music{ `d4. }
-	 } { \music{ `d4. } } { \music{ `e4. } } { \music{ 
-	`e4. } } { \music{ `g4. } } { \music{ `c4. } } { } { 
-	} { \music{ `g4. } } { } { \music{ ``f4. } } { 
-	\music{ `f4. } } { \music{ ``f4. } } { \music{ `f4. }
-	 } { \music{ fi``s4. } } { \music{ fi``s4. } \music{ 
-	`c4. } } { } { \music{ `c4. } } { \music{ gi``s4. } } 
-	{ \music{ gi``s4. } \music{ `f4. } } { } { \music{ 
-	`f4. } } { \music{ ``g4. } } { \music{ ``g4. } \music{
-	 `f4. } } { } { \music{ `f4. } } { \music{ ``g4. } } 
-	{ \music{ ``g4. } \music{ `e4. } } { } { \music{ ``g4. 
-	} \music{ `e4. } } { } { \music{ ``g4. } \music{ 
-	`d4. } } { } { \music{ ``g4. } \music{ `d4. } } { } { 
-	\music{ `d4. } } { \music{ ``g4. } } { \music{ ``g4. }
-	 \music{ `d4. } } { } { \music{ `dis4. } } { \music{
-	 ``g4. } } { \music{ `dis4. } } { \music{ ``g4. } } { 
-	\music{ `e4. } } { \music{ ``g4. } } { \music{ `e4. }
-	 } { \music{ ``g4. } } { \music{ `d4. } } { \music{ 
-	``g4. } } { \music{ `d4. } } { \music{ ``g4. } } { 
-	\music{ `d4. } } { \music{ ``g4. } } { \music{ `d4. }
-	 } { \music{ ``c4. } } { \music{ `c4. } } { \music{ 
-	``c4. } } { \music{ `c4. } } { \music{ ``c1 } } { 
-	\music{ `c1 } } { \music{ ``c1 } \music{ ``b1 } } { 
-	} { } { } { \music{ ``c1 } \music{ `c1 } } 
+	} { \music{ c4. } } { \music{ 'a4. } } { \music{ 
+	'a4. } } { \music{ 'b4. } } { \music{ 'b4. } } { 
+	\music{ 'ais4. } } { \music{ 'ais4. } } { \music{ 
+	'a4. } } { \music{ 'a4. } } { \music{ 'gis4. } } { 
+	\music{ 'gis4. } } { \music{ 'g4. } } { \music{ 
+	'g4. } } { \music{ 'f4. } } { \music{ 'f4. } } { 
+	\music{ 'f4. } } { \music{ 'f4. } } { \music{ 'd4. }
+	 } { \music{ 'd4. } } { \music{ 'e4. } } { \music{ 
+	'e4. } } { \music{ 'g4. } } { \music{ 'c4. } } { } { 
+	} { \music{ 'g4. } } { } { \music{ ''f4. } } { 
+	\music{ 'f4. } } { \music{ ''f4. } } { \music{ 'f4. }
+	 } { \music{ fi''s4. } } { \music{ fi''s4. } \music{ 
+	'c4. } } { } { \music{ 'c4. } } { \music{ gi''s4. } } 
+	{ \music{ gi''s4. } \music{ 'f4. } } { } { \music{ 
+	'f4. } } { \music{ ''g4. } } { \music{ ''g4. } \music{
+	 'f4. } } { } { \music{ 'f4. } } { \music{ ''g4. } } 
+	{ \music{ ''g4. } \music{ 'e4. } } { } { \music{ ''g4. 
+	} \music{ 'e4. } } { } { \music{ ''g4. } \music{ 
+	'd4. } } { } { \music{ ''g4. } \music{ 'd4. } } { } { 
+	\music{ 'd4. } } { \music{ ''g4. } } { \music{ ''g4. }
+	 \music{ 'd4. } } { } { \music{ 'dis4. } } { \music{
+	 ''g4. } } { \music{ 'dis4. } } { \music{ ''g4. } } { 
+	\music{ 'e4. } } { \music{ ''g4. } } { \music{ 'e4. }
+	 } { \music{ ''g4. } } { \music{ 'd4. } } { \music{ 
+	''g4. } } { \music{ 'd4. } } { \music{ ''g4. } } { 
+	\music{ 'd4. } } { \music{ ''g4. } } { \music{ 'd4. }
+	 } { \music{ ''c4. } } { \music{ 'c4. } } { \music{ 
+	''c4. } } { \music{ 'c4. } } { \music{ ''c1 } } { 
+	\music{ 'c1 } } { \music{ ''c1 } \music{ ''b1 } } { 
+	} { } { } { \music{ ''c1 } \music{ 'c1 } } 
 } % track4.
 
 score {

@@ -1,128 +1,57 @@
-//
-// duration.hh -- declare Duration, Plet, Duration_convert Duration_iterator
-//
-// copyright 1997 Jan Nieuwenhuizen <jan@digicash.com>
+/*
+  duration.hh -- declare Duration Plet
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+
+*/
 
 // split into 4?
 
 #ifndef DURATION_HH
 #define DURATION_HH
 
+#include "fproto.hh"
+#include "moment.hh"
+
 // ugh, to get me in lily lib
 extern bool no_triplets_bo_g;
 
-/// (dur)
-struct Duration {
-	// actually i hate it when other people use default arguments,
-	// because it makes you easily loose track of what-s really
-	// happening; in the routine-s implementation you-re not aware
-	// of this defaultness (who sets this stupid value?).
-	Duration( int type_i = 1, int dots_i = 0, Plet* plet_p = 0 );
-	Duration( Duration const& dur_c_r );
-	~Duration();
-
-	Duration const& operator =( Duration const& dur_c_r );
-
-	void set_plet( Plet* plet_l ); // handiger: newt zelf
-	void set_ticks( int ticks_i );
-
-	static int division_1_i_s;
-	int type_i_;
-	int dots_i_;
-	Plet* plet_p_;
-	int ticks_i_;
-};
-
-/// (plet)
+/** (plet)
+  The type and replacement value of a  plet (triplet, quintuplet.) Conceptually the same as a rational, but 4/6 != 2/3 
+ */
 struct Plet {
-	Plet( int replace_i, int type_i );
-	
+    Plet( int replace_i, int type_i );
+    Plet();
+    Moment mom()const;
+    bool unit_b()const;
     int iso_i_;  // 2/3; 2 is not duration, maar of count!
-	int type_i_;
+    int type_i_;
 };
 
 /**
-	Duration_convert handles all conversions to -n fro Duration (dur).
-	That is including (integer + division) representation for MIDI,
-	and conversion from unexact time representation (best guess :-).
-
-	A Moment (mom) is a Rational that holds the time fraction 
-	compared to a whole note (before also called wholes).
-
-	SUGGESTION: currently a moment in time is called moment too;
-	let-s typedef Rational When too, so that we get 
-	When Staff_column::when(), Moment Voice_element::mom().
-*/
-struct Duration_convert {
-	static bool be_blonde_b_s;
-	static bool no_double_dots_b_s;
-	static bool no_triplets_b_s;
-	static int no_smaller_than_i_s;
-
-//	/// Most used division in MIDI, all fine with me.
-//	static int const division_1_c_i = 384;
-
-//	/// Return (integer, division) representation.
-//	static int dur2_i( Duration dur, int division_1_i = division_1_c_i );
-
-	/// Return number of ticks in (ticks, division_1) representation
-	static int dur2ticks_i( Duration dur );
-	
-	/// Return Moment representation (fraction of whole note).
-	static Moment dur2_mom( Duration dur );
-
-	/// Return Mudela string representation.
-	static String dur2_str( Duration dur );
-
-//	/// Return Moment from (integer, division) representation.
-//	static Moment i2_mom( int i, int division_1_i = division_1_c_i );
-
-//	/// Return Moment (fraction of whole) representation, best guess.
-//	static Duration mom2_dur( Moment mom );
-
-	/// Return plet factor (not a Moment: should use Rational?).
-	static Moment plet_factor_mom( Duration dur );
-
-	/** Return synchronisation factor for mom, so that
-	    mom2_dur( mom / sync_f ) will return the duration dur.		
-	*/ 
-	static Real sync_f( Duration dur, Moment mom );
-
-	/// Return exact duration, in midi-ticks if not-exact.
-	static Duration ticks2_dur( int ticks_i );
-
-	/// Return standardised duration, best guess if not exact.
-	static Duration ticks2standardised_dur( int ticks_i );
+  Class to handle "musical" durations. This means: balltype 1,2,4,etc. and dots.
+   
+  (dur)
+  */
+struct Duration {
+    /* actually i hate it when other people use default arguments,
+       because it makes you easily loose track of what-s really
+       happening; in the routine-s implementation you-re not aware
+       of this defaultness (who sets this stupid value?).*/
+    Duration( int type_i = 1, int dots_i = 0);
+    /// is the "plet factor" of this note != 1 ?
+    bool plet_b();
+    String str()const;
+    void set_plet(int,int );
+    void set_ticks( int ticks_i );
+    Moment length() const ;	// zo naai mij
+    static int division_1_i_s;
+    int type_i_;
+    int dots_i_;
+    Plet plet_;
+    int ticks_i_;
 };
-
-/// (iter_dur)
-struct Duration_iterator {
-	/// start at shortest: 128:2/3
-	Duration_iterator();
-
-	// **** what about these three here ?
-	/// return forward_dur();
- 	Duration operator ++(int); 
-
-	/// return ok()
- 	operator bool(); 
-
-	/// return dur()
- 	Duration operator ()(); 
-	// ****
-
-	/// return current dur
-	Duration dur();
-
-	/// return dur(), step to next
-	Duration forward_dur();
-
-	/// durations left?
-	bool ok();
-
-private:
-	Duration cursor_dur_;
-};
-
 #endif // DURATION_HH
 

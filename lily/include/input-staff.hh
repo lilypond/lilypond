@@ -14,7 +14,7 @@
 
 struct Input_staff {
     
-    char const * defined_ch_c_l_;
+    char const * defined_ch_C_;
     String type;
     
     IPointerList<Input_music*> music_;

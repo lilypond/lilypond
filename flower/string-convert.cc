@@ -27,10 +27,10 @@ String
 String_convert::bin2hex_str( String bin_str )
 {
     String str;
-    Byte const* byte_c_l = bin_str.byte_c_l();
+    Byte const* byte_C = bin_str.byte_C();
     for ( int i = 0; i < bin_str.length_i(); i++ ) {
-	str += (char)nibble2hex_byte( *byte_c_l >> 4 );
-	str += (char)nibble2hex_byte( *byte_c_l++ );
+	str += (char)nibble2hex_byte( *byte_C >> 4 );
+	str += (char)nibble2hex_byte( *byte_C++ );
     }
     return str;
 }
@@ -56,7 +56,7 @@ String_convert::dec2_i( String dec_str )
     	return 0;
 
     long l = 0;
-    int conv = sscanf( dec_str.ch_c_l(), "%ld", &l );
+    int conv = sscanf( dec_str.ch_C(), "%ld", &l );
     assert( conv );
 
     return (int)l;
@@ -78,7 +78,7 @@ String_convert::dec2_f( String dec_str )
     if ( !dec_str.length_i() )
     	return 0;
     double d = 0;
-    int conv = sscanf( dec_str.ch_c_l(), "%lf", &d );
+    int conv = sscanf( dec_str.ch_C(), "%lf", &d );
     assert( conv );
     return d;
 }
@@ -90,11 +90,11 @@ String_convert::hex2bin_i( String hex_str, String& bin_str_r )
         hex_str = "0" + hex_str;
 
     bin_str_r = "";
-    Byte const* byte_c_l= hex_str.byte_c_l();
+    Byte const* byte_C= hex_str.byte_C();
     int i = 0;
     while ( i < hex_str.length_i() ) {   
-        int high_i = hex2nibble_i( *byte_c_l++ );
-        int low_i = hex2nibble_i( *byte_c_l++ );
+        int high_i = hex2nibble_i( *byte_C++ );
+        int low_i = hex2nibble_i( *byte_C++ );
         if ( high_i < 0 || low_i < 0 )
             return 1; // illegal char
         bin_str_r += String( (char)( high_i << 4 | low_i ), 1 );

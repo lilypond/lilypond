@@ -69,7 +69,7 @@ Staff_walker::process_timing_reqs()
 	if (tr_l->partial()) {
 	    time_.setpartial(tr_l->partial()->duration_);
 	} else if (tr_l->barcheck() && time_.whole_in_measure_) {
-	    warning( "Barcheck failed", tr_l->defined_ch_c_l_ );
+	    warning( "Barcheck failed", tr_l->defined_ch_C_ );
 	} else if (tr_l->cadenza()) {
 	    time_.set_cadenza(tr_l->cadenza()->on_b_);
 	} else if (tr_l->measuregrouping()) {

@@ -30,16 +30,16 @@
 ii_menuetto = \music {
 	\clef"alto"\meter{3/4}
 	\key {bes}
-	\octave{}
+	\octave{1}
 	\duration{8}
 	< a2 f2 d2 df > bes4-.  |
 %%2
 	< [ bes^"1" e c_"2"_"4" >
 		a bes-. g-. ] a4-.^"4" |
 %%3
-	< d4 `bes4-. > g4-. [ f-. e-. ] |
+	< d4 'bes4-. > g4-. [ f-. e-. ] |
 %%4
-	< [ f `a > e d cis-. `b-. `a-. ]
+	< [ f 'a > e d cis-. 'b-. 'a-. ]
 %%5
 	< a2 f2 d2 > bes4-. | %   @bes4-. |
 %%6
@@ -47,10 +47,10 @@ ii_menuetto = \music {
 	c'4-. | % =c'4-. |
 %%7
 	< a4-. f4>
-	< d'4-.-upbow f4 `bes4 >
-	< e'4-.-downbow g4 `g4 > |
+	< d'4-.-upbow f4 'bes4 >
+	< e'4-.-downbow g4 'g4 > |
 %%8
-	< cis'2.-upbow e2. `a2. > \bar ":|:"%%!! sorry!
+	< cis'2.-upbow e2. 'a2. > \bar ":|:"%%!! sorry!
 %%9
 	\clef "violin"
 	< e'2 a2 df >
@@ -70,9 +70,9 @@ ii_menuetto = \music {
 		 { \stem{-1} g4(\stem{-1}) f4 e4 }% ugh
 	> |
 %%14
-	< [ a f > g a f ] < d'4-upbow e4 `bes4 > |
+	< [ a f > g a f ] < d'4-upbow e4 'bes4 > |
 %%15
-	< c'4-\downbow f4 `a4 > [ bes( )a g a ] |
+	< c'4-\downbow f4 'a4 > [ bes( )a g a ] |
 %%16
 	[ f( e )f a-. g-. bes-. ] |
 %%17
@@ -80,7 +80,7 @@ ii_menuetto = \music {
 %%18
 	< { [ c'( )bes c' a ] } { [ es ] } > fis4 |
 %%19
-	< d'4-downbow g4 `bes4 > < c'4-upbow g4 c4 > < [ bes d > a ] |
+	< d'4-downbow g4 'bes4 > < c'4-upbow g4 c4 > < [ bes d > a ] |
 %%20
 	< { [ c'( bes a )bes g( )bes ] } { [ d ] } { [ g ] } > |
 %%21
@@ -88,9 +88,9 @@ ii_menuetto = \music {
 %%22
 	< { [ g( )f g e ] } { [ cis ] } > < f4 d4 > |
 %%23
-	[ `g g ] < e4. `a4. > d-upbow |
+	[ 'g g ] < e4. 'a4. > d-upbow |
 %%24
-	< d2.^"fine" `a2. `d2._"3 mins."> \bar ":|" % \bar ":||"
+	< d2.^"fine" 'a2. 'd2._"3 mins."> \bar ":|" % \bar ":||"
 %% \tighten		% use one line less
 	
 }

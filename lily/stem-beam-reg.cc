@@ -41,7 +41,7 @@ Stem_beam_register::try_request(Request*req_l)
     
     if ( req_l->stem() ) {
 	if (current_grouping && !current_grouping->child_fit_query(
-	    get_staff_info().time_c_l_->whole_in_measure_))
+	    get_staff_info().time_C_->whole_in_measure_))
 	    return false;
 
 	if (stem_req_l_ && Stem_req::compare(*stem_req_l_, *req_l->stem()))
@@ -81,15 +81,15 @@ Stem_beam_register::process_requests()
 	stem_p_ = new Stem(4);
 	if (current_grouping)
 	    current_grouping->add_child(
-		get_staff_info().time_c_l_->whole_in_measure_,
+		get_staff_info().time_C_->whole_in_measure_,
 		stem_req_l_->duration());
 
-	stem_p_->flag = stem_req_l_->balltype;
+	stem_p_->flag = stem_req_l_->duration_.type_i_;
 
 	if (beam_p_) {
-	    if (stem_req_l_->balltype<= 4)
+	    if (stem_req_l_->duration_.type_i_<= 4)
 		warning( "stem doesn't fit in Beam",
-			 stem_req_l_->defined_ch_c_l_);
+			 stem_req_l_->defined_ch_C_);
 	    else
 		beam_p_->add(stem_p_);
 	    stem_p_->print_flag = false;
@@ -124,9 +124,9 @@ Stem_beam_register::pre_move_processing()
 	stem_p_ = 0;
     }
     if (beam_p_ && end_beam_b_) {
-	Rhythmic_grouping const * rg_c_l = get_staff_info().rhythmic_c_l_;
-	rg_c_l->extend(current_grouping->interval());
-	beam_p_->set_grouping(*rg_c_l, *current_grouping);
+	Rhythmic_grouping const * rg_C = get_staff_info().rhythmic_C_;
+	rg_C->extend(current_grouping->interval());
+	beam_p_->set_grouping(*rg_C, *current_grouping);
 	typeset_element(beam_p_);
 	delete current_grouping;
 	current_grouping = 0;
@@ -146,7 +146,7 @@ Stem_beam_register::post_move_processing()
 Stem_beam_register::~Stem_beam_register()
 {
     if (beam_p_)
-	warning("unterminated beam", start_req_l_->defined_ch_c_l_);
+	warning("unterminated beam", start_req_l_->defined_ch_C_);
 }
 
 void

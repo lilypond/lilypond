@@ -38,17 +38,17 @@ begeleiding =
 				% you to precede \keyword by a backslash: \
 	\music { 
 	\clef "bass"
-	\octave { ` } 		% default \octave: 1 below the first \octave.
+	\octave { ' } 		% default \octave: 1 below the first \octave.
 
 	%%% theme
-	`c			% ` means one \octave lower.
+	'c			% ' means one \octave lower.
 				% Similarly: ' means one higher.
-	   c	e c	f c	e c	d `b	c `a	`f `g	`c2
-	\octave { ` }
-	e `g	d `g	c `g	`b `g	e `g	d `g	c `g	`b `g
+	   c	e c	f c	e c	d 'b	c 'a	'f 'g	'c2
+	\octave { ' }
+	e 'g	d 'g	c 'g	'b 'g	e 'g	d 'g	c 'g	'b 'g
 	%%%% var 1
 	r8 e8() c  	r8 e8() c  	r8 f8()c 	r8 e8()c
-	r8 d8()`b 	r8 c8()`a 	r8 `a8()`f 	r8 `e8()`c
+	r8 d8()'b 	r8 c8()'a 	r8 'a8()'f 	r8 'e8()'c
 }
 
 

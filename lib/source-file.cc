@@ -18,20 +18,13 @@
 #include "proto.hh"
 #include "plist.hh"
 
-//#include "lexer.hh"
 
 #include "debug.hh"
 #include "windhoos-suck-suck-suck-thank-you-cygnus.hh"
-// #include "parseconstruct.hh" // defined_ch_c_l
-extern char const* defined_ch_c_l;
-
-// ugh
-// #include "main.hh"     		// find_file
-String find_file(String);
 
 #include "source-file.hh"
 
-Source_file::Source_file( String &filename_str )
+Source_file::Source_file( String filename_str )
 {
     data_caddr_ = 0;
     fildes_i_ = 0;
@@ -41,8 +34,21 @@ Source_file::Source_file( String &filename_str )
 
     open();
     map();
-    // ugh!?, should call name_str() ! 
-    filename_str = name_str_;
+}
+
+istream*
+Source_file::istream_l()
+{
+    assert( fildes_i_ );
+    if ( !istream_p_ ) {
+	if ( size_off_ ) // can-t this be done without such a hack?
+	    istream_p_ = new istrstream( ch_C(), size_off_ );
+        else {
+	    istream_p_ = new istrstream( "", 0 );
+	    istream_p_->set(ios::eofbit);
+	}
+    }
+    return istream_p_;
 }
 
 Source_file::~Source_file()
@@ -54,7 +60,7 @@ Source_file::~Source_file()
 }
 
 char const*
-Source_file::ch_c_l()
+Source_file::ch_C()
 {
     assert( this );
     return (char const*)data_caddr_;
@@ -70,73 +76,52 @@ Source_file::close()
 }
 
 String
-Source_file::error_str( char const* pos_ch_c_l )
+Source_file::error_str( char const* pos_ch_C )
 {
-    assert( this );
-    if ( !in_b( pos_ch_c_l ) )
-	return "";
+    char const* data_ch_C = ch_C();
+    char const * eof_C_ = data_ch_C + size_off_;
+    if ( !in_b( pos_ch_C ) )
+	return "(position unknown)";
 
-    char const* begin_ch_c_l = pos_ch_c_l;
-    char const* data_ch_c_l = ch_c_l();
-    while ( begin_ch_c_l > data_ch_c_l )
-        if ( *--begin_ch_c_l == '\n' ) {
-	    begin_ch_c_l++;
+    
+    if ( pos_ch_C == eof_C_)
+	pos_ch_C --;
+    char const* begin_ch_C = pos_ch_C;
+    while ( begin_ch_C > data_ch_C )
+        if ( *--begin_ch_C == '\n' ) {
+	    begin_ch_C++;
 	    break;
 	}
 
-    char const* end_ch_c_l = pos_ch_c_l;
-    while ( end_ch_c_l < data_ch_c_l + size_off_ )
-        if ( *end_ch_c_l++ == '\n' ) {
-	    break;
+    char const* end_ch_C = pos_ch_C;
+    while ( end_ch_C < eof_C_ )
+        if ( *end_ch_C++ == '\n' ) {
+	  end_ch_C--;
+	  break;
 	}
-    end_ch_c_l--;
-
-#if 1
-//    String( char const* p, int length ) is missing!?
-    String line_str( (Byte const*)begin_ch_c_l, end_ch_c_l - begin_ch_c_l );
-#else
-    int length_i = end_ch_c_l - begin_ch_c_l;
-    char* ch_p = new char[ length_i + 1 ];
-    strncpy( ch_p, begin_ch_c_l, length_i );
-    ch_p[ length_i ] = 0;
-    String line_str( ch_p );
-    delete ch_p;
-#endif
+  
+	//    String( char const* p, int length ) is missing!?
+    String line_str( (Byte const*)begin_ch_C, end_ch_C - begin_ch_C );
 
     int error_col_i = 0;
-    char const* scan_ch_c_l = begin_ch_c_l;
-    while ( scan_ch_c_l < pos_ch_c_l )
-    	if ( *scan_ch_c_l++ == '\t' )
+    char const* scan_ch_C = begin_ch_C;
+    while ( scan_ch_C < pos_ch_C )
+    	if ( *scan_ch_C++ == '\t' )
 	    error_col_i = ( error_col_i / 8 + 1 ) * 8;
 	else
 	    error_col_i++;
 
-    String str = line_str.left_str( pos_ch_c_l - begin_ch_c_l ) 
+    String str = line_str.left_str( pos_ch_C - begin_ch_C ) 
     	+ String( '\n' )
     	+ String( ' ', error_col_i ) 
-	+ line_str.mid_str( pos_ch_c_l - begin_ch_c_l, INT_MAX ); // String::mid should take 0 arg..
+	+ line_str.mid_str( pos_ch_C - begin_ch_C, INT_MAX ); // String::mid should take 0 arg..
     return str;
 }
 
 bool
-Source_file::in_b( char const* pos_ch_c_l )
+Source_file::in_b( char const* pos_ch_C )
 {
-    return ( pos_ch_c_l && ( pos_ch_c_l >= ch_c_l() ) && ( pos_ch_c_l < ch_c_l() + size_off_ ) );
-}
-
-istream*
-Source_file::istream_l()
-{
-    assert( fildes_i_ );
-    if ( !istream_p_ ) {
-	if ( size_off_ ) // can-t this be done without such a hack?
-	    istream_p_ = new istrstream( ch_c_l(), size_off_ );
-        else {
-	    istream_p_ = new istrstream( "", 0 );
-	    istream_p_->set(ios::eofbit);
-	}
-    }
-    return istream_p_;
+    return ( pos_ch_C && ( pos_ch_C >= ch_C() ) && ( pos_ch_C <= ch_C() + size_off_ ) );
 }
 
 off_t
@@ -146,15 +131,15 @@ Source_file::length_off()
 }
 
 int
-Source_file::line_i( char const* pos_ch_c_l )
+Source_file::line_i( char const* pos_ch_C )
 {
-    if ( !in_b( pos_ch_c_l ) )
+    if ( !in_b( pos_ch_C ) )
     	return 0;
 
     int i = 1;
-    char const* scan_ch_c_l = ch_c_l();
-    while ( scan_ch_c_l < pos_ch_c_l )
-    	if ( *scan_ch_c_l++ == '\n' )
+    char const* scan_ch_C = ch_C();
+    while ( scan_ch_C < pos_ch_C )
+    	if ( *scan_ch_C++ == '\n' )
 		i++;
     return i;
 }
@@ -168,8 +153,7 @@ Source_file::map()
     data_caddr_ = (caddr_t)mmap( (void*)0, size_off_, PROT_READ, MAP_SHARED, fildes_i_, 0 );
 
     if ( (int)data_caddr_ == -1 )
-	// ugh: defined_ch_c_l...
-	warning( String( "can't map: " ) + name_str_ + String( ": " ) + strerror( errno ), defined_ch_c_l ); //lexer->here_ch_c_l() );
+	warning( String( "can't map: " ) + name_str_ + String( ": " ) + strerror( errno ),  0);
 }
 
 String
@@ -181,14 +165,10 @@ Source_file::name_str()
 void
 Source_file::open()
 {
-    String name_str = find_file( name_str_ );
-    if ( name_str != "" ) 
-        name_str_ = name_str;
-
     fildes_i_ = ::open( name_str_, O_RDONLY );	
 	    
     if ( fildes_i_ == -1 ) {
-	warning( String( "can't open: " ) + name_str_ + String( ": " ) + strerror( errno ), defined_ch_c_l ); // lexer->here_ch_c_l() );
+	warning( String( "can't open: " ) + name_str_ + String( ": " ) + strerror( errno ), 0 ); 
         return;
     }
 
@@ -207,8 +187,8 @@ Source_file::unmap()
     }
 }
 String
-Source_file::file_line_no_str(char const *ch_c_l )
+Source_file::file_line_no_str(char const *ch_C )
 {
     return name_str() + ": "
-	+ String( line_i( ch_c_l ) );
+	+ String( line_i( ch_C ) );
 }

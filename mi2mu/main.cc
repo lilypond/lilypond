@@ -6,13 +6,13 @@
 
 #include "mi2mu.hh"
 
-Source source;
-Source* source_l_g = &source;
+Sources source;
+Sources* source_l_g = &source;
 
 Verbose level_ver = NORMAL_ver;
 
 //ugh
-char const* defined_ch_c_l = 0;
+char const* defined_ch_C = 0;
 
 // ugh, another global
 String
@@ -23,17 +23,17 @@ find_file( String str )
 
 // ugh, copied from warn.cc, cannot use
 void
-message( String message_str, char const* context_ch_c_l )
+message( String message_str, char const* context_ch_C )
 {
     String str = "mi2mu: ";
-    Source_file* sourcefile_l = source_l_g->sourcefile_l( context_ch_c_l );
+    Source_file* sourcefile_l = source_l_g->sourcefile_l( context_ch_C );
     if ( sourcefile_l ) {
-	str += sourcefile_l->file_line_no_str(context_ch_c_l) + String(": ");
+	str += sourcefile_l->file_line_no_str(context_ch_C) + String(": ");
     }
     str += message_str;
     if ( sourcefile_l ) {
 	str += ":\n";
-	str += sourcefile_l->error_str( context_ch_c_l );
+	str += sourcefile_l->error_str( context_ch_C );
     }
 //    if ( busy_parsing() )
     cerr << endl; // until we have fine output manager...
@@ -41,15 +41,15 @@ message( String message_str, char const* context_ch_c_l )
 }
 
 void
-warning( String message_str, char const* context_ch_c_l )
+warning( String message_str, char const* context_ch_C )
 {
-    message( "warning: " + message_str, context_ch_c_l );
+    message( "warning: " + message_str, context_ch_C );
 }
 
 void
-error( String message_str, char const* context_ch_c_l )
+error( String message_str, char const* context_ch_C )
 {
-    message( message_str, context_ch_c_l );
+    message( message_str, context_ch_C );
     // since when exits error again?
     // i-d say: error: errorlevel |= 1; -> no output upon error
     //          warning: recovery -> output (possibly wrong)
@@ -89,7 +89,6 @@ notice()
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
 //	"Contributors\n"
 	"  Jan Nieuwenhuizen <jan@digicash.com>\n"
-//	"  Mats Bengtsson <matsb@s3.kth.se>\n"
 	"\n"
 	"    This program is free software; you can redistribute it and/or\n"
 	"modify it under the terms of the GNU General Public License version 2\n"
@@ -113,7 +112,6 @@ main( int argc_i, char* argv_sz_a[] )
 		0, "be-blonde", 'b',
 		0, "debug", 'd',
 		0, "help", 'h',
-//		1, "include", 'I',
 		0, "no-silly", 'n',
 		1, "output", 'o',
 		0, "quiet", 'q',
@@ -137,9 +135,6 @@ main( int argc_i, char* argv_sz_a[] )
 				help();
 				exit( 0 );
 				break;
-//			case 'I':
-//				path->push( getopt_long.optarg );
-//				break;
 			case 'n':
 				Duration_convert::no_double_dots_b_s = false;
 				Duration_convert::no_triplets_b_s = true;
@@ -165,20 +160,23 @@ main( int argc_i, char* argv_sz_a[] )
 
 	char* arg_sz = 0;
 	while ( ( arg_sz = getopt_long.get_next_arg() ) ) {
-		My_midi_parser midi_parser( arg_sz );
+		My_midi_parser midi_parser( arg_sz, & source );
+		midi_parser_l_g = &midi_parser;
+
 		int error_i = midi_parser.parse();
 		if ( error_i )
 			return error_i;
 		if ( !output_str.length_i() ) {
-			output_str = String( arg_sz ) + ".ly";
-			// i-m sure there-s already some routine for this
-			int name_i; // too bad we can-t declare local to if
-			if ( ( name_i = output_str.index_last_i( '/' ) ) != -1 )
-				output_str = output_str.mid_str( name_i + 1, INT_MAX );
+		    String d, dir, base, ext;
+
+		    split_path(arg_sz, d, dir, base, ext);
+		    
+		    output_str = base + ext + ".ly";
 		}
 		error_i = midi_parser.output_mudela( output_str );
 		if ( error_i )
 			return error_i;
+		midi_parser_l_g = 0;
 	}
 	return 0;
 }

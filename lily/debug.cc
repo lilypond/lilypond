@@ -4,11 +4,11 @@
 #include <stdlib.h>
 #include "debug.hh"
 #include "dstream.hh"
-#include "vector.hh"
+#include "flower-debug.hh"
 
 Dstream *monitor=0;
 ostream * nulldev =0;
-
+// ugh
 struct _Dinit {
     _Dinit() {
 	nulldev = new ofstream("/dev/null");
@@ -44,7 +44,8 @@ debug_init()
 #ifndef NDEBUG
     set_new_handler(&mynewhandler);
 #endif
-    set_matrix_debug(*monitor);
+    set_flower_debug(*monitor, check_debug);
+    
     signal(SIGFPE, float_handler);
 }   
 

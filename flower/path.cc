@@ -3,6 +3,7 @@
 */
 #include <stdio.h>
 #include "path.hh"
+#include "flower-debug.hh"
 
 #ifndef PATHSEP
 #define PATHSEP '/'
@@ -60,18 +61,23 @@ File_path::File_path(String pref)
   in any other added path, in this order.
   */
 String
-File_path::find(String nm)
+File_path::find(String nm)const
+
 {
-     for (int i=0; i < size(); i++) {
+    fdebug << "looking for " << nm ;
+    for (int i=0; i < size(); i++) {
+
 	 String path  = (*this)[i];
 	 path+= "/"+nm;
 
-
+	 fdebug << path << "? ";
 	 FILE *f = fopen(path, "r"); // ugh!
 	 if (f) {
+	     fdebug << "found\n";
 	     fclose(f);
 	     return path;
 	 }
      }
-     return "";
+    fdebug << "\n";
+    return "";
 }

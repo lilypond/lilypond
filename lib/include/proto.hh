@@ -131,7 +131,7 @@ struct Skip_req;
 struct Slur;
 struct Slur_register;
 struct Slur_req;
-struct Source;
+struct Sources;
 struct Source_file;
 struct Spacing_req ;
 struct Span_req;

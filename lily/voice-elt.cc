@@ -52,12 +52,12 @@ Voice_element::Voice_element()
 {
     voice_l_ = 0;
     duration = 0;
-    defined_ch_c_l_ = 0;
+    defined_ch_C_ = 0;
 }
 
 Voice_element::Voice_element(Voice_element const&src)
 {
-    defined_ch_c_l_ = src.defined_ch_c_l_;
+    defined_ch_C_ = src.defined_ch_C_;
 
     voice_l_=0;
     for (iter_top(src.reqs, i); i.ok(); i++)
@@ -97,9 +97,10 @@ Voice_element::set_plet_backwards(Moment& now_moment_r,
     for ( PCursor<Request*> i( reqs.top() ); i.ok(); i++ ) {
 	if (i->beam() && i->beam()->spantype == Span_req::START )
 	    i->beam()->nplet = den_i;
-	if (i->rhythmic())
-	    i->rhythmic()->plet_factor = Moment(num_i, den_i);
-	if (i->stem())
-	    i->stem()->plet_factor = Moment(num_i, den_i);
+	if (i->rhythmic()) {
+	    i->rhythmic()->duration_.plet_.type_i_ = den_i;
+	    i->rhythmic()->duration_.plet_.iso_i_  = num_i;
+	    
+	}
     }
 }

@@ -27,7 +27,7 @@ Score::setup_music()
     *mlog << "\nSetting up music ..." << flush;
     if (last() == Moment(0)) {
 	errorlevel_i_ |= 1;
-	error("Need to have music in a score.", defined_ch_c_l_);
+	error("Need to have music in a score.", defined_ch_C_);
     }
 
     for (iter_top(staffs_,i); i.ok(); i++) {
@@ -234,7 +234,7 @@ Score::Score()
     paper_p_ = 0;
     midi_p_ = 0;
     errorlevel_i_ = 0;
-    defined_ch_c_l_ = 0;
+    defined_ch_C_ = 0;
 }
 
 Score::~Score()
@@ -263,7 +263,7 @@ Score::paper_output()
     
     the_output << "% outputting Score, defined at: " <<
 	source_l_g->
-	sourcefile_l (defined_ch_c_l_)->file_line_no_str(defined_ch_c_l_) << "\n";
+	sourcefile_l (defined_ch_C_)->file_line_no_str(defined_ch_C_) << "\n";
     pscore_p_->output(the_output);
 }
 

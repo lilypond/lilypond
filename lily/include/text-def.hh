@@ -14,7 +14,7 @@ struct Text_def  {
     int align_i_;
     String text_str_;
     String style_str_;
-    char const* defined_ch_c_l_;
+    char const* defined_ch_C_;
   
 
     /* *************** */

@@ -17,12 +17,13 @@
 void
 Stem_req::do_print() const
 {
+#ifndef NPRINT
     Rhythmic_req::do_print();
     mtor << "dir : " << dir_i_;
+#endif
 }
 
-Stem_req::Stem_req(int s, int d)
-    : Rhythmic_req(s,d)
+Stem_req::Stem_req()
 {
     dir_i_ = 0;
 }
@@ -56,12 +57,12 @@ Span_req::do_print() const
 Request::Request()
 {
     elt_l_ = 0;
-    defined_ch_c_l_ = 0;
+    defined_ch_C_ = 0;
 }
 Request::Request(Request const&src)
 {
     elt_l_ = 0;
-    defined_ch_c_l_ = src.defined_ch_c_l_;
+    defined_ch_C_ = src.defined_ch_C_;
 }
 /* *************** */
 Spacing_req::Spacing_req()
@@ -103,7 +104,7 @@ Melodic_req::transpose(Melodic_req const & delta)
     accidental_i_ += delta.accidental_i_;
     if (abs(accidental_i_) > 2) {
 	warning("transposition makes accidental larger than 2", 
-		delta.defined_ch_c_l_);
+		delta.defined_ch_C_);
     }
 }
 
@@ -153,37 +154,29 @@ Rhythmic_req::compare(Rhythmic_req const &r1, Rhythmic_req const &r2)
 {
     return sign(r1.duration() - r2.duration());
 }
-Rhythmic_req::Rhythmic_req(int b, int d)
+
+void
+Rhythmic_req::set_duration(Duration d)
 {
-    plet_factor = 1;
-    balltype = b;
-    dots = d;
+    duration_ = d;
 }
 
 Rhythmic_req::Rhythmic_req()
 {
-    plet_factor = 1;
-    balltype = 1;
-    dots = 0;
 }
 
 void
 Rhythmic_req::do_print() const
 {
 #ifndef NPRINT
-    mtor << "ball: " << balltype ;
-    int d =dots;
-    while (d--)
-	mtor << '.';
-    
-    mtor<<", plet factor"<<plet_factor<<"\n";
+    mtor << duration_.str();
 #endif
 }
 
 
 Moment
 Rhythmic_req::duration() const {    
-    return wholes(balltype,dots)*plet_factor;
+    return duration_.length();
 }
 /* *************** */
 
@@ -210,8 +203,8 @@ void
 Note_req::do_print() const
 {
 #ifndef NPRINT
-    mtor << " forceacc_b_ " << forceacc_b_ << '\n';
     Melodic_req::do_print();
+    mtor << " forceacc_b_ " << forceacc_b_ << '\n';
     Rhythmic_req::do_print();
 #endif
 }

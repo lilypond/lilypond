@@ -65,7 +65,7 @@ violinI = \music {
 %22=6
 	g2 |
 %23=4
-	e [ d16 c16 `b16 c16 ] |
+	e [ d16 c16 'b16 c16 ] |
 %24
 	cis cis' |
 %25
@@ -151,9 +151,9 @@ violinI = \music {
 	c' r c'4 |
 %61
 	\duration{16}
-	 [ as f d f as d' ]4/6   [ as f d `as d f ]4/6  |
+	 [ as f d f as d' ]4/6   [ as f d 'as d f ]4/6  |
 %62
-	 [ g es c `g c es ]4/6   [ g c' es' c' g es ]4/6  |
+	 [ g es c 'g c es ]4/6   [ g c' es' c' g es ]4/6  |
 %63
 	 [ g d g bes d' g' ]4/6   [ f' d' bes g f d ]4/6  |
 %64
@@ -187,9 +187,9 @@ violinI = \music {
 	c' r c'4 |
 %77
 	\duration{16}
-	 [ as f d f as d' ]4/6   [ as f d `as d f ]4/6  |
+	 [ as f d f as d' ]4/6   [ as f d 'as d f ]4/6  |
 %78
-	 [ g es c `g c es ]4/6   [ f c' es' c' g es ]4/6  |
+	 [ g es c 'g c es ]4/6   [ f c' es' c' g es ]4/6  |
 %79
 	 [ g d f b d' g' ]4/6   [ f' d' b g f d ]4/6  |
 %80

@@ -25,10 +25,10 @@ extern Verbose level_ver;
 #define qtor if ( level_ver >= QUIET_ver ) *monitor_p_g
 #endif
 
-extern Source* source_l_g;
-void message( String message_str, char const* context_ch_c_l );
-void warning( String message_str, char const* context_ch_c_l );
-void error( String message_str, char const* context_ch_c_l );
+extern Sources* source_l_g;
+void message( String message_str, char const* context_ch_C );
+void warning( String message_str, char const* context_ch_C );
+void error( String message_str, char const* context_ch_C );
 
 String mi2mu_version_str();
 

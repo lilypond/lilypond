@@ -7,7 +7,6 @@
 
 class Dstream;
 class String;
-void set_matrix_debug(Dstream&ds);
 
 /**  a row of numbers. 
     a vector. Storage is handled in Array, Vector only does the mathematics.

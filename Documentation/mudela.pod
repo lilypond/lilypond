@@ -1,14 +1,12 @@
 =head1 NAME
 
-LilyInput -  LilyPond input format -- Mudela 0.1
-
-B<NOTICE:> this doc describes the I<new> input format, S<Mudela 0.1>.
+Mudela -  LilyPond input format 0.1
 
 =head1 DESCRIPTION
 
 This document describes the the LilyPond input format, which is an
 effective language for definining music.  We call this language
-(rather arrogantly) The Musical Definition Language (S<Mudela 0.1>).
+(rather arrogantly) The Musical Definition Language (S<Mudela 2>).
 
 The first aim of Mudela is to define a piece of music, 
 being complete from both from a musical typesetting, 
@@ -100,7 +98,7 @@ short excerpts to be used in musicological publications.
 
 =head1 Overview
 
-The Musical Definition Language (Mudela) S<version 0.1>,
+The Musical Definition Language (Mudela) S<version 2>,
 has a logical structure, 
 making use of typing and naming (using identifiers),
 that allows for flexible input, and definition reuse.
@@ -210,6 +208,11 @@ In Lyrics mode, a word is looked up in the following order:
 In Lyric mode every sequence of non-digit and non-white characters
 starting with an alphabetic character is considered a word.
 
+	a&@&@&TSI|{[	% a word
+	1THtrhortho	% not a "word"
+	Leise Fl\"u\ss{}teren meine Sapfe	% 4 words
+
+
 =back
 
 These modes are of a lexical nature. Normal and Note mode largely
@@ -223,18 +226,18 @@ enter.
 
 	a'4	% dutch names
 
-is a A-1 pitched quaver. The ' as well as the ` signify an octave change.
+is a A-1 pitched quaver. The ' as well as the ' signify an octave change.
 A-1 is 440 Hz concert-pitch. C<c'> is also known as the central
 c. More examples:
 
-	`a	% 110
+	'a	% 110
 	a	% 220
 	a'	% 440
 	a''	% 880
 
 another example:
 
-	`as4.*2/3
+	'as4.*2/3
 
 This is an A flat, (just below 110 Hz concert-pitch). The C<*2/3>
 signifies that this note is part of a triplet (3 in stead of 2). The
@@ -256,7 +259,7 @@ The default language for notenames is defined to be dutch,
 The standard notenames also have uppercase versions, which octavate
 down:
 
-	a	% 220
+	a	% 220 concert-pitch
 	A	% 110
 	'A	% 55
 	A'	% 220
@@ -266,7 +269,7 @@ The rest is named
 
 	r
 
-These notenames along with duration is enough material to construct
+These notenames along with duration are enough material to construct
 simple melodies:
 
 	c4 c4 g4 g4 a4 a4 g2
@@ -312,6 +315,44 @@ The general form of a note is:
 Notenames are just identifiers, and can be declared for any
 language appropriate (see F<dutch.ini>). 
 
+=head2 Defaults
+
+If omit the duration of a, a default value is substituted. For this
+default value, there are two modes:
+
+=over 4
+
+=item 1
+
+Use the last duration explicitly entered
+
+=item 2
+
+Use the explicitly set "default duration"
+
+=back
+
+Thus the following inputs are  equivalent
+
+	c4 c4 c16 c16 c16 s16 c4 c16
+
+	\duration { "last" }
+	c4 c c16 c c c c4 c16
+
+	\duration { 4 }
+	c c c16 c16 c16 c16 c c16
+
+	\duration { 16 }
+	c4 c4 c c c c c4 
+
+If you are typing music which does not lie in the "small" and "large"
+octave, you can prevent having to type C<'> all the time by using the
+C<\octave> command: These two notes have the same pitch.
+
+	c''	\octave{2} c
+
+By default the setting of C<\octave> is 0.
+
 =head2 Lyrics
 
 Lyrics in Mudela resemble Simple mudela a lot, with notes substituted
@@ -326,7 +367,34 @@ duration entry are bound together using an underscore
 
 	He_could4 not4
 
+=head2  Music direction
 
+Mudela reads left to right, but LilyPond can stack voices and
+Voice_elements which are produced in two directions: horizontal
+(voice like) and vertical (chord like)
+
+You can start horizontal music by enclosing a sequence of notes with { and }
+
+	{ c c g g a a g2 }	% twinkle twinkle
+
+You can start vertical music (a "chord") by enclosing a sequence of
+notes with < and >. Example:
+
+	<a cis e'>	% a-major chord
+
+You can also put vertical music inside horizontal music:
+
+	{ c < c e > <c e g> <c e g c'> }	% 4 increasing chords
+
+And vice versa
+
+	< \multivoice
+	  {c c g g a a g2}		
+	  {r2  r2  c c g g a a g2} >	% a canon
+
+The duration of a chord equals the union of the durations of each of
+its elements.  The C<\multivoice> is a construct which is explained
+below.
 
 =head2 Rhythms
 
@@ -356,7 +424,30 @@ Examples are included with the LilyPond distribution. For the sake of
 maintenance no long examples are included in this document.
 
 
+=head2 Requests
+
+=head2 Voice
+
+=head2 Voice_element
+
+=head2 Voice groups
+
 =head2 Other
 
 LilyPond first reads F<symbol.ini>, which contains declarations crucial
 to proper operation of LilyPond (symbol tables, note names).
+
+=head1 HISTORY
+
+
+This language has a number of roots. First and foremost, LilyPond's
+predecessor mpp was the inspiration of simple Mudela.  Secondly, the
+hierarchical structure looks a lot like Rayce's (Rayce is a raytracer
+that I've written as a hobby project. ), which in turn owes a lot to
+POVRay.
+
+Now, we know, musictypesetting and raytracing do not necessarily
+require the same input format, and we know that a lot more ways exist
+to convert music to ASCII, but we did give this language some
+thoughts. As always suggestions are appreciated.
+

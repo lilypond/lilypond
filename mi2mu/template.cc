@@ -21,6 +21,5 @@ IPL_instantiate(Midi_event);
 IPL_instantiate(Midi_track);
 PL_instantiate(Midi_voice);
 IPL_instantiate(Midi_voice);
-IPL_instantiate(Source_file);
 IPL_instantiate(Track_column);
 

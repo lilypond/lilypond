@@ -6,6 +6,8 @@
 #ifndef BINARY_SOURCE_FILE_HH
 #define BINARY_SOURCE_FILE_HH
 
+#include "source-file.hh"
+
 class Binary_source_file : public Source_file {
 public:
 	Binary_source_file( String& filename_str );

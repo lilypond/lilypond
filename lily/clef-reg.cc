@@ -45,7 +45,7 @@ void
 Clef_register::read_req(Clef_change_req*c_l)
 {
     if (!set_type(c_l->clef_str_))
-	error("unknown clef type ", c_l->defined_ch_c_l_);
+	error("unknown clef type ", c_l->defined_ch_C_);
 }
 
 bool
@@ -65,7 +65,7 @@ Clef_register::try_request(Request * r_l)
 void
 Clef_register::process_requests()
 {
-    Time_description const *time_l = get_staff_info().time_c_l_;
+    Time_description const *time_l = get_staff_info().time_C_;
     if (!clef_req_l_ && (!time_l->whole_in_measure_|| !time_l->when_)) {
 	clef_p_ = new Clef_item;
 	clef_p_->change = false;

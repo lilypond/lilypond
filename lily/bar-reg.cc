@@ -35,7 +35,7 @@ Bar_register::process_requests()
 {
     if (bar_req_l_ ) {
 	bar_p_ = new Bar(bar_req_l_->type_str_);
-    } else if (!get_staff_info().time_c_l_->whole_in_measure_) {
+    } else if (!get_staff_info().time_C_->whole_in_measure_) {
 	bar_p_ = new Bar("|");
     }
     

@@ -10,8 +10,7 @@ void set_default_output(String s);
 Input_score* current_iscore_l();
 String find_file(String);
 String get_version_str();
-extern String infile_str_g;
-extern Source* source_l_g;
+extern Sources* source_l_g;
 extern bool only_midi;
 
 extern String default_out_fn;

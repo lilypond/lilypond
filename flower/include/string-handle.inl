@@ -72,15 +72,15 @@ String_handle::ch_l()
 }
 
 INLINE Byte 
-const* String_handle::byte_c_l() const 
+const* String_handle::byte_C() const 
 {
-    return data->byte_c_l();
+    return data->byte_C();
 }
 
 INLINE char const* 
-String_handle::ch_c_l() const 
+String_handle::ch_C() const 
 {
-    return (char const*)data->byte_c_l();
+    return (char const*)data->byte_C();
 }
 
 INLINE void 
@@ -107,7 +107,7 @@ String_handle::operator[](int j) const
 }
 
 // !NOT SAFE!
-// don't use this for loops. Use byte_c_l()
+// don't use this for loops. Use byte_C()
 INLINE Byte &
 String_handle::operator[](int j) 
 {
@@ -116,17 +116,17 @@ String_handle::operator[](int j)
 }
 
 INLINE void 
-String_handle::append( Byte const* byte_c_l, int length_i ) 
+String_handle::append( Byte const* byte_C, int length_i ) 
 {
     copy();
-    data->append( byte_c_l, length_i );
+    data->append( byte_C, length_i );
 }
 			   
 INLINE void 
-String_handle::set( Byte const* byte_c_l, int length_i ) 
+String_handle::set( Byte const* byte_C, int length_i ) 
 {
     copy();
-    data->set( byte_c_l, length_i );
+    data->set( byte_C, length_i );
 }
 			   
 INLINE void 

@@ -34,8 +34,8 @@ Binary_source_file::error_str( char const* pos_ch_c_l )
     if ( !in_b( pos_ch_c_l ) )
 	return "";
 
-    char const* begin_ch_c_l = pos_ch_c_l - 8 >? ch_c_l();
-    char const* end_ch_c_l = pos_ch_c_l + 7 <? ch_c_l() + length_off();
+    char const* begin_ch_c_l = pos_ch_c_l - 8 >? ch_C();
+    char const* end_ch_c_l = pos_ch_c_l + 7 <? ch_C() + length_off();
 
     String pre_str( (Byte const*)begin_ch_c_l, pos_ch_c_l - begin_ch_c_l );
     pre_str = String_convert::bin2hex_str( pre_str );
@@ -59,6 +59,6 @@ Binary_source_file::line_i( char const* pos_ch_c_l )
     if ( !in_b( pos_ch_c_l ) )
     	return 0;
 
-    return pos_ch_c_l - ch_c_l();
+    return pos_ch_c_l - ch_C();
 }
 
