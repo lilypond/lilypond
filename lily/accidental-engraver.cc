@@ -368,7 +368,9 @@ Accidental_engraver::process_acknowledged_grobs ()
 	      Grob *a
 		= make_item_from_properties (accidentals_[i].origin_trans_,
 					     ly_symbol2scm ("Accidental"),
-					     note->self_scm ());
+					     note->self_scm (),
+					     "Accidental"
+					     );
 	      a->set_parent (support, Y_AXIS);
 
 	      if (!accidental_placement_)

@@ -26,9 +26,10 @@ class Item : public Grob
   Drul_array<Item*> broken_to_drul_;
 
 public:
-  Item (SCM);
-  Item (Item const &);
-  VIRTUAL_COPY_CONSTRUCTOR (Grob, Item);
+  Item (SCM, Object_key const*);
+  Item (Item const &, int count);
+  
+  virtual Grob *clone (int count) const;
 
   static bool is_breakable (Grob *);
   bool is_broken () const;

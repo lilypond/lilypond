@@ -41,8 +41,10 @@ protected:
 
   virtual void announce_grob (Grob_info);
   Engraver_group_engraver*get_daddy_engraver () const;
-
+  
 public:
+  Object_key const * get_grob_key (String name) const;
+  
   /**
     Announce element. Default: pass on to daddy. Utility
     */
@@ -55,10 +57,10 @@ public:
   TRANSLATOR_DECLARATIONS(Engraver);
 };
 
-#define make_item(x,cause) make_item_from_properties (this, ly_symbol2scm (x), cause)
-#define make_spanner(x,cause) make_spanner_from_properties (this, ly_symbol2scm (x), cause)
-Item* make_item_from_properties (Translator * tg, SCM x, SCM cause);
-Spanner* make_spanner_from_properties (Translator * tg, SCM x, SCM cause);
+#define make_item(x,cause) make_item_from_properties (this, ly_symbol2scm (x), cause, x)
+#define make_spanner(x,cause) make_spanner_from_properties (this, ly_symbol2scm (x), cause, x)
+Item* make_item_from_properties (Engraver * tg, SCM x, SCM cause, const char *name);
+Spanner* make_spanner_from_properties (Engraver * tg, SCM x, SCM cause, const char*name);
 
 
 

@@ -27,7 +27,10 @@ public:
   SCM get_line ();
   SCM get_lines ();
 
-  System (SCM);
+  System (SCM, Object_key const*);
+  System (System const&, int);
+  virtual Grob *clone (int count) const;
+  
   int element_count () const;
   int spanner_count () const;
 
@@ -42,7 +45,6 @@ public:
   void pre_processing ();
 
 protected:
-  VIRTUAL_COPY_CONSTRUCTOR (Grob, System);
 };
 
 #endif /* SYSTEM_HH */

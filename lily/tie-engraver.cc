@@ -109,7 +109,7 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 	      && ly_c_equal_p (right_mus->get_property ("pitch"),
 			     left_mus->get_property ("pitch")))
 	    {
-	      Grob * p = new Spanner  (tie_start_definition_);
+	      Grob * p = new Spanner  (tie_start_definition_, get_grob_key ("Tie"));
 	      announce_grob (p, last_event_->self_scm ());
 	      Tie::set_interface (p); // cannot remove yet!
 	  

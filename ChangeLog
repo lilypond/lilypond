@@ -1,3 +1,17 @@
+2004-11-14  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/context.cc (Context): take key argument in ctor.
+
+	* lily/grob.cc (Grob): take key argument in ctor.  
+
+	* lily/lilypond-key.cc (do_compare): new file.
+
+	* lily/object-key.cc (Object_key): new file.
+
+	* lily/include/object-key.hh (class Object_key): new file.
+
+	* lily/include/lilypond-key.hh (class Lilypond_context_key): new file.
+
 2004-11-13  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/lilypond-book.itely: add small warning about

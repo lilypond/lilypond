@@ -43,3 +43,8 @@ Score_context::get_output ()
   return s->get_output ();
 }
 
+
+Score_context::Score_context (Object_key const *key)
+  : Context (key)
+{
+}

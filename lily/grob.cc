@@ -29,6 +29,12 @@
 
 #include "ly-smobs.icc"
 
+Grob * 
+Grob::clone (int count) const
+{
+  return new Grob (*this, count);
+}
+
 /* TODO:
 
   - remove dynamic_cast<Spanner,Item> and put this code into respective
@@ -37,8 +43,10 @@
 #define HASH_SIZE 3
 #define INFINITY_MSG "Infinity or NaN encountered"
 
-Grob::Grob (SCM basicprops)
+Grob::Grob (SCM basicprops,
+	    Object_key const* key)
 {
+  key_ = key;
   /* FIXME: default should be no callback.  */
   self_scm_ = SCM_EOL;
   pscore_= 0;
@@ -102,9 +110,10 @@ Grob::Grob (SCM basicprops)
     }
 }
 
-Grob::Grob (Grob const &s)
+Grob::Grob (Grob const &s, int copy_index)
    : dim_cache_ (s.dim_cache_)
 {
+  key_ = new Copied_key (s.key_, copy_index);
   original_ = (Grob*) &s;
   self_scm_ = SCM_EOL;
 
@@ -117,6 +126,7 @@ Grob::Grob (Grob const &s)
   pscore_ = 0;
 
   smobify_self ();
+  scm_gc_unprotect_object (key_->self_scm ());
 }
 
 Grob::~Grob ()
@@ -234,7 +244,6 @@ Grob::get_uncached_stencil () const
 
 /*
   VIRTUAL STUBS
-
  */
 void
 Grob::do_break_processing ()
@@ -637,6 +646,8 @@ void
 Grob::discretionary_processing ()
 {
 }
+
+
 
 bool
 Grob::internal_has_interface (SCM k)

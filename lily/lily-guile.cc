@@ -147,6 +147,7 @@ ly_display_scm (SCM s)
 String
 ly_scm2string (SCM str)
 {
+  assert (scm_is_string (str));
   return String ((Byte*)scm_i_string_chars (str),
 		 (int) scm_i_string_length (str));
 }

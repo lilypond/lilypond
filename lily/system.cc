@@ -26,11 +26,26 @@
 #include "paper-book.hh"
 #include "paper-system.hh"
 
-System::System (SCM s)
-  : Spanner (s)
+
+System::System (System const &src, int count)
+  : Spanner (src, count)
 {
   rank_ = 0;
 }
+
+System::System (SCM s, Object_key const*key)
+  : Spanner (s, key)
+{
+  rank_ = 0;
+}
+
+
+Grob * 
+System::clone (int count) const
+{
+  return new System (*this, count);
+}
+
 
 int
 System::element_count () const
@@ -230,7 +245,7 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
 {
   for (int i = 0; i < breaking.size (); i++)
     {
-      System *system = dynamic_cast <System*> (clone ());
+      System *system = dynamic_cast <System*> (clone (i));
       system->rank_ = i;
 
       Link_array<Grob> c (breaking[i].cols_);

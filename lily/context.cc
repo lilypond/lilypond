@@ -7,6 +7,7 @@
 
 */
 
+#include "object-key.hh"
 #include "context-def.hh"
 #include "context-selector.hh"
 #include "context.hh"
@@ -17,6 +18,7 @@
 #include "score-context.hh"
 #include "translator-group.hh"
 #include "warn.hh"
+#include "lilypond-key.hh"
 
 bool
 Context::is_removable () const
@@ -79,8 +81,15 @@ Context::add_context (Context *t)
     }
 }
 
-Context::Context ()
+Object_key const*
+Context::get_key () const
 {
+  return key_;
+}
+
+Context::Context (Object_key const* key)
+{
+  key_ = key;
   daddy_context_ = 0;
   init_ = false;
   aliases_ = SCM_EOL;
@@ -134,14 +143,22 @@ Context::find_create_context (SCM n, String id, SCM operations)
 	{
 	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 
-	  Context * new_group
-	    = path[i]->instantiate (ops);
-
+	  String this_id = "";
 	  if (i == path.size () -1)
 	    {
-	      new_group->id_string_ = id;
+	      this_id = id;
 	    }
-
+	  
+	  Object_key * key = new Lilypond_context_key (current->get_key(),
+						       now_mom(),
+						       ly_symbol2string (path[i]->get_context_name()),
+						       this_id);
+							
+	  Context * new_group
+	    = path[i]->instantiate (ops, key);
+	  scm_gc_unprotect_object (key->self_scm ());
+	  
+	  new_group->id_string_ = this_id;
 	  current->add_context (new_group);
 	  apply_property_operations (new_group, ops);
 	  
@@ -194,13 +211,20 @@ Context::get_default_interpreter ()
       SCM nm = default_child_context_name ();
       SCM st = find_context_def (get_output_def (), nm);
 
+      String name = ly_symbol2string (nm);
       Context_def *t = unsmob_context_def (st);
       if (!t)
 	{
-	  warning (_f ("can't find or create: `%s'", ly_symbol2string (nm).to_str0 ()));
+	  warning (_f ("can't find or create: `%s'", name.to_str0 ()));
 	  t = unsmob_context_def (this->definition_);
 	}
-      Context *tg = t->instantiate (SCM_EOL);
+
+      Object_key *key = new Lilypond_context_key (get_key(),
+						  now_mom(),
+						  name,
+						  "");
+      
+      Context *tg = t->instantiate (SCM_EOL, key);
       add_context (tg);
       if (!tg->is_bottom_context ())
 	return tg->get_default_interpreter ();
@@ -397,7 +421,7 @@ SCM
 Context::mark_smob (SCM sm)
 {
   Context *me = (Context*) SCM_CELL_WORD_1 (sm);
-  
+  scm_gc_mark (me->key_->self_scm ());  
   scm_gc_mark (me->context_list_);
   scm_gc_mark (me->aliases_);
   scm_gc_mark (me->definition_);  

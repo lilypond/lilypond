@@ -28,6 +28,7 @@ private:
   bool init_;
   
 protected:
+  Object_key const * key_;
   Context * daddy_context_;
   SCM definition_;
   SCM properties_scm_;
@@ -38,15 +39,17 @@ protected:
   String id_string_;
 
   friend class Context_def;
+
 public:
+  Object_key const *get_key () const;
   String id_string () const { return id_string_; } 
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
 
   Translator_group* implementation () const;
   Context *get_parent_context () const;
-  Context ();
-
+  Context (Object_key const*);
+  
   /* properties:  */
   void execute_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM internal_get_property (SCM name_sym) const;
@@ -95,8 +98,6 @@ bool melisma_busy (Context *);
 Context *get_voice_to_lyrics (Context *lyrics);
 Grob *get_current_note_head (Context *voice);
 Grob *get_current_rest (Context *voice);
-Context *unsmob_context (SCM);
-
 DECLARE_UNSMOB(Context, context);
 
 #endif /* CONTEXT_HH */

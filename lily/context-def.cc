@@ -260,14 +260,14 @@ filter_engravers (SCM ell)
 
 
 Context *
-Context_def::instantiate (SCM ops)
+Context_def::instantiate (SCM ops, Object_key const *key)
 {
   Context *tg =  0;
 
   if (context_name_ == ly_symbol2scm ("Score"))
-    tg = new Score_context ();
+    tg = new Score_context (key);
   else
-    tg = new Context ();
+    tg = new Context (key);
 
   tg->definition_ = self_scm ();
 

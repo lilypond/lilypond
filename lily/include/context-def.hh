@@ -43,7 +43,7 @@ public:
 
   Link_array<Context_def> path_to_acceptable_context (SCM type_string,
 						      Output_def*) const;
-  Context * instantiate (SCM extra_ops);
+  Context * instantiate (SCM extra_ops, Object_key const*);
 
   SCM to_alist () const;
   static SCM make_scm ();
