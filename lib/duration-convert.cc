@@ -10,7 +10,8 @@
 #include "debug.hh"
 
 // statics Duration_convert
-bool Duration_convert::be_blonde_b_s = false;
+bool const Duration_convert::midi_as_plet_b_s = true;
+bool Duration_convert::no_quantify_b_s = false;
 bool Duration_convert::no_double_dots_b_s = false;
 bool Duration_convert::no_triplets_b_s = false;
 int Duration_convert::no_smaller_than_i_s = 0;
@@ -80,9 +81,36 @@ Duration_convert::i2_mom( int time_i, int division_1_i )
 }
 #endif
 
-#if 0
 Duration
 Duration_convert::mom2_dur( Moment mom )
+{
+	/* this is cute, 
+	   but filling an array using Duration_iterator
+	   might speed things up, a little
+	   */
+  	Duration_iterator iter_dur;
+  	assert( iter_dur );
+  	while ( iter_dur ) {
+		Duration dur = iter_dur++;
+		if ( mom == dur2_mom( dur ) )
+			return dur;
+	}
+	if ( midi_as_plet_b_s ) {
+		Moment mom_4 = mom / Moment( 4 );
+		long num = mom_4.numerator().as_long();
+		long den = mom_4.denominator().as_long();
+		Duration dur( 4, 0 );
+		dur.set_plet( num, den );
+		return dur;
+	}
+	assert( 0 );
+	// no can do
+	Duration dur( 0 );
+	return dur;
+}
+
+Duration
+Duration_convert::mom2standardised_dur( Moment mom )
 {
 	/* this is cute, 
 	   but filling an array using Duration_iterator
@@ -91,28 +119,20 @@ Duration_convert::mom2_dur( Moment mom )
 	Duration_iterator iter_dur;
 	assert( iter_dur );
 	while ( iter_dur ) {
-		Duration lower_dur = iter_dur++;
-		Duration upper_dur( 0 );
-		if ( iter_dur )
-			upper_dur = iter_dur();
-		Moment lower_mom = dur2_mom( lower_dur );
-		Moment upper_mom = dur2_mom( upper_dur );
-		if ( mom == lower_mom )
+  		Duration lower_dur = iter_dur++;
+  		Duration upper_dur( 0 );
+  		if ( iter_dur )
+  			upper_dur = iter_dur();
+  		Moment lower_mom = dur2_mom( lower_dur );
+  		Moment upper_mom = dur2_mom( upper_dur );
+		if ( mom < lower_mom )
 			return lower_dur;
-		if ( mom == upper_mom ) // don-t miss last (sic)
-			return upper_dur;
-		if ( ( mom >= lower_mom ) && ( mom <= upper_mom ) ) {
-			warning( String( "duration not exact: " ) + String( (Real)mom ) , 0 );
-			if ( abs( mom - lower_mom ) < abs( mom - upper_mom ) )
-				return lower_dur;
-			else
-				return upper_dur;
-		}
-		lower_dur = upper_dur;
+  		if ( mom == lower_mom )
+  			return lower_dur;
 	}
-	return Duration( 0 );
+	return iter_dur();
 }
-#endif
+
 
 Moment
 Duration_convert::plet_factor_mom( Duration dur )
@@ -133,6 +153,7 @@ Duration_convert::ticks2_dur( int ticks_i )
 	   but filling an array using Duration_iterator
 	   might speed things up, a little
 	   */
+	// should use mom2_dur
 	Moment mom( ticks_i, Duration::division_1_i_s );
 	Duration_iterator iter_dur;
 	assert( iter_dur );
@@ -140,6 +161,11 @@ Duration_convert::ticks2_dur( int ticks_i )
 		Duration dur = iter_dur++;
 		if ( mom == dur2_mom( dur ) )
 			return dur;
+	}
+	if ( midi_as_plet_b_s ) {
+		Duration dur( 4, 0 );
+		dur.set_plet( ticks_i, Duration::division_1_i_s / 4 ); 
+		return dur;
 	}
 	Duration dur( 0 );
 	dur.set_ticks( ticks_i );
@@ -153,6 +179,7 @@ Duration_convert::ticks2standardised_dur( int ticks_i )
 	   but filling an array using Duration_iterator
 	   might speed things up, a little
 	   */
+	// should use mom2standardised_dur
 	Moment mom( ticks_i, Duration::division_1_i_s );
 	Duration_iterator iter_dur;
 	assert( iter_dur );
@@ -187,7 +214,7 @@ Duration_iterator::Duration_iterator()
 	cursor_dur_.type_i_ = 128;
 	if ( Duration_convert::no_smaller_than_i_s )
 		cursor_dur_.type_i_ = Duration_convert::no_smaller_than_i_s;
-	cursor_dur_.set_plet( 0,1 ); // ugh?
+//	cursor_dur_.set_plet( 1, 1 );
 }
 
 Duration 
@@ -240,13 +267,13 @@ Duration_iterator::forward_dur()
 		assert( !cursor_dur_.plet_b() );
 		cursor_dur_.dots_i_ = 0;
 		cursor_dur_.type_i_ /= 4;
-		cursor_dur_.set_plet( 2, 3  );
+		cursor_dur_.set_plet( 2, 3 );
 	}
 	else if ( cursor_dur_.plet_b() 
 		&& ( cursor_dur_.plet_.iso_i_ == 2 )
 		&& ( cursor_dur_.plet_.type_i_ == 3 ) ) {
 		assert( !cursor_dur_.dots_i_ );
-		cursor_dur_.set_plet( 0,1 );
+		cursor_dur_.set_plet( 1, 1 );
 		cursor_dur_.type_i_ *= 2;
 		cursor_dur_.dots_i_ = 1;
 	}

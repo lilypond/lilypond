@@ -45,7 +45,7 @@ public:
 	virtual String mudela_str( bool command_mode_bo );
 	
 private:
-	bool const simple_plet_bo_ = false;
+	static bool const simple_plet_b_s = false;
 	Duration dur_;
 	String name_str_;
 };

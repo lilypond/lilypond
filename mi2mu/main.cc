@@ -58,31 +58,38 @@ error( String message_str, char const* context_ch_C )
 }
 
 void
-help()
+usage()
 {
-    mtor <<
-	"--be-blonde, -b		use exact, blonde durations, e.g.: a[385]\n"
-	"--debug, -d		be really verbose\n"
-	"--help, -h		this help\n"
-        "--include=DIR, -I DIR	add DIR to search path\n"
-        "--no-silly, -n		assume no triplets and no smaller than 16\n"
-	"--output=FILE, -o FILE	set FILE as default output\n"
-	"--quiet, -q		be quiet\n"
-	"--verbose, -v		be verbose\n"
-	"--warranty, -w		show warranty & copyright\n"
+    tor( NORMAL_ver ) <<
+    	"Usage: mi2mu [options] midi-file\n"
+	"Translate midi-file to mudela\n"
+	"\n"
+	"Options:\n"
+	"  -b, --no-quantify      write exact durations, e.g.: a4*385/384\n"
+	"  -d, --debug            print lots of debugging stuff\n"
+	"  -h, --help             this help\n"
+        "  -I, --include=DIR      add DIR to search path\n"
+        "  -n, --no-silly         assume no plets or double dots, smallest is 16\n"
+	"  -o, --output=FILE      set FILE as default output\n"
+	"  -p, --no-plets         assume no plets\n"
+	"  -q, --quiet            be quiet\n"
+	"  -s, --smallest=N       assume no shorter (reciprocal) durations than N\n"
+	"  -v, --verbose          be verbose\n"
+	"  -w, --warranty         show warranty and copyright\n"
+	"  -x, --no-double-dots   assume no double dotted notes\n"
 	;
 }
 
 void
 identify()
 {
-	mtor << mi2mu_version_str() << endl;
+	tor( NORMAL_ver ) << mi2mu_version_str() << endl;
 }
     
 void 
 notice()
 {
-    mtor <<
+    tor( NORMAL_ver ) <<
 	"\n"
 	"Mi2mu, translate midi to mudela.\n"
 	"Copyright (C) 1997 by\n"
@@ -114,9 +121,12 @@ main( int argc_i, char* argv_sz_a[] )
 		0, "help", 'h',
 		0, "no-silly", 'n',
 		1, "output", 'o',
+		1, "no-plets", 'p',
 		0, "quiet", 'q',
+		1, "smallest", 's',
 		0, "verbose", 'v',
 		0, "warranty", 'w',
+		0, "no-double-dots", 'x',
 		0,0,0
 	};
 	Getopt_long getopt_long( argc_i, argv_sz_a, long_option_init_a );
@@ -125,39 +135,57 @@ main( int argc_i, char* argv_sz_a[] )
 	String output_str;
 	while ( Long_option_init* long_option_init_p = getopt_long() )
 		switch ( long_option_init_p->shortname ) {
-			case 'b':
-				Duration_convert::be_blonde_b_s = true;
-				break;
-			case 'd':
-				level_ver = DEBUG_ver;
-				break;
-			case 'h':
-				help();
-				exit( 0 );
-				break;
-			case 'n':
-				Duration_convert::no_double_dots_b_s = false;
-				Duration_convert::no_triplets_b_s = true;
-				Duration_convert::no_smaller_than_i_s = 16;
-				break;
-			case 'o':
-				output_str = getopt_long.optarg;
-				break;
-			case 'q':
-				level_ver = QUIET_ver;
-				break;
-			case 'v':
-				level_ver = VERBOSE_ver;
-				break;
-			case 'w':
-				notice();
-				exit( 0 );
-				break;
-			default:
-				assert( 0 );
-				break;
-		}
-
+		case 'b':
+			Duration_convert::no_quantify_b_s = true;
+			break;
+		case 'd':
+			level_ver = DEBUG_ver;
+			break;
+		case 'h':
+			usage();
+			exit( 0 );
+			break;
+//		case 'I':
+//			path->push( getopt_long.optarg );
+//			break;
+		case 'n':
+			Duration_convert::no_double_dots_b_s = true;
+			Duration_convert::no_triplets_b_s = true;
+			Duration_convert::no_smaller_than_i_s = 16;
+			break;
+		case 'o':
+			output_str = getopt_long.optarg;
+			break;
+		case 'p':
+			Duration_convert::no_triplets_b_s = true;
+			break;
+		case 'q':
+			level_ver = QUIET_ver;
+			break;
+		case 's': {
+				int i = String_convert::dec2_i( getopt_long.optarg );
+				if ( !i ) {
+					usage();
+					exit( 2 ); //usage
+				}
+				Duration_convert::no_smaller_than_i_s = i;
+			}
+			break;
+		case 'v':
+			level_ver = VERBOSE_ver;
+			break;
+		case 'w':
+			notice();
+			exit( 0 );
+			break;
+		case 'x':
+			Duration_convert::no_double_dots_b_s = false;
+			break;
+		default:
+			assert( 0 );
+			break;
+  		}
+  
 	char* arg_sz = 0;
 	while ( ( arg_sz = getopt_long.get_next_arg() ) ) {
 		My_midi_parser midi_parser( arg_sz, & source );

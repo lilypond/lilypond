@@ -29,6 +29,13 @@ Duration::Duration( int type_i, int dots_i = 0)
 	dots_i_ = dots_i;
 	ticks_i_ = 0;
 }
+
+Moment
+Duration::length() const
+{
+    return Duration_convert::dur2_mom(*this);
+}
+
 void
 Duration::set_plet(int i, int t)
 {
@@ -36,11 +43,6 @@ Duration::set_plet(int i, int t)
     plet_.type_i_ = t;
 }
 
-Moment
-Duration::length() const
-{
-    return Duration_convert::dur2_mom(*this);
-}
 void
 Duration::set_ticks( int ticks_i )
 {
@@ -48,20 +50,11 @@ Duration::set_ticks( int ticks_i )
 	assert( !dots_i_ );
 	ticks_i_ = ticks_i;
 }
+
 String
 Duration::str()const
 {
     return Duration_convert::dur2_str(*this);
-}
-Plet::Plet( int iso_i, int type_i )
-{
-	iso_i_ = iso_i;
-	type_i_ = type_i;
-}
-Moment
-Plet::mom()const
-{
-    return  Moment( iso_i_, type_i_ );
 }
 
 Plet::Plet()
@@ -69,13 +62,28 @@ Plet::Plet()
     type_i_ = 1;
     iso_i_ = 1;
 }
-bool
-Plet::unit_b()const
+
+Plet::Plet( int iso_i, int type_i )
 {
-    return type_i_ == 1 && iso_i_ == 1;
+	iso_i_ = iso_i;
+	type_i_ = type_i;
 }
+
+Moment
+Plet::mom()const
+{
+    return  Moment( iso_i_, type_i_ );
+}
+
 bool
 Duration::plet_b()
 {
     return !plet_.unit_b();
 }
+
+bool
+Plet::unit_b()const
+{
+    return type_i_ == 1 && iso_i_ == 1;
+}
+

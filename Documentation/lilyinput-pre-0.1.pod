@@ -69,3 +69,82 @@ Not really crystallized; you can use '#' or '%' as line comment
 
 LilyPond first reads 'symbol.ini', which contains declarations crucial
 to proper operation of LilyPond (symbol tables, note names).
+
+This language looks a lot like Rayce's (Rayce is a raytracer that I've
+written as a hobby project. I used as a practice program for writing
+(among others) C++ and Yacc. It also gave me RSI :-( ) which in turn
+owes a lot to the POVRay raytracer. Now, I know, musictypesetting and
+Raytracing do not necessarily require the same input format, but I was
+just to lazy to make up a new and/or better input format. Suggestions
+appreciated.
+=head1 NAME
+
+LilyInput -  LilyPond input format
+
+=head1 DESCRIPTION
+
+This page globally documents the the LilyPond input format, mudela.
+To get a better impression, please study some examples.
+
+=head2 Overview
+
+General format of a construct:
+
+	BLOCKNAME {  <info to go with this block>   }
+
+Some types allow declarations:
+
+	IDENTIFIER = BLOCKNAME {
+		<info to go with this block>
+	}
+
+	..
+
+	BLOCKNAME {
+		IDENTIFIER
+		...
+	}
+
+
+In musicmode, eg,
+
+	''!c8.-"text"_v
+
+and in lyricmode, eg,
+
+	Twin- kle, twin- kle lit- tle star,2
+
+a lot of characters parse differently
+than in "command" mode, eg,
+
+	identifier = score { .. }
+
+So you have to signal this to the tokenizer. This is done with
+'$'. '$' is a delimiter, which used by the tokenizer only. The same
+goes for lyrics, it has a '@' delimiter.
+
+=item *
+musicmode: The brace still is used to group grammatical groups.
+
+=item *
+musicmode: "word" are preceded by a '\' (backslash)
+
+This means you can write some stuff in a zillion ways:
+
+=item 1.
+	$\var = \blockname { ... } $
+
+=item 2.
+	var = blockname { $ ... $ } 
+
+=item 3.
+	var = $ $ $\blockname {  ... $ } 
+
+=head2 Comments
+
+Not really crystallized; you can use '#' or '%' as line comment
+
+=head2 other
+
+LilyPond first reads 'symbol.ini', which contains declarations crucial
+to proper operation of LilyPond (symbol tables, note names).

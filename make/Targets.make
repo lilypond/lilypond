@@ -62,7 +62,7 @@ ifdef SUBDIRS
 endif
 
 distclean: clean
-	rm -rf  $(lily-version) $(flower-version) $(mi2mu-version) .b $(build) *~ $(allout) $(allgen)
+	rm -rf Makefile $(lily-version) $(flower-version) $(mi2mu-version) .b $(build) *~ $(allout) $(allgen)
 
 
 # configure:

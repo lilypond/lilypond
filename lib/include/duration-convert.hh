@@ -29,7 +29,8 @@ struct Duration_convert {
 	
     /* Urgh. statics.
      */
-    static bool be_blonde_b_s;	// cute, but not informative. everythiing is blonde, right? HW
+    static bool const midi_as_plet_b_s = true;
+    static bool no_quantify_b_s;
     static bool no_double_dots_b_s;
     static bool no_triplets_b_s;
     static int no_smaller_than_i_s;
@@ -55,6 +56,12 @@ struct Duration_convert {
 //	/// Return Moment (fraction of whole) representation, best guess.
 //	static Duration mom2_dur( Moment mom );
 
+    /// Return duration from Moment (fraction of whole) representation.
+    static Duration mom2_dur( Moment mom );
+
+    /// Return standardised duration, best guess if not exact.
+    static Duration mom2standardised_dur( Moment mom );
+  
     /// Return plet factor (not a Moment: should use Rational?).
     static Moment plet_factor_mom( Duration dur );
 

@@ -17,7 +17,7 @@
 % \barnumbering5
 % \barnumberstyle\boxed
 
-globalmusic= \music {
+globalmusic= \melodic{
 		\meter {2/4}
 %		\key fis
 		\skip {56*2}
@@ -35,33 +35,17 @@ include "mlvio1.ly"
 include "mlvio2.ly"
 include "mlcello.ly"
 
-\score {
-	\staff { 
-		\melodic 
-		\music { alto }
-		\music { globalmusic }
-	}
-	\staff { 
-		\melodic 
-		\music { violinI }
-		\music { globalmusic }
-	}
-	\staff { 
-		\melodic 
-		\music { violinII }
-		\music { globalmusic }
-	} 
-	\staff { 
-		\melodic 
-		\music { cello }
-		\music { globalmusic }
-	} 
-	\paper {
+\score{
+	\staff{ globalmusic alto }
+	\staff{ globalmusic violinI }
+	\staff{ globalmusic violinII }
+	\staff{ globalmusic cello }
+	\paper{
 		\unitspace 24\mm
 		\width 195\mm
 		\output "martien.out"
 	}
-	\midi { 
+	\midi{ 
 		\tempo 4:80
 	}
 }

@@ -7,12 +7,13 @@
 %
 % copyright: None
 %
-% declare \music (which will be in *one* \staff ) for the lead \voice
+% declare melody (which will be in *one* staff ) for the lead voice
 
-melodie = \music {
+melodie = \melodic{
 	 			% switch Lilypond in note-mode
 	\clef\violin
-	\octave {} 		% set the default \octave
+	\meter{ 2/4 }
+	\octave{ c } 		% set the default octave
 	% the default note duratino is 4
 	%%% theme
 	c c |			% the '|' checks if there is a new measure here.
@@ -32,16 +33,13 @@ melodie = \music {
 }
 
 				% more of this.
-begeleiding =
-%	\clef bass		% bass-\clef
-%	\music { 		% as you can see, the  sign obliges 
-				% you to precede \keyword by a backslash: \
-	\music { 
+begeleiding = \melodic{
 	\clef "bass"
-	\octave { ' } 		% default \octave: 1 below the first \octave.
+	\meter{ 2/4 }
+	\octave{ c' } 		% default octave: 1 below the first octave.
 
 	%%% theme
-	'c			% ' means one \octave lower.
+	'c			% ' means one octave lower.
 				% Similarly: ' means one higher.
 	   c	e c	f c	e c	d 'b	c 'a	'f 'g	'c2
 	\octave { ' }
@@ -51,27 +49,10 @@ begeleiding =
 	r8 d8()'b 	r8 c8()'a 	r8 'a8()'f 	r8 'e8()'c
 }
 
-
-% create a \staff named bstaf
-bstaf = \staff {
-	\melodic
-	\music { begeleiding }	% use the declared \music
-	\music { \meter {2/4 }  }
-	}
-
-% another one
-vstaf = \staff {
-	\melodic
-		\music { melodie }
-				% default \clef is violin \clef
-		\music { \meter {2/4 } }
-	}
-
-
-\score {
-	\staff { vstaf }
-	\staff { bstaf }
-	\paper {
+\score{
+	\staff{ melodie }
+	\staff{ begeleiding }
+	\paper{
 		\unitspace 2.5\cm	% a whole note takes 2.5 \cm ideally.
 	}
 }

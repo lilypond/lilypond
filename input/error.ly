@@ -1,6 +1,7 @@
 include "this-is-hopefully-a-nonexisting-file"
 
-mwa = \music {
+
+mwa = \melodic{
 	\meter{3/4}
 	[ a8 a8 a8 a8 a8 ]	% 
 	[ a8 ]	% 
@@ -23,17 +24,17 @@ mwa = \music {
 	
 }
 
-bla = \lyrics {
+bla = \lyric{
 	These Gates will open just like windows. % ok; warning
 }
 
 
+% Setting up music ...lilypond: ../flower/include/cursor.inl:98: class Cursor<void *> Cursor<void *>::operator ++(int): Assertion 'pointer_' failed.
+%IOT trap/Abort
+% als geen music in staff
+
 include "this-is-hopefully-a-nonexisting-file"
-\score {
-	\staff { 
-		lyric \music { bla }
-	}
-	\staff { 
-		\melodic \music { mwa }
-	}
+\score{
+	\staff{ bla }
+	\staff{ mwa }
 }

@@ -26,7 +26,7 @@ public:
 	char const* here_ch_C();
 	static int varint2_i( String str );
 	int yylex();
-    Source_file * source_file_p_ ;
+	Source_file * source_file_l_ ;
 private:
     int char_count_;
 public: // ugh

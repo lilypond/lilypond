@@ -11,9 +11,9 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-cello = \music { 
-	
-\clef"bass"	\octave{'}
+cello = \melodic{ 
+	\clef"bass"
+	\octave{'c}
 	\duration{4}
 	\key{fis}
 %%1

@@ -4,7 +4,7 @@
 % 
 % Copyright: none
 
-melodie = \music {
+melody = \melodic{
 	\clef\violin
 	c4 c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 | % :|
@@ -15,12 +15,11 @@ melodie = \music {
 	c c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 % :|
 	\bar ":|"
-	
 }
 
-begeleiding = \music {
+accompany = \melodic{
 	\clef \bass
-	\octave{-1}
+	\octave{'c}
 	c c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 | 
 
@@ -30,14 +29,15 @@ begeleiding = \music {
 	c c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 
 	\bar ":|"
-	
 }
-globalmusic=\music{
+
+global = \melodic{
 		\meter {2 / 4}
 		\skip {24*2}
 %		\bar "||"
 	}
-tekst = \lyrics { 
+
+tekst = \lyric{ 
  	Al- tijd is Kort- jak- je ziek,2
 	midden in_de week maar s'_zon- dags niet.2
 	s'_Zon- dags gaat ze naar de kerk,2
@@ -46,7 +46,7 @@ tekst = \lyrics {
 	midden in_de week maar s'_zon- dags niet.2
 }
 
-hegedraagjetekst = \lyrics { 
+hegedraagjetekst = \lyric{ 
  	Al- tijd zuigt Bill Gates mijn piek,2
 	"\TeX" is slecht- ser dan mu- ziek.2
 	s'_Zon- dags gaat het door een raam,2
@@ -55,7 +55,7 @@ hegedraagjetekst = \lyrics {
 	"\TeX" is slecht- ser dan mu- ziek.2
 }
 
-texte = \lyrics { 
+texte = \lyric{ 
 	 
 	\textstyle "italic" 
  	Ah! vous dir- ai_- je ma man2
@@ -67,7 +67,7 @@ texte = \lyrics {
 	
 }
 
-textI = \lyrics {
+texti = \lyric{
 	
 	\textstyle "roman"
 	Twin- kle, twin- kle, lit- tle star,2
@@ -78,7 +78,7 @@ textI = \lyrics {
 	How I won- der what you are!2
 }
 
-textII = \lyrics {
+textii = \lyric{
 	\textstyle "roman"
 	When the bla- zing sun is gone,2
 	When he no- thing shines up- on,2
@@ -89,7 +89,7 @@ textII = \lyrics {
 	
 }
 
-textIII = \lyrics{
+textiii = \lyric{
 	
 	\textstyle "roman"
 	Then the tra- veler in the dark2
@@ -101,59 +101,16 @@ textIII = \lyrics{
 	
 }
 
-mstaf = \staff {
-	\melodic
-	\music { melodie }
-	\music { globalmusic }
-}
-
-bassstaf = \staff {
-	\melodic	
-	\music { begeleiding }
-	\music { globalmusic }
-}
-
-
-dutchstaf = \staff {
- 	lyric 
-	\music { tekst }
-	\music {hegedraagjetekst}
-	\music { globalmusic }
-}
-
-frenchstaf = \staff {
- 	lyric 
-	\music { texte }
-	\music { globalmusic }
-}
-
-englishstaf = \staff {
- 	lyric 
-	\music { textI }
-	\music { textII }
-	\music { textIII }
-	\music { globalmusic }
-}
-
-tstaf = \staff { 
-	lyric 
-	\music { tekst }
-	\music { texte }
-	\music { globalmusic }
-}
-
-
-\score {
-	\staff { mstaf }
-	\staff { dutchstaf }
-	\staff { frenchstaf }
-	\staff { englishstaf }
-	\staff { bassstaf }
-	\paper {
+\score{
+	\staff{ global melody }
+	\staff{ global tekst hegedraagjetekst }
+	\staff{ global texte }
+	\staff{ global texti textii textiii }
+	\staff{ accompany }
+	\paper{
 		\unitspace 2.5\cm
 	}
-	
-	\midi { 
+	\midi{ 
 		\tempo 4:120 
 	}
 }
