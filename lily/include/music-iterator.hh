@@ -91,7 +91,7 @@ public:
 
   virtual bool run_always () const; 
   virtual void process (Moment until);
-  virtual void derived_mark ()const;
+  virtual void derived_mark () const;
   virtual void construct_children ();
   
   /**

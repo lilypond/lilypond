@@ -57,13 +57,7 @@ Output_def::mark_smob (SCM m)
   if (mo->parent_)
     scm_gc_mark (mo->parent_->self_scm ());
 
-  mo->derived_mark ();
   return mo->scope_;
-}
-
-void
-Output_def::derived_mark ()
-{
 }
 
 void

@@ -300,11 +300,14 @@ is what have collected so far, and has ascending page numbers."
 		 (entry (list idx (1+ idx) distance)))
 	      entry)))
 	 (rods (map calc-rod (iota (1- no-systems))))
-	 (page-very-empty (> space-left (/ page-height 3)))
+	 (page-very-empty? (> space-left (/ page-height 3)))
 	 (result (ly:solve-spring-rod-problem
 		  springs rods space
-		  ragged?))
-	 (force (car result))
+		  (or page-very-empty? ragged?)))
+	 (force (car (if page-very-empty?
+			 (ly:solve-spring-rod-problem
+			  springs rods space ragged?)
+			 result)))
 	 (positions
 	  (map (lambda (y)
 		       (+ y topskip)) 
@@ -346,7 +349,6 @@ CURRENT-BEST is the best result sofar, or #f."
 		       (and (eq? #t (ly:output-def-lookup bookpaper 'raggedlastbottom))
 			    last?)))
            (page-height (page-height this-page-num last?))
-	   
 	   (vertical-spacing (space-systems page-height current-lines ragged?))
 	   (satisfied-constraints (car vertical-spacing))
            (force (if satisfied-constraints satisfied-constraints 10000))

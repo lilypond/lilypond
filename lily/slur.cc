@@ -81,7 +81,7 @@ Slur::print (SCM smob)
   SCM quant_score = me->get_property ("quant-score");
 
   if (to_boolean (me->get_paper ()
-		  ->lookup_variable (ly_symbol2scm ("debug-slur-quanting")))
+		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
       && scm_is_string (quant_score))
     {
       String str;

@@ -39,8 +39,6 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
   Translator *me = (Translator*) ly_cdr (s);
   scm_puts ("#<Translator ", port);
   scm_puts (classname (me), port);
-  scm_display (me->simple_trans_list_, port);
-  
   scm_puts (" >", port);
   return 1;
 }

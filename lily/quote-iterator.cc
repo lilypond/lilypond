@@ -33,7 +33,7 @@ public:
 
   bool accept_music_type (Music*) const;
 protected:
-  virtual void derived_mark ();
+  virtual void derived_mark () const;
   virtual void construct_children ();
   virtual Moment pending_moment () const;
   virtual void process (Moment);
@@ -56,7 +56,7 @@ Quote_iterator::accept_music_type (Music *mus) const
 
 
 void
-Quote_iterator::derived_mark ()
+Quote_iterator::derived_mark () const
 {
   scm_gc_mark (transposed_musics_ );
 }
@@ -187,6 +187,8 @@ Quote_iterator::process (Moment m)
 		  SCM copy = ly_deep_mus_copy (mus->self_scm ());
 		  mus = unsmob_music (copy);
 		  transposed_musics_ = scm_cons (copy, transposed_musics_);
+		  scm_gc_unprotect_object (copy);
+
 		  
 		  mus->transpose (diff);
 		}

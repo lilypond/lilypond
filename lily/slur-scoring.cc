@@ -44,11 +44,6 @@ struct Slur_score
   }
 };
 
-/*
-  TODO: put in details property.,
-
-  use lowercase.
-*/
 struct Slur_score_parameters
 {
   int region_size_;
@@ -63,8 +58,15 @@ struct Slur_score_parameters
   Real max_slope_factor_;
   Real extra_object_collision_;
   Real accidental_collision_;
+
   Real free_head_distance_;
   Real extra_encompass_free_distance_;
+
+  Real head_slur_distance_max_ratio_;
+  Real head_slur_distance_factor_;
+
+
+  
   Slur_score_parameters (Grob*);
 };
 
@@ -74,8 +76,6 @@ struct Slur_score_parameters
   - curve around flag for y coordinate
   - better scoring.
   - short-cut: try a smaller region first.
-  - collisions with accidentals
-  - collisions with articulations (staccato, portato, sforzato, ...)
   - handle non-visible stems better.
 */
 struct Encompass_info
@@ -88,6 +88,13 @@ struct Encompass_info
     x_ = 0.0;
     stem_ = 0.0;
     head_ = 0.0;
+  }
+  Real get_point (Direction dir)
+  {
+    Interval y;
+    y.add_point (stem_);
+    y.add_point (head_);
+    return y[dir];    
   }
 };
 
@@ -222,6 +229,10 @@ init_score_param (Grob *me,
     = get_detail (details, ly_symbol2scm ("accidental-collision"));
   score_param->extra_encompass_free_distance_ 
     = get_detail (details, ly_symbol2scm ("extra-encompass-free-distance"));
+  score_param->head_slur_distance_factor_
+    = get_detail (details, ly_symbol2scm ("head-slur-distance-factor"));
+  score_param->head_slur_distance_max_ratio_
+    = get_detail (details, ly_symbol2scm ("head-slur-distance-max-ratio"));
 }
 
 
@@ -425,9 +436,6 @@ get_bound_info (Spanner* me, Grob **common)
 void
 set_end_points (Grob *me)
 {
-
-  
-  
   Link_array<Grob> columns
     = Pointer_group_interface__extract_grobs (me, (Grob *) 0, "note-columns");
 
@@ -486,7 +494,7 @@ set_end_points (Grob *me)
 #if DEBUG_SLUR_QUANTING
   SCM inspect_quants = me->get_property ("inspect-quants");
   if (to_boolean (me->get_paper ()
-		  ->lookup_variable (ly_symbol2scm ("debug-slur-quanting")))
+		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
       && ly_c_pair_p (inspect_quants))
     {
       Drul_array<Real> ins = ly_scm2interval (inspect_quants);
@@ -654,11 +662,12 @@ generate_curves (Grob *me, Grob **common,
   Real h_inf = staff_space * scm_to_double (me->get_property ("height-limit"));
   for (int i = 0; i < scores->size(); i++)
     {
-      Bezier bez= get_bezier (me, 
+      Bezier bez = get_bezier (me, 
 			      common,
 			      score_param,
 			      extremes,
 			      (*scores)[i].attachment_, r_0, h_inf);
+      
       bez = avoid_staff_line (me, common, extremes, bez);
       (*scores)[i].attachment_[LEFT] = bez.control_[0];
       (*scores)[i].attachment_[RIGHT] = bez.control_[3];
@@ -704,13 +713,9 @@ avoid_staff_line (Grob *me, Grob **common,
 	    * 5 * thick;
 	
 	  Real dy = (newp - p) * staff_space / 2.0;
-#if 0
-	  bez.translate (Offset (0, dy));
-#else
+	  
 	  bez.control_[1][Y_AXIS] += dy;
 	  bez.control_[2][Y_AXIS] += dy;
-	
-#endif
 	}
     }
   return bez;
@@ -812,6 +817,14 @@ enumerate_attachments (Grob *me, Grob *common[],
   return scores;
 }
 
+inline Real 
+linear_interpolate (Real x, Real x1, Real x2,  Real y1, Real  y2)
+{
+  return (x2 - x) / (x2 - x1) * y1 +
+    (x - x1) / (x2 - x1) * y2 ;
+}
+
+
 void
 score_encompass (Grob *me, Grob *common[],
 		 Slur_score_parameters *score_param,
@@ -833,8 +846,16 @@ score_encompass (Grob *me, Grob *common[],
 
   for (int i = 0; i < scores->size (); i++)
     {
-      Bezier const &bez (scores->elem (i).curve_);
+      Slur_score &configuration = scores->elem_ref (i);
+      Bezier const &bez (configuration.curve_);
       Real demerit = 0.0;
+
+      /*
+	Distances for heads that are between slur and line between
+	attachment points.
+       */
+      Array<Real> convex_head_distances;
+      Array<Real> edge_distances;
       for (int j = 0; j < infos.size(); j++)
 	{
 	  Real x = infos[j].x_;
@@ -843,8 +864,16 @@ score_encompass (Grob *me, Grob *common[],
 	  bool r_edge = j==infos.size()-1;
 	  bool edge =  l_edge || r_edge;
 
-	  if (!(x < scores->elem (i).attachment_[RIGHT][X_AXIS]
-		&& x > scores->elem (i).attachment_[LEFT][X_AXIS]))
+
+	  if (edge)
+	  {
+	    edge_distances.push (fabs (configuration.attachment_[l_edge ? LEFT : RIGHT][Y_AXIS]
+				       - infos[j].get_point (dir)));
+	  } 
+	  
+	  
+	  if (!(x < configuration.attachment_[RIGHT][X_AXIS]
+		&& x > configuration.attachment_[LEFT][X_AXIS]))
 	    continue;
 	
 	  Real y = bez.get_other_coordinate (X_AXIS, x);
@@ -852,7 +881,10 @@ score_encompass (Grob *me, Grob *common[],
 	    {
 	      Real head_dy = (y - infos[j].head_);
 	      if (dir * head_dy < 0)
-		demerit += score_param->head_encompass_penalty_;
+		{
+		  demerit += score_param->head_encompass_penalty_;
+		  convex_head_distances.push (0.0); 
+		}
 	      else
 		{
 		  Real hd = (head_dy)
@@ -860,9 +892,24 @@ score_encompass (Grob *me, Grob *common[],
 		    : score_param->head_encompass_penalty_;
 		  hd = (hd >? 0)<? score_param->head_encompass_penalty_;
 
-		  demerit += hd;	
+		  demerit += hd;
 		}
-	    }	
+
+	      Real line_y = linear_interpolate (x,
+						configuration.attachment_[RIGHT][X_AXIS],
+						configuration.attachment_[LEFT][X_AXIS],
+						configuration.attachment_[RIGHT][Y_AXIS],
+						configuration.attachment_[LEFT][Y_AXIS]);
+
+	      if (dir * (infos[j].get_point (dir) - line_y) > 0)
+		{
+		  Real d = fabs (infos[j].get_point (dir) - y);
+		  convex_head_distances.push (d);
+		}	      
+	    }
+
+	  
+	
 
 	  if (dir * (y - infos[j].stem_) < 0)
 	    {
@@ -888,11 +935,50 @@ score_encompass (Grob *me, Grob *common[],
 	    }
 	}
 
+      Real variance_penalty = 0.0;
+
+      if (convex_head_distances.size())
+	{
+	  Real avg_distance = 0.0;
+	  Real min_dist = infinity_f;
+	  for (int j = 0; j < convex_head_distances.size(); j++)
+	    {
+	      min_dist = min_dist <? convex_head_distances[j];
+	      avg_distance += convex_head_distances[j];
+	    }
+
+	  /*
+	    For slurs over 3 or 4 heads, the average distance is not a
+	    good normalizer.
+	   */
+	  int n =  convex_head_distances.size();
+	  if (convex_head_distances.size() <= 2)
+	    {
+	      for (int j = 0; j < edge_distances.size(); j++)
+		{
+		  avg_distance += edge_distances[j];
+		  n++;
+		}
+	    }
+
+	  /*
+	    TODO: maybe it's better to use (avgdist - mindist)*factor
+	    as penalty.
+	   */
+	  avg_distance /= n;
+	  variance_penalty = score_param->head_slur_distance_max_ratio_;
+	  if (min_dist > 0.0)
+	    variance_penalty = ((avg_distance / (min_dist  +score_param->free_head_distance_)) - 1.0)
+	      <? variance_penalty;
+      
+	  variance_penalty *= score_param->head_slur_distance_factor_;
+	}
 #if DEBUG_SLUR_QUANTING
       (*scores)[i].score_card_ += to_string ("C%.2f", demerit);
+      (*scores)[i].score_card_ += to_string ("D%.2f", variance_penalty);
 #endif
 
-      (*scores)[i].score_ += demerit;
+      (*scores)[i].score_ += demerit + variance_penalty;
     }
 }
 
@@ -1177,7 +1263,8 @@ get_bezier (Grob *me,
 	    Slur_score_parameters *score_param,
 	    Drul_array<Bound_info> extremes,	   
 	    Drul_array<Offset> attachments,
-	    Real r_0, Real h_inf)
+	    Real r_0, Real h_inf
+	    )
 {
   Link_array<Grob> encompasses
     = Pointer_group_interface__extract_grobs (me, (Grob *)0, "note-columns");

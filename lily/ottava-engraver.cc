@@ -21,15 +21,21 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_music ();
   virtual void stop_translation_timestep ();
+  virtual void derived_mark () const;
 private:
   Spanner *span_;
   Spanner *finished_;
   
-  Protected_scm last_ottavation_;
+  SCM last_ottavation_;
   
   void typeset_all ();
 };
 
+void
+Ottava_spanner_engraver::derived_mark () const
+{
+  scm_gc_mark (last_ottavation_ );
+}
 
 Ottava_spanner_engraver::Ottava_spanner_engraver ()
 {

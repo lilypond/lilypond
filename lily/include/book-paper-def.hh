@@ -12,6 +12,8 @@
 #include "lily-proto.hh"
 #include "output-def.hh"
 
+#error
+
 class Output_def : public Output_def
 {
 public:

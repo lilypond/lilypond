@@ -69,7 +69,8 @@ public:
   DECLARE_SMOBS (Translator, dummy);
 protected:			// should be private.
   Context * daddy_context_ ;
-  SCM simple_trans_list_;
+  virtual void derived_mark () const;
+  
   friend class Context_def;
   friend class Context;
 };

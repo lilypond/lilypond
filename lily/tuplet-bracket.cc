@@ -160,10 +160,10 @@ Tuplet_bracket::print (SCM smob)
   Direction dir = get_grob_direction (me);
 
   Grob * lgr = get_x_bound_grob (columns[0], dir);
-  Grob * rgr = get_x_bound_grob (columns.top (), dir);  
-  Real x0 = lgr->extent (commonx,X_AXIS)[LEFT];
-  Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
-
+  Grob * rgr = get_x_bound_grob (columns.top (), dir);
+  
+  Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
+  Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
   Real w = x1 -x0;
   
   SCM number = me->get_property ("text");
@@ -360,9 +360,8 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   
   Grob * lgr = get_x_bound_grob (columns[0], dir);
   Grob * rgr = get_x_bound_grob (columns.top (), dir);  
-  Real x0 = lgr->extent (commonx,X_AXIS)[LEFT];
-  Real x1 = rgr->extent (commonx,X_AXIS)[RIGHT];
-
+  Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
+  Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
 
   /*
     Slope.
@@ -478,7 +477,7 @@ Tuplet_bracket::after_line_breaking (SCM smob)
 
       /*
 	duh. magic.
-<       */
+       */
       offset = lp + dir * (0.5 + scm_to_double (me->get_property ("padding")));
       dy = rp- lp;
     }
