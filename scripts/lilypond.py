@@ -167,11 +167,11 @@ tex_extension = '.tex'  ## yuk.
 
 #lilypond_binary = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
 
-lilypond_binary = os.path.join ('@bindir@', 'lilypond')
+lilypond_binary = os.path.join ('@bindir@', 'lilypond-bin')
 
 # only use installed binary  when we're installed too.
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
-	lilypond_binary = 'lilypond'
+	lilypond_binary = 'lilypond-bin'
 
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',

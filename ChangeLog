@@ -1,3 +1,9 @@
+2003-08-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond.py: rename ly2dvi.py to lilypond.py
+
+	* lily/GNUmakefile (SUBDIRS): rename binary to lilypond-bin
+
 2003-08-29  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* ChangeLog lilypond.words Documentation/topdocs/NEWS.texi
@@ -6,6 +12,8 @@
 	fix spelling for acciaccatura (Webster's 1913).
 
 2003-08-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/main.cc (usage): adjust blurb, include url.
 
 	* input/regression/breathing-sign.ly (texidoc): transpose up
 
