@@ -1,6 +1,6 @@
 depth = ..
 
-SUBDIRS=test regression tutorial no-notation ascii-art template mutopia sondag-morgen
+SUBDIRS=test regression tutorial no-notation ascii-art template mutopia 
 
 # nereides is tweaked a lot, can't do (read webpage)
 examples= size11 size26 
