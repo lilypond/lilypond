@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header { texidoc = "
 A voicelet (a very short voice to get polyphonic chords correct)
 should not confuse the spacing engine."

@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header {
 
     texidoc ="space from a normal note /barline to a grace note is

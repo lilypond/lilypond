@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header {
 
 texidoc = "Upstem notes before a barline are printed with some extra
