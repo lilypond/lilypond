@@ -1,3 +1,8 @@
+2003-04-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in (SUBDIRS): midi2ly.1 build fix backport: build
+	python before scripts (thanks Anthony).
+
 2003-04-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* debian: Update.  Remove mentioning of `mudela'; There's no such
