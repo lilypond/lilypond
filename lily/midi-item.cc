@@ -55,11 +55,14 @@ String
 Midi_chunk::str () const
 {
   String str = header_str_;
+  String dat = data_str ();
+  // huh, huh??
+//  String length_str = String_convert::i2hex_str (dat.length_i () 
   String length_str = String_convert::i2hex_str (data_str_.length_i () 
     + footer_str_.length_i (), 8, '0');
   length_str = String_convert::hex2bin_str (length_str);
   str += length_str;
-  str += data_str ();
+  str += dat;
   str += footer_str_;
   return str;
 }

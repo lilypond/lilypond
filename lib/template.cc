@@ -12,17 +12,8 @@
 #include "cursor.tcc"
 #include "list.tcc"
 
-#if 0
+#if !defined(__CYGWIN32__) && __GNUC_MINOR__ < 8
 LIST_INSTANTIATE (void *);
-
-#else
-
-    static void force_list_members ()
-    {
-    List<void*> bla;
-    bla.top().add ((void*)0);
-    }
-
 #endif
 
 POINTERLIST_INSTANTIATE (Source_file);
