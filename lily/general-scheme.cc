@@ -31,6 +31,10 @@ inline int my_isnan (Real r) { return isnan (r); }
 #endif
 
 
+/*
+  Ugh. Gulped file is copied twice. (maybe thrice if you count stdio
+  buffering.)
+ */
 LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   1, 0, 0, (SCM name),
 	   "Read the file @var{name}, and return its contents in a string.  "

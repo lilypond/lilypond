@@ -1,8 +1,14 @@
+2005-01-29  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* ps/lilyponddefs.ps: add start-page, start-system doesn't
+	translate to top of page. Fixes alignment problems of
+	lilypond-generated EPS files.
+
 2005-01-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/part-combiner.scm (analyse-spanner-states): trigger on
-	crescendo-end as well. (decr maybe ended with Stop cresc.). Fixes:
-	partcombine-diminuendo.ly
+	crescendo-end as well, since Decrescendo maybe ended with Stop
+	Crescendo.). Fixes: partcombine-diminuendo.ly
 
 	* scm/script.scm (default-script-alist): swap portato symbols.
 
