@@ -18,7 +18,7 @@
 class Break_align_engraver : public Engraver
 {
   Item *align_;
-SCM column_alist_;
+  SCM column_alist_;
   Item *left_edge_;
 
   void add_to_group (SCM,Item*);

@@ -145,7 +145,7 @@ loose_column (Grob *l, Grob *c, Grob *r)
 
 	      /*
 		ugh. -- fix staff-bar name? 
-	       */
+	      */
 	      if (h  && h->get_property ("break-align-symbol") == ly_symbol2scm ("staff-bar"))
 		return false;
 	    }
@@ -185,10 +185,10 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 	  /*
 	    Either object can be non existent, if the score ends
 	    prematurely.
-	   */
+	  */
 	  rns = ly_car (unsmob_grob (rns)->get_property ("right-items"));
 	  c->set_property ("between-cols", scm_cons (lns,
-							 rns));
+						     rns));
 
 	  /*
 	    Set distance constraints for loose columns
@@ -290,7 +290,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 
 	  /*
 	    update the left column.
-	   */
+	  */
 	  if (right_rank <= min_rank)
 	    {
 	      if (right_rank < min_rank)
@@ -302,7 +302,7 @@ Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 
 	  /*
 	    update the right column of the wish.
-	   */
+	  */
 	  int maxrank = 0;
 	  SCM left_neighs = rc->get_property ("left-neighbors");
 	  if (scm_is_pair (left_neighs)
@@ -346,7 +346,7 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> cols)
 
       /*
 	sloppy with typnig left/right-neighbors should take list, but paper-column found instead.
-       */
+      */
       SCM ln = cols[i] ->get_property ("left-neighbors");
       if (!scm_is_pair (ln) && i ) 
 	{
@@ -370,7 +370,7 @@ Spacing_spanner::set_springs (SCM smob)
 
   /*
     can't use get_system() ? --hwn.
-   */
+  */
   Link_array<Grob> all (me->pscore_->system_->columns ());
 
   set_explicit_neighbor_columns (all);
@@ -422,7 +422,7 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 {
   /*
     ascending in duration
-   */
+  */
   Array<Rational> durations; 
   Array<int> counts;
   
@@ -506,7 +506,8 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
   (different time sigs) than others, and should be spaced differently.
  */
 void
-Spacing_spanner::do_measure (Rational global_shortest, Grob*me, Link_array<Grob> *cols) 
+Spacing_spanner::do_measure (Rational global_shortest, Grob*me,
+			     Link_array<Grob> *cols) 
 {
 
   Real headwid = robust_scm2double (me->get_property ("spacing-increment"), 1);
@@ -539,17 +540,15 @@ Spacing_spanner::do_measure (Rational global_shortest, Grob*me, Link_array<Grob>
 	    breakable_column_spacing (me, l, rb, global_shortest);
 	  if (lb && rb)
 	    breakable_column_spacing (me, lb, rb, global_shortest);
-	  
-	  continue ; 
 	}
-
-
-      musical_column_spacing (me, lc, rc, headwid, global_shortest);
-      if (Item *rb = r->find_prebroken_piece (LEFT))
-	musical_column_spacing (me, lc, rb, headwid, global_shortest);
-    }    
+      else
+	{
+	  musical_column_spacing (me, lc, rc, headwid, global_shortest);
+	  if (Item *rb = r->find_prebroken_piece (LEFT))
+	    musical_column_spacing (me, lc, rb, headwid, global_shortest);
+	}    
+    }
 }
-
 
 /*
   Generate the space between two musical columns LC and RC, given

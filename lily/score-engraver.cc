@@ -79,7 +79,7 @@ Score_engraver::prepare (Moment m)
   SCM w = m.smobbed_copy ();
   command_column_->set_property ("when", w);
   musical_column_->set_property ("when", w);
-  
+
   recurse_over_translators (context (), &Translator::start_translation_timestep, DOWN);
 }
 

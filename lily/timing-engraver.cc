@@ -23,6 +23,7 @@ protected:
   
   virtual void start_translation_timestep ();
   virtual void initialize ();
+  virtual void process_music();
   virtual void stop_translation_timestep ();
 
 public:
@@ -52,6 +53,26 @@ Timing_engraver::initialize ()
   context ()->set_property ("whichBar", which);
 }
 
+void
+Timing_engraver::process_music()
+{
+  Timing_translator::process_music ();
+
+  bool start_of_measure = (last_moment_.main_part_ != now_mom().main_part_
+			   && !measure_position ().main_part_);
+
+  /*
+    We can't do this in start_translation_timestep(), since time sig
+    changes won't have happened by then.
+   */
+  if (start_of_measure)
+    {
+      Moment mlen = Moment (measure_length ());
+      unsmob_grob (get_property ("currentCommandColumn"))
+	->set_property ("measure-length", mlen.smobbed_copy ()); 
+    }
+}
+  
 
 void
 Timing_engraver::start_translation_timestep ()
@@ -70,13 +91,6 @@ Timing_engraver::start_translation_timestep ()
   bool start_of_measure = (last_moment_.main_part_ != now.main_part_
 			   && !mp.main_part_);
 
-  if (start_of_measure)
-    {
-      Moment mlen = Moment (measure_length ());
-      unsmob_grob (get_property ("currentCommandColumn"))
-	->set_property ("measure-length", mlen.smobbed_copy ()); 
-    }
-  
   if (!scm_is_string (which) && to_boolean (automatic_bars))
     {
       SCM always = get_property ("barAlways");
