@@ -2,56 +2,56 @@
 \version "1.3.120";
 
 violoncello =  \notes \relative c {
-	c1\ff ~ |
-	c |
-	f,4-. r r2 |
-	R1 |
-	c'1\ff ~ |
-	c |
-	f,4-. r r2 |
-	R1 |
-	c'1\ff ~ |
-	c |
-	fis,4-. r r2 |
-	R1 |
-	g4-. r r2 |
-	g4-. r r2 |
-	c4\p r4 r2 |
-	c4 r4 r2 |
-	c4 r4 r2 |
-	R1 |
+	c1\ff ~|
+	c|
+	f,4-. r r2|
+	R1|
+	c'1\ff ~|
+	c|
+	f,4-. r r2|
+	R1|
+	c'1\ff ~|
+	c|
+	fis,4-. r r2|
+	R1|
+	g4-. r r2|
+	g4-. r r2|
+	c4\p r4 r2|
+	c4 r4 r2|
+	c4 r4 r2|
+	R1|
 	\property StaffCombineVoice.crescendoText = #"cresc."
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
-	c'4.\< c8 bes4. bes8 |
+	c'4.\< c8 bes4. bes8|
 
 	%20
-	as4. as8 \!g4\f r4 |
-	R1 |
+	as4. as8 \!g4\f r4|
+	R1|
 	% 4 bars same as violino-1...
-	[bes,!8\p-. des-.][des()c][c-. f-.]f4-"ten." |
-	[bes,!8\p-. des-.][des()c][c-. f-.]f4-"ten." |
-	[bes,!8\p-. des-.][des()c][c-. ges'-.][ges()f] |
+	[bes,!8\p-. des-.][des()c][c-. f-.]f4-"ten."|
+	[bes,!8\p-. des-.][des()c][c-. f-.]f4-"ten."|
+	[bes,!8\p-. des-.][des()c][c-. ges'-.][ges()f]|
 
 	%25
 	[f-. bes-.][bes()a][a-. es'-.][es()des]|
 	\property StaffCombineVoice.crescendoText = #"cresc."
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
-	bes4.\< bes8 as4. as8 |
-	g4 \!g4-.\f r2 |
+	bes4.\< bes8 as4. as8|
+	g4 \!g4-.\f r2|
 	R1
-	as4.\p as8 g4. g8 |
-	f2.-"cresc" g4 |
-	f2. g4 |
-	f4. g8 f4. g8 |
-	f4. g8 f4. g8 |
-	as1\ff ~ |
+	as4.\p as8 g4. g8|
+	f2.-"cresc" g4|
+	f2. g4|
+	f4. g8 f4. g8|
+	f4. g8 f4. g8|
+	as1\ff ~|
 
 	%35
 	as4(g f)es|
-	d4. r8 c4. r8 |
-	b4. r8 c4. r8 |
-	bes4. r8 as4. r8 |
-	g4. r8 f4. r8 |
+	d4. r8 c4. r8|
+	b4. r8 c4. r8|
+	bes4. r8 as4. r8|
+	g4. r8 f4. r8|
 
 	%40
 	fis2\sf [c'8-. es-.][es()d]
@@ -61,73 +61,73 @@ violoncello =  \notes \relative c {
 	e,2\sf [bes'!8-. des-.][des()c]
 
 	%45
-	es,!2\sf [a!8-. c-.][c()bes] |
+	es,!2\sf [a!8-. c-.][c()bes]|
 	d,4 [a'!8-. c-.][c()bes] es,4\sf(|
 	)d4 [a'!8-. c-.][c()bes] es,4\sf(|
 	)d4 [a'!8-. c-.][c()bes] es,4\sf(|
 	)d4 [a'!8-. c-.][c()bes] es,4\sf(|
 
 	%50
-	)d4 r r2 |
-	R1 |
-	[bes'8\p(g'es g][bes g es)bes~] |
-	[bes(f'd f][bes f d)bes~] |
-	[bes(g'es g][bes g es)bes~] |
+	)d4 r r2|
+	R1|
+	[bes'8\p(g'es g][bes g es)bes~]|
+	[bes(f'd f][bes f d)bes~]|
+	[bes(g'es g][bes g es)bes~]|
 
 	%55
-	[bes(as'f as][bes as f)bes,~] |
+	[bes(as'f as][bes as f)bes,~]|
 	\property StaffCombineVoice.crescendoText = #"cresc."
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
-	[bes\<(g'es g][bes g es)bes~] |
-	[bes(f'd f][bes f d)bes~] |
-	[bes(g'es g][bes g es)bes~] |
-	[bes(as'f as][bes as f)bes,~] |
+	[bes\<(g'es g][bes g es)bes~]|
+	[bes(f'd f][bes f d)bes~]|
+	[bes(g'es g][bes g es)bes~]|
+	[bes(as'f as][bes as f)bes,~]|
 
 	%60
-	[bes(g'es g][bes g es)bes~] |
-	[bes(f'd f][bes f d)as] |
-	\!g2\ff f |
-	e c |
-	[f8\p(as'f as][c as f)c~] |
-	[c(g'e g][c g e)c~] |
-	[c(as'f as][c as f)c~] |
-	[c(bes'g bes][c bes g)c,~] |
-	[c(as'f as][c as f)c~] |
-	[c(g'e g][c g e)bes] |
+	[bes(g'es g][bes g es)bes~]|
+	[bes(f'd f][bes f d)as]|
+	\!g2\ff f|
+	e c|
+	[f8\p(as'f as][c as f)c~]|
+	[c(g'e g][c g e)c~]|
+	[c(as'f as][c as f)c~]|
+	[c(bes'g bes][c bes g)c,~]|
+	[c(as'f as][c as f)c~]|
+	[c(g'e g][c g e)bes]|
 
 	%70
-	as2\ff g |
-	fis d |
+	as2\ff g|
+	fis d|
 	\property StaffCombineVoice.crescendoText = #"cresc."
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
-	[g8\p\<(bes' g bes][d bes g)d~] |
-	[d8(a' fis a][d a fis)d] |
-	[\!f!8\sf\>(as f as][f g d)g] |
+	[g8\p\<(bes' g bes][d bes g)d~]|
+	[d8(a' fis a][d a fis)d]|
+	[\!f!8\sf\>(as f as][f g d)g]|
 
 	%75
-	\!c,4\p r d r |
-	es r d r |
-	c r cis r |
-	d\pp r8 d d4. d8 |
-	r4 r8 d d4. d8 |
+	\!c,4\p r d r|
+	es r d r|
+	c r cis r|
+	d\pp r8 d d4. d8|
+	r4 r8 d d4. d8|
 
 	%80
 	\property StaffCombineVoice.crescendoText = #"cresc."
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
-	r4 r8 d d4.\< d8 |
-	r4 r8 d d4. d8 |
-	r4 r8 d d4. d8 |
-	r4 r8 d d4. d8 |
-	\!c'2.\ff()bes4 |
+	r4 r8 d d4.\< d8|
+	r4 r8 d d4. d8|
+	r4 r8 d d4. d8|
+	r4 r8 d d4. d8|
+	\!c'2.\ff()bes4|
 	%85
 	a(g a)g|
-	c2.()bes4 |
+	c2.()bes4|
 	a(g a)g|
-	f!2.()es4 |
+	f!2.()es4|
 	d(c d)c|
 
 	%90
-	f2.()es4 |
+	f2.()es4|
 	d(c d)c|
 	c r8 c' c4\sf()des|
 	r r8 c c4\sf()des|
@@ -135,46 +135,46 @@ violoncello =  \notes \relative c {
 
 	%95
 	r r8 c c4\sf()des|
-	c,4. c'8 c,4. c'8 |
-	b,4. b'8 bes,4. bes'8 |
-	as,4. as'8 g,4. g'8 |
-	fis,4. fis'8 es4. es8 |
+	c,4. c'8 c,4. c'8|
+	b,4. b'8 bes,4. bes'8|
+	as,4. as'8 g,4. g'8|
+	fis,4. fis'8 es4. es8|
 
 	%100
-	d4 r8 d es4 r8 es |
-	c4 r8 c d4 r8 d |
+	d4 r8 d es4 r8 es|
+	c4 r8 c d4 r8 d|
 	% copied \transpose c, viola-1(102, 130)
 	% except for some abbrevs below...
 	[g8\p bes cis d][es d bes g]|
-	[fis a cis d][es d a fis\f] |
+	[fis a cis d][es d a fis\f]|
 	[g bes cis\p d][es d bes g]
 
 	%105
-	[fis a cis d][es d a fis\f] |
-	[g bes cis\p d][f, a cis d] |
-	[es, g b c][d, g a bes] |
-	% [c, es g a]r[d, fis g] |
-	[c, es g a][bes, d fis g] |
-	% r[c, es g][d fis a d] |
-	[a, c es g][d fis a d] |
+	[fis a cis d][es d a fis\f]|
+	[g bes cis\p d][f, a cis d]|
+	[es, g b c][d, g a bes]|
+	% [c, es g a]r[d, fis g]|
+	[c, es g a][bes, d fis g]|
+	% r[c, es g][d fis a d]|
+	[a, c es g][d fis a d]|
 
 	%110
 	% cello has eighth notes here...
-	% [g,16 g bes bes][d d es es][f, f a a][cis cis d d] |
+	% [g,16 g bes bes][d d es es][f, f a a][cis cis d d]|
 	% see if this:8 neat trick works...
-	[g,:8 bes d es][f, a cis d] |
-	[es,8: g: b: c!:][d,: f: a: bes:] |
-	[c,: es: g: a:][cis,: e: g: bes:] |
-	[d,: g: bes: d:][d,: fis: a: d:] |
-	g,,2 ~ g4. g8 |
+	[g,:8 bes d es][f, a cis d]|
+	[es,8: g: b: c!:][d,: f: a: bes:]|
+	[c,: es: g: a:][cis,: e: g: bes:]|
+	[d,: g: bes: d:][d,: fis: a: d:]|
+	g,,2 ~ g4. g8|
 
 	%115
-	g2 ~ g4. g8 |
-	g4. g8 g4 r8 g |
-	g4. g8 g4 r8 g |
+	g2 ~ g4. g8|
+	g4. g8 g4 r8 g|
+	g4. g8 g4 r8 g|
 	% urg, 2 copied from 102
 	[g'8\p bes cis d][es d bes g]|
-	[fis a cis d][es d a fis] |
+	[fis a cis d][es d a fis]|
 
 	%120
 	[g bes c des][c des bes g]|
@@ -196,14 +196,14 @@ violoncello =  \notes \relative c {
 	%131
 	[g bes d es][f es bes g]|
 	% shared with viola until here
-	as1 ( |
-	a |
-	bes |
-	)c |
-	\!des2\p( c |
-	bes as |
-	ges f |
-	)es [as,8 c es as] |
+	as1 (|
+	a|
+	bes|
+	)c|
+	\!des2\p( c|
+	bes as|
+	ges f|
+	)es [as,8 c es as]|
 
 	%140
 	% copied from viola-1 (140,152)
@@ -236,119 +236,119 @@ violoncello =  \notes \relative c {
 	[bes, des e g][as, c e f]|
 	% r8[des16 des][f f g g][c, c e e][g g c c]|
 	[bes, des f g][c, e g c]|
-	f,1\ff ~ |
-	f |
+	f,1\ff ~|
+	f|
 	bes,4-. r r2
 
 	%155
-	R1 |
-	f'1\ff ~ |
-	f |
-	b,2\sf [f'8-. as-.][as()g] |
-	b,2\sf [f'8-. as-.][as()g] |
+	R1|
+	f'1\ff ~|
+	f|
+	b,2\sf [f'8-. as-.][as()g]|
+	b,2\sf [f'8-. as-.][as()g]|
 
 	%160
-	R1*3 |
-	bes,!2\ff [e8-. g-.][g()f] |
-	bes,2\sf [e8-. g-.][g()f] |
+	R1*3|
+	bes,!2\ff [e8-. g-.][g()f]|
+	bes,2\sf [e8-. g-.][g()f]|
 
 	%165
-	R1*2 |
+	R1*2|
 	r2 r4 bes,\ff(|
 	)as4 [e'8-. g-.][g()f] bes,4\sf(|
 	)as4 [e'8-. g-.][g()f] bes,4\sf(|
 
 	%170
 	)as4 [e'8-. g-.][g()f] bes,4\sf(|
-	)as4 [e'8-. g-.][g()f][fis-. fis-.] |
+	)as4 [e'8-. g-.][g()f][fis-. fis-.]|
 	g4 [fis8-. as-.][as()g] c,4\sf(|
 	)b4 [fis'8-. as-.][as()g] c,4\sf(|
 	)b4 [fis'8-. as-.][as()g] c,4\sf(|
 
 	%175
 	)b4 [fis'8-. as-.][as()g] c,4\sf(|
-	)b4 r r2 |
-	R1 |
-	[g8\p(e' c d][g e c )g~] |
-	[g(d' b d][g d b )g~] |
+	)b4 r r2|
+	R1|
+	[g8\p(e' c d][g e c )g~]|
+	[g(d' b d][g d b )g~]|
 
 	%180
-	[g(e' c d][g e c )g~] |
-	[g(f' d f][g f d )g,~] |
+	[g(e' c d][g e c )g~]|
+	[g(f' d f][g f d )g,~]|
 	\property StaffCombineVoice.crescendoText = #"cresc."
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
-	[g\<(e' c d][g e c )g~] |
-	[g(d' b d][g d b )g~] |
+	[g\<(e' c d][g e c )g~]|
+	[g(d' b d][g d b )g~]|
 
 	%185
-	[g(e' c d][g e c )g~] |
-	[g(f' d f][g f d )g,~] |
-	[g(e' c d][g e c )g~] |
-	[g(d' b d][g d b )g(] |
+	[g(e' c d][g e c )g~]|
+	[g(f' d f][g f d )g,~]|
+	[g(e' c d][g e c )g~]|
+	[g(d' b d][g d b )g(]|
 
 	%190
-	\!)e2\ff d' |
-	cis a ~ |
-	[a8( f' d f][a f d )a!~] |
-	[a( e' cis e][a e c )a!~] |
-	[a8( f' d f][a f d )a!~] |
-	[a( g' e g][a g e )a,!~] |
+	\!)e2\ff d'|
+	cis a ~|
+	[a8( f' d f][a f d )a!~]|
+	[a( e' cis e][a e c )a!~]|
+	[a8( f' d f][a f d )a!~]|
+	[a( g' e g][a g e )a,!~]|
 
 	%195
 	\property StaffCombineVoice.crescendoText = #"cresc."
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
-	[a8\<( f' d f][a f d )a!~] |
-	[a( e' cis e][a e c )g] |
-	\!f2\ff e |
-	dis b'~ |
-	[b8\p( g' e g][b g e )b!~] |
+	[a8\<( f' d f][a f d )a!~]|
+	[a( e' cis e][a e c )g]|
+	\!f2\ff e|
+	dis b'~|
+	[b8\p( g' e g][b g e )b!~]|
 
 	%200
-	[b8\<( fis' dis fis ][b fis dis )b!~] |
-	[b8( g' e g][e g e )g] |
-	[f(g f g][f g f)g] |
-	\!es!4\fp r e r |
-	f r g r |
+	[b8\<( fis' dis fis ][b fis dis )b!~]|
+	[b8( g' e g][e g e )g]|
+	[f(g f g][f g f)g]|
+	\!es!4\fp r e r|
+	f r g r|
 	
 	%205
-	as r g r |
-	f r fis r |
-	g r g r |
-	g r g r |
+	as r g r|
+	f r fis r|
+	g r g r|
+	g r g r|
 	\property StaffCombineVoice.crescendoText = #"cresc."
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
-	g r g\< r |
+	g r g\< r|
 	
 	%210
-	g r g r |
-	g r g r |
-	g r g r |
-	\!f2.\ff()es4 |
-	d( c d )c |
+	g r g r|
+	g r g r|
+	g r g r|
+	\!f2.\ff()es4|
+	d( c d )c|
 
 	%215
-	f2.\ff()es4 |
-	d( c d )c |
-	bes2.\ff()as4 |
-	g( f g )f |
-	bes2.\ff()as4 |
+	f2.\ff()es4|
+	d( c d )c|
+	bes2.\ff()as4|
+	g( f g )f|
+	bes2.\ff()as4|
 	
 	%220
-	g( f g )f |
-	r4 r8 f' f4\sf()ges |
-	r4 r8 f f4\sf()ges |
-	r4 r8 f f4\sf()ges |
-	r4 r8 f f4\sf()ges |
+	g( f g )f|
+	r4 r8 f' f4\sf()ges|
+	r4 r8 f f4\sf()ges|
+	r4 r8 f f4\sf()ges|
+	r4 r8 f f4\sf()ges|
 
 	%225
-	f4. f'8 f,4. f'8 |
-	e,4. e'8 es,4. es'8 |
-	d,4. d'8 c,4. c'8 |
-	b,4. b'8 as,4. as'8 |
-	g,4 r8 g as4 r8 as |
+	f4. f'8 f,4. f'8|
+	e,4. e'8 es,4. es'8|
+	d,4. d'8 c,4. c'8|
+	b,4. b'8 as,4. as'8|
+	g,4 r8 g as4 r8 as|
 
 	%230
-	f4 r8 f g4 r8 g |
+	f4 r8 f g4 r8 g|
 	[c8\p es fis g][as g es c]|
 	[b d fis g][as g d b\f]|
 	[c es fis\p g][as g es c]|
@@ -363,8 +363,8 @@ violoncello =  \notes \relative c {
 
 	%240
 	[as, c e f!][g, bes d es]|
-	f4 r r2 |
-	R1*3 |
+	f4 r r2|
+	R1*3|
 	c4\p r r r8 c(|
 
 	%245
@@ -381,30 +381,30 @@ violoncello =  \notes \relative c {
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
 	)c4\< r r r8 c(|
 	)f4 r r r8 f,(|
-	)es1 |
+	)es1|
 	
 	%255
-	\!ges\f |
-	f\p |
-	as\f |
-	g!\p |
-	bes\f |
+	\!ges\f|
+	f\p|
+	as\f|
+	g!\p|
+	bes\f|
 
 	%260
 	\property StaffCombineVoice.crescendoText = #"cresc."
 	\property StaffCombineVoice.crescendoSpanner = #'dashed-line
-	as4.\p\< as'8 g4. g8 |
-	f4. f8 es4. es8 |
-	as4. as8 g4. g8 |
-	f4. f8 es4. es8 |
-	\!f,4.\ff f'8 f2\sf |
+	as4.\p\< as'8 g4. g8|
+	f4. f8 es4. es8|
+	as4. as8 g4. g8|
+	f4. f8 es4. es8|
+	\!f,4.\ff f'8 f2\sf|
 	
 	%265
-	f,4. f'8 f2\sf |
-	g,4. g'8 g2\sf |
-	g,4. g'8 g2\sf |
-	as,4. as'8 as2\sf |
-	b,4. b'8 b2\sf |
+	f,4. f'8 f2\sf|
+	g,4. g'8 g2\sf|
+	g,4. g'8 g2\sf|
+	as,4. as'8 as2\sf|
+	b,4. b'8 b2\sf|
 	
 	%270
 	[c,8-"sempre"\ff b c d][es\ff d es c]|
@@ -415,63 +415,63 @@ violoncello =  \notes \relative c {
 
 	%275
 	[c b c g][c b c g]|
-	c1 ~ |
-	c |
-	f4-. r r2 |
-	R1 |
+	c1 ~|
+	c|
+	f4-. r r2|
+	R1|
 
 	%280
-	c1 ~ |
-	c |
-	f4-. r r2 |
-	R1 |
-	c1 ~ |
+	c1 ~|
+	c|
+	f4-. r r2|
+	R1|
+	c1 ~|
 
 	%285
-	c |
-	fis4-. f-. r2 |
+	c|
+	fis4-. f-. r2|
 	R1|
-	es4-. e-. r2 |
-	f,4-. g-. r2 |
+	es4-. e-. r2|
+	f,4-. g-. r2|
 
 	%290
 	\property StaffCombineVoice.decrescendoText = #"dim."
 	\property StaffCombineVoice.decrescendoSpanner = #'dashed-line
-	as4\> r b r |
-	R1 |
+	as4\> r b r|
+	R1|
 	\!c4\p r r2|
-	R1 |
-	g4-"pizz." r r2 |
+	R1|
+	g4-"pizz." r r2|
 	
 	%295
-	R1 |
-	c4 r r2 |
-	[c8-.-"arco" es-.][es()d][d-. as'-.][as()g] |
+	R1|
+	c4 r r2|
+	[c8-.-"arco" es-.][es()d][d-. as'-.][as()g]|
 	R1
 	\property StaffCombineVoice.decrescendoText = #"sempre pi\\`u piano"
 	% urg, "" is assumed to be hairpin...
 	%\property StaffCombineVoice.decrescendoSpanner = #""
 	\property StaffCombineVoice.decrescendoSpanner = #'dashed-line
-	\times 2/3 {  c,4\> ( es c ~ } \times 2/3 {  c as' )g } |
+	\times 2/3 {  c,4\> ( es c ~ } \times 2/3 {  c as' )g }|
 
 	%300
-	r2 r4 c,( |
-	es2. ) d4 |
-	r2 r4 d( |
-	as'2. )g4 ~ |
-	g1 ( |
+	r2 r4 c,(|
+	es2. ) d4|
+	r2 r4 d(|
+	as'2. )g4 ~|
+	g1 (|
 
 	%305
-	es |
-	)d( |
-	\!)as'\> ~ |
-	as ~ |
-	as2.()g4 |
+	es|
+	)d(|
+	\!)as'\> ~|
+	as ~|
+	as2.()g4|
 	
 	%310
-	\!c,\pp r r2 |
-	R1 |
-	c4-"pizz." r r2 |
-	c4 r r2 |
-	c4 r r2 |
+	\!c,\pp r r2|
+	R1|
+	c4-"pizz." r r2|
+	c4 r r2|
+	c4 r r2|
 }

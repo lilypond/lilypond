@@ -25,7 +25,21 @@ ADD_THIS_TRANSLATOR (Thread_devnull_engraver);
 void
 Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 {
-  if (daddy_trans_l_->id_str_.left_str (3) == "two"
+  /*
+    FIXME: coriolan-fix hack -- ff  geen inspiratie
+    
+    We should have at least three modes:
+    
+      1. Never -- do nothing
+      2. Allways -- junk everythingallways
+      3. Regular: junk according to two/unison/unisilence/soloADue
+
+    but how shall we do that?
+
+    Hmm, maybe just: threadDevNull = 'never|'allways|...
+   */
+  if (!to_boolean (get_property ("disableDevNullThread"))
+      && daddy_trans_l_->id_str_.left_str (3) == "two"
       && (to_boolean (get_property ("unison"))
 	  || to_boolean (get_property ("unisilence")))
       && to_boolean (get_property ("soloADue")))

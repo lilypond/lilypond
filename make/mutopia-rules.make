@@ -21,7 +21,7 @@ $(outdir)/%.ly: %.abc
 	$(PYTHON) $(script-dir)/abc2ly.py -o $@ $< 
 
 $(outdir)/%.dvi: $(outdir)/%.ly
-	$(PYTHON) $(script-dir)/ly2dvi.py -o $(outdir)  $< 
+	$(PYTHON) $(script-dir)/ly2dvi.py -o $(outdir) $< 
 	-mv $(basename $(<F))*.midi $(outdir)
 
 # don't junk intermediate .dvi files.  They're easier to view than
@@ -31,6 +31,10 @@ $(outdir)/%.dvi: $(outdir)/%.ly
 $(outdir)/%.dvi: %.ly
 	$(PYTHON) $(script-dir)/ly2dvi.py -o $(outdir)  $< 
 	-mv $(basename $<)*.midi $(outdir)
+
+$(outdir)-$(PAPERSIZE)/%.dvi: %.ly
+	$(PYTHON) $(script-dir)/ly2dvi.py -o $(outdir)-$(PAPERSIZE) -p $(PAPERSIZE) $< 
+	-mv $(basename $<)*.midi $(outdir)-$(PAPERSIZE)
 
 $(outdir)/%.dvi: %.fly
 	$(PYTHON) $(script-dir)/ly2dvi.py -o $(outdir)  $< 

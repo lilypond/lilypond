@@ -8,14 +8,24 @@
 ;;; Note: this file can't be used without LilyPond executable
 
 (define (number-pair?  x)
-  (and (pair? x) (number? (car x)) (number? (cdr x))))
+  (and (pair? x)
+       (number? (car x)) (number? (cdr x))))
 
-(define (boolean-or-symbol? x) (or boolean? x) (or symbol? x))
+(define (moment-pair?  x)
+  (and (pair? x)
+       (moment? (car x)) (moment? (cdr x))))
 
-(define (number-or-string? x) (or (number? x) (string? x)))
+(define (boolean-or-symbol? x)
+  (or (boolean? x) (symbol? x)))
 
-(define markup?
-  (lambda (x) (or (string? x) (list? x))))
+(define (number-or-boolean? x)
+  (or (number? x) (boolean? x)))
+
+(define (number-or-string? x)
+  (or (number? x) (string? x)))
+
+(define (markup? x)
+  (or (string? x) (list? x)))
 
 ;; ugh: code dup ; merge.
 (define (object-type obj)
@@ -39,6 +49,7 @@
    ((procedure? obj) "procedure") 
    ((boolean-or-symbol? obj) "boolean or symbol")
    ((number-or-string? obj) "number or string")
+   ((number-or-boolean? obj) "number or boolean")
    ((markup? obj) "markup (list or string)")
    (else "unknown type")))
 

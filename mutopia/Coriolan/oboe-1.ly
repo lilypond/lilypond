@@ -2,33 +2,33 @@
 \version "1.3.120";
 
 oboeI =  \notes \relative c'' {
-	R1*2 |
-	as'4-.\ff r r2 |
-	R1*3 |
-	as4-. r r2 |
-	R1*3 |
-	a4-. r r2 |
-	R1 |
-	g4-. r r2 |
-	g4-. r r2 |
-	R1 *4 |
+	R1*2|
+	as'4-.\ff r r2|
+	R1*3|
+	as4-. r r2|
+	R1*3|
+	a4-. r r2|
+	R1|
+	g4-. r r2|
+	g4-. r r2|
+	R1 *4|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	as2\p\< ( g |
-	)fis2. \!g4-.\f |
-	R1*5 |
+	as2\p\< ( g|
+	)fis2. \!g4-.\f|
+	R1*5|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	ges2\p\<  f ~ |
-	f4 \!e\f r2 |
-	R1 |
-	f2\p()es |
+	ges2\p\<  f ~|
+	f4 \!e\f r2|
+	R1|
+	f2\p()es|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	d1\< |
-	d |
-	d2 d |
-	d d |
+	d1\<|
+	d|
+	d2 d|
+	d d|
 	\!f1\ff ~|
 	f4(es des)c|
 	f4. r8 es4. r8|
@@ -70,7 +70,7 @@ oboeI =  \notes \relative c'' {
 	d(c2)bes4|
 	bes(a bes)g|
 	fis\pp r r2|
-	r r4 r8 fis' |
+	r r4 r8 fis'|
 	g4 r r2|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
@@ -112,7 +112,7 @@ oboeI =  \notes \relative c'' {
 	g4\p r r2|
 	R1*15|
 	r4 r8 as-"cresc" ges4 r8 des|
-	es4 r8 bes' as4 r8 es |
+	es4 r8 bes' as4 r8 es|
 	f4 r r2|
 	R1*3|
 	f4\f r r r8 es|

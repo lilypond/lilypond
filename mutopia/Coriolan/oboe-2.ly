@@ -3,20 +3,20 @@
 
 oboeII =  \notes \relative c{
 	R1*2|
-	f''4-.\ff r r2 |
-	R1*3 |
-	f4-. r r2 |
-	R1*3 |
-	es4-. r r2 |
-	R1 |
-	es4-. r r2 |
-	b4-. r r2 |
-	R1*5 |
-	r2 r4 b4-. |
-	R1*6 |
-	r4 bes\f r2 |
-	R1*6 |
-	c1\ff ~ |
+	f''4-.\ff r r2|
+	R1*3|
+	f4-. r r2|
+	R1*3|
+	es4-. r r2|
+	R1|
+	es4-. r r2|
+	b4-. r r2|
+	R1*5|
+	r2 r4 b4-.|
+	R1*6|
+	r4 bes\f r2|
+	R1*6|
+	c1\ff ~|
 	c4( es des)c|
 	b4. r8 c4. r8|
 	d4. r8 es4. r8|
@@ -57,7 +57,7 @@ oboeII =  \notes \relative c{
 	R1*3|
 	%a deux; urg: copied oboe-1(110,111)|
 	bes'4\f r a r|
-	g r f r |
+	g r f r|
 	es r g r8 g|
 	g4 r8 g fis4 r8 fis|
 	bes,1~|
@@ -79,7 +79,7 @@ oboeII =  \notes \relative c{
 	bes4 r8 bes bes4 r8 bes|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	c1\p\< ~||
+	c1\p\< ~|
 	c~|
 	c~|
 	c|
@@ -117,17 +117,17 @@ oboeII =  \notes \relative c{
 	g2.()as4|
 	bes(as bes)as|
 	%a deux; urg copied oboe-1(220,230)|
-	r2 as'||
-	r as\sf||
-	r as\sf||
-	r as\sf||
-	as g~||
-	g f~||
-	f1~||
-	f||
-	f4 r as r||
-	f r g r||
-	c,\p r r2||
+	r2 as'|
+	r as\sf|
+	r as\sf|
+	r as\sf|
+	as g~|
+	g f~|
+	f1~|
+	f|
+	f4 r as r|
+	f r g r|
+	c,\p r r2|
 	r r4 r8 d\f|
 	es4 r r2|
 	r r4 r8 d\f|
@@ -155,10 +155,10 @@ oboeII =  \notes \relative c{
 	c|
 	d|
 	%a deux; urg: copied oboe-1(270,274:1)|
-	es4.-"sempre"\ff b8 c4. as8||
-	g4. as8 g4. f'8||
-	es4. b8 c4. as8||
-	g4. as8 g4. f'8||
+	es4.-"sempre"\ff b8 c4. as8|
+	g4. as8 g4. f'8|
+	es4. b8 c4. as8|
+	g4. as8 g4. f'8|
 	es4 r8 d es4 r8 b|
 	c4 r8 d es4 r8 d|
 	c,1~|

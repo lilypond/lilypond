@@ -2,22 +2,22 @@
 \version "1.3.120";
 
 flautoII =  \notes \relative c {
-	R1 *2 |
-	as'''4-.\ff r r2 |
-	R1 *3 |
-	b4-. r r2 |
-	R1 *3 |
-	c4-. r r2 |
-	R1 |
-	es4-. r r2 |
-	d,4-. r r2 |
-	R1 *4 |
-	r2 r2 |
-	r2 r4 b'4-. |
-	R1*6 |
-	r4 c r2 |
-	R1*6 |
-	c1 ~ |
+	R1 *2|
+	as'''4-.\ff r r2|
+	R1 *3|
+	b4-. r r2|
+	R1 *3|
+	c4-. r r2|
+	R1|
+	es4-. r r2|
+	d,4-. r r2|
+	R1 *4|
+	r2 r2|
+	r2 r4 b'4-.|
+	R1*6|
+	r4 c r2|
+	R1*6|
+	c1 ~|
 	c4( es, des)c|
 	g'4. r8 g4. r8|
 	d4. r8 es4. r8|
@@ -55,7 +55,7 @@ flautoII =  \notes \relative c {
 	c r d r|
 	es,\p r r2|
 	r r4 r8 d'\f|
-	d4 r r2 |
+	d4 r r2|
 	r r4 r8 d\f|
 	d4 r r2|
 	R1*3|
@@ -103,13 +103,13 @@ flautoII =  \notes \relative c {
 	% 220 a deux?|
 	R1*5|
 	r2 a|
-	b c |
+	b c|
 	d c|
 	b4 r as r|
 	f r g r|
 	c,\p r r2|
 	r r4 r8 g'\f|
-	g4 r r2 |
+	g4 r r2|
 	r r4 r8 g\f|
 	g4 r r2|
 	R1*3|
@@ -136,14 +136,14 @@ flautoII =  \notes \relative c {
 	c|
 	d|
 	%a deux urg: copied flauto-1(270,277)|
-	es4.-"sempre"\ff b8 c4. as8||
-	g4. as8 g4. f'8||
-	es4. b8 c4. as8||
-	g4. as8 g4. f'8||
-	es4 r8 b c4 r8 b||
-	c4 r8 b c4 r8 b||
-	c4 r r2||
-	R1||
+	es4.-"sempre"\ff b8 c4. as8|
+	g4. as8 g4. f'8|
+	es4. b8 c4. as8|
+	g4. as8 g4. f'8|
+	es4 r8 b c4 r8 b|
+	c4 r8 b c4 r8 b|
+	c4 r r2|
+	R1|
 	as4-. r r2|
 	R1|
 	%a deux|

@@ -2,50 +2,50 @@
 \version "1.3.120";
 
 flautoI =  \notes \relative c {
-	R1 *2 |
-	c'''4-.\ff r r2 |
-	R1 *3 |
-	d4-. r r2 |
-	R1 *3 |
-	es4-. r r2 |
-	R1 |
-	g4-. r r2 |
-	b,4-. r r2 |
-	R1 *4 |
+	R1 *2|
+	c'''4-.\ff r r2|
+	R1 *3|
+	d4-. r r2|
+	R1 *3|
+	es4-. r r2|
+	R1|
+	g4-. r r2|
+	b,4-. r r2|
+	R1 *4|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	r2 g'\p\< ( |
-	)fis2. \!g4-.\f |
-	R1*5 |
+	r2 g'\p\< (|
+	)fis2. \!g4-.\f|
+	R1*5|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	r2 f\p\< ~ |
-	f4 \!e-.\f r2 |
-	R1 |
-	f2\p()es |
+	r2 f\p\< ~|
+	f4 \!e-.\f r2|
+	R1|
+	f2\p()es|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
-	d1\<  |
-	d1 |
-	d2 d2 |
-	d2 d2 |
+	d1\<|
+	d1|
+	d2 d2|
+	d2 d2|
 	\!f1\ff ~|
-	f4(es des)c |
-	b4. r8 c4. r8 |
-	d4. r8 es4. r8 |
-	e4. r8 f4. r8 |
-	g4. r8 as4. r8 |
-	a2\sf r |
-	a\sf r |
-	as\sf r |
-	as\sf r |
-	g1\sf |
-	ges\sf |
+	f4(es des)c|
+	b4. r8 c4. r8|
+	d4. r8 es4. r8|
+	e4. r8 f4. r8|
+	g4. r8 as4. r8|
+	a2\sf r|
+	a\sf r|
+	as\sf r|
+	as\sf r|
+	g1\sf|
+	ges\sf|
 	f2. ges4\sf (|
 	)f2. ges4\sf (|
 	)f2. ges4\sf (|
 	)f2. ges4\sf|
-	f4 r r2 |
+	f4 r r2|
 	R1*9|
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
@@ -77,7 +77,7 @@ flautoI =  \notes \relative c {
 	\property VoiceCombineVoice.crescendoText = #"cresc."
 	\property VoiceCombineVoice.crescendoSpanner = #'dashed-line
 	r r4 r8 bes\<|
-	c4 r r r8 c |
+	c4 r r r8 c|
 	d4 r r r8 d|
 	\!es2.\ff()d4|
 	fis(g fis)g|
@@ -203,7 +203,7 @@ flautoI =  \notes \relative c {
 	r r4 r8 d\f|
 	es4 r r2|
 	R1*3|
-	es4\f r d r |
+	es4\f r d r|
 	c r8 f8 es4 r8 bes|
 	as4-. des4-. r2|
 	R1*11|
