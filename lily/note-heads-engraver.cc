@@ -5,15 +5,14 @@
 */
 
 #include "rhythmic-head.hh"
-#include "engraver.hh"
 #include "paper-def.hh"
 #include "musical-request.hh"
 #include "dots.hh"
 #include "dot-column.hh"
 #include "staff-symbol-referencer.hh"
-#include "engraver.hh"
-#include "pqueue.hh"
 #include "item.hh"
+#include "score-engraver.hh"
+#include "warn.hh"
 
 /**
   make balls and rests
@@ -29,6 +28,7 @@ public:
   Note_heads_engraver();
   
 protected:
+  virtual void do_post_move_processing ();
   virtual bool do_try_music (Music *req_l) ;
   virtual void do_process_music();
   virtual void do_pre_move_processing();
@@ -129,6 +129,26 @@ Note_heads_engraver::do_pre_move_processing()
   note_req_l_arr_.clear ();
 }
 
+void
+Note_heads_engraver::do_post_move_processing ()
+{
+  /* TODO:make this settable?
+   */
+  if (note_end_mom_ > now_mom())
+    {
+      Score_engraver * e = 0;
+      Translator * t  =  daddy_grav_l ();
+      for (; !e && t;  t = t->daddy_trans_l_)
+	{
+	  e = dynamic_cast<Score_engraver*> (t);
+	}
+
+      if (!e)
+	programming_error ("No score engraver!");
+      else
+	e->forbid_breaks ();	// guh. Use properties!
+    }
+}
 
 
 

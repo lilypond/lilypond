@@ -134,7 +134,7 @@ Piano_pedal_engraver::do_process_music ()
 {
   for (Pedal_info*p = info_list_; p->name_; p ++)
     {
-      SCM s = SCM_UNDEFINED;
+      SCM s = SCM_EOL;
       if (p->req_l_drul_[STOP] && p->req_l_drul_[START])
 	{
 	  if (!p->start_req_l_)

@@ -5,6 +5,8 @@
 # * add support for .lilyrc
 
 
+# todo: dimension handling (all the x2y) is clumsy. 
+
 # This is was the idea for handling of comments:
 #	Multiline comments, @ignore .. @end ignore is scanned for
 #	in read_doc_file, and the chunks are marked as 'ignore', so
@@ -36,10 +38,14 @@ import operator
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.3.105.tca1'
+	program_version = '1.3.106'	
 
 include_path = [os.getcwd()]
 
+
+# g_ is for global (?)
+
+g_here_dir = os.getcwd ()
 g_dep_prefix = ''
 g_outdir = ''
 g_force_mudela_fontsize = 0
@@ -813,10 +819,10 @@ def find_eps_dims (match):
 	"Fill in dimensions of EPS files."
 	
 	fn =match.group (1)
-	if g_outdir:
-	    fn = os.path.join(g_outdir, fn)
 	dims = bounding_box_dimensions (fn)
-
+	if g_outdir:
+		fn = os.path.join(g_outdir, fn)
+ 	
 	return '%ipt' % dims[0]
 
 
@@ -850,8 +856,14 @@ def compile_all_files (chunks):
 	if g_outdir:
 		os.chdir(g_outdir)
 	if tex:
-		lilyopts = map (lambda x:  '-I ' + x, include_path)
-		lilyopts = string.join (lilyopts, ' ' )
+		# fixme: be sys-independent.
+		def incl_opt (x):
+			if g_outdir and x[0] <> '/' :
+				x = os.path.join (g_here_dir, x)
+			return ' -I %s' % x
+
+		incs =  map (incl_opt, include_path)
+		lilyopts = string.join (incs, ' ' )
 		texfiles = string.join (tex, ' ')
 		system ('lilypond %s %s' % (lilyopts, texfiles))
 	for e in eps:

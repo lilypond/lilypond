@@ -148,14 +148,13 @@ given in an @code{\alternative}.
      "Determine and set reference point for pitches"
      '(Clef OctavateEight)
      (list
-      (translator-property-description 'supportedClefTypes
-				       list? "Clef settings supported. The value is an association list contain entries (NAME . (GLYPH . POSITION)), where  NAME is the clef name (alto, baritone, etc.), GLYPH the glyph name, POSITION an integer where the center symbol should go.")
-      (translator-property-description 'clefPosition number? " where the center of the symbol should go")
-      (translator-property-description 'clefGlyph string? "name of the symbol within the music font")
-      (translator-property-description 'centralCPosition number? "place of the central C. ")
-      (translator-property-description 'defaultClef string? "generate this clef at the very start of this staff. If not set, don't generate a clef")
-      (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clefs entered as \clef.")
-      (translator-property-description 'clefPitches list? "alist mapping GLYPHNAME to the position of the central C for that symbol")
+      (translator-property-description 'clefPosition number? "Where should the center of the symbol go?")
+      (translator-property-description 'clefGlyph string? "Name of the symbol within the music font")
+      (translator-property-description 'centralCPosition number? "Place of the central C. Usually determined by looking at clefPosition and clefGlyph.")
+      (translator-property-description 'clefOctavation integer? "Add
+this much extra octavation. Values of 7 and -7 are common.")
+      (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
+      (translator-property-description 'clefPitches list? "an alist mapping GLYPHNAME to the position of the central C for that symbol")
 
       )))
    

@@ -26,7 +26,8 @@ Key_performer::~Key_performer ()
 void
 Key_performer::do_process_music ()
 {
-  if (key_req_l_ && key_req_l_->get_mus_property ("pitch-alist") != SCM_UNDEFINED)
+  if (key_req_l_ &&
+      gh_list_p (key_req_l_->get_mus_property ("pitch-alist")))
     {
       audio_p_ = new Audio_key (); // *key_req_l_->key_);
       Audio_element_info info (audio_p_, key_req_l_);

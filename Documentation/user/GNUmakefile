@@ -38,6 +38,7 @@ DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/
 local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES)
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals
 	$(MAKE) footify
+	-mkdir $(outdir)/lilypond 
 	ln -f $(outdir)/*.png $(outdir)/lilypond
 	$(MAKE) deep-footify
 

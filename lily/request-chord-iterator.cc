@@ -71,15 +71,9 @@ Request_chord_iterator::process (Moment m)
 	{
 	  Music *mus = unsmob_music (gh_car (s));
 
-	  if (Request * req_l = dynamic_cast<Request*> (mus))
-	    {
-	      bool gotcha = try_music (req_l);
-	      if (!gotcha)
-		req_l->origin ()->warning (_f ("Junking request: `%s'", classname( req_l)));
-	    }
-	  else
-	    mus->origin ()->warning (_f ("Huh?  Not a Request: `%s'",
-					 classname (mus)));
+	  bool gotcha = try_music (mus);
+	  if (!gotcha)
+	    mus->origin ()->warning (_f ("Junking request: `%s'", classname(mus)));
 	}
     }
   skip (m);

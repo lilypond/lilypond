@@ -109,7 +109,7 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
   
       SCM val = get_property (prop_sym);
 
-      if (val == SCM_UNDEFINED)
+      if (val == SCM_EOL)
 	;			// Not defined in context.
       else if (gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
 	       == SCM_BOOL_T)	// defined and  right type: do it
@@ -135,16 +135,16 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
       else
 
 	/*
-	    we don't print a warning if VAL == #f, because we would
+	    we don't print a warning if VAL == (), because we would
 	    get lots of warnings when we restore stuff to default, eg.
 
-	    slurDash = #1 [...] slurDash = ##f
+	    slurDash = #1 [...] slurDash = ()
 
 	    should not cause "type error: slurDash expects number not
-	    boolean"
+	    boolean
 
 	*/
-	if (val != SCM_BOOL_F)
+	if (val != SCM_EOL)
 	  {			// not the right type: error message.
 	    SCM errport = scm_current_error_port ();
 	    warning (_("Wrong type for property"));

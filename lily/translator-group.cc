@@ -282,12 +282,12 @@ Translator_group::where_defined (SCM sym) const
 }
 
 /*
-  TODO: return SCM_EOL iso. SCM_UNDEFINED when not found.
+  return SCM_EOL when not found.
 */
 SCM
 Translator_group::get_property (SCM sym) const
 {
-  SCM val =SCM_UNDEFINED;
+  SCM val =SCM_EOL;
   if (properties_dict ()->try_retrieve (sym, &val))
     return val;
 
@@ -322,10 +322,6 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	{
 	  SCM prev = get_property (prop);
 
-  	  /*
-	    we don't tack onto SCM_UNDEFINED, because it creates
-	    errors down the line, if we do scm_assoc().
-	   */
 	  if (gh_pair_p (prev) || prev == SCM_EOL)
 	    {
 	      bool ok = true;
@@ -333,6 +329,13 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	      SCM errport = scm_current_error_port ();
 	      
 	      SCM meta = scm_assoc (ly_symbol2scm ("meta"), prev);
+
+	      /*
+		We're probably in a performer.
+	       */
+	      if (!gh_pair_p (meta))
+		return;
+	      
 	      SCM props = scm_assoc (ly_symbol2scm ("properties"), gh_cdr (meta));
 	      SCM type_p = scm_assoc (eltprop, gh_cdr (props));
 	      if (!gh_pair_p (type_p))
@@ -348,7 +351,8 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	      else
 		{
 		  type_p = gh_cdr (type_p);
-		  if (gh_call1 (type_p, val) == SCM_BOOL_F)
+		  if (val != SCM_EOL
+		      && gh_call1 (type_p, val) == SCM_BOOL_F)
 		    {
 		      ok = false;
 		      scm_puts (_("Failed typecheck for #'").ch_C (),errport);

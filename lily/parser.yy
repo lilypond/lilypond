@@ -251,7 +251,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <outputdef>  music_output_def_body
 %type <request> shorthand_command_req
 %type <request>	post_request 
-%type <request> command_req verbose_command_req
+%type <music> command_req verbose_command_req
 %type <request>	extender_req
 %type <request> hyphen_req
 %type <scm>	string bare_number number_expression
@@ -729,9 +729,8 @@ Composite_music:
 	CONTEXT STRING Music	{
 		Context_specced_music *csm =  new Context_specced_music ($3);
 
-		csm->translator_type_str_ = ly_scm2string ($2);
-		csm->translator_id_str_ = "";
-
+		csm->set_mus_property ("context-type",$2);
+		csm->set_mus_property ("context-id", ly_str02scm (""));
 
 		$$ = csm;
 	}
@@ -748,8 +747,8 @@ Composite_music:
 	| CONTEXT STRING '=' STRING Music {
 		Context_specced_music *csm =  new Context_specced_music ($5);
 
-		csm->translator_type_str_ = ly_scm2string ($2);
-		csm->translator_id_str_ = ly_scm2string ($4);
+		csm->set_mus_property ("context-type", $2);
+		csm->set_mus_property ("context-id", $4);
 
 		$$ = csm;
 	}
@@ -854,7 +853,7 @@ property_def:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm-> translator_type_str_ = ly_scm2string ($2);
+		csm-> set_mus_property ("context-type", $2);
 	}
 	| PROPERTY STRING '.' STRING PUSH embedded_scm '=' embedded_scm {
 		Music *t = new Music;
@@ -866,7 +865,7 @@ property_def:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm-> translator_type_str_ = ly_scm2string ($2);
+		csm-> set_mus_property ("context-type", $2);
 	}
 	| PROPERTY STRING '.' STRING POP embedded_scm {
 		Music *t = new Music;
@@ -878,7 +877,7 @@ property_def:
 		$$ = csm;
 		$$->set_spot (THIS->here_input ());
 
-		csm-> translator_type_str_ = ly_scm2string ($2);
+		csm-> set_mus_property ("context-type", $2);
 	}
 	;
 
@@ -912,6 +911,19 @@ command_element:
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
+	| BAR STRING ';' 			{
+		Music *t = new Music;
+
+		t->set_mus_property ("type", ly_symbol2scm ("property-set"));
+		t->set_mus_property ("symbol", ly_symbol2scm ("whichBar"));
+		t->set_mus_property ("value", $2);
+
+		Context_specced_music *csm = new Context_specced_music (t);
+		$$ = csm;
+		$$->set_spot (THIS->here_input ());
+
+		csm->set_mus_property ("context-type", ly_str02scm ("Score"));
+	}
 	| PARTIAL duration_length ';' 	{
 		Music * p = new Music;
 		p->set_mus_property ("symbol", ly_symbol2scm ( "measurePosition"));
@@ -922,12 +934,31 @@ command_element:
 		delete $2; // ugh
 		Context_specced_music * sp = new Context_specced_music (p);
 		$$ =sp ;
-		sp-> translator_type_str_ = "Score";
+		sp-> set_mus_property ("context-type", ly_str02scm ( "Score"));
+	}
+	| CLEF STRING ';' {
+		SCM func = scm_eval2 (ly_symbol2scm ("clef-name-to-properties"), SCM_EOL);
+		SCM result = gh_call1 (func, $2);
+
+		SCM l = SCM_EOL; 
+		for (SCM s = result ; gh_pair_p (s); s = gh_cdr (s)) {
+			Music * p = new Music;
+			for (SCM k = gh_car (s) ; gh_pair_p (k); k = gh_cdr (k)) {
+				p->set_mus_property (gh_caar (k), gh_cdar (k));
+			}
+			l = gh_cons (p->self_scm (), l);
+			scm_unprotect_object (p->self_scm ());
+		}
+		Sequential_music * seq = new Sequential_music (l);
+
+		Context_specced_music * sp = new Context_specced_music (seq);
+		$$ =sp ;
+		sp-> set_mus_property("context-type", ly_str02scm("Staff"));
 	}
 	;
 
 command_req:
-	shorthand_command_req
+	shorthand_command_req  	{ $$ = $1; }
 	| verbose_command_req semicolon	{ $$ = $1; }
 	;
 
@@ -963,11 +994,7 @@ shorthand_command_req:
 
 
 verbose_command_req:
-	
-	BAR STRING 			{
-		$$ = new Bar_req (ly_scm2string ($2));
-	}
-	| COMMANDSPANREQUEST bare_int STRING {
+	COMMANDSPANREQUEST bare_int STRING {
 		Span_req * sp_p = new Span_req;
 		sp_p-> set_span_dir ( Direction($2));
 		sp_p->set_mus_property ("span-type",$3);
@@ -1010,11 +1037,6 @@ verbose_command_req:
 	}
 	| tempo_request {
 		$$ = $1;
-	}
-	| CLEF STRING {
-		$$ = new Clef_change_req;
-		$$->set_mus_property ("clef-type", $2);
-
 	}
 	| KEY {
 		Key_change_req *key_p= new Key_change_req;
