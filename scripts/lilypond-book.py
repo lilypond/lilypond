@@ -1146,7 +1146,11 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 			ly.error ('Process %s exited unsuccessfully.' % cmd)
 			raise Compile_error
 
-	if texstr_names:
+	# UGH
+	# the --process=CMD switch is a bad idea
+	# it is too generic for lilypond-book.
+	if texstr_names and re.search ('^[0-9A-Za-z/]*lilypond', cmd):
+		
 		my_system (string.join ([cmd + ' -f texstr ' ] + texstr_names))
 		for l in texstr_names:
 			my_system ('latex %s.texstr' % l)
