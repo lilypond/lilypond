@@ -1,5 +1,7 @@
 2003-07-03  Juergen Reuter  <reuter@ipd.uka.de>
 
+	* NEWS: added news for 1.8 regarding ancient notation
+
 	* Documentation/user/refman.itely (Gregorian square neumes
 	ligatures): fixed typo
 

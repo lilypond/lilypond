@@ -6423,9 +6423,6 @@ Trigonus @tab
 
 @refbugs
 
-Use special heads for lower/upper head of Pes only when heads are
-stacked.
-
 Scandicus Deminutus: Punctum Auctum Ascendens overlaps with
 Semivocalis head; this looks awful.
 
