@@ -1,15 +1,15 @@
 \score{
 	\type GrandStaff <
 	\type Staff=one \notes\relative c'{
-		\stemup [c8 c \translator Staff=two \stemup c c]
+		\stemup c8( c \translator Staff=two \stemup c )c
 		r2
 		\translator Staff=one
-		\stemdown [c8 c \translator Staff=two \stemup c c]
+		\stemdown c8( c \translator Staff=two \stemup c )c
 		r2
-		\stemdown [c8 c \translator Staff=one \stemdown c c]
+		\stemdown c8( c \translator Staff=one \stemdown c )c
 		r2
 		\translator Staff=two
-		\stemup [c8 c \translator Staff=one \stemdown c c]
+		\stemup c8( c \translator Staff=one \stemdown c )c
 		r2
 	}
 	\type Staff=two \notes\relative c'{
@@ -21,6 +21,8 @@
 	}
 	>
 	\paper{
+		% no slur damping
+		slur_slope_damping = 10.0;
 		\translator{
 			\GrandStaffContext
 			minVerticalAlign = 3.0*\staffheight;

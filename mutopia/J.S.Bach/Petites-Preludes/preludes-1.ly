@@ -14,7 +14,13 @@ copyright =	 "public domain";
 
 \version "1.0.14";
 
-one = \notes\relative c {
+% urg, this all changed and was never fixed
+% howto get rid of these ridiculous dimensions????
+% to view the output, subsitute 0.0 with 0.0 in the .tex file...
+
+% one = \type Voice=one \notes\relative c {
+% one = \notes\relative c {
+one = \type Staff=treble \notes\relative c {
 	\property Voice . textstyle =  "italic"
 	r16\p_"legato"\< [g''-1( c-3 )e-5] r [g,-1( c )e]
 	r [g,( c )d] r [b-1( d-2 \!)g-5] |
@@ -34,15 +40,32 @@ one = \notes\relative c {
 	r [a, c g'-5] r [a, c f!-4] |
 	% ugh arpeggio
 	<
-		{ \voiceone  f4 r s }
-		{ \voicetwo  <g,4 d'> r s }
+		{ \voiceone  f4 r }
+		{ \voicetwo  <g,4 d'> r }
 	>
 	\onevoice 
+	% s
 	% ugh beam across staffs slur starts at lower staff
-	r16 [g,-1( b d] |
-	\voiceone 
-	)b s4 [g'16-1( b-2 d] )b s s s [f'-2 g-3 b-5 f-2] |
-	\onevoice 
+%	r16 [g,-1( b d] |
+%	\voiceone 
+%	)b s4 [g'16-1( b-2 d] )b s s s [f'-2 g-3 b-5 f-2] |
+%	\onevoice 
+	\translator Staff=bass\stemup
+	r16 [g,,-5( b-4 d ] 
+	[f-1 \translator Staff=treble\stemdown g16-1 b d] | \stemup )b
+	\translator Staff=bass\stemdown
+	[g-5( b-4 d-2] f-1 
+	\translator Staff=treble\stemup
+	[g16-1 b-2 d] )b
+	\translator Staff=bass\stemup
+	\clef "violin"; 
+	[g-4 b-2 d-1] 
+	\stemup
+	% urg, below translator change affects previous beam too!?
+	% howto separate translator command from previous beam end?
+	\skip 4*0;
+        [\translator Staff=treble f-2 g-3 b-5 f-2] |
+	\stemboth
 	[e-1\f c'-5( g-3 f-2] [e-1 c'-5 g-3 e-2] 
 	[)d c'-5( f,-3 e-2] [d-1 b'-5 f-3 d-2] |
 	[)c b'-5( e,-3 d-2] [c-1 a'-5 e-3 c-2] 
@@ -59,14 +82,16 @@ one = \notes\relative c {
 	[es-2 fis-3 a-4 c-5] 
 	< 
 		{ \voiceone  r [c8 b16] }
-		{ \voicetwo  [d,8 f-2] }
+		%%% urg urg ?{ \voicetwo  [d,8 f-2] }
 	>
 	\onevoice  |
 	<c1\mf g e>
 	\bar "|.";
 }
 
-two = \notes\relative c{
+% two = \notes\relative c{
+% two = \type Voice=three \notes\relative c{
+two = \type Staff=bass \notes\relative c{
 	\property Voice . textstyle =  "roman"
 	c4-5 e-3 g-\mordent^"(\\textsharp)" g,4 |
 	d'-\mordent-5 f-3 a-\mordent^"(\\textsharp)" a,4 |
@@ -76,13 +101,18 @@ two = \notes\relative c{
 	f4-1 e d-3-\prall c |
 	g'-\mordent^"(\\textsharp)" g, g'-\mordent g, |
 	g'-\mordent g, g'-\mordent g, |
-	% ugh f should be at upper staff
-	g'-\mordent r r16 [g,-5( b-4 d] )f-1 s s s |
-	s [g-5( b-4 d-2] )f-1 s s s s \clef "violin"; [g-4 b-2 d-1] 
-	s s s s \clef bass; |
+%	% ugh f should be at upper staff
+%	g'-\mordent r r16 [g,-5( b-4 d] )f-1 s s s |
+%	g'-\mordent r r16 [g,-5( b-4 d \translator Staff=treble )f-1 ] s s s |
+%	\translator Staff=bass
+%	s [g-5( b-4 d-2] )f-1 s s s s \clef "violin"; [g-4 b-2 d-1] 
+%	s s s s \clef bass; |
+	g' r s s | s s s s \clef bass; |
 	<
-		{ \voiceone  g,,1 ~ g ~ g ~ g ~ g ~ g ~ g }
-		{ \voicetwo  g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
+%		{ \voiceone  g,,1 ~ g ~ g ~ g ~ g ~ g ~ g }
+%		{ \voicetwo  g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
+		{ \voicethree  g1 ~ g ~ g ~ g ~ g ~ g ~ g }
+		{ \voicefour  g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
 	>
 	<c,1 c,>
 	\bar "|.";
@@ -112,7 +142,19 @@ grand_staff = \type GrandStaff <
 \score{
         % Moderato
 	\grand_staff
-	\include "preludes-paper.ly";
+%	\include "preludes-paper.ly";
+	\paper{
+		% no slur damping
+		slur_slope_damping = 10.0;
+	%	linewidth= 193.\mm;
+		linewidth= 180.\mm;
+		gourlay_maxmeasures = 4.0;
+		\translator{ 
+		  \GrandStaffContext
+		  minVerticalAlign = 3.0*\staffheight;
+		  maxVerticalAlign = 3.0*\staffheight;
+		}
+	}
 	\midi{ \tempo 4 = 80; }
 	\header {
 		opus = "BWV 924";

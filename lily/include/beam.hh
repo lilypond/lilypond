@@ -41,7 +41,7 @@ public:
   int multiple_i_;
 
   /// vertical align distance between staffs
-  Real vertical_align_f_;
+  Drul_array<Real> vertical_align_drul_;
 
   Array<Stem_info> sinfo_;
   

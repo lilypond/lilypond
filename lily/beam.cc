@@ -41,6 +41,8 @@ Beam::Beam ()
   damping_i_ = 1;
   quantisation_ = NORMAL;
   multiple_i_ = 0;
+  vertical_align_drul_[MIN] = 0;
+  vertical_align_drul_[MAX] = -1;
 }
 
 void

@@ -47,9 +47,15 @@ BUGS:
 
 	* fix:  cello suites
 
+	* fix:  petites preludes (rediculous dims)
+
 	* fix extender
 
+	* fix fingering 'a-5': font direction broken *again*
+
 	* fix braces
+
+	* multibar rests: SkipBars=0
 
 	* ly2dvi barfs on linewidth = -1.
 
@@ -584,10 +590,6 @@ SMALLISH PROJECTS
 	* adaptive accidental spacing.
 
 	* handle EOF graciously in error messages.
-
-	* really centered whole rest
-
-	* centered multi-bar-rest
 
 	* declare notenametab?
 
