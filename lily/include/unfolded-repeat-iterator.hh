@@ -47,13 +47,12 @@ public:
 
 protected:  
   virtual void construct_children ();
-  virtual Moment next_moment () const;
-  virtual void do_process (Moment);
+  virtual Moment pending_moment () const;
+  virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
   virtual bool ok () const;
   virtual void next_element ();
-  virtual void do_print () const;
 };
 #endif /* UNFOLDED_REPEAT_ITERATOR_HH */
 

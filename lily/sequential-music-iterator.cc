@@ -31,19 +31,14 @@ Sequential_music_iterator::~Sequential_music_iterator()
 {
   if (iter_p_)
     {
-      if (iter_p_->ok ())
+      /*      if (iter_p_->ok () )
 	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
+      */
       delete iter_p_;
       iter_p_ = 0;
     }
 }
 
-void
-Sequential_music_iterator::do_print() const
-{
-  if (iter_p_)
-    iter_p_->print();
-}
 
 void
 Sequential_music_iterator::construct_children()
@@ -93,69 +88,56 @@ Sequential_music_iterator::set_sequential_music_translator()
     set_translator (child_report);
 }
 
+
 SCM
-Sequential_music_iterator::get_music ()
-{
-  if (ok ())
-    return scm_listify (scm_cons (SCM_CAR (cursor_),
-				  report_to_l ()->self_scm ()),
-			SCM_UNDEFINED);
-      
-  return SCM_EOL;
-}
-  
-bool
-Sequential_music_iterator::next ()
+Sequential_music_iterator::get_music (Moment until)const
 {
 #if 0
-  if (ok ())
-    {
-      bool b = false;
-      if (iter_p_->ok ())
-	b = iter_p_->next ();
-      if (!b)
-	{
-	  set_sequential_music_translator ();
-	  leave_element ();
-	  if (gh_pair_p (cursor_))
-	    start_next_element ();
-	  b = ok ();
+  /*
+     FIXME: get_music () is const, so we must operate on a copy of child-iter.
+  */
+  
+  SCM s = SCM_EOL;
+  while (1) 
+      {
+	Moment local_until = until - here_mom_;
+	while (iter_p_->ok ()) 
+	  {
+	    Moment here = iter_p_->pending_moment ();
+	    if (here != local_until)
+	      return s;
+	    
+	    s = gh_append2 (iter_p_->get_music (local_until), s);
+	  }
+	  
+	  if (!iter_p_->ok ()) 
+	    {
+	      //	      leave_element ();
+	      
+	      if (gh_pair_p (cursor_))
+		start_next_element ();
+	      else
+		return s;
+	    }
 	}
-      return b;
-    }
-  return false;
-#else
-  if (ok ())
-    {
-      set_sequential_music_translator ();
-      leave_element ();
-      if (gh_pair_p (cursor_))
-	start_next_element ();
-      return ok ();
-    }
-  return false;
+  return s;
 #endif
+  return SCM_EOL;
 }
 
-/*
-  This should use get_music () and next ()
- */
 void
-Sequential_music_iterator::do_process (Moment until)
+Sequential_music_iterator::process (Moment until)
 {
-#if 1
-  return;
-#else
   if (ok ())
     {
-      //      while (1) 
+      while (1) 
 	{
 	  Moment local_until = until - here_mom_;
 	  while (iter_p_->ok ()) 
 	    {
-	      Moment here = iter_p_->next_moment ();
+	      Moment here = iter_p_->pending_moment ();
 	      if (here != local_until)
-		return Music_iterator::do_process (until);
+		return ;
 	      
 	      iter_p_->process (local_until);
 	    }
@@ -168,17 +150,16 @@ Sequential_music_iterator::do_process (Moment until)
 	      if (gh_pair_p (cursor_))
 		start_next_element ();
 	      else 
-		return Music_iterator::do_process (until);
+		return ;
 	    }
 	}
     }
-#endif
 }
 
 Moment
-Sequential_music_iterator::next_moment() const
+Sequential_music_iterator::pending_moment() const
 {
-  return iter_p_->next_moment() + here_mom_;
+  return iter_p_->pending_moment() + here_mom_;
 }
 
 

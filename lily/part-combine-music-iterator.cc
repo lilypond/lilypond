@@ -28,17 +28,16 @@ Part_combine_music_iterator::~Part_combine_music_iterator ()
 }
 
 Moment
-Part_combine_music_iterator::next_moment () const
+Part_combine_music_iterator::pending_moment () const
 {
-  Moment first_next = infinity_mom;
+  Moment p;
+  p.set_infinite (1);
   if (first_iter_p_->ok ())
-    first_next = first_iter_p_->next_moment ();
-  Moment second_next = infinity_mom;
+    p = p <? first_iter_p_->pending_moment ();
+
   if (second_iter_p_->ok ())
-    second_next = second_iter_p_->next_moment ();
-  if (first_next == infinity_mom && second_next == infinity_mom)
-    return 0;
-  return first_next <? second_next;
+    p = p <? second_iter_p_->pending_moment ();
+  return p;
 }
 
 bool
@@ -46,30 +45,6 @@ Part_combine_music_iterator::ok () const
 {
   //hmm
   return first_iter_p_->ok () || second_iter_p_->ok ();
-}
-
-SCM
-Part_combine_music_iterator::get_music ()
-{
-  return SCM_EOL;
-}
-
-bool
-Part_combine_music_iterator::next ()
-{
-  bool b = false;
-  if (first_iter_p_->ok ())
-    b = first_iter_p_->next ();
-  if (second_iter_p_->ok ())
-    b = second_iter_p_->next () || b;
-  return b;
-}
-
-void
-Part_combine_music_iterator::do_print () const
-{
-  first_iter_p_->print ();
-  second_iter_p_->print ();
 }
 
 void
@@ -133,64 +108,54 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
 }
 
 void
-Part_combine_music_iterator::do_process (Moment m)
+Part_combine_music_iterator::process (Moment m)
 {
+
+  /*
+    TODO:
+    - Use three named contexts (be it Thread or Voice): one, two, solo.
+      Let user pre-set (pushproperty) stem direction, remove
+      dynamic-engraver, and such.
+    - staff-combiner must switch only on per-measure basis (maybe even on
+      per-line-basis, but that's not feasible).  Maybe set minimum lengths
+      of matching rhythm for combine/split?
+   */
+ 
   Part_combine_music const * p = dynamic_cast<Part_combine_music const* > (music_l_);
 
-  Moment now = next_moment ();
+  Moment now = pending_moment ();
 
   Array<Musical_pitch> first_pitches;
   Array<Duration> first_durations;
   if (first_iter_p_->ok ())
     {
-      Music_iterator* i = first_iter_p_->clone ();
-
-      /* Urg, silly first_b_ stuff */
-      if (now)
-	i->next ();
-
-      SCM s = i->get_music ();
-      if (gh_pair_p (s))
+      /* get_music () also performs next, modifying iterator */
+      Music_iterator *mi = first_iter_p_->clone ();
+      for (SCM i = mi->get_music (now); gh_pair_p (i); i = gh_cdr (i))
 	{
-	  if (Music_sequence* m = dynamic_cast<Music_sequence *> (unsmob_music (SCM_CAR (SCM_CAR (s)))))
-	    {
-	      for (SCM s = m->music_list (); gh_pair_p (s);  s = gh_cdr (s))
-		{
-		  Music *u = unsmob_music (gh_car (s));
-		  if (Melodic_req *r = dynamic_cast<Melodic_req *> (u))
-			first_pitches.push (r->pitch_);
-		  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (u))
+	  Music *m = unsmob_music (gh_car (i));
+	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
+	    first_pitches.push (r->pitch_);
+	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
 		    first_durations.push (r->duration_);
-		}
-	    }
 	}
+      delete mi;
     }
   
   Array<Musical_pitch> second_pitches;
   Array<Duration> second_durations;
   if (second_iter_p_->ok ())
     {
-      Music_iterator* i = second_iter_p_->clone ();
-
-      /* Urg, silly second_b_ stuff */
-      if (now)
-	i->next ();
-
-      SCM s = i->get_music ();
-      if (gh_pair_p (s))
+      Music_iterator *mi = second_iter_p_->clone ();
+      for (SCM i = mi->get_music (now); gh_pair_p (i); i = gh_cdr (i))
 	{
-	  if (Music_sequence* m = dynamic_cast<Music_sequence *> (unsmob_music (SCM_CAR (SCM_CAR (s)))))
-	    {
-	      for (SCM s = m->music_list (); gh_pair_p (s);  s = gh_cdr (s))
-		{
-		  Music *u = unsmob_music (gh_car (s));
-		  if (Melodic_req *r = dynamic_cast<Melodic_req *> (u))
-		    second_pitches.push (r->pitch_);
-		  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (u))
-			second_durations.push (r->duration_);
-		}
-	    }
+	  Music *m = unsmob_music (gh_car (i));
+	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
+	    second_pitches.push (r->pitch_);
+	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
+	    second_durations.push (r->duration_);
 	}
+      delete mi;
     }
   
   SCM interval = SCM_BOOL_F;
@@ -217,7 +182,7 @@ Part_combine_music_iterator::do_process (Moment m)
 	second_until_ = new_until;
     }
 
-#if 1 /* DEBUG */
+#if 0 /* DEBUG */
   printf ("now: %s\n", now.str ().ch_C ());
   printf ("first: ");
   for (int i = 0; i < first_pitches.size (); i++)
@@ -307,16 +272,11 @@ Part_combine_music_iterator::do_process (Moment m)
       sd->set_property ("solo", b);
     }
 
-  /*
-    Hmm, shouldn't we check per iterator if next_moment < m?
-  */
   if (first_iter_p_->ok ())
     first_iter_p_->process (m);
   
   if (second_iter_p_->ok ())
     second_iter_p_->process (m);
-
-  Music_iterator::do_process (m);
 }
 
 Music_iterator*
@@ -329,3 +289,14 @@ Part_combine_music_iterator::try_music_in_children (Music *m) const
     return second_iter_p_->try_music (m);
 }
 
+
+SCM
+Part_combine_music_iterator::get_music (Moment m)const
+{
+  SCM s = SCM_EOL;
+  if (first_iter_p_)
+    s = gh_append2 (s,first_iter_p_->get_music (m));
+  if (second_iter_p_)
+    s = gh_append2 (second_iter_p_->get_music (m),s);
+  return s;
+}

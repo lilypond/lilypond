@@ -26,14 +26,12 @@ public:
   int cursor_i_;
 
   virtual void construct_children ();
-  virtual Moment next_moment () const;
+  virtual Moment pending_moment () const;
   virtual bool ok () const;
-  virtual bool next ();
-  virtual SCM get_music ();
+  virtual SCM get_music (Moment)const;
 
 protected:
-  virtual void do_print () const;
-  virtual void do_process (Moment);
+  virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
 private:

@@ -38,7 +38,8 @@
 		\context StaffCombineStaff=one \skip 1*9;
 		\context StaffCombineStaff=two \skip 1*9;
 		\context StaffCombineStaff=one \partcombine StaffCombineStaff
-			\context StaffCombineThread=one \notes\relative c''
+			\context StaffCombineVoice=one \notes\relative c''
+			%\context StaffCombineThread=one \notes\relative c''
 				{
 					c4 d e f
 					c d e f
@@ -51,7 +52,8 @@
 					b b b b
 					d1
 				}
-			\context StaffCombineThread=two \notes\relative c''
+			\context StaffCombineVoice=two \notes\relative c''
+			%\context StaffCombineThread=two \notes\relative c''
 				{
 					c4 d e f
 					c d e f
@@ -66,7 +68,12 @@
 				}
 		>
 	>
-	\paper{
+	\paper {
+
+		textheight = 295.0\mm;
+		linewidth = 180.0\mm;
+
+		\translator{ \HaraKiriStaffContext }
 		%
 		% The Voice combine hierarchy
 		%
@@ -78,6 +85,8 @@
 		\translator{
 			\VoiceContext
 			\name "VoiceCombineVoice";
+			soloText = #"I."
+			soloIIText = #"II."
 			\remove "Rest_engraver";
 			\accepts "VoiceCombineThread";
 		}
@@ -94,77 +103,51 @@
 		\translator{
 			\ThreadContext
 			\name "StaffCombineThread";
-%%
-%%			\remove "A2_devnull_engraver";
-%%			\remove "Note_heads_engraver";
 		}
 		\translator{
 			\VoiceContext
 			\name "StaffCombineVoice";
 			\accepts "StaffCombineThread";
-
-			\remove "Rest_engraver";
-			\remove "Dot_column_engraver";
-			\remove "Stem_engraver";
-			\remove "Beam_engraver";
-			\remove "Auto_beam_engraver";
-			%\include "auto-beam-settings.ly";
-
-			\remove "Chord_tremolo_engraver";
-			\remove "Melisma_engraver";
-			\remove "Text_engraver";
-			\remove "A2_engraver";
-
-			\remove "Piano_pedal_engraver";
-			\remove "Script_engraver";
-			\remove "Script_column_engraver";
-			\remove "Rhythmic_column_engraver";
-			\remove "Slur_engraver";
-			\remove "Tie_engraver";
-
-%%			\consists "A2_devnull_engraver";
-%%			\consists "Note_heads_engraver";
+			\consists "Thread_devnull_engraver";
 		}
 		\translator {
 			\HaraKiriStaffContext
 			\name "StaffCombineStaff";
 			\accepts "StaffCombineVoice";
 
-			\consists "Rest_engraver";
-			\consists "Dot_column_engraver";
-			\consists "Stem_engraver";
-			\consists "Beam_engraver";
-			\consists "Auto_beam_engraver";
-			\include "auto-beam-settings.ly";
-
-			\consists "Chord_tremolo_engraver";
-			\consists "Melisma_engraver";
-			\consists "Text_engraver";
-			\consists "A2_engraver";
-
-			soloADue = ##f
-			%soloADue = ##t
-
-			\consists "Piano_pedal_engraver";
-			\consists "Script_engraver";
-			\consists "Script_column_engraver";
-			\consists "Rhythmic_column_engraver";
-			\consists "Slur_engraver";
-			\consists "Tie_engraver";
+			soloADue = ##t
+			soloText = #""
+			soloIIText = #""
+			aDueText = #""
+			splitInterval = #'(1 . 0)
 		}
 		\translator {
 			\StaffGroupContext
 			\accepts "VoiceCombineStaff";
 			\accepts "StaffCombineStaff";
 		}
+		\translator{ \HaraKiriStaffContext }
+
 		\translator {
 			\ScoreContext
 			\accepts "VoiceCombineStaff";
 			\accepts "StaffCombineStaff";
-		}
-%		linewidth = 40.\mm;
-	}
+			skipBars = ##t 
 
+			barScriptPadding = #2.0 % dimension \pt
+			markScriptPadding = #4.0
+
+			%% urg: in pt?
+			barNumberScriptPadding = #15
+			%% URG: this changes dynamics too
+			%%textStyle = #"italic"
+			timeSignatureStyle = #"C"
+			instrumentScriptPadding = #60  %% urg, this is in pt
+			instrScriptPadding = #40 %% urg, this is in pt
+			marginScriptHorizontalAlignment = #1
+			maximumRestCount = #1
+		}
+	}
 	\midi{ 
 		\tempo 4 = 150; 
 

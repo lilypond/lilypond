@@ -22,14 +22,11 @@ protected:
   virtual ~Part_combine_music_iterator ();
 
   virtual void construct_children ();
-  virtual Moment next_moment () const;
-  virtual void do_process (Moment);
+  virtual Moment pending_moment () const;
+  virtual void process (Moment);
+  virtual SCM get_music (Moment)const;
   virtual Music_iterator *try_music_in_children (Music *) const;
-
   virtual bool ok () const;
-  virtual bool next ();
-  virtual SCM get_music ();
-  virtual void do_print () const;
 
 private:
   void change_to (Music_iterator*, String, String);

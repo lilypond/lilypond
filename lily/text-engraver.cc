@@ -38,6 +38,9 @@ Text_engraver::do_try_music (Music *m)
 {
   if (Text_script_req *r = dynamic_cast<Text_script_req*> (m))
     {
+      if (r->style_str_ == "dynamic")
+	return false;
+      
       reqs_.push (r);
       return true;
     }

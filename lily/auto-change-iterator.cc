@@ -69,9 +69,9 @@ Auto_change_iterator::change_to (Music_iterator *it, String to_type,
 Pitch_interrogate_req* spanish_inquisition; // nobody expects it
 
 void
-Auto_change_iterator::do_process (Moment m)
+Auto_change_iterator::process (Moment m)
 {
-  Music_wrapper_iterator::do_process (m);
+  Music_wrapper_iterator::process (m);
 
   if (!spanish_inquisition)
     spanish_inquisition = new Pitch_interrogate_req;

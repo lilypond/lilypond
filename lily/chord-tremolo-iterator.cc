@@ -31,7 +31,7 @@ Chord_tremolo_iterator::Chord_tremolo_iterator()
 }
 
 void
-Chord_tremolo_iterator::do_process (Moment m)
+Chord_tremolo_iterator::process (Moment m)
 {
   if (!m)
     {
@@ -47,9 +47,9 @@ Chord_tremolo_iterator::do_process (Moment m)
 
 
 Moment
-Chord_tremolo_iterator::next_moment () const
+Chord_tremolo_iterator::pending_moment () const
 {
-  return child_iter_p_->next_moment () / factor_;
+  return child_iter_p_->pending_moment () / factor_;
 }
 
 bool
@@ -70,8 +70,3 @@ Chord_tremolo_iterator::try_music_in_children (Music  *m) const
 }
 
 
-void
-Chord_tremolo_iterator::do_print () const
-{
-  child_iter_p_->print  ();
-}

@@ -37,9 +37,9 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 }
 
 Moment
-Lyric_combine_music_iterator::next_moment () const
+Lyric_combine_music_iterator::pending_moment () const
 {
-  Moment musnext = music_iter_p_->next_moment ();
+  Moment musnext = music_iter_p_->pending_moment ();
   return musnext;
 }
 
@@ -49,12 +49,6 @@ Lyric_combine_music_iterator::ok () const
   return music_iter_p_->ok ();
 }
 
-void
-Lyric_combine_music_iterator::do_print () const
-{
-  music_iter_p_->print ();
-  lyric_iter_p_->print ();
-}
 
 void
 Lyric_combine_music_iterator::construct_children ()
@@ -66,9 +60,9 @@ Lyric_combine_music_iterator::construct_children ()
 }
 
 void
-Lyric_combine_music_iterator::do_process (Moment m)
+Lyric_combine_music_iterator::process (Moment m)
 {
-  Moment my_next = music_iter_p_->next_moment ();
+  Moment my_next = music_iter_p_->pending_moment ();
   if (my_next > m)
     return;
   
@@ -90,13 +84,12 @@ Lyric_combine_music_iterator::do_process (Moment m)
 		lyric_iter_p_->try_music (melisma_stop_req);
 #endif
 	      
-	      Moment m= lyric_iter_p_->next_moment ();
+	      Moment m= lyric_iter_p_->pending_moment ();
 	      lyric_iter_p_->process (m);
 	    }
 	}
     }
   
-  Music_iterator::do_process (m);
 }
 
 Lyric_combine_music_iterator::~Lyric_combine_music_iterator ()

@@ -24,14 +24,14 @@ public:
   ~Folded_repeat_iterator ();
   
   virtual void construct_children ();
-  virtual Moment next_moment () const;
+  virtual Moment pending_moment () const;
   virtual bool ok () const;
 
 protected:
   void enter_alternative ();
   void leave_body ();
   
-  virtual void do_process (Moment);
+  virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
 private:

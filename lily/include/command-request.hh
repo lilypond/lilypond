@@ -48,7 +48,7 @@ public:
 
   Tempo_req();
 protected:
-    virtual void do_print () const;
+  virtual void do_print () const;
   VIRTUAL_COPY_CONS(Music);
   bool do_equal_b (Request const *) const;
 };

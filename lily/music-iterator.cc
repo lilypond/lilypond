@@ -43,12 +43,12 @@
 
 Music_iterator::Music_iterator ()
 {
-  first_b_ = true;
+  //  clone_i_ = 0;
 }
 
 Music_iterator::Music_iterator (Music_iterator const& src)
 {
-  first_b_ = src.first_b_;
+  //  clone_i_ = src.clone_i_ + 1;
   handle_ = *src.handle_.clone ();
   music_l_ = src.music_l_;
 }
@@ -57,39 +57,7 @@ Music_iterator::~Music_iterator ()
 {
 }
 
-void
-Music_iterator::do_print () const
-{
-}
 
-void
-Music_iterator::print () const
-{
-#ifndef NPRINT
-  if (!flower_dstream)
-    return ;
-  DEBUG_OUT << classname (this) << "{";
-  Translator_group *t =     report_to_l ();
-  DEBUG_OUT << "report to " << t->type_str_ << " = " << t->id_str_ << "\n";
-  if (ok ())
-    DEBUG_OUT << "next at " << next_moment () << " ";
-  else
-    DEBUG_OUT << "not feeling well today..";
-  do_print ();
-  DEBUG_OUT << "}\n";
-#endif
-}
-
-Translator_group*
-Music_iterator::get_req_translator_l ()
-{
-  assert (report_to_l ());
-  if (report_to_l ()->is_bottom_translator_b ())
-    return report_to_l ();
-
-  set_translator (report_to_l ()->get_default_interpreter ());
-  return report_to_l ();
-}
 
 
 Translator_group* 
@@ -111,44 +79,27 @@ Music_iterator::construct_children ()
 }
 
 Moment
-Music_iterator::next_moment () const
+Music_iterator::pending_moment () const
 {
   return 0;
 }
 
-void
-Music_iterator::process (Moment m)
-{
-  do_process (m);
-}
 
 void
-Music_iterator::do_process (Moment)
+Music_iterator::process (Moment)
 {
-  first_b_ = false;
 }
 
 bool
 Music_iterator::ok () const
 {
-  return first_b_;
+  return false;
 }
 
 SCM
-Music_iterator::get_music ()
+Music_iterator::get_music (Moment)const
 {
-  if (ok ())
-    return scm_listify (scm_cons (music_l_->self_scm (),
-				  report_to_l ()->self_scm ()),
-			SCM_UNDEFINED);
   return SCM_EOL;
-}
-
-bool
-Music_iterator::next ()
-{
-  first_b_ = false;
-  return ok ();
 }
 
 Music_iterator*

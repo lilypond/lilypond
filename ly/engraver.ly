@@ -181,7 +181,6 @@ GraceContext=\translator {
 
 ThreadContext = \translator{
 	\type Engraver_group_engraver;
-	%%\consists "A2_devnull_engraver";
 	\consists "Thread_devnull_engraver";
 	\consists "Note_heads_engraver";
 	\consists "Output_property_engraver";	

@@ -32,14 +32,14 @@ Folded_repeat_iterator::~Folded_repeat_iterator ()
 }
 
 Moment
-Folded_repeat_iterator::next_moment () const
+Folded_repeat_iterator::pending_moment () const
 {
   if (main_iter_p_)
     {
-      return main_iter_p_->next_moment ();
+      return main_iter_p_->pending_moment ();
     }
   else
-    return main_length_mom_ + alternative_iter_p_->next_moment ();
+    return main_length_mom_ + alternative_iter_p_->pending_moment ();
 }
 
 void
@@ -55,7 +55,7 @@ Folded_repeat_iterator::construct_children ()
 }
 
 void
-Folded_repeat_iterator::do_process (Moment m)
+Folded_repeat_iterator::process (Moment m)
 {
   if (!m)
     {

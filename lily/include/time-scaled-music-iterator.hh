@@ -18,7 +18,7 @@ public:
   VIRTUAL_COPY_CONS (Music_iterator);
   /* construction */
 protected:
-  virtual void do_process (Moment);
+  virtual void process (Moment);
 };
 
 

@@ -101,8 +101,7 @@ Slur_engraver::do_process_music ()
       if (slur_req_l->span_dir_ == STOP)
 	{
 	  if (slur_l_stack_.empty ())
-	    slur_req_l->origin ()->warning (_f ("can't find start of %s",
-						_ ("slur")));
+	    slur_req_l->origin ()->warning (_f ("can't find start of slur"));
 	  else
 	    {
 	      Score_element* slur = slur_l_stack_.pop ();

@@ -35,29 +35,19 @@ Simultaneous_music_iterator::~Simultaneous_music_iterator ()
   children_p_list_.junk ();
 }
 
-bool
-Simultaneous_music_iterator::next ()
-{
-  for (Cons<Music_iterator> **pp = &children_p_list_.head_; *pp;)
-    {
-      Music_iterator *i = (*pp)->car_;
-      if (i->ok ())
-	i->next ();
-      if (!i->ok ())
-	delete children_p_list_.remove_cons (pp);
-      else
-	pp = &(*pp)->next_;
-    }
-  return ok ();
-}
+/*
+  Should roll next () into this as well
 
+
+  huh? --hwn
+ */
 SCM
-Simultaneous_music_iterator::get_music ()
+Simultaneous_music_iterator::get_music (Moment m)const
 {
   SCM s = SCM_EOL;
   for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
     {
-      s = gh_append2 (p->car_->get_music (), s);
+      s = gh_append2 (p->car_->get_music (m), s);
     }
   return s;
 }
@@ -97,23 +87,14 @@ Simultaneous_music_iterator::construct_children()
     }
 }
 
-void
-Simultaneous_music_iterator::do_print() const
-{
-#ifndef NPRINT
-  for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
-    p->car_->print();
-#endif
-}
 
 void
-Simultaneous_music_iterator::do_process (Moment until)
+Simultaneous_music_iterator::process (Moment until)
 {
-#if 1
   for (Cons<Music_iterator> **pp = &children_p_list_.head_; *pp;)
     {
       Music_iterator * i = (*pp)->car_;
-      if  (i->next_moment() == until) 
+      if  (i->pending_moment() == until) 
 	{
 	  i->process (until);
 	}
@@ -122,18 +103,16 @@ Simultaneous_music_iterator::do_process (Moment until)
       else
 	pp = &(*pp)->next_;
     }
-  Music_iterator::do_process (until);
-#endif
 }
 
 Moment
-Simultaneous_music_iterator::next_moment() const
+Simultaneous_music_iterator::pending_moment() const
 {
   Moment next;
   next.set_infinite (1);
   
   for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
-    next = next <? p->car_->next_moment() ;
+    next = next <? p->car_->pending_moment() ;
   return next;
 }
 

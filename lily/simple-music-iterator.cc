@@ -14,25 +14,51 @@
 Simple_music_iterator::Simple_music_iterator ()
   : Music_iterator ()
 {
+  last_processed_mom_ = -1;
 }
 
 Simple_music_iterator::Simple_music_iterator (Simple_music_iterator const &src)
   : Music_iterator (src)
 {
+  last_processed_mom_ = -1;
 }
 
 void
-Simple_music_iterator::do_process (Moment m)
+Simple_music_iterator::construct_children ()
+{
+  length_mom_ = music_l_->length_mom ();
+}
+
+bool
+Simple_music_iterator::ok ()const
+{
+  return last_processed_mom_ < length_mom_;
+}
+
+Moment
+Simple_music_iterator::pending_moment ()const
+{
+  if (music_l_)
+    return Moment (0);
+  else
+    return length_mom_;
+}
+
+void
+Simple_music_iterator::process (Moment m)
 {
 #if 0
-  if (ok ())
+  /*
+    try_music () causes trouble for base classes
+   */
+  if (music_l_)
     {
-      bool b = try_music (get_music ());
+      bool b = try_music (music_l_);
       if (!b)
 	music_l_->origin ()->warning (_f ("Junking music: `%s'",
 					  classname (music_l_)));
-
     }
-  Music_iterator::do_process (m);
 #endif
+  music_l_ = 0;
+  last_processed_mom_ = m;
 }

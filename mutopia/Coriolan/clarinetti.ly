@@ -23,7 +23,7 @@ clarinettiStaff = \context Staff = clarinetti <
 	\property Staff.transposing = #-2
 	\time 4/4;
 	\notes \key f \major;
-	\skip 1*341; \bar "|.";
+	\skip 1*314; \bar "|.";
 	\context Voice=one \partcombine Voice
 		\context Thread=one \clarinettoI
 		\context Thread=two  \clarinettoII

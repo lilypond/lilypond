@@ -22,7 +22,7 @@ corniStaff = \context Staff = corni <
 	%\property Staff.transposing = "es"
 	\property Staff.transposing = #3
 	\time 4/4;
-	\skip 1*341; \bar "|.";
+	\skip 1*314; \bar "|.";
 	\context Voice=one \partcombine Voice
 		\context Thread=one \cornoI
 		\context Thread=two \cornoII

@@ -104,15 +104,8 @@ Spanner::do_break_processing ()
 	  span_p->set_bound(LEFT,bounds[LEFT]);
 	  span_p->set_bound(RIGHT,bounds[RIGHT]);
 
-#if 0
-	  assert (bounds[LEFT]->line_l () ==
-		  bounds[RIGHT]->line_l ());
-
-	  bounds[LEFT]->line_l ()->typeset_element (span_p);
-	  broken_into_l_arr_.push (span_p);
-#else
-
-	  if (bounds[LEFT]->line_l () != bounds[RIGHT]->line_l ())
+	  if (bounds[LEFT]->line_l ()
+	      && bounds[LEFT]->line_l () != bounds[RIGHT]->line_l ())
 	    {
 	      programming_error ("bounds[LEFT]->line_l () != bounds[RIGHT]->line_l ()");
 #if 0
@@ -129,13 +122,25 @@ Spanner::do_break_processing ()
 #endif
 	      span_p->suicide ();
 	    }
+	  else if (!bounds[LEFT]->line_l ())
+	    {
+	      // bounds[LEFT]->line_l ()->typeset_element (span_p);
+	      // broken_into_l_arr_.push (span_p);
+	      programming_error ("bounds[LEFT]->line_l () == 0");
+	      span_p->suicide ();
+	    }
+	  else if (!bounds[RIGHT]->line_l ())
+	    {
+	      // bounds[RIGHT]->line_l ()->typeset_element (span_p);
+	      // broken_into_l_arr_.push (span_p);
+	      programming_error ("bounds[RIGHT]->line_l () == 0");
+	      span_p->suicide ();
+	    }
 	  else
 	    {
 	      bounds[LEFT]->line_l ()->typeset_element (span_p);
 	      broken_into_l_arr_.push (span_p);
 	    }
-#endif
-	  
 	}
     }
   broken_into_l_arr_.sort (Spanner::compare);

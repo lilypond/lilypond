@@ -6,6 +6,7 @@
 
 	\translator {
 		\ScoreContext
+		%\OrchestralScoreContext
 		skipBars = ##t 
 
 		barScriptPadding = #2.0 % dimension \pt

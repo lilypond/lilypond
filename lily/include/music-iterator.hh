@@ -16,14 +16,33 @@
 #include "virtual-methods.hh"
 #include "interpretation-context-handle.hh"
 
-/** Walk through music and deliver music to translation units, synced
-  in time.  This class provides both the implementation of the shared
-  code, and the public interface.
+/** 
+  Conceptually a music-iterator operates on a queue of musical events
+  that are pending. This queue does not actually exist, but it is a
+  way of viewing and traversing music-expressions.
 
-  Derived classes should only have a public constructor.
-  The state of an iterator would be the intersection of the particular music 
-  construct with one point in musical time.
- */
+  
+  ok () -- events left ?
+
+  pending_mom () -- time tag of the next event to be processed.
+  
+  process (M) -- process all at M (Precondition: no events exist before
+    M).  Side-effects:
+    
+    * This removes all events at M from the pending queue.
+
+    * Typically this reports the music to an interpretation context,
+    thus changing the state of the interpretation context.
+
+  get_music (M) -- return all events starting at M (pre: no events
+    before M).  Side effects:
+
+    * This removes all events at M from the pending queue.
+
+  Because next (M) is rolled into process () as a side effect,
+  we need to roll next (M) into get_music too.  Urg.
+    
+*/
 class Music_iterator
 {
 public:
@@ -52,51 +71,27 @@ public:
   static Music_iterator* static_get_iterator_p (Music * mus);
   void init_translator (Music  *, Translator_group *); 
 
-  ///  Find the next interesting point in time.
-  virtual Moment next_moment () const;
-
-
-  ///Are we finished with this piece of music?
+  virtual Moment pending_moment () const;
   virtual bool ok () const;
-
-  virtual SCM get_music ();
-  virtual bool next ();
-
-  void process (Moment until);
+  virtual SCM get_music (Moment until)const;
+  virtual void process (Moment until);
 
   /**
     Construct sub-iterators, and set the translator to 
     report to.
    */
   virtual void construct_children ();
-  void print () const;
 
 protected:
   Music  * music_l_;
-
-  /// ugh. JUNKME
-  bool first_b_;
-
-  /**
-    Do the actual printing.  This should be overriden in derived classes.  It 
-    is called by #print#, in the public interface
-   */
-  virtual void do_print () const;
-    
-  /**
-    Find a bottom notation context to deliver requests to.
-   */
-  virtual Translator_group* get_req_translator_l ();
 
   /**
     Get an iterator for MUS, inheriting the translation unit from THIS.
    */
   Music_iterator* get_iterator_p (Music *) const;
 
-  virtual void do_process (Moment);
-
   virtual Music_iterator* try_music_in_children (Music *) const;
-  
+
 private:
   Interpretation_context_handle handle_;
 };

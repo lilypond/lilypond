@@ -130,9 +130,12 @@ Dynamic_engraver::do_process_music ()
     }
 
   /*
-    TODO: should finish and create new spanner if vertical dyn-direction is changed.
+    finish side position alignment if the (de)cresc ends here, and
+    there are no new dynamics.
+    
    */
-  else if (!accepted_spanreqs_drul_[START] && !text_req_l_)
+  else if (accepted_spanreqs_drul_[STOP]
+	   && !accepted_spanreqs_drul_[START] && !text_req_l_)
     {
       finished_line_spanner_ = line_spanner_;
       line_spanner_ = 0;
@@ -159,7 +162,12 @@ Dynamic_engraver::do_process_music ()
 	as (de)crecsendo, b.o. line-breaking.
 	*/
 
+  
 
+  /*
+    maybe we should leave dynamic texts to the text-engraver and
+    simply acknowledge them?
+  */
   if (text_req_l_)
     {
       String loud = text_req_l_->text_str_;
@@ -284,31 +292,17 @@ void
 Dynamic_engraver::do_removal_processing ()
 {
   typeset_all ();
-
-#if 0  
-  if (cresc_p_)
-    {
-      typeset_element (cresc_p_ );
-      finished_cresc_p_ = cresc_p_;
-
-      current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
-    }
   if (line_spanner_)
     {
       finished_line_spanner_ = line_spanner_;
+      typeset_all ();
     }
-  typeset_all ();
-#else
+
   if (cresc_p_)
     {
       current_cresc_req_->origin ()->warning (_ ("unterminated (de)crescendo"));
       cresc_p_->suicide ();
     }
-  if (line_spanner_)
-    {
-      line_spanner_->suicide ();
-    }
-#endif
 }
 
 void
@@ -328,18 +322,6 @@ Dynamic_engraver::typeset_all ()
   if (finished_line_spanner_)
     {
       Side_position::add_staff_support (finished_line_spanner_);
-#if 0
-      if (!finished_line_spanner_->get_bound (LEFT))
-	{
-	  Score_element * cmc
-	    = unsmob_element (get_property ("currentMusicalColumn"));
-	  finished_line_spanner_->set_bound (LEFT, cmc);
-	}
-      if (!finished_line_spanner_->get_bound (RIGHT))
-	finished_line_spanner_->set_bound (RIGHT,
-					   finished_line_spanner_->get_bound (LEFT));
-      
-#endif
       extend_spanner_over_elements (finished_line_spanner_);
       typeset_element (finished_line_spanner_);
       finished_line_spanner_ = 0;
