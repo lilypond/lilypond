@@ -73,7 +73,7 @@ Time_signature::special_time_signature (String s, int n, int d) const
 Molecule
 Time_signature::time_signature (int num, int den) const
 {
-  String sty = "number";
+  String sty = "timesig";
 
   /*
     UGH: need to look at fontsize.

@@ -20,6 +20,7 @@ paper_sixteen = \paper {
 	font_finger = 4.;
 	font_volta = 5.;
 	font_number = 8.;
+	font_timesig = 8.;
 	font_dynamic = 10.;
 	font_mark = 10.;
 
