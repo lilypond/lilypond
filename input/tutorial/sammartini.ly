@@ -16,13 +16,13 @@ oboes = \notes \relative c'' \context Voice = oboes {
     \grace <<e g>>8-( <<d f>>4-) <<c e>>2
     \times 2/3 { <<d  f>>8 <<e g>> <<f a>> }
     <
-        { \times 2/3 { a8 g c }  c2 }
-	\\
+        { \times 2/3 { a8 g c }  c2 } \\
         { f,8 e e2 }  
     >
 
     \grace <<c, e>>8-( <<b d>>8.-)-\trill <<c e>>16 | 
-    [<<d  f>>-( <<f a>>8.-)] <<b, d>>8 r [<<d f>>16-( <<f a>>8.-)] <<b, d>>8 r  |
+    [<<d  f>>-( <<f a>>8.-)] <<b, d>>8 r
+    [<<d f>>16-( <<f a>>8.-)] <<b, d>>8 r  |
     [<<c e>>16-(  <<e g>>8.-)] <<c e,>>8
 }
 

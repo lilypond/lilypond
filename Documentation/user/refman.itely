@@ -1217,7 +1217,7 @@ the metrum. They are inserted automatically in most cases.
 \time 2/4 c8 c c c \time 6/8 c c c c8. c16  c8
 @end lilypond
 
-If you're not satisfied with the automatic beaming, you can enter the
+If you are not satisfied with the automatic beaming, you can enter the
 beams explicitly. If you have beaming patterns that differ from the
 defaults, you can also set the patterns for automatic beamer.
 

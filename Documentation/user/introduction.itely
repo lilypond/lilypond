@@ -209,59 +209,77 @@ then the obvious candidate for the source is the music itself.
 
 On paper this theory sounds very good. In practice, it opens a can of
 worms. What really @emph{is} music? Many philosophical treatises must
-have been written on the subject.  Fortunately, we have a concrete
-application, so we do not run the risk of losing ourselves in
-philosophical arguments over the essence of music.  We want to produce
-a printed score from a music representation, so this gives us a nice
-guide for designing a format: we need a format containing mainly
-musical elements, such as pitch and duration, but also enough
-information to print a score.  Our users have to key in the music into
-the file directly, so the input format should have a friendly
-syntax. Finally, we as programmers and scientists want a clean formal
-definition. After all, producing music notation is a difficult
-problem, and in the scientific world, problems can only be solved if
-they are well-specified. Moreover, formally defined formats are easier
-to write programs for.
+have been written on the subject.  Instead of losing ourselves in
+philosophical arguments over the essence of music, we have reversed
+the question to yield a more practical approach. Our assumption is
+that the printed score contains all of the music of piece. We build a
+program that uses some input format to produce such a score. Over the
+course of time, the program evolves. While this happens, we can remove
+more and more elements of the input format: as the program improves,
+it can fill in irrelevant details of the input by itself. At some
+(hypothetical) point, the program is finished: there is no possibility
+to remove any more elements from the syntax.  What we have left is by
+definition exactly the musical meaning of the score.
 
-@ignore
-Even if you are more practically
-inclined, you will notice that there exist an enormous number of ways
-to represent music in a computer, and they are much more incompatible
-than the formats for word processors and spreadsheets.  Anyone who has
-tried to exchange data files from between different notation programs
-can attest to this.
-
-This problem is caused by the two-dimensional nature of music: in
-polyphonic music, notes have time and pitch as their two coordinates,
-and they often are related in both directions. Computer files on the
-other hand are essentially one-dimensional: they are a long stream of
-characters. When you represent music in a file, then you have to
-flatten this two-dimensional information breaking either timing or
-pitch relations, and there is no universal agreement on how to do
-this.
-@end ignore
-
-
-@cindex music representation
-@cindex music expressions
-@cindex input format
+There are also more practical concerns.  Our users have to key in the
+music into the file directly, so the input format should have a
+friendly syntax. As programmers and scientists, we want a
+clean formal definition. After all, producing music notation is a
+difficult problem, and in the scientific world, problems can only be
+solved if they are well-specified. Moreover, formally defined formats
+are easier to write programs for.
 
 
 These ideas shaped our music representation: it is a compact format
 that can easily be typed by hand. It complex musical constructs from
 simple entities like notes and rests, in much the same way that one
 builds complex formulas from simple expressions such as numbers and
-mathematical operators.  The strict separation between musical
-information and typesetting also gives a blueprint of the program:
-first it reads the music representation, then it interprets the
-music---reading it `left-to-right', and translating the musical
-information to a layout specification. When the layout is computed,
-the resulting symbols are written to an output file.
+mathematical operators.
+
+@node Program design
+@section Program design
+
+The strict separation between musical information and typesetting also
+gives a blueprint of the program: first it reads the music
+representation, then it interprets the music---reading it
+`left-to-right', and translating the musical information to a layout
+specification. When the layout is computed, the resulting symbols are
+written to an output file.
+
+TODO: more about design? 
+
+@node Example applications
+@section Example applications
+
+TODO: show what sort of things lily can be used for.
+
 
 
 @node About this manual
 @section About this manual
 
+[
+
+The manual is divided into the following chapters
+@itemize
+@item Tutorial
+gives a gentle introduction into using lilypond
+@item
+Reference manual: each aspect of typesetting music is discussed
+@item
+Advanced topics: how it works from the inside, scripting lilypond.
+@item
+Invoking: running LilyPond and its helper programs. 
+@end itemize
+
+This manual is not complete: a part of the functionality is available
+through a generic system of properties: variables that can be set by
+the user to override certain functionality. Accompanying this manual
+is a document that describes all properties available, and all types
+of typographic and musical objects.
+
+TODO: rewrite rest of this section too.
+]
 
 As you will notice in the coming pages the program makes good
 decisions in a lot of cases: what comes out of LilyPond generally
@@ -295,7 +313,7 @@ that lists all of the variables that are available.  It is directly
 generated from the definitions that LilyPond itself uses, so it is
 always up to date. If you are reading this from a screen: it is
 available from the web, and is included with most binary
-distributions.  If you're reading this from paper, then we advise you
+distributions.  If you are reading this from paper, then we advise you
 to use the digital version anyway: the hyperlinks make finding topics
 in the lilypond-internals manual much easier.
 
@@ -319,7 +337,7 @@ and shows popular input idioms.  The rest of the manual is structured
 as follows: it starts with a tutorial that explains how to use
 lilypond. In the tutorial, a number of fragments of increasing
 complexity are shown and explained.  Then comes the reference manual,
-which gives more detailed information on all features. If you're new
+which gives more detailed information on all features. If you are new
 to lilypond, then you should start reading the tutorial, and
 experiment for yourself.  If you already have some experience, then
 you can simply use the manual as reference: there is an extensive
