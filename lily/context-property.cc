@@ -206,9 +206,6 @@ make_item_from_properties (Engraver *tr, SCM x, SCM cause, const char * name)
   Item *it = new Item (props, key);
   scm_gc_unprotect_object (key->self_scm ());
 
-#ifdef TWEAK 
-  Grob_selector::register_grob (context, it);
-#endif
   dynamic_cast<Engraver*>(tr)->announce_grob (it, cause);
 
   return it;

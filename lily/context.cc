@@ -9,7 +9,6 @@
 
 #include "object-key.hh"
 #include "context-def.hh"
-#include "context-selector.hh"
 #include "context.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
@@ -65,9 +64,7 @@ Context::add_context (Context *t)
   if (!t->init_)
     {
       t->init_ = true;
-#ifdef TWEAK 
-      Context_selector::register_context (t);
-#endif  
+
       scm_gc_unprotect_object (ts);
       Context_def *td = unsmob_context_def (t->definition_);
 
