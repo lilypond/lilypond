@@ -106,7 +106,7 @@
         % We know better
         \staffrulethickness=0.1\interlinedist
         \stemthickness=\staffrulethickness
-        \ledgerlinethickness=1.5\staffrulethickness
+        \ledgerlinethickness=2\staffrulethickness
 }
 
 
@@ -196,9 +196,9 @@
 \def\hslurcharu#1{{\hslurufont\char#1}}
 \def\hslurchard#1{{\hslurdfont\char#1}}
 % stacked numbers
-\def\generalmeter#1#2{\botalign{\vbox to0.5\balkheight{\vss \meterfont#1}%
-        \nointerlineskip
-        \vbox to 0.5\balkheight{\vss\meterfont #2}}}
+\def\generalmeter#1#2{\vbox to 0pt{\vss\hbox{\meterfont
+        #1}\nointerlineskip
+        \hbox{\meterfont #2}\vss}}
 
 % stacked horizontal lines 
 \def\lines#1#2#3{%

@@ -216,11 +216,8 @@ Lookup::linestaff (int lines, Real interline_f, Real wid) const
 Atom
 Lookup::meter (Array<Scalar> a) const
 {
-  Atom s;
-  s.dim_.x() = Interval (0 PT, 10 PT);
-  s.dim_.y() = Interval (0, 20 PT);	// todo
-  String src = (*symtables_)("param")->lookup ("meter").tex_;
-  s.tex_ = substitute_args (src,a);
+  Atom s((*symtables_)("param")->lookup ("meter"));
+  s.tex_ = substitute_args (s.tex_,a);
   return s;    
 }
 
