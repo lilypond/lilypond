@@ -71,7 +71,7 @@ Thread = \translator {
 	\consists "Tie_engraver";
 }
 
-Grandstaff = \translator {
+Grand_staff = \translator {
 	\type "Engraver_group_engraver";
 
 	\consists "Span_bar_engraver";
@@ -91,7 +91,7 @@ Staff_group = \translator {
 	\consists "Line_group_engraver";
 	\accepts "Staff";
 	\accepts "Rhythmic_staff";
-	\accepts "Grandstaff";
+	\accepts "Grand_staff";
 	\accepts "Lyrics";
 }
 
@@ -132,7 +132,7 @@ Score = \translator {
 	\accepts "Staff";
 	\accepts "Rhythmic_staff";	
 	\accepts "Lyrics";
-	\accepts "Grandstaff";
+	\accepts "Grand_staff";
 }
 
 Stupid_score = \translator {

@@ -1,7 +1,7 @@
 /*
   audio-item.hh -- declare Audio_items
 
-  (c) 1996, 1997 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1996,  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
  */
 
 #ifndef AUDIO_ITEM_HH

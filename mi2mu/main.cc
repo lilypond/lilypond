@@ -7,7 +7,7 @@
 #include <assert.h>
 #include "string-convert.hh"
 #include "lgetopt.hh"
-#include "path.hh"
+#include "file-path.hh"
 #include "duration-convert.hh"
 #include "source.hh"
 

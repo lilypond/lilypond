@@ -4,11 +4,35 @@ This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 Most of the items are marked in the code as well, with full explanation. 
-grep for TODO and ugh/ug
+grep for TODO and ugh/ugr/urg
 
 0.2:
 
-	* ly2dvi seams to eat accents as in \'el\'egant
+	* add a Duration_convert memberr to Duration_iter to set parameters.
+	Junk global duration settings. 
+ 
+	* deps for ly2dvi
+
+	* depracate \duration
+
+	* clean up abbrev/plet/beam/abbrevbeam/duration mess in parser.
+
+ 	* minimum length second part broken tie
+ 
+        * lowest beam of (UP) beam must never be lower than second staffline
+
+	* multibar rests
+
+	* make lily output make dependencies.
+
+ 	* make sure that columns never touch
+ 	  old hack at spring-spacer.cc:690 seems to be broken
+ 
+ 	* latex mutopia/los-toros-oboe-16.tex: max memsize
+ 
+ 	* fix position of bar number
+ 
+	* fix website.
 
 	* libtoolize flowerlib
 
@@ -16,17 +40,11 @@ grep for TODO and ugh/ug
 
 	* bf: abbrevbeam? 
 
-	* add full coriolan to website.
-
 	* robustify Beam (in case of no stems, 32nd notes)
-
-	* fix [c8 c16 c16] (mustn't slope)
 
 	* fix silly " "2*12 a4 (=4*12) sticky plet 
 
 	* check for groff / troff/ nroff et
-
-	* latex quirk?
 
 	* use kpsepath to find all TeX dirs
 	- configure.in 
@@ -64,12 +82,20 @@ grep for TODO and ugh/ug
 	* The `3' in the meter key is a one or two pixels too thin (at 600dpi)
 	in the middle:
 
+	* the tenuto script is too long and too thin
+
 	* better hshift (dots, distance, head dependent)
 
 	* stem len adjustable
 
 STUFF
-      * clefs: The names I'd like are of the form
+ 	* convert-mudela:
+	- make smarter
+	- fix convert-mudela -e *.ly ;
+	- convert-mudela -e empty.ly
+	- redo in python.
+
+      * clefs (AG): The names I'd like are of the form
 
             [FGC]n{[_^]8}   F, G or C clef, on nth line, subscripted
                             or superscripted with an 8.
@@ -96,6 +122,15 @@ STUFF
 	}
 
 	this modifies \stem for the c2
+
+	* emacs mudela-mode
+
+	-  should handle block comments too.
+	-  handle lexer modes (\header, \melodic, \lyric) etc.
+	-  indentation
+	-  notenames?
+	-  fontlock: \melodic \melodic
+ 
 
 	* use properties for:
 	- Text_style
@@ -125,9 +160,18 @@ STUFF
 	* tried egcs 1.0.2: failed on lily/stem.cc -> flower/include/interval.hh
 	  should narrow down and send bug report
 
+	* gcc 2.8.1: see ice and RESIZE_ICE
+
 	* xdvi: PS in magnifying glass.
 
 	* Fix profiling. gprof bugreport?
+
+	* GNU diff 2.7: diff -rN does not see a new directory with empty file
+
+	* GNU patch 2.1: <must find simple example> if patch chokes on a
+	  hunk, or on allegedly unsorted hunks in a diff, it may stop 
+	  without a trace of failure (create .rej file, print error or 
+	  dump core) and just ignore any further diffs.
 
 PROJECTS
 
@@ -277,8 +321,6 @@ languages:
 	- specify number of lines
 
 	* Rhythmic staff.
-
-	* multibar rests
 
 	* markers
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 /*
@@ -38,13 +38,13 @@ Lookup::rule_symbol (Real height, Real width) const
 }
 
 Atom 
-Lookup::beam(Real &slope, Real width, Real y_thick) const
+Lookup::beam(Real slope, Real width, Real thick) const
 {
   
-  Atom a( ps_beam (slope, width, y_thick));
-  Real slope_y =slope * width; 
-  Real min_y = (0 <? slope_y )- y_thick/2;
-  Real max_y = (0 >? slope_y) + y_thick/2;
+  Atom a (ps_beam (slope, width, thick));
+  Real height = slope * width; 
+  Real min_y = (0 <? height) - thick/2;
+  Real max_y = (0 >? height) + thick/2;
   
   a.dim_[X_AXIS] = Interval(0, width);
   a.dim_[Y_AXIS] = Interval(min_y, max_y);
@@ -52,29 +52,14 @@ Lookup::beam(Real &slope, Real width, Real y_thick) const
 }
 
 Atom
-Lookup::ps_beam (Real slope, Real width, Real y_thickness)const
+Lookup::ps_beam (Real slope, Real width, Real thick) const
 {
   String ps = "\\embeddedps{\n";
-  ps += String (width) + " "+ String (slope) + " " + String (y_thickness)
+  ps += String (width) + " "+ String (slope) + " " + String (thick)
     + " draw_beam}";
-
-  /* 
-   beam parts are rarely wider than 100pt: 
-   precision of 4 yields maximum (half beam spanning half a page)
-   error of: 1%% * 3*72pt === 0.2pt = 0.07mm
-   */
-  String width_str = String_convert::precision_str (width, 4);
-  String slope_str = String_convert::precision_str (slope, 4);
-  String thick_str = String_convert::precision_str (y_thickness, 3);
-  String name = "feta-beum-" + width_str + "-" + slope_str + "-" + thick_str;
-
-  int i;
-  while ((i = name.index_i ('.')) != -1)
-    name[i]=  'x';
-
-
 
   Atom s;
   s.tex_ = ps;
   return s;
 }
+

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include <limits.h>
@@ -15,7 +15,6 @@
 #include "interval.tcc"
 
 template INTERVAL__INSTANTIATE(Rational);
-template INTERVAL__INSTANTIATE(int);
 
 #include "compare.hh"
 
@@ -33,14 +32,3 @@ Interval_t<Rational>::T_to_str (Rational a)
   return a.str ();
 }
 
-int
-Interval_t<int>::infinity()
-{
-  return INT_MAX;
-}
-
-String
-Interval_t<int>::T_to_str (int i)
-{
-  return String (i);
-}

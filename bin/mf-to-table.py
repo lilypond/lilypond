@@ -176,6 +176,9 @@ class Log_reader:
 	    raise 'unknown label: ' + label
 
     def writedeps (self, deps):
+	if not len (deps):
+	    sys.stderr.write  ('Huh, no main target??')
+	    return
 	filename = deps[0]
 	split = os.path.splitext(filename)	
 	basename=split[0];

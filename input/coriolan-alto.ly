@@ -16,7 +16,7 @@ TestedFeatures:
 % (maybe even sooner :-)
 %
 
-\version "0.1.8";
+\version "0.1.10";
 
 alto1 = \melodic{
 	\meter 4/4; 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #ifndef LOOKUPSYMS_HH
@@ -32,9 +32,8 @@ struct Lookup {
   Atom fill (Box b) const;
   Atom beam_element (int,int,Real=0) const;
 
-  /// round slope to closest TeXslope
-  Atom beam (Real&,Real, Real) const;
-  Atom ps_beam (Real, Real, Real)const;
+  Atom beam (Real,Real, Real) const;
+  Atom ps_beam (Real, Real, Real) const;
 
   Atom streepje (int type) const;
 
@@ -52,10 +51,10 @@ struct Lookup {
     
   Atom dots () const;
   Atom slur (Array<Offset> controls) const;
-  Atom plet (Real &dy, Real &dx, Direction dir) const;
+  Atom plet (Real dy, Real dx, Direction dir) const;
   Atom text (String style, String text, int align = 1) const;
   Atom script (String idx) const;
-  Atom hairpin (Real & width, bool decresc, bool continued) const;
+  Atom hairpin (Real width, bool decresc, bool continued) const;
   Atom dynamic (String) const;
 };
 

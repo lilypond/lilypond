@@ -1,7 +1,7 @@
 /*
   plet-engraver.cc -- implement Plet_engraver
 
-  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
 */
 
 #include "proto.hh"

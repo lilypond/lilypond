@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "0.1.9";
+\version "0.1.10";
 
 trombo2 = \melodic{
 	\octave c';	

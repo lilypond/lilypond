@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #ifndef LEXER_HH
@@ -33,8 +33,9 @@ class My_lily_lexer : public Includable_lexer {
   bool post_quotes_b_;
   char escaped_char(char) const;
 public:
+  String main_input_str_;
   void * lexval_l;
-    
+  
   Notename_table  *note_tab_p_;
   Dictionary<Identifier*> *identifier_p_dict_p_;
   Keyword_table * keytable_p_;
@@ -42,6 +43,7 @@ public:
 
   /* *************** */
 
+  void start_main_input ();
   void clear_notenames();
   Identifier*lookup_identifier (String s);
   Melodic_req* lookup_melodic_req_l (String s);

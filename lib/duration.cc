@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
            Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
@@ -16,6 +16,7 @@
 #include "moment.hh"
 #include "duration.hh"
 #include "duration-convert.hh"
+#include "duration-iter.hh"
 
 // statics Duration
 int Duration::division_1_i_s = 384 * 4;
@@ -52,12 +53,14 @@ Duration::set_plet (int i, int t)
   plet_.type_i_ = t;
 }
 
+/*
 void
 Duration::set_plet (Duration d)
 {
   plet_.iso_i_ = d.plet_.iso_i_; 
   plet_.type_i_ = d.plet_.type_i_;
 }
+*/
 
 void
 Duration::set_ticks (int ticks_i)

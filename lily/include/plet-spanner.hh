@@ -1,7 +1,7 @@
 /*
   plet-spanner.hh -- part of GNU LilyPond
 
-  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
 */
 
 #ifndef PLET_SPANNER_HH

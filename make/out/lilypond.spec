@@ -1,12 +1,12 @@
 Name: lilypond
-Version: 0.1.60
+Version: 0.1.61
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-0.1.60.tar.gz
+Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-0.1.61.tar.gz
 Summary: A program for typesetting music.
-URL: http://www.cs.ruu.nl/~hanwen/lilypond
-Packager: Han-Wen Nienhuys <hanwen@stack.nl>
+URL: http://www.cs.uu.nl/~hanwen/lilypond
+Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
 Icon: lelie_icon.gif
 Buildroot: /tmp/lilypond-install
 
@@ -31,8 +31,11 @@ strip lily/out/lilypond mi2mu/out/mi2mu
 make -C Documentation gifs
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc Documentation/out/AUTHORS.txt Documentation/out/CodingStyle.txt Documentation/out/INSTALL.txt Documentation/out/MANIFESTO.txt Documentation/out/PATCHES.txt Documentation/out/faq.txt Documentation/out/gnu-music.txt Documentation/out/index.txt Documentation/out/internals.txt Documentation/out/language.txt Documentation/out/links.txt Documentation/out/literature.txt Documentation/out/mi2mu.txt Documentation/out/mutopia.txt Documentation/out/other-packages.txt BUGS TODO NEWS DEDICATION ANNOUNCE README
-%doc input/cadenza.ly input/coriolan-alto.ly input/keys.ly input/kortjakje.ly input/multi.ly input/part.ly input/pedal.ly input/praeludium-fuga-E.ly input/rhythm.ly input/scales.ly input/scripts.ly input/tril.ly input/twinkle-pop.ly input/twinkle.ly Documentation/mudela.doc 
+%doc Documentation/out/*.txt
+%doc Documentation/tex/*.doc
+%doc Documentation/tex/*.bib
+%doc mutopia/*.ly
+%doc input/*.ly
 %doc Documentation/out/lelie_logo.gif
 /usr/bin/convert-mudela
 /usr/bin/mudela-book
@@ -50,6 +53,8 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/share/lilypond/
 %post
 
+ln -s 
 texhash		# takes some time...
 rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm'`
 
+ln -s  /usr/lib/texmf/texmf/tex/lilypond  /usr/lib/texmf/texmf/tex/latex/lilypond # suck me plenty

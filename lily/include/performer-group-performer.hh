@@ -1,7 +1,7 @@
 /*
   performer-group-performer.hh -- declare Performer_group_performer
 
-  (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
                  Jan Nieuwenhuizen <jan@digicash.com>
  */
 

@@ -27,8 +27,8 @@ GROFFFILES = $(OUTPODFILES:.pod=.1)
 HTMLFILES = $(OUTPODFILES:.pod=.html)
 
 
+default: all do-doc
 
-default: do-doc
 #
 # list of distribution files:
 #
@@ -43,7 +43,7 @@ EXTRA_DISTFILES = $(XPMS)   vocabulary-data vocabulary-forms.el  automake.urgh
 # don't do DVI files. They can only be made if lily is installed
 do-doc: $(TEXTFILES)
 
-html: $(HTMLFILES)
+local-WWW: $(HTMLFILES)
 
 # generic targets and rules:
 #

@@ -39,7 +39,11 @@ paper_sixteen = \paper {
 	interbeam = 3.14\pt;
 
 	gourlay_energybound = 100000.;
-	gourlay_maxmeasures = 14.;
+	%{
+	The following bounds the number of measures
+	on a line.  Decreasing it greatly reduces computation time
+	%}
+	gourlay_maxmeasures = 10.;
 	castingalgorithm = \Gourlay;
 	\symboltables { \table_sixteen }
 	\include "engraver.ly"

@@ -17,6 +17,7 @@ typedef int i32;
 /// (i64)
 typedef long long I64;
 
+template<class T> struct Link_array;
 template<class T> struct Array;
 template<class T> struct sstack;
 template<class T,class K> struct Assoc;
@@ -35,6 +36,7 @@ template<class T> struct PQueue;
 #include "real.hh"
 
 typedef Interval_t<Real> Interval;
+typedef Interval_t<int> Slice;
 
 struct Choleski_decomposition;
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 #include "duration-convert.hh"
 #include "time-description.hh"
@@ -56,9 +56,9 @@ Beam_engraver::do_process_requests()
   if (prop.isnum_b ()) 
     beam_p_->damping_i_ = prop;
 
-  prop = get_property ("beamquantisaton");
+  prop = get_property ("beamquantisation");
   if (prop.isnum_b ()) 
-    beam_p_->quantisation_ = (Beam::Quantise)(int)prop;
+    beam_p_->quantisation_ = (Beam::Quantisation)(int)prop;
  
   announce_element (Score_elem_info (beam_p_, span_reqs_drul_[LEFT]));
 }

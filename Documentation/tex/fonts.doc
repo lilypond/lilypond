@@ -1,3 +1,5 @@
+% -*-LaTeX-*-
+
 \documentclass{article}
 \def\kdots{,\ldots,}
 \title{Not the Font-En-Tja font}
@@ -8,16 +10,12 @@
 
 \section{Introduction}
 
-This document are some design notes of the Feta font.  Feta (not an
-abbreviation of Font-En-Tja) is a font of music symbols.  All MetaFont
-sources are original.  The symbols are modelled after various editions
-of music, notably
-\begin{itemize}
-\item B\"arenreiter
-\item Hofmeister
-\item Breitkopf
-\item Durand \& C'ie
-\end{itemize}
+This document are some design notes of the Feta font, and other
+symbols related to LilyPond.  Feta (not an abbreviation of
+Font-En-Tja) is a font of music symbols.  All MetaFont sources are
+original.  The symbols are modelled after various editions of music,
+notably \begin{itemize} \item B\"arenreiter \item Hofmeister \item
+Breitkopf \item Durand \& C'ie \end{itemize}
 
 The best references on Music engraving are Wanske\cite{wanske} and
 Ross\cite{ross} quite some of their insights were used.  Although it
@@ -201,6 +199,66 @@ Staffsize       &Numbers                &Name\\
 
 Ross states that the dies (the stamps to make the symbols) come in
 12 different sizes.
+
+\section{Beams}
+
+\subsection{Slope}
+
+Traditionally, beam slopes are computed by following a large and hairy
+set of rules.  Some of these are talked-about in Wanske, a more
+recipy-like description can be found in Ross.
+
+There are some problems when trying to follow these rules:
+\begin{itemize}
+
+\item the set is not complete
+
+\item they are not formulated as a general rule with exceptions, but
+rather as a huge case of individual rules\cite{ross}
+
+\item in some cases, the result is wrong or ugly (or both)
+
+\item they try to solve a couple of problems at a time (e.g. Ross
+handles ideal slope and slope-quantisation as a paired problem)
+\end{itemize}
+Reading Ross it is clear that the rules presented there are certainly
+not the ultimate idea of what beam(slope)s should look like, but
+rather a (very much) simplified hands-on recipy for a human engraver.
+
+There are good reasons not to follow those rules:
+
+\begin{itemize}
+\item One cannot expect a human engraver to solve least-squares
+problems for every beam
+  
+\item A human engravers will allways trust themselves in judging the
+outcome of the applied recipy.  If, in a complicated case, the result
+"doesn't look good", they will ignore the rules and draw their own
+beams, based on experience.
+
+\item The exact rules probably even don't "really exsist" but in the
+minds of good engravers, in the form of experience
+\end{itemize}
+
+We'll propose to do a least-squares solve.  This seems to be the best
+way to calculate the slope for a computerised engraver such as Lily.
+
+It would be nice to have some rules to catch and handle "ugly" cases,
+though.  In general, the slope of the beam should mirror the pitches
+of the notes.  If this "can't be done" because there simply is no
+uniform "trend", it would probably be best to set the slope to zero.
+
+
+\subsection{Quantising}
+
+The beams should be prevented to conflict with the stafflines,
+especially at small slopes.  Traditionally, poor printing techniques
+imposed rather strict rules for quantisation.  In modern (post 1955)
+music printing we see that quality has improved substantially and
+obsoleted the technical justification for following some of these
+strict rules, notably the avoiding of so-called wedges.
+
+
 
 \bibliographystyle{plain}
 \bibliography{engraving}

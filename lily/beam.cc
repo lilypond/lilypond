@@ -3,13 +3,20 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
-
-  TODO
-
-  Less hairy code.  knee: ([\stem 1; c8 \stem -1; c8]
+  (c)  1997--1998, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
+    Jan Nieuwenhuizen <jan@digicash.com>
 
 */
+
+
+/*
+  [TODO]
+    * lowest beam of (UP) beam must never be lower than second staffline
+    * centre beam symbol
+    * less hairy code
+    * redo grouping 
+    * (future) knee: ([\stem 1; c8 \stem -1; c8]
+ */
 
 #include <math.h>
 
@@ -29,25 +36,15 @@
 #include "lookup.hh"
 #include "grouping.hh"
 #include "stem-info.hh"
-//#include "main.hh"  // experimental features
+#include "main.hh"  // experimental features
 
 
 IMPLEMENT_IS_TYPE_B1 (Beam, Spanner);
 
-// ugh, hardcoded
-const Real MINIMUM_STEMLEN[] = {
-  0, // just in case
-  5, 
-  4,
-  3,
-  2,
-  2,
-};
-
 Beam::Beam ()
 {
   slope_f_ = 0;
-  left_y_ = 0.0;
+  left_y_ = 0;
   damping_i_ = 1;
   quantisation_ = NORMAL;
   multiple_i_ = 0;
@@ -70,7 +67,12 @@ Molecule*
 Beam::brew_molecule_p () const
 {
   Molecule *mol_p = new Molecule;
-  Real inter_f = paper ()->internote_f ();
+
+  Real interline_f = paper ()->interline_f ();
+  Real internote_f = interline_f / 2;
+  Real staffline_f = paper ()->rule_thickness ();
+  Real beam_f = 0.48 * (interline_f - staffline_f);
+
   Real x0 = stems_[0]->hpos_f ();
   for (int j=0; j <stems_.size (); j++)
     {
@@ -80,10 +82,12 @@ Beam::brew_molecule_p () const
 
       Molecule sb = stem_beams (i, next, prev);
       Real  x = i->hpos_f ()-x0;
-      sb.translate (Offset (x, (x * slope_f_  + left_y_)* inter_f));
+      sb.translate (Offset (x, (x * slope_f_ + left_y_) * internote_f));
       mol_p->add (sb);
     }
-  mol_p->translate_axis (x0 - spanned_drul_[LEFT]->absolute_coordinate (X_AXIS), X_AXIS);
+  mol_p->translate_axis (x0 
+    - spanned_drul_[LEFT]->absolute_coordinate (X_AXIS), X_AXIS);
+
   return mol_p;
 }
 
@@ -181,16 +185,22 @@ Beam::set_default_dir ()
 }
 
 /*
-  should use minimum energy formulation (cf linespacing)
-*/
+  See Documentation/tex/fonts.doc
+ */
 void
 Beam::solve_slope ()
 {
+  /*
+    should use minimum energy formulation (cf linespacing)
+  */
+
+  assert (multiple_i_);
   Array<Stem_info> sinfo;
   for (int j=0; j <stems_.size (); j++)
     {
       Stem *i = stems_[j];
 
+      i->mult_i_ = multiple_i_;
       i->set_default_extents ();
       if (i->invisible_b ())
 	continue;
@@ -208,12 +218,12 @@ Beam::solve_slope ()
   else
     {
 
-      Real leftx = sinfo[0].x;
+      Real leftx = sinfo[0].x_;
       Least_squares l;
       for (int i=0; i < sinfo.size (); i++)
 	{
-	  sinfo[i].x -= leftx;
-	  l.input.push (Offset (sinfo[i].x, sinfo[i].idealy_f_));
+	  sinfo[i].x_ -= leftx;
+	  l.input.push (Offset (sinfo[i].x_, sinfo[i].idealy_f_));
 	}
 
       l.minimise (slope_f_, left_y_);
@@ -222,7 +232,7 @@ Beam::solve_slope ()
   Real dy = 0.0;
   for (int i=0; i < sinfo.size (); i++)
     {
-      Real y = sinfo[i].x * slope_f_ + left_y_;
+      Real y = sinfo[i].x_ * slope_f_ + left_y_;
       Real my = sinfo[i].miny_f_;
 
       if (my - y > dy)
@@ -240,205 +250,197 @@ Beam::solve_slope ()
   if (damping_i_)
     slope_f_ = 0.6 * tanh (slope_f_) / damping_i_;
 
-  quantise_yspan ();
+  quantise_dy ();
 
-  // y-values traditionally use internote dimension: therefore slope = (y/in)/x
-  // but mf and beam-lookup use PT dimension for y (as used for x-values)
-  // ugh --- there goes our simplified but careful quantisation
   Real sl = slope_f_ * paper ()->internote_f ();
   paper ()->lookup_l ()->beam (sl, 20 PT, 1 PT);
   slope_f_ = sl / paper ()->internote_f ();
 }
 
 void
-Beam::quantise_yspan ()
+Beam::quantise_dy ()
 {
   /*
     [Ross] (simplification of)
     Try to set slope_f_ complying with y-span of:
       - zero
-      - beam_thickness / 2 + staffline_thickness / 2
-      - beam_thickness + staffline_thickness
+      - beam_f / 2 + staffline_f / 2
+      - beam_f + staffline_f
     + n * interline
     */
 
-  if (!quantisation_)
+  if (quantisation_ <= NONE)
     return;
 
   Real interline_f = paper ()->interline_f ();
   Real internote_f = interline_f / 2;
-  Real staffline_thickness = paper ()->rule_thickness ();
-  Real beam_thickness = 0.48 * (interline_f - staffline_thickness);
+  Real staffline_f = paper ()->rule_thickness ();
+  Real beam_f = 0.48 * (interline_f - staffline_f);
 
-  const int QUANTS = 3;
-  Real qdy[QUANTS] = {
-    0,
-    beam_thickness / 2 + staffline_thickness / 2,
-    beam_thickness + staffline_thickness
-  };
+  Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
 
-  Real xspan_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
-  // y-values traditionally use internote dimension: therefore slope = (y/in)/x
-  Real yspan_f = xspan_f * abs (slope_f_ * internote_f);
-  int yspan_i = (int)(yspan_f / interline_f);
-  Real q = (yspan_f / interline_f - yspan_i) * interline_f;
-  int i = 0;
-  for (; i < QUANTS - 1; i++)
-    if ((q >= qdy[i]) && (q <= qdy[i + 1]))
-      {
-	if (q - qdy[i] < qdy[i + 1] - q)
-	  break;
-	else
-	{ 
-	  i++;
-	  break;
-	}
-      }
-  q = qdy[i];
+  // dim(y) = internote; so slope = (y/internote)/x
+  Real dy_f = dx_f * abs (slope_f_ * internote_f);
+  
+  Real quanty_f = 0.0;
 
-  yspan_f = (Real)yspan_i * interline_f + q;
-  // y-values traditionally use internote dimension: therefore slope = (y/in)/x
-  slope_f_ = yspan_f / xspan_f / internote_f * sign (slope_f_);
+  /* UGR.   ICE in 2.8.1; bugreport filed. */
+  Array<Real> allowed_fraction (3);
+  allowed_fraction[0] = 0;
+  allowed_fraction[1] = (beam_f / 2 + staffline_f / 2);
+  allowed_fraction[2] = (beam_f + staffline_f);
+
+
+    Interval iv = quantise_iv (allowed_fraction, interline_f, dy_f);
+    quanty_f = (dy_f - iv.min () <= iv.max () - dy_f)
+      ? iv.min ()
+      : iv.max ();
+
+
+  slope_f_ = (quanty_f / dx_f) / internote_f * sign (slope_f_);
 }
 
+static int test_pos = 0;
+
+
+/*
+  
+  Prevent interference from stafflines and beams.  See Documentation/tex/fonts.doc
+  
+ */
 void
-Beam::quantise_left_y (Beam::Pos pos, bool extend_b)
+Beam::quantise_left_y (bool extend_b)
 {
-  /*
-   quantising left y should suffice, as slope is quantised too
-   if extend then stems must not get shorter
+   /*
+    we only need to quantise the start of the beam as dy is quantised too
+   if extend_b then stems must *not* get shorter
    */
 
-  if (!quantisation_)
+  if (quantisation_ <= NONE)
     return;
 
+  /*
+    ----------------------------------------------------------
+                                                   ########
+	                                ########
+                             ########
+    --------------########------------------------------------
+       ########
+
+       hang       straddle   sit        inter      hang
+   */
+
+  Real interbeam_f = paper ()->interbeam_f ();
   Real interline_f = paper ()->interline_f ();
   Real internote_f = interline_f / 2;
-  Real staffline_thickness = paper ()->rule_thickness ();
-  Real beam_thickness = 0.48 * (interline_f - staffline_thickness);
+  Real staffline_f = paper ()->rule_thickness ();
+  Real beam_f = 0.48 * (interline_f - staffline_f);
+  Real symbol_f = beam_f + interbeam_f * (multiple_i_ - 1);
 
-  const int QUANTS = 7;
-  Real qy[QUANTS] = 
-  {
-    0,
-    beam_thickness / 2,
-    beam_thickness,
-    interline_f / 2 + beam_thickness / 2 + staffline_thickness / 2,
-    interline_f,
-    interline_f + beam_thickness / 2,
-    interline_f + beam_thickness
-  };
-  /* 
-   ugh, using i triggers gcc 2.7.2.1 internal compiler error (far down):
-   for (int i = 0; i < QUANTS; i++)
+  Real straddle = 0;
+  Real sit = beam_f / 2 - staffline_f / 2;
+  Real inter = interline_f / 2;
+  Real hang = interline_f - beam_f / 2 + staffline_f / 2;
+
+  /*
+    Put all allowed positions into an array.
+    Whether a position is allowed or not depends on 
+    strictness of quantisation, multiplicity and direction.
+
+    For simplicity, we'll assume dir = UP and correct if 
+    dir = DOWN afterwards.
    */
-  
-  // fixme!
-  for (int ii = 0; ii < QUANTS; ii++)
-    qy[ii] -= 0.5 *beam_thickness;
-  Pos qpos[QUANTS] = 
-  {
-    HANG,
-    STRADDLE,
-    SIT,
-    INTER,
-    HANG,
-    STRADDLE,
-    SIT
-  };
 
-  // y-values traditionally use internote dimension
-  Real y = left_y_ * internote_f;
-  int y_i = (int)floor(y / interline_f);
-  y = (y / interline_f - y_i) * interline_f;
+  // dim(left_y_) = internote
+  Real dy_f = dir_ * left_y_ * internote_f;
 
-  if (y < 0)
-    for (int ii = 0; ii < QUANTS; ii++)
-      qy[ii] -= interline_f;
-
-  int lower_i = 0;
-  int i = 0;
-  for (; i < QUANTS; i++)
+  Array<Real> allowed_position;
+  if (quantisation_ != TEST)
     {
-      if (qy[i] > y)
-	break;
-      // found if lower_i is allowed, and nearer (from below) y than new pos
-      if ((pos & qpos[lower_i]) && (y - qy[lower_i] < y - qy[i]))
-        break;
-      // if new pos is allowed or old pos isn't: assign new pos
-      if ((pos & qpos[i]) || !(pos & qpos[lower_i]))
-	lower_i = i;
+      if (quantisation_ <= NORMAL) 
+	{
+	  if ((multiple_i_ <= 2) || (abs (dy_f) >= staffline_f / 2))
+	    allowed_position.push (straddle);
+	  if ((multiple_i_ <= 1) || (abs (dy_f) >= staffline_f / 2))
+	    allowed_position.push (sit);
+	  allowed_position.push (hang);
+	}
+      else
+        // TODO: check and fix TRADITIONAL
+	{
+	  if ((multiple_i_ <= 2) || (abs (dy_f) >= staffline_f / 2))
+	    allowed_position.push (straddle);
+	  if ((multiple_i_ <= 1) && (dy_f <= staffline_f / 2))
+	    allowed_position.push (sit);
+	  if (dy_f >= -staffline_f / 2)
+	    allowed_position.push (hang);
+	}
     }
-
-  int upper_i = QUANTS - 1;
-  for (i = QUANTS - 1; i >= 0; i--)
-    {
-      if (qy[i] < y)
-	break;
-      // found if upper_i is allowed, and nearer (from above) y than new pos
-      if ((pos & qpos[upper_i]) && (qy[upper_i] - y < qy[i] - y))
-        break;
-      // if new pos is allowed or old pos isn't: assign new pos
-      if ((pos & qpos[i]) || !(pos & qpos[upper_i]))
-	upper_i = i;
-    }
-
-  // y-values traditionally use internote dimension
-  Real upper_y = (qy[upper_i] + interline_f * y_i) / internote_f;
-  Real lower_y = (qy[lower_i] + interline_f * y_i) / internote_f;
-
-  if (extend_b)
-    left_y_ = (dir_ > 0 ? upper_y : lower_y);
   else
-    left_y_ = (upper_y - y < y - lower_y ? upper_y : lower_y);
+    {
+      if (test_pos == 0)
+        {
+	allowed_position.push (hang);
+	cout << "hang" << hang << endl;
+	}
+      else if (test_pos==1)
+        {
+	allowed_position.push (straddle);
+	cout << "straddle" << straddle << endl;
+	}
+      else if (test_pos==2)
+        {
+	allowed_position.push (sit);
+	cout << "sit" << sit << endl;
+	}
+      else if (test_pos==3)
+        {
+	allowed_position.push (inter);
+	cout << "inter" << inter << endl;
+	}
+    }
+
+#if 0
+  // this currently never happens
+  Real q = (dy_f / interline_f - dy_i) * interline_f;
+  if ((quantisation_ < NORMAL) && (q < interline_f / 3 - beam_f / 2))
+    allowed_position.push (inter);
+#endif
+
+  Interval iv = quantise_iv (allowed_position, interline_f, dy_f);
+
+  Real quanty_f = dy_f - iv.min () <= iv.max () - dy_f ? iv.min () : iv.max ();
+  if (extend_b)
+    quanty_f = iv.max ();
+
+  // dim(left_y_) = internote
+  left_y_ = dir_ * quanty_f / internote_f;
 }
 
 void
 Beam::set_stemlens ()
 {
-  Real x0 = stems_[0]->hpos_f ();
-  Real dy = 0;
-
+  Real interbeam_f = paper ()->interbeam_f ();
   Real interline_f = paper ()->interline_f ();
   Real internote_f = interline_f / 2;
-  Real staffline_thickness = paper ()->rule_thickness ();
-  Real beam_thickness = 0.48 * (interline_f - staffline_thickness);
-  Real interbeam_f = paper ()->interbeam_f ();
-  if (multiple_i_ > 3)
-    interbeam_f += 2.0 * staffline_thickness / 4;
-  Real xspan_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
+  Real staffline_f = paper ()->rule_thickness ();
+  Real beam_f = 0.48 * (interline_f - staffline_f);
+
   /*
-   ugh, y values are in "internote" dimension
+    if we have more than three beams they must open-up
+    in order to not collide with staff lines
    */
-  Real yspan_f = xspan_f * abs (slope_f_ * internote_f);
-  int yspan_i = (int)(yspan_f / interline_f);
+  if (multiple_i_ > 3)
+    interbeam_f += 2.0 * staffline_f / 4;
 
-  Pos left_pos = NONE;
-
-  if ((yspan_f < staffline_thickness / 2) || (quantisation_ == NORMAL))
-    left_pos = (Pos)(STRADDLE | SIT | HANG);
-  else
-    left_pos = (Pos) (sign (slope_f_) > 0 ? STRADDLE | HANG 
-      : SIT | STRADDLE);
-
-  /* 
-   ugh, slope currently mangled by availability mf chars...
-   be more generous regarding beam position between stafflines
-   */
-  Real q = (yspan_f / interline_f - yspan_i) * interline_f;
-  if ((quantisation_ < NORMAL) && (q < interline_f / 3 - beam_thickness / 2))
-    left_pos = (Pos) (left_pos | INTER);
-
-
-  if (multiple_i_ > 1)
-    left_pos = (Pos) (dir_ > 0 ? HANG : SIT);
-
+  Real x0 = stems_[0]->hpos_f ();
+  Real dy = 0;
   // ugh, rounding problems! (enge floots)
-  const Real EPSILON = interline_f / 10;
+  Real epsilon = staffline_f / 8;
   do
     { 
       left_y_ += dy * dir_;
-      quantise_left_y (left_pos, dy);
+      quantise_left_y (dy);
       dy = 0;
       for (int i=0; i < stems_.size (); i++)
 	{
@@ -448,19 +450,29 @@ Beam::set_stemlens ()
 
 	  Real x = s->hpos_f () - x0;
 	  s->set_stemend (left_y_ + slope_f_ * x);
-	  Real y = s->stem_length_f ();
-	  // duh: 
-//	  int mult_i = stems_[i]->beams_left_i_ >? stems_[i]->beams_right_i_;
-	  int mult_i = multiple_i_;
-	  if (mult_i > 1)
-	      // dim(y) = internote
-	      y -= (Real)(mult_i - 1) * interbeam_f / internote_f;
-	  if (y < MINIMUM_STEMLEN[mult_i])
-	    dy = dy >? (MINIMUM_STEMLEN[mult_i] - y);
+	  Real y = s->stem_end_f () * dir_;
+	  Stem_info info (s);
+	  if (y < info.miny_f_)
+	    dy = dy >? info.miny_f_ - y;
 	}
-    } while (abs (dy) > EPSILON);
+    } while (abs (dy) > epsilon);
+
+  // ugh asymmetric symbol ?
+  if (dir_ == UP)
+    left_y_ -= dir_ * staffline_f / 4;
+
+  if ((multiple_i_ >= 3) && (dir_ == UP))
+    left_y_ -= dir_ * staffline_f / 4;
+
+  test_pos++;
+  test_pos %= 4;
 }
 
+/*
+ FIXME
+ ugh.  this is broken and should be rewritten.
+  - [c8. c32 c32]
+ */
 void
 Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
 {
@@ -506,15 +518,16 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   assert (!next || next->hpos_f () > here->hpos_f ());
   assert (!prev || prev->hpos_f () < here->hpos_f ());
 
-  Real staffline_thickness = paper ()->rule_thickness ();
+  Real staffline_f = paper ()->rule_thickness ();
   Real interbeam_f = paper ()->interbeam_f ();
   Real internote_f =paper ()->internote_f (); 
   Real interline_f = 2 * internote_f;
-  Real beamheight_f = 0.48 * (interline_f - staffline_thickness);
+  Real beamheight_f = 0.48 * (interline_f - staffline_f);
+
   if (multiple_i_ > 3)
-    interbeam_f += 2.0 * staffline_thickness / 4;
+    interbeam_f += 2.0 * staffline_f / 4;
   Real dy = interbeam_f;
-  Real stemdx = staffline_thickness;
+  Real stemdx = staffline_f;
   Real sl = slope_f_* internote_f;
   paper ()->lookup_l ()->beam (sl, 20 PT, 1 PT);
 
@@ -591,3 +604,4 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
    */
   return leftbeams;
 }
+

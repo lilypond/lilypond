@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "main.hh"
@@ -23,7 +23,7 @@
 #include "word-wrap.hh"
 #include "gourlay-breaking.hh"
 #include "outputter.hh"
-
+#include "file-results.hh"
 // sucking Cygnus egcs - w32
 #include "list.tcc"
 #include "cursor.tcc"
@@ -199,17 +199,21 @@ void
 Paper_score::tex_output ()
 {
   // output
-  String outname = paper_l_->outfile_str_ ;
-  if (outname.empty_b ())
+  String base_outname = paper_l_->outfile_str_ ;
+  if (base_outname.empty_b ())
     {
-      outname = default_outname_base_global;
+      base_outname = default_outname_base_global;
       int def = paper_l_->get_next_default_count ();
       if (def)
 	{
-	  outname += "-" + String(def);
+	  base_outname += "-" + String(def);
 	}
-      outname += ".tex";
     }
+
+  String outname = base_outname + ".tex";
+  target_str_global_array.push (outname);
+
+  
   *mlog << _("TeX output to ") <<  outname << " ...\n";
 
   Tex_stream tex_out (outname);

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 
   TODO
   This doth suck. We should have PS output, and read spacing info from TFMs
@@ -192,21 +192,21 @@ Lookup::streepje (int type) const
 }
 
 Atom
-Lookup::hairpin (Real &wid, bool decresc, bool continued) const
+Lookup::hairpin (Real width, bool decresc, bool continued) const
 {
   String embed;
   Atom ret;  
   Real height = paper_l_->get_var ("barsize") / 6;
   embed = "\\embeddedps{\n" ;
-  embed += String (wid) + " " 
+  embed += String (width) + " " 
 	+ String (height) + " " 
     + String (continued ? height/2 : 0) + 
     + " draw_"  + String(decresc ? "de" : "") + "cresc}\n";
   ret.tex_ = embed;
 
 
-  ret.dim_.x () = Interval (0,wid);
-  ret.dim_.y () = Interval (-2*height,2*height);
+  ret.dim_.x () = Interval (0, width);
+  ret.dim_.y () = Interval (-2*height, 2*height);
 
   return ret;
 }
@@ -290,7 +290,6 @@ Lookup::vbracket (Real &y) const
   Atom bracket = (*symtables_p_)("param")->lookup ("bracket");
   Interval ydims = bracket.dim_[Y_AXIS];
 
-  
   Real min_y = ydims[LEFT];
   Real max_y = ydims[RIGHT];
   Real step = 1.0 PT;

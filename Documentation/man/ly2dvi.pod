@@ -27,31 +27,45 @@ Set debug mode. There are two levels - in level one some debug
 info is written, in level two the command C<set -x> is run, which
 echoes every command in the ly2dvi script.
 
+=item B<-H,--headers=>
+
+Name of additional LaTeX headers file. This is included in the
+tex file at the end of the headers, last line before \begin{document}
+
+=item B<-K,--keeplilypond>
+
+Keep LilyPond output after the run.
+
+=item B<-L,--landscape>
+
+Set landscape orientation - portrait is the default.
+(C<-L> produces C<\usepackage[landscape]{article}>)
+
+=item B<-N,--nonumber>
+
+Switch off page numbering.
+
 =item B<-O,--orientation=>
 
 Set orientation - portrait is the default.
 (C<-O> landscape produces C<\usepackage[landscape]{article}>)
 
-=item B<-o,--output=>
-
-Set output directory.
-
 =item B<-h,--help>
 
 Print help.
 
-=item B<-k,--keep>
+=item B<-k,--keeply2dvi>
 
 Keep the LaTeX file after the run.
 
-=item B<-K>
-
-Keep LilyPond output after the run.
-
-=item B<-l,--language>
+=item B<-l,--language=>
 
 Specify LaTeX language.
 (C<-l norsk> produces C<\usepackage[norsk]{babel}>).
+
+=item B<-o,--output=>
+
+Set output directory.
 
 =item B<-p,--papersize=>
 
@@ -73,21 +87,25 @@ file. They are overridden by corresponding command line options.
 
 =over 5
 
-=item B<papersize>
-
-Specify papersize.
-
-=item B<orientation>
-
-Set orientation.
-
-=item B<language>
+=item B<language="";>
 
 Specify LaTeX language
 
-=item B<paperlinewidth>
+=item B<latexheaders="";>
+
+Specify additional LaTeX headers file
+
+=item B<orientation="";>
+
+Set orientation.
+
+=item B<paperlinewidth="";>
 
 Specify the width (pt, mm or cm) of the printed lines.
+
+=item B<papersize="";>
+
+Specify papersize.
 
 =back
 
@@ -143,27 +161,31 @@ In the current version the following are allowed:
 
 =over 5
 
-=item B<ORIENTATION>
-
-Set orientation - portrait is the default.
-
-=item B<LANGUAGE>
+=item B<LANGUAGE=>
 
 Specify LaTeX language.
 
-=item B<OUTPUTDIR>
+=item B<LATEXHF=>
 
-Set output directory.
+Specify additional LaTeX headers file
 
-=item B<PAPERSIZE>
-
-Specify papersize.
-
-=item B<LILYINCLUDE>
+=item B<LILYINCLUDE=>
 
 Additional directories for input files.
 
-=item B<TMP>
+=item B<ORIENTATION=>
+
+Set orientation - portrait is the default.
+
+=item B<OUTPUTDIR=>
+
+Set output directory.
+
+=item B<PAPERSIZE=>
+
+Specify papersize.
+
+=item B<TMP=>
 
 Temporary directory name.
 

@@ -1,8 +1,7 @@
-\version "0.1.9";
+\version "0.1.10";
 
 
 blah = \melodic{
-	\duration "last";
 	\meter 4/4;
 	\octave c';
 	\key bes es as;

@@ -21,7 +21,7 @@ Voice = \translator
 	\accepts Thread;
 }
 
-Grandstaff = \translator
+Grand_staff = \translator
 {
 	\type "Performer_group_performer";
 	\accepts Staff;
@@ -49,7 +49,7 @@ Score = \translator {
 	\type "Score_performer";
 	instrument = piano;
 	\accepts Staff;
-	\accepts Grandstaff;
+	\accepts Grand_staff;
 	\accepts Lyrics; 
 	\accepts Staff_group;
 	\consists "Swallow_performer";

@@ -3,7 +3,7 @@
 
   source file FlowerLib
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "directed-graph.hh"

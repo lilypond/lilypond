@@ -9,13 +9,16 @@ copyright =	 "public domain";
 
 }
 
-\version "0.1.9";
+\version "0.1.10";
 
 clarinetto2 = \melodic{
 	\octave c';	
 % koor: clarinetto-part.ly
 % lilypond: ../../current/lily/dynamic-grav.cc:58: void Dynamic_engraver::do_process_requests(): Assertion `!dynamic_p_' failed.
 % Aborted (core dumped)
+
+% huh?
+
 %	r1 | r1 | as4-.\ff r r2 | r1 |
 	r1*2 | as4-. r r2 | r1*3 |
 	b4-. r r2 | r1*3 |

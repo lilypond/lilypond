@@ -3,11 +3,12 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 	   Jan Nieuwenhuizen <jan@digicash.com>
 */
 #include <assert.h>
 #include "duration-convert.hh"
+#include "duration-iter.hh"
 #include "warn.hh"
 
 // statics Duration_convert
@@ -197,111 +198,4 @@ Duration_convert::ticks2standardised_dur (int ticks_i)
   Moment mom (ticks_i, Duration::division_1_i_s);
   Duration dur = mom2standardised_dur (mom);
   return dur;
-}
-
-Duration_iterator::Duration_iterator ()
-{
-  cursor_dur_.durlog_i_ = 7;
-  if (Duration_convert::no_smaller_than_i_s)
-    cursor_dur_.durlog_i_ = Duration_convert::no_smaller_than_i_s;
-}
-
-Duration 
-Duration_iterator::operator ++(int)
-{
-  return forward_dur ();
-}
-
-Duration
-Duration_iterator::operator ()()
-{
-  return dur ();
-}
-
-Duration_iterator::operator bool ()
-{
-  return ok ();
-}
-
-Duration
-Duration_iterator::dur ()
-{
-  return cursor_dur_;
-}
-
-Duration
-Duration_iterator::forward_dur ()
-{
-  /* should do smart table? guessing: 
-     duration wholes
-     16 	0.0625
-     32.. 	0.0703
-     8:2/3	0.0833
-     16.	0.0938
-     8	0.1250
-     16..	0.1406
-     4:2/3	0.1667
-     8.	0.1875
-		
-     */
-  assert (ok ());
-
-  Duration dur = cursor_dur_;
-
-  if (!cursor_dur_.dots_i_ && !cursor_dur_.plet_b ()) 
-    {
-      cursor_dur_.durlog_i_ += 1;
-      cursor_dur_.dots_i_ = 2;
-    }
-  else if (cursor_dur_.dots_i_ == 2) 
-    {
-      assert (!cursor_dur_.plet_b ());
-      cursor_dur_.dots_i_ = 0;
-      cursor_dur_.durlog_i_ -=2;
-      cursor_dur_.set_plet (2, 3);
-    }
-  else if (cursor_dur_.plet_b () 
-	   && (cursor_dur_.plet_.iso_i_ == 2)
-	   && (cursor_dur_.plet_.type_i_ == 3)) 
-    {
-      assert (!cursor_dur_.dots_i_);
-      cursor_dur_.set_plet (1, 1);
-      cursor_dur_.durlog_i_ += 1;
-      cursor_dur_.dots_i_ = 1;
-    }
-  else if (cursor_dur_.dots_i_ == 1) 
-    {
-      assert (!cursor_dur_.plet_b ());
-      cursor_dur_.dots_i_ = 0;
-      cursor_dur_.durlog_i_ -= 1;
-    }
-		
-  if (Duration_convert::no_triplets_b_s
-      && cursor_dur_.plet_b () && ok ())
-    forward_dur ();
-  if (Duration_convert::no_double_dots_b_s 
-      && (cursor_dur_.dots_i_ == 2) && ok ())
-    forward_dur ();
-  if (Duration_convert::no_smaller_than_i_s
-      && (cursor_dur_.durlog_i_ > Duration_convert::no_smaller_than_i_s) && ok ())
-    forward_dur ();
-  if (Duration_convert::no_smaller_than_i_s
-      && cursor_dur_.dots_i_
-      && (cursor_dur_.durlog_i_ >= Duration_convert::no_smaller_than_i_s)
-      && ok ())
-    forward_dur ();
-  if (Duration_convert::no_smaller_than_i_s
-      && (cursor_dur_.dots_i_ == 2)
-      && (cursor_dur_.durlog_i_ >= Duration_convert::no_smaller_than_i_s / 2)
-      && ok ())
-    forward_dur ();
-
-  return dur;
-}
-
-bool
-Duration_iterator::ok ()
-{
-  return (cursor_dur_.durlog_i_ 
-	  && !((cursor_dur_.durlog_i_ == 0) && (cursor_dur_.dots_i_ > 2)));
 }

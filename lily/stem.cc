@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 
   TODO: This is way too hairy
 */
@@ -32,6 +32,7 @@ Stem::Stem ()
   beam_l_ = 0;
   beams_left_i_ = 0;
   beams_right_i_ = 0;
+  mult_i_ = 0;
 
   yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
   flag_i_ = 2;

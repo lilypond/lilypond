@@ -1,7 +1,7 @@
 /*
   audio-staff.hh -- declare Audio_staff
 
-  (c) 1996, 1997 Jan Nieuwenhuizen <jan@digicash.com>
+  (c) 1996,  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
  */
 
 #ifndef AUDIO_STAFF_HH

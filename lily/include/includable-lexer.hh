@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 
@@ -30,6 +30,8 @@ protected:
   Array<Source_file*> include_stack_;
   Array<int> char_count_stack_;
 public:
+  /// store dependencies for Makefile stuff.
+  Array<String> filename_str_arr_;
 
   Source_file* source_file_l () const;
   void new_input (String s,Sources*);

@@ -19,7 +19,7 @@
    * organ staff...
 %}
 
-\version "0.1.9";
+\version "0.1.10";
 
 noShift = { \property Voice.hshift = 0 }
 Shift = { \property Voice.hshift = 1 }
@@ -167,7 +167,7 @@ breakmusic = \melodic {
 % these should be two separate scores...
 \score{
   \type Score <
-    \type Grandstaff <
+    \type Grand_staff <
       \type Staff = treble {
         \praeludium_right \breakmusic \fuga2_right }
       \type Staff = bass { 

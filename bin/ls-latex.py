@@ -47,24 +47,63 @@ def read_latex_header (fn):
     if latex_title_re.search (s) == -1:
 	raise 'huh?'
     header.title = latex_title_re.group (1)
+    header.outfile = regsub.gsub ('\.doc+$', '.ps.gz', fn)
     return  header
 
+
+bib_author_re = regex.compile('% *AUTHOR *= *\(.*\)$')
+bib_title_re = regex.compile('% *TITLE *= *\(.*\)$')
+
+def bib_header (fn):
+    s = gulp_file (fn)
+    if bib_author_re.search (s) == -1 :
+	raise 'huh?'
+
+    header = Latex_head()
+    header.filename= fn;
+    header.author = bib_author_re.group (1)
+    if bib_title_re.search (s) == -1:
+	raise 'huh?'    
+    header.title = bib_title_re.group (1)
+    header.outfile = fn
+    return header
+
+
+def read_pod_header (fn):
+    header = Latex_head ()
+    s = gulp_file (fn)
+    i = regex.search( '[^\n \t]', s)
+    s = s[i:]
+    i = regex.search( '\n\n', s)
+    s = s[i+2:]    
+    if i < 0:
+	raise 'huh?'
+    i = regex.search( '\n\n', s)
+    header.title = s[:i]
+    header.filename = fn
+    header.outfile = regsub.gsub ('\.pod$', '.html', fn)
+    return  header
+
+
 def print_html_head (l,o,h):
-    (pre, ext) = o
-    out = regsub.gsub ('\.[^.]+$', ext, h.filename)
-    l.write ('<li><a href=%s>%s</a><p>by %s</p>' % (pre + out, h.title, h.author ))
-    l.write ('</li>')
+    pre =o
+
+    l.write ('<li><a href=%s>%s</a>' % (pre + h.outfile, h.title ))
+    if h.author:
+	l.write ('<p>by %s</p>' % h.author)
+    l.write ('</li>\n')
 
 
 import getopt
 
 (cl_options, files) = getopt.getopt(sys.argv[1:], 
-				    'e:h', ['help', 'prefix=' ,'extension='])
+				    'e:h', ['help', 'prefix=' ,'extension='
+					    , 'title='])
 
 tex = ''
 output =''
 pre = ''
-
+title = ''
 for opt in cl_options:
     o = opt[0]
     a = opt[1]
@@ -72,11 +111,20 @@ for opt in cl_options:
 	ext = a
     if o == '--prefix' or o == '-p':
 	pre = a
+    if o == '--title' or o == '-t':
+	title = a  
 
 l = sys.stdout
 
-l.write ('<html><title>TeX documents</title><h1> TeX documents</h1><ul>')
+l.write ('<html><title>%s</title><h1> %s</h1><ul>\n' % (title, title))
+
 
 for x in files:
-    print_html_head (l, (pre,ext), read_latex_header (x))
+    if regex.search ('\\.bib$', x) <> -1:
+	head = bib_header (x)
+    elif regex.search ('\\.pod$', x) <> -1:
+	head = read_pod_header (x)
+    else:
+	head = read_latex_header (x)
+    print_html_head (l, pre, head)
 l.write ('</ul></html>')

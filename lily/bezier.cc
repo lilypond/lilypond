@@ -8,6 +8,7 @@
 
 #include <math.h>
 #include "bezier.hh"
+#include "misc.hh"
 
 #ifndef STANDALONE
 #include "direction.hh"
@@ -94,21 +95,20 @@ Bezier::set (Array<Offset> points)
 Real
 Bezier::y (Real x)
 {
-  for (int i = 1; i < curve_.size (); i++ )
-    {
-      if (x < curve_[i].x () || (i == curve_.size () - 1))
-	{
-	  Offset z1 = curve_[i-1];
-	  Offset z2 = curve_[i];
-	  Real multiplier = (x - z2.x ()) / (z1.x () - z2.x ());
-	  Real y = z1.y () * multiplier + (1.0 - multiplier) *z2.y();
+  // ugh
+  // bounds func should be templatised to take array of offsets too?
+  Array<Real> positions;
+  for (int i = 0; i < curve_.size (); i++)
+    positions.push (curve_[i].x ());
 
-	  return y;
-        }
-    }
-  assert (false);
-  // silly c++
-  return 0;
+  Slice slice = get_bounds_slice (positions, x);
+  // ugh
+  Offset z1 = curve_[0 >? slice.max () - 1];
+  Offset z2 = curve_[1 >? slice.max ()];
+  Real multiplier = (x - z2.x ()) / (z1.x () - z2.x ());
+  Real y = z1.y () * multiplier + (1.0 - multiplier) * z2.y();
+
+  return y;
 }
 
 
@@ -139,10 +139,13 @@ Bezier_bow::blow_fit ()
     return;
 
 #ifndef STANDALONE
-  Real epsilon = paper_l_->rule_thickness ();
+  Real internote_f = paper_l_->internote_f ();
 #else
-  Real epsilon = 1.5 * 0.4 PT;
+  Real internote_f = STAFFHEIGHT / 8;
 #endif
+
+  //urg
+  Real epsilon = internote_f / 2;
   if (abs (dy2 - dy1) < epsilon)
     return;
   
@@ -223,7 +226,9 @@ Bezier_bow::calc ()
   This function tries to address two issues:
     * the tangents of the slur should always point inwards 
       in the actual slur, i.e.  *after rotating back*.
-    * slurs shouldn't be too high ( <= 1.5 staffheight?)
+
+    * slurs shouldn't be too high 
+      let's try : h <= 1.2 b && h <= 3 staffheight?
 
   We could calculate the tangent of the bezier curve from
   both ends going inward, and clip the slur at the point
@@ -249,28 +254,28 @@ Bezier_bow::calc_clipping ()
   Real staffsize_f = STAFFHEIGHT;
 #endif
 
-  Real clip_h = staffsize_f;
+  Real b = control_[3].x () - control_[0].x ();
+  Real clip_h = 1.2 * b <? 3.0 * staffsize_f;
   Real begin_h = control_[1].y () - control_[0].y ();
   Real end_h = control_[2].y () - control_[3].y ();
-  Real begin_dy = begin_h - clip_h;
-  Real end_dy = end_h - clip_h;
+  Real begin_dy = 0 >? begin_h - clip_h;
+  Real end_dy = 0 >? end_h - clip_h;
   
   Real pi = M_PI;
   Real begin_alpha = (control_[1] - control_[0]).arg () + alpha_;
   Real end_alpha = pi -  (control_[2] - control_[3]).arg () - alpha_;
 
-  Real max_alpha = 1.1 * pi/2;
+  Real max_alpha = (100.0 / 90) * pi/2;
   if ((begin_dy < 0) && (end_dy < 0)
     && (begin_alpha < max_alpha) && (end_alpha < max_alpha))
     return false;
 
   encompass_.rotate (alpha_);
-  // ugh
   origin_.y () *= dir_;
   encompass_.translate (origin_);
 
   bool again = true;
-  //ugh
+
   if ((begin_dy > 0) || (end_dy > 0))
     {
       Real dy = (begin_dy + end_dy) / 4;
@@ -281,33 +286,21 @@ Bezier_bow::calc_clipping ()
   else
     {
       //ugh
-      Real c = -0.4;
+      Real c = 0.4;
       if (begin_alpha >= max_alpha)
-	begin_dy = c * begin_alpha / max_alpha * begin_h;
+	begin_dy = 0 >? c * begin_alpha / max_alpha * begin_h;
       if (end_alpha >= max_alpha)
-	end_dy = c * end_alpha / max_alpha * end_h;
+	end_dy = 0 >? c * end_alpha / max_alpha * end_h;
 
-      Real dy = end_dy >? begin_dy;
+      encompass_[0].y () += begin_dy;
+      encompass_[encompass_.size () - 1].y () += end_dy;
 
-      if (!experimental_features_global_b)
-        {
-	  encompass_[0].y () += dy;
-	  encompass_[encompass_.size () - 1].y () += dy;
-	}
-      else
-	{
-	  encompass_[0].y () += begin_dy;
-	  encompass_[encompass_.size () - 1].y () += end_dy;
-
-	  Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
-	  alpha_ = delta.arg ();
-	  alpha_ *= dir_;
-	}
+      Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
+      alpha_ = delta.arg ();
     }
 
   origin_ = encompass_[0];
   encompass_.translate (-origin_);
-  // ugh
   origin_.y () *= dir_;
   encompass_.rotate (-alpha_);
 
@@ -317,7 +310,6 @@ Bezier_bow::calc_clipping ()
 void
 Bezier_bow::calc_controls ()
 {
-  // try clipping twice
   for (int i = 0; i < 3; i++)
     {
       if (i && !calc_clipping ())
@@ -458,8 +450,10 @@ bool
 Bezier_bow::check_fit_bo ()
 {
   for (int i = 1; i < encompass_.size () - 1; i++)
-    if (encompass_[i].y () > y (encompass_[i].x ()))
-      return false;
+    if ((encompass_[i].x () > encompass_[0].x ())
+      && (encompass_[i].x () < encompass_[encompass_.size () -1].x ()))
+      if (encompass_[i].y () > y (encompass_[i].x ()))
+	return false;
   return true;
 }
 
@@ -468,7 +462,9 @@ Bezier_bow::check_fit_f ()
 {
   Real dy = 0;
   for (int i = 1; i < encompass_.size () - 1; i++)
-    dy = dy >? (encompass_[i].y () - y (encompass_[i].x ()));
+    if ((encompass_[i].x () > encompass_[0].x ())
+      && (encompass_[i].x () < encompass_[encompass_.size () -1].x ()))
+      dy = dy >? (encompass_[i].y () - y (encompass_[i].x ()));
   return dy;
 }
 

@@ -137,12 +137,18 @@ The lilypond logo (medium size, format: .gif)
 =over 4
 
 =item *
-<a href=tex_manuals.html
+<a href=../tex/out-www/index.html
 >
 PS documents about LilyPond
 </a
 >
 
+=item *
+<a href=../man/out-www/index.html
+>
+Manual pages
+</a
+>
 
 =back
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996,  1997--1998, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
     Jan Nieuwenhuizen <jan@digicash.com>
 */
 
@@ -25,6 +25,7 @@
 #include "debug.hh"
 #include "boxes.hh"
 #include "bezier.hh"
+#include "encompass-info.hh"
 // #include "main.hh"
 
 IMPLEMENT_IS_TYPE_B1(Slur,Bow);
@@ -93,8 +94,11 @@ Slur::do_post_processing ()
   encompass_arr_.sort (Note_column_compare);
   if (!dir_)
     set_default_dir ();
-  Real interline_f = paper ()->interline_f ();
-  Real inter_f = interline_f / 2;
+
+  Real interline = paper ()->interline_f ();
+  Real internote = interline / 2;
+  Real notewidth = paper ()->note_width ();
+  Real const SLUR_MIN = 2.0 * interline;
 
   /* 
    [OSU]: slur and tie placement
@@ -109,21 +113,23 @@ Slur::do_post_processing ()
    * suggested gap = ss / 5;
    */
   // jcn: 1/5 seems so small?
-  Real gap_f = interline_f / 2; // 5;
+  Real gap_f = interline / 2; // 5;
   
   Drul_array<Note_column*> extrema;
   extrema[LEFT] = encompass_arr_[0];
   extrema[RIGHT] = encompass_arr_.top ();
 
   Direction d=LEFT;
-  Real nw_f = paper ()->note_width ();
  
   do 
     {
+      /*
+        broken slur
+       */
       if (extrema[d] != spanned_drul_[d]) 
 	{
 	  dx_f_drul_[d] = -d 
-	    *(spanned_drul_[d]->width ().length () -0.5*nw_f);
+	    *(spanned_drul_[d]->width ().length () -0.5*notewidth);
 	  Direction u = d;
 	  flip(&u);
 	  if ((extrema[u] == spanned_drul_[u]) && extrema[u]->stem_l_)
@@ -131,147 +137,114 @@ Slur::do_post_processing ()
 	      dy_f_drul_[d] = extrema[u]->stem_l_->height ()[dir_];
 	      dy_f_drul_[u] = extrema[u]->stem_l_->height ()[dir_];
 	    }
+
+	  // prebreak
+	  if (d == RIGHT)
+	    {
+	      dx_f_drul_[LEFT] = spanned_drul_[LEFT]->width ().length ();
+//	      dx_f_drul_[LEFT] -= 2 * notewidth;
+
+	      // urg
+	      if (encompass_arr_.size () > 1)
+		dx_f_drul_[RIGHT] += notewidth;
+	    }
+
+	  // postbreak
+	  if (d == LEFT)
+	    dy_f_drul_[d] += 2.0 * dir_ * internote;
 	}
+      /*
+        normal slur
+       */
       else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
         {
 	  dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_->height ()[dir_]);
-	  dx_f_drul_[d] += 0.5 * nw_f - d * gap_f;
+	  dx_f_drul_[d] += 0.5 * notewidth - d * gap_f;
 	  if (dir_ == extrema[d]->stem_l_->dir_)
 	    {
 	      if (dir_ == d)
-		dx_f_drul_[d] += 0.5 * (dir_ * d) * d * nw_f;
+		dx_f_drul_[d] += 0.5 * (dir_ * d) * d * notewidth;
 	      else
-		dx_f_drul_[d] += 0.25 * (dir_ * d) * d * nw_f;
+		dx_f_drul_[d] += 0.25 * (dir_ * d) * d * notewidth;
 	    }
 	}
       else 
         {
 	  dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval ()
-	    [dir_])* inter_f;
+	    [dir_])* internote;
 	}
-      dy_f_drul_[d] += dir_ * interline_f;
+      dy_f_drul_[d] += dir_ * interline;
     }
+  while (flip(&d) != LEFT);
+
+  // now that both are set, do dependent
+  do 
+    {
+      /*
+        broken slur
+       */
+      if (extrema[d] != spanned_drul_[d]) 
+        {
+	  // pre and post
+	  if (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT] < SLUR_MIN)
+	    {
+	      dx_f_drul_[d] -= d * SLUR_MIN 
+		- (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
+	      dx_f_drul_[d] = dx_f_drul_[(Direction)-d] + d * SLUR_MIN;
+	    }
+	  dy_f_drul_[d] = dy_f_drul_[(Direction)-d];
+	}
+     }
   while (flip(&d) != LEFT);
 }
 
 Array<Offset>
 Slur::get_encompass_offset_arr () const
 {
-  Real interline = paper ()->interline_f ();
-  Real notewidth = paper ()->note_width ();
-  Real internote = interline / 2;
+  Offset left = Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]);
+  left.x () += encompass_arr_[0]->stem_l_->hpos_f ();
 
-  Stem* left_stem = encompass_arr_[0]->stem_l_;
-  Real left_x = left_stem->hpos_f ();
-  left_x += dx_f_drul_[LEFT];
+  Offset d = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
+    dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
+  d.x () += width ().length ();
 
-  Real left_y = dy_f_drul_[LEFT];
-
-  Real dx = width ().length ();
-  dx += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-  dx = dx <? 1000;
-  dx = dx >? 2.0 * interline;
-
-  Real dy = (dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
-  if (abs (dy) > 1000)
-    dy = sign (dy) * 1000;
-
-  Real start_x = 0;
-  Real start_y = left_y - dy_f_drul_[LEFT];
   int first = 1;
   int last = encompass_arr_.size () - 1;
 
-  // broken slur first part
+  // prebreak
   if (encompass_arr_[0] != spanned_drul_[LEFT])
-    {
-      first = 0;
-      left_x = spanned_drul_[LEFT]->width ().length ();
-      left_x -= 2 * notewidth;
-      // urg
-      start_x = left_x - 2 * notewidth;
+    first--;
 
-      // urg
-      if (encompass_arr_.size () > 1)
-	dx += notewidth;
-
-      if (dx < 2.0 * interline)
-	{
-	  left_x -= 2.0 * interline - dx;
-	  dx = 2.0 * interline;
-	  start_x = left_x;
-	}
-
-      if (dir_ == UP)
-	left_y = left_y >? dy_f_drul_[LEFT];
-      else
-	left_y = left_y <? dy_f_drul_[LEFT];
-      start_y = left_y - dy_f_drul_[LEFT];
-
-      dy = 0;
-    }
-
-  // broken slur second part
+  // postbreak
   if (encompass_arr_.top () != spanned_drul_[RIGHT])
-    {
-      left_y += 2.0 * dir_ * internote;
-      start_y = left_y - dy_f_drul_[LEFT];
-      last += 1;
-      dy = 0;
-    }
+    last++;
 
 #define RESIZE_ICE
 #ifndef RESIZE_ICE
+
   Array<Offset> notes;
-  notes.push (Offset (start_x, start_y));
-#else
-  int n = last - first + 2;
-  Array<Offset> notes (n);
-  notes[0] = Offset (start_x, start_y);
-#endif
+  notes.push (Offset (0,0));
+
   for (int i = first; i < last; i++)
     {
-      Stem* stem = encompass_arr_[i]->stem_l_;
-      /* 
-	set x to middle of notehead or on exact x position of stem,
-	according to slur direction
-	   */
-      Real x = stem->hpos_f ();
-
-      if (stem->dir_ != dir_)
-        {
-	  x += 0.5 * notewidth;
-	  // ugh
-	  if (dir_ == DOWN)
-	    x -= 0.5 * notewidth;
-	  else
-	    x += 0.5 * notewidth;
-	}
-      else if (stem->dir_ == UP)
-	x += 1.0 * notewidth;
-
-      x -= left_x;
-
-      Real y = stem->height ()[dir_];
-
-      /*
-	leave a gap: slur mustn't touch head/stem
-       */
-      y += 2.5 * internote * dir_;
-
-      // ugh
-      if (dir_ == DOWN)
-	y += 1.5 * internote * dir_;
-
-      y -= left_y;
-
-#ifndef RESIZE_ICE
-      notes.push (Offset (x, y));
+      Encompass_info info (encompass_arr_[i], dir_);
+      notes.push (info.o_ - left);
     }
-  notes.push (Offset (start_x + dx, start_y + dy));
+  notes.push (d);
+
 #else
-      notes[i - first + 1] = Offset (x, y);
+
+  int n = last - first + 2;
+  Array<Offset> notes (n);
+  notes[0] = Offset (0,0);
+
+  for (int i = first; i < last; i++)
+    {
+      Encompass_info info (encompass_arr_[i], dir_);
+      notes[i - first + 1] = info.o_ - left;
     }
-  notes[n - 1] = Offset (start_x + dx, start_y + dy);
+  notes[n - 1] = Offset (d);
+
 #endif
 
   return notes;

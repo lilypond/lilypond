@@ -3,7 +3,7 @@
 \include "table20.ly"
 
 paper_twenty = \paper {
-	linewidth = 15.0 \cm;
+	linewidth = 17.0 \cm;
 	indent = 12.\mm;
 	rulethickness = 0.4\pt;
 	barsize = 20.0 \pt;
@@ -30,7 +30,7 @@ paper_twenty = \paper {
 	interbeam = 3.90\pt;
 
 	gourlay_energybound = 100000.;
-	gourlay_maxmeasures = 12.;
+	gourlay_maxmeasures = 10.;
 	
 	castingalgorithm = \Gourlay;
 	\symboltables { \table_twenty }

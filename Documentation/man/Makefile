@@ -4,14 +4,16 @@ depth = ../..
 include $(depth)/make/Include.make
 include $(depth)/make/Docrules.make
 SECTION=1
+MANTXT = $(addprefix $(outdir)/, $(addsuffix .txt,$(basename $(PODFILES) .pod)))
 MANGROFF = $(addprefix $(outdir)/, $(addsuffix .$(SECTION),$(basename $(PODFILES) .pod)))
 
-default: $(MANGROFF)
+default: $(MANTXT) $(MANGROFF)
 
 
 INSTALLATION_OUT_FILES=$(MANGROFF)
-INSTALLATION_DIR=$(mandir)/man$(SECTION)
+INSTALLATION_OUT_DIR=$(mandir)/man$(SECTION)
 
 include $(depth)/make/Install_outfiles.make
 
-WWW: $(OUTPODFILES:.pod=.html)
+local-WWW: $(OUTPODFILES:.pod=.html)
+	ls-latex  --title 'Manual pages for LilyPond' $(PODFILES)  > $(outdir)/index.html

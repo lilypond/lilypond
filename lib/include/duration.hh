@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+  (c)  1997--1998 Jan Nieuwenhuizen <jan@digicash.com>
 
 */
 
@@ -15,9 +15,6 @@
 #include "fproto.hh"
 #include "moment.hh"
 #include "plet.hh"
-// ugh, to get me in lily lib
-extern bool no_triplets_bo_g;
-
 
 /**
   Class to handle "musical" durations. This means: balltype 1,2,4,etc. and dots.
@@ -30,7 +27,7 @@ struct Duration {
   bool plet_b ();
   String str () const;
   void set_plet (int,int );
-  void set_plet (Duration );
+
   static bool duration_type_b (int t);
   void set_ticks (int ticks_i );
   Moment length () const ;	// zo naai mij

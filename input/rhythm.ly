@@ -7,7 +7,7 @@ TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 
 
 
-\version "0.1.9";
+\version "0.1.10";
 
 ritme = \melodic{ %\octave ;
 	\partial 8;
@@ -74,7 +74,7 @@ yanother =
 	\accepts "Staff_group";
 	\accepts "Staff";
 	\accepts "Lyrics";
-	\accepts "Grandstaff";
+	\accepts "Grand_staff";
 }
 
 Rhythmic_staff = \translator

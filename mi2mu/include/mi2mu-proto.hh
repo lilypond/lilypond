@@ -3,7 +3,7 @@
 
   source file of mi2mu, part of the GNU LilyPond package,
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 

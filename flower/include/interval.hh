@@ -171,12 +171,10 @@ Interval_t<T> operator *(Interval_t<T> i,T a){
   return a*i;
 }
 
+// again? see fproto.hh
 typedef Interval_t<Real> Interval;
-
-
+typedef Interval_t<int> Slice;
 
 
 #endif // INTERVAL_HH
-
-
 

@@ -1,7 +1,7 @@
 /* -*-c++-*-
   plist.icc -- part of flowerlib
 
-  (c) 1996,1997 Han-Wen Nienhuys& Jan Nieuwenhuizen
+  (c) 1996, 1997--1998 Han-Wen Nienhuys& Jan Nieuwenhuizen
 */
 
 #ifndef PLIST_INL

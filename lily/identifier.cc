@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include <assert.h>
@@ -24,9 +24,8 @@ IMPLEMENT_IS_TYPE_B(Identifier);
 
 Identifier::~Identifier()
 {
-  if (!accessed_b_ && !init_b_)
-	warning (_("Variable not used"));
 }
+
 void
 Identifier::error (String expect)
 {

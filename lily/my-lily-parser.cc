@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include "my-lily-parser.hh"
@@ -15,7 +15,7 @@
 #include "command-request.hh"
 #include "parser.hh"
 #include "header.hh"
-
+#include "file-results.hh"
 
 My_lily_parser::My_lily_parser (Sources * source_l)
 {
@@ -50,57 +50,20 @@ My_lily_parser::set_version_check (bool ig)
 {
   ignore_version_b_ = ig;
 }
-void
-My_lily_parser::set_debug()
-{
-#ifndef NPRINT
-  String s = "";
-  if (init_parse_b_)
-    s = "Init";
-  set_yydebug (!monitor->silent_b (s+"Parser") && check_debug);
-  lexer_p_->set_debug (!monitor->silent_b (s+"Lexer") && check_debug);
-#endif
-}
-
-void
-My_lily_parser::print_declarations()
-{
-#ifndef NPRINT
-  String s = "";
-
-  if (init_parse_b_)
-    s = "Init";
-  if (!monitor->silent_b (s+"Declarations") && check_debug)
-    {
-      lexer_p_->print_declarations (init_parse_b_);
-    }
-#endif
-}
 
 void
 My_lily_parser::parse_file (String init, String s)
 {
   lexer_p_ = new My_lily_lexer;
   init_str_ = init;
+  lexer_p_->main_input_str_ = s;
 
   *mlog << _("Parsing ... ");
 
-  init_parse_b_ = true;
-  set_debug();
-  lexer_p_->new_input (init, source_l_);
-  do_yyparse();
-
-  if (error_level_i_)
-    {
-      error (_("Found errors in init files"));
-    }
-  print_declarations();
-
   init_parse_b_ = false;
-  set_debug();
-  lexer_p_->new_input (s , source_l_);
-  do_yyparse();
-  print_declarations();
+  set_yydebug (!monitor->silent_b ("Parser") && check_debug);
+  lexer_p_->new_input (init, source_l_);
+  do_yyparse ();
 
 
   if (!define_spot_array_.empty())
@@ -108,6 +71,8 @@ My_lily_parser::parse_file (String init, String s)
       warning (_("Braces don't match."));
       error_level_i_ = 1;
     }
+
+  inclusion_global_array = lexer_p_->filename_str_arr_;
 }
 
 void
@@ -157,7 +122,14 @@ void
 My_lily_parser::set_last_duration (Duration const *d)
 {
   if (last_duration_mode_b_)
-    default_duration_ = *d;
+    {
+      default_duration_ = *d;
+      /* 
+        forget plet part,
+        sticky plet factor only within plet brackets
+       */  
+      default_duration_.set_plet (1, 1);
+    }
 }
 
 
@@ -194,8 +166,9 @@ My_lily_parser::get_rest_element (String s,  Duration * duration_p)
   else if ((duration_p->plet_.type_i_ == 1) && (duration_p->plet_.iso_i_ > 1))
     {
       Multi_measure_rest_req* m = new Multi_measure_rest_req;
-      plet_.iso_i_ = 1;
-      default_duration_.plet_.iso_i_ = 1;
+      // these shouldn't be necessary anymore
+//      plet_.iso_i_ = 1;
+//      default_duration_.plet_.iso_i_ = 1;
       m->duration_ = *duration_p;
       m->set_spot (here_input());
       velt_p->add (m);

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
       Jan Nieuwenhuizen <jan@digicash.com>
 */
 
@@ -87,26 +87,19 @@ Bow::get_controls () const
 Array<Offset>
 Bow::get_encompass_offset_arr () const
 {
-  Real dx = width (). length ();
-  dx += (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT]);
-  Real left_x = 0;
-  Real interline = paper ()->interline_f ();
-  if (dx < 2.0 * interline)
-    {
-      left_x = - 3.0 * interline;
-      dx = 2.0 * interline;
-    }
-  Real dy = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
+  Offset d (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
+    dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
+  d.x() += width (). length ();
 
 #define RESIZE_ICE
 #ifndef RESIZE_ICE
   Array<Offset> notes;
-  notes.push (Offset (left_x, 0));
-  notes.push (Offset (left_x + dx, dy));
+  notes.push (Offset 0, 0));
+  notes.push (d);
 #else
   Array<Offset> notes (2);
-  notes[0] = Offset (left_x, 0);
-  notes[1] = Offset (left_x + dx, dy);
+  notes[0] = Offset (0, 0);
+  notes[1] = Offset (d);
 #endif
 
   return notes;

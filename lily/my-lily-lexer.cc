@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 #include <strstream.h>
@@ -19,6 +19,7 @@
 #include "debug.hh"
 #include "source-file.hh"
 #include "parseconstruct.hh"
+#include "main.hh"
 
 static Keyword_ent the_key_tab[]={
   {"accepts", ACCEPTS},
@@ -92,6 +93,18 @@ My_lily_lexer::lookup_identifier (String s)
   return (*identifier_p_dict_p_)[s];
 }
 
+void
+My_lily_lexer::start_main_input ()
+{  
+  if (!monitor->silent_b ("InitDeclarations") && check_debug)
+    print_declarations (true);
+  if (!monitor->silent_b ("InitLexer") && check_debug)
+    set_debug (1);
+
+  new_input (main_input_str_, source_global_l);
+  
+  print_declarations(true);
+}
 
 void
 My_lily_lexer::set_identifier (String name_str, Identifier*i)

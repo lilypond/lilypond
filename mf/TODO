@@ -2,6 +2,7 @@
 	- design decent macro for bulbed endings
 	- printer dependencies.
 	- y-refpoint for rests should be the 4th staffline (gclef: b')
+	- clean-up eight+ rests
 	- versioning	
 	- lo-res fixes.
 	- work out sizes of character fonts.

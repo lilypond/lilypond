@@ -8,24 +8,29 @@
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
 
-VERSION="0.9"
+VERSION="0.10"
 NAME=ly2dvi.sh
 IDENTIFICATION="$NAME $VERSION" 
 NOW=`date`
 echo "$IDENTIFICATION" 1>&2
 
-KEEP_LILY_OUTPUT=N
-
 # NEWS
+
+#0.10
+#	- -K,--keeplilypond : Keep lilypond output files (default delete)
+#	- -k,--keeply2dvi   : Keep ly2dvi   output files (default delete)
+#	- -L,--landscape    : Set landscape orientation
+#	- -N,--nonumber     : Turn off page numbering (\pagestyle{empty})
+#	- Could not reinsert "\usepackage[T1]{fontenc}" because
+#	  "los-toros" won't work with it
+#	- Ekstra LaTeX headers from input file
 
 #0.9.hwn1
 #       - option to remove output of lily
-
 # 0.9	- Trap Lilypond abort
 #	- Replaced "\usepackage[T1]{fontenc}" with
 #	  \usepackage[latin1]{inputenc} (takk, Mats)
 #	- Removed "()" around "\LilyIdString" (Janne didn't want it)
-
 # 0.8	- Trap Lilypond segmentation fault
 #	- Function for cleanup
 #	- Trap line
@@ -137,12 +142,22 @@ KEEP_LILY_OUTPUT=N
 # Clean up
 #
 cleanup() {
-  $debug_echo "("$LF")("$FN")("$LOGFILE")"
   if [ "$KEEP_LY2DVI_OUTPUT" != "Y" ]
   then
-    [ -n "$LF" -a -f "$LF" ]           && rm -f $LF
+    [ -n "$LatF" -a -f "$LatF" ]       && rm -f $LatF
     [ -n "$LOGFILE" -a -f "$LOGFILE" ] && rm -f $LOGFILE
     [ -n "$FN" ]                       && rm -f $FN.*
+    for F in *$$* $TMP/*$$*
+    do
+      rm -f $F
+    done
+  fi
+  if [ "$KEEP_LILY_OUTPUT" != "Y" ]
+  then
+    for F in $LILY_OUTPUT_FILES
+    do
+      [ -f $F ] && rm -f $F
+    done
   fi
 }
 #
@@ -154,14 +169,18 @@ Generate dvi file from mudela or lilypond output
 Usage: $0 [options] file[s]
 
 Options:
-  -D, --debug           set debug mode
-  -O, --orientation=    set orientation (landscape or portrait (default))
-  -o, --output=         set output directory
-  -h, --help            this help text
-  -k, --keep            keep LaTeX file
-  -l, --language=       give LaTeX language (babel)
-  -p, --papersize=      give LaTeX papersize (eg. a4paper)
-  -s, --separate        run all files separately through LaTeX
+  -D,--debug           set debug mode
+  -H,--headers=        name of additional LaTeX headers file
+  -K,--keeplilypond    keep lilypond output files
+  -L,--landscape       set landscape orientation
+  -N,--nonumber        switch off page numbering
+  -O,--orientation=    set orientation (landscape or portrait (default))
+  -o,--output=         set output directory
+  -h,--help            this help text
+  -k,--keeply2dvi      keep ly2dvi output files
+  -l,--language=       give LaTeX language (babel)
+  -p,--papersize=      give LaTeX papersize (eg. a4paper)
+  -s,--separate        run all files separately through LaTeX
 
   files may be (a mix of) input to or output from lilypond(1)
 EOF
@@ -182,6 +201,7 @@ fi
 LOGFILE=$TMP/lilylog.$$			# Logfile for lilypond
 PWIDTH=600;				# Width of A4 paper!
 PHEIGTH=845;                            # Heigth of A4 paper!
+PNUM="%"                                # Page numbering on
 #
 # RC-files ?
 #
@@ -193,7 +213,8 @@ done
 fORI=$ORIENTATION
 fLNG=$LANGUAGE
 fPSZ=$PAPERSIZE
-unset ORIENTATION LANGUAGE PAPERSIZE
+fLHF=$LATEXHF
+unset ORIENTATION LANGUAGE PAPERSIZE LATEXHF
 # 
 # Keywords defined in titledefs.tex
 #
@@ -228,7 +249,7 @@ SEPFILE=N
 #
 # "x:" x takes argument
 #
-switches="DO:hkl:o:Kp:s\?"
+switches="DH:KLNO:hkl:o:p:s\?"
 options=""
 #
 # ugh, "\-" is a hack to support long options
@@ -243,8 +264,20 @@ do
       [ $debug_echo = echo ] && set -x
       debug_echo=echo
       ;;
+    H  )
+      LATEXHF=$OPTARG
+      ;;
+    K  )
+      KEEP_LILY_OUTPUT=Y
+      ;;
+    L  )
+      ORIENTATION=landscape
+      ;;
     O  )
       ORIENTATION=$OPTARG
+      ;;
+    N  )
+      PNUM="\pagestyle{empty}"
       ;;
     h  )
       help;
@@ -253,10 +286,6 @@ do
     k  )
       KEEP_LY2DVI_OUTPUT=Y
       ;;
-    K  )
-      KEEP_LILY_OUTPUT=Y
-      ;;
-    
     l  )
       LANGUAGE=$OPTARG
       ;;
@@ -277,29 +306,41 @@ do
     -)
       $debug_echo "long option: \`$OPTARG'"
       case "$OPTARG" in
-        D*|-D*)
+        d*|-d*)
           [ $debug_echo = echo ] && set -x
           debug_echo=echo
+          ;;
+        hea*|-hea*)
+          LATEXHF=`echo $OPTARG | sed -e s/"^.*="//`
           ;;
         h*|-h*)
           help;
 	  exit 0
           ;;
+        keepli*|-keepli*)
+          KEEP_LILY_OUTPUT=Y
+          ;;
         k*|-k*)
           KEEP_LY2DVI_OUTPUT=Y
           ;;
-        l*|-l*)
+        land*|-land*)
+          ORIENTATION=landscape
+          ;;
+        lang*|-lang*)
           LANGUAGE=`echo $OPTARG | sed -e s/"^.*="//`
           ;;
-        p*|-p*)
-          PAPERSIZE=`echo $OPTARG | sed -e s/"^.*="//`
-          ;;
+	n*|-n*)
+	  PNUM="\pagestyle{empty}"
+	  ;;
 	or*|-or*)
 	  ORIENTATION=`echo $OPTARG | sed -e s/"^.*="//`
 	  ;;
 	ou*|-ou*)
 	  OUTPUTDIR=`echo $OPTARG | sed -e s/"^.*="//`
 	  ;;
+        p*|-p*)
+          PAPERSIZE=`echo $OPTARG | sed -e s/"^.*="//`
+          ;;
         s*|-s*)
       	  SEPFILE=Y
           ;;
@@ -330,9 +371,9 @@ BN=`basename $File .tex`
 FN=$BN.$$
 if [ "$KEEP_LY2DVI_OUTPUT" != "Y" ]
 then
-  LF=$TMP/$FN.tex
+  LatF=$TMP/$FN.tex
 else
-  LF=$FN.tex
+  LatF=$FN.tex
 fi
 #
 # Find:
@@ -342,11 +383,23 @@ fi
 #   textwidth
 #
 eval `sed -n \\
-  -e 's/\\\\def\\\\mudelapapersize{\([^}]*\).*$/fPSZ=\1;/p' \\
-  -e 's/\\\\def\\\\mudelaorientation{\([^}]*\).*$/fORI=\1;/p' \\
   -e 's/\\\\def\\\\mudelalanguage{\([^}]*\).*$/fLNG=\1;/p' \\
+  -e 's/\\\\def\\\\mudelalatexheaders{\([^}]*\).*$/fLHF=\1;/p' \\
+  -e 's/\\\\def\\\\mudelaorientation{\([^}]*\).*$/fORI=\1;/p' \\
   -e 's/\\\\def\\\\mudelapaperlinewidth{\([^}]*\).*$/TWN=\1;/p' \\
+  -e 's/\\\\def\\\\mudelapapersize{\([^}]*\).*$/fPSZ=\1;/p' \\
     $File`
+#
+if [ -z "$LATEXHF" ]
+then
+  LATEXHF=$fLHF
+fi
+LLHF="%"
+if [ -n "$LATEXHF" ]
+then
+  [ -f $LATEXHF ] && LLHF="\input{$LATEXHF}"
+fi
+#
 if [ -z "$PAPERSIZE" ]
 then
   PAPERSIZE=$fPSZ
@@ -419,7 +472,7 @@ MARG=`expr $MARG / 2`"pt"
 #
 # Write LaTeX file
 #
-cat << EOF > $LF
+cat << EOF > $LatF
 % Creator: $IDENTIFICATION
 % Automatically generated from  $IF, $NOW
 
@@ -427,8 +480,9 @@ cat << EOF > $LF
 \nonstopmode
 $LLNG
 \usepackage{geometry}
-%\usepackage[T1]{fontenc}
 \usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+$PNUM
 %\addtolength{\oddsidemargin}{-1cm}
 %\addtolength{\topmargin}{-1cm}
 \setlength{\textwidth}{$TW}
@@ -436,6 +490,7 @@ $LLNG
 \geometry{width=$TW, left=$MARG}
 \input lilyponddefs
 \input titledefs
+$LLHF
 \begin{document}
 EOF
 #
@@ -449,12 +504,12 @@ do
     LLL=`echo $LL | sed -e 's/}.*$//' -e 's/.*{//'`
     if [ "$LLL" != "" ]
     then
-      echo "\\"$L'{'$LLL'}%'                                >> $LF
+      echo "\\"$L'{'$LLL'}%'                                >> $LatF
     fi
   fi
 done
 #
-cat << EOF >> $LF
+cat << EOF >> $LatF
 \makelilytitle
 EOF
 }
@@ -462,14 +517,14 @@ EOF
 # Conclusion
 #
 endFile(){
-cat << EOF >> $LF
+cat << EOF >> $LatF
 \vfill\hfill{\LilyIdString}
 \end{document}
 EOF
 #
 # Run LaTeX
 #
-latex $LF || exit 5
+latex $LatF || exit 5
 #
 # Rename dvi file
 #
@@ -479,10 +534,6 @@ then
     [ -n "$OUTPUTDIR" ] && RESULT="$OUTPUTDIR/$RESULT"
     cp $FN.dvi $RESULT
 fi
-#
-# Clean up
-#
-cleanup
 #
 # Output some info
 #
@@ -598,7 +649,7 @@ do
       FFile=$File
       startFile
     fi
-    cat << EOF >> $LF
+    cat << EOF >> $LatF
 \input{$File}
 EOF
     if [ $SEPFILE = Y ]
@@ -612,13 +663,6 @@ done
 if [ $SEPFILE = N ]
 then
   endFile
-fi
-
-
-
-if [ $KEEP_LILY_OUTPUT = N ]
-then
-    rm $LILY_OUTPUT_FILES
 fi
 #
 # OK - finished

@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 
@@ -15,7 +15,7 @@
 #include "plist.hh"
 #include "source-file.hh"
 #include "source.hh"
-#include "path.hh"
+#include "file-path.hh"
 
 Sources::Sources ()
 {
