@@ -6,7 +6,7 @@
 
 
 
-\version "1.0.0";
+\version "1.0.1";
 
 paper_sixteen = \paper {
 	staffheight = 16.0\pt;

@@ -609,6 +609,12 @@ EOF
     stepmake=stepmake
     
 
+    STATE_VECTOR=`ls make/STATE-VECTOR 2>/dev/null`
+    if test "x$STATE_VECTOR" != "x"; then
+    	STATE_VECTOR="\$(depth)/$STATE_VECTOR"
+    fi
+    
+
     CONFIGSUFFIX=
     # Check whether --enable-config or --disable-config was given.
 if test "${enable_config+set}" = set; then
@@ -631,7 +637,7 @@ else { echo "configure: error: can not run $ac_config_sub" 1>&2; exit 1; }
 fi
 
 echo $ac_n "checking host system type""... $ac_c" 1>&6
-echo "configure:635: checking host system type" >&5
+echo "configure:641: checking host system type" >&5
 
 host_alias=$host
 case "$host_alias" in
@@ -656,7 +662,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:660: checking for $ac_word" >&5
+echo "configure:666: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -690,7 +696,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:694: checking for $ac_word" >&5
+echo "configure:700: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FIND'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -727,7 +733,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:731: checking for $ac_word" >&5
+echo "configure:737: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_TAR'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -761,7 +767,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:765: checking for $ac_word" >&5
+echo "configure:771: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_BASH'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -794,7 +800,7 @@ test -n "$BASH" || BASH="/bin/sh"
     # Extract the first word of "python", so it can be a program name with args.
 set dummy python; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:798: checking for $ac_word" >&5
+echo "configure:804: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_path_PYTHON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -857,12 +863,18 @@ fi
 
 
     if test "x$OSTYPE" = "xcygwin32" || test "x$OSTYPE" = "xWindows_NT"; then
-	LN=cp # hard link does not work under cygnus-nt (yet?)
+	LN=cp # hard link does not work under cygnus-nt
+	LN_S=cp # symbolic link does not work for native nt
 	ZIP="zip -r -9" #
 	DOTEXE=.exe
-        INSTALL="\$(stepdir)/../bin/install-dot-exe.sh -c"
+       DIRSEP='\\'
+ 	PATHSEP=';'
+       INSTALL="\$(stepdir)/../bin/install-dot-exe.sh -c"
     else
+	DIRSEP='/'
+	PATHSEP=':'
 	LN=ln
+	LN_S='ln -s'
 	ZIP="zip -r -9"
         INSTALL="\$(stepdir)/../bin/install-sh -c"
     fi
@@ -870,7 +882,17 @@ fi
     
     
     
+    
+   cat >> confdefs.h <<EOF
+#define DIRSEP '${DIRSEP}'
+EOF
 
+     cat >> confdefs.h <<EOF
+#define PATHSEP '${PATHSEP}'
+EOF
+
+  
+   
     
     if test "$datadir" = "\${prefix}/share"; then
 	    datadir='${prefix}/share/'$package
@@ -926,7 +948,7 @@ fi
 
 
     echo $ac_n "checking language""... $ac_c" 1>&6
-echo "configure:930: checking language" >&5    
+echo "configure:952: checking language" >&5    
     case "$language" in
       En* | en* | Am* | am* | US* | us*)
 	    lang=English;;
@@ -958,7 +980,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:962: checking for $ac_word" >&5
+echo "configure:984: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -992,7 +1014,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:996: checking for $ac_word" >&5
+echo "configure:1018: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2HTML'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1026,7 +1048,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1030: checking for $ac_word" >&5
+echo "configure:1052: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2LATEX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1059,7 +1081,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1063: checking for $ac_word" >&5
+echo "configure:1085: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2MAN'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1093,7 +1115,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1097: checking for $ac_word" >&5
+echo "configure:1119: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2TEXINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1127,7 +1149,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1131: checking for $ac_word" >&5
+echo "configure:1153: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_YODL2TXT'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1181,7 +1203,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1185: checking for $ac_word" >&5
+echo "configure:1207: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1351,6 +1373,7 @@ s%@package_depth@%$package_depth%g
 s%@AUTOGENERATE@%$AUTOGENERATE%g
 s%@absolute_builddir@%$absolute_builddir%g
 s%@stepmake@%$stepmake%g
+s%@STATE_VECTOR@%$STATE_VECTOR%g
 s%@CONFIGSUFFIX@%$CONFIGSUFFIX%g
 s%@host@%$host%g
 s%@host_alias@%$host_alias%g
@@ -1365,6 +1388,7 @@ s%@PYTHON@%$PYTHON%g
 s%@DOTEXE@%$DOTEXE%g
 s%@ZIP@%$ZIP%g
 s%@LN@%$LN%g
+s%@LN_S@%$LN_S%g
 s%@INSTALL@%$INSTALL%g
 s%@DIR_DATADIR@%$DIR_DATADIR%g
 s%@YODL@%$YODL%g
@@ -1589,7 +1613,7 @@ rm -fr confdefs* $ac_clean_files
 test "$no_create" = yes || ${CONFIG_SHELL-/bin/sh} $CONFIG_STATUS || exit 1
 
 
-    rm -f Makefile
-    cp make/toplevel.make.in ./Makefile
-    chmod 444 Makefile
+    rm -f GNUmakefile
+    cp make/toplevel.make.in ./GNUmakefile
+    chmod 444 GNUmakefile
 

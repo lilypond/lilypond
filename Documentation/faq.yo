@@ -69,14 +69,33 @@ The directory  file(~/usr/src/) contains something like
 includefile(../stepmake/Documentation/layout.yo)
 )	
 
-~/usr/src/bin is in the PATH, and contains symlinks to the
-compiled executables.  
+~/usr/src/bin is in the PATH, and contains symbolic links to the
+compiled executables.
 
 question(Is there an emacs mode?)
 
 Yes.  It is included with the source archive as mudela-mode.el.  If
 you have an rpm it is in /usr/doc/lilypond-X/.  You have to install it
 yourself.
+
+question(How do i create the file(.tfm) files?)
+
+You don't.  The file(.tfm) files should be generated automatically by
+Metafont when you run TeX().  Check your TeX() installation, or ask
+your local TeX() guru.  The supplied file(.afm) files are intended to
+be used by LilyPond, not by any other programs.
+
+
+sect(Documentation)
+
+question(Why is the documentation/website/etc. so lousy?)
+
+LilyPond development is moving quite fast, documentation will often
+lag a bit behind.  We must always make a choice between writing more
+doco, writing more code and answering email.
+
+If you think you can make a correction, or devised a solution that 
+should be documented, please do so and send in a patch.
 
 sect(Language: mudela)
 

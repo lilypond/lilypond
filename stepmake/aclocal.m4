@@ -3,9 +3,10 @@ dnl StepMake subroutines for configure.in
 
 AC_DEFUN(AC_STEPMAKE_COMPILE, [
     # -O is necessary to get inlining
-    OPTIMIZE="-O"
+    OPTIMIZE=""
+    CXXFLAGS=${CXXFLAGS:-""}
     checking_b=yes
-    optimise_b=tja
+    optimise_b=no
     profile_b=no
     debug_b=yes
 
@@ -14,7 +15,11 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     [checking_b=$enableval] )
 
     # actually, the default is: tja='-O' to get inlining...
-    # off=''
+    # off=''  --jcn
+
+    #actually, that sucks.
+    #  tja looks like a typo.  Default is optimisation off. --hwn
+    
     AC_ARG_ENABLE(optimise,
     [  enable-optimise         use maximal speed optimisations. Default: off],
     [optimise_b=$enableval])
@@ -45,8 +50,7 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     fi
 
     if test "$optimise_b" = yes; then
-	DEFINES="$DEFINES -finline-functions"
-	OPTIMIZE="-O2"
+	OPTIMIZE="-O2 -finline-functions"
     fi
 
     if test "$optimise_b" = no; then
@@ -55,11 +59,11 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
 
     if test $profile_b = yes; then
 	EXTRA_LIBES="-pg"
-	DEFINES="$DEFINES -pg"
+	OPTIMIZE="$OPTIMIZE -pg"
     fi
 
     if test $debug_b = yes; then	
-	DEFINES="$DEFINES -g"
+	OPTIMIZE="$OPTIMIZE -g"
     fi
 
     # however, C++ support in mingw32 v 0.1.4 is still flaky
@@ -88,7 +92,8 @@ AC_DEFUN(AC_STEPMAKE_CXX, [
     AC_CHECK_HEADER(FlexLexer.h, true,
 	AC_STEPMAKE_WARN(can"\'"t find flex header. Please install Flex headers correctly))
 
-    CXXFLAGS="$DEFINES $OPTIMIZE"
+    CPPFLAGS="$CPPFLAGS $DEFINES"
+    CXXFLAGS="$CXXFLAGS $OPTIMIZE"
     LDFLAGS=$EXTRA_LIBES
 
     AC_SUBST(CXXFLAGS)
@@ -129,9 +134,9 @@ AC_DEFUN(AC_STEPMAKE_DATADIR, [
 AC_DEFUN(AC_STEPMAKE_END, [
     AC_OUTPUT($CONFIGFILE.make:config.make.in)
 
-    rm -f Makefile
-    cp make/toplevel.make.in ./Makefile
-    chmod 444 Makefile
+    rm -f GNUmakefile
+    cp make/toplevel.make.in ./GNUmakefile
+    chmod 444 GNUmakefile
 ])
 
 AC_DEFUN(AC_STEPMAKE_GXX, [
@@ -189,6 +194,12 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     stepmake=stepmake
     AC_SUBST(stepmake)
 
+    STATE_VECTOR=`ls make/STATE-VECTOR 2>/dev/null`
+    if test "x$STATE_VECTOR" != "x"; then
+    	STATE_VECTOR="\$(depth)/$STATE_VECTOR"
+    fi
+    AC_SUBST(STATE_VECTOR)
+
     CONFIGSUFFIX=
     AC_ARG_ENABLE(config,
     [  enable-config=FILE      put configure settings in config-FILE.make],
@@ -231,20 +242,30 @@ dnl    fi
     AC_CHECK_SEARCH_RESULT($PYTHON, python, You should install Python)
 
     if test "x$OSTYPE" = "xcygwin32" || test "x$OSTYPE" = "xWindows_NT"; then
-	LN=cp # hard link does not work under cygnus-nt (yet?)
+	LN=cp # hard link does not work under cygnus-nt
+	LN_S=cp # symbolic link does not work for native nt
 	ZIP="zip -r -9" #
 	DOTEXE=.exe
-        INSTALL="\$(stepdir)/../bin/install-dot-exe.sh -c"
+       DIRSEP='\\'
+ 	PATHSEP=';'
+       INSTALL="\$(stepdir)/../bin/install-dot-exe.sh -c"
     else
+	DIRSEP='/'
+	PATHSEP=':'
 	LN=ln
+	LN_S='ln -s'
 	ZIP="zip -r -9"
         INSTALL="\$(stepdir)/../bin/install-sh -c"
     fi
     AC_SUBST(DOTEXE)
     AC_SUBST(ZIP)
     AC_SUBST(LN)
+    AC_SUBST(LN_S)
     AC_SUBST(INSTALL)
-
+   AC_DEFINE_UNQUOTED(DIRSEP, '${DIRSEP}')
+     AC_DEFINE_UNQUOTED(PATHSEP, '${PATHSEP}')
+  
+   
     AC_STEPMAKE_DATADIR
 ])
 

@@ -1,8 +1,8 @@
 \header{
-filename =	 "sarabande-alto.ly";
+filename =	 "sarabande-viola.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Sarabande";
+% piece = "Sarabande";
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 \include "sarabande-urtext.ly";
 
-sarabande_alto_global = \melodic{
+sarabande_viola_global = \melodic{
 	\time 3/4;
 	\key f;
 	\clef alto;
@@ -29,18 +29,19 @@ sarabande_alto_global = \melodic{
 	\bar ":|";
 }
 
-sarabande_alto_scripts = \melodic{
+sarabande_viola_scripts = \melodic{
 }
 
-sarabande_alto_staff = \type Staff <
+sarabande_viola_staff = \type Staff <
 	\melodic \transpose c' \$sarabande
-	\$sarabande_alto_global
-	\$sarabande_alto_scripts
+	\$sarabande_viola_global
+	\$sarabande_viola_scripts
 >
 
 \score{
-	\$sarabande_alto_staff
+	\$sarabande_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 40; }
+	\header{ piece = "Sarabande"; }
 }
 

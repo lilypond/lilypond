@@ -1,8 +1,8 @@
 \header{
-filename =	 "allemande-alto.ly";
+filename =	 "allemande-viola.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Allemande";
+% piece = "Allemande";
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 \include "allemande-urtext.ly";
 
-allemande_alto_global = \melodic{
+allemande_viola_global = \melodic{
 	\time 4/4;
 	\key f;
 	\partial 16;
@@ -32,18 +32,19 @@ allemande_alto_global = \melodic{
 	\bar ":|";
 }
 
-allemande_alto_scripts = \melodic{
+allemande_viola_scripts = \melodic{
 }
 
-allemande_alto_staff = \type Staff <
+allemande_viola_staff = \type Staff <
 	\melodic \transpose c'' \$allemande
-	\$allemande_alto_global
-	\$allemande_alto_scripts
+	\$allemande_viola_global
+	\$allemande_viola_scripts
 >
 
 \score{
-	\$allemande_alto_staff
+	\$allemande_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 45; }
+	\header{ piece = "Allemande"; }
 }
 

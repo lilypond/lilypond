@@ -25,7 +25,6 @@
 static Keyword_ent the_key_tab[]={
   {"absdynamic", ABSDYNAMIC},
   {"accepts", ACCEPTS},
-  {"accidentals", ACCIDENTALS},
   {"bar", BAR},
   {"cadenza", CADENZA},
   {"clear", CLEAR},
@@ -39,6 +38,7 @@ static Keyword_ent the_key_tab[]={
   {"in", IN_T},
   {"lyric", LYRIC},
   {"key", KEY},
+  {"keysignature", KEYSIGNATURE},
   {"mark", MARK},
   {"melodic" , MELODIC},
   {"musicalpitch", MUSICAL_PITCH},

@@ -94,10 +94,10 @@ Key_engraver::read_req (Key_change_req const * r)
 {
   old_accidental_idx_arr_ = accidental_idx_arr_;
   key_.clear ();
-  Scalar prop = get_property ("specialaccidentals");
+  Scalar prop = get_property ("keyoctaviation");
   if (prop.length_i () > 0)
     {
-      key_.multi_octave_b_ = prop.to_bool ();
+      key_.multi_octave_b_ = ! prop.to_bool ();
     }
   
   accidental_idx_arr_.clear ();

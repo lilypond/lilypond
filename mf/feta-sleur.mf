@@ -54,19 +54,6 @@ def draw_slur(expr dxs,dys,hs,d) =
 	boogje:=boogje rotated angle(dxs,dys);
 	pickup pencircle scaled sleur_pen;
 	filldraw boogje;
-	show z1;
-	show z2;
-	show z3;
-	show z4;
-	show z5;
-	show z6;
 enddef;
 
-def slurchar(expr dxs,dys,hs,d) =
-	beginchar(0,0,0,0) "Embedded mf";
-	draw_slur(dxs,dys,hs,d);
-	endchar;
-enddef;
-
-% drawslur(10,10,0,1);
 

@@ -2,7 +2,7 @@
 filename =	 "gigue-cello.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Pr\\'elude";		% duh
+% piece = "Gigue";
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 \include "gigue-urtext.ly";
 
@@ -23,7 +23,7 @@ gigue_cello_global = \melodic{
 	\time 3/8;
 	\key f;
 	\clef bass;
-	\partial 8
+	\partial 8;
 	\skip 4.*31;
 	s4
 	\bar ":|:";
@@ -46,5 +46,6 @@ gigue_cello_staff = \type Staff <
 	\include "scs-paper.ly";
 %broken
 	\midi{ \tempo 4 = 60; }
+	\header{ piece = "Gigue"; }
 }
 

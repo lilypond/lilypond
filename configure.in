@@ -51,7 +51,7 @@ AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
 AC_CHECK_PROGS(MAKEINFO, makeinfo, error)
 AC_CHECK_SEARCH_RESULT($YODL2TEXINFO, yodl,  
-    You should install Yodl 1.30.pre4 or better)
+    You should install Yodl 1.30.2 or better)
 
 AC_STEPMAKE_END
 

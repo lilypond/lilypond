@@ -1,8 +1,8 @@
 \header{
-filename =	 "courante-alto.ly";
+filename =	 "courante-viola.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Courante";
+% piece = "Courante";
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 \include "courante-urtext.ly";
 
-courante_alto_global = \melodic{
+courante_viola_global = \melodic{
 	\time 3/4;
 	\key f;
 	\partial 16;
@@ -32,18 +32,19 @@ courante_alto_global = \melodic{
 	\bar ":|";
 }
 
-courante_alto_scripts = \melodic{
+courante_viola_scripts = \melodic{
 }
 
-courante_alto_staff = \type Staff <
+courante_viola_staff = \type Staff <
 	\melodic \transpose c' \$courante
-	\$courante_alto_global
-	\$courante_alto_scripts
+	\$courante_viola_global
+	\$courante_viola_scripts
 >
 
 \score{
-	\$courante_alto_staff
+	\$courante_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 55; }
+	\header{ piece = "Courante"; }
 }
 

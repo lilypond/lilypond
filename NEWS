@@ -1,3 +1,82 @@
+
+pl 6
+	- largish rehack:
+	  * Super_element is now an `abstract' class,
+	  * Paper_score directly contains one Line_of_score.  The
+	breaking/postprocessing/deletion is mixed with the output phase.
+	  * Hopefully this will save memory for large scores. (benchmarks, anyone?)
+	  * bf: Horizontal_vertical_group_item::do_unlink () should call
+
+	Axis_group_item::do_unlink ()
+
+	- changed LILYPOND to LILYPONDPREFIX
+	- added tfm and dvi target for mf/
+	- reincluded english.ly
+	- doc fixes (thanks, Adrian Moriano)
+	- doc fixes.
+	- mf: ex height added.
+
+pl 5.mb1
+      - Mudela 1.0.1: Changed \accidentals -> \keysignature
+      - Identifiers can be used in textual scripts:
+
+
+	tempoString="Allegro molto assai";
+
+		[...]
+
+	c^\tempoString 
+
+
+
+pl 5.jbr2
+        - aclocal.m4,config.h.in,flower/file-path.cc: Added PATHSEP and 
+          DIRSEP to configuration to support windows style path and pathlists.
+        - stepmake/bin/package-zip32.sh,stepmake/stepmake/package.make:
+          zip target now calls package-zip32.sh which creates winnt 
+          binary distribution zip file. xzip target continues to use 
+          package-zip.sh for Jan's cross-compiled version.
+        - lily/main.cc: Added a search for LILYPOND environment variable to
+          better facilitate binary distributions. 
+        - Documentation/README-W32.yo: Updated information on running lilypond
+          on winnt.
+          
+
+
+pl 5.jcn1
+	- (step)make fixes from yodl
+	- minor doco fixes
+	- bf: patch in website after 'make release'
+
+pl 5.jbr1
+	- Documentation/ntweb/Makefile: Used absolute url for LilyPond Homepage
+	- Documentation/ntweb/index.yo: Minor mods per Jan's suggestions
+
+
+
+
+*************
+pl 5
+
+pl 4.jcn1
+	- texinfo docs, lots of yodl TODO
+	- junked some makefiles
+	- ntweb: use BLURB
+	- bf: pletvisibility 
+	- adaptions for yodl-1.31.2's automatic texinfo conversion 
+	- reinclude of 1.jcn2:
+		  - renamed -alto -> viola
+		  - bf: avant-gardish six preludes
+		  - bf: ly2dvi warnings
+
+pl 4.jbr1
+	- stepmake/stepmake/install-outfiles.sub.make: fixed typo
+	- scripts/GNUmakefile: add ly2dvi32 to installation list and fixed
+	  included executable-targets.make to facilate installation of scripts
+	- Documentation/ntweb: Fixes to nt web page and added topdoc like
+	  automation.
+
+*********
 pl 4
 pl 3.mb2
 	- Changed text script alignment: center -> left

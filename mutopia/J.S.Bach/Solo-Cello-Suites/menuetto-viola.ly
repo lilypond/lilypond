@@ -1,9 +1,9 @@
 \header{
-filename =	 "menuetto-alto.ly";
+filename =	 "menuetto-viola.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Menuetto I";
-description =	 "Transcribed for Alto";
+% piece = "Menuetto I";
+description =	 "Transcribed for Viola";
 source =	 "?";
 % opus =	 "BWV 1008 no. 5";
 opus =	 "";
@@ -17,11 +17,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 \include "menuetto-urtext.ly";
 
-menuetto_i_alto_global = \melodic{
+menuetto_i_viola_global = \melodic{
 	\time 3/4;
 	\key f;
 	\clef alto;
@@ -37,7 +37,7 @@ menuetto_i_alto_global = \melodic{
 	\bar ":|";
 }
 
-menuetto_i_alto_scripts = \melodic{
+menuetto_i_viola_scripts = \melodic{
 	s2.
 	s8^"~"^1_2_4 s8*5
 	s2.*5
@@ -52,19 +52,20 @@ menuetto_i_alto_scripts = \melodic{
 	s4-\downbow s4-\upbow
 }
 
-menuetto_i_alto_staff = \type Staff <
+menuetto_i_viola_staff = \type Staff <
 	\melodic \transpose c' \$menuetto_i
-	\$menuetto_i_alto_global
-%	\$menuetto_i_alto_scripts
+	\$menuetto_i_viola_global
+%	\$menuetto_i_viola_scripts
 >
 
 \score{
-	\$menuetto_i_alto_staff
+	\$menuetto_i_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 110; }
+	\header{ piece = "Menuetto I"; }
 }
 
-menuetto_ii_alto_global = \melodic{
+menuetto_ii_viola_global = \melodic{
 	\time 3/4;
 	\key D;
 	\clef alto;
@@ -77,19 +78,16 @@ menuetto_ii_alto_global = \melodic{
 	\bar ":|";
 }
 
-menuetto_ii_alto_staff = \type Staff <
+menuetto_ii_viola_staff = \type Staff <
 	\melodic \transpose c' \$menuetto_ii
-	\$menuetto_ii_alto_global
-%	\$menuetto_ii_alto_scripts
+	\$menuetto_ii_viola_global
+%	\$menuetto_ii_viola_scripts
 >
 
-\header{
-piece = "Menuetto II";
-opus =	 "";
-}
 \score{
-	\$menuetto_ii_alto_staff
+	\$menuetto_ii_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 130; }
+	\header{ piece = "Menuetto II"; }
 }
 

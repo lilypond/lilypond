@@ -24,11 +24,17 @@ it()A GNU system: GNU LilyPond is known to run on these GNU systems: Linux
     (PPC, intel), FreeBSD, AIX, NeXTStep, IRIX, Digital Unix and
 Solaris.
 
+it()Lots of disk space: LilyPond takes between 50 and 100 mb to
+compile if you use debugging information.  If you are short on
+disk-space run configure with code(--disable-debugging).
+
 Although we recommend to use Unix, LilyPond is known to run on Windows
 NT/95/98 as well.  See Section ref(w32).
 
 it() GNU C++ version 2.7 or newer (2.8 and egcs are also fine).
-it() Python 1.5
+it() Python 1.5 (Strictly speaking, you shouldn't need Python for 
+   compiling and installing, but you'll need it to regenerate the font
+   tables, e.g.). 
 )
 
 sect(RUNNING)
@@ -48,15 +54,29 @@ Although not strictly necessary, these are recommended to have.
 
 itemize(
 it()GNU make. 
+Check out lurl(ftp://ftp.gnu.org)
+or any mirror of this site.
+
 it()Flex (version 2.5.4 or newer). 
+Check out lurl(ftp://ftp.gnu.org)
+or any mirror of this site.
 it()Bison (version 1.25 or newer).
-it()Python (version 1.5 or newer).
+Check out lurl(ftp://ftp.gnu.org)
+or any mirror of this site.
+
+it()Python (version 1.5 or newer).  Check out
+lurl(ftp://ftp.python.org) or lurl(ftp://ftp.cwi.nl/pub/python).
+
 it()Yodl.  All documentation will be in Yodl. (1.30.17)
 lurl(ftp://pcnov095.win.tue.nl/pub/yodl)
     lurl(http://www.cs.uu.nl/~hanwen/yodl)
 it()Texinfo. (version 3.12 or newer)
 
 it()GNU find
+Check out lurl(ftp://ftp.gnu.org)
+or any mirror of this site
+
+
 it() A fast computer (a full page of music typically takes 1 minute on my
     486/133, using the bf(--enable-checking) compile. It's lot slower than
     most MusiXTeX preprocessors)
@@ -197,8 +217,8 @@ and for the profiling version, I specify a different configuration.
 
 verb(
       configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
-      make configuration=optprof
-      make configuration=optprof install
+      make config=optprof
+      make config=optprof install
 )
 
 

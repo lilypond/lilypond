@@ -7,7 +7,6 @@
 */
 
 #include "main.hh"
-#include "super-element.hh"
 #include "debug.hh"
 #include "lookup.hh"
 #include "spanner.hh"
@@ -33,15 +32,26 @@
 Paper_score::Paper_score ()
 {
   outputter_l_ =0;
-  super_elem_l_   = new Super_elem;
-  typeset_element (super_elem_l_);
+  Line_of_score * line_p = new Line_of_score;
+  typeset_unbroken_spanner (line_p);
+
+  line_l_ = line_p;
 }
 
 Paper_score::~Paper_score ()
 {
-  super_elem_l_->unlink_all ();
+#if 0
+  for (int i=0; i< line_l_arr_.size (); i++)
+    line_l_arr_[i]->unlink_all ();
+
   for (PCursor<Score_element*> i(elem_p_list_.top()); i.ok(); i++)
-    assert(!i->linked_b());
+    {
+
+      if (i->linked_b())
+	i->unlink ();
+      assert (! i->linked_b ());
+    }
+#endif
 }
 
 void
@@ -49,7 +59,6 @@ Paper_score::typeset_element (Score_element * elem_p)
 {
   elem_p_list_.bottom ().add (elem_p);
   elem_p->pscore_l_ = this;
-
   elem_p->add_processing ();
 }
 
@@ -118,12 +127,10 @@ Paper_score::find_col (Paper_column const *c) const
 }
 
 
+#if 0
 void
 Paper_score::set_breaking (Array<Column_x_positions> const &breaking)
 {
-  super_elem_l_->line_of_score_l_->set_breaking (breaking);
-  super_elem_l_->break_processing ();
-
   for (iter (span_p_list_.top (),i); i.ok  ();)
     {
       Spanner *span_p = i.remove_p ();
@@ -151,8 +158,10 @@ Paper_score::set_breaking (Array<Column_x_positions> const &breaking)
 	i++;
     }
 }
+#endif
 
-void
+
+Array<Column_x_positions>
 Paper_score::calc_breaking ()
 {
   Break_algorithm *algorithm_p=0;
@@ -178,7 +187,7 @@ Paper_score::calc_breaking ()
       sol = algorithm_p->solve ();
       delete algorithm_p;
     }
-  set_breaking (sol);
+  return sol;
 }
 
 void
@@ -187,21 +196,79 @@ Paper_score::process ()
   clean_cols ();
   print ();
   *mlog << _ ("Preprocessing elements...") << " " << flush;
-  super_elem_l_->breakable_col_processing ();
-  super_elem_l_->pre_processing ();
+      line_l_->breakable_col_processing ();
+      line_l_->pre_processing ();
   
-  *mlog << '\n' << _ ("Calculating column positions...") << " " << flush;
-  super_elem_l_->space_processing ();
-  calc_breaking ();
-  print ();
-  *mlog << _ ("Postprocessing elements...") << " " << endl;
-  super_elem_l_->post_processing ();
-  tex_output ();
+      *mlog << '\n' << _ ("Calculating column positions...") << " " << flush;
+      line_l_->space_processing ();
+
+  Array<Column_x_positions> breaking = calc_breaking ();
+  Tex_stream *tex_stream_p = open_output_stream ();
+  outputter_l_=open_tex_outputter (tex_stream_p);
+
+  Link_array<Line_of_score> lines;
+  for (int i=0; i < breaking.size (); i++)
+    {
+      Line_of_score *line_l = line_l_->set_breaking (breaking, i);
+      lines.push (line_l);
+      if (line_l != line_l_)
+	typeset_broken_spanner (line_l);
+      
+    }
+
+  *mlog << "\nLine ... ";
+  for (int i=0; i < lines.size (); i++)
+    {
+      *mlog << '[' << flush;
+      
+      Line_of_score *line_l = lines[i];
+      line_l->break_processing ();
+      line_l->post_processing ();
+	*mlog << i << flush;
+      line_l->output_all ();
+	*mlog << ']' << flush;
+      remove_line (line_l);
+	
+    }
+  *tex_stream_p << "\n\\EndLilyPondOutput";
+  delete outputter_l_;
+  delete tex_stream_p;
+  outputter_l_ = 0;
 }
 
 
 void
-Paper_score::tex_output ()
+Paper_score::remove_line (Line_of_score *l)
+{
+  Link_array<Score_element> to_remove;
+  for (PCursor<Score_element*> i(elem_p_list_.top ()); i.ok (); )
+    {
+      if (i->line_l () == l)
+	to_remove.push (i.remove_p ());
+      else
+	i++;
+    }
+
+  for (PCursor<Spanner*> i (span_p_list_.top ()); i.ok (); )
+    {
+      Score_element *e = i.ptr ();
+      if (e->line_l () == l)
+	to_remove.push (i.remove_p ());
+      else
+	i++;
+    }
+
+  //  l->unlink_all ();
+  for (int i=0; i < to_remove.size (); i++)
+    {
+      to_remove[i]->unlink ();
+      assert (!to_remove[i]->linked_b ());
+      delete to_remove [i];
+    }
+}
+
+Tex_stream *
+Paper_score::open_output_stream ()
 {
   // output
   String base_outname = paper_l_->outfile_str_ ;
@@ -223,33 +290,36 @@ Paper_score::tex_output ()
   *mlog << _f ("TeX output to %s...", 
     outname == "-" ? String ("<stdout>") : outname ) << endl;
 
-  Tex_stream tex_out (outname);
-  Tex_outputter interfees (&tex_out);
+  return  new Tex_stream (outname);
+}
 
-  outputter_l_ = &interfees;
+
+
+Tex_outputter *
+Paper_score::open_tex_outputter (Tex_stream *tex_out_p)
+{
+  Tex_outputter *interfees_p= new Tex_outputter (tex_out_p);
 
   if (header_global_p)
     {
-      tex_out << header_global_p->TeX_string ();
+      *tex_out_p << header_global_p->TeX_string ();
     }
     
   
-  tex_out << _ ("% outputting Score, defined at: ") << origin_str_ << '\n';
+  *tex_out_p << _ ("% outputting Score, defined at: ") << origin_str_ << '\n';
 
   if (header_l_)
     {
-      tex_out << header_l_->TeX_string();
+      *tex_out_p << header_l_->TeX_string();
     }
-  tex_out << paper_l_->TeX_output_settings_str ();
+  *tex_out_p << paper_l_->TeX_output_settings_str ();
   
 
   if (experimental_features_global_b)
-    tex_out << "\\turnOnExperimentalFeatures%\n";
+    *tex_out_p << "\\turnOnExperimentalFeatures%\n";
 
-  tex_out << "\\turnOnPostScript%\n";
-  super_elem_l_->output_all ();
-  tex_out << "\n\\EndLilyPondOutput";
-  outputter_l_ = 0;
+  *tex_out_p << "\\turnOnPostScript%\n";
+  return interfees_p;
 }
 
 /** Get all breakable columns between l and r, (not counting l and r).  */

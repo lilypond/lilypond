@@ -182,13 +182,25 @@ identify ()
 int
 main (int argc, char **argv)
 {
+  // facilitate binary distributions
+  char const *env_lily = getenv ("LILYPONDPREFIX");
+  String prefix_directory;
+  if (env_lily)
+    prefix_directory = env_lily;
 
 #if HAVE_GETTEXT
   setlocale (LC_ALL, "");
 //  setlocale (LC_MESSAGES, "");
+  String lily_locale_dir;
   String name (PACKAGE);
   name.to_lower ();
-  bindtextdomain (name.ch_C (), DIR_LOCALEDIR);
+  if (!prefix_directory.empty_b())
+    {
+      lily_locale_dir = prefix_directory + "/share/locale";
+      bindtextdomain (name.ch_C (), lily_locale_dir.ch_C());
+    }
+  else
+    bindtextdomain (name.ch_C (), DIR_LOCALEDIR);
   textdomain (name.ch_C ());
 #endif
 
@@ -201,6 +213,12 @@ main (int argc, char **argv)
   char const *env_sz = getenv ("LILYINCLUDE");
   if (env_sz)
     global_path.parse_path (env_sz);
+
+  if (!prefix_directory.empty_b())
+    {
+      global_path.add (prefix_directory + "/share/lilypond/init/");
+      global_path.add (prefix_directory + "/share/lilypond");
+    }
 
   global_path.add (String (DIR_DATADIR) + "/init/");
 
@@ -307,11 +325,12 @@ main (int argc, char **argv)
 
 /*
   urg: make input file name: 
-  input: file name
-  output: file name with added default extension. "" is stdin.
-          in reference argument: the extention. ".ly" if none
- */
 
+  input: file name
+
+  output: file name with added default extension. "" is stdin.
+          in reference argument: the extension. ".ly" if none
+ */
 String
 distill_inname_str (String name_str, String& ext_r)
 {

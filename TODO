@@ -7,16 +7,22 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
-	* add ex-dimension to feta-params.
+	* use streambufs to provide IO handling for TeX stream, mudela stream,
+data-file.
 
+	* seriously buffer TeX output (do profile of writing .5 mb TeX file.)
 
 	* strip EXEs before installing
+
+	* zip target for binary windows dist (JBR)
+
+	* repeat bars: need distance after ":|" and before "|:"
+
+	* doco should not depend on a4
 
 	* text continuationss
 
 	* fix plain tex footer line.
-
-	* portable libs for flowerlib/lilylib
 
 	* install TeX stuff into tex/generic directory.
 
@@ -89,9 +95,6 @@ grep for TODO and ugh/ugr/urg
 	* make new VoiceOne, VoiceTwo, VoiceThree contexts with
 ydirection and hshift preset
 
-	* StepMake install
-	  - /usr/bin/make-patch?
-
 	* *.yo: fix pod manpage layout legacy
 
 	* text-items clash with stems/beams
@@ -155,6 +158,7 @@ ydirection and hshift preset
 	  - plet -> tuplet
 	  - measure -> bar
 	  - abbreviation-beam -> (measured/unmeasured) tremolo
+	  - partial -> anacrouse
 
 	* libtoolize flowerlib
 
@@ -205,8 +209,6 @@ ydirection and hshift preset
 
         * clefs (AG): The "8" should appear closer to the actual clef,
           touching it.
-
-	* give Items/Spanners access to unbroken originals	
 
 	* scoping for properties?
 

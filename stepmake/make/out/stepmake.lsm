@@ -1,15 +1,15 @@
 Begin3
 Title: StepMake
-Version: .1.45
-Entered-date: 24AUG98
+Version: 0.1.47
+Entered-date: 02SEP98
 Description: 
 Keywords: music notation typesetting midi fonts engraving
 Author: janneke@gnu.org (Jan Nieuwenhuizen)
 	hanwen@cs.ruu.nl (Han-Wen Nienhuys)
 Maintained-by: janneke@gnu.org (Jan Nieuwenhuizen)
 Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
-	40k stepmake-.1.45.tar.gz 
+	40k stepmake-0.1.47.tar.gz 
 Original-site: pcnov095.win.tue.nl /pub/lilypond/development/
-	40k stepmake-.1.45.tar.gz 
+	40k stepmake-0.1.47.tar.gz 
 Copying-policy: GPL
 End

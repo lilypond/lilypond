@@ -4,7 +4,7 @@ stafflines = 5;
 interline#:=staffsize#/(stafflines-1);
 
 % URG!
-% font_x_height ( interline# );
+font_x_height  interline# ;
 
 %
 %  [D.K.Roush & J.S.Gourlay] say this should be 0.072

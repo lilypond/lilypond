@@ -2,9 +2,9 @@
 Hi all,
 
 I have extend Mats' patches to allow accidental transposition:
-        \accidentals bes es fis;
+        \keysignature bes es fis;
 		= \transpose d =>
-        \accidentals gis;
+        \keysignature gis;
 
 As you can see in output the example file "test.ly" there are a few problems left:
 - key undo (already in the Todo)
@@ -22,7 +22,7 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.0";
+\version "1.0.1";
 
 vOne = \melodic \relative c''{
         \clef"violin";
@@ -39,12 +39,12 @@ vTwo = \melodic \relative c''\transpose d' { \vOne }
 
 vThree = \melodic \relative c''{
         \clef"violin";
-        \accidentals fis cis;
+        \keysignature fis cis;
         \time 2/4 ;
         d4 d |       
-        \accidentals bes es fis;
+        \keysignature bes es fis;
         fis4 fis |         
-        \accidentals fis cis gis dis ais eis;
+        \keysignature fis cis gis dis ais eis;
         cis4 ais4 |
 }
 

@@ -14,7 +14,7 @@ copyright =	 "public domain";
 multiple \paper{}s in one \score 
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 $vocal_verse1 = \melodic\relative c{
 	% ugh: treble/bass

@@ -84,8 +84,12 @@ doc++:
 	(cd $(outdir); sh ../$(step-bindir)/tar-docxx.sh $(package)-$(TOPLEVEL_VERSION).tar.gz)
 
 
-
-
+update-state-vector:
+ifneq ($(strip $(state-vector)),)
+	if [ "`tail -1 $(state-vector)`" != "$(TOPLEVEL_VERSION)" ]; then\
+	  echo $(TOPLEVEL_VERSION) >> $(state-vector); \
+	fi
+endif
 
 local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
 	mkdir -p $(distdir)/$(localdir)
@@ -171,3 +175,4 @@ $(depth)/$(configuration).make: $(depth)/configure
 	@echo "configure changed! You should probably reconfigure manually."
 	@echo "**************************************"
 	(cd $(depth); ./config.status)
+	touch $@		# do something for multiple simultaneous configs.

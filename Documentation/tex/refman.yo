@@ -608,14 +608,13 @@ These commands  constitute `Music', and have a duration of 0.
 
 sect(Properties)
 
-By default the same accidentals are valid for all octaves, but
-  this can be changed with the property code(specialaccidentals).
+By default the same key signature is valid for all octaves, but
+  this can be changed with the property code(keyoctaviation).
 
 
 The identifier code(\specialkey) sets the property for the Staff.  A
-key with two flats in one octave and three
-  sharps in the next can be declared with verb(\specialkey
-\accidentals bes es fis' cis' gis';)
+key with two flats in one octave and three sharps in the next can be 
+declared with verb(\specialkey \keysignature bes es fis' cis' gis';)
 
 sect(Music fragments)
 label(tutorial:music-fragments)

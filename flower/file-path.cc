@@ -2,6 +2,7 @@
    path.cc - manipulation of paths and filenames.
 */
 #include <stdio.h>
+#include "config.hh"
 #include "file-path.hh"
 #include "flower-debug.hh"
 

@@ -13,13 +13,13 @@
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 
 global = \melodic {
   \time 4/4;
-  \accidentals bes es as;
+  \keysignature bes es as;
   \skip 1*31;
   \bar "|."; |
 }

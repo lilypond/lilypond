@@ -1,8 +1,8 @@
 \header{
-filename =	 "prelude-alto.ly";
+filename =	 "prelude-viola.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Pr\\'elude";		% duh
+% piece = "Pr\\'elude";		% duh
 opus =	 "BWV 1008";
 % opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.0";
+\version "1.0.1";
 
 \include "prelude-urtext.ly";
 
-prelude_alto_global = \melodic{
+prelude_viola_global = \melodic{
 	\time 3/4;
 	\key f;
 	\clef alto;
@@ -27,18 +27,19 @@ prelude_alto_global = \melodic{
 	\bar "|.";
 }
 
-prelude_alto_scripts = \melodic{
+prelude_viola_scripts = \melodic{
 }
 
-prelude_alto_staff = \type Staff <
+prelude_viola_staff = \type Staff <
 	\melodic \transpose c' \$prelude
-	\$prelude_alto_global
-	\$prelude_alto_scripts
+	\$prelude_viola_global
+	\$prelude_viola_scripts
 >
 
 \score{
-	\$prelude_alto_staff
+	\$prelude_viola_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 40; }
+	\header{ piece = "Pr\\'elude"; }
 }
 

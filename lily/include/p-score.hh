@@ -22,7 +22,9 @@
     */
 
 class Paper_score : public Music_output {
-  void tex_output ();
+  Tex_outputter *open_tex_outputter (Tex_stream*);
+  Tex_stream *open_output_stream ();
+  
 public:
   Paper_def *paper_l_;
 
@@ -36,11 +38,9 @@ public:
   Pointer_list<Score_element*> elem_p_list_;
   
   Outputter *outputter_l_;  
-  Super_elem *super_elem_l_;
-    
+  Line_of_score * line_l_;
+  
   Paper_score ();
-  /// add a line to the broken stuff. Positions given in #config#
-  void set_breaking (Array<Column_x_positions> const &);
 
 
   /// add to bottom of pcols
@@ -67,18 +67,22 @@ public:
     
   virtual ~Paper_score();
 protected:
+
+  
     /* MAIN ROUTINES */
   virtual void process();
 // can't instantiate template with cygnus' gcc...
 //  virtual ~Paper_score();
 
 private:
+
+  void remove_line (Line_of_score*);
   /// before calc_breaking
   void preprocess();
 
   void calc_idealspacing();
   /// calculate where the lines are to be broken, and use results
-  void calc_breaking();
+  Array<Column_x_positions> calc_breaking();
 
   /// after calc_breaking
   void postprocess();

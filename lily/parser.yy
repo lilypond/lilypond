@@ -1,11 +1,11 @@
 %{ // -*-Fundamental-*-
 
 /*
-  parser.yy -- YACC -> C++ parser for mudela
+  parser.yy -- Bison/C++ parser for mudela
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1997 Han-Wen Nienhuys <hanwen@cs.uu.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -44,8 +44,8 @@
 
 
 // mmm
-Mudela_version oldest_version ("1.0.0");
-Mudela_version version ("1.0.0");
+Mudela_version oldest_version ("1.0.1");
+Mudela_version version ("1.0.1");
 
 
 // needed for bison.simple's malloc() and free()
@@ -137,7 +137,6 @@ yylex (YYSTYPE *s,  void * v_l)
 
 /* tokens which are not keywords */
 
-%token ACCIDENTALS
 %token ALIAS
 %token BAR
 %token BEAMPLET
@@ -160,6 +159,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token IN_T
 %token LYRIC
 %token KEY
+%token KEYSIGNATURE
 %token MARK
 %token MUSIC
 %token MUSICAL_PITCH
@@ -850,7 +850,7 @@ verbose_command_req:
 		$$ = key_p;
 		delete $2;
 	}
-	| ACCIDENTALS pitch_list 	{
+	| KEYSIGNATURE pitch_list 	{
 		Key_change_req *key_p= new Key_change_req;
 		key_p->pitch_arr_ = *$2;
 		key_p->ordinary_key_b_ = false;
@@ -1125,7 +1125,7 @@ gen_script_def:
 	;
 
 text_def:
-	STRING {
+	string {
 		Text_def *t  = new Text_def;
 		$$ = t;
 		t->text_str_ = *$1;

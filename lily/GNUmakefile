@@ -17,10 +17,7 @@ include $(depth)/make/stepmake.make
 $(outdir)/my-lily-parser.o: $(outdir)/parser.hh
 $(outdir)/my-lily-lexer.o: $(outdir)/parser.hh
 $(outdir)/lexer.o: $(outdir)/parser.hh
-
-
 $(outdir)/lily-version.o: $(outdir)/version.hh
-
 $(outdir)/main.o: $(outdir)/BLURB.hh $(outdir)/COPERTINA.hh $(outdir)/FLAPTEKST.hh
 
 

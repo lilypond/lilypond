@@ -12,7 +12,7 @@ composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
 }
-\version "1.0.0";
+\version "1.0.1";
 
 
 one = \melodic\relative c{

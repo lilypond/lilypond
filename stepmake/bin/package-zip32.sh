@@ -1,0 +1,75 @@
+#!/bin/sh
+# package-zip32.sh --- make a windoze formated distribution
+
+set -x
+
+if [ $# -lt 1 ]; then
+	echo "Usage: $0 PACKAGE_SOURCEDIR"
+	exit 2
+fi
+
+srcdir=$1
+shift
+
+. $srcdir/VERSION
+
+VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
+if [ "x$MY_PATCH_LEVEL" != "x" ]; then
+    VERSION=$VERSION.$MY_PATCH_LEVEL
+fi
+
+package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
+name=$package-$VERSION
+ZIP_CMD="zip -r -9"
+
+here=`pwd`
+cd $srcdir/.. 
+PACKAGE_ROOTDIR=`pwd` 
+export PACKAGE_ROOTDIR 
+cd $here
+
+RELEASE_DIR="$PACKAGE_ROOTDIR/bin.releases/winnt"
+ZIP_FILE="$RELEASE_DIR/$name.bin.zip"
+
+
+if [ ! -e $RELEASE_DIR ]; then
+    mkdir -p $RELEASE_DIR
+fi
+
+distdir=/tmp/${name}
+
+rm -f ${srcdir}/config.cache
+${srcdir}/configure --prefix=${distdir} \
+    --srcdir=${srcdir} \
+    --enable-tex-prefix=${distdir}/texmf \
+    --enable-tex-dir=${distdir}/texmf/tex \
+    --enable-mf-dir=${distdir}/texmf/mf
+
+if ! make ; then
+    echo "make failed"
+    exit 1
+fi
+
+if ! make install ; then
+    echo "make install failed"
+    exit 1
+fi
+
+#
+# Post install clean up
+#
+CYGWIN_LIB=$PACKAGE_ROOTDIR/distfiles/winnt/cygwinb19.dll
+if [ ! -e $CYGWIN_LIB ]; then
+    echo "Unable to locate $CYGWIN_LIB"
+    exit 1
+fi
+
+cd $distdir/bin
+cp $CYGWIN_LIB .
+mv ly2dvi32 ly2dvi.py
+cd $distdir/..
+$ZIP_CMD $ZIP_FILE $name
+echo "Wrote $ZIP_FILE"
+exit 0
+
+

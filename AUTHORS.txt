@@ -3,8 +3,8 @@ TITLE INFORMATION: AUTHORS - who did what on GNU LilyPond?
 
 Contents 
 
-This file lists authors of GNU LilyPond, and what they wrote.
-This list is alphabetically ordered.
+This file lists authors of GNU LilyPond, and what they wrote.  This
+list is alphabetically ordered.
 
 o Mats Bengtsson <matsb@s3.kth.se>,
     http://www.s3.kth.se/~matsb
@@ -27,11 +27,11 @@ o David R. Linn <drl@vuse.vanderbilt.edu>,
 o Han-Wen Nienhuys <hanwen@cs.uu.nl>, 
     http://www.cs.uu.nl/~hanwen
 
-    Main author.
+    Main author (initials: HWN).
 o Jan Nieuwenhuizen <janneke@gnu.org>, 
     http://www.xs4all.nl/~jantien
 
-    Main author
+    Main author (initials: JCN).
 o Alexandre Oliva <oliva@dcc.unicamp.br>, 
     http://sunsite.unicamp.br/~oliva
     testing

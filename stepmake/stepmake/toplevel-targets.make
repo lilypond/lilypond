@@ -11,14 +11,11 @@ local-maintainerclean:
 	rm -f configure
 
 GNUmakefile: make/toplevel.make.in
-	chmod +w $@
-	echo "# WARNING WARNING WARNING WARNING" > $@
-	echo "# do not edit! this is generated from make/Toplevel.make.in" >> $@
-	cat $< >> $@
-	chmod -w $@
+	$(MAKE) INFILE=$< OUTFILE=$@ -f $(stepdir)/automatically-generated.sub.make
 
 aclocal.m4: $(stepdir)/../aclocal.m4
-	cp $< $@
+	$(MAKE) INFILE=$< OUTFILE=$@ LINECOMMENT=dnl -f $(stepdir)/automatically-generated.sub.make
+
 
 local-WWW: #index.html 
 
@@ -29,7 +26,8 @@ index.html: check-top-web NEWS
 WWW-clean:
 	$(MAKE) CONFIGSUFFIX='www' clean
 
-dist:	
+dist:
+	$(MAKE) update-state-vector
 	rm -rf $(distdir)
 	$(MAKE) local-dist $(distdir)
 	chmod -R a+r $(distdir)

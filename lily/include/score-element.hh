@@ -34,7 +34,7 @@ public:
   virtual void print () const;
     
   Paper_def *paper () const;
-  Lookup * lookup_l () const;
+  Lookup const *lookup_l () const;
 
   virtual ~Score_element ();
   DECLARE_MY_RUNTIME_TYPEINFO;    
@@ -76,7 +76,7 @@ public:
 
 protected:
   /**
-    Administration: Where are we?. This is mainly used by Super_elem and
+    Administration: Where are we?. This is mainly used by Super_element and
     Score_element::calcalute_dependencies ()
 
     0 means ORPHAN,

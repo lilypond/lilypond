@@ -1,5 +1,5 @@
 /*
-  scoreline.hh -- part of GNU LilyPond
+  line-of-score.hh -- part of GNU LilyPond
 
   (c) 1996--1998 Han-Wen Nienhuys
 */
@@ -9,9 +9,10 @@
 
 #include "colhpos.hh"
 #include "spanner.hh"
+#include "super-element.hh"
 
 /// the columns of a score that form one line.
-class Line_of_score : public Spanner 
+class Line_of_score : public Spanner , public Super_element
 {
 public:
   Link_array<Paper_column> cols;
@@ -26,14 +27,14 @@ public:
   bool contains_b (Paper_column const *c) const;
     
   Link_array<Line_of_score> get_lines() const;
-  void set_breaking (Array<Column_x_positions> const&);
+  Line_of_score * set_breaking (Array<Column_x_positions> const&, int j) const;
 
 protected:
   virtual Link_array<Score_element> get_extra_dependencies () const;
 
   virtual void do_unlink ();
   virtual void do_junk_links ();
-  virtual void break_into_pieces (bool);
+
   virtual Interval do_width() const;
   virtual void do_print() const;
   SCORE_ELEMENT_CLONE(Line_of_score);

@@ -24,3 +24,6 @@
 /* define if explicit instantiation is needed */
 #undef NEED_EXPLICIT_INSTANTIATION
 
+/* define directory and path separators */
+#define DIRSEP '@DIRSEP@'
+#define PATHSEP '@PATHSEP@'

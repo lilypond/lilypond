@@ -14,7 +14,8 @@ ydirection		0  	stem direction free	\stemboth
 ydirection		1	force stem up		\stemup
 pletvisibility		0	show nothing
 pletvisibility		1 	show number
-pletvisibility		2 	show number, and bracket-if-no-beam
+pletvisibility		2 	show (number and bracket)-if-no-beam
+pletvisibility		3 	show number, and bracket-if-no-beam
 pletvisibility		4 	show number, and bracket
 
 slurdash		0	normal slurs
@@ -44,8 +45,8 @@ beamquantisation	1	quantise pos and slope	\beamposnormal
 beamquantisation	2	quantise avoide wedge2)	\beampostraditional
 
 [Staff]
-specialaccidentals	0	Accidental for all octaves	\normalkey
-specialaccidentals	1	Accidental only for specified octave	\specialkey
+keyoctaviation	0	Key signature only for specified octave	\specialkey
+keyoctaviation	1	Key signature for all octaves	\normalkey
 
 
 [Staff?]
@@ -209,7 +210,7 @@ pletoff = {
 	\property Voice.pletvisibility = 0
 }
 pleton = {
-	\property Voice.pletvisibility = 2
+	\property Voice.pletvisibility = 3
 }
 tiny  = {
 	\property Voice.fontsize= "-2"
@@ -250,15 +251,15 @@ graceat = \melodic {
 ecarg =  \melodic {
 	\property Voice.pletvisibility = 0
 	\]
-	\property Voice.pletvisibility = 2
+	\property Voice.pletvisibility = 3
 }
 %}
 
 normalkey = {
-	\property Staff.specialaccidentals = 0
+	\property Staff.keyoctaviation = 1
 }
 
 specialkey = {
-	\property Staff.specialaccidentals = 1
+	\property Staff.keyoctaviation = 0
 }
 

@@ -61,7 +61,9 @@ subsect(GOOD NEWS)
 It can be done!  Occasionally, the Cygnus b19.1 cross compiler and
 utilities under GNU/Linux are used to make the binary file(.exe.zip)
 releases (some makefile hacking was needed to build this stuff).  Jeffrey
-Reed tries to keep-up with LilyPond development, and is doing quite well.
+Reed tries to keep-up with LilyPond development, and is doing quite
+well.  His latest release is available on
+lurl(http://www.realtime.net/~daboys/lilypond/).
 
 subsect(UNPACKING)
 
@@ -342,8 +344,11 @@ done
 $realinstall $args
 )
 
-I place this in script file(~/bin).  Having said that here is how one
-might build the em(gettext) package.
+I place this in script file(~/bin).  The LilyPond configure, build,
+and install process handles this with it's own install script.  In
+addition there are patches to the cygnus install command that also
+deals with this problem.  Having said that, here is how one
+might build the em(gettext) package. 
 
 itemize(
 it() download the package from one of the ftp sites.
@@ -382,7 +387,7 @@ $CYGFS/cygnus.bat.
 subsubsect(Yodl Document Language) 
 lurl(http://www.xs4all.nl/~jantien/yodl/)
 
-Yodl for documentation in Lilypond.  It is currently being updated by
+Yodl for documentation in LilyPond.  It is currently being updated by
 Jan Nieuwenhuizen.  The development methodology of em(Yodl) as well as
 em(LilyPond) relies on a the following directory structure:
 
@@ -441,7 +446,7 @@ The build of em(stepmake) documentation will fail due to the fact
 that em(yodl) is not yet installed.  This is normal and shouldn't be a
 problem.
 
-subsubsect(Lilypond) label(lilybuild)
+subsubsect(LilyPond) label(lilybuild)
 itemize(
 it() download the package from
 lurl(http://www.cs.uu.nl/people/hanwen/lilypond/) to
@@ -533,16 +538,23 @@ it() make release
 )
 
 subsect(Running lilypond on Windows-NT) label(run)
- 
-label(binary)
+
+We are now distributing a formated binary distribution for
+Windows-NT.  Please refer to
+lurl(http://www.realtime.net/~daboys/lilypond/) for current news,
+download, installation, and running information.
 
 Jeffrey B. Reed email(daboys@bga.com)
 
 
 sect(RUNNING LILYPOND -- by Dominique Cretel)
 
+You may want to refer to section ref(run), for more current
+information about downloading, installing, and running the Windows-NT
+binary distribution. 
+
 enumerate(
-eit() First, I have download tha 0.1.64 version of Lilypond music software.
+eit() First, I have download tha 0.1.64 version of LilyPond music software.
 
 eit() Then I extract it in a temp directory, and I move the directory
 "lilypond-0.1.64" to the root directory of my D drive.

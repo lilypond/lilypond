@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.0";
+\version "1.0.1";
 
 fagotto1 = \melodic \relative c {
 	R1 *2 | as'4-.\ff r r2 | R1 *3 | as4-. r r2 | R1 *3 |

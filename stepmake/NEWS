@@ -1,3 +1,11 @@
+pl 47
+	- bf: patch in website after 'make release'
+	- windows ln -> cp
+	- bf: texinfo build
+
+pl 46
+	- bf: versioning typo: topleveL_MAJOR
+	- bf: reincluded optional STATE-VECTOR
 pl 45
 	- Foo_rules.make -> foo-rules.make
 
