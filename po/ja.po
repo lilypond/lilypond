@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.2.17\n"
-"POT-Creation-Date: 2001-02-23 11:58+0100\n"
+"POT-Creation-Date: 2001-02-24 12:58+0100\n"
 "PO-Revision-Date: 2000-03-29 20:50+0900\n"
 "Last-Translator: Daisuke Yamashita <yamad@mb.infoweb.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -64,7 +64,7 @@ msgid "can't map file"
 msgstr "ファイルをマップできません"
 
 #: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:111
-#: paper-stream.cc:40 scores.cc:39 simple-file-storage.cc:44 text-stream.cc:23
+#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, fuzzy, c-format
 msgid "can't open file: `%s'"
 msgstr "ファイルを開けません: `%s'"
@@ -131,7 +131,7 @@ msgstr "デフォルトフォントをロードします"
 msgid "can't find default font: `%s'"
 msgstr "デフォルトフォントが見つかりません: `%s'"
 
-#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:114
+#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:137
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(検索パス: `%s')"
@@ -310,7 +310,7 @@ msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
 msgstr "左側に繋げるハイフンがありません。ハイフンの要求を無視します"
 
 #: includable-lexer.cc:48 lily-guile.cc:139 midi-score-parser.cc:24
-#: scores.cc:113 scores.cc:119
+#: scores.cc:136 scores.cc:142
 #, fuzzy, c-format
 msgid "can't find file: `%s'"
 msgstr "ファイルが見つかりません: `%s'"
@@ -346,96 +346,100 @@ msgstr ""
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:102
+#: main.cc:105
 msgid "EXT"
 msgstr "EXT"
 
-#: main.cc:102
+#: main.cc:105
 #, fuzzy
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "出力フォーマット EXT を使う"
 
-#: main.cc:95 main.cc:103
+#: main.cc:95 main.cc:106
 msgid "this help"
 msgstr "このヘルプ"
 
-#: main.cc:104
+#: main.cc:107
 #, fuzzy
 msgid "FIELD"
 msgstr "FILE"
 
-#: main.cc:104
+#: main.cc:107
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:105
+#: main.cc:108 main.cc:111
 msgid "DIR"
 msgstr "DIR"
 
-#: main.cc:105
+#: main.cc:108
 msgid "add DIR to search path"
 msgstr "DIR を検索パスに追加"
 
-#: main.cc:98 main.cc:106
+#: main.cc:98 main.cc:109
 msgid "FILE"
 msgstr "FILE"
 
-#: main.cc:106
+#: main.cc:109
 msgid "use FILE as init file"
 msgstr "FILE を初期化ファイルとして使用"
 
-#: main.cc:107
+#: main.cc:110
 msgid "write Makefile dependencies for every input file"
 msgstr "全ての入力ファイルの Makefile 依存関係を書き込む"
 
-#: main.cc:108
+#: main.cc:111
+msgid "prepend DIR to dependencies"
+msgstr ""
+
+#: main.cc:112
 msgid "produce MIDI output only"
 msgstr "MIDI 出力の生成のみ"
 
-#: main.cc:109
+#: main.cc:113
 #, fuzzy
 msgid "NAME"
 msgstr "BASENAME"
 
-#: main.cc:109
+#: main.cc:113
 #, fuzzy
 msgid "write output to NAME"
 msgstr "BASENAME[-x].拡張子 へ出力を書き込む"
 
-#: main.cc:110
+#: main.cc:114
 msgid "inhibit file output naming and exporting"
 msgstr "名前付けとエクスポートの出力ファイルを抑制する"
 
-#: main.cc:103 main.cc:111
+#: main.cc:103 main.cc:115
 msgid "don't timestamp the output"
 msgstr "出力にタイムスタンプをつけない"
 
-#: main.cc:104 main.cc:112
+#: main.cc:104 main.cc:116
 msgid "print version number"
 msgstr "バージョン番号を表示"
 
-#: main.cc:113
+#: main.cc:117
 #, fuzzy
 msgid "verbose"
 msgstr "詳細な情報を表示します"
 
-#: main.cc:106 main.cc:114
+#: main.cc:106 main.cc:118
 msgid "show warranty and copyright"
 msgstr "保証と著作権について表示する"
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:131
+#: main.cc:135
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "使い方: %s [オプション]... [ファイル]..."
 
-#: main.cc:133
+#: main.cc:137
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "ファイルの楽曲を組版したり、MIDI 演奏したりする"
 
-#: main.cc:137
+#: main.cc:141
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -445,20 +449,20 @@ msgstr ""
 "美しい譜面を作成することができます。LilyPond は GNU "
 "プロジェクトの一部です。\n"
 
-#: main.cc:119 main.cc:143
+#: main.cc:119 main.cc:147
 msgid "Options:"
 msgstr "オプション:"
 
-#: main.cc:147
+#: main.cc:151
 msgid "This binary was compiled with the following options:"
 msgstr "このバイナリは以下のオプション付きでコンパイルされました"
 
-#: main.cc:123 main.cc:166
+#: main.cc:123 main.cc:170
 #, c-format
 msgid "Report bugs to %s"
 msgstr "バグレポートは %s へ"
 
-#: main.cc:55 main.cc:174
+#: main.cc:55 main.cc:178
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -474,17 +478,17 @@ msgstr ""
 "これを改変したり、複製を配布したりする事は歓迎されます。\n"
 "`--warranty' オプション付きで起動すると、より詳細な情報が得られます。\n"
 
-#: main.cc:62 main.cc:181 main.cc:193
+#: main.cc:62 main.cc:185 main.cc:197
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s by"
 
-#: main.cc:191
+#: main.cc:195
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- The GNU Project music typesetter"
 
-#: main.cc:71 main.cc:199
+#: main.cc:71 main.cc:203
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -722,16 +726,16 @@ msgstr "経過時間: %.2f 秒"
 msgid "unbound spanner `%s'"
 msgstr "閉じていないスパナ `%s'"
 
-#: scores.cc:35
+#: scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to %s..."
 msgstr "%s へ paper 出力..."
 
-#: scores.cc:83
+#: scores.cc:106
 msgid "Score contains errors; will not process it"
 msgstr "楽譜にエラーが含まれています -- 処理しません"
 
-#: scores.cc:129
+#: scores.cc:152
 #, fuzzy, c-format
 msgid "Now processing: `%s'"
 msgstr "未知のエスケープ文字列: `\\%s'"

@@ -5,7 +5,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2001-02-23 11:58+0100\n"
+"POT-Creation-Date: 2001-02-24 12:58+0100\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Date: 1998-05-30 00:17:12+0200\n"
 "From:  <jantien@xs4all.nl>\n"
@@ -64,7 +64,7 @@ msgid "can't map file"
 msgstr "non posso mappare il documento"
 
 #: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:111
-#: paper-stream.cc:40 scores.cc:39 simple-file-storage.cc:44 text-stream.cc:23
+#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "non posso aprire il file: `%s'"
@@ -131,7 +131,7 @@ msgstr ""
 msgid "can't find default font: `%s'"
 msgstr "non trovo il file: `%s'"
 
-#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:114
+#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:137
 #, fuzzy, c-format
 msgid "(search path: `%s')"
 msgstr "(Il path di caricamento è `%s'"
@@ -311,7 +311,7 @@ msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
 msgstr ""
 
 #: includable-lexer.cc:48 lily-guile.cc:139 midi-score-parser.cc:24
-#: scores.cc:113 scores.cc:119
+#: scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "non trovo il file: `%s'"
@@ -347,86 +347,90 @@ msgstr ""
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:102
+#: main.cc:105
 msgid "EXT"
 msgstr ""
 
-#: main.cc:102
+#: main.cc:105
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr ""
 
-#: main.cc:95 main.cc:103
+#: main.cc:95 main.cc:106
 msgid "this help"
 msgstr ""
 
-#: main.cc:104
+#: main.cc:107
 msgid "FIELD"
 msgstr ""
 
-#: main.cc:104
+#: main.cc:107
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:105
+#: main.cc:108 main.cc:111
 msgid "DIR"
 msgstr ""
 
-#: main.cc:105
+#: main.cc:108
 #, fuzzy
 msgid "add DIR to search path"
 msgstr "  -I, --include=DIR      aggiunge DIR ai path di ricerca\n"
 
-#: main.cc:98 main.cc:106
+#: main.cc:98 main.cc:109
 msgid "FILE"
 msgstr ""
 
-#: main.cc:106
+#: main.cc:109
 #, fuzzy
 msgid "use FILE as init file"
 msgstr "  -i, --init=NOMEFILE    usa NOMEFILE come file iniziale\n"
 
-#: main.cc:107
+#: main.cc:110
 #, fuzzy
 msgid "write Makefile dependencies for every input file"
 msgstr ""
 "  -d, --dependencies     scrive le dependenze del Makefile per ogni file di "
 "input\n"
 
-#: main.cc:108
+#: main.cc:111
+msgid "prepend DIR to dependencies"
+msgstr ""
+
+#: main.cc:112
 #, fuzzy
 msgid "produce MIDI output only"
 msgstr "  -M, --no-paper         produce solo output midi\n"
 
-#: main.cc:109
+#: main.cc:113
 msgid "NAME"
 msgstr ""
 
-#: main.cc:109
+#: main.cc:113
 msgid "write output to NAME"
 msgstr ""
 
-#: main.cc:110
+#: main.cc:114
 #, fuzzy
 msgid "inhibit file output naming and exporting"
 msgstr ""
 "  -s, --safe             inibisce la rinomina dei file di output e "
 "l'esportazione di macro di TeX\n"
 
-#: main.cc:103 main.cc:111
+#: main.cc:103 main.cc:115
 #, fuzzy
 msgid "don't timestamp the output"
 msgstr ""
 "  -T, --no-timestamps    non inserisce marcatori temporali nell'output\n"
 
-#: main.cc:104 main.cc:112
+#: main.cc:104 main.cc:116
 msgid "print version number"
 msgstr ""
 
-#: main.cc:113
+#: main.cc:117
 msgid "verbose"
 msgstr ""
 
-#: main.cc:106 main.cc:114
+#: main.cc:106 main.cc:118
 #, fuzzy
 msgid "show warranty and copyright"
 msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
@@ -434,38 +438,38 @@ msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:131
+#: main.cc:135
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "Uso: %s [OPZIONE]... [FILE]..."
 
-#: main.cc:133
+#: main.cc:137
 #, fuzzy
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "Stampa partitura oppure suona una song MIDI da FILE o <stdin>"
 
-#: main.cc:137
+#: main.cc:141
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
 msgstr ""
 
-#: main.cc:119 main.cc:143
+#: main.cc:119 main.cc:147
 msgid "Options:"
 msgstr "Opzioni: "
 
-#: main.cc:147
+#: main.cc:151
 #, fuzzy
 msgid "This binary was compiled with the following options:"
 msgstr "GNU LilyPond è stata compilata con le seguenti impostazioni:"
 
-#: main.cc:123 main.cc:166
+#: main.cc:123 main.cc:170
 #, c-format
 msgid "Report bugs to %s"
 msgstr ""
 
-#: main.cc:55 main.cc:174
+#: main.cc:55 main.cc:178
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -473,17 +477,17 @@ msgid ""
 "certain conditions.  Invoke as `%s --warranty' for more information.\n"
 msgstr ""
 
-#: main.cc:62 main.cc:181 main.cc:193
+#: main.cc:62 main.cc:185 main.cc:197
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s di"
 
-#: main.cc:191
+#: main.cc:195
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- Il tipografo musicale del progetto GNU"
 
-#: main.cc:71 main.cc:199
+#: main.cc:71 main.cc:203
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -713,17 +717,17 @@ msgstr "durata: %.2f secondi"
 msgid "unbound spanner `%s'"
 msgstr "Spanner non legato `%s'"
 
-#: scores.cc:35
+#: scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to %s..."
 msgstr "L'output stampato è inviato a %s..."
 
-#: scores.cc:83
+#: scores.cc:106
 #, fuzzy
 msgid "Score contains errors; will not process it"
 msgstr "lo spartito contiene errori; non lo elaborerò"
 
-#: scores.cc:129
+#: scores.cc:152
 #, fuzzy, c-format
 msgid "Now processing: `%s'"
 msgstr "stringa di escape sconosciuta: `\\%s'"

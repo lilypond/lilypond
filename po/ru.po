@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-02-23 11:58+0100\n"
+"POT-Creation-Date: 2001-02-24 12:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: August S.Sigov <august@infran.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -63,7 +63,7 @@ msgid "can't map file"
 msgstr "не могу отобразить файл в память"
 
 #: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:111
-#: paper-stream.cc:40 scores.cc:39 simple-file-storage.cc:44 text-stream.cc:23
+#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "не могу открыть файл: `%s'"
@@ -130,7 +130,7 @@ msgstr "Загружаю шрифт по умолчанию"
 msgid "can't find default font: `%s'"
 msgstr "не могу найти шрифт по умолчанию: `%s'"
 
-#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:114
+#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:137
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(путь поиска: `%s')"
@@ -297,7 +297,7 @@ msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
 msgstr "Не к чему присоединить перенос слева. Игнорирую запрос переноса."
 
 #: includable-lexer.cc:48 lily-guile.cc:139 midi-score-parser.cc:24
-#: scores.cc:113 scores.cc:119
+#: scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "не могу найти файл: `%s'"
@@ -333,96 +333,100 @@ msgstr ""
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:102
+#: main.cc:105
 msgid "EXT"
 msgstr "РАСШ"
 
-#: main.cc:102
+#: main.cc:105
 #, fuzzy
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "использовать выходной формат РАСШ"
 
-#: main.cc:95 main.cc:103
+#: main.cc:95 main.cc:106
 msgid "this help"
 msgstr "эта справка"
 
-#: main.cc:104
+#: main.cc:107
 #, fuzzy
 msgid "FIELD"
 msgstr "ФАЙЛ"
 
-#: main.cc:104
+#: main.cc:107
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:105
+#: main.cc:108 main.cc:111
 msgid "DIR"
 msgstr "КАТ"
 
-#: main.cc:105
+#: main.cc:108
 msgid "add DIR to search path"
 msgstr "добавить КАТ к пути поиска"
 
-#: main.cc:98 main.cc:106
+#: main.cc:98 main.cc:109
 msgid "FILE"
 msgstr "ФАЙЛ"
 
-#: main.cc:106
+#: main.cc:109
 msgid "use FILE as init file"
 msgstr "использовать ФАЙЛ как файл инициализации"
 
-#: main.cc:107
+#: main.cc:110
 msgid "write Makefile dependencies for every input file"
 msgstr "записывать зависимости Makefile для каждого входного файла"
 
-#: main.cc:108
+#: main.cc:111
+msgid "prepend DIR to dependencies"
+msgstr ""
+
+#: main.cc:112
 msgid "produce MIDI output only"
 msgstr "производить вывод только MIDI"
 
-#: main.cc:109
+#: main.cc:113
 #, fuzzy
 msgid "NAME"
 msgstr "ОСНОВА"
 
-#: main.cc:109
+#: main.cc:113
 #, fuzzy
 msgid "write output to NAME"
 msgstr "записывать вывод в ОСНОВА[-x].расширение"
 
-#: main.cc:110
+#: main.cc:114
 msgid "inhibit file output naming and exporting"
 msgstr "скрыть именование и экспорт вывода в файл"
 
-#: main.cc:103 main.cc:111
+#: main.cc:103 main.cc:115
 msgid "don't timestamp the output"
 msgstr "не отмечать дату и время вывода"
 
-#: main.cc:104 main.cc:112
+#: main.cc:104 main.cc:116
 msgid "print version number"
 msgstr "выводить номер версии"
 
-#: main.cc:113
+#: main.cc:117
 #, fuzzy
 msgid "verbose"
 msgstr "быть болтливым"
 
-#: main.cc:106 main.cc:114
+#: main.cc:106 main.cc:118
 msgid "show warranty and copyright"
 msgstr "показать гарантию и copyright"
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:131
+#: main.cc:135
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "Использование: %s [ОПЦИЯ]... [ФАЙЛ]..."
 
-#: main.cc:133
+#: main.cc:137
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "Набирать музыку и/или проигрывать MIDI из ФАЙЛа"
 
-#: main.cc:137
+#: main.cc:141
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -432,20 +436,20 @@ msgstr ""
 "на бумаге, используя высокоуровневый файл описания на вводе. Lilypond\n"
 "является частью Проекта GNU.\n"
 
-#: main.cc:119 main.cc:143
+#: main.cc:119 main.cc:147
 msgid "Options:"
 msgstr "Опции:"
 
-#: main.cc:147
+#: main.cc:151
 msgid "This binary was compiled with the following options:"
 msgstr "Этот исполняемый файл был собран со следующими опциями:"
 
-#: main.cc:123 main.cc:166
+#: main.cc:123 main.cc:170
 #, c-format
 msgid "Report bugs to %s"
 msgstr "Сообщайте об ошибках по %s"
 
-#: main.cc:55 main.cc:174
+#: main.cc:55 main.cc:178
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -457,17 +461,17 @@ msgstr ""
 "при соблюдении некоторых условий. Вызывайте как `%s --warranty' для\n"
 "получения дополнительной информации.\n"
 
-#: main.cc:62 main.cc:181 main.cc:193
+#: main.cc:62 main.cc:185 main.cc:197
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Все права защищены (c) %s by"
 
-#: main.cc:191
+#: main.cc:195
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- Наборщик музыки Проекта GNU"
 
-#: main.cc:71 main.cc:199
+#: main.cc:71 main.cc:203
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -675,16 +679,16 @@ msgstr "затраченное время: %.2f секунд"
 msgid "unbound spanner `%s'"
 msgstr ""
 
-#: scores.cc:35
+#: scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to %s..."
 msgstr "\"бумажный\" вывод в %s..."
 
-#: scores.cc:83
+#: scores.cc:106
 msgid "Score contains errors; will not process it"
 msgstr ""
 
-#: scores.cc:129
+#: scores.cc:152
 #, fuzzy, c-format
 msgid "Now processing: `%s'"
 msgstr "неизвестная escape-последовательность: `\\%s'"
