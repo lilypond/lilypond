@@ -22,9 +22,16 @@ Tie_register::Tie_register()
 }
 
 void
+Tie_register::sync_features()
+{
+    dir_i_ = get_feature("vdir");
+}
+    
+
+void
 Tie_register::post_move_processing()
 {
-     if (tie_p_ && get_staff_info().when() == end_mom_) {
+    if (tie_p_ && get_staff_info().when() == end_mom_) {
 	end_tie_p_ = tie_p_;
 	end_req_l_ = req_l_;
 	tie_p_ =0;
@@ -78,6 +85,9 @@ void
 Tie_register::pre_move_processing()
 {
     if (end_tie_p_) {
+	if (dir_i_)
+	    end_tie_p_->dir_i_ =  dir_i_;
+	
 	typeset_element(end_tie_p_);
 	end_tie_p_ =0;
 	end_req_l_ =0;
@@ -91,6 +101,13 @@ Tie_register::~Tie_register()
 	req_l_->warning("unended Tie");
 	delete tie_p_;
     }
+}
+
+void
+Tie_register::set_feature(Feature f)
+{
+    if (f.type_ == "vdir")
+	dir_i_ = f.value_;
 }
 
 IMPLEMENT_STATIC_NAME(Tie_register);
