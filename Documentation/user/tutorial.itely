@@ -8,6 +8,7 @@
   
 @menu
 * First steps::                 Music language of LilyPond
+* Simple legend::               Small table of music language symbols
 * Running LilyPond::            Printing music
 * The first tune::              The first tune
 * Lyrics and chords::           Lyrics and chords
@@ -50,6 +51,13 @@ produce most complex music with LilyPond.
 This section shows how easy writing music with LilyPond actually is.  If
 you have not seen LilyPond input source before, this section is for you.
 
+The next section has a small legend of all symbols that are introduced
+here, you may want to keep an eye on that.
+
+Writing music with LilyPond is explained below by a number of small
+examples.  Each example has a small piece of text; the LilyPond input
+that you should type, with the resulting music printed below it.
+
 You get a simple note by typing its note name, from @code{a} through
 @code{g}:
 
@@ -74,11 +82,13 @@ whole note, ``@code{2}'' for a halve note, and so on:
 a1 a2 a4 a16 a32
 @end example
 
+@c missing clef seems to raise more questions than actual pitch of notes,
+@c as these are snippets anyway
 @lilypond[fragment]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
 \property Staff.noAutoBeaming = ##t
-\property Staff.Clef = \turnOff
+%\property Staff.Clef = \turnOff
 \transpose c'' { a1 a2 a4 a16 a32 }
 s16_" "
 @end lilypond
@@ -92,10 +102,12 @@ If you don't specify a duration, the previous duration is used:
 a a a2 a
 @end example
 
+@c missing clef seems to raise more questions than actual pitch of notes,
+@c as these are snippets anyway
 @lilypond[fragment]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.Clef = \turnOff
+%\property Staff.Clef = \turnOff
 \transpose c'' { a a a2 a }
 s16_" "
 @end lilypond
@@ -112,7 +124,6 @@ cis1 ees fisis aeses
 @lilypond[fragment]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.Clef = \turnOff
 \transpose c'' { cis1 ees fisis aeses }
 s16_" "
 @end lilypond
@@ -125,10 +136,12 @@ Add a dot ``@code{.}'' after the duration to get a dotted note:
 a2. a4 a8. a16
 @end example
 
+@c missing clef seems to raise more questions than actual pitch of notes,
+@c as these are snippets anyway
 @lilypond[fragment]
 \property Score.timing = ##f
 \property Staff.TimeSignature = \turnOff
-\property Staff.Clef = \turnOff
+%\property Staff.Clef = \turnOff
 \transpose c'' { a2. a4 a8. a16 }
 s16_" "
 @end lilypond
@@ -144,6 +157,7 @@ The meter (or time signature) can be set with the ``@code{\time}'' command:
 \time 4/4
 @end example
 
+@c a clef here may lead to confusion
 @lilypond[fragment]
 \property Staff.Clef = \turnOff
 \time 3/4
@@ -158,6 +172,8 @@ s16_" "
 
 The clef can be set using the ``@code{\clef}'' command:
 
+@c what is more common name treble or violin?
+@c in Dutch, its violin.
 @quotation
 @example
 \clef violin
@@ -233,7 +249,10 @@ LilyPond source file looks like:
 @end quotation
 @separate
 
+
 We continue with the introduction of the remaining musical constructs.
+
+@c maybe legend here?
 
 Rests are entered just like notes with the name ``@code{r}'':
 
@@ -248,6 +267,29 @@ r2 r4 r8 r16
 \property Staff.TimeSignature = \turnOff
 r2 r4 r8 r16
 s16_" "
+@end lilypond
+@end quotation
+@separate
+
+@c Tim wants to move this quotes example just before the: quotes-don't-work
+@c score, but we'd need to remove quotes from the other two (key and
+@c tie) examples...
+
+@c better to have this just before the `octaves are bad' snipped
+@c but we'd need to remove the ', from \key and tie 
+To raise a note by an octave, add a high quote @code{'} (apostrophe) to
+the note name, to lower a note one octave, add a ``low quote'' @code{,}
+(a comma).  The central C is @code{c'}:
+
+@quotation
+@example
+c'4 c'' c''' \clef bass c c,
+@end example
+
+@lilypond[fragment]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+c'4 c'' c''' \clef bass c c,
 @end lilypond
 @end quotation
 @separate
@@ -281,23 +323,6 @@ g'
 @end lilypond
 @end quotation
 
-To raise a note by an octave, add a high quote @code{'} (apostrophe) to
-the note name, to lower a note one octave, add a ``low quote'' @code{,}
-(a comma).  The central C is @code{c'}:
-@c huh, why exactly was central C == c'?
-
-@quotation
-@example
-c'4 c'' c''' \clef bass c c,
-@end example
-
-@lilypond[fragment]
-\property Score.timing = ##f
-\property Staff.TimeSignature = \turnOff
-c'4 c'' c''' \clef bass c c,
-@end lilypond
-@end quotation
-@separate
 
 @c bit on the long/complex/scary taste
 @c cheating a bit: two lines makes for a friendlier look
@@ -309,7 +334,7 @@ Don't worry about all the quotes.
 \score @{
   \notes @{
     \time 4/4
-    \clef treble
+    \clef violin
     \key d \minor
     r4 r8 d''8 cis''4 e''
     d''8 a'4. ~ a' b'8
@@ -324,7 +349,7 @@ Don't worry about all the quotes.
 \score {
   \notes {
     \time 4/4
-    \clef treble
+    \clef violin
     \key d \minor
     r4 r8 d''8 cis''4 e''
     d''8 a'4. ~ a' b'8
@@ -383,9 +408,15 @@ For example: @code{c f} goes up; @code{c g} goes down:
 @end quotation
 @separate
 
-You can make a large interval by adding octaviation quotes.
+@c needed better, maybe even redundant explanation
+@c grappig: Pa vond het heel logies, en slim toen-i eenmaal begreep.
+@c in eerste instantie drong het `relative' niet door zonder extra uitleg.
+You can make a large interval by adding octaviation quotes.  Note that
+quotes or commas do not determine the absolote height of a note;
+the height of a note is relative to the previous one.
 @c don't use commas or quotes in this sentence
-For example: @code{c f,} goes down; @code{c g'} goes up:
+For example: @code{c f,} goes down; @code{f, f} are both the same;
+@code{c c'} are the same; and @code{c g'} goes up:
 
 @quotation
 @example
@@ -410,7 +441,7 @@ A slur is drawn across many notes, and indicates bound articulation
 
 @quotation
 @lilypond[fragment,relative 1, verbatim]
-c8( cis d ) e 
+c8( cis d )e 
 @end lilypond
 @end quotation
 @separate
@@ -444,7 +475,7 @@ be grouped inside @code{<} and @code{>}, as is demonstrated here:
 @quotation
 @lilypond[fragment,verbatim]
 <
-  \context Staff = staffA { \clef treble c'' }
+  \context Staff = staffA { \clef violin c'' }
   \context Staff = staffB { \clef bass c }
 >
 @end lilypond
@@ -464,7 +495,7 @@ We can typeset a melody with two staffs now:
   \notes 
   < \context Staff = staffA {
       \time 3/4
-      \clef treble
+      \clef violin
       \relative c'' { e2 ( d4 c2 b4 [a8 a] [b b] [g g] )a2. }  
     }
     \context Staff = staffB {
@@ -484,7 +515,15 @@ signature should be the same for all staffs.
 
 @separate
 
-Dynamic signs are made by adding the markings after the note
+Common accents can be added to a note using @code{-.}, @code{--}, @code{->}:
+@quotation
+@lilypond[verbatim,relative 1]
+c-. c-- c->
+@end lilypond
+@end quotation
+@separate
+
+Dynamic signs are made by adding the markings to the note:
 @quotation
 @lilypond[verbatim,relative 1]
 c-\ff c-\mf
@@ -496,7 +535,7 @@ Crescendi are started with the commands @code{\<}  and @code{\>}. The
 command @code{\!} finishes a crescendo on the following.
 @quotation
 @lilypond[verbatim,relative 1]
-c2  \< \! c2-\ff \> c2  \! c2
+c2\<  \!c2-\ff  \>c2  \!c2
 @end lilypond
 @end quotation
 @separate
@@ -504,7 +543,7 @@ c2  \< \! c2-\ff \> c2  \! c2
 Chords can be made by surrounding notes with @code{<} and @code{>}:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
-r4  <c e g> <c f a> 
+r4 <c e g> <c f a> 
 @end lilypond
 @end quotation
 @separate
@@ -582,6 +621,116 @@ more in-depth. It will also be very intimidating if you're not familiar
 with the basics.  It deals with some of the more advanced features of
 LilyPond. Topics include lyrics, chords, orchestral scores and parts,
 fine tuning output, polyphonic music, and integrating text and music.
+
+
+@c refer to this section
+@node Simple legend
+@section Simple legend
+
+
+@c need texinfo-4.0a or later for this
+
+
+@c both Tim and my father came independently with a request for a
+@c `legend' like this.
+
+@c what should be in it?
+
+
+
+@quotation
+@multitable @columnfractions .10 .20 .40
+
+@item @code{[]}
+@tab beam
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.noAutoBeaming = ##t
+\property Staff.Clef = \turnOff
+[a8 b]
+@end lilypond
+
+@item @code{~}
+@tab tie
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.noAutoBeaming = ##t
+\property Staff.Clef = \turnOff
+d ~ d
+@end lilypond
+
+@item @code{()}
+@tab slur
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.noAutoBeaming = ##t
+\property Staff.Clef = \turnOff
+c( d )e
+@end lilypond
+@item @code{'}
+@tab raise octave
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.noAutoBeaming = ##t
+\property Staff.Clef = \turnOff
+a a'
+@end lilypond
+
+@item @code{,}
+@tab lower octave
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.noAutoBeaming = ##t
+\property Staff.Clef = \turnOff
+c c,
+@end lilypond
+
+@item @code{<>}
+@tab chord
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.noAutoBeaming = ##t
+\property Staff.Clef = \turnOff
+\context Voice { <a c> }
+@end lilypond
+
+@item @code{\< \!}
+@tab crescendo
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.noAutoBeaming = ##t
+\property Staff.Clef = \turnOff
+a\< a \!a
+@end lilypond
+
+@item @code{\> \!}
+@tab decrescendo
+@tab
+@lilypond[fragment, relative 1]
+\property Score.timing = ##f
+\property Staff.TimeSignature = \turnOff
+\property Staff.noAutoBeaming = ##t
+\property Staff.Clef = \turnOff
+a\> a \!a
+@end lilypond
+
+@end multitable
+@end quotation
+
 
 
 @node Running LilyPond
