@@ -1,3 +1,8 @@
+2004-12-12  Werner Lemberg  <wl@gnu.org>
+
+	* mf/bigcheese.pe.in: Add PUA mapping.
+	Don't create Type 42 but bare CFF font.
+
 2004-12-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-gnome.scm (placebox): Hackery to get bigcheese symbols
