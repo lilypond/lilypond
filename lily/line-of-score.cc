@@ -96,57 +96,9 @@ Line_of_score::compare (Line_of_score* const &p1,Line_of_score* const &p2)
   return p1->rank_i_ - p2->rank_i_;
 }
 
-
-
-/**
-    for administration of what was done already
-    */
-enum Score_element_status {
-  ORPHAN=0,			// not yet added to pstaff
-  VIRGIN,			// added to pstaff
-  PREBROKEN,
-  PREBROKEN_SECOND,
-  PRECALCING,
-  PRECALCED,		// calcs before spacing done
-  SPACING,
-  SPACED,
-  BROKEN,
-  BROKEN_SECOND,
-  POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
-  POSTCALCED,		// after spacing calcs done
-  BREWING,
-  BREWED,
-};
-
-void
-Line_of_score::pre_processing ()
-{
-  calculate_dependencies (PRECALCED, PRECALCING, &Score_element::before_line_breaking);
-}
-
-void
-Line_of_score::space_processing ()
-{
-  calculate_dependencies (SPACED, SPACING, &Score_element::do_space_processing);
-}
-
-/* for break processing, use only one status, because copies have to
-  have correct status. (Previously,
-  Score_element::handle_[pre]broken_dependencies assigned to status_i_
-  */
-void
-Line_of_score::breakable_col_processing ()
-{
-  calculate_dependencies (PREBROKEN, PREBROKEN, &Score_element::do_breakable_col_processing);
-  //  calculate_dependencies (PREBROKEN_SECOND, PREBROKEN_SECOND, &Score_element::handle_prebroken_dependents);
-}
-
-
 void
 Line_of_score::post_processing ()
 {
-  //  calculate_dependencies (BROKEN_SECOND, BROKEN_SECOND,
-  //		  &Score_element::handle_broken_dependents);
   calculate_dependencies (POSTCALCED, POSTCALCING, &Score_element::after_line_breaking);
 }
 
