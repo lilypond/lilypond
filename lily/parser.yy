@@ -1234,9 +1234,12 @@ re_rhythmed_music:
 		$$ = all;
 		scm_gc_unprotect_object ($1->self_scm ());
 	}
-	| LYRICSTO string Music {
-		Music *music = $3;
-		SCM name = $2;
+	| LYRICSTO {
+		THIS->lexer_->push_lyric_state ();
+	} simple_string Music {
+		THIS->lexer_->pop_state ();
+		Music *music = $4;
+		SCM name = $3;
 		$$ = make_lyric_combine_music (name, music);
 		scm_gc_unprotect_object (music->self_scm ());
 	}
