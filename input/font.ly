@@ -45,10 +45,9 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		
 		% Music for the Martians?
 		< bes4^"6" e_"7" c_"8" >
-		a'^"0"_"9"
+		a^"0"_"9"
 		
-		% ugh, \flageolet is like open, but maybe a perfect circle
-		a^\open
+		a'^\flageolet
 		\textstyle "roman";
 %{		% default abbreviations
 		c4 c4: c4:32 c4: c4 c2.
