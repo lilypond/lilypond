@@ -14,6 +14,8 @@
 
 template INTERVAL__INSTANTIATE(Real);
 
+
+
 Real
 Interval_t<Real>::infinity() 
 {

@@ -14,6 +14,10 @@ IDENTIFICATION="$NAME $VERSION"
 NOW=`date`
 echo "$IDENTIFICATION" 1>&2
 
+# TODO
+
+# should detect crashing lilypond
+
 # NEWS
     
 # 0.6.hwn1.jaf
