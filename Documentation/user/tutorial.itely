@@ -1486,7 +1486,7 @@ object.  These layout objects also carry variables, which we call
 @emph{layout properties}. By changing these variables from their
 values, we can alter the look of a formatted score:
 
-@lilypond[verbatim,]
+@lilypond[verbatim,relative]
   c4
   \property Voice.Stem \override #'thickness = #3.0
   c4 c4 c4 
