@@ -269,6 +269,11 @@
     (postprocess-output book framework-ps-module filename (ly:output-formats)) 
 ))
 
+(if (not (defined? 'nan?))
+    (define (nan? x) #f))
+(if (not (defined? 'inf?))
+    (define (inf? x) #f))
+
 (define-public (output-preview-framework basename book scopes fields )
   (let* ((filename (format "~a.ps" basename))
 	 (outputter  (ly:make-paper-outputter filename
