@@ -30,7 +30,7 @@
 class My_lily_parser 
 {
 public:
-  My_lily_parser (Input_file_settings * sources);
+  My_lily_parser (Input_file_results * sources);
   ~My_lily_parser ();
 
   void do_init_file ();
@@ -42,7 +42,7 @@ public:
   Scheme_hash_table *default_header_;
 
   int fatal_error_;
-  Input_file_settings * input_file_;
+  Input_file_results * input_file_;
   int error_level_;
 
   My_lily_lexer * lexer_;

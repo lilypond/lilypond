@@ -16,7 +16,6 @@
 #include "libc-extension.hh"
 #include "lily-guile.hh"
 #include "main.hh"
-#include "simple-file-storage.hh"
 #include "file-path.hh"
 #include "warn.hh"
 #include "direction.hh"
@@ -24,7 +23,7 @@
 #include "interval.hh"
 #include "pitch.hh"
 #include "dimensions.hh"
-
+#include "source-file.hh"
 
 // #define TEST_GC
 
@@ -104,10 +103,14 @@ gulp_file_to_string (String fn)
     progress_indication ("[" + s);
 
 
-  Simple_file_storage f (s);
-  String result (f.to_str0 ());
+  int n;
+  char * str = gulp_file (s, &n);
+  String result (str);
+  delete str;
+  
   if (verbose_global_b)
     progress_indication ("]");
+
   return result;
 }
 

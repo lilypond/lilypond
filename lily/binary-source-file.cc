@@ -78,6 +78,9 @@ Binary_source_file::get_U16 ()
   return b;
 }
 
+/*
+  naming is wrong. This is a UNIX-endian-32 (as opposed to xinu or ixun)
+ */
 
 U32
 Binary_source_file::get_U32 ()

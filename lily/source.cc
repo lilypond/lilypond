@@ -8,8 +8,8 @@
 
 
 #include <assert.h>
+
 #include "killing-cons.tcc"
-#include "binary-source-file.hh"
 #include "string.hh"
 #include "flower-proto.hh"
 #include "source-file.hh"
@@ -53,8 +53,7 @@ Sources::get_file (String &file_string) //UGH
 	return 0;
       file_string = file_string_o;
     }
-  Source_file * f = (!binary_b_) ?
-    new Source_file (file_string) : new Binary_source_file (file_string);
+  Source_file * f = new Source_file (file_string) ;
   add (f);
   return f;
 }

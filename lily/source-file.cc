@@ -7,7 +7,7 @@
   & Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
+#include <stdio.h>
 #include <assert.h>
 #if HAVE_SSTREAM
 #include <sstream>
@@ -20,23 +20,102 @@
 #include "flower-proto.hh"
 #include "warn.hh"
 #include "source-file.hh"
-#include "simple-file-storage.hh"
-#include "string-storage.hh"
+#include "array.hh"
+
+void
+Source_file::load_stdin ()
+{
+  length_ = 0;
+
+  int c;
+  Array<char> chs;		// ugh.
+  while ((c = fgetc (stdin)) != EOF)
+    chs.push (c);
+
+  length_ = chs.size ();
+  contents_str0_ = chs.remove_array ();
+}
+
+
+
+char *
+gulp_file (String fn, int* len)
+{
+  /*
+    let's hope that "b" opens anything binary, and does not apply
+    CR/LF translation
+    */
+  FILE * f =  fopen (fn.to_str0 (), "rb");
+
+  if (!f)
+    {
+      warning (_f ("can't open file: `%s'", fn.to_str0 ()));
+      return 0;
+    }
+
+  int ret = fseek (f, 0, SEEK_END);
+
+  *len = ftell (f);
+  rewind (f);
+  char *  str = new char[*len+1];
+  str[*len] = 0;
+  ret = fread (str, sizeof (char), *len, f);
+
+  if (ret!=*len)
+    warning (_f ("Huh?  Got %d, expected %d characters", ret, *len));
+
+  fclose (f);
+
+
+  return str;
+}
+
+
+
+Source_file::Source_file (String filename, String data)
+{
+  name_string_ = "";
+  istream_ = 0;
+  contents_str0_ = data.get_copy_str0();
+  length_ = data.length();
+  pos_str0_ = to_str0 ();
+  init_port();
+}
+
+
+
 
 Source_file::Source_file (String filename_string)
 {
   name_string_ = filename_string;
   istream_ = 0;
-  storage_ = new Simple_file_storage (filename_string);
+  contents_str0_ = 0;
+
+  if (filename_string == "-")
+    load_stdin ();
+  else
+    contents_str0_ = gulp_file (filename_string, &length_);
+  
   pos_str0_ = to_str0 ();
+
+  init_port();
 }
 
-Source_file::Source_file (String name_string, String data_string)
+void
+Source_file::init_port ()
 {
-  name_string_ = name_string;
-  istream_ = 0;
-  storage_ = new String_storage (data_string);
-  pos_str0_ = to_str0 ();
+  SCM str =scm_makfrom0str (contents_str0_);
+  
+  str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG,
+			     __FUNCTION__);
+  scm_set_port_filename_x (str_port_,
+			   scm_makfrom0str (name_string_.get_str0()));
+}
+
+int
+Source_file::tell () const
+{
+  return pos_str0_  - contents_str0_; 
 }
 
 std::istream*
@@ -81,7 +160,7 @@ Source_file::~Source_file ()
 {
   delete istream_;
   istream_ = 0;
-  delete storage_;
+  delete contents_str0_;
 }
 
 Slice
@@ -196,13 +275,13 @@ Source_file::get_line (char const* pos_str0) const
 int
 Source_file::length () const
 {
-  return storage_->length ();
+  return length_;
 }
 
 char const *
 Source_file::to_str0 () const
 {
-  return storage_->to_str0 ();
+  return contents_str0_;
 }
 
 void

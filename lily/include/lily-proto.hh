@@ -68,7 +68,7 @@ class Hara_kiri_line_group_engraver;
 class Hyphen_req;
 
 class Includable_lexer;
-class Input_file_settings;
+class Input_file_results;
 class Input;
 class Item;
 class Key_change_req;

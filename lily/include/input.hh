@@ -16,9 +16,9 @@
   Base class for anything that records its poisition in the parse file.
  */
 class Input {
+public:
   char const *defined_str0_ ;
   Source_file * source_file_;
-public:
     
   void warning (String) const; // should use member func?
   void non_fatal_error (String) const;

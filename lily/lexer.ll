@@ -34,7 +34,7 @@
 #include "string.hh"
 #include "string-convert.hh"
 #include "my-lily-lexer.hh"
-#include "file-results.hh"
+#include "input-file-results.hh"
 #include "interval.hh"
 #include "lily-guile.hh"
 #include "parser.hh"

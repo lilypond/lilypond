@@ -25,7 +25,7 @@
 #include "warn.hh"
 #include "parray.hh"
 #include "file-path.hh"
-#include "file-results.hh"
+#include "input-file-results.hh"
 #include "my-lily-parser.hh"
 #include "source.hh"
 #include "lily-version.hh"
@@ -102,7 +102,7 @@ write_dependency_file (String fn,
 
 
 void
-Input_file_settings::do_deps ()
+Input_file_results::do_deps ()
 {
   if (dependency_global_b)
     {
@@ -116,10 +116,10 @@ Input_file_settings::do_deps ()
 
 
 void
-Input_file_settings::do_scores ()
+Input_file_results::do_scores ()
 {
-  if (!global_header_)
-    global_header_ = new Scheme_hash_table;
+  if (!header_)
+    header_ = new Scheme_hash_table;
 
   for (int i=0; i < scores_.size (); i++)
     {
@@ -139,25 +139,25 @@ Input_file_settings::do_scores ()
   do_deps ();
 }
 
-Input_file_settings::~Input_file_settings ()
+Input_file_results::~Input_file_results ()
 {
   for (int i=0; i < scores_.size (); i++)
     scm_gc_unprotect_object (scores_[i]->self_scm ());
   scores_.clear ();
   
   inclusion_names_.clear ();
-  if (global_header_)
-    scm_gc_unprotect_object (global_header_ ->self_scm ());
+  if (header_)
+    scm_gc_unprotect_object (header_ ->self_scm ());
 
   global_input_file =0;
 }
 
 
-Input_file_settings* global_input_file;
+Input_file_results* global_input_file;
 
-Input_file_settings::Input_file_settings (String init_string, String file_string)
+Input_file_results::Input_file_results (String init_string, String file_string)
 {
-  global_header_ = 0;
+  header_ = 0;
   global_input_file = this;
   ly_set_point_and_click_x (SCM_BOOL_F);
   
@@ -194,5 +194,5 @@ do_one_file (String init_string, String file_string)
       return;
     }
 
-  Input_file_settings inp_file(init_string, file_string);
+  Input_file_results inp_file(init_string, file_string);
 }

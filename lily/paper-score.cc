@@ -19,7 +19,7 @@
 #include "scm-hash.hh"
 #include "gourlay-breaking.hh"
 #include "paper-outputter.hh"
-#include "file-results.hh"
+#include "input-file-results.hh"
 #include "misc.hh"
 #include "all-font-metrics.hh"
 
@@ -98,10 +98,10 @@ Paper_score::process ()
 
   progress_indication ("\n");
 
-  if (global_input_file->global_header_)
+  if (global_input_file->header_)
     {
-      outputter_->output_scope (global_input_file->global_header_, "lilypond");
-      outputter_->write_header_fields_to_file (global_input_file->global_header_);
+      outputter_->output_scope (global_input_file->header_, "lilypond");
+      outputter_->write_header_fields_to_file (global_input_file->header_);
     }
   
   if (header_)

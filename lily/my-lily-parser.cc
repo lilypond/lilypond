@@ -12,10 +12,10 @@
 #include "warn.hh"
 #include "main.hh"
 #include "parser.hh"
-#include "file-results.hh"
+#include "input-file-results.hh"
 #include "scm-hash.hh"
 
-My_lily_parser::My_lily_parser (Input_file_settings * source)
+My_lily_parser::My_lily_parser (Input_file_results * source)
 {
   input_file_ = source;
   lexer_ = 0;
