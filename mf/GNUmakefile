@@ -60,7 +60,9 @@ $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && fontforge -script $(notdir $<)) 
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp
-	cat $< $(subst feta,parmesan,$<) $(subst feta,feta-alphabet,$<) > $@
+	cat $< \
+		$(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) \
+		$(if $(findstring brace,$<),,$(subst feta,feta-alphabet,$<)) > $@
 
 $(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
 
@@ -163,40 +165,6 @@ $(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdi
 
 fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir Fontmap.lily)
 
-### Urg
-#mapentry=$(1) $(shell fgrep FontName $(outdir)/$(1).afm | sed -e 's/FontName *//') <$(1).pfaX
-#
-#map = $(foreach a,$(2),$(call $(1),$(a)))
-#$(outdir)/lilypond.xmap: $(AFM_FILES)
-#	echo '$(call map,mapentry,$(ALL_FONTS))' | \
-#		tr 'X' '\n' | sed -e 's/^ *//'> $@
-#
-## using shell for loop seems most robust
-#$(outdir)/lilypond.map: $(AFM_FILES)
-#	for i in $(FETA_FONTS); do echo $$i $$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') '<'$$i.pfa; done > $@
-#
-#$(outdir)/Fontmap:
-#	echo '%!' > $@
-#	echo '% Override default GS Fontmap' >> $@
-#	echo '% To let gs load fonts from builddir, do:' >> $@
-#	echo '% export GS_LIB=$$(pwd)/mf/out:' >> $@
-#	echo '% See Fontmap.GS for the syntax of real Fontmap files.' >> $@
-#	echo '(Fontmap.GS) .runlibfile' >> $@
-#	echo '(Fontmap.lily) .runlibfile' >> $@
-#
-#$(outdir)/Fontmap.lily: $(AFM_FILES) $(outdir)/Fontmap
-#	echo '%!' > $@
-#	for i in $(FETA_FONTS); do echo "/$$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') ($$i.pfa);"; done >> $@
-#
-#
-#$(outdir)/fonts.scale: $(PFA_FILES)
-##	cd $(outdir) && echo $(FETA_MF_FILES:.mf=.pfa) $(FETA_MF_FILES:.mf=.pfb) | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
-#	cd $(outdir) && echo *.pfa *.pfb | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
-#
-#$(outdir)/fonts.dir: $(outdir)/fonts.scale
-#	cd $(outdir) && mkfontdir
-#
-
 
 $(outdir)/lilypond.map: $(AFM_FILES)
 	for i in $(FETA_FONTS); do echo $$i $$i '<'$$i.pfa; done > $@
@@ -205,17 +173,6 @@ $(outdir)/lilypond.map: $(AFM_FILES)
 local-clean:
 	rm -f mfplain.mem mfplain.log 
 	rm -f *.tfm *.log
-
-#afm: $(AFM_FILES)
-#pfa: afm $(PFA_FILES) fontdir
-#pfb: afm $(PFB_FILES) fontdir
-#
-#
-# stupid trick to have separate rules for each PFA font ;
-# otherwise building PFAs is all-or-nothing.
-
-#$(outdir)/%.pfa: $(outdir)/%.bla
-#	$(MFTRACE) -I $(outdir)/ --formats=pfa,pfb,svg --simplify --keep-trying $(notdir $(basename $@))  && mv $(notdir $@) $(outdir)/
 
 $(outdir)/%.enc.in: %.enc
 	cp $< $@
