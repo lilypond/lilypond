@@ -1,3 +1,12 @@
+2003-05-11  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: XEmacs fixes: include two definitions for the
+	key for autocompletion XEmacs [iso-left-tab], Emacs [iso-lefttab],
+	use only two arguments in sit-for, use no arguments in
+	read-char-exclusive, backspace is not a character (127) in XEmacs.
+
+	* lilypond-font-lock.el: XEmacs: small fix to scheme-fontifying.
+
 2003-05-06  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: un-commenting works after syntax-table fix.
@@ -8,7 +17,7 @@
 	* lilypond-indent.el: add TODO for ligature slurs.
 
 2003-05-05  Heikki Junes  <hjunes@cc.hut.fi>
-
+(numberp (read-event))
 	* lilypond-mode.el: Move comments of parenthesis matching away,
 	(blink-matching-paren-on-screen) fix blinking in Emacs.
 
