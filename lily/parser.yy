@@ -1,4 +1,4 @@
-%{ // -*-Fundamental-*-
+ %{ // -*-Fundamental-*-
 
 /*
   parser.yy -- Bison/C++ parser for lilypond

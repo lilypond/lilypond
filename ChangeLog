@@ -1,3 +1,10 @@
+2002-10-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/rest.cc (after_line_breaking): backport dot position fix.
+
+	* lily/rest-collision.cc (do_shift): also remove dots for suicided
+	rests. Thanks to Klaus Zimmermann for finding this bug.
+
 2002-10-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi: Correction for broken /bin/sh.

@@ -145,7 +145,12 @@ Rest_collision::do_shift (Grob *me, SCM elts)
 	    {
 	      Grob* r = unsmob_grob (rests[i-1]->get_grob_property ("rest"));
 	      if (r)
-		r->suicide ();
+		{
+		  Grob * d = unsmob_grob (r->get_grob_property ("dot"));
+		  if (d)
+		    d->suicide();
+		  r->suicide ();
+		}
 	      rests[i-1]->suicide ();
 	    }
 	}
