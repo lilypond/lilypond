@@ -1,0 +1,165 @@
+Keywords: midi notation music typesetting gnu
+Subject: LilyPond 0.1 released - The GNU Project music typesetter
+
+	BORN
+
+	August 1, 1997
+
+		Lily
+
+		(GNU LilyPond 0.1)
+
+	daughter to Jan 'Janneke' Nieuwenhuizen and Han-Wen 'Wendy' Nienhuys
+
+Lily is a healthy, bouncing baby weighing 345 kilobytes
+
+Visiting hours: 24 hours a day at
+
+	ftp://pcnov095.win.tue.nl/pub/lilypond/lilypond-0.1.0.tar.gz (Europe)
+	ftp://alpha.gnu.ai.mit.edu/gnu/lilypond-0.1.0.tar.gz (US)
+
+You can see some babyfood, diapers and pictures at
+
+	http://www.stack.nl/~hanwen/lilypond/index.html
+
+You can send your congratulations to Janneke (janneke@gnu.org) and
+Wendy (hanwen@stack.nl)
+
+
+GNU LilyPond - The GNU Project Music Typesetter
+
+
+
+``WHAT IS GNU LilyPond?''
+
+Well Mike, GNU LilyPond is a program which converts music definition
+files into visual or auditive output: it can typeset formatted sheet
+music to a TeX file and (mechanical) performances to MIDI files.
+
+
+We have been working very hard on this system for the past year, and
+we finally think that it is ready to be used and hacked at by a larger
+public than us. 
+
+
+WHY ?
+
+We want to create tools to produce production quality scores and parts
+of public domain music.
+
+
+BUT ..
+
+We haven't yet reached that goal:
+
+* The quality of the output isn't good enough yet due to some
+unsophisticated algorithms
+
+* Some features haven't been implemented, due to lack of time; most of
+them can be done quite simply
+
+This is why we don't consider this software stable yet. It generally
+does what it is supposed to, but we reserve the right to make
+(incompatible) changes to the input format.  We consider it
+of BETA quality.
+
+
+WE WANT YOU!
+
+You can become a user, but we'd really appreciate it if you would start 
+hacking at Lily, and help us advance our project more quickly.
+
+
+``YES, IT IS FANTASTIC! WHAT DO I NEED?''
+
+For compilation you need
+
+	Unix. (windows32 is known to work, too)
+	GNU C++ v2.7 or better, with libg++ installed.
+	GNU make. 
+	Flex (2.5.1 or better). 
+	Bison. (1.25 or better)
+
+For running you need
+
+	TeX
+	MusiXTeX fonts
+
+The MusiXTeX fonts are part of the MusiXTeX package version T.73,
+available at any CTAN mirror, or http://www.gmd.de/Misc/Music/ 
+
+
+``WHAT CAN LILYPOND DO?''
+
+ASCII script input (mudela), with identifiers (for music reuse),
+customizable notenames.
+
+MIDI output lets you check if you have entered the correct notes.
+MIDI to Mudela conversion through the mi2mu program.
+
+Multiple staffs in one score. Each staff can have a different meters.
+Multiple voices within one staff (up to four handled graciously);
+beams optionally shared between voices.  Multiple scores within one
+input file. Each score is output to a different file.
+
+Beams, slurs, chords, super/subscripts (accents and text), 
+general n-plet (triplet, quadruplets, etc.), lyrics, transposition,
+dynamics (both absolute and hairpin style), clef changes, meter
+changes, cadenza-mode, key changes, repeat bars.
+
+Integration with LaTeX through Perl scripts.
+
+
+``WHERE CAN I FIND MORE INFO?''
+
+Sources for this project are on
+
+	ftp://pcnov095.win.tue.nl/pub/lilypond/ (Europe)
+	ftp://alpha.gnu.ai.mit.edu/gnu/ (US)
+
+More detailed info and examples can be found on the webpage at
+
+	http://www.stack.nl/~hanwen/lilypond/index.html
+
+
+THANK YOU,
+
+Thanks go out to Mats Bengtsson, Werner Lemberg and Richard Stallman
+for comments and contributions.
+
+
+****	NOTE
+
+LilyPond might have a minor bug if  you use glibc-2; we will look into it
+If you use glibc-2, please try 0.1.0 to see if it works and, download 0.1.1
+when it's available.  
+
+LilyPond might exhibit a g++ bug on Solaris 1.5 (The stack frame gets corrupted
+by a constructor) if you compile with -O2. We don't know workarounds.  
+
+			      --- * ---
+
+    We would like to dedicate this program to all the friends that we
+			 met through music. 
+
+
+	Those deserving special mention (in no particular order):
+Esther, Marijke, Heike, Inge, Judith, Hannah, Auke, Ilse, Evelyn,
+Maartje, Suzanne, Ilse (gee, again?) and last (but certainly not least)
+Janneke!
+
+	HWN
+
+	That's a nice thought, Wendy.  I've got a few too, to spread
+the credits a bit (Again, no particular order) Michelle, Illushka, 
+Ruth, Eva, Fro/ydis, Monique, Noor, Sascha, Monique, Ilse, Monique, 
+Eva, Roos, Judith, Tim and, of course, Wendy!
+
+	JCN
+ 
+
+Of course, our other friends in the `Eindhovens Jongeren Ensemble'
+(http://www.stack.nl/~hanwen/eje.html) cannot go unmentioned either.
+
+
+			       --- * ---

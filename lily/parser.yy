@@ -345,10 +345,6 @@ yylex (YYSTYPE *s,  void * v)
 %type <music> gen_text_def direction_less_event direction_reqd_event
 %type <scm>   steno_pitch pitch absolute_pitch pitch_also_in_chords
 %type <scm>   explicit_pitch steno_tonic_pitch
-
-/* %type <scm>	chord_additions chord_subtractions chord_notes chord_step */ 
-/* %type <music>	chord */
-/* %type <scm>	chord_note chord_inversion chord_bass */
 %type <scm>	duration_length fraction
 
 %type <scm> new_chord step_number chord_items chord_item chord_separator step_numbers
