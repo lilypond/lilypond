@@ -1,5 +1,8 @@
 2005-03-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/sakura-sakura.ly: 
+	* input/xiao-haizi-guai-guai.ly: Add from Debian package (Anthony).
+
 	* buildscripts/guile-gnome.sh: Update.
 
 	* mf/GNUmakefile (aybabtu.otf): Add dependency on .pe.
