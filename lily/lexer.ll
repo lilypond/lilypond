@@ -93,7 +93,7 @@ NOTECOMMAND	\\{A}+
 LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 ESCAPED		[nt\\'"]
 EXTENDER	__
-
+HYPHEN		--
 %%
 
 
@@ -267,6 +267,8 @@ EXTENDER	__
 		String s (YYText ()); 
 		if (s == "__")
 			return yylval.i = EXTENDER;
+		if (s == "--")
+			return yylval.i = HYPHEN;
 		int i = 0;
                	while ((i=s.index_i ("_")) != -1) // change word binding "_" to " "
 			*(s.ch_l () + i) = ' ';
