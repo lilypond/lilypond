@@ -66,6 +66,10 @@ bool is_valid_version (String s);
 	yy_push_state (quote);\
 	yylval.string = new String
 
+#define start_lyric_quote()	\
+	yy_push_state (lyric_quote);\
+	yylval.string = new String
+
 #define yylval \
 	(*(YYSTYPE*)lexval)
 
@@ -93,17 +97,18 @@ SCM (* scm_parse_error_handler) (void *);
 %option never-interactive 
 %option warn
 
-%x encoding
-%x renameinput
-%x version
 %x chords
+%x encoding
+%x figures
 %x incl
 %x lyrics
-%x notes
-%x figures
-%x quote
+%x lyric_quote
 %x longcomment
 %x markup 
+%x notes
+%x quote
+%x renameinput
+%x version
 
 A		[a-zA-Z]
 AA		{A}|_
@@ -228,6 +233,8 @@ HYPHEN		--
 	{
 		start_main_input ();
 		main_input_b_ = true;
+		SCM nn = lookup_identifier ("pitchnames");
+		push_note_state (alist_to_hashq (nn));
 	}
 	else
 		error (_ ("\\maininput not allowed outside init files"));
@@ -237,6 +244,7 @@ HYPHEN		--
 	yy_push_state (incl);
 }
 <incl>\"[^"]*\";?   { /* got the include file name */
+/* FIXME: semicolon? */
 	String s (YYText ()+1);
 	s = s.left_string (s.index_last ('"'));
 
@@ -244,6 +252,7 @@ HYPHEN		--
 	yy_pop_state ();
 }
 <incl>\\{BLACK}*;?{WHITE} { /* got the include identifier */
+/* FIXME: semicolon? */
 	String s = YYText () + 1;
 	strip_trailing_white (s);
 	if (s.length () && (s[s.length () - 1] == ';'))
@@ -377,10 +386,31 @@ HYPHEN		--
 		*yylval.string += YYText ();
 	}
 }
+<lyric_quote>{
+	\\{ESCAPED}	{
+		*yylval.string += to_string (escaped_char (YYText ()[1]));
+	}
+	[^\\"]+	{
+		*yylval.string += YYText ();
+	}
+	\"	{
+
+		yy_pop_state ();
+
+		/* yylval is union. Must remember STRING before setting SCM*/
+		String *sp = yylval.string;
+		yylval.scm = scm_makfrom0str (sp->to_str0 ());
+		delete sp;
+		return LYRICS_STRING;
+	}
+	.	{
+		*yylval.string += YYText ();
+	}
+}
 
 <lyrics>{
 	\" {
-		start_quote ();
+		start_lyric_quote ();
 	}
 	{FRACTION}	{
 		yylval.scm =  scan_fraction (YYText ());
@@ -409,7 +439,7 @@ HYPHEN		--
 		yylval.scm = scm_makfrom0str (s.to_str0 ());
 
 
-		return STRING;
+		return LYRICS_STRING;
 	}
 	. {
 		return YYText ()[0];
@@ -519,10 +549,17 @@ HYPHEN		--
 }
 
 <<EOF>> {
-	main_input_b_ = false;
-	if (! close_input ()) { 
- 	  yyterminate (); // can't move this, since it actually rets a YY_NULL
+	if (main_input_b_)
+	{
+		main_input_b_ = false;
+		if (!close_input ())
+ 	        /* Returns YY_NULL */
+			yyterminate ();
+		return EOI;
 	}
+	else if (!close_input ())
+ 	        /* Returns YY_NULL */
+ 	  	yyterminate ();
 }
 
 
@@ -598,22 +635,22 @@ HYPHEN		--
 %%
 
 void
-My_lily_lexer::push_note_state (SCM tab)
-{
-	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
-	yy_push_state (notes);
-}
-
-void
-My_lily_lexer::push_figuredbass_state()
-{
-	yy_push_state (figures);
-}
-void
 My_lily_lexer::push_chord_state (SCM tab)
 {
 	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
 	yy_push_state (chords);
+}
+
+void
+My_lily_lexer::push_figuredbass_state ()
+{
+	yy_push_state (figures);
+}
+
+void
+My_lily_lexer::push_initial_state ()
+{
+	yy_push_state (INITIAL);
 }
 
 void
@@ -626,6 +663,13 @@ void
 My_lily_lexer::push_markup_state ()
 {
 	yy_push_state (markup);
+}
+
+void
+My_lily_lexer::push_note_state (SCM tab)
+{
+	pitchname_tab_stack_ = scm_cons (tab, pitchname_tab_stack_);
+	yy_push_state (notes);
 }
 
 void
