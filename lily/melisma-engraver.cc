@@ -9,6 +9,7 @@
 
 #include "engraver.hh"
 #include "musical-request.hh"
+#include "score-element.hh"
 
 /**
    Signal existence of melismas.
@@ -30,9 +31,18 @@ Melisma_engraver::do_try_music (Music *m )
       SCM plain (get_property ("melismaBusy"));
       SCM slur (get_property ("slurMelismaBusy"));
       SCM tie (get_property ("tieMelismaBusy"));
-      return (to_boolean (plain))
-	|| (to_boolean (slur))
-	|| (to_boolean (tie));
+      SCM beam (get_property ("beamMelismaBusy"));
+      
+      if( (to_boolean (plain))
+	  || (to_boolean (slur))
+	  || (to_boolean (tie))
+	  || (to_boolean (beam))) {
+
+	Score_element * melisma_p = new Score_element (get_property ("basicMelismaProperties"));
+	announce_element (melisma_p, m);
+
+	return true;
+      }
     }
   return false;
 }

@@ -733,6 +733,9 @@ ScoreContext = \translator {
 		(break-align-symbol . Clef_item)
 		(visibility-lambda . ,begin-of-line-visible)
 	)
+	basicMelismaProperties = #`(
+	        (interfaces . (melisma-interface))
+	)
 	
 	\accepts "Staff";
 	\accepts "StaffGroup";
