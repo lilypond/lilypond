@@ -39,7 +39,7 @@ public:
   String main_input_name_;
   void *lexval;
   Input *lexloc;
-  bool main_input_b_;
+  bool is_main_input_;
   
   Sources *sources_; 
 

@@ -88,7 +88,9 @@ Music::get_length () const
   SCM lst = get_property ("length");
   if (unsmob_moment (lst))
     return *unsmob_moment (lst);
-  else if (ly_c_procedure_p (lst))
+
+  lst = get_property ("length-callback");
+  if (ly_c_procedure_p (lst))
     {
       SCM res = scm_call_1 (lst, self_scm ());
       return *unsmob_moment (res);

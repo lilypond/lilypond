@@ -338,7 +338,6 @@
 				      break-aligned-interface item-interface ))))
 	))
 
-
     (DotColumn
      . (
 	(axes . (0))
@@ -707,7 +706,8 @@
 	(staff-padding . 0.25)
 	(meta . ((interfaces . (side-position-interface multi-measure-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
- (NoteCollision
+
+    (NoteCollision
      . (
 	(axes . (0 1))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)

@@ -21,7 +21,10 @@
 			      ly:grob-set-property!))
 
 (define-public (music-map function music)
-  "Apply @var{function} to @var{music} and all of the music it contains. "
+  "Apply @var{function} to @var{music} and all of the music it contains.
+
+First it recurses over the children, then the function is applied to MUSIC.
+"
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
     (set! (ly:music-property music 'elements) 
@@ -635,12 +638,18 @@ Syntax:
       (set! (ly:music-property music 'error-found) #t))
   music)
 
+(define (precompute-music-length music)
+  (set! (ly:music-property music 'length)
+	(ly:music-length music))
+  music)
+
 (define-public toplevel-music-functions
   (list
    ;; check-start-chords ; ; no longer needed with chord syntax. 
    (lambda (music parser) (voicify-music music))
    (lambda (x parser) (music-map glue-mm-rest-texts x))
    (lambda (x parser) (music-map music-check-error x))
+   (lambda (x parser) (music-map precompute-music-length x))
    (lambda (music parser)
 
      (music-map (quote-substitute (ly:parser-lookup parser 'musicQuotes))  music))
