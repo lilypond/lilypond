@@ -408,12 +408,11 @@ Simple_spacer_wrapper::solve (Column_x_positions *positions, bool ragged)
       positions->satisfies_constraints_ = 
 	positions->config_.top () < spacer_->line_len_ ;
     }
-
+  else
+    positions->satisfies_constraints_ = spacer_->is_active ();
 
   positions->cols_ = spaced_cols_;
   positions->loose_cols_ = loose_cols_;
-  positions->satisfies_constraints_ =
-    positions->satisfies_constraints_ && spacer_->is_active ();
 
   /*
     Check if breaking constraints are met.
@@ -468,6 +467,13 @@ Simple_spacer::add_spring (Real ideal, Real hooke)
   springs_.push (desc);
 }
 
+static int
+compare_paper_column_rank (Grob  *const &a,
+			   Grob  *const &b)
+{
+  return Paper_column::get_rank (a) - Paper_column::get_rank (b); 
+}
+
 void
 Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 {
@@ -513,11 +519,19 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 	   scm_is_pair (s); s = scm_cdr (s))
 	{
 	  Grob * other = unsmob_grob (scm_caar (s));
-	  int oi = cols.find_index (other);
+	  int oi = binsearch_links (cols, other, &compare_paper_column_rank);
 	  if (oi >= 0)
 	    {
 	      spacer_->add_rod (i, oi, scm_to_double (scm_cdar (s)));
 	    }
+	}
+
+      if (i
+	  && !to_boolean  (cols[i]->get_property ("allow-outside-line")))
+	{
+	  Interval e = cols[i]->extent (cols[i], X_AXIS);
+	  spacer_->add_rod (i, cols.size()-1, e[RIGHT]);
+	  spacer_->add_rod (0, i, e[LEFT]);
 	}
     }
 }

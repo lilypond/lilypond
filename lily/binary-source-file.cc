@@ -6,11 +6,9 @@
   (c) 1997--2004 Jan Nieuwenhuizen
 */
 
-
-#include "binary-source-file.hh"
-
 #include <climits>		// INT_MAX
 
+#include "binary-source-file.hh"
 #include "string-convert.hh"
 
 Binary_source_file::Binary_source_file (String& file_name_string)

@@ -235,7 +235,7 @@ junk_pointers (Link_array<T> &a)
 */
 template<class T>
 int
-binsearchs (Array<T> const &arr, T t, int (*compare) (T const&,T const&))
+binsearch (Array<T> const &arr, T t, int (*compare) (T const&,T const&))
 {
   int lo;
   int hi;

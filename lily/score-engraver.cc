@@ -177,7 +177,9 @@ Score_engraver::typeset_all ()
       
       if (dynamic_cast<Item*> (elem)) 
 	{
-	  if (!elem->get_parent (X_AXIS)
+	  if (
+	      (!elem->get_parent (X_AXIS)
+	       || !unsmob_grob  (elem->get_property ("axis-group-parent-X")))
 	      && elem != command_column_
 	      && elem != musical_column_
 	      )

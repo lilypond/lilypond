@@ -44,9 +44,7 @@ Axis_group_engraver::process_music ()
   if (!staffline_)
     {
       staffline_ = get_spanner ();
-
       Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));
-
       staffline_->set_bound (LEFT,it);
     }
 } 
@@ -106,9 +104,7 @@ Axis_group_engraver::process_acknowledged_grobs ()
   
   for (int i=0; i < elts_.size (); i++)
     {
-      Grob *par = elts_[i]->get_parent (Y_AXIS);
-
-      if (!par || !Axis_group_interface::has_interface (par))
+      if  (!unsmob_grob (elts_[i]->get_property ("axis-group-parent-Y")))
 	{
 	  if (staffline_->get_parent (Y_AXIS)
 	      && staffline_->get_parent (Y_AXIS) == elts_[i])

@@ -300,8 +300,8 @@ context.")
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
      (repeatCommands ,list? "This property is read to find any command of the form @code{(volta . @var{x})}, where @var{x} is a string or @code{#f}")
      (restNumberThreshold ,number?
-			  "If a multimeasure rest takes less
-than this number of measures, no number is printed. ")
+			  "If a multimeasure rest has more measures
+than this, a number is printed. ")
      (shapeNoteStyles ,vector? "Vector of symbols, listing style for each note
 head relative to the tonic (qv.) of the scale.")
      (skipBars ,boolean? "If set to true, then

@@ -26,10 +26,10 @@ Notes:
 */
 
 
-#include "beam.hh"
 
 #include <cmath> // tanh.
 
+#include "beam.hh"
 #include "interval-set.hh"
 #include "directional-element-interface.hh"
 #include "beaming.hh"
