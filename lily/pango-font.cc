@@ -36,6 +36,7 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
   //  context_ = pango_ft2_font_map_create_context (fontmap);  
   attribute_list_= pango_attr_list_new();
 
+  
   /*
     urgh. I don't understand this. Why isn't this 1/(scale * resolution)
 
