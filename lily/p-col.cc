@@ -107,6 +107,7 @@ PCol::PCol(PCol *parent)
     line_l_=0;
     hpos = -1.0;
     pscore_l_ = 0;
+    rank_i_ = -1;
 }
 
 PCol::~PCol()

@@ -14,23 +14,27 @@ Buildroot: /tmp/lilypond_build
 LilyPond is a program which converts a music-script (mudela) into
 TeX output, or MIDI to produce multi-staff scores. Features include multiple
 meters, clefs, keys, lyrics, versatile input-language, cadenzas
-beams, slurs, triplets, multi voices.
+beams, slurs, triplets, multiple voices.
 
 %prep
 %setup
 %build
-configure --enable-checking --enable-printing --prefix=/usr --enable-optimise
+configure --enable-checking --disable-debugging --enable-printing --prefix=/usr --enable-optimise --enable-shared
 make all
 %install
 strip bin/lilypond bin/mi2mu
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc @TEXT_DOCS@ Documentation/lelie_logo.gif
+%doc @TEXT_DOCS@ @EXAMPLE_LYS@ Documentation/lelie_logo.gif
+/usr/bin/convert-mudela
 /usr/bin/lilypond
+/usr/lib/libflower.so
 /usr/bin/mi2mu
 /usr/man/man1/lilypond.1
 /usr/man/man5/mudela.5
+/usr/man/man1/convert-mudela.1
 /usr/lib/texmf/texmf/tex/lilypond/
+/usr/lib/texmf/texmf/fonts/source/lilypond/
 /usr/share/lilypond/
 
 %post

@@ -1,0 +1,66 @@
+
+
+
+AUTHORS(1)            LilyPond documentation           AUTHORS(1)
+
+
+NNNNAAAAMMMMEEEE
+       AUTHORS - who did what on LilyPond?
+
+DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
+       This file lists authors of LilyPond, and what they wrote.
+
+       +o   Han-Wen Nienhuys <hanwen@stack.nl>
+
+           Main author, all files files except mentioned below
+
+       +o   Jan Nieuwenhuizen <jan@digicash.com>
+
+           lily/midi-*, mi2mu/*, flower/string.cc, make/*.make,
+           Documentation/mudela.pod lib/*source-file*,
+           lib/duration.cc, lib/source, flower/*list*
+
+           and corresponding header files.
+
+       +o   Mats Bengtsson <matsb@s3.kth.se>, parts of clef-
+           reg.cc, clef-item.cc testing, general comments.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+21/Apr/97                LilyPond 0.0.54                        1
+
+

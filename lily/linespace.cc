@@ -152,9 +152,9 @@ Spacing_problem::make_constraints(Mixed_qp& lp) const
 {    
     int dim=cols.size();
     for (int j=0; j < dim; j++) {
-	Colinfo *c=&(cols[j]);
-	if (c->fixed()) {
-	    lp.add_fixed_var(j,c->fixed_position());	    
+	Colinfo c=cols[j];
+	if (c.fixed()) {
+	    lp.add_fixed_var(j,c.fixed_position());	    
 	}
 	if (j > 0){
 	    Vector c1(dim);
@@ -174,7 +174,6 @@ Spacing_problem::solve() const
     OK();
     assert(check_feasible());
 
-    /* optimalisatiefunctie */        
     Mixed_qp lp(cols.size());
     make_matrices(lp.quad,lp.lin, lp.const_term);
     make_constraints(lp);    
@@ -196,8 +195,6 @@ Spacing_problem::solve() const
 void
 Spacing_problem::add_column(PCol const *col, bool fixed, Real fixpos)
 {
-    if (!col->used_b() )
-	return;
     Colinfo c(col,(fixed)? &fixpos :  0);
     cols.push(c);
 }

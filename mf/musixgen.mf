@@ -1,0 +1,1518 @@
+% next changes: - redesigning accidentals
+%               - new accents
+%               - new gregorian symbols
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  this is musixgen.mf (c)
+%
+%  Version T.59 [September 96]
+%               - added one more gregorian symbol (126)
+%
+%  Version T.40 [September 95]
+%               - corrected gregorianFclef (123)
+%
+%  Version 0.37 [March 95]
+%               - introduced reverseAllabreve (122)
+%
+%  Version 0.25 [December 94]
+%               - some new chars
+%               - added the beamfonts at pos x+128 to save memory
+%               - changed coda to be centered
+%               - changed the flags
+%               - changed the position of some chars to save time
+%
+%      ...      - trouble shooting, minor changes
+%
+%  Version 0.99b[April 94]
+%               - added the new signs from Daniel Taupin
+%
+%  Version 0.99 [February 94]
+%               -'bravely' changed the tfm informations to save memory
+%               - redesigned chars 14, 15, 35, 36, 53, 71, 72, 80, 81, 86, 93
+%               - removed * 'never used' chars 37-39, 55-57, 69-70,
+%                                              77-79, 91-99, 101-119
+%                         * (de)crescendi 16-23 -> now in musixlin
+%               - introduced some new chars 0-11, 16-23, 37-39, 57, 77-79,
+%                                           99-117
+%               - changed the position of some chars to save memory
+%%%%%%%%%%
+%  this was musicgen.mf
+%
+%  Version 4.89 [September 93] Andreas Egler
+%               - blacker influence now
+%               - redesigned chars 71, 72, 53, 123
+%
+%  Version 4.88 [January 93] Ross Mitchell
+%               - redesigned chars 63, 64, 65, 66
+%
+%  Version 4.87 [] Daniel Taupin
+%
+%  Version 2.00 [] Daniel Taupin
+%
+%  Version 1.00 [August 86] Angelika Schofer/Andrea Steinbach
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% free positions: 125-127, 188-191, 252-255
+% heights : 0, 0.5, 1, 1.5, 2.25, 3.25, 4, 4.75, 5.25
+% depths  : 0, 0.5, 1, 1.5, 2.25
+
+%{{{ This always indicates a lowres fix to avoid seperated points
+%}}} and/or 'invisible' lines. It doesn't affect higher resolutions !!
+
+pair pone, ptwo;
+transform t;
+path p;
+
+hlthick=.2pt;
+lthick=.4pt;
+
+pen line_pen, med_pen, coda_pen, thin_pen;
+med_pen:= pencircle scaled med;
+line_pen:= pencircle scaled lthick;
+coda_pen:= pencircle xscaled 1.25thick yscaled max(1,.75med);
+thin_pen:= pencircle scaled max(1,.25pt);
+
+apog_fact=.75;
+apog_nhw#=apog_fact*nhw#;
+
+picture save_pic, elem_pic;
+
+%%%%%%%%%%%%%%%
+% basic def's %
+%%%%%%%%%%%%%%%
+
+def savepic = save_pic:= currentpicture enddef;
+def save_elempic = elem_pic:= currentpicture enddef;
+def callpic = currentpicture:= save_pic enddef;
+
+def mirror (expr pone, ptwo) =
+  currentpicture:=currentpicture reflectedabout(round(pone),round(ptwo))
+enddef;
+
+def add_mirror (expr pone, ptwo) =
+  addto currentpicture also currentpicture
+        reflectedabout (round(pone), round(ptwo))
+enddef;
+
+def call_mirror (expr pone, ptwo) = callpic; mirror (pone, ptwo) enddef;
+
+def add_shift (expr pone, ptwo) =
+  addto currentpicture also currentpicture shifted (pone, ptwo)
+enddef;
+
+def call_add_shift (expr pone, ptwo) =
+  callpic; add_shift (pone, ptwo)
+enddef;
+
+def add_elempic (expr pone, ptwo) =
+  addto currentpicture also elem_pic shifted (pone, ptwo)
+enddef;
+
+def call_add_save_elempic (expr pone, ptwo) =
+  callpic; add_elempic(pone, ptwo); savepic
+enddef;
+
+def shift_pic (expr pone, ptwo) =
+  currentpicture:=currentpicture shifted (round(pone),round(ptwo))
+enddef;
+
+def fill_circle (expr diameter, zshift) =
+  fill fullcircle scaled diameter shifted zshift
+enddef;
+
+def fill_square (expr xwidth, ywidth, zshift) =
+  fill unitsquare xscaled xwidth yscaled ywidth shifted zshift
+enddef;
+
+%
+
+def staff=
+  for i=0 upto 4:
+    pickup pencircle yscaled lthick;
+    draw (-5nhw,i*nhh)--(5nhw,i*nhh);
+  endfor
+enddef;
+
+def Staff=
+  for i=0 upto 4:
+    pickup pencircle yscaled lthick;
+    draw (-5nhw,(i*nhh-.5nhh))--(5nhw,(i*nhh-.5nhh));
+  endfor
+enddef;
+
+def upstem=
+  fill_square (lthick, 5nhh, (0,-5nhh))
+enddef;
+
+def downstem=
+  fill_square (lthick, 5nhh, (nhw-hlthick,0))
+enddef;
+
+% eobasicdefs ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+%%%%%%%
+message ("<dots & par's>");
+%%%%%%%
+
+beginchar(0, 0, 0, 0); "duration dot"; % correct 3=>0 DT
+  fill_circle (1/3nhh+blacker, (1.5nhw, 0));
+  save_elempic;
+  savepic;
+endchar;
+
+beginchar(1, 0, 0, 0); "double duration dot";
+  call_add_shift (.5nhw, 0);
+  savepic;
+endchar;
+
+beginchar(2, 0, 0, 0); "triple duration dot";
+  callpic;
+  add_elempic (nhw, 0);
+endchar;
+
+beginchar(3, 0, nhh#, nhh#); "left parenthesis"; % correct 0=>3 DT
+  x11=x13=-.1nhw; y12=0; x12=-.3nhw; y11=-y13=-.75nhh;
+  pickup med_pen;
+  draw z11..z12..z13;
+  savepic;
+endchar;
+
+beginchar(4, 0, nhh#, nhh#); "right parenthesis";
+  call_mirror ((.5nhw,0),(.5nhw,1));
+endchar;
+
+beginchar(5, 0, nhh#, nhh#); "cautionary parentheses";
+  callpic;
+  add_mirror ((.3nhw, 0),(.3nhw, 1));
+endchar;
+
+beginchar(6, 0, nhh#, nhh#); "cautionary wide parentheses";% -> bb
+  callpic;
+  add_mirror ((.55nhw, 0),(.55nhw, 1));
+endchar;
+
+%%%%%%%
+message("<accents>");
+%%%%%%%
+
+beginchar(120, 0, 1.5nhh#, 0); "harmonics";
+  pickup thin_pen;
+  draw fullcircle scaled .5nhw shifted (.5nhw, nhh);
+endchar;
+
+%beginchar(XX, 0, 1.5nhh#, 0); "???";
+%  x1=0; x2=.5nhw; x3=nhw-x1; x3=x4+.25nhw; x6=x1+med;
+%  y1=y6=y4=y3=nhh; y2=y1+nhh;
+%  z5-z6=whatever*(z2-z1);
+%  z5-z4=whatever*(z2-z3);
+%  fill z1--z2--z3--z4--z5--z6--cycle;
+%  fill_circle (thick, ((x5,y1+.5thick)));
+%  savepic;
+%endchar;
+
+beginchar(20, 0, 2.25nhh#, 0); "upper sforzato";
+  x1=1/12nhw; x2=.5nhw; x3=nhw-x1; x3=x4+.25nhw; x6=x1+med;
+  y1=y6=y4=y3=nhh; y2=y1+nhh;
+  z5-z6=whatever*(z2-z1);
+  z5-z4=whatever*(z2-z3);
+  fill z1--z2--z3--z4--z5--z6--cycle;
+  savepic;
+endchar;
+
+beginchar(21, 0, 0, 2.25nhh#); "lower sforzato";
+  call_mirror (origin, right);
+endchar;
+
+beginchar(22, 0, nhh#, 0); "downbow";
+  fill_square (thin, nhh, (-thin, .4nhh));
+  fill_square (.5nhw+thin+1, .8beamht+thin, (-thin, nhh));
+  add_mirror ((.5nhw,0),(.5nhw,1));
+endchar;
+
+beginchar(23, 0, 1.5nhh#, 0); "upbow";
+  pickup med_pen;
+  draw (.15nhw, 1.7nhh)--(.5nhw, .2nhh);
+  add_mirror ((.5nhw,0),(.5nhw,1));
+endchar;
+
+beginchar(24, 0, nhh#, 0); "upper staccato";
+  fill_circle (.275nhw+blacker, (.5nhw, nhh));
+  savepic;
+endchar;
+
+beginchar(25, 0, 0, nhh#); "lower staccato";
+  call_mirror (origin, right);
+endchar;
+
+beginchar(18, 0, nhh#, 0); "upper tenuto/staccato";
+  fill_square (nhw, 1.25med, (0, 1.2nhh-.625med));
+  fill_circle (.275nhw+blacker, (.5nhw, .9nhh));
+  savepic;
+endchar;
+
+beginchar(19, 0, 0, nhh#); "lower tenuto/staccato";
+  call_mirror (origin, right);
+endchar;
+
+beginchar(26, 0, nhh#, 0); "upper portato (tenuto)";
+  fill_square (nhw, 1.25med, (0, nhh-.625med));
+  savepic;
+endchar;
+
+beginchar(27, 0, 0, nhh#); "lower portato (tenuto)";
+  call_mirror (origin, right);
+endchar;
+
+beginchar(28, 0, 1.5nhh#, 0); "upper staccatissimo";
+  rayon:= thin+.125nhh;
+  x1=x3=x2+rayon=x4-rayon=.5nhw;
+  y2=y4=y1-rayon=y3+.5nhh=1.15nhh;
+  fill z3--z4{up}..z1..{down}z2--cycle;
+  savepic;
+endchar;
+
+beginchar(29, 0, 0, 1.5nhh#); "lower staccatissimo";
+  call_mirror (origin, right);
+endchar;
+
+beginchar(30, 0, 2.25nhh#, 0); "upper marcato";
+  pickup med_pen;
+  draw (-.2nhw, 1.9nhh)--(1.2nhw, 1.5nhh)--(-.2nhw, 1.1nhh);
+  savepic;
+endchar;
+
+beginchar(31, 0, 0, 2.25nhh#); "lower marcato";
+  call_mirror (origin, right);
+endchar;
+
+%%%%%%%
+message ("<noteheads>");
+%%%%%%%
+
+NHW=nhw+hlthick;
+
+beginchar(7, 0, .5nhh#, .5nhh#); "quarter note";
+% makeshift, expedience
+if pixels_per_inch=600:
+  if NHW>50: corNHW=1.04*NHW; else: corNHW=1.04*NHW+1; fi
+    fill fullcircle xscaled corNHW yscaled 1.85h
+         rotated 20 shifted (.5NHW-.5, 0);
+else:
+  corNHW=1.065*NHW;
+    fill fullcircle xscaled corNHW yscaled 1.85h
+         rotated 20 shifted (.5NHW, 0);
+fi
+endchar;
+
+beginchar(8, 0, .5nhh#, .5nhh#); "half note";
+  penpos1(max(1,2hlthick), 0);
+  penpos3(max(1,2hlthick), 180);
+  penpos2(thick,-90);
+  penpos4(thick, 90);
+  -x1l = .53NHW;
+  x3l = .5NHW;
+  x2 = x4 = y1 = y3 = 0;
+  y2l =-y4l = h;
+  penstroke (z1e{up}..z2e{right}..z3e{down}..z4e{left}..cycle)
+             rotated 20 shifted (.5NHW, 0);
+endchar;
+
+beginchar(9, 0, .5nhh#, .5nhh#); "whole note";
+  x1= y1 = y3 = y5 = y7 = 0;
+  x3= 2x2 = 2x4 = 2x6 = 2x8 = 5/4nhw;
+  y2=-y4 = h;
+  x5= x3-x7 = x1+.375nhw-blacker;
+  y6=-y8 = y2-.1thin;
+  fill z1{curl3}..z2..{curl3}z3{curl3}..z4..{curl3}cycle;
+  unfill (z5..z6..z7..z8..cycle) rotatedaround ((x2,0), 45) shifted (.5,.5);
+%{{{
+  currentpen:= pencircle;
+  draw rt z1{curl3}..bot z2..{curl3}lft z3{curl3}..top z4..{curl3}cycle;
+%}}}
+  labels(range 1 thru 8);
+  savepic;
+endchar;
+
+beginchar(56, 0, .5nhh#, .5nhh#); "whole note with | --> |O|";
+  callpic;
+  fill_square (.6thick, nhh, (-.55thick,-.5nhh));
+  fill_square (.6thick, nhh, (5/4nhw-.05thick,-.5nhh));
+endchar;
+
+beginchar(32, 0, .5nhh#, .5nhh#); "brevis";% 2 whole notes
+  fill_square (5/4nhw, .25nhh, (0,.25nhh));
+  add_mirror (origin, right);
+  x1=x2=0; x3=x4=5/4nhw; y1=-y2=y3=-y4=.7nhh;
+  pickup line_pen;
+  draw z1--z2; draw z3--z4;
+  savepic;
+endchar;
+
+beginchar(39, 0, .5nhh#, .5nhh#); "longa";% 4 whole notes
+  callpic;
+  pickup line_pen;
+  draw (5/4nhw,-.7nhh)--(5/4nhw,-1.7nhh);
+endchar;
+
+beginchar(36, 0, .5nhh#, .5nhh#); "maxima";% 8 whole notes
+  fill_square (5/2nhw, .3nhh, (0,.2nhh));
+  add_mirror (origin, right);
+  pickup line_pen;
+  draw (0,.7nhh)--(0,-.7nhh); draw (5/2nhw,.7nhh)--(5/2nhw,-1.7nhh);
+endchar;
+
+beginchar(37, 0, .5nhh#, .5nhh#); "filled diamond";% -> triangle
+  fill unitsquare scaled (.5*sqrt(2)*NHW) rotated -45;
+endchar;
+
+def square (expr mw)=
+  fill_square (sqrt(2)*.5mw, max(1,thin), origin) rotated -45;
+  fill_square (sqrt(2)*.5mw, .15nhw, (0,-.15nhw)) rotated 45;
+  save_elempic;
+  mirror (origin,up);
+  mirror (origin,left);
+  shift_pic (mw+.5,0);
+  add_elempic(0,0);
+%  mirror (origin,right);% I've seen this too, somewhere ...
+enddef;
+
+beginchar(38, 0, .5nhh#, .5nhh#); "unfilled diamond";% -> rimshot
+  square (NHW);
+endchar;
+
+beginchar(99, 0, .5nhh#, .5nhh#); "oldstyle quarter notehead up";
+  x1=x4=0; x2=x3=NHW; y1=y2=-y3=-y4=h-hlthick;
+  fill z1{dir-10}..z2--z3{dir-170}..z4--cycle;
+  savepic;
+endchar;
+
+beginchar(100, 0, .5nhh#, .5nhh#); "oldstyle quarter notehead down";
+  call_mirror(origin, right);
+endchar;
+
+beginchar(101, 0, .5nhh#, .5nhh#); "oldstyle half notehead up";
+  pthick:=.2nhh;
+  x1=0; x2=NHW; y1=y2=h-.5pthick+hlthick;
+  pickup penrazor scaled pthick rotated 90;
+  draw z1{dir-10}..z2;
+  add_shift (0, -nhh+pthick);
+  fill_square (lthick, nhh-hlthick, (0, -h+hlthick));
+  fill_square (lthick, nhh-hlthick, (nhw-hlthick, -h+hlthick));
+  savepic;
+endchar;
+
+beginchar(102, 0, .5nhh#, .5nhh#); "oldstyle half notehead down";
+  call_mirror(origin, right);
+endchar;
+
+beginchar(111, 0, .5nhh#, .5nhh#); "cross"; % -> closed hihat
+  x1=0; x2=nhw; y1=-.5nhw; y2=-y1;
+  pickup med_pen;
+  draw top rt z1--bot lft z2;
+  add_mirror((.5nhw,0),(.5nhw,1));
+  savepic;
+endchar;
+
+beginchar(112, 0, .5nhh#, .5nhh#); "halfcircled cross";% -> halfclosed hihat
+  callpic;
+  pickup thin_pen;
+  draw halfcircle scaled nhw shifted (.5nhw,0);
+endchar;
+
+beginchar(113, 0, .5nhh#, .5nhh#); "circled cross";% -> open hihat
+  callpic;
+  pickup thin_pen;
+  draw fullcircle scaled nhw shifted (.5nhw,0);
+endchar;
+
+def doublesharp (expr mw, xshift)=
+  x1=y2=x3=0; y1=x2=y4=.5mw; y3=.5mw-x4=.1mw;
+  z4'=.925[z3,z4]; z3'=.925[z4,z3];                        % ***
+  penpos2(max(1,thin),45);
+%%% a 'nicer' look for 'high'res-printers gives
+if pixels_per_inch > 500:
+  fill z1..{dir-125}z3'{dir35}..{se}z2l--z2r--z1--cycle;
+  fill z1..{dir35}z4'{dir-125}..{se}z2r--z2l--z1--cycle;   % ***
+else :
+%%% but this causes 'strange path' on lower resolutions
+  fill z1..{dir-110}z3'{dir30}..{se}z2l--z2r--z1--cycle;
+  fill z1..{dir20}z4'{dir-120}..{se}z2r--z2l--z1--cycle;   % ***
+fi
+%{{{
+  currentpen:= pencircle; draw z1--(x2+1,y2-1);% draw (x3'+1,y3'+1)--z5';
+%}}}
+% add_mirror ((0,.5mw),(.5mw,0));                          % ***
+  add_mirror ((.5mw,-.5mw),(.5mw,.5mw));
+  add_mirror (origin, right);
+  shift_pic (xshift, 0);
+enddef;
+
+beginchar(114, 0, .5nhh#, .5nhh#); "doublesharp notehead";% -> ride cymbal
+  doublesharp (.95nhw,0.025nhw);
+  savepic;
+endchar;
+
+beginchar(115,0, .5nhh#, .5nhh#);"circled doublesharp notehead";%->crash cymbal
+  callpic;
+  pickup thin_pen;
+  draw fullcircle scaled nhw shifted (.5nhw,0);
+endchar;
+
+beginchar(116, 0, .5nhh#, .5nhh#); "triangle";% -> rattle
+  x1=y1=y2=0; x2=2x3=nhw; y3=.8h;
+  pickup med_pen;
+  draw z1--z2--z3--z1;
+endchar;
+
+beginchar(117, 0, .5nhh#, .5nhh#); "bongo cross";
+  pickup med_pen;
+  draw (0,0)--(nhw,0);
+  draw (0.5nhw,-0.5nhw) -- (0.5nhw,0.5nhw);
+endchar;
+
+beginchar(118, 0, .5nhh#, .5nhh#); "rhombus";% -> shaker
+  x1=x4=y2=y4=0; y1=-y3=-h; x2=x3=NHW;
+  fill z1--z2--z3--z4--cycle;
+endchar;
+
+beginchar(95, 0, .5nhh#, .5nhh#); "gregorian square";
+  x1=x4=0; x2=x3=gregwidth; y1=y2=-y3=-y4=.5gregwidth-lthick;
+  fill z1{dir 15}..z2--z3{dir 165}..z4--cycle;
+  shift_pic(0,-hlthick);
+  savepic;
+endchar;
+
+beginchar(96, 0, .5nhh#, .5nhh#); "gregorian square left";
+  callpic;
+  fill_square (med, 1.5nhh,(0, -1.5nhh));
+endchar;
+
+beginchar(97, 0, .5nhh#, .5nhh#); "gregorian square right";
+  callpic;
+  fill_square (med, 1.5nhh,(gregwidth-med, -1.5nhh));
+  savepic;
+endchar;
+
+beginchar(124, 0, .5nhh#, .5nhh#); "porrectus";
+  x1=x4=0; x2=x3=2.5*gregwidth; y1=-y4=.5gregwidth-lthick; y2=y1-nhh; y3=y4-nhh;
+  fill z1..{right}z2--z3{left}..z4--cycle; shift_pic(0,hlthick);
+  fill_square (med, 1.5nhh,(0, -1.5nhh));
+endchar;
+
+beginchar(125, 0, .5nhh#, .5nhh#); "quilisma";
+  qdecalage:=.12*gregwidth;
+  x1=x4=-0.2*gregwidth; x2=x3=1.2*gregwidth;
+  y1+qdecalage=y2-qdecalage=.5gregwidth-lthick;y1=-y3; y2=-y4;
+  fill z1--z2--z3--z4--cycle;
+  pickup med_pen;
+  
+  draw z4--(z1+0.4*(z1-z4));
+  draw (0.667z4+0.333z3)--((0.667z1+0.333z2)+0.4*(z1-z4));
+  draw (0.333z4+0.667z3)--((0.333z1+0.667z2)+0.4*(z1-z4));
+  draw z3--(z2+0.4*(z1-z4));
+  shift_pic(0,-hlthick);
+endchar;
+
+beginchar(126, 0, .5nhh#, .5nhh#); "mirrored gregorian square";
+  x1=x4=0; x2=x3=gregwidth; y1=y2=-y3=-y4=-.5gregwidth+lthick;
+  fill z1{dir -15}..z2--z3{dir -165}..z4--cycle;
+  shift_pic(0,+hlthick);
+endchar;
+
+
+
+%%%%%%%
+message ("<flags>");
+%%%%%%%
+
+flagw:=.8nhw;
+flagthick:=nhh;
+flagthin:=5thinwidth;
+
+def flagshape
+(expr contflag, width, height, flgthick, flgthin, shifty, flagsense) =
+  penpos1(flgthick+blacker, 90);   % .1
+  penpos2(3.25flgthin+blacker, 70);%
+  x1 = 0;                          %     .2
+  y1 = height+shifty-.5flgthick;   %
+  x2 = 3/8width;                   %         .3
+  y2 = y1-.45flgthick;             %
+  x3 = width-flgthin/2;            %      .4(.4)
+  y3 = y1-1.5flgthick;
+
+  if contflag=1:  x4 = x3-.4width; y4 = shifty;
+  else:           x4 = x3; y4 = 2.5flagthick-2flgthick; fi
+  if flagsense>0: penpos3(1.15flgthin, 35);
+  else:           penpos3(.8flgthin, 0); fi
+
+  penstroke z1e..z2e..z3e{down}..z4;
+%{{{
+  currentpen:= pencircle; draw lft z1..z2..z3{down}..z4;
+%}}}
+  penlabels(1,2,3,4)
+enddef;
+
+def mirror_flag(expr sense)= if sense<0: mirror((0,h/2),(1,h/2));fi enddef;
+
+def cflag (expr sense) =
+  flagshape(1, flagw, 3nhh, flagthick, flagthin, 0, sense);
+  mirror_flag(sense);
+  savepic;
+enddef;
+
+def ccflag (expr sense) =
+  flagshape(5, flagw, 2.25nhh, 2/3flagthick, flagthin, flagthick, sense);
+  save_elempic;
+  clearxy;
+  flagshape(1, flagw, 2.5nhh, 2/3flagthick, flagthin, 0, sense);
+  savepic;
+  mirror_flag(sense);
+enddef;
+
+def addflag (expr sense, shifty) =
+  call_add_save_elempic (0, shifty*.75flagthick);
+  mirror_flag(sense);
+enddef;
+
+def cccflag (expr sense) = addflag(sense, 1) enddef;
+def ccccflag (expr sense) = addflag(sense, 2) enddef;
+def cccccflag (expr sense) = addflag(sense, 3) enddef;
+
+beginchar(40, 0, 3.25nhh#, 0); "8th flag up";
+  cflag(1);
+  shift_pic (0, .5nhh+.5);
+endchar;
+
+beginchar(12, 0, 3.25nhh#, 0); "acciacaturra stem up";
+  callpic;
+  pickup med_pen;
+  x1=-.25nhw; y1=.2h; x2=1.1nhw; y2=y1+.6(x2-x1);
+  draw z1--z2;
+  shift_pic (0, .5nhh+.5);
+endchar;
+
+beginchar(41, 0, 3.25nhh#, 0); "16th flag up";
+  ccflag(1);
+  shift_pic (0, .25nhh);
+endchar;
+
+beginchar(42, 0, 4nhh#, 0); "32th flag up";
+  cccflag(1);
+  shift_pic (0, .25nhh);
+endchar;
+
+beginchar(43, 0, 4.75nhh#, 0); "64th flag up";
+  ccccflag(1);
+  shift_pic (0, .25nhh);
+endchar;
+
+beginchar(44, 0, 5.5nhh#, 0); "128th flag up";
+  cccccflag(1);
+  shift_pic (0, .25nhh);
+endchar;
+
+%%%
+% flags up should be wider
+%%%
+flagw:=nhw;
+
+beginchar(45, 0, 3.25nhh#, 0); "8th flag down";
+  cflag(-1);
+  shift_pic (0,-.5nhh-.5);
+endchar;
+
+beginchar(13, 0, 3.25nhh#, 0); "acciacaturra stem down";
+  callpic;
+  pickup med_pen;
+  x1=-.25nhw; y1=1.6nhh; x2=1.2nhw; y2=y1+.6(x2-x1);
+  draw z1--z2;
+  shift_pic (0,-.5nhh-.5);
+endchar;
+
+beginchar(46, 0, 3.25nhh#, 0); "16th flag down";
+  ccflag(-1);
+  shift_pic (0,-.25nhh);
+endchar;
+
+beginchar(47, 0, 4nhh#, 0); "32th flag down";
+  cccflag(-1);
+  shift_pic (0,-.25nhh);
+endchar;
+
+beginchar(48, 0, 4.75nhh#, 0); "64th flag down";
+  ccccflag(-1);
+  shift_pic (0,-.25nhh);
+endchar;
+
+beginchar(49, 0, 5.5nhh#, 0); "128th flag down";
+  cccccflag(-1);
+  shift_pic (0,-.25nhh);
+endchar;
+
+%%%%%%%
+message("<accidentals>");
+%%%%%%%
+
+def flat (expr reduction, shiftx, flatsense) =
+  fthick:= reduction*thick;
+  penpos4(4/3fthick,0);   % 1
+  penpos3(1/2fthick,-90); %
+  penpos6(4/7fthick,90);  %   6
+  x1 = x2 = x3 = x5 = fthick;     %  / \
+  y1 = 6fthick; y2 = .5y4;        % 2   4
+  y3l=-2fthick; y5 = y3r;         %    /
+  x4 = 3.6fthick; y4 = .1fthick;  % 3,5
+  y6r= 2fthick; x6 = .5(x2+x4);
+  t:= identity shifted (round(shiftx),0);
+  p:= (z1--z5) transformed t;
+  pickup penrazor scaled max(1,(2sind40*thin)) rotated 40;
+  draw p;
+  penstroke (z2..{right}z6e..z4e{sw+down}..{sw}z3e) transformed t;
+  if flatsense<0: mirror (z5 transformed t, z1 transformed t); fi
+  penlabels (1,2,3,4,5,6)
+enddef;
+
+beginchar(50, nhw#, 1.5nhh#, .5nhh#); "flat";
+  flat (1, 0, 1);
+  savepic;
+endchar;
+
+beginchar(51, 1.7nhw#, 1.5nhh#, .5nhh#); "doubleflat";
+  call_add_shift (.7nhw, 0);
+endchar;
+
+def sharp (expr reduction, zshift) =
+  sthick:= .5reduction*thick;
+  nx:= reduction*1.5nhh;
+  ny:= reduction*.8nhw;
+  y1 =-y7= nx-1.5sthick; y2 =-y8 = .5sthick-nx;
+  x1 = x2 = y3 = -y6 = ny-x7 = ny-x8 = 2sthick;
+  y4 =-y5 = y3 + 3sthick;
+  x3 = x5 = 0; x4 = x6 = ny;
+  pickup penrazor scaled max(1,thin) rotated angle(z4-z3);
+  draw z1--z2; draw z8--z7;
+  pickup penrazor scaled 3sthick rotated 90;
+  draw z3--z4; draw z5--z6;
+  shift_pic (zshift, 0);
+  labels (range 1 thru 8)
+enddef;
+
+beginchar(52, nhw#, 1.5nhh#, 1.5nhh#); "sharp";
+  sharp (1, 0);
+endchar;
+
+beginchar(53, nhw#, .5nhh#, .5nhh#); "doublesharp";
+  doublesharp (w, -.1nhw);
+endchar;
+
+def natural (expr reduction, zshift) =
+  ny:= .8nhw*reduction;
+  nthick:= 3/4reduction*thick;
+  x1 = x2 = x3 = nthick+.5thin;
+  x5 = x6 = x4 = ny-x1;
+  y1 = -y6 = 1.5nhh*reduction;
+  y2 = -y5 = 1.6nthick;
+  y4 = -y3 = y2+4/3nthick;
+  pickup penrazor scaled max(1,thin) rotated angle(z4-z2);
+  draw lft z1--bot lft(x3,y3-nthick);
+  draw top rt(x4,y4+nthick)--rt z6;
+  pickup penrazor scaled 2nthick rotated 90;
+  draw (x2-.5,y2)--(x4+.5,y4);
+  draw (x3-.5,y3)--(x5+.5,y5);
+  shift_pic (zshift, 0);
+  labels(1,2,3,4,5,6)
+enddef;
+
+beginchar(54, nhw#, 1.5nhh#, 1.5nhh#); "natural";
+  natural (1, 0);
+endchar;
+
+beginchar(90, apog_nhw#, nhh#, .5nhh#); "small flat";
+  flat (apog_fact, -.05nhw, 1);
+  savepic;
+endchar;
+
+beginchar(91, 1.65apog_nhw#, nhh#, .5nhh#); "small doubleflat";
+  call_add_shift (.7apog_fact*nhw,0);
+endchar;
+
+beginchar(92, apog_nhw#, nhh#, nhh#); "small sharp";
+  sharp (apog_fact, 0);
+endchar;
+
+beginchar(93, apog_nhw#, .5nhh#, .5nhh#); "small doublesharp";
+  doublesharp (w, -.075nhw);
+endchar;
+
+beginchar(94, apog_nhw#, nhh#, nhh#); "small natural";
+  natural (apog_fact, 0);
+endchar;
+
+%%%%%%%
+message ("<rests>");
+%%%%%%%
+
+beginchar(59, .5nhw#, 0, 0); "ddp";% doubledouble (4) pause
+  fill_square (.5nhw, 2nhh, (0, nhh));
+endchar;
+
+beginchar(58, .5nhw#, 0, 0); "dp";% double (2) pause
+  fill_square (.5nhw, nhh, (0, 2nhh));
+  savepic;
+endchar;
+
+beginchar(60, 5/4nhw#, .5nhh#, 0); "half rest";
+  fill_square (5/4nhw, .5nhh, (0, 0));
+  savepic;
+endchar;
+
+beginchar(10, 0, .5nhh#, 0); "half rest outside a staff";
+  callpic;
+  fill_square (2nhw, lthick, (-.375nhw, -hlthick));
+  savepic;
+endchar;
+
+beginchar(11, 0, 0, .5nhh#); "full rest outside a staff";
+  call_mirror(origin,right);
+endchar;
+
+beginchar(61, 5/4nhw#, 0, .5nhh#); "full rest";
+  fill_square (5/4nhw, .5nhh, (0, -.5nhh));
+endchar;
+
+beginchar(62, 0, 4nhh#, 0); "quarter rest";
+  rthin:= 1/8 nhh;           % .1
+  rthick:= 2 thick+rthin;    %       .2
+  alpha:= -50;               %    .3
+  penpos1(rthin, 90+alpha);  % .4
+  penpos5(rthin, alpha);     %       .5,10
+  penpos2(rthick, alpha);    %   .6
+  penpos4(rthick, alpha);    %
+  penpos3(3/4rthick, alpha); %       .7
+  penpos6(4/3thick, alpha);
+  penpos7(rthin, 45);
+  y1l = 4nhh - 1/2nhh;
+  x1l = 1/2nhh;
+  z2r = z1 +(nhh* right) rotated alpha;
+  z3  = 1/2[z2,z4];
+  z4  = (nhw,4nhh) scaled .55;
+  z5  = z4l+(nhh* right) rotated alpha;
+  x6l = x4l; y6r = 1.45nhh;
+  x7  = .9nhw; y7= nhh-1/8nhh;
+  z10 = z5r shifted (sqrt(2)*rthin/4,sqrt(2)*rthin/4);
+
+  pickup penrazor scaled rthin rotated 45;
+  draw z1--z2r; draw z4l--z10;
+  penstroke z2e..z3e..z4e;
+  penstroke z5e..z6e..z7e;
+  penlabels(1,2,3,4,5,6,7,10);
+  shift_pic (-.2nhw, 0);
+endchar;
+
+%%%
+%   Draw the crook needed for quaver rests and shorter.
+%   The crook extends left from the point z.i on the stem.
+%%%
+def crook(text i)=
+  forsuffixes $=i:
+  x3:=x.$-6.5fact; y3:=top y.$- 3fact;
+  x4:=x.$-6fact;   y4:=    y.$+.5fact;
+  draw z.${dir 240}..{dir 160}z3;
+  filldraw z3{dir 160}..z4{dir-20}..{dir 160}z3..cycle;
+  endfor
+enddef;
+
+beginchar(63, 0, 3.25nhh#, 0); "8th rest";
+  z1=(nhh,nhh);
+  z2-z1=whatever*dir 70;  %  Angle the stem at 70 degrees.
+%%%
+%   Define the scaling factor `fact' implicitly.
+%   This value will be used for the shorter rests as well.
+%%%
+  z2-z1=(5fact,1.7nhh);
+  pickup med_pen;
+  draw z1..z2;
+  crook(2);
+  shift_pic (-.35nhw, 0);
+  penlabels (1,2,3,4);
+endchar;
+
+beginchar(64, 0, 3.25nhh#, 0); "16th rest";
+  z1=(nhh,0);
+  z2-z1=whatever*dir 75;  %  Angle the stem at 75 degrees.
+  y2-y1=2.7nhh;
+  z5-z2=whatever*(z1-z2); y5=y2-nhh;
+  pickup med_pen;
+  draw z1..z2;
+  crook(2,5);
+  shift_pic (-.35nhw, 0);
+  penlabels (1,2,3,4,5);
+endchar;
+
+beginchar(65, 0, 4nhh#, 0); "32th rest";
+  z1=(nhh,0);
+  z2-z1=whatever*dir 80;  %  Angle the stem at 80 degrees.
+  y2-y1=3.7nhh;
+  z5-z2=whatever*(z1-z2); y5=y2-nhh;
+  z6-z2=whatever*(z1-z2); y6=y5-nhh;
+  pickup med_pen;
+  draw z1..z2;
+  crook(2,5,6);
+  shift_pic (-.35nhw, 0);
+  penlabels (1,2,3,4,5,6);
+endchar;
+
+beginchar(66, 0, 4.75nhh#, 0); "64th rest";
+  z1=(nhh,0);
+  z2-z1=whatever*dir 82;  %  Angle the stem at 82 degrees.
+  y2-y1=4.7nhh;
+  z5-z2=whatever*(z1-z2); y5=y2-nhh;
+  z6-z2=whatever*(z1-z2); y6=y5-nhh;
+  z7-z2=whatever*(z1-z2); y7=y6-nhh;
+  pickup med_pen;
+  draw z1..z2;
+  crook(2,5,6,7);
+  shift_pic (-.35nhw, 0);
+  penlabels (1,2,3,4,5,6,7);
+endchar;
+
+%%%%%%%
+message ("<clefs>");
+%%%%%%%
+
+def violin(expr reduction) =
+  gx:=reduction*-nhw;
+  gy:=reduction*nhh;
+  gthick:=1.5reduction*thick;
+  gthin:=.75reduction*med;
+
+  x1=31/24gx+w; x4=23/24gx+w;  x2=x10=3/4gx+w;  x3r=w; x8l=15/16gx+w;
+  x5=x11r=15/8gx+w;  x6=gx+w;  x7=5/8gx+w;  x9=5/4gx+w;
+  y1=5/8gy;  y2r=y5r=2gy;  y3=gy;  y4r=0;  y6=27/8gy;
+  y7l=5gy;  y8l=11/2gy;  y9=17/4gy;  y10=y11=-7/8gy;
+  penpos1(gthin,160);
+  penpos2(gthick,90);
+  penpos3(gthick,0);
+  penpos4(5/4gthin,-90);
+  penpos5(3/2gthick,110);
+  penpos6(17/16gthick,130);
+  penpos7(gthin,-140);
+  penpos8(5/4gthick,-80);
+  penpos9(3/8gthick,0);
+  penpos10(gthin,0);
+  penpos11(1/2gthick,180);
+  penstroke z1e{nw}..z2e..z3e..z4e..z5e{up+ne}..z6e..{up+nw}z7e
+            ..z8e{sw}..{down}z9e{down}..{down}z10e..z11e;
+%{{{
+  currentpen:= pencircle;
+  draw z1{nw}..z2..z3..z4..z5{up+ne}..z6..{up+nw}z7
+       ..z8{sw}..{down}z9{down}..{down}z10..z11;
+%}}}
+  fill_circle ((3(x2-x4)), (x11+11/40gy, y11));
+  penlabels(range 1 thru 11)
+enddef;
+
+%beginchar(71, 8/3nhw#, 5.5nhh#, 1.5nhh#); "G-clef";
+beginchar(71, 8/3nhw#, 4.5nhh#, 2.5nhh#); "G-clef";
+  violin(1);
+% shift_pic (-.2nhw, 0);    % T.59
+  shift_pic (-.2nhw, -nhh); % T.60
+endchar;
+
+%beginchar(72, 7/3nhw#, 3nhh#, 2nhh#); "small G-clef";
+beginchar(72, 7/3nhw#, 3nhh#, 3nhh#); "small G-clef";
+  violin(.8);
+% shift_pic (-.3nhw, 0);    %T.59
+  shift_pic (-.3nhw, -nhh); %T.60
+endchar;
+
+def bass (expr reduction) =
+  fx:=reduction*nhw;
+  fy:=reduction*nhh;
+  fthick:=reduction*thick;
+
+  x2=.8fx; y2=3nhh;
+  x1=x2r+.26fx; y1=y2;
+  x3=x2+.71fx; y3r=y2+1fy;
+  x4=x3+.71fx; y4=y2-.2fy;
+  x6=x2-6reduction*thinwidth; y6=y2-2.2fy;
+  x7=x4+.50fx; y7=y2+.38fy;
+
+  penpos2(.6fthick,180);
+  penpos3(.6fthick, 90);
+  penpos4(2fthick,0);
+  penpos6(.4fthick,-10);
+
+  fill_circle (.35fx, z7);
+  add_mirror ((0,y2), (1,y2));
+  fill_circle ((2(x2r-x1)), z1);
+
+  penstroke z2e{up}..{right}z3e{right}..{down}z4e{down}..{left+.1down}z6e;
+%{{{
+  currentpen:= pencircle;
+  draw z2{up}..{right}z3{right}..{down}z4{down}..{left+.1down}z6;
+%}}}
+  penlabels(1,2,3,4,6)
+enddef;
+
+beginchar(73, 8/3nhw#, 4nhh#, 0); "F-clef";
+  bass(1);
+% shift_pic (-.35nhw, 0);       % T.59
+  shift_pic (-.35nhw, -3nhh);   % T.60
+endchar;
+
+beginchar(74, 7/3nhw#, 4nhh#, 0); "small F-clef";
+  bass(.8);
+% shift_pic (-4/15nhw, 0);      % T.59
+  shift_pic (-4/15nhw, -3nhh);  % T.59
+endchar;
+
+def alt(expr reduction, yshift) =
+  nh:=h*reduction;
+  athick:=1/10nh;
+  ahigh:=1/2nh;
+  radius:=5/4thick*reduction;
+
+  x4=13/16nh+3thinwidth; x5=9/16nh;
+  x6=1/2nh; x9=x10=2/3nh; x11=17/32nh;
+  y4=yshift+31/50ahigh; y5=yshift+1/2ahigh;
+  y6=yshift; y9=yshift+1/9ahigh;
+  y10=yshift+ahigh; y11=yshift+11/14ahigh;
+  penpos4(athick,180);
+  penpos5(1/8athick,0);
+  penpos6(athick,0);
+  penpos9(1/3athick,90);
+  penpos10(1/3athick,-90);
+  penpos11(1/2athick,0);
+
+  penstroke z5e..{sw+down}z6e;
+  penstroke z5e{se+3down}..{right}z9e{right}..{up}z4e{up}
+            ..{left}z10e{left}..{sw+3down}z11e;
+  fill_circle (2radius, (z11l+(radius, -.05nhh)));
+  fill_square (athick, ahigh, (5/16nh-1/2athick,yshift));
+  fill_square (.25athick, ahigh, (x6l-.25athick,yshift));
+  add_mirror ((0,yshift),(1,yshift));
+  penlabels(4,5,6,9,10,11)
+enddef;
+
+beginchar(75, 8/3nhw#, 4nhh#, 0); "Alto clef";
+  alt(1, 2nhh);
+% shift_pic (-.45nhw, 0);     % T.59
+  shift_pic (-.45nhw, -2nhh); % T.60
+endchar;
+
+beginchar(76, 7/3nhw#, 4nhh#, 0); "small Alto clef";
+  alt(.8 ,2nhh);
+% shift_pic (-.3nhw, 0);      % T.59
+  shift_pic (-.3nhw, -2nhh);      % T.60
+endchar;
+
+beginchar(77, 8/3nhw#, 4nhh#, 0); "drum clef";
+  fill_square (.3nhw, .5h, (.85nhw,1nhh));
+  add_mirror ((w/2,0),(w/2,1));
+% shift_pic (.2nhw, 0);    % T.59
+  shift_pic (.2nhw, -2nhh); % T.60
+endchar;
+
+beginchar(103, 8/3nhw#, 4nhh#, nhh#); "oldstyle G-clef";
+  def penslopeI= (.35nhh/cosd45)+blacker,45 enddef;
+  def penslopeII= (.35nhh/cosd32.5)+blacker,32.5 enddef;
+  def penslopeIII= (.4nhh/cosd32.5)+blacker,32.5 enddef;
+  def penslopeIV= (max(1,lthick/cosd32.5)),122.5 enddef;
+
+  x1l=1.5nhw; x2l=x3l=x4r=x1l+2/5nhw;
+  x1l-x5l=x3r-x1l; x6l=x15r=x5l; x7r=x1=x14r; x8=x2;
+  y1l=y2l=1.45nhh; y3l=y4r;
+  y4l=0; y5=y3r; y6l=y15r; y7l=y8r=3nhh; y14r=y7r;
+  z15r-z14r=whatever*dir(180+32.5);
+  penpos1(penslopeI);
+  penpos2(penslopeI);   %   /7\    6(15)
+  penpos3(penslopeII);  %  6   8   7(14)
+  penpos4(penslopeIII); %  |
+  penpos5(penslopeII);  %  | 1-2
+  penpos6(penslopeII);  %  |   |
+  penpos7(penslopeII);  %  5   3
+  penpos8(.35nhh,90);   %   \4/
+  penpos14(penslopeIV);
+  penpos15(penslopeIV);
+  penstroke z1e--z2e--z3e;
+  fill unitsquare xscaled (x3r-x4l) yscaled lthick
+       shifted z4l rotatedaround (z4l,32.5);
+  penstroke z4e--z5e{dir85}..z6e;
+  penstroke z7e--z8e; penstroke z14e--z15e;
+
+  x9=x5l=x16-.25nhw; x10l=x1l; x11=x10-.1nhw; x12=x8;
+  x17l=x2r+.05nhw; x13r=x2l-.1nhw;
+  y9r=-nhh; y16l=y9l-.01nhh; y10=0;
+  y11=3.5nhh; y12r=y8r; y17r=y8r+.2nhh; y13r=4nhh;
+                                 %        13
+  penpos12(2lthick,90);          %       /  \
+  penpos17(3hlthick,180);        %     11    17
+  penpos13(.35nhh+blacker,-90);  %      |  12
+  penpos11(max(lthick,1),0);     %      |
+  penpos10(max(lthick,1),0);     %     10
+  penpos16(.475nhh+blacker,-90); %     /
+  penpos9(.5nhh+blacker,-90);    % 9-16
+
+  penstroke z12e..z17e{dir80}..z13e..{down}z11e..{down}z10e{down}..
+            {left}z16e..z9e;
+  shift_pic (-.25nhw,0);
+  penlabels (range 1 thru 12);
+  shift_pic (0, -nhh); % T.60
+endchar;
+
+beginchar(98, 8/3nhw#, 3.25nhh#, 0); "gregorian C clef";
+  x1=x4=0; x2=x3=gregwidth; y1=y2=-y3=-y4=.5gregwidth-lthick;
+  fill z1{dir 15}..z2--z3{dir 165}..z4--cycle;
+  save_elempic;
+  pickup med_pen; draw bot rt z1..{down}(-.01nhw,-.5nhh);
+  shift_pic(nhw,2.5nhh);
+  add_mirror ((0,2nhh),(1,2nhh));
+  savepic;
+  shift_pic (0,-2nhh);
+endchar;
+
+beginchar(122, 8/3nhw#, 4.25nhh#, 0); "gregorian F clef";
+  callpic;
+  add_elempic (.1nhw,2nhh);
+  fill_square (med, 1.5nhh, (.75nhw,.8nhh));
+  shift_pic (1/3nhw,-2nhh);
+endchar;
+
+%%%%%%%
+message ("<special signs>");
+%%%%%%%
+
+beginchar(14, 0, nhh#, 0); "song system limit up";
+  x1=y1=0; x2=1.5nhw; y2=nhh;
+  penpos1(thick, 90); penpos2(thin, 90);
+  penstroke z1e{right}..{dir80}z2e;
+%{{{
+  currentpen:=pencircle; draw z1{right}..{dir80}z2;
+%}}}
+  savepic;
+endchar;
+
+beginchar(15, 0, 0, nhh#); "song system limit down";
+  call_mirror (origin, right);
+endchar;
+
+beginchar(16, 0, 0, 0); "used for volta";
+  fill_square (lthick, 2.5nhh, (0,-.5nhh));
+endchar;
+
+beginchar(17, 0, 0, 0); "used for volta";
+  fill_square (lthick, 2.5nhh, (0,-2.5nhh));
+endchar;
+
+% 'polyrhythmik' {\meterfrac{3+2+3}8}, e.g. Bart\'ok
+beginchar(57, 2nhh#, 1.5nhh#, 0); "big plus sign";
+  pickup pencircle scaled .3nhh;
+  draw lft(.5nhh,.9nhh)..rt(1.5nhh,.9nhh);
+  draw bot(nhh,.4nhh)..top(nhh,1.4nhh);
+endchar;
+
+beginchar(79, 0, 4nhh#, 0); "caesura";% other breathmark
+  pickup penrazor scaled thick;
+  draw (.3nhw+thick, 3.4nhh)--(.7nhw+thick, 4.6nhh);
+endchar;
+
+beginchar(80, 0, 2.25nhh#, 0); "fermata up";
+  x1 = -.5nhw;  x2=.5(x1+x3); x3 = 1.5nhw;
+  y1 = y3 = nhh; y2 = 2.3nhh;
+  penpos1(thinwidth,165);
+  penpos2(.9beamht+thin,90);
+  penpos3(thinwidth,15);
+  penstroke z1e{dir75}..z2e..{dir-75}z3e;
+  fill_circle (beamht, (x2, y1+.5beamht));
+%{{{
+  currentpen:= pencircle; draw z1{dir 75}..z2..{dir-75}z3;
+  add_mirror ((x2, 0),(x2, 1));
+%}}}
+  savepic;
+  penlabels(1,2,3);
+endchar;
+
+beginchar(81, 0, 0, 2.25nhh#); "fermata down";
+  call_mirror (origin, right);
+endchar;
+
+beginchar(82, 5/3nhw#, 4nhh#, 0); "allabreve";
+  fit:= .025nhw;
+  2x2 = 2x4 = x1 + 1/2nhh = w;
+  x3r = 0; 2y1 = 3y2 = y4r = 3nhh;
+  y3r = 2nhh; x5 = w -1/2nhh; y5 = 3nhh -1/2nhh;
+  z6r = z5r + (-1/40nhh, 1/20nhh);
+  penpos1(max(1,med), 0);
+  penpos2(max(1,med), -90);
+  penpos3(1/4nhh+thick,180);
+  penpos4(max(1,med), 90);
+  penpos5(max(1,med), 0);
+  penpos6(1/4nhh+med,45);
+  penstroke z1e..z2e..z3e..z4e..z5e;
+  fill rt z1r..lft z1l..cycle;
+  fill_circle (.35nhw+blacker, (z6 + (-2fit, fit)));
+  shift_pic (.5nhh,0);
+  savepic;
+
+  pickup med_pen;
+  draw (4/5nhw+.5nhh, y2r-3/8nhh)--(4/5nhw+.5nhh, y4r+3/8nhh);
+  penlabels(1,2,3,4,5,6);
+  save_elempic;
+  shift_pic (0,-2nhh);
+endchar;
+
+beginchar(83, 5/3nhw#, 3.25nhh#, 0); "C";
+  callpic;
+  shift_pic (0,-2nhh);
+endchar;
+
+beginchar(84, 10/3nhw#, 3.25nhh#, 0); "reverseC";
+  callpic;
+  add_mirror ((11/6nhw,0),(11/6nhw,1));
+  shift_pic (0,-2nhh);
+endchar;
+
+beginchar(123, 5/3nhw#, 3.25nhh#, 0); "reverseallabreve";
+  add_elempic (0,0);
+  mirror ((13/12nhw,0),(13/12nhw,1));
+  shift_pic (0,-2nhh);
+endchar;
+
+beginchar(121, 0, 0, 0); "double thumb bracket";
+  mh:=0.625nhh;
+  fill_square (lthick, mh, origin);
+  fill_square (.55nhw, lthick, origin);
+  add_mirror ((0,mh),(1,mh));
+  shift_pic (-.75nhw, -mh);
+endchar;
+
+%%%%%%%
+message ("<repeat symbols>");
+%%%%%%%
+
+beginchar(55, 0, 4nhh#, 0); "repeat colons";
+  fill_circle (1/3nhw+blacker, (0, 3/2nhh));
+  add_mirror ((0, 2nhh),(1, 2nhh));
+  shift_pic(0,-2nhh);
+endchar;
+
+beginchar(78, 0, 4nhh#, 0); "due volte";
+  fill_circle ((1/3nhw+blacker),(-.75nhh,2.5nhh));
+  addto currentpicture also currentpicture rotatedaround ((0,2nhh), 180);
+  pickup penrazor scaled (1/3nhw+blacker);
+  draw (-nhh, nhh)--(nhh, 3nhh);
+endchar;
+
+beginchar(85, 0, 3.25nhh#, 0); "coda";
+  mh:=3nhh;
+  x2 = 2nhw-x4 = 1/6mh; y2 = y4 = 1/2mh;
+  x3 = x5 = nhw; y3 = mh-y5 = 5/6mh;
+  pickup thin_pen;
+  draw (0,mh/2)--(2nhw,mh/2); draw (nhw,0)--(nhw,mh);
+  savepic;
+  pickup coda_pen;
+  draw z2..z3..z4..z5..cycle;
+  shift_pic (-nhw, 0);
+  labels (1,2,3,4);
+endchar;
+
+beginchar(105, 0, 3.25nhh#, 0); "coda II";
+  mh:=3nhh;
+  callpic;
+  x2 = x5 = 1/6mh; y2 = y3 = 5/6mh;
+  x3 = x4 = 2nhw-x2; y4 = y5 = 1/6mh;
+  pickup coda_pen;
+  draw z2--z3--z4--z5--cycle;
+  shift_pic (-nhw, 0);
+  labels (1,2,3,4);
+endchar;
+
+beginchar(86, 0, 3.25nhh#, 0); "segno";
+  x1= .5nhw; y1 = 1.75nhh; x4=-.5x1; y4=.4nhh;
+  x5=.7x1; y5=y6=3.05nhh; x6=x5-x1;
+  z1'= (x1+1,y1);
+  penpos1'(.5nhh+blacker, 80);
+  penpos5(max(1,thin), -110);
+  penpos6(max(1,1.2thin), -70);
+  fill_circle (.5nhh, (x5-.2nhh,y5l-.13nhh));
+  fill_circle (thick+.1nhh, (x4, y4+.9nhh));
+  penstroke z1'e{dir170}..{ne}z6e..z5e;
+  pickup penrazor scaled max(1,thin);
+  draw z4--z1;
+  penlabels (1,5,6);
+  addto currentpicture also currentpicture rotatedaround (z1, 180);
+endchar;
+
+beginchar(110, 0, 5.5nhh#, 2nhh#); "segno II";
+  mw:=2.5nhh;
+  gamma:=36.9;
+  dist:=1nhh+.75beamht;
+  gthick:=beamht+blacker;
+
+  x1'=x3'=x7=x16=2x1=2x10=2x13=.5mw; x9=x14=x2; x3r=mw-.2nhh;
+  x11=x5; x15=x3; mw-x8=x12=1/3nhh;
+  y1'=dist; y3'=y1'-.5dist; y4'+dist=y9-2dist=y2; y10-2dist=y13+dist=y1;
+  y11=y5+2dist; y14=y2-dist; y8=y6-.1dist+2dist; y12=y3+.1dist-dist;
+  y15=y3-dist; y16r=-d; y7l=3.25nhh+2dist;
+  z1-z1'=z1'-z2=whatever*dir-gamma;
+  z3-z3'=whatever*dir-gamma; z2-z4=whatever*dir(-90-gamma);
+  z2-z4'=whatever*dir-90; z4-z4'=whatever*dir-gamma;
+  z5=z3 rotatedaround (z1',180); z6=z4 rotatedaround (z1',180);
+
+  penpos1(gthick, gamma); penpos2(gthick, gamma);
+  penpos3(max(1,thin),-90+gamma); penpos4(.9gthick,-180+gamma);
+  penpos5(max(1,thin),-90+gamma); penpos6(.9gthick,-180+gamma);
+  penpos7(.3gthick,-90-gamma); penpos8(.5gthick,-180+gamma);
+  penpos9(gthick, gamma); penpos10(gthick, gamma);
+  penpos11(.5gthick,-90+gamma); penpos12(.5gthick,-180+gamma);
+  penpos13(gthick, gamma); penpos14(gthick, gamma);
+  penpos15(.5gthick,-90+gamma); penpos16(.3gthick+1,-90-gamma);
+
+  penstroke z6e{dir(180-gamma)}..z5e..z1e---z2e..z3e..{dir(180-gamma)}z4e;
+  add_shift (0,2dist);
+  add_shift (0,-dist);
+  unfill (0,-nhh)--(mw,-nhh)--(mw,-d)--(0,-d)--cycle;
+  unfill (0,5nhh)--(mw,5nhh)--(mw,6nhh)--(0,6nhh)--cycle; cullit;
+
+  penstroke z9e---z10e..z11e..z7e..z8e;
+  penstroke z13e---z14e..z15e..z16e..z12e;
+
+  dotthick:=.65nhh+blacker; fit:=.15nhh;
+  fill_circle(dotthick,(x8-fit,y8-.5dotthick+fit+.02nhh));
+  fill_circle(dotthick,(x12+fit,y12+.5dotthick-fit-.02nhh));
+
+  pickup thin_pen;
+  draw (3/8mw,1/3nhh)--(3/8mw,4nhh+1/3nhh);
+  draw (5/8mw,-1/3nhh)--(5/8mw,4nhh-1/3nhh);
+  penlabels (range 1 thru 16);
+  shift_pic(-mw,0);
+endchar;
+
+%%%%%%%
+message ("<trills>");
+%%%%%%%
+
+beginchar (67, 0, nhh#, 0); "turn";
+  x1=2nhw-x6=.4nhw; y1r=h; y6=h-y1;
+  x2r=0; y2=.5h; x5=2nhw-x2; y5=h-y2;
+  x3=.44nhw; y3r=0; x4=2nhw-x3; y4=h-y3;
+  penpos1(med, 90);
+  penpos2(med, 180);
+  penpos3(thick,-40);
+  penpos4(thick,-40);
+  penpos5(med, 180);
+  penpos6(med, 90);
+  penstroke z1e..{down}z2e{down}..{right}z3e{right}
+            ..{right}z4e{right}..{down}z5e{down}..z6e;
+  fill_circle ((1/4nhh+thick), (x1,y1r-thick));
+  fill_circle ((1/4nhh+thick), (x6,y6l+thick));
+  shift_pic (-.5nhw, 0);
+  penlabels(1,2,3,4,5,6);
+  savepic;
+endchar;
+
+beginchar (68, 0, nhh#, 0); "backturn";
+  call_mirror ((.5nhw,0), (.5nhw,1));
+endchar;
+
+def setpar =
+  off:= .3nhw; x2=x1+off; x3=x2+off; x4=x3+off;
+  y1= y3=.75nhh-y2=.75nhh-y4=.15nhh;
+enddef;
+
+beginchar(87, 0, nhh#, 0); "shake";
+  x1=-.15nhw; setpar;
+  pickup pensquare xscaled (thick+.15nhh) yscaled med rotated 52;
+  draw z1--z2--z3--z4;
+  save_elempic;
+  add_elempic (2off,0);
+  savepic;
+endchar;
+
+beginchar(88, 0, nhh#, 0); "(long or double) shake";
+  callpic;
+  add_elempic (2*2off,0);
+  shift_pic (-.3nhw, 0);
+  save_elempic;
+endchar;
+
+beginchar(89, 0, nhh#, 0); "mordent";
+  callpic;
+  fill_square (med, 1.5nhh, (.5nhw,-.375nhh));
+endchar;
+
+beginchar(119, 0, nhh#, 0); "(long or double) mordent";
+  currentpicture:= elem_pic; savepic;
+  fill_square (med, 1.5nhh, (.5nhw,-.375nhh));
+endchar;
+
+beginchar(106, 0, 1.5nhh#, 0); "Pince with line";
+  callpic;
+  pickup med_pen;
+  draw (-.55nhw, 0)--(-.55nhw, h);
+endchar;
+
+beginchar(107, 0, 1.5nhh#, 0); "Pince with hook nw";
+  callpic;
+  x1=-.45nhw; setpar;
+  pickup med_pen;
+  z5=1.75[z3,z2]-(x3-x1,0); z6=z1 rotatedaround (z5,90);
+  draw (z1..z5{z2-z3}..{z3-z2}z6) shifted -(.5thick, .15nhh);
+endchar;
+
+beginchar(108, 0, nhh#, 0); "Pince with hook sw";
+  callpic;
+  x1=-.45nhw; setpar;
+  pickup med_pen;
+  z5=1.5[z2,z1]-.75(.5thick,.15nhh); z6=z2 rotatedaround (z5,-90);
+  draw (z1..z5{z1-z2}..{z2-z1}z6);
+endchar;
+
+beginchar(109, 0, 1.5nhh#, 0); "Pince with hook ne";
+  callpic;
+  x1=1.35nhw; setpar;
+  pickup med_pen;
+  z5=1.5[z1,z2]; z6=z1 rotatedaround (z5,-90);
+  draw (z1..z5{z2-z1}..{z1-z2}z6);
+endchar;
+
+beginchar(69, nhw#, .5nhh#, 0); "trille-element";
+  x1=-1; y1=y2=y3=.5h; x3=2x2=nhw;
+  pickup penrazor scaled 1.5thick rotated 50;
+  draw z1{ne}..{se}z2{se}..{ne}z3;
+endchar;
+
+beginchar(70, 0, nhh#, 0); "arpeggio-element";
+  x1=x2=x3=.2nhw-1; y1=0; y3=2y2=nhh+1;
+  pickup penrazor scaled (thick+.16nhh) rotated 45;
+  draw z1{ne}..{nw}z2{nw}..{ne}z3;
+  shift_pic (-nhw, 0);
+endchar;
+
+%%%%%%%
+message ("<pedal signs>");
+%%%%%%%
+
+def pedalstar (text rot)=
+  x4=-x1=min(.05nhh,0.35pt); y1=y4=0; x3=-x2=.14nhh;
+  y3=y2=2y5=2y6=.4nhh; x6=-x5=1.1x4;
+  p:=(z1..z5..z2..z3..z6..z4--cycle) shifted (0, .2nhh);
+  forsuffixes $=rot: fill p rotated $; endfor
+  pickup med_pen;
+  draw quartercircle scaled .4nhh;
+  add_mirror (origin, up);
+  add_mirror (origin, right);
+  labels (1,2,3,4);
+  shift_pic (.5nhw, .8nhh);
+enddef;
+
+beginchar(33, 0, 1.5nhh#, 0); "pedal (release) star I";
+  pedalstar (0,60);
+endchar;
+
+beginchar(104, 0, 1.5nhh#, 0); "pedal star II";
+  pedalstar (0,45,90);
+endchar;
+
+beginchar(34, 0, 1.5nhh#, 0); "pedal I";
+  mw:= 1.25nhw; mh:=1.7nhh;
+
+  x1=.425mw; y1=4/18mh;
+  x2=.2mw;   y2=4/18mh;
+  x3=x1;     y3r=0;
+  x4=.65mw;  y4=.35mh;
+  x5=.475mw; y5=.83mh;
+  penpos1(.75thin,0);       penpos4(.275nhh+thin,60);
+  penpos2(.15nhh+thin,135); penpos5(.025nhh+med,0);
+  penpos3(.025nhh+med,-90);
+
+  penstroke z1e{up}..z2e..z3e..z4e..{up+.5right}z5e;
+
+  fill lft z1l{up+ne}..{down+se}rt z1r{down+sw}..{up+nw}cycle;
+  fill rt z5l{up+ne}..{down+se}lft z5r{down+sw}..{up+nw}cycle;
+%{{{
+  currentpen:= pencircle; draw z1{up}..z2..z3..z4..{up+.5right}z5;
+%}}}
+
+  x6=mw-x12;        y6=.75mh;
+  x7=mw-x11;        y7=.65mh;
+  x8=.25mw;         y8=y10;
+  x9=x8+(x10-x8)/2; y9r=mh;
+  x10=.8mw;         y10=.9mh;
+  x11=.88mw;        y11=y7;
+  x12=.7mw;         y12=.7mh;
+  penpos6(thin,-80); penpos10(1.2med,90);
+  penpos7(.25nhh+thin,-110);     penpos11(.25nhh+thin,-70);
+  penpos8(med,90);          penpos12(thin,-100);
+  penpos9(.9med,90);
+
+  penstroke z6e..z7e..z8e..z9e..z10e..z11e..z12e;
+%{{{
+  currentpen:=pencircle; draw z6..z7..z8..z9..z10..z11..z12;
+%}}}
+  penlabels (range 1 thru 12);
+  savepic;
+  shift_pic (-.125nhw, 0);
+endchar;
+
+beginchar(35, 0, 1.5nhh#, 0); "pedal II";
+  callpic; %%% ->P
+  mw:=3nhw; mh:=1.7nhh;
+  fill_circle (.15mh, (.945mw-.15mh/2, .15mh/2));%%% ->.
+
+  x1=.5mw;   y1=.9mh;
+  x2=.77mw;  y2=.58mh;
+  x3=.815mw; y3=.2mh;
+  x4= x2;    y4r=0;
+  x5=.63mw;  y5=.22mh;
+  x6= x2;    y6=y2;
+  penpos1(.75med,90);       penpos4(.025nhh+med,-90);
+  penpos2(.1125nhh+med,30); penpos5(.1125nhh+thin,-135);
+  penpos3(.05nhh+med,0);    penpos6(med,100);
+
+  penstroke (z1e{right}..z2e..z3e..z4e..z5e{dir 110}..z6e);%%% ->d
+  fill lft z1l{ne}..{nw}rt z1r{sw}..{se}cycle;
+
+  x7=x5;        y7=y5;
+  x8=.55mw;     y8r=0;
+  x9=x1;        y9=.56mh;
+  x10=x11+.1mw; y10=y11+.1mh;
+  x11=.375mw;   y11r=0;
+  x12=.28mw;    y12=.25mh;
+  penpos7(thin,-75);         penpos10(1.2thin,-45);
+  penpos8(.05nhh+med,-90);   penpos11(.225nhh,-100);
+  penpos9(.0625nhh+thin,80); penpos12(thin,-125);
+
+  penstroke z7e..z8e..z9e & z9e{dir-30}..{dir-150}z10e..z11e;%%% ->e
+  penstroke z12e..z11e;
+  penlabels (range 1 thru 12);
+  shift_pic (-(.125nhw+.25nhw), 0);
+endchar;
+
+%^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+%%%%%%%
+message ("<beam elements>");
+%%%%%%%
+
+pen beam_pen;
+beam_pen:= penrazor scaled beamht rotated 90;
+
+for LOOP=0 upto 9:
+  longueur:= 2;
+  for loop=0 upto 5:
+    beginchar(LOOP*6+loop+128, longueur, 0, 0);
+      pickup beam_pen;
+      draw origin--(lft w, w*(.05*(LOOP+1)));
+      savepic;
+    endchar;
+
+    beginchar(LOOP*6+loop+64+128, longueur, 0, 0);
+      call_mirror (origin,right);
+    endchar;
+
+    longueur:= 2*longueur;
+  endfor
+endfor;
+end

@@ -1,6 +1,8 @@
 IMPORTANT
 
 	* update 20 pt table
+	
+	* rename mf fonts to avoid conflicts with musixtex
 
 	* decent TeX page layout
 
@@ -14,6 +16,8 @@ IMPORTANT
 
 	* check return status in make_website
 
+	* tutorial
+
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
@@ -21,6 +25,10 @@ PARSER
 	* Duration-> Musical_duration, typedef Rational Duration?
 
 BUGS
+
+	* detect -pipe
+	
+	* redo timing stuff <-> pulk to allow \meter 2/4; e2. to work out correctly
 
 	* hairpin width
 
@@ -31,6 +39,8 @@ BUGS
 	* cis ( | ) cis
 
 	* lilypond - -> crash
+
+	* wohltemperirt.ly
 
 SEVERELY LACKING:
 
@@ -97,6 +107,8 @@ SMALLISH PROJECTS
 
 	* do conventional keys (C G A, F B E, a e fis, d as des, etc ), 
 	  besides lists of flats/sharps
+
+	* update for T70 fonts or newer
 
 	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
 

@@ -1,0 +1,5 @@
+font_identifier:="xslhu16";
+mode_setup;
+font_size 16pt#;
+input xslhu.mf
+

@@ -41,12 +41,16 @@ include ./$(depth)/make/Rules.make
 spec: $(outdir)/lilypond.spec
 
 rpmdocs=$(addprefix Documentation/out/, $(notdir $(shell ls $(depth)/Documentation/$(outdir)/*.text)))
+rpmexamples= $(addprefix input/, $(notdir $(shell ls $(depth)/input/*.{ly,tex})))
+
+
 sed-version= sed 's!@TOPLEVEL_VERSION@!${TOPLEVEL_VERSION}!g'
 sed-date=sed 's!@DATE@!${date}!g'
+sed-examples = sed 's!@EXAMPLE_LYS@!${rpmexamples}!g'
 sed-docs=sed 's!@TEXT_DOCS@!${rpmdocs}!g'
 
 $(outdir)/lilypond.spec: lilypond.spec.in $(depth)/.version
-	cat $< | $(sed-version) | $(sed-docs) > $@
+	cat $< | $(sed-version) | $(sed-docs) | $(sed-examples) > $@
 
 $(outdir)/lilypond.lsm: lilypond.lsm.in $(depth)/.version
 	cat $< | $(sed-version) | $(sed-date) > $@

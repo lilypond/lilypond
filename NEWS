@@ -1,3 +1,11 @@
+pl 54
+	- bugfix Colhpos.cc::OK assert fail.
+	- Inclusion of MusixTeX MF files, 
+	- detection of MF dir
+pl 53.hwn
+	- stacked lyrics 
+	- configure/make buglets.
+******
 pl 53
 	- spurious accidental bug.
 	- simultaneity check.

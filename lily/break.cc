@@ -1,6 +1,12 @@
 /*
-    do calculations for breaking problem    
-    */
+  break.cc -- implement Break_algorithm
+
+  source file of the LilyPond music typesetter
+
+  (c) 1996, 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
 #include "break.hh"
 #include "paper-def.hh"
 #include "linespace.hh"
@@ -9,9 +15,7 @@
 #include "p-score.hh"
 
 
-/*
-  return all breakable columns
- */
+///  return all breakable columns
 Line_of_cols
 Break_algorithm::find_breaks() const
 {
@@ -23,7 +27,7 @@ Break_algorithm::find_breaks() const
     return retval;
 }
 
-// construct an appropriate Spacing_problem and solve it. 
+/// construct an appropriate Spacing_problem and solve it. 
 Col_hpositions
 Break_algorithm::solve_line(Line_of_cols curline) const
 {

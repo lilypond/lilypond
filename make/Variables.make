@@ -24,7 +24,7 @@ endif
 
 # directory names:
 #
-outdir = out# "objects" won-t do, used for libs and deps as well
+outdir = out
 lily_bindir = ./$(depth)/bin
 distdir = ./$(depth)/$(DIST_NAME)
 module-distdir = ./$(depth)/$(MODULE_DIST_NAME)
@@ -94,14 +94,14 @@ DUMMYDEPS=\
 # clean file lists:
 #
 ERROR_LOG = 2> /dev/null
-SILENT_LOG = >& /dev/null
+SILENT_LOG = 2>&1 >  /dev/null
 allexe = $(lily_bindir)/lilypond $(lily_bindir)/mi2mu
 date = $(shell date +%x)
-allhh := $(shell $(FIND) -name "*.hh" $(ERROR_LOG))
-allcc := $(shell $(FIND) -name "*.cc" $(ERROR_LOG))
-allobs := $(shell $(FIND) $(outdir) -name "*.o" $(ERROR_LOG))
+allhh := $(shell $(FIND) ./ -name "*.hh" $(ERROR_LOG))
+allcc := $(shell $(FIND)  ./ -name "*.cc" $(ERROR_LOG))
+allobs := $(shell $(FIND) ./  $(outdir) -name "*.o" $(ERROR_LOG))
 
-alldeps := $(shell $(FIND) $(outdir) -name "*.dep" $(ERROR_LOG))
+alldeps := $(shell $(FIND)  ./ $(outdir) -name "*.dep" $(ERROR_LOG))
 
 # version stuff:
 #
@@ -123,13 +123,15 @@ CFLAGS = $(DEFINES) $(INCLUDES) $(USER_CFLAGS) $(EXTRA_CFLAGS)
 
 # added two warnings that are treated by cygwin32's gcc 2.7.2 as errors.
 # huh, but still, no warnings even provoced with linux's gcc 2.7.2.1?
-EXTRA_CXXFLAGS=-pipe -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
+
+# -pipe makes it go faster, but is not supported on all platforms. 
+EXTRA_CXXFLAGS= -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
 
 
 CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
 INCLUDES = -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
 CXX_OUTPUT_OPTION = $< -o $@
-LDFLAGS = $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L $(depth)/lib/out -L $(depth)/flower/out
+LDFLAGS = $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(depth)/lib/out -L$(depth)/flower/out
 LOADLIBES = $(EXTRA_LIBES) $(MODULE_LIBES) -lg++ # need lg++ for win32, really!
 #
 
@@ -178,14 +180,15 @@ endif
 LIBRARY = $(LIB_PREFIX)$(NAME)$(LIB_SUFFIX)
 #
 
-STRIPDEBUG=true #replace to do stripping of certain objects
+#replace to do stripping of certain objects
+STRIPDEBUG=true 
 
 DISTFILES=$(EXTRA_DISTFILES) Makefile $(ALL_SOURCES)
 DOCDIR=$(depth)/$(outdir)
 
 # .hh should be first. Don't know why
-# take some trouble to auto sources and obsolete stuff.
-progdocs=$(shell find -name '*.hh' |egrep -v 'obsolete/|out/') $(shell find -name '*.cc'|egrep -v 'out/|obsolete/')
+# take some trouble to vauto ignore sources and obsolete stuff.
+progdocs=$(shell find ./ -name '*.hh' |egrep -v 'obsolete/|out/') $(shell find -name '*.cc'|egrep -v 'out/|obsolete/')
 
 
 pod2html=pod2html

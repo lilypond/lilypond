@@ -66,9 +66,10 @@ localdistclean:
 	rm -f config.cache config.status
 
 localinstall: $(LIBFLOWER)
+ifeq ($(LIB_SUFFIX),.so)
 	$(INSTALL) -d $(libdir)
 	$(INSTALL) $(LIBFLOWER) $(libdir)
-#	ln -s $(libdir)/libflower.so.$(VERSION) $(libdir
+endif
 
 localuninstall:
 	rm -f $(libdir)/libflower.{so,a}

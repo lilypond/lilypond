@@ -38,7 +38,7 @@ PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEE
 
        +o    Flex (2.5.1 or better).
 
-       +o    Bison.
+       +o    Bison. (Version 1.25 or better)
 
 RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
        +o    Perl.  Most scripts are written in Perl. The
@@ -61,7 +61,7 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 
 
-21/Apr/97                LilyPond 0.0.53                        1
+22/Apr/97                LilyPond 0.0.54                        1
 
 
 
@@ -95,6 +95,9 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
                configure --prefix=/home/me_myself_and_I/
 
+       In this case, you will have to set MFINPUTS, and TEINPUTS
+       accordingly.
+
        If you want to install GNU LilyPond in _/_u_s_r_/_l_o_c_a_l, and
        your TeX has no default hooks for local stuff (mine is
        broken too), you can do:
@@ -104,7 +107,7 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        Since GNU LilyPond currently is beta, you are advised to
        also use
 
-               --enable-debug
+               --enable-debugging
                --enable-checking
 
        other options include:
@@ -116,18 +119,15 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
                --enable-tex-prefix
                --enable-tex-dir
 
-       The option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for Real Life
+       All options are documented in the _c_o_n_f_i_g_u_r_e help The
+       option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for Real Life
        usage.
 
        If you do
 
-               make all
-
-       everything will be compiled, but nothing will be
 
 
-
-21/Apr/97                LilyPond 0.0.53                        2
+22/Apr/97                LilyPond 0.0.54                        2
 
 
 
@@ -136,6 +136,9 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
+               make all
+
+       everything will be compiled, but nothing will be
        installed.  The resulting binaries can be found in the
        subdirectory _b_i_n_/.
 
@@ -144,9 +147,26 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
                make install
 
-       should do the trick. Install the musixtex fonts in a
-       directory which TeX and MF knows. Do not forget to rehash
-       TeX (if applicable)
+       should do the trick.
+
+       [todo]
+
+       Install the musixtex fonts in a directory which TeX and MF
+       knows (if you are root, look for a directory which
+       contains the directories with AMS and CM source (*.mf)
+       files. Create a subdir lilypond or musixtex and copy the
+       fonts into that). Do not forget to rehash TeX (if
+       applicable)
+
+       Example: my fonts are in
+       _/_u_s_r_/_l_o_c_a_l_/_l_i_b_/_t_e_x_f_o_n_t_s_/_m_u_s_i_x_t_e_x_/, and I have a symlink
+       pointing to that in
+       _/_u_s_r_/_l_i_b_/_t_e_x_m_f_/_t_e_x_m_f_/_f_o_n_t_s_/_s_o_u_r_c_e_/_p_u_b_l_i_c_/
+
+CCCCAAAAVVVVEEEEAAAATTTTSSSS
+       +o    The -O2 option to gcc triggers a gcc bug on DEC Alpha
+            in dstream.cc. You should turn off this flag for this
+            file.
 
 RRRRUUUUNNNNNNNNIIIINNNNGGGG
        GNU LilyPond does use a lot of resources. For operation
@@ -171,6 +191,17 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
        create an rpm as a normal user. Be sure you have a
        ~/.rpmrc, and edit the RPM-dir in _V_a_r_i_a_b_l_e_s_._m_a_k_e
 
+
+
+22/Apr/97                LilyPond 0.0.54                        3
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
 WWWWIIIINNNNDDDDOOOOZZZZEEEE
        Windows NT:
 
@@ -186,21 +217,6 @@ WWWWIIIINNNNDDDDOOOOZZZZEEEE
 PPPPLLLLAAAATTTTFFFFOOOORRRRMMMMSSSS
        GNU LilyPond (pl 0.0.39) is known to compile on the
        following platforms:
-
-
-
-
-
-
-
-21/Apr/97                LilyPond 0.0.53                        3
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
 
                * linux 2.0.x, g++ 2.7.2[.1]
                * aix 4.1, g++ 2.7.2
@@ -243,22 +259,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-21/Apr/97                LilyPond 0.0.53                        4
+22/Apr/97                LilyPond 0.0.54                        4
 
 

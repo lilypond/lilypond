@@ -3,13 +3,15 @@
 % COPYRIGHT: GPL
 %
 %
+\version "0.0.53";
+
 globals=\melodic{
 		\meter 4/ 4;
 		\partial 8;
 		\skip 8*1;
 		\skip 2*3 ;
-		\bar ":|:"
-		\skip 2*1;
+		\bar ":|:";
+		\skip 1*2;
 		\meter 2/4;
 }
 
@@ -33,7 +35,8 @@ globals=\melodic{
 
 melody= \staff{melodicregs
 	globals
-	\melodic \octave  {c;
+	\melodic {
+	\octave  c;
 	c8\key fis cis gis;
 	|r4 r4 r4 r4
 	|cis'2..	r8
@@ -47,14 +50,14 @@ melody= \staff{melodicregs
 		 {  a  () bes eis8 eis8 }
 		 { fis () g gis8 gis8 }
 	>
-	\clef\tenor
+	\clef\tenor;
 	< c4 c'4 >
 
 	[d8 e8 f'8 g8]  d8 e8 f8 g8
 	|fis''2
 	| a8 b8 c'8 d'8 |c''8 '''c8 c4 |c4  c4 |c4
 	\duration  16 ; 'b 'a 'g 'f \duration  4;
-	\clef\bass	
+	\clef\bass	;
 
 	|c 'b 'a 'g 'f 'e 'd 'c ''b ''a ''g ''f ''e ''d ''c
 	}

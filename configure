@@ -16,7 +16,7 @@ ac_help="$ac_help
 ac_help="$ac_help
   disable-checking       set runtime checks"
 ac_help="$ac_help
-  disable-debug          set debug info"
+  disable-debugging         set debug info"
 ac_help="$ac_help
   enable-optimise       use maximal speed optimisations"
 ac_help="$ac_help
@@ -25,6 +25,8 @@ ac_help="$ac_help
   tex-prefix=DIR  set the tex-directory to find TeX subdirectories."
 ac_help="$ac_help
   tex-dir=DIR  set the directory to put LilyPond  TeX files in."
+ac_help="$ac_help
+  mf-dir=DIR  set the directory to put LilyPond MetaFont files in."
 
 # Initialize some variables set by options.
 # The variables have the same names as the options, with
@@ -563,11 +565,9 @@ if test "${enable_checking+set}" = set; then
 fi
 
 
-
-
-# Check whether --enable-debug or --disable-debug was given.
-if test "${enable_debug+set}" = set; then
-  enableval="$enable_debug"
+# Check whether --enable-debugging or --disable-debugging was given.
+if test "${enable_debugging+set}" = set; then
+  enableval="$enable_debugging"
   debug_b=$enableval
 fi
 
@@ -604,6 +604,14 @@ else
   TEXDIR=auto 
 fi
 
+# Check whether --enable-mf-dir or --disable-mf-dir was given.
+if test "${enable_mf_dir+set}" = set; then
+  enableval="$enable_mf_dir"
+  MFDIR=$enableval
+else
+  MFDIR=auto 
+fi
+
 
 if test $profile_b = yes; then
     EXTRA_LIBES="-pg"
@@ -632,7 +640,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:636: checking for $ac_word" >&5
+echo "configure:644: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_CXX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -663,7 +671,7 @@ test -n "$CXX" || CXX="gcc"
 
 
 echo $ac_n "checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works""... $ac_c" 1>&6
-echo "configure:667: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works" >&5
+echo "configure:675: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) works" >&5
 
 ac_ext=C
 # CXXFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
@@ -673,11 +681,11 @@ ac_link='${CXX-g++} -o conftest $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $L
 cross_compiling=$ac_cv_prog_cxx_cross
 
 cat > conftest.$ac_ext <<EOF
-#line 677 "configure"
+#line 685 "configure"
 #include "confdefs.h"
 main(){return(0);}
 EOF
-if { (eval echo configure:681: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
+if { (eval echo configure:689: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest; then
   ac_cv_prog_cxx_works=yes
   # If we can't run a trivial program, we are probably using a cross compiler.
   if (./conftest; exit) 2>/dev/null; then
@@ -697,12 +705,12 @@ if test $ac_cv_prog_cxx_works = no; then
   { echo "configure: error: installation or configuration problem: C++ compiler cannot create executables." 1>&2; exit 1; }
 fi
 echo $ac_n "checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler""... $ac_c" 1>&6
-echo "configure:701: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler" >&5
+echo "configure:709: checking whether the C++ compiler ($CXX $CXXFLAGS $LDFLAGS) is a cross-compiler" >&5
 echo "$ac_t""$ac_cv_prog_cxx_cross" 1>&6
 cross_compiling=$ac_cv_prog_cxx_cross
 
 echo $ac_n "checking whether we are using GNU C++""... $ac_c" 1>&6
-echo "configure:706: checking whether we are using GNU C++" >&5
+echo "configure:714: checking whether we are using GNU C++" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_gxx'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -711,7 +719,7 @@ else
   yes;
 #endif
 EOF
-if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:715: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
+if { ac_try='${CXX-g++} -E conftest.C'; { (eval echo configure:723: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }; } | egrep yes >/dev/null 2>&1; then
   ac_cv_prog_gxx=yes
 else
   ac_cv_prog_gxx=no
@@ -726,7 +734,7 @@ if test $ac_cv_prog_gxx = yes; then
   ac_save_CXXFLAGS="$CXXFLAGS"
   CXXFLAGS=
   echo $ac_n "checking whether ${CXX-g++} accepts -g""... $ac_c" 1>&6
-echo "configure:730: checking whether ${CXX-g++} accepts -g" >&5
+echo "configure:738: checking whether ${CXX-g++} accepts -g" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_cxx_g'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -756,7 +764,7 @@ fi
 # Extract the first word of "ranlib", so it can be a program name with args.
 set dummy ranlib; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:760: checking for $ac_word" >&5
+echo "configure:768: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_RANLIB'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -812,7 +820,7 @@ ac_configure=$ac_aux_dir/configure # This should be Cygnus configure.
 # SVR4 /usr/ucb/install, which tries to use the nonexistent group "staff"
 # ./install, which can be erroneously created by make from ./install.sh.
 echo $ac_n "checking for a BSD compatible install""... $ac_c" 1>&6
-echo "configure:816: checking for a BSD compatible install" >&5
+echo "configure:824: checking for a BSD compatible install" >&5
 if test -z "$INSTALL"; then
 if eval "test \"`echo '$''{'ac_cv_path_install'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
@@ -866,7 +874,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:870: checking for $ac_word" >&5
+echo "configure:878: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FIND'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -910,12 +918,13 @@ fi
 
 
 
+
 for ac_prog in bison
 do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:919: checking for $ac_word" >&5
+echo "configure:928: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_BISON'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -949,7 +958,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:953: checking for $ac_word" >&5
+echo "configure:962: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_FLEX'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -983,7 +992,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:987: checking for $ac_word" >&5
+echo "configure:996: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKE'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1017,7 +1026,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1021: checking for $ac_word" >&5
+echo "configure:1030: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_PODMAN'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
@@ -1053,7 +1062,7 @@ if test "x$TEXPREFIX" = xauto ; then
     
 
     echo $ac_n "checking TeX/MF root dir directory""... $ac_c" 1>&6
-echo "configure:1057: checking TeX/MF root dir directory" >&5    
+echo "configure:1066: checking TeX/MF root dir directory" >&5    
 
     find_root_prefix="$prefix"
     
@@ -1074,8 +1083,11 @@ echo "configure:1057: checking TeX/MF root dir directory" >&5
     fi
 
     find_texprefix="$find_root_prefix/$find_texpostfix"
-    TEXPREFIX='${prefix}'/"$find_texpostfix"
 
+    # only assign if variablename not empty
+    if test x != "xTEXPREFIX"; then
+    	TEXPREFIX='${prefix}'/"$find_texpostfix"
+    fi
     echo "$ac_t""$find_texprefix" 1>&6
 
 
@@ -1083,29 +1095,48 @@ fi
     
 if test "x$TEXDIR" = xauto ; then
     
-
-    # do something sensible if root hasn't specced dir yet attempts install
-     test "x$find_texprefix" != x || find_texprefix="$TEXPREFIX"
-
-    echo $ac_n "checking TeX tex input directory""... $ac_c" 1>&6
-echo "configure:1092: checking TeX tex input directory" >&5    
-    find_texdir=`(cd $find_texprefix; 
-      $FIND -type d -a -name tex -print |sort|head -1|sed 's#^\./##')`
+    
+    
+    echo $ac_n "checking TeX input directory""... $ac_c" 1>&6
+echo "configure:1102: checking TeX input directory" >&5    
+    find_dirdir=`(cd $find_texprefix; 
+      $FIND ./ -type d -a -name tex -print |sort|head -1|sed 's#^\./##')`
     
 
-    if test "x$find_texdir" = x; then
-       find_texdir="/tex";
-       echo "configure: warning: Cannot determine the TeX-subdirectory. Please use --enable-tex-dir" 1>&2
+    if test "x$find_dirdir" = x; then
+       find_dirdir="/tex";
+       echo "configure: warning: Cannot determine TeX input subdirectory. Please set from command-line" 1>&2
 	true
     fi
-    
-    TEXDIR="$TEXPREFIX/$find_texdir"
-    
-    echo "$ac_t""$find_texprefix/$find_texdir" 1>&6
+    TEXDIR=$find_dirdir
+    echo "$ac_t""$find_texprefix/$find_dirdir" 1>&6
 
+    TEXDIR="$TEXPREFIX/$TEXDIR"
 
 fi
 
+if test "x$MFDIR" = xauto; then
+    
+    
+    
+    echo $ac_n "checking MF input directory""... $ac_c" 1>&6
+echo "configure:1124: checking MF input directory" >&5    
+    find_dirdir=`(cd $find_texprefix; 
+      $FIND ./ -type d -a -name source -print |sort|head -1|sed 's#^\./##')`
+    
+
+    if test "x$find_dirdir" = x; then
+       find_dirdir="/source";
+       echo "configure: warning: Cannot determine MF input subdirectory. Please set from command-line" 1>&2
+	true
+    fi
+    MFDIR=$find_dirdir
+    echo "$ac_t""$find_texprefix/$find_dirdir" 1>&6
+
+    MFDIR="$TEXPREFIX/$MFDIR"
+
+fi
+    
 if test $MAKE = "error" 
 then
 	{ echo "configure: error: Please install GNU make" 1>&2; exit 1; }
@@ -1140,7 +1171,7 @@ else
 fi
 
 echo $ac_n "checking how to run the C++ preprocessor""... $ac_c" 1>&6
-echo "configure:1144: checking how to run the C++ preprocessor" >&5
+echo "configure:1175: checking how to run the C++ preprocessor" >&5
 if test -z "$CXXCPP"; then
 if eval "test \"`echo '$''{'ac_cv_prog_CXXCPP'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
@@ -1153,12 +1184,12 @@ ac_link='${CXX-g++} -o conftest $CXXFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $L
 cross_compiling=$ac_cv_prog_cxx_cross
   CXXCPP="${CXX-g++} -E"
   cat > conftest.$ac_ext <<EOF
-#line 1157 "configure"
+#line 1188 "configure"
 #include "confdefs.h"
 #include <stdlib.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1162: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1193: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out`
 if test -z "$ac_err"; then
   :
@@ -1178,17 +1209,17 @@ echo "$ac_t""$CXXCPP" 1>&6
 
 ac_safe=`echo "FlexLexer.h" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for FlexLexer.h""... $ac_c" 1>&6
-echo "configure:1182: checking for FlexLexer.h" >&5
+echo "configure:1213: checking for FlexLexer.h" >&5
 if eval "test \"`echo '$''{'ac_cv_header_$ac_safe'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else
   cat > conftest.$ac_ext <<EOF
-#line 1187 "configure"
+#line 1218 "configure"
 #include "confdefs.h"
 #include <FlexLexer.h>
 EOF
 ac_try="$ac_cpp conftest.$ac_ext >/dev/null 2>conftest.out"
-{ (eval echo configure:1192: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
+{ (eval echo configure:1223: \"$ac_try\") 1>&5; (eval $ac_try) 2>&5; }
 ac_err=`grep -v '^ *+' conftest.out`
 if test -z "$ac_err"; then
   rm -rf conftest*
@@ -1369,6 +1400,7 @@ s%@BISON@%$BISON%g
 s%@FLEX@%$FLEX%g
 s%@TEXPREFIX@%$TEXPREFIX%g
 s%@TEXDIR@%$TEXDIR%g
+s%@MFDIR@%$MFDIR%g
 s%@EXTRA_LIBES@%$EXTRA_LIBES%g
 s%@MAKE@%$MAKE%g
 s%@PODMAN@%$PODMAN%g
@@ -1591,7 +1623,7 @@ fi
 eval "DIR_DATADIR=$datadir"
 DIR_DATADIR="$DIR_DATADIR/lilypond"
 echo $ac_n "checking ""... $ac_c" 1>&6
-echo "configure:1595: checking " >&5
+echo "configure:1627: checking " >&5
 
 cat << EOF > lib/out/config.hh
 
@@ -1623,10 +1655,11 @@ If you only want help on the make targets, do a
 
 	make help
 
+assuming that \`make' is GNU make, of course.
 
+If you want to make site-wide extensions to the makefiles, please use
+
+    make/out/Site.make
+    
 END
 
-    
-#if test $shared_b = yes; then
-#    echo "NOTE: you are building the *shared* library. You should 
-#fi    

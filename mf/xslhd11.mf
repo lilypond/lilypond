@@ -1,0 +1,5 @@
+font_identifier:="xslhd11";
+mode_setup;
+font_size 10.24pt#;
+input xslhd;
+

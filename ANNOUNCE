@@ -49,12 +49,11 @@ for compilation you need
 	GNU C++ v2.7 or better, with libg++ installed.
 	GNU make. 
 	Flex (2.5.1 or better). 
-	Bison.
+	Bison. (1.25 or better)
 
 for running you need
 
 	TeX
-	The MusixTeX fonts. (I use those  in MusixTeX T.59)
 
 FEATURES
 
@@ -69,7 +68,7 @@ Multiple voices within one staff; beams optionally shared between
 voices.  Multiple scores within one input file. Each score is output
 to a different file.
 
-Beams, slurs, chords, super/subscripts (accents and text), triplets,
+Beams, slurs, chords, super/subscripts (accents and text), 
 general n-plet (triplet, quadruplets, etc.), lyrics, transposition
 dynamics (both absolute and hairpin style) clef changes, meter
 changes, cadenza-mode, key changes, repeat bars

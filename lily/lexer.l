@@ -79,7 +79,9 @@ COMMENT		%.*\n
 	new_input(s,source_l_g);
 	yy_pop_state();
 }
-
+<*>{WHITE}+ 	{
+	
+}
 <notes>{RESTNAME} 	{
 	const char *s = YYText();
 	yylval.string = new String (s);	
@@ -187,7 +189,7 @@ COMMENT		%.*\n
 <lyrics>[{}]	{
 	return YYText()[0];
 }
-<lyrics>[()\[\]|/.^>;_-] {
+<lyrics>. {
 	return yylval.c = YYText()[0];
 }
 
@@ -223,9 +225,7 @@ COMMENT		%.*\n
 	mtor << "misc char" <<c<<"\n";
 	return c;
 }
-<*>{WHITE}+ 	{
-	
-}
+
 <INITIAL,notes>.	{
 	return yylval.c = YYText()[0];
 }
