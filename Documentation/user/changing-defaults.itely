@@ -552,7 +552,7 @@ have score where each staff has its own time signature.
        \time 2/4
        c4 c c c c c
   }
-  >>
+>>
 @end lilypond
 
 

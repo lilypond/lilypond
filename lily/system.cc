@@ -419,6 +419,7 @@ System::get_line ()
 	Offset extra = robust_scm2offset (g->get_property ("extra-offset"),
 					  Offset (0, 0))
 	  * Staff_symbol_referencer::staff_space (g);
+	
 	/* FIXME: 0.5 */
 	stil->translate ((o + extra) * 0.5);
 	stencils = scm_cons (stil->smobbed_copy (), stencils);

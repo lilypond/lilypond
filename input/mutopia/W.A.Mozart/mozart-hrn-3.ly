@@ -1,6 +1,6 @@
 \header{
   title =	 "Konzert Nr. 3 Es dur"
-  subtitle = "f\\\"ur Horn und Orchester"
+  subtitle = "für Horn und Orchester"
   composer =	 "Wolfgang Amadeus Mozart (1756-1792)"
   enteredby =	 "HWN"
   opus = "KV 447"
