@@ -1,5 +1,54 @@
-1.4.1.jcn4
+1.4.2.jcn4
 ==========
+
+* Windows: bugfix for tex-wrappers, added tex wrapper for dvips.
+LilyPond (read: ly2dvi) should now work right out of the box.
+
+Amazing; it seems that ly2dvi won't generate PK files without this
+dvips wrapper.  We had over 200 downloads of setup.exe, yet only one
+`call for help'.  Did all the others give up, or did none of them
+bother to share their fix/file a bug report?  Urg.
+
+* Included mktexnam.patch (again?).
+
+* Documentation fix (Mark Hindley).
+
+* Debian patch and bashism fix (Anthony).
+
+* Bugfix: local-install should depend on $(INSTALLATION_FILES).  This fixes
+./configure; make install in buildscripts/ (Michael Vanier).
+
+* Removed les-nereides from short-examples, as it is tweaked a lot,
+contrary to what the webpage claims (didn't know that).
+
+1.4.2.mb1
+==========
+
+* ly2dvi, titledefs.tex: Typeset copyright notice at the bottom of the
+first page. Make separate page styles for first and last page.
+
+* Bugfix: Default RehearsalMark font-family changed to roman (only
+affects Scheme text markups).
+
+1.4.2.hwn1
+==========
+
+* Added support for Q: statement to abc2ly. (Laura Conrad)
+
+* Tie shape bugfix (Mark Hindley).
+
+* Bugfix: lilypond-book LatexPaper.__setattr__()
+
+* Bugfix: make Hyphen_spanner::brew_molecule() more robust.
+
+* Don't use stdin when no argument specified.
+
+* Naming smobs -> grobs 
+
+* Bugfix: ledger lines on easy-notation note heads.
+
+1.4.2
+=====
 
 * Glossary fixes (Thanks Jean-Pierre Coulon).
 

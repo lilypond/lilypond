@@ -87,7 +87,7 @@ names = ["One", "Two", "Three"]
 DIGITS='0123456789'
 alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"	
 HSPACE=' \t'
-
+midi_specs = ''
 	
 def check_clef(s):
       if not s:
@@ -205,6 +205,23 @@ def dump_voices (outf):
 				outf.write("}")
 		outf.write ("\n}")
 
+def try_parse_q(a):
+	global midi_specs
+	#assume that Q takes the form "Q:1/4=120"
+	#There are other possibilities, but they are deprecated
+	if string.count(a, '/') == 1:
+		array=string.split(a,'/')
+		numerator=array[0]
+		if numerator != 1:
+			sys.stderr.write("abc2ly: Warning, unable to translate a Q specification with a numerator of %s: %s\n" % (numerator, a))
+		array2=string.split(array[1],'=')
+		denominator=array2[0]
+		perminute=array2[1]
+		duration=str(string.atof(denominator)/string.atoi(numerator))
+		midi_specs=string.join(["\\tempo", duration, "=", perminute])
+	else:
+		sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
+        
 def dump_score (outf):
 	outf.write (r"""\score{
         \notes <
@@ -243,7 +260,7 @@ def dump_score (outf):
 		outf.write ("\t\t\\StaffContext\n")
 #		outf.write ("\t\t\\consists Staff_margin_engraver\n")
 		outf.write ("\t    }\n")
-	outf.write ("\t}\n\t\\midi {}\n}\n")
+	outf.write ("\t}\n\t\\midi {%s}\n}\n" % midi_specs)
 
 
 
@@ -631,7 +648,8 @@ def try_parse_header_line (ln, state):
 			lyrics_append(a)
 		if g == 'w':	# vocals
 			slyrics_append (a)
-
+		if g == 'Q':    #tempo
+			try_parse_q (a)
 		return ''
 	return ln
 
