@@ -135,6 +135,11 @@
 
 
 
+;
+; Each size family is a vector of fonts, loaded with a delay.
+; The vector should be sorted according to ascending design size.
+;
+
 (define-public (make-font-tree factor)
   (let*
       ((n (make-font-tree-node 'font-encoding 'music))
@@ -190,15 +195,15 @@
        
        (braces 10 #(,(delay
 		       (ly:make-virtual-font
-			(ly:font-load "feta-braces00")
-			(ly:font-load "feta-braces10")
-			(ly:font-load "feta-braces20")
-			(ly:font-load "feta-braces30")
-			(ly:font-load "feta-braces40")
-			(ly:font-load "feta-braces50")
-			(ly:font-load "feta-braces60")
-			(ly:font-load "feta-braces70")
-			(ly:font-load "feta-braces80"))
+			(ly:font-load "feta-braces-a")
+			(ly:font-load "feta-braces-b")
+			(ly:font-load "feta-braces-c")
+			(ly:font-load "feta-braces-d")
+			(ly:font-load "feta-braces-e")
+			(ly:font-load "feta-braces-f")
+			(ly:font-load "feta-braces-g")
+			(ly:font-load "feta-braces-h")
+			(ly:font-load "feta-braces-i"))
 		       )))))
 
     (for-each

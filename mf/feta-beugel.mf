@@ -19,11 +19,10 @@ def abc_encode_int (expr i) =
 	fi
 enddef ;
 
-% we set the designsize arbitrarily at 10
-
-design_size := 10;
-
-fet_beginfont("feta-braces-" &char(97 + font_count), design_size);
+% we must let the design increase for each
+% font to make sure that mftrace doesn't jack up the resolution too highly
+% for the longer braces.
+fet_beginfont("feta-braces-" &char(97 + font_count), (font_count + 1)* 15);
 
 mode_setup;
 
@@ -92,7 +91,13 @@ for i := 0 step 1 until font_count:
     % message "l: "&decimal l;
     % note: define_pixels (x) multiplies x by hppp,
     % must never get bigger than infinity
-    y := min (y + increment, infinity/hppp - 1);
+    y := y + increment;
+
+    if y >  infinity/hppp:
+		message "Resolution/magnification is too high.";
+		foobar ;
+		
+    fi
 
     % x should be about one staff space, taking brace to have
     % default height of 3 staffs, this yields height / 3 / 4 = 12
