@@ -47,10 +47,6 @@ pipeSymbol = {
   \bar "|"
 }
 
-endBarLine = {
-
-}
-
 myBreak = { \bar "" \break }
 
 \paper {
@@ -63,16 +59,16 @@ voice = \notes \relative c' {
   \clef violin
   \key g \major
   d4 | g g a a b | a8 \myBreak
-  b8 | c4 b a a | g2.
+  b8 | c4 b a a | g2. \myBreak
 
-  d4 | g g a a | b a8
-  b8 | c4 b a a| g2.
+  d4 | g g a a | b a8 \myBreak
+  b8 | c4 b a a| g2.  \myBreak
 
-  b8[ c] | d2 e4 d2 c4 | b a8
-  b8 | c4 b a g | a2.
+  b8[ c] | d2 e4 d2 c4 | b a8 \myBreak
+  b8 | c4 b a g | a2. \myBreak
 
-  d,4 | g4.\melisma a8\melismaEnd b2 a2 g4 | fis e8
-  d8 | e4 g g fis |
+  d,4 | g4.\melisma a8\melismaEnd b2 a2 g4 | fis e8 \myBreak
+  d8 | e4 g g fis | 
   
   \override NoteHead #'style = #'neo_mensural
 
@@ -134,14 +130,6 @@ oneHalfNoteTime = \markup {
   \column < { \number "1" } { \smaller \smaller \note #"2" #-0.5 } >
 }
 
-linebreaks = \notes {
-  \repeat unfold 2 { s4 s1 s4 s8 \bar "" \break
-		     s8 s1 s2. \bar "" \break }
-  s4 s2*3 s4 s8 \bar "" \break
-  s8 s1 s2. \bar "" \break
-  s4 s4*7 s4. \bar "" \break
-  s8 s1 s\breve \endBarLine
-}
 
 \score {
   \context Score <<
@@ -157,11 +145,9 @@ linebreaks = \notes {
       %% Custom time signature
       \override Staff.TimeSignature #'print-function = #Text_item::print
       \override Staff.TimeSignature #'text = #oneHalfNoteTime
+      \noclefs
     
       \context Voice = "voice" \voice
-      \linebreaks
-      \noclefs
-      
       \context Voice = "stich" \stich
     >>
     \lyricsto "voice" \new Lyrics {
