@@ -10,5 +10,6 @@
     \grace a8 g16 f e f \grace a8 g16 f e f \grace a8 g16 f e f 
         \grace a8 g16 f e f |
   }
+  \paper { raggedright = ##t }
 }
 %% new-chords-done %%

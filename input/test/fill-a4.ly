@@ -13,7 +13,6 @@
 %
 \header{ texidoc="@cindex Paper a4 Fill
 This should fill a4 paper. "
-%tagline="Ligly"
 }
 \include "paper13.ly"
 \score{

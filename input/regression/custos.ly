@@ -30,7 +30,7 @@
 	    \StaffContext
 	    \consists Custos_engraver
 	}
-	
+	raggedright = ##t
     }
 }
 %% new-chords-done %%

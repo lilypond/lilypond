@@ -349,15 +349,16 @@ Beam::score_forbidden_quants (Real yl, Real yr,
   Real dy = yr - yl;
 
   Real dem = 0.0;
-  if (fabs (yl) < rad && fabs ( my_modf (yl) - 0.5) < 1e-3)
-    dem += INTER_QUANT_PENALTY;
-  if (fabs (yr) < rad && fabs ( my_modf (yr) - 0.5) < 1e-3)
-    dem += INTER_QUANT_PENALTY;
+  for (int i = 0; i < 2; i++)
+    {
+      Real y = i? yl : yr;
+      if (fabs (y) <= (rad + 0.5) && fabs ( my_modf (y) - 0.5) < 1e-3)
+	dem += INTER_QUANT_PENALTY;
+    }
 
   // todo: use beam_count of outer stems.
   if (beam_count >= 2)
     {
-     
       Real straddle = 0.0;
       Real sit = (thickness - slt) / 2;
       Real inter = 0.5;
@@ -417,7 +418,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	      if (ldir == DOWN && dy >= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
 		dem += SECONDARY_BEAM_DEMERIT;
-	}
+	    }
 	  
 	  if (fabs (yr - 2 * rdir * beam_translation) < rad + inter)
 	    {

@@ -8,7 +8,6 @@ included in Lilypond's support of ancient notation.
 "
 }
 
-\include "paper26.ly"
 
 upperStaff =  \context GregorianStaff = upperStaff <
   \context GregorianVoice <

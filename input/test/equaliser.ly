@@ -96,7 +96,6 @@ violoncello = \notes \relative c' {
   R1*10 c1
 }
 
-\include "paper16.ly"
 
 \score {
   < 

@@ -1,10 +1,14 @@
 \header {
-texidoc="Automatic beamer behaves nicely."
+
+texidoc="Test automatic beamer: the last measure should have a single beam."
+
 }
+
 \version "1.7.18"
 
-\include "paper16.ly"
-\paper  { linewidth = 390.000000 \pt } 
+
+
+\paper  { raggedright = ##t } 
 
 \score {
   \notes \relative c'' {

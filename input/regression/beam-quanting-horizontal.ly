@@ -1,11 +1,7 @@
 \version "1.7.18"
-%  does this belong in regression?  delete it?  it doens't look
-%  like a special trick or a great learning tool, but it might
-%  be useful in testing length os beam stems, or something like
-%  that.
 
 \header{
-texidoc =	 "test beam quant positions"
+texidoc =	 "Test beam quant positions for horizontal beams."
 }
 
 \score{
@@ -20,11 +16,6 @@ texidoc =	 "test beam quant positions"
 		 c,32-[ c c c c c c c]  a''-[ a a a a a a a]
 		 f,-[ f f f f f f f]  e'-[ e e e e e e e]
 		\break
-		 c,8-[ d]  a''-[ g]
-		 g,-[ f]  d'-[ e]
-		\break
-	}
-	\paper{
 	}
 }
 

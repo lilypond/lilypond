@@ -1,9 +1,22 @@
+2003-06-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/(various).ly: add raggedright = #t.
+
+	* input/regression/auto-beam.ly: move from abe.ly
+
 2003-06-13  Graham Percival  <gperlist@shaw.ca>
 
 	* input/test/f*.ly: added texinfo index.
+	
 	* input/test/broken-thread-line.ly: renamed to follow-break.ly.
 
 2003-06-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/beam-quanting.cc (score_forbidden_quants): also add inter
+	quant penalty for beam just outside staff.
+
+	* input/regression/beam-quanting-horizontal.ly (texidoc): move
+	from beam-pos.ly,  remove non-horizontal tests. 
 
 	* input/test/(various): cleanup header info. 
 

@@ -5,8 +5,6 @@
     This thing implements it by adding invisible staff with lots of fast notes.
 %}
 
-\include "paper16.ly"
-
 
 quickmeasure = \notes {[\repeat unfold 16 c''16]}
 mel = \notes \relative c' {c16 d16 e8 a4 g2 e8 d c2. g'1 e4 d c2}

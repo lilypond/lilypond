@@ -1,9 +1,9 @@
 \version "1.7.18"
 \header {
-texidoc = "MOVE TO REGTEST.
-If the first and last outer notes of a beam are the same, the beam should be
-be horizontal.
-"
+    
+texidoc = "If the first and last outer notes of a beam are the same,
+the beam should be be horizontal.  "
+
 }
 \score{
 	\notes	\transpose c' c'{
