@@ -1,7 +1,9 @@
 2004-06-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* buildscripts/guile-gnome.sh: New file.
+
 	* scm/output-gnome.scm: White background, better window size, sane
-	canvas size.
+	canvas size.  Cleanups.
 
 2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
