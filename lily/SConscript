@@ -3,7 +3,12 @@
 import glob
 import os
 
+## this only works for BuildDir aliasing, not for scons -Y ../scrdir
+here = os.getcwd ()
+os.chdir (str (Dir ('.').srcnode ()))
 sources = glob.glob ('*.cc') + ['parser.yy', 'lexer.ll']
+os.chdir (here)
+
 name = 'lyparser'
 
 Import ('env')
@@ -14,10 +19,10 @@ e.Append (CPPPATH = ['include', '#/lily/include', '#/flower/include'])
 e.Depends ('lexer.cc', 'parser.cc')
 
 # some stuff here from lily-as-lib
-if os.path.exists ('main.cc'):
+if not os.path.exists ('main.cc'):
 	if env['static']:
 		e.Library (name, sources) 
-	if not env['static'] or ['shared']:
+	if not env['static'] or env['shared']:
 		e.SharedLibrary (name, sources)
 else:
 	#e.Append (LIBS = ['lygui', 'lyparser', 'lily', 'flower'])
