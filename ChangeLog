@@ -1,3 +1,18 @@
+2002-07-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/voice-devnull-engraver.cc (acknowledge_grob): Use proper
+	spelling for always.  In solo a due mode, kill spanners when the
+	other thread has solo.
+
+	* lily/thread-devnull-engraver.cc (acknowledge_grob): In solo a
+	due mode, kill everything when the other thread has solo.
+
+	* lily/a2-engraver.cc (acknowledge_grob): In solo a due mode, do
+	not set directions when we have solo.
+
+	* lily/part-combine-music-iterator.cc (process): Set property
+	"othersolo" if the other thread has solo.
+
 2002-07-13  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/beam.cc (calc_stem_y): fix beams on quarter notes.
