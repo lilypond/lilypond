@@ -57,7 +57,7 @@ Piano_pedal_bracket::print (SCM smob)
 	    flare[d] = 0.0; 
 	}
       
-      Interval ext   = b->extent (common,  X_AXIS);
+      Interval ext   = robust_relative_extent (b, common,  X_AXIS);
       span_points[d] = ext [broken[d] ?  RIGHT : LEFT];
     }
   while (flip (&d) != LEFT);
@@ -73,7 +73,7 @@ Piano_pedal_bracket::print (SCM smob)
       Real padding = robust_scm2double (me->get_property ("bound-padding"), 0);
       
       span_points[LEFT] = padding
-	+ textbit->extent (common, X_AXIS)[RIGHT];
+	+ robust_relative_extent (textbit, common, X_AXIS)[RIGHT];
     }
 
   Stencil m ;
