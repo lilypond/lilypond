@@ -130,7 +130,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Font_metric);
 IMPLEMENT_TYPE_P (Font_metric, "ly:font-metric?");
 
 
-LY_DEFINE (ly_find_glyph_by_name, "ly:find-glyph-by-name",
+LY_DEFINE (ly_find_glyph_by_name, "ly:font-get-glyph",
 	   2, 0, 0,
 	  (SCM font, SCM name),
 	  "This function retrieves a Stencil for the glyph named @var{name} "
