@@ -227,10 +227,10 @@
   (let* ((grob (hashq-ref (item-grobs go) item #f))
 	 (extra-offset (ly:grob-property grob 'extra-offset))
 	 (origin (if (null? extra-offset) '(0 . 0)
-		     (offset-flip-y extra-offset))))
-    
+	 	     (offset-flip-y extra-offset))))
+
     (if grob
-	(ly:insert-tweak
+	(ly:grob-replace-tweak
 	 grob (list tweak-grob-property
 		    'extra-offset
 		    (offset-flip-y (offset-add origin offset)))))))
@@ -238,14 +238,13 @@
 (define-method (save-tweaks (go <gnome-outputter>))
   (let* ((dumper (ly:make-dumper))
 	 (tweaks (ly:all-tweaks))
-	 (serialized-tweaks (map
-			     (lambda (tweak)
-			       (append 
-				(list
-				 (ly:dumper-key-serial dumper (car tweak))
-				 (list 'unquote (procedure-name (cadr tweak))))
-				(cddr tweak)))
-			     tweaks)))
+	 (serialized-tweaks
+	  (map
+	   (lambda (tweak) (append 
+			    (list (ly:dumper-key-serial dumper (car tweak))
+				  (list 'unquote (procedure-name (cadr tweak))))
+			    (cddr tweak)))
+	   tweaks)))
 
     (if (not (null? serialized-tweaks))
 	(let ((file (open-file (string-append (name go) ".twy") "w")))
@@ -381,6 +380,9 @@
 		    (eq? keyval gdk:w))
 		(equal? mods '(control-mask modifier-mask)))
 	   (gtk-main-quit))
+	  (and (eq? keyval gdk:s)
+	       (equal? mods '(control-mask modifier-mask))
+	       (save-tweaks go))
 	  ((and #t ;;(null? mods)
 		(eq? keyval gdk:plus))
 	   (scale-canvas go 2))

@@ -15,7 +15,7 @@
 #include "lily-proto.hh"
 #include "object-key.hh"
 
-typedef std::map<Object_key const*, SCM, Object_key_less> Tweak_map ;
+typedef std::map<Object_key const*, SCM, Object_key_less> Tweak_map;
 
 class Tweak_registry
 {
@@ -25,18 +25,19 @@ class Tweak_registry
   DECLARE_SMOBS(Tweak_registry, );
   
 public:
+  Tweak_registry ();
+
   Object_key_undumper *undumper() const;
   void clear ();
   void insert_grob_tweak (Grob*, SCM);
+  void replace_grob_tweak (Grob*, SCM);
   SCM get_tweaks (Grob *);
   SCM list_tweaks ();
   void insert_tweak_from_file (SCM);
-  Tweak_registry ();
 };
 
 extern Tweak_registry *global_registry_;
 
-DECLARE_UNSMOB(Tweak_registry, tweak_registry);
+DECLARE_UNSMOB (Tweak_registry, tweak_registry);
 
 #endif /* TWEAK_REGISTRATION_HH */
-
