@@ -43,9 +43,9 @@ class Stem : public Item {
     /**
       store the wholes (for vapourware tremolo)
      */
-    Array<Notehead*> whole_l_arr_;
-    Array<Notehead*> head_l_arr_;
-    Array<Notehead*> rest_l_arr_;
+    Link_array<Note_head> whole_l_arr_;
+    Link_array<Note_head> head_l_arr_;
+    Link_array<Note_head> rest_l_arr_;
     
 public:
     /// flagtype? 4 none, 8 8th flag, 0 = beam.
@@ -64,7 +64,7 @@ public:
     Stem(int staff_size_i);
     
     /// ensure that this Stem also encompasses the Notehead #n#
-    void add(Notehead*n);
+    void add(Note_head*n);
 
     NAME_MEMBERS(Stem);
 
@@ -73,6 +73,7 @@ public:
     void do_print() const;
     void set_stemend(Real);
     int get_default_dir();
+    int get_center_distance();
     void set_default_dir();
     void set_default_stemlen();
     void set_default_extents();
@@ -83,12 +84,14 @@ public:
     Real stem_start_f() const;
 
     bool invisible_b()const;
+    bool chord_b()const;
     
     /// heads that the stem encompasses (positions)
     int max_head_i() const;
     int min_head_i() const;
 protected:
-    void do_pre_processing();
+    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
+    virtual void do_pre_processing();
     virtual Interval do_width() const;
     Molecule* brew_molecule_p() const;
 };
