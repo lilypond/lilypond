@@ -70,6 +70,19 @@ import operator
 import tempfile
 import traceback
 
+# Handle bug in Python 1.6-2.1
+#
+# there are recursion limits for some patterns in Python 1.6 til 2.1. 
+# fix this by importing pre instead. Fix by Mats.
+
+# todo: should check Python version first.
+try:
+	import pre
+	re = pre
+	del pre
+except ImportError:
+	import re
+
 
 ################################################################
 # lilylib.py -- options and stuff

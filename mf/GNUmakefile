@@ -35,7 +35,7 @@ ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES)
 INSTALLATION_DIR=$(datadir)/mf/
 INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
 
-INSTALLATION_OUT_SUFFIXES=1 2 3 4
+INSTALLATION_OUT_SUFFIXES=1 2 3 4 5
 
 INSTALLATION_OUT_DIR1=$(datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
@@ -53,16 +53,25 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 # making pfas takes a lot of CPU time. Let's skip it for now.
 
 
+PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
+
 ifdef MAKE_PFA_FILES
 
-PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
-ALL_GEN_FILES += $(PFA_FILES)
+ALL_GEN_FILES += $(PFA_FILES) $(outdir)/lilypond.map
 INSTALLATION_OUT_DIR4=$(datadir)/pfa
 INSTALLATION_OUT_FILES4=$(PFA_FILES)
+
+INSTALLATION_OUT_DIR5=$(datadir)/dvips/
+INSTALLATION_OUT_FILES5=$(outdir)/lilypond.map
 
 pfa: $(PFA_FILES)
 
 endif
+
+$(outdir)/lilypond.map: 
+	echo $(FONT_FILES:.mf=) | tr ' ' '\n' | \
+		sed 's/\(.*\)/\1 \1 <\1.pfa/' > $@
+
 
 export MFINPUTS:=.:$(MFINPUTS)
 

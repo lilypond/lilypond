@@ -13,7 +13,7 @@ EXTRA_DIST_FILES= $(LATEX_FILES)    $(wildcard *.itexi *.itely)
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
 PS_FILES = $(DVI_FILES:.dvi=.ps)
-
+PDF_FILES=$(DVI_FILES:.dvi=.pdf)
 PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 
 INFO_FILES = $(addprefix $(outdir)/, lilypond.info lilypond-internals.info)
@@ -85,7 +85,7 @@ deep-symlinks:
 endif
 
 
-local-WWW: $(HTML_FILES) $(datafiles) $(PS_GZ_FILES) $(DEEP_HTML_FILES) info-dir
+local-WWW: $(HTML_FILES) $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(DEEP_HTML_FILES) info-dir
 
 local-WWW-clean: deep-WWW-clean
 

@@ -9,7 +9,6 @@ set datadir="@datadir@"
 
 setenv GS_FONTPATH "$datadir/afm:@datadir@/pfa:$GS_FONTPATH"
 setenv GS_LIB "$datadir/ps:$GS_LIB"
-
 # setenv LILYPONDPREFIX "$datadir"
 
 # bit silly. for ly2dvi, overrules compiled-in datadir...
@@ -29,8 +28,15 @@ endif
 if ($?TFMFONTS) then
         setenv TFMFONTS "$datadir/tfm:$TFMFONTS"
 else
-        setenv TFMFONTS "$datadir/tfm:"
+        setenv TFMFONTS "$datadir/tfm::"
 endif
+
+if ($?DVIPSHEADERS) then
+        setenv DVIPSHEADERS "$datadir/pfa:$DVIPSHEADERS"
+else
+        setenv DVIPSHEADERS "$datadir/pfa::"
+endif
+
 
 
 

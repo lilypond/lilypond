@@ -1,6 +1,7 @@
 
 export PATH:=$(topdir)/lily/out:$(topdir)/buildscripts/out:$(PATH)
-
+export TEXCONFIG:=$(topdir)/mf/out:$(TEXCONFIG)
+export TEXPSHEADERS:=$(topdir)/mf/out::$(TEXPSHEADERS)
 export MFINPUTS:=$(topdir)/mf/:$(MFINPUTS)::
 export TEXINPUTS:=$(topdir)/mf/out/:$(topdir)/tex/:$(topdir)/ps/:$(TEXINPUTS):$(pwd)::
 export LILYINCLUDE:=$(topdir)/ps:$(topdir)/scm:$(topdir)/ly:$(topdir)/mf/out::$(TEX_TFMDIR):$(LILYINCLUDE)

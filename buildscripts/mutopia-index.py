@@ -163,6 +163,7 @@ def gen_list(inputs, filename):
 				break
 			list_item(f, 'See a picture of page %d' % pageno, 'png')
 		list_item(base + '.ps.gz', 'Print ', 'gzipped PostScript')
+		list_item(base + '.pdf', 'Print ', 'PDF')		
 		list_item(base + '.midi', 'Listen', 'MIDI')
 		list.write ("</ul>\n");
 

@@ -1,6 +1,32 @@
 lilypond_1_4
 ============
 
+* Backport feta-nummer and feta-din.
+
+* Oops. Included '|' rule in parser.yy twice.  
+
+* Generate PDF for examples and manuals.
+
+* scripts/lilypond-book.py: Import from HEAD.
+
+* scripts/ly2dvi.py: fix by Mats. Try to import pre if available.
+
+* Documentation/user/lilypond-book.itely: 
+* scripts/lilypond-book.py: Add options [no]indent, linewidth and
+  noinline.
+
+* configure: Regenerate.
+
+* aclocal.m4: Add --enable/disable-optimising option.
+
+* Documentation/windows/setup.hint (requires): Add gsview dependency.
+
+* Documentation/windows/installing.texi: Suggest gswin32c (console
+program) for getting the version.  Layout fixes.
+
+* Documentation/user/tutorial.itely (Running LilyPond): Backport
+windows doco fix.
+	
 * Documentation/windows/gs-profile.sh:
 * Documentation/windows/gsview-profile.sh: Remove.
 

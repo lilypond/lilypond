@@ -41,9 +41,12 @@ fonts:
 doc: lily fonts
 	$(MAKE) -C Documentation
 
-web-doc: 
+web-doc:  pfa-fonts
 	$(MAKE) out=www -C Documentation WWW
 	$(MAKE) footify
+
+pfa-fonts:
+	$(MAKE) MAKE_PFA_FILES=1 -C mf
 
 # KPATHSEA=0: Hack for compiling without kpathsea -- not recommended
 my_tfm_path = $(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
@@ -60,12 +63,12 @@ TOP_HTMLS = index.html short-examples.html long-examples.html
 
 index: web-doc
 
-short-examples:
+short-examples: pfa-fonts
 	$(MAKE) out=www -C input WWW
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o short-examples.html input/
 
 
-long-examples:
+long-examples: pfa-fonts
 	$(MAKE) out=www -C mutopia WWW
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o long-examples.html mutopia/
 
@@ -86,6 +89,7 @@ top-web:
 		-not -name '*.pg' -not -name '*.tmp' -not -name '*.toc' \
 		-not -name '*.fns' -not -name '*.cps' -not -name '*.nexi' \
 		-not -name '*.texi' -not -name '*.texidoc' -not -name '*.tp' \
+		-not -name '*.pdfps' -not -name '*.eps.bbox' \
 		-not -name '*.log' -not -name 'out-www' -not -name '*.dep' \
 	    > $(outdir)/weblist
 	ls *.png *.html >> $(outdir)/weblist

@@ -15,7 +15,7 @@ INSTALL - compiling and installing GNU LilyPond
     Compilation
     Running requirements
     Website requirements
-  Building  LilyPond
+  Building LilyPond
     Configuring for multiple platforms
   Emacs mode
   Compiling for distributions
@@ -25,6 +25,7 @@ INSTALL - compiling and installing GNU LilyPond
     Slackware
     Mandrake
     Debian GNU/Linux
+    MacOS X
   Problems
     Debian GNU/Linux unstable gcc-3.0
     Linux-2.4.0, Guile-1.4 -with-threads
@@ -94,10 +95,10 @@ Upgrading
      xdelta (ftp://ftp.xcf.berkeley.edu/pub/xdelta/).   This is much
      safer than using patches, and is the recommended way.
 
-     The following command produces `lilypond-1.4.3.tar.gz' from
-     `lilypond-1.4.2.tar.gz' identical (up to compression dates) to the
-     .3 on the FTP site.
-            xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
+     The following command produces `lilypond-1.4.11.tar.gz' from
+     `lilypond-1.4.10.tar.gz' identical (up to compression dates) to
+     the .11 on the FTP site.
+            xdelta patch lilypond-1.4.10-1.4.11.xd lilypond-1.4.10.tar.gz
 
 Requirements
 ============
@@ -110,7 +111,8 @@ Compilation
    * A reasonably new C++ compiler:  EGCS 1.1, GCC 2.95.2 or newer.
      Check out the gcc site (ftp://ftp.gnu.org/gnu/gcc/).
 
-   * Python 1.5, Check out the python website (http://www.python.org).
+   * Python 1.5 or 2.1 Check out the python website
+     (http://www.python.org/).
 
    * GUILE 1.3.4 or newer,  check out the GUILE webpage
      (http://www.gnu.org/software/guile/guile.html).  Version 1.4 is
@@ -224,8 +226,8 @@ issuing
      (ftp://texinfo.org/texinfo/pretests/texinfo-4.0b.tar.gz) or
      texinfo-4.0b (ftp://alpha.gnu.org/gnu/texinfo-4.0b.tar.gz)
 
-Building  LilyPond
-==================
+Building LilyPond
+=================
 
    to install GNU LilyPond, type:
      	gunzip -c lilypond-x.y.z | tar xf -
@@ -320,10 +322,10 @@ LinuxPPC
 SuSE
 ----
 
-   Some SUSE RPMS should available from
+   Some SuSE RPMS should available from
 `ftp://ftp.lilypond.org/pub/LilyPond/binaries/SuSE'.
 
-   You can also compile a RPM for SUSE yourself.  A spec file is in
+   You can also compile a RPM for SuSE yourself.  A spec file is in
 `make/out/lilypond.suse.spec', see the instructions for building the
 Red Hat RPM.
 
@@ -337,7 +339,7 @@ Slackware
    No precompiled packages for Slackware are available.
 
    Problems have been reported with Slackware 7.0; apparently, it ships
-with a faulty compiler. Do not compile LilyPond with -O2 on this
+with a faulty compiler.  Do not compile LilyPond with -O2 on this
 platform.
 
 Mandrake
@@ -394,12 +396,12 @@ the .deb by doing, for example:
      	$ su - root
      	# dpkg --purge lilypond lilypond1.3
      	# exit
-     	$ tar xzf lilypond-1.4.3.tar.gz
-     	$ cd lilypond-1.4.3
-     	$ dch -p -v 1.4.3-0.local.1 "Local build."
+     	$ tar xzf lilypond-1.4.11.tar.gz
+     	$ cd lilypond-1.4.11
+     	$ dch -p -v 1.4.11-0.local.1 "Local build."
      	$ debuild -B
      	$ su - root
-     	# dpkg -i ../lilypond_1.4.3*.deb
+     	# dpkg -i ../lilypond_1.4.11*.deb
      	# exit
      	$
 
@@ -427,7 +429,7 @@ in addition to the those needed for running:
 
    * gs, netpbm
 
-   * pnmtopng (only in Debian 2.2; pnmtopng has been merged with netpbm
+   * pnmtopng (only in Debian 2.2: pnmtopng has been merged with netpbm
       in Debian testing/unstable.)
 
    Most of these are listed on the `Build-Depends' line in the
@@ -442,11 +444,11 @@ by running \`apt-get' as root before building the package:
      		tetex-extra flex bison texinfo groff gs \
      		netpbm pnmtopng m4 gettext
 
-   For Debian in development ("unstable", the future 2.3 or 3.0):
+   For Debian in development ("unstable", the future Debian 3.0):
 
      	apt-get install binutils cpp gcc libc6-dev \
              	g++ libstdc++2.10-dev \
-     		python-base libguile-dev tetex-bin libkpathsea-dev \
+     		python libguile-dev tetex-bin libkpathsea-dev \
      		tetex-extra flex bison texinfo bibtex2html groff gs \
      		netpbm m4 gettext
 
@@ -454,6 +456,43 @@ by running \`apt-get' as root before building the package:
 interfere with your build, you may want to do this before the build too:
 
      	dpkg --purge lilypond lilypond1.3
+
+MacOS X
+-------
+
+   LilyPond has been built on Darwin, to be precise, on:
+         Darwin buoux.aspiratie.nl 5.3 Darwin Kernel Version 5.3: Thu Jan 24
+         22:06:02 PST 2002; root:xnu/xnu-201.19.obj~1/RELEASE_PPC  Power Macintosh powerpc
+
+   using:
+
+         Apple Computer, Inc. version gcc-932.1, based on gcc version 2.95.2 19991024 (release)
+
+   To make sure you have all packages needed to build LilyPond
+installed, run as root:
+
+             apt-get install bash python guile debianutils flex bison texinfo \
+                     ghostscript6 netpbm m4 gettext
+
+   and:
+
+             fink install tetex
+
+   For more information about `apt-get' and `fink', see
+fink.sourceforge.net (http://fink.sf.net).
+
+   Then, configure, patch, make and install LilyPond using these
+commands:
+
+             CC="cc -I/sw/include" CXX="c++ -I/sw/include" LDFLAGS="-L/sw/lib" \
+                 ./configure --prefix=/sw
+             make -C lily out/parser.hh out/parser.cc out/config.h
+             patch -p0 < darwin.patch
+             make -C lily out/parser.o
+             make DEPENDENCIES_OUTPUT=/dev/null all
+             make install
+
+   For installing, you must be root, of course.
 
 Problems
 ========

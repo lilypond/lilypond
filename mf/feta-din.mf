@@ -5,13 +5,21 @@ test:=0;
 
 input feta-autometric;
 input feta-macros;
-input feta-params;
+% input feta-params;
+mode_setup;
+
+ex# :=  (design_size / 2.4)* pt#;
+descender# := 0.5 ex#;
+ascender# := 0.72 ex#;
+staffspace# := 1.75 / 2.0 * ex#;
+stafflinethickness# := staffspace# / 10;
+
+define_pixels (staffspace, stafflinethickness, ex, descender, ascender);
 
 fet_beginfont("feta-din", design_size);
-%mode_setup;
 
 input feta-din-code;
 
-fet_endfont("feta-nummer");
+fet_endfont("feta-din");
 
 end.

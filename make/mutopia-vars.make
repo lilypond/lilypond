@@ -13,6 +13,7 @@ EXTRA_DIST_FILES += $(LY_FILES) $(M4_FILES) $(LYM4_FILES)
 ly_examples=$(addprefix $(outdir)/, $(addsuffix .ly.txt, $(examples)))
 
 ps_examples=$(addprefix $(outdir)/, $(addsuffix .ps.gz, $(examples)))
+pdf_examples=$(addprefix $(outdir)/, $(addsuffix .pdf, $(examples)))
 dvi_examples=$(addprefix $(outdir)/, $(addsuffix .dvi, $(examples)))
 gif_examples=$(addprefix $(outdir)/, $(addsuffix .gif, $(examples)))
 png_examples=$(addprefix $(outdir)/, $(addsuffix .png, $(examples)))

@@ -40,16 +40,29 @@
 import os
 import stat
 import string
-import re
+
+
 import getopt
 import sys
 import __main__
 import operator
 
+# Handle bug in Python 1.6-2.1
+#
+# there are recursion limits for some patterns in Python 1.6 til 2.1. 
+# fix this by importing pre instead. Fix by Mats.
+
+# todo: should check Python version first.
+try:
+	import pre
+	re = pre
+	del pre
+except ImportError:
+	import re
 
 program_version = '@TOPLEVEL_VERSION@'
 if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
-	program_version = '1.5.18'
+	program_version = '1.4.12'
 
 # if set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX 
@@ -153,20 +166,16 @@ class LatexPaper:
 		self.__body = None
 	def set_geo_option(self, name, value):
 
-		if type(value) == type(""):
-			m = re.match ("([0-9.]+)(cm|in|pt|mm|em|ex)",value)
-			if m:
-				unit = m.group (2)
-				num = string.atof(m.group (1))
-				conv =  dimension_conversion_dict[m.group(2)]
-
-				value = conv(num)
+		if type(value) == type([]):
+			value = map(conv_dimen_to_float, value)
+		else:
+			value = conv_dimen_to_float(value)
 
 		if name == 'body' or name == 'text':
-			if type(value) == type(""):
-				self.m_geo_textwidth =  value
-			else:
+			if type(value) == type([]):
 				self.m_geo_textwidth =  value[0]
+			else:
+				self.m_geo_textwidth =  value
 			self.__body = 1
 		elif name == 'portrait':
 			self.m_geo_landscape = 0
@@ -180,12 +189,12 @@ class LatexPaper:
 			self.m_geo_x_marginparsep =  value
 			self.m_geo_includemp = 1
 		elif name == 'scale':
-			if type(value) == type(""):
-				self.m_geo_width = self.get_paperwidth() * float(value)
+			if type(value) == type([]):
+				self.m_geo_width = self.get_paperwidth() * value[0]
 			else:
-				self.m_geo_width = self.get_paperwidth() * float(value[0])
+				self.m_geo_width = self.get_paperwidth() * value
 		elif name == 'hscale':
-			self.m_geo_width = self.get_paperwidth() * float(value)
+			self.m_geo_width = self.get_paperwidth() * value
 		elif name == 'left' or name == 'lmargin':
 			self.m_geo_lmargin =  value
 		elif name == 'right' or name == 'rmargin':
@@ -198,25 +207,25 @@ class LatexPaper:
 			if value[2] not in ('*', ''):
 				self.m_geo_rmargin =  value[2]
 		elif name == 'hmargin':
-			if type(value) == type(""):
-				self.m_geo_lmargin =  value
-				self.m_geo_rmargin =  value
-			else:
+			if type(value) == type([]):
 				self.m_geo_lmargin =  value[0]
 				self.m_geo_rmargin =  value[1]
-		elif name == 'margin':#ugh there is a bug about this option in
-					# the geometry documentation
-			if type(value) == type(""):
+			else:
 				self.m_geo_lmargin =  value
 				self.m_geo_rmargin =  value
-			else:
+		elif name == 'margin':#ugh there is a bug about this option in
+					# the geometry documentation
+			if type(value) == type([]):
 				self.m_geo_lmargin =  value[0]
 				self.m_geo_rmargin =  value[0]
-		elif name == 'total':
-			if type(value) == type(""):
-				self.m_geo_width =  value
 			else:
+				self.m_geo_lmargin =  value
+				self.m_geo_rmargin =  value
+		elif name == 'total':
+			if type(value) == type([]):
 				self.m_geo_width =  value[0]
+			else:
+				self.m_geo_width =  value
 		elif name == 'width' or name == 'totalwidth':
 			self.m_geo_width =  value
 		elif name == 'paper' or name == 'papername':
@@ -225,8 +234,7 @@ class LatexPaper:
 			self.m_papersize = name
 		else:
                        	pass 
-			# what is _set_dimen ?? /MB
-                       	#self._set_dimen('m_geo_'+name, value)
+
 	def __setattr__(self, name, value):
 		if type(value) == type("") and \
 		   dimension_conversion_dict.has_key (value[-2:]):
@@ -344,6 +352,23 @@ dimension_conversion_dict ={
 	'pt': pt2pt
 	}
 
+# Convert numeric values, with or without specific dimension, to floats.
+# Keep other strings
+def conv_dimen_to_float(value):
+	if type(value) == type(""):
+		m = re.match ("([0-9.]+)(cm|in|pt|mm|em|ex)",value)
+		if m:
+			unit = m.group (2)
+			num = string.atof(m.group (1))
+			conv =  dimension_conversion_dict[m.group(2)]
+			
+			value = conv(num)
+	 	
+		elif re.match ("^[0-9.]+$",value):
+			value = float(value)
+
+	return value
+			
 	
 # latex linewidths:
 # indices are no. of columns, papersize,  fontsize
@@ -399,15 +424,21 @@ output_dict= {
 \verb+%s+:''',
 		'output-lilypond': r"""\begin[%s]{lilypond}
 %s
-\end{lilypond}""",
-		'output-verbatim': "\\begin{verbatim}%s\\end{verbatim}",
+\end{lilypond}
+""",
+		'output-verbatim': r'''\begin{verbatim}%s\end{verbatim}%%
+''',
 		'output-default-post': "\\def\postLilypondExample{}\n",
 		'output-default-pre': "\\def\preLilypondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
 		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
+		'output-noinline': r'''
+%% generated: %(fn)s.eps
+''',
 		'output-tex': '{\\preLilypondExample \\input %(fn)s.tex \\postLilypondExample\n}',
 		'pagebreak': r'\pagebreak',
 		},
+	
 	'texi' : {'output-lilypond': """@lilypond[%s]
 %s
 @end lilypond 
@@ -418,6 +449,9 @@ output_dict= {
 		  'output-lilypond-fragment': """@lilypond[%s]
 \context Staff\context Voice{ %s }
 @end lilypond """,
+		  'output-noinline': r'''
+@c generated: %(fn)s.png		  
+''',
 		  'pagebreak': None,
 		  'output-verbatim': r"""@example
 %s
@@ -454,6 +488,11 @@ def output_verbatim (body):
 		body = re.sub ('([@{}])', '@\\1', body)
 	return get_output ('output-verbatim') % body
 
+
+#warning: this uses extended regular expressions. Tread with care.
+
+# legenda (?P  name parameter
+# *? match non-greedily.
 
 re_dict = {
 	'latex': {'input': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
@@ -558,6 +597,8 @@ def compose_full_body (body, opts):
 	Add stuff to BODY using OPTS as options."""
 	music_size = default_music_fontsize
 	latex_size = default_text_fontsize
+	indent = ''
+	linewidth = ''
 	for o in opts:
 		if g_force_lilypond_fontsize:
 			music_size = g_force_lilypond_fontsize
@@ -569,6 +610,16 @@ def compose_full_body (body, opts):
 		m = re.match ('latexfontsize=([0-9]+)pt', o)
 		if m:
 			latex_size = string.atoi (m.group (1))
+			
+		m = re.match ('indent=([-.0-9]+)(cm|in|mm|pt)', o)
+		if m:
+			f = float (m.group (1))
+			indent = 'indent = %f\\%s' % (f, m.group (2))
+			
+		m = re.match ('linewidth=([-.0-9]+)(cm|in|mm|pt)', o)
+		if m:
+			f = float (m.group (1))
+			linewidth = 'linewidth = %f\\%s' % (f, m.group (2))
 
 	if re.search ('\\\\score', body):
 		is_fragment = 0
@@ -581,10 +632,15 @@ def compose_full_body (body, opts):
 
 	if is_fragment and not 'multiline' in opts:
 		opts.append('singleline')
+		
 	if 'singleline' in opts:
-		l = -1.0;
-	else:
-		l = __main__.paperguru.get_linewidth()
+		linewidth = 'linewidth = -1.0'
+	elif not linewidth:
+		l = __main__.paperguru.get_linewidth ()
+		linewidth = 'linewidth = %f\pt' % l
+
+	if 'noindent' in opts:
+		indent = 'indent = 0.0\mm'
 
 	for o in opts:
 		m= re.search ('relative(.*)', o)
@@ -605,20 +661,23 @@ def compose_full_body (body, opts):
 			body = '\\relative %s { %s }' %(pitch, body)
 	
 	if is_fragment:
-		body = r"""\score { 
+		body = r'''\score { 
  \notes { %s }
   \paper { }  
-}""" % body
+}''' % body
 
 	opts = uniq (opts)
 	optstring = string.join (opts, ' ')
 	optstring = re.sub ('\n', ' ', optstring)
-	body = r"""
+	body = r'''
 %% Generated automatically by: lilypond-book.py
 %% options are %s  
 \include "paper%d.ly"
-\paper  { linewidth = %f \pt } 
-""" % (optstring, music_size, l) + body
+\paper  {
+  %s
+  %s
+} 
+''' % (optstring, music_size, linewidth, indent) + body
 
 	# ughUGH not original options
 	return body
@@ -954,7 +1013,10 @@ def schedule_lilypond_block (chunk):
 		m = re.search ('intertext="(.*?)"', o)
 		if m:
 			newbody = newbody  + m.group (1) + "\n\n"
-	if format == 'latex':
+	
+	if 'noinline' in opts:
+		s = 'output-noinline'
+	elif format == 'latex':
 		if 'eps' in opts:
 			s = 'output-eps'
 		else:

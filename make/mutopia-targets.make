@@ -10,7 +10,7 @@ include $(stepdir)/www-targets.make
 
 all: $(OUT_FILES)
 
-local-WWW: $(ly_examples) $(ps_examples) $(png_examples) $(dvi_examples)
+local-WWW: $(ly_examples) $(ps_examples) $(pdf_examples) $(png_examples) $(dvi_examples)
 
 tar:
 	mkdir -p $(outdir)/$(tarball)

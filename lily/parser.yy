@@ -1072,12 +1072,6 @@ command_element:
                 $$ = new Music (gh_list (gh_cons (ly_symbol2scm ("name"), ly_symbol2scm ("separator")), SCM_UNDEFINED));
                 $$->set_spot (THIS->here_input ());
         }
-        | '|'      {
-
-                extern Music * get_barcheck();
-                $$ = get_barcheck ();
-                $$->set_spot (THIS->here_input ());
-        }
 	| '|'      {
                 extern Music * get_barcheck();
                 $$ = get_barcheck ();
