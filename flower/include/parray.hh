@@ -207,5 +207,76 @@ junk_pointer_array (Link_array<T> &a)
   a.clear ();
 }
 
+
+
+/*
+  lookup with binsearch, return tokencode.
+*/
+template<class T>
+int
+binsearch_array (Array<T> const &arr, T t, int (*compare)(T const&,T const&))
+{
+  int lo;
+  int hi;
+  int cmp;
+  int result;
+  lo = 0;
+  hi = maxkey;
+
+  /* binary search */
+  do
+  {
+      cmp = (lo + hi) / 2;
+
+      result = compare (t, arr[cmp]);
+
+      if (result < 0)
+          hi = cmp;
+      else
+          lo = cmp;
+    }
+  while (hi - lo > 1);
+  if (!compare (t, arr[lo]))
+    return lo;
+  else
+    return -1;              /* not found */
+}
+
+
+template<class T>
+int
+binsearch_link_array (Link_array<T> const &arr, T *t,
+		      int (*compare)(T *const&,T *const&))
+{
+  int lo;
+  int hi;
+  int cmp;
+  int result;
+  lo = 0;
+  hi = arr.size();
+
+  if (hi == 0)
+    return -1;
+  
+  /* binary search */
+  do
+  {
+      cmp = (lo + hi) / 2;
+
+      result = compare (t, arr[cmp]);
+
+      if (result < 0)
+          hi = cmp;
+      else
+          lo = cmp;
+    }
+  while (hi - lo > 1);
+  if (!compare (t, arr[lo]))
+    return lo;
+  else
+    return -1;              /* not found */
+}
+
+
 #endif // PARRAY_HH
 

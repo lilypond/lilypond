@@ -50,8 +50,8 @@ public:
   
   Direction break_status_dir () const;
   
-  Item * find_prebroken_piece (Direction) const;
-  Item * find_prebroken_piece (Line_of_score*) const;    
+  Item * find_broken_piece (Direction) const;
+  Score_element * find_broken_piece (Line_of_score*) const;    
 
   Item();
   Real hpos_f() const;

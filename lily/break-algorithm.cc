@@ -20,35 +20,7 @@
 #include "simple-spacer.hh"
 
 
-String
-Col_stats::str () const
-{
-  String s;
-  if (!count_i_)
-    s = _ ("0 lines");
-  else if (count_i_ == 1)
-    s = _f ("1 line (of %.0f columns)", (Real)cols_i_/count_i_);
-  else
-    s = _f ("%d lines (with an average of %.1f columns)", 
-      count_i_, (Real)cols_i_/count_i_);
-  return s;
-}
 
-void
-Col_stats::add (Line_of_cols const& line)
-{
-  count_i_++;
-  cols_i_ += line.size ();
-}
-
-
-Col_stats::Col_stats ()
-{
-  count_i_ =0;
-  cols_i_ =0;
-}
-
-/* **************************************************************** */
 
 
 Array<int>
@@ -152,7 +124,7 @@ void
 Break_algorithm::problem_OK () const
 {
   if (pscore_l_->col_l_arr_.empty ())
-    error (_("score does not have any columns"));
+    error (_("Score does not have any columns"));
   OK ();
 }
 
@@ -164,16 +136,8 @@ Break_algorithm::OK () const
 Array<Column_x_positions>
 Break_algorithm::solve () const
 {
-  Cpu_timer timer;
-
   Array<Column_x_positions> h= do_solve ();
-
-  if (approx_stats_.count_i_)
-    *mlog << '\n' << _f ("approximated %s", approx_stats_.str ()) << endl;
-  if (exact_stats_.count_i_)
-    *mlog << _f ("calculated %s exactly", exact_stats_.str ()) << endl;
-  *mlog << _f ("elapsed time %.2f seconds",  timer.read ()) << endl;
-
+  
   return h;
 }
 

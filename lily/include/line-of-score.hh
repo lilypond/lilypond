@@ -16,14 +16,15 @@ class Line_of_score : public Axis_group_spanner, public Super_element
 {
 public:
   Link_array<Paper_column> cols_;
-
+  int rank_i_;
+  
   Line_of_score();
     
   /// is #c# contained in #*this#?
   bool contains_b (Paper_column const *c) const;
     
   Line_of_score * set_breaking (Array<Column_x_positions> const&, int j);
-
+  static int compare (Line_of_score* const &,Line_of_score* const &);
 
   void output_all (bool last_line);
   void add_column (Paper_column*);

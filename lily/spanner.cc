@@ -38,7 +38,7 @@ Spanner::break_into_pieces ()
 
   if  (left == right)
     {
-      warning (_ ("left spanpoint is right spanpoint\n"));
+      warning (_ ("Left spanpoint is right spanpoint"));
       return;
     }
   
@@ -49,35 +49,31 @@ Spanner::break_into_pieces ()
 
   for (int i=1; i < break_points.size(); i++) 
     {
-      Breaking_information info;
-      info.bounds_[LEFT] = break_points[i-1];
-      info.bounds_[RIGHT] = break_points[i];
+      Drul_array<Item*> bounds;
+      bounds[LEFT] = break_points[i-1];
+      bounds[RIGHT] = break_points[i];
       Direction d = LEFT;
       do
 	{
-	  Item *&pc_l = info.bounds_[d] ;
+	  Item *&pc_l = bounds[d] ;
 	  if (!pc_l->line_l())
-	    pc_l =  pc_l->find_prebroken_piece(- d);
+	    pc_l =  pc_l->find_broken_piece(- d);
 	  
 	  assert (pc_l);
-	  if (!info.line_l_)
-	    info.line_l_ = pc_l-> line_l ();
-	  else
-	    assert( info.line_l_ = pc_l->line_l ());
-	  
 	}
       while ((flip(&d))!= LEFT);
 
       Spanner *span_p = dynamic_cast<Spanner*>(clone ());
-      span_p->set_bounds(LEFT,info.bounds_[LEFT]);
-      span_p->set_bounds(RIGHT,info.bounds_[RIGHT]);
+      span_p->set_bounds(LEFT,bounds[LEFT]);
+      span_p->set_bounds(RIGHT,bounds[RIGHT]);
+      
       pscore_l_->typeset_element (span_p);
-
-      info.broken_spanner_l_ = span_p;
       span_p->handle_broken_dependencies();
 
       broken_into_l_arr_.push (span_p);
     }
+
+  broken_into_l_arr_.sort (Spanner::compare);
 }
 
 void
@@ -87,7 +83,7 @@ Spanner::set_my_columns()
   do 
     {
       if (!spanned_drul_[i]->line_l())
-	set_bounds(i,spanned_drul_[i]->find_prebroken_piece((Direction)-i));
+	set_bounds(i,spanned_drul_[i]->find_broken_piece((Direction)-i));
     } 
   while (flip(&i) != 1);
 }       
@@ -101,14 +97,17 @@ Spanner::set_bounds(Direction d, Item*i)
       i->used_b_ = true;
     }
 
-  if (d== LEFT)
+  /**
+     Prevent the column -> line_of_score -> column -> line_of_score -> etc situation
+  */
+  if (d== LEFT && !dynamic_cast<Line_of_score*> (this))
     {
-      set_parent ( i, X_AXIS);
+      set_parent (i, X_AXIS);
     }
   
   if  (spanned_drul_[Direction(-d)] == spanned_drul_[d]
        && i)
-    warning (_f ("Spanner `%s\' with equal left and right spanpoints", classname (this)));
+    warning (_f ("Spanner `%s' has equal left and right spanpoints", classname (this)));
 }
 
 void
@@ -140,7 +139,7 @@ Spanner::do_width() const
   Real r = spanned_drul_[RIGHT]->relative_coordinate (0, X_AXIS);
 
   if (r< l)
-    warning ("Spanner with negative length");
+    warning (_ ("spanner with negative length"));
 	
   return Interval (0, r-l);
 }
@@ -150,22 +149,36 @@ Spanner::line_l() const
 {
   if (!spanned_drul_[LEFT] || !spanned_drul_[RIGHT])
     return 0;
-  if (spanned_drul_[LEFT]->line_l() != spanned_drul_[RIGHT]->line_l())
+  if (spanned_drul_[LEFT]->line_l () != spanned_drul_[RIGHT]->line_l ())
     return 0;
   return spanned_drul_[LEFT]->line_l();
 }
 
 
-Spanner*
+Score_element*
 Spanner::find_broken_piece (Line_of_score*l) const
 {
+  int idx = binsearch_link_array (broken_into_l_arr_,  (Spanner*)l, Spanner::compare);
+  if (idx < 0)
+    return 0;
+  else
+    return broken_into_l_arr_ [idx];
+}
+
+/*
   for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
       if (broken_into_l_arr_[i]->line_l () == l)
 	return broken_into_l_arr_[i];
     }
+  return 0;
+*/
 
-  return 0;				   
+
+int
+Spanner::compare (Spanner * const &p1, Spanner * const &p2)
+{
+  return p1->line_l ()->rank_i_ - p2->line_l ()->rank_i_;
 }
 
 bool
@@ -218,23 +231,25 @@ Spanner::handle_broken_dependents ()
   
   if (refpoint)
     {
-      Spanner * broken_refpoint = refpoint->find_broken_piece (line_l ());
+      Score_element * broken_refpoint = refpoint->find_broken_piece (line_l ());
       if (broken_refpoint)
-	set_parent ( broken_refpoint,Y_AXIS);
+	set_parent (broken_refpoint,Y_AXIS);
       else
 	programming_error ("Spanner y -refpoint lost.");
     }
 }
 
-// If this is a broken spanner, return the amount the left end is to
-// be shifted horizontally so that the spanner starts after the
-// initial clef and key on the staves. This is necessary for ties,
-// slurs, crescendo and decrescendo signs, for example.
+/*
+  If this is a broken spanner, return the amount the left end is to be
+  shifted horizontally so that the spanner starts after the initial
+  clef and key on the staves. This is necessary for ties, slurs,
+  crescendo and decrescendo signs, for example.
+*/
 Real
 Spanner::get_broken_left_end_align () const
 {
   int i;
-  Line_of_score *l;
+
   Score_column *sc = dynamic_cast<Score_column*> (spanned_drul_[LEFT]->column_l());
 
   // Relevant only if left span point is first column in line

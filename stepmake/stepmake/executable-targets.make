@@ -7,7 +7,7 @@ default: $(EXECUTABLE)
 
 $(EXECUTABLE): $(depth)/config.h $(O_FILES) $(outdir)/version.hh
 	$(foreach a, $(MODULE_LIBS), $(MAKE) -C $(a) && ) true
-	$(LD_COMMAND) $(O_FILES) $(LOADLIBES)
+	$(LD_COMMAND) $(O_FILES) $(LOADLIBES) $(USER_LDFLAGS)
 
 exe: $(EXECUTABLE)
 

@@ -14,18 +14,6 @@
 #include "lily-proto.hh"
 #include "column-x-positions.hh"
 
-/**
-  Statistics for the number of columns calced.
- */
-struct Col_stats
-{
-  int count_i_;
-  int cols_i_;
-
-  Col_stats(); 
-  void add (Line_of_cols const&l);
-  String str() const;
-};
 
 /** Class representation of an algorithm which decides where to put
   the column, and where to break lines.
@@ -61,8 +49,6 @@ protected:
   virtual void do_set_pscore();
 
 public:
-  Col_stats approx_stats_;
-  Col_stats exact_stats_;
   
   Line_spacer* (*get_line_spacer)();
     

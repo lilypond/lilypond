@@ -12,18 +12,6 @@
 #include "drul-array.hh"
 #include "rod.hh"
 
-struct Breaking_information
-{
-  Line_of_score *line_l_;
-  Spanner * broken_spanner_l_;
-  Drul_array<Item*> bounds_;
-  Breaking_information ()
-    {
-      line_l_ =0;
-      broken_spanner_l_ =0;
-      bounds_[LEFT] = bounds_[RIGHT] =0;
-    }
-};
 
 class Axis_group_spanner;
 /** A symbol which is attached between two columns. A spanner is a
@@ -57,9 +45,10 @@ public:
   Spanner (Spanner const &);
   bool broken_b () const;
 
+  static int compare (Spanner * const &,Spanner * const &);
   virtual Array<Rod> get_rods () const;
   virtual Array<Spring> get_springs () const;  
-  virtual Spanner* find_broken_piece (Line_of_score*) const;
+  virtual Score_element* find_broken_piece (Line_of_score*) const;
 protected:
   void set_my_columns ();
   VIRTUAL_COPY_CONS(Score_element);

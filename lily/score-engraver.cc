@@ -55,7 +55,9 @@ void
 Score_engraver::do_creation_processing ()
 {
   scoreline_l_ = pscore_p_->line_l_;
-  scoreline_l_->set_bounds(LEFT,command_column_l_);
+
+  scoreline_l_->set_bounds(LEFT, command_column_l_);
+  
   command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
 
   Engraver_group_engraver::do_creation_processing();
@@ -146,7 +148,7 @@ Score_engraver::typeset_all()
 	    if (!s->spanned_drul_[d])
 	      {
 		s->set_bounds(d, command_column_l_);
-		::warning (_f ("Unbound spanner `%s\'", classname(s)));
+		::warning (_f ("unbound spanner `%s'", classname(s)));
 	      }
 	  } while (flip(&d) != LEFT);
 	}

@@ -66,12 +66,13 @@ All_font_metrics::find_font (String name)
   if (f)
     return f;
 
-  warning (_f("Can't find font `%s', loading default font.", name.ch_C()));
+  warning (_f ("Can't find font: `%s'", name.ch_C ()));
+  warning (_ ("Loading default font"));
   
   f =  find_tfm (default_font_sz_);
   if (f)
     return f;
-  String s = _f("Can't find default font `%s\', giving up.", default_font_sz_);
-  s += String ("\n") + _f ("(search path: `%s)'", search_path_.str ());
-  error (s);
+  error (_f ("Can't find default font: `%s'", default_font_sz_));
+  error (_f ("(search path: `%s'", search_path_.str ()));
+  error (_ ("Giving up"));
 }

@@ -15,7 +15,7 @@
 
 Line_of_score::Line_of_score()
 {
-  set_axes (Y_AXIS,Y_AXIS);
+  set_axes (Y_AXIS,X_AXIS);
 }
 
 bool
@@ -33,7 +33,8 @@ Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j)
   Line_of_score *line_l=0;
 
   line_l = dynamic_cast <Line_of_score*> (clone());
-
+  line_l->rank_i_ = j;
+  
   line_l->cols_ = curline;
   line_l->set_bounds(LEFT,curline[0]);
   line_l->set_bounds(RIGHT,curline.top());
@@ -41,16 +42,10 @@ Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j)
   for (int i=0; i < curline.size(); i++)
     {
       curline[i]->translate_axis (config[i],X_AXIS);
-      curline[i]->line_l_ = dynamic_cast<Line_of_score*>(line_l);
+      curline[i]->line_l_ = dynamic_cast<Line_of_score*> (line_l);
     }
 
-  Breaking_information b;
-  b.bounds_ = line_l->spanned_drul_;
-  b.broken_spanner_l_ = line_l;
-  b.line_l_ = line_l;
-  
   broken_into_l_arr_.push (line_l);
-
   return line_l;
 }
 
@@ -58,6 +53,7 @@ void
 Line_of_score::add_column (Paper_column*p)
 {
   cols_.push (p);
+  add_element (p);
 }
 
 void
@@ -88,7 +84,7 @@ Line_of_score::output_all (bool last_line)
 {
   Interval i(extent(Y_AXIS));
   if (i.empty_b())
-    warning ("Huh? Empty Line_of_score?");
+    warning (_ ("Huh?  Empty Line_of_score?"));
   else
     translate_axis (- i[MAX], Y_AXIS);
   
@@ -98,4 +94,10 @@ Line_of_score::output_all (bool last_line)
     pscore_l_->outputter_l_->stop_last_line();
   else
     pscore_l_->outputter_l_->stop_line ();
+}
+
+int
+Line_of_score::compare (Line_of_score* const &p1,Line_of_score* const &p2)
+{
+  return p1->rank_i_ - p2->rank_i_;
 }
