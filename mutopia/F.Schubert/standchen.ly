@@ -1,5 +1,5 @@
 
-#(set! point-and-click line-column-location)
+% #(set! point-and-click line-column-location)
 
 instrument = "Piano"
 

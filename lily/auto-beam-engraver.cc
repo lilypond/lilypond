@@ -337,20 +337,10 @@ Auto_beam_engraver::finalize ()
     junk_beam ();
 }
 
-bool
-Auto_beam_engraver::same_grace_state_b (Grob* e)
-{
-  bool gr = e->get_grob_property ("grace") == SCM_BOOL_T;
-  SCM wg =get_property ("weAreGraceContext");
-  return (to_boolean (wg)) == gr;
-}
 
 void
 Auto_beam_engraver::acknowledge_grob (Grob_info info)
 {
-  if (!same_grace_state_b (info.elem_l_))
-    return;
-  
   if (stem_l_arr_p_)
     {
       if (Beam::has_interface (info.elem_l_))

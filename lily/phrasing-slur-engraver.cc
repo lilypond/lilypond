@@ -111,9 +111,7 @@ Phrasing_slur_engraver::finalize ()
 #endif     
     }
   phrasing_slur_l_stack_.clear ();
-  SCM wg = get_property ("weAreGraceContext");
-  bool wgb = to_boolean (wg);
-  if (!wgb)
+
     for (int i=0; i < requests_arr_.size (); i++)
       {
 	requests_arr_[i]->origin ()->warning (_ ("unterminated phrasing slur"));

@@ -1,5 +1,5 @@
 /*   
-  grace-iterator.cc --  implement Grace_iterator
+  grace-music.cc --  implement Grace_music
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,47 +7,45 @@
   
  */
 
+#include "grace-music.hh"
 #include "grace-iterator.hh"
+
+
 #include "global-translator.hh"
 #include "warn.hh"
+
 
 Grace_iterator::~Grace_iterator () 
 {
   //  child_iter_p_ = 0;
 }
 
-void
-Grace_iterator::construct_children () 
-{
-  Translator_group * t = report_to_l ()->find_create_translator_l ("Grace", ""); // umgh.
 
-  if (t)
-    set_translator (t);
+void
+Grace_iterator::process (Moment m )
+{
+  Moment main ;
+  main.main_part_ = m.grace_mom_;
+  Music_wrapper_iterator::process (main);
+}
+
+void
+Grace_iterator::construct_children ()
+{
   Music_wrapper_iterator::construct_children ();
 }
 
-void
-Grace_iterator::process (Moment)
-{
-  Global_translator * t = dynamic_cast<Global_translator*> (report_to_l ());
-  if (t)
-    {
-      t->start ();
-      t->run_iterator_on_me (child_iter_p_);
-      delete child_iter_p_;
-      child_iter_p_ = 0;
-      t->finish ();
-    }
-  else
-    {
-      warning (_ ("no Grace context available")); 
-    }
-}
+
 
 Moment
 Grace_iterator::pending_moment () const
 {
-  return  0;
+  Moment cp =Music_wrapper_iterator::pending_moment();
+
+  Moment pending;
+  pending.grace_mom_ = - music_length_.main_part_  + cp.main_part_;
+
+  return pending;
 }
 
 

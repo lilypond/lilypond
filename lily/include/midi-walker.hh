@@ -32,11 +32,12 @@ public:
   void process ();
   void operator ++ (int);
   bool ok () const;
+
 private:
   void do_start_note (Midi_note* note_p);
   void do_stop_notes (Moment now_mom);
   void output_event (Moment now_mom, Midi_item* l);
-
+  
   Midi_track* track_l_;
   Audio_staff* staff_l_;
   int index_;

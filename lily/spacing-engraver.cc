@@ -93,9 +93,6 @@ Spacing_engraver::finalize ()
 void
 Spacing_engraver::acknowledge_grob (Grob_info i)
 {
-  if (to_boolean (i.elem_l_->get_grob_property ("grace")))
-    return;
-
   if (to_boolean (i.elem_l_->get_grob_property ("non-rhythmic")))
     return;
   

@@ -16,6 +16,17 @@ the temp dir if anything fails.
 
 * Fixes for windows scripts.
 
+1.5.0.uu1
+=========
+
+* Hara kiri and span-bar.
+
+* Junk old grace stuff.
+
+* Don't crash on grace notes in MIDI output.
+
+
+
 1.5.0
 =====
 

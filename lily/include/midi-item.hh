@@ -194,6 +194,10 @@ class Midi_track : public Midi_chunk
 {
 public:
   int number_i_;
+
+  /*
+    Compensate for starting grace notes.
+   */
   Cons_list<Midi_event> event_p_list_;
   
   Midi_track ();

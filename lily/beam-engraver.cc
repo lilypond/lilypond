@@ -131,7 +131,7 @@ Beam_engraver::process_music ()
     }
 
 
-  if (beam_p_ && !to_boolean (get_property ("weAreGraceContext")))
+  if (beam_p_)
     {
       Score_engraver * e = 0;
       Translator * t  =  daddy_grav_l ();
@@ -242,14 +242,6 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	{
 	  Item *stem_l = dynamic_cast<Item*> (info.elem_l_);
 	  if (Stem::beam_l (stem_l))
-	    return;
-
-	  bool stem_grace = stem_l->get_grob_property ("grace") == SCM_BOOL_T;
-
-	  SCM wg =get_property ("weAreGraceContext");
-	  bool wgb= to_boolean (wg);
-
-	  if (wgb!= stem_grace)
 	    return;
 
 	  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.req_l_);

@@ -116,12 +116,6 @@ Script_engraver::process_music ()
 void
 Script_engraver::acknowledge_grob (Grob_info inf)
 {
-  bool them_grace = to_boolean (inf.elem_l_->get_grob_property ("grace"));
-  bool us_grace = to_boolean (get_property ("weAreGraceContext"));
-
-  if (us_grace != them_grace)
-    return;
-  
   if (Stem::has_interface (inf.elem_l_))
     {
       for (int i=0; i < script_p_arr_.size (); i++)

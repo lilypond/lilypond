@@ -221,13 +221,6 @@
 		(meta . ,(grob-description "Fingering" finger-interface  font-interface text-script-interface text-interface side-position-interface))
 	))
 
-	(GraceAlignment . (
-		(axes . (0))
-		(horizontal-space . 1.2)
-		(padding . 1.0)
-		(before-line-breaking-callback . ,Grace_align_item::before_line_breaking)
-		(meta . ,(grob-description "GraceAlignment" axis-group-interface align-interface grace-alignment-interface))
-	))
 	
 	(HaraKiriVerticalGroup . (
 		(Y-offset-callbacks . (,Hara_kiri_group_spanner::force_hara_kiri_callback))

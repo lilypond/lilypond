@@ -25,9 +25,9 @@ public:
 protected:
   Link_array<Time_scaled_music> time_scaled_music_arr_;
   /// when does the scaled music stop? Array order is synced with time_scaled_music_arr_
-  Array<Moment> stop_moments_;
+  Array<Rational> stop_moments_;
   /// when does the current spanner stop? Array order is synced with time_scaled_music_arr_
-  Array<Moment> span_stop_moments_;
+  Array<Rational> span_stop_moments_;
   
   /// The spanners. Array order is synced with time_scaled_music_arr_
   Link_array<Spanner> started_span_p_arr_;
@@ -48,12 +48,12 @@ Tuplet_engraver::try_music (Music *r)
       if (!dynamic_cast<Request_chord*> (el))
 	{
 	  time_scaled_music_arr_.push (c);
-	  Moment m = now_mom () + c->length_mom ();
+	  Rational m = now_mom ().main_part_ + c->length_mom ().main_part_;
 	  stop_moments_.push (m);
 
 	  SCM s = get_property ("tupletSpannerDuration");
 	  if (unsmob_moment (s))
-	    m = m <? (now_mom () + *unsmob_moment (s));
+	    m = m <? (now_mom () + *unsmob_moment (s)).main_part_;
 	  
 	  span_stop_moments_.push (m);
 	}
@@ -96,12 +96,6 @@ Tuplet_engraver::create_grobs ()
 void
 Tuplet_engraver::acknowledge_grob (Grob_info i)
 {
-  bool grace= to_boolean (i.elem_l_->get_grob_property ("grace"));
-  SCM wg = get_property ("weAreGraceContext");
-  bool wgb = to_boolean (wg);
-  if (grace != wgb)
-    return;
-  
   if (Note_column::has_interface (i.elem_l_))
     {
       for (int j =0; j  <started_span_p_arr_.size (); j++)
@@ -118,11 +112,11 @@ Tuplet_engraver::start_translation_timestep ()
   Moment tsd;
   SCM s = get_property ("tupletSpannerDuration");
   if (unsmob_moment (s))
-    tsd = *unsmob_moment (s);
+    tsd = unsmob_moment (s)->main_part_;
 
   for (int i= started_span_p_arr_.size (); i--;)
     {
-      if (now >= span_stop_moments_[i])
+      if (now.main_part_ >= span_stop_moments_[i])
 	{
 	  if (started_span_p_arr_[i])
 	    {
@@ -131,10 +125,10 @@ Tuplet_engraver::start_translation_timestep ()
 	    }
 	  
 	  if (tsd)
-	    span_stop_moments_[i] += tsd;
+	    span_stop_moments_[i] += tsd.main_part_;
 	}
 
-      if (now >= stop_moments_[i])
+      if (now.main_part_ >= stop_moments_[i])
 	{
 	  started_span_p_arr_.del (i);
 	  stop_moments_.del (i);

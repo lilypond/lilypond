@@ -63,8 +63,8 @@ list, _not_ to us personally.
      discussions about developing lilypond, in particular the unstable
      series.
 
-   * help-lilypond@gnu.org
-     (http://mail.gnu.org/mailman/listinfo/help-lilypond)   For
+   * lilypond-user@gnu.org
+     (http://mail.gnu.org/mailman/listinfo/lilypond-user)   For
      discussions about using lilypond, in particular the stable series.
 
    * bug-lilypond@gnu.org

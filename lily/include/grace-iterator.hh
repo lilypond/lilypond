@@ -7,8 +7,8 @@
   
  */
 
-#ifndef GRACE_ITERATOR_HH
-#define GRACE_ITERATOR_HH
+#ifndef NEWGRACE_ITERATOR_HH
+#define NEWGRACE_ITERATOR_HH
 
 #include "music-wrapper-iterator.hh"
 

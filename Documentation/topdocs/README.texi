@@ -74,7 +74,7 @@ list.
 @uref{http://mail.gnu.org/mailman/listinfo/lilypond-devel,lilypond-devel@@gnu.org}
   For discussions about developing lilypond, in particular the unstable series.
 
-@item @uref{http://mail.gnu.org/mailman/listinfo/help-lilypond,help-lilypond@@gnu.org}
+@item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-user,lilypond-user@@gnu.org}
   For discussions about using lilypond, in particular the stable series.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/bug-lilypond,bug-lilypond@@gnu.org}

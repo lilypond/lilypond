@@ -11,6 +11,11 @@
 
 #include "music-iterator.hh"
 
+/*
+  Iterator for atomic music objects: events are generated at the
+  beginning and at the end of the music.
+  
+ */
 class Simple_music_iterator : public Music_iterator
 {
 protected:

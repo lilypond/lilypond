@@ -130,17 +130,6 @@ up for the musicexpr called @code{one}, down for the musicexpr called
       )))
 
    (cons
-    'Align_note_column_engraver
-    (engraver-description
-     "Align_note_column_engraver"
-     "Generate object to put grace notes from left to right."
-     '(GraceAlignment)
-     '(
-      graceAlignPosition
-      graceAccidentalSpace
-      )))
-   
-   (cons
     'Arpeggio_engraver
     (engraver-description
      "Arpeggio_engraver"
@@ -291,23 +280,6 @@ If omitted, then dots appear on top of the notes.
 
 
 
-   (cons
-    'Grace_position_engraver
-    (engraver-description
-     "Grace_position_engraver"
-     "Attach a grace note alignment to a note-column "
-     '()
-     '(
-      )))
-
-   (cons
-    'Grace_engraver_group
-    (engraver-description
-     "Grace_engraver_group"
-     "An engraver that creates a `shielded' context-tree with separate notion of time"
-     '()
-     '(
-      )))
 
 
    (cons
@@ -357,7 +329,7 @@ If omitted, then dots appear on top of the notes.
 	  '()
 	  '(
 	   automaticPhrasing
-	   weAreGraceContext
+
 	   melismaEngraverBusy
 	   associatedVoice
 	   phrasingPunctuation
@@ -775,11 +747,13 @@ everything in the second thread.
 (define context-description-alist
   '(
 (Grace . "
-    The context for handling grace notes.  It is instantiated
+    The context for handling grace notes.  It used to be instantiated
     automatically when you use @code{\grace}.  Basically, it is an
     `embedded' miniature of the Score context.  Since this context
     needs special interaction with the rest of LilyPond, you should
     not explicitly instantiate it.
+
+   DEPRECATED.
 ")
 (LyricsVoice . "
     Corresponds to a voice with lyrics.  Handles the printing of a

@@ -119,10 +119,8 @@ Slur_engraver::finalize ()
 #endif     
     }
   slur_l_stack_.clear ();
-  SCM wg = get_property ("weAreGraceContext");
-  bool wgb = to_boolean (wg);
-  if (!wgb)
-    for (int i=0; i < requests_arr_.size (); i++)
+
+  for (int i=0; i < requests_arr_.size (); i++)
       {
 	requests_arr_[i]->origin ()->warning (_ ("unterminated slur"));
       }
