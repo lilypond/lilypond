@@ -184,10 +184,9 @@ Music::internal_get_mus_property (SCM sym) const
 void
 Music::internal_set_mus_property (SCM s, SCM v)
 {
-#ifndef NDEBUG
   if (internal_type_checking_global_b)
-    assert (type_check_assignment (s, v, ly_symbol2scm ("music-type?")));
-#endif
+    if (!type_check_assignment (s, v, ly_symbol2scm ("music-type?")))
+      abort ();
 
   mutable_property_alist_ =  scm_assq_set_x (mutable_property_alist_, s, v);
 }
