@@ -6,7 +6,7 @@
 
 It must have been during a rehearsal of the EJE (Eindhoven Youth
 Orchestra), somewhere in 1995 that Jan, one of the cranked violists
-told Han-Wen, one of the distorted french horn players, about the
+told Han-Wen, one of the distorted French horn players, about the
 grand new project he was working on.  It was an automated system for
 printing music (to be precise, it was MPP, a preprocessor for
 MusiXTeX).  As it happened, Han-Wen accidentally wanted to print out
@@ -20,11 +20,11 @@ In some ways, developing a computer program is like learning to play
 an instrument. In the beginning, discovering how it works is fun, and
 the things you can't do are challenging. After the initial excitement,
 you have to practice and practice. Scales and studies can be dull, and
-if you aren't motivated by others, be them teachers, conductors or
-audience, it is very tempting to give up. You continue, and gradually
-playing it becomes a part of your life. Some days it comes naturally,
-and it's wonderful, and on some days it just doesn't work, but you
-keep playing, day after day.
+if you aren't motivated by others---teachers, conductors or
+audience---it is very tempting to give up. You continue, and gradually
+playing becomes a part of your life. Some days it comes naturally, and
+it's wonderful, and on some days it just doesn't work, but you keep
+playing, day after day.
 
 Like making music, working on LilyPond is can be dull work, and on
 some days it feels like plodding through a morass of
@@ -36,16 +36,16 @@ impressive pieces of sheet music.  Seeing that still feels unreal, but
 in a very pleasant way.
 
 Our users not only give us good vibes by using our program, many of
-them also help us by giving suggestions and sending bugreports. So,
+them also help us by giving suggestions and sending bugreports. So
 first and foremost, we would like to thank all users that sent us
 bugreports, gave suggestions or contributed in any other way to
 LilyPond.
 
-We would especially like to thank the following people: Mats Bengtsson
-for the incountable number of questions he answered on the mailing
-list, and Rune Zedeler for his energy in finding and fixing bugs.
-Nicola Bernardini for inviting us to his workshop on music publishing,
-which was truly a masterclass, and Heinz Stolba and James Ingram for
+We would also like to thank the following people: Mats Bengtsson for
+the incountable number of questions he answered on the mailing list,
+and Rune Zedeler for his energy in finding and fixing bugs.  Nicola
+Bernardini for inviting us to his workshop on music publishing, which
+was truly a masterclass, and Heinz Stolba and James Ingram for
 teaching us there. [wie nog meer?]
 
 Playing and printing music is more than nice analogy: programming

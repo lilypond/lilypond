@@ -39,7 +39,7 @@ lower = \notes \relative c {
 		}
 		\translator {
 			\VoiceContext
-%%			\consists Ambitus_engraver
+			\consists Ambitus_engraver
 		}
 	}
 }

@@ -8,8 +8,8 @@ LilyPond is a program to print sheet music. If you have used notation
 programs before, then the way to use this program might be surprising
 at first sight. To print music with lilypond, you have to enter
 musical codes in a file. Then you run LilyPond on the file, and the
-music is produced without any intervention. For example, something
-like this:
+music is produced without any intervention intervention. For example,
+something like this:
 
 @lilypond[fragment,verbatim, relative 1, intertext="produces this"]
 \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 
@@ -26,10 +26,8 @@ complicated: it's all in the input code, and you only have to read the
 file to see how it works. Moreover, when you use LilyPond, you are
 rewarded with very nicely looking output.
 
-In this Chapter, we will try to explain what we are trying to do with
-LilyPond, how this lead to its current form, and how this approach
-affects you as a user.
-
+In this chapter, we will explain the reasoning behind this unusual
+design, and how this approach affects you as a user.
 
 @menu
 * Batch processing::            
@@ -45,27 +43,28 @@ affects you as a user.
 @cindex Batch
 @cindex UNIX 
 
-When we started with developing LilyPond, we were interested in music
-notation, not as publishers or musicians, but as students and
-scientists. We wanted to figure to what extent formatting sheet
-music could be automated.  This was when we were still studying at the
-university. Back then GUIs were not as ubiquitous as they are today,
-and we were immersed in the UNIX operating system, where it is very
-common to use compilers to achieve computing tasks, so our
-computerized music engraving experiment took on the form of a
-compiler.
+When we started developing LilyPond, we were still studying at the
+university.  We were interested in music notation, not as publishers
+or musicians, but as students and scientists. We wanted to figure to
+what extent formatting sheet music could be automated.  Back then GUIs
+were not as ubiquitous as they are today, and we were immersed in the
+UNIX operating system, where it is very common to use compilers to
+achieve computing tasks, so our computerized music engraving
+experiment took on the form of a compiler.
 
 @cindex free software
 @cindex sharing software
 
-One other decision was also motivated by our academic background. In
-the scientific community it has always been a tradition to share
-knowledge, and, to a lesser extent, the software you wrote. One of the
-most visible groups that stimulated this philosophy, was the Free
-Software Foundation, whose GNU project aimed to replace closed and
-proprietary computing solutions with free (as in ``Libre'')
-variants. We jumped on that bandwagon, and that is the reason that you
-can still get LilyPond at no cost without any strings attached.
+You can freely use, modify and redistribute LilyPond. This choice was
+also motivated by our academic background. In the scientific community
+it has always been a tradition to share knowledge, also if that
+knowledge was packaged as software. One of the most visible groups
+that stimulated this philosophy, was the Free Software Foundation,
+whose popular GNU project aimed to replace closed and proprietary
+computing solutions with free (as in ``Libre'') variants. We jumped on
+that bandwagon, and released LilyPond as free software.  That is the
+reason that you can get LilyPond at no cost and without any strings
+attached.
 
 
 @node Music engraving
@@ -79,36 +78,37 @@ can still get LilyPond at no cost without any strings attached.
 Making sheet music may seem trivial at first (``you print 5 lines, and
 then put in the notes at different heights''), @emph{music engraving},
 i.e. professional music typography, is in another ballpark.  The term
-music engraving derives from the traditional process of music
+`music engraving' derives from the traditional process of music
 printing.  Only a few decades ago, sheet music was made by cutting and
-stamping the music mirrored into zinc or pewter plates. The plate
+stamping the music into zinc or pewter plates, mirrored. The plate
 would be inked, and the depressions caused by the cutting and stamping
 would hold ink.  A positive image was formed by pressing paper to the
-plate. Stamping and cutting was completely done by hand, and making
-corrections was cumbersome, so engraving had to be correct in one
-go. As you can imagine this was a highly specialized skill, much more
-so than the traditional process of printing books.
+plate. Stamping and cutting was completely done by hand. Making
+corrections was cumbersome, so engraving had to be done correctly in
+one go. As you can imagine this was a highly specialized skill, much
+more so than the traditional process of printing books.
 
 @cindex craftsmanship
 @cindex master
 
-In fact, in the traditional German craftsmanship six years of full-time
-training were required, before a student could call himself a master
-of the art. After that many more years of practical experience were
-needed to become an established music engraver.  Even today, in the
-era of high-speed computers, music requires lots of manual fine tuning
-before it acceptable to be published.
+The following fact illustrates that. In the traditional German
+craftsmanship six years of full-time training, more than any other
+craft, were required before a student could call himself a master of
+the art. After that many more years of practical experience were
+needed to become an established music engraver.  Even today, with the
+use of high-speed computers and advanced software, music requires lots
+of manual fine tuning before it acceptable to be published.
 
 When we wanted to write a computer program to do create music
 typography, we encountered the first problem: there were no sets of
 musical symbols available: either they were not available freely, or
-they didn't look well to our taste. That was the reason for us to
-create a font of musical symbols, relying mostly on nice printouts of
-hand-engraved music.  It was a good decision to design our own
-font. The experience helps develop a typographical taste, and it makes
-one appreciate subtle design details. Without that experience, we
-would not have realized how ugly the fonts were that we admired at
-first.
+they didn't look well to our taste. Not let down, we decided to try
+font design ourselves. We created a font of musical symbols, relying
+on nice printouts of hand-engraved music.  It was a good decision to
+design our own font. The experience helped develop a typographical
+taste, and it made us appreciate subtle design details. Without that
+experience, we would not have realized how ugly the fonts were that we
+admired at first.
 
 
 @lilypond
@@ -135,20 +135,22 @@ first.
 @cindex balance
 
 The figure above shows a few notable glyphs. For example, the
-half-notehead is not elliptic but slightly diamond shaped.  The stem
-of a flat symbol should be slightly brushed, i.e. becoming wider at
-the top. Fine endings, such as the one on the bottom of the quarter
-rest, should not end in sharp points, but rather in rounded shapes.
-Taken together, the blackness of the font must be carefully tuned
-together with the thickness of lines, beams and slurs to give a strong
-yet balanced overall impression.
+half-notehead is not elliptic but slightly diamond shaped.  The
+vertical stem of a flat symbol should be slightly brushed,
+i.e. becoming wider at the top. Fine endings, such as the one on the
+bottom of the quarter rest, should not end in sharp points, but rather
+in rounded shapes.  Taken together, the blackness of the font must be
+carefully tuned together with the thickness of lines, beams and slurs
+to give a strong yet balanced overall impression.
 
 Producing a strong and balanced look is the real challenge of music
-engraving. It is a recurring theme with many variations. One of these
-variations is choosing spacing. The distances between notes should
-reflect the durations between notes, but adhering with mathematical
-precision to the duration will lead to a poor result. Shown here is an
-example of a motive, printed twice. It is printed using both exact,
+engraving. It is a recurring theme with many variations.  In spacing,
+the balance is in a distribution that reflects the character of the
+music. The spacing should not lead to unnatural clusters of black and
+big gaps with white space.  The distances between notes should reflect
+the durations between notes, but adhering with mathematical precision
+to the duration will lead to a poor result. Shown here is an example
+of a motive, printed twice. It is printed using both exact,
 mathematical spacing, and with some corrections. Can you spot which is
 which?
 
@@ -160,13 +162,13 @@ which?
       \property Staff.NoteSpacing \set #'stem-spacing-correction
         = #0.6
       c'4 e''4 e'4 b'4 |
-      b'4 e''4 b'4 e''4|
+      b'4 e''4 \stemDown e'4 e''4| \stemBoth
       \property Staff.NoteSpacing \override #'stem-spacing-correction
       = #0.0
       \property Staff.StaffSpacing \override #'stem-spacing-correction
       = #0.0
       c'4 e''4 e'4 b'4 |
-      b'4 e''4 b'4 e''4|      
+      b'4 e''4 \stemDown e'4 e''4|      
     }
     \paper { linewidth = -1. } }
 @end lilypond
@@ -175,123 +177,120 @@ which?
 @cindex regular spacing
 
 The fragment that was printed uses only quarter notes: notes that are
-played in a constant regular rhythm. The spacing should reflect
+played in a constant rhythm. The spacing should reflect
 that. Unfortunately, the eye deceives us a little: the eye not only
 notices the distance between note heads, but also between consecutive
-stems. Depending on the different vertical positions, the notes of a
-upstem-downstem combination should be put farther apart, and the notes
-of a down-up combination should be put closer together. The first two
-measures are printed with this correction, the last two measures
-without. The notes in the last two measures form downstem/upstems
-clumps of notes.
+stems. The notes of a up-stem/down-stem combination should be put
+farther apart, and the notes of a down-up combination should be put
+closer together, all depending on the combined vertical positions of
+the notes. The first two measures are printed with this correction,
+the last two measures without. The notes in the last two measures form
+downstem/upstems clumps of notes.
 
-We hope that these examples serve to show that music typography is a
-subtle business, and that it requires skill and knowledge to produce
-good engraving.  It was our challenge to see if we could put such
-knowledge into a computer program.
+We hope that these examples show that music typography is a subtle
+business, and that it requires skill and knowledge to produce good
+engraving.  It was our challenge to see if we could put such knowledge
+into a computer program.
 
 
 @node Music representation
 @section Music representation
 
 
-One of the first questions that pop up when you design such a program,
-is what kind of input the program should expect. Many music notation
-programs offer a graphical interface that shows notation, and allow
-you to enter the music by placing notes on a staff. Although this is a
-obvious way to design a program, from our point of view, this is
-cheating. After all, the core message of a piece of music notation
-simply is the music itself. If you start by offering notation to the
-user, you have already skipped one conversion, even if it perhaps is
-implicit. If we want to generate music notation from something else,
-then the obvious candidate for the source should be the music itself.
+One of the big questions when making programs, is what kind of input
+the program should expect. Many music notation programs offer a
+graphical interface that shows notation, and allow you to enter the
+music by placing notes on a staff. Although this is a obvious way to
+design a program, from our point of view, it is cheating. After all,
+the core message of a piece of music notation simply is the music
+itself. If you start by offering notation to the user, you have
+already skipped one conversion, even if it is implicit. If we want to
+generate music notation from something else, then the obvious
+candidate for the source is the music itself.
 
-Of course, on paper this theory sounds very good. In practice, it
-opens a can of worms. What really @emph{is} music? Many philosophical
-treatises must have been written on the subject. Even if you are more
-practically inclined, you will notice that an enormous number of
-different ways to represent music in a computer exist, and they are
-much more incompatible than the formats for word processors and
-spreadsheets.  Anyone who has tried to exchange data files from
-between different notation programs can attest to this.
+On paper this theory sounds very good. In practice, it opens a can of
+worms. What really @emph{is} music? Many philosophical treatises must
+have been written on the subject. Even if you are more practically
+inclined, you will notice that there exist an enormous number of ways
+to represent music in a computer, and they are much more incompatible
+than the formats for word processors and spreadsheets.  Anyone who has
+tried to exchange data files from between different notation programs
+can attest to this.
 
 @cindex music representation
 @cindex music expressions
 @cindex input format
 
-The cause of this problem is that music is inherently two-dimensional:
-in polyphonic music, notes have time and pitch as their two
-coordinates, and they often are related in both directions. Computer
-files on the other hand are essentially one-dimensional: they are a
-long stream of characters. When you represent music in a file, then
-you have to flatten this two-dimensional information breaking either
-timing or pitch relations, and there is no universal agreement on how
-to do this.
+This problem is caused by the two-dimensional nature of music: in
+polyphonic music, notes have time and pitch as their two coordinates,
+and they often are related in both directions. Computer files on the
+other hand are essentially one-dimensional: they are a long stream of
+characters. When you represent music in a file, then you have to
+flatten this two-dimensional information breaking either timing or
+pitch relations, and there is no universal agreement on how to do
+this.
 
-Luckily, our application has guided us a little with the design of the
-format: we want to produce a printed score from a music
-representation.  A music representation is about @emph{music}, so it
-should be free from notation as much as possible: the format is about
-pitches and durations, not about symbols and offsets.  Since LilyPond
-is a compiler, the input format is its user interface, and users have
-to key in the music into the file directly, requiring that the input
-format has a friendly syntax. We, as programmers and scientists want a
-clean formal definition. After all, producing music notation is a
-difficult problem, and in the scientific world, difficult problems
-always must be well-specified. Moreover, formally defined formats are
-easier to write programs for. Finally, enough information should be
-present to be able to produce a printed score.
+Fortunately, we have a concrete application, so we don't run the risk
+of loosing ourselves in philosophical arguments over the essence of
+music.  We want to produce a printed score from a music
+representation, so this gives us a nice guide for designing a format:
+we need a format containing mainly musical elements, such as pitch and
+duration, but also enough information to print a score.  Our users
+have to key in the music into the file directly, so the input format
+should have a friendly syntax. Finally, we as programmers and
+scientists want a clean formal definition. After all, producing music
+notation is a difficult problem, and in the scientific world, problems
+can only be solved if they are well-specified. Moreover, formally
+defined formats are easier to write programs for.
 
-These ideas shaped our music representation which elegantly builds
-complex musical constructs from simple entities like notes and rests,
-in much the same way that one builds complex formulae from simple
-expressions such as numbers and mathematical operators.  The strict
-separation between musical information and typesetting also gives a
-blueprint of the program: first it reads the music representation,
-then it interprets the music---reading it `left-to-right', and
-translating the musical information to a layout specification. When
-the layout is computed, the resulting symbols are written to an output
-file.
+These ideas shaped our music representation: it is a compact format
+that can easily be typed by hand. It complex musical constructs from
+simple entities like notes and rests, in much the same way that one
+builds complex formulas from simple expressions such as numbers and
+mathematical operators.  The strict separation between musical
+information and typesetting also gives a blueprint of the program:
+first it reads the music representation, then it interprets the
+music---reading it `left-to-right', and translating the musical
+information to a layout specification. When the layout is computed,
+the resulting symbols are written to an output file.
 
 
 @node About this manual
 @section About this manual
 
 
-
-As you will notice in the coming pages, and the examples, in a lot of
-cases, the program makes good decisions, and what comes out of lilypond
-generally looks good. For some specific examples, the default layout
-of lilypond even is suitable for publication. However, some aspects of
-the formatting are not yet very good. This gives us programmers
+As you will notice in the coming pages the program makes good
+decisions in a lot of cases: what comes out of LilyPond generally
+looks good.  The default layout of lilypond even is suitable for
+publication for some specific files. However, some aspects of the
+formatting are not yet very good. For us programmers, this gives
 inspiration for improving the program. However, most users are more
-interested in making their printouts look good, and then they have to
-make manual adjustments to the output.  Another aspect of our system
-of encoding through ASCII then shows: it can be complicated to fine
-tune the layout of a piece. There is no graphical user interface,
-where you can simply click and drag a symbol. On the other hand, if
-you have written the code for tuning one specific aspect of the
-layout, then you can simply store the file on disk, retrieve it when
-you need it: there is no need to remember how you did it.  It's all in
-the input file. Lilypond also comes with a huge collection of snippets
-that show all kinds of tricks.
+interested in improving their printouts, and then they have to make
+manual adjustments to the output.  Another aspect of our system of
+encoding through ASCII then shows: it can be complicated to fine tune
+the layout of a piece. There is no graphical user interface, where you
+can simply click and drag a symbol. On the other hand, if you have
+written the code for tuning one specific aspect of the layout, then
+you can simply store the file on disk, retrieve it when you need it:
+there is no need to remember how you did it, since it is all in the
+input file.
 
 @cindex snippets
 @cindex adjusting output
 
-
-This collection is much needed, because of the way LilyPond is
-structured. It is a large program, but almost all of the internal
-functionality is exported: that is, the variables that are internally
-used to determine formatting of the sheet music are available directly
+Lilypond also comes with a huge collection of snippets that show all
+kinds of tricks.  This collection is much needed, because of the way
+LilyPond is structured. It is a large program, but almost all of the
+internal functionality is exported: that is, the variables that are
+internally used for formatting the sheet music are available directly
 to the user. These are variables to control thicknesses, distances,
-and other formatting options: there are a huge number of them, and it
+and other formatting options. There are a huge number of them, and it
 would be impossible to describe them all in a hand-written
-manual. There is no need to despair, there is an `automatic' manual, that
-lists all of the variables, symbol types, etc. that are available.  It
-is directly generated from the definitions that LilyPond itself uses,
-so it is always up to date. If you are reading this from a screen: it
-is available from the web, and is included with most binary
+manual. There is no need to despair, there is an `automatic' manual,
+that lists all of the variables that are available.  It is directly
+generated from the definitions that LilyPond itself uses, so it is
+always up to date. If you are reading this from a screen: it is
+available from the web, and is included with most binary
 distributions.  If you're reading this from paper, then we advise you
 to use the digital version anyway: the hyperlinks make finding topics
 in the lilypond-internals manual much easier.
@@ -310,7 +309,7 @@ do and what a programmer is allowed to do.
 @cindex Scheme
 @cindex extending lilypond
 
-In short, this manual does not pretend to be exhaustive, but it is
+In summary, this manual does not pretend to be exhaustive, but it is
 merely a guide that tries to explain the most important principles,
 and shows popular input idioms.  The rest of the manual is structured
 as follows: it starts with a tutorial that explains how to use
@@ -320,9 +319,9 @@ which gives more detailed information on all features. If you're new
 to lilypond, then you should start reading the tutorial, and
 experiment for yourself.  If you already have some experience, then
 you can simply use the manual as reference: there is an extensive
-index@footnote{If you are looking for something, and you can't find it by
-using the index, that is considered a bug.  In that case, please file
-a bug report}.
+index.@footnote{If you are looking for something, and you can't find it
+by using the index, that is considered a bug.  In that case, please
+file a bug report}
 
 @cindex bugreport
 @cindex index
