@@ -96,6 +96,10 @@ Text_spanner::brew_molecule (SCM smob)
 	    continue;
 	  
 	  SCM text = index_get_cell (edge_text, d);
+
+	  /*
+	    TODO: use markup.
+	   */
 	  edge[d] = Text_item::text2molecule (me, text, properties);
 	  if (!edge[d].empty_b ())
 	    edge[d].align_to (Y_AXIS, CENTER);
@@ -134,14 +138,13 @@ Text_spanner::brew_molecule (SCM smob)
 	  if (broken[d])
 	    continue;
 	  
-	  Real dx = (gh_pair_p (ew)  ? 
-		     gh_scm2double (index_get_cell (ew, d)) * d :  
-		     0);
+	  Real dx = 0.0;
+	  if (gh_pair_p (ew))
+	    dx = gh_scm2double (index_get_cell (ew, d)) * d;
+
 	  Real dy = gh_scm2double (index_get_cell (s, d)) * - dir;
 	  if (dy)
-	    {
-	      edge_line[d] = Line_spanner::line_molecule (me, thick, dx, dy);
-	    }
+	    edge_line[d] = Line_spanner::line_molecule (me, thick, dx, dy);
 	}
       while (flip (&d) != LEFT);
     }
@@ -178,6 +181,11 @@ Text_spanner::brew_molecule (SCM smob)
    of consecutive pedals touching exactly to form an __/\__
    Chris Jackson <chris@fluffhouse.org.uk>
 */
+/*
+  TODO: this should be moved somewhere else (?).
+
+  Perhaps make separate function for pedal-bracket.
+ */
 
 void 
 Text_spanner::setup_pedal_bracket(Spanner *me)
