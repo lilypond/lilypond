@@ -94,7 +94,7 @@ for i := 0 step 1 until font_count:
     y := y + increment;
 
     if y > infinity/hppp:
-      message "Resolution/magnification is too high";
+      message "Resolution and/or magnification is too high";
       error please report: <bug-lilypond@gnu.org>;
     fi
 

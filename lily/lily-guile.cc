@@ -107,6 +107,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "Read the file @var{name}, and return its contents in a string.  "
 	   "The file is looked up using the search path.")
 {
+  SCM_ASSERT_TYPE (gh_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
   return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
 
