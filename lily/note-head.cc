@@ -69,12 +69,12 @@ Note_head::brew_ledger_lines (Grob *me,
                               bool take_space)
 {
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
-  int lines_i = abs (pos) < interspaces
+  int line_count = (abs (pos) < interspaces)
     ? 0
     : (abs (pos) - interspaces) / 2;
   Molecule molecule = Molecule();
 
-  if (lines_i)
+  if (line_count)
     {
       Real ledgerlinethickness =
 	(me->get_paper ()->get_realvar (ly_symbol2scm ("ledgerlinethickness")));
@@ -95,7 +95,7 @@ Note_head::brew_ledger_lines (Grob *me,
       Real offs = (Staff_symbol_referencer::on_staffline (me, pos))
         ? 0.0
         : -dir * inter_f;
-      for (int i = 0; i < lines_i; i++)
+      for (int i = 0; i < line_count; i++)
         {
           Molecule ledger_line (proto_ledger_line);
           ledger_line.translate_axis (-dir * inter_f * i * 2 + offs, Y_AXIS);
@@ -129,7 +129,8 @@ internal_brew_molecule (Grob *me, bool ledger_take_space)
 
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
-  if (abs (pos) - interspaces > 1)
+  if (interspaces >= 0
+      && abs (pos) - interspaces > 1)
     {
       Interval hd = out.extent (X_AXIS);
       Real left_ledger_protusion = hd.length ()/4;

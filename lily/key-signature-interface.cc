@@ -50,6 +50,8 @@ const int NATURAL_TOP_PITCH = 4;
   - lots of values trivially shared (key doesn't change very
   often). Compute those once, and use that as cache for the rest.
 
+  TODO: can  we do without c0pos? it's partly musical. 
+
 */
 int
 alteration_pos  (SCM what, int alter, int c0p)

@@ -1,5 +1,10 @@
 2003-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/midi-stream.cc (operator <<): rewrite.
+
+	* lily/note-head.cc (internal_brew_molecule): 
+	only make ledgers when the Staff symbol has lines.
+
 	* ly/property-init.ly (arpeggioBracket): simplify
 
 	* lily/translator-group.cc (execute_pushpop_property): use
