@@ -55,10 +55,10 @@ load_scheme_table (char const *tag_str, FT_Face face)
       String contents ((Byte const*)buffer, length);
       contents = "(quote (" +  contents + "))";
 
-      SCM expr = scm_c_eval_string (contents.to_str0 ());
+      tab = scm_c_eval_string (contents.to_str0 ());
       free (buffer);
     }
-  return expr;
+  return tab;
 }
 
 
@@ -130,7 +130,8 @@ Open_type_font::Open_type_font (FT_Face face)
   face_ = face;
   lily_character_table_ = SCM_EOL;
   lily_global_table_ = SCM_EOL;
-
+  lily_subfonts_ = SCM_EOL;
+  
   lily_character_table_ = alist_to_hashq (load_scheme_table ("LILC", face_));
   lily_global_table_ = alist_to_hashq (load_scheme_table ("LILY", face_));
   lily_subfonts_ = load_scheme_table ("LILF", face_);
@@ -221,13 +222,13 @@ Open_type_font::sub_fonts () const
   return lily_subfonts_;
 }
 
-LY_DEFINE (ly_font_magnification, "ly:font-sub-fonts", 1, 0, 0,
+LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
 	  (SCM font),
-	   "Given the font metric @var{font}, return the "
-	   "magnification, relative to the current outputscale.")
+	   "Given the font metric @var{font} of an OpenType font, return the "
+	   "names of the subfonts within @var{font}.")
 {
   Font_metric *fm = unsmob_metrics (font);
   SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
-  return scm_cdr (fm->description_);
+  return fm->sub_fonts ();
 }
 

@@ -89,19 +89,6 @@
 (define (dashed-slur thick dash l)
   (embedded-ps (list 'dashed-slur thick dash `(quote ,l))))
 
-(define (digits->letters str)
-    (regexp-substitute/global
-     #f "([0-9])" str
-     'pre
-     (lambda (match)
-       (make-string
-	1
-	(integer->char
-	 (+ (char->integer #\A)
-	    (- (char->integer #\0))
-	    (char->integer (string-ref (match:substring match 1) 0)))
-	 )))
-     'post))
 
 (define (named-glyph font name)
   (string-append "\\" (tex-font-command font)
@@ -109,7 +96,7 @@
 		 (string-append
 ;		  (digits->letters (ly:font-name font))
 		  (regexp-substitute/global
-		   #f "[\\._]"
+		   #f "[-\\._]"
 		   (digits->letters name)
 		   'pre ""
 		   'post))))
