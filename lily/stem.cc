@@ -82,7 +82,6 @@ Stem::stem_end_position (Grob*me)
   Real pos;
   if (!gh_number_p (p))
     {
-
       pos = get_default_stem_end_position (me);
       me->set_grob_property ("stem-end-position", gh_double2scm (pos));
     }
@@ -228,7 +227,7 @@ Stem::add_head (Grob*me, Grob *n)
 
   if (Note_head::has_interface (n))
     {
-      Pointer_group_interface::add_element (me, ly_symbol2scm ("heads"), n);
+      Pointer_group_interface::add_grob (me, ly_symbol2scm ("heads"), n);
     }
   else
     {
@@ -380,7 +379,7 @@ Stem::position_noteheads (Grob*me)
     return;
   
   Link_array<Grob> heads =
-    Pointer_group_interface__extract_elements (me, (Grob*)0, "heads");
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "heads");
 
   heads.sort (compare_position);
   Direction dir =get_direction (me);
@@ -434,10 +433,8 @@ Stem::before_line_breaking (SCM smob)
       // suicide ();
     }
   
-  set_spacing_hints (me);
   return SCM_UNSPECIFIED;
 }
-
 
 /*
   ugh.
@@ -459,31 +456,6 @@ Stem::height (SCM smob, SCM ax)
   return ly_interval2scm (iv);
 }
 
-
-/**
-   set stem directions for hinting the optical spacing correction.
-
-   Modifies DIR_LIST property of the Stem's Paper_column
-
-   TODO: more advanced: supply height of noteheads as well, for more advanced spacing possibilities
- */
-void
-Stem::set_spacing_hints (Grob*me) 
-{
-  if (!invisible_b (me))
-    {
-      SCM scmdir  = gh_int2scm (get_direction (me));
-
-      Item* item = dynamic_cast<Item*> (me);
-      Item * col =  item->column_l ();
-      SCM dirlist =col->get_grob_property ("dir-list");
-      if (scm_c_memq (scmdir, dirlist) == SCM_BOOL_F)
-	{
-	  dirlist = gh_cons (scmdir, dirlist);
-	  col->set_grob_property ("dir-list", dirlist);
-	}
-    }
-}
 
 Molecule
 Stem::flag (Grob*me)

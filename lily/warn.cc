@@ -9,7 +9,6 @@
 #include "debug.hh"
 #include "my-lily-lexer.hh"
 #include "moment.hh"
-#include "timing-translator.hh"
 #include "source-file.hh"
 #include "source.hh"
 #include "main.hh"

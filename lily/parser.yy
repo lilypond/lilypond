@@ -284,7 +284,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <scm>	identifier_init 
 
 %type <scm> steno_duration optional_notemode_duration multiplied_duration
-%type <scm>  explicit_duration
+%type <scm>  verbose_duration
 	
 %type <reqvec>  pre_requests post_requests
 %type <request> gen_text_def
@@ -468,7 +468,7 @@ identifier_init:
 		$$ = $1->self_scm ();
 		scm_gc_unprotect_object ($$);
 	}
-	| explicit_duration {
+	| verbose_duration {
 		$$ = $1;
 	}
 	| number_expression {
@@ -1112,6 +1112,11 @@ command_element:
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
+	| '|'      {
+		extern Music * get_barcheck();
+		$$ = get_barcheck ();
+		$$->set_spot (THIS->here_input ());
+	}
 	| BAR STRING  			{
 		Music *t = set_property_music (ly_symbol2scm ("whichBar"), $2);
 
@@ -1206,9 +1211,6 @@ shorthand_command_req:
 	| hyphen_req {
 		$$ = $1;
 	}
-	| '|'				{
-		$$ = new Barcheck_req;
-	}
 	| '~'	{
 		$$ = new Tie_req;
 	}
@@ -1217,6 +1219,9 @@ shorthand_command_req:
 		b->set_span_dir (START);
 		b->set_mus_property ("span-type", ly_str02scm ("beam"));
 		$$ =b;
+
+
+		THIS->last_beam_start_ = b->self_scm ();
 	}
 	| ']'		{
 		Span_req*b= new Span_req;
@@ -1449,7 +1454,7 @@ explicit_pitch:
 	}
 	;
 
-explicit_duration:
+verbose_duration:
 	DURATION embedded_scm 	{
 		$$ = $2;
 		if (!unsmob_duration ($2))
@@ -1602,20 +1607,25 @@ duration_length:
 	multiplied_duration {
 		$$ = $1;
 	}
-	| explicit_duration {
+	| verbose_duration {
 		$$ = $1;
 	}	
 	;
 
 optional_notemode_duration:
 	{
-		$$ = THIS->default_duration_.smobbed_copy ();
+		Duration dd = THIS->default_duration_;
+		$$ = dd.smobbed_copy ();
+
+		THIS->beam_check ($$);
 	}
 	| multiplied_duration	{
 		$$ = $1;
 		THIS->default_duration_ = *unsmob_duration ($$);
+
+		THIS->beam_check ($$);
 	}
-	| explicit_duration {
+	| verbose_duration {
 		$$ = $1;
 		THIS->default_duration_ = *unsmob_duration ($$);
 	}	
@@ -2067,3 +2077,24 @@ My_lily_parser::do_yyparse ()
 }
 
 
+/*
+Should make this optional?    It will also complain when you do
+
+	[s4]
+
+which is entirely legitimate.
+
+Or we can scrap it. Barchecks should detect wrong durations, and
+skipTypesetting speeds it up a lot.
+*/
+void
+My_lily_parser::beam_check (SCM dur)
+{
+  Duration *d = unsmob_duration (dur);
+  if (unsmob_music (last_beam_start_) && d->duration_log () <= 2)
+    {
+      Music * m = unsmob_music (last_beam_start_);
+      m->origin ()->warning (_("Suspect duration found following this beam"));
+    }
+  last_beam_start_ = SCM_EOL;
+}

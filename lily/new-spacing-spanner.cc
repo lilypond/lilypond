@@ -27,7 +27,6 @@ public:
   static void stretch_to_regularity (Grob*, Array<Spring> *, Link_array<Grob> const &);
   static void breakable_column_spacing (Item* l, Item *r);
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM ));
-  static Real stem_dir_correction (Grob*,Grob*,Grob*)  ;
   static Real default_bar_spacing (Grob*,Grob*,Grob*,Moment)  ;
   static Real note_spacing (Grob*,Grob*,Grob*,Moment)  ;
   static Real get_duration_space (Grob*,Moment dur, Moment shortest) ;
@@ -187,8 +186,6 @@ cout << "params for cols " << Paper_column::rank_i (l) << " " << Paper_column::r
 	      hinterfleisch += -headwid + Separation_item::my_width (lm)[RIGHT] -
 		0.5 * Separation_item::my_width (rm)[LEFT];
 
-
-	      hinterfleisch += stem_dir_correction (me, l, r);
 	    }
 
 	  // ? why.
@@ -478,55 +475,6 @@ New_spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
   return dist;
 }
 
-
-/**
-   Correct for optical illusions. See [Wanske] p. 138. The combination
-   up-stem + down-stem should get extra space, the combination
-   down-stem + up-stem less.
-
-   This should be more advanced, since relative heights of the note
-   heads also influence required correction.
-
-   Also might not work correctly in case of multi voices or staff
-   changing voices
-
-   TODO: lookup correction distances?  More advanced correction?
-   Possibly turn this off?
-
-   TODO: have to check wether the stems are in the same staff.
-
-   This routine reads the DIR-LIST property of both its L and R arguments.  */
-Real
-New_spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r) 
-{
-  SCM dl = l->get_grob_property ("dir-list");
-  SCM dr = r->get_grob_property ("dir-list");
-  
-  if (scm_ilength (dl) != 1 || scm_ilength (dr) != 1)
-    return 0.;
-
-  dl = ly_car (dl);
-  dr = ly_car (dr);
-
-  assert (gh_number_p (dl) && gh_number_p (dr));
-  int d1 = gh_scm2int (dl);
-  int d2 = gh_scm2int (dr);
-
-  if (d1 == d2)
-    return 0.0;
-
-
-  Real correction = 0.0;
-  Real ssc = gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
-
-  if (d1 && d2 && d1 * d2 == -1)
-    {
-      correction = d1 * ssc;
-    }
-  else
-    programming_error ("Stem directions not set correctly for optical correction");
-  return correction;
-}
   
 
 MAKE_SCHEME_CALLBACK (New_spacing_spanner, set_springs,1);

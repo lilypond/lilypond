@@ -110,7 +110,7 @@ Tie::get_default_dir (Grob*me)
 SCM
 Tie::get_control_points (SCM smob)
 {  
-  Spanner*me = dynamic_cast<Spanner*> (unsmob_grob (smob));
+  Spanner*me = unsmob_spanner (smob);
   Direction headdir = CENTER; 
   if (head (me,LEFT))
     headdir = LEFT;

@@ -14,7 +14,7 @@
 #include "engraver.hh"
 #include "axis-group-interface.hh"
 #include "note-spacing.hh"
-
+#include "group-interface.hh"
 
 struct Spacings
 {
@@ -132,10 +132,10 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 
 	  if (int i = last_spacings_.note_spacings_.size ())
 	    {
-	      SCM break_malt = gh_cons (break_malt_p_->self_scm (), SCM_EOL);
 	      for (; i--;)
-		last_spacings_.note_spacings_[i]
-		  ->set_grob_property ("right-items",break_malt);
+		Pointer_group_interface::add_grob (last_spacings_.note_spacings_[i],
+						   ly_symbol2scm ("right-items"),
+						   break_malt_p_);
 				     
 	    }
 	  else if (last_spacings_.staff_spacing_)
@@ -174,7 +174,8 @@ Separating_line_group_engraver::stop_translation_timestep ()
 	note-spacing grobs.
        */
       if (musical_malt_p_)
-	sp->set_grob_property ("right-items", musical_malt_p_->self_scm());
+	Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"),
+					   musical_malt_p_);
 
       typeset_grob (sp);
     }

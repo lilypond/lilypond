@@ -10,13 +10,6 @@
 #include "debug.hh"
 #include "musical-request.hh"
 
-bool
-Barcheck_req::do_equal_b (Request const *r) const
-{
-  Barcheck_req  const*b = dynamic_cast<Barcheck_req const*> (r);
-  return b;
-}
-
 Tempo_req::Tempo_req ()
 {
   set_mus_property ("duration", Duration (2,0).smobbed_copy ());
@@ -101,7 +94,6 @@ Mark_req::do_equal_b (Request const * r) const
 
 
 ADD_MUSIC (Articulation_req);
-ADD_MUSIC (Barcheck_req);
 ADD_MUSIC (Break_req);
 ADD_MUSIC (Breathing_sign_req);
 ADD_MUSIC (Busy_playing_req);

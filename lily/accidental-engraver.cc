@@ -11,7 +11,6 @@
 #include "item.hh"
 #include "tie.hh"
 #include "rhythmic-head.hh"
-#include "timing-translator.hh"
 #include "engraver-group-engraver.hh"
 
 #include "staff-symbol-referencer.hh"

@@ -21,7 +21,7 @@ Axis_group_interface::add_element (Grob*me,Grob *e)
 	e->set_parent (me, a);
     }
 
-  Pointer_group_interface::add_element (me, ly_symbol2scm ("elements"), e);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), e);
   me->add_dependency (e);
 }
 

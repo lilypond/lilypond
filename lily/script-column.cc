@@ -18,7 +18,7 @@ Script_column::add_staff_sided (Grob *me, Item *i)
   if (!gh_number_p (p))
     return;
 
-  Pointer_group_interface::add_element (me, ly_symbol2scm ("scripts"),i);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("scripts"),i);
   
   me->add_dependency (i);
 }
@@ -41,7 +41,7 @@ Script_column::before_line_breaking (SCM smob)
   Grob* me = unsmob_grob (smob);
   Drul_array<Link_array<Grob> > arrs;
   Link_array<Grob> staff_sided 
-    = Pointer_group_interface__extract_elements (me, (Grob*)0, "scripts");
+    = Pointer_group_interface__extract_grobs (me, (Grob*)0, "scripts");
 				     
 				     
   for (int i=0; i < staff_sided.size (); i++)

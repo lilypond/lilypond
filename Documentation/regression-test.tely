@@ -224,21 +224,27 @@ Grace note do weird things with timing. Fragile.
 
 @section Spacing
 
-@lilypondfile[printfilename]{stem-spacing.ly}
-
-@lilypondfile[printfilename]{spacing-tight.ly}
-
-@lilypondfile[printfilename]{spacing-natural.ly}
-
-@lilypondfile[printfilename]{spacing-loose.ly}
-
 @lilypondfile[printfilename]{spacing-accidental.ly}
 
 @lilypondfile[printfilename]{spacing-accidental-staffs.ly}
 
+@lilypondfile[printfilename]{spacing-folded-clef.ly}
+
+@lilypondfile[printfilename]{spacing-ended-voice.ly}
+
+@lilypondfile[printfilename]{spacing-stem-direction.ly}
+
+@lilypondfile[printfilename]{spacing-individual-tuning.ly}
+
 @lilypondfile[printfilename]{lyrics-bar.ly}
 
 @lilypondfile[printfilename]{non-empty-text.ly}
+
+@c @l ilypondfile[printfilename]{spacing-tight.ly}
+
+@c @l ilypondfile[printfilename]{spacing-natural.ly}
+
+@c @l ilypondfile[printfilename]{spacing-loose.ly}
 
 
 

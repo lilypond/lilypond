@@ -186,3 +186,9 @@ Item::do_derived_mark ()
     scm_gc_mark (broken_to_drul_[RIGHT]->self_scm ());
   return SCM_EOL;
 }
+
+Item*
+unsmob_item (SCM s )
+{
+  return dynamic_cast<Item*> (unsmob_grob (s));
+}

@@ -48,7 +48,7 @@ Slur::add_column (Grob*me, Grob*n)
     warning (_ ("Putting slur over rest.  Ignoring."));
   else
     {
-      Pointer_group_interface::add_element (me, ly_symbol2scm ("note-columns"), n);
+      Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
       me->add_dependency (n);
     }
 
@@ -92,7 +92,7 @@ Direction
 Slur::get_default_dir (Grob*me) 
 {
   Link_array<Grob> encompass_arr =
-    Pointer_group_interface__extract_elements (me, (Grob*)0, "note-columns");
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
   
   Direction d = DOWN;
   for (int i=0; i < encompass_arr.size (); i ++) 

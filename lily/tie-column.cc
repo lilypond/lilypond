@@ -44,7 +44,7 @@ Tie_column::add_tie (Grob*me,Grob *s)
       dynamic_cast<Spanner*> (me)->set_bound (RIGHT, Tie::head (s,RIGHT));
     }
   
-  Pointer_group_interface::add_element (me, ly_symbol2scm ("ties"), s);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("ties"), s);
   s->add_dependency (me);
 }
 
@@ -69,7 +69,7 @@ void
 Tie_column::set_directions (Grob*me)
 {
   Link_array<Grob> ties =
-    Pointer_group_interface__extract_elements (me, (Grob*)0, "ties");
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "ties");
 
   for (int i = ties.size (); i--;)
     if (Directional_element_interface::get (ties[i]))

@@ -16,8 +16,6 @@ Request_chord::Request_chord ()
 		    Request_chord_iterator::constructor_cxx_function);
 }
 
-
-
 Pitch
 Request_chord::to_relative_octave (Pitch last)
 {
@@ -42,7 +40,5 @@ Request_chord::start_mom () const
 {
   return Music::start_mom ();
 }
-
-
 
 ADD_MUSIC (Request_chord);

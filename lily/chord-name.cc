@@ -20,7 +20,7 @@ MAKE_SCHEME_CALLBACK (Chord_name,after_line_breaking,1);
 SCM
 Chord_name::after_line_breaking (SCM smob)
 {
-  Item* me = dynamic_cast<Item*> (unsmob_grob (smob));
+  Item* me = unsmob_item (smob);
   assert (me);
     
   SCM s = me->get_grob_property ("begin-of-line-visible");

@@ -23,7 +23,7 @@ void
 Separation_item::add_item (Grob*s,Item* i)
 {
   assert (i);
-  Pointer_group_interface::add_element (s, ly_symbol2scm ("elements"),i);
+  Pointer_group_interface::add_grob (s, ly_symbol2scm ("elements"),i);
   s->add_dependency (i);
 }
 
@@ -40,7 +40,7 @@ Separation_item::my_width (Grob *me)
       if (!unsmob_grob (elt))
 	continue;
 
-      Item *il = dynamic_cast<Item*> (unsmob_grob (elt));
+      Item *il = unsmob_item (elt);
       if (pc != il->column_l ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */

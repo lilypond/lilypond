@@ -54,7 +54,7 @@ Group_interface::count (Grob *me, String name)
 
 
 void
-Pointer_group_interface::add_element (Grob*me, SCM name, Grob*p) 
+Pointer_group_interface::add_grob (Grob*me, SCM name, Grob*p) 
 {
   Group_interface::add_thing (me, name, p->self_scm ());
 }

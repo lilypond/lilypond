@@ -184,6 +184,5 @@ class Translator_group;
 class Transposed_music;
 class Tremolo_req;
 class Type_swallow_translator;
-class Unfolded_repeat_iterator;
 class yyFlexLexer;
 #endif // LILY_PROTO_HH;

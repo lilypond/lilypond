@@ -29,6 +29,14 @@ Simple_music_iterator::ok ()const
   return last_processed_mom_ < music_length_mom ();
 }
 
+/*
+  TODO: remove last_processed_mom_, and the complete shit.  We should
+  only process a simple-music once, and that is at its start.
+
+  Engravers can detect and request the end-moments to be processed as
+  well.
+
+*/
 Moment
 Simple_music_iterator::pending_moment ()const
 {

@@ -47,7 +47,7 @@ void
 Rest_collision::add_column (Grob*me,Grob *p)
 {
   me->add_dependency (p);
-  Pointer_group_interface::add_element (me, ly_symbol2scm ("elements"), p);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), p);
 
   /*
     only add callback for the rests, since we don't move anything else.

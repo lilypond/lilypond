@@ -33,14 +33,14 @@ public:
 
 struct Pointer_group_interface : public Group_interface {
 public:
-  static void add_element (Grob*, SCM nm, Grob*e);
+  static void add_grob (Grob*, SCM nm, Grob*e);
 };
 /** 
   Put all score elements of ELT's property called NAME into an array,
   and return it.  */
 template<class T>
 Link_array<T>
-Pointer_group_interface__extract_elements (Grob const *elt, T *, const char* name)
+Pointer_group_interface__extract_grobs (Grob const *elt, T *, const char* name)
 {
   Link_array<T> arr;
 

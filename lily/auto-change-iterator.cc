@@ -119,7 +119,14 @@ Auto_change_iterator::process (Moment m)
     {
       Pitch p = ps[0];
       Direction s = Direction (sign (p.steps ()));
-      if (s != where_dir_)
+      /*
+	Don't change for central C.
+
+	TODO: make this tunable somehow. Sometimes, you'd want to
+	switch for C.C. as well.
+
+      */
+      if (s && s != where_dir_)
 	{
 	  where_dir_ = s;
 	  String to_id = (s >= 0) ?  "up" : "down";

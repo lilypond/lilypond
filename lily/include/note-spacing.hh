@@ -18,8 +18,9 @@ public:
   static bool has_interface (Grob*);
 
   static Real get_spacing (Grob *me);
-
-  DECLARE_SCHEME_CALLBACK(before_line_breaking,(SCM));
+  static Real stem_dir_correction (Grob *me);  
+  static Item * right_column (Grob*);
+  static Item * left_column (Grob*);  
 };
 
 #endif /* NOTE_SPACING_HH */

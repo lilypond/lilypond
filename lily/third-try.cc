@@ -20,9 +20,12 @@
 
     right-neighbors = List of spacing-wish grobs that are close to the
     current column.
-  
- */
 
+
+    left-neighbors = idem
+
+    (TODO: property-doc these!)
+ */
 
 class Third_spacing_spanner
 {
@@ -86,11 +89,13 @@ loose_column (Grob *l, Grob *c, Grob *r)
     return false;
 
   l_neighbor = l_neighbor->column_l();
-  r_neighbor = r_neighbor->column_l();
+  r_neighbor = dynamic_cast<Item*> (Note_spacing::right_column  (r_neighbor));
 
   if (l == l_neighbor && r == r_neighbor)
     return false;
 
+  if (!l_neighbor || !r_neighbor)
+    return false;
 
   /*
     Only declare loose if the bounds make a little sense.  This means
@@ -149,6 +154,14 @@ Third_spacing_spanner::prune_loose_colunms (Link_array<Grob> *cols)
 	  rns = gh_car (unsmob_grob (rns)->get_grob_property ("right-items"));
 	  c->set_grob_property ("between-cols", gh_cons (lns,
 							 rns));
+
+
+	  /*
+	    TODO: we should have distance constraints for loose
+	    columns anyway, and the placement could be improved. Clefs
+	    easily run into their neigbhors when folded into too
+	    little space.
+	  */
 	}
       else
 	{
@@ -171,14 +184,13 @@ Third_spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
       int min_rank = 100000;	// inf.
 
 
-
-      SCM wishes=  cols[i]-> get_grob_property ("spacing-wishes");
+      SCM wishes=  cols[i]->get_grob_property ("spacing-wishes");
       for (SCM s =wishes; gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Item * wish = dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
 
 	  Item * lc = wish->column_l ();
-	  Grob * right = unsmob_grob (wish->get_grob_property ("right-column"));
+	  Grob * right = Note_spacing::right_column (wish);
 
 	  if (!right)
 	    continue;
@@ -356,8 +368,6 @@ Third_spacing_spanner::do_measure (Grob*me, Link_array<Grob> *cols)
 
       SCM seq  = lc->get_grob_property ("right-neighbors");
 
-      Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
-      
       /*
 	hinterfleisch = hind-meat = amount of space following a note.
 
@@ -367,48 +377,49 @@ Third_spacing_spanner::do_measure (Grob*me, Link_array<Grob> *cols)
 	property SPACING-SEQUENCE.  */
 
       Real stretch_distance = note_space;
-      if (shortest_in_measure <= dt)
+
+      hinterfleisch = -1.0;
+      Real max_factor = 0.0;
+      for (SCM s = seq; gh_pair_p (s); s = ly_cdr (s))
 	{
+	  Grob * wish = unsmob_grob (gh_car (s));
+
 	  /*
-	    currently SPACING-SEQUENCE is set in
-	    Separating_group_spanner::find_musical_sequences (), which
-	    works neatly for one-voice-per staff, however,
+	    TODO: configgable.
 
-	    it can't find out the actual duration of the notes on a
-	    staff, so when putting tuplets and normal patterns it gets
-	    confused, (ie. believes that < { c8 c8 } { d8 d8 d8 }*2/3
-	    > contains 1/12 notes. ).
-
-	    here we kludge, by checking if the distance we're spacing
-	    for is less than the shortest note.
-
-	    TODO:
-
-	    Move SPACING-SEQUENCE detection into a voice
-	    level-engraver --or-- make sure that every column has
-	    access to the note head.
-
+	    TODO: don't do stem-dir correction in polyphonic
+	    stuff. It wastes CPU time.
 	  */
-	  for (SCM s = seq; gh_pair_p (s); s = ly_cdr (s))
+	  if (Note_spacing::has_interface (wish))
 	    {
-	      Grob * wish = unsmob_grob (gh_car (s));
+	      hinterfleisch = hinterfleisch >?
+		( - headwid +
 
-	      // TODO; configgable.
-	      if (Note_spacing::has_interface (wish))
-		{
-		  hinterfleisch += -headwid + Note_spacing::get_spacing (wish);
-		}
+		  (note_space + Note_spacing::get_spacing (wish))
+		  *gh_scm2double (wish->get_grob_property ("space-factor"))
 
-	      // should move into Note_spacing
-	      // hinterfleisch += stem_dir_correction (me, l, r);
+		  + Note_spacing::stem_dir_correction (wish));
 	    }
+	}
 
-	  // ? why.
-	  if (gh_pair_p (seq))
-	    stretch_distance -= headwid;
-	}      
+      // ? why.
+      if (gh_pair_p (seq))
+	stretch_distance -= headwid;
+
+	  /*
+	    something failed, or we get ridiculous close.
+	   */
+      if (hinterfleisch < 0)
+	{
+	  // maybe should issue a programming error.
+	  hinterfleisch = note_space;
+	}
+
+      if (max_factor == 0.0)
+	max_factor = 1.0; 
+      
       Spring s;
-      s.distance_f_ = hinterfleisch;
+      s.distance_f_ = max_factor *  hinterfleisch;
       s.strength_f_ = 1 / stretch_distance;
 
       s.item_l_drul_[LEFT] = l;

@@ -18,7 +18,7 @@ Item*
 Rhythmic_head::dots_l (Grob*me) 
 {
   SCM s = me->get_grob_property ("dot");
-  return dynamic_cast<Item*> (unsmob_grob (s));
+  return unsmob_item (s);
 }
 
 int
@@ -32,7 +32,7 @@ Item*
 Rhythmic_head::stem_l (Grob*me) 
 {
   SCM s = me->get_grob_property ("stem");
-  return dynamic_cast<Item*> (unsmob_grob (s));
+  return unsmob_item (s);
 }
 
 int

@@ -34,6 +34,9 @@ Directional_element_interface::set (Grob*me, Direction d)
 {
   SCM sd = gh_int2scm (d);
 
+  /*
+    Vain attempt to save some conses.
+   */
   if (me->get_grob_property ("direction") != sd)
     me->set_grob_property ("direction", sd);
 }

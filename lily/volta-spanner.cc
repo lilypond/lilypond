@@ -42,7 +42,7 @@ Volta_spanner::brew_molecule (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Link_array<Item> bar_arr
-    = Pointer_group_interface__extract_elements (me, (Item*)0, "bars");
+    = Pointer_group_interface__extract_grobs (me, (Item*)0, "bars");
 
   if (!bar_arr.size ())
     return SCM_EOL;
@@ -117,7 +117,7 @@ Volta_spanner::brew_molecule (SCM smob)
 void
 Volta_spanner::add_bar (Grob *me, Item* b)
 {
-  Pointer_group_interface::add_element (me, ly_symbol2scm ("bars"), b);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("bars"), b);
   Side_position_interface::add_support (me,b);
   add_bound_item (dynamic_cast<Spanner*> (me), b); 
 }

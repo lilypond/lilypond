@@ -25,7 +25,6 @@ protected:
   
   virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
-  virtual void process_music ();
 
 public:
   TRANSLATOR_DECLARATIONS(Timing_engraver);
@@ -80,15 +79,6 @@ Timing_engraver::stop_translation_timestep ()
   last_moment_ = now_mom ();
 }
 
-
-/*
-  ugh. Translator doesn't do process_music ().
- */
-void
-Timing_engraver::process_music ()
-{
-  Timing_translator::process_music ();
-}
 
 ENTER_DESCRIPTION(Timing_engraver,
 /* descr */       " Responsible for synchronizing timing information from staves. 

@@ -330,7 +330,7 @@ Grob::add_dependency (Grob*e)
 {
   if (e)
     {
-      Pointer_group_interface::add_element (this, ly_symbol2scm ("dependencies"),e);
+      Pointer_group_interface::add_grob (this, ly_symbol2scm ("dependencies"),e);
     }
   else
     programming_error ("Null dependency added");

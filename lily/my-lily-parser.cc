@@ -21,7 +21,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   lexer_p_ = 0;
   default_duration_ = Duration (2,0);
   error_level_i_ = 0;
-
+  last_beam_start_ = SCM_EOL;
 
   default_header_p_ =0;
 }

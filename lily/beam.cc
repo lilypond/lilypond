@@ -40,7 +40,7 @@
 void
 Beam::add_stem (Grob*me, Grob*s)
 {
-  Pointer_group_interface::add_element (me, ly_symbol2scm ("stems"), s);
+  Pointer_group_interface::add_grob (me, ly_symbol2scm ("stems"), s);
   
   s->add_dependency (me);
 
@@ -130,7 +130,7 @@ Beam::get_default_dir (Grob*me)
   Direction d = DOWN;
 
   Link_array<Item> stems=
-	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+	Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
 
   for (int i=0; i <stems.size (); i++)
     do {
@@ -173,7 +173,7 @@ void
 Beam::set_stem_directions (Grob*me)
 {
   Link_array<Item> stems
-    =Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
+    =Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
   Direction d = Directional_element_interface::get (me);
   
   for (int i=0; i <stems.size (); i++)
@@ -206,7 +206,7 @@ Beam::consider_auto_knees (Grob *me)
 
       Direction d = Directional_element_interface::get (me);
       Link_array<Item> stems=
-	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+	Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
       
       Grob *common = me->common_refpoint (stems[0], Y_AXIS);
       for (int i=1; i < stems.size (); i++)
@@ -287,7 +287,7 @@ Beam::set_stem_shorten (Grob*m)
     shorten_f /= 2;
 
   Link_array<Item> stems=
-    Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
 
   for (int i=0; i < stems.size (); i++)
     {
@@ -364,7 +364,7 @@ Beam::least_squares (SCM smob)
       // ugh -> use commonx
       Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
       Link_array<Item> stems=
-	Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+	Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
 
       for (int i=0; i < stems.size (); i++)
 	{
@@ -637,7 +637,7 @@ Beam::check_stem_length_f (Grob*me,Real y, Real dy)
   Direction dir = Directional_element_interface::get (me);
 
   Link_array<Item> stems=
-    Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
 
   for (int i=0; i < stems.size (); i++)
     {
@@ -678,7 +678,7 @@ Beam::set_stem_lengths (Grob *me)
 
   Real half_space = Staff_symbol_referencer::staff_space (me)/2;
   Link_array<Item> stems=
-    Pointer_group_interface__extract_elements (me, (Item*)0, "stems");
+    Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
 
   Grob *common = me->common_refpoint (stems[0], Y_AXIS);
   for (int i=1; i < stems.size (); i++)
@@ -754,7 +754,7 @@ void
 Beam::set_beaming (Grob*me,Beaming_info_list *beaming)
 {
   Link_array<Grob> stems=
-    Pointer_group_interface__extract_elements (me, (Grob*)0, "stems");
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
   
   Direction d = LEFT;
   for (int i=0; i  < stems.size (); i++)
@@ -946,7 +946,7 @@ Beam::brew_molecule (SCM smob)
     return SCM_EOL;
   Real x0,dx;
   Link_array<Item>stems = 
-    Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");  
+    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");  
   if (visible_stem_count (me))
     {
   // ugh -> use commonx
@@ -994,7 +994,7 @@ int
 Beam::forced_stem_count (Grob*me) 
 {
   Link_array<Item>stems = 
-    Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
+    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
   int f = 0;
   for (int i=0; i < stems.size (); i++)
     {
@@ -1020,7 +1020,7 @@ int
 Beam::visible_stem_count (Grob*me) 
 {
   Link_array<Item>stems = 
-    Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
+    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
   int c = 0;
   for (int i = stems.size (); i--;)
     {
@@ -1034,7 +1034,7 @@ Item*
 Beam::first_visible_stem (Grob*me) 
 {
   Link_array<Item>stems = 
-    Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
+    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
   
   for (int i = 0; i < stems.size (); i++)
     {
@@ -1048,7 +1048,7 @@ Item*
 Beam::last_visible_stem (Grob*me) 
 {
   Link_array<Item>stems = 
-    Pointer_group_interface__extract_elements (me, (Item*) 0, "stems");
+    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
   for (int i = stems.size (); i--;)
     {
       if (!Stem::invisible_b (stems[i]))

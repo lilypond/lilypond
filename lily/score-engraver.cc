@@ -289,15 +289,15 @@ Score_engraver::acknowledge_grob (Grob_info gi)
 {
   if (Staff_spacing::has_interface (gi.grob_l_))
     {
-      Pointer_group_interface::add_element (command_column_l_,
+      Pointer_group_interface::add_grob (command_column_l_,
 					    ly_symbol2scm ("spacing-wishes"),
 					    gi.grob_l_);
     }
   if (Note_spacing::has_interface (gi.grob_l_))
     {
-      Pointer_group_interface::add_element (musical_column_l_,
-					    ly_symbol2scm ("spacing-wishes"),
-					    gi.grob_l_);
+      Pointer_group_interface::add_grob (musical_column_l_,
+					 ly_symbol2scm ("spacing-wishes"),
+					 gi.grob_l_);
     }
 }
 
