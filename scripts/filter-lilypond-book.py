@@ -433,7 +433,7 @@ class Snippet:
 		base = self.basename (source)
 		if os.path.exists (base + '.ly') \
 		   and os.path.exists (base + '.tex') \
-		   and (not use_hash_p \
+		   and (use_hash_p \
 			or self.ly (source) == open (base + '.ly').read ()):
 			# TODO: something smart with target formats
 			# (ps, png) and m/ctimes
