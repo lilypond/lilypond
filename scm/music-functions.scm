@@ -1,11 +1,11 @@
-;;;; music-functions.scm -- implement Scheme output routines for PostScript
+;;;; music-functions.scm --
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
 ;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;                 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-(use-modules (ice-9 optargs)) 
+;; (use-modules (ice-9 optargs)) 
 
 ;;; ly:music-property with setter
 ;;; (ly:music-property my-music 'elements)
@@ -723,5 +723,3 @@ use PianoStaff as a context. "
       (else
        (ly:warn (string-append "Unknown accidental style: " (symbol->string style)))
        (make-sequential-music '()))))))
-
-

@@ -313,10 +313,10 @@ HYPHEN		--
 }
 <INITIAL,notes,lyrics>{ 
 	\<\<   {
-		return LESSLESS;
+		return DOUBLE_ANGLE_OPEN;
 	}
 	\>\>   {
-		return MOREMORE;
+		return DOUBLE_ANGLE_CLOSE;
 	}
 }
 <figures>{

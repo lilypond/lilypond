@@ -21,6 +21,7 @@
 %%
 
 #(if (and (ly:get-option 'old-relative)
+      (defined? 'input-file-name)
       (not (ly:get-option 'old-relative-used)))
   (ly:warn (string-append
 	    "\n"

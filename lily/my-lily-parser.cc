@@ -100,8 +100,6 @@ My_lily_parser::parse_string (String ly_code)
   lexer_ = new My_lily_lexer (sources_);
   lexer_->main_input_name_ = "<string>";
   lexer_->main_input_b_ = true;
-  SCM nn = lexer_->lookup_identifier ("pitchnames");
-  lexer_->push_note_state (alist_to_hashq (nn));
 
   set_yydebug (0);
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
@@ -313,27 +311,60 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
   return SCM_UNSPECIFIED;
 }
 
+static Music_output_def*
+get_paper (My_lily_parser *parser)
+{
+  SCM id = parser->lexer_->lookup_identifier ("$defaultpaper");
+  Music_output_def *paper = unsmob_music_output_def (id);
+  return paper ? paper->clone () : new Paper_def;
+}
 
-LY_DEFINE (ly_parser_add_book_and_score, "ly:parser-add-book-and-score",
+LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
 	   2, 0, 0,
-	   (SCM purple, SCM music),
-	   "Handle the toplevel-music MUSIC by adding BOOK and SCORE.")
+	   (SCM parser_smob, SCM score_smob),
+	   "Print score, i.e., the classic way.")
 {
 #if 0
   SCM_ASSERT_TYPE (ly_c_parser_p (parser), music, SCM_ARG1, __FUNCTION__, "parser");
   SCM_ASSERT_TYPE (ly_c_music_p (music), music, SCM_ARG1, __FUNCTION__, "music");
 #endif
-  My_lily_parser *parser = unsmob_my_lily_parser (purple);
-  Score *score = new Score;
+  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  Score *score = unsmob_score (score_smob);
+
+  SCM header = is_module (score->header_) ? score->header_
+    : parser->header_.to_SCM ();
   
-  /* URG? */
-  SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
-  for (; ly_c_pair_p (check_funcs); check_funcs = ly_cdr (check_funcs))
-    music = scm_call_1 (ly_car (check_funcs), music);
-  score->music_ = music;
-  Book *book = new Book;
-  book->scores_.push (score);
-  scm_gc_unprotect_object (score->self_scm ());
+  Path outname = split_path (parser->output_basename_);
+  int *c = &parser->book_count_;
+  if (*c)
+    outname.base += "-" + to_string (*c);
+  (*c)++;
+
+  SCM os = scm_makfrom0str (outname.to_string ().to_str0 ());
+  for (int i = 0; i < score->defs_.size (); i++)
+    default_rendering (score->music_, score->defs_[i]->self_scm (), header,
+		       os);
+
+  if (score->defs_.is_empty ())
+    {
+      Music_output_def *paper = get_paper (parser);
+      default_rendering (score->music_, paper->self_scm (), header, os);
+      scm_gc_unprotect_object (paper->self_scm ());
+    }
+  return SCM_UNDEFINED;
+}
+
+LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
+	   2, 0, 0,
+	   (SCM parser_smob, SCM book_smob),
+	   "Print book.")
+{
+#if 0
+  SCM_ASSERT_TYPE (ly_c_parser_p (parser_smob), parser_smob, SCM_ARG1, __FUNCTION__, "parser_smob");
+  SCM_ASSERT_TYPE (ly_c_music_p (book_smob), book_smob, SCM_ARG1, __FUNCTION__, "book_smob");
+#endif
+  My_lily_parser *parser = unsmob_my_lily_parser (parser_smob);
+  Book *book = unsmob_book (book_smob);
   
   SCM header = parser->header_;
   Path outname = split_path (parser->output_basename_);
@@ -341,11 +372,8 @@ LY_DEFINE (ly_parser_add_book_and_score, "ly:parser-add-book-and-score",
   if (*c)
     outname.base += "-" + to_string (*c);
   (*c)++;
-  My_lily_lexer *lexer = parser->lexer_;
-  Music_output_def *dp
-    = unsmob_music_output_def (lexer->lookup_identifier ("$defaultpaper"));
-  book->process (outname.to_string (),
-		 dp ? dp->clone () : new Paper_def, header);
-  scm_gc_unprotect_object (book->self_scm ());
+  Music_output_def *paper = get_paper (parser);
+  book->process (outname.to_string (), paper, header);
+  scm_gc_unprotect_object (paper->self_scm ());
   return SCM_UNDEFINED;
 }

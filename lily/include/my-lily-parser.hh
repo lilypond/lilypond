@@ -72,6 +72,10 @@ DECLARE_UNSMOB (My_lily_parser, my_lily_parser);
 
 SCM ly_parse_file (SCM);
 SCM ly_parse_string (SCM);
-SCM ly_parser_add_book_and_score (SCM, SCM);
+// SCM ly_parser_add_book_and_score (SCM, SCM);
+SCM ly_parser_print_book (SCM, SCM);
+SCM ly_parser_print_score (SCM, SCM);
+SCM ly_parser_bookify (SCM, SCM);
+SCM ly_parser_scorify (SCM, SCM);
 
 #endif /* MY_LILY_PARSER_HH */

@@ -91,11 +91,33 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lily specific variables.
-(define-public default-toplevel-music-handler ly:parser-add-book-and-score)
 
 (define-public default-script-alist '())
 
 (define-public safe-mode? #f)
+
+;; parser stuff.
+(define-public (print-music-as-book parser music)
+  (let* ((score (ly:music-scorify music))
+	 (book (ly:score-bookify score)))
+    (ly:parser-print-book parser book)))
+
+(define-public (print-score-as-book parser score)
+  (let ((book (ly:score-bookify score)))
+    (ly:parser-print-book parser book)))
+
+(define-public (print-score parser score)
+  (let ((book (ly:score-bookify score)))
+    (ly:parser-print-score parser book)))
+		
+(define-public default-toplevel-music-handler print-music-as-book)
+(define-public default-toplevel-book-handler ly:parser-print-book)
+(define-public default-toplevel-score-handler print-score-as-book)
+;;(define-public toplevel-music-handler print-music-as-book)
+;;(define-public toplevel-music-handler toplevel-music-functions)
+;;(define-public toplevel-music-handler
+;;  (lambda (x y) (print-music-as-book x y)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Unassorted utility functions.

@@ -1,3 +1,30 @@
+2004-04-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/newaddlyrics.ly: New file.
+
+	* Documentation/topdocs/NEWS.texi: Update.
+
+	* lily/parser.yy (new_lyrics): Return SCM list of lyric musics.
+	(Music_list): Allow embedded scm.
+
+	* lily/score.cc (ly:score-bookify): New function.
+
+	* lily/music.cc (ly:music-scorify): Idem.
+
+	* lily/my-lily-parser.cc (ly:parser-print-book): Idem.
+	(ly:parser-print-score): Idem.
+
+	* scm/lily.scm (default-toplevel-book-handler): Idem.
+	(default-toplevel-music-handler): Idem.
+	(default-toplevel-score-handler): Idem.
+
+	* ly/declarations-init.ly: Set default toplevel handlers.
+
+	* lily/parser.yy (book_block, score_block, toplevel_music): Use them.
+
+	* scripts/lilypond-book.py (PREAMBLE_LY): Select classic score
+	printer for score at toplevel.
+
 2004-04-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/parser.yy (NEWLYRICS): Switch to LYRICS mode for lyrics.
