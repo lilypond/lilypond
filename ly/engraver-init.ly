@@ -102,12 +102,13 @@ RhythmicStaffContext=\translator{
 	\name RhythmicStaff
 	\alias "Staff"
 	
-	Bar \override #'bar-size = #4
+	BarLine \override #'bar-size = #4
 	VoltaBracket \override #'minimum-space =  #15  % urg, in \pt
 	VoltaBracket \override #'padding =  #5  % urg, in \pt
 	StaffSymbol \override #'line-count = #1	
 
 %	\consists "Repeat_engraver"
+	\consists "Dot_column_engraver"
 	\consists "Volta_engraver"
 	\consists "Bar_engraver"
 	\consists "Time_signature_engraver"
