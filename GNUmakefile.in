@@ -56,10 +56,10 @@ pfa-fonts:
 	(cd $(builddir)/share/lilypond/fonts && \
 		tar czvf ../../../$(outbase)/type1.tar.gz type1/*.pfa type1/fonts.* type1/lilypond.* )
 
-docdir = $(prefix)/share/doc/lilypond-$(TOPLEVEL_VERSION)
-install-html-doc: html-doc
-	$(INSTALL) -d $(docdir)/html 
-	tar -C $(docdir)/html -zxf $(outdir)/web.tar.gz
+webdir = $(prefix)/share/doc/lilypond-$(TOPLEVEL_VERSION)
+web-install: html-doc
+	$(INSTALL) -d $(webdir)/html 
+	tar -C $(webdir)/html -zxf $(outdir)/web.tar.gz
 
 # KPATHSEA=0: Hack for compiling without kpathsea -- not recommended
 my_tfm_path = $(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
