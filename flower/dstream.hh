@@ -29,7 +29,7 @@ class Dstream
     int indentlvl;
     bool local_silence;
     String classname;
-
+    void output(String s);
     Assoc<String, bool> *silent;
 public:
 
@@ -42,8 +42,13 @@ public:
     Dstream(ostream *r, const char  * rcfile);
     virtual ~Dstream();
     Dstream &identify_as(String s);
-    
+
     Dstream &operator << (String s);
+    /**
+      Output memory locations.
+     */
+    Dstream &operator << (void const *);
+    Dstream &operator << (char const *);
 };
 #endif
 
