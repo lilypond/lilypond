@@ -1,7 +1,7 @@
 /*
   p-score.hh -- declare PScore
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -11,42 +11,33 @@
 #define P_SCORE_HH
 
 #include "colhpos.hh"
-#include "varray.hh"
+#include "parray.hh"
 #include "lily-proto.hh"
-#include "p-col.hh"
-#include "p-staff.hh"
+#include "plist.hh"
 
-
-/** all stuff which goes onto paper. notes, signs, symbols in a score can be grouped in two ways:
-    horizontally (staffwise), and vertically (columns). #PScore#
-    contains the items, the columns and the staffs.
- */
-
-struct PScore {
-    Paper_def *paper_l_;
+/** all stuff which goes onto paper. notes, signs, symbols in a score
+     #PScore# contains the items, the columns.
     
+    */
+
+class PScore {
+public:
+    Paper_def *paper_l_;
+
     /// the columns, ordered left to right
     Pointer_list<PCol *> cols;
 
     /// the idealspacings, no particular order
     Pointer_list<Idealspacing*> suz;
 
-    /// the staffs ordered top to bottom
-    Pointer_list<PStaff*> staffs;
-
-    /// all symbols in score. No particular order.
-    Pointer_list<Item*> its;
-
-    /// if broken, the different lines
-    Pointer_list<Line_of_score*> lines;
-
     /// crescs etc; no particular order
     Pointer_list<Spanner *> spanners;
 
-    /// broken spanners
-    Pointer_list<Spanner*> broken_spans;
+    /// other elements
+    Pointer_list<Score_elem*> elem_p_list_;
+    
+    Super_elem *super_elem_l_;
 
-    Pointer_list<Vertical_spanner*> vspan_p_list_;
     /* *************** */
     /* CONSTRUCTION */
     
@@ -54,30 +45,22 @@ struct PScore {
     /// add a line to the broken stuff. Positions given in #config#
     void set_breaking(Array<Col_hpositions> const &);
 
-    void add(PStaff *);
-    
-
     /** add an item.
        add the item in specified containers. If breakstatus is set
        properly, add it to the {pre,post}break of the pcol.
        */
-    void typeset_item(Item *item_p,  PCol *pcol_l,PStaff*pstaf_l,int breakstatus=1);
+    void typeset_item(Item *item_p,  PCol *pcol_l,int breakstatus=1);
 
-    /// add a Spanner
-    void typeset_spanner(Spanner*, PStaff*);
- 
     ///    add to bottom of pcols
     void add(PCol*);
-    void add_broken(Spanner*);
 
-    /* INSPECTION */
-    Array<Item*> select_items(PStaff*, PCol*);
-
-     /**
-       @return argument as a cursor of the list
-       */
+    /**
+      @return argument as a cursor of the list
+      */
     PCursor<PCol *> find_col(PCol const *)const;
 
+    Link_array<PCol> col_range(PCol *left_l, PCol *right_l) const;
+    
     /* MAIN ROUTINES */
     void process();
 
@@ -98,6 +81,13 @@ struct PScore {
     /* STANDARD ROUTINES */
     void OK()const;
     void print() const;
+    ~PScore();
+    void typeset_element(Score_elem*);
+    void typeset_broken_spanner(Spanner*);
+    /// add a Spanner
+    void typeset_unbroken_spanner(Spanner*);
+ 
+    
 private:
     /// before calc_breaking
     void preprocess();

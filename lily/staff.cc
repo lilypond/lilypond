@@ -1,12 +1,14 @@
 /*
   staff.cc -- implement Staff
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
-#include "input-register.hh"
+
 #include "proto.hh"
+#include "plist.hh"
+#include "input-register.hh"
 #include "staff.hh"
 #include "score.hh"
 #include "voice.hh"
@@ -16,7 +18,11 @@
 #include "debug.hh"
 #include "musical-request.hh"
 #include "command-request.hh" // todo
-
+#include "staffline.hh"
+#include "complex-walker.hh"
+#include "super-elem.hh"
+#include "p-score.hh"
+#include "scoreline.hh"
 
 void
 Staff::add(Link_list<Voice*> const &l)
@@ -57,9 +63,6 @@ Staff::OK() const
 #ifndef NDEBUG
     cols_.OK();
     voice_list_.OK();
-    iter_top(cols_, i);
-    iter_top(cols_, j);
-    i++;
     assert(score_l_);
 #endif    
 }
@@ -88,12 +91,16 @@ Staff::print() const
 #endif
 }
 
+Staff::~Staff()
+{
+    delete ireg_p_;
+}
+
 Staff::Staff()
 {    
     ireg_p_ =0;
     score_l_ =0;
     pscore_l_ =0;
-    pstaff_l_ =0;
 }
 
 void
@@ -101,4 +108,20 @@ Staff::add_col(Staff_column*c_l)
 {
     cols_.bottom().add(c_l);
     c_l->staff_l_ = this;
+}
+
+void
+Staff::set_output(PScore* pscore_l )
+{
+    pscore_l_ = pscore_l;
+    staff_line_l_ = new Line_of_staff;
+    pscore_l_->typeset_unbroken_spanner(staff_line_l_);
+    pscore_l_->super_elem_l_->line_of_score_l_->add_line(staff_line_l_);
+}
+
+
+Staff_walker * 
+Staff::get_walker_p()
+{
+    return new Complex_walker(this);
 }
