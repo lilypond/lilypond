@@ -88,7 +88,7 @@ Syllable_group::add_extender(Score_element * extender)
 //     extender->set_elt_property("right-trim-amount", gh_double2scm(0.0));
 
     // Right:
-    Real ss = extender->paper_l ()->get_var ("staffspace");
+    Real ss = 1.0;
     extender->set_elt_property("right-trim-amount", 
 			       gh_double2scm(-notehead_l_->extent(notehead_l_, X_AXIS).length()/ss));
   }

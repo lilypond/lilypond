@@ -70,7 +70,7 @@ Staff_symbol::line_count (Score_element*me)
 Real
 Staff_symbol::staff_space (Score_element*me )
 {
-  Real ss = me->paper_l ()->get_var ("staffspace");
+  Real ss = 1.0;
   
   SCM s = me->get_elt_property ("staff-space");
   if (gh_number_p (s))

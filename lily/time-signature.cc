@@ -52,6 +52,10 @@ Time_signature::special_time_signature (Score_element*me, String s, int n, int d
 {
   // First guess: s contains only the signature style
   String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
+
+  /*
+     Randomly probing the font sucks?
+   */
   
   Molecule m = Font_interface::get_default_font (me)->find_by_name (symbolname);
   if (!m.empty_b()) 
@@ -70,7 +74,7 @@ Time_signature::special_time_signature (Score_element*me, String s, int n, int d
 Molecule
 Time_signature::time_signature (Score_element*me,int num, int den)
 {
-  SCM chain = gh_list (me->mutable_property_alist_, me->immutable_property_alist_, SCM_UNDEFINED);
+  SCM chain = Font_interface::font_alist_chain (me);
 
   Molecule n = Text_item::text2molecule (me,
 					 ly_str02scm (to_str (num).ch_C ()),

@@ -131,13 +131,10 @@ Multi_measure_rest::brew_molecule (SCM smob)
 
   if (measures > 1)
     {
-      SCM properties = gh_list (me->mutable_property_alist_,
-				me->immutable_property_alist_,
-				SCM_UNDEFINED);
-      Molecule s =
-	Text_item::text2molecule (me,
-				  ly_str02scm (to_str (measures).ch_C ()),
-				  properties);
+      SCM properties = Font_interface::font_alist_chain (me);
+      Molecule s = Text_item::text2molecule (me,
+					     ly_str02scm (to_str (measures).ch_C ()),
+					     properties);
       s.align_to (X_AXIS, CENTER);
       s.translate_axis (3.0 * staff_space, Y_AXIS);
       mol.add_molecule (s);

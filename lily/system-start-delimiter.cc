@@ -21,22 +21,20 @@ Molecule
 System_start_delimiter::staff_bracket (Score_element*me,Real height)  
 {
   Paper_def* p= me->paper_l ();
-  SCM scmss = p->get_scmvar ("staffspace");
-  Real ss = gh_scm2double (scmss);
-  Real arc_height = gh_scm2double (me->get_elt_property("arch-height")) * ss ;
+  Real arc_height = gh_scm2double (me->get_elt_property("arch-height")) ;
   
   SCM at = gh_list (ly_symbol2scm ("bracket"),
-		    scm_product (me->get_elt_property ("arch-angle"), scmss),
-		    scm_product (me->get_elt_property ("arch-width"), scmss),
+		    me->get_elt_property ("arch-angle"), 
+		    me->get_elt_property ("arch-width"), 
 		    gh_double2scm (arc_height),
-		    scm_product (me->get_elt_property ("bracket-width"),scmss),
+		    me->get_elt_property ("bracket-width"),
 		    gh_double2scm (height),
-		    scm_product (me->get_elt_property ("arch-thick"),scmss),
-		    scm_product (me->get_elt_property ("bracket-thick"),scmss),
+		    me->get_elt_property ("arch-thick"),
+		    me->get_elt_property ("bracket-thick"),
 		    SCM_UNDEFINED);
 
   Real h = height + 2 * arc_height;
-  Box b (Interval (0, 1.5 * ss), Interval (-h/2, h/2));
+  Box b (Interval (0, 1.5), Interval (-h/2, h/2));
   Molecule mol (b, at);
   mol.align_to (X_AXIS, CENTER);
   return mol;

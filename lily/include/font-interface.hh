@@ -15,6 +15,7 @@
 
 struct Font_interface
 {
+  static SCM font_alist_chain (Score_element*);
   static Font_metric * get_default_font (Score_element*); 
 };
 

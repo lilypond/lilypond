@@ -70,16 +70,13 @@ Tuplet_spanner::brew_molecule (SCM smob)
       Real ncw = column_arr.top ()->extent(column_arr.top (), X_AXIS).length ();
       Real w = dynamic_cast<Spanner*>(me)->spanner_length () + ncw;
 
-      Real staff_space = me->paper_l ()->get_var ("staffspace");
+      Real staff_space = 1.0;
       Direction dir = Directional_element_interface::get (me);
       Real dy = gh_scm2double (me->get_elt_property ("delta-y"));
       SCM number = me->get_elt_property ("text");
       if (gh_string_p (number) && number_visibility)
 	{
-	  SCM properties = gh_list ( me->mutable_property_alist_,
-				     me->immutable_property_alist_,
-				    
-				    SCM_UNDEFINED);
+	  SCM properties = Font_interface::font_alist_chain (me);
 	  Molecule num = Text_item::text2molecule (me, number, properties);
 	  num.align_to (X_AXIS, CENTER);
 	  num.translate_axis (w/2, X_AXIS);
@@ -93,18 +90,17 @@ Tuplet_spanner::brew_molecule (SCM smob)
       
       if (bracket_visibility)      
 	{
-	  SCM ss = me->paper_l ()->get_scmvar ("staffspace");
-	  SCM lt =  me->paper_l ()->get_scmvar ("stafflinethickness");
+	  Real  lt =  me->paper_l ()->get_var ("stafflinethickness");
 	  
 	  SCM thick = me->get_elt_property ("thick");
 	  SCM gap = me->get_elt_property ("number-gap");
 	  
 	  SCM at =gh_list(ly_symbol2scm ("tuplet"),
-			  ss,
-			  scm_product (gap, ss),
+			  gh_double2scm (1.0),
+			  gap,
 			  gh_double2scm (w),
 			  gh_double2scm (dy),
-			  scm_product (thick, lt),
+			  gh_double2scm (gh_scm2double (thick)* lt),
 			  gh_int2scm (dir),
 			  SCM_UNDEFINED);
 

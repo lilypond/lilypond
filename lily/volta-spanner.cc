@@ -60,9 +60,8 @@ Volta_spanner::brew_molecule (SCM smob)
     no_vertical_end = false;
 #endif
 
-  Real staff_space = me->paper_l ()->get_var ("staffspace");
   Real staff_thick = me->paper_l ()->get_var ("stafflinethickness");  
-  Real half_space = staff_space / 2;
+  Real half_space = 0.5;
 
   /*
     the volta spanner is attached to the bar-line, which is moved
@@ -70,8 +69,8 @@ Volta_spanner::brew_molecule (SCM smob)
    */
   Real left = 0.0;
   Real w = dynamic_cast<Spanner*>(me)->spanner_length () - left - half_space;
-  Real h = staff_space * gh_scm2double (me->get_elt_property ("height"));
-  Real t = staff_thick * gh_scm2double (me->get_elt_property ("thickness"));
+  Real h =  gh_scm2double (me->get_elt_property ("height"));
+  Real t =  staff_thick * gh_scm2double (me->get_elt_property ("thickness"));
 
   /*
     ugh: should build from line segments.
@@ -91,7 +90,7 @@ Volta_spanner::brew_molecule (SCM smob)
   Molecule num = Text_item::text2molecule (me, text, properties);
 
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
-		   - staff_space);
+		   - 1.0);
   mol.translate_axis (left, X_AXIS);
   return mol.create_scheme();
 }

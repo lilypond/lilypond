@@ -41,16 +41,15 @@ Hyphen_spanner::brew_molecule (SCM smob)
     }
   while (flip (&d) != LEFT);
   
-  Real ss = sp->paper_l ()->get_var ("staffspace");
   Real lt = sp->paper_l ()->get_var ("stafflinethickness");
   Real th = gh_scm2double (sp->get_elt_property ("thickness")) * lt ;
-  Real h = gh_scm2double (sp->get_elt_property ("height")) * ss;
-  Real l = gh_scm2double (sp->get_elt_property ("minimum-length")) * ss;  
+  Real h = gh_scm2double (sp->get_elt_property ("height"));
+  Real l = gh_scm2double (sp->get_elt_property ("minimum-length"));  
   // The hyphen can exist in the word space of the left lyric ...
   SCM space =  sp->get_bound (LEFT)->get_elt_property ("word-space");
   if (gh_number_p (space))
     {
-      bounds[LEFT] -=  gh_scm2double (space)*ss;
+      bounds[LEFT] -=  gh_scm2double (space);
     }
   Real w  = bounds.length ();
   /* for length, use a geometric mean of the available space and some minimum

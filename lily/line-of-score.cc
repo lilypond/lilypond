@@ -322,8 +322,6 @@ Line_of_score::post_processing (bool last_line)
 			  gh_double2scm (height),
 			  SCM_UNDEFINED));
   
-  Real il = paper_l ()->get_var ("staffspace");
-
   /*
     all elements.
    */ 
@@ -338,8 +336,8 @@ Line_of_score::post_processing (bool last_line)
       SCM e = sc->get_elt_property ("extra-offset");
       if (gh_pair_p (e))
 	{
-	  o[X_AXIS] += il * gh_scm2double (gh_car (e));
-	  o[Y_AXIS] += il * gh_scm2double (gh_cdr (e));      
+	  o[X_AXIS] += gh_scm2double (gh_car (e));
+	  o[Y_AXIS] +=  gh_scm2double (gh_cdr (e));      
 	}
 
       output_molecule (m.get_expr (), o);

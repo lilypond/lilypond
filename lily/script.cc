@@ -30,7 +30,7 @@ Script::get_molecule(Score_element * me, Direction d)
     }
   else if (key == ly_symbol2scm ("accordion"))
     {
-      return Lookup::accordion (gh_cdr (s), me->paper_l()->get_var("staffspace"), Font_interface::get_default_font (me));
+      return Lookup::accordion (gh_cdr (s), 1.0, Font_interface::get_default_font (me));
     }
   else
     assert (false);

@@ -60,7 +60,7 @@ Chord_name::brew_molecule (SCM smob)
   SCM func = me->get_elt_property (ly_symbol2scm ("chord-name-function"));
   SCM text = gh_call3 (func, style, pitches, gh_cons (inversion, bass));
 
-  SCM properties = gh_list (me->mutable_property_alist_, me->immutable_property_alist_, SCM_UNDEFINED);
+  SCM properties = Font_interface::font_alist_chain (me);
   Molecule mol = Text_item::text2molecule (me, text, properties);
 
   SCM space =  me->get_elt_property ("word-space");
