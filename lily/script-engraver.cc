@@ -82,12 +82,14 @@ Grob *make_script_from_event (SCM * descr, Translator_group*tg, Music * event,
 			      int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
-  SCM art = scm_assoc (event->get_mus_property ("articulation-type"), alist);
+  SCM art_type= event->get_mus_property ("articulation-type");
+  SCM art = scm_assoc (art_type, alist);
 
   if (art == SCM_BOOL_F)
     {
-      String a = ly_scm2string (event->get_mus_property ("articulation-type"));
-      event->origin ()->warning (_f ("Don't know how to interpret articulation `%s'", a.to_str0 ()));
+      event->origin ()->warning (_("Don't know how to interpret articulation:"));
+      event->origin ()->warning (_("Scheme encoding: "));
+      scm_write (art_type, scm_current_error_port ());
       return 0 ;
     }
 

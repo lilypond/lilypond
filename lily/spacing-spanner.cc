@@ -873,6 +873,27 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 	when toying with mmrests, it is possible to have musical
 	column on the left and non-musical on the right, spanning
 	several measures.
+
+	In 2.0.1, this still fucks up in an interesting way:
+
+	
+\score {
+{	\property Score.skipBars = ##t
+	\context Staff = clarinet
+	    { 
+		\notes {
+		\time 3/4 \mark "72"
+<< s1*0^"all"		R4*3*11 >>
+		\mark "73"
+		R4*3*11 \mark "74"
+	d2 r4
+
+
+		}}}
+    \paper { raggedright = ##t }
+}
+
+	
        */
       
       Moment *dt = unsmob_moment (rc->get_grob_property ("measure-length"));
