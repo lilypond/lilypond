@@ -1,5 +1,5 @@
 /*
-  font-config.cc -- implement Font_config related functions
+  font-config.cc -- implement FontConfig related functions
 
   source file of the GNU LilyPond music typesetter
 
