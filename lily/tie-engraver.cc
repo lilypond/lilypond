@@ -113,36 +113,35 @@ Tie_engraver::create_grobs ()
   if (req_l_)
     {
       now_heads_.sort (&head_pitch_compare);
-      stopped_heads_.sort (&head_pitch_compare);
+      /*
+	We could sort stopped_heads_ as well (and use a linear alg. in
+	stead of nested loop), but we'd have to use a stable sorting
+	algorithm, since the ordering of the stopped heads (of the
+	same pitch) is relevant.
+       */
 
       SCM head_list = SCM_EOL;
       
-      int j = stopped_heads_.size ()-1;
-      int i = now_heads_.size ()-1;
-
-      while (i >= 0 && j >=0)
+      for (int i = now_heads_.size(); i--;)
 	{
-	  int comp
-	    = head_pitch_compare (now_heads_[i], stopped_heads_[j]);
-
-	  if (comp)
+	  for (int j = stopped_heads_.size(); j--;)
 	    {
-	      (comp < 0) ? j -- : i--;
-	      continue;
-	    }
-	  else
-	    {
-	      head_list  = gh_cons (gh_cons (stopped_heads_[j]->self_scm (),
-					     now_heads_[i]->self_scm ()),
-				    head_list);
+	      int comp
+		= head_pitch_compare (now_heads_[i], stopped_heads_[j]);
 
-	      now_heads_.del (i);
-	      stopped_heads_.del (j);
-	      i--;
-	      j--;
+	      if (!comp)
+		{
+		  head_list  = gh_cons (gh_cons (stopped_heads_[j]->self_scm (),
+						 now_heads_[i]->self_scm ()),
+					head_list);
+
+		  now_heads_.del (i);
+		  stopped_heads_.del (j);
+		  break ;
+		}
 	    }
 	}
-
+     
       SCM basic = get_property ("Tie");
       SCM sparse = get_property ("sparseTies");
       if (to_boolean (sparse))
@@ -258,6 +257,24 @@ Tie_engraver::start_translation_timestep ()
 	       && Note_head::has_interface (grob))
 	stopped_heads_.push (grob);
     }
+
+
+  /*
+    
+    The list starts with entries that start earlier. By going through
+    it, we reverse the order, where as we'd like to use the `last'
+    heads first.
+
+    This makes  a difference for grace notes. If we have
+
+    c4 \grace c8 ~ c4
+
+    Then busyGrobs will have ((1/4 . gc8) (1/4 . c4)). 
+
+    We want stopped_heads_ to contain (c4 gc8), because we start with
+    it at the top.
+   */
+  stopped_heads_.reverse();
 }
 
 
