@@ -128,6 +128,8 @@ for the reader.
   (font-markup 'font-family 'dynamic))
 (define-public italic-markup
   (font-markup 'font-shape 'italic))
+(define-public typewriter-markup
+  (font-markup 'font-family 'typewriter))
 
 
 ;; TODO: baseline-skip should come from the font.
@@ -516,6 +518,7 @@ for the reader.
    (cons finger-markup (list markup?))
    (cons bold-markup (list markup?))
    (cons italic-markup (list markup?))
+   (cons typewriter-markup (list markup?))
    (cons roman-markup (list markup?))
    (cons number-markup (list markup?))
    (cons hbracket-markup  (list markup?))

@@ -1238,6 +1238,15 @@ Please refer to the manual for details, and convert manually.
 	
 	conversions.append (((1,7,24), conv,"cluster syntax"))
 
+if 1:
+	def conv(str):
+		str = re.sub (r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\(override|set) *#'pedal-type *",
+				r"\property Staff.pedal\1Style ", str)
+		str = re.sub (r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\revert *#'pedal-type", '', str)
+		return str
+	
+	conversions.append (((1,7,28), conv,"new Pedal style syntax"))
+
 
 
 ################################
