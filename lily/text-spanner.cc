@@ -293,5 +293,5 @@ ADD_INTERFACE (Pianopedal,"piano-pedal-interface",
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
 	       "generic text spanner",
-	       "dash-period if-text-padding dash-length edge-height edge-widen edge-text shorten-pair type");
+	       "dash-period if-text-padding dash-length edge-height edge-widen edge-text shorten-pair type thickness outer width-correct");
 
