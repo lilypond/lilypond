@@ -10,8 +10,8 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.9.7
-;; Last Modified: 18SEP2003
+;; Version:       1.9.9
+;; Last Modified: 23SEP2003
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -32,7 +32,7 @@
 	 (iregex (mapconcat (lambda (x) (concat "\\" x))  LilyPond-identifiers "\\|"))
 	 (ncrwregex (mapconcat (lambda (x) (concat "" x))  LilyPond-non-capitalized-reserved-words "\\|"))
 	 (rwregex (mapconcat (lambda (x) (concat "" x))  LilyPond-Capitalized-Reserved-Words "\\|"))
-	 (duration "\\([ \t]*\\(\\\\breve\\|128\\|6?4\\|3?2\\|16?\\|8\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)") 
+	 (duration "\\([ \t]*\\(128\\|6?4\\|3?2\\|16?\\|8\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)") 
 	 (longduration "\\([ \t]*\\(\\\\\\(longa\\|breve\\|maxima\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)") 
 )
 
@@ -82,7 +82,7 @@
       (cons (concat "\\(^\\|[ <\{[/~(!)\t\\\|]\\)\\(\\(\\(" ncrwregex "\\)[,']*[?!]?\\|[srR]\\)" duration "?\\)") '(2 font-lock-type-face))
 
 ;; "on top", ... notes and rests with a long duration
-      (cons (concat longduration) '(0 font-lock-type-face t))
+      (cons (concat "\\(^\\|[ <\{[/~(!)\t\\\|]\\)\\(\\(\\(" ncrwregex "\\)[,']*[?!]?\\|[srR]\\)" longduration "\\)") '(2 font-lock-type-face t))
 
 ;; "on top", ... lyrics-mode: fontify everything between '<'...'>' or '{'...'}'
 ;            URGH, does not know anything about inner brackets.

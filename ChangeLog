@@ -1,3 +1,16 @@
+2003-09-23  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* buildscripts/lilypond.words: order words in search order,
+	add lilypond.words.vim to be generated.
+
+	* lilypond.vim: use lilypond.words.vim for keyword matching.
+
+	* lilypond-mode.el: use search order. fix word selection rules.
+
+	* lilypond-font-lock.el: fix fontifying long durations.
+
+	* Documentation/topdocs/INSTALL.texi: doc lilypond.words.vim.
+
 2003-09-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/mknetrel: Remove PYTHONPATH and manpage workarounds.

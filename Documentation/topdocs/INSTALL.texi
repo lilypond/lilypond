@@ -266,9 +266,9 @@ to your @var{load-path}. Append the following line (modified) to your
 A Vim mode for entering music and running LilyPond is contained in
 the source archive. Append the content of @file{vimrc} to @file{~/.vimrc}
 to get shortcuts. Install file @file{lilypond.words.el} to @file{~/.vim/} to 
-get auto-completion. Syntax highlighting you get by installing 
-@file{lilypond.vim} to @file{~/.vim/syntax/} and appending the following
-to @file{~/.vim/filetype.vim}:
+get auto-completion. Syntax highlighting you get by installing files
+@file{lilypond.vim} and @file{lilypond.words.vim} to @file{~/.vim/syntax/} 
+and appending the following to @file{~/.vim/filetype.vim}:
 @quotation
 @example
 	" my filetype file
