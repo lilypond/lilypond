@@ -121,23 +121,25 @@ piar = \notes {
 }
 U = \sustainUp
 D = \sustainDown
+Su = { \su \stemDown }
+Sd = { \sd \stemUp }
 pial = \notes {
     \pial
     \key e \minor
     \clef "F_8"
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a, |
-    a,, \su <g a h d' e' > \sd e, h, h,, \su <a h cis' e'> \sd d, e, |
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a, |
-    a,, a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a, |
+    a,, \Su <g a h d' e' > \Sd e, h, h,, \Su <a h cis' e'> \Sd d, e, |
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a, |
+    \stemBoth a,, a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
 
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, <a,, a,>~
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, <a,, a,>~
     <a,,4. a,> <h,,8 h,>~<h,,4. h,> e,8 |
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a,
-    a,, a, a,, <d,, d,> r <dis,,4 dis,> <e,,8 e,> |
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a,
+    \stemBoth a,, a, a,, <d,, d,> r <dis,,4 dis,> <e,,8 e,> |
 
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a,
-    a,, \su <g a h d' e'> \sd e, h, h,, \su <a h cis' e'> \sd d, e, |
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a,
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a,
+    a,, \Su <g a h d' e'> \Sd e, h, h,, \Su <a h cis' e'> \Sd d, e, |
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a,
 }
 guitar = \notes {
     \guitar

@@ -87,11 +87,13 @@ piar = \notes {
 }
 U = \sustainUp
 D = \sustainDown
+Su = { \su \stemDown }
+Sd = { \sd \stemUp }
 pial = \notes {
     \pial
-    a,, a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, <a,, a,>~
-    <a,,1 a,> |
+    \stemBoth a,, a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, <a,, a,>~
+    \stemBoth <a,,1 a,> |
     <d, d> |
     <d,2 d> r |
 }

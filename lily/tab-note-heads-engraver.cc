@@ -132,17 +132,10 @@ Tab_note_heads_engraver::process_music ()
 
       SCM text = gh_call3 (proc, gh_int2scm (tab_string), stringTunings, scm_pitch);
 
-      int pos = 2 * tab_string - 2; // No tab-note between the string !!!
+      int pos = 2 * (tab_string-1) - number_of_strings; // No tab-note between the string !!!
       
-      if (number_of_strings % 2) { // odd number of string
-	pos++;
-      }
-
       
-      note->set_grob_property ("text", text);
-      SCM c0 = get_property ("centralCPosition");
-      if (gh_number_p (c0)) pos += gh_scm2int (c0);
-      
+      note->set_grob_property ("text", text);      
       
       note->set_grob_property ("staff-position", gh_int2scm (pos));
       announce_grob (note, req->self_scm());

@@ -110,12 +110,15 @@ piar = \notes {
 }
 U = \sustainUp
 D = \sustainDown
+Su = { \su \stemDown }
+Sd = { \sd \stemUp }
+
 pial = \notes {
     \pial
-    a,,8 a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
-    e,,8 e, \su <g h d' e' g'> \sd g, g,, \su <g a h d' fis'> \sd e, a,
-    a,, \su <g a h d' e' > \sd e, h, h,, \su <a h cis' e'> \sd d, e, |
-    <c,1 c>
+    \stemBoth a,,8 a, e, <h,,8 h,> r <d,,4 d,> e,8 | 
+    e,,8 e, \Su <g h d' e' g'> \Sd g, g,, \Su <g a h d' fis'> \Sd e, a,
+    a,, \Su <g a h d' e' > \Sd e, h, h,, \Su <a h cis' e'> \Sd d, e, |
+    \stemBoth <c,1 c>
     <d, d>
     <a,, a,>
     <h,, h,>
