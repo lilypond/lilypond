@@ -484,74 +484,88 @@ Beam::set_stem_directions (Grob *me, Direction d)
   for (int i=0; i <stems.size (); i++)
     {
       Grob *s = stems[i];
-      SCM force = s->remove_grob_property ("dir-forced");
-      if (!gh_boolean_p (force) || !gh_scm2bool (force))
-	Directional_element_interface::set (s, d);
+      /* For knees, non-forced stems should probably have their
+	 natural direction. In any case, when knee, beam direction is
+	 foe. */
+      if (knee_b(me))
+	Stem::get_direction (s); // this actually sets it, if necessary
+      else
+	{
+	  SCM force = s->remove_grob_property ("dir-forced");
+	  if (!gh_boolean_p (force) || !gh_scm2bool (force))
+	    Directional_element_interface::set (s, d);
+	}
     }
 } 
 
 /* Simplistic auto-knees; only consider vertical gap between two
    adjacent chords.
 
-  `Forced' stem directions are ignored.  If you don't want auto-knees,
-  don't set, or unset auto-knee-gap. */
+   This may decide for a knee that's impossible to fit sane scoring
+   criteria (eg, stem lengths).  We may need something smarter. */
 void
 Beam::consider_auto_knees (Grob *me, Direction d)
 {
   SCM scm = me->get_grob_property ("auto-knee-gap");
 
-  if (gh_number_p (scm))
+  if (!gh_number_p (scm))
+    return;
+  
+  bool knee_b = false;
+  
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real gap = gh_scm2double (scm) / staff_space;
+
+  Link_array<Grob> stems=
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+      
+  Grob *common = common_refpoint_of_array (stems, me,  Y_AXIS);
+
+  int l = 0;
+  for (int r=1; r < stems.size (); r++)
     {
-      bool knee_b = false;
-      Real knee_y = 0;
-      Real staff_space = Staff_symbol_referencer::staff_space (me);
-      Real gap = gh_scm2double (scm) / staff_space;
-
-      Link_array<Grob> stems=
-	Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
-      
-      Grob *common = common_refpoint_of_array (stems, me,  Y_AXIS);
-
-      int l = 0;
-      for (int i=1; i < stems.size (); i++)
-        {
-	  if (!Stem::invisible_b (stems[i-1]))
-	    l = i - 1;
-	  if (Stem::invisible_b (stems[l]))
-	    continue;
-	  if (Stem::invisible_b (stems[i]))
-	    continue;
+      if (!Stem::invisible_b (stems[r-1]))
+	l = r - 1;
+      Grob *right = stems[r];
+      Grob *left = stems[l];
+      if (Stem::invisible_b (left))
+	continue;
+      if (Stem::invisible_b (right))
+	continue;
 	  
-	  Real left = Stem::extremal_heads (stems[l])[d]
-	    ->relative_coordinate (common, Y_AXIS);
-	  Real right = Stem::extremal_heads (stems[i])[-d]
-	    ->relative_coordinate (common, Y_AXIS);
+      Real left_y = Stem::extremal_heads (left)[d]
+	->relative_coordinate (common, Y_AXIS);
+      Real right_y = Stem::extremal_heads (right)[-d]
+	->relative_coordinate (common, Y_AXIS);
 
-	  Real dy = right - left;
+      Real dy = right_y - left_y;
 
-	  if (abs (dy) >= gap)
-	    {
-	      knee_y = (right + left) / 2;
-	      knee_b = true;
-	      break;
-	    }
-	}
-      
-      if (knee_b)
+      if (abs (dy) >= gap)
 	{
-	  for (int i=0; i < stems.size (); i++)
+	  knee_b = true;
+	  Direction knee_dir = (right_y > left_y ? UP : DOWN);
+	  if (!Stem::invisible_b (left)
+	      && left->get_grob_property ("dir-forced") != SCM_BOOL_T)
 	    {
-	      Grob *s = stems[i];	  
-	      if (Stem::invisible_b (s) || 
-		  s->get_grob_property ("dir-forced") == SCM_BOOL_T)
-		continue;
-	      Real y = Stem::extremal_heads (stems[i])[d]
-		->relative_coordinate (common, Y_AXIS);
+	      Directional_element_interface::set (left, knee_dir);
+	      left->set_grob_property ("dir-forced", SCM_BOOL_T);
 
-	      Directional_element_interface::set (s, y < knee_y ? UP : DOWN);
-	      s->set_grob_property ("dir-forced", SCM_BOOL_T);
+	    }
+	  if (!Stem::invisible_b (right)
+	      && stems[r]->get_grob_property ("dir-forced") != SCM_BOOL_T)
+	    {
+	      Directional_element_interface::set (right, -knee_dir);
+	      right->set_grob_property ("dir-forced", SCM_BOOL_T);
 	    }
 	}
+    }
+
+  if (knee_b)
+    {
+      me->set_grob_property ("knee", SCM_BOOL_T);
+       
+      for (int i=0; i < stems.size (); i++)
+	stems[i]->set_grob_property ("stem-info", SCM_EOL);
     }
 }
 
@@ -1274,25 +1288,19 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 bool
 Beam::knee_b (Grob*me)
 {
-  SCM k=   me->get_grob_property ("knee");
-  if (gh_boolean_p(k))
+  SCM k = me->get_grob_property ("knee");
+  if (gh_boolean_p (k))
     return gh_scm2bool (k);
 
-  Link_array<Grob> stems=
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
-
-  Drul_array<bool> dirs_found(0,0);
-  
-  for (int i= 0; i < stems.size(); i++)
-    {
-      Grob*s = stems[i];
-      dirs_found[Directional_element_interface::get(s)] = true;
-
-      if (dirs_found[LEFT]&&dirs_found[RIGHT])
+  bool knee = false;
+  int d = 0;
+  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
+    if (d != Directional_element_interface::get (unsmob_grob (ly_car (s))))
+      {
+	knee = true;
 	break;
-    }
-
-  bool knee = dirs_found[LEFT]&&dirs_found[RIGHT];
+      }
+  
   me->set_grob_property ("knee", gh_bool2scm (knee));
 
   return knee;

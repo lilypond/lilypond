@@ -211,7 +211,7 @@ Beam::quanting (SCM smob)
 				     beam_count, ldir, rdir); 
       }
 
-
+  ; /* silly gdb thinks best_idx is inside for loop. */
   for (int i = qscores.size (); i--;)
     if (qscores[i].demerits < reasonable_score)
       {
@@ -223,7 +223,7 @@ Beam::quanting (SCM smob)
 				 qscores[i].yl, qscores[i].yr);
       }
 
-
+  ; /* silly gdb thinks best_idx is inside for loop. */
   int best_idx = best_quant_score_idx (qscores);
   me->set_grob_property ("positions",
 			 gh_cons (gh_double2scm (qscores[best_idx].yl),
