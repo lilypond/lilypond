@@ -212,8 +212,17 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 	}
       else if (m<0)
 	{
-	  assert (gradient.norm() < EPS) ;
-
+	  Real n =gradient.norm();
+	  if (n >= EPS)
+	    {
+	      programming_error ("Huh? Gradient should be zero ");
+	      act.degenerate_count_i_ ++;
+	    }
+	  else if (n <0)
+	    {
+	      programming_error ("Huh? Norm should be positive");
+	      act.degenerate_count_i_++;
+	    }
 	  break;
 	}
 
