@@ -561,20 +561,6 @@ New_slur::get_base_attachments (Spanner *me,
 	    y = head->extent (common[Y_AXIS], Y_AXIS)[dir];
 	  y += dir * 0.5 * staff_space;
 
-	  if (stem)
-	    {
-	      SCM scripts = stem->get_property ((dir == UP
-						 ? "script-up"
-						 : "script-down"));
-
-	      /* FIXME: number of scripts, height, priority?
-	         articulation scripts should be inside slur, other,
-	         such as dynamics, pedals, fingering, should be
-	         outside.  */
-	      if (!SCM_NULLP (scripts))
-		y += dir * staff_space;
-	    }
-
 	  Real pos
 	    = (y - extremes[d].staff_->relative_coordinate (common[Y_AXIS],
 							    Y_AXIS))

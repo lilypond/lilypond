@@ -60,19 +60,13 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 
 
 # TODO:
-#  * install doc
+#  * usability
 
 #  * more program configure tests (mfont, ...?)
 
+#  * install doc
+
 #  * split doc target: doc input examples mutopia?
-
-#  * more fine-grained config.hh -- move lilypondprefix to version.hh?
-#    - config.hh:   changes after system upgrades, affects all files
-#    - version.hh:  prefix, version etc?  affects few
-
-#    - what about GUILE_*_VERSION, seems to be the major culprit,
-#      for config.hh dependency escalation.  Is the lily-guile.hh
-#      workaround necessary at all for GUILE > 1.5?
 
 #  * grep FIXME $(find . -name 'S*t')
 

@@ -31,7 +31,6 @@ class Stem_engraver : public Engraver
   TRANSLATOR_DECLARATIONS (Stem_engraver);
 
 protected:
-  void add_script (Grob *);
   void make_stem (Grob_info);
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -101,19 +100,6 @@ Stem_engraver::make_stem (Grob_info gi)
 }
 
 void
-Stem_engraver::add_script (Grob *script)
-{
-  Direction d = get_grob_direction (script);
-  if (d == UP || d == DOWN)
-    {
-      char const *property = d == UP ? "script-up" : "script-down";
-      stem_->set_property (property,
-			   scm_cons (script->self_scm (),
-				     stem_->get_property (property)));
-    }
-}
-
-void
 Stem_engraver::acknowledge_grob (Grob_info gi)
 {
   if (Rhythmic_head::has_interface (gi.grob_))
@@ -135,8 +121,6 @@ Stem_engraver::acknowledge_grob (Grob_info gi)
 
       Stem::add_head (stem_, gi.grob_);
     }
-  else if (Script_interface::has_interface (gi.grob_))
-    add_script (gi.grob_);
 }
 
 void
