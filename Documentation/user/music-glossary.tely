@@ -2341,17 +2341,17 @@ S: legato,
 FI: legato, sitoen,
 N: ?.
 
-To be performed without any perceptible interruption between the notes (a)
-unlike @emph{leggiero} or @emph{non-legato} (b), @emph{portato} (c) and
-@aref{staccato} (d).
+To be performed (a) without any perceptible interruption between the notes 
+unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato} and
+(d) @aref{staccato}.
 
 @lilypond[notime]
 \property Score.automaticBars = ##f
 \addlyrics
 \context Staff \notes\relative c'' {
-  c4( d )e \bar "||"
+  c4-( d e-) \bar "||"
   c4-- d-- e-- \bar "||"
-  c4-.( d-. )e-. \bar "||"
+  c4-.-( d-. e-.-) \bar "||"
   c4-. d-. e-. \bar "||"
 }
 \context Lyrics \lyrics {
