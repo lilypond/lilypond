@@ -401,10 +401,10 @@ def lily_key (k):
 		return '%s \\major' % key
 
 	type = k[0:3]
-	if key_lookup.has_key(type):
-		return("%s \\%s" % ( key, key_lookup[type]))
-	sys.stderr.write("Unknown key type `%s' ignored\n" % type)
-	return key
+	if key_lookup.has_key (type):
+		return ("%s \\%s" % ( key, key_lookup[type]))
+	sys.stderr.write ("Unknown key type `%s' ignored\n" % type)
+	return ""
 
 def shift_key (note, acc , shift):
         s = semitone_pitch((note, acc))
@@ -1209,6 +1209,7 @@ happy_count = 100
 def parse_file (fn):
 	f = open (fn)
 	ls = f.readlines ()
+	ls = map (lambda x: re.sub ("\r$", '', x), ls)
 
 	select_voice('default', '')
 	lineno = 0
