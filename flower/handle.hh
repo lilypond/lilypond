@@ -16,7 +16,7 @@ class Handle {
 	refs = 0;
     }
     /// point to new object. 
-    void up(T *t, int *r=0) {
+    void up(T *t, int *r) {
 	if (!r) {
 	    refs = new int;
 	    *refs = 1;
