@@ -20,6 +20,7 @@ block_rest_x# = 3/2 staff_space#;
 
 define_pixels (block_rest_y, block_rest_x);
 
+
 def block_rest =
 	draw_block ((0, 0), (block_rest_x, block_rest_y));
 enddef;
@@ -45,8 +46,10 @@ fet_endchar;
 fet_beginchar ("whole rest (outside staff)", "0o")
 	set_char_box (0, block_rest_x#,
 		      block_rest_y#, ledgerlinethickness# / 2);
+
 	block_rest;
 	currentpicture := currentpicture shifted (0, -block_rest_y);
+
 	pickup pencircle scaled ledgerlinethickness;
 
 	y5 = y6 = 0;
@@ -59,7 +62,9 @@ fet_endchar;
 fet_beginchar ("half rest (outside staff)", "1o");
 	set_char_box (0, block_rest_x#,
 		      ledgerlinethickness# / 2, block_rest_y#);
+
 	block_rest;
+
 	pickup pencircle scaled ledgerlinethickness;
 
 	y5 = y6 = 0;
@@ -154,24 +159,27 @@ fet_beginchar ("Quarter rest", "2");
 
 	save before, after;
 	path before, after;
-	before = z11{se} .. {se}z5l;
-	after = z5r{nw} ..tension1.4.. z6l;
+	before = z11{se}
+		 .. {se}z5l;
+	after = z5r{nw}
+		..tension1.4.. z6l;
 	(u, v) = before intersectiontimes after;
 
-	fill z1l{se} ..
-	     {se}z10 ..
-	     z3l ..
-	     subpath(0, u) of before ..
-	     subpath(v, infinity) of after ..tension1.4..
-	     {se}z7l ..
-	     z7r{nw} ..tension1.4..
-	     z6r ..tension1.4..
-	     {se}z5l ..
-	     z5r{nw} ..
-	     {nw}z12 ..
-	     z3r ..
-	     z13{nw} ..
-	     {nw}z1r .. cycle;
+	fill z1l{se}
+	     .. {se}z10
+	     .. z3l
+	     .. subpath (0, u) of before
+	     .. subpath (v, infinity) of after
+	     ..tension1.4.. {se}z7l
+	     .. z7r{nw}
+	     ..tension1.4.. z6r
+	     ..tension1.4.. {se}z5l
+	     .. z5r{nw}
+	     .. {nw}z12
+	     .. z3r
+	     .. z13{nw}
+	     .. {nw}z1r
+	     .. cycle;
 
 	penlabels (1, 2, 3, 4, 5, 6, 7);
 	penlabels (10, 11, 12, 13);
@@ -255,13 +263,13 @@ begingroup;
 	(pt, whatever) = pat intersectiontimes ((0, ycut) -- (w, ycut));
 
 	path res;
-	res = point pt of pat {-direction pt of pat} ..tension 2..
-	      z4{left} ..tension 0.9..
-	      z7 ..
-	      z5{left} ..
-	      z8 ..
-	      z3{right} ..
-	      {curl 0.2}z6;
+	res = point pt of pat {-direction pt of pat}
+	      ..tension 2.. z4{left}
+	      ..tension 0.9.. z7
+	      .. z5{left}
+	      .. z8
+	      .. z3{right}
+	      .. {curl 0.2}z6;
 
 	labels (3, 4, 5, 6, 7, 8, 10);
 res
@@ -291,18 +299,22 @@ def draw_eighth_rest =
 	z2 = z1 + whatever * dir (72);
 	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
 
-	pat = z1l ---
-	      z2l ..
-	      z9 ..
-	      z2r ---
-	      z1r .. cycle;
+	pat = z1l
+	      --- z2l
+	      .. z9
+	      .. z2r
+	      --- z1r
+	      .. cycle;
 	bulb = draw_rest_bulb (0.5 staff_space, y2r, pat, 1.0);
+%	remove_overlap (pat, bulb) () R;
+%	fill R1;
 
-	fill simple_serif (z1l, z1r, 40) ---
-	     z2r ..
-	     z9 ..
-	     bulb ---
-	     z1l .. cycle;
+	fill simple_serif (z1l, z1r, 40)
+	     --- z2r
+	     .. z9
+	     .. bulb
+	     --- z1l
+	     .. cycle;
 
 	penlabels (1, 2);
 	labels (9);
@@ -348,21 +360,23 @@ fet_beginchar ("16th rest", "4");
 	x2r = width;
 	z2 = z1 + whatever*dir(74);
        	z9 = z2 + 0.5 linethickness * dir (angle(z2 - z1)- 10);
-	pat = z1l ---
-	      z2l ..
-	      z9 ..
-	      z2r ---
-	      z1r .. cycle;
+	pat = z1l
+	      --- z2l
+	      .. z9
+	      .. z2r
+	      --- z1r
+	      .. cycle;
 	bulb_a = draw_rest_bulb (0.5 staff_space, y2r, pat, 0.98);
 	bulb_b = draw_rest_bulb (-0.5 staff_space,
 				(-0.5 + 0.2) * staff_space, pat, 1.02);
 
-	fill simple_serif (z1l, z1r, 40) ---
-	     z2r ..
-	     z9 ..
-	     bulb_a ---
-	     bulb_b ---
-	     z1l .. cycle;
+	fill simple_serif (z1l, z1r, 40)
+	     --- z2r
+	     .. z9
+	     .. bulb_a
+	     --- bulb_b
+	     --- z1l
+	     .. cycle;
 
 	penlabels (1, 2);
 	labels (9);
@@ -392,24 +406,26 @@ fet_beginchar ("32th rest", "5");
 	x2r = width;
 	z2 = z1 + whatever * dir (76);
        	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
-	pat = z1l ---
-	      z2l ..
-	      z9 ..
-	      z2r ---
-	      z1r .. cycle;
+	pat = z1l
+	      --- z2l
+	      .. z9
+	      .. z2r
+	      --- z1r
+	      .. cycle;
 	bulb_a = draw_rest_bulb( 1.5 staff_space, y2r, pat, 0.96);
 	bulb_b = draw_rest_bulb( 0.5 staff_space,
 				 (0.5 + 0.2) * staff_space, pat, 1.00);
 	bulb_c = draw_rest_bulb( -0.5 staff_space,
 				 (-0.5 + 0.21) * staff_space, pat, 1.04);
 
-	fill simple_serif (z1l, z1r, 40) ---
-	     z2r ..
-	     z9 ..
-	     bulb_a ---
-	     bulb_b ---
-	     bulb_c ---
-	     z1l .. cycle;
+	fill simple_serif (z1l, z1r, 40)
+	     --- z2r
+	     .. z9
+	     .. bulb_a
+	     --- bulb_b
+	     --- bulb_c
+	     --- z1l
+	     .. cycle;
 
 	penlabels (1, 2);
 	labels (9);
@@ -439,11 +455,12 @@ fet_beginchar ("64th rest", "6");
 	x2r = width;
 	z2 = z1 + whatever * dir (78);
        	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
-	pat = z1l ---
-	      z2l ..
-	      z9 ..
-	      z2r ---
-	      z1r .. cycle;
+	pat = z1l
+	      --- z2l
+	      .. z9
+	      .. z2r
+	      --- z1r
+	      .. cycle;
 	bulb_a = draw_rest_bulb (1.5 staff_space, y2r, pat, 0.94);
 	bulb_b = draw_rest_bulb (0.5 staff_space,
 				 (0.5 + 0.20) * staff_space, pat, 0.98);
@@ -452,15 +469,15 @@ fet_beginchar ("64th rest", "6");
 	bulb_d = draw_rest_bulb (-1.5 staff_space,
 				 (-1.5 + 0.22) * staff_space, pat, 1.06);
 
-	fill simple_serif (z1l, z1r, 40) ---
-	     z2r ..
-	     z9 ..
-	     bulb_a ---
-	     bulb_b ---
-	     bulb_c ---
-	     bulb_d ---
-	     z1l .. cycle;
-
+	fill simple_serif (z1l, z1r, 40)
+	     --- z2r
+	     .. z9
+	     .. bulb_a
+	     --- bulb_b
+	     --- bulb_c
+	     --- bulb_d
+	     --- z1l
+	     .. cycle;
 
 	penlabels (1, 2);
 	labels (9);
@@ -490,11 +507,12 @@ fet_beginchar ("128th rest", "7");
 	x2r = width;
 	z2 = z1 + whatever * dir (80);
        	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1)- 10);
-	pat = z1l ---
-	      z2l ..
-	      z9 ..
-	      z2r ---
-	      z1r .. cycle;
+	pat = z1l
+	      --- z2l
+	      .. z9
+	      .. z2r
+	      --- z1r
+	      .. cycle;
 	bulb_a = draw_rest_bulb (2.5 staff_space, y2r, pat, 0.92);
 	bulb_b = draw_rest_bulb (1.5 staff_space,
 				 (1.5 + 0.20) * staff_space, pat, 0.96);
@@ -505,15 +523,16 @@ fet_beginchar ("128th rest", "7");
 	bulb_e = draw_rest_bulb (-1.5 staff_space,
 				 (-1.5 + 0.23) * staff_space, pat, 1.08);
 
-	fill simple_serif (z1l, z1r, 40) ---
-	     z2r ..
-	     z9 ..
-	     bulb_a ---
-	     bulb_b ---
-	     bulb_c ---
-	     bulb_d ---
-	     bulb_e ---
-	     z1l .. cycle;
+	fill simple_serif (z1l, z1r, 40)
+	     --- z2r
+	     .. z9
+	     .. bulb_a
+	     --- bulb_b
+	     --- bulb_c
+	     --- bulb_d
+	     --- bulb_e
+	     --- z1l
+	     .. cycle;
 
 	penlabels (1, 2);
 	labels (9);
@@ -524,4 +543,4 @@ fet_endchar;
 
 endgroup;
 
-fet_endgroup("rests")
+fet_endgroup ("rests")
