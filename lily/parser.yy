@@ -623,7 +623,7 @@ book_body:
 	{
 		$$ = new Book;
 		$$->set_spot (THIS->here_input ());
-		$$->bookpaper_ = unsmob_bookpaper (THIS->lexer_->lookup_identifier ("$defaultbookpaper"));
+		$$->bookpaper_ = unsmob_book_paper_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"));
 	}
 	| book_body score_block {
 		Score *score = $2;
