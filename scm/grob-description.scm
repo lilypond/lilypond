@@ -268,7 +268,7 @@
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
-	
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(padding . 0.6)
 	(minimum-space . 1.2)
 	(direction . -1)
@@ -944,7 +944,7 @@
 	(staffline-clearance . 0.35)
 	(details . ((ratio . 0.333) (height-limit . 1.0)))
 	(thickness . 1.2)
-	(x-gap . 0.2)
+	(x-gap . -0.1)
 	(y-offset . 0.6)
 	(minimum-length  . 2.5)
 	(meta . ((interfaces . (tie-interface))))

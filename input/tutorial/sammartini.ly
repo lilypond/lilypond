@@ -41,8 +41,7 @@ hoomPah = \repeat unfold 8 \notes
 
 bassvoices = \notes \relative c' {
     c4 g8. b,16
-    \autochange Staff \context Voice \hoomPah
-    
+    \context Voice \hoomPah
     \translator Staff = down
     \stemBoth 
     
