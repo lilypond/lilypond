@@ -53,5 +53,7 @@ struct Musical_pitch : public Input
 #include "compare.hh"
 INSTANTIATE_COMPARE(Musical_pitch, Musical_pitch::compare);
 
+int compare (Array<Musical_pitch>*, Array<Musical_pitch>*);
+
 #endif /* MUSICAL_PITCH_HH */
 

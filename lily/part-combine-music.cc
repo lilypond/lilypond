@@ -13,8 +13,8 @@
 Part_combine_music::Part_combine_music (String what, Music * f, Music * s)
 {
   what_str_ = what;
-  set_mus_property ("first", f->self_scm ());
-  set_mus_property ("second", s->self_scm ());  
+  set_mus_property ("one", f->self_scm ());
+  set_mus_property ("two", s->self_scm ());  
 }
 
 
@@ -55,11 +55,11 @@ Part_combine_music::compress (Moment m)
 Music*
 Part_combine_music::first_l () const
 {
-  return unsmob_music (get_mus_property ("first"));
+  return unsmob_music (get_mus_property ("one"));
 }
 
 Music*
 Part_combine_music::second_l () const
 {
-  return unsmob_music (get_mus_property ("second"));
+  return unsmob_music (get_mus_property ("two"));
 }
