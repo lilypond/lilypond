@@ -1,7 +1,7 @@
 \version "1.7.18"
 
 \header{
-texidoc="property chordChanges: only display chord names when
+texidoc="Property chordChanges: display chord names only when
 there's a change in the chords scheme, but always display the
 chord name after a line break.
 "

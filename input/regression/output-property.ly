@@ -1,7 +1,7 @@
 \header { texidoc = "
 
-@code{\outputproperty} is a clumsy and deprecated way of changing grob
-definitions.  In this example, the predicate checks the @code{text}
+Setting @code{\outputproperty} is a clumsy and deprecated way of changing
+grob definitions.  In this example, the predicate checks the @code{text}
 object property, to shift only the `m.d.'  text, but not the `two'
 text.  Since both scripts are @code{TextScript} grobs, using
 possible to use @code{\override} would shift both texts.

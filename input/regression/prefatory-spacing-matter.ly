@@ -1,8 +1,8 @@
 \version "1.7.18"
 \header {
-texidoc = "prefatory spacing
+texidoc = "Prefatory spacing.
 
-TODO: show all common combinations to check for spacing anomalies.
+TODO: Show all common combinations to check for spacing anomalies.
 "
 }
 

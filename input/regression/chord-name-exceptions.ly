@@ -4,18 +4,18 @@
 
 Putting the exceptions list encoded as
 @example
- \\notes @{ <<c f g bes>>1-\\markup @{ \\super \"7\" \"wahh\" @} @}
+	\\notes @{ <<c f g bes>>1-\\markup @{ \\super \"7\" \"wahh\" @} @}
 @end example
 into @code{chordNameExceptions} takes a little manoeuvring. The
 following code transforms @code{chExceptionMusic} (which is a
 sequential music) into a list of exceptions.
 @example
-  (sequential-music-to-chord-exceptions chExceptionMusic \#t)
+	(sequential-music-to-chord-exceptions chExceptionMusic \#t)
 @end example
 Then,
 @example
-(append
-  ... ignatzekExceptions)
+	(append
+	  ... ignatzekExceptions)
 @end example
 adds the new exceptions to the default ones, which are defined in
 @file{ly/chord-modifier-init.ly}.

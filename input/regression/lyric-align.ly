@@ -6,8 +6,8 @@
   stanzas and on notehead.
 
   If the property alignment is not set, there is automatic
-  determination of alignment type based on punctuation. (see
-  lyric-phrasing.ly)
+  determination of alignment type based on punctuation (, see
+  lyric-phrasing.ly).
 
 "
 }

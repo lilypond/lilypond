@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header {
-    texidoc = "custodes in various styles."
+    texidoc = "Custodes in various styles."
 }
 
 \score {

@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header {
-texidoc = "automatic beaming also works in ternary time sigs."
+texidoc = "Automatic beaming works also in ternary time sigs."
 }
 
 \score {

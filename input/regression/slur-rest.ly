@@ -2,7 +2,7 @@
 \header
 {
     texidoc ="Slurs may be placed over rest. The slur will avoid colliding with
-the rest
+the rest.
 
 "
 }

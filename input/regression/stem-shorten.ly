@@ -3,7 +3,7 @@
 \header {
     
     texidoc = "Stems in forced directions (as well as the ones
-    starting from the middle line) are shortened"
+    starting from the middle line) are shortened."
 
 }
 

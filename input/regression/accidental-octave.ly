@@ -4,8 +4,7 @@
 \header {
 texidoc="
 This shows how accidentals in different octaves are handled.
-FIXME: Shorten and docu
-
+FIXME: Shorten and docu.
 "
 
 

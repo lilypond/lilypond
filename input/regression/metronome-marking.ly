@@ -1,9 +1,9 @@
 
 \header {
 
-    texidoc = "@code{\tempo} directives are printed as metronome markings.
+    texidoc = "Here @code{\tempo} directives are printed as metronome markings.
 
-THe marking is left aligned with the time signature, if there is one.
+The marking is left aligned with the time signature, if there is one.
 "
     
     }

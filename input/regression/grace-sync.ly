@@ -1,6 +1,6 @@
 \version "1.7.18"
 \header  {
-  texidoc = "grace notes in different voices/staves are synchronized."
+  texidoc = "Grace notes in different voices/staves are synchronized."
 }
 
 \score  {\notes\relative c'' < \context Staff  { c2

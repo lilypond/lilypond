@@ -4,7 +4,7 @@ foollilypondbook = "
 "
 
 \header {
-    texidoc ="Staff height 20 pt"
+    texidoc ="Staff height 20 pt."
     }
 
 
