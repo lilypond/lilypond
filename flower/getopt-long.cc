@@ -157,6 +157,7 @@ Getopt_long::report (Errorcod c)
     case E_ILLEGALARG:
       str += _f ("invalid argument `%s' to option `%s'",
         optional_argument_ch_C_, found_option_l_->str ());
+      break;
     default:
       assert (false);
     }

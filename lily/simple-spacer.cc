@@ -12,6 +12,7 @@
   
 */
 
+#include <math.h>
 
 #include "simple-spacer.hh"
 #include "paper-column.hh"
@@ -32,13 +33,20 @@ Simple_spacer::Simple_spacer ()
 void
 Simple_spacer::add_rod (int l, int r, Real dist)
 {
+  if (isinf (dist) || isnan (dist))
+    {
+      programming_error ("Weird minimum distance. Ignoring");
+      return;
+    }
+  
+  
   Real c = range_stiffness (l,r);
   Real d = range_ideal_len (l,r);
   Real block_stretch = dist - d;
   
   Real block_force = c * block_stretch;
   force_f_ = force_f_ >? block_force;
-  
+
   for (int i=l; i < r; i++)
     springs_[i].block_force_f_ = block_force >?
       springs_[i].block_force_f_ ;
@@ -184,6 +192,13 @@ Simple_spacer::add_columns (Link_array<Paper_column> cols)
 	  desc.hooke_f_ = 1.0;
 	  desc.ideal_f_ = default_space_f_;
 	}
+
+      if (!desc.sane_b ())
+	{
+	  programming_error ("Insane spring.");
+	  continue;
+	}
+      
       desc.block_force_f_ = - desc.hooke_f_ * desc.ideal_f_; // block at distance 0
       springs_.push  (desc);
     }
@@ -239,6 +254,13 @@ Spring_description::energy_f (Real force) const
   Real e = 0.5 * stretch * stretch * hooke_f_;
   return e;
 }
+
+bool
+Spring_description::sane_b () const
+{
+  return (hooke_f_ > 0) &&  ! isinf (ideal_f_) && !isnan (ideal_f_);
+}
+
 
 Real
 Simple_spacer::energy_f () const

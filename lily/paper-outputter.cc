@@ -9,6 +9,7 @@
 
 #include <time.h>
 #include <fstream.h>
+#include <math.h>
 
 #include "dimensions.hh"
 #include "dictionary-iter.hh"
@@ -78,9 +79,9 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       output_comment (nm);
     }
       
-  for (Cons<Atom> *ptr = m->atom_list_; ptr; ptr = ptr->next_)
+  for (SCM ptr = gh_cdr (m->atom_list_); ptr != SCM_EOL; ptr = gh_cdr (ptr))
     {
-      Atom * i = ptr->car_;
+      Atom * i = unsmob_atom (gh_car (ptr));
 
       Offset a_off = i->off_;
       a_off += o;
@@ -88,18 +89,19 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       if (!i->func_)
 	continue; 
 
-      if (a_off.length () > 100 CM)
+      Axis a = X_AXIS;
+      while (a < NO_AXES)
 	{
-	  programming_error ("improbable offset for object");
-	  Axis a  =X_AXIS;
-	  while (a < NO_AXES)
+	  if (abs(a_off[a]) > 30 CM
+	      || isinf (a_off[a]) || isnan (a_off[a]))
 	    {
-	      if (abs(a_off[a]) > 30 CM)
-		a_off[a] = 30 CM;
-	      incr (a);
+	      programming_error ("Improbable offset for object: setting to zero");
+	      a_off[a] =  0.0;
 	    }
+	  incr (a);
 	}
-	
+
+      	
       SCM box_scm
 	= gh_list (ly_symbol2scm ("placebox"),
 		   gh_double2scm (a_off[X_AXIS]),

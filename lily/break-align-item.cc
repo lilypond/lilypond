@@ -5,7 +5,9 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <math.h>
 
+#include "warn.hh"
 #include "dimension-cache.hh"
 #include "lily-guile.hh"
 #include "break-align-item.hh"
@@ -106,10 +108,20 @@ Break_align_item::do_pre_processing()
   Axis_align_item::do_pre_processing();
 
 
-  Real pre_space = elems[0]->extent (X_AXIS)[LEFT]
-    + elems[0]->relative_coordinate (column_l (), X_AXIS);
-  Real spring_len = elems.top ()->extent (X_AXIS)[RIGHT]
-    + elems.top ()->relative_coordinate (column_l (), X_AXIS);
+  Real pre_space = elems[0]->relative_coordinate (column_l (), X_AXIS);
+
+  Real xl = elems[0]->extent (X_AXIS)[LEFT];
+  if (!isinf (xl))
+    pre_space += xl;
+  else
+    programming_error ("Infinity reached. ");
+
+  Real xr = elems.top ()->extent (X_AXIS)[RIGHT];
+  Real spring_len = elems.top ()->relative_coordinate (column_l (), X_AXIS);
+  if (!isinf (xr))
+    spring_len += xr;
+  else
+    programming_error ("Infinity reached.");
   
   Real stretch_distance =0.;
   

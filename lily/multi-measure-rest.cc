@@ -27,9 +27,6 @@ Multi_measure_rest::Multi_measure_rest ()
 }
 
 
-
-
-
 /*
    [TODO]                                          17
  * variable-sized multi-measure rest symbol: |====| ??

@@ -85,7 +85,7 @@ Beam::do_pre_processing ()
   if (visible_stem_count () < 2)
     {
       warning (_ ("beam has less than two stems"));
-      set_elt_property ("transparent", SCM_BOOL_T);
+      //      set_elt_property ("transparent", SCM_BOOL_T);
     }
 
   if (!directional_element (this).get ())
@@ -269,15 +269,17 @@ Beam::do_post_processing ()
   /* first, calculate y, dy */
   Real y, dy;
   calc_position_and_height (&y, &dy);
-  if (suspect_slope_b (y, dy))
-    dy = 0;
+  if (visible_stem_count ())
+    {
+      if (suspect_slope_b (y, dy))
+	dy = 0;
 
-  Real damped_dy = calc_slope_damping_f (dy);
-  Real quantised_dy = quantise_dy_f (damped_dy);
+      Real damped_dy = calc_slope_damping_f (dy);
+      Real quantised_dy = quantise_dy_f (damped_dy);
 
-  y += (dy - quantised_dy) / 2;
-  dy = quantised_dy;
-  
+      y += (dy - quantised_dy) / 2;
+      dy = quantised_dy;
+    }
   /*
     until here, we used only stem_info, which acts as if dir=up
    */
@@ -368,6 +370,7 @@ Beam::calc_position_and_height (Real* y, Real* dy) const
 bool
 Beam::suspect_slope_b (Real y, Real dy) const
 {
+  /* first, calculate y, dy */
   /*
     steep slope running against lengthened stem is suspect
   */
@@ -602,7 +605,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Real bdy = interbeam_f;
   Real stemdx = staffline_f;
 
-  Real dx = last_visible_stem ()->hpos_f () - first_visible_stem ()->hpos_f ();
+  Real dx = visible_stem_count () ?
+    last_visible_stem ()->hpos_f () - first_visible_stem ()->hpos_f ()
+    : 0.0;
   Real dy = get_real ("height");
   Real dydx = dy && dx ? dy/dx : 0;
 
@@ -710,9 +715,19 @@ Beam::do_brew_molecule_p () const
   Molecule *mol_p = new Molecule;
   if (!stem_count ())
     return mol_p;
+  Real x0,dx;
+  if (visible_stem_count ())
+    {
+      x0 = first_visible_stem ()->hpos_f ();
+      dx = last_visible_stem ()->hpos_f () - x0;
+    }
+  else
+    {
+      x0 = stem (0)->hpos_f ();
+      dx = stem_top ()->hpos_f () - x0;
+    }
   
-  Real x0 = first_visible_stem ()->hpos_f ();
-  Real dx = last_visible_stem ()->hpos_f () - x0;
+  
   Real dy = get_real ("height");
   Real dydx = dy && dx ? dy/dx : 0;
   Real y = get_real ("y-position");
@@ -802,9 +817,6 @@ Beam::first_visible_stem () const
       if (!s->invisible_b ())
         return s;
     }
-
-  assert (0);
-
   return 0;
 }
 
@@ -817,8 +829,5 @@ Beam::last_visible_stem () const
       if (!s->invisible_b ())
         return s;
     }
-
-  assert (0);
-  // sigh
   return 0;
 }

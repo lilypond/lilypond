@@ -407,10 +407,12 @@ if 1:
 
 if 1:
 	def conv (str):
-		return re.sub ('staffLineLeading'
-			       'staffSpace',
-			       str)
-	conversions.append ((1,3,18), conv, "staffLineLeading -> staffSpace")
+		str = re.sub ('staffLineLeading',
+			      'staffSpace',
+			      str)
+		return str
+
+	conversions.append ((1,3,18), conv, 'staffLineLeading -> staffSpace')
 
 ############################
 	

@@ -5,32 +5,15 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <math.h>
 
 #include "interval.hh"
 #include "string.hh"
 #include "molecule.hh"
 #include "atom.hh"
 #include "debug.hh"
-
 #include "killing-cons.tcc"
 
-#ifdef ATOM_SMOB
-#define MOL_EOL SCM_EOL
-#define NEXT_CELL(a) gh_cdr(a)
-#define CELLTYPE SCM
-#define UNBOX_ATOM(a) Atom::atom_l (a)
-#define BOX_ATOM(a) a->make_smob ()
-#define NEWCELL(a,b) gh_cons (a,b)
-#define UNBOX_PTR(a) gh_car (a)
-#else
-#define MOL_EOL 0
-#define NEXT_CELL(a) ptr->next_
-#define CELLTYPE Cons<Atom>*
-#define UNBOX_ATOM(a) a
-#define UNBOX_PTR(a) a->car_
-#define BOX_ATOM(a) a
-#define NEWCELL(a,b) new Killing_cons<Atom>(a,b)
-#endif
 
 Box
 Molecule::extent() const
@@ -47,9 +30,15 @@ Molecule::extent(Axis a) const
 void
 Molecule::translate (Offset o)
 {
-  for (CELLTYPE ptr = atom_list_; ptr != MOL_EOL; ptr = NEXT_CELL(ptr))
+  if (isinf (o.length ()))
     {
-      UNBOX_ATOM(UNBOX_PTR(ptr))->off_ += o;
+      programming_error ("Translating infinitely. Ignore.");
+      return;
+    }
+    
+  for (SCM ptr = gh_cdr (atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
+    {
+      unsmob_atom (gh_car (ptr))->off_ += o;
     }
   if (!empty_b ())
     dim_.translate (o);
@@ -58,8 +47,15 @@ Molecule::translate (Offset o)
 void
 Molecule::translate_axis (Real x,Axis a)
 {
-  for (CELLTYPE  ptr = atom_list_; ptr != MOL_EOL; ptr = NEXT_CELL(ptr))
-    UNBOX_ATOM (UNBOX_PTR(ptr))->off_[a] += x;
+  if (isinf (x))
+    {
+      programming_error ("Translating infinitely. Ignore.");
+      return;
+    }
+  for (SCM ptr = gh_cdr (atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
+    {
+      unsmob_atom (gh_car (ptr))->off_[a] += x;
+    }
 
   if (!dim_[a].empty_b ())
     dim_[a] += x;
@@ -68,30 +64,30 @@ Molecule::translate_axis (Real x,Axis a)
 void
 Molecule::add_molecule (Molecule const &m)
 {
-  for (CELLTYPE  ptr = m.atom_list_; ptr != MOL_EOL; ptr = NEXT_CELL(ptr))
-    add_atom(UNBOX_ATOM (UNBOX_PTR(ptr)));
-  
+  for (SCM ptr = gh_cdr (m.atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
+    {
+      Atom *a = new Atom (*unsmob_atom (gh_car (ptr)));
+      add_atom (a->self_scm_);
+    }
   dim_.unite (m.dim_);
 }
 
 void
-Molecule::add_atom (Atom const *al)
+Molecule::add_atom (SCM atomsmob)
 {
-  Atom *a = new Atom(*al);
+  gh_set_cdr_x (atom_list_,
+		gh_cons  (atomsmob, gh_cdr (atom_list_)));
 
-  atom_list_ = NEWCELL(BOX_ATOM(a), atom_list_);
+  scm_unprotect_object (atomsmob);
 }
 
 void
 Molecule::operator=(Molecule const & src)
 {
-  if (&src == this) return;
+  if (&src == this)
+    return;
 
-#ifndef ATOM_SMOB
-  delete atom_list_;
-#endif
-
-  atom_list_ = MOL_EOL;
+  atom_list_ = gh_cons (SCM_EOL,SCM_EOL);
   dim_= src.dim_;
   add_molecule (src);
 }
@@ -111,31 +107,26 @@ Molecule::set_empty (bool e)
     }
 }
 
+void
+Molecule::print () const
+{
+#ifndef NPRINT
+  for (SCM ptr = gh_cdr (atom_list_);  ptr != SCM_EOL; ptr = gh_cdr(ptr))
+    gh_display (gh_car (ptr));
+#endif
+}
+
 Molecule::Molecule (Molecule const &s)
 {
-  atom_list_ = MOL_EOL;
+  atom_list_ = gh_cons (SCM_EOL, SCM_EOL);
   set_empty (true);
   add_molecule (s);
 }
 
 Molecule::~Molecule ()
 {
-#ifndef ATOM_SMOB
-  delete atom_list_;
-#endif
 }
 
-void
-Molecule::print() const
-{
-#ifndef NPRINT
-  if (! flower_dstream)
-    return;
-  DEBUG_OUT << "dim:";
-  for (Axis i=X_AXIS; i < NO_AXES; incr (i))
-    DEBUG_OUT << axis_name_str (i) << " = " << dim_[i].str ();
-#endif
-}
 
 void
 Molecule::align_to (Axis a, Direction d)
@@ -155,7 +146,7 @@ Molecule::Molecule ()
 {
   dim_[X_AXIS].set_empty ();
   dim_[Y_AXIS].set_empty ();
-  atom_list_ = MOL_EOL;
+  atom_list_ = gh_cons (SCM_EOL, SCM_EOL);
 }
 
 
@@ -177,5 +168,5 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
 bool
 Molecule::empty_b () const
 {
-  return atom_list_ == MOL_EOL;
+  return gh_cdr (atom_list_) == SCM_EOL;
 }

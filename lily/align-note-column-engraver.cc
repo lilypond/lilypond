@@ -15,7 +15,7 @@
 #include "directional-element-interface.hh"
 
 /**
-   catch notes, and put them in a row.
+   Catch notes, and put them in a row. Used for aligning grace notes.
  */
 class Align_note_column_engraver: public Engraver
 {

@@ -93,7 +93,7 @@ Timing_translator::do_pre_move_processing()
 
   /* allbars == ! skipbars */
   SCM sb = get_property ("skipBars", 0);
-  bool allbars = !(gh_boolean_p (sb)&&gh_scm2bool (sb));
+  bool allbars = !to_boolean (sb);
 
   // urg: multi bar rests: should always process whole of first bar?
   SCM tim = get_property ("timing", 0);

@@ -8,13 +8,38 @@
 #include "proto.hh"
 #include "musical-request.hh"
 #include "multi-measure-rest.hh"
-#include "multi-measure-rest-engraver.hh"
 #include "paper-column.hh"
 #include "engraver-group-engraver.hh"
 #include "timing-translator.hh"
 #include "bar.hh"
 #include "staff-symbol-referencer.hh"
+#include "engraver.hh"
+#include "moment.hh"
 
+/**
+ */
+class Multi_measure_rest_engraver : public Engraver
+{
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+  Multi_measure_rest_engraver ();
+
+protected:
+  virtual void acknowledge_element (Score_element_info i);
+  virtual void do_process_requests ();
+  virtual bool do_try_music (Music*);
+  virtual void do_pre_move_processing ();
+  virtual void do_post_move_processing ();
+
+private:
+  Drul_array<Moment> rest_moments_;
+  
+  int start_measure_i_;
+  Rhythmic_req* multi_measure_req_l_;
+  Multi_measure_rest* mmrest_p_;
+  Multi_measure_rest* lastrest_p_;
+};
 
 ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
 
@@ -81,7 +106,10 @@ Multi_measure_rest_engraver::do_process_requests ()
       Staff_symbol_referencer_interface si (mmrest_p_);
       si.set_interface ();
 
-      
+
+      /*
+	UGH. JUNKME
+       */
       if(dynamic_cast<Repetitions_req *> (multi_measure_req_l_))
 	mmrest_p_->set_elt_property ("alt-symbol", 
 				     ly_str02scm ("scripts-repeatsign"));

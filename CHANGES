@@ -1,3 +1,34 @@
+1.3.21.mb1
+==========
+* Getopt bugfix: don't assert on certain errors.
+
+* ly2dvi: Remove unnecessary space for the page headers.
+
+* Bugfix convert-mudela
+
+1.3.21.hwn1
+===========
+
+* Bugfix in lilypond-mode.el: eval-buffering now uses file name and
+not buffer name.
+
+* Scrapped tupletVisibility property. Now use tupletNumberVisibility,
+tupletBracketVisibility, with Scheme value #t, #f or 'if-no-beam.
+\property tupletInvisible will stop all tuplet spanner creation.
+
+* Don't go berserk if tuplet spanner is on only one column.
+
+* Use SCMs & Smobs for Molecules & atoms.  This uses less
+scm_(un)protect_object () calls, so the output stage should be faster.
+
+* Added \property tupletSpannerDuration, to make multiple tuplet signs
+with one \times.
+
+* Some programming Errors in spacing are now caught. Lily does not
+hang when encountering degenerate springs.
+
+* Allow beams to start and end over rests
+
 1.3.19.hwn2
 ===========
 * Fix disappearing clefs when clefs are not printed with a barline.

@@ -5,6 +5,7 @@
 
   (c) 1996, 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <math.h>
 
 #include "dimension-cache.hh"
 #include "debug.hh"
@@ -187,7 +188,10 @@ Spanner::do_space_processing ()
   Array<Spring> ss (get_springs ());
   for (int i=0; i < ss.size (); i++)
     {
-      ss[i].add_to_cols ();
+      if (isinf (ss[i].distance_f_))
+	programming_error ("weird spring");
+      else
+	ss[i].add_to_cols ();
     }
 }
 
