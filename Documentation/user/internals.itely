@@ -895,7 +895,7 @@ by a @emph{required} decimal point and an optional exponent such as
 `@code{+}', `@code{-}', `@code{*}', and
 `@code{/}', with parentheses for grouping.
 
-@cindex @code{\mm},
+@cindex @code{\mm}
 @cindex @code{\in}
 @cindex @code{\cm}
 @cindex @code{\pt}
