@@ -17,6 +17,11 @@ Elbement_group::contains_b(Score_elem const*e)const
     return elem_l_arr_.find_l(e);
 }
 
+Elbement_group::Elbement_group(Elbement_group const &s)
+    : Score_elem(s)
+{
+}
+
 Interval
 Vertical_group::do_height()const 
 {
@@ -54,14 +59,17 @@ Elbement_group::add_element(Score_elem*i_l)
 void
 Horizontal_group::add_element(Score_elem*elt)
 {
-    elt->x_group_element_i_ ++;
+    assert ( !elt->x_group_l_ );
+    elt->x_group_l_ = this;
     Elbement_group::add_element(elt);
 }
 
 void
 Vertical_group::add_element(Score_elem*e)
 {
-    e->y_group_element_i_++;
+    assert( ! e->y_group_l_ );
+    e->y_group_l_ = this;
+
     Elbement_group::add_element(e);
 }
 
@@ -98,13 +106,13 @@ Horizontal_group::do_substitute_dependency(Score_elem* old, Score_elem *new_l)
     int i;
 
     while ((i=elem_l_arr_.find_i(old))>=0) {
-	old->x_group_element_i_--;
+	old->x_group_l_ =0;
 	
 	if (new_l){ 
-	    new_l->x_group_element_i_ ++;
+	    new_l->x_group_l_ = this;
 	    elem_l_arr_[i] = new_l;
 	}else {	    
-	    elem_l_arr_.del(i);
+	    elem_l_arr_.unordered_del(i);
 	}
     }
 }
@@ -115,13 +123,13 @@ Vertical_group::do_substitute_dependency(Score_elem* old, Score_elem *new_l)
     int i;
 
     while ((i=elem_l_arr_.find_i(old))>=0) {
-	old->y_group_element_i_--;
+	old->y_group_l_ =0;
 	
 	if (new_l){ 
-	    new_l->y_group_element_i_ ++;
+	    new_l->y_group_l_ =this;
 	    elem_l_arr_[i] = new_l;
 	}else {	    
-	    elem_l_arr_.del(i);
+	    elem_l_arr_.unordered_del(i);
 	}
     }
 }
@@ -130,16 +138,12 @@ Vertical_group::Vertical_group(Vertical_group
 			       const &s)
     : Elbement_group(s)
 {
-   for (int i=0; i < elem_l_arr_.size(); i++) 
-	elem_l_arr_[i]->y_group_element_i_ ++;   
 }
 
 Horizontal_group::Horizontal_group(Horizontal_group 
 				   const &s)
-    : Elbement_group(s)
+       : Elbement_group(s)
 {
-   for (int i=0; i < elem_l_arr_.size(); i++) 
-	elem_l_arr_[i]->x_group_element_i_ ++;   
 }
 
 Elbement_group::Elbement_group()
@@ -184,4 +188,18 @@ void
 Horizontal_group::do_print() const
 {
     Elbement_group::do_print();
+}
+
+
+
+void
+Vertical_group::remove_element(Score_elem*s)
+{
+    remove_dependency( s );
+}
+
+void
+Horizontal_group::remove_element(Score_elem*s)
+{
+    remove_dependency( s );
 }
