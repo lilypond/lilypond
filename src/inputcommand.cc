@@ -4,17 +4,15 @@
 
 Input_command::Input_command()
 {
-    when = -1;
 }
 
-Input_command::Input_command(Real w)
+Input_command::Input_command(Real )
 {
-    when =w;
 }
 
 Input_command::operator Command()
 {
-    Command c(when);
+    Command c;
     if (!args.sz())
 	return c;
     
@@ -92,10 +90,10 @@ get_meterchange_command(int n, int m)
 }
 
 Input_command *
-get_bar_command(Real w)
+get_bar_command()
 {
     Input_command*c = new Input_command;
-    c->when = w;
+
     c->args.add( "BAR");
     c->args.add( "|");
 
@@ -118,7 +116,7 @@ get_skip_command(int n, Real m)
 void
 Input_command::print()const
 {
-    mtor << "{ at " << when;
+    mtor << "{ ";
     if (args.sz()) {
 	mtor<< " args: ";
 	for (int i = 0; i<args.sz(); i++)

@@ -11,8 +11,6 @@
 #include "vray.hh"
 
 struct Input_command {
-    Real when;
-    
     /// analogous to argv[]
     svec<Scalar> args;
     void print()const;
@@ -28,11 +26,6 @@ Input_command *get_reset_command();
 Input_command *get_partial_command(Real u);
 Input_command* get_skip_command( int,Real);
 Input_command* get_grouping_command( svec<int>);
-
-void
-interpret_meter(Input_command *c, int &beats_per_meas, int& one_beat,
-		Real& whole_per_measure);
-
-Input_command *get_bar_command(Real );
+Input_command *get_bar_command( );
 #endif // INPUTCOMMAND_HH
 
