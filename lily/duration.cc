@@ -220,13 +220,6 @@ LY_DEFINE (compression_factor, "ly:duration-factor",
   return gh_cons (gh_int2scm (r.num ()), gh_int2scm (r.den ()));
 }
 
-SCM
-Duration::smobbed_copy () const
-{
-  Duration *p = new Duration (*this);
-  return p->smobbed_self ();
-}
-
 int
 Duration::duration_log () const
 {

@@ -31,7 +31,7 @@ ADD_SCM_INIT_FUNC (init_type_ ## CL, init_type_ ## CL)
 
 
 
-#define IMPLEMENT_SIMPLE_SMOBS(CL)				\
+#define IMPLEMENT_BASE_SMOBS(CL)				\
 scm_t_bits CL::smob_tag_;                                       \
 SCM								\
 CL::smob_p (SCM s)						\
@@ -51,14 +51,6 @@ CL::init_smobs ()						\
   scm_set_smob_print (smob_tag_, CL::print_smob);               \
   scm_set_smob_equalp (smob_tag_, CL::equal_p);                 \
 }								\
-SCM CL::smobbed_self () const					\
-{								\
-  SCM s;							\
-  s = gh_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (this));	\
-  scm_gc_register_collectable_memory ((CL*)this, sizeof (CL), #CL " smob");				\
-								\
-  return s;							\
-}								\
 size_t  							\
 CL::free_smob (SCM ses)						\
 {								\
@@ -69,8 +61,22 @@ CL::free_smob (SCM ses)						\
 }\
 ADD_SCM_INIT_FUNC (CL, CL::init_smobs)
 
+
+#define IMPLEMENT_SIMPLE_SMOBS(CL)				\
+IMPLEMENT_BASE_SMOBS(CL);\
+SCM CL::smobbed_copy () const					\
+{								\
+  CL * ptr  = new CL (*this);\
+  SCM s;							\
+  s = gh_cons (SCM_PACK (CL::smob_tag_), SCM_PACK (ptr));	\
+  scm_gc_register_collectable_memory ((CL*)this, sizeof (CL), #CL " smob"); \
+								\
+  return s;							\
+}								\
+
+
 #define IMPLEMENT_SMOBS(CL)							\
-IMPLEMENT_SIMPLE_SMOBS (CL)							\
+IMPLEMENT_BASE_SMOBS (CL)							\
 SCM										\
 CL::smobify_self ()								\
 {										\

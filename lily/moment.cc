@@ -23,12 +23,6 @@ Moment::mark_smob (SCM)
 }
 
 
-SCM
-Moment::smobbed_copy () const
-{
-  Moment * m = new Moment (*this);
-  return m->smobbed_self ();
-}
 
 
 int

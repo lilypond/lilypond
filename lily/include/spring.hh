@@ -23,7 +23,6 @@ struct Spring_smob
   
   DECLARE_SIMPLE_SMOBS(Spring_smob,dummy);
 public:
-  SCM smobbed_copy () const;
   Spring_smob();
 };
 DECLARE_UNSMOB(Spring_smob, spring);

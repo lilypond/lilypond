@@ -439,7 +439,13 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
   if (note
       && note->is_mus_type ("note-event")
       && Rhythmic_head::has_interface (info.grob_)
-      && !gh_equal_p (info.grob_->get_property ("style"), ly_symbol2scm ("harmonic"))
+#if 0
+      /*
+	todo: make tunable.
+       */
+           && !gh_equal_p (info.grob_->get_property ("style"),
+			   ly_symbol2scm ("harmonic"))
+#endif
       )
     {
       Accidental_entry entry ;

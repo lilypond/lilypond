@@ -55,7 +55,10 @@ Timing_translator::initialize ()
 
   daddy_context_->set_property ("timeSignatureFraction",
 				gh_cons (gh_int2scm (4), gh_int2scm (4)));
-  daddy_context_->set_property ("measurePosition", Moment (Rational (0)).smobbed_copy ());
+  /*
+    Do not init measurePosition; this should be done from global
+    context.
+   */
   daddy_context_->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
   daddy_context_->set_property ("beatLength", Moment (Rational (1,4)).smobbed_copy ());
 }

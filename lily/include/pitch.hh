@@ -61,7 +61,6 @@ public:
   int quartertone_pitch () const; 
   String to_string () const;
 
-  SCM smobbed_copy () const;
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
   DECLARE_SIMPLE_SMOBS (Pitch,);
 };

@@ -127,6 +127,16 @@ Global_context::run_iterator_on_me (Music_iterator * iter)
       if (w.main_part_.is_infinity ())
 	break ;
       
+      if (first)
+        {
+	  /*
+	    Need this to get grace notes at start of a piece correct.
+	   */
+          first = false;
+          set_property ("measurePosition", w.smobbed_copy ());
+        }
+
+
       prepare (w);
 
       if (iter->ok ())
@@ -148,7 +158,6 @@ Global_context::run_iterator_on_me (Music_iterator * iter)
 	}
       
       one_time_step ();
-      first = false;
     }
 }
 

@@ -18,12 +18,6 @@
 
 #include "ly-smobs.icc"
 
-SCM
-Stencil::smobbed_copy () const
-{
-  Stencil *s = new Stencil (*this);
-  return s->smobbed_self ();
-}
 
 Offset
 Stencil::origin () const
