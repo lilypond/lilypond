@@ -1,12 +1,12 @@
 #include "plist.hh"
 
-#define PL_instantiate(a)  template class Pointer_list<a*>; \
+#define PL_instantiate(a)  template class Link_list<a*>; \
 	template class PCursor<a*>;
 #define IPL_instantiate(a) PL_instantiate(a); \
-	template class IPointer_list<a*>
+	template class Pointer_list<a*>
 	
 template<class T>
-IPointer_list<T>::~IPointer_list()
+Pointer_list<T>::~Pointer_list()
 {
     PCursor<T> c( *this );
     while (c.ok()) {
@@ -16,7 +16,7 @@ IPointer_list<T>::~IPointer_list()
 
 template<class T>
 PCursor<T> 
-Pointer_list<T>::find(T what ) const
+Link_list<T>::find(T what ) const
 {
     PCursor<T> i(*this);
     for (; i.ok(); i++)

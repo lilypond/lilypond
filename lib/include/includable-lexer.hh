@@ -1,5 +1,5 @@
 /*
-  includable-lexer.hh -- declare 
+  includable-lexer.hh -- declare Includable_lexer
 
   source file of the LilyPond music typesetter
 
@@ -9,8 +9,10 @@
 
 #ifndef INCLUDABLE_LEXER_HH
 #define INCLUDABLE_LEXER_HH
-#include "string.hh"
+
 #include <FlexLexer.h>
+
+#include "string.hh"
 #include "varray.hh"
 #include "fproto.hh"
 #include "proto.hh"
@@ -28,6 +30,7 @@ protected:
     Array<Source_file*> include_stack_;
     Array<int> char_count_stack_;
 public:
+
     Source_file* source_file_l()const;
     void new_input(String s,Sources*);
     Includable_lexer();

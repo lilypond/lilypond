@@ -57,6 +57,20 @@ internal structures.
 >
 
 =item *
+<a href=lilyliterature.html
+>
+resources on music typesetting
+</a
+>
+
+=item *
+<a href=mi2mu.html
+>
+manual page for mi2mu, the MIDI convertor.
+</a
+>
+
+=item *
 <a href=mudela.html
 >
 Mudela, the input format
@@ -138,12 +152,6 @@ The DOC++ documentation of the C++ sources.
 
 =item *
 Get it at ftp://pcnov095.win.tue.nl/pub/lilypond !
-=cut
-niet veranderen in expliciete URL. pod2* doet dit automaties.
-
-Should generate auto from POD sources.
-
-=pod
 
 
 =head1 AUTHOR

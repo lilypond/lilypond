@@ -1,17 +1,47 @@
-pl 61.jnc1
-	- smarter + faster duration-convert using Array
-	- bf: mi2mu compilation/duration-conversions
-	- lots faster mi2mu, hopefully does type 1 too...
-pl 60.jnc1
-	- mi2mu handles non-quantified rests, try mi2mu -b wtk-i/fugue2.midi
+pl 63
+	- bf: segfault during MIDI output  with mi2mu output.
+	- kludge: parse error beyond eof
+	- don't read ini if toplevel file not found
+	- accumulate \kern in TeX output.
+	- bf: try to prevent long lines; TeX breaks on them.
+	- naming: Pointer->Link, IPointer->Pointer
+	- undocced  fix (MB)
+	- GMP manifesto.
 
+pl 61.jcn4
+	- mi2mu -p -s16 fugua2.midi getting better!
+	- bf: Duration_convert quantify threshold down
+	- bf: (on quantify): tcols quantified; no silly voices
 
+pl 61.jcn3
+	- lily parsing speedup: backup rules for lexer.l
+	- bf: mi2mu, using midi_voice list...
+
+pl 61.jcn2
+	- all in all mi2mu speedup of about factor 8 since pl61
+	 (fugue.midi 82.72user to 10.30user on a 586.133)
+	 what about lily?
+	- binary search on track-columns
+	- mi2mu IP*list to Array (implications?!) conversion
+	- mi2mu parsing speedup: backup rules for midi-lexer.l
+	- bf: zero denominator
+**********
 pl 62
 	- make clean bf: remove lex & yacc files too 
 	- added kludge in case measure too long 
 	- added kludge in case of unconnected columns.
 	- kludged columns get error marker
 	- kludged lines get error marker
+
+
+pl 61.jcn1
+	- smarter + faster duration-convert using Array
+	- bf: mi2mu compilation/duration-conversions
+	- lots faster mi2mu, hopefully does type 1 too...
+pl 60.jcn1
+	- mi2mu handles non-quantified rests, try mi2mu -b wtk-i/fugue2.midi
+
+
 	
 **********
 may 14 
@@ -56,7 +86,7 @@ pl 59
 
 ******
 may 2
-pl 58.jnc1
+pl 58.jcn1
 	- bf: toccata-fuga-E.ly
 
 pl 57.jcn4
@@ -93,7 +123,7 @@ pl 57
 	- bugfix Voice_group_regs::get_register_p() now is actually called too
 	- bugfix init  of Text_item::pos_i_
 
-pl 56.jnc1
+pl 56.jcn1
  	- toccata-fuga-in-E.ly, excerpts with real-life collisions
  	- \{l,r}{b,f}{toe,heel} --- using cmsy fonts...
  	- pedal.ly 
@@ -116,7 +146,7 @@ pl 56
 	- Massive Rest/Stem/Collision/Note_column rewrite: resolve
 notehead/rest ambiguities and bugs. eg, [c8 r8 c8] 
 
-pl 54.jnc1
+pl 54.jcn1
 	- standchen.ly: repeats; lyricii to end
 	- convert-mudela: help + usage
 	- fixed midi key/meter-change (triggered by martien.ly) bug

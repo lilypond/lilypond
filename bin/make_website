@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 
-# TODO check ret status of various stuff
 
 use FileHandle;
 
+# do something, check return status
 sub my_system
 {
     my (@cmds) = @_;

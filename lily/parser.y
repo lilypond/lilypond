@@ -969,8 +969,10 @@ explicit_duration:
 		$$ = new Duration;
 		if ( !Duration::duration_type_b($1) )
 			THIS->parser_error("Not a duration");
-		else 
+		else {
 			$$->type_i_ = $1;
+			$$->set_plet(THIS->default_duration_);
+		     }
 	}
 	| explicit_duration DOTS 	{
 		$$->dots_i_ = $2;

@@ -1,0 +1,143 @@
+=head1 NAME 
+
+Lily literature -- reading on music engraving
+
+=head1 DESCRIPTION
+
+A list of resources on music printing/writing and engraving.
+
+=head2 References
+
+[partly by Mark Basinski <basinski@arizona.edu>]
+
+Herbert Chlapik, Die Praxis des Notengraphikers. Doblinger, 1987.
+
+Helene Wanske, ?, Schott-Verlag Mainz.
+
+Maxwell Weaner and Walter Boelke, Standard Music Notation Practice,
+revised edition by Arnold Broido and Daniel Dorff. Music Publisher's
+Association of the United States Inc., 1993.
+ 
+W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
+``Document Manipulation and Typography'', J.C. van Vliet (ed) 1988.
+
+Ross, Ted. ``Teach yourself the art of music engraving and processing'' 
+(3rd edition). Hansen House, Miami Beach, FL.
+
+	Hansen House
+	1820 West Ave.
+	Miami, FL  33139
+	(305) 532-5461
+
+[This is about I<engraving> i.e. professional music typesetting, and includes 
+some good spacing tables]
+ 
+Read, Gardner. ``Modern Rhythmic Notation.'' Indiana University Press, 1978.
+
+Read, Gardner. ``Music Notation'' (2nd edition). Taplinger Publishing,
+New York.
+ 
+[This is as close to the ``standard'' reference work for music notation issues
+as one is likely to get.]
+
+
+=head2  Further reading
+
+(of varying usefulness):
+
+Donato, Anthony. Preparing Music Manuscript. Englewood Cliffs:
+Prentice-Hall, 1963.
+
+Donemus. "Uitgeven van muziek". Donemus Amsterdam, 1900
+ 
+Heussenstamm, George. The Norton Manual of Music Notation. New York:
+Norton, 1987.
+ 
+Karkoshka, Erdhard. Notation in New Music. Trans. Ruth Koenig. New York:
+Praeger    Publishers, 1972.  Out of print.
+
+Roelofs, Ren\'e. ``Een Geautomatiseerd Systeem voor het Afdrukken van
+Muziek'' afstudeerscriptie Bestuurlijke informatica, no 45327, Erasmus
+universiteit Rotterdam, 1991.  (``An automated system for printing
+music'' Master's Thesis Management and Computer Science.)
+
+C. Roemer, The Art of Music Copying. Roerick music co., Sherman Oaks
+(CA), 1973.
+
+Rosecrans, Glen. Music Notation Primer. New York: Passantino, 1979.
+ 
+Stone, Kurt. Music Notation in the Twentieth Century. New York: Norton, 1980.
+
+
+=head2 On typesettig programs
+
+From: Miguel Filgueiras <mig@ncc.up.pt>
+
+... as well as other systems. I contribute with some references:
+
+
+D. Blostein, L. Haken, The Lime Music Editor: a Diagram Editor
+Involving Complex Translations. {\em
+Software --- Practice and Experience}, Vol. 24(3), 289--306, 1994.
+
+Alexander Brinkman, {\em PASCAL Programming for Music Research}.
+The University of Chicago Press, 1990.
+
+Miguel Filgueiras, Implementing a Symbolic Music Processing
+System. LIACC, Universidade do Porto, 1996; submitted.
+
+Miguel Filgueiras, Some Music Typesetting Algorithms. LIACC,
+Universidade do Porto, {\em forthcoming}.
+
+ Miguel Filgueiras and Jos\'e Paulo Leal, A First Formulation of
+\SceX, a Music Typesetting System. Centro de Inform\'atica da
+Universidade do Porto, 1993.
+
+Miguel Filgueiras and Jos\'e Paulo Leal. Representation and
+manipulation of music documents in \SceX. {\em Electronic Publishing},
+vol. 6 (4), 507--518, 1993.
+
+Eric Foxley, Music --- A language for typesetting music scores. {\em
+Software --- Practice and Experience}, Vol. 17(8), 485--502, 1987.
+
+John S. Gourlay, A language for music printing. {\em Communications of
+the ACM}, Vol. 29(5), 388--401, 1986.
+
+Cindy Grande, NIFF6a Notation Interchange File Format.
+Grande Software Inc., 1995. {\tt ftp:blackbox.cartah.washington.edu}
+
+Fran\c{c}ois Jalbert, Mu\TeX\  User's Guide (Version $1.1$). Computer
+Science Department, University of British Columbia, 1989.
+
+Peter S. Langston, Unix music tools at Bellcore. {\em
+Software --- Practice and Experience}, Vol. 20(S1), S1/47--S1/61, 1990.
+
+Andreas Mahling, J. Herczeg, M. Herczeg and S<H.-D.> B\"ocker, Beyond
+visualization: knowing and understanding. In P.~Gorny, M.~J. Tauber
+(eds.), {\em Visualization in Human-Computer Interaction}, Lecture
+Notes in Computer Science, 439, 16--26, Springer-Verlag, 1990.
+
+Jan Nieuwenhuizen, Using \TeX\ and the MusiX\TeX\  macro package to
+write parts and scores of music. Department of Physics, Eindhoven
+University of Technology, 1995.
+
+Don Simons, PMX, A Preprocessor for MusiX\TeX\  (Version 1.04).
+dsimons@logicon.com.
+
+Daniel Taupin. Music\TeX: Using \TeX\  to Write Polyphonic or
+Instrumental Music (Version 5.17). Laboratoire de Physique des
+Solides, Centre Universitaire, Orsay, 1996.
+
+Daniel Taupin, Ross Mitchell and Andreas Egler, Musix\TeX: Using \TeX\
+to Write Polyphonic or Instrumental Music (Version T.64). Laboratoire
+de Physique des Solides, Centre Universitaire, Orsay, 1993.
+
+Barry Vercoe, Csound --- A Manual for the Audio Processing System and
+Supporting Programs with Tutorials. Media Lab, M.I.T., Cambridge,
+Massachusetts, 1986 (rev. 1992).
+
+Chris Walshaw, {\tt ABC2M\TeX} --- An easy way of transcribing folk
+and traditional music. School of Maths, University of Greenwich, 1993.
+
+
+

@@ -19,7 +19,7 @@ public:
 private:
     const File_path * path_C_;
     void add( Source_file* sourcefile_p );
-    IPointer_list<Source_file*> sourcefile_p_iplist_;
+    Pointer_list<Source_file*> sourcefile_p_iplist_;
     bool binary_b_ ;
 };
 

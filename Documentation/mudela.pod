@@ -525,68 +525,6 @@ In concrete, a piece of Mudela has the following structure:
 Examples are included with the GNU LilyPond distribution. For the sake of
 maintenance no long examples are included in this document.
 
-
-=head1 INTERNALS
-
-This chapter deals with the internals of Mudela. In the end Mudela
-converted to Voice, which contain Voice_elements which (in turn)
-contain Requests. The former 2 types are basically containers (lists).
-Consider the following simple mudela
-
-	\music { c4 <e4 g4> }
-
-After the parsing, this is converted to: (from the debug output)
-
-	Voice { start: 0
-	  voice_element { dur :1/4
-	    Stem_req {duration { 4}}
-	    Note_req {notename: 0 acc: 0 oct: -1 
-	      duration { 4}}
-	    Group_change_req {}
-	    }
-	  voice_element { dur :0
-	    Terminate_voice_req {}
-	    }
-	  }
-
-	Voice { start: 1/4
-	  voice_element { dur :1/4
-	    Stem_req {duration { 4}}
-	    Note_req {notename: 2 acc: 0 oct: -1 
-	      duration { 4}}
-	    Group_change_req {}
-	    }
-	  voice_element { dur :0
-	    Terminate_voice_req {}
-	    }
-	  }
-
-	Voice { start: 1/4
-	  voice_element { dur :1/4
-	    Stem_req {duration { 4}}
-	    Note_req {notename: 4 acc: 0 oct: -1 
-	      duration { 4}}
-	    Group_change_req {}
-	    }
-	  voice_element { dur :0
-	    Terminate_voice_req {}
-	    }
-	  }
-
-
-=head2 Requests
-
-As you can see, most information is stored in the form of a request. 
-In music typesetting, the user might want to cram a lot more symbols
-on the paper than actually fits. To reflect this idea (the user asks
-more than we can do), the container for this data is called Request.
-
-A request is done to the C<Staff> which contains the
-C<Voice_element>. The staff decides whether to to honor the request,
-ignore it, or merge it with other requests. Merging of requests is
-preferably done with other requests done by members of the same
-voicegroups (beams, brackets, stems)
-
 =head2 Staff
 
 The staff is a simple container (containing Voices). The so-called

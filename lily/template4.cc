@@ -1,5 +1,5 @@
 /*
-  template4.cc -- instantiate Pointer_list baseclass.
+  template4.cc -- instantiate Link_list baseclass.
 
   source file of the LilyPond music typesetter
 

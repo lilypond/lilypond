@@ -148,7 +148,7 @@ public:
 	(*this)[i]=(*this)[j];
 	(*this)[j]=t;
     }
-    bool empty() { return !size_; }
+    bool empty() const { return !size_; }
     void insert(T k, int j) {
 	assert(j >=0 && j<= size_);
 	set_size(size_+1);

@@ -31,17 +31,35 @@ public:
 	int number_i_;
 
 private:
-	void add_begin_at( Pointer_list<Midi_voice*>& open_voices_r, Moment mom );
+#ifdef MVOICE_LIST
+	void add_begin_at( Link_list<Midi_voice*>& open_voices_r, Moment mom );
+#else
+	void add_begin_at( Array<Midi_voice*>& open_voices_r, Moment mom );
+#endif
 	int check_begin_bar_i( Moment now_mom, int open_bar_i );
 	int check_end_bar_i( Moment now_mom, int open_bar_i );
 	Midi_voice* get_free_midi_voice_l( Moment mom );
-	void remove_end_at( Pointer_list<Midi_voice*>& open_voices_r, Moment mom );
+#ifdef MVOICE_LIST
+	void remove_end_at( Link_list<Midi_voice*>& open_voices_r, Moment mom );
+#else
+	void remove_end_at( Array<Midi_voice*>& open_voices_r, Moment mom );
+#endif
 	void output_mudela_begin_bar( Lily_stream& lily_stream_r, Moment now_mom, int bar_i );
 	void output_mudela_rest( Lily_stream& lily_stream_r, Moment begin_mom, Moment end_mom );
 	void output_mudela_rest_remain( Lily_stream& lily_stream_r, Moment mom );
 
-	IPointer_list<Track_column*> tcol_p_list_;
-	IPointer_list<Midi_voice*> midi_voice_p_list_;
+#ifdef TCOL_LIST
+#warning using track_column list
+	Pointer_list<Track_column*> tcol_p_list_;
+#else
+	Array<Track_column*> tcol_p_array_;
+#endif
+#ifdef MVOICE_LIST
+#warning using midi_voice list
+	Pointer_list<Midi_voice*> midi_voice_p_list_;
+#else
+	Array<Midi_voice*> midi_voice_p_array_;
+#endif
 };
 
 #endif // MIDI_TRACK_HH

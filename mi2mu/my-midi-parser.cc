@@ -86,7 +86,16 @@ My_midi_parser::error( char const* sz_l )
 void
 My_midi_parser::forward( int i )
 {
-	now_i64_ += i;
+	if ( Duration_convert::no_quantify_b_s ) {
+		now_i64_ += i;
+		return;
+	}
+	while ( i > Duration::division_1_i_s ) {
+		now_i64_ += Duration::division_1_i_s;
+		i -= Duration::division_1_i_s;
+	}
+	Duration dur = Duration_convert::ticks2standardised_dur( i );
+	now_i64_ += Duration_convert::dur2ticks_i( dur );
 }
 
 Moment
@@ -115,8 +124,15 @@ My_midi_parser::note_end_midi_event_p( int channel_i, int pitch_i, int dyn_i )
 	Duration dur( 0 );
 	if ( Duration_convert::no_quantify_b_s )
 		dur = Duration_convert::ticks2_dur( (I64)now_i64_ - start_i64 );
-	else
+	else {
 		dur = Duration_convert::ticks2standardised_dur( (I64)now_i64_ - start_i64 );
+		// checking myself iso using tor saves some time
+		if ( level_ver >= VERBOSE_ver ) { 
+			Moment mom( (I64)now_i64_ - start_i64, Duration::division_1_i_s );
+			if ( dur.length() != mom )
+				warning( String( "duration not exact: " ) + String( (Real)mom ) );
+		}
+	}
 	return new Midi_note( midi_key_p_->notename_str( pitch_i ), dur );
 }
 

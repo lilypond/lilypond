@@ -1,6 +1,17 @@
 %{//-*-Fundamental-*-
 // midi-lexer.l
 
+/*
+  backup rules
+
+  after making a change to the lexer rules, run 
+      flex -b <this lexer file>
+  and make sure that 
+      lex.backup
+  contains no backup states, but only the reminder
+      Compressed tables always back up.
+  (don-t forget to rm lex.yy.cc :-)
+ */
 
 #include "mi2mu.hh"
 #include "midi-parser.hh"
@@ -27,13 +38,23 @@
 U8		[\x00-\xff]
 I8		{U8}
 INT16		{U8}{U8}
+BACKUP_INT16_0	{U8}
 INT32		{INT16}{INT16}
+BACKUP_INT32_0	{U8}
+BACKUP_INT32_1	{U8}{U8}
+BACKUP_INT32_2	{INT16}{U8}
 INT7_8UNSET	[\x00-\x7f]
 INT7_8SET	[\x80-\xff]
 VARINT		{INT7_8SET}{0,3}{INT7_8UNSET}
+BACKUP_VARINT_0 {INT7_8SET}
+BACKUP_VARINT_1 {INT7_8SET}{INT7_8SET}
+BACKUP_VARINT_2 {INT7_8SET}{INT7_8SET}{INT7_8SET}
 
 HEADER		MThd
 TRACK		MTrk
+BACKUP_TOP_0	MT
+BACKUP_TOP_1	MTh
+BACKUP_TOP_2	MTr
 
 XRUNNING_STATUS	[\x30-\x4f]
 RUNNING_STATUS	[\x00-\x5f]
@@ -70,7 +91,7 @@ SSME		[\0x7f][\x03]
 
 %%
 
-{HEADER}/{INT32}	{ // using /{INT32}; longer match than {INT32}
+{HEADER} { // huh? using {HEADER}/{INT32}; longer match than {INT32}
 	tor( DEBUG_ver ) << "lex: header" << endl;
 	yy_push_state( int16 ); 
 	yy_push_state( int16 ); 
@@ -79,15 +100,30 @@ SSME		[\0x7f][\x03]
 	return HEADER;
 }
 
-{TRACK}/{INT32}	{ // using /{INT32}; longer match than {INT32}
+{TRACK} { // huh? using {TRACK}/{INT32}; longer match than {INT32}
 	tor( DEBUG_ver ) << "lex: track" << endl;
 	yy_push_state( track ); 
 	yy_push_state( int32 ); 
 	return TRACK;
 }
 {U8}	{
-	error( String( "top level: illegal byte: " )
+	error( String( "top level: header expected: " )
 		+ String_convert::bin2hex_str( String( *YYText() ) ) );
+	exit( 1 );
+}
+{BACKUP_TOP_0} {
+	error( String( "top level: header expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
+}
+{BACKUP_TOP_1} {
+	error( String( "top level: header expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
+}
+{BACKUP_TOP_2} {
+	error( String( "top level: header expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
 	exit( 1 );
 }
 <int32>{INT32}	{ // really signed? 
@@ -98,13 +134,33 @@ SSME		[\0x7f][\x03]
 	yy_pop_state();
 	return INT32;
 }
+<int32>{BACKUP_INT32_0} {
+	error( String( "int32: int32 expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
+}
+<int32>{BACKUP_INT32_1} {
+	error( String( "int32: int32 expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
+}
+<int32>{BACKUP_INT32_2} {
+	error( String( "int32: int32 expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
+}
 <int16>{INT16}	{ // really signed?
 	tor( DEBUG_ver ) << "lex: int16" << endl;
 	assert( YYLeng() == 2 );
 	String str( (Byte const*)YYText(), YYLeng() );
-	yylval.i = String_convert::bin2_i( str );
+	yylval.i = (short)String_convert::bin2_i( str );
 	yy_pop_state();
 	return INT16;
+}
+<int16>{BACKUP_INT16_0} {
+	error( String( "int16: int16 expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
 }
 <i8>{I8}	{
 	tor( DEBUG_ver ) << "lex: i8" << endl;
@@ -135,6 +191,21 @@ SSME		[\0x7f][\x03]
 <track>{U8}	{
 	error( String( "track: illegal byte: " ) 
 		+ String_convert::bin2hex_str( String( *YYText() ) ) );
+	exit( 1 );
+}
+<track>{BACKUP_VARINT_0}{U8} {
+	error( String( "track: varint expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
+}
+<track>{BACKUP_VARINT_1}{U8} {
+	error( String( "track: varint expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
+}
+<track>{BACKUP_VARINT_2}{U8} {
+	error( String( "track: varint expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
 	exit( 1 );
 }
 <event>{RUNNING_STATUS}	{
@@ -397,6 +468,21 @@ SSME		[\0x7f][\x03]
 <data>{U8}	{
 	error( String( "data: illegal byte: " )
 		+ String_convert::bin2hex_str( String( *YYText() ) ) );
+	exit( 1 );
+}
+<data>{BACKUP_VARINT_0}{U8} {
+	error( String( "data: varint expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
+}
+<data>{BACKUP_VARINT_1}{U8} {
+	error( String( "data: varint expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
+	exit( 1 );
+}
+<data>{BACKUP_VARINT_2}{U8} {
+	error( String( "data: varint expected: " )
+		+ String_convert::bin2hex_str( String( *( YYText() ) ) ) );
 	exit( 1 );
 }
 

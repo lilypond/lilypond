@@ -26,6 +26,8 @@
 #undef mtor
 #endif
 
+#define MVOICE_LIST
+
 #include "string.hh"
 #include "string-convert.hh"
 

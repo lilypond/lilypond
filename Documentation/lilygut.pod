@@ -10,42 +10,167 @@ some are large comments taken away from the headers
 
 You should use doc++ to take a peek at the sources.
 
-[have to do more doco; see TODO]
+This should become a Hacking-HOWTO. If you find any confusing stuff
+here, let me know.  I am a hacker, and don't spend enough time doccing
+what I write.
+
+If you finally have mastered some internal piece of lily, your
+explanation could be added here.
 
 =head1 OVERVIEW
 
-GNU LilyPond is a "5-pass" system:
+GNU LilyPond is a "multi-pass" system. The different passes have been
+created so that they do not depend on each other. In a later stage
+some parts may be moved into libraries, or seperate programs, or they
+might be integrated in larger systems.
 
 =over 4
 
-=item 1. Parsing:
+=item Parsing:
 
 No difficult algorithms. Associated datastructures have prefix Input
-(eg Input_score, Input_command)
+(eg Input_score, Input_command). The .ly file is read, and converted
+to Requests, Voice_elements, Voices.
 
-=item 2. Processing:
+The result looks something like this (? = 0 or 1, * =0 or more, + = 1
+or more)
 
-Requests are processed and granted. This is done by three cooperating
-structeres: Staff, Staff_walker and Staff_column.  In this step
-data-structures for 3. are created and filled with data: PScore, PCol,
-PStaff
+	Score {
+		Midi_def?
+		Paper_def?
+		Staff+ {
+			Voice+ {
+				start_moment
+				Voice_element* {
+					duration
+					Request*
+				}
+			}
+			Input_register { ..}
+		}
+	}
 
-=item 3. Calculation:
+Request is a baseclass for almost all kinds of information. As you can
+see, the info is stored horizontally; horizontally is the natural form
+for entering music.
+
+=item Setting up music
+
+Simultaneous  Requests are grouped into columns. Vertical is the
+natural form for processing music.
+
+=item Processing:
+
+Requests are processed and used to create elements (like balls, stems,
+slurs etc). This is done by a hierarchy of brokers, which swallow
+requests, broadcast them and couple different elements.
+
+In this step data-structures for the next steps are created and filled
+with data: PScore, PCol, PStaff
+
+=item Preprocessing
+
+Some dependencies are resolved, such as the direction of stems, beams,
+
+=item Calculation:
 
 This step uses structures which have names starting with 'P'.
 linebreaks and horizontal positions of PCols are determined. Line_of_*
 generated.
 
-=item 4. Postprocesing:
+=item Postprocesing:
 
 Some items and all spanners need computation after the PCol positions
 are determined.
 
-=item 5. Output
+=item Output paper
 
 Very simple, just walk all Line_of_* and follow the links over there
 
+=item Output midi
+
+The columns of requests (from the Setting up step) are used to
+determine what to output when.
+
 =back
+
+=head1 INTERNALS
+
+This chapter deals with the internals of Mudela. In the end Mudela
+converted to Voice, which contain Voice_elements which (in turn)
+contain Requests. The former 2 types are basically containers (lists).
+Consider the following simple mudela
+
+	\music { c4 <e4 g4> }
+
+After the parsing, this is converted to: (from the debug output)
+
+	Voice { start: 0
+	  voice_element { dur :1/4
+	    Stem_req {duration { 4}}
+	    Note_req {notename: 0 acc: 0 oct: -1 
+	      duration { 4}}
+	    Group_change_req {}
+	    }
+	  voice_element { dur :0
+	    Terminate_voice_req {}
+	    }
+	  }
+
+	Voice { start: 1/4
+	  voice_element { dur :1/4
+	    Stem_req {duration { 4}}
+	    Note_req {notename: 2 acc: 0 oct: -1 
+	      duration { 4}}
+	    Group_change_req {}
+	    }
+	  voice_element { dur :0
+	    Terminate_voice_req {}
+	    }
+	  }
+
+	Voice { start: 1/4
+	  voice_element { dur :1/4
+	    Stem_req {duration { 4}}
+	    Note_req {notename: 4 acc: 0 oct: -1 
+	      duration { 4}}
+	    Group_change_req {}
+	    }
+	  voice_element { dur :0
+	    Terminate_voice_req {}
+	    }
+	  }
+
+
+=head2 Requests
+
+As you can see, most information is stored in the form of a request. 
+In music typesetting, the user might want to cram a lot more symbols
+on the paper than actually fits. To reflect this idea (the user asks
+more than we can do), the container for this data is called Request.
+
+A request is done to the C<Staff> which contains the
+C<Voice_element>. The staff decides whether to to honor the request,
+ignore it, or merge it with other requests. Merging of requests is
+preferably done with other requests done by members of the same
+voicegroups (beams, brackets, stems)
+
+The result of a request will be an C<Item> or a C<Spanner>, which
+will be put on a C<PStaff>. Note that the C<PStaff> and the original
+C<Staff> need not have anything in common. For example, the
+``double'' piano Staff could interpret commands which juggle
+melodies across the left and right hand, and may put the result in
+two five-line PStaffs (maybe with extra PStaffs to carry the dynamic
+signs and any lyric.
+
+The class C<Staff> should be thought as a container for the
+C<Voice>s, and an interpreter for C<Request>s.
+Different staffs can produce different outputs; a melodious voice
+which is put into a percussion-Staff, will be typeset as the rythm of
+that voice.
+
+After C<Staff> made up her mind, the resultant items and
+spanners are put on the PScore.
 
 Some of the important requests are:
 
@@ -91,32 +216,19 @@ Dynamic changes can occur in a smaller time than the length of its
 note, therefore fore each  C<Dynamic> request carries a time, measured
 from the start of its note.
 
+=head2 Voice_element
+
+Voice_element is a list of requests together with a duration. It is
+strictly horizontal
+
 =head2 Voice
 
-=head2 Voice_element
+Voice is a list of Voice_elements together with a starting time.
 
 =head2 Voice groups
 
-=head1 Requests
-
-inc
-The result of a request will be an C<Item> or a C<Spanner>, which
-will be put on a C<PStaff>. Note that the C<PStaff> and the original
-C<Staff> need not have anything in common. For example, the
-``double'' piano Staff could interpret commands which juggle
-melodies across the left and right hand, and may put the result in
-two five-line PStaffs (maybe with extra PStaffs to carry the dynamic
-signs and any lyric.
-
-The class C<Staff> should be thought as a container for the
-C<Voice>s, and an interpreter for C<Request>s.
-Different staffs can produce different outputs; a melodious voice
-which is put into a percussion-Staff, will be typeset as the rythm of
-that voice.
-
-After C<Staff> made up her mind, the resultant items and
-spanners are put on the PScore.
-
+Voice group is a (time-dependent) collection of voices which share
+some characteristics (slurs, stems) at some time.
 
 =head1 Request_register
 
@@ -168,6 +280,8 @@ created.
 To decide on merging, C<Complex_staff> has grouped several
 registers. There are a few groups:
 
+=over 4
+
 =item *
 
 Staff wide, contains
@@ -193,15 +307,26 @@ Voice, contains
 	Slur_register
 	Notehead_register
 
+=back
 
-=item 1
+=head1 ITEMS and SPANNERS
 
+The symbols that are printed, are generated by items and spanners
+(staff-elements). An item has one horizontal position, whereas a
+spanner spans several columns.
+
+=head1 DEPENDENCIES
+
+In music symbols depend on each other: the stems of a beam should
+point in the same direction as the beam itself, so the stems of a beam
+depend on the beam. In the same way do scripts depend on the direction
+of the stem. To reflect this, LilyPond has the notion of dependency. 
+It works in the same fashion that make uses to build programs: before
+a stem is calculated, its dependencies (the beam) should be
+calculated. Before a slur is calculated, its dependencies (stems)
+should be calculated.
 
 =head1 BREAKING
-
-[Source files: F<command.hh>, F<scommands.cc>]
-
-BREAKING, PREBREAK POSTBREAK, etc.
 
 So what's the deal with PREBREAK and POSTBREAK and all this
 stuff?
@@ -226,16 +351,10 @@ meter sign after the clef. Using the previous notation,
 	\discretionary{bar meter}{clef meter}{ bar meter }
 
 In GNU Lilypond, we have the same concepts (and the same
-terminology). Each (nonrhythmic) symbol is typeset using a Command
-(code: TYPESET). At a breakpoint, TYPESET commands can be grouped
-using separators (in lower case):
-
-	BREAK_PRE, typeset(bar), typeset(meter),
-	BREAK_MID, typeset(bar), typeset(meter),
-	BREAK_POST, typeset(clef), typeset(meter), BREAK_END 
-
-The BREAK command sequence is terminated with BREAK_END, so other
-commands (like INTERPRET) may follow this sequence.
+terminology). Each (nonrhythmic) symbol is typeset in  a nonrhythmic column
+At a breakpoint, multiple symbols are printed; symbols to be printed
+if the line is not broken, symbols to appear on the previous line, and
+on the next line if it is broken.
 
 =head1 SPACING
 
@@ -298,139 +417,8 @@ uses the concept of pre- and post-breaks.
 minimum distance to other columns, to prevent symbols from running
 into symbols of other columns.)
 
-=head1 SEE ALSO
-
-=head2 References
-
-[partly by Mark Basinski <basinski@arizona.edu>]
-
-Herbert Chlapik, Die Praxis des Notengraphikers. Doblinger, 1987.
-
-Helene Wanske, ?, Schott-Verlag Mainz.
-
-Maxwell Weaner and Walter Boelke, Standard Music Notation Practice,
-revised edition by Arnold Broido and Daniel Dorff. Music Publisher's
-Association of the United States Inc., 1993.
- 
-W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
-``Document Manipulation and Typography'', J.C. van Vliet (ed) 1988.
-
-Ross, Ted. ``Teach yourself the art of music engraving and processing'' 
-(3rd edition). Hansen House, Miami Beach, FL.
-
-	Hansen House
-	1820 West Ave.
-	Miami, FL  33139
-	(305) 532-5461
-
-[This is about I<engraving> i.e. professional music typesetting, and includes 
-some good spacing tables]
- 
-Read, Gardner. ``Modern Rhythmic Notation.'' Indiana University Press, 1978.
-
-Read, Gardner. ``Music Notation'' (2nd edition). Taplinger Publishing,
-New York.
- 
-[This is as close to the ``standard'' reference work for music notation issues
-as one is likely to get.]
-
-
-=head2  Further reading
-
-(of varying usefulness):
-
-Donato, Anthony. Preparing Music Manuscript. Englewood Cliffs:
-Prentice-Hall, 1963.
-
-Donemus. "Uitgeven van muziek". Donemus Amsterdam, 1900
- 
-Heussenstamm, George. The Norton Manual of Music Notation. New York:
-Norton, 1987.
- 
-Karkoshka, Erdhard. Notation in New Music. Trans. Ruth Koenig. New York:
-Praeger    Publishers, 1972.  Out of print.
-
-Roelofs, Ren\'e. ``Een Geautomatiseerd Systeem voor het Afdrukken van
-Muziek'' afstudeerscriptie Bestuurlijke informatica, no 45327, Erasmus
-universiteit Rotterdam, 1991.  (``An automated system for printing
-music'' Master's Thesis Management and Computer Science.)
-
-C. Roemer, The Art of Music Copying. Roerick music co., Sherman Oaks
-(CA), 1973.
-
-Rosecrans, Glen. Music Notation Primer. New York: Passantino, 1979.
- 
-Stone, Kurt. Music Notation in the Twentieth Century. New York: Norton, 1980.
-
-
-=head2 On typesettig programs
-
-From: Miguel Filgueiras <mig@ncc.up.pt>
-
-... as well as other systems. I contribute with some references:
-
-
-D. Blostein, L. Haken, The Lime Music Editor: a Diagram Editor
-Involving Complex Translations. {\em
-Software --- Practice and Experience}, Vol. 24(3), 289--306, 1994.
-
-Alexander Brinkman, {\em PASCAL Programming for Music Research}.
-The University of Chicago Press, 1990.
-
-Miguel Filgueiras, Implementing a Symbolic Music Processing
-System. LIACC, Universidade do Porto, 1996; submitted.
-
-Miguel Filgueiras, Some Music Typesetting Algorithms. LIACC,
-Universidade do Porto, {\em forthcoming}.
-
- Miguel Filgueiras and Jos\'e Paulo Leal, A First Formulation of
-\SceX, a Music Typesetting System. Centro de Inform\'atica da
-Universidade do Porto, 1993.
-
-Miguel Filgueiras and Jos\'e Paulo Leal. Representation and
-manipulation of music documents in \SceX. {\em Electronic Publishing},
-vol. 6 (4), 507--518, 1993.
-
-Eric Foxley, Music --- A language for typesetting music scores. {\em
-Software --- Practice and Experience}, Vol. 17(8), 485--502, 1987.
-
-John S. Gourlay, A language for music printing. {\em Communications of
-the ACM}, Vol. 29(5), 388--401, 1986.
-
-Cindy Grande, NIFF6a Notation Interchange File Format.
-Grande Software Inc., 1995. {\tt ftp:blackbox.cartah.washington.edu}
-
-Fran\c{c}ois Jalbert, Mu\TeX\  User's Guide (Version $1.1$). Computer
-Science Department, University of British Columbia, 1989.
-
-Peter S. Langston, Unix music tools at Bellcore. {\em
-Software --- Practice and Experience}, Vol. 20(S1), S1/47--S1/61, 1990.
-
-Andreas Mahling, J. Herczeg, M. Herczeg and S<H.-D.> B\"ocker, Beyond
-visualization: knowing and understanding. In P.~Gorny, M.~J. Tauber
-(eds.), {\em Visualization in Human-Computer Interaction}, Lecture
-Notes in Computer Science, 439, 16--26, Springer-Verlag, 1990.
-
-Jan Nieuwenhuizen, Using \TeX\ and the MusiX\TeX\  macro package to
-write parts and scores of music. Department of Physics, Eindhoven
-University of Technology, 1995.
-
-Don Simons, PMX, A Preprocessor for MusiX\TeX\  (Version 1.04).
-dsimons@logicon.com.
-
-Daniel Taupin. Music\TeX: Using \TeX\  to Write Polyphonic or
-Instrumental Music (Version 5.17). Laboratoire de Physique des
-Solides, Centre Universitaire, Orsay, 1996.
-
-Daniel Taupin, Ross Mitchell and Andreas Egler, Musix\TeX: Using \TeX\
-to Write Polyphonic or Instrumental Music (Version T.64). Laboratoire
-de Physique des Solides, Centre Universitaire, Orsay, 1993.
-
-Barry Vercoe, Csound --- A Manual for the Audio Processing System and
-Supporting Programs with Tutorials. Media Lab, M.I.T., Cambridge,
-Massachusetts, 1986 (rev. 1992).
-
-Chris Walshaw, {\tt ABC2M\TeX} --- An easy way of transcribing folk
-and traditional music. School of Maths, University of Greenwich, 1993.
+This of course does not solve the problem of generating the
+springs. This is an area that needs a lot of work, and the optimal
+solution to find is not of a mathematical nature.
 
 

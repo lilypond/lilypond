@@ -13,8 +13,11 @@
 Moment
 Request_column::when()
 {
-    
-    return(command_column_l_)? command_column_l_->when(): musical_column_l_->when();
+    if (command_column_l_ || musical_column_l_)
+	when_ = (command_column_l_)? command_column_l_->when() 
+	    : musical_column_l_->when();
+
+    return when_;
 }
 
 void
@@ -23,7 +26,7 @@ Request_column::add_reqs(int idx , Array<Request*> const & req_l_arr)
     staff_col_l_arr_[idx]->add_reqs(req_l_arr);
 }
 
-Request_column::Request_column(Pointer_list<Staff*> const& list )
+Request_column::Request_column(Link_list<Staff*> const& list )
 {
     musical_column_l_ = command_column_l_ =0;
     iter(list.top(), j);
@@ -34,7 +37,9 @@ Request_column::Request_column(Pointer_list<Staff*> const& list )
 	staff_cols_.bottom().add(col_p);
 	j->add_col(col_p);
     }
+    when_ = 0;
 }
+
 void
 Request_column::set_score_cols(Score_column* c1, Score_column *c2)
 {

@@ -25,25 +25,25 @@ struct PScore {
     Paper_def *paper_l_;
     
     /// the columns, ordered left to right
-    IPointer_list<PCol *> cols;
+    Pointer_list<PCol *> cols;
 
     /// the idealspacings, no particular order
-    IPointer_list<Idealspacing*> suz;
+    Pointer_list<Idealspacing*> suz;
 
     /// the staffs ordered top to bottom
-    IPointer_list<PStaff*> staffs;
+    Pointer_list<PStaff*> staffs;
 
     /// all symbols in score. No particular order.
-    IPointer_list<Item*> its;
+    Pointer_list<Item*> its;
 
     /// if broken, the different lines
-    IPointer_list<Line_of_score*> lines;
+    Pointer_list<Line_of_score*> lines;
 
     /// crescs etc; no particular order
-    IPointer_list<Spanner *> spanners;
+    Pointer_list<Spanner *> spanners;
 
     /// broken spanners
-    IPointer_list<Spanner*> broken_spans;
+    Pointer_list<Spanner*> broken_spans;
 
     /* *************** */
     /* CONSTRUCTION */

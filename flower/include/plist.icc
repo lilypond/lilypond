@@ -1,7 +1,7 @@
 /* -*-c++-*-
   plist.icc -- part of flowerlib
 
-  (c) 1996 Han-Wen Nienhuys& Jan Nieuwenhuizen
+  (c) 1996,1997 Han-Wen Nienhuys& Jan Nieuwenhuizen
 */
 
 #ifndef PLIST_INL
@@ -9,7 +9,7 @@
 
 template<class T>
 void
-PL_copy(IPointer_list<T*> &to, IPointer_list<T*> const&src)
+PL_copy(Pointer_list<T*> &to, Pointer_list<T*> const&src)
 {
     for (PCursor<T*> pc(src); pc.ok(); pc++) {
 	T *q = pc;

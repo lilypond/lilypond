@@ -41,7 +41,7 @@ Input::message(String message_str)const
     String str = "";
     
     if ( source_file_l_ ) {
-	str += source_file_l_->file_line_no_str(defined_ch_C_) + String(": ");
+	str += location_str() + String(": ");
     }
     
     str += message_str;

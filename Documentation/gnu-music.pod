@@ -1,0 +1,174 @@
+=head1 NAME 
+
+GNU Music project - manifesto
+
+=head1 DESCRIPTION
+
+Random ranting about the GNU Music project
+
+=head GOAL
+
+Provide the users with free software for:
+
+	- composing
+	- setting
+	- playing
+	- sequencing
+	- interchanging music
+
+and possibly for
+
+	- arranging
+	- performing
+
+Music publishers make lots of money out of selling which sheet music
+essentially free (composed by people long dead).  Publishers have two
+arguments for doing this: high prices are there to guarantee diversity
+(keeping lots of stock is expensive), and to encourage new work being
+composed. 
+
+LilyPond addresses the first issue: storing mudelas takes up almost no
+space at all.  Other systems should address the other issue:
+encouraging laymen to take up composing, in the same way that GNU
+tools have created a whole new generation of programmers.
+
+
+The public deserves free non-copyrighted music. 
+
+The public deserves free tools for composing and printing
+
+
+=head1 REQUIREMENTS
+
+=over 4
+
+=item * high-quality 
+
+(cf Emacs), from engraving point of view
+
+=item * high-quality
+
+from software point of view: like all GNU software, it
+should have no limits, be fast, etc.
+
+
+=item * tweakable
+
+Printed music has a lot of styles, and special symbols. It may be
+unfeasible to provide and maintain  lots of code that is hardwired
+into the system. The tools should be extensible/programmable like
+Emacs and TeX
+
+=item * easy to use. 
+
+That is, for technical users (that can read a
+manual). The learning curve should be as easy as possible but not at
+the expense of comfort of use.
+
+=back
+
+=head1 TASKS (LONGTERM)
+
+=over 4
+
+=item A typesetting engine. 
+
+A system with rules on how to set properties of items to be printed
+(up/down directions, breaking, etc) LilyPond provides one, but it is
+not yet suited to interactive typesetting
+
+=item A display engine
+
+which can display clear notewriting in (say) an X-window
+
+Gsharp is there, but far from finished. Ideally the system should
+cooperate with the typesetting engine
+
+=item An ASCII language
+
+In development, LilyPond has a language. See over there for goals.
+Having an ASCII format which enables urtext, and easy sharing (via
+mail and news forums) encourages cooperation and exchange of music.
+
+=item A printing engine
+
+Maybe to be merged with the display system.
+
+=item An input system
+
+The natural way to enter composed music is singing or playing it. The
+GMP should have module which can take keyboard input or microphone
+input and convert it to computer data. (the second one would be difficult)
+
+=item sequencing
+
+(have no clue about this)
+
+=item A scanning system
+
+Having a system which can produce mudela from printed scores,  greatly
+simplifies creating a collection of music
+
+=item A music-understanding system
+
+(difficult) A system to generate accompaniments, figured bass,
+automatic accompaniment, etc.
+
+=item an internet archive of free music
+
+The complete works by Bach, Beethoven, and any other ancient composer
+should be electronically retrievable. This might be a separate
+project: the Free Music Project.
+
+=back
+
+=head1 PROGRAMS
+
+=over 4
+
+=item *
+
+A noninteractive typesetter, suited for batch jobs, and
+typesetting existing music. This would couple the  ASCII language, the
+printing engine and the typesetting engine
+
+=item *
+
+A GUI for composing. This would combine the display engine, the
+input system, the typesetting engine
+
+=back
+
+The typesetting system has a complexity comparable to TeX's, the GUI
+would be comparable to LyX (?)  with additional complexity in
+recognizing input.
+
+=head1 TASKS (SHORT TERM)
+
+=over 4
+
+=item * 
+
+gather moderate number of test users and hackers
+
+=item *
+
+a website on GMP
+
+=item *
+
+Libs for r/w MIDI 
+
+=item *
+
+Think about interfaces for components.
+
+=item * 
+
+Find sponsors. This project will take a long time, and in its infant
+stages, having a hard and small core which does a lot of work, is more
+efficient than lots of people doing small subprojects. Finanicial
+support would be desirable.
+
+=back
+

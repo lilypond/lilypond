@@ -37,6 +37,8 @@ $(outdir)/%.hh: %.y
 
 $(outdir)/%.cc: %.l
 	$(FLEX) -Cfe -p -p -t $< > $@
+# could be faster:
+#	$(FLEX) -8 -Cf -t $< > $@
 
 $(outdir)/%.text: $(outdir)/%.1
 	groff -man -Tascii $< > $@

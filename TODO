@@ -1,3 +1,5 @@
+Features you cannot find in the doco as working, should be mentioned her.
+
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
@@ -13,16 +15,11 @@ IMPORTANT
 
 	* use Hungarian throughout code
 
-	* rename mf fonts to avoid conflicts with musixtex
-	check (c) issues
-
 	* decent TeX page layout
 
 	* per-pstaff item-widths [JCN]
 
 	* script priority
-
-	* use own fonts/update musixtex fonts
 
 	* a Hands on tutorial [HKN]
 
@@ -56,6 +53,7 @@ PROJECTS
 	* Rewrite Beam and Rhythmic_grouping (hairy)
 	- [c8. c32 c32]
  	- interbeam height
+	- doc on Rhythmic_grouping
 	- general shaving
 	- use plet grouping
 	- abbreviations [c2 c2]1/2
@@ -68,6 +66,13 @@ PROJECTS
 	- slurs
 	- dynamics etc.
 
+	* Redo font support 
+	- rename mf fonts to avoid conflicts with musixtex
+	- check (c) issues
+	- use own fonts/update musixtex fonts/find older (c)-less fonts
+	- hack up mf sources for decent spacing info (and then 
+	read AFM/TFM directly, for text too)
+
 PARSER
 	* Duration -> Musical_duration, typedef Rational Duration?
 
@@ -76,8 +81,6 @@ HKN buglist:
 
 \bar || ook dunne streepjes? Sluit de balk niet af! (soms met de
 ruimte van een hele maat erachter (bij unmatching staffs)
-
-Hele rusten ook in andere maatsoort dan 4/4 (en centreren in de maat)
 
 noten staan vaak te dicht aan de rechterkant van de maatstreep.
 
@@ -105,7 +108,11 @@ gedrukt.
 
 BUGS
 
+	* mi2mu nonexist.midi
+
 	* staccato dot positions.
+
+	* \meter 4/4; c1.  doesn't gen bar.
 
 	* stacked scripts.
 
@@ -175,30 +182,33 @@ SMALLISH PROJECTS
 
 	* half-sharps, half-flats
 	
+	* resync barcheck.
+
 	* key undo
 
 	* unix style paths for LILYINCLUDE env
 
 	* indentable stream as baseclass for TeX stream, lily stream, Dstream.
 
+	* handle EOF graciously in error messages.
+
 	* caching Item/spanner dimensions.
 
 	* key transposition
 	
+	* centered whole rest
+
 	* caching breakpoints / saving them. 
 
 	* use dstream feature in mi2mu
 
         * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
+	* use tors feature in lily
 
 	* declare notenametab?
 
-	* use tors feature in lily
-
 	* do conventional keys (C G A, F B E, a e fis, d as des, etc ), 
 	  besides lists of flats/sharps
-
-	* update for T70 fonts or newer
 
 	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
 
@@ -228,19 +238,19 @@ SMALLISH PROJECTS
 
 	* configure idealspacing: arithmetic spacing
 
-
 	* LilyPond .deb. Other packaging methods?
 
 	* detect -pipe
 
 
 DOC
-
-	* beam generation.
-
 	* all errors
+	
+	* config of TeX macros
 
 	* a test suite
+
+	* hacking-HOWTO
 
 FUTURE
 
@@ -296,9 +306,6 @@ IDEAS
 
 	* y -dims in internote?
 
-	* hack up mf sources for decent spacing info (and then 
-	read AFM/TFM directly, for text too)
-
 	* merge Atom and Symbol?
 
 	* merge common code of Item, Atom/Molecule
@@ -306,7 +313,7 @@ IDEAS
 
 	* Staff_group, Score_request_register.
 
-	* SHIT: meters/bars should be aligned, which is difficult if
+	* Meters/bars should be aligned, which is difficult if
 	we get different keychanges in different staffs.
 
 	* caching breakpoints
