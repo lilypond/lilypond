@@ -1,6 +1,7 @@
 #include "font-interface.hh"
 #include "item.hh"
 #include "molecule.hh"
+#include "accidental-interface.hh"
 
 /*
   TODO: insert support for smaller cautionaries, tie-break-reminders.
@@ -10,13 +11,7 @@
   accidental-placement.cc
 
 */
-class Accidental_interface
-{
-public:
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));  
-  static bool has_interface (Grob*);
-};
+
 
 Molecule
 parenthesize (Grob*me, Molecule m)
@@ -43,7 +38,63 @@ Accidental_interface::after_line_breaking (SCM smob)
     }
   return SCM_UNSPECIFIED;
 }
+
+Array<Box>
+Accidental_interface::accurate_boxes (Grob *a,Grob**common)
+{
+  Box b;
+  b[X_AXIS] = a->extent (a, X_AXIS);
+  b[Y_AXIS] = a->extent (a, Y_AXIS);
+
+  Array<Box> boxes;
   
+  bool parens = false;
+  if (to_boolean (a->get_grob_property ("cautionary")))
+    {
+      SCM cstyle = a->get_grob_property ("cautionary-style");
+      parens = gh_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+
+    }
+
+  SCM accs = a->get_grob_property ("accidentals");
+  SCM scm_style = a->get_grob_property ("style");
+  if (!gh_symbol_p (scm_style)
+      && !parens
+      && scm_ilength (accs) == 1)
+    {
+      if (gh_scm2int (gh_car (accs)) == -1)
+	{
+	  Box stem = b;
+	  Box bulb = b;
+
+	  /*
+	    we could make the stem thinner, but that places the flats
+	    really close.
+	  */
+	  stem[X_AXIS][RIGHT] *= .5;
+	  bulb[Y_AXIS][UP] *= .35;
+
+	  boxes.push (bulb);
+	  boxes.push (stem);
+	}
+      /*
+	TODO: add support for natural, double flat.
+       */
+    }
+
+  if (!boxes.size())
+    boxes.push (b);
+
+  Offset o (a->relative_coordinate (common[X_AXIS],  X_AXIS),
+	    a->relative_coordinate (common[Y_AXIS],  Y_AXIS));
+  for(int i = boxes.size(); i--;)
+    {
+      boxes[i].translate(o);
+    }
+  
+  return boxes;
+}
+
 MAKE_SCHEME_CALLBACK (Accidental_interface,brew_molecule,1);
 SCM
 Accidental_interface::brew_molecule (SCM smob)

@@ -38,6 +38,8 @@
  */
 
 
+const Real EPS = 1e-12;  
+
 /*
   TODO: avoid unnecessary fragmentation.
 
@@ -53,27 +55,33 @@ insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
     return;
   
   Real stick_out = b[other_axis (line_axis)][d];
-  
+
+  /*
+    Intersect each segment of LINE with EXTENT, and if non-empty, insert relevant segments. 
+   */
   for (int i = line->size(); i--;)
     {
       Interval w = line->elem(i).width_;
-      if (extent[LEFT] > w[RIGHT])
+      w.intersect (extent);
+
+      if (extent[LEFT] >= w[RIGHT])
 	break;
       
-      w.intersect (extent);
       Real my_height = line->elem(i).height_;
 
-      if (!w.empty_b () && d* (my_height - stick_out) < 0)
+      if (!w.empty_b () &&
+	  w.length() > EPS
+	  && d* (my_height - stick_out) < 0)
 	{
 	  Interval e1 (line->elem(i).width_[LEFT], extent[LEFT]);
 	  Interval e3 (extent[RIGHT], line->elem(i).width_[RIGHT]);
 
-	  if (!e3.empty_b ())
+	  if (!e3.empty_b () && e3.length() > EPS)
 	    line->insert (Skyline_entry (e3, my_height), i+1);
 
 	  line->elem_ref(i).height_ = stick_out;
 	  line->elem_ref(i).width_ = w;
-	  if (!e1.empty_b ())
+	  if (!e1.empty_b () && e1.length() > EPS)
 	    line->insert (Skyline_entry (e1, my_height), i );
 	}
 

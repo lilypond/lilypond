@@ -13,7 +13,7 @@ flats in a sixth shoudl be staggered.  "
   <bis4 es gis>
   <es! as!>
   <gis! cis!>
-  <g! des!>
+  <g! des'>
   <ges! es'!>
 }    
     <cis4 d es fis gis ases bes ces d dis >
