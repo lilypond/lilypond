@@ -1,6 +1,8 @@
+% kommentar
 \documentclass[a4paper, 12pt]{article}
-%\def\pre MudelaExample{This if before}
-%\def\pre MudelaExample{This is after}
+%\def\preMudelaExample{}
+%\def\postMudelaExample{}
+%\usepackage{graphics}
 %\usepackage{landscape}
 \begin{document}
 %uncomment this to try twocolumn mode
