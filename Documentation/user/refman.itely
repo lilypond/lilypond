@@ -172,11 +172,7 @@ Notes can be hidden and unhidden with the following commands:
 
 @seealso
 
-@noindent
-
-bla
-
-@internalsref{NoteEvent}, and @internalsref{NoteHead}.
+Internals: @internalsref{NoteEvent}, and @internalsref{NoteHead}.
 
 @node Chromatic alterations
 @subsection Chromatic alterations
@@ -237,7 +233,7 @@ a'4\rest d'4\rest
 
 @seealso
 
-@internalsref{RestEvent}, and @internalsref{Rest}.
+Internals: @internalsref{RestEvent}, and @internalsref{Rest}.
 
 
 @c FIXME: naming.
@@ -271,7 +267,7 @@ produce any output, not even transparent output.
 
 @seealso
 
-@internalsref{SkipEvent}.
+Internals: @internalsref{SkipEvent}.
 
 
 
@@ -358,7 +354,7 @@ direction manually:
 
 @seealso
 
-@internalsref{Dots}, and @internalsref{DotColumn}. 
+Internals: @internalsref{Dots}, and @internalsref{DotColumn}. 
 
 @refbugs
 
@@ -426,12 +422,13 @@ note splitting (See @ref{Automatic note splitting}).
 
 @seealso 
 
-@internalsref{TieEvent}, @internalsref{NewTieEvent},
-@internalsref{Tie}, and @ref{Automatic note splitting}.
+In this manual: @ref{Automatic note splitting}.
 
-If you want less
-ties created for a chord, see @inputfileref{input/test,tie-sparse.ly}.
+Internals: @internalsref{TieEvent}, @internalsref{NewTieEvent},
+@internalsref{Tie}
 
+Examples: if you want less ties created for a chord, see
+@inputfileref{input/test,tie-sparse.ly}.
 
 For tying only a subset of the note heads of a pair of chords, see
 @inputfileref{input/regression,tie-chord-partial.ly}.
@@ -505,7 +502,7 @@ instead.
 
 @seealso
 
-@internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
+Internals: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
 
 @refbugs
 
@@ -875,7 +872,7 @@ repeat bar lines. The cancellation is also printed after a line break.
 
 @seealso
 
-@internalsref{KeyChangeEvent}, and @internalsref{KeySignature}.
+Internals: @internalsref{KeyChangeEvent}, and @internalsref{KeySignature}.
 
 @cindex @code{keySignature}
 
@@ -951,7 +948,7 @@ when any of these properties are changed.
 
 @seealso
 
-The object for this symbol is @internalsref{Clef}.
+Internals: the object for this symbol is @internalsref{Clef}.
 
 
 
@@ -1043,7 +1040,7 @@ measure is subdivided in 2, 2, 2 and 3. This is passed to
 
 @seealso
 
-@internalsref{TimeSignature}, and @internalsref{Timing_engraver}.
+Internals: @internalsref{TimeSignature}, and @internalsref{Timing_engraver}.
 
 
 @refbugs
@@ -1171,7 +1168,7 @@ You are encouraged to use @code{\repeat} for repetitions.  See
 
 @seealso
 
-@ref{Repeats}.
+In this manual: @ref{Repeats}.
 
 
 The bar line objects that are created at @internalsref{Staff} level
@@ -1285,9 +1282,11 @@ voices have @code{\shiftOn}, @code{\shiftOnn}, etc.
 
 @seealso
 
-The objects responsible for resolving collisions are
-@internalsref{NoteCollision} and @internalsref{RestCollision}.  See
-also example files @inputfileref{input/regression,collision-dots.ly},
+Internals: the objects responsible for resolving collisions are
+@internalsref{NoteCollision} and @internalsref{RestCollision}.
+
+Examples: See also example files
+@inputfileref{input/regression,collision-dots.ly},
 @inputfileref{input/regression,collision-head-chords.ly},
 @inputfileref{input/regression,collision-heads.ly},
 @inputfileref{input/regression,collision-mesh.ly}, and
@@ -1320,7 +1319,7 @@ that differ from the defaults.
 
 @seealso
 
-@internalsref{Beam}. 
+Internals: @internalsref{Beam}. 
 
 
 @cindex Automatic beams
@@ -1743,8 +1742,8 @@ voices in the same staff share accidentals, but staves do not.
 
 @seealso
 
-@internalsref{Accidental_engraver}, @internalsref{Accidental}, and
-@internalsref{AccidentalPlacement}.
+Internals: @internalsref{Accidental_engraver},
+@internalsref{Accidental}, and @internalsref{AccidentalPlacement}.
 
 
 @refbugs
@@ -1856,7 +1855,7 @@ stems might look better:
 
 @seealso
 
-@seeinternals{Slur}, and @internalsref{SlurEvent}.
+Internals: @seeinternals{Slur}, and @internalsref{SlurEvent}.
 
 
 @refbugs
@@ -1902,7 +1901,7 @@ will only affect normal slurs and not phrasing slurs.
 
 @seealso
 
-See also @internalsref{PhrasingSlur}, and
+Internals: see also @internalsref{PhrasingSlur}, and
 @internalsref{PhrasingSlurEvent}.
 
 @refbugs
@@ -1933,8 +1932,10 @@ d4
 
 @seealso 
 
-@internalsref{BreathingSign}, @internalsref{BreathingSignEvent}, and
-@inputfileref{input/regression,breathing-sign.ly}.
+Internals: @internalsref{BreathingSign},
+@internalsref{BreathingSignEvent}
+
+Examples: @inputfileref{input/regression,breathing-sign.ly}.
 
 
 @node Metronome marks
@@ -1958,7 +1959,7 @@ paper output, a metronome marking is printed:
 
 @seealso
 
-@internalsref{MetronomeChangeEvent}.
+Internals: @internalsref{MetronomeChangeEvent}.
   
 
 
@@ -1985,9 +1986,10 @@ properties:
 
 @seealso
 
-@internalsref{TextSpanEvent},
-@internalsref{TextSpanner}, and
-@inputfileref{input/regression,text-spanner.ly}.
+Internals @internalsref{TextSpanEvent},
+@internalsref{TextSpanner}.
+
+Examples: @inputfileref{input/regression,text-spanner.ly}.
 
 
 @node Analysis brackets
@@ -2017,8 +2019,10 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 
 @seealso
 
-@internalsref{HorizontalBracket}, @internalsref{NoteGroupingEvent}, and
-@inputfileref{input/regression,note-group-bracket.ly}. 
+Internals: @internalsref{HorizontalBracket},
+@internalsref{NoteGroupingEvent}
+
+Examples: @inputfileref{input/regression,note-group-bracket.ly}. 
 
 
 @node Articulations
@@ -2101,7 +2105,7 @@ eg.
 
 @seealso
 
-@internalsref{ScriptEvent}, and @internalsref{Script}.
+Internals: @internalsref{ScriptEvent}, and @internalsref{Script}.
 
 @refbugs
 
@@ -2156,7 +2160,7 @@ to note heads:
         
 @seealso
 
-@internalsref{FingerEvent}, and @internalsref{Fingering}.
+Internals: @internalsref{FingerEvent}, and @internalsref{Fingering}.
 
 
 @node Text scripts
@@ -2325,7 +2329,7 @@ Another option is to change the variables @code{startGraceMusic},
 
 @seealso
 
-@internalsref{GraceMusic}.
+Internals: @internalsref{GraceMusic}.
 
 @refbugs
 
@@ -2372,7 +2376,7 @@ a note:
 
 @seealso
 
-@internalsref{Glissando}, and @internalsref{GlissandoEvent}.
+Internals: @internalsref{Glissando}, and @internalsref{GlissandoEvent}.
 
 
 @refbugs
@@ -2477,7 +2481,7 @@ You can also supply your own texts:
 
 @seealso
 
-@internalsref{CrescendoEvent}, @internalsref{DecrescendoEvent}, and
+Internals: @internalsref{CrescendoEvent}, @internalsref{DecrescendoEvent}, and
 @internalsref{AbsoluteDynamicEvent}.
 
 Dynamics are objects of @internalsref{DynamicText} and
@@ -2651,7 +2655,7 @@ alphabetic characters. Or,
 
 @seealso
 
-@internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
+Internals: @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
 @internalsref{VoltaRepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}, and
 @internalsref{FoldedRepeatedMusic}.
@@ -2738,7 +2742,7 @@ patterns that divide the measure length are replaced by slashes:
 
 @seealso
 
-@internalsref{RepeatSlash}, @internalsref{PercentRepeat},
+Internals: @internalsref{RepeatSlash}, @internalsref{PercentRepeat},
 @internalsref{PercentRepeatedMusic}, and
 @internalsref{DoublePercentRepeat}.
 
@@ -3134,7 +3138,11 @@ terminating too soon.
 
 @seealso
 
-@internalsref{AutoChangeMusic}.
+In this manual: @ref{Manual staff switches} 
+
+Internals: @internalsref{AutoChangeMusic}.
+
+
 
 @refbugs
 
@@ -3286,7 +3294,7 @@ arpeggiate the chord. To draw these brackets, set the
 
 @seealso
 
-@internalsref{ArpeggioEvent} music expressions lead to
+Internals: @internalsref{ArpeggioEvent} music expressions lead to
 @internalsref{Arpeggio} objects.  Cross staff arpeggios are
 @internalsref{PianoStaff}.@internalsref{Arpeggio}.
 
@@ -3418,7 +3426,7 @@ next one. Such a line is called an extender line, and it is entered as
 
 @seealso
 
-@internalsref{LyricEvent}, @internalsref{HyphenEvent}, and
+Internals: @internalsref{LyricEvent}, @internalsref{HyphenEvent}, and
 @internalsref{ExtenderEvent}.
 
 @refbugs
@@ -3485,8 +3493,9 @@ A complete example of a SATB score setup is in the file
 
 @seealso
 
-@internalsref{LyricCombineMusic}, @internalsref{Lyrics}, and
-@inputfileref{input/template,satb.ly}.
+Internals: @internalsref{LyricCombineMusic}, @internalsref{Lyrics}
+
+Examples: @inputfileref{input/template,satb.ly}.
 
 @refbugs
 
@@ -3661,7 +3670,9 @@ example is in @inputfileref{input/test,ambitus-mixed.ly}
 
 @seealso
 
-@internalsref{Ambitus}, @inputfileref{input/regression,ambitus.ly},
+Internals: @internalsref{Ambitus}
+
+Examples:  @inputfileref{input/regression,ambitus.ly},
 @inputfileref{input/test,ambitus-mixed.ly}.
 
 @refbugs
@@ -3700,6 +3711,8 @@ are printed as tablature, by using @internalsref{TabStaff} and
 }
 @end lilypond
 
+@cindex minimumFret
+
 When no string is specified, the first string that does not give a
 fret number less than @code{minimumFret} is selected. The default
 value for @code{minimumFret} is 0:
@@ -3727,7 +3740,7 @@ frag = \notes {
 
 @seealso
 
-@internalsref{TabStaff}, @internalsref{TabVoice}, and
+Internals: @internalsref{TabStaff}, @internalsref{TabVoice}, and
 @internalsref{StringNumberEvent}.
 
 @refbugs
@@ -4050,11 +4063,12 @@ chart}.  Turning on these styles is described in the input file
 
 @seealso
 
-@inputfileref{input/regression,chord-name-major7.ly},
+Examples: @inputfileref{input/regression,chord-name-major7.ly},
 @inputfileref{input/regression,chord-name-exceptions.ly},
 @inputfileref{input/test,chord-names-jazz.ly},
-@inputfileref{input/test,chord-names-german.ly},
-@file{scm/chords-ignatzek.scm}, and @file{scm/chord-entry.scm}.
+@inputfileref{input/test,chord-names-german.ly}.
+
+Init files: @file{scm/chords-ignatzek.scm}, and @file{scm/chord-entry.scm}.
 
 
 @refbugs
@@ -4162,8 +4176,9 @@ around the marks.
 
 @seealso
 
-@internalsref{MarkEvent}, @internalsref{RehearsalMark}, and
-@inputfileref{input/test,boxed-molecule.ly}.
+Internals: @internalsref{MarkEvent}, @internalsref{RehearsalMark}
+
+Examples: @inputfileref{input/test,boxed-molecule.ly}.
 
 
 @node Bar numbers
@@ -4189,9 +4204,10 @@ whose source is available as
 
 @seealso
 
-@internalsref{BarNumber},
-@inputfileref{input/test,bar-number-every-five-reset.ly}, and
-@inputfileref{input/test,bar-number-regular-interval.ly}.
+Internals: @internalsref{BarNumber}.
+
+Examples: @inputfileref{input/test,bar-number-every-five-reset.ly},
+and @inputfileref{input/test,bar-number-regular-interval.ly}.
 
 @refbugs
 
@@ -4237,7 +4253,7 @@ names:
 
 @seealso
 
-@internalsref{InstrumentName}.
+Internals: @internalsref{InstrumentName}.
 
 @refbugs
 
@@ -4277,7 +4293,8 @@ mus =\notes { \key d \major cis d fis g }
 
 @seealso
 
-@internalsref{TransposedMusic}, and @internalsref{UntransposableMusic}. 
+Internals: @internalsref{TransposedMusic}, and
+@internalsref{UntransposableMusic}.
 
 @refbugs
 
@@ -4354,7 +4371,7 @@ attach the text to a zero-length skip note, i.e.
 
 @seealso
 
-@internalsref{MultiMeasureRestEvent},
+Internals: @internalsref{MultiMeasureRestEvent},
 @internalsref{MultiMeasureTextEvent},
 @internalsref{MultiMeasureRestMusicGroup}, and
 @internalsref{MultiMeasureRest}.
@@ -4448,7 +4465,7 @@ may set the property @var{soloADue} to false:
 
 @seealso
 
-@internalsref{PartCombineMusic},
+Internals: @internalsref{PartCombineMusic},
 @internalsref{Thread_devnull_engraver}, and
 @internalsref{Voice_devnull_engraver} and @internalsref{A2_engraver}.
 
@@ -4574,7 +4591,7 @@ of symbols, for example,
 
 @seealso
 
-@inputfileref{input/regression,tag-filter.ly}
+Examples: @inputfileref{input/regression,tag-filter.ly}
 
 
 @node Sound output for transposing instruments
@@ -4698,11 +4715,13 @@ used to automatically assemble mensural ligatures.  See
 
 @seealso
 
-@inputfileref{input/regression,note-head-style.ly} gives an overview
-over all available note head styles.
-
+In this manual:
 @ref{Percussion staves} use note head styles of their own that are
 frequently used in contemporary music notation.
+
+Examples: @inputfileref{input/regression,note-head-style.ly} gives an
+overview over all available note head styles.
+
 
 @node Ancient accidentals
 @subsection Ancient accidentals
@@ -4771,11 +4790,14 @@ controlled by the @code{style} property of the
 
 @seealso
 
-@ref{Pitches}, @ref{Chromatic alterations} and @ref{Accidentals} give
-a general introduction into the use of accidentals.  @ref{Key
-signature} gives a general introduction into the use of key
-signatures.
+In this manual: @ref{Pitches}, @ref{Chromatic alterations} and
+@ref{Accidentals} give a general introduction into the use of
+accidentals.  @ref{Key signature} gives a general introduction into
+the use of key signatures.
 
+Internals: @internalsref{KeySignature}
+
+Examples: @inputfileref{input/test,ancient-accidentals.ly}.
 
 @node Ancient rests
 @subsection Ancient rests
@@ -4810,7 +4832,7 @@ There are no rests in Gregorian Chant notation; instead, it uses
 
 @seealso
 
-@ref{Rests} gives a general introduction into the use of rests.
+In this manual: @ref{Rests} gives a general introduction into the use of rests.
 
 
 @node Ancient clefs
@@ -5021,9 +5043,11 @@ beams, depending on which staffline it is printed.
 
 @seealso
 
-For modern clefs, see @ref{Clef}.  For the percussion clef, see
-@ref{Percussion staves}.  For the @code{TAB} clef, see
-@ref{Tablatures}.
+In this manual: for the percussion clef, see @ref{Percussion staves}.
+For the @code{TAB} clef, see @ref{Tablatures}.
+
+Internals: for modern clefs, see @ref{Clef}.
+
 
 
 @node Ancient flags
@@ -5143,7 +5167,7 @@ ancient and modern styles.
 
 @seealso
 
-@ref{Time signature} gives a general introduction into the use of time
+Internals: @ref{Time signature} gives a general introduction into the use of time
 signatures.
 
 @refbugs
@@ -5296,7 +5320,9 @@ extensions and should not be used.
 
 @seealso
 
-@internalsref{Custos} and @inputfileref{input/regression,custos.ly}.
+Internals: @internalsref{Custos}
+
+Examples: @inputfileref{input/regression,custos.ly}.
 
 
 @node Divisiones
@@ -5344,8 +5370,11 @@ Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
 
 @seealso
 
-@internalsref{BreathingSign}, @internalsref{BreathingSignEvent},
-@inputfileref{input/test,divisiones.ly}, and @ref{Breath marks}.
+In this manual: @ref{Breath marks}.
+
+Internals: @internalsref{BreathingSign}, @internalsref{BreathingSignEvent},
+
+Examples: @inputfileref{input/test,divisiones.ly} 
 
 @node Ligatures
 @subsection Ligatures
@@ -7226,7 +7255,7 @@ vertical spacing of the figures may be set with @code{baseline-skip}.
 
 @seealso
 
-@internalsref{BassFigureEvent} music, @internalsref{BassFigure} object, 
+Internals: @internalsref{BassFigureEvent} music, @internalsref{BassFigure} object, 
 and @internalsref{FiguredBass} context.
 
 @refbugs
@@ -7334,9 +7363,12 @@ ordinary notes and clusters.
 
 @seealso
 
-@internalsref{ClusterSpanner}, @internalsref{ClusterSpannerBeacon},
-@inputfileref{input/regression,cluster.ly},
-@internalsref{Cluster_spanner_engraver}, and @internalsref{ClusterNoteEvent}.
+Internals: @internalsref{ClusterSpanner},
+@internalsref{ClusterSpannerBeacon},
+@internalsref{Cluster_spanner_engraver}, and
+@internalsref{ClusterNoteEvent}.
+
+Examples: @inputfileref{input/regression,cluster.ly}.
 
 @refbugs
 
@@ -7570,7 +7602,7 @@ anomalous behavior.
 
 @seealso
 
-@internalsref{OverrideProperty}, @internalsref{RevertProperty},
+Internals: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
 @internalsref{PropertySet}, @internalsref{All-backend-properties}, and
 @internalsref{All-layout-objects}.
 
@@ -7660,7 +7692,7 @@ instructions}), you will notice that there is written:
 @quotation
 @seealso
 
-@internalsref{FingerEvent} and @internalsref{Fingering}.
+Internals: @internalsref{FingerEvent} and @internalsref{Fingering}.
 
 @end quotation
 
@@ -7760,10 +7792,10 @@ Of course, the tweak may also done in a larger context than
 
 @seealso
 
-The program reference also contains alphabetical lists of
+Internals: the program reference also contains alphabetical lists of
 @internalsref{Contexts}, @internalsref{All-layout-objects} and
-@internalsref{Music-expressions}, so you can also find which objects to
-tweak by browsing the internals document.
+@internalsref{Music-expressions}, so you can also find which objects
+to tweak by browsing the internals document.
 
 
 @node Applyoutput
@@ -7912,8 +7944,8 @@ The following commands set @code{fontSize} for the current voice.
 
 @seealso
 
-@file{ly/paper20.ly} contains hints how new fonts may be added to
-LilyPond.
+Init files: @file{ly/paper20.ly} contains hints how new fonts may be
+added to LilyPond.
 
 @refbugs
 
@@ -8136,7 +8168,9 @@ The markup mechanism is extensible.  Refer to
 
 @seealso
 
-@internalsref{Markup-functions}, and @file{scm/new-markup.scm}.
+Internals: @internalsref{Markup-functions},
+
+Init files:  @file{scm/new-markup.scm}.
 
 @refbugs
 
@@ -8233,7 +8267,7 @@ measured from the center line of each staff.
 
 @seealso
 
-Vertical alignment of staves is handled by the
+Internals: Vertical alignment of staves is handled by the
 @internalsref{VerticalAlignment} object.
 
 
@@ -8333,7 +8367,7 @@ created before any @code{\property} statements are interpreted.
 
 @seealso
 
-@internalsref{SpacingSpanner}, @internalsref{NoteSpacing},
+Internals: @internalsref{SpacingSpanner}, @internalsref{NoteSpacing},
 @internalsref{StaffSpacing}, @internalsref{SeparationItem}, and
 @internalsref{SeparatingGroupSpanner}.
 
@@ -8412,7 +8446,7 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 
 @seealso
 
-@internalsref{BreakEvent}.
+Internals: @internalsref{BreakEvent}.
 
 
 @node Page layout
@@ -8498,9 +8532,11 @@ will set the paper variables @code{hsize} and @code{vsize} (used by
 
 @seealso
 
-@ref{Invoking lilypond},
-@inputfileref{input/regression,between-systems.ly}, and
-@internalsref{NonMusicalPaperColumn}.
+In this manual @ref{Invoking lilypond}
+
+Examples: @inputfileref{input/regression,between-systems.ly}
+
+Internals: @internalsref{NonMusicalPaperColumn}.
 
 @refbugs
 

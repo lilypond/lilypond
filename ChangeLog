@@ -1,5 +1,8 @@
 2004-01-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/refman.itely (Tablatures basic): annotate
+	seealso sections.
+
 	* lily/*.cc: cleanup of engraver initialize() functions.
 
 	* lily/repeat-acknowledge-engraver.cc
@@ -116,7 +119,8 @@
 	* scm/define-grob-interfaces.scm (only-prebreak-interface): add
 	only-prebreak-interface
 
-	* lily/system.cc (output_lines): only junk only-prebreak-interface grobs.
+	* lily/system.cc (output_lines): only junk only-prebreak-interface
+	grobs.
 
 	* lily/multi-measure-rest-engraver.cc (stop_translation_timestep):
 	read breakableSeparationItem
@@ -132,7 +136,7 @@
 	(shift_one): idem
 	(remove_collision): idem.
 
-	* input/regression/dots.ly: add  more test cases.
+	* input/regression/dots.ly: add more test cases.
 
 2004-01-06  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
