@@ -535,6 +535,9 @@ that helps show the length of a melissima (tied/slurred note)."
    "a single piece of lyrics"
    '(
     word-space
+    alignment
+    ignore-length-mismatch
+    begin-alignment
     end-alignment
     ))
 
