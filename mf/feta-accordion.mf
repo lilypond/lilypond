@@ -2,12 +2,11 @@
 
 accreg_dot_size# := .5interline#;
 
-% 'strange turning path' in accBayanbase:
+% FIXME
+% 'strange turning path' in accSB and others:
 %     mf '\mode=laserjet; input feta11'
-% accreg_linethickness# := 1.3stafflinethickness#;
-
-% so, do thinner lines, for now
-accreg_linethickness# := 1.2stafflinethickness#;
+%     mf '\mode=laserjet; input feta13'
+accreg_linethickness# := 1.3stafflinethickness#;
 
 % This dimention is the same on all registersymbols.
 % The different symbols should calculate their other
@@ -76,7 +75,9 @@ fet_beginchar("accBayanbase", "accBayanbase", "accBayanbase")
 fet_endchar;
 
 def def_B(expr w, h) = 
-	pickup pencircle scaled 0.1pt;
+	% huh?
+	% pickup pencircle scaled 0.1pt;
+	pickup pencircle scaled 0.15stafflinethickness;
 	penpos10(thin, -90);
 	penpos11(thin, -90);
 	penpos12(thick, 0);
@@ -100,7 +101,9 @@ def def_B(expr w, h) =
 enddef;
 
 def def_S(expr w, h) =
-	pickup pencircle scaled 0.02pt;
+	% huh?
+	%pickup pencircle scaled 0.02pt;
+	pickup pencircle scaled 0.03stafflinethickness;
 	penpos1(thin, 180);
 	penpos2(thin, -90);
 	penpos3(thick, 0);
@@ -144,7 +147,10 @@ fet_beginchar("accSB", "accSB", "accSB")
 	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4interline#);
 	def_some_vars;
 	def_B(.35width, .7height);
+
+	% FIXME -- strange turning path:
 	penstroke z10e--z11e{right}..z12e{up}..z13e{left}--z14e;
+
 	penstroke z13e{right}..z15e{up}..z16e{left}--z17e;
 	penstroke z18e--z19e;
 	pickup pencircle scaled .5thick;
@@ -170,7 +176,10 @@ fet_beginchar("accBB", "accBB", "accBB")
 	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4interline#);
 	def_some_vars;
 	def_B(.35width, .7height);
+
+	% FIXME -- strange turning path:
 	penstroke z10e--z11e{right}..z12e{up}..z13e{left}--z14e;
+
 	penstroke z13e{right}..z15e{up}..z16e{left}--z17e;
 	penstroke z18e--z19e;
 	pickup pencircle scaled .5thick;
@@ -239,7 +248,10 @@ fet_beginchar("accOldEES", "accOldEES", "accOldEES")
 	filldraw (0, 0)--(0, thin)--(sw, thin)--(sw, ch-thin)
 		--(sw+thick, ch-thin)--(sw+thick, thin)
 		--(2sw+thick, thin)--(2sw+thick, 0)--cycle;
+
+	% FIXME -- strange turning path:
 	penstroke z1e--z2e{right}..z3e..z4e{left}--z5e;
+
 	penstroke z4e{right}..z6e{down}..z7e{right}..z8e{up};
 	currentpicture := currentpicture shifted (-w/2, -shy*h);
 	currentpicture := currentpicture shifted (0, r);

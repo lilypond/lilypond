@@ -31,6 +31,7 @@ Grep for TODO and ugh/ugr/urg.
 . * turn slope-damping on/off
 . * tremolo stuff
 . * We need feta-din*.mf files for more sizes than 10.
+. * feta-accordeon has some 'strange turning paths' on 300dpi
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * dots & rest collisions?
 . * mudela-book.py
