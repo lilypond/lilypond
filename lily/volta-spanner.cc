@@ -24,12 +24,15 @@
 
 Volta_spanner::Volta_spanner ()
 {
-  //dim_cache_ [Y_AXIS]->set_callback (dim_callback);
   set_elt_property ("bars", SCM_EOL);
   side_position (this).set_axis (Y_AXIS);
   directional_element (this).set (UP);
 }
 
+
+/*
+  this is too complicated. Yet another version of side-positioning,
+  badly implemented.  */
 Molecule 
 Volta_spanner::do_brew_molecule () const
 {

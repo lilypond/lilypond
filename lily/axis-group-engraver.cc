@@ -10,6 +10,8 @@
 #include "spanner.hh"
 #include "paper-column.hh"
 #include "axis-group-interface.hh"
+#include "dimension-cache.hh"
+#include "engraver-group-engraver.hh"
 
 Axis_group_engraver::Axis_group_engraver ()
 {
@@ -35,6 +37,16 @@ Axis_group_engraver::get_spanner_p () const
 void
 Axis_group_engraver::do_removal_processing ()
 {
+  String name   = daddy_grav_l ()->type_str_ + "VerticalExtent";
+  SCM dims = get_property (name);
+  
+  if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
+      && gh_number_p (gh_cdr (dims)))
+    {
+      staffline_p_->dim_cache_[Y_AXIS]->set_extent_callback (&Score_element::preset_extent);
+      staffline_p_->set_elt_property ("extent-Y", dims);
+    }
+  
   staffline_p_->set_bound(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (staffline_p_);
   staffline_p_ = 0;

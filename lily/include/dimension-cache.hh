@@ -45,7 +45,7 @@ public:
   static Interval point_dimension_callback (Dimension_cache const* );
   Axis axis () const;
   Real get_offset () const;
-  void set_callback (Dim_cache_callback);
+  void set_extent_callback (Dim_cache_callback);
   Dimension_cache * parent_l_;
 
   Score_element *element_l () const { return elt_l_; }

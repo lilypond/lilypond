@@ -27,7 +27,6 @@
 #include "dimension-cache.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
-
 /*
 TODO:
 
@@ -44,8 +43,8 @@ Score_element::Score_element()
   // junkme.
   used_b_ = false;
 
-  dim_cache_[X_AXIS]->set_callback (molecule_extent);
-  dim_cache_[Y_AXIS]->set_callback (molecule_extent); 
+  dim_cache_[X_AXIS]->set_extent_callback (molecule_extent);
+  dim_cache_[Y_AXIS]->set_extent_callback (molecule_extent); 
   used_b_ = false;
   pscore_l_=0;
   lookup_l_ =0;
@@ -135,11 +134,31 @@ Score_element::set_elt_property (String k, SCM v)
 }
 
 Interval
-Score_element::molecule_extent(Dimension_cache const *c)
+Score_element::molecule_extent (Dimension_cache const *c)
 {
   Score_element *s = dynamic_cast<Score_element*>(c->element_l());
   Molecule m = s->do_brew_molecule();
-  return   m.extent()[c->axis ()];
+  return m.extent()[c->axis ()];
+}
+
+Interval
+Score_element::preset_extent (Dimension_cache const *c)
+{
+  Score_element *s = dynamic_cast<Score_element*>(c->element_l());
+  SCM ext = s->get_elt_property ((c->axis () == X_AXIS)
+				 ? "extent-X"
+				 : "extent-Y");
+  
+  if (gh_pair_p (ext))
+    {
+      Real l = gh_scm2double (gh_car (ext));
+      Real r = gh_scm2double (gh_cdr (ext));
+      l *= s->paper_l ()->get_var ("staffspace");
+      r *= s->paper_l ()->get_var ("staffspace");
+      return Interval (l, r);
+    }
+  
+  return Interval ();
 }
 
 
@@ -555,7 +574,7 @@ Score_element::fixup_refpoint ()
       if (!parent)
 	continue;
       
-      if (parent->line_l () != line_l ())
+      if (parent->line_l () != line_l () && line_l ())
 	{
 	  Score_element * newparent = parent->find_broken_piece (line_l ());
 	  set_parent (newparent, ax);

@@ -177,6 +177,14 @@
 	))
 )
 
+
+
+
+
+;;;;;;;;;;
+;; don't forget to add these to the Generic_property_list property in
+;; engraver.ly
+
 (define generic-voice-properties
   (list
    generic-stem-properties
@@ -225,5 +233,4 @@
 (define generic-lyrics-properties
   (list generic-text-properties
   )
-  
 )

@@ -98,8 +98,8 @@ Axis_group_interface::set_axes (Axis a1, Axis a2)
   if (a1 != Y_AXIS && a2 != Y_AXIS)
     elt_l_->set_empty (Y_AXIS);
   
-  elt_l_->dim_cache_[a1]->set_callback (Axis_group_interface::group_extent_callback);
-  elt_l_->dim_cache_[a2]->set_callback (Axis_group_interface::group_extent_callback);
+  elt_l_->dim_cache_[a1]->set_extent_callback (Axis_group_interface::group_extent_callback);
+  elt_l_->dim_cache_[a2]->set_extent_callback (Axis_group_interface::group_extent_callback);
 }
 
 Link_array<Score_element> 
