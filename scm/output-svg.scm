@@ -6,26 +6,6 @@
 
 ;;;; http://www.w3.org/TR/SVG11
 
-;;; FIXME
-
-;;; * sodipodi gets confuseed by dashes in font names.
-;;;
-;;;   removing feta-nummer*.pfa (LilyPond-feta-nummer),
-;;;   feta-braces*.pfa (LilyPond-feta-braces), feta-din*.pfa
-;;;   (LilyPond-feta-din) from font path shows feta fonts in sodipodi.
-;;;
-;;; * inkscape fails to map Feta fonts to private use area (PUA) E000
-;;;   (sodipodi is fine).
-
-;;; * maybe we need to have a unicode mapping somehow, we could
-;;;   - use OpenType instead of Type1
-;;; http://lists.gnu.org/archive/html/lilypond-devel/2004-05/msg00098.html
-;;;
-;;;   - or fix the pangofc-afm-decoder and add it to Pango (no chance?)
-;;;     or have fontconfig read AFM files
-;;;  http://lists.gnu.org/archive/html/lilypond-devel/2004-05/msg00103.html
-
-
 (debug-enable 'backtrace)
 (define-module (scm output-svg))
 (define this-module (current-module))
@@ -46,7 +26,6 @@
 (define (debugf string . rest)
   (if #f
       (apply stderr (cons string rest))))
-
 
 (define (dispatch expr)
   (let ((keyword (car expr)))
@@ -115,8 +94,11 @@
     (debugf "design:~S\n" designsize)
     scaling))
 
+(define (integer->entity integer)
+  (format #f "&#x~x;" integer))
+		   
 (define (char->entity font char)
-  (format #f "&#x~x;" (char->unicode-index font char)))
+  (integer->entity (char->unicode-index font char)))
 		   
 (define (string->entities font string)
   (apply string-append
@@ -126,13 +108,11 @@
   (let* ((encoding (ly:font-encoding font))
 	 (anchor (if (memq encoding '(fetaMusic fetaBraces)) 'start 'start)))
    (format #f "font-family:~a;font-size:~a;text-anchor:~S;"
-	   (font-family font) (font-size font) anchor)))
+	   (otf-name-mangling font (font-family font))
+	   (font-size font) anchor)))
 
 (define (fontify font expr)
    (tagify "text" expr (cons 'style (svg-font font))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
@@ -183,6 +163,12 @@
 
 (define (filledbox breapth width depth height)
   (round-filled-box breapth width depth height 0))
+
+(define (named-glyph font name)
+  (dispatch
+   `(fontify ,font ,(tagify "tspan"
+			    (integer->entity
+			     (ly:font-glyph-name-to-charcode font name))))))
 
 (define (placebox x y expr)
   (tagify "g"

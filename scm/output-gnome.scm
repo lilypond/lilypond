@@ -18,12 +18,6 @@
 ;;;    - lilylib.
 ;;;  * Release schedule and packaging of dependencies.  This hack
 ;;;    depends on several CVS and TLA development sources.  In the works.
-;;;  * Maybe we need to have a unicode mapping somehow, we could
-;;;   - use OpenType instead of Type1
-;;;     http://lists.gnu.org/archive/html/lilypond-devel/2004-05/msg00098.html
-;;;   - or fix the pangofc-afm-decoder and add it to Pango (no chance?)
-;;;     or have fontconfig read AFM files
-;;;     http://lists.gnu.org/archive/html/lilypond-devel/2004-05/msg00103.html
 
 ;;; You need:
 ;;;
@@ -132,13 +126,9 @@ lilypond -fgnome input/simple-song.ly
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; globals
 
-;; junkme
-(define system-origin '(0 . 0))
-
 ;;; set by framework-gnome.scm
 (define canvas-root #f)
 (define output-scale #f)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helper functions
@@ -148,8 +138,14 @@ lilypond -fgnome input/simple-song.ly
   (force-output (current-error-port)))
 
 (define (debugf string . rest)
-  (if #t
+  (if #f
       (apply stderr (cons string rest))))
+
+(define (list->offsets accum coords)
+  (if (null? coords)
+      accum
+      (cons (cons (car coords) (cadr coords))
+	    (list->offsets accum (cddr coords)))))
 
 (define (utf8 i)
   (cond
@@ -176,6 +172,13 @@ lilypond -fgnome input/simple-song.ly
   (apply
    string-append
    (map (lambda (x) (char->utf8-string font x)) (string->list string))))
+
+(define (music-font? font)
+  (let ((encoding (ly:font-encoding font))
+	(family (font-family font)))
+    (or (memq encoding '(fetaMusic fetaBraces))
+	(string=? (substring family 0 (min (string-length family) 9))
+		  "bigcheese"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; stencil outputters
@@ -270,7 +273,7 @@ lilypond -fgnome input/simple-song.ly
     bezier))
 
 (define (char font i)
-  (text font (integer->char i)))
+  (text font (ly:font-index-to-charcode (integer->char i))))
 
 ;; FIXME: naming
 (define (filledbox breapth width depth height)
@@ -293,9 +296,7 @@ lilypond -fgnome input/simple-song.ly
     ;; FIXME ugly hack to skip #unspecified ...
     (if (and item (not (eq? item (if #f #f))))
 	(begin
-	  (move item
-		(* output-scale (+ (car system-origin) x))
-		(* output-scale (- (car system-origin) y)))
+	  (move item (* output-scale x) (* output-scale (- y)))
 	  (affine-relative item output-scale 0 0 output-scale 0 0)
 	  item)
 	#f)))
@@ -318,16 +319,7 @@ lilypond -fgnome input/simple-song.ly
     (set-path-def props def)
     props))
 
-(define (list->offsets accum coords)
-  (if (null? coords)
-      accum
-      (cons (cons (car coords) (cadr coords))
-	    (list->offsets accum (cddr coords)))))
-
 (define (named-glyph font name)
-  (debugf "glyph:~S\n" name)
-  (debugf "index:~S\n" (ly:font-glyph-name-to-charcode font name))
-  (debugf "font:~S\n" (font-family font))
   (text font (ly:font-glyph-name-to-charcode font name)))
 
 (define (polygon coords blotdiameter)
@@ -362,21 +354,11 @@ lilypond -fgnome input/simple-song.ly
       #:join-style 'round)))
 
 (define (text font s)
+
   (define (pango-font-name font)
     (stderr "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
-    
-    (let ((family (font-family font)))
-      ;; Hmm, family is bigcheese20?
-      (if (string=? (substring family 0 (min (string-length family) 9))
-					     "bigcheese")
-	  (begin
-	    ;; FIXME: FONT-NAME:#f:8.85678704856787
-	    ;;(format #f "~S, ~S" (ly:font-name font) (ly:font-design-size font))
-	    (stderr "BIGCHEESE\n")
-	  "LilyPond 20"
-	  )
-	  family)))
-  
+    (otf-name-mangling font (font-family font)))
+
   (define (pango-font-size font)
     (let* ((designsize (ly:font-design-size font))
 	   (magnification (* (ly:font-magnification font)))
@@ -402,18 +384,15 @@ lilypond -fgnome input/simple-song.ly
       
       scaling))
 
-  (let ((encoding (ly:font-encoding font)))
-    (make <gnome-canvas-text>
-      #:parent (canvas-root)
-      ;; ugh, experimental placement corections
-      ;; #:x 0.0 #:y 0.0
-      #:x 0.0 #:y (if (memq encoding '(fetaMusic fetaBraces)) 0.15 0.69)
-      #:anchor (if (memq encoding '(fetaMusic fetaBraces)) 'west 'south-west)
-      #:font (pango-font-name font)
-      #:size-points (pango-font-size font)
-      #:size-set #t
-      #:text (if (char? s)
-		 (char->utf8-string font s)
-		 (if (integer? s)
-		     (integer->utf8-string font s)
-		     (string->utf8-string font s))))))
+  (make <gnome-canvas-text>
+    #:parent (canvas-root)
+    ;; ugh, experimental placement corections
+    ;; #:x 0.0 #:y 0.0
+    #:x 0.0 #:y (if (music-font? font) 0.15 0.69)
+    #:anchor (if (music-font? font) 'west 'south-west)
+    #:font (pango-font-name font)
+    #:size-points (pango-font-size font)
+    #:size-set #t
+    #:text (if (integer? s)
+	       (integer->utf8-string font s)
+	       (string->utf8-string font s))))
