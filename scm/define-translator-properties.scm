@@ -157,6 +157,9 @@ into one staff.")
  'chordNameFunction procedure?
  "The function that converts lists of pitches to chord names.")
 (translator-property-description
+ 'chordNameStyle symbol?
+ "The chord name style: ignatzek, banter or jazz.")
+(translator-property-description
  'chordNoteNamer procedure?
  "Function that converts from a pitch object to a text markup. Used for single pitches.")
 (translator-property-description
@@ -165,6 +168,12 @@ into one staff.")
 (translator-property-description
  'chordNameExceptions list?
  "Alist of chord exceptions. Contains (CHORD . MARKUP) entries.")
+(translator-property-description
+ 'chordNameExceptionsFull list?
+ "Alist of chord exceptions. Contains (CHORD . (MARKUP)) entries.")
+(translator-property-description
+ 'chordNameExceptionsPartial list?
+ "Alist of partial chord exceptions. Contains (CHORD . (PREFIX-MARKUP SUFFIX-MARKUP)) entries.")
 (translator-property-description
  'chordNameSeparator markup?
  "The markup object used to separate parts of a chord name.")

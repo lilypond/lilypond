@@ -98,15 +98,9 @@ ch = \notes \transpose c c'
 	% #(set-chord-name-style 'double-plus-new-banter)
 	% #(set-chord-name-style 'double-plus-new-jazz)
 	
-	#(set-double-plus-new-chord-name-style 'banter
-	   `((separator . ,(make-simple-markup ":"))
-	     (full-exceptions . ,efull)
-	     (partial-exceptions . ,epartial)))
+	#(set-chord-name-style 'banter)
 	\ch
-	#(set-double-plus-new-chord-name-style 'jazz
-	   `((separator . ,(make-simple-markup ":"))
-	     (full-exceptions . ,efull)
-	     (partial-exceptions . ,epartial)))
+	#(set-chord-name-style 'jazz)
 	
 	\ch
     }

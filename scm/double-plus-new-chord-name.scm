@@ -22,24 +22,25 @@
 	     markup))
       markup))
 
-(define-public (double-plus-new-chord->markup-banter . args)
-  (apply double-plus-new-chord->markup (cons 'banter args)))
-
-(define-public (double-plus-new-chord->markup-jazz . args)
-  (apply double-plus-new-chord->markup (cons 'jazz args)))
-
-;; FIXME: if/when double-plus-new-chord->markup get installed
-;; setting and calling can be done a bit handier.
 (define-public (double-plus-new-chord->markup
-		func pitches bass inversion
-		context)
-  "Entry point for New_chord_name_engraver.  See
-double-plus-new-chord-name.scm for the signature of FUNC.  PITCHES,
+		pitches bass inversion context)
+  (let ((options '())
+	(style (ly:get-context-property context 'chordNameStyle)))
+    (ugh-compat-double-plus-new-chord->markup
+     style pitches bass inversion context options)))
+
+(define-public (ugh-compat-double-plus-new-chord->markup
+		style pitches bass inversion context options)
+  "Entry point for New_chord_name_engraver.
+
+FIXME: func, options/context have changed
+ See
+double-plus-new-chord-name.scm for the signature of STYLE.  PITCHES,
 BASS and INVERSION are lily pitches.  OPTIONS is an alist-alist (see
 input/test/dpncnt.ly).
  "
-  (define options (ly:get-context-property context 'chordNameExceptions))
-      
+
+  
   (define (step-nr pitch)
     (let* ((pitch-nr (+ (* 7 (ly:pitch-octave pitch))
 			(ly:pitch-notename pitch)))
@@ -86,10 +87,17 @@ input/test/dpncnt.ly).
   
   (define (step->markup-accidental pitch)
     (make-line-markup
-     (list
-      (accidental->markup (step-alteration pitch))
-      (make-simple-markup (number->string (step-nr pitch))))))
+     (list (accidental->markup (step-alteration pitch))
+	   (make-simple-markup (number->string (step-nr pitch))))))
 
+  (define (step->markup-ignatzek pitch)
+    (make-line-markup
+     (if (and (= (step-nr pitch) 7)
+	      (= (step-alteration pitch) 1))
+	 (list (ly:get-context-property context 'majorSevenSymbol))
+	 (list (accidental->markup (step-alteration pitch))
+	       (make-simple-markup (number->string (step-nr pitch)))))))
+	 
   ;; tja, kennok
   (define (make-sub->markup step->markup)
     (lambda (pitch)
@@ -120,7 +128,7 @@ input/test/dpncnt.ly).
 	  (if (equal? e-pitches pitches)
 	      e
 	      (full-match (cdr exceptions))))
-	'(())))
+	#f))
 
   (define (partial-match exceptions)
     (if (pair? exceptions)
@@ -129,20 +137,24 @@ input/test/dpncnt.ly).
 	  (if (equal? e-pitches (first-n (length e-pitches) pitches))
 	      e
 	      (partial-match (cdr exceptions))))
-	'(())))
+	#f))
 
   (if #f (begin  
-	   (write-me "options: " options)
 	   (write-me "pitches: " pitches)))
-  (let* ((full-exceptions (assoc-get 'full-exceptions options))
+  (let* ((full-exceptions
+	  (ly:get-context-property context 'chordNameExceptionsFull))
 	 (full-exception (full-match full-exceptions))
-	 (full-markup (cdr full-exception))
-	 
-	 (partial-exceptions (assoc-get 'partial-exceptions options))
+	 (full-markup (if full-exception (cadr full-exception) '()))
+	 (partial-exceptions
+	  (ly:get-context-property context 'chordNameExceptionsPartial))
 	 (partial-exception (partial-match partial-exceptions))
-	 (partial-pitches (car partial-exception))
-	 (partial-markup (markup-or-empty-markup (cdr partial-exception)))
-
+	 (partial-pitches (if partial-exception (car partial-exception) '()))
+	 (partial-markup-prefix
+	  (if partial-exception (markup-or-empty-markup
+				 (cadr partial-exception)) empty-markup))
+	 (partial-markup-suffix
+	  (if (and partial-exception (pair? (cddr partial-exception)))
+	      (markup-or-empty-markup (caddr partial-exception)) empty-markup))
 	 (root (car pitches))
 	 (full (get-full-list root))
 	 ;; kludge alert: replace partial matched lower part of all with
@@ -160,11 +172,12 @@ input/test/dpncnt.ly).
 	 (base (list-minus consecutive altered)))
 	 
 
-     (if #f (begin
-	      (write-me "full:" full)
+    (if #f (begin
+	     (write-me "full:" full)
 	      ;; (write-me "partial-pitches:" partial-pitches)
 	      (write-me "full-markup:" full-markup)
-	      (write-me "partial-markup:" partial-markup)
+	      (write-me "partial-markup-perfix:" partial-markup-prefix)
+	      (write-me "partial-markup-suffix:" partial-markup-suffix)
 	      (write-me "all:" all)
 	      (write-me "altered:" altered)
 	      (write-me "missing:" missing)
@@ -172,7 +185,7 @@ input/test/dpncnt.ly).
 	      (write-me "rest:" rest)
 	      (write-me "base:" base)))
 
-    (case func
+    (case style
       ((banter)
        ;;    root
        ;;    + steps:altered + (highest all -- if not altered)
@@ -196,7 +209,7 @@ input/test/dpncnt.ly).
 	  (make-line-markup
 	   (list
 	    (root->markup root)
-	    partial-markup
+	    partial-markup-prefix
 	    (make-normal-size-super-markup
 	     (markup-join
 	      (apply append
@@ -206,7 +219,7 @@ input/test/dpncnt.ly).
 					   (not
 					    (step-even-or-altered? highest)))
 				      (list highest) '())))
-		     
+		      (list partial-markup-suffix)
 		     (list (map sub->markup missing)))
 	      sep)))))))
        
@@ -218,8 +231,11 @@ input/test/dpncnt.ly).
        ;;    + steps:rest
        (let* ((root->markup (assoc-get-default
 			      'root->markup options note-name->markup))
-	      (step->markup (assoc-get-default
-			     'step->markup options step->markup-accidental))
+	      (step->markup
+	       (assoc-get-default
+		;; FIXME: ignatzek
+		;;'step->markup options step->markup-accidental))
+		'step->markup options step->markup-ignatzek))
 	      (sep (assoc-get-default
 		    'separator options (make-simple-markup " ")))
 	      (add-prefix (assoc-get-default 'add-prefix options
@@ -232,7 +248,7 @@ input/test/dpncnt.ly).
 	  (make-line-markup
 	   (list
 	    (root->markup root)
-	    partial-markup
+	    partial-markup-prefix
 	    (make-normal-size-super-markup
 	     (make-line-markup
 	      (list
@@ -256,8 +272,7 @@ input/test/dpncnt.ly).
 	       (if (pair? rest)
 		   add-prefix
 		   empty-markup)
-	       (markup-join (map step->markup rest) sep)))))))))
+	       (markup-join (map step->markup rest) sep)
+	       partial-markup-suffix))))))))
        
        (else empty-markup))))
-
-
