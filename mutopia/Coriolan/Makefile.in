@@ -11,10 +11,7 @@
 # PARTICULAR PURPOSE.
 
 # Generated automatically by wild-perl 0.1
-# mf/Makefile.am.wild
-
-# subdir level:
-#
+# mutopia/Coriolan/Makefile.am.wild
 
 
 SHELL = /bin/sh
@@ -42,7 +39,7 @@ pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
 
-top_builddir = ..
+top_builddir = ../..
 
 ACLOCAL = @ACLOCAL@
 AUTOCONF = @AUTOCONF@
@@ -103,29 +100,16 @@ YACC = @YACC@
 ZIP = @ZIP@
 absolute_builddir = @absolute_builddir@
 
-depth = ..
-#
-#
-# include ./$(depth)/make/Include.make
-outdir = .
-#
+LYFILES = clarinetti-part.ly clarinetti.ly clarinetto-1.ly clarinetto-2.ly contrabasso.ly coriolan.ly corni-part.ly corni.ly corno-1.ly corno-2.ly fagotti-part.ly fagotti.ly fagotto-1.ly fagotto-2.ly flauti-part.ly flauti.ly flauto-1.ly flauto-2.ly global.ly oboe-1.ly oboe-2.ly oboi-part.ly oboi.ly timpani.ly trombe-part.ly trombe.ly trombo-1.ly trombo-2.ly viola.ly violino-1.ly violino-2.ly violoncello.ly
+TEXFILES = 
+M4FILES = 
+EXTRA_DIST = Makefile.am.wild TODO music $(LYFILES) $(TEXFILES) $(M4FILES)
 
-TEXFILES = dimen.tex dyn.tex
-MFFILES = feta-autometric.mf feta-banier.mf feta-beams16.mf feta-beams20.mf feta-beams26.mf feta-beugel.mf feta-beum.mf feta-black16.mf feta-bolletjes.mf feta-braces16.mf feta-braces20.mf feta-din10.mf feta-eindelijk.mf feta-generic.mf feta-ital-f.mf feta-ital-m.mf feta-ital-p.mf feta-ital-r.mf feta-ital-s.mf feta-ital-z.mf feta-klef.mf feta-macros.mf feta-nummer-generic.mf feta-nummer.mf feta-nummer10.mf feta-nummer12.mf feta-nummer3.mf feta-nummer4.mf feta-nummer5.mf feta-nummer6.mf feta-nummer7.mf feta-nummer8.mf feta-params.mf feta-puntje.mf feta-schrift.mf feta-slag.mf feta-sleur.mf feta-test16.mf feta-test20.mf feta-toevallig.mf feta-watzieik.mf feta11.mf feta13.mf feta16.mf feta19.mf feta20.mf feta23.mf feta26.mf grayimagen.mf
-MFDEPS = $(outdir)/mf.dep
-EXTRA_DIST = Makefile.am.wild GNUmakefile Rules.make $(MFFILES) $(TEXFILES) TODO README
-
-FONT_FILES = feta-beams16.mf feta-beams20.mf feta-beams26.mf feta-black16.mf feta-braces16.mf feta-braces20.mf feta-din10.mf feta-nummer10.mf feta-nummer12.mf feta-nummer3.mf feta-nummer4.mf feta-nummer5.mf feta-nummer6.mf feta-nummer7.mf feta-nummer8.mf feta-test16.mf feta-test20.mf feta11.mf feta13.mf feta16.mf feta19.mf feta20.mf feta23.mf feta26.mf
-FET_FILES = feta11.mf feta13.mf feta16.mf feta19.mf feta20.mf feta23.mf feta26.mf
-
-lyout = $(top_builddir)/init
-texout = $(top_builddir)/tex
-LYTABLES = $(addprefix $(lyout)/, $(FET_FILES:.mf=.ly))
-TEXTABLES = $(addprefix $(texout)/, $(FET_FILES:.mf=.tex))
+OUTFILES = $(M4FILES:%.m4=%)
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
-CONFIG_HEADER = ../flower/config.hh
+CONFIG_HEADER = ../../flower/config.hh
 CONFIG_CLEAN_FILES = 
-DIST_COMMON =  README Makefile.am Makefile.in TODO
+DIST_COMMON =  Makefile.am Makefile.in TODO
 
 
 DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
@@ -135,7 +119,7 @@ default: all
 
 .SUFFIXES:
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
-	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps mf/Makefile
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps mutopia/Coriolan/Makefile
 
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	cd $(top_builddir) \
@@ -147,7 +131,7 @@ TAGS:
 
 distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
 
-subdir = mf
+subdir = mutopia/Coriolan
 
 distdir: $(DISTFILES)
 	@for file in $(DISTFILES); do \
@@ -156,7 +140,6 @@ distdir: $(DISTFILES)
 	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
 	  || cp -p $$d/$$file $(distdir)/$$file; \
 	done
-	$(MAKE) top_distdir="$(top_distdir)" distdir="$(distdir)" dist-hook
 info:
 dvi:
 check: all
@@ -165,15 +148,15 @@ installcheck:
 install-exec: 
 	@$(NORMAL_INSTALL)
 
-install-data: install-data-local
+install-data: 
 	@$(NORMAL_INSTALL)
 
 install: install-exec install-data all
 	@:
 
-uninstall: uninstall-local
+uninstall: 
 
-all: Makefile all-local
+all: Makefile
 
 install-strip:
 	$(MAKE) INSTALL_PROGRAM='$(INSTALL_PROGRAM) -s' INSTALL_SCRIPT='$(INSTALL_PROGRAM)' install
@@ -196,9 +179,9 @@ maintainer-clean-generic:
 	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 mostlyclean:  mostlyclean-generic
 
-clean:  clean-generic mostlyclean clean-local
+clean:  clean-generic mostlyclean
 
-distclean:  distclean-generic clean distclean-local
+distclean:  distclean-generic clean
 	-rm -f config.status
 	-rm -f libtool
 
@@ -212,42 +195,8 @@ distclean-generic clean-generic maintainer-clean-generic clean \
 mostlyclean distclean maintainer-clean
 
 
-export top_srcdir
+default: all $(OUTFILES)
 
-all-local: $(LYTABLES) $(TEXTABLES)
-
-dist-hook: $(LYTABLES) $(TEXTABLES)
-
-clean-local:
-	-rm -f $(LYTABLES) $(TEXTABLES)
-	-rm -f *.log
-
-distclean-local:
-	-rm -f $(MFDEPS)
-
-install-data-local:
-	$(INSTALL) -d $(MFDIR)/public/lilypond
-	$(INSTALL) -d $(TEXDIR)/lilypond
-	$(INSTALL) -d $(datadir)/lilypond/init
-	$(INSTALL) -m 644 $(MFFILES) $(MFDIR)/public/lilypond/
-	$(INSTALL) -m 644 $(TEXTABLES) $(TEXDIR)/lilypond
-	$(INSTALL) -m 644 $(LYTABLES) $(datadir)/lilypond/init/
-
-uninstall-local:
-	for i in $(MFFILES) ; do rm -f $(MFDIR)/public/lilypond/$$i; done
-	for i in $(TEXTABLES) ; do rm -f $(TEXDIR)/lilypond/$$i; done
-	for i in $LYTABLES) ; do rm -f $(datadir)/lilypond/init/$$i; done
-	-rmdir $(MFDIR)/public/lilypond
-	-rmdir $(TEXDIR)/lilypond
-	-rmdir $(datadir)/lilypond/init
-	-rmdir $(datadir)/lilypond
-
-include $(srcdir)/Rules.make
-
-# dependencies:
-#
-include $(MFDEPS)
-#
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
 	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 

@@ -315,6 +315,193 @@ distdir: $(DISTFILES)
 	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
+main.o: main.cc ../flower/include/string-convert.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../flower/include/lgetopt.hh ../flower/include/path.hh \
+	../flower/include/varray.hh ../lib/include/duration-convert.hh \
+	../lib/include/duration.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../lib/include/plet.hh \
+	../lib/include/source.hh ../lib/include/proto.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/mi2mu-global.hh include/midi-score-parser.hh \
+	include/midi-parser.hh include/mi2mu-proto.hh \
+	../flower/include/parray.hh include/mudela-item.hh \
+	include/mudela-score.hh
+mi2mu-version.o: mi2mu-version.cc ../flower/config.hh
+midi-parser.o: midi-parser.cc ../flower/include/string-convert.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../lib/include/source-file.hh ../lib/include/proto.hh \
+	include/mi2mu-global.hh include/midi-parser.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	include/mi2mu-proto.hh
+midi-score-parser.o: midi-score-parser.cc ../lib/include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../lib/include/source-file.hh ../lib/include/proto.hh \
+	../flower/include/string.hh ../flower/include/string-handle.hh \
+	../flower/include/international.hh ../lib/include/source.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/mi2mu-global.hh include/midi-score-parser.hh \
+	include/midi-parser.hh include/mi2mu-proto.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
+	include/midi-track-parser.hh include/mudela-item.hh \
+	../lib/include/duration.hh ../lib/include/plet.hh \
+	include/mudela-score.hh
+midi-track-parser.o: midi-track-parser.cc \
+	../flower/include/string-convert.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/mi2mu-global.hh ../lib/include/proto.hh \
+	include/midi-track-parser.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc ../lib/include/moment.hh \
+	../flower/include/rational.hh include/mi2mu-proto.hh \
+	include/midi-parser.hh include/mudela-column.hh \
+	include/mudela-item.hh ../lib/include/duration.hh \
+	../lib/include/plet.hh include/mudela-score.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
+	include/mudela-staff.hh
+mudela-column.o: mudela-column.cc include/mudela-column.hh \
+	../lib/include/proto.hh ../flower/include/fproto.hh \
+	../flower/include/real.hh include/mi2mu-proto.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	../flower/include/compare.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc
+mudela-item.o: mudela-item.cc include/mi2mu-global.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../lib/include/proto.hh ../flower/include/string-convert.hh \
+	../lib/include/duration-convert.hh ../lib/include/duration.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	../lib/include/plet.hh ../flower/include/varray.hh \
+	include/mudela-column.hh include/mi2mu-proto.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/mudela-item.hh include/mudela-stream.hh \
+	include/mudela-score.hh ../flower/include/parray.hh
+mudela-score.o: mudela-score.cc ../lib/include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../lib/include/duration.hh ../lib/include/plet.hh \
+	../lib/include/duration-convert.hh ../flower/include/string.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/varray.hh \
+	include/mi2mu-global.hh ../lib/include/proto.hh \
+	include/mudela-column.hh include/mi2mu-proto.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/mudela-item.hh include/mudela-score.hh \
+	../flower/include/parray.hh include/mudela-staff.hh \
+	include/mudela-stream.hh ../flower/include/list.tcc \
+	../flower/include/cursor.tcc
+mudela-staff.o: mudela-staff.cc ../lib/include/moment.hh \
+	../flower/include/rational.hh ../flower/include/compare.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../lib/include/duration-convert.hh ../lib/include/duration.hh \
+	../lib/include/plet.hh ../flower/include/string.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/varray.hh \
+	../flower/include/string-convert.hh include/mi2mu-proto.hh \
+	include/mi2mu-global.hh ../lib/include/proto.hh \
+	include/mudela-column.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/pcursor.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/mudela-item.hh \
+	include/mudela-staff.hh include/mudela-stream.hh \
+	include/mudela-voice.hh include/mudela-score.hh \
+	../flower/include/parray.hh
+mudela-stream.o: mudela-stream.cc include/mi2mu-global.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	../lib/include/proto.hh include/mudela-item.hh \
+	include/mi2mu-proto.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../lib/include/duration.hh \
+	../lib/include/plet.hh include/mudela-stream.hh
+mudela-voice.o: mudela-voice.cc ../flower/include/string-convert.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh \
+	include/mi2mu-global.hh ../lib/include/proto.hh \
+	include/mudela-column.hh include/mi2mu-proto.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
+	../flower/include/plist.hh ../flower/include/list.hh \
+	../flower/include/list.icc ../flower/include/cursor.hh \
+	../flower/include/link.hh ../flower/include/link.icc \
+	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/plist.icc \
+	include/mudela-item.hh ../lib/include/duration.hh \
+	../lib/include/plet.hh include/mudela-staff.hh \
+	include/mudela-stream.hh include/mudela-voice.hh
+template9.o: template9.cc ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/pcursor.hh ../flower/include/plist.hh \
+	../flower/include/plist.icc ../flower/include/cursor.icc \
+	../flower/include/iterate.hh ../flower/include/list.tcc \
+	../flower/include/cursor.tcc include/mudela-item.hh \
+	include/mi2mu-proto.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../lib/include/moment.hh \
+	../flower/include/rational.hh ../lib/include/duration.hh \
+	../lib/include/plet.hh include/mudela-column.hh \
+	include/mudela-staff.hh include/mudela-voice.hh \
+	include/mudela-score.hh ../flower/include/parray.hh \
+	../flower/include/varray.hh ../flower/include/pcursor.tcc \
+	../flower/include/plist.tcc
+version.o: version.cc ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh ../flower/include/compare.hh
 
 info: info-recursive
 dvi: dvi-recursive

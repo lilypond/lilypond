@@ -313,6 +313,110 @@ distdir: $(DISTFILES)
 	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
+choleski.lo choleski.o: choleski.cc include/choleski.hh \
+	include/matrix.hh include/matrix-storage.hh include/varray.hh \
+	include/real.hh include/virtual-methods.hh include/vector.hh
+cpu-timer.lo cpu-timer.o: cpu-timer.cc include/cpu-timer.hh \
+	include/real.hh
+data-file.lo data-file.o: data-file.cc include/international.hh \
+	include/data-file.hh include/text-stream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh include/compare.hh \
+	include/varray.hh
+diagonal-storage.lo diagonal-storage.o: diagonal-storage.cc \
+	include/diagonal-storage.hh include/full-storage.hh \
+	include/varray.hh include/matrix-storage.hh include/real.hh \
+	include/virtual-methods.hh
+dictionary.lo dictionary.o: dictionary.cc
+directed-graph.lo directed-graph.o: directed-graph.cc \
+	include/directed-graph.hh include/parray.hh include/varray.hh
+dstream.lo dstream.o: dstream.cc include/assoc.hh include/varray.hh \
+	include/dstream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/scalar.hh \
+	include/text-db.hh include/data-file.hh include/text-stream.hh \
+	include/string-convert.hh include/assoc-iter.hh
+flower-debug.lo flower-debug.o: flower-debug.cc include/flower-debug.hh \
+	include/dstream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh
+flower-version.lo flower-version.o: flower-version.cc config.hh
+full-storage.lo full-storage.o: full-storage.cc include/full-storage.hh \
+	include/varray.hh include/matrix-storage.hh include/real.hh \
+	include/virtual-methods.hh include/full-storage.icc
+interval.lo interval.o: interval.cc include/interval.hh \
+	include/fproto.hh include/real.hh include/compare.hh \
+	include/interval.tcc include/string.hh \
+	include/arithmetic-operator.hh include/string-handle.hh \
+	include/international.hh include/flower-debug.hh \
+	include/dstream.hh
+lgetopt.lo lgetopt.o: lgetopt.cc include/lgetopt.hh \
+	include/international.hh
+libc-extension.lo libc-extension.o: libc-extension.cc \
+	include/libc-extension.hh include/fproto.hh include/real.hh \
+	config.hh
+matrix-debug.lo matrix-debug.o: matrix-debug.cc include/flower-debug.hh \
+	include/dstream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/matrix.hh \
+	include/matrix-storage.hh include/varray.hh \
+	include/virtual-methods.hh include/vector.hh
+matrix-storage.lo matrix-storage.o: matrix-storage.cc \
+	include/full-storage.hh include/varray.hh \
+	include/matrix-storage.hh include/real.hh \
+	include/virtual-methods.hh include/diagonal-storage.hh
+matrix.lo matrix.o: matrix.cc include/matrix.hh \
+	include/matrix-storage.hh include/varray.hh include/real.hh \
+	include/virtual-methods.hh include/vector.hh \
+	include/full-storage.hh include/diagonal-storage.hh
+nscalar.lo nscalar.o: nscalar.cc
+path.lo path.o: path.cc include/path.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/varray.hh \
+	include/flower-debug.hh include/dstream.hh
+rational.lo rational.o: rational.cc include/rational.hh \
+	include/compare.hh include/arithmetic-operator.hh \
+	include/fproto.hh include/real.hh include/string.hh \
+	include/string-handle.hh include/international.hh \
+	include/string-convert.hh include/libc-extension.hh config.hh
+scalar.lo scalar.o: scalar.cc include/scalar.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/rational.hh
+string-convert.lo string-convert.o: string-convert.cc \
+	include/libc-extension.hh include/fproto.hh include/real.hh \
+	config.hh include/string.hh include/arithmetic-operator.hh \
+	include/string-handle.hh include/international.hh \
+	include/compare.hh include/string-convert.hh \
+	include/rational.hh
+string.lo string.o: string.cc include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh \
+	include/libc-extension.hh config.hh include/string-convert.hh
+stringutil.lo stringutil.o: stringutil.cc include/string-handle.hh \
+	include/fproto.hh include/real.hh include/string-data.hh \
+	include/string.hh include/arithmetic-operator.hh \
+	include/international.hh include/compare.hh \
+	include/string-data.icc include/string-handle.icc \
+	include/string.icc
+text-db.lo text-db.o: text-db.cc include/text-db.hh include/data-file.hh \
+	include/text-stream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/varray.hh
+text-stream.lo text-stream.o: text-stream.cc include/text-stream.hh \
+	include/string.hh include/arithmetic-operator.hh \
+	include/fproto.hh include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/varray.hh
+unionfind.lo unionfind.o: unionfind.cc include/unionfind.hh \
+	include/varray.hh
+vector.lo vector.o: vector.cc include/vector.hh include/real.hh \
+	include/varray.hh
 
 info: info-recursive
 dvi: dvi-recursive
