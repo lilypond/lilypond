@@ -269,7 +269,9 @@
    ;; FIXME
    ;; this is -of course- severely broken, (--hwn)
    (tex-string-def  "lilypondpaper" 'linewidth
-		    "18cm")
+		    (ly:number->string (/ 18 0.175))) ; 18 cm.
+   (tex-string-def  "lilypondpaper" 'interscoreline
+		    (ly:number->string 0.0))
    ))
 
 (define (output-tex-string s)
