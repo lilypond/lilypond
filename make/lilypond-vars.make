@@ -6,12 +6,12 @@ export PATH:=$(builddir)/lily/$(outconfbase):$(builddir)/buildscripts/$(outconfb
 
 # LilyPond is often run from within $(outdir), making a relative
 # PREFIX incorrect.
-export LILYPONDPREFIX:=$(build_lilypond_datadir)/lilypond
+export LILYPONDPREFIX:=$(build_lilypond_datadir)
 
 export PYTHONPATH:=$(builddir)/python/$(outconfbase):$(PYTHONPATH)
 
 ## arg, TEXINPUTS, TFMFONTS, MFINPUTS may still override and thus break this
-export TEXMF:={$(build_lilypond_datadir),$(shell kpsexpand \$$TEXMF)}
+export TEXMF:={$(LILYPONDPREFIX),$(shell kpsexpand \$$TEXMF)}
 
 export MFINPUTS:=
 export TEXINPUTS:=
