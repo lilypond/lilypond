@@ -54,9 +54,13 @@ treble = \context Voice=treble \notes\relative c''{
     \translator Staff=treble
     \property Voice.Slur \pop #'direction
     \property Voice.Slur \push #'direction = #1
-    %% 8va
     \property PianoStaff.connectArpeggios = ##t
-    cis''''4^"m.g."\arpeggio (
+    \property Voice.TextSpanner \pop #'type
+    \property Voice.TextSpanner \push #'type = #"dotted-line"
+    \property Voice.TextSpanner \push #'edge-height = #'(0 . 1.5)
+    \property Voice.TextSpanner \push #'edge-text = #'("8va " . "")
+    \property Staff."c0-position" = #-13
+    cis''''4^"m.g."\arpeggio \spanrequest \start "text"  (
 
 #ifndef FAKE_GRACE
 
@@ -70,9 +74,12 @@ treble = \context Voice=treble \notes\relative c''{
 	\property Grace.Stem \pop #'direction
 	\property Grace.Stem \push #'direction = #0
 	\property Grace.Beam \push #'space-function = #grace-beam-space-function
-	%urg, dim. during grace dumps core here
-        %%[a16-5( fis dis] [cis'32 a-1 fis-4 dis] [cis a )fis-2]
-        [a16-5( fis dis] [cis32 a-1 fis-4 dis] [cis a )fis-2]
+	%% urg, dim. during grace dumps core here
+        %% [a16-5( fis dis \spanrequest \stop "text" ]
+	%% [cis'32 a-1 fis-4 dis] [cis a )fis-2]
+        [a16-5( fis dis \spanrequest \stop "text" ]
+        \property Staff."c0-position" = #-6
+	[cis32 a-1 fis-4 dis] [cis a )fis-2]
     }
 
 #else % FAKE_GRACE 
@@ -88,8 +95,11 @@ treble = \context Voice=treble \notes\relative c''{
     )cis16
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #0
-    %%[a16^5( fis dis] [cis'32 a-1 fis-4 dis] [cis a )fis-2] s s s
-    [a16^5( fis dis] [cis32 a^1 fis^4 dis] [cis a )fis-2] s % s s
+    %% [a16^5( fis dis \spanrequest \stop "text" ]
+    %% [cis'32 a-1 fis-4 dis] [cis a )fis-2] s s s
+    [a16^5( fis dis \spanrequest \stop "text" ]
+    \property Staff."c0-position" = #-6
+    [cis32 a^1 fis^4 dis] [cis a )fis-2] s % s s
 
     \property Voice.NoteHead \pop #'font-size
     \property Voice.Stem \pop #'font-size

@@ -138,6 +138,7 @@ Text_spanner_engraver::typeset_all ()
 {  
   if (finished_)
     {
+      Side_position::add_staff_support (finished_);
       typeset_element (finished_);
       finished_ = 0;
     }

@@ -122,6 +122,17 @@
 	1 setlinecap 
 	1 setlinejoin 
 	setdash 
+	setlinewidth 
+	0 0 moveto
+	lineto
+	stroke 
+} bind def 
+%
+/xdraw_dashed_line % dash thickness dx dy
+{ 
+	1 setlinecap 
+	1 setlinejoin 
+	setdash 
 	dup
 	setlinewidth 
 	2 div

@@ -18,10 +18,14 @@
 	b c 
         a \spanrequest \stop "text"
 
+
+        \property Staff."c0-position" = #-13
+
         \property Voice.TextSpanner \push #'dash-length = #5
         \property Voice.TextSpanner \push #'line-thickness = #10
         a \spanrequest \start "text"
 	b c 
         a \spanrequest \stop "text"
+        \property Staff."c0-position" = #-6
     }
 }

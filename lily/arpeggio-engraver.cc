@@ -82,15 +82,16 @@ Arpeggio_engraver::process_acknowledged ()
       arpeggio_->set_parent (stems_[0], Y_AXIS);
       Side_position::set_axis (arpeggio_, X_AXIS);
       Side_position::set_direction (arpeggio_, LEFT);
+      Staff_symbol_referencer::set_interface (arpeggio_);
       Pointer_group_interface pgi (arpeggio_, "stems");
       for (int i = 0; i < stems_.size (); i++)
 	{
 	  pgi.add_element (stems_[i]);
-	  Side_position::add_support (arpeggio_, stems_[i]);
+	  //Side_position::add_support (arpeggio_, stems_[i]);
 	}
       for (int i = 0; i < supports_.size (); i++)
 	{
-	  Side_position::add_support (arpeggio_, supports_[i]);
+	  ;//Side_position::add_support (arpeggio_, supports_[i]);
 	}
       announce_element (arpeggio_, arpeggio_req_);
     }

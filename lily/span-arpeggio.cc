@@ -6,6 +6,8 @@
   (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include <math.h>
+
 #include "axis-group-interface.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
@@ -57,9 +59,14 @@ Span_arpeggio::brew_molecule (SCM smob)
       a.translate_axis (i * staff_space, Y_AXIS);
       mol.add_molecule (a);
     }
-  // huh?
-  Real dy = me->relative_coordinate (common, Y_AXIS);
-  mol.translate (Offset (-2 * staff_space, -2*dy));
+  /*
+    urg?
+   */
+  Real dy = -(int)me->relative_coordinate (common, Y_AXIS);
+  dy += iv.length () / 2;
+  dy /= staff_space;
+  dy = staff_space * rint (dy);
+  mol.translate (Offset (0, dy));
 
   return mol.create_scheme (); 
 }
