@@ -97,7 +97,7 @@ INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/ly
 INSTALLATION_OUT_FILES4=$(FETA_LIST_FILES)
 
 INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/fonts/type1
-INSTALLATION_OUT_FILES5=$(PFA_FILES) $(outdir)/Fontmap $(outdir)/Fontmap.lily
+INSTALLATION_OUT_FILES5=$(PFA_FILES)
 
 INSTALLATION_OUT_DIR6=$(local_lilypond_datadir)/dvips/
 INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
