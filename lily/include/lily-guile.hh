@@ -270,7 +270,7 @@ typedef SCM (*Scheme_function_3) (...);
 
 /*
   Adds the NAME as a Scheme function, and a variable to store the SCM
-  version of the function.
+  version of the function in the static variable NAME_proc
  */
 #define DECLARE_SCHEME_CALLBACK(NAME,ARGS) \
 	static SCM NAME ARGS; \
