@@ -14,6 +14,7 @@
 #include "g-text-item.hh"
 #include "lily-guile.hh"
 #include "p-col.hh"
+#include "paper-def.hh"
 
 Bar_script_engraver::Bar_script_engraver ()
 {
@@ -50,13 +51,15 @@ Bar_script_engraver::do_acknowledge_element (Item *i)
 
       /*
 	How do we make sure that staff_side_p_ has a dependency from
-	someone else? We can't use i for that, 
+	someone else? We can't use i for that,  so we use some other element.
        */
       get_staff_info ().command_pcol_l ()->add_dependency (staff_side_p_);
     }
 }
 
-
+/*
+  URG.
+ */
 Item*
 Bar_script_engraver::cast_to_interesting_item (Score_element *e)
 {
@@ -146,7 +149,12 @@ Bar_script_engraver::create_items (Request *rq)
     {
       staff_side_p_->set_elt_property (padding_scm_sym, gh_double2scm(Real(padding)));
     }
-
+  else
+    {
+      staff_side_p_
+	->set_elt_property (padding_scm_sym,
+			    gh_double2scm(paper_l ()->get_realvar (interline_scm_sym)));
+    }
   
   staff_side_p_->set_elt_property (visibility_lambda_scm_sym,
 				   visibility_lambda_);

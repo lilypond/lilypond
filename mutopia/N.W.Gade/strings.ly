@@ -1,4 +1,4 @@
-\version "1.0.14";
+\version "1.0.16";
 
 viI=\notes\relative c'' {
 
@@ -67,7 +67,7 @@ a4 \> ) g |
 \! a2 ( |
 [a8_"dim." g f d] |
 <{[b g ][a ) g ] |} 
-  \type Voice=x {s8.. \tiny b8}>
+  \context Voice=x {s8.. \tiny b8}>
 R2 |
 r4 r8 a'-. \mf |
 [a-. \< a-. a-. \! a-. ] |
@@ -567,7 +567,7 @@ vla=\notes\relative c' {
 \property Staff."midi_instrument" = "viola"
 
 [c8. \f ( d16 ] ) c2_"dim." |
-\type Staff <{\voiceone s4 c2 |
+\context Staff <{\voiceone s4 c2 |
   c2. ~ |
   c2. ~ |
   c2. ~ |

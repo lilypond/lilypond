@@ -1,12 +1,12 @@
 \score{
 	<
-	\type Staff \notes{ 
+	\context Staff \notes{ 
 	  \skip 4*27;
 	  \skip 4*27;
 	  \skip 4*27;
 	  \skip 4*27;
 	  }
-	\type Lyrics \lyrics{ 
+	\context Lyrics \lyrics{ 
 aaaaaaaaaaaaaaaaaaa
 xxx\break
 bbbbbbbbbbbbbbbbbbb
@@ -120,3 +120,5 @@ xxx\break
 	       linewidth = 40.\mm;
 	}
 }
+
+\version "1.0.16"; 

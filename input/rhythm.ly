@@ -7,7 +7,7 @@ TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 
 
 
-\version "1.0.14";
+\version "1.0.16";
 
 ritme = \notes\transpose c'' {
 	\time  4/4;
@@ -52,10 +52,10 @@ yanother =
 
 
 \score{
-	\type StaffGroup <
+	\context StaffGroup <
 		\ritme
 		\another
-		\type RhythmicStaff {
+		\context RhythmicStaff {
 			\yanother
 		}
 	>

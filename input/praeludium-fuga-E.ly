@@ -23,7 +23,7 @@
    * organ staff...
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 
 
@@ -37,14 +37,14 @@ praeludium_right =  \notes {
   \clef violin;
 
   % 13 -- how to type -- where to split -- this more neatly?
-  \type Staff <
-    \type Voice = I \relative c'' { \stemup r4 dis4 e4. e8 ~ |
+  \context Staff <
+    \context Voice = I \relative c'' { \stemup r4 dis4 e4. e8 ~ |
       \shifton e4 [d8 fis8] \shiftoff gis4 ~ [gis8 fis16 e ] |
       fis4 ~ [fis8 e16 dis] e4 r8 e8 }
-    \type Voice = III \relative c'' { \stemup \shifton r4 bis cis \shiftoff cis |
+    \context Voice = III \relative c'' { \stemup \shifton r4 bis cis \shiftoff cis |
       a' ~ [a16 gis a b] \shifton dis,4 cis ~ |
       [cis8 dis16 ais] bis4 cis r8 b }
-    \type Voice = IV \relative c'' {
+    \context Voice = IV \relative c'' {
 
       %\stemup
       %{
@@ -54,7 +54,7 @@ praeludium_right =  \notes {
       \stemdown
       \shifton s4 gis }
       
-    \type Voice =  II \relative c' { \stemdown
+    \context Voice =  II \relative c' { \stemdown
 %      \shifton       % idem
 
       r4 fis \shiftoff gis gis |
@@ -69,19 +69,19 @@ praeludium_left = \notes \relative c {
   \clef bass;
 
   % 13
-  \type Staff <
-    \type VoiceTwo { r4 }
-    \type VoiceOne { \stemup s4 dis' cis cis ~ |
+  \context Staff <
+    \context VoiceTwo { r4 }
+    \context VoiceOne { \stemup s4 dis' cis cis ~ |
       [cis8 a d cis] [bis gis] cis4 |
       dis2 cis4 r8 cis }
-    \type VoiceOne { \stemup bis2 }
-    \type VoiceThree { \stemup \shifton r4 gis ~ [gis8 gis] ~ \stemdown \shiftoff gis4 |
+    \context VoiceOne { \stemup bis2 }
+    \context VoiceThree { \stemup \shifton r4 gis ~ [gis8 gis] ~ \stemdown \shiftoff gis4 |
       a4. fis8 gis4. a8 ~ |
       a4 gis4 gis r8 gis }
 %    { \stemup \shifton s4 fis4 e}
 % a quick hack to avoid some collisons
-    \type VoiceFour { \stemdown \shifton s4 fis4 e}
-    \type VoiceTwo { \stemdown s4 dis4 cis4 }
+    \context VoiceFour { \stemdown \shifton s4 fis4 e}
+    \context VoiceTwo { \stemdown s4 dis4 cis4 }
   > |
   %16
 }
@@ -108,9 +108,9 @@ fugaII_right = \notes   \relative c''   {
   \clef violin;
 
   %15
-  \type Staff <
-    \type Voice = VA { \stemup [b8 fis8] b4 }
-    \type Voice = VB {  \stemdown fis2 }
+  \context Staff <
+    \context Voice = VA { \stemup [b8 fis8] b4 }
+    \context Voice = VB {  \stemdown fis2 }
   >
    %{ this chord is usually set like this:
         |
@@ -120,21 +120,21 @@ fugaII_right = \notes   \relative c''   {
       |x
       |
    %}
-   \type Staff <
+   \context Staff <
      { \stemup \shiftoff e4 }
      { \stemup \shifton cis }
      { \stemup \shifton ais }
      { \stemdown fis }
    > |
   %16
-  \type Staff <
-    \type VoiceOne {  dis2 dis4 |
+  \context Staff <
+    \context VoiceOne {  dis2 dis4 |
       cis2 cis4 |
       b4. [cis8 dis e] }
-    \type VoiceThree {  \stemup \shifton [b8 fis] b2 ~ |
+    \context VoiceThree {  \stemup \shifton [b8 fis] b2 ~ |
       [b8 a!16 gis] a2 ~ |
       a4 gis2 }
-    \type VoiceTwo {  \stemdown fis2. ~ |
+    \context VoiceTwo {  \stemdown fis2. ~ |
       fis ~ |
       fis4 e2 }
   > |
@@ -146,10 +146,10 @@ fugaII_left = \notes {
   \clef bass;
 
   %15
-  \type Staff < 
-    \type VoiceTwo { \stemdown b2 \stemup ais4 |
+  \context Staff < 
+    \context VoiceTwo { \stemdown b2 \stemup ais4 |
       b2 b4 }
-    \type VoiceTwo { \stemdown s2 e4 |
+    \context VoiceTwo { \stemdown s2 e4 |
       fis2 fis4 }
   >
   \stemdown cis2 e4 |
@@ -177,14 +177,14 @@ breakmusic = \notes {
 
 % these should be two separate scores...
 \score{
-  \type Score <
-    \type PianoStaff <
-      \type Staff = treble {
+  \context Score <
+    \context PianoStaff <
+      \context Staff = treble {
         \praeludium_right \breakmusic \fugaII_right }
-      \type Staff = bass { 
+      \context Staff = bass { 
         \praeludium_left \breakmusic \fugaII_left }
     > 
-    \type Staff = pedal {
+    \context Staff = pedal {
       \praeludium_pedal \breakmusic \fugaII_pedal }
   >
 
@@ -219,7 +219,7 @@ breakmusic = \notes {
      \accepts VoiceTwo;
      \accepts VoiceOne;
    }
-%   \translator { \OrchestralScoreContext }
+   \translator { \OrchestralScoreContext }
   }
 
   \midi {

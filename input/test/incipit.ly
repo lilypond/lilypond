@@ -6,7 +6,7 @@
    /Mats B
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 incipit = \notes\relative c'{
   <b1 fis' b d>
@@ -17,7 +17,7 @@ violin = \notes\relative c''{
   \time 2/2;
 
   a4. b8 c4 fis |
-  gis~ gis8 fis16^\trill ()e b8 c \type Staff<{\voiceone a d}{\voicetwo es,4}>|
+  gis~ gis8 fis16^\trill ()e b8 c \context Staff<{\voiceone a d}{\voicetwo es,4}>|
 }
 
 BC  = \notes\relative c{
@@ -31,13 +31,13 @@ BC  = \notes\relative c{
 
 \score{
   \notes{
-    \type Staff=violin
+    \context Staff=violin
     \property Staff.clefStyle = "transparent" 
       \incipit 
-    < \type Staff=violin { 
+    < \context Staff=violin { 
       \bar ".|"; \endincipit
       \violin}
-      \type Staff=cb { \property Staff.clefStyle = "transparent" 
+      \context Staff=cb { \property Staff.clefStyle = "transparent" 
       \bar ".|";  \endincipit 
       \BC}>
   }

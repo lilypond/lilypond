@@ -10,6 +10,7 @@
 #ifndef LOOKUP_HH
 #define LOOKUP_HH
 
+#include "lily-guile.hh"
 #include "molecule.hh"
 #include "fproto.hh"
 #include "direction.hh"
@@ -27,7 +28,6 @@ public:
   Molecule accidental (int, bool cautionary) const;
   Molecule afm_find (String, bool warn=true) const;
   Molecule notehead  (int, String) const;
-
   Molecule bar (String, Real height) const;
   Molecule beam (Real, Real, Real) const;
   Molecule clef (String) const;
@@ -40,11 +40,9 @@ public:
   Molecule hairpin (Real width, bool decresc, bool continued) const;
   Molecule plet (Real dy, Real dx, Direction dir) const;
   Molecule rest (int, bool outside, String) const;
-  Molecule rule_symbol (Real height, Real width) const;
-
+  Molecule accordion (SCM arg) const;
   Molecule stem (Real y1_pos, Real y2_pos) const;
   Molecule slur (Array<Offset> controls) const;
-  Molecule streepje (int type) const;
   Molecule text (String style, String text) const;
   Molecule staff_brace (Real dy) const;
   Molecule staff_bracket (Real dy) const;

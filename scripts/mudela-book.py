@@ -731,8 +731,8 @@ def main():
     # r""" ... """ means: leave escape seqs alone.
     defined_mudela_cmd = {'mudela': r"""
 \begin{mudela}[eps \fontoptions]
-  \type Staff <
-    \type Voice{
+  \context Staff <
+    \context Voice{
       \maininput
     }
   >

@@ -53,8 +53,9 @@ G_script_engraver::do_process_requests()
       G_stem_staff_side_item * ss =new G_stem_staff_side_item;
       list = SCM_CDR (list);
 	  
-      p->indices_drul_[LEFT] = ly_scm2string(SCM_CAAR (list));
-      p->indices_drul_[RIGHT] = ly_scm2string(SCM_CDAR (list));
+      p->set_elt_property (molecule_scm_sym,
+			   SCM_CAR(list));
+
       list = SCM_CDR(list);
       bool follow_staff = gh_scm2bool (SCM_CAR(list));
       list = SCM_CDR(list);

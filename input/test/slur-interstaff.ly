@@ -1,6 +1,6 @@
 \score{
-	\type GrandStaff <
-	\type Staff=one \notes\relative c'{
+	\context GrandStaff <
+	\context Staff=one \notes\relative c'{
 		\stemup c4( c \translator Staff=two c )c |
 		\translator Staff=one
 		\stemup c4( c \translator Staff=two c )c |
@@ -21,7 +21,7 @@
 		\stemup c4( \translator Staff=one c c \translator Staff=two )c
 		r1
 	}
-	\type Staff=two \notes\relative c'{
+	\context Staff=two \notes\relative c'{
 		\clef bass;
 		s1 s1 s1 s1 s1 s1 s1 s1 s1 s1
 	}
@@ -37,3 +37,5 @@
 		%linewidth=100.\mm;
 	}
 }
+
+\version "1.0.16"; 

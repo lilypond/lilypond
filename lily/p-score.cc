@@ -52,7 +52,7 @@ Paper_score::typeset_element (Score_element * elem_p)
 {
   elem_p_arr_.push (elem_p);
   elem_p->pscore_l_ = this;
-  elem_p->add_processing ();
+
 
   SCM p =  elem_p->remove_elt_property (break_helper_only_scm_sym);
   if (p != SCM_BOOL_F)
@@ -65,7 +65,6 @@ Paper_score::typeset_unbroken_spanner (Spanner*span_p)
 {
   span_p_arr_.push (span_p);
   span_p->pscore_l_=this;
-  span_p->add_processing ();
 
   SCM p =  span_p->remove_elt_property (break_helper_only_scm_sym);
   if (p != SCM_BOOL_F)

@@ -12,11 +12,11 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
-% upper = \type Staff \notes\relative c {
-upper = \type Staff=upper \notes\relative c {
-	\type Voice=i
+% upper = \context Staff \notes\relative c {
+upper = \context Staff=upper \notes\relative c {
+	\context Voice=i
 	\property Voice . textstyle = "italic"
 % rediculous dim...
 %	r16\p_"legato"\< g''-1( c-3 )e-5 r g,-1( c )e 
@@ -41,7 +41,7 @@ upper = \type Staff=upper \notes\relative c {
 	% ugh arpeggio
 	<
 		{ \stemup f4 r }
-		\type Voice=ii { \stemdown <g,4 d'> r }
+		\context Voice=ii { \stemdown <g,4 d'> r }
 	>
 	\stemboth 
 	\translator Staff=lower\stemup
@@ -78,16 +78,16 @@ upper = \type Staff=upper \notes\relative c {
 	es-2 fis-3 a-4 c-5 
 	< 
 		{ \stemup r c8 b16 }
-		\type Voice=ii { \stemdown  d,8 f-2 }
+		\context Voice=ii { \stemdown  d,8 f-2 }
 	>
 	\stemboth |
 	<c1\mf g e>
 	\bar "|.";
 }
 
-% lower = \type Staff \notes\relative c{
-lower = \type Staff=lower \notes\relative c{
-	\type Voice=i
+% lower = \context Staff \notes\relative c{
+lower = \context Staff=lower \notes\relative c{
+	\context Voice=i
 	\property Voice . textstyle = "roman"
 	c4-5 e-3 g-\mordent^"(\\textsharp)" g,4 |
 	d'4-\mordent-5 f-3 a-\mordent^"(\\textsharp)" a,4 |
@@ -100,7 +100,7 @@ lower = \type Staff=lower \notes\relative c{
 	g' r s s | s s s s \clef "bass"; |
 	<
 		{ \stemup g1 ~ g ~ g ~ g ~ g ~ g ~ g }
-		\type Voice=ii { \stemdown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
+		\context Voice=ii { \stemdown g,1 ~ g ~ g ~ g ~ g ~ g ~ g }
 	>
 	<c,1 c,>
 	\bar "|.";
@@ -112,12 +112,12 @@ global = \notes{
 
 \score{
 	% Moderato
-	\type GrandStaff <
-		\type Staff = upper <
+	\context GrandStaff <
+		\context Staff = upper <
 			\global
 			\upper
 		>
-		\type Staff = lower <
+		\context Staff = lower <
 			\global
 			\clef "bass";
 			\lower

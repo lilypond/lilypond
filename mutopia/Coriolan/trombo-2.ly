@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 trombo2 = \notes \relative c {
 	R1 *2 | c'4-.\ff r r2 | R1 *3 | c4-. r r2 | R1 *3 |

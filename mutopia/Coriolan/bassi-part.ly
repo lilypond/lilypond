@@ -7,19 +7,19 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "global.ly"
 \include "violoncello.ly"
 \include "contrabasso.ly"
 
-$bassi = \type GrandStaff = bassi_group <
+$bassi = \context GrandStaff = bassi_group <
 	\$violoncello_staff
 	\$contrabasso_staff
 >
 
 
-$bassi = \type GrandStaff = bassi_group <
+$bassi = \context GrandStaff = bassi_group <
 	\$violoncello_staff
 	\$contrabasso_staff
 >

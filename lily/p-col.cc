@@ -17,7 +17,7 @@ Paper_column::add_rod (Paper_column * p, Real d)
   
   if (!dir)
     {
-      warning ("Must set minimum distance between differing columns. [PROGRAMMING ERROR]");
+      warning ("Must set minimum distance between differing columns.");
       return;
     }
   

@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "sarabande-urtext.ly";
 
@@ -33,7 +33,7 @@ sarabande_cello_global = \notes{
 sarabande_cello_scripts = \notes{
 }
 
-sarabande_cello_staff = \type Staff <
+sarabande_cello_staff = \context Staff <
 	\$sarabande
 	\$sarabande_cello_global
 	\$sarabande_cello_scripts

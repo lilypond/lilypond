@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "courante-urtext.ly";
 
@@ -43,7 +43,7 @@ courante_viola_global = \notes{
 courante_viola_scripts = \notes{
 }
 
-courante_viola_staff = \type Staff <
+courante_viola_staff = \context Staff <
 	\notes \transpose c' \$courante
 	\$courante_viola_global
 	\$courante_viola_scripts

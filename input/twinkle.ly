@@ -19,7 +19,7 @@ traditional song in various languages.
 Tested Features: lyrics, interleaving lyrics and staffs, repeats
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 melody = \notes \relative c'' {
 	\clef violin;
@@ -117,13 +117,13 @@ textiii = \lyrics{
 
 \score{
 	<
-		\type Staff=i \repeat 2 < \global\melody >
-		\type Lyrics=top \repeat 2 {} \alternative < \tekst \texte >
-		\type GrandStaff <
-			\type Staff=ii \repeat 2 < \global\melody >
-			\type Staff=iii \repeat 2 < \global\accompany >
+		\context Staff=i \repeat 2 < \global\melody >
+		\context Lyrics=top \repeat 2 {} \alternative < \tekst \texte >
+		\context GrandStaff <
+			\context Staff=ii \repeat 2 < \global\melody >
+			\context Staff=iii \repeat 2 < \global\accompany >
 		>
-		\type Lyrics=bottom \repeat 3 {} 
+		\context Lyrics=bottom \repeat 3 {} 
 			\alternative < \texti \textii \textiii >
 	>
 	\paper{

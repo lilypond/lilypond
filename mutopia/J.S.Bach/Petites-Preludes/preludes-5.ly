@@ -8,12 +8,12 @@ composer =	"Johann Sebastian Bach (1685-1750)";
 enteredby =	"jcn";
 copyright =	"public domain";
 }
-\version "1.0.14";
+\version "1.0.16";
 
 
-upper = \type Staff \notes\relative c{
+upper = \context Staff \notes\relative c{
 	\property Voice . textstyle = "italic"
-	\type Voice=i
+	\context Voice=i
 %	d'8-1\p a'-5-"legato" f-3 d-1 a'-5 f-3 |
 	d'8-1\p a'-5 f-3 d-1 a'-5 f-3 |
 	d-1 a'-5 f-3 d-1 a'-5 f-3 |
@@ -35,7 +35,7 @@ upper = \type Staff \notes\relative c{
 			c4-\mordent^"(\\textsharp)" r r
 			\property Voice . textstyle = "italic"
 		}
-		\type Voice=ii { \stemdown a4 r r | a4 r r }
+		\context Voice=ii { \stemdown a4 r r | a4 r r }
 	> |
 	\stemboth 
 	a'8\mf( es-3\> d c bes!-3 a |
@@ -55,7 +55,7 @@ upper = \type Staff \notes\relative c{
 %			cis8-\prall e8-5-"poco cresc." cis-3 a e' cis 
 			cis8-\prall e8-5 cis-3 a e' cis 
 		}
-		\type Voice=ii { \stemdown a4 }
+		\context Voice=ii { \stemdown a4 }
 	>
 	\stemboth 
 	a8 e'-5 cis a bes!-3 a |
@@ -94,7 +94,7 @@ upper = \type Staff \notes\relative c{
 			\stemup 
 			f4-4\> ~ | [\!f8 e] [e32-4 f e8.] ~ [e8 d-3]
 		}
-		\type Voice=ii { \stemdown <d4 a> r4 cis-2 }
+		\context Voice=ii { \stemdown <d4 a> r4 cis-2 }
 	> |
 	\stemboth 
 	d8-4 c!-3 a-1 d-4 bes-2 g-1 |
@@ -104,14 +104,14 @@ upper = \type Staff \notes\relative c{
 	a-5 fis d g-5 e cis-2 |
 	<
 		{ \stemup <fis2-.-5\p a,> }
-		\type Voice=ii { \stemdown  [d32( cis d8.] ~ ) d2 }
+		\context Voice=ii { \stemdown  [d32( cis d8.] ~ ) d2 }
 	> |
 	\bar "|.";
 }
 
 
-lower = \type Staff \notes\relative c{
-	\type Voice=i
+lower = \context Staff \notes\relative c{
+	\context Voice=i
 %	d32( cis )d8. r4 r |
 	d4-\mordent r r |
 	d,4 r r |
@@ -186,12 +186,12 @@ global = \notes{
 
 \score{
 	% Moderato
-	\type GrandStaff <
-		\type Staff = upper <
+	\context GrandStaff <
+		\context Staff = upper <
 			\global
 			\upper
 		>
-		\type Staff = lower <
+		\context Staff = lower <
 			\global
 			\clef "bass";
 			\lower

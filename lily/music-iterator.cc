@@ -22,6 +22,7 @@
 #include "time-scaled-music.hh"
 #include "repeated-music.hh"
 #include "repeated-music-iterator.hh"
+#include "context-specced-music.hh"
 
 void
 Music_iterator::do_print() const
@@ -129,10 +130,11 @@ Music_iterator::static_get_iterator_p (Music const *m, Translator_group *report_
     assert (0);
 
   p->music_l_ = m;
-  if (m->translator_type_str_.length_i ())
+
+  if (Context_specced_music const * csm =dynamic_cast<Context_specced_music const*>(m))
     {
       Translator_group* a =report_l->
-	find_create_translator_l (m->translator_type_str_, m->translator_id_str_);
+	find_create_translator_l (csm->translator_type_str_, csm->translator_id_str_);
       p->set_translator (a);
     }
 

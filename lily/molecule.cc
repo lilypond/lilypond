@@ -61,7 +61,7 @@ Molecule::translate_axis (Real x,Axis a)
   for (CELLTYPE  ptr = atom_list_; ptr != MOL_EOL; ptr = NEXT_CELL(ptr))
     UNBOX_ATOM (UNBOX_PTR(ptr))->off_[a] += x;
 
-  if (!empty_b ())
+  if (!dim_[a].empty_b ())
     dim_[a] += x;
 }
 
@@ -165,7 +165,7 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
   Real my_extent= empty_b () ? 0.0 : dim_[a][d];
   Interval i (m.extent ()[a]);
   if (i.empty_b ())
-    warning ("Molecule::add_at_edge: adding empty molecule. [PROGRAMMING ERROR]");
+    programming_error ("Molecule::add_at_edge: adding empty molecule.");
   
   Real his_extent = i[-d];
   Real offset = my_extent -  his_extent;

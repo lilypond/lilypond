@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "gigue-urtext.ly";
 
@@ -41,7 +41,7 @@ gigue_viola_global = \notes{
 gigue_viola_scripts = \notes{
 }
 
-gigue_viola_staff = \type Staff <
+gigue_viola_staff = \context Staff <
 	\notes \transpose c' \$gigue
 	\$gigue_viola_global
 	\$gigue_viola_scripts

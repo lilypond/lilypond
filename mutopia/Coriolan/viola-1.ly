@@ -7,10 +7,10 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 viola1 = \notes \relative c {
-	\type Voice=one
+	\context Voice=one
 	c'1\ff ~ | c | f,4-. r r2 | r1 |
 	% copied 3 bars from three back...
 	%5
@@ -290,13 +290,13 @@ viola1 = \notes \relative c {
 \include "viola-2.ly";
 
 
-% $viola1_staff = \type Staff = viola1 <
-$viola1_staff = \type Staff = violai <
+% $viola1_staff = \context Staff = viola1 <
+$viola1_staff = \context Staff = violai <
 	\property Staff.midi_instrument = "viola"
 	\property Staff.instrument = "Viola"
 	\property Staff.instr = "Vla."
 	\clef "alto";
-	\notes \type Voice=one < 
+	\notes \context Voice=one < 
 		\global
 		\$viola1
 	>

@@ -92,10 +92,10 @@ input along with output in Figure~\ref{fig:intro-fig}.
 \begin{mudela}[verbatim]
       \score {
         \notes
-          \type GrandStaff <
+          \context GrandStaff <
              \transpose c'' { c4 c4 g4 g4 a4 a4 g2 }
              { \clef "bass"; c4 c'4
-               \type Staff <e'2 {\stemdown c'4 c'4}> f'4 c'4 e'4 c'4 }
+               \context Staff <e'2 {\stemdown c'4 c'4}> f'4 c'4 e'4 c'4 }
            >
            \paper { 
              linewidth = -1.0\cm ;
@@ -188,10 +188,10 @@ score and in extracted parts.
     \begin{mudela}
       \score {
         \notes
-          \type GrandStaff <
+          \context GrandStaff <
              \transpose c'' { c4 c4 g4 g4 a4 a4 g2 }
              { \clef "bass"; c4 c'4
-               \type Staff <e'2 {\stemdown c'4 c'4}> f'4 c'4 e'4 c'4 }
+               \context Staff <e'2 {\stemdown c'4 c'4}> f'4 c'4 e'4 c'4 }
            >
            \paper { 
              linewidth = -1.0\cm ;
@@ -329,7 +329,7 @@ linewidth = -1.;
 \end{mudela}
 \begin{mudela}
   \score {
-    \notes \transpose c''{ r\longa*1/4 r\breve*1/2 r1 r2 r4 r8 r16 r32 r64 }
+    \notes \transpose c''\context Staff { r\longa*1/4 r\breve*1/2 r1 r2 r4 r8 r16 r32 r64 }
     \paper {
       \translator {
         \StaffContext
@@ -440,11 +440,11 @@ Figure~\ref{fig:simultaneous}.
   \begin{center}
     \begin{mudela}
       \relative c'' {\time 2/4;  <c4 e> <d f>
-                \type Staff < \type Voice = VA{
+                \context Staff < \context Voice = VA{
                   \stemdown
                   c4 d
                   b16 b b b b b b b }
-                \type Voice = VB {
+                \context Voice = VB {
                   \stemup e4 f g8 g4 g8 } >
           }
     \end{mudela}
@@ -525,9 +525,70 @@ Figure~\ref{fig:collision}.
 
 \section{Requirements}
 
+
 \section{Approach}
 
 \subsection{Input}
+
+The input format consists of combining a symbolic representation of
+music with style sheet that describes how the symbolic presentation
+can converted to notation.  The symbolic representation is based on a
+context free language called \textsf{music}.  Music is a recursively
+defined construction in the input language.  It can be constructed by
+combining lists of \textsf{music} sequentially or parallel or from
+terminals like notes or lyrics.
+
+The grammar for \textsf{music} is listed below.  It has been edited to
+leave out the syntactic and ergonomic details.
+
+\begin{center}
+    \begin{tabular}{ll}
+Music:  & SimpleMusic\\
+        & $|$ REPEATED int Music ALTERNATIVE MusicList\\
+        & $|$ SIMULTANEOUS MusicList\\
+        & $|$ SEQUENTIAL MusicList\\
+        & $|$ CONTEXT STRING '=' STRING Music\\
+        & $|$ TIMES int int Music     \\
+        & $|$ TRANSPOSE PITCH Music \\
+SimpleMusic: & $|$ Note\\
+        & $|$ Lyric\\
+        & $|$ Rest\\
+        & $|$ Chord\\
+        & $|$ Command\\
+Command: & METERCHANGE\\
+        & $|$ CLEFCHANGE\\
+        &$|$ PROPERTY STRING '=' STRING\\
+Chord: &PitchList DURATION\\
+Rest: &REST DURATION\\
+Lyric: &STRING DURATION\\
+Note: &PITCH DURATION\\
+\end{tabular}
+\end{center}
+  
+The terminals are both purely musical concepts that have a duration,
+and take a non-zero amount of musical time, like notes and lyrics, and
+commands that behave as if they have no duration.\footnote{The
+  PROPERTY command is a generic mechanism for controlling the
+  interpretation, i.e. the musical style sheets. See [forward ref]}
+
+The nonterminal productions can
+\begin{itemize}
+\item Some productions combine multiple elements: one can specify that
+  element are to be played in sequence, simultaneously or repetitively.
+\item There are productions for transposing music, and for dilating
+  durations of music: the TIMES production can be used to encode a
+  triplet.\footnote{A triplet is a group of three notes marked by a
+    bracket, that are played 3/2 times faster.}
+\item
+  There are productions that give directions to the interpretation
+  engine (the CONTEXT production)
+\end{itemize}
+
+
+\section{Context in notation} 
+
+\section{Interpretation context}
+
 
 \section{Discussion}
 

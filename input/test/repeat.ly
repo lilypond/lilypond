@@ -1,11 +1,11 @@
 \score{
 	<
-		  \type Staff \notes\relative c'{ 
+		  \context Staff \notes\relative c'{ 
 			  c d e f
 			  \repeat 2 { g a b c }
 			  \alternative { { c b a g } { f e d c } }
 		  }
-		  \type Lyrics \lyrics {
+		  \context Lyrics \lyrics {
 			  De eer- ste < { maat } { moet } >
 			  \repeat 2 { }
 			  \alternative < 
@@ -16,3 +16,5 @@
 		  }
 	>
 }
+
+\version "1.0.16"; 

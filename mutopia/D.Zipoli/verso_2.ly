@@ -17,7 +17,7 @@ title = "Verso II";
 	under the Gnu Public Licence.
 %}
 	
-\version "1.0.14";
+\version "1.0.16";
 
 $voice_one = \notes \relative c' {
 	a'2 bes4. [c16 bes] | a4 d ~ d c ~ | c b ~ [b8 a] a4 ~|
@@ -51,21 +51,21 @@ global=\notes {
 recorder= {
 %	For three recorders.
 %
-	\type StaffGroup
+	\context StaffGroup
 	<
-		\type Staff = descant {
+		\context Staff = descant {
 			\property Staff.Instrument = "Descant"
 			\clef "G^8";
 			\notes \transpose bes' {\global \$voice_one }
 		}
 
-		\type Staff = treble {
+		\context Staff = treble {
 		      \property Staff.Instrument = "Treble"
 			\clef "G";
 			\notes \transpose bes' {\global  \$voice_two }
 		}
 
-		\type Staff = lower {
+		\context Staff = lower {
 		      \property Staff.Instrument = "Tenor or Treble II"
 			\clef "G";
 			\notes \transpose bes'' {\global \$voice_three }
@@ -80,17 +80,17 @@ recorder= {
 %	 Try to make parts cross staves as apropriate.
 %
 organ={
-	\type GrandStaff
+	\context GrandStaff
 	<
-		\type Staff = treble {
+		\context Staff = treble {
 		      \clef "G";
 		      \global
-		      \type Staff <
+		      \context Staff <
 		        { \voiceone \$voice_one }
 		        { \voicetwo \$voice_two }
 		      >
 		}
-		\type Staff = bass {
+		\context Staff = bass {
 		      \clef "F"; \global \$voice_three
 		}
 	>

@@ -16,7 +16,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "menuetto-urtext.ly";
 
@@ -35,7 +35,7 @@ menuetto_i_cello_global = \notes{
 }
 
 menuetto_i_cello_scripts = \notes{
-	\type Voice=i
+	\context Voice=i
 	s2.
 	s8^"~"^1_2_4 s8 s4 s^4
 	s4^0_1 s_4 s
@@ -55,7 +55,7 @@ menuetto_i_cello_scripts = \notes{
 	s8^2_3 s s s^1 s4^1
 }
 
-menuetto_i_cello_staff = \type Staff <
+menuetto_i_cello_staff = \context Staff <
 	\$menuetto_i
 	\$menuetto_i_cello_global
 %	\$menuetto_i_cello_scripts
@@ -90,7 +90,7 @@ menuetto_ii_cello_global = \notes{
 
 }
 
-menuetto_ii_cello_staff = \type Staff <
+menuetto_ii_cello_staff = \context Staff <
 	\$menuetto_ii
 	\$menuetto_ii_cello_global
 %	\$menuetto_ii_cello_scripts

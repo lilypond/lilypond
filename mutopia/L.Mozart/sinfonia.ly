@@ -47,7 +47,7 @@ tempi = \notes{
 }
 
 dynamics = \notes{
-	\type Voice=i
+	\context Voice=i
 	s16\f s8. s4 | s2*17
 	s8\p s4. | s8\f s4. | s2*4
 	s8\p s4. | s8\f s4. | s2*29
@@ -61,7 +61,7 @@ dynamics = \notes{
 
 
 violinoi = \notes \relative c'{
-	\type Voice=i
+	\context Voice=i
 	\clef "violin";
 	\stemup
 	[<g8 d' b' g'> g'' g g] \stemboth | [g16 a b a] [g a b a] |
@@ -156,7 +156,7 @@ violinoi = \notes \relative c'{
 }
 
 violinoii = \notes \relative c'{
-	\type Voice=i
+	\context Voice=i
 	\clef "violin";
 	\stemup [<g8 d' b' g'> g'' g g] \stemboth | [b,16 c d c] [b c d c] |
 	\stemup [<g,8 d' b' g'> g'' g g] \stemboth | [b,16 c d c] [b c d c] |
@@ -250,7 +250,7 @@ violinoii = \notes \relative c'{
 }
 
 viola = \notes \relative c'{
-	\type Voice=i
+	\context Voice=i
 	\clef "alto";
 	[b16 c d c] [b c d c] | [b8 b b b] | 
 	[b16 c d c] [b c d c] | [b8 b b b] |
@@ -312,7 +312,7 @@ viola = \notes \relative c'{
 }
 
 bassocontinuo = \notes \relative c'{
-	\type Voice=i
+	\context Voice=i
 	\clef "bass";
 	[g16 a b a] [g a b a] | [g8 g, g g'] |
 	[g16 a b a] [g a b a] | [g8 g, g g'] | 
@@ -367,12 +367,12 @@ bassocontinuo = \notes \relative c'{
 
 
 \score{
-        \type StaffGroup <
-                \type Staff = i < %\tempi 
+        \context StaffGroup <
+                \context Staff = i < %\tempi 
 					\global \dynamics \violinoi >
-                \type Staff = ii < \global \dynamics \violinoii >
-                \type Staff = iii < \global \dynamics \viola >
-                \type Staff = iv < \global \dynamics \bassocontinuo >
+                \context Staff = ii < \global \dynamics \violinoii >
+                \context Staff = iii < \global \dynamics \viola >
+                \context Staff = iv < \global \dynamics \bassocontinuo >
         >
         \header{
 		piece="I. Allegro";
@@ -383,3 +383,4 @@ bassocontinuo = \notes \relative c'{
         \midi{ \tempo 4 = 100; }
 }
 
+\version "1.0.16";

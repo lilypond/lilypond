@@ -10,6 +10,8 @@
 #include "g-staff-side.hh"
 #include "staff-symbol.hh"
 #include "debug.hh"
+#include "warn.hh"
+#include "dimensions.hh"
 
 G_staff_side_item::G_staff_side_item ()
 {
@@ -68,6 +70,9 @@ G_staff_side_item::do_substitute_element_pointer (Score_element*o, Score_element
 void
 G_staff_side_item::position_self ()
 {
+  if (to_position_l_ &&
+      to_position_l_->get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
+    return;
 
   Interval dim;
   Dimension_cache *common = 0;
@@ -84,9 +89,11 @@ G_staff_side_item::position_self ()
 	}
     }
   else
+     common = dim_cache_[axis_].parent_l_;
+
+  if (dim.empty_b ())
     {
       dim = Interval(0,0);
-      common = dim_cache_[axis_].parent_l_;
     }
 
   
@@ -102,7 +109,10 @@ G_staff_side_item::position_self ()
     {
       off += gh_scm2double (SCM_CDR(pad)) * dir_;
     }
-  dim_cache_[axis_].set_offset (dim[dir_] - sym_dim[-dir_] + off);
+  Real total_off = dim[dir_] - sym_dim[-dir_] + off;
+  dim_cache_[axis_].set_offset (total_off);
+  if (fabs (total_off) > 100 CM)
+    programming_error ("Huh ? Improbable staff side dim.");
 }
 
 void

@@ -9,14 +9,14 @@ c4 c2 c8  c16 c16  c1
 \property Voice.noteHeadStyle = "harmonic"
 c4 c2 c8  c16 c16  c1
 
-   \type ThreadedVoice <
-    \type Thread = TA
+   \context ThreadedVoice <
+    \context Thread = TA
       { \property Thread.noteHeadStyle = "cross"
         \property ThreadedVoice.ydirection = \up c16} 
-    \type Thread = TB
+    \context Thread = TB
       { \property Thread.noteHeadStyle = "" a16  }
     
-    \type Thread = TC
+    \context Thread = TC
       { \property Thread.noteHeadStyle = "harmonic" d16 }
     
   >
@@ -40,3 +40,4 @@ c4 c2 c8  c16 c16  c1
 	}
     }
 }
+\version "1.0.16"; 

@@ -14,12 +14,13 @@
 class Axis_align_spanner;
 class Vertical_align_engraver : public Engraver {
   Axis_align_spanner * valign_p_;
-    
+  bool qualifies_b (Score_element_info) const;  
 public:
   VIRTUAL_COPY_CONS(Translator);
   
   Vertical_align_engraver();
 protected:
+  
   virtual void acknowledge_element (Score_element_info);
   virtual void do_creation_processing();
   virtual void do_removal_processing();

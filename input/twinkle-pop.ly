@@ -11,7 +11,7 @@ copyright =	 "public domain";
 Tested Features		lyrics and chords
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 melodie = \notes\relative c'' {
         \clef "violin";
@@ -51,9 +51,9 @@ text = \lyrics{
 
 \score {
         <  
-	   \type ChordNames \acc
-	   \type Staff=melody \melodie
-           \type Lyrics \text
+	   \context ChordNames \acc
+	   \context Staff=melody \melodie
+           \context Lyrics \text
         >
 	\header{
 		title = "Ah, vous dirais-je, maman ";
@@ -63,9 +63,9 @@ text = \lyrics{
 
 \score {
         <  
-	   \chords \type ChordNames \transpose bes\acc
-	   \notes \type Staff=melody \transpose bes\melodie
-           \lyrics \type Lyrics \text
+	   \chords \context ChordNames \transpose d'\acc
+	   \notes \context Staff=melody \transpose d'\melodie
+           \lyrics \context Lyrics \text
         >
 	\header{
 		piece = "clarinet in B\\textflat";

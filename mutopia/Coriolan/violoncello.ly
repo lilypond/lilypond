@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 violoncello = \notes \relative c {
 	c1\ff ~ | c | f,4-. r r2 | r1 | c'1\ff ~ | c | f,4-. r r2 |
@@ -299,12 +299,12 @@ violoncello = \notes \relative c {
 	c4 r r2 |
 }
 
-$violoncello_staff = \type Staff = violoncello <
+$violoncello_staff = \context Staff = violoncello <
 	\property Staff.midi_instrument = "cello"
 	\property Staff.instrument = "Violoncello"
 	\property Staff.instr = "Vc."
 	\clef "bass";
-	\notes \type Voice=one< 
+	\notes \context Voice=one< 
 		\global
 		\$violoncello
 	>

@@ -29,7 +29,7 @@
 #include "command-request.hh"
 #include "musical-request.hh"
 #include "my-lily-parser.hh"
-
+#include "context-specced-music.hh"
 #include "translator-group.hh"
 #include "score.hh"
 #include "music-list.hh"
@@ -44,8 +44,8 @@
 #include "repeated-music.hh"
 
 // mmm
-Mudela_version oldest_version ("1.0.14");
-Mudela_version version ("1.0.15");
+Mudela_version oldest_version ("1.0.16");
+Mudela_version version ("1.0.16");
 
 
 // needed for bison.simple's malloc() and free()
@@ -148,6 +148,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CLEF
 %token CM_T
 %token CONSISTS
+%token CONSISTSEND
 %token DURATION
 %token EXTENDER
 %token FONT
@@ -186,6 +187,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token TRANSLATOR
 %token TRANSPOSE
 %token TYPE
+%token CONTEXT
 %token VERSION
 
 /* escaped */
@@ -481,6 +483,10 @@ translator_spec_body:
 		dynamic_cast<Translator_group*> ($$)-> set_element (*$3, true);
 		delete $3;
 	}
+	| translator_spec_body CONSISTSEND STRING semicolon {
+		dynamic_cast<Translator_group*> ($$)-> set_element (*$3, true);
+		delete $3;
+	}
 	| translator_spec_body ACCEPTS STRING semicolon {
 		dynamic_cast<Translator_group*> ($$)-> set_acceptor (*$3, true);
 		delete $3;
@@ -754,17 +760,24 @@ Simple_music:
 
 
 Composite_music:
-	TYPE STRING Music	{
-		$$ = $3;
-		$$->translator_type_str_ = *$2;
+	CONTEXT STRING Music	{
+		Context_specced_music *csm =  new Context_specced_music ($3);
+
+		csm->translator_type_str_ = *$2;
+		csm->translator_id_str_ = "";
 		delete $2;
+
+		$$ = csm;
 	}
-	| TYPE STRING '=' STRING Music {
-		$$ = $5;
-		$$->translator_type_str_ = *$2;
-		$$->translator_id_str_ = *$4;
+	| CONTEXT STRING '=' STRING Music {
+		Context_specced_music *csm =  new Context_specced_music ($5);
+
+		csm->translator_type_str_ = *$2;
+		csm->translator_id_str_ = *$4;
 		delete $2;
 		delete $4;
+
+		$$ = csm;
 	}
 	| TIMES {
 		THIS->remember_spot ();
@@ -833,11 +846,16 @@ translator_change:
 property_def:
 	PROPERTY STRING '.' STRING '=' scalar	{
 		Translation_property *t = new Translation_property;
-		t-> translator_type_str_ = *$2;
+
 		t-> var_str_ = *$4;
 		t-> value_ = *$6;
-		$$ = t;
+
+		Context_specced_music *csm = new Context_specced_music (t);
+		$$ = csm;
 		$$->set_spot (THIS->here_input ());
+
+		csm-> translator_type_str_ = *$2;
+
 		delete $2;
 		delete $4;
 		delete $6;

@@ -30,7 +30,7 @@ of a certain tune (Jazz, Real Book, for example), like
 %}
 
 \score{
-	\type ChordNames \chords{
+	\context ChordNames \chords{
 		\property Score.chordInversion = 1
 		\property Score.barAtLineStart = 1
 		\repeat 2 {
@@ -56,3 +56,5 @@ of a certain tune (Jazz, Real Book, for example), like
 		}
 	}
 }
+
+\version "1.0.16";

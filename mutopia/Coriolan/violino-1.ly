@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 violino1 = \notes \relative c {
 	c'1\ff ~ | c | <f4-. c'-. as'-.> r r2 | R1 |
@@ -272,7 +272,7 @@ violino1 = \notes \relative c {
 	c4 r r2 |
 }
 
-$violino1_staff = \type Staff = violino1 <
+$violino1_staff = \context Staff = violino1 <
 	\property Staff.midi_instrument = "violin"
 	\property Staff.instrument = "Violino I"
 	\property Staff.instr = "Vl. I"

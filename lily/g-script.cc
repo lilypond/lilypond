@@ -34,7 +34,24 @@ G_script::do_substitute_element_pointer (Score_element*o, Score_element*n)
 Molecule
 G_script::get_molecule(Direction d) const
 {
-  return lookup_l ()->afm_find ("scripts-" + indices_drul_[d]);
+  SCM s = get_elt_property (molecule_scm_sym);
+  assert  (s != SCM_BOOL_F);
+
+  s = SCM_CDR(s);
+  SCM key = SCM_CAR (s);
+  if (key == ly_symbol ("feta"))
+    {
+      return lookup_l ()->afm_find ("scripts-" +
+				    ly_scm2string (index_cell (SCM_CDR (s), d)));
+    }
+  else if (key == ly_symbol ("accordion"))
+    {
+      return lookup_l ()->accordion (SCM_CDR(s));
+    }
+
+  else assert (false);
+
+  return Molecule ();
 }
 
 
@@ -71,5 +88,5 @@ G_script::do_brew_molecule_p () const
 void
 G_script::do_print () const
 {
-  DOUT << "Indices: " << indices_drul_[LEFT] << ", " << indices_drul_[RIGHT];
+
 }

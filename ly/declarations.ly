@@ -28,6 +28,15 @@ nobreak =  \penalty  -10000;
 major = 0
 minor = 3
 
+ionian = 0
+locrian = 1
+aeolian = 3
+mixolydian = 5
+lydian = 7
+phrygian = 8
+dorian = 10
+
+
 
 papersize = "a4"
 

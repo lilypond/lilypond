@@ -11,7 +11,7 @@ copyright =	 "Public Domain";
 %{
 	
 %}
-\version "1.0.14";
+\version "1.0.16";
 
 
 global = 
@@ -183,13 +183,13 @@ bass =
 
 	
 \score {
-	\notes \type GrandStaff < 
-		\type Staff = one <
+	\notes \context GrandStaff < 
+		\context Staff = one <
 			\global 
 			\soprane
 			\tenor
 		>
-		\type Staff = two <
+		\context Staff = two <
 			\global
 			\alt
 			\bass

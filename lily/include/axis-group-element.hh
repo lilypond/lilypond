@@ -18,7 +18,8 @@
   This is a wrapper around Axis_group_administration
   */
 class Axis_group_element : public virtual Score_element,
-			   public virtual Graphical_axis_group {
+			   public virtual Graphical_axis_group
+{
 protected:
   virtual void do_print() const;
   virtual Link_array<Score_element> get_extra_dependencies() const;

@@ -452,8 +452,9 @@ class Properties:
 
         t=''
 	if os.environ.has_key ('MFINPUTS'):
-		t = os.environ['MFINPUTS'] + os.pathsep
-        os.environ['MFINPUTS'] = t + os.path.join(this.get('root'), 'mf' )
+               t = os.environ['MFINPUTS'] 
+        os.environ['MFINPUTS'] = os.pathsep + t + \
+                                 os.path.join(this.get('root'), 'mf')
 
         if os.environ.has_key('TMP'):
             this.__set('tmp',os.environ['TMP'],'environment')

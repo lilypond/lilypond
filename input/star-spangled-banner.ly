@@ -58,13 +58,13 @@ $staff2_voice_2 = \notes {
 }
 
 text = \lyrics
-\type LyricVoice { Oh4 __ \repeat 2 { }
+\context LyricVoice { Oh4 __ \repeat 2 { }
   \alternative < 
      { say. can you see,2 by8. the16 dawn's4 ear- ly light2 What8
     so8 proud-4. ly8 we4 hailed,2 At8. the16 twi-4 light's last gleam-
     ing. Whose8. broad16 }
 
-    \type LyricVoice = LVB
+    \context LyricVoice = LVB
     { stripes4 and bright stars,2 through8. the16 per-4 il- ous fight,2
     O'er8 the8 ram-4. parts8 we4 watched,2 were8. so16 gal-4 lant- ly }
   >
@@ -89,14 +89,14 @@ global = \notes {
 \include "paper16.ly";
 
 \score{ 
-	\type GrandStaff < 
-		\type Staff=staffA < 
+	\context GrandStaff < 
+		\context Staff=staffA < 
 			\global
 			\notes \transpose c'' {\voiceone \$staff1_voice_1 } 
 			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
 		>
-		\type Lyrics = one \text
-		\type Staff=staffB < 
+		\context Lyrics = one \text
+		\context Staff=staffB < 
 			\global
 			\clef bass;
 			\property Staff.voltaVisibility = "0"
@@ -118,3 +118,5 @@ global = \notes {
 	}
 }
 
+
+\version "1.0.16";

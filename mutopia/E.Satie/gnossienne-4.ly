@@ -12,7 +12,7 @@
  Tested Features: cross staff beams and slurs, grace notes, no bars
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "nederlands.ly"
 
@@ -24,43 +24,43 @@ global = \notes {
   \bar ".|";
 }
   
-upper = \type Staff=treble \notes\relative c''{
+upper = \context Staff=treble \notes\relative c''{
   \clef violin;
   \stemup
-  \type Voice=one
+  \context Voice=one
   r2 r r 
   r2 r r
   r4 [a'8--(\< a--] [a-- a-- c-- \!b--] [a--\> gis f \!e]
   % grace hack
-  < { [es8 )c] } \type Voice=x { \stemup s8*1/2 \tiny b8*1/2 ~ } > r4 r2 r
+  < { [es8 )c] } \context Voice=x { \stemup s8*1/2 \tiny b8*1/2 ~ } > r4 r2 r
   r2 r r
   r4 [a'8--(\< a--] [a-- a-- c-- \!b--] [a--\> gis f \!e]
-  < { [es8 )c] } \type Voice=x { \stemup s8*1/2 \tiny b8*1/2 ~ } > r4 r2 r
+  < { [es8 )c] } \context Voice=x { \stemup s8*1/2 \tiny b8*1/2 ~ } > r4 r2 r
   r4 [g16( a bes a] [g a bes a g a bes a] [g a bes a g fis es fis] 
   )d4 \tiny fis8*1/2 ~ \normalsize gis4*3/4 ~ gis8 r r4 r2
   r4 [g16( a bes a] [g a bes a g a bes a] [g a bes a g fis es fis] 
   )d4 \tiny fis8*1/2 ~ \normalsize gis4*3/4 ~ gis8 r r4 r2
   \tiny a8*1/2 ~ \normalsize f4*3/4 ~ f8 r r2 r
   r2 r4 [a8( b][c d c b] \tiny b8*1/2 ~ \normalsize 
-  < { [e8*1/2 )g,8] } \type Voice=x { \stemup s8*1/4 \tiny a8*1/2 ~ } > r4 r2 r
+  < { [e8*1/2 )g,8] } \context Voice=x { \stemup s8*1/4 \tiny a8*1/2 ~ } > r4 r2 r
   r2 r4 [a8( b][c d c b] [a b c d][c b a b][c d c b]
   \tiny b8*1/2 ~ \normalsize 
-  < { [e8*1/2 )g,8] } \type Voice=x { \stemup s8*1/4 \tiny a8*1/2 ~ } > r4 r2 r
+  < { [e8*1/2 )g,8] } \context Voice=x { \stemup s8*1/4 \tiny a8*1/2 ~ } > r4 r2 r
   a2( \tiny e'8*1/2 ~ \normalsize f4*3/4 ~ )f8 r r2
   r2 r r
   fis,4( \tiny dis8*1/2 \normalsize <)cis4*3/4 ais> r2 r
   \tiny b'8*1/2 ~ \normalsize 
-  < { [a8*1/2 a8] } \type Voice=x { \stemup s8*1/4 \tiny b8*1/2 ~ } > r4 r2 r
+  < { [a8*1/2 a8] } \context Voice=x { \stemup s8*1/4 \tiny b8*1/2 ~ } > r4 r2 r
   r4 [a'8--(\< a--] [a-- a-- c-- \!b--] [a--\> gis f \!e]
-  < { [es8 )c] } \type Voice=x { \stemup s8*1/2 \tiny b8*1/2 ~ } > r4 r2 r
+  < { [es8 )c] } \context Voice=x { \stemup s8*1/2 \tiny b8*1/2 ~ } > r4 r2 r
   d,4( \tiny fis8*1/2 ~ \normalsize gis4*3/4 ~ )gis8 r r4 r2
   f4 ~ f8 r r2 r
   [f'8( g a b][a g f g][a b a g]
   \tiny f8*1/2 ~ \normalsize 
-  < { [g8*1/2 )e8] } \type Voice=x { \stemup s8*1/4 \tiny d8*1/2 ~ } > r4 r2 r
+  < { [g8*1/2 )e8] } \context Voice=x { \stemup s8*1/4 \tiny d8*1/2 ~ } > r4 r2 r
   [f8( g a b][a g f g][a b a g]
   \tiny f8*1/2 ~ \normalsize 
-  < { [g8*1/2 )e8] } \type Voice=x { \stemup s8*1/4 \tiny d8*1/2 ~ } > r4 r2 r
+  < { [g8*1/2 )e8] } \context Voice=x { \stemup s8*1/4 \tiny d8*1/2 ~ } > r4 r2 r
   a,2( \tiny e'8*1/2 ~ \normalsize f4*3/4 ~ )f8 r r2
   r2 r r
   fis,4( \tiny dis8*1/2 \normalsize <)cis4*3/4 ais> r2 r
@@ -76,7 +76,7 @@ bassbeam = \notes{
 %   [s2] [s2] [s2]
 }
 
-lower = \type Voice=two \notes \relative c{
+lower = \context Voice=two \notes \relative c{
   \stemdown
   \property Staff.slurydirection = 1
 
@@ -118,12 +118,12 @@ lower = \type Voice=two \notes \relative c{
 }
 
 \score {
-    \type GrandStaff < 
-      \type Staff = treble < 
+    \context GrandStaff < 
+      \context Staff = treble < 
         \global 
 	\upper
       >
-      \type Staff = bass <
+      \context Staff = bass <
         \global
 	\clef bass;
         \lower

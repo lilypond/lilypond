@@ -31,6 +31,8 @@ static Keyword_ent the_key_tab[]={
   {"clef", CLEF},
   {"cm", CM_T},
   {"consists", CONSISTS},
+  {"consistsend", CONSISTSEND},
+  {"context", CONTEXT},
   {"duration", DURATION},
   {"font", FONT},
   {"grouping", GROUPING},
@@ -65,8 +67,8 @@ static Keyword_ent the_key_tab[]={
   {"spandynamic", SPANDYNAMIC},
   {"tempo", TEMPO},
   {"translator", TRANSLATOR},
-  {"type", TYPE},
   {"transpose", TRANSPOSE},
+  {"type", TYPE},
   {"version", VERSION},
   {0,0}
 };

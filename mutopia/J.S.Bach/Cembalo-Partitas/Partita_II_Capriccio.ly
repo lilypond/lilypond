@@ -10,7 +10,7 @@
 %% 
 %% Noe liknende skjer også i mellom andre og tredje stemme i takt 28
 
-\version "1.0.14";
+\version "1.0.16";
 
 global = \notes{
 	\time 2/4;
@@ -21,7 +21,7 @@ global = \notes{
 	\bar "|.";
 }
 
-vOne = \type Voice = voiceOne \notes\relative c''{
+vOne = \context Voice = voiceOne \notes\relative c''{
 	r8 g c4~ |	
 	[c8 d16 c][b a g f] |
 	[es8 g' d, f'] |
@@ -142,7 +142,7 @@ vOne = \type Voice = voiceOne \notes\relative c''{
 	<c2 g es>
 }
 
-vTwo = \type Voice = voiceTwo \notes\relative c{
+vTwo = \context Voice = voiceTwo \notes\relative c{
 	es4 r8 es |
 	f4 r8 bes |
 	c4. b8 |
@@ -263,7 +263,7 @@ vTwo = \type Voice = voiceTwo \notes\relative c{
 	\property Voice.hshift = 0
 	c4 b8 |
 }
-vThree = \type Voice = voiceThree \notes\relative c{
+vThree = \context Voice = voiceThree \notes\relative c{
 	\stemdown
 	c4 r8 c |
 	d4 r |
@@ -386,7 +386,7 @@ vThree = \type Voice = voiceThree \notes\relative c{
 	<c2 c,>
 }
 
-vOneSwitch = \type Voice = voiceOne \notes{
+vOneSwitch = \context Voice = voiceOne \notes{
 	s2*4
 %5
 	\stemup	s2*17
@@ -414,7 +414,7 @@ vOneSwitch = \type Voice = voiceOne \notes{
 	\stemboth
 }
 
-vTwoSwitch = \type Voice = voiceTwo \notes{
+vTwoSwitch = \context Voice = voiceTwo \notes{
 	\stemup	s2*4 
 %5
 	\stemdown \translator Staff = treble s2*17
@@ -449,7 +449,7 @@ vTwoSwitch = \type Voice = voiceTwo \notes{
 	\translator Staff = treble \stemdown s2*35
 }
 
-vThreeSwitch = \type Voice = voiceThree \notes{
+vThreeSwitch = \context Voice = voiceThree \notes{
 	\stemdown s2*6
 %7
 	\stemboth s2*21
@@ -477,13 +477,13 @@ vThreeSwitch = \type Voice = voiceThree \notes{
 }
 
 \score{
-	\type GrandStaff<
-		\type Staff = treble <
+	\context GrandStaff<
+		\context Staff = treble <
 			\global
 			\vOneSwitch
 			\vOne
 		>
-		\type Staff = bass <			
+		\context Staff = bass <			
 			\clef bass;
 			\global
 			\vTwoSwitch

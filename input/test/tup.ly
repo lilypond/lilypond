@@ -1,5 +1,5 @@
 \score{
-	\notes \type Voice {
+	\notes \context Voice {
 		 \times 2/3 { \times 2/3 { a8 b c}  c }
 		 \times 3/4 { c4 c4 c4 c4 }
 		 \time 6/8;
@@ -7,3 +7,5 @@
 
 		 }
 }
+
+\version "1.0.16"; 

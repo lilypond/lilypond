@@ -10,7 +10,7 @@ copyright =	 "public domain";
 Tested Features: example file with comments
 
 %}
-\version "1.0.14";
+\version "1.0.16";
 
 
 % the % is a comment.
@@ -54,7 +54,7 @@ begeleiding = \notes \relative c {
 }
 
 \score{
-	\type GrandStaff <
+	\context GrandStaff <
 		\melodie
 		\begeleiding 
 	>

@@ -1,5 +1,5 @@
 \score{
-	\type Staff \notes\relative c''{
+	\context Staff \notes\relative c''{
 		\property Staff.instrument = "Toeters"
 		c c c c(\break
 		)c c c c ~\break
@@ -17,3 +17,5 @@
 	}
 }
 
+
+\version "1.0.16"; 

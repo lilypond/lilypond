@@ -26,6 +26,7 @@ typedef void (Translator::*Const_method_pointer)(void) const;
   */
 class Translator_group : public virtual Translator {
   Array<String> consists_str_arr_;
+  Array<String> consists_end_str_arr_;
   Array<String> accepts_str_arr_;
   Dictionary<Scalar> properties_dict_;
 
@@ -44,8 +45,8 @@ public:
   
 
   void set_acceptor (String accepts, bool add);
-  void set_element (String accepts, bool add);  
-  
+  void set_element (String elt, bool add);  
+  void add_last_element (String elt);  
   
   Translator_group(Translator_group const &);
   Translator_group();

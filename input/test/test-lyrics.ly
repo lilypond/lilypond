@@ -1,4 +1,4 @@
-\version "1.0.14";
+\version "1.0.16";
 
 $somewhat_long = \lyrics{
 	\property Lyrics . textstyle = "roman" 
@@ -30,15 +30,15 @@ $quite_long = \lyrics{
 	Syyyyyyyyyyyyylllllllaaaaaabbble2
 }
 
-$somewhat_long_lyrics_staff = \type Lyrics = somewhat <
+$somewhat_long_lyrics_staff = \context Lyrics = somewhat <
 	\$somewhat_long
 >
 
-$rather_long_lyrics_staff = \type Lyrics = rather <
+$rather_long_lyrics_staff = \context Lyrics = rather <
 	\$rather_long
 >
 
-$quite_long_lyrics_staff = \type Lyrics = quite <
+$quite_long_lyrics_staff = \context Lyrics = quite <
 	\$quite_long
 >
 
@@ -48,7 +48,7 @@ melody = \notes
 	c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4
 }
 
-$melodic_staff = \type Staff = mel <
+$melodic_staff = \context Staff = mel <
 	\melody
 >
 

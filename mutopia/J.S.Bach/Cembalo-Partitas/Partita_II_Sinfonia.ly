@@ -10,7 +10,7 @@
   copyright =   "Public Domain";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 global = \notes {
 	\time 4/4;
@@ -29,7 +29,7 @@ hoyreOpp = \notes\relative c''  {
 	[as8. as16] [as16 g32 f g16. d32] es4 r16 [g g. as32] |
 %3
 	bes4 r16 [bes,16 bes. c32] [des8. des16] 
-	\type Staff < 
+	\context Staff < 
 		{ \stemup e4 }
 		{ \stemup \property Voice.hshift = 1 [des16 c32 bes c16. g32] }
 	>
@@ -38,7 +38,7 @@ hoyreOpp = \notes\relative c''  {
 	c4 ~ [c32 es des c des16. f32] [b,16. c32 b16. c32] d4 ~ |
 	d2 ~ [d16. g,32 a16. b32] [c16. <b32 g> <c16. a> <d32 b>] |
 	<[es8. c> <es16 c>]
-	\type Staff <
+	\context Staff <
 		{ \stemup fis4 }
 		{ \stemup \property Voice.hshift = 1 [es16 d32 c d16. a32] }
 	> g2
@@ -66,7 +66,7 @@ venstreOpp = \notes\relative c' {
 	<c as f> r r16 <[as d,><as. d,><g32 d>] <g4 d> |
 %5
 	r16 <[g c,><g. c,><f32 c>] 
-	\type Staff <
+	\context Staff <
 		{\stemup f4~ f}
 		{\stemup c4 d}
 	> r16 [f f. g32] |
@@ -79,7 +79,7 @@ venstreNed = \notes\relative c{
 	\stemdown
 	c4 r c r | r c c r | c r r c | c r r16 [c c. bes32] bes4 |
 	r16 [bes bes. as32] as4_"tr" g r16 [d' d. es32] |
-	\type Staff <
+	\context Staff <
 		{ \stemdown \property Voice.hshift = 1 [f8. f16] [b,8. b16] g4 r | }
 		{ \stemdown s4 g}
 	>
@@ -134,7 +134,7 @@ andanteEn = \notes\relative c''{
 	[bes'8-\fermata~ bes32 a g fis] [g bes a g fis e d c] [bes d c es d g fis e]
 	[d c bes a bes d bes g] |
 	r16 [e'32 fis fis16.-\prall \times 2/3 { e64 fis g] }  
-	\type Staff <
+	\context Staff <
 	 	{	\stemup  
 			[bes,32 a g fis g32 bes16.~] [bes16 c32 bes a bes c a] [fis8. g16] }
 		{	\stemdown s8 g8 ~ g4 d}
@@ -168,10 +168,10 @@ andanteTo = \notes\relative c{
 %26
 	[c16 d32 es f g as bes] [c16 c, c'8~] [c32 c, d es f g as bes][c16 c, c'8~]|
 	[c c,] [bes bes'] [fis d] [g es] |
-	\type Staff <
+	\context Staff <
 		{ 	\stemup <g4 e> r <d'2 bes g> |
 			cis4~ [cis8. cis16] [d8 c16 bes] 
-			\type Staff <	
+			\context Staff <	
 				{ \stemup [a bes c8] }
 				{ \stemdown a4 } >
 		| }
@@ -248,7 +248,7 @@ allegroEn = \notes\relative c''{
 	[c g' c, bes] [c d e f] [es g c, bes] |
 	[c g' f e] [f c f g] [as bes c d] | [es d c d] [es8 f16 g] [as8 des,] |
 	[f b,] [d g,] [g'16 f es d] | 
-	\type Staff <
+	\context Staff <
 		{ \stemup [es8. c16] c4 ~ [b8.-\prall c16] | c2-\fermata }
 		{ \stemdown r8 r16 <a16 es> <g2 d> | <g es> }
 	>
@@ -256,7 +256,7 @@ allegroEn = \notes\relative c''{
 allegroTo = \notes\relative c'{
 	\clef bass;
 %30
-	\type Staff <
+	\context Staff <
 		{ \stemup <b8 g> r r4 r }
 		{ \stemdown g,8 r8 r4 r }
 	>
@@ -320,13 +320,13 @@ allegroTo = \notes\relative c'{
 }
 
 \score {
-     \type GrandStaff < 
-      \type Staff = treble < 
+     \context GrandStaff < 
+      \context Staff = treble < 
         \global 
         { \hoyreOpp \andanteEn \allegroEn }
         \hoyreNed
       >
-      \type Staff = bass <
+      \context Staff = bass <
         \global
         { \venstreOpp \andanteTo \allegroTo }
 	\venstreNed

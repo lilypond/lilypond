@@ -1,4 +1,4 @@
-\version "1.0.14";
+\version "1.0.16";
 
 
 blah = \notes {
@@ -20,6 +20,6 @@ blah = \notes {
 }
 
 \score{
-	\type Staff \blah
+	\context Staff \blah
 	
 }

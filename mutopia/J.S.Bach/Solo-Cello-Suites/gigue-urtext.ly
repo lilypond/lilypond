@@ -16,8 +16,8 @@ d = { \slurdotted }
 % * slurs/ties in two different threads (like beams): urtext, and additionals
 % 
 
-gigue_notes = \type Staff \notes \relative c {
-	\type Voice=i
+gigue_notes = \context Staff \notes \relative c {
+	\context Voice=i
 	a'8 |
 	d,4 bes'8 | cis,4 g'8 | f16 e f g a8 |
 	d,4 d'8 | e,16(f)g8 bes | c,16(d)e8 c' | a16 g a bes c a |
@@ -72,8 +72,8 @@ gigue_notes = \type Staff \notes \relative c {
 	d4
 }
 
-gigue_b = \type Staff \notes \relative c {
-	\type Voice=ii
+gigue_b = \context Staff \notes \relative c {
+	\context Voice=ii
 	\stemdown
 	s8
 	s4.*14
@@ -97,7 +97,7 @@ gigue_b = \type Staff \notes \relative c {
 	<g4 e'>
 }
 
-gigue_a = \type Voice \notes<
+gigue_a = \context Voice \notes<
 	\$gigue_notes
 >
 
@@ -106,3 +106,4 @@ gigue = \notes<
 	\$gigue_b
 >
 
+\version "1.0.16";

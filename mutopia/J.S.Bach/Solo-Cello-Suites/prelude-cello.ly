@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "prelude-urtext.ly";
 
@@ -30,7 +30,7 @@ prelude_cello_global = \notes{
 prelude_cello_scripts = \notes{
 }
 
-prelude_cello_staff = \type Staff <
+prelude_cello_staff = \context Staff <
 	\$prelude
 	\$prelude_cello_global
 	\$prelude_cello_scripts

@@ -12,7 +12,7 @@
  Tested Features:
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "nederlands.ly"
 
@@ -37,8 +37,8 @@ global = \notes {
   \bar ".|";
 }
   
-i = \type Staff \notes\relative c''{
-  \type Voice=i
+i = \context Staff \notes\relative c''{
+  \context Voice=i
   \stemup
 
   c8.( es16 bes4 ~ | )bes8 r c8.( bes16 | des4 c8. bes16 | c4 ~ ) c8 r |
@@ -65,8 +65,8 @@ i = \type Staff \notes\relative c''{
   
 }
 
-ii = \type Staff \notes\relative c'{
-  \type Voice=ii
+ii = \context Staff \notes\relative c'{
+  \context Voice=ii
   \stemdown
 
   r8 <es as> r <des f> | r <es g> r <es as> | r <f as> r <f as> |
@@ -103,8 +103,8 @@ ii = \type Staff \notes\relative c'{
  
 }
 
-lower = \type Staff \notes \relative c{
-  \type Voice=iii
+lower = \context Staff \notes \relative c{
+  \context Voice=iii
 
   <as4 as'> <es es'> | r <as as'> | <des, des'> <f f'> | <c c'> r |
   <as as'> <des des'> | <bes bes'> r | <des des'> <bes bes'> |
@@ -132,14 +132,14 @@ lower = \type Staff \notes \relative c{
 }
 
 \score {
-    \type GrandStaff < 
-      \type Staff = treble < 
+    \context GrandStaff < 
+      \context Staff = treble < 
         \global 
         \clef violin;
 	\i
 	\ii
       >
-      \type Staff = bass <
+      \context Staff = bass <
         \global
 	\clef bass;
         \lower

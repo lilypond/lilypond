@@ -5,7 +5,7 @@ composer = "J. S. Bach";
 enteredby = "Peter Chubb";
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 sop=\notes \transpose c'' {
 	\repeat 2 {
@@ -65,15 +65,15 @@ global=\notes{
 
 \score{
 	<
-		\type Staff = "top" {
+		\context Staff = "top" {
 		\clef "treble";
 		\global
-		\type Staff <{\voiceone \sop}{\voicetwo \alt} >
+		\context Staff <{\voiceone \sop}{\voicetwo \alt} >
 		}
-		\type Staff = "bottom" {
+		\context Staff = "bottom" {
 		\clef "bass";
 		\global
-		\type Staff <  {\voiceone \ten}{\voicetwo \bass} >
+		\context Staff <  {\voiceone \ten}{\voicetwo \bass} >
 		}
 	>
 

@@ -11,7 +11,7 @@
 
 % cmchar "Italic letter p";
 % beginchar("p",9u#,x_height#,desc_depth#);
-\"Dynamic letter p";
+"Dynamic letter p";
 beginchar(112, 9u#,x_height#,desc_depth#);
 italcorr .7x_height#*slant+.5curve#-u# if math_fitting:-.5u# fi;
 adjust_fit(0,0); pickup fine.nib;

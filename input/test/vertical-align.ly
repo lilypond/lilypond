@@ -1,9 +1,9 @@
 
-\version "1.0.14";
+\version "1.0.16";
 
 \score {
 \notes <
-	\type GrandStaff < {
+	\context GrandStaff < {
 	   \property GrandStaff . maxVerticalAlign = "60."
 	   \property GrandStaff . minVerticalAlign = "35."
 

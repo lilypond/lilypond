@@ -31,15 +31,6 @@
 class Music:public Input {
 public:
     
-  /** The kind of translation needed for this music.  This doesn't
-    make sense for simple (ie non-list) music, but it does no harm
-    here. Yes, it did harm Music_sequence: you can forget to copy it.
-      
-    */
-  String translator_type_str_;
-
-  /// what identification for the translation unit
-  String translator_id_str_;    
 
   virtual Musical_pitch to_relative_octave (Musical_pitch);
 

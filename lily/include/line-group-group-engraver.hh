@@ -24,8 +24,6 @@ protected:
   virtual void do_creation_processing();
   virtual void do_removal_processing();
   virtual void typeset_element (Score_element*);
-virtual void do_announces ();
-
 public:
   VIRTUAL_COPY_CONS(Translator);
   

@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "global.ly"
 \include "flauti.ly"

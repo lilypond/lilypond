@@ -12,7 +12,8 @@
 
 #include "string.hh"
 
-void warning (String message_str  );
+void programming_error (String s);
+void warning (String message_str);
 void error (String message_str);
 void non_fatal_error (String);
 #endif // WARN_HH

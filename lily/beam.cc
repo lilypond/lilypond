@@ -203,12 +203,12 @@ Beam::get_default_dir () const
       beamdir = (count[UP] > count[DOWN]) ? UP : DOWN;
       break;
     case MEAN:
-      // mean centre distance
+      // mean center distance
       beamdir = (total[UP] > total[DOWN]) ? UP : DOWN;
       break;
     default:
     case MEDIAN:
-      // median centre distance
+      // median center distance
       if (!count[UP])
 	beamdir = DOWN;
       else if (!count[DOWN])

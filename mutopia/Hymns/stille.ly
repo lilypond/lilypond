@@ -8,7 +8,7 @@ poet = "Joseph Mohr";
 }
 
 
-\version "1.0.14";
+\version "1.0.16";
 
 global=\notes {
 	      \time 6/4;
@@ -155,9 +155,9 @@ v3e = \lyrics {
 
 
 upper= \notes {
-	\type Staff = upper { 
+	\context Staff = upper { 
 		\clef "treble"; \global
-		\type Staff <
+		\context Staff <
 			{ \voiceone \sop }
 			{ \voicetwo \alt }
 		>
@@ -165,9 +165,9 @@ upper= \notes {
 }
 
 lower = \notes {
-	\type Staff = lower {
+	\context Staff = lower {
 		\clef "bass"; \global 
-		\type Staff <
+		\context Staff <
 			{ \voicethree \ten }
 			{ \voicefour \bass }
 		>
@@ -175,13 +175,13 @@ lower = \notes {
 }
 
 \score {
-       \type ChoirStaff 
+       \context ChoirStaff 
        <
-	      { \type Lyrics = top \chords }
+	      { \context Lyrics = top \chords }
               \upper
-	      { \type Lyrics = upper \v1 }
-	      { \type Lyrics = upper \v2 }
-	      { \type Lyrics = upper \v3 }
+	      { \context Lyrics = upper \v1 }
+	      { \context Lyrics = upper \v2 }
+	      { \context Lyrics = upper \v3 }
 	      \lower
        >
 }

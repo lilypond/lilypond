@@ -17,7 +17,9 @@ inversions = \notes\transpose c''\chords{
 
 \score{
 	<
-		\type ChordNames \inversions
-		\type Staff \inversions
+		\context ChordNames \inversions
+		\context Staff \inversions
 	>
 }
+
+\version "1.0.16"; 

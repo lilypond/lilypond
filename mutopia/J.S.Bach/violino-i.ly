@@ -28,7 +28,7 @@ $violino_i = \notes\relative c'' {
 
 \include "global-i.ly"
 
-$violino_i_staff = \type Staff = violino <
+$violino_i_staff = \context Staff = violino <
 	<
 		%urg
 		% \notes\property Voice.textstyle = "large" s4^"Moderato"
@@ -37,3 +37,4 @@ $violino_i_staff = \type Staff = violino <
 	>
 	\$global_i
 >
+\version "1.0.16";

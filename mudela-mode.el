@@ -33,15 +33,15 @@
 (defconst mudela-font-lock-keywords
   (let* ((keywords '("alternative" "repeat"
 		     "accepts" "accidentals" "break" "bar" "cadenza" 
-		     "clef" "cm" "consists" "contains" "duration" 
+		     "clef" "cm" "consists" "consistsend" "contains" "duration" 
 		     "absdynamic" "scmfile" "lyrics"
-		     "in" "translator" "type" "key" "maininput" "notes"
+		     "in" "translator" "context" "key" "maininput" "notes"
 		     "musical_pitch" "time" "midi" "mm" "header"
 		     "notenames" "octave" "output" "partial" "paper" "plet" "name"
 		     "property" "pt" "shape" "relative" "include" "score"
 		     "scm" "scmfile"
-		     "script" "skip"  "table" "times" "spandynamic" "symboltables"
-		     "tempo" "texid" "textstyle" "transpose" "version" "grouping"
+		     "script" "skip"  "table" "times" "spandynamic" "symboltables" "type"
+		     "tempo" "transpose" "version" "grouping"
 		     ))
        (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))
 

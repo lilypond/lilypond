@@ -7,8 +7,8 @@ Well, there are still some scripts in this "urtext".
 But merging melodic and scripts doen't work too well yet (see viola_scripts).
 %}
 
-menuetto_i_a = \type Staff \notes \relative c {
-	\type Voice=i
+menuetto_i_a = \context Staff \notes \relative c {
+	\context Voice=i
 	<d2\f f a> bes'4 |
 	bes8 a bes g a4 |
 	<d,4 bes> g f8 e |
@@ -41,8 +41,8 @@ menuetto_i_a = \type Staff \notes \relative c {
 	<d2. a d,> |
 }
 
-menuetto_i_b = \type Staff \notes \relative c {
-	\type Voice = ii
+menuetto_i_b = \context Staff \notes \relative c {
+	\context Voice = ii
 	\stemdown
 	\slurdotted
 	\skip 2.*1; |
@@ -72,7 +72,7 @@ menuetto_i_b = \type Staff \notes \relative c {
 
 % UGH, fix this like in sarabande
 menuetto_i_a_voice_urg = \notes{
-	\type Voice = i
+	\context Voice = i
 	\skip 2.*1; \stemup
 	\skip 2.*1; \stemboth
 	\skip 2.*1; \stemup
@@ -100,7 +100,7 @@ menuetto_i_a_voice_urg_urg = \notes<
 >
 
 menuetto_i_b_voice_urg = \notes{
-	\type Voice=ii
+	\context Voice=ii
 	\stemdown
 	% urg urg, huh?
 	\skip 2.*8; \stemdown
@@ -111,13 +111,13 @@ menuetto_i_b_voice_urg_urg = \notes<
 	\$menuetto_i_b
 >
 
-menuetto_i = \type Staff \notes<
+menuetto_i = \context Staff \notes<
 	{ \$menuetto_i_a_voice_urg_urg }
 	{ \$menuetto_i_b_voice_urg_urg }
 >
 
-menuetto_ii = \type Staff\notes \relative c {
-	\type Voice=i
+menuetto_ii = \context Staff\notes \relative c {
+	\context Voice=i
 	\slurdotted
 	fis4^\trill d8( e fis )g |
 	a4 fis, a' |
@@ -156,3 +156,4 @@ menuetto_ii = \type Staff\notes \relative c {
 	d2.
 }
 
+\version "1.0.16";

@@ -13,7 +13,10 @@ thumb = \script "thumb"
 accent = \script "accent"
 marcato = \script "marcato"
 staccatissimo = \script "staccatissimo"
-portato = \script "portato"
+
+% portato is indicated by slurred & dotted notes. Not really supported. 
+% portato = \script "portato"
+
 fermata = \script "fermata"
 stopped = \script "stopped"
 staccato = \script "staccato"

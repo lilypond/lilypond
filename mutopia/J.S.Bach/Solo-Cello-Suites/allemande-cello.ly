@@ -15,7 +15,7 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "allemande-urtext.ly";
 
@@ -42,7 +42,7 @@ allemande_cello_global = \notes{
 allemande_cello_scripts = \notes{
 }
 
-allemande_cello_staff = \type Staff <
+allemande_cello_staff = \context Staff <
 	\$allemande
 	\$allemande_cello_global
 	\$allemande_cello_scripts

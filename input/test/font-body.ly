@@ -1,10 +1,10 @@
-\version "1.0.14";
+\version "1.0.16";
 
 FontBody=	\notes\transpose c''{ 
 		\bar "|:";
 		\time 4/4;
-		\type Staff  < \type Voice = VB { \stemup e'\longa a\breve | }
-		\type Voice = VA { \stemdown
+		\context Staff  < \context Voice = VB { \stemup e'\longa a\breve | }
+		\context Voice = VA { \stemdown
 		c1 \clef "bass"; b,, \clef "violin"; c' a'
 		c2 \clef "alto"; g c' \clef "violin"; a'
 		} >
@@ -20,8 +20,8 @@ FontBody=	\notes\transpose c''{
 		\clef "bass";
 		  r\longa * 1/4 r\breve *1/2
 		  r1 r2 r4 r8 r16 r32 r64 r128 r128 |
-		\type Staff < \type Voice = VA { \stemup r2 c'2 c,,,1 }
-				\type Voice = VB {\stemdown r2 c2  r1 }>
+		\context Staff < \context Voice = VA { \stemup r2 c'2 c,,,1 }
+				\context Voice = VB {\stemdown r2 c2  r1 }>
 			\stemboth
 		\clef "violin";
 		e8_. g'8-> e16^^ g'16_^ 

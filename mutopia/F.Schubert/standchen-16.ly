@@ -9,6 +9,6 @@ description = "A schubert song in 16 pt";
 copyright =	 "public domain";
 } 
 
-\version "1.0.14";
+\version "1.0.16";
 
 \include "standchen.ly"

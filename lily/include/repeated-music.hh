@@ -21,6 +21,11 @@ public:
   int repeats_i_;
   bool unfold_b_;
   Music* repeat_p_;
+  /*
+    UGH FIXME: this should be:
+
+    Music_list  * alternative_p_;
+   */
   Music_sequence* alternative_p_;
 
   Repeated_music (Music*, int n, Music_sequence*);

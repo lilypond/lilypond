@@ -11,9 +11,9 @@
 
 % cmchar "Italic letter m";
 % beginchar("m",15u#,x_height#,0);
-\"Dynamic letter m";
+\"Dynamic letter m\";
 % beginchar(incr num,15u#,x_height#,0);
-beginchar( 109 ,12u#,x_height#,0);
+beginchar( 109 ,12u#, asc_height#,0);
 
 italcorr 1/3x_height#*slant+.5hair#+.5u#;
 adjust_fit(if monospace:-1.5u#,-2u# else: 0,0 fi); pickup fine.nib;
