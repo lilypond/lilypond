@@ -1,7 +1,7 @@
 /*   
   afm.cc --  implement Adobe_font_metric
   
-  source file of the Flower Library
+  source file of the GNU LilyPond music typesetter
   
   (c) 2000--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   

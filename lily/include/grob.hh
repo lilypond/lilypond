@@ -1,11 +1,13 @@
 /*
   grob.hh -- declare Grob
 
-  (c) 1996-1999--2002 Han-Wen Nienhuys
+  source file of the LilyPond music typesetter
+  
+  (c) 1996--2002 Han-Wen Nienhuys
 */
 
-#ifndef STAFFELEM_HH
-#define STAFFELEM_HH
+#ifndef GROB_HH
+#define GROB_HH
 
 #include "parray.hh"
 #include "virtual-methods.hh"
@@ -168,5 +170,5 @@ SCM substitute_mutable_property_alist (SCM alist);
 Link_array<Grob> ly_scm2grobs (SCM l);
 SCM ly_grobs2scm (Link_array<Grob> a);
 
-#endif // STAFFELEM_HH
+#endif /* GROB_HH */
 
