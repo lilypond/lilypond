@@ -11,6 +11,7 @@
 #include "plist.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
+#include "pcursor.hh"
 
 
 /**
