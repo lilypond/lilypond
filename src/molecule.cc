@@ -1,4 +1,6 @@
 #include "glob.hh"
+#include "vray.hh"
+#include "interval.hh"
 #include "dimen.hh"
 #include "string.hh"
 #include "molecule.hh"
@@ -38,6 +40,7 @@ Atom::TeXstring() const
     return substitute_args(s, a);
 }
 
+/****************/
 
 String
 Molecule::TeXstring() const

@@ -5,9 +5,10 @@
 #ifndef BOXES_HH
 #define BOXES_HH
 
-#include "textdb.hh"
+#include "fproto.hh"
 #include "real.hh"
-#include "vray.hh"
+#include "interval.hh"
+
 
 /// 2d vector 
 struct Offset {
@@ -34,46 +35,6 @@ struct Offset {
     }
 };
 
-/// a Real interval
-struct Interval {
-    Real min, max;
-
-    void translate(Real t) {
-	min += t;
-	max += t;
-    }
-    Real operator[](int j) {
-	if (j==-1)
-	    return min;
-	else if (j==1)
-	    return max;
-	else
-	    assert(false);
-		
-    }
-    void unite(Interval h) {
-	if (h.min<min)
-	    min = h.min;
-	if (h.max>max)
-	    max = h.max;
-    }
-    Real length() const;
-    void set_empty() ;
-    bool empty() { return min > max; }
-    Interval() {
-	set_empty();
-    }
-    Interval(Real m, Real M) {
-	min =m;
-	max = M;
-    }
-    Interval &operator += (Real r) {
-	min += r;
-	max +=r;
-	return *this;
-    }
-};
-
 
 /// a 4-tuple of #Real#s
 struct Box {
@@ -87,7 +48,7 @@ struct Box {
 	x.unite(b.x);
 	y.unite(b.y);
     }
-    Box(svec<Real> );
+    Box(svec<Real> &);
     Box();
     Box(Interval ix, Interval iy);
 };
