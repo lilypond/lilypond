@@ -193,7 +193,7 @@ def error (s):
 
 
 	'''Report the error S.  Exit by raising an exception. Please
-	do not abuse by trying to catch this error. If you donn't want
+	do not abuse by trying to catch this error. If you do not want
 	a stack trace, write to the output directly.
 
 	RETURN VALUE
@@ -533,49 +533,23 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 	s = s + r'''
 \usepackage[latin1]{inputenc}
 \input{titledefs}
-\makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%
-\renewcommand{\@evenfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%
 '''
 	
 	if extra['pagenumber'] and extra['pagenumber'][-1] and extra['pagenumber'][-1] != 'no':
-		s = s + r'''
-\renewcommand{\@evenhead}{\hbox to\textwidth{\textbf{\thepage}\hfill{\small\theheader}}}
-\renewcommand{\@oddhead}{\hbox to \textwidth{{\small\theheader}\hfill\textbf{\thepage}}}
-'''
+		s = s + '\\pagestyle{plain}\n'
 	else:
 		s = s + '\\pagestyle{empty}\n'
 
-	s = s + '\\makeatother\n'
 	s = s + '\\begin{document}\n'
-
+	s = s + '\\thispagestyle{firstpage}\n'
 
 	first = 1
 	for t in tfiles:
 		s = s + one_latex_definition (t, first)
 		first = 0
 
-	s = s + r'''
-%% I do not see why we want to clobber the footer here
-%% \vfill\hfill\parbox{\textwidth}{\mbox{}\makelilypondtagline}
-%% Well, maybe you don't submit music to mutopia?
-%% I would not object to this kind of change, but I don't know how
-%% to get the last mutopia tagline right (ie: no footer on last page)
-%% Please check that mutopia footers and endfooter are OK before changing
-%% this again. -- jcn
-% the \mbox{} helps latex if people do stupid things in tagline
-\makeatletter
-\if@twoside
-  \ifodd\thepage
-   \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
-  \else
-   \renewcommand{\@evenfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
-  \fi
- \else
-  \renewcommand{\@thefoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
-\fi
-\makeatother
-'''
+
+	s = s + '\\thispagestyle{lastpage}\n'
 	s = s + '\\end{document}'
 
 	return s
