@@ -194,12 +194,3 @@ allegro =
 	
 }
 
-
-\score
-{
-	\notes { \transpose c' bes \allegro }
-	\paper{ }
-	\header { piece = "allegro" opus = "" }	
-	\midi{ \tempo 4=90 }
-}
-

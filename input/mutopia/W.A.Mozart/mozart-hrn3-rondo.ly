@@ -194,11 +194,3 @@ rondo = \notes 	\relative c'
 	c4 r8 r4 r8 \bar "|."		
 }
 
-\score
-{
-    \notes { \transpose c' bes	\rondo }
-	\header { piece = "rondo" opus = "" }
-	\midi{ \tempo 4 = 100 }
-	\paper { }
-}
-

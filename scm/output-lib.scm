@@ -65,27 +65,25 @@
 
 
 (define-public (make-stencil-boxer line-thick x-padding y-padding callback)
-   "Makes a routine that adds a box around the grob parsed as argument"
+  "Makes a routine that adds a box around the grob parsed as argument"
   (define (stencil-boxer grob)
-  (let*
-   (
-    (mol    (callback grob))
-    (x-ext (interval-widen (ly:stencil-extent mol 0) x-padding))
-    (y-ext (interval-widen (ly:stencil-extent mol 1) y-padding))
-    (x-rule (make-filled-box-stencil (interval-widen x-ext line-thick)
-                              (cons 0 line-thick)))
-    (y-rule (make-filled-box-stencil (cons 0 line-thick) y-ext))
-    )
-    
-    (set! mol (ly:stencil-combine-at-edge mol 0 1 y-rule x-padding))
-    (set! mol (ly:stencil-combine-at-edge mol 0 -1  y-rule x-padding))
-    (set! mol (ly:stencil-combine-at-edge mol 1 1  x-rule 0))  
-    (set! mol (ly:stencil-combine-at-edge mol 1 -1 x-rule 0))
-    
-    mol
- ))
- stencil-boxer
- )
+    (let*
+	(
+	 (mol    (callback grob))
+	 (x-ext (interval-widen (ly:stencil-extent mol 0) x-padding))
+	 (y-ext (interval-widen (ly:stencil-extent mol 1) y-padding))
+	 (x-rule (make-filled-box-stencil (interval-widen x-ext line-thick)
+					  (cons 0 line-thick)))
+	 (y-rule (make-filled-box-stencil (cons 0 line-thick) y-ext))
+	 )
+
+      (set! mol (ly:stencil-combine-at-edge mol 0 1 y-rule x-padding))
+      (set! mol (ly:stencil-combine-at-edge mol 0 -1 y-rule x-padding))
+      (set! mol (ly:stencil-combine-at-edge mol 1 1 x-rule 0))  
+      (set! mol (ly:stencil-combine-at-edge mol 1 -1 x-rule 0))
+      
+      mol))
+  stencil-boxer)
 
 (define-public (arg->string arg)
   (cond ((number? arg) (ly:inexact->string arg 10))

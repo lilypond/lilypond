@@ -13,15 +13,23 @@
   style = "baroque"
   copyright = "Public Domain"
   maintainer = "hanwen@cs.uu.nl"
-  mutopiapublicdomain = "\\parbox{\\hsize}{\\thefooter\\quad\\small
-    \\\\This music is part of the Mutopia project,
-    \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
-    and placed in the public domain by " + \maintainer +
-    ".\\\\Unrestricted modification and redistribution is permitted
-    and encouraged---copy this music and share it.}"
-  tagline = \mutopiapublicdomain
-  lastupdated = "2002/August/19"
+ %% TODO: handle \footer, \head[er] properly
   footer = "Mutopia-2002/08/19-6"
+
+  tagline = \markup { \smaller
+      \column <
+	   \fill-line < \footer "" >
+	   \fill-line < { "This music is part of the Mutopia project, "
+			  \typewriter { "http://sca.uwaterloo.ca/Mutopia/" }
+			  "." } >
+	   \fill-line < { "It has been typeset and placed in the public "
+			  "domain by "  \maintainer  "." } >
+	   \fill-line < { "Unrestricted modification and redistribution "
+			  "is permitted and encouraged---copy this music "
+			  "and share it!" } >
+	   >
+       }
+  lastupdated = "2002/August/19"
 }
 
 
@@ -189,6 +197,8 @@ bassdux = \context Voice=three \notes \relative c' {
   >> 
 }
 
+
+\book {
 \score {
     \notes \context PianoStaff << 
         \override Score.TimeSignature  #'style = #'C
@@ -220,3 +230,4 @@ bassdux = \context Voice=three \notes \relative c' {
     }
 }
 
+}

@@ -1,5 +1,11 @@
 2004-04-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/mutopia/J.S.Bach/wtk1-fugue2.ly (bassdux): use \book.
+
+	* input/mutopia/W.A.Mozart/mozart-hrn-3.ly: use \book.
+
+	* VERSION: release 2.3.0
+
 	* mf/feta-nummer-code.mf: use ascii names for number glyphs.
 
 	* buildscripts/mf-to-table.py (parse_logfile): only prepend group-

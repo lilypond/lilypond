@@ -53,3 +53,33 @@ virtuoso that taught in Geneva.
 
 
 
+
+\book {
+\score
+{
+	\notes { \transpose c' bes \allegro }
+	\paper{ }
+	\header { piece = "allegro" opus = "" }	
+	\midi{ \tempo 4=90 }
+}
+
+
+\score
+{
+    \notes { \transpose c' bes \romanze }
+	\header { piece = "romanze" opus = "" }	
+	\midi{ \tempo 4 = 70  }
+	\paper{}
+}
+
+
+\score
+{
+    \notes { \transpose c' bes	\rondo }
+	\header { piece = "rondo" opus = "" }
+	\midi{ \tempo 4 = 100 }
+	\paper { }
+}
+
+
+}

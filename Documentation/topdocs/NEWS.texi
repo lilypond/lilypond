@@ -19,8 +19,8 @@
 @item The @code{font-encoding} property can now be used to select
 differently encoded fonts. The previous default setting
 @code{TeX-text} has been replaced by latin1. LilyPond requires the
-@uref{ec-fonts-mftraced,http://www.lilypond.org/download/fonts/}
-installed to function properly.
+@uref{http://www.lilypond.org/download/fonts/,ec-fonts-mftraced}
+package installed to function properly.
 
 @item The encoding of a file can be switched with
 @code{\encoding}. The strings for markup texts are translated
