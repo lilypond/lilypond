@@ -26,7 +26,7 @@ MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
 PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
 # use to send patches, always empty for released version:
 MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-build = $(lily-dir)/.build
+build = $(lily-dir)/$(outdir)/.build
 #
 
 # descent order into subdirectories:
@@ -41,12 +41,12 @@ VERSION_DEPENDENCY = $(lily-version)
 
 # list of c++ header files:
 # 
-HHFILES = $(shell ls *.hh $(ERROR_LOG))
+HHFILES := $(wildcard *.hh) #$(shell ls *.hh $(ERROR_LOG))
 #
 
 # list of c++ source files:
 #
-CCFILES = $(shell ls *.cc $(ERROR_LOG))
+CCFILES := $(wildcard *.cc) #$(shell ls *.cc $(ERROR_LOG))
 #
 
 # list of other source files:
@@ -56,7 +56,7 @@ EXTRA_SOURCE_FILES = $(shell ls *.y *.l $(ERROR_LOG))
 
 # list of distribution files:
 #
-DISTFILES = Makefile $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
+DISTFILES = .version Makefile $(HHFILES) $(CCFILES) $(EXTRA_SOURCE_FILES)
 #
 
 # list of custom libraries:
@@ -72,7 +72,7 @@ LOADLIBES +=
 #
 # MAINTARGET = $(EXECUTABLE)
 # MAINTARGET = $(LIBRARY)
-MAINTARGET = $(bindir)/$(EXECUTABLE)# huh?
+MAINTARGET = $(lily_bindir)/$(EXECUTABLE)# huh?
 # MAINTARGET = $(libdir)/$(LIBRARY)# huh?
 
 default: $(MAINTARGET)
@@ -87,7 +87,9 @@ include ./$(depth)/make/Rules.make
 # explicit dependencies: (how to do auto?)
 #
 # ugh
-$(outdir)/version.cc: check-flower-version $(lily-version)
+#$(outdir)/version.cc: check-flower-version $(lily-version)
+
+
 mylexer.cc: $(outdir)/parser.hh # sic
 lexer.l: $(outdir)/parser.hh
 #
@@ -99,6 +101,6 @@ DEPFILES = $(shell ls $(depdir)/*.dep $(ERROR_LOG))
 
 # auto dependencies:
 #
--include $(DEPFILES)
+-include /dev/null $(DEPFILES)
 #
 
