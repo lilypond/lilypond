@@ -24,7 +24,15 @@ if [ -x /usr/bin/gcc-3.4 ] ;then
 fi
 
 export AUTOMAKE=automake-1.8
+export ACLOCAL=aclocal-1.8
 export AUTOCONF=$(which autoconf2.50)
+export AUTOHEADER=$(which autoheader2.50)
+
+MY_LIBTOOL=$(dpkg -l libtool | tail -1 | awk '{ print $3 }')
+PANGO_LIBTOOL=1.5.6-1
+
+# Please state your love for the autotools today
+I_LOVE_AUTOTOOLS=no
 
 if [ -z "$AUTOCONF" ]; then
     unset AUTOCONF
@@ -42,6 +50,7 @@ cd test
 
 ## 2.  get pango CVS
 
+
 mkdir -p gnome/CVS
 cd gnome
 echo ":pserver:anonymous@anoncvs.gnome.org:/cvs/gnome" > CVS/Root
@@ -49,9 +58,15 @@ echo "." > CVS/Repository
 cvs -z3 checkout -P pango
 cd pango
 rm -rf $OPT/pango
+if [ "$I_LOVE_AUTOTOOLS" = "no" ]; then
+    sudo apt-get --yes --force-yes install libtool=$PANGO_LIBTOOL
+fi    
 ./autogen.sh --help
 ./configure --prefix=$OPT/pango --enable-maintainer-mode --enable-gtk-doc
 make XFT_LIBS="-L/usr/lib -lXft -L/usr/X11R6/lib -lfreetype -lz -lXrender -lX11 -lfontconfig" install
+if [ "$I_LOVE_AUTOTOOLS" = "no" ]; then
+    sudo apt-get --yes --force-yes install libtool=$MY_LIBTOOL
+fi    
 
 cd ../..
 
