@@ -38,33 +38,6 @@
 	grestore
 } bind def
 
-%% http://bibliofile.mc.duke.edu/gww/fonts/postscript-utilities/encoding-vectors.html
-
-%/FONTLENGTH 256 bind def
-
-
-/reencode-dict 5 dict def
-
-
-%<font> <encoding> <name> reencode-font
-/reencode-font {
-	reencode-dict begin
-		/name exch def
-		/encoding exch def
-		/base-font exch def
-		% note: Needs ps level 2
-		/font base-font maxlength dict def
-		base-font {
-			exch dup dup /FID ne exch /Encoding ne and
-			{ exch font 3 1 roll put }
-			{ pop pop } ifelse
-		} forall
-		font /FontName name put
-		font /Encoding encoding put
-		name font definefont pop
-	end
-} bind def
-
 
 % start-system
 /start-system {
