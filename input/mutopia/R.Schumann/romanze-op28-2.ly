@@ -21,10 +21,6 @@
   copyright = "Public Domain"
 }
 
-#(define note '((font-relative-size . -2) (rows (music "noteheads-2" ((kern . -0.1) "flags-stem")))))
-#(define eight-note `((font-relative-size . -2) (rows ,note ((kern . -0.03) (music ((raise . 2.5) "flags-u3"))))))
-
-
 u = { \translator Staff = up  \stemDown }
 m = { \translator Staff = mid  \stemUp  }
 d = { \translator Staff = down  \stemUp }
@@ -80,7 +76,7 @@ righta = \notes \transpose c cis' {
  as' des'^1 c'8^#'(finger "2-3") h~h  c'16-) \clef F  e,16-[(^2 f, g,] |
  \forcedBreak
 
-  as,-[^5 h,,^2-)-] \clef G [<<c a^3>>8-( <<c g^2>>16 c'] <<c es ges c'^5>>4.~
+  as,-[^5 h,,^2-)-] \clef G <<c a^3>>8-[-( <<c g^2>>16 c'] <<c es ges c'^5>>4.~
  <<c es ges c'>>8-) s4 s8 r16 h^2( c' d' | 
  es' ges-1 f-2 a-1 c'-2 f'-4 \stemUp \tieUp e'-5 d' c' b-4 a^\prall^#'(finger "2-4-3") g |
   f-) f'-5( e'-5 d'-4 c'-3  f'-)-5 <<f^4 a^5>>4-( <<e^3 g^5>>8 |
@@ -137,7 +133,7 @@ rightb = \notes \transpose c cis' {
   s2. s
  \u s4. \grace {f8(}  f4-) e8 |
  f g16_2 b_1 a_2 gis_1 c_2 h, c cis_1 d_2 b,_1 |
- \tieDown c4.~<<f, c  >>16-\< \tieBoth <<f h>>~[<< f^3 h >>8-\> -\! << e b^2>> -\!] |
+ \tieDown c4.~<<f, c  >>16-\< \tieBoth <<f h>>~ << f^3 h >>8-[-\> -\! << e b^2>> -\!] |
  \translator Staff=mid
  \transpose c' c {
   a4^1( g8^1 b4 a8^2 |
@@ -218,8 +214,9 @@ leftb = \notes \transpose c cis {
  fis^1 d d, d  a-[ d_2] g, d g d_3  b,-[_5( g_2] |
   a-) c_3 f, c  c'-[ f_2] b, f b f_3 d' as |
  h, as d' as h, as( f'4.-)^\fermata-\arpeggio_2 ~
- \d \stemDown f'8. \clef G \stemBoth \tieBoth \transpose c c' { e16-[_4( f g]  as-[ des_3]  c8-[_4 <<h, d f d'>>]~ |
- <<h, d f d'>>} \clef F [<<c_3 f_1>>-( <<b,_4 e^2>>] <<a,_5 eis^1>>8.-) h,16_4( c d |
+ \d \stemDown f'8. \clef G \stemBoth \tieBoth
+   \transpose c c' { e16-[_4( f g]  as-[ des_3]  c8-[_4 <<h, d f d'>>]~ |
+ <<h, d f d'>>} \clef F <<c_3 f_1>>-[-( <<b,_4 e^2>>] <<a,_5 eis^1>>8.-) h,16_4( c d |
  \voiceTwo
  es as,_3 g,8 fis,~fis, g,_4-\arpeggio gis,_5~ |
  gis, <<a, c>>16 r16 r8 r4 cis8( |

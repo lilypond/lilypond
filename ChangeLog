@@ -1,5 +1,8 @@
 2003-05-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/chord-name.scm (natural-chord-alteration): replace old
+	chord stuff. 
+
 	* input/mutopia/R.Schumann/romanze-op28-2.ly: syntax updates.
 
 	* Documentation/user/refman.itely (Metronome marks): update doco.
