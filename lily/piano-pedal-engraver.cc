@@ -297,9 +297,10 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
       p->item_ = make_item (propname.to_str0 (), (p->event_drul_[START]
 						  ? p->event_drul_[START]
 						  : p->event_drul_[STOP])->self_scm ());
+
+      p->item_->set_property ("text", s);
+      Axis_group_interface::add_element (p->line_spanner_, p->item_);
     }
-  p->item_->set_property ("text", s);
-  Axis_group_interface::add_element (p->line_spanner_, p->item_);
   
   if (!mixed)
     {
