@@ -160,11 +160,14 @@ Lookup::ps_slur (Real dy , Real dx, Real ht, Real dir) const
     }
 
   String mf = "\\embeddedmf{" + name + "}{\n";
+  mf += "mode_setup;\n";
   mf += "staffsize\\#:=" 
     + String_convert::int_str ((int)paper_l_->get_var ("barsize"), "%d")
     + "pt\\#;\n";
+  mf += "interline#:=staffsize#/4;\n";
+  mf += "stafflinethickness#:=0.1interline#;\n";
   mf += "input feta-sleur;\n";
-  mf += "drawslur(" + dx_str + "," + dy_str + "," + dir_str + ");\n";
+  mf += "slurchar(" + dx_str + "," + dy_str + "," + dir_str + ");\n";
   mf += "end.\n";
   mf += "}\n";
 

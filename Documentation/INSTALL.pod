@@ -34,17 +34,6 @@ work in Windows NT/95, but we don't promise to support it.
 
 GNU C++ version 2.7 or newer (yes, 2.8 is fine).
 
-=item *
-
-GNU make. 
-
-=item *
-
-Flex (version 2.5.1 or newer). 
-
-=item *
-
-Bison (version 1.25 or newer).
 
 =back
 
@@ -67,13 +56,23 @@ Ghostscript installed.
 
 =back
 
-
 =head1 RECOMMENDED
 
 Although not strictly necessary, these are recommended to have.
 
 =over 5
 
+=item *
+
+GNU make. 
+
+=item *
+
+Flex (version 2.5.1 or newer). 
+
+=item *
+
+Bison (version 1.25 or newer).
 =item *
 
 Perl-5.  Most documentation was created with the perl's Plain Old
@@ -176,10 +175,6 @@ Set then directory TeX input is in (detected as a subdir of tex-prefix)
 
 Set the directory mf input is in (idem)
 
-=item B<--enable-out-dir>
-
-Set the directory for machine generated output.
-
 =back
 
 All options are documented in the F<configure> help
@@ -192,35 +187,6 @@ If you do
 everything will be compiled, but nothing will be installed.  The
 resulting binaries can be found in the subdirectories F<out/> (which
 contain all files generated during compilation).
-
-=head2 Building for multiple hosts
-
-LilyPond does not follow the GNU standards when it comes to
-configuring and making Makefiles. In LilyPond, F<make> generates
-I<all> output in output directories (called F<out/>, by default).  You
-can have multiple compiles from the same source-tree, by overriding
-the setting for the output directory.
-
-Example: on my system, I do debugging and lots compiling. For this I
-use the configuration as follows:
-
-	configure --prefix=~ --enable-debugging --enable-printing --enable-checking
-	make all
-
-and I want to do profiling. For that I use
-
-	configure --prefix=~ --enable-debugging --disable-printing\
-		--disable-checking --enable-profiling --enable-optimise\
-		--enable-out-dir=out-profile
-
-	make OUTDIR_NAME=out-profile all
-
-These two commands build two entirely separate versions of
-LilyPond. In Real Life, you would probably also want to have two
-different prefixes. On my machine this is no problem; I never do
-C<make install>. My prefix dirs are linked back to my source
-directory.
-
 
 =head1 INSTALLING
 

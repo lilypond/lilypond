@@ -21,7 +21,7 @@ endif
 
 # platform specific variables,
 #
-include ./$(depth)/make/out/Site.make
+#include ./$(depth)/make/out/Site.make
 #
 
 # where to do this ?

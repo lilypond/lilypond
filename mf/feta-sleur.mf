@@ -7,9 +7,11 @@
 % & Han-Wen Nienhuys <hanwen@stack.nl>
 % 
 
-mode_setup;
+% mode_setup;
 
-% staffsize#=16pt#;
+%% staffsize#=16pt#;
+% interline#:=staffsize#/4;
+% stafflinethickness#:=0.1interline#;
 
 pi:=3.14159;
 
@@ -33,8 +35,6 @@ def atan(expr x) =
 %        slur_b getslurcontrol /slur_indent exch def       
 %
 
-interline#:=staffsize#/4;
-stafflinethickness#:=0.1interline#;
 sleur_pen#:=stafflinethickness#;
 slurheightlimit#:=staffsize#/2;
 % staffrulethickness 1.5 mul  /slur_thick exch def
@@ -48,38 +48,41 @@ sluralpha:=slurheightlimit#*pi/2;
 slurratio:=0.3333;
 slurbeta:=3/4*pi*slurratio/sluralpha;
 
-def drawslur(expr dxs,dys,d) =
-	beginchar(0,0,0,0) "Embedded mf";
-		dx#:=dxs*1pt#;
-		dy#:=dys*1pt#;
-		define_pixels(dx,dy);
-		b#:=length(dx#,dy#);
-%		message "sluralpha: "&decimal (sluralpha);
-%		message "slurbeta: "&decimal (slurbeta);
-%		message "s*b: "&decimal (slurbeta*b#);
-%		indent#:=sluralpha*atan(slurbeta*b#);
-		% ugh: huh? 2/5
-		indent#:=2/5*sluralpha*atan(slurbeta*b#);
-		define_pixels(b,indent);
-		height:=indent*d;
-		z1=(0,0);
-		z2=(b,0);
-		z3=(indent,height);
-		z4=(b-indent,height);
-		z5=z4-(0,d*slurthick);
-		z6=z3-(0,d*slurthick);
-		path boogje;
-		boogje=z1..controls z3 and z4..z2..controls z5 and z6..cycle;
-		boogje:=boogje rotated angle(dxs,dys);
-		pickup pencircle scaled sleur_pen;
-		filldraw boogje;
-		show z1;
-		show z2;
-		show z3;
-		show z4;
-		show z5;
-		show z6;
-		endchar;
-	enddef;
+def draw_slur(expr dxs,dys,d) =
+	save x, y;
+	save b, dx, dy, indent;
+	dx#:=dxs*1pt#;
+	dy#:=dys*1pt#;
+	define_pixels(dx,dy);
+	b#:=length(dx#,dy#);
+	% ugh: huh? 2/5
+	indent#:=2/5*sluralpha*atan(slurbeta*b#);
+	define_pixels(b,indent);
+	height:=indent*d;
+	z1=(0,0);
+	z2=(b,0);
+	z3=(indent,height);
+	z4=(b-indent,height);
+	z5=z4-(0,d*slurthick);
+	z6=z3-(0,d*slurthick);
+	path boogje;
+	boogje=z1..controls z3 and z4..z2..controls z5 and z6..cycle;
+	boogje:=boogje rotated angle(dxs,dys);
+	pickup pencircle scaled sleur_pen;
+	filldraw boogje;
+	show z1;
+	show z2;
+	show z3;
+	show z4;
+	show z5;
+	show z6;
+enddef;
 
-% draw_slur(10,10,1);
+def slurchar(expr dxs,dys,d) =
+	beginchar(0,0,0,0) "Embedded mf";
+	draw_slur(dxs,dys,d);
+	endchar;
+enddef;
+
+% drawslur(10,10,1);
+

@@ -19,13 +19,6 @@ FET_FILES = $(wildcard feta[0-9]*.mf)
 
 lyout = $(depth)/init
 texout = $(depth)/tex
-
-FONT_FILES = $(wildcard *.mf)
-
-FET_FILES = $(wildcard feta-*.mf)
-
-lyout = $(depth)/init
-texout = $(depth)/tex
 LYTABLES = $(addprefix $(lyout)/, $(FET_FILES:.mf=.ly))
 TEXTABLES = $(addprefix $(texout)/, $(FET_FILES:.mf=.tex))
 
@@ -45,7 +38,7 @@ localuninstall:
 	for i in $(MFFILES) ; do rm -f $(MFDIR)/lilypond/$$i; done
 	-rmdir $(MFDIR)/public/lilypond/
 
-include Rules.make
+include $(srcdir)/Rules.make
 
 # dependencies:
 #

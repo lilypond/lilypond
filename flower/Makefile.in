@@ -1,11 +1,16 @@
-# Makefile.in generated automatically by automake 1.2 from Makefile.am
+# Makefile.in generated automatically by automake 1.2f from Makefile.am
 
-# Copyright (C) 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
-# gives unlimited permission to copy, distribute and modify it.
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
 
-# Automatically generated from ./flower/Makefile.am.wild by bin/autowild
-# Do not edit
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# Generated automatically by wild-perl 0.1
 # project  FlowerSoft C++ library
 # title	   top level makefile for FlowerLib
 # file	   flower/Makefile.am.wild
@@ -54,55 +59,67 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 transform = @program_transform_name@
 
-NORMAL_INSTALL = true
-PRE_INSTALL = true
-POST_INSTALL = true
-NORMAL_UNINSTALL = true
-PRE_UNINSTALL = true
-POST_UNINSTALL = true
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+host_alias = @host_alias@
+host_triplet = @host@
+AGE = @AGE@
 CC = @CC@
+CURRENT = @CURRENT@
 CXX = @CXX@
+LD = @LD@
+LIBTOOL = @LIBTOOL@
 LIB_SUFFIX = @LIB_SUFFIX@
+LN_S = @LN_S@
 MAKEINFO = @MAKEINFO@
 MODULE_CXXFLAGS = @MODULE_CXXFLAGS@
 MODULE_LDFLAGS = @MODULE_LDFLAGS@
+NM = @NM@
 PACKAGE = @PACKAGE@
+PERL = @PERL@
 RANLIB = @RANLIB@
+REVISION = @REVISION@
 VERSION = @VERSION@
 
 SUBDIRS = include test 
 
-lib_LIBRARIES = libflower.a
-# lib_LIBRARIES = libflower.la
+lib_LTLIBRARIES = libflower.la
 
 README_FILES = ONEWS NEWS README TODO VERSION
 EXTRA_DIST = Makefile.am.wild aclocal.m4 configure config.hh.in configure.in $(README_FILES)
 
-libflower_a_SOURCES = choleski.cc cpu-timer.cc data-file.cc diagonal-storage.cc dictionary.cc directed-graph.cc dstream.cc flower-debug.cc flower-version.cc full-storage.cc interval.cc lgetopt.cc libc-extension.cc matrix-debug.cc matrix-storage.cc matrix.cc nscalar.cc path.cc rational.cc scalar.cc string-convert.cc string.cc stringutil.cc text-db.cc text-stream.cc unionfind.cc vector.cc
+libflower_la_SOURCES = choleski.cc cpu-timer.cc data-file.cc diagonal-storage.cc dictionary.cc directed-graph.cc dstream.cc flower-debug.cc flower-version.cc full-storage.cc interval.cc lgetopt.cc libc-extension.cc matrix-debug.cc matrix-storage.cc matrix.cc nscalar.cc path.cc rational.cc scalar.cc string-convert.cc string.cc stringutil.cc text-db.cc text-stream.cc unionfind.cc vector.cc
 
-INCLUDES = -Iinclude
+libflower_la_LDFLAGS = -version-info @CURRENT@:@REVISION@:@AGE@
+
+INCLUDES = -I$(srcdir)/include
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/../mkinstalldirs
 CONFIG_HEADER = config.hh
 CONFIG_CLEAN_FILES = 
-LIBRARIES =  $(lib_LIBRARIES)
+LTLIBRARIES =  $(lib_LTLIBRARIES)
 
 
 DEFS = @DEFS@ -I. -I$(srcdir) -I.
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-libflower_a_LIBADD = 
-libflower_a_OBJECTS =  choleski.o cpu-timer.o data-file.o \
-diagonal-storage.o dictionary.o directed-graph.o dstream.o \
-flower-debug.o flower-version.o full-storage.o interval.o lgetopt.o \
-libc-extension.o matrix-debug.o matrix-storage.o matrix.o nscalar.o \
-path.o rational.o scalar.o string-convert.o string.o stringutil.o \
-text-db.o text-stream.o unionfind.o vector.o
-AR = ar
+libflower_la_LIBADD = 
+libflower_la_OBJECTS =  choleski.lo cpu-timer.lo data-file.lo \
+diagonal-storage.lo dictionary.lo directed-graph.lo dstream.lo \
+flower-debug.lo flower-version.lo full-storage.lo interval.lo \
+lgetopt.lo libc-extension.lo matrix-debug.lo matrix-storage.lo \
+matrix.lo nscalar.lo path.lo rational.lo scalar.lo string-convert.lo \
+string.lo stringutil.lo text-db.lo text-stream.lo unionfind.lo \
+vector.lo
 CXXFLAGS = @CXXFLAGS@
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
-CXXLINK = $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
+LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
+CXXLINK = $(LIBTOOL) --mode=link $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
 DIST_COMMON =  README AUTHORS COPYING ChangeLog INSTALL Makefile.am \
 Makefile.in NEWS TODO aclocal.m4 config.hh.in configure configure.in \
 missing mkinstalldirs stamp-h.in
@@ -112,26 +129,17 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP = --best
-DEP_FILES =  .deps/choleski.P .deps/cpu-timer.P .deps/data-file.P \
-.deps/diagonal-storage.P .deps/dictionary.P .deps/directed-graph.P \
-.deps/dstream.P .deps/flower-debug.P .deps/flower-version.P \
-.deps/full-storage.P .deps/interval.P .deps/lgetopt.P \
-.deps/libc-extension.P .deps/matrix-debug.P .deps/matrix-storage.P \
-.deps/matrix.P .deps/nscalar.P .deps/path.P .deps/rational.P \
-.deps/scalar.P .deps/string-convert.P .deps/string.P .deps/stringutil.P \
-.deps/text-db.P .deps/text-stream.P .deps/unionfind.P .deps/vector.P
-CXXMKDEP = $(CXX) -M $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
-SOURCES = $(libflower_a_SOURCES)
-OBJECTS = $(libflower_a_OBJECTS)
+SOURCES = $(libflower_la_SOURCES)
+OBJECTS = $(libflower_la_OBJECTS)
 
 default: all
 
 .SUFFIXES:
-.SUFFIXES: .c .cc .o
+.SUFFIXES: .S .c .cc .lo .o .s
 $(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
-	cd $(top_srcdir) && $(AUTOMAKE) --gnu Makefile
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps Makefile
 
-Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status $(BUILT_SOURCES)
+Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$@ CONFIG_HEADERS= $(SHELL) ./config.status
 
@@ -144,6 +152,7 @@ $(srcdir)/configure: $(srcdir)/configure.in $(ACLOCAL_M4) $(CONFIGURE_DEPENDENCI
 	cd $(srcdir) && $(AUTOCONF)
 
 config.hh: stamp-h
+	@:
 stamp-h: $(srcdir)/config.hh.in $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES= CONFIG_HEADERS=config.hh:config.hh.in \
@@ -159,61 +168,79 @@ mostlyclean-hdr:
 clean-hdr:
 
 distclean-hdr:
-	rm -f config.hh
+	-rm -f config.hh
 
 maintainer-clean-hdr:
 
-mostlyclean-libLIBRARIES:
+mostlyclean-libLTLIBRARIES:
 
-clean-libLIBRARIES:
-	test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
 
-distclean-libLIBRARIES:
+distclean-libLTLIBRARIES:
 
-maintainer-clean-libLIBRARIES:
+maintainer-clean-libLTLIBRARIES:
 
-install-libLIBRARIES: $(lib_LIBRARIES)
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
 	$(mkinstalldirs) $(libdir)
-	list='$(lib_LIBRARIES)'; for p in $$list; do \
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
 	  if test -f $$p; then \
-	    echo " $(INSTALL_DATA) $$p $(libdir)/$$p"; \
-	    $(INSTALL_DATA) $$p $(libdir)/$$p; \
-	  else :; fi; \
-	done
-	@$(POST_INSTALL)
-	@list='$(lib_LIBRARIES)'; for p in $$list; do \
-	  if test -f $$p; then \
-	    echo " $(RANLIB) $(libdir)/$$p"; \
-	    $(RANLIB) $(libdir)/$$p; \
+	    echo "$(LIBTOOL)  --mode=install $(INSTALL_DATA) $$p $(libdir)/$$p"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL_DATA) $$p $(libdir)/$$p; \
 	  else :; fi; \
 	done
 
-uninstall-libLIBRARIES:
-	$(NORMAL_UNINSTALL)
-	list='$(lib_LIBRARIES)'; for p in $$list; do \
-	  rm -f $(libdir)/$$p; \
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  $(LIBTOOL)  --mode=uninstall rm -f $(libdir)/$$p; \
 	done
 
 .c.o:
 	$(COMPILE) -c $<
 
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
 mostlyclean-compile:
-	rm -f *.o core
+	-rm -f *.o core *.core
 
 clean-compile:
 
 distclean-compile:
-	rm -f *.tab.c
+	-rm -f *.tab.c
 
 maintainer-clean-compile:
 
-libflower.a: $(libflower_a_OBJECTS) $(libflower_a_DEPENDENCIES)
-	rm -f libflower.a
-	$(AR) cru libflower.a $(libflower_a_OBJECTS) $(libflower_a_LIBADD)
-	$(RANLIB) libflower.a
+.c.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.s.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.S.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+
+maintainer-clean-libtool:
+
+libflower.la: $(libflower_la_OBJECTS) $(libflower_la_DEPENDENCIES)
+	$(CXXLINK) -rpath $(libdir) $(libflower_la_LDFLAGS) $(libflower_la_OBJECTS) $(libflower_la_LIBADD) $(LIBS)
 .cc.o:
 	$(CXXCOMPILE) -c $<
+.cc.lo:
+	$(LTCXXCOMPILE) -c $<
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run `make' without going through this Makefile.
@@ -228,7 +255,7 @@ all-recursive install-data-recursive install-exec-recursive \
 installdirs-recursive install-recursive uninstall-recursive  \
 check-recursive installcheck-recursive info-recursive dvi-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	for subdir in $(SUBDIRS); do \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
 	  (cd $$subdir && $(MAKE) $$target) \
@@ -238,7 +265,9 @@ check-recursive installcheck-recursive info-recursive dvi-recursive:
 mostlyclean-recursive clean-recursive distclean-recursive \
 maintainer-clean-recursive:
 	@set fnord $(MAKEFLAGS); amf=$$2; \
-	rev=''; for subdir in $(SUBDIRS); do rev="$$rev $$subdir"; done; \
+	rev=''; list='$(SUBDIRS)'; for subdir in $$list; do \
+	  rev="$$subdir $$rev"; \
+	done; \
 	for subdir in $$rev; do \
 	  target=`echo $@ | sed s/-recursive//`; \
 	  echo "Making $$target in $$subdir"; \
@@ -252,24 +281,29 @@ tags-recursive:
 
 tags: TAGS
 
-ID: $(HEADERS) $(SOURCES)
-	here=`pwd` && cd $(srcdir) && mkid -f$$here/ID $(SOURCES) $(HEADERS)
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $(SOURCES) $(HEADERS) $(LISP)
 
-TAGS: tags-recursive $(HEADERS) $(SOURCES) config.hh.in $(TAGS_DEPENDENCIES)
+TAGS: tags-recursive $(HEADERS) $(SOURCES) config.hh.in $(TAGS_DEPENDENCIES) $(LISP)
 	tags=; \
 	here=`pwd`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
 	  test -f $$subdir/TAGS && tags="$$tags -i $$here/$$subdir/TAGS"; \
 	done; \
-	test -z "$(ETAGS_ARGS)config.hh.in$(SOURCES)$(HEADERS)$$tags" \
-	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags config.hh.in $(SOURCES) $(HEADERS) -o $$here/TAGS)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)config.hh.in$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags config.hh.in $$unique $(LISP) -o $$here/TAGS)
 
 mostlyclean-tags:
 
 clean-tags:
 
 distclean-tags:
-	rm -f TAGS ID
+	-rm -f TAGS ID
 
 maintainer-clean-tags:
 
@@ -280,7 +314,7 @@ top_distdir = $(distdir)
 # it guarantees that the distribution is self-contained by making another
 # tarfile.
 distcheck: dist
-	rm -rf $(distdir)
+	-rm -rf $(distdir)
 	GZIP=$(GZIP) $(TAR) zxf $(distdir).tar.gz
 	mkdir $(distdir)/=build
 	mkdir $(distdir)/=inst
@@ -293,73 +327,141 @@ distcheck: dist
 	  && $(MAKE) install \
 	  && $(MAKE) installcheck \
 	  && $(MAKE) dist
-	rm -rf $(distdir)
+	-rm -rf $(distdir)
 	@echo "========================"; \
 	echo "$(distdir).tar.gz is ready for distribution"; \
 	echo "========================"
 dist: distdir
 	-chmod -R a+r $(distdir)
 	GZIP=$(GZIP) $(TAR) chozf $(distdir).tar.gz $(distdir)
-	rm -rf $(distdir)
+	-rm -rf $(distdir)
 dist-all: distdir
 	-chmod -R a+r $(distdir)
 	GZIP=$(GZIP) $(TAR) chozf $(distdir).tar.gz $(distdir)
-	rm -rf $(distdir)
+	-rm -rf $(distdir)
 distdir: $(DISTFILES)
-	rm -rf $(distdir)
+	-rm -rf $(distdir)
 	mkdir $(distdir)
 	-chmod 777 $(distdir)
-	here=`cd $(top_builddir) && pwd`; \
-	top_distdir=`cd $(top_distdir) && pwd`; \
-	cd $(top_srcdir) \
-	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --gnu Makefile
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  test -f $(distdir)/$$file \
 	  || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
 	  || cp -p $$d/$$file $(distdir)/$$file; \
 	done
-	for subdir in $(SUBDIRS); do		\
-	  test -d $(distdir)/$$subdir		\
-	  || mkdir $(distdir)/$$subdir		\
-	  || exit 1;				\
-	  chmod 777 $(distdir)/$$subdir;	\
-	  (cd $$subdir && $(MAKE) top_distdir=../$(top_distdir) distdir=../$(distdir)/$$subdir distdir) \
+	for subdir in $(SUBDIRS); do \
+	  test -d $(distdir)/$$subdir \
+	  || mkdir $(distdir)/$$subdir \
+	  || exit 1; \
+	  chmod 777 $(distdir)/$$subdir; \
+	  (cd $$subdir && $(MAKE) top_distdir=../$(distdir) distdir=../$(distdir)/$$subdir distdir) \
 	    || exit 1; \
 	done
+choleski.lo choleski.o: choleski.cc include/choleski.hh \
+	include/matrix.hh include/matrix-storage.hh include/varray.hh \
+	include/real.hh include/virtual-methods.hh include/vector.hh
+cpu-timer.lo cpu-timer.o: cpu-timer.cc include/cpu-timer.hh \
+	include/real.hh
+data-file.lo data-file.o: data-file.cc include/international.hh \
+	include/data-file.hh include/text-stream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh include/compare.hh \
+	include/varray.hh
+diagonal-storage.lo diagonal-storage.o: diagonal-storage.cc \
+	include/diagonal-storage.hh include/full-storage.hh \
+	include/varray.hh include/matrix-storage.hh include/real.hh \
+	include/virtual-methods.hh include/full-storage.icc
+dictionary.lo dictionary.o: dictionary.cc
+directed-graph.lo directed-graph.o: directed-graph.cc \
+	include/directed-graph.hh include/parray.hh include/varray.hh
+dstream.lo dstream.o: dstream.cc include/assoc.hh include/varray.hh \
+	include/dstream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/scalar.hh \
+	include/text-db.hh include/data-file.hh include/text-stream.hh \
+	include/string-convert.hh include/assoc-iter.hh
+flower-debug.lo flower-debug.o: flower-debug.cc include/flower-debug.hh \
+	include/dstream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh
+flower-version.lo flower-version.o: flower-version.cc config.hh
+full-storage.lo full-storage.o: full-storage.cc include/full-storage.hh \
+	include/varray.hh include/matrix-storage.hh include/real.hh \
+	include/virtual-methods.hh include/full-storage.icc
+interval.lo interval.o: interval.cc include/interval.hh \
+	include/fproto.hh include/real.hh include/compare.hh \
+	include/interval.tcc include/string.hh \
+	include/arithmetic-operator.hh include/string-handle.hh \
+	include/international.hh include/flower-debug.hh \
+	include/dstream.hh
+lgetopt.lo lgetopt.o: lgetopt.cc include/lgetopt.hh \
+	include/international.hh
+libc-extension.lo libc-extension.o: libc-extension.cc \
+	include/libc-extension.hh include/fproto.hh include/real.hh \
+	config.hh
+matrix-debug.lo matrix-debug.o: matrix-debug.cc include/flower-debug.hh \
+	include/dstream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/matrix.hh \
+	include/matrix-storage.hh include/varray.hh \
+	include/virtual-methods.hh include/vector.hh
+matrix-storage.lo matrix-storage.o: matrix-storage.cc \
+	include/full-storage.hh include/varray.hh \
+	include/matrix-storage.hh include/real.hh \
+	include/virtual-methods.hh include/diagonal-storage.hh
+matrix.lo matrix.o: matrix.cc include/matrix.hh \
+	include/matrix-storage.hh include/varray.hh include/real.hh \
+	include/virtual-methods.hh include/vector.hh \
+	include/full-storage.hh include/diagonal-storage.hh
+nscalar.lo nscalar.o: nscalar.cc
+path.lo path.o: path.cc include/path.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/varray.hh \
+	include/flower-debug.hh include/dstream.hh
+rational.lo rational.o: rational.cc include/rational.hh \
+	include/compare.hh include/arithmetic-operator.hh \
+	include/fproto.hh include/real.hh include/string.hh \
+	include/string-handle.hh include/international.hh \
+	include/string-convert.hh include/libc-extension.hh config.hh
+scalar.lo scalar.o: scalar.cc include/scalar.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/rational.hh
+string-convert.lo string-convert.o: string-convert.cc \
+	include/libc-extension.hh include/fproto.hh include/real.hh \
+	config.hh include/string.hh include/arithmetic-operator.hh \
+	include/string-handle.hh include/international.hh \
+	include/compare.hh include/string-convert.hh \
+	include/rational.hh
+string.lo string.o: string.cc include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh \
+	include/libc-extension.hh config.hh include/string-convert.hh
+stringutil.lo stringutil.o: stringutil.cc include/string-handle.hh \
+	include/fproto.hh include/real.hh include/string-data.hh \
+	include/string.hh include/arithmetic-operator.hh \
+	include/international.hh include/compare.hh \
+	include/string-data.icc include/string-handle.icc \
+	include/string.icc
+text-db.lo text-db.o: text-db.cc include/text-db.hh include/data-file.hh \
+	include/text-stream.hh include/string.hh \
+	include/arithmetic-operator.hh include/fproto.hh \
+	include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/varray.hh
+text-stream.lo text-stream.o: text-stream.cc include/text-stream.hh \
+	include/string.hh include/arithmetic-operator.hh \
+	include/fproto.hh include/real.hh include/string-handle.hh \
+	include/international.hh include/compare.hh include/varray.hh
+unionfind.lo unionfind.o: unionfind.cc include/unionfind.hh \
+	include/varray.hh
+vector.lo vector.o: vector.cc include/vector.hh include/real.hh \
+	include/varray.hh
 
-MKDEP = gcc -M $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CFLAGS)
-
-DEPS_MAGIC := $(shell mkdir .deps > /dev/null 2>&1 || :)
--include .deps/.P
-.deps/.P: $(BUILT_SOURCES)
-	echo > $@
-
--include $(DEP_FILES)
-
-mostlyclean-depend:
-
-clean-depend:
-
-distclean-depend:
-
-maintainer-clean-depend:
-	rm -rf .deps
-
-.deps/%.P: %.c
-	@echo "Computing dependencies for $<..."
-	@o='o'; \
-	test -n "$o" && o='$$o'; \
-	$(MKDEP) $< >$@.tmp \
-	  && sed "s,^\(.*\)\.o:,\1.$$o \1.l$$o $@:," < $@.tmp > $@ \
-	  && rm -f $@.tmp
-
-.deps/%.P: %.cc
-	@echo "Computing dependencies for $<..."
-	@o='o'; \
-	$(CXXMKDEP) $< >$@.tmp \
-	  && sed "s,^\(.*\)\.o:,\1.$$o \1.l$$o $@:," < $@.tmp > $@ \
-	  && rm -f $@.tmp
 info: info-recursive
 dvi: dvi-recursive
 check: all-am
@@ -368,11 +470,11 @@ installcheck: installcheck-recursive
 all-recursive-am: config.hh
 	$(MAKE) all-recursive
 
-all-am: Makefile $(LIBRARIES) config.hh
+all-am: Makefile $(LTLIBRARIES) config.hh
 
-install-exec-am: install-libLIBRARIES
+install-exec-am: install-libLTLIBRARIES
 
-uninstall-am: uninstall-libLIBRARIES
+uninstall-am: uninstall-libLTLIBRARIES
 
 install-exec: install-exec-recursive install-exec-am
 	@$(NORMAL_INSTALL)
@@ -394,33 +496,34 @@ installdirs: installdirs-recursive
 
 
 mostlyclean-generic:
-	test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
-	test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
-	rm -f Makefile $(DISTCLEANFILES)
-	rm -f config.cache config.log stamp-h stamp-h[0-9]*
-	test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+	-rm -f Makefile $(DISTCLEANFILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 
 maintainer-clean-generic:
-	test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
-	test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
-mostlyclean-am:  mostlyclean-hdr mostlyclean-libLIBRARIES \
-		mostlyclean-compile mostlyclean-tags mostlyclean-depend \
-		mostlyclean-generic
+	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+mostlyclean-am:  mostlyclean-hdr mostlyclean-libLTLIBRARIES \
+		mostlyclean-compile mostlyclean-libtool \
+		mostlyclean-tags mostlyclean-generic
 
-clean-am:  clean-hdr clean-libLIBRARIES clean-compile clean-tags \
-		clean-depend clean-generic mostlyclean-am
+clean-am:  clean-hdr clean-libLTLIBRARIES clean-compile clean-libtool \
+		clean-tags clean-generic mostlyclean-am
 
-distclean-am:  distclean-hdr distclean-libLIBRARIES distclean-compile \
-		distclean-tags distclean-depend distclean-generic \
+distclean-am:  distclean-hdr distclean-libLTLIBRARIES distclean-compile \
+		distclean-libtool distclean-tags distclean-generic \
 		clean-am
 
-maintainer-clean-am:  maintainer-clean-hdr maintainer-clean-libLIBRARIES \
-		maintainer-clean-compile maintainer-clean-tags \
-		maintainer-clean-depend maintainer-clean-generic \
+maintainer-clean-am:  maintainer-clean-hdr \
+		maintainer-clean-libLTLIBRARIES \
+		maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-tags maintainer-clean-generic \
 		distclean-am
 
 mostlyclean:  mostlyclean-recursive mostlyclean-am
@@ -428,31 +531,35 @@ mostlyclean:  mostlyclean-recursive mostlyclean-am
 clean:  clean-recursive clean-am
 
 distclean:  distclean-recursive distclean-am
-	rm -f config.status
+	-rm -f config.status
+	-rm -f libtool
 
 maintainer-clean:  maintainer-clean-recursive maintainer-clean-am
 	@echo "This command is intended for maintainers to use;"
 	@echo "it deletes files that may require special tools to rebuild."
-	rm -f config.status
+	-rm -f config.status
 
 .PHONY: default mostlyclean-hdr distclean-hdr clean-hdr \
-maintainer-clean-hdr mostlyclean-libLIBRARIES distclean-libLIBRARIES \
-clean-libLIBRARIES maintainer-clean-libLIBRARIES uninstall-libLIBRARIES \
-install-libLIBRARIES mostlyclean-compile distclean-compile \
-clean-compile maintainer-clean-compile install-data-recursive \
-uninstall-data-recursive install-exec-recursive \
+maintainer-clean-hdr mostlyclean-libLTLIBRARIES \
+distclean-libLTLIBRARIES clean-libLTLIBRARIES \
+maintainer-clean-libLTLIBRARIES uninstall-libLTLIBRARIES \
+install-libLTLIBRARIES mostlyclean-compile distclean-compile \
+clean-compile maintainer-clean-compile mostlyclean-libtool \
+distclean-libtool clean-libtool maintainer-clean-libtool \
+install-data-recursive uninstall-data-recursive install-exec-recursive \
 uninstall-exec-recursive installdirs-recursive uninstalldirs-recursive \
 all-recursive check-recursive installcheck-recursive info-recursive \
 dvi-recursive mostlyclean-recursive distclean-recursive clean-recursive \
 maintainer-clean-recursive tags tags-recursive mostlyclean-tags \
-distclean-tags clean-tags maintainer-clean-tags distdir \
-mostlyclean-depend distclean-depend clean-depend \
-maintainer-clean-depend info dvi installcheck all-recursive-am all-am \
-install-exec-am uninstall-am install-exec install-data install \
-uninstall all installdirs mostlyclean-generic distclean-generic \
-clean-generic maintainer-clean-generic clean mostlyclean distclean \
-maintainer-clean
+distclean-tags clean-tags maintainer-clean-tags distdir info dvi \
+installcheck all-recursive-am all-am install-exec-am uninstall-am \
+install-exec install-data install uninstall all installdirs \
+mostlyclean-generic distclean-generic clean-generic \
+maintainer-clean-generic clean mostlyclean distclean maintainer-clean
 
+
+$(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

@@ -1,6 +1,4 @@
-# Automatically generated from ./lilypond-0.1.49/flower/test/Makefile.am.wild by bin/autowild
-# Do not edit
-#
+# Generated automatically by wild-perl 0.1#
 # project  LilyPond -- the musical typesetter
 # title	   makefile for flowertest
 # file	   flower/test/Makefile.am.wild
@@ -25,3 +23,5 @@ noinst_HEADERS = flower-test.hh
 
 INCLUDES = -I../include
 
+$(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

@@ -18,7 +18,6 @@
  */
 class Swallow_engraver : public Engraver {
 protected:
-  bool acceptable_request_b (Request*) const;
   bool do_try_request (Request*) ;
 public:
   TRANSLATOR_CLONE(Swallow_engraver);

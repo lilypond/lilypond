@@ -22,13 +22,13 @@ current=`basename \`pwd\``
 echo ln -s $lelie/$current $lelie/current
 ln -s $lelie/$current $lelie/current
 
-ln -sf $lelie/current/lily/out/lilypond bin/out/lilypond
-ln -sf $lelie/current/mi2mu/out/mi2mu bin/out/mi2mu
+ln -sf $lelie/current/lily/lilypond bin/lilypond
+ln -sf $lelie/current/mi2mu/mi2mu bin/mi2mu
 
 if [ "x$LILYINCLUDE" = "x" ]; then
 	echo you should make add the following to your login script
-	echo "export LILYINCLUDE=$lelie/current/init:$lelie/current/input:$lelie/current/mutopia:$lelie/current/mutopia/out:$lelie/current/input:$lelie/current/mutopia/J.S.Bach:$lelie/current/mutopia/J.S.Bach/out"
-	echo "export PATH=$PATH:$lelie/current/bin/out/"
+	echo "export LILYINCLUDE=$lelie/current/init:$lelie/current/mutopia:$lelie/current/input:$lelie/current/mutopia/J.S.Bach:"
+	echo "export PATH=$PATH:$lelie/current/bin"
 	echo "export MFINPUTS=$MFINPUTS:$lelie/current/mf"
 fi
 

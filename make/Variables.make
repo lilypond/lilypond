@@ -60,7 +60,7 @@ include-flower = $(depth)/flower/include
 rpm-sources = ${HOME}/rpms/SOURCES
 #
 
-include $(makeout)/Configure_variables.make
+#include $(makeout)/Configure_variables.make
 
 # user settings:
 #

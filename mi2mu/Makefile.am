@@ -1,5 +1,4 @@
-# Automatically generated from ./lilypond-0.1.49/mi2mu/Makefile.am.wild by bin/autowild
-# Do not edit
+# Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter
 # title	   makefile for mi2mu
 # file	   mi2mu/Makefile.am.wild
@@ -14,11 +13,14 @@ bin_PROGRAMS = mi2mu
 
 mi2mu_SOURCES = main.cc mi2mu-version.cc midi-parser.cc midi-score-parser.cc midi-track-parser.cc mudela-column.cc mudela-item.cc mudela-score.cc mudela-staff.cc mudela-stream.cc mudela-voice.cc template.cc version.cc
 
-mi2mu_LDADD = -llily -lflower
+# ugh -lfl bo lib/FlexLexer stuff
+mi2mu_LDADD = -llily -lflower -lfl
 
-mi2mu_LDFLAGS = -L../lib -L../flower
+mi2mu_LDFLAGS = -L$(LILYPOND_SOURCEDIR)/lib/.libs -L$(LILYPOND_SOURCEDIR)/flower/.libs
 
-INCLUDES = -Iinclude -I../lib/include -I../flower/include
+INCLUDES = -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include
 
 EXTRA_DIST = Makefile.am.wild VERSION TODO
 
+$(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

@@ -8,13 +8,19 @@
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
 
-VERSION="0.7"
+VERSION="0.8"
 NAME=ly2dvi.sh
 IDENTIFICATION="$NAME $VERSION" 
 NOW=`date`
 echo "$IDENTIFICATION" 1>&2
 
-# TODO
+# NEWS
+
+# 0.8	- Trap Lilypond segmentation fault
+#	- Function for cleanup
+#	- Trap line
+#	- More human-readable variables
+#	- Some logics concerning rc-files
 
 # 0.7
 #	- Improved Lilypond error checking
@@ -26,12 +32,7 @@ echo "$IDENTIFICATION" 1>&2
 #TODO
 #	- Include more papersizes.
 #	- Manual page.......
-#	- should detect crashing lilypond
-
-
-# NEWS
-    
-# 0.6.hwn1.jaf
+# 0.6.jaf2
 # 	- LILYINCLUDE update
 #
 # 0.6.hwn1
@@ -124,6 +125,18 @@ echo "$IDENTIFICATION" 1>&2
 #	- moved help into function
 
 #
+# Clean up
+#
+cleanup() {
+  $debug_echo "("$LF")("$FN")("$LOGFILE")"
+  if [ "$KEEP" != "Y" ]
+  then
+    [ -n "$LF" -a -f "$LF" ]           && rm -f $LF
+    [ -n "$LOGFILE" -a -f "$LOGFILE" ] && rm -f $LOGFILE
+    [ -n "$FN" ]                       && rm -f $FN.*
+  fi
+}
+#
 # print usage
 #
 help() {
@@ -144,7 +157,20 @@ Options:
   files may be (a mix of) input to or output from lilypond(1)
 EOF
 }
-
+#
+# Trap function (cleanup)
+#
+trap cleanup 0 9 15
+#
+# Various defaults
+#
+[ -z "$TMP" ] && TMP=/tmp
+if [ ! -d $TMP ]
+then
+  $debug_echo $IDENTIFICATION": temporary directory "$TMP" not found, set to /tmp"
+  TMP=/tmp
+fi
+LOGFILE=$TMP/lilylog.$$			# Logfile for lilypond
 PWIDTH=600;				# Width of A4 paper!
 PHEIGTH=830;                            # Heigth of A4 paper!
 #
@@ -155,8 +181,11 @@ do
   RCfile=$D"lilyrc"
   [ -f $RCfile ] && . $RCfile
 done
-
-#
+fORI=$ORIENTATION
+fLNG=$LANGUAGE
+fPSZ=$PAPERSIZE
+unset ORIENTATION LANGUAGE PAPERSIZE
+# 
 # Keywords defined in titledefs.tex
 #
 TF=`kpsewhich -n tex tex titledefs.tex`
@@ -202,14 +231,11 @@ do
   $debug_echo "arg: \`$OPTARG'"
   case $O in
     D  )
-      if [ $debug_echo = echo ]
-      then
-        set -x
-      fi
+      [ $debug_echo = echo ] && set -x
       debug_echo=echo
       ;;
     O  )
-      ORI=$OPTARG
+      ORIENTATION=$OPTARG
       ;;
     h  )
       help;
@@ -219,13 +245,13 @@ do
       KEEP=Y
       ;;
     l  )
-      LNG=$OPTARG
+      LANGUAGE=$OPTARG
       ;;
     o  )
       OUTPUTDIR=$OPTARG
       ;;
     p  )
-      PSZ=$OPTARG
+      PAPERSIZE=$OPTARG
       ;;
     s  )
       SEPFILE=Y
@@ -239,10 +265,7 @@ do
       $debug_echo "long option: \`$OPTARG'"
       case "$OPTARG" in
         D*|-D*)
-          if [ $debug_echo = echo ]
-          then
-            set -x
-          fi
+          [ $debug_echo = echo ] && set -x
           debug_echo=echo
           ;;
         h*|-h*)
@@ -253,13 +276,13 @@ do
           KEEP=Y
           ;;
         l*|-l*)
-          LNG=`echo $OPTARG | sed -e s/"^.*="//`
+          LANGUAGE=`echo $OPTARG | sed -e s/"^.*="//`
           ;;
         p*|-p*)
-          PSZ=`echo $OPTARG | sed -e s/"^.*="//`
+          PAPERSIZE=`echo $OPTARG | sed -e s/"^.*="//`
           ;;
 	or*|-or*)
-	  ORI=`echo $OPTARG | sed -e s/"^.*="//`
+	  ORIENTATION=`echo $OPTARG | sed -e s/"^.*="//`
 	  ;;
 	ou*|-ou*)
 	  OUTPUTDIR=`echo $OPTARG | sed -e s/"^.*="//`
@@ -290,31 +313,19 @@ startFile(){
 #
 # LaTeX file name
 #
+BN=`basename $File .tex`
+FN=$BN.$$
 if [ "$KEEP" != "Y" ]
 then
-  if [ "$TMP" = "" ]
-  then
-    TMP=/tmp
-  fi
-  if [ ! -d $TMP ]
-  then
-    $debug_echo $IDENTIFICATION": temporary directory "$TMP" not found, set to /tmp"
-    TMP=/tmp
-  fi
-#
-  BN=`basename $File .tex`
-  FN=$BN.$$
   LF=$TMP/$FN.tex
 else
-  BN=`basename $File .tex`
-  FN=$BN.$$
   LF=$FN.tex
 fi
 #
 # Find:
-#   paper size        (PSZ, overridden by command line option -p)
-#   paper orientation (ORI, overridden by command line option -o)
-#   language          (LNG, overridden by command line option -l)
+#   paper size        (PAPERSIZE, overridden by command line option -p)
+#   paper orientation (ORIENTATION, overridden by option -o)
+#   language          (LANGUAGE, overridden by option -l)
 #   textwidth
 #
 eval `sed -n \\
@@ -323,41 +334,41 @@ eval `sed -n \\
   -e 's/\\\\def\\\\mudelalanguage{\([^}]*\).*$/fLNG=\1;/p' \\
   -e 's/\\\\def\\\\mudelapaperlinewidth{\([^}]*\).*$/TWN=\1;/p' \\
     $File`
-if [ -z "$PSZ" ]
+if [ -z "$PAPERSIZE" ]
 then
-  PSZ=$fPSZ
+  PAPERSIZE=$fPSZ
 fi
-if [ ! -z "$PSZ" ]
+if [ -n "$PAPERSIZE" ]
 then
-  PAPEROPT=$PSZ
+  PAPEROPT=$PAPERSIZE
 fi
 #
-if [ -z "$ORI" ]
+if [ -z "$ORIENTATION" ]
 then
-  ORI=$fORI
+  ORIENTATION=$fORI
 fi
-if [ ! -z "$ORI" ]
+if [ -n "$ORIENTATION" ]
 then
   if [ -z "$PAPEROPT" ]
   then
-    PAPEROPT=$ORI
+    PAPEROPT=$ORIENTATION
   else
-    PAPEROPT=$PAPEROPT,$ORI
+    PAPEROPT=$PAPEROPT,$ORIENTATION
   fi
 fi
 #
-if [ ! -z "$PAPEROPT" ]
+if [ -n "$PAPEROPT" ]
 then
   PAPER="["$PAPEROPT"]"
 fi
 #
-if [ -z "$LNG" ]
+if [ -z "$LANGUAGE" ]
 then
-  LNG=$fLNG
+  LANGUAGE=$fLNG
 fi
-if [ ! -z "$LNG" ]
+if [ -n "$LANGUAGE" ]
 then
-  LLNG="\usepackage["$LNG"]{babel}"
+  LLNG="\usepackage["$LANGUAGE"]{babel}"
 else
   LLNG="%"
 fi
@@ -365,7 +376,7 @@ fi
 #
 # Find textwidth
 #
-if [ ! -z "$TWN" ]
+if [ -n "$TWN" ]
 then
   TW=$TWN
   case $TW in
@@ -383,7 +394,7 @@ then
 fi
 TWp=`echo $TW | sed -e 's/\..*$//'`
 PWp=$PWIDTH
-if [ "$ORI" = "landscape" ]
+if [ "$ORIENTATION" = "landscape" ]
 then
   PWp=$PHEIGTH
 fi
@@ -451,18 +462,13 @@ latex $LF || exit 5
 if [ -f $FN.dvi ]
 then
     RESULT=$BN.dvi
-    if [ x$OUTPUTDIR != x ]; then
-	RESULT="$OUTPUTDIR/$RESULT"
-    fi
+    [ -n "$OUTPUTDIR" ] && RESULT="$OUTPUTDIR/$RESULT"
     cp $FN.dvi $RESULT
 fi
 #
 # Clean up
 #
-if [ "$KEEP" != "Y" ]
-then
-  rm $LF $FN.*
-fi
+cleanup
 #
 # Output some info
 #
@@ -542,12 +548,12 @@ do
     #
     $debug_echo "lilypond "$IF
 
-    lilypond $IF 2>&1  | tee /tmp/lilylog.$$
-    OF=`egrep '^TeX output to ' /tmp/lilylog.$$ | \\
+    lilypond $IF 2>&1  | tee $LOGFILE
+    OF=`egrep '^TeX output to ' $LOGFILE | \\
         sed -e 's/TeX output to//' -e 's/\.\.\.//'`
     $debug_echo "==> "$OF
-    STATUS=`grep -i error /tmp/lilylog.$$`
-    rm /tmp/lilylog.$$
+    STATUS=`egrep -i "error|segmentation" $LOGFILE`
+    echo $STATUS
     if [ ! -z "$STATUS" ]
     then
       exit 10

@@ -2,7 +2,7 @@
 
 # bin_SCRIPTS = $(wildcard *.in)
 
-PAREL_SCHRIFTEN = $(wildcard *.py)
+PAREL_SCHRIFTEN = $(wildcard *.pl)
 IN_SCHRIFTEN = $(wildcard *.py)
-EXTRA_DIST = Makefile.am.wild autowild $(PAREL_SCHRIFTEN) $(IN_SCHRIFTEN) wild-perl
+EXTRA_DIST = Makefile.am.wild $(PAREL_SCHRIFTEN) $(IN_SCHRIFTEN) wild-perl
 

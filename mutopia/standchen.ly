@@ -467,19 +467,31 @@ tekstII = \lyric{
 	_ _ _ _ _ _ 
 	
 }
- 
-themusic = 
-	<	
-		\type Lyrics < 
-			\tekstI
-			 \tekstII
-		>
-		\type Grandstaff   <
-			\melodic < \melodie \commands >
-			\melodic < \begeleiding \commands >
-		>
-	>
 
+$treble_staff = \type Staff = treble<
+	\commands
+	\melodie
+>
+
+$bass_staff = \type Staff = bass<
+	\commands
+	\begeleiding
+>
+ 
+$grand_staff = \type Grandstaff<
+	\$treble_staff
+	\$bass_staff
+>
+
+$lyric_staff = \type Lyrics = lyric<
+	\tekstI
+	\tekstII
+>
+
+themusic = <	
+	\$lyric_staff
+	\$grand_staff	
+>
 
 \score{
 	\themusic

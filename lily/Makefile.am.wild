@@ -17,9 +17,9 @@ noinst_HEADERS = parser.hh
 
 lilypond_LDADD = -llily -lflower @LEXLIB@
 
-lilypond_LDFLAGS = -L../lib -L../flower
+lilypond_LDFLAGS = -L$(LILYPOND_SOURCEDIR)/lib/.libs -L$(LILYPOND_SOURCEDIR)/flower/.libs
 
-INCLUDES = -I. -Iinclude -I../lib/include -I../flower/include 
+INCLUDES =  -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include 
 
 EXTRA_DIST = Makefile.am.wild Stable.make VERSION
 

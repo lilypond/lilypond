@@ -13,6 +13,8 @@
 
 #include "config.hh"
 
+#include <cstddef>
+
 char* strnlwr (char* start_l ,int n);
 char* strnupr (char* start_l, int n);
 

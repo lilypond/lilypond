@@ -1,12 +1,16 @@
-# Makefile.in generated automatically by automake 1.2 from Makefile.am
+# Makefile.in generated automatically by automake 1.2f from Makefile.am
 
-# Copyright (C) 1994, 1995, 1996, 1997 Free Software Foundation, Inc.
+# Copyright (C) 1994, 1995, 1996, 1997, 1998 Free Software Foundation, Inc.
 # This Makefile.in is free software; the Free Software Foundation
-# gives unlimited permission to copy, distribute and modify it.
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
 
-# Automatically generated from ./init/Makefile.am.wild by bin/autowild
-# Do not edit
-# init/Makefile.am.wild
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+# Generated automatically by wild-perl 0.1# init/Makefile.am.wild
 
 
 SHELL = /bin/sh
@@ -47,12 +51,14 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 transform = @program_transform_name@
 
-NORMAL_INSTALL = true
-PRE_INSTALL = true
-POST_INSTALL = true
-NORMAL_UNINSTALL = true
-PRE_UNINSTALL = true
-POST_UNINSTALL = true
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+host_alias = @host_alias@
+host_triplet = @host@
 AUTOHEADER = @AUTOHEADER@
 BISON = @BISON@
 CC = @CC@
@@ -67,11 +73,15 @@ FIND = @FIND@
 FLEX = @FLEX@
 ICFLAGS = @ICFLAGS@
 ILDFLAGS = @ILDFLAGS@
+LD = @LD@
 LEX = @LEX@
+LIBTOOL = @LIBTOOL@
 LN = @LN@
+LN_S = @LN_S@
 MAKE = @MAKE@
 MAKEINFO = @MAKEINFO@
 MFDIR = @MFDIR@
+NM = @NM@
 PACKAGE = @PACKAGE@
 PERL = @PERL@
 POD2HTML = @POD2HTML@
@@ -85,10 +95,10 @@ VERSION = @VERSION@
 YACC = @YACC@
 ZIP = @ZIP@
 
-INIFILES = dutch.ly dynamic.ly engraver.ly feta11.ly feta13.ly feta16.ly feta19.ly feta20.ly feta23.ly feta26.ly german.ly italian.ly lily-init.ly midi.ly paper11.ly paper13.ly paper16.ly paper20.ly paper26.ly performer.ly property.ly script.ly simple-init.ly swedish.ly table11.ly table13.ly table16.ly table20.ly table26.ly
+INIFILES = dutch.ly dynamic.ly engraver.ly german.ly italian.ly lily-init.ly midi.ly paper11.ly paper13.ly paper16.ly paper20.ly paper26.ly performer.ly property.ly script.ly simple-init.ly swedish.ly table11.ly table13.ly table16.ly table20.ly table26.ly
 EXTRA_DIST = Makefile.am.wild $(INIFILES)
 
-CLEANFILES = feta11.ly feta13.ly feta16.ly feta19.ly feta20.ly feta23.ly feta26.ly
+CLEANFILES = 
 
 FONT_FILES = ../mf/feta-beams16.mf ../mf/feta-beams20.mf ../mf/feta-beams26.mf ../mf/feta-black16.mf ../mf/feta-braces16.mf ../mf/feta-braces20.mf ../mf/feta-din10.mf ../mf/feta-nummer10.mf ../mf/feta-nummer12.mf ../mf/feta-nummer3.mf ../mf/feta-nummer4.mf ../mf/feta-nummer5.mf ../mf/feta-nummer6.mf ../mf/feta-nummer7.mf ../mf/feta-nummer8.mf ../mf/feta-test16.mf ../mf/feta-test20.mf ../mf/feta11.mf ../mf/feta13.mf ../mf/feta16.mf ../mf/feta19.mf ../mf/feta20.mf ../mf/feta23.mf ../mf/feta26.mf
 TABLES = $(patsubst ../mf/%.mf,%.ly,$(FONT_FILES))
@@ -150,25 +160,26 @@ installdirs:
 
 
 mostlyclean-generic:
-	test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
+	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
-	test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
+	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
-	rm -f Makefile $(DISTCLEANFILES)
-	rm -f config.cache config.log stamp-h stamp-h[0-9]*
-	test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+	-rm -f Makefile $(DISTCLEANFILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 
 maintainer-clean-generic:
-	test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
-	test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
+	-test -z "$(MAINTAINERCLEANFILES)" || rm -f $(MAINTAINERCLEANFILES)
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 mostlyclean:  mostlyclean-generic
 
 clean:  clean-generic mostlyclean
 
 distclean:  distclean-generic clean
-	rm -f config.status
+	-rm -f config.status
+	-rm -f libtool
 
 maintainer-clean:  maintainer-clean-generic distclean
 	@echo "This command is intended for maintainers to use;"
@@ -190,6 +201,8 @@ install-data:
 uninstall-data:
 	for i in $(INIFILES) ; do rm -f $(datadir)/lilypond/init/$$i; done
 	-rmdir $(datadir)/lilypond/init $(datadir)/lilypond/
+$(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

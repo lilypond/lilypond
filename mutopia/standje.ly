@@ -233,48 +233,70 @@ $bass_eentje = \melodic{
 	'c8 <[e g> <g c'> <e g> <g c'> <e g]> |
 }
 		
-global= \melodic {\meter 3 /4; \key bes es as; }
+global = \melodic{
+	\meter 3/4; 
+	\key bes es as; 
+}
 
+lyrics = \melodic{
+	\meter 3/4; 
+	\skip 4 * 12; 
+	\$lyric_verse1
+	\skip 4 * 24; 
+	\$lyric_verse2
+}
+
+$lyric_staff = \type Lyrics = lyric<
+	\$lyrics
+>
 		
+vocals = \melodic{
+	\skip 4 * 12; 
+	\$vocal_verse1 
+	\skip 4 * 24; 
+	\$vocal_verse1
+}
+
+$vocal_staff = \type Staff = vocal<
+	\property Staff.instrument = "alto sax"
+	\$vocals
+>
+
+% treble = \melodic{
+treble = {
+	\$treble_intro 
+	\$treble_verse1 
+	\$treble_eentje
+	\$treble_verse1 
+}
+
+$treble_staff = \type Staff = treble< 
+	\global
+	\treble
+>
+
+bass = \melodic{
+	\$bass_intro 
+	\$bass_verse1 
+	\$bass_eentje
+	\$bass_verse1 
+}
+
+$bass_staff = \type Staff = bass<
+	\global
+	\bass
+>
+
+$grand_staff = \type Grandstaff<
+	\$treble_staff
+	\$bass_staff
+>
+
 \score{
-	\melodic<
-		\type Staff { < 
-			\global 
-			{ 
-				\property Staff.instrument = "alto sax"
-				\skip 4 * 12; 
-				\$vocal_verse1 
-				\skip 4 * 24; 
-				\$vocal_verse1
-			}
-		> }
-		\type Lyrics { 
-			\meter 3 /4; 
-			\skip 4 * 12; 
-			\$lyric_verse1
-			\skip 4 * 24; 
-			\$lyric_verse2
-		}
-		\type Grandstaff < 
-			< 
-				\global
-				{ 
-					\$treble_intro 
-					\$treble_verse1 
-					\$treble_eentje
-					\$treble_verse1 
-				}
-			>
-			< 
-				\global
-				{ 
-					\$bass_intro 
-					\$bass_verse1 
-					\$bass_eentje
-					\$bass_verse1 
-				}
-			>
-		>
+	<
+		\$vocal_staff
+		\$lyric_staff
+		\$grand_staff
 	>
 	\paper{
 		% how does this work?
