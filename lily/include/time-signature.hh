@@ -18,12 +18,16 @@
   
  */
 class Time_signature: public Item {
-  Array<Scalar> args;
+
+  
 
 protected:
   virtual Molecule*brew_molecule_p() const;
 public:
-  Time_signature (Array<Scalar> args) ;
+  Time_signature () ;
+  Array<Scalar> args_;
+  String time_sig_type_str_;
+  
   DECLARE_MY_RUNTIME_TYPEINFO;
   SCORE_ELEMENT_CLONE(Time_signature);
 };
