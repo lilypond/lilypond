@@ -74,7 +74,7 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
     return & char_metrics_[ascii_to_metric_idx_ [ascii]];
   else if (warn)
     {
-      warning (_f ("can't find ascii character %d", ascii));
+      warning (_f ("can't find ascii character: %d", ascii));
     }
   return &dummy_static_char_metric;  
 }

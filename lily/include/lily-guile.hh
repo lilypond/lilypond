@@ -34,6 +34,7 @@
 
 SCM ly_last (SCM list);
 SCM ly_str02scm (char const*c);
+SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_symbol2scm (char const *);
 String ly_scm2string (SCM s);

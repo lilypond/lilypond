@@ -36,6 +36,23 @@ ly_str02scm (char const*c)
   return gh_str02scm ((char*)c);
 }
 
+
+SCM
+ly_write2scm (SCM s)
+{
+  SCM port = scm_mkstrport (SCM_INUM0, 
+			    scm_make_string (SCM_INUM0, SCM_UNDEFINED),
+			    SCM_OPN | SCM_WRTNG,
+			    "ly_write2string");
+  //  SCM write = scm_eval_3 (ly_symbol2scm ("write"), s, SCM_EOL);
+  SCM write = scm_eval2 (ly_symbol2scm ("write"), SCM_EOL);
+  
+  // scm_apply (write, port, SCM_EOL);
+  gh_call2 (write, s, port);
+  return scm_strport_to_string (port);
+}
+
+
 /*
   Pass string to scm parser, evaluate one expression.
   Return result value and #chars read.

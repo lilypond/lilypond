@@ -84,12 +84,12 @@ All_font_metrics::find_afm (String name)
 
       if (tfm->info_.checksum != afm->checksum_)
 	{
-	  String s = _f("Font checksum mismatch for font file `%s'", path.ch_C());
+	  String s = _f ("checksum mismatch for font file: `%s'", path.ch_C ());
 	  s+= "\n";
 	  s += " TFM: " + to_str ((int) tfm->info_.checksum);
 	  s += " AFM: " + to_str ((int) afm->checksum_);
 	  s += "\n";
-	  s += _(" Rebuild all AFM files, and remove all .pk and .tfm files. Rerun with -V to show font paths.");
+	  s += _(" Rebuild all .afm files, and remove all .pk and .tfm files.  Rerun with -V to show font paths.");
 
 	  error (s);
 	}
