@@ -41,6 +41,8 @@
 #include "mudela-version.hh"
 #include "translator-def.hh"
 
+#define isatty HORRIBLEKLUDGE
+
 void strip_trailing_white (String&);
 void strip_leading_white (String&);
 
