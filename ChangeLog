@@ -1,3 +1,10 @@
+2002-05-19  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/note-collision.cc (check_meshing_chords): move file from
+	collision.cc, implement merged note heads (there you go, Drarn :-)
+
+	* input/regression/collision-heads.ly: new file
+
 2002-05-18  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* mf/parmesan-heads.mf, scm/grob-description.scm,

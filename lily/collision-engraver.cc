@@ -7,7 +7,7 @@
 */
 
 #include "note-column.hh"
-#include "collision.hh"
+#include "note-collision.hh"
 
 #include "engraver.hh"
 #include "axis-group-interface.hh"
@@ -40,7 +40,7 @@ Collision_engraver::create_grobs ()
     }
   
   for (int i=0; i< note_column_l_arr_.size (); i++)
-    Collision::add_column (col_p_,note_column_l_arr_[i]);
+    Note_collision_interface::add_column (col_p_,note_column_l_arr_[i]);
 }
 
 void

@@ -21,13 +21,6 @@ Rhythmic_head::dots_l (Grob*me)
   return unsmob_item (s);
 }
 
-int
-Rhythmic_head::balltype_i (Grob*me) 
-{
-  SCM s = me->get_grob_property ("duration-log");
-  return gh_number_p (s) ? gh_scm2int (s) <? 2 : 0;
-}
-
 Item*
 Rhythmic_head::stem_l (Grob*me) 
 {
@@ -49,6 +42,13 @@ Rhythmic_head::set_dots (Grob*me,Item *dot_l)
 }
 
 
+
+int
+Rhythmic_head::duration_log (Grob*me) 
+{
+  SCM s = me->get_grob_property ("duration-log");
+  return gh_number_p (s) ? gh_scm2int (s) : 0;
+}
 
 
 

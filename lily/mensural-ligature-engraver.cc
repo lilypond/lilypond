@@ -340,7 +340,7 @@ Mensural_ligature_engraver::transform_heads ()
     have_last_pitch = have_pitch;
     Grob_info info = primitives_arr_[i];
     int duration_log =
-      Rhythmic_head::balltype_i (dynamic_cast<Item*> (info.grob_l_));
+      Note_head::balltype_i (dynamic_cast<Item*> (info.grob_l_));
     Note_req *nr = dynamic_cast<Note_req*> (info.music_cause ());
     if (!nr)
       {

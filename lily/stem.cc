@@ -122,7 +122,7 @@ Stem::set_stemend (Grob*me, Real se)
 int
 Stem::type_i (Grob*me) 
 {
-  return first_head (me) ?  Rhythmic_head::balltype_i (first_head (me)) : 2;
+  return first_head (me) ?  Note_head::balltype_i (first_head (me)) : 2;
 }
 
 /*
@@ -238,7 +238,7 @@ Stem::add_head (Grob*me, Grob *n)
 bool
 Stem::invisible_b (Grob*me)
 {
-  return ! (head_count (me) && Rhythmic_head::balltype_i (support_head (me)) >= 1);
+  return ! (head_count (me) && Note_head::balltype_i (support_head (me)) >= 1);
 }
 
 Direction

@@ -121,7 +121,7 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
 
     UGH: use grob-property.
   */
-  SCM log = gh_int2scm (Rhythmic_head::balltype_i (me));
+  SCM log = gh_int2scm (Note_head::balltype_i (me));
   SCM exp = scm_list_n (ly_symbol2scm ("find-notehead-symbol"), log,
 			ly_quote_scm (style),
 			SCM_UNDEFINED);
@@ -191,7 +191,7 @@ SCM
 Note_head::brew_ez_molecule (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  int l = Rhythmic_head::balltype_i (me);
+  int l = Note_head::balltype_i (me);
 
   int b = (l >= 2);
 
@@ -246,6 +246,15 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   return gh_number_p (result) ?  gh_scm2double (result) : 0.0;
 }
 
+
+int
+Note_head::balltype_i (Grob*me) 
+{
+  SCM s = me->get_grob_property ("duration-log");
+  return gh_number_p (s) ? gh_scm2int (s) <? 2 : 0;
+}
+
 ADD_INTERFACE (Note_head,"note-head-interface",
   "Note head",
   "accidental-grob style stem-attachment-function");
+
