@@ -13,19 +13,6 @@
 ;; TODO: junk the meta field in favor of something more compact?
 (define all-grob-descriptions
   `(
-    (Accidentals
-     . (
-	(molecule-callback . ,Local_key_item::brew_molecule)
-	(X-offset-callbacks . (,Side_position_interface::aligned_side))
-	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))	
-	(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
-	(direction . -1)
-	(left-padding . 0.2)
-	(right-padding . 0.5)
-	(paren-cautionaries . #t)
-	(font-family . music)
-	(meta . ((interfaces . (accidentals-interface staff-symbol-referencer-interface font-interface side-position-interface))))
-	))
     (Accidental
      . (
 	(molecule-callback . ,Accidental_interface::brew_molecule)

@@ -17,6 +17,7 @@
   maintainerWeb = "http://www.cs.uu.nl/~hanwen/"	
   lastupdated = "2002/March/26"
   source = "Edition Breitkopf 2563"
+  footer = "Mutopia-2002/04/26-25"
 
   tagline =  "\\parbox{\hsize}{\\thefooter\\quad\\small This music is part of the Mutopia project, \\texttt{http://sca.uwaterloo.ca/Mutopia/}. It has been typeset and placed in the public domain by " + \maintainer + ". Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}"
 
@@ -28,6 +29,8 @@ This is the Mozart 3 for horn.  It's from an Edition Breitkopf EB
 virtuoso that taught in Geneva. 
 
 %}
+
+\version "1.5.57"
 
 \include "mozart-hrn3-defs.ly"
 \include "mozart-hrn3-allegro.ly"
