@@ -90,8 +90,10 @@
     ((-2 medium italic roman 7) . "cmti8")
     ((-3 medium italic roman 7) . "cmti7")    
 
-    ((4 bold upright roman 17) . "cmbx17")
-    ((3 bold upright roman 17) . "cmbx17")
+    ;;; cmbx17 is sauter, not commonly available as Type1.
+    ((4 bold upright roman 17) . "cmr17") 
+    ((3 bold upright roman 17) . "cmr17")
+    
     ((2 bold upright roman 14) . "cmbx14")
     ((1 bold upright roman 12) . "cmbx12")
     ((0 bold upright roman 10) . "cmbx10")

@@ -137,7 +137,7 @@ chkfontpath --remove=/usr/share/lilypond/pfa/
 %{_prefix}/man/man1/mup2ly.1.gz
 %{_prefix}/man/man1/pmx2ly.1.gz
 
-%{_prefix}/share/lilypond/
+%{_prefix}/share/lilypond/@TOPLEVEL_VERSION@/
 %{_prefix}/share/locale/*/LC_MESSAGES/lilypond.mo
 %{_prefix}/../etc/profile.d/lilypond.*
 

@@ -242,7 +242,9 @@
 			  (thickness . 0.48)
 			  (break-align-symbol . staff-bar)
 			  (visibility-lambda . ,begin-of-line-invisible)
-			  (meta . ((interfaces . (font-interface percent-repeat-interface))))
+			  (meta . ((interfaces . (font-interface
+						  break-aligned-interface
+						  percent-repeat-interface))))
 			 ))
 
     (DynamicText

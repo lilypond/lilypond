@@ -1,7 +1,4 @@
 dnl aclocal.m4   -*-shell-script-*-
-dnl WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
-dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
 

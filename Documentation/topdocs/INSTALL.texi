@@ -143,7 +143,6 @@ distribution supports g++ 3.x and flex.
 Check out @uref{http://www.python.org, the python website}.
 
 @item GUILE (version 1.4 or newer).
-GUILE-1.3.4 may work but is no longer supported.
 Check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 
