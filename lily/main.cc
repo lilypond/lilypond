@@ -26,14 +26,14 @@ bool only_midi = false;
 void
 destill_inname( String &name_str_r);
 Long_option_init theopts[] = {
-    1, "output", 'o',
-    0, "warranty", 'w',
-    0, "help", 'h',
-    0, "debug", 'd',
-    1, "init", 'i',
-    1, "include", 'I',
-    0, "midi", 'M',
-    0,0,0
+    {1, "output", 'o'},
+    {0, "warranty", 'w'},
+    {0, "help", 'h'},
+    {0, "debug", 'd'},
+    {1, "init", 'i'},
+    {1, "include", 'I'},
+    {0, "midi", 'M'},
+    {0,0,0}
 };
 
 void
