@@ -727,3 +727,19 @@ scan_fraction (String frac)
 	return gh_cons (gh_int2scm (n), gh_int2scm (d));
 }
 		
+/* avoid silly flex induced gcc warnings */
+static void yy_push_state (int) {;}
+static void yy_pop_state () {;}
+static int yy_top_state () { return 0; }
+
+static void
+avoid_silly_flex_induced_gcc_warnings ()
+{
+	(void)yy_start_stack_ptr;
+	(void)yy_start_stack_depth;
+	(void)yy_start_stack;
+	yy_push_state (0);
+	yy_pop_state ();
+	yy_top_state ();
+	avoid_silly_flex_induced_gcc_warnings ();
+}

@@ -1,3 +1,13 @@
+2002-10-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/bar-scripts.ly: Re-enable.
+
+	* lily/parser.yy:
+	* stepmake/stepmake/c++-rules.make: Fixes for bison 1.51 to be
+	released rsn.  Bison 1.50 has a crucial bug and won't work.
+
+	* lily/lexer.ll (My_lily_lexer): Avoid silly flex induced gcc warnings.
+
 2002-10-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/regression/bar-scripts.ly: Blunt documentation build fix.
