@@ -6,6 +6,7 @@
 
 	* mf/feta-macros.mf (soft_start_penstroke, soft_end_penstroke): New
 	macros.
+	(draw_bulb): Improved.
 
 	* mf/feta-pendaal.mf ("Pedal asterisk"): Remove workaround for
 	metapost bug.

@@ -438,7 +438,8 @@ enddef;
 
 def draw_bulb (expr turndir, zl, zr, bulb_rad, radius_factor)=
 begingroup;
-	save rad, ang;
+	save rad, ang, pat;
+	path pat;
 
 	clearxy;
 
@@ -455,9 +456,13 @@ begingroup;
 
 	labels (0', 1', 2');
 
-	fill zr{dir (ang + turndir * 90)}
-	     .. z1'
-	     .. z2'
+	pat = zr{dir (ang + turndir * 90)}
+	       .. z1'
+	       .. z2'
+	       .. cycle;
+
+	% avoid grazing outlines
+	fill subpath (0, 2.5) of pat
 	     -- cycle;
 endgroup
 enddef;
