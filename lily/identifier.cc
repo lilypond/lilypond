@@ -41,7 +41,7 @@ DEFAULT_PRINT(Symtables_id, Symtables, symtables);
 DEFAULT_PRINT(Staff_id, Input_staff, staff);
 DEFAULT_PRINT(M_chord_id, Music_general_chord, mchord);
 DEFAULT_PRINT(M_voice_id, Music_voice, mvoice);
-
+DEFAULT_PRINT(Request_id, Request, request);
 void
 Real_id::do_print() const
 {
@@ -54,3 +54,4 @@ Notetab_id::do_print() const
 {
     mtor << "unknown" << "\n";
 }
+

@@ -51,11 +51,10 @@ Score_walker::operator ++(int )
     if (ok() && ptr()->when() == last)
 	PCursor<Score_column *>::operator++(0);
     reinit();
-    if (!ok())
-	return;
+    bool last_b =  (!ok());	// urgh
     for (int i=0; i< walker_p_arr_.size(); i++) {
 	if (walker_p_arr_[i]->ok() &&
-	    walker_p_arr_[i]->when() < when()) {
+	    (last_b || walker_p_arr_[i]->when() < when())) {
 
 	    walker_p_arr_[i]->operator++(0);
 	}
@@ -80,6 +79,12 @@ Score_walker::allow_break(Staff_walker*w)
 	    }
 	}
     }
+}
+
+bool
+Score_walker::break_allowed_b()
+{
+    return !disallow_break_count_;
 }
 
 Moment

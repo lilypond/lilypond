@@ -21,7 +21,7 @@ Bar::do_print()const
 Molecule*
 Bar::brew_molecule_p()const
 {    
-    Symbol s = paper()->lookup_p_->bar(type);
+    Symbol s = paper()->lookup_l()->bar(type);
     Molecule*output = new Molecule(Atom(s));
     return output;
 }

@@ -14,11 +14,13 @@
 #define IDACCESSOR( Input_staff, staff)\
     virtual Input_staff * staff(bool) { error(#Input_staff); return 0; }
 
+
 struct Identifier {
     void *data;
     String name;
+    int token_code_i_;
     
-    Identifier(String n) : name(n) { }
+    Identifier(String n, int code) : name(n) { token_code_i_ = code; }
     virtual ~Identifier() {}
 
     void print()const;
@@ -33,6 +35,8 @@ struct Identifier {
     IDACCESSOR(Lookup,lookup)
     IDACCESSOR(Real,real)
     IDACCESSOR(Notename_tab, notename_tab)
+    IDACCESSOR(Request, request)
+	
 protected:
     virtual void do_print()const=0;
 private:

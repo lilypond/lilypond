@@ -21,10 +21,10 @@
  constants. Most of them are related to the point-size of the fonts,
  so therefore, the lookup table for symbols is also in here.
 
- see TODO
  */
-struct Paper_def {
+class Paper_def {
     Lookup *lookup_p_;
+public:    
     String outfile;
 
     Real linewidth;
@@ -47,6 +47,7 @@ struct Paper_def {
     Real standard_height()const;
     Real note_width() const;
     void print() const;
+    const Lookup* lookup_l();	// TODO naming
     Real duration_to_dist(Moment);
 };
 

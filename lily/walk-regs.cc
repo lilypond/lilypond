@@ -21,7 +21,7 @@
 #include "voice-group-regs.hh"
 #include "voice-regs.hh"
 #include "commandrequest.hh"
-
+#include "score-walker.hh"
 
 Walker_registers::Walker_registers(Complex_walker *w)
 {
@@ -162,11 +162,14 @@ Walker_registers::try_request(Request * r)
 Staff_info
 Walker_registers::get_staff_info() return inf;
 {
+    if (walk_l_->score_walk_l_)	// we get called ctors
+	inf.break_allowed_b_ = walk_l_->score_walk_l_->break_allowed_b();
     inf.c0_position_i_ = &walk_l_->c0_position_i_;
     inf.walk_l_ = walk_l_;
     inf.time_c_l_ = &walk_l_->time_;
     inf.rhythmic_c_l_ = walk_l_->default_grouping;
 }
+
 Paper_def*
 Walker_registers::paper()const
 {

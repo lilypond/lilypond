@@ -111,7 +111,7 @@ Beam::solve_slope()
 
 				// URG
     Real sl = slope*paper()->internote();
-    paper()->lookup_p_->beam(sl, 20 PT);
+    paper()->lookup_l()->beam(sl, 20 PT);
     slope = sl /paper()->internote();
 }
 
@@ -207,7 +207,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
     Real dy=paper()->internote()*2;
     Real stemdx = paper()->rule_thickness();
     Real sl = slope*paper()->internote();
-    paper()->lookup_p_->beam(sl, 20 PT);
+    paper()->lookup_l()->beam(sl, 20 PT);
 
     Molecule leftbeams;
     Molecule rightbeams;
@@ -220,7 +220,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	Symbol dummy;
 	Atom a(dummy);
 	if (lhalfs)		// generates warnings if not
-	    a =  paper()->lookup_p_->beam(sl, w);
+	    a =  paper()->lookup_l()->beam(sl, w);
 	a.translate(Offset (-w, -w * sl));
 	for (int j = 0; j  < lhalfs; j++) {
 	    Atom b(a);
@@ -234,7 +234,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 	int rwholebeams = here->beams_right <? next->beams_left; 
 
 	Real w = next->hindex() - here->hindex();
-	Atom a = paper()->lookup_p_->beam(sl, w + stemdx);
+	Atom a = paper()->lookup_l()->beam(sl, w + stemdx);
 	
 	int j = 0;
 	for (; j  < rwholebeams; j++) {
@@ -245,7 +245,7 @@ Beam::stem_beams(Stem *here, Stem *next, Stem *prev)const
 
 	w /= 4;
 	if (rhalfs)
-	    a = paper()->lookup_p_->beam(sl, w);
+	    a = paper()->lookup_l()->beam(sl, w);
 	
 	for (; j  < rwholebeams + rhalfs; j++) {
 	    Atom b(a);

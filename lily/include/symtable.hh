@@ -8,6 +8,8 @@
 #include "symbol.hh"
 
 struct  Symtable : public Assoc<String, Symbol> {
+    String id_str;
+    
     Symbol lookup(String)const;
     void print()const;
 };
@@ -19,7 +21,7 @@ struct Symtables : private Assoc<String, Symtable*> {
     ~Symtables();
     Symtables();
     Symtables(Symtables const&);
-    Assoc<String, Symtable*>::add;
+    void add(String, Symtable*);
     void print()const;
 };
 

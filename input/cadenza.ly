@@ -8,7 +8,7 @@ cad = music { $
 	\duration { 8}
 	\textstyle "italic"
 	\clef \violin 
-	'c4._"f" g8
+	'c4.\mf g8
  	\textstyle  "roman" 
 
 	['e^"accel" ()'d 'c b]

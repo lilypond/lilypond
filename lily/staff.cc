@@ -1,3 +1,14 @@
+/*
+  staff.cc -- implement Staff
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+ 
+
 #include "proto.hh"
 #include "plist.hh"
 #include "staff.hh"
@@ -11,7 +22,7 @@
 #include "musicalrequest.hh"
 #include "commandrequest.hh" // todo
 #include "midi-stream.hh"
-
+#include "pqueue.hh"
 void
 Staff::add(PointerList<Voice*> const &l)
 {
@@ -77,25 +88,46 @@ Staff::get_col(Moment w, PCursor<Staff_column*> *last)
     return i;
 }
 
-/**
-  put all stuff grouped vertically in the Staff_cols.
-  Do the preprarations for walking the cols. not virtual
-    */
+/** put all stuff grouped vertically in the Staff_cols.  Do the
+  preprarations for walking the cols. not virtual */
 void
 Staff::setup_staffcols()
-{    
+{
+    PQueue<Subtle_req *, Moment> subtle_req_pq;
+    
     for (iter_top(voice_list_,i); i.ok(); i++) {
 	PCursor<Staff_column*> last(cols_);
 	Moment now = i->start;
-	for (iter_top(i->elts,j); j.ok(); j++) {
+	iter_top(i->elts,j);
+	while( j.ok()) {
 	    
-	    Staff_column *s_l= get_col(now, &last);
-	    assert(now == s_l->when());
-	    s_l->add(j);
-	    now += j->duration;	    
-	}
+	    Moment next = now;
+	    if (subtle_req_pq.size())
+		next = next <? subtle_req_pq.front_idx();
 
+	    Staff_column *s_l= get_col(next, &last);
+
+	    while (subtle_req_pq.size()
+		   && subtle_req_pq.front_idx() == s_l->when()) {
+		s_l->setup_one_request(subtle_req_pq.get()); // ugh!
+	    }
+	    if(next == now) {
+		s_l->add(j, subtle_req_pq); 
+		now += j->duration;
+		j++;
+	    }
+	}
+	
     }
+    PCursor<Staff_column*> last(cols_);
+    
+    while (subtle_req_pq.size()) {
+	Moment front =subtle_req_pq.front_idx();
+	Staff_column *s_l = get_col(front, &last);
+	while(subtle_req_pq.size() && subtle_req_pq.front_idx() == front)
+	    s_l->setup_one_request(subtle_req_pq.get()); // ugh!
+    }
+	
     OK();
 }
 

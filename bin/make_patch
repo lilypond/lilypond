@@ -21,7 +21,7 @@ then
 	echo cant find $newarc
 	exit
   fi
-  tar zfxv $newarc
+  tar zfx $newarc
 fi
 if [ ! -x  $nm$old ]
 then
@@ -29,10 +29,10 @@ then
 
   if [ ! -f $oldarc ]
   then
-	echo cant find oldarc
+	echo cant find $oldarc
 	exit
   fi
-   tar zfxv $oldarc
+   tar zfx $oldarc
 fi
 
 #(cd $nm$old; touch depend; make clean)

@@ -120,7 +120,7 @@ PScore::output(Tex_stream &ts)
 {
     int l=1;
 
-    ts << "\n "<<  paper_l_->lookup_p_->texsetting << "%(Tex id)\n";
+    ts << "\n "<<  paper_l_->lookup_l()->texsetting << "%(Tex id)\n";
     for (iter_top(lines,lic); lic.ok(); lic++) {
 	ts << "% line of score no. " << l++ <<"\n";
 	ts << lic->TeXstring();

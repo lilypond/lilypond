@@ -1,6 +1,6 @@
 before 0.1
 
-	* remove spurious/outdated comments in .ly
+	* remove spurious/outdated comments in .ly, debug .ly
 	
 	* pushgroup, popgroup.
 
@@ -14,6 +14,8 @@ before 0.1
 
 	* caching of Register_group_register hierarchies.
 
+	* midi esp.: use I32 iso int where 32 bits are needed (or assumed...)
+
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
@@ -24,7 +26,11 @@ STUFF
 
 	* do platform stuff: configure, header(s), targets, build (out?)
 
+	* make install.
+	
 BUGS
+
+	* barf if no score_wde_music
 
 	* plet bugs: scales.ly
 
@@ -96,11 +102,11 @@ SMALLISH PROJECTS
 	* use (char *) iso. String for communication between lexer and
 	parser.
 
-	* configure idealspacing: arithmetic spacing
-
-	* fix linking: `Warning: size of symbol'
+	* configure idealspacing: arithmetic
 
 	* collision Request_register.
+
+	* make install (gnu dir names)
 
 	* LilyPond .rpm and .deb
 
@@ -143,6 +149,8 @@ FUTURE
 	* abbreviations a4*8
 
 IDEAS
+
+	* integrate Register/Midi stuff
 
 	* create libmudela,  or liblily_frontend
 

@@ -56,13 +56,13 @@ Key_item::brew_molecule_p()const
     Real inter = paper()->internote();
     
     for (int i =0; i < pitch.size(); i++) {
-	Symbol s= paper()->lookup_p_->accidental(acc[i]);
+	Symbol s= paper()->lookup_l()->accidental(acc[i]);
 	Atom a(s);
 	a.translate(Offset(0,(c_position + pitch[i]) * inter));
 	Molecule m(a);
 	output->add_right(m);	
     }
-    Molecule m(paper()->lookup_p_->fill(Box(
+    Molecule m(paper()->lookup_l()->fill(Box(
 	Interval(0, paper()->note_width()),
 	Interval(0,0))));
     output->add_right(m);

@@ -28,11 +28,11 @@ Rest::brew_molecule_p()const
     Paper_def *p =paper();
 
     Symbol s;
-    s = p->lookup_p_->rest(balltype);
+    s = p->lookup_l()->rest(balltype);
     
     Molecule *m = new Molecule(Atom(s));
     if (dots) {
-	Symbol d =p->lookup_p_->dots(dots);
+	Symbol d =p->lookup_l()->dots(dots);
 	Molecule dm;
 	dm.add(Atom(d));
 	m->add_right(dm);

@@ -8,10 +8,15 @@ my @pw=(getpwuid($<));
 my $username=$pw[6];
 my $what="implement ";
 $what = "declare " if ($hh_q);
+my ($PROJECT, $cwd);
+$PROJECT = "the LilyPond music typesetter";
+chop($cwd = `pwd`);
+
+$PROJECT= "the Flower Library" if ($cwd =~ /flower/);
 my $headstr ="/*
   $fn -- $what
 
-  source file of the LilyPond music typesetter
+  source file of $PROJECT
 
   (c) 1997 $username <$MAILADRESS>
 */\n";

@@ -18,11 +18,13 @@
 #include "complex-walker.hh"
 #include "commandrequest.hh"
 #include "debug.hh"
+#include "dynamic-reg.hh"
 
 static int temp_id_count;
 
 Voice_group_registers::Voice_group_registers(String id)
 {
+    add(new Dynamic_register);
     add(new Text_register);
     add(new Stem_beam_register);
     add(new Script_register);

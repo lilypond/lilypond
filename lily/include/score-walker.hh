@@ -26,6 +26,7 @@ class Score_walker : public PCursor<Score_column *>
     int disallow_break_count_;
     void reinit();
 public:
+    bool break_allowed_b();
     void allow_break(Staff_walker*w);
     Score_walker(Score*);
     ~Score_walker();

@@ -122,7 +122,7 @@ Slur::brew_molecule_p() const
     w+= (right_off.x - left_off.x) * nw_f ;
     Real round_w = w;		// slur lookup rounds the slurwidth .
     
-    Symbol sl = paper()->lookup_p_->slur(dy , round_w, dir_i_);
+    Symbol sl = paper()->lookup_l()->slur(dy , round_w, dir_i_);
 
     Real error = w-round_w;
     

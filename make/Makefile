@@ -31,7 +31,7 @@ MAKEFILES = $(shell ls *.make)
 
 # list of distribution files:
 #
-DISTFILES = Makefile $(MAKEFILES)
+DISTFILES = configure.in ACVariables.make.in Makefile lilypond.spec $(MAKEFILES)
 #
 
 # generic variables:
