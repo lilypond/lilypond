@@ -15,6 +15,9 @@
 
 ;;; Inspired on auctex
 
+;;; Look lilypond-init.el or Documentation/topdocs/INSTALL.texi
+;;; for installing instructions.
+
 (load-library "lilypond-font-lock")
 (load-library "lilypond-indent")
 
