@@ -13,7 +13,8 @@ EndMudelaHeader
 \version "0.1.0";
 
 
-cad = \melodic  {
+\score {
+	\melodic  {\id "Staff" "french horn";
 		\cadenza 1;
 		\grouping 1*4;\duration  8;\octave c';
 
@@ -55,12 +56,10 @@ cad = \melodic  {
 	c4
 	}
 
-\score {
-	\melodic{ \cad }
 	\paper {
 	
 		unitspace= 14.0\mm;
 		geometric= 1.4;
 	}
-%	\midi { \tempo 4:90 }
+	\midi { \tempo 4:90; }
 }
