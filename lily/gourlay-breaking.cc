@@ -14,7 +14,7 @@
 #include "p-score.hh"
 #include "paper-def.hh"
 
-const HAPPY_DOTS_I = 3;
+const int HAPPY_DOTS_I = 3;
 
 /**
   Helper to trace back an optimal path 

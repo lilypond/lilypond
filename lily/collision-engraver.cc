@@ -30,7 +30,7 @@ Collision_engraver::acknowledge_element (Score_element_info i)
 {
   if (i.elem_l_->is_type_b (Note_column::static_name ()))
     {
-      Note_column * c = (Note_column*) i.elem_l_->access_Item ();
+      Note_column * c = (Note_column*) dynamic_cast <Item *> (i.elem_l_);
       if (c->rest_b ())
 	return ;
 

@@ -15,6 +15,7 @@ Score_element_info::Score_element_info (Score_element*s_l, Request*r_l)
   req_l_ = r_l;
 }
 
+
 Score_element_info::Score_element_info()
 {
   elem_l_ = 0;

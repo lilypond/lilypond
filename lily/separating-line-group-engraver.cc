@@ -38,7 +38,7 @@ Separating_line_group_engraver::do_removal_processing ()
 void
 Separating_line_group_engraver::acknowledge_element (Score_element_info i)
 {
-  Item * it = i.elem_l_->access_Item ();
+  Item * it = dynamic_cast <Item *> (i.elem_l_);
   if (it && !it->axis_group_l_a_[X_AXIS])
     {
       Single_malt_grouping_item *&p_ref_ (it->breakable_b_ ?

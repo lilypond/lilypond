@@ -23,10 +23,10 @@ Lyric_engraver::Lyric_engraver()
 bool
 Lyric_engraver::do_try_request (Request*r)
 {
-  Musical_req * m =r->access_Musical_req ();
-  if (!m || ! m->access_Lyric_req ()) 
+  Musical_req * m =dynamic_cast <Musical_req *> (r);
+  if (!m || ! dynamic_cast <Lyric_req *> (m)) 
     return false;
-  lreq_l_ = m->access_Lyric_req ();
+  lreq_l_ = dynamic_cast <Lyric_req *> (m);
 
   return true;
 }

@@ -23,8 +23,8 @@ public:
 protected:
   Link_array<Bracket_req> bracket_req_arr_;
 
-  Link_array<Slur> started_span_p_arr_;
-  Link_array<Slur> stop_now_span_p_arr_;
+  Link_array<Plet_spanner> started_span_p_arr_;
+  Link_array<Plet_spanner> stop_now_span_p_arr_;
 
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);

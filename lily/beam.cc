@@ -126,7 +126,7 @@ void
 Beam::do_substitute_dependent (Score_element*o,Score_element*n)
 {
   if (o->is_type_b (Stem::static_name ()))
-      stems_.substitute ((Stem*)o->access_Item (),  n? (Stem*) n->access_Item ():0);
+      stems_.substitute ((Stem*)dynamic_cast <Item *> (o),  n? (Stem*) dynamic_cast <Item *> (n):0);
 }
 
 Interval

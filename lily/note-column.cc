@@ -102,18 +102,18 @@ Note_column::do_substitute_dependency (Score_element*o, Score_element*n)
 {
   if (stem_l_ == o) 
     {
-      stem_l_ = n ? (Stem*)n->access_Item ():0;
+      stem_l_ = n ? (Stem*)dynamic_cast <Item *> (n):0;
     }
   if (o->is_type_b (Note_head::static_name ()))
     {
-      head_l_arr_.substitute ((Note_head*)o->access_Item (), 
-			      (n)? (Note_head*)n->access_Item () : 0);
+      head_l_arr_.substitute ((Note_head*)dynamic_cast <Item *> (o), 
+			      (n)? (Note_head*)dynamic_cast <Item *> (n) : 0);
     }
   Script_column::do_substitute_dependency (o,n);
   if (o->is_type_b (Rest::static_name ())) 
     {
-      rest_l_arr_.substitute ((Rest*)o->access_Item (), 
-			      (n)? (Rest*)n->access_Item () : 0);
+      rest_l_arr_.substitute ((Rest*)dynamic_cast <Item *> (o), 
+			      (n)? (Rest*)dynamic_cast <Item *> (n) : 0);
     }
 }
 

@@ -38,7 +38,7 @@ Priority_horizontal_align_engraver::acknowledge_element (Score_element_info i)
 	  halign_p_->breakable_b_ = true;
 	  announce_element (Score_element_info (halign_p_,0));
 	}
-      Item * it = i.elem_l_->access_Item ();
+      Item * it = dynamic_cast <Item *> (i.elem_l_);
       if (it->break_priority_i_ == 0)
 	halign_p_->center_l_ = it;
 

@@ -76,10 +76,10 @@ void
 Slur::do_substitute_dependency (Score_element*o, Score_element*n)
 {
   int i;
-  while ((i = encompass_arr_.find_i ((Note_column*)o->access_Item ())) >=0) 
+  while ((i = encompass_arr_.find_i ((Note_column*)dynamic_cast <Item *> (o))) >=0) 
     {
       if (n)
-	encompass_arr_[i] = (Note_column*)n->access_Item ();
+	encompass_arr_[i] = (Note_column*)dynamic_cast <Item *> (n);
       else
 	encompass_arr_.del (i);
     }

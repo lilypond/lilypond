@@ -18,6 +18,7 @@
 #include "paper-def.hh"
 
 
+
 Score_engraver::Score_engraver()
 {
   break_penalty_i_ = 0;
@@ -103,8 +104,8 @@ Score_engraver::do_announces()
 	  */
 	if (announce_info_arr_[i].req_l_) 
 	  {
-	    Musical_req *m = announce_info_arr_[i].req_l_->access_Musical_req ();
-	    if (m && m->access_Rhythmic_req ()) 
+	    Musical_req *m =dynamic_cast <Musical_req *> ( announce_info_arr_[i].req_l_);
+	    if (m && dynamic_cast <Rhythmic_req *> (m)) 
 	      {
 		musical_column_l_->add_duration (m->duration());
 	      }
@@ -117,8 +118,9 @@ Score_engraver::do_announces()
 void
 Score_engraver::typeset_element (Score_element *elem_p)
 {
-  elem_p_arr_.push(elem_p);
+  elem_p_arr_.push (elem_p);
 }
+
 
 void
 Score_engraver::typeset_all()
@@ -126,14 +128,12 @@ Score_engraver::typeset_all()
   for  (int i =0; i < elem_p_arr_.size(); i++) 
     {
       Score_element * elem_p = elem_p_arr_[i];
-      if (elem_p->access_Spanner ()) 
+      if (dynamic_cast <Spanner *> (elem_p)) 
 	{
-	  Spanner *s = elem_p->access_Spanner ();
+	  Spanner *s = dynamic_cast <Spanner *> (elem_p);
 	  pscore_p_->typeset_unbroken_spanner (s);
 
-
-
-	    	  /*
+	    /*
 	    do something sensible if spanner not 
 	    spanned on 2 items.
 	   */
@@ -148,7 +148,7 @@ Score_engraver::typeset_all()
 	}
       else 
 	{
-	  Item *item_p = elem_p->access_Item ();
+	  Item *item_p = dynamic_cast <Item *> (elem_p);
 	  pscore_p_->typeset_element (item_p);
 	  if (!item_p->axis_group_l_a_[X_AXIS]) {
 	    if (item_p->breakable_b_) 
@@ -228,7 +228,6 @@ Score_engraver::get_staff_info() const
 }
 
 
-
 Music_output*
 Score_engraver::get_output_p ()
 {
@@ -242,13 +241,13 @@ Score_engraver::do_try_request (Request*r)
 {
   bool gotcha = Engraver_group_engraver::do_try_request (r);  
 
-  if (gotcha || !r->access_Command_req ())
+  if (gotcha || !dynamic_cast <Command_req *> (r))
     return gotcha;
 
-  Command_req * c = r->access_Command_req ();
-  if (c->access_Break_req ())
+  Command_req * c = dynamic_cast <Command_req *> (r);
+  if (dynamic_cast <Break_req *> (c))
     {
-      Break_req* b = (Break_req*)c->access_Break_req ();
+      Break_req* b = (Break_req*)dynamic_cast <Break_req *> (c);
       if (b->penalty_i_ <= Break_req::DISALLOW)
 	break_penalty_i_ = b->penalty_i_;
       else if (b->penalty_i_ >= Break_req::FORCE)

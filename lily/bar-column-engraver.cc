@@ -52,7 +52,7 @@ Bar_column_engraver::create_column ()
 void
 Bar_column_engraver::acknowledge_element (Score_element_info info)
 {
-  Item * it = info.elem_l_->access_Item ();
+  Item * it = dynamic_cast <Item *> (info.elem_l_);
   if (!it)
     return;
 

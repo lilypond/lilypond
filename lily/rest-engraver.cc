@@ -62,11 +62,11 @@ Rest_engraver::do_process_requests ()
 bool
 Rest_engraver::do_try_request (Request *r)
 {
-  Musical_req *m = r->access_Musical_req ();
-  if (!m || !m->access_Rest_req ())
+  Musical_req *m = dynamic_cast <Musical_req *> (r);
+  if (!m || !dynamic_cast <Rest_req *> (m))
     return false;
 
-  rest_req_l_ = m->access_Rest_req ();	// ugh
+  rest_req_l_ = dynamic_cast <Rest_req *> (m);	// ugh
   return true;
 }
 

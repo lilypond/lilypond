@@ -26,11 +26,11 @@ Mark_engraver::Mark_engraver ()
 bool
 Mark_engraver::do_try_request (Request* r_l)
 {
-  Command_req* c_l = r_l->access_Command_req ();
-  if (!c_l || !c_l->access_Mark_req () || mark_req_l_) 
+  Command_req* c_l = dynamic_cast <Command_req *> (r_l);
+  if (!c_l || !dynamic_cast <Mark_req *> (c_l) || mark_req_l_) 
     return false;
 
-  mark_req_l_ = c_l->access_Mark_req ();
+  mark_req_l_ = dynamic_cast <Mark_req *> (c_l);
 
   return true;
 }

@@ -50,7 +50,7 @@ Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
   Span_bar_engraver::acknowledge_element (i);
   if (i.elem_l_->is_type_b (Piano_brace::static_name ()))
     {
-      Span_bar* b =  i.elem_l_->access_Span_bar ();
+      Span_bar* b =  dynamic_cast <Span_bar *> (i.elem_l_);
       Piano_brace * piano_l = (Piano_brace*) b;
       piano_l->extra_move_left_f_  = paper ()->interline_f (); // ugh
     }
