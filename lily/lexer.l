@@ -120,7 +120,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 <incl>\"[^"]*\"   { /* got the include file name */
 	String s (YYText()+1);
 	s = s.left_str(s.length_i()-1);
-	mtor << "#include `" << s << "\'\n";
+	DOUT << "#include `" << s << "\'\n";
 	new_input(s,source_l_g);
 	yy_pop_state();
 }
@@ -131,7 +131,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 <notes>{RESTNAME} 	{
 	const char *s = YYText();
 	yylval.string = new String (s);	
-	mtor << "rest:"<< yylval.string;
+	DOUT << "rest:"<< yylval.string;
 	return RESTNAME;
 }
 <INITIAL,lyrics,notes>\\\${BLACK}*{WHITE}	{
@@ -198,7 +198,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 		*yylval.string += YYText();
 	}
 	\"	{
-		mtor << "quoted string: `" << *yylval.string << "'\n";
+		DOUT << "quoted string: `" << *yylval.string << "'\n";
 		yy_pop_state();
 		return STRING;
 	}
@@ -228,7 +228,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 			s = s.left_str(i+2) + " " + s.right_str(s.length_i()-i-2);
 			}
 		yylval.string = new String(s);
-		mtor << "lyric : `" << s << "'\n";
+		DOUT << "lyric : `" << s << "'\n";
 		return STRING;
 	}
 	. {
@@ -237,7 +237,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 }
 
 <<EOF>> {
-	mtor << "<<eof>>";
+	DOUT << "<<eof>>";
 
 	if (! close_input()) { 
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL
@@ -253,7 +253,7 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 	Real r;
 	int cnv=sscanf (YYText(), "%lf", &r);
 	assert(cnv == 1);
-	mtor  << "REAL" << r<<'\n';
+	DOUT  << "REAL" << r<<'\n';
 	yylval.real = r;
 	return REAL;
 }
@@ -265,12 +265,12 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 
 [{}]	{
 
-	mtor << "parens\n";
+	DOUT << "parens\n";
 	return YYText()[0];
 }
 [*:=]		{
 	char c = YYText()[0];
-	mtor << "misc char" <<c<<"\n";
+	DOUT << "misc char" <<c<<"\n";
 	return c;
 }
 
@@ -320,28 +320,28 @@ My_lily_lexer::pop_state()
 int
 My_lily_lexer::scan_escaped_word(String str)
 {	
-	mtor << "\\word: `" << str<<"'\n";
+	DOUT << "\\word: `" << str<<"'\n";
 	int l = lookup_keyword(str);
 	if (l != -1) {
-		mtor << "(keyword)\n";
+		DOUT << "(keyword)\n";
 		return l;
 	}
 	Identifier * id = lookup_identifier(str);
 	if (id) {
-		mtor << "(identifier)\n";
+		DOUT << "(identifier)\n";
 		yylval.id = id;
 		return id->token_code_i_;
 	}
 	if ( YYSTATE != notes ) {
 		Melodic_req * mel_l = lookup_melodic_req_l(str);
 		if (mel_l) {
-		    mtor << "(notename)\n";
+		    DOUT << "(notename)\n";
 		    yylval.melreq = mel_l;
 		    return NOTENAME_ID;
 		}
 	}
 	LexerError( "Unknown escaped string: `" + str + "'");	
-	mtor << "(string)";
+	DOUT << "(string)";
 	String *sp = new String( str);
 	yylval.string=sp;
 	return STRING;
@@ -350,11 +350,11 @@ My_lily_lexer::scan_escaped_word(String str)
 int
 My_lily_lexer::scan_bare_word(String str)
 {
-	mtor << "word: `" << str<< "'\n";	
+	DOUT << "word: `" << str<< "'\n";	
 	if (YYSTATE == notes){
 		Melodic_req * mel_l = lookup_melodic_req_l(str);
 		if (mel_l) {
-		    mtor << "(notename)\n";
+		    DOUT << "(notename)\n";
 		    yylval.melreq = mel_l;
 		    return NOTENAME_ID;
 		}
