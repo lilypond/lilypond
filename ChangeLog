@@ -1,3 +1,11 @@
+2003-05-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/GNUmakefile: Compatibility fix for new
+	makeinfo.  Please upgrade to texinfo CVS or pretest > 4.5.90 (rsn)
+	for making binary packages; info splitting bug has been fixed.
+
+	* Documentation/user/refman.itely: Compile fixes.
+
 2003-05-16  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: XEmacs-fix: Use (mark) to find active-mark.
