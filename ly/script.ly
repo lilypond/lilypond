@@ -1,9 +1,5 @@
 
 
-#(eval-string (ly-gulp-file "script.scm"))
-
-#default-script-alist
-
 "dash-hat" = "marcato"
 "dash-plus" = "stopped"
 "dash-dash" = "tenuto"

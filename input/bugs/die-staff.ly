@@ -1,6 +1,8 @@
-
+\header  {
+texidoc = "a staff should really die, if no one's referencing it."
+}
 \score {
-  {
+ {
     \context Staff = q {
       \notes { a' b' c' d' }
     }

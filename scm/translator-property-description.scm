@@ -121,7 +121,11 @@ every barline.
 ")
 (translator-property-description 'currentCommandColumn ly-grob? "Grob that is X-parent to all current breakable (clef, key signature, etc.) items.")
 (translator-property-description 'currentMusicalColumn ly-grob? "Grob that is X-parent to all non-breakable items (note heads, lyrics, etc.).")
-(translator-property-description 'defaultBarType string? "Sets the default type of bar line.  Available bar types: [FIXME]
+(translator-property-description 'defaultBarType string? "Sets the default type of bar line.  Available bar types: [FIXME];
+
+This variable is typically read at Score level, so overriding
+Staff.defaultBarType will have no effect.
+
 ")
 (translator-property-description 'drarnChords boolean? "")
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
@@ -259,7 +263,7 @@ settings.
 pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")
 (translator-property-description 'timing boolean? " Keep administration of measure length, position, bar number, etc?
 Switch off for cadenzas.")
-(translator-property-description 'transposing integer? "Number of semi tones that MIDI output must be transposed.")
+(translator-property-description 'transposing integer? "Transpose the MIDI output.  Set this property to the number of half-steps to transpose by.")
 (translator-property-description 'tremoloFlags integer? "Number of tremolo flags to add if none is specified.")
 (translator-property-description 'tupletInvisible boolean? "
     If set to true, tuplet bracket creation is switched off

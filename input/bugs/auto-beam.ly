@@ -1,6 +1,7 @@
-% bug or feature?
-\score { \notes { c8 c8
-  % needed to force auto-beam:
-  % c4
+\header {
+texidoc ="Auto beam can not be put on the final notes of a score  ";
+}
 
+\score { \notes {
+  c8 c8
 }}

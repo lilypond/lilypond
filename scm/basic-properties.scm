@@ -53,6 +53,8 @@
 ;; See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147
 ;;
 
+;; documentme: difference between extra-space and minimum-space
+
 ;; (Measured in staff space)
 (define default-break-align-space-alist
  '(

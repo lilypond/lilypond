@@ -16,6 +16,10 @@
 struct Column_spring {
   Paper_column *other_l_;
   Real distance_f_;
+
+  /*
+    TODO: make 2 strengths: one for stretching, and one for shrinking.
+  */
   Real strength_f_;
   
   Column_spring ();

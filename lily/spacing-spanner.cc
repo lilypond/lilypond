@@ -130,7 +130,8 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> cols)
 	    spacing in the measure.
 	  */
 	  SCM sfac =lc->get_grob_property ("space-factor");
-	  if (Item::breakable_b (lc) || lc->original_l_)
+	  if (gh_number_p (lc->get_grob_property ("column-space-strength"))
+	      && (Item::breakable_b (lc) || lc->original_l_))
 	    {
 	      s.strength_f_ =
 		gh_scm2double (lc->get_grob_property ("column-space-strength"));

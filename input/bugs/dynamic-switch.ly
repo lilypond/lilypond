@@ -15,9 +15,6 @@
 	\paper{
 		linewidth=140.\mm;
 	}
-	\midi{
-		
-	}
 }
 
 

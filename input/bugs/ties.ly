@@ -1,16 +1,16 @@
 \header {
   texidoc="Positioning of last ties is incorrect; ties between 2-1 and 1-1
-  durations differ.  Direction is incorrect.";
+  durations differ.";
 }
 
 \score {
   \context Staff <
     \context Voice = a \notes\relative c'' {
-      \stemUp
+      \voiceOne
       r2 a2~a1~a
     }
     \context Voice = y \notes\relative c' {
-      \stemDown
+      \voiceTwo
       r2 a2~a1~a
     }
   >

@@ -18,10 +18,6 @@
 #include "scm-hash.hh"
 #include "kpath.hh"
 
-
-
-
-
 const char * default_font_sz_ = "cmr10";
 
 All_font_metrics::All_font_metrics (String path)

@@ -1,9 +1,9 @@
 \header{
 texidoc="
-Arg, right ending of slur is too far right.  I did make a better
-test .ly for this, but can't seem to find it now.
-";
-}
+ Right ending of slur is too far right.
+
+ [I did make a better test .ly for this, but can't seem to find it
+now.]  "; }
 
 \score {
   \notes \relative c'' {

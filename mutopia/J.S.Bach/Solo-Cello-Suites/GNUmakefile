@@ -8,3 +8,6 @@ examples=scsii-cello
 LOCALSTEPMAKE_TEMPLATES=mutopia
 
 include $(depth)/make/stepmake.make
+
+tarball=solo-cello-suite-ii
+

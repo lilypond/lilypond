@@ -1,15 +1,27 @@
+@c -*-texinfo-*-
+@c Note:
+@c
+@c A menu is needed before every deeper *section nesting of @nodes
+@c Run M-x texinfo-all-menus-update
+@c to automagically fill in these menus
+@c before saving changes
+
+
 @node Internals
 @chapter Internals
 
 @menu
-* Conversion stages::              Lilypond is a multi-pass program.
-* Moment:: 
-* Grobs::                          Graphical object  
-* Engraver::
-* Music_iterator::
-* Music::
-* Molecules::                       Molecules are stand-alone descriptions of output
-* Font metrics::                    Font metrics
+* Conversion stages::		Lilypond is a multi-pass program.
+* Moment::			
+* Grobs::			Graphical object  
+* Duration::			
+* Pitch data type::		
+* Engraver::			
+* Music_iterator::		
+* Music::			
+* Molecules::			Molecules are stand-alone descriptions of output
+* Font metrics::		Font metrics
+* Miscellaneous Scheme functions::  
 @end menu
 
 @node Conversion stages
@@ -101,12 +113,12 @@ them involve Grobs in some form, this section explains some details of
 how grobs work.
 
 @menu
-* What is a grob?::
-* Callbacks::
-* Setting grob properties::
-* Items and Spanners::
-* Pointer substitution::
-* Grob Scheme functions::
+* What is a grob?::		
+* Callbacks::			
+* Setting grob properties::	
+* Items and Spanners::		
+* Pointer substitution::	
+* Grob Scheme functions::	
 @end menu
 
 @node What is a grob?
@@ -359,6 +371,8 @@ will return @code{'()} (end-of-list) if @var{g} doesn't have @var{sym} set.
 @node Duration
 @section Duration
 
+@menu
+@end menu
 @defun make-duration length dotcount
 
 @var{length} is the negative logarithm (base 2) of the duration:

@@ -19,3 +19,34 @@
 
 @end macro
 @end ifnotinfo
+
+
+@ignore
+
+@c Huh, do outline mode and texinfo really fight eachother?
+@c Outline can only use spaces to indent topic headers
+@c (or bullets, but then topics can't start with `@c').
+@c Texinfo can't have spaces in macro names.
+
+@macro c_ {word}
+\word\
+@node \word\
+@section \word\
+@end macro
+
+@macro c__ {word}
+\word\
+@node \word\
+@subsection \word\
+@end macro
+
+@macro c___ {word}
+\word\
+@node \word\
+@unnumberedsubsubsection \word\
+@end macro
+
+@end ignore
+
+@macro c_ {word}
+@end macro

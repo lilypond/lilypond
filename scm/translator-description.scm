@@ -230,8 +230,7 @@ put on top of all staffs, and appears only at  left side of the staff."
 and generate the appropriate chordname."
      '(ChordName)
      '(
-      chordInversion
-      drarnChords
+      chordChanges
       )))
 
 
