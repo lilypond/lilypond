@@ -31,12 +31,6 @@ identifier.
 
 	* [/3 c8 c16 c c c]/1
   
-	* I see that  \prallprall and \prallmordent are identical. I think this is a 
-	mistake, that \prallprall should not have the vertical line.
-	This can be fixex by removing  the line
-	> draw_mordent(twidth-0.5toverlap);
-	from the definition of \prallprall in mf/feta-slag.mf (see below)
-
 	* fix singleStaffBracket
   
   	* repeat bars: need distance after ":|" and before "|:"
