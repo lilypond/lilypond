@@ -18,7 +18,8 @@
 
 
 (def-markup-command (with-url layout props url arg) (string? markup?)
-  "Insert a link to @var{url} in the output."
+  "Add a link to URL @var{url} around @var{arg}. This only works in
+the PDF backend."
   (let*
       ((stil (interpret-markup layout props arg))
        (xextent (ly:stencil-extent stil X))
