@@ -70,7 +70,7 @@ Entry point for the parser.
       (cond
        ((null? mods) chord)
        ((ly:pitch? (car mods))
-	(if (= (ly:pitch-steps (car mods)) 11)
+	(if (= (pitch-step (car mods)) 11)
 	    (set! explicit-11 #t))
 	(interpret-additions
 	 (cons (car mods) (remove-step (pitch-step (car mods)) chord))
@@ -157,7 +157,7 @@ the bass specified.
 	
 	(begin
 	  (if (=  (pitch-step (car flat-mods)) 11)
-	      (set! explicit-11  #t))
+	      (set! explicit-11 #t))
 	  (set! base-chord
 		(stack-thirds (car flat-mods) the-canonical-chord))
 	  (set! flat-mods (cdr flat-mods))
@@ -186,8 +186,10 @@ the bass specified.
 	     (= 0 (ly:pitch-alteration (get-step 11 complete-chord)))
 	     (= 0 (ly:pitch-alteration (get-step 3 complete-chord)))
 	     )
-	     
-	(set! complete-chord (remove-step 11  complete-chord))
+	(begin
+	  (set! complete-chord (remove-step 11  complete-chord))
+	  )
+	  
 	)
 
     (if inversion
