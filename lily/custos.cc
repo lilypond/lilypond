@@ -50,7 +50,7 @@ Custos::print (SCM smob)
    */
   bool adjust = true; 
 
-  int neutral_pos = 0;
+  int neutral_pos = robust_scm2int (me->get_property ("neutral-position"), 0);
   Direction neutral_direction =
     to_dir (me->get_property ("neutral-direction"));
 
@@ -103,4 +103,4 @@ Custos::print (SCM smob)
 
 ADD_INTERFACE (Custos, "custos-interface",
   "A custos object.",
-  "style neutral-direction");
+  "style neutral-position neutral-direction");

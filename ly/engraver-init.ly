@@ -6,7 +6,6 @@
     \accepts Score
     \description "Hard coded entry point for LilyPond. Cannot be tuned."
     \grobdescriptions #all-grob-descriptions    
-
 }
 
 %
@@ -721,7 +720,6 @@ EasyNotation = \context {
   \override Custos #'style = #'vaticana
   \override Custos #'neutral-position = #3
   \override Custos #'neutral-direction = #-1
-  \override Custos #'adjust-if-on-staffline = ##t
 
   % Score.timing = ##f
   % Score.barAlways = ##t

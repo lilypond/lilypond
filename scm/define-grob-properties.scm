@@ -151,7 +151,10 @@ line).")
      (dashed ,number? " number representing the length of the dashes.")
      (neutral-direction ,ly:dir? "Which direction to take in the
 center of the staff.")
+     (neutral-position ,number? "Position (in half staff spaces) where
+to flip the direction of custos stem.")
 
+ 
      ;; todo: why is this tunable?
      (dir-function ,procedure? "The function to determine the
 direction of a beam. Choices include: 

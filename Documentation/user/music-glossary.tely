@@ -1078,11 +1078,10 @@ of the 20th century
 @lilypond
 \score {
     \notes {
-	\override Staff.Custos   #'neutral-position = #4
-	\override Staff.Custos   #'neutral-direction = #-1
-	\override Staff.Custos   #'adjust-if-on-staffline = ##t
+%	\override Staff.Custos #'neutral-position = #4
+	\override Staff.Custos #'neutral-direction = #-1
 
-	\override Staff.Custos   #'style = #'hufnagel
+	\override Staff.Custos #'style = #'hufnagel
 	c'1
 	\break < d' a' f''>1
     }

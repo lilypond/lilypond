@@ -125,7 +125,7 @@ fet_endchar;
 
 fet_beginchar("upmordent", "upmordent", "upmordent")
 	set_char_box(3 trill_width#, 3 trill_width#,
-		      trill_height#, trill_height#);
+		      4/3 trill_height#, 4/3 trill_height#);
 
 	currentpicture := remember_pic;
 
