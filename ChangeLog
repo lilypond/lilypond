@@ -1,3 +1,13 @@
+2004-09-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/regression/part-combine-mmrest-after-solo.ly (Module): new
+	file.
+
+	* lily/part-combine-iterator.cc (unisono): bugfix for the case
+	that voice-2 plays solo, and voice-1 has an mmrest that starts
+	earlier. In that case, we switch to voice-2, so we catch the
+	mmrest of voice-2. This fixes: partcombine-rest.ly.
+ 
 2004-09-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/define-grob-properties.scm (all-internal-grob-properties):
