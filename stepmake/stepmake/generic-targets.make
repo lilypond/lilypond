@@ -173,13 +173,12 @@ release:
 
 local-WWW:
 local-WWW-post:
-local-web-post:
 web-install:
 
 WWW: local-WWW
 	$(LOOP)
 
-WWW-post:
+WWW-post: local-WWW-post
 	$(LOOP)
 
 web: 
