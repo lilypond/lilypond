@@ -9,7 +9,7 @@
 #include "lily-guile.hh"
 #include "span-bar.hh"
 #include "base-span-bar-engraver.hh"
-#include "vertical-align-spanner.hh"
+#include "axis-align-spanner.hh"
 
 Base_span_bar_engraver::Base_span_bar_engraver()
 {
@@ -71,10 +71,10 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	    spanbar_p_-> type_str_ = bar_l_arr_[0]->type_str_;
 	}
     }
-  else if  (dynamic_cast<Vertical_align_spanner *> (i.elem_l_) 
+  else if  (dynamic_cast<Axis_align_spanner *> (i.elem_l_) 
 	    && i.origin_grav_l_arr_.size() <= 2) 
     {
-      valign_l_ = dynamic_cast<Vertical_align_spanner *> (i.elem_l_);
+      valign_l_ = dynamic_cast<Axis_align_spanner *> (i.elem_l_);
     }
 }
 
