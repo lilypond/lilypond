@@ -24,6 +24,7 @@
 #include "directional-element-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "translator-group.hh"
+#include "axis-group-interface.hh"
 
 
 /*
@@ -38,20 +39,20 @@ class Dynamic_line_spanner : public Spanner
 public:
   Dynamic_line_spanner ();
   VIRTUAL_COPY_CONS(Score_element);
-  void add_column (Item*);
-
-protected:
-  virtual void after_line_breaking ();
+  void add_column (Note_column*);
+  void add_element (Score_element*);
 };
 
 Dynamic_line_spanner::Dynamic_line_spanner ()
 {
   set_elt_property ("transparent", SCM_BOOL_T);
   side_position (this).set_axis (Y_AXIS);
+  Axis_group_interface (this).set_interface ();
+  Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
 }
 
 void
-Dynamic_line_spanner::add_column (Item* n)
+Dynamic_line_spanner::add_column (Note_column* n)
 {
   if (!get_bound (LEFT))
     set_bound (LEFT, n);
@@ -61,29 +62,12 @@ Dynamic_line_spanner::add_column (Item* n)
   add_dependency (n);
 }
 
+
 void
-Dynamic_line_spanner::after_line_breaking ()
+Dynamic_line_spanner::add_element (Score_element* e)
 {
-#if 0
-
-  /*
-    We hebben hier een probleempje: er is een verschil tussen
-    dynamics zonder en met line-spanner.
-    Allen zijn gecentreerd (aligned-on-self), wat okee is, 
-    maar de losse hebben zelf een padding tov de staff.
-
-    Deze padding werkt niet op items die in line-spanner zitten:
-    de padding werkt op line-spanner zelf.
-    De line-spanner moet dus eigenlijk zoveel naar beneden of boven
-    als er items uitsteken, maar Hmm.
-   */
-#endif
-  Direction dir = directional_element (this).get ();
-  if (!dir)
-    dir = DOWN;
-  //Hmm. inf
-  //translate_axis (extent (Y_AXIS)[dir], Y_AXIS);
-  translate_axis (staff_symbol_referencer (this).staff_space () * dir, Y_AXIS);
+  e->set_parent (this, Y_AXIS);
+  Axis_group_interface (this).add_element (e); 
 }
 
 /**
@@ -100,6 +84,7 @@ class Dynamic_engraver : public Engraver
   Drul_array<Span_req*> span_req_l_drul_;
 
   Dynamic_line_spanner* line_spanner_;
+  Dynamic_line_spanner* finished_line_spanner_;
   Moment last_request_mom_;
 
   Note_column* pending_column_;
@@ -138,6 +123,7 @@ Dynamic_engraver::Dynamic_engraver ()
   text_p_ = 0;
   finished_cresc_p_ = 0;
   line_spanner_ = 0;
+  finished_line_spanner_ = 0;
   span_start_req_l_ = 0;
   cresc_p_ =0;
   pending_column_ = 0;
@@ -187,7 +173,7 @@ Dynamic_engraver::do_try_music (Music * m)
 void
 Dynamic_engraver::do_process_music ()
 {
-  if ((span_req_l_drul_[START] || text_req_l_)
+  if ((span_req_l_drul_[START] || span_req_l_drul_[STOP] || text_req_l_)
       && !line_spanner_
       && pending_element_arr_.size ())
     {
@@ -203,7 +189,7 @@ Dynamic_engraver::do_process_music ()
   if (line_spanner_ && pending_element_arr_.size ())
     {
       for (int i = 0; i < pending_element_arr_.size (); i++)
-	pending_element_arr_[i]->set_parent (line_spanner_, Y_AXIS);
+	line_spanner_->add_element (pending_element_arr_[i]);
       pending_element_arr_.clear ();
     }
 
@@ -211,34 +197,62 @@ Dynamic_engraver::do_process_music ()
     last_request_mom_ = now_mom ();
   else
     {
-      for (int i = 0; i < pending_element_arr_.size (); i++)
-	{
-	  Score_element* e = pending_element_arr_[i];
-	  side_position (e).set_axis (Y_AXIS);
-	  side_position (e).add_staff_support ();
 
-	  /*
-	    UGH UGH 
-	   */
-	  Direction d = directional_element (e).get ();
-	  if (!d)
+#if 0
+      /*
+	Maybe always creating a line-spanner for a (de)crescendo (see
+	below) is not a good idea:
+
+            a\< b\p \!c
+
+	the \p will be centred on the line-spanner, and thus clash
+	with the hairpin.  When axis-group code is in place, the \p
+	should move below the hairpin, which is probably better?
+
+	Urg, but line-spanner must always have at least same duration
+	as (de)crecsendo, b.o. line-breaking.
+       */
+      if (now_mom () > last_request_mom_)
+#else
+      /*
+	During a (de)crescendo, pending request will not be cleared,
+	and a line-spanner will always be created, as \< \! are already
+	two requests.
+       */
+      if (now_mom () > last_request_mom_ && !span_start_req_l_)
+#endif	
+	{
+	  for (int i = 0; i < pending_element_arr_.size (); i++)
 	    {
-	      SCM s = get_property ("dynamicDirection");
-	      if (!isdir_b (s))
-		s = get_property ("verticalDirection");
-	      if (isdir_b (s))
-		d = to_dir (s);
-	      directional_element (e).set (d);
-	    }
+	      Score_element* e = pending_element_arr_[i];
+	      side_position (e).set_axis (Y_AXIS);
+	      side_position (e).add_staff_support ();
+
+	      /*
+		UGH UGH 
+	      */
+	      Direction d = directional_element (e).get ();
+	      if (!d)
+		{
+		  SCM s = get_property ("dynamicDirection");
+		  if (!isdir_b (s))
+		    s = get_property ("verticalDirection");
+		  if (isdir_b (s))
+		    d = to_dir (s);
+		  directional_element (e).set (d);
+		}
 	  
-	  SCM s = get_property ("dynamicPadding");
-	  if (gh_number_p (s))
-	    e->set_elt_property ("padding", s);
-	  s = get_property ("dynamicMinimumSpace");
-	  if (gh_number_p (s))
-	    e->set_elt_property ("minimum-space", s);
+	      SCM s = get_property ("dynamicPadding");
+	      if (gh_number_p (s))
+		e->set_elt_property ("padding", s);
+	      s = get_property ("dynamicMinimumSpace");
+	      if (gh_number_p (s))
+		e->set_elt_property ("minimum-space", s);
+	    }
+	  pending_element_arr_.clear ();
+	  finished_line_spanner_ = line_spanner_;
+	  line_spanner_ = 0;
 	}
-      pending_element_arr_.clear ();
     } 
 
   if (text_req_l_)
@@ -392,11 +406,12 @@ Dynamic_engraver::typeset_all ()
       * break when group of dynamic requests ends
       * break now 
       * continue through piece */
-  if (line_spanner_ && last_request_mom_ < now_mom ())
+  //  if (line_spanner_ && last_request_mom_ < now_mom ())
+  if (finished_line_spanner_)
     {
-      side_position (line_spanner_).add_staff_support ();
-      typeset_element (line_spanner_);
-      line_spanner_ = 0;
+      side_position (finished_line_spanner_).add_staff_support ();
+      typeset_element (finished_line_spanner_);
+      finished_line_spanner_ = 0;
     }
 }
 
