@@ -1,7 +1,5 @@
 dnl WARNING WARNING WARNING WARNING
 dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
-dnl WARNING WARNING WARNING WARNING
-dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -163,7 +161,7 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
 AC_DEFUN(AC_STEPMAKE_GUILE, [
     ## First, let's just see if we can find Guile at all.
     AC_MSG_CHECKING("for guile-config")
-    for guile_config in guile-config $build-guile-config; do
+    for guile_config in guile-config $target-guile-config $build-guile-config; do
 	AC_MSG_RESULT("$guile_config")
 	if ! $guile_config --version > /dev/null 2>&1 ; then
 	    AC_MSG_WARN("cannot execute $guile_config")
