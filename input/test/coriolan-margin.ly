@@ -9,8 +9,6 @@
   opus =  "Op. 62"
   piece = "\\hspace*{30mm}\\normalfont\\large Allegro con brio"
   composer = 	 "Ludwig van Beethoven (1770-1827)"
-  enteredby = 	 "JCN"
-
 
 texidoc = "@cindex Orchestra Score
 @cindex Coriolan Score

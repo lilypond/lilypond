@@ -6,9 +6,6 @@ texidoc="Simple beams.  This broke somewhere < 1.3.110
 DOCME ! what is this. 
 
 "
-  title = "Gammes Chromatiques"
-  composer = ""
-  filename = "gammes_chromatiques.ly"
 }
 
 ex = \notes \relative c' {

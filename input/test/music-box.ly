@@ -4,21 +4,6 @@ texidoc = "This example shows prelude in C major of WTK1, but coded
 using Scheme functions to save typing work.
 "
 
-
-
-  title =  "Preludium"
-  opus =   "BWV 846"
-  composer = "Johann Sebastian Bach (1685-1750)"
-  enteredby = "Rune Zedeler"
-  mutopiatitle = "Das Wohltemperierte Clavier I, Prelude 1 (c-major)"
-  mutopiacomposer = "J.S.Bach"
-  mutopiaopus = "BWV846"
-  mutopiainstrument = "Piano"
-  style = "baroque"
-  copyright = "Public Domain"
-  maintainer = "rz@daimi.au.dk"
-  lastupdated = "2001/mar/30"
-  tagline = "\\parbox{\hsize}{\\thefooter\\quad\\small \\\\This music is part of the Mutopia project, \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset and placed in the public domain by " + \maintainer + ".\\\\Unrestricted modification and redistribution is permitted and encouraged---copy this music and share it!}"
 }
 
 \include "deutsch.ly"
@@ -107,6 +92,15 @@ endc = \notes {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
                          \pat {c d a d' f' }
 			 \pat {h, d g d' f' }
 			 \pat {c e g c' e' }
+		     }
+      
+      %{
+      %Etc.
+
+      %we get the idea now.
+
+
+      
 			 \pat {c e a e' a' }
 			 \pat {c d fis a d'  }
 			 \pat {h, d g d' g' }
@@ -136,7 +130,7 @@ endc = \notes {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
 			 \pat {g,, d, g, c f }
 			 \pat {g,, d, g, h, f }
 			 \pat {c,, c, g, b, e }
-			}
+			%}
     }
   >
   \paper {

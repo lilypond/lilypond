@@ -127,14 +127,6 @@ violoncello = \notes \relative c' {
       \context Staff ="violoncello" \violoncello
     >
   >
- \header{
-		title = "Coriolan"
-		subtitle = "Ouverture" 
-		opus = "Opus 62"
-		composer = "Ludwig van Beethoven (1770-1827)"
-		enteredby = "JCN"
-		copyright = "public domain"
-	}
 
   \paper {
   	\paperSixteen

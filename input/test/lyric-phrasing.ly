@@ -1,11 +1,7 @@
 \version "1.7.18"
 \header{
 filename = 	 "twinkle-pop.ly"
-xtitle = 	 "Ah, vous dirais-je, maman "
-description = 	 "twinkle twinkle in pop-song-settings"
-composer = 	 "traditional"
-enteredby = 	 "HWN, chords by Johan Vromans"
-copyright = 	 "public domain"
+texidoc = 	 "twinkle twinkle in pop-song-settings"
 }
 
 

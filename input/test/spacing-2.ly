@@ -1,15 +1,11 @@
 \version "1.7.18"
 \header {
-opus =  "BWV 937 (prelude)"
-composer =  "J. S. Bach"
-source =  "Petits Preludes et Fugues.  Urtext. Editions Henry Lemoine, Paris."
-}
-
-%{
+texidoc = "
 1. upon stretching: every note should stretch according to duration
 
 2. 8th notes should be spaced equidistantly.
-%}
+"
+}
 
 \score { 
     \notes \relative c''

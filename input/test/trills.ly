@@ -8,10 +8,11 @@
 } 
 \version "1.7.18"
 \header {
-  texidoc="Document trills, pralls and turns"
+  texidoc="Document trills, pralls and turns."
+  
   title="Marques des agr\\'ements et leur signification"
   composer="D'Anglebert"
-  copyright="(1689)"
+  year="1689"
 }
 
 invisible = \property Voice.NoteHead \override #'transparent = ##t
@@ -102,11 +103,12 @@ endHorizScript = {
       }
       \context Staff=lower \notes\relative c'' {
         % autobeamer has som problems here
-	[\repeat unfold 4 { d32 c }]
-	d8~[\repeat unfold 4 { d32 c }]
+	d32-[  \repeat unfold 3 { c d } c-]
+	d8 ~  d32-[\repeat unfold 3 { d32  } c-]
 	d32 c b c \repeat unfold 4 { d32 c }
 	b32 c d c \repeat unfold 4 { d32 c }
-	 c32-[( b a16 b  c-)]  b32-[ c d c \repeat unfold 4 { d32 c }]
+	c32-[-( b a16 b  c-)-]
+	b32-[ \repeat unfold 5 { c d32 } c-]
       }
     >
   >
