@@ -189,10 +189,10 @@ begingroup;
 		  ..tension 1.5.. z3e
 		  ..tension 2.5.. {dir (225)}z4e;
 
-	soft_penstroke z8'e{right}
-		       ..tension 1.5.. z9e{dir (-pedalpha)}
-		       .. z10e
-		       ..tension 2.5.. z11e;
+	soft_end_penstroke z8'e{right}
+			   ..tension 1.5.. z9e{dir (-pedalpha)}
+			   .. z10e
+			   ..tension 2.5.. z11e;
 
 	fill z4r{dir (225)}
 	     ..tension 1.5.. z5r{left}
@@ -236,11 +236,11 @@ begingroup;
 		penlabels (1, 2, 3, 4, 5);
 	fi;
 
-	soft_penstroke z1e{dir (-10)}
-		       ..tension 1.1.. z2e{dir (-90 + 10)}
-		       ..tension 1.1.. z3e{left}
-		       ..tension 1.1.. z4e{up}
-		       ..tension 1.1.. z5e{dir (-70 + 90)};
+	soft_start_penstroke z1e{dir (-10)}
+			     ..tension 1.1.. z2e{dir (-90 + 10)}
+			     ..tension 1.1.. z3e{left}
+			     ..tension 1.1.. z4e{up}
+			     ..tension 1.1.. z5e{dir (-70 + 90)};
 endgroup;
 enddef;
 

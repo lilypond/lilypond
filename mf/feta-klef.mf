@@ -499,7 +499,7 @@ begingroup;
 	y5l = ypart (pos + siz);
 
 	penpos10 (penw, 170);
-	z10 = pos + .55 vx + .85 vy;
+	z10 = pos + .55 vx + .9 vy;
 	penpos11 (.75 [penh, penw], 170);
 	z11 = z10 - .5 vy + .025 vx;
 	penpos12 (penh, 100);
@@ -516,10 +516,10 @@ begingroup;
 			..z5e)
 	  slanted slant shifted (slant * -ypart pos, 0);
 
-	soft_penstroke (z10e
-			..tension 1.5.. z11e
-			.. z12e
-			..tension 1.1.. z13e{(z13r - z13l) rotated 90})
+	soft_end_penstroke (z10e
+			    ..tension 1.5.. z11e
+			    .. z12e
+			    ..tension 1.1.. z13e{(z13r - z13l) rotated 90})
 	  slanted slant shifted (slant * -ypart pos, 0);
 endgroup;
 enddef;
@@ -573,15 +573,15 @@ begingroup;
 			.. z4e)
 	  slanted slant shifted (slant * -ypart pos, 0);
 
-	soft_penstroke (z5e
-			.. z6e
-			.. z7e
-			.. z8e{(z8r - z8l) rotated 90})
+	soft_end_penstroke (z5e
+			    .. z6e
+			    .. z7e
+			    .. z8e{(z8r - z8l) rotated 90})
 	  slanted slant shifted (slant * -ypart pos, 0);
 
-	soft_penstroke (z10e
-			.. z11e
-			.. z12e)
+	soft_end_penstroke (z10e
+			    .. z11e
+			    .. z12e)
 	  slanted slant shifted (slant * -ypart pos, 0);
 endgroup;
 enddef;
@@ -617,7 +617,7 @@ begingroup;
 	z8 = .5 [z12l, z11l] + .15 vx - .05 vy;
 
 	penpos10 (.75 [penh, penw], 170);
-	z10 = pos + .375 vx + .95 vy;
+	z10 = pos + .375 vx + vy;
 	penpos 11 (.8 [penh, penw], 150);
 	z11 = z10 - .5 vy + .04 vx;
 	penpos12 (penh, 100);
@@ -634,15 +634,15 @@ begingroup;
 			..z5e {left})
 	  slanted slant shifted (slant * -ypart pos, 0);
 
-	soft_penstroke (z6e{right}
-			.. z7e
-			.. z8e{(z8r - z8l) rotated 90})
+	soft_end_penstroke (z6e{right}
+			    .. z7e
+			    .. z8e{(z8r - z8l) rotated 90})
 	  slanted slant shifted (slant * -ypart pos, 0);
 
-	soft_penstroke (z10e
-			..tension 1.5.. z11e
-			.. z12e
-			..tension 1.1.. z13e{(z13r - z13l) rotated 90})
+	soft_end_penstroke (z10e
+			    ..tension 1.5.. z11e
+			    .. z12e
+			    ..tension 1.1.. z13e{(z13r - z13l) rotated 90})
 	  slanted slant shifted (slant * -ypart pos, 0);
 endgroup;
 enddef;

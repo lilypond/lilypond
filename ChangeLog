@@ -4,13 +4,24 @@
 
 2005-01-28  Werner Lemberg  <wl@gnu.org>
 
+	* mf/feta-macros.mf (soft_start_penstroke, soft_end_penstroke): New
+	macros.
+
 	* mf/feta-pendaal.mf ("Pedal asterisk"): Remove workaround for
 	metapost bug.
+	(draw_pedal_P): Use soft_end_penstroke.
+	(draw_pedal_d): Use soft_start_penstroke.
 
 	* mf/feta-schrift.mf ("Trill (`tr')"): Remove redundant point in
 	path.
 	("Varied Coda"): Move some points to avoid fontforge warnings.  This
 	doesn't change the glyph shape.
+
+	* mf/feta-accordion.mf ("accOldEE"): Draw glyph differently (without
+	changing the shape) to avoid fontforge warnings.
+
+	* mf/feta-klef.mf (draw_tab_T, draw_tab_A, draw_tab_B): Use
+	soft_end_penstroke and fix glyph shape.
 
 2005-01-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
