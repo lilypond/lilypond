@@ -1,10 +1,8 @@
-
-
 % #(ly:set-point-and-click 'line-column)
 
 longgrace = \property Voice.Stem \override #'stroke-style = #'()
 endlonggrace = \property Voice.Stem \revert #'stroke-style
-ritenuto = \textscript \markup { \italic  "rit." }
+ritenuto = \markup { \italic  "rit." }
 
 \version "1.7.6"
   
