@@ -169,14 +169,6 @@
 (define (repeat-slash w a t)
   (embedded-ps (list 'repeat-slash  w a t)))
 
-(define (font-switch i)
-  (string-append
-   "\\" (font i) "\n"))
-
-(define (font-def i s)
-  (string-append
-   "\\font" (font-switch i) "=" s "\n"))
-
 (define (header-end)
   (string-append
    "\\def\\scaletounit{ "
@@ -312,7 +304,7 @@
       "")
   )
 
-					; no-origin not yet supported by Xdvi
+;; no-origin not yet supported by Xdvi
 (define (no-origin) "")
 
 (define my-eval-in-module eval)
