@@ -215,7 +215,7 @@ leftb = \notes \transpose c cis {
  ) a c_3 f, c [c' f_2] b, f b f_3 d' as |
  h, as d' as h, as() f'4.^\fermata-\arpeggio_2 ~
  \d \stemDown f'8. \clef G \stemBoth \tieBoth \transpose c c' {[e16_4( f g] [as des_3] [c8_4 <<h, d f d'>>]~ |
- <<h, d f d'>>} \clef F [<<c_3( f_1>> <<b,_4 e^2>>] <<a,_5 eis^1>>8.-) h,16_4( c d |
+ <<h, d f d'>>} \clef F [<<c_3 f_1>>-( <<b,_4 e^2>>] <<a,_5 eis^1>>8.-) h,16_4( c d |
  \voiceTwo
  es as,_3 g,8 fis,~fis, g,_4-\arpeggio gis,_5~ |
  gis, <<a, c>>16 r16 r8 r4 cis8( |
