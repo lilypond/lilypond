@@ -429,6 +429,6 @@ The following generic identifications are used:
 	down == -1
 
 Intervals are pictured lying on a horizontal numberline (Interval[-1]
-is the minimum)
+is the minimum). The 2D plane has +x on the right, +y pointing up.
 
 
