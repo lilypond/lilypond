@@ -303,8 +303,6 @@ with magnification @varr{mag} of the string @var{text}."
   (list?)
   "Make a fret diagram containing the symbols indicated in @var{marking-list}
   
-  Syntax: \\fret-diagram   marking-list
-  
   For example,
   
 @example
@@ -391,9 +389,12 @@ part of the place-fret element is present, @var{finger-value} will be displayed 
          
 (def-markup-command (fret-diagram paper props definition-string)
   (string?)
-  "Syntax: \\fret-diagram definition-string
-  
-eg: \\markup \\fret-diagram #\"s:0.75;6-x;5-x;4-o;3-2;2-3;1-2;\"
+  "  
+Example
+
+@example
+ \\markup \\fret-diagram #\"s:0.75;6-x;5-x;4-o;3-2;2-3;1-2;\"
+@end example
 
 for fret spacing 3/4 of staff space, D chord diagram
 
@@ -521,9 +522,11 @@ Note:  There is no limit to the number of fret indications per string.
   (string?)
   "Make a fret diagram markup using terse string-based syntax.
 
-Syntax: \\fret-diagram-terse definition-string
-
-eg: \\markup \\fret-diagram #\"x;x;o;2;3;2;\" for a D chord diagram.
+Example
+@example
+ \\markup \\fret-diagram #\"x;x;o;2;3;2;\" 
+@end example
+for a D chord diagram.
 
 Syntax rules for @var{definition-string}:
 @itemize @bullet

@@ -1,3 +1,53 @@
+lilypond (2.2.6-1) unstable; urgency=high
+
+  * New upstream stable release.  (Closes: Bug#264263)
+  * urgency=high to ensure entrance into Debian Sarge.
+  * Special thanks to Daniel Burrows for the previous NMUs!  :-)
+    (Closes: #257335, #261861)
+  * Added patch by Werner Lemberg to lilypond.py so that Asian scripts
+    may be used with LilyPond.  Need to "apt-get install latex-ucs"!  See
+    http://lists.gnu.org/archive/html/lilypond-devel/2004-07/msg00071.html
+  * Thanks to Ferenc Wagner for letting me know of some packaging bugs
+    that I have introduced over the years:
+     - Removed obsolete MAKE_PFA_FILES=1 from "make" invocations.
+     - s/--enable-optimise/--enable-optimising/;
+     - Removed Build-Depends: autotrace; mftrace prefers potrace.
+  * Let's follow Han-wen's Red Hat SPECS file too: --disable-checking.
+
+ -- Anthony Fok <foka@debian.org>  Thu, 26 Aug 2004 02:30:04 +0800
+
+lilypond (2.2.3-1.3) unstable; urgency=low
+
+  * The doc-base file was coming from upstream!  Kill it dead in
+    debian/rules clean so that it doesn't keep coming back from
+    the grave to haunt me. (Closes: #261861)
+
+ -- Daniel Burrows <dburrows@debian.org>  Mon,  2 Aug 2004 16:03:32 -0400
+
+lilypond (2.2.3-1.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Added Replaces: lilypond (<= 2.2.3-1), lilypond-data (<= 2.2.3-1) to
+    lilypond-doc. (Closes: #261861)
+
+ -- Daniel Burrows <dburrows@debian.org>  Wed, 28 Jul 2004 13:08:57 -0400
+
+lilypond (2.2.3-1.1) unstable; urgency=low
+
+  * Non-maintainer upload
+  * Removed doc-base files for the lilypond and lilypond-data packages;
+    moved the description of the info files to the doc-base file of the
+    lilypond-doc package, which actually contains them; corrected the
+    location of the info files in the doc-base file. (Closes: #257335)
+
+ -- Daniel Burrows <dburrows@debian.org>  Sat, 17 Jul 2004 12:55:57 -0400
+
+lilypond (2.2.3-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Anthony Fok <foka@debian.org>  Sun, 27 Jun 2004 16:53:06 +0800
+
 lilypond (2.2.2-2) unstable; urgency=low
 
   * New upstream release.  (Closes: Bug#242861)
@@ -149,7 +199,7 @@ lilypond (1.6.0-1) unstable; urgency=medium
 
   * New upstream release.
   * binary-arch: Changed "DH_OPTIONS=-a" to "DH_OPTIONS=-s" so that
-    dpkg-gencontrol would not 't choke on lilypond1.3 for unlisted
+    dpkg-gencontrol would not choke on lilypond1.3 for unlisted
     architectures.  Thanks to Ryan Murray for the report and suggested
     fix.  (Closes: Bug#157766)
 

@@ -41,11 +41,11 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 
-	./configure --enable-checking --enable-debugging \
-		--prefix=/usr --enable-optimise \
+	./configure --disable-checking --enable-debugging \
+		--prefix=/usr --enable-optimising \
 		--infodir='$${prefix}/share/info' \
 		--mandir='$${prefix}/share/man'
-	$(MAKE) MAKE_PFA_FILES=1
+	$(MAKE)
 
 	touch build-stamp
 
@@ -75,6 +75,7 @@ clean:
 	rm -f debian/emacsen-startup
 	rm -f debian/lilypond1.7*.dirs debian/lilypond.dirs
 	rm -f debian/postinst debian/prerm debian/postrm
+	rm -f debian/lilypond-data.doc-base debian/lilypond.doc-base
 
 	dh_clean
 
@@ -86,7 +87,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/tmp.
-	$(MAKE) install prefix=$(CURDIR)/debian/tmp/usr MAKE_PFA_FILES=1
+	$(MAKE) install prefix=$(CURDIR)/debian/tmp/usr
 
 	dh_install --sourcedir=debian/tmp --list-missing
 

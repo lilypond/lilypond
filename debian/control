@@ -1,5 +1,5 @@
 Source: lilypond
-Build-Depends: debhelper (>= 4.0.0), binutils (>= 2.11.92.0.10-2), libc6-dev (>= 2.2.4-6) | libc6.1-dev (>= 2.2.4-6) | libc0.2-dev (>= 2.2.4-6), python-dev, guile-1.6-dev | libguile-dev, tetex-bin, libkpathsea-dev, tetex-extra, flex (>= 2.5.4a-14) | flex-old, bison (<< 1:1.50) | bison (>> 1:1.75-1), texinfo (>= 4.6-1), groff, m4, gettext (>= 0.10.36-1), mftrace (>= 1.0.17-1), fontforge | pfaedit (>= 0.0.20031020-3), autotrace (>= 0.29), t1utils, imagemagick (>= 5.4.4.5)
+Build-Depends: debhelper (>= 4.0.0), binutils (>= 2.11.92.0.10-2), libc6-dev (>= 2.2.4-6) | libc6.1-dev (>= 2.2.4-6) | libc0.2-dev (>= 2.2.4-6), python-dev, guile-1.6-dev | libguile-dev, tetex-bin, libkpathsea-dev, tetex-extra, flex (>= 2.5.4a-14) | flex-old, bison (<< 1:1.50) | bison (>> 1:1.75-1), texinfo (>= 4.6-1), groff, m4, gettext (>= 0.10.36-1), mftrace (>= 1.0.17-1), fontforge | pfaedit (>= 0.0.20031020-3), t1utils, imagemagick (>= 5.4.4.5)
 Build-Depends-Indep: gs-esp | gs (<= 7.07-1), netpbm (>= 2:9.10-1)
 Build-Conflicts-Indep: gs-gpl (>= 8.01) | gs-afpl
 Section: tex
@@ -55,6 +55,7 @@ Package: lilypond-doc
 Section: doc
 Architecture: all
 Suggests: lilypond (>= ${Source-Version}), gv | postscript-viewer, mozilla-browser | www-browser
+Replaces: lilypond (<= 2.2.3-1), lilypond-data (<= 2.2.3-1)
 Description: LilyPond Documentation in HTML, PS and DVI formats
  This package contains the HTML, PostScript and DVI documentation for the
  LilyPond music typesetting software.
