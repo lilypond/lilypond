@@ -4810,16 +4810,17 @@ In markup mode you can compose expressions, similar to mathematical
 expressions, XML documents and music expressions.  The braces group
 notes into horizontal lines. Other types of lists also exist: you can
 stack expressions grouped with @code{<<}, and @code{>>} vertically with
-the command @code{\column}. The @code{@{} and @code{@}} produce
-@code{\line} commands:
+the command @code{\column}.
+
 
 @lilypond[verbatim,fragment,relative=1]
  c1^\markup { \column << a b c >> }
  c1^\markup { \line << a b c >> }
 @end lilypond
 
-The markup mechanism is very flexible and extensible. Refer to
-@file{scm/new-markup.scm} for more information.
+The markup mechanism is very flexible and extensible.  Refer to
+@file{scm/new-markup.scm} for more information on extending the markup
+mode.
 
 
 @cindex metronome mark
@@ -4842,6 +4843,8 @@ eighthNote = \markup
   }
 }
 @refbugs
+
+@cindex kerning
 
 LilyPond account for kerning in its text formatting engine, so it spaces
 texts slightly too wide.
