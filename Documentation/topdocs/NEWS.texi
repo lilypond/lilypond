@@ -8,7 +8,18 @@
 
 @itemize @bullet
 
-@item Music can be used as a markup
+
+@item Music syntax can now be extended seamlessly. As an example,
+here is the new implementation @code{\apply},
+
+@example
+  apply = #(ly:make-music-function
+     (list procedure? ly:music?) ; signature
+     (lambda (where func music)  ; the function
+       (func music)))
+@end example
+
+@item Music can be used as a markup.
 When inserting a @code{score} block as part of a @code{\markup},
 it produces a rendered markup of the music.
 
@@ -17,12 +28,11 @@ it produces a rendered markup of the music.
 @end example
 
 
-@item LilyPond expressions can be embedded into Scheme, thanks to the
-@code{#@{ ... #@}} syntax. Within such a block, Scheme forms, for
+@item LilyPond expressions can be embedded into Scheme. The syntax for
+this is @code{#@{ ... #@}}. Within such a block, Scheme forms, for
 instance variable names, can be introduced thanks to a @code{$}
-character (@code{$$} has to be used to issue a single `$' character).
-These forms are then 'printed' in the pattern, as if they were called
-by (display).
+character (@code{$$} results in a single `$' character).  These forms
+are then printed in the pattern.
 
 @example
 #(define (textoffset dx dy)
@@ -71,21 +81,24 @@ is the same as
 The default value is one octave below middle C.
 
 @c update-me?  formal definition of newaddlyrics, once it works
-@item Combining lyrics with music can be @code{newaddlyrics}
+@item Combining lyrics with music can be @code{newlyrics}
 
 @example
 <<
     \relative @{
 	\clef bass
 	d2 d c4 bes a2 \break
-	c2 c d4 f g2
     @}
     \newlyrics @{
 	My first Li -- ly song,
+    @}
+    \newlyrics @{
 	Not much can go wrong!
     @}
 >>
 @end example
+
+Syntactically, @code{\newlyrics} acts like an infix operator
 
 @item The parser is encapsulated in a Scheme function
 @code{ly:parse-file}, so the following fragment processes two files
