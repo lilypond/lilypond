@@ -1,6 +1,7 @@
 \version "2.1.26"
 \header {texidoc = "@cindex Slur, dotted
-You can print different kinds of slurs (dotted, dashed, etc). "
+The appearance of slurs may be changed from solid to dotted or dashed.
+"
 } 
 \score{
 	\notes{

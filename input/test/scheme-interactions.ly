@@ -1,11 +1,10 @@
 \version "2.1.26"
 \header { texidoc = "@cindex Scheme Interactions
-With @code{ly:export}, you can pass of the result of
-Scheme expressions as lilypond input.  Within a Scheme expression,
-you can use, define or change lilypond variables.
-
-In this example, the E-s and D-s are generated using scheme functions,
-and woven together with manually entered C-s.
+Using @code{ly:export}, the result of Scheme expressions can be passed
+as LilyPond input.  Within a Scheme expression, you can use, define or 
+change the corresponding variables. In this example, the D-s and E-s are 
+generated using scheme functions, and between there are manually 
+(without Scheme) entered C-s.
 
 " }
 

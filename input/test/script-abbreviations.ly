@@ -4,7 +4,7 @@
 \version "2.1.26"
 \header { texidoc = "@cindex Script Abbreviations
 
-Some scripts may be entered using an abbreviation.
+Some articulations may be entered using an abbreviation.
 
 "
 	  

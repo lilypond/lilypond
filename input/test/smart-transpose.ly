@@ -3,22 +3,22 @@
 
 \header {
 texidoc="@cindex Smart Transpose
-@example
-	Here's a copy of my feature request :
-@quotation
-        Your task, if you accept it is to implement a \smarttranspose
-        command>> that would translate such oddities into more natural
-        notations. Double accidentals should be removed, as well as E-sharp
-        (-> F), bC (-> B), bF (-> E), B-sharp (-> C).
-@end quotation
 
-You mean like this. (Sorry 'bout the nuked indentation.)
+There is a way to enforce enharmonic modifications for notes in order
+to have the minimum number of accidentals. In that case, ``Double 
+accidentals should be removed, as well as E-sharp (-> F), bC (-> B),
+bF (-> E), B-sharp (-> C).'', as proposed by a request for a new feature.
+In this example, the double accidentals are removed after transposing
+C scale to Ais.
 
-Modified to use the standard transpose mechanism. The question is
-how useful these enharmonic modifications are. Mats B.
-@end example
 "
 }
+%
+% Modified to use the standard transpose mechanism. The question is
+% how useful these enharmonic modifications are. Mats B.
+% 
+% Why not to have a function that minimizes the number of accidentals? -HJJ
+i%
 
 #(define  (unhair-pitch p)
   (let* ((o (ly:pitch-octave p))

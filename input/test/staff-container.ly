@@ -4,13 +4,14 @@
 
     texidoc = "
 
-Container by splitting the grouping (Axis_group_engraver) and creation
-functionality into separate contexts, you can override interesting
-things.
-
-Notation like this is used in modern scores. Note that LilyPond is not
-especially prepared for it: the clefs and time-signatures don't do
-what you would expect.
+In this preliminary test of a modern score, the staff lines are washed
+out temporarily. This is done by making a tuned @code{StaffContainer},
+which @code{\skip}s some notes without printing lines either and
+creates a @code{\new Staff} then in order to create the lines again.
+(Be careful if you use this; it has been done by splitting the
+grouping @code{Axis_group_engraver} and creating functionality into 
+separate contexts, but the clefs and time signatures may not do
+what you would expect.)
 
     "
 

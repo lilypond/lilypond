@@ -2,7 +2,7 @@
 \version "2.1.26"
 
 \header { texidoc = "@cindex Slur Minimum Length
-You can set the minimum length of a slur. " 
+By setting the minimum length of a slur, notes are more separated. " 
 }
 
 \score{

@@ -2,8 +2,8 @@
 
 \header { texidoc = "@cindex Staff Size
 
-For setting staff sizes, both @code{staff-space} and @code{fontSize}
-must be set."
+In order to change staff sizes, both @code{staff-space} and @code{fontSize}
+must be scaled."
 
 }
 

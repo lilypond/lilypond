@@ -1,7 +1,8 @@
 \version "2.1.26"
 
 \header{ texidoc ="@cindex Staff Space
-Setting staff space on a staff. "
+By just increasing @code{staff-space} on a staff, you may produce strange
+results. "
 }
 
 \score { 

@@ -5,7 +5,7 @@
 \header {
     texidoc ="@cindex Feta scripts
 
-A chart showing all feta scripts.
+This chart shows all articulations, or scripts, that feta font contains.
 
 "
 }

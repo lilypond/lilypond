@@ -1,7 +1,8 @@
 \version "2.1.26"
 
 \header{texidoc = "@cindex Staff Bracket
-Here's an example of staff brackets. "
+In a music with piano accompaniment, staff brackets, like the one in 
+this example can be used. "
 }
 
 \score

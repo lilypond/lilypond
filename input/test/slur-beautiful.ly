@@ -1,16 +1,14 @@
 
 \version "2.1.26"
-% TODO bit too wordy; edit a bit to cut stuff.  -gp
+
 \header { texidoc ="@cindex Slur Beautiful
-Similarly, the curvature of a slur is adjusted to stay clear of note
-heads and stems.  When that would increase the curvature too much, the
-slur is reverted to its default shape.  The threshold for this
-decision is in Slur's object property @code{beautiful}.
-It is loosely related to the enclosed area between the slur and the
-notes.  Usually, the default setting works well, but in some cases you
-may prefer a curved slur when LilyPond decides for a vertically moved
-one.  You can indicate this preference by increasing the
-@code{beautiful} value."
+The curvature of a slur is adjusted to stay away from note heads and 
+stems. When the curvature would increase much, the slur is reverted 
+to its default shape.  The Slur's property @code{beautiful} (which is 
+loosely related to the enclosed area between the slur and the notes)
+controls the transition point, and by increasing that value you may
+keep slurs more curved.
+"
 }
 
 \score { \notes {\relative c' {

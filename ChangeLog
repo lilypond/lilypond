@@ -17,6 +17,14 @@
 	
 2004-02-28  Heikki Junes <hjunes@cc.hut.fi>
 
+	* input/test/stem-centered.ly: remove.
+	* input/test/mensural-note-heads.ly: new file. take content from
+	removed file stem-centered.ly.
+
+	* input/test/scales-greek.ly: simplify.
+
+	* input/test/s*.ly: reformulate texidocs.
+	
 	* input/test/[p-r]*.ly: use more verbose texidocs. add comments
 	of missing features.
 
