@@ -35,29 +35,31 @@ static char const *static_name()
   int  yet_another_stupid_function_to_allow_semicolon()
 
 
-#define DECLARE_VIRTUAL_COPY_CONS(T,R)\
+#define DECLARE_VIRTUAL_COPY_CONS(T, R)\
       virtual R *clone() const
-#define IMPLEMENT_VIRTUAL_COPY_CONS(T,R)\
-	R *T::clone() const { return  new T(*this); } \
+#define IMPLEMENT_VIRTUAL_COPY_CONS(T, R)\
+	R *T::clone() const { return  new T(*this); }\
+
     
-#define IMPLEMENT_IS_TYPE_B(D) 							   \
-    IMPLEMENT_STATIC_NAME(D)\
-  bool D::static_is_type_b (const char *s)					   \
-{ 										   \
-    return s == static_name();							   \
-}										   
-										   
-#define IMPLEMENT_IS_TYPE_B1(D,B) 						   \
-	IMPLEMENT_STATIC_NAME(D)\
-  bool D::static_is_type_b (const char *s)						   \
-{ 										   \
-    return s == static_name() || B::static_is_type_b (s);				   \
-}										   
-#define IMPLEMENT_IS_TYPE_B2(D, BA, BB) 						   \
-	IMPLEMENT_STATIC_NAME(D)\
-  bool D::static_is_type_b (const char *s)						   \
-{ 										   \
-    return s == static_name() || BA::static_is_type_b (s) || BB::static_is_type_b (s); \
+#define IMPLEMENT_IS_TYPE_B(D)\
+  IMPLEMENT_STATIC_NAME(D)\
+  bool D::static_is_type_b (const char *s)\
+{\
+  return s == static_name();\
+}
+
+#define IMPLEMENT_IS_TYPE_B1(D, B)\
+  IMPLEMENT_STATIC_NAME(D)\
+  bool D::static_is_type_b (const char *s)\
+{\
+  return s == static_name() || B::static_is_type_b (s);\
+}
+
+#define IMPLEMENT_IS_TYPE_B2(D, BA, BB)\
+  IMPLEMENT_STATIC_NAME(D)\
+  bool D::static_is_type_b (const char *s)\
+{\
+  return s == static_name() || BA::static_is_type_b (s) || BB::static_is_type_b (s);\
 }
 
 #endif 

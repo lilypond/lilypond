@@ -12,12 +12,21 @@
 Score_element_info::Score_element_info (Score_element*s_l, Request*r_l)
 {
   elem_l_ = s_l;
+  lisp_l_ = 0;
+  req_l_ = r_l;
+}
+
+Score_element_info::Score_element_info (Graphical_lisp_element*g_l, Request*r_l)
+{
+  elem_l_ = 0;
+  lisp_l_ = g_l;
   req_l_ = r_l;
 }
 
 Score_element_info::Score_element_info()
 {
   elem_l_ = 0;
+  lisp_l_ = 0;
   req_l_ = 0;
 }
 

@@ -77,6 +77,7 @@ struct Element_group_item;
 struct Engraver_group_engraver;
 struct General_script_def;
 struct Graphical_element;
+struct Graphical_lisp_element;
 struct Graphical_axis_group;
 struct Mark_req;
 struct Music_output;

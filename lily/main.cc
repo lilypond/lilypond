@@ -10,6 +10,8 @@
 #include <iostream.h>
 #include <assert.h>
 #include <locale.h>
+#include "lily-guile.hh"
+
 #include "proto.hh"
 #include "dimensions.hh"
 #include "plist.hh"
@@ -23,6 +25,7 @@
 #include "debug.hh"
 #include "ps-lookup.hh"
 #include "tex-lookup.hh"
+
 
 #if HAVE_GETTEXT
 #include <libintl.h>
@@ -185,9 +188,17 @@ identify ()
   *mlog << get_version_str () << endl;
 }
 
-int
-main (int argc, char **argv)
+void
+guile_init ()
 {
+   gh_eval_str ("(define (add-column p) (display \"adding column (in guile): \") (display p) (newline))");
+}
+
+void
+main_prog (int argc, char **argv)
+{
+  guile_init ();
+
   // facilitate binary distributions
   char const *env_lily = getenv ("LILYPONDPREFIX");
   String prefix_directory;
@@ -327,6 +338,13 @@ main (int argc, char **argv)
       do_one_file (i, default_outname_base_global);
     }
 
+//  return exit_status_i_;
+}
+
+int
+main (int argc, char **argv)
+{
+  gh_enter (argc, argv, (void(*)())main_prog);
   return exit_status_i_;
 }
 

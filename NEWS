@@ -1,3 +1,8 @@
+pl 15.jcn2
+	- autoconf on guile
+	- graphical-lisp-element + silly half hook-up with autuplet
+	  (see init/test/tup.ly)
+
 pl 15.jcn1
 	- autoconf on mf,mfont mp,mpost
 
