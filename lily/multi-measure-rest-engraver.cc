@@ -40,6 +40,8 @@ private:
   Moment start_moment_;
   Rational last_main_moment_;
 
+  bool bar_seen_;
+  
   Spanner *mmrest_;
   Link_array<Spanner> numbers_;
 
@@ -49,6 +51,7 @@ private:
 
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
+  bar_seen_ = false;
   start_measure_ = 0;
   mmrest_ = 0;
   last_rest_ =0;
@@ -82,6 +85,7 @@ Multi_measure_rest_engraver::try_music (Music* req)
 void
 Multi_measure_rest_engraver::process_music ()
 {
+  
   if (new_req_ && stop_req_)
     stop_req_ = 0;
 
@@ -158,10 +162,24 @@ Multi_measure_rest_engraver::process_music ()
 	= gh_scm2int (get_property ("currentBarNumber"));
     }
 
-  if (gh_string_p (get_property ("whichBar")))
+  bar_seen_ = gh_string_p (get_property ("whichBar"));
+}
+
+void
+Multi_measure_rest_engraver::stop_translation_timestep ()
+{
+  /*
+    We can not do this earlier, as breakableSeparationItem is not yet there.
+  */
+  
+  if (bar_seen_)
     {
-      Grob *cmc = unsmob_grob (get_property( "currentCommandColumn"));
+      Grob *cmc = unsmob_grob (get_property("breakableSeparationItem"));
+      if (!cmc)
+	cmc = unsmob_grob (get_property ("currentCommandColumn"));
+      
       Item *it = dynamic_cast<Item*> (cmc);
+      
       if (mmrest_)
 	{
 	  add_bound_item (mmrest_, it);
@@ -176,11 +194,8 @@ Multi_measure_rest_engraver::process_music ()
 	    add_bound_item (last_numbers_[i], it);
 	}      
     }
-}
-
-void
-Multi_measure_rest_engraver::stop_translation_timestep ()
-{
+  
+  
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
@@ -231,6 +246,8 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
 void
 Multi_measure_rest_engraver::start_translation_timestep ()
 {
+  bar_seen_ = false;
+
   SCM smp = get_property ("measurePosition");
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
@@ -308,5 +325,5 @@ ENTER_DESCRIPTION(Multi_measure_rest_engraver,
 /* creats*/       "MultiMeasureRest MultiMeasureRestNumber MultiMeasureRestText",
 /* accepts */     "multi-measure-rest-event multi-measure-text-event",
 /* acks  */      "",
-/* reads */       "currentBarNumber restNumberThreshold currentCommandColumn measurePosition measureLength",
+/* reads */       "currentBarNumber restNumberThreshold breakableSeparationItem currentCommandColumn measurePosition measureLength",
 /* write */       "");

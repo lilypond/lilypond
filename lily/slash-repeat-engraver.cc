@@ -145,5 +145,5 @@ ENTER_DESCRIPTION(Slash_repeat_engraver,
 /* creats*/       "RepeatSlash",
 /* accepts */     "repeated-music",
 /* acks  */      "",
-/* reads */       "measureLength currentCommandColumn",
+/* reads */       "measureLength",
 /* write */       "");

@@ -64,6 +64,17 @@ extents of a cluster spanner at this X position.
  '(style))
 
 (ly:add-interface
+ 'only-prebreak-interface
+ "Kill this grob after the line breaking process."
+ '() )
+
+(ly:add-interface
+ 'piano-pedal-interface
+ "A piano pedal sign"
+ '())
+
+
+(ly:add-interface
  'rhythmic-grob-interface
  "Any object with a rhythmic basis. Used to determine which grobs 
 are interesting enough to maintain a hara-kiri staff."
@@ -73,11 +84,6 @@ are interesting enough to maintain a hara-kiri staff."
 (ly:add-interface
  'tablature-interface
  "tablature notes"
- '())
-
-(ly:add-interface
- 'piano-pedal-interface
- "A piano pedal sign"
  '())
 
 

@@ -76,7 +76,7 @@ System::output_lines ()
        gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * g = unsmob_grob (ly_car (s));
-      if (Spacing_interface::has_interface (g))
+      if (g->internal_has_interface ("only-prebreak-interface"))
 	{
 	  /*
 	    Kill no longer needed grobs. 

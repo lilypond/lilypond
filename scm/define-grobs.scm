@@ -970,13 +970,15 @@
 
     (SeparationItem
      . (
+	(X-extent-callback . #f)
+	(Y-extent-callback . #f)
 	(meta . ((interfaces . (spacing-interface separation-item-interface item-interface ))))
 	))
 
     (SeparatingGroupSpanner
      . (
 	(spacing-procedure . ,Separating_group_spanner::set_spacing_rods)
-	(meta . ((interfaces . (spacing-interface separation-spanner-interface spanner-interface))))
+	(meta . ((interfaces . (only-prebreak-interface spacing-interface separation-spanner-interface spanner-interface))))
 	))
 
     (SustainPedal
