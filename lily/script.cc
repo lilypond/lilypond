@@ -36,7 +36,7 @@ Script::get_molecule(Score_element * me, Direction d)
   return Molecule ();
 }
 
-MAKE_SCHEME_CALLBACK(Script,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Script,after_line_breaking,1);
 SCM
 Script::after_line_breaking (SCM smob)
 {
@@ -48,7 +48,7 @@ Script::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK(Script,brew_molecule);
+MAKE_SCHEME_CALLBACK(Script,brew_molecule,1);
 
 SCM
 Script::brew_molecule (SCM smob)

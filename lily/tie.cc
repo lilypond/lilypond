@@ -253,7 +253,7 @@ Tie::get_control_points (SCM smob)
   return controls;
 }
 
-MAKE_SCHEME_CALLBACK(Tie,set_spacing_rods);
+MAKE_SCHEME_CALLBACK(Tie,set_spacing_rods,1);
 
 /*
   TODO: set minimum distances for begin/end of line
@@ -275,7 +275,7 @@ Tie::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK(Tie,brew_molecule);
+MAKE_SCHEME_CALLBACK(Tie,brew_molecule,1);
 SCM
 Tie::brew_molecule (SCM smob) 
 {

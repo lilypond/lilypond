@@ -38,7 +38,7 @@ Volta_spanner::set_interface (Score_element*me)
   
 */
 
-MAKE_SCHEME_CALLBACK(Volta_spanner,brew_molecule);
+MAKE_SCHEME_CALLBACK(Volta_spanner,brew_molecule,1);
 SCM
 Volta_spanner::brew_molecule (SCM smob) 
 {

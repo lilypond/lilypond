@@ -50,7 +50,7 @@ Note_head::ledger_line (Interval xwid, Score_element *me)
 }
 
 
-MAKE_SCHEME_CALLBACK(Note_head,brew_molecule);
+MAKE_SCHEME_CALLBACK(Note_head,brew_molecule,1);
 
 SCM
 Note_head::brew_molecule (SCM smob)  

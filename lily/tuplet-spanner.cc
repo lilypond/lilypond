@@ -32,7 +32,7 @@ Tuplet_spanner::set_interface (Score_element*me)
   TODO. 
  */
 
-MAKE_SCHEME_CALLBACK(Tuplet_spanner,brew_molecule);
+MAKE_SCHEME_CALLBACK(Tuplet_spanner,brew_molecule,1);
 
 SCM
 Tuplet_spanner::brew_molecule (SCM smob) 
@@ -187,7 +187,7 @@ Tuplet_spanner::calc_dy (Score_element*me,Real * dy)
   *dy = column_arr.top ()->extent (Y_AXIS) [d]
     - column_arr[0]->extent (Y_AXIS) [d];
 }
-MAKE_SCHEME_CALLBACK(Tuplet_spanner,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Tuplet_spanner,after_line_breaking,1);
 
 SCM
 Tuplet_spanner::after_line_breaking (SCM smob)

@@ -15,9 +15,12 @@
 #include "directional-element-interface.hh"
 
 
-Real
-Dots::quantised_position_callback (Score_element * me, Axis a)
+MAKE_SCHEME_CALLBACK(Dots,quantised_position_callback,2);
+SCM
+Dots::quantised_position_callback (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
     
   SCM d= me->get_elt_property ("dot-count");
@@ -27,14 +30,14 @@ Dots::quantised_position_callback (Score_element * me, Axis a)
 	Directional_element_interface::set (me, UP);
 
       if (Staff_symbol_referencer::on_staffline (me))
-	return Staff_symbol_referencer::staff_space (me) / 2.0 * Directional_element_interface::get (me);
+	return gh_double2scm (Staff_symbol_referencer::staff_space (me) / 2.0 * Directional_element_interface::get (me));
     }
 
-  return  0.0;
+  return gh_double2scm  (0.0);
 }
 
 
-MAKE_SCHEME_CALLBACK(Dots,brew_molecule);
+MAKE_SCHEME_CALLBACK(Dots,brew_molecule,1);
 SCM  
 Dots::brew_molecule (SCM d)
 {

@@ -71,7 +71,7 @@ Key_item::calculate_position(Score_element *ki, SCM pair)
   TODO
   - space the `natural' signs wider
  */
-MAKE_SCHEME_CALLBACK(Key_item,brew_molecule);
+MAKE_SCHEME_CALLBACK(Key_item,brew_molecule,1);
 SCM
 Key_item::brew_molecule (SCM smob)
 {

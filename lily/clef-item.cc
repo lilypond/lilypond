@@ -16,7 +16,7 @@
 FIXME: should use symbol for #'style.
 
 */
-MAKE_SCHEME_CALLBACK(Clef,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Clef,before_line_breaking,1);
 SCM
 Clef::before_line_breaking (SCM smob)
 {

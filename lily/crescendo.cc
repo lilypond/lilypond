@@ -23,7 +23,7 @@ Crescendo::set_interface (Score_element*s)
 
 
 
-MAKE_SCHEME_CALLBACK(Crescendo,brew_molecule);
+MAKE_SCHEME_CALLBACK(Crescendo,brew_molecule,1);
 
 /*
 

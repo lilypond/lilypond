@@ -13,7 +13,7 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 
-MAKE_SCHEME_CALLBACK(Grace_align_item,before_line_breaking);
+MAKE_SCHEME_CALLBACK(Grace_align_item,before_line_breaking,1);
 SCM
 Grace_align_item::before_line_breaking (SCM smob)
 {
