@@ -154,7 +154,7 @@ dir_info (FILE *out)
 {
   fputs ("\n", out);
   fprintf (out, "LILYPOND_DATADIR=\"%s\"\n", LILYPOND_DATADIR);
-  fprintf (out, "LOCAL_LILYPOND_DATADIR=\%s\"\n", LOCAL_LILYPOND_DATADIR);
+  fprintf (out, "LOCAL_LILYPOND_DATADIR=\"\%s\"\n", LOCAL_LILYPOND_DATADIR);
   fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
 
   char *lilypond_prefix = getenv ("LILYPONDPREFIX");

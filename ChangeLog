@@ -1,3 +1,7 @@
+2004-11-01  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* lily/main.cc (dir_info): Fixed typo in the printouts.
+
 2004-11-01  Werner Lemberg  <wl@gnu.org>
 
 	* buildscripts/mf-to-table.py (write_fontlist): Improve formatting
