@@ -173,7 +173,7 @@ Auto_beam_engraver::create_beam_p ()
   /* urg, copied from Beam_engraver */
   Scalar prop = get_property ("beamslopedamping", 0);
   if (prop.isnum_b ()) 
-    beam_p->damping_i_ = prop;
+    beam_p->set_elt_property (damping_scm_sym, gh_int2scm( prop));
 
   prop = get_property ("beamquantisation", 0);
   if (prop.isnum_b ()) 
