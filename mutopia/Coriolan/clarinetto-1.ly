@@ -9,9 +9,9 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-clarinetto1 = \melodic \relative c {
+clarinetto1 = \notes \relative c {
 	R1 *2 | d''4-.\ff r r2 | R1 *3 | e4-. r r2 | R1 *3 |
 	f4-. r r2 | r1 | f4-. r r2 | e4-. r r2 | R1 *4 |
 	bes'2\p_"\ \ \ cresc." ( a | 

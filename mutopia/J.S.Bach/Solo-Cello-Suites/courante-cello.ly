@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "courante-urtext.ly";
 
-courante_cello_global = \melodic{
+courante_cello_global = \notes{
 	\time 3/4;
 	\key f;
 	\partial 16;
@@ -32,7 +32,7 @@ courante_cello_global = \melodic{
 	\bar ":|";
 }
 
-courante_cello_scripts = \melodic{
+courante_cello_scripts = \notes{
 }
 
 courante_cello_staff = \type Staff <

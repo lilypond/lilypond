@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "sarabande-urtext.ly";
 
-sarabande_cello_global = \melodic{
+sarabande_cello_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef bass;
@@ -29,7 +29,7 @@ sarabande_cello_global = \melodic{
 	\bar ":|";
 }
 
-sarabande_cello_scripts = \melodic{
+sarabande_cello_scripts = \notes{
 }
 
 sarabande_cello_staff = \type Staff <

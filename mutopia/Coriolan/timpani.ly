@@ -9,9 +9,9 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-timpani = \melodic \relative c {
+timpani = \notes \relative c {
 	R1 *2 | c4-.\ff r r2 | R1 *3 | c4-. r r2 | R1 *3 |
 	c4-. r r2 | r1 | g4-. r r2 | g4-. r r2 | R1 *5 |
 	%20
@@ -25,7 +25,7 @@ $timpani_staff = \type Staff = timpani <
 	\property Staff.instrument = "2 Timpani (C-G)"
 	\property Staff.instr = "Timp."
 	\clef "bass";
-	\melodic< 
+	\notes< 
 %		\global
 		\time 4/4;
 		\$timpani

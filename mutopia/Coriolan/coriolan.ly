@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "global.ly"
 
@@ -39,7 +39,7 @@ koper = \type StaffGroup = koper_group <
 
 $timpani_g = \type StaffGroup = timpani_group <
 	\$timpani_staff
-	\type Staff = urgtimpany \melodic{ \skip 1*34; }
+	\type Staff = urgtimpany \notes{ \skip 1*34; }
 >
 
 $violini = \type GrandStaff = violini_group <

@@ -7,9 +7,9 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-contrabasso = \melodic \relative c {
+contrabasso = \notes \relative c {
 %	\translator Staff=violoncello
 	\skip 1*21;
 %	\translator Staff=contrabasso
@@ -144,7 +144,7 @@ $contrabasso_staff = \type Staff = contrabasso <
 	\property Staff.instrument = "Contrabasso"
 	\property Staff.instr = "Cb."
 	\clef "bass";
-	\melodic \type Voice=one< 
+	\notes \type Voice=one< 
 		\global
 		\$contrabasso
 	>

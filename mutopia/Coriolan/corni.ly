@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "corno-1.ly"
 \include "corno-2.ly"
@@ -21,7 +21,7 @@ $corni_staff = \type Staff = corni <
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
 	%\property Staff.transposing = "es"
 	\property Staff.transposing = 3
-	\melodic \type Voice=corni < 
+	\notes \type Voice=corni < 
 		\time 4/4;
 		\$corno1
 		\$corno2

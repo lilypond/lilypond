@@ -20,9 +20,9 @@ traditional song in various languages.
 Tested Features: lyrics, interleaving lyrics and staffs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
-melody = \melodic \relative c'' {
+melody = \notes \relative c'' {
 	\clef violin;
 	\property Staff.instrument = "alto sax"
 	
@@ -36,7 +36,7 @@ melody = \melodic \relative c'' {
 	f f | e e | d d8.( e16 | )c2 |
 }
 
-accompany = \melodic \relative c {
+accompany = \notes \relative c {
 	\clef "bass";
 	c4 c' | e c | f c | e c | 
 	d b | c a | f g | c,2 | 
@@ -48,7 +48,7 @@ accompany = \melodic \relative c {
 	d b | c a | f g | c,2 
 }
 
-global = \melodic {
+global = \notes {
 	\time 2/4;
 	\skip 2*24;
 	\bar ":|";

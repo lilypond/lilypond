@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "oboe-1.ly"
 \include "oboe-2.ly"
@@ -18,7 +18,7 @@ $oboi_staff = \type Staff = oboi <
 	\property Staff.midi_instrument = "oboe"
 	\property Staff.instrument = "2 Oboi"
 	\property Staff.instr = "Ob."
-	\melodic \type Voice=oboi < 
+	\notes \type Voice=oboi < 
 		\global
 		\$oboe1
 		\$oboe2

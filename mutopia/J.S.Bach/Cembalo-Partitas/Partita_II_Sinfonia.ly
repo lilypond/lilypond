@@ -10,9 +10,9 @@
   copyright =   "Public Domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-global = \melodic {
+global = \notes {
 	\time 4/4;
 	\key es;
 	\skip 1*7;
@@ -23,7 +23,7 @@ global = \melodic {
 	\bar "|.";
 }
   
-hoyreOpp = \melodic\relative c''  {
+hoyreOpp = \notes\relative c''  {
 	\stemup
 	es4^"Grave adagio" r16 [es d. es32] f4 r16 [f16 f. g32] |
 	[as8. as16] [as16 g32 f g16. d32] es4 r16 [g g. as32] |
@@ -44,7 +44,7 @@ hoyreOpp = \melodic\relative c''  {
 	> g2
 }
 
-hoyreNed = \melodic\relative c'' {
+hoyreNed = \notes\relative c'' {
 	\clef violin;
 	\stemdown
 	<c4 g> r16 [c b. c32] d4 r16 [d d. es32] |
@@ -57,7 +57,7 @@ hoyreNed = \melodic\relative c'' {
 	g4 <c8 a> r <d2 b>
 }
 
-venstreOpp = \melodic\relative c' {
+venstreOpp = \notes\relative c' {
 	\clef bass;
 	\stemup
 	<c4 g es> r <b as f d> r |
@@ -75,7 +75,7 @@ venstreOpp = \melodic\relative c' {
 	r <a es c> <g2 d>
 }
 
-venstreNed = \melodic\relative c{
+venstreNed = \notes\relative c{
 	\stemdown
 	c4 r c r | r c c r | c r r c | c r r16 [c c. bes32] bes4 |
 	r16 [bes bes. as32] as4_"tr" g r16 [d' d. es32] |
@@ -86,7 +86,7 @@ venstreNed = \melodic\relative c{
 	r g g2	
 }
 
-andanteEn = \melodic\relative c''{
+andanteEn = \notes\relative c''{
 	[g16^"andante" c32 d es8~] [es16 d32 c es d c b] [c16 g as f] [g c g f] |
 	[es16 c'32 d es d c16] [g' c, as' c,] [b c d b] g16 r16 r8 |
 %10
@@ -141,7 +141,7 @@ andanteEn = \melodic\relative c''{
    >
 }
 
-andanteTo = \melodic\relative c{
+andanteTo = \notes\relative c{
 %8
 	[c8 c'] [f, g] [es c] [es g] |
 	[c as] [es f] [g g,]
@@ -179,7 +179,7 @@ andanteTo = \melodic\relative c{
 	>
 }
 
-allegroEn = \melodic\relative c''{
+allegroEn = \notes\relative c''{
 %30
 	[g8^"allegro" g16 a] [b8 c d es] |
 	[f16 es d es] [f8 g as d,] |
@@ -253,7 +253,7 @@ allegroEn = \melodic\relative c''{
 		{ \stemdown r8 r16 <a16 es> <g2 d> | <g es> }
 	>
 }
-allegroTo = \melodic\relative c'{
+allegroTo = \notes\relative c'{
 	\clef bass;
 %30
 	\type Staff <

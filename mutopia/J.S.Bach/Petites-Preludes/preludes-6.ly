@@ -12,10 +12,10 @@ composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
 }
-\version "1.0.2";
+\version "1.0.3";
 
 
-one = \melodic\relative c{
+one = \notes\relative c{
 	\skip 1; |
 	\stemup
 	r4 d''2-5( cis4-4 |
@@ -35,7 +35,7 @@ one = \melodic\relative c{
 	\bar "|.";
 }
 
-two = \melodic\relative c{
+two = \notes\relative c{
 	r16\p [d''-5( c-4 bes-3] [a-2 bes-3 f-1 g-2] 
 	[a8.-\mordent bes16-1] [g8.-\prall f16-1] |
 	\stemdown
@@ -54,7 +54,7 @@ two = \melodic\relative c{
 	fis1-2
 }
 
-three = \melodic\relative c{
+three = \notes\relative c{
 	\stemup
 	f2-1( e-2 |
 	\stemboth
@@ -76,7 +76,7 @@ three = \melodic\relative c{
 	\bar "|.";
 }
 
-four = \melodic\relative c{
+four = \notes\relative c{
 	\stemdown 
 	d2-3 cis-4 |
 	\skip 1*3; |
@@ -95,7 +95,7 @@ four = \melodic\relative c{
 	d,1-5
 }
 
-global = \melodic{
+global = \notes{
 	\time 4/4;
 	\key F;
 }

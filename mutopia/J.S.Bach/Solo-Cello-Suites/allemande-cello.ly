@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "allemande-urtext.ly";
 
-allemande_cello_global = \melodic{
+allemande_cello_global = \notes{
 	\time 4/4;
 	\key f;
 	\partial 16;
@@ -32,7 +32,7 @@ allemande_cello_global = \melodic{
 	\bar ":|";
 }
 
-allemande_cello_scripts = \melodic{
+allemande_cello_scripts = \notes{
 }
 
 allemande_cello_staff = \type Staff <

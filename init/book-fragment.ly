@@ -1,6 +1,6 @@
 % Toplevel initialisation file. 
 	
-\version "1.0.1";
+\version "1.0.3";
 
 
 \include "declarations.ly"
@@ -8,7 +8,7 @@
 \include "paper16.ly"
 
 \score { 
-  \melodic {
+  \notes {
     \maininput
   }
   \paper { \paper_sixteen

@@ -45,9 +45,9 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "1.0.2";
+\version "1.0.3";
 
-vi1=\melodic \relative c'' {
+vi1=\notes \relative c'' {
   \time 4/4;
 
   [d8 d d d] d4 [a16 b c a] |
@@ -117,7 +117,7 @@ vi1=\melodic \relative c'' {
   \bar "|.";
 }
 
-vi2=\melodic \relative c'' {
+vi2=\notes \relative c'' {
   \time 4/4;
 
   r1 | r | r | 
@@ -183,7 +183,7 @@ vi2=\melodic \relative c'' {
 }
 
 
-bc=\melodic\transpose c'{
+bc=\notes\transpose c'{
   \clef "bass";
   \time 4/4;
 

@@ -7,9 +7,9 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-flauto1 = \melodic \relative c {
+flauto1 = \notes \relative c {
 	R1 *2 | c'''4-.\ff r r2 | R1 *3 | d4-. r r2 | R1 *3 |
 	es4-. r r2 | r1 | g4-. r r2 | b,4-. r r2 | R1 *4 |
 	r2 es\p_"\ \ \ cresc." ( | 

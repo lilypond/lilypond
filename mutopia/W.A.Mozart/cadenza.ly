@@ -13,10 +13,10 @@ Tested Features: cadenza mode
 Ugh.. Wish we had grace notes....  It adds another dimension to this
 piece of music.  %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 
-cad = \melodic  \relative c' {
+cad = \notes  \relative c' {
 	\property Score.instrument = "french horn"
 	\type Staff {
 	\cadenza 1;
@@ -58,7 +58,7 @@ cad = \melodic  \relative c' {
 	c4
 	}}
 \score {
-	\melodic { \cad }
+	\notes { \cad }
 	\midi { \tempo 4 = 90; }
 	\paper {
 	}

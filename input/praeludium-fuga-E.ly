@@ -23,16 +23,16 @@
    * organ staff...
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 
 
-praeludium_commands = \melodic {
+praeludium_commands = \notes {
   \time 4/4;
    \key e;
 }
 
-praeludium_right = \melodic\transpose c'' {
+praeludium_right = \notes\transpose c'' {
   \$praeludium_commands
   \clef violin;
 
@@ -64,7 +64,7 @@ praeludium_right = \melodic\transpose c'' {
   % 16
 }
 
-praeludium_left = \melodic {
+praeludium_left = \notes {
   \$praeludium_commands
   \clef bass;
 
@@ -85,7 +85,7 @@ praeludium_left = \melodic {
   % 16
 }
 
-praeludium_pedal = \melodic {
+praeludium_pedal = \notes {
   \$praeludium_commands  
   \clef bass;
 
@@ -97,12 +97,12 @@ praeludium_pedal = \melodic {
 }
 
 
-fuga2_commands = \melodic{
+fuga2_commands = \notes{
   \time 3/4;
   \key e;              % E-major
 }
 
-fuga2_right = \melodic\transpose c'' {
+fuga2_right = \notes\transpose c'' {
   \$fuga2_commands
   \clef violin;
 
@@ -140,7 +140,7 @@ fuga2_right = \melodic\transpose c'' {
   % 19
 }
 
-fuga2_left = \melodic {
+fuga2_left = \notes {
   \$fuga2_commands  
   \clef bass;
 
@@ -156,7 +156,7 @@ fuga2_left = \melodic {
   % 19
 }
 
-fuga2_pedal = \melodic {
+fuga2_pedal = \notes {
   \$fuga2_commands  
   \clef bass;
 
@@ -168,7 +168,7 @@ fuga2_pedal = \melodic {
   % 19
 }
 
-breakmusic = \melodic { 
+breakmusic = \notes { 
   %\time 4/4;
   r1
 }

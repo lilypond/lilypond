@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "global.ly"
 \include "viola-1.ly"
@@ -18,7 +18,7 @@ $viola_staff = \type Staff = violai <
 	\property Staff.instrument = "Viola"
 	\property Staff.instr = "Vla."
 	\clef "alto";
-	\melodic \type Voice=one < 
+	\notes \type Voice=one < 
 		\global 
 		\$viola1
 		\$viola2

@@ -14,9 +14,9 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-one = \melodic\relative c {
+one = \notes\relative c {
 	\property Voice . textstyle =  "italic"
 	r16\p_"legato"\< [g''-1( c-3 )e-5] r [g,-1( c )e]
 	r [g,( c )d] r [b-1( d-2 \!)g-5] |
@@ -68,7 +68,7 @@ one = \melodic\relative c {
 	\bar "|.";
 }
 
-two = \melodic\relative c{
+two = \notes\relative c{
 	\property Voice . textstyle =  "roman"
 	c4-5 e-3 g-\mordent^"(\\textsharp)" g,4 |
 	d'-\mordent-5 f-3 a-\mordent^"(\\textsharp)" a,4 |
@@ -90,7 +90,7 @@ two = \melodic\relative c{
 	\bar "|.";
 }
 
-global  = \melodic{
+global  = \notes{
 	\time 4/4;
 }
 

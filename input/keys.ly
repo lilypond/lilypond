@@ -1,7 +1,7 @@
-\version "1.0.2";
+\version "1.0.3";
 
 
-blah = \melodic {
+blah = \notes {
 
 \transpose c'' {
 	\time 4/4;

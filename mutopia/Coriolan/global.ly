@@ -9,9 +9,9 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-global = \melodic {
+global = \notes {
 	\time 4/4;
 	\key es;
 	\skip 1*314;

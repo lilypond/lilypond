@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "gigue-urtext.ly";
 
-gigue_cello_global = \melodic{
+gigue_cello_global = \notes{
 	\time 3/8;
 	\key f;
 	\clef bass;
@@ -32,7 +32,7 @@ gigue_cello_global = \melodic{
 	\bar ":|";
 }
 
-gigue_cello_scripts = \melodic{
+gigue_cello_scripts = \notes{
 }
 
 gigue_cello_staff = \type Staff <

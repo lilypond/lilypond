@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "prelude-urtext.ly";
 
-prelude_cello_global = \melodic{
+prelude_cello_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef bass;
@@ -27,7 +27,7 @@ prelude_cello_global = \melodic{
 	\bar "|.";
 }
 
-prelude_cello_scripts = \melodic{
+prelude_cello_scripts = \notes{
 }
 
 prelude_cello_staff = \type Staff <

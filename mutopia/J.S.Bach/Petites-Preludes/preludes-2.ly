@@ -14,8 +14,8 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
-one = \melodic\relative c{
+\version "1.0.3";
+one = \notes\relative c{
 	\property Voice . textstyle =  "italic"
 	r8\mf [c'-1( e-2 g-4] [e-2 c-1 bes'-5 g-3] |
 	[)a-4\< c,-1( f-2 a-4] [f c c'-5 a-3] |
@@ -73,7 +73,7 @@ one = \melodic\relative c{
 	\bar "|.";
 }
 
-two = \melodic\relative c{
+two = \notes\relative c{
 	\type Staff <
 		{ \voiceone c1 ~ | c ~ | c }
 		{ \voicetwo c,1 ~ | c ~ | c }
@@ -97,7 +97,7 @@ two = \melodic\relative c{
 	\bar "|.";
 }
 
-global = \melodic{
+global = \notes{
 	\time 4/4;
 }
 

@@ -12,9 +12,9 @@ composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
 }
-\version "1.0.2";
+\version "1.0.3";
 
-one = \melodic\relative c{
+one = \notes\relative c{
 	\property Voice . textstyle =  "italic"
 	r16\p_"legato" 
 	\property Voice . textstyle =  "finger"
@@ -63,7 +63,7 @@ one = \melodic\relative c{
 	\bar "|.";
 }
 
-two = \melodic\relative c{
+two = \notes\relative c{
 	\property Voice . textstyle =  "finger"
 	fis4-1( e8-2 a4 a4 gis8-2 | 
 	) a8
@@ -118,7 +118,7 @@ two = \melodic\relative c{
 	\bar "|.";
 }
 
-three = \melodic\relative c{
+three = \notes\relative c{
 %	\stemdown 
 	d4-3 c-4 b e-3 |
 	a16 [a,-5\mf( cis-3 a-5] [d-2 e-1 fis-2 d-4]
@@ -154,7 +154,7 @@ three = \melodic\relative c{
 	[d a-2~] [a16 a-2 b cis-2] d2 |
 }
 
-four = \melodic\relative c{
+four = \notes\relative c{
 	\skip 1*9;
 %	\stemup 
 %	\property Voice.hshift = 1 
@@ -174,7 +174,7 @@ four = \melodic\relative c{
 	d2 d2
 }
 
-global  = \melodic{
+global  = \notes{
 	\time 4/4;
 	\key D;
 }

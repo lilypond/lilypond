@@ -11,16 +11,16 @@ copyright =	 "Public Domain";
 %{
 	
 %}
-\version "1.0.2";
+\version "1.0.3";
 
 
 global = 
-	\melodic {
+	\notes {
 	\time 4/4;                % should be \time C
 	}
 	
 tenor =
-	\melodic \relative c' {
+	\notes \relative c' {
 	\clef "violin";
 
 	\stemdown
@@ -61,7 +61,7 @@ tenor =
 
 
 soprane =
-	\melodic \relative c' {
+	\notes \relative c' {
 
 	\stemup
 	r1 |
@@ -99,7 +99,7 @@ soprane =
 	}
 
 alt =
-	\melodic \relative c {
+	\notes \relative c {
 	\clef "bass";
 
 	
@@ -139,7 +139,7 @@ alt =
 	}
 
 bass =
-	\melodic \relative c {
+	\notes \relative c {
 	\clef "bass";
 
 
@@ -180,7 +180,7 @@ bass =
 
 	
 \score {
-	\melodic \type GrandStaff < 
+	\notes \type GrandStaff < 
 		\type Staff = one <
 			\global 
 			\soprane

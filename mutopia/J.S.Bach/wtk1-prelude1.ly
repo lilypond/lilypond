@@ -8,10 +8,10 @@ enteredby =	 "Shay Rojansky";
 copyright =	 "Public Domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
 global = 
-    \melodic {
+    \notes {
 	 \time 4/4;                % should be \time C
     }
   
@@ -19,7 +19,7 @@ global =
 % should do programmable input.
 
 soprane =
-    \melodic \transpose c'' {
+    \notes \transpose c'' {
         \clef "violin";
 
 	\type Staff <
@@ -78,7 +78,7 @@ soprane =
     }
 
 bass =
-    \melodic {
+    \notes {
         \clef "bass";
 
 
@@ -161,7 +161,7 @@ bass =
 
         
 \score {
-    \melodic \type GrandStaff < 
+    \notes \type GrandStaff < 
                   <
                        \global 
                        \soprane

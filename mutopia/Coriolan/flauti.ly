@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "flauto-1.ly"
 \include "flauto-2.ly"
@@ -18,7 +18,7 @@ $flauti_staff = \type Staff = flauti <
 	\property Staff.midi_instrument = "flute"
 	\property Staff.instrument = "2 Flauti"
 	\property Staff.instr = "Fl."
-	\melodic \type Voice=flauti < 
+	\notes \type Voice=flauti < 
 		\global
 		\$flauto1
 		\$flauto2

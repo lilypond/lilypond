@@ -12,10 +12,10 @@ composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "jcn";
 copyright =	 "public domain";
 }
-\version "1.0.2";
+\version "1.0.3";
 
 
-one = \melodic\relative c{
+one = \notes\relative c{
 	\property Voice . textstyle =  "italic"
 	[d'8-1\p a'-5-"legato" f-3 d-1 a'-5 f-3] |
 	[d-1 a'-5 f-3 d-1 a'-5 f-3] |
@@ -108,7 +108,7 @@ one = \melodic\relative c{
 }
 
 
-two = \melodic\relative c{
+two = \notes\relative c{
 	\clef "bass";
 %	[d32( cis )d8.] r4 r |
 	d4-\mordent r r |
@@ -185,7 +185,7 @@ Aborted (core dumped)
 	\bar "|.";
 }
 
-global = \melodic{
+global = \notes{
 	\time 3/4;
 	\key F;
 }
