@@ -93,7 +93,10 @@ Break_align_engraver::acknowledge_grob (Grob_info inf)
 {
   if (Item * item = dynamic_cast <Item *> (inf.grob_))
     {
-      if (item->empty_b (X_AXIS) || item->get_parent (X_AXIS))
+      /*
+	Removed check for item->empty (X_AXIS). --hwn 20/1/04
+       */
+      if (item->get_parent (X_AXIS))
 	return;
 
       SCM bp=item->get_grob_property ("breakable");

@@ -510,7 +510,8 @@
      . (
 	(molecule-callback . ,Text_item::brew_molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
-	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
+	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
+	(after-line-breaking-callback . ,shift-right-at-line-begin)
 	(self-alignment-X . 0)
 	(direction . 1)
 	(breakable . #t)
@@ -519,7 +520,7 @@
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
 	(padding . 0.8)
-	(meta . ((interfaces . (break-aligned-interface text-interface side-position-interface font-interface mark-interface self-alignment-interface item-interface ))))
+	(meta . ((interfaces . (text-interface side-position-interface font-interface mark-interface self-alignment-interface item-interface ))))
 	))
      (MetronomeMark
      . (
