@@ -13,11 +13,15 @@ set -ex
 
 # Where user built stuff will be installed
 OPT=$HOME/usr/pkg
+## when using GUILE CVS, make a slib/require like so:
+## cd ~/usr/pkg/guile/share/guile/1.7 && ln -s /usr/share/guile/1.6/slib .
+## cd && guile -c "(use-modules (ice-9 slib)) (require 'new-catalog)"
+## otherwise, this may fix it...
 SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
-GGVERSION=2.5.992
+GGVERSION=2.5.993
 
 export AUTOMAKE=automake-1.8
 export ACLOCAL=aclocal-1.8
@@ -73,7 +77,7 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
 fi
 
 ## 3. Currently (2004-9-15) GUILE CVS works again
-## PATH=/usr/bin:$PATH
+##PATH=/usr/bin:$PATH
 
 if [ -d $OPT/libffi/ ]; then
     export LDFLAGS=-L$OPT/libffi/lib

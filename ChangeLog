@@ -1,3 +1,7 @@
+2004-09-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-gnome.scm: Fix font dir description.
+
 2004-09-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/test/mensural-ligatures.ly (voice): move linethickness

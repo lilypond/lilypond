@@ -38,13 +38,15 @@
 ;;;  
 ;;;   * Build LilyPond with gui support: configure --enable-gui
 ;;;
-;;;   * Supposing that LilyPond was built in ~/cvs/lilypond, tell X about
-;;;     feta fonts:
+;;;   * Supposing that LilyPond was built in ~/cvs/savannah/lilypond,
+;;;     tell fontconfig about the feta fonts dir:
 "
-ln -s ~/cvs/lilypond/mf/out ~/.fonts
-mkfontdir ~/.fonts
-xset +fp ~/.fonts
+<fontconfig>
+<dir>~/cvs/savannah/lilypond/mf/out</dir>
+</fontconfig>
 "
+;;;     or copy all your .pfa/.pfb's to ~/.fonts if your fontconfig
+;;;     already looks there for fonts
 ;;;
 ;;;   * Setup environment
 "
