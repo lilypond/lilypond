@@ -1,3 +1,14 @@
+2003-08-17  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lilypond.words, ly/engraver-init.ly, ly/params-init.ly: added
+	Vaticana contexts
+
+	* Documentation/user/refman.itely (Ancient notation): documented
+	some bugs; tiny fixes; added docu on Vaticana contexts
+
+	* gregorian-init.ly, ly/script-init.ly: moved ancient articulation
+	scripts
+
 2003-08-16  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/refman.itely (Ancient notation): added some

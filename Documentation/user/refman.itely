@@ -2030,7 +2030,7 @@ For finger changes, use markup texts:
 You can use the thumb-script to indicate that a note should be
 played with your thumb (used in cello music):
 
-@lilypond[verbatim, singleline, fragmnt]
+@lilypond[verbatim, singleline, fragment]
       <<a' a''-3>>8-(_\thumb-[ <<b' b''-3>>-)_\thumb
       <<c'' c'''-3>>-(_\thumb <<d'' d'''-3>>-)_\thumb-]
 @end lilypond
@@ -4368,7 +4368,9 @@ output:
 
 @c [TODO: write more comprehensive introduction on ancient notation]
 
-Support for ancient notation currently includes features for mensural
+Support for ancient notation is still under heavy development.
+Regardless of all of the current limitations (see the bugs section
+below for details), it currently includes features for mensural
 notation and Gregorian Chant notation.  There is also limited support
 for figured bass notation.
 
@@ -4401,6 +4403,29 @@ ancient notation, see @ref{Custodes}, @ref{Divisiones},
 * Ligatures::                   
 * Figured bass::                
 @end menu
+
+If this all is way too much of documentation for you, and you just
+want to dive into typesetting without worrying too much about the
+details on how to customize a context, then you may have a look at the
+predefined contexts (see @ref{Vaticana style contexts}).  Use them to
+set up predefined style-specific voice and staff contexts, and
+directly go ahead with the note entry.
+
+@menu
+* Vaticana style contexts::
+@end menu
+
+@refbugs
+
+Ligatures need special spacing that has not yet been implemented.  As
+a result, there is too much space between ligatures most of the time,
+and line breaking often is unsatisfactory.  Also, lyrics do not
+correctly align with ligatures.
+
+Accidentals must not be printed within a ligature, but instead need to
+be collected and printed in front of it.
+
+Augmentum dots within ligatures are currently not handled correctly.
 
 
 @node Ancient note heads
@@ -6984,6 +7009,37 @@ and @internalsref{FiguredBass} context.
 
 Slash notation for alterations is not supported.
 
+
+@node Vaticana style contexts
+@subsection Vaticana style contexts
+
+@cindex VaticanaVoiceContext
+@cindex VaticanaStaffContext
+
+The predefined @code{VaticanaVoiceContext} and
+@code{VaticanaStaffContext} can be used to easily engrave a piece of
+Gregorian Chant in the style of the Editio Vaticana.  These contexts
+initialize all relevant context properties and grob properties to
+proper values.  With these contexts, you can immediately go ahead
+entering the chant, as the following short excerpt demonstrates:
+
+@lilypond[raggedright,verbatim,noindent]
+\include "gregorian-init.ly"
+\score {
+  \addlyrics
+  \context VaticanaVoice {
+    \property Score.BarNumber \set #'transparent = ##t
+    \notes {
+      \[ c'( c' \flexa a \] \[ a \flexa \deminutum g-) \] f \divisioMinima
+      \[ f( \pes a c' c' \pes d'-) \] c' \divisioMinima \break
+      \[ c'( c' \flexa a \] \[ a \flexa \deminutum g-) \] f \divisioMinima
+    }
+  }
+  \context Lyrics \lyrics {
+    San- ctus, San- ctus, San- ctus
+  }
+}
+@end lilypond
 
 @node Contemporary notation
 @section Contemporary notation
