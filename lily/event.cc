@@ -37,12 +37,11 @@ Event::transpose (Pitch delta)
   if (!p)
     return ;
 
-  Pitch np = *p;
-  np.transpose (delta);
+  Pitch np = p->transposed (delta);
   
-  if (abs (np.alteration_) > 2)
+  if (abs (np.get_alteration ()) > 2)
     {
-	warning (_f ("Transposition by %s makes accidental larger than two",
+	warning (_f ("Transposition by %s makes alteration larger than two",
 	  delta.string ()));
     }
 
@@ -50,13 +49,13 @@ Event::transpose (Pitch delta)
 }
 
 Pitch
- Event::to_relative_octave (Pitch last)
+Event::to_relative_octave (Pitch last)
 {
   Pitch *old_pit = unsmob_pitch (get_mus_property ("pitch"));
   if (old_pit)
     {
       Pitch new_pit = *old_pit;
-      new_pit.to_relative_octave (last);
+      new_pit = new_pit.to_relative_octave (last);
       set_mus_property ("pitch", new_pit.smobbed_copy ());
   
       return new_pit;
@@ -112,6 +111,9 @@ LY_DEFINE(music_duration_compress, "ly:music-duration-compress", 2, 0,0,
 /*
   This is hairy, since the scale in a key-change event may contain
   octaveless notes.
+
+
+  TODO: this should use ly:pitch. 
  */
 LY_DEFINE(transpose_key_alist, "ly:transpose-key-alist",
 	  2, 0,0, (SCM l, SCM pitch),
@@ -127,24 +129,24 @@ LY_DEFINE(transpose_key_alist, "ly:transpose-key-alist",
       if (gh_pair_p (key))
 	{
 	  Pitch orig (gh_scm2int (ly_car (key)),
-			      gh_scm2int (ly_cdr (key)),
-			      gh_scm2int (alter));
+		      gh_scm2int (ly_cdr (key)),
+		      gh_scm2int (alter));
 
-	  orig.transpose (*p);
+	  orig =orig.transposed (*p);
 
 	  SCM key = gh_cons (scm_int2num (orig.get_octave ()),
-			     scm_int2num (orig.notename_));
+			     scm_int2num (orig.get_notename ()));
 
-	  newlist = gh_cons (gh_cons (key, scm_int2num (orig.alteration_)),
+	  newlist = gh_cons (gh_cons (key, scm_int2num (orig.get_alteration ())),
 			     newlist);
 	}
       else if (gh_number_p (key))
 	{
 	  Pitch orig (0, gh_scm2int (key), gh_scm2int (alter));
-	  orig.transpose (*p);
+	  orig = orig.transposed (*p);
 
-	  key =scm_int2num (orig.notename_);
-	  alter = scm_int2num (orig.alteration_);
+	  key =scm_int2num (orig.get_notename ());
+	  alter = scm_int2num (orig.get_alteration());
 	  newlist = gh_cons (gh_cons (key, alter), newlist);
 	}
     }
@@ -152,13 +154,15 @@ LY_DEFINE(transpose_key_alist, "ly:transpose-key-alist",
 }
 
 void
-Key_change_req::transpose (Pitch p)
+Key_change_ev::transpose (Pitch p)
 {
   SCM pa = get_mus_property ("pitch-alist");
 
   set_mus_property ("pitch-alist", transpose_key_alist (pa, p.smobbed_copy()));
+  Pitch tonic = *unsmob_pitch (get_mus_property ("tonic"));
+  set_mus_property ("tonic",
+		    tonic.smobbed_copy ());
 }
-
 
 bool
 alist_equal_p (SCM a, SCM b)
@@ -177,16 +181,4 @@ alist_equal_p (SCM a, SCM b)
     }
   return true;
 }
-
-bool
-Key_change_req::do_equal_b (Event const * m )const
-{
-  Key_change_req const * kc =dynamic_cast<Key_change_req const*> (m);
-
-  if(!kc)
-    return false;
-  return alist_equal_p (get_mus_property ("pitch-alist"),
-			kc->get_mus_property ("pitch-alist"));
-}
-
-ADD_MUSIC (Key_change_req);
+ADD_MUSIC (Key_change_ev);

@@ -21,6 +21,8 @@ easier to process."
 	<< c-1  es-3 g-5 >> 4
 	\property Voice.fingerHorizontalDirection = #RIGHT
 	<< c-1  e-2 g-3 b-5 >> 4-\arpeggio
+	\property Voice.fingerHorizontalDirection = #LEFT
+	<< c_1  e-2 g-3 b^5 >> 4
 	
 }
 

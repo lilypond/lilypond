@@ -177,7 +177,7 @@ c8-[ c c-] c8")
      . (
 	(description .  "")
 
-	(internal-class-name . "Key_change_req")
+	(internal-class-name . "Key_change_ev")
 	(types . (general-music key-change-event event))
 	)) 
     (LigatureEvent

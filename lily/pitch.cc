@@ -140,13 +140,11 @@ Pitch
 interval (Pitch const & from , Pitch const & to )
 {
   int sound = to.semitone_pitch()  - from.semitone_pitch ();
-  Pitch pt ;
-  pt.octave_ = to.octave_ - from.octave_;
-  pt.notename_ = to.notename_ - from.notename_;
-  pt.alteration_ = to.alteration_ - from.alteration_;
-  pt.alteration_ += sound - pt.semitone_pitch();
+  Pitch pt (to.get_octave () - from.get_octave (),
+	    to.get_notename() - from.get_notename(),
+	    to.get_alteration() - from.get_alteration());
 
-  return pt;
+  return pt.transposed (Pitch(0,0,sound - pt.semitone_pitch()));
 }
 
 
@@ -184,7 +182,7 @@ Pitch::string () const
   return copy of resulting pitch
  */
 Pitch
-Pitch::to_relative_octave (Pitch p)
+Pitch::to_relative_octave (Pitch p) const
 {
   int oct_mod = octave_  + 1;	// account for c' = octave 1 iso. 0 4
   Pitch up_pitch (p);
@@ -204,9 +202,7 @@ Pitch::to_relative_octave (Pitch p)
     n = down_pitch;
   
   n.octave_ += oct_mod;
-
-  *this = n;
-  return *this;
+  return n;
 }
 
 void
@@ -240,9 +236,7 @@ LY_DEFINE(ly_pitch_transpose,
   SCM_ASSERT_TYPE(t, p, SCM_ARG1, __FUNCTION__, "pitch")  ;
   SCM_ASSERT_TYPE(d, delta, SCM_ARG1, __FUNCTION__, "pitch")  ;
 
-  Pitch tp =*t;
-  tp.transpose (*d);
-  return tp.smobbed_copy ();
+  return t->transposed (*d).smobbed_copy ();
 }
 
 /****************************************************************/
@@ -398,3 +392,10 @@ Pitch::get_alteration () const
   return alteration_;
 }
 
+Pitch
+Pitch::transposed (Pitch d) const
+{
+  Pitch p =*this;
+  p.transpose (d);
+  return p;
+}

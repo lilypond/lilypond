@@ -37,14 +37,13 @@ public:
 /**
     Handle key changes.
 */
-class Key_change_req  : public Event
+class Key_change_ev  : public Event
 {
 public:
   SCM pitch_alist ();
   
 protected:
   VIRTUAL_COPY_CONS (Music);
-  bool do_equal_b (Event const * ) const;
   void transpose (Pitch  d);
 };
 

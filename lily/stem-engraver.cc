@@ -173,8 +173,8 @@ Stem_engraver::try_music (Music* r)
 }
 
 ENTER_DESCRIPTION(Stem_engraver,
-/* descr */       "Create stems and single-stem tremolos.  It also works together with
-the beam engraver for overriding beaming.",
+/* descr */       "Create stems and single-stem tremolos.  It also works together with "
+"the beam engraver for overriding beaming.",
 /* creats*/       "Stem StemTremolo",
 /* accepts */     "tremolo-event",
 /* acks  */      "rhythmic-head-interface",

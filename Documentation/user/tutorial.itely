@@ -752,7 +752,10 @@ demonstrated here:
 
 In this example, @code{staffA} and @code{staffB} are names that are
 given to the staves.  It doesn't matter what names you give, as long
-as each staff has a different name.
+as each staff has a different name. If you give them the same name,
+LilyPond will assume that you only want one staff, and will but both
+pieces of music on the same staff.
+
 
 @separate
 
@@ -1457,8 +1460,6 @@ The convention for naming @code{LyricsVoice} and @code{Voice} must
 also be used to get melismata on rests correct.
 
 
-@c    I think we need to change the name of this section, but that
-@c    would probably involve a lot of changes in other places too.
 @node More movements 
 @section More movements
 
@@ -1467,16 +1468,6 @@ create titles, subtitles, or print the composer's name.  To do that,
 you need to use @code{ly2dvi}, which comes with LilyPond.  @code{ly2dvi}
 creates the title, then calls @code{lilypond} to format the sheet music.
 In this section, we show you how to create titles like this:
-
-@c    Old version of the above paragraph.
-@c LilyPond only produces sheet music; it doesn't concern itself with
-@c producing titles.  Titles are produced using a simply wrapper program
-@c This is the jobs of a simple wrapper
-@c program called ly2dvi. @code{ly2dvi} calls LilyPond to do the
-@c sheet music formatting. Then it produces titles, and ties together all
-@c inputs into a single @file{dvi} file.  In this section, we show some of
-@c the options  for titling.  We will show how you can produce a file
-@c that looks like this:
 
 @center @strong{Two miniatures}
 @flushright
@@ -1566,7 +1557,7 @@ versions using old print-outs.
 @cindex tag line
 
 Many people find the default tagline (``Lily was here'') too droll.  
-If that is the case, you can change @code{tagline} to somethign else,
+If that is the case, you can change @code{tagline} to something else,
 as shown above.
 
 @separate

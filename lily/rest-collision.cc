@@ -76,6 +76,9 @@ head_characteristic (Grob * col)
 
   TODO: look at horizontal-shift to determine ordering between rests
   for more than two voices.
+
+  TODO: look at previous note to determine vertical position?
+  
  */
 SCM
 Rest_collision::do_shift (Grob *me)

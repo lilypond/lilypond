@@ -391,6 +391,8 @@ settings.
 pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")
 (translator-property-description 'timing boolean? " Keep administration of measure length, position, bar number, etc?
 Switch off for cadenzas.")
+(translator-property-description 'tonic ly:pitch?
+				 "The tonic of the current scale")
 (translator-property-description 'transposing integer? "Transpose the MIDI output.  Set this property to the number of half-steps to transpose by.")
 (translator-property-description 'tremoloFlags integer? "Number of tremolo flags to add if none is specified.")
 (translator-property-description 'tupletNumberFormatFunction procedure?

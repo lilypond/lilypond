@@ -18,14 +18,18 @@
 #include "protected-scm.hh"
 #include "clef.hh"
 
+/*
+  TODO: The representation  of key sigs is all fucked.
+ */
+
 /**
   Make the key signature.
  */
 class Key_engraver : public Engraver
 {
   void create_key (bool);
-  void read_req (Key_change_req const * r);
-  Key_change_req * keyreq_;
+  void read_ev (Key_change_ev const * r);
+  Key_change_ev * key_ev_;
   Item * item_;
 
 public:
@@ -34,7 +38,7 @@ public:
 protected:
   virtual void initialize ();
   virtual void finalize ();
-  virtual bool try_music (Music *req);
+  virtual bool try_music (Music *ev);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void process_music ();
@@ -50,7 +54,7 @@ Key_engraver::finalize ()
 
 Key_engraver::Key_engraver ()
 {
-  keyreq_ = 0;
+  key_ev_ = 0;
   item_ = 0;
 }
 
@@ -69,7 +73,7 @@ Key_engraver::create_key (bool def)
       item_->set_grob_property ("old-accidentals", get_property ("lastKeySignature"));
       item_->set_grob_property ("new-accidentals", get_property ("keySignature"));
 
-      announce_grob(item_, keyreq_ ? keyreq_->self_scm() : SCM_EOL);
+      announce_grob(item_, key_ev_ ? key_ev_->self_scm() : SCM_EOL);
     }
 
   if (!def)
@@ -82,18 +86,18 @@ Key_engraver::create_key (bool def)
 
 
 bool
-Key_engraver::try_music (Music * req)
+Key_engraver::try_music (Music * ev)
 {
-  //  if (Key_change_req *kc = dynamic_cast <Key_change_req *> (req))
-  if (req->is_mus_type ("key-change-event"))
+  //  if (Key_change_ev *kc = dynamic_cast <Key_change_ev *> (ev))
+  if (ev->is_mus_type ("key-change-event"))
     {
-      if (!keyreq_)
+      if (!key_ev_)
 	{
 	  /*
 	    do this only once, just to be on the safe side.
 	    */	    
-	  keyreq_ = dynamic_cast<Key_change_req*> (req); // UGH.
-	  read_req (keyreq_);
+	  key_ev_ = dynamic_cast<Key_change_ev*> (ev); // UGH.
+	  read_ev (key_ev_);
 	}
       
       return true;
@@ -124,7 +128,7 @@ Key_engraver::acknowledge_grob (Grob_info info)
 void
 Key_engraver::process_music ()
 {
-  if (keyreq_ ||
+  if (key_ev_ ||
       get_property ("lastKeySignature") != get_property ("keySignature"))
     create_key (false);
 }
@@ -142,7 +146,7 @@ Key_engraver::stop_translation_timestep ()
 
 
 void
-Key_engraver::read_req (Key_change_req const * r)
+Key_engraver::read_ev (Key_change_ev const * r)
 {
   SCM p = r->get_mus_property ("pitch-alist");
   if (!gh_pair_p (p))
@@ -164,19 +168,16 @@ Key_engraver::read_req (Key_change_req const * r)
     if (gh_scm2int (ly_cdar (s)))
       accs = gh_cons (ly_car (s), accs);
 
-#if 0
-  daddy_trans_->set_property ("lastKeySignature",
-				get_property ("keySignature"));
-#endif
-  
   daddy_trans_->set_property ("keySignature", accs);
+  daddy_trans_->set_property ("tonic" ,
+			      r->get_mus_property ("tonic"));
 }
 
 
 void
 Key_engraver::start_translation_timestep ()
 {
-  keyreq_ = 0;
+  key_ev_ = 0;
   daddy_trans_->set_property ("lastKeySignature", get_property ("keySignature"));
 }
 
@@ -186,6 +187,10 @@ Key_engraver::initialize ()
 {
   daddy_trans_->set_property ("keySignature", SCM_EOL);
   daddy_trans_->set_property ("lastKeySignature", SCM_EOL);
+
+  Pitch p(0,0,0);
+  daddy_trans_->set_property ("tonic", p.smobbed_copy ());
+
 }
 
 
@@ -195,4 +200,4 @@ ENTER_DESCRIPTION(Key_engraver,
 /* accepts */     "key-change-event",
 /* acks  */      "bar-line-interface clef-interface",
 /* reads */       "keySignature lastKeySignature explicitKeySignatureVisibility createKeyOnClefChange keyAccidentalOrder keySignature",
-/* write */       "lastKeySignature");
+/* write */       "lastKeySignature tonic keySignature");
