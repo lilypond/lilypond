@@ -1,3 +1,7 @@
+2004-09-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/guile-gnome.sh: Getting close to 2.6.0 release.
+
 2004-09-16  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/notation.itely (Ancient flags): Removed
