@@ -291,6 +291,15 @@ for the reader.
       (and (null? signature) (null? arguments)))
   )
 
+
+(define (markup-argument-list-error signature arguments number)
+  (if (and (pair? signature) (pair? arguments))
+      (if (not ((car signature) (car arguments)))
+	  (list number (type-name (car signature)) (car arguments))
+	  (markup-argument-list-error (cdr signature) (cdr arguments) (+ 1 number)))
+      #f
+  ))
+
 ;;
 ;; full recursive typecheck.
 ;;
@@ -395,6 +404,8 @@ for the reader.
 ;; Invalid argument 4 : expecting a BLADIBLA, found: (list-ref 4 args)
 ;;
 ;; right now, you get the entire argument list.
+
+
 (define (make-markup-maker  entry)
   (let*
 	((foo-markup (car entry))
@@ -404,12 +415,25 @@ for the reader.
 	 )
       
       `(define (,(string->symbol make-name) . args)
-	 (if (markup-argument-list? ,signature args)
+	 (if (= (length  args) (length ,signature))
+	     #t
+	     (scm-error 'markup-format ,make-name "Expect ~A arguments for ~A. Found ~A: ~S"
+			(list (length ,signature)
+			      ,make-name
+			      (length args)
+			      args) #f))
+
+	 (let*
+	     (
+	      (error-msg (markup-argument-list-error ,signature args 1))
+	      )
+	 (if error-msg
+	     (scm-error 'markup-format ,make-name "Invalid argument in position ~A\n Expect: ~A\nFound: ~S." error-msg #f)
+	     
 	     (cons ,foo-markup args)
-	     (scm-error 'markup-format ,make-name "Invalid argument list: ~A." (list args) #f)
 	     )))
     )
-
+)
 
 (eval
  (cons 'begin (map make-markup-maker markup-function-list))
@@ -451,14 +475,14 @@ for the reader.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; test make-foo-markup functions
-(if #f
-(begin
-  (make-line-markup (make-simple-markup "FOO")
-		    (make-simple-markup "foo")
-		    )
+(if #t
+    (begin
+      (make-line-markup (make-simple-markup "FOO"))
+      (make-line-markup (make-simple-markup "FOO") (make-simple-markup "foo"))
+      (make-raise-markup "foo" (make-simple-markup "foo"))
+      )
+    )
 
-  (make-teeny-markup (make-simple-markup 1)))
-)
 
 ;;
 ;; test typecheckers. Not wholly useful, because errors are detected
