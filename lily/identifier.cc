@@ -20,7 +20,7 @@
 #include "request.hh"
 #include "input-translator.hh"
 
-IMPLEMENT_STATIC_NAME(Identifier);
+
 IMPLEMENT_IS_TYPE_B(Identifier);
 
 Identifier::~Identifier()
@@ -106,7 +106,6 @@ Idclass::accessor(bool copy) {\
 
 
 #define implement_id_class(Idclass, Class, accessor)	\
-IMPLEMENT_STATIC_NAME(Idclass)\
 IMPLEMENT_IS_TYPE_B1(Idclass,Identifier)\
 Idclass::~Idclass() { delete accessor(false); }\
 Idclass::Idclass(String s, Class*st, int code):Identifier(s,code) { data = st; }\
