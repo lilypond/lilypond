@@ -10,6 +10,7 @@
 @itemize
 
 @item
+@c dotted or dashed?
 Crescendos can now be drawn dotted or stippled.
 
 @item
@@ -199,6 +200,10 @@ which is set through
 @example
   #(ly:set-option 'old-relative)
 @end example
+
+@item
+Windows users can double click a @code{.ly} to process and view it
+automagically through the new @code{lily-wins} frontend.
 
 @end itemize
 
