@@ -25,6 +25,7 @@ public:
   Interpretation_context_handle quote_outlet_;
 
   Moment start_moment_;
+  Moment stop_moment_;
   SCM event_vector_;
   int event_idx_;
   int end_idx_ ;
@@ -32,7 +33,7 @@ public:
   SCM transposed_musics_;
   
   DECLARE_SCHEME_CALLBACK (constructor, ()); 
-
+  bool quote_ok () const;
   bool accept_music_type (Music*) const;
 protected:
   virtual void derived_mark () const;
@@ -116,21 +117,15 @@ New_quote_iterator::construct_children ()
       quote_outlet_.set_context (get_outlet ());
     }
   
-  Moment now = get_outlet ()->now_mom ();
-  Moment stop = now + get_music()->get_length ();
 
-  start_moment_ = now;
   event_vector_ = get_music ()->get_property ("quoted-events");
-
-  if (ly_c_vector_p (event_vector_))
-    {
-      event_idx_ = binsearch_scm_vector (event_vector_, now.smobbed_copy (), &moment_less);
-      end_idx_ = binsearch_scm_vector (event_vector_, stop.smobbed_copy (), &moment_less);
-    }
-  else
-    {
-      get_music ()->origin()->warning (_("No events found for \\quote"));
-    }
+  
+  /*
+    We have to delay initting event_idx_ , since we have to
+    take starting grace notes into account. Those may offset 
+    event_idx_.
+  */
+  event_idx_ = -1;
 }
 
 
@@ -139,16 +134,41 @@ New_quote_iterator::ok () const
 {
   return
     Music_wrapper_iterator::ok()
-    && ly_c_vector_p (event_vector_) && (event_idx_ <= end_idx_);
+    || quote_ok ();
+}
+
+bool
+New_quote_iterator::quote_ok () const
+{
+  return (event_idx_ >= 0
+	  && ly_c_vector_p (event_vector_)
+	  && event_idx_ <= end_idx_
+
+	  /*
+	    Don't quote the grace notes leading to an unquoted note.
+	   */
+	  && vector_moment (event_idx_).main_part_ < stop_moment_.main_part_
+	  );
 }
 
 Moment
 New_quote_iterator::pending_moment () const
 {
-  return
-    Music_wrapper_iterator::pending_moment()
-    <? 
-    vector_moment (event_idx_) - start_moment_;
+  Rational infty;
+  infty.set_infinite (1);
+  Moment m (infty);
+
+  if (Music_wrapper_iterator::ok())
+    m = m <? Music_wrapper_iterator::pending_moment();
+
+  /*
+    In case event_idx_ < 0, we're not initted yet, and the wrapped
+    music expression determines the starting moment.
+   */
+  if (quote_ok ())
+    m = m <? vector_moment (event_idx_) - start_moment_;
+
+  return m;
 }
 
 Moment
@@ -157,12 +177,25 @@ New_quote_iterator::vector_moment (int idx) const
   SCM entry = SCM_VECTOR_REF (event_vector_, idx);
   return *unsmob_moment (scm_caar (entry));
 }
-  
 
 void
 New_quote_iterator::process (Moment m)
 {
-  Music_wrapper_iterator::process (m);
+  if (Music_wrapper_iterator::ok())
+    Music_wrapper_iterator::process (m);
+
+  if (event_idx_ < 0)
+    {
+      event_idx_ = binsearch_scm_vector (event_vector_,
+					 get_outlet ()->now_mom ().smobbed_copy (),
+					 &moment_less);
+      start_moment_ = get_outlet ()->now_mom () - music_start_mom();
+      stop_moment_ = start_moment_ + get_music()->get_length ();
+      
+      end_idx_ = binsearch_scm_vector (event_vector_,
+				       stop_moment_.smobbed_copy (),
+				       &moment_less);
+    }
   
   m += start_moment_;
   while (event_idx_ <= end_idx_)
@@ -177,7 +210,7 @@ New_quote_iterator::process (Moment m)
       event_idx_++;
     }
 
-  if (event_idx_ <= end_idx_)
+  if (quote_ok ())
     {
       SCM entry = SCM_VECTOR_REF (event_vector_, event_idx_);
       Pitch * quote_pitch = unsmob_pitch (scm_cdar (entry));
@@ -218,8 +251,9 @@ New_quote_iterator::process (Moment m)
 		mus->origin ()->warning (_f ("In quotation: junking event %s", mus->name ()));
 	    }
 	}
+      
+      event_idx_ ++; 
     }
-  event_idx_ ++; 
 }
 
 IMPLEMENT_CTOR_CALLBACK (New_quote_iterator);

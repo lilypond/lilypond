@@ -1,11 +1,11 @@
 /*   
-  grace-music.cc --  implement Grace_music
+     grace-music.cc --  implement Grace_music
   
-  source file of the GNU LilyPond music typesetter
+     source file of the GNU LilyPond music typesetter
   
-  (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+     (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
- */
+*/
 
 #include "grace-music.hh"
 #include "grace-iterator.hh"
@@ -29,7 +29,7 @@ Grace_music::start_mom () const
 Grace_music::Grace_music ()
 {
   set_property ("iterator-ctor",
-		    Grace_iterator::constructor_proc);
+		Grace_iterator::constructor_proc);
 }
 
 ADD_MUSIC (Grace_music);
