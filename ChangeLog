@@ -1,3 +1,10 @@
+2005-01-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/general-scheme.cc (LY_DEFINE): Use snprintf (WAS: sprintf).
+	Add headers.
+
+	* lily/GNUmakefile (general-scheme.o): Add version.hh dependency.
+
 2005-01-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* mf/GNUmakefile (debian-mirror): rename bigcheese to emmentaler.
