@@ -12,36 +12,6 @@
 #include "rod.hh"
 
 /**
-
-   de-uglify-parameters -- list of 3 real constants. They define the
-     valid areas for the middle control points. Used in de_uglyfy.
-     They are a bit empirical.
-
-   details -- alist containing contaning a few magic constants.
-
-   note-columns -- list of elt pointers to note columns.
-
-   attachment -- cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where
-     both types may be alongside-stem, stem, head or loose-end
-   
-   direction -- up or down?
-
-   y-free -- ? 
-   
-   control-points --
-
-   
-   
-   Read-only
-   =========
-   
-   extremity-rules --
-
-   extremity-offset-alist --
-
-   thickness --
-
-   dash -- number representing the length of the dashes.
 */
 class Slur
 {

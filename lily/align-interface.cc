@@ -21,9 +21,9 @@ MAKE_SCHEME_CALLBACK(Align_interface,alignment_callback,2);
 SCM
 Align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
-  Score_element * sun = unsmob_element (element_smob);
+  Score_element * me = unsmob_element (element_smob);
   Axis ax = (Axis )gh_scm2int (axis);
-  Score_element * par = sun->parent_l (ax);
+  Score_element * par = me->parent_l (ax);
   if (par && !to_boolean (par->get_elt_property ("alignment-done")))
     {
       Align_interface::do_side_processing (par, ax);

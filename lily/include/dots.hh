@@ -15,17 +15,7 @@
 
 
 
-/**
-  The dots to go with a notehead/rest.  A separate class, since they
-  are a party in collision resolution.
-
-  properties:
-
-  dot-count -- number of dots.
-
-  
-  */
-class Dots			// interface
+class Dots
 {
 public:
   DECLARE_SCHEME_CALLBACK(quantised_position_callback, (SCM element, SCM axis));

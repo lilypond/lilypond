@@ -12,9 +12,7 @@
 
 #include "lily-guile.hh"
 /**
-  The hairpin symbol. (cresc)
-
-  (normal spanner?)
+  The hairpin symbol. 
  */
 struct Crescendo
 {

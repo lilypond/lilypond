@@ -61,7 +61,7 @@ Dynamic_performer::do_process_music ()
       if (gh_procedure_p (proc))
 	{
 	  // urg
-	  svolume = gh_call1 (proc, script_req_l_->text_); 
+	  svolume = gh_call1 (proc, script_req_l_->get_mus_property ("text"));
 	}
 
       Real volume = 0.5; 

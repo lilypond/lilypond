@@ -14,17 +14,6 @@
 #include "rod.hh"
 #include "spring.hh"
 
-/**
-   bounded-by-me -- list of elts.
-
-   shortest-starter-duration -- rational signifying shortest moment that starts here
-
-
-   Interfaces:
-
-   axis-group, spaceable-element.
-  */
-
 class Paper_column : public Item
 { 
 public:

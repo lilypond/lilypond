@@ -126,7 +126,7 @@ Text_engraver::do_process_music ()
       if (r->get_direction ())
 	Side_position::set_direction (text, r->get_direction ());
       
-      text->set_elt_property ("text", r->text_);
+      text->set_elt_property ("text", r->get_mus_property ("text"));
       
       SCM nonempty = get_property ("textNonEmpty");
       if (to_boolean (nonempty))

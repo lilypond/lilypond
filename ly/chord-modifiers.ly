@@ -1,10 +1,3 @@
-%{
- chord modifiers
-%}
-
-% UGR 
-#(eval-string (ly-gulp-file "chord-names.scm"))
-
 
 % urg!
 %

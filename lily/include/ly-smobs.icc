@@ -20,6 +20,12 @@ unsmob_ ## name ( SCM s)			\
 return  CL::unsmob (s);				\
 }
 
+#define IMPLEMENT_TYPE_P(CL, FUNCNAME)\
+void init_type_p_ ## CL ()\
+{\
+  scm_make_gsubr (FUNCNAME, 1, 0, 0, (Scheme_function_unknown) CL::smob_p);\
+}\
+ADD_SCM_INIT_FUNC(init_type_p_ ## CL, init_type_p_ ## CL)
 
 #ifndef SCM_CELL_TYPE
 #define SCM_CELL_TYPE(X) SCM_CAR(X)
@@ -32,6 +38,15 @@ return  CL::unsmob (s);				\
 
 #define IMPLEMENT_SIMPLE_SMOBS(CL)				\
 long CL::smob_tag_;						\
+SCM								\
+CL::smob_p (SCM s)						\
+{								\
+  if (SCM_NIMP(s) && SCM_CELL_TYPE(s) == smob_tag_)		\
+    return SCM_BOOL_T;						\
+  else								\
+    return SCM_BOOL_F;						\
+								\
+}								\
 void								\
 CL::init_smobs ()						\
 {								\

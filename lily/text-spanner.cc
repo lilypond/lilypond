@@ -18,23 +18,6 @@
 #include "staff-symbol-referencer.hh"
 
 /*
-  Generic Text spanner:
-
-  type: "line", "dashed-line", "dotted-line"
-  edge-text: ("le" . "re")
-  text-style: "italic"
-  egde-height: (lh . rh)
-
-  "le"--------------"re"
-                    |^ 
-                    |v rh
-
-  fine tuning:
-
-  dash-period 
-  dash-length 
-  line-thickness
-
   TODO:
     - vertical start / vertical end (fixme-name) |
     - contination types (vert. star, vert. end)  |-> eat volta-spanner
@@ -167,7 +150,7 @@ Text_spanner::brew_molecule (SCM smob)
       if (gh_pair_p (s))
 	{
 	  Direction d = LEFT;
-	  int dir = me->get_elt_property ("direction");
+	  int dir = to_dir (me->get_elt_property ("direction"));
 	  do
 	    {
 	      Real dy = gh_scm2double (index_cell (s, d)) * - dir;

@@ -15,8 +15,6 @@
 #include "duration.hh"
 #include "musical-pitch.hh"
 #include "array.hh"
-#include "protected-scm.hh"
-
 
 /** a request with a duration.
   This request is used only used as a base class.
@@ -52,9 +50,6 @@ struct Tremolo_req : public Request {
   */
 class Lyric_req : public Rhythmic_req
 {
-public:
-  Protected_scm text_;
-
 protected:
   VIRTUAL_COPY_CONS (Music);
 };
@@ -72,9 +67,6 @@ protected:
 
 class Text_script_req : public Script_req
 {
-public:
-  Protected_scm text_;
-
 protected:
   VIRTUAL_COPY_CONS (Music);
   virtual bool do_equal_b (Request const*) const;
@@ -82,9 +74,6 @@ protected:
 
 class Dynamic_script_req : public Script_req
 {
-public:
-  Protected_scm text_;
-
 protected:
   VIRTUAL_COPY_CONS (Music);
 };

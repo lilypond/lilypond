@@ -182,7 +182,8 @@ Dynamic_engraver::do_process_music ()
   if (script_req_l_)
     {
       script_p_ = new Item (get_property ("DynamicText"));
-      script_p_->set_elt_property ("text", script_req_l_->text_);
+      script_p_->set_elt_property ("text",
+				   script_req_l_->get_mus_property ("text"));
       if (Direction d = script_req_l_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
 

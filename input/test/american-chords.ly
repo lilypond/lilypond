@@ -1,3 +1,4 @@
+\version "1.3.96"
 %{
   See scm/chord-names.scm: chord::names-alist-american
   James Hammons <jlhamm@pacificnet.net>
@@ -13,7 +14,7 @@
       chord::names-alist-american))
 
 chord = \notes\transpose c''\chords{
-	\property ChordNames.ChordName \push #'style = #"american"
+	\property ChordNames.ChordNames \push #'style = #"american"
 c
 cs:m
 df:m5-
@@ -47,8 +48,8 @@ c:m7.9
     \paper
     {
         	\translator { 
-			\ChordNameContext
-			ChordName \push #'word-space = #1 
+			\ChordNamesContext
+			ChordNames \push #'word-space = #1 
 		}
     }
 }

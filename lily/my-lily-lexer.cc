@@ -44,6 +44,7 @@ static Keyword_ent the_key_tab[]={
   {"denies", DENIES},
   {"duration", DURATION},
   {"dynamicscript", DYNAMICSCRIPT},
+  {"elementdescriptions", ELEMENTDESCRIPTIONS},
   {"font", FONT},
   {"grace", GRACE},
   {"header", HEADER},

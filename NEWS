@@ -15,7 +15,7 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
 
  - Improved robustness: Lily almost never crashes.
 
-* Piano pedal support
+* Piano pedal support, Arpeggios
 
 * MIDI: dynamics, tempo changes
 

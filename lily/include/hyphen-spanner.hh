@@ -9,27 +9,6 @@
 
 #include "spanner.hh"
 
-/** 
-  centred hyphen 
-
-  A centred hyphen is a simple line between lyrics used to
-  divide syllables.
-
-  The length of the hyphen line should stretch based on the
-  size of the gap between syllables.
-
-properties:
-
-  thickness -- thickness of line (in stafflinethickness)
-
-  height -- vertical offset  (in staffspace)
-
-  minimum-length -- try to make the hyphens at least this long. Also works
-    as a scaling parameter for the length
-
-  word-space -- elongate left by this much (FIXME: cumbersome semantics)
-  
-  */
 struct Hyphen_spanner 
 {
 public:

@@ -67,7 +67,8 @@ void
 Mark_engraver::acknowledge_element (Score_element_info inf)
 {
   Score_element * s = inf.elem_l_;
-  if (Staff_symbol::has_interface (s))
+  if (Staff_symbol::has_interface (s)
+      || to_boolean (s->get_elt_property ("invisible-staff")))
     {
       SCM sts = get_property ("staffsFound");
       SCM thisstaff = inf.elem_l_->self_scm ();

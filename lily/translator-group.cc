@@ -343,9 +343,51 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	   */
 	  if (gh_pair_p (prev) || prev == SCM_EOL)
 	    {
+	      bool ok = true;
+	      
+	      SCM errport = scm_current_error_port ();
+	      
+	      SCM meta = scm_assoc (ly_symbol2scm ("meta"), prev);
+	      SCM props = scm_assoc (ly_symbol2scm ("properties"), gh_cdr (meta));
+	      SCM propdesc = scm_assoc (eltprop, gh_cdr (props));
+	      if (!gh_pair_p (propdesc))
+		{
+		  scm_puts (_("Couldn't find property description for #'").ch_C(),errport);
+		  scm_display (eltprop, errport);
+
+		  scm_puts (_(" in element description ").ch_C(),errport);
+		  scm_display (prop, errport);
+
+		  scm_puts (_(". Perhaps you made a typing error?\n").ch_C(),errport);		  
+		}
+	      else
+		{
+		  
+		  SCM predicate = gh_cadr (propdesc);
+		  if (gh_call1 (predicate, val) == SCM_BOOL_F)
+		    {
+		      ok = false;
+		      scm_puts (_("Failed typecheck for #'").ch_C (),errport);
+		      scm_display (eltprop,errport);
+		      scm_puts ( _(", value ").ch_C (), errport);
+		      scm_display (val, errport);
+		      scm_puts (_(" must satisfy ").ch_C (), errport);
+		      scm_display (predicate, errport);
+		      scm_puts ("\n", errport);		      
+		    }
+		}
+
+	      if (ok)
+		{
 		  prev = gh_cons (gh_cons (eltprop, val), prev);
 		  set_property (prop, prev);
+		}
 	    }
+	  else
+	    {
+	      // warning here.
+	    }
+	  
 	}
       else
 	{

@@ -12,18 +12,6 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 
-/**
-  Set a clef in a staff.
-
-  properties:
-
-  non-default -- not set because of existence of a bar?
-
-  change -- is this a change clef (smaller size)?
-
-  glyph -- a string determining what glyph is typeset
-  
- */
 struct Clef 
 {
   DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM ));

@@ -12,15 +12,6 @@
 
 #include "lily-guile.hh"
 
-/**
-   A pause.
-
-   See also Rhythmic_head, Staff_symbol_referencer.
-   
-   Read-only properties:
-
-   style -- string specifying glyph style
- */
 class  Rest
 {
 public:

@@ -141,6 +141,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CM_T
 %token CONSISTS
 %token SEQUENTIAL
+%token ELEMENTDESCRIPTIONS
 %token SIMULTANEOUS
 %token CONSISTSEND
 %token DENIES
@@ -459,6 +460,12 @@ translator_spec_body:
 	}
 	| translator_spec_body CONSISTS STRING semicolon {
 		unsmob_translator_def ($$)->add_element ($3);
+	}
+	| translator_spec_body ELEMENTDESCRIPTIONS embedded_scm {
+		for (SCM p = $3; gh_pair_p (p); p = gh_cdr (p))
+			unsmob_translator_def ($$)
+			->add_property_assign (scm_symbol_to_string (gh_caar (p)), gh_cdar (p));
+
 	}
 	| translator_spec_body CONSISTSEND STRING semicolon {
 		unsmob_translator_def ($$)->add_last_element ( $3);
@@ -1059,13 +1066,13 @@ verbose_request:
 	}
 	| DYNAMICSCRIPT embedded_scm {
 		Dynamic_script_req *d = new Dynamic_script_req;
-		d->text_ = $2;
+		d->set_mus_property ("text", $2);
 		d->set_spot (THIS->here_input ());
 		$$ = d;
 	}
 	| TEXTSCRIPT embedded_scm {
 		Text_script_req *t = new Text_script_req;
-		t->text_ = $2;
+		t->set_mus_property ("text", $2);
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	}
@@ -1232,13 +1239,13 @@ open_request_parens:
 gen_text_def:
 	embedded_scm {
 		Text_script_req *t = new Text_script_req;
-		t->text_ = $1;	
+		t->set_mus_property ("text", $1);
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	}
 	| string {
 		Text_script_req *t = new Text_script_req;
-		t->text_ = $1;
+		t->set_mus_property ("text", $1);
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	}
@@ -1247,8 +1254,9 @@ gen_text_def:
 		  Maybe use Finger_script_request?
 		*/
 		Text_script_req* t = new Text_script_req;
-		t->text_ = gh_cons (ly_symbol2scm ("finger"),
-			ly_str02scm (to_str ($1).ch_C ()));
+		t->set_mus_property ("text", 
+			gh_cons (ly_symbol2scm ("finger"),
+				ly_str02scm (to_str ($1).ch_C ())));
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	}
@@ -1433,7 +1441,7 @@ simple_element:
 		else
 			THIS->pop_spot ();
 		Lyric_req* lreq_p = new Lyric_req;
-		lreq_p ->text_ = $1;
+                lreq_p->set_mus_property ("text", $1);
 		lreq_p->duration_ = *$3;
 		lreq_p->set_spot (THIS->here_input());
 		Simultaneous_music* velt_p = new Request_chord (gh_list (lreq_p->self_scm (), SCM_UNDEFINED));

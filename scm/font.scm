@@ -50,6 +50,9 @@
     (("bold upright roman cmbx 12" . 1) . "cmbx12")
     (("medium italic roman cmbx 10" . 0) . "cmbx10")
     (("medium italic roman cmbx 12" . 1) . "cmbx12")
+    (("medium upright math msam 10" . -2) . "msam10")
+    (("medium upright math msam 10" . -1) . "msam10")
+    (("medium upright math msam 10" . 0) . "msam10")
     ))
 
 (define (style-sheet-template-entry-compile entry size)
@@ -104,6 +107,7 @@
     (name . font-name)
     (size . font-size)
     (point . font-point)
+    (kern . kern)
     ))
     
 (define markup-abbrev-to-properties-alist
@@ -117,7 +121,8 @@
      (italic . (font-shape . "italic"))
      (named . (lookup . name))
      (text . (lookup . value))
-     (super . (font-size . -1)))
+     ;; super needs some work
+     (super . (font-size . "-1")))
    (map (lambda (x) (cons (car x) (cons 'font-style (car x))))
 	style-to-font-alist)))
   

@@ -15,8 +15,6 @@
     NoteHead is a kind of RhythmicHead, see there.
 
   Read-only:
-  
-  style -- symbol that sets note head style
 */
 
 class Note_head 

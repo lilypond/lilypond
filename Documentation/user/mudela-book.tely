@@ -318,6 +318,9 @@ TeXinfo input will be written to a file with ext @file{.texi}. So be
 careful, don't give the source file that ext, or the file will be
 overwritten.
 
+If you use @code{--outdir}, you should also @code{cd} to that directory
+before running LaTeX or makeinfo.
+
 @strong{[UGH: IS THIS THE BEST WAY TO DO IT. MAYBE ADD A COMMENT LINE TO THE
 GENERATED FILE, SO MUDELA-BOOK CAN TEST IF THE FILE IT IS TO OVERWRITE
 IS GENERATED.]}
@@ -394,11 +397,6 @@ to whatever he wants.
 The La@TeX{} \includeonly@{...@} command is ignored.
 
 Ignores almost all La@TeX{} commands that changes margins and linewidths.
-
-La@TeX{} comments can confuse @command{mudela-book}:
-@example
-% this music will be displayed: \mudela@{c d e@}
-@end example
 
 @section Authors
 

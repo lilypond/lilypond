@@ -14,9 +14,6 @@
 #include "lily-proto.hh"
 
 
-/*
-  heads -- pair of element pointers, pointing to the two heads of the
-  tie.  */
 class Tie
 {
 public:

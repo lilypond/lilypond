@@ -78,4 +78,5 @@ Spaceable_element::remove_interface (Score_element*me)
 void
 Spaceable_element::set_interface (Score_element*me)
 {
+  me->set_interface (ly_symbol2scm ("spaceable-element-interface"));
 }

@@ -13,9 +13,6 @@
 #include "lily-guile.hh"
 
 /**
-  This spanner draws the lines of a pstaff.
-  The bottom line is position 0.
-
   TODO: add stafflinethickness as parameter.
   */
 class Staff_symbol 

@@ -84,6 +84,11 @@ Score_element::Score_element(SCM basicprops)
     
     dim_cache_[a].dimension_ = cb;
   }
+
+  SCM meta = get_elt_property ("meta");
+  SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
+  
+  set_elt_property ("interfaces",gh_cdr (ifs));
 }
 
 
@@ -605,6 +610,9 @@ Score_element::extent (Score_element * refp, Axis a) const
   else
     return ext;
 
+  if (!gh_pair_p (d->dimension_))
+    return ext;
+  
   ext = ly_scm2interval (d->dimension_);
 
   SCM extra = get_elt_property (a == X_AXIS
@@ -675,9 +683,10 @@ Score_element::common_refpoint (SCM elist, Axis a) const
 String
 Score_element::name () const
 {
-  SCM nm = get_elt_property ("name");
-  
-  return  nm == SCM_EOL ? classname (this) :ly_scm2string (nm) ;  
+  SCM meta = get_elt_property ("meta");
+  SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
+  nm =  (gh_pair_p (nm)) ? gh_cdr (nm) : SCM_EOL;
+  return  gh_string_p (nm) ?ly_scm2string (nm) :  classname (this);  
 }
 
 void
@@ -878,7 +887,7 @@ static void
 init_functions ()
 {
   interfaces_sym = scm_permanent_object (ly_symbol2scm ("interfaces"));
-  
+
   scm_make_gsubr ("ly-get-elt-property", 2, 0, 0, (Scheme_function_unknown)ly_get_elt_property);
   scm_make_gsubr ("ly-set-elt-property", 3, 0, 0, (Scheme_function_unknown)ly_set_elt_property);
   scm_make_gsubr ("ly-get-spanner-bound", 2 , 0, 0, (Scheme_function_unknown) spanner_get_bound);
@@ -906,4 +915,4 @@ Score_element::set_interface (SCM k)
 
 
 ADD_SCM_INIT_FUNC(scoreelt, init_functions);
-
+IMPLEMENT_TYPE_P(Score_element, "ly-element?");
