@@ -3,7 +3,8 @@
 String
 Time_description::str()const
 {
-    String s( "Time_description { at ");
+    String s( "Time_description { ");
+    s+=String( " cadenza: ") + cadenza_b_ + " at ";
     s+=when;
     s+="\nmeter " + String(whole_per_measure/one_beat) +":" +(1/one_beat);
     s+= "\nposition "+String( bars) + ":"+ whole_in_measure +"\n}\n";
@@ -19,9 +20,23 @@ void
 Time_description::OK() const
 {
 #ifdef NDEBUG
-    assert(whole_in_measure < whole_per_measure && 0 <= whole_in_measure);
+    if (!cadenza_b_)
+	assert(whole_in_measure < whole_per_measure);
+    assert(0 <= whole_in_measure);
     assert(one_beat);
 #endif
+}
+
+void
+Time_description::set_cadenza(bool b)
+{
+    if (cadenza_b_ && !b) {
+	if (whole_in_measure) {
+	    bars ++;
+	    whole_in_measure = 0;
+	}
+    }
+    cadenza_b_ = b ;
 }
 
 Time_description::Time_description(Moment dt, Time_description const *prev)
@@ -29,9 +44,10 @@ Time_description::Time_description(Moment dt, Time_description const *prev)
     if (prev) {
 	assert(dt >= 0);
 	*this = *prev;
-	when += + dt;
+	when +=  dt;
 	whole_in_measure += dt;
-	while ( whole_in_measure >= whole_per_measure ) {
+	
+	while ( !cadenza_b_ && whole_in_measure >= whole_per_measure ) {
 	    whole_in_measure -= whole_per_measure;
 	    bars ++;
 	}
@@ -41,7 +57,8 @@ Time_description::Time_description(Moment dt, Time_description const *prev)
 	one_beat = 0.25;
 	when = 0.0;
 	bars = 0;
-    }	
+	cadenza_b_ = false;
+    }
 }
 
 void
@@ -50,21 +67,24 @@ Time_description::set_meter(int l, int o)
     assert(o);
     one_beat = 1/Moment(o);
     whole_per_measure = Moment(l) * one_beat;
+    if(whole_in_measure)
+	error_t("Meterchange should be at start of measure", when);
 }
 
 void
 Time_description::setpartial(Moment p)
 {
     if (when)
-	error_t ("Partial measure only allowed at beginning.", when);
+	error_t ("Partial measure only allowed at beginning.", *this);
     if (p<0||p > whole_per_measure)
-	error_t ("Partial measure has incorrect size", when);
+	error_t ("Partial measure has incorrect size", *this);
     whole_in_measure = whole_per_measure - p;
 }
 
 Moment
 Time_description::barleft()
 {
+    assert(!cadenza_b_);
     return whole_per_measure-whole_in_measure;
 }
 

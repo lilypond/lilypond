@@ -236,3 +236,11 @@ get_text_req(int d , Text_def*def)
     return new Text_req(d, def);
 }
 
+Voice_element*
+get_mark_element(String s)
+{
+    Voice_element*v_p = new Voice_element;
+    v_p->add( new Mark_req(s));
+    
+    return v_p;
+}
