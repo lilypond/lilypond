@@ -22,6 +22,12 @@ Input_music::check_plet(Voice_element* velt_l)
 }
 
 void
+Simple_music::transpose(Melodic_req const &d)const
+{
+    voice_.transpose(d);
+}
+
+void
 Simple_music::add(Voice_element*v)
 {
     voice_.add(v);
@@ -67,6 +73,12 @@ Simple_music::set_plet_backwards(Moment& now_moment_r, Moment until_moment, int 
 
 /* *************** */
 
+void
+Complex_music::transpose(Melodic_req const& d) const
+{
+     for (iter_top(elts,i); i.ok(); i++)
+	 i->transpose(d);
+}
 void
 Complex_music::add(Input_music*v)
 {
