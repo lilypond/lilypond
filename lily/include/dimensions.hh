@@ -36,6 +36,7 @@ const Real PT_TO_MM = (1.0/MM_TO_PT);
 #define CHAR *CHAR_TO_PT *PT_TO_MM
 #define INTERNAL_UNIT "mm"
 
+
 #endif
 
 String print_dimen (Real);

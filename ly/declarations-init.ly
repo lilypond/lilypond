@@ -86,6 +86,14 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
     \include "engraver-init.ly"
 }
 
+%
+% 20pt staff, 5 pt = 1.75 mm
+%
+
+#(define-public $defaultbookpaper (ly:make-bookpaper 1.7573))
+  
+
+
 #(set-default-paper-size "a4")
 
 

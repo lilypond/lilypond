@@ -3,8 +3,6 @@
 % Functions for direct and embedded PostScript
 
 
-/blot-diameter { lilypondpaperblotdiameter } bind def
-
 /set_tex_dimen {
 	cvr def     
 } bind def
@@ -20,12 +18,12 @@
 % Nice rectangle with rounded corners
 /draw_box % breapth width depth height
 {
-	currentdict /testing known {
+%	currentdict /testing known {
 		%% real thin lines for testing
 		/blot 0.005 def
-	}{
-		/blot blot-diameter def
-	} ifelse
+%	}{
+%		/blot blot-diameter def
+%	} ifelse
 
 	0 setlinecap
 	blot setlinewidth

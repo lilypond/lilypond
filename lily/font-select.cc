@@ -9,6 +9,7 @@
 
 #include <math.h>
 
+#include "book-paper-def.hh"
 #include "all-font-metrics.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
@@ -83,7 +84,8 @@ get_font_by_design_size (Paper_def* paper, Real requested,
     }
 
   Font_metric *fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector, i)));
-  return paper->find_scaled_font (fm, requested / size, input_encoding_name);
+  return paper->bookpaper_->find_scaled_font (fm, requested / size, input_encoding_name);
+
 }
 
 
@@ -127,7 +129,7 @@ select_encoded_font (Paper_def *paper, SCM chain, SCM encoding_name)
       Font_metric * fm = all_fonts_global->find_font (ly_scm2string (name));
       
       
-      return paper->find_scaled_font (fm, rmag, encoding_name);
+      return paper->bookpaper_->find_scaled_font (fm, rmag, encoding_name);
     }
   else if (scm_instance_p (name))
     {
@@ -147,8 +149,6 @@ select_encoded_font (Paper_def *paper, SCM chain, SCM encoding_name)
 
   return 0;
 }
-
-
 
 Font_metric *
 select_font (Paper_def *paper, SCM chain)

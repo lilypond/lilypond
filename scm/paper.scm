@@ -13,7 +13,6 @@
 	 (mm (eval 'mm m)))
    
     (module-define! m 'fonts (make-cmr-tree (/  sz (* 20 pt))))
-    
     (module-define! m 'staffheight sz)
     (module-define! m 'staff-space ss)
     (module-define! m 'staffspace ss)
@@ -21,10 +20,15 @@
 
     ;; !! synchronize with feta-params.mf
     (module-define! m 'linethickness (+ (* 0.3 pt) (* 0.04 ss)))
-    (module-define! m 'outputscale ss)
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
     (module-define! m 'blotdiameter (* 0.35 pt))
-    (module-define! m 'interscoreline (* 4 mm))))
+    (module-define! m 'interscoreline (* 4 mm))
+
+    (module-define! m 'dimension-variables
+		    '(pt mm cm in staffheight staff-space
+			 staffspace linethickness ledgerlinethickness
+			 blotdiameter interscoreline))
+    ))
 
 (define-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
@@ -101,3 +105,22 @@
       ;;; TODO: should raise (generic) exception with throw, and catch
       ;;; that in parse-scm.cc
       (ly:warn "Must use #(set-paper-size .. ) within \\paper { ... }")))
+
+(define-public (scale-paper pap bookpap)
+  (let*
+      ((scale (ly:bookpaper-outputscale bookpap))
+       (new-pap (ly:output-def-clone pap))
+       (dim-vars (ly:paper-lookup pap 'dimension-variables))
+       (scope (ly:output-def-scope new-pap))
+       )
+
+    (for-each
+     (lambda (v)
+       (module-define! scope v
+		       (* (ly:paper-lookup pap v) scale)))
+
+     
+     dim-vars)
+
+    new-pap
+  ))

@@ -263,7 +263,7 @@
    " /Helvetica-Bold " ;; ugh
    " draw_ez_ball"))
 
-(define (filledbox breapth width depth height) 
+(define (filledbox breapth width depth height) ; FIXME : use draw_round_box
   (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
 
@@ -369,7 +369,7 @@
    "{\n"
    "set-ps-scale-to-lily-scale\n"))
 
-(define (stem breapth width depth height) 
+(define (stem breapth width depth height) ; FIXME: use draw_round_box.
   (string-append
    (ly:numbers->string (list breapth width depth height))
    " draw_box" ))

@@ -1,3 +1,20 @@
+2004-05-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+
+	* lily/book-paper-def.cc (ly_bookpaper_fonts): move from Paperdef
+	(find_scaled_font): move from Paper_def
+
+2004-05-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/my-lily-parser.cc (LY_DEFINE): new function ly_parser_lookup
+	(LY_DEFINE): add SCM_ASSERT_TYPE everywhere.
+
+	* po/fr.po: update po.
+
+	* lily/include/book-paper-def.hh (class Book_paper_def): new file.
+
+	* lily/book-paper-def.cc (print_smob): new file.
+
 2004-05-16  Heikki Junes <hjunes@cc.hut.fi>
 
 	* buildscripts/lilypond-words.py: search words also from

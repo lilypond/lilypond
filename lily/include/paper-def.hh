@@ -47,9 +47,9 @@ class Paper_def : public Music_output_def
 {
 protected:
   VIRTUAL_COPY_CONSTRUCTOR (Music_output_def, Paper_def);
-  SCM scaled_fonts_;
   
-public:    
+public:
+  Book_paper_def * bookpaper_;
   static int score_count_;
   
   Paper_def ();

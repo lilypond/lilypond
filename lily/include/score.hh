@@ -27,12 +27,13 @@ public:
     
   Score ();
   Score (Score const&);
-  SCM book_rendering (String, Music_output_def*, Paper_def**);
+  SCM book_rendering (String, Book_paper_def*, Music_output_def*, Paper_def**);
 };
+
 DECLARE_UNSMOB (Score, score);
 
 SCM ly_run_translator (SCM, SCM);
 SCM ly_render_output (SCM, SCM);
-void default_rendering (SCM, SCM, SCM, SCM);
+void default_rendering (SCM, SCM, SCM, SCM, SCM);
 
 #endif /* SCORE_HH */

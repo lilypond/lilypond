@@ -103,7 +103,10 @@
     (ly:parser-print-book parser book)))
 
 (define-public (print-score-as-book parser score)
-  (let ((book (ly:score-bookify score)))
+  (let
+      ((book (ly:score-bookify score))
+       )
+    
     (ly:parser-print-book parser book)))
 
 (define-public (print-score parser score)
