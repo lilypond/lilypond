@@ -788,7 +788,7 @@ def do_file (input_filename):
 	output_file.writelines ([s.replacement_text () for s in chunks])
 
 	## UGH. how do you do dynamic_cast/typecheck in Python?
-#	map (process_include, filter (lambda x: x.__class__ == Include_snippet, chunks))
+	map (process_include, filter (lambda x: x.__class__ == Include_snippet, chunks))
 
 def do_options ():
 	global format, output_name
