@@ -1,3 +1,26 @@
+lilypond1.3 (1.3.75-1) unstable; urgency=low
+
+  * New upstream release.
+  * Updated the link to the http://sca.uwaterloo.ca/lilypond/ mirror in
+    the package description.
+
+ -- Anthony Fok <foka@debian.org>  Wed, 26 Jul 2000 01:56:28 -0600
+
+lilypond1.3 (1.3.58-1) unstable; urgency=low
+
+  * New upstream release with patch from Han-wen.
+
+ -- Anthony Fok <foka@debian.org>  Thu,  8 Jun 2000 17:19:08 -0600
+
+lilypond1.3 (1.3.48-1) unstable; urgency=low
+
+  * New upstream release.
+  * [debian/control]: Added Depends: guile, for /usr/bin/as2text (Lintian).
+  * [debian/rules]: Changed the symlink /usr/share/lilypond/cmtfm from
+      absolute to relative.
+
+ -- Anthony Fok <foka@debian.org>  Wed, 10 May 2000 12:17:54 -0600
+
 lilypond1.3 (1.3.45-1) unstable; urgency=low
 
   * New upstream release.
