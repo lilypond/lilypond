@@ -125,7 +125,7 @@
 \def\maatstreep{\vrule height\balkhoog}
 \def\finishbar{\vrule height\balkhoog  width 1pt}
 \maccentdef\repeatcolon{55}{2/1}
-
+\def\emptybar{}
 \def\repeatbar{\rightalign{\repeatcolon\kern 2pt\finishbar}}
 \def\startrepeat{\hbox{\finishbar\kern 2pt\repeatcolon}}
 \def\repeatbarstartrepeat{\hbox{\repeatbar\kern 1pt\startrepeat}}
@@ -193,8 +193,8 @@
 \maccentdef\iportato{19}{9/10}
 \maccentdef\tenuto{26}{0/1}
 \maccentdef\itenuto{27}{0/1}
-\mdef\fermata{80}
-\mdef\ifermata{81}
+\maccentdef\fermata{80}{-1/1}
+\maccentdef\ifermata{81}{1/1}
 
 
 

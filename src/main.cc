@@ -4,14 +4,20 @@
 #include "misc.hh"
 #include "string.hh"
 #include "main.hh"
+#include "path.hh"
+#include "config.hh"
 
 extern void parse_file(String s);
 
+
+void
+destill_inname( String &inName);
 long_option_init theopts[] = {
     1, "output", 'o',
     0, "warranty", 'w',
     0, "help", 'h',
     0, "debug", 'd',
+    1, "include", 'I',
     0,0,0
 };
 
@@ -23,15 +29,17 @@ help()
 	"--warranty, -w		show warranty & copyright\n"
 	"--output, -o		set default output\n"
 	"--debug, -d		enable debug output\n"
+        "--include, -I		add to file search path.\n"
 	;
     
 }
+
 void notice()
 {
     cout <<
 	"\n"
 	"LilyPond, a music typesetter.\n"
-	"Copyright (C) 1996 by\n"
+	"Copyright (C) 1996,97 by\n"
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
 	"  Jan-Nieuwenhuizen <jan@digicash.com>\n"
 	"\n"
@@ -50,11 +58,22 @@ void notice()
 	"USA.\n";
 }
 
+static File_path * path =0;
+struct Main_init {
+    Main_init() {
+	path = new File_path(LIBDIR);
+	path->add(String(LIBDIR)+"init/");
+	debug_init();
+    }
+    ~Main_init() {
+	delete path;
+    }
+} main_init;
+
 int
 main (int argc, char **argv)
-{
+{    
     Getopt_long oparser(argc, argv,theopts);
-    debug_init();
     cout << get_version();
     
     while (long_option_init * opt = oparser()) {
@@ -65,6 +84,9 @@ main (int argc, char **argv)
 	case 'w':
 	    notice();
 	    exit(0);
+	    break;
+	case 'I':
+	    path->add(oparser.optarg);
 	    break;
 	case 'h':
 	    help();
@@ -82,7 +104,9 @@ main (int argc, char **argv)
     int p=0;
     char *arg ;
     while ( (arg= oparser.get_next_arg()) ) {
-	parse_file(arg);	
+	String f(arg);
+	destill_inname(f);
+	parse_file(f);
 	do_scores();
 	p++;
     }
@@ -90,6 +114,32 @@ main (int argc, char **argv)
 	parse_file("");	
 	do_scores();
     }
-	
-    exit (0);
+
+    return 0;
 }
+
+String
+find_file(String f)
+{
+    return path->find(f);
+}
+
+/// make input file name: add default extension. "" is stdin.
+void
+destill_inname( String &inName)
+{
+    if ( inName.len() )
+        {
+        if( inName[ 0 ] != '-' ) 
+	    {
+	    String a,b,c,d;
+	    split_path(inName,a,b,c,d);
+
+	    // add extension if not present.
+	    if (d == "") 
+		d = ".ly";
+	    inName = a+b+c+d;
+	    }
+	} else inName = "";   
+}
+
