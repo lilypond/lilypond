@@ -8,22 +8,14 @@
 
 
 
-;; alist of translater descriptions
-(define (document-translator-property sym)
-   (cons
-    (string-append
-     "@code{" (symbol->string sym) "} "
-     "(" (type-name (object-property sym 'translation-type?)) "):")
-    (object-property sym 'translation-doc)))
 
 ;; First level Engraver description and
 ;; second level Context description
-(define (document-engraver where engraver)
-
+(define (engraver-doc-string engraver)
   (let* (
-	 (level (if (eq? where 'context) 3 2))
 	 (propsr (cdr (assoc 'properties-read (ly-translator-description engraver))))
-	 (propsw (cdr (assoc 'properties-written (ly-translator-description engraver))))	 
+	 (propsw (cdr (assoc 'properties-written (ly-translator-description engraver))))
+	 (accepted  (cdr (assoc 'events-accepted (ly-translator-description engraver)))) 
 	 (name (ly-translator-name engraver))
 	 (name-sym (string->symbol name))
 	 (desc (cdr (assoc 'description (ly-translator-description engraver))))
@@ -31,21 +23,33 @@
 	 )
 
     (string-append
-     (texi-section level (engraver-name name) (eq? where 'context))
      desc
      "\n\n"
-     (if (null? propsr)
-	 ""
+     (if (pair? accepted)
 	 (string-append
-	  (texi-section (+ level 1) "Properties (read)" #f)
+	  "Music types accepted:\n\n"
+	  (human-listify
+	   (map (lambda (x)
+		  (string-append
+		   "@ref{"
+		  (symbol->string x)
+		  "}")) accepted)
+	   ))
+	  "")
+     "\n\n"
+     (if (pair? propsr)
+	 (string-append
+	  "Properties (read)"
 	  (description-list->texi
-	   (map (lambda (x) (document-translator-property x)) propsr))))
+	   (map (lambda (x) (document-property x 'translation #f)) propsr)))
+	 "")
+     
      (if (null? propsw)
 	 ""
 	 (string-append
-	  (texi-section (+ level 1) "Properties (write)" #f)
+	 "Properties (write)" 
 	  (description-list->texi
-	   (map (lambda (x) (document-translator-property x)) propsw))))
+	   (map (lambda (x) (document-property x 'translation #f)) propsw))))
      (if  (null? grobs)
 	  ""
 	  (string-append
@@ -76,31 +80,35 @@
 	(human-listify (map ref-ify (map context-name contexts))))))))
 
 
+
+
 ;; First level Engraver description
-(define (document-separate-engraver top grav)
-  (let ((name (ly-translator-name grav)))
-    (processing name)
-    (string-append
-     (node (engraver-name name))
-     (document-engraver 'self grav))))
+(define (engraver-doc grav)
+  (make <texi-node>
+    #:name (ly-translator-name grav)
+    #:text (engraver-doc-string grav)
+    ))
 
 ;; Second level, part of Context description
-(define (find-engraver-by-name name list)
-  (if (null? list)
-      #f
-      (if (equal? name (ly-translator-name (car list)))
-	  (car list)
-	  (find-engraver-by-name name (cdr list)))))
+
+(define name->engraver-table (make-vector 61 '()))
+(map
+ (lambda (x)
+   (hash-set! name->engraver-table (ly-translator-name x) x))
+ (ly-get-all-translators))
+
+(define (find-engraver-by-name name)
+  (hash-ref name->engraver-table name #f))
 
 (define (document-engraver-by-name name)
   (let*
       (
-       (eg (find-engraver-by-name name all-engravers-list))
+       (eg (find-engraver-by-name name ))
        )
 
     (if (eq? eg #f)
 	(string-append "Engraver " name ", not documented.\n")
-	(document-engraver 'context eg)
+	(engraver-doc-string eg)
  	)
     ))
 
@@ -143,8 +151,7 @@
   ))
 
 
-
-(define (context-doc-string context-desc)
+(define (context-doc context-desc)
   (let*
       (
        (name (cdr (assoc 'type-name context-desc)))
@@ -161,39 +168,40 @@
        (grobs  (context-grobs context-desc))
        (grob-refs (map (lambda (x) (ref-ify x)) grobs))
        )
-    
-    (string-append 
-     desc
-     "\n\nThis context creates the following grobs: \n\n"
-     (human-listify (uniq-list (sort grob-refs string<? )))
-     "."
-     (if (pair? props)
-	 (string-append
-	  "\n\nThis context sets the following properties:\n"
-	  "@itemize @bullet\n"
-	  (apply string-append (map document-property-operation props))
-	  "@end itemize\n"
-	 )
-	 ""
-	 )
-     
-     (if (null? accepts)
-	 "\n\nThis context is a `bottom' context; it can not contain other contexts."
-	 (string-append
-	  "\n\nContext "
-	  name " can contain \n"
-	  (human-listify (map ref-ify (map context-name accepts)))))
-     
-     "\n\nThis context is built from the following engravers: "
-     (if no-copies
-	 (human-listify (map ref-ify (map engraver-name consists)))
-	 (apply string-append 
-		(map document-engraver-by-name consists))))))
+    (make <texi-node>
+      #:name name
+      #:text
+      (string-append 
+       desc
+       "\n\nThis context creates the following grobs: \n\n"
+       (human-listify (uniq-list (sort grob-refs string<? )))
+       "."
+       (if (pair? props)
+	   (string-append
+	    "\n\nThis context sets the following properties:\n"
+	    "@itemize @bullet\n"
+	    (apply string-append (map document-property-operation props))
+	    "@end itemize\n"
+	    )
+	   ""
+	   )
+       
+       (if (null? accepts)
+	   "\n\nThis context is a `bottom' context; it can not contain other contexts."
+	   (string-append
+	    "\n\nContext "
+	    name " can contain \n"
+	    (human-listify (map ref-ify (map context-name accepts)))))
+       
+       "\n\nThis context is built from the following engravers: "
+       (apply string-append 
+	      (map document-engraver-by-name consists)))
+       )))
 
 (define (engraver-grobs  grav)
   (let* (
 	 (eg (if (string? grav)
-		 (find-engraver-by-name grav all-engravers-list)
+		 (find-engraver-by-name grav)
 		 grav))
 	     
 	     )
@@ -218,53 +226,64 @@
     grobs
     ))
 
-
-;; First level Context description
-(define (document-context top context-desc)
-  (let ((name (cdr (assoc 'type-name context-desc)))
-	(doc (context-doc-string context-desc)))
-    (processing name)
-    (string-append
-     (node (context-name name))
-     (texi-section 2 (context-name name) #f)
-      doc)))
-
 (define (symbol<? l r)
   (string<? (symbol->string l) (symbol->string r)))
 
-(define (document-paper name)
-  (let* ((paper-alist
+(define (all-contexts-doc)
+  (let* (
+	 (paper-alist
 	  (sort (My_lily_parser::paper_description)
 		(lambda (x y) (symbol<? (car x) (car y)))))
 	 (names (sort (map symbol->string (map car paper-alist)) string<?))
 	 (contexts (map cdr paper-alist))
-	 (doc (apply string-append
-		     (map (lambda (x) (document-context name x)) contexts))))
-    
-    (string-append
-     (texi-node-menu name (map (lambda (x) (cons (context-name x) ""))
-			       names))
-     doc)))
+	 )
+
+    (make <texi-node>
+      #:name "Contexts"
+      #:desc "Complete descriptions of all contexts"
+      #:children
+      (map context-doc contexts)
+      )
+    ))
+
+(define (all-engravers-doc)
+  (make <texi-node>
+    #:name "Engravers"
+    #:desc "All separate engravers"
+    #:children
+    (map engraver-doc (ly-get-all-translators))))
 
 (define all-engravers-list  (ly-get-all-translators))
-(define (document-all-engravers name)
-  (let* ((gravs all-engravers-list)
-	 (names (map ly-translator-name gravs))
-	 (doc (apply string-append
-		     (map (lambda (x) (document-separate-engraver name x))
-			  gravs))))
-    (string-append
-     (texi-node-menu name (map (lambda (x) (cons (engraver-name x) ""))
-			       names))
-     doc)))
+(define (all-translation-properties-doc)
+  
+  (let*
+      (
+       (ps (sort (map symbol->string all-translation-properties) string<?))
+       (sortedsyms (map string->symbol ps))
+       (propdescs
+	(map
+	 (lambda (x) (document-property x 'translation #f))
+	 sortedsyms))
+       (texi (description-list->texi propdescs))
+       )
 
-(define (document-all-engraver-properties name)
-  (let* ((ps (sort (map symbol->string all-translation-properties) string<?))
-	 (sortedsyms (map string->symbol ps))
-	 (propdescs (map document-translator-property sortedsyms))
-	 (texi (description-list->texi propdescs)))
-     
-  (string-append
-	  (node name)
-	  (texi-section 1 name #f)
-	  texi)))
+    (make <texi-node>
+      #:name "Translation properties"
+      #:desc "All translation properties"
+      #:text texi)
+    ))
+
+
+;(dump-node (all-contexts-doc) (current-output-port) 0 )
+
+(define (translation-doc-node)
+  (make <texi-node>
+    #:name "Translation"
+    #:desc "From music to layout"
+    #:children
+    (list
+     (all-contexts-doc)
+     (all-engravers-doc)
+     (all-translation-properties-doc)
+     )
+  ))

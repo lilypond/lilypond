@@ -12,9 +12,9 @@
 ;;; General settings
 ;; debugging evaluator is slower.
 
-;(debug-enable 'debug)
+(debug-enable 'debug)
 ;(debug-enable 'backtrace)
-;(read-enable 'positions)
+(read-enable 'positions)
 
 
 (define-public (line-column-location line col file)
@@ -158,7 +158,7 @@ is the  first to satisfy CRIT
   (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
   )
 
-(define (ly-load x)
+(define-public (ly-load x)
   (let* ((fn (%search-load-path x)))
     (if (ly-verbose)
 	(format (current-error-port) "[~A]" fn))

@@ -15,137 +15,64 @@
 ;;;;;; TODO: use flatten write iso. string-append; might be possible to fold
 ;;;;;; in symbol->string integrally.
 
-(define (backend-property->texi sym)
-  (let* ((name (symbol->string sym))
-	(type (object-property sym 'backend-type?))
-	(typename (type-name type))
-	(desc (object-property sym 'backend-doc)))
-
-
-    (if (equal? desc #f)
-	(error "Unknown property " sym)
-	
-	(cons (string-append "@code{" name "} "
-		       "(" typename ")"
-		       ": "
-
-; index gets too messy
-;		       "@vindex " name "\n"
-		       )
-	  desc))))
-
-(define (document-grob-property sym grob-description )
-  "Document SYM, filling in default values."
-  (let* ((handle (assoc sym grob-description))
-	 (defval (if (eq? handle #f)
-		     "(unset)"
-		   (scm->texi (cdr handle))))
-	 (propdoc (backend-property->texi sym)))
-
-    (cons (car propdoc) (string-append (cdr propdoc)
-					   "\nDefault value: "
-					   defval)))
-  )
-
-(define (document-interface where interface grob-description)
-
-  (let* ((level (if (eq? where 'grob) 3 2))
-	 (name (car interface))
+(define (interface-doc-string interface grob-description)
+  (let* ((name (car interface))
 	 (desc (cadr interface))
 	 (props (sort (caddr interface) symbol<?))
 	 (docfunc (lambda (pr)
-		    (document-grob-property
-		     pr grob-description )))
-	 (docs (map docfunc props)))
+		    (document-property
+		     pr 'backend grob-description )))
+	 (propdocs (map docfunc props)))
 
-    (string-append
-     (texi-section level
-		   (string-append (interface-name (symbol->string name)))
-		   (eq? where 'grob)) ;gur.
      desc
-     (description-list->texi docs))))
+     (description-list->texi propdocs)))
 
 ;; First level Interface description
-(define (document-separate-interface interface)
+(define (interface-doc interface)
   (let ((name (symbol->string (car interface))))
-    (processing name)
-    (string-append
-     (node (interface-name name))
-     (document-interface 'self interface '()))))
-
+    (make <texi-node>
+      #:name name
+      #:text (interface-doc-string (cdr interface) #f))))
 
 ;; First level grob description
-(define (document-grob iname description)
-  (processing iname)
-  (let* ((metah (assoc 'meta description))
-	 
-	 (meta (cdr metah))
-	 (name (cdr (assoc 'name meta)))
-	 (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
-	 (ifacedoc (map (lambda (iface)
-			  (document-interface 'grob iface description))
-			(reverse ifaces)))
-	 )
+(define (grob-doc description)
+  (let*
+      (
+       (metah (assoc 'meta description))
+       
+       (meta (cdr metah))
+       (name (cdr (assoc 'name meta)))
+       (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
+       (ifacedoc (map (lambda (iface)
+			(interface-doc-string iface description))
+		      (reverse ifaces)))
+       (engravers (filter-list
+		   (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
+       (namestr (symbol->string name))
+       (engraver-names (map ly-translator-name engravers))
+       )
 
-    
-    (string-append
-     (node (grob-name name))
-     (texi-section 2 (grob-name name) #f)
-     "\n"
-     (let* ((grob name)
-	    (engravers (filter-list
-			(lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
-	    (engraver-names (map ly-translator-name engravers))
-	    )
-
-       (string-append
-	(symbol->string name) " grobs are created by: "
-	(human-listify (map ref-ify
-			    (map engraver-name engraver-names)))))
-
-	    (apply string-append ifacedoc))))
-
-
+    (make <texi-node>
+      #:name namestr
+      #:text
+      (string-append
+       namestr " grobs are created by: "
+       (human-listify (map ref-ify
+			   (map engraver-name engraver-names)))
+       (apply string-append ifacedoc)
+       ))
+    ))
 
 (define (engraver-makes-grob? name-symbol grav)
   (memq name-symbol (assoc 'grobs-created (ly-translator-description grav)))
   )
 
-(define (document-all-grobs name)
-  (let* ((doc (apply string-append
-		     (map (lambda (x)
-			    (document-grob (symbol->string (car x)) (cdr x)))
-			  all-grob-descriptions)))
-	 (names (map symbol->string (map car all-grob-descriptions))))
-
-    (string-append
-     (texi-node-menu name (map (lambda (x) (cons (grob-name x) ""))
-			       names))
-     doc)))
-
-;; ugh, this works standalone, but not anymore with lily
-(if (not (defined? 'standalone))
-    (begin
-
-      (load "standalone.scm")
-
-      (define (number-pair?  x)
-	(and (pair? x) (number? (car x)) (number? (cdr x))))
-      (define (ly-grob? x) #f)
-      (define (ly-input-location? x) #f)
-      (define (dir? x) #f)
-      (define (moment? x) #f)
-      ))
-
-(use-modules (ice-9 string-fun))
-
-(if standalone
-  (begin
-    (display "(define (list-interface-names) '") 
-    (write (ugh-standalone-list-interface-names))
-    (display ")")
-    (exit 0)))
-
+(define (all-grobs-doc)
+  (make <texi-node>
+    #:name "All Graphical objects"
+    #:desc "Description and defaults for all Grobs"
+    #:children
+    (map (lambda (x) (grob-doc (cdr x)))  all-grob-descriptions)))
 
 (define interface-description-alist
   (hash-fold
@@ -166,7 +93,7 @@
 
 (define (check-dangling-properties prop)
   (if (not (object-property prop 'iface-marked))
-      (error  "\nDangling property: "  prop))
+      (error  "\nDangling property: " prop))
   )
 
 (map check-dangling-properties all-backend-properties)
@@ -184,32 +111,38 @@
     entry
 ))
 
-;(write  (map car  interface-description-alist) (current-error-port))
-;(display  (lookup-interface 'accidental-placement-interface))
-;(display  (document-all-grobs "OO" ))
+(define (all-interfaces-doc)
+  (make <texi-node>
+    #:name "Graphical Object Interfaces"
+    #:desc "Building blocks of graphical objects"
+    #:children
+    (map interface-doc interface-description-alist)
+    ))
 
-(define (document-all-interfaces name)
-  (string-append
-   (texi-node-menu name (map (lambda (x)
-			       (cons (interface-name (symbol->string x)) ""))
-			     (map cadr interface-description-alist)))
-   (apply string-append
-	  (map document-separate-interface
-	       (map cdr interface-description-alist)))))
-
-(define (document-all-backend-properties name)
+(define (all-backend-properties-doc)
   (let*
       (
        (ps (sort (map symbol->string all-backend-properties) string<?))
        (descs (map (lambda (prop)
-		     (backend-property->texi (string->symbol prop)))
+		     (document-property (string->symbol prop) 'backend #f))
 		   ps))
        (texi (description-list->texi descs))
        )
-    
-     texi
-  )
-  )
+    (make <texi-node>
+      #:name "backend properties"
+      #:desc "all the properties in use as grob properties"
+      #:text texi)
+  ))
 
-;;;;;;;;;;;;;;;;
-
+;(dump-node (grob-doc (cdadr all-grob-descriptions))  (current-output-port) 0 )
+(define (backend-doc-node)
+  (make <texi-node>
+    #:name "Backend"
+    #:desc "Reference for the layout engine"
+    #:children
+    (list
+     (all-grobs-doc)
+     (all-interfaces-doc)
+     (all-backend-properties-doc)
+     )
+  ))
