@@ -14,6 +14,7 @@
 #include <cctype>
 #include <libintl.h> 		// gettext on macos x
 
+#include "config.hh"
 #include "version.hh"
 #include "lily-guile.hh"
 #include "libc-extension.hh"
@@ -196,12 +197,18 @@ ly_init_ly_module (void *)
 {
   for (int i = scm_init_funcs_->size () ; i--;)
     (scm_init_funcs_->elem (i)) ();
-
+ 
   if (be_verbose_global)
     progress_indication ("\n");
 
 #if KPATHSEA
-  initialize_kpathsea ();
+  if (is_TeX_format_global)
+    {
+      /*
+	TODO: load this dynamically
+      */
+      initialize_kpathsea ();
+    }
 #endif
   
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));

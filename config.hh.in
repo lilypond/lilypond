@@ -7,11 +7,8 @@
 
 /* LilyPond init and input base directory */
 
-/*
-urg.
-*/
-/* #define PACKAGE_DATADIR DATADIR "/" PACKAGE "@TOPLEVEL_MAJOR_VERSION@.@TOPLEVEL_MINOR_VERSION@" @MAJOR_VERSION@
-#define LILYPOND_DATADIR PACKAGE_DATADIR */
+#define PACKAGE_DATADIR DATADIR "/" PACKAGE / "@TOPLEVEL_VERSION@"
+#define LILYPOND_DATADIR PACKAGE_DATADIR
 
 /* default lilypond locale dir */
 #define LOCALEDIR "@LOCALEDIR@"

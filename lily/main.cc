@@ -53,6 +53,7 @@ String init_name_global;
 String output_backend_global = "ps";
 String output_format_global = "pdf";
 bool is_pango_format_global;
+bool is_TeX_format_global;
 
 /* Current output name. */
 String output_name_global;
@@ -90,25 +91,25 @@ static char const *PROGRAM_NAME = "lilypond";
 static char const *PROGRAM_URL = "http://lilypond.org";
 
 static char const *NOTICE =
-_f ("This program is free software.  It is covered by the GNU General Public\n"
-    "License and you are welcome to change it and/or distribute copies of it\n"
-    "under certain conditions.  Invoke as `%s --warranty' for more\n"
-    "information.\n", "lilypond").to_str0 ();
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information.\n";
   
 static char const *WARRANTY =
-_i ("    This program is free software; you can redistribute it and/or\n"
-    "modify it under the terms of the GNU General Public License version 2\n"
-    "as published by the Free Software Foundation.\n"
-    "\n"
-    "    This program is distributed in the hope that it will be useful,\n"
-    "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
-    "General Public License for more details.\n"
-    "\n"
-    "    You should have received a copy (refer to the file COPYING) of the\n"
-    "GNU General Public License along with this program; if not, write to\n"
-    "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
-    "Boston, MA 02111-1307, USA.\n");
+"    This program is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License version 2\n"
+"as published by the Free Software Foundation.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    You should have received a copy (refer to the file COPYING) of the\n"
+"GNU General Public License along with this program; if not, write to\n"
+"the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+"Boston, MA 02111-1307, USA.\n";
 
 
 /* Where the init files live.  Typically:
@@ -158,7 +159,12 @@ static void
 dir_info (FILE *out)
 {
   fputs ("\n", out);
-  fprintf (out, "Directory prefix: \"%s\"\n", prefix_directory.to_str0());
+  fprintf (out, "LILYPOND_DATADIR=\"%s\"\n", LILYPOND_DATADIR);
+  if (char const * env = getenv ("LILYPONDPREFIX"))
+    fprintf (out, "LILYPONDPREFIX=\"%s\"\n",  env);
+  fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
+
+  fprintf (out, "\nEffective prefix: \"%s\"\n", prefix_directory.to_str0());
 }
 
 static void
@@ -181,7 +187,7 @@ static void
 notice ()
 {
   identify (stdout);
-  printf (_f (NOTICE, PROGRAM_NAME).to_str0 ());
+  puts (_f (NOTICE, PROGRAM_NAME).to_str0 ());
   printf ("\n");
   copyright ();
 }
@@ -220,7 +226,7 @@ warranty ()
 static void
 setup_paths ()
 {
-  prefix_directory = DATADIR "/lilypond/" MAJOR_VERSION "." MINOR_VERSION;
+  prefix_directory = LILYPOND_DATADIR;
   if (char const * env = getenv ("LILYPONDPREFIX"))
     prefix_directory = env;
 
@@ -351,6 +357,11 @@ main_with_guile (void *, int, char **)
 
   if (be_verbose_global)
     dir_info (stderr);
+  is_TeX_format_global = (output_backend_global == "tex"
+			  || output_backend_global == "texstr");
+
+  is_pango_format_global = !is_TeX_format_global;
+    
 
   ly_c_init_guile ();
   call_constructors ();
@@ -358,9 +369,6 @@ main_with_guile (void *, int, char **)
   init_fontconfig ();
   
   init_freetype ();
-
-  is_pango_format_global = (output_backend_global != "tex"
-			    && output_backend_global != "texstr");
 
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
@@ -527,7 +535,6 @@ main (int argc, char **argv)
   setup_paths ();
   parse_argv (argc, argv);
   identify (stderr);
-  initialize_kpathsea (argv[0]);
 
   scm_boot_guile (argc, argv, main_with_guile, 0);
 

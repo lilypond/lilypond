@@ -184,7 +184,7 @@ Pitch::to_string () const
     {
       int o = (-octave_) - 1;
       while (o--)
-	s += ::to_string (', ');
+	s += ::to_string (',');
     }
 
   return s;

@@ -97,6 +97,25 @@ All_font_metrics::find_pango_font (PangoFontDescription*description,
 
 #endif
 
+String
+kpathsea_find_file (String name, String ext)
+{
+  name += "." +  ext;
+  String path = global_path.find (name);
+  if (path.length() > 0)
+    return path;
+
+  SCM kpath = ly_lily_module_constant ("ly:kpathsea-find-file");
+  if (ly_c_procedure_p (kpath))
+    {
+      SCM kp_result = scm_call_1 (kpath, scm_makfrom0str (name.to_str0()));
+      if (scm_is_string (kp_result))
+	return ly_scm2string (kp_result);
+    }
+
+  return "";
+}
+
 /*
   TODO: our AFM handling is broken: the units in an AFM file are
   relative to the design size (1000 units = 1 designsize). Hence we
@@ -119,7 +138,7 @@ All_font_metrics::find_afm (String name)
 
       if (file_name.is_empty ())
 	{
-	  String p = kpathsea_find_afm (name.to_str0 ());
+	  String p = kpathsea_find_file (name, "afm");
 	  if (p.length ())
 	    file_name = p;
 	}
@@ -225,7 +244,7 @@ All_font_metrics::find_tfm (String name)
 	{
 	  /* FIXME: should add "cork-" prefix to lm* fonts.  How to do
 	     that, cleanly?  */
-	  String p = kpathsea_find_tfm (name.to_str0 ());
+	  String p = kpathsea_find_file (name, "tfm");
 	  if (p.length ())
 	    file_name = p;
 	}

@@ -332,10 +332,12 @@
   (let ((n (make-font-tree-node 'font-encoding 'fetaMusic)))
     (add-music-fonts n factor)
     (add-cmr-fonts n factor)
-    (if (ly:kpathsea-find-file "lmr10.pfb")
-	(add-cork-lm-fonts n factor))
-    (if (ly:kpathsea-find-file "ecrm10.pfa")
-	(add-ec-fonts n factor))
+    (if (defined? 'ly:kpathsea-find-file)
+	(begin
+	  (if (ly:kpathsea-find-file "lmr10.pfb")
+	      (add-cork-lm-fonts n factor))
+	  (if (ly:kpathsea-find-file "ecrm10.pfa")
+	      (add-ec-fonts n factor))))
     n))
 
 (define-public (make-century-schoolbook-tree factor)
