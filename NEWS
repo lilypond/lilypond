@@ -1,3 +1,9 @@
+pl 9.jcn1
+	- started gnuisation of website
+	  * filetype and size
+	  * 'no gifs due to patent problems'
+	- bumped stepmake version nr (again):
+	  please update stepmake/VERSION after making changes to stepmake...
 
 (need to fix pictures. I know)
 

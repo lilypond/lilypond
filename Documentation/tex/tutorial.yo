@@ -62,15 +62,7 @@ latexcommand(\def\preexample{\par})
 latexcommand(\def\postexample{\par\medskip})
 latexcommand(\def\file#1{{mycode(#1)}})
 
-whenhtml(
-nsubsect(Disclaimer)
-This document is written in url(Yodl)(ftp://pcnov095.win.tue.nl/pub/yodl)
-and should foremost produce nice LaTeX() output.
-In other formats, such as html, some things will look a bit different,
-while other things will be simply left out.
-Therefore, the authoritive version of this document is the PostScript version, 
-produced via LaTeX().
-)
+includefile(html-disclaimer.yo-urg)
 
 sect(Introduction)
 label(tutorial:introduction)

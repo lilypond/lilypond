@@ -6,6 +6,7 @@ name = 'mutopia-index'
 import regex
 import os
 import sys
+import stat
 sys.path.append ('@abs-step-bindir@')
 
 
@@ -77,11 +78,15 @@ def gen_list(inputs, subdir, filename):
 	list.write ('</ul>')
 
     list.write('<h2>Contents of this directory</h2>\n');
-    list.write ('These example files are taken from the LilyPond distribution.\n'
-     'LilyPond currently only outputs TeX and MIDI. The pictures and\n'
-     'PostScript files were generated using TeX, Ghostscript and some\n'
-     'graphics tools.  The papersize used for these examples is A4.  The GIF\n'
-     'files have been scaled to eliminate aliasing.\n');
+    list.write (
+    'These example files are taken from the LilyPond distribution. '
+    'LilyPond currently only outputs TeX and MIDI.  The pictures and '
+    'PostScript files were generated using TeX, Ghostscript and some '
+    'graphics tools.  The papersize used for these examples is A4. '
+    'As you know, <a href="http://www.gnu.org/philosophy/gif.html">no gifs due to patent problems</a>, '
+    'but the png images should be viewable with any current browser '
+    '(jpeg is inappropriate for music images).'
+    '\n');
 
 
     for ex in inputs:
@@ -109,18 +114,24 @@ def gen_list(inputs, subdir, filename):
 	if desc <> '':
 	    list.write('%s<p>' % desc)
 	list.write ('<ul>')
-	def list_item(filename, desc, l = list):
+	def list_item(filename, desc, type, l = list):
 	    if file_exist_b(filename):
-		l.write ('<li><a href=%s>%s</a>\n' % (filename, desc))
-	    
-	list_item(ex + ex_ext + '.txt', 'The input')
+		l.write ('<li><a href=%s>%s</a>' % (filename, desc))
+		size=os.stat(filename)[stat.ST_SIZE]
+		l.write (' (%s %dk)' % (type, (size + 512) / 1024))
+		pictures = ['jpeg', 'png', 'xpm']
+		# silly, no?
+		if 0 and type in pictures:
+		    l.write (' <a href="http://www.gnu.org/philosophy/gif.html">no gifs due to patent problems</a>')
+		l.write ('\n')
+	list_item(ex + ex_ext + '.txt', 'The input', 'ASCII')
 	for pageno in range(1,100):
 	    f  = ex + '-page%d.png' % pageno
 	    if not file_exist_b (f):
 		break
-	    list_item(f, 'The output (picture, page %d)' % pageno)
-	list_item(ex + '.ps.gz', 'The output (gzipped PostScript)')
-	list_item(ex + '.midi', 'The output (MIDI)')
+	    list_item(f, 'The output, page %d' % pageno, 'png')
+	list_item(ex + '.ps.gz', 'The output', 'gzipped PostScript')
+	list_item(ex + '.midi', 'The output', 'MIDI')
 	list.write ("</ul>");
 
     list.write( "</BODY></HTML>");
