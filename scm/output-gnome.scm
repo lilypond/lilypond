@@ -338,7 +338,7 @@ lilypond -fgnome input/simple-song.ly
 		  (ly:font-glyph-name-to-charcode font (caddr x))))))
    x-y-named-glyphs))
 
-(define (grob-cause grob)
+(define (grob-cause offset grob)
   grob)
 
 ;; WTF is this in every backend?

@@ -1,5 +1,11 @@
 2005-03-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-gnome.scm (grob-cause): Add parameter.
+
+	* scm/lily.scm (ly:all-stencil-expressions): Add url-link.
+	* scm/output-ps.scm (url-link): Move.
+	(white-text): Warn user about brokenness.
+
 	* Documentation/topdocs/NEWS.tely: Be more accurate and respectful
 	wrt ghostscript.
 
