@@ -1,3 +1,9 @@
+2004-08-20  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond.py (ly_paper_to_latexpaper): Only set the
+	height of head and foot if textheight is not set, otherwise let
+	the geometry package make evenly sized head and foot.
+
 2004-08-18  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* lily/clef-engraver.cc: Add forceClef to list of read properties.

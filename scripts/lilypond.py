@@ -437,7 +437,8 @@ def global_latex_preamble (extra):
 			ly.warning (_ ("invalid value: `%s'") % `extra['papersize'][0]`)
 			pass
 
-	textheight = ''
+	# Default setting: textheight is determined implicitly:
+	textheight = ',bottom=11mm,top=12mm'
 	if extra['textheight']:
 		textheight = ',textheight=%f%s' % (extra['textheight'][0], unit)
 
@@ -452,7 +453,7 @@ def global_latex_preamble (extra):
 		linewidth = '597pt'
 	else:
 		linewidth = '%d%s' % (maxlw, unit)
-	s += '\geometry{%swidth=%s%s,bottom=11mm,headsep=2mm,top=12mm,headheight=2mm,footskip=5mm,%s}\n' % (papersize, linewidth, textheight, orientation)
+	s += '\geometry{%swidth=%s%s,headsep=2mm,headheight=2mm,footskip=5mm,%s}\n' % (papersize, linewidth, textheight, orientation)
 
 
 	if 'twoside' in  extra['latexoptions'] :
