@@ -1,3 +1,8 @@
+2003-03-11  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/feta-beugel.mf: include font count, not staffsize (16) in
+	font-name
+
 2003-03-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/beam-manual-beaming.ly (texidoc): new file.
