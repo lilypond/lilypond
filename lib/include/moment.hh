@@ -18,7 +18,7 @@
 
   Can't we name this Saint_jut_mom (Sintjuttemis ?)  */
   
-const infinity_mom = Rational (INT_MAX);
+const infinity_mom = INT_MAX;
 
 class String;
 typedef Rational Moment;
