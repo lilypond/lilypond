@@ -1,9 +1,12 @@
 #!@PYTHON@
 # run lily, setup LaTeX input.
 
-""" TODO: --dependencies
+# Note: gettext work best if we use ' for docstrings and "
+# for gettextable strings
 
-"""
+''' TODO: --dependencies
+
+'''
 
 
 import os
@@ -15,6 +18,11 @@ import sys
 import __main__
 import operator
 import tempfile
+
+import gettext
+gettext.bindtextdomain ('lilypond', '@localedir@')
+gettext.textdomain('lilypond')
+_ = gettext.gettext
 
 
 layout_fields = ['title', 'subtitle', 'subsubtitle', 'footer', 'head',
@@ -56,42 +64,48 @@ if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 postscript_p = 0
 
 option_definitions = [
-	('', 'h', 'help', 'print help'),
-	('KEY=VAL', 's', 'set', 'change global setting KEY to VAL'),	
-	('', 'P', 'postscript', 'Generate PostScript output'),
-	('', 'k', 'keep', 'Keep all output, and name the directory ly2dvi.dir'),
-	('', '', 'no-lily', 'Don\'t run lilypond'),
-	('', 'v', 'version', "Print version and copyright info"),
-	('DIR', '', 'outdir', 'Dump all final output into DIR'),
-	('', 'd', 'dependencies', 'Dump all final output into DIR'),
+	('', 'h', 'help', _ ("this help")),
+	('KEY=VAL', 's', 'set', _ ("change global setting KEY to VAL")),
+	('', 'P', 'postscript', _ ("generate PostScript output")),
+	('', 'k', 'keep', _ ("keep all output, and name the directory ly2dvi.dir")),
+	('', '', 'no-lily', _ ("don't run LilyPond")),
+	('', 'v', 'version', _ ("print version number")),
+	('', 'w', 'warranty', _ ("show warranty and copyright")),
+	('DIR', '', 'outdir', _ ("dump all final output into DIR")),
+	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
 	]
 
+def identify ():
+	sys.stdout.write ('ly2dvi (GNU LilyPond) %s\n' % program_version)
 
-
-def identify():
-	sys.stdout.write ('lilypond-book (GNU LilyPond) %s\n' % program_version)
-
-def print_version ():
-	identify()
-	sys.stdout.write (r"""Copyright 1998--1999
+def warranty ():
+	identify ()
+	sys.stdout.write ('\n')
+	sys.stdout.write (_ ('Copyright (c) %s by' % ' 1998-2001'))
+	sys.stdout.write ('\n')
+	sys.stdout.write ('  Han-Wen Nienhuys')
+	sys.stdout.write ('\n')
+	sys.stdout.write (_ (r'''
 Distributed under terms of the GNU General Public License. It comes with
-NO WARRANTY.""")
+NO WARRANTY.'''))
+	sys.stdout.write ('\n')
 
 
 
 def progress (s):
-	"""Make the progress messages stand out between lilypond stuff"""
-	sys.stderr.write (' *** ' + s+ '\n')
+	'''Make the progress messages stand out between lilypond stuff'''
+	# Why should they have to stand out?  Blend in would be nice too.
+	sys.stderr.write ('*** ' + s+ '\n')
 	
 def error (s):
 	sys.stderr.write (s)
-	raise 'Exiting ... '
+	raise _ ("Exiting ... ")
 
 
 def find_file (name):
-	"""
+	'''
 	Search the include path for NAME. If found, return the (CONTENTS, PATH) of the file.
-	"""
+	'''
 	
 	f = None
 	nm = ''
@@ -104,17 +118,19 @@ def find_file (name):
 		except IOError:
 			pass
 	if f:
-		sys.stderr.write ("Reading `%s'\n" % nm)
+		sys.stderr.write (_ ("Reading `%s'") % nm)
+		sys.stderr.write ('\n');
 		return (f.read (), nm)
 	else:
-		error ("File not found `%s'\n" % name)
+		error (_ ("can't open file: `%s'" % name))
+		sys.stderr.write ('\n');
 		return ('', '')
 
 
 
 
 def getopt_args (opts):
-	"Construct arguments (LONG, SHORT) for getopt from  list of options."
+	'''Construct arguments (LONG, SHORT) for getopt from  list of options.'''
 	short = ''
 	long = []
 	for o in opts:
@@ -130,7 +146,7 @@ def getopt_args (opts):
 	return (short, long)
 
 def option_help_str (o):
-	"Transform one option description (4-tuple ) into neatly formatted string"
+	'''Transform one option description (4-tuple ) into neatly formatted string'''
 	sh = '  '	
 	if o[1]:
 		sh = '-%s' % o[1]
@@ -152,7 +168,7 @@ def option_help_str (o):
 
 
 def options_help_str (opts):
-	"Convert a list of options into a neatly formatted string"
+	'''Convert a list of options into a neatly formatted string'''
 	w = 0
 	strs =[]
 	helps = []
@@ -168,22 +184,20 @@ def options_help_str (opts):
 		str = str + '%s%s%s\n' % (s[0], ' ' * (w - len(s[0])  + 3), s[1])
 	return str
 
-def help():
-	sys.stdout.write("""Usage: lyvi [options] FILE\n
-Generate .dvi with LaTeX for lilypond
-Options:
-""")
+def help ():
+	sys.stdout.write (_ ("Usage: %s [OPTION]... FILE") % 'ly2dvi')
+	sys.stdout.write ('\n\n')
+	sys.stdout.write (_ ("Generate .dvi with LaTeX for LilyPond"))
+	sys.stdout.write ('\n\n')
+	sys.stdout.write (_ ("Options:"))
+	sys.stdout.write ('\n')
 	sys.stdout.write (options_help_str (option_definitions))
-	sys.stdout.write (r"""Warning all output is written in the CURRENT directory
-
-
-
-Report bugs to bug-gnu-music@gnu.org.
-
-Written by
-Han-Wen Nienhuys <hanwen@cs.uu.nl>
-""")
-
+	sys.stdout.write ('\n\n')
+	sys.stdout.write (_ ("warning: "))
+	sys.stdout.write (_ ("all output is written in the CURRENT directory"))
+	sys.stdout.write ('\n\n')
+	sys.stdout.write (_ ("Report bugs to %s") % 'bug-gnu-music@gnu.org')
+	sys.stdout.write ('\n')
 	sys.exit (0)
 
 
@@ -210,16 +224,17 @@ def setup_temp ():
 	os.environ['TFMFONTS'] =  original_dir + fp
 
 	os.chdir (temp_dir)
-	progress ('Temp directory is `%s\'\n' % temp_dir) 
+	progress (_ ('Temp directory is `%s\'\n') % temp_dir) 
 
 	
 def system (cmd, ignore_error = 0):
-	sys.stderr.write ("invoking `%s\'\n" % cmd)
+	sys.stderr.write (_ ("Invoking `%s\'") % cmd)
+	sys.stderr.write ('\n')
 	st = os.system (cmd)
 	if st:
-		msg =  ('Error command exited with value %d' % st)
+		msg =  ( _ ("error: ") + _ ("command exited with value %d") % st)
 		if ignore_error:
-			sys.stderr.write (msg + ' (ignored)\n')
+			sys.stderr.write (msg + ' ' + _ ("(ignored)") + ' ')
 		else:
 			error (msg)
 
@@ -227,7 +242,7 @@ def system (cmd, ignore_error = 0):
 
 def cleanup_temp ():
 	if not keep_temp_dir:
-		progress ('Cleaning up `%s\'' % temp_dir)
+		progress (_ ('Cleaning up `%s\'') % temp_dir)
 		system ('rm -rf %s' % temp_dir)
 	
 
@@ -257,10 +272,10 @@ def set_setting (dict, key, val):
 	
 
 def analyse_lilypond_output (filename, extra):
-	"""Grep FILENAME for interesting stuff, and
-	put relevant info into EXTRA."""
+	'''Grep FILENAME for interesting stuff, and
+	put relevant info into EXTRA.'''
 	filename = filename+'.tex'
-	progress ("Analyzing `%s'" % filename)
+	progress (_ ("Analyzing `%s'") % filename)
 	s = open (filename).read ()
 
 	# search only the first 10k
@@ -308,12 +323,12 @@ def find_tex_files (files, extra):
 def one_latex_definition (defn, first):
 	s = ''
 	for (k,v) in defn[1].items ():
-		s = r"""\def\the%s{%s}""" % (k,open (v).read ())
+		s = r'''\def\the%s{%s}''' % (k,open (v).read ())
 
 	if first:
-		s = s + '\\makelilytitle\n'
+		s = s + '\\def\\mustmakelilypondtitle{}\n'
 	else:
-		s = s + '\\makelilypiecetitle\n'
+		s = s + '\\def\\mustmakelilypondpiecetitle{}\n'
 		
 	s = s + '\\input %s' % defn[0]
 	return s
@@ -325,9 +340,9 @@ ly_paper_to_latexpaper =  {
 }
 
 def global_latex_definition (tfiles, extra):
-	"""construct preamble from EXTRA,
+	'''construct preamble from EXTRA,
 	dump lily output files after that, and return result.
-	"""
+	'''
 
 
 	s = ""
@@ -358,16 +373,16 @@ def global_latex_definition (tfiles, extra):
  
 	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (extra['linewidth'][0], textheight, orientation)
 
-	s= s + r"""
+	s= s + r'''
 \usepackage[latin1]{inputenc} 
 \input{titledefs}
 \makeatletter
 \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%%
-"""
+'''
 	if extra['pagenumber'] and  extra['pagenumber'][-1]:
-		s = s + r"""
+		s = s + r'''
 		\renewcommand{\@oddhead}{\parbox{\textwidth}%%
-		{\mbox{}\small\theheader\hfill\textbf{\thepage}}}%%"""
+		{\mbox{}\small\theheader\hfill\textbf{\thepage}}}%%'''
 	else:
 		s = s + '\\pagestyle{empty}'
 		
@@ -384,8 +399,8 @@ def global_latex_definition (tfiles, extra):
 
 def do_files (fs, extra):
 
-	"""process the list of filenames in FS, using standard settings in EXTRA.
-	"""
+	'''process the list of filenames in FS, using standard settings in EXTRA.
+	'''
 	if not no_lily:
 		run_lilypond (fs)
 
@@ -402,7 +417,7 @@ def do_files (fs, extra):
 	return latex_file + '.dvi'
 
 def generate_postscript (dvi_name, extra):
-	"""Run dvips on DVI_NAME, optionally doing -t landscape"""
+	'''Run dvips on DVI_NAME, optionally doing -t landscape'''
 
 	opts = ''
 	if extra['papersizename']:
@@ -436,7 +451,12 @@ def generate_dependency_file (depfile, outname):
 	df.close ();
 
 (sh, long) = getopt_args (__main__.option_definitions)
-(options, files) = getopt.getopt(sys.argv[1:], sh, long)
+try:
+	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
+except:
+	help ()
+	sys.exit (2)
+	
 for opt in options:	
 	o = opt[0]
 	a = opt[1]
@@ -462,6 +482,10 @@ for opt in options:
 		track_dependencies_p = 1
 	elif o == '--version' or o == '-v':
 		identify ()
+		sys.exit (0)
+	elif o == '--warranty' or o == '-w':
+		warranty ()
+		sys.exit (0)
 		
 		
 include_path = map (os.path.abspath, include_path)
@@ -505,14 +529,16 @@ if files:
 	system ('cp \"%s\" \"%s\"' % (srcname, dest ))
 	system ('cp *.midi %s' % outdir, ignore_error = 1)
 
-	progress ("%s file left in `%s'\n" % (type, dest))
-
 	depfile = os.path.join (outdir, base + '.dep')
 
 	if track_dependencies_p:
 		generate_dependency_file (depfile, dest)
-	progress ("Dependency file left in `%s'\n" % depfile)
 
 	cleanup_temp ()
+
+	# most insteresting info last
+	progress (_ ("dependencies output to %s...") % depfile)
+	progress (_ ("%s file left in `%s'") % (type, dest))
+
 
 

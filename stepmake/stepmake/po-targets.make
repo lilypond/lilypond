@@ -17,7 +17,7 @@ localpo:
 else
 po: localpo
 	$(LOOP)
-ALL_PO_SOURCES = $(ALL_C_SOURCES) $(ALL_CC_SOURCES) $(wildcard $(outdir)/*.hh) $(wildcard $(outdir)/*.cc)
+ALL_PO_SOURCES = $(ALL_C_SOURCES) $(ALL_CC_SOURCES) $(PYTHON_SCRIPTS_IN) $(wildcard $(outdir)/*.hh) $(wildcard $(outdir)/*.cc)
 localpo:
 ifneq ($(strip $(ALL_PO_SOURCES)),)
 	@echo $(ALL_PO_SOURCES)

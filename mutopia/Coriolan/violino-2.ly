@@ -445,7 +445,7 @@ violinoIIStaff =  \context Staff = violino2 <
 	% eerste en tweede viool ;-)
 	\property Staff.midiInstrument = #"violin"
 	\property Staff.instrument = #"Violino II  "
-	\property Staff.instr = #"Vl. II  "
+	\property Staff.instr = #"Vl. II   "
 	\notes< 
 		\global
 		\context Voice=violinoii

@@ -11,6 +11,7 @@ ATVARIABLES = \
   GUILE\
   date\
   datadir\
+  localedir\
   PACKAGE\
   package\
   PATHSEP\

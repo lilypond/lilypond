@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Lilypond 1.2.8\n"
-"POT-Creation-Date: 2001-02-27 21:26+0100\n"
+"POT-Creation-Date: 2001-03-06 12:36+0100\n"
 "PO-Revision-Date: 1999-09-18 01:30+0200\n"
 "Last-Translator: Erwin Dieterich <bamse@gmx.de>\n"
 "Language-Team: LANGUAGE <de@li.org>\n"
@@ -13,13 +13,121 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
+#: ly2dvi.py:67 main.cc:95 main.cc:109
+msgid "this help"
+msgstr "Diese Hilfe"
+
+#: ly2dvi.py:68
+msgid "change global setting KEY to VAL"
+msgstr ""
+
+#: ly2dvi.py:69
+#, fuzzy
+msgid "generate PostScript output"
+msgstr "Degenerierte Zwangsbedingungen"
+
+#: ly2dvi.py:70
+msgid "keep all output, and name the directory ly2dvi.dir"
+msgstr ""
+
+#: ly2dvi.py:71
+msgid "don't run LilyPond"
+msgstr ""
+
+#: ly2dvi.py:72 main.cc:104 main.cc:119
+msgid "print version number"
+msgstr "Zeige die Versionsnummer"
+
+#: ly2dvi.py:73 main.cc:106 main.cc:121
+msgid "show warranty and copyright"
+msgstr "Zeige Garantie und Urheberrechte"
+
+#: ly2dvi.py:74
+msgid "dump all final output into DIR"
+msgstr ""
+
+#: ly2dvi.py:75 main.cc:113
+msgid "write Makefile dependencies for every input file"
+msgstr "Schreibe Makefile-Abhängigkeiten für jede Eingabedatei"
+
+#: ly2dvi.py:101
+#, fuzzy
+msgid "Exiting ... "
+msgstr "Linie ... "
+
+#: ly2dvi.py:120
+#, fuzzy, c-format
+msgid "Reading `%s'"
+msgstr "Uralt-Bitte: `%s'"
+
+#: ly2dvi.py:124 mapped-file-storage.cc:87 mudela-stream.cc:111
+#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
+#, c-format
+msgid "can't open file: `%s'"
+msgstr "Kann die Datei %s nicht öffnen"
+
+#: ly2dvi.py:187
+#, fuzzy, c-format
+msgid "Usage: %s [OPTION]... FILE"
+msgstr "Verwendung: %s [OPTIONEN] ... [DATEI]"
+
+#: ly2dvi.py:189
+msgid "Generate .dvi with LaTeX for LilyPond"
+msgstr ""
+
+#: ly2dvi.py:191 main.cc:119 main.cc:151
+msgid "Options:"
+msgstr "Optionen:"
+
+#: data-file.cc:118 input.cc:85 ly2dvi.py:195 midi-parser.cc:100 warn.cc:23
+msgid "warning: "
+msgstr "Warnung: "
+
+#: ly2dvi.py:196
+msgid "all output is written in the CURRENT directory"
+msgstr ""
+
+#: ly2dvi.py:198 main.cc:123 main.cc:174
+#, fuzzy, c-format
+msgid "Report bugs to %s"
+msgstr "Melde Fehler an"
+
+#: ly2dvi.py:230
+#, fuzzy, c-format
+msgid "Invoking `%s'"
+msgstr "Uralt-Bitte: `%s'"
+
+#: input.cc:90 ly2dvi.py:234 warn.cc:9 warn.cc:17
+msgid "error: "
+msgstr "Fehler: "
+
+#: ly2dvi.py:234
+#, c-format
+msgid "command exited with value %d"
+msgstr ""
+
+#: ly2dvi.py:236
+msgid "(ignored)"
+msgstr ""
+
+#: ly2dvi.py:277
+#, c-format
+msgid "Analyzing `%s'"
+msgstr ""
+
+#: ly2dvi.py:539 scores.cc:44
+#, fuzzy, c-format
+msgid "dependencies output to %s..."
+msgstr "Ausgabe auf Papier auf %s..."
+
+#: ly2dvi.py:540
+#, c-format
+msgid "%s file left in `%s'"
+msgstr ""
+
 #: data-file.cc:54
 msgid "EOF in a string"
 msgstr "Dateiende in Zeichenkette"
-
-#: data-file.cc:118 input.cc:85 midi-parser.cc:100 warn.cc:23
-msgid "warning: "
-msgstr "Warnung: "
 
 #: dstream.cc:186
 #, fuzzy
@@ -46,10 +154,6 @@ msgstr "Unbekannte Option: `%s'"
 msgid "invalid argument `%s' to option `%s'"
 msgstr "Argument `%s' für Optione '%s' ist nicht erlaubt"
 
-#: input.cc:90 warn.cc:9 warn.cc:17
-msgid "error: "
-msgstr "Fehler: "
-
 #: input.cc:96
 #, fuzzy
 msgid "non fatal error: "
@@ -62,12 +166,6 @@ msgstr "Position unbekannt"
 #: mapped-file-storage.cc:74
 msgid "can't map file"
 msgstr "Kann die Datei nicht mappen"
-
-#: mapped-file-storage.cc:87 mudela-stream.cc:111 paper-stream.cc:40
-#: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
-#, c-format
-msgid "can't open file: `%s'"
-msgstr "Kann die Datei %s nicht öffnen"
 
 #: simple-file-storage.cc:56
 #, fuzzy, c-format
@@ -322,7 +420,7 @@ msgstr ""
 msgid "can't find file: `%s'"
 msgstr "Kann Datei `%s' nicht finden"
 
-#: key-engraver.cc:103 key-performer.cc:72
+#: key-engraver.cc:103 key-performer.cc:77
 msgid "FIXME: key change merge"
 msgstr ""
 
@@ -362,10 +460,6 @@ msgstr "EXT"
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "Benutze das Ausgabeformat EXT"
 
-#: main.cc:95 main.cc:109
-msgid "this help"
-msgstr "Diese Hilfe"
-
 #: main.cc:110
 #, fuzzy
 msgid "FIELD"
@@ -390,10 +484,6 @@ msgstr "DATEI"
 #: main.cc:112
 msgid "use FILE as init file"
 msgstr "Verwende FILE als Initialisierungsdatei"
-
-#: main.cc:113
-msgid "write Makefile dependencies for every input file"
-msgstr "Schreibe Makefile-Abhängigkeiten für jede Eingabedatei"
 
 #: main.cc:114
 msgid "prepend DIR to dependencies"
@@ -422,18 +512,10 @@ msgstr "Unterdrücke die automatische Benennung von Ausgabedateien und Export"
 msgid "don't timestamp the output"
 msgstr "Keine Datumsangabe auf der Ausgabe"
 
-#: main.cc:104 main.cc:119
-msgid "print version number"
-msgstr "Zeige die Versionsnummer"
-
 #: main.cc:120
 #, fuzzy
 msgid "verbose"
 msgstr "Sei geschwätzig"
-
-#: main.cc:106 main.cc:121
-msgid "show warranty and copyright"
-msgstr "Zeige Garantie und Urheberrechte"
 
 #: main.cc:122
 msgid "write midi ouput in formatted ascii"
@@ -462,18 +544,9 @@ msgstr ""
 "Notenblätter erzeugen. Dazu verwendet es eine eigene Beschreibungssprache.\n"
 "lilyPond ist Teil des GNU-Projekts\n"
 
-#: main.cc:119 main.cc:151
-msgid "Options:"
-msgstr "Optionen:"
-
 #: main.cc:155
 msgid "This binary was compiled with the following options:"
 msgstr "Diese Programm wurde mit den folgenden Optionen übersetzt:"
-
-#: main.cc:123 main.cc:174
-#, fuzzy, c-format
-msgid "Report bugs to %s"
-msgstr "Melde Fehler an"
 
 #: main.cc:55 main.cc:182
 #, c-format
@@ -533,16 +606,11 @@ msgstr ""
 msgid "no such instrument: `%s'"
 msgstr "Kein solches instrument: `%s'"
 
-#: midi-item.cc:367
-#, c-format
-msgid "unconventional key: flats: %d, sharps: %d"
-msgstr "Ungewöhnliche Tonart: Bes: %d, Kreuze: %d"
-
-#: midi-item.cc:414
+#: midi-item.cc:402
 msgid "silly duration"
 msgstr "Unsinnige Dauer"
 
-#: midi-item.cc:427
+#: midi-item.cc:415
 msgid "silly pitch"
 msgstr "unsinnige Tonhöhe"
 
@@ -601,7 +669,7 @@ msgstr "Ausgabe auf Papier auf %s..."
 msgid ", at "
 msgstr ", bei "
 
-#: paper-outputter.cc:240
+#: paper-outputter.cc:245
 #, fuzzy, c-format
 msgid "writing header field %s to %s..."
 msgstr "Schreibe Datei mit Abhängigkeiten: `%s'..."
@@ -610,7 +678,7 @@ msgstr "Schreibe Datei mit Abhängigkeiten: `%s'..."
 msgid "Preprocessing elements..."
 msgstr "Verarbeite Element vor..."
 
-#: paper-score.cc:112
+#: paper-score.cc:113
 #, fuzzy
 msgid "Outputting Score, defined at: "
 msgstr "Gebe Partitur aus, definiert bei: "
@@ -649,12 +717,12 @@ msgstr "Stück ... "
 msgid "Creator: "
 msgstr "Erstellt von: "
 
-#: performance.cc:111
+#: performance.cc:116
 #, c-format
 msgid "from musical definition: %s"
 msgstr "von der musiaklischen Definition: %s"
 
-#: performance.cc:166
+#: performance.cc:171
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "MIDI-Ausgabe nach %s..."
@@ -725,11 +793,6 @@ msgstr "verstrichene Zeit %.2f Sekunden"
 #, fuzzy, c-format
 msgid "unbound spanner `%s'"
 msgstr "Unbeschränkter Abstand `%s'"
-
-#: scores.cc:44
-#, fuzzy, c-format
-msgid "dependencies output to %s..."
-msgstr "Ausgabe auf Papier auf %s..."
 
 #: scores.cc:106
 #, fuzzy
@@ -990,6 +1053,10 @@ msgstr "Erwarte Weiß"
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "Kann Scheme nicht interpretieren, wenn ich im sicheren Modus bin"
 
+#: lexer.ll:335
+msgid "Brace found at end of lyric. Did you forget a space?"
+msgstr ""
+
 #: lexer.ll:439
 #, c-format
 msgid "invalid character: `%c'"
@@ -1226,6 +1293,21 @@ msgid "% from input file: "
 msgstr "% aus Eingabedatei: "
 
 #, fuzzy
+#~ msgid "Dependency file left in `%s'"
+#~ msgstr "Schreibe Datei mit Abhängigkeiten: `%s'..."
+
+#, fuzzy
+#~ msgid "Report bugs to bug-gnu-music@gnu.org"
+#~ msgstr "Melde Fehler an"
+
+#, fuzzy
+#~ msgid "Usage: ly2dvi [OPTION]... FILE\n"
+#~ msgstr "Verwendung: %s [OPTIONEN] ... [DATEI]"
+
+#~ msgid "unconventional key: flats: %d, sharps: %d"
+#~ msgstr "Ungewöhnliche Tonart: Bes: %d, Kreuze: %d"
+
+#, fuzzy
 #~ msgid "not a forced distance; cross-staff spanners may be broken"
 #~ msgstr ""
 #~ "minVerticalAlign != maxVerticalAlign: Balken/Bindebögen zwischen den "
@@ -1243,10 +1325,6 @@ msgstr "% aus Eingabedatei: "
 
 #~ msgid "Automatically generated"
 #~ msgstr "Automatisch generiert"
-
-#, fuzzy
-#~ msgid "Writing dependency file: `%s'..."
-#~ msgstr "Schreibe Datei mit Abhängigkeiten: `%s'..."
 
 #, fuzzy
 #~ msgid "Wrong type for property"
@@ -1268,10 +1346,6 @@ msgstr "% aus Eingabedatei: "
 
 #~ msgid "Huh?  Not a Request: `%s'"
 #~ msgstr "Wie? Keine Anforderung: `%s'"
-
-#, fuzzy
-#~ msgid "Junking music: `%s'"
-#~ msgstr "Uralt-Bitte: `%s'"
 
 #~ msgid "conflicting timing request"
 #~ msgstr "Widersprechende Zeitangaben"
@@ -1397,12 +1471,6 @@ msgstr "% aus Eingabedatei: "
 
 #~ msgid " elements. "
 #~ msgstr " Elemente. "
-
-#~ msgid "Line ... "
-#~ msgstr "Linie ... "
-
-#~ msgid "degenerate constraints"
-#~ msgstr "Degenerierte Zwangsbedingungen"
 
 #~ msgid "time: %.2f seconds"
 #~ msgstr "Zeit: %.2f Sekunden"

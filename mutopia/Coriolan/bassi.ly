@@ -3,6 +3,7 @@
 \include "violoncello.ly"
 \include "contrabasso.ly"
 
+%{
 bassiGroup =  \context PianoStaff = bassi_group \notes <
         \staffCombinePianoStaffProperties
 	\context Staff=oneBassi {
@@ -31,4 +32,25 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
 	\context Staff=oneBassi \partcombine Staff
 		\context Voice=oneBassi \violoncello
 		\context Voice=twoBassi \contrabasso
+>
+%}
+
+bassiGroup =  \context PianoStaff = bassi_group \notes <
+	\context Staff=violoncelloStaff <
+		\property Staff.midiInstrument = #"cello"
+		\property Staff.instrument = #"Violoncello  "
+    		\property Staff.instr = #"Vc.  "
+		\clef "bass";
+		\global
+		\violoncello
+	>
+	\context Staff=contrabassoStaff <
+		\property Staff.midiInstrument = #"contrabass"
+		\property Staff.instrument = #"Contrabasso  "
+		\property Staff.instr = #"Cb.  "
+		\property Staff.transposing = #-12
+	 	\clef "bass"; 
+		\global
+		\contrabasso
+	>
 >

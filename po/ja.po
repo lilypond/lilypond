@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.2.17\n"
-"POT-Creation-Date: 2001-02-27 21:26+0100\n"
+"POT-Creation-Date: 2001-03-06 12:36+0100\n"
 "PO-Revision-Date: 2000-03-29 20:50+0900\n"
 "Last-Translator: Daisuke Yamashita <yamad@mb.infoweb.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -13,13 +13,121 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ly2dvi.py:67 main.cc:95 main.cc:109
+msgid "this help"
+msgstr "このヘルプ"
+
+#: ly2dvi.py:68
+msgid "change global setting KEY to VAL"
+msgstr ""
+
+#: ly2dvi.py:69
+#, fuzzy
+msgid "generate PostScript output"
+msgstr "制限を緩和"
+
+#: ly2dvi.py:70
+msgid "keep all output, and name the directory ly2dvi.dir"
+msgstr ""
+
+#: ly2dvi.py:71
+msgid "don't run LilyPond"
+msgstr ""
+
+#: ly2dvi.py:72 main.cc:104 main.cc:119
+msgid "print version number"
+msgstr "バージョン番号を表示"
+
+#: ly2dvi.py:73 main.cc:106 main.cc:121
+msgid "show warranty and copyright"
+msgstr "保証と著作権について表示する"
+
+#: ly2dvi.py:74
+msgid "dump all final output into DIR"
+msgstr ""
+
+#: ly2dvi.py:75 main.cc:113
+msgid "write Makefile dependencies for every input file"
+msgstr "全ての入力ファイルの Makefile 依存関係を書き込む"
+
+#: ly2dvi.py:101
+#, fuzzy
+msgid "Exiting ... "
+msgstr "行 ..."
+
+#: ly2dvi.py:120
+#, fuzzy, c-format
+msgid "Reading `%s'"
+msgstr "要求を捨てます: `%s'"
+
+#: ly2dvi.py:124 mapped-file-storage.cc:87 mudela-stream.cc:111
+#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
+#, fuzzy, c-format
+msgid "can't open file: `%s'"
+msgstr "ファイルを開けません: `%s'"
+
+#: ly2dvi.py:187
+#, fuzzy, c-format
+msgid "Usage: %s [OPTION]... FILE"
+msgstr "使い方: %s [オプション]... [ファイル]"
+
+#: ly2dvi.py:189
+msgid "Generate .dvi with LaTeX for LilyPond"
+msgstr ""
+
+#: ly2dvi.py:191 main.cc:119 main.cc:151
+msgid "Options:"
+msgstr "オプション:"
+
+#: data-file.cc:118 input.cc:85 ly2dvi.py:195 midi-parser.cc:100 warn.cc:23
+msgid "warning: "
+msgstr "警告: "
+
+#: ly2dvi.py:196
+msgid "all output is written in the CURRENT directory"
+msgstr ""
+
+#: ly2dvi.py:198 main.cc:123 main.cc:174
+#, c-format
+msgid "Report bugs to %s"
+msgstr "バグレポートは %s へ"
+
+#: ly2dvi.py:230
+#, fuzzy, c-format
+msgid "Invoking `%s'"
+msgstr "要求を捨てます: `%s'"
+
+#: input.cc:90 ly2dvi.py:234 warn.cc:9 warn.cc:17
+msgid "error: "
+msgstr "エラー: "
+
+#: ly2dvi.py:234
+#, c-format
+msgid "command exited with value %d"
+msgstr ""
+
+#: ly2dvi.py:236
+msgid "(ignored)"
+msgstr ""
+
+#: ly2dvi.py:277
+#, c-format
+msgid "Analyzing `%s'"
+msgstr ""
+
+#: ly2dvi.py:539 scores.cc:44
+#, fuzzy, c-format
+msgid "dependencies output to %s..."
+msgstr "%s へ paper 出力..."
+
+#: ly2dvi.py:540
+#, c-format
+msgid "%s file left in `%s'"
+msgstr ""
+
 #: data-file.cc:54
 msgid "EOF in a string"
 msgstr "文字列中に EOF があります"
-
-#: data-file.cc:118 input.cc:85 midi-parser.cc:100 warn.cc:23
-msgid "warning: "
-msgstr "警告: "
 
 #: dstream.cc:186
 msgid "not enough fields in Dstream init"
@@ -45,10 +153,6 @@ msgstr "認識できないオプション: `%s'"
 msgid "invalid argument `%s' to option `%s'"
 msgstr "オプション `%2$s' に対する無効な引数 `%1$s'"
 
-#: input.cc:90 warn.cc:9 warn.cc:17
-msgid "error: "
-msgstr "エラー: "
-
 #: input.cc:96
 #, fuzzy
 msgid "non fatal error: "
@@ -62,12 +166,6 @@ msgstr "位置が判りません"
 #, fuzzy
 msgid "can't map file"
 msgstr "ファイルをマップできません"
-
-#: mapped-file-storage.cc:87 mudela-stream.cc:111 paper-stream.cc:40
-#: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
-#, fuzzy, c-format
-msgid "can't open file: `%s'"
-msgstr "ファイルを開けません: `%s'"
 
 #: simple-file-storage.cc:56
 #, c-format
@@ -315,7 +413,7 @@ msgstr "左側に繋げるハイフンがありません。ハイフンの要求を無視します"
 msgid "can't find file: `%s'"
 msgstr "ファイルが見つかりません: `%s'"
 
-#: key-engraver.cc:103 key-performer.cc:72
+#: key-engraver.cc:103 key-performer.cc:77
 msgid "FIXME: key change merge"
 msgstr "FIXME: キー変更のマージ"
 
@@ -355,10 +453,6 @@ msgstr "EXT"
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "出力フォーマット EXT を使う"
 
-#: main.cc:95 main.cc:109
-msgid "this help"
-msgstr "このヘルプ"
-
 #: main.cc:110
 #, fuzzy
 msgid "FIELD"
@@ -383,10 +477,6 @@ msgstr "FILE"
 #: main.cc:112
 msgid "use FILE as init file"
 msgstr "FILE を初期化ファイルとして使用"
-
-#: main.cc:113
-msgid "write Makefile dependencies for every input file"
-msgstr "全ての入力ファイルの Makefile 依存関係を書き込む"
 
 #: main.cc:114
 msgid "prepend DIR to dependencies"
@@ -414,18 +504,10 @@ msgstr "名前付けとエクスポートの出力ファイルを抑制する"
 msgid "don't timestamp the output"
 msgstr "出力にタイムスタンプをつけない"
 
-#: main.cc:104 main.cc:119
-msgid "print version number"
-msgstr "バージョン番号を表示"
-
 #: main.cc:120
 #, fuzzy
 msgid "verbose"
 msgstr "詳細な情報を表示します"
-
-#: main.cc:106 main.cc:121
-msgid "show warranty and copyright"
-msgstr "保証と著作権について表示する"
 
 #: main.cc:122
 msgid "write midi ouput in formatted ascii"
@@ -453,18 +535,9 @@ msgstr ""
 "美しい譜面を作成することができます。LilyPond は GNU "
 "プロジェクトの一部です。\n"
 
-#: main.cc:119 main.cc:151
-msgid "Options:"
-msgstr "オプション:"
-
 #: main.cc:155
 msgid "This binary was compiled with the following options:"
 msgstr "このバイナリは以下のオプション付きでコンパイルされました"
-
-#: main.cc:123 main.cc:174
-#, c-format
-msgid "Report bugs to %s"
-msgstr "バグレポートは %s へ"
 
 #: main.cc:55 main.cc:182
 #, c-format
@@ -544,16 +617,11 @@ msgstr ""
 msgid "no such instrument: `%s'"
 msgstr "その様な楽器はありません: `%s'"
 
-#: midi-item.cc:367
-#, c-format
-msgid "unconventional key: flats: %d, sharps: %d"
-msgstr "慣習に合わないキーです: フラット: %d 個, シャープ %d 個"
-
-#: midi-item.cc:414
+#: midi-item.cc:402
 msgid "silly duration"
 msgstr "馬鹿げた音長"
 
-#: midi-item.cc:427
+#: midi-item.cc:415
 msgid "silly pitch"
 msgstr "馬鹿げたピッチ"
 
@@ -611,7 +679,7 @@ msgstr "%s へ paper 出力..."
 msgid ", at "
 msgstr ", at "
 
-#: paper-outputter.cc:240
+#: paper-outputter.cc:245
 #, fuzzy, c-format
 msgid "writing header field %s to %s..."
 msgstr "依存関係ファイルの書き込み: `%s'..."
@@ -620,7 +688,7 @@ msgstr "依存関係ファイルの書き込み: `%s'..."
 msgid "Preprocessing elements..."
 msgstr "要素を前処理中..."
 
-#: paper-score.cc:112
+#: paper-score.cc:113
 msgid "Outputting Score, defined at: "
 msgstr "譜面を出力します。ここで定義: "
 
@@ -657,12 +725,12 @@ msgstr "トラック ..."
 msgid "Creator: "
 msgstr "作曲者: "
 
-#: performance.cc:111
+#: performance.cc:116
 #, c-format
 msgid "from musical definition: %s"
 msgstr "音楽的定義より: %s"
 
-#: performance.cc:166
+#: performance.cc:171
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "%s への MIDI 出力"
@@ -729,11 +797,6 @@ msgstr "経過時間: %.2f 秒"
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr "閉じていないスパナ `%s'"
-
-#: scores.cc:44
-#, fuzzy, c-format
-msgid "dependencies output to %s..."
-msgstr "%s へ paper 出力..."
 
 #: scores.cc:106
 msgid "Score contains errors; will not process it"
@@ -984,6 +1047,10 @@ msgstr "空白が必要です"
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "安全モードでは Scheme の評価をできません"
 
+#: lexer.ll:335
+msgid "Brace found at end of lyric. Did you forget a space?"
+msgstr ""
+
 #: lexer.ll:439
 #, c-format
 msgid "invalid character: `%c'"
@@ -1211,6 +1278,21 @@ msgid "% from input file: "
 msgstr "% from input file: "
 
 #, fuzzy
+#~ msgid "Dependency file left in `%s'"
+#~ msgstr "依存関係ファイルの書き込み: `%s'..."
+
+#, fuzzy
+#~ msgid "Report bugs to bug-gnu-music@gnu.org"
+#~ msgstr "バグレポートは %s へ"
+
+#, fuzzy
+#~ msgid "Usage: ly2dvi [OPTION]... FILE\n"
+#~ msgstr "使い方: %s [オプション]... [ファイル]"
+
+#~ msgid "unconventional key: flats: %d, sharps: %d"
+#~ msgstr "慣習に合わないキーです: フラット: %d 個, シャープ %d 個"
+
+#, fuzzy
 #~ msgid "not a forced distance; cross-staff spanners may be broken"
 #~ msgstr ""
 #~ "minVerticalAlign != maxVerticalAlign: 内部的な beams/slurs が壊れました"
@@ -1226,10 +1308,6 @@ msgstr "% from input file: "
 
 #~ msgid "Automatically generated"
 #~ msgstr "自動生成された"
-
-#, fuzzy
-#~ msgid "Writing dependency file: `%s'..."
-#~ msgstr "依存関係ファイルの書き込み: `%s'..."
 
 #, fuzzy
 #~ msgid "Wrong type for property"
@@ -1253,10 +1331,6 @@ msgstr "% from input file: "
 
 #~ msgid "Must stop before this music ends"
 #~ msgstr "この楽曲の終わりまでに止めなければなりません"
-
-#, fuzzy
-#~ msgid "Junking music: `%s'"
-#~ msgstr "要求を捨てます: `%s'"
 
 #~ msgid "conflicting timing request"
 #~ msgstr "拍子の要求が競合します"
@@ -1388,12 +1462,6 @@ msgstr "% from input file: "
 
 #~ msgid "%s elements"
 #~ msgstr "%s 個の要素"
-
-#~ msgid "Line ... "
-#~ msgstr "行 ..."
-
-#~ msgid "degenerate constraints"
-#~ msgstr "制限を緩和"
 
 #~ msgid "no toplevel translator"
 #~ msgstr "最上位のトランスレータがありません"
