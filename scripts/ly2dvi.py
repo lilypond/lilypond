@@ -156,9 +156,13 @@ pdftex_p = 0
 latex_cmd = 'latex'
 tex_extension = '.tex'
 
-# Debugging support -- do we need this?
-lilypond_cmd = 'lilypond'
-#lilypond_cmd = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
+#lilypond_binary = 'valgrind --suppressions=%(home)s/usr/src/guile-1.6.supp --num-callers=10 %(home)s/usr/src/lilypond/lily/out/lilypond '% { 'home' : '/home/hanwen' }
+
+lilypond_binary = os.path.join ('@bindir@', 'lilypond')
+
+# only use installed binary  when we're installed too.
+if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
+	lilypond_binary = 'lilypond'
 
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
@@ -249,7 +253,7 @@ def run_lilypond (files, dep_prefix):
 	if debug_p:
 		ly.print_environment ()
 
-	cmd = string.join ((lilypond_cmd,opts, fs))
+	cmd = string.join ((lilypond_binary, opts, fs))
 	status = ly.system (cmd, ignore_error = 1, progress_p = 1)
 	signal = 0x0f & status
 	exit_status = status >> 8
@@ -668,10 +672,12 @@ for opt in options:
 		pdftex_p = 1
 		tex_extension = '.pdftex'
 	elif o == '--warranty' or o == '-w':
-		status = os.system ('lilypond -w')
+		status = os.system ('%s -w' % lilypond_binary)
 		if status:
 			ly.warranty ()
 		sys.exit (0)
+	else:
+		unimplemented_option () # signal programming error
 
 # Don't convert input files to abspath, rather prepend '.' to include
 # path.

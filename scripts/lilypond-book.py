@@ -138,8 +138,22 @@ option_definitions = [
 include_path = [os.getcwd ()]
 
 
-lilypond_cmd = 'lilypond'
-#lilypond_cmd = 'valgrind --suppressions=/home/hanwen/usr/src/guile-1.6.supp  --num-callers=10 /home/hanwen/usr/src/lilypond/lily/out/lilypond'
+#lilypond_binary = 'valgrind --suppressions=/home/hanwen/usr/src/guile-1.6.supp  --num-callers=10 /home/hanwen/usr/src/lilypond/lily/out/lilypond'
+
+lilypond_binary = os.path.join ('@bindir@', 'lilypond')
+
+# only use installed binary  when we're installed too.
+if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
+	lilypond_binary = 'lilypond'
+
+
+
+ly2dvi_binary = os.path.join ('@bindir@', 'ly2dvi')
+
+# only use installed binary  when we're installed too.
+if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
+	lilypond_binary = 'ly2dvi'
+
 
 
 g_extra_opts = ''
@@ -1151,7 +1165,8 @@ linking to the menu.
 
 		preview = base + ".png"
 		if changed or not os.path.isfile (preview):
-			ly.system ('ly2dvi --preview --postscript --verbose %s ' % base) 
+			
+			ly.system ('%s --preview --postscript --verbose %s ' % (ly2dvi_binary, base) ) 
 
 			ly.make_page_images (base)
 			ly.system ('gzip -9 - < %s.ps > %s.ps.gz' %  (base, base))
@@ -1264,7 +1279,7 @@ def compile_all_files (chunks):
 				lilyopts += ' --dep-prefix=' + g_outdir + '/'
 		lilyopts += ' --header=texidoc'
 		texfiles = string.join (tex)
-		cmd = string.join ((lilypond_cmd, lilyopts, g_extra_opts,
+		cmd = string.join ((lilypond_binary, lilyopts, g_extra_opts,
 				    texfiles))
 		ly.system (cmd, ignore_error = 0, progress_p = 1)
 

@@ -1,5 +1,13 @@
 2003-03-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* stepmake/stepmake/omf-targets.make (local-install): add
+	scrollkeeper-update message.
+
+	* scripts/lilypond-book.py (lilypond_binary): explicity add path to binary.
+	(TexiPaper.process_ly2dvi_block): idem for ly2dvi
+
+	* scripts/ly2dvi.py (lilypond_binary): explicity add path to binary.
+
 	* Documentation/user/converters.itely (Invoking midi2ly): add
 	track/channel notice.
 

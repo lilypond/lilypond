@@ -39,6 +39,8 @@ if os.environ.has_key ('LILYPONDPREFIX') :
 
 sys.path.insert (0, os.path.join (datadir, 'python'))
 
+
+
 # Customize these
 if __name__ == '__main__':
 	import lilylib as ly
