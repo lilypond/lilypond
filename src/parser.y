@@ -4,9 +4,9 @@
 #include "lookup.hh"
 #include "misc.hh"
 #include "lexer.hh"
-#include "paperdef.hh"
-#include "mididef.hh"
-#include "inputscore.hh"
+#include "paper-def.hh"
+#include "midi-def.hh"
+#include "input-score.hh"
 #include "main.hh"
 #include "keyword.hh"
 #include "debug.hh"
@@ -15,6 +15,7 @@
 #include "identifier.hh"
 #include "commandrequest.hh"
 #include "musicalrequest.hh"
+#include "voice-element.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -22,7 +23,7 @@
 
 Array<Request*> pre_reqs, post_reqs;
 Array<const char *> define_spots;
-Paperdef*default_paper();
+Paper_def*default_paper();
 char const* defined_ch_c_l;
 char const* req_defined_ch_c_l;
 int fatal_error_i = 0;
@@ -38,7 +39,7 @@ int fatal_error_i = 0;
     Voice_element *el;	
     String *string;
     const char *consstr;
-    Paperdef *paper;
+    Paper_def *paper;
     Midi_def* midi;
     Input_music *music;
     Music_general_chord *chord;
@@ -795,15 +796,19 @@ parse_file(String init, String s)
    *mlog << "Parsing ... ";
    lexer = new My_flex_lexer;
 
-#ifdef YYDEBUG
+#ifndef NDEBUG
    yydebug = !monitor->silence("InitParser") && check_debug;
    lexer->set_debug( !monitor->silence("InitLexer") && check_debug);
 #endif
 
    lexer->new_input(init);
+
    yyparse();
 
-#ifdef YYDEBUG
+#ifndef NDEBUG
+   if (check_debug && !monitor->silence("InitDeclarations"))
+	lexer->print_declarations();
+
    yydebug = !monitor->silence("Parser") && check_debug;
    lexer->set_debug( !monitor->silence("Lexer") && check_debug);
 #endif
@@ -817,10 +822,10 @@ parse_file(String init, String s)
 	warning("Braces don't match.",0);
 }
 
-Paperdef*
+Paper_def*
 default_paper()
 {
-    return new Paperdef(
+    return new Paper_def(
 	lexer->lookup_identifier("default_table")->lookup(true));
 }
 

@@ -20,6 +20,8 @@ struct Identifier {
     
     Identifier(String n) : name(n) { }
     virtual ~Identifier() {}
+
+    void print()const;
     virtual const char*classname() { return "new Identifier"; }
     void error(String);
     IDACCESSOR(Input_staff, staff)
@@ -31,8 +33,11 @@ struct Identifier {
     IDACCESSOR(Lookup,lookup)
     IDACCESSOR(Real,real)
     IDACCESSOR(Notename_tab, notename_tab)
+protected:
+    virtual void do_print()const=0;
 private:
     Identifier(Identifier const&){}
+    
 };
 #endif // IDENTPARENT_HH
 
