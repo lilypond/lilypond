@@ -1,3 +1,9 @@
+2003-06-22  Graham Percival  <gperlist@shaw.ca>
+
+	* input/test/thumb.ly: delete, merged into refman.
+
+	* Documentation/user/refman.itely: added thumb info to Fingering.
+
 2003-06-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/align-interface.cc (find_fixed_alignment_parent): new function.
