@@ -230,9 +230,11 @@ do_one_file (char const *file)
   if (!proc)
     proc = scm_c_eval_string ("dump-gc-protects");
 
-  Paper_book book;
-  paper_book = &book;
+  paper_book = new Paper_book ();;
   Input_file_results inp_file (init, in_file, out_file);
   if (output_format_global == PAGE_LAYOUT)
-    book.output (out_file);
+    paper_book->output (out_file);
+
+  scm_gc_unprotect_object (paper_book->self_scm ());
+  paper_book = 0;
 }

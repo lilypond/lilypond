@@ -7304,7 +7304,7 @@ The following are supported
         r
     }
     \context Lyrics \lyrics {
-    \override LyricText #'font = #'typewriter
+    \override LyricText #'font-family = #'typewriter
       "shortfermata" "fermata"  "longfermata" "verylongfermata"
     } >>
 }

@@ -311,7 +311,7 @@ a type predicate for the i@var{th} argument
 the `paper' definition
 @item props
 a list of alists, containing all active properties. 
-@end lisp
+@end table
 
 As a simple example, we show how to add a @code{\smallcaps} command,
 which selects @TeX{}'s small caps font.  Normally, we could select the
@@ -423,7 +423,7 @@ letter a little larger:
 
 @example
 #(def-markup-command (smallcaps paper props str) (string?)
-   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
+   "Print the string argument in small caps."
    (interpret-markup paper props
     (make-line-markup
      (map (lambda (s)
@@ -456,7 +456,7 @@ to the @code{interpret-markup} function, with the @code{paper} and
 
 @menu
 * Context evaluation::		
-* Applyoutput::			
+* Running a function on all layout objects::  
 @end menu
 
 @node Context evaluation

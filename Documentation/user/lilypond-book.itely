@@ -329,6 +329,22 @@ documents are composed from small @file{.ly} files in this way:
 @item relative, relative=@var{N}
 uses relative octave mode.  By default, notes are specified relative
 to middle C.  The optional integer argument specifies the octave of the
+@item relative, relative=@var{N}
+uses relative octave mode.  By default, notes are specified relative
+to middle C.  The optional integer argument specifies the octave of the
+starting note, where the default @code{1} is middle C.
+@end table
+
+
+@node Invoking lilypond-book
+@section Invoking lilypond-book
+
+
+Running @command{lilypond-book} generates lots of small files that
+LilyPond will process.  To avoid all that garbage in the source
+directory use the @option{--output} command line option, and change to
+that directory before running La@TeX{} or @file{makeinfo}:
+
 @example
 lilypond-book --output=out yourfile.lytex
 cd out && latex yourfile.tex
