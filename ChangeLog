@@ -7,6 +7,8 @@
 	
 2002-08-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/mutopia/J.S.Bach/wtk1-fugue2.ly: staff switch fixes.
+
 	* Documentation/user/lilypond-book.itely: small cleanups
 
 	* Documentation/user/*.itely: fix overfull hboxes. 
