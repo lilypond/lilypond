@@ -267,6 +267,7 @@
 	  (begin
 	    (ly:warn
 	     (format "Programming error: No such font: ~S" name-mag-pair))
+	    (write font-name-alist)
 	    ""))))
   
   (string-append (select-font name-mag-pair) exp))

@@ -12,13 +12,16 @@
 #include "lily-guile.hh"
 #include "parray.hh"
 #include "protected-scm.hh"
+#include "smobs.hh"
 
 #define PAGE_LAYOUT "ps"
 
 class Paper_book
 {
 public:
+  Protected_scm protect_;
   Array<SCM> headers_;
+  Array<SCM> global_headers_;
   Link_array<Paper_def> papers_;
   Array<SCM> scores_;
 
@@ -28,7 +31,14 @@ public:
   Stencil* get_title (int);
   void output (String);
   void classic_output (String);
+
+  SCM smobbed_copy () const;
+
+private:
+  DECLARE_SIMPLE_SMOBS (Paper_book, )
 };
+
+DECLARE_UNSMOB (Paper_book, paper_book)
 
 #endif /* PAPER_BOOK_HH */
 

@@ -49,31 +49,28 @@ protected:
   VIRTUAL_COPY_CONSTRUCTOR (Music_output_def, Paper_def);
 
 public:    
-  Paper_outputter* get_paper_outputter (String)  const;
-
-  SCM font_descriptions ()const;
-  virtual ~Paper_def ();
   static int score_count_;
   
-  /*
-    JUNKME
-   */
-  Real get_realvar (SCM symbol) const;
-  void reinit ();
   Paper_def ();
   Paper_def (Paper_def const&);
-
-  Interval line_dimensions_int (int) const;
-
-  void output_settings (Paper_outputter*) const;
-
-  Font_metric * find_font (SCM name, Real mag);
+  virtual ~Paper_def ();
   
-  // urg
+  Paper_outputter* get_paper_outputter (String) const;
+  SCM font_descriptions () const;
+  void reinit ();
+  Interval line_dimensions_int (int) const;
+  void output_settings (Paper_outputter*) const;
+  Font_metric *find_font (SCM name, Real mag);
+  
+  /* JUNKME   */
+  Real get_realvar (SCM symbol) const;
+  
+  SCM smobbed_copy () const;
+  
   friend int yyparse (void*);
 };
 
 Paper_def * unsmob_paper (SCM x);
 Font_metric *select_font (Paper_def *paper, SCM chain);
 
-#endif // Paper_def_HH
+#endif /* PAPER_DEF_HH */

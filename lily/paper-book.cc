@@ -8,7 +8,6 @@
 
 #include <stdio.h>
 
-#include "input-file-results.hh"
 #include "ly-module.hh"
 #include "main.hh"
 #include "paper-book.hh"
@@ -85,6 +84,7 @@ Paper_book *paper_book;
 
 Paper_book::Paper_book ()
 {
+  protect_ = SCM_EOL;
 }
 
 void
@@ -110,8 +110,8 @@ Paper_book::get_scopes (int i)
   SCM scopes = SCM_EOL;
   if (headers_[i])
     scopes = scm_cons (headers_[i], scopes);
-  if (global_input_file->header_ && global_input_file->header_ != headers_[i])
-    scopes = scm_cons (global_input_file->header_, scopes);
+  if (global_headers_[i] && global_headers_[i] != headers_[i])
+    scopes = scm_cons (global_headers_[i], scopes);
   return scopes;
 }
 
@@ -230,4 +230,37 @@ Paper_book::classic_output (String outname)
   
   out->output_scheme (scm_list_1 (ly_symbol2scm ("end-output")));
   progress_indication ("\n");
+}
+
+
+#include "ly-smobs.icc"
+
+IMPLEMENT_DEFAULT_EQUAL_P (Paper_book);
+IMPLEMENT_SIMPLE_SMOBS (Paper_book)
+IMPLEMENT_TYPE_P (Paper_book, "ly:paper_book?")
+
+SCM
+Paper_book::mark_smob (SCM)
+{
+  return SCM_EOL;
+}
+
+int
+Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
+{
+  Paper_book *b = (Paper_book*) ly_cdr (smob);
+     
+  scm_puts ("#<", port);
+  scm_puts (classname (b), port);
+  scm_puts (" ", port);
+  //scm_puts (b->, port);
+  scm_puts (">", port);
+  return 1;
+}
+
+SCM
+Paper_book::smobbed_copy () const
+{
+  Paper_book *b = new Paper_book (*this);
+  return b->smobbed_self ();
 }

@@ -123,7 +123,7 @@ Input_file_results::~Input_file_results ()
   if (header_)
     header_ = SCM_EOL;
 
-  global_input_file =0;
+  global_input_file = 0;
 
   ly_clear_anonymous_modules ();
 }
