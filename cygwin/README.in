@@ -26,21 +26,26 @@ Suggested:
   gv
 
 Build requirements:
-  cygwin-1.5.11 or newer
   binutils-20040725-2 or newer
-  gcc-2.95.3-5 or newer
   bison-1.35 or newer
-  guile-devel-1.6.5-1 or newer
+  cygwin-1.5.11 or newer
   fileutils
   flex-2.5.4 or newer
+  gcc-2.95.3-5 or newer
+  glib2-devel
+  guile-devel-1.6.5-1 or newer
+  libfontconfig-devel
+  libfreetype2-devel
   libguile12-1.6.5-1 or newer
   libkpathsea3-2.0.2-15 or newer
+  pango-devel
   python
   sed
   sh-utils
   tetex-devel-2.0.2-15 or newer
   texinfo-4.7 or newer
 
+  
 Website/documentation build requirements (lilypond-doc package):
   tetex-bin
   tetex-tiny or tetex-base
