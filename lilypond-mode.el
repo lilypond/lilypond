@@ -19,7 +19,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.7.30"
+(defconst LilyPond-version "1.8.0"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -103,7 +103,7 @@ Finds file lilypond-words from load-path."
 	      (add-to-list 'wordlist currword)
 	      (while (and (> (length co) 0)
 			  (not (string-equal "-" (car (setq co (cdr co))))))))))
-      wordlist))
+      (reverse wordlist)))
   "Keywords inserted from LilyPond-Insert-menu.")
 
 (defconst LilyPond-keywords
@@ -926,9 +926,32 @@ command."
 	  '([ "Midi all" LilyPond-command-all-midi t])
 	  ))
 
-(defun LilyPond-menu-keywords (arg)
-  "Make vector for LilyPond-mode-menu."
+(defun LilyPond-menu-keywords-item (arg)
+  "Make vector for LilyPond-mode-keywords."
   (vector arg (list 'LilyPond-insert-tag-current arg) :style 'radio :selected (list 'eq 'LilyPond-insert-tag-current arg)))
+
+(defun LilyPond-menu-keywords ()
+  "Make Insert Tags menu. 
+
+The Insert Tags -menu is splitte into pieces if it is long enough."
+
+  (let ((li (mapcar 'LilyPond-menu-keywords-item LilyPond-menu-keywords))
+	(w (round (sqrt (length LilyPond-menu-keywords))))
+	(splitted '())
+	(imin 0) imax lw rw)
+    (while (< imin (length LilyPond-menu-keywords))
+      (setq imax (- (min (+ imin w) (length LilyPond-menu-keywords)) 1))
+      (setq lw (nth imin LilyPond-menu-keywords)) 
+      (setq rw (nth imax LilyPond-menu-keywords))
+      (add-to-list 'splitted
+         (let ((l (list (concat (substring lw 0 (min 7 (length lw))) 
+				" ... " 
+				(substring rw 0 (min 7 (length rw)))))))
+	   (while (<= imin imax)
+	     (add-to-list 'l (nth imin li))
+	     (setq imin (1+ imin)))
+	   (reverse l))))
+    (if (> (length LilyPond-menu-keywords) 12) (reverse splitted) li)))
 
 ;;; LilyPond-mode-menu should not be interactive, via "M-x LilyPond-<Tab>"
 (easy-menu-define LilyPond-mode-menu
@@ -939,8 +962,7 @@ command."
 	  (list (cons "Insert tag" 
                 (cons ["Previously selected" LilyPond-insert-tag-current t] 
                 (cons "-----"
-		      (mapcar 'LilyPond-menu-keywords 
-			      (reverse LilyPond-menu-keywords))))))
+		      (LilyPond-menu-keywords)))))
 	  '(("Miscellaneous"
 	     ["Autocompletion"   LilyPond-autocompletion t]
 	     ["(Un)comment Region" LilyPond-comment-region t]

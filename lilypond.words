@@ -1,6 +1,7 @@
 -\( - _ -\) -
 -\[ - _ -\] -
 -\\\( - _ -\\\) -
+\\\[ - _ \\\] -
 \\accent
 \\accentus
 \\accepts
@@ -41,7 +42,7 @@ Beam
 \\broken
 \\cadenzaOff
 \\cadenzaOn
-\\center
+\\center - \ << _ >> -
 \\cg
 \\ch
 \\char
@@ -62,7 +63,7 @@ ChordNames
 Cluster
 \\cm
 \\coda
-\\column
+\\column - \ << _ >> -
 \\combine
 \\commandspanrequest
 \\complex
@@ -202,6 +203,7 @@ LyricsVoice
 \\marcato
 \\mark
 \\markup
+-\\markup - { _ } -
 \\maxima
 \\melisma
 \\melisma
