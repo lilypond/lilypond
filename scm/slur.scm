@@ -21,5 +21,5 @@
     (free-head-distance . 0.3)
     (extra-object-collision . 50)
     (accidental-collision . 3)
-    (extra-encompass-free-distance . 0.5)
+    (extra-encompass-free-distance . 0.3)
     ))

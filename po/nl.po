@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-18 15:20+0200\n"
+"POT-Creation-Date: 2004-09-07 16:24+0200\n"
 "PO-Revision-Date: 2004-04-11 11:01+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -88,12 +88,12 @@ msgstr "Binair programma %s heeft versie %s, zocht naar versie %s"
 msgid "Opening pipe `%s'"
 msgstr "Openen van pijp `%s'..."
 
-#: lilylib.py:269 lilypond-book.py:805
+#: lilylib.py:269 lilypond-book.py:812
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "`%s' gefaald (%d)"
 
-#: lilylib.py:274 lilylib.py:333 lilypond-book.py:806 lilypond-latex.py:465
+#: lilylib.py:274 lilylib.py:333 lilypond-book.py:813 lilypond-latex.py:466
 msgid "The error log is as follows:"
 msgstr "De foutlog is als volgend:"
 
@@ -214,52 +214,52 @@ msgstr "negeren van onbekende ly optie: %s"
 msgid "file not found: %s"
 msgstr "bestand niet gevonden: %s"
 
-#: lilypond-book.py:788
+#: lilypond-book.py:795
 #, python-format
 msgid "Opening filter `%s'"
 msgstr "Open filter `%s'"
 
-#: lilypond-book.py:904
+#: lilypond-book.py:913
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr "kan formaat niet bepalen voor: %s"
 
-#: lilypond-book.py:945
+#: lilypond-book.py:954
 msgid "Output would overwrite input file; use --output."
 msgstr "Uitvoer zou invoerbestand overschrijven; gebruik --output."
 
-#: lilypond-book.py:952
+#: lilypond-book.py:961
 #, python-format
 msgid "Reading %s..."
 msgstr "Lezen %s..."
 
-#: lilypond-book.py:966
+#: lilypond-book.py:975
 msgid "Dissecting..."
 msgstr "Ontleden..."
 
-#: lilypond-book.py:994
+#: lilypond-book.py:1006
 msgid "Writing snippets..."
 msgstr "Schrijven van snippers..."
 
-#: lilypond-book.py:999
+#: lilypond-book.py:1011
 msgid "Processing..."
 msgstr "Verwerken..."
 
-#: lilypond-book.py:1002
+#: lilypond-book.py:1014
 msgid "All snippets are up to date..."
 msgstr "Alle snippers zijn actueel..."
 
-#: lilypond-book.py:1005
+#: lilypond-book.py:1017
 #, python-format
 msgid "Compiling %s..."
 msgstr "Samenstellen %s..."
 
-#: lilypond-book.py:1013
+#: lilypond-book.py:1025
 #, python-format
 msgid "Processing include: %s"
 msgstr "Verwerken van invoegsel: %s"
 
-#: lilypond-book.py:1029 lilypond-latex.py:575 midi2ly.py:1017 ps2png.py:51
+#: lilypond-book.py:1041 lilypond-latex.py:576 midi2ly.py:1017 ps2png.py:51
 #, python-format
 msgid "getopt says: `%s'"
 msgstr "getopt zegt: `%s'"
@@ -355,49 +355,49 @@ msgstr "verander globale instelling SLEUTEL in WAARDE"
 msgid "print version number"
 msgstr "druk versienummer af"
 
-#: lilypond-latex.py:202
+#: lilypond-latex.py:203
 #, python-format
 msgid "no such setting: `%s'"
 msgstr "onbekende instelling: %s"
 
-#: lilypond-latex.py:246
+#: lilypond-latex.py:247
 #, python-format
 msgid "LilyPond crashed (signal %d)."
 msgstr "LilyPond is neergestort (signaal %d)."
 
-#: lilypond-latex.py:247
+#: lilypond-latex.py:248
 msgid "Please submit a bug report to bug-lilypond@gnu.org"
 msgstr "Stuur alstublieft een foutrapportage naar bug-lilypond@gnu.org"
 
-#: lilypond-latex.py:254
+#: lilypond-latex.py:255
 #, python-format
 msgid "LilyPond failed on input file %s (exit status %d)"
 msgstr "LilyPond heeft gefaald op invoerbestand %s (afsluitstatus %d)"
 
-#: lilypond-latex.py:258
+#: lilypond-latex.py:259
 #, python-format
 msgid "LilyPond failed on an input file (exit status %d)"
 msgstr "LilyPond heeft gefaald op een invoerbestand (afsluitstatus %d)"
 
-#: lilypond-latex.py:259
+#: lilypond-latex.py:260
 msgid "Continuing..."
 msgstr "Doorgaan..."
 
-#: lilypond-latex.py:269
+#: lilypond-latex.py:270
 #, python-format
 msgid "Analyzing %s..."
 msgstr "Analyseren van %s..."
 
-#: lilypond-latex.py:323
+#: lilypond-latex.py:324
 #, python-format
 msgid "no LilyPond output found for `%s'"
 msgstr "geen LilyPond uitvoer gevonden voor `%s'"
 
-#: lilypond-latex.py:464
+#: lilypond-latex.py:465
 msgid "LaTeX failed on the output file."
 msgstr "LaTeX heeft gefaald op het uitvoerbestand."
 
-#: lilypond-latex.py:512
+#: lilypond-latex.py:513
 msgid ""
 "Trying create PDF, but no PFA fonts found.\n"
 "Using bitmap fonts instead. This will look bad."
@@ -406,56 +406,56 @@ msgstr ""
 "Gebruik dan maar bitmap fonts.  Dit gaat er niet uitzien."
 
 #. no ps header?
-#: lilypond-latex.py:555
+#: lilypond-latex.py:556
 #, python-format
 msgid "not a PostScript file: `%s'"
 msgstr "geen PostScript bestand: `%s'"
 
-#: lilypond-latex.py:665
+#: lilypond-latex.py:666
 msgid "pseudo filter"
 msgstr "pseudo filter"
 
-#: lilypond-latex.py:668
+#: lilypond-latex.py:669
 msgid "pseudo filter only for single input file"
 msgstr "pseudo filter alleen voor enkel invoerbestand"
 
-#: lilypond-latex.py:673
+#: lilypond-latex.py:674
 msgid "no files specified on command line"
 msgstr "geen bestanden gespecificeerd op de opdrachtregel"
 
-#: lilypond-latex.py:705
+#: lilypond-latex.py:706
 #, python-format
 msgid "filename should not contain spaces: `%s'"
 msgstr "bestandsnaam mag geen spaties bevatten: `%s'"
 
-#: lilypond-latex.py:743
+#: lilypond-latex.py:744
 msgid "Running LilyPond failed. Rerun with --verbose for a trace."
 msgstr ""
 "Draaien van LilyPond gefaald. Draai opnieuw met --verbose voor een foutpad."
 
-#: lilypond-latex.py:785
+#: lilypond-latex.py:786
 msgid "Failed to make PS file. Rerun with --verbose for a trace."
 msgstr ""
 "Gefaald in het maken van een PS bestand.  Draai opnieuw met --verbose voor "
 "een foutpad."
 
-#: lilypond-latex.py:814
+#: lilypond-latex.py:815
 #, python-format
 msgid "%s output to <stdout>..."
 msgstr "%s uitvoer naar <stdout>..."
 
-#: lilypond-latex.py:819 includable-lexer.cc:57 kpath.cc:134 lily-guile.cc:85
-#: lily-parser.cc:297
+#: lilypond-latex.py:820 includable-lexer.cc:57 kpath.cc:134 lily-guile.cc:89
+#: lily-parser.cc:275
 #, c-format, python-format
 msgid "can't find file: `%s'"
 msgstr "kan bestand niet vinden: `%s'"
 
-#: lilypond-latex.py:842
+#: lilypond-latex.py:843
 #, python-format
 msgid "%s output to %s..."
 msgstr "%s uitvoer naar %s..."
 
-#: lilypond-latex.py:845
+#: lilypond-latex.py:846
 #, python-format
 msgid "can't find file: `%s.%s'"
 msgstr "kan bestand niet vinden: `%s.%s'"
@@ -624,7 +624,7 @@ msgstr "negeren van onbekend voorteken: %s"
 msgid "Accidental rule must be pair or context-name; Found %s"
 msgstr "Voortekenregel moet paar of context-naam zijn; Gevonden %s"
 
-#: accidental.cc:217 key-signature-interface.cc:137
+#: accidental.cc:221 key-signature-interface.cc:137
 #, c-format
 msgid "accidental `%s' not found"
 msgstr "voorteken `%s' niet gevonden"
@@ -673,7 +673,7 @@ msgstr "Laden van standaardfont"
 msgid "can't find default font: `%s'"
 msgstr "kan standaardfont niet vinden: `%s'"
 
-#: all-font-metrics.cc:201 includable-lexer.cc:59 lily-parser.cc:290
+#: all-font-metrics.cc:201 includable-lexer.cc:59 lily-parser.cc:268
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(zoekpad: `%s')"
@@ -686,7 +686,7 @@ msgstr "Geef op"
 msgid "\\applycontext argument is not a procedure"
 msgstr "\\applycontext argument is geen procedure"
 
-#: auto-change-iterator.cc:62 change-iterator.cc:61
+#: auto-change-iterator.cc:67 change-iterator.cc:61
 msgid "Can't switch translators, I'm there already"
 msgstr "Kan niet wisselen van vertaler, ben al hier"
 
@@ -879,12 +879,12 @@ msgstr "Onbeëindigde glissando"
 msgid "can't find `%s' context"
 msgstr "kan `%s' context niet vinden"
 
-#: gourlay-breaking.cc:195
+#: gourlay-breaking.cc:199
 #, c-format
 msgid "Optimal demerits: %f"
 msgstr "Optimale foutscore: %f"
 
-#: gourlay-breaking.cc:200
+#: gourlay-breaking.cc:204
 msgid "No feasible line breaking found"
 msgstr "Geen doenbare regelafbreuk gevonden"
 
@@ -986,35 +986,35 @@ msgstr "negeer rust: ligatuur mag geen rust bevatten"
 msgid "ligature was started here"
 msgstr "ligatuur werd hier gestart"
 
-#: lily-guile.cc:87
+#: lily-guile.cc:91
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(zoekpad: `%s')"
 
-#: lily-guile.cc:562
+#: lily-guile.cc:559
 #, c-format
 msgid "Can't find property type-check for `%s' (%s)."
 msgstr "Kan geen type-controle vinden voor property `%s' (%s)."
 
-#: lily-guile.cc:565
+#: lily-guile.cc:562
 msgid "Perhaps you made a typing error?"
 msgstr "Misschien een typefout?"
 
-#: lily-guile.cc:571
+#: lily-guile.cc:568
 msgid "Doing assignment anyway."
 msgstr "Voer toewijzing toch door."
 
-#: lily-guile.cc:585
+#: lily-guile.cc:582
 #, c-format
 msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr "Type contole gefaald voor `%s'; waarde `%s' moet type hebben: `%s'"
 
-#: lily-lexer.cc:219
+#: lily-lexer.cc:220
 #, c-format
 msgid "Identifier name is a keyword: `%s'"
 msgstr "Identifier naam is een sleutelwoord: `%s'"
 
-#: lily-lexer.cc:236
+#: lily-lexer.cc:237
 #, c-format
 msgid "error at EOF: %s"
 msgstr "fout bij EOF: %s"
@@ -1023,16 +1023,16 @@ msgstr "fout bij EOF: %s"
 msgid "Parsing..."
 msgstr "Ontleden..."
 
-#: lily-parser.cc:110 lily-parser.cc:147
+#: lily-parser.cc:110 lily-parser.cc:143
 msgid "Braces don't match"
 msgstr "Haakjes paren niet"
 
-#: lily-parser.cc:289
+#: lily-parser.cc:267
 #, c-format
 msgid "can't find init file: `%s'"
 msgstr "kan init bestand niet vinden: `%s'"
 
-#: lily-parser.cc:306
+#: lily-parser.cc:284
 #, c-format
 msgid "Now processing `%s'"
 msgstr "Nu wordt verwerkt `%s'"
@@ -1234,7 +1234,7 @@ msgstr "muziek voor de marsmannetjes."
 msgid "Fingerings are also not down?! Putting them down anyway."
 msgstr "Vingerzettingen zijn ook niet onder?! Zet ze toch onder."
 
-#: new-lyric-combine-music-iterator.cc:246
+#: new-lyric-combine-music-iterator.cc:245
 #, c-format
 msgid "cannot find Voice `%s'"
 msgstr "kan Voice niet vinden: `%s'"
@@ -1248,10 +1248,9 @@ msgstr "Te veel botsende nootkolommen.  Negeer ze."
 msgid "note head `%s' not found"
 msgstr "nootbolletje `%s' niet gevonden"
 
-#: paper-outputter.cc:113
-#, c-format
-msgid "paper output to `%s'..."
-msgstr "papier uitvoer naar %s..."
+#: paper-outputter.cc:116
+msgid "Paper output to `%s'..."
+msgstr "Papier uitvoer naar %s..."
 
 #: paper-score.cc:68
 #, c-format
@@ -1295,13 +1294,9 @@ msgstr "dd "
 msgid "MIDI output to `%s'..."
 msgstr "MIDI uitvoer naar %s..."
 
-#: phrasing-slur-engraver.cc:105
-msgid "unterminated phrasing slur"
-msgstr "onbeëindigde fraseringsboog"
-
-#: phrasing-slur-engraver.cc:123
-msgid "can't find start of phrasing slur"
-msgstr "kan start van fraseringsboog niet vinden"
+#: phrasing-slur-engraver.cc:99 slur-engraver.cc:114
+msgid "unterminated slur"
+msgstr "onbeëindigde bindingsboog"
 
 #: piano-pedal-engraver.cc:237
 msgid "Need 3 strings for piano pedals. No pedal made. "
@@ -1323,7 +1318,11 @@ msgstr "kan start van piano pedaal haak niet vinden: `%s'"
 msgid "Not a grob name, `%s'."
 msgstr "Geen grobnaam, `%s'."
 
-#: quote-iterator.cc:181
+#: quote-iterator.cc:108
+msgid "No events found for \\quote"
+msgstr ""
+
+#: quote-iterator.cc:183
 #, c-format
 msgid "In quotation: junking event %s"
 msgstr "In aanhaling: verschroten van gebeurtenis %s"
@@ -1399,25 +1398,33 @@ msgstr "Fonts zijn niet juist geïnstalleerd.  Afbreken."
 msgid "Install the ec-mftraced package from %s. Aborting"
 msgstr ""
 
-#: score.cc:112
-msgid "Interpreting music... "
-msgstr "Vertolken van muziek..."
-
-#: score.cc:122
+#: score.cc:100 score.cc:126
 msgid "Need music in a score"
 msgstr "Heb muziek nodig in een partituur"
 
-#: score.cc:133
+#: score.cc:116
+msgid "Interpreting music... "
+msgstr "Vertolken van muziek..."
+
+#: score.cc:137
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr "duur: %.2f seconden"
 
+#: score.cc:312
+msgid "Already have music in score"
+msgstr "Heb al muziek nodig in score"
+
+#: score.cc:313
+msgid "This is the previous music"
+msgstr ""
+
 #. FIXME:
-#: script-engraver.cc:100
+#: script-engraver.cc:102
 msgid "Do not know how to interpret articulation: "
 msgstr "Weet niet hoe articulatie te vertolken: "
 
-#: script-engraver.cc:101
+#: script-engraver.cc:103
 msgid "Scheme encoding: "
 msgstr "Scheme codering:"
 
@@ -1426,20 +1433,15 @@ msgstr "Scheme codering:"
 msgid "Separation_item:  I've been drinking too much"
 msgstr "Separation_item:  Ik heb te veel gedronken"
 
-#: simple-spacer.cc:248
+#: simple-spacer.cc:489
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr "Geen veer tussen kolom %d en de volgende"
 
-#: slur-engraver.cc:128
-msgid "unterminated slur"
-msgstr "onbeëindigde bindingsboog"
-
-#. How to shut up this warning, when Voice_devnull_engraver has
-#. eaten start event?
-#: slur-engraver.cc:146
-msgid "can't find start of slur"
-msgstr "kan start van bindingsboog niet vinden"
+#: slur-engraver.cc:124
+#, fuzzy
+msgid "No slur to end"
+msgstr "Geen volta spanner te beëindigen"
 
 #: source-file.cc:50
 #, c-format
@@ -1456,17 +1458,17 @@ msgstr "Huh?  Kreeg %d, verwachtte %d tekens"
 msgid "Global shortest duration is %s"
 msgstr "Globaal kortste lengte is %s"
 
-#: stem-engraver.cc:84
+#: stem-engraver.cc:88
 msgid "tremolo duration is too long"
 msgstr "tremololengte is te lang"
 
 #. FIXME:
-#: stem-engraver.cc:121
+#: stem-engraver.cc:125
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr "Voeg noot bolletje toe aan onverenigbare stok (type = %d)"
 
-#: stem-engraver.cc:123
+#: stem-engraver.cc:127
 msgid "Don't you want polyphonic voices instead?"
 msgstr "Wil je anders echt geen polyfone stemmen?"
 
@@ -1474,27 +1476,27 @@ msgstr "Wil je anders echt geen polyfone stemmen?"
 msgid "Weird stem size; check for narrow beams"
 msgstr "Vreemde stoklengte; controleer op krappe waardestrepen"
 
-#: stem.cc:599
+#: stem.cc:575
 #, c-format
 msgid "flag `%s' not found"
 msgstr "vlag `%s' niet gevonden"
 
-#: stem.cc:610
+#: stem.cc:586
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr "vlag streep `%s' niet gevonden"
 
-#: system.cc:133
+#: system.cc:134
 #, c-format
 msgid "Element count %d."
 msgstr "Aantal elementen: %d."
 
-#: system.cc:271
+#: system.cc:272
 #, c-format
 msgid "Grob count %d"
 msgstr "Aantal grobs %d"
 
-#: system.cc:285
+#: system.cc:286
 msgid "Calculating line breaks..."
 msgstr "Berekenen van regelafbreuken..."
 
@@ -1618,70 +1620,58 @@ msgstr "Merk moet symbool of lijst van symbolen zijn."
 msgid "Identifier should have alphabetic characters only"
 msgstr "Identifier mag uitsluitend alfabetische tekens hebben"
 
-#: parser.yy:699
-msgid "Already have music in score"
-msgstr "Heb al muziek nodig in score"
-
-#: parser.yy:700
-msgid "This is the previous music"
-msgstr ""
-
-#: parser.yy:726
+#: parser.yy:707
 msgid "Need \\bookpaper for bookpaper block."
 msgstr ""
 
-#: parser.yy:863
+#: parser.yy:844
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr ""
 "Meer alternatieven dan herhalingen.  Schroot overvloedige alternatieven."
 
-#: parser.yy:1035
+#: parser.yy:1016
 #, c-format
 msgid "Argument %d failed typecheck"
 msgstr ""
 
-#: parser.yy:1051
+#: parser.yy:1032
 msgid "Music head function should return Music object."
 msgstr ""
 
-#: parser.yy:1297
+#: parser.yy:1278
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:1551
-msgid "Can't find music"
-msgstr "Kan geen muziek vinden"
-
-#: parser.yy:1671
+#: parser.yy:1639
 msgid "Second argument must be pitch list."
 msgstr "Tweede argument moet een toonhoogtelijst zijn."
 
-#: parser.yy:1708 parser.yy:1713 parser.yy:2242
+#: parser.yy:1676 parser.yy:1681 parser.yy:2210
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "Moet in Lyric modus zijn voor liedteksten"
 
-#: parser.yy:1798
+#: parser.yy:1766
 msgid "Expecting string as script definition"
 msgstr "Verwacht string voor script definitie"
 
-#: parser.yy:2007 parser.yy:2057
+#: parser.yy:1975 parser.yy:2025
 #, c-format
 msgid "not a duration: %d"
 msgstr "geen duur: %d"
 
-#: parser.yy:2152
+#: parser.yy:2120
 msgid "Have to be in Note mode for notes"
 msgstr "Moet in Note modus zijn voor noten"
 
-#: parser.yy:2257
+#: parser.yy:2225
 msgid "Have to be in Chord mode for chords"
 msgstr "Moet in Chord modus zijn voor accoorden"
 
-#: parser.yy:2407
+#: parser.yy:2377
 msgid "need integer number arg"
 msgstr "heb integer getal arg nogig"
 
-#: parser.yy:2550
+#: parser.yy:2520
 msgid "Suspect duration found following this beam"
 msgstr "Verdachte lengte gevonden volgend op deze waardestreep"
 
@@ -1747,19 +1737,31 @@ msgstr "Verkeerde lilypond versie: %s (%s, %s)"
 msgid "Consider updating the input with the convert-ly script"
 msgstr "Overweeg het actualiseren van de invoer met het convert-ly script"
 
-#: lily.scm:566
-#, lisp-format
-msgid "Converting to ~s..."
+#: lily.scm:574
+#, fuzzy, lisp-format
+msgid "Converting to `~a'..."
 msgstr "Converteren naar ~s..."
 
-#: lily.scm:587
-#, lisp-format
-msgid "Invoking `~s'..."
+#: lily.scm:596
+#, fuzzy, lisp-format
+msgid "Invoking `~a'..."
 msgstr "Inroepen van `%s'"
 
-#: lily.scm:605
+#: lily.scm:614
 msgid "error: failed files: "
 msgstr "fout: bestanden gefaald: "
+
+#~ msgid "unterminated phrasing slur"
+#~ msgstr "onbeëindigde fraseringsboog"
+
+#~ msgid "can't find start of phrasing slur"
+#~ msgstr "kan start van fraseringsboog niet vinden"
+
+#~ msgid "can't find start of slur"
+#~ msgstr "kan start van bindingsboog niet vinden"
+
+#~ msgid "Can't find music"
+#~ msgstr "Kan geen muziek vinden"
 
 #~ msgid "too many colliding rests."
 #~ msgstr "te veel botsende rusten"

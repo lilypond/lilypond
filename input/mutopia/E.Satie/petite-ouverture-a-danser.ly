@@ -126,32 +126,42 @@ lower = \context Staff  \relative c{
 
 }
 
-\score {
-    \context GrandStaff <<
-      \context Staff = treble << 
-        \global 
-        \clef violin
-	\i
-	\ii
-      >>
-      \context Staff = bass <<
-        \global
-	\clef bass
-        \lower
-      >>
-	    \override Slur #'attachment = #'(stem . stem)
-	    #(override-auto-beam-setting '(end 1 8 * *)  1 4)
-	    #(override-auto-beam-setting '(end 1 16 * *)  1 4)
-    >>
+%% FIXME: this triggers:
+%%
+%%input/mutopia/E.Satie/petite-ouverture-a-danser.ly:148:9: fout: syntax error, unexpected PAPER:
+%%    \pape
+%%         r { }
+%%\new Score \with {
+%%    \override SpacingSpanner #'spacing-increment = #3
+%%} {
 
-  \paper {
-    \context{
-	    \Voice
+
+\score {
+    \context PianoStaff <<
+	\context Staff = treble << 
+	    \global 
+	    \clef violin
+	    \i
+	    \ii
+	>>
+	\context Staff = bass <<
+	    \global
+	    \clef bass
+	    \lower
+	>>
+	\override Slur #'attachment = #'(stem . stem)
+	#(override-auto-beam-setting '(end 1 8 * *)  1 4)
+	#(override-auto-beam-setting '(end 1 16 * *)  1 4)
+    >>
+    \paper {
+	\context {
+	    \Score
+	    \override SpacingSpanner #'spacing-increment = #3
+	}
     }
-  }
-  \midi {
-    \tempo 4 = 60
-  }
+    \midi {
+	\tempo 4 = 60
+    }
 }
 
 

@@ -22,6 +22,7 @@ export AUTOMAKE=automake-1.8
 export ACLOCAL=aclocal-1.8
 export AUTOCONF=$(which autoconf2.50)
 export AUTOHEADER=$(which autoheader2.50)
+export PKG_CONFIG_PATH
 
 if [ -z "$AUTOCONF" ]; then
     unset AUTOCONF
@@ -42,8 +43,10 @@ cd test
 
 ## 2.  get pango CVS
 
-if [ ! -d $HOME/usr/pkg/pango ] ; then
+if ! pkg-config --atleast-version=1.5.1 pango; then
 
+    if [ ! -d $HOME/usr/pkg/pango ]; then
+	
 	mkdir -p gnome/CVS
 	cd gnome
 	echo ":pserver:anonymous@anoncvs.gnome.org:/cvs/gnome" > CVS/Root
@@ -54,14 +57,13 @@ if [ ! -d $HOME/usr/pkg/pango ] ; then
 	./autogen.sh --help
 	./configure --prefix=$OPT/pango --enable-maintainer-mode --enable-gtk-doc
 	make XFT_LIBS="-L/usr/lib -lXft -L/usr/X11R6/lib -lfreetype -lz -lXrender -lX11 -lfontconfig" install
-
 	cd ../..
-fi 
+    fi 
+    PKG_CONFIG_PATH=$OPT/pango/lib/pkgconfig:$PKG_CONFIG_PATH
+fi
 
-export PKG_CONFIG_PATH=$OPT/pango/lib/pkgconfig:$PKG_CONFIG_PATH
-
-# 3. Not for the faint of heart: GUILE CVS seems to be OK 
-## PATH=/usr/bin:$PATH
+# 3. Currently (2004-9-9) GUILE CVS cannot be used, use 1.6.4:
+PATH=/usr/bin:$PATH
 
 if [ -d $OPT/libffi/ ]; then
     export LDFLAGS=-L$OPT/libffi/lib
