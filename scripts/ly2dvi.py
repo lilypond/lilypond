@@ -910,7 +910,6 @@ for opt in options:
 
 		sys.exit (0)
 
-print 'hallo3'
 # Don't convert input files to abspath, rather prepend '.' to include
 # path.
 include_path.insert (0, '.')
