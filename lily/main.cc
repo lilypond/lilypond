@@ -47,7 +47,7 @@ bool no_paper_global_b = false;
 
 /* Selected output format.
    One of tex, ps, scm, as. */
-String output_format_global = "ps";
+String output_format_global = "tex";
 
 /* Current output name. */
 String output_name_global;

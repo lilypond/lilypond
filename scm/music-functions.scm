@@ -737,8 +737,9 @@ use GrandStaff as a context. "
       ;; Accidentals are cancelled across the staves in the same grand staff as well
       ((equal? style 'piano)
        (set-accidentals-properties #f
-				   '( Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)
-					    GrandStaff (any-octave . 0) (same-octave . 1))
+				   '(Staff (same-octave . 0)
+					   (any-octave . 0) (same-octave . 1)
+					   GrandStaff (any-octave . 0) (same-octave . 1))
 				   '()
 				   pcontext))
       ((equal? style 'piano-cautionary)
