@@ -301,5 +301,6 @@ sys.stdout.write (r""">
             minimumVerticalExtent = #'(-3 . 3)
 	}
     }
+    
 }
 """)

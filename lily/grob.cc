@@ -54,6 +54,11 @@ Grob::Grob (SCM basicprops)
   immutable_property_alist_ =  basicprops;
   mutable_property_alist_ = SCM_EOL;
 
+  /*
+    We do smobify_self() as the first step. Since the object lives on
+    the heap, none of its SCM variables are protected from GC. After
+    smobify_self(), they are.
+   */
   smobify_self ();
 
 
@@ -116,11 +121,17 @@ Grob::Grob (Grob const&s)
   original_l_ = (Grob*) &s;
   immutable_property_alist_ = s.immutable_property_alist_;
   mutable_property_alist_ = SCM_EOL;
+
+  /*
+    No properties are copied. That is the job of handle_broken_dependencies.
+   */
   
   status_c_ = s.status_c_;
   pscore_l_ = s.pscore_l_;
 
   smobify_self ();
+
+
 }
 
 Grob::~Grob ()

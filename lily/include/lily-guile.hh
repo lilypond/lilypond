@@ -144,6 +144,8 @@ SCM ly_assoc_cdr (SCM key, SCM alist);
 Interval ly_scm2interval (SCM);
 SCM ly_interval2scm (Drul_array<Real>);
 
+void taint (SCM *);
+
 
 SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
@@ -276,6 +278,8 @@ FNAME ## init ()\
 ADD_SCM_INIT_FUNC (FNAME ## init_unique_prefix, FNAME ## init);\
 SCM \
 FNAME ARGLIST\
+
+
 
 
 

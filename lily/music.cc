@@ -42,11 +42,15 @@ Music::Music ()
 Music::Music (Music const &m)
 {
   immutable_property_alist_ = m.immutable_property_alist_;
-  SCM c =ly_deep_mus_copy (m.mutable_property_alist_);
-  mutable_property_alist_ = c;
+  mutable_property_alist_ = SCM_EOL;
 
+  /*
+    First we smobify_self, then we copy over the stuff.  If we don't,
+    stack vars that hold the copy might be optimized away, meaning
+    that they won't be protected from GC.
+   */
   smobify_self ();
-
+  mutable_property_alist_ = ly_deep_mus_copy (m.mutable_property_alist_);
   set_spot (*m.origin ());
 }
 
@@ -107,7 +111,10 @@ Music::start_mom () const
 void
 print_alist (SCM a, SCM port)
 {
-  for (SCM s = a; gh_pair_p (s); s = ly_cdr (s))
+  /*
+    SCM_EOL  -> catch malformed lists.
+  */
+  for (SCM s = a; s != SCM_EOL; s = ly_cdr (s))
     {
       scm_display (ly_caar (s), port);
       scm_puts (" = ", port); 
@@ -174,6 +181,8 @@ Music::internal_get_mus_property (SCM sym) const
   return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
 }
 
+void paranoia_check (Music*);
+
 void
 Music::internal_set_mus_property (SCM s, SCM v)
 {
@@ -181,9 +190,11 @@ Music::internal_set_mus_property (SCM s, SCM v)
   if (internal_type_checking_global_b)
     assert (type_check_assignment (s, v, ly_symbol2scm ("music-type?")));
 #endif
-  
-  mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
+
+  mutable_property_alist_ =  scm_assq_set_x (mutable_property_alist_, s, v);
 }
+
+
 
 #include "main.hh"
 
@@ -214,8 +225,7 @@ LY_DEFINE(ly_get_mus_property,
   SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
-      return sc->internal_get_mus_property (sym);
-
+  return sc->internal_get_mus_property (sym);
 }
 
 LY_DEFINE(ly_set_mus_property,
@@ -285,3 +295,4 @@ LY_DEFINE(ly_music_list_p,"music-list?", 1, 0, 0,
   return SCM_BOOL_T;
 }
 ADD_MUSIC(Music);
+

@@ -35,7 +35,6 @@ Translator::Translator ()
   init ();
   output_def_l_ = 0;
   smobify_self ();
-
 }
 
 Translator::Translator (Translator const &s)

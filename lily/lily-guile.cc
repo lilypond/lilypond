@@ -760,3 +760,11 @@ ly_split_list (SCM s, SCM list)
   
 }
 
+
+void
+taint (SCM * foo)
+{
+  /*
+    nop.
+   */
+}

@@ -64,8 +64,6 @@ public:
     
     This is not a property, and it is not protected.  This poses a
     very small risk of the value being GC'd from under us.
-
-    Oh well.
   */
   SCM last_keysig_;
 

@@ -1,5 +1,8 @@
 2002-06-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/music.cc (Music): fix very subtle and nasty memory
+	corruption bug.
+
 	* mutopia/claop.py: new file: CLA(O)P II by Peter Wallin.
 
 2002-06-19  Han-Wen  <hanwen@cs.uu.nl>
