@@ -7,7 +7,7 @@
 #ifndef MIDI_STREAM_HH
 #define MIDI_STREAM_HH
 
-#include <iostream>
+#include <stdio.h>
 #include "string.hh"
 
 /// Midi outputfile
@@ -21,7 +21,7 @@ struct Midi_stream {
 
   void open ();
 
-  std::ostream* os_;
+  FILE *out_file_;
   String filename_string_;
 };
 

@@ -20,12 +20,12 @@
 Midi_stream::Midi_stream (String filename)
 {
   filename_string_ = filename;
-  os_ = open_file_stream (filename, std::ios::out|std::ios::binary);
+  out_file_ = fopen (filename.to_str0(), "wb");
 }
 
 Midi_stream::~Midi_stream ()
 {
-  close_file_stream (os_);
+  fclose (out_file_);
 }
 
 Midi_stream&
@@ -33,7 +33,10 @@ Midi_stream::operator << (String str)
 {
   Byte * b = str.get_bytes ();
   for (int sz = str.length (); sz--;)
-    *os_ << *b ++;
+    {
+      fputc (*b, out_file_);
+      b++;
+    }
   return *this;
 }
 
@@ -59,7 +62,10 @@ Midi_stream::operator << (Midi_item const& midi_c_r)
     {
       Byte * b = str.get_bytes ();
       for (int sz = str.length (); sz--;)
-	*os_ << *b++;
+	{
+	  fputc (*b, out_file_);
+	  b++;
+	}
     }
   
   return *this;

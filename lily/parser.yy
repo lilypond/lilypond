@@ -159,7 +159,6 @@ yylex (YYSTYPE *s,  void * v)
 %token ALIAS
 %token APPLY
 %token ARPEGGIO
-%token DYNAMICSCRIPT
 %token ACCEPTS
 %token ALTERNATIVE
 %token BAR
@@ -1398,17 +1397,6 @@ verbose_event:
 	EVENT_IDENTIFIER	{
 		$$ = unsmob_music ($1)->clone ();
 		$$->set_spot (THIS->here_input ());
-	}
-	| DYNAMICSCRIPT embedded_scm {
-		/*
-			TODO: junkme, use text-type == dynamic
-		*/
-		Music *d = MY_MAKE_MUSIC("TextScriptEvent");
-		SCM dyn = ly_symbol2scm ("dynamic");
-		d->set_mus_property ("text-type" , dyn);
-		d->set_mus_property ("text", $2);
-		d->set_spot (THIS->here_input ());
-		$$ = d;
 	}
 	| SPANREQUEST bare_int STRING {
 

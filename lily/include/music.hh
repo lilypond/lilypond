@@ -47,7 +47,7 @@ public:
   bool internal_is_music_type (SCM) const;
   
   virtual Pitch to_relative_octave (Pitch);
-
+  String name ()const;
   /// The duration of this piece of music
   virtual Moment get_length () const;
   virtual Moment start_mom () const;
