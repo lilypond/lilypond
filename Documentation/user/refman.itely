@@ -2153,6 +2153,9 @@ to note heads:
 	\property Voice.fingeringOrientations = #'(up right down)
 	<c-1 es-2 g-4 bes-5 > 4
 @end lilypond
+
+By using single note chords,  fingering instructions can be put close
+to note heads in monophonic music.
         
 @seealso
 

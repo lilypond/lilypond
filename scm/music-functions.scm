@@ -975,7 +975,7 @@ Rest can contain a list of beat groupings
 		 ((> (length notes2) 1) (put 'apart))
 		 (else
 		  (if
-		   (and (= (length pitches1) (length pitches2))
+		   (and (= (length pitches1) 1) (= (length pitches2) 1) 
 		    (< chord-threshold (ly:pitch-steps
 					(ly:pitch-diff (car pitches1) (car pitches2)))))
 			(put 'apart)
@@ -1000,6 +1000,9 @@ Rest can contain a list of beat groupings
 	  (analyse-time-step (1+ i1) (1+ i2) (1+ ri) new-active1 new-active2))
 	 )))))
 
+;; 
+  
+  
 
    (analyse-time-step 0 0  0 '() '())
 ;   (display result)
