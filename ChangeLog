@@ -1,3 +1,8 @@
+2002-05-17  Han-Wen  <hanwen@cs.uu.nl>
+
+	* scripts/lilypond-book.py (re_dict): fix regexps; don't combine ?
+	and * (as in "([^>]*)?")
+
 2002-05-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi: Update GCC, Flex and GUILE info.

@@ -27,11 +27,11 @@ More information on this topic can be found at the
 
 @section Downloading
 
-Even numbered versions are `stable'. The webpages for the stable
-version (1.4) reside @uref{http://www.lilypond.org/stable,the lilypond
-users site}. Big enhancements go into the latest odd numbered
-version (1.5), whose webpages are on
-@uref{http://www.lilypond.org/development, the lilypond development site}.
+Even numbered versions are `stable'. The webpages for the stable version
+(1.4) reside @uref{http://www.gnu.org/software/lilypond, on the GNU
+servers}. Big enhancements go into the latest odd numbered version
+(1.5), whose webpages are on @uref{http://www.lilypond.org/,the lilypond
+site}.
 
 @subsection Source code
 
@@ -338,7 +338,9 @@ file.
 @subsection Red Hat Linux
 
 Red Hat 7.x i386 RPMS are available from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.  For running on
+a Red Hat system you need these packages: guile, tetex, tetex-latex,
+tetex-dvips, libstdc++, python, ghostscript.
 
 You can also compile them yourself.  A spec file is in
 @file{make/out/lilypond.redhat.spec}. This file is distributed along
@@ -350,9 +352,6 @@ with the sources.  You can make the rpm by issuing
 	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 
 @end example 
-
-For running on a Red Hat system you need these packages: guile, tetex,
-tetex-latex, tetex-dvips, libstdc++, python, ghostscript.
 
 For compilation on a Red Hat system you need these packages, in
 addition to the those needed for running: glibc-devel, gcc-c++,
