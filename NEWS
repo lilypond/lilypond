@@ -53,7 +53,11 @@ exceptions.
 
 	R1*20^\markup { "GP" }
 
-** Ancient notation ... ?? ...  (Jurgen?)
+** Ancient notation now supports ligatures in Gregorian square neumes
+notation, roughly following the typographical style of the Liber
+hymnarius of Solesmes, published in 1983.  The line breaking and
+horizontal spacing algorithms however are still completely messed up
+by ligatures.
 
 ** Glissandi can now be printed using the zigzag style.
 
