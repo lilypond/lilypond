@@ -7020,6 +7020,9 @@ For the vertical placement, we have to look under
   support).  In this case, the direction signifies where to put the
   victim object relative to the support (left or right, up or down?)
 @end quotation
+
+@cindex padding
+@noindent
 below this description, the variable @code{padding} is described as
 @quotation
 @table @code
@@ -7359,7 +7362,12 @@ a markup object as second argument:
  c1^\markup { C \small \raise #1.0 \bold { "9/7+" }}
 @end lilypond
 The argument to @code{\raise} is the vertical displacement amount,
-measured in (global) staff spaces.
+measured in (global) staff spaces.  @code{\raise} and @code{\super}
+raise objects in relation to their surrounding markups. They cannot be
+used to move a single text up or down, when it is above or below a
+note, since the mechanism that positions it next to the note cancels
+any vertical shift. For vertical positioning, use @code{padding}
+and/or @code{extra-offset} properties.
 
 Other commands taking  single arguments include
 @table @code
@@ -7444,8 +7452,7 @@ their center lines:
 @end lilypond
 
 The markup mechanism is extensible.  Refer to
-@file{scm/new-markup.scm} for more information on extending the markup
-mode.
+@file{scm/new-markup.scm} for more information.
 
 
 
@@ -7463,6 +7470,8 @@ letters.  LilyPond does not account for kerning, so texts will be
 spaced slightly too wide.
 
 Syntax errors for markup mode are confusing.
+
+
 
 
 @node Global layout
