@@ -4,7 +4,7 @@
 
     texidoc = "@cindex Bars Always
 
-By setting @code{barAlways} and @code{defaultBarType,} you can automatically insert barlines everywhere."
+By setting @code{barAlways} and @code{defaultBarType}, barlines may be inserted automatically everywhere."
 
 }
 

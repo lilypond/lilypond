@@ -3,7 +3,7 @@
 % keep for now, although merging into beam-auto-override is a possibility.
 \header {
 	texidoc = "@cindex Auto Beaming 4/8
-You can override LilyPond's automatic beaming.
+You can override the automatic beaming settings.
 "
 }
 

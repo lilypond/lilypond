@@ -7,10 +7,8 @@
 \header {
     texidoc = "@cindex Invisible Notes
 @cindex Blank Notes
-You can suppress printing of LilyPond output.  This example shows you how to
-print invisible (or blank) notes.  This can be very useful when you want to
-do wierd tricks with LilyPond (especially with slurs, since you can't attach
-a slur to a rest or spacer rest).
+Invisible (or transparent) can be useful, when wierd tricks are needed; 
+especially, a slur cannot be attach to a rest or spacer rest.
 " }
 
 blanknotes = { \override NoteHead  #'transparent = ##t

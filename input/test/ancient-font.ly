@@ -3,7 +3,7 @@
 % different locations.
 \header {
 texidoc = "@cindex Ancient Font
-Here is a display of many (all?) symbols that are
+Here are shown many (all?) of the symbols that are
 included in LilyPond's support of ancient notation.
 "
 }

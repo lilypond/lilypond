@@ -3,7 +3,7 @@
 % for ancient-font.ly
 \header {
 texidoc="@cindex Ancient Time Signatures
-Should use old style.
+Time signatures may also be engraved in an old style.
 "
 }
 

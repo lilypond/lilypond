@@ -2,8 +2,9 @@
 \header {
     
 texidoc = "@cindex Blank Paper Tab
-Blank music paper, another example: empty staffs and a
-tablature staff. " }
+A blank music paper can be produced by using spacer rests, and removing
+@code{Bar_number_engraver}. Here is an empty staff with a tablature staff. 
+" }
 
 emptymusic = \notes { \repeat unfold 4  { s1\break }  \bar "|." }
 

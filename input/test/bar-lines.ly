@@ -2,7 +2,7 @@
 \version "2.1.26"
 \header {
     texidoc = "@cindex Bar Lines
-Different types of bar lines demonstrated.
+There a many types of bar lines available.
 " }
 % TODO: dashed "|", HJJ
 \score
