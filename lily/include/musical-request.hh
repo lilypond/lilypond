@@ -28,6 +28,7 @@ public:
   virtual Melodic_req *melodic() { return 0; }
   virtual Slur_req *slur() { return 0 ; }
   virtual Beam_req *beam() { return 0 ; }
+  virtual Abbreviation_beam_req* abbrev_beam() { return 0 ; }
   virtual Rhythmic_req*rhythmic() { return 0; }
   virtual Musical_script_req*musicalscript() { return 0; }
   virtual Text_req*text() { return 0; }
@@ -37,6 +38,7 @@ public:
   virtual Absolute_dynamic_req * absdynamic() { return 0; }
   virtual Tie_req * tie() { return 0; }
   virtual Span_dynamic_req * span_dynamic() { return 0; }
+  virtual Abbreviation_req* abbrev() { return 0; }
   REQUESTMETHODS(Musical_req, musical);
 };
 
@@ -62,6 +64,7 @@ class Skip_req  : public Rhythmic_req  {
 public:
   REQUESTMETHODS(Skip_req, skip);
 };
+
 struct Spacing_req :virtual Request {
   Moment next;
   Real distance;
@@ -69,6 +72,12 @@ struct Spacing_req :virtual Request {
   /* *************** */
   Spacing_req();
   REQUESTMETHODS(Spacing_req, spacing);
+};
+
+struct Abbreviation_req : public Musical_req {
+  REQUESTMETHODS (Abbreviation_req, abbrev);
+  Abbreviation_req ();
+  int type_i_;
 };
 
 class Blank_req  : public Spacing_req, Rhythmic_req  {
@@ -175,6 +184,18 @@ public:
   REQUESTMETHODS(Beam_req,beam);
 
   Beam_req();
+};
+
+/** 
+ Start / stop an abbreviation beam at this note. 
+ */
+class Abbreviation_beam_req : public Span_req  {
+public:
+  REQUESTMETHODS (Abbreviation_beam_req, abbrev_beam);
+
+  Abbreviation_beam_req ();
+
+  int type_i_;
 };
 
 /**

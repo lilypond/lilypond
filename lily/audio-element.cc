@@ -7,7 +7,25 @@
 */
 
 #include "audio-element.hh"
- 
+#include "debug.hh"
+
 IMPLEMENT_IS_TYPE_B(Audio_element);
+
 Audio_element::~Audio_element()
-{}
+{
+}
+
+void
+Audio_element::print () const
+{
+#ifndef NPRINT
+  DOUT << name () << "{ ";
+  do_print ();
+  DOUT << "}";
+#endif
+}
+
+void
+Audio_element::do_print ()const
+{
+}

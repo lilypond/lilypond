@@ -14,17 +14,18 @@
 
 class Key_performer : public Performer {
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Key_performer();
-    ~Key_performer();
+  TRANSLATOR_CLONE(Key_performer);
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  Key_performer();
+  ~Key_performer();
 
 protected:
-    void do_print() const;
-    virtual bool do_try_request (Request* req_l);
-    virtual void process_requests();
+  void do_print() const;
+  virtual bool do_try_request (Request* req_l);
+  virtual void do_process_requests();
 
 private:
-    Key_change_req* key_req_l_;
+  Key_change_req* key_req_l_;
 };
 
 #endif // KEY_PERFOMER_HH

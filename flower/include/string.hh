@@ -72,7 +72,7 @@ public:
   String (char c, int n = 1);
 
   String (int i , char const *fmt=0);
-  String ( double f , char const* fmt =0);
+  String (double f , char const* fmt =0);
   /// 'true' or 'false'
   String (bool);
 
@@ -87,20 +87,21 @@ public:
   /// deprecated; use ch_C()
   operator char const*() const { return ch_C(); }
     
-  String &operator =( String const & source);
+  String &operator =(String const & source);
 
   /// concatenate s
   void operator += (char const* s) { strh_ += s; }
   void operator += (String s);
 
-  operator bool () 
+  /// is the string empty?
+  operator bool () const
   {
     return length_i (); 
   }
   void append (String);
   void prepend (String);
 
-  char operator []( int n) const { return strh_[n]; }
+  char operator [](int n) const { return strh_[n]; }
 
   /// return n leftmost chars
   String left_str (int n) const;
@@ -185,7 +186,7 @@ operator  + (String s1, String  s2)
 }
 
 inline ostream &
-operator << ( ostream& os, String d)
+operator << (ostream& os, String d)
 {
   d.print_on (os);
   return os;

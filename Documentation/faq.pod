@@ -202,6 +202,21 @@ saves us a I<lot> of trouble.
 
 =head2 Running
 
+Q: I don't get midi-output, even if I use B<-M>
+
+A: Your \score should include a \midi block, eg.
+
+	\score {
+		\melodic { c c g g }
+		\paper {}	
+		\midi {
+			\output "myfile.mid";
+			\tempo 4=70;
+		}
+
+The B<-M> option was added to LilyPond because processing the \paper
+block is so slow.
+
 Q: I get 
 
 	can't load library 'libflower.so'

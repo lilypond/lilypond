@@ -74,7 +74,7 @@ Key_item::brew_molecule_p() const
 	Atom a (s);
 	a.translate ((c_position + pitch[i]) * inter, Y_AXIS);
 	Molecule m (a);
-	output->add_right (m);	
+	output->add_at_edge (X_AXIS, RIGHT, m);	
     }
   if (pitch.size()) 
     {
@@ -82,7 +82,7 @@ Key_item::brew_molecule_p() const
 	Interval (0, paper()->note_width ()),
 	Interval (0,0))));
 
-	output->add_right (m);
+	output->add_at_edge (X_AXIS, RIGHT, m);
     }
   return output;
 }

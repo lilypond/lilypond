@@ -16,6 +16,7 @@
 
 class Lyric_performer : public Performer {
 public:
+  TRANSLATOR_CLONE(Lyric_performer);
     DECLARE_MY_RUNTIME_TYPEINFO;
     Lyric_performer();
     ~Lyric_performer();
@@ -23,7 +24,7 @@ public:
 protected:
     void do_print() const;
     virtual bool do_try_request (Request* req_l);
-    virtual void process_requests();
+    virtual void do_process_requests();
 
 private:
     Array<Lyric_req*> lreq_arr_;

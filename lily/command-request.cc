@@ -123,17 +123,6 @@ Clef_change_req::Clef_change_req (String s)
 {
   clef_str_ = s;
 }
-/* *************** */
-
-IMPLEMENT_IS_TYPE_B1(Group_feature_req,Command_req);
-
-void
-Group_feature_req::do_print() const
-{
-#ifndef NPRINT
-  DOUT << type_str_ << "=" << value_str_;
-#endif
-}
 
 /* *************** */
 

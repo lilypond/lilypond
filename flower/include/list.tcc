@@ -80,7 +80,7 @@ void
 List<T>::add (T const & thing, Cursor<T> &after_me)
 {
   if (!size_) {		// not much choice if list is empty
-      bottom_ = top_ = new Link<T>( thing);
+      bottom_ = top_ = new Link<T>(thing);
 	if (!after_me.ok())
 	    after_me = bottom();
     }
@@ -102,7 +102,7 @@ List<T>::insert (T const & thing, Cursor<T> &before_me)
 {
   if (!size_) 
     {
-	bottom_ = top_ = new Link<T>( thing);
+	bottom_ = top_ = new Link<T>(thing);
 	if (!before_me.ok())
 	    before_me = top();
 	

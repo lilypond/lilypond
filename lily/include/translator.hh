@@ -13,30 +13,103 @@
 #include "string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
+#include "scalar.hh"
+#include "dictionary.hh"
+#include "parray.hh"
+#include "input.hh"
+
+#define TRANSLATOR_CLONE(c)	VIRTUAL_COPY_CONS(c, Translator)
 
 /** Make some kind of #Element#s from Requests. Elements are made by
   hierarchically grouped #Translator#s
   */
-class Translator {
+class Translator : public Input {
+  Dictionary<Scalar> properties_dict_;
 public:
-  String id_str_;
-    
-  int iterator_count_;
-    
-  virtual Global_translator *global_l() { return 0; }
+  Music_output_def * output_def_l_;
+  String  type_str_;
 
-  virtual void print() const;
-    
-  /// Score_register = 0, Staff_registers = 1, etc)
-  virtual int depth_i() const=0;
-  virtual bool is_bottom_engraver_b() const { return false; }
-  virtual bool try_request (Request*);
-  virtual Translator *find_get_translator_l (String name, String id)=0;
-  virtual Translator *ancestor_l (int l=1)=0;
-  virtual ~Translator(){}
-  DECLARE_MY_RUNTIME_TYPEINFO;
-  Translator();
-  virtual Translator *get_default_interpreter()=0;
+  bool is_alias_b (String) const;
+  
+
+  DECLARE_MY_RUNTIME_TYPEINFO;  
+  TRANSLATOR_CLONE(Translator);
+  Translator (Translator const &);
+  Translator ();
+  virtual ~Translator ();
+  
+  Translator_group * daddy_trans_l_ ;
+ 
+  virtual void add_processing ();
+  void print () const;
+  
+  /**
+    try to fit the request in this engraver
+
+    @return
+    false: not noted,  not taken.
+
+    true: request swallowed. Don't try to put the request elsewhere.
+
+    */
+  bool try_request (Request*);
+  void pre_move_processing();
+  void creation_processing ();
+  void process_requests();
+  void post_move_processing();
+  void removal_processing();
+  /**
+    ask daddy for a feature
+    */
+  Scalar get_property (String type_str);
+  void set_property (String var_name, Scalar value);
+  Music_output_def *output_def_l () const;
+  
+  virtual Moment now_moment () const;  
+  virtual Engraver *engraver_l () { return 0; }
+  virtual Performer *performer_l() { return 0; }
+  virtual Translator_group * group_l () { return 0; }
+
+protected:
+   enum { 
+    ORPHAN,
+    VIRGIN,
+    CREATION_INITED,
+    MOVE_INITED,
+    ACCEPTED_REQS,
+    PROCESSED_REQS,
+    ACKED_REQS,
+    MOVE_DONE
+  } status;
+
+  /*    
+	@see{try_request}
+	Default: always return false
+	*/
+  virtual bool do_try_request (Request *req_l);
+  virtual void do_print () const;
+  virtual void do_pre_move_processing(){}
+  virtual void do_post_move_processing(){}
+  virtual void do_process_requests () {}
+  virtual void do_creation_processing() {}
+  virtual void do_removal_processing() {}
 };
+
+/**
+  A macro to automate administration of translators.
+ */
+#define ADD_THIS_TRANSLATOR(c)				\
+struct c ## init {					\
+    c ## init() {					\
+         Translator *t = new c;\
+        t-> type_str_ = c::static_name ();\
+	add_translator (t);\
+    }							\
+} _ ## c ## init;
+
+extern Dictionary<Translator*> *global_translator_dict_p;
+void add_translator (Translator*trans_p);
+
+Translator*get_translator_l (String s);
 
 #endif // TRANSLATOR_HH

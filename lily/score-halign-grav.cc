@@ -21,8 +21,8 @@ Score_horizontal_align_engraver::do_pre_move_processing()
 {
   if (halign_p_) 
     {
-	typeset_element (halign_p_);
-	halign_p_ =0;
+      typeset_element (halign_p_);
+      halign_p_ =0;
     }
 	
 }
@@ -32,22 +32,22 @@ Score_horizontal_align_engraver::acknowledge_element (Score_elem_info i)
 {
   Engraver* reg = i.origin_grav_l_arr_[0];
   if (reg->is_type_b (
-	Score_align_engraver::static_name()))
-  {
-	Score_align_engraver * align_grav_l = (Score_align_engraver*) reg;
-	if (!halign_p_) 
-	  {
-	    halign_p_ = new Break_align_item;
-	    halign_p_->breakable_b_ = true;
-	    announce_element (Score_elem_info (halign_p_,0));
-	  }
-	Item * it = i.elem_l_->item();
-	if (align_grav_l->type_ch_C_ == Bar::static_name())
-	    halign_p_->center_l_ = it;
+		      Type_align_engraver::static_name()))
+    {
+      Type_align_engraver * align_grav_l = (Type_align_engraver*) reg;
+      if (!halign_p_) 
+	{
+	  halign_p_ = new Break_align_item;
+	  halign_p_->breakable_b_ = true;
+	  announce_element (Score_elem_info (halign_p_,0));
+	}
+      Item * it = i.elem_l_->item();
+      if (align_grav_l->type_ch_C_ == Bar::static_name())
+	halign_p_->center_l_ = it;
 	
-	halign_p_->add (it, align_grav_l->priority_i_);
+      halign_p_->add (it, align_grav_l->priority_i_);
     }
 }
 
 IMPLEMENT_IS_TYPE_B1(Score_horizontal_align_engraver,Engraver);
-ADD_THIS_ENGRAVER(Score_horizontal_align_engraver);
+ADD_THIS_TRANSLATOR(Score_horizontal_align_engraver);

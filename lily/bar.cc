@@ -65,7 +65,7 @@ Bar::do_pre_processing()
   /*
     span_score_bar needs dims, so don't do
   
-    transparent_b_ = empty_b_ = (type_str_ == "");
+    transparent_b_ = empty_b_ = (!type_str_);
     
     */
 }

@@ -4,7 +4,9 @@ CodingStyle - standards while programming for GNU LilyPond
 
 =head1 DESCRIPTION
 
-We use these standards while doing programming for GNU LilyPond
+We use these standards while doing programming for GNU LilyPond.  If
+you do some hacking, we appreciate it if you would follow this rules,
+but if you don't, we still like you.
 
 Functions and methods do not return errorcodes, but use assert for
 checking status. 
@@ -297,6 +299,12 @@ use no, or pick less silly, abbrvs.
 
 use non-ambiguous postfixes C<identifier_name_type_modifier[_modifier]>
 
+=item *
+
+There is no need for Hungarian if the scope of the variable is small,
+ie. local variables, arguments in function definitions (not
+declarations).
+
 =back
 
 Macros, C<enum>s and C<const>s are all uppercase,
@@ -396,6 +404,16 @@ reference
 
 =over 5
 
+=head2 Adjective
+
+Adjectives such as global and static should be spelled out in full.
+They come before the noun that they refer to, just as in normal english.
+
+foo_global_i: a global variable of type int commonly called "foo".
+
+static class members do not need the static_ prefix in the name (the
+Class::var notation usually makes it clear that it is static)
+
 =item C<loop_i>
 
 Variable loop: an integer
@@ -427,6 +445,18 @@ Variable bar: an C<Int*> that you must not delete
 =back
 
 Generally default arguments are taboo, except for nil pointers.
+
+The naming convention can be quite conveniently memorised, by
+expressing the type in english, and abbreviating it
+
+	static Array<int*> foo
+
+C<foo> can be described as "the static int-pointer user-array", so you get
+
+	foo_static_l_arr
+	
+
+
 
 =head1 MISCELLANEOUS
 

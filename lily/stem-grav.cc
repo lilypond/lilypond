@@ -11,11 +11,13 @@
 #include "stem.hh"
 #include "musical-request.hh"
 #include "duration-convert.hh"
+#include "misc.hh"
 
 Stem_engraver::Stem_engraver()
 {
-  stem_p_ =0;
-  dir_ =CENTER;
+  abbrev_req_l_ = 0;
+  stem_p_ = 0;
+  dir_ = CENTER;
 }
 
 void
@@ -28,7 +30,11 @@ Stem_engraver::acknowledge_element(Score_elem_info i)
 	{
 	  Rhythmic_req * r = i.req_l_->musical()->rhythmic();
 	  stem_p_ = new Stem;
-	  stem_p_->flag_i_ = Duration_convert::type2_i(r->duration_.durlog_i_);
+	  int durlog_i = r->duration_.durlog_i_;
+	  stem_p_->flag_i_ = Duration_convert::type2_i(durlog_i);
+	  if (abbrev_req_l_)
+	    stem_p_->abbrev_flag_i_ = intlog2 (abbrev_req_l_->type_i_) 
+	      - (durlog_i>? 2);
 	  announce_element (Score_elem_info (stem_p_, r));
 	}
       stem_p_->add (h);
@@ -40,20 +46,31 @@ Stem_engraver::do_pre_move_processing()
 {
   if (stem_p_)
     {
+      dir_ = (Direction) int(get_property ("ydirection"));
       if (dir_)
 	stem_p_->dir_ = dir_;
-      
+
       typeset_element(stem_p_);
-      stem_p_ =0;
+      stem_p_ = 0;
     }
+  abbrev_req_l_ = 0;
 }
 
-void
-Stem_engraver::set_feature (Feature i)
+bool
+Stem_engraver::do_try_request (Request* r)
 {
-  if (i.type_ == "vdir")	
-    dir_ = (Direction) int(i.value_);
+  Musical_req* mus_l = r->musical ();
+  if (!mus_l)
+    return false;
+  
+  Abbreviation_req* a = mus_l->abbrev ();
+  if (!a)
+    return false;
+
+  abbrev_req_l_ = a;
+
+  return true;
 }
 
 IMPLEMENT_IS_TYPE_B1(Stem_engraver, Engraver);
-ADD_THIS_ENGRAVER(Stem_engraver);
+ADD_THIS_TRANSLATOR(Stem_engraver);

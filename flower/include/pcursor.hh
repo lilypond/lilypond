@@ -46,7 +46,7 @@ public:
   PCursor<T> operator-=(int i) { return Cursor<void*>::operator-=(i); }    
   PCursor<T> operator -(int no) const { return Cursor<void*>::operator-(no);}
   int operator -(PCursor<T> op) const { return Cursor<void*>::operator-(op);}
-  PCursor<T> operator +( int no) const {return Cursor<void*>::operator+(no);}    PCursor (const Link_list<T> & l) : Cursor<void*> (l) {}
+  PCursor<T> operator +(int no) const {return Cursor<void*>::operator+(no);}    PCursor (const Link_list<T> & l) : Cursor<void*> (l) {}
   PCursor() : Cursor<void*> () {}
   PCursor (const Cursor<void*>& cursor) : Cursor<void*>(cursor) { }
   void* vptr() const { return *((Cursor<void*> &) *this); }

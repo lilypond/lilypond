@@ -12,7 +12,7 @@ copyright		public domain
 Tested Features		lyrics and chords
 %}
 
-\version "0.1.1";
+\version "0.1.5";
 
 melodie = \melodic {
         \clef"violin";
@@ -27,8 +27,7 @@ melodie = \melodic {
         f4^"F" f |      e^"C" e |       d^"G7" d |      c2^"C"   |
 }
 
-texte = \lyric{ 
-         
+text = \lyric{ 
         \textstyle "italic";
         Ah!4 vous dir- ai_- je ma man2
         Ce4 qui cau- se mon tour- ment2
@@ -40,8 +39,8 @@ texte = \lyric{
 }
 
 \score {
-        <  \melodic <  \id "Piano" "";  \melodie >
-           \lyric   < \id "Lyric" "";  \texte >
+        <  \melodic \type Staff \melodie
+           \lyric   \type Lyrics \text
         >
         \paper {  }
 }

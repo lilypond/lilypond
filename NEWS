@@ -1,3 +1,49 @@
+
+pl 13
+	- big Rest/notehead rewrite:
+	  * separated Rest, Note_head and Dots
+	  * Dot_column: dots are now chord-wise aligned 
+	  * Rhythmic_head is base for Rest, Note_head
+	  * Merged Note_column and Rest_column
+	  * Rest_engraver
+	- grand Engraver/Translator/Performer rewrite.
+	  * properties:  \property voice.dir = -1 (mudela 0.1.3)
+	  * Input_translator junked, now Translators are generated
+by the parser (mudela 0.1.4)
+	  * Translator changing: \translator Staff=oboesolo
+	  * Translator preselect: \type Staff=bla < c4 >. (mudela 0.1.5)
+	  * Engraver/Performer now derived of Translator.
+	  * Engraver_group_engraver/ Performer_group_performer derived of
+	Translator_group
+	  * renamed: Voice -> Thread, Voice_group -> Voice
+	- renamed Audio_score to Performance
+	- junked mididef statics
+	- Audio debug output
+	- bf: excess [] in scsi
+	- bf: swallow \skips
+	- bf: don't crash on infinite dims
+	- renamed wohltemperirt to wtk1-fugue2
+	- bf: address in GPL
+	- bf: errors in stdin
+	- bf: stop if errors in init files
+	- bf: move stem too when doing collisions
+	- Molecule::add_XXXX -> Molecule::add_at_edge ()
+	- doco updeet: why no midi FAQ, index, CodingStyle hungarian
+
+pl 12.jcn3
+	- try at better dynamic font, copied from cmbxti10: mf/*
+	- typesetting abbreviation beams; abbreviation-*
+	- some simple abbrev fixes + code cleanup (dank je, lieverd)
+	- typesetting simple abbreviations: c4:16 === [c16 c c c]
+
+pl 11mb
+	- Support also for \longa in duration-convert.cc, init/ and tex/
+	  files. (MB)
+
+********
+sep 3
+
+
 pl 12
 	- bf: don't redefine tex primitives like \textfont and  \mathfont
 	- nicer broken slurs (?)
@@ -5,6 +51,7 @@ pl 12
 	- robustness in Lookup::*slur
 	- bf: mi2mu: warn if 0-length string in midi-file
 	- output id-footer
+
 ********
 sep 1
 

@@ -9,6 +9,8 @@ packages. Feel free to add info (and mail it to me).
 
 =head2 Free packages (with source)
 
+=over 4
+
 =item Rosegarden, http://www.bath.ac.uk/~masjpf/rose.html
 
 A Notation editor/Sequencer for X (windows95 port underway). Outputs musictex.
@@ -43,18 +45,20 @@ A Preprocessor for MusiXTeX by Don Simons
 =item Musictex, http://www.gmd.de/Misc/Music/
 
 MusicTeX is a macro package for TeX to typeset polyphonic or
-instrumental music.  It is originally written by Daniel Taupin, Ross
-Mitchell and Andreas Egler. 
+instrumental music.  It was written by Daniel Taupin.  Now obsoleted
+by MusiXTeX and OpusTeX.
 
 It includes a full-featured set of fonts.
 
 =item MusiXTeX, http://www.gmd.de/Misc/Music/
 
-Daniel Taupin's branch of MusicTeX.
+Newer version of MusicTeX.  It also contains contributions by Ross
+Mitchell and Andreas Egler.  Daniel Taupin's branch still carries this
+name.
 
-=item OpusTeX, http://www.inf.ethz.ch/department/Department.html/achermann/opustex
+=item OpusTeX, http://www.inf.ethz.ch/people/achermann/opustex
 
-Andreas Egler's branch of MusicTeX.
+Andreas Egler's branch of MusiXTeX.
 
 =item ABC2MTeX, http://www.gre.ac.uk/~c.walshaw/abc
 
@@ -71,14 +75,22 @@ available on request. (?)
 A TeX macro package for typesetting single-staff music by Angelika
 Schofer & Andrea Steinbach. With some fonts
 
+=back
 
 =head2 Free (zero cents)
+
+=over 4
 
 =item Calliope, http://www.cl.cam.ac.uk/users/wfc/
 
 A NeXT package by William F. Clocksin. Requires Adobe fonts.
 
+
+=back
+
 =head2 Proprietary
+
+=over 4
 
 =item Scribe, http://adu1.adu.lattrobe.edu.au/Music/Scribe.html
 
@@ -99,7 +111,8 @@ Notation editor for W95 and Mac
 
 =item Sibelius, http://www.acorn.co.uk/developers/sibelius/Home
 
-Notation/engraving on Acorn machines. 
+Notation editor on Acorn machines.  Their developers call it ``best
+notation program available''.
 
 =item Finale
 
@@ -116,6 +129,20 @@ A shareware windows package
 =item Encore
 
 =item Musicator
+
+=item WolfGang, http://www.unige.ch/lettres/armus/music/wolfgang.html
+
+=item Amadeus, Jerker.Elsgard@abc.se
+
+Professional and expensive (DM 4000,--) engraving.  Designed as a
+batch program (like LilyPond).  It is aimed at publishers. Its history
+is more than fifteen years and Amadeus has been running under
+different Unix clones.  It uses MIDI-keyboard input
+
+
+
+=back
+
 
 =head2 Unknown
 

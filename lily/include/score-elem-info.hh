@@ -28,8 +28,4 @@ struct Score_elem_info {
 };
 
 
-struct Feature {
-    Scalar type_; 
-    Scalar value_;
-};
 #endif // STAFFELEMINFO_HH

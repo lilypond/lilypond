@@ -10,14 +10,17 @@
 #ifndef GLOBAL_TRANSLATOR_HH
 #define GLOBAL_TRANSLATOR_HH
 
-#include "translator.hh"
+#include "translator-group.hh"
 #include "pqueue.hh"
 
-class Global_translator : public virtual Translator {
+class Global_translator : public virtual Translator_group{
   PQueue<Moment> extra_mom_pq_;
 public:
+  TRANSLATOR_CLONE(Global_translator);
   Moment last_mom_;
+  Moment now_mom_;
   Global_translator();
+
   int moments_left_i() const;
   void modify_next (Moment&);
   void add_moment_to_process (Moment);
@@ -27,13 +30,11 @@ public:
   virtual void process() {}
   virtual void finish() {}
   virtual void start() {}
-    
+
   DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
-    
+  virtual Moment now_moment () const;
   virtual Global_translator *global_l() { return this; }
-  virtual int depth_i() const;
-  virtual Translator *ancestor_l (int);
 };
 
 

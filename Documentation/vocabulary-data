@@ -31,6 +31,7 @@ bémol:flat:::mol:
 cadence:cadence::::
 cadence harmonique:harmonic cadence::::
 cadence mélodique:melodic cadence::::
+:cue-notes:Stichnoten::stichnoten:
 caractère:character::::
 chaîne de trilles:chain of trills::::
 chevron:chevron::::
@@ -45,7 +46,7 @@ clé de sol:treble clef::::
 comma:comma::::
 comma enharmonique::::
 comma pythagoricien::::
-comma syntonique::::
+comma syntonique: : : : : 
 consonance:consonant interval; consonance:::consonant:
 contralto:contralto::::
 contre-temps:contro-time::::
@@ -53,28 +54,28 @@ contre-temps irrégulier:irregular contro-time::::
 contre-temps régulier:regular contro-time::::
 coulé:slur:::binding, bindingsboog:
 courbe rythmique:rythmic curve::::
-cresendo:opening angular bracket::::
+:opening angular bracket::::cresendo
 croche:eighth note::::
-decrescendo:closing angular bracket::::
+:closing angular bracket::::decrescendo
 degré [de la gamme]:degree [of the scale]::::
 demi-pause:half rest::::
-demi-soupir:eighth rest::::
-demi-ton:semitone::::
+demi-soupir:eighth rest:::achtste rust:
+demi-ton:semitone:::halve toon:
 demi-ton chromatique:chromatic semitone::::
 demi-ton diatonique:diatonic semitone::::
-diapason:pitch pipe; tuning fork::::
+diapason:pitch pipe; tuning fork:::stemfluitje; stemvork:
 diminué (intervalle):diminished (interval)::::
 dissonance:dissonant interval; dissonance::::
-dièse:sharp::::
+dièse:sharp:::kruis:
 do:C::::
 do central:middle C:::::
 doigté:::::
 doigté de pédale:::::
-dominante:dominant::::
+dominante:dominant:::dominant:
 double barre:double bar line::::
-double bémol:double flat::::
+double bémol:double flat:::dubbelmol:
 double croche:sixteenth note::::
-double dièse:double sharp::::
+double dièse:double sharp:::dubbelkruis:
 double triolet:double triplet::::
 duolet:duplet::::
 durée:duration::::
@@ -86,13 +87,13 @@ extension d'intervalle:extension of interval::::
 fa:F::::
 figure de note:kind of note::::
 figure de silence:kind of rest::::
-fioriture:cadenza::::
+fioriture::::cadens:cadenza
 forme du mode mineur ancien:ancient form (diatonic minor scale)::::
 forme harmonique:harmonic form (diatonic minor scale)::::
 forme mélodique:melodic form (diatonic minor scale)::::
-gamme:scale::::
-gamme chromatique:chromatic scale::::
-gamme diatonique majeure:diatonic major scale::::
+gamme:scale:::toonladder:
+gamme chromatique:chromatic scale:::chromatische toonladder:
+gamme diatonique majeure:diatonic major scale:::diatonische majeur toonladder:
 gamme diatonique mineure:diatonic minor scale::::
 gammes enharmoniques:enharmonic scales::::
 gammes relatives:relative scales::::
@@ -100,7 +101,7 @@ genre chromatique:chromatic type::::
 genre diatonique:diatonic type::::
 genre enharmonique:enharmonic type::::
 groupe irrégulier:irregular group::::
-grupetto:turn; gruppetto::::
+grupetto:turn; gruppetto:::dubbelslag:
 hauteur:pitch::::
 huitième de soupir:thirty-second rest::::
 incise:motive::::
@@ -136,7 +137,8 @@ mode majeur:major mode::::
 mode mineur:minor mode::::
 modulation:modulation::::
 mordant:mordent::::
-mouvement:tempo; movement::::
+:::::
+mouvement:tempo; movement:::deel:
 mouvement conjoint:conjunct movement::::
 mouvement disjoint:disjunct movement::::
 mouvement lent:slow tempo::::
@@ -154,17 +156,18 @@ notes enharmoniques:enharmonic notes::::
 nuance:shading::::
 octave:octave::::
 ornement:embellishment; accessory::::
-partition:score::::
+:part:::partij:
+partition:score:::partituur:
 pause:whole rest::::
 phrase:phrase::::
 phrasé:phrasing::::
 pizzicato:dash over/below::::
-point:dot::::
+point:dot:::punt:
 point d'orgue:pause::::
 point et liaison combinés:dot and curved line combined::::
 pointillés::::
 portamento:underline over/below::::
-portée:staff::::
+portée:staff:::(noten)balk; partij:
 portées:staves::::
 quadruple croche:sixty-fourth note::::
 quart de soupir:sixteenth rest::::
@@ -176,13 +179,13 @@ renversement d'intervalle:inversion of interval::::
 renvoi:return sign::::
 respiration:artificial rest::::
 :double whole note::breve:brevis:breve
-ronde:whole note::::
-rythme:rythm::::
+ronde:whole note:::hele noot:
+rythme:rythm:::ritme:
 ré:D::::
-seconde:second::::
+seconde:second::::secunde
 seizième de soupir:sixty-fourth rest::::
 sensible:leading note::::
-septième:seventh::::
+septième:seventh:::septiem:septime
 sextolet:sextuplet::::
 si:B::::
 signes indicateurs de nuance:shading signs::::
@@ -190,17 +193,17 @@ silence:rest::::
 sixain:sextuplet::::
 sixte:sixth::::
 sol:G::::
-soprano:soprano::::
+soprano:soprano:::sopraan:
 soupir:quarter rest::::
 sous-dominante:subdominant::::
 sous-tonique:subtonic::::
-staccato:dot over/below::::
+:dot over/below::::staccato
 sus-dominante:superdominant::::
 sus-tonique:supertonic::::
-syncope:syncopation; upbeat::::
+syncope:syncopation; upbeat:::syncope:
 syncope irrégulière:irregular syncopation::::
 syncope régulière:regular syncopation::::
-temps:beat::::
+temps:beat:::tel:
 temps binaire:binary beat::::
 temps faible:weak beat::::
 temps fort:strong beat::::

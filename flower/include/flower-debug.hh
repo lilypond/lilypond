@@ -15,7 +15,7 @@
 extern Dstream *flower_dstream;
 extern bool flower_check_debug;
 #ifdef NPRINT
-#define	fdebug if ( 0) *flower_dstream
+#define	fdebug if (0) *flower_dstream
 #else
 #define fdebug if (flower_check_debug) \
 	flower_dstream->identify_as (__PRETTY_FUNCTION__)

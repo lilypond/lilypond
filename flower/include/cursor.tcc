@@ -9,7 +9,7 @@ template<class T>
 Cursor<T>::backspace()
 {
   Cursor<T> c (*this);
-  if ( c.ok())
+  if (c.ok())
 	c--;        
   list_.remove (*this);
 }
@@ -19,7 +19,7 @@ template<class T>
 Cursor<T>::del()
 {
   Cursor<T> c (*this);
-  if ( c.ok())
+  if (c.ok())
 	c++;
   list_.remove (*this);    
   *this = c;
@@ -28,7 +28,7 @@ Cursor<T>::del()
 
 template<class T>
 Cursor<T> 
-Cursor<T>::operator -=( int j)    
+Cursor<T>::operator -=(int j)    
 {
   while (j--)
 	(*this)--;
@@ -36,7 +36,7 @@ Cursor<T>::operator -=( int j)
 }
 template<class T>
 Cursor<T> 
-Cursor<T>::operator +=( int j)    
+Cursor<T>::operator +=(int j)    
 {
   while (j++)
 	(*this)++;
@@ -45,7 +45,7 @@ Cursor<T>::operator +=( int j)
 
 template<class T>
 Cursor<T> 
-Cursor<T>::operator +( int i) const    
+Cursor<T>::operator +(int i) const    
 {
   Cursor<T> r = *this;
 
@@ -60,7 +60,7 @@ Cursor<T>::operator +( int i) const
 
 template<class T>
 Cursor<T>
-Cursor<T>::operator -( int i) const
+Cursor<T>::operator -(int i) const
 {
   Cursor<T> r = *this;
   if (i<0)

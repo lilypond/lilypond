@@ -10,4 +10,4 @@
 
 
 IMPLEMENT_IS_TYPE_B1(Swallow_performer, Performer);
-ADD_THIS_PERFORMER(Swallow_performer);
+ADD_THIS_TRANSLATOR(Swallow_performer);

@@ -6,7 +6,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 #include "interval.hh"
-#include "axis-group.hh"
+#include "axis-group-administration.hh"
 #include "score-elem.hh"
 #include "debug.hh"
 
@@ -35,9 +35,13 @@ void
 Axis_group_administration::add_element (Score_elem*e,
 					Axis_group_element*g, Axis a1, Axis a2)
 {
-  assert (! e->axis_group_l_a_[a1] && !e->axis_group_l_a_[a2]);
-  e->axis_group_l_a_[a1] = g;
-  e->axis_group_l_a_[a2] = g;    
+  Axis_group_element *& g1=e->axis_group_l_a_[a1];
+  Axis_group_element *& g2 = e->axis_group_l_a_[a2];
+  
+  assert (!g1 || g1 == g);
+  assert (!g2 || g2 == g);
+  g1 = g;
+  g2 = g;
   elem_l_arr_.push (e);
 }
 

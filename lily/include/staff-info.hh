@@ -17,7 +17,6 @@ struct Staff_info {
     int *c0_position_i_l_;
     Staff_symbol*staff_sym_l_;
     
-    /// when is now?
     Time_description const *time_C_;
     Rhythmic_grouping const *rhythmic_C_;
     Score_column *musical_l_;
@@ -26,7 +25,6 @@ struct Staff_info {
     ///
     bool break_allowed_b_;
     Score * score_l_;
-    Moment when();
     Score *score_l();
     Paper_column * command_pcol_l();
     Score_column* musical_l();

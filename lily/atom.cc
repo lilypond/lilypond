@@ -38,15 +38,25 @@ Atom::Atom (Symbol s)
 String
 Atom::TeX_string() const
 {
+  String tex_str = sym_.tex;
+  Offset off = off_;
+
   /* infinity checks. */
-  assert (abs (off_.x()) < 100 CM);
-  assert (abs (off_.y()) < 100 CM);
-  
+  for (int a =X_AXIS; a < NO_AXES; a++)
+    {
+      Axis ax = (Axis)a;
+      if (abs (off[ax]) >= 100 CM)
+	{
+	  warning ("ridiculous dimension " + axis_name_str (ax)  + ", " 
+		   +print_dimen(off[ax]));
+	  off[ax] = 0.0;
+	  tex_str += "\errormark"; 
+	}
+    }
   // whugh.. Hard coded...
-  String s ("\\placebox{%}{%}{%}");
-  Array<String> a;
-  a.push (print_dimen (off_.y()));
-  a.push (print_dimen (off_.x()));
-  a.push (sym_.tex);
-  return substitute_args (s, a);
+  String s ("\\placebox{");
+  s += print_dimen (off[Y_AXIS])+"}{";
+  s += print_dimen (off[X_AXIS]) + "}{";
+  s += tex_str + "}";
+  return s;
 }

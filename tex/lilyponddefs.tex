@@ -66,6 +66,7 @@
         \noteheight=5pt
         \staffrulethickness=0.4pt
         \musixtwentyfonts
+        \font\textmusic=cmmi12
         \musixcalc
 }
 
@@ -75,8 +76,15 @@
         \notewidth=5pt
         \noteheight=4pt
         \musixsixteenfonts
+        \font\textmusic=cmmi10
         \musixcalc
 }
+
+\def\textsharp{\raise.4ex\hbox{\textmusic\char"5D}}
+\def\textflat{\raise.4ex\hbox{\textmusic\char"5B}}
+\def\flt{\raise.2ex\hbox{\mus\char"5B}}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % do derivative calcs
@@ -88,22 +96,25 @@
         \divide\interstaffrule by 4
 }
 
-% dynamics take extra kerning
-\def\dyn{\dynfont}
-\def\kdynf{\dynfont f\kern-.1ex}
-\def\kdynm{\dynfont m\kern-.15ex}
-\def\kdynp{\dynfont p\kern-.15ex}
 
+\def\kdynf{{\dynfont \char0\kern-.2ex}}
+\def\kdynm{{\dynfont \char1\kern-.18ex}}
+\def\kdynp{{\dynfont \char2\kern-.08ex}}
+\def\kdyns{{\dynfont \char3\kern-.22ex}}
+\def\kdynz{{\dynfont \char4\kern-.2ex}}
 
-\def\dynp{\dynfont p}
+\def\dynp{\kdynp}
 \def\dynpp{\dynp\kdynp}
 \def\dynppp{\dynpp\kdynp}
-\def\dynmp{\dynfont m\kdynp}
-\def\dynmf{\dynfont m\kdynf}
-\def\dynf{\dynfont f}
+\def\dynmp{\kdynm\kdynp}
+\def\dynmf{\kdynm\kdynf}
+\def\dynf{\kdynf}
 \def\dynff{\dynf\kdynf}
 \def\dynfff{\dynff\kdynf}
 
+\def\dynfp{\kdynf\kern.35ex\kdynp}
+\def\dynsf{\kdyns\kdynf}
+\def\dynsfz{\dynsf\kern.3ex\kdynz}
 
 \input taupindefs
 
@@ -228,6 +239,7 @@
 % big fat marks, if errors are detected.
 \def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
 \def\scorelineerrormark{\placebox{0pt}{-10pt}{\bf L!}}
+\def\errormark{{\bf E!}}
 \def\unknown{{\bf u}}
 
 \def\postheader{}
@@ -245,3 +257,5 @@
         {\hfil \LilyIdString
         }\else{foo\hfil\the\pageno\hfil}\fi}}
 \fi
+
+ 

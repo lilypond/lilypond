@@ -175,7 +175,7 @@ public:
 	size_--;
     }
     // quicksort.
-    void sort (int (*compare)( T const&,T const&),
+    void sort (int (*compare)(T const&,T const&),
 	       int lower = -1, int upper = -1) {
 	if (lower < 0) {
 	    lower = 0 ;

@@ -17,7 +17,7 @@ EndMudelaHeader
 % (maybe even sooner :-)
 %
 
-\version "0.1.1";
+\version "0.1.5";
 
 alto = \melodic{ 
 	
@@ -39,7 +39,7 @@ alto = \melodic{
 %33
 			[ ) c8 c-. ] c4. c-. c4 
 		\group "+bla";
-		 \stem  1 ;[ c16^"div." c16 c16 c16 ] c4 c2 
+		 \stemup[ c16^"div." c16 c16 c16 ] c4 c2 
 		\group "-";
 	  	}
 %30:2
@@ -68,7 +68,7 @@ alto = \melodic{
 	% 
 			\octave  'c ;
 			\textstyle "italic";
-			\stem  -1 ;
+			\stemdown
 			[ as16 \ff as16 as16 as16 ] as4_"simile" as2
 			\textstyle "roman";
 			\group "-";

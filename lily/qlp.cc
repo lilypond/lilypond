@@ -34,20 +34,20 @@ Vector
 Mixed_qp::solve (Vector start) const 
 {
   if (!dim())
-	return Vector (0);
+    return Vector (0);
   
   print();
   Ineq_constrained_qp pure (*this);
   
   for  (int i= eq_cons.size()-1; i>=0; i--) 
     {
-	pure.eliminate_var (eq_cons[i], eq_consrhs[i]);
-	start.del (eq_cons[i]);
+      pure.eliminate_var (eq_cons[i], eq_consrhs[i]);
+      start.del (eq_cons[i]);
     }
   Vector sol = pure.solve (start);
   for (int i= 0; i < eq_cons.size(); i++) 
     {
-	sol.insert (eq_consrhs[i],eq_cons[i]);
+      sol.insert (eq_consrhs[i],eq_cons[i]);
     }
   return sol;
 }
@@ -59,10 +59,10 @@ Ineq_constrained_qp::assert_solution (Vector sol) const
   Array<int> binding;
   for (int i=0; i < cons.size(); i++) 
     {
-	Real R=cons[i] * sol- consrhs[i];
-	assert (R> -EPS);
-	if (R < EPS)
-	    binding.push (i);
+      Real R=cons[i] * sol- consrhs[i];
+      assert (R> -EPS);
+      if (R < EPS)
+	binding.push (i);
     }
   // KKT check...
   // todo
@@ -74,11 +74,11 @@ Ineq_constrained_qp::print() const
 #ifndef NPRINT
   DOUT << "Quad " << quad;
   DOUT << "lin " << lin <<"\n"
-	<< "const " << const_term<<"\n";
+       << "const " << const_term<<"\n";
   for (int i=0; i < cons.size(); i++) 
     {
-	DOUT << "constraint["<<i<<"]: " << cons[i] << " >= " << consrhs[i];
-	DOUT << "\n";
+      DOUT << "constraint["<<i<<"]: " << cons[i] << " >= " << consrhs[i];
+      DOUT << "\n";
     }
 #endif
 }
@@ -104,7 +104,7 @@ Mixed_qp::print() const
   Ineq_constrained_qp::print();
   for (int i=0; i < eq_cons.size(); i++) 
     {
-	DOUT << "eq cons "<<i<<": x["<<eq_cons[i]<<"] == " << eq_consrhs[i]<<"\n";
+      DOUT << "eq cons "<<i<<": x["<<eq_cons[i]<<"] == " << eq_consrhs[i]<<"\n";
     }
 #endif
 }

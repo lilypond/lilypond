@@ -13,7 +13,7 @@ copyright	public domain
 multiple \paper{}s in one \score 
 %}
 
-\version "0.1.1";
+\version "0.1.5";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -154,8 +154,8 @@ melodie = \melodic{
 	< 
 	{ fis2.~
 	%\group "+1"; 
-		\stem \down; f2. }
-	{ d'2. ~ \stem \up;
+		\stemdown f2. }
+	{ d'2. ~ \stemup
 		d'4 r4_"decresc." d'4 } 
 	>
 	\textstyle "roman"; |
@@ -202,71 +202,71 @@ begeleiding = \melodic{
 	''a r4 |
 %%5
 \duration 8;
- 	< \multi 2; { \stem \up;	
+ 	< \multi 2; { \stemup	
 		[ 'f 'a d 'a d 'a ] 
 		[ 'd 'e 'g 'e 'g 'e ] 
 		[ 'cis 'e 'g 'e 'g 'e ]
 		[ 'd 'a d 'a d 'a ]
 		}
-	{ \stem \down; 
+	{ \stemdown 
 		'd2 r4 
 		 ''bes2 r4 
 		 ''a2 r4
 		'd2 r4
 	} >
 %%9
-	\stem 0;
+	\stemboth
 	[ 'a e g e g e ] |
 %%10
 	[ 'd 'a d 'a d 'a ] |
 %%11
 	< \multi 2; 	
-	{ \stem \up;
+	{ \stemup
 		[ 'f 'a d 'a d 'a ]
 		[ 'd 'e 'g 'e 'g 'e ] 
 		[ 'e 'g 'bes 'g 'bes 'g ] 
 		[ 'a c f c f c ]
-	} { \stem \down; 
+	} { \stemdown 
 		'd2 r4 
 		 ''bes2 r4
 		 'c2 r4 
 		 'f2 r4 } 
 	>
 %%15
-	\stem 0;
+	\stemboth
 	[ 'c 'g 'bes 'g 'bes 'g ] |
 %%16
 	[ ''f 'c 'f 'c 'f 'c ] |
 	< \multi 2;
-	{ \stem \up; 
+	{ \stemup 
 		[ ''a 'e 'g 'e 'g 'e ][ 'd 'a d 'a d 'a ]
 		[ ''bes 'f 'bes 'f 'bes 'f ][ ''f 'c 'f 'c 'f 'c ] }
-	{ \stem \down; 
+	{ \stemdown 
 		''a2 r4
 		'd2 r4 
 		''bes2 r4 
 		''f2 r4 
 	} > 
 %%21
-	\stem 0;
+	\stemboth
 	< [ 'e 'c > 'g c 'g c 'g ] |
 %%22
 	[ 'f 'a c 'a 'f 'c ] |
 	< \multi 2; {
-		\stem \up;
+		\stemup
 		[ ''a 'e 'g 'e 'g 'e ] 
 		[ 'd 'fis 'a 'fis 'a 'fis ] 
 		[ ''g 'd 'b 'd 'b 'd ] 
 		[ 'd 'a d 'a d 'a ] 
 	}
-	{\stem \down;
+	{\stemdown
 		''a2 r4 
 		'd2 r4 
 		''g2 r4 
 		'd2 r4 
 	}
 	>
-	\stem 0;
+	\stemboth
 	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
 %%28
 	[ 'd 'a d 'a d 'a ] |
@@ -305,17 +305,17 @@ begeleiding = \melodic{
 %%44
 	< [ 'd ''b > 'fis 'b 'fis 'b 'fis ] |
 %%45
-	< \multi 2; { \stem \up; 
+	< \multi 2; { \stemup 
 		[ ''g 'd 'b 'd 'b 'd ] 
 		[ 'd 'a d 'a d 'a ] 
 	} {
-		\stem \down;
+		\stemdown
 		''g2 r4
 		'd2 r4 
 	} >
 
 %%47
-	\stem 0;
+	\stemboth
 	< [ 'cis ''a > 'e 'a 'e 'a 'e ] |
 %%48
 	[ 'd 'fis 'a 'fis 'a 'fis ] |
@@ -474,11 +474,11 @@ tekstII = \lyric{
  
 themusic = 
 	<	
-		< 	\id "Lyric" "1";
+		\type Lyrics < 
 			\tekstI
 			 \tekstII
 		>
-		< \id "Piano" "";
+		\type Grandstaff   <
 			\multi 2;
 			\melodic < \melodie \commands >
 			\melodic < \begeleiding \commands >
@@ -488,6 +488,9 @@ themusic =
 
 \score{
 	\themusic
+	\midi{
+		\tempo 4 = 54;
+	}
 	\paper{
 		\paper_twenty
 		% 20pt music uses whole pagewidth
@@ -505,8 +508,5 @@ themusic =
 		% geometric= 1.4;
 		gourlay_maxmeasures = 9.;
 		\output "standchen-16.out";
-	}
-	\midi{
-		\tempo 4 = 54;
 	}
 }

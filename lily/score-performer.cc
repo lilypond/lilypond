@@ -7,11 +7,10 @@
  */
 
 #include "score-performer.hh"
-#include "input-translator.hh"
 #include "midi-def.hh"
 #include "audio-column.hh"
 #include "audio-item.hh"
-#include "audio-score.hh"
+#include "performance.hh"
 #include "midi-stream.hh"
 #include "string-convert.hh"
 #include "debug.hh"
@@ -21,8 +20,7 @@
 #include "audio-staff.hh"
 
 IMPLEMENT_IS_TYPE_B1(Score_performer,Performer_group_performer);
-
-ADD_THIS_PERFORMER(Score_performer);
+ADD_THIS_TRANSLATOR(Score_performer);
 
 
 Score_performer::Score_performer()
@@ -34,28 +32,12 @@ Score_performer::~Score_performer()
 {
 }
 
-
-Translator* 
-Score_performer::ancestor_l (int l) 
-{ 
-  return Global_translator::ancestor_l (l);
-}
-
-
-int 
-Score_performer::depth_i() const 
-{ 
-  return Global_translator::depth_i();
-}
-
-
-
 void
 Score_performer::play (Audio_element * p)
 {
   if  (p->is_type_b (Audio_item::static_name())) 
     {
-	audio_column_l_->add ((Audio_item*)p);
+      audio_column_l_->add ((Audio_item*)p);
     }
   else if (p->is_type_b (Audio_staff::static_name())) 
     {
@@ -64,13 +46,13 @@ Score_performer::play (Audio_element * p)
   performance_p_->add (p);
 }
 
-
 void 
 Score_performer::prepare (Moment m)
 {
-  now_mom_ = m;
+  Global_translator::prepare (m);
   audio_column_l_ = new Audio_column (m);
   performance_p_->add (audio_column_l_);
+  post_move_processing ();
 }
 
 
@@ -78,9 +60,9 @@ void
 Score_performer::process()
 {
   process_requests();
+  pre_move_processing();
+  check_removal();
 }
-
-
 
 void
 Score_performer::start()
@@ -97,7 +79,8 @@ Score_performer::get_tempo_i() const
 void
 Score_performer::finish()
 {
-  Performer_group_performer::do_removal_processing();
+  check_removal ();
+  removal_processing();
 }
 
 Music_output *
@@ -106,4 +89,13 @@ Score_performer::get_output_p ()
   Music_output * o = performance_p_;
   performance_p_ =0;
   return o;
+}
+
+void
+Score_performer::add_processing ()
+{
+  Translator_group::add_processing ();
+  assert (output_def_l_->is_type_b (Midi_def::static_name ()));
+  performance_p_ = new Performance;
+  performance_p_->midi_l_ = (Midi_def*) output_def_l_;  
 }

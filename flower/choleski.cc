@@ -146,7 +146,7 @@ Choleski_decomposition::band_matrix_decompose (Matrix const &P)
 	D(i) = d;
     }
   L.try_set_band();
-  assert ( L.band_i() == P.band_i ());
+  assert (L.band_i() == P.band_i ());
 }
 
 

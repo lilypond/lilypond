@@ -10,13 +10,13 @@ Tested Features: \multi
 %}
 
 
-\version "0.1.1";
+\version "0.1.5";
 
 \score{
 	\melodic 
 		{ \octave c'; c4 c4 
 			< \multi 1;  { c2 c2 } { c'2 c'2 } > 
-			< \multi 2;  { \stem \down; c2 c2 } { \stem \up; c'2 c'2 } > 
+			< \multi 2;  { \stemdown c2 c2 } { \stemup c'2 c'2 } > 
 			< \multi 3;  { \clef "bass"; c2 c2 } { \meter 2/4;\bar "||"; \key fis cis gis; c'2 c'2 } > 
 	 			c2 c1 
 			c1 c1

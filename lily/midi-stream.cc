@@ -30,13 +30,13 @@ Midi_stream::~Midi_stream()
 Midi_stream&
 Midi_stream::operator <<(String str)
 {
-  if (check_debug)
-	str = String_convert::bin2hex_str (str);
+  if (check_debug && !monitor->silence("Midistrings"))
+    str = String_convert::bin2hex_str (str);
   
   *os_p_ << str;
 
-  if (check_debug)
-      *os_p_ << "\n";
+  if (check_debug && !monitor->silence("Midistrings"))
+    *os_p_ << "\n";
 
   return *this;
 }
@@ -44,10 +44,10 @@ Midi_stream::operator <<(String str)
 Midi_stream&
 Midi_stream::operator <<(Midi_item const& mitem_c_r)
 {
-//    *this << mitem_c_r.str();
+  //    *this << mitem_c_r.str();
   mitem_c_r.output (this);
-  if (check_debug)
-      *os_p_ << "\n";
+  if (check_debug && !monitor->silence("Midistrings"))
+    *os_p_ << "\n";
   return *this;
 }
 
@@ -64,5 +64,5 @@ Midi_stream::open()
 {
   os_p_ = new ofstream (filename_str_);
   if (!*os_p_)
-	error ("can't open `" + filename_str_ + "\'");
+    error ("can't open `" + filename_str_ + "\'");
 }

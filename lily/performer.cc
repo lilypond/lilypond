@@ -12,82 +12,28 @@
 #include "debug.hh"
 
 
-IMPLEMENT_IS_TYPE_B(Performer);
+IMPLEMENT_IS_TYPE_B1(Performer, Translator);
 
 Performer::Performer()
-{
-  daddy_perf_l_ = 0;
-  init_b_ =false;
-}
-
-Performer::~Performer()
-{
-}
-
-void
-Performer::do_print() const
 {
 }
 
 void 
 Performer::play (Audio_element* p) 
 { 
-  daddy_perf_l_->play (p); 
+  daddy_perf_l ()->play (p); 
 }
 
 int
 Performer::get_tempo_i() const
 {
-  return daddy_perf_l_->get_tempo_i();
+  return daddy_perf_l ()->get_tempo_i();
 }
 
-void
-Performer::print() const
+Performer_group_performer*
+Performer::daddy_perf_l () const
 {
-#ifndef NPRINT
-  DOUT << "\n" << name() << " {";
-  do_print();
-  DOUT << "}";
-#endif
-}
-
-void
-Performer::process_requests()
-{
-}
-
-bool 
-Performer::do_try_request (Request* req_l)
-{
-  return false;
-}
-
-bool
-Performer::try_request (Request*r)
-{
-  if (!init_b_) 
-    {
-	creation_processing();
-    }
-  return do_try_request (r);
-}
-
-void
-Performer::creation_processing()
-{
-  if (!init_b_) 
-    {
-	do_creation_processing();
-	init_b_ = true;
-    }
-}
-
-void
-Performer::do_creation_processing()
-{
-}
-
-void
-Performer::do_removal_processing()
-{
+  return (daddy_trans_l_) 
+    ?(Performer_group_performer*) daddy_trans_l_->performer_l ()
+    : 0;
 }

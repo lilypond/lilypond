@@ -3,8 +3,16 @@
 \include "table16.ly"
 
 
+%{
+
+TODO make this somehow parametric. for example the linewidth was
+chosen to look good on A4 paper.  This probably looks less good on US
+paper sizes.
+
+
+%}
 paper_sixteen = \paper {
-	linewidth = 15.0 \cm;
+	linewidth = 15.5 \cm;
 	rule_thickness = 0.4\pt;
 	bar_size = 16.0 \pt;
 	interline = 4.\pt;
@@ -25,5 +33,5 @@ paper_sixteen = \paper {
 	gourlay_maxmeasures = 14.;
 	castingalgorithm = \Gourlay;
 	\symboltables { \table_sixteen }
-	\requesttranslator { \orchestral_score_translator }
+	\include "engraver.ly"
 }

@@ -26,7 +26,7 @@ public:
     void print() const;
 
     Link_list<Audio_item *> audio_item_l_list_;
-    Audio_score * audio_score_l_;
+    Performance * performance_l_;
 
 private:
     Audio_column (Audio_column const&);

@@ -31,7 +31,7 @@ struct Identifier : public Input {
     void print() const;
     DECLARE_MY_RUNTIME_TYPEINFO;
     void error (String);
-    IDACCESSOR(Input_translator, input_translator)
+    IDACCESSOR(Translator, translator)
     IDACCESSOR(Music, music)
     IDACCESSOR(General_script_def, script)
     IDACCESSOR(Symtables, symtables)
@@ -61,7 +61,7 @@ struct Idclass : Identifier {\
 }\
 
 
-DECLARE_ID_CLASS(Input_translator_id, Input_translator, input_translator);
+DECLARE_ID_CLASS(Translator_id, Translator, translator);
 DECLARE_ID_CLASS(Duration_id, Duration, duration);
 DECLARE_ID_CLASS(Real_id, Real, real);
 DECLARE_ID_CLASS(Script_id, General_script_def, script);

@@ -21,6 +21,42 @@
 #include "item.hh"
 #include "p-col.hh"
 
+Score_elem::Score_elem()
+{
+  transparent_b_ = empty_b_ = false;
+  axis_group_l_a_[0] = axis_group_l_a_[1] =0;
+  pscore_l_=0;
+  offset_ = Offset (0,0);
+  output = 0;
+  status_ = ORPHAN;
+}
+
+Score_elem::Score_elem (Score_elem const&s)
+{
+  /* called from derived ctor, so most info points to the same deps
+     as (Directed_graph_node&)s. Nobody points to us, so don't copy
+     dependents.      
+   */
+  copy_edges_out (s);
+  transparent_b_ = s.transparent_b_;
+  empty_b_ = s.empty_b_;
+  axis_group_l_a_[0] = axis_group_l_a_[1] =0;
+  status_ = s.status_;
+  assert (!s.output);
+  output = 0;
+  pscore_l_ = s.pscore_l_;
+  offset_ = Offset (0,0);
+}
+
+Score_elem::~Score_elem()
+{
+  // some paranoia to prevent weird segv's
+  assert (status_ < DELETED);
+  delete output;
+  status_ = DELETED;
+  output = 0;
+}
+
 Score_elem*
 Score_elem::dependency (int i) const
 {
@@ -53,7 +89,7 @@ Score_elem::make_TeX_string (Offset o)const
   a.push (print_dimen (o.y()));
   a.push (print_dimen (o.x()));
   String t = output->TeX_string();
-  if (t == "")
+  if (!t)
     return t;
 
   a.push (t);
@@ -67,32 +103,6 @@ String
 Score_elem::do_TeX_output_str () const
 {
   return make_TeX_string(absolute_offset());
-}
-
-Score_elem::Score_elem (Score_elem const&s)
-{
-  /* called from derived ctor, so most info points to the same deps
-     as (Directed_graph_node&)s. Nobody points to us, so don't copy
-     dependents.      
-   */
-  copy_edges_out (s);
-  transparent_b_ = s.transparent_b_;
-  empty_b_ = s.empty_b_;
-  axis_group_l_a_[0] = axis_group_l_a_[1] =0;
-  status_ = s.status_;
-  assert (!s.output);
-  output = 0;
-  pscore_l_ = s.pscore_l_;
-  offset_ = Offset (0,0);
-}
-
-Score_elem::~Score_elem()
-{
-  // some paranoia to prevent weird segv's
-  assert (status_ < DELETED);
-  delete output;
-  status_ = DELETED;
-  output = 0;
 }
 
 /*
@@ -239,16 +249,6 @@ Score_elem::print() const
   
   DOUT <<  "}\n";
 #endif
-}
-
-Score_elem::Score_elem()
-{
-  transparent_b_ = empty_b_ = false;
-  axis_group_l_a_[0] = axis_group_l_a_[1] =0;
-  pscore_l_=0;
-  offset_ = Offset (0,0);
-  output = 0;
-  status_ = ORPHAN;
 }
 
 

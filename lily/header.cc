@@ -7,7 +7,7 @@
 */
 
 #include "string.hh"
-#include "assoc-iter.hh"
+#include "dictionary-iter.hh"
 #include "header.hh"
 
 String
@@ -17,7 +17,7 @@ Header::TeX_string() const
 
   s+= "\\def\\LilyIdString{"  + lily_id_str_ + "}";
   
-  for (Assoc_iter<String, String> i(*this); i.ok(); i++) 
+  for (Dictionary_iter<String> i(*this); i.ok(); i++) 
     {
       s += "\\def\\mudela" + i.key() + "{" + i.val() + "}";
     }

@@ -48,5 +48,5 @@ Line_group_engraver::do_creation_processing()
 
 
 IMPLEMENT_IS_TYPE_B1(Line_group_engraver,Engraver);
-ADD_THIS_ENGRAVER(Line_group_engraver);
+ADD_THIS_TRANSLATOR(Line_group_engraver);
 

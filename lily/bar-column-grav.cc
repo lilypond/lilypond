@@ -73,4 +73,4 @@ Bar_column_engraver::do_post_move_processing()
 }
 
 IMPLEMENT_IS_TYPE_B1(Bar_column_engraver, Engraver);
-ADD_THIS_ENGRAVER(Bar_column_engraver);
+ADD_THIS_TRANSLATOR(Bar_column_engraver);

@@ -18,9 +18,10 @@
  */
 class Swallow_engraver : public Engraver {
 protected:
-    bool acceptable_request_b (Request*) const;
-    bool do_try_request (Request*) ;
+  bool acceptable_request_b (Request*) const;
+  bool do_try_request (Request*) ;
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  TRANSLATOR_CLONE(Swallow_engraver);
+  DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // SWALLOW_GRAV_HH

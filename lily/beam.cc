@@ -27,75 +27,10 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "grouping.hh"
+#include "stem-info.hh"
 
 
-
-struct Stem_info {
-  Real x;
-  int dir_;
-  Real idealy_f_;
-  Real miny_f_;
-  int beams_i_;
-
-  Stem_info(){}
-  Stem_info (Stem const *);
-};
-
-Stem_info::Stem_info (Stem const *s)
-{
-  x = s->hpos_f();
-  dir_ = s->dir_;
-  beams_i_ = intlog2(s->flag_i_) - 2;
-
-  /*
-    [todo] 
-    * get algorithm
-    * runtime
-
-    Breitkopf + H\"artel:
-    miny_f_ = interline + #beams * interbeam
-    ideal8 = 2 * interline + interbeam
-    ideal16,32,64,128 = 1.5 * interline + #beams * interbeam
-
-    * B\"arenreiter:
-    miny_f_ = interline + #beams * interbeam
-    ideal8,16 = 2 interline + #beams * interbeam
-    ideal32,64,128 = 1.5 interline + #beams * interbeam
-       
-    */
-
-  Real notehead_y = s->paper()->interline_f ();
-  // huh? why do i need the / 2
-  //    Real interbeam_f = s->paper()->interbeam_f ();
-  Real interbeam_f = s->paper()->interbeam_f () / 2;
-         
-  /* well eh, huh?
-     idealy_f_  = dir_ * s->stem_start_f() + beams_i_ * interbeam_f; 
-     if (beams_i_ < 3)
-     idealy_f_ += 2 * interline_f;
-     else
-     idealy_f_ += 1.5 * interline_f;
-     */
-
-  idealy_f_  = dir_ * s->stem_end_f();
-
-  miny_f_ = dir_ * s->stem_start_f() + notehead_y + beams_i_ * interbeam_f;
-
-  idealy_f_ =  miny_f_ >? idealy_f_;
-  //    assert (miny_f_ <= idealy_f_);
-}
-
-
-/* *************** */
-
-
-Offset
-Beam::center() const
-{
-  Real w=(paper()->note_width () + width ().length ())/2.0;
-  return Offset (w, (left_pos + w* slope)*paper()->internote_f ());
-}
-
+IMPLEMENT_IS_TYPE_B1(Beam, Spanner);
 
 Beam::Beam()
 {
@@ -108,11 +43,85 @@ Beam::add (Stem*s)
 {
   stems.push (s);
   s->add_dependency (this);
-  s->print_flag_b_ = false;
+  s->beam_l_ = this;
 
   if (!spanned_drul_[LEFT])
     set_bounds(LEFT,s);
-  set_bounds(RIGHT,s);
+  else
+    set_bounds(RIGHT,s);
+}
+
+Molecule*
+Beam::brew_molecule_p() const 
+{
+  Molecule *mol_p = new Molecule;
+  // huh? inter-what
+  //    Real inter_f = paper()->interbeam_f ();
+  Real inter_f = paper()->internote_f ();
+  Real x0 = stems[0]->hpos_f();
+  for (int j=0; j <stems.size(); j++) 
+    {
+      Stem *i = stems[j];
+      Stem * prev = (j > 0)? stems[j-1] : 0;
+      Stem * next = (j < stems.size()-1) ? stems[j+1] :0;
+
+      Molecule sb = stem_beams (i, next, prev);
+      Real  x = i->hpos_f()-x0;
+      sb.translate (Offset (x, (x * slope  + left_pos)* inter_f));
+      mol_p->add (sb);
+    }
+  mol_p->translate (x0 - spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), X_AXIS);
+  return mol_p;
+}
+
+Offset
+Beam::center() const
+{
+  Real w=(paper()->note_width () + width ().length ())/2.0;
+  return Offset (w, (left_pos + w* slope)*paper()->internote_f ());
+}
+
+void
+Beam::do_pre_processing()
+{
+  if (!dir_)
+    set_default_dir();
+}
+
+void
+Beam::do_print() const
+{
+#ifndef NPRINT
+  DOUT << "slope " <<slope << "left ypos " << left_pos;
+  Spanner::do_print();
+#endif
+}
+
+void
+Beam::do_post_processing()
+{
+  if (stems.size() < 2) 
+    {
+      warning ("Beam with less than 2 stems");
+      transparent_b_ = true;
+      return ;
+    }
+  solve_slope();    
+  set_stemlens();
+}
+
+void
+Beam::do_substitute_dependent (Score_elem*o,Score_elem*n)
+{
+  if (o->is_type_b (Stem::static_name())) 
+      stems.substitute ((Stem*)o->item(),  n?(Stem*) n->item ():0);
+}
+
+Interval
+Beam::do_width() const
+{
+  return Interval (stems[0]->hpos_f(),
+		   stems.top()->hpos_f ());
 }
 
 void
@@ -236,20 +245,6 @@ Beam::set_stemlens()
     }
 }
 
-
-void
-Beam::do_post_processing()
-{
-  if (stems.size() < 2) 
-    {
-      warning ("Beam with less than 2 stems");
-      transparent_b_ = true;
-      return ;
-    }
-  solve_slope();    
-  set_stemlens();
-}
-
 void
 Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
 {
@@ -283,22 +278,6 @@ Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
       s->beams_left_i_ = b[i];
       s->beams_right_i_ = b[i+1];
     }
-}
-
-void
-Beam::do_pre_processing()
-{
-  if (!dir_)
-    set_default_dir();
-
-}
-
-
-Interval
-Beam::do_width() const
-{
-  return Interval (stems[0]->hpos_f(),
-		   stems.top()->hpos_f ());
 }
 
 /*
@@ -367,50 +346,4 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
     }
   leftbeams.add (rightbeams);
   return leftbeams;
-}
-
-
-Molecule*
-Beam::brew_molecule_p() const 
-{
- 
-  Molecule *mol_p = new Molecule;
-  // huh? inter-what
-  //    Real inter_f = paper()->interbeam_f ();
-  Real inter_f = paper()->internote_f ();
-  Real x0 = stems[0]->hpos_f();
-  for (int j=0; j <stems.size(); j++) 
-    {
-      Stem *i = stems[j];
-      Stem * prev = (j > 0)? stems[j-1] : 0;
-      Stem * next = (j < stems.size()-1) ? stems[j+1] :0;
-
-      Molecule sb = stem_beams (i, next, prev);
-      Real  x = i->hpos_f()-x0;
-      sb.translate (Offset (x, (x * slope  + left_pos)* inter_f));
-      mol_p->add (sb);
-    }
-  mol_p->translate (x0 - spanned_drul_[LEFT]->absolute_coordinate(X_AXIS), X_AXIS);
-  return mol_p;
-}
-
-
-IMPLEMENT_IS_TYPE_B1(Beam, Spanner);
-
-void
-Beam::do_print() const
-{
-#ifndef NPRINT
-  DOUT << "slope " <<slope << "left ypos " << left_pos;
-  Spanner::do_print();
-#endif
-}
-
-void
-Beam::do_substitute_dependent (Score_elem*o,Score_elem*n)
-{
-  if (o->is_type_b (Stem::static_name())) 
-    {
-      stems.substitute ((Stem*)o->item(),  n?(Stem*) n->item ():0);
-    }
 }

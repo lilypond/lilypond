@@ -13,7 +13,7 @@
 
 
 IMPLEMENT_IS_TYPE_B1(Key_performer,Performer);
-ADD_THIS_PERFORMER(Key_performer);
+ADD_THIS_TRANSLATOR(Key_performer);
 
 Key_performer::Key_performer()
 {
@@ -34,7 +34,7 @@ Key_performer::do_print() const
 }
 
 void
-Key_performer::process_requests()
+Key_performer::do_process_requests()
 {
   if (key_req_l_)
 	play (new Audio_key (key_req_l_));

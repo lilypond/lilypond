@@ -78,12 +78,17 @@ Spanner::set_my_columns()
 void
 Spanner::set_bounds(Direction d, Item*i)
 {
+    
   if (spanned_drul_[d])
     spanned_drul_[d]->attached_span_l_arr_.substitute(this,0);
   
   spanned_drul_[d] =i;
   if (i)
     i->attached_span_l_arr_.push(this);
+
+  assert (!spanned_drul_[d] ||
+	  spanned_drul_[Direction(-d)] != spanned_drul_[d]);
+
 }
 
 void

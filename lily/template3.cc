@@ -7,11 +7,8 @@
 */
 
 #include "symbol.hh"
-#include "request.hh"
-#include "input-translator.hh"
 #include "molecule.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"
 
 template POINTERLIST_INSTANTIATE(Atom);
-template POINTERLIST_INSTANTIATE(Input_translator);

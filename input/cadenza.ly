@@ -11,12 +11,16 @@ copyright	public domain
 Tested Features: cadenza mode
 %}
 
-\version "0.1.1";
+\version "0.1.5";
 
 
-cad = \melodic  {\id "Staff" "french horn";
-		\cadenza 1;
-		\grouping 1*4;\duration  8;\octave c';
+cad = \melodic  {
+	\property Score.instrument = "french horn"
+	\type Staff {
+	\cadenza 1;
+	\grouping 1*4;
+	\duration  8;
+	\octave c';
 
 	\clef "violin";
 	c'4.\mf g8
@@ -54,10 +58,10 @@ cad = \melodic  {\id "Staff" "french horn";
 	a4. g8 [f8 e8 d8 c8]
 	'g2 d2^"\tr"
 	c4
-	}
+	}}
 \score {
 	\melodic { \cad }
+	\midi { \tempo 4 = 90; }
 	\paper {
 	}
-	\midi { \tempo 4 = 90; }
 }

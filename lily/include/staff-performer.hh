@@ -17,20 +17,21 @@
 class Staff_performer : public Performer_group_performer 
 {
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  TRANSLATOR_CLONE(Staff_performer);
+  DECLARE_MY_RUNTIME_TYPEINFO;
 
-    Staff_performer();
-    ~Staff_performer();
+  Staff_performer();
+  ~Staff_performer();
 
-    String instrument_str();
+  String instrument_str();
 
 protected:
-    virtual void play (Audio_element* p);
-    virtual void do_removal_processing();
-    virtual void do_creation_processing();
+  virtual void play (Audio_element* p);
+  virtual void do_removal_processing();
+  virtual void do_creation_processing();
 
 private:
-    Audio_staff* audio_staff_p_;
+  Audio_staff* audio_staff_p_;
 };
 
 #endif // STAFF_PERFORMER_HH

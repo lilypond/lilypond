@@ -35,7 +35,7 @@ public:
     void * lexval_l;
     
     Notename_table  *note_tab_p_;
-    Assoc<String, Identifier*> *identifier_assoc_p_;
+    Dictionary<Identifier*> *identifier_p_dict_p_;
     Keyword_table * keytable_p_;
     int errorlevel_i_;
 

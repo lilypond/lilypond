@@ -60,7 +60,8 @@ Includable_lexer::close_input()
   if (state_stack_.empty()) 
     {
       return false;
-    }else 
+    }
+  else 
       {
 	yy_switch_to_buffer(state_stack_.pop());
 	return true;

@@ -17,29 +17,34 @@
 #include "virtual-methods.hh"
 
 class Music_iterator {
-  Array<Translator *>report_to_l_arr_;
-  void push_translator (Translator*);
+  Array<Translator_group*>report_to_l_arr_;
+  void push_translator (Translator_group*);
   void pop_translator();
 protected:
   bool first_b_;
   virtual void do_print() const;
     
-  virtual Translator * get_req_translator_l();
+  virtual Translator_group* get_req_translator_l();
   Music_iterator* get_iterator_p (Music*) const;
-  void set_translator (Translator*);
+  void set_translator (Translator_group*);
   Music_iterator *daddy_iter_l_;
     
 public:
-  Translator *report_to_l() const;
+  Translator_group*report_to_l() const;
   DECLARE_MY_RUNTIME_TYPEINFO;
  
-  static Music_iterator* static_get_iterator_p (Music*,Translator*);
+  static Music_iterator* static_get_iterator_p (Music*,Translator_group*);
   Music_iterator();
     
   virtual void process_and_next (Moment until);
   virtual Moment next_moment() const;
   virtual bool ok() const;
   virtual ~Music_iterator();
+
+  /**
+    Construct sub-iterators, and set the translator to 
+    report to
+   */
   virtual void construct_children();
   void print() const;
 };

@@ -9,7 +9,7 @@
 
 
 IMPLEMENT_IS_TYPE_B1(Swallow_engraver,Engraver);
-ADD_THIS_ENGRAVER(Swallow_engraver);
+ADD_THIS_TRANSLATOR(Swallow_engraver);
 
 
 bool

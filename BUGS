@@ -1,54 +1,42 @@
-Document reintroduced deficiencies.
+Document Really Ugly Bugs (coredumps assert fails, etc)
 
-* placement of bar-numbers
+[Solaris]
 
-**************** 
-vi1=\melodic{
-  \meter 4/4;
-  \octave c'';
+Stack frame overwrite on Solaris 2.x (this will produce a seg
+fault, signal 11).  Stacktrace
 
-  B8 G G G16 A B8 G G G16 A | 
-	
-}
+	Engraver_group_engraver::Engraver_group_engraver(int)
+	Score_engraver::Score_engraver( )
+	get_group_engraver_p()
 
-vi2=\melodic{
-  \meter 4/4;
-  \octave c'';
+We don't know a fix or workaround, but compiling without optimisation
+might help (Without -O2 optimisation, my execs run fine on Solaris;
+without -O2, but with purify, it dumps core)
 
- r16
-}
 
-%{
-bc=\melodic{
-  \clef "bass";
-  \meter 4/4;
-  \octave c;
+[Linux Intel]
 
-  G1 |
-}
-%}
+LilyPond occasionally crashes while parsing the initialisation files.
+This is a very obscure bug, and usually entering the commandline
+differently "fixes" it.
 
-\score{
-  < \multi 3;
-    \vi1
-    \vi2
+	lilypond input.ly 
 
-  >
+and
 
-  \paper{
-    geometric=1.2;
-    unitspace=8.\mm;
-    linewidth=18.\cm;
-    gourlay_maxmeasures=4.;
-    gourlay_energybound = 70000.;
-	basicspace = 2.8\pt;
-  }
-}
-***************************
+	lilypond -I. ./input.ly 
 
-	\score { < 
-		\melodic { \id "Staff" ""; c'4 g'4 }
-		\lyric {   \id "Lyric" ""; hello4 bye4 < a chord > }
-		\lyric {   \id "Lyric" ""; bye4 hello4 }
-		\melodic { \id "Staff" ""; c'4 g'4 }
-	> }
+makes a difference
+
+Typical stacktrace:
+
+	SIGSEGV
+	__libc_malloc (bytes=16384)
+	?? ()
+	yyFlexLexer::yy_create_buffer ()
+	Includable_lexer::new_input (this=0x8209a00, s={strh_ = {
+		:
+
+
+I get bitten by this every once in a while, and I am very interested
+in hints what might be wrong.

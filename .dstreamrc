@@ -11,12 +11,14 @@ Declarations		1
 # FlexLexer debug
 InitLexer		1
 Lexer			1
-Matrix			1
 
 
 # flower lib
 File_path		1
+Matrix			0
+Vector			1
 
+# lily
 Atom			0
 Bar			0
 Beam			0
@@ -33,7 +35,7 @@ Engraver_group_engraver 0
 Group_change_req	0
 Head_column		0
 Idealspacing		0
-Ineq_constrained_qp 	0
+Ineq_constrained_qp 	1
 Input_translator	0
 Item			0
 Key_item		0
@@ -41,6 +43,7 @@ Lookup			1
 Line_spacer		0
 Melodic_req		0
 Midi_def		0
+Midistrings		1
 Mixed_qp		0
 Music			0
 Music_iterator		0
@@ -48,8 +51,8 @@ My_lily_lexer		1
 Note_head		0
 Note_performer		0
 Note_req		0
-PCol			0
-PScore			0
+Paper_col			1
+Paper_score			1
 Paper_def		0
 Paperdef		0
 Performer		0
@@ -84,8 +87,6 @@ Text_def		0
 Text_req		0
 Time_description	0
 Voice			0
-Voice_element		0
-Voice_element_iterator  0
 Voice_iterator		0
 Word_wrap		0
 delete_identifiers	1

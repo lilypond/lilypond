@@ -29,7 +29,7 @@ String_convert::bin2hex_str (String bin_str)
 {
   String str;
   Byte const* byte_C = bin_str.byte_C();
-  for ( int i = 0; i < bin_str.length_i(); i++) 
+  for (int i = 0; i < bin_str.length_i(); i++) 
     {
 	str += (char)nibble2hex_byte (*byte_C >> 4);
 	str += (char)nibble2hex_byte (*byte_C++);
@@ -49,7 +49,7 @@ String_convert::bin2_u (String bin_str)
   assert (bin_str.length_i() <= (int)sizeof(unsigned));
 
   unsigned result_u = 0;
-  for ( int i = 0; i < bin_str.length_i(); i++) 
+  for (int i = 0; i < bin_str.length_i(); i++) 
     {
 	result_u <<= 8;
 	result_u += (Byte)bin_str[ i ];
@@ -61,7 +61,7 @@ String_convert::bin2_u (String bin_str)
 int
 String_convert::dec2_i (String dec_str)
 {
-  if ( !dec_str.length_i())
+  if (!dec_str.length_i())
   	return 0;
 
   long l = 0;
@@ -84,7 +84,7 @@ String_convert::i64_str (I64 i64, char const* fmt)
 double
 String_convert::dec2_f (String dec_str)
 {
-  if ( !dec_str.length_i())
+  if (!dec_str.length_i())
   	return 0;
   double d = 0;
   int conv = sscanf (dec_str.ch_C(), "%lf", &d);
@@ -95,19 +95,19 @@ String_convert::dec2_f (String dec_str)
 int
 String_convert::hex2bin_i (String hex_str, String& bin_str_r)
 {
-  if ( hex_str.length_i() % 2)
+  if (hex_str.length_i() % 2)
       hex_str = "0" + hex_str;
 
   bin_str_r = "";
   Byte const* byte_C= hex_str.byte_C();
   int i = 0;
-  while ( i < hex_str.length_i()) 
+  while (i < hex_str.length_i()) 
     {
       int high_i = hex2nibble_i (*byte_C++);
       int low_i = hex2nibble_i (*byte_C++);
-      if ( high_i < 0 || low_i < 0)
+      if (high_i < 0 || low_i < 0)
           return 1; // illegal char
-      bin_str_r += String ((char)( high_i << 4 | low_i), 1 );
+      bin_str_r += String ((char)(high_i << 4 | low_i), 1 );
       i += 2;
     }
   return 0;
@@ -127,11 +127,11 @@ String_convert::hex2bin_str (String hex_str)
 int 
 String_convert::hex2nibble_i (Byte byte)
 {
-  if ( byte >= '0' && byte <= '9')
+  if (byte >= '0' && byte <= '9')
       return byte - '0';
-  if ( byte >= 'A' && byte <= 'F')
+  if (byte >= 'A' && byte <= 'F')
       return byte - 'A' + 10;
-  if ( byte >= 'a' && byte <= 'f')
+  if (byte >= 'a' && byte <= 'f')
       return byte - 'a' + 10;
   return -1;
 }
@@ -141,7 +141,7 @@ String
 String_convert::i2dec_str (int i, int length_i, char ch)
 {
   char fill_ch = ch;
-  if ( fill_ch)
+  if (fill_ch)
       fill_ch = '0';
 
   // ugh
@@ -157,13 +157,13 @@ String
 String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
 {
   String str;
-  if ( !u)
+  if (!u)
 	str = "0";
 
 #if 1 // both go...
-  while ( u) 
+  while (u) 
     {
-	str = String ((char)( ( u % 16)["0123456789abcdef"] ) ) + str;
+	str = String ((char)((u % 16)["0123456789abcdef"] ) ) + str;
 	u /= 16;
     }
 #else
@@ -171,7 +171,7 @@ String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
 #endif
 
   str = String (fill_ch, length_i - str.length_i()) + str;
-  while ( ( str.length_i() > length_i) &&  ( str[ 0 ] == 'f' ) )
+  while ((str.length_i() > length_i) &&  (str[ 0 ] == 'f' ) )
   	str = str.mid_str (2, INT_MAX);
 
   return str;
@@ -186,10 +186,10 @@ String_convert::i2hex_str (int i, int length_i, char fill_ch)
 Byte
 String_convert::nibble2hex_byte (Byte byte)
 {
-  if ( ( byte & 0x0f) <= 9 )
-	return ( byte & 0x0f) + '0';
+  if ((byte & 0x0f) <= 9 )
+	return (byte & 0x0f) + '0';
   else
-	return ( byte & 0x0f) - 10 + 'a';
+	return (byte & 0x0f) - 10 + 'a';
 }
 /**
   Convert an integer to a string

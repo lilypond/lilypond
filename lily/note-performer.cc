@@ -7,15 +7,12 @@
  */
 
 #include "note-performer.hh"
-#include "translator.hh"
-#include "input-translator.hh"
 #include "musical-request.hh"
 #include "audio-item.hh"
 #include "debug.hh"
 
 IMPLEMENT_IS_TYPE_B1(Note_performer,Performer);
-
-ADD_THIS_PERFORMER(Note_performer);
+ADD_THIS_TRANSLATOR(Note_performer);
 
 Note_performer::Note_performer()
 {
@@ -28,17 +25,17 @@ Note_performer::do_print() const
 #ifndef NPRINT
   if (note_req_l_) 
     {
-  	note_req_l_->print();
+      note_req_l_->print();
     }
 #endif
 }
 
 void 
-Note_performer::process_requests() 
+Note_performer::do_process_requests() 
 {
   // this is _really_ braindead, but it generates some output
   if (!note_req_l_ || !note_req_l_->melodic()  || !note_req_l_->rhythmic ())
-	return;
+    return;
 
   play (new Audio_note (note_req_l_));
   note_req_l_ = 0;
@@ -48,10 +45,10 @@ bool
 Note_performer::do_try_request (Request* req_l)
 {
   if (note_req_l_)
-	return false;
+    return false;
   
   if (!req_l->musical() || !req_l->musical ()->note ())
-	return false;
+    return false;
 
   note_req_l_ = req_l->musical()->melodic ();
   return true;

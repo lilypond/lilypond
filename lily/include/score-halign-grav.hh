@@ -11,12 +11,13 @@
 #define SCORE_HALIGN_GRAV_HH
 #include "engraver.hh"
 class Score_horizontal_align_engraver : public Engraver {
-    Break_align_item * halign_p_;
+  Break_align_item * halign_p_;
 public:
-    DECLARE_MY_RUNTIME_TYPEINFO;
-    Score_horizontal_align_engraver();
+  TRANSLATOR_CLONE(Score_horizontal_align_engraver);
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  Score_horizontal_align_engraver();
 protected:
-    virtual void acknowledge_element (Score_elem_info);
-    virtual void do_pre_move_processing();
+  virtual void acknowledge_element (Score_elem_info);
+  virtual void do_pre_move_processing();
 };
 #endif // SCORE_HALIGN_GRAV_HH

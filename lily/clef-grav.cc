@@ -18,8 +18,8 @@ Clef_engraver::Clef_engraver()
 {
   clef_p_ = 0;
   clef_req_l_ =0;
-  
-  set_type ("violin");
+  clef_type_str_ = 0;
+  c0_position_i_ =0;
 }
 
 bool
@@ -28,22 +28,22 @@ Clef_engraver::set_type (String s)
   clef_type_str_  = s;
   if (clef_type_str_ == "violin") 
     {
-	c0_position_i_= -2;
+      c0_position_i_= -2;
     }
   else if (clef_type_str_ == "alto") 
     {
-	c0_position_i_= 4;
+      c0_position_i_= 4;
     }
   else if (clef_type_str_ == "tenor") 
     {
-	c0_position_i_= 6;
+      c0_position_i_= 6;
     }
   else if (clef_type_str_ == "bass") 
     {
-	c0_position_i_= 10;
+      c0_position_i_= 10;
     }
   else 
-	return false;
+    return false;
   
   return true;
 }
@@ -58,23 +58,28 @@ void
 Clef_engraver::read_req (Clef_change_req*c_l)
 {
   if (!set_type (c_l->clef_str_))
-	c_l->error ("unknown clef type ");
+    c_l->error ("unknown clef type ");
 }
 void
 Clef_engraver::acknowledge_element (Score_elem_info info)
 {
   if (info.elem_l_->name() == Bar::static_name ()) 
     {
-	create_clef();
-	if (!clef_req_l_)
-	    clef_p_->default_b_ = true;
+      create_clef();
+      if (!clef_req_l_)
+	clef_p_->default_b_ = true;
     }
 }
 
 void
 Clef_engraver::do_creation_processing()
 {
-  create_clef();
+   Scalar def = get_property ("defaultclef");
+  if (def)
+    set_type (def);
+  else
+    set_type ("violin");
+ create_clef();
   clef_p_->default_b_ = false;
 }
 
@@ -83,7 +88,7 @@ Clef_engraver::do_try_request (Request * r_l)
 {
   Command_req* creq_l= r_l->command();
   if (!creq_l || !creq_l->clefchange())
-	return false;
+    return false;
 
   clef_req_l_ = creq_l->clefchange();
   
@@ -96,7 +101,7 @@ Clef_engraver::create_clef()
 {
   if (!clef_p_) 
     {
-	clef_p_ = new Clef_item;
+      clef_p_ = new Clef_item;
       announce_element (Score_elem_info (clef_p_,clef_req_l_));
     }
   clef_p_->read (*this);
@@ -107,8 +112,8 @@ Clef_engraver::do_process_requests()
 {
   if (clef_req_l_) 
     {
-	create_clef();
-	clef_p_->default_b_ = false;
+      create_clef();
+      clef_p_->default_b_ = false;
     }
 }
 
@@ -116,7 +121,7 @@ void
 Clef_engraver::do_pre_move_processing()
 {
   if (!clef_p_)
-	return;
+    return;
   typeset_element (clef_p_);
   clef_p_ = 0;
 }
@@ -136,4 +141,4 @@ Clef_engraver::do_removal_processing()
 
 
 IMPLEMENT_IS_TYPE_B1(Clef_engraver,Engraver);
-ADD_THIS_ENGRAVER(Clef_engraver);
+ADD_THIS_TRANSLATOR(Clef_engraver);

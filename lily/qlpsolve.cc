@@ -22,13 +22,13 @@ Active_constraints::status() const
   String s ("Active|Inactive [");
   for (int i=0; i< active.size(); i++) 
     {
-	s += String (active[i]) + " ";
+      s += String (active[i]) + " ";
     }
 
   s+="| ";
   for (int i=0; i< inactive.size(); i++) 
     {
-	s += String (inactive[i]) + " ";
+      s += String (inactive[i]) + " ";
     }
   s+="]";
 
@@ -47,19 +47,19 @@ Active_constraints::OK()
   Array<int> allcons;
 
   for (int i=0; i < opt->cons.size(); i++)
-	allcons.push (0);
+    allcons.push (0);
   for (int i=0; i < active.size(); i++) 
     {
-	int j = active[i];
-	allcons[j]++;
+      int j = active[i];
+      allcons[j]++;
     }
   for (int i=0; i < inactive.size(); i++) 
     {
-	int j = inactive[i];
-	allcons[j]++;
+      int j = inactive[i];
+      allcons[j]++;
     }
   for (int i=0; i < allcons.size(); i++)
-	assert (allcons[i] == 1);
+    assert (allcons[i] == 1);
 #endif
 }
 
@@ -86,24 +86,24 @@ Active_constraints::add (int k)
   Vector addrow (Ha.dim());
   if (abs (aHa) > EPS) 
     {
-	/*
-	  a != 0, so if Ha = O(EPS), then
-	  Ha * aH / aHa = O(EPS^2/EPS)
+      /*
+	a != 0, so if Ha = O(EPS), then
+	Ha * aH / aHa = O(EPS^2/EPS)
 
-	  if H*a == 0, the constraints are dependent.
+	if H*a == 0, the constraints are dependent.
 	  */
-	H -= Matrix (Ha/aHa , Ha);
+      H -= Matrix (Ha/aHa , Ha);
   
 
-	/*
+      /*
 	  sorry, don't know how to justify this. ..
 	  */
-	addrow=Ha;
+      addrow=Ha;
       addrow/= aHa;
-	A -= Matrix (A*a, addrow);
-	A.insert_row (addrow,A.rows());
-  }else
-	WARN << "degenerate constraints";
+      A -= Matrix (A*a, addrow);
+      A.insert_row (addrow,A.rows());
+    }else
+      WARN << "degenerate constraints";
 }
 
 void
@@ -111,7 +111,7 @@ Active_constraints::drop (int k)
 {
   int q=active.size()-1;
 
-      // drop indices
+  // drop indices
   inactive.push (active[k]);
   active.swap (k,q);
   A.swap_rows (k,q);
@@ -120,15 +120,15 @@ Active_constraints::drop (int k)
   Vector a (A.row (q));
   if (a.norm() > EPS) 
     {
-	/*
+      /*
 	 
-	 */
+       */
       Real q = a*opt->quad*a;
-	Matrix aaq (a,a/q);
-	H += aaq;
-	A -= A*opt->quad*aaq;
-  }else
-	WARN << "degenerate constraints";
+      Matrix aaq (a,a/q);
+      H += aaq;
+      A -= A*opt->quad*aaq;
+    }else
+      WARN << "degenerate constraints";
 #ifndef NDEBUG
   Vector rem_row (A.row (q));
   assert (rem_row.norm() < EPS);
@@ -140,16 +140,16 @@ Active_constraints::drop (int k)
 
 Active_constraints::Active_constraints (Ineq_constrained_qp const *op)
   :       A(0,op->dim()),
-	    H(op->dim()),
-	    opt (op)
+	  H(op->dim()),
+	  opt (op)
 {
   for (int i=0; i < op->cons.size(); i++)
-	inactive.push (i);
+    inactive.push (i);
   Choleski_decomposition chol (op->quad);
 
   /*
     ugh.
-   */
+    */
   H=chol.inverse();
   OK();
 }

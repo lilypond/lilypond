@@ -6,9 +6,20 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
-
-	* move to OpusTeX fonts
-
+	* use properties for:
+	- Text_style
+	- default_octave
+	- plet?
+	- default_duration?
+	- default abbreviation
+	- Staff_sym size
+	- default tempo.
+	- font size
+	- bartypes (get rid of derived Span_bar_engravers)
+	- cadenza mode? 
+	- MIDI instrument
+	- staff title
+	
 	* check out egcs
 	
 	* give Items/Spanners access to unbroken originals	
@@ -33,7 +44,7 @@ PROJECTS
 	* Spring_spacer:
 	- write a faster Spring_spacer ( without matrices if possible )
 	- relate energybound to linelen unitspace fontsize etc.
-	-used fixed fp
+	- used fixed point fp
 
 	* \header
 	- revise lexer mode
@@ -79,6 +90,24 @@ languages:
 	- ABC? 
 	- SMDL?
 
+	* robustification
+	- check write errors
+	- check read errors
+	
+
+	* placement of bar-numbers
+
+******************
+
+	\score { < 
+		\melodic { \id "Staff" ""; c'4 g'4 }
+		\lyric {   \id "Lyric" ""; hello4 bye4 < a chord > }
+		\lyric {   \id "Lyric" ""; bye4 hello4 }
+		\melodic { \id "Staff" ""; c'4 g'4 }
+	> }
+
+******************
+
 	* add to MIDI output:
 	- tempo change
 	- repeat
@@ -86,10 +115,11 @@ languages:
 	- dynamics etc.
 
 	* grace notes
-	- adapt for multiple font sizes.
 	- make separate class for Grace_*_engravers 
 	(which is at Voice_gravs level)
 	- make encapsulated spacing problems.
+
+	* On-demand loading of simple-engravers
 
 	* accidentals per Voice_group
 
@@ -127,10 +157,6 @@ languages:
 	- Doc (C) stuff of sheet music
 	- a tutorial
 
-	* separate Score_elem settings in user-settable (properties
-	.. ) and non-user-settable part. Maybe use something like X-resources:
-	"Staff=oboe*dir: 0", "Staff=*.Voice_group=solo*dir: 1"
-
 	* TeX spanners , use texbeam.cc as an example (smallish)
 	- Glissando
 	- trill
@@ -138,22 +164,16 @@ languages:
 
 	* Rewrite Stem, Beam and Rhythmic_grouping (hairy)
 	- [c8. c32 c32]
- 	- interbeam height
-	- doc on Rhythmic_grouping
+ 	- doc on Rhythmic_grouping
 	- general shaving on Beam and Stem
 	- use plet grouping
-	- abbreviations [c2 c2]1/2
 	- separate visual from rhythmic info even more
 	- beams over bars
 
-
-	* Redo font  
-	- rename mf fonts to avoid conflicts with musixtex
-	- use own fonts/update musixtex fonts/find older (c)-less fonts
+	* Redo fonts
+	- adapt for multiple font sizes.
 	- hack up mf sources for decent spacing info (and then 
 	read AFM/TFM directly, for text too)
-	- use MF to generate rules.
-	- rewrite : make a metafont iso font
 
 	* Font support:
 	- mixed fontsizes
@@ -165,7 +185,6 @@ languages:
 	- beam stem showthrough, inter beam sizes (french vs german style)
 
 	* Collisions
-	- bring Collision::do_pre_processing to haircutter
 	- left/right note balls should be handled by Collision:
 	< \multi 2; { \stem 1; <b c> } { <f as b> } >
 
@@ -204,7 +223,6 @@ SEVERELY LACKING:
 
 	* markers
 
-	* abbreviations c4=16
 
 INPUTLANGUAGE
 
@@ -229,14 +247,11 @@ INPUTLANGUAGE
 
 	* bracket (bracketplets)
 
-	* \duration 8; e*2/3
-
 	* configure pitch_byte
 
 	* rest name configurable
 
 	* Raw request syntax
-
 
 SMALLISH PROJECTS
 
@@ -250,9 +265,7 @@ SMALLISH PROJECTS
 
 	* write Dynamic_line (to group dynamics horizontally)
 
-	* write Rest_collision
-
-	* use Real for y positions.
+	* use Real for all y positions.
 
 	* half-sharps, half-flats
 
@@ -302,7 +315,7 @@ SMALLISH PROJECTS
 	    < a-4 c-2 g-1 >   < c-\ltoe e-\lheel >
 	- script-spacing
 	- slur parts as a script
-	- stackparameterised scripts for fingering and footing:
+	- stack parameterised scripts for fingering and footing:
 
             % toe to bheel   four to five
 	    %   ^_u            4_5  
@@ -321,11 +334,6 @@ SMALLISH PROJECTS
 	* revise calcideal
 
 	* volta
-
-DOC
-	* all errors
-	
-	* hacking-HOWTO
 
 IDEAS
 
@@ -389,9 +397,11 @@ IDEAS
 
 	*
 	- rewire acknowledge_element() logic with a process_acknowledged()
-	- construct Stem upon receiving Notehead. Junk Stem_req
 
 	* pushgroup/popgroup
 
 	* whole head on ledger line
 
+	* multi threading?
+	  - 1 thread per element/ 1 thread per line
+	  - 1 thread per Translator

@@ -20,7 +20,7 @@ template<class T> class Link;
    {\bf note:} 
    retrieving "invalid" cursors, i.e. 
    #top()/bottom ()# from empty list, #find ()# without success,
-    results in a nonvalid Cursor ( #!ok()#)
+    results in a nonvalid Cursor (#!ok()#)
 
 
     INVARIANTEN!

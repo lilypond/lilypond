@@ -75,6 +75,7 @@ table_sixteen=
      }
 
      "balls" = \table {
+	"-2"	"\longaball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
 	"-1"	"\breveball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
 	"0"	"\wholeball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
 	"1"	"\halfball"	0.0\pt	5.0\pt	-2.0\pt	2.0\pt
@@ -112,6 +113,8 @@ table_sixteen=
      }
 
      "rests" = \table {
+	"-2o"	"\longarest"		0.0\pt  6.0\pt  0.0\pt  4.0\pt
+	"-2"	"\longarest"		0.0\pt	6.0\pt	0.0\pt	4.0\pt
 	"-1o"	"\breverest"		0.0\pt  6.0\pt  0.0\pt  4.0\pt
 	"-1"	"\breverest"		0.0\pt	6.0\pt	0.0\pt	4.0\pt
 	"0o"	"\outsidewholerest"	0.0\pt  6.0\pt  0.0\pt  2.0\pt

@@ -17,11 +17,35 @@
 #include "header.hh"
 
 
+My_lily_parser::My_lily_parser (Sources * source_l)
+{
+  first_b_ = true;
+  source_l_ = source_l;
+  lexer_p_ = 0;
+  abbrev_beam_type_i_ = 0;
+  default_abbrev_type_i_ = 0;
+  default_duration_.durlog_i_ = 2;
+  default_octave_i_ = 0;
+  textstyle_str_="roman";		// in lexer?
+  error_level_i_ = 0;
+  last_duration_mode_b_ = true;
+  fatal_error_i_ = 0;
+  default_header_p_ =0;
+}
+
+My_lily_parser::~My_lily_parser()
+{
+  delete lexer_p_;
+  delete default_header_p_;
+}
+  
+
 void
 My_lily_parser::clear_notenames()
 {
   lexer_p_->clear_notenames();
 }
+
 void
 My_lily_parser::set_version_check (bool ig)
 {
@@ -66,6 +90,11 @@ My_lily_parser::parse_file (String init, String s)
   set_debug();
   lexer_p_->new_input (init, source_l_);
   do_yyparse();
+
+  if (error_level_i_)
+    {
+      error ("Found errors in init files");
+    }
   print_declarations();
 
   init_parse_b_ = false;
@@ -82,12 +111,6 @@ My_lily_parser::parse_file (String init, String s)
     }
 }
 
-My_lily_parser::~My_lily_parser()
-{
-  delete lexer_p_;
-  delete default_header_p_;
-}
-  
 void
 My_lily_parser::remember_spot()
 {
@@ -117,10 +140,23 @@ My_lily_parser::set_duration_mode (String s)
 }
 
 void
+My_lily_parser::set_abbrev_beam (int type_i)
+{
+  abbrev_beam_type_i_ = type_i;
+}
+
+void
+My_lily_parser::set_last_abbrev (int type_i)
+{
+  default_abbrev_type_i_ = type_i;
+}
+
+void
 My_lily_parser::set_default_duration (Duration const *d)
 {
   last_duration_mode_b_ = false;
   default_duration_ = *d;
+  set_last_abbrev (0);
 }
 
 
@@ -129,6 +165,7 @@ My_lily_parser::set_last_duration (Duration const *d)
 {
   if (last_duration_mode_b_)
     default_duration_ = *d;
+  set_last_abbrev (0);
 }
 
 
@@ -183,6 +220,13 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
 
   v->add (rq);
   
+  // too bad parser reads (default) duration via member access,
+  // this hack will do for now..
+  if (abbrev_beam_type_i_)
+    {
+      assert (!duration_p->plet_b ());
+      duration_p->set_plet (1, 2);
+    }
   rq->set_duration (*duration_p);
   rq->set_spot (here_input());
   delete duration_p ;
@@ -202,11 +246,22 @@ My_lily_parser::get_parens_request (char c)
     case '[':
     case ']':
       {
-	Beam_req*b = new Beam_req;
-	int p_i=plet_.type_i_ ; // ugh . Should junk?
-	if (p_i!= 1)
-	  b->nplet = p_i;
-	req_p = b;
+	if (!abbrev_beam_type_i_)
+	  {
+	    Beam_req*b = new Beam_req;
+	    int p_i=plet_.type_i_ ; // ugh . Should junk?
+	    if (p_i!= 1)
+	      b->nplet = p_i;
+	    req_p = b;
+	  }
+	else
+	  {
+	    Abbreviation_beam_req* a = new Abbreviation_beam_req;
+	    a->type_i_ = abbrev_beam_type_i_;
+	    if (c==']')
+	      abbrev_beam_type_i_ = 0;
+	    req_p = a;
+	  }
       }
     break;
 
@@ -251,20 +306,6 @@ My_lily_parser::get_parens_request (char c)
 
   req_p->set_spot (here_input());
   return req_p;
-}
-
-My_lily_parser::My_lily_parser (Sources * source_l)
-{
-  first_b_ = true;
-  source_l_ = source_l;
-  lexer_p_ = 0;
-  default_duration_.durlog_i_ = 2;
-  default_octave_i_ = 0;
-  textstyle_str_="roman";		// in lexer?
-  error_level_i_ = 0;
-  last_duration_mode_b_ = true;
-  fatal_error_i_ = 0;
-  default_header_p_ =0;
 }
 
 void

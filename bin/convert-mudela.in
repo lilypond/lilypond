@@ -19,7 +19,7 @@ Ugh . Perl sux. Anybody for Python?
 
 
 
-$convert_mudela_version = "0.1.1";
+$convert_mudela_version = "0.1.2";
 
 use Getopt::Long;
 
@@ -110,6 +110,21 @@ sub convert_0_1_0_to_0_1_1
 {
     s/\\tempo (.*):(.*);/\\tempo $1 = $2;/g
 }
+
+sub convert_0_1_2_to_0_1_3
+{
+    s/\\stem *(\\up|1) *;/\\stemup/g;
+    s/\\stem *(\\down|-1) *;/\\stemdown/g;
+    s/\\stem *0 *;/\\stemboth/g;
+    s/\\hshift ([^;]+) *;/\\property Voice.hshift = $1/g;
+}
+
+sub convert_0_1_4_to_0_1_5
+{
+    s/([<{]) *\\id "Piano" (.+);/\\type Grandstaff = $3 $1/;    
+    s/([<{]) *\\id (.+) (.+);/\\type $2 = $3 $1/;
+}
+
 ###############################################################
 
 sub    last_conversion
@@ -135,7 +150,7 @@ sub identify
      . "  -h, --help             print this help\n"
      . "  -o, --output=FILE      name output file\n"
      . "  -s, --show-rules       print all known conversion rules\n"
-     . "  -t, --to=VERSION    convert to version VERSION\n"
+     . "  -t, --to=VERSION       convert to version VERSION\n"
   }
       
 
@@ -150,7 +165,11 @@ my %minor_conversions = ("0.0.50" => \&no_conv,
 			 "0.0.59" => \&convert_0_0_58_to_0_0_59,
 			 "0.0.60" => \&convert_0_0_59_to_0_0_60,
 			 "0.0.61" => \&convert_0_0_60_to_0_0_61,
-			 "0.1.1" => \&convert_0_1_0_to_0_1_1
+			 "0.1.1" => \&convert_0_1_0_to_0_1_1,
+			 "0.1.2" => \&no_conv,
+			 "0.1.3" => \&convert_0_1_2_to_0_1_3,
+			 "0.1.4" => \&no_conv,
+			 "0.1.5" => \&convert_0_1_4_to_0_1_5
 			 );
  
 

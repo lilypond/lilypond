@@ -9,6 +9,7 @@
 #include "item.hh"
 #include "varray.hh"
 #include "moment.hh"
+#include "molecule.hh"
 
 
 /**the rule attached to the ball.
@@ -27,6 +28,8 @@
   Stem size depends on flag.
   */
 class Stem : public Item {
+
+  Molecule abbrev_mol () const;
     
   Real stem_bottom_f_, stem_top_f_;
     
@@ -44,31 +47,34 @@ class Stem : public Item {
     -1 stem points down, +1: stem points up
     */
   Real stem_xoffset_f_;
-  /**
-    store the wholes (for vapourware tremolo)
-    */
-  Link_array<Note_head> whole_l_arr_;
+
   Link_array<Note_head> head_l_arr_;
-  Link_array<Note_head> rest_l_arr_;
+  Link_array<Rest> rest_l_arr_;
     
 public:
+  /// abbrev flag? + count
+  int abbrev_flag_i_;
+
   /// flagtype? 4 none, 8 8th flag, 0 = beam.
   int flag_i_;
+
+  /** 
+    don't print flag when in beam.
+    our beam, for aligning abbrev flags
+   */
+  Beam* beam_l_;
 
   int beams_left_i_;
   int beams_right_i_;
 
-  /// false if in beam
-  bool print_flag_b_;
-    
   Direction dir_;
-
     
   /* *************** */
   Stem ();
     
   /// ensure that this Stem also encompasses the Notehead #n#
   void add (Note_head*n);
+  void add (Rest*);
 
   DECLARE_MY_RUNTIME_TYPEINFO;
 

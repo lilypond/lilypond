@@ -12,8 +12,10 @@
 #include <iostream.h>
 
 // mmm
-#define MUDELA_VERSION "0.1.1"
+#define MUDELA_VERSION "0.1.5"
 
+#include "scalar.hh"
+#include "translation-property.hh"
 #include "script-def.hh"
 #include "symtable.hh"
 #include "lookup.hh"
@@ -31,7 +33,7 @@
 #include "musical-request.hh"
 #include "my-lily-parser.hh"
 #include "text-def.hh"
-#include "input-translator.hh"
+#include "translator-group.hh"
 #include "score.hh"
 #include "music-list.hh"
 #include "header.hh"
@@ -60,7 +62,7 @@
     Chord * chord;
     Duration *duration;
     Identifier *id;
-    Input_translator* itrans;
+    Translator* trans;
     Music *music;
     Music_list *musiclist;
     Score *score;
@@ -68,6 +70,7 @@
     Interval *interval;
     Lookup*lookup;
     Melodic_req * melreq;
+    Musical_req* musreq;
     Music_output_def * outputdef;
     Midi_def* midi;
     Moment *moment;
@@ -76,6 +79,7 @@
     Real real;
     Request * request;
     General_script_def * script;
+    Scalar *scalar;
     String *string;
     Symbol * symbol;
     Symtable * symtable;
@@ -90,13 +94,13 @@
 %{
 
 int
-yylex(YYSTYPE *s,  void * v_l)
+yylex (YYSTYPE *s,  void * v_l)
 {
 	My_lily_parser	 *pars_l = (My_lily_parser*) v_l;
 	My_lily_lexer * lex_l = pars_l->lexer_p_;
 
 	lex_l->lexval_l = (void*) s;
-	return lex_l->yylex();
+	return lex_l->yylex ();
 }
 
 
@@ -119,12 +123,9 @@ yylex(YYSTYPE *s,  void * v_l)
 %token ABSDYNAMIC
 %token END
 %token GROUPING
-%token GROUP
-%token REQUESTTRANSLATOR
-%token HSHIFT
+%token TRANSLATOR
 %token HEADER
 %token IN_T
-%token ID
 %token LYRIC
 %token KEY
 %token MELODIC
@@ -146,14 +147,15 @@ yylex(YYSTYPE *s,  void * v_l)
 %token SPANDYNAMIC
 %token STAFF
 %token START_T
-%token STEM
 %token SYMBOLTABLES
 %token TABLE
 %token TRANSPOSE
 %token TEMPO
+%token TYPE
 %token TEXID
 %token TEXTSTYLE
 %token TITLE
+%token PROPERTY
 %token VERSION
 
 /* escaped */
@@ -171,7 +173,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token <id>	SCRIPT_IDENTIFIER
 %token <id>	COMMAND_IDENTIFIER
 %token <id>	REAL_IDENTIFIER
-%token <id>	INPUT_TRANS_IDENTIFIER
+%token <id>	TRANS_IDENTIFIER
 %token <id>	INT_IDENTIFIER
 %token <id>	SCORE_IDENTIFIER
 %token <id>	MIDI_IDENTIFIER
@@ -188,8 +190,10 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <header> 	mudela_header mudela_header_body
 %type <box>	box
 %type <c>	open_request_parens close_request_parens
+%type <c>	open_abbrev_parens
 %type <c>	open_plet_parens close_plet_parens
 %type <music>	simple_element music_elt full_element lyrics_elt command_elt
+%type <i>	abbrev_type
 %type <i>	int
 %type <i>	script_dir
 %type <id>	identifier_init
@@ -204,14 +208,16 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <midi>	midi_block midi_body
 %type <moment>	duration_length
 
+%type <scalar>  scalar
 %type <music>	Music transposed_music
+%type <music>	propertydef
 %type <musiclist> Voice Voice_body
 %type <chord>	Chord Chord_body
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
-%type <request>	post_request pre_request command_req verbose_command_req
 %type <request> abbrev_command_req
+%type <request>	post_request pre_request command_req verbose_command_req
 %type <request>	script_req  dynamic_req
 %type <score>	score_block score_body
 %type <script>	script_definition script_body mudela_script gen_script_def
@@ -219,11 +225,12 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <string>	script_abbreviation
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
-%type <itrans>	input_translator_spec input_translator_spec_body
+%type <trans>	translator_spec translator_spec_body
 %type <tempo> 	tempo_request
 %type <string>	header_record
 
-%left PRIORITY
+%expect 2
+
 
 %%
 
@@ -233,7 +240,7 @@ mudela:	/* empty */
 		THIS->default_header_p_ = $2;
 	}
 	| mudela score_block {
-		add_score($2);
+		add_score ($2);
 	}
 	| mudela add_declaration { }
 	| mudela error
@@ -243,12 +250,12 @@ mudela:	/* empty */
 
 check_version:
 	VERSION STRING ';'		{
-		if ( String( *$2 ) != MUDELA_VERSION) {
+		if (String (*$2) != MUDELA_VERSION) {
 			if (THIS->ignore_version_b_) {
-				THIS->here_input().error("Incorrect mudela version");
+				THIS->here_input ().error ("Incorrect mudela version");
 			} else {
 				THIS->fatal_error_i_ = 1;
-				THIS->parser_error("Incorrect mudela version");
+				THIS->parser_error ("Incorrect mudela version");
 			}
 		}
 	}
@@ -261,10 +268,10 @@ notenames_body:
 	/**/	{
 	}
 	| notenames_body CLEAR	{
-		THIS->clear_notenames();
+		THIS->clear_notenames ();
 	}
 	| notenames_body STRING '=' melodic_request {
-		THIS->add_notename(*$2, $4);
+		THIS->add_notename (*$2, $4);
 		delete $2;
 	}
 	;
@@ -282,12 +289,12 @@ mudela_header_body:
 
 mudela_header:
 	HEADER 	{
-		THIS->lexer_p_->push_header_state();
+		THIS->lexer_p_->push_header_state ();
 	}
 
 	'{' mudela_header_body '}'	{
 		$$ = $4;
-		THIS->lexer_p_->pop_state();
+		THIS->lexer_p_->pop_state ();
 	}
 	;
 
@@ -308,97 +315,92 @@ header_record:
 
 add_declaration:
 	STRING {
-		THIS->remember_spot();
+		THIS->remember_spot ();
 	}
 	/* cont */ '=' identifier_init {
-	    THIS->lexer_p_->set_identifier(*$1, $4);
+	    THIS->lexer_p_->set_identifier (*$1, $4);
 	    $4->init_b_ = THIS->init_parse_b_;
-	    $4->set_spot(THIS->pop_spot());
+	    $4->set_spot (THIS->pop_spot ());
 	}
 	;
 identifier_init:
 	score_block {
-		$$ = new Score_id($1, SCORE_IDENTIFIER);
+		$$ = new Score_id ($1, SCORE_IDENTIFIER);
 
 	}
 	| paper_block {
-		$$ = new Paper_def_id($1, PAPER_IDENTIFIER);
+		$$ = new Paper_def_id ($1, PAPER_IDENTIFIER);
 
 	}
 	| midi_block {
-		$$ = new Midi_def_id($1, MIDI_IDENTIFIER);
+		$$ = new Midi_def_id ($1, MIDI_IDENTIFIER);
 
 	}
 	| script_definition {
-		$$ = new Script_id($1, SCRIPT_IDENTIFIER);
+		$$ = new Script_id ($1, SCRIPT_IDENTIFIER);
 
 	}
 	| Music  {
-		$$ = new Music_id($1, MUSIC_IDENTIFIER);
+		$$ = new Music_id ($1, MUSIC_IDENTIFIER);
 
 	}
 	| symtables {
-		$$ = new Lookup_id($1, IDENTIFIER);
+		$$ = new Lookup_id ($1, IDENTIFIER);
 
 	}
 	| real	{
-		$$ = new Real_id(new Real($1), REAL_IDENTIFIER);
+		$$ = new Real_id (new Real ($1), REAL_IDENTIFIER);
 
 	}
 	| int	{
-		$$ = new Int_id(new int($1), INT_IDENTIFIER);
+		$$ = new Int_id (new int ($1), INT_IDENTIFIER);
 
 	}
 	| post_request {
-		$$ = new Request_id($1, POST_REQUEST_IDENTIFIER);
+		$$ = new Request_id ($1, POST_REQUEST_IDENTIFIER);
 
 	}
 	| melodic_request {
-		$$ = new Request_id($1, MELODIC_REQUEST_IDENTIFIER);
+		$$ = new Request_id ($1, MELODIC_REQUEST_IDENTIFIER);
 
 	}
-	| input_translator_spec {
-		$$ = new Input_translator_id ( $1, INPUT_TRANS_IDENTIFIER);
+	| translator_spec {
+		$$ = new Translator_id ($1, TRANS_IDENTIFIER);
 	}
 	| explicit_duration {
-		$$ = new Duration_id( $1, DURATION_IDENTIFIER);
+		$$ = new Duration_id ($1, DURATION_IDENTIFIER);
 	}
 	;
 
 
 
-input_translator_spec:
-	REQUESTTRANSLATOR '{' input_translator_spec_body '}'
+translator_spec:
+	TRANSLATOR '{' translator_spec_body '}'
 		{ $$ = $3; }
 	;
 
-input_translator_spec_body:
-	INPUT_TRANS_IDENTIFIER	{
-		$$ = $1->input_translator();
-		$$-> set_spot( THIS->here_input() );
+translator_spec_body:
+	TRANS_IDENTIFIER	{
+		$$ = $1->translator ();
+		$$-> set_spot (THIS->here_input ());
 	}
-	| STRING STRING	{
-		$$ = new Input_translator;
-		$$->base_str_ = *$1;
-		$$->type_str_ =*$2;
-		$$->set_spot ( THIS->here_input() );
-		delete $1;
+	| TYPE STRING ';'	{
+		$$ = get_translator_l (*$2)->clone ();
+		$$->set_spot (THIS->here_input ());
 		delete $2;
 	}
-	| input_translator_spec_body ID STRING ';' {
-		$$-> default_id_str_ = *$3;
+	| translator_spec_body STRING '=' scalar ';'	{
+		$$-> set_property (*$2, *$4);
+		delete $2;
+		delete $4;
+	}
+	| translator_spec_body CONSISTS STRING ';'	{
+		$$->group_l ()->consists_str_arr_.push (*$3);
 		delete $3;
 	}
-	| input_translator_spec_body ALIAS STRING ';' {
-		$$-> alias_str_arr_.push(*$3);
+	| translator_spec_body ACCEPTS STRING ';' {
+		$$->group_l ()->accepts_str_arr_.push (*$3);
 		delete $3;
-	}
-	| input_translator_spec_body CONSISTS STRING ';'	{
-		$$-> consists_str_arr_.push(*$3);
-		delete $3;
-	}
-	| input_translator_spec_body CONTAINS input_translator_spec {
-		$$->add($3);
 	}
 	;
 
@@ -406,20 +408,20 @@ input_translator_spec_body:
 	SCORE
 */
 score_block:
-	SCORE { THIS->remember_spot();
+	SCORE { THIS->remember_spot ();
 		THIS->error_level_i_ =0;
 	}
 	/*cont*/ '{' score_body '}' 	{
 		$$ = $4;
-		$$->set_spot(THIS->pop_spot());
+		$$->set_spot (THIS->pop_spot ());
 		if (!$$->def_p_arr_.size ())
-			$$->add ( THIS->default_paper());
+			$$->add (THIS->default_paper ());
 
 		/* handle error levels. */
 		$$->errorlevel_i_ = THIS->error_level_i_;
 		THIS->error_level_i_ = 0;
 		if (!$$->header_p_ && THIS->default_header_p_)
-			$$->header_p_ = new Header(*THIS->default_header_p_);
+			$$->header_p_ = new Header (*THIS->default_header_p_);
 	}
 	;
 
@@ -427,7 +429,7 @@ score_body:		{
 		$$ = new Score;
 	}
 	| SCORE_IDENTIFIER {
-		$$ = $1->score();
+		$$ = $1->score ();
 	}
 	| score_body mudela_header 	{
 		$$->header_p_ = $2;
@@ -436,7 +438,7 @@ score_body:		{
 		$$->music_p_ = $2;
 	}
 	| score_body output_def {
-		$$->add( $2);
+		$$->add ($2);
 	}
 	| score_body error {
 
@@ -455,7 +457,7 @@ output_def:
 intastint_list:
 	/* */	{ $$ =new Array<int>; }
 	| intastint_list int '*' int	{
-		$$->push($2); $$->push($4);
+		$$->push ($2); $$->push ($4);
 	}
 	;
 
@@ -470,24 +472,25 @@ paper_block:
 
 paper_body:
 	/* empty */		 	{
-		$$ = THIS->default_paper(); // paper / video / engrave
+		$$ = THIS->default_paper (); // paper / video / engrave
 	}
 	| PAPER_IDENTIFIER	{
-		$$ = $1->paperdef();
+		$$ = $1->paperdef ();
 	}
 	| paper_body OUTPUT STRING ';'	{ 
 		$$->outfile_str_ = *$3;
 		delete $3;
 	}
-	| paper_body symtables		{ $$->set($2); }
+	| paper_body symtables		{ $$->set ($2); }
 	| paper_body STRING '=' dim ';'		{
-		$$->set_var(*$2, $4);
+		$$->set_var (*$2, $4);
 	}
 	| paper_body STRING '=' real ';' {
-		$$->set_var(*$2, $4);
+		$$->set_var (*$2, $4);
 	}
-	| paper_body input_translator_spec	{
-		$$->set( $2 );
+	| paper_body STRING '=' translator_spec	{
+		$$-> assign_translator (*$2, $4);
+		delete $2;
 	}
 	| paper_body error {
 
@@ -504,18 +507,19 @@ midi_block:
 	;
 
 midi_body: /* empty */ 		{
-		$$ = THIS->default_midi();
+		$$ = THIS->default_midi ();
+	}
+	| midi_body STRING '=' translator_spec	{
+		$$-> assign_translator (*$2, $4);
+		delete $2;
 	}
 	| midi_body OUTPUT STRING ';'	{
 		$$->outfile_str_ = *$3;
 		delete $3;
 	}
 	| midi_body tempo_request ';' {
-		$$->set_tempo( $2->dur_.length(), $2->metronome_i_ );
+		$$->set_tempo ($2->dur_.length (), $2->metronome_i_);
 		delete $2;
-	}
-	| midi_body input_translator_spec	{
-		$$->set( $2 );
 	}
 	| midi_body error {
 
@@ -545,34 +549,68 @@ Voice_body:
 	/**/		{
 		$$ = new Voice;
 	}
-	| Voice_body ID STRING STRING ';'	{
-		$$ = new Voice;
-		$$->type_str_ = *$3;
-		$$->id_str_ = *$4;
-		delete $3;
-		delete $4;
-	}
 	| Voice_body Music		{
-		$$->add($2);
+		$$->add ($2);
 	}
 	;
 
 Music:
 	full_element		{ $$ = $1; }
+	| TYPE STRING Music	{
+		$$ = $3;
+		$$->translator_type_str_ = *$2;
+		delete $2;
+	}
+	| TYPE STRING '=' STRING Music {
+		$$ = $5;
+		$$->translator_type_str_ = *$2;
+		$$->translator_id_str_ = *$4;
+		delete $2;
+		delete $4;
+	}
 	| Voice		{ $$ = $1; }
 	| Chord			{ $$ = $1; }
 	| transposed_music	{ $$ = $1; }
-	| MUSIC_IDENTIFIER 	{ $$ = $1->music(); }
+	| MUSIC_IDENTIFIER 	{ $$ = $1->music (); }
 	| MELODIC
-		{ THIS->lexer_p_->push_note_state(); }
+		{ THIS->lexer_p_->push_note_state (); }
 	Music
-		{ $$=$3; THIS->lexer_p_->pop_state(); }
+		{ $$=$3; THIS->lexer_p_->pop_state (); }
 
 	| LYRIC
-		{ THIS->lexer_p_->push_lyric_state(); }
+		{ THIS->lexer_p_->push_lyric_state (); }
 	Music
-		{ $$ = $3; THIS->lexer_p_->pop_state(); }
+		{ $$ = $3; THIS->lexer_p_->pop_state (); }
+	| propertydef
 	;
+
+propertydef:
+	TRANSLATOR STRING '=' STRING  {
+		/* kluge.  Could use Music just as well */
+		Translation_property * t = new Translation_property;
+		t-> translator_type_str_ = *$2;
+		t-> translator_id_str_ = *$4;
+		$$ = t;
+		delete $2;
+		delete $4;
+	}
+	| PROPERTY STRING '.' STRING '=' scalar	{
+		Translation_property *t = new Translation_property;
+		t-> translator_type_str_ = *$2;
+		t-> var_str_ = *$4;
+		t-> value_ = *$6;
+		$$ = t;
+		delete $2;
+		delete $4;
+		delete $6;
+	}
+	;
+
+scalar:
+	STRING		{ $$ = new Scalar (*$1); delete $1; }
+	| int		{ $$ = new Scalar ($1); }
+	;
+
 
 Chord:
 	'<' Chord_body '>'	{ $$  = $2; }
@@ -586,21 +624,15 @@ Chord_body:
 	| Chord_body MULTI INT ';' {
 		$$->multi_level_i_=$3;
 	}
-	| Chord_body ID STRING STRING ';'	{
-		$$->type_str_ = *$3;
-		$$->id_str_ = *$4;
-		delete $4;
-		delete $3;
-	}
 	| Chord_body Music {
-		$$->add($2);
+		$$->add ($2);
 	}
 	;
 
 transposed_music:
 	TRANSPOSE steno_melodic_req Music {
 		$$ = $3;
-		$$ -> transpose($2);
+		$$ -> transpose ($2);
 		delete $2;
 	}
 	;
@@ -611,7 +643,7 @@ transposed_music:
 */
 full_element:
 	pre_requests simple_element post_requests	{
-	 	THIS->add_requests((Chord*)$2);//ugh
+	 	THIS->add_requests ((Chord*)$2);//ugh
  		$$ = $2;
 	}
 	| command_elt
@@ -626,9 +658,9 @@ simple_element:
 command_elt:
 	command_req {
 		$$ = new Request_chord;
-		$$-> set_spot( THIS->here_input());
-		$1-> set_spot( THIS->here_input());
-		((Chord*)$$) ->add($1);//ugh
+		$$-> set_spot (THIS->here_input ());
+		$1-> set_spot (THIS->here_input ());
+		((Chord*)$$) ->add ($1);//ugh
 
 	}
 	;
@@ -643,30 +675,24 @@ abbrev_command_req:
 		$$ = new Barcheck_req;
 	}
 	| COMMAND_IDENTIFIER	{
-		$$ = $1->request();
+		$$ = $1->request ();
 	}
 	;
 
 verbose_command_req:
 	BAR STRING 			{
-		$$ = new Bar_req(*$2);
+		$$ = new Bar_req (*$2);
 		delete $2;
 	}
 	| METER int '/' int 	{
 		Meter_change_req *m = new Meter_change_req;
-		m->set($2,$4);
-		// sorry hw, i need meter at output of track,
-		// but don-t know where to get it... statics should go.
-		// HW : default: 4/4, meterchange reqs may change it.
-
-		Midi_def::num_i_s = $2;
-		Midi_def::den_i_s = $4;
+		m->set ($2,$4);
 		$$ = m;
 	}
 	| SKIP duration_length {
 		Skip_req * skip_p = new Skip_req;
-		skip_p->duration_.set_plet($2->numerator().as_long(),
-			$2->denominator().as_long());
+		skip_p->duration_.set_plet ($2->numerator ().as_long (),
+			$2->denominator ().as_long ());
 
 		delete $2;
 		$$ = skip_p;
@@ -675,20 +701,14 @@ verbose_command_req:
 		$$ = $1;
 	}
 	| CADENZA int	{
-		$$ = new Cadenza_req($2);
+		$$ = new Cadenza_req ($2);
 	}
 	| PARTIAL duration_length 	{
-		$$ = new Partial_measure_req(*$2);
+		$$ = new Partial_measure_req (*$2);
 		delete $2;
 	}
-	| STEM int 	{
-		$$ = get_stemdir_req($2);
-	}
-	| HSHIFT int	{
-		$$ = get_hshift_req($2);
-	}
 	| CLEF STRING {
-		$$ = new Clef_change_req(*$2);
+		$$ = new Clef_change_req (*$2);
 		delete $2;
 	}
 	| KEY pitch_list 	{
@@ -698,30 +718,35 @@ verbose_command_req:
 		delete $2;
 	}
 	| GROUPING intastint_list {
-		$$ = get_grouping_req(*$2); delete $2;
+		$$ = get_grouping_req (*$2); delete $2;
 	}
 	;
 
 post_requests:
 	{
-		assert(THIS->post_reqs.empty());
+		assert (THIS->post_reqs.empty ());
 	}
 	| post_requests post_request {
-		$2->set_spot( THIS->here_input());
-		THIS->post_reqs.push($2);
+		$2->set_spot (THIS->here_input ());
+		THIS->post_reqs.push ($2);
 	}
 	;
 
 
 post_request:
 	POST_REQUEST_IDENTIFIER	{
-		$$ = (Request*)$1->request();
+		$$ = (Request*)$1->request ();
 	}
 	|close_request_parens	{
-		$$ = THIS->get_parens_request($1);
+		$$ = THIS->get_parens_request ($1);
 	}
 	| script_req
 	| dynamic_req
+	| abbrev_type	{
+		Abbreviation_req* a = new Abbreviation_req;
+		a->type_i_ = $1;
+		$$ = a;
+	}
 	;
 
 
@@ -731,7 +756,7 @@ post_request:
 */
 steno_melodic_req:
 	NOTENAME_ID	{
-		$$ = $1->clone()->musical()->melodic();
+		$$ = $1->clone ()->musical ()->melodic ();
 		$$->octave_i_ += THIS->default_octave_i_;
 	}
 	| steno_melodic_req POST_QUOTES 	{
@@ -815,6 +840,18 @@ close_request_parens:
 	}
 	;
 
+open_abbrev_parens:
+	'[' ':' INT {
+		$$ = '[';
+		if (!Duration::duration_type_b ($3))
+			THIS->parser_error ("Not a duration");
+		else if ($3 < 8)
+			THIS->parser_error ("Can't abbreviate");
+		else
+			THIS->set_abbrev_beam ($3);
+	}
+	;
+
 open_plet_parens:
 	'[' INT '/' INT {
 		$$ = '[';
@@ -833,6 +870,8 @@ open_request_parens:
 	| '['	{
 		$$='[';
 	}
+	| open_abbrev_parens {
+	}
 	| open_plet_parens {
 	}
 	;
@@ -846,7 +885,7 @@ script_definition:
 script_body:
 	STRING int int int int int		{
 		Script_def *s = new Script_def;
-		s->set_from_input(*$1,$2, $3,$4,$5, $6);
+		s->set_from_input (*$1,$2, $3,$4,$5, $6);
 		$$  = s;
 		delete $1;
 	}
@@ -857,7 +896,7 @@ script_req:
 		Musical_script_req *m = new Musical_script_req;
 		$$ = m;
 		m-> scriptdef_p_ = $2;
-		m-> set_spot ( THIS->here_input() );
+		m-> set_spot (THIS->here_input ());
 		m-> dir_  = $1;
 	}
 	;
@@ -865,7 +904,7 @@ script_req:
 gen_script_def:
 	text_def	{ $$ = $1; }
 	| mudela_script	{ $$ = $1;
-		$$-> set_spot( THIS->here_input() );
+		$$-> set_spot (THIS->here_input ());
 	}
 	;
 
@@ -876,27 +915,27 @@ text_def:
 		t->text_str_ = *$1;
 		delete $1;
 		t->style_str_ = THIS->textstyle_str_;
-		$$->set_spot( THIS->here_input() );
+		$$->set_spot (THIS->here_input ());
 	}
 	;
 
 script_abbreviation:
-	'^'		{ $$ = get_scriptdef('^'); }
-	| '+'		{ $$ = get_scriptdef('+'); }
-	| '-'		{ $$ = get_scriptdef('-'); }
- 	| '|'		{ $$ = get_scriptdef('|'); }
-	| 'o'		{ $$ = get_scriptdef('o'); }
-	| '>'		{ $$ = get_scriptdef('>'); }
+	'^'		{ $$ = get_scriptdef ('^'); }
+	| '+'		{ $$ = get_scriptdef ('+'); }
+	| '-'		{ $$ = get_scriptdef ('-'); }
+ 	| '|'		{ $$ = get_scriptdef ('|'); }
+	| 'o'		{ $$ = get_scriptdef ('o'); }
+	| '>'		{ $$ = get_scriptdef ('>'); }
 	| '.' 		{
-		$$ = get_scriptdef('.');
+		$$ = get_scriptdef ('.');
 	}
 	;
 
 mudela_script:
-	SCRIPT_IDENTIFIER		{ $$ = $1->script(); }
+	SCRIPT_IDENTIFIER		{ $$ = $1->script (); }
 	| script_definition		{ $$ = $1; }
 	| script_abbreviation		{
-		$$ = THIS->lexer_p_->lookup_identifier(*$1)->script();
+		$$ = THIS->lexer_p_->lookup_identifier (*$1)->script ();
 		delete $1;
 	}
 	;
@@ -909,27 +948,27 @@ script_dir:
 
 pre_requests:
 	| pre_requests pre_request {
-		THIS->pre_reqs.push($2);
-		$2->set_spot( THIS->here_input());
+		THIS->pre_reqs.push ($2);
+		$2->set_spot (THIS->here_input ());
 	}
 	;
 
 pre_request:
 	open_request_parens	{
-		$$ = THIS->get_parens_request($1);
+		$$ = THIS->get_parens_request ($1);
 	}
 	;
 
 voice_command:
 	PLET	 INT '/' INT {
-		THIS->default_duration_.set_plet($2,$4);
+		THIS->default_duration_.set_plet ($2,$4);
 	}
 	| DURATION STRING {
-		THIS->set_duration_mode(*$2);
+		THIS->set_duration_mode (*$2);
 		delete $2;
 	}
 	| DURATION entered_notemode_duration {
-		THIS->set_default_duration($2);
+		THIS->set_default_duration ($2);
 		delete $2;
 	}
 	| OCTAVE {
@@ -954,10 +993,10 @@ voice_command:
 
 duration_length:
 	{
-		$$ = new Moment(0,1);
+		$$ = new Moment (0,1);
 	}
 	| duration_length explicit_steno_duration		{
-		*$$ += $2->length();
+		*$$ += $2->length ();
 	}
 	;
 
@@ -968,14 +1007,14 @@ dots:
 
 entered_notemode_duration:
 	/* */		{
-		$$ = new Duration(THIS->default_duration_);
+		$$ = new Duration (THIS->default_duration_);
 	}
 	| dots		{
-		$$ = new Duration(THIS->default_duration_);
+		$$ = new Duration (THIS->default_duration_);
 		$$->dots_i_  = $1;
 	}
 	| explicit_steno_duration	{
-		THIS->set_last_duration($1);
+		THIS->set_last_duration ($1);
 		$$ = $1;
 	}
 	;
@@ -991,14 +1030,14 @@ notemode_duration:
 explicit_steno_duration:
 	int		{
 		$$ = new Duration;
-		if ( !Duration::duration_type_b($1) )
-			THIS->parser_error("Not a duration");
+		if (!Duration::duration_type_b ($1))
+			THIS->parser_error ("Not a duration");
 		else {
-			$$->durlog_i_ = Duration_convert::i2_type($1);
+			$$->durlog_i_ = Duration_convert::i2_type ($1);
 		     }
 	}
 	| DURATION_IDENTIFIER	{
-		$$ = $1->duration();
+		$$ = $1->duration ();
 	}
 	| explicit_steno_duration '.' 	{
 		$$->dots_i_ ++;
@@ -1012,15 +1051,28 @@ explicit_steno_duration:
 	;
 
 
+abbrev_type: 
+	':' int {
+		if (!Duration::duration_type_b ($2))
+			THIS->parser_error ("Not a duration");
+		else if ($2 < 8)
+			THIS->parser_error ("Can't abbreviate");
+		else
+			THIS->set_last_abbrev ($2);
+		$$ = THIS->default_abbrev_type_i_;
+	}
+	;
+
 music_elt:
-	steno_note_req notemode_duration 		{
-		if (!THIS->lexer_p_->note_state_b())
-			THIS->parser_error("have to be in Note mode for notes");
+	steno_note_req notemode_duration  {
+		if (!THIS->lexer_p_->note_state_b ())
+			THIS->parser_error ("have to be in Note mode for notes");
 		$1->set_duration (*$2);
-		$$ = THIS->get_note_element($1, $2);
+		int durlog_i = $2->durlog_i_;
+		$$ = THIS->get_note_element ($1, $2);
 	}
 	| RESTNAME notemode_duration		{
-		$$ = THIS->get_rest_element(*$1, $2);
+		$$ = THIS->get_rest_element (*$1, $2);
 		delete $1;
 	}
 	;
@@ -1028,9 +1080,9 @@ music_elt:
 lyrics_elt:
 	text_def notemode_duration 			{
 	/* this sux! text-def should be feature of lyric-engraver. */
-		if (!THIS->lexer_p_->lyric_state_b())
-			THIS->parser_error("Have to be in Lyric mode for lyrics");
-		$$ = THIS->get_word_element($1, $2);
+		if (!THIS->lexer_p_->lyric_state_b ())
+			THIS->parser_error ("Have to be in Lyric mode for lyrics");
+		$$ = THIS->get_word_element ($1, $2);
 
 	};
 
@@ -1041,7 +1093,7 @@ pitch_list:			{
 		$$ = new Array<Melodic_req*>;
 	}
 	| pitch_list NOTENAME_ID	{
-		$$->push($2->clone()->musical()->melodic());
+		$$->push ($2->clone ()->musical ()->melodic ());
 	}
 	;
 
@@ -1050,7 +1102,7 @@ int:
 		$$ = $1;
 	}
 	| INT_IDENTIFIER	{
-		int *i_p = $1->intid();
+		int *i_p = $1->intid ();
 		$$ = *i_p;
 		delete i_p;
 	}
@@ -1062,7 +1114,7 @@ real:
 		$$ = $1;
 	}
 	| REAL_IDENTIFIER		{
-		Real *r_p = $1->real();
+		Real *r_p = $1->real ();
 		$$ = * r_p;
 		delete r_p;
 	}
@@ -1093,14 +1145,14 @@ symtables_body:
 		$$ = new Lookup;
 	}
 	| IDENTIFIER		{
-		$$ = $1->lookup();
+		$$ = $1->lookup ();
 	}
 	| symtables_body TEXID STRING 		{
 		$$->texsetting = *$3;
 		delete $3;
 	}
 	| symtables_body STRING '=' symtable		{
-		$$->add(*$2, $4);
+		$$->add (*$2, $4);
 		delete $2;
 	}
 	;
@@ -1112,7 +1164,7 @@ symtable:
 symtable_body:
 				{ $$ = new Symtable; }
 	| symtable_body	STRING	symboldef {
-		$$->add(*$2, *$3);
+		$$->add (*$2, *$3);
 		delete $2;
 		delete $3;
 	}
@@ -1120,56 +1172,56 @@ symtable_body:
 
 symboldef:
 	STRING 	box		{
-		$$ = new Symbol(*$1, *$2);
+		$$ = new Symbol (*$1, *$2);
 		delete $1;
 		delete $2;
 	}
 	| STRING {
-		Box b(Interval(0,0), Interval(0,0));
-		$$ = new Symbol(*$1, b);
+		Box b (Interval (0,0), Interval (0,0));
+		$$ = new Symbol (*$1, b);
 		delete $1;
 	}
 	;
 
 box:
 	dinterval dinterval 	{
-		$$ = new Box(*$1, *$2);
+		$$ = new Box (*$1, *$2);
 		delete $1;
 		delete $2;
 	}
 	;
 
 dinterval: dim	dim		{
-		$$ = new Interval($1, $2);
+		$$ = new Interval ($1, $2);
 	}
 	;
 
 %%
 
 void
-My_lily_parser::set_yydebug(bool b )
+My_lily_parser::set_yydebug (bool b)
 {
 #ifdef YYDEBUG
 	yydebug = b;
 #endif
 }
 void
-My_lily_parser::do_yyparse()
+My_lily_parser::do_yyparse ()
 {
-	yyparse((void*)this);
+	yyparse ((void*)this);
 }
 
 Paper_def*
-My_lily_parser::default_paper()
+My_lily_parser::default_paper ()
 {
-	Identifier *id = lexer_p_->lookup_identifier( "default_paper" );
-	return id ? id->paperdef() : new Paper_def ;
+	Identifier *id = lexer_p_->lookup_identifier ("default_paper");
+	return id ? id->paperdef () : new Paper_def ;
 }
 
 Midi_def*
-My_lily_parser::default_midi()
+My_lily_parser::default_midi ()
 {
-	Identifier *id = lexer_p_->lookup_identifier( "default_midi" );
-	return id ? id->mididef() : new Midi_def ;
+	Identifier *id = lexer_p_->lookup_identifier ("default_midi");
+	return id ? id->mididef () : new Midi_def ;
 }
 

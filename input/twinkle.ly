@@ -14,7 +14,7 @@ copyright	public domain
 Tested Features: lyrics
 
 %}
-\version "0.1.1";
+\version "0.1.5";
 
 melody = \melodic{
 	\clef violin;
@@ -122,19 +122,19 @@ textiii = \lyric{
 \score{
 	< 
 		\melodic <
-			\id "Piano" "";\multi 2;
-			< \global 
+			\type Grandstaff
+			< \multi 2; \global 
 				\melody >
 			< \global 
 				\accompany >
 		>
 		
 		% ugh
-		\lyric < \id "Lyric" "1"; 
+		\lyric \type Lyrics < 
 			\global \tekst >
-		\lyric < \id "Lyric" "2";  \global
+		\lyric \type Lyrics <  \global
 			\texte >
-		\lyric < \id "Lyric" "3"; \global
+		\lyric \type Lyrics < \global
 			\texti \textii \textiii >
 		
 	>

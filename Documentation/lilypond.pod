@@ -22,7 +22,8 @@ add F<FILE> to the search path for input files.
 
 =item B<-M,--midi>
 
-do midi output only.
+This disables TeX output. If you have a \midi definition, it will do
+the midi output only.
 
 =item B<-d,--debug>,
 
@@ -43,17 +44,17 @@ Set the default output file to F<FILE>.
 
 Show a summary of usage.
 
-=item B<-i,--init=>F<FILE>
+=item B<-i,--init=>F<FILE>,
 
-set init file to F<FILE> (default: F<symbol.ly>).
+Set init file to F<FILE> (default: F<symbol.ly>).
 
-=item B<--include, -I>=F<DIRECTORY>
+=item B<--include, -I>=F<DIRECTORY>,
 
-add F<DIRECTORY> to the search path for input files.
+Add F<DIRECTORY> to the search path for input files.
 
-=item B<--ignore-version, -V>
+=item B<--ignore-version, -V>,
 
-make incompatible mudela version non-fatal.
+Make incompatible mudela version non-fatal.
 
 =back
 
@@ -79,27 +80,27 @@ MIDI to Mudela conversion through the mi2mu program.
 
 =item *
 
-Multiple staffs in one score.  Each staff can have a different meters.
+Multiple staffs in one score.  Each staff can have different meters.
 
 =item *
 
-beams, slurs, ties, chords, super/subscripts (accents and text),
+Beams, slurs, ties, chords, super/subscripts (accents and text)
 triplets, general n-plet (triplet, quadruplets, etc.), lyrics,
-transposition dynamics (both absolute and hairpin style)
+transposition dynamics (both absolute and hairpin style).
 
 =item *
 
-multiple voices within one staff; beams optionally shared
+Multiple voices within one staff; beams optionally shared
 between voices.  Up to four voices is handled cleanly.
 
 =item *
 
-multiple scores within one input file.  Each score is output to
+Multiple scores within one input file.  Each score is output to
 a different file.
 
 =item *
 
-clef changes, meter changes, cadenza-mode, key changes, repeat bars
+Clef changes, meter changes, cadenza-mode, key changes, repeat bars.
 
 =back
 
@@ -139,11 +140,11 @@ general, try to find out
 
 =item *
 
-if the bug has been fixed in a newer release.  
+If the bug has been fixed in a newer release.  
 
 =item *
 
-if the bug has been found earlier, consult F<TODO> and F<BUGS>
+If the bug has been found earlier, consult F<TODO> and F<BUGS>.
 
 =back 
 
@@ -152,20 +153,20 @@ If you have found a bug, then you should send a bugreport.
 =over 4
 
 =item *
-send a copy of the input which causes the error
+Send a copy of the input which causes the error.
 
 =item *
-send a description of the platform you use
+Send a description of the platform you use.
 
 =item *
-send a description of the LilyPond version you use (with
-compile/configure options please)
+Send a description of the LilyPond version you use (with
+compile/configure options please).
 
 =item *
-send a description of the bug itself.
+Send a description of the bug itself.
 
 =item *
-send it to bug-gnu-music@vuse.vanderbilt.edu
+Send it to bug-gnu-music@vuse.vanderbilt.edu.
 
 =back
 

@@ -1,5 +1,5 @@
 /*
-  rational.hh -- declare 
+  rational.hh -- declare rational helpers
 
   source file of the Flower Library
 

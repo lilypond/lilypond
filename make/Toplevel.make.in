@@ -27,7 +27,7 @@ include ./$(depth)/make/Variables.make
 
 # descent order into subdirectories:
 #
-SUBDIRS = flower lib lily mi2mu \
+SUBDIRS = flower lib lily mf mi2mu \
 	Documentation bin init input tex make
 #
 

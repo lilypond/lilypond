@@ -9,10 +9,11 @@
 #include "music-list.hh"
 #include "music-iterator.hh"
 #include "voice-iterator.hh"
+#include "property-iterator.hh"
 #include "chord-iterator.hh"
 #include "request-iterator.hh"
-#include "translator.hh"
-
+#include "translator-group.hh"
+#include "translation-property.hh"
 
 IMPLEMENT_IS_TYPE_B(Music_iterator);
 
@@ -41,11 +42,11 @@ Music_iterator::print() const
 #endif
 }
 
-Translator *
+Translator_group*
 Music_iterator::get_req_translator_l()
 {
   assert (report_to_l());
-  if (report_to_l()->is_bottom_engraver_b ())
+  if (report_to_l()->is_bottom_translator_b ())
     return report_to_l();
 
   set_translator (report_to_l()->get_default_interpreter ());
@@ -53,7 +54,7 @@ Music_iterator::get_req_translator_l()
 }
 
 void
-Music_iterator::push_translator (Translator*t)
+Music_iterator::push_translator (Translator_group*t)
 {
   report_to_l_arr_.push (t);
   t->iterator_count_ ++;
@@ -67,7 +68,7 @@ Music_iterator::pop_translator()
   report_to_l_arr_.pop();
 }
 
-Translator* 
+Translator_group* 
 Music_iterator::report_to_l() const
 {
   if (! report_to_l_arr_.size())
@@ -77,7 +78,7 @@ Music_iterator::report_to_l() const
 
 
 void
-Music_iterator::set_translator (Translator*trans)
+Music_iterator::set_translator (Translator_group*trans)
 {   
   if (report_to_l()==trans)
     return;
@@ -118,7 +119,7 @@ Music_iterator::ok() const
 
 Music_iterator*
 Music_iterator::static_get_iterator_p (Music *m,
-				       Translator *report_l)
+				       Translator_group*report_l)
 {
   Music_iterator * p =0;
   if (m->is_type_b (Request_chord::static_name()))
@@ -127,11 +128,13 @@ Music_iterator::static_get_iterator_p (Music *m,
     p =  new Chord_iterator ((Chord*) m);
   else if (m->is_type_b (Voice::static_name())) 
     p =  new Voice_iterator ((Voice*) m);
-  
-  if (m -> type_str_ != "") 
+  else if (m->is_type_b (Translation_property::static_name ()))
+    p = new Property_iterator((Translation_property *) m);
+      
+  if (m -> translator_type_str_)
     {
-      Translator * a =report_l->
-	find_get_translator_l (m-> type_str_, m->id_str_);
+      Translator_group* a =report_l->
+	find_create_translator_l (m-> translator_type_str_, m->translator_id_str_);
       p->set_translator (a);
     }
 

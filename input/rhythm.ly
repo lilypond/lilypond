@@ -1,18 +1,13 @@
-
 \header{
- filename	rhythm.ly
- entered-by	HWN
- copyright	public domain
- Tested Features	 multiple meters, beaming
-	unsynced bars
+filename	rhythm.ly
+enteredby	HWN
+copyright	public domain
+TestedFeatures	 multiple meters, beaming, unsynced bars, userdefd engravers
 }
-%{
-has to be revised for 0.1.12
-%}
 
 
 
-\version "0.1.1";
+\version "0.1.5";
 
 ritme = \melodic{ %\octave ;
 	\partial 8;
@@ -61,5 +56,42 @@ yanother =
 	>
 	
 	\paper{
+
+	%% remove Timing_engraver and Bar_number_engraver
+	Score = \translator {
+	\type Score_engraver;
+
+	\consists "Bar_align_engraver";
+	\consists "Clef_align_engraver";
+	\consists "Key_align_engraver";
+	\consists "Meter_align_engraver";
+	\consists "Score_horizontal_align_engraver";
+	\consists "Vertical_align_engraver";
+	\consists "Span_score_bar_engraver";
+
+
+	\accepts "Staff_group";
+	\accepts "Staff";
+	\accepts "Lyrics";
+	\accepts "Grandstaff";
+	}
+
+	%% add Timing_engraver to the staff
+	Staff = \translator {
+	  \type "Engraver_group_engraver";
+
+	\consists "Timing_engraver";
+	  \consists "Bar_engraver";
+	  \consists "Clef_engraver";
+	  \consists "Key_engraver";
+	  \consists "Meter_engraver";
+	  \consists "Local_key_engraver";
+	  \consists "Staff_sym_engraver";
+	  \consists "Collision_engraver";
+	  \consists "Rest_collision_engraver";
+
+	  \consists "Line_group_engraver";
+	  \accepts "Voice";
+	}
 	}
 }

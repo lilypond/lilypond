@@ -22,22 +22,21 @@ do_scores()
 {
   for (int i=0; i < global_score_array.size(); i++) 
     {
-	Score *&is_p = global_score_array[i];
-	if (is_p->header_p_)
-	  is_p->header_p_->lily_id_str_ = "Lily was here, " + 
-	    get_version_number_str();
-	if (is_p->errorlevel_i_) 
-	  {
-	    is_p->warning ("Score contains errors. Will not process it. ");
-	    exit_status_i_ |= 1;
-	  }
-	else 
-	  {
-	    is_p->print();
-	    is_p->process();
-	  }
-	delete is_p;
-	is_p =0;
+      Score *&is_p = global_score_array[i];
+      if (is_p->header_p_)
+	is_p->header_p_->lily_id_str_ = "Lily was here, " + 
+	  get_version_number_str();
+      if (is_p->errorlevel_i_) 
+	{
+	  is_p->warning ("Score contains errors. Will not process it. ");
+	  exit_status_i_ |= 1;
+	}
+      else 
+	{
+	  is_p->process();
+	}
+      delete is_p;
+      is_p =0;
 
     }
   global_score_array.clear();

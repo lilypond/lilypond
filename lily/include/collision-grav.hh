@@ -13,13 +13,14 @@
 #include "engraver.hh"
 
 class Collision_engraver : public Engraver {
-    Collision* col_p_;
+  Collision* col_p_;
 
 protected:
-    virtual void acknowledge_element (Score_elem_info);
-    virtual void do_pre_move_processing();
+  virtual void acknowledge_element (Score_elem_info);
+  virtual void do_pre_move_processing();
 public:
-    Collision_engraver();
-    DECLARE_MY_RUNTIME_TYPEINFO;
+  TRANSLATOR_CLONE(Collision_engraver);
+  Collision_engraver();
+  DECLARE_MY_RUNTIME_TYPEINFO;
 };
 #endif // COLLISION_GRAV_HH

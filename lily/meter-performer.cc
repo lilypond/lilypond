@@ -11,7 +11,7 @@
 #include "audio-item.hh"
 
 IMPLEMENT_IS_TYPE_B1(Meter_performer,Performer);
-ADD_THIS_PERFORMER(Meter_performer);
+ADD_THIS_TRANSLATOR(Meter_performer);
 
 Meter_performer::Meter_performer()
 {
@@ -32,7 +32,7 @@ Meter_performer::do_print() const
 }
 
 void
-Meter_performer::process_requests()
+Meter_performer::do_process_requests()
 {
   if (meter_req_l_)
     play (new Audio_meter (meter_req_l_));

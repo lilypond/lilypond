@@ -24,7 +24,7 @@ Lyric_engraver::do_try_request (Request*r)
 {
   Musical_req * m =r->musical();
   if (!m || ! m->lreq_l()) 
-	return false;
+    return false;
   lreq_l_ = m->lreq_l();
 
   return true;
@@ -35,12 +35,12 @@ Lyric_engraver::do_process_requests()
 {
   if (lreq_l_) 
     {
-	lyric_item_p_ =  new Text_item (lreq_l_->tdef_p_);
+      lyric_item_p_ =  new Text_item (lreq_l_->tdef_p_);
 
-	lyric_item_p_->translate (paper()->note_width ()/2 , X_AXIS);
-	lyric_item_p_->dir_ = DOWN;
-	lyric_item_p_->fat_b_ = true;
-	announce_element (Score_elem_info (lyric_item_p_, lreq_l_));
+      lyric_item_p_->translate (paper()->note_width ()/2 , X_AXIS);
+      lyric_item_p_->dir_ = DOWN;
+      lyric_item_p_->fat_b_ = true;
+      announce_element (Score_elem_info (lyric_item_p_, lreq_l_));
     }
 }
 
@@ -55,11 +55,11 @@ Lyric_engraver::do_pre_move_processing()
 {
   if (lyric_item_p_)
     {
-	typeset_element (lyric_item_p_);
-	lyric_item_p_ =0;
+      typeset_element (lyric_item_p_);
+      lyric_item_p_ =0;
     }
 }
 
 
 IMPLEMENT_IS_TYPE_B1(Lyric_engraver,Engraver);
-ADD_THIS_ENGRAVER(Lyric_engraver);
+ADD_THIS_TRANSLATOR(Lyric_engraver);

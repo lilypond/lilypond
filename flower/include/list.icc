@@ -1,7 +1,16 @@
-// -*-c++-*-
+/*
+  list.icc -- implement List inline functions
 
-#ifndef LIST_INL
-#define LIST_INL
+  source file of the Flower Library
+
+  (c) 1996,1997
+  Jan Nieuwenhuizen <jan@digicash.com>
+  Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
+
+#ifndef LIST_ICC
+#define LIST_ICC
 
 template<class T>
 inline
@@ -22,7 +31,7 @@ template<class T>
 inline void
 List<T>::remove (Cursor<T> me)
 {
-  if ( me.ok())
+  if (me.ok())
     {
       Link<T> *lp = me.pointer();	
       lp->remove (*this);
@@ -42,7 +51,7 @@ template<class T>
 inline Cursor<T>
 List<T>::top() const
 {
-  return Cursor<T>( *this, top_);
+  return Cursor<T>(*this, top_);
 }
 
 
@@ -50,8 +59,9 @@ template<class T>
 inline Cursor<T>
 List<T>::bottom() const
 {
-  return Cursor<T>( *this, bottom_);
+  return Cursor<T>(*this, bottom_);
 }
 
 
 #endif
+

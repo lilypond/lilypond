@@ -33,9 +33,14 @@ class My_lily_parser {
 
   void set_last_duration (Duration const *);
   void set_default_duration (Duration const *);
+  void set_last_abbrev (int type_i);
+  void set_abbrev_beam (int type_i);
   void set_duration_mode (String s);
   friend int yyparse (void*);
+
 public:
+  int abbrev_beam_type_i_;
+  int default_abbrev_type_i_;
   int default_octave_i_;
   Duration default_duration_;
   Plet plet_;

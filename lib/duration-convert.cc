@@ -23,12 +23,14 @@ Duration_convert::dur2_str(Duration dur)
 {
   if (dur.ticks_i_)
     return String("[") + String(dur.ticks_i_) + "]";
-	
+  
   String str;
-  if (dur.durlog_i_ <= 0)
-    str="\\breve";
-  else
-    str= String(type2_i(dur.durlog_i_));
+  if (dur.durlog_i_ >= 0)
+    str = String( type2_i(dur.durlog_i_) );
+  else if (dur.durlog_i_ == -1)
+    str = "\\breve";
+  else if (dur.durlog_i_ == -2)
+    str = "\\longa";
   str += String('.', dur.dots_i_);
   if (dur.plet_b())
     str += String("*") + String(dur.plet_.iso_i_)

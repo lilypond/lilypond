@@ -10,6 +10,7 @@
 #include "tie.hh"
 #include "note-head.hh"
 #include "p-col.hh"
+#include "debug.hh"
 
 
 void
@@ -38,7 +39,9 @@ Tie::set_default_dir()
 void
 Tie::do_add_processing()
 {
-  assert (head_l_drul_[LEFT] && head_l_drul_[RIGHT]);
+  if (!(head_l_drul_[LEFT] && head_l_drul_[RIGHT]))
+    warning ("Lonely tie.. ");
+  
   set_bounds(LEFT,head_l_drul_[LEFT]);
   set_bounds(RIGHT,head_l_drul_[RIGHT]);
 }

@@ -11,6 +11,7 @@
 #include "command-request.hh"
 #include "timing-grav.hh"
 #include "engraver-group.hh"
+
 Meter_engraver::Meter_engraver()
 { 
   meter_p_ =0;
@@ -20,7 +21,8 @@ void
 Meter_engraver::do_process_requests()
 {
   Timing_engraver * timing_grav_l= (Timing_engraver*)
-    daddy_grav_l_->get_simple_engraver (Timing_engraver::static_name());
+    daddy_grav_l()->get_simple_translator (Timing_engraver::static_name())
+    ->engraver_l ();
   
   Meter_change_req *req = timing_grav_l->meter_req_l();
   if (req)
@@ -47,5 +49,5 @@ Meter_engraver::do_pre_move_processing()
 }
 
 
-ADD_THIS_ENGRAVER(Meter_engraver);
+ADD_THIS_TRANSLATOR(Meter_engraver);
 IMPLEMENT_IS_TYPE_B1(Meter_engraver,Engraver); 

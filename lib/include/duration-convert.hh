@@ -45,10 +45,10 @@ struct Duration_convert {
 //	static int const division_1_c_i = 384;
 
 //	/// Return (integer, division) representation.
-//	static int dur2_i( Duration dur, int division_1_i = division_1_c_i );
+//	static int dur2_i(Duration dur, int division_1_i = division_1_c_i );
 
     /// Return number of ticks in (ticks, division_1) representation
-    static int dur2ticks_i( Duration dur );
+    static int dur2ticks_i(Duration dur );
 	
     /// Return the type_i representation of note length i
     static int i2_type(int i);
@@ -58,38 +58,38 @@ struct Duration_convert {
     static int type2_i(int type);
 
     /// Return Moment representation (fraction of whole note).
-    static Moment dur2_mom( Duration dur );
+    static Moment dur2_mom(Duration dur );
 
     /// Return Mudela string representation.
-    static String dur2_str( Duration dur );
+    static String dur2_str(Duration dur );
 
 //	/// Return Moment from (integer, division) representation.
-//	static Moment i2_mom( int i, int division_1_i = division_1_c_i );
+//	static Moment i2_mom(int i, int division_1_i = division_1_c_i );
 
 //	/// Return Moment (fraction of whole) representation, best guess.
-//	static Duration mom2_dur( Moment mom );
+//	static Duration mom2_dur(Moment mom );
 
     /// Return duration from Moment (fraction of whole) representation.
-    static Duration mom2_dur( Moment mom );
+    static Duration mom2_dur(Moment mom );
 
     /// Return standardised duration, best guess if not exact.
-    static Duration mom2standardised_dur( Moment mom );
+    static Duration mom2standardised_dur(Moment mom );
   
     /// Return plet factor (not a Moment: should use Rational?).
-    static Moment plet_factor_mom( Duration dur );
+    static Moment plet_factor_mom(Duration dur );
 
     static void set_array();
 
     /** Return synchronisation factor for mom, so that
-      mom2_dur( mom / sync_f ) will return the duration dur.		
+      mom2_dur(mom / sync_f ) will return the duration dur.		
       */ 
-    static Real sync_f( Duration dur, Moment mom );
+    static Real sync_f(Duration dur, Moment mom );
 
     /// Return exact duration, in midi-ticks if not-exact.
-    static Duration ticks2_dur( int ticks_i );
+    static Duration ticks2_dur(int ticks_i );
 
     /// Return standardised duration, best guess if not exact.
-    static Duration ticks2standardised_dur( int ticks_i );
+    static Duration ticks2standardised_dur(int ticks_i );
 };
 
 /// (iter_dur)

@@ -3,11 +3,11 @@
 
 use FileHandle;
 use Getopt::Long;
+
 my $lily_version;
 my $footstr;
 my $mw_id = "<!make_website!>";
 my $id_str = "make-website 0.4";
-
 my $TAR="tar";
 my $MAKE="make";
 
@@ -77,15 +77,15 @@ sub my_system
 
 local $base="lilypond/";
 
-local @examples=("twinkle-pop", "twinkle", "multi", "wohltemperirt",
+local @examples=("twinkle-pop", "twinkle", "multi", "wtk1-fugue2",
 		 #"standchen-16", 
 		 #"standchen-20", 
-		 "toccata-fuga-E", "scsii-menuetto",
+		 "wtk1-prelude1",
+		 "toccata-fuga-E", 
+		 "scsii-menuetto",
 		 "cadenza", "scales", 
 		#"rhythm", 
 		 "gallina");
-
-# rhythm, scales, 
 
 
 sub gen_html
@@ -131,14 +131,19 @@ sub gen_list
 {
     print "generating HTML list\n";
     open HTMLLIST, ">example_output.html";
+
     print HTMLLIST "<html><body><TITLE>Rendered Examples</TITLE>\n
-These example files are taken from the LilyPond distribution.\n
-LilyPond currently only outputs TeX and MIDI. The pictures and\n
- PostScript files were generated using TeX, Ghostscript and some graphics tools. \n
-The GIF files have been scaled to eliminate aliasing.";
-    foreach $a (@examples) {
-	$name=$a;
-	print HTMLLIST "<h1>example file: $name</h1>\n<XMP>\n";
+These example files are taken from the LilyPond distribution.
+LilyPond currently only outputs TeX and MIDI. The pictures and
+PostScript files were generated using TeX, Ghostscript and some
+graphics tools.  The papersize used for these examples is A4.  The GIF
+files have been scaled to eliminate aliasing."; 
+
+
+
+    foreach $a (@examples)
+    {
+	$name=$a; print HTMLLIST "<h1>example file: $name</h1>\n<XMP>\n";
 
 	open IF, "$depth/input/$a.ly";
 	input_record_separator IF "%}";

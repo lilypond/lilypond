@@ -63,8 +63,7 @@ public:
     int i= find (key);
     arr[i].free = true;
   }
-  void
-  add (K key, V val) {
+  void add (K key, V val) {
     int i = find_creat (key);
     arr[i].val = val;
   }

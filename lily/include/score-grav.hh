@@ -32,6 +32,7 @@ class Score_engraver :
   void typeset_all();
     
 public:
+  TRANSLATOR_CLONE(Score_engraver);
   Paper_score * pscore_p_;
   DECLARE_MY_RUNTIME_TYPEINFO;
 
@@ -42,7 +43,6 @@ protected:
   virtual void finish();
   virtual void process();
   virtual int depth_i() const { return Global_translator::depth_i ();}
-  virtual Translator* ancestor_l (int l) { return Global_translator::ancestor_l (l);}
 
 protected:
   /* Engraver_group_engraver interface */
@@ -53,8 +53,8 @@ protected:
   virtual void announce_element (Score_elem_info);
   virtual void do_announces();
   virtual void typeset_element (Score_elem*elem_p);
-  virtual Paper_def * paper() const;
   virtual void do_pre_move_processing();
+  virtual void add_processing ();
 };
 
 #endif // SCORE_GRAV_HH

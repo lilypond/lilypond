@@ -100,31 +100,29 @@ Beam_engraver::do_removal_processing()
 void
 Beam_engraver::acknowledge_element (Score_elem_info i)
 {
-  if (beam_p_ && i.elem_l_->is_type_b (Stem::static_name()))
+  if (!beam_p_ || !i.elem_l_->is_type_b (Stem::static_name ()))
+    return;
+
+  Stem* s = (Stem*)i.elem_l_->item();
+  Rhythmic_req *rhythmic_req = i.req_l_->musical ()->rhythmic ();
+  if (rhythmic_req->duration_.durlog_i_<= 2) 
     {
-      Stem * s = (Stem*)i.elem_l_->item();
-      Rhythmic_req *rhythmic_req = i.req_l_->musical ()->rhythmic ();
-      if (rhythmic_req->duration_.durlog_i_<= 2) 
-	{
-	  rhythmic_req->warning ("Stem doesn't fit in Beam");
-	  return ;
-	}
-	
-      /*
-	TODO: do something sensible if it doesn't fit in the beam.
-       */
-      current_grouping_p_->add_child (get_staff_info().time_C_->whole_in_measure_,
-				      rhythmic_req->duration());
-      /* 
-	 TODO
-	 should change rep. of flags too.k
-       */
-      s->flag_i_ = Duration_convert::type2_i
-	(rhythmic_req->duration_.durlog_i_);	
-      s->print_flag_b_ = false;
-      beam_p_->add (s);
+      rhythmic_req->warning ("Stem doesn't fit in Beam");
+      return;
     }
+  
+  /*
+    TODO: do something sensible if it doesn't fit in the beam.
+   */
+  current_grouping_p_->add_child (get_staff_info().time_C_->whole_in_measure_,
+				  rhythmic_req->duration ());
+  /* 
+   TODO
+   should change repr. of flags too.
+   */
+  s->flag_i_ = Duration_convert::type2_i (rhythmic_req->duration_.durlog_i_);
+  beam_p_->add (s);
 } 
-	
+    
 IMPLEMENT_IS_TYPE_B1(Beam_engraver, Engraver);
-ADD_THIS_ENGRAVER(Beam_engraver);
+ADD_THIS_TRANSLATOR(Beam_engraver);

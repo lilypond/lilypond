@@ -14,7 +14,7 @@
 
 
 IMPLEMENT_IS_TYPE_B1(Lyric_performer,Performer);
-ADD_THIS_PERFORMER(Lyric_performer);
+ADD_THIS_TRANSLATOR(Lyric_performer);
 
 Lyric_performer::Lyric_performer()
 {
@@ -34,7 +34,7 @@ Lyric_performer::do_print() const
 }
 
 void
-Lyric_performer::process_requests()
+Lyric_performer::do_process_requests()
 {
   if (lreq_arr_.size() && lreq_arr_[ 0 ]->tdef_p_->text_str_.length_i())
 	play (new Audio_text (Audio_text::LYRIC, lreq_arr_[ 0 ]->tdef_p_->text_str_));
