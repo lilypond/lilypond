@@ -3,6 +3,9 @@
 	* Documentation/user/advanced-notation.itely: first draft
 	of reorg done.
 
+	* Documentation/user/global.itely: fixed (sub)section
+	bits of MIDI.
+
 2005-03-02  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/basic-notation.itely (Chords): @ref fix.
