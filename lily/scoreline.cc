@@ -7,7 +7,6 @@
 */
 
 #include "scoreline.hh"
-#include "staffline.hh"
 #include "dimen.hh"
 #include "spanner.hh"
 #include "symbol.hh"
@@ -17,8 +16,8 @@
 
 
 /* To do:
+
    take out hard coded TeX stuff.
-   
    */
 String
 Line_of_score::TeX_string() const
@@ -33,27 +32,29 @@ Line_of_score::TeX_string() const
 	 PCol* col_l= cols[i];
 	 // all items in the current line & staff.
 	 String chunk_str;
-	 Real delta  = col_l->hpos_f_ - lastpos;
+
 	    
+	 Link_array<Score_elem> elems;
 	    
 	 if (col_l->error_mark_b_) {
 	     chunk_str += String("\\columnerrormark");
 	 }
+	 
 	 // now output the items.
 	 for (iter_top(col_l->its,j); j.ok(); j++) {
-	     chunk_str += j->TeX_string();
+	     elems.push(j);
 	 }
+
 	 // spanners.
 	 for (iter_top(col_l->starters,j); j.ok(); j++) {
 	     if (j->name() != name())
-		 chunk_str += j->TeX_string();
+		elems.push(j);
 	 }
-	 if (chunk_str!="") {
-	     // moveover
-	     if (delta)
-		 s +=String( "\\kern ") + print_dimen(delta);
-	     s += chunk_str;
-	     lastpos = col_l->hpos_f_;
+	 
+	 for (int j =0; j< elems.size(); j++) {
+	     Offset o = elems[j]->absolute_offset();
+	     o[X_AXIS] += cols[i]->hpos_f_;
+	     s += elems[j]->TeX_string_without_offset(o);
 	 }
      }
      s += "}";
@@ -75,7 +76,8 @@ IMPLEMENT_IS_TYPE_B1(Line_of_score,Spanner);
 void
 Line_of_score::add(Score_elem*e)
 {
-    if( !e->dependent_size())	// avoid excess dependencies.
+    // avoid excess dependencies.
+    if(!( e->axis_group_l_a_[0] || e->axis_group_l_a_[1]))
 	add_dependency(e);
 }
 
