@@ -40,6 +40,20 @@ static char* strupr( char* s )
     return s;
 }
 
+String::String(Rational r)
+{
+    char * n = Itoa(r.numerator()); // LEAK????
+    
+    *this = n;
+    if (r.denominator() != 1) {
+	char * d = Itoa(r.denominator());
+	*this +=  '/' + String(d);
+	//delete d;
+    }
+/*    delete n;
+    */
+}
+
 // return array, alloced with new.
 char *
 String::copy_array() const
@@ -119,12 +133,14 @@ String::cptr() const
 
 // signed comparison,  analogous to strcmp;
 int
-String::compare( const char* test ) const
+String::compare(const String& s1,const  String &s2 ) 
 {
-    if (test == (const char *) data)
+    const char * p1=s1.cptr();
+    const char * p2 = s2.cptr();
+    if (p1 == p2)
 	return 0;
 
-    return strcmp(data, test);
+    return strcmp(p1,p2);
 }
 
 

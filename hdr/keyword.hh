@@ -1,3 +1,12 @@
+/*
+  keyword.hh -- part of LilyPond
+
+  (c) 1996 Han-Wen Nienhuys
+*/
+
+#ifndef KEYWORD_HH
+#define KEYWORD_HH
+
 /* for the keyword table */
 struct Keyword_ent
 {
@@ -12,3 +21,7 @@ struct Keyword_table
     Keyword_table(Keyword_ent *);
     int     lookup(const char *s) const;
 };
+
+
+#endif // KEYWORD_HH
+

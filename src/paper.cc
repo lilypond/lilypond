@@ -14,7 +14,7 @@ const Real PHI = (1+sqrt(5))/2;
 Real
 Paperdef::duration_to_dist(Real d)
 {
-    return whole_width * pow(geometric_, log2(d));
+    return whole_width * pow(geometric_, log_2(d));
 }
 
 Real

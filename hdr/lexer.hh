@@ -1,17 +1,50 @@
 #ifndef LEXER_HH
 #define LEXER_HH
-
+#include <FlexLexer.h>
 #include "proto.hh"
-
-void new_input(String s);
+#include "fproto.hh"
+#include "sstack.hh"
+#include "string.hh"
 
 int yylex();
 void yyerror(const char *s);
 bool busy_parsing();
-int lookup_keyword(String s);
-
-Identifier* lookup_identifier(String s);
-void add_identifier(Identifier*i);
-void delete_identifiers();
 void kill_lexer();
+void set_lexer();
+
+struct Input_file {
+	istream*is;
+	int line;
+	String name;
+
+	Input_file(String);
+	~Input_file();
+};
+
+
+/// lexer with provisions for include files.
+struct My_flex_lexer : yyFlexLexer {
+
+    sstack<Input_file*> include_stack;
+    Assoc<String, Identifier*> *the_id_tab;
+    Keyword_table * keytable;
+    Notename_tab * defaulttab;
+
+    /****************/
+    
+    void set(Notename_tab *n);
+    int     lookup_keyword(String);
+    void lookup_notename(int &large, int &small, String s);
+    void LexerError(const char *);
+    Identifier*lookup_identifier(String s);
+    My_flex_lexer();
+    void add_identifier(Identifier*i);
+    ~My_flex_lexer();
+    void new_input(String s);
+    bool  close_input();
+    int yylex();
+};
+
+extern My_flex_lexer *lexer;
+
 #endif

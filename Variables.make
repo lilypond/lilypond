@@ -9,6 +9,14 @@ DEBUGFLAG=-g
 EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes 
 #	-Woverloaded-virtual
 
+#
+# -lefence = ElectricFence.
+#
+# ElectricFence is memory debugger which uses the 
+# VM hardware to trap malloc/free errors.
+#
+#EXTRALIB+=-lefence
+
 ####
 #### END USER CONFIGURABLE part.
 ####
@@ -29,7 +37,7 @@ endif
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=16
+PATCHLEVEL=17
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 CXXVER=`$(CXX) --version`
 
@@ -67,7 +75,7 @@ othersrc=lexer.l parser.y
 SCRIPTS=make_version make_patch genheader
 IFILES=dimen.tex symbol.ini kortjakje.ly pavane.ly  maartje.ly\
 	lilyponddefs.tex test.tex .dstreamrc
-OFILES=Makefile Variables.make Sources.make COPYING README
+OFILES=Makefile Variables.make Sources.make COPYING README NEWS
 DFILES=$(OFILES) $(IFILES) $(SCRIPTS)
 
 #compiling

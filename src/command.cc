@@ -15,8 +15,6 @@ Command::Command()
     priority=0;
 }
 
-
-
 Command::Command(Real w)
 {
     code = NOP;

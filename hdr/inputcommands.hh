@@ -6,56 +6,62 @@
 
 #ifndef INPUTCOMMANDS_HH
 #define INPUTCOMMANDS_HH
+
 #include "pcursor.hh"
 #include "proto.hh"
 #include "plist.hh"
 #include "real.hh"
 
+struct Commands_at : public IPointerList<Input_command*> {
+    Real when;
 
-struct Input_cursor : public PCursor<Input_command*>
-{
     /// current measure info
     Real whole_per_measure;
 
     /// where am i 
     Real whole_in_measure;
-
-    /// Real last when which was read
-    Real last;
+    
+    /// idem
     
     int bars;
-    
-    Input_cursor(PCursor<Input_command*>);
-    /// hmm. not safe. Should rethink cursor.
-    void operator++(int);
-    /** warning: no optor -- () defined.. */
-    void reset();
-    Real when()const;
+
+    /****************/
+    void print() const;
+    Real barleft();
     void add(Input_command*);
     void setpartial(Real);
-    void addbot(Input_command*);
-    void sync();
-    void print()const;   
-    void last_command_here();
+    Commands_at(const Commands_at&);
+    Commands_at(Real, Commands_at*prev);
+};
+
+struct Input_cursor : public PCursor<Commands_at*>
+{
+    /****************/
+    Input_cursor(PCursor<Commands_at*>);
+    Real when()const;
+    void find_moment(Real w);
+    void prev() { operator --(0); }
+    void next() { operator ++(0); }    
 };
 
 /// the list of commands in Score
-struct Input_commands : public IPointerList<Input_command*> {
+struct Input_commands : public IPointerList<Commands_at*> {    
     Input_cursor ptr;
-
+    
     /****************/
 
     void find_moment(Real);
-    void do_skip(int & bars, Real & wholes);
-    void truncate(Real);
-    
+    void add(Input_command c);
+    void do_skip(int bars, Real wholes);
+        
     Input_commands();
     Input_commands(Input_commands const&);
-    void add(Input_command);
+
     void reset();
     void print()const;
     Staff_commands *parse() const;
 };
+
 
 
 void

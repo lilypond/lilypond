@@ -37,8 +37,8 @@ prefix one_operator(type, function, !=)\
 prefix one_operator(type, function, <)\
 prefix one_operator(type, function, <=)\
 gpp_minmax(type, prefix)\
-prefix inline type MAX(type t1, type t2) {  return (t1 > t2 )? t1 : t2; }\
-prefix inline type MIN(type t1, type t2) {  return (t1 < t2 )? t1 : t2; }\
+prefix inline type max(type t1, type t2) {  return (t1 > t2 )? t1 : t2; }\
+prefix inline type min(type t1, type t2) {  return (t1 < t2 )? t1 : t2; }\
   \
 prefix  bool operator<(type t1, type t2) /* stupid fix to allow ; */
      /**

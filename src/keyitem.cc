@@ -46,5 +46,9 @@ Keyitem::brew_molecole()
 	a.translate(Offset(0,(c_position + pitch[i]) * inter));
 	Molecule m(a);
 	output->add_right(m);	
-    }    
+    }
+    Molecule m(paper()->lookup_->fill(Box(
+	Interval(0, paper()->note_width()),
+	Interval(0,0))));
+    output->add_right(m);	
 }

@@ -10,7 +10,7 @@
 void
 Score::process()
 {
-    *mlog << "Processing ... ";
+    *mlog << "\nProcessing ... ";
     
     assert (paper_);
     

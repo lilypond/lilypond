@@ -17,21 +17,22 @@ PREREQUISITES
 
 Compilation:
 
-	- Unix (any decent Linux distrib is fine)
+	- Unix (any decent Linux distribution is fine)
 	- GNU C++ v2.7  or better
 	- GNU make.
-	- flex
+	- flex (2.5.1 or better)
 	- bison/yacc
-	- The "flower" library
-	- which should be available from the same source you got this from.
+	- The "flower" library, which should be available from the
+	same source you got this from.
+	- perl
 
 Operation:
 
 	- TeX
 	- the MusixTeX fonts
 
-The Makefile uses perl for trivial
-operations, and you could tinker with it to use sed or awk.
+The Makefile uses  perl for trivial operations,  and you could  tinker
+with it to use sed or awk.
 
 COMPILING
 
@@ -52,14 +53,15 @@ why G++ >= 2.7? LilyPond & flower lib uses:
 
 USING
 
-No, you shouldn't. Really. If you're still not discouraged; this is
+At this time, LilyPond is only suited for Quick & Dirty jobs (the
+output quality still is too low). If you're not discouraged; this is
 what I type in my xterm:
 
-	lilypond maartje.ly
+	lilypond someinput.ly
 	tex test
 	xdvi test&
 
-This is what the output looks like over here.
+This is what the output looks like over here:
 
 hw:~/musix/spacer$ lilypond maartje.ly
 LilyPond version 0.0.16 compiled on Dec 11 1996 at 13:54:27
@@ -77,6 +79,8 @@ Transcript written on test.log.
 
 hw:~/musix/spacer$ xdvi test&
 [1] 1468
+
+Check out kortjakje.ly, it has some comments
 
 PROBLEMS
 

@@ -1,8 +1,11 @@
 #ifndef MISC_HH
 #define MISC_HH
 
+#include "real.hh"
 
-double log2(double x) ;
+Real wholes(int dur, int dots);
+    
+double log_2(double x) ;
 int intlog2(int d);
 inline int
 ABS(int i)

@@ -1,4 +1,5 @@
 #include "request.hh"
+#include "misc.hh"
 #include "debug.hh"
 
 #define VIRTUALCONS(T,R) R *T::clone() const { return  new T(*this); } struct T
@@ -69,18 +70,6 @@ Rest_req::print() const
     Rhythmic_req::print();
 }
 
-Real
-wholes(int dur, int dots)
-{
-    Real f = 1.0/Real(dur);
-    Real delta = f;
-
-    while (dots--) {
-	delta /= 2.0;
-	f += delta;
-    }
-    return f;    
-}
 
 Real
 Rhythmic_req::duration() const {    

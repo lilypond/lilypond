@@ -9,11 +9,10 @@
 
 #include "plist.hh"
 #include "proto.hh"
+#include "voice.hh"
 
 struct Voice_list : public PointerList<Voice*> {
     void translate_time(Real dt);
-    /// delete stuff; not in destructor!
-    void junk();
 };
 
 /// ABC for input structures
@@ -21,9 +20,13 @@ struct Input_music {
     virtual Voice_list convert()=0;
     virtual Real length()=0;
     virtual void translate_time(Real dt)=0;
-    virtual ~Input_music();
+    virtual ~Input_music(){}
     virtual void print() const =0;
     // virtual void transpose(...) const =0;
+    
+    
+    virtual Input_music *clone() const = 0;
+    virtual Simple_music *simple() { return 0; }
 };
 /**
 
@@ -37,96 +40,80 @@ struct Input_music {
   */
 
 
+/// Simple music consists of one voice
+struct Simple_music : Input_music {
+    Voice voice_;
 
-/// 
-struct Vertical_music : Input_music {
-    virtual Vertical_music *clone() const = 0;
+    /****/
+    virtual Simple_music*simple() { return this; }  
+    void add(Voice_element*);
+    virtual Real length();
+    virtual Voice_list convert();
+    virtual void translate_time(Real dt);
+    virtual void print() const;
+    virtual Input_music *clone() const {
+	return new Simple_music(*this);
+    }
 
-    /// check if it is a simple voice
-    virtual Vertical_simple *simple() { return 0;}
 };
-/**
-  chord like :
 
-  - different music forms which start at the same time ( stacked "vertically" )
+/// Complex_music consists of multiple voices
+struct Complex_music : Input_music {
+    IPointerList<Input_music*> elts;
 
-  This class really doesn't do very much, but it enables you to say
+    void add(Input_music*);
+    Complex_music();
+    Complex_music(Complex_music const &);
+    virtual void print() const ;
+    void concatenate(Complex_music*);
+ 
+};
 
-  a Music_voice is a List<Vertical_music>
-  
-  */
-
-///
-struct Horizontal_music : Input_music {
-    virtual Voice_list convert()=0;
-    virtual Horizontal_music *clone() const = 0;
+/// multiple stuff  after each other
+struct Music_voice : Complex_music {
+ 
+    
+    /****************/
+    Real length();
+    virtual void translate_time(Real dt);
+    virtual Voice_list convert();
+    void add_elt(Voice_element*);
+    virtual Input_music *clone() const {
+	return new Music_voice(*this);
+    }
+    virtual void print() const ;
 };
 /**
   voice like.
 
   different music forms which start after each other ( concatenated,
   stacked "horizontally )
-
-  This class really doesn't do very much, but it enables you to say
-
-  a Chord is a List<Horizontal_music>
  
  */
 
-/// the most basic element of a chord: a simple voice
-struct Vertical_simple : Vertical_music {
-    Voice * voice_;		// should be a  real member
-    
+/// Multiple musicstuff stacked on top of each other
+struct Music_general_chord : Complex_music {
+    IPointerList<Input_music*> chord_;
+
     /****************/
-    Vertical_simple(Vertical_simple const&);
-    Vertical_simple();
-    ~Vertical_simple();
-    void add(Voice_element*);
-    virtual Vertical_simple*simple() { return this; }
+
     virtual Real length();
     virtual Voice_list convert();
     virtual void translate_time(Real dt);
-    virtual Vertical_music *clone() const {
-	return new Vertical_simple(*this);
-    }
-    virtual void print() const ;
-};
-
-/// the only child of Horizontal_music
-struct Music_voice : Horizontal_music {
-    IPointerList<Vertical_music*> voice_ ;
-    
-    /****************/
-    Music_voice() {}
-    Music_voice(Music_voice const&);
-    Real length();
-    void add(Vertical_music*);
-    void add(Voice_element*);
-    virtual Voice_list convert();
-    virtual void translate_time(Real dt);
-    virtual Horizontal_music *clone() const {
-	return new Music_voice(*this);
-    }
-    void concatenate(Music_voice*);
-    virtual void print() const ;
-};
-///
-struct Music_general_chord : Vertical_music {
-    IPointerList<Horizontal_music*> chord_;
-
-    /****************/
-    Music_general_chord() {}
-    Music_general_chord(Music_general_chord const&s);
-    void add(Horizontal_music*);
-    virtual Real length();
-    virtual Voice_list convert();
-    virtual void translate_time(Real dt);
-    virtual Vertical_music *clone() const {
+    void add_elt(Voice_element*);
+    virtual Input_music *clone() const {
 	return new Music_general_chord(*this);
     }
-    void concatenate(Music_general_chord*);
+    
     virtual void print() const ;
 };
+/**
+  chord like :
+
+  - different music forms which start at the same time ( stacked "vertically" )
+  
+  */
+
 
 
 #endif // INPUTMUSIC_HH

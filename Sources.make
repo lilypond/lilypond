@@ -20,7 +20,7 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	inputcommand.hh grouping.hh
 
 mycc=   qlp.cc qlpsolve.cc leastsquares.cc\
-	inputcommands.cc inputmusic.cc	inputcursor.cc\
+	inputcommands.cc inputmusic.cc	\
 	inputscore.cc inputstaff.cc\
 	break.cc linespace.cc molecule.cc staffline.cc\
 	pscore.cc tex.cc item.cc pcol.cc staff.cc \
@@ -40,6 +40,7 @@ mycc=   qlp.cc qlpsolve.cc leastsquares.cc\
 	simplewalker.cc\
 	texbeam.cc texslur.cc clef.cc key.cc slur.cc beam.cc\
 	idealspacing.cc inputcommand.cc grouping.cc identifier.cc\
+	lexerinit.cc mylexer.cc\
 	template1.cc template2.cc template3.cc template4.cc\
 	version.cc
 

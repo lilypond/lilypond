@@ -7,6 +7,7 @@
 
 void error(String s);		// errors
 void error_t(String s, Real when);
+
 // warnings
 void warning(String s);
 #define WARN warnout << "warning: "<<__FUNCTION__ << "(): "
@@ -25,6 +26,5 @@ extern Dstream monitor; // monitor
 #endif
 
 extern bool check_debug;
-
 
 #endif

@@ -1,6 +1,25 @@
 #include <stdio.h>
 #include "scalar.hh"
 
+Scalar::Scalar(Rational r)
+    :String(r)
+{
+
+}
+
+Scalar::operator Rational()
+{
+    int p = pos('/');
+    if (!p)
+	return int(*this);
+    
+    String s2 = right(len()-p);
+    p--;
+    String s1 = left(p);
+
+    return Rational(s1.value(), s2.value());
+}
+
 bool
 Scalar::isnum()
 {
@@ -23,6 +42,7 @@ Scalar::operator int()
     assert (isnum());
     return value();
 }
+
 bool
 Scalar::to_bool() const
 {

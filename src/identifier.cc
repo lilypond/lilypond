@@ -2,10 +2,11 @@
 
 #include "identparent.hh"
 #include "lexer.hh"
+#include "debug.hh"
 
 void
 Identifier::error()
 {
     String e("Wrong identifier type: ");
-    yyerror(e + classname());
+    ::error(e + classname());
 }

@@ -13,9 +13,9 @@ distclean: clean
 all: kompijl doc
 
 # doc++ documentation of classes
-doc:
+doc: $(progdocs)
 	-mkdir $(DOCDIR)
-	doc++ -p -I -d $(DOCDIR) $(progdocs)
+	doc++ -p -I -d $(DOCDIR) $^
 
 depend: Sources.make .GENERATE
 	touch depend
