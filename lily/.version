@@ -4,4 +4,4 @@ PATCH_LEVEL = 75
 # use to send patches, always empty for released version:
 # include separator: ".postfix", "-pl" makes rpm barf
 
-MY_PATCH_LEVEL = .jcn2
+MY_PATCH_LEVEL = .jcn5

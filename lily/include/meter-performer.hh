@@ -1,24 +1,22 @@
 /*
-  lyric-performer.hh -- declare Lyric_performer
+  meter-performer.hh -- declare Meter_performer
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
 */
 
-
-#ifndef LYRIC_PERFOMER_HH
-#define LYRIC_PERFOMER_HH
+#ifndef METER_PERFOMER_HH
+#define METER_PERFOMER_HH
 
 #include "lily-proto.hh"
 #include "performer.hh"
-#include "varray.hh"
 
-class Lyric_performer : public Performer {
+class Meter_performer : public Performer {
 public:
     NAME_MEMBERS();
-    Lyric_performer();
-    ~Lyric_performer();
+    Meter_performer();
+    ~Meter_performer();
 
 protected:
     void do_print() const;
@@ -26,7 +24,7 @@ protected:
     virtual void process_requests();
 
 private:
-    Array<Lyric_req*> lreq_arr_;
+    Meter_change_req* meter_req_l_;
 };
 
-#endif // LYRIC_PERFOMER_HH
+#endif // METER_PERFOMER_HH

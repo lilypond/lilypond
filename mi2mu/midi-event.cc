@@ -34,12 +34,12 @@ Midi_key::Midi_key( int accidentals_i, int minor_i )
 String
 Midi_key::mudela_str( bool command_mode_bo )
 {
-	String str = "\\key\\";
+	String str = "\\key";
 	if ( !minor_i_ ) 
 		str += String( (char)( ( key_i_ + 2 ) % 7 + 'A'  ) );
 	else // heu, -2: should be - 1 1/2: A -> fis
 		str += String( (char)( ( key_i_ + 2 - 2 ) % 7 + 'a'  ) );
-	str = String( "%" ) + str + ";\n"; // "\key\F" not supported yet...
+	str = String( "% " ) + '"' str + '"' + "; % not supported yet\n"; 
 	return str;
 }
 

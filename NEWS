@@ -1,3 +1,10 @@
+pl 75.jcn6
+	- {lyric,meter,key}-performer
+	- span-brace-*
+
+pl 75.jcn5
+	- doze compile
+
 pl 75.jcn4
 	- midi output, notes only
 

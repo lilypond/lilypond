@@ -240,18 +240,18 @@ Lookup::stem(Real y1,Real y2) const
 }
 
 Symbol
-Lookup::vbrace(Real &y) const
+Lookup::vbrace( Real &y ) const
 {
-    if (y < 2* 20 PT) {
-	warning ( "piano brace too small (" + print_dimen(y)+ ")");
-	y = 2*20 PT;
+    if ( y < 2 * 20 PT ) {
+	warning( "staff brace too small (" + print_dimen( y ) + ")" );
+	y = 2 * 20 PT;
     }
-    if (y > 67 * 2 PT) {
-	warning ( "piano brace too big (" + print_dimen(y)+ ")");	
-	y = 67 *2 PT;
+    if ( y > 2 * 67 PT ) {
+	warning( "staff brace too big (" + print_dimen( y ) + ")" );
+	y = 2 * 67 PT;
     }
     
-    int idx = int(rint((y/2.0 - 20 ) + 148));
+    int idx = int( rint( y/2.0 - 20 ) );
     
     Symbol s = (*symtables_)("param")->lookup("brace");
     
