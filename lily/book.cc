@@ -61,17 +61,24 @@ Book::print_smob (SCM, SCM p, scm_print_state*)
   return 1;
 }
 
-void
-Book::process (String outname, Output_def *default_def, SCM header)
+/*
+  This function does not dump the output; outname is required eg. for
+  dumping header fields.
+ */
+Paper_book *
+Book::process (String outname, Output_def *default_def)
 {
   Paper_book *paper_book = new Paper_book ();
-
         
   Real scale = ly_scm2double (bookpaper_->c_variable ("outputscale"));
   
   Output_def * scaled_bookdef = scale_output_def (bookpaper_, scale);
 
   paper_book->bookpaper_ = scaled_bookdef;
+  scm_gc_unprotect_object (scaled_bookdef->self_scm());
+  
+  paper_book->header_ = header_;
+  
   int score_count = scores_.size ();
   for (int i = 0; i < score_count; i++)
     {
@@ -82,50 +89,24 @@ Book::process (String outname, Output_def *default_def, SCM header)
 	{
 	  Score_lines sc;
 	  sc.lines_ = systems;
-	  sc.header_ = header;
+	  sc.header_ = header_;
 
 	  paper_book->score_lines_.push (sc);
 	}
     }
 
-  paper_book->output (outname);
-  
-  scm_gc_unprotect_object (paper_book->bookpaper_->self_scm ());
-  scm_gc_unprotect_object (paper_book->self_scm ());
+  return paper_book;
 }
 
 /* FIXME: WIP, this is a hack.  Return first page as stencil.  */
 SCM
-Book::to_stencil (Output_def *default_def, SCM header)
+Book::to_stencil (Output_def *default_def)
 {
-  Paper_book *paper_book = new Paper_book ();
-  Real scale = ly_scm2double (bookpaper_->c_variable ("outputscale"));
-  
-  Output_def * scaled_bookdef = scale_output_def (bookpaper_, scale);
-
-  paper_book->bookpaper_ = scaled_bookdef;
-
-  int score_count = scores_.size ();
-  for (int i = 0; i < score_count; i++)
-    {
-      SCM systems = scores_[i]->book_rendering ("<markup>",
-						bookpaper_,
-						default_def);
-      
-      if (systems != SCM_UNDEFINED)
-	{
-	  Score_lines sc;
-	  sc.lines_ = systems;
-	  sc.header_ =header;
-
-	  paper_book->score_lines_.push (sc);
-
-	  // wtf: code dup.
-	}
-    }
+  Paper_book *paper_book = process ("<markup>", default_def);
 
   SCM pages = paper_book->pages ();
-  paper_book = 0;
+  scm_gc_unprotect_object (paper_book->self_scm ());
+
   if (pages != SCM_EOL)
     {
       progress_indication (_f ("paper output to `%s'...", "<markup>"));

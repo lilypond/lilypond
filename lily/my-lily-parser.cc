@@ -13,18 +13,18 @@
 #include "file-path.hh"
 #include "lily-version.hh"
 #include "ly-module.hh"
-#include "ly-smobs.icc"
 #include "main.hh"
 #include "my-lily-lexer.hh"
 #include "my-lily-parser.hh"
 #include "output-def.hh"
-#include "parray.hh"
+#include "paper-book.hh"
 #include "parser.hh"
-#include "scm-hash.hh"
 #include "score.hh"
 #include "source.hh"
-#include "string.hh"
 #include "warn.hh"
+
+#include "ly-smobs.icc"
+
 
 My_lily_parser::My_lily_parser (Sources *sources)
 {
@@ -35,9 +35,7 @@ My_lily_parser::My_lily_parser (Sources *sources)
   default_duration_ = Duration (2,0);
   error_level_ = 0;
   last_beam_start_ = SCM_EOL;
-  header_ = SCM_EOL;
 
-  header_ = ly_make_anonymous_module (false);
   smobify_self ();
 }
 
@@ -50,7 +48,6 @@ My_lily_parser::My_lily_parser (My_lily_parser const &src)
   default_duration_ = src.default_duration_;
   error_level_ = src.error_level_;
   last_beam_start_ = src.last_beam_start_;
-  header_ = src.header_;
 
   smobify_self ();
   lexer_ = new My_lily_lexer (*src.lexer_);
@@ -69,7 +66,7 @@ SCM
 My_lily_parser::mark_smob (SCM s)
 {
   My_lily_parser *parser = (My_lily_parser*) ly_cdr (s);
-  return parser->header_;
+  return SCM_EOL;
 }
 
 int
@@ -423,7 +420,7 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
   SCM_ASSERT_TYPE (score, score_smob, SCM_ARG2, __FUNCTION__, "score");
 
   SCM header = ly_c_module_p (score->header_) ? score->header_
-    : parser->header_.to_SCM ();
+    : parser->lexer_->lookup_identifier ("$globalheader");
   
   File_name outname (parser->output_basename_);
   int *c = &parser->book_count_;
@@ -464,7 +461,6 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
   /*  ugh. changing argument.*/
   book->bookpaper_ = bp;
   
-  SCM header = parser->header_;
   File_name outname (parser->output_basename_);
   int *c = &parser->book_count_;
   if (*c)
@@ -473,8 +469,12 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
 
   Output_def *paper = get_paper (parser);
 
-  book->process (outname.to_string (), paper, header);
+  Paper_book* pb = book->process (outname.to_string (), paper);
 
+  pb->output (outname.to_string ());
+  
   scm_gc_unprotect_object (paper->self_scm ());
+  scm_gc_unprotect_object (pb->self_scm ());
+
   return SCM_UNDEFINED;
 }

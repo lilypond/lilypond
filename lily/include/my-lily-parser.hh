@@ -14,7 +14,6 @@
 #include "input.hh"
 #include "parray.hh"
 #include "pitch.hh"
-#include "protected-scm.hh"
 #include "smobs.hh"
 #include "string.hh"
 
@@ -44,7 +43,7 @@ public:
   Sources *sources_;
   Duration default_duration_;
   String output_basename_;
-  Protected_scm header_;
+  //  Protected_scm header_;
   int score_count_;
   int book_count_;
   int fatal_error_;

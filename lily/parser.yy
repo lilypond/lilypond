@@ -446,7 +446,7 @@ lilypond:	/* empty */
 
 toplevel_expression:
 	lilypond_header {
-		THIS->header_ = $1;
+		THIS->lexer_->set_identifier (ly_symbol2scm ("$globalheader"), $1);
 	}
 	| add_quote {
 	
@@ -658,6 +658,7 @@ book_body:
 		$$->set_spot (THIS->here_input ());
 		$$->bookpaper_ = dynamic_cast<Output_def*> (unsmob_output_def (THIS->lexer_->lookup_identifier ("$defaultbookpaper"))->clone ());
 		scm_gc_unprotect_object ($$->bookpaper_->self_scm ());
+		$$->header_ = THIS->lexer_->lookup_identifier ("$globalheader"); 
 	}
 	| book_body book_paper_block {
 		$$->bookpaper_ = $2;
@@ -676,7 +677,7 @@ book_body:
 		scm_gc_unprotect_object (music->self_scm ());
 	}
 	| lilypond_header {
-		THIS->header_ = $1;
+		$$->header_ = $1;
 	}
 	| book_body error {
 
@@ -2472,12 +2473,13 @@ markup:
 		THIS->lexer_->pop_state ();
  		Score *score = $2;
  		Book *book = new Book;
+		book->header_ = THIS->lexer_->lookup_identifier ("$globalheader");
 		book->scores_.push (score);
 			
 		Output_def *paper = get_paper (THIS);
 		book->bookpaper_ = get_bookpaper (THIS);
 
-		SCM s = book->to_stencil (paper, THIS->header_);
+		SCM s = book->to_stencil (paper);
  		scm_gc_unprotect_object (score->self_scm ());
  		scm_gc_unprotect_object (book->self_scm ());
 		$$ = scm_list_2 (ly_scheme_function ("stencil-markup"), s);

@@ -69,6 +69,7 @@ public:
   void start_main_input ();
 
   SCM lookup_identifier (String s);
+  SCM lookup_identifier_symbol (SCM s);
   void push_chord_state (SCM tab);
   void push_figuredbass_state ();
   void push_lyric_state ();

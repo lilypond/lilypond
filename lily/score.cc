@@ -191,6 +191,9 @@ default_rendering (SCM music, SCM outdef,
       Music_output *output = g->get_output ();
       if (systems != SCM_UNDEFINED)
 	{
+	  /*
+	    ugh, this is strange, Paper_book without a Book object.
+	   */
 	  Paper_book *paper_book = new Paper_book ();
 
 	  paper_book->bookpaper_ = unsmob_output_def (scaled_bookdef);
@@ -263,15 +266,17 @@ Score::book_rendering (String outname,
 }
 
 LY_DEFINE (ly_score_bookify, "ly:score-bookify",
-	   1, 0, 0,
-	   (SCM score_smob),
-	   "Return SCORE encapsulated in a BOOK.")
+	   2, 0, 0,
+	   (SCM score_smob, SCM header),
+	   "Return @var{score_smob} encapsulated in a Book object. Set "
+	   "@var{header} as book level header.")
 {
   SCM_ASSERT_TYPE (unsmob_score (score_smob), score_smob, SCM_ARG1, __FUNCTION__, "score_smob");
   
   Score *score = unsmob_score (score_smob);
   Book *book = new Book;
   book->scores_.push (score);
+  book->header_ = header;
   scm_gc_unprotect_object (book->self_scm ());
   return book->self_scm ();
 }

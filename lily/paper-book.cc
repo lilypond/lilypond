@@ -39,7 +39,7 @@ Paper_book::Paper_book ()
 {
   copyright_ = SCM_EOL;
   tagline_ = SCM_EOL;
-  global_header_ = SCM_EOL;
+  header_ = SCM_EOL;
   
   bookpaper_ = 0;
   smobify_self ();
@@ -65,7 +65,7 @@ Paper_book::mark_smob (SCM smob)
   scm_gc_mark (b->copyright_);
   if (b->bookpaper_)
     scm_gc_mark (b->bookpaper_->self_scm ());
-  scm_gc_mark (b->global_header_);
+  scm_gc_mark (b->header_);
   return b->tagline_;
 }
 
@@ -101,7 +101,7 @@ Paper_book::output (String outname)
   Paper_outputter *out = get_paper_outputter (outname);
   int page_count = scm_ilength (pages);
 
-  out->output_header (bookpaper_, global_header_, page_count, false);
+  out->output_header (bookpaper_,   scm_list_1 (header_), page_count, false);
 
   for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
     {
@@ -129,8 +129,8 @@ Paper_book::title (int i)
 
   // ugh code dup
   SCM scopes = SCM_EOL;
-  if (ly_c_module_p (global_header_))
-    scopes = scm_cons (global_header_, scopes);
+  if (ly_c_module_p (header_))
+    scopes = scm_cons (header_, scopes);
 
   if (ly_c_module_p (score_lines_[i].header_))
     scopes = scm_cons (score_lines_[i].header_, scopes);
@@ -162,14 +162,14 @@ Paper_book::classic_output (String outname)
 
   // ugh code dup
   SCM scopes = SCM_EOL;
-  if (ly_c_module_p (global_header_))
-    scopes = scm_cons (global_header_, scopes);
+  if (ly_c_module_p (header_))
+    scopes = scm_cons (header_, scopes);
 
   if (ly_c_module_p (score_lines_[0].header_))
     scopes = scm_cons (score_lines_[0].header_, scopes);
   //end ugh
   
-  out->output_header (p, global_header_, 0, true);
+  out->output_header (p, header_, 0, true);
 
   SCM top_lines = score_lines_.top ().lines_;
   Paper_line *first = unsmob_paper_line (scm_vector_ref (top_lines,
@@ -221,8 +221,8 @@ Paper_book::init ()
   Output_def *paper = bookpaper_;
   
   SCM scopes = SCM_EOL;
-  if (ly_c_module_p (global_header_))
-    scopes = scm_cons (global_header_, scopes);
+  if (ly_c_module_p (header_))
+    scopes = scm_cons (header_, scopes);
 
   SCM make_tagline = paper->c_variable ("make-tagline");
   tagline_ = scm_call_2 (make_tagline, paper->self_scm (), scopes);
