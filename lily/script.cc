@@ -29,7 +29,7 @@ Script::get_molecule(Direction d) const
     }
   else if (key == ly_symbol2scm ("accordion"))
     {
-      return lookup_l ()->accordion (s, paper_l()->get_var("interline"));
+      return lookup_l ()->accordion (gh_cdr (s), paper_l()->get_var("interline"));
     }
 
   else assert (false);
