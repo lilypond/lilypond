@@ -193,12 +193,6 @@ Stem_tremolo::print (SCM grob)
 }
 
 
-void
-Stem_tremolo::set_stem (Grob*me,Grob *s)
-{
-  me->set_property ("stem", s->self_scm ());
-}
-
 
 ADD_INTERFACE (Stem_tremolo,"stem-tremolo-interface",
   "A beam slashing a stem to indicate a tremolo.",

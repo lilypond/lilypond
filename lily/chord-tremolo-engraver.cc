@@ -119,9 +119,7 @@ Chord_tremolo_engraver::try_music (Music * m)
 void
 Chord_tremolo_engraver::process_music ()
 {
-  if (repeat_)
-    {
-      if (sequential_body_b_ && !beam_)
+  if (repeat_ && sequential_body_b_ && !beam_)
 	{
 	  beam_ = make_spanner ("Beam");
 	  beam_->set_property ("chord-tremolo", SCM_BOOL_T);
@@ -132,18 +130,8 @@ Chord_tremolo_engraver::process_music ()
 	  beam_start_location_ = mp;
 	  announce_grob (beam_, repeat_->self_scm ());
 	}
-      else if (!sequential_body_b_ && !stem_tremolo_)
-	{
-	  if (flags_)
-	    {
-	      stem_tremolo_ = make_item ("StemTremolo");
-	      announce_grob (stem_tremolo_, repeat_->self_scm ());
-	      stem_tremolo_->set_property ("flag-count",
-						scm_int2num (flags_));
-	    }
-	}
-    }
 }
+
 void
 Chord_tremolo_engraver::finalize ()
 {
@@ -195,10 +183,16 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 	    ::warning (s);
 	}
     }
-  else if (stem_tremolo_ && Stem::has_interface (info.grob_))
+  else if (repeat_ &&
+	   flags_ && !sequential_body_b_ && Stem::has_interface (info.grob_))
     {
-       Stem_tremolo::set_stem (stem_tremolo_, info.grob_);
-       stem_tremolo_->set_parent (info.grob_,X_AXIS);
+      stem_tremolo_ = make_item ("StemTremolo");
+      announce_grob (stem_tremolo_, repeat_->self_scm ());
+      stem_tremolo_->set_property ("flag-count",
+				   scm_int2num (flags_));
+      stem_tremolo_->set_property ("stem",
+				   info.grob_->self_scm ());
+      stem_tremolo_->set_parent (info.grob_, X_AXIS);
     }
 }
 
