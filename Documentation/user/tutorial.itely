@@ -12,6 +12,7 @@
 @menu
 * First steps::                 Music language of LilyPond
 * Running LilyPond::            Printing music
+* More basics::                 
 * Printing lyrics::             
 * A melody with chords ::       
 * More stanzas::                
@@ -241,7 +242,126 @@ LilyPond source file looks like:
 @separate
 
 
+@node Running LilyPond
+@section Running LilyPond
+
+In the last section, we explained what kind of things you could enter
+in a lilypond file.  In this section we explain how to run LilyPond,
+and how view or print the output.  If you have not used LilyPond
+before, want to test your setup of LilyPond, or try to run an example
+file yourself, then read this section.  The instructions that follow
+are for running LilyPond on Unix-like systems.  Some additional
+instructions for running LilyPond on Windows are given at the end of
+this section.
+
+You begin with opening a terminal window, and start up a text editor.
+For example, open an xterm and execute @code{joe}.  In your text editor,
+enter the following input, and save the file as @file{test.ly}:
+
+@quotation
+@example
+\score @{
+  \notes @{ c'4 e' g' @}
+@} 
+@end example
+@end quotation
+
+@cindex ly2dvi
+
+@c now this is weird, running ly2dvi to run LilyPond
+@c (therefore name change proposal) 
+
+LilyPond is the program that computes the sheet music. All other
+things, such as adding titles, page breaking and other page layout,
+are done by a small wrapper program called
+@code{ly2dvi}. @code{ly2dvi} calls lilypond to render the music, and
+then adds the titling and page layout instructions.  To process
+@file{test.ly} with ly2dvi, proceed as follows:
+
+@quotation
+@example
+ly2dvi -P test.ly
+@end example
+@end quotation
+
+You will see the following on your screen:
+
+@quotation
+@example
+GNU LilyPond 1.4.0
+Now processing: `/home/fred/ly/test.ly'
+Parsing...
+Interpreting music...[1]
+ @emph{ ... more interesting stuff ... }
+PS output to `test.ps'...
+DVI output to `test.dvi'...
+@end example
+@end quotation
+@cindex DVI file
+@cindex Viewing music
+@cindex xdvi
+
+The results of the ly2dvi run are two files, @file{test.dvi} and
+@file{test.ps}.  The PS file (@file{test.ps}) is the one you can print.
+You can view the PS file using the program ghostview.  If a version of
+ghostview is installed on your system, one of these commands will
+produce a window with some music notation on your screen:
+@c eeek
+@quotation
+@example
+  gv test.ps
+  ghostview test.ps
+  ggv test.ps
+  kghostview test.ps
+@end example
+@end quotation
+If you are satisfied with the looks of the music displayed on your
+screen, you can print the PS file by clicking File/Print inside
+ghostview.
+
+The DVI file (@file{test.dvi}) contains the same sheet music in a
+different format. DVI files are more easily processed by the computer,
+so viewing them usually is quicker.  Execute @code{xdvi test.dvi}
+to view the DVI file.
+
+If your DVI viewer does not have a "Print" button, you can print the
+file by executing @code{lpr test.ps}.
+
+@c volgende alinea schrappen?  
+
+If you can't get the examples to print, then you should look into
+installing and configuring ghostscript.  Refer to GhostScript's website
+at @uref{http://www.ghostscript.com}.
+
+@cindex GhostScript
+@cindex @code{lpr}
+@cindex Printing output
+@cindex PostScript
+
+@unnumberedsubsec Windows users
+Windows users start the terminal by clicking on the LilyPond or Cygwin
+icon.  Notepad is sufficient for editing the LilyPond file.  Viewing
+the PS file can be done with:
+@quotation
+@example
+@code{gsview32 test.ps}
+@end example
+@end quotation
+You can also print from the command line by executing:
+@quotation
+@example
+@code{gsview32 /s test.ps}
+@end example
+@end quotation
+
+
 @strong{SUMMARY}
+
+To run LilyPond, enter a file, and run the command @code{ly2dvi} on
+that file. The resulting files are either DVI or PostScript, and can
+be viewed with @code{xdvi} (unix) and ghostview (unix and windows)
+respectively. The following table summarizes the constructs that were
+discussed in the previous two sections.
 
 @multitable @columnfractions  .3 .3 .4  
 
@@ -302,12 +422,12 @@ s16_" "
 @end multitable
 
 
-@c maybe legend here?
-
+@node More basics
+@section More basics 
 
 We continue with the introduction of the remaining musical constructs.
-
-Normal rests are entered just like notes with the name ``@code{r}'':
+Normal rests are entered just like notes, but use the name
+``@code{r}'':
 
 @quotation
 @example
@@ -482,6 +602,8 @@ For example: @code{c f,} goes down; @code{f, f} are both the same;
 
 
 @strong{SUMMARY}
+
+The following table  summarizes the syntax learned in this section.
 
 @multitable @columnfractions .3 .3 .4  
 
@@ -842,117 +964,6 @@ lyrics, chords, orchestral scores and parts, fine tuning output,
 polyphonic music, and integrating text and music.
 
 
-@node Running LilyPond
-@section Running LilyPond
-
-In the last section, we explained what kind of things you could enter
-in a lilypond file.  In this section we explain how to run LilyPond,
-and how view or print the output.  If you have not used LilyPond
-before, want to test your setup of LilyPond, or try to run an example
-file yourself, then read this section.  The instructions that follow
-are for running LilyPond on Unix-like systems.  Some additional
-instructions for running LilyPond on Windows are given at the end of
-this section.
-
-You begin with opening a terminal window, and start up a text editor.
-For example, open an xterm and execute @code{joe}.  In your text editor,
-enter the following input, and save the file as @file{test.ly}:
-
-@quotation
-@example
-\score @{
-  \notes @{ c'4 e' g' @}
-@} 
-@end example
-@end quotation
-
-@cindex ly2dvi
-
-@c now this is weird, running ly2dvi to run LilyPond
-@c (therefore name change proposal) 
-
-LilyPond is the program that computes the sheet music. All other
-things, such as adding titles, page breaking and other page layout,
-are done by a small wrapper program called
-@code{ly2dvi}. @code{ly2dvi} calls lilypond to render the music, and
-then adds the titling and page layout instructions.  To process
-@file{test.ly} with ly2dvi, proceed as follows:
-
-@quotation
-@example
-ly2dvi -P test.ly
-@end example
-@end quotation
-
-You will see the following on your screen:
-
-@quotation
-@example
-GNU LilyPond 1.4.0
-Now processing: `/home/fred/ly/test.ly'
-Parsing...
-Interpreting music...[1]
- @emph{ ... more interesting stuff ... }
-PS output to `test.ps'...
-DVI output to `test.dvi'...
-@end example
-@end quotation
-@cindex DVI file
-@cindex Viewing music
-@cindex xdvi
-
-The results of the ly2dvi run are two files, @file{test.dvi} and
-@file{test.ps}.  The PS file (@file{test.ps}) is the one you can print.
-You can view the PS file using the program ghostview.  If a version of
-ghostview is installed on your system, one of these commands will
-produce a window with some music notation on your screen:
-@c eeek
-@quotation
-@example
-  gv test.ps
-  ghostview test.ps
-  ggv test.ps
-  kghostview test.ps
-@end example
-@end quotation
-If you are satisfied with the looks of the music displayed on your
-screen, you can print the PS file by clicking File/Print inside
-ghostview.
-
-The DVI file (@file{test.dvi}) contains the same sheet music in a
-different format. DVI files are more easily processed by the computer,
-so viewing them usually is quicker.  Execute @code{xdvi test.dvi}
-to view the DVI file.
-
-If your DVI viewer does not have a "Print" button, you can print the
-file by executing @code{lpr test.ps}.
-
-@c volgende alinea schrappen?  
-
-If you can't get the examples to print, then you should look into
-installing and configuring ghostscript.  Refer to GhostScript's website
-at @uref{http://www.ghostscript.com}.
-
-@cindex GhostScript
-@cindex @code{lpr}
-@cindex Printing output
-@cindex PostScript
-
-@unnumberedsubsec Windows users
-Windows users start the terminal by clicking on the LilyPond or Cygwin
-icon.  Notepad is sufficient for editing the LilyPond file.  Viewing
-the PS file can be done with:
-@quotation
-@example
-@code{gsview32 test.ps}
-@end example
-@end quotation
-You can also print from the command line by executing:
-@quotation
-@example
-@code{gsview32 /s test.ps}
-@end example
-@end quotation
 
 
 

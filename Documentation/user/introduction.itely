@@ -148,54 +148,77 @@ down-up combination should be put closer. The first two measures are
 printed with this correction, the last two measures without. The notes
 in the last two measures form downstem/upstems clumps of notes.
 
-Experts have the knowledge to make such adjustments themselves by
-hand. For a skilled engraver, a computer drawing program is sufficient
-to produce excellent music typography. However, laypeople don't have
-the knowledge to think of such details. For a musician, the interface
-of a program should be familiar. This is a place where there is a
-choice of two paradigms: most musicians are familiar with notation,
-and with music.  Most graphically oriented programs offer an interface
-that shows notation, and allow you to enter the music by placing notes
-on a staff. 
+We hope that these examples serve to show that music typography is a
+subtle business, and that it requires skill and knowledge to produce
+good engraving---skill and knowledge most people lack.  It was our
+challenge to see if we could put such knowledge into a computer
+program.
+ 
+One of the first questions that pop up when you design such a program,
+is what kind of input the program should expect. Many music notation
+programs offer a graphical interface that shows notation, and allows
+you to enter the music by placing notes on a staff. Although this is a
+obvious way to design a program, from our point of view, this is
+cheating. After all, the core message of a piece of music notation
+simply is the music itself. If you start by offering music notation to
+the user, you have already skipped one conversion, even if it perhaps
+is implicit. If we want to generate music notation, then the obvious
+candidate for the source format should be the music itself.
 
+Of course, on paper this theory sounds very good. In practice, it
+opens a can of worms. What really @emph{is} music? Many philosophical
+treatises must have been written on the subject. Even if you're more
+practically inclined, you will notice that an enormous number of
+different ways to represent music in a computer exist, and they are
+much more incompatible than the formats for wordprocessors and
+spreadsheets.  Anyone who has tried to exchange data files from
+between different computer programs can attest to this.
 
-Interactive programs always have to load and save their data from
-files on the disk.  In a program that deals with music notation, the
-notation always has to converted to some kind of representation of the
-music inside.
+The cause of this problem is that music is inherently two-dimensional:
+in polyphonic music, notes have time and pitch as their two
+coordinates, and they often are related in both directions. Computer
+files on the other hand are essentially one-dimensional: they are a
+long stream of characters. When you represent music in a file, then
+you have to flatten this two-dimensional information breaking the
+timing or the pitch, relations, and there is no universal agreement on
+how to do this.
 
-[todo]
+It might seem that when designing a music representation, we have
+myriad of choices.  Luckily, we have some requirements that shaped the
+input format into what it is now.  A music representation is about
+@emph{music}, so it should be free from notation as much as possible:
+the format is about pitches and durations, not about symbols and
+offsets. Since LilyPond is a compiler, the input format is its user
+interface, and users have to key in the music into the file directly,
+requiring that the input format has a friendly syntax. We, as
+programmers and scientists also like the format to have a clean formal
+definition. After all, producing music notation is a difficult
+problem, and in the scientific world, difficult problems always must
+be well-specified. Moreover, formally defined formats are easier to
+write programs for. Finally, enough information should be present to
+be able to produce a printed score.
 
+These ideas shaped music representation elegantly builds complex
+musical constructs from simple entities like notes and rests, in much
+the same way that one builds complex formulae from simple expressions
+such as numbers and mathematical operators.
 
-When we view the problem of making beautiful sheet music for a given
-piece of music as a scientific puzzle, then we can only solve that
-puzzle if it is well-stated. Hence, when we design an input format, we
-want it to be neatly defined and have precise semantics. Such formats
-also have the advantage of being easier to write code for. 
+The strict separation between musical information and typesetting also
+gives a blueprint of the program: first it reads the music
+representation, then it interprets the music---reading it
+`left-to-right', and translating the musical information to a layout
+specification. When the layout is computed, the resulting symbols are
+written to an output file.
 
+Much more could be said about the inner working of the program, but we
+will leave it at this. Those who are interested can inspect the source
+code, which is available freely, or inquire on the development mailing
+list.
 
-Many music encodings exist today but most of the encodings have not
-been tailored either for human use, or for processing it with a
-computer.  By its nature, LilyPond input has both features: it is
-concise, suitable for human input, and it can be processed
-automatically: it may be converted into MIDI or into print.
+We hope that you understand where LilyPond came from, and what we
+tried to achieve. The rest of this manual less philosophical: it
+instructs you how use the input language to print beautiful music.
 
-
-However, one big problem with music, is that there are no standards
-for encoding music. Sure, you can record performances using MIDI, but
-that offers far too little information for adequate musicological
-purposes. With LilyPond we've taken a reverse approach: we have tried
-to come up with musical format that can cater virtually all music as
-long as it can be notated.
-
-LilyPond input focuses on musical concepts such as pitch, duration and
-music expressions.  Musical data is rhythmic, and implies an ordering
-of events. This ordering is used to create compound musical concepts:
-Large musical structures are built recursively from smaller
-expressions: a sequence of music expressions forms a new, longer and
-bigger music expression. In this sense, the input is recursive. It
-shares this property with very music encodings. The recursive nature
-will appeal to the more hackerish musician.
 
 
 
