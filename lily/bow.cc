@@ -1,7 +1,7 @@
 /*
   bow.cc -- implement Bow
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -24,8 +24,9 @@ Bow::center() const
 
     Real w = width().length();
 
-    return Offset(w/2,dy * paper()->internote());
+    return Offset(w/2,dy * paper()->internote_f());
 }
+
 
 Molecule*
 Bow::brew_molecule_p() const
@@ -36,7 +37,7 @@ Bow::brew_molecule_p() const
     int dy = right_pos_i_ - left_pos_i_;
     
     Real nw_f = paper()->note_width();
-    Real nh_f = paper()->internote();
+    Real nh_f = paper()->internote_f();
 
     
     w+= (right_dx_f_ - left_dx_f_) * nw_f ;
