@@ -9,12 +9,13 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	parseconstruct.hh  debug.hh globvars.hh keyword.hh\
 	misc.hh score.hh notename.hh lexer.hh symtable.hh\
 	symbol.hh main.hh dimen.hh paper.hh lookup.hh\
-	sccol.hh stcol.hh scommands.hh melodicstaff.hh\
+	sccol.hh stcol.hh staffcommands.hh melodicstaff.hh\
 	identifier.hh simplestaff.hh spanner.hh stem.hh\
 	notehead.hh leastsquares.hh beam.hh rest.hh\
 	swalker.hh bar.hh meter.hh accidental.hh\
 	key.hh keyitem.hh localkeyitem.hh simplewalker.hh\
-	clef.hh clefitem.hh slur.hh
+	clef.hh clefitem.hh slur.hh inputcommands.hh\
+	getcommand.hh inputmusic.hh
 
 mycc=   qlp.cc qlpsolve.cc \
 	break.cc linespace.cc molecule.cc staffline.cc\
@@ -25,7 +26,7 @@ mycc=   qlp.cc qlpsolve.cc \
 	warn.cc debug.cc symtable.cc boxes.cc\
 	pstaff.cc  tstream.cc\
 	calcideal.cc scores.cc identifier.cc \
-	dimen.cc paper.cc lookup.cc scommands.cc\
+	dimen.cc paper.cc lookup.cc staffcommands.cc\
 	sccol.cc stcol.cc getcommands.cc simplestaff.cc\
 	melodicstaff.cc simpleprint.cc stem.cc\
 	spanner.cc notehead.cc leastsquares.cc beam.cc\
@@ -33,5 +34,10 @@ mycc=   qlp.cc qlpsolve.cc \
 	simplewalker.cc bar.cc meter.cc accidental.cc\
 	key.cc keyitem.cc localkeyitem.cc\
 	clef.cc clefitem.cc texslur.cc slur.cc\
+	inputcommands.cc inputmusic.cc\
+	inputcursor.cc\
 	template1.cc template2.cc template3.cc template4.cc\
 	version.cc
+
+
+
