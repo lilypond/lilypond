@@ -1,4 +1,4 @@
-\version "2.3.1"
+\version "2.3.2"
 \header {
     title = "Screech and boink"
     subtitle = "Random complex notation"
@@ -57,7 +57,7 @@
 	raggedright = ##t 
 
 	\context {
-	    \StaffContext
+	    \Staff
 	    \consists Horizontal_bracket_engraver
 	}
 	

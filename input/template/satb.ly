@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header {
 
     texidoc = "
@@ -45,7 +45,7 @@ bassWords = \lyrics { ho4 ho ho ho }
     \context {
 
 	% a little smaller so lyrics can be closer to the staff. 
-	\StaffContext
+	\Staff
 	minimumVerticalExtent = #'(-3 . 3) 
     }
   }

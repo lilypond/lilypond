@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 
 \header{
 texidoc="
@@ -20,7 +20,7 @@ If the @code{Note_heads_engraver} is replaced by the @code{Completion_heads_engr
   }
   \paper{
     \context{
-      \VoiceContext
+      \Voice
       \remove "Note_heads_engraver"
       \consists "Completion_heads_engraver"
     }

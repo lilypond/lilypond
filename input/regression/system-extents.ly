@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header {
 
     texidoc = "The size of every system is correctly determined; this 
@@ -15,7 +15,7 @@
 
     \paper { 
 	 \context {
-	     \ScoreContext
+	     \Score
 	     \override System #'print-function = #box-grob-stencil
 	     }
     }

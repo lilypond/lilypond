@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 
 \header {
 
@@ -38,7 +38,7 @@ what you would expect.)
 
     \paper {
 	\context {
-	    \ScoreContext
+	    \Score
 	    \accepts StaffContainer
 	    \denies Staff
 	}
@@ -53,7 +53,7 @@ what you would expect.)
 	    \name StaffContainer
 	}
 	\context {
-	    \StaffContext
+	    \Staff
 	    \remove Axis_group_engraver
 	    \remove Separating_line_group_engraver
 	    \remove Clef_engraver

@@ -1,10 +1,10 @@
-\version "2.2.0"
+\version "2.3.2"
 
 % JUNKME
 %part-paper-init.ly
 
 \paper {
-	\context { \OrchestralPartStaffContext }
-	\context { \ScoreContext skipBars = ##t }
+	\context { \OrchestralPartStaff }
+	\context { \Score skipBars = ##t }
 }
 

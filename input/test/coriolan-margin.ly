@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.2"
 
 
 % Ugh, we need to override some LaTeX titling stuff
@@ -138,7 +138,7 @@ violoncello = \notes \relative c' {
 	  \RemoveEmptyStaffContext
       }
       \context {
-	  \OrchestralScoreContext
+	  \OrchestralScore
 	  \override TimeSignature #'style = #'C
       }
   }

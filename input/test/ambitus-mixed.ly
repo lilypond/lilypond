@@ -13,7 +13,7 @@ in the same score (not demonstrated in this file).
 "
 }
 
-\version "2.3.1"
+\version "2.3.2"
 
 #(define (kill-ambitus grob grob-context apply-context)
   (if (memq 'ambitus-interface (ly:grob-property grob 'interfaces))
@@ -53,7 +53,7 @@ voiceB = \notes \relative c' {
     raggedright = ##t
 
     \context {
-	\VoiceContext
+	\Voice
       \consists Ambitus_engraver
     }
     }

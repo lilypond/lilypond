@@ -4,7 +4,7 @@
 \include "deutsch.ly"
 
 #(set-global-staff-size 16)
-\version "2.2.0"
+\version "2.3.2"
 
 \header {
   title = "Romanzen"
@@ -282,11 +282,11 @@ leftb = \notes \transpose c cis {
       \RemoveEmptyStaffContext
     }
     \context {
-      \ScoreContext
+      \Score
       \override SpacingSpanner #'common-shortest-duration = #(ly:make-moment 1 8)
     }
     \context {
-      \PianoStaffContext
+      \PianoStaff
       \override VerticalAlignment #'forced-distance = #13.0
     }
   }

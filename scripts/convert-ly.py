@@ -2091,7 +2091,8 @@ conversions.append (((2, 3, 1), conv,
 def conv (str):
 	def func(m):
 		if m.group(1) not in ['RemoveEmptyStaff',
-				      ]:
+				      'AncientRemoveEmptyStaffContext',
+				      'EasyNotation']:
 			return '\\' + m.group (1)
 		else:
 			return m.group (0)

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.2"
 
 \header { texidoc = "
 
@@ -27,7 +27,7 @@ texts, so they should be switched off.
 	\paper{
 		linewidth=140.\mm
 		\context {
-			\VoiceContext
+			\Voice
 			soloADue = ##f
 		}
 	}

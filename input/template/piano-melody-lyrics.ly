@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.2"
 \header {
   texidoc ="Classical song format: one staff with melody and lyrics,
 and piano accompaniment."

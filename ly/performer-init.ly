@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 
 				%
 				% setup for Request->Element conversion. Guru-only
@@ -18,7 +18,7 @@
 \description "Hard coded entry point for LilyPond. Cannot be tuned."
     }
 \context {
-    \StaffContext
+    \Staff
     \name DrumStaff
     midiInstrument = #"drums"
     \accepts DrumVoice
@@ -39,7 +39,7 @@
 
 
 \context {
-    \VoiceContext
+    \Voice
     \remove "Note_performer"
     \consists "Drum_note_performer" 
     \name DrumVoice
@@ -148,6 +148,6 @@
     \accepts DrumStaff
 }
 
-\context { \StaffContext \name RhythmicStaff }
+\context { \Staff \name RhythmicStaff }
 
 

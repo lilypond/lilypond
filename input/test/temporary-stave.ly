@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.2"
 
 \header {
 
@@ -24,7 +24,7 @@ time and key signatures and clef at the beginning of the extra stave.
   }
   \paper {
     \context {
-      \ScoreContext
+      \Score
       \consists Span_bar_engraver
       % Avoid a vertical line at the beginning of the system:
       \remove System_start_delimiter_engraver
@@ -32,7 +32,7 @@ time and key signatures and clef at the beginning of the extra stave.
       \accepts "TemporaryStaff"
     }
     \context {
-      \StaffContext
+      \Staff
       \name "TemporaryStaff"
       \alias "Staff"
       \remove "Clef_engraver"

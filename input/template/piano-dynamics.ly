@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header {
 texidoc ="
   Dynamics on a separate line, neatly centered between staffs.
@@ -58,7 +58,7 @@ pedal = \notes {
       \consistsend "Axis_group_engraver"
     }
     \context {
-      \PianoStaffContext
+      \PianoStaff
       \accepts Dynamics
       \override VerticalAlignment #'forced-distance = #7
     }
@@ -72,7 +72,7 @@ pedal = \notes {
       \consists "Dynamic_performer"
     }
     \context {
-      \PianoStaffContext
+      \PianoStaff
       \accepts Dynamics
     }
   }

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 % TODO:
 % check with ancient- stuff.  rename, merge, something.  -gp
 
@@ -48,7 +48,7 @@ voice = \notes \transpose c c' {
     \paper {
 	linethickness = \staffspace / 5.0
 	\context {
-	    \VoiceContext
+	    \Voice
 	    \name MensuralVoice
 	    \alias Voice
 	    \remove Ligature_bracket_engraver
@@ -56,7 +56,7 @@ voice = \notes \transpose c c' {
 	    \override NoteHead #'style = #'mensural
 	}
 	\context {
-	    \StaffContext
+	    \Staff
 	    \name MensuralStaff
 	    \alias Staff
 	    \accepts MensuralVoice
@@ -76,7 +76,7 @@ voice = \notes \transpose c c' {
 	    \accepts MensuralVoice
         }
 	\context {
-	    \ScoreContext
+	    \Score
 	    \accepts MensuralStaff
 	}
     }

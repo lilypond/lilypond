@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 
 \header {
 
@@ -25,7 +25,7 @@ r c16[ c c]
 	linewidth = 3.4 \cm
 
 	\context {
-	    \StaffContext \remove "Time_signature_engraver"
+	    \Staff \remove "Time_signature_engraver"
 	}
 	
     }

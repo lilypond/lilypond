@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header {
     texidoc = "Custodes may be engraved in various styles."
 }
@@ -25,7 +25,7 @@
     }
     \paper {
 	\context {
-	    \StaffContext
+	    \Staff
 	    \consists Custos_engraver
 	}
 	raggedright = ##t

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header{
 
 texidoc="
@@ -28,7 +28,7 @@ are used then a different symbol is used.
 }
 	\paper {
 	\context {
-		\ScoreContext
+		\Score
 		skipBars = ##t
 	}
 	raggedright = ##t	

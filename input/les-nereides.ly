@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.2.0"
+\version "2.3.2"
 \encoding "latin1"
 \header {
     composer = "ARTHUR GRAY"
@@ -279,7 +279,7 @@ theScore = \score{
     >>
     \paper {
 	\context {
-	    \ScoreContext
+	    \Score
 	    pedalSustainStrings = #'("Ped." "*Ped." "*")
 	    \remove Bar_number_engraver
         }
@@ -302,7 +302,7 @@ theScore = \score{
     	}
 
 	\context {
-	    \PianoStaffContext
+	    \PianoStaff
 	    \accepts Dynamics
 	    \override VerticalAlignment #'forced-distance = #7
         }

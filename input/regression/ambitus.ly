@@ -24,7 +24,7 @@ paper block:
 
 @example
 \context @{
-  \ScoreContext
+  \Score
 \override BreakAlignment #'break-align-orders = #(make-vector 3 '(
     instrument-name
     left-edge
@@ -43,7 +43,7 @@ paper block:
  
 @example
 \context @{
-  \VoiceContext
+  \Voice
   \consists Ambitus_engraver
   Ambitus \set #'note-head-style = #'noteheads-2mensural
   Ambitus \set #'join-heads = ##f
@@ -52,7 +52,7 @@ paper block:
 
 
  %}
-\version "2.2.0"
+\version "2.3.2"
 
 upper = \notes \relative c {
 	\clef "treble"
@@ -77,7 +77,7 @@ lower = \notes \relative c {
 	>> }
 	\paper {
 	       \context {
-			\ScoreContext
+			\Score
 \override BreakAlignment #'break-align-orders = #(make-vector 3 '(
 				instrument-name
 				left-edge
@@ -92,7 +92,7 @@ lower = \notes \relative c {
 			))
 		}
 		\context {
-			\VoiceContext
+			\Voice
 			\consists Ambitus_engraver
 		}
 	}

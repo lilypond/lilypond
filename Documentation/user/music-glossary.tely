@@ -1084,7 +1084,7 @@ of the 20th century
     }
     \paper {
 	\context {
-	    \StaffContext
+	    \Staff
 	    \consists Custos_engraver
 	}
        raggedright = ##t

@@ -6,7 +6,7 @@ beam."
 
 }
 
-\version "2.2.0"
+\version "2.3.2"
 
 
 
@@ -19,7 +19,7 @@ beam."
   }
   \paper {
     \context {
-      \StaffContext
+      \Staff
 	\remove "Clef_engraver"
 %%	\remove "Staff_symbol_engraver"
     }

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 
 \header{ texidoc="@cindex Time Signature Multiple
 
@@ -36,11 +36,11 @@ lines seem to distort the regular spacing.
     \paper{
     	raggedright = ##t
 	\context{
-	    \ScoreContext
+	    \Score
 	    \remove "Timing_engraver"
 	}
 	\context{
-	    \StaffContext
+	    \Staff
 	    \consists "Timing_engraver"
 	    
 	}

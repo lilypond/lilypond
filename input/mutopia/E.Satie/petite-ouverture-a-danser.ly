@@ -7,7 +7,7 @@
   copyright = "Public Domain"
 }
 
-\version "2.2.0"
+\version "2.3.2"
 
 \include "nederlands.ly"
 
@@ -146,7 +146,7 @@ lower = \context Staff \notes \relative c{
 
   \paper {
     \context{
-	    \VoiceContext
+	    \Voice
     }
   }
   \midi {

@@ -10,7 +10,7 @@
     
 }
 
-\version "2.3.1"
+\version "2.3.2"
 
 %%;; Hmm - why is stencil so tall?
 #(define (page-stack-lines page)
@@ -43,14 +43,14 @@ inBed = \paper {
     %%  (box-stencil (page-stack-lines page) 0.1 0.5))
 
     \context {
-	\StaffContext
+	\Staff
 	minimumVerticalExtent = ##f
     }
 }
 
 noCruft = \paper {
     \context {
-	\StaffContext
+	\Staff
 	%% Hmm, no effect ?
 	%% \override StaffSymbol #'print-function = ##f
 	%% Clef = \turnOff
@@ -68,7 +68,7 @@ noCruftInBed = \paper {
     %%\noCruft
     %%URGHSr
     \context {
-	\StaffContext
+	\Staff
 	%% Hmm, no effect ?
 	%% \override StaffSymbol #'print-function = ##f
 	%% Clef = \turnOff

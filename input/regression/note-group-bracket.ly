@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.2"
 
 \header {
 
@@ -30,7 +30,7 @@ analysis brackets start and end.
 
     \paper {
 	\context {
-	    \StaffContext \consists "Horizontal_bracket_engraver"
+	    \Staff \consists "Horizontal_bracket_engraver"
 	}
 	raggedright = ##t
     }
