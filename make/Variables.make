@@ -153,7 +153,7 @@ CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
 INCLUDES = -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
 CXX_OUTPUT_OPTION = $< -o $@
 LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(depth)/lib/$(OUTDIR_NAME) -L$(depth)/flower/$(OUTDIR_NAME)
-LOADLIBES = $(EXTRA_LIBES) $(MODULE_LIBES) -lg++ -lstdc++ # need lg++ for win32, really!
+LOADLIBES = $(EXTRA_LIBES) $(MODULE_LIBES)  -lstdc++ # need lg++ for win32, really!
 #
 
 # macro compiler:
