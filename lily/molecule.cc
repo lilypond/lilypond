@@ -11,6 +11,7 @@
 #include "molecule.hh"
 #include "atom.hh"
 #include "debug.hh"
+
 #include "killing-cons.tcc"
 
 Box
@@ -39,20 +40,21 @@ void
 Molecule::translate_axis (Real x,Axis a)
 {
   for (Cons<Atom> *  ptr = atom_list_; ptr; ptr = ptr->next_)
-    {
       ptr->car_->off_[a] += x;
-    }
+
   dim_[a] += x;
 }
 
 void
 Molecule::add_molecule (Molecule const &m)
 {
-  for (Cons<Atom> *  ptr = m.atom_list_; ptr; ptr = ptr->next_)
-    {
-      add_atom (ptr->car_);
-    }
+  Cons_list<Atom> al (copy_killing_cons_list (m.atom_list_));
 
+  if (al.head_)
+    {
+      *al.tail_ = atom_list_;
+      atom_list_ = al.head_;
+    }
   dim_.unite (m.dim_);
 }
 
