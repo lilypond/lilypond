@@ -1,5 +1,9 @@
 2002-08-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/beam.cc (struct Int_set): typo.
+
+	* mf/feta-beugel.mf (code): braces should start at 0, not 1.
+
 	* lily/include/lily-guile.hh (scm_int2num): guile 1.4 compatibility. 
 
 	* scm/grob-description.scm (all-grob-descriptions): set

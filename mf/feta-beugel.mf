@@ -8,7 +8,7 @@ mode_setup;
 staffsize#:=16pt#;
 
 save code;
-code := 0;
+code := -1;
 
 
 def abc_encode_int (expr i) =
@@ -18,8 +18,6 @@ def abc_encode_int (expr i) =
 		"A"
 	fi
 enddef ;
-
-message (abc_encode_int (26));
 
 def draw_brace (expr height_sharp, width_sharp, slt_sharp) =
 

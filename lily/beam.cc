@@ -599,7 +599,7 @@ struct Int_set
 	    before[RIGHT] = s[LEFT];
 	    after[LEFT] = s[RIGHT];
 
-	    if (before.empty_b() && before.length () > 0.0)
+	    if (!before.empty_b() && before.length () > 0.0)
 	      {
 		allowed_regions_.insert (before, i);
 		i++;
