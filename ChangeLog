@@ -1,3 +1,12 @@
+2004-03-22  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/text-item.cc (interpret_markup): idem.
+
+	* scm/define-markup-commands.scm: remove split around-space hack.
+
+	* lily/staff-symbol-referencer.cc (get_rounded_position): new
+	function, fold WL's fixes into one function.
+
 2004-03-22  Werner Lemberg  <wl@gnu.org>
 
 	lily/stem.cc (Stem::extremal_heads, Stem::note_head_positions),
@@ -14,6 +23,8 @@
 	sent to stdout.
 
 2004-03-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* VERSION: 2.1.33 released.
 
 	* scripts/lilypond-book.py (do_file): reinstate --filter support.
 
@@ -60,6 +71,8 @@
 
 	* lily/tie-performer.cc (acknowledge_audio_element): bugfix: use
 	and init ties_created_
+
+	* VERSION: release 2.1.32
 
 	* lily/include/music-iterator.hh (IMPLEMENT_CTOR_CALLBACK): remove
 	doc string from IMPLEMENT_CTOR_CALLBACK().

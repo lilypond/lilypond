@@ -148,8 +148,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
   return scm_gc_unprotect_object (trans->self_scm ());
 }
 
-// FIXME: silly name, score/music is rendered, not the output -- render midi?
-LY_DEFINE (ly_render_output, "ly:render-output",
+LY_DEFINE (ly_format_output, "ly:format-output",
 	   2, 0, 0, (SCM context, SCM outname),
 	   "Given a Score context in its final state,"
            "process it and return the (rendered) result.")
@@ -172,7 +171,7 @@ default_rendering (SCM music, SCM outdef, SCM header, SCM outname)
   if (Global_context *g = dynamic_cast<Global_context*>
       (unsmob_context (context)))
     {
-      SCM systems = ly_render_output (context, outname);
+      SCM systems = ly_format_output (context, outname);
       Music_output *output = g->get_output ();
       if (systems != SCM_UNDEFINED)
 	{

@@ -235,7 +235,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
   Real blotdiameter =
     (me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter")));
 
-  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
+  int pos = Staff_symbol_referencer::get_rounded_position (me);
 
   SCM delta_pitch_scm = me->get_property ("delta-pitch");
   int delta_pitch;

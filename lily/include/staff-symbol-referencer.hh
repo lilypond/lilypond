@@ -40,6 +40,7 @@ public:
   static int line_count (Grob*);
   static Real get_position (Grob*);
   static Real staff_radius (Grob*);
+  static int get_rounded_position (Grob*me);
 };
 
 int compare_position (Grob *const&,Grob *const&); 

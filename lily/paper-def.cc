@@ -24,10 +24,10 @@
 
 /*
   This is an almost empty thing. The only substantial thing this class
-  handles, is scaling up and down to real-world dimensions (internally
+  handles is scaling up and down to real-world dimensions (internally
   dimensions are against global staff-space.)
-  
  */
+
 Paper_def::Paper_def ()
 {
 }

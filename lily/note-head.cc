@@ -140,7 +140,7 @@ internal_print (Grob *me, bool with_ledgers)
     }
 
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
-  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
+  int pos = Staff_symbol_referencer::get_rounded_position (me);
   if (with_ledgers && interspaces >= 0
       && abs (pos) - interspaces > 1)
     {
@@ -269,7 +269,7 @@ Note_head::brew_ez_stencil (SCM smob)
   Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
   Stencil m (bx, at);
 
-  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
+  int pos = Staff_symbol_referencer::get_rounded_position (me);
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
   if (abs (pos) - interspaces > 1)
     {

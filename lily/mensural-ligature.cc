@@ -202,7 +202,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
       out.add_stencil (join);
     }
 
-  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
+  int pos = Staff_symbol_referencer::get_rounded_position (me);
   add_ledger_lines (me, &out, pos, 0, ledger_take_space);
   if (primitive & MLP_FLEXA)
     {

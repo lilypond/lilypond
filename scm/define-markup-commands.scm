@@ -19,8 +19,11 @@
   "A simple text-string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
     (interpret-markup paper props
-		      (make-line-markup
-		       (map make-word-markup (string-tokenize str)))))
+		      (make-word-markup str)))
+
+; todo: use font recoding.
+;		      (make-line-markup
+;		       (map make-word-markup (string-tokenize str)))))
 
 (define-public empty-markup
   (make-simple-markup ""))

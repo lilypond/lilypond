@@ -194,7 +194,7 @@ Stem::extremal_heads (Grob*me)
       Grob * n = unsmob_grob (ly_car (s));
 
       
-      int p = (int)rint (Staff_symbol_referencer::get_position (n));
+      int p = Staff_symbol_referencer::get_rounded_position (n);
 
       Direction d = LEFT;
       do {
@@ -225,7 +225,7 @@ Stem::note_head_positions (Grob *me)
   for (SCM s = me->get_property ("note-heads"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * n = unsmob_grob (ly_car (s));
-      int p = (int)rint (Staff_symbol_referencer::get_position (n));
+      int p = Staff_symbol_referencer::get_rounded_position (n);
 
       ps.push (p);
     }
@@ -624,7 +624,7 @@ Stem::flag (Grob*me)
 	    
 	    --hwn.
 	  */
-	  int p = (int)rint (Staff_symbol_referencer::get_position (first_head (me)));
+	  int p = Staff_symbol_referencer::get_rounded_position (me);
 	  staffline_offs = Staff_symbol_referencer::on_staffline (me, p) ?
 	    "1" : "0";
 	}
