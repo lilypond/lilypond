@@ -230,8 +230,11 @@
 %%
 \gdef\lilypondend{
   %% Handle the `lastpagefill' parameter from the \layout block.
-  \lilypondifundefined{lilypondpaperlastpagefill}
-    {\vskip 0pt plus\lilypondpaperinterscorelinefill00 fill}
+  %% Ignore it if \lilypondbook is defined.
+  \lilypondifundefined{lilypondbook}
+    {\lilypondifundefined{lilypondpaperlastpagefill}
+       {\vskip 0pt plus\lilypondpaperinterscorelinefill00 fill}
+       {}}
     {}
 
   \begingroup
