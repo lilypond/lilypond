@@ -55,7 +55,7 @@ You need a working LilyPond binary to create the DVI sources  .
 
 @item  use ASCII. Do
 using @example 
-	make -C doc
+	make doc
 @end example 
 
 @end itemize
