@@ -111,20 +111,18 @@ dump_fields ()
   return fields;
 }
 
-LY_DEFINE(ly_output_formats, "ly:output-formats",
-	  0, 0, 0, (),
-	  "Formats passed to --format as a list of strings, "
-	  "used for the output.")
+LY_DEFINE (ly_output_formats, "ly:output-formats",
+	   0, 0, 0, (),
+	   "Formats passed to --format as a list of strings, "
+	   "used for the output.")
 {
   Array<String> output_formats = split_string (output_format_global, ',');
 
-  SCM l = SCM_EOL;
+  SCM lst = SCM_EOL;
   for (int i = 0; i < output_formats.size (); i ++)
-    {
-      l = scm_cons (scm_makfrom0str  (output_formats[i].to_str0 ()), l); 
-    }
-
-  return l; 
+    lst = scm_cons (scm_makfrom0str (output_formats[i].to_str0 ()), lst);
+  
+  return lst; 
 }
 	  
 
