@@ -116,3 +116,8 @@ HOST_ARCH=$(shell $(CC) -dumpmachine)
 ifeq ($(HOST_ARCH),i686-pc-cygwin)
 CYGWIN_BUILD = yes
 endif
+#
+# ugh-- what if someone decides on: 'i568-pc-cygwin-gnu'
+ifeq ($(HOST_ARCH),i686-cygwin)
+CYGWIN_BUILD = yes
+endif

@@ -58,7 +58,7 @@ kpsewhich feta20.pk
 cp $docdir/input/example-1.ly .
 cp $docdir/input/example-2.ly .
 lilypond example-1.ly
-tex \\nonstopmode \\input example-1.tex
+latex \\nonstopmode \\input example-1.tex
 dvips -o example-1.ps example-1.dvi
 ls -l
 ly2dvi --verbose example-2
