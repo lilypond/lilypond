@@ -4,18 +4,6 @@
 #include "command.hh"
 
 Command*
-get_key_interpret_command(svec<Scalar> which)
-{
-    Command*c = new Command;
-    c->code = INTERPRET;    
-    c->args= which;
-    String k("KEY");
-    c->args.insert(k,0 );
-    c->priority = 200;
-    return c;
-}
-
-Command*
 get_key_typeset_command(svec<Scalar>which)
 {
     Command*c = new Command;
