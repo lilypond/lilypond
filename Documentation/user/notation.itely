@@ -1272,7 +1272,7 @@ connected between different staves of a @internalsref{StaffGroup}
 
 
 The command @code{\bar }@var{bartype} is a short cut for doing
-@code{\set Timing.whichBar = }@var{bartype}.  Whenever @code{whichBar}
+@code{\set Staff.whichBar = }@var{bartype}.  Whenever @code{whichBar}
 is set to a string, a bar line of that type is created.
 
 A bar line is created whenever the @code{whichBar} property is set.
