@@ -15,6 +15,7 @@ struct Melodic_staff : public Simple_staff
     
     /****************/
 
+    virtual Rest *get_rest(Rest_req *rq);
     virtual void set_output(PScore *);
     virtual Melodic_staff*clone()const;
     virtual Item* get_TYPESET_item(Command*);
