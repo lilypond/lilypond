@@ -107,5 +107,5 @@ are interesting enough to maintain a hara-kiri staff."
 (ly:add-interface
  'vertically-spaceable-interface 
  "Objects that should be kept at constant vertical distances. Typically:
-@internalsref{VerticalAxisGroup} objects  of @internalsref{Staff} contexts."
+@internalsref{VerticalAxisGroup} objects of @internalsref{Staff} contexts."
  '())

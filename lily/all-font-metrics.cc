@@ -69,7 +69,7 @@ All_font_metrics::find_pango_font (PangoFontDescription*description)
 				       pango_dpi_,
 				       RIGHT,
 				       description);
-      val = pf->self_scm();
+      val = pf->self_scm ();
       pango_dict_->set (key, val);
       scm_gc_unprotect_object (val);
 

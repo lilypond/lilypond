@@ -4,7 +4,6 @@
   source file of the GNU LilyPond music typesetter
 
   (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
 */
 
 #include <map>
@@ -22,7 +21,7 @@ const Real point_constant = 1 PT;
 FT_Byte *
 load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 {
-  FT_ULong tag = FT_MAKE_TAG(tag_str[0], tag_str[1], tag_str[2], tag_str[3]);
+  FT_ULong tag = FT_MAKE_TAG (tag_str[0], tag_str[1], tag_str[2], tag_str[3]);
 
   int error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, length);
   if (!error_code)
@@ -33,9 +32,7 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 
       error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length );
       if (error_code)
-	{
-	  error (_f ("Could not load %s font table", tag_str));
-	}
+	error (_f ("Could not load %s font table", tag_str));
 
       return buffer;
     }
@@ -60,7 +57,6 @@ load_scheme_table (char const *tag_str, FT_Face face)
     }
   return tab;
 }
-
 
 Index_to_charcode_map 
 make_index_to_charcode_map (FT_Face face)

@@ -79,7 +79,7 @@
 	  nn)))
 
   (define (is-natural-alteration? p)
-    (= (natural-chord-alteration p)  (ly:pitch-alteration p)))
+    (= (natural-chord-alteration p) (ly:pitch-alteration p)))
   
   (define (ignatzek-format-chord-name
 	   root
@@ -212,12 +212,12 @@ work than classifying the pitches."
 	 (alterations '()))
     
     (if exception
-	(ignatzek-format-exception  root exception bass-note)
+	(ignatzek-format-exception root exception bass-note)
 	
 	(begin
 	  ;; no exception.
 	  ;; handle sus4 and sus2 suffix: if there is a 3 together with
-	  ;; sus2 or sus4, then we explicitly say  add3.
+	  ;; sus2 or sus4, then we explicitly say add3.
 	  (map
 	   (lambda (j)
 	     (if (get-step j pitches)
@@ -226,7 +226,7 @@ work than classifying the pitches."
 		       (begin
 			 (set! add-steps (cons (get-step 3 pitches) add-steps))
 			 (set! pitches (remove-step 3 pitches))))
-		   (set! suffixes  (cons (get-step j pitches) suffixes)))))
+		   (set! suffixes (cons (get-step j pitches) suffixes)))))
 	   '(2 4))
 
 	  ;; do minor-3rd modifier.

@@ -16,8 +16,8 @@
   (define (fig-to-markup fig-music)
     (let* ((align-accs
 	    (eq? #t (ly:context-property context 'alignBassFigureAccidentals)))
-	   (fig  (ly:music-property fig-music 'figure))
-	   (acc  (ly:music-property fig-music 'alteration))
+	   (fig (ly:music-property fig-music 'figure))
+	   (acc (ly:music-property fig-music 'alteration))
 	   (acc-markup #f)
 	   (fig-markup
 	    (if (markup? fig)
@@ -39,10 +39,10 @@
       (filter-brackets (1+ i) (cdr figs)
 
 		       (append
-			(if  (eq? (ly:music-property (car figs) 'bracket-start) #t)
+			(if (eq? (ly:music-property (car figs) 'bracket-start) #t)
 			     (list i)
 			     '())
-			(if  (eq? (ly:music-property (car figs) 'bracket-stop) #t)
+			(if (eq? (ly:music-property (car figs) 'bracket-stop) #t)
 			     (list i)
 			     '())
 			

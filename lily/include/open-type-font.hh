@@ -15,10 +15,12 @@
 #include "font-metric.hh"
 
 typedef std::map<FT_UInt, FT_ULong> Index_to_charcode_map;
+Index_to_charcode_map make_index_to_charcode_map (FT_Face face);
 
 class Open_type_font : public Font_metric
 {
-  FT_Face face_; /* handle to face object */
+  /* handle to face object */  
+  FT_Face face_;
 
   SCM lily_subfonts_; 
   SCM lily_character_table_; 

@@ -1,7 +1,7 @@
 ;;;; clef.scm -- Clef settings
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c)  2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
@@ -28,7 +28,7 @@
     ("percussion" . ("clefs.percussion" 0 0))
     ("tab" . ("clefs.tab" 0 0))
 
-    ;; should move mensural stuff to separate file? 
+    ;; should move mensural stuff to separate file?
     ("vaticana-do1" . ("clefs.vaticana-do" -1 0))
     ("vaticana-do2" . ("clefs.vaticana-do" 1 0))
     ("vaticana-do3" . ("clefs.vaticana-do" 3 0))
@@ -108,7 +108,7 @@
 		   (- (string->number (match:substring match 3)) 1)))))
     (set! e (assoc clef-name supported-clefs))
     (if (pair? e)
-	(let* ((musics (map make-prop-set  
+	(let* ((musics (map make-prop-set
 			    `(((symbol . clefGlyph) (value . ,(cadr e)))
 			      ((symbol . middleCPosition)
 			       (value . ,(+ oct

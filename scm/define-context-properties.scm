@@ -11,7 +11,7 @@
 (define (translator-property-description symbol type? description)
  (if (not (equal? #f (object-property symbol 'translation-doc)))
       (begin
-	(ly:warn  "Redefining ~S " symbol)
+	(ly:warn "Redefining ~S " symbol)
 	(exit 2)))
   
   (set-object-property! symbol 'translation-type? type?)
@@ -28,7 +28,7 @@
      (alignBassFigureAccidentals ,boolean?
 				 "If true, then the accidentals are aligned in bass figure context.")
 
-     (allowBeamBreak ,boolean? "If true allow line breaks for  beams over bar lines.")
+     (allowBeamBreak ,boolean? "If true allow line breaks for beams over bar lines.")
      (associatedVoice ,string? "Name of the
 @code{Voice} that has the melody for this @code{Lyrics} line.")
      (autoBeamSettings ,list? "Specifies
@@ -312,13 +312,13 @@ with other voices is preserved.
 
 @example
 @@lilypond[fragment,verbatim,center]
-r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
+r1 r1*3 R1*3 \\\\property Score.skipBars= ##t r1*3 R1*3
 @@end lilypond
 @end example
 ")
      (skipTypesetting ,boolean?
 		      "When true, all no typesetting is done, speeding
-up  the interpretation phase. This speeds up debugging large scores.")
+up the interpretation phase. This speeds up debugging large scores.")
      (soloIIText ,string? "text for begin of solo for voice ``two'' when part-combining.")
      (soloText ,string? "text for begin of solo when part-combining.")
      (squashedPosition ,integer? " Vertical position of
@@ -370,8 +370,8 @@ is called to determine the text to print on a tuplet bracket.")
 
      (tupletSpannerDuration ,ly:moment? "
 Normally a tuplet bracket is as wide as the
-@code{\\times} expression that gave rise to it. By setting this
-property, you can make brackets last shorter. Example
+@code{\\times} expression that gave rise to it.  By setting this
+property, you can make brackets last shorter.  Example
 
 @example
 @@lilypond[verbatim,fragment]
@@ -394,7 +394,7 @@ to 10 (5+5) staffspaces high.
 @end example
 
 
-This does not work for Voice or any other context  that doesn't form a
+This does not work for Voice or any other context that doesn't form a
 vertical group.")
      
      (verticallySpacedContexts ,list? "List of symbols, containing
@@ -457,7 +457,7 @@ for this staff.")
      (localKeySignature ,list? "the key signature at this point in the
 measure.  The format is the same as for keySignature, but can also
 contain ((@var{octave} . @var{name}) . (@var{alter} . @var{barnumber}))
-pairs. It is reset at every bar line."  )
+pairs. It is reset at every bar line.")
 
      
      (localKeySignatureChanges ,list? "Experimental. [DOCME]")
@@ -467,7 +467,7 @@ pairs. It is reset at every bar line."  )
 conses. This is for internal (C++) use only.  This property contains
 the grobs which are still busy (e.g. note heads, spanners, etc.)
 ")
-     (barCheckLastFail ,ly:moment? "Where in  the measure did the last barcheck fail?") 
+     (barCheckLastFail ,ly:moment? "Where in the measure did the last barcheck fail?") 
      (associatedVoiceContext ,ly:context? "The context object of the Voice that has the melody for this Lyrics.")
      (acceptHashTable ,vector? "Internal
 variable: store table with MusicName to Engraver entries.")

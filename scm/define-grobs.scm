@@ -1,7 +1,7 @@
-;;;; define-grobs.scm -- 
+;;;; define-grobs.scm --
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c)  1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
@@ -9,7 +9,7 @@
 ;;;; staffspace (distances)
 
 ;;;; WARNING: the meta field should be the last one.
-;;;; WARNING: don't use anonymous functions for initialization. 
+;;;; WARNING: don't use anonymous functions for initialization.
 
 ;; TODO: junk the meta field in favor of something more compact?
 (define-public all-grob-descriptions
@@ -17,12 +17,12 @@
     (Accidental
      . (
 	(print-function . ,Accidental_interface::print)
-	(inside-slur . #t) 
+	(inside-slur . #t)
 	(cautionary-style . parentheses)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface
 																       font-interface))))
 	))
-    
+
     (AccidentalPlacement
      . ((X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(left-padding . 0.2)
@@ -41,13 +41,13 @@
 			(clef . (extra-space . 0.5))
 			(key-signature . (extra-space . 0.0))
 			(staff-bar . (extra-space . 0.0))
-			(time-signature . (extra-space . 0.0)) 
+			(time-signature . (extra-space . 0.0))
 			(first-note . (fixed-space . 0.0))
 			))
 	(breakable . #t)
 	(break-align-symbol . ambitus)
 	(break-visibility . ,begin-of-line-visible)
-	(meta . ((interfaces . (axis-group-interface break-aligned-interface ambitus-interface item-interface  ))))
+	(meta . ((interfaces . (axis-group-interface break-aligned-interface ambitus-interface item-interface))))
 	))
 
     (AmbitusLine
@@ -56,8 +56,8 @@
        (join-heads . #t)
        (thickness . 2)
        (X-offset-callbacks . (,Self_alignment_interface::centered_on_parent))
-    
-       (meta . ((interfaces . (ambitus-interface staff-symbol-referencer-interface item-interface  font-interface))))
+
+       (meta . ((interfaces . (ambitus-interface staff-symbol-referencer-interface item-interface font-interface))))
        ))
     (AmbitusAccidental
      . (
@@ -65,18 +65,18 @@
 	(font-family . music)
 	(padding . 0.5)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
-	(direction . -1) 
+	(direction . -1)
 	(cautionary-style . parentheses)
 	(after-line-breaking-callback . ,Accidental_interface::after_line_breaking)		(meta . ((interfaces . (item-interface accidental-interface break-aligned-interface side-position-interface font-interface))))
 	))
-    
+
     (AmbitusNoteHead
      . (
 	(duration-log . 2)
 	(style . default)
 	(print-function . ,Note_head::print)
 	(glyph-name-procedure . ,find-notehead-symbol)
-	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(meta . ((interfaces . (font-interface note-head-interface
 					       ambitus-interface
 					       staff-symbol-referencer-interface
@@ -84,16 +84,16 @@
 					       ledgered-interface
 					       item-interface ))))
 	))
-    
+
     (Arpeggio
      . (
 	(X-extent-callback . ,Arpeggio::width_callback)
-	(Y-extent-callback . #f)	       
+	(Y-extent-callback . #f)	
 	(print-function . ,Arpeggio::print)
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . -1)
-	(padding . 0.5)  
+	(padding . 0.5)
 	(staff-position . 0.0)
 	(meta . ((interfaces . (arpeggio-interface staff-symbol-referencer-interface side-position-interface item-interface font-interface))))
 	))
@@ -104,14 +104,14 @@
 	(glyph . "|")
 	(break-glyph-function . ,default-break-barline)
 	(bar-size-procedure . ,Bar_line::get_staff_bar_size)
-	(print-function . ,Bar_line::print)	   
+	(print-function . ,Bar_line::print)	
 	(break-visibility . ,all-visible)
 	(breakable . #t)
 	(before-line-breaking-callback . ,Bar_line::before_line_breaking)
 	(space-alist . (
-			(time-signature . (extra-space . 0.75)) 
+			(time-signature . (extra-space . 0.75))
 			(custos . (minimum-space . 2.0))
-			(clef .   (minimum-space . 1.0))
+			(clef . (minimum-space . 1.0))
 			(key-signature . (extra-space . 1.0))
 			(key-cancellation . (extra-space . 1.0))
 			(first-note . (fixed-space . 1.3))
@@ -123,15 +123,15 @@
 	;; Ross. page 151 lists other values, we opt for a leaner look
 	;;
 	;; TODO:
-	;; kern should scale with linethickness too. 
+	;; kern should scale with linethickness too.
 	(kern . 3.0)
 	(thin-kern . 3.0)
 	(hair-thickness . 1.9)
 	(thick-thickness . 6.0)
-	(meta . ((interfaces . (bar-line-interface item-interface   break-aligned-interface font-interface))))
+	(meta . ((interfaces . (bar-line-interface item-interface break-aligned-interface font-interface))))
 	))
 
-    
+
     (BarNumber
      . (
 	(print-function . ,Text_interface::print)
@@ -145,13 +145,13 @@
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 1)
 
-	;; hmm. why did we do this: ? 
+	;; hmm. why did we do this: ?
 	(extra-offset . (1.3 . 0))
 	(meta .
 	      ((interfaces . (side-position-interface
 			      text-interface
 			      self-alignment-interface
-			      font-interface item-interface  break-aligned-interface))))
+			      font-interface item-interface break-aligned-interface))))
 
 	     ))
 
@@ -246,7 +246,7 @@
 
     (BreakAlignGroup
      . (
-	(axes  . (0))
+	(axes . (0))
 	(X-offset-callbacks . (,Break_align_interface::alignment_callback))
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(meta . ((interfaces . (break-aligned-interface item-interface axis-group-interface item-interface ))))
@@ -262,7 +262,7 @@
 			(key-signature . (minimum-space . 1.5))
 			(staff-bar . (minimum-space . 1.5))
 			(clef . (minimum-space . 2.0))
-			(first-note . (fixed-space . 1.0)) ;huh? 
+			(first-note . (fixed-space . 1.0)) ;huh?
 			(right-edge . (extra-space . 0.1))
 			))
 	(print-function . ,Text_interface::print)
@@ -277,7 +277,7 @@
 	(print-function . ,Clef::print)
 	(before-line-breaking-callback . ,Clef::before_line_breaking)
 	(breakable . #t)
-	(font-family . music)	   
+	(font-family . music)	
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(space-alist . ((ambitus . (extra-space . 2.0))
@@ -289,17 +289,17 @@
 			(next-note . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
 			))
-	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback)) 
+	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(meta . ((interfaces . (clef-interface staff-symbol-referencer-interface font-interface break-aligned-interface item-interface ))))
 	))
-    
+
     (ClusterSpannerBeacon
      . (
 	(print-function . #f)
 	(Y-extent-callback . ,Cluster_beacon::height)
 	(meta . ((interfaces . (cluster-beacon-interface item-interface))))
 	))
-    
+
     (ClusterSpanner
      . (
 	(print-function . ,Cluster::print)
@@ -389,21 +389,21 @@
 	))
     (DynamicTextSpanner
      . ((print-function . ,Dynamic_text_spanner::print)
-	(font-series . bold) 
+	(font-series . bold)
 	(font-shape . italic)
 	(style . dashed-line)
 
 	; need to blend with dynamic texts.
 	(font-size . 2)
-	(bound-padding . 0.75) 
+	(bound-padding . 0.75)
 	(dash-fraction . 0.2)
 	(dash-period . 3.0)
 	(meta . ((interfaces . (font-interface
-				text-interface 
+				text-interface
 				dynamic-interface dynamic-text-spanner-interface
 				item-interface))))
 	 ))
-    
+
     (DynamicLineSpanner
      . (
 	(axes . (1))
@@ -420,14 +420,14 @@
     (LeftEdge
      . (
 	(break-align-symbol . left-edge)
-	(X-extent .  (0 . 0))
+	(X-extent . (0 . 0))
 	(breakable . #t)
 	(space-alist . (
 			(custos . (extra-space . 0.0))
 			(ambitus . (extra-space . 2.0))
-			(time-signature . (extra-space . 0.0)) 
+			(time-signature . (extra-space . 0.0))
 			(staff-bar . (extra-space . 0.0))
-			(breathing-sign . (minimum-space  . 0.0))
+			(breathing-sign . (minimum-space . 0.0))
 			(clef . (extra-space . 0.85))
 			(first-note . (fixed-space . 1.0))
 			(right-edge . (extra-space . 0.0))
@@ -463,7 +463,7 @@
 	(zigzag-width . 0.75)
 	(breakable . #t)
 	(X-extent-callback . #f)
-	(Y-extent-callback . #f)			 
+	(Y-extent-callback . #f)			
 	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
 	(print-function . ,Line_spanner::print)
 	(meta . ((interfaces . (line-interface line-spanner-interface spanner-interface))))
@@ -489,7 +489,7 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(padding . 0.2)
 	(direction . -1)
-	(bracket-flare . (0.5 . 0.5)) 
+	(bracket-flare . (0.5 . 0.5))
 	(meta . ((interfaces . (horizontal-bracket-interface
 				side-position-interface
 				line-interface
@@ -514,7 +514,7 @@
 	(baseline-skip . 2)
 	(meta . ((interfaces . (font-interface self-alignment-interface side-position-interface text-interface break-aligned-interface item-interface ))))
 	))
-    
+
     (VocalName
      . (
 	(breakable . #t)
@@ -537,7 +537,7 @@
 	(print-function . ,Key_signature_interface::print)
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
-			(staff-bar .  (extra-space . 0.6))
+			(staff-bar . (extra-space . 0.6))
 			(key-signature . (extra-space . 0.5))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))
@@ -555,7 +555,7 @@
 	(print-function . ,Key_signature_interface::print)
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
-			(staff-bar .  (extra-space . 1.1))
+			(staff-bar . (extra-space . 1.1))
 			(right-edge . (extra-space . 0.5))
 			(first-note . (fixed-space . 2.5))
 			))
@@ -575,7 +575,7 @@
 	(print-function . ,Ledger_line_spanner::print)
 	(meta . ((interfaces . (spanner-interface ledger-line-interface))))
 	))
-    
+
     (LigatureBracket
      . (
 	(ligature-primitive-callback . ,Note_head::print)
@@ -588,7 +588,7 @@
 	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 	(print-function . ,Tuplet_bracket::print)
-	(meta .  ((interfaces . (tuplet-bracket-interface line-interface spanner-interface))))
+	(meta . ((interfaces . (tuplet-bracket-interface line-interface spanner-interface))))
 	))
 
     (LyricHyphen
@@ -599,7 +599,7 @@
 	(length . 0.66)
 	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
 	(print-function . ,Hyphen_spanner::print)
-	(Y-extent  . (0 . 0))
+	(Y-extent . (0 . 0))
 	(meta . ((interfaces . (lyric-interface lyric-hyphen-interface
 						spanner-interface))))
 	))
@@ -683,7 +683,7 @@
 	(padding . 1)
 	(meta . ((interfaces . (multi-measure-rest-interface multi-measure-interface rest-interface font-interface staff-symbol-referencer-interface))))
 	))
-    
+
     (MultiMeasureRestNumber
      . (
 	(print-function . ,Text_interface::print)
@@ -731,7 +731,7 @@
 	(print-function . ,Note_head::print)
 	(ligature-primitive-callback . ,Note_head::print)
 	(glyph-name-procedure . ,find-notehead-symbol)
-	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(stem-attachment-function . ,note-head-style->attachment-coordinates)
 	(meta . ((interfaces . (rhythmic-grob-interface
 				rhythmic-head-interface font-interface note-head-interface
@@ -756,7 +756,7 @@
 	(gap . 0.5)
 	(breakable . #t)
 	(X-extent-callback . #f)
-	(Y-extent-callback . #f)			 
+	(Y-extent-callback . #f)			
 	(print-function . ,Line_spanner::print)
 	(after-line-breaking-callback . ,Line_spanner::after_line_breaking)
 	(meta . ((interfaces . (line-spanner-interface line-interface spanner-interface))))
@@ -819,7 +819,7 @@
 ;	(print-function . ,Paper_column::print) (font-name . "ecrm8")	(Y-extent-callback . #f)
 
 
-	(meta .  ((interfaces . (paper-column-interface axis-group-interface spaceable-grob-interface item-interface ))))
+	(meta . ((interfaces . (paper-column-interface axis-group-interface spaceable-grob-interface item-interface ))))
 	))
 
     (PercentRepeat
@@ -829,10 +829,11 @@
 	(slope . 1.0)
 	(thickness . 0.48)
 	(font-encoding . fetaMusic)
-	(meta . ((interfaces . (multi-measure-rest-interface  spanner-interface font-interface percent-repeat-interface))))
+	(meta . ((interfaces . (multi-measure-rest-interface spanner-interface font-interface percent-repeat-interface))))
 	))
 
-    (PianoPedalBracket   ;; an example of a text spanner
+    ;; an example of a text spanner
+    (PianoPedalBracket
      . (
 	(print-function . ,Piano_pedal_bracket::print)
 	(style . line)
@@ -852,7 +853,7 @@
 	(Y-extent-callback . ,Hara_kiri_group_spanner::y_extent)
 	(remove-first . #t)
 	(axes . (1))
-	(meta . ((interfaces . (axis-group-interface vertically-spaceable-interface hara-kiri-group-interface item-interface  spanner-interface))))
+	(meta . ((interfaces . (axis-group-interface vertically-spaceable-interface hara-kiri-group-interface item-interface spanner-interface))))
 	))
 
     (RepeatSlash
@@ -924,7 +925,7 @@
 
     (SpacingSpanner
      . (
-	(spacing-procedure .  ,Spacing_spanner::set_springs)
+	(spacing-procedure . ,Spacing_spanner::set_springs)
 	(grace-space-factor . 0.6)
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
@@ -935,17 +936,17 @@
     (SpanBar
      . (
 	(break-align-symbol . staff-bar)
-	(bar-size-procedure . ,Span_bar::get_bar_size) 
+	(bar-size-procedure . ,Span_bar::get_bar_size)
 	(print-function . ,Span_bar::print)
 	(X-extent-callback . ,Span_bar::width_callback)
 	(Y-extent-callback . ())
 	(breakable . #t)
 	(before-line-breaking-callback . ,Span_bar::before_line_breaking)
-	;; ugh duplication! 
+	;; ugh duplication!
 
 	;;
 	;; Ross. page 151 lists other values, we opt for a leaner look
-	;; 
+	;;
 	(kern . 3.0)
 	(thin-kern . 3.0)
 	(hair-thickness . 1.6)
@@ -959,7 +960,7 @@
 	(font-series . bold)
 	(padding . 1.0)
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
-	(direction . ,LEFT) 
+	(direction . ,LEFT)
 	(meta . ((interfaces . (side-position-interface stanza-number-interface text-interface font-interface item-interface ))))		
 	))
 
@@ -980,10 +981,10 @@
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
 	(font-shape . italic)
 	(self-alignment-X . 0)
-	(meta . ((interfaces . (text-interface  self-alignment-interface font-interface item-interface))))
+	(meta . ((interfaces . (text-interface self-alignment-interface font-interface item-interface))))
 	))
 
-    (SostenutoPedalLineSpanner 
+    (SostenutoPedalLineSpanner
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
@@ -993,14 +994,14 @@
 	(padding . 1.2)
 	(minimum-space . 1.0)
 	(direction . -1)
-	(meta . ((interfaces . (piano-pedal-interface axis-group-interface side-position-interface  spanner-interface))))
+	(meta . ((interfaces . (piano-pedal-interface axis-group-interface side-position-interface spanner-interface))))
 	))
 
     (StaffSymbol
      . (
 	(print-function . ,Staff_symbol::print)
 	(line-count . 5)
-	(ledger-line-thickness  . (1.0 . 0.1))
+	(ledger-line-thickness . (1.0 . 0.1))
 	(layer . 0)
 	(meta . ((interfaces . (staff-symbol-interface spanner-interface))))
 	))
@@ -1087,7 +1088,7 @@
 	(meta . ((interfaces . (piano-pedal-interface text-spanner-interface text-interface self-alignment-interface font-interface item-interface))))
 	))
 
-    (SustainPedalLineSpanner 
+    (SustainPedalLineSpanner
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
@@ -1163,14 +1164,14 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 1)
-	(extra-offset . (-1 . 0)) 
+	(extra-offset . (-1 . 0))
 	(padding . 0.5)
 	(staff-padding . 0.5)
 	(script-priority . 200)
 	;; todo: add X self alignment?
 	(baseline-skip . 2)
 	(font-series . bold)
-	(meta . ((interfaces . (text-script-interface text-interface  side-position-interface font-interface item-interface ))))
+	(meta . ((interfaces . (text-script-interface text-interface side-position-interface font-interface item-interface ))))
 	))
     (TextSpanner
      . (
@@ -1195,7 +1196,7 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
 	))
-    
+
     (OttavaBracket
      . (
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -1203,7 +1204,7 @@
 	(font-shape . italic)
 	(shorten-pair . (0.0 . -0.6))
 	(staff-padding . 1.0)
-	(padding  . 0.5)
+	(padding . 0.5)
 	(minimum-length . 1.0)
 	(dash-fraction . 0.3)
 	(edge-height . (0 . 1.2))
@@ -1212,12 +1213,12 @@
 				line-interface side-position-interface
 				font-interface text-interface spanner-interface))))		
 	))
-    
+
     (TabNoteHead
      . (
 	(style . default)
 	(print-function . ,Text_interface::print)
-	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(extra-offset . (0 . -0.65)) ;; UGH! TODO: Clean this up!
 	(stem-attachment-function . ,tablature-stem-attachment-function)
 	(meta . ((interfaces
@@ -1237,7 +1238,7 @@
 	(thickness . 1.2)
 	(x-gap . -0.1)
 	(y-offset . 0.6)
-	(minimum-length  . 2.5)
+	(minimum-length . 2.5)
 	(meta . ((interfaces . (tie-interface spanner-interface))))
 	))
 
@@ -1258,11 +1259,11 @@
 	(space-alist . (
 			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
-			(staff-bar .  (minimum-space . 2.0))
+			(staff-bar . (minimum-space . 2.0))
 			))
 	(breakable . #t)
 	(style . C)
-;	(text . (,time-signature-glue-markup)) 
+;	(text . (,time-signature-glue-markup))
 	(meta . ((interfaces . (time-signature-interface break-aligned-interface font-interface item-interface ))))
 	))
 
@@ -1279,7 +1280,7 @@
 	(font-series . bold)
 
 	(font-size . -2)
-	(meta .  ((interfaces . (text-interface line-interface tuplet-bracket-interface font-interface spanner-interface))))
+	(meta . ((interfaces . (text-interface line-interface tuplet-bracket-interface font-interface spanner-interface))))
 	))
 
     (UnaCordaPedal
@@ -1294,7 +1295,7 @@
 	(meta . ((interfaces . (text-interface self-alignment-interface font-interface item-interface ))))
 	))
 
-    (UnaCordaPedalLineSpanner 
+    (UnaCordaPedalLineSpanner
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
@@ -1322,20 +1323,20 @@
 	(padding . 1)
 	(font-encoding . fetaNumber)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(thickness . 1.6)  ;  linethickness
-	(height . 2.0) ; staffspace;
+	(thickness . 1.6)  ;;  linethickness
+	(height . 2.0) ;; staffspace;
 	(minimum-space . 5)
 	(font-size . -4)
 	(meta . ((interfaces . (volta-bracket-interface line-interface text-interface side-position-interface font-interface spanner-interface))))
 	))
-    
+
     (VerticalAlignment
      . (
 	(axes . (1))
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	(stacking-dir . -1)
-	;; (threshold .  (6 . 1000))
+	;; (threshold . (6 . 1000))
 	(meta . ((interfaces . (align-interface axis-group-interface spanner-interface))))
 	))
 
@@ -1372,13 +1373,13 @@
 (set! all-grob-descriptions (map completize-grob-entry all-grob-descriptions))
 
 
-;;  (display  (map pair? all-grob-descriptions))
+;;  (display (map pair? all-grob-descriptions))
 
 ;; make sure that \property Foo.Bar =\turnOff doesn't complain
 
 (map (lambda (x)
        ;; (display (car x)) (newline)
-       
+
        (set-object-property! (car x) 'translation-type? list?)
        (set-object-property! (car x) 'is-grob? #t))
      all-grob-descriptions)

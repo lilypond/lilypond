@@ -1,7 +1,7 @@
 ;;;; chord-entry.scm -- Generate chord names for the parser.
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 (define-public (construct-chord root duration modifications)
@@ -10,7 +10,7 @@ have duration DURATION..
 
 Notes: natural 11 is left from chord if not explicitly specified.
 
-Entry point for the parser. 
+Entry point for the parser.
 
 "
   (let* ((flat-mods (flatten-list modifications))
@@ -29,17 +29,17 @@ Entry point for the parser.
 	    (set! inversion (cadr mods))
 	    (set! mods (cddr mods))))
       (interpret-bass chord mods))
-      
+
     (define (interpret-bass chord mods)
-      "Read /+FOO   part. Side effect: BASS is set."
-      (if (and (>  (length mods) 1) (eq? (car mods) 'chord-bass))
+      "Read /+FOO part. Side effect: BASS is set."
+      (if (and (> (length mods) 1) (eq? (car mods) 'chord-bass))
 	  (begin
 	    (set! bass (cadr mods))
 	    (set! mods (cddr mods))))
       (if (pair? mods)
-	  (scm-error  'chord-format "construct-chord" "Spurious garbage following chord: ~A" mods #f))
+	  (scm-error 'chord-format "construct-chord" "Spurious garbage following chord: ~A" mods #f))
       chord)
-      
+
     (define (interpret-removals	 chord mods)
       (define (inner-interpret chord mods)
 	(if (and (pair? mods) (ly:pitch? (car mods)))
@@ -49,8 +49,8 @@ Entry point for the parser.
       (if (and (pair? mods) (eq? (car mods) 'chord-caret))
 	  (inner-interpret chord (cdr mods))
 	  (interpret-inversion chord mods)))
-    
-    (define (interpret-additions  chord mods)
+
+    (define (interpret-additions chord mods)
       "Interpret additions. TODO: should restrict modifier use?"
       (cond ((null? mods) chord)
 	    ((ly:pitch? (car mods))
@@ -71,14 +71,14 @@ Entry point for the parser.
 			    0 -1))
 		     (ly:pitch-notename p)
 		     (ly:pitch-alteration p)))
-    
+
     (define (process-inversion complete-chord)
       "Take out inversion from COMPLETE-CHORD, and put it at the bottom.
 Return (INVERSION . REST-OF-CHORD).
 
 Side effect: put original pitch in INVERSION.
 If INVERSION is not in COMPLETE-CHORD, it will be set as a BASS, overriding
-the bass specified.  
+the bass specified.
 
 "
       (let* ((root (car complete-chord))
@@ -100,11 +100,11 @@ the bass specified.
 	    rest-of-chord)))
     ;; root is always one octave too low.
     ;; something weird happens when this is removed,
-    ;; every other chord is octavated. --hwn... hmmm. 
+    ;; every other chord is octavated. --hwn... hmmm.
     (set! root (ly:pitch-transpose root (ly:make-pitch 1 0 0)))
     ;; skip the leading : , we need some of the stuff following it.
     (if (pair? flat-mods)
-	(if (eq? (car flat-mods)  'chord-colon)
+	(if (eq? (car flat-mods) 'chord-colon)
 	    (set! flat-mods (cdr flat-mods))
 	    (set! start-additions #f)))
     ;; remember modifier
@@ -112,7 +112,7 @@ the bass specified.
 	(begin
 	  (set! lead-mod (car flat-mods))
 	  (set! flat-mods (cdr flat-mods))))
-    ;; extract first  number if present, and build pitch list.
+    ;; extract first number if present, and build pitch list.
     (if (and (pair? flat-mods)
 	     (ly:pitch?	 (car flat-mods))
 	     (not (eq? lead-mod sus-modifier)))
@@ -137,9 +137,9 @@ the bass specified.
 	     (get-step 3 complete-chord)
 	     (= 0 (ly:pitch-alteration (get-step 11 complete-chord)))
 	     (= 0 (ly:pitch-alteration (get-step 3 complete-chord))))
-	(set! complete-chord (remove-step 11  complete-chord)))
+	(set! complete-chord (remove-step 11 complete-chord)))
     ;; must do before processing inversion/bass, since they are
-    ;; not relative to the root. 
+    ;; not relative to the root.
     (set! complete-chord (map (lambda (x) (ly:pitch-transpose x root))
 			      complete-chord))
     (if inversion
@@ -151,7 +151,7 @@ the bass specified.
 	  (write-me "\n*******\n" flat-mods)
 	  (write-me "root: " root)
 	  (write-me "base chord: " base-chord)
-	  (write-me "complete  chord: " complete-chord)
+	  (write-me "complete chord: " complete-chord)
 	  (write-me "inversion: " inversion)
 	  (write-me "bass: " bass)))
     (if inversion
@@ -229,7 +229,7 @@ DURATION, and INVERSION."
 UPPER-STEP separately."
   (cond ((null? base) '())
 	((> (ly:pitch-steps upper-step) (ly:pitch-steps (car base)))
-	 (cons (car base) (stack-thirds upper-step  (cdr base))))
+	 (cons (car base) (stack-thirds upper-step (cdr base))))
 	((<= (ly:pitch-steps upper-step) (ly:pitch-steps (car base)))
 	 (list upper-step))
 	(else '())))

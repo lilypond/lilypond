@@ -169,7 +169,7 @@
   (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
 
-(define (glyph-string postscript-font-name x-y-named-glyphs)
+(define (glyph-string font postscript-font-name x-y-named-glyphs)
   (apply
    string-append
    (cons

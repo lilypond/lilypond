@@ -10,7 +10,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; type predicates.
-(define-public (number-pair?  x)
+(define-public (number-pair? x)
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))
 
@@ -20,7 +20,7 @@
 (define-public (grob-list? x)
   (list? x))
 
-(define-public (moment-pair?  x)
+(define-public (moment-pair? x)
   (and (pair? x)
        (ly:moment? (car x)) (ly:moment? (cdr x))))
 
@@ -47,7 +47,7 @@
 (define-public (object-type obj)
   (match-predicate obj type-p-name-alist))
 
-(define-public (type-name  predicate)
+(define-public (type-name predicate)
   (let ((entry (assoc predicate type-p-name-alist)))
     (if (pair? entry) (cdr entry)
 	"unknown")))
