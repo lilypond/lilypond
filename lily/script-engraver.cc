@@ -132,7 +132,7 @@ Script_engraver::process_music ()
     {
       Music* l=scripts_[i].event_;
 
-      Grob * p = make_item ("Script");
+      Grob * p = make_item ("Script", l->self_scm ());
 
       make_script_from_event (p, &scripts_[i].description_, context (),
 			      l->get_property ("articulation-type"),
@@ -144,9 +144,6 @@ Script_engraver::process_music ()
       SCM force_dir = l->get_property ("direction");
       if (is_direction (force_dir) && to_dir (force_dir))
 	p->set_property ("direction", force_dir);
-      
-      if (p)
-	announce_grob (p, l->self_scm ());
     }
 }
 

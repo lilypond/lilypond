@@ -52,10 +52,12 @@ System::typeset_grob (Grob * elem)
 {
   if (elem->pscore_)
     programming_error ("Adding element twice.");
-  
-  elem->pscore_ = pscore_;
-  Pointer_group_interface::add_grob (this, ly_symbol2scm ("all-elements"), elem);
-  scm_gc_unprotect_object (elem->self_scm ());
+  else
+    {
+      elem->pscore_ = pscore_;
+      Pointer_group_interface::add_grob (this, ly_symbol2scm ("all-elements"), elem);
+      scm_gc_unprotect_object (elem->self_scm ());
+    }
 }
 
 // todo: use map.

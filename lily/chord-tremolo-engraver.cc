@@ -120,16 +120,15 @@ void
 Chord_tremolo_engraver::process_music ()
 {
   if (repeat_ && sequential_body_b_ && !beam_)
-	{
-	  beam_ = make_spanner ("Beam");
-	  beam_->set_property ("chord-tremolo", SCM_BOOL_T);
+    {
+      beam_ = make_spanner ("Beam", repeat_->self_scm ());
+      beam_->set_property ("chord-tremolo", SCM_BOOL_T);
 
-	  SCM smp = get_property ("measurePosition");
-	  Moment mp
-	    = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
-	  beam_start_location_ = mp;
-	  announce_grob (beam_, repeat_->self_scm ());
-	}
+      SCM smp = get_property ("measurePosition");
+      Moment mp
+	= (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+      beam_start_location_ = mp;
+    }
 }
 
 void
@@ -186,8 +185,7 @@ Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
   else if (repeat_ &&
 	   flags_ && !sequential_body_b_ && Stem::has_interface (info.grob_))
     {
-      stem_tremolo_ = make_item ("StemTremolo");
-      announce_grob (stem_tremolo_, repeat_->self_scm ());
+      stem_tremolo_ = make_item ("StemTremolo", repeat_->self_scm ());
       stem_tremolo_->set_property ("flag-count",
 				   scm_int2num (flags_));
       stem_tremolo_->set_property ("stem",

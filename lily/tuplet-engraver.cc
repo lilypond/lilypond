@@ -70,7 +70,7 @@ Tuplet_engraver::process_acknowledged_grobs ()
       if (i < started_spanners_.size () && started_spanners_[i])
 	continue;
 
-      Spanner* glep = make_spanner ("TupletBracket");
+      Spanner* glep = make_spanner ("TupletBracket", time_scaled_musics_ [i]->self_scm ());
 
       if (i >= started_spanners_.size ())
 	started_spanners_.push (glep);
@@ -85,7 +85,6 @@ Tuplet_engraver::process_acknowledged_grobs ()
 	  glep->set_property ("text", t);
 	}
       
-      announce_grob (glep, time_scaled_musics_ [i]->self_scm ());
     }
 }
 

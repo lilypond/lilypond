@@ -205,8 +205,9 @@ Ligature_engraver::process_music ()
 	}
 
       ligature_start_mom_ = now_mom ();
-      
-      announce_grob (ligature_, reqs_drul_[START]->self_scm ());
+
+      // TODO: dump cause into make_item/spanner. 
+      // announce_grob (ligature_, reqs_drul_[START]->self_scm ());
       override_stencil_callback ();
     }
 }

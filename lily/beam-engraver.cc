@@ -142,7 +142,7 @@ Beam_engraver::process_music ()
 
       set_melisma (true);
       prev_start_ev_ = start_ev_;
-      beam_ = make_spanner ("Beam");
+      beam_ = make_spanner ("Beam", start_ev_->self_scm ());
       SCM smp = get_property ("measurePosition");
       Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
@@ -152,7 +152,6 @@ Beam_engraver::process_music ()
       beam_info_ = new Beaming_info_list;
       
       /* urg, must copy to Auto_beam_engraver too */
-      announce_grob (beam_, start_ev_->self_scm ());
     }
 
 }

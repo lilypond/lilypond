@@ -62,8 +62,8 @@ Drum_notes_engraver::process_music ()
       if (!tab)
 	tab = get_property ("drumStyleTable");
       
-      Item *note = make_item ("NoteHead");
       Music * ev = events_[i];
+      Item *note = make_item ("NoteHead", ev->self_scm ());
       
       Duration dur = *unsmob_duration (ev->get_property ("duration"));
 
@@ -71,7 +71,7 @@ Drum_notes_engraver::process_music ()
 
       if (dur.dot_count ())
 	{
-	  Item * d = make_item ("Dots");
+	  Item * d = make_item ("Dots", ev->self_scm ());
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()
@@ -79,7 +79,7 @@ Drum_notes_engraver::process_music ()
 	    d->set_property ("dot-count", scm_int2num (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
-	  announce_grob (d, SCM_EOL);
+	  
 	  dots_.push (d);
 	}
 
@@ -103,7 +103,7 @@ Drum_notes_engraver::process_music ()
 
 	  if (ly_c_string_p (script))
 	    {
-	      Item *p  = make_item ("Script");
+	      Item *p  = make_item ("Script", ev->self_scm ());
 	      SCM desc  = SCM_EOL;
 	      make_script_from_event (p, &desc,
 				      context (), script,
@@ -112,7 +112,6 @@ Drum_notes_engraver::process_music ()
 	      if (p->get_property ("follow-into-staff"))
 		p->set_property ("staff-padding", SCM_EOL);
 	      
-	      announce_grob (p, ev->self_scm ());
 
 	      p->set_parent (note, Y_AXIS);
 	      Side_position_interface::add_support (p, note); 
@@ -120,9 +119,6 @@ Drum_notes_engraver::process_music ()
 	    }
 	}
 
-
-      
-      announce_grob (note,ev->self_scm ());
       notes_.push (note);
     }
 }

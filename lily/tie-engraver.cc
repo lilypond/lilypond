@@ -97,21 +97,20 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 	      && ly_c_equal_p (right_mus->get_property ("pitch"),
 			     left_mus->get_property ("pitch")))
 	    {
-	      Grob * p = make_spanner ("Tie");
+	      Grob * p = make_spanner ("Tie", last_event_->self_scm ());
 	      Tie::set_interface (p); // cannot remove yet!
 	  
 	      Tie::set_head (p, LEFT, th);
 	      Tie::set_head (p, RIGHT, h);
 	  
 	      ties_.push (p);
-	      announce_grob (p, last_event_->self_scm ());
 	    }
 	}
 
       if (ties_.size () && ! tie_column_)
 	{
-	  tie_column_ = make_spanner ("TieColumn");
-	  announce_grob (tie_column_, SCM_EOL);
+	  tie_column_ = make_spanner ("TieColumn", SCM_EOL);
+	  
 	}
 
       if (tie_column_)

@@ -81,11 +81,10 @@ Text_spanner_engraver::process_music ()
       else
 	{
 	  current_req_ = req_drul_[START];
-	  span_  = make_spanner ("TextSpanner");
+	  span_  = make_spanner ("TextSpanner", req_drul_[START]->self_scm ());
 
 	  
 	  Side_position_interface::set_axis (span_, Y_AXIS);
-	  announce_grob (span_, req_drul_[START]->self_scm ());
 	  req_drul_[START] = 0;
 	}
     }

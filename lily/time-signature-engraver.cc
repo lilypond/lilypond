@@ -62,11 +62,8 @@ Time_signature_engraver::process_music ()
   
       
       last_time_fraction_ = fr; 
-      time_signature_ = make_item ("TimeSignature");
+      time_signature_ = make_item ("TimeSignature",SCM_EOL);
       time_signature_->set_property ("fraction",fr);
-
-      if (time_signature_)
-	announce_grob (time_signature_, SCM_EOL);
     }
 }
 

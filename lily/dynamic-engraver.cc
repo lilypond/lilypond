@@ -114,12 +114,11 @@ Dynamic_engraver::process_music ()
     {
       if (!line_spanner_)
 	{
-	  line_spanner_ = make_spanner ("DynamicLineSpanner");
-
 	  Music * rq = accepted_spanreqs_drul_[START];
+	  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm (): SCM_EOL );
+
 	  if (script_ev_)
-	    rq =  script_ev_ ;
-	  announce_grob (line_spanner_, rq ? rq->self_scm (): SCM_EOL);
+	    rq =  script_ev_;
 	}
     }
   
@@ -140,7 +139,7 @@ Dynamic_engraver::process_music ()
   */
   if (script_ev_)
     {
-      script_ = make_item ("DynamicText");
+      script_ = make_item ("DynamicText", script_ev_->self_scm ());
       script_->set_property ("text",
 				   script_ev_->get_property ("text"));
 
@@ -150,7 +149,6 @@ Dynamic_engraver::process_music ()
 
       Axis_group_interface::add_element (line_spanner_, script_);
 
-      announce_grob (script_, script_ev_->self_scm ());
     }
 
   Music *stop_ev = accepted_spanreqs_drul_ [STOP] ?
@@ -222,7 +220,7 @@ Dynamic_engraver::process_music ()
 	  SCM s = get_property ((start_type + "Spanner").to_str0 ());
 	  if (!ly_c_symbol_p (s) || s == ly_symbol2scm ("hairpin"))
 	    {
-	      cresc_  = make_spanner ("Hairpin");
+	      cresc_  = make_spanner ("Hairpin", accepted_spanreqs_drul_[START]->self_scm ());
 	      cresc_->set_property ("grow-direction",
 					   scm_int2num ((start_type == "crescendo")
 						       ? BIGGER : SMALLER));
@@ -237,7 +235,7 @@ Dynamic_engraver::process_music ()
 	  */
 	  else
 	    {
-	      cresc_  = make_spanner ("TextSpanner");
+	      cresc_  = make_spanner ("TextSpanner", accepted_spanreqs_drul_[START]->self_scm ());
 	      cresc_->set_property ("style", s);
 	      context ()->set_property ((start_type
 					    + "Spanner").to_str0 (), SCM_EOL);
@@ -262,7 +260,6 @@ Dynamic_engraver::process_music ()
 
 	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	  
-	  announce_grob (cresc_, accepted_spanreqs_drul_[START]->self_scm ());
 	}
     }
 }

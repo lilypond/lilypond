@@ -57,16 +57,16 @@ Note_heads_engraver::process_music ()
 {
   for (int i=0; i < note_reqs_.size (); i++)
     {
-      Item *note = make_item ("NoteHead");
 
       Music * req = note_reqs_[i];
+      Item *note = make_item ("NoteHead", req->self_scm ());
       
       Duration dur = *unsmob_duration (req->get_property ("duration"));
 
       note->set_property ("duration-log", scm_int2num (dur.duration_log ()));
       if (dur.dot_count ())
 	{
-	  Item * d = make_item ("Dots");
+	  Item * d = make_item ("Dots", note->self_scm ());
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()
@@ -74,7 +74,7 @@ Note_heads_engraver::process_music ()
 	    d->set_property ("dot-count", scm_int2num (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
-	  announce_grob (d, SCM_EOL);
+	  
 	  dots_.push (d);
 	}
 
@@ -86,7 +86,6 @@ Note_heads_engraver::process_music ()
 	pos += ly_scm2int (c0);
 
       note->set_property ("staff-position",   scm_int2num (pos));
-      announce_grob (note,req->self_scm ());
       notes_.push (note);
     }
 }

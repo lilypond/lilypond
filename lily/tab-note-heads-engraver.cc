@@ -73,9 +73,9 @@ Tab_note_heads_engraver::process_music ()
       int number_of_strings = ((int) ly_length (stringTunings));
       bool high_string_one = to_boolean (get_property ("highStringOne"));
 
-      Item * note  = make_item ("TabNoteHead");
       
       Music * event = note_events_[i];
+      Item * note  = make_item ("TabNoteHead", event->self_scm ());
 
       
       Music * tabstring_event=0;
@@ -115,7 +115,7 @@ Tab_note_heads_engraver::process_music ()
 
       if (dur.dot_count ())
 	{
-	  Item * d = make_item ("Dots");
+	  Item * d = make_item ("Dots", event->self_scm ());
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()
@@ -123,7 +123,7 @@ Tab_note_heads_engraver::process_music ()
 	    d->set_property ("dot-count", scm_int2num (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
-	  announce_grob (d, SCM_EOL);
+	  
 	  dots_.push (d);
 	}
       
@@ -152,7 +152,6 @@ Tab_note_heads_engraver::process_music ()
       note->set_property ("text", text);      
       
       note->set_property ("staff-position", scm_int2num (pos));
-      announce_grob (note, event->self_scm ());
       notes_.push (note);
     }
 }

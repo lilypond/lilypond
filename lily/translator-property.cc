@@ -13,6 +13,7 @@
 #include "warn.hh"
 #include "item.hh"
 #include "spanner.hh"
+#include "engraver.hh"
 
 /*
   Grob descriptions (ie. alists with layout properties) are
@@ -195,16 +196,27 @@ updated_grob_properties (Context * tg, SCM sym)
 }
 
 Item*
-make_item_from_properties (Context * tg, SCM x)
+make_item_from_properties (Translator *tr, SCM x, SCM cause)
 {
+  Context *tg = tr->context ();
+  
   SCM props = updated_grob_properties (tg, x);
-  return new Item (props);
+  Item *it= new Item (props);
+
+  dynamic_cast<Engraver*>(tr)->announce_grob (it, cause);
+  
+  return it;
 }
 
 Spanner*
-make_spanner_from_properties (Context *tg, SCM x)
+make_spanner_from_properties (Translator *tr, SCM x, SCM cause)
 {
+  Context *tg = tr->context ();
+  
   SCM props = updated_grob_properties (tg, x);
-  return new Spanner (props);
-}
+  Spanner *it= new Spanner (props);
 
+  dynamic_cast<Engraver*>(tr)->announce_grob (it, cause);
+  
+  return it;
+}

@@ -42,14 +42,16 @@ protected:
      
    */
   virtual void process_acknowledged_grobs () {}
-  /**
-    Announce element. Default: pass on to daddy. Utility
-    */
-  virtual void announce_grob (Grob*, SCM cause);
+
   virtual void announce_grob (Grob_info);
   Engraver_group_engraver*get_daddy_engraver () const;
 
 public:
+  /**
+    Announce element. Default: pass on to daddy. Utility
+    */
+  void announce_grob (Grob*, SCM cause);
+  
   Score_engraver * get_score_engraver () const;
   /**
     override other ctor
@@ -57,10 +59,10 @@ public:
   TRANSLATOR_DECLARATIONS(Engraver);
 };
 
-#define make_item(x) make_item_from_properties (context (), ly_symbol2scm (x))
-#define make_spanner(x) make_spanner_from_properties (context (), ly_symbol2scm (x))
-Item* make_item_from_properties (Context * tg, SCM x);
-Spanner* make_spanner_from_properties (Context * tg, SCM x);
+#define make_item(x,cause) make_item_from_properties (this, ly_symbol2scm (x), cause)
+#define make_spanner(x,cause) make_spanner_from_properties (this, ly_symbol2scm (x), cause)
+Item* make_item_from_properties (Translator * tg, SCM x, SCM cause);
+Spanner* make_spanner_from_properties (Translator * tg, SCM x, SCM cause);
 
 
 

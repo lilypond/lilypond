@@ -40,9 +40,9 @@ Rest_collision_engraver::process_acknowledged_grobs ()
 	  && rest_count_  < 2))
     return;
 
-  rest_collision_ = make_item ("RestCollision");
+  rest_collision_ = make_item ("RestCollision", SCM_EOL);
 
-  announce_grob (rest_collision_, SCM_EOL);
+  
   for (int i=0; i < note_columns_.size (); i++)
     Rest_collision::add_column (rest_collision_,note_columns_[i]);
 }

@@ -48,9 +48,9 @@ Ottava_spanner_engraver::process_music ()
       span_ = 0;
       if (ly_c_string_p (ott))
 	{
-	  span_  = make_spanner ("OttavaBracket");
+	  span_  = make_spanner ("OttavaBracket", SCM_EOL);
 	  span_->set_property ("text", ott);
-	  announce_grob (span_, SCM_EOL);
+	  
 
 	  SCM c0 (get_property ("middleCPosition"));
 	  SCM oc0 (get_property ("originalCentralCPosition"));

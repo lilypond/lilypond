@@ -58,10 +58,9 @@ Lyric_engraver::process_music ()
 {
   if (event_)
     {
-      text_=  make_item ("LyricText");
+      text_=  make_item ("LyricText",event_->self_scm ());
       
       text_->set_property ("text", event_->get_property ("text"));
-      announce_grob (text_, event_->self_scm ());
     }
 }
 

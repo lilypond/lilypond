@@ -646,11 +646,11 @@ without context specification. Called  from parser."
 (define-public (set-accidental-style style . rest)
   "Set accidental style to STYLE. Optionally takes a context argument,
 e.g. 'Staff or 'Voice. The context defaults to Voice, except for piano styles, which
-use PianoStaff as a context. "
+use GrandStaff as a context. "
   (let ((context (if (pair? rest)
 		     (car rest) 'Staff))
 	(pcontext (if (pair? rest)
-		      (car rest) 'PianoStaff)))
+		      (car rest) 'GrandStaff)))
     (ly:export
      (cond
       ;; accidentals as they were common in the 18th century.
@@ -694,14 +694,14 @@ use PianoStaff as a context. "
       ((equal? style 'piano)
        (set-accidentals-properties #f
 				   '( Staff (same-octave . 0) (any-octave . 0) (same-octave . 1)
-					    PianoStaff (any-octave . 0) (same-octave . 1))
+					    GrandStaff (any-octave . 0) (same-octave . 1))
 				   '()
 				   pcontext))
       ((equal? style 'piano-cautionary)
        (set-accidentals-properties #f
 				   '(Staff (same-octave . 0))
 				   '(Staff (any-octave . 0) (same-octave . 1)
-					   PianoStaff (any-octave . 0) (same-octave . 1))
+					   GrandStaff (any-octave . 0) (same-octave . 1))
 				   pcontext))
       ;; do not set localKeySignature when a note alterated differently from
       ;; localKeySignature is found.

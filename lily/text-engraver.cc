@@ -84,7 +84,7 @@ Text_engraver::process_acknowledged_grobs ()
       Music * r = evs_[i];
       
       // URG: Text vs TextScript
-      Item *text = make_item ("TextScript");
+      Item *text = make_item ("TextScript", r->self_scm ());
 
       
       Axis ax = Y_AXIS;
@@ -109,7 +109,6 @@ Text_engraver::process_acknowledged_grobs ()
       SCM mark = r->get_property ("text");
 
       text->set_property ("text", mark);
-      announce_grob (text, r->self_scm ());
       texts_.push (text);
     }
 }

@@ -75,11 +75,11 @@ Instrument_name_engraver::create_text ()
     return ;
 
   
-  text_ = make_item ("InstrumentName");
+  text_ = make_item ("InstrumentName", SCM_EOL);
       
   if (text_->get_property ("text") != txt)
     text_->set_property ("text", txt);
-  announce_grob (text_, SCM_EOL);
+  
   }
 
 void
@@ -169,11 +169,11 @@ Vocal_name_engraver::create_text ()
   if (txt == SCM_EOL)
     return ;
   
-  text_ = make_item ("VocalName");
+  text_ = make_item ("VocalName", SCM_EOL);
       
   if (text_->get_property ("text") != txt)
     text_->set_property ("text", txt);
-  announce_grob (text_, SCM_EOL);
+  
 }
 
 

@@ -210,9 +210,9 @@ Completion_heads_engraver::process_music ()
   for (int i = 0;
        left_to_do_ && i < note_reqs_.size (); i++)
     {
-      Item *note  = make_item ("NoteHead");
       
       Music * req =  note_reqs_[i];
+      Item *note  = make_item ("NoteHead", req->self_scm ());
       if (scratch_note_reqs_.size ())
 	{
 	  req = scratch_note_reqs_[i];
@@ -227,7 +227,7 @@ Completion_heads_engraver::process_music ()
       int dots= note_dur.dot_count ();
       if (dots)
 	{
-	  Item * d = make_item ("Dots");
+	  Item * d = make_item ("Dots", SCM_EOL);
 	  Rhythmic_head::set_dots (note, d);
 
 	  /*
@@ -237,7 +237,6 @@ Completion_heads_engraver::process_music ()
 	    d->set_property ("dot-count", scm_int2num (dots));
 
 	  d->set_parent (note, Y_AXIS);
-	  announce_grob (d, SCM_EOL);
 	  dots_.push (d);
 	}
 
@@ -249,7 +248,6 @@ Completion_heads_engraver::process_music ()
 	pos += ly_scm2int (c0);
 
       note->set_property ("staff-position",   scm_int2num (pos));
-      announce_grob (note,req->self_scm ());
       notes_.push (note);
     }
   
@@ -257,14 +255,14 @@ Completion_heads_engraver::process_music ()
     {
       for (int i= 0; i < notes_.size (); i++)
 	{
-	  Grob * p = make_spanner ("Tie");
+	  Grob * p = make_spanner ("Tie", SCM_EOL);
 	  Tie::set_interface (p); // cannot remove yet!
 	  
 	  Tie::set_head (p, LEFT, prev_notes_[i]);
 	  Tie::set_head (p, RIGHT, notes_[i]);
 	  
 	  ties_.push (p);
-	  announce_grob (p, SCM_EOL);
+	  
 	}
     }
 

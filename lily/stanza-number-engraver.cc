@@ -49,9 +49,9 @@ Stanza_number_engraver::process_music ()
     {
       last_stanza_ = stanza;
       
-      text_ = make_item ("StanzaNumber");
+      text_ = make_item ("StanzaNumber", SCM_EOL);
       text_->set_property ("text", stanza);
-      announce_grob (text_, SCM_EOL);
+      
     }
 }
 

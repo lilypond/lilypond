@@ -68,8 +68,7 @@ Figured_bass_engraver::process_music ()
 {
   if (rest_req_)
     {
-      figure_ = make_item ("BassFigure");
-      announce_grob (figure_, rest_req_->self_scm ()); // todo
+      figure_ = make_item ("BassFigure", rest_req_->self_scm ());
       figure_->set_property ("text" , scm_makfrom0str ("-"));
     }
   else if (figures_.size ())
@@ -84,10 +83,9 @@ Figured_bass_engraver::process_music ()
 	      *t = scm_cons (figures_[i]->self_scm (), SCM_EOL);
 	      t = SCM_CDRLOC (*t);
 	    }
-	  figure_ = make_item ("BassFigure");
+	  figure_ = make_item ("BassFigure", figures_[0]->self_scm ());
 	  scm_call_3 (proc, l, context ()->self_scm (),
 		      figure_->self_scm ());
-	  announce_grob (figure_, figures_[0]->self_scm ()); // todo
 	}
     }
 }

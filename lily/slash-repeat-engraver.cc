@@ -110,8 +110,7 @@ Slash_repeat_engraver::process_music ()
 {
   if (repeat_ && now_mom () == next_moment_)
     {
-      beat_slash_ = make_item ("RepeatSlash");
-      announce_grob (beat_slash_, repeat_->self_scm ());
+      beat_slash_ = make_item ("RepeatSlash", repeat_->self_scm ());
       next_moment_ = next_moment_ + body_length_;
 
       get_global_context ()->add_moment_to_process (next_moment_);

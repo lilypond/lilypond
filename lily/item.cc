@@ -41,8 +41,8 @@ Item::is_breakable (Grob*me)
   if (!dynamic_cast<Item*> (me))
     me->programming_error ("only items can be breakable.");
   
-  Item * i  =dynamic_cast<Item*> (me->get_parent (X_AXIS));
-  return (i) ?  Item::is_breakable (i) : to_boolean (me->get_property ("breakable"));
+  Item * i = dynamic_cast<Item*> (me->get_parent (X_AXIS));
+  return (i) ? Item::is_breakable (i) : to_boolean (me->get_property ("breakable"));
 }
 
 Paper_column *

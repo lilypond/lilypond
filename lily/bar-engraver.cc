@@ -47,12 +47,10 @@ Bar_engraver::create_bar ()
 {
   if (!bar_)
     {
-      bar_ = make_item ("BarLine");
+      bar_ = make_item ("BarLine", SCM_EOL);
       SCM gl = get_property ("whichBar");
       if (scm_equal_p (gl, bar_->get_property ("glyph")) != SCM_BOOL_T)
 	  bar_->set_property ("glyph", gl);
-      
-      announce_grob (bar_, SCM_EOL);
     }
 }
 
