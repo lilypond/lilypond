@@ -1099,8 +1099,7 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   (if (not (string-match "XEmacs\\|Lucid" emacs-version))
       (progn
 	(make-local-variable 'show-paren-mode)
-	(setq show-paren-mode t))
-    (paren-set-mode 'paren))
+	(setq show-paren-mode t)))
 
   (if (not (string-match "XEmacs\\|Lucid" emacs-version))
       (progn

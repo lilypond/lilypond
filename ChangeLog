@@ -5,6 +5,8 @@
 
 	* lilypond-indent.el (LilyPond-comment-region): new function,
 	(un)comments each line separately.
+
+	* lilypond-mode.el, lilypond-indent.el: fix XEmacs paren-match.
 	
 2003-06-16  Heikki Junes  <hjunes@cc.hut.fi>
 

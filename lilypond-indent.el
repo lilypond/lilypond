@@ -680,6 +680,8 @@ in XEmacs' paren-highlight."
 ;;; From XEmacs' paren.el, with minimal changes (see "LilyPond"-lines)
 ;; Find the place to show, if there is one,
 ;; and show it until input arrives.
+(if (string-match "XEmacs\\|Lucid" emacs-version)
+    (paren-set-mode 'paren)) ; works if this is set here (, right place?)
 (defun paren-highlight ()
 ;;(defun LilyPond-paren-highlight () ; make paren-highlight local ??
   "This highlights matching parentheses.
