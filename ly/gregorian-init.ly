@@ -66,3 +66,7 @@ finalis = {
   \once \property Voice.BreathingSign \override #'Y-offset-callbacks = #'()
   \breathe
 }
+
+episemInitium = #(make-span-event 'TextSpanEvent START)
+
+episemFinis = #(make-span-event 'TextSpanEvent STOP)

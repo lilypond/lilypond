@@ -8,6 +8,94 @@
 
 fet_begingroup ("scripts")
 
+fet_beginchar("ictus", "ictus", "ictus")
+	save ht, wd;
+	ht# = .35 staff_space#;
+	wd# = stafflinethickness#;
+	define_pixels(wd, ht);
+	pickup pencircle
+		xscaled wd
+		yscaled blot_diameter;
+	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);
+	x1 = 0; top y1 = ht/2;
+	x2 = 0; bot y2 = -ht/2;
+	draw z1 -- z2;
+fet_endchar;
+
+
+def draw_accentus =
+	save thick, thin, ht, wd;
+	thin# = 1 stafflinethickness#;
+	thick# = 1.2 stafflinethickness#;
+	ht# = .35 staff_space#;
+	wd# = .25 staff_space#;
+	define_pixels(wd, ht, thin, thick);
+	z1 = z2 = (-wd/2 + thin/2, -ht/2 + thin/2);
+	z3 = z4 = (wd/2 - thick/2, ht/2 - thick/2);
+	penpos1(thin, angle(z1-z3));
+	penpos2(thin, angle(z1-z3)+90);
+	penpos3(thick, angle(z3-z1)+90);
+	penpos4(thick, angle(z3-z1));
+	fill z1r .. z2r -- z3l .. z4r .. z3r -- z2l .. cycle;
+	set_char_box(wd#/2, wd#/2, ht#/2, ht#/2);
+enddef;
+
+fet_beginchar("accentus up", "uaccentus", "uaccentus")
+	draw_accentus;
+fet_endchar;
+
+fet_beginchar("accentus down", "daccentus", "daccentus")
+	draw_accentus;
+	y_mirror_char;
+fet_endchar;
+
+
+def draw_half_ellipse(expr ellips_width, ellips_height) =
+	save width, height, thin, thick;
+	width# = ellips_width;
+	height# = ellips_height;
+	define_pixels(width, height);
+
+	thin = thick = 0.6 stafflinethickness;
+	penpos1(thick, 0);
+	penpos2(thin, -90);
+	z1r = (width/2, 0);
+	z2r = (0, -height/2);
+	penlabels(1,2);
+	penstroke z1e{down} .. {left}z2e;
+	addto currentpicture also currentpicture xscaled -1;
+enddef;
+
+fet_beginchar("half circle", "usemicirculus", "usemicirculus")
+	draw_half_ellipse(5/16 staff_space#, 5/16 staff_space#);
+	currentpicture := currentpicture yscaled -1;
+	set_char_box(width#/2, width#/2, 0, height#/2);
+fet_endchar;
+
+
+fet_beginchar("half circle", "dsemicirculus", "dsemicirculus")
+	draw_half_ellipse(5/16 staff_space#, 5/16 staff_space#);
+	set_char_box(width#/2, width#/2, height#/2, 0);
+fet_endchar;
+
+
+fet_beginchar("circle", "circulus", "circulus")
+	draw_half_ellipse(5/16 staff_space#, 5/16 staff_space#);
+	set_char_box(width#/2, width#/2, height#/2, height#/2);
+	addto currentpicture also currentpicture yscaled -1;
+fet_endchar;
+
+
+fet_beginchar("augmentum", "augmentum", "augmentum")
+	save diameter;
+	diameter# = 0.25 staff_space#;
+	define_pixels(diameter);
+	pickup pencircle scaled diameter;
+	draw (0,0);
+	set_char_box(diameter#/2, diameter#/2, diameter#/2, diameter#/2);
+fet_endchar;
+
+
 def draw_signum_congruentiae =
 	save za, zb, zc, zd, ze, zf, zg, zh;
 	pair za, zb, zc, zd, ze, zf, zg, zh;

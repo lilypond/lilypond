@@ -23,6 +23,31 @@
 	  ((script-molecule . (feta . ("dportato" . "uportato")))
 	   (side-relative-direction . -1)))
 
+	 ("accentus" .
+	  ((script-molecule . (feta . ("uaccentus" . "uaccentus")))
+	   (side-relative-direction .  -1)
+	   (follow-into-staff  . #t)
+	   (priority . -100)
+	   (direction  . 1)))
+	 ("ictus" .
+	  ((script-molecule . (feta . ("ictus" . "ictus")))
+	   (side-relative-direction .  -1)
+	   (follow-into-staff  . #t)
+	   (priority . -100)
+	   (direction  . -1)))
+	 ("semicirculus" .
+	  ((script-molecule . (feta . ("dsemicirculus" . "dsemicirculus")))
+	   (side-relative-direction .  -1)
+	   (follow-into-staff  . #t)
+	   (priority . -100)
+	   (direction  . 1)))
+	 ("circulus" .
+	  ((script-molecule . (feta . ("circulus" . "circulus")))
+	   (side-relative-direction .  -1)
+	   (follow-into-staff  . #t)
+	   (priority . -100)
+	   (direction  . 1)))
+
 	 ("signumcongruentiae" .
 	  ((script-molecule . (feta . ("dsignumcongruentiae" . "usignumcongruentiae")))
 	   (direction .  1)))
