@@ -13,8 +13,6 @@ AC_CONFIG_AUX_DIR([stepmake/bin])
 
 STEPMAKE_INIT
 
-
-
 # List a file that identifies your package.
 AC_CONFIG_SRCDIR([lily/main.cc])
 
@@ -84,7 +82,6 @@ else
     fi
 fi
 
-
 # This is developer only anyway, help pkgconfig a bit
 export PKG_CONFIG_PATH
 PKG_CONFIG_PATH=/usr/lib/pkgconfig:$PKG_CONFIG_PATH
@@ -116,7 +113,6 @@ if test "$optimise_b" = yes; then
     DEFINES="$DEFINES -DSTRING_UTILS_INLINED"
     AC_DEFINE(STRINGS_UTILS_INLINED)
 fi
-
 
 AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, "${FULL_VERSION}")
 AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")

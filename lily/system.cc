@@ -8,7 +8,7 @@
 
 #include "system.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "align-interface.hh"
 #include "axis-group-interface.hh"

@@ -3,7 +3,7 @@
  */
 
 #include <cstring>
-#include <cmath>
+#include <math.h>
 
 #include "main.hh"
 #include "input-smob.hh"

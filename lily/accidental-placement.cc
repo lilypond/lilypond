@@ -7,7 +7,7 @@
 
 */
 
-#include <cmath>
+#include <math.h>
 
 
 #include "accidental-placement.hh"

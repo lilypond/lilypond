@@ -8,7 +8,7 @@
 
 #include "spanner.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include <libc-extension.hh>
 

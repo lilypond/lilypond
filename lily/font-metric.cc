@@ -10,7 +10,7 @@
 
 #include "font-metric.hh"
 
-#include <cmath>
+#include <math.h>
 #include <cctype>
 
 #include "modified-font-metric.hh"

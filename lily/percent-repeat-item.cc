@@ -9,7 +9,7 @@
 
 #include "percent-repeat-item.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "lookup.hh"
 #include "font-interface.hh"

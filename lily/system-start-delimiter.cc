@@ -9,7 +9,7 @@
 
 #include "system-start-delimiter.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "spanner.hh"
 #include "axis-group-interface.hh"

@@ -8,7 +8,7 @@
 
 #include "note-column.hh"
 
-#include <cmath>		// ceil
+#include <math.h>		// ceil
 
 #include "axis-group-interface.hh"
 #include "stem.hh"

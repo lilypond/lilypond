@@ -8,7 +8,7 @@
 
 #include "note-head.hh"
 
-#include <cmath>
+#include <math.h>
 #include <cctype>
 
 #include "directional-element-interface.hh"

@@ -8,7 +8,7 @@
 
 #include "lyric-hyphen.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "lookup.hh"
 #include "output-def.hh"

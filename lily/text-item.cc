@@ -9,7 +9,7 @@
 
 #include "text-item.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "warn.hh"
 #include "grob.hh"

@@ -11,7 +11,7 @@
 
 #include <cstdio>
 #include <cstdlib>
-#include <cmath>   /* isinf */
+#include <math.h>   /* isinf */
 #include <cstring> /* strdup, strchr */
 #include <cctype>
 
@@ -21,11 +21,11 @@
 
 /* MacOS S fix:
    source-file.hh includes cmath which undefines isinf and isnan
-
-   FIXME: #ifdef MACOS_X?
 */
+#ifdef MACOS_X
 inline int my_isinf (Real r) { return isinf (r); }
 inline int my_isnan (Real r) { return isnan (r); }
+#endif
 
 #include "libc-extension.hh"
 #include "main.hh"
@@ -386,8 +386,11 @@ LY_DEFINE (ly_number2string, "ly:number->string",
   if (scm_exact_p (s) == SCM_BOOL_F)
     {
       Real r (scm_to_double (s));
-
+#ifdef MACOS_X
       if (my_isinf (r) || my_isnan (r))
+#else
+      if (isinf (r) || isnan (r))
+#endif
 	{
 	  programming_error ("Infinity or NaN encountered while converting Real number; setting to zero.");
 	  r = 0.0;

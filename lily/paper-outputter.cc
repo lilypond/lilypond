@@ -9,7 +9,7 @@
 
 #include "paper-outputter.hh"
 
-#include <cmath>
+#include <math.h>
 #include <ctime>
 
 #include "dimensions.hh"

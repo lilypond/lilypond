@@ -7,7 +7,7 @@
 */
 
 
-#include <cmath>
+#include <math.h>
 
 #include "bar-line.hh"
 #include "lookup.hh"

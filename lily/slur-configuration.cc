@@ -9,7 +9,7 @@
 
 #include "slur-configuration.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "stem.hh"
 #include "warn.hh"

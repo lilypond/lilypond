@@ -7,7 +7,7 @@
 */
 
 
-#include <cmath>
+#include <math.h>
 
 #include "break-align-interface.hh"
 #include <libc-extension.hh>	// isinf

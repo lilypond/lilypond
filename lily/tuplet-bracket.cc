@@ -25,7 +25,7 @@
 
 #include "tuplet-bracket.hh"
 
-#include <cmath>
+#include <math.h>
 
 #include "line-interface.hh"
 #include "beam.hh"

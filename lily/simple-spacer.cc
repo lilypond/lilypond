@@ -13,7 +13,7 @@
 #include "simple-spacer.hh"
 
 #include <cstdio>
-#include <cmath>
+#include <math.h>
 
 #include <libc-extension.hh>	// isinf
 
