@@ -12,12 +12,12 @@
 Markup text (ie. general text formatting) may now be used for lyrics too. 
 
 @item
-Two new commands for grace notes have been added, @code{\accacciatura}
+Two new commands for grace notes have been added, @code{\acciaccatura}
 and @code{\appoggiatura},
 
 @example
   \appoggiatura f8 e4
-  \accacciatura g8 f4
+  \acciaccatura g8 f4
 @end example
 
 Both reflect the traditional meanings of acciaccatura and appogiatura,

@@ -1,3 +1,10 @@
+2003-08-29  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* ChangeLog lilypond.words Documentation/topdocs/NEWS.texi
+	Documentation/user/refman.itely input/regression/allfontstyle.ly
+	input/regression/grace-types.ly:
+	fix spelling for acciaccatura (Webster's 1913).
+
 2003-08-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/breathing-sign.ly (texidoc): transpose up
