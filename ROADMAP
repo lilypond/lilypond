@@ -34,3 +34,4 @@ source files.
    scm/				Scheme initialisation and subroutine files
    scripts/			End-user scripts
    stepmake/			Generic make subroutine files
+test
