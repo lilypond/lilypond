@@ -1,4 +1,4 @@
-1.5.17.jcn4 - aka: `pgwit!  Ah, dacht dat-i zo wel aardig was.'
+1.5.17.jcn5 - aka: `pgwit!  Ah, dacht dat-i zo wel aardig was.'
 ===========
 
 * Some more hacking at midi2ly.py:
@@ -11,6 +11,9 @@
    - don't include empty staffs in score
    - print relative pitches by default
    - don't repeat duration by default
+   - bugfix: allow 8th notes too
+   - include new version of input/test/midi-scales.ly
+   - added barchecks
 
 * Shorter MIDI creation texts.
 

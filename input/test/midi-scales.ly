@@ -2,98 +2,98 @@
 texidoc="MIDI and midi2ly test file.  Diff between this and midi2ly.py (experimental, 1.5.17) should be minimal"
 }
 
-scales = \notes {
+scales = \notes \relative c {
 
   % [INSTRUMENT_NAME] bright acoustic
   \key c \major  % sharp-major
-  c4 d4 e4 f4 g4 a4 b4 c4 
+  c' d e f g a b c 
 
   \key g \major
-  g4 a4 b4 c4 d4 e4 fis4 g4 
+  g a b c d e fis g 
 
   \key d \major
-  d4 e4 fis4 g4 a4 b4 cis4 d4 
+  d, e fis g a b cis d 
 
   \key a \major
-  a4 b4 cis4 d4 e4 fis4 gis4 a4 
+  a b cis d e fis gis a 
 
   \key e \major
-  e4 fis4 gis4 a4 b4 cis4 dis4 e4 
+  e, fis gis a b cis dis e 
 
   \key b \major
-  b4 cis4 dis4 e4 fis4 gis4 ais4 b4 
+  b cis dis e fis gis ais b 
 
   \key fis \major
-  fis4 gis4 ais4 b4 cis4 dis4 eis4 fis4 
+  fis, gis ais b cis dis eis fis 
 
   \key cis \major
-  cis4 dis4 eis4 fis4 gis4 ais4 bis4 cis4 
+  cis, dis eis fis gis ais bis cis 
 
   \key a \minor  % sharp-minor
-  a4 b4 c4 d4 e4 f4 gis4 a4 
+  a b c d e f gis a 
 
   \key e \minor
-  e4 fis4 g4 a4 b4 c4 dis4 e4 
+  e, fis g a b c dis e 
 
   \key b \minor
-  b4 cis4 d4 e4 fis4 g4 ais4 b4 
+  b cis d e fis g ais b 
 
   \key fis \minor
-  fis4 gis4 a4 b4 cis4 d4 eis4 fis4 
+  fis, gis a b cis d eis fis 
 
   \key cis \minor
-  cis4 dis4 e4 fis4 gis4 a4 bis4 cis4 
+  cis, dis e fis gis a bis cis 
 
   \key gis \minor
-  gis4 ais4 b4 cis4 dis4 e4 fisis4 gis4 
+  gis ais b cis dis e fisis gis 
 
   \key dis \minor
-  dis4 eis4 fis4 gis4 ais4 b4 cisis4 dis4 
+  dis, eis fis gis ais b cisis dis 
 
   \key ais \minor
-  ais4 bis4 cis4 dis4 eis4 fis4 gisis4 ais4 
+  ais bis cis dis eis fis gisis ais 
 
   \key f \major  % flat-major
-  f4 g4 a4 bes4 c4 d4 e4 f4 
+  f, g a bes c d e f 
 
   \key bes \major
-  bes4 c4 d4 ees4 f4 g4 a4 bes4 
+  bes c d ees f g a bes 
 
   \key ees \major
-  ees4 f4 g4 aes4 bes4 c4 d4 ees4 
+  ees,, f g aes bes c d ees 
 
   \key aes \major
-  aes4 bes4 c4 des4 ees4 f4 g4 aes4 
+  aes, bes c des ees f g aes 
 
   \key des \major
-  des4 ees4 f4 ges4 aes4 bes4 c4 des4 
+  des,, ees f ges aes bes c des 
 
   \key ges \major
-  ges4 aes4 bes4 ces'4 des4 ees4 f4 ges4 
+  ges, aes bes ces des ees f ges 
 
   \key ces \major
-  ces'4 des4 ees4 fes4 ges4 aes4 bes4 ces'4 
+  ces,, des ees fes ges aes bes ces 
 
   \key d \minor  % flat-minor
-  d4 e4 f4 g4 a4 bes4 cis4 d4 
+  d, e f g a bes cis d 
 
   \key g \minor
-  g4 a4 bes4 c4 d4 ees4 fis4 g4 
+  g, a bes c d ees fis g 
 
   \key c \minor
-  c4 d4 ees4 f4 g4 aes4 b4 c4 
+  c,, d ees f g aes b c 
 
   \key f \minor
-  f4 g4 aes4 bes4 c4 des4 e4 f4 
+  f, g aes bes c des e f 
 
   \key bes \minor
-  bes4 c4 des4 ees4 f4 ges4 a4 bes4 
+  bes,, c des ees f ges a bes 
 
   \key ees \minor
-  ees4 f4 ges4 aes4 bes4 ces'4 d4 ees4 
+  ees, f ges aes bes ces d ees 
 
   \key aes \minor
-  aes4 bes4 ces'4 des4 ees4 fes4 g4 aes4 
+  aes, bes ces des ees fes g aes 
 }
 
 \score {

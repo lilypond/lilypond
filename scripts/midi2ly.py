@@ -74,7 +74,7 @@ from lilylib import *
 
 
 class Duration:
-	allowed_durs = (1, 2, 4, 16, 32, 64, 128)
+	allowed_durs = (1, 2, 4, 8, 16, 32, 64, 128)
 	def __init__ (self, clocks):
 		self.clocks = clocks
 		if clocks <= 0:
@@ -88,7 +88,7 @@ class Duration:
 
 		dur = 0; num = 1; den = 1;
 		g = gcd (clocks, clocks_per_1)
-		if g and g > clocks / g:
+		if g:
 			(dur, num) = (clocks_per_1 / g, clocks / g)
 		if not dur in self.allowed_durs:
 			dur = 4; num = clocks; den = clocks_per_4
@@ -242,7 +242,12 @@ class Time:
 		self.num = num
 		self.den = den
 
+	def bar_clocks (self):
+		return clocks_per_1 * self.num / self.den
+	
 	def dump (self):
+		global time
+		time = self
 		return '\n  ' + '\\time %d/%d ' % (self.num, self.den) + '\n  '
 
 class Tempo:
@@ -352,6 +357,7 @@ scale_steps = [0,2,4,5,7,9,11]
 clocks_per_1 = 1536
 clocks_per_4 = 0
 key = 0
+time = 0
 reference_note = 0
 start_quant = 0
 start_quant_clocks = 0
@@ -585,10 +591,23 @@ def dump_chord (ch):
 		reference_note = r
 	return s
 
+def dump_bar_line (last_bar_t, t, bar_count):
+	s = ''
+	bar_t = time.bar_clocks ()
+	if t - last_bar_t >= bar_t:
+		bar_count = bar_count + (t - last_bar_t) / bar_t
+		
+		if t - last_bar_t == bar_t:
+			s = '|\n  %% %d\n  ' % bar_count
+		last_bar_t = t
+	return (s, last_bar_t, bar_count)
+
+			
 def dump_channel (thread, skip):
-	global key, reference_note
+	global key, reference_note, time
 
 	key = Key (0, 0, 0)
+	time = Time (4, 4)
 	# urg LilyPond doesn't start at c4, but
 	# remembers from previous tracks!
 	# reference_note = Note (clocks_per_4, 4*12, 0)
@@ -612,19 +631,26 @@ def dump_channel (thread, skip):
 		chs.append ((last_e[0], ch))
 	t = 0
 	last_t = 0
-
+	last_bar_t = 0
+	bar_count = 1
+	
 	lines = ['']
 	for ch in chs: 
+		t = ch[0]
+
 		i = string.rfind (lines[-1], '\n') + 1
 		if len (lines[-1][i:]) > LINE_BELL:
 			lines.append ('')
 			
-		t = ch[0]
 		if t - last_t > 0:
 			lines[-1] = lines[-1] + dump_skip (skip, t-last_t)
 		elif t - last_t < 0:
 			errorport.write ('BUG: time skew')
-			
+
+		(s, last_bar_t, bar_count) = dump_bar_line (last_bar_t,
+							    t, bar_count)
+		lines[-1] = lines[-1] + s
+		
 		lines[-1] = lines[-1] + dump_chord (ch[1])
 
 		clocks = 0
@@ -633,6 +659,10 @@ def dump_channel (thread, skip):
 				clocks = i.clocks
 				
 		last_t = t + clocks
+		
+		(s, last_bar_t, bar_count) = dump_bar_line (last_bar_t,
+							    last_t, bar_count)
+		lines[-1] = lines[-1] + s
 
 	return string.join (lines, '\n  ') + '\n'
 
