@@ -1,3 +1,7 @@
+2003-01-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/feta-toevallig.mf: make flat stem shorter 
+
 2003-01-16  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-font-lock.el: Fontify post-notated slurs -( and -).
