@@ -1,145 +1,31 @@
-
 #include "tstream.hh"
 #include "score.hh"
+#include "sccol.hh"
 #include "pscore.hh"
 #include "staff.hh"
-#include "misc.hh"
 #include "debug.hh"
+#include "paper.hh"
 
 void
-Score::add_command_seq(svec<Command *> com)
+Score::output(String s)
 {
-    if (!com.sz())
-	return;
-    Real when = com[0]->when;
-
-    PCursor<Command*> pc(commands_);    
-    while (pc.ok()&&pc->when <= when)
-	pc++;
+    OK();
+    if (paper->outfile=="")
+	paper->outfile = s;
     
-    for (int i = 0; i < com.sz(); i++) {
-	assert(com[i]->when == when);
-	if (!pc.ok())
-	    pc.add(com[i]);
-	else
-	    pc.insert(com[i]);
-    }
-    
-}
-
-void
-Score::add(Command *c)
-{
-    svec<Command*> seq;    
-    if (c->code == TYPESET && c->args[0] == "BAR") {
-	/* should be encapsulated in BREAKs
-
-	   THIS SUX.
-
-	 */
-
-	Command k;
-	
-	k.when = c->when;
-	k.code = BREAK_PRE;
-	
-	seq.add(new Command(k));
-	seq.add(new Command(*c));
-	k.code = BREAK_MIDDLE;
-	seq.add(new Command(k));
-	seq.add(new Command(*c));
-	k.code = BREAK_POST;
-	seq.add(new Command(k));
-	k.code = BREAK_END;
-	seq.add(new Command(k));
-    }
-    else
-	seq.add(new Command(*c));
-    
-    add_command_seq(seq);
-}
-
-void
-Score::add(Staff*s)
-{
-    s->score_ = this;
-    staffs_.bottom().add(s);    
+    *mlog << "output to " << paper->outfile << "...\n";
+    Tex_stream the_output(paper->outfile);    
+    pscore_->output(the_output);
 }
 
 
-void
-Score::do_pcols()
-{
-    PCursor<Score_column*> sc(cols_);
-    for (;sc.ok(); sc++) {
-	pscore_->add(sc->pcol);
-    }
-}
-/*
-    this sux. Really makeshift.
-
-    first and last column should be breakable.
-    Remove any command past the last musical column.
-    */
-void
-Score::do_miscs()
-{
-    Command c;
-
-    {
-	Command c;
-	c.when = 0.0;
-	c.code = TYPESET;
-	c.args.add("BAR");
-	c.args.add("empty");
-	add(&c);
-    }
-    
-    PCursor<Command*> bot(commands_.bottom());
-    Real l = last();    
-    while (bot.ok() && bot->when > l) {
-
-	mtor <<"removing "<< bot->code <<" at " << bot->when<<'\n';
-	bot.del();
-	bot = commands_.bottom();
-    }
-
-    if (bot->when != l || bot->code != BREAK_END) {
-	Command c;
-	c.code = TYPESET;
-	c.when = l;
-	c.args.add("BAR");
-	c.args.add("||");
-	add(&c);
-    }
-   commands_.OK();
-}
-
-Mtime
-Score::last() const
-{    
-    Mtime l = 0;
-    for (PCursor<Staff*> stc(staffs_); stc.ok(); stc++) {
-	l = MAX(l, stc->last());
-    }
-    return l;
-}
-void
-Score::clean_commands() 
-{
-    Mtime l= last();
-    for (PCursor<Command*> cc(commands_); cc.ok(); ) {
-	if (cc->when > l){
-	    mtor << "remming \n";
-	    cc.del();
-	} else
-	    cc++;
-    }
-}
 void
 Score::process()
 {
-     do_miscs();
+    if (!paper)
+	paper = new Paperdef;
+
+    commands_.clean(last());
     
     /// distribute commands to disciples
     distribute_commands();
@@ -238,18 +124,30 @@ Score::distribute_commands(void)
 	sc->add_commands(commands_);
     }
 }
+void
+Score::add(Staff*s)
+{
+    s->score_ = this;
+    staffs_.bottom().add(s);    
+}
 
 
 void
-Score::output(String s)
+Score::do_pcols()
 {
-    OK();
-    if (outfile=="")
-	outfile = s;
-    
-    *mlog << "output to " << outfile << "...\n";
-    Tex_stream the_output(outfile);    
-    pscore_->output(the_output);
+    PCursor<Score_column*> sc(cols_);
+    for (; sc.ok(); sc++) {
+	pscore_->add(sc->pcol);
+    }
+}
+Mtime
+Score::last() const
+{    
+    Mtime l = 0;
+    for (PCursor<Staff*> stc(staffs_); stc.ok(); stc++) {
+	l = MAX(l, stc->last());
+    }
+    return l;
 }
 
 void
@@ -265,11 +163,10 @@ Score::OK() const
     for (PCursor<Score_column*> cc(cols_); cc.ok() && (cc+1).ok(); cc++) {
 	assert(cc->when <= (cc+1)->when);
     }
-    for (PCursor<Command*> cc(commands_); cc.ok() && (cc+1).ok(); cc++) {
-	assert(cc->when <= (cc+1)->when);
-    }
+    commands_.OK();
 #endif    
 }
+
 
 void
 Score::print() const
@@ -282,38 +179,18 @@ Score::print() const
     for (PCursor<Score_column*> sc(cols_); sc.ok(); sc++) {
 	sc->print();
     }
+    commands_.print();
     mtor << "}\n";
 #endif
 }
+
 Score::Score()
 {
     pscore_=0;
+    paper = 0;
 }
-/****************************************************************/
-
-Score_column::Score_column(Mtime w)
-{
-    when = w;
-    pcol = new PCol(0);
-    musical = false;
-}
-
-bool
-Score_column::used() {
-    return pcol->used;
-}
-
 void
-Score_column::print() const
+Score::add(Command*c)
 {
-    #ifndef NPRINT
-    mtor << "Score_column { mus "<< musical <<" at " <<  when<<'\n';
-    mtor << " # symbols: " << pcol->its.size() << "\n";
-    mtor << "durations: [" ;
-    for (int i=0; i < durations.sz(); i++)
-	mtor << durations[i] << " ";
-    mtor << "]\n}\n";
-    #endif
+    commands_.add(*c);
 }
-
-    
