@@ -206,7 +206,7 @@ this is not an override
 (define-public (context-spec-music m context . rest)
   "Add \context CONTEXT = foo to M. "
   
-  (let* ((cm (ly-make-music "Context_specced_music")))
+  (let* ((cm (make-music-by-name 'ContextSpeccedMusic)))
     (ly-set-mus-property! cm 'element m)
     (ly-set-mus-property! cm 'context-type context)
     (if (and  (pair? rest) (string? (car rest)))
@@ -216,13 +216,13 @@ this is not an override
   ))
 
 (define-public (make-sequential-music elts)
-  (let*  ((m (ly-make-music "Sequential_music")))
+  (let*  ((m (make-music-by-name 'SequentialMusic)))
     (ly-set-mus-property! m 'elements elts)
     m
   ))
 
 (define-public (make-simultaneous-music elts)
-  (let*  ((m (ly-make-music "Simultaneous_music")))
+  (let*  ((m (make-music-by-name 'SimultaneousMusic)))
     (ly-set-mus-property! m 'elements elts)
     m
     ))

@@ -4,7 +4,7 @@
     (ArpeggioEvent 
      . (
 	(name . "Arpeggio_req")
-	(types . (general-music event ))
+	(types . (general-music event))
 	))
     (ArticulationEvent
      . (
@@ -98,7 +98,7 @@
     (RepeatedMusic
      . (
 	(name . "Repeated_music")
-	(type .  repeated-music)g
+	(type .  repeated-music)
 	(types . (general-music repeat-music))
 	))
     (Request
@@ -302,5 +302,5 @@
 
     (if (eq? props '())
 	(ly-warn (format "Could not find music type `~a'" x)))  
-    (ly-extended-make-music name props)
+    (ly-make-bare-music name props)
   ))
