@@ -327,7 +327,7 @@ latex_cmd = 'latex'
 tex_extension = '.tex'
 pdftex_p = 0
 
-help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
+help_summary = _ ("Run LilyPond using LaTeX for titling")
 
 option_definitions = [
 	('', 'd', 'dependencies', _ ("write Makefile dependencies for every input file")),
@@ -338,9 +338,9 @@ option_definitions = [
 	('', 'm', 'no-paper', _ ("produce MIDI output only")),
 	(_ ("FILE"), 'o', 'output', _ ("write ouput to FILE")),
 	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
-	# why capital P?
-	('', '', 'preview', _("Make a picture of the first system.")),
-	(_ ('RES'), '', 'preview-resolution', _("Set the resolution of the preview to RES.")),
+	# FIXME: preview, picture; to indicate creation of a PNG?
+	('', '', 'preview', _("make a picture of the first system.")),
+	(_ ('RES'), '', 'preview-resolution', _("set the resolution of the preview to RES.")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	('', 'p', 'pdf', _ ("generate PDF output")),	
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),

@@ -361,7 +361,7 @@ HYPHEN		--
 		char c = s[s.length () - 1];
 		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
 			here_input ().warning (
-				_ ("Brace found at end of lyric. Did you forget a space?"));
+				_ ("Brace found at end of lyric.  Did you forget a space?"));
 		yylval.scm = scm_makfrom0str (s.to_str0 ());
 
 
