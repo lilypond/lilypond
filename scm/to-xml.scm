@@ -1,5 +1,49 @@
 
+# as computed from input/trip.ly, by
+# http://www.pault.com/pault/dtdgenerator/
+(define preliminary-dtd
+  "
+<!ELEMENT duration EMPTY >
+<!ATTLIST duration denom ( 1 | 3 | 5 ) #REQUIRED >
+<!ATTLIST duration dots ( 0 | 1 ) #REQUIRED >
+<!ATTLIST duration log ( 0 | 1 | 2 | 3 | 4 ) #REQUIRED >
+<!ATTLIST duration numer ( 1 | 4 ) #REQUIRED >
 
+<!ELEMENT music ( duration | music | pitch )* >
+<!ATTLIST music articulation-type ( lheel | ltoe | marcato | rheel | rtoe | staccato | tenuto ) #IMPLIED >
+<!ATTLIST music change-to-id NMTOKEN #IMPLIED >
+<!ATTLIST music change-to-type NMTOKEN #IMPLIED >
+<!ATTLIST music context-id CDATA #IMPLIED >
+<!ATTLIST music context-type ( PianoStaff | Score | Staff | Timing | Voice ) #IMPLIED >
+<!ATTLIST music denominator NMTOKEN #IMPLIED >
+<!ATTLIST music direction ( 0 | 1 ) #IMPLIED >
+<!ATTLIST music force-accidental CDATA #IMPLIED >
+<!ATTLIST music grob-property NMTOKEN #IMPLIED >
+<!ATTLIST music grob-value CDATA #IMPLIED >
+<!ATTLIST music iterator-ctor CDATA #IMPLIED >
+<!ATTLIST music label NMTOKEN #IMPLIED >
+<!ATTLIST music last-pitch CDATA #IMPLIED >
+<!ATTLIST music numerator NMTOKEN #IMPLIED >
+<!ATTLIST music penalty NMTOKEN #IMPLIED >
+<!ATTLIST music pitch-alist CDATA #IMPLIED >
+<!ATTLIST music pop-first CDATA #IMPLIED >
+<!ATTLIST music repeat-count NMTOKEN #IMPLIED >
+<!ATTLIST music span-direction ( -1 | 1 ) #IMPLIED >
+<!ATTLIST music span-type NMTOKEN #IMPLIED >
+<!ATTLIST music symbol NMTOKEN #IMPLIED >
+<!ATTLIST music text NMTOKEN #IMPLIED >
+<!ATTLIST music text-type NMTOKEN #IMPLIED >
+<!ATTLIST music type NMTOKEN #REQUIRED >
+<!ATTLIST music value CDATA #IMPLIED >
+
+<!ELEMENT pitch EMPTY >
+<!ATTLIST pitch alteration ( 0 | 1 ) #REQUIRED >
+<!ATTLIST pitch notename ( 0 | 1 | 2 | 3 | 4 | 5 | 6 ) #REQUIRED >
+<!ATTLIST pitch octave ( -1 | -2 | 0 | 1 ) #REQUIRED >")
+
+
+
+(use-modules (ice-9 regex))
 "
 
 
@@ -13,7 +57,7 @@ is then separated.
 "
 
 (define (dump-duration d port)
- (display (open-tag "duration"
+ (display (open-tag 'duration
 	    `((log . ,(duration-log d))
 	      (dots . ,(duration-dot-count d))
 	      (numer . ,(car (duration-factor d)))
@@ -23,7 +67,7 @@ is then separated.
  (display  (close-tag 'duration) port))
 
 (define (dump-pitch p port)
- (display (open-tag "pitch"
+ (display (open-tag 'pitch
 	    `((octave . ,(pitch-octave p))
 	      (notename . ,(pitch-notename p))
 	      (alteration . ,(pitch-alteration p))
@@ -36,6 +80,9 @@ is then separated.
   (if x
       #t
       (error "assertion failed")))
+
+(define (re-sub re to string)
+  (regexp-substitute/global #f re string 'pre to 'post))
 
 (define (open-tag tag attrs exceptions)
   (define (candidate? x)
@@ -52,13 +99,26 @@ is then separated.
      "\n   "
     (symbol->string sym)
     "=\""
-    
-    (call-with-output-string (lambda (port) (display val port)))
+
+
+    (let ((s (call-with-output-string (lambda (port) (display val port)))))
+      ;; ugh
+      (re-sub
+       "\"" "&quot;"
+       (re-sub
+	"<"  "&lt;"
+	(re-sub
+	 ">"  "&gt;"
+	 (re-sub
+	  "'"  "&apos;"
+	  (re-sub
+	   "&" "&amp;" s))))))
+     
     "\""
     )))
 
   (string-append
-   "<" tag
+   "<" (symbol->string tag)
    (apply string-append
 	  (map dump-attr (filter-list candidate? attrs)))
 
@@ -69,8 +129,7 @@ is then separated.
   (string-append "</" (symbol->string name) ">\n")
   )
 
-(define-public (music-to-xml music port)
-  "Dump XML-ish stuff to PORT."
+(define (music-to-xml-helper music port)
    (let*
        (
 	(name (ly-get-mus-property music 'name))
@@ -82,25 +141,24 @@ is then separated.
 	(ignore-props '(origin elements duration pitch element))
 	)
 
-     (display (open-tag (symbol->string name) mprops ignore-props) port)
+     (display (open-tag 'music (cons `(type . ,name) mprops) ignore-props)
+	      port)
      (if (duration? d)
 	 (dump-duration d port))
      (if (pitch? p)
 	 (dump-pitch p port))
      (if (pair? es)
 	 (begin
-	   (display "<elements>" port)
-	   (map (lambda (x) (music-to-xml x port)) es)
-	   (display "</elements>" port)
-	   ))
-
+	   (map (lambda (x) (music-to-xml-helper x port)) es)))
      (if (music? e)
 	 (begin
-	   (display "<element>" port)
-	   (music-to-xml e port)
-	   (display "</element>" port)
-	   ))
-     (display (close-tag name) port)
+	   (music-to-xml-helper e port)))
+     (display (close-tag 'music) port)
    ))
    
    
+(define-public (music-to-xml music port)
+  "Dump XML-ish stuff to PORT."
+  (display (open-tag 'music '((type . score)) '()) port)
+  (music-to-xml-helper music port)
+  (display (close-tag 'music) port))
