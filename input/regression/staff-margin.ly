@@ -20,10 +20,5 @@ be on normal staves, but also on compound staves, like the PianoStaff
 
 \paper {
 linewidth=-1.0
-\translator { \ScoreContext
-	
-	}
-\translator { \StaffContext \consists "Instrument_name_engraver" }
-\translator { \PianoStaffContext \consists "Instrument_name_engraver" }
 }}
 
