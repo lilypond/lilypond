@@ -1,4 +1,3 @@
-
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
@@ -8,11 +7,14 @@ grep for TODO and ugh/ugr
 
 IMPORTANT
 
+	* faq about mi2mu midi t1.
+
 	* update 20 pt table
 
 	* use Hungarian throughout code
 
 	* rename mf fonts to avoid conflicts with musixtex
+	check (c) issues
 
 	* decent TeX page layout
 
@@ -26,8 +28,9 @@ IMPORTANT
 
 PROJECTS
 
-	* Output class, handles 
+	* Output class, handles : (smallish)
 	- help text /(c) notice?
+	- version line
 	- warning /errors/progress
 	- abort on error/warning; exit status
 	- quiet/ignore-version options
@@ -39,24 +42,31 @@ PROJECTS
 	- slur start/end
 
 	* Output an output format independent (ofi) typeset file; and 
-	  make ofi2 TeX, MusixTex, PostScript, Ascii... interpreters.
+	  make ofi2 TeX, MusixTex, PostScript, Ascii... interpreters. (difficult)
 	- poor man's ascii output possible?
 	- MusixTeX output possible? (would have to be done before break calc.)
 	- NIFF ?
 	- PostScript output (esp. Beams, Slurs, etc)
 
-	* TeX spanners , use texbeam.cc as an example
+	* TeX spanners , use texbeam.cc as an example (smallish)
 	- Glissando
 	- trill
 	- bracket
 
-	* Rewrite Beam and Rhythmic_grouping
+	* Rewrite Beam and Rhythmic_grouping (hairy)
 	- [c8. c32 c32]
-	- interbeam height
+ 	- interbeam height
 	- general shaving
 	- use plet grouping
 	- abbreviations [c2 c2]1/2
 	- separate visual from rhythmic info
+
+	* Redo MIDI output to use Registers: (Difficult)
+	- remember more horizontal info than melodics:
+	- tempo change
+	- repeat
+	- slurs
+	- dynamics etc.
 
 PARSER
 	* Duration -> Musical_duration, typedef Rational Duration?
@@ -68,10 +78,6 @@ HKN buglist:
 ruimte van een hele maat erachter (bij unmatching staffs)
 
 Hele rusten ook in andere maatsoort dan 4/4 (en centreren in de maat)
-
-------------------------\
-barcheck failed in lyric mode -> assert (zie barcheck.ly) (0.0.57)
-------------------------/
 
 noten staan vaak te dicht aan de rechterkant van de maatstreep.
 
@@ -88,10 +94,6 @@ verplichte regels
 implementeren versieringen door duration *0 ofzo? (geeft nu assertion,
 zie duration0.ly)
 
-midi: instrumenten definieren?
-midi: tempo halverwege het stuk wijzigen?
-midi: gebonden noten niet herhalen?
-
 Triolen enzo: het zou handig zijn als je het cijfer "3" ook _tussen_
 twee noten kon plaatsen. Dat is bijvoorbeeld nodig in
 c4*2/3 c8*2/3
@@ -103,8 +105,6 @@ gedrukt.
 
 BUGS
 
-	* detect -pipe
-	
 	* staccato dot positions.
 
 	* stacked scripts.
@@ -121,7 +121,6 @@ BUGS
 	* chlapik balk ruimte 
 
 	* standchen triool beam up/down
-
 
 SEVERELY LACKING:
 
@@ -145,7 +144,6 @@ INPUTLANGUAGE
 
 	* \duration 8; e*2/3
 
-
 	* configure pitch_byte
 
 	* special key.
@@ -159,6 +157,8 @@ INPUTLANGUAGE
 	* subtime with Subtle_reqs
 
 SMALLISH PROJECTS
+
+	* --fast/--draft: leave out constraints
 
 	* write Dynamic_line (to group dynamics horizontally)
 
@@ -177,7 +177,7 @@ SMALLISH PROJECTS
 	
 	* key undo
 
-	* unix style paths for LILYINCLUDE EN
+	* unix style paths for LILYINCLUDE env
 
 	* indentable stream as baseclass for TeX stream, lily stream, Dstream.
 
@@ -191,7 +191,7 @@ SMALLISH PROJECTS
 
         * qtor, btor, mtor-> tor( QUIET_ver ), tor( DEBUG_ver ), etc.
 
-	- declare notenametab?
+	* declare notenametab?
 
 	* use tors feature in lily
 
@@ -228,10 +228,11 @@ SMALLISH PROJECTS
 
 	* configure idealspacing: arithmetic spacing
 
-	* midi output: eat-up dynamic, key/meter/tempo changes, and
-write them neatly
 
-	* LilyPond .deb
+	* LilyPond .deb. Other packaging methods?
+
+	* detect -pipe
+
 
 DOC
 
@@ -242,6 +243,8 @@ DOC
 	* a test suite
 
 FUTURE
+
+	* auxilliary file for caching info.
 
 	* Reg_configure_request
 
@@ -256,8 +259,6 @@ FUTURE
 	* guitar chord
 
 	* Junk Staff_column, and find the requests while walking the Voices.?
-
-	* MIDI repeat: make lily understand repeats
 
 	* better beamslope calculation:	QLP for beams?
 
@@ -283,22 +284,20 @@ IDEAS
 
 	ID '=' EXPR;
 
-	* integrate Register/Midi stuff
-
 	* create libmudela, or liblily_frontend
 
 	* move MIDI stuff (including Quantization) to a ANSI C libmidi library.
 
-	* use an embedded language: Python, Scheme?
+	* use an embedded language: Python
 	for : 
 		- Items/Spanners
 		- Registers
-		- Complex mudela
+		- Complex mudela?
 
 	* y -dims in internote?
 
 	* hack up mf sources for decent spacing info (and then 
-	read TFM directly, for text too)
+	read AFM/TFM directly, for text too)
 
 	* merge Atom and Symbol?
 
