@@ -47,6 +47,7 @@ with this much space for the shortest duration. This is explessed in @code{spaci
 @ref{spacing-spanner-interface}.")
 (grob-property-description 'spacing-increment number? "Add this much space for a doubled duration. Typically, the width of a note head. See also @ref{spacing-spanner-interface}.")
 
+(grob-property-description 'arpeggio ly-grob? "pointer to arpeggio object.") 
 (grob-property-description 'arpeggio-direction dir? "If set, put an
 arrow on the arpeggio squiggly line.")
 (grob-property-description 'attachment pair? "cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where both types may be alongside-stem, stem, head or loose-end.")

@@ -20,7 +20,7 @@
 	(after-line-breaking-callback . ,Local_key_item::after_line_breaking)
 	(direction . -1)
 	(left-padding . 0.2)
-	(right-padding . 0.4)
+	(right-padding . 0.5)
 	(paren-cautionaries . #t)
 	(font-family . music)
 	(meta . ,(grob-description accidentals-interface font-interface side-position-interface))
@@ -52,7 +52,7 @@
 			(time-signature . (extra-space . 0.75)) 
 			(custos . (minimum-space . 2.0))
 			(clef .   (minimum-space . 1.0))
-			(begin-of-note . (extra-space . 1.0))
+			(begin-of-note . (extra-space . 1.3))
 			))
 
 	;;
@@ -636,6 +636,7 @@
 
 	(shortest-duration-space . 2.0)
 	(spacing-increment . 1.2)
+	
 	(X-extent-callback . #f)
 	(Y-extent-callback . #f)
 

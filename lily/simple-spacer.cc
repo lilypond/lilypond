@@ -77,9 +77,25 @@ Simple_spacer::add_rod (int l, int r, Real dist)
       programming_error ("Weird minimum distance. Ignoring");
       return;
     }
-  
-  
+
   Real c = range_stiffness (l,r);
+  if (isinf (c))
+    {
+      /*
+	If a spring is fixed, we have to do something here:
+	we let the rod override the spring. 
+       */
+      Real total_dist = 0.;
+      for (int i = l ; i < r; i++)
+	total_dist += springs_[i].ideal_f_;
+
+      if (total_dist < dist)
+	for (int i = l ; i < r; i++)
+	  springs_[i].ideal_f_ *= dist/total_dist;
+
+      return;
+    }
+  
   Real d = range_ideal_len (l,r);
   Real block_stretch = dist - d;
   

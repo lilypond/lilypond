@@ -31,7 +31,6 @@
   a little baroque, but it might come in handy later on?
     
  */
-
 class Spacing_spanner
 {
 public:
@@ -41,11 +40,12 @@ public:
   static Rational find_shortest (Link_array<Grob> const &);  
   static void breakable_column_spacing (Item* l, Item *r);
   static void find_loose_columns () {}
-  static void prune_loose_colunms (Link_array<Grob> *cols);
+  static void prune_loose_colunms (Grob*,Link_array<Grob> *cols, Rational);
   static void find_loose_columns (Link_array<Grob> cols);
   static void set_explicit_neighbor_columns (Link_array<Grob> cols);
   static void set_implicit_neighbor_columns (Link_array<Grob> cols);
   static void do_measure (Rational, Grob*me,Link_array<Grob> *cols);
+  static void musical_column_spacing (Grob*,Item*,Item*, Real, Rational); 
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM ));
 };
 
@@ -77,9 +77,7 @@ loose_column (Grob *l, Grob *c, Grob *r)
 
     the column containing the clef is really loose, and should be
     attached right to the first column, but that is a lot of work for
-    such a borderline case.
-
-    )
+    such a borderline case.)
     
   */  
   if (!gh_pair_p (lns) || !gh_pair_p (rns))
@@ -105,7 +103,7 @@ loose_column (Grob *l, Grob *c, Grob *r)
     some cases (two isolated, consecutive clef changes) won't be
     nicely folded, but hey, then don't do that.
   */
-  if( (Paper_column::musical_b (l_neighbor) || Item::breakable_b (l_neighbor))
+  if ((Paper_column::musical_b (l_neighbor) || Item::breakable_b (l_neighbor))
       && (Paper_column::musical_b (r_neighbor) || Item::breakable_b (r_neighbor)))
     {
       return true;
@@ -128,10 +126,10 @@ loose_column (Grob *l, Grob *c, Grob *r)
   between.
 */
 void
-Spacing_spanner::prune_loose_colunms (Link_array<Grob> *cols)
+Spacing_spanner::prune_loose_colunms (Grob*me,Link_array<Grob> *cols, Rational shortest)
 {
   Link_array<Grob> newcols;
-  
+  Real increment = gh_scm2double (me->get_grob_property ("spacing-increment"));
   for (int i=0; i < cols->size ();  i++)
     {
       if (Item::breakable_b (cols->elem(i)) || Paper_column::musical_b (cols->elem (i)))
@@ -169,8 +167,8 @@ Spacing_spanner::prune_loose_colunms (Link_array<Grob> *cols)
 	  do
 	    {
 	      dists[d] = 0.0;
-	      Grob *lc = (d == LEFT)  ? next_door[LEFT] : c;
-	      Grob *rc = d == LEFT  ? c : next_door[RIGHT];	      
+	      Item *lc = dynamic_cast<Item*> ((d == LEFT)  ? next_door[LEFT] : c);
+	      Item *rc = dynamic_cast<Item*> (d == LEFT  ? c : next_door[RIGHT]);
 
 	      for (SCM s = lc->get_grob_property ("spacing-wishes");
 		   gh_pair_p (s); s = gh_cdr (s))
@@ -180,7 +178,14 @@ Spacing_spanner::prune_loose_colunms (Link_array<Grob> *cols)
 		      || Note_spacing::right_column (sp) != rc)
 		    continue;
 
-		  dists[d] = dists[d] >? Note_spacing::get_spacing (sp);
+		  Real space, fixed;
+		  fixed = 0.0;
+		  bool expand_only;
+		  Real base = note_spacing (me, lc, rc, shortest, &expand_only);
+		  Note_spacing::get_spacing (sp, rc, base, increment, &space, &fixed);
+		  space -=base; 
+		  
+		  dists[d] = dists[d] >? space;
 		}
 	    }
 	  while (flip (&d) != LEFT);
@@ -312,10 +317,11 @@ Spacing_spanner::set_springs (SCM smob)
   Link_array<Grob> all (me->pscore_l_->line_l_->column_l_arr ()) ;
 
   set_explicit_neighbor_columns (all);
-  prune_loose_colunms (&all);
-  set_implicit_neighbor_columns (all);
 
   Rational global_shortest = find_shortest (all);
+  prune_loose_colunms (me, &all, global_shortest);
+  set_implicit_neighbor_columns (all);
+
   
   int j = 0;
   for (int i = 1; i < all.size (); i++)
@@ -461,72 +467,63 @@ Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols)
 	  
 	  continue ; 
 	}
-      bool expand_only = false;
-      Real note_space = note_spacing (me, lc, rc, shortest, &expand_only);
-      
-      Real hinterfleisch = note_space;
 
 
-      SCM seq  = lc->get_grob_property ("right-neighbors");
-
-      /*
-	hinterfleisch = hind-meat = amount of space following a note.
-
-	
-	We adjust the space following a note only if the next note
-	happens after the current note (this is set in the grob
-	property SPACING-SEQUENCE.  */
-
-      Real stretch_distance = note_space;
-
-      hinterfleisch = -1.0;
-      Real max_factor = 0.0;
-      for (SCM s = seq; gh_pair_p (s); s = ly_cdr (s))
-	{
-	  Grob * wish = unsmob_grob (gh_car (s));
-
-	  if (Note_spacing::left_column (wish) != lc
-	      || Note_spacing::right_column (wish) != rc)
-	    continue;
-
-	  /*
-	    This is probably a waste of time in the case of polyphonic
-	    music.  */
-	  if (Note_spacing::has_interface (wish))
-	    {
-	      hinterfleisch = hinterfleisch >?
-		( - headwid +
-
-		  (note_space + Note_spacing::get_spacing (wish))
-		  *gh_scm2double (wish->get_grob_property ("space-factor"))
-
-		  + Note_spacing::stem_dir_correction (wish));
-	    }
-	}
-
-      if (hinterfleisch < 0)
-	{
-	  // maybe should issue a programming error.
-	  hinterfleisch = note_space;
-	}
-      else
-	stretch_distance -= headwid; // why?
-
-      if (max_factor == 0.0)
-	max_factor = 1.0; 
-      
-      Spaceable_grob::add_spring (l, r, max_factor *  hinterfleisch,  1 / stretch_distance, expand_only);
-
-      /*
-	TODO: we should have a separate routine determining this distance!
-       */
+      musical_column_spacing (me, lc, rc, headwid, shortest);
       if (Item *rb = r->find_prebroken_piece (LEFT))
+	musical_column_spacing (me, lc, rb, headwid, shortest);
+    }    
+}
+
+void
+Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real increment, Rational shortest)
+{
+  bool expand_only = false;
+  Real base_note_space = note_spacing (me, lc, rc, shortest, &expand_only);
+
+  Real max_note_space = -infinity_f;
+  Real max_fixed_note_space = -infinity_f;
+
+  SCM seq  = lc->get_grob_property ("right-neighbors");
+
+  /*
+    We adjust the space following a note only if the next note
+    happens after the current note (this is set in the grob
+    property SPACING-SEQUENCE.
+  */
+  for (SCM s = seq; gh_pair_p (s); s = ly_cdr (s))
+    {
+      Grob * wish = unsmob_grob (gh_car (s));
+
+      Item *wish_rcol = Note_spacing::right_column (wish);
+      if (Note_spacing::left_column (wish) != lc
+	  || (wish_rcol != rc && wish_rcol != rc->original_l_))
+	continue;
+
+      /*
+	This is probably a waste of time in the case of polyphonic
+	music.  */
+      if (Note_spacing::has_interface (wish))
 	{
-	  Spaceable_grob::add_spring (l, rb, max_factor *  hinterfleisch,  1 / stretch_distance, expand_only);
+	  Real space =0.0;
+	  Real fixed =0.0;
+	  
+	  Note_spacing::get_spacing (wish, rc, base_note_space, increment, &space, &fixed);
+	  max_note_space = max_note_space >? space;
+	  max_fixed_note_space = max_fixed_note_space >? fixed;
 	}
+
     }
 
+  if (max_note_space < 0)
+    {
+      max_note_space = base_note_space;
+      max_fixed_note_space = increment;
+    }
+
+  Spaceable_grob::add_spring (lc, rc, max_note_space,  1 / (max_note_space -max_fixed_note_space), expand_only);
 }
+
 
 /*
   Read hints from L (todo: R) and generate springs.
@@ -540,13 +537,20 @@ Spacing_spanner::breakable_column_spacing (Item* l, Item *r)
   for (SCM s = l->get_grob_property ("spacing-wishes");
        gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * spacing_grob = unsmob_grob (gh_car (s));
+      Item * spacing_grob = dynamic_cast<Item*> (unsmob_grob (gh_car (s)));
 
       if (!spacing_grob || !Staff_spacing::has_interface (spacing_grob))
 	continue;
 
       Real space;
       Real fixed_space;
+
+      /*
+	column for the left one settings should be ok due automatic
+	pointer munging.
+
+      */
+      assert (spacing_grob-> column_l () == l);
 
       Staff_spacing::get_spacing_params (spacing_grob,
 					 &space, &fixed_space);  
@@ -564,6 +568,19 @@ Spacing_spanner::breakable_column_spacing (Item* l, Item *r)
       max_fixed = 1.0;
     }
 
+  
+  if (l->break_status_dir() == RIGHT
+      && Paper_column::when_mom (l) == Paper_column::when_mom (r))
+    {
+      /* Start of line: this space is not stretchable */
+      max_fixed = max_space;
+    }
+
+  /*
+    Hmm.  we do 1/0 in the next thing. Perhaps we should check if this
+    works on all architectures.
+   */
+  
   Spaceable_grob::add_spring (l, r, max_space,  1/(max_space - max_fixed), false);  
 }
 

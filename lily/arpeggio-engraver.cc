@@ -12,10 +12,9 @@
 #include "musical-request.hh"
 #include "arpeggio.hh"
 #include "stem.hh"
-#include "local-key-item.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
-#include "staff-symbol-referencer.hh"
+#include "note-column.hh"
 
 class Arpeggio_engraver : public Engraver
 {
@@ -23,15 +22,14 @@ public:
   TRANSLATOR_DECLARATIONS(Arpeggio_engraver); 
 protected:
   virtual void acknowledge_grob (Grob_info);
-  virtual void create_grobs ();
+  virtual void process_music ();
+
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
 
 private:
   Item* arpeggio_; 
   Arpeggio_req *arpeggio_req_;
-  Link_array <Grob> stems_;
-  Link_array<Grob> supports_;
 };
 
 Arpeggio_engraver::Arpeggio_engraver ()
@@ -57,11 +55,14 @@ Arpeggio_engraver::try_music (Music* m)
 void
 Arpeggio_engraver::acknowledge_grob (Grob_info info)
 {
-  if (arpeggio_req_)
+  if (arpeggio_)
     {
       if (Stem::has_interface (info.grob_l_))
 	{
-	  stems_.push (info.grob_l_);
+	  if (!arpeggio_->get_parent  (Y_AXIS))
+	    arpeggio_->set_parent (info.grob_l_, Y_AXIS);
+      
+	  Pointer_group_interface::add_grob (arpeggio_, ly_symbol2scm ("stems"), info.grob_l_);
 	}
       
       /*
@@ -70,27 +71,21 @@ Arpeggio_engraver::acknowledge_grob (Grob_info info)
       */
       else if (Rhythmic_head::has_interface (info.grob_l_))
 	{
-	  supports_.push (info.grob_l_);
+	  Side_position_interface::add_support (arpeggio_, info.grob_l_);
+	}
+      else if (Note_column::has_interface (info.grob_l_ ))
+	{
+	  info.grob_l_->set_grob_property ("arpeggio", arpeggio_->self_scm ());
 	}
     }
 }
 
 void
-Arpeggio_engraver::create_grobs ()
+Arpeggio_engraver::process_music ()
 {
-  if (!arpeggio_ && !stems_.empty ())
+  if (arpeggio_req_)
     {
       arpeggio_ = new Item (get_property ("Arpeggio"));
-      arpeggio_->set_parent (stems_[0], Y_AXIS);
-      
-      for (int i = 0; i < stems_.size (); i++)
-	{
-	  Pointer_group_interface::add_grob (arpeggio_, ly_symbol2scm ("stems"), stems_[i]);
-	}
-      for (int i = 0; i < supports_.size (); i++)
-	{
-	  Side_position_interface::add_support (arpeggio_, supports_[i]);
-	}
       announce_grob(arpeggio_, arpeggio_req_->self_scm());
     }
 }
@@ -104,8 +99,6 @@ Arpeggio_engraver::stop_translation_timestep ()
       arpeggio_ = 0;
     }
   arpeggio_req_ = 0;
-  stems_.clear ();
-  supports_.clear ();
 }
 
 
@@ -114,6 +107,6 @@ Arpeggio_engraver::stop_translation_timestep ()
 ENTER_DESCRIPTION(Arpeggio_engraver,
 /* descr */       "Generate an Arpeggio from a Arpeggio_req",
 /* creats*/       "Arpeggio",
-/* acks  */       "stem-interface rhythmic-head-interface",
+/* acks  */       "stem-interface rhythmic-head-interface note-column-interface",
 /* reads */       "",
 /* write */       "");

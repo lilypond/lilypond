@@ -4,14 +4,14 @@ texidoc = "Accidentals in different staffs don't effect the
 spacing of the quarter notes here."
 }
 
-\score { \notes \relative c'' < \context Staff = SA { \time 8/4
+\score { \notes \relative c'' < \context Staff = SA { \time 4/4
 
-c4 c4 cis4 cis4
-cis4 cis4 cis4 cis
+[c8 c8 cis8 cis8]
+[cis8 cis8 cis8 cis]
 
 
  }
-   { \key d \major cis2 cis2 cis2 cis!2  } >
+   { \key d \major cis4 cis4 cis4 cis!4  } >
 
    \paper { linewidth = -1. } 
  }

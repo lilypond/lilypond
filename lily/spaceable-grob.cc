@@ -44,6 +44,11 @@ Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
 void
 Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength, bool expand_only)
 {
+  if (d < 0.0 || strength <= 0.0)
+    {
+      programming_error ("Adding reverse spring!");
+    }
+  
 #ifndef NDEBUG
   SCM mins = me->get_grob_property ("ideal-distances");
   for (SCM s = mins; gh_pair_p (s); s = ly_cdr (s))

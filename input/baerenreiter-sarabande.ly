@@ -16,8 +16,15 @@ benchmarkk the quality of the LilyPond output. As of lilypond 1.5.38,
 the spacing is almost identical. With a line-break forced before
 measure 25, we get back the linebreaking of Baerenreiter.
 
+
+
 This file used to show spacing weaknesses. Now it shows weaknesses in
-beam and slur handling."
+beam and slur handling.
+
+Note that the Barenreiter edition contains an engraving mistake. The
+second line begins with measure 6 (but prints 5).
+
+"
 
 }
 
@@ -27,9 +34,6 @@ beam and slur handling."
 
 sarabandeA =  \context Voice \notes \relative c {
   \property Staff.NoteCollision \set #'merge-differently-dotted = ##t
-  \property Voice.Beam \set #'quantise-dy-never-steeper = ##t
-  \property Voice.Beam \set #'ideal-lengthen = ##t
-  
   < { d8. e16 e4.-\trill d16 e } \\
     { d4 a2 } >
   f4.  [e8 d c] |
@@ -95,9 +99,8 @@ sarabandeA =  \context Voice \notes \relative c {
       <d4 g,> gis4.   } >
   \stemUp
   d16(cis)d f,
-  [a,8 e']
   \stemBoth
-  [d' cis] |
+  [a,8 e'] [d' cis] |
   d4 d,,2 |
 }
 
