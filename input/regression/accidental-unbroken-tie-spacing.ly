@@ -10,8 +10,8 @@ rechts = \notes \relative c' {
   \clef treble
   \time 3/4
   \context Voice {
-    c8 h2  <g8 h des f> ~ |
-    <g8 h des f>
+    c8 h2  <<g h des f>>8 ~ |
+    <<g h des f>>8
   }
 }
 
@@ -26,3 +26,4 @@ Rechts = \context Staff \notes {
     linewidth = -3.3 \cm
   }
 }
+%% new-chords-done %%

@@ -81,3 +81,4 @@ mus = \notes {
     indent=0.0
   }
 }
+%% new-chords-done %%

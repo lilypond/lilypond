@@ -15,3 +15,4 @@ smaller accidentals (default) or parentheses.
     \property Staff.Accidental \override #'style = #'parentheses
     cis''?4
     }}
+%% new-chords-done %%

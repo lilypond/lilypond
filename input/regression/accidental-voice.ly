@@ -58,3 +58,4 @@ voiceb = \notes \transpose c c' {
 	\context NoteNames=namesb \apply #no-octaves \voiceb
     >
 }
+%% new-chords-done %%

@@ -22,3 +22,4 @@ note. When central C is reached, we don't switch (by default).
 	>
 	
 }
+%% new-chords-done %%

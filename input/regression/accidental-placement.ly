@@ -11,18 +11,19 @@ flats in a sixth shoudl be staggered.  "
     cis4
     c4
  \transpose c c' {    
-  <bis4 es gis>
-  <es! as!>
-  <gis! cis!>
-  <g! des'>
-  <ges! es'!>
+  <<bis es gis>>4
+  <<es! as!>>
+  <<gis! cis!>>
+  <<g! des'>>
+  <<ges! es'!>>
 }    
-    <cis4 d es fis gis ases bes ces d dis >
-    <bes'! fis!>     
-    <bes! cis!>
-    <c! es ges beses>
-    <bes! c d f >    
-    <bes,! c d f >
+    <<cis d es fis gis ases bes ces d dis >>4
+    <<bes'! fis!>>     
+    <<bes! cis!>>
+    <<c! es ges beses>>
+    <<bes! c d f >>    
+    <<bes,! c d f >>
 }
 \paper { linewidth = -1. }
      }
+%% new-chords-done %%

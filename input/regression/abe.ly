@@ -19,3 +19,4 @@ texidoc="Automatic beamer behaves nicely."
     }
   }
 }
+%% new-chords-done %%

@@ -34,9 +34,9 @@ hairyChord = \context Staff \notes\relative c' <
 
 \score{
     \notes \transpose c c' {
-        \context Voice < fis''-\arpeggio g  d a >
-        \context Voice < fis,-\arpeggio g  d a >
-        \context Voice < fis''-\arpeggio g  d a >
+	<< fis'' g  d a >>-\arpeggio
+	<< fis, g  d a >>-\arpeggio
+	<< fis'' g  d a >>-\arpeggio
         \hairyChord
 	}
     \paper {
@@ -47,3 +47,5 @@ hairyChord = \context Staff \notes\relative c' <
 	}
 	}
 }
+
+%% new-chords-done %%

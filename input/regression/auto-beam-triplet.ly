@@ -12,3 +12,4 @@ texidoc = "Automatic beaming is also done on tuplets."
 	}
 	\paper{	}
 }
+%% new-chords-done %%

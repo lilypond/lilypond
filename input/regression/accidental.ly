@@ -14,3 +14,4 @@ foo = \notes\relative c''   {   \key as \major dis4 dis dis!^"force" dis? }
    \context NoteNames \foo
   >
 }
+%% new-chords-done %%

@@ -1,3 +1,12 @@
+2002-11-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* buildscripts/new-chords.py (edit): -e option: inline editing.
+
+	* input/regression/a*.ly (texidoc): syntax updates.
+
+	* Documentation/user/lilypond-book.itely (Integrating La@TeX{} and
+	music): elucidations. 
+
 2002-11-11 Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/include/lily-proto.hh, ly/engraver-init.ly,
