@@ -40,12 +40,20 @@
 	SCM self_scm_;
 
 
+#ifndef SCM_CELL_TYPE
+#define SCM_CELL_TYPE(X) SCM_CAR(X)
+#endif
+
+#ifndef SCM_CELL_WORD_1
+#define SCM_CELL_WORD_1(X) SCM_CDR(X)
+#endif	
+
 /**
    Check if S is of the specified C++ class.
  */
-#define SMOB_IS_TYPE_B(TYPE, S)  (SCM_NIMP((S)) && SCM_CAR((S)) == TYPE::smob_tag_)
+#define SMOB_IS_TYPE_B(TYPE, S)  (SCM_NIMP(S) && SCM_CELL_TYPE(S) == TYPE::smob_tag_)
 
 /// Cast S.  No checks are done.
-#define SMOB_TO_TYPE(TYPE, S)  ((TYPE*) SCM_CDR((S)))
+#define SMOB_TO_TYPE(TYPE, S)  ((TYPE*) SCM_CELL_WORD_1(S))
 #endif /* SMOBS_HH */
 
