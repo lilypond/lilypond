@@ -1,4 +1,6 @@
 
+\version "1.7.23"
+
 clusterSneeuwbal =\notes {
 		\property Thread.NoteHead \set #'transparent = ##t
 		\property Voice.Stem \set #'transparent = ##t

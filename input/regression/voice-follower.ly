@@ -1,3 +1,6 @@
+\version "1.7.23"
+
+
 \header { texidoc= "
 
 Whenever a voice switches to another staff a line connecting the notes

@@ -1,3 +1,6 @@
+\version "1.7.23"
+
+
 \header {
 texidoc = "Jazz chords, unusual combinations."
 }
