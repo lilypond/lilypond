@@ -8,7 +8,7 @@
 
 #include "config.hh"
 
-#ifdef HAVE_PANGO_FT2
+#ifdef HAVE_FONTCONFIG
 
 #include <fontconfig/fontconfig.h>
 

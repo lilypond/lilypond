@@ -21,6 +21,8 @@ See user manual, \NAME\
 @end ifnothtml
 
 
+@documentencoding utf-8
+@documentlanguage en
 
 @node Top, , , 
 @top
@@ -31,7 +33,7 @@ See user manual, \NAME\
 @item
 String numbers are now printed on chords as well,
 
-@lilypond[relative,relative=1,raggedright,fragment]
+@lilypond[relative,relative=1,raggedright,fragment,verbatim]
 <c\1 e\2 g\3>
 @end lilypond
 
