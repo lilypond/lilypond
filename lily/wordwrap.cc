@@ -1,7 +1,15 @@
+/*
+  wordwrap.cc -- implement Word_wrap
+
+  source file of the LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "break.hh"
 #include "p-score.hh"
 #include "debug.hh"
-
+#include "p-col.hh"
 /** el stupido. This should be done more accurately:
 
    It would be nice to have a Dynamic Programming type of algorithm

@@ -24,7 +24,7 @@ sub
     my $what="implement ";
     $what = "declare " if ($hh_b);
     my ($PROJECT, $cwd);
-    $PROJECT = "the LilyPond music typesetter";
+    $PROJECT = "the GNU LilyPond music typesetter";
     chop($cwd = `pwd`);
     
     $PROJECT= "the Flower Library" if ($cwd =~ /flower/);
