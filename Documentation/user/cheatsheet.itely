@@ -171,7 +171,7 @@ c\mf c\sfz
 @end lilypond
 
 
-@item @code{a\< b\!}
+@item @code{a\< a \!a}
 @tab crescendo
 @tab
 @lilypond[fragment,relative=2]
@@ -181,7 +181,7 @@ c\mf c\sfz
 a\< a \!a
 @end lilypond
 
-@item @code{a\> b\!}
+@item @code{a\> a a\!}
 @tab decrescendo
 @tab
 @lilypond[fragment,relative=2]
