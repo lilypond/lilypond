@@ -4,12 +4,13 @@
   
   */
 
-  #include <math.h>
+#include <math.h>
 #include "symbol.hh"
 #include "molecule.hh"
 #include "tex.hh"
 #include "symtable.hh"
 #include "dimen.hh"
+#include "debug.hh"
 #include "lookup.hh"
 
 Symbol
@@ -32,7 +33,11 @@ Lookup::beam_element(int sidx, int widx, Real slope)
 static int
 slope_index(Real &s)
 {
-    assert(ABS(s) < 0.45);
+    if (ABS(s) > 0.5) {
+	WARN << "beam steeper than 0.5";
+	s = sgn(s) * 0.5;
+    }
+
     int i = int(rint(s *  20.0));
 
     s = i/20.0;
