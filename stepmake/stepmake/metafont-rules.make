@@ -33,6 +33,12 @@ $(outdir)/%.pfb:
 
 
 
+
+
+$(outdir)/%.pfb: 
+	pktrace  $(basename $(@F))
+	mv $(basename $(@F)).pfb $(outdir)
+
 #%.afm:
 #	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)
 #	mv $@ $@.in

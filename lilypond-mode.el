@@ -149,6 +149,18 @@ in LilyPond-include-path."
   :group 'LilyPond
   :type 'string)
 
+(defcustom LilyPond-gv-command "gv -watch"
+  "Command used to display PS files."
+
+  :group 'LilyPond
+  :type 'string)
+
+(defcustom LilyPond-midi-command "timidity"
+  "Command used to play MIDI files."
+
+  :group 'LilyPond
+  :type 'string)
+
 ;; This is the major configuration variable.
 (defcustom LilyPond-command-alist
   `(
@@ -274,6 +286,42 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (interactive)
   (LilyPond-command (LilyPond-command-query (LilyPond-master-file))
 		    'LilyPond-master-file))
+
+(defun LilyPond-command-formatdvi ()
+  "Format the dvi output of the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-formatps ()
+  "Format the ps output of the current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-smartview ()
+  "View the dvi output of current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-view ()
+  "View the dvi output of current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-viewps ()
+  "View the ps output of current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file)
+)
+
+(defun LilyPond-command-midi ()
+  "View the ps output of current document."
+  (interactive)
+  (LilyPond-command (LilyPond-command-menu "Midi") 'LilyPond-master-file)
+)
 
 (defun LilyPond-command-formatdvi ()
   "Format the dvi output of the current document."

@@ -50,7 +50,7 @@ which substitutes some @AT_VARIABLES@ as well.
       </td></tr>
       <tr><td><font size="-1">
 	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-binaries">GNU/Linux binaries</a><br>
-	<a href="@TOP@Documentation/windows/out-www/installing.html">GNU/Windows binaries</a><br>
+	<a href="@TOP@Documentation/windows/out-www/installing.html">Windows binaries</a><br>
 	<a href="@TOP@Documentation/topdocs/out-www/INSTALL.html#download-source">Source code</a><br>
       </font></td></tr>
       <tr><td bgcolor="#e8e8ff">
