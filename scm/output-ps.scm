@@ -1,4 +1,4 @@
-;;;; output-ps.scm -- implement Scheme output routines for PostScript
+;;;; output-ps.scm -- implement Scheme output interface for PostScript
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
@@ -9,11 +9,7 @@
 ;;;;       input/test/title-markup.ly
 ;;;; 
 ;;;; TODO:
-;;;;   * papersize in header
-;;;;   * special characters, encoding.
-;;;;     + implement encoding switch (switches?  input/output??),
-;;;;     + move encoding definitions to ENCODING.ps files, or
-;;;;     + find out which program's PS(?) encoding code we can use?
+;;;;   * %% Papersize in (header ...)
 ;;;;   * text setting, kerning.
 ;;;;   * document output-interface
 
@@ -59,26 +55,16 @@
 	     no-origin
 	     start-page
 	     stop-page
-	     )
-)
+	     ))
+
 (use-modules (guile)
 	     (ice-9 regex)
 	     (srfi srfi-13)
 	     (lily))
 
 ;;; Global vars
-;; alist containing fontname -> fontcommand assoc (both strings)
 (define page-count 0)
 (define page-number 0)
-
-;; /lilypondpaperoutputscale 1.75729901757299 def
-;;/lily-output-units 2.83464  def  %% milimeter
-;;/output-scale lilypondpaperoutputscale lily-output-units mul def
-;;
-;; output-scale = 1.75729901757299 * 2.83464 = 4.9813100871731003736
-
-(define OUTPUT-SCALE 4.98)
-(define TOP-MARGIN 0)
 
 ;;; helper functions, not part of output interface
 (define (escape-parentheses s)
@@ -88,8 +74,6 @@
   (cons (+ (car a) (car b))
 	(+ (cdr a) (cdr b))))
 
-;;    ("ecmb12" . "ISOLatin1Encoding")))
-		 
 (define (ps-encoding text)
   (escape-parentheses text))
 
@@ -414,12 +398,8 @@
    " draw_symmetric_x_triangle"))
 
 (define (text font s)
-  
-;;  (string-append "(" (escape-parentheses s) ") show "))
-  (string-append
-
-   (font-command font) " setfont " 
-   "(" (ps-encoding s) ") show"))
+  (string-append (font-command font) " setfont "
+		 "(" (ps-encoding s) ") show"))
 
 (define (unknown) 
   "\n unknown\n")
