@@ -1318,16 +1318,9 @@ verbose_command_req:
 		Mark_req * m = new Mark_req;
 		$$ = m;
 	}
-	| MARK STRING {
+	| MARK scalar {
 		Mark_req *m = new Mark_req;
 		m->set_mus_property ("label", $2);
-		$$ = m;
-	}
-	| MARK bare_unsigned {
-		String s(to_str ($2));
-
-		Mark_req *m = new Mark_req;
-		m->set_mus_property ("label", gh_int2scm ($2));
 		$$ = m;
 	}
 	| PENALTY SCM_T 	{
