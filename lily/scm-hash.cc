@@ -6,11 +6,10 @@
   (c) 1999--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include <stdio.h>
-
+#include "ly-smobs.icc"
 #include "scm-hash.hh"
-
-
 
 Scheme_hash_table::Scheme_hash_table ()
 {
@@ -116,7 +115,6 @@ Scheme_hash_table::to_alist () const
 }
 
 
-#include "ly-smobs.icc"
 IMPLEMENT_UNSMOB(Scheme_hash_table,scheme_hash);
 IMPLEMENT_SMOBS(Scheme_hash_table);
 IMPLEMENT_DEFAULT_EQUAL_P(Scheme_hash_table);

@@ -55,15 +55,27 @@ examples:
 
 # don't understand this comment --hwn
 
+# See below.  The footify-all you had before caused dead links on the
+# webpage, because the footify command assumes it can calculate the location
+# of index.html from the current depth.  That doesn't work, if you don't
+# use recursive make like we do everywhere else; leads to bugs that you
+# make a specific fix for.
+
 	$(PYTHON) $(buildscripts)/mutopia-index.py -o short-examples.html input/
 	$(PYTHON) $(buildscripts)/mutopia-index.py -o long-examples.html mutopia/
 #$(footify-all-command)
 	$(footify) --index=./ `$(FIND) . -name '*.html' -print`
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz *-examples.html  `find input mutopia -type d -name 'out-www' -print`
 
+# Kpathsea is overkill, and a horror/impossible to compile without compiling
+# and using a matching TeX (well, I gave up trying for now).
+my_tfm_path=$(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
 
 localinstall:
 	mkdir -p $(datadir)
+ifeq ($(KPATHSEA),0)
+	$(foreach i, 1 2 3 4 5, rm -f $(datadir)/tfm.$(i); $(LN_S) $(word $(i), $(my_tfm_path)) $(datadir)/tfm.$(i) ; )
+endif
 
 local-WWW-clean:
 	$(SHELL) $(depth)/buildscripts/clean-fonts.sh
