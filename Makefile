@@ -4,6 +4,7 @@ $(exe): $(obs)
 	$(CXX) -o $@ $^ $(LOADLIBES)
 
 clean:
+	$(MAKE) -C objects clean
 	rm -f $(exe) *.o $(DOCDIR)/* core  
 
 distclean: clean
