@@ -4864,7 +4864,7 @@ letters by a factor 2 in both directions.
 Relative size is not linked to any real size.
 
 There is no style sheet provided for other fonts besides the @TeX{}
-family, and the style sheet can not be modified easiyl.
+family, and the style sheet can not be modified easily.
 
 @cindex font selection
 @cindex font magnification

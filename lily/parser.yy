@@ -67,7 +67,6 @@ TODO:
 #include "lilypond-input-version.hh"
 #include "scm-hash.hh"
 #include "auto-change-iterator.hh"
-#include "chord.hh"
 #include "ly-modules.hh"
 #include "music-sequence.hh"
 #include "input-smob.hh"
@@ -2018,7 +2017,7 @@ chord_separator:
 		$$ = ly_symbol2scm ("chord-caret"); 
 	}
 	| CHORD_SLASH steno_tonic_pitch {
-		$$ = scm_list_n (ly_symbol2scm ("chord-slash"), $2, SCM_UNDEFINED); 
+ 		$$ = scm_list_n (ly_symbol2scm ("chord-slash"), $2, SCM_UNDEFINED); 
 	}
 	| CHORD_BASS steno_tonic_pitch {
 		$$ = scm_list_n (ly_symbol2scm ("chord-bass"), $2, SCM_UNDEFINED); 
