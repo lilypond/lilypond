@@ -442,6 +442,8 @@ L1 is copied, L2 not.
        "define-music-properties.scm"
        "auto-beam.scm"
        "chord-name.scm"
+
+       "ly-from-scheme.scm"
        
        "define-context-properties.scm"
        "translation-functions.scm"
