@@ -45,13 +45,12 @@ symbols_to_pango_font_description (SCM family,
 				   SCM style,
 				   SCM variant,
 				   SCM weight,
-				   SCM stretch,
-				   Real size);
+				   SCM stretch);
 
 Font_metric *
 select_pango_font (Output_def *layout, SCM chain);
 
-const int PANGO_DPI = 1200;
+const int PANGO_RESOLUTION = 1200;
 
 #endif /* HAVE_PANGO16 */
 #endif /* PANGO_FONT_HH */

@@ -8,6 +8,7 @@
 */
 #include <math.h>
 
+#include "dimensions.hh"
 #include "all-font-metrics.hh"
 #include "output-def.hh"
 #include "pango-font.hh"
@@ -22,13 +23,6 @@ select_pango_font (Output_def *layout, SCM chain)
     {
       String name_str = ly_scm2string (scm_cdr (name));
       description = pango_font_description_from_string (name_str.to_str0 ());
-      
-      
-      Real step = robust_scm2double (ly_symbol2scm ("font-size"), 0.0);
-      Real size = layout->get_dimension (ly_symbol2scm ("text-font-size"))
-	* pow (2.0, step / 6.0);
-      pango_font_description_set_size (description,
-				       gint (size * PANGO_SCALE));
     }
   else
     {
@@ -42,16 +36,17 @@ select_pango_font (Output_def *layout, SCM chain)
       SCM weight = ly_chain_assoc_get (ly_symbol2scm ("font-series"), chain,
 				       SCM_BOOL_F);
       
-      Real step = robust_scm2double (ly_symbol2scm ("font-size"), 0.0);
-      Real size = layout->get_dimension (ly_symbol2scm ("text-font-size"))
-	* pow (2.0, step / 6.0);
-
       description
 	= symbols_to_pango_font_description (family, style, variant, weight,
-					     SCM_BOOL_F,
-					     size);
+					     SCM_BOOL_F);
     }
 
+  Real step = robust_scm2double (ly_symbol2scm ("font-size"), 0.0);
+  Real size = layout->get_dimension (ly_symbol2scm ("text-font-size"))
+    * pow (2.0, step / 6.0) * point_constant;
+  pango_font_description_set_size (description,
+				   gint (size * PANGO_SCALE));
+  
   Font_metric * fm = all_fonts_global->find_pango_font (description);
 
   return find_scaled_font (layout, fm, 1.0,
@@ -146,8 +141,7 @@ symbols_to_pango_font_description(SCM family,
 				  SCM style,
 				  SCM variant,
 				  SCM weight,
-				  SCM stretch,
-				  Real size)
+				  SCM stretch)
 {
   PangoFontDescription * description = pango_font_description_new ();
 
@@ -164,8 +158,6 @@ symbols_to_pango_font_description(SCM family,
 				     symbol_to_pango_weight (weight));
   pango_font_description_set_stretch (description,
 				      symbol_to_pango_stretch (stretch));
-  pango_font_description_set_size (description,
-				   gint (size * PANGO_SCALE));
 
   return description;
 }
