@@ -80,7 +80,7 @@ calc_concaveness (Array<int> const &positions, Direction beam_dir)
     scaling of concaveness doesn't matter much.
   */
   if (dy)
-    concaveness /= dy;
+    concaveness /= fabs (dy);
   return concaveness;
 }
 

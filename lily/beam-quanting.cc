@@ -70,7 +70,8 @@ struct Quant_score
 
 */
 
-int best_quant_score_idx (Array<Quant_score>  const & qscores)
+int
+best_quant_score_idx (Array<Quant_score>  const & qscores)
 {
   Real best = 1e6;
   int best_idx = -1;
@@ -83,6 +84,13 @@ int best_quant_score_idx (Array<Quant_score>  const & qscores)
 	}
     }
 
+  if (best_idx < 0)
+    {
+      programming_error ("Huh? No best beam quant score?");
+      best_idx = 0;
+    }
+  
+    
   return best_idx;
 }
   
@@ -274,7 +282,6 @@ Beam::quanting (SCM smob)
       }
 
   int best_idx = best_quant_score_idx (qscores);
-
 
 #if DEBUG_QUANTING
   SCM inspect_quants = me->get_property ("inspect-quants");
