@@ -1158,7 +1158,7 @@ accidentals that were mistyped, stand out very much when listening to
 the musical transcription.
 
 @code{\midi} can be used in similarly to @code{\paper @{ @}}, for
-example
+example,
 @example 
 \score @{
     @var{..music..}
