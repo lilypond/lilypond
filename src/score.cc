@@ -1,13 +1,11 @@
-#include "staffcommands.hh"
 #include "tstream.hh"
-#include "getcommand.hh"
-#include "inputcommands.hh"
 #include "score.hh"
 #include "sccol.hh"
 #include "pscore.hh"
 #include "staff.hh"
 #include "debug.hh"
 #include "paper.hh"
+
 
 void
 Score::process()
@@ -18,20 +16,21 @@ Score::process()
 	paper_ = new Paperdef;
     
     /// distribute commands to disciples
-    distribute_commands();
-    
     pscore_ = new PScore(paper_);
-    for (PCursor<Staff*> sc(staffs_); sc.ok(); sc++) {
-	sc->set_output(pscore_);
-	sc->process();
+    for (PCursor<Staff*> i(staffs_); i.ok(); i++) {
+	i->process_commands(last());
+	i->set_output(pscore_);
+	i->process();
     }
 
     // do this after processing, staffs first have to generate PCols.
     do_pcols();
+    // ugh. Would want to clean the columns before anything else.
+    clean_cols();
     calc_idealspacing();
-    clean_cols();		// ugh. Would want to clean the columns before anything else.
 
-
+    // debugging
+    print ();
     OK();
 
     pscore_->preprocess();
@@ -49,16 +48,16 @@ Score::process()
 void
 Score::clean_cols()
 {    
-    for (PCursor<Staff * > sc(staffs_); sc.ok(); sc++)
-	sc->clean_cols();
+    for (PCursor<Staff * > i(staffs_); i.ok(); i++)
+	i->clean_cols();
     
     for (PCursor<Score_column*> c(cols_); c.ok(); ) {
 	if (!c->pcol_->used()) {
-	    mtor << "removing : ";
-	    c->print();
 	    c.del();
-	} else
+	} else {
+	    c->preprocess();
 	    c++;
+	}
     }
     
     pscore_->clean_cols();
@@ -115,26 +114,11 @@ Score::find_col(Real w,bool mus)
 }
 
 void
-Score::distribute_commands()
-{
-    for (PCursor<Staff*> sc(staffs_); sc.ok(); sc++) {
-	sc->process_input_commands(input_commands_, last());
-    }
-}
-void
-Score::add(Staff*s)
-{
-    s->score_ = this;
-    staffs_.bottom().add(s);    
-}
-
-
-void
 Score::do_pcols()
 {
-    PCursor<Score_column*> sc(cols_);
-    for (; sc.ok(); sc++) {
-	pscore_->add(sc->pcol_);
+    PCursor<Score_column*> i(cols_);
+    for (; i.ok(); i++) {
+	pscore_->add(i->pcol_);
     }
 }
 Real
@@ -151,9 +135,9 @@ void
 Score::OK() const
 {
 #ifndef NDEBUG
-    for (PCursor<Staff*> sc(staffs_); sc.ok(); sc++) {
-	sc->OK();
-	assert(sc->score_ == this);
+    for (PCursor<Staff*> i(staffs_); i.ok(); i++) {
+	i->OK();
+	assert(i->score_ == this);
     }
     staffs_.OK();
     cols_.OK();
@@ -169,34 +153,28 @@ Score::print() const
 {
 #ifndef NPRINT
     mtor << "score {\n"; 
-    for (PCursor<Staff*> sc(staffs_); sc.ok(); sc++) {
-	sc->print();
+    for (PCursor<Staff*> i(staffs_); i.ok(); i++) {
+	i->print();
     }
-    for (PCursor<Score_column*> sc(cols_); sc.ok(); sc++) {
-	sc->print();
+    for (PCursor<Score_column*> i(cols_); i.ok(); i++) {
+	i->print();
     }
+    if (pscore_)
+	pscore_->print();
+    
     mtor << "}\n";
 #endif
 }
 
-Score::Score()
+Score::Score(Paperdef*p)
 {
     pscore_=0;
-    paper_ = 0;
+    paper_ = p;
 }
 
 Score::~Score()
 {
     delete pscore_;
-    for (int i=0; i<input_commands_.sz(); i++)
-	delete input_commands_[i];    
-    delete paper_;
-}
-void
-Score::set(Paperdef*p)
-{
-    delete paper_;
-    paper_ = p;
 }
 
 void
@@ -212,10 +190,11 @@ Score::output(String s)
 }
 
 
+
 void
-Score::add(svec<Command*> &s)
+Score::add(Staff*s)
 {
-    input_commands_.add(get_reset_command());
-    input_commands_.concat(s);
+    s->score_ = this;
+    staffs_.bottom().add(s);
 }
 
