@@ -705,7 +705,7 @@ by assigning a music expression to @code{pipeSymbol},
 pipeSymbol = \bar "||"
 
 \score {
-    \notes  { c'2 | c'2 | }
+    \notes  { c'2 c'2 | c'2 c'2 | }
 }
 @end lilypond 
 
