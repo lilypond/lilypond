@@ -1,3 +1,8 @@
+2003-10-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scripts/lilypond-book.py (output_dict): Add definition of
+	\lilypondbook also for LaTeX output. Solves several bug reports.
+
 2003-10-29  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/test/follow-thread.ly, input/test/polymetric.ly: Fix typos.
