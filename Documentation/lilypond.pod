@@ -8,17 +8,9 @@ lilypond - the GNU music typesetter
 
 =head1 DESCRIPTION
 
-Technically GNU LilyPond is a preprocessor which generates TeX
-(or LaTeX) output which contains information to typeset a musical
-score. Practically it is a typesetter, which only uses TeX as an
-output medium. (this is handy because there exist music fonts for TeX)
-
-As a bonus, you can also output a MIDI file of what you typed.
-
-It translates script files (mudela files or F<*.ly>'s) into TeX input.
-Typesetting music is a complex task, whereas the message that printed
-music conveys is usually a simple one. GNU LilyPond is a try at providing
-a simple interface for setting music.
+GNU LilyPond which converts music definition files into visual or
+audio output: it can produce formatted sheet music in TeX and 
+and mechanical perfomances to MIDI files.
 
 =head1 OPTIONS
 
@@ -88,10 +80,6 @@ Multiple staffs in one score. Each staff can have a different meters.
 
 =item *
 
-multiple stafftypes (melodic, rhythmic) [broken from  pl28 on]
-
-=item *
-
 beams, slurs, ties, chords, super/subscripts (accents and text),
 triplets, general n-plet (triplet, quadruplets, etc.), lyrics,
 transposition dynamics (both absolute and hairpin style)
@@ -131,22 +119,11 @@ information, and small contributions.
 
 Han-Wen Nienhuys <hanwen@stack.nl>, http://www.stack.nl/~hanwen
 
-Main author
-
 =item *
 
 Jan Nieuwenhuizen <jan@digicash.com>,  http://www.digicash.com/~jan.
 
-Context errors, Lyrics, mi2mu, MIDI stuff, make structure, bits of
-FlowerLib, general comments, Mudela design.
-
 =back
-
-Your name could be here! If you want to help, then take a look at the
-SMALLISH PROJECTS section of in the file F<TODO>. Some do not involve
-coding C++
-
-=head1 EXAMPLES
 
 
 =head1 PROBLEMS
@@ -163,16 +140,25 @@ if the bug has been fixed in a newer release.
 
 =item *
 
-if the bug has been found earlier, consult F<TODO>
+if the bug has been found earlier, consult F<TODO> and F<BUGS>
 
-=item * 
+=back 
 
-where the bug comes from: if GNU LilyPond bombs out, then please
-recompile using with debugging info turned on, and send a copy of the
-input which causes the error and a gdb stacktrace of the crash. It
-also helps if you can print the values of the objects. So if your
-trace is
+If you have found a bug, then you should send a bugreport.
 
+	- send a copy of the input which causes the error
+	- send a description of the platform you use
+	- send a description of the LilyPond version you use (with
+	compile/config options please)
+	- send a description of the bug itself.
+	- send it to bug-gnu-music@vuse.vanderbilt.edu
+
+It does help if you can find out where the bug comes from: if GNU
+LilyPond bombs out, then please recompile using with debugging info
+turned on, and send gdb stacktrace of the crash. It also helps if you
+can print the values of the objects. So if your trace is
+
+	received SIGSEGV 
 	(gdb) backtrace 12
 	#0  Interval::operator+= (this=0x11fffec60..)
 	    at ../flower/interval.hh:50
@@ -183,13 +169,6 @@ trace is
 
 Than it would help if you send a dump of the Interval and the Item
 (use: C<print *this> or use LilyPond C<print()> methods).
-
-=back
-
-Bug reports should be directed to:
-bug-gnu-music@vuse.vanderbilt.edu. In any case, they should contain a
-description of the problem, a small input file which reproduces it (if
-applicable), the lilypond version and a description of the platform.
 
 
 =head1 FILES
@@ -247,8 +226,8 @@ GNU LilyPond is
 updated very frequently, the latest version is always available at:
 ftp://pcnov095.win.tue.nl/pub/lilypond.
 
-For programs which part of the GNU music project, the following mailing list
-have been setup:
+For programs which are part of the GNU music project, the following
+mailing list have been setup:
 
 
 =over 4
@@ -298,7 +277,7 @@ wrote the first 44 versions (0.01 to 0.44), then his program caught my
 attention, and I was slowly sucked in to the interesting problem of
 easily producing beautifully printed music. I contributed some
 code. We soon realised that MPP's design was too fundamentally broken
-to be repaired. It was decided to rewrite MPP.  We debated a lot about
+to be repaired, so it was decided to rewrite MPP.  We debated a lot about
 the requirements to an inputformat (fall 1995). I sat down and started
 with a parser-first, bottom-up rewrite called mpp95 (which totally
 failed, obviously).
@@ -312,3 +291,6 @@ Patchlevel 0.0.7 (or 8) to the mutex list after asking some technical
 details on spacing; it was downloaded approximately 4 times.  Then I
 got the hang of it, and in the subsequent two months, I coded until it
 had doubled in size (pl 23).
+
+The first large scale release (0.1) was planned after approximately 80
+patchlevels on August 1, 1997.
