@@ -1,3 +1,21 @@
+
+pl 27
+	- -t/--test switch for experimental stuff.
+	- bf: debian optimize is not with 'z'
+	- mf: naming feta fonts are now called feta16, feta-beams16, etc.
+	- feta: ledgerline
+	- lily adjustments for new and elegant ledger line
+	- bf: mf-source path.
+
+pl 26.jcn1
+	- bf: numerals
+	- sleur.ly
+	- embedded slur testing 
+	- bf + patch: make-patch release.py / VERSION
+
+
+********
+oct 26
 pl 26
 	- bf: \transpose
 	- feta: numerals 0 - 9, rewrote flags.

@@ -9,6 +9,7 @@ AC_DEFUN(AC_LILY_WARN, [
 
 dnl should cache result.
 dnl should  look in $prefix first.
+dnl should probably assume TDS
 
 AC_DEFUN(AC_TEX_PREFIX, [
     
