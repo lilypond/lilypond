@@ -6,6 +6,7 @@ AC_LANG_CPLUSPLUS
 optimise_b=yes
 shared_b=no
 LIB_SUFFIX=.a
+MODULE_CXXFLAGS="$MODULE_CXXFLAGS -D_REENTRANT"
 
 if test x$host = xNONE; then
     OUTDIR_NAME=${OUTDIR_NAME-"out"}
@@ -34,8 +35,8 @@ AC_ARG_ENABLE(out-dir,
     [])
 
 if test $shared_b = yes; then
-	MODULE_CXXFLAGS="$MODULE_CXXFLAGS -fPIC"
-	MODULE_LDFLAGS="-shared -Wl,-soname,libflower.so "
+	MODULE_CXXFLAGS="$MODULE_CXXFLAGS -fPIC -DPIC"
+	MODULE_LDFLAGS="-shared -Wl,-soname,libflower.so.\$(VERSION) "
 	LIB_SUFFIX=.so
 fi
 

@@ -3,7 +3,7 @@ Wed,  6 Aug 1997 04:30:28 -0600
 
 It was downloaded from
     ftp://pcnov095.win.tue.nl/pub/lilypond/development/
-        lilypond-0.1.39.tar.gz
+        lilypond-0.1.44.tar.gz
 
 It is also available from:
     ftp://alpha.gnu.org/gnu/
@@ -32,8 +32,7 @@ Copyright:
 
     You should have received a copy of the GNU General Public License
     along with this program; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA  02111-1307, USA.
+    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 
 All the other scripts and control files for building and installing
@@ -41,4 +40,4 @@ GNU LilyPond under Debian GNU/Linux are also under the GNU General
 Public License (GPL) version 2 or later.  
 
 On Debian GNU/Linux systems, the complete text of the GNU General
-Public License can be found in `/usr/doc/copyright/GPL.gz'.
+Public License can be found in `/usr/doc/copyright/GPL'.

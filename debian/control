@@ -2,18 +2,20 @@ Source: lilypond
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
-Standards-Version: 2.3.0.1
+Standards-Version: 2.4.0.0
 
 Package: lilypond
 Architecture: any
 Depends: ${shlibs:Depends}
 Recommends: tetex-base
 Conflicts: musixtex-fonts
-Description: A music typesetting program.
- GNU LilyPond is a program which converts a music-script (mudela) into TeX
- output, or MIDI to produce multi-staff scores. Features include multiple
- meters, clefs, keys, lyrics, versatile input-language, cadenzas beams,
- slurs, triplets, multiple voices.
+Description: The GNU Project music typesetter.
+ LilyPond is the GNU Project music typesetter.  The program generates
+ visual or auditive output from a music definition file: it can typeset
+ formatted sheet music to a TeX file and play (mechanical) performances
+ to a MIDI file.  Features include multiple staffs, meters, clefs,
+ keys, lyrics, versatile input-language, cadenzas, beams, slurs,
+ triplets.  It includes a nice font of musical symbols.
  .
   URL: http://www.stack.nl/~hanwen/lilypond/
   Authors: Han-Wen Nienhuys <hanwen@stack.nl>

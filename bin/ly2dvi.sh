@@ -8,7 +8,7 @@
 #  Original LaTeX file made by Mats Bengtsson, 17/8 1997
 #
 
-VERSION="0.6.hwn1"
+VERSION="0.6.jaf2"
 NAME=ly2dvi.sh
 IDENTIFICATION="$NAME $VERSION" 
 NOW=`date`
@@ -16,6 +16,9 @@ echo "$IDENTIFICATION" 1>&2
 
 # NEWS
     
+# 0.6.hwn1.jaf
+# 	- LILYINCLUDE update
+#
 # 0.6.hwn1
 # 	- handle LILYINCLUDE
 #       - --output
@@ -420,31 +423,26 @@ $IDENTIFICATION: dvi file name is $RESULT
 EOF
 }
 
-    # ugh. GF is side-effect.
+# ugh. GF is side-effect.
 findInput() {
-    # should check for LILYINCLUDE
-    for lypath in `echo $LILYINCLUDE| sed 's/:/ /g'`
-    do
-	if [ x$lypath = x ]
-	then
-	    lypath="."
-	fi
+# should check for LILYINCLUDE
+  for lypath in "." `echo $LILYINCLUDE| sed 's/:/ /g'`
+  do
+    if [ -f "$lypath/$1" ]
+    then
+      GF="$lypath/$1"
+      return	    
+    fi
 
-	if [ -f "$lypath/$1" ]
-	then
-	    GF="$lypath/$1"
-	    return	    
-	fi
-
-        if [ -f "$lypath/$1.ly" ]
-	then
-		GF="$lypath/$1.ly"
-		return
-	fi
-    done
-    $debug_echo $IDENTIFICATION": Input file "$GF" not found"
-    echo $NAME": Input file "$GF" not found"	1>&2
-    exit 2
+    if [ -f "$lypath/$1.ly" ]
+    then
+      GF="$lypath/$1.ly"
+      return
+    fi
+  done
+  $debug_echo $IDENTIFICATION": Input file "$GF" not found"
+  echo $NAME": Input file "$GF" not found"                       1>&2
+  exit 2
 }
 #
 # Loop through all files

@@ -64,16 +64,18 @@ localdist: configure
 #
 
 localdistclean:
-	rm -f config.cache config.status
+	rm -f config.cache config.status config.log
 
 localinstall: $(LIBFLOWER)
 ifeq ($(LIB_SUFFIX),.so)
 	$(INSTALL) -d $(libdir)
-	$(INSTALL) $(LIBFLOWER) $(libdir)
+	$(INSTALL) $(LIBFLOWER).$(VERSION) $(libdir)
+	ln -s $(LIB_PREFIX)flower$(LIB_SUFFIX).$(VERSION) $(libdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX).$(MAJOR_VERSION)
+	ln -s $(LIB_PREFIX)flower$(LIB_SUFFIX).$(VERSION) $(libdir)/$(LIB_PREFIX)flower$(LIB_SUFFIX)
 endif
 
 localuninstall:
-	rm -f $(libdir)/libflower.{so,a}
+	rm -f $(libdir)/libflower.{so*,a}
 
 
 $(outdir)/flower-version.o: $(outdir)/version.hh

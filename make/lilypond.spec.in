@@ -18,6 +18,7 @@ to a TeX file and play (mechanical) performances to a
 MIDI file.  Features include multiple staffs, meters, 
 clefs, keys, lyrics, versatile input-language, 
 cadenzas, beams, slurs, triplets.
+It includes a nice font of musical symbols.
 
 %prep
 %setup

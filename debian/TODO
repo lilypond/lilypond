@@ -1,2 +1,4 @@
-* Move ly2dvi.sh to a proper place.  It is currently placed in
-  /usr/doc/lilypond.  (1997-11-25)
+Fri,  6 Feb 1998 17:24:49 -0700:
+ * Compile mudela-mode.el into mudela-mode.elc
+ * Install /etc/emacs/site-start.d/50lilypond.el
+ * Figure out how to make mudela-mode work on my computer.  :-)
