@@ -7,13 +7,22 @@
 
 ;;; HIP -- hack in progress
 ;;;
-;;; status: hello-world
-;;;
-;;; This first working version needs rotty's g-wrap--tng.
+;;; This first working version needs Rotty's g-wrap--tng.
 ;;; (janneke's guile-gnome patches now in main archive).
+;;; see also: guile-gtk-general@gnu.org
 ;;;
-;;; Try it:
-;;;     lilypond-bin -fgnome input/simple-song.ly
+;;; Try it
+;;;
+;;;   * Use latin1 encoding for gnome backend, do
+;;;       make -C mf clean
+;;;       make -C mf ENCODING_FILE=$(kpsewhich cork.enc)
+;;;       (cd mf/out && mkfontdir)
+;;;       xset +fp $(pwd)/mf/out
+;;;  
+;;;   * lilypond-bin -fgnome input/simple-song.ly
+;;;
+;;;      todo: hmm --output-base broken?
+;;;   ### cd mf && mftrace --encoding=$(kpsewhich cork.enc) --autotrace --output-base=feta-cork-20 feta20.mf && mf feta20.pfa out
 
 ;;; Set XEDITOR and add
 ;;;    #(ly:set-point-and-click 'line-column)
@@ -24,10 +33,8 @@
 ;;;    lilypond-devel)
 ;;;    - wait for/help with pango 1.6
 ;;;    - convert feta to OpenType (CFF) or TrueType (fontforge?)
-;;;    - hack feta20/feta20.pfa?: use latin1 encoding for gnome backend
-;;;      Trying:
-;;;         mftrace --encoding=$(kpsewhich cork.enc) --autotrace --output-base=feta-cork-20 feta20.mf
-;;;      hmm --output-base broken?
+;;;    - hack feta20/feta20.pfa?:
+;;;  * font, canvas, scaling?
 ;;;  * implement missing stencil functions
 ;;;  * implement missing commands (next, prev? page)
 ;;;  * user-interface, keybindings
@@ -191,9 +198,16 @@ guile -s ../src/gtk/examples/hello.scm
 (define canvas-height
   (inexact->exact (round (* 1.42 canvas-width))))
 
+(define font-paper #f)
+
+;;(define pixels-per-unit 1.0)
+(define pixels-per-unit 2.0)
+
 ;; TODO: use canvas scaling, use output-scale for paper/canvas dimensions?
-(define output-scale (* 2 2.83464566929134))
+;;(define output-scale (* 2 2.83464566929134))
 ;;(define output-scale 2.83464566929134)
+(define OUTPUT-SCALE 2.83464566929134)
+(define output-scale (* OUTPUT-SCALE pixels-per-unit))
 ;;(define output-scale 1)
 
 ;; helper functions
@@ -201,6 +215,27 @@ guile -s ../src/gtk/examples/hello.scm
   (apply format (cons (current-error-port) (cons string rest)))
   (force-output (current-error-port)))
 
+(define (utf8 i)
+  (cond
+   ((< i #x80) (make-string 1 (integer->char i)))
+   ((< i #x800) (list->string
+		 (map integer->char
+		      (list (+ #xc0 (quotient i #x40))
+			    (+ #x80 (modulo i #x40))))))
+   ((< i #x10000)
+    (let ((x (quotient i #x1000))
+	  (y (modulo i #x1000)))
+      (list->string
+       (map integer->char
+	    (list (+ #xe0 x)
+		  (+ #x80 (quotient y #x40))
+		  (+ #x80 (modulo y #x40)))))))
+   (else FIXME)))
+  
+(define (custom-utf8 i)
+  (if (< i 80)
+      (utf8 i)
+      (utf8 (+ #xee00 i))))
 
 (define x-editor #f)
 (define (get-x-editor)
@@ -253,7 +288,6 @@ guile -s ../src/gtk/examples/hello.scm
     ((2button-press) (gobject-set-property item 'fill-color "red")))
   #t)
 
-(define pixels-per-unit 1.0)
 (define (key-press-event item event . data)
   (let ((keyval (gdk-event-key:keyval event))
 	(mods (gdk-event-key:modifiers event)))
@@ -272,12 +306,7 @@ guile -s ../src/gtk/examples/hello.scm
     #f))
 
 (define (char font i)
-  ;;(text font (make-string 1 (integer->char i))))
-  ;;(text font "a"))
-  ;; FIXME: utf8?
-  (if (< i 127)
-      (text font (make-string 1 (integer->char i)))
-      (text font "a")))
+  (text font (utf8 i)))
 
 (define (placebox x y expr)
   (let ((item expr))
@@ -330,7 +359,8 @@ guile -s ../src/gtk/examples/hello.scm
     (set-scroll-region canvas 0 0 2000 4000)
     
     (gtype-instance-signal-connect window 'key-press-event key-press-event)
-    
+
+    (set-pixels-per-unit canvas pixels-per-unit)
     (show-all window)
     (set! canvas-root (root canvas))
     (set! main-canvas canvas)
@@ -343,6 +373,16 @@ guile -s ../src/gtk/examples/hello.scm
    (else
     (ly:font-filename font))))
 
+(define (pango-font-size font)
+  (let* ((designsize (ly:font-design-size font))
+	 (magnification (* (ly:font-magnification font)))
+	 ;;(ops (ly:paper-lookup paper 'outputscale))
+	 ;;(ops (* pixels-per-unit OUTPUT-SCALE))
+	 ;;(ops (* pixels-per-unit pixels-per-unit))
+	 (ops (* (/ 12 20) (* pixels-per-unit pixels-per-unit)))
+	 (scaling (* ops magnification designsize)))
+    scaling))
+
 (define (text font string)
   (stderr "font-name: ~S\n" (ly:font-name font))
   ;; TODO s/filename/file-name/
@@ -350,10 +390,12 @@ guile -s ../src/gtk/examples/hello.scm
   (make <gnome-canvas-text>
     #:parent canvas-root
     #:x 0 #:y 0
-    #:size-points 12
-    #:size-set #t
     ;;    #:font "new century schoolbook, i bold 20"
     #:font (pango-font-name font)
+    ;; #:size-points 12
+    #:size-points (pango-font-size font)
+    ;;#:size (pango-font-size font)
+    #:size-set #t
     #:fill-color "black"
     #:text string))
 
@@ -377,3 +419,8 @@ guile -s ../src/gtk/examples/hello.scm
 		     (list line col file)
 		     #f)))
 
+;; AARGH
+;;(define (define-fonts paper . rest)
+;;(define (define-fonts foebar paper)
+;;  ;; Ughr
+;;  (set! font-paper paper))
