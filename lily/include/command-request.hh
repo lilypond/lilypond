@@ -150,7 +150,7 @@ public:
     /// return number of sharps in key
     int sharps_i();
 
-    void transpose (Melodic_req const & d) const;
+    void transpose (Melodic_req const * d) const;
     /// is minor key?
     int minor_b();
 };
