@@ -162,13 +162,13 @@ which?
       \property Staff.NoteSpacing \set #'stem-spacing-correction
         = #0.6
       c'4 e''4 e'4 b'4 |
-      b'4 e''4 \stemDown e'4 e''4| \stemBoth
+       \stemDown b'4 e''4 a'4 e''4| \stemBoth
       \property Staff.NoteSpacing \override #'stem-spacing-correction
       = #0.0
       \property Staff.StaffSpacing \override #'stem-spacing-correction
       = #0.0
       c'4 e''4 e'4 b'4 |
-      b'4 e''4 \stemDown e'4 e''4|      
+      \stemDown b'4 e''4 a'4 e''4|      
     }
     \paper { linewidth = -1. } }
 @end lilypond

@@ -337,12 +337,15 @@ is erased.
 (translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
 positions - by only drawing one beam over the beat.")
 (translator-property-description 'systemStartDelimiter symbol? "Which grob to make for the start of the system/staff?")
+(translator-property-description 'tablatureFormat procedure?
+				 "Function formatting a tab notehead; it takes
+a string number, a list of string tunings and Pitch object. It returns the text as a string.")
+
 (translator-property-description 'textNonEmpty boolean? " If set
 to true then text placed above or below the staff is not assumed to
 have zero width.  @code{\fatText} and @code{\emptyText} are predefined
 settings.
 .")
-(translator-property-description 'tablatureFormat procedure? "DOCME.")
 (translator-property-description 'tieMelismaBusy boolean? "Signal ties when automaticMelismata is set.")
 (translator-property-description 'timeSignatureFraction number-pair? "
 pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")

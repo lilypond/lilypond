@@ -497,16 +497,27 @@ a lilypond export option:
 
 @itemize @bullet
 @item
-@uref{http://denemo.sourceforge.net/, Denemo} was once intended as
+Denemo was once intended as
 a LilyPond graphical user interface.  It run on Gnome/GTK.
+
+@quotation
+@uref{http://denemo.sourceforge.net/}
+@end  quotation
+
 @item
-@uref{http://rnvs.informatik.tu-chemnitz.de/~jan/noteedit/noteedit.html, Noteedit}
- is a graphical score editor that runs under KDE/Qt.
+ Noteedit, a graphical score editor that runs under KDE/Qt.
+@quotation
+@uref{http://rnvs.informatik.tu-chemnitz.de/~jan/noteedit/noteedit.html,}
+@end quotation
+
 @item
-@uref{http://rosegarden.sf.net/, RoseGarden}
- was the inspiration for naming LilyPond.  Nowadays it has been
-rewritten from scratch and supports LilyPond export as of version
-0.1.6.
+RoseGarden was once the inspiration for naming LilyPond.  Nowadays it
+has been rewritten from scratch and supports LilyPond export as of
+version 0.1.6.
+
+@quotation
+@uref{http://rosegarden.sf.net/}
+@end quotation
 @end itemize
 
 Another option is to enter the music using your favorite MIDI
@@ -2926,12 +2937,12 @@ tuning defaults to the standard guitar tuning (with 6 strings).
 
 @lilypond[fragment,verbatim]
   \context TabStaff <
-    \notes @{
+    \notes {
       \property Staff.Stem \override #'direction = #1
       
       a,4-2 c'-5 a-4 e'-6
       e-3 c'-5 a-4 e'-6
-    @}
+    }
   >  
 @end lilypond
 
@@ -4190,7 +4201,8 @@ marking:
 
 \score {
   \notes\relative c'' {
-    a1^#`((columns (font-relative-size . -1)) ,dotted-eight-note " = 64")
+    a1^#`((columns (font-relative-size . -1))
+           ,dotted-eight-note " = 64")
   }
   \paper {
     linewidth = -1.
@@ -4489,7 +4501,7 @@ value assigned in the @code{\paper} block), systems are evenly
 distributed vertically on the last page.  This might produce ugly
 results in case there are not enough systems on the last page.  Note
 that @command{lilypond-book} ignores @code{lastpagefill}.  See
-@ref{Insert music snippets into your texts using lilypond-book} for
+@ref{lilypond-book: integrating text and music} for
 more information.
 
 @cindex @code{lastpagefill}
