@@ -60,6 +60,7 @@ MergeFonts("feta-alphabet%(design_size)d.pfa");
 MergeKern("feta-alphabet%(design_size)d.tfm");
 
 LoadTableFromFile("LILC", "feta%(design_size)d.otf-table")
+LoadTableFromFile("LILY", "feta%(design_size)d.otf-gtable")
 
 Generate("%(name)s%(design_size)d.otf");
 Generate("%(name)s%(design_size)d.cff");''' % vars()
@@ -71,6 +72,7 @@ Generate("%(name)s%(design_size)d.cff");''' % vars()
 
 	deps = r'''%(name)s%(design_size)d.otf: $(outdir)/feta%(design_size)d.pfa \
   $(outdir)/parmesan%(design_size)d.pfa  \
-  $(outdir)/feta-alphabet%(design_size)d.pfa feta%(design_size)d.otf-table
+  $(outdir)/feta-alphabet%(design_size)d.pfa feta%(design_size)d.otf-table \
+  $(outdir)/feta-alphabet%(design_size)d.pfa feta%(design_size)d.otf-gtable
 ''' % vars()
 	open (path, 'w').write (deps)

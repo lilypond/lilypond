@@ -140,7 +140,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
       if (k >= 0)
 	{
 	  Box b = fm->get_indexed_char (k);
-	  Offset wxwy = fm->get_indexed_wxwy (k);
+	  Offset wxwy = fm->attachment_point (key);
 	  Interval v = b[a];
 	  if (!v.is_empty ())
 	    return 2 * (wxwy[a] - v.center ()) / v.length ();

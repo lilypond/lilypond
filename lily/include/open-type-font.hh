@@ -16,7 +16,10 @@
 class Open_type_font : public Font_metric
 {
   FT_Face face_; /* handle to face object */
+
   SCM lily_character_table_; 
+  SCM lily_global_table_;
+  
   Open_type_font();
 public:
   static SCM make_otf (String);
