@@ -101,6 +101,7 @@ static Getopt_long *oparser_p_static = 0;
        follow regular localisation guidelines).
  */
 static Long_option_init options_static[] = {
+  /* print example usage:  lilypond -e "(set-lily-option 'help 0)" ? */
   {_i ("EXPR"), "evaluate", 'e',_i ("evalute EXPR as Scheme after .scm init is read")},
   /* another bug in option parser: --output=foe is taken as an abbreviation
      for --output-format */

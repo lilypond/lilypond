@@ -1,5 +1,12 @@
-1.4.4.jcn2
+1.4.4.jcn3
 ==========
+
+TODO: look at other filledbox'es (stafflines and barlines don't match up).
+
+* Testing code off by default.  On: -e "(define ps-testing 1)" -fps
+
+* Output via TeX/dvips still gives problems.  Use direct postscript
+output for real testing.
 
 * Beam and stem fixes:
  - Stems drawn in PostScript (should do all filledbox'es in PS?).

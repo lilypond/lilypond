@@ -19,11 +19,19 @@ webpage}.  You may need the patch @file{guile-1.4-gnu-windows.patch}
 included in LilyPond's source distribution.
 @end table
 
+@subsection Cross compiling
+
 These binaries are cross compiled for Windows on a GNU/Linux box.  You
 may want to check out the
 @uref{http://www.lilypond.org/gnu-windows/cross.tar.gz,cross compilation
 scripts}.
 
+@subsection Compiling on Windows
+
+Compiling on Windows should be possible, but how should we now?  If you
+have any experiences you want to share, please do so at
+@uref{http://lilypond.org/wiki?CompilingOnWindows,Compiling on Windows}.
+Or write to one of the mailing lists.
 
 @section Windows installation specifics
 

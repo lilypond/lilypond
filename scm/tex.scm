@@ -97,13 +97,14 @@
   (define (header-end)
     (string-append
      "\\special{\\string! "
-
+     
      ;; URG: ly-gulp-file: now we can't use scm output without Lily
      (if use-regex
 	 ;; fixed in 1.3.4 for powerpc -- broken on Windows
 	 (regexp-substitute/global #f "\n"
 				   (ly-gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
 	 (ly-gulp-file "music-drawing-routines.ps"))
+     (if (defined? 'ps-testing) "/testing true def%\n" "")
      "}"
      "\\input lilyponddefs\\newdimen\\outputscale \\outputscale=\\lilypondpaperoutputscale pt\\turnOnPostScript"))
 

@@ -813,13 +813,19 @@ Beam::stem_beams (Grob*me,Item *here, Item *next, Item *prev,
        but let's make sure two half-beams never touch
        */
 
-      // FIXME: TODO stem width
-      Real w = here->relative_coordinate (0, X_AXIS) - prev->relative_coordinate (0, X_AXIS);
+      // FIXME: TODO (check) stem width / sloped beams
+      Real w = here->relative_coordinate (0, X_AXIS)
+	- prev->relative_coordinate (0, X_AXIS);
+      Real stem_w = gh_scm2double (prev->get_grob_property ("thickness"))
+	// URG
+	* me->paper_l ()->get_var ("stafflinethickness");
+
       w = w/2 <? nw_f;
       Molecule a;
       if (lhalfs)		// generates warnings if not
-	a =  Lookup::beam (dydx, w, thick);
+	a =  Lookup::beam (dydx, w + stem_w, thick);
       a.translate (Offset (-w, -w * dydx));
+      //a.translate_axis (stem_w/2, X_AXIS);
       for (int j = 0; j  < lhalfs; j++)
 	{
 	  Molecule b (a);
