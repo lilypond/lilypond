@@ -8,9 +8,10 @@ depth = .
 
 # descent order into subdirectories:
 #
-SUBDIRS =  buildscripts scripts  flower lily mf midi2ly po debian \
-	Documentation ly input tex make mutopia intl $(builddir)/stepmake\
-	ps  scm
+SUBDIRS = buildscripts scripts flower lily mf midi2ly po \
+	Documentation ly input tex make intl ps scm \
+	debian $(builddir)/stepmake \
+	mutopia ports
 #
 
 SCRIPTS = configure aclocal.m4
@@ -24,54 +25,27 @@ INSTALLATION_FILES=$(configuration) VERSION
 
 # bootstrap stepmake:
 #
-STEPMAKE_TEMPLATES=toplevel yolily-toplevel po install
+STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make 
 #
-
-website: fonts htmldoc examples  footify
 
 footify:
 	$(footify) --index=./ `$(FIND) . -maxdepth 1 -name '*.html' -print`
 	$(footify-all-command)
 
 fonts:
-	$(MAKE) -C $(depth)/mf 
+	$(MAKE) -C $(depth)/mf out
 
-doc:
+doc: lily fonts
 	$(MAKE) -C Documentation
 
-htmldoc: 
-	$(MAKE) out='www' local-WWW
-	$(MAKE) out='www' -C Documentation WWW
-	rm -f `find . -name \*.html~ -print`
-	$(footify) --index=./ `$(FIND) . -maxdepth 1 -name '*.html' -print`
-	$(footify-all-command)
-	find `find Documentation -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www'  > wwwlist
-	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` `ls *.png $(ERRORLOG)`  index.html
+web-doc: 
+	$(MAKE) out=www -C Documentation WWW
+	$(MAKE) footify
 
-examples:
-	$(MAKE) out='www' -C input WWW
-	$(MAKE) out='www' -C mutopia WWW
-# arg, should not break concept of recursive make;
-# this breaks links (and dependencies, see above)
+# KPATHSEA=0: Hack for compiling without kpathsea -- not recommended
+my_tfm_path = $(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
 
-# don't understand this comment --hwn
-
-# See below.  The footify-all you had before caused dead links on the
-# webpage, because the footify command assumes it can calculate the location
-# of index.html from the current depth.  That doesn't work, if you don't
-# use recursive make like we do everywhere else; leads to bugs that you
-# make a specific fix for.
-
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o short-examples.html input/
-	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o long-examples.html mutopia/
-#$(footify-all-command)
-	$(footify) --index=./ `$(FIND) . -name '*.html' -print`
-	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz *-examples.html  `find input mutopia -type d -name 'out-www' -print`
-
-# Kpathsea is overkill, and a horror/impossible to compile without compiling
-# and using a matching TeX (well, I gave up trying for now).
-my_tfm_path=$(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
 
 local-install:
 	mkdir -p $(datadir)
@@ -79,6 +53,46 @@ ifeq ($(KPATHSEA),0)
 	$(foreach i, 1 2 3 4 5, rm -f $(datadir)/tfm.$(i); $(LN_S) $(word $(i), $(my_tfm_path)) $(datadir)/tfm.$(i) ; )
 endif
 
-local-WWW-clean:
+
+TOP_HTMLS = index.html short-examples.html long-examples.html
+
+index: web-doc
+
+short-examples:
+	$(MAKE) out=www -C input WWW
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o short-examples.html input/
+
+
+long-examples:
+	$(MAKE) out=www -C mutopia WWW
+	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o long-examples.html mutopia/
+
+lily: lily/$(outdir)/lilypond
+
+lily/$(outdir)/lilypond:
+	$(MAKE) -C lily
+
+local-web: fonts lily $(TOP_HTMLS:%.html=%) footify top-web
+
+top-web:
+	rm -f `find . -name \*.html~ -print`
+	find `find Documentation input mutopia *.png index.html -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www' | tar -czf $(outdir)/web.tar.gz  -T -
+
+#WWW: local-WWW
+
+web: local-web
+
+local-WWW-clean: top-WWW-clean
+
+WWW-clean:
+	$(MAKE) -C Documentation WWW-clean
+	$(MAKE) -C input WWW-clean
+	$(MAKE) -C mutopia WWW-clean
+
+top-WWW-clean:
+	rm -f $(TOP_HTMLS)
 	$(SHELL) $(buildscript-dir)/clean-fonts.sh
 
+
+
+WWW:
