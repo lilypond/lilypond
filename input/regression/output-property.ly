@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \header { texidoc = "
 
 Setting @code{\outputproperty} is a clumsy and deprecated way of changing

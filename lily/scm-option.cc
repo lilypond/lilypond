@@ -37,7 +37,7 @@ int testing_level_global;
 /*
   Backwards compatibility.
  */
-bool lily_1_8_relative = true;
+bool lily_1_8_relative = false;
 bool lily_1_8_compatibility_used = false;
 
 /*

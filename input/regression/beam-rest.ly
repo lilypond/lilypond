@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \header {
  texidoc = "The number of beams doesn't change on a rest."
 }

@@ -1,4 +1,4 @@
-#(ly:set-option 'old-relative)
+
 \version "1.9.1"
 \header {
 texidoc="Multi measure rests of second voice should not disappear."

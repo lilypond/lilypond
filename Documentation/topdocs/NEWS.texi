@@ -10,6 +10,21 @@
 @itemize
 
 @item
+The @code{\newcontext} command will create a context with a unique
+name automatically. Hence, for multi-staff scores, it is no longer
+necessary to invent arbitrary context names. For example, a two-staff
+score may be created by
+
+@example
+  \simultaneous @{
+    \newcontext Staff @{ @var{notes for 1st staff} @}
+    \newcontext Staff @{ @var{notes for 2nd staff} @}
+  @}
+@end example
+
+
+
+@item
 Octave checks make octave errors easier to correct.
 The syntax is 
 
