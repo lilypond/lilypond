@@ -25,12 +25,13 @@ Lisp. It needs the Adobe Sonata or Finale Petrucci font.
 
 A amateurish notation program for TclTk and X.
 
-=item MPP, http://www.stack.nl/~hanwen/mpp-english.html
+=item MPP
 
 A preprocessor to MusixTeX by Jan Nieuwenhuizen and Han-Wen Nienhuys.
-It is outdated by its successor, LilyPond.
+It is outdated by its successor, LilyPond.  MPP is still available via
+the CTAN archive.
 
-=item LilyPond, http://www.stack.nl/~hanwen/lilypond/index.html
+=item LilyPond, http://www.cs.ruu.nl/people/hanwen/lilypond/index.html
 
 Added for completeness. You are currently reading her documentation.
 

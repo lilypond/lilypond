@@ -136,7 +136,7 @@ information, and small contributions.
 
 =item *
 
-Han-Wen Nienhuys <hanwen@cs.ruu.nl>, http://www.stack.nl/~hanwen
+Han-Wen Nienhuys <hanwen@cs.ruu.nl>, http://www.cs.ruu.nl/people/hanwen
 
 =item *
 
@@ -243,7 +243,7 @@ Goals of the GNU LilyPond project.
 
 The GNU LilyPond FAQ list
 
-=item http://www.stack.nl/~hanwen/lilypond/index.html
+=item http://www.cs.ruu.nl/people/hanwen/lilypond/index.html
 
 GNU LilyPond has her own webpage.  This webpage contains the MIDI, GIF
 and PS files for some standard music files.  It also has the complete

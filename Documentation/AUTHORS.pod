@@ -10,7 +10,7 @@ This file lists authors of GNU LilyPond, and what they wrote.
 
 =over 4
 
-=item * Han-Wen Nienhuys <hanwen@cs.ruu.nl>, http://www.stack.nl/~hanwen
+=item * Han-Wen Nienhuys <hanwen@cs.ruu.nl>, http://www.cs.ruu.nl/people/hanwen
 
 Main author.
 

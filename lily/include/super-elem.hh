@@ -21,6 +21,7 @@ public:
     void add_broken_line (Line_of_score*);
   Super_elem();
 
+  void space_processing ();
   void pre_processing();
   void breakable_col_processing();
   void break_processing();
