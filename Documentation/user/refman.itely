@@ -7913,6 +7913,10 @@ spaced slightly too wide.
 
 Syntax errors for markup mode are confusing.
 
+Markup texts cannot be used in the titling of the @code{\header}
+field. Titles are made by La@TeX{}, so La@TeX{} commands should be used
+for formatting.
+
 
 
 
