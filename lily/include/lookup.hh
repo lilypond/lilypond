@@ -43,7 +43,7 @@ struct Lookup {
     Symbol rule_symbol (Real height, Real width) const;
     Symbol accidental (int) const;
     Symbol ball (int) const;
-    Symbol flag (int) const;
+    Symbol flag (int, Direction) const;
     Symbol rest (int, bool outside) const;
     Symbol clef (String) const;
     Symbol bar (String, Real height) const;
