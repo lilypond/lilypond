@@ -6,4 +6,6 @@ patches to me,
 
   hanwen@stack.urc.tue.nl
 
+If you actually want to use this, you'd better use the "speed"
+compilation flags in the Makefile
 

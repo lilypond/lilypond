@@ -1,3 +1,4 @@
+#include "scommands.hh"
 #include "tstream.hh"
 #include "score.hh"
 #include "sccol.hh"
@@ -7,14 +8,20 @@
 #include "paper.hh"
 
 void
+Score::set(Paperdef*p)
+{
+    delete paper_;
+    paper_ = p;
+}
+void
 Score::output(String s)
 {
     OK();
-    if (paper->outfile=="")
-	paper->outfile = s;
+    if (paper_->outfile=="")
+	paper_->outfile = s;
     
-    *mlog << "output to " << paper->outfile << "...\n";
-    Tex_stream the_output(paper->outfile);    
+    *mlog << "output to " << paper_->outfile << "...\n";
+    Tex_stream the_output(paper_->outfile);    
     pscore_->output(the_output);
 }
 
@@ -22,10 +29,13 @@ Score::output(String s)
 void
 Score::process()
 {
-    if (!paper)
-	paper = new Paperdef;
-
-    commands_.clean(last());
+    set(commands_->parse(last()));
+    commands_->print();
+    
+    if (!paper_)
+	paper_ = new Paperdef;
+    
+    commands_->clean(last());
     
     /// distribute commands to disciples
     distribute_commands();
@@ -72,7 +82,7 @@ Score::clean_cols()
     */
 // todo
 PCursor<Score_column*>
-Score::create_cols(Mtime w)
+Score::create_cols(Real w)
 {
     Score_column* c1 = new Score_column(w);
     Score_column* c2 = new Score_column(w);
@@ -102,7 +112,7 @@ Score::create_cols(Mtime w)
 }
 
 Score_column*
-Score::find_col(Mtime w,bool mus)
+Score::find_col(Real w,bool mus)
 {
     PCursor<Score_column*> scc(cols_);
     for (; scc.ok(); scc++) {
@@ -121,7 +131,7 @@ void
 Score::distribute_commands(void)
 {
     for (PCursor<Staff*> sc(staffs_); sc.ok(); sc++) {
-	sc->add_commands(commands_);
+	sc->add_commands(*commands_);
     }
 }
 void
@@ -140,10 +150,10 @@ Score::do_pcols()
 	pscore_->add(sc->pcol);
     }
 }
-Mtime
+Real
 Score::last() const
 {    
-    Mtime l = 0;
+    Real l = 0;
     for (PCursor<Staff*> stc(staffs_); stc.ok(); stc++) {
 	l = MAX(l, stc->last());
     }
@@ -163,7 +173,7 @@ Score::OK() const
     for (PCursor<Score_column*> cc(cols_); cc.ok() && (cc+1).ok(); cc++) {
 	assert(cc->when <= (cc+1)->when);
     }
-    commands_.OK();
+    commands_->OK();
 #endif    
 }
 
@@ -179,7 +189,7 @@ Score::print() const
     for (PCursor<Score_column*> sc(cols_); sc.ok(); sc++) {
 	sc->print();
     }
-    commands_.print();
+    commands_->print();
     mtor << "}\n";
 #endif
 }
@@ -187,10 +197,20 @@ Score::print() const
 Score::Score()
 {
     pscore_=0;
-    paper = 0;
+    paper_ = 0;
+    commands_ = new Score_commands;
 }
-void
-Score::add(Command*c)
+
+Score::~Score()
 {
-    commands_.add(*c);
+    delete pscore_;
+    delete commands_;
+    delete paper_;
+}
+
+void
+Score::set(Score_commands*c)
+{
+    delete commands_;
+    commands_ = c;
 }

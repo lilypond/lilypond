@@ -113,9 +113,15 @@ REAL		[0-9]+(\.[0-9]*)?
 	mtor << "parens\n";
 	return YYText()[0];
 }
+[:]		{
+	char c = YYText()[0];
+	mtor << "misc char" <<c<<"\n";
+	return c;
+}
 [ \t\n]+	{
 	
 }
+
 %.*		{
 	//ignore
 }

@@ -51,10 +51,10 @@ Voice_element::print() const
 #endif
 }
 
-Mtime
+Real
 Voice::last() const
 {
-    Mtime l =start;
+    Real l =start;
     for (PCursor<Voice_element*> vec(elts); vec.ok(); vec++)
 	l  += vec->duration;
     return l;

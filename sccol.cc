@@ -1,7 +1,7 @@
 #include "sccol.hh"
 #include "debug.hh"
 
-Score_column::Score_column(Mtime w)
+Score_column::Score_column(Real w)
 {
     when = w;
     pcol = new PCol(0);

@@ -12,7 +12,7 @@ struct PCol {
     List<const Spanner*> stoppers, starters;
     
     /// Can this be broken? true eg. for bars. 
-    bool breakable;
+    bool breakable()const;
 
     /// does this column have items, does it have spacings attached?
     bool used;

@@ -40,6 +40,7 @@ struct Item {
     */
     String TeXstring () const ;
     Item();
+    void print()const;
 };
 /** An item must be part of a Column
 */

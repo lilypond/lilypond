@@ -55,7 +55,7 @@ struct PScore {
 
     void add(PStaff *);
     /// add item
-    void typeset_item(Item *,  PCol *,PStaff*,int);
+    void typeset_item(Item *,  PCol *,PStaff*,int=1);
     ///    add to bottom of pcols
     void add(PCol*);
     /**

@@ -4,7 +4,7 @@
 
 #include "glob.hh"
 #include "string.hh"
-#include "mtime.hh"
+
 struct Request {
     Voice_element*elt;
 #if 0
@@ -172,7 +172,7 @@ struct Slur_req : Span_req {
 
 /// helper in the hierarchy
 struct Dynamic {
-    Mtime subtime;
+    Real subtime;
 };
 /** Each dynamic is bound to one note ( a crescendo spanning multiple
     notes is thought to be made of two "dynamics": a start and a stop).

@@ -9,8 +9,10 @@
 #include "vray.hh"
 #include "list.hh"
 
-struct Score_commands : public      PointerList<Command*> {
-    void add(Command);
+struct Score_commands : public PointerList<Command*> {
+    void process_add(Command);
+    Score_commands*parse(Real last)const;
+    void parser_add(Command*);
     void add_seq(svec<Command>);
     void clean(Real last);
     void set_breakable(Real when);
@@ -20,6 +22,9 @@ struct Score_commands : public      PointerList<Command*> {
     void add_command_to_break(Command pre, Command mid,Command post);
     void OK() const;
     void print() const;
+    Real last() const;
+    void insert_between(Command victim, PCursor<Command*> firstc,
+			PCursor<Command*> last);
 };
 /** the list of commands in Score. Put in a separate class, since it
   otherwise clutters the methods of Score.  */

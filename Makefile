@@ -1,6 +1,6 @@
 MAJVER=0
 MINVER=0
-PATCHLEVEL=4
+PATCHLEVEL=5
 
 # 
 #
@@ -28,8 +28,10 @@ DFILES=$(hdr) $(mycc) $(othersrc) $(OFILES) $(IFILES) $(SCRIPTS) $(DOC)
 #compiling
 LOADLIBES=-L$(FLOWERDIR) -lflower
 FLOWERDIR=../flower
-#DEFINES=-DNDEBUG -DNPRINT -O2
-CXXFLAGS=$(DEFINES) -I$(FLOWERDIR) -pipe -Wall -W  -pedantic -g
+#DEFINES=-DNDEBUG -DNPRINT -O2 			# speedy
+DEFINES=-g					# lots of debugging info
+
+CXXFLAGS=$(DEFINES) -I$(FLOWERDIR) -pipe -Wall -W  -pedantic 
 FLEX=flex
 BISON=bison
 exe=$(PACKAGENAME)

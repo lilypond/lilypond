@@ -19,6 +19,8 @@ struct Staff {
     Score *score_;
     PScore *pscore_;
 
+    /****************************************************************/
+    
     void add_voice(Voice *v);
     void add_staff_column(Staff_column *sp);
 
@@ -28,18 +30,13 @@ struct Staff {
     /**
     This routines calls virtual functions from Staff, to delegate the
     interpretation of requests to a derived class of Staff */
-
-    
-    /****************************************************************
-      VIRTUALS
-    ****************************************************************/
-    
     void setup_staffcols();
 
-    virtual void set_output(PScore * destination)=0;
-    virtual void grant_requests()=0;
-    
-    Staff_column * get_col(Mtime,bool);
+    void OK() const;
+    void print() const;
+    Real last() const;
+    void clean_cols() ;
+    Staff_column * get_col(Real,bool);
 
     void add_commands(PointerList<Command* >const & sv);
     /**
@@ -48,12 +45,21 @@ struct Staff {
     PRE
     sv is time-ordered.
     */
-    virtual Staff_column * create_col(Score_column * )=0;
 
-    void OK() const;
-    void print() const;
-    Mtime last() const;
-    void clean_cols() ;
-    virtual ~Staff() { } 
+    Staff();
+    /**
+      Should construct with Score as arg, but this isn't known during parsing.      
+      */
+    /****************************************************************
+      VIRTUALS
+    ****************************************************************/
+    
+    virtual void set_output(PScore * destination)=0;
+    virtual void grant_requests()=0;    
+    virtual Staff_column * create_col(Score_column * )=0;
+    virtual ~Staff() { }
+
 };
 #endif
+
+

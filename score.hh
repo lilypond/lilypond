@@ -1,16 +1,16 @@
 #ifndef SCORE_HH
 #define SCORE_HH
-
 #include "vray.hh"
-#include "mtime.hh"
-#include "scommands.hh"
+#include "proto.hh"
+#include "list.hh"
+
 
 /// the total music def of one movement
 struct Score {
-    Paperdef *paper;
-    /// staffs_ and commands_ form the problem definition.
+    /// paper_, staffs_ and commands_ form the problem definition.
+    Paperdef *paper_;
     PointerList<Staff *> staffs_;
-    Score_commands commands_;
+    Score_commands *commands_;
     
     /// "runtime" fields for setting up spacing    
     PointerList<Score_column*> cols_;
@@ -18,27 +18,25 @@ struct Score {
 
     /****************************************************************/
 
-    Score();    
-    void process();
-
     /// construction
     void add_staff(Staff *st);
+    void set(Paperdef*);
+    Score();
+    ~Score();    
+    void add(Staff*);        
+    void set(Score_commands*);
+
 
     void OK() const;
-    Score_column *find_col(Mtime,bool);
-    void do_pcols();
-
-    void add(Staff*);
+    Score_column *find_col(Real,bool);
+    void process();
     void output(String fn);
-    PCursor<Score_column*> create_cols(Mtime);
+    PCursor<Score_column*> create_cols(Real);
     void print() const;
-
-    Mtime last() const;
-    
-    void add(Command*);
+    Real last() const;
     
 private:
-    
+    void do_pcols();    
     void clean_cols();
     void distribute_commands();
     void do_connect(PCol *c1, PCol *c2, Real d);

@@ -26,13 +26,13 @@ Score::connect_nonmus(PCol* c1, PCol *c2, Real d)
 	do_connect(c1,c2,d);
 
 	// alert! this is broken!
-	if (c1->breakable) {
+	if (c1->breakable()) {
 	    do_connect(c1->postbreak, c2,d);
 	}
-	if (c2->breakable) {
+	if (c2->breakable()) {
 	    do_connect(c1, c2->prebreak,d);
 	}
-	if (c1->breakable &&c2->breakable) {
+	if (c1->breakable() &&c2->breakable()) {
 	    do_connect(c1->postbreak, c2->prebreak,d);	    
 	}	
     }
@@ -49,8 +49,8 @@ Score::calc_idealspacing()
     for (; sc.ok(); sc++) {
 	if (sc->musical)
 	    for (int i=0; i < sc->durations.sz(); i++) {
-		Mtime d = sc->durations[i];
-		Real dist = duration_to_idealspace(d, paper->whole_width);
+		Real d = sc->durations[i];
+		Real dist = duration_to_idealspace(d, paper_->whole_width);
 		PCol * c2 = find_col(sc->when + d,true)->pcol;
 		connect_nonmus(sc->pcol, c2, dist);
 		c2 = find_col(sc->when + d,false)->pcol;

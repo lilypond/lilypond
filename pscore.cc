@@ -1,5 +1,6 @@
 // utility functions for PScore
 #include "debug.hh"
+#include "molecule.hh"
 #include "dimen.hh"
 #include "line.hh"
 #include "pscore.hh"
@@ -11,7 +12,6 @@ PScore::clean_cols()
     for (PCursor<PCol *> c(cols); c.ok(); )
 	if (!c->used) {
 	    c.del();
-	    mtor << "removing pcol\n";
 	} else
 	    c++;
 }
@@ -27,15 +27,28 @@ void
 PScore::typeset_item(Item *i, PCol *c, PStaff *s, int breakstat)
 {
     assert(c && i && s);
-    if (breakstat == 1 ) {
-	typeset_item(i, c->prebreak, s, 0);
-    } if (breakstat == 3) 
-	typeset_item(i, c->prebreak, s, 0 );
-    else{
-	its.bottom().add(i);
-	s->add(i);
-	c->add(i);
+//    assert(!breakstat != 4 || c->breakable() );
+    if (breakstat == 0) {
+	typeset_item(i, c->prebreak, s);
+	return;
     }
+
+    if (breakstat == 2) {
+	typeset_item(i, c->postbreak, s);
+	return;
+    }
+    if (c->daddy && c == c->daddy->prebreak) { // makeshift.
+	Interval iv (i->width());
+	if (!iv.empty()) {
+	    svec<Item*> col_its (select_items(s, c));
+	    for (int j =0; j < col_its.sz(); j++)
+		col_its[j]->output->translate(Offset(-iv.length(),0));
+	    i->output->translate (Offset(-iv.max, 0));
+	}
+    }
+    its.bottom().add(i);
+    s->add(i);
+    c->add(i);
 }
 
 void
@@ -70,7 +83,7 @@ PScore::find_breaks() const
 {
     svec<const PCol *> retval;
     for (PCursor<PCol *> c(cols); c.ok(); c++)
-	if (c->breakable)
+	if (c->breakable())
 	    retval.add(c);
 	    
     return retval;
@@ -84,7 +97,7 @@ PScore::add(PCol *p)
 
 PScore::PScore()
 {
-    linewidth = convert_dimen(15,"cm");
+    linewidth = convert_dimen(15,"cm");	// default
 }
 
 void
@@ -115,18 +128,18 @@ PScore::select_items(PStaff*ps , PCol*pc)
 void
 PScore::OK()const
 {
+#ifdef NDEBUG
     for (PCursor<PCol*> cc(cols); cc.ok(); cc++)
 	cc->OK();
     for (PCursor<Idealspacing*> ic(suz); ic.ok(); ic++)
 	ic->OK();
-    
+#endif
 }
 void
 PScore::print() const
-{
-    
-     #ifndef NPRINT
-   mtor << "PScore { width "<<print_dimen(linewidth);
+{    
+#ifndef NPRINT
+    mtor << "PScore { width "<<print_dimen(linewidth);
     mtor << "\ncolumns: ";
     for (PCursor<PCol*> cc(cols); cc.ok(); cc++)
 	cc->print();
@@ -135,6 +148,6 @@ PScore::print() const
     for (PCursor<Idealspacing*> ic(suz); ic.ok(); ic++)
 	ic->print();
     mtor << "}\n";
-   #endif 
+#endif 
 }
 

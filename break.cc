@@ -13,7 +13,7 @@ svec<Real>
 PScore::solve_line(svec<const PCol *> curline) const
 {
    Spacing_problem sp;
-   mtor << "line of " << curline.sz() << " cols\n";
+
    sp.add_column(curline[0], true, 0.0);
    for (int i=1; i< curline.sz()-1; i++)
        sp.add_column(curline[i]);
@@ -36,8 +36,8 @@ PScore::problem_OK() const
     PCursor<PCol *> start(cols);
     PCursor<PCol *> end (((PScore*)this)->cols.bottom());
     
-    assert(start->breakable);    
-    assert(end->breakable);
+    assert(start->breakable());    
+    assert(end->breakable());
 }
 
 struct Col_configuration {
@@ -54,10 +54,16 @@ struct Col_configuration {
 	energy = config.last();
 	config.pop();
     }
+    void print() const {
+#ifndef NPRINT
+	mtor << "energy : " << energy << '\n';
+	mtor << "line of " << config.sz() << " cols\n";
+#endif
+    }
 };
 
 /// wordwrap type algorithm
-/* el stupido. This should be optimised:
+/* el stupido. This should be done more accurately:
 
    It would be nice to have a Dynamic Programming type of algorithm
    similar to TeX's
@@ -77,8 +83,9 @@ PScore::calc_breaking()
 	Col_configuration minimum;
 	Col_configuration current;
 
-        // do  another line 
-	current.add(breakpoints[i]->postbreak );
+        // do  another line
+	PCol *post = breakpoints[i]->postbreak;
+	current.add( post);
 	curcol++;		// skip the breakable.
 	i++;
 
@@ -92,11 +99,15 @@ PScore::calc_breaking()
 	    }
 	    current.add(breakpoints[i]->prebreak );
 	    current.setsol(solve_line(current.line));
-	    mtor << "energy : " << current.energy << '\n';
+	    current.print();
 	    
 	    if (current.energy < minimum.energy) {
 		minimum = current;
-	    } else {
+	    } else {		// we're one col too far.
+		i--;
+		while (curcol != breakpoints[i])
+		    curcol --;
+		
 		break;
 	    }
 	

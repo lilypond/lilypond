@@ -49,7 +49,7 @@ struct Interval {
 	if (h.max>max)
 	    max = h.max;
     }
-    
+    Real length() const;
     void set_empty() ;
     bool empty() { return min > max; }
     Interval() {

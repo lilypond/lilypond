@@ -32,11 +32,14 @@ struct Rhythmic_column : Staff_column {
 struct Rhythmic_staff : Staff {
     /// indirection to the PStaff.
     PStaff *theline;
+
+    /****************/
     void set_output(PScore *);
     void process_commands( PCursor<Command*> &where);
 
     void grant_requests();
     Staff_column * create_col(Score_column*);
+    Rhythmic_staff();
 };
 
 

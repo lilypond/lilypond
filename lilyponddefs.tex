@@ -26,6 +26,9 @@
 \mdef\singledot{'00}
 \mdef\doubledot{'01}
 \mdef\tripledot{'02}
+
+
+
 \def\maatstreep{\vrule height8pt depth8pt }
 \def\finishbar{\vrule height8pt width 1pt depth8pt}
 \parindent0pt
@@ -42,7 +45,7 @@
 
 \newcount\n
 \def\linestafsym#1#2{\hbox to 0pt{\vbox to 0pt{\n=0%
-	\loop\ifnum\n<#1\advance\n by1
+	\loop\ifnum\n<#1\advance\n by1%
 	\ifnum\n>1\vskip2pt\fi \hrule width#2\repeat\vss}\hss}}
 
 \def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
@@ -51,3 +54,7 @@
 \def\ceighthrest{\vcenter\eighthrest}
 \def\csixteenthrest{\vcenter\sixteenthrest}
 \def\cthirtysecondrest{\vcenter\thirtysecondrest}
+
+\def\lsingledot{\kern-6pt\singledot}
+\def\ldoubledot{\kern-6pt\doubledot}
+\def\ltripledot{\kern-6pt\tripledot}

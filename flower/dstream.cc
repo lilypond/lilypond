@@ -1,5 +1,5 @@
 #include <fstream.h>
-
+#include "assoc.hh"
 #include "dstream.hh"
 #include "string.hh"
 #include "textdb.hh"
@@ -36,14 +36,14 @@ Dstream::identify_as(String name)
     String cl(strip_member(mem));
     String idx = cl;
     
-    if (silent.elt_query(mem))
+    if (silent->elt_query(mem))
 	idx  = mem;
-    else if (silent.elt_query(cl))
+    else if (silent->elt_query(cl))
 	idx = cl;
     else {
-	silent[idx] = false;
+	(*silent)[idx] = false;
     }
-    local_silence = silent[idx];
+    local_silence = (*silent)[idx];
     if (classname != idx && !local_silence) {
 	classname=idx;
 	*os << "[" << classname << ":]";
@@ -54,9 +54,9 @@ Dstream::identify_as(String name)
 bool
 Dstream::silence(String s)
 {
-    if (!silent.elt_query(s))
+    if (!silent->elt_query(s))
 	return false;
-    return silent[s];
+    return (*silent)[s];
 }
 ///
 Dstream &
@@ -99,6 +99,7 @@ Dstream::operator<<(String s)
 Dstream::Dstream(ostream *r, const char * cfg_nm )
 {
     os = r;
+    silent = new Assoc<String,bool>;
     if (!os)
 	return;
     indentlvl = 0;
@@ -109,15 +110,18 @@ Dstream::Dstream(ostream *r, const char * cfg_nm )
 	if (!ifs)
 	    return;
     }
-    //    cerr << "(" << fn;
+
     Text_db cfg(fn);
     while (! cfg.eof()){	     
 	 Text_record  r(  cfg++);
 	 assert(r.sz() == 2);
-	 silent[r[0]] = r[1].to_bool();
+	 (*silent)[r[0]] = r[1].to_bool();
     }
-    //  cerr <<")";
+
 }
 
 
-
+Dstream::~Dstream()
+{
+    delete silent;
+}

@@ -3,6 +3,13 @@
 #include "string.hh"
 #include "molecule.hh"
 #include "symbol.hh"
+#include "debug.hh"
+
+void
+Atom::print() const
+{
+    mtor << "texstring: " <<sym.tex<<"\n";    
+}
 
 Box
 Atom::extent() const
@@ -29,7 +36,6 @@ Atom::TeXstring() const
     return s;
 }
 
-/****************************************************************/
 
 String
 Molecule::TeXstring() const
@@ -110,4 +116,11 @@ Molecule::operator = (const Molecule&)
 Molecule::Molecule(const Molecule&s)
 {
     add(s);
+}
+
+void
+Molecule::print() const
+{
+    for (PCursor<Atom*> c(ats); c.ok(); c++)
+	c->print();
 }

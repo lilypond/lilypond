@@ -3,7 +3,7 @@ hdr=    qlp.hh       \
 	pcol.hh   proto.hh pstaff.hh  line.hh\
 	const.hh glob.hh molecule.hh  boxes.hh pscore.hh item.hh tex.hh\
 	request.hh voice.hh command.hh staff.hh  linestaff.hh \
-	tstream.hh  mtime.hh rhythmstaf.hh\
+	tstream.hh   rhythmstaf.hh\
 	parseconstruct.hh  debug.hh globvars.hh keyword.hh\
 	misc.hh score.hh notename.hh lexer.hh symtable.hh\
 	symbol.hh main.hh dimen.hh paper.hh lookupsyms.hh\
@@ -19,5 +19,5 @@ mycc=   qlp.cc qlpsolve.cc \
 	pstaff.cc  tstream.cc version.cc\
 	calcideal.cc scores.cc identifier.cc \
 	dimen.cc paper.cc lookupsyms.cc scommands.cc\
-	sccol.cc stcol.cc\
+	sccol.cc stcol.cc getcommands.cc\
 	template1.cc template2.cc template3.cc

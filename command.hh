@@ -1,7 +1,7 @@
 #ifndef COMMAND_HH
 #define COMMAND_HH
 #include "glob.hh"
-#include "mtime.hh"
+
 #include "vray.hh"
 #include "string.hh"
 
@@ -15,9 +15,13 @@ enum Commandcode {
 struct Command {
     Commandcode code;
 
-    Mtime when;
+    Real when;
     /// analogous to argv[]
     svec<String> args;
+    int priority;
+    
+    /****************/
+    
     Command();
     Command(Real w);
     bool isbreak()const;

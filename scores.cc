@@ -1,5 +1,6 @@
 #include "main.hh"
 #include "score.hh"
+#include "string.hh"
 
 static svec<Score*> sv;
 
@@ -11,6 +12,8 @@ do_scores()
     for (int i=0; i < sv.sz(); i++) {	
 	sv[i]->process();
 	sv[i]->output(outfn);
+	delete sv[i];
+	sv[i] =0;
     }
 }
 

@@ -8,7 +8,7 @@ Staff_column::mus() const
     return score_column->musical;
 }
 
-Mtime
+Real
 Staff_column::when() const
 {
     return score_column->when;
@@ -17,7 +17,7 @@ Staff_column::when() const
 void
 Staff_column::add(Voice_element*ve)
 {
-    Mtime d= ve->duration;
+    Real d= ve->duration;
     if (d){
 	score_column->durations.add(d);
     }
