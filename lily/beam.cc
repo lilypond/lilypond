@@ -819,13 +819,14 @@ Beam::least_squares (SCM smob)
       Interval chord (Stem::chord_start_y (first_visible_stem (me)),
 		      Stem::chord_start_y (last_visible_stem (me)));
 
-      /* Make simple beam on middle line have small tilt.
+      /* Simple beams (2 stems) on middle line should be allowed to be
+	 slightly sloped.
+	 
+	 However, if both stems reach middle line,
+	 ideal[LEFT] == ideal[RIGHT] and ideal.delta () == 0.
 
-         Ideally, this should be handled by a scoring rule, but that's
-	 complicated because we take stem-info.ideal for determining
-	 beam slopes. */
-      if ((abs (ideal[LEFT]) < 0.5 || abs (ideal[RIGHT]) < 0.5)
-	  && chord.delta () && count == 2)
+	 For that case, we apply artificial slope */
+      if (!ideal[LEFT] && chord.delta () && count == 2)
 	{
 	  /* FIXME. -> UP */
 	  Direction d = (Direction) (sign (chord.delta ()) * UP);
