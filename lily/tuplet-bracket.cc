@@ -114,7 +114,7 @@ Tuplet_bracket::print (SCM smob)
     SCM lp = me->get_property ("left-position");
     SCM rp = me->get_property ("right-position");  
 
-    if (!is_number (rp) || !is_number (lp))
+    if (!ly_c_number_p (rp) || !ly_c_number_p (lp))
       after_line_breaking (smob);
   }
   
@@ -487,15 +487,15 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   SCM lp =  me->get_property ("left-position");
   SCM rp = me->get_property ("right-position");  
   
-  if (is_number (lp) && !is_number (rp))
+  if (ly_c_number_p (lp) && !ly_c_number_p (rp))
     {
       rp = scm_make_real (ly_scm2double (lp) + dy);
     }
-  else if (is_number (rp) && !is_number (lp))
+  else if (ly_c_number_p (rp) && !ly_c_number_p (lp))
     {
       lp = scm_make_real (ly_scm2double (rp) - dy);
     }
-  else if (!is_number (rp) && !is_number (lp))
+  else if (!ly_c_number_p (rp) && !ly_c_number_p (lp))
     {
       lp = scm_make_real (offset);
       rp = scm_make_real (offset +dy);

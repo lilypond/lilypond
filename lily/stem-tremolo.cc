@@ -92,7 +92,7 @@ Stem_tremolo::raw_stencil (Grob *me)
   
   int tremolo_flags = 0;
   SCM s = me->get_property ("flag-count");
-  if (is_number (s))
+  if (ly_c_number_p (s))
     tremolo_flags = ly_scm2int (s);
 
   if (!tremolo_flags)
@@ -150,7 +150,7 @@ Stem_tremolo::print (SCM grob)
 
   Real beamthickness = 0.0;
   SCM sbt = (beam) ? beam->get_property ("thickness") : SCM_EOL ;
-  if (is_number (sbt))
+  if (ly_c_number_p (sbt))
     {
       beamthickness = ly_scm2double (sbt) * ss;
     }

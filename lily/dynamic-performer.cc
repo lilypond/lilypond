@@ -59,12 +59,12 @@ Dynamic_performer::create_audio_elements ()
        */
       SCM min = get_property ("midiMinimumVolume");
       SCM max = get_property ("midiMaximumVolume");
-      if (is_number (min) || is_number (max))
+      if (ly_c_number_p (min) || ly_c_number_p (max))
 	{
 	  Interval iv (0, 1);
-	  if (is_number (min))
+	  if (ly_c_number_p (min))
 	    iv[MIN] = ly_scm2double (min);
-	  if (is_number (max))
+	  if (ly_c_number_p (max))
 	    iv[MAX] = ly_scm2double (max);
 	  volume = iv[MIN] + iv.length () * volume;
 	}

@@ -369,7 +369,7 @@ System::get_line ()
 		Grob *col = it->get_column ();
 		SCM s = col->get_property ("page-penalty");
 		// FIXME; page breaking is not discrete at +-10000
-		if (is_number (s)) // && fabs (ly_scm2double (s)) < 10000)
+		if (ly_c_number_p (s)) // && fabs (ly_scm2double (s)) < 10000)
 		  penalty += ly_scm2double (s);
 	      }
 	  }

@@ -169,7 +169,7 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 {
   Grob *me = unsmob_grob (g);
   SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (is_number (d), d, SCM_ARG2, __FUNCTION__, "dimension");
+  SCM_ASSERT_TYPE (ly_c_number_p (d), d, SCM_ARG2, __FUNCTION__, "dimension");
   SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG3, __FUNCTION__, "axis");
 
   me->translate_axis (ly_scm2double (d), Axis (ly_scm2int (a)));

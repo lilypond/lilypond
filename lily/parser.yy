@@ -1959,7 +1959,7 @@ bass_figure:
 		Music *m = unsmob_music ($1);
 		if ($2) {
 			SCM salter = m->get_property ("alteration");
-			int alter = is_number (salter) ? ly_scm2int (salter) : 0;
+			int alter = ly_c_number_p (salter) ? ly_scm2int (salter) : 0;
 			m->set_property ("alteration",
 				scm_int2num (alter + $2));
 		} else {
@@ -2022,7 +2022,7 @@ simple_element:
 		n->set_property ("pitch", $1);
 		n->set_property ("duration", $5);
 
-		if (is_number ($4))
+		if (ly_c_number_p ($4))
 		{
 			int q = ly_scm2int ($4);
 			n->set_property ("absolute-octave", scm_int2num (q-1));
@@ -2431,7 +2431,7 @@ My_lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 	if (ly_c_string_p (sid)) {
 		*destination = sid;
 		return STRING_IDENTIFIER;
-	} else if (is_number (sid)) {
+	} else if (ly_c_number_p (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;
 	} else if (unsmob_context_def (sid)) {

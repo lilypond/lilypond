@@ -157,7 +157,7 @@ void
 recurse_down_engravers (Context * c, Engraver_method ptr, bool context_first)
 {
   Engraver_group_engraver * tg
-    = dynamic_cast<Engraver_group_engraver*> (unsmob_translator (c->implementation_));
+    = dynamic_cast<Engraver_group_engraver*> (c->implementation ());
 
 
   if (!context_first)

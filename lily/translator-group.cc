@@ -108,7 +108,7 @@ void
 recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
 {
   Translator_group * tg
-    = dynamic_cast<Translator_group*> (unsmob_translator (c->implementation_));
+    = dynamic_cast<Translator_group*> (c->implementation ());
 
 
   /*

@@ -118,7 +118,7 @@ Key_signature_interface::print (SCM smob)
 
   SCM c0s = me->get_property ("c0-position");
   int c0p = 0;
-  if (is_number (c0s))
+  if (ly_c_number_p (c0s))
     c0p = ly_scm2int (c0s);
 
   /*

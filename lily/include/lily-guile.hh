@@ -191,10 +191,10 @@ inline SCM ly_assoc_front_x(SCM alist, SCM key, SCM val)
   return scm_acons(key, val, scm_assoc_remove_x (alist, key));
 }
 inline bool ly_c_pair_p (SCM x) { return SCM_NFALSEP (scm_pair_p (x)); }
-inline bool ly_c_symbol_pi (SCM x) { return SCM_SYMBOLP (x); }
+inline bool ly_c_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
 inline bool ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
 inline bool ly_c_char_p (SCM x) { return SCM_CHARP (x); }
-inline bool is_number (SCM x) { return SCM_NUMBERP (x); }
+inline bool ly_c_number_p (SCM x) { return SCM_NUMBERP (x); }
 inline bool ly_c_string_p (SCM x) { return SCM_STRINGP (x); }
 inline bool ly_c_vector_p (SCM x) { return SCM_VECTORP (x); }
 inline bool ly_c_list_p (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }

@@ -135,16 +135,16 @@ number_accidentals_from_sig (bool *different,
   
   /* If an accidental was not found or the accidental was too old */
   if (prev == SCM_BOOL_F ||
-      (is_number (lazyness) && curbarnum_i > accbarnum_i + ly_scm2int (lazyness)))
+      (ly_c_number_p (lazyness) && curbarnum_i > accbarnum_i + ly_scm2int (lazyness)))
     prev = scm_assoc (scm_int2num (n), sig);
 
 
   SCM prev_acc = (prev == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev);
 
-  int p = is_number (prev_acc) ? ly_scm2int (prev_acc) : 0;
+  int p = ly_c_number_p (prev_acc) ? ly_scm2int (prev_acc) : 0;
 
   int num;
-  if (a == p && is_number (prev_acc))
+  if (a == p && ly_c_number_p (prev_acc))
     num = 0;
   else if ( (abs (a)<abs (p) || p*a<0) && a != 0 )
     num = 2;
@@ -223,7 +223,7 @@ Accidental_engraver::get_bar_num ()
       
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
   if (mp.main_part_ < Rational (0)
-      && is_number (barnum))
+      && ly_c_number_p (barnum))
     barnum = scm_int2num (ly_scm2int (barnum) - 1);
       
   return barnum ;

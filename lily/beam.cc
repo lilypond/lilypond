@@ -421,7 +421,7 @@ Beam::print (SCM grob)
       Stencil gapped;
 
       int gap_count = 0;
-      if (is_number (me->get_property ("gap-count")))
+      if (ly_c_number_p (me->get_property ("gap-count")))
 	{
 	  gap_count = ly_scm2int (me->get_property ("gap-count"));
 	  gapped = Lookup::beam (dydx, w - 2 * gap_length, thick, blot);
@@ -570,7 +570,7 @@ Beam::get_default_dir (Grob *me)
 		    scm_cons (scm_int2num (total[UP]),
 			     scm_int2num (total[DOWN])));
 
-  if (is_number (s) && ly_scm2int (s))
+  if (ly_c_number_p (s) && ly_scm2int (s))
     return to_dir (s);
   
   /* If dir is not determined: get default */
@@ -666,7 +666,7 @@ void
 Beam::consider_auto_knees (Grob* me)
 {
   SCM scm = me->get_property ("auto-knee-gap");
-  if (!is_number (scm))
+  if (!ly_c_number_p (scm))
     return ;
 
   Real threshold = ly_scm2double (scm);
@@ -1101,7 +1101,7 @@ Beam::check_concave (SCM smob)
   */
   bool is_concave1 = false;
   SCM gap = me->get_property ("concaveness-gap");
-  if (is_number (gap))
+  if (ly_c_number_p (gap))
     {
       Real r1 = ly_scm2double (gap);
       Real dy = Stem::chord_start_y (stems.top ())
@@ -1138,7 +1138,7 @@ Beam::check_concave (SCM smob)
   Real concaveness2 = 0;
   SCM thresh = me->get_property ("concaveness-threshold");
   Real r2 = infinity_f;
-  if (!is_concave1 && is_number (thresh))
+  if (!is_concave1 && ly_c_number_p (thresh))
     {
       r2 = ly_scm2double (thresh);
       
@@ -1297,7 +1297,7 @@ Beam::set_stem_lengths (Grob *me)
 
   bool gap = false;
   Real thick =0.0;
-  if (is_number (me->get_property ("gap-count"))
+  if (ly_c_number_p (me->get_property ("gap-count"))
       &&ly_scm2int (me->get_property ("gap-count")))
     {
       gap = true;
@@ -1455,7 +1455,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Grob *rest = unsmob_grob (element_smob);
   Axis a = (Axis) ly_scm2int (axis);
 
-  if (is_number (rest->get_property ("staff-position")))
+  if (ly_c_number_p (rest->get_property ("staff-position")))
     return scm_int2num (0);
   
   assert (a == Y_AXIS);
@@ -1472,7 +1472,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
 
   Drul_array<Real> pos (0, 0);
   SCM s = beam->get_property ("positions");
-  if (ly_c_pair_p (s) && is_number (ly_car (s)))
+  if (ly_c_pair_p (s) && ly_c_number_p (ly_car (s)))
     pos = ly_scm2interval (s);
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 

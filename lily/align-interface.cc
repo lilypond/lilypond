@@ -52,7 +52,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   
   SCM d =   me->get_property ("stacking-dir");
   
-  Direction stacking_dir = is_number (d) ? to_dir (d) : CENTER;
+  Direction stacking_dir = ly_c_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
 
@@ -124,7 +124,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   
   SCM d =   me->get_property ("stacking-dir");
   
-  Direction stacking_dir = is_number (d) ? to_dir (d) : CENTER;
+  Direction stacking_dir = ly_c_number_p (d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
   
@@ -216,7 +216,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	FIXME: uncommenting freaks out the Y-alignment of
 	line-of-score.
        */
-      if (is_number (align))
+      if (ly_c_number_p (align))
 	center_offset = total.linear_combination (ly_scm2double (align));
 
       for (int j = 0 ;  j < all_grobs.size (); j++)
@@ -253,7 +253,7 @@ find_fixed_alignment_parent  (Grob *g)
 {
   while (g)
     {
-      if (is_number (g->get_property ("forced-distance")))
+      if (ly_c_number_p (g->get_property ("forced-distance")))
 	return g;
 
       g = g->get_parent (Y_AXIS);

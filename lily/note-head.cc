@@ -333,7 +333,7 @@ int
 Note_head::get_balltype (Grob*me) 
 {
   SCM s = me->get_property ("duration-log");
-  return is_number (s) ? ly_scm2int (s) <? 2 : 0;
+  return ly_c_number_p (s) ? ly_scm2int (s) <? 2 : 0;
 }
 
 ADD_INTERFACE (Note_head,"note-head-interface",

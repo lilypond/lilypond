@@ -82,7 +82,7 @@ Cluster_spanner_engraver::process_music ()
     {
       SCM c0scm = get_property ("middleCPosition");
 
-      int c0 =  is_number (c0scm) ? ly_scm2int (c0scm) : 0;
+      int c0 =  ly_c_number_p (c0scm) ? ly_scm2int (c0scm) : 0;
       int pmax = INT_MIN;
       int pmin = INT_MAX;
       

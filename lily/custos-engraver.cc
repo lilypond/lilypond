@@ -108,7 +108,7 @@ Custos_engraver::process_acknowledged_grobs ()
 
 	  int p = pitches_[i].steps ();
 	  SCM c0 = get_property ("middleCPosition");
-	  if (is_number (c0))
+	  if (ly_c_number_p (c0))
 	    p += ly_scm2int (c0);
 
 	  

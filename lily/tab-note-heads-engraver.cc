@@ -131,7 +131,7 @@ Tab_note_heads_engraver::process_music ()
       SCM scm_pitch = event->get_property ("pitch");
       SCM proc      = get_property ("tablatureFormat");
       SCM min_fret_scm = get_property ("minimumFret");
-      int min_fret = is_number (min_fret_scm) ? ly_scm2int (min_fret_scm) : 0;
+      int min_fret = ly_c_number_p (min_fret_scm) ? ly_scm2int (min_fret_scm) : 0;
 
       while (!string_found)
 	{

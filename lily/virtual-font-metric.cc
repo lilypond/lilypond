@@ -33,7 +33,7 @@ Virtual_font_metric::Virtual_font_metric (SCM font_list)
 	  *tail =  scm_cons (ly_car (s),SCM_EOL);
 	  tail = SCM_CDRLOC (*tail);
 
-	  if (!is_number (mag))
+	  if (!ly_c_number_p (mag))
 	    /* Ugh.  */
 	    mag = ly_cdr (fm->description_);
 

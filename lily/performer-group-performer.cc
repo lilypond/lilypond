@@ -28,7 +28,7 @@ Performer_group_performer::announce_element (Audio_element_info info)
 {
   announce_infos_.push (info);
   Translator *t
-    = unsmob_translator (get_parent_context ()->get_parent_context ()->implementation_);
+    = get_parent_context ()->get_parent_context ()->implementation ();
 
   if (Performer_group_performer * eg = dynamic_cast<Performer_group_performer*> (t))
     eg->announce_element (info);
