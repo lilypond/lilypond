@@ -109,7 +109,7 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{slur-attachment-override.ly}
 
-@lilypondfile[printfilename]{ophee-slurs.ly}
+@lilypondfile[printfilename]{drarn-slurs.ly}
 
 @lilypondfile[printfilename]{phrasing-slur.ly}
 

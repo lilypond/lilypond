@@ -60,7 +60,7 @@
 					    (cdr (assoc 'consists x))
 					    (cdr (assoc 'end-consists x)))))
 
-			     (if (member name-sym consists)
+			     (if (member name consists)
 				 (list context)
 				 '())))
 			 context-description-alist))))

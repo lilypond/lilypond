@@ -784,7 +784,7 @@ control the number of beams through the properties
 @subsection Slur
 @cindex slur
 
-A slur indicates that notes are to be played bound or @em{legato}.  In
+A slur indicates that notes are to be played bound or @emph{legato}.  In
 lilypond, they are entered using parentheses:
 @lilypond[fragment,verbatim,center]
   f'()g'()a' [a'8 b'(] a'4 g'2 )f'4
@@ -797,6 +797,7 @@ stem end.  If you want to override this layout you can do this through
 @code{Voice.Slur}'s grob-property @code{attachment}:
 
 [TODO: remove this section]
+maybe reinclude other slur features and move back to tricks?
 
 @quotation
 @lilypond[fragment,relative,verbatim]
@@ -1064,7 +1065,7 @@ string or  a markup text.
 
 @example 
 foo = \textscript #'(finger "6")
-  @ldots{}
+  @dots{}
 c4-\foo
 @end example 
 

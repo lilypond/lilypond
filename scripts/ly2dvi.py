@@ -4,7 +4,13 @@
 # Note: gettext work best if we use ' for docstrings and "
 # for gettextable strings
 
-''' TODO: --dependencies
+'''
+TODO:
+
+  * --dependencies
+
+  * dvi from lilypond .tex output?  This is hairy, because we create dvi
+    from lilypond .tex *and* header output.
 
 '''
 
@@ -376,8 +382,12 @@ def global_latex_definition (tfiles, extra):
 	orientation = 'portrait'
 	if extra['orientation']:
 		orientation = extra['orientation'][0]
- 
-	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (extra['linewidth'][0], textheight, orientation)
+
+	# set sane geometry width (a4-width) for linewidth = -1.
+	linewidth = extra['linewidth'][0]
+	if linewidth < 0:
+		linewidth = 597
+	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	s= s + r'''
 \usepackage[latin1]{inputenc} 
