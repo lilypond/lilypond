@@ -12,6 +12,12 @@
 
 #include "engraver.hh"
 
+/** 
+
+  Make bars that span multiple "staffs". Catch bars, and span a
+  Span_bar over them if we find more than 2 bars
+
+  */
 class Span_bar_engraver : public Engraver
 {
     Span_bar * spanbar_p_;

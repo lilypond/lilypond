@@ -12,6 +12,9 @@
 
 #include "script-column.hh"
 
+/**
+  Scripts and rests/noteheads
+ */
 class Head_column : public Script_column
 { 
 public:
@@ -27,7 +30,7 @@ public:
     Stem* stem_l_;
 
     void add(Note_head*);
-    void add(Script*s) { Script_column::add(s) ; }
+    virtual void add(Script*s);
     virtual void set(Stem*);
     Head_column();
     DECLARE_MY_RUNTIME_TYPEINFO;

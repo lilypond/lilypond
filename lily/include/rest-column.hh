@@ -13,10 +13,8 @@
 #include "script-column.hh"
 #include "head-column.hh"
 
-/** 
-  struct to treat a set of rests as union (one voicegroup should
-  only produce one rest.
-  */
+/** struct to treat a set of rests as union (one voice should only
+  produce one rest.  */
 class Rest_column : public Head_column {
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
