@@ -13,8 +13,9 @@ void reg_test (fptr f)
 int
 main ()
 {
- if (test_arr_p) {
-  for (int i=0; i < test_arr_p->size (); i++)
-    (*test_arr_p)[i] ();
- }
+ if (test_arr_p)
+   {
+     for (int i=0; i < test_arr_p->size (); i++)
+       (*test_arr_p)[i] ();
+   }
 }
