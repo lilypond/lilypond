@@ -1,5 +1,5 @@
 /*   
-  file-results.hh -- declare 
+  file-results.hh -- declare functions for processing one input file.
   
   source file of the GNU LilyPond music typesetter
   

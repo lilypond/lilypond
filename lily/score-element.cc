@@ -218,7 +218,7 @@ Score_element::output_processing ()
     delete output_p_;
   
   output_p_ = do_brew_molecule_p ();
-  Offset o (absolute_coordinate (X_AXIS), absolute_coordinate (Y_AXIS));
+  Offset o (relative_coordinate (0, X_AXIS), relative_coordinate (0, Y_AXIS));
   
   pscore_l_->outputter_l_->output_molecule (output_p_,
 					    o,

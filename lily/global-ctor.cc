@@ -1,5 +1,5 @@
 /*   
-  global-ctor.cc --  implement 
+  global-ctor.cc --  implement global constructors
   
   source file of the GNU LilyPond music typesetter
   

@@ -15,8 +15,7 @@
 #include "interval.hh"
 #include "virtual-methods.hh"
 
-/** The 2d geometric aspects of a score-element.  It was put in a
-  separate class, because Score_element got quite big.
+/** The 2d geometric aspects of a score-element.
   */
 class Graphical_element 
 {
@@ -30,7 +29,11 @@ public:
   bool used_b_;
   
   char const * name () const;
-  void set_empty (bool);
+  /**
+     Set empty in direction a1 and a2.  If an argument is NO_AXES, it is ignored.
+   */
+  void set_empty (bool b, Axis a1 = NO_AXES, Axis a2 = NO_AXES);
+  bool empty_b (Axis a1 = NO_AXES, Axis a2 = NO_AXES);
   Graphical_element ();
   Graphical_element (Graphical_element const&);
   virtual ~Graphical_element ();
@@ -48,13 +51,17 @@ public:
     
   void translate_axis (Real, Axis);
 
-  Real relative_coordinate (Dimension_cache*group, Axis) const;
-  Real absolute_coordinate (Axis) const;
+  Real relative_coordinate (Graphical_element const* refp, Axis) const;
   /**
     Find the group-element which has both #this# and #s#
    */
-  Dimension_cache*common_group (Graphical_element const* s, Axis a) const;
-  Dimension_cache*common_group (Link_array<Graphical_element> elems, Axis a) const;
+  Graphical_element*common_refpoint (Graphical_element const* s, Axis a) const;
+  Graphical_element*common_refpoint (Link_array<Graphical_element> elems, Axis a) const;
+
+  /**
+     Set the  parent refpoint of THIS to E
+   */
+  void set_parent (Graphical_element* e, Axis);
   
   Graphical_element *parent_l (Axis a) const;
   

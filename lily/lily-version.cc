@@ -6,7 +6,7 @@
   (c)  1999 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "config.hh"
+#include "config.h"
 #include "version.hh"
 #include "lily-version.hh"
 

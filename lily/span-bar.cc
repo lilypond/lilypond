@@ -43,13 +43,16 @@ Span_bar::do_pre_processing ()
   
   evaluate_empty ();
   
-  dim_cache_[Y_AXIS]->set_empty (false); // a hack to make mark scripts work.
+  set_empty (false, Y_AXIS); // a hack to make mark scripts work.
 }
 
 void
 Span_bar::do_post_processing ()
 {
   Bar::do_post_processing ();
+  Interval i(get_spanned_interval ());
+
+  translate_axis (i.center (), Y_AXIS);
 }
 
 void
@@ -58,7 +61,8 @@ Span_bar::evaluate_empty ()
   if (spanning_l_arr_.size () < 1) 
     {
       set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-      set_empty (true);   
+      set_empty (true, X_AXIS, Y_AXIS);   
+
     }
   if (type_str_.empty_b ()) 
     {
@@ -83,13 +87,12 @@ Interval
 Span_bar::get_spanned_interval () const
 {
   Interval y_int;
+
   for (int i=0; i < spanning_l_arr_.size (); i++) 
     {
-      Dimension_cache*common = 
-	common_group (spanning_l_arr_[i], Y_AXIS);
-	
-      Real y = spanning_l_arr_[i]->dim_cache_[Y_AXIS]->relative_coordinate (common)  
-	-dim_cache_[Y_AXIS]->relative_coordinate (common);
+      Graphical_element*common = common_refpoint (spanning_l_arr_[i], Y_AXIS);
+      Real y = spanning_l_arr_[i]->relative_coordinate (common, Y_AXIS)  
+	- relative_coordinate (common, Y_AXIS);
 
       y_int.unite (y + spanning_l_arr_[i]->extent(Y_AXIS));
     }
@@ -110,7 +113,6 @@ Span_bar::do_brew_molecule_p () const
   if (!iv.empty_b())
     {
       output->add_molecule (lookup_l ()->bar (type_str_, iv.length (), paper_l ()));
-      output->translate_axis (iv.center (), Y_AXIS);
     }
   else
     {

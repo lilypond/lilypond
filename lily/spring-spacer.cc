@@ -373,7 +373,17 @@ Spring_spacer::print() const
 void
 Spring_spacer::connect (int i, int j, Real d, Real h)
 {
-  assert(d >= 0 && d <= 100 CM);
+  if (d > 100 CM)
+    {
+      programming_error( _f("Improbable distance: %f point, setting to 10 mm", d));
+      d = 1 CM;
+    }
+  if(d < 0)
+    {
+      programming_error (_("Negative distance. Setting to 10 mm"));
+      d = 10 MM;
+    }
+      
   assert(h >=0);
 
   Idealspacing * s = new Idealspacing;

@@ -85,8 +85,14 @@ Script_engraver::do_process_requests()
 	  padding = (Real)paddingprop;
 	}
 
-      if (follow_staff)
+
+      Scalar axisprop = get_property ("scriptHorizontal",0);
+      if (axisprop.to_bool ())
+	ss->axis_ = X_AXIS;
+
+      if (follow_staff && !axisprop.to_bool ())
 	ss->set_elt_property (no_staff_support_scm_sym, SCM_BOOL_T);
+      
       p->set_staff_side (ss);
       ss->set_elt_property (script_priority_scm_sym, priority);
       if (padding)
@@ -117,9 +123,9 @@ Script_engraver::acknowledge_element (Score_element_info inf)
 	{
 	  Staff_side_item * ss = dynamic_cast<Staff_side_item*>(staff_side_p_arr_[i]);
 	  
-	  if (!ss->dim_cache_[X_AXIS]->parent_l_)
+	  if (!ss->parent_l (X_AXIS))
 	    {
-	      ss->dim_cache_[X_AXIS]->parent_l_ = inf.elem_l_->dim_cache_[X_AXIS];
+	      ss->set_parent (inf.elem_l_, X_AXIS);
 	    }
 	  ss->add_support (rh);
 	}

@@ -51,7 +51,7 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	 */
 	{
 	  spanbar_p_ = get_span_bar_p();
-	  spanbar_p_->dim_cache_[Y_AXIS]->parent_l_ = bar_l_arr_[0]->dim_cache_[Y_AXIS];
+	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  String visnam =  String(name()) + "_visibility";
 	  
 	  spanbar_p_->set_elt_property (visibility_lambda_scm_sym,
@@ -64,7 +64,7 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	    }
 	  else
 	    {
-	      spanbar_p_->dim_cache_[X_AXIS]->parent_l_ = bar_l_arr_[0]->dim_cache_[X_AXIS];	  
+	      spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 	    }
 	  
 	  announce_element (Score_element_info (spanbar_p_,0));

@@ -163,7 +163,7 @@ Score_engraver::typeset_all()
 		musical_column_l_->add_element(item_p);
 	    }
 	}
-      if (!elem_p->dim_cache_[Y_AXIS]->parent_l_)
+      if (!elem_p->parent_l(Y_AXIS))
 	scoreline_l_->add_element (elem_p);
     }
   elem_p_arr_.clear();

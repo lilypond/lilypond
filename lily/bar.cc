@@ -83,6 +83,6 @@ Bar::do_pre_processing ()
     }
 
   if (type_str_ =="")
-    dim_cache_[X_AXIS]->set_empty (true);
+    set_empty (true, X_AXIS);
 }
   

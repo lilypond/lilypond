@@ -33,7 +33,7 @@ Note_column::shift_compare (Note_column *const &p1, Note_column*const&p2)
 
 Note_column::Note_column()
 {
-  set_axes (X_AXIS,X_AXIS);
+  set_axes (X_AXIS, Y_AXIS);
   stem_l_ = 0;
 }
 
@@ -51,7 +51,7 @@ Note_column::head_positions_interval() const
   iv.set_empty ();
   for (int i=0; i <head_l_arr_.size ();i ++)
     {
-      int j = head_l_arr_[i]->position_i_;
+      int j = head_l_arr_[i]->position_i ();
       iv.unite (Slice (j,j));
     }
   return iv;
@@ -121,7 +121,8 @@ Note_column::translate_rests (int dy_i)
 {
   invalidate_cache (Y_AXIS);
   for (int i=0; i < rest_l_arr_.size(); i++)
-    rest_l_arr_[i]->position_i_ += dy_i;
+    rest_l_arr_[i]->translate_axis (dy_i  * rest_l_arr_[i]->staff_line_leading_f ()/2.0,
+				    Y_AXIS);
 }
 
 void

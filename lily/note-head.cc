@@ -28,11 +28,12 @@ Note_head::Note_head ()
 void
 Note_head::do_pre_processing ()
 {
+  Rhythmic_head::do_pre_processing ();
   // 8 ball looks the same as 4 ball:
   if (balltype_i_ > 2)
     balltype_i_ = 2;
   if (dots_l_)			// move into Rhythmic_head?
-    dots_l_->position_i_ = position_i_;
+    dots_l_->position_i_ = position_i ();
 }
 
 
@@ -40,7 +41,7 @@ Note_head::do_pre_processing ()
 int
 Note_head::compare (Note_head *const  &a, Note_head * const &b)
 {
-  return a->position_i_ - b->position_i_;
+  return a->position_i () - b->position_i ();
 }
 
 /**
@@ -60,9 +61,9 @@ Note_head::do_brew_molecule_p() const
   Real inter_f = staff_line_leading_f ()/2;
   int sz = lines_i ()-1;
 
-  int streepjes_i = abs (position_i_) < sz 
+  int streepjes_i = abs (position_i ()) < sz 
     ? 0
-    : (abs(position_i_) - sz) /2;
+    : (abs(position_i ()) - sz) /2;
 
 
   String type; 
@@ -78,7 +79,7 @@ Note_head::do_brew_molecule_p() const
 
   if (streepjes_i) 
     {
-      Direction dir = (Direction)sign (position_i_);
+      Direction dir = (Direction)sign (position_i ());
       Interval hd = out->dim_[X_AXIS];
       Real hw = hd.length ()/4;
       
@@ -86,7 +87,7 @@ Note_head::do_brew_molecule_p() const
 	= lookup_l ()->ledger_line  (Interval (hd[LEFT] - hw,
 					       hd[RIGHT] + hw));
       
-      int parity =  abs(position_i_) % 2;
+      int parity =  abs(position_i ()) % 2;
       
       for (int i=0; i < streepjes_i; i++)
 	{
@@ -98,6 +99,5 @@ Note_head::do_brew_molecule_p() const
     }
 
   out->dim_ = b;
-  out->translate_axis (inter_f*position_i_, Y_AXIS);
   return out;
 }

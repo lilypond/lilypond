@@ -19,7 +19,7 @@ class Dimension_cache;
 typedef Interval (*Dim_cache_callback)(Dimension_cache *);
 
 /**
-  Adminstration of offset  dimension info. 
+  Adminstration of offset dimension info. 
  */
 class Dimension_cache
 {
@@ -39,7 +39,6 @@ class Dimension_cache
 
   void init ();
 public:
-  Real offset () const;
   void set_callback (Dim_cache_callback);
   /** The #offset_# is defined with regard to this graphical_element/
     dimension_cache.  */
@@ -47,22 +46,31 @@ public:
   Dimension_cache * parent_l_;
   Link_array<Dimension_cache> dependencies_l_arr_;
   Graphical_element *element_l () { return elt_l_; }
-  Real absolute_coordinate () const;
+
   void invalidate ();
   void invalidate_dependencies ();
   
   Dimension_cache(Dimension_cache const&);
   Dimension_cache ();
 
+
+  /**
+     Find the offset relative to D.  If   D equals THIS, then it is 0.
+     Otherwise, it recursively defd as
+
+     OFFSET_ + PARENT_L_->relative_coordinate (D)
+   */
   Real relative_coordinate (Dimension_cache *d) const;
-  Dimension_cache*common_group (Dimension_cache const* s) const;
-  Dimension_cache*common_group (Link_array<Dimension_cache> caches) const;
+  Dimension_cache*common_refpoint (Dimension_cache const* s) const;
+  Dimension_cache*common_refpoint (Link_array<Dimension_cache> caches) const;
   void set_empty (bool);
   void translate (Real);
+
+  // junkme.
   void set_offset (Real);
+
   bool valid_b () const { return valid_b_; }
   bool empty_b() const { return empty_b_; }
-  void set_dim (Interval);
   Interval get_dim () const;
 };
 

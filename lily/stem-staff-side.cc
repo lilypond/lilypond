@@ -81,11 +81,9 @@ Stem_staff_side_item::do_post_processing ()
   */
   if (get_elt_property (no_staff_support_scm_sym) != SCM_BOOL_F)
     {
-      Dimension_cache * c =common_group (staff_symbol_l (), Y_AXIS);
-      Real staff_coord = staff_symbol_l ()->relative_coordinate (c, Y_AXIS) +
-	staff_symbol_l ()->dim_cache_[Y_AXIS]->offset (); 
-      Real self_coord = relative_coordinate (c, Y_AXIS)
-	+ dim_cache_[Y_AXIS]->offset ();
+      Graphical_element * c =common_refpoint (staff_symbol_l (), Y_AXIS);
+      Real staff_coord = staff_symbol_l ()->relative_coordinate (c, Y_AXIS);
+      Real self_coord = relative_coordinate (c, Y_AXIS);
       Real now_coord = self_coord - staff_coord;
       
       Real desired_coord = ceil (dir_ * 2.0 *  now_coord / staff_line_leading_f ());

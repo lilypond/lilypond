@@ -21,7 +21,7 @@
 #include "string.hh"
 #include "main.hh"
 #include "file-path.hh"
-#include "config.hh"
+#include "config.h"
 #include "file-results.hh"
 #include "debug.hh"
 #include "lily-guile.hh"

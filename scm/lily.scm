@@ -176,9 +176,8 @@
 
   (define (select-font font-name magnification)
       (if (not (equal? font-name current-font))
-	  (begin
+	  (let* ((font-cmd (assoc font-name font-alist)))
 	    (set! current-font font-name)
-	    (define font-cmd (assoc font-name font-alist))
 	    (if (eq? font-cmd #f)
 		(begin
 		  (set! font-cmd (cached-fontname font-count))
@@ -255,10 +254,11 @@
   ;;
   ;; need to do something to make this really safe.
   ;;
-  (if security-paranoia
-      (define (output-tex-string s)
-	(regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post))
-      (define (output-tex-string s)    s))
+  (define (output-tex-string s)
+      (if security-paranoia
+	  (regexp-substitute/global #f "\\\\" s 'pre "$\\backslash$" 'post)
+	  s))
+      
 
   (define (lily-def key val)
     (string-append
@@ -444,7 +444,10 @@
      (apply string-append (map control->string l)) 
      (number->string thick) 
      " [ "
-     (if (> 1 dash) (number->string (- (* thick dash) thick)) "0") " "
+     (if (> 1 dash)
+	 (number->string (- (* thick dash) thick))
+	 "0")
+     " "
      (number->string (* 2 thick))
      " ] 0 draw_dashed_slur"))
 

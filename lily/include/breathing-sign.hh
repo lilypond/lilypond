@@ -26,7 +26,7 @@ protected:
   virtual Molecule* do_brew_molecule_p () const;
 
 private:
-  Direction vertical_position_i_;
+  Direction dir_;
 };
 
 #endif // BREATHING_SIGN_HH

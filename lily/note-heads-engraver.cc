@@ -49,8 +49,8 @@ Note_heads_engraver::do_process_requests()
       Note_head *note_p  = new Note_head;
       Note_req * note_req_l = note_req_l_arr_[i];
       note_p->balltype_i_ = note_req_l->duration_.durlog_i_;
-      note_p->dots_i_ = note_req_l->duration_.dots_i_;
-      if (note_p->dots_i_)
+
+      if (note_req_l->duration_.dots_i_)
 	{
 	  Dots * d = new Dots;
 	  note_p->dots_l_ = d;
@@ -64,7 +64,7 @@ Note_heads_engraver::do_process_requests()
 	  announce_element (Score_element_info (d,0));
 	  dot_p_arr_.push (d);
 	}
-      note_p->position_i_ = note_req_l->pitch_.steps ();
+      note_p->position_i_  = note_req_l->pitch_.steps ();
 
       if (noteheadstyle == "transparent")
 	note_p->set_elt_property (transparent_scm_sym, SCM_BOOL_T);

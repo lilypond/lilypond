@@ -28,9 +28,14 @@ struct Break_node {
     
     */
   int prev_break_i_;
+  /**
+     Which system number so far?
+   */
   int line_i_;
+
   Real energy_f_;
   Column_x_positions line_config_;
+  
   Break_node () 
   {
     prev_break_i_ = -1;
@@ -40,9 +45,7 @@ struct Break_node {
 
 /**
   This algorithms is adapted from the OSU Tech report on breaking lines.
-  
  */
-
 Array<Column_x_positions>
 Gourlay_breaking::do_solve () const
 {
@@ -60,7 +63,6 @@ Gourlay_breaking::do_solve () const
   optimal_paths[0] = first_node; 
   int break_idx=1;
 
-  
   for (; break_idx< breaks.size (); break_idx++) 
     {
       Array<int> candidates;
@@ -78,9 +80,10 @@ Gourlay_breaking::do_solve () const
 
 	  if (optimal_paths[start_idx].prev_break_i_ < 0
 	      && optimal_paths[start_idx].line_config_.energy_f_)
-		
 	    continue;
-	    
+
+
+	  
 	  Line_of_cols line = all.slice (breaks[start_idx], breaks[break_idx]+1);
   
 	  line[0] = dynamic_cast<Paper_column*>(line[0]->find_prebroken_piece (RIGHT));

@@ -1,6 +1,6 @@
 
 /*   
-  lyric-combine-music-iterator.hh -- declare 
+  lyric-combine-music-iterator.hh -- declare Lyric_combine_music_iterator
   
   source file of the GNU LilyPond music typesetter
   

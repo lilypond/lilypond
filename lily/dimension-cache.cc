@@ -69,36 +69,25 @@ Dimension_cache::translate (Real x)
   offset_ += x;
 }
 
-
 Real
-Dimension_cache::absolute_coordinate () const
+Dimension_cache::relative_coordinate (Dimension_cache *refp) const
 {
-  Real r = offset_;
-  for (Dimension_cache * c = parent_l_;
-       c; c = c->parent_l_)
-    r += c->offset_;
-  return r;
-}
-
-/*
-  what *should* these functions *do* anyway.
- */
-Real
-Dimension_cache::relative_coordinate (Dimension_cache *d) const
-{
-  Real r =0.0;
-  if (d == this)		// UGH
+  if (refp == this)
     return 0.0;
 
-  for (Dimension_cache* c = parent_l_;
-       c != d;
-       c = c->parent_l_)
-    r +=  c->offset_;
-  return r;
+  /*
+    We catch PARENT_L_ == nil case with this, but we crash if we did
+    not ask for the absolute coordinate (ie. REFP == nil.)
+    
+   */
+  if (refp == parent_l_)
+    return offset_;
+  else
+    return offset_ + parent_l_->relative_coordinate (refp);
 }
 
 Dimension_cache *
-Dimension_cache::common_group (Dimension_cache const* s) const
+Dimension_cache::common_refpoint (Dimension_cache const* s) const
 {
   Link_array<Dimension_cache> my_groups;
   for (Dimension_cache const *c = this; c ; c = c->parent_l_)
@@ -109,7 +98,7 @@ Dimension_cache::common_group (Dimension_cache const* s) const
   for (Dimension_cache const * d = s; !common && d; d = d->parent_l_)
     common = (Dimension_cache const*)my_groups.find_l (d);
 
-  return (Dimension_cache*)common;
+  return (Dimension_cache*) common;
 }
 
 
@@ -124,14 +113,6 @@ Dimension_cache::set_empty (bool b)
 	invalidate ();
     }
 }  
-
-void
-Dimension_cache::set_dim (Interval v)
-{
-  dim_ = v;
-  valid_b_ = true;
-}
-  
 
 Interval
 Dimension_cache::get_dim () const
@@ -151,8 +132,6 @@ Dimension_cache::get_dim () const
     }
 
   r=dim_;
-  if (!r.empty_b()) // float exception on DEC Alpha
-    r += offset_;
 
   return r;
 }
@@ -163,8 +142,3 @@ Dimension_cache::set_callback (Dim_cache_callback c)
   callback_l_ =c;
 }
 
-Real
-Dimension_cache::offset () const
-{
-  return offset_;
-}

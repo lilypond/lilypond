@@ -17,7 +17,8 @@ Single_malt_grouping_item ::Single_malt_grouping_item()
   set_elt_property (transparent_scm_sym, SCM_BOOL_T);
 
   // this is weird! , but needed!
-  set_empty (true);
+  set_empty (true, X_AXIS, Y_AXIS);
+
 }
 
 void
@@ -46,7 +47,7 @@ Single_malt_grouping_item::my_width () const
       Interval iv (il->extent (X_AXIS));
       if (!iv.empty_b ())
 	{
-	  Real off = il->relative_coordinate (pc->dim_cache_[X_AXIS], X_AXIS);
+	  Real off = il->relative_coordinate (pc, X_AXIS);
 	  w.unite  (iv + off);
 	}
     }

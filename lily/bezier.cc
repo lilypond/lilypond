@@ -107,7 +107,6 @@ Bezier::print () const
 	  cout << "Controls:  ";
 	  for (int i=0; i < control_.size (); i++)
 	    cout << control_[i].str () << ", ";
-//	  cout << "\n";
 	}
     }
 #endif

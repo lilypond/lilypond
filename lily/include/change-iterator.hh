@@ -1,5 +1,5 @@
 /*
-  change-iterator.hh -- declare 
+  change-iterator.hh -- declare Change_iterator
 
   source file of the GNU LilyPond music typesetter
 

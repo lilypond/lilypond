@@ -58,8 +58,8 @@ Encompass_info::Encompass_info (Note_column const* note_column, Direction dir, S
    */
   o_[Y_AXIS] += dir * slur_l->paper_l ()->get_var ("slur_y_free");
 
-  Dimension_cache *common = stem_l->common_group (slur_l, Y_AXIS);
-  Align_element * align = dynamic_cast<Align_element*> (common->element_l ());
+  Graphical_element *common = stem_l->common_refpoint (slur_l, Y_AXIS);
+  Align_element * align = dynamic_cast<Align_element*> (common);
   if (align && align->axis() == Y_AXIS)
     {
       if (align->threshold_interval_[MIN] != 
@@ -68,19 +68,18 @@ Encompass_info::Encompass_info (Note_column const* note_column, Direction dir, S
 
       interstaff_f_ = align->threshold_interval_[MIN];
 
-      Dimension_cache * slur_refpoint = slur_l->dim_cache_[Y_AXIS];
-      Dimension_cache * note_refpoint = note_column->dim_cache_[Y_AXIS];
+      Graphical_element const * slur_refpoint = slur_l;
+      while (slur_refpoint->parent_l  (Y_AXIS) != common)
+	slur_refpoint = slur_refpoint->parent_l (Y_AXIS);
 
-      while (slur_refpoint->parent_l_ != common)
-	slur_refpoint = slur_refpoint->parent_l_;
-      while (note_refpoint->parent_l_ != common)
-	note_refpoint = note_refpoint->parent_l_;
-
+      Graphical_element const * note_refpoint = note_column;
+      while (note_refpoint->parent_l (Y_AXIS) != common)
+	note_refpoint = note_refpoint->parent_l (Y_AXIS);
 
       int slur_prio =
-	align->get_priority (dynamic_cast<Score_element*> (slur_refpoint->element_l ()));
+	align->get_priority ((Score_element*) dynamic_cast<Score_element const*> (slur_refpoint));
       int stem_prio =
-	align->get_priority (dynamic_cast<Score_element*> (note_refpoint->element_l ()));
+	align->get_priority ((Score_element*) dynamic_cast<Score_element  const *> (note_refpoint));
 
       /*
 	our staff is lower -> interstaff_f_ *= -1

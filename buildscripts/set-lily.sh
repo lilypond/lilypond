@@ -41,9 +41,7 @@ echo
 testvar LILYPONDPREFIX lily $LILYPOND_SOURCEDIR
 testvar MFINPUTS lily .:$MFINPUTS:$LILYPOND_SOURCEDIR/mf
 testvar TEXINPUTS lily .:$TEXINPUTS:$LILYPOND_SOURCEDIR/ps:$LILYPOND_SOURCEDIR/tex
-testvar GS_LIB lily $HOME/usr/src/lilypond/ps
 testvar GS_FONTPATH lily $HOME/usr/src/lilypond/mf/out
-testvar GUILE_LOAD_PATH lily $HOME/usr/src/lilypond/init
 testvar MAILADDRESS "@" $USER@`hostname`
 echo
 
@@ -94,5 +92,5 @@ echo
 
 echo Starting configuration
 echo
-(set -x; TEX_TFMDIR=$TEX_TFMDIR ./configure --prefix=$prefix --enable-debugging --enable-printing --enable-checking --disable-optimise --enable-guile)
+(set -x; TEX_TFMDIR=$TEX_TFMDIR ./configure --prefix=$prefix --enable-debugging --enable-printing --enable-checking --disable-optimise)
 

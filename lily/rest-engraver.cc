@@ -48,8 +48,8 @@ Rest_engraver::do_process_requests ()
     {
       rest_p_ = new Rest;
       rest_p_->balltype_i_ = rest_req_l_->duration_.durlog_i_; 
-      rest_p_->dots_i_ = rest_req_l_->duration_.dots_i_;
-      if (rest_p_->dots_i_)
+
+      if (rest_req_l_->duration_.dots_i_)
 	{
 	  dot_p_ = new Dots;
 	  rest_p_->dots_l_  =dot_p_;

@@ -189,6 +189,7 @@ There is an even shorter way to write small musical fragments. This
 triad, \mudela{<c' e g>}, was created with this code:
 \verb|\mudela{<c' e g>}|
 
+\def\obsolete{
 Mudela-book defines the \verb|\mudela| command, and let you define
 your own commands in a file specified by 
 the command line option \verb|--initfile=filename|. The format for the
@@ -224,6 +225,7 @@ send fontsize options to the defined commands.
   \paper{linewidth = -1.\cm;}
 }
 \end{mudela}
+}
 
 \section{More options}
 \begin{itemize}

@@ -1,5 +1,5 @@
 /*   
-  transposed-music.hh -- declare 
+  transposed-music.hh -- declare Transposed_music
   
   source file of the GNU LilyPond music typesetter
   

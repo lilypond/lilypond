@@ -106,9 +106,9 @@ Break_align_item::do_pre_processing()
 
 
   Real pre_space = elems[0]->extent (X_AXIS)[LEFT]
-    + elems[0]->relative_coordinate (column_l ()->dim_cache_[X_AXIS], X_AXIS);
+    + elems[0]->relative_coordinate (column_l (), X_AXIS);
   Real spring_len = elems.top ()->extent (X_AXIS)[RIGHT]
-    + elems.top ()->relative_coordinate (column_l ()->dim_cache_[X_AXIS], X_AXIS);
+    + elems.top ()->relative_coordinate (column_l (), X_AXIS);
   
   Real stretch_distance =0.;
   
@@ -172,7 +172,7 @@ Break_align_item::add_breakable_item (Item *it)
 	this is quite ridiculous, but we do this anyway, to ensure that no
 	warning bells about missing Y refpoints go off later on.
       */
-      hg->dim_cache_[Y_AXIS]->parent_l_ = dim_cache_[Y_AXIS];
+      hg->set_parent (this, Y_AXIS);
       hg->set_elt_property (ly_symbol ("origin"), ly_ch_C_to_scm (it->name ()));
 
       pscore_l_->typeset_element (hg);

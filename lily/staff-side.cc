@@ -22,8 +22,6 @@ Staff_side_element::Staff_side_element ()
   axis_ = Y_AXIS;
 }
 
-
-
 void
 Staff_side_element::do_pre_processing ()
 {
@@ -46,7 +44,7 @@ Staff_side_element::set_victim (Score_element *e)
 {
   add_dependency (e);
   to_position_l_ = e;
-  to_position_l_->dim_cache_[axis_]->parent_l_ = dim_cache_[axis_];
+  to_position_l_->set_parent (this, axis_);
 }
 
 void
@@ -75,11 +73,11 @@ Staff_side_element::position_self ()
     return;
 
   Interval dim;
-  Dimension_cache *common = 0;
+  Graphical_element *common = 0;
   if (support_l_arr_.size ())
     {
-      common = common_group (typecast_array (support_l_arr_, (Graphical_element*)0),
-			     axis_);
+      common = common_refpoint (typecast_array (support_l_arr_, (Graphical_element*)0),
+				axis_);
 
       for (int i=0; i < support_l_arr_.size (); i++)
 	{
@@ -90,7 +88,7 @@ Staff_side_element::position_self ()
 	}
     }
   else
-     common = dim_cache_[axis_]->parent_l_;
+     common = parent_l (axis_);
 
   if (dim.empty_b ())
     {
@@ -103,7 +101,7 @@ Staff_side_element::position_self ()
     ? to_position_l_->extent (axis_)
     : Interval(0,0);
 
-  Real off =  dim_cache_[axis_]->relative_coordinate (common);
+  Real off =  relative_coordinate (common, axis_);
  
 
 

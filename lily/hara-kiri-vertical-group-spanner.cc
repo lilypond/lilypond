@@ -34,7 +34,8 @@ Hara_kiri_group_spanner::do_post_processing ()
   for (int i = 0; i < childs.size (); i++)
     {
       childs[i]->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
-      childs[i]->set_empty (true);
+      childs[i]->set_empty (true, X_AXIS, Y_AXIS);
+
     }
   set_empty (true);
 }

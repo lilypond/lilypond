@@ -57,7 +57,7 @@ Stem::head_positions () const
   Interval_t<int> r;
   for (int i =0; i < head_l_arr_.size (); i++)
     {
-      int p = head_l_arr_[i]->position_i_;
+      int p = head_l_arr_[i]->position_i ();
       r[BIGGER] = r[BIGGER] >? p;
       r[SMALLER] = r[SMALLER] <? p;
     }
@@ -229,10 +229,10 @@ Stem::set_noteheads ()
     head_l_arr_.top ()->set_elt_property (extremal_scm_sym, SCM_BOOL_T);
   
   int parity=1;
-  int lastpos = beginhead->position_i_;
+  int lastpos = beginhead->position_i ();
   for (int i=1; i < head_l_arr_.size (); i ++)
     {
-      int dy =abs (lastpos- head_l_arr_[i]->position_i_);
+      int dy =abs (lastpos- head_l_arr_[i]->position_i ());
 
       if (dy <= 1)
 	{
@@ -242,7 +242,7 @@ Stem::set_noteheads ()
 	}
       else
 	parity = 1;
-      lastpos = head_l_arr_[i]->position_i_;
+      lastpos = head_l_arr_[i]->position_i ();
     }
 }
 
@@ -257,7 +257,7 @@ Stem::do_pre_processing ()
     {
       set_elt_property (transparent_scm_sym, SCM_BOOL_T);
     }
-  set_empty (invisible_b ());
+  set_empty (invisible_b (), X_AXIS, Y_AXIS);
   set_spacing_hints ();
 }
 

@@ -1,5 +1,5 @@
 /*   
-  grace-iterator.hh -- declare 
+  grace-iterator.hh -- declare Grace_iterator
   
   source file of the GNU LilyPond music typesetter
   

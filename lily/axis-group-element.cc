@@ -63,8 +63,8 @@ void
 Axis_group_element::set_axes (Axis a1, Axis a2)
 {
   Graphical_axis_group::set_axes (a1,a2);
-  dim_cache_[X_AXIS]->set_empty ((a1 != X_AXIS && a2 != X_AXIS));
-  dim_cache_[Y_AXIS]->set_empty ((a1 != Y_AXIS && a2 != Y_AXIS));
+  set_empty (a1 != X_AXIS && a2 != X_AXIS, X_AXIS);
+  set_empty (a1 != Y_AXIS && a2 != Y_AXIS, Y_AXIS);
 }
 
 
@@ -90,8 +90,8 @@ Axis_group_element::extra_extent (Axis a )const
   urg->purge_extra ();		// Yeah yeah,  const correctness.
   for (int i=0;  i < extra_elems_.size (); i++)
     {
-      Interval ge = extra_elems_[i]->extent (a);
-      ge += extra_elems_[i]->relative_coordinate (dim_cache_[a], a);
+      Interval ge = extra_elems_[i]->relative_coordinate (this, a)
+	+ extra_elems_[i]->extent (a);
       g.unite (ge);
     }
   return g;
@@ -158,3 +158,10 @@ Axis_group_element::purge_extra ()
 	i++;
     }
 }
+
+Interval
+Axis_group_element::extent (Axis a) const
+{
+  return Graphical_element::extent (a);
+}
+  

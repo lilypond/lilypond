@@ -27,6 +27,8 @@ COMMENT(
   
     accordeon symbols
     Music expression / music expression
+    property lists  should be alphabetic.
+    
 )
 
 
@@ -2266,20 +2268,23 @@ subsubsect(Voice properties)
 cindex(properties!Voice)
 
 description(  
-  dit(code(stemLength))indexcode(stemLength) nl()
-    Set length of stems.  Unit is `code(interline)/2', so
-    code(stemLength) defaults bind(to)7.
+  dit(code(abbrev))indexcode(abbrev) nl()
+    Set length for tremolo to be used if no length is explicitly
+    specified. 
 
-  dit(code(stemLeftBeamCount))indexcode(stemLeftBeamCount) nl()
-    Specify the number of beams to draw on the left side of the next
-    note.  Overrides automatic beaming.  The value is only used once,
-    and then it is erased.
+  dit(code(articulationScriptPadding))indexcode(articulationScriptPadding)
+    nl()
+    Determines the extra space added between articulation marks, such
+    as staccato, tenuto, trill, up/down bow or fermata, and the
+    closest staff line or note.
 
-  dit(code(stemRightBeamCount))indexcode(stemRightBeamCount) nl()
-    Specify the number of beams to draw on the right side of the next
-    note.  Overrides automatic beaming.  The value is only used once,
-    and then it is erased.
-
+  dit(code(articulationScriptVerticalDirection))
+    indexcode(articulationScriptVerticalDirection) nl()
+    Determines the location of articulation marks.  Set to code(\up)
+    to print marks above the staff; set to code(\down) to print marks
+    below the staff.  This property does not override explicit
+    directions marked with `code(^)' or `code(_)' in the mudela file.
+    
   dit(code(noAutoBeaming))indexcode(beamAuto) nl()
     If set bind(to)1 then beams are not generated automatically.
 
@@ -2290,10 +2295,6 @@ description(
   dit(code(beamAutoBegin))indexcode(beamAutoBegin) nl()
     Specifies when automatically generated beams can start.  See
     bind(section)ref(autobeam).
-
-  dit(code(textEmptyDimension))indexcode(textEmptyDimension) nl()
-    If set bind(to)1 then text placed above or below the staff is
-    assumed to have zero width.
 
   dit(code(beamquantisation))indexcode(beamquantisation) nl()
     Set to code(\none) for no quantization.  Set to code(\normal) to
@@ -2312,11 +2313,41 @@ description(
     code(\beamslopezero)keyindex(beamslopezero) each set the
     corresponding value.
 
-  dit(code(restStyle))indexcode(restStyle) nl()
-    Change the layout of rests shorter than quarter notes. 
-    Currently, the standard layout code("") and mensural notation
-    code("mensural") are available. Mensural rests of duration
-    32 or shorter are not available.
+  dit(code(dynamicDirection))indexcode(dynamicDirection) nl()
+    Determines location of dynamic marks.  Set to code(\up) to print
+    marks above the staff; set to code(\down) to print marks below
+    the staff.
+
+  dit(code(dynamicStyle))indexcode(dynamicStyle) nl()
+    Set the text style for dynamics.  
+
+  dit(code(fontSize))indexcode(fontSize) nl()
+    Can be used to select smaller font sizes for music.  The normal
+    font size bind(is)0, and the two smaller sizes are -1
+    bind(and)-2.
+
+
+   dit(code(forceHorizontalShift))indexcode(forceHorizontalShift) nl()
+    Force horizontal shift for collision resolution.  It overrides
+    automatic collision resolution.  The value is the shift amount
+    expressed in code(note_width), as set in the paper section.
+    
+
+  dit(code(horizontalNoteShift))indexcode(horizontalNoteShift) nl()
+    Enable LilyPond to shift notes horizontally if they collide with
+    other notes.  This is useful when typesetting many voices on one
+    staff.  The identifier code(\shift)keyindex(shift) is defined to
+    enable this.  Traditionally, the outer chords (the upmost and
+    downmost voices), should have no code(horizontalNoteShift).
+
+  dit(code(markScriptPadding))indexcode(markScriptPadding) nl()
+    Determines the extra space added between the mark and the closest
+    staff line or note.
+
+  dit(code(markDirection))indexcode(markDirection) nl()
+    Determines if marks should be printed above or below the staff.
+    Set to code(\up) to print marks above the staff; set to
+    code(\down) to print marks below the staff.
 
   dit(code(midiInstrument))indexcode(midiInstrument) nl()
     Sets the instrument for MIDI output.  If this property is not set
@@ -2325,14 +2356,71 @@ description(
     appears in bind(section)ref(midilist).  If you use a string which
     is not listed, LilyPond will silently substitute piano.
 
-  dit(code(transposing))indexcode(transposing) nl()
-    Transpose the MIDI output.  Set this property to the number of
-    half-steps to transpose by.
 
   dit(code(oldTieBehavior))indexcode(oldTieBehavior) nl()
     Set bind(to)1 in order to get old tie behavior where ties would
     connect unequal pitches.  This property is deprecated, and its
     use is not recommended.
+
+  dit(code(restStyle))indexcode(restStyle) nl()
+    Change the layout of rests shorter than quarter notes. 
+    Currently, the standard layout code("") and mensural notation
+    code("mensural") are available. Mensural rests of duration
+    32 or shorter are not available.
+    
+  dit(code(scriptHorizontal))indexcode(scriptHorizontal) nl()
+    Put scripts left or right of note heads.  Support for this is
+    limited.  Accidentals will collide with scripts.
+    
+  dit(code(slurVerticalDirection))indexcode(slurVerticalDirection) nl()
+    Set to code(\free) for free choice of slur direction, set to
+    code(\up) to force slurs up, set to code(\down) to force slurs
+    down.  The shorthands code(\slurup)keyindex(slurup),
+    code(\slurdown)keyindex(slurdown), and
+    code(\slurboth)keyindex(slurboth) are available.
+
+
+  dit(code(slurDash))indexcode(slurDash) nl()
+    Set bind(to)0 for normal slurs, bind(1)for dotted slurs, and a
+    larger value for dashed slurs.  Identifiers
+    code(\slurnormal)keyindex(slurnormal) and
+    code(\slurdotted)keyindex(slurdotted) are predefined to set the
+    first two settings.
+
+dit(code(stemLength))indexcode(stemLength) nl()
+    Set length of stems.  Unit is `code(interline)/2', so
+    code(stemLength) defaults bind(to)7.
+
+  dit(code(stemLeftBeamCount))indexcode(stemLeftBeamCount) nl()
+    Specify the number of beams to draw on the left side of the next
+    note.  Overrides automatic beaming.  The value is only used once,
+    and then it is erased.
+
+  dit(code(stemRightBeamCount))indexcode(stemRightBeamCount) nl()
+    Specify the number of beams to draw on the right side of the next
+    note.  Overrides automatic beaming.  The value is only used once,
+    and then it is erased.
+  dit(code(tieVerticalDirection))indexcode(tieVerticalDirection) nl()
+    Set to code(\free) for free choice of tie direction, set to
+    code(\up) to force ties up, set to code(\down) to force ties
+    down.
+
+  dit(code(transposing))indexcode(transposing) nl()
+    Transpose the MIDI output.  Set this property to the number of
+    half-steps to transpose by.
+
+  
+  dit(code(textEmptyDimension))indexcode(textEmptyDimension) nl()
+    If set bind(to)1 then text placed above or below the staff is
+    assumed to have zero width.
+  
+  dit(code(textStyle))indexcode(textStyle) nl()
+    Set the text style for superscripts and subscripts.  See above
+    for list of text styles.
+
+  dit(code(textScriptPadding))indexcode(textScriptPadding) nl()
+    Determines the extra space added between superscripted resp.
+    subscripted text and the closest staff line or note.
 
   dit(code(verticalDirection))indexcode(verticalDirection) nl()
     Determines the direction of stems, subscripts, beams, slurs, and
@@ -2342,62 +2430,7 @@ description(
     code(\stemdown)keyindex(stemdown), code(\stemup)keyindex(stemup),
     and code(\stemboth)keyindex(stemboth) identifiers set this
     property.
-
-  dit(code(slurVerticalDirection))indexcode(slurVerticalDirection) nl()
-    Set to code(\free) for free choice of slur direction, set to
-    code(\up) to force slurs up, set to code(\down) to force slurs
-    down.  The shorthands code(\slurup)keyindex(slurup),
-    code(\slurdown)keyindex(slurdown), and
-    code(\slurboth)keyindex(slurboth) are available.
-
-  dit(code(tieVerticalDirection))indexcode(tieVerticalDirection) nl()
-    Set to code(\free) for free choice of tie direction, set to
-    code(\up) to force ties up, set to code(\down) to force ties
-    down.
-
-  dit(code(slurDash))indexcode(slurDash) nl()
-    Set bind(to)0 for normal slurs, bind(1)for dotted slurs, and a
-    larger value for dashed slurs.  Identifiers
-    code(\slurnormal)keyindex(slurnormal) and
-    code(\slurdotted)keyindex(slurdotted) are predefined to set the
-    first two settings.
-
-  dit(code(horizontalNoteShift))indexcode(horizontalNoteShift) nl()
-    Enable LilyPond to shift notes horizontally if they collide with
-    other notes.  This is useful when typesetting many voices on one
-    staff.  The identifier code(\shift)keyindex(shift) is defined to
-    enable this.  Traditionally, the outer chords (the upmost and
-    downmost voices), should have no code(horizontalNoteShift).
-
-   dit(code(forceHorizontalShift))indexcode(forceHorizontalShift) nl()
-    Force horizontal shift for collision resolution.  It overrides
-    automatic collision resolution.  The value is the shift amount
-    expressed in code(note_width), as set in the paper section.
-
-  dit(code(dynamicDirection))indexcode(dynamicDirection) nl()
-    Determines location of dynamic marks.  Set to code(\up) to print
-    marks above the staff; set to code(\down) to print marks below
-    the staff.
-
-  dit(code(dynamicStyle))indexcode(dynamicStyle) nl()
-    Set the text style for dynamics.  
-
-  dit(code(textStyle))indexcode(textStyle) nl()
-    Set the text style for superscripts and subscripts.  See above
-    for list of text styles.
-
-  dit(code(textScriptPadding))indexcode(textScriptPadding) nl()
-    Determines the extra space added between superscripted resp.
-    subscripted text and the closest staff line or note.
-
-  dit(code(fontSize))indexcode(fontSize) nl()
-    Can be used to select smaller font sizes for music.  The normal
-    font size bind(is)0, and the two smaller sizes are -1
-    bind(and)-2.
-
-  dit(code(abbrev))indexcode(abbrev) nl()
-    Set length for tremolo to be used if no length is explicitly
-    specified.
+    
 
   dit(code(tupletDirection))indexcode(tupletDirection) nl()
     Determines the direction of triplets and other tuplets.  Set to
@@ -2412,36 +2445,19 @@ description(
     it adds a bracket; setting bind(to)4 shows both a number and a
     bracket unconditionally.
 
-  dit(code(markScriptPadding))indexcode(markScriptPadding) nl()
-    Determines the extra space added between the mark and the closest
-    staff line or note.
-
-  dit(code(markDirection))indexcode(markDirection) nl()
-    Determines if marks should be printed above or below the staff.
-    Set to code(\up) to print marks above the staff; set to
-    code(\down) to print marks below the staff.
-
-  dit(code(articulationScriptPadding))indexcode(articulationScriptPadding)
-    nl()
-    Determines the extra space added between articulation marks, such
-    as staccato, tenuto, trill, up/down bow or fermata, and the
-    closest staff line or note.
-
-  dit(code(articulationScriptVerticalDirection))
-    indexcode(articulationScriptVerticalDirection) nl()
-    Determines the location of articulation marks.  Set to code(\up)
-    to print marks above the staff; set to code(\down) to print marks
-    below the staff.  This property does not override explicit
-    directions marked with `code(^)' or `code(_)' in the mudela file.
 )
 
 subsubsubsect(Staff properties)
 cindex(properties!Staff)
 
 description(
-  dit(code(createInitdefaultClef))indexcode(createInitdefaultClef) nl()
-    Specify whether clefs are created on default?  (Doesn't seem to
-    do anything.)
+ 
+  dit(code(barNonAuto))indexcode(barNonAuto) nl()
+    If set bind(to)1 then bar lines will not be printed
+    automatically; they must be explicitly created with code(\bar)
+    keywords.  Unlike with the code(\cadenza) keyword, measures are
+    still counted.  Bar generation will resume according to that
+    count if this property is set to zero.
 
   dit(code(barNumberDirection))indexcode(barNumberDirection) nl()
     Set to code(\up) or code(\down) to put bar numbers above or below
@@ -2458,6 +2474,29 @@ description(
   dit(code(barSize))indexcode(barSize) nl()
     Specify the height of the bar lines if it should be different
     than the staff height.
+
+  dit(code(barAtLineStart))indexcode(barAtLineStart) nl()
+    Set bind(to)1 to produce a bar line after the clef at the start
+    of each line (but not at the beginning of the music).
+
+  dit(code(clefStyle))indexcode(clefStyle) nl()
+    Determines how clefs are typeset.  If set to code(transparent),
+    the clefs are not printed at all, if set to
+    code(fullSizeChanges), clef changes in the middle of a line are
+    typeset with a full size clef.  By default, clef changes are
+    typeset in smaller size.
+
+  dit(code(createKeyOnClefChange))indexcode(createKeyOnClefChange) nl()
+    Set to a nonempty string if you want key signatures to be printed
+    when the clef changes.  Set to the empty string if you do not
+    want key signatures printed.
+
+  dit(code(createInitdefaultClef))indexcode(createInitdefaultClef) nl()
+    Specify whether clefs are created on default?  (Doesn't seem to
+    do anything.)
+
+  dit(code(defaultClef))indexcode(defaultClef) nl()
+    Determines the default clef.  See code(\clef) keyword.
 
   dit(code(markHangOnClef))indexcode(markHangOnClef) nl()
     Set bind(to)1 to cause marks to appear by clefs instead of by bar
@@ -2489,32 +2528,9 @@ description(
     Extra space in points to be added after the clef, time signature
     and key signature on the staff.  Deprecated, do not use.
 
-  dit(code(barAtLineStart))indexcode(barAtLineStart) nl()
-    Set bind(to)1 to produce a bar line after the clef at the start
-    of each line (but not at the beginning of the music).
-
   dit(code(noVoltaBraces))indexcode(noVoltaBraces) nl()
     Set to true to suppress the printing of brackets over alternate
     endings specified by the command code(\alternative).
-
-  dit(code(voltaSpannerDuration))indexcode(voltaSpannerDuration) nl()
-    Set to an integer to control the size of the brackets printed by
-    code(\alternative).  The integer specifies the number of whole
-    notes duration to use for the brackets.  It is rounded to the
-    nearest measure.  This can be used to shrink the length of
-    brackets in the situation where one alternative is very large. 
-    It may have odd effects if the specified duration is longer than
-    the music given in an code(\alternative).
-
-  dit(code(barNonAuto))indexcode(barNonAuto) nl()
-    If set bind(to)1 then bar lines will not be printed
-    automatically; they must be explicitly created with code(\bar)
-    keywords.  Unlike with the code(\cadenza) keyword, measures are
-    still counted.  Bar generation will resume according to that
-    count if this property is set to zero.
-
-  dit(code(defaultClef))indexcode(defaultClef) nl()
-    Determines the default clef.  See code(\clef) keyword.
 
   dit(code(numberOfStaffLines))indexcode(numberOfStaffLines) nl()
     Sets the number of lines that the staff has.
@@ -2525,6 +2541,15 @@ description(
   dit(code(defaultBarType))indexcode(defaultBarType) nl()
     Sets the default type of bar line. See bind(Section)ref(barlines) 
     for a list of available bar types.
+
+  dit(code(instrument), code(instr))
+    indexcode(instrument)indexcode(instr) nl()
+    If code(Staff_margin_engraver)cindex(Staff_margin_engraver) is
+    added to the Staff translator, then the code(instrument) property
+    is used to label the first line of the staff and the code(instr)
+    property is used to label subsequent lines.  If the
+    code(midiInstrument) property is not set, then code(instrument)
+    is used to determine the instrument for MIDI output.
 
   dit(code(keyOctaviation))indexcode(keyOctaviation) nl()
     If set bind(to)1, then keys are the same in all octaves.  If set
@@ -2537,20 +2562,6 @@ description(
 
     The default value bind(is)1.  Can be set to zero with
     code(\specialkey) or reset bind(to)1 with code(\normalkey).
-
-  dit(code(instrument), code(instr))
-    indexcode(instrument)indexcode(instr) nl()
-    If code(Staff_margin_engraver)cindex(Staff_margin_engraver) is
-    added to the Staff translator, then the code(instrument) property
-    is used to label the first line of the staff and the code(instr)
-    property is used to label subsequent lines.  If the
-    code(midiInstrument) property is not set, then code(instrument)
-    is used to determine the instrument for MIDI output.
-
-  dit(code(createKeyOnClefChange))indexcode(createKeyOnClefChange) nl()
-    Set to a nonempty string if you want key signatures to be printed
-    when the clef changes.  Set to the empty string if you do not
-    want key signatures printed.
 
   dit(code(timeSignatureStyle))indexcode(timeSignatureStyle) nl()
     Changes the default two-digit layout for time signatures.  The
@@ -2614,12 +2625,14 @@ description(
       }
     )
 
-  dit(code(clefStyle))indexcode(clefStyle) nl()
-    Determines how clefs are typeset.  If set to code(transparent),
-    the clefs are not printed at all, if set to
-    code(fullSizeChanges), clef changes in the middle of a line are
-    typeset with a full size clef.  By default, clef changes are
-    typeset in smaller size.
+  dit(code(voltaSpannerDuration))indexcode(voltaSpannerDuration) nl()
+    Set to an integer to control the size of the brackets printed by
+    code(\alternative).  The integer specifies the number of whole
+    notes duration to use for the brackets.  It is rounded to the
+    nearest measure.  This can be used to shrink the length of
+    brackets in the situation where one alternative is very large. 
+    It may have odd effects if the specified duration is longer than
+    the music given in an code(\alternative).
 )
    
 subsubsect(GrandStaff properties)

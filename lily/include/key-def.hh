@@ -1,5 +1,5 @@
 /*   
-  key-def.hh -- declare 
+  key-def.hh -- declare Key_def
   
   source file of the GNU LilyPond music typesetter
   

@@ -36,7 +36,7 @@ Rhythmic_column_engraver::process_acknowledged ()
 
       for (int i=0; i < rhead_l_arr_.size (); i++)
 	{
-	  if (!rhead_l_arr_[i]->dim_cache_[X_AXIS]->parent_l_)
+	  if (!rhead_l_arr_[i]->parent_l(X_AXIS))
 	    ncol_p_->add_head (rhead_l_arr_[i]);
 	}
       rhead_l_arr_.set_size (0);
@@ -46,13 +46,13 @@ Rhythmic_column_engraver::process_acknowledged ()
   if (ncol_p_)
     {
       if (dotcol_l_
-	  && !dotcol_l_->dim_cache_[X_AXIS]->parent_l_)
+	  && !dotcol_l_->parent_l(X_AXIS))
 	{
 	  ncol_p_->set_dotcol (dotcol_l_);
 	}
 
       if (stem_l_
-	  && !stem_l_->dim_cache_[X_AXIS]->parent_l_)
+	  && !stem_l_->parent_l(X_AXIS))
 	{
 	  ncol_p_->set_stem (stem_l_);
 	  stem_l_ = 0;

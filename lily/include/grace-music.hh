@@ -1,5 +1,5 @@
 /*   
-  grace-music.hh -- declare 
+  grace-music.hh -- declare Grace_music
   
   source file of the GNU LilyPond music typesetter
   
