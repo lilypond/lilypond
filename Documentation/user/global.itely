@@ -312,7 +312,7 @@ value has to be multiplied in the example
 The default footer is empty, except for the first page, where the
 @code{copyright} field from @code{\header} is inserted, and the last
 page, where @code{tagline} from @code{\header} is added.  The default
-tagline is ``Engraved by LilyPond (@var{version})''.@footnote{Nicely
+tagline is ``Music engraving by LilyPond (@var{version})''.@footnote{Nicely
 printed parts are good PR for us, so please leave the tagline if you
 can.}
 
@@ -668,11 +668,11 @@ Page breaks are computed by the @code{page-breaking} function in the
 @cindex bibliographic information
 @cindex titles
 @cindex composer
-@cindex Engraved by LilyPond
+@cindex Music engraiving by LilyPond
 
-A document may contain multiple pieces of music.  Examples of these
-are an etude book, or an orchestral part with multiple movements.
-Each movement is entered with a @code{\score} block,
+A document may contain multiple pieces of music and texts.  Examples
+of these are an etude book, or an orchestral part with multiple
+movements.  Each movement is entered with a @code{\score} block,
 
 @example
 \score @{
@@ -680,11 +680,23 @@ Each movement is entered with a @code{\score} block,
 @}
 @end example
 
-The movements are combined together in a @code{\book} block, like
+and texts are entered with a @code{\markup} block,
+
+@example
+\markup @{
+  @var{..text..}
+@}
+@end example
+
+The movements and texts are combined together in a @code{\book} block,
+like
 
 @example
 \book @{
   \score @{
+    @var{..}
+  @}
+  \markup @{
     @var{..}
   @}
   \score @{
@@ -712,6 +724,12 @@ the top of the file is inserted.
   \score @{
     @dots{}
     \header @{ piece = "Romanze" @}
+  @}
+  \markup @{
+     ..text of second verse..
+  @}
+  \markup @{
+     ..text of third verse..
   @}
   \score @{
     @dots{}
@@ -796,6 +814,9 @@ Here is a demonstration of the fields available,
       opus = "opus1" 
     }
     { c'1 }
+  }
+  \markup {
+      and now...
   }
   \score {
     \header {
@@ -939,6 +960,16 @@ expressions.
 This behavior can be changed by setting the variable
 @code{toplevel-music-handler} at toplevel.  The default handler is
 defined in the init file @file{scm/@/lily@/.scm}.
+
+@item A markup text, a verse for example
+@example
+\markup @{
+   2.  The first line verse two.
+@}
+@end example
+
+Markup texts are rendered above, between or below the scores or music
+expressions, wherever they appear.
 
 @item An indentifier, such as
 @example
