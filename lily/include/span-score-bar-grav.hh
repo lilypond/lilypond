@@ -47,6 +47,7 @@ public:
   TRANSLATOR_CLONE (Staff_group_bar_engraver);
   DECLARE_MY_RUNTIME_TYPEINFO;
   virtual Span_bar * get_span_bar_p () const;
+  virtual void acknowledge_element (Score_elem_info);
 };
 
 #endif // SPAN_SCORE_BAR_GRAV_HH
