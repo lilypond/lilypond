@@ -502,7 +502,7 @@
 	(SpacingSpanner . (
 		(spacing-procedure . ,Spacing_spanner::set_springs)
 		(stem-spacing-correction . 0.5)
-
+		(grace-space-factor . 0.8)
 
 		;; TODO: change naming -- unintuitive
 		(arithmetic-basicspace . 2.0)

@@ -63,7 +63,8 @@ struct Spring_description
 struct Simple_spacer
 {
   Array<Spring_description> springs_;
-
+  Link_array<Grob> spaced_cols_;
+  Link_array<Grob> loose_cols_;
   Real force_f_;
   Real indent_f_;
   Real line_len_f_;

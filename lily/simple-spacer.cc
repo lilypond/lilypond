@@ -167,11 +167,19 @@ Simple_spacer::my_solve_natural_len ()
 void
 Simple_spacer::add_columns (Link_array<Grob> cols)
 {
+  for (int i =  cols.size (); i--;)
+    if (gh_pair_p (cols[i]->get_grob_property ("between-cols")))
+      {
+	loose_cols_.push (cols[i]);
+	cols.del (i);
+      }
+  
+  spaced_cols_ = cols;
   for (int i=0; i < cols.size () - 1; i++)
     {
-      SCM spring_params = SCM_UNDEFINED;
+      SCM spring_params = SCM_EOL;
       for (SCM s = cols[i]->get_grob_property ("ideal-distances");
-	   spring_params == SCM_UNDEFINED && gh_pair_p (s);
+	   !gh_pair_p (spring_params) && gh_pair_p (s);
 	   s = gh_cdr (s))
 	{
 	  Grob *other = unsmob_grob (gh_caar (s));
@@ -182,7 +190,7 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
 	}
 
       Spring_description desc;
-      if (spring_params != SCM_UNDEFINED)
+      if (gh_pair_p (spring_params))
 	{
 	  desc.ideal_f_ = gh_scm2double (gh_car (spring_params));
 	  desc.hooke_f_ = gh_scm2double (gh_cdr (spring_params));
@@ -199,6 +207,9 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
       if (!desc.sane_b ())
 	{
 	  programming_error ("Insane spring found. Setting to unit spring.");
+
+	  cout << "columns " << Paper_column::rank_i (cols[i])
+	       << " " << Paper_column::rank_i (cols[i+1]) << endl;
 	  desc.hooke_f_ = 1.0;
 	  desc.ideal_f_ = 1.0;
 	}
@@ -240,7 +251,9 @@ Simple_spacer::solve (Column_x_positions *positions) const
     {
       positions->config_.push (positions->config_.top () + springs_[i].length (force_f_));
     }
-
+  positions->cols_ = spaced_cols_;
+  positions->loose_cols_ = loose_cols_;
+  
   positions->satisfies_constraints_b_ = (line_len_f_ < 0) || active_b ();
 }
 
