@@ -1,3 +1,8 @@
+2002-07-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/include/music-iterator.hh (class Music_iterator): change
+	get_music() to get_pending_events().
+
 2002-07-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* buildscripts/ontgaar.py: get_music () -> get_pending_events ().

@@ -29,7 +29,7 @@ public:
   virtual void construct_children ();
   virtual Moment pending_moment () const;
   virtual bool ok () const;
-  virtual SCM get_music (Moment)const;
+  virtual SCM get_pending_events (Moment)const;
   virtual void skip (Moment);
 
 protected:

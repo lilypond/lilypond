@@ -64,9 +64,9 @@ Music_wrapper_iterator::process (Moment m)
 }
 
 SCM
-Music_wrapper_iterator::get_music (Moment m)const
+Music_wrapper_iterator::get_pending_events (Moment m)const
 {
-  return child_iter_p_->get_music (m);
+  return child_iter_p_->get_pending_events (m);
 }
 
 Moment

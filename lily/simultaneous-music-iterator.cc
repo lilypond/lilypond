@@ -35,12 +35,12 @@ Simultaneous_music_iterator::~Simultaneous_music_iterator ()
 }
 
 SCM
-Simultaneous_music_iterator::get_music (Moment m)const
+Simultaneous_music_iterator::get_pending_events (Moment m)const
 {
   SCM s = SCM_EOL;
   for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
     {
-      s = gh_append2 (p->car_->get_music (m), s);
+      s = gh_append2 (p->car_->get_pending_events (m), s);
     }
   return s;
 }

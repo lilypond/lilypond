@@ -45,7 +45,7 @@
     * Typically this reports the music to an interpretation context,
     thus changing the state of the interpretation context.
 
-  get_music (M) -- return all events starting at M (pre: no events
+  get_pending_events (M) -- return all events starting at M (pre: no events
     before M). No side-effects
 
   skip (M) -- remove all events starting before M (leave the ones that
@@ -92,7 +92,7 @@ public:
 
   virtual Moment pending_moment () const;
   virtual bool ok () const;
-  virtual SCM get_music (Moment until)const;
+  virtual SCM get_pending_events (Moment until)const;
   virtual void process (Moment until);
   virtual void skip (Moment until);
 

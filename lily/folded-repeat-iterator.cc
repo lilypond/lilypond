@@ -10,7 +10,7 @@
 
 /*
    Folded repeats are a stupid idea at this point, so we refrain from
-   implementing get_music () and skip ().
+   implementing get_pending_events () and skip ().
 */
 
 #include "folded-repeat-iterator.hh"
