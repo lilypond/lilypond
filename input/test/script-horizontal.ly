@@ -1,9 +1,8 @@
 \version "1.7.18"
-%{
 
-Please don't use this Scheme hacking unless you have a good reason.
-
-%}
+\header{ texidoc = "@cindex Script Horizontal
+Please don't use this Scheme hacking unless you have a good reason. "
+}
 	
 \score {
 	\notes \context Voice <
@@ -26,6 +25,7 @@ Please don't use this Scheme hacking unless you have a good reason.
 		\consists Script_engraver
 		\consists Text_engraver		
 		}
+	raggedright=##t
 	}
 }
 %% new-chords-done %%

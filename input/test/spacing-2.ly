@@ -1,4 +1,5 @@
 \version "1.7.18"
+% more yummy regression goodness.  -gp
 \header {
 texidoc = "
 1. upon stretching: every note should stretch according to duration

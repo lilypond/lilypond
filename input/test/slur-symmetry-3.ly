@@ -1,5 +1,5 @@
 \version "1.7.18"
-
+% regression, and should be merged with -2.
 \header{
 title="symmetry.
 

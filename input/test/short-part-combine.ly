@@ -1,4 +1,5 @@
 \version "1.7.18"
+% covered by part-combine.ly.  delete -gp
 
 \score{
 	\context Staff <

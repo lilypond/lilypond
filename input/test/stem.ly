@@ -1,11 +1,10 @@
 \version "1.7.18"
-\header{
-texidoc = 	 "This file tests the length of stems and placement 
+% regression, _so_ regression.  :)  =-gp
+
+\header{ texidoc = "
+This file tests the length of stems and placement 
 of beams"
-  
 }
-
-
 
 beamintervals = \notes{
   \time 7/4

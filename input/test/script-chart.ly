@@ -1,4 +1,5 @@
 \version "1.7.18"
+% covered in refman.  delete, or move to an appendix. -gp
 \header {
     texidoc ="A chart showing all feta scripts"
 }

@@ -1,6 +1,7 @@
 \version "1.7.18"
-\header {
-texidoc="staff symbol property set workaround"
+
+\header { texidoc="@cindex Staff Lines
+Staff symbol property set workaround. "
 }
 
 
@@ -27,6 +28,5 @@ lower = \notes\relative c {
         #'line-count = #4
     >  
   >
-  \paper { }  
-  \midi { }  
+  \paper { raggedright=##t}  
 }%% new-chords-done %%

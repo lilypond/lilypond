@@ -1,12 +1,9 @@
 \version "1.7.21"
-\header
-{
-    
-texidoc = "To selectively tweak spanners after the linebreaking
+
+\header { texidoc = "@cindex Spanner After Break Transparent
+To selectively tweak spanners after the linebreaking
 process, Scheme code must be used.  In this simple example, the tie
-after the line break is set transparent."
-
-
+after the line break is set transparent. "
 }
 
 \score { \notes {

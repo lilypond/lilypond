@@ -1,5 +1,5 @@
 \version "1.7.18"
-
+% another regression.  -gp
 \header{
 % should look the same
 title="symmetry"

@@ -1,9 +1,10 @@
 \version "1.7.18"
-\header {
-    texidoc = "Relative placements of different script types can be controlled
-by overriding script-priority."
+
+\header { texidoc = "@cindex Script Priority
+Relative placements of different script types can be controlled
+by overriding script-priority. "
 }
-\paper { raggedright = ##t} 
+
 
 \score{
     \context Staff \notes \relative g''{
@@ -17,6 +18,6 @@ by overriding script-priority."
 	
 	a4^\prall^\markup \fontsize  #-2 \musicglyph #"accidentals-1"
     }
+	\paper { raggedright = ##t} 
 }
-
 %% new-chords-done %%

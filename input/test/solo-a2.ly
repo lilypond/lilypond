@@ -17,6 +17,7 @@
 		>
 	\paper{
 		linewidth = 100.\mm
+		raggedright=##t
 	}
 }
 %% new-chords-done %%

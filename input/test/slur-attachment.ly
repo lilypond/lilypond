@@ -1,5 +1,5 @@
 \version "1.7.18"
-
+% covered by slur-attachment-override.  delete  -gp
 
 fragment = \notes {
   \property Voice.Slur \set #'direction = #1

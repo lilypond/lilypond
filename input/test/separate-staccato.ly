@@ -1,9 +1,9 @@
 \version "1.7.18"
-\header {
+% possible rename.  -gp
 
-texidoc="You can enter notes and articulations separately, and merge
+\header { texidoc="@cindex Seperate Staccato
+You can enter notes and articulations separately, and merge
 them into one thread.  Here is an example to add repeated staccato dots."
-
 } 
 
 staccatos = \notes { s4-. s-. s-. s s }
@@ -15,5 +15,6 @@ music = \notes\relative c' { c4 d e f g  a b c d e }
      \music
      \repeat unfold 2 \staccatos
    >
+	\paper{raggedright=##t}
 }
 %% new-chords-done %%

@@ -1,11 +1,9 @@
 \version "1.7.18"
 
 \header{
-texidoc="
-In some cases, you may want to set slur attachments by hand.
-"
+texidoc="@cindex Slur Attachment Override
+In some cases you may want to set slur attachments by hand. "
 }
-
 
 fragment = \notes {
   \property Voice.autoBeaming = ##f
@@ -16,10 +14,9 @@ fragment = \notes {
   d,32( f'4  d8.-)
 }
 
-\paper { raggedright = ##t} 
 
 \score {
-  \notes\relative c \fragment
-  \paper { }  
+	\notes\relative c \fragment
+	\paper { raggedright = ##t} 
 }
 %% new-chords-done %%

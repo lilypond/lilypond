@@ -1,7 +1,7 @@
 \version "1.7.18"
 
 \header {
-texidoc="
+texidoc="@cindex Smart Transpose
 @example
     Here's a copy of my feature request :
 @quotation

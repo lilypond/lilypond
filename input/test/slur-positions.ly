@@ -1,4 +1,5 @@
 \version "1.7.18"
+% if this test isn't covered in regression, we're in trouble.  :)  delete.  -gp
 
 \score{
 	\notes\relative c''{

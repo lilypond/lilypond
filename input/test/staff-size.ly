@@ -1,10 +1,11 @@
+\version "1.7.18"
 
-\header { texidoc = "Setting staff sizes is a little clumsy.  There
+\header { texidoc = "@cindex Staff Size
+Setting staff sizes is a little clumsy.  There
 are two options: using StaffContainer and override/revert, or
-\outputproperty. Both methods are shown in this example."
+\outputproperty. Both methods are shown in this example. "
 }
 
-\version "1.7.18"
 \score {
   \notes \relative c' < \context StaffContainer = SA{
      \property StaffContainer.StaffSymbol \set #'staff-space = #(/ 16 20)
