@@ -149,6 +149,7 @@ Staff::setup_staffcols()
 	    s_l->add(j);
 	    now += j->duration;	    
 	}
+	get_col(now, false);
     }
     OK();
     set_time_descriptions();
