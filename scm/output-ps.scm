@@ -235,14 +235,6 @@
 		(caddr location))
 	"")))
 
-(define (url-link url x y)
-  (format "~a ~a ~a ~a (~a) mark_URI"
-	  (car x)
-	  (car y)
-	  (cdr x)
-	  (cdr y)
-	  url))
-
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)
   (draw-line th x1 0 x2 0))
@@ -305,6 +297,23 @@
 	      (string-append "/" (symbol->string sym) " glyphshow")))
 	out-vec))))))
 
+(define (unknown) 
+  "\n unknown\n")
+
+(define (url-link url x y)
+  (format "~a ~a ~a ~a (~a) mark_URI"
+	  (car x)
+	  (car y)
+	  (cdr x)
+	  (cdr y)
+	  url))
+
+(define (white-dot x y radius)
+  (string-append
+   " "
+   (ly:numbers->string
+    (list x y radius)) " draw_white_dot"))
+
 ;; FIXME: BARF helvetica?
 (define (white-text scale s)
   (let ((mystring (string-append
@@ -313,19 +322,11 @@
 		   " draw_white_text")))
     mystring
 
-
-    ;; FIXME: broken with user install of GS 8.x
+    ;; FIXME
+    (ly:warn "FIXME: white-text broken for Han-Wen's $HOME install of GS 8.x")
+    
     ""
     ))
-
-(define (unknown) 
-  "\n unknown\n")
-
-(define (white-dot x y radius)
-  (string-append
-   " "
-   (ly:numbers->string
-    (list x y radius)) " draw_white_dot"))
 
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (string-append

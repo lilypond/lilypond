@@ -139,6 +139,7 @@ predicates. Print a message at LOCATION if any predicate failed."
     repeat-slash
     round-filled-box
     text
+    url-link
     white-dot
     white-text
     embedded-ps
