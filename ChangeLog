@@ -1,3 +1,7 @@
+2002-08-01  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/parse-scm.cc (protected_ly_parse_scm): guile 1.4 compatibility.
+
 2002-08-01 Rune Zedeler <rune@zedeler.dk>
 
 	* lily/tab-note-heads-engraver.cc: add algorithm for automatically
