@@ -112,25 +112,11 @@ package for LaTeX}.
 
 @item kpathsea, a library for searching (@TeX{}) files.
 
-@ignore
-@code{kpathsea} is
-usually included with your installation of @TeX{}.  You may need to
-install a tetex-devel or tetex-dev package too. If kpathsea is not
-installed in a directory where the compiler normally looks, read the
-hints for Slackware below.
+@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.0.17 or
+newer),
 
-In the very unlikely case that kpathsea is not available for your
-platform (i.e., you're not running GNU/Linux, Windows, or any recent
-UNIX), you can compile LilyPond without kpathsea support.  In that case,
-you'll probably have to indicate where @TeX{}'s tfm files live.  Invoke
-configure something like:
-
-@quotation
-@example
-	./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
-@end example
-@end quotation
-@end ignore
+  You will need to install some additional packages to get mftrace to
+work.
 
 @end itemize
 
@@ -167,11 +153,6 @@ Building the website requires some additional tools:
 @itemize @bullet
 @item The @uref{http://netpbm.sourceforge.net/,netpbm utilities} see 
 @item ImageMagick
-@item @uref{http://www.cs.uu.nl/~hanwen/mftrace/,mftrace} (1.0.17 or
-newer),
-
-  You will need to install some additional packages to get mftrace to
-work.
 @end itemize
 
 The HTML files can be installed into the standard documentation path
