@@ -12,7 +12,7 @@ checking status.
 =head2 Quote:
 
 A program should be light and agile, its subroutines
-connected like a strings of pearls.  The spirit and intent of
+connected like a string of pearls.  The spirit and intent of
 the program should be retained throughout.  There should be
 neither too little nor too much, neither needless loops nor
 useless variables, neither lack of structure nor overwhelming
@@ -38,12 +38,12 @@ this is to rewrite the program.
 Definitions of classes that are only accessed via pointers
 (*) or references (&) shall not be included as include files.
 
-Include files in C++ always have the file name extension ".hh".
+filenames
 
-Implementation files in C++ always have the file name
-extension ".cc".
-
-Inline definition files always have the file name extension ".icc".
+	".hh"	Include files
+	".cc"	Implementation files
+	".icc"	Inline definition files
+	".tcc"	non inline Template defs
 
 in emacs:
 
@@ -57,6 +57,8 @@ in emacs:
 			)
 		      auto-mode-alist))
 
+
+The class Class_name_abbreviation is coded in F<class-name-abbr.*>
 
 
 =head2 INDENTATION
@@ -146,18 +148,6 @@ http://www.zib.de/Visual/software/doc++/index.html
 
 	
 Unfortunately most of the code isn't really documented that good.
-
-
-=head2 CLASSNAMES (2)
-
-A lot of classes in GNU LilyPond start with 'P', this is to distinguish
-certain parts of GNU LilyPond: the P stands for Printer, and the P-classes
-are supposed to be more lowlevel than the others. Example:
-
-Staff uses PStaff, PScore and PCol to do the typesetting of
-symbols. Staff is  the "brains" for PStaff
-
-NB: in PCursor (which is part of the library) P stands for PointerCursor
 
 
 =head2 MEMBERS (2)
