@@ -1,3 +1,8 @@
+2002-04-14  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-font-lock.el: Handle scheme-slurs up to seventh level.
+	Minor fixes.
+
 2002-04-15  Han-Wen  <hanwen@cs.uu.nl>
 
 	* mf/feta-din-code.mf: dynamic z sign.
