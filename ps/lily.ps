@@ -1,204 +1,204 @@
-%!PS-Adobe-1.0: lily.ps
-%
-% 2 setlanguagelevel %  hmm. auto_resize_dicts doesn't help either. 
-% round cappings
-1 setlinecap
-
-
-/draw_beam % width slope thick
-{
-        2 div /beam_thick exch def
-        /beam_slope exch def
-        /beam_wd exch def
-        beam_slope beam_wd mul /beam_ht exch def
-        0 beam_thick neg moveto 
-        beam_wd beam_ht rlineto 
-        0 beam_thick 2 mul rlineto
-        0 beam_thick lineto
-        closepath fill
-} bind def
-
-/draw_decrescendo %  width height cons thick
-{
-	setlinewidth
-	/cresc_cont exch def
-	/cresc_ht exch def
-	/cresc_wd exch def
-
-	cresc_wd cresc_cont moveto
-	0 cresc_ht lineto
-	stroke
-	cresc_wd cresc_cont neg moveto
-	0 cresc_ht neg lineto
-	stroke
-} bind def
-
-/draw_crescendo % width height cons thick
-{
-	setlinewidth
-	/cresc_cont exch def
-	/cresc_ht exch def
-	/cresc_wd exch def
-
-	0 cresc_cont moveto
-	cresc_wd cresc_ht lineto
-	stroke
-	0 cresc_cont neg moveto
-	cresc_wd cresc_ht neg lineto
-	stroke
-} bind def
-
-/lily_distance 
-{
-	1 copy mul exch 1 copy mul add sqrt
-} bind def
-
-/draw_tuplet % height gap dx dy thick dir
-{
-% urg: the only Level-2 PS, check effect in print
-%	true setstrokeadjust
-	/dir exch def
-	setlinewidth
-	1 setlinecap
-	1 setlinejoin
-	/tuplet_dy exch def
-	/tuplet_dx exch def
-	/tuplet_gapx exch def
-	/tuplet_h exch def
-	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def
-
-
-	0 0 moveto
-	0 tuplet_h dir mul lineto 
-	tuplet_dx tuplet_gapx sub 2 div 
-		tuplet_dy tuplet_gapy sub 2 div tuplet_h dir mul add lineto
-	tuplet_dx tuplet_gapx add 2 div 
-		tuplet_dy tuplet_gapy add 2 div tuplet_h dir mul add moveto
-	tuplet_dx tuplet_dy tuplet_h dir mul add lineto
-	tuplet_dx tuplet_dy lineto
-	stroke
-} bind def
-
-/draw_volta % h w thick vert_start vert_end
-{
-	/vert_end exch def
-	/vert_start exch def
-	setlinewidth
-	/volta_w exch def
- 	/volta_h exch def
-% urg: the only Level-2 PS, check effect in print
-%	true setstrokeadjust
-	1 setlinecap
-	1 setlinejoin
-	vert_start 0 eq {
-		0 0 moveto
-		0 volta_h lineto
-	} if
-	0 volta_h moveto
-	volta_w volta_h lineto
-	vert_end 0 eq {
-		volta_w 0 lineto
-	} if
-	stroke
-} bind def
-
-% this is for drawing slurs.
-/draw_bezier_sandwich  % thickness 
-{
-	setlinewidth
-	moveto
-	curveto
-	lineto
-	curveto
-	gsave
-	fill
-	grestore
-	stroke
-} bind def
-
-/draw_dashed_slur
-{
-	1 setlinecap
-	1 setlinejoin
-	setdash
-	setlinewidth
-	8 -2 roll
-	moveto
-	curveto
-	stroke
-} bind def
-
-
-
-/bracket_traject
-{
-  /traject_ds exch def
-  /traject_alpha exch def
-  traject_ds traject_alpha sin mul add
-  exch
-  traject_ds traject_alpha cos mul add
-  exch
-} bind def
-
-
-
-/half_bracket
-{
-%6
-	0 0
-%5a
-	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add
-	bracket_alpha bracket_v -0.15 mul bracket_traject
-%5b
-	1 bracket_h
-	0 bracket_v 0.5 mul bracket_traject
-%5c
-	0 bracket_h
-%4a
-	bracket_b bracket_h bracket_t sub
-	0 bracket_v 0.4 mul bracket_traject
-%4b
-	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add
-	bracket_alpha bracket_v -0.25 mul bracket_traject
-%4c
-	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add
-%3
-	bracket_b bracket_h bracket_t sub
-%2
-	bracket_b 0
-%1
-	0 0
-} bind def
-
-/draw_half_bracket {
-	moveto
-	lineto
-	lineto
-	curveto
-	curveto
-	lineto
-	gsave
-	fill
-	grestore
-} bind def
-
-/draw_bracket % height
-{
-	2 div bracket_b add /bracket_h exch def
-	bracket_t setlinewidth
-% urg: the only Level-2 PS, check effect in print
-%	true setstrokeadjust
-	1 setlinecap
-	1 setlinejoin
-	half_bracket
-	20 copy
-	1 -1 scale
-	draw_half_bracket
-	stroke
-	1 -1 scale
-% ugh, ugh:
-	0.05 0 translate
-	draw_half_bracket
-	stroke
-} bind def
-
+%!PS-Adobe-1.0: lily.ps 
+% 
+% 2 setlanguagelevel %  hmm. auto_resize_dicts doesn't help either.  
+% round cappings 
+1 setlinecap 
+% 
+% 
+/draw_beam % width slope thick 
+{ 
+        2 div /beam_thick exch def 
+        /beam_slope exch def 
+        /beam_wd exch def 
+        beam_slope beam_wd mul /beam_ht exch def 
+        0 beam_thick neg moveto  
+        beam_wd beam_ht rlineto  
+        0 beam_thick 2 mul rlineto 
+        0 beam_thick lineto 
+        closepath fill 
+} bind def 
+% 
+/draw_decrescendo %  width height cons thick 
+{ 
+	setlinewidth 
+	/cresc_cont exch def 
+	/cresc_ht exch def 
+	/cresc_wd exch def 
+% 
+	cresc_wd cresc_cont moveto 
+	0 cresc_ht lineto 
+	stroke 
+	cresc_wd cresc_cont neg moveto 
+	0 cresc_ht neg lineto 
+	stroke 
+} bind def 
+% 
+/draw_crescendo % width height cons thick 
+{ 
+	setlinewidth 
+	/cresc_cont exch def 
+	/cresc_ht exch def 
+	/cresc_wd exch def 
+% 
+	0 cresc_cont moveto 
+	cresc_wd cresc_ht lineto 
+	stroke 
+	0 cresc_cont neg moveto 
+	cresc_wd cresc_ht neg lineto 
+	stroke 
+} bind def 
+% 
+/lily_distance  
+{ 
+	1 copy mul exch 1 copy mul add sqrt 
+} bind def 
+% 
+/draw_tuplet % height gap dx dy thick dir 
+{ 
+% urg: the only Level-2 PS, check effect in print 
+%	true setstrokeadjust 
+	/dir exch def 
+	setlinewidth 
+	1 setlinecap 
+	1 setlinejoin 
+	/tuplet_dy exch def 
+	/tuplet_dx exch def 
+	/tuplet_gapx exch def 
+	/tuplet_h exch def 
+	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def 
+% 
+% 
+	0 0 moveto 
+	0 tuplet_h dir mul lineto  
+	tuplet_dx tuplet_gapx sub 2 div  
+		tuplet_dy tuplet_gapy sub 2 div tuplet_h dir mul add lineto 
+	tuplet_dx tuplet_gapx add 2 div  
+		tuplet_dy tuplet_gapy add 2 div tuplet_h dir mul add moveto 
+	tuplet_dx tuplet_dy tuplet_h dir mul add lineto 
+	tuplet_dx tuplet_dy lineto 
+	stroke 
+} bind def 
+% 
+/draw_volta % h w thick vert_start vert_end 
+{ 
+	/vert_end exch def 
+	/vert_start exch def 
+	setlinewidth 
+	/volta_w exch def 
+ 	/volta_h exch def 
+% urg: the only Level-2 PS, check effect in print 
+%	true setstrokeadjust 
+	1 setlinecap 
+	1 setlinejoin 
+	vert_start 0 eq { 
+		0 0 moveto 
+		0 volta_h lineto 
+	} if 
+	0 volta_h moveto 
+	volta_w volta_h lineto 
+	vert_end 0 eq { 
+		volta_w 0 lineto 
+	} if 
+	stroke 
+} bind def 
+% 
+% this is for drawing slurs. 
+/draw_bezier_sandwich  % thickness  
+{ 
+	setlinewidth 
+	moveto 
+	curveto 
+	lineto 
+	curveto 
+	gsave 
+	fill 
+	grestore 
+	stroke 
+} bind def 
+% 
+/draw_dashed_slur 
+{ 
+	1 setlinecap 
+	1 setlinejoin 
+	setdash 
+	setlinewidth 
+	8 -2 roll 
+	moveto 
+	curveto 
+	stroke 
+} bind def 
+% 
+% 
+% 
+/bracket_traject 
+{ 
+  /traject_ds exch def 
+  /traject_alpha exch def 
+  traject_ds traject_alpha sin mul add 
+  exch 
+  traject_ds traject_alpha cos mul add 
+  exch 
+} bind def 
+% 
+% 
+% 
+/half_bracket 
+{ 
+%6 
+	0 0 
+%5a 
+	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add 
+	bracket_alpha bracket_v -0.15 mul bracket_traject 
+%5b 
+	1 bracket_h 
+	0 bracket_v 0.5 mul bracket_traject 
+%5c 
+	0 bracket_h 
+%4a 
+	bracket_b bracket_h bracket_t sub 
+	0 bracket_v 0.4 mul bracket_traject 
+%4b 
+	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add 
+	bracket_alpha bracket_v -0.25 mul bracket_traject 
+%4c 
+	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add 
+%3 
+	bracket_b bracket_h bracket_t sub 
+%2 
+	bracket_b 0 
+%1 
+	0 0 
+} bind def 
+% 
+/draw_half_bracket { 
+	moveto 
+	lineto 
+	lineto 
+	curveto 
+	curveto 
+	lineto 
+	gsave 
+	fill 
+	grestore 
+} bind def 
+% 
+/draw_bracket % height 
+{ 
+	2 div bracket_b add /bracket_h exch def 
+	bracket_t setlinewidth 
+% urg: the only Level-2 PS, check effect in print 
+%	true setstrokeadjust 
+	1 setlinecap 
+	1 setlinejoin 
+	half_bracket 
+	20 copy 
+	1 -1 scale 
+	draw_half_bracket 
+	stroke 
+	1 -1 scale 
+% ugh, ugh: 
+	0.05 0 translate 
+	draw_half_bracket 
+	stroke 
+} bind def 
+% 

@@ -9,15 +9,14 @@ DOC_FILES = $(wildcard *.doc)
 
 DVI_FILES = $(addprefix $(outdir)/,$(DOC_FILES:.doc=.dvi)  $(TELY_FILES:.tely=.dvi))
 
-
-
-OUTDOC_FILES = $(addprefix $(outdir)/, $(DOC_FILES))
-OUTTEX_FILES = $(addprefix $(outdir)/, $(TEX_FILES))
+#OUTDOC_FILES = $(addprefix $(outdir)/, $(DOC_FILES))
+#OUTTEX_FILES = $(addprefix $(outdir)/, $(TEX_FILES))
 
 EXTRA_DIST_FILES= $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(TEX_FILES) testje.fly
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
-PS_FILES = $(DVI_FILES:.dvi=.ps)
+PS_FILES = $(DVI_FILES:.dvi=.ps)  $(OUTDOC_FILES:.doc=.ps) $(OUTTEX_FILES:.tex=.ps)
+PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 
 STEPMAKE_TEMPLATES=tex texinfo documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
@@ -52,9 +51,9 @@ $(outdir)/%.latex: %.data $(depth)/VERSION
 
 
 
-local-WWW: $(HTML_FILES) $(OUTDOC_FILES:.doc=.ps.gz) $(OUTTEX_FILES:.tex=.ps.gz)   $(datafiles)
-	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about LilyPond' \
-	   $(DOC_FILES) $(TEX_FILES)\
+local-WWW: $(HTML_FILES)   $(datafiles) $(PS_GZ_FILES)
+	$(PYTHON) $(step-bindir)/ls-latex.py --title 'User documentation about LilyPond' \
+	   $(DOC_FILES) $(TEX_FILES) $(TELY_FILES) \
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
 	  $(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $(outdir)/index.html
 

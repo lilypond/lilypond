@@ -9,7 +9,7 @@ depth = .
 # descent order into subdirectories:
 #
 ifeq ($(PACKAGE),STEPMAKE)
-SUBDIRS = bin make stepmake Documentation
+SUBDIRS = bin make stepmake 
 else
 SUBDIRS =
 endif
@@ -18,22 +18,22 @@ endif
 # list of distribution files:
 #
 SCRIPTS = configure aclocal.m4
-README_FILES = NEWS README TODO
+README_FILES = CHANGES README TODO
 README_TXT_FILES = AUTHORS.txt INSTALL.txt
-EXTRA_DIST_FILES = $(IN_FILES) VERSION $(README_FILES)  $(SCRIPTS) 
+EXTRA_DIST_FILES = $(IN_FILES) VERSION $(README_FILES)  $(SCRIPTS) INSTALL.texi
 NON_ESSENTIAL_DIST_FILES = $(README_TXT_FILES)
 #
 
 # bootstrap stepmake:
 #
-STEPMAKE_TEMPLATES=toplevel
+STEPMAKE_TEMPLATES=toplevel texinfo
 include $(depth)/make/stepmake.make 
 #
 
 # descent order into subdirectories:
 #
 ifeq ($(PACKAGE),STEPMAKE)
-SUBDIRS = bin make stepmake Documentation
+SUBDIRS = bin make stepmake 
 else
 SUBDIRS =
 endif

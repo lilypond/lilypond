@@ -236,7 +236,9 @@
   (define (header-end)
     (string-append
      "\\special{! "
-     (regexp-substitute/global #f "\n" (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
+     (ly-gulp-file "lily.ps")
+     ;; breaks on ppc
+;;     (regexp-substitute/global #f "\n" (ly-gulp-file "lily.ps") 'pre " %\n" 'post)
      "}"
      "\\input lilyponddefs \\turnOnPostScript"))
 

@@ -1,7 +1,6 @@
-\\input texinfo @c -*-texinfo-*-
+\input texinfo @c -*-texinfo-*-
 @setfilename tutorial.info
 @settitle Typesetting music with LilyPond
-
 
 @ifinfo
 
@@ -11,7 +10,15 @@ tutorial.  It was written by Han-Wen Nienhuys.
 Copyright 1999 by its authors.
 @end ifinfo
 
+
 @titlepage
+
+@c fool ls-latex: why not use these, for texinfo??
+@ignore
+@author Han-Wen Nienhuys
+@title Typesetting music with LilyPond
+@end ignore
+
 @sp 10
 @comment The title is printed in a large font.
 @center @titlefont{LilyPond tutorial}
@@ -128,14 +135,31 @@ If all goes well, the file @file{menuet.dvi} will be created.
 To view this output, issue the command `@code{xdvi menuet}'.
 
 Now that we are familiar with the procedure of producing output, we
-will analyse the input, line by line.@example 
+will analyse the input, line by line.
+@ignore
+Let's try to redo this
+@example
 
         % lines preceded by a percent are comments.
  
 @end example 
 The percent sign, `@code{%}', introduces a line comment.  If you want to
 make larger comments, you can use block comments. These are delimited
-by `@code{%@{}' and `@code{%@}}'@example 
+by `@code{%@{}' and `@code{%@}}'
+@end ignore
+@multitable @columnfractions .60 .39
+@item
+@noindent
+@c @example  urg: no tt font
+@c @exdent % lines preceded by a percent are comments.
+@exdent @code{% lines preceded by a percent are comments.}
+@c @end example
+@tab
+The percent sign, `@code{%}', introduces a line comment.  If you
+want to make larger comments, you can use block comments. These
+are delimited by `@code{%@{}' and `@code{%@}}'
+@end multitable
+@example 
 
         \input "paper16.ly"
  
