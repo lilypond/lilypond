@@ -14,8 +14,12 @@ template<class T>
 class PointerList : public List<void *>
 {
  public:
-    PCursor<T> top() {  return PCursor<T> (List<void*>::top()); }
-    PCursor<T> bottom() { return PCursor<T> (List<void*>::bottom()); }
+    PCursor<T> top() const{
+	return PCursor<T> (List<void*>::top());
+    }
+    PCursor<T> bottom() const {
+	return PCursor<T> (List<void*>::bottom());
+    }
     PCursor<T> find(T) const;
     void concatenate(PointerList<T> const &s) { List<void*>::concatenate(s); }
     PointerList() {}

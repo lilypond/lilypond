@@ -39,7 +39,7 @@ List<T>::size() const
 
 template<class T>
 inline Cursor<T>
-List<T>::top()
+List<T>::top()const
 {
     return Cursor<T>( *this, top_ );
 }
@@ -47,7 +47,7 @@ List<T>::top()
 
 template<class T>
 inline Cursor<T>
-List<T>::bottom()
+List<T>::bottom()const
 {
     return Cursor<T>( *this, bottom_ );
 }

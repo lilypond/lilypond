@@ -16,11 +16,13 @@ class List
     List();    
     virtual ~List();
 	
-    Cursor<T> bottom();
-
     int size() const;
-    Cursor<T> top();
-    void OK() const; 
+
+    Cursor<T> bottom() const;	// const sucks..
+    Cursor<T> top() const;
+
+    void OK() const;		// check list
+    
  protected:
     friend class Cursor<T>;
     friend class Link<T>;
