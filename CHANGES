@@ -1,3 +1,23 @@
+pl 8.hwn1
+	- Erwin Dieterich: german translation.
+	- dependency helper funcs simplified.
+	- junk breaking stats.
+	- cleanups: Line_of_score also is X_AXIS group. Score_columns
+are put into Line_of_score of score.
+
+pl 8.jcn2
+	- scripts/mudela-book.py: use hash of full .ly contents (by default)
+	- bf: footify html doc upon creation too
+
+pl 8.jcn1
+	- Documentation/Localisation.texi: still some issues
+	- Uniformised locale strings
+	- marked some errors/warnings without _/_f markings
+	- added programming_warning (): not to be localised warnings
+	  (none identified as yet)
+	- Update of po/nl.po
+
+*******
 pl 7.hwn1
 	- website fixes.
 	- spacer cleanups
@@ -5,7 +25,7 @@ pl 7.hwn1
 pl 7.jcn1
 	- fixes to nl.po
 
-****************
+********
 
 pl 6.uu1
 	- website fixes.
