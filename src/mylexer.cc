@@ -26,6 +26,7 @@ static Keyword_ent the_key_tab[]={
     "key", KEY,
 
     "meter", METER,
+    "midi", MIDI,
     "mm", MM_T,
     "multivoice", MULTIVOICE,
     "octave", OCTAVECOMMAND,
@@ -43,6 +44,7 @@ static Keyword_ent the_key_tab[]={
     "table", TABLE,
     "symboltables", SYMBOLTABLES,
     "notenames", NOTENAMES,
+    "tempo", TEMPO,
     "texid", TEXID,
     "textstyle", TEXTSTYLE,
     "unitspace", UNITSPACE,
@@ -59,10 +61,12 @@ My_flex_lexer::ret_notename(int *p, String text, int octave_mod)
 {
     text.lower();
     char const* ch_c_l = here_ch_c_l();
-    ch_c_l--;
-    while ( ( *ch_c_l == ' ' ) || ( *ch_c_l == '\t' ) || ( *ch_c_l == '\n' ) )
+    if ( ch_c_l ) {
 	ch_c_l--;
-    ch_c_l++;
+	while ( ( *ch_c_l == ' ' ) || ( *ch_c_l == '\t' ) || ( *ch_c_l == '\n' ) )
+	    ch_c_l--;
+	ch_c_l++;
+    }
 	
     lookup_notename(p[0], p[1], text);
     p[2] = octave_mod;
@@ -70,7 +74,7 @@ My_flex_lexer::ret_notename(int *p, String text, int octave_mod)
     if (p[0] < 0) {
 
 	errorlevel_i_ |= 1;
-	warning( String( "notename does not exist: " ) + YYText(), ch_c_l );
+	error( String( "notename does not exist: " ) + YYText(), ch_c_l );
 	p[0] = p[1] = 0;
     }
     return NOTENAME;
@@ -81,7 +85,6 @@ My_flex_lexer::My_flex_lexer()
     keytable = new Keyword_table(the_key_tab);
     the_id_tab = new Assoc<String, Identifier*>;
     defaulttab = 0;
-    data_ch_c_l_ = 0;
     errorlevel_i_ = 0;
 }
 
@@ -103,7 +106,7 @@ My_flex_lexer::lookup_identifier(String s)
 char const*
 My_flex_lexer::here_ch_c_l()
 {
-    return data_ch_c_l_ ? data_ch_c_l_ + yyin->tellg() : 0;
+    return include_stack.top()->sourcefile_l_->ch_c_l() + yyin->tellg();
 }
 
 void
@@ -144,7 +147,7 @@ My_flex_lexer::LexerError(const char *s)
 	    ch_c_l++;
 	}
 	errorlevel_i_ |= 1;
-	warning( s, ch_c_l );
+	error( s, ch_c_l );
     }
 }
 
@@ -161,10 +164,6 @@ My_flex_lexer::new_input(String s)
    Input_file *newin = new Input_file(s);
    include_stack.push(newin);
    switch_streams(newin->is);
-   if ( newin->sourcefile_l_ )
-       data_ch_c_l_ = newin->sourcefile_l_->ch_c_l();
-   else
-       data_ch_c_l_ = 0;
 
    yylineno = 1;
 }

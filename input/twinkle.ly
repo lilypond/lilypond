@@ -15,6 +15,7 @@ melodie = music {
 
 	c c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 % :|
+	\bar ":|"
 	$
 }
 
@@ -30,6 +31,7 @@ begeleiding = music {
 
 	c 'c | 'e 'c | 'f 'c | 'e 'c | 
 	'd b | 'c a | f g | c2 
+	\bar ":|"
 	$
 }
 
@@ -150,8 +152,13 @@ score {
 	}
 	commands {
 		meter {2 * 4}
-		skip 24*2
-		bar "||"
+%		skip 24*2
+%		bar "||"
+	}
+	staff { midi_track music { melodie } }
+	staff { midi_track music { begeleiding } }
+	midi { 
+		tempo 4:120 
 	}
 }
 

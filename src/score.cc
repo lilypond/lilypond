@@ -17,13 +17,20 @@
 #include "source.hh"
 #include "sourcefile.hh"
 #include "scorewalker.hh"
+#include "mididef.hh"
+#include "midiitem.hh"
+#include "midistream.hh"
+#include "midicolumn.hh"
+#include "midistaff.hh"
+#include "midiwalker.hh"
 
 void
 Score::setup_music()
 {
     *mlog << "\nSetting up music ..." << flush;
     if (last() == Moment(0)) {
-	warning("Need to have music in a score.", defined_ch_c_l_);
+	errorlevel_i_ |= 1;
+	error("Need to have music in a score.", defined_ch_c_l_);
     }
 
     pscore_p_ = new PScore(paper_p_);
@@ -45,13 +52,14 @@ Score::process_music()
     *mlog << "Processing music ..." << flush;
     for (Score_walker w(this); w.ok(); w++) {
 	w.process();
-    }
+   }
 }
 
 void
 Score::process()
 {
     setup_music();
+
     process_music();
 
     // do this after processing, staffs first have to generate PCols.
@@ -159,6 +167,13 @@ Score::last() const
 }
 
 void
+Score::set(Mididef* midi_p)
+{    
+    delete midi_p_;
+    midi_p_ = midi_p;
+}
+
+void
 Score::OK() const
 {
 #ifndef NDEBUG
@@ -197,6 +212,7 @@ Score::Score(Paperdef*paper_p)
 {
     pscore_p_=0;
     paper_p_ = paper_p;
+    midi_p_ = 0;
     errorlevel_i_ = 0;
     defined_ch_c_l_ = 0;
 }
@@ -205,6 +221,7 @@ Score::~Score()
 {
     delete pscore_p_;
     delete paper_p_;
+    delete midi_p_;
 }
 
 void
@@ -230,7 +247,30 @@ Score::output(String s)
     pscore_p_->output(the_output);
 }
 
+void
+Score::midi()
+{
+    if (!midi_p_)
+	return;
 
+    *mlog << "midi output to " << midi_p_->outfile_str_ << "...\n";
+
+    int track_i = 0;
+    for ( PCursor<Staff*> staff_l_pcur( staffs_.top() ); staff_l_pcur.ok(); staff_l_pcur++ ) {
+	Midi_staff* mstaff_l = (Midi_staff*)*staff_l_pcur;
+	if ( !mstaff_l->pscore_l_ ) // we _are_ a midi-staff, ugh
+	    track_i++;
+    }
+
+    Midi_stream midi_stream( midi_p_->outfile_str_, track_i, midi_p_->get_tempo_i( Moment( 1, 4 ) )  );
+
+    track_i = 0;
+    for ( PCursor<Staff*> staff_l_pcur( staffs_.top() ); staff_l_pcur.ok(); staff_l_pcur++ ) {
+	Midi_staff* mstaff_l = (Midi_staff*)*staff_l_pcur;
+	if ( !mstaff_l->pscore_l_ ) // we _are_ a midi-staff, ugh
+	    mstaff_l->midi( &midi_stream, track_i++ );
+    }
+}
 
 void
 Score::add(Staff*s)

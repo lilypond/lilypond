@@ -12,7 +12,10 @@ hdr=   bar.hh barreg.hh beam.hh boxes.hh break.hh clefreg.hh clefitem.hh\
 	keyword.hh leastsquares.hh lexer.hh linespace.hh \
 	localkeyitem.hh localkeyreg.hh lookup.hh \
 	lyriccolumn.hh  lyricitem.hh lyricstaff.hh lyricwalker.hh\
-	main.hh  meter.hh meterreg.hh misc.hh\
+	main.hh  meter.hh meterreg.hh\
+	midicolumn.hh mididef.hh midiitem.hh midistaff.hh midistream.hh\
+	midiwalker.hh midiscorewalker.hh\
+	misc.hh\
 	molecule.hh moment.hh musicalrequest.hh\
 	notehead.hh notename.hh offset.hh paperdef.hh\
 	parseconstruct.hh pcol.hh proto.hh pscore.hh pstaff.hh qlp.hh\
@@ -42,6 +45,8 @@ mycc=bar.cc barreg.cc beam.cc boxes.cc break.cc calcideal.cc clefreg.cc\
 	localkeyitem.cc localkeyreg.cc lookup.cc\
 	lyriccolumn.cc lyricitem.cc lyricstaff.cc lyricwalker.cc\
 	main.cc  meter.cc meterreg.cc\
+	mididef.cc midicolumn.cc midiitem.cc midistaff.cc midistream.cc\
+	midiwalker.cc midiscorewalker.cc\
 	misc.cc molecule.cc mylexer.cc note.cc notehead.cc  notename.cc\
 	paperdef.cc pcol.cc pscore.cc pstaff.cc qlp.cc qlpsolve.cc\
 	register.cc request.cc rest.cc  sccol.cc score.cc\

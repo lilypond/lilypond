@@ -8,6 +8,7 @@
 #include "debug.hh"
 #include "musicalrequest.hh"
 #include "commandrequest.hh" // todo
+#include "midistream.hh"
 
 void
 Staff::add(PointerList<Voice*> const &l)
@@ -38,6 +39,13 @@ Staff::clean_cols()
 	    i++;
     }
 }
+
+// Midi_track*
+// Staff::midi_track_p()
+// {
+//     Midi_track_p midi_track_p = new Midi_track;
+//    Midi_walker( *this );
+// }
 
 Staff_column *
 Staff::get_col(Moment w, PCursor<Staff_column*> *last)
@@ -122,7 +130,6 @@ Staff::last() const
     }
     return l;
 }
-
 
 void
 Staff::print() const

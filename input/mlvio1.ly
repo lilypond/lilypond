@@ -13,9 +13,10 @@
 %
 violin1 = music { 
 	$
-\clef "violin"
+	\clef "violin"
 	\octave{}
 	\duration{4}
+	\key{fis}
 %1
 	g [ b8. a16 ] |
 %2
@@ -123,22 +124,22 @@ violin1 = music {
 %theme 2
 %49
 	\textstyle "italic"
-	r4_"arco" \plet{ 2/3 } [ b8  b  b ] \plet{ 1/1 }
+	r4_"arco"  [ b8  b  b ]2/3 
 	\textstyle "roman" |
 %50
-	r4 \plet{ 2/3 } [ g g g ] \plet{ 1/1 } |
+	r4  [ g g g ]2/3  |
 %51
 	b2 |
 %52
 	'c2 |
 %53
-	r4 \plet{ 2/3 } [ b b b ] \plet{ 1/1 } |
+	r4  [ b b b ]2/3  |
 %54
-	r4 \plet{ 2/3 } [ g g g ] \plet{ 1/1 } |
+	r4  [ g g g ]2/3  |
 %55
 	b2 |
 %56
-	g2 |
+	g2 \key{bes es as}|
 % \key\Es ||
 %57
 	f r f r |
@@ -150,11 +151,11 @@ violin1 = music {
 	'c r 'c4 |
 %61
 	\duration{16}
-	\plet{ 4/6 } [ as f d f as 'd ] \plet{ 1/1 } \plet{ 4/6 } [ as f d `as d f ] \plet{ 1/1 } |
+	 [ as f d f as 'd ]4/6   [ as f d `as d f ]4/6  |
 %62
-	\plet{ 4/6 } [ g es c `g c es ] \plet{ 1/1 } \plet{ 4/6 } [ g 'c 'es 'c g es ] \plet{ 1/1 } |
+	 [ g es c `g c es ]4/6   [ g 'c 'es 'c g es ]4/6  |
 %63
-	\plet{ 4/6 } [ g d g bes 'd 'g ] \plet{ 1/1 } \plet{ 4/6 } [ 'f 'd bes g f d ] \plet{ 1/1 } |
+	 [ g d g bes 'd 'g ]4/6   [ 'f 'd bes g f d ]4/6  |
 %64
 	\duration{8}
 	[ c g ] g4 |
@@ -186,11 +187,11 @@ violin1 = music {
 	'c r 'c4 |
 %77
 	\duration{16}
-	\plet{ 4/6 } [ as f d f as 'd ] \plet{ 1/1 } \plet{ 4/6 } [ as f d `as d f ] \plet{ 1/1 } |
+	 [ as f d f as 'd ]4/6   [ as f d `as d f ]4/6  |
 %78
-	\plet{ 4/6 } [ g es c `g c es ] \plet{ 1/1 } \plet{ 4/6 } [ f 'c 'es 'c g es ] \plet{ 1/1 } |
+	 [ g es c `g c es ]4/6   [ f 'c 'es 'c g es ]4/6  |
 %79
-	\plet{ 4/6 } [ g d f b 'd 'g ] \plet{ 1/1 } \plet{ 4/6 } [ 'f 'd b g f d ] \plet{ 1/1 } |
+	 [ g d f b 'd 'g ]4/6   [ 'f 'd b g f d ]4/6  |
 %80
 	[ c8 g8 ] g4 |
 %81
@@ -212,6 +213,7 @@ violin1 = music {
 	\textstyle "italic"
 	a_"dacapo"
 	\textstyle "roman"
+	\key{fis} |
 % \key\G ||
 	$
 }

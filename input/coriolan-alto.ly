@@ -14,9 +14,9 @@
 alto = music { 
 	$
 	\duration{ 8 }
-	\key {$bes es as$}
+	\key {bes es as}
 		
-	}			\clef "alto"
+	\clef "alto"
 	% these are chords (i.e. non-divisi)
 	% that-s why i-d rather type chords, 
 	% but how to type slurs?

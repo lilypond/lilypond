@@ -96,6 +96,8 @@ struct Melodic_req :virtual Musical_req
 
     /// return height from central c (in halflines)
     int height()const; 
+    /// return pitch from central c (in halfnotes)
+    int pitch()const; 
     Melodic_req();
    
     REQUESTMETHODS(Melodic_req,melodic);
@@ -144,6 +146,17 @@ struct Span_req : Musical_req {
   
 };
 
+/// request for backward plet generation
+struct Plet_req : Request {
+     char type_c_;
+     int dur_i_;
+     int type_i_;
+     Plet_req();
+ 
+     REQUESTMETHODS(Plet_req,plet);
+};
+/** 
+*/
 
 /** Start / stop a beam at this note.  if #nplet# is set, the staff will try to put an
 appropriate number over the beam
