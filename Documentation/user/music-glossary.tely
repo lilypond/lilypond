@@ -863,7 +863,7 @@ geometrically describes the development of a range of pitches
 geometrical shape of a cluster covers the area in which any single
 pitch contained in the cluster would be notated as an ordinary note.
 
-@lilypond[relative=1,verbatim]
+@lilypond[relative=2,verbatim]
     \apply #notes-to-clusters {  <c e > <b f'> <b g'> <c g> <f e>  }
 @end lilypond
 

@@ -1,5 +1,12 @@
 @c -*-texinfo-*-
 
+@tex
+\input feta20.tex
+\font\fetasixteen=feta16
+\def\fetafont{\fetasixteen}
+\def\fetachar#1{\hbox{\fetasixteen#1}}
+@end tex
+
 @c Reference GLOSsary
 @macro rglos {NAME}
 @ifhtml
@@ -23,7 +30,7 @@
 @iftex
 @macro texisharp {word}
 @tex
-$\\sharp$%
+\\raise0.5ex\\fetachar\\fetasharp
 @end tex
 @end macro
 @end iftex
@@ -37,7 +44,7 @@ b
 @iftex
 @macro texiflat {word}
 @tex
-$\\flat$%
+\\kern0.15em\\fetachar\\fetaflat
 @end tex
 @end macro
 @end iftex

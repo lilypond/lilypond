@@ -244,7 +244,8 @@ output = {
 	PRINTFILENAME: '''\\texttt{%(filename)s}
 
 	''',
-	VERBATIM: r'''\begin{verbatim}
+	VERBATIM: r'''\noindent
+\begin{verbatim}
 %(verb)s\end{verbatim}
 ''',
 	FILTER: r'''\begin{lilypond}[%(options)s]
@@ -258,14 +259,16 @@ output = {
 @lilypond''',
 	AFTER: '',
 	BEFORE: '',
-	OUTPUT: r'''
-	@image{%(base)s,,,[image of music],%(ext)s}
+	OUTPUT: r'''@noindent
+@image{%(base)s,,,[image of music],%(ext)s}
 ''',	
 	PRINTFILENAME: '''@file{%(filename)s}
 
 	''',
-	VERBATIM: r'''@example
+	VERBATIM: r'''@exampleindent 0
+@example
 %(verb)s@end example
+@exampleindent 5
 ''',
 	},
 	}

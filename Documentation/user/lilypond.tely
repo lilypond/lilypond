@@ -63,6 +63,16 @@ are clickable in HTML.
 
 * Abbrevs in caps, e.g. HTML, DVI, MIDI, etc.
 
+* Colon usage
+  0. Do not use a colon to introduce examples, sentences just continue
+
+      in the display material.
+
+  1. To introduce lists
+  2. When beginning a quote: "So, he said,..."
+     This usage is rarer.  Americans often just use a comma.
+  3. When adding a defining example at the end of a sentence.
+
 @end ignore
 
 @ifhtml
