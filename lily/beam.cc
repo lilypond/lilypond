@@ -1574,7 +1574,7 @@ ADD_INTERFACE (Beam, "beam-interface",
 	       "knee positioning-done position-callbacks concaveness-gap "
 	       "concaveness-threshold dir-function quant-score auto-knee-gap gap "
 	       "gap-count chord-tremolo beamed-stem-shorten shorten least-squares-dy "
-	       "damping flag-width-function neutral-direction positions space-function "
+	       "damping inspect-quants flag-width-function neutral-direction positions space-function "
 	       "thickness");
 
 
