@@ -85,8 +85,10 @@ tie_y_gap = 0.25 * \interline;
 tie_staffspace_length = 4.0 * \interline;
 
 % ugh: rename to bow (in bezier.cc and fonts.doc too...)
-% slur_thickness = 1.8 * \stafflinethickness;
-slur_thickness = 1.4 * \stafflinethickness;
+
+% used to be 1.4 .
+slur_thickness = 1.2 * \stafflinethickness;
+tie_thickness = 1.2 * \stafflinethickness;
 
 %{
  Specifies the maximum height of slurs.
@@ -159,8 +161,9 @@ hyphen_height = 0.2*\font_normal;
 hyphen_minimum_length = 0.25*\font_normal;
 
 % Multi-measure rests
-mmrest_x_minimum = 1.4*\staffheight;
-
+multi_measure_rest_x_minimum = 2.5*\staffheight;
+multi_measure_rest_padding = 2.0 *\interline;
+multi_measure_rest_expand_limit = 10.0;
 
 % chop off this much when next to pp / ff sign.
 crescendo_shorten = 4.0 * \interline;
@@ -238,3 +241,4 @@ Wordwrap =0.0;
 
 #'Staff_symbol::staff-space = \interline ;
 #'Staff_symbol::line-count = #5
+

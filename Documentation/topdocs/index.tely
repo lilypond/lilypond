@@ -15,16 +15,18 @@
 
 @c something breaks on 3.12 f
 
+LilyPond is a music typesetter.  It produces beautiful sheet music using
+a high level description file as input. It excels at typesetting
+classical music, but you can also print pop-songs.  With LilyPond we
+hope to make music publication software available to anyone on the
+internet.
 
+The program also has limited MIDI functionality: you can write MIDI
+files with lilypond, and we have a simple MIDI to lilypond conversion
+tool, @file{midi2ly}.
 
-LilyPond is a music typesetter.  It produces beautiful sheet music
-using a high level description file as input.  LilyPond is part of 
-the GNU Project.
-
-
-
-@unnumberedsec Sheet music
-    
+LilyPond is free software. It is licensed under GNU General Public
+License, and it is part of the @uref{http://www.gnu.org/,GNU Project}.
 
 
 @quotation
@@ -33,48 +35,103 @@ the GNU Project.
 @end mudela 
 @end quotation
 
-@itemize @bullet
-
-@item @uref{./input/out-www/index.html,Examples}:
-
-simple pieces, tests and bugs.  MIDI, PNG, PostScript, and Source.
-
-@item @uref{./mutopia/out-www/index.html,Music in Mutopia}:
-
-LilyPond handling real music.  MIDI, view PNG, PostScript, and Source.
-@end itemize
-
-@unnumberedsec More information
     
 
-@itemize @bullet
-@item @uref{Documentation/out-www/index.html, Documentation}
-@item @uref{Documentation/out-www/mail.html,Mailing Lists}
-@item @uref{./docxx/index.html,Source code documentation}
-@end itemize
+The version numbers are in Linux-kernel style: even unnumbered versions
+are `stable'. The webpages for the stable version reside at GNU, here:
+ @uref{http://www.gnu.org/software/lilypond}. Big enhancements go
+into the odd numbered versions, whose webpages are on 
+ @uref{http://www.cs.uu.nl/~hanwen/lilypond/,Han-Wen's site}.
 
-@unnumberedsec Sites
-    
+If want more information, you can browse the
+@uref{Documentation/user/out-www/lilypond.html, manual} or other
+@uref{Documentation/out-www/index.html, documentation}.
 
-@itemize @bullet
-@item @uref{http://www.gnu.org/software/lilypond}  LilyPond is part of the GNU
-project.  The webpages for the stable version reside at GNU.
 
-@item @uref{http://www.cs.uu.nl/~hanwen/lilypond/} Han-Wen's site
-has the development pages.
-@end itemize
+@unnumberedsec Mailing list
+
+If you have questions do write to the mailing lists
+ (but don't forget to read the @uref{Documentation/out-www/faq.html,
+Frequently Asked Questions} first:
+
+
+@table @samp
+@item info-gnu-music@@gnu.org
+        is a moderated list for information on the GNU Music project, to
+    subscribe: send mail with subject "subscribe" to
+    info-gnu-music-request@@gnu.org.  
+
+    As this list is moderated, normal people should ask to
+    @email{drl@@gnu.org, David R. Linn} or
+    @email{hanwen@@cs.uu.nl, Han-Wen} to forward announces instead of
+    sending it to info-gnu-music@@gnu.org
+
+   This list is archived at 
+    @uref{http://www.mail-archive.com/info-gnu-music@@gnu.org}
+
+@item help-gnu-music@@gnu.org
+    For help with LilyPond music project. To subscribe: send
+    mail with subject "subscribe" to
+    @email{help-gnu-music-request@@gnu.org} The archive is at 
+  @uref{http://www.mail-archive.com/help-gnu-music@@gnu.org}.
+
+@item bug-gnu-music@@gnu.org
+    If you have bugreports, you should send them to this list.  If you
+want to know about bugs, subscribe: send mail with subject "subscribe" to
+    @email{bug-gnu-music-request@@gnu.org}. The archive is at
+@uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org}
+@item gnu-music-discuss@@gnu.org,
+    For discussions concerning LilyPond, to subscribe: send
+    mail with subject "subscribe" to
+    @email{gnu-music-discuss-request@@gnu.org}
+        The archive is at
+    @uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org}
+@end table
+
+@unnumberedsec News
+
+For the latest and greatest features, check out the
+@uref{Documentation/out-www/CHANGES.txt, Change Log}.
+
+@unnumberedsec Sheet music
+
+
+If you are interested in sheet music typeset by LilyPond, have a look at
+the examples included. We have @uref{./input/out-www/index.html,short
+examples} and @uref{./mutopia/out-www/index.html,longer examples}. The
+examples include sound bites  in MIDI, pictures in PNG, printable scores
+in PostScript, and LilyPond input.
+
+Other use LilyPond too.
+@uref{http://www.geocities.com/Vienna/Studio/1714/harpsichord.html,John
+Sankey}, harpsichordist to the internet, is typesetting the complete
+@uref{http://www.geocities.com/Vienna/Studio/1714/scarlattidwn.html/,sonatas
+by Scarlatti}. Jeff Covey, guitar player and overall nice guy, is
+putting @uref{http://www4.smart.net/~jcovey/scores/,guitar music} on the
+net. The @uref{http://sca.uwaterloo.ca/Mutopia/,Mutopia project} is a
+large archive of public domain sheet music under construction.
+
+
 
 
 @unnumberedsec Download
 
+If you want to compile LilyPond from sources,  download them here:
 @itemize @bullet
-@item
-    Download development releases at
+@item    Download stable releases at
+@uref{ftp://ftp.gnu.org/gnu/lilypond/}
+@item    Download development releases at
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/}
-
 @item Canadian mirror   @uref{http://sca.uwaterloo.ca/lilypond/} and @uref{ftp://sca.uwaterloo.ca/pub/} 
+@item Another site in Europe
+@uref{ftp://ftp.lilypond.org/pub/LilyPond/}
+@end itemize
 
-@item Another site in Europe  @uref{ftp://ftp.lilypond.org/pub/LilyPond/}
+Installing and compiling requires many additional packages, which are
+listed in the  @uref{Documentation/topdocs/out-www/INSTALL.html, installation instructions}.
+
+There are binaries available, but alas they are not updated for every version released.
+@itemize @bullet
 @item RedHat i386
 binary RPMs:  @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}  
 

@@ -109,34 +109,6 @@ Paper_def::line_dimensions_int (int n) const
 		   gh_scm2double (gh_cdr (pair)));
 }
 
-Real
-Paper_def::length_mom_to_dist (Moment d,Real k) const
-{
-  return arithmetic_spacing (d,k);
-}
-
-
-/**
-  Get the measure wide constant for arithmetic spacing.
-
-  @see
-  John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
-  OSU-CISRC-10/87-TR35, Department of Computer and Information Science,
-  The Ohio State University, 1987.
-
-  */
-Real
-Paper_def::arithmetic_constant (Moment d) const
-{
-  return get_var ("arithmetic_basicspace") - log_2 (Moment (1,8) <? d);
-}
-
-Real
-Paper_def::arithmetic_spacing (Moment d ,Real k) const
-{
-  return (log_2 (d) + k)* get_var ("arithmetic_multiplier");
-}
-
 void
 Paper_def::set_lookup (int i, Lookup*l)
 {
@@ -148,6 +120,9 @@ Paper_def::set_lookup (int i, Lookup*l)
 }
 
 
+/*
+  junkme.
+ */
 Real
 Paper_def::interbeam_f (int multiplicity_i) const
 {
@@ -164,12 +139,10 @@ Paper_def::print () const
 #ifndef NPRINT
   Music_output_def::print ();
   DEBUG_OUT << "Paper {";
-
   for (Hash_table_iter<int, Lookup*> ai(*lookup_p_tab_p_); ai.ok (); ai++)
     {
       DEBUG_OUT << "Lookup: " << ai.key () << " = " << ai.val ()->font_name_ << '\n';
     }
-
   DEBUG_OUT << "}\n";
 #endif
 }

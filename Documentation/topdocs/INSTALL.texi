@@ -165,15 +165,16 @@ problem.
 
 You can then install the new pnmtopng into @file{/usr/local/bin/}
 
-@item Bib2html @uref{http://pertsserver.cs.uiuc.edu/~hull/bib2html.,http://pertsserver.cs.uiuc.edu/~hull/bib2html.}
+@item @uref{http://pertsserver.cs.uiuc.edu/~hull/bib2html,Bib2html}.
     Which, in turn depends on man2html for proper installation.
 man2html can be had from @uref{http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05,http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05}.
 
 The website will build without this utility, but you will not see our
 hypertextified bibliography.
 
-@item Doc++ (optional) to read the source code.
-
+@item @uref{http://www.zib.de/Visual/software/doc++/index.html,DOC++}
+    A documentation system for C++ sources, which is used for the
+    LilyPond sources.
 @end itemize
 
 @section Configuring and compiling

@@ -12,6 +12,7 @@
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
+#include "side-position-interface.hh"
 
 void
 Dot_column::add_dots (Dots *d)
@@ -29,7 +30,7 @@ Dot_column::add_head (Rhythmic_head *r)
   if (!r->dots_l ())
     return ;
 
-  add_support (r);
+  side_position (this).add_support (r);
   add_dots (r->dots_l ());
 }
 
@@ -39,7 +40,6 @@ Dot_column::compare (Dots * const &d1, Dots * const &d2)
 {
   Staff_symbol_referencer_interface s1(d1);
   Staff_symbol_referencer_interface s2(d2);  
-
   
   return int (s1.position_f () - s2.position_f ());
 }

@@ -1,0 +1,31 @@
+
+staffsize# = 1pt#;
+stafflinethickness# = staffsize#/10;
+define_pixels (stafflinethickness, staffsize);
+
+input feta-sleur;
+
+
+
+% beginchar
+
+indent = 1.17 staffsize;
+height = 6.15 staffsize;
+len = 10 staffsize;
+
+path boogje;
+
+
+
+z1 = (0,0);
+z2 = (indent, height);
+z3 = (len - indent, height);
+z4 = (len, 0);
+
+boogje=z1..controls z2 and z3..z4;
+pickup pencircle scaled stafflinethickness;
+draw boogje;
+shipit;
+
+
+bye

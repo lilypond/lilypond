@@ -1,7 +1,35 @@
+1.3.23.uu1
+==========
+
+* Added a ROADMAP file explaining the source directory layout.
+
+* Minor tweak in the feta 6 and 9 numeral
+ 
+* Moved files from lib/ to flower/
+
+* Removed Note_head_side class.
+
+* Updated the webpage to be a little more chatty. 
+
+* Small Local_key_engraver optimization: only lookup timing engraver once.
+
+* Fixed dashed slurs
+
+* Rewrite of Slur code.  Be much more picky about slur shapes. We try
+to offset the slur instead of bending it too much
+
+* Look at stem directions for tie direction.
+
+* Compound multimeasure rests. Put measures_i_ variable in an element
+property.  Made the symbol a lot wider.
+
+* Time signature small cleanups.
+
 1.3.22.hwn2
 ===========
 
-* Symbols opposite to stem  (eg marcato) now get the proper glyph.
+* Symbols opposite to stem (eg marcato) now get the proper glyph in up
+version.
 
 * Breathing marks now have a direction by default.
 
@@ -27,7 +55,11 @@ definitions. Very handy when entering complicated scores.
 
 * Rewrote multi measure rest support: now they are entered as spanners
 (\commandspanrequest \start "rest"). RXXXX is an abbreviation for
-\commandspanrequest \start "rest" SXXXX \commandspanrequest \stop "rest".
+
+  { \commandspanrequest \start "rest"
+    SXXXX
+    \commandspanrequest \stop "rest"
+  }
 
 * Removed support of percent style repetitions. 
 

@@ -163,8 +163,9 @@ Multi_measure_rest_engraver::do_post_move_processing ()
   if (mmrest_p_ && !time->measure_position ())
     {
       lastrest_p_ = mmrest_p_;
-      lastrest_p_->measures_i_
-	= gh_scm2int (time->get_property ("currentBarNumber", 0)) - start_measure_i_;
+      int cur = gh_scm2int (time->get_property ("currentBarNumber", 0));
+      lastrest_p_->set_elt_property ("measure-count",
+				     gh_int2scm (cur - start_measure_i_));
       mmrest_p_ = 0;
     }
 }

@@ -10,6 +10,7 @@
 #include "dot-column-engraver.hh"
 #include "rhythmic-head.hh"
 #include "dot-column.hh"
+#include "side-position-interface.hh"
 
 Dot_column_engraver::Dot_column_engraver ()
 {
@@ -40,6 +41,8 @@ Dot_column_engraver::acknowledge_element (Score_element_info info)
   if (!dotcol_p_)
     {
       dotcol_p_ = new Dot_column;
+      side_position (dotcol_p_).set_axis (X_AXIS);
+      side_position (dotcol_p_).set_direction (RIGHT);      
       announce_element (Score_element_info (dotcol_p_, 0));
     }
 

@@ -29,8 +29,6 @@ Grace_align_item::do_pre_processing ()
 
   
   Axis_align_item::do_pre_processing ();
-  Note_head_side::do_pre_processing ();
-
   translate_axis (-0.5* nhw, X_AXIS); // ugh.
 }
 

@@ -56,13 +56,12 @@ Script_column_engraver::do_post_move_processing ()
 void
 Script_column_engraver::acknowledge_element( Score_element_info inf) 
 {
-  Item *thing =  dynamic_cast<Item*>(inf.elem_l_);
-  if (!thing)
-    return;
-  
-  if (Side_position_interface (thing).has_interface_b ())
+  if (side_position (inf.elem_l_).has_interface_b ())
     {
-      if (!thing->breakable_b () && Side_position_interface (thing).get_axis () == Y_AXIS)
+      Item *thing = dynamic_cast<Item*> (inf.elem_l_);
+      if (thing
+	  && !thing->breakable_b ()
+	  && side_position (inf.elem_l_).get_axis () == Y_AXIS)
 	{
 	  script_l_arr_.push (thing);
 	}

@@ -17,6 +17,7 @@
 #include "directional-element-interface.hh"
 #include "molecule.hh"
 #include "bezier-bow.hh"
+#include "stem.hh"
 
 void
 Tie::set_head (Direction d, Item * head_l)
@@ -52,6 +53,16 @@ Tie::head (Direction d) const
 Direction
 Tie::get_default_dir () const
 {
+  Stem * sl =  head(LEFT) ? head (LEFT)->stem_l () :0;
+  Stem * sr =  head(RIGHT) ? head (RIGHT)->stem_l () :0;  
+
+  if (sl && directional_element (sl).get () == UP
+      && sr && directional_element (sr).get () == UP)
+    return DOWN;
+  else
+    return UP;
+
+#if 0 
   Real p1 = Staff_symbol_referencer_interface (head (LEFT)).position_f () ;
   Real p2 = Staff_symbol_referencer_interface (head (RIGHT)).position_f () ;  
   
@@ -63,6 +74,7 @@ Tie::get_default_dir () const
    */
   Direction neutral_dir = (Direction)(int)paper_l ()->get_var ("stem_default_neutral_direction");
   return (m == 0) ? other_dir (neutral_dir) : (m < 0) ? DOWN : UP;
+#endif
 }
 
 void
@@ -97,6 +109,9 @@ Tie::do_post_processing()
       return;
     }
 
+  if (!directional_element (this).get ())
+    directional_element (this).set (get_default_dir ());
+  
   Real staff_space = paper_l ()->get_var ("interline");
   Real half_staff_space = staff_space / 2;
   Real x_gap_f = paper_l ()->get_var ("tie_x_gap");
@@ -225,7 +240,7 @@ Tie::get_rods () const
 Molecule*
 Tie::do_brew_molecule_p () const
 {
-  Real thick = paper_l ()->get_var ("slur_thickness");
+  Real thick = paper_l ()->get_var ("tie_thickness");
   Bezier one = get_curve ();
 
   Molecule a;

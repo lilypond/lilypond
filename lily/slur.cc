@@ -143,6 +143,7 @@ Slur::do_post_processing ()
   if (!directional_element (this).get ())
     directional_element (this).set (get_default_dir ());
 
+
   /* 
    Slur and tie placement [OSU]
 
@@ -280,6 +281,12 @@ Slur::do_post_processing ()
 	}
     }
 	
+  if (!fix_broken_b)
+    dy_f_drul_[RIGHT] += interstaff_f;
+
+
+
+  return; 
 
   /*
     Now we've got a fine slur
@@ -291,13 +298,10 @@ Slur::do_post_processing ()
   Real snap_f = paper_l ()->get_var ("slur_"+infix +"snap_to_stem");
   Real snap_max_dy_f = paper_l ()->get_var ("slur_"+infix +"snap_max_slope_change");
 
-  if (!fix_broken_b)
-    dy_f_drul_[RIGHT] += interstaff_f;
-
+  Real dx_f = spanner_length ()+ dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
   Real dy_f = dy_f_drul_[RIGHT] - dy_f_drul_[LEFT];
   if (!fix_broken_b)
     dy_f -= interstaff_f;
-  Real dx_f = spanner_length ()+ dx_f_drul_[RIGHT] - dx_f_drul_[LEFT];
 
   /*
     Avoid too steep slurs.
@@ -524,8 +528,34 @@ Slur::get_rods () const
 
 
 
+#if 0
+SCM
+ugly_scm (Bezier  b) 
+{
+  b.translate (-b.control_[0]);
+  Real alpha = b.control_[3].arg ();
+
+  b.rotate ( -alpha);
+  if (b.control_[1][Y_AXIS] < 0)
+    {
+      b.control_[1][Y_AXIS] *= -1;
+      b.control_[2][Y_AXIS] *= -1;      
+    }
+
+  Real len = b.control_[3][X_AXIS];
+  Real indent = 10 *b.control_[1][X_AXIS] / len ;
+  Real ht = 10 *b.control_[1][Y_AXIS] / len ;
+  
+  SCM res = scm_eval (scm_listify (ly_symbol2scm ("slur-ugly"), gh_double2scm (indent), gh_double2scm (ht), SCM_UNDEFINED ));
+
+  return res;
+}
+#endif
 
 
+/*
+  Ugh should have dash-length + dash-period
+ */
 Molecule*
 Slur::do_brew_molecule_p () const
 {
@@ -535,10 +565,23 @@ Slur::do_brew_molecule_p () const
   Molecule a;
   SCM d =  get_elt_property ("dashed");
   if (gh_number_p (d))
-    a = lookup_l ()->dashed_slur (one, thick, gh_scm2int (d));
+    a = lookup_l ()->dashed_slur (one, thick, thick * gh_scm2double (d));
   else
     a = lookup_l ()->slur (one, directional_element (this).get () * thick, thick);
-  
+
+#if 0 
+  SCM u = ugly_scm (one);
+  if (gh_pair_p (u))
+    {
+      Molecule mark = lookup_l ()-> text ( "roman",
+			   to_str (gh_scm2double (gh_car (u)), "%0.2f") + "," +
+			   to_str(gh_scm2double (gh_cdr (u)), "%0.2f"),
+			   paper_l ());
+
+      mark.translate_axis (20 , Y_AXIS);
+      a.add_molecule (mark);
+    }
+#endif
   return new Molecule (a); 
 }
 
@@ -547,99 +590,32 @@ Slur::do_brew_molecule_p () const
 Bezier
 Slur::get_curve () const
 {
-  Bezier_bow b (get_encompass_offset_arr (), directional_element (this).get ());
+  Array<Offset> enc (get_encompass_offset_arr ());
+  Direction dir =  directional_element (this).get ();
+  Bezier_bow b (enc,dir);
 
   b.ratio_ = paper_l ()->get_var ("slur_ratio");
   b.height_limit_ = paper_l ()->get_var ("slur_height_limit");
   b.rc_factor_ = paper_l ()->get_var ("slur_rc_factor");
 
   b.calculate ();
-  return b.get_curve ();
-}
 
-#if 0
+  Bezier  curve =  b.get_curve ();
 
-/*
-  TODO: FIXME.
- */
-
-/*
-  Clipping
-
-  This function tries to address two issues:
-    * the tangents of the slur should always point inwards 
-      in the actual slur, i.e.  *after rotating back*.
-
-    * slurs shouldn't be too high 
-      let's try : h <= 1.2 b && h <= 3 staffheight?
-
-  We could calculate the tangent of the bezier curve from
-  both ends going inward, and clip the slur at the point
-  where the tangent (after rotation) points up (or inward
-  with a certain maximum angle).
+  Real x1 = enc[0][X_AXIS];
+  Real x2 = enc.top ()[X_AXIS];
   
-  However, we assume that real clipping is not the best
-  answer.  We expect that moving the outer control point up 
-  if the slur becomes too high will result in a nicer slur 
-  after recalculation.
-
-  Knowing that the tangent is the line through the first
-  two control points, we'll clip (move the outer control
-  point upwards) too if the tangent points outwards.
- */
-
-bool
-Bezier_bow::calc_clipping ()
-{
-  Real clip_height = paper_l_->get_var ("slur_clip_height");
-  Real clip_ratio = paper_l_->get_var ("slur_clip_ratio");
-  Real clip_angle = paper_l_->get_var ("slur_clip_angle");
-
-  Real b = curve_.control_[3][X_AXIS] - curve_.control_[0][X_AXIS];
-  Real clip_h = clip_ratio * b <? clip_height;
-  Real begin_h = curve_.control_[1][Y_AXIS] - curve_.control_[0][Y_AXIS];
-  Real end_h = curve_.control_[2][Y_AXIS] - curve_.control_[3][Y_AXIS];
-  Real begin_dy = 0 >? begin_h - clip_h;
-  Real end_dy = 0 >? end_h - clip_h;
-  
-  Real pi = M_PI;
-  Real begin_alpha = (curve_.control_[1] - curve_.control_[0]).arg () + dir_ * alpha_;
-  Real end_alpha = pi -  (curve_.control_[2] - curve_.control_[3]).arg () - dir_  * alpha_;
-
-  Real max_alpha = clip_angle / 90 * pi / 2;
-  if ((begin_dy < 0) && (end_dy < 0)
-    && (begin_alpha < max_alpha) && (end_alpha < max_alpha))
-    return false;
-
-  transform_back ();
-
-  if ((begin_dy > 0) || (end_dy > 0))
+  Real off = 0.0;
+  for (int i=1; i < enc.size ()-1; i++)
     {
-      Real dy = (begin_dy + end_dy) / 4;
-      dy *= cos (alpha_);
-      encompass_[0][Y_AXIS] += dir_ * dy;
-      encompass_.top ()[Y_AXIS] += dir_ * dy;
+      Real x = enc[i][X_AXIS];
+      if (x > x1 && x <x2)
+	{
+	  Real y = curve.get_other_coordinate (X_AXIS, x);
+	  off = off >? dir *  (enc[i][Y_AXIS] - y);
+	}
     }
-  else
-    {
-      //ugh
-      Real c = 0.4;
-      if (begin_alpha >= max_alpha)
-	begin_dy = 0 >? c * begin_alpha / max_alpha * begin_h;
-      if (end_alpha >= max_alpha)
-	end_dy = 0 >? c * end_alpha / max_alpha * end_h;
-
-      encompass_[0][Y_AXIS] += dir_ * begin_dy;
-      encompass_.top ()[Y_AXIS] += dir_ * end_dy;
-
-      Offset delta = encompass_.top () - encompass_[0];
-      alpha_ = delta.arg ();
-    }
-
-  to_canonic_form ();
-
-  return true;
+  curve.translate (Offset (0, dir * off));
+  return curve;
 }
-#endif
-
 

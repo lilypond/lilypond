@@ -144,7 +144,7 @@ Paper_column::when_mom () const
 bool
 Paper_column::musical_b () const
 {
-  SCM m = get_elt_property ("shortest-starter");
+  SCM m = get_elt_property ("shortest-starter-duration");
   Moment s (0);
   if (SMOB_IS_TYPE_B(Moment, m))
     {

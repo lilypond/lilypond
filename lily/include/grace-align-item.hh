@@ -10,10 +10,10 @@
 #ifndef GRACE_ALIGN_ITEM_HH
 #define GRACE_ALIGN_ITEM_HH
 
-#include "note-head-side.hh"
+
 #include "axis-align-item.hh"
 
-class Grace_align_item : public Axis_align_item, public Note_head_side
+class Grace_align_item : public Axis_align_item
 {
 public:
   VIRTUAL_COPY_CONS (Score_element);

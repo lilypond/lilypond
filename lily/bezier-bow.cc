@@ -14,6 +14,7 @@
 #include "direction.hh"
 #include "debug.hh"
 #include "main.hh"
+#include "lily-guile.hh"
 
 void
 flipy (Array<Offset>  &c)
@@ -52,10 +53,23 @@ Bezier_bow::Bezier_bow (Array<Offset> points, Direction dir)
 void
 Bezier_bow::blow_fit ()
 {
-  Real f = fit_factor ();
+  Real len = curve_.control_[3][X_AXIS] ; 
+  Real ind = curve_.control_[1][X_AXIS] / len;
+  Real h = curve_.control_[1][Y_AXIS] * fit_factor () / len;
+
+  // ugh. Unhardcode this
+  if (h > 4 * ind)
+    {
+      h = 4* ind; 
+    }
+
+  if (h > 0.8 + -2 * ind)
+    {
+      h = 0.8 - 2  *ind; 
+    }
   
-  curve_.control_[1][Y_AXIS] *= f;
-  curve_.control_[2][Y_AXIS] *= f;  
+  curve_.control_[1][Y_AXIS] = h * len;
+  curve_.control_[2][Y_AXIS] = h * len;  
 
   curve_.check_sanity ();
 }
@@ -63,13 +77,16 @@ Bezier_bow::blow_fit ()
 void
 Bezier_bow::calculate ()
 {
-  calc_default (0.0);
+  calc_default ();
   if (fit_factor () > 1.0)
     {
-      calc_tangent_controls ();
+      //    calc_tangent_controls ();
       blow_fit ();
     }
 }
+
+
+  
 Bezier
 Bezier_bow::get_curve ()const
 {
@@ -81,6 +98,7 @@ Bezier_bow::get_curve ()const
 
   rv.rotate (alpha_);
   rv.translate (origin_);
+  
   return rv;
 }
 
@@ -248,7 +266,7 @@ Bezier_bow::to_canonic_form ()
  See Documentation/fonts.tex
  */
 void
-Bezier_bow::calc_default (Real h)
+Bezier_bow::calc_default ()
 {
   Real pi = M_PI;
 
@@ -260,12 +278,13 @@ Bezier_bow::calc_default (Real h)
 
   Real b = delta.length ();
   Real indent = alpha * atan (beta * b);
-  Real height = indent + h;
+  Real height = indent;
  
   curve_.control_ [0] = Offset (0, 0);
   curve_.control_ [1] = Offset (indent, height);
   curve_.control_ [2] = Offset (b - indent, height);
   curve_.control_ [3] = Offset (b, 0);
 }
+
 
 

@@ -346,11 +346,8 @@
      "\\placebox{"
      (number->dim y) "}{" (number->dim x) "}{" s "}\n"))
 
-
-
   (define (bezier-sandwich l thick)
     (embedded-ps ((ps-scm 'bezier-sandwich) l thick)))
-
 
   (define (start-line ht)
     (begin
@@ -509,16 +506,15 @@
      (numbers->string (list w h (inexact->exact cont) thick))
      " draw_crescendo"))
 
+  ;; what the heck is this interface ?
   (define (dashed-slur thick dash l)
     (string-append 
      (apply string-append (map control->string l)) 
      (number->string thick) 
      " [ "
-     (if (> 1 dash)
-	 (number->string (- (* thick dash) thick))
-	 "0")
+     (number->string dash)
      " "
-     (number->string (* 2 thick))
+     (number->string (* 10 thick))	;UGH.  10 ?
      " ] 0 draw_dashed_slur"))
 
   (define (decrescendo thick w h cont)
@@ -771,3 +767,13 @@
    )
      
 
+(define (slur-ugly ind ht)
+  (if (and
+;       (< ht 4.0)
+       (< ht (* 4 ind))
+       (> ht (* 0.4 ind))
+       (> ht (+ (* 2 ind) -4))
+       (< ht (+ (* -2 ind) 8)))
+      #f
+      (cons ind  ht)
+  ))

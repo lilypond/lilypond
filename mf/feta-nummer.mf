@@ -55,6 +55,7 @@ def draw_six =
 	penpos1(thin,90);
 	z1=(thick,h/2+thin-hair/2);
 	penpos2(hair,90);
+	
 	z2=(w/2,y1);
 	penpos3(7/8thick,0);
 	% yup, should use the path fract [] "everywhere"
@@ -71,7 +72,7 @@ def draw_six =
 	z10r=(0,y3);
 	penlabels(1,2,3,4,5,6,7,8,9,10,11);
 	save t; t=tense;
-	fill z5{right}..z2r{right}..tension t..z3r{down}
+	fill z7{right}..z2r{right}..tension t..z3r{down}
 		..tension t..z4r{left}
 		..tension t..z7r{up}..tension t..z6r{right}
 		..z6l{left}..tension t..z7l{down}..z10l{up}..cycle;

@@ -240,10 +240,10 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash) const
     }
 
   Atom *at = new Atom(gh_list (ly_symbol2scm ("dashed-slur"),
-		    gh_double2scm (thick), 
-		    gh_double2scm (dash),
-		    ly_quote_scm (l),
-		    SCM_UNDEFINED));
+			       gh_double2scm (thick), 
+			       gh_double2scm (dash),
+			       ly_quote_scm (l),
+			       SCM_UNDEFINED));
   Molecule m;
   m.add_atom (at->self_scm_);
   return m;
@@ -260,26 +260,6 @@ Lookup::fill (Box b) const
   return m;
 }
 
-
-
-Molecule
-Lookup::special_time_signature (String s, int n, int d, Paper_def*pap) const
-{
-  // First guess: s contains only the signature style
-  String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
-  
-  Molecule m = afm_find (symbolname, false);
-  if (!m.empty_b()) 
-    return m;
-
-  // Second guess: s contains the full signature name
-  m = afm_find ("timesig-"+s, false);
-  if (!m.empty_b ()) 
-    return m;
-
-  // Resort to default layout with numbers
-  return time_signature (n,d,pap);
-}
 
 Molecule
 Lookup::filledbox (Box b ) const
@@ -403,29 +383,6 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
   
 
 
-
-Molecule
-Lookup::time_signature (int num, int den, Paper_def *paper_l) const
-{
-  String sty = "number";
-  Molecule n (text (sty, to_str (num), paper_l));
-  Molecule d (text (sty, to_str (den), paper_l));
-  n.align_to (X_AXIS, CENTER);
-  d.align_to (X_AXIS, CENTER);
-  Molecule m;
-  if (den)
-    {
-      m.add_at_edge (Y_AXIS, UP, n, 0.0);
-      m.add_at_edge (Y_AXIS, DOWN, d, 0.0);
-    }
-  else
-    {
-      m = n;
-      m.align_to (Y_AXIS, CENTER);
-    }
-  return m;
-}
-
 Molecule
 Lookup::staff_brace (Real y, int staff_size) const
 {
@@ -450,26 +407,6 @@ Lookup::staff_brace (Real y, int staff_size) const
   return m;
 }
 
-
-
-Molecule
-Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real gap,
-			Real height, Direction dir) const
-{
-  Molecule m;
-
-  Atom *at = new Atom (gh_list(ly_symbol2scm ("tuplet"),
-		    gh_double2scm (height),
-		    gh_double2scm (gap),
-		    gh_double2scm (dx),
-		    gh_double2scm (dy),
-		    gh_double2scm (thick),
-		    gh_int2scm (dir),
-		    SCM_UNDEFINED));
-  m.add_atom (at->self_scm_);
-
-  return m;
-}
 
 /*
   Make a smooth curve along the points 

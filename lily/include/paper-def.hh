@@ -77,13 +77,6 @@ public:
 
   Lookup const * lookup_l (int sz) const;	// TODO naming
 
-  /** convert a duration to an idealspacing
-    influence using the geometric_ and  paratime_signatures.
-    */
-  Real length_mom_to_dist (Moment, Real) const;
-  
-  Real arithmetic_constant (Moment minimal_mom) const;
-  Real arithmetic_spacing (Moment mom,Real constant) const;
 
   virtual int get_next_default_count () const;
   static void reset_default_count();

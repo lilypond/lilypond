@@ -1,0 +1,42 @@
+
+Here is an attempt at a simple explanation of the directory layout for
+LilyPond's source files.
+
+   Documentation/
+     bibliography/		.bib files with references to books and articles
+     ntweb/			building on NT
+     pictures/			.xpms of the logo
+     programmer/		programmers documentation, including a test document
+     topdocs/			sources for the toplevel files (README.txt, INSTALL.txt, etc.)
+     user/			User manuals
+   buildscripts/		Scripts used during the build process
+   debian/			Files for building .deb packages.
+   flower/			A generic library.
+     include/
+   input/			Various input files
+     test/			Test features: one file per feature
+     bugs/			Show bugs
+     tutorial/			Examples from the tutorial 
+   lily/			Source code for LilyPond
+     include/
+   ly/				Standard include files.
+   make/			LilyPond specific Make subroutine files
+   mf/				MetaFont sources for the feta font
+   midi2ly/			midi2ly source code
+     include/
+   mutopia/			Larger examples with full music pieces.
+     Coriolan/
+     D.Zipoli/
+     E.Satie/
+     F.Schubert/
+     Hymns/
+     J.S.Bach/
+     L.Mozart/
+     N.W.Gade/
+     W.A.Mozart/
+   intl/			library for gettext
+   po/				translations
+   ps/				postscript library files
+   tex/				TeX library files
+   scripts/			User scripts
+   stepmake/			Generic make subroutine files

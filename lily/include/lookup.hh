@@ -34,7 +34,6 @@ public:
   Molecule ledger_line (Interval) const;
   Molecule fill (Box b) const;
   Molecule filledbox (Box b) const;  
-  Molecule tuplet_bracket (Real dy, Real dx, Real gap, Real thick,Real height, Direction dir) const;
   Molecule accordion (SCM arg, Real interline_f) const;
   Molecule slur (Bezier controls, Real cthick, Real thick) const;
   Molecule text (String style, String text, Paper_def*) const;
