@@ -17,7 +17,9 @@
 #include "plist.hh"
 #include "parray.hh"
 
+// egcs
 typedef void (Translator::*Method_pointer)(void);
+typedef void (Translator::*Const_method_pointer)(void) const; 
 
 /** Make some kind of #Element#s from Requests. Elements are made by
   hierarchically grouped #Translator#s
@@ -68,7 +70,8 @@ protected:
   virtual void do_post_move_processing();   
   virtual void do_creation_processing();
   virtual void do_removal_processing();
-  void each (Method_pointer) const;
+  void each (Method_pointer);
+  void each (Const_method_pointer) const;
 };
 
 #endif // TRANSLATOR_GROUP_HH

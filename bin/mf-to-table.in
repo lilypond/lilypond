@@ -9,7 +9,7 @@ Ugh . Perl sux. Anybody for Python?
     
 =cut    
 
-$mf_to_table_version = 0.1;
+$mf_to_table_version = 0.2;
 
 use Getopt::Long;
 
@@ -30,43 +30,58 @@ sub usage
     . "Generate mozarella metrics table from preparated metafont log\n\n"
     . "Options:\n"
     . "  -h, --help             print this help\n"
-    . "  -o, --output=FILE      name output file\n"
+    . "  -l, --ly=FILE          name output table\n"
+    . "  -t, --tex=FILE         name output tex chardefs\n"
 }
 
 sub make_table
 {
     my $line;
     my $indent = 0;
+    my $lineno=0;
     while ($line = <IN>) {
+    	$lineno++;
 	if ($line =~ /^@@/) {
 	    $line =~ s/^@@(.*)@@/$1/;
 	    chop ($line);
 	    my @fields = split (/:/,$line);
 	    my $label = $fields [0];
 	    my $name = $fields [1];
-	    print OUT "\t" x $indent;
+	    print OUTLY "\t" x $indent;
 	    if ($label eq "font") {
-		print OUT "% $name=\\symboltables {\n";
+		print OUTLY "% $name=\\symboltables {\n";
+		print OUTTEX "% $name\n";
 		$indent++;
 	    } elsif ($label eq "group") {
-		print OUT "\"$name\" = \\table {\n";
+		print OUTLY "\"$name\" = \\table {\n";
+		print OUTTEX "% $name\n";
 		$indent++;
 	    } elsif ($label eq "puorg") {
-		print OUT "}\n";
+		print OUTLY "}\n";
+		print OUTTEX "\n";
 		$indent--;
 	    } elsif ($label eq "tnof") {
-		print OUT "%  } % $name\n";
+		print OUTLY "%  } % $name\n";
 		$indent--;
 	    } elsif ($label eq "char") {
 		my $c = $fields [2];
 		my $w = $fields [3];
 		my $h = $fields [4];
 		my $d = $fields [5];
-		my $id = $fields [6];
-		my $texstr = $fields [7];
-		print OUT sprintf( "\"%s\"\t\"\\%s\"\t%.2f\\pt\t%.2f\\pt\t%.2f\\pt\t%.2f\\pt\n", $id, $texstr, 0, $w, $h, $d );
+		my $b = $fields [6];
+		my $id = $fields [7];
+		my $texstr = $fields [8];
+		print OUTLY sprintf( "\"%s\"\t\"\\%s\"\t%.2f\\pt\t%.2f\\pt\t%.2f\\pt\t%.2f\\pt\n", $id, $texstr, -$b, $w, $h, -$d );
+		# remove % from generic chars, and save start charcode
+		my $defstr = "\\fetdef";
+		if ($texstr =~ /{%/) {
+			$texstr =~ s/{%.*//;
+			$texstr .= "start";
+			$defstr = "\\def"
+		}
+		print OUTTEX sprintf( "%s\\%s{%d}\n", $defstr, $texstr, $c);
 	    } else {
-	    	print STDERR "mf-to-table: unknown label: \`$label\'\n";
+	    	print STDERR "mf-to-table: $lineno: unknown label: \`$label\'\n";
 	    }
 	}
     }
@@ -74,16 +89,28 @@ sub make_table
       
 sub  set_files 
 {
-    $infile = "-";
-    $outfile = "-";
-    $outfile = $opt_output if (defined($opt_output));
-
     if ($ARGV [0])  {
 	$infile = $ARGV[0];
     } 
-    if (( ! -f $infile) && (! $infile =~ /\\.log$/s ) ){
+    if (!(-f $infile) && !($infile =~ /\.log$/s )) {
 	$infile .= ".log";
     }
+
+    if (defined($opt_ly)) {
+    	$lyfile = $opt_ly;
+    }
+    else {
+    	$lyfile = $infile;
+	$lyfile =~ s/\.log$/.ly/;
+    }
+    if (defined($opt_tex)) {
+	$texfile = $opt_tex;
+    }
+    else {
+    	$texfile = $infile;
+	$texfile =~ s/\.log$/.tex/;
+    }
+
     print STDERR "Input ", (($infile eq "-") ?"STDIN" : $infile), " .. \n";
 }
 
@@ -92,14 +119,20 @@ sub do_one_arg
     set_files;
 
     die "can't open \`$infile\'" unless open IN,$infile ;
-    die "can't open \`$outfile\'" unless open OUT, ">$outfile";
-    print OUT "% generated at " . localtime() . " from $infile\n";
-    print OUT "% changes will be lost\n";
+
+    die "can't open \`$lyfile\'" unless open OUTLY, ">$lyfile";
+    print OUTLY "% generated at " . localtime() . " from $infile\n";
+    print OUTLY "% changes will be lost\n\n";
+
+    die "can't open \`$texfile\'" unless open OUTTEX, ">$texfile";
+    print OUTTEX "% generated at " . localtime() . " from $infile\n";
+    print OUTTEX "% changes will be lost\n\n";
     
     make_table;
 
     close IN;
-    close OUT;
+    close OUTLY;
+    close OUTTEX;
 }
 
 ## "main"
@@ -107,7 +140,7 @@ sub do_one_arg
 identify;
 
 #GetOptions ("help", "output=s", "from=i", "to=i", "minor=i", "edit", "show-rules");
-GetOptions ("help", "output=s");
+GetOptions ("help", "ly=s", "tex=s");
 
 if ($opt_help) {
     usage();
@@ -115,7 +148,7 @@ if ($opt_help) {
     exit 0;
 }
 
-local ($infile,$outfile);
+local ($infile,$lyfile,$texfile);
 my $processed_one=0;
 
 while (defined($ARGV[0])) {

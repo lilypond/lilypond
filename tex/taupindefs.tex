@@ -1,4 +1,3 @@
-\input fetdefs
 \def\musixtwentyfonts{
         \font\normaltextfont=cmr10 %\textfont is a primitive
         \font\smalltextfont=cmr8
@@ -38,8 +37,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % provide interface to musixtex fonts 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\musicdef\breveball{'040}
-\musicdef\longaball{'047}
+% \musicdef\breveball{'040}
+% \musicdef\longaball{'047}
+% \musicdef\quartball{'007}
+% \musicdef\halfball{'010}
+% \musicdef\wholeball{'011}
 \musicdef\halfrest{'074}
 \musicdef\wholerest{'075}
 \musicdef\breverest{'072}
@@ -48,12 +50,12 @@
 %% hmm
 \musicdef\outsidehalfrest{10}
 \musicdef\outsidewholerest{11}
-\musicdef\quartrest{62}
-\musicdef\eighthrest{63}
-\musicdef\sixteenthrest{64}
-\musicdef\thirtysecondrest{65}
-\musicdef\sixtyfourthrest{66}
-\musicdef\hundredtwentyeighthrest{67}
+% \musicdef\quartrest{62}
+% \musicdef\eighthrest{63}
+% \musicdef\sixteenthrest{64}
+% \musicdef\thirtysecondrest{65}
+% \musicdef\sixtyfourthrest{66}
+% \musicdef\hundredtwentyeighthrest{67}
 \musicdef\sharp{52}
 \musicdef\flat{50}
 \musicdef\natural{54}
@@ -125,10 +127,12 @@
 
 \def\tr{{\it tr}}
 
-\def\beamuslope#1#2{{\count0=#2\advance\count0 by#1
-        \advance\count0 by 122
-        \musicfnt\char\count0}}
-\def\beamdslope#1#2{{\count0=#2\advance\count0 by#1
-        \advance\count0 by 186
-        \musicfnt\char\count0}}
+% \def\beamuslope#1#2{{\count0=#2\advance\count0 by#1
+%         \advance\count0 by 122
+%         \musicfnt\char\count0}}
+% \def\beamdslope#1#2{{\count0=#2\advance\count0 by#1
+%         \advance\count0 by 186
+%         \musicfnt\char\count0}}
 
+
+\input fetdefs

@@ -76,7 +76,8 @@ Rhythmic_column_engraver::do_pre_move_processing()
   if (ncol_p_) 
     {
       if (! ncol_p_->h_shift_b_)
-	ncol_p_->h_shift_b_  = (bool) get_property ("hshift");
+	// egcs
+	ncol_p_->h_shift_b_  = get_property ("hshift").operator bool ();
       if (! ncol_p_->dir_)
 	ncol_p_->dir_ =(Direction) int(get_property ("ydirection"));
 

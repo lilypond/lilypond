@@ -14,10 +14,6 @@
 
 IMPLEMENT_IS_TYPE_B1(Performer, Translator);
 
-Performer::Performer()
-{
-}
-
 void 
 Performer::play (Audio_element* p) 
 { 
