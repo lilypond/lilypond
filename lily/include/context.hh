@@ -59,6 +59,7 @@ public:
   Context *remove_context (Context *trans);
   void check_removal ();
   String context_name () const;
+  SCM context_name_symbol () const;
   Global_context *get_global_context () const;
   
   virtual Score_context * get_score_context () const;  

@@ -324,19 +324,25 @@ Context::properties_as_alist () const
   return properties_dict ()->to_alist ();
 }
 
+SCM
+Context::context_name_symbol () const
+{
+  Context_def * td = unsmob_context_def (definition_ );
+  return td->get_context_name ();
+}
+
 String
 Context::context_name () const
 {
-  Context_def * td = unsmob_context_def (definition_ );
-  return ly_symbol2string (td->get_context_name ());
+  return  ly_symbol2string (context_name_symbol ());
 }
-
 
 Score_context*
 Context::get_score_context () const
 {
-  if (Score_context *sc =dynamic_cast<Score_context*> ((Context*)this))
+  if (Score_context *sc =dynamic_cast<Score_context*> ((Context*) this))
     return sc;
+  
   else if (daddy_context_)
     return daddy_context_->get_score_context ();
   else
