@@ -229,15 +229,15 @@ def custos_vaticana(expr verbose_name, internal_name, ly_name,
 enddef;
 
 % custos vaticana, stem up, between staff lines
-custos_vaticana("Custos Ed. Vat.", "vaticana-u0", "vaticana_u0",
+custos_vaticana("Custos Ed. Vat.", "vaticana-u0", "vaticanau0",
 		dir_up, between_staff_lines);
 
 % custos vaticana, stem up, on staff line
-custos_vaticana("Custos Ed. Vat.", "vaticana-u1", "vaticana_u1",
+custos_vaticana("Custos Ed. Vat.", "vaticana-u1", "vaticanau1",
 		dir_up, on_staff_line);
 
 % custos vaticana, stem up, anywhere
-custos_vaticana("Custos Ed. Vat.", "vaticana-u2", "vaticana_u2",
+custos_vaticana("Custos Ed. Vat.", "vaticana-u2", "vaticanau2",
 		dir_up, anywhere);
 
 % custos vaticana, stem down, between staff lines

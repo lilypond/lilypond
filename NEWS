@@ -1,31 +1,27 @@
 New features in 1.8 since 1.6
 =============================
 
-* INPUT
+** There chord entry code has been completely rewritten. It is now
+cleaner and more flexible.
 
-** Completely rewritten support for chord entry. Cleaner and more flexible.
+** A new syntax has been added for  text entry.
 
-** Text entry is now done in a separate mode, and is more ergonomic
-than the previous Scheme texts.
+This syntax is more friendly than the old mechanism, and it is
+implemented in a more robust and modular way.
 
 ** Deeper integration of the input language and Scheme. You can now use
 LilyPond identifiers in Scheme, and use Scheme expressions instead of
 LilyPond identifiers.
 
-** Music types cleaned up and Schemified.  
+** The internal representation of music has been cleaned up completely
+converted to Scheme data structure.  The representation can optionally
+be exported as XML.
 
-** New syntax for chords:
+** A new syntax has been added for chords:
 
 	<< PITCHES >>
 
-This is in addition to the < MUSICS > syntax for simultaneous
-music. Combined with this is uniform postfix syntax for articulation:
-
-	c8-[-( d8-]-) 
-
-for a beamed slurred pair of eighth notes.
-
-*NOTE* In version 2.0, this syntax will be changed to
+In version 2.0, this syntax will be changed to
 
    < PITCHES >  for chords
 
@@ -33,73 +29,69 @@ and
 
    \simultaneous { .. } for simultaneous music.
 
-** User code evaluation during interpreting. Syntax
+** A new uniform postfix syntax for articulation has been introduced.
+
+A beamed slurred pair of eighth notes can be entered as
+
+	c8-[-( d8-]-) 
+
+In version 2.0, postfix syntax will be the only syntax
+available, and the dashes will become optional.
+
+** User code may now be executed during interpreting.
+
+The syntax for this code is 
 
 	\applycontext #SCHEME-FUNCTION
 
-** XML music output.
 
-** Friendly chord-name exception entry.
+** New algorithms for chord-name formatting have been installed. This
+algorithm can be tuned and has an ergonomic syntax for entering
+exceptions.
 
-** Texts can be put on multimeasure rests, eg.
+** Texts may now be put on multimeasure rests, eg.
 
 	R1*20^\markup { "GP" }
 
-
-* OUTPUT
-
-** Preliminary Sodipodi/SVG output
-
-
-* NOTATION
-
-
-
 ** Ancient notation ... ?? ...  (Jurgen?)
 
-** Completely rewritten text formatting support, implemented in a
-completely modular way.
+** Glissandi can now be printed using the zigzag style.
 
-** Chord name formatting completely rewritten.
-
-** Texts can be added to multimeasure rests
-
-** Zigzagged glissandi
-
-** Cluster support. Syntax:
+** Clusters may now be printed. The syntax is:
 
 	NOTE-\startCluster
 
 	..
 	NOTE-\stopCluster
 
-** Beat grouping indications. Syntax:
+** For irregular meters, beat grouping marks can be printed. The
+syntax for this is
 
 	#(set-time-signature 7 8 '(3 2 2))
 
-** Nested horizontal brackets for music analysis.
+** Nested horizontal brackets for music analysis can now be printed.
 
 	NOTE-\startGroup
 		..
 	NOTE-\stopGroup
 
-** Gregorian ligatures.
+** Ottava brackets are now fully supported as a feature.
+The syntax is
 
-** Ottava brackets. Syntax: #(set-octavation 1)
+	#(set-octavation 1)
 
-** Metronome markings. 
+** Metronome markings are printed when a
+\tempo command is processed. 
 
-** Horizontal fingerings on chords.
+** Fingerings can be horizontally on chords.
 
-** Tuning of various font glyphs
+** The appearance of various glyphs has been fine-tuned 
 
-** Nested percent style repeats
+** Different types of percent style repeats may now be nested
 
-* OTHER
+** The emacs support has been extended.
 
-** More advanced emacs support
-
-** Completely revised manual, tutorial, and examples section
+** The manual has been completely revised and extended manual.
 
 
 

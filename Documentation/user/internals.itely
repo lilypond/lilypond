@@ -740,7 +740,7 @@ Music objects and their properties can be accessed and manipulated
 directly, through the @code{\apply} mechanism.  Scheme functions can
 read and write properties using the functions
 @code{ly:get-music-property} and @code{ly:set-music-property!}.
-6
+
 The syntax for @code{\apply} 
 @example
 \apply #@var{func} @var{music}
