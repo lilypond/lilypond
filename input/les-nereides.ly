@@ -1,15 +1,3 @@
-%{
-You should preprocess this file with the C preprocessor.  The one with
-FAKE_GRACE looks best.
-
-1.
-    cpp -P -traditional -o l.ly les-nereides.ly
-
-2.
-    cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
-
-%}
-
 \version "1.5.68"
 
 \header {
@@ -20,70 +8,19 @@ FAKE_GRACE looks best.
     %piece =      "Allegretto scherzando"
     copyright =  "public domain"
     description = "Nastiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf"
-    comment =     "LilyPond (1.3.93) can't really do this yet, I guess"
 }
 
+#(set! point-and-click line-column-location)
 
-% cpp: don't start on first column
- #(set! point-and-click line-column-location)
-
-%% cpp: don't start on first column
- #(define (grace-beam-space-function multiplicity)
-         (* (if (<= multiplicity 3) 0.816 0.844) 0.8))
-
-%% cpp: don't start on first column
- #(define (make-text-checker text)
+#(define (make-text-checker text)
   (lambda (elt) (equal? text (ly-get-grob-property elt 'text))))
-
-% complete and move to propert.ly?
-smallFont = {    
-    \property Score.PaperColumn  \override #'space-factor = #0.6
-    \property Score.PaperColumn  \override #'to-musical-spacing-factor = #0.04
-    \property Voice.NoteHead \override #'font-relative-size = #-1
-    \property Voice.Stem \override #'font-relative-size = #-1
-    \property Voice.Stem \override #'length = #6
-    \property Voice.Stem \override #'beamed-lengths =
-        #(map (lambda (x) (* 1.25 x)) '(0.0 2.5 2.0 1.5))
-    \property Voice.Stem \override #'beamed-minimum-lengths =
-        #(map (lambda (x) (* 1.25 x)) '(0.0 1.5 1.25 1.0))
-
-    \property Voice.Beam \override #'font-relative-size = #-1
-    \property Voice.TextScript \override #'font-relative-size = #0
-    \property Voice.Fingering \override #'font-relative-size = #-4
-    \property Voice.Slur \override #'font-relative-size = #-1
-    \property Staff.Accidentals \override #'font-relative-size = #-1
-    \property Voice.Beam \override #'space-function = #grace-beam-space-function
-}
-
-unSmallFont = {
-    \property Voice.NoteHead \revert #'font-relative-size
-    \property Voice.Stem \revert #'font-relative-size
-    \property Voice.Stem \revert #'length
-    \property Voice.Stem \revert #'beamed-lengths
-    \property Voice.Stem \revert #'beamed-minimum-lengths
-    \property Voice.Beam \revert #'font-relative-size
-    \property Voice.TextScript \revert #'font-relative-size
-    \property Voice.Fingering \revert #'font-relative-size
-    \property Voice.Slur \revert #'font-relative-size
-    \property Staff.Accidentals \revert #'font-relative-size
-    \property Voice.Beam \revert #'space-function
-    \property Score.PaperColumn  \revert #'space-factor
-    \property Score.PaperColumn \revert #'to-musical-spacing-factor
-}
 
 global =  \notes{
     \partial 2
     \key a \major
     \skip 2
     \skip 1*2
-
-#ifndef FAKE_GRACE  /* First run this through cpp.  See head les-nereides.ly */
     \skip 1
-#else % FAKE_GRACE
-    \skip 2. \partial 32*24
-    \skip 32*24
-#endif % FAKE_GRACE
-
     \bar "||"
 }
 
@@ -127,7 +64,7 @@ treble =  \context Voice=treble \notes\relative c''{
     \property Voice.TextSpanner \revert #'type
 
     %% Ghostview is ok, but xdvi shows a solid line
-    \property Voice.TextSpanner \override #'line-thickness = #2
+    \property Voice.TextSpanner \override #'thickness = #2
     \property Voice.TextSpanner \override #'dash-period = #0.5
 
     \property Voice.TextSpanner \override #'type = #'dotted-line
@@ -147,45 +84,19 @@ treble =  \context Voice=treble \notes\relative c''{
 	    
     % currently, this can't be (small) italic, because in the paperblock
     % we set italic_magnifictation to get large italics.
-    cis''''4^"m.g."\arpeggio \spanrequest \start "text"  (
-
-#ifndef FAKE_GRACE
+    cis''''4^"m.g."\arpeggio \spanrequest \start "text" (
 
     \property Voice.Stem \revert #'direction
 
-    % grace is a mess
-    % maybe we should fake this and put 5/4 in this bar?
-
     \grace {
         )cis8
-	\property Grace.Stem \revert #'direction
-	\property Grace.Stem \override #'direction = #0
-	\property Grace.Beam \override #'space-function = #grace-beam-space-function
-	%% urg, dim. during grace dumps core here
-        %% [a16-5( fis dis \spanrequest \stop "text" ]
-	%%[cis'32 a-1 fis-4 dis] [cis a )fis-2]
+	\property Voice.Stem \revert #'direction
+	\property Voice.Stem \override #'direction = #0
         [a16-5( fis dis \spanrequest \stop "text" ]
 	\property Staff.centralCPosition = #-6
 	
 	[cis32 a-1 fis-4 dis] [cis a )fis-2]
     }
-
-#else % FAKE_GRACE 
-
-    \smallFont
-    
-    )cis16
-    \property Voice.Stem \revert #'direction
-    \property Voice.Stem \override #'direction = #0
-    %% [a16^5( fis dis \spanrequest \stop "text" ]
-    %% [cis'32 a-1 fis-4 dis] [cis a )fis-2] s s s
-    [a16^5( fis dis \spanrequest \stop "text" ]
-    \property Staff.centralCPosition = #-6
-    [cis32 a^1 fis^4 dis] [cis a )fis-2] s % s s
-
-    \unSmallFont
-#endif % FAKE_GRACE
-    
 
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #1
@@ -203,10 +114,6 @@ trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #-1
     <cis'4\arpeggio a fis dis>
-
-#ifdef FAKE_GRACE
-    s32*16
-#endif
 
     \property Voice.NoteColumn \override #'force-hshift = #-0.2
     <e,2 gis, e d!>
@@ -229,7 +136,7 @@ bass =  \context Voice=bass \notes\relative c{
     \property Voice.Stem \revert #'direction
     \property Voice.Slur \override #'direction = #-1
     % huh, auto-beamer?
-    r8. e,16-2( [<a8 a,> <b b,>] |
+    r8. e,16_2( [<a8 a,> <b b,>] |
     %2
     <cis4 cis,>
     % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
@@ -285,23 +192,10 @@ bass =  \context Voice=bass \notes\relative c{
 %	{ s8. \clef bass}
     >
 
-#ifndef FAKE_GRACE
     %Hmm
     %\grace { s16 s s s s32 s s s s \clef bass s }
     \clef bass
     \grace { <e,,,32( e,> } <)gis'2 e>
-#else
-    s4 s8 s32 s  s \clef bass
-
-    \smallFont
-    
-    \property Voice.Slur \override #'attachment-offset = #'((-0.5 . 0) . (0.5 . 0))
-    <e,,,32( e,>
-
-    \unSmallFont
-     <)gis'2 e>
-    \property Voice.Slur \revert #'attachment-offset
-#endif
     %5
     \property Voice.Slur \revert #'direction
     \property Voice.Slur \override #'direction = #1
@@ -327,10 +221,6 @@ bassTwo =  \context Voice=bassTwo \notes\relative c{
     \skip 1*2
     \skip 2
 
-#ifdef FAKE_GRACE
-    \skip 32*16
-#endif
-
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #1
     \property Voice.Slur \revert #'direction
@@ -345,12 +235,6 @@ middleDynamics =  \context Dynamics=middle \notes{
     %4
     s2
 
-#ifdef FAKE_GRACE
-    s32*12
-    \outputproperty #(make-type-checker 'dynamic-interface) 
-	    #'extra-offset = #'(0 . 1.5)
-    s32\> s s \!s
-#endif
     s32 
     \outputproperty #(make-type-checker 'text-interface) 
 	    #'extra-offset = #'(0 . 1.5)
@@ -378,17 +262,10 @@ lowerDynamics =  \context Dynamics=lower \notes{
     s2\sustainDown s8. s16\sustainUp s4
     %3
 
-#ifndef FAKE_GRACE
     s4\sustainDown s16
     s32 s s\sustainUp s
     s32\sustainDown s s s
     s8
-#else
-    s2\sustainDown
-    s32*12
-    s32 s s\sustainUp s
-    s32\sustainDown s s s
-#endif
 
     \property Dynamics.pedalSustainStrings = #'("Ped." "*Ped." "")
     s4 s16. s32\sustainUp
@@ -435,7 +312,7 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	\translator {
 	    \ScoreContext
 	    TimeSignature \override #'style = #'C
-	    SpacingSpanner \override #'maximum-duration-for-spacing = #(make-moment 1 4)
+	    %% SpacingSpanner \override #'maximum-duration-for-spacing = #(make-moment 1 4)
 
 	    \remove Bar_number_engraver
         }
@@ -443,8 +320,8 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	    \type "Engraver_group_engraver"
 	    \name Dynamics
 	    \consists "Output_property_engraver"
-	    Generic_property_list = #generic-voice-properties
-	    \consists "Property_engraver"
+	    %%Generic_property_list = #generic-voice-properties
+	    %%\consists "Property_engraver"
 	    minimumVerticalExtent = #'(-1 . 1)
 
 	    pedalSustainStrings = #'("Ped." "*Ped." "*")
