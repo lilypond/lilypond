@@ -8,11 +8,12 @@
 #define STEM_HH
 #include "item.hh"
 #include "vray.hh"
+#include "moment.hh"
 
 /// the rule attached to the ball
 struct Stem : public Item {
     /// rhythmical length
-    Real note_length;
+    Moment note_length;
     
     // heads the stem encompasses (positions)
     int minnote, maxnote;
@@ -60,7 +61,7 @@ struct Stem : public Item {
     void set_noteheads();
     void postprocess();
     void preprocess();
-    Stem(int center, Real duration);
+    Stem(int center, Moment duration);
 
     Interval width() const;
 private:
