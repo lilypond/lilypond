@@ -41,16 +41,17 @@ Staff_margin_engraver::acknowledge_element (Score_element_info inf)
     return;
 
 
-  String long_str = get_property ("instrument", 0);
-  String short_str = get_property ("instr", 0);
-  if (now_mom () > Moment (0))
-    long_str = short_str;
+  SCM long_name = get_property ("instrument", 0);
+  SCM short_name = get_property ("instr", 0);
 
-  if (long_str.empty_b ())
+  if (now_mom () > Moment (0))
+    long_name = short_name;
+
+  if (gh_string_p (long_name))
     return;
 
   create_items (0);
-  text_p_->text_str_ = long_str;
+  text_p_->text_str_ = ly_scm2string (long_name);
   staff_side_p_->dir_ = LEFT;
   Bar_script_engraver::do_acknowledge_element (i);
 

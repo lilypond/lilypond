@@ -1,0 +1,287 @@
+  
+pl 15.hwn1
+	- reverted MIDI unfold patches.
+	- bf: cross staff beam, cross staff slur (2x)
+	- doco  updates:
+	  * metadoc/ -> programmer/ ,
+	  * FAQ
+	  * hacking
+	  * index with logo
+
+pl 15.jcn3
+	- bf: smob fix
+	- mutopia/doc target 'local-web':
+	  shorthand for 'CONFIGSUFFIX=www local-WWW'
+
+pl 15.lu2
+	- bf: close comments in website footer
+	- error messages for release didn't make it into .lu1?
+pl 15.jcn2
+	- small website fixes
+pl 15.jcn1
+	- bfs: initialise members of Column-x-positions and Break_node
+	- bf: Documentation/misc: don't include backups
+	- bf:  .gdbinit
+pl 15.lu1
+	- error messages for failing diff/release
+	- \property noStemExtend: don't extend normal or beamed stems to
+	  middle staff line: input/test/no-stem-extend.fly
+
+******
+pl 15  (Oct 18)
+
+14.jcn1
+	- Kludge for accented chars (thanks, Mats)
+	- bf: don't fail on error in doco package
+	- doco package: noarch
+	- bf: standchen: mutopia prep
+
+14.hwn1
+	- move some misc stuff into Documentation/misc/
+	- cleanups: slur & beam.
+	- junked Encompass_info
+	- Smobs -- simplifies sc_elt memory management
+	- Timing_engraver collects bar reqs
+	- unfold all if doing MIDI.
+	- bfs: do something sensible if it doesn't fit.
+	- penalties for break stuff supported.
+
+*******
+13.jcn2,3
+	- mutopia/J.S.Bach/Petites-Preludes: bf's and mutopia preraration
+	- separate documentation package
+
+13.hwn2
+	- mutopia: scs2, horn-concerto-3
+	- junked Line_spacer baseclass.
+	- removed gourlay complications
+	- use force iso. energy for minimisation. Add uniformity term
+to demerits.
+
+13.jcn1
+	- bf: mudela-book
+
+*******
+12.jcn1
+	- auto-knees, input/test/auto-knee.ly
+
+pl 12.rrr2
+	- voltaSpannerDuration may be a rational
+	- .ly files corrected, Voice.dynamicDir to Voice.dynamicDirection
+
+pl 12.rrr1
+ 	- key (K:) with clef, bug fix for abc2ly
+ 	- voltaSpannerDuration code added to lilypond
+
+pl 12.hwn1
+	- junked wordwrap
+	- bf: use position (not pitch) for autochange
+	- mudela-book fixes: --dependencies, --dep-prefix
+	- mudela.tely more updates.  Now absorbed LilyPond manpage. 
+	- BUGS now in INSTALL.texi
+
+*******
+pl 11.uu1
+	- changed debug init code.
+
+pl 11.jcn2
+	- bf: LDFLAGS=foo CFLAGS=bar ./configure
+	- bf: configure (--disable-printing = default) -DNPRINT
+	- bf: mf-to-xpms / make -C mf xpms; feta-accordion is broken,
+	  see mf/README
+
+pl 11.jcn1
+	- gnossiene with new \autochange
+
+pl 11.jbr1
+        - Tried to get rid of path and switch dependencies in mf
+          build process.
+
+pl 11.hwn1
+	- doco reorganisation: folded glossary and tutorial into manual.
+	- move mudela-book-doc to texinfo
+	- feta.tex to mf/
+	- release.py, package-diff.py now dump into out/
+
+
+****
+pl 10.hwn1
+	- Auto_change_music, Auto_change_iterator: auto staff
+switching. 2nd try.  See input/test/auto-change.ly
+
+pl 10.uu1
+	- doc restructure: hacking.texi
+	- make & install .pfas
+	- updates: faq.texi
+	- rpm fixes.
+	- Windows fixes (9.jbr)
+
+******
+pl 9.rrr1
+	- abc2ly bug fixes and extensions
+	- volta spanner given height to avoid collisions
+
+pl 9.jcn2
+	- 2.95 fixes
+	- input/test/different-time-signatures.ly (wasn't this in refman?)
+
+pl 9.hwn1
+	- fixes for mi2mu
+	- bf: staff-side with empty parent.
+	- bf:
+Hara_kiri_vertical_group_spanner::do_substitute_element_pointer has to
+call Axis_group_spanner::do_substitute_element_pointer.  Fixes
+harakiri & barline problem.
+	- junk: Spring_spacer, Ineq_constrained_qp, Mixed_qp,
+Active_constraints, Inactive_iter, Matrix, Vector,
+Choleski_decomposition, Full_storage
+
+
+pl 9.jcn1
+	- included last Localisation.texi
+	- set-lily: de catalog too
+
+*******
+pl 8.hwn1
+	- Erwin Dieterich: german translation.
+	- dependency helper funcs simplified.
+	- junk breaking stats.
+	- cleanups: Line_of_score also is X_AXIS group. Score_columns
+are put into Line_of_score of score.
+
+pl 8.jcn2
+	- scripts/mudela-book.py: use hash of full .ly contents (by default)
+	- bf: footify html doc upon creation too
+
+pl 8.jcn1
+	- Documentation/Localisation.texi: still some issues
+	- Uniformised locale strings
+	- marked some errors/warnings without _/_f markings
+	- added programming_warning (): not to be localised warnings
+	  (none identified as yet)
+	- Update of po/nl.po
+
+*******
+pl 7.hwn1
+	- website fixes.
+	- spacer cleanups
+	- Simple_spacer: a simpler constraint solver. Enabled by default.
+pl 7.jcn1
+	- fixes to nl.po
+
+********
+
+pl 6.uu1
+	- website fixes.
+
+*******
+pl 5.hwn1
+	- more .texi; yodl completely removed.
+	- rm'd several doc stuff: engraving.yo, gnu-page.yo, translated blurbs (leave it to translation project)
+	- sm: help2man-*make
+	- mcgrain bib entry.
+	- debian updates.
+	- gcc 2.95 const fixes. (hopefully)
+	- sm: rm'd Documentation/tex/ directory.  everything in stepmake/INSTALL.texi
+
+pl 5.jcn1
+	- lily.scm: don't use regex-substitute/global 
+	- website/doco fixes
+	- bf: package-diff.py
+
+************
+
+pl 4.hwn1
+	- bf: repeats.
+	- bf: mmrests
+	- bf: simpler guile detection.
+	- use texinfo for reference manual.
+	- inline lily.ps from lilypond.
+	- texi for doco: converted directory Documentation/tex/
+
+
+pl 3.hwn1
+	- mudela-book tweaks for surviving texinfo
+	- include feta  command seqs. in .tex 
+	- guile 1.3.2 fixes.
+	- include  config.h directly.
+	- bf: mudela-book.  Now linear in size of document.
+	- scriptHorizontal property; more or less works.
+	- changes in Graphical_element, Graphical_axis_group
+offset removed from public interface, now use relative_coordinate ().
+extent () is given relative to this.
+	- removed Rhythmic_head::dots_i_
+ 	- bf: Rhythmic_head::do_substitute_element_pointer ()
+	- Direct access to dim_cache_ replaced by methods in
+Graphical_element.
+
+**********
+
+
+pl 2.mk1
+	- bf, tie.cc: handle postbreak left align correctly
+pl 2.lec1
+	- abc2ly fixes.
+
+pl 2.hwn1
+       - rewrite of mudela-book.  Now uses chunks, and you can put
+\input, \include and \mudelagraphics  in verbatim sections. 
+
+
+pl 2.jcn2
+	- bf: auto-beamer: don't junk beam if manual beam shows up
+
+pl 2.jcn1
+	- add-html-footer.py, ls-latex.py .tely updates and fixes
+	- tely (texinfo-lily) rules and test Documentation/metadoc/foo.tely
+
+*************
+
+pl 1.uu2
+	- complete rewrite of mudela-book. Much cleaner now.
+Support for texinfo.
+	- convert-mudela now per file, add \version if not present.
+
+pl 1.uu1.jcn1
+	- internationalization fixes for getopt-long help
+
+pl 1.uu1
+	- rewrite --help messages for help2man:
+	* lilypond
+	* mi2mu
+	* mudela-book
+	* convert-mudela
+	- cleanup: mf-to-table.py
+	- Getopt_long: support for --help msg.
+
+pl 1.mb1
+ 	- bf, scalar.cc: ".3" now detected as numerical
+
+********
+	
+pl 0.uu1
+	- refman updates by Werner & Mats
+	- now use ChangeLog for changes.
+	
+pl 0.jcn2
+	- po fixes
+
+pl 0.jcn1
+	- gcc-2.95 nitpicks
+	- added pointers to mailing lists in toplevel docs
+
+0.mb2
+	- configure: more robust detection of Guile
+	- Midi_note_off: revert to fixed note-off velocity. Fixes
+	  problem with notes that never stop.
+	- Decreased breakable_column_space_strength
+	- Added a few TODO
+	- bf: "harmonic" and "cross" note heads also for half and 
+	  whole notes.
+	- linewidth and textheight set independent of the font size.
+	- bf, titledefs.tex: opus and piece are not repeated for 
+	  every piece unless they are explicitly set again.
+
+0.mb1
+  	- Changed dynamicDir to dynamicDirection.
+  	- refman and tutorial corrections.

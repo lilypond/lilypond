@@ -25,9 +25,6 @@ public:
   Scope *scope_p_;
   
   Array<String> filename_str_arr_;
-
-
-
   
   Music_output_def (Music_output_def const&);
   Music_output_def ();
@@ -39,8 +36,8 @@ public:
 
   Global_translator *get_global_translator_p ();
   Translator_group *get_group_translator_p (String type) const;
-    String get_default_output () const;
-  void assign_translator (Translator*);
+  String get_default_output () const;
+  void assign_translator (Translator_group*);
   Translator * find_translator_l (String) const;
   virtual int get_next_default_count () const;
 };
