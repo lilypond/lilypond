@@ -830,8 +830,9 @@ score_extra_encompass (Grob *me, Grob *common[],
   Real lt =  me->get_paper ()->get_dimension (ly_symbol2scm ("linethickness"));
   Real thick = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;
 
-  Array<Real> xs;
+  Array<Real> xidxs;
   Array<Interval> yexts;
+  Array<Interval> xexts;
   for (int i = 0; i < encompasses.size (); i++)
     {
       Grob *g = encompasses [i];
@@ -873,29 +874,55 @@ score_extra_encompass (Grob *me, Grob *common[],
 	    }
 	}
 
-      xs.push (xe.linear_combination (xp));
+      xidxs.push (xp);
       ye.widen (thick * 0.5);
       yexts.push (ye);
+      xexts.push (xe);
     }
 
   for (int i = 0; i < scores->size (); i++)
     {
       Bezier const &bez (scores->elem (i).curve_);
       Real demerit = 0.0;
-      for (int j = 0; j < xs.size(); j++)
+      for (int j = 0; j < xidxs.size(); j++)
 	{
-	  Real x = xs[j];
-	  if ((x < scores->elem (i).attachment_[RIGHT][X_AXIS]
-	       && x > scores->elem (i).attachment_[LEFT][X_AXIS]))
+	  Drul_array<Offset> at = scores->elem (i).attachment_;
+	  Interval slur_wid (at[LEFT][X_AXIS], at[RIGHT][X_AXIS]);
+
+	  /*
+	    to prevent numerical inaccuracies in
+	    Bezier::get_other_coordinate().
+	   */
+	  slur_wid.widen (- 0.5 * thick);
+	  Real x = xexts[j].linear_combination (xidxs[j]);
+	  Real y = 0.0;
+	  if (!slur_wid.contains (x))
 	    {	
-	      Real y = bez.get_other_coordinate (X_AXIS, x);
-	      if (yexts[j].contains (y))
+	      Direction contains_dir = CENTER;
+	      Direction d = LEFT;
+	      do
 		{
-		  if (Accidental_interface::has_interface (encompasses[j]))
-		    demerit += score_param->ACCIDENTAL_COLLISION;
-		  else
-		    demerit += score_param->EXTRA_OBJECT_COLLISION;
+		  if (xexts[j].contains (at[d][X_AXIS]))
+		    contains_dir = d; 
 		}
+	      while (flip (&d) != LEFT);
+
+	      if (!contains_dir)
+		continue;
+	      else
+		y = at[contains_dir][Y_AXIS];
+	    }
+	  else
+	    {
+	      y = scores->elem (i).curve_.get_other_coordinate (X_AXIS, x);
+	    }
+	  
+	  if (yexts[j].contains (y))
+	    {
+	      if (Accidental_interface::has_interface (encompasses[j]))
+		demerit += score_param->ACCIDENTAL_COLLISION;
+	      else
+		demerit += score_param->EXTRA_OBJECT_COLLISION;
 	    }
 	}
 #if DEBUG_SLUR_QUANTING
