@@ -2871,8 +2871,10 @@ Examples:
 
 Brackets for the repeat are normally only printed over the topmost
 staff.  This can be adjusted by setting the @code{voltaOnThisStaff}
-property @inputfileref{input/@/regression,volta@/-multi@/-staff@/.ly},
-@inputfileref{input/@/regression,volta@/-chord@/-names@/.ly}.
+property; see @inputfileref{input/@/regression,volta@/-multi@/-staff@/.ly}.
+
+@c not necessary
+@c @inputfileref{input/@/regression,volta@/-chord@/-names@/.ly}.
 
 
 @refbugs
@@ -3870,14 +3872,56 @@ indicated with a horizontal line centered between a syllable and the
 next one.  Such a line is called an extender line, and it is entered as
 @code{__}.
 
+@ignore
+FIXME: check that this compiles and displays correctly.  I don't want
+to commit this part blindly.
+
+In tighly engraved music, hyphens can be removed.  In some languages
+(e.g. German and Hungarian), hyphens should not disappear, since
+spelling depends on hyphenation.  For that purpose, hyphens can be
+forced to remain by overriding @code{minimum-length} of
+the @code{LyricHyphen} grob.
+
+(code from 2.2)
+\score {
+<<    \notes \new Staff \relative c'' { \time 1/4 c16[ c c  c]
+\time 1/4
+c16[ c c c]
+\time 1/4
+c16[ c c c]
+
+}
+    \lyrics \new Lyrics \with {
+	% Otherwise lyrics are so far apart that hyphens don't disappear
+	\override SeparationItem #'padding = #0.0
+	}{ bla -- bla -- bla -- bla --
+	   bla -- bla -- bla -- bla --
+
+	   \override LyricHyphen  #'minimum-length = #0.7
+	   \override LyricHyphen  #'spacing-procedure =
+                  #Hyphen_spanner::set_spacing_rods
+
+	   bla -- bla -- bla -- bla 
+       }>>
+    \paper   {
+	indent = 0.0 \cm
+	linewidth = 3.4 \cm
+
+	\context {
+	    \StaffContext \remove "Time_signature_engraver"
+	}
+	
+    }
+      
+}
+@end ignore
+
 
 @seealso
 
 Program reference: @internalsref{HyphenEvent},
 @internalsref{ExtenderEvent}, @internalsref{LyricHyphen}, and
 @internalsref{LyricExtender}
-
-Examples: @inputfileref{input/@/test,lyric@/-hyphen@/-retain@/.ly}.
 
 
 
@@ -4027,10 +4071,12 @@ Program reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}, @internalsref{Melisma_translator}.
 
 Examples: @ref{Small ensembles},
-@inputfileref{input/@/regression,lyric@/-combine@/-new@/.ly},
+@inputfileref{input/@/regression,lyric@/-combine@/-new@/.ly}.
 @c TODO: make separate section for melismata
-@inputfileref{input/@/test,lyrics@/-melisma@/-variants@/.ly}.
-@inputfileref{input/@/test,lyrics@/-melisma@/-faster@/.ly}.
+
+@c  I can't find these examples in 2.0 or 2.2; remove. -gp
+@c @inputfileref{input/@/test,lyrics@/-melisma@/-variants@/.ly}.
+@c @inputfileref{input/@/test,lyrics@/-melisma@/-faster@/.ly}.
 
 @refbugs
 
@@ -4784,8 +4830,7 @@ chart}.  Turning on these styles is described in the input file
 
 Examples: @inputfileref{input/@/regression,chord@/-name@/-major7@/.ly},
 @inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly},
-@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly},
-@inputfileref{input/@/test,chords@/-without@/-melody@/.ly}.
+@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
 
 
 Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
