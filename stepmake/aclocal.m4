@@ -17,17 +17,28 @@ AC_DEFUN(STEPMAKE_GET_EXECUTABLE, [
 
 # Get version string from executable ($1)
 AC_DEFUN(STEPMAKE_GET_VERSION, [
-    "$1" --version 2>&1 | grep -v '^$' | head -1 | awk '{print $NF}'
+    ## "$1" --version 2>&1 | grep -v '^$' | head -1 | awk '{print $NF}'
+    ##
+    ## ARG.
+    ## Workaround for broken Debian gcc version string:
+    ##     gcc (GCC) 3.1.1 20020606 (Debian prerelease)
+    ##
+    ## Assume, and hunt for, dotted version multiplet.
+    changequote(<<, >>)dnl
+    "$1" --version 2>&1 | grep '[0-9]\.[0-9]' | head -1 | \
+	sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/'
+    changequote([, ])dnl
 ])
 
-# Calculate numeric version from version string ($1)
+# Calculate simplistic numeric version from version string ($1)
+# As yet, we have no need for something more elaborate.
 AC_DEFUN(STEPMAKE_NUMERIC_VERSION, [
     echo "$1" | awk -F. '
     {
-      if ([$]3) {last = [$]3}
-      else {last =0}
+      if ([$]3) {three = [$]3}
+      else {three = 0}
     }
-    {printf "%s%s%s\n",[$]1*100, [$]2*10,last}'
+    {printf "%s%s%s\n", [$]1*100, [$]2*10, three}'
 ])
 
 
