@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.18"
 
 % lines preceded by a percent sign are comments.
 \include "paper16.ly"

@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header {
     texidoc = "Polymetric music with aligned note values can be written
  by moving the timing engraver to staff context."

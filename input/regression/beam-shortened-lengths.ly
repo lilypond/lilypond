@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 
 \header{
     texidoc="Beams in unnatural direction, have shortened stems, but do not look too short."

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.18"
 \header {
 texidoc ="
   template that puts dynamics on a separate line, so it is neatly

@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header { texidoc = "
 The direction of a perfectly centred beams can be
 controlled through @code{Voice.Beam}'s grob-property

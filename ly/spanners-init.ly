@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.18"
 
 startCluster = #(make-span-event 'ClusterEvent START)
 stopCluster = #(make-span-event 'ClusterEvent STOP)

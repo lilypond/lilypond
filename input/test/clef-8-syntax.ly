@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \header {
 
     texidoc = "Appending @code{_8} or @code{^8} to a clef name, will

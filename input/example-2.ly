@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.18"
 % Some beamed and slurred notes of different taste in LilyPond
 %
 % Type:

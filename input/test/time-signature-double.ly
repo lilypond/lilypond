@@ -6,7 +6,7 @@ texidoc= "Double time signatures are not supported
 explicitly, but can be faked by overriding formatting routines. "
 
 }
-\version "1.7.16"
+\version "1.7.18"
 
 
 #(define (brew-double-time-sig grob)

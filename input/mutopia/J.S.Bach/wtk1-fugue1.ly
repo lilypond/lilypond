@@ -19,7 +19,7 @@ enteredby = 	 "Shay Rojansky"
 %{
 TODO: use autobeaming.	
 %}
-\version "1.7.6"
+\version "1.7.18"
 
 % #(ly:set-point-and-click 'line-column)
 

@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 
 \header { 
 texidoc = "The standard function unfold-repeats will recursively unfold

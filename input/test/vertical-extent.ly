@@ -5,7 +5,7 @@ normal property values, and are written itno the grob when the
 associated context finishes, so using it in \property works.
 
  " }
-\version "1.7.16"
+\version "1.7.18"
 
 \score {
   \notes  <

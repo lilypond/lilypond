@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.18"
 \include "sondag-morgen-intro.ly"
 \include "sondag-morgen-vers.ly"
 \include "sondag-morgen-vers-volta1.ly"

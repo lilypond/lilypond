@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 \score { 
   \context Voice \notes\relative c {
     % to see the magic: uncomment size stuff in init/paper20.ly

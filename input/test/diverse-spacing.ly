@@ -1,4 +1,4 @@
-\version "1.7.16"
+\version "1.7.18"
 
 
 % a few 32nds shouldn't stretch spacing enormously.

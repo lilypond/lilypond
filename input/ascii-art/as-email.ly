@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.18"
 % ASCII Art output
 %
 % Process as:
@@ -17,7 +17,7 @@
     %a16 a  a a a a a a a a 
   }
   \paper {
-    linewidth = -1.
+    raggedright = ##t
     \translator {
       \StaffContext
       StaffSymbol \override #'molecule-callback = #(lambda (x) '())

@@ -1,3 +1,16 @@
+2003-05-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Website fixes:
+
+	* ly/engraver-init.ly (GraceContext): Add.
+
+	* run:
+
+	    convert-ly $(find . -name *.ly)
+
+	* ly/chord-modifiers-init.ly (ignatzekExceptionMusic): Hmm: fix
+	new chords.
+
 2003-05-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (set-octavation): new function.

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.18"
 \header {
   title = "Two miniatures"
   tagline = "Small is beatiful"
@@ -6,7 +6,7 @@
 
 #(ly:set-point-and-click 'line-column)
 
-\paper { linewidth = -1.0 }
+\paper { raggedright = ##t}
 
 \score {
     \notes { c'4 d'4 }

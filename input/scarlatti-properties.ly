@@ -1,6 +1,6 @@
 %  include file for scarlatti-test
 
-\version "1.7.6"
+\version "1.7.18"
 
 rh=\property Thread.NoteHead \override #'style = #'default
 lh=\property Thread.NoteHead \override #'style = #'diamond
