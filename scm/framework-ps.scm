@@ -242,17 +242,6 @@
 		  (filter string? font-names))))
 	   pfas))
 
-  ;; FIXME: user preference, somehow?
-  (define (pdf-viewer)
-    (define (find-alternative path lst)
-      (let ((command (search-path path (car lst))))
-	(if (or command (null? lst)) command
-	    (find-alternative path (cdr lst)))))
-    (let ((path (parse-path (getenv "PATH")))
-	  (pdf-viewers '("acroread" "gpdf" "kpdf" "xpdf" "gv" "echo")))
-      (find-alternative path pdf-viewers)))
-  
-  (format port "/pdf-viewer (~a) def\n" (basename (pdf-viewer)))
   (display (procset "music-drawing-routines.ps") port)
   (display (procset "lilyponddefs.ps") port)
   (if load-fonts?
