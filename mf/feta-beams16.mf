@@ -1,0 +1,13 @@
+% vette-beams16.mf
+% part of LilyPond's pretty-but-neat music font
+
+% font_identifier:="font-en-tja16";
+% font_size 16pt#;
+font_identifier:="vette-beams16";
+font_size 16;
+mode_setup;
+
+staffsize#:=16pt#;
+input wat-zie-ik;
+end.
+
