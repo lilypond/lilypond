@@ -1,5 +1,7 @@
 2004-12-17  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/mf-to-table.py (base): remove AFM support.
+
 	* lily/open-type-font.cc (design_size): use design_size
 
 2004-12-17  Pedro Kroger  <kroeger@pedrokroeger.net>
