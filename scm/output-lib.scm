@@ -47,7 +47,7 @@
 			(else "")))
                                    
          )
-    (let ((slur (Slur::brew_molecule grob))
+    (let ((slur (Slur::print grob))
           (text (fontify-text (ly:get-default-font grob) letter)))
     
       (let ((x (/ (- (cdr (ly:molecule-get-extent slur 0)) 

@@ -2,8 +2,8 @@
 \version "2.1.21"
 \header {
 texidoc = "@cindex Boxed Molecule
-You can override the molecule callback to draw a box around
-arbitrary grobs. " }
+
+You can override the print-function to draw a box around arbitrary grobs. " }
 
 
  \score { \notes \relative c''  {

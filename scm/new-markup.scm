@@ -362,7 +362,7 @@ Also set markup-signature and markup-keyword object properties."
 ;; syntax, description and example. 
 ;;
 
-(define-public brew-new-markup-molecule Text_item::brew_molecule)
+(define-public brew-new-markup-molecule Text_item::print)
 
 (define-public interpret-markup Text_item::interpret_markup)
 

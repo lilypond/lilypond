@@ -12,7 +12,7 @@ Bar numbers can also be printed at regular intervals.
 	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible
 	\property Score.barNumberVisibility = #(every-nth-bar-number-visible 4)
 	\property Score.BarNumber \override #'print-function =
-	#(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
+	#(make-molecule-boxer 0.1 0.25 0.25 Text_item::print)
 	\property Score.BarNumber \override #'font-size = #2
 	
 	\repeat unfold 9 { c1 } \bar "|."

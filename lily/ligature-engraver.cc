@@ -117,7 +117,7 @@ Ligature_engraver::override_molecule_callback ()
   SCM noteHeadProperties = updated_grob_properties (daddy_trans_, ly_symbol2scm ("NoteHead"));
   SCM value = ly_cdr (scm_sloppy_assq (source_callback, noteHeadProperties));
   execute_pushpop_property (daddy_trans_, ly_symbol2scm ("NoteHead"),
-			    atarget_callback, value);
+			    target_callback, value);
 }
 
 /*
