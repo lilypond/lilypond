@@ -1688,7 +1688,7 @@ def conv (str):
 	return str
 
 conversions.append (((2,1,11), conv, """\\include "paper16.ly" -> #(set-staff-size 16)
-\note #3 #1 #1 -> \note #"8." #1
+\\note #3 #1 #1 -> \\note #"8." #1
 """))
 
 
