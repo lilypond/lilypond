@@ -39,13 +39,19 @@ List<T>::OK() const
     assert(!lp);
 }
 
-
 template<class T>
-List<T>::~List()
+void
+List<T>::junk_links()
 {
     Cursor<T> c(*this);
     while (c.ok())
 	c.del();
+}
+
+template<class T>
+List<T>::~List()
+{
+    junk_links();
 }
 
 /** 
