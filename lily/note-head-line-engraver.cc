@@ -18,9 +18,7 @@
 #include "translator-group.hh"
 
 /**
-   Create line-spanner grobs for glissandi (and possibly other) lines
-   that connect note heads.
-
+   Create line-spanner grobs for lines that connect note heads.
 
    TODO: have the line commit suicide if the notes are connected with
    either slur or beam.
@@ -35,12 +33,9 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
-  virtual bool try_music (Music *);
 
 private:
   Spanner* line_; 
-  Music* req_;
-  Music* last_req_;
   Translator* last_staff_;
   bool follow_;
   Grob* head_;
@@ -50,23 +45,10 @@ private:
 Note_head_line_engraver::Note_head_line_engraver ()
 {
   line_ = 0;
-  req_ = 0;
-  last_req_ = 0;
   follow_ = false;
   head_ = 0;
   last_head_ = 0;
   last_staff_ = 0;
-}
-
-bool
-Note_head_line_engraver::try_music (Music* m)
-{
-  if (!req_)
-    {
-      req_ = m;
-      return true;
-    }
-  return false;
 }
 
 void
@@ -95,8 +77,7 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
 void
 Note_head_line_engraver::process_acknowledged_grobs ()
 {
-  if (!line_ && (follow_ || last_req_) && last_head_ && head_
-      && (last_head_ != head_))
+  if (!line_ && follow_ && last_head_ && head_)
     {
       /* TODO: Don't follow if there's a beam.
 
@@ -105,21 +86,11 @@ Note_head_line_engraver::process_acknowledged_grobs ()
 	 later point */
       if (follow_)
 	line_ = new Spanner (get_property ("VoiceFollower"));
-      else
-	line_ = new Spanner (get_property ("Glissando"));
 	  
       line_->set_bound (LEFT, last_head_);
       line_->set_bound (RIGHT, head_);
-	  
-	  /* Note, mustn't set y-parent of breakable symbol to simple item:
-	     one of the two broken parts won't have an y-parent! */
-	  /* X parent is set by set_bound */
-      line_->set_parent (Staff_symbol_referencer::get_staff_symbol (last_head_),
-			 Y_AXIS);
-	  
-      SCM c = last_req_? last_req_->self_scm () : SCM_EOL;
-      announce_grob(line_, c);
-      last_req_ = 0;	
+      
+      announce_grob(line_, head_->self_scm ());
 
       follow_ = false;
     }
@@ -136,12 +107,6 @@ Note_head_line_engraver::stop_translation_timestep ()
   if (head_)
     last_head_ = head_;
   head_ = 0;
-
-  if (req_)
-    {
-      last_req_ = req_;
-      req_ =0;
-    }
 }
 
 

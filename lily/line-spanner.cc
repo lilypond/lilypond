@@ -14,6 +14,7 @@
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
 #include "font-interface.hh"
+#include "warn.hh"
 
 #include <math.h>
 
@@ -214,13 +215,17 @@ Line_spanner::brew_molecule (SCM smob)
   
   Item** bound = bound_drul + 1;
 
-  Grob *common[] = { 0, 0 };
-  for (Axis a = X_AXIS;  a < NO_AXES; a = Axis (a + 1))
+  Grob *common[] = { me, me };
+  for (int a = X_AXIS;  a < NO_AXES; a++)
     {
-      common[a] = bound[LEFT]->common_refpoint (bound[RIGHT], a);
+      common[a] = me->common_refpoint (bound[RIGHT], Axis (a));
+      common[a] = common[a]->common_refpoint (bound[LEFT], Axis (a));
       
       if (!common[a])
-	return SCM_EOL;
+	{
+	  programming_error ("No common point!");
+	  return SCM_EOL;
+	}
     }
   
   Real gap = gh_scm2double (me->get_grob_property ("gap"));
@@ -258,24 +263,22 @@ Line_spanner::brew_molecule (SCM smob)
   else
     {
       Real off = gap + ((bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()*3)/4); // distance from center to start of line
-      dxy[X_AXIS] = bound[RIGHT]->extent (common[X_AXIS], X_AXIS).center ()
-	- bound[LEFT]->extent (common[X_AXIS], X_AXIS).center ();
-      dxy[Y_AXIS] = bound[RIGHT]->extent (common[Y_AXIS], Y_AXIS).center ()
-	- bound[LEFT]->extent (common[Y_AXIS], Y_AXIS).center ();
 
-      dist = sqrt (dxy[X_AXIS]*dxy[X_AXIS]+dxy[Y_AXIS]*dxy[Y_AXIS]);
-      ofxy = dxy* (off/dist);
+      for (int a = X_AXIS; a < NO_AXES; a++)
+	{
+	  Axis ax = (Axis)a;
+	  dxy[ax] =
+	    + bound[RIGHT]->extent (common[X_AXIS], ax).center ()
+	    - bound[LEFT]->extent (common[X_AXIS], ax).center ();
+
+	  my_off[ax] =me->relative_coordinate (common[a], ax);
+	  his_off[ax] = bound[LEFT]->relative_coordinate (common[a], ax);
+	  
+	}
+
+      ofxy = dxy * (off/dxy.length ());
       dxy -= 2*ofxy;
-
-      my_off = Offset (me->relative_coordinate (common[X_AXIS], X_AXIS),
-		       me->relative_coordinate (common[Y_AXIS], Y_AXIS)); 
-      
-      his_off = Offset (bound[LEFT]->relative_coordinate (common[X_AXIS],
-							  X_AXIS),
-			bound[LEFT]->relative_coordinate (common[Y_AXIS],
-							  Y_AXIS)); 
-      
-      }
+    }
 
   Real thick = me->get_paper ()->get_var ("linethickness");  
 

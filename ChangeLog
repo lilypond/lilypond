@@ -1,3 +1,14 @@
+2003-05-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* ly/engraver-init.ly (VoiceContext): move Note_head_line_engraver
+	to Voice.
+
+	* lily/glissando-engraver.cc (acknowledge_grob): new file: split
+	out note-line and glissando functionality. 
+	
+
+	* lily/line-spanner.cc (brew_molecule): cleanup.
+
 2003-05-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/as2text.scm: Use rdelim module.
