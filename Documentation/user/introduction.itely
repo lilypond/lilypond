@@ -513,8 +513,8 @@ The syntax is also the user-interface for LilyPond, hence it is easily typable, 
 @example
   c'4 d'8
 @end example
-Are a quarter note C (the central C) and eighth note D1 (the D above
-central C), as in this example:
+Are a quarter note C (the middle C) and eighth note D1 (the D above
+middle C), as in this example:
 
 @lilypond[fragment]
   c'4 d'8

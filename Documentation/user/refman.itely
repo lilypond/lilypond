@@ -648,7 +648,7 @@ once again.
 
 The octave of a note following an octave check is determined with
 respect to the note preceding it. In the next fragment, the last note
-is a @code{a'}, above central C. Hence, the @code{\octave} check may
+is a @code{a'}, above middle C. Hence, the @code{\octave} check may
 be deleted without changing the meaning of the piece.
 
 @lilypond[verbatim,fragment] 
@@ -3023,7 +3023,7 @@ staff. The syntax for this is
 The two staffs of the piano staff must be named @code{up} and
 @code{down}.
 
-The autochanger switches on basis of pitch (central C is the turning
+The autochanger switches on basis of pitch (middle C is the turning
 point), and it looks ahead skipping over rests to switch in
 advance. Here is a practical example:
         
@@ -3727,7 +3727,7 @@ in the @internalsref{TabStaff}.
 
 You can change the tuning of the strings. A string tuning is given as
 a Scheme list with one integer number for each string, the number
-being the pitch (measured in semitones relative to central C) of an
+being the pitch (measured in semitones relative to middle C) of an
 open string.  The numbers specified for @code{stringTuning} are the
 numbers of semitones to subtract or add, starting the specified pitch
 by default middle C, in string order. Thus, the notes are e, a, d, and

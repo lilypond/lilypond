@@ -1,5 +1,8 @@
 2004-03-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* Documentation/user/music-glossary.tely (Top): change central C
+	to middle C.
+
 	* lily/text-item.cc (interpret_markup): cache make-simple-markup
 
 2004-03-03  Jan Nieuwenhuizen  <janneke@gnu.org>
