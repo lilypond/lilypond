@@ -1,5 +1,5 @@
 
-\version "2.3.16"
+\version "2.3.17"
 \header {
 
 texidoc = "The @code{\\tag} command marks music expressions with a
@@ -31,18 +31,18 @@ common =
 
 
 \score {
-     \simultaneous { 
+    \simultaneous { 
     \new Staff {
 	\set Staff.instrument = #"both"
 	\common
 	}
     \new Staff {
 	\set Staff.instrument = #"part"
-	\applymusic #(remove-tag 'score) \common
+	\keepWithTag #'part \common
 	}
     \new Staff {
 	\set Staff.instrument = #"score"
-	\applymusic #(remove-tag 'part) \common
+	\keepWithTag #'score \common
 	}
     }
 }

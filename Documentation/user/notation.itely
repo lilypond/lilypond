@@ -5383,18 +5383,19 @@ to an articulation, for example,
 
 This defines a note with a conditional fingering indication.
 
-By applying the @code{remove-tag} function, tagged expressions can be
-filtered.  For example,
+By applying the @code{removeTag} music function, tagged expressions
+can be filtered.  For example,
 @example
 <<
   @var{the music}
-  \applymusic #(remove-tag 'score) @var{the music}
-  \applymusic #(remove-tag 'part) @var{the music}
+  \onlyWithTag #'score @var{the music}
+  \onlyWithTag #'part @var{the music}
 >>
 @end example
 would yield
 
 @lilypondfile[quote]{tag-filter.ly}
+
 
 The argument of the @code{\tag} command should be a symbol, or a list
 of symbols, for example,
