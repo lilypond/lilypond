@@ -332,7 +332,7 @@ and set OTTAVATION to `8va', or whatever appropriate."
 		((where (ly:context-property-where-defined context 'centralCPosition))
 		 (oc0 (ly:get-context-property context 'originalCentralCPosition)))
 
-	      (ly:set-context-property context 'centralCPosition oc0)
+	      (ly:set-context-property! context 'centralCPosition oc0)
 	      (ly:unset-context-property where 'originalCentralCPosition)
 	      (ly:unset-context-property where 'ottavation))
 
@@ -347,9 +347,9 @@ and set OTTAVATION to `8va', or whatever appropriate."
 					      (-1 . "8va bassa")
 					      (-2 . "15ma bassa"))))))
 
-	      (ly:set-context-property context 'centralCPosition new-c0)
-	      (ly:set-context-property context 'originalCentralCPosition c0)
-	      (ly:set-context-property context 'ottavation string)
+	      (ly:set-context-property! context 'centralCPosition new-c0)
+	      (ly:set-context-property! context 'originalCentralCPosition c0)
+	      (ly:set-context-property! context 'ottavation string)
 	      
 	      ))))
 
