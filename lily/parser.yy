@@ -11,20 +11,12 @@
 
 /*
   Two shift/reduce problems:
-    - empty music-list
-    - empty pre-events
-
-
-
-(bullshit.
-
-s/r:
 
 1.	foo = bar.
 
-	"bar" -> String -> Lyric -> Music
+	"bar" -> String -> Lyric -> Music -> music-assignment
 
-	"bar" -> String
+	"bar" -> String -> string-assignment
 
 
 2.  \repeat

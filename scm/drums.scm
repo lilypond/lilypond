@@ -188,11 +188,10 @@
  )
 
 (define (make-head-type-elem t)
-   (let* ( (m (make-music-by-name 'Music)))
+   (let* ( (m (make-music-by-name 'OverrideProperty)))
      (set-mus-properties!
       m
-      `((iterator-ctor . ,Push_property_iterator::constructor)
-	(symbol . NoteHead)
+      `((symbol . NoteHead)
 	(grob-property . style)
 	(grob-value . ,t)
 	(pop-first  . #t)))
