@@ -10,6 +10,6 @@ localinstall-files:
 localuninstall: localuninstall-files
 
 localuninstall-files:
-	$(foreach i,  $(INSTALLATION_FILES),
+	$(foreach i,  $(INSTALLATION_FILES),\
 		rm -f $(INSTALLATION_DIR)/$(i) && ) true
 	-rmdir $(INSTALLATION_DIR)

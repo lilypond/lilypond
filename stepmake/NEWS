@@ -1,3 +1,6 @@
+pl 42
+	- fake-msgfmt.sh; urg copied from fake-yodl
+
 pl 41
 	- standard naming: _FILES
 	- use install-sh
