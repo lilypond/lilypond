@@ -32,6 +32,7 @@ public:
      typeface. ie. leading is vertical space.
   */
  
+  static Real line_thickness (Grob*);
   static Real staff_space (Grob*);
   static Grob * get_staff_symbol (Grob*);
   static bool on_staffline (Grob*);

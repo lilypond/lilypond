@@ -45,10 +45,14 @@ private:
 
   Interpretation_context_handle one_;
   Interpretation_context_handle two_;
+  Interpretation_context_handle null_;
   Interpretation_context_handle shared_;
 
-  void together ();
+  void chords_together ();
   void apart ();
+  void solo1 ();
+  void solo2 ();
+  void unisono ();
 };
 
 
@@ -131,16 +135,57 @@ New_pc_iterator::ok () const
 }
 
 void
-New_pc_iterator::together ()
+New_pc_iterator::chords_together ()
 {
   first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
+  first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
   second_iter_->substitute_outlet (two_.report_to (), shared_.report_to ());
+  second_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
 }
+
+
+void
+New_pc_iterator::solo1 ()
+{
+  first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+  first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
+
+  second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
+  second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+}
+
+void
+New_pc_iterator::unisono ()
+{
+  /*
+    like solo1, but should set a2 string.
+   */
+  first_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+  first_iter_->substitute_outlet (one_.report_to (), shared_.report_to ());
+
+  second_iter_->substitute_outlet (two_.report_to (), null_.report_to ());
+  second_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+}
+
+
+void
+New_pc_iterator::solo2 ()
+{
+  second_iter_->substitute_outlet (null_.report_to (), shared_.report_to ());
+  second_iter_->substitute_outlet (two_.report_to (), shared_.report_to ());
+
+  first_iter_->substitute_outlet (one_.report_to (), null_.report_to ());
+  first_iter_->substitute_outlet (shared_.report_to (), null_.report_to ());
+}
+
 
 void
 New_pc_iterator::apart ()
 {
-  first_iter_->substitute_outlet (shared_.report_to (),one_.report_to ());
+  first_iter_->substitute_outlet (null_.report_to (), one_.report_to ());
+  first_iter_->substitute_outlet (shared_.report_to (), one_.report_to ());
+  
+  second_iter_->substitute_outlet (null_.report_to (), two_.report_to ());
   second_iter_->substitute_outlet (shared_.report_to (), two_.report_to ());
 }
 
@@ -151,10 +196,19 @@ New_pc_iterator::construct_children ()
   split_list_ =  get_music ()->get_mus_property ("split-list");
   SCM lst =  get_music ()->get_mus_property ("elements");
 
+  SCM props = scm_list_n (scm_list_n (ly_symbol2scm ("denies"), ly_symbol2scm ("Thread"), SCM_UNDEFINED),
+			  scm_list_n (ly_symbol2scm ("consists"), ly_symbol2scm ("Rest_engraver"), SCM_UNDEFINED),
+			  scm_list_n (ly_symbol2scm ("consists"), ly_symbol2scm ("Note_heads_engraver"), SCM_UNDEFINED),
+			  SCM_UNDEFINED);
+
   Translator_group *tr
     =  report_to ()->find_create_translator (ly_symbol2scm ("Voice"),
-					     "shared", SCM_EOL);
+					     "shared",props);
 
+  Translator_group *null
+    =  report_to ()->find_create_translator (ly_symbol2scm ("Devnull"),
+					     "", SCM_EOL);
+  null_.set_translator (null);
   tr->execute_pushpop_property (ly_symbol2scm ("NoteHead"),
 				ly_symbol2scm ("font-size"), gh_int2scm (3));
 
@@ -163,7 +217,7 @@ New_pc_iterator::construct_children ()
   set_translator (tr);
 
   Translator_group *one = tr->find_create_translator (ly_symbol2scm ("Voice"),
-						      "one", SCM_EOL);
+						      "one", props);
 
   one_.set_translator (one);
   one->execute_pushpop_property (ly_symbol2scm ("Stem"),
@@ -174,7 +228,7 @@ New_pc_iterator::construct_children ()
 
 
   Translator_group *two = tr->find_create_translator (ly_symbol2scm ("Voice"),
-						      "two", SCM_EOL);
+						      "two", props);
   two_.set_translator (two);
   two_.report_to ()->execute_pushpop_property (ly_symbol2scm ("Stem"),
 				  ly_symbol2scm ("direction"), gh_int2scm (-1));
@@ -197,12 +251,23 @@ New_pc_iterator::process (Moment m)
       if (*splitm > now)
 	break ;
 
-      if (gh_cdar (split_list_) == ly_symbol2scm ("together"))
-	together ();
-      else if (gh_cdar (split_list_) == ly_symbol2scm ("apart"))
+      SCM tag = gh_cdar (split_list_);
+      
+      if (tag == ly_symbol2scm ("chords"))
+	chords_together ();
+      else if (tag == ly_symbol2scm ("apart"))
 	apart ();
+      else if (tag == ly_symbol2scm ("unisono"))
+	unisono ();
+      else if (tag == ly_symbol2scm ("solo1"))
+	solo1 ();
+      else if (tag == ly_symbol2scm ("solo2"))
+	solo2 ();
       else
-	programming_error ("Unknown split directive.");
+	{
+	  String s =  "Unknown split directive: " + ly_symbol2string (tag);
+	  programming_error (s);
+	}
     }
   
   if (first_iter_->ok ())

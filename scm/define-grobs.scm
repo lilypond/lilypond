@@ -374,7 +374,7 @@
 	(self-alignment-Y . 0)
 	(script-priority . 100)
 	(font-family . number)
-	(font-size . -4)
+	(font-size . -5) 		; don't overlap when next to heads.
 	(font-shape . upright)
 	(meta . ((interfaces . (finger-interface font-interface text-script-interface text-interface side-position-interface self-alignment-interface item-interface ))))
 	))
@@ -875,6 +875,7 @@
      . (
 	(molecule-callback . ,Staff_symbol::brew_molecule)
 	(line-count . 5)
+	(ledger-line-thickness  (1.0 . 0.1))
 	(layer . 0)
 	(meta . ((interfaces . (staff-symbol-interface spanner-interface))))
 	))

@@ -297,6 +297,9 @@ space to add. For barline, space after a thick line.")
 (grob-property-description 'knee-spacing-correction number? "optical correction amount for knees. 0: no correction; 1: full correction.")
 (grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
 
+(grob-property-description 'ledger-line-thickness number-pair?
+			   "The thickness of ledger lines: it is the sum of 2 numbers.
+ The car is the factor for linethickness, and the cdr for staff space. Both contributions are added.")
 (grob-property-description 'left-position number? "position of left part of spanner.")
 (grob-property-description 'left-padding ly:dimension? "space left of accs.")
 

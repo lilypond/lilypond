@@ -144,11 +144,12 @@ Context_def::get_context_name () const
 }
 
 SCM
-Context_def::get_accepted () const
+Context_def::get_accepted (SCM user_mod) const
 {
-  SCM correct_order = scm_reverse (accept_mods_);
+  SCM mods = scm_reverse_x (scm_list_copy (accept_mods_),
+			    user_mod);
   SCM acc = SCM_EOL;
-  for (SCM s = correct_order; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = mods; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM tag = gh_caar (s);
       SCM sym = gh_cadar (s);
@@ -166,7 +167,7 @@ Context_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* odef
 {
   assert (gh_symbol_p (type_sym));
   
-  SCM accepted = get_accepted ();
+  SCM accepted = get_accepted (SCM_EOL);
 
   Link_array<Context_def> accepteds;
   for (SCM s = accepted; gh_pair_p (s); s = ly_cdr (s))
@@ -263,7 +264,7 @@ Context_def::instantiate (Music_output_def* md, SCM ops)
 
   SCM trans_names = get_translator_names (ops); 
   tg->simple_trans_list_ = names_to_translators (trans_names, tg);
-
+  tg->accepts_list_ = get_accepted  (ops);
   return tg;
 }
 
@@ -284,17 +285,6 @@ Context_def::make_scm ()
   return t->self_scm();
 }
 
-
-/*
-  Default child context as a SCM string, or something else if there is
-  none.
-*/
-SCM
-Context_def::default_child_context_name ()
-{
-  SCM d = get_accepted ();
-  return gh_pair_p (d) ? ly_car (scm_last_pair (d)) : SCM_EOL;
-}
 void
 Context_def::apply_default_property_operations (Translator_group *tg)
 {
@@ -310,7 +300,7 @@ Context_def::to_alist () const
 			get_translator_names (SCM_EOL)), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("description"),  description_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("aliases"),  context_aliases_), l);
-  l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  get_accepted ()), l);
+  l = gh_cons (gh_cons (ly_symbol2scm ("accepts"),  get_accepted (SCM_EOL)), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("property-ops"),  property_ops_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("context-name"),  context_name_), l);
   l = gh_cons (gh_cons (ly_symbol2scm ("group-type"),  translator_group_type_), l);    

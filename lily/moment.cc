@@ -102,6 +102,17 @@ LY_DEFINE (div_moment,"ly:div-moment", 2,0,0, (SCM a, SCM b),
   return (*ma /  *mb).smobbed_copy();
 }
 
+LY_DEFINE (ly_moment_less_p,"ly:moment<?", 2,0,0, (SCM a, SCM b),
+	   "Comparation.")
+{
+  Moment * ma = unsmob_moment (a);
+  Moment * mb = unsmob_moment (b);
+  SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
+  SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
+
+  return gh_bool2scm (*ma <  *mb);
+}
+
 
 
 SCM

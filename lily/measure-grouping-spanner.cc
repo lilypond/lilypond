@@ -22,10 +22,9 @@ Measure_grouping::brew_molecule (SCM grob)
     TODO: robustify.
    */
   SCM which = me->get_grob_property ("style");
-  SCM thick = me->get_grob_property ("thickness");
   SCM height = me->get_grob_property ("height");
 
-  Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) * gh_scm2double (thick); 
+  Real t = Staff_symbol_referencer::thickness (me) * robust_scm2double (me->get_grob_property ("thickness"));
   Grob *common = me->get_bound(LEFT)->common_refpoint (me->get_bound (RIGHT),
 						       X_AXIS);
 

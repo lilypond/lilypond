@@ -20,6 +20,9 @@ class Staff_symbol
 {
 public:
   static Real staff_space (Grob*) ;
+  static Real get_line_thickness (Grob*);
+  static Real get_ledger_line_thickness (Grob*);
+    
   static int get_steps (Grob*) ;
   static int line_count (Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));

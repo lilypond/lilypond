@@ -71,9 +71,7 @@ Line_interface::make_line (Real th, Offset from, Offset to)
 Molecule
 Line_interface::line (Grob *me, Offset from, Offset to)
 {
-  Real thick = me->get_paper()->get_realvar (ly_symbol2scm ("linethickness"));  
-  thick *= robust_scm2double (me->get_grob_property ("thickness"), 1.0); // todo: staff sym referencer? 
-
+  Real thick = Staff_symbol_referencer::line_thickness (me);
   SCM type = me->get_grob_property ("style");
 
   SCM dash_fraction = me->get_grob_property ("dash-fraction");

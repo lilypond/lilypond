@@ -57,7 +57,7 @@ public:
   void add_used_group_translator (Translator *trans);
   
   int get_depth () const;
-  bool is_bottom_translator_b () const;
+  bool is_bottom_context () const;
   bool is_removable () const;
   void terminate_translator (Translator*r);
   Translator *remove_translator (Translator*trans);

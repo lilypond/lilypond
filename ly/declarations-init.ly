@@ -110,6 +110,20 @@ paperTwentysix = \paper {
 
 \paper { \paperTwenty }
 
+
+partCombineListener = \paper {
+ \translator {
+	  \VoiceContext
+	  \denies Thread
+	  \consists Note_heads_engraver
+	  \consists Rest_engraver
+	  \type "Recording_group_engraver"
+	  recordEventSequence = #notice-the-events-for-pc
+ }
+}
+
+#(set-part-combine-listener partCombineListener)
+
 \include "dynamic-scripts-init.ly"
 \include "spanners-init.ly"
 

@@ -1,3 +1,29 @@
+2004-01-21  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/stem.cc (thickness): new function.
+
+	* lily/staff-symbol.cc (get_ledger_line_thickness): new function:
+	compute thickness from ledger-line-thickness.
+
+	* lily/note-head.cc (brew_ledger_lines): use
+	Staff_symbol::get_ledger_line_thickness ().
+
+	* lily/beam.cc (rest_collision_callback): use
+	Staff_symbol_referencer::staff_space().
+
+	* lily/parser.yy (My_lily_lexer): change syntax: \newpartcombine
+	Mus1 Mus2
+
+	* lily/include/translator.hh (class Translator): add accepts_list_
+	so  \with { \denies / \accepts } also works.
+
+	* scm/music-functions.scm (determine-split-list): determine split
+	list from music events.
+
+	* lily/new-part-combine-iterator.cc: more states.
+
+	* lily/moment.cc (LY_DEFINE): new function ly:moment<? 
+
 2004-01-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/system.cc (set_loose_columns): use the right prebroken cols

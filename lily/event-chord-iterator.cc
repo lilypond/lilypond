@@ -25,7 +25,7 @@ Translator_group*
 Event_chord_iterator::get_req_translator ()
 {
   assert (report_to ());
-  if (report_to ()->is_bottom_translator_b ())
+  if (report_to ()->is_bottom_context ())
     return report_to ();
 
   set_translator (report_to ()->get_default_interpreter ());

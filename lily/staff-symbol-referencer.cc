@@ -52,6 +52,16 @@ Staff_symbol_referencer::staff_space (Grob*me)
 }
 
 Real
+Staff_symbol_referencer::line_thickness (Grob*me) 
+{
+  Grob * st = get_staff_symbol (me);
+  if (st)
+    return Staff_symbol::get_line_thickness (st);
+
+  return me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+}
+
+Real
 Staff_symbol_referencer::get_position (Grob*me) 
 {
   Real p =0.0;

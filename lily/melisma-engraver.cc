@@ -29,7 +29,7 @@ Melisma_engraver::try_music (Music *)
   /*
     This can only be melisma-playing-event.
    */
-  return  melisma_busy (this);
+  return melisma_busy (this);
 }
 
 Melisma_engraver::Melisma_engraver()

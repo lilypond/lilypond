@@ -1474,7 +1474,8 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Grob *common_x = rest->common_refpoint (beam, Y_AXIS);
   Real rest_dim = rest->extent (common_x, Y_AXIS)[d] / staff_space * d;
 
-  Real minimum_distance = robust_scm2double
+  Real minimum_distance =
+    staff_space * robust_scm2double
     (rest->get_grob_property ("minimum-beam-collision-distance"), 1);
 
   Real distance = beam_y - rest_dim;
@@ -1483,20 +1484,23 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
     shift = minimum_distance - distance;
   else if (minimum_distance > distance)
     shift = minimum_distance - distance;
-      
-  int stafflines = Staff_symbol_referencer::line_count (rest);
+
+  shift /= staff_space;
+  
+  Real rad = Staff_symbol_referencer::line_count (rest) * staff_space / 2;
 
   /* Always move discretely by half spaces */
-  Real discrete_shift = ceil (shift * 2.0) / 2.0;
+  shift = ceil (shift * 2.0) / 2.0;
 
   /* Inside staff, move by whole spaces*/
-  if ((rest->extent (common_x, Y_AXIS)[d] + discrete_shift) * d
-      < stafflines / 2.0
-      ||(rest->extent (common_x, Y_AXIS)[-d] + discrete_shift) * -d
-      < stafflines / 2.0)
-    discrete_shift = ceil (discrete_shift);
+  
+  if ((rest->extent (common_x, Y_AXIS)[d] + staff_space * shift) * d
+      < rad
+      || (rest->extent (common_x, Y_AXIS)[-d] + staff_space * shift) * -d
+      < rad)
+    shift = ceil (shift);
 
-  return gh_double2scm (-d * discrete_shift);
+  return gh_double2scm (-d * staff_space * shift);
 }
 
 bool

@@ -408,7 +408,7 @@ LY_DEFINE(pitch_less, "ly:pitch<?", 2,0,0, (SCM p1, SCM p2),
 LY_DEFINE(ly_pitch_diff, "ly:pitch-diff", 2 ,0 ,0,
 	  (SCM pitch, SCM  root),
 	  "Return pitch with value DELTA =  PITCH - ROOT, ie, "
-	  "ROOT == (ly:pitch-transpose root delta).")
+	  "ROOT == (ly:pitch-transpose PITCH DELTA).")
 {
   Pitch *p = unsmob_pitch (pitch);
   Pitch *r = unsmob_pitch (root);

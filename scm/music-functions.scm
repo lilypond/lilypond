@@ -794,9 +794,149 @@ Rest can contain a list of beat groupings
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
+;; part-combiner.
 
 
-(define-public (determine-split-list ev1 ev2 state)
+	
+(define noticed '())
+(define part-combine-listener '())
+(define-public (set-part-combine-listener x)
+  (set! part-combine-listener x))
 
-#f  )
+(define-public (notice-the-events-for-pc context lst)
+  (set! noticed (cons lst noticed)))
+
+(define-public (make-new-part-combine-music music-list)
+  (let*
+     ((m (make-music-by-name 'NewPartCombineMusic))
+      (m1 (context-spec-music (car music-list) 'Voice "one"))
+      (m2 (context-spec-music (cadr music-list) 'Voice "two"))
+      (props '((denies Thread)
+	       (consists Rest_engraver)
+	       (consists Note_heads_engraver)
+	       ))
+      )
+
+    
+    (ly:set-mus-property! m 'elements (list m1 m2))
+    (ly:set-mus-property! m1 'property-operations props)
+    (ly:set-mus-property! m2 'property-operations props)
+    (ly:run-translator m2 part-combine-listener)
+    (ly:run-translator m1 part-combine-listener)
+    (ly:set-mus-property! m 'split-list
+			 (determine-split-list (reverse (car noticed)) (reverse (cadr noticed))))
+    (set! noticed '())
+    
+    m))
+		
+(define-public (determine-split-list evl1 evl2)
+  "EVL1 and EVL2 should be ascending"
+  
+  (define ev1 (list->vector evl1))
+  (define ev2 (list->vector evl2))
+  (define (when v i)
+    (car (vector-ref v i)))
+  (define (what v i)
+    (cdr (vector-ref v i)))
+
+  (define chord-threshold 8)
+  
+  (define result
+    (list->vector
+     (map (lambda (x)
+	    (cons x 'together))
+	  (uniq-list
+	  (merge (map car evl1) (map car evl2) ly:moment<?)))))
+
+  (define (analyse-events i1 i2 ri
+			  active1
+			  active2)
+
+    (define (analyse-span-event active ev)
+      (let*
+	  ((name (ly:get-mus-property ev 'name))
+	   (key (cond
+		 ((equal? name 'SlurEvent) 'slur)
+		 ((equal? name 'TieEvent) 'tie)
+		 ((equal? name 'Beam) 'beam)
+		 (else #f)))
+	   (sp (ly:get-mus-property ev 'span-direction)))
+
+	(if (and (symbol? key) (ly:dir? sp))
+	    ((if (= sp STOP) delete! cons) key active))
+	))
+    
+    (define (get-note-evs v i)
+      (define (f? x)
+	(equal? (ly:get-mus-property  x 'name) 'NoteEvent))
+      (filter f? (map car (what v i))))
+    
+    (define (put x)
+      (set-cdr! (vector-ref result ri) x) )
+
+    (cond
+     ((= ri (vector-length result)) '())
+     ((= i1 (vector-length ev1)) (put 'apart))
+     ((= i2 (vector-length ev2)) (put 'apart))
+     (else
+      (let*
+	  ((m1 (when ev1 i1))
+	   (m2 (when ev2 i2)))
+
+	(if (not (or (equal? m1 (when result ri))
+		     (equal? m2 (when result ri))))
+	    (begin
+	      (display
+	       (list "<? M1,M2 != result :"
+		     m1 m2 (when result ri)))
+	      (scm-error "boem")))
+
+	(set! active1
+	      (sort
+	       (map (lambda (x) (analyse-span-event active1  (car x)))
+		    (what ev1 i1)) symbol<?))
+	(set! active2
+	      (sort (map (lambda (x) (analyse-span-event active2 (car x)))
+			 (what ev2 i2)) symbol<?))
+	
+	(cond
+	 ((ly:moment<? m1 m2)
+	  (put 'apart)
+	  (analyse-events (1+ i1) i2 (1+ ri) active1 active2))
+	 ((ly:moment<? m2 m1)
+	  (put 'apart)
+	  (analyse-events i1 (1+ i2) (1+ ri) active1 active2))
+	 (else
+	  (if (not (equal? active1 active2))
+	      (put 'apart)
+
+	      (let*
+		  ((notes1 (get-note-evs ev1 i1))
+		   (pitches1 (sort
+			      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes1) ly:pitch<?))
+		   (notes2 (get-note-evs ev2 i2))
+		   (pitches2 (sort
+			      (map (lambda (x) (ly:get-mus-property x 'pitch)) notes2) ly:pitch<?))
+		   )
+		(cond
+		 ((equal? pitches1 pitches2) (put 'unisono))
+		 ((> (length notes1) 1) (put 'apart))
+		 ((> (length notes2) 1) (put 'apart))
+		 (else
+		  (let* ((diff (ly:pitch-diff (car pitches1) (car pitches1))))
+		    (if (< (ly:pitch-steps diff) chord-threshold)
+			(put 'chords)
+			(put 'apart))
+		    ))))
+	      )
+	  (analyse-events (1+ i1) (1+ i2) (1+ ri) active1 active2))
+	 )))))
+
+
+   (analyse-events 0 0  0 '() '())
+   (display result)
+   (vector->list result))
+
+
+
+; (determine-split-list '((1 . 2) (3 . 4)) '((1 . 2) (3 . 4)))

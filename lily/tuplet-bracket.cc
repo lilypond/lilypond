@@ -197,7 +197,9 @@ Tuplet_bracket::brew_molecule (SCM smob)
   
   if (bracket_visibility)      
     {
-      SCM gap = me->get_grob_property ("gap");
+      Real ss =   Staff_symbol_referencer::staff_space (me);
+      Real gap = robust_scm2double (me->get_grob_property ("gap"), 1.0)
+	* ss;
       
       SCM fl = me->get_grob_property ("bracket-flare");
       SCM eh = me->get_grob_property ("edge-height");
@@ -208,20 +210,18 @@ Tuplet_bracket::brew_molecule (SCM smob)
       do {
 	flare[d] =  height[d] = shorten[d] = 0.0;
 	if (is_number_pair (fl))
-	  flare[d] +=  gh_scm2double (index_get_cell (fl, d));
+	  flare[d] +=  ss * gh_scm2double (index_get_cell (fl, d));
 	if (is_number_pair (eh))
-	  height[d] += gh_scm2double (index_get_cell (eh, d)) * - dir;
+	  height[d] +=  - dir * ss *gh_scm2double (index_get_cell (eh, d));
 	if (is_number_pair (sp))
-	  shorten[d] +=  gh_scm2double (index_get_cell (sp, d));
+	  shorten[d] +=  ss *gh_scm2double (index_get_cell (sp, d));
       }
       while (flip (&d) != LEFT);
       
       Molecule brack = make_bracket (me, Y_AXIS,
 				     Offset (w, ry - ly), 
-				     height,
-				     gh_scm2double (gap),
-				     flare,
-				     shorten);
+				     height, gap,
+				     flare, shorten);
       mol.add_molecule (brack);
     }
   
@@ -296,7 +296,6 @@ Tuplet_bracket::calc_position_and_height (Grob*me,Real *offset, Real * dy)
   Grob * commonx = common_refpoint_of_list (cols, me, X_AXIS);  
 
   Interval staff;
-
   if (Grob * st = Staff_symbol_referencer::get_staff_symbol (me))
     staff = st->extent (commony, Y_AXIS);
   

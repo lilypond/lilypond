@@ -143,34 +143,13 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   if (primitive & MLP_ANY)
     {
-      SCM thickness_scm = me->get_grob_property ("thickness");
-      if (thickness_scm != SCM_EOL)
-	{
-	  thickness = gh_scm2double (thickness_scm);
-	}
-      else
-	{
-	  programming_error (_f ("Mensural_ligature:"
-				 "thickness undefined on flexa %d; assuming 1.4",
-				 primitive));
-	  thickness = 1.4 * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-	}
+      thickness = robust_scm2double ( me->get_grob_property ("thickness"), .14);
     }
 
   if (primitive & MLP_FLEXA)
     {
-      SCM delta_pitch_scm = me->get_grob_property ("delta-pitch");
-      if (delta_pitch_scm != SCM_EOL)
-	{
-	  delta_pitch = gh_scm2int (delta_pitch_scm);
-	}
-      else
-	{
-	  programming_error (_f ("Mensural_ligature:"
-				 "delta-pitch undefined on flexa %d; assuming 0",
-				 primitive));
-	  delta_pitch = 0;
-	}
+      delta_pitch = robust_scm2int (me->get_grob_property ("delta-pitch"),
+				    0);
 
       flexa_width = robust_scm2double (me->get_grob_property ("flexa-width"), 2.0 * staff_space);
     }

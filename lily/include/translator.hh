@@ -59,7 +59,7 @@ public:
   SCM definition_;
   SCM properties_scm_;
   SCM trans_group_list_;
-
+  SCM accepts_list_;
   virtual SCM get_simple_trans_list ();
 public:
   DECLARE_SMOBS (Translator, dummy);

@@ -28,6 +28,7 @@ Translator::init ()
   properties_scm_ = SCM_EOL;
   definition_ = SCM_EOL;
   daddy_trans_ =0;
+  accepts_list_ = SCM_EOL;
 }
 
 Translator::Translator ()
@@ -126,6 +127,7 @@ Translator::mark_smob (SCM sm)
   scm_gc_mark (me->trans_group_list_);
   scm_gc_mark (me->definition_);  
   scm_gc_mark (me->properties_scm_);  
+  scm_gc_mark (me->accepts_list_);
 
   return me->properties_scm_;
 }
