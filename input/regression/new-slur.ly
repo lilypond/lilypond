@@ -57,9 +57,11 @@
     \clef bass a=8[ e16(f] g[ a bes d,)]  s4 | \break
     
     \clef treble
-    \relative c'' {
+    \new Voice \relative c'' {
 	\slurDown f2( d4 f | g c a f | d c f2 | f1) |
     }
 
+%    \override Slur #'excentricity = #-2
+    c=''8 ( d[ b f d] a'[ c])
 }
 

@@ -25,4 +25,5 @@
     (extra-encompass-free-distance . 0.3)
     (head-slur-distance-max-ratio . 3)
     (head-slur-distance-factor . 10)
+    (edge-slope-exponent . 2)
     ))

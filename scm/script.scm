@@ -9,7 +9,7 @@
        '(("thumb" .
 	  ((script-stencil . (feta . ("thumb"  . "thumb")))
 	   (direction . 1)))
-	 ("accent" .
+         ("accent" .
 	  ((inside-slur . #f)
 	   (follow-into-staff . #t)
 	   (script-stencil . (feta . ("sforzato" .  "sforzato")))
