@@ -416,13 +416,13 @@ def global_latex_definition (tfiles, extra):
 \usepackage[latin1]{inputenc}
 \input{titledefs}
 \makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondfooter}}%
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%
 '''
 	
 	if extra['pagenumber'] and extra['pagenumber'][-1] and extra['pagenumber'][-1] != 'no':
 		s = s + r'''
 \renewcommand{\@oddhead}{\parbox{\textwidth}%
-    {\mbox{}\small\makelilypondheader\hfill\textbf{\thepage}}}
+    {\mbox{}\small\theheader\hfill\textbf{\thepage}}}
 '''
 	else:
 		s = s + '\\pagestyle{empty}\n'

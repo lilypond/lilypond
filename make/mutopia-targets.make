@@ -15,7 +15,7 @@ convert-ly: local-convert-ly
 	$(LOOP)
 
 local-convert-ly:
-	$(PYTHON) $(CONVERT_LY) -e *ly
+	$(PYTHON) $(CONVERT_LY) --edit --assume-old *ly
 
 tar:
 	mkdir -p $(outdir)/$(tarball)

@@ -1,4 +1,4 @@
-mutopia-examples = gnossienne_3
+mutopia-name = gnossienne_3
  depth = ../../../..
  include $(depth)/ports/ports.make
  

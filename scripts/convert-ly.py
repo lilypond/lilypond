@@ -42,6 +42,7 @@ Try to convert to newer lilypond-versions.  The version number of the
 input is guessed by default from \version directive
 
 Options:
+  -a, --assume-old       apply all conversions to unversioned files
   -h, --help             print this help
   -e, --edit             in place edit
   -f, --from=VERSION     start from version
@@ -215,7 +216,7 @@ if 1:
 
 if 1:
 	def conv(str):
-		str =  re.sub ('\\\\lyric', '\\\\lyrics',str)
+		str =  re.sub ('\\\\lyrics*', '\\\\lyrics',str)
 			
 		return str
 	
@@ -540,10 +541,27 @@ if 1:
 		str = re.sub ('\\\\voicefour', '\\\\voiceFour', str)
 
 		# I don't know exactly when these happened...
-		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?(1|(\\\\up))', '\\\\stemUp\\\\slurUp\\\\tieUp', str)
-		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?((-1)|(\\\\down))', '\\\\stemDown\\\\slurDown\\\\tieDown', str)
-		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?(1|(\\\\up))', '\\\\\\1Up', str)
-		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?((-1)|(\\\\down))', '\\\\\\1Down', str)
+		# ugh, we loose context setting here...
+		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\stemUp\\\\slurUp\\\\tieUp', str)
+		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\stemDown\\\\slurDown\\\\tieDown', str)
+		str = re.sub ('\\\\property *[^ ]*verticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\\\stemBoth\\\\slurBoth\\\\tieBoth', str)
+		
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\\\1Up', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\\\1Down', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)VerticalDirection[^=]*= *#?"?(0|(\\\\center))"?', '\\\\\\1Both', str)
+
+		## dynamic..
+		str = re.sub ('\\\\property *[^ .]*[.]?dynamicDirection[^=]*= *#?"?(1|(\\\\up))"?', '\\\\dynamicUp', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?dyn[^=]*= *#?"?((-1)|(\\\\down))"?', '\\\\dynamicDown', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?dyn[^=]*= *#?"?(0|(\\\\center))"?', '\\\\dynamicBoth', str)
+
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)Dash[^=]*= *#?"?(0|(""))"?', '\\\\\\1NoDots', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?([a-z]+)Dash[^=]*= *#?"?([1-9]+)"?', '\\\\\\1Dotted', str)
+
+		str = re.sub ('\\\\property *[^ .]*[.]?noAutoBeaming[^=]*= *#?"?(0|(""))"?', '\\\\autoBeamOn', str)
+		str = re.sub ('\\\\property *[^ .]*[.]?noAutoBeaming[^=]*= *#?"?([1-9]+)"?', '\\\\autoBeamOff', str)
+
+
 
 		return str
 	
@@ -706,6 +724,13 @@ if 1:
 	
 	conversions.append (((1,3,139), conv, 'font-point-size -> font-design-size.'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('([a-zA-Z]*)NoDots', '\\1Solid', str)
+		return str
+	
+	conversions.append (((1,3,141), conv, 'xNoDots -> xSolid'))
+
 
 ############################
 	
@@ -742,8 +767,8 @@ def do_conversion (infile, from_version, outfile, to_version):
 		# esp. as current conversion rules are soo incomplete
 		if re.search (lilypond_version_re_str, str):
 			str = re.sub (lilypond_version_re_str,'\\'+new_ver , str)
-		#else:
-		#	str = new_ver + '\n' + str
+		else:
+			str = new_ver + '\n' + str
 
 		outfile.write(str)
 
@@ -804,12 +829,13 @@ def do_one_file (infile_name):
 	sys.stderr.flush ()
 
 edit = 0
+assume_old = 0
 to_version = ()
 from_version = ()
 outfile_name = ''
 
 (options, files) = getopt.getopt (
-	sys.argv[1:], 'o:f:t:seh', ['version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
+	sys.argv[1:], 'ao:f:t:seh', ['assume-old', 'version', 'output', 'show-rules', 'help', 'edit', 'from=', 'to='])
 
 for opt in options:
 	o = opt[0]
@@ -831,6 +857,8 @@ for opt in options:
 		sys.exit(0)
 	elif o == '--output' or o == '-o':
 		outfile_name = a
+	elif o == '--assume-old' or o == '-a':
+		assume_old = 1
 	else:
 		print o
 		raise getopt.error
@@ -845,6 +873,12 @@ for f in files:
 		sys.stderr.write ('\n')
 		sys.stderr.write ("%s: can't determine version for %s" % (program_name, f))
 		sys.stderr.write ('\n')
-		sys.stderr.write ("%s: skipping" % program_name)
+		if assume_old:
+			fv = from_version
+			from_version = (0,0,0)
+			do_one_file (f)
+			from_version = fv
+		else:
+			sys.stderr.write ("%s: skipping: %s " % (program_name,  f))
 		pass
 sys.stderr.write ('\n')

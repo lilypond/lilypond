@@ -1,4 +1,4 @@
-mutopia-examples = wtk2-fugue2
+mutopia-name = wtk2-fugue2
  depth = ../../../../..
  include $(depth)/ports/ports.make
  

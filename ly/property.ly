@@ -14,10 +14,22 @@ shiftOnn  = \property Voice.NoteColumn \override #'horizontal-shift = #2
 shiftOnnn  = \property Voice.NoteColumn \override #'horizontal-shift = #3
 shiftOff  = \property Voice.NoteColumn \revert #'horizontal-shift 
 
-
 tieUp = \property Voice.Tie \override #'direction = #1
 tieDown = \property Voice.Tie \override #'direction = #-1
 tieBoth = \property Voice.Tie \revert #'direction 
+
+dynamicUp  = {
+  \property Voice.DynamicText \override #'direction = #1
+  \property Voice.DynamicLineSpanner \override #'direction = #1
+}
+dynamicDown = {
+  \property Voice.DynamicText \override #'direction = #-1
+  \property Voice.DynamicLineSpanner \override #'direction = #-1
+}
+dynamicBoth = {
+  \property Voice.DynamicText \revert #'direction
+  \property Voice.DynamicLineSpanner \revert #'direction
+}
 
 cadenzaOn = \property Score.timing = ##f
 cadenzaOff = {
@@ -25,7 +37,7 @@ cadenzaOff = {
   \property Score.measurePosition = #(make-moment 0 1)
 }
 
-	
+% dynamic dir?  text script, articulation script dir?	
 oneVoice = { 	
   \stemBoth
   \slurBoth
@@ -59,8 +71,11 @@ voiceFour = {
   \shiftOn
 }
 
+% There's also dash, but setting dash period/length should be fixed.
 slurDotted = \property Voice.Slur \override #'dashed = #1
-slurNoDots = \property Voice.Slur \revert #'dashed
+slurSolid = \property Voice.Slur \revert #'dashed
+tieDotted = \property Voice.Tie \override #'dashed = #1
+tieSolid = \property Voice.Tie \revert #'dashed
 
 	
 tiny  = 

@@ -413,13 +413,13 @@ violinoII =  \notes \relative c {
 	R1|
 	\!g4\p r r2|
 	R1|
-	b,4-#'((font-shape . upright) "pizz.") r r2|
+	b,4-#"pizz." r r2|
 	
 	%295
 	R1|
 	c4 r r2|
 	R1*15|
-	c4-#'((font-shape . upright) "pizz.") r r2|
+	c4-#"pizz." r r2|
 	c4 r r2|
 	c4 r r2|
 }

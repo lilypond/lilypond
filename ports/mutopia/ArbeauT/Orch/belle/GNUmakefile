@@ -1,4 +1,4 @@
-mutopia-examples = belle
+mutopia-name = belle
  depth = ../../../../..
  include $(depth)/ports/ports.make
  

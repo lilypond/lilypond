@@ -712,13 +712,24 @@ Similarly, for slurs use
 @code{\slurBoth}, 
 @code{\slurDown}, 
 @code{\slurUp}.
-@cindex @code{\slurBoth}
-@cindex @code{\slurDown} 
-@cindex @code{\slurUp}
-Aand for ties use
+
+@cindex @code{\tieBoth}
+@cindex @code{\tieDown} 
+@cindex @code{\tieUp}
+For ties use
 @code{\tieBoth}, 
 @code{\tieDown}, 
 @code{\tieUp}.
+
+@cindex @code{\dynacmicBoth}
+@cindex @code{\dynamicDown} 
+@cindex @code{\dynamicUp}
+For dynamics use
+@code{\dynamicBoth}, 
+@code{\dynamicDown}, 
+@code{\dynamicUp}.
+
+@c text scripts? articulation scripts? fingering?
 
 @cindex @code{\voiceOne}
 @cindex @code{\voiceTwo}

@@ -1,6 +1,6 @@
 
 local-ly-clean:
-	-mv -f $(wildcard *.ly) $(outdir)
+	$(if $(wildcard *.ly), -mv -f $(wildcard *.ly) $(outdir))
 
 ly-clean: local-ly-clean
 	$(LOOP)

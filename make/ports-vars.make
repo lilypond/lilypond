@@ -19,3 +19,23 @@ include $$(depth)/ports/ports.make\n\
 '
 
 
+#
+# scores for target local-WWW (duh)
+#
+examples=
+
+
+#
+# scores for target mutopia
+#
+# Hairy hack to support name `score.ly' inside zipfile.
+# This will fail to download and build mutopia in one go,
+# either download first, or issue make mutopia twice.
+#
+mutopia-parts = $(patsubst %.ly,%,$(wildcard *-part.ly))
+mutopia-scores = $(patsubst %.ly,%,$(wildcard $(mutopia-name).ly score.ly))
+ifeq ($(mutopia-scores),)
+mutopia-scores = $(mutopia-name)
+endif
+mutopia-examples = $(mutopia-scores) $(mutopia-parts)
+

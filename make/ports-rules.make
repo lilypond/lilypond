@@ -14,9 +14,9 @@ endif
 %/GNUmakefile:
 	mkdir -p $(@D)
 	$(if $(shell grep '[.]ly' $(@D)/index.html), \
-		echo 'mutopia-examples = $(@D)' > $@, \
+		echo 'mutopia-name = $(@D)' > $@, \
 		$(if $(shell grep '[.]zip' $(@D)/index.html), \
-			echo -e 'zipped = true\nmutopia-examples = $(@D)' > $@))
+			echo -e 'zipped = true\nmutopia-name = $(@D)' > $@))
 	echo -e $(GNUmakefile) >> $@
 
 

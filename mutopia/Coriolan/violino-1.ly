@@ -400,7 +400,7 @@ violinoI =  \notes \relative c {
 	R1|
 	\!es4\p r r2|
 	R1|
-	d,4-#'((font-shape . upright) "pizz.") r r2|
+	d,4-#"pizz." r r2|
 	
 	%295
 	R1|
@@ -431,7 +431,7 @@ violinoI =  \notes \relative c {
 	%310
 	\!c4\pp r r2|
 	R1|
-	c4-#'((font-shape . upright) "pizz.") r r2|
+	c4-#"pizz." r r2|
 	c4 r r2|
 	c4 r r2|
 }

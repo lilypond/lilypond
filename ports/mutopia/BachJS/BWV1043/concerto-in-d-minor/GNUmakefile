@@ -1,5 +1,5 @@
 zipped = true
-mutopia-examples = concerto-in-d-minor
+mutopia-name = concerto-in-d-minor
  depth = ../../../../..
  include $(depth)/ports/ports.make
  

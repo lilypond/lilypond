@@ -1,4 +1,4 @@
-mutopia-examples = unquietthoughts
+mutopia-name = unquietthoughts
  depth = ../../../../..
  include $(depth)/ports/ports.make
  

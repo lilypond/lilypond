@@ -1,3 +1,14 @@
+1.3.140.jcn3
+============
+
+* Convert-ly: added some missing rules.
+
+* Ly2dvi: changed footer (and header) macros to match mutopia headers again.
+
+* Convert-ly: always insert or update version number.  New option:
+--assume-old will apply all conversions if version cannot be
+determined.
+
 1.3.140.jcn2
 ============
 
@@ -9,7 +20,8 @@ TextSpanner.
 1.3.140.jcn1
 ============
 
-* Moved ports section of mutopia to mutopia/ports.  Fixed make bootstrapping.  Added sync target, synced with www.mutopiaproject.org.
+* Moved ports section of mutopia to mutopia/ports.  Fixed make
+bootstrapping.  Added sync target, synced with www.mutopiaproject.org.
 
 1.3.139.jcn6
 ============

@@ -1,4 +1,4 @@
-mutopia-examples = morceau-de-concert
+mutopia-name = morceau-de-concert
  depth = ../../../../..
  include $(depth)/ports/ports.make
  
