@@ -252,7 +252,8 @@ In Note, Chord, and Lyrics mode, durations are designated by numbers
 and dots: durations are entered as their reciprocal values.  For example,
 a quarter note is entered using a @code{4} (since it is a 1/4 note), while
 a half note is entered using a @code{2} (since it is a 1/2 note).  For notes
-longer than a whole you must use identifiers.
+longer than a whole you must use variables.
+
 @c FIXME: what is an identifier?  I do not think it's been introduced yet.
 @c and if it has, I obviously skipped that part.     - Graham
 
@@ -470,7 +471,7 @@ used in music aimed at beginners.
 }
 @end lilypond
 
-The @code{EasyNotation} identifier overrides a @internalsref{Score}
+The @code{EasyNotation} variable overrides a @internalsref{Score}
 context.  You probably will want to print it with magnification or a
 large font size to make it more readable.  To print with
 magnification, you must create a DVI file (with @file{ly2dvi}) and
@@ -1232,25 +1233,25 @@ automatic beaming in irregular meters such as @code{5/8}.
 This section describes how to change the way that LilyPond automatically
 inserts accidentals before the running notes.
 
-[TODO: identifier vs. macro]
 
 @menu
-* Using the predefined accidental macros::  
+* Using the predefined accidental variables::  
 * Defining your own accidental typesettings::  
 @end menu
 
-@node Using the predefined accidental macros
-@subsection Using the predefined accidental macros
+@node Using the predefined accidental variables
+@subsection Using the predefined accidental variables
+
 The constructs for describing the accidental typesetting rules are
-quite hairy, so non-experts should stick to the macros defined in
+quite hairy, so non-experts should stick to the variables defined in
 @file{ly/property-init.ly}.
 @cindex @file{property-init.ly}
 
-The macros operate on the ``Current'' context (see @ref{Context properties}). This
-means that the macros shuold normally be invoked right after the
-creation of the context in which the accidental typesetting described
-by the macro is to take effect. I.e. if you want to use
-piano-accidentals in a pianostaff then you issue
+The variables set properties in the ``Current'' context (see @ref{Context
+properties}). This means that the variables shuold normally be added
+right after the creation of the context in which the accidental
+typesetting described by the variable is to take effect. I.e. if you
+want to use piano-accidentals in a pianostaff then you issue
 @code{\pianoAccidentals} first thing after the creation of the piano
 staff:
 @example
@@ -1286,7 +1287,7 @@ staff:
 }
 @end lilypond
 
-The macros are:
+The variables are:
 @table @code
 @item \defaultAccidentals
       @cindex @code{\defaultAccidentals}
@@ -1297,12 +1298,11 @@ The macros are:
 
 @item \voiceAccidentals
       @cindex @code{\voiceAccidentals}
-      The normal behaviour is to remember the accidentals on
-      Staff-level.
-      This macro, however, typesets accidentals individually for each
-      voice.
-      Apart from that the rule is similar to
-      @code{\defaultAccidentals}.
+@c
+      The normal behaviour is to
+remember the accidentals on Staff-level.  This variable, however,
+typesets accidentals individually for each voice.  Apart from that the
+rule is similar to @code{\defaultAccidentals}.
 
       This leads to some weird and often unwanted results
       because accidentals from one voice do not get cancelled in other
@@ -1354,12 +1354,11 @@ the same @internalsref{Staff}.
 
       @cindex @code{\modernVoiceCautionaries}
 @item \modernVoiceCautionaries
-is the same as
-@code{\modernVoiceAccidentals}, but with the extra accidentals (the
-ones not typeset by @code{\voiceAccidentals}) typeset as cautionaries.
-Even though all accidentals typeset by @code{\defaultAccidentals}
-@emph{are} typeset by this macro then some of them are typeset as
-cautionaries.
+is the same as @code{\modernVoiceAccidentals}, but with the extra
+accidentals (the ones not typeset by @code{\voiceAccidentals}) typeset
+as cautionaries.  Even though all accidentals typeset by
+@code{\defaultAccidentals} @emph{are} typeset by this variable then
+some of them are typeset as cautionaries.
 
 @item \pianoAccidentals
       @cindex @code{\pianoAccidentals}
@@ -2005,7 +2004,7 @@ manually.
 @cindex @code{\rfz}
 
 
-Absolute dynamic marks are specified using an identifier after a
+Absolute dynamic marks are specified using an variable after a
 note: @code{c4-\ff}.  The available dynamic marks are: @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
 @code{\fff}, @code{\fff}, @code{\fp}, @code{\sf}, @code{\sff},
@@ -2078,8 +2077,8 @@ handled by the @internalsref{DynamicLineSpanner} object.
 
 If you want to adjust padding or vertical direction of the dynamics,
 you must set properties for the @internalsref{DynamicLineSpanner}
-object. Predefined identifiers to set the vertical direction are
-\dynamicUp and \dynamicDown.
+object. Predefined variables to set the vertical direction are
+@code{\dynamicUp} and  @code{\dynamicDown}.
 
 @cindex direction, of dynamics
 @cindex @code{\dynamicDown}
@@ -2922,11 +2921,10 @@ foo = bar
 @end example 
 
 @noindent
-is interpreted as the string identifier assignment.  However,
-it can also be interpreted as making a string identifier @code{\foo}
-containing @code{"bar"}, or a music identifier @code{\foo} containing
-the syllable `bar'.  The former interpretation is chosen. The latter
-can be specified using
+is interpreted as assigning a string identifier @code{\foo} such that
+it contains @code{"bar"}.  However, it could also be interpreted as
+making or a music identifier @code{\foo} containing the syllable
+`bar'.  The force the latter interpretation, use
 @example
   foo = \lyrics bar
 @end example
@@ -3620,7 +3618,7 @@ two whole notes), regardless of the time signature.
 Texts can be added to multi-measure rests by using the
 @var{note}-@code{markup} syntax.  In this case, the number is
 replaced. If you need both texts and the number, you must add the
-number by hand. An identifier (@code{fermataMarkup}) is provided for
+number by hand. A variable (@code{\fermataMarkup}) is provided for
 adding fermatas.
 
 
@@ -3777,7 +3775,7 @@ rests.
 For @internalsref{Lyrics}, @internalsref{LyricsVoice},
 @internalsref{ChordNames} and @internalsref{FiguredBass}, hara-kiri is
 switched on by default. For normal staffs, hara kiri is available as a
-specialized @internalsref{Staff} context, with the name identifier
+specialized @internalsref{Staff} context, with the name variable
 @code{\HaraKiriStaffContext}.  Observe how the second staff in this
 example disappears in the second line.
 
@@ -5314,7 +5312,7 @@ five lines in a staff when displayed in the font.
 
 Definitions for these sizes are the files @file{paperSZ.ly}, where
 @code{SZ} is one of 11, 13, 16, 19, 20, 23 and 26.  If you include any
-of these files, the identifiers @code{paperEleven},
+of these files, the variables @code{paperEleven},
 @code{paperThirteen}, @code{paperSixteen}, @code{paperNineteen},
 @code{paperTwenty}, @code{paperTwentythree}, and @code{paperTwentysix}
 are defined respectively.  The default @code{\paper} block is also
