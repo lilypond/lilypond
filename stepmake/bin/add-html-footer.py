@@ -250,8 +250,8 @@ def do_file (f):
 	s = re.sub ('@BRANCH@', branch_str, s)	
 
 	# ugh, python2.[12] re is broken.
-	#pat = re.compile ('.*?<!--\s*(@[^@]*@)\s*=\s*([^\s]*)\s*-->', re.DOTALL)
-	pat = re.compile ('[.\n]*?<!--\s*(@[^@]*@)\s*=\s*([^\s]*)\s*-->')
+	#pat = re.compile ('.*?<!--\s*(@[^@]*@)\s*=\s*([^>]*)\s*-->', re.DOTALL)
+	pat = re.compile ('[.\n]*?<!--\s*(@[^@]*@)\s*=\s*([^>]*)\s*-->')
 	m = pat.search (s)
 	while m:
 		at_var = m.group (1)
