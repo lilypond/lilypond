@@ -4,9 +4,11 @@
 #define DSTREAM_HH
 
 #include "string.hh"
-#include "assoc.hh"
 
 const char eol= '\n';
+
+template<class K,class V>
+struct Assoc;
 
 /// debug stream
 class Dstream
@@ -16,7 +18,7 @@ class Dstream
     bool local_silence;
     String classname;
 
-    Assoc<String, bool> silent;
+    Assoc<String, bool> *silent;
 public:
 
     bool silence(String);

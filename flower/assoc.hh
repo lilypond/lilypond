@@ -2,6 +2,7 @@
 #define ASSOC_HH
 
 #include "vray.hh"
+#include <assert.h>
 
 template<class K,class V>
 struct Assoc_ent_ {
@@ -72,4 +73,5 @@ public:
 };
 /** mindblowingly stupid Associative array implementation
  */
+
 #endif
