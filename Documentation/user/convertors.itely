@@ -136,8 +136,6 @@ version information
 The ABC standard is not very "standard". For extended features
 (eg. polyphonic music) different conventions exist. 
 
-[TODO: describe limitations]
-
 
 @node pmx2ly
 @section pmx2ly

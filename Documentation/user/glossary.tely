@@ -4,8 +4,8 @@
 @c @pagesizes 10.3in
 
 @c @everyheading @| @thispage @|
-@evenheading @thispage @| @| 
-@oddheading @| @| @thispage @|
+@c @evenheading @thispage @| @| 
+@c @oddheading @| @| @thispage @|
 
 @itemize 
 
@@ -2735,10 +2735,6 @@ des @tab des @tab des
 @item
 
 @item @strong{d} @tab re @tab r@'e @tab D @tab d @tab d @tab d @tab d
-
-@item
-
-@item @strong{e-flat} [todo]
 
 @item
 

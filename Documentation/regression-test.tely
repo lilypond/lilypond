@@ -21,6 +21,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{rest.ly}
 
+@lilypondfile[printfilename]{rest-ledger.ly}
+
 @lilypondfile[printfilename]{noteheadstyle.ly}
 
 @lilypondfile[printfilename]{easy-notation.ly}
@@ -202,17 +204,17 @@ and documenting bugfixes.
 @lilypondfile[printfilename]{part-combine.ly}
 
 
-@lilypondfile[printfilename,nonfragment]{size11.ly}
+@lilypondfile[printfilename,nofragment]{size11.ly}
 
-@lilypondfile[printfilename,nonfragment]{size13.ly}
+@lilypondfile[printfilename,nofragment]{size13.ly}
 
-@lilypondfile[printfilename,nonfragment]{size16.ly}
+@lilypondfile[printfilename,nofragment]{size16.ly}
 
-@lilypondfile[printfilename,nonfragment]{size20.ly}
+@lilypondfile[printfilename,nofragment]{size20.ly}
 
-@lilypondfile[printfilename,nonfragment]{size23.ly}
+@lilypondfile[printfilename,nofragment]{size23.ly}
 
-@lilypondfile[printfilename,nonfragment]{size26.ly}
+@lilypondfile[printfilename,nofragment]{size26.ly}
 
 
 

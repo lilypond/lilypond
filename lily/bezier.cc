@@ -34,8 +34,8 @@ scale (Array<Offset>* arr_p, Real x , Real y)
 {
   for (int i = 0; i < arr_p->size (); i++)
     {
- (*arr_p)[i][X_AXIS] = x* (*arr_p)[i][X_AXIS];
- (*arr_p)[i][Y_AXIS] = y* (*arr_p)[i][Y_AXIS];
+      (*arr_p)[i][X_AXIS] = x* (*arr_p)[i][X_AXIS];
+      (*arr_p)[i][Y_AXIS] = y* (*arr_p)[i][Y_AXIS];
     }
 }
 
@@ -44,14 +44,14 @@ rotate (Array<Offset>* arr_p, Real phi)
 {
   Offset rot (complex_exp (Offset (0, phi)));
   for (int i = 0; i < arr_p->size (); i++)
- (*arr_p)[i] = complex_multiply (rot, (*arr_p)[i]);
+    (*arr_p)[i] = complex_multiply (rot, (*arr_p)[i]);
 }
 
 void
 translate (Array<Offset>* arr_p, Offset o)
 {
   for (int i = 0; i < arr_p->size (); i++)
- (*arr_p)[i] += o;
+    (*arr_p)[i] += o;
 }
 
 /*
