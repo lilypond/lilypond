@@ -18,7 +18,7 @@ EXTRACXXFLAGS=-pipe -Wall -W  -pedantic
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=11
+PATCHLEVEL=13
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 
 # directories
@@ -53,7 +53,7 @@ DNAME=$(PACKAGENAME)-$(VERSION)
 # distribution files.
 othersrc=lexer.l parser.y
 SCRIPTS=make_version make_patch genheader
-IFILES=dimen.tex symbol.ini kortjakje.ly maartje.ly\
+IFILES=dimen.tex symbol.ini kortjakje.ly pavane.ly  maartje.ly\
 	lilyponddefs.tex test.tex .dstreamrc
 OFILES=Makefile Variables.make Sources.make COPYING README
 DFILES=$(OFILES) $(IFILES) $(SCRIPTS)
