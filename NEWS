@@ -1,7 +1,14 @@
+pl 75.jcn1
+	- all of the above
 
 pl 75
 	- inbook.ly & book.tex example.
 	- natural width: linewidth = -1.0\cm
+
+pl 74pre.jcn2
+	- mi2mu fixes after scott snyder <snyder@d0sgif.fnal.gov> [sss]
+	- mi2mu update for mudela 0.0.61
+	- conflily fixes
 
 pl 74pre.jcn1
 	- oversimplified midi output thru performer hierarchy

@@ -18,7 +18,7 @@ void yyerror(const char *s);
 /// (midi_lexer)
 class My_midi_lexer : yyFlexLexer {
 public:
-	My_midi_lexer( String &filename_str ,Sources * );
+	My_midi_lexer( String& filename_str, Sources* );
 	~My_midi_lexer();
 
 	int close_i();
@@ -26,9 +26,12 @@ public:
 	char const* here_ch_C();
 	static int varint2_i( String str );
 	int yylex();
-	Source_file * source_file_l_ ;
+	Source_file* source_file_l_ ;
+
 private:
-    int char_count_;
+	int char_count_;
+	int running_status_i_;
+
 public: // ugh
 	int errorlevel_i_;
 };

@@ -235,8 +235,8 @@ midi_event:
 	;
 
 running_status:
-	RUNNING_STATUS U8 { //U8 {
-		$$ = 0;
+	RUNNING_STATUS midi_event {
+		$$ = $2;
 	}
 	;
 
@@ -265,7 +265,14 @@ note_on:
 		int i = $1;
 		i = i & ~0x90;
 		$$ = 0;
-		midi_parser_l_g->note_begin( $1 & ~0x90, $2, $3 );
+                if ( $3 )
+			midi_parser_l_g->note_begin( $1 & ~0x90, $2, $3 );
+		/*
+		  sss: some broken devices encode NOTE_OFF as 
+		       NOTE_ON with zero volume
+		 */
+		else 
+			$$ = midi_parser_l_g->note_end_midi_event_p( $1 & ~0x90, $2, $3 );
 	}
 	;
 

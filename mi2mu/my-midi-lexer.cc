@@ -19,6 +19,7 @@ My_midi_lexer::My_midi_lexer( String &filename_str, Sources * sources )
     switch_streams( source_file_l_->istream_l() );
     errorlevel_i_ = 0;
     char_count_ = 0;
+    running_status_i_ = 0;
 }
 
 My_midi_lexer::~My_midi_lexer()
