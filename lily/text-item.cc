@@ -20,8 +20,8 @@
 #include "output-def.hh"
 #include "modified-font-metric.hh"
 
-MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 3)
-  SCM
+MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 3);
+SCM
 Text_interface::interpret_string (SCM layout_smob,
 				  SCM props,
 				  SCM markup)
@@ -39,8 +39,8 @@ Text_interface::interpret_string (SCM layout_smob,
   return fm->text_stencil (str).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Text_interface, interpret_markup, 3)
-  SCM
+MAKE_SCHEME_CALLBACK (Text_interface, interpret_markup, 3);
+SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
   if (scm_is_string (markup))

@@ -1657,16 +1657,11 @@ for this purpose instead.
 
 
 
-@node Tablatures
-@section Tablatures
+@node Guitar 
+@section Guitar
 
 @cindex tablature
 @cindex guitar tablature
-
-Tablature notation is used for notating music for plucked string
-instruments.  Pitches are not denoted with note heads, but by
-indicating on which string and fret a note must be played.  LilyPond
-offers limited support for tablature.
 
 @menu
 * Tablatures basic::            
@@ -1674,9 +1669,42 @@ offers limited support for tablature.
 * Fret diagrams::               
 @end menu
 
+@node String number indications
+@subsection String number indications
+
+@cindex String numbers
+
+String numbers can be added to chords, by indicating the string number
+with @code{\}@var{number}, 
+
+@lilypond[relative,relative=1,raggedright]
+<c\1 e\2 g\3>
+@end lilypond
+
+See also @inputfileref{input/regression,string-number.ly}.
+
+
+@seealso
+
+Program reference: @internalsref{StringNumber},
+@internalsref{StringNumberEvent}
+
+@refbugs
+
+Fingering shares the positioning code with the fingering
+(@ref{Fingering instructions}) and articulation on chords.  This means
+that it is not possible to have string numbers on the right and
+fingering instructions on the left of the same chord.
+
+
 @node Tablatures basic
 @subsection Tablatures basic
 @cindex Tablatures basic
+
+Tablature notation is used for notating music for plucked string
+instruments.  Pitches are not denoted with note heads, but by
+numbers indicating on which string and fret a note must be played.  LilyPond
+offers limited support for tablature.
 
 The string number associated to a note is given as a backslash
 followed by a number, e.g., @code{c4\3} for a C quarter on the third

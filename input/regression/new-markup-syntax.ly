@@ -27,6 +27,7 @@ texidoc = "With the new markup syntax, text may be written in various manners."
 %		\char-number #"abc1234abc"
 		\box \column { \line { "string 1" } \line { "string 2" } }
 		"$\\emptyset$"
+		\circle #4 #0.2
 		\italic Norsk
 		\super "2"
 		\dynamic sfzp

@@ -16,6 +16,14 @@
   "Stencil as markup"
   stil)
 
+(def-markup-command (circle layout props radius thickness)
+  (number? number?)
+  "A circle of radius @var{radius} and thickness @var{thickness}"
+
+  (ly:make-stencil
+   (list 'circle radius thickness)
+   (cons (- radius) radius)
+   (cons (- radius) radius)))
 
 (def-markup-command (with-url layout props url arg) (string? markup?)
   "Add a link to URL @var{url} around @var{arg}. This only works in

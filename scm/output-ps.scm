@@ -21,6 +21,7 @@
   ;; JUNK this -- see lily.scm: ly:all-output-backend-commands
   #:export (unknown
 	    blank
+	    circle
 	    dot
 	    white-dot
 	    beam
@@ -144,6 +145,11 @@
    " "   
    (ly:number->string off)
    " ] 0 draw_dashed_slur"))
+
+(define (circle radius thick)
+  (format
+   "~a ~a draw_circle" radius thick))
+
 
 (define (dot x y radius)
   (string-append

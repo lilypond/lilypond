@@ -455,6 +455,21 @@
 				side-position-interface self-alignment-interface
 				item-interface))))
 	))
+    (StringNumber
+     . (
+	(print-function . ,print-circled-text-callback)
+	(padding . 0.5)
+	(staff-padding . 0.5)
+	(self-alignment-X . 0)
+	(self-alignment-Y . 0)
+	(script-priority . 100)
+	(font-encoding . fetaNumber)
+	(font-size . -5) 		; don't overlap when next to heads.
+	(meta . ((interfaces . (string-number-interface
+				font-interface text-script-interface text-interface
+				side-position-interface self-alignment-interface
+				item-interface))))
+	))
 
     (Glissando
      . (
