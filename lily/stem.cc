@@ -529,24 +529,23 @@ Stem::height (SCM smob, SCM ax)
 Molecule
 Stem::flag (Grob*me)
 {
-  /* TODO: rename flag-style into something more appropriate,
-   e.g. "stroke-style", maybe with values "" (i.e. no stroke),
-   "single" and "double".  Needs more discussion.
-  */
-  String style, staffline_offs;
+  /* TODO: maybe property stroke-style should take different values,
+     e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
+     '() or "grace").  */
+  String flag_style, staffline_offs;
 
-  SCM style_scm = me->get_grob_property ("style");
-  if (gh_symbol_p (style_scm))
+  SCM flag_style_scm = me->get_grob_property ("flag-style");
+  if (gh_symbol_p (flag_style_scm))
     {
-      style = (ly_scm2string (scm_symbol_to_string (style_scm)));
+      flag_style = (ly_scm2string (scm_symbol_to_string (flag_style_scm)));
     }
   else
     {
-      style = "";
+      flag_style = "";
     }
   bool adjust = to_boolean (me->get_grob_property ("adjust-if-on-staffline"));
 
-  if (String::compare (style, "mensural") == 0)
+  if (String::compare (flag_style, "mensural") == 0)
     /* Mensural notation: For notes on staff lines, use different
        flags than for notes between staff lines.  The idea is that
        flags are always vertically aligned with the staff lines,
@@ -595,7 +594,7 @@ Stem::flag (Grob*me)
     }
   char dir = (get_direction (me) == UP) ? 'u' : 'd';
   String font_char =
-    style + to_string (dir) + staffline_offs + to_string (duration_log (me));
+    flag_style + to_string (dir) + staffline_offs + to_string (duration_log (me));
   Font_metric *fm = Font_interface::get_default_font (me);
   Molecule flag = fm->find_by_name ("flags-" + font_char);
   if (flag.empty_b ())
@@ -603,13 +602,13 @@ Stem::flag (Grob*me)
       me->warning (_f ("flag `%s' not found", font_char));
     }
 
-  SCM stroke_scm = me->get_grob_property ("flag-style");
-  if (gh_string_p (stroke_scm))
+  SCM stroke_style_scm = me->get_grob_property ("stroke-style");
+  if (gh_string_p (stroke_style_scm))
     {
-      String stroke = ly_scm2string (stroke_scm);
-      if (!stroke.empty_b ())
+      String stroke_style = ly_scm2string (stroke_style_scm);
+      if (!stroke_style.empty_b ())
 	{
-	  String font_char = to_string (dir) + stroke;
+	  String font_char = to_string (dir) + stroke_style;
 	  Molecule stroke = fm->find_by_name ("flags-" + font_char);
 	  if (stroke.empty_b ())
 	    {
@@ -945,6 +944,6 @@ Stem::beam_multiplicity (Grob *stem)
 
 ADD_INTERFACE (Stem,"stem-interface",
   "A stem",
-  "up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-free-lengths beamed-extreme-minimum-free-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length style no-stem-extend flag-style");
+  "up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-free-lengths beamed-extreme-minimum-free-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length flag-style no-stem-extend stroke-style");
 
 

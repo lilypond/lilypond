@@ -13,7 +13,7 @@ startGraceMusic = {
         #(map (lambda (x) (* 0.8 x)) '(1.83 1.5))
 
     \property Voice.Stem \override #'no-stem-extend = ##t
-    \property Voice.Stem \override #'flag-style  = #"grace"
+    \property Voice.Stem \override #'stroke-style  = #"grace"
     \property Voice.Beam \override #'thickness = #0.384
 
     %% Instead of calling Beam::space_function, we should invoke
@@ -39,7 +39,7 @@ stopGraceMusic = {
     \property Staff.Accidental \revert #'font-relative-size
     \property Voice.Beam \revert #'thickness
 
-    \property Voice.Stem \revert #'flag-style
+    \property Voice.Stem \revert #'stroke-style
     \property Voice.Stem \revert #'no-stem-extend
     \property Voice.Stem \revert #'beamed-lengths
     \property Voice.Stem \revert #'beamed-minimum-free-lengths
