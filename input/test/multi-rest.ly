@@ -1,4 +1,6 @@
-voice_one = \melodic\transpose c'	{  \stemup
+\version "1.0.3";
+
+voice_one = \notes\transpose c'	{  \stemup
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
 	es'4-. r r2 | r1 |
@@ -8,7 +10,7 @@ voice_one = \melodic\transpose c'	{  \stemup
 	r2 r4 g4-. |
 	}
 
-voice_two = \melodic
+voice_two = \notes
 	{ \transpose c, { \stemdown
 	R1 * 2 | f'4-. r r2 | R1 * 3 |
 	f'4-. r r2 | R1 * 3 |
@@ -20,7 +22,7 @@ voice_two = \melodic
 
 	}}
 
-\score {  \melodic
+\score {  \notes
 	\type Staff <
 		\$voice_two
 		\$voice_one

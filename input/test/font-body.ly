@@ -1,6 +1,6 @@
-\version "1.0.2";
+\version "1.0.3";
 
-FontBody=	\melodic\transpose c''{ 
+FontBody=	\notes\transpose c''{ 
 		\bar "|:";
 		\time 4/4;
 		\type Staff  < { \stemup e'\longa a\breve | }

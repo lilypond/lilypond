@@ -5,11 +5,11 @@ enteredby =	 "HWN,JCN";
 copyright =	 "public domain";
 Tested =	 "test the Collision resolution ";
 }
-\version "1.0.2";
+\version "1.0.3";
 
 
 
-two_voice = \melodic 
+two_voice = \notes 
 	\type Staff < 
 	  { \stemdown
 		c4 d e f g2~  g4 a [c8 d e f] c2| }
@@ -18,7 +18,7 @@ two_voice = \melodic
 
 	>
 
-two_voice_steminvert = \melodic 
+two_voice_steminvert = \notes 
 	\type Staff <  
 	  { 
  \stemup
@@ -29,7 +29,7 @@ two_voice_steminvert = \melodic
 
 	>
 
-three_voice = \melodic 
+three_voice = \notes 
 	\type Staff <
 	{ \stemup 
 		g4 f e f g a g2 }
@@ -40,7 +40,7 @@ three_voice = \melodic
 	>
 
 
-rests = \melodic  
+rests = \notes  
 	\type Staff <
 	{ \stemup
 		| r8 r r r  r r r r 
@@ -52,7 +52,7 @@ rests = \melodic
 	}
 	>
 
-restsII = \melodic {
+restsII = \notes {
 	\type Staff < 
 		{ \stemup  g' f' e' d' c' b a g f e d c }
 		{ \stemdown r  r  r  r  r  r r r r r r r }
@@ -76,7 +76,7 @@ restsII = \melodic {
 }
 
 \score{
-	\melodic \transpose c' {  \two_voice  
+	\notes \transpose c' {  \two_voice  
 	\two_voice_steminvert 
 	\three_voice  
 	\rests 

@@ -1,7 +1,9 @@
+\version "1.0.3";
+
 
 %  middle tie is wrong
 \score{
-	\melodic\relative c'{
+	\notes\relative c'{
 	{		<c4 e g~ > <d f a>
 	}
 }}

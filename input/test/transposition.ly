@@ -22,9 +22,9 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.2";
+\version "1.0.3";
 
-vOne = \melodic \relative c''{
+vOne = \notes \relative c''{
         \clef"violin";
         \key d;
         \time 2/4 ;
@@ -35,9 +35,9 @@ vOne = \melodic \relative c''{
         c4 c |
 }
 
-vTwo = \melodic \relative c''\transpose d' { \vOne }
+vTwo = \notes \relative c''\transpose d' { \vOne }
 
-vThree = \melodic \relative c''{
+vThree = \notes \relative c''{
         \clef"violin";
         \keysignature fis cis;
         \time 2/4 ;
@@ -48,7 +48,7 @@ vThree = \melodic \relative c''{
         cis4 ais4 |
 }
 
-vFour = \melodic \relative c''\transpose d' \vThree
+vFour = \notes \relative c''\transpose d' \vThree
 
 \score {
   \type StaffGroup <

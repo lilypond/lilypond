@@ -7,7 +7,7 @@ TestedFeatures = "This file tests silly line shapes";
 
 \include "paper20.ly"
 
-\version "1.0.2";
+\version "1.0.3";
 
 oden = \lyric{ 
 	O8 |
@@ -33,7 +33,7 @@ ugloeit = \lyric{
 	licht8. ge-16 spreid.4 _8
 }
 
-oboom = \melodic\transpose c''{
+oboom = \notes\transpose c''{
 	g,8 |
 	c8. c16 c4. d8 | 
 	e8. e16 e4. e8 | 
@@ -41,7 +41,7 @@ oboom = \melodic\transpose c''{
 	d8. c16 c4 r8
 }
 
-bos = \melodic\transpose c''{
+bos = \notes\transpose c''{
 	g8 | 
 	g e a4. g8 | 
 	g8. f16 f4 r8 f8 |
@@ -49,13 +49,13 @@ bos = \melodic\transpose c''{
 	f8. e16 e4 r8
 }
 
-global = \melodic{ 
+global = \notes{ 
 	\time 3/4;
     	\partial 8;
 	\skip 4*48;
 	\bar "|.";
 }
-melody = \melodic{
+melody = \notes{
 	\oboom
 	\oboom
 	\bos
@@ -67,7 +67,7 @@ $melody_staff = \type Staff = melody <
 	\melody
 >
 
-$verse_one = \melodic{
+$verse_one = \notes{
 	\oden
 	\oden
 	\ikheb
@@ -79,7 +79,7 @@ $verse_one_staff = \type Lyrics = one <
 	\$verse_one
 >
 
-$verse_two = \melodic{
+$verse_two = \notes{
 	\oden
 	\oden
 	\ugloeit

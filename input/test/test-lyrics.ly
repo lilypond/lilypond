@@ -1,3 +1,5 @@
+\version "1.0.3";
+
 $somewhat_long = \lyric{
 	\textstyle "roman" ;
 	AaaaaaA2
@@ -40,7 +42,7 @@ $quite_long_lyrics_staff = \type Lyrics = quite <
 	\$quite_long
 >
 
-melody = \melodic
+melody = \notes
 \transpose c'{
 	c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4
 	c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4

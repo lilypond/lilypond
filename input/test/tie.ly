@@ -1,4 +1,6 @@
-tie = \melodic\transpose c''{
+\version "1.0.3";
+
+tie = \notes\transpose c''{
 
 	e4 ~ e e e ~ |
 	e ~ a a a ~ |

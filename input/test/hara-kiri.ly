@@ -1,5 +1,6 @@
+\version "1.0.3";
 
-toeter_i = \melodic\relative c {
+toeter_i = \notes\relative c {
 	\property Staff.instrument = "Toeters"
 	\property Staff.instr = "Ttr."
 	c'''4 c c c \break
@@ -12,7 +13,7 @@ toeter_i = \melodic\relative c {
 	g g g g
 }
 
-toeter_ii = \melodic \relative c {
+toeter_ii = \notes \relative c {
 	c''4 c c c \break
 	d d d d \break
 	R1 \break
@@ -30,7 +31,7 @@ toeters = \type StaffGroup = xtoeters <
 	>
 >
  
-zager = \type Staff = zager \melodic \relative c {
+zager = \type Staff = zager \notes \relative c {
 	\clef bass;
 	\property Staff.instrument = "Zager"
 	\property Staff.instr = "Zag."
@@ -46,7 +47,7 @@ zager = \type Staff = zager \melodic \relative c {
 	f e d c
 }
 
-zoger = \type Staff = zoger \melodic \relative c {
+zoger = \type Staff = zoger \notes \relative c {
 	\clef bass;
 	\property Staff.instrument = "Zoger"
 	\property Staff.instr = "Zog."

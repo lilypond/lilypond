@@ -5,9 +5,9 @@ TestedFeatures =	 "This file tests Feta embedded slurs"
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-shortlong = \melodic{
+shortlong = \notes{
 	c4()c( c c  |
 	c c c c |
 	c c c c |
@@ -15,19 +15,19 @@ shortlong = \melodic{
 	c c c )c |
 }
 
-dirs = \melodic\transpose c' {
+dirs = \notes\transpose c' {
 
 	c'1() g' () c () g () c |
 }
 
-complex = \melodic{
+complex = \notes{
 \transpose c'{
 	c,16( e,( g,( b,( d( f( a( c'())))))))c4 c4 |}
 \transpose c'''{
 	c,16( a( f( d( b,( g,( e,( c,())))))))c4 c4 |}
 }
 
-over = \melodic\transpose c'{
+over = \notes\transpose c'{
 
 
 	e( g' g' )e
@@ -51,7 +51,7 @@ over = \melodic\transpose c'{
 	e( c'' f )e
 }
 
-under = \melodic\transpose c'{
+under = \notes\transpose c'{
 
 	\stemdown 
 	f'( \stemboth d d \stemdown )f'
@@ -76,7 +76,7 @@ under = \melodic\transpose c'{
 	f'( e, f )f'
 }
 
-eccentric = \melodic\transpose c'{
+eccentric = \notes\transpose c'{
 
 	\stemup
 	\[4/7 f( a' f f f f )f \] |
@@ -86,7 +86,7 @@ eccentric = \melodic\transpose c'{
 	\[4/7 e'( e' e' e' e' c )e' \] |
 }
 
-tiltup = \melodic\transpose c'{
+tiltup = \notes\transpose c'{
 	e( c'' c'' )e'
 	\stemup
 	e( c'' c'' )e'
@@ -100,7 +100,7 @@ tiltup = \melodic\transpose c'{
 	f'( a, a, )f''
 }
 
-tiltdown = \melodic\transpose c'{
+tiltdown = \notes\transpose c'{
 	e'( c'' c'' )e
 	\stemup
 	e'( c'' c'' )e
@@ -114,7 +114,7 @@ tiltdown = \melodic\transpose c'{
 	f''( a, a, )f'
 }
 
-broken = \melodic\transpose c''{
+broken = \notes\transpose c''{
       c c c c()
       c c c c(
       c )c c c(
@@ -127,7 +127,7 @@ broken = \melodic\transpose c''{
       f,( c c )f,
 }
 
-blend =	\melodic\transpose c'{
+blend =	\notes\transpose c'{
 	e( c'' c'' )e
 	\stemup
 	f'( c'' c'' )f'
@@ -148,7 +148,7 @@ blend =	\melodic\transpose c'{
 }
 
 
-bug = \melodic\transpose c'{
+bug = \notes\transpose c'{
 
 	a()g( f )e
 	b'()a'( g' )f'
@@ -157,7 +157,7 @@ bug = \melodic\transpose c'{
 	c' () b () c' c'
 }
 
-clipping = \melodic\transpose c'{
+clipping = \notes\transpose c'{
 	\stemboth
 	c( c''' c''')c
 	c( c''' c )c''
@@ -169,7 +169,7 @@ clipping = \melodic\transpose c'{
 }
 
 \score{
-	\melodic{ 
+	\notes{ 
 		% use blend for fast check
 		\blend
 % {

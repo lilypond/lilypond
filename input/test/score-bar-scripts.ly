@@ -1,11 +1,13 @@
 
 
 
-onestaff =	\type Staff = foo\melodic  {
+\version "1.0.3";
+
+onestaff =	\type Staff = foo\notes  {
 		\property Staff.instr = instr
 		\property Staff.instrument = instrument \mark "B"; c1 \mark "A"; \break c2  c2 \break }
 
-grstaff =	\melodic \type GrandStaff <
+grstaff =	\notes \type GrandStaff <
 	\type Staff = bar	{
 
 	\property Staff.instr = instr

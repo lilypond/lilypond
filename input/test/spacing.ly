@@ -6,9 +6,9 @@ copyright =	 "public domain";
 TestedFeatures =	 "This file tests various spacings";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-multipart = \melodic{ 
+multipart = \notes{ 
     \type StaffGroup < 
                 { 
                    c4
@@ -48,7 +48,7 @@ multipart = \melodic{
             >
 	}
 
-singlepart = \melodic{ 
+singlepart = \notes{ 
 	c4 d e f
 	c4 d e [f8 f]
 	c4 d e f8 [f16 f]
@@ -59,7 +59,7 @@ singlepart = \melodic{
     }
     
     \score{
-    \melodic { 
+    \notes { 
 %    	\singlepart 
 	\multipart 
     }

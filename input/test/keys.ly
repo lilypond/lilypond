@@ -1,8 +1,10 @@
+\version "1.0.3";
+
 %{
 test key itemv breaking
 %}
 \score {
-  \melodic
+  \notes
   {
     \key bes; c1 \key c;  c1
     \break

@@ -1,15 +1,17 @@
-global = \melodic {
+\version "1.0.3";
+
+global = \notes {
   s1 | \mark "A";
   s1*2 | \mark "'12";
 }
 
-one = \melodic\relative c{
+one = \notes\relative c{
   c'' c c c
   c c c c
   c c c c
 }
 
-two = \melodic\relative c{
+two = \notes\relative c{
   b' b b b
   b b b b
   b b b b

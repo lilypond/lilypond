@@ -8,9 +8,9 @@ of beams";
 	
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-beamintervals = \melodic{
+beamintervals = \notes{
 		\time 7/4;
 		\stemup
 \transpose c'{
@@ -27,7 +27,7 @@ beamintervals = \melodic{
 	}}
 
 \score{
-	\melodic\transpose c'{ 
+	\notes\transpose c'{ 
 		\stemup
 		\time 17/4;
 		g,4 a, b, c d e f g a b c' d' e' f' g' a' b' |
