@@ -159,8 +159,9 @@ they look too intrusive (says Han-Wen).
 This is an example reference, that points you to the @aref{accent}
 entry.
 
-
-@table @strong
+@c All `@table @strong' replaced by `@table @samp @c @strong'
+@c @strong{note xxx} breaks for info with makeinfo CVS <= 2004-04-26
+@table @samp @c @strong
 
 @aitem{A}
 ES: la,
@@ -4192,7 +4193,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 
 @page
 
-@table @strong
+@table @samp @c @strong
 @item DURATION NAMES, NOTES AND RESTS
 @end table
 
@@ -4255,7 +4256,7 @@ sextio@-fj@"arde@-del @tab kuudeskymmenesnelj@"asosa- @tab
 
 @page
 
-@table @strong
+@table @samp @c @strong
 @item PITCH NAMES
 @end table
 
@@ -4321,7 +4322,7 @@ ais @tab ais @tab ais
 
 @
 
-@table @strong
+@table @samp @c @strong
 
 @item ---------------------
 

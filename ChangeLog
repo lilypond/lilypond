@@ -1,3 +1,9 @@
+2004-04-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/music-glossary.tely: @table @strong' replaced
+	by `@table @samp @c @strong'.  This fixes invalid makeinfo output
+	(backportme).
+
 2004-04-25  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/lily.scm (ly:load): Add ly-from-scheme.scm loading.
