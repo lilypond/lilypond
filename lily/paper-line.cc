@@ -81,6 +81,9 @@ Paper_line::to_stencil () const
   Stencil stencil;
   for (SCM s = stencils_; ly_c_pair_p (s); s = ly_cdr (s))
     stencil.add_stencil (*unsmob_stencil (ly_car (s)));
+  Offset o = dim ();
+  Box x (Interval (0, o[X_AXIS]), Interval (0, o[Y_AXIS]));
+  stencil = Stencil (x, stencil.expr ());
   return stencil.smobbed_copy ();
 }
 
@@ -110,3 +113,13 @@ LY_DEFINE (ly_paper_line_break_score, "ly:paper-line-break-score",
   SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
   return scm_int2num (int (pl->penalty ()));
 }
+
+LY_DEFINE (ly_paper_line_stencil, "ly:paper-line-stencil",
+	   1, 0, 0, (SCM line),
+	   "Return the height of @var{line}.")
+{
+  Paper_line *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  return pl->to_stencil ();
+}
+

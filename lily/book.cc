@@ -108,7 +108,8 @@ Book::to_stencil (Music_output_def *default_def, SCM header)
   for (int i = 0; i < score_count; i++)
     {
       Paper_def *paper = 0;
-      SCM systems = scores_[i]->book_rendering ("", default_def, &paper);
+      SCM systems = scores_[i]->book_rendering ("<markup>", default_def,
+						&paper);
       if (systems != SCM_UNDEFINED)
 	{
 	  if (paper)
@@ -121,6 +122,9 @@ Book::to_stencil (Music_output_def *default_def, SCM header)
   SCM pages = paper_book->pages ();
   scm_gc_unprotect_object (paper_book->self_scm ());
   if (pages != SCM_EOL)
-    return unsmob_page (ly_car (pages))->to_stencil ();
+    {
+      progress_indication (_f ("paper output to `%s'...", "<markup>"));
+      return unsmob_page (ly_car (pages))->to_stencil ();
+    }
   return SCM_EOL;
 }

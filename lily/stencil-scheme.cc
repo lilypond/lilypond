@@ -66,7 +66,7 @@ LY_DEFINE (ly_translate_stencil, "ly:stencil-translate",
   return new_s;
 }
 
-LY_DEFINE (ly_stencil_expr, "ly:stencil-get-expr",
+LY_DEFINE (ly_stencil_expr, "ly:stencil-expr",
 	   1, 0, 0, (SCM stil),
 	   "Return the expression of @var{stil}.")
 {
@@ -223,5 +223,5 @@ LY_DEFINE (ly_align_to_x, "ly:stencil-align-to!",
 
   unsmob_stencil (stil)->align_to ((Axis)ly_scm2int (axis),
 				   ly_scm2double (dir));
-  return SCM_UNDEFINED;
+  return stil;
 }
