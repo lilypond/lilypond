@@ -82,6 +82,17 @@ Key_item::brew_molecule (SCM smob)
 
   Real inter = Staff_symbol_referencer::staff_space (me)/2.0;
   
+  SCM scm_style = me->get_grob_property ("style");
+  String style;
+  if (gh_symbol_p (scm_style))
+    {
+      style = ly_scm2string (scm_symbol_to_string (scm_style));
+    }
+  else
+    {
+      style = "";
+    }
+
   SCM newas = me->get_grob_property ("new-accidentals");  
   Molecule mol;
   /*
@@ -89,13 +100,15 @@ Key_item::brew_molecule (SCM smob)
     the cancellation signature.
   */
   int c0p = gh_scm2int (me->get_grob_property ("c0-position"));
+
   for (SCM s = newas; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM what = gh_caar (s);
       int alter = gh_scm2int (gh_cdar (s));
       int pos = alteration_pos (what, alter, c0p);
       
-      Molecule m = Font_interface::get_default_font (me)->find_by_name ("accidentals-" + to_str (alter));
+      Molecule m = Font_interface::get_default_font (me)->
+	  find_by_name (String ("accidentals-") + style + to_str (alter));
       m.translate_axis (pos * inter, Y_AXIS);
       mol.add_at_edge (X_AXIS, LEFT, m, 0);
     }
@@ -117,7 +130,8 @@ Key_item::brew_molecule (SCM smob)
 
       Molecule natural;
       if (gh_pair_p (old))
-	natural=Font_interface::get_default_font (me)->find_by_name ("accidentals-0");
+	natural=Font_interface::get_default_font (me)->
+	    find_by_name (String ("accidentals-") + style + String ("0"));
       
       for (; gh_pair_p (old); old = gh_cdr (old))
         {

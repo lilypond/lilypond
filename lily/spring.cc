@@ -20,6 +20,11 @@ Spring::Spring ()
   strength_f_ =1.0;
 }
 
+/*
+
+ ugh : if we go from items to cols, we should adjust distance and strength.
+ */
+
 void
 Spring::add_to_cols ()
 {
@@ -28,6 +33,17 @@ Spring::add_to_cols ()
 				 distance_f_, strength_f_);
 }
 
+void
+Spring::set_to_cols( )
+{
+  Direction d = LEFT;
+  do
+    {
+      item_l_drul_[d] = item_l_drul_[d]->column_l ();
+    }
+  while (flip (&d) != LEFT);
+
+}
 
 Column_spring::Column_spring ()
 {

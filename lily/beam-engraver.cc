@@ -166,8 +166,8 @@ Beam_engraver::create_grobs ()
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
-      beam_info_p_ = new Beaming_info_list;
       
+      beam_info_p_ = new Beaming_info_list;
       
       /* urg, must copy to Auto_beam_engraver too */
  
@@ -240,6 +240,11 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	}
       else if (Stem::has_interface (info.elem_l_))
 	{
+	  Moment now = now_mom();
+
+	  if(bool (now.grace_mom_ ) != bool (beam_start_mom_.grace_mom_))
+	    return ;
+	  
 	  Item *stem_l = dynamic_cast<Item*> (info.elem_l_);
 	  if (Stem::beam_l (stem_l))
 	    return;
@@ -270,7 +275,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 
 	  stem_l->set_grob_property ("duration-log",
 				    gh_int2scm (durlog));
-	  Moment stem_location = now_mom () - beam_start_mom_ + beam_start_location_;
+	  Moment stem_location = now - beam_start_mom_ + beam_start_location_;
 	  beam_info_p_->add_stem (stem_location,
  (durlog- 2) >? 1);
 	  Beam::add_stem (beam_p_, stem_l);

@@ -58,7 +58,6 @@ private:
 
   int count_i_;
   Moment last_add_mom_;
-
   /*
     Projected ending of the  beam we're working on.
    */
@@ -251,6 +250,8 @@ Auto_beam_engraver::begin_beam ()
   grouping_p_ = new Beaming_info_list;
   beam_start_moment_ = now_mom ();
   beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
+
+
 }
 
 
@@ -394,6 +395,14 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 	  return;
 	}
 
+
+      /*
+	ignore grace notes.
+       */
+      if (bool (beam_start_location_.grace_mom_) != bool (now_mom ().grace_mom_))
+	return ;
+	
+      
       Moment dur = unsmob_duration (rhythmic_req->get_mus_property ("duration"))->length_mom ();
       /* FIXME:
 
