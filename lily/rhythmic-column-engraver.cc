@@ -105,11 +105,17 @@ Rhythmic_column_engraver::do_pre_move_processing()
   if (ncol_p_) 
     {
       Scalar sh = get_property ("horizontalNoteShift", 0);
-      // egcs
-      if (sh.to_bool () && sh.isnum_b ())
+      if (sh.isnum_b ())
 	{
 	  ncol_p_->set_elt_property (horizontal_shift_scm_sym,
 				     gh_int2scm (int (sh)));
+	}
+
+      sh = get_property ("forceHorizontalShift" ,0);
+      if (sh.isnum_b ())
+	{
+	  ncol_p_->set_elt_property (force_hshift_scm_sym,
+				     gh_double2scm (double (sh)));
 	}
 
       typeset_element (ncol_p_);
