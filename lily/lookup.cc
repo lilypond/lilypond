@@ -694,10 +694,13 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
   Offset z1(iv[LEFT], 0);
   Offset z2(iv[RIGHT], 0);
   Offset z3(z2[X_AXIS]/2, protude);
-   
-  Stencil tri = make_line (z1, z2);
-  tri.add_stencil (make_line (z2, z3));
-  tri.add_stencil (make_line (z3, z1));
+
+  /*
+    TODO: move Triangle to Line_interface ?
+   */
+  Stencil tri = Line_interface::make_line (thick, z1, z2);
+  tri.add_stencil (Line_interface::make_line (thick, z2, z3));
+  tri.add_stencil (Line_interface::make_line (thick, z3, z1));
 
   return tri;
 }

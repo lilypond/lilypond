@@ -186,7 +186,7 @@ Context::create_context (Context_def * cdef,
     = cdef->instantiate (ops, key);
   scm_gc_unprotect_object (key->self_scm ());
 	  
-  new_group->id_string_ = this_id;
+  new_group->id_string_ = id;
   add_context (new_group);
   apply_property_operations (new_group, ops);
 
@@ -268,7 +268,7 @@ Context::get_default_interpreter ()
 	  t = unsmob_context_def (this->definition_);
 	}
 
-      Context *tg = create_context (t, "", SCM_EOL)
+      Context *tg = create_context (t, "", SCM_EOL);
       if (!tg->is_bottom_context ())
 	return tg->get_default_interpreter ();
       else
