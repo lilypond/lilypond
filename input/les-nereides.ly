@@ -14,6 +14,11 @@ cpp -P -traditional -o l-fake.ly  -DFAKE_GRACE les-nereides.ly
     comment =     "LilyPond (1.3.93) can't really do this yet, I guess";
 }
 
+
+%% cpp: don't start on first column
+ #(define (grace-beam-space-function multiplicity)
+         (* (if (<= multiplicity 3) 0.816 0.844) 0.8))
+
 global = \notes{
     \partial 2;
     \key a \major;
@@ -61,6 +66,7 @@ treble = \context Voice=treble \notes\relative c''{
         )cis8
 	\property Grace.Stem \pop #'direction
 	\property Grace.Stem \push #'direction = #0
+	\property Grace.Beam \push #'space-function = #grace-beam-space-function
 	%urg, dim. during grace dumps core here
         %%[a16-5( fis dis] [cis'32 a-1 fis-4 dis] [cis a )fis-2]
         [a16-5( fis dis] [cis32 a-1 fis-4 dis] [cis a )fis-2]
@@ -74,6 +80,7 @@ treble = \context Voice=treble \notes\relative c''{
     \property Voice.TextScript \push #'font-size = #-1
     \property Voice.Slur \push #'font-size = #-1
     \property Voice.LocalKey \push #'font-size = #-1
+    \property Voice.Beam \push #'space-function = #grace-beam-space-function
 
     )cis16
     \property Voice.Stem \pop #'direction
@@ -87,6 +94,7 @@ treble = \context Voice=treble \notes\relative c''{
     \property Voice.TextScript \pop #'font-size
     \property Voice.Slur \pop #'font-size
     \property Voice.LocalKey \pop #'font-size
+    \property Voice.Beam \pop #'space-function
 
 #endif % FAKE_GRACE
     
@@ -101,7 +109,7 @@ treble = \context Voice=treble \notes\relative c''{
 
 trebleTwo = \context Voice=trebleTwo \notes\relative c''{
     % Broken?
-    \property Voice.NoteColumn \push #'horizontal-shift = #-1
+    \property Voice.NoteColumn \push #'horizontal-shift = #1
     s2
     s1*2
     s4
@@ -113,10 +121,16 @@ trebleTwo = \context Voice=trebleTwo \notes\relative c''{
     s32*16
 #endif
 
-    <e2 g, e d>
+    \property Voice.NoteColumn \push #'force-hshift = #-0.2
+    <e2 gis, e d>
     %r8 cis4. d4 [<cis8-5-4( e,-1> <b-3 d,-1> |
-    r8 cis4. d4 [<cis8( e,> <b-3 d,-1> |
-    <)a-2 cis,-1>] cis4. d4 [<cis8( e,> <b d,> |
+    r8 cis4. d4
+    \property Voice.NoteColumn \pop #'force-hshift
+    [<cis8( e,> <b-3 d,-1> |
+    \property Voice.NoteColumn \push #'force-hshift = #-0.2
+    <)a-2 cis,-1>] cis4. d4 
+    \property Voice.NoteColumn \pop #'force-hshift
+    [<cis8( e,> <b d,> |
     <)a cis,>]
 }
 
@@ -151,6 +165,7 @@ bass = \context Voice=bass \notes\relative c{
     \property Voice.Stem \push #'length = #5
     <a4 a,>
     \translator Staff=treble
+    \property Voice.Stem \pop #'length
     \property Voice.Stem \pop #'direction
     \property Voice.Stem \push #'direction = #-1
     <)a' fis cis>
@@ -215,6 +230,7 @@ bassTwo = \context Voice=bassTwo \notes\relative c{
     \property Voice.Stem \push #'direction = #1
     \property Voice.Slur \pop #'direction
     \property Voice.Slur \push #'direction = #1
+
     cis'4()bis
 }
 
@@ -232,6 +248,8 @@ middleDynamics = \context Dynamics=middle \notes{
     s32 s-"rall." s s
     s8 s4
 
+    \outputproperty #(make-type-checker 'dynamic-interface) 
+	    #'extra-offset = #'(0 . 10)
     s1\mf-"a tempo"
     s8 s8\mf s4 s4 s8\> s32 s s \!s
 }
@@ -281,10 +299,11 @@ lowerDynamics = \context Dynamics=lower \notes{
 	    \treble
 	    \trebleTwo
         >
-	\context Dynamics=middle <
-	    \global
-	    \middleDynamics
-	>
+	%\context Dynamics=middle <
+	%    \global
+	%    \middleDynamics
+	%>
+	\middleDynamics
         \context Staff=bass <
 	    \clef bass;
 	    \global
@@ -304,9 +323,12 @@ lowerDynamics = \context Dynamics=lower \notes{
 	\translator {
 	    \type "Engraver_group_engraver";
 	    \name Dynamics;
-	    Generic_property_list = #generic-lyrics-properties
+	    \consists "Output_property_engraver";
+	    Generic_property_list = #generic-voice-properties
+	    %Generic_property_list = #generic-lyrics-properties
 	    \consists "Property_engraver";
 	    DynamicsMinimumVerticalExtent = #(cons -3 -3)
+	    VerticalAlignment \push #'threshold = #'(8 . 8) 
 
 	    startSustain = #"Ped."
 	    stopSustain = #"*"
@@ -322,6 +344,7 @@ lowerDynamics = \context Dynamics=lower \notes{
 	    %GURGURGU, text is initialised using TextScript
 	    TextScript \push #'style = #"italic"
 	    TextScript \push #'font-size = #2
+
 	    \consists "Skip_req_swallow_translator";
 
 	    \consistsend "Axis_group_engraver";
@@ -334,10 +357,7 @@ lowerDynamics = \context Dynamics=lower \notes{
 	\translator {
 	    \PianoStaffContext
 	    \accepts Dynamics;
-	    % aarg, also separates Dynamics context...
-	    %VerticalAlignment \push #'threshold = #'(12 . 12) 
-	    %VerticalAlignment \pop #'threshold
-	    VerticalAlignment \push #'threshold = #'(1 . 10) 
+	    VerticalAlignment \push #'threshold = #'(8 . 8) 
         }
 	\translator {
 	    \GraceContext

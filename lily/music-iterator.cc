@@ -39,6 +39,7 @@
 #include "request.hh"
 #include "simple-music-iterator.hh"
 #include "output-property.hh"
+#include "output-property-music-iterator.hh"
 #include "chord-tremolo-iterator.hh"
 
 Music_iterator::Music_iterator ()
@@ -137,6 +138,8 @@ Music_iterator::static_get_iterator_p (Music *m)
     p = new Grace_iterator;
   else if (dynamic_cast<Auto_change_music *> (m))
     p = new Auto_change_iterator;
+  else if (dynamic_cast<Output_property *> (m))
+    p = new Output_property_music_iterator;
   else if (dynamic_cast<Part_combine_music *> (m))
     p = new Part_combine_music_iterator;
   else if (dynamic_cast<Music_wrapper   *> (m))

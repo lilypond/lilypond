@@ -694,7 +694,9 @@ Simple_music:
 	
 		$$ = new Output_property (pred,$3, $5);
 	}
-	| MUSIC_IDENTIFIER { $$ = unsmob_music ($1)->clone (); }
+	| MUSIC_IDENTIFIER {
+		$$ = unsmob_music ($1)->clone ();
+	}
 	| property_def
 	| translator_change
 	| Simple_music '*' bare_unsigned '/' bare_unsigned 	{
