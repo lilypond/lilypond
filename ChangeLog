@@ -1,3 +1,9 @@
+2003-08-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/tie-performer.cc (stop_translation_timestep): only flush
+	tied_notes when we have actually made a tie. Fixes bugs with ties
+	in polyphonic scores.
+
 2003-08-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/autogen.sh: Bugfix: copy aclocal.m4, autogen.sh also if
