@@ -27,7 +27,9 @@ class Paper_score : public Music_output
 
   /// other elements
   Link_array<Score_element> elem_p_arr_;
-  
+
+  Link_array<Score_element> to_delete_arr_;
+  Link_array<Score_element> break_helpers_arr_;
 
 public:
   Paper_def *paper_l_;
@@ -59,7 +61,8 @@ public:
   void typeset_broken_spanner (Spanner*);
   /// add a Spanner
   void typeset_unbroken_spanner (Spanner*);
- 
+  
+  void schedule_for_delete (Score_element*);
     
   virtual ~Paper_score();
 protected:

@@ -121,7 +121,8 @@ public:
   Array<void*>::clear;
   Array<void*>::set_size;
   Array<void*>::empty;
-  Array<void*>::reverse;  
+  Array<void*>::reverse;
+  Array<void*>::tighten_maxsize;
   T * get (int i)
     {
       return (T*) Array<void*>::get (i);
