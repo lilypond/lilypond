@@ -21,3 +21,9 @@ Interval_t<Real>::infinity()
 {
   return HUGE_VAL;
 }
+
+String
+Interval_t<Real>::T_to_str (Real r)
+{
+  return String (r);
+}

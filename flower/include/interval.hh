@@ -24,6 +24,7 @@ struct Interval_t {
   /* ************** */
     
   static T infinity() ;
+  static String T_to_str (T arg);
     
   T center() { return (left + right) / T(2);}
   void translate (T t) {

@@ -11,7 +11,6 @@
 #include "score.hh"
 #include "p-col.hh"
 
-const NO_LINES = 5;
 
 void
 Staff_sym_engraver::fill_staff_info (Staff_info&i)
@@ -32,7 +31,7 @@ Staff_sym_engraver::Staff_sym_engraver()
 void
 Staff_sym_engraver::do_creation_processing()
 {
-  span_p_ = new Staff_symbol (NO_LINES);
+  span_p_ = new Staff_symbol;
   span_p_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
   announce_element (Score_elem_info (span_p_, 0));
 }
@@ -40,6 +39,12 @@ Staff_sym_engraver::do_creation_processing()
 void
 Staff_sym_engraver::do_removal_processing()
 {
+  Scalar l (get_property ("nolines"));
+  if (l.isnum_b ())
+    {
+      span_p_->no_lines_i_ = l;
+    }
+
   span_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (span_p_);
   span_p_ =0;
