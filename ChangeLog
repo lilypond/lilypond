@@ -1,3 +1,7 @@
+2004-09-22  Werner Lemberg  <wl@gnu.org>
+
+	* lily/parser.yy <score_body>: Fix typo.
+
 2004-09-22  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/tutorial.itely: modified a "future planning" comment.

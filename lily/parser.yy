@@ -693,7 +693,7 @@ score_body:
 		$$->header_ = $2;
 	}
 	| score_body output_def {
-		if ($2->lookup_variable (ly_symbol2scm ("is-bookpaper")) =  SCM_BOOL_T)
+		if ($2->lookup_variable (ly_symbol2scm ("is-bookpaper")) == SCM_BOOL_T)
 		{
 			THIS->parser_error (_("\\bookpaper cannot be in \\score. Use \\paper instead"));
 		
