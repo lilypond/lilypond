@@ -70,6 +70,9 @@ list is alphabetically ordered.
     @uref{http://www.iro.umontreal.ca/~pinard/}
     parts of Documentation/Vocab*, started internationalization stuff
 @c urg: @c,{} in @email{} barfs.
+@item @email{gperciva@@sfu.ca, Graham Percival},
+    @uref{http://www.sfu.ca/~gperciva/}
+    minor documentation fixes.
 @item @email{portnoy@@ai.mit.edu,Stephen Peters},
     pdf@TeX{} support
 @item @email{glenprideaux@@iname.com, Glen Prideaux},

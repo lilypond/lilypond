@@ -1059,14 +1059,14 @@ fragment of The Free Software Song:
 @cindex @code{\lyrics}
 
 
-To print lyrics, you must enter them, and then instruct lilypond to
-handle the lyrics by printing them.
+To print lyrics, you must enter them and then instruct lilypond to
+print the lyrics.
 You can enter lyrics in a special input mode of LilyPond. This mode is
 called Lyrics mode, and it is introduced by the keyword @code{\lyrics}.
 The purpose of this mode is that you can enter lyrics as plain text,
-punctuation and accents without any hassle.
+punctuation, and accents without any hassle.
 
-Syllables are entered like notes, with pitches replaced by text.  For
+Syllables are entered like notes, but with pitches replaced by text.  For
 example, @code{Twin- kle twin- kle} enters four syllables.  Note that
 the hyphen has no special meaning for lyrics, and does not introduce
 special symbols.
@@ -1085,10 +1085,10 @@ These are the lyrics for the free software song:
 @end example
 
 As you can see, extender lines are entered as @code{__}.  This will
-create an extender, a line that extends over the entire duration of
-the lyric.  This line will run all the way to the start of the next
-lyric, so you may want to shorten it by using a blank lyric (using
-@code{_}).
+create an extender, which is a line that extends over the entire
+duration of the lyric.  This line will run all the way to the start
+of the next lyric, so you may want to shorten it by using a blank
+lyric (using @code{_}).
 
 
 If you can use have hyphens at the end of a syllable, i.e.
@@ -1103,13 +1103,13 @@ If you want them centered between syllables you can use the special
 hyphen will have variable length depending on the space between
 syllables. It will be centered between the syllables.  
  
-Normally, the notes that you enter are transformed into note heads.
-Note heads alone make no sense, they need surrounding information: a key
-signature, a clef, staff lines, etc.  They need @emph{context}.  In
+Normally the notes that you enter are transformed into note heads.
+Note heads alone make no sense, so they need surrounding information: a
+key signature, a clef, staff lines, etc.  They need @emph{context}.  In
 LilyPond, these symbols are created by objects called `interpretation
 contexts'.  Interpretation contexts exist for generating notation
 (`notation context') and for generating sound (`performance
-context'). These objects only exist during a run of LilyPond.
+context').  These objects only exist while LilyPond is executing.
 
 When LilyPond interprets music, it will create a Staff context.
 We don't want that default here, because we want lyric.  The
@@ -1135,9 +1135,8 @@ Both can be combined with the @code{\addlyrics}:
   \context Lyrics \lyrics @dots{} 
 @end example
 
-The lyrics are also music expressions,  similar to notes. What happens
-here, is that each syllable of the lyrics is put under the a note of
-the melody. 
+The lyrics are also music expressions, similar to notes. Each syllable
+of the lyrics is put under a note of the melody. 
 The complete file is listed here:
 
 @example
@@ -1226,7 +1225,7 @@ accompaniment =\chords {
 }
 @end lilypond
 
-Again, we will dissect the file line by line.
+We will dissect this file line by line.
 
 @separate
 @example 
@@ -1234,14 +1233,14 @@ Again, we will dissect the file line by line.
         \include "paper16.ly"
  
 @end example
-Smaller size for inclusion in a book.
+Smaller size (suitable for inclusion in a book).
 @separate
 @example 
 
         melody = \notes \relative c' @{
  
 @end example 
-The structure of the file will be the same as the previous one, a
+The structure of the file will be the same as the previous one: a
 @code{\score} block with music in it.  To keep things readable, we will
 give names to the different parts of music, and use the names to
 construct the music within the score block.
@@ -1253,7 +1252,7 @@ construct the music within the score block.
 
 @cindex @code{\partial}
 @cindex anacrusis
-The piece starts with an anacrusis of one eighth.
+The piece starts with an anacrusis (or ``pickup'') of one eighth.
 @separate
 @example
         \key c \minor
@@ -1271,8 +1270,8 @@ The key is C minor: we have three flats.
 
 @cindex manual beaming
 @cindex automatic beaming, turning off
-We use explicit beaming.  Since this is a song,  we turn automatic
-beams off, and use explicit beaming where needed.
+We use explicit beaming.  Since this is a song, we turn automatic
+beams off and use explicit beaming where needed.
 @separate
 @example 
 
@@ -1299,9 +1298,9 @@ This ends the definition of @code{melody}.
 @end example
 @cindex chords
 @cindex mode, chords
-We'll put chords over the music. To enter them, there is a special mode
+We'll put chords over the music. To enter them, we use a special mode
 analogous to @code{\lyrics} and @code{\notes} mode, where you can give
-the names of the chords you want, instead of listing the notes
+the names of the chords you want instead of listing the notes
 comprising the chord.
 @separate
 @example 
@@ -1320,9 +1319,10 @@ There is no accompaniment during the anacrusis.
 @cindex tonic
 @cindex chord modifier
 @cindex modifier, chord 
-This is a c minor chord, lasting half a note.  Chord are entered by
-entering the tonic. Then notes can be changed. In this case, a small third
-is used. The cod for this is @code{3-}. 
+This is a c minor chord, lasting for a half note.  Chord are entered using
+the tonic.  Notes can be changed to create different chords.  In this case,
+a lowered third is used (making a C major chord into a C minor chord).
+  The code for this is @code{3-}. 
 
 @separate
 @example
@@ -1351,7 +1351,8 @@ A named modifier @code{min} and a normal modifier @code{7} do not have
 to be separated by a dot.  Tones from a chord are removed with chord
 subtractions.  Subtractions are started with a caret, and they are
 also separated by dots.  In this example, @code{g:7^3.5} produces a
-minor seventh.  The brace ends the sequential music.
+minor seventh (a G7 chord without the third or the fifth).  The
+brace ends the sequential music.
 @separate
 @example 
 
@@ -1385,13 +1386,13 @@ being chords, not notes. This is done with the following command:
 @cindex notation context
 
 
-Normally, the notes that you enter are transformed into note heads.
-Note heads alone make no sense, they need surrounding information: a key
+Normally the notes that you enter are transformed into note heads.
+Note heads alone make no sense, so they need surrounding information: a key
 signature, a clef, staff lines, etc.  They need @emph{context}.  In
 LilyPond, these symbols are created by objects called `interpretation
 contexts'.  Interpretation contexts exist for generating notation
 (`notation context') and for generating sound (`performance
-context'). These objects only exist during a run of LilyPond.
+context').  These objects only exist while LilyPond is executing.
 
 When LilyPond interprets music, it will create a Staff context.  If
 the @code{%} sign in the previous line were removed, you could see
@@ -1455,7 +1456,7 @@ is great for checking the music.  Whenever you hear something weird, you
 probably hear a typing error.
 
 Syntactically, @code{\midi} is similar to @code{\paper @{ @}}, since it
-also specifies an output method. You can specify the tempo using the
+also specifies an output method.  You can specify the tempo using the
 @code{\tempo} command, in this case the tempo of quarter notes is set to
 72 beats per minute.
 @separate
@@ -1464,7 +1465,7 @@ also specifies an output method. You can specify the tempo using the
         \paper @{ linewidth = 10.0\cm @}
  
 @end example 
-We also want notation output.  The linewidth is short so the piece
+We also want notation output.  The linewidth is short so that the piece
 will be set in two lines.
 
 @node More stanzas
@@ -1474,7 +1475,7 @@ will be set in two lines.
 @cindex phrasing
 
 If you have multiple stanzas printed underneath each other, the vertical
-groups of syllables should be aligned around punctuation. LilyPond can
+groups of syllables should be aligned around punctuation.  LilyPond can
 do this if you tell it which lyric lines belong to which melody.
 We show how you can do this by showing how you could print a frivolous
 fragment of a fictional Sesame Street duet. 
@@ -1512,9 +1513,9 @@ identities of the LyricsVoices are @code{duet-1} and @code{duet-2}.
     Ooooo, ch\'e -- ri, je t'aime. @}
 @end example
 
-We add the names of the singers. This can be done by setting
+We add the names of the singers.  This can be done by setting
 @code{LyricsVoice.Stanza} (for the first system) and
-@code{LyricsVoice.stz} for the following systems. Notice how you must
+@code{LyricsVoice.stz} for the following systems.  Note that you must
 surround dots with spaces in @code{\lyrics} mode.
 
 @example
