@@ -251,7 +251,7 @@ output_header (Paper_outputter* p, Scope *head)
 	continue;
       
       String val = *i.val()->access_content_String (false);
-      output_def (p, i.key (), val);
+      output_def (p, "mudela" + i.key (), val);
     }
 }
 

@@ -103,7 +103,8 @@ VoiceContext = \translator {
 };
 
 \translator {\VoiceContext}
-\translator {
+
+GrandStaffContext=\translator{
 	\type "Line_group_engraver_group";
 	\name GrandStaff;
 	\consists "Span_bar_engraver";
@@ -112,7 +113,8 @@ VoiceContext = \translator {
 	minVerticalAlign = 1.5*\staffheight;
 
 	\accepts "Staff";
-}
+};
+\translator{\GrandStaffContext}
 
 \translator {
 	\type "Line_group_engraver_group";

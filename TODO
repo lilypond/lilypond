@@ -8,6 +8,10 @@ grep for TODO and ugh/ugr/urg
 
 
 BUGS:
+	* repeat bars: strange chars after |: and :|
+
+	* latex bla.tex broken (titles / \lilyfooter stuff?)
+
 	* --safe:  disallow backslashes, disallow \include.
 
 	* fix rounding stuff in number->string

@@ -1,12 +1,15 @@
 %{
 Converted from star.mup with the aid of mup-to-ly.py
+http://www.Arkkra.com/.../star.ps
 %}
 \header{
 title="The Star Spangled Banner";
 subtitle="(The United States National Anthem)";
-poet="Text: Francis Scott Key";
-composer="Tune: J. S. Smith";
-arranger="Arr: William J. Krauss";
+poet="Text by Francis Scott Key";
+composer="J. S. Smith";
+arranger="Arranged by William J. Krauss";
+enteredby="jcn";
+copyright="public domain";
 }
 
 $staff1_voice_1 = \notes {
@@ -70,15 +73,16 @@ global = \notes {
 
 \score{ 
 	\type GrandStaff < 
-	        <
 		\type Staff=staffA < 
 			\global
 			\notes \transpose c'' {\voiceone \$staff1_voice_1 } 
 			\notes \transpose c'' {\voicetwo \$staff1_voice_2 } 
 		>
-		\type Lyrics = middle <
-		    	\lyrics \$text1
-			\lyrics { \$text2 \$text3 }
+		\type Lyrics = one \lyrics <
+% urg, too much distance between two texts; fixme first
+%			\$text1
+%			{ \$text2 \$text3 }
+			{ \$text1 \$text3 }
 		>
 		\type Staff=staffB < 
 			\global
@@ -86,9 +90,14 @@ global = \notes {
 			{\voiceone \$staff2_voice_1 } 
 			{\voicetwo \$staff2_voice_2 } 
 		>
-		>
 	>
 	\paper{
-		\include "bar-numbering.ly"
+		\translator {
+				\GrandStaffContext
+				\accepts "Lyrics";
+		}
+		\translator {
+		                \BarNumberingStaffContext
+		}
 	}
 }
