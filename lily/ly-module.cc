@@ -1,5 +1,5 @@
 /*
-  ly-module.cc --  implement guile module stuff.
+  ly-module.cc -- implement guile module stuff.
 
   source file of the GNU LilyPond music typesetter
 

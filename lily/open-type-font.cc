@@ -1,5 +1,5 @@
 /*
-  open-type-font.cc --  implement Open_type_font
+  open-type-font.cc -- implement Open_type_font
 
   source file of the GNU LilyPond music typesetter
 

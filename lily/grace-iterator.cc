@@ -1,5 +1,5 @@
 /*   
-  grace-music.cc --  implement Grace_music
+  grace-music.cc -- implement Grace_music
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-line-interface.cc --  implement Line_interface
+line-interface.cc -- implement Line_interface
 
 source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  rod.cc --  implement Rod, Column_rod
+  rod.cc -- implement Rod, Column_rod
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*
-  dimensions.cc --  implement Dimension handling
+  dimensions.cc -- implement Dimension handling
 
   source file of the GNU LilyPond music typesetter
 

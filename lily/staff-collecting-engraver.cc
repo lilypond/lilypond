@@ -1,5 +1,5 @@
 /*   
-staff-collecting-engraver.cc --  implement Staff_collecting_engraver
+staff-collecting-engraver.cc -- implement Staff_collecting_engraver
 
 source file of the GNU LilyPond music typesetter
 

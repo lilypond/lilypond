@@ -1,5 +1,5 @@
 /*   
-  grob-pq-engraver.cc --  implement Grob_pq_engraver
+  grob-pq-engraver.cc -- implement Grob_pq_engraver
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*
-  paper-outputter-scheme.cc --  implement Paper_outputter bindings
+  paper-outputter-scheme.cc -- implement Paper_outputter bindings
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*
-  pfb.cc --  implement pfb conversion.
+  pfb.cc -- implement pfb conversion.
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*
-  relative-octave-check.cc --  implement Relative_octave_check
+  relative-octave-check.cc -- implement Relative_octave_check
 
   source file of the GNU LilyPond music typesetter
 

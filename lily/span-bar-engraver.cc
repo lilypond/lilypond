@@ -1,5 +1,5 @@
 /*
-  span-bar-grav.cc -- implement Span_bar_engraver
+  span-bar-engraver.cc -- implement Span_bar_engraver
 
   source file of the GNU LilyPond music typesetter
 

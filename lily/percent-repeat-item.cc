@@ -1,5 +1,5 @@
 /*   
-  percent-repeat-item.cc --  implement Percent_repeat_item_interface
+  percent-repeat-item.cc -- implement Percent_repeat_item_interface
   
   source file of the GNU LilyPond music typesetter
   

@@ -7,10 +7,10 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "slur-scoring.hh"
 
 #include <math.h>
 
+#include "slur-scoring.hh"
 #include "libc-extension.hh"
 #include "slur-configuration.hh"
 #include "beam.hh"

@@ -1,5 +1,5 @@
 /*   
-  side-position-interface.cc --  implement Side_position_interface
+  side-position-interface.cc -- implement Side_position_interface
   
   source file of the GNU LilyPond music typesetter
   

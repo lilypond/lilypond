@@ -1,5 +1,5 @@
 /*   
-  tuplet-engraver.cc --  implement Tuplet_engraver
+  tuplet-engraver.cc -- implement Tuplet_engraver
   
   source file of the GNU LilyPond music typesetter
   

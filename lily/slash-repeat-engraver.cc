@@ -1,5 +1,5 @@
 /*   
-     slash-repeat-engraver.cc --  implement Chord_tremolo_engraver
+  slash-repeat-engraver.cc -- implement Slash_repeat_engraver
   
   source file of the GNU LilyPond music typesetter
   

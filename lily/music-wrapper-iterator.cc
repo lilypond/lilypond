@@ -1,5 +1,5 @@
 /*   
-  music-wrapper-iterator.cc --  implement Music_wrapper_iterator
+  music-wrapper-iterator.cc -- implement Music_wrapper_iterator
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-  relative-music.cc --  implement Relative_octave_music
+  relative-music.cc -- implement Relative_octave_music
   
   source file of the GNU LilyPond music typesetter
   

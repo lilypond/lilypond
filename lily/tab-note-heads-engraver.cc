@@ -1,7 +1,10 @@
 /*
-  head-grav.cc -- part of GNU LilyPond
+  tab-note-heads-engraver.cc -- part of GNU LilyPond
 
-  (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  based on note-heads-engraver.cc, by Jean-Baptiste Lamy <jiba@tuxfamily.org>,
+
+  (c) 2002--2005
+
 */
 
 #include <cctype>

@@ -1,5 +1,5 @@
 /*   
-  dimension-cache.cc --  implement Dimension_cache
+  dimension-cache.cc -- implement Dimension_cache
   
   source file of the GNU LilyPond music typesetter
   

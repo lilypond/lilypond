@@ -1,5 +1,5 @@
 /*   
-  script-column-engraver.cc --  implement Script_column_engraver
+  script-column-engraver.cc -- implement Script_column_engraver
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-  horizontal-bracket.cc --  implement  Horizontal_bracket
+  horizontal-bracket.cc -- implement  Horizontal_bracket
 
   source file of the GNU LilyPond music typesetter
 

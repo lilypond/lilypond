@@ -1,5 +1,5 @@
 /*   
-  pitch-squash-grav.cc --  implement Pitch_squash_engraver
+  pitch-squash-engraver.cc -- implement Pitch_squash_engraver
   
   source file of the GNU LilyPond music typesetter
   

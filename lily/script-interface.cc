@@ -1,5 +1,5 @@
 /*   
-  script-interface.cc --  implement Script_interface
+  script-interface.cc -- implement Script_interface
   
   source file of the GNU LilyPond music typesetter
   

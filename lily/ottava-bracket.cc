@@ -1,5 +1,5 @@
 /*   
-  ottava-bracket.cc --  implement Ottava_bracket
+  ottava-bracket.cc -- implement Ottava_bracket
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  instrument-name-engraver.cc --  implement Instrument_name_engraver
+  instrument-name-engraver.cc -- implement Instrument_name_engraver
   
   source file of the GNU LilyPond music typesetter
   

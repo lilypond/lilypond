@@ -1,5 +1,5 @@
 /*   
-  percent-repeat-iterator.cc --  implement Percent_repeat_iterator
+  percent-repeat-iterator.cc -- implement Percent_repeat_iterator
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-  music-constructor.cc --  implement Music_constructor
+  music-constructor.cc -- implement Music_constructor
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*
-  translator-scheme.cc --  implement Scheme context functions
+  translator-scheme.cc -- implement Scheme context functions
 
   source file of the GNU LilyPond music typesetter
 

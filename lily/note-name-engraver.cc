@@ -1,5 +1,5 @@
 /*   
-  note-name-engraver.cc --  implement Note_name_engraver
+  note-name-engraver.cc -- implement Note_name_engraver
   
   source file of the GNU LilyPond music typesetter
   

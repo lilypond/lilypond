@@ -1,5 +1,5 @@
 /*   
-  simple-music-iterator.cc --  implement Simple_music_iterator
+  simple-music-iterator.cc -- implement Simple_music_iterator
   
   source file of the GNU LilyPond music typesetter
   

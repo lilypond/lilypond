@@ -1,5 +1,5 @@
 /*   
-  sustain-pedal.cc --  implement Sustain_pedal
+  sustain-pedal.cc -- implement Sustain_pedal
   
   source file of the GNU LilyPond music typesetter
   

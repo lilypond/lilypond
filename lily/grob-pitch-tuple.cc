@@ -1,5 +1,5 @@
 /*   
-grob-pitch-tuple.cc --  implement Grob_pitch_tuple
+grob-pitch-tuple.cc -- implement Grob_pitch_tuple
 
 source file of the GNU LilyPond music typesetter
 

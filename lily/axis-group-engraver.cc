@@ -1,5 +1,5 @@
 /*   
-  axis-group-engraver.cc --  implement Axis_group_engraver
+  axis-group-engraver.cc -- implement Axis_group_engraver
   
   source file of the GNU LilyPond music typesetter
   

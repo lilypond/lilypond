@@ -1,5 +1,5 @@
 /*
-  timing-grav.cc -- implement Timing_engraver
+  timing-engraver.cc -- implement Timing_engraver
 
   source file of the GNU LilyPond music typesetter
 

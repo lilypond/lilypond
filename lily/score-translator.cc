@@ -1,5 +1,5 @@
 /*   
-  score-translator.cc --  implement Score_translator
+  score-translator.cc -- implement Score_translator
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*
-  grob-interface-scheme.cc --  implement grob interface bindings.
+  grob-interface-scheme.cc -- implement grob interface bindings.
 
   source file of the GNU LilyPond music typesetter
 

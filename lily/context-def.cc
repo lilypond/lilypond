@@ -1,5 +1,5 @@
 /*   
-  translator-def.cc --  implement Context_def
+  translator-def.cc -- implement Context_def
 
   source file of the GNU LilyPond music typesetter
 

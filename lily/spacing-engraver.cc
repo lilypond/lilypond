@@ -1,5 +1,5 @@
 /*   
-  spacing-engraver.cc --  implement Spacing_engraver
+  spacing-engraver.cc -- implement Spacing_engraver
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-     accidental-placement.cc --  implement Accidental_placement
+     accidental-placement.cc -- implement Accidental_placement
 
      source file of the GNU LilyPond music typesetter
 

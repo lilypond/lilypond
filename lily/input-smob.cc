@@ -1,5 +1,5 @@
 /*   
-  input-smob.cc --  implement Input smob
+  input-smob.cc -- implement Input smob
   
   source file of the GNU LilyPond music typesetter
   

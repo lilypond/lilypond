@@ -1,5 +1,5 @@
 /*
-  pitch-scheme.cc --  implement scheme functions for Pitch
+  pitch-scheme.cc -- implement scheme functions for Pitch
 
   source file of the GNU LilyPond music typesetter
 

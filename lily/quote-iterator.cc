@@ -1,5 +1,5 @@
 /*   
-  quote-iterator.cc --  implement Quote_iterator
+  quote-iterator.cc -- implement Quote_iterator
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  beam-engraver.cc --  implement Beam_engraver
+  beam-engraver.cc -- implement Beam_engraver
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*
-  global-context-scheme.cc --  implement Global_context bindings
+  global-context-scheme.cc -- implement Global_context bindings
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  repeated-music.cc --  implement Repeated_music
+  repeated-music.cc -- implement Repeated_music
   
   source file of the GNU LilyPond music typesetter
   

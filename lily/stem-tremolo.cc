@@ -1,5 +1,5 @@
 /*   
-  stem-tremolo.cc --  implement Stem_tremolo
+  stem-tremolo.cc -- implement Stem_tremolo
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*
-  swallow-reg.cc -- implement Swallow_engraver
+  swallow-engraver.cc -- implement Swallow_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -8,8 +8,6 @@
 
 #include "engraver.hh"
 
-/**
- */
 class Swallow_engraver : public Engraver
 {
 public:
@@ -17,8 +15,6 @@ public:
 protected:
   bool try_music (Music*) ;
 };
-
-
 
 bool
 Swallow_engraver::try_music (Music*) 

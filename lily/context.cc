@@ -1,5 +1,5 @@
 /*   
-  context.cc --  implement Context
+  context.cc -- implement Context
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  multi-measure-rest.cc --  implement Multi_measure_rest
+  multi-measure-rest.cc -- implement Multi_measure_rest
   
   source file of the GNU LilyPond music typesetter
   

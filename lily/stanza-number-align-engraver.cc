@@ -1,6 +1,6 @@
 
 /*   
-stanza-number-align-engraver.cc --  implement 
+stanza-number-align-engraver.cc -- implement 
 
 source file of the GNU LilyPond music typesetter
 

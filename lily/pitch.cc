@@ -1,5 +1,5 @@
 /*
-  musical-pitch.cc --  implement Pitch
+  musical-pitch.cc -- implement Pitch
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  new-tie-engraver.cc --  implement Tie_engraver
+  tie-engraver.cc -- implement Tie_engraver
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,5 +1,5 @@
 /*   
-     beaming-info.cc --  implement Beaming_info, Beaming_info_list
+     beaming-info.cc -- implement Beaming_info, Beaming_info_list
   
   source file of the GNU LilyPond music typesetter
   

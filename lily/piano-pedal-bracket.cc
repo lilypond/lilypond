@@ -1,5 +1,5 @@
 /*   
-  piano-pedal-bracket.cc --  implement  Piano_pedal_bracket
+  piano-pedal-bracket.cc -- implement  Piano_pedal_bracket
 
 source file of the GNU LilyPond music typesetter
 

@@ -1,5 +1,5 @@
 /*   
-  repeat-acknowledge-engraver.cc --  implement Repeat_acknowledge_engraver
+  repeat-acknowledge-engraver.cc -- implement Repeat_acknowledge_engraver
   
   source file of the GNU LilyPond music typesetter
   
