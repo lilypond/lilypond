@@ -78,15 +78,6 @@
 @findex \NAME\
 @end macro
 
- @c what is this? -- jcn
- @macro hyphenatedinternalsref{NAME,NODENAME}
- @c @uref{../lilypond-internals/\NODENAME\.html,\NAME\}@c
- @c @inforef{\NODENAME\,,lilypond-internals}@c
- @c should we do this? 
- @c using @ref without punctuation is OK without for formats other than info
- @ref{\NODENAME\,,\NAME\,lilypond-internals}@c
- @findex \NAME\
- @end macro
 
  @macro inputfileref{DIR,NAME}
  @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
@@ -107,12 +98,6 @@
  @findex @code{\NAME\}
  @end macro
 
- @macro hyphenatedinternalsref{NAME,NODENAME}
- @c @uref{../lilypond-internals/\NODENAME\.html,\NAME\}@c
- @inforef{\NODENAME\,,lilypond-internals}@c
- @c should we do this? 
- @findex @code{\NAME\}
- @end macro
 
  @macro inputfileref{DIR,NAME}
  @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
@@ -128,12 +113,6 @@
 @findex \NAME\@c
 @end macro
 
-@macro hyphenatedinternalsref{NAME,NODENAME}
-@c FIXME: suspicious info file name?
-@inforef{\NODENAME\,,lilypond-internals}@c
-@c should we do this? 
-@findex @code{\NAME\}
-@end macro
 
 @macro inputfileref{DIR,NAME}
 @file{\DIR\/\NAME\}
@@ -157,13 +136,6 @@
 @macro inputfileref{DIR,NAME}@c
 @file{\DIR\/\NAME\}@c
 @end macro
-
-@macro hyphenatedinternalsref{NAME,NODENAME}
-@code{\NAME\}@c
-@c should we do this? 
-@cindex @code{\NAME\} @c
-@end macro
-
 
 
 @macro seeinternals{NAME}

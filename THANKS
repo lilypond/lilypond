@@ -4,11 +4,11 @@ Release 2.3
 
 DEVELOPMENT TEAM
 
-Han-Wen Nienhuys
-Jan Nieuwenhuizen
-Erik Sandberg - Bug Meister
-Pedro Kroger - Build Meister
-Graham Parcival - Documentation Editor
+Han-Wen Nienhuys  - Core development
+Jan Nieuwenhuizen - Core development
+Erik Sandberg     - Bug Meister
+Pedro Kroger      - Build Meister
+Graham Parcival   - Documentation Editor
 
 
 CONTRIBUTORS
@@ -40,6 +40,7 @@ Doug Asherman
 Ed Jackson
 Heinz Stolba
 Jefferson dos Santos Felix
+Karl Hammar
 Martin Norbäck
 Matthias Neeracher
 Maurizio Tomasi
