@@ -458,18 +458,18 @@ msgstr "bestandsnaam mag geen spaties bevatten: `%s'"
 #: lilypond.py:880
 msgid "Running LilyPond failed. Rerun with --verbose for a trace."
 msgstr ""
-"Draaien van LilyPond gefaald. Draai opniew met --verbose voor een foutpad."
+"Draaien van LilyPond gefaald. Draai opnieuw met --verbose voor een foutpad."
 
 #: lilypond.py:921
 msgid "Failed to make PS file. Rerun with --verbose for a trace."
 msgstr ""
-"Gefaald in het maken van een PS bestand.  Draai opniew met --verbose voor "
+"Gefaald in het maken van een PS bestand.  Draai opnieuw met --verbose voor "
 "een foutpad."
 
 #: lilypond.py:951
 msgid "Running LaTeX failed. Rerun with --verbose for a trace."
 msgstr ""
-"Draaien van LaTeX gefaald.  Draai opniew met --verbose voor een foutpad."
+"Draaien van LaTeX gefaald.  Draai opnieuw met --verbose voor een foutpad."
 
 #: lilypond.py:963 input-file-results.cc:74
 #, c-format, python-format
@@ -752,7 +752,7 @@ msgstr "Herbouw alle .afm bestanden en verwijder alle .pk en .tfm bestanden."
 
 #: all-font-metrics.cc:109
 msgid "Rerun with -V to show font paths."
-msgstr "Draai opniew met -V voor het tonen van fontpaden."
+msgstr "Draai opnieuw met -V voor het tonen van fontpaden."
 
 #: all-font-metrics.cc:111
 msgid "A script for removing font-files is delivered with the source-code:"
