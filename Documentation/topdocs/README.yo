@@ -39,14 +39,23 @@ sect(DOCUMENTATION)
 
 The real documentation is the directory Documentation/
 
-To generate the pretty-printed docs, you have to run code(configure) first,
-and then do this:
+If you want to read the documentation online, these are options:
+itemize(
+it() use file(.html). Refer to INSTALL.txt for info on how to make the
+.html documentation.
+it() use file(.html). Point your browser to
+lurl(http://www.cs.uu.nl/~hanwen/lilypond/index.html).
+it() use file(.dvi),  for the tutorial and reference manual. Do verb(
+  make -C Documentation/tex/ dvi)
+  
+it() use ASCII. Do
+using verb(
+	make -C Documentation/
+)
+The tutorial and the reference manual  can not be made in ASCII, as
+they contain graphics.
+)
 
-	make doc
-
-You can also simply read the file(.yo) sources.  They are ASCII text.
-The complete documentation is accessible in formatted form at the 
-website lurl(http://www.cs.uu.nl/people/hanwen/lilypond/index.html)
 
 
 sect(COMMENTS)

@@ -4,8 +4,8 @@ depth = ..
 
 NAME = documentation
 SUBDIRS=man tex metadoc bibliography pictures topdocs ntweb
-STEPMAKE_TEMPLATES=documentation 
-README_TOP_FILES=NEWS DEDICATION TODO ANNOUNCE-0.1 AIMS
+STEPMAKE_TEMPLATES=documentation  
+README_TOP_FILES=NEWS DEDICATION TODO  AIMS
 INFO_FILES = $(wildcard $(outdir)/$(package).info*)
 EXTRA_DIST_FILES = COPYRIGHT
 
