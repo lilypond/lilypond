@@ -2168,20 +2168,20 @@ longer be computed.
 @cindex grace notes
 
 Grace notes are ornaments that are written out.  The most common ones
-are accacciatura, which should be played as very short.  It is denoted
+are acciaccatura, which should be played as very short.  It is denoted
 by a slurred small note with a slashed stem.  The appoggiatura is a
 grace note that takes a fixed fraction of the main note, is and
 denoted as a slurred note in small print without a slash.
-They are entered with the commands @code{\accacciatura} and
+They are entered with the commands @code{\acciaccatura} and
 @code{\appoggiatura}, as demonstrated in the following example:
 
 
 @cindex appoggiatura
-@cindex accacciatura
+@cindex acciaccatura
 
 @lilypond[relative=2,verbatim,fragment]
-b4 \accacciatura d8 c4 \appoggiatura e8 d4
-\accacciatura { g16 f } e4
+b4 \acciaccatura d8 c4 \appoggiatura e8 d4
+\acciaccatura { g16 f } e4
 @end lilypond
 
 Both are special forms of the @code{\grace} command. By prefixing this
@@ -2191,7 +2191,7 @@ printed in a smaller font and takes up no logical time in a measure.
   c4 \grace c16 c4 \grace {
   c16[ d16] } c2 c4
 @end lilypond
-Unlike @code{\accacciatura} and @code{\appoggiatura}, the
+Unlike @code{\acciaccatura} and @code{\appoggiatura}, the
 @code{\grace} command does not start a slur.
 
 Internally, timing for grace notes is done using a second, `grace'
@@ -2251,7 +2251,7 @@ introducing layout tweaks, they should be inside the grace section,
 for example,
 @lilypond[fragment,verbatim,relative 2]
 \new Voice {
-    \accacciatura {
+    \acciaccatura {
       \property Voice.Stem \override #'direction = #-1
       f16->
       \property Voice.Stem \revert #'direction
@@ -2308,7 +2308,7 @@ expressions.  Nesting or juxtaposing grace sections is not supported,
 and might produce crashes or other errors.
 
 Overriding settings cannot be done in separate styles for appoggiatura
-and accacciatura.
+and acciaccatura.
 
 
 @node Glissando 
