@@ -126,9 +126,8 @@ Translator_group::get_simple_trans_list ()
   return simple_trans_list_;
 }
 
-
 void
-recurse_down_translators (Context * c, Translator_method ptr, Direction dir)
+recurse_over_translators (Context * c, Translator_method ptr, Direction dir)
 {
   Translator_group * tg
     = dynamic_cast<Translator_group*> (unsmob_translator (c->implementation_));
@@ -148,7 +147,7 @@ recurse_down_translators (Context * c, Translator_method ptr, Direction dir)
   for (SCM s = c->context_list_ ; gh_pair_p (s);
        s =gh_cdr (s))
     {
-      recurse_down_translators (unsmob_context (gh_car (s)), ptr, dir);
+      recurse_over_translators (unsmob_context (gh_car (s)), ptr, dir);
     }
 
   if (dir == UP)

@@ -58,21 +58,21 @@ Score_performer::prepare (Moment m)
 {
   audio_column_ = new Audio_column (m);
   play_element (audio_column_);
-  recurse_down_translators (daddy_context_, &Translator::start_translation_timestep, UP);
+  recurse_over_translators (daddy_context_, &Translator::start_translation_timestep, UP);
 }
 
 void
 Score_performer::finish ()
 {
-  recurse_down_translators (daddy_context_, &Translator::finalize, UP);
+  recurse_over_translators (daddy_context_, &Translator::finalize, UP);
 }
   
 void 
 Score_performer::one_time_step ()
 {
-  recurse_down_translators (daddy_context_, &Performer::process_music, UP);
-  recurse_down_translators (daddy_context_, &Performer::do_announces, UP);
-  recurse_down_translators (daddy_context_, &Translator::stop_translation_timestep, UP);
+  recurse_over_translators (daddy_context_, &Performer::process_music, UP);
+  recurse_over_translators (daddy_context_, &Performer::do_announces, UP);
+  recurse_over_translators (daddy_context_, &Translator::stop_translation_timestep, UP);
 }
 
 int

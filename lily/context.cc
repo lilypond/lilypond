@@ -35,7 +35,7 @@ Context::check_removal ()
       trg->check_removal ();
       if (trg->is_removable ())
 	{
-	  recurse_down_translators (trg, &Translator::finalize, UP);
+	  recurse_over_translators (trg, &Translator::finalize, UP);
 	  remove_context (trg);
 	}
     }
@@ -73,7 +73,7 @@ Context::add_context (Context*t)
       */
       td->apply_default_property_operations (t);
 
-      recurse_down_translators (t, &Translator::initialize, DOWN);
+      recurse_over_translators (t, &Translator::initialize, DOWN);
     }
 }
 

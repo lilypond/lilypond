@@ -31,7 +31,7 @@ public:
 
 
 SCM names_to_translators (SCM namelist, Context*tg);
-void recurse_down_translators (Context * c, Translator_method ptr, Direction);
+void recurse_over_translators (Context * c, Translator_method ptr, Direction);
 void translator_each (SCM list, Translator_method method);
 
 
