@@ -198,7 +198,9 @@ for the reader.
 			      (car rest) Y))
 
 (define-public (fraction-markup grob props . rest)
-  "Syntax: \\fraction MARKUP1 MARKUP2."
+  "Make a fraction of two markups.
+
+Syntax: \\fraction MARKUP1 MARKUP2."
 
   (let*
       ((m1 (interpret-markup grob props (car rest)))
