@@ -71,9 +71,7 @@ We think it's silly, but do this is on special request of Windows users.
 @item @file{fix-suffixes.sh}
 Add @file{.exe} to binary executables, add @file{.py} to Python scripts.
 @item @file{python-wrapper.sh}
-All python scripts get a wrapper script to make direct invocation easier
-and to change file paths to DOS style, which is needed by non-Cygwin
-Python, that's currently used.
+All python scripts get a wrapper script to make direct invocation easier.
 @item @file{latex-wrapper.sh}
 TeX and LaTeX get a wrapper script that changes the TEX path variables
 to DOS style, which is needed by non-Cygwin TeX, that's currently used.

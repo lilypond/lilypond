@@ -1,0 +1,54 @@
+README.first
+============
+
+This file created for Linux-Mandrake distribution by Michael Brown
+<mbrown@fensystems.co.uk>
+
+LilyPond is a music typesetter.  It produces beautiful sheet music using a
+high level description file as input.
+
+LilyPond is split into two packages.  The package "lilypond" provides the
+core package, containing the utilities for converting the music source
+(.ly) files into printable output.  The package "lilypond-extras" provides
+the full documentation, example .ly files for various features and the
+Mutopia project files (musical equivalent of the Gutenberg project - see
+http://www.mutopiaproject.org for details).
+
+If you are new to lilypond, you will almost certainly want to install the
+"lilypond-extras" package in addition to the "lilypond" package.
+
+You may also wish to investigate the "denemo" package, which provides a
+graphical front end to lilypond.
+
+
+
+Quick Start Guide
+=================
+
+To run lilypond:
+
+Create a lilypond source (.ly) file in a directory that you can write
+to.  (The easiest way to do this is to copy a .ly file from
+/usr/share/doc/lilypond-1.4.2/Examples or one of the Mutopia files
+from /usr/share/doc/lilypond-1.4.2/Mutopia - note that these folders
+are part of the lilypond-extras package).
+
+Run "ly2dvi -P input_file.ly" (replacing input_file as appropriate).  This
+will create a file called input_file.ps, which you can then view using
+Ghostscript ("gv input_file.ps").
+
+For an easier way to use lilypond, try the graphical front-end denemo.
+
+
+
+Points to note
+==============
+
+DO NOT use the "lilypond -f ps" option to generate a PostScript file.  It
+is included as an experimental feature, or for platforms that do not have
+a working TeX setup (that's not Mandrake).
+Use "ly2dvi -P" instead.
+
+[ Addendum: the "lilypond -f ps" option is now broken in this package,
+  due to the new, improved way of handling the via-LaTeX method.  It won't
+  work.  Use "ly2dvi -P" instead. ]

@@ -1830,7 +1830,7 @@ viola = \notes \relative c' \context Voice = viola {
 
 oboes = \notes \relative c'' \context Voice = oboe {
     \stemUp s4  g8. b,16 c8 r <e'8.^\p g> <f16 a>
-    \grace { <e8( g> } <d4 )f> <c2 e>
+    \grace <e8( g> <d4 )f> <c2 e>
     \times 2/3 { <d8 \< f> <e g> <f a> }
     <
         { \times 2/3 { a8 g c } \! c2 }
@@ -1845,7 +1845,7 @@ oboes = \notes \relative c'' \context Voice = oboe {
         }
     >
     \stemBoth
-    \grace { <c,8( e> } <)b8. d8.-\trill> <c16 e> | 
+    \grace <c,8( e> <)b8. d8.-\trill> <c16 e> | 
     [<d ( f> < )f8. a>] <)b,8 d> r [<d16( f> <f8. )a>] <b,8 d> r  |
     [<c16( e>  < )e8. g>] <c8 e,>
 }
@@ -1990,13 +1990,11 @@ these notes are indeed processed by precisely one context with
 defined above. 
 @separate
 @example 
-\grace @{ <e8 g> @} < d4 f> <c2 e> 
+\grace <e8 g> < d4 f> <c2 e> 
 @end example
 @cindex @code{\grace}
 @cindex ornaments
 @cindex grace notes
-
-[FIXME]
 @code{\grace} introduces grace notes.  It takes one argument, in this
 case a chord.
 
@@ -2055,9 +2053,8 @@ We can't share stems with the other voice, so we have to create a new
 it from the other context.  Stems go down in this voice.
 @separate
 @example 
-\grace @{  
+\grace
 @end example
-[FIXME]
 @cindex Grace context
 When a grace section is processed, a @code{Grace} context is
 created. This context acts like a miniature score of its own.  It has
@@ -2088,7 +2085,7 @@ This ends the two-part section.
 @separate
 @example 
 \stemBoth
-\grace @{ <c,8( e> @} <)b8. d8.-\trill> <c16 e> |  
+\grace <c,8( e> <)b8. d8.-\trill> <c16 e> |  
 @end example
 @cindex trill
 @cindex stemBoth
