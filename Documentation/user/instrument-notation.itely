@@ -11,290 +11,15 @@
 This chapter explains how to use notation for specific instruments.
 
 @menu
-* Rhythmic music::              
 * Piano music::                 
+* Chord names::                 
 * Vocal music::                 
-* Other instrument specific notation::  
+* Rhythmic music::              
 * Tablatures::                  
-* Popular music::               
 * Ancient notation::            
+* Other instrument specific notation::  
 @end menu
 
-
-@node Rhythmic music
-@section Rhythmic music
-
-Rhythmic music is primarily used for percussion and drum notation, but it can
-also be used to show the rhythms of melodies.
-
-@menu
-* Showing melody rhythms::      
-* Entering percussion::         
-* Percussion staves::           
-@end menu
-
-
-@node Showing melody rhythms
-@subsection Showing melody rhythms
-
-Sometimes you might want to show only the rhythm of a melody.  This
-can be done with the rhythmic staff.  All pitches of notes on such a
-staff are squashed, and the staff itself has a single line
-
-@lilypond[quote,raggedright,fragment,relative=1,verbatim]
-\context RhythmicStaff {
-  \time 4/4
-  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
-}
-@end lilypond
-
-@seealso
-
-Program reference: @internalsref{RhythmicStaff}.
-
-Examples: @inputfileref{input/@/regression,rhythmic@/-staff@/.ly}.
-
-
-@node Entering percussion
-@subsection Entering percussion
-
-@cindex percussion
-@cindex drums
-
-
-Percussion notes may be entered in @code{\drummode} mode, which is
-similar to the standard mode for entering notes.  Each piece of
-percussion has a full name and an abbreviated name, and both can be used
-in input files
-
-@lilypond[quote,raggedright,verbatim]
-\drums {
-  hihat hh bassdrum bd
-}
-@end lilypond
-
-The complete list of drum names is in the init file
-@file{ly/@/drumpitch@/-init@/.ly}.
-@c TODO: properly document this.
-
-@seealso
-
-Program reference: @internalsref{DrumNoteEvent}.
-
-@node Percussion staves
-@subsection Percussion staves
-@cindex percussion
-@cindex drums
-
-A percussion part for more than one instrument typically uses a
-multiline staff where each position in the staff refers to one piece
-of percussion.
-
-
-To typeset the music, the notes must be interpreted in a
-@internalsref{DrumStaff} and @internalsref{DrumVoice} contexts
-
-@lilypond[quote,raggedright,verbatim]
-up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
-down = \drummode { bassdrum4 snare8 bd r bd sn4 }
-  \new DrumStaff <<
-    \new DrumVoice { \voiceOne \up }
-    \new DrumVoice { \voiceTwo \down }
-  >>
-@end lilypond
-
-The above example shows verbose polyphonic notation.  The short
-polyphonic notation, described in @ref{Polyphony}, can also be used if
-the @internalsref{DrumVoices} are instantiated by hand first.  For example,
-
-@lilypond[quote,raggedright,fragment,verbatim]
-\new DrumStaff <<
-  \context DrumVoice = "1" { s1 *2 }
-  \context DrumVoice = "2" { s1 *2 }
-  \drummode {
-    bd4 sn4 bd4 sn4
-    <<
-      { \repeat unfold 16 hh16 }
-      \\
-      { bd4 sn4 bd4 sn4 }
-    >>
-  }
->>
-@end lilypond
-
-
-There are also other layout possibilities.  To use these, set the
-property @code{drumStyleTable} in context @internalsref{DrumVoice}.
-The following variables have been predefined
-
-@table @code
-@item drums-style
-This is the default.  It typesets a typical drum kit on a five-line staff
-
-@lilypond[quote,linewidth=10.0\cm]
-nam = \lyricmode {
-  cymc cyms cymr hh hhc hho hhho hhp
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
-mus = \drummode {
-  cymc cyms cymr hh hhc hho hhho hhp \break
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
-\score {
-  << \new DrumStaff \with {
-       \remove Bar_engraver
-       \remove Time_signature_engraver
-       \override Stem #'transparent = ##t
-       \override Stem #'Y-extent-callback = ##f
-       minimumVerticalExtent = #'(-4.0 . 5.0)
-     } \mus
-     \context Lyrics \nam
-  >>
-  \layout {
-    \context {
-      \Score
-      \override LyricText #'font-family = #'typewriter
-      \override BarNumber #'transparent =##T
-    }
-  }
-}
-@end lilypond
-
-The drum scheme supports six different toms.  When there are fewer toms,
-simply select the toms that produce the desired result, i.e., to get toms
-on the three middle lines you use @code{tommh}, @code{tomml}, and
-@code{tomfh}.
-
-@item timbales-style
-This typesets timbales on a two line staff
-
-@lilypond[quote,raggedright]
-nam = \lyricmode { timh ssh timl ssl cb }
-mus = \drummode { timh ssh timl ssl cb s16 }
-
-<<
-  \context DrumStaff \with {
-    \remove Bar_engraver
-    \remove Time_signature_engraver
-    \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
-    \override StaffSymbol #'line-count = #2
-    \override StaffSymbol #'staff-space = #2
-    minimumVerticalExtent = #'(-3.0 . 4.0)
-    drumStyleTable = #timbales-style
-  } \mus
-  \context Lyrics {
-    \override LyricText #'font-family = #'typewriter
-    \nam
-  }
->>
-@end lilypond
-
-@item congas-style
-This typesets congas on a two line staff
-
-@lilypond[quote,raggedright]
-nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
-mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
-
-<<
-  \context DrumStaff \with {
-    \remove Bar_engraver
-    \remove Time_signature_engraver
-    drumStyleTable = #congas-style
-    \override StaffSymbol #'line-count = #2
-
-    %% this sucks; it will lengthen stems.
-    \override StaffSymbol #'staff-space = #2
-    \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
-  } \mus
-  \context Lyrics {
-    \override LyricText #'font-family = #'typewriter
-    \nam
-  }
->>
-@end lilypond
-
-@item bongos-style
-This typesets bongos on a two line staff
-
-@lilypond[quote,raggedright]
-nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
-mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
-
-<<
-  \context DrumStaff\with {
-    \remove Bar_engraver
-    \remove Time_signature_engraver
-    \override StaffSymbol #'line-count = #2
-    drumStyleTable = #bongos-style
-
-    %% this sucks; it will lengthen stems.
-    \override StaffSymbol #'staff-space = #2
-    \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
-  } \mus
-  \context Lyrics {
-    \override LyricText #'font-family = #'typewriter
-    \nam
-  }
->>
-@end lilypond
-
-@item percussion-style
-To typeset all kinds of simple percussion on one line staves.
-
-@lilypond[quote,raggedright]
-nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
-mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
-
-<<
-  \context DrumStaff\with{
-    \remove Bar_engraver
-    drumStyleTable = #percussion-style
-    \override StaffSymbol #'line-count = #1
-    \remove Time_signature_engraver
-    \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
-  } \mus
-  \context Lyrics {
-    \override LyricText #'font-family = #'typewriter
-    \nam
-  }
->>
-@end lilypond
-@end table
-
-If you do not like any of the predefined lists you can define your own
-list at the top of your file
-
-@lilypond[quote,raggedright,verbatim]
-#(define mydrums '(
-         (bassdrum     default   #f         -1)
-         (snare        default   #f         0)
-         (hihat        cross     #f         1)
-         (pedalhihat   xcircle   "stopped"  2)
-         (lowtom       diamond   #f         3)))
-up = \drummode { hh8 hh hh hh hhp4 hhp }
-down = \drummode { bd4 sn bd toml8 toml }
-
-\new DrumStaff <<
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \new DrumVoice { \voiceOne \up }
-  \new DrumVoice { \voiceTwo \down }
->>
-@end lilypond
-
-
-@seealso
-
-Init files: @file{ly/@/drumpitch@/-init@/.ly}.
-
-Program reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
-
-@refbugs
-
-Because general MIDI does not contain rim shots, the sidestick is used
-for this purpose instead.
 
 
 @node Piano music
@@ -304,6 +29,7 @@ Piano staves are two normal staves coupled with a brace.  The staves
 are largely independent, but sometimes voices can cross between the
 two staves.  The same notation is also used for harps and other key
 @c Is this `harp' or `harpsichord'?
+@c    both.  -gp
 instruments.  The @internalsref{PianoStaff} is especially built to
 handle this cross-staffing behavior.  In this section we discuss the
 @internalsref{PianoStaff} and some other pianistic peculiarities.
@@ -560,6 +286,351 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
   }
 >>
 @end lilypond
+
+
+@node Chord names
+@section Chord names
+
+@menu
+* Printing chord names::        
+* Chords mode::                 
+* Printing chord names::        
+@end menu
+
+
+@c  awkward name; awkward section name.
+@c  still, the Basic "chords" seems like a good name...  :(
+@node Printing chord names
+@subsection Printing chord names
+@cindex Chord names
+
+LilyPond has support for printing chord names.  Chords may be entered
+in musical chord notation, i.e., @code{< .. >}, but they can also be
+entered by name.  Internally, the chords are represented as a set of
+pitches, so they can be transposed
+
+
+@lilypond[quote,raggedright,verbatim,raggedright]
+twoWays = \transpose c c' {
+  \chordmode {
+    c1 f:sus4 bes/f
+  }
+  <c e g>
+  <f bes c'>
+  <f bes d'>
+}
+
+<< \context ChordNames \twoWays
+   \context Voice \twoWays >>
+@end lilypond
+
+This example also shows that the chord printing routines do not try to
+be intelligent.  The last chord (@code{f bes d}) is not interpreted as
+an inversion.
+
+
+@node Chords mode
+@subsection Chords mode
+@cindex Chords mode
+
+In chord mode sets of pitches (chords) are entered with normal note
+names.  A chord is entered by the root, which is entered like a
+normal pitch
+
+@lilypond[quote,raggedright,fragment,verbatim]
+\chordmode { es4. d8 c2 }
+@end lilypond
+
+@noindent
+The mode is introduced by the keyword @code{\chordmode}.
+
+@cindex chord entry
+@cindex chord mode
+
+Other chords may be entered by suffixing a colon and introducing a
+modifier (which may include a number if desired)
+@lilypond[quote,fragment,verbatim]
+\chordmode { e1:m e1:7 e1:m7 }
+@end lilypond
+The first number following the root is taken to be the `type' of the
+chord, thirds are added to the root until it reaches the specified
+number
+@lilypond[quote,fragment,verbatim]
+\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
+@end lilypond
+
+@cindex root of chord
+@cindex additions, in chords
+@cindex removals, in chords
+
+More complex chords may also be constructed adding separate steps
+to a chord.  Additions are added after the number following
+the colon and are separated by dots
+@lilypond[quote,verbatim,fragment]
+\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
+@end lilypond
+Chord steps can be altered by suffixing a @code{-} or @code{+} sign
+to the number
+@lilypond[quote,verbatim,fragment]
+\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
+@end lilypond
+Removals are specified similarly and are introduced by a caret.  They
+must come after the additions
+@lilypond[quote,verbatim,fragment]
+\chordmode { c^3 c:7^5 c:9^3.5 }
+@end lilypond
+
+Modifiers can be used to change pitches.  The following modifiers are
+supported
+
+@table @code
+@item m
+The minor chord.  This modifier lowers the 3rd and (if present) the 7th step.
+
+@item dim
+The diminished chord.  This modifier lowers the 3rd, 5th and (if present)
+the 7th step.
+
+@item aug
+The augmented chord.  This modifier raises the 5th step.
+
+@item maj
+The major 7th chord.  This modifier raises the 7th step if present.
+
+@item sus
+The suspended 4th or 2nd.  This modifier removes the 3rd
+step.  Append either @code{2} or @code{4} to add the 2nd or 4th step to
+the chord.
+@end table
+
+Modifiers can be mixed with additions
+@lilypond[quote,verbatim,fragment]
+  \chordmode { c:sus4 c:7sus4 c:dim7 c:m6 }
+@end lilypond
+
+@cindex modifiers, in chords.
+@cindex @code{aug}
+@cindex @code{dim}
+@cindex @code{maj}
+@cindex @code{sus}
+@cindex @code{m}
+
+Since an unaltered 11 does not sound good when combined with an
+unaltered 3, the 11 is removed in this case (unless it is added
+explicitly)
+@lilypond[quote,raggedright,fragment,verbatim]
+\chordmode { c:13 c:13.11 c:m13 }
+@end lilypond
+
+@cindex @code{/}
+
+An inversion (putting one pitch of the chord on the bottom), as well
+as bass notes, can be specified by appending
+@code{/}@var{pitch} to the chord
+@lilypond[quote,raggedright,fragment,verbatim]
+\chordmode { c1 c/g c/f }
+@end lilypond
+@cindex @code{/+}
+
+A bass note can be added instead transposed out of the chord,
+by using @code{/+}@var{pitch}.
+
+@lilypond[quote,raggedright,fragment,verbatim]
+\chordmode { c1 c/+g c/+f }
+@end lilypond
+
+Chords is a mode similar to @code{\lyricmode}, etc.  Most
+of the commands continue to work, for example, @code{r} and
+@code{\skip} can be used to insert rests and spaces, and property
+commands may be used to change various settings.
+
+
+
+@refbugs
+
+Each step can only be present in a chord once.  The following
+simply produces the augmented chord, since @code{5+} is interpreted
+last
+@cindex clusters
+@lilypond[quote,raggedright,verbatim,fragment]
+\chordmode { c:5.5-.5+ }
+@end lilypond
+
+
+@node Printing chord names
+@subsection Printing chord names
+
+@cindex printing chord names
+@cindex chord names
+@cindex chords
+
+For displaying printed chord names, use the @internalsref{ChordNames} context.
+The chords may be entered either using the notation
+described above, or directly using @code{<} and @code{>}
+
+@lilypond[quote,verbatim,raggedright]
+harmonies = {
+  \chordmode {a1 b c} <d' f' a'> <e' g' b'>
+}
+<<
+  \context ChordNames \harmonies
+  \context Staff \harmonies
+>>
+@end lilypond
+
+You can make the chord changes stand out by setting
+@internalsref{ChordNames}.@code{chordChanges} to true.  This will only
+display chord names when there is a change in the chords scheme and at
+the start of a new line
+
+@lilypond[quote,verbatim,raggedright]
+harmonies = \chordmode {
+  c1:m c:m \break c:m c:m d
+}
+<<
+  \context ChordNames {
+    \set chordChanges = ##t
+    \harmonies }
+  \context Staff \transpose c c' \harmonies
+>>
+@end lilypond
+
+The previous examples all show chords over a staff.  This is not
+necessary.  Chords may also be printed separately.  It may be necessary
+to add @internalsref{Volta_engraver} and @internalsref{Bar_engraver}
+for showing repeats.
+
+@lilypond[raggedright,verbatim]
+\new ChordNames \with {
+  \override BarLine #'bar-size = #4
+  voltaOnThisStaff = ##t
+  \consists Bar_engraver
+  \consists "Volta_engraver"
+}
+\repeat volta 2 \chordmode {
+  f1:maj f:7 bes:7
+  c:maj
+} \alternative {
+  es e
+}
+@end lilypond
+
+
+The default chord name layout is a system for Jazz music, proposed by
+Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
+following properties
+
+@table @code
+@cindex @code{chordNameExceptions}
+@item chordNameExceptions
+This is a list that contains the chords that have special formatting.
+
+The exceptions list should be encoded as
+@example
+@{ <c f g bes>1 \markup @{ \super "7" "wahh" @} @}
+@end example
+
+To get this information into @code{chordNameExceptions} takes a little
+manoeuvring.  The following code transforms @code{chExceptionMusic}
+(which is a sequential music) into a list of exceptions.
+@example
+(sequential-music-to-chord-exceptions chExceptionMusic #t)
+@end example
+Then,
+@example
+(append
+ (sequential-music-to-chord-exceptions chExceptionMusic #t)
+ ignatzekExceptions)
+@end example
+adds the new exceptions to the default ones, which are defined in
+@file{ly/@/chord@/-modifier@/-init@/.ly}.
+
+For an example of tuning this property, see also
+@inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly}.
+@cindex exceptions, chord names.
+
+
+@cindex @code{majorSevenSymbol}
+@item majorSevenSymbol
+This property contains the markup object used for the 7th step, when
+it is major.  Predefined options are @code{whiteTriangleMarkup} and
+@code{blackTriangleMarkup}.  See
+@inputfileref{input/@/regression,chord@/-name@/-major7@/.ly} for an example.
+
+@cindex @code{chordNameSeparator}
+@item chordNameSeparator
+Different parts of a chord name are normally separated by a
+slash.  By setting @code{chordNameSeparator}, you can specify other
+separators, e.g.,
+@lilypond[quote,raggedright,fragment,verbatim]
+\context ChordNames \chordmode {
+  c:7sus4
+  \set chordNameSeparator
+    = \markup { \typewriter "|" }
+  c:7sus4
+}
+@end lilypond
+
+@cindex @code{chordRootNamer}
+@item chordRootNamer
+The root of a chord is usually printed as a letter with an optional
+alteration.  The transformation from pitch to letter is done by this
+function.  Special note names (for example, the German ``H'' for a
+B-chord) can be produced by storing a new function in this property.
+
+@cindex @code{chordNoteNamer}
+@item chordNoteNamer
+The default is to print single pitch, e.g., the bass note, using the
+@code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
+to a specialized function to change this behavior.  For example, the
+base can be printed in lower case.
+
+@end table
+
+The predefined variables @code{\germanChords},
+@code{\semiGermanChords} set these variables.  The effect is
+demonstrated here,
+
+@lilypondfile[raggedright]{chord-names-german.ly}
+
+There are also two other chord name schemes implemented: an alternate
+Jazz chord notation, and a systematic scheme called Banter chords.  The
+alternate Jazz notation is also shown on the chart in @ref{Chord name
+chart}.  Turning on these styles is described in the input file
+@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
+
+@cindex Banter
+@cindex jazz chords
+@cindex chords, jazz
+
+
+@refcommands
+
+@cindex @code{\germanChords}
+@code{\germanChords},
+@cindex @code{\semiGermanChords}
+@code{\semiGermanChords}.
+
+
+
+
+@seealso
+
+Examples: @inputfileref{input/@/regression,chord@/-name@/-major7@/.ly},
+@inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly},
+@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
+
+
+Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
+@file{scm/@/chord@/-entry@/.scm}.
+
+
+@refbugs
+
+Chord names are determined solely from the list of pitches.  Chord
+inversions are not identified, and neither are added bass notes.  This
+may result in strange chord names when chords are entered with the
+@code{< .. >} syntax.
 
 
 @node Vocal music
@@ -1296,28 +1367,294 @@ section.
 @end lilypond
 
 
-@node Other instrument specific notation
-@section Other instrument specific notation
+To notate ``parlato'' (spoken without pitch but still with
+rhythm) sections, 
 
-This section includes extra information for writing string music, and may
-include extra information for other instruments in the future.
+@lilypond[raggedright,verbatim,quote,fragment,relative=2]
+c4 d
+\override NoteHead #'style = #'cross
+e f
+\revert NoteHead #'style
+e d
+@end lilypond
+
+
+@node Rhythmic music
+@section Rhythmic music
+
+Rhythmic music is primarily used for percussion and drum notation, but it can
+also be used to show the rhythms of melodies.
 
 @menu
-* Harmonic notes::              
+* Showing melody rhythms::      
+* Entering percussion::         
+* Percussion staves::           
 @end menu
 
-@node Harmonic notes
-@subsection Harmonic notes
 
-@cindex artificial harmonics
-@cindex harmonics
+@node Showing melody rhythms
+@subsection Showing melody rhythms
 
-Artificial harmonics are notated with a different notehead style.  They
-are entered by marking the harmonic pitch with @code{\harmonic}.
+Sometimes you might want to show only the rhythm of a melody.  This
+can be done with the rhythmic staff.  All pitches of notes on such a
+staff are squashed, and the staff itself has a single line
 
-@lilypond[raggedright,verbatim,quote,fragment]
-<c' g'\harmonic>4
+@lilypond[quote,raggedright,fragment,relative=1,verbatim]
+\context RhythmicStaff {
+  \time 4/4
+  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
+}
 @end lilypond
+
+@seealso
+
+Program reference: @internalsref{RhythmicStaff}.
+
+Examples: @inputfileref{input/@/regression,rhythmic@/-staff@/.ly}.
+
+
+@node Entering percussion
+@subsection Entering percussion
+
+@cindex percussion
+@cindex drums
+
+
+Percussion notes may be entered in @code{\drummode} mode, which is
+similar to the standard mode for entering notes.  Each piece of
+percussion has a full name and an abbreviated name, and both can be used
+in input files
+
+@lilypond[quote,raggedright,verbatim]
+\drums {
+  hihat hh bassdrum bd
+}
+@end lilypond
+
+The complete list of drum names is in the init file
+@file{ly/@/drumpitch@/-init@/.ly}.
+@c TODO: properly document this.
+
+@seealso
+
+Program reference: @internalsref{DrumNoteEvent}.
+
+@node Percussion staves
+@subsection Percussion staves
+@cindex percussion
+@cindex drums
+
+A percussion part for more than one instrument typically uses a
+multiline staff where each position in the staff refers to one piece
+of percussion.
+
+
+To typeset the music, the notes must be interpreted in a
+@internalsref{DrumStaff} and @internalsref{DrumVoice} contexts
+
+@lilypond[quote,raggedright,verbatim]
+up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
+down = \drummode { bassdrum4 snare8 bd r bd sn4 }
+  \new DrumStaff <<
+    \new DrumVoice { \voiceOne \up }
+    \new DrumVoice { \voiceTwo \down }
+  >>
+@end lilypond
+
+The above example shows verbose polyphonic notation.  The short
+polyphonic notation, described in @ref{Polyphony}, can also be used if
+the @internalsref{DrumVoices} are instantiated by hand first.  For example,
+
+@lilypond[quote,raggedright,fragment,verbatim]
+\new DrumStaff <<
+  \context DrumVoice = "1" { s1 *2 }
+  \context DrumVoice = "2" { s1 *2 }
+  \drummode {
+    bd4 sn4 bd4 sn4
+    <<
+      { \repeat unfold 16 hh16 }
+      \\
+      { bd4 sn4 bd4 sn4 }
+    >>
+  }
+>>
+@end lilypond
+
+
+There are also other layout possibilities.  To use these, set the
+property @code{drumStyleTable} in context @internalsref{DrumVoice}.
+The following variables have been predefined
+
+@table @code
+@item drums-style
+This is the default.  It typesets a typical drum kit on a five-line staff
+
+@lilypond[quote,linewidth=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove Bar_engraver
+       \remove Time_signature_engraver
+       \override Stem #'transparent = ##t
+       \override Stem #'Y-extent-callback = ##f
+       minimumVerticalExtent = #'(-4.0 . 5.0)
+     } \mus
+     \context Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText #'font-family = #'typewriter
+      \override BarNumber #'transparent =##T
+    }
+  }
+}
+@end lilypond
+
+The drum scheme supports six different toms.  When there are fewer toms,
+simply select the toms that produce the desired result, i.e., to get toms
+on the three middle lines you use @code{tommh}, @code{tomml}, and
+@code{tomfh}.
+
+@item timbales-style
+This typesets timbales on a two line staff
+
+@lilypond[quote,raggedright]
+nam = \lyricmode { timh ssh timl ssl cb }
+mus = \drummode { timh ssh timl ssl cb s16 }
+
+<<
+  \context DrumStaff \with {
+    \remove Bar_engraver
+    \remove Time_signature_engraver
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+    \override StaffSymbol #'line-count = #2
+    \override StaffSymbol #'staff-space = #2
+    minimumVerticalExtent = #'(-3.0 . 4.0)
+    drumStyleTable = #timbales-style
+  } \mus
+  \context Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item congas-style
+This typesets congas on a two line staff
+
+@lilypond[quote,raggedright]
+nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
+mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
+
+<<
+  \context DrumStaff \with {
+    \remove Bar_engraver
+    \remove Time_signature_engraver
+    drumStyleTable = #congas-style
+    \override StaffSymbol #'line-count = #2
+
+    %% this sucks; it will lengthen stems.
+    \override StaffSymbol #'staff-space = #2
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+  } \mus
+  \context Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item bongos-style
+This typesets bongos on a two line staff
+
+@lilypond[quote,raggedright]
+nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
+mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
+
+<<
+  \context DrumStaff\with {
+    \remove Bar_engraver
+    \remove Time_signature_engraver
+    \override StaffSymbol #'line-count = #2
+    drumStyleTable = #bongos-style
+
+    %% this sucks; it will lengthen stems.
+    \override StaffSymbol #'staff-space = #2
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+  } \mus
+  \context Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item percussion-style
+To typeset all kinds of simple percussion on one line staves.
+
+@lilypond[quote,raggedright]
+nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
+mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+
+<<
+  \context DrumStaff\with{
+    \remove Bar_engraver
+    drumStyleTable = #percussion-style
+    \override StaffSymbol #'line-count = #1
+    \remove Time_signature_engraver
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+  } \mus
+  \context Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+@end table
+
+If you do not like any of the predefined lists you can define your own
+list at the top of your file
+
+@lilypond[quote,raggedright,verbatim]
+#(define mydrums '(
+         (bassdrum     default   #f         -1)
+         (snare        default   #f         0)
+         (hihat        cross     #f         1)
+         (pedalhihat   xcircle   "stopped"  2)
+         (lowtom       diamond   #f         3)))
+up = \drummode { hh8 hh hh hh hhp4 hhp }
+down = \drummode { bd4 sn bd toml8 toml }
+
+\new DrumStaff <<
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \new DrumVoice { \voiceOne \up }
+  \new DrumVoice { \voiceTwo \down }
+>>
+@end lilypond
+
+
+@seealso
+
+Init files: @file{ly/@/drumpitch@/-init@/.ly}.
+
+Program reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
+
+@refbugs
+
+Because general MIDI does not contain rim shots, the sidestick is used
+for this purpose instead.
+
+
 
 
 @node Tablatures
@@ -1334,6 +1671,7 @@ offers limited support for tablature.
 @menu
 * Tablatures basic::            
 * Non-guitar tablatures::       
+* Fret diagrams::               
 @end menu
 
 @node Tablatures basic
@@ -1423,351 +1761,6 @@ No guitar special effects have been implemented.
 @seealso
 
 Program reference: @internalsref{Tab_note_heads_engraver}.
-
-
-@node Popular music
-@section Popular music
-
-This section discusses issues that arise when writing popular music.
-
-@menu
-* Chord names::                 
-* Chords mode::                 
-* Printing chord names::        
-* Fret diagrams::               
-@end menu
-
-@node Chord names
-@subsection Chord names
-@cindex Chords
-
-LilyPond has support for printing chord names.  Chords may be entered
-in musical chord notation, i.e., @code{< .. >}, but they can also be
-entered by name.  Internally, the chords are represented as a set of
-pitches, so they can be transposed
-
-
-@lilypond[quote,raggedright,verbatim,raggedright]
-twoWays = \transpose c c' {
-  \chordmode {
-    c1 f:sus4 bes/f
-  }
-  <c e g>
-  <f bes c'>
-  <f bes d'>
-}
-
-<< \context ChordNames \twoWays
-   \context Voice \twoWays >>
-@end lilypond
-
-This example also shows that the chord printing routines do not try to
-be intelligent.  The last chord (@code{f bes d}) is not interpreted as
-an inversion.
-
-
-@node Chords mode
-@subsection Chords mode
-@cindex Chords mode
-
-In chord mode sets of pitches (chords) are entered with normal note
-names.  A chord is entered by the root, which is entered like a
-normal pitch
-
-@lilypond[quote,raggedright,fragment,verbatim]
-\chordmode { es4. d8 c2 }
-@end lilypond
-
-@noindent
-The mode is introduced by the keyword @code{\chordmode}.
-
-@cindex chord entry
-@cindex chord mode
-
-Other chords may be entered by suffixing a colon and introducing a
-modifier (which may include a number if desired)
-@lilypond[quote,fragment,verbatim]
-\chordmode { e1:m e1:7 e1:m7 }
-@end lilypond
-The first number following the root is taken to be the `type' of the
-chord, thirds are added to the root until it reaches the specified
-number
-@lilypond[quote,fragment,verbatim]
-\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
-@end lilypond
-
-@cindex root of chord
-@cindex additions, in chords
-@cindex removals, in chords
-
-More complex chords may also be constructed adding separate steps
-to a chord.  Additions are added after the number following
-the colon and are separated by dots
-@lilypond[quote,verbatim,fragment]
-\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
-@end lilypond
-Chord steps can be altered by suffixing a @code{-} or @code{+} sign
-to the number
-@lilypond[quote,verbatim,fragment]
-\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
-@end lilypond
-Removals are specified similarly and are introduced by a caret.  They
-must come after the additions
-@lilypond[quote,verbatim,fragment]
-\chordmode { c^3 c:7^5 c:9^3.5 }
-@end lilypond
-
-Modifiers can be used to change pitches.  The following modifiers are
-supported
-
-@table @code
-@item m
-The minor chord.  This modifier lowers the 3rd and (if present) the 7th step.
-
-@item dim
-The diminished chord.  This modifier lowers the 3rd, 5th and (if present)
-the 7th step.
-
-@item aug
-The augmented chord.  This modifier raises the 5th step.
-
-@item maj
-The major 7th chord.  This modifier raises the 7th step if present.
-
-@item sus
-The suspended 4th or 2nd.  This modifier removes the 3rd
-step.  Append either @code{2} or @code{4} to add the 2nd or 4th step to
-the chord.
-@end table
-
-Modifiers can be mixed with additions
-@lilypond[quote,verbatim,fragment]
-  \chordmode { c:sus4 c:7sus4 c:dim7 c:m6 }
-@end lilypond
-
-@cindex modifiers, in chords.
-@cindex @code{aug}
-@cindex @code{dim}
-@cindex @code{maj}
-@cindex @code{sus}
-@cindex @code{m}
-
-Since an unaltered 11 does not sound good when combined with an
-unaltered 3, the 11 is removed in this case (unless it is added
-explicitly)
-@lilypond[quote,raggedright,fragment,verbatim]
-\chordmode { c:13 c:13.11 c:m13 }
-@end lilypond
-
-@cindex @code{/}
-
-An inversion (putting one pitch of the chord on the bottom), as well
-as bass notes, can be specified by appending
-@code{/}@var{pitch} to the chord
-@lilypond[quote,raggedright,fragment,verbatim]
-\chordmode { c1 c/g c/f }
-@end lilypond
-@cindex @code{/+}
-
-A bass note can be added instead transposed out of the chord,
-by using @code{/+}@var{pitch}.
-
-@lilypond[quote,raggedright,fragment,verbatim]
-\chordmode { c1 c/+g c/+f }
-@end lilypond
-
-Chords is a mode similar to @code{\lyricmode}, etc.  Most
-of the commands continue to work, for example, @code{r} and
-@code{\skip} can be used to insert rests and spaces, and property
-commands may be used to change various settings.
-
-
-
-@refbugs
-
-Each step can only be present in a chord once.  The following
-simply produces the augmented chord, since @code{5+} is interpreted
-last
-@cindex clusters
-@lilypond[quote,raggedright,verbatim,fragment]
-\chordmode { c:5.5-.5+ }
-@end lilypond
-
-
-@node Printing chord names
-@subsection Printing chord names
-
-@cindex printing chord names
-@cindex chord names
-@cindex chords
-
-For displaying printed chord names, use the @internalsref{ChordNames} context.
-The chords may be entered either using the notation
-described above, or directly using @code{<} and @code{>}
-
-@lilypond[quote,verbatim,raggedright]
-harmonies = {
-  \chordmode {a1 b c} <d' f' a'> <e' g' b'>
-}
-<<
-  \context ChordNames \harmonies
-  \context Staff \harmonies
->>
-@end lilypond
-
-You can make the chord changes stand out by setting
-@internalsref{ChordNames}.@code{chordChanges} to true.  This will only
-display chord names when there is a change in the chords scheme and at
-the start of a new line
-
-@lilypond[quote,verbatim,raggedright]
-harmonies = \chordmode {
-  c1:m c:m \break c:m c:m d
-}
-<<
-  \context ChordNames {
-    \set chordChanges = ##t
-    \harmonies }
-  \context Staff \transpose c c' \harmonies
->>
-@end lilypond
-
-The previous examples all show chords over a staff.  This is not
-necessary.  Chords may also be printed separately.  It may be necessary
-to add @internalsref{Volta_engraver} and @internalsref{Bar_engraver}
-for showing repeats.
-
-@lilypond[raggedright,verbatim]
-\new ChordNames \with {
-  \override BarLine #'bar-size = #4
-  voltaOnThisStaff = ##t
-  \consists Bar_engraver
-  \consists "Volta_engraver"
-}
-\repeat volta 2 \chordmode {
-  f1:maj f:7 bes:7
-  c:maj
-} \alternative {
-  es e
-}
-@end lilypond
-
-
-The default chord name layout is a system for Jazz music, proposed by
-Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
-following properties
-
-@table @code
-@cindex @code{chordNameExceptions}
-@item chordNameExceptions
-This is a list that contains the chords that have special formatting.
-
-The exceptions list should be encoded as
-@example
-@{ <c f g bes>1 \markup @{ \super "7" "wahh" @} @}
-@end example
-
-To get this information into @code{chordNameExceptions} takes a little
-manoeuvring.  The following code transforms @code{chExceptionMusic}
-(which is a sequential music) into a list of exceptions.
-@example
-(sequential-music-to-chord-exceptions chExceptionMusic #t)
-@end example
-Then,
-@example
-(append
- (sequential-music-to-chord-exceptions chExceptionMusic #t)
- ignatzekExceptions)
-@end example
-adds the new exceptions to the default ones, which are defined in
-@file{ly/@/chord@/-modifier@/-init@/.ly}.
-
-For an example of tuning this property, see also
-@inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly}.
-@cindex exceptions, chord names.
-
-
-@cindex @code{majorSevenSymbol}
-@item majorSevenSymbol
-This property contains the markup object used for the 7th step, when
-it is major.  Predefined options are @code{whiteTriangleMarkup} and
-@code{blackTriangleMarkup}.  See
-@inputfileref{input/@/regression,chord@/-name@/-major7@/.ly} for an example.
-
-@cindex @code{chordNameSeparator}
-@item chordNameSeparator
-Different parts of a chord name are normally separated by a
-slash.  By setting @code{chordNameSeparator}, you can specify other
-separators, e.g.,
-@lilypond[quote,raggedright,fragment,verbatim]
-\context ChordNames \chordmode {
-  c:7sus4
-  \set chordNameSeparator
-    = \markup { \typewriter "|" }
-  c:7sus4
-}
-@end lilypond
-
-@cindex @code{chordRootNamer}
-@item chordRootNamer
-The root of a chord is usually printed as a letter with an optional
-alteration.  The transformation from pitch to letter is done by this
-function.  Special note names (for example, the German ``H'' for a
-B-chord) can be produced by storing a new function in this property.
-
-@cindex @code{chordNoteNamer}
-@item chordNoteNamer
-The default is to print single pitch, e.g., the bass note, using the
-@code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
-to a specialized function to change this behavior.  For example, the
-base can be printed in lower case.
-
-@end table
-
-The predefined variables @code{\germanChords},
-@code{\semiGermanChords} set these variables.  The effect is
-demonstrated here,
-
-@lilypondfile[raggedright]{chord-names-german.ly}
-
-There are also two other chord name schemes implemented: an alternate
-Jazz chord notation, and a systematic scheme called Banter chords.  The
-alternate Jazz notation is also shown on the chart in @ref{Chord name
-chart}.  Turning on these styles is described in the input file
-@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
-
-@cindex Banter
-@cindex jazz chords
-@cindex chords, jazz
-
-
-@refcommands
-
-@cindex @code{\germanChords}
-@code{\germanChords},
-@cindex @code{\semiGermanChords}
-@code{\semiGermanChords}.
-
-
-
-
-@seealso
-
-Examples: @inputfileref{input/@/regression,chord@/-name@/-major7@/.ly},
-@inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly},
-@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
-
-
-Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
-@file{scm/@/chord@/-entry@/.scm}.
-
-
-@refbugs
-
-Chord names are determined solely from the list of pitches.  Chord
-inversions are not identified, and neither are added bass notes.  This
-may result in strange chord names when chords are entered with the
-@code{< .. >} syntax.
 
 
 @node Fret diagrams
@@ -3754,5 +3747,54 @@ Program reference: @internalsref{BassFigureEvent} music,
 @refbugs
 
 Slash notation for alterations is not supported.
+
+
+
+@node Other instrument specific notation
+@section Other instrument specific notation
+
+This section includes extra information for writing for instruments.
+
+@menu
+* Artificial harmonics (strings)::  
+* Stopped notes (guitar)::      
+@end menu
+
+@node Artificial harmonics (strings)
+@subsection Artificial harmonics (strings)
+
+@cindex artificial harmonics
+
+Artificial harmonics are notated with a different notehead style.  They
+are entered by marking the harmonic pitch with @code{\harmonic}.
+
+@lilypond[raggedright,verbatim,quote,fragment,relative=1]
+<c g'\harmonic>4
+@end lilypond
+
+
+@node Stopped notes (guitar)
+@subsection Stopped notes (guitar)
+
+Stopped (X) note heads are used in guitar music to signal a place where the 
+guitarist must play a certain note or chord, with its fingers just 
+touching the strings instead of fully pressing them.  This gives the sound a 
+percussive noise-like sound that still maintains part of the original pitch.
+
+Finger stopped technique is extremely important for rhythm and rock-heavy 
+metal guitarists; the former often uses barré based stopped chords to 
+intermix harmony with rythm, the latters use finger stopping to mute power 
+chords, or charge them with more expression in close-tied power chord stums.
+
+It is also used (even if rarely) in classic guitar music, generally in the 
+melodic line, to provide some rithmic pattern right in the melody.
+
+@lilypond[raggedright,verbatim,quote,fragment,relative=2]
+c4 d
+\override NoteHead #'style = #'cross
+e f
+\revert NoteHead #'style
+e d
+@end lilypond
 
 
