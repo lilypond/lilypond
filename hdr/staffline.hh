@@ -17,14 +17,14 @@
 struct Line_of_staff {
 
     Line_of_score  * line_of_score_;
-    const PStaff *pstaff_;
+    PStaff *pstaff_;
 
     /****************/
     
     String TeXstring() const;
     Line_of_staff(Line_of_score*, PStaff *);
     Interval height() const;
-
+    void process();
 };
 
 #endif

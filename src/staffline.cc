@@ -4,6 +4,7 @@
 #include "spanner.hh"
 #include "symbol.hh"
 #include "paper.hh"
+#include "molecule.hh"
 #include "pcol.hh"
 #include "pscore.hh"
 
@@ -24,10 +25,11 @@ Line_of_staff::TeXstring() const
     s+=make_vbox(height());
     // the staff itself: eg lines, accolades
     s += "\\hbox{";
-    {
-	Symbol sym = pstaff_->get_stafsym(line_of_score_->pscore_-> // ugh
-					  paper_->linewidth);
-	s+=sym.tex;
+    {				
+	((PStaff*)pstaff_)->
+	    brew_molecule(line_of_score_->pscore_->paper_->linewidth);
+
+	s+=pstaff_->stafsym->TeXstring();
 	PCursor<const PCol *> cc(line_of_score_->cols);
 	Real lastpos=cc->hpos;
 
@@ -82,9 +84,7 @@ Line_of_staff::height() const
 {
     Interval y;
     {
-	Symbol s = pstaff_->stafsym->eval(line_of_score_->pscore_->
-					  paper_->linewidth);
-	y = s.dim.y;
+	y = pstaff_->stafsym->extent().y;
     }
     PCursor<const PCol *> cc(line_of_score_->cols);
     
@@ -105,4 +105,10 @@ Line_of_staff::height() const
     return y;
 }
 
-
+void
+Line_of_staff::process()
+{
+    if (!pstaff_->stafsym)
+	pstaff_->brew_molecule(line_of_score_->pscore_->
+			       paper_->linewidth);
+}

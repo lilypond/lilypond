@@ -41,3 +41,11 @@ Line_of_score::Line_of_score(svec<const PCol *> sv,
     #sv# isn't really const!!
     */
 
+
+void
+Line_of_score::process()
+{
+    for (PCursor<Line_of_staff*> i(staffs); i.ok(); i++)
+	i->process();
+}
+	
