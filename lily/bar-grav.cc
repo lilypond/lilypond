@@ -24,7 +24,7 @@ Bar_engraver::do_try_request(Request*r_l)
     if (!c_l|| !c_l->bar()) 
 	return false;
     Bar_req  * b= c_l->bar();
-    if (bar_req_l_ && bar_req_l_->compare(*b))
+    if (bar_req_l_ && bar_req_l_->equal_b(b))
 	return false;
     
     bar_req_l_ = b;
@@ -55,7 +55,7 @@ void
 Bar_engraver::do_pre_move_processing()
 {
       if (bar_p_) {
-	  typeset_breakable_item(bar_p_);
+	  typeset_element(bar_p_);
 	  bar_p_ =0;
       }
 }

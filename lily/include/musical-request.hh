@@ -51,9 +51,10 @@ public:
     
     /* *************** */
     void set_duration(Duration);
-    static int compare(const Rhythmic_req &, const Rhythmic_req &);
+    bool do_equal_b(Request*)const;
     virtual Moment duration() const;
     Rhythmic_req();
+    static int compare(Rhythmic_req const&,Rhythmic_req const&);
     REQUESTMETHODS(Rhythmic_req, rhythmic);
 };
 
@@ -88,7 +89,7 @@ public:
     Text_req(int d, Text_def*);
     ~Text_req();
     Text_req(Text_req const&);
-    static int compare(const Text_req&,const Text_req&);
+
     REQUESTMETHODS(Text_req,text);
 };
 
@@ -120,8 +121,8 @@ struct Melodic_req :virtual Musical_req
     /// return pitch from central c (in halfnotes)
     int pitch()const; 
     Melodic_req();
-    static int compare(Melodic_req const&, Melodic_req const&);
-   
+    bool do_equal_b(Request*)const;
+    static int compare(    Melodic_req const&,Melodic_req const&);
     REQUESTMETHODS(Melodic_req,melodic);
 };
 
@@ -132,6 +133,7 @@ public:
     /// force/supress printing of accidental.
     bool forceacc_b_;
     Note_req();
+    bool do_equal_b(Request*)const;
     Rhythmic_req* rhythmic() { return Rhythmic_req::rhythmic(); }
     REQUESTMETHODS(Note_req, note);
  };
@@ -166,7 +168,7 @@ public:
     enum {
 	NOSPAN, START, STOP
     } spantype ;
-    static int compare(const Span_req &r1, const Span_req &r2);
+    bool do_equal_b(Request*)const;
     REQUESTMETHODS(Span_req,span);
 
     Span_req();
