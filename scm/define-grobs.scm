@@ -459,6 +459,7 @@
 	(direction . 0)
 	(space-alist . ((left-edge . (extra-space . 1.0))
 			))
+	(break-align-symbol . instrument-name)
 	(print-function . ,Text_item::print)		
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)

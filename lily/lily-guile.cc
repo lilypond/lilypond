@@ -600,7 +600,7 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 	{
 	  SCM errport = scm_current_error_port ();
 	  ok = false;
-	  SCM typefunc = scm_primitive_eval (ly_symbol2scm ("type-name"));
+	  SCM typefunc = ly_scheme_function ("type-name");
 	  SCM type_name = gh_call1 (typefunc, type);
 
 	 

@@ -1,3 +1,11 @@
+2004-03-25  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/lily-guile.cc (type_check_assignment): use
+	ly_scheme_function iso. scm_primitive_eval where possible.
+
+	* lily/performance.cc (output): limit channels at 15. This fixes
+	percussion inadvertently showing up in large scores.
+
 2004-03-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* input/regression/tuplet-gap.ly: new file.

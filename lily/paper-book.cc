@@ -98,8 +98,8 @@ Page::Page (Paper_def *paper, int number)
   copyright_ = SCM_EOL;
   tagline_ = SCM_EOL;
   
-  SCM make_header = scm_primitive_eval (ly_symbol2scm ("make-header"));
-  SCM make_footer = scm_primitive_eval (ly_symbol2scm ("make-footer"));
+  SCM make_header = ly_scheme_function ("make-header");
+  SCM make_footer = ly_scheme_function ("make-footer");
 
   header_ = scm_call_2 (make_header, paper_->self_scm (),
 			scm_int2num (number_));
@@ -288,9 +288,9 @@ Paper_book::scopes (int i)
 Stencil*
 Paper_book::title (int i)
 {
-  SCM user_title = scm_primitive_eval (ly_symbol2scm ("user-title"));
-  SCM book_title = scm_primitive_eval (ly_symbol2scm ("book-title"));
-  SCM score_title = scm_primitive_eval (ly_symbol2scm ("score-title"));
+  SCM user_title = ly_scheme_function ("user-title");
+    SCM book_title = ly_scheme_function ("book-title");
+    SCM score_title = ly_scheme_function ("score-title");
   SCM field = (i == 0 ? ly_symbol2scm ("bookTitle")
 	       : ly_symbol2scm ("scoreTitle"));
 
@@ -354,14 +354,14 @@ Paper_book::init ()
   Paper_def *paper = papers_[0];
   SCM scopes = this->scopes (0);
 
-  SCM make_tagline = scm_primitive_eval (ly_symbol2scm ("make-tagline"));
+  SCM make_tagline = ly_scheme_function ("make-tagline");
   tagline_ = scm_call_2 (make_tagline, paper->self_scm (), scopes);
   Real tag_height = 0;
   if (Stencil *s = unsmob_stencil (tagline_))
     tag_height = s->extent (Y_AXIS).length ();
   height_ += tag_height;
 
-  SCM make_copyright = scm_primitive_eval (ly_symbol2scm ("make-copyright"));
+  SCM make_copyright = ly_scheme_function ("make-copyright");
   copyright_ = scm_call_2 (make_copyright, paper->self_scm (), scopes);
   Real copy_height = 0;
   if (Stencil *s = unsmob_stencil (copyright_))

@@ -10,7 +10,7 @@
 #ifndef AUDIO_ELEMENT_HH
 #define AUDIO_ELEMENT_HH
 
- #include <typeinfo>
+#include <typeinfo>
 #include "virtual-methods.hh"
 
 class Audio_element

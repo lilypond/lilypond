@@ -3461,10 +3461,10 @@ The complete example is shown here:
   << \notes \relative c'' \context Voice = duet { \time 3/4
      g2 e4 a2 f4 g2.  }
   \lyrics << \lyricsto "duet" \new Lyrics {
-    \set vocNam = "Bert"
+    \set vocalName = "Bert"
     Hi, my name is Bert. }
   \lyricsto "duet" \new Lyrics {
-    \set vocNam = "Ernie"
+    \set vocalName = "Ernie"
     Ooooo, ch\'e -- ri, je t'aime.
     }
   >> >>
@@ -3477,11 +3477,11 @@ The complete example is shown here:
 
 Stanza numbers can be added by setting @code{stanza}, e.g.
 
-@lilypond
+@lilypond[verbatim,relative=2]
 << \context Voice = duet { \time 3/4
      g2 e4 a2 f4 g2.  }
    \lyrics \lyricsto "duet" \new Lyrics {
-       \set vocNam = "1. "
+       \set stanza = "1. "
        Hi, my name is Bert.
    }
 >>
