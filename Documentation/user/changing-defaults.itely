@@ -117,7 +117,7 @@ Translation @arrow{} Context.
 * Modifying context plug-ins::  
 * Layout tunings within contexts::  
 * Changing context default settings::  
-* Defining new  contexts::      
+* Defining new contexts::      
 @end menu
 
 @node Creating contexts
@@ -330,6 +330,7 @@ specified for a bottom context, so the two statements
 are equivalent.
 
 
+@cindex @\once
 Settings that should only apply to a single time-step can be entered
 with @code{\once}, for example in
 
@@ -563,7 +564,7 @@ from the music, in the @code{\paper} block,
     \Staff
 
     \set fontSize = #-2
-    \override Stem #'thickness
+    \override Stem #'thickness = #4.0
     \remove "Time_signature_engraver"
   @}
 @}
@@ -581,7 +582,7 @@ identifier @code{\Staff}.
 The statements
 @example
     \set fontSize = #-2
-    \override Stem #'thickness
+    \override Stem #'thickness = #4.0
     \remove "Time_signature_engraver"
 @end example
 
@@ -610,8 +611,8 @@ It is not possible to collect context changes in a variable, and apply
 them to one @code{\context} definition by referring to that variable.
 
 
-@node Defining new  contexts
-@subsection Defining new  contexts
+@node Defining new contexts
+@subsection Defining new contexts
 
 Specific contexts, like @context{Staff} and @code{Voice}, are made of
 simple building blocks, and it is possible to compose engraver
