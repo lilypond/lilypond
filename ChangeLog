@@ -1,3 +1,15 @@
+2003-09-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/mutopia/J.S.Bach/baerenreiter-sarabande.ly (sarabandeA):
+	octave fixes.
+
+2003-09-10  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/lexer.ll: add \r to the rules for newlines; this fixes
+	problems on older Mac editors.
+
+	* configure.in: release 1.9.5
+	
 2003-09-12  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* mf/parmesan-clefs.mf: more set_char_box() fixes and code cleanup
@@ -23,6 +35,7 @@
 	shortened to avoid almost-collision with staff line; code cleanup;
 	other custodes: fixed char boxes; code cleanup
 
+>>>>>>> 1.1333
 2003-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/lilypond.py (global_latex_preamble): only set

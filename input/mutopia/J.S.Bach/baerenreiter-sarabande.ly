@@ -2,10 +2,7 @@
 
 % #(ly:set-point-and-click 'line-column)
 
-forcedBreak = \notes { }
-%%forcedBreak = \notes { \break }
 forcedLastBreak = \notes { \break }
-%%forcedLastBreak = \notes { }
 
 %% We want this to perfectly match the Baerenreiter spacing.
 %% If we're not using 6 systems, there's definately a problem.
@@ -68,10 +65,10 @@ sarabandeA =  \context Voice \notes \relative c {
     { <a, f>4 a2 <a d,>4.  } >> |
 
   %%7
-  g8 bes16(a) c(bes) a(g) d'8 f, |
+  g'8 bes16(a) c(bes) a(g) d'8 f, |
   <<  e4.\trill
     \\ <c, g'>4 >>
-  d8[ c bes]
+  d'8[ c bes]
 
   %%9
   << { f'8 g16(a) a4. g16(f)  |
@@ -79,10 +76,9 @@ sarabandeA =  \context Voice \notes \relative c {
     \\
     { a,4 <bes d >4. r8 bes4 <g f'>2  }
   >> |
-  \forcedBreak
 
   %% 11
-  e,8[ f] c,[ g'] f'[ e] |
+  e'8[ f] c,[ g'] f'[ e] |
   f4 f,2 |
   << {  a'4 a4.\trill bes8 
        c bes16 a } \\
@@ -92,7 +88,6 @@ sarabandeA =  \context Voice \notes \relative c {
   bes[ g']
   a,[ fis']
   es'[ d] |
-  \forcedBreak
   
   %%16
   < bes d, g, >4.\trill a8[ g f!] |
@@ -100,7 +95,6 @@ sarabandeA =  \context Voice \notes \relative c {
   d, as g es' f g |
   cis,[ bes'] a[ g16 f] e!8[ f16 d] |
   cis8 e16 a a,8. g'16 f8(e) |
-  \forcedBreak
   
   %%21
   << { d e16(f) f4. e16(d) |
@@ -121,7 +115,7 @@ sarabandeA =  \context Voice \notes \relative c {
     { f,4 fis4. s8 |
       <d g,>4 gis4.   } >>
   \voiceOne
-  d16(cis  d) f,
+  d'16(cis  d) f,
   a,8[ e']
   \oneVoice
   d'[ cis] |
