@@ -25,5 +25,5 @@
   (begin
    (gc)
    (write (gc-stats) (current-error-port))
-   (flush-all-ports)))
+   ))
 

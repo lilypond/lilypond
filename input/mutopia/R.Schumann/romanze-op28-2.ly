@@ -121,7 +121,7 @@ rightb = \notes \transpose c cis' {
   f8..^1 f32^1 g8^2  a4.)^1 |
   c4^1( b8 d4 c8 |
   f,8.. f32^1 g8^2  a4.) |
-  a4^1( c8^1_\accent~[c b)] [g16^1( b^2] |
+  a4^1( c8^1_\accent~[c b)] g16^1([ b^2] |
    c4)^1 es8^1~es d^1 f^1~ |
   \property PianoStaff.Arpeggio \override #'direction = #1
   f f8.. f32^1( as4.)^\fermata\arpeggio ~ |
