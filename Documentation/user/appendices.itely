@@ -70,16 +70,13 @@ scheme = \chords {
 
 \score {
   \notes <
-    \context ChordNames \scheme
+    \context ChordNames {
+	#(set-chord-name-style 'american)
+	\scheme }
     \context Staff \transpose c c' \scheme
   >
   \paper {
     linewidth = 5.7\in
-    \translator { 
-      \ChordNamesContext
-      ChordName \override #'word-space = #1 
-      ChordName \override #'style = #'american
-    }
   }
 }
 @end lilypond
@@ -134,16 +131,13 @@ scheme = \chords {
 
 \score {
   \notes <
-    \context ChordNames \scheme
+    \context ChordNames {
+	#(set-chord-name-style 'jazz)
+	\scheme }
     \context Staff \transpose c c' \scheme
   >
   \paper {
     linewidth = 5.7\in
-    \translator { 
-      \ChordNamesContext
-      ChordName \override #'word-space = #1 
-      ChordName \override #'style = #'jazz
-    }
   }
 }
 @end lilypond

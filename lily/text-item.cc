@@ -253,11 +253,16 @@ ADD_INTERFACE (Text_item,"text-interface",
   "text axis baseline-skip extent lookup raise kern word-space");
 
 
+/*
+  Ugh. Duplicated from Scheme.
+ */
 bool
 new_markup_p (SCM x)
 {
-	return gh_pair_p (x)
-		&& SCM_BOOL_F != scm_object_property (gh_car (x), ly_symbol2scm ("markup-signature"));
+  return
+    gh_string_p (x) ||
+    (gh_pair_p (x)
+     && SCM_BOOL_F != scm_object_property (gh_car (x), ly_symbol2scm ("markup-signature")));
 }
 
 SCM

@@ -22,13 +22,14 @@ class Instrument_name_engraver : public Engraver
   Item *text_;
   Grob *delim_ ;
   
-  void create_text (SCM s);
+  void create_text ();
 public:
   TRANSLATOR_DECLARATIONS(Instrument_name_engraver);
 
   virtual void initialize ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
+  virtual void process_music ();
 };
 
 
@@ -59,10 +60,18 @@ Instrument_name_engraver::stop_translation_timestep ()
 }
 
 void
-Instrument_name_engraver::create_text (SCM txt)
+Instrument_name_engraver::create_text ()
 {
-  if (!text_)
+   if (!text_)
     {
+      SCM txt = get_property ("instrument");
+  
+      if (now_mom () > Moment (0))
+	txt = get_property ("instr");
+      
+      if (!new_markup_p (txt))
+	return ; 
+          
       text_ = new Item (get_property ("InstrumentName"));
       
       if (text_->get_grob_property ("text") != txt)
@@ -83,16 +92,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
 {
   if (Bar_line::has_interface (i.grob_))
     {
-      SCM s = get_property ("instrument");
-  
-      if (now_mom () > Moment (0))
-	s = get_property ("instr");
-
-      /*
-	FIXME: use get_markup () to check type.
-      */
-      if (gh_string_p (s) || gh_pair_p (s))
-	create_text (s);
+      create_text();
     }
 
   if (dynamic_cast<Spanner*> (i.grob_)
@@ -104,11 +104,9 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     groups enclosing that staff. The alignment has no real location,
     but is only a vehicle for the placement routine it contains, and
     therefore the location of its refpoint won't be very useful.
-    
 
     We could also just use stavesFound, but lets keep this working
     without staffs as well.
-
   */
   if (dynamic_cast<Spanner*> (i.grob_)
       && ((Axis_group_interface::has_interface (i.grob_)
@@ -122,8 +120,16 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     }
 }
 
-
-
+void
+Instrument_name_engraver::process_music ()
+{
+  /*
+    Also create text if barlines in other groups. This allows
+    a name to be attached to lyrics or chords. 
+   */
+  if (gh_string_p (get_property ("whichBar")))
+    create_text();
+}
 
 ENTER_DESCRIPTION(Instrument_name_engraver,
 /* descr */       " Prints the name of the instrument (specified by "

@@ -316,18 +316,21 @@ for the reader.
 ;; full recursive typecheck.
 ;;
 (define (markup-typecheck? arg)
-  (and (pair? arg)
+  (or (string? arg)
+      (and (pair? arg)
        (markup-function? (car arg))
        (markup-argument-list?
 	(object-property (car arg) 'markup-signature)
 	(cdr arg))
   ))
+)
 
 ;; 
 ;; typecheck, and throw an error when something amiss.
 ;; 
 (define (markup-thrower-typecheck arg)
   (cond
+   ((string? arg) #t)
    ((not (pair? arg))
     (throw 'markup-format "Not a pair" arg)
     )
@@ -342,13 +345,13 @@ for the reader.
    #t
   )
 
-
 ;;
 ;; good enough if you only  use make-XXX-markup functions.
 ;; 
 (define (cheap-markup? x)
-  (and (pair? x)
-       (markup-function? (car x)))
+  (or (string? x)
+      (and (pair? x)
+	   (markup-function? (car x))))
 )
 
 ;;
@@ -528,14 +531,16 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 (define-public empty-markup `(,simple-markup ""))
 
 (define (interpret-markup  grob props markup)
-  (let*
-      (
-       (func (car markup))
-       (args (cdr markup))
-       )
-    
-    (apply func (cons grob (cons props args)) )
-    ))
+  (if (string? markup)
+      (simple-markup grob props markup)
+      (let*
+	  (
+	   (func (car markup))
+	   (args (cdr markup))
+	   )
+	
+	(apply func (cons grob (cons props args)) )
+	)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
