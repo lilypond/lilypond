@@ -2537,9 +2537,6 @@ msgstr ""
 #~ msgid "don't timestamp the output"
 #~ msgstr "出力にタイムスタンプをつけない"
 
-#~ msgid "be verbose"
-#~ msgstr "詳細な情報を表示します"
-
 #~ msgid "assume no double dotted notes"
 #~ msgstr "複符点音符を無くすよう試みます"
 

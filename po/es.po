@@ -524,7 +524,8 @@ msgstr ""
 
 #: lilypond-book.py:142 ly2dvi.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
 msgid "be verbose"
-msgstr "prolijo"
+msgstr "ser prolijo"
+
 
 #: lilypond-book.py:143
 #, fuzzy
@@ -2463,9 +2464,6 @@ msgstr ""
 
 #~ msgid "don't timestamp the output"
 #~ msgstr "no datar la salida"
-
-#~ msgid "be verbose"
-#~ msgstr "ser prolijo"
 
 #~ msgid "assume no double dotted notes"
 #~ msgstr "no asumir notas doblemente puntuadas"

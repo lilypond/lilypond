@@ -519,7 +519,7 @@ msgstr "utiliser la RÉSOLUTION pour la prévisualitation"
 
 #: lilypond-book.py:142 ly2dvi.py:148 midi2ly.py:105 mup2ly.py:78 main.cc:126
 msgid "be verbose"
-msgstr "mode explicatif"
+msgstr "passer en mode explicatif"
 
 #: lilypond-book.py:143
 msgid "print version information"
@@ -2570,9 +2570,6 @@ msgstr "Considérer la mise à jour de l'entrée à l'aide du script convert-ly"
 
 #~ msgid "don't timestamp the output"
 #~ msgstr "ne pas dater la sortie"
-
-#~ msgid "be verbose"
-#~ msgstr "passer en mode explicatif"
 
 #~ msgid "assume no double dotted notes"
 #~ msgstr "assumer aucune note double pointée"
