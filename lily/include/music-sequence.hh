@@ -17,11 +17,9 @@ class Music_sequence : public Music
 {
 public:
   Music_sequence (SCM h);
-  Music_sequence ();
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music_sequence);
 
   SCM music_list () const;
-  void append_music (Music *);
   
   Pitch do_relative_octave (Pitch p, bool b);
   

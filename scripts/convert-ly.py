@@ -1840,6 +1840,8 @@ Grob::preset_extent removed.
 
 
 def conv (str):
+	str = re.sub (r'(\\property[^=]+)=\s*([-0-9]+)',
+		      r'\1= #\2', str) 
 	str = re.sub (r'\\property\s+([^. ]+)\s*\.\s*([^\\=]+)\s*\\(set|override)',
 		      r"\\overrid@ \1.\2 ", str)
 	str = re.sub (r'\\property\s+([^. ]+)\s*\.\s*([^\\= ]+)\s*=\s*',
@@ -2241,6 +2243,17 @@ def conv (str):
 conversions.append (((2, 3, 23),
 		     conv,
 		     '''\context Foo = NOTENAME -> \context Foo = "NOTENAME"'''))
+
+def conv (str):
+	def sub(m):
+		return regularize_id (m.group (1))
+	str = re.sub (r'(maintainer_email|maintainer_web|midi_stuff|gourlay_maxmeasures)',
+		      sub, str)
+	return str
+
+conversions.append (((2, 3, 24),
+		     conv,
+		     '''regularize other identifiers.'''))
 
 
 def conv (str):

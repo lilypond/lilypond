@@ -59,13 +59,17 @@ Event::to_relative_octave (Pitch last)
   return last;
 }
   
-Event::Event ()
-  : Music ()
+Event::Event (SCM i)
+  : Music (i)
 {
 }
 
 ADD_MUSIC (Event);
 
+Key_change_ev::Key_change_ev (SCM x)
+  : Event (x)
+{
+}
 void
 Key_change_ev::transpose (Pitch p)
 {

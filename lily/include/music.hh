@@ -31,7 +31,7 @@
 class Music
 {
 public:
-  Music ();
+  Music (SCM init);
   Music (Music const &m);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Music);
 

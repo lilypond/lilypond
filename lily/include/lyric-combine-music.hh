@@ -15,7 +15,7 @@
 class Lyric_combine_music : public Music
 {
 public:
-  Lyric_combine_music ();
+  Lyric_combine_music (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Lyric_combine_music);
 
   Music *get_music () const;

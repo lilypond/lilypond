@@ -198,7 +198,6 @@ Syntax: @var{note}\\cr
     (GraceMusic
      . (
 	(description .	"Interpret the argument as grace notes. ")
-
 	(internal-class-name . "Grace_music")
 	(iterator-ctor . ,Grace_iterator::constructor)
 	(types . (grace-music music-wrapper-music general-music))

@@ -7,12 +7,12 @@ local-install-outfiles:
 local-install-files: $(INSTALLATION_FILES)
 	$(PRE_INSTALL)
 	-$(INSTALL) -d $(INSTALLATION_DIR)
-	$(foreach i,  $(INSTALLATION_FILES),\
-		$(INSTALL) -m 644 $(i) $(INSTALLATION_DIR)/ &&)true
+	for i in $(INSTALLATION_FILES); do \
+		$(INSTALL) -m 644 $$i $(INSTALLATION_DIR)/ ; done
 	$(foreach suff, $(INSTALLATION_SUFFIXES),  \
 		($(INSTALL) -d $(INSTALLATION_DIR$(suff)) || true) && \
-		$(foreach i, $(INSTALLATION_FILES$(suff)), \
-			$(INSTALL) -m 644 $(i) $(INSTALLATION_DIR$(suff))/  && )  && ) true
+		for i in $(INSTALLATION_FILES$(suff)); do \
+			$(INSTALL) -m 644 $$i $(INSTALLATION_DIR$(suff))/; done )
 	$(POST_INSTALL)
 
 local-uninstall: local-uninstall-outfiles local-uninstall-files 

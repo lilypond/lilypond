@@ -15,7 +15,7 @@ source file of the GNU LilyPond music typesetter
   fixthis.
 */
 void
-Untransposable_music::transpose (Pitch )
+Untransposable_music::transpose (Pitch)
 {
 }
 
@@ -27,7 +27,8 @@ Untransposable_music::to_relative_octave (Pitch p)
 
 ADD_MUSIC (Untransposable_music);
 
-Untransposable_music::Untransposable_music ()
+Untransposable_music::Untransposable_music (SCM init)
+  : Music_wrapper (init)
 {
 
 }

@@ -18,7 +18,7 @@
 class Simultaneous_music : public Music_sequence
 {
 public:
-  Simultaneous_music ();
+  Simultaneous_music (SCM);
   VIRTUAL_COPY_CONSTRUCTOR (Music, Simultaneous_music);
 
   virtual Pitch to_relative_octave (Pitch);
@@ -34,6 +34,7 @@ class Event_chord : public Simultaneous_music
 public:
   VIRTUAL_COPY_CONSTRUCTOR (Music, Event_chord);
   virtual Pitch to_relative_octave (Pitch);
+  Event_chord (SCM);
 };
 
 /**
@@ -46,7 +47,7 @@ public:
   virtual Moment get_length () const;
   virtual Moment start_mom () const;
   
-  Sequential_music ();
+  Sequential_music (SCM);
 };
 
 #endif /* MUSIC_LIST_HH */

@@ -10,22 +10,22 @@
 #ifndef MUSIC_CONSTRUCTOR_HH
 #define MUSIC_CONSTRUCTOR_HH
 
-#include "lily-proto.hh"
+#include "lily-guile.hh"
 #include "string.hh"
 #include "global-ctor.hh"
 
 #define ADD_MUSIC(type) \
-Music * _ ## type ## _ctor ()\
+Music * _ ## type ## _ctor (SCM init)\
 {\
-  return new type;\
+  return new type (init);\
 }\
 static void  _ ## type ## _adder () {\
       add_music_ctor (#type, & _ ## type ## _ctor);\
 }\
 ADD_SCM_INIT_FUNC( _ ## type ## _adder_prefix,  _ ## type ## _adder);
 
-void add_music_ctor (String, Music* (*) ());
-Music*make_music (String);
+void add_music_ctor (String, Music* (*) (SCM));
+Music*make_music (String, SCM);
 
 
 

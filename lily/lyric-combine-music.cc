@@ -11,8 +11,8 @@
 
 #include "pitch.hh"
 
-Lyric_combine_music::Lyric_combine_music ()
-  : Music ()
+Lyric_combine_music::Lyric_combine_music (SCM x)
+  : Music (x)
 {
 }
 

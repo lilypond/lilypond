@@ -1,12 +1,17 @@
+/*
+  relative-octave-check.cc --  implement Relative_octave_check
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+*/
+
 #include "relative-octave-check.hh"
 
 #include "input.hh"
 #include "pitch.hh"
 
-/*
-  yeah, so this should be in a separate file.
-  I'm lazy.
- */
 Pitch
 Relative_octave_check::to_relative_octave (Pitch p)
 {
@@ -34,6 +39,12 @@ Relative_octave_check::to_relative_octave (Pitch p)
   
   return  Pitch (p.get_octave () + delta_oct,
 		 p.get_notename (), p.get_alteration ());
+}
+
+
+Relative_octave_check::Relative_octave_check (SCM x)
+  : Music (x)
+{
 }
 
 ADD_MUSIC (Relative_octave_check);

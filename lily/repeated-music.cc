@@ -26,9 +26,6 @@ Repeated_music::alternatives ()const
   return get_property ("elements");
 }
 
-
-
-
 Pitch
 Repeated_music::to_relative_octave (Pitch p)
 {
@@ -152,8 +149,8 @@ Repeated_music::volta_music_length (SCM m)
 
 ADD_MUSIC (Repeated_music);
 
-Repeated_music::Repeated_music ()
-  : Music ()
+Repeated_music::Repeated_music (SCM x)
+  : Music (x)
 {
 }
 
