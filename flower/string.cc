@@ -54,12 +54,6 @@ String::operator = (String const&source)
   return *this;
 }
 
-
-String::String (Rational r)
-{
-  *this = String_convert::rational_str (r);
-}
-
 String::String (double f, char const* fmt)
 {
   *this= String_convert::double_str (f,fmt);
