@@ -212,7 +212,7 @@
 	   (scaling (* ops magnification designsize)))
 
       (if
-       #t
+       #f
        (begin
 	 (newline)
 	 (format (current-error-port) "fontname ~S\n" fontname)

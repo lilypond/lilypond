@@ -312,9 +312,8 @@
 
 (define (text font s)
   (let*
-      ((perm (assoc-get  'mapping (ly:font-encoding-alist font))))
+      ((perm (assoc-get  'char-mapping (ly:font-encoding-alist font))))
 
-    (display (ly:font-encoding-alist font))
     (string-append "\\hbox{\\" (font-command font) "{}"
 		   (output-tex-string
 		    (if (vector? perm)

@@ -1,6 +1,9 @@
 \version "2.1.36"
 %{
  common dutch names for notes. es means flat, is means sharp
+
+notenames should only contain letters. No digits or punctuation.
+
 %}
 
 dutchPitchnames = #`(
