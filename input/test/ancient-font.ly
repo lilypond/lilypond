@@ -3,82 +3,101 @@
     date	= "2000";
 }
 
-\version "1.3.117";
+\version "1.3.120";
 
 \include "paper26.ly"
 
 global =  \notes {
-    \property Score.timing = 1
-    \property Staff.TimeSignature \override #'style = #"old"
-    \time 2/2;
+    \property Score.timing = ##f
+%   \property Staff.TimeSignature \override #'style = #'old
 }
 
 upperVoice =  \context Staff = upperVoice <
     \global
-    \property Staff.numberOfStaffLines = 4
+    \property Staff.StaffSymbol \override #'line-count = #4
     \notes \transpose c' {
-	\property Staff.Custos \override #'style = #'"vaticana"
+	\property Voice.NoteHead \override #'style = #'mensural
+	\property Voice.Stem \override #'stem-centered = ##t
+	\property Staff.Custos \override #'style = #'vaticana
 	\clef "vaticana_fa2";
-	c1 d e f g
+	c2 d e f g
+
+%	\property Staff.clefGlyph = #"clefs-vaticana_do"
+%	\property Staff.clefPosition = #1
+%	\property Staff.clefOctavation = #0 
 	\clef "vaticana_do2";
-	a b c' \bar "|";
+
+	a b c'
 	b a g f
 	\clef "vaticana_fa1";
-	e d c\breve \bar "|";
+	e d c1 \bar "|";
 
-	\property Staff.Custos \override #'style = #"medicaea"
+	\property Staff.Custos \override #'style = #'medicaea
 	\clef "medicaea_fa2";
-	c1 d e f g
+	c2 d e f g
 	\clef "medicaea_do2";
-	a b c' \bar "|";
+	a b c'
 	b a g f
 	\clef "medicaea_fa1";
-	e d c\breve \bar "|";
+	e d c1 \bar "|";
 
-	\property Staff.Custos \override #'style = #'"hufnagel"
+	\property Staff.Custos \override #'style = #'hufnagel
 	\clef "hufnagel_fa2";
-	c1 d e f g
+	c2 d e f g
 	\clef "hufnagel_do2";
-	a b c' \bar "|";
+	a b c'
 	b a g f
 	\clef "hufnagel_fa1";
-	e d c\breve \bar "||";
+	e d c1 \bar "||";
     }
 >
 
 lowerVoice =  \context Staff = lowerNotes <
     \global
-    \property Staff.numberOfStaffLines = 5
-    \notes \transpose c'' {
-	\property Staff.Custos \override #'style = #'"mensural"
+    \property Staff.StaffSymbol \override #'line-count = #5
+    \notes \transpose c' {
+        \property Voice.NoteHead \override #'style = #'mensural
+	\property Voice.Stem \override #'stem-centered = ##t
+	\property Staff.Custos \override #'style = #'mensural
 	\clef "mensural1_c2";
-	c1 d e f g
+	c2 d e f g
 	\clef "mensural1_c2";
-	a b c' \bar "|";
+	a b c'
 	b a g f
 	\clef "mensural2_c2";
-	e d c\breve \bar "|";
+	e d c1 \bar "|";
 
 	\clef "mensural2_c2";
-	c1 d e f g
+	c2 d e f g
 	\clef "mensural3_c2";
-	a b c' \bar "|";
+	a b c'
 	b a g f
 	\clef "mensural3_c2";
-	e d c\breve \bar "|";
+	e d c1 \bar "|";
 
-	\clef "mensural_f";
-	c1 d e f g
-	\clef "mensural_f";
-	a b c' \bar "|";
+	\clef "mensural1_f";
+	c2 d e f g
+	\clef "mensural1_f";
+	a b c'
 	b a g f
-	\clef "mensural_f";
-	e d c\breve \bar "|";
+	\clef "mensural2_f";
+	e d c1 \bar "|";
 
-	\clef "hufnagel";
-	c,1 d, e, f, g,
-	\clef "hufnagel";
-	a, b, c \bar "||";
+	\clef "mensural2_f";
+	c2 d e f g
+	\clef "mensural_g";
+	a' b' c''
+	b' a' g' f'
+	\clef "mensural_g";
+	e' d' c'1 \bar "|";
+
+	\clef "mensural_g";
+	c'2 d' e' f' g'
+	\clef "hufnagel_do_fa";
+	a b c'
+	b a g f
+	\clef "hufnagel_do_fa";
+	e d c1 \bar "||";
     }
 >
 
@@ -88,14 +107,16 @@ lowerVoice =  \context Staff = lowerNotes <
 	\lowerVoice
     >
     \paper {
-%	\paper_twentysix
+%	\paperTwentysix
 	linewidth = 17.25\cm;
 	textheight = 26.0\cm;
 	indent = 0.0;
 	\translator {
 	    \StaffContext
-	    \consists "Custos_engraver";
-%	    custosStyle = "mensural";
+	    \consists Custos_engraver;
+%	    Custos \override #'style = #'mensural;
+	    \remove Time_signature_engraver;
+%	    StaffSymbol \override #'line-count = #4
 	}
     }
 }

@@ -1,8 +1,8 @@
 % paper-as5.ly
 
-\version "1.3.110";
+\version "1.3.120";
 
-paper_as_five = \paper {
+paperAsFive = \paper {
 	staffheight = 5.\char;
 
 	font_large = 1.;
@@ -35,4 +35,4 @@ paper_as_five = \paper {
 	\include "params-as.ly";
 }
 
-\paper { \paper_as_five }
+\paper { \paperAs_five }

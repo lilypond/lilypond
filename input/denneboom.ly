@@ -7,7 +7,7 @@ copyright = 	 "public domain";
 
 \include "paper20.ly"
 
-\version "1.3.117";
+\version "1.3.120";
 
 oden =  \lyrics{ 
 	O |
@@ -81,7 +81,7 @@ verseTwoStaff =  \context Lyrics = two
 
 
 denneboomShape =  \paper{ 
-	\paper_twenty
+	\paperTwenty
 	indent = 20. \mm;
 
 	% UGH -- THIS IS HAIRY 

@@ -1,8 +1,8 @@
 % paper13.ly
 
-\version "1.3.110";
+\version "1.3.120";
 
-paper_thirteen = \paper {
+paperThirteen = \paper {
 	staffheight = 13.0\pt;
 
 	\stylesheet #(make-style-sheet 'paper13)
@@ -10,4 +10,4 @@ paper_thirteen = \paper {
 	\include "params.ly";
 }
 
-\paper { \paper_thirteen }
+\paper { \paperThirteen }
