@@ -6,7 +6,7 @@ include $(depth)/make/stepmake.make
 
 AF_FILES = $(wildcard *.af) 
 
-EXTRA_DIST_FILES += README feta.tex  merge.pe
+EXTRA_DIST_FILES += README feta.tex merge.pe
 
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
@@ -31,8 +31,6 @@ FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 
 ENCODING_FILE=$(findstring $(<:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
-bla:
-	echo $(TFM_FILES) 
 
 # only for fonts which
 #
@@ -45,6 +43,9 @@ foe:
 	echo $(MFINPUTS)
 	echo $(TEXMF)
 	kpsewhich exbase.mf
+
+$(outdir)/feta20.otf: merge.pe
+	(cd $(outdir) ; fontforge -s merge.pe ) 
 
 
 ## use separate package sauter-fonts-mftraced.

@@ -51,6 +51,12 @@ STEPMAKE_KPATHSEA
 STEPMAKE_MAKEINFO(REQUIRED)
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
+# mftrace for generating pfa's, pfb's
+STEPMAKE_PROGS(MFTRACE, mftrace, REQUIRED, 1.0.27)
+
+# mftrace for generating pfa's, pfb's
+STEPMAKE_PROGS(FONTFORGE, fontforge, REQUIRED, 20041208)
+
 
 AC_CHECK_HEADERS([assert.h sys/stat.h])
 AC_LANG_PUSH(C++)
@@ -91,7 +97,7 @@ PKG_CONFIG_PATH=$HOME/usr/pkg/pango/lib/pkgconfig:$PKG_CONFIG_PATH
 
 STEPMAKE_FREETYPE2
 STEPMAKE_PANGO
-
+i
 if test "$gui_b" = "yes"; then
     STEPMAKE_GTK2
 fi
@@ -102,8 +108,8 @@ fi
 STEPMAKE_GUILE(OPTIONAL)
 # perl for help2man.
 STEPMAKE_PERL(OPTIONAL)
-# mftrace for generating pfa's, pfb's
-STEPMAKE_PROGS(MFTRACE, mftrace, OPTIONAL, 1.0.27)
+
+
 
 # new makeinfo for multi-page website docs
 STEPMAKE_PROGS(MAKEINFO, makeinfo, OPTIONAL, 4.7)

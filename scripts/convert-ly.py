@@ -2292,6 +2292,13 @@ def conv (str):
 conversions.append (((2, 5, 2),
 		     conv,
 		     '\markup .. < .. > .. -> \markup .. { .. } ..'))
+def conv (str):
+	str = re.sub ('ly:find-glyph-by-name', 'ly:font-get-glyph', str)
+	return str
+
+conversions.append (((2, 5, 2),
+		     conv,
+		     'ly:find-glyph-by-name -> ly:font-get-glyph'))
 
 ################################
 #	END OF CONVERSIONS	
