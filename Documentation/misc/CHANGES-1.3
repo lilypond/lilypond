@@ -1,0 +1,4819 @@
+1.4.0
+=====
+
+* RedHat .spec tweaks.
+
+* Bugfix: ly2dvi -o directory/ foo now works.
+
+1.3.153.lec1
+============
+
+* abc2ly fixes:
+  - names in multi-voice music also don't have numbers in them.
+  - No longer using staff_margin_engraver
+
+1.3.154.jcn1
+============
+
+* Don't set LILYPONDPREFIX in login scripts.
+
+* Bugfixes ly2dvi: footer placements and headsep (Mark Hindley).
+
+* Small tweak for braces look.
+
+1.3.154
+=======
+
+* More brace bugfixes. 
+
+* Revert: simplified TFM and PK logic in ly_init_kpath (). Find feta
+fonts in datadir (eg /usr/share/) again, rely on environment in the
+other tools.
+
+* Add .pk font caching for ly2dvi. pk files resulting from running
+dvips are stored in outdir.
+
+1.3.153.jcn2
+============
+
+* Cleaned-up braces font selection code.
+
+* PO updates.
+
+* petite-ouverture-a-danser.ly bugfix, twinkle.ly bugfix
+V
+1.3.153
+=======
+
+* Some small chord name fixes.
+
+* Added alternative introduction to tutorial; to be merged.
+
+* Reverted simple easy note head function, as some printers seem to
+choke on it (so there are printers that don't use ghostscript?).
+
+* Chord tremolo fixes: shift beams vertically on whole notes.  Center
+beams on whole notes.  'beam-gap' had been renamed to 'gap', but only
+for reading.
+
+1.3.152.jcn3
+============
+
+* Fixed brace font selection: do pick bigger font when needed.
+
+* Increased number of brace fonts; made size step variable. 
+
+1.3.152.hwn1
+============
+
+* Add lilypond-init.el
+
+* Bugfix: flipped octaves on octaviated clefs _8 
+
+* Prevent dot/flag collisions by lengthening the stem.
+
+* Bugfix: horizontal shift amount for note collisions.
+
+* Prevent tuplet bracket/staff line collisions
+
+* Bugfix: remove tuplet brackets on automatic beaming.
+
+* Move development.texi to the WikiWiki.
+
+1.3.152
+=======
+
+* ly2dvi: changed headsep to 0pt, as old ly2dvi had.  Fixes mutopia
+textheight setting.
+
+* Fixed feta-braces: more symbols again, but all paper sizes use same
+font.  Also fixed lookup.
+
+* Maximum length for lyric-hyphen.
+
+* Two forgotten note corrections to Standchen.
+
+* Website compilation fix.
+
+1.3.151.mb1
+===========
+
+* ly2dvi: add lilypond directories at end of tex paths
+
+* renewed smart-transpose example
+
+1.3.151.hwn1
+============
+
+* Tutorial revision: add much simpler examples in front.
+
+* abc2ly fix for duration at end of line (Laura Conrad)
+
+* centralCPosition is set by \clef as well; this fixes the grace note +
+clef problem. Property clefPitches is deprecated.
+
+* Separating_group_spanner now searches items until it finds a
+non-empty one.  This fixes a problem with lyrics clashes on barlines
+when stanza numbers are on.
+
+* Uniformised progress messages. File names are always printed in quotes.
+
+1.3.151
+=======
+
+* ly2dvi: reverted footer change that broke mutopia endfooter.
+
+* Standchen revision (found four new bugs).
+
+* Allow multiple multiply for durations, eg: 'R1 * 3/4 * 10'.
+
+* Bugfix for direct PostScript output.
+
+* Compilation fix.
+
+* Windows: possibly ly2dvi fix, tex install, minor doco fixes, fixed
+some urls.
+
+* centralCPosition is set by \clef as well; this fixes the grace note +
+clef problem. Property clefPitches is deprecated.
+
+* Separating_group_spanner now searches items until it finds a
+non-empty one.  This fixes a problem with lyrics clashes on barlines
+when stanza numbers are on.
+
+* Uniformised progress messages. File names are always printed in quotes.
+
+1.3.150.hwn1
+============
+
+* RedHat .spec
+
+* SUSE .spec
+
+* website cleanups.
+
+* don't keep remaking lilypond-internals.texi
+
+* ly2dvi bugfix: use the maximum linewidth specified.
+
+ 
+1.3.149.jcn3
+============
+
+* Bugfix: markup text: lines with markup.
+
+* Fixed line height in postscript output.
+
+* Windows installer stuff: the ``It shouldn't be hard -- but do need
+  some sleep'' release.
+
+  Think of it: /shouldn't/ is *exactly* why GNU/Linux exists, and
+  why we advise to run LilyPond on Linux -- UMSDOS if you must.
+
+  You may consider our part of the job done.  Any more of this
+  sad and sorry stuff will drive me to drink.  It makes you realise
+  again how much fun using Linux actually is.
+
+  We'll take patches from now on, from people that have a stronger
+  stomach.  Good night.
+
+  - Ly2dvi: run commands from sh (so that tex wrappers be used).
+
+  - Added cygwin man,less and windows gs, gsview, miktex, python to
+    lilypond installer repository.  Moved profile.d setup functionality to
+    postinstall.
+  - Added tex and latex wrappers.
+  - Wrappers for all python scripts.
+
+* Removed RMAIL header from german-chords.ly + fixes (Rune).
+
+1.3.149.hwn1
+============
+
+* Website fixes
+
+* Allow ` for lyric punctuation
+
+* Add note to refman  saying to read the tutorial first.
+
+* Changed regular identifier error  to  warning.
+
+* Make lexer emit FRACTION for N/M (where N, M unsigned numbers). This
+fixes one shift reduce, fixing the problem with multiplied durations
+and inversions.
+
+* Set measureLength and beatLength from the parser. This fixes percent
+repeats that come directly after a time signature change.
+
+* Bugfix: process clef change upon Clef_engraver creation. This fixes
+grace notes beginning a piece; bug with combining clef changes and
+grace notes remains.
+
+* Bugfix: typo in convert-ly rule
+
+* spelling: barsize-procedure -> bar-size-procedure
+
+* fixes for input/test/ (thanks, Laura) 
+
+* Bugfix: \version "1.2.4.foo" now doesn't cause a crash.
+
+
+1.3.149
+=======
+
+1.3.148.jcn3
+============
+
+* Added titling and page wrapping to direct PostScript output.
+Determining the line height still doesn't work, but you can set
+lineheight in paper block.
+
+* Bugfix: lilypond -o - foo.ly.
+
+* Took a stab at jazz-style chord name additions.
+
+* Compile fixes: gcc-3.0 snapshots hit Debian unstable.  Note that
+flex-2.5.4a-11 still breaks with g++-3.0pre.
+
+* Chord-name cleanups.
+
+* Markup text:
+- added (extent . (min . max))
+- overstrike, as alias for (extent . (0 . 0))
+- added overstrike property to super and sub
+- allow text to be in too deep list, ie: #'((("text"))) still works
+- allow HEAD to be in too deep list, ie: #'(((bold)) "foo")
+- fixes to raise
+- renamed (rows to (columns (Thanks Mats; I must have been asleep
+when I wrote that code)
+- renamed align to axis
+
+* Fixes for german-chords.ly (Rune).
+
+* update-lily: use ftplib, notify upon failure, not success.
+
+* Oops, I did it again (Han-Wen).
+
+1.3.148.hwn2
+============
+
+* Documentation updates.
+
+* Bugfix: header/footer for ly2dvi.
+
+* Fixed: ly2dvi file1.ly file2.ly
+
+* lilypond-bug bugfix: remove .png file if output fails.
+
+1.3.148
+=======
+
+1.3.147.jcn2
+============
+
+* Fixed windows documentation.
+
+* Filled in tutorial section on windows.
+
+* Ly2dvi: don't use posix file utilities if we have python >= 1.5.2.
+
+* Included additional cygwin login and wrapper scripts.
+
+* Added cygwin path conversion to file-path.cc, to get output in cwd.
+After upgrading cross compilation environment to cygwin-1.1.8-2, it
+seems that these are no longer necessary; disabled by default.
+
+1.3.147.mb1
+============
+
+* Glossary and refman fixes
+
+1.3.147.lec1
+============
+* abc2ly fixes:
+
+	- Remove $ from voice names.
+
+	- Fix problem with full names of modes
+
+* added documentation of major limitations of abc2ly to converters.itely.
+
+* added documentation of %%LY to converters.itely.
+
+1.3.147.hwn1
+============
+
+* refman fixes.
+
+* Spelling fixes in .scm files: change equaliser to equalizer
+
+* Add music properties to generated documentation.
+
+
+1.3.147
+=======
+
+* Updated doco to reflect Windows installer.
+
+* Ripped Cygnus' installer/updater for Windows.
+
+* Cleanups: chord-name.scm.
+
+* Added 'trunc' target for ports, and run at local-dist: in
+ports/mutopia topdir.
+
+* Bugfixes: update-lily.py
+
+* Bugfix: synchronised german-chords.ly with chord-name.scm.
+
+* --srcdir build fix: really included dummy-interfaces.itexi now.
+
+* Added warning message, rather than encouragement, against configuring
+without kpathsea support.
+
+* Moved convert-ly targets from ports to ly make, added ly templates
+to mutopia and input directories.  Bugfix to convert-ly.  Ran
+convert-ly in mutopia dir.
+
+* Recommented some scheme comments in .lys, checked that convert-ly
+doesn't destroy them.
+
+* Bugfixes to convert-ly: don't try to open unexistent file (eg,
+unexpanded wildcard).  Don't remove one semicolon of ';;' scheme
+comments, don't remove semicolon after hash: #;
+
+* Fixed some errors from ; conversion.
+
+1.3.146.hwn3
+============
+
+* ly2dvi bugfixes and latexoptions  support (Mark Hindley)
+
+* Reference manual fixes.
+
+* Added lilypond-book tutorial section
+
+* Hairy bugfix for Align_interface::align_to_fixed_distance (). This
+fixes gaps that appear sometimes when you put things on top of a piano
+staff.
+
+* Added Rune's apply example of wtk1-prelude1.
+
+* Bugfixes for wtk1-fugue1
+
+* Add a check for regular identifiers to parser.
+
+1.3.145
+=======
+
+* Make and ly2dvi fixes.
+ 
+* Made feta-timesig C a bit rounder. 
+
+* Included flat autogenerated list of grob interfaces into refman.
+
+* Moved Rest_engraver to ThreadContext.
+
+* Documentation updates.
+
+* Bugfix: package-diff: remove all out-?.* dirs.
+
+* Preliminary tutorial fixes.
+
+* Ly2dvi:
+   - keep .dvi output when making .ps.
+   - name latex wrapper for foo.ly: foo.latex
+   - keep .tex and .latex output if latex fails
+   - keep .dvi output if dvips fails
+   - replaced --outdir option with --output=FILE option, where FILE
+     may include directories
+   - enhancements and fixes
+
+* Typo fix: clean-fonts
+
+* Bugfixes: lilypond-login.sh
+
+* Tutorial and refman fixes (Mats)
+
+1.3.145.hwn1
+============
+
+* Bugfix: LyricsVoice.stz property now works.
+
+* Remove semi-colons from lilypond syntax. 
+
+* Removed a grammar ambiguity: '-' DIGIT (fingering, only possible in \notes)
+now can not be interpreted as a negative number.
+
+
+1.3.145.rz1
+===========
+
+* Stem/notehead attach bug fixed (still probs with mensural head and
+  other head on same stem)
+
+* Minor font changes
+
+
+1.3.145
+=======
+
+* Build fixes for icon, this fixes 'rpm' target.  Tried to reinclude
+in rpm using (.png and) .xpm, but latest LinuxPPC release's rpm
+(3.0.6) Icon: tag handling is broken.
+
+* Fixes for update-lily script.
+
+* Bugfixes: refman, changed Ascii to ASCII.
+
+* Fixed ascii art output.  Started some doco on different output formats.
+
+* Fixed scheme font lookup to handle new font lists with wildcards.
+
+* Fixes to point-and-click doco (Thanks, Laura Conrad).
+
+* Bugfixes: changed several (eval to (ly-eval for guile 1.4/1.4.x
+compatibility.
+
+* Fixes to buildscripts/clean-fonts.sh.
+
+1.3.144.hwn1
+============
+
+* Tutorial updates
+
+* Change interaction between clef-engraver and positioned items: do
+not use acknowledge/announce () to get position relative to c0, but
+use centralCPosition directly after grob creation.
+
+Side-effect: Pitch_squash_engraver now puts notes on position in
+staff, not on specific pitch.
+
+* Bugfixes: yet more create_grobs () -> process_music() reverts.
+
+* Tutorial updates
+
+* Don't give unbound spanner warnings for isolated dynamics on space
+rests.
+
+* cleaned up debug stuff.
+
+* cleaned up INSTALL document.
+
+* Key_change_req::do_equal_b(), keychange merge.
+
+* per octave key signatures. See
+input/regression/key-signature-scordatura.ly
+
+* moved tricks/ directory into test/.
+
+* Rename {Staff,Lyrics,etc}VerticalExtent and friends into
+VerticalExtent. Use predefined props to prevent inheritance.
+
+* Multi_measure_rest_engraver now uses whichBar property to detect
+barlines.  Hence, no need to keep Bar_engraver and
+Multi_measure_rest_engraver together.
+
+* Revised syntax for multiplied durations. Multiplied durations must
+now directly follow the number +dots. example:
+
+	c4*3/4 -\f ( 			% valid
+	c4-\f ( *3/4 			% invalid
+
+* Halt configure if kpathsea not found. 
+
+* Small refman fixes.
+
+* Prevent tie - dot collisions.
+
+* Bugfix: don't crash if hyphen spanner bounds are empty.
+
+* Spanish glossary, courtesy David Gonzalez.
+
+* Bugfix: all-font-metrics.cc: only lookup .tfm and check checksum if
+the AFM file has a CheckSum field.
+
+
+1.3.144.mb1
+============
+
+* Fix ps specials to work together with \usepackage[french]{babel}
+
+1.3.144
+=======
+
+* LilyPond-mode: show what's going on (font building) in *view* buffer.
+
+* Added environment settings to ly2dvi and lilypond-book.
+
+* Bugfix: make diff links diff into patch-dir, like make release.
+
+* Bugfix: make diff/release for different configs.
+
+* Bugfix: convert-ly: don't change item name ChordName to ChordNames.
+
+* Added flag (LilyPond-kick-xdvi) to LilyPond emacs mode to allow
+simultaneous view processes.
+
+* Small doco fixes.
+
+* Cosmetic bugfixes to chord names.
+
+* Fixed order of piano pedal strings (Amelie).
+
+* Changed embarrassing 'chorda' to corda (Thanks, Amelie).
+
+* Bugfixes: ly2dvi: empty tagline, don't fail if gettext.py can't be
+imported, check for linewidth before indexing, copy midi output.
+
+1.3.142.rz1
+===========
+
+* Added "hacky" drum notation/midi. See input/tricks/drums.ly and
+  ly/drumpitch.ly. Moved midi-instruments to scm.
+
+* Added temporary nested staffgroups/choirstaffs support
+  use Context InnerStaffGroup / InnerChoirStaff.
+
+1.3.143.uu1
+===========
+
+* Bugfix: hairpin that hangs on otherwise empty column should not
+collapse into flat line. Inserted sanity check in Interval::center().
+
+* Programmable stem-attachments for note heads.
+
+* Set default empty instrument name for Staff, to avoid weird effects for
+named grand staffs.
+
+* remove various entries from mutopia/
+
+1.3.143
+=======
+
+* Glossary bugfixes for lilypond code.
+
+* Bugfix: don't crash if dy or y not set in Beam.
+
+* Doco updates: moved contents of tricks chapter to input/tricks,
+inserted lilypond-book tutorial, added polyphony section.
+
+* Score.skipTypesetting skips over already or not yet corrected music, thus
+speeding up running times and score debugging. (Includes bugfix relative to
+patch submitted to list.)
+
+1.3.142.jcn1
+============
+
+* Mup2ly preprocesses and extracts all plain notes.
+
+* Bugfix: patch in $(outdir)
+
+
+1.3.142
+=======
+
+* some mup2ly progress.
+
+* Bugfix: ly2dvi: don't include empty set fo latexheaders, don't use
+python-1.5.2 abspath func.
+
+* Setup for new mup converter, based on pmx2ly.
+
+* Bugfix: lilypond-book: accept \documentclass{article}.
+
+* scripts/update-lily.py: fancy source rebuild update tool that we're
+probably not going to use on www.lilypond.org.  Check it out!
+
+* Bugfix: building of topdocs.
+
+1.3.141.hwn2
+============
+
+* Fix: instrument names on piano staffs.
+
+* Bugfix: don't left-align absolute dynamics.
+
+* Bugfix: don't make spacing rods for absolute dynamics.
+
+* Various bugfixes for examples (thanks Laura!).
+
+* Bugfix: clean up of hairpin ending logic. Crescendi start under
+notes now.
+
+* Don't substitute  '\ ' for  '\_' in lyrics. (Suggestion by Roy Rankin)
+
+* In computing text lengths handle the following cases \['`"^_]. (the same)
+
+* Made directories input/no-notation, input/ascii-art
+
+* Doco fixes.
+
+* Beat repeats, double measure repeats; removed repeat sign character
+from the font (WARNING: FONT CHANGED).
+
+* Cleanups in (de)crescendo code, fixed continued (de)crescendi.
+
+* German chords (Rune Zedeler)
+
+1.3.141
+=======
+
+* po update.
+
+* Renamed remaining mudela -> lilypond (except for old change logs).
+
+* Dropped Solo-Cello-Suite II and gnossienne-4 from ./mutopia, as
+they're now accessible throug the ports.
+
+* Fixed compilation of lots of examples.
+
+* Convert-ly: added and fixed some conversions.
+
+* Doco updates.
+
+* Ly2dvi: don't hang compilation process: run latex in batchmode.
+
+* Some ly2dvi updates.
+
+* Junked cruft from makefiles.
+
+* Added message about make help at end of configure.
+
+* Some documentation updates.
+
+* Convert-ly: added some missing rules.
+
+* Ly2dvi: changed footer (and header) macros to match mutopia headers again.
+
+* Convert-ly: always insert or update version number.  New option:
+--assume-old will apply all conversions if version cannot be
+determined.
+
+* Small documentation fixes.
+
+* Removed default (font-shape . italic) settings from TextScript and
+TextSpanner.
+
+* Moved ports section of mutopia to mutopia/ports.  Fixed make
+bootstrapping.  Added sync target, synced with www.mutopiaproject.org.
+
+* Bugfix: ly2dvi sets footers, headers, tagline.  Pagenumbering on by default.
+
+1.3.140.hwn1
+============
+
+* input/trick/boxed-molecule.ly : show how to draw boxes around grobs.
+
+* added font-shape caps, input/test/caps.
+
+* Added minimum-length for hairpin. Unified Tie::set_spacing_rods and
+Slur::set_spacing_rods into Spanner::set_spacing_rods
+
+* Small doco fixes.
+
+1.3.140.mb1
+===========
+
+* Bugfix: Some more examples in input/test/ work again.
+
+* bugfix: cautionary accidentals
+
+
+1.3.140
+=======
+
+* Coriolan gets mutopia-id 57.
+
+* Experimental start of ports to mutopia archive.
+
+* Bugfix: ly2dvi: added letter support, catch indexing with unknown
+papersize names.
+
+* ly2dvi: removed warning message and changed --set=papersizename= to
+--set=papersize=.  This fixes mutopia letter-targets.
+
+* Small fixes to Coriolan.
+
+* Bugfix: don't typeset suicided multi-measure-rests, don't set
+multi-measure-rests spanning less than one measure.
+
+* Bugfix: line-column-location.
+
+* Allow markup text for crecscendoText and decrescendoText.
+
+* Changed part combiner's a due text: `a2 to a2.
+
+* Bugfix: info direntries.
+
+* Automated fixing of info structure.  Build now stops on info errors.
+This should robustify documentation and website builds.  To undo this,
+remove the target `info: check-info' from Documentation/user/GNUmakefile.
+
+1.3.139.hwn1
+=============
+
+* Move Multi_measure_rest up/down in combined parts.
+
+* Renamed FollowThread into VoiceFollower, followThread into
+followVoice.
+
+* lilypond-book: changed nonfragment into nofragment 
+
+* Cleanups for ledgered rests.  
+
+* Bugfix; don't create RhythmicStaff if asking for Staff.
+
+* Bugfix: sparseTies. 
+
+* Reference manual: hara kiri, font selection
+
+* changed font-point-size into font-design-size
+
+ 
+1.3.139
+=======
+
+* Documentation build fixes.
+
+1.3.138.hwn1
+============
+
+* Documentation updates
+
+* Added -e,--evaluate=CODE, to evaluate scheme from the command
+line. Practical application:
+
+        -e "(set-lily-option 'midi-debug #t)'
+
+Removed command-line options -T, -t, -Q, -x.
+
+* Changed point-and-click. Now it should be set to a procedure, e.g.
+
+        (set! point-and-click line-column-location)
+
+Added convert-ly rule.  
+
+* Bugfix: use aliases not only for creating contexts, but also for
+referring to them. This fixes \clef "percussion" in rhythmic staffs.
+
+* removed \textscript.  
+
+1.3.137.jcn4
+============
+
+* Bugfix: ly2dvi: handle input files with multiple extensions.
+
+* Minor doco updates.
+
+* Bugfix: ly2dvi: can't remove cwd on Solaris.
+
+* Better --enable-conf=CONF message, better INSTALL.tely documentation.
+
+* Bugfix: built of Documentation/user for different conf=CONF.
+
+* Don't append "." to version string without my_patch_level.
+
+* Faked titling for tutorial example.
+
+* Bugfix: don't override GUILE environment settings.
+
+* Small refman fixes.
+
+* Better tutorial orchestral score example.
+
+* Bugfix: input/test/hshift.ly
+
+* Fixed looks of configure options.
+
+* Bugfix: ly2dvi: linewidth < 0.
+
+* Bugfix: documentation build: fixed two macros in refman that
+makeinfo groks, but make texi2dvi barf.
+
+* Bugfix: listing of engraver contexts in autogenerated documentation.
+
+1.3.137.uu1
+===========
+
+* changed name of ly-[sg]et-elt-property into ly-[sg]et-grob-property
+
+* Added  function (ly-music-name ), returns the name of a music objects as a
+string. 
+
+* Bugfix: \relative on \chords is no-op. (Added Un_relativable_music)
+
+* Refman documentation fixes.
+
+* Property undefine:
+
+	\property X.Y \unset
+
+undoes \property X.Y = Z. \unset is confusingly asymetric with \set.
+
+* removed ChordNamesVoice
+
+* added \alias STRING ; to translator definition, so \name
+RhythmicStaff, \alias Staff is found for \property Staff.XXX
+
+1.3.136.hwn2
+============
+
+* Documentation updates
+
+* Check whether  property definitions are duplicate.
+
+* Percent style repeats. 
+
+* Named music creation: (ly-make-music "Note_req")
+
+* Added noteheadtypes: "slash","triangle","xcircle" ; completed
+noteheadtype "cross" ; added (ugly) tab-clef ; changed percussion
+clef, fixed "repeat dots on even number of stafflines"-bug. (Rune
+Zedeler)
+
+* Use complete version number for /var/lib/texmf/ paths.
+
+1.3.136.jcn3
+============
+
+* Finished () beautification.
+
+* Bugfix: in grob-description.scm, change Script::after_line_breaking into
+before_line_breaking.
+
+* Bugfix and small addition to convert-ly.
+
+* Bugfix: ly2dvi: create --outdir before copying there.
+
+* Bugfix: mutopia letter target.
+
+* Some bugfixes and checks for killed spanners, reducing warnings in
+Coriolan from 1143 to 283.  Part combiner still gives rise to many
+foreseeable warnings.
+
+* Bugfix: install gettext.py into @datadir@/python and use that path
+from ly2dvi.  Debian or RedHat installs could/should move gettext.py
+into /usr/share/lib/python/1.x/site-packages or so.
+
+* Bugfix: move the making of \makelilypondpiecetitle to actually
+included part of lilyponddefs.tex.
+
+* Bugfix: ly2dvi, tex.scm: set empty tex definitions to \relax.  This
+fixes ly2dvi'ing of scsii.
+
+* Bugfix: completed renaming of `cautionary' to `reminder' for broken
+tie accidental feature.  (`Cautionary' is reserved for parenthised
+accidentals.).  This fixes all tie and accidentals bugs.
+
+* Bugfix: added dynamic-interface to DynamicText grob.  This fixes
+loose dynamics.
+
+* Bugfix: enable Voice_devnull_engraver.  This fixes loose scripts and
+double dynamics.
+
+* Bugfix: don't dump core on some programming errors (2x).
+
+* Grand Coriolan revision after copyright free reprint of a 1862-1865
+original edition.  This revision also revealed fair amount of bugs.
+Previous versions arguably might have worn some small stains of
+editorial decisions dated 1936.  Arguably, because most of these small
+changes can be found in other editions, some of which even are
+commonplace modernisations.
+
+1.3.136
+=======
+
+* Bugfix: set dependency for direction-source in script-engraver. This
+fixes core-dump problem when stacking multiple scripts containing
+staccato dots.
+
+* Put TFM files under $VARTEXFONTS (/var/lib/texmf,
+typically). PK files are put in the right spot
+automatically, and dirs are also created automatically.
+
+A change to mktexnam is still required -- add  
+
+	MT_DESTROOT=foobar
+ 
+before line 161.
+
+1.3.135.jcn3
+============
+
+* Internationalised ly2dvi.py (thanks to GNU Solfege), and nl.po update.
+
+* Coriolan fixes.
+
+* Bugfix: (first and also) write global header fields; this fixes
+`latexpackages' and ly2dvi.
+
+* Bugfix: website build.
+
+* Fixed titling: cleaned out titledefs.tex for use by ly2dvi.
+
+1.3.134.mb1
+===========
+
+* minor documentation fix.
+
+1.3.134.jcn2
+============
+
+* Bugfix: Pitch::transpose ().
+
+* Small doco update.
+
+* Silly build and website-build fixes.
+
+* convert-ly: added conversions, converted glossary, refman and examples.
+
+1.3.134.hwn1
+============
+
+* Rewrote ly2dvi, moved the old one to buildscripts/. The result is
+490 lines code in stead of 1230.
+
+* Modified kpathsea lookup so it will find system-installed feta TFMs first.
+Now lily doesn't clutter the CWD with .TFM files.  Kpathsea is fun if you like
+pasta.
+
+1.3.133.jcn5
+============
+
+* Bugfix: fixed point-and-click broken in jcn2.
+
+* convert-ly: Added and fixed various entries
+
+* Small ez play tweaks.  Guess I'm a sucker too.
+
+* Easy-play bugfixes: don't do showpage for each notehead, output
+staff-symbol first, moved to lily.ps.
+
+* Bugfix: don't print so many decimals in ps output.
+
+* Bugfix for refman example.
+
+* Added some part combiner doco.
+
+* Bugfix: a broken tie only generates an accidental if it would differ
+from an untied note.
+
+1.3.133.hwn1
+============
+
+* Center instrument name on staffs.  Use
+Side_position_interface::align_elements_to_refpoints.
+
+* staff-symbol-referencer-interface, general cleanup of
+interface-description.scm
+
+1.3.133.mb3
+===========
+
+* Bugfix: Time and key signatures in MIDI.
+
+* Bugfix: Tempo changes in MIDI work again.
+
+* Bugfix: ly2dvi file.tex works again.
+
+* Bugfix: don't stretch the space after the last score line.
+
+1.3.132.jcn3
+============
+
+* Tied notes at a linebreak repeat their accidental.
+
+* Removed some cruft from lily/include/.
+
+* Bugfix: tied notes in chords sometimes got stuck in MIDI output
+(thanks Mats).
+
+* Added some example bug files, taken from Coriolan
+
+* a2-engraver: \property noDirection: don't force direction when part-combining (for StaffCombining).
+
+* text-spanner: don't repeat edge text for broken edge.
+
+* Coriolan fixes, titling, font setting, header info, cello octave
+(yes, notated different from bass; all agree) at end.
+
+1.3.132.hwn1
+============
+
+* Allow declared repeat variant string
+
+* Bugfix: break alignment at right edge.
+
+* Easy-notation: letters in circular note heads.  
+
+* Debian patch by Anthony Fok.
+
+1.3.131.jcn2
+============
+
+* Fixes for ascii-script output.  Stylesheet needs some work, just as
+PostScript output.
+
+* Bugfix: convert-ly --to accepts argument.
+
+* Prepared Petites Preludes for (first?) submission to mutopia.
+
+* Bugfix: out-letter/%.ps generation for mutopia.
+
+* Bugfix: don't use $(message ) in makefiles; some versions of make
+choke on this.
+
+* Bugfix: ly2dvi.py: don't add magic `//' to TEXINPUTS,MFINPUTS; this
+chokes kpsewhich 3.3.1 (bug report filed).
+
+* Bugfix: file-path.cc: don't interpret relative path as system root.
+
+* Bugfix: --srcdir install.
+
+1.3.131.hwn1
+============
+
+* Documentation: piano pedals, breath marks, tutorial fixes,
+convertors, autochange, \override/\set/\revert, multi-stanza lyrics,
+\outputproperty
+
+* Bugfix: another fix for collapsing dynamics with partcombine.
+
+* Bugfix: add functionality of
+Side_position_interface::self_align_callback() into
+Align_interface::align_elements_to_extents(). Otherwise, combining
+both (such as in a break alignment) leads to weird behavior: the
+spacing information is written halfway during a callback sequence,
+leading to weird results.
+
+This fixes input/test/orchestscore.ly
+
+* Bugfix: x-offset of stem was off by 0.5 stem thickness.
+
+* Add grob-property attachment-angle: angle for stem to attach to note head. 
+
+1.3.130.hwn2
+============
+
+* Documentation: notation contexts.
+
+* 2001 (c) search-replace patch.
+
+* Center rehearsal marks by default.
+
+* Fixing collapsed dynamics with part-combine
+
+* \property tupletNumberFormatFunction selects formatting function for
+tuplet brackets.
+
+1.3.130.jcn5
+============
+
+* Added some handy targets to example makefile: make/ly.make.
+
+* Bugfix: file-path.cc; absolute directories start with directory separator.
+
+* Makefile template using dependencies: make/ly.make.  Needs some
+simple examples.
+
+* Depencies fixes for lilypond, ly2dvi (still kludged) and lilypond-book.
+
+* nl.po update.
+
+* Bugfixes and cleanups of mainly main.cc.
+
+* Enabled changing default tex output extension to ".lytex".
+
+* Bugfix: use init file extension .ly for extensionless input.
+
+* Ignore outname = ; settings in output blocks.
+
+* Revised input and output naming, now it's possible to include a
+directory in the output name.  This should fix some input/init name
+related bugs.
+
+* Fixed dependencies for outdir in lilypond-book and ly2dvi.
+
+* Uniformised tags to read: Generated automatically by: <program>.
+
+* Install make/* and stepmake/stepmake/* to enable making use of
+stepmake templates.
+
+* Added example mutopia makefile: make/ly.make.
+
+* Lilypond-book now writes lily-<HASH>.ly files.
+
+* Bugfix: don't display repeat colons for zero height bar lines; fixes
+repeat barlines in lyrics.
+
+* Fixed markup definition and implementation, added baseline-skip
+property; this makes multi-line markup text a lot easier.
+
+* Bugfix: chordChanges works with other rhythm of accompaniment, and
+silly chord name typo fixes.
+
+1.3.130
+=======
+
+1.3.129.jcn2
+============
+
+* Implemented Phrasing slurs, copied from slur.
+
+* More hooks for chord pitch name overrides, see
+input/tricks/german-chords.ly.
+
+1.3.129.hwn1
+============
+
+* Bugfix: bar lines in lyrics.
+
+* Bugfix: vertical positioning of isolated dynamics: absolute dynamics
+are only supported by the note they are on, in absence of crescendi.
+
+* Documentation of ancient clefs, custodes (Jurgen Reuter)
+
+* Small documentation fixes: rehearsal marks, -f option, markup, instrument names
+
+* Bugfix: rounding errors caused errouneous ledger lines for
+#'staff-space = 1.3
+
+* Subsubtitles, \bar "";  (Rune Zedeler)
+
+1.3.129
+=======
+
+* Small doco fixes.
+
+* Removed duplicated engraver hierarchies from coriolan and orchestral
+examples.
+
+* Added user control for devnull engravers. Default: switched off 
+
+* Small doco fixes.
+
+1.3.128.hwn1
+============
+
+* Doco fixes
+
+* Glissando fix (Rune Zedeler)
+
+1.3.128.mb2
+===========
+
+* Made the percussion clef somewhat fatter, thanks to Rune Zedeler. 
+Note: font updated! Added this clef to input/regression/clefs.ly.
+
+* updated \endincipit macro and the examples input/test/incipit.ly and
+input/regression/clefs.ly
+
+1.3.127.jcn3
+============
+
+* Mutopia preparations and Coriolan fixes.
+
+* Small beam cleanup, changed y-position-hs,height-hs user overrides to
+  staff-position,height (height:name suggestions?), now in staff-spaces.
+
+* Beam (y, dy) calculations now as list of scm functions.
+
+* Added cleaned-up excerpt from Coriolan for tutorial.
+
+* Bugfix: beam looks at smallest gap for auto knees.
+
+* Property-description-fix: allow auto-knee-gap to be set to false.
+
+* Small doco fixes.
+
+* Bugfix: repeats without alternatives.
+
+1.3.127.uu3
+============
+
+* Bugfix: staccato dot on outer staff lines.
+
+* Documentation: lots of updates and revisions.
+
+* \repeat tremolo for single notes, \repeat tremolo 4 c16
+produces the same effect as c4:16
+
+1.3.126.mb1
+===========
+
+* ly2dvi: bugfix --number.
+Added header field latexpackages, see input/test/orchestscore.ly
+
+* \mark: add possibility to use font selection markup, see input/test/mark.ly
+
+1.3.127
+=======
+
+* Grand Refman restructuring, featuring outline mode.
+
+* Fixed missing menus and cross references.
+
+* Coriolan fixes and updates.
+
+* Bugfix: a2-engraver and *devnull_engraver recognise alternative
+'oneXXX' 'twoXXX' naming convention.
+
+* Enabled markup text to be used for instrument names.
+
+* Bugfix: interface description of System_start_delimiter
+
+* Slur attachment fix (thanks, Han-Wen)
+
+1.3.126.hwn1
+============
+
+* Bugfix in Global_translator::run_iterator_on_me (): only run
+iterator::process if iterator::ok() is true.
+
+* Bugfix: when iterating empty sequential-music, start out with an
+invalid iterator.
+
+* Bugfix: length calculation for volta repeat music with too few
+alternatives.
+
+* Bugfix: print different string for first printed alternative in
+volta repeat music with too few alternatives, eg. 1.-4.
+
+* Cleaned up bugs/ directory
+
+* Be less intelligent about default font backup, just load cmr10
+
+* Generated documentation: sort and uniq Grob lists of contexts.
+
+1.3.126
+=======
+* Doco:
+  - fixes,
+  - updates,
+  - rewrites.
+  - Changed license to FDL.
+  - added index entries
+  - tutorial: 0-th tune
+  - literature overview.
+  - removed development stuff.
+
+
+1.3.125.jcn3
+============
+
+* Clef workarounds for Coriolan.
+
+* Moved feature and regression-test input to input/feature, input/regression.
+
+* Added some regtests.
+
+* Bugfix: auto-knee for beam over rest.
+
+* Fixes for Coriolan and viola Solo Cello Suites.
+
+* Replaced generic 'collapse-height' for System_start_delimiter with
+brace-collapse-height, bracket-collapse-height, bar-line-collapse-height.
+
+* Bugfix: measure System_start_delimiter's *-collapse-height in staff-space.
+
+* Fixed some info and html links.
+
+* Automatic knees now on by default for vertical distances >= 7 staff-space.
+
+1.3.125
+=======
+
+* Updated Coriolan.
+
+* Bugfix: beams with no stems.
+
+* Cleanup automatic knees, junked calc_interstaff_dist.
+
+* Automatic knees now on by default for vertical distances >= 7 staff-space.
+
+* Bugfix: automatic interstaff knees.
+
+1.3.124.hwn1
+============
+
+* Auto change music bugfix; removed Auto_change_music type
+
+* Bugfix: add copy ctors to all relevant iterators, this fixes various
+combinations with auto-change and part-combine.
+
+* Bugfix: glissandi with smaller rhythms parallel.
+
+* Add printfilename option to @lilypondfile 
+
+* Include Grobs in Context self-documentation; remove "Grob " from
+node name for grob documentation.
+
+1.3.124
+=======
+
+* Tutorial fragment on ly2dvi.
+
+* Bugfix: also print path of mismatched .TFM file.
+
+* Some callbacks to allow manipulation of fonts and molecules from
+Scheme.  See input/test/molecule-hacking.ly ; allows for a kludged
+"parenthesize notehead" command.
+
+1.3.123.mb1
+===========
+
+* Added percussion clef. Note: font updated!
+
+* Bugfix: font style Large works regardless of font-shape.
+
+1.3.123
+=======
+
+* Added macro \turnOff to remove volta brackets or any other 
+  graphical objects, see input/test/volta.ly or mutopia/J.S.Bach/pa.ly
+
+* Removed the "none" clef, use Clef \override #'transparent = ##t instead.
+
+* Bugfix ly2dvi: paper variable orientation = "landscape" works.
+
+* Allow for wildcards in the font style alist to give more robust font
+selection handling. Ignore shape and series for the font families:
+braces, dynamic and music.
+
+* Bugfix: stem and dstem font symbol.
+
+1.3.122.jcn3
+============
+
+* More website link fixes, split and nonsplit.
+
+* Non-splitting makeinfo website fix.
+
+* Doco fixes, included feature document into main documentation.
+
+* lily/chord.cc (member_notename, lower_pitch): gh_member returns a list of
+which car is the member!
+
+* Bugfix: added equal_p to list of smob functions.  This fixes
+behaviour of property chordChanges.
+
+* More guile-1.4.1 snapshot fixes, generated doco.
+
+* Doco fixes.
+
+* Small fixes for guile-1.4.1 snapshot which is more strict on symbols
+vs strings.
+
+1.3.122
+=======
+
+* Small lilypond-book cleanups.
+
+* Bugfix: fix lyric extenders.
+
+1.3.121.mb2
+===========
+
+* Bugfix: svenska.ly and norsk.ly
+
+* Bugfix: tied-over accidentals handled more correctly.
+
+1.3.121.jcn2
+============
+
+* Renamed last instances of musical_*pitch to pitch.
+
+* Bugfix: actually read pitch value in \pitch #(make-pitch ...)
+
+* Bugfix(?): always allow explicit duration entry.
+
+* Fixed .po charsets for upcoming msgfmt release (Bruno Haible).
+
+* Some doco updates and fixes.
+
+* Bugfix Ly2dvi: reset LC_ALL and LC_LANG too.
+
+* Commented out dubious undocumented $(PATHSEP) from lilypond-vars.make
+
+* Replaced some instances of [$(outdir)/].. with $(pwd), these may
+break --srcdir builds and texi2dvi.
+
+* Several fixes for --srcdir build, allowing build from read only media.
+
+* Moved make/toplevel.make.in to less unusual GNUmakefile.in
+
+* Bugfix: changed beam thickness to .48 staff-space.
+
+1.3.120.uu1
+===========
+
+* Ancient font update (Juergen Reuter)
+
+* Syntax change: paper_xxxx -> paperXxxx
+
+* Some documentation updates.
+
+* Doc-string cleanups, and completization.
+
+* Changed Pedal string properties: unify stop/start/stopStart
+properties.  Changed pedal identifier syntax.
+
+* bugfix: do change clefs if full-size-change is *not* set.
+
+1.3.120
+=======
+
+* Removed texi->dvi cancellation and removed --clean option from texi2dvi
+command line; this fixes generation of dvi files in Documentation/user.
+Strange bug in texi2dvi.
+
+* Fixed bibtex url (reported David Raleigh Arnold), added support for
+bibtex2html, which is in Debian.
+
+* Added direntries to toplevel texi documents, for info files
+(reported Thomas Klausner).
+
+* Removed some empty files.
+
+* Make a Stem::height callback, to prevent early brew_molecule
+call. This fixes input/bugs/triplet.ly.
+
+* Manual fix for generated -interfaces documentation.
+
+* Small changes for texinfo-4.0a prerelease.
+
+* Added a --force option for makeinfo .txt generation.
+
+* Changed debian ftp urls according to new package pools layout.
+
+* Debian update, including menu/node fixes to development.texi (Anthony Fok).
+
+* Bugfix: lilypond-book (Tom Cato Amundsen).
+
+* Increase the size of dynamics, adding new sizes of feta-din (Mats Bengtsson).
+
+* \clef "none"; no clef, but whitespace (Mark Hindley).
+
+* Website fix: don't mv but cp .pngs do deep-html dirs.
+
+* Bugfix: chords examples (James Hammons).
+
+* Warning fix.
+
+1.3.119
+=======
+
+* Added some feature examples.
+
+* Bugfix for \partial and auto-beamer.
+
+* Bugfixes: warnings.
+
+* More feature examples.
+ 
+* Renamed some scm files.
+
+* Some more documentation fixes (move hacking.texi into normal
+documentation.)
+
+* Bugfix: header protection in parser.yy
+
+1.3.117.mb1
+===========
+
+* Bugfix: fetdefs.tex: don't redefine the standard TeX macros 
+  \sharp,\natural or \flat.
+
+* Bugfix: ly2dvi: handle the --landscape option. Leave the textheight
+  calculation to the geometry package. Remove some dead code.
+
+* Bugfix: correct font-family for TextSpanner.
+
+* Bugfix: script-engraver.cc: forced script directions work again.
+
+1.3.117.jcn2
+============
+
+* Resurrected direct scheme output, ie. lilypond -fscm
+
+* Warning message fixes and po update.
+
+* Bugfix: debian package.
+
+* Resurrected direct postscript output, ie. lilypond --output-format=ps.
+
+1.3.117.hwn1
+============
+
+* Broken left-edge of volta, Again. Now the Final Fix.
+
+* Smobified Score, smobified Music_output_def, removed Identifier.
+Reorganised Scope and Scheme_hash_table to this end.
+
+* Small cleanups in relations between
+Paper_def/Paper_outputter/Paper_stream.
+
+* lilypond syntax update: deprecate $ syntax for identifiers; Provide
+convert-ly method.
+
+* Rename: don't use grobs in performer methods.
+
+1.3.116.jcn4
+============
+
+* Bugfix: don't set beaming for outer half beams.  This fixes some
+slurs attached to stem end.
+
+* Bugfixes for (de)crescendo spanners and generic text spanners
+
+* Bugfix: Slur::set_interface (): don't overwrite, but copy attachment
+property.
+
+* Started documenting some new or not too wel documented features.
+
+* Bugfix: only assume making deep split html documentation when
+makeinfo --version 4.0.jcn2 is available.  Although the documentation
+should now build with plain makeinfo 4.0, some links will be broken.
+
+* Bugfix: lilypond-book: check for .texidoc files *after* running lilypond.
+
+1.3.116.mb1
+===========
+
+* Bugfix: convert-ly.py: Correct syntax for inserted \version, 
+  \push -> override happened in 1.3.111
+
+* Bugfix: corrected documentation of timeSignatureStyle, removed all
+  `unknown type' in the property documentation.
+
+* Added font family typewriter (cmtt).
+
+* Bugfix: some examples updated
+
+* Bugfix: beamed grace notes (reinstate process_music () call in
+Grace_engraver_group::process() )
+
+* Rename: Global_translator::process -> Global_translator::one_time_step (). 
+
+1.3.115.jcn2
+============
+
+* Bugfix: lilypond-book.py: only include exisisting .texidoc files.
+
+* Lilypond: don't write empty header field file if header field does
+not exist (ie, empty .texidoc files).
+
+* Turn on info generation.
+
+* Fixes to dynamic placement and crescendo spanners.  Incomprehensible
+``width-correct'' hack remains.
+
+* Bugfix: auto-beamer beaming over bar lines.
+
+* Bugfix: consecutive and non-consecutive glissandi.
+
+1.3.115.hwn1
+============
+
+* Bugfix: multi-measure rest ends, chords. 
+
+* Some back end documentation
+
+* Rename element to grob in .scm files.
+
+1.3.114.mb1
+===========
+
+* Bugfix: convert-ly
+
+* Bugfix: Included FAQ.txt in the top directory
+
+* Allow for instrument names with multiple lines and font selection,
+  see input/test/coriolan-margin.ly
+
+* Added example for figured bass: input/test/figured-bass.ly
+
+1.3.114.lec1
+============
+
+* abc2ly fixes
+
+	* allow a g_8 clef to be specified by treble8
+
+	* allow full mode names, as well as 3 character abbreviations
+
+	* support breves and longas (no abc program that I know of has
+	  longas, but a couple of them have breves, and one can always hope.)
+
+	* translate text annotations beginning with _ and ^ for above and 
+	  below the staff.
+
+	* quote lyrics syllables with (
+
+	* handle real repeat syntax, for appropriately written ABC.
+
+	* %%LY slyrics now works for longer than one character lyric strings.
+
+	* N: fields are now in header.
+
+1.3.114.uu1
+===========
+
+* Prepare for Music type-unification: remove all args from Music
+constructor, and set everything in the parser.
+
+* Moved writing of \header strings feature from lilypond-book to lilypond. (1.3.114.jcn1)
+
+* Bugfix: tied chords.
+
+* Turn off .info creation by default.
+
+1.3.114
+=======
+
+* Moved all documentation from regtest to individual example files.
+
+* Added feature to lilypond-book to write out \header texidoc string.
+
+* Reincluded simple FAQ in tarball.
+
+* Fixed lyrics with bar-enrgaver example.
+
+* Renamed LyricVoice to LyricsVoice.
+
+1.3.113.uu1
+===========
+
+* Checksums for AFM fonts: make sure that TFM and AFM files match.
+One FAQ less to be asked.
+
+* Made point-and-click switchable, default: off 
+
+* Bugfix: don't make multimeasure rests from failed span-requests.
+
+* Bugfix: mark with string arguments, eg. letters..
+
+* Bugfix: direction of staccato dots. 
+
+1.3.113
+=======
+
+* Added stems to font for use in markup text.
+
+* Fixed markup text kerning, see input/test/metronome.ly.
+  (Ugh, only feasible if kerning is first markup -- markup text should be revised.)
+
+* Fixed molecule caching problem with stem-tremolo: fixes vertical
+positioning of stem-tremolo.
+
+* Added forced slur direction (stemUp no longer implies slurUp) in
+cross-staff slur example.
+
+* Fixes to Glissando and line-spanner.  Behaves reasonably across line
+breaks.
+
+* Added: Align_interface::fixed_distance_alignment_callback that does
+not compute the extents of the to-be-aligned objects. This delays many
+brew_molecule() calls, because staff-height is no longer needed for
+aligning.
+
+* Bugfix: allows linebreaks for some types of beam.
+
+* Bugfix: add braces in larger size range; prevents "Unknown character
+127" messages, hopefully.
+
+1.3.112
+=======
+
+* Allow two consecutive glissandi.
+
+* Note_head_line_engraver now also listenes to \property
+"followThread": Automagically connect note-heads when thread switches
+staff.
+
+* Fixed american-chords example (except for o/, that waits for kerning fix).
+
+* Added simple glissando line.
+
+* Bugfix: broken text spanner (ie. crescendo)
+
+* Bugfix: chord tremolos
+
+* Bugfix: staff group brace
+
+* Bugfix: volta repeats
+
+* Resurrected clef _8 and ^8 syntax.  (This should be deprecated?)
+
+1.3.111
+=======
+
+* Fixed non-empty-text feature.
+
+* Bugfix for Grob::has_extent_callback_b ()
+
+* Added infrastructure for music property documentation strings.
+
+* Syntax change: \notenames -> \pitchnames
+
+* Changed syntax \push -> \override, \pop -> \revert. Add:
+
+	\property Context.Element \set #'foo = #bar
+
+which  does a \revert followed by a \override.
+
+* Documentation updates.
+
+* Fixed typechecks for \push, \pop and \property
+
+* Bugfix: Local_key_engraver.
+
+* Fixes for lilypond-mode.el (patch by Mark Hindley)
+
+1.3.110
+=======
+
+* Fixed a mysterious typo in toplevel index.
+
+* Enabled property-engraver.
+
+* Cleanup in Auto-beam-engraver (still broken, because timings are off?)
+
+* Collapsed all ``void Foo::create_grobs () { deprecated_process_music
+(); }'' occurences, and reactivated some disabled code (note-name,
+chord-name, custos, lyrics).  Reactivated Timing_translator using
+process_music ().
+
+1.3.109.hwn1
+============
+
+* unsmob_element -> unsmob_grob
+
+* Make a Slur::height callback, to prevent early brew_molecule
+call. This fixes cross-staff slurs.
+
+* Bugfix: custodes style must be symbol, not string.
+
+* do_creation_processing () -> initialize (), do_removal_processing ()
+-> finalize ().  Remove (do_)add_processing.
+
+* Move Relative_octave_music::last_pitch_ into SCM, junk
+Transposed_music::to_pitch_, junked Time_scaled_music::{den_i_,
+num_i_}, Rhythmic_req::duration_, Melodic_req::pitch_
+
+1.3.109
+=======
+
+* Bugfix: resurrected point-and-click. 
+
+* Use scheme object props for storing type predicates and doc-strings
+Dump global lists of properties into auto-documentation.
+
+* Bugfix: extent callback for Rest, so  ledger lines don't disappear for
+rest-collisions.
+
+* Removed some hair from chord code
+
+* Rewrite of engraver pass scheme: try to make graphical objects in
+acknowledge_element()/process_acknowledged(), not in process_music()
+
+* Remove Translator::status_ and associated code. Removes the need for
+various XXXX functions as wrapper for do_XXX functions.
+
+* Search replace: Score_element -> Grob (Graphical object),
+{pre,post}_move_processing -> {stop,start}_translation_timestep,
+do_try_music -> try_music.
+
+1.3.108
+=======
+
+* Dropped ly_lists_equal for gh_equal_
+
+* Removed Array from chord.
+
+* Small bugfix to lilypond-mode.
+
+* lily/part-combine-music-iterator.cc: fixed (switch `combineParts'
+property on), and removed Array.
+
+1.3.107.uu1
+===========
+
+* Bugfix: don't call Crescendo::brew_molecule () too early if there is
+an absolute dynamic.
+
+* Rename class Crescendo to Hairpin.
+
+* Search/replace: Musical_pitch -> Pitch 
+
+* More links in the backend documentation.
+
+1.3.106.jcn2
+============
+
+* Cross compilation and info build fixes, really cancel all builtin
+rules, sigh.
+
+* Generated documentation fixes: Generate all interface descriptions,
+separately, don't list non-set interface properties with element
+descriptions.
+
+1.3.106.hwn1
+============
+
+* Deprecate `mudela' name: rename mudela to lilypond globally.
+
+* construct Music_iterators decentrally.
+
+* Make smob of Duration 
+
+* Make smob of Musical_pitch.
+
+* Move Repeated_music members into SCM. Length is computed via a SCM
+function. (todo: write SCM function to unfold all repeats. \apply for
+\midi)
+
+* Remove Time_signature_change_req, \time is disguise for \property
+Score.timeSignatureFraction = ...
+
+* \property barCheckNoSynchronize: don't reset measurePosition when
+finding a bbarcheck. This makes bar-checks for polyphonic music
+easier.
+
+* elt property full-size-change for clefs.
+
+* Bugfix: use Stem::dim_callback (), so brew_molecule () is not called
+too early.
+
+* Bugfix: use extent of Note_head (iso. Note_column) for rest
+collisions, so Stem::brew_molecule() is not called too early.
+
+1.3.105.jcn1
+============
+
+* Makeinfo html documentation generation fixes.
+
+1.3.105.uu1
+===========
+
+* Remove Bar_req, \bar is now a frontend to setting Score.whichBar
+
+* Move Context_specced_music::translator_{type,id}_str_ into music
+properties.
+
+* Don't make line breaks during note playing.
+
+* Clef engraver rewrite. Clef-engraver is now controlled through
+properties clefPosition, clefGlyph, clefOctavation. The \clef command
+is just a front-end to these, see scm/lily.scm, function
+clef-name-to-properties.  See also input/test/manual-clef.ly
+
+1.3.105
+=======
+
+* Bit of temporary makefile hacking to stay in sync with makeinfo patch.
+
+* Separate interface description (test phase).
+
+* Makeinfo --html split fix: http://appel.lilypond.org/fred/software/texinfo-4.0.jcn2.diff
+
+* Use headers for makeinfo html output.
+
+* Made some --scrdir build fixes.
+
+1.3.104.uu1
+===========
+
+* Smobified molecule, and cache molecule (ie. generate each molecule
+only once).  Lily should be faster now. (approx. 6 % ?)
+
+* Coded properties-to-font-name in C++. Measured speedup: 14% (wtk1-fugue2)
+
+* Use music properties for Request data.
+
+1.3.104
+=======
+
+* Documentation build fix: don't run LilyPond when generating plain info doc.
+
+* Resurrected info documentation and made cross links between manual
+and generated doco, some small fixes.
+
+* Made small time signature style fix.
+
+* Generate texinfo iso html documentation.
+
+* Added x-references for elements->engravers and engravers->contexts.
+
+* Fixed number font listing in style sheet.
+
+* Fixed default font settings for text items, text-item now uses
+font-interface's alist-chain.
+
+* Renamed property AutoBeam to autoBeamSettings to avoid confusion
+about non-existing AutoBeam element.
+
+* Mensural clefs (courtesy Juergen Reuter)
+
+1.3.103.lec1
+============
+
+* abc2ly enhancements
+
+	* %%LY comments
+
+	* explanation of rationale for %%MIDI nobarlines
+
+	* supports -8va as a syntax for tenor clef
+
+	* pushing the Staff.timeSignatureStyle property
+
+	* parses space between key letter and mode in K: statement
+
+	* default for guitar chords is above the staff
+
+	* fix for translation of :: repeat
+
+1.3.103
+=======
+
+* Translated auto-beam properties to alist.
+
+* Rewrite of tfmtoafm in scm.
+
+* Rewrite of emacs LilyPond mode, based upon auctex interface.
+
+* Chord name fixes and additions (Atte Andr'e Jensen)
+
+* ly-get-mus-property, ly-set-mus-property: set properties of Music
+
+* Move Span_req::span_dir_ into Scheme
+
+* removed numberOfStaffLines, staffSpace. Use StaffSymbol \push
+staff-space, line-count
+
+* removed minVerticalAlign, maxVerticalAlign; use VerticalAlignment
+\push #'threshold = #(MIN . MAX)
+
+* \property tremoloFlags can be set anywhere now
+
+* \apply #function music 
+
+* Bugfix: padding of dots.
+
+* Generate documentation for separate engravers as well as for contexts.
+
+* Move some reference manual into the  SCM documentation system.
+
+* Bugfix: fixed hyphen spanners.
+
+1.3.102
+=======
+
+* Fixed bracket, and made some other PostScript code fixes.
+
+* Silly font initialisation fix for paper19 non-feature.
+
+* Automatic engraver/property documentation infrastructure. 
+
+* Fixed system-start braces
+
+* Fix for forgetAccidentals: do print accidentals, just don't remember
+them.
+
+* Bugfix: forced script directions for scripts that have relative stem-direction.
+
+* Bugfix: Tie_column doesn't force Tie directions ties that already
+have a direction.
+
+* Bugfix: multimeasure rest 
+
+1.3.101
+=======
+
+* Custodes (patch by Juergen Reuter), mods by hwn.
+
+* Font initialisation and markup translation fixes. (99.jcn2)
+
+* Remove staffspace calls. Removed markScriptPadding. Fixes some
+problems with tuplet, brace and volta spanners.
+
+* make Font_interface::font_alist_chain (), and use default font
+settings. Fixes too large time sigs.
+
+1.3.100
+=======
+
+* Tweaks of .scm font-selection. 
+
+* Rewrote font management of Score_element and Paper_def.
+
+* Introduced outputscale: internally do computation in terms of
+outputscale.  Prepare to deprecate staffspace internally.  Rewrote
+.scm side of font selectioning. 
+
+1.3.99.jcn1
+===========
+
+* Made several font size and initialisation fixes.
+
+* Renamed all occurrences of font-size to font-relative-size
+
+* Renamed all occurrences of font-point to font-point-size
+
+* Fixed interface.scm descriptions to use symbols iso strings
+
+* Fixes for chord names, and added jazz style (James Hammons)
+
+* Some font-size fixes.
+
+* Added dynamics font in all staff-sizes.
+
+* Quick fix for regtest.
+
+1.3.98.hwn2
+===========
+
+* Removed all paper vars except linewidth, indent, staffspace and
+stafflinethickness.
+
+* Rewrote Scheme side of font-selection.
+
+* Bugfix: deprecate group-center-element thoroughly.
+
+* Bugfix: LeftEdge must also have Break_align_item::alignment_callback
+X-offset-callback.
+
+* Add use music property "direction" for storing direction in
+Script_req, use music property "text-type" for storing 'dynamic,
+'finger, etc. Remove Dynamic_script_req. Resurrect fingerings.
+
+1.3.98.lec1
+===========
+
+* fixed scale-definition.ly for greek mode names.
+
+1.3.98
+======
+
+* Backend documentation updates and related cleanups
+
+* Removed \property bracketCollapseHeight, systemStartDelimiterGlyph
+
+* Bugfix: instrument-name on grandstaffs, see
+input/test/instrument-name-grandstaff.ly
+
+* Bugfix for tie/staffline collision.
+
+* Bugfix: also send out end-repeat if there are no alternatives.
+
+* Small solo cello suite fixes.
+
+1.3.97.jcn1
+===========
+
+* Added some interface documentation.
+
+* Added raise and kern to markup.  This should make Chord names usable.
+
+1.3.97
+======
+
+* Made small fixes to basic properties: regression-test compiles.
+
+* Moved Text_script_req's text_ member into mus-property.
+
+* Renamed ChordName to ChordNames, for consistency.
+
+* Resurrected most of chord names, superscripting and kerning
+  is currently broken, though.
+
+* Junked all old style text lookups, except for feta definitions.
+
+* Added support for name-based character lookups.
+
+* Added support for font styles and papersize style sheets.
+
+* Added new code for font selection and scm text markup.  Only used
+  for testing in \textscript SCM. See input/test/markup.ly.
+
+* Fixed (added actually, it got lost?) word-space for chords.
+
+* Added slope-limit and attachment-offset properties to slur.
+
+* Slur's broken trend now weighs in the number of note-columns.
+
+* Spacing tweaks
+
+1.3.96.hwn1
+===========
+
+* Mudela-book fixes (Tom Cato Amundsen)
+
+* Put marks above chords.
+
+* Solaris fix.
+
+* Type checking for \push and \pop; elt property description (docs
+inclusive) is now in Scheme.
+
+* Self-documenting backend using ly/generate-documentation.ly
+
+1.3.96
+======
+
+* Added friendly message for the clueless dvips user.
+
+* Clef-engraver: changed c0-position, clef-position and glyph into properties,
+  enabling ottava spanners: input/test/ottava.ly.
+
+* Added option for edge lines to Text spanner.
+
+* Bugfix for early initialisation of invalid (grace->voice) slur.
+
+* Dropped text support and padding of crescendo symbol.  Horizontal
+  alignment of dynamics is handled by side-support, Text crescendos
+  use the generic Text spanner.
+
+* Added a generic Text spanner.
+
+1.3.95.hwn1
+===========
+
+* Bugfix: octavate eight.
+
+* Rewrote arpeggio.
+
+* mudela-book fixes (Tom Cato)
+
+* Cleaned up Group_interface and Pointer_group_interface
+
+* Add accidentals to arpeggio support.
+
+* Stemup + barline combination gets extra space.
+
+* Score_element::extent () now takes a reference point argument.
+
+1.3.95
+======
+
+* Use music property for setting type. This prevents accidental
+forgotten copies.
+
+1.3.94.jcn3
+===========
+
+* Added Arpeggio and Trill elements to feta font.
+
+* Yet another bugfix for output-property (Han-Wen)
+
+* Made some fixes to les-nereides.
+
+* Fixed output-property (Dankje).
+
+* Added backend framework for arpeggios.
+
+* Fixes for les-nereides.  Should we do asymmetric slurs...?
+
+* Don't print repeat bars at start of line.
+
+1.3.94
+======
+
+1.3.93.uu1
+==========
+
+* Bugfix: don't crash if there is no volta bracket to end.
+
+* Move offset, dimension callbacks into Scheme.  They can be initialized from basicXXXX properties using
+
+	(X-offset-callbacks . (callback1 callback2 .. .))
+	(Y-offset-callbacks . (callback1 callback2 .. .))
+	(X-extent-callback . callback1) 
+	(Y-extent-callback . callback1)
+
+* naming: basicXXXProperties -> XXX, some other changes in naming;
+convert-mudela rules added.
+
+* naming: \voiceone -> \voiceOne and related changes. convert-mudela
+rules added
+
+* syntax: \property XXX \pop #'bla -> \property Context.XXX \pop #'bla
+
+* changed aclocal.m4 to have better check for guile version. (Laura Conrad)
+
+* updates for mudela-book (Tom Cato Amundsen)
+
+1.3.93.jcn1
+===========
+
+* Try at nastiest competition piece: input/les-nereides.ly.
+
+* Moved Pedal_engraver to Staff context.
+
+1.3.93
+======
+
+* Added some error messages for toplevel and stray string parse errors.
+
+* Don't start more than one slur at a time.
+
+* Set direction of Slur too in a2-engraver.
+
+1.3.92.hwn1
+===========
+* Removed calls to global GUILE namespace.
+
+* Added \property: scriptDefinitions, explicitClefVisibility,
+explicitKeySignatureVisibility, instrumentEqualizer,
+dynamicAbsoluteVolumeFunction
+
+* Added element properties Bar::break-glyph-function,
+Break_align_item::space-alist, Chord_name::chord-name-function
+
+* Added \property combineParts: part combiner switched off by default.
+
+* Remove all print methods.
+
+* Use Scope::try_retrieve if possible.
+
+* Remove FAQ in favor of URL.
+
+* etf2ly.py robustness fixes.
+
+* Don't compensate for left edge in broken volta spanner.
+
+1.3.92
+======
+
+* RPM .spec fixes.
+
+* italiano.ly
+
+* mudela-book updates by Tom Cato Amundsen.
+
+* Allow lyric hara kiri as well.
+
+* Bugfix: left/right mixup  in Side_position_interface::aligned_on_self ()
+
+* rest collision of differing rests.
+
+* Cleanup of Sequential_music_iterator, Simple_music_iterator.
+
+* Unfolded_repeat_iterator now signals repeats using \property
+  repeatCommands. You could override this, eg.
+
+	\property Score.repeatCommands = #'((volta "X") start-repeat)
+
+  will print a |: and a volta bracket saying X. See also
+  input/test/manual-volta.ly
+  
+* Volta_engraver, Repeat_acknowledge_engraver: new engravers that are
+controlled by repeatCommands; much cleaner than the Repeat_engraver.
+
+* Junked Repeat_engraver.
+
+1.3.91.jcn1
+===========
+* Abort all running spanners when part-combiner combines voices.
+
+1.3.91
+======
+
+* Use S_ISDIR () and check for stat.h.
+
+* Various fixes for RedHat 7.0 / gcc 2.96.54
+
+* separate basic propertylist for fingerings, center them on
+noteheads.
+
+* Side_position_interface::aligned_on_self() now can take a real
+number for self-alignment-{X,Y}.
+
+* etf2ly: single line GF field.
+
+1.3.90.mb1
+===========
+
+* Added an interscorelinefill paper variable. Set to a positive number 
+  in order to stretch the inter-line spacing to fill the full pages,
+  except for the last page (where it would look really ugly).
+
+1.3.89.jcn1
+===========
+
+* Changed lilypond to LilyPond in ly2dvi, Mudela to LilyPond source.
+
+* Website fixes: Changed \interline to \staffspace in manual, removed offending
+  braces from mudela-book.tely.
+
+* Fixed slur attachment correction bug.
+
+* Made some fixes to Coriolan.
+
+1.3.89.hwn1
+===========
+
+* Only open files, not directories 
+
+* bugfix: textNonEmpty.
+
+* Look ahead in auto-change iterator for rests. This means rests
+before the note leading to an automatic staff switch are switched as
+well (improves the looks of scarlatti-test).  Associated fixes and
+additions for  Music_iterator::skip () and friends.
+
+* Bugfix: only quantise staccato inside the staff. 
+
+* cleanups for beam and stem. Removed global GUILE namespace calls
+from Beam and Stem.
+
+1.3.89
+======
+
+* Some fixes to Coriolan.
+
+* Fixed some stupid core dumps processing Coriolan.
+
+* Fixed several problems with part-combiner's part-switching.
+
+* Fixes for ASCII output.
+
+* Added feature to part combiner that should allow part-switching only
+  for entire measures.  Currently, it is controlled by a new 
+  property changeMoments (A . B):
+    - only switch when !(A mod now),
+    - decide whether to switch based on music during time period B.
+
+* Made bugfix: Sequential_iterator::get_music (M): mustn't return music 
+  later than M.
+
+* Added skip (M) to some iterators.
+
+* maintain minimum-length by shifting for hyphens at start of
+line. (patch courtesy Christophe Rhodes)
+
+* mudela-book fixes (courtesy Tom Cato Amundsen): documentation
+update, LaTeX example, landscape support.
+
+1.3.88.hwn2
+===========
+
+* Added elt properties for Tie:
+  - details
+  - x-gap
+  - staffline-clearance
+
+* Added elt properties for Slur
+  - y-free
+  - details
+
+* Removed C++ support for barNumberScriptPadding, now in
+generic-property.scm (but they're deprecated anyway)
+
+* Changed threshold in Align_interface to be in staffspace 
+
+* changed minVerticalAlign and maxVerticalAlign to be in staffspace.
+A better way: do \push #'threshold = #(cons A B ).  (WARNING:
+INCOMPATIBLE CHANGE)
+
+* moved translator definitions out of \paper { }, only instantiate in
+\paper.
+
+1.3.88
+======
+
+* Sequential_iterator::get_music (), part combiner now works.
+
+* Changed paper variables into elt properties:
+  Beam:
+  - beam-space-function, Removed Paper_def::interbeam_f(), Smaller
+  beams for grace notes.
+  - beam-flag-width-function to Beam.
+
+  Grace_align_item:
+  -  horizontal-space: spacing of grace notes is configurable
+
+  Volta_spanner: 
+  - height
+  - thickness 
+
+  Multi_measure_rest:
+  - expand-limit
+  - minimum-width
+  - padding
+
+  Lyric_extender:
+  - height
+
+  Stem
+  - thickness 
+
+  Collision
+  -  note-width to Collision
+
+* removed various obsolete variables from params.ly
+
+* added input/test/bagpipe.ly
+
+1.3.87
+======
+
+* Made fixes to part-combine examples and Coriolan.
+
+* Bugfix: don't dump core on unterminated (de)crescendo.
+
+* Rolled next (M) also into get_music (M), similar to process (M), so that
+  sequential-music-iterator::get_music (M) returns something useful.
+
+* Bugfix: part-combiner still expected Music_sequence, where get_music ()
+  now returns plain list of events.
+
+1.3.86.hwn3
+===========
+
+* Fixed problem with disappearing crescendi across line break.
+
+* Bugfix: dynamic texts should not be set by text-engraver. 
+
+* Rewrote and cleaned up music-iterator.
+
+* etf2ly robustness fixes.
+
+1.3.85.hwn2
+===========
+
+* Added side-position-interface as an interface identifier, in stead
+of checking side-support-elements. This fixes a problem with stacked
+text scripts.
+
+* Removed spurious set_elt_property ("XX", SCM_EOL) calls.
+
+* Added \property squashedPosition for Pitch_squash_engraver: the
+staff-position number to squash noteheads to.
+
+* Added FAQ entry for script on bar, updated description of mailing
+lists.
+
+* Fixed bug with \translator { basicXXXProperties \push ... }
+
+* Updated and revised call for help in hacking.texi.
+
+* Bugfix: don't remember accidental if it is tied from the previous note.
+
+1.3.85
+======
+
+* Separated definition and implementation of contexts (moved
+definition out of Translator_group into Translator_def)
+
+* pmx2ly.py fixes: now handles text at beginning of block correctly.
+
+* update .spec to include scripts. 
+
+* Changed syntax of \pushproperty:
+
+	\property Voice.basicXXXProperties \push #'foo = #bar
+	\property basicXXXProperties \pop #'foo
+
+	\translator {
+		basicXXXProperties \push #'foo = #bar
+		basicXXXProperties \pop #'foo
+	}
+
+1.3.84.jcn1
+===========
+
+* Updated INSTALL.texi
+
+1.3.80.tca1
+===========
+* Added Documentation/user/mb-latex.tex, mudela-book+latex example
+  file and test case. Some work on Documentation/user/mudela-book.tely
+
+* mudela-book.py: any combination of \verb, \begin{verbatim}
+  @code and @example and mudela should work as expected. 
+
+* dropped [].extend that depend on python 1.5.2
+
+1.3.84
+======
+
+* pmx2ly, PMX to LilyPond conversion. Succesfully converts barsant.pmx.
+
+* musedata2ly, a Musedata to LilyPond convertor. Succesfully converts
+wtk1-fugue2
+
+* bugfixes for dynamics: make sure that dynamic alignments encompass
+the dynamics they support, and that any columns they attach to aren't
+prematurely killed.
+
+* bugfix: make sure \time gets noticed early enough.
+
+1.3.83
+======
+
+* small doc updates.
+
+* Cleanups related to barline handling:
+
+  - Removed Translator_group::get_simple_translator (), and -
+
+  - use properties to communicate about barlines and time sigs. (NOTE:
+    by default a time-signature of 4/4 is printed.)
+
+  - fix repeat bar behavior.
+
+1.3.115.hwn1
+============
+
+* documentation
+
+* 
+
+* cleaned up Directional_element_interface
+
+* add name field to score-elements.
+
+* comment in some unprotects for Music in parser. Should bring down
+  cpu time and plug some leaks.
+
+* robustness fixes for etf2ly, tuplets, grace notes. 
+
+1.3.82
+======
+
+* engraver.ly: cleanups.
+
+* etf2ly: robustness fixes, handle mac files as well.
+
+* Smobified Translator and Translator_group, junked
+Translator_group_identifier.
+
+* \pushproperty and \popproperty withing \translator, similar to
+predefining \property, ie.
+
+	\translator { [...] \pushproperty [..] }
+	\translator { [...] \popproperty [..] }
+
+(these \pushes and \pops are delayed until instantiation, so if you do
+
+
+	\score {
+		\pushproperty #'basicFooProperties #'bla #VALUE1
+		\context Voice { \pushproperty #'basicFooProperties #'bar #VALUE2
+			[..]
+		}
+	}
+
+then the setting for basicFooProperties contains both (bla . VALUE1)
+and (bar . VALUE2).
+
+* allow \pushproperty #'symbol [..] as well as \pushproperty #'(symbol1 symbol2 ... )
+
+1.3.81.jcn1
+===========
+
+* Activated regex for windows.
+
+* New guile-1.4 patch for cross windows build.
+
+* Added configure messages for metapost checking.
+
+1.3.81
+======
+1.3.80.gp1
+==========
+
+* Added property LyricVoice.associatedVoice to enable switching associated
+  voice mid-stream. Association still defaults to context name.
+
+1.3.80.hwn1
+===========
+
+* \pushproperty, \popproperty: property settings with less memory
+cost. See input/test/pushproperty.ly and Documentation/hacking. Note:
+syntax is most likely only temporary.
+
+1.3.80.jcn1
+===========
+
+* (Line-)broken slurs now have vertical trend.
+
+* Better length for broken ties: no invisibly short ties.  Now ties may
+  collide with time signatures, though.
+
+* Don't typeset unfinished spanners, but kill them.
+
+* Added two FAQs (Mats)
+
+* Made workaround guile-1.4.1 backward incompatible (scm_)eval change.
+  Note that we must use (scm_)eval2 to remain backwards compatible with
+  guile < 1.4.1 snapshot.
+
+* Reincluded 79.jcn2 fix
+
+1.3.80
+======
+
+1.3.79.jcn5
+===========
+
+* Created Thread_devnull_engraver and Voice_devnull_engraver iso
+  single A2_devnull_engraver in Thread context.  It seems however
+  that the hack in A2_devnull_engraver works better.
+
+* Coriolan fixes.
+
+* Slur attachment fix for chords where case slurdir != stemdir.
+
+* Made various fixes for (line-)broken slurs.
+
+* Fixed slur_height (), which fixes most ugly slurs (Yeah!).
+
+* Fixed some silly url reversals in FAQ.
+
+* Finished Coriolan music entry (again); entered second viola part.
+
+* Updated Coriolan to use part combiner on Voice level for wind parts
+  and on Staff level for violi and bassi.
+
+* Part-combiner now uses duration inquiry, which fixes rhythm-related
+  bugs in determining solo/a2.  Also, rests are taken into account.
+
+* Another crude fix for almost unexplainable (with a gdb that dumps
+  core on ly_display_scm) all-zero control points slurs.
+
+* Fixed slurs that crossed through stems and note heads.  Note
+  that beautifying of ugly slurs is still broken.
+
+* Made crude fixes slurs don't crash, bezier still crashes on
+  infinitely steep slurs (eg flauti-part *with* slur_engraver).
+
+1.3.79.gp1
+==========
+
+* Replaced empty melisma score element with a property
+
+* Renamed Voice_alist_entry -> Syllable_group in lyric-phrasing-engraver
+
+1.3.79.uu1
+==========
+
+* fixed y-position of whole rest
+
+* fixed sustainPedalPadding
+
+* etf2ly: articulation, lyrics.
+
+1.3.79
+======
+
+* etf2ly.py: Finale to LilyPond conversion.
+
+1.3.78.jcn4
+===========
+
+* Made simple fix to get part-combiner to recognise different rhythms
+
+* Unhardcoded part combiner and a2-engraver; introduced properties
+  splitInterval, soloADue, soloText, soloIIText, aDueText.
+
+* Fixed part combiner's too-late problem (Dankje!)
+
+* Fixed a2-devnull-engraver, a2-engraver.
+
+* Renamed part combiner music names to "one", "two".
+
+* Cleaned up decision making in part combiner, renamed to "solo"/"unison"
+
+1.3.77.mb1
+==========
+
+* Minor documentation updates
+
+* Mark_engraver: has been broken since .73, fixed!
+
+1.3.78
+======
+
+* Added a devnull engraver, that junks (notehead) requests of the second
+  stem when combined parts are in unison (a2).
+
+* Part-combine iterator identifies Soli and A2 parts in threads by 
+  looking at rhythm and pitches.  It switches Voice context automagically,
+  and communicates current state using a2/solo/solo2 properties.
+
+* Simple A2_engraver (`a due) prints `a2/Solo/Solo II.  Soli seem to
+  arrive one request late.
+
+* First try at combining parts: part-combine*
+
+* fixed problem with HaraKiri
+
+* fixed problem with dynamicDirection
+
+* fixed problem with nonEmptyText 
+
+* `Fixed' chord notation, as per request of David Arnold, ie, 
+   Added a chord-name-mode, that only displays chord names
+   when there's a change in the chord-name-scheme, Also, a chord
+   name should always be displayed after a line break.  See
+
+       input/test/chord-changes.ly
+
+* Reverted duration-iter change in midi2ly, moved printing of options.
+
+* warning bugfix in lexer.ll (Mats Bengtsson)
+
+1.3.77
+======
+
+* Midi2ly bugfix: handle durations longer than longa.  These can occur
+  because of lengthened notes when using --no-rests.
+
+* Midi2ly: output `new' \key syntax, and updated version number.
+
+* Midi2ly bugfix: don't correct quantised durations, don't use tuplets, 
+  double dots etc. when user doesn't want them.  It probably used to
+  work like this, a long time ago.  For some unknown reason, all
+  corrections made by Duration_convert were junked if the corrected
+  duration != exact duration.  Duh.
+
+* Midi2ly: added a new option: --no-rests.
+
+* Update of mudela-book (Tom Cato Amundsen)
+ - --read-lys option, now you can do:
+ 	mudela-book file.texi
+	convert-mudela
+	mudela-book --read-lys
+ - --outdir=DIR will put ALL output into DIR
+ - @mudela[filename="myfilename"]{c d e f g}
+ - --force-mudela-fontsize
+ - ignore mudela inside @ignore @end ignore
+
+1.3.76.gp1
+==========
+
+* Lyric_phrasing_engraver now catches lyric extenders and correctly
+  terminates them under the last note of a melisma.
+
+* Lyric word spacing code changed to fix hyphen alignment.
+
+* Other minor tidying up of Lyric_phrasing_engraver and related code.
+
+1.3.76
+======
+
+* Lyric_phrasing_engraver now adjusts for melisma.  (Glen Prideaux).
+
+* Mudela-book fix for Windows95 (Mark Hindley)
+
+* Debian update (Anthony Fok)
+
+* Added beam melisma for when automaticMelismata and noAutoBeaming are both
+  #t (primarily for hymns).  Courtesy Glen Prideaux.
+
+* Bugfix: .pfa dependency on $(outdir)/mfplain.mem
+
+1.3.75.mb1
+==========
+
+* stepmake/stepmake/metapost-rules.make: Put all generated files
+  in mf/out/.
+
+* Added paper variable interscoreline to determine the score line
+  spacing, see input/test/vertical-extent.ly.
+  Cleaned up the lilyponddefs.tex inclusion scheme.
+
+1.3.75
+======
+
+1.3.74.gp1
+==========
+
+* Improved default handling of Lyric_phrasing_engraver and made it on by 
+default.
+
+* Beginnings of a stanza number engraver (\property LyricVoice.stanza = 
+#"1:" etc.)
+
+* fixed bug in script.cc so fermata (and other scripts) get flipped 
+correctly when they are above the staff.
+
+1.3.74.jcn2
+===========
+
+* Reincluded simple code for including tfm.[1-5] into search path.
+  Configure with --disable-kpathsea to enable this kludge.
+
+1.3.74.jcn1
+===========
+
+* Updated input/test/banter-chords.ly German H/B example.
+
+* Updated nl.po.
+
+* Have configure check for kpathsea library and functions.  Made kpathsea
+  support optional for now.
+
+* Bugfix: halved width of tremolo-beams.
+ 
+* Included compilation fix for guile-1.3.4 (Anthony).
+
+* Added: chord inversion and base to regtest.
+
+* Fixed: Chord names that were broken by pl73.
+
+* Fixed: Chord inversions that were broken by pl72.
+
+* Resurrected ascii-script output, for debugging purposes.
+
+* Included compilation fix for scm-hash.cc (Han-Wen).
+
+
+1.3.74
+======
+
+* Small bugfix: also do a deep copy on  submusices
+
+* Fixed:  \autochange doesn't crash anymore.
+
+* Cleanup, documentation and enforcement of smob interfaces in
+LilyPond.  We distinguish between SIMPLE_SMOBS and SMOBS (objects that
+have self_scm_)
+
+* Glen Prideaux lyric phrasing engraver. See
+input/test/lyric-phrasing.ly
+
+1.3.73
+======
+* Removed \interscoreline after the last line, prevents some
+empty pages. (patch by Mats Bengtsson)
+
+* Smobified Music, junked associated identifiers. Use Scheme list to
+store Music_sequence.  Removed const declarations from
+Music_iterators.  Added a mutable and immutable property list to
+Music.  Use music property for all Scheme values in Music.  Created
+and fixed a load of Garbage Collection bugs.
+
+* Changed number font to allow automatic .mf creation.
+
+* Output place of definition as \special{src:LOCATION}. See FAQ for
+explanation how to use.
+
+* Schemified Local_key_item and fixed minor bug with accidentals.
+
+* new Japanese .po file.
+
+* Bugfix for broken tie direction
+
+* Bugfix for bar at beginning of line break
+
+1.3.72
+======
+
+* Robustness fix for minimise_least_squares ()
+
+* cleanups of Slur_bezier_bow, removed Bezier_bow.
+
+* cleanup of Tie. Changed Tie into interface. Made ties flatter by default.
+
+* changed SCM_UNDEFINED to SCM_UNSPECIFIED for return values that go
+back into Scheme.
+
+* changed SCM_UNSPECIFIED to SCM_EOL for undefined element
+properties. This makes initializing list properties redundant.
+
+* removed idiotic code for including tfm.[1-5] into search path.
+
+* fixed problem with tuplet placement for cross staff tuplets.
+
+1.3.71
+======
+* Small cleanups to bring down  compile time and binary ensmallment.
+
+* Made Lookup into a smob, and use guile alist iso. an STL map.
+
+* Changed repeated music semantics for relative octave: each
+alternative takes its inital octave from the body.
+
+* Fixed: parser accepts booleans for property values as well.
+
+* Added Scarlatti sonata test file to input/
+
+* kpathsea support, courtesy Carsten Block <carsten.block@gmx.de> 
+
+1.3.70
+======
+* Fixed: long standing problem in optical-illusion code.
+
+* Fixed: stop beam if stem *has* a beam in auto-beam-engraver. 
+
+* Made interface of Multi_measure_rest, System_start_delimiter,
+Spacing_spanner, Separating_group_spanner, Beam, Slur and
+Rhythmic_head.
+
+* Use properties for minimum distances and spring parameters.  Move
+spacing related functions from Paper_column into Spaceable_element.
+
+* Removed most Paper_column typecasts.
+
+1.3.69
+======
+
+* Cleanup auto-beam-engraver: use properties for retrieving timing
+information.
+
+* Fixed: Multi measure rests don't cause crashes.
+
+* Fixed: don't invoke Hara_kiri::consider_suicide too early.
+
+* Fixed: property engraver.  
+
+* Fixed: don't crash on multiple ties.
+
+* Cleanups of Beam, should also be a little faster.  
+
+* Reunite properties and pointers. In implementation we make a
+distinction between mutable and immutable properties
+
+* Add {has|set}_interface () static methods to interface classes.
+
+* Made Side_position_interface and Staff_symbol_interface an all
+statics class, and stripped _interface suffix.
+
+* Make Align_interface and Axis_group_interface an all-statics class 
+
+* Rhythmic_head, Staff_symbol, Grace_align_item, Break_align_item,
+Bar, Span_bar are now interfaces, Staff_bar was removed. Use a
+callback for determining barsize.
+
+* Removed all GLUE_SCORE_ELEMENT callbacks. 
+
+* Added test for repeats to trip.ly
+
+1.3.68
+======
+
+* ly2dvi: changed back to original semantics of latexheaders.
+
+* Stem_tremolo, Crescendo, Hara_kiri_group_spanner, Tuplet_spanner,
+Volta_spanner changed into interface.
+
+* Related cleanups for Tie, Tie_column cleanups.
+
+* Made Time_signature, Single_malt_grouping_item, Script_column,
+Chord_name, Dot_column, Breathing_sign, Key_item type into interface.
+
+* Removed const declaration from callback arguments.
+
+* Pagebreak support. See input/test/between-systems.ly
+
+* Fixed a problem with accidentals in combination with
+non-nil key signatures.
+
+1.3.67
+======
+
+* Use callbacks for augmentation dot positioning.
+
+* Removed types Note_head and Rest
+
+* Cleanup of slur.cc: use common reference points in a sane manner.
+
+1.3.66
+======
+
+* Corrected text sizes in paper*.ly (Mats Bengtsson)
+
+1.3.65.uu1
+==========
+
+* Dots, Collision, Rest_collision removed as separate Score_element type.
+
+* Stem and Note_column accept only one rest.
+
+* Use offset callback in Stem to resolve rest/beam collisions.
+
+* Put the value of new  local key signature (accidentals) back into a property.
+
+* Set molecule-callback for notename item.
+
+1.3.65.jcn2
+===========
+
+* Added some comments to new slur code.
+
+* Removed some ugly interstaff slur code, interstaff slurs at line-break
+  are still broken.
+
+* Slur bugfix: 16th beams are also beams.
+
+
+1.3.65
+======
+
+* Bugfix: translate volta spanner at start of line.
+
+* Changed directional_element() calls to instantiations
+of Directional_element_interface.
+
+* Removed Dynamic_line_spanner, and cleaned up Dynamic_engraver.
+
+* Removed Staff_info type. Information about columns is now transferred
+via currentMusicalColumn and currentCommandColumn.
+
+
+1.3.64.jcn2
+============
+
+* Made slur attachment position user settable; properties:
+slurBeginAttachment slurEndAttachment, values: 'head 'stem
+'along-side-stem.  See input/test/slur-attachment.ly and ophee-slurs.ly.
+
+* Fixed slur attachment positions, added missing rule and use simple
+default starting positions for attachments.
+
+* Started rewrite of slur ending code, interstaff slurs are broken for
+now.
+
+* Fixed download URL of the webpage.
+
+* Moved direction.cc to flower/.
+
+1.3.64
+======
+
+* Lyrics centered on notehead.
+
+* Various bugfixes hyphen-spanner.
+
+* Bugfix: set appropriate callbacks for Note_head. This fixes 
+problems with dots.
+
+* Removed Clef_item as score-element derived type.
+
+* Updated config.sub and config.guess
+
+* Bugfix: allow linebreaks on beamed grace notes.
+
+1.3.61.jcn2
+===========
+
+* Included dutch po-update based on submitted 1.3.57 nl.po
+
+* Added "Development" link to website, now that "Home" is a relative link.
+
+* Bugfix: use deep copies for resetting keys.
+
+* Assorted typing erors in procedure names in ly/engraver.ly
+
+1.3.62
+======
+
+* Made callbacks from Score_element::before_line_breaking() and
+Score_element::after_line_breaking()
+
+* Fixed website; backlinks should work again.
+
+* Removed --ignore-version option. Added --verbose option.
+
+1.3.61
+======
+
+* Webpage hacking
+
+1.3.60.hwn1
+===========
+
+* Junk int_identifier, real_identifier. Merged Midi_def_identifier and
+Paper_def_identifier.
+
+* Fixed bug with spanning barlines in combination with Hara-Kiri staffs.
+
+* Cleaned up Text_item, Hyphen_spanner, Lyric_extender and
+Sustain_pedal and reduced them to an Score_element interface (they are
+no longer Score_element derived types).
+
+* Some instances of brew_molecule routines have moved out of
+Score_element, and are now called scheme_molecule.
+
+* Moved lots of parameters from ly/params.ly to ly/engraver.ly
+
+1.3.59.hwn1
+===========
+
+* Removed String_identifier, and use the type system of GUILE instead.
+
+* Fixed \key PITCH MODALITY syntax. The modality argument is now
+mandatory, a rule in convert-mudela has been added.
+
+* Cleaned up  buildscripts/ directory: removed obsolete scripts.
+
+* Use Scheme_hash_table for identifier Scopes.  Scheme_hash_table is
+based on STL and should be faster than hash_table.
+
+
+1.3.59.jcn1
+===========
+
+* Fixed scm_un/protect_object for guile-1.3.4 and 1.3.5 snapshots,
+  in the process reduced number of protect/unprotect calls.  With
+  guile-1.3.5 snapshot, memory usage has decreased by 1/5th, now
+  just 10% above the 1.2 level.  Also, Lily's a bit faster.
+
+* Fixed make diff bug in stepmake to be able to make this diff :-)
+
+1.3.58.hwn1
+===========
+
+* Rewrote key sig support.  Now key signature can also be controlled
+by setting keySignature and localKeySignature properties, eg.
+
+	\property keySignature = #'((2 . -1) ( 4 . -1) (6 . -1))
+
+sets a key signature of `es ges bes' (an unusual key signature).
+
+Keys are internally represented as transpositions of the c-major
+scale. Printing the key signature for a scale is done by filtering out
+all non-natural accidentals.
+
+* Removed support for \keysignature, and \key something \minor; Newkey
+is now obsolete.
+
+1.3.58.jcn3
+===========
+
+* Fixed pedal items (hw)
+
+* Changed configure option tex-tmfdir to tmf-path now accepting multiple
+  tfm directories.  Automated links to cmr and amstex tfm font directories.
+
+* Replaced one scm_assoc () u-turn slipped through jcn1
+
+* various GUILE 1.3.5 compile fixes
+
+* Added `Ped' as a compound symbol font and removed silly scheme kerning.
+
+* Replaced some scheme assoc u-turns with scm_assoc ()
+
+* Ran po-update (mostly because of new ja contribution).
+
+1.3.57.jcn2
+===========
+
+* Cleaned-up scheme list to text conversion for Chord_name and 
+fixed horizontal kerning.
+
+* Added examples for american (slashed o) and jazz (black triangle),
+  see input/test/{american-chords.ly,jazz-chords.ly}
+
+* Made guile-1.3.5 compile fixes
+
+1.3.57.uu1
+==========
+
+* Fixed typo in Dots::do_brew_molecule (); this fixes the disappearing
+dots problem.
+
+* Rewrote key signature administration; now Scheme is used; Octave and
+Key have been junked in favor of Newkey.
+
+* japanese .po file included (thanks, Japanese team!)
+
+1.3.57
+======
+
+* Fixed several forgotten molecule-callbacks 
+
+* Fixed first clef in score; now F clefs are also possible.
+
+1.3.56.mb1
+=========
+ 
+* Updated FAQ with two useful GDB macros.
+
+* Several fixes in the documentation.
+
+1.3.55.jcn1
+===========
+
+* Made (dutch) po-update
+
+1.3.56
+===========
+
+* Molecules are now generated via callbacks exclusively; most calls to
+set_elt_property ("transparent", SCM_BOOL_T) have been replaced by suicide().
+
+1.3.55
+======
+
+* Experimental property collapse for most score-elements.  (notable
+exceptions: Scripts, pedals). Change all Score_element constructors to
+take a basic-property list. The suffix of a property list may be
+shared by several score-elements, for instance all default G-clefs in
+a score share the following settings
+  
+	   (breakable . #t)
+	   (break-align-symbol . Clef_item)
+	   (visibility-lambda . ,begin-of-line-visible) 
+
+This should reduce memory usage further. 
+
+* Magically fixed the disappearing Lyrics problem.
+
+* Removed used_b_ field from Score_element.  
+
+* Massive search-replace patch: store pointers and properties
+separately, in preparation of property collapse.
+
+
+1.3.54
+======
+
+* Bugfix: don't crash on tuplet spanners that don't contain any notes.
+
+* Cleanup of Dimension_cache: removed a few redundant
+fields. Slightly lower memory usage (32 bytes per
+score-element). Dimension_cache is now a `dumb' struct again.
+
+* Add array index to priority field of text scripts to ensure that
+order is unique, and sensible.
+
+* Added an element count statistic.
+
+1.3.53
+======
+
+* russian.po (thank you, August.)
+
+* Small cleanups in Molecule interface 
+
+* Spacing related elements perform suicide after calculating
+distances.  This saves a some memory, approximately 2 to 5 % ?
+
+* Small cleanups in line breaking: Paper_column stores springs and
+rods in only one place now.  All fields relating to energy have been
+removed
+
+* Don't generate all output Scheme in memory, but evaluate to output
+file immediately.  This will reduce memory usage a little.
+
+* Use STL's map  for Dictionary template
+
+* Substitute pointers on element properties of the root Line_of_score
+as well.
+
+* Added toplevel doc target, to support building doc with --srcdir
+
+* Removed cygwin build stuff; updated versions at:
+
+     http://appel.dyndns.org/lilypond/gnu-windows/cross
+
+* Fixed lily.scm to handle incipits (thanks, Mats)
+
+
+1.3.52
+======
+
+* Made bugfix in smob handling: delete the C-part of freed smobs and
+be honest about amount of allocation and deletion, so that GUILE
+doesn't overestimate the amount of memory available.
+
+* Faq update: nicer blank note paper, courtesy Mats Bengtsson.
+
+* Bugfix: don't crash on durations that are not a power of 2.
+
+* Build manpages during `make all' 
+ 
+* Bugfix: don't do absolute comparisons in Polynomial::clean ().
+
+* Bugfix: set visibility-lambda for key signature created by
+createKeyOnClefChange. Fixes disappearing key signatures. 
+
+* Bugfix: make System_start_delimiter of bar-line type invisible when
+it spans only one staff.
+
+1.3.51
+======
+
+* Item cleanups.  Copying items and rearranging pointers are done in
+separate passes, which makes the code cleaner. This fixes a problem
+with some items not disappearing from hara-kiri staffs.
+
+* Use Scheme for Key_item data members. 
+
+* Don't use regex in chord-names.scm under windows; hybrid chordnames
+user+calculated will be partly broken.
+
+1.3.50
+======
+
+* Junked Shift_tuple from collision; Now it uses SCM.
+
+* Bugfix of documentation and test-file of tuplet.
+
+* Bugfix type string of repeated music is copied. This fixes declared
+tremolos.
+
+* Junked various cruft from lily.scm
+
+* Use interfaces symbols instead of C++ class-name for assigning generic
+element properties.
+
+* Junked Dictionary from Piano_pedal_engraver and
+Piano_pedal_performer.
+
+* Introduced boolean element property no-spacing-rods: ignore this
+item for hard constraints.
+
+* Bugfix: added sanitised TeX fragment in faq.texi
+
+* Bugfix: merge equal Bar_reqs
+
+1.3.48.uu1
+==========
+
+* Small fixes for \cresc and \endcresc
+
+* Release properties of unbroken spanners & items after doing
+handle_broken_smobs (); should conserve a little memory.
+
+* Fixed handling of orphaned score-elements. Any element that does
+not have its Line_of_score as a ancestor in both directions, is silently
+removed from the output.  This guarantees that programming errors
+don't result in coredumps from Dimension_cache::common_refpoint ():
+element->line_l () is always a common reference point.
+
+* Bugfix: set visibility-lambda of clef and octavation-8 explicitly
+for default case.  Now the octavation 8 is not printed at every
+barline.
+
+1.3.48.mb1
+===========
+
+* Changed noteHeadStyle properties to symbols, for example
+  \property Voice.noteHeadStyle = #'cross
+
+1.3.47.jcn3
+===========
+
+* Rewrite of chord-name production in scheme.  There are two major styles
+  now, banter and american.  To get american style, use
+
+      \property ChordNames.chordNameStyle = "american"
+ 
+  Most anything should be possible now.  See input/test/american-chords.ly
+
+* Added isinf check to configure.in, and isinf macro from guile to
+  bezier.cc; solaris has no isinf ().
+
+* Fixed star-spangled-banner with not-so-nice \bar "|." fix.  Almost
+  perfect now.
+
+* Added output property to regression test.
+
+* Fixed warning of creating existing outdir.
+
+* Added `Mark' interface to text-items that are marks (thanks, HW).
+
+1.3.48
+======
+1.3.47.mb2
+===========
+
+* Corrected glossary.tely
+
+* Corrected \mark font handling. feta-nummer font only of the 
+  string is all numeric.
+
+* Implemented noteHeadStyle lookup in Guile. Reintroduced the style
+  "harmonic" and added "baroque" (normal note shapes except for 
+  brevis and longa which are square).
+
+* Simplified ly2dvi using the power of the geometry package.
+
+* Improved heuristic size calculation of TeX macros. Handles e.g.
+  "\\u{a}", "\\"{o}" and "\\^{u}" correctly.
+
+1.3.47.hwn1
+===========
+
+* Bugfix: don't hang on zero-duration.
+
+* Various glossary updates (thanks, Christian)
+
+1.3.47
+======
+
+1.3.46.jcn2
+===========
+
+* Drastically reduced vertical space used by headers/footers, when using
+  ly2dvi.  See input/test/fill-a4.ly.
+
+* Fixed bug with colons appearing on repeat span-bars.
+
+* Added Bar_number_engraver to standard Score context
+
+* Construct octavation scripts in the clef-engraver; this fixes the
+hara-kiri + clef8 problem
+
+1.3.46
+======
+
+1.3.45.jcn2
+===========
+
+* Fixed chord-name customisation and made small chord-name build fixes.
+
+* Accidentals with chord-names smaller and as superscript.
+
+* Do some extra footify (works only once) while making html docs.  
+
+1.3.45.hwn1
+===========
+
+* Debian patch (Thanks Anthony)
+
+* Rewrote Bar_number_engraver and Mark_engraver and removed
+Bar_script_engraver as baseclass. Both Bar_number_engraver and
+Mark_engraver are simpler and more robust.
+
+* Fixed precedence of \property verticalDirection and dynamicDirection
+
+* Fixed keys without barlines 
+
+* Fixed StaffGroups: removing `\consistsend "Axis_group_engraver"'
+puts alignment in function again
+
+* Fixed StaffGroup + GrandStaff combination.
+
+* Music is now mandatory as the first thing in a \score{} block
+
+1.3.45
+======
+1.3.44.jcn2
+===========
+
+* Implemented una-chorda and sostenuto piano pedals in performer and engraver.
+
+* Added Properties textScriptWordSpace and chordNameWordSpace.
+
+* Junked old lyrics in star-spangled-banner.
+
+* Added a Piano_pedal_engraver.
+
+* Removed some empty files.
+
+* Created piano pedal symbols: * - . P e d.
+
+* Fixed ps-to-pfa.py to handle multiple unfills.
+
+* Moved accordion symbols out of feta-script to end of font.
+
+* Bugfix: don't create tfm's, pfa's etc of feta-test fonts.
+
+* Fixed blot_diameter for small resolutions.
+
+1.3.43
+======
+
+* Put global element list into Line_of_score, instead of
+Paper_score. post processing (the stage after line breaking) is now
+truly done per-system, and we got rid of an ugly hack to get font
+handling OK.
+
+* Bugfix: set the group-interface of System_start_delimiter.
+
+* Cleanups of Break_algorithm and derived classes, Move
+broken_col_range () to Line_of_score, remove Paper_score::col_l_arr_
+
+* Bugfix for accordion symbols.
+
+* Various patches to prevent crashing when do_brew_molecule gets
+called before after_line_breaking (). This was a problem in Spanner
+classes mostly.
+
+1.3.43
+======
+
+1.3.42.jcn3
+===========
+
+* Made a quick try at piano pedal performer, damper pedal only.
+
+* mf/feta-accordion.mf: Fixed strange turning paths.
+
+* mf/feta-beugel.mf: Fixed infinity errors.
+
+* Use a more discriptive name for windows setup.zip.
+
+* mf/GNUmakefile: Have logs as last target, so that normally, they're 
+not made twice.
+
+* stepmake/stepmake/metafont-rules.make: Don't remove the .log files.
+The logs are a target, removing them retriggers make.
+
+* stepmake/stepmake/metapost-rules.make: Remove the correct log and tfm
+files, ie the ones that clutter the source directory, not the target logs.
+
+* Windows distribution: faked symlink for cmtfm.  Setup.zip should now be
+standalone; ie, no need for Cygnus' usertools anymore.
+
+1.3.42.jbr1
+===========
+  
+* Documentation/ntweb: Updated angels.ly to match current syntax.
+Also updated index.texi.
+
+1.3.42.uu1
+==========
+
+* Change all occurances of Staff_margin_engraver to
+Instrument_name_engraver, add a convert-mudela rule
+
+* Change status == busy assert into programming error
+
+1.3.42
+======
+
+1.3.41.jcn3
+===========
+
+* Lots of fixes to windows distribution scripts.
+
+* Added configuration features --program-prefix, --program suffix.
+
+* lily/my-lily-parser.cc (get_chord): Bugfix, don't use deleted pitch.
+This fixes inversions c/g and bass additions d/+c on chords.
+
+1.3.41.mb1
+==========
+
+* Avoid that xxxXXXVerticalExtent is used for empty HaraKiriStaff
+  lines.
+
+1.3.41.hwn1
+===========
+
+* Debian patches (thanks Anthony!)
+
+* Use symbols for prefatory matter spacing. Do not use the typename
+for looking up item pairs in the table, but read element property
+break-align-symbol
+
+* Instrument_name_engraver, uses break alignment instead of
+side-position.
+
+* System_start_delimiter_engraver, System_start_delimiter, uses a
+spanner for the braces/brackets at the left of the system. Remove all
+old Span_score_bar engravers.
+
+* Removed Base_span_bar_engraver::use_prority_b_, and moved
+Base_span_bar_engraver into Span_bar_engraver.
+
+1.3.40.jcn3
+===========
+
+* mutopia/Coriolan/violino-2.ly: Bugfix: wrong pitch.
+
+* input/test: Removed stale AutoStaffSwitch examples.
+
+* mutopia/E.Satie: Fixed gnossiene-4, doing \autochange.  Removed
+stale copy of gnossiene-4.
+
+* buildscripts/make-cygwin-cross.sh: Made some small .zip package fixes.
+
+* make/lilypond.spec.in: Made some bugfixes for _prefix, preparations
+for cross-building to Cygwin.
+
+* buildscripts/make-cygwin-cross.sh: Now using rpm packages.
+
+1.3.40.hwn2
+===========
+
+* added \property XXXMinimumVerticalExtent, \property XXXExtraVerticalExtent
+
+* New_chord_tremolo_engraver: make tremolo beams from
+
+	\repeat "tremolo" NUMBER <Music-expression>
+
+Removed support for "old-style" tremolos.
+
+* Add a convert-mudela function for the conversion "\key A;" to "\key a; 
+
+* Read \property measurePosition within the engraver code, instead of
+looking up the Timing_translator.
+
+* star-spangled-banner.ly: add Bar_engraver to LyricsVoice 
+
+* Changed all .fly and .sly files to .ly files.  Propose to dump .fly
+and .sly.
+
+1.3.40
+======
+
+1.3.39.jbr1
+===========
+
+* buildscripts/mf-to-table.py: feta dep files are now opened with write
+  binary option.  This avoids carriage return linefeed problems and
+  windows while not affecting unix.
+
+* Documentation/hacking.texi: Fixed a texinfo syntax error
+
+* stepmake/bin/package-zip32.sh: Fixed or Removed some legacy, 1.2.x,
+  directory paths.
+
+* Documentation/ntweb/index.texi: Fixed broken links, added 1.3.39 links.
+
+1.3.39.hwn1
+===========
+
+* Glossary updates by Christian Mondrup.
+
+* Bugfix: use generic properties in lyrics too. This fixes the
+\property textStyle for lyrics.
+
+* Score_element::preset_extent(), used by \property
+XXXVerticalExtent, so hard code the size of a vertical group. 
+
+* Don't fix up reference points for originals of broken
+spanners. Fixes spurious "orphaned score-element" warnings.
+
+* buildscripts/make-cygwin-cross.sh: Use rx-1.5 instead of regex (Jeffrey).
+
+* scm/lily.scm: Fixed check for Windows: by default don't use scm regex.
+
+* Documentation/ntweb/guile-1.3.4-gnu-windows.patch: Significantly smaller
+patch for guile.
+
+* buildscripts/make-cygwin-cross.sh: Compile native package GNU regex,
+which should fix Windows problems with guile.  Also added input directory
+to zip file.
+
+* stepmake/aclocal.m4: Added decent checking for version of guile, and 
+fixed warning message.
+
+* lily/lexer.ll (My_lily_lexer): Bugfix: lookup chordmodifiers in the
+chord-modifier table (not in the pitch list).
+
+1.3.39
+======
+
+1.3.38.hwn2
+===========
+
+* General cleanups of My_lily_parser. 
+
+* Start of a Chord_tremolo_iterator for the `\repeat 4 "tremolo"'
+syntax.
+
+* Moved Score_element::do_space_processing out of the dependency
+mechanism.
+
+* Use Scheme for notename tables.  Removed uppercase letters for low
+octave notes. Removed Notename_table.
+
+* Fixed core dump with declared "\key  ; "
+
+* Extra robustness warning for Side_position_interface::aligned_on_self ()
+
+* Extra robustness: make sure that first and last columns are breakable.
+  	
+1.3.38.jcn4
+===========
+
+* stepmake/aclocal.m4: Added support for cross-compiling with guile.
+
+* buildscripts/make-cygwin-cross.sh: A try at dropping cygwin1.dll
+ dependency by using mingw.  Compiling guile is too much to ask
+ for mingw, though.  Also:
+ - rename python scripts .py (request from Alain)
+ - install native packages under their own, separate root. (Alain)
+
+* lily.scm: Don't use regex module when running on
+Windows. (Shamus)
+
+* lily/staff-margin-engraver.cc (acknowledge_element): If
+possible, hang y-axis of margin script to span-bar.  This fixes
+vertical placement of margin scripts attached to staff groups.
+
+* help2man-rules.make: Fixes for generating manpages by copying
+and for building using --scrdir.
+
+* stepmake/stepmake/generic-targets.make: Preserve date stamp of
+config.h, version.hh files file when copying.
+
+* buildscripts/make-cygwin-cross.sh: made number of fixes:
+	- add `Cygnus/' prefix to directories in .zip-file too.
+	- package guile too.
+	- don't link to cygwin1.dll
+
+* stepmake/stepmake/install-targets.make: bugfix, don't fail if directory
+  is not emty when uninstalling.
+	
+* stepmake/stepmake/generic-targets.make: added man target.
+
+* buildscripts/make-cygwin-cross.sh: new script for cross-building cygwin
+  development tools and lilypond executable.
+
+* Documentation/ntweb/lilypond-manpages.patch: provide pre-built
+  manpages, so that make doesn't fail on help2man trying to execute
+  a GNU/windows executable.	
+
+* Documentation/ntweb/guile-1.3.4-gnu-windows.patch: new patch for
+  guile-1.3.4.  
+
+* flower/libc-extension.cc (memmem): cygwin compile fix.
+
+1.3.38
+======
+
+1.3.37.hwn1
+===========
+
+* (generic-property.scm) added \property tieDash to set dashing on
+ties.
+
+* Removed  ly_eval_str(), we should use scm_eval (Scm_object).
+
+* Removed scm_to_array (), array_to_scm (), associated junk. Reverted
+undocumented .29 patch that made Bezier::control_ into an
+Array<Offset>.  Added some comments documenting the reasons for the
+changes.
+
+* Revert generic-property.scm of .37 fix, fix the real problem in
+property-engraver.cc: use the right symbol to check if element
+property is already set.
+
+1.3.37.jcn2
+===========
+
+* Fixed srcdir build, so that you can do:
+
+      tar xzf releases/lilypond-x.y.z
+      mkdir <build>
+      cd <build>
+      ../lilypond-x.y.z/configure
+      make
+
+  as with any other gnu package.  All build output goes to <build>/out.
+
+* Changed and fixed use of different configurations, and different output
+  directories.  Finally, you can use different configurations alongside
+  eachother.  From make/stepmake.make:
+
+      # Use alternate configurations alongside eachother:
+      #
+      #     ./configure --enable-config=debug
+      #     make conf=debug
+      #
+      # uses config-debug.make and config-debug.h; output goes to out-debug.
+      #
+
+      # Use same configuration, but different output directory:
+      #
+      #     make out=www
+      #
+      # uses config.make and config.h; output goes to out-www.
+      #
+
+
+* Fixed performance of (de)crescendi.
+
+* Better documentation for arithmetic_multiplier and arithmetic_basicspace
+  in params.ly.
+
+* Added instrument-equaliser for MIDI output, see scm/midi.scm, and
+  properties midiMinimumVolume, midiMaximumVolume, ranges [0,1].
+
+* Changed absolute midi volume settings into factor of full scale.
+
+* Fixed another dynamic-line-spanner bug, it gets hairy.
+
+* Added warning for spanners that are not fully contained in parent spanner.
+
+
+1.3.37
+======
+1.3.36.hwn1
+===========
+
+* Abstract Align_element into Align_interface. Removed
+Axis_align_{item,spanner}, Align_element, Super_element, all multiple
+inheritance in the backend.
+
+* new Gade score, INSTALL.texi fixes (thanks, Mats)
+
+* Removed Item::hpos_f (), Score_element::{get,set}_real ()
+
+* comments detailing properties for Axis_group_interface,
+Side_position_interface, Score_element, Item and Spanner
+
+1.3.36.jcn3
+===========
+
+* Fixed vertical dimensions of elements in dynamic line spanner by adding
+  axis-group to dynamic line spanner.
+
+* Bugfix: line-spanner lasts always full duration of (de)crescendi.
+
+* Bugfix: broken (de)crescendi on a dynamic-line-spanner.
+
+* Bugfix: compilation dynamic-engraver.
+
+* Added and updated a faq about postscript and ghostscript.
+
+* Fixed order of slurVerticalDirection verticalDirection in
+  generic-property.scm.  Similar fixes for Stem, Tie, etc.
+
+* Added a Text_engraver to GraceContext.  Maybe it was removed on
+  purpose: scripts on grace notes seem broken, they appear on the
+  main note.
+
+* Bugfix: volume effect of (de)crescendi was sometimes wrong way round.
+
+1.3.36
+======
+1.3.35.hwn1
+===========
+
+* textEmptyDimension changed into textNonEmpty, default: off,
+ie. texts don't occupy space.
+
+* Use STL map for Lookup::lookup_p_tab_p_
+
+* Abstracted Axis_group_element into Axis_group_interface, and removed
+Axis_group_element. This eliminates some multiple inheritance in the
+backend
+
+1.3.35.jcn1
+===========
+
+* Added minimum-space property to Side_position_interface.  Used in
+  positioning of Volta_spanner: voltaMinimumSpace.
+
+* Fixed and cleaned-up volta-spanner.
+
+* Moved directional-element.cc -> directional-element-interface.cc
+
+* Renamed all `process_requests' to `process_music', which fixes
+  midi performance.
+
+* Fixed dimensions (more x-y interchanges) of brace, bracket and
+  volta-spanner.
+
+* Half-assed fix to get similar vertical placement of orphaned vs.
+  line-spanned dynamic elements.
+
+* Added property bracketCollapseHeight: the minimal size of a staff bracket
+  that will be typeset.  Smaller brackets will not be displayed.  This
+  fixes the (in 1.3.x reintroduced) funny duck-beak-bracket-bug (sorry).
+
+* Removed some dissonant chords from Coriolan
+
+1.3.35
+======
+
+* Removed Documentation/programmer directory 
+
+1.3.34.jcn3
+===========
+
+* Small enhancements to Staff_margin_engraver:
+   - by default, the marginScript left aligns the text
+   - to set the text style, use property marginScriptTextStyle
+   - to change the alignment, use property marginScriptHorizontalAlignment
+     (centred and right alignment require manual padding settings).
+
+* Print a friendly message if the manual pages failed to build.
+
+* Bugfix: dynamicDirection now overrides verticalDirection setting.
+
+* Warning messages and nl.po
+
+* Fixed vertical alignment for all dynamic items and (reluctantly)
+  reinstated old directional behaviour for orphaned dynamics.
+
+* Finished maximumRestCount property.
+
+1.3.34
+======
+1.3.33.hwn2
+===========
+
+* Print key without setting key, syntax "\key ;". General cleanups of
+key-item.
+
+* Add paragraph tags in HTML output of mudela-book.  Music fragment
+don't run into the text anymore.
+
+* Bugfix: don't align the first line of text. (Lookup::text ()).
+
+* Abstract away data members of Axis_group_element, Align_element
+
+
+1.3.33.jcn3
+===========
+
+* Added helpful properties instrumentScriptPadding/instrScriptPadding for
+  Staff_margin_engraver.
+
+* Removed some empty files, substituted (c) 1999 occurrences.
+
+* Added \property maximumRestCount.  It will prevent showing (or actually:
+  moving in case of a collision) more than maximumRestCount similar rests.
+  WIP!
+
+* Rewrote Staff_margin_engraver.  Staff margin texts now hang on a new
+  breakable item: Left_edge_item.
+
+* Fixed vertical alignment for dynamic elements.  Orphaned dynamic items
+  (not supported by a Dynamic_line_spanner) still collide with Staff,
+  although they now have staff support, which was supposed to fix this.
+
+* Fixed Staff_margin_engraver for "instrument", "instr" is still broken.
+
+* Dynamic elements are only put in a Dynamic_line_spanner if there
+  actually is more than one adjacent note-column with a dynamic.
+  This breaks the fine looks of all dynamics, again :-)
+
+
+
+
+1.3.33
+======
+
+1.3.32.hwn3
+===========
+
+* Experiment: use STL map for Scheme_hash_table; Is there a speedup?
+
+* Bugfix: print brace iso. bracket for Piano / GrandStaff
+
+* Change naming: change do_post_processsing into after_line_breaking,
+do_pre_processsing into before_line_breaking and do_process_requests
+into do_process_music.
+
+* Bugfix in hash-table.hh: do quadratic probing, and not cubic probing.
+
+* Display property name for type error.
+
+* Cleanups for Dynamic_engraver and Dynamic_line_spanner.
+
+* Warn if last column in score is musical. Helps catch programming errors.
+
+* Spanner::spanned_drul_ now is private. 
+
+* Rewrote some bar code: moved molecule functions out of Lookup.
+
+1.3.32.jcn3
+===========
+
+* Embedded newlines in text items are now allowed.  This helps avoiding
+  TeX-hacking in some cases.  See input/test/coriolan-margin.ly
+
+* Fixed stupid x-y interchange bug for staff-bracket.  This fixes
+  placement of staff-brackets.
+
+* Fixed bracket/arch-thickness interchange bug, and made bracket a bit
+  thinner.
+
+* Fixed slur/bezier-beautiful name mismatch.  This should fix the steep
+  slurs that were apparently reintroduced in 1.3.29.
+
+* Made some small fixes to Coriolan.
+
+* Removed duplicate lily/output-property-engraver.hh.
+
+* Removed optional use of vanilla spanner in Dynamic_engraver.
+
+* Fixed (measured) tremolo for Stem and Beam. Merged declarations
+  stem-engraver.hh and chord-tremolo-engraver.hh into their .cc
+  implementation file.  Also fixed looks of Chord tremolo, input and
+  implementation is still ugly.
+
+* Added *.yy and *.ll to TAGS, to that tags-find-replace doesn't omit
+  parser and lexer.
+
+1.3.31.mb1
+=========
+
+* Fixed \specialkey and \normalkey. Updated documentation.
+
+1.3.32
+======
+1.3.31.jcn5
+===========
+
+* Fixed and cleaned-up Dynamic_engraver.  Optionionally uses vanilla
+  spanner instead of Dynamic_line_spanner.
+
+* Made gcc-2.95 compile fix in libc-extension.
+
+* Various fixes to Coriolan, score starts to look acceptable.
+
+* Moved optional text of crescendo into Crescendo spanner.  Fixed horizontal
+  and vertical alignment of dynamics.
+
+* Added new text crescendo spanners to Coriolan and made some fixes.
+  If you're using timidity, use the -EO option to prevent notes get
+  stuck.  I'm not sure whose fault this is, Lily's MIDI output may be
+  stretching the standard a bit.
+
+* Adjacent dynamic markings are now grouped on a horizontal line, but it's
+  not perfect yet: they're always below the staff and no horizontal spacing
+  is done.  Also, character metrics of dynamics are still not used.
+  See: input/test/crescendi.ly and input/test/dyn-line.ly
+
+* Cleaned up Span_dynamic_performer.
+
+1.3.31
+======
+1.3.30.mb1
+=========
+
+* Fixed the page layout, reintroducing space for the header and
+  trying to keep piece titles on the same page as the piece.
+  The header and footer can now contain several lines.
+
+1.3.30.jcn3
+===========
+
+* Lily now also performs crescendi and decrescendi in MIDI output:
+  Span_dynamic_performer in a slightly crappy way.
+
+* Added preliminary support for crescendi/decrescendi other than `hairpins',
+  eg: `cresc. poco `a poco -- -- --'
+
+* Made MIDI tie performance fix.
+
+1.3.30.jcn2
+===========
+
+* Lily now performs absolute dynamics in MIDI output.
+
+* Included David's comments on opus47 in TODO.
+
+1.3.30.jcn1
+===========
+
+* More Coriolan: flute-1,2; oboe-1,2; clarinet-1,2; 
+  fixes and remainder french horn-1,2; trombone-1,2;
+  fagotto-1,2; timpani; and several fixes.
+  
+1.3.30.uu1
+==========
+
+* Remove some old doco from programmer/ and put on personal homepage.
+
+* Removed union-find from flower library.
+
+* Only quantise tie horizontal part inside the staff.
+
+1.3.30
+======
+1.3.29.hwn1
+===========
+
+* Report type errors for \property. Helps with converting 1.2 input
+
+* Use Scheme for Align_element; fixed graceAlignPosition 
+and removed \property alignmentReference in the process.
+
+* Use generic properties for lyrics too.  This fixes \property
+Lyrics.textStyle
+
+
+* Add relative distance for constraints between non-column items.
+
+* Automatic \marks: use "\mark ; ". The mark numbers or letters are
+increased automatically.
+
+* Translators now only change properties of their own context. This
+removes the 2nd argument to Translator::get_property()
+
+* Bugfix for Metapost mode
+
+1.3.29.uu1
+==========
+
+* Updates of glossary  (Christian Mondrup)
+
+* Bugfix with bar number placement
+
+* Moved links to bibliography/ and misc/ to main index.
+
+1.3.29
+======
+
+* Moved Slur-specific code from Bezier_bow to Slur and Slur_bezier_bow.
+  Slurs are now calculated just once.
+
+* Bezier_bow gets constants from paper.  Still no sensible solution for
+  magic asymmetry gradient step constants.
+
+* Reinstantiated tangent-controls, more flexible than ever.  You can choose
+  between area asymmetry and tangent-controls.  My guess is, tangent controls
+  will be junked in 1.3.30.
+
+* Slur area: only look at x-gradient.
+
+* Added credits for some symbols of as5/9 fonts.
+
+* Bugfix: don't make almost flat slurs, change in de-uglyfy slur.  
+
+* Bugfix: midi2ly put out recent version (ugh).
+
+1.3.28.hwn2
+===========
+
+* Bugfix: don't forget to process staffSpace and numberOfStaffLines
+properties.
+
+* Removed Gade score. To appear (shortly?) on Mutopia. 
+
+* Make Bar_script_engraver look for typeVisibilityFunction (eg
+property barNumberVisibilityFunction). Changed the names of the Scheme
+functions to be understandable. See input/test/bar-script-visibility.ly
+
+* rewrite of class Molecule. It has now reached the ultimate quality
+plateau. All molecule data is now shared.
+
+1.3.28
+======
+
+* Update of the glossary by Christian Mondrup 
+
+* Moved horn-concerto-3 out of tarball to private website, removed
+W.A.Mozart subdirectory.
+
+1.3.27.hwn1
+===========
+
+* Bugfix: don't make giant ties if the horizontal part of tie is near
+the center.
+
+* Small optimizations to be a little more careful with mem usage. 
+
+* Website change: put all examples in one directory.
+
+* Removed Atom as a separate type.  Now use SCM, and since we use
+function composition, Atoms are immutable, so they don't have to be
+copied. This makes life easier, hopefully this is quicker and uses
+less memory.
+
+1.3.27.jcn1
+===========
+
+* Bezier_bow: minimise_enclosed_area
+
+1.3.27
+======
+
+1.3.26.hwn4
+===========
+
+* Tuplet-spanner slope calculation now looks better on tupletted rests
+(patch courtesy Laurent Martelli)
+
+* Bugfix (Staff_performer::new_instrument_str ()) check type of
+\property "instrument"
+
+* New mechanism for breaking lines: do not copy & prune the element
+property list separately, but combine these steps. Dramatically
+reduces memory usage for large scores.
+
+1.3.27
+======
+1.3.26.jcn2
+===========
+
+* Bugfix: font used in volta-spanner calculation.
+
+* Added simple selection list to webpage, inspired by sawmill.
+ 
+* Devised kludge for ascii 5 character font pitches.
+ 
+* Substitutions: interline, 1997,1998, @stack.nl and small typo fixes.
+
+1.3.26.hwn1
+===========
+
+* Plug memory leaks related to Moment:
+  - Spacing_engraver::do_pre_move_processing ()
+  - make_rational ()/make-rational
+  - Paper_column::Paper_column ()
+
+* Plug memory leak in Paper_outputter::output_{String,Real,int}_def()
+
+* Plug memory leak in Score_engraver::set_columns ()
+
+* Plug memory leak in Scheme_hash_table::set()
+
+* Plug memory leak in Score_element::molecule_extent ()
+
+* Bugfix: don't crash if a slur doesn't span anything.
+
+* Bugfix: don't crash if doing beams without a staff symbol.
+
+* Generic element property setting:
+
+	\outputproperty #predicate #'symbol = #value
+
+Will set the element property symbol to value, for any elements that
+return true for PREDICATE.  This allows you to virtually tweak *ANY*
+property of the output. Example in input/test/generic-output-property.ly
+
+1.3.26
+======
+
+* lilypond as as2ly: --help and --version to stdout.  Regular identify 
+  to stderr.  This fixes help2man's manpage generation.
+
+* configure: substitute full path for perl and guile in scripts.
+
+* Added ascii slur and volta.  There seems to be a Lily bug in volta placement.
+
+* Bugfix: default font now user settable
+
+* as2text: handle plain ascii font, read from stdin, you can now do:
+
+  echo "\time 4/4; g''1 g2 g4. g8" | lilypond -f as -i init-as.fly - | as2text
+
+1.3.25.hwn1
+===========
+
+* Bugfix: second half of broken ties now are displayed again.
+
+* Bugfix: add clef to the support of 8 text in the G_8 clefs. Center
+it horizontally on the clef.
+
+* Added Tie_column spanner. Ties in tied chords now get proper directionsa.
+
+* Bugfix: unbroken repeat barlines now work, eg. |:
+
+* Added Request_iterator to make more flexible constructions possible.
+
+1.3.25
+======
+* as2text: catch missing font/character errors, added default font, set text.
+
+* New ascii fonts and glyphs: as5 as-numeral4 as-braces9
+
+* Ascii output, minimal support:
+  - AsciiScript Fonts: mf/*.af
+  - Init files: ly/*-as.*ly 
+  - AsciiScript translation to text: scripts/as2text.scm
+  - input/test/as.fly input/test/as1.fly
+  - Output support: lily/lily.scm
+  - Try:
+      lilypond -f as -i init-as.fly input/test/as.fly
+      as2text as.as
+
+1.3.24.hwn1
+===========
+
+* The horizontal part of ties will avoid collision with staff lines.
+
+* Plugged memory leak: don't protect Atom function.
+
+* Lookup cleanups. Made lots of functions static. Moved some code out
+of Lookup.
+
+
+
+1.3.24.hwn1
+===========
+
+* Bugfix: ly2dvi.py exits succesfully when encountering --help and
+does not delete any of the file_ly*.tex.
+
+* Added header and footer support in ly2dvi.py
+
+1.3.24
+======
+
+* Added a ROADMAP file explaining the source directory layout.
+
+* Minor tweak in the feta 6 and 9 numeral
+ 
+* Moved files from lib/ to flower/
+
+* Removed Note_head_side class.
+
+* Updated the webpage to be a little more chatty. 
+
+* Small Local_key_engraver optimization: only lookup timing engraver once.
+
+* Fixed dashed slurs
+
+* Rewrite of Slur code.  Be much more picky about slur shapes. We try
+to offset the slur instead of bending it too much
+
+* Look at stem directions for tie direction.
+
+* Compound multimeasure rests. Put measures_i_ variable in an element
+property.  Made the symbol a lot wider.
+
+* Time signature small cleanups.
+
+1.3.22.hwn2
+===========
+
+* Symbols opposite to stem (eg marcato) now get the proper glyph in up
+version.
+
+* Breathing marks now have a direction by default.
+
+* Do set generic script properties.
+
+* Also put tuplet brackets under notes.
+
+* Score_element_info: only store origin of element, but not the path
+to parent translators. Saves a little memory, and removes some complexity.
+
+
+1.3.22.hwn1
+===========
+
+* Autobeaming in time sigs that don't have 1/4 beats fixed.
+
+* (De)crescendi should now work. (Thanks Michael)
+
+* Better error reporting for conflicting time signatures.
+
+* Line_number_engraver: output locations of note head
+definitions. Very handy when entering complicated scores.
+
+* Rewrote multi measure rest support: now they are entered as spanners
+(\commandspanrequest \start "rest"). RXXXX is an abbreviation for
+
+  { \commandspanrequest \start "rest"
+    SXXXX
+    \commandspanrequest \stop "rest"
+  }
+
+* Removed support of percent style repetitions. 
+
+* Put texts outside the staff.
+
+1.3.21.mb1
+==========
+* Getopt bugfix: don't assert on certain errors.
+
+* ly2dvi: Remove unnecessary space for the page headers.
+
+* Bugfix convert-mudela
+
+1.3.21.hwn1
+===========
+
+* Bugfix in lilypond-mode.el: eval-buffering now uses file name and
+not buffer name.
+
+* Scrapped tupletVisibility property. Now use tupletNumberVisibility,
+tupletBracketVisibility, with Scheme value #t, #f or 'if-no-beam.
+\property tupletInvisible will stop all tuplet spanner creation.
+
+* Don't go berserk if tuplet spanner is on only one column.
+
+* Use SCMs & Smobs for Molecules & atoms.  This uses less
+scm_(un)protect_object () calls, so the output stage should be faster.
+
+* Added \property tupletSpannerDuration, to make multiple tuplet signs
+with one \times.
+
+* Some programming Errors in spacing are now caught. Lily does not
+hang when encountering degenerate springs.
+
+* Allow beams to start and end over rests
+
+1.3.19.hwn2
+===========
+* Fix disappearing clefs when clefs are not printed with a barline.
+
+1.3.20.jcn2
+==========
+
+* SCM properties beamHeight and beamVerticalposition now use half-spaces:
+  input/test/beam-control.fly
+* Added \context Voice to .fly and .sly; the default \context Staff is almost
+  never what you expect
+* Fixed decision for .sly/.fly in lilypond-mode.
+
+1.3.19.hwn1
+==========
+
+* Clean up font-metric hierarchy, use Adobe AFM code to parse AFM files.
+Cleanup mf-to-table.py
+
+* Fixed embarassing slur bug.
+
+1.3.19.jcn1
+==========
+
+* lilypond-mode.el: guess init file for lily-*-region, lily-mode-map bindings
+
+1.3.18.uu2
+==========
+
+* lilypond-mode.el for emacs supersedes mudela-mode.el 
+
+* Tuplet spanners don't collide with encompassing notes. 
+
+* Gobbled Adobe parseAFM* code, for future use.
+
+* Big 1999 to 2000 search/replace.
+
+* Big interline to staff_space search/replace for mf files.
+
+* Removed Bow class, and split code into Tie and Slur
+
+* Don't put scripts on grace notes.
+
+* Font_metric uses SCM for name field.
+
+* Various compilation fixes.
+
+1.3.17.jcn2
+===========
+
+* Bugfix: beams with less than one (visible) stem
+
+* small fixes to pa.ly
+
+1.3.17.jcn1
+===========
+
+* Fixed bug that made multi-measure rest barnumber counts go wild.
+(even more scm2int/int2scm mixups!)
+
+* mutopia/J.S.Bach/pa.ly: organ score (for my father)
+
+* small fix to mutopia/J.S.Bach/Duette/violino-ii.ly
+
+1.3.17.hwn2
+===========
+
+* Remove Paper_def calls in bezier-bow.cc
+
+* Remove data members of Tuplet_spanner,  Volta_spanner
+
+* hang_on_clef, property hangOnClef removed
+
+* Bar::type_str_ mode into element property `glyph'. Use a Scheme
+function to determine breaking behavior.
+
+* More Scheme typechecking.
+
+* Be strict about the difference between strings and symbols for conversion.
+
+* Fixed bug that made 1st line offset to right fixed. Bugfix courtesy
+Laurent Martelli.
+
+* Partial French translation, courtesy Laurent Martelli.
+
+* Small corrections in NL translation. 
+
+1.3.17.hwn1
+===========
+
+* Added mensural note heads (noteHeadStyle = "mensural") Additionally,
+we have a longa note head.  noteHeadStyle = "harmonic" is not
+supported anymore. (for now, that is)  
+
+* Reference manual update. Document \properties with examples
+
+* fix mudela-book --help
+
+* Use element properties for Text_item::text_str_, Clef_item::symbol_,
+Key_item::c0_position_
+
+* Clef_engraver general cleanup. Use alists (\property
+supportedClefTypes, clefPitches) for clef types.
+
+* Use progress_indication () for progress. Don't include <iostream.h> directly 
+Don't include <string.h>, <math.h> from headers.
+
+
+1.3.16.hwn1
+===========
+
+* \property stemCentered (boolean): centers stem on note head. See
+input/test/stem-centered.ly
+
+* input/trip.ly, small test of lots of features.
+
+* \property Staff.collisionMergeDotted: merge equal noteheads
+with different dot count. See input/test/collision-merge-dotted.fly
+
+* Dotted rest bugfix 
+
+* Don't crash if a slur does not span any notes.
+
+* Volta repeats fixed.
+
+* cleanup of Note_heads_engraver
+
+* removed dots_i_ member of Dots
+
+1.3.16.jcn1
+===========
+* Fixed cross staff slurs.  It seems that cross-staff sign
+  was swapped.
+
+1.3.15.hwn1
+===========
+
+* Fixed bug in stem code.  Stem in chords works again.  Small
+stem cleanups.
+
+* Use element properties for Staff_symbol.
+
+* \property sparseTies (boolean).  Only make one tie in the
+middle for tied chords.
+
+* Junked Directional_spanner, Column_info.
+Directional_element now is element interface `Directional_element_interface'
+
+* cleanup: use to_boolean () iso. gh_boolean_p && gh_bool2scm
+
+pl 15.jcn4
+	- removed old notename2scm conversion
+	- beam-dir-algorithm through scm
+	- bfs paper-scm
+gv	- bf: knee-stemlengths
+
+pl 15.jcn3
+	- moved poor man's stem arrays to scm
+	
+pl 15.jcn2
+	- beam quanting using scm lists
+
+pl 14.hwn1jcn1
+	- chord-name uses scm members
+	- bfs: knee with different mults, interstaff knee, auto-knee
+
+**********
+pl 14.hwn1
+	- specialize duration.cc for lily, move out of lib/
+	- stem cleanup
+	- more SCM typechecking
+	- stafflineleading -> staff_space
+	- bf: rod distances.
+	- junk some unused code.
+	
+pl 13.hwn2
+	- paper/score column cleanups. Junk Score_column type
+
+pl 13.hwn1
+	- Bezier_bow/Bezier cleanups
+	- bf: rest under beam.
+	
+pl 13.jcn2
+	- untangled Chord_name (item) and Chord (list-of-pitches)
+	
+pl 13.jcn1
+	- bezier-bow fix
+
+**********
+pl 12.hwn1
+	- polynomial.hh
+	- bf: generic properties
+	- quantise_iv () fix.
+	- bezier cleanup
+	- class Polynomial 
+	- use smobs for font metric tables/hashes.
+	- nl.po bf
+
+**********
+pl 11.jcn3
+	- small beam fixes (interstaff knees still broken)
+
+pl 11.hwn1
+	- bf: dots
+	- bf: harmonic note heads
+	- revise stem, notehead, rest
+
+pl 11.jcn2
+ 	- included missing scm,ly updates
+	- bf: urg to_dir () takes scm..
+	- bf's: if (Foo b = bar != 1)
+	- beam cleanup
+
+*********
+pl 10.uu1
+	- various small bfs
+	- bf: alignment reversed
+	- Staff_symbol_referencer -> Staff_symbol_referencer_interface
+	- bf: staccato pos
+	- Knee fixes (thanks, Jan)
+
+pl 10.jcn2
+	- fixes for invisible beamed stems
+	- removed steminfo from properties, don't cache Stem_info
+
+pl 10.jcn1
+	- steminfo to properties
+	- dropped internote dim for stem-beams
+
+*********
+pl 9.hwn1
+	- abstracting Staff_symbol_referencer to an interface.
+	- quantised_position for staccato dots.
+	- standchen fixes
+	- junk Score_element::do_{width,height}: set callbacks directly.
+	- merge Score_element, Graphical_element
+	- merge Axis_group_element, Graphical_axis_group
+	- junk pointer fields from Score_element derived classes
+	- junk obsolete do_substitute_dependency code.
+
+**********
+
+pl 8.hwn2
+	- staff-support for Crescendi.
+	- padding for accidentals.
+	- cascading offset callbacks
+
+pl 8.hwn1
+	- note-head-side 
+	- naming Staff_sidify -> Side_position_interface
+
+***********
+
+pl 7.mb1
+	- bf: timeSignatureStyle works again
+
+pl 7.hwn1
+	- Dirk Latterman key/mmrest patches
+	- Offset callbacks in Dimension_cache
+	- Junked Staff_side_*
+	- Staff_sidify: interface class.
+	- prelude-{1,2} fixes.
+
+***********
+pl 6.uu2
+	- bf: PS font selecting.
+
+pl 6.uu1
+	- bf: ls-latex
+	- mudela-book --no-pictures
+	- bf: ly2dvi
+	- convert-mudela: beamAuto moment syntax. 
+
+pl 6.jcn3
+	- fixed scm output
+
+pl 6.jcn2
+	- half-baken ly-gulp-file in scm
+	- resurrected scm output through guile
+
+pl 5.mb1
+	- bf: version of init.sly, init.fly
+	- Clarify necessary version of texinfo
+	- bf: texi files, minor errors and syntax compatible with 
+	  older makeinfo
+
+pl 6.jcn1
+	- bf: scm output
+
+*******
+
+pl 5.hwn2
+	- Bach preludes: mutopification
+	- dots are Directional_element too; use \property dotDirection
+	- moved some stuff out of Lookup
+	- bf: dots
+	- font selection mechanics changed.
+
+pl 5.uu1
+	- bf: smob allocation (thanks David!)
+
+pl 5.hwn1
+	- junked \shape. Now use #'margin-shape 
+	- timing: one_beat -> \property beatLength
+	- bf convert-mudela
+
+************
+
+pl 4.uu1
+	- input/test/ \property fixes.
+	- gcc 2.95 fix
+
+pl 4.hwn1
+	- Break_align_engraver,
+	break align order from  \property breakAlignOrder
+	- junked Score_priority_engraver
+	- moved Time_description into Timing_translator
+	- use properties for timing, see input/test/timing.fly
+	* removed \cadenza ; now use \property Score.timing
+	* \property measurePosition
+	* \property measureLength
+	* \property currentBarNumber
+	- Note_name_engraver , \context NoteNames
+
+
+pl 4.jcn1
+	- junked some chord guessing code
+	- bf: lookup size (-1) for chord-name accidentals
+	- bf: ly2dvi's MFINPUTS setting
+
+*************
+pl 2.jcn3
+	- chords:
+	  * Chord is item
+	  * junked TeX hacking
+	  * configurable with styled strings from scm
+	  * fixes: dim, /no X, tonic != C
+
+pl 2.jcn2
+	- chords from  scm 
+
+
+pl 3.hwn2
+	- visibility-lambdas into default elt properties SCM.
+	- clef types in SCM
+	- verticalDirection properties now in SCM.
+
+pl 3.hwn1
+	- move position_i_ into Staff_symbol_referencer
+	- move dir_ into Directional_element baseclass
+
+****************
+
+pl 2.hwn1
+	- bf: dynamic style.
+	- prepare to move dir_ into SCM. 
+
+pl 2.jcn2
+	- chord fixes: 
+	   * inversion request: no inversion guessing for chord entry
+	   * bass request: c/+b to add bass note not part of chord
+	   * -dim modifier works on all thirds
+	   * colon iso dash as tonic/modifier-additions separator
+	   * C:m5- displays as "Cdim"
+	   * C:m5-7- displays as "Co"
+
+pl 2.jcn1
+	- moved bracket vars to params
+	- reverted broken lilypond-devel
+
+*************
+pl 1.uu1
+	- David's patches:
+	* mfplain.mp detection
+	* Graphical_element::common_refpoint() robuster.
+	* fixes for mudela-mode.el
+	- Dirk's patches:
+	* key signature placement,
+	* tied accidentals.
+
+pl 1.hwn2
+	- extra-offset elt property.
+	- junked Chord_tremolo
+
+pl 1.hwn1
+	- changed calling convention for {get,set,remove}_elt_property()
+	- rm'd some mutopia examples.
+
+*******
+pl 0.hwn2,1
+      - Generic properties and Property_engraver. Moved most of the
+properties.
+
+0.lu1
+	- resurrected midi2ly
+
+0.jcn1
+	- bf: lyrics lexer
+	- reverted mup2ly revert
+
+pl 3.uu1:
+	- frontport of 1.2.17 patches.
+
+**********
+
+1.3.0:
+
+pl 15.hwn2
+	- loads of bfs.
+
+pl x.jcn3
+	- another workaround: reset buffer state for scm_ftell ()
+	- workaround for broken scm_ftell ()
+
+pl 15.hwn1
+	- \properties are now SCM s, junk Scalar type
+	- use SCM for strings in parser.
+	- Moment derived from Rational. Moment may be smobified.
+
+pl 15.jcn4
+	- direct #... to scm parser  (Thanks to Gary Houston)
+
+

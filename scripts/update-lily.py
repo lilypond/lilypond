@@ -74,8 +74,6 @@ ln -s %n-%v %n
 url = 'file:/home/ftp/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://appel.lilypond.org/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-*.tar.gz'
-#arg
-url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/v1.3/lilypond-*.tar.gz'
 
 remove_previous_p = 0
 
@@ -434,7 +432,7 @@ if 1:
 		os.chdir (patch_dir)
 		if not os.path.isfile (latest + '.diff.gz'):
 			get = get_base + latest + '.diff.gz'
-			progress (_ ("Fetching `%'s...") % get)
+			progress (_ ("Fetching `%s'...") % get)
 			copy_url (get, '.')
 
 	if not os.path.isdir (build_root):

@@ -39,7 +39,7 @@ robust midi2ly.
 @subsection Invoking midi2ly
 
 @example
-        midi2ly [OPTION]... MIDI-FLIE
+        midi2ly [@var{OPTION}]@dots{} @var{MIDI-FILE}
 @end example
 
 @unnumberedsubsec Options
@@ -93,7 +93,7 @@ file to a ready-to-use LilyPond file.
 Usage:
 
 @example
-        etf2ly [OPTION]... ETF-FILE
+        etf2ly [@var{OPTION}]@dots{} @var{ETF-FILE}
 @end example
 
 Convert ETF to LilyPond.
@@ -128,7 +128,7 @@ ABC is a fairly simple ASCII based format. It is described at
 @subsection Invoking abc2ly
 
 @example
-        abc2ly [OPTION]... ABC-FILE
+        abc2ly [@var{OPTION}]@dots{} @var{ABC-FILE}
 @end example
 
 Convert ABC to LilyPond.
@@ -190,7 +190,7 @@ Report bugs to @email{bug-gnu-music@@gnu.org}.
 @subsection Invoking pmx2ly
 
 @example
-        pmx2ly [OPTION]... PMX-FILE
+        pmx2ly [@var{OPTION}]@dots{} @var{PMX-FILE}
 @end example
 
 Convert PMX to LilyPond.
@@ -225,7 +225,7 @@ include a @code{\header} field if a @file{.ref} file is supplied
 @subsection Invoking musedata2ly
 
 @example
-        musedata2ly [OPTION]... MUSEDATA-FILE
+        musedata2ly [@var{OPTION}]@dots{} @var{MUSEDATA-FILE}
 @end example
 
 Convert Musedata to LilyPond.
@@ -259,7 +259,7 @@ convert part of a Mup file to a ready-to-use LilyPond file.
 @subsection Invoking mup2ly
 
 @example
-        mup2ly [OPTION]... MUP-FILE
+        mup2ly [@var{OPTION}]@dots{} @var{MUP-FILE}
 @end example
 
 Convert Mup to LilyPond.
