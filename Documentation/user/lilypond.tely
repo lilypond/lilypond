@@ -45,6 +45,13 @@ Copyright 1999 Han-Wen Nienhuys, Jan Nieuwenhuizen and Adrian Mariano
 
 @end ifinfo
 
+@ifhtml
+
+This document is also available as a @uref{../lilypond.ps.gz,gzipped
+postscript file}.
+
+@end ifhtml
+
 @ifnottex
 @node Top
 @c FIXME: this should not be necessary...
