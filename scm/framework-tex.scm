@@ -281,15 +281,14 @@
      )))
 
 (define-public (convert-to-ps book name)
-  (let*
-      ((bookpaper  (ly:paper-book-book-paper book))
-       (papersize (ly:output-def-lookup bookpaper 'papersizename))
-       (landscape? (eq? #t (ly:output-def-lookup bookpaper 'landscape)))
-       (cmd (string-append "dvips -t " papersize
-			   (if landscape? " -t landscape " " ") 
-			   "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
-			   (basename name ".tex"))))
-
+  (let* ((paper (ly:paper-book-paper book))
+	 (papersize (ly:output-def-lookup paper 'papersizename))
+	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
+	 (cmd (string-append "dvips -t " papersize
+			     (if landscape? " -t landscape " " ") 
+			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
+			     (basename name ".tex"))))
+    
     (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
     (newline (current-error-port))
     (system cmd)))

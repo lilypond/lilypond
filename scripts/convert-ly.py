@@ -2219,6 +2219,7 @@ conversions.append (((2, 3, 18),
 def conv (str):
 	str = re.sub (r'\\paper', r'\\layout', str)
 	str = re.sub (r'\\bookpaper', r'\\paper', str)
+	str = re.sub (r'paper-set-staff-size', r'layout-set-staff-size', str)
 	return str
 
 conversions.append (((2, 3, 22),
