@@ -22,7 +22,10 @@
     (if (> status 0)
 	(begin
 	  (format (current-error-port) (_ "`~a' failed (~a)") command status)
-	  (newline (current-error-port))))))
+	  (newline (current-error-port))
+	  
+	  ;; hmmm.  what's the best failure option? 
+	  (throw 'ly-file-failed))))
 
 (define-public (sanitize-command-option str)
   (string-append
