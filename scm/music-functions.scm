@@ -254,7 +254,7 @@ this is not an override
 	  )
       ))
 
-(define (split-list l sep?)
+(define-public (split-list l sep?)
   "
 
 (display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))) )
