@@ -42,7 +42,7 @@ protected:
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep();
   virtual void start_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_music ();
 private:
 
 };
@@ -62,15 +62,14 @@ void
 Extender_engraver::acknowledge_grob (Grob_info i)
 {
   // -> text_item
-  if (i.elem_l_->has_interface (ly_symbol2scm("text-item-interface")))
-
+  if (i.elem_l_->has_interface (ly_symbol2scm("lyric-syllable-interface")))
     {
       current_lyric_l_ = i.elem_l_;
       if (extender_p_
 	  && !extender_p_->get_bound (RIGHT)
 	    )
 	  {
-	    Lyric_extender(extender_p_).set_textitem (RIGHT, dynamic_cast<Item*> (i.elem_l_));
+	    Lyric_extender::set_textitem (extender_p_, RIGHT, dynamic_cast<Item*> (i.elem_l_));
 	  }
     }
 }
@@ -101,7 +100,7 @@ Extender_engraver::finalize ()
 }
 
 void
-Extender_engraver::create_grobs ()
+Extender_engraver::process_music ()
 {
   if (req_l_ && ! extender_p_)
     {
@@ -114,7 +113,7 @@ Extender_engraver::create_grobs ()
       extender_p_ = new Spanner (get_property ("LyricExtender"));
 
 
-      Lyric_extender (extender_p_).set_textitem  (LEFT, last_lyric_l_);
+      Lyric_extender::set_textitem  (extender_p_, LEFT, last_lyric_l_);
       announce_grob (extender_p_, req_l_);
     }
 }
