@@ -1,3 +1,10 @@
+2004-12-22  Graham Percival  <gperlist@shaw.ca>
+
+	* input/test/unfold-all-repeats.ly: added file back.
+
+	* Documentation/user/notation.itely: fixed misc broken
+	links to input/test/ files.
+
 2004-12-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* tex/texinfo.tex: Update.  We should not be distributing this,
