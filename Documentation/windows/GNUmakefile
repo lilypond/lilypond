@@ -37,7 +37,7 @@ PYTHON_WRAPPERS=\
 
 OUT_PYTHON_WRAPPERS=$(PYTHON_WRAPPERS:%=$(outdir)/%)
 
-TEX_WRAPPERS=dvips latex tex
+TEX_WRAPPERS=dvips latex tex yap
 OUT_TEX_WRAPPERS=$(TEX_WRAPPERS:%=$(outdir)/%)
 
 # profiles
@@ -70,6 +70,10 @@ $(outdir)/dvips: tex-wrapper.sh
 
 $(outdir)/tex: tex-wrapper.sh
 	cat $< | sed $(sed-atvariables) -e "s!@name@!tex!g" > $@
+	chmod 755 $@
+
+$(outdir)/yap: tex-wrapper.sh
+	cat $< | sed $(sed-atvariables) -e "s!@name@!yap!g" > $@
 	chmod 755 $@
 
 default: $(OUT_PYTHON_WRAPPERS) $(OUT_TEX_WRAPPERS) $(OUT_POST_INSTALLS) $(OUT_PROFILES)
