@@ -6,6 +6,10 @@
 
  */
 
+#ifndef _GNU_SOURCE // we want memmem
+#define _GNU_SOURCE
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 

@@ -118,7 +118,8 @@ IMPLEMENT_ID_CLASS(Request_id, Request, request);
 IMPLEMENT_ID_CLASS(Midi_def_id, Midi_def, mididef);
 IMPLEMENT_ID_CLASS(Paper_def_id, Paper_def, paperdef);
 
-Identifier::Identifier (Identifier const&)
+Identifier::Identifier (Identifier const&s)
+  : Input (s)
 {
   assert (false);
 }
