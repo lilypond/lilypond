@@ -18,12 +18,16 @@
 class Sequential_music_iterator :  public Music_iterator
 {
 public:
+  VIRTUAL_COPY_CONS (Music_iterator);
   Sequential_music_iterator ();
+  Sequential_music_iterator (Sequential_music_iterator const&);
   virtual ~Sequential_music_iterator ();
 
   virtual void construct_children ();
   virtual Moment next_moment () const;
   virtual bool ok () const;
+  virtual Music* get_music ();
+  virtual bool next ();
 
 protected:
   virtual void do_print() const;

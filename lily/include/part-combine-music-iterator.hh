@@ -15,6 +15,7 @@
 class Part_combine_music_iterator : public Music_iterator
 {
 public:
+  VIRTUAL_COPY_CONS (Music_iterator);
   Part_combine_music_iterator ();
 
 protected:
@@ -32,11 +33,8 @@ private:
 
   Music_iterator * first_iter_p_;
   Music_iterator * second_iter_p_;
-  Moment now_;
   Moment first_until_;
   Moment second_until_;
-
-  bool combined_b_;
 };
 
 #endif /* PART_COMBINE_MUSIC_ITERATOR_HH */

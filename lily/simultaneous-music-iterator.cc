@@ -15,11 +15,46 @@
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {
   separate_contexts_b_ = false;
+  cursor_i_ = 0;
+}
+
+Simultaneous_music_iterator::Simultaneous_music_iterator (Simultaneous_music_iterator const& src)
+  : Music_iterator (src)
+{
+  cursor_i_ = src.cursor_i_;
+  separate_contexts_b_ = src.separate_contexts_b_;
+  for (Cons<Music_iterator> *p = children_p_list_.head_; p; p = p->next_)
+    {
+      Music_iterator *i = p->car_;
+      children_p_list_.append (new Killing_cons<Music_iterator> (i->clone (), 0));
+    }
 }
 
 Simultaneous_music_iterator::~Simultaneous_music_iterator ()
 {
   children_p_list_.junk ();
+}
+
+bool
+Simultaneous_music_iterator::next ()
+{
+  if (cursor_i_ < children_p_list_.size_i ())
+    cursor_i_++;
+  return cursor_i_ < children_p_list_.size_i ();
+}
+
+Music*
+Simultaneous_music_iterator::get_music ()
+{
+  if (cursor_i_ < children_p_list_.size_i ())
+    {
+      Cons<Music_iterator> *p = children_p_list_.head_;
+      for (int i = 0; i <= cursor_i_ && p; i++)
+	p = p->next_;
+      if (p)
+	return p->car_->get_music ();
+    }
+  return 0;
 }
 
 void
