@@ -99,6 +99,12 @@ is then separated.
 (define (re-sub re to string)
   (regexp-substitute/global #f re string 'pre to 'post))
 
+(define (re-sub-alist string alist)
+  (re-sub (caar alist) (cdar alist)
+	  (if (pair? (cdr alist))
+	      (re-sub-alist string (cdr alist))
+	      string)))
+
 (define (open-tag tag attrs exceptions)
   (define (candidate? x)
     (not (memq (car x) exceptions)))
@@ -115,20 +121,13 @@ is then separated.
     (symbol->string sym)
     "=\""
 
-
     (let ((s (call-with-output-string (lambda (port) (display val port)))))
-      ;; ugh
-      (re-sub
-       "\"" "&quot;"
-       (re-sub
-	"<"  "&lt;"
-	(re-sub
-	 ">"  "&gt;"
-	 (re-sub
-	  "'"  "&apos;"
-	  (re-sub
-	   "&" "&amp;" s))))))
-     
+      (re-sub-alist s '(("\"" . "&quot;")
+			("<" . "&lt;")
+			(">" . "&gt;")
+			("'" . "&apos;")
+			("&" . "&amp;"))))
+    
     "\""
     )))
 
