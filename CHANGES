@@ -1,4 +1,14 @@
-1.3.46.jcn2
+--- ../lilypond-1.3.46/CHANGES	Mon Apr 17 13:20:52 2000
+++ b/CHANGES	Tue Mar 20 20:00:00 2001
+@@ -1,3 +1,8 @@
+1.3.46.jcn1
+===========
+
+* Website build fixes.
+
+ 1.3.46
+ ======
+ 1.3.46.jcn2
 ===========
 
 * Drastically reduced vertical space used by headers/footers, when using

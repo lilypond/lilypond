@@ -6,7 +6,7 @@ $(outdir)/%.info: $(outdir)/%.texi
 	makeinfo --output=$@ $<
 
 $(outdir)/%.html:	$(outdir)/%.texi
-	-makeinfo --force --output=$@ --html --no-headers $< 
+	-makeinfo --force --output=$@ --html --no-split $< 
 # we want footers even if website builds (or is built) partly
 	$(footify) $@
 

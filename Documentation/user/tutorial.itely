@@ -1,16 +1,17 @@
+
+@node Tutorial
 @chapter Tutorial
 
 
-@node Tutorial, , , Top
 @menu
-* Introduction::                  Introduction
-* The first tune::                The first tune
-* Lyrics and chords::             Lyrics and chords
-* Piano music::                   Piano music
-* end of tutorial::                       The end
+* Introduction::		Introduction
+* The first tune::		The first tune
+* Lyrics and chords::		Lyrics and chords
+* Piano music::			Piano music
+* end of tutorial::		The end
 @end menu
 
-@node Introduction,  , , Tutorial
+@node Introduction
 @section Introduction
 
   
@@ -29,7 +30,7 @@ subdirectory @file{input/tutorial/}.  It is recommended that you
 experiment with writing Mudela input yourself, to get a feel for
 how LilyPond behaves.
 
-@node The first tune,  , , Tutorial
+@node The first tune
 @section The first tune
 
 
@@ -332,7 +333,7 @@ symbols and their placement is @emph{generated} from a high-level musical
 description.  In other words,  LilyPond would be best
 described by `music compiler' or `music to notation compiler'.
 
-@node Lyrics and chords, , , Tutorial
+@node Lyrics and chords
 @section Lyrics and chords
 
 In this section we show how to typeset a song of unknown
@@ -692,7 +693,7 @@ will be set in two lines.
 @end example 
 End the score block.
 
-@node Piano music, , , Tutorial
+@node Piano music
 @section Piano music
 
 Our third subject is a piece piano music.  The fragment in the input
@@ -956,7 +957,7 @@ parts.
 
 [TODO: demonstrate Hara-Kiri with scores and  part extraction.]
 
-@node  end of tutorial, , , Tutorial
+@node  end of tutorial
 @section The end        
          
 That's all folks.  From here, you can either try fiddling with input

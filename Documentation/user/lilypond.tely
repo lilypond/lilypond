@@ -79,7 +79,8 @@ than the names being similar :-)"
 
 @contents
 
-@node Top, , , (dir)
+@node Top
+@chapter GNU LilyPond --- The music typesetter
 
 @menu
 * Tutorial::            a tutorial introduction to lilypond.
@@ -105,17 +106,17 @@ than the names being similar :-)"
 @mbinclude tutorial.itely
 
 
-@include invoking.itexi
+@mbinclude invoking.itexi
 
-@include bugs.itexi
+@mbinclude bugs.itexi
 
 @mbinclude refman.itely
 
-@include moreinfo.itexi
+@mbinclude moreinfo.itexi
 
-@include convert-mudela.itexi
+@mbinclude convert-mudela.itexi
 
-@node Index, , , Top
+@node Index
 @unnumbered Index
 
 @printindex cp
