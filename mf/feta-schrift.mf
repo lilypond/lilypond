@@ -166,7 +166,7 @@ fet_endchar;
 
 fet_beginchar("portato/single tenuto", "tenuto", "tenuto")
 	save thick;
-	thick# = 1.4 stafflinethickness#;
+	thick# = 1.6 stafflinethickness#;
 	define_whole_pixels(thick);
 
 	set_char_box(.6 staff_space#, .6 staff_space#, thick#/2,thick#/2);
@@ -452,16 +452,20 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	currenttransform := currenttransform slanted slant shifted (- staff_space, 0)  ;
 
 	y1 = ascender;
-	x1l = 0;
-	x1r = t_fatness;
+
+	% try to position in such a way that the center is the visual
+	% center
+
+	x1l = 0.2 staff_space;
+	x1r - x1l = t_fatness;
 	penpos1(start_nib_wid, start_nib_angle);
 	
 	z2 = (x1, 7/18 ex);
 	penpos2(start_nib_wid, start_nib_angle);
 
-	z3l = (0.5 t_width, - t_overshoot);
+	z3l = (x2l + 0.5 t_width, - t_overshoot);
 
-	z4l = (t_width, 0.23 ex);
+	z4l = (x2l + t_width, 0.23 ex);
 	penpos4(whatever, 200);
 	x4l - x4r = hair_thick;
 
@@ -473,7 +477,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	save t_p, krul_p;
 	path t_p, krul_p, r_p;
 
-	z5 = (t_fatness/2, 2/3 ex);
+	z5 = (x2l + t_fatness/2, 2/3 ex);
 %	penpos5(hair_thick, ); 
 
 	t_p := z1r{dir (angle(z1l-z1r) + 30)} .. z1l{-dir (angle(z1r-z1l) - 45)}
@@ -491,7 +495,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 
 	pickup pencircle scaled hair_thick;
 	
-	lft x6 = - uitschieter;
+	lft x6 = x2l - uitschieter;
 	y6 =  y5 ; % - 1/20 ex;
 
 	z7 = z5 + whatever*dir krul_ang;

@@ -1,7 +1,7 @@
 % BibTeX bibliography style `html-long'
 %   spits out HTML-formatted bibliography in place of bbl output
 % by David Kotz dfk@cs.dartmouth.edu
-% $Id: html-long.bst,v 1.1 1999/03/11 22:00:27 dfk Exp dfk $
+% $Id: html-long.bst,v 1.2 2001/12/05 17:26:32 fred Exp $
 %    modified from
 % BibTeX standard bibliography style `alpha'
 	% version 0.99a for BibTeX versions 0.99a or later, LaTeX version 2.09.

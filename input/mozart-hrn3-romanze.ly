@@ -23,7 +23,7 @@ romanze = \notes \relative c' {
 	R1*2
 	g'4.() f8 [e( d c) bes]
 	[bes (a d ) c] c4 r
-	r1
+	R1
 	% 25
 	[c16\mf ( d c )d] [e ( f e )f] [g()e c-. c-.] [f()d b-. b-.]
 	[c16\p () d c )d] [e ( f e )f] [g()e c-. c-.] [f()d b-. b-.]
@@ -68,7 +68,7 @@ romanze = \notes \relative c' {
 	[c8( e g )bes] [a( c f ) d]
 	c r e r f4 r4			% -. ? 
 
-	r1
+	R1
 	c8-.   r e-. r f4 r4
 
 	% Finish with F if played separately 

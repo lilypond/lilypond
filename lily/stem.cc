@@ -229,15 +229,6 @@ Stem::add_head (Grob*me, Grob *n)
     {
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("heads"), n);
     }
-  else
-    {
-      /*
-	Apparently, this is never used.
-       */
-#if 0
-      me->set_grob_property ("rest", n->self_scm ());
-#endif
-    }
 }
 
 bool

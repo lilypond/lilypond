@@ -32,7 +32,7 @@ LilyPond's source files.
      J.S.Bach/
    intl/			library for gettext
    po/				translations
-   ports/
+   ports/                       access to mutopia archive
    ps/				postscript library files
    tex/				TeX library files
    scm/				Scheme initialisation and subroutine files

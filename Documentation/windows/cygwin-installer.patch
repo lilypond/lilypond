@@ -23,9 +23,9 @@ diff -purN --exclude=*~ --exclude=zlib ../cinstall/ChangeLog ./ChangeLog
 @@ -3705,4 +3720,4 @@ Sat Apr  1 20:48:09 2000  Christopher Fa
  	* zlib/Makefile.in: Regenerate from Makefile.am
  
- %%% $Id: ChangeLog,v 2.194 2002/02/18 13:54:49 rbcollins Exp $
--$Revision: 2.194 $
-+$Revision: 2.194.jcn1 $
+ %%% $Id: cygwin-installer.patch,v 1.8 2002/02/19 10:29:05 fred Exp $
+-$Revision: 1.8 $
++$Revision: 1.8 $
 Binary files ../cinstall/LilyPond.ico and ./LilyPond.ico differ
 diff -purN --exclude=*~ --exclude=zlib ../cinstall/Makefile.in ./Makefile.in
 --- ../cinstall/Makefile.in	Mon Feb 18 14:56:38 2002

@@ -5,13 +5,14 @@
 fet_begingroup("flags")
 save outer_path;
 path outer_path;
+
 % Flags pointing down overlap with  the notehead (in x-direction), so 
 % the down-flag can be bigger
-upflag_width# = .750 black_notehead_width# + stemthickness#/2;
+upflag_width# = .650 black_notehead_width# + stemthickness#/2;
 downflag_width# = .833 black_notehead_width# + stemthickness#/2;
 
-right_upflag_space# = .2 upflag_width#;
-right_downflag_space# = .2 downflag_width#;
+right_upflag_space# = .0 upflag_width#;
+right_downflag_space# = .0 downflag_width#;
 
 %
 % Flags pointing down cannot overlap with the notehead in y-direction,
@@ -25,7 +26,7 @@ right_downflag_space# = .2 downflag_width#;
 
 save hip_thickness, foot_thickness;
 hip_thickness# = 1.3 stemthickness#;
-foot_thickness# =  hip_thickness#;
+foot_thickness# =  1.0 hip_thickness#;
 
 %
 % Inspired by Adobe Sonata and [Wanske]
@@ -35,22 +36,23 @@ foot_thickness# =  hip_thickness#;
 def draw_flag(expr center, flare, 
 	dims, hip_depth, foot_wid, hip_thickness, foot_thickness)=
 	clearxy;
-
+	save c ;
+	c = 0.7;
 	penpos1(flare, 90);
 	penpos2(whatever, 0);
 	x2r - x2l = hip_thickness;
-	penpos3(foot_thickness, 0) ;
+	penpos3(foot_thickness, 0.0) ;
 
 	z1r  = center;
 	z2r = center + (xpart dims, -ypart(dims) * hip_depth);
 	z3r = center + (xpart(dims) * foot_wid, -ypart dims);
 
-	outer_path := z3r{curl 0} .. z2r{up} .. {up}z1r;
+	outer_path := z3r{curl c} .. z2r{up} .. {up}z1r;
 
 	penlabels(1, 2, 3);
 	fill z1l{curl 0}
 		..tension 1.1 .. z2l{down} .. 
-		{curl 0} simple_serif(z3l, z3r, 80) &
+		{curl c} simple_serif(z3l, z3r, 80) &
 		outer_path & z1r -- cycle;
 enddef;
 
@@ -107,7 +109,7 @@ fet_beginchar("8th Flag (up)", "u3", "eighthflag")
 	foot_depth# =  3 staff_space#;
 
 	set_char_box(stemthickness# /2, hip_width# 
-		+ stemthickness#/2 + right_upflag_space#, 
+ 		+ stemthickness#/2 + right_upflag_space#, 
 		 foot_depth# + foot_thickness#/2, stemthickness#/2)
 
 	define_pixels(flare, hip_width, hip_thickness,

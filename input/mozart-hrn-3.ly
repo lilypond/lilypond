@@ -43,6 +43,7 @@ ritenuto = \textscript #'(italic  "rit.")
     	skipBars = ##t
 	midiInstrument = #"french horn"
 	RehearsalMark \override #'font-series = #'bold
+	Stem \override #'thickness = #1.3
   }
  \translator { \StaffContext
 	       MinimumVerticalExtent = #'(-4.5 . 4.5)

@@ -96,7 +96,7 @@ fet_beginchar("Sharp" , "1", "sharp");
 %
 
 fet_beginchar( "Natural", "0", "natural")
-	save height;	
+	save height, xcenter;
 	save interbeam, interstem, beamheight, beamwidth, 
 	stemwidth;
 	save top_stem_thick;

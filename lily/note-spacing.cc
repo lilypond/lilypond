@@ -34,17 +34,19 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
   Direction d = LEFT;
   Direction col_dir =  right_col->break_status_dir ();
   Drul_array<Interval> extents;
+
+  Interval left_head_wid; 
   do
     {
       for (SCM  s = props[d]; gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Item * it= dynamic_cast<Item*> (unsmob_grob (gh_car(s)));
-
+	  
 	  if (d == RIGHT && it->break_status_dir () != col_dir)
 	    {
 	      it = it -> find_prebroken_piece (col_dir);
-	    }
 
+	    }
 	  /*
 	    some kind of mismatch, eg. a note column, that is behind a
 	    linebreak.
@@ -52,7 +54,8 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 	  if (!it)
 	    continue; 
 
-	  if (d == RIGHT && right_col != it->column_l ())
+	  Item *it_col = it->column_l ();
+	  if (d == RIGHT && right_col != it_col)
 	    continue;
 	  
 	  if (Separation_item::has_interface (it))
@@ -60,8 +63,19 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 	      extents[d].unite (Separation_item::my_width (it));
 	      continue;
 	    }
+
+	  if (d == LEFT)
+	    {
+	      SCM r = it->get_grob_property ("rest");
+	      Grob * g = unsmob_grob (r);
+	      if (!g)
+		g =  Note_column::first_head (it);
+
+	      if (g)
+		left_head_wid = g->extent(it_col, X_AXIS);
+	    }
 	  
-	  extents[d].unite (it->extent (it->column_l (), X_AXIS));
+	  extents[d].unite (it->extent (it_col, X_AXIS));
 	  if (d == RIGHT)
 	    {
 	      Grob * accs = Note_column::accidentals (it);
@@ -69,7 +83,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 		accs = Note_column::accidentals (it->get_parent (X_AXIS));
 	      
 	      if (accs)
-		extents[d].unite (accs->extent (it->column_l (), X_AXIS));
+		extents[d].unite (accs->extent (it_col, X_AXIS));
 	    }
 	}
 
@@ -78,8 +92,18 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
     }
   while (flip (&d) != LEFT);
 
-  *fixed = (extents[LEFT][RIGHT] >? increment);
-  *space = (base_space - increment) + *fixed ;
+
+  /*
+    We look at the width of the note head, since smaller heads get less space
+    eg. a quarter rest gets almost 0.5 ss less horizontal space than a note.
+
+    What is sticking out of the note head (eg. a flag), doesn't get
+    the full amount of space.
+  */
+  *fixed = left_head_wid.empty_b () ? increment : left_head_wid[RIGHT];
+  *space = (base_space - increment) + *fixed +
+    (extents[LEFT][RIGHT] - left_head_wid[RIGHT])/ 2;
+    ;
 
   if (*space - *fixed < 2 * ((- extents[RIGHT][LEFT]) >? 0))
     {
@@ -248,6 +272,19 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	    }
 	  stem_dirs[d] = sd;
 
+	  /*
+	    Correction doesn't seem appropriate  when there is a large flag
+	    hanging from the note.
+	   */
+	  if (d == LEFT
+	      && Stem::flag_i (stem) && !Stem::beam_l (stem))
+	    {
+	      correct = false;
+	      goto exit_func;
+	    }
+	  
+
+	  
 	  Interval hp  = Stem::head_positions (stem);
 	  Real chord_start = hp[sd];	  
 	  Real stem_end = Stem::stem_end_position (stem);
