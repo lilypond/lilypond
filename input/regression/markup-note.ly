@@ -1,7 +1,7 @@
 \header {
 
-    texidoc = "The note markup function is used to make metronome
- markings. It works for a variety of flag dot and duration settings."
+    texidoc = "The note markup function may be used to make metronome
+ markings. It works for a variety of flag, dot and duration settings."
 }
 \version "2.1.22"
 

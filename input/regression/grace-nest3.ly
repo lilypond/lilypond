@@ -1,6 +1,6 @@
 \version "2.1.22"
 \header {
-    texidoc = "Another nested grace situation."
+    texidoc = "In nested syntax, graces are still properly handled."
     }
     \paper { raggedright= ##t }
 

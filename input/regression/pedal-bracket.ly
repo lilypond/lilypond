@@ -2,11 +2,11 @@
 
 \header {
 
-    texidoc = "Piano pedal brackets.  Brackets should start and end at
+    texidoc = "The brackets of a piano pedal should start and end at
  the left side of the note. If a note is shared between two brackets,
- the ends are flared.
+ these ends are flared.
 
-There are no vertical endings at a line-break.  " }
+At a line-break, there are no vertical endings.  " }
 
 \score {
     \notes \relative c'' {

@@ -4,7 +4,7 @@
 \header {
 
     texidoc = "Note grouping events are used to indicate where
-brackets for analysis start and end.
+analysis brackets start and end.
 
 @cindex bracket
 @cindex note groups

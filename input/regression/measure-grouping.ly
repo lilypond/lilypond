@@ -3,7 +3,7 @@
 {
 
     texidoc = "The @code{Measure_grouping_engraver} adds triangles and
-brackets above beats when you set beatGrouping.  "
+brackets above beats when the beats of a time signature are grouped.  "
 
 }
 

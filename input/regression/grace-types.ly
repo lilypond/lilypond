@@ -1,6 +1,7 @@
 \version "2.1.22"
 \header {
-    texidoc = "Different grace types explained: the base grace switches to smaller type. The appoggiatura also inserts a slur, and the
+    texidoc = "There are three different kinds of grace types: the base 
+grace switches to smaller type, the appoggiatura inserts also a slur, and the
 acciaccatura inserts a slur and slashes the stem." 
     }
 

@@ -71,7 +71,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
     {
       /*
 	This is not very elegant, in that we need special support for
-	hara kiri. Unfortunately, the generic wiring of
+	hara-kiri. Unfortunately, the generic wiring of
 	force_hara_kiri_callback () (extent and offset callback) is
 	such that we might get into a loop if we call extent() or
 	offset() the elements.

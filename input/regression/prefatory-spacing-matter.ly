@@ -2,7 +2,7 @@
 \version "2.1.22"
 \header {
 
-    texidoc = "Distances between prefatory items (eg. clef, bar, etc.)
+    texidoc = "Distances between prefatory items (e.g. clef, bar, etc.)
    are done using engraving standard distances.  These distances
    depend on which items are combined."
 

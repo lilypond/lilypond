@@ -3,7 +3,7 @@
 \header  {
 
 texidoc = "
-Texts may be added to the multi measure rests.
+Texts may be added to the multi-measure rests.
 
 "
 

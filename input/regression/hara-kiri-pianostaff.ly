@@ -2,12 +2,12 @@
 
 \header { texidoc =
 
-	  " Hara kiri staves kill themselves if they are empty.  This
+	  " Hara-kiri staves kill themselves if they are empty.  This
 example really contains three staves, but as they progress, empty ones
 are removed: this example has three staves, but some of them
 disappear: note how the 2nd line only has the bar number 2. (That the
 bar number is printed might be considered a bug, however, the scenario
-of all staves disappearing doesn't happen in practice.)
+of all staves disappearing does not happen in practice.)
 
 Any staff brackets and braces are removed, both in the single staff
 and no staff case.

@@ -2,7 +2,7 @@
 
 \header {
 
-    texidoc = "Using other fonts can be done by setting font-name for
+    texidoc = "Other fonts can be used by setting font-name for
 the appropriate object. This may include Postscript fonts that are
 available through (La)TeX.
 
