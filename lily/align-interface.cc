@@ -251,7 +251,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	FIXME: uncommenting freaks out the Y-alignment of
 	line-of-score.
        */
-      // Real align_param = isdir_b (align)  ? gh_scm2double (align) : 0.0;
+      // Real align_param = ly_dir_p (align)  ? gh_scm2double (align) : 0.0;
       
       if (gh_number_p (align))
 	center_offset = total.linear_combination (gh_scm2double (align));

@@ -15,7 +15,7 @@
 bool
 Directional_element_interface::has_interface (Grob*me) 
 {
-  return isdir_b (me->get_grob_property ("direction"));
+  return ly_dir_p (me->get_grob_property ("direction"));
 }
 
 Direction
@@ -23,7 +23,7 @@ Directional_element_interface::get (Grob*me)
 {
   // return dir_;
   SCM d= me->get_grob_property ("direction");
-  if (!isdir_b (d))
+  if (!ly_dir_p (d))
     return CENTER;
       
   return to_dir (d);

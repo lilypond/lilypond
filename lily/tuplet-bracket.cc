@@ -271,7 +271,7 @@ Tuplet_bracket::get_default_dir (Grob*me)
 {
   Direction d = UP;
   SCM dir_sym =me->get_grob_property ("dir-forced");
-  if (isdir_b (dir_sym))
+  if (ly_dir_p (dir_sym))
     {
       d= to_dir (dir_sym);
       if (d != CENTER)

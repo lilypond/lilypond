@@ -408,7 +408,7 @@ ly_bracket (SCM a, SCM iv, SCM d, SCM t, SCM p)
 {
   SCM_ASSERT_TYPE(ly_axis_p (a), a, SCM_ARG1, __FUNCTION__, "axis") ;
   SCM_ASSERT_TYPE(ly_number_pair_p (iv), iv, SCM_ARG1, __FUNCTION__, "number pair") ;
-  SCM_ASSERT_TYPE(isdir_b (d), a, SCM_ARG1, __FUNCTION__, "direction") ;
+  SCM_ASSERT_TYPE(ly_dir_p (d), a, SCM_ARG1, __FUNCTION__, "direction") ;
   SCM_ASSERT_TYPE(gh_number_p (t), a, SCM_ARG1, __FUNCTION__, "number") ;
   SCM_ASSERT_TYPE(gh_number_p(p), a, SCM_ARG1, __FUNCTION__, "number") ;
 

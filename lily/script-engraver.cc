@@ -78,13 +78,13 @@ Script_engraver::process_music ()
       art = ly_cdr (art);
 
       SCM force_dir = l->get_mus_property ("direction");
-      if (isdir_b (force_dir) && !to_dir (force_dir))
+      if (ly_dir_p (force_dir) && !to_dir (force_dir))
 	force_dir = ly_car (art);
       
       art = ly_cdr (art);
       SCM priority = ly_car (art);
 
-      if (isdir_b (force_dir) && to_dir (force_dir))
+      if (ly_dir_p (force_dir) && to_dir (force_dir))
 	p->set_grob_property ("direction", force_dir);
       else if (to_dir (relative_stem_dir))
 	p->set_grob_property ("side-relative-direction", relative_stem_dir);
