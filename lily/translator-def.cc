@@ -138,16 +138,13 @@ Translator_def::add_pop_property (SCM props, SCM syms)
 }
 
 /*
-  Do it. SYMS maybe a symbol or a list of symbols. VAL is
-  SCM_UNDEFINED in case of a pop
+  Do it. SYM is single symbol. VAL is SCM_UNDEFINED in case of a pop
 */
 void
-Translator_def::apply_pushpop_property (Translator_group* me,SCM syms, SCM eprop, SCM val)
+Translator_def::apply_pushpop_property (Translator_group* me,SCM sym, SCM eprop, SCM val)
 {
-  if (gh_symbol_p (syms))
-    dynamic_cast<Translator_group*> (me)->execute_single_pushpop_property (syms, eprop, val);
-  else for (SCM s = syms; gh_pair_p (s); s = ly_cdr (s))
-    dynamic_cast<Translator_group*> (me)->execute_single_pushpop_property (ly_car (s), eprop, val);
+  dynamic_cast<Translator_group*> (me)
+    ->execute_single_pushpop_property (sym, eprop, val);
 }
 
 
