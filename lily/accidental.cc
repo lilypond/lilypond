@@ -208,7 +208,7 @@ Accidental_interface::print (SCM smob)
 
   Stencil mol;
   for (SCM s = me->get_property ("accidentals");
-       is_pair (s); s = ly_cdr (s))
+       ly_c_pair_p (s); s = ly_cdr (s))
     {
       int alteration = ly_scm2int (ly_car (s));
       String font_char = get_fontcharname (style, alteration);

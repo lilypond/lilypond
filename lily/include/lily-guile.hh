@@ -190,12 +190,12 @@ inline SCM ly_assoc_front_x(SCM alist, SCM key, SCM val)
 {
   return scm_acons(key, val, scm_assoc_remove_x (alist, key));
 }
-inline bool is_pair (SCM x) { return SCM_NFALSEP (scm_pair_p (x)); }
+inline bool ly_c_pair_p (SCM x) { return SCM_NFALSEP (scm_pair_p (x)); }
 inline bool is_symbol (SCM x) { return SCM_SYMBOLP (x); }
 inline bool is_boolean (SCM x) { return SCM_BOOLP (x); }
 inline bool is_char (SCM x) { return SCM_CHARP (x); }
 inline bool is_number (SCM x) { return SCM_NUMBERP (x); }
-inline bool is_string (SCM x) { return SCM_STRINGP (x); }
+inline bool ly_c_string_p (SCM x) { return SCM_STRINGP (x); }
 inline bool is_vector (SCM x) { return SCM_VECTORP (x); }
 inline bool is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool is_procedure (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }

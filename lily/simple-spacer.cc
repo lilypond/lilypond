@@ -215,7 +215,7 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
   Link_array<Grob> cols (icols);
   
   for (int i =  cols.size (); i--;)
-    if (is_pair (cols[i]->get_property ("between-cols")))
+    if (ly_c_pair_p (cols[i]->get_property ("between-cols")))
       {
 	loose_cols_.push (cols[i]);
 	cols.del (i);
@@ -227,7 +227,7 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
       Spring_smob *spring = 0;
 
       for (SCM s = cols[i]->get_property ("ideal-distances");
-	   !spring && is_pair (s);
+	   !spring && ly_c_pair_p (s);
 	   s = ly_cdr (s))
 	{
 	  Spring_smob *sp = unsmob_spring (ly_car (s));
@@ -285,7 +285,7 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
   for (int i=0; i < cols.size () - 1; i++)
     {
       for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
-	   is_pair (s); s = ly_cdr (s))
+	   ly_c_pair_p (s); s = ly_cdr (s))
 	{
 	  Grob * other = unsmob_grob (ly_caar (s));
 	  int oi = cols.find_index (other);

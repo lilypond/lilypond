@@ -97,7 +97,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
 void
 Custos_engraver::process_acknowledged_grobs ()
 {
-  if (is_string (get_property ("whichBar")))
+  if (ly_c_string_p (get_property ("whichBar")))
     custos_permitted = true;
   
   if (custos_permitted)

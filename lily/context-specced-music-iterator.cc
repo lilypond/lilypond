@@ -25,7 +25,7 @@ Context_specced_music_iterator::construct_children ()
 
   String c_id;
   SCM ci = get_music ()->get_property ("context-id");
-  if (is_string (ci))
+  if (ly_c_string_p (ci))
     c_id = ly_scm2string (ci);
   SCM ops = get_music ()->get_property ("property-operations");
   

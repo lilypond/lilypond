@@ -90,7 +90,7 @@ Drum_notes_engraver::process_music ()
       if (scm_hash_table_p (tab) == SCM_BOOL_T)
 	defn = scm_hashq_ref (tab, drum_type, SCM_EOL);
       
-      if (is_pair (defn))
+      if (ly_c_pair_p (defn))
 	{
 	  SCM pos = ly_caddr (defn);
 	  SCM style =ly_car (defn);
@@ -101,7 +101,7 @@ Drum_notes_engraver::process_music ()
 	  if (is_symbol (style))
 	    note->set_property ("style", style);
 
-	  if (is_string (script))
+	  if (ly_c_string_p (script))
 	    {
 	      Item *p  = make_item ("Script");
 	      SCM desc  = SCM_EOL;

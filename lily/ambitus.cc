@@ -90,7 +90,7 @@ number_accidentals (SCM key_signature, Pitch *pitch,
 		     key_signature);
 
   /* should really be true unless prev == SCM_BOOL_F */
-  if (is_pair (prev) && is_pair (ly_cdr (prev)))
+  if (ly_c_pair_p (prev) && ly_c_pair_p (ly_cdr (prev)))
     {
       prev = scm_cons (ly_car (prev), ly_cadr (prev));
     }

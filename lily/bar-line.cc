@@ -30,7 +30,7 @@ Bar_line::print (SCM smob)
 
   SCM s = me->get_property ("glyph");
   SCM barsiz_proc = me->get_property ("bar-size-procedure");
-  if (is_string (s) && is_procedure (barsiz_proc))
+  if (ly_c_string_p (s) && is_procedure (barsiz_proc))
     {
       String str  =ly_scm2string (s);
       SCM siz = scm_call_1 (barsiz_proc, me->self_scm ());
@@ -157,13 +157,13 @@ Bar_line::before_line_breaking (SCM smob)
   SCM g = me->get_property ("glyph");
   SCM orig = g;
   Direction bsd = item->break_status_dir ();
-  if (is_string (g) && bsd)
+  if (ly_c_string_p (g) && bsd)
     {
       SCM proc = me->get_property ("break-glyph-function");
       g = scm_call_2 (proc, g, scm_int2num (bsd));
     }
   
-  if (!is_string (g))
+  if (!ly_c_string_p (g))
     {
       me->set_property ("print-function", SCM_EOL);
       me->set_extent (SCM_EOL, X_AXIS);

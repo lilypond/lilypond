@@ -56,7 +56,7 @@ const int NATURAL_TOP_PITCH = 4;
 int
 alteration_pos  (SCM what, int alter, int c0p)
 {
-  if (is_pair (what))
+  if (ly_c_pair_p (what))
     return ly_scm2int (ly_car (what)) * 7 + ly_scm2int (ly_cdr (what)) + c0p;
 
   int p = ly_scm2int (what);
@@ -127,7 +127,7 @@ Key_signature_interface::print (SCM smob)
   */
 
   Font_metric *fm = Font_interface::get_default_font (me);
-  for (SCM s = newas; is_pair (s); s = ly_cdr (s))
+  for (SCM s = newas; ly_c_pair_p (s); s = ly_cdr (s))
     {
       int alteration = ly_scm2int (ly_cdar (s));
       String font_char =
@@ -163,11 +163,11 @@ Key_signature_interface::print (SCM smob)
       mol.add_at_edge (X_AXIS, LEFT, Lookup::blank (Box (x,y)), 0, 0);
 
       Stencil natural;
-      if (is_pair (old))
+      if (ly_c_pair_p (old))
 	natural=Font_interface::get_default_font (me)->
 	    find_by_name (String ("accidentals-") + style + String ("0"));
       
-      for (; is_pair (old); old = ly_cdr (old))
+      for (; ly_c_pair_p (old); old = ly_cdr (old))
         {
 	  SCM found = scm_assoc (ly_caar (old), newas);
 	  if (found == SCM_BOOL_F

@@ -93,7 +93,7 @@ Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
   if (sizes != SCM_BOOL_F)
     {
       SCM met = scm_assoc (scm_make_real (m), sizes);
-      if (is_pair (met))
+      if (ly_c_pair_p (met))
 	return unsmob_metrics (ly_cdr (met));
     }
   else
@@ -114,7 +114,7 @@ Paper_def::find_scaled_font (Font_metric *f, Real m, SCM input_enc_name)
 	  Virtual_font (Scaled (Font1), Scaled (Font2))  */
       SCM lst = SCM_EOL;
       SCM *t = &lst;
-      for (SCM s = vf->get_font_list (); is_pair (s); s = ly_cdr (s))
+      for (SCM s = vf->get_font_list (); ly_c_pair_p (s); s = ly_cdr (s))
 	{
 	  Font_metric *scaled = find_scaled_font (unsmob_metrics (ly_car (s)),
 						  m, input_enc_name);
@@ -154,10 +154,10 @@ Paper_def::font_descriptions () const
   SCM func = ly_scheme_function ("hash-table->alist");
 
   SCM l = SCM_EOL;
-  for (SCM s = scm_call_1 (func, scaled_fonts_); is_pair (s); s = ly_cdr (s))
+  for (SCM s = scm_call_1 (func, scaled_fonts_); ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM entry = ly_car (s);
-      for (SCM t = ly_cdr (entry); is_pair (t); t  = ly_cdr (t))
+      for (SCM t = ly_cdr (entry); ly_c_pair_p (t); t  = ly_cdr (t))
 	{
 	  Font_metric *fm= unsmob_metrics (ly_cdar (t));
 

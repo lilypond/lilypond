@@ -30,7 +30,7 @@ LY_DEFINE (ly_add_interface, "ly:add-interface", 3,0,0, (SCM a, SCM b, SCM c),
 	  "Add an interface description.")
 {
   SCM_ASSERT_TYPE (is_symbol (a), a, SCM_ARG1, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (is_string (b), b, SCM_ARG2, __FUNCTION__, "string");  
+  SCM_ASSERT_TYPE (ly_c_string_p (b), b, SCM_ARG2, __FUNCTION__, "string");  
   SCM_ASSERT_TYPE (is_list (c), c, SCM_ARG3, __FUNCTION__, "list of syms");    
   if (!is_vector (all_ifaces))
     all_ifaces = scm_make_vector (scm_int2num (40), SCM_EOL);
@@ -65,7 +65,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
   SCM ifs = me->get_property ("interfaces");
 
   bool found = false;
-  for (; !found && is_pair (ifs); ifs =ly_cdr (ifs))
+  for (; !found && ly_c_pair_p (ifs); ifs =ly_cdr (ifs))
     {
       SCM iface = scm_hashq_ref (all_ifaces , ly_car (ifs), SCM_BOOL_F);
       if (iface == SCM_BOOL_F)

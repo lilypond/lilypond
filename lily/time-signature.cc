@@ -34,7 +34,7 @@ Time_signature::print (SCM smob)
   SCM frac = me->get_property ("fraction");
   int n = 4;
   int d = 4;
-  if (is_pair (frac))
+  if (ly_c_pair_p (frac))
     {
       n = ly_scm2int (ly_car (frac));
       d = ly_scm2int (ly_cdr (frac));

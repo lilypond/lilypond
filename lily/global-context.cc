@@ -81,7 +81,7 @@ Global_context::now_mom () const
 Score_context*
 Global_context::get_score_context () const
 {
-  return (is_pair (context_list_))
+  return (ly_c_pair_p (context_list_))
     ? dynamic_cast<Score_context*> (unsmob_context (ly_car (context_list_)))
     : 0;
 }
@@ -166,7 +166,7 @@ Global_context::apply_finalizations ()
 {
   SCM lst = get_property ("finalizations");
   set_property ("finalizations" , SCM_EOL); 
-  for (SCM s = lst ; is_pair (s); s = ly_cdr (s))
+  for (SCM s = lst ; ly_c_pair_p (s); s = ly_cdr (s))
     {
       scm_primitive_eval (ly_car (s)); // TODO: make safe.
     }

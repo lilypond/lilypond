@@ -73,7 +73,7 @@ completize_hyphen (Spanner* sp)
   if (!sp->get_bound (RIGHT))
     {
       SCM heads = sp->get_property ("heads");
-      if (is_pair (heads))
+      if (ly_c_pair_p (heads))
 	{
 	  Item* it = dynamic_cast<Item*> (unsmob_grob (ly_car (heads)));
 	  if (it)

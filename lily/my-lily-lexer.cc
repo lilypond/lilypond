@@ -118,7 +118,7 @@ My_lily_lexer::add_scope (SCM module)
 {
   ly_reexport_module (scm_current_module ());
   scm_set_current_module (module);
-  for (SCM s = scopes_; is_pair (s); s = ly_cdr (s))
+  for (SCM s = scopes_; ly_c_pair_p (s); s = ly_cdr (s))
     {
       /* UGH. how to do this more neatly? */      
       SCM expr
@@ -152,7 +152,7 @@ SCM
 My_lily_lexer::lookup_identifier (String s)
 {
   SCM sym = ly_symbol2scm (s.to_str0());
-  for (SCM s = scopes_; is_pair (s); s = ly_cdr (s))
+  for (SCM s = scopes_; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM var = ly_module_lookup (ly_car (s), sym);
       if (var != SCM_BOOL_F)
@@ -178,7 +178,7 @@ My_lily_lexer::start_main_input ()
 void
 My_lily_lexer::set_identifier (SCM name, SCM s)
 {
-  assert (is_string (name));
+  assert (ly_c_string_p (name));
   
   if (lookup_keyword (ly_scm2string (name)) >= 0)
     {

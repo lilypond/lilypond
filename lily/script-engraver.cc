@@ -70,7 +70,7 @@ copy_property (Grob * g , SCM sym, SCM alist)
   if (g->internal_get_property (sym) == SCM_EOL)
     {
       SCM entry = scm_assoc (sym,alist);
-      if (is_pair (entry))
+      if (ly_c_pair_p (entry))
 	{
 	  g->internal_set_property (sym, ly_cdr (entry));
 	}
@@ -110,7 +110,7 @@ void make_script_from_event (Grob *p,
 
   int prio =0;
   SCM sprio = scm_assoc (ly_symbol2scm ("script-priority"), art);
-  if (is_pair (sprio))
+  if (ly_c_pair_p (sprio))
     prio = ly_scm2int (ly_cdr (sprio));
 
 
@@ -219,7 +219,7 @@ Script_engraver::stop_translation_timestep ()
       Grob * sc = scripts_[i].script_;
 
       SCM follow = scm_assoc (ly_symbol2scm ("follow-into-staff"), scripts_[i].description_);
-      if (is_pair (follow) && to_boolean (ly_cdr (follow)))
+      if (ly_c_pair_p (follow) && to_boolean (ly_cdr (follow)))
 	{
 	  sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
 	  sc->set_property ("staff-padding", SCM_EOL);

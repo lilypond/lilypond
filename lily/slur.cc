@@ -120,7 +120,7 @@ Slur::after_line_breaking (SCM smob)
       return SCM_UNSPECIFIED;
     }
   set_extremities (me);
-  if (!is_pair (me->get_property ("control-points")))
+  if (!ly_c_pair_p (me->get_property ("control-points")))
     set_control_points (me);
   return SCM_UNSPECIFIED;
 } 
@@ -182,7 +182,7 @@ Slur::set_extremities (Grob *me)
   SCM att = me->get_property ("attachment");
       /*
        */
-      if (!is_pair (att))
+      if (!ly_c_pair_p (att))
 	{
 	  programming_error ("attachment is not a cons?!");
 	  att = scm_cons (SCM_EOL, SCM_EOL);
@@ -218,7 +218,7 @@ Slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
 {
   SCM cols = me->get_property ("note-columns");
 
-  if (!is_pair (cols))
+  if (!ly_c_pair_p (cols))
     {
       programming_error ("No note-columns in slur?");
       me->suicide ();
@@ -288,7 +288,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 		      Grob **common) 
 {
   SCM s = me->get_property ("attachment");
-  if (!is_pair (s) || !is_symbol (index_get_cell (s, dir)))
+  if (!ly_c_pair_p (s) || !is_symbol (index_get_cell (s, dir)))
     {
       s = set_extremities (me);
     }
@@ -604,7 +604,7 @@ Slur::set_control_points (Grob*me)
       bb.minimise_enclosed_area (sb, details);
       SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);
       Real bff = 1.0;
-      if (is_pair (sbf) && is_number (ly_cdr (sbf)))
+      if (ly_c_pair_p (sbf) && is_number (ly_cdr (sbf)))
 	  bff = ly_scm2double (ly_cdr (sbf));
 
       bb.curve_.control_[1][Y_AXIS] *= bff;
@@ -650,7 +650,7 @@ Slur::get_curve (Grob*me)
   int i = 0;
 
   SCM attach = me->get_property ("attachment");
-  if (!is_pair (attach))
+  if (!ly_c_pair_p (attach))
     attach = set_extremities (me);
 
   
@@ -659,7 +659,7 @@ Slur::get_curve (Grob*me)
       || ! is_symbol (index_get_cell (attach, RIGHT)))
     set_extremities (me);
   
-  if (!is_pair (me->get_property ("control-points")))
+  if (!ly_c_pair_p (me->get_property ("control-points")))
     set_control_points (me);
 
   // set_control_points may suicide

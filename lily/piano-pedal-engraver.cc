@@ -291,7 +291,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 	}
     }
       
-  if (is_string (s))
+  if (ly_c_string_p (s))
     {
       String propname = String (p->name_) + "Pedal";
 

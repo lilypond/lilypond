@@ -45,7 +45,7 @@ Timing_engraver::initialize ()
   Moment now = now_mom ();
   
   /* Set the first bar of the score? */
-  if (!is_string (which))
+  if (!ly_c_string_p (which))
     which = (now.main_part_ || now.main_part_ == last_moment_.main_part_)
       ? SCM_EOL : scm_makfrom0str ("|");
 
@@ -63,7 +63,7 @@ Timing_engraver::start_translation_timestep ()
   SCM which = get_property ("whichBar");
 
   /* Set the first bar of the score? */
-  if (!is_string (which))
+  if (!ly_c_string_p (which))
     which = SCM_EOL;
 
   Moment mp = measure_position ();
@@ -77,7 +77,7 @@ Timing_engraver::start_translation_timestep ()
 	->set_property ("measure-length", mlen.smobbed_copy ()); 
     }
   
-  if (!is_string (which) && to_boolean (automatic_bars))
+  if (!ly_c_string_p (which) && to_boolean (automatic_bars))
     {
       SCM always = get_property ("barAlways");
 

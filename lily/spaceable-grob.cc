@@ -31,7 +31,7 @@ Spaceable_grob::add_rod (Grob *me , Grob * p, Real d)
   
   SCM mins = get_minimum_distances (me);
   SCM newdist = scm_make_real (d);
-  for (SCM s = mins; is_pair (s); s = ly_cdr (s))
+  for (SCM s = mins; ly_c_pair_p (s); s = ly_cdr (s))
     {
       SCM dist = ly_car (s);
       if (ly_car (dist) == p->self_scm ())
@@ -70,7 +70,7 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength, bool expan
     
 #ifndef NDEBUG
   SCM mins = me->get_property ("ideal-distances");
-  for (SCM s = mins; is_pair (s); s = ly_cdr (s))
+  for (SCM s = mins; ly_c_pair_p (s); s = ly_cdr (s))
     {
       Spring_smob * sp = unsmob_spring(ly_car (s));
       if (sp->other_ == p)

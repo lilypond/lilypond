@@ -170,7 +170,7 @@ Tuplet_bracket::print (SCM smob)
 
   Paper_def *pap = me->get_paper ();
   Stencil num;
- if (is_string (number) && number_visibility)
+ if (ly_c_string_p (number) && number_visibility)
     {
       SCM properties = Font_interface::text_font_alist_chain (me);
       SCM snum = Text_item::interpret_markup (pap->self_scm (), properties, number);
@@ -515,7 +515,7 @@ Direction
 Tuplet_bracket::get_default_dir (Grob*me)
 {
   Drul_array<int> dirs (0,0);  
-  for (SCM s = me->get_property ("note-columns"); is_pair (s); s = ly_cdr (s))
+  for (SCM s = me->get_property ("note-columns"); ly_c_pair_p (s); s = ly_cdr (s))
     {
       Grob * nc = unsmob_grob (ly_car (s));
       Direction d = Note_column::dir (nc);

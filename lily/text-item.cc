@@ -23,7 +23,7 @@ Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
   Paper_def *pap = unsmob_paper (paper);
   
   SCM_ASSERT_TYPE(pap, paper, SCM_ARG1, __FUNCTION__, "Paper definition");
-  SCM_ASSERT_TYPE(is_string (markup), markup, SCM_ARG3, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE(ly_c_string_p (markup), markup, SCM_ARG3, __FUNCTION__, "string");
   SCM_ASSERT_TYPE(encoding == SCM_EOL
 		  || is_symbol (encoding), encoding, SCM_ARG2, __FUNCTION__, "symbol");
   
@@ -54,9 +54,9 @@ MAKE_SCHEME_CALLBACK (Text_item, interpret_markup, 3)
 SCM
 Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
 {
-  if (is_string (markup))
+  if (ly_c_string_p (markup))
     return interpret_string (paper, props, SCM_EOL, markup);
-  else if (is_pair (markup))
+  else if (ly_c_pair_p (markup))
     {
       SCM func = ly_car (markup);
       SCM args = ly_cdr (markup);
@@ -87,8 +87,8 @@ bool
 Text_item::markup_p (SCM x)
 {
   return
-    is_string (x) ||
-    (is_pair (x)
+    ly_c_string_p (x) ||
+    (ly_c_pair_p (x)
      && SCM_BOOL_F != scm_object_property (ly_car (x), ly_symbol2scm ("markup-signature")));
 }
 

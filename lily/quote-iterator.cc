@@ -144,12 +144,12 @@ Quote_iterator::process (Moment m)
       event_idx_++;
     }
 
-  if (is_pair (entry))
+  if (ly_c_pair_p (entry))
     {
       Pitch * quote_pitch = unsmob_pitch (ly_cdar (entry));
       Pitch * me_pitch = unsmob_pitch (get_outlet ()->get_property ("instrumentTransposition"));
       
-      for (SCM s = ly_cdr (entry); is_pair (s); s = ly_cdr (s))
+      for (SCM s = ly_cdr (entry); ly_c_pair_p (s); s = ly_cdr (s))
 	{
 	  SCM ev_acc = ly_car (s);
 

@@ -194,7 +194,7 @@ LY_DEFINE(ly_parse_file, "ly:parse-file",
 	  "Parse a single @code{.ly} file. If this fails, then throw @code{ly-file-failed} key. "
 	  )
 {
-  SCM_ASSERT_TYPE (is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
   char const *file = SCM_STRING_CHARS(name);
   
   String infile (file);

@@ -53,7 +53,7 @@ Span_bar::print (SCM smobbed_me)
 
   /* compute common refpoint of elements */
   Grob *refp = me;
-  for (SCM elts = first_elt; is_pair (elts); elts = ly_cdr (elts))
+  for (SCM elts = first_elt; ly_c_pair_p (elts); elts = ly_cdr (elts))
     {
       SCM smobbed_staff_bar = ly_car (elts);
       Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
@@ -65,7 +65,7 @@ Span_bar::print (SCM smobbed_me)
 
   /* glyph may not be a string, when ME is killed by Hara Kiri in
     between. */
-  if (!is_string (glyph))
+  if (!ly_c_string_p (glyph))
     return SCM_EOL;
   
   String glyph_string = ly_scm2string (glyph);
@@ -74,7 +74,7 @@ Span_bar::print (SCM smobbed_me)
   Stencil span_bar_mol;
 
   Interval prev_extent;
-  for (SCM elts = first_elt; is_pair (elts); elts = ly_cdr (elts))
+  for (SCM elts = first_elt; ly_c_pair_p (elts); elts = ly_cdr (elts))
     {
       SCM smobbed_staff_bar = ly_car (elts);
       Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
@@ -167,7 +167,7 @@ Span_bar::evaluate_empty (Grob*me)
   /* TODO: filter all hara-kiried out of ELEMENS list, and then
      optionally do suicide. Call this cleanage function from
      center_on_spanned_callback () as well. */
-  if (!is_pair (me->get_property ("elements")))
+  if (!ly_c_pair_p (me->get_property ("elements")))
     {
       me->suicide ();
     }
@@ -178,17 +178,17 @@ Span_bar::evaluate_glyph (Grob*me)
 {
   SCM gl = me->get_property ("glyph");
 
-  if (is_string (gl))
+  if (ly_c_string_p (gl))
     return ;
   
   for (SCM s = me->get_property ("elements");
-       !is_string (gl) && is_pair (s); s = ly_cdr (s))
+       !ly_c_string_p (gl) && ly_c_pair_p (s); s = ly_cdr (s))
     {
       gl = unsmob_grob (ly_car (s))
 	->get_property ("glyph");
     }
 
-  if (!is_string (gl))
+  if (!ly_c_string_p (gl))
     {
       me->suicide ();
       return;

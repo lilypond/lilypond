@@ -67,7 +67,7 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 
       SCM arts = note_ev->get_property ("articulations");
 
-      for (SCM s = arts; is_pair (s); s = ly_cdr  (s))
+      for (SCM s = arts; ly_c_pair_p (s); s = ly_cdr  (s))
 	{
 	  Music * m = unsmob_music (ly_car (s));
 
@@ -304,7 +304,7 @@ New_fingering_engraver::stop_translation_timestep ()
 	sc->set_property ("direction-source", stem_->self_scm ());
       
       SCM follow = scm_assoc (ly_symbol2scm ("follow-into-staff"), articulations_[i].description_);
-      if (is_pair (follow) && to_boolean (ly_cdr (follow)))
+      if (ly_c_pair_p (follow) && to_boolean (ly_cdr (follow)))
 	{
 	  sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
 	  sc->set_property ("staff-padding" , SCM_EOL);

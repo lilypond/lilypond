@@ -121,7 +121,7 @@ is_duration (int t)
 void
 set_music_properties (Music *p, SCM a)
 {
-  for (SCM k = a; is_pair (k); k = ly_cdr (k))
+  for (SCM k = a; ly_c_pair_p (k); k = ly_cdr (k))
  	p->internal_set_property (ly_caar (k), ly_cdar (k));
 }
 
@@ -152,7 +152,7 @@ bool
 ly_input_procedure_p (SCM x)
 {
 	return is_procedure (x)
-		|| (is_pair (x) && is_procedure (ly_car (x)));
+		|| (ly_c_pair_p (x) && is_procedure (ly_car (x)));
 }
 
 Music*
@@ -591,7 +591,7 @@ context_def_spec_body:
 	| context_def_spec_body GROBDESCRIPTIONS embedded_scm {
 		Context_def*td = unsmob_context_def ($$);
 
-		for (SCM p = $3; is_pair (p); p = ly_cdr (p)) {
+		for (SCM p = $3; ly_c_pair_p (p); p = ly_cdr (p)) {
 			SCM tag = ly_caar (p);
 
 			/* TODO: should make new tag "grob-definition" ? */
@@ -649,7 +649,7 @@ score_body:
 			guh.
 		*/
 		SCM check_funcs = ly_scheme_function ("toplevel-music-functions");
-		for (; is_pair (check_funcs); check_funcs = ly_cdr (check_funcs))
+		for (; ly_c_pair_p (check_funcs); check_funcs = ly_cdr (check_funcs))
 			m = scm_call_1 (ly_car (check_funcs), m);
 		$$->music_ = m;
 
@@ -769,7 +769,7 @@ Music_list:
 		SCM s = $$;
  		SCM c = scm_cons ($2->self_scm (), SCM_EOL);
 		scm_gc_unprotect_object ($2->self_scm ()); /* UGH */
-		if (is_pair (ly_cdr (s)))
+		if (ly_c_pair_p (ly_cdr (s)))
 			scm_set_cdr_x (ly_cdr (s), c); /* append */
 		else
 			scm_set_car_x (s, c); /* set first cons */
@@ -799,7 +799,7 @@ Repeated_music:
 	{
 		Music *beg = $4;
 		int times = $3;
-		SCM alts = is_pair ($5) ? ly_car ($5) : SCM_EOL;
+		SCM alts = ly_c_pair_p ($5) ? ly_car ($5) : SCM_EOL;
 		if (times < scm_ilength (alts)) {
 		  unsmob_music (ly_car (alts))
 		    ->origin ()->warning (
@@ -1297,7 +1297,7 @@ note_chord_element:
 		SCM es = $1->get_property ("elements");
 		SCM postevs = scm_reverse_x ($3, SCM_EOL);
 
-		for (SCM s = es; is_pair (s); s = ly_cdr (s))
+		for (SCM s = es; ly_c_pair_p (s); s = ly_cdr (s))
 		  unsmob_music (ly_car (s))->set_property ("duration", dur);
 		es = ly_append2 (es, postevs);
 
@@ -1345,7 +1345,7 @@ chord_body_element:
 		if ($2 % 2 || $3 % 2)
 			n->set_property ("force-accidental", SCM_BOOL_T);
 
-		if (is_pair ($4)) {
+		if (ly_c_pair_p ($4)) {
 			SCM arts = scm_reverse_x ($4, SCM_EOL);
 			n->set_property ("articulations", arts);
 		}
@@ -1357,7 +1357,7 @@ chord_body_element:
 		n->set_property ("drum-type", $1);
 		n->set_spot (THIS->here_input ());
 
-		if (is_pair ($2)) {
+		if (ly_c_pair_p ($2)) {
 			SCM arts = scm_reverse_x ($2, SCM_EOL);
 			n->set_property ("articulations", arts);
 		}
@@ -1652,7 +1652,7 @@ direction_reqd_event:
 	| script_abbreviation {
 		SCM s = THIS->lexer_->lookup_identifier ("dash" + ly_scm2string ($1));
 		Music *a = MY_MAKE_MUSIC ("ArticulationEvent");
-		if (is_string (s))
+		if (ly_c_string_p (s))
 			a->set_property ("articulation-type", s);
 		else THIS->parser_error (_ ("Expecting string as script definition"));
 		$$ = a;
@@ -2060,7 +2060,7 @@ simple_element:
 		Music *m = unsmob_music ($1);
 		Input i = THIS->pop_spot ();
 		m->set_spot (i);
-		for (SCM s = m->get_property ("elements"); is_pair (s); s = ly_cdr (s))
+		for (SCM s = m->get_property ("elements"); ly_c_pair_p (s); s = ly_cdr (s))
 		{
 			unsmob_music (ly_car (s))->set_property ("duration", $2);
 		}
@@ -2428,7 +2428,7 @@ otherwise, we have to import music classes into the lexer.
 int
 My_lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 {
-	if (is_string (sid)) {
+	if (ly_c_string_p (sid)) {
 		*destination = sid;
 		return STRING_IDENTIFIER;
 	} else if (is_number (sid)) {
@@ -2534,7 +2534,7 @@ context_spec_music (SCM type, SCM id, Music *m, SCM ops)
 		is_symbol (type) ? type : scm_string_to_symbol (type));
 	csm->set_property ("property-operations", ops);
 
-	if (is_string (id))
+	if (ly_c_string_p (id))
 		csm->set_property ("context-id", id);
 	return csm;
 }
