@@ -25,8 +25,8 @@ if test = 0:
 	input feta-banier;
 	input feta-klef;
 else:
-	input feta-bolletjes;	
-	input feta-banier;
+%	input feta-bolletjes;	
+%	input feta-banier;
 %	input feta-eindelijk;
 	input feta-klef;
 
