@@ -91,7 +91,7 @@
 		     (a-file-name (ly:gulp-file a-file-name))
 		     (b-file-name (ly:pfb->pfa b-file-name))
 		     (else
-		      (ly:warn "cannot find T42/PFA/PFB font ~S" x)
+		      (ly:warn "cannot find CFF/PFA/PFB font ~S" x)
 		      ""))))
 		(filter string? font-names))))
     

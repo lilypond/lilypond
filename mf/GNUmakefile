@@ -166,38 +166,44 @@ $(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdi
 
 fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir Fontmap.lily)
 
-## Urg
-mapentry=$(1) $(shell fgrep FontName $(outdir)/$(1).afm | sed -e 's/FontName *//') <$(1).pfaX
+### Urg
+#mapentry=$(1) $(shell fgrep FontName $(outdir)/$(1).afm | sed -e 's/FontName *//') <$(1).pfaX
+#
+#map = $(foreach a,$(2),$(call $(1),$(a)))
+#$(outdir)/lilypond.xmap: $(AFM_FILES)
+#	echo '$(call map,mapentry,$(ALL_FONTS))' | \
+#		tr 'X' '\n' | sed -e 's/^ *//'> $@
+#
+## using shell for loop seems most robust
+#$(outdir)/lilypond.map: $(AFM_FILES)
+#	for i in $(FETA_FONTS); do echo $$i $$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') '<'$$i.pfa; done > $@
+#
+#$(outdir)/Fontmap:
+#	echo '%!' > $@
+#	echo '% Override default GS Fontmap' >> $@
+#	echo '% To let gs load fonts from builddir, do:' >> $@
+#	echo '% export GS_LIB=$$(pwd)/mf/out:' >> $@
+#	echo '% See Fontmap.GS for the syntax of real Fontmap files.' >> $@
+#	echo '(Fontmap.GS) .runlibfile' >> $@
+#	echo '(Fontmap.lily) .runlibfile' >> $@
+#
+#$(outdir)/Fontmap.lily: $(AFM_FILES) $(outdir)/Fontmap
+#	echo '%!' > $@
+#	for i in $(FETA_FONTS); do echo "/$$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') ($$i.pfa);"; done >> $@
+#
+#
+#$(outdir)/fonts.scale: $(PFA_FILES)
+##	cd $(outdir) && echo $(FETA_MF_FILES:.mf=.pfa) $(FETA_MF_FILES:.mf=.pfb) | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
+#	cd $(outdir) && echo *.pfa *.pfb | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
+#
+#$(outdir)/fonts.dir: $(outdir)/fonts.scale
+#	cd $(outdir) && mkfontdir
+#
 
-map = $(foreach a,$(2),$(call $(1),$(a)))
-$(outdir)/lilypond.xmap: $(AFM_FILES)
-	echo '$(call map,mapentry,$(ALL_FONTS))' | \
-		tr 'X' '\n' | sed -e 's/^ *//'> $@
 
-# using shell for loop seems most robust
 $(outdir)/lilypond.map: $(AFM_FILES)
-	for i in $(FETA_FONTS); do echo $$i $$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') '<'$$i.pfa; done > $@
+	for i in $(FETA_FONTS); do echo $$i $$i'<'$$i.pfa; done > $@
 
-$(outdir)/Fontmap:
-	echo '%!' > $@
-	echo '% Override default GS Fontmap' >> $@
-	echo '% To let gs load fonts from builddir, do:' >> $@
-	echo '% export GS_LIB=$$(pwd)/mf/out:' >> $@
-	echo '% See Fontmap.GS for the syntax of real Fontmap files.' >> $@
-	echo '(Fontmap.GS) .runlibfile' >> $@
-	echo '(Fontmap.lily) .runlibfile' >> $@
-
-$(outdir)/Fontmap.lily: $(AFM_FILES) $(outdir)/Fontmap
-	echo '%!' > $@
-	for i in $(FETA_FONTS); do echo "/$$(fgrep FontName $(outdir)/$$i.afm | sed -e 's/FontName *//') ($$i.pfa);"; done >> $@
-
-
-$(outdir)/fonts.scale: $(PFA_FILES)
-#	cd $(outdir) && echo $(FETA_MF_FILES:.mf=.pfa) $(FETA_MF_FILES:.mf=.pfb) | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
-	cd $(outdir) && echo *.pfa *.pfb | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
-
-$(outdir)/fonts.dir: $(outdir)/fonts.scale
-	cd $(outdir) && mkfontdir
 
 local-clean:
 	rm -f mfplain.mem mfplain.log 
