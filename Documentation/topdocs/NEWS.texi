@@ -11,7 +11,7 @@
 @item Slur formatting has been rewritten. The new slur code
 works similar to the Beam formatter: scores are assigned for all
 esthetic components of a slur. A large number of combinations for
-begin and end points is then tried out.  They will now also take into
+begin and end points is then tried out.  Slurs will now also take into
 account collisions with staff lines, scripts (like staccato and
 accent) and accidentals.
 

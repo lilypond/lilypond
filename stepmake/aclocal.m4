@@ -401,7 +401,7 @@ class yy_flex_lexer: public yyFlexLexer
     fi
     AC_LANG_POP(C++)
 ])
-
+  
 
 AC_DEFUN(STEPMAKE_GCC, [
     if test "$GCC" = "yes"; then

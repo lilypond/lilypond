@@ -1,5 +1,12 @@
 2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* make/ly-vars.make (EXTRA_DIST_FILES): 
+
+	* Documentation/user/notation.itely (Slurs): document ^ and _ for
+	slurs.
+
+	* input/regression/slur-script.ly: new file.
+
 	* lily/accidental-engraver.cc (process_acknowledged_grobs):
 	make accidental appear to come from note head engraver.
 
