@@ -85,3 +85,4 @@ dutchPitchnames = #`(
 
 
 pitchnames = \dutchPitchnames 
+#(ly:parser-set-note-names parser pitchnames)

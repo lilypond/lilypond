@@ -1,3 +1,11 @@
+2004-06-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* ly/nederlands.ly (pitchnames): use ly:parser-set-note-names.
+	This fixes setting notenames with `\include "nederlands.ly" '
+
+	* lily/my-lily-parser.cc (LY_DEFINE): ly:parser-set-note-names:
+	new function.
+
 2004-06-01  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/page-layout.scm: don't do piece, it should be in score-title
