@@ -222,3 +222,5 @@
        ))
     n))
 
+(define-public (magstep x)
+  (exp (* (/ x 6) (log 2))))
