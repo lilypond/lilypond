@@ -165,7 +165,7 @@
    "\\lilypondpostscript\n"
    "\\pdfcompresslevel=0"))
 
-;; Note: this string must match the string in ly2dvi.py!!!
+;; Note: this string must match the string in lilypond.py!!!
 (define (header creator generate) 
   (string-append
    "% Generated automatically by: " creator generate "\n"))

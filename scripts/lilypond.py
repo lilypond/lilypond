@@ -9,9 +9,9 @@
 # (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-# This is the third incarnation of ly2dvi, now renamed lilypond.
+# This is the third incarnation of lilypond, now renamed lilypond.
 #
-# Earlier incarnations of ly2dvi were written by
+# Earlier incarnations of lilypond were written by
 # Jeffrey B. Reed<daboys@austin.rr.com> (Python version)
 # Jan Arne Fagertun <Jan.A.Fagertun@@energy.sintef.no> (Bourne shell script)
 #
@@ -56,10 +56,10 @@ TODO:
 
   * Introduce verbosity levels
   
-     0  = QUIET: mute all command output, no ly2dvi progress
-     1  = BRIEF: mute all command output, only ly2dvi progress
-     2a = NORMAL: show only LilyPond command output, show ly2dvi progress
-     2b = NORMAL: show command output, show ly2dvi progress
+     0  = QUIET: mute all command output, no lilypond progress
+     1  = BRIEF: mute all command output, only lilypond progress
+     2a = NORMAL: show only LilyPond command output, show lilypond progress
+     2b = NORMAL: show command output, show lilypond progress
      3  = VERBOSE: show command output, run lilypond --verbose
      4  = DEBUGGING: show all command output, run lilypond --verbose, print
                    environment and all kinds of client side debugging stuff
@@ -115,7 +115,6 @@ preview_resolution = 90
 debug_p = 0
 
 ## FIXME
-## ly2dvi: silly name?
 ## do -P or -p by default?
 ##help_summary = _ ("Run LilyPond using LaTeX for titling")
 help_summary = _ ("Run LilyPond, add titles, generate printable document.")
@@ -205,7 +204,7 @@ paper_p = 1
 
 output_name = ''
 
-# Output formats that ly2dvi should create
+# Output formats that lilypond should create
 targets = ['DVI', 'LATEX', 'MIDI', 'TEX', 'PDF', 'PS']
 
 track_dependencies_p = 0
@@ -616,7 +615,7 @@ def find_file_in_path (path, name):
 		if name in os.listdir (d):
 			return os.path.join (d, name)
 
-# Added as functionality to ly2dvi, because ly2dvi may well need to do this
+# Added as functionality to lilypond, because lilypond may well need to do this
 # in future too.
 PS = '%!PS-Adobe'
 def find_pfa_fonts (name):
@@ -766,7 +765,7 @@ include_path.insert (0, '.')
 # As a neat trick, add directory part of first input file
 # to include path.  That way you can do without the clumsy -I in:
 
-#    ly2dvi -I foe/bar/baz foo/bar/baz/baz.ly
+#    lilypond -I foe/bar/baz foo/bar/baz/baz.ly
 if files and files[0] != '-' and os.path.dirname (files[0]) != '.':
 	include_path.append (os.path.dirname (files[0]))
 	

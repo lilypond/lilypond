@@ -108,7 +108,7 @@ cp -r $GUILE_SCM $distdir/share/lilypond
 #
 # Rename python files to <filename>.py
 #
-mv $distdir/bin/ly2dvi $distdir/bin/ly2dvi.py
+mv $distdir/bin/lilypond $distdir/bin/lilypond.py
 mv $distdir/bin/convert-mudela $distdir/bin/convert-mudela.py
 mv $distdir/bin/mudela-book $distdir/bin/mudela-book.py
 

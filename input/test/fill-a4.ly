@@ -10,7 +10,7 @@
 %
 %   `textheight = 310.0\mm'
 %
-% process this file with ly2dvi, and make sure footskip/headsep are set
+% process this file with lilypond, and make sure footskip/headsep are set
 % at a reasonably (small) value.  -- jcn
 %
 \header{ texidoc="@cindex Paper a4 Fill

@@ -13,7 +13,7 @@
 set datadir="@local_lilypond_datadir@"
 
 # setenv LILYPONDPREFIX "$datadir"
-# bit silly. for ly2dvi, overrules compiled-in datadir...
+# bit silly. for lilypond, overrules compiled-in datadir...
 # setenv LILYPONDPREFIX "@local_lilypond_datadir@"
 
 # Add the installation directory to the teTeX system tree, 
