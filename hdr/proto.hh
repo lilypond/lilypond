@@ -89,4 +89,5 @@ struct Music_general_chord;
 struct Input_score;
 struct Input_staff;
 struct Input_command;
+struct Notename_tab;
 #endif // PROTO_HH
