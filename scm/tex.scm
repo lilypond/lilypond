@@ -175,7 +175,7 @@
    "\\fi\n"
    "\\outputscale = \\lilypondpaperoutputscale\\lilypondpaperunit\n"
    "\\lilypondstart\n"
-   "\\special{\\string!\\lilypondspecial}%\n"
+   "\\lilypondspecial\n"
    "\\lilypondpostscript\n"))
 
 ;; Note: this string must match the string in ly2dvi.py!!!

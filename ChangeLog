@@ -1,3 +1,10 @@
+2002-10-19  Werner Lemberg  <wl@gnu.org>
+
+	* GNUmakefile.in (web-doc): Fix typos.
+	* tex/lilyponddefs.tex (\lilypondspecial): Don't scan
+	`music-drawing-routines.ps' but emit \special{header=...} once.
+	* scm/tex.scm (header-end): Updated.
+
 2002-10-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/stem-engraver.cc (acknowledge_grob): don't crash on

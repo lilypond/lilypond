@@ -125,26 +125,11 @@
 
 \newread\lilypondinput
 
-% after executing the following code, \lilypondspecial contains the
-% contents of `music-drawing-routines.ps'
-\lilypondifundefined{lilypondspecial}
-  {
-    \begingroup
-      \openin\lilypondinput music-drawing-routines.ps
-      \xdef\lilypondspecial{}
-      \lilypondloop
-        \endlinechar \lilyponddefsELC
-        \catcode`\^^M 10\relax
-        \read\lilypondinput to \lilypondspecialline
-        \expandafter\xdef\expandafter\lilypondspecial\expandafter{
-          \lilypondspecial\lilypondspecialline
-        }
-        \ifeof\lilypondinput
-      \lilypondrepeat
-      \closein\lilypondinput
-    \endgroup
-  }
-  {}
+% the following macro is executed only once
+\gdef\lilypondspecial{
+  \special{header=music-drawing-routines.ps}
+  \gdef\lilypondspecial{}
+}
 
 % the feta characters
 \input feta20

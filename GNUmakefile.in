@@ -44,10 +44,10 @@ doc: run-reqs
 	$(MAKE) -C Documentation
 
 web-doc: web-reqs
-	$(MAKE) out=www -C LILYPOND_BOOK_FORMAT=tex-html input/regression/ WWW
-	$(MAKE) out=www -C LILYPOND_BOOK_FORMAT=tex-html input/template/ WWW
-	$(MAKE) out=www -C LILYPOND_BOOK_FORMAT=tex-html input/test/ WWW
-	$(MAKE) out=www -C LILYPOND_BOOK_FORMAT=tex-html Documentation WWW
+	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C input/regression/ WWW
+	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C input/template/ WWW
+	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C input/test/ WWW
+	$(MAKE) out=www LILYPOND_BOOK_FORMAT=texi-html -C Documentation WWW
 	$(MAKE) footify
 
 pfa-fonts:
