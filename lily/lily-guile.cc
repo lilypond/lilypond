@@ -188,7 +188,7 @@ void add_scm_init_func (void (*f) ())
 
 
 void
-ly_init_ly_module (void *data)
+ly_init_ly_module (void *)
 {
   for (int i=scm_init_funcs_->size () ; i--;)
     (scm_init_funcs_->elem (i)) ();
