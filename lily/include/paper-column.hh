@@ -32,28 +32,28 @@ public:
   VIRTUAL_COPY_CONS(Score_element);
   Drul_array<Array<Column_rod> > minimal_dists_arr_drul_;
   Drul_array<Array<Column_spring> > spring_arr_drul_;
-  void preprocess ();
+
   /// set a minimum distance
   void add_rod (Paper_column * to, Real distance);
   void add_spring (Paper_column * to, Real dist, Real strength);
 
   virtual Paper_column * column_l () const;
+  virtual Line_of_score *line_l () const;
+
+
   /// if lines are broken then this column is in #line#
   Line_of_score *line_l_;
 
-  virtual Line_of_score *line_l () const;
 
   /// which  one (left =0)
   int rank_i() const;
 
-  bool breakpoint_b() const;
-  void add_item (Item *i);
+  Paper_column (Moment when);
+  Moment when_mom ()const;
 
-  Paper_column();
+  bool musical_b () const;
 
   void set_rank (int);
-
-  void OK() const;
   virtual void do_print() const;
 private:
     

@@ -18,14 +18,14 @@ public:
   Spacing_spanner ();
 
   VIRTUAL_COPY_CONS(Score_element);
-  Array<Spring> do_measure (Link_array<Score_column>) const;
+  Array<Spring> do_measure (Link_array<Paper_column>) const;
 
 protected:
   virtual  Array<Spring> get_springs () const;
 
-  Real stem_dir_correction (Score_column*,Score_column*)  const;
-  Real default_bar_spacing (Score_column*,Score_column*,Moment)  const;
-  Real note_spacing (Score_column*,Score_column*,Moment)  const;  
+  Real stem_dir_correction (Paper_column*,Paper_column*)  const;
+  Real default_bar_spacing (Paper_column*,Paper_column*,Moment)  const;
+  Real note_spacing (Paper_column*,Paper_column*,Moment)  const;  
 };
 
 #endif /* SPACING_SPANNER_HH */

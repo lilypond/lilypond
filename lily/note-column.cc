@@ -158,20 +158,22 @@ Note_column::do_post_processing ()
      (what? should be done --jcn)
     scary too?: height is calculated during post_processing
    */
-  Real dy = 0;
-  Real y = 0;
+  Real beam_dy = 0;
+  Real beam_y = 0;
+
   SCM s = b->get_elt_property ("height");
   if (s != SCM_UNDEFINED)
-    dy = gh_scm2double (s);
-    s = b->get_elt_property ("y-position");
+    beam_dy = gh_scm2double (s);
+  
+  s = b->get_elt_property ("y-position");
   if (s != SCM_UNDEFINED)
-    y = gh_scm2double (s);
+    beam_y = gh_scm2double (s);
 
   Real x0 = b->first_visible_stem ()->hpos_f ();
-  Real dydx = b->last_visible_stem ()->hpos_f () - x0;
+  Real dydx = beam_dy/(b->last_visible_stem ()->hpos_f () - x0);
 
   Direction d = stem_l ()->get_direction ();
-  Real beamy = (stem_l ()->hpos_f () - x0) * dydx + y;
+  Real beamy = (stem_l ()->hpos_f () - x0) * dydx + beam_y;
 
   s = get_elt_property ("rests");
   Score_element * se = unsmob_element (gh_car (s));

@@ -168,6 +168,11 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
   Simultaneous_music*v = new Request_chord;
   v->set_spot (here_input ());
 
+  /*
+    UARGAUGRAGRUAUGRUINAGRAUGIRNA
+
+    ugh
+   */
   Chord chord = to_chord (tonic, add_arr_p, sub_arr_p, inversion_p, bass_p);
 
   Tonic_req* t = new Tonic_req;

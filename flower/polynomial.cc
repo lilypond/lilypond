@@ -51,6 +51,7 @@ Polynomial::differentiate()
     {
       coefs_[i-1] = coefs_[i] * i;
     }
+  coefs_.pop ();
 }
 
 Polynomial

@@ -16,6 +16,7 @@
 #include "debug.hh"
 #include "dimensions.hh"
 
+#include "bezier.hh"
 #include "paper-def.hh"
 #include "string-convert.hh"
 #include "file-path.hh"
@@ -28,6 +29,12 @@
 #include "atom.hh"
 #include "lily-guile.hh"
 
+SCM
+ly_offset2scm (Offset o)
+{
+  return gh_list (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]),
+		  SCM_UNDEFINED);
+}
 
 Lookup::Lookup ()
 {
@@ -227,42 +234,26 @@ Lookup::beam (Real slope, Real width, Real thick) const
   return m;
 }
 
-SCM
-offset2scm (Offset o)
-{
-  return gh_list (gh_double2scm (o[X_AXIS]), gh_double2scm(o[Y_AXIS]),
-		  SCM_UNDEFINED);
-}
 
+
+/*
+  FIXME.
+ */
 Molecule
-Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
+Lookup::dashed_slur (Bezier b, Real thick, Real dash) const
 {
-  assert (controls.size () == 8);
-  Offset d = controls[3] - controls[0];
-  
-  Real dx = d[X_AXIS];
-  Real dy = d[Y_AXIS];
-
-  Molecule m;
-
-
-  m.dim_[X_AXIS] = Interval (0, dx);
-  m.dim_[Y_AXIS] = Interval (0 <? dy, 0 >? dy);
-
-  SCM sc[4];
-  for (int i=0; i<  4; i++)
+  SCM l = SCM_EOL;
+  for (int i= 4; i -- ;)
     {
-      sc[i] =  offset2scm (controls[i]);
+      l = gh_cons (ly_offset2scm (b.control_[i]), l);
     }
 
-  Atom at
-    (gh_list (ly_symbol2scm ("dashed-slur"),
-	      gh_double2scm (thick), 
-	      gh_double2scm (dash),
-	      ly_quote_scm (array_to_list (sc, 4)),
-	      SCM_UNDEFINED));
-  
-  
+  Atom at (gh_list (ly_symbol2scm ("dashed-slur"),
+		    gh_double2scm (thick), 
+		    gh_double2scm (dash),
+		    ly_quote_scm (l),
+		    SCM_UNDEFINED));
+  Molecule m;
   m.add_atom (&at);
   return m;
 }
@@ -493,25 +484,40 @@ Lookup::tuplet_bracket (Real dy , Real dx, Real thick, Real gap,
   Make a smooth curve along the points 
  */
 Molecule
-Lookup::slur (Array<Offset> controls, Real linethick) const
+Lookup::slur (Bezier curve, Real curvethick, Real linethick) const
 {
-  Offset  delta_off = controls[3]- controls[0];
-  Molecule m; 
+  Real alpha = (curve.control_[3] - curve.control_[0]).arg ();
+  Bezier back = curve;
 
-  SCM scontrols [8];
-  int indices[] = {5,6,7,4,1,2,3,0};
+  back.reverse ();
+  back.control_[1] += curvethick * complex_exp (Offset (0, alpha + M_PI/2));
+  back.control_[2] += curvethick * complex_exp (Offset (0, alpha + M_PI/2));  
 
-  for (int i= 0; i < 8; i++)
-    scontrols[i] = offset2scm (controls[indices[i]]);
+  SCM scontrols[8];
+  for (int i=4; i--;)
+    scontrols[ i ] = ly_offset2scm (back.control_[i]);
+  for (int i=4 ; i--;)
+    scontrols[i+4] = ly_offset2scm (curve.control_[i]);
 
-
+  /*
+    Need the weird order b.o. the way PS want its arguments  
+   */
+  int indices[]= {5, 6, 7, 4, 1, 2, 3, 0};
+  SCM list = SCM_EOL;
+  for (int i= 8; i--;  )
+    {
+      list = gh_cons (scontrols[indices[i]], list);
+    }
+  
+  
   Atom at  (gh_list (ly_symbol2scm ("bezier-sandwich"),
-		     ly_quote_scm (array_to_list (scontrols, 8)),
+		     ly_quote_scm (list),
 		     gh_double2scm (linethick),
 		     SCM_UNDEFINED));
 
-  m.dim_[X_AXIS] = Interval (0, delta_off[X_AXIS]);
-  m.dim_[Y_AXIS] = Interval (0 <? delta_off[Y_AXIS], 0 >? delta_off[Y_AXIS]);
+  Molecule m; 
+  m.dim_[X_AXIS] = curve.extent (X_AXIS);
+  m.dim_[Y_AXIS] = curve.extent (Y_AXIS);
   m.add_atom (&at);
   return m;
 }

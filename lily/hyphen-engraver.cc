@@ -8,7 +8,7 @@
 #include "musical-request.hh"
 #include "hyphen-engraver.hh"
 #include "hyphen-spanner.hh"
-#include "score-column.hh"
+#include "paper-column.hh"
 #include "text-item.hh"
 #include "extender-engraver.hh"
 

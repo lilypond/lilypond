@@ -12,12 +12,11 @@
 #include "array.hh"
 #include "musical-pitch.hh"
 #include "lily-proto.hh"
-
 class Chord
 {
 public:
   static Array<Musical_pitch> base_arr (Musical_pitch p);
-  static void find_additions_and_subtractions(Array<Musical_pitch> pitch_arr, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p);
+  static void find_additions_and_subtractions(Array<Musical_pitch> pitch_arr, Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p);    
   static int find_tonic_i (Array<Musical_pitch> const*);
   static int find_pitch_i (Array<Musical_pitch> const*, Musical_pitch p);
   static int find_notename_i (Array<Musical_pitch> const*, Musical_pitch p);

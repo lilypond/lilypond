@@ -106,11 +106,13 @@ filter_solutions (Array<Real> sol)
 Array<Real>
 Bezier::solve_derivative (Offset deriv)const
 {
-  Polynomial xp[2];
+  Polynomial xp=polynomial (X_AXIS);
+  Polynomial yp=polynomial (Y_AXIS);
+  xp.differentiate ();
+  yp.differentiate ();
+  
+  Polynomial combine = xp * deriv[Y_AXIS] - yp * deriv [X_AXIS];
 
-  xp[X_AXIS] = polynomial (X_AXIS);
-  xp[Y_AXIS] = polynomial (Y_AXIS);    
-  Polynomial combine = xp[X_AXIS] * deriv[Y_AXIS] - xp[Y_AXIS] * deriv [X_AXIS];
   return filter_solutions (combine.solve ());
 }
   
@@ -174,4 +176,13 @@ Bezier::check_sanity () const
   for (int i=0; i < CONTROL_COUNT; i++)
     assert (!isnan (control_[i].length ())
 	    && !isinf (control_[i].length ()));
+}
+
+void
+Bezier::reverse ()
+{
+  Bezier b2;
+  for (int i =0; i < CONTROL_COUNT; i++)
+    b2.control_[CONTROL_COUNT-i-1] = control_[i];
+  *this = b2;
 }

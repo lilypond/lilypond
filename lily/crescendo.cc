@@ -12,7 +12,7 @@
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "debug.hh"
-#include "score-column.hh"
+#include "paper-column.hh"
 #include "atom.hh"
 
 Crescendo::Crescendo ()
@@ -54,7 +54,7 @@ Crescendo::do_brew_molecule_p () const
   Drul_array<bool> broken;
   Direction d = LEFT;
   do {
-    Score_column* s = dynamic_cast<Score_column*>(spanned_drul_[d]); // UGH
+    Paper_column* s = dynamic_cast<Paper_column*>(spanned_drul_[d]); // UGH
     broken[d] = (!s->musical_b ());
   } while (flip (&d) != LEFT);
   

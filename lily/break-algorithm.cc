@@ -6,7 +6,7 @@
   (c) 1996,  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "score-column.hh"
+#include "paper-column.hh"
 #include "break-algorithm.hh"
 #include "paper-def.hh"
 #include "debug.hh"

@@ -49,6 +49,8 @@ struct Beam;
 struct Beam_engraver;
 struct Beaming_info;
 struct Beaming_info_list;
+struct Bezier;
+struct Bezier_bow;
 struct Blank_req;
 struct Bow;
 struct Box;

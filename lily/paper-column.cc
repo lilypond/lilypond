@@ -5,7 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+#include "moment.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "debug.hh"
@@ -102,20 +102,6 @@ Paper_column::do_print() const
 #endif 
 }
 
-bool
-Paper_column::breakpoint_b() const
-{
-  return !line_l_;
-}
-
-Paper_column::Paper_column()
-{
-  set_axes (X_AXIS, X_AXIS);
-
-  line_l_=0;
-  rank_i_ = -1;
-}
-
 Line_of_score*
 Paper_column::line_l() const
 {
@@ -131,17 +117,38 @@ Paper_column::column_l () const
   return (Paper_column*)(this);
 }
 
-/*
-  ugh. JUNKME
- */
-void
-Paper_column::preprocess ()
+
+
+
+Paper_column::Paper_column (Moment w)
 {
-  /*
-    JUNKME
-   */ 
-  minimal_dists_arr_drul_[LEFT].sort (Column_rod::compare);
-  minimal_dists_arr_drul_[RIGHT].sort (Column_rod::compare);  
-  spring_arr_drul_[LEFT].sort (Column_spring::compare);
-  spring_arr_drul_[RIGHT].sort (Column_spring::compare);  
+  set_elt_property ("when", (new Moment (w))->smobify_self ());
+  set_axes (X_AXIS, X_AXIS);
+
+  line_l_=0;
+  rank_i_ = -1;
+}
+
+Moment
+Paper_column::when_mom () const
+{
+  SCM m = get_elt_property ("when");
+  Moment s (0);
+  if (SMOB_IS_TYPE_B(Moment, m))
+    {
+      s = *SMOB_TO_TYPE (Moment,m);
+    }
+  return s;
+}
+  
+bool
+Paper_column::musical_b () const
+{
+  SCM m = get_elt_property ("shortest-starter");
+  Moment s (0);
+  if (SMOB_IS_TYPE_B(Moment, m))
+    {
+      s = *SMOB_TO_TYPE (Moment,m);
+    }
+  return s != Moment(0);
 }

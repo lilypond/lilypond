@@ -9,7 +9,7 @@
 #include "musical-request.hh"
 #include "multi-measure-rest.hh"
 #include "multi-measure-rest-engraver.hh"
-#include "score-column.hh"
+#include "paper-column.hh"
 #include "engraver-group-engraver.hh"
 #include "timing-translator.hh"
 #include "bar.hh"

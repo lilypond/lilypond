@@ -13,7 +13,7 @@
 #include "paper-score.hh"
 #include "molecule.hh"
 #include "paper-outputter.hh"
-#include "score-column.hh"
+#include "paper-column.hh"
 #include "line-of-score.hh"
 #include "break-align-item.hh"
 
@@ -200,7 +200,7 @@ Spanner::do_space_processing ()
 Real
 Spanner::get_broken_left_end_align () const
 {
-  Score_column *sc = dynamic_cast<Score_column*> (spanned_drul_[LEFT]->column_l());
+  Paper_column *sc = dynamic_cast<Paper_column*> (spanned_drul_[LEFT]->column_l());
 
   // Relevant only if left span point is first column in line
   if(sc != NULL &&
@@ -209,7 +209,7 @@ Spanner::get_broken_left_end_align () const
       /*
 	
 	We used to do a full search for the Break_align_item.
-	But that doesn't make a difference, since the Score_column
+	But that doesn't make a difference, since the Paper_column
 	is likely to contain only a Break_align_item.
       */
       return sc->extent (X_AXIS)[RIGHT];

@@ -163,6 +163,7 @@ Item::broken_original_b () const
   return broken_to_drul_[LEFT] || broken_to_drul_[RIGHT];
 }
 
+#if 0
 int
 Item::left_right_compare(Item const *l, Item const *r)
 {
@@ -170,6 +171,7 @@ Item::left_right_compare(Item const *l, Item const *r)
   Paper_column* p2 = r->column_l ();
   return p1->rank_i () - p2->rank_i ();
 }
+#endif
 
 Paper_column *
 Item::column_l () const

@@ -220,7 +220,7 @@ Chord::Chord (Array<Musical_pitch> pitch_arr, Musical_pitch* inversion_p, Musica
       delete bass_p;
     }
 }
-
+  
 Chord::Chord (Chord const& chord)
 {
   pitch_arr_ = chord.pitch_arr_;
@@ -229,6 +229,7 @@ Chord::Chord (Chord const& chord)
   bass_b_ = chord.bass_b_;
   bass_pitch_ = chord.bass_pitch_;
 }
+  
 
 Array<Musical_pitch>
 Chord::base_arr (Musical_pitch p)
