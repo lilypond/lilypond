@@ -153,7 +153,7 @@ Source_file::map()
     data_caddr_ = (caddr_t)mmap( (void*)0, size_off_, PROT_READ, MAP_SHARED, fildes_i_, 0 );
 
     if ( (int)data_caddr_ == -1 )
-	warning( String( "can't map: " ) + name_str_ + String( ": " ) + strerror( errno ), 0 );
+	warning( String( "can't map: " ) + name_str_ + String( ": " ) + strerror( errno ));
 }
 
 String
@@ -168,7 +168,7 @@ Source_file::open()
     fildes_i_ = ::open( name_str_, O_RDONLY );	
 	    
     if ( fildes_i_ == -1 ) {
-	warning( String( "can't open: " ) + name_str_ + String( ": " ) + strerror( errno ), 0); 
+	warning( String( "can't open: " ) + name_str_ + String( ": " ) + strerror( errno )); 
         return;
     }
 
