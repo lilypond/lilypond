@@ -145,6 +145,7 @@ VoiceContext = \translator {
 	\consists "Melisma_engraver";
 	textScriptPadding = #3.0
 	\consists "Text_engraver";
+	\consists "A2_engraver";
 
 
 	startSustain = #"Ped."
@@ -204,7 +205,7 @@ GraceContext=\translator {
 
 ThreadContext = \translator{
 	\type Engraver_group_engraver;
-	\consists "Note_heads_engraver" ;
+	\consists "Note_heads_engraver";
 	\consists "Output_property_engraver";	
 	Generic_property_list = #generic-thread-properties
 	\consists "Property_engraver";

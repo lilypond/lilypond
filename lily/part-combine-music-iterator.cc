@@ -117,11 +117,10 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
   Moment first_next = first_iter_p_->next_moment ();
   Moment second_next = second_iter_p_->next_moment ();
 
-#if 0
-  if (first_next > m || second_next > m)
-    return;
-#endif
+  bool changed_b = false;
+  Part_combine_music const * p = dynamic_cast<Part_combine_music const* > (music_l_);
 
+  String to_id =  combined_b_ ? "first" : "second";
   /*
     different rhythm for combined voices: separate 
     same rhythm for separated voices: combine
@@ -130,47 +129,29 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
       || (first_next == second_next && !combined_b_))
     {
       combined_b_ = !combined_b_;
-      String to_id =  combined_b_ ? "first" : "second";
-
-      Part_combine_music const * p = dynamic_cast<Part_combine_music const* > (music_l_);
-
+      to_id =  combined_b_ ? "first" : "second";
       change_to (second_iter_p_, p->what_str_, to_id);
-
-      /*
-	A quick ugly hack to see if it works..
-       */
-#if 0
-      Translator_group * fd = 
-	first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_,
-								 "first");
-      Translator_group * sd = 
-	second_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_,
-								  to_id);
-#else
-      Translator_group * fd = first_iter_p_->report_to_l ();
-      Translator_group * sd = second_iter_p_->report_to_l ();
-#endif
-      
-      if (combined_b_)
-	{
-	  fd->set_property ("verticalDirection", gh_int2scm (0));
-	  fd->set_property ("noteHeadStyle", ly_symbol2scm ("default"));
-	}
-      else
-	{
-	  fd->set_property ("verticalDirection", gh_int2scm (1));
-	  fd->set_property ("noteHeadStyle", ly_symbol2scm ("diamond"));
-	  sd->set_property ("verticalDirection", gh_int2scm (-1));
-	}
+      changed_b = true;
     }
 
-  first_iter_p_->process_and_next (m);
-  second_iter_p_->process_and_next (m);
+  Translator_group * fd = 
+    first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_,
+							     "first");
+  Translator_group * sd = 
+    second_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_,
+							      to_id);
+
+  fd->set_property ("first", SCM_BOOL_T);
+  if (!combined_b_)
+    sd->set_property ("second", SCM_BOOL_T);
+
+  if (first_next <= m)
+    first_iter_p_->process_and_next (m);
+
+  if (second_next <= m)
+    second_iter_p_->process_and_next (m);
 
   Music_iterator::do_process_and_next (m);
-
-
-#if 0 
 
   /*
     TODO:
@@ -207,23 +188,39 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
     second_spanish_inquisition = new Pitch_interrogate_req;
   Music_iterator* sit = second_iter_p_->try_music (second_spanish_inquisition);
 
-  if (fit && first_spanish_inquisition->pitch_arr_.size ())
+  /*
+    Hmm.  In the case of a2, the second identical set of requests must
+    be junked: that's the whole point of detecting a2.  Howto/whereto
+    junk these requests?
+   */
+  if (changed_b
+      && (first_next == second_next)
+      && first_spanish_inquisition->pitch_arr_.size ()
+      && (first_spanish_inquisition->pitch_arr_.size ()
+	  == second_spanish_inquisition->pitch_arr_.size ())
+      && (first_spanish_inquisition->pitch_arr_[0] ==
+	  second_spanish_inquisition->pitch_arr_[0]))
     {
-      Musical_pitch p = spanish_inquisition->pitch_arr_[0];
-      Direction s = Direction (sign(p.steps ()));
-      if (s != where_dir_)
-	{
-	  where_dir_ = s;
-	  String to_id =  (s >= 0) ?  "up" : "down";
-	  Part_combine_music const * auto_mus = dynamic_cast<Part_combine_music const* > (music_l_);
+      fd->set_property ("a2", SCM_BOOL_T);
+      sd->set_property ("a2", SCM_BOOL_T);
+    }
+  
+  if (changed_b
+      && first_spanish_inquisition->pitch_arr_.size ()
+      && !second_spanish_inquisition->pitch_arr_.size ())
+    {
+      fd->set_property ("solo", SCM_BOOL_T);
+    }
 
-	  change_to (it, auto_mus->what_str_, to_id);	  
-	}
+  if (changed_b
+      && !first_spanish_inquisition->pitch_arr_.size ()
+      && second_spanish_inquisition->pitch_arr_.size ())
+    {
+      sd->set_property ("solo2", SCM_BOOL_T);
     }
 
   first_spanish_inquisition->pitch_arr_.clear ();
   second_spanish_inquisition->pitch_arr_.clear ();
-#endif
 }
 
 Music_iterator*

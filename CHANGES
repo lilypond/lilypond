@@ -1,4 +1,20 @@
---- ../lilypond-1.3.77.jcn2/CHANGES	Sun Aug 13 15:50:59 2000
+--- ../lilypond-1.3.77.jcn3/CHANGES	Sun Aug 13 20:05:00 2000
+++ b/CHANGES	Sun Aug 13 23:23:46 2000
+@@ -1,3 +1,14 @@
+1.3.77.jcn4
+===========
+
+* Part-combine iterator identifies Soli and A2 parts in threads by 
+  looking at rhythm and pitches.  It switches Voice context automagically,
+  and communicates current state using a2/solo/solo2 properties.
+
+* Simple A2_engraver (`a due) prints `a2/Solo/Solo II.  Soli seem to
+  arrive one request late.
+
+
+ 1.3.77.jcn3
+ ===========
+ --- ../lilypond-1.3.77.jcn2/CHANGES	Sun Aug 13 15:50:59 2000
 ++ b/CHANGES	Sun Aug 13 20:05:00 2000
 @@ -1,3 +1,9 @@
 1.3.77.jcn3
