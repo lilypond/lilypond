@@ -10,6 +10,7 @@
 #include "engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "grob.hh"
+#include "main.hh"
 
 
 void
@@ -21,7 +22,8 @@ Engraver::announce_grob (Grob_info inf)
 void
 Engraver::announce_grob (Grob* e, Music *m)
 {
-  if (m && m->origin ()->location_str ().length_i ())
+  if (m && store_locations_global_b 
+      && m->origin ()->location_str ().length_i ())
     {
       e->set_grob_property ("origin", m->get_mus_property ("origin"));
     }

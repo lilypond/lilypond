@@ -149,6 +149,7 @@ VoiceContext = \translator {
 	\consists "Phrasing_slur_engraver"
 	\consists "Slur_engraver"
 	\consists "Tie_engraver"
+	\consists "Porrectus_engraver"
 	\consists "Tuplet_engraver"
 	\consists "A2_engraver"
 
@@ -221,6 +222,7 @@ StaffGroupContext = \translator {
 	\accepts "InnerChoirStaff"
 	\accepts "ChoirStaff"
 	\accepts "InnerStaffGroup"
+	\accepts "FiguredBass"
 }
 
 
@@ -344,6 +346,7 @@ ScoreContext = \translator {
 	\accepts "ChoirStaff"
 	\accepts "PianoStaff"
 	\accepts "NoteNames"
+	\accepts "FiguredBass"	
 
 	soloText = #"Solo"
 	soloIIText = #"Solo II"
@@ -412,4 +415,11 @@ EasyNotation =  \translator {
 % retain for compatibility reasons (FIXME: convert-ly)
 GraceContext = \translator {
 	\type "Engraver_group_engraver"
+}
+
+FiguredBassContext = \translator {
+	\type "Engraver_group_engraver"
+	\name FiguredBass 
+	\consists "Figured_bass_engraver"	
+	\consistsend "Axis_group_engraver"
 }

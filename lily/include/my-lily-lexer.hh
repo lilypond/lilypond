@@ -56,6 +56,7 @@ public:
 
   SCM lookup_identifier (String s);
   void push_note_state ();
+  void push_figuredbass_state ();
   void push_chord_state ();
   void push_lyric_state ();
   void pop_state ();
@@ -64,7 +65,7 @@ public:
   bool note_state_b () const;
   bool chord_state_b () const;
   bool lyric_state_b () const;
-
+  bool figure_state_b () const;
 private:
   int lookup_keyword (String);
   int scan_bare_word (String);

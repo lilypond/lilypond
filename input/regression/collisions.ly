@@ -12,56 +12,52 @@ Tested = 	 "test the Collision resolution "
 }
 
 
-twovoice =  \context Staff \notes < 
-	\context Voice=i { \stemDown c4 d e f g2~  g4 a [c8 d e f] c2| }
-	\context Voice=ii { \stemUp g4 f e g ~ g2 g2  c4 g4 g2 } 
+twovoice =
+\notes \relative c' \context Staff \notes < 
+	\context Voice=i { \stemDown c4 c  d d e e f f }
+	\context Voice=ii { \stemUp g4 f f e e d d c } 
 >
 
-twovoicesteminvert =  \context Staff \notes <  
-	% the f and g on 4th beat are exceptionally ugh.
-	\context Voice=i { \stemUp c4 d e f g2 g4 a | }
-	\context Voice=ii { \stemDown g4 f e g  g2 g2 } 
+twovoicechords = \context Staff \notes <
+	\context Voice = i \relative c' {
+		\stemUp e4 d c b a g f
+	}
+	\context Voice = ii \relative c' {
+		\stemDown <a4 c> <a4 c> <a4 c> <a4 c> <a c>
+		<a c> <a c>  
+	}
 >
+
 
 threevoice =  \context Staff \notes <
 	\context Voice=i { \stemUp g4 f e f g a g2 }
-	\context Voice=ii { \stemUp \property Voice.NoteColumn \override #'horizontal-shift = #1
-		e2  e2  e2  e2 }
+	\context Voice=ii { \stemUp \shiftOn
+		e4 e e e e e e e  }
 	\context Voice=iii { \stemDown c4 d e d c d es }
->
-
-chordstest =  \context Staff \notes <
-	\context Voice = i \relative c {
-		\stemUp e4 dis c f g f a b b
-	}
-	\context Voice = ii \relative c {
-		\stemDown <a4 c> <a4 c> <a4 e'> <a4 c> <e' a> <e a> <e a> <a c> <a d>
-	}
 >
 
 hairyChord =  \context Staff \notes\relative c' <
      \context Voice=one {
- \property Voice.NoteColumn \override #'horizontal-shift = #0
+\shiftOff
 	\stemUp 
 	e4 
      }
      
      \context Voice=two {
 	\stemUp
+	\shiftOn
  \property Voice.NoteColumn \override #'horizontal-shift = #1
 	cis
      }
      
-     \context Voice=three {
- \property Voice.NoteColumn \override #'horizontal-shift = #2
-
+     \context Voice=three {	\shiftOnn
 	\stemUp 
 	ais
      }
      
      \context Voice=four {
         \stemDown
- \property Voice.NoteColumn \override #'horizontal-shift = #1
+	\shiftOn
 
 	fis
      }
@@ -69,10 +65,11 @@ hairyChord =  \context Staff \notes\relative c' <
 
 
 \score{
-	\notes \transpose c'' {  \twovoice  
-	\twovoicesteminvert 
-	\threevoice \break
-	 \chordstest
+	\notes \transpose c'' {
+	   \twovoice
+	   \twovoicechords
+	
+	\threevoice 
 	 \hairyChord
 	}
 	

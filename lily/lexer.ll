@@ -93,6 +93,7 @@ SCM scan_fraction (String);
 %x incl
 %x lyrics
 %x notes
+%x figures
 %x quote
 %x longcomment
 
@@ -129,7 +130,7 @@ HYPHEN		--
 	// windows-suck-suck-suck
 }
 
-<INITIAL,chords,incl,lyrics,notes>{
+<INITIAL,chords,incl,lyrics,notes,figures>{
   "%{"	{
 	yy_push_state (longcomment);
   }
@@ -146,7 +147,7 @@ HYPHEN		--
   }
 }
 
-<INITIAL,chords,lyrics,notes>\\version{WHITE}*	{
+<INITIAL,chords,lyrics,notes,figures>\\version{WHITE}*	{
 	yy_push_state (version);
 }
 <version>\"[^"]*\"     { /* got the version number */
@@ -178,7 +179,7 @@ HYPHEN		--
 }
 
 
-<INITIAL,chords,lyrics,notes>\\maininput           {
+<INITIAL,chords,lyrics,notes,figures>\\maininput           {
 	if (!main_input_b_)
 	{
 		start_main_input ();
@@ -188,7 +189,7 @@ HYPHEN		--
 		error (_ ("\\maininput disallowed outside init files"));
 }
 
-<INITIAL,chords,lyrics,notes>\\include           {
+<INITIAL,chords,lyrics,figures,notes>\\include           {
 	yy_push_state (incl);
 }
 <incl>\"[^"]*\";?   { /* got the include file name */
@@ -221,34 +222,34 @@ HYPHEN		--
 	cerr << _ ("Missing end quote") << endl;
 	exit (1);
 }
-<chords,notes>{RESTNAME} 	{
+<chords,notes,figures>{RESTNAME} 	{
 	const char *s = YYText ();
 	yylval.scm = ly_str02scm (s);
 	return RESTNAME;
 }
-<chords,notes>R		{
+<chords,notes,figures>R		{
 	return MULTI_MEASURE_REST;
 }
-<INITIAL,chords,lyrics,notes>\\\${BLACK}*{WHITE}	{
+<INITIAL,chords,lyrics,notes,figures>\\\${BLACK}*{WHITE}	{
 	String s=YYText () + 2;
 	s=s.left_str (s.length_i () - 1);
 	return scan_escaped_word (s); 
 }
-<INITIAL,chords,lyrics,notes>\${BLACK}*{WHITE}		{
+<INITIAL,chords,lyrics,notes,figures>\${BLACK}*{WHITE}		{
 	String s=YYText () + 1;
 	s=s.left_str (s.length_i () - 1);
 	return scan_bare_word (s);
 }
-<INITIAL,chords,lyrics,notes>\\\${BLACK}*		{ // backup rule
+<INITIAL,chords,lyrics,notes,figures>\\\${BLACK}*		{ // backup rule
 	cerr << _ ("white expected") << endl;
 	exit (1);
 }
-<INITIAL,chords,lyrics,notes>\${BLACK}*		{ // backup rule
+<INITIAL,chords,lyrics,notes,figures>\${BLACK}*		{ // backup rule
 	cerr << _ ("white expected") << endl;
 	exit (1);
 }
 
-<INITIAL,chords,lyrics,notes>#	{ //embedded scm
+<INITIAL,chords,lyrics,notes,figures>#	{ //embedded scm
 	//char const* s = YYText () + 1;
 	char const* s = here_ch_C ();
 	int n = 0;
@@ -267,7 +268,15 @@ HYPHEN		--
 
 	return SCM_T;
 }
-<notes>{
+<figures>{
+	\>		{
+		return FIGURE_CLOSE;
+	}
+	\< 	{
+		return FIGURE_OPEN;
+	}
+}
+<notes,figures>{
 	{ALPHAWORD}	{
 		return scan_bare_word (YYText ());
 	}
@@ -430,11 +439,11 @@ HYPHEN		--
 	return c;
 }
 
-<INITIAL,notes>.	{
+<INITIAL,notes,figures>.	{
 	return YYText ()[0];
 }
 
-<INITIAL,lyrics,notes>\\. {
+<INITIAL,lyrics,notes,figures>\\. {
     char c= YYText ()[1];
 
     switch (c) {
@@ -467,6 +476,11 @@ My_lily_lexer::push_note_state ()
 	yy_push_state (notes);
 }
 
+void
+My_lily_lexer::push_figuredbass_state()
+{
+	yy_push_state (figures);
+}
 void
 My_lily_lexer::push_chord_state ()
 {
@@ -579,6 +593,12 @@ bool
 My_lily_lexer::lyric_state_b () const
 {
 	return YY_START == lyrics;
+}
+
+bool
+My_lily_lexer::figure_state_b () const
+{
+	return YY_START == figures;
 }
 
 /*

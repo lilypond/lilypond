@@ -72,7 +72,9 @@ list is alphabetically ordered.
    * Roy R. Rankin <Roy.Rankin@alcatel.com.au>,     major extension,
      fixes to abc2ly, lilypond bug fixes
 
-   * Juergen Reuter <reuterj@ira.uka.de>         Custos support.
+   * Juergen Reuter <reuterj@ira.uka.de>         Ancient notation
+     support (custos, porrectus, mensural notation,         ancient
+     clefs, etc.)
 
    * Jeffrey B. Reed <daboys@austin.rr.com>,     Windows-NT support.
 

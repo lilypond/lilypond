@@ -204,7 +204,7 @@
 	(volta . ((font-family . number) (font-relative-size . -2)))
 	(tuplet . ((font-family . roman) (font-shape . italic) (font-relative-size . -1)))
 
-	(timesig . ((font-family . number) (font-relative-size . 0)))
+	(timesig . ((font-family . number) ))
 	(timesig-symbol . ((font-family . music) (font-relative-size . 0)))
 	
 	(mmrest . ((font-family . number) (font-relative-size . 1)))

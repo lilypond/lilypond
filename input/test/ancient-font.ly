@@ -27,6 +27,10 @@ upperVoice =  \context Staff = upperVoice <
 	\property Staff.Accidentals \override #'style = #'vaticana
 	\property Staff.Custos \override #'style = #'vaticana
 	\property Voice.NoteHead \override #'style = #'vaticana_punctum
+	\property Voice.Porrectus \override #'style = #'vaticana
+	\property Voice.Porrectus \override #'solid = ##t
+	\property Voice.Porrectus \override #'add-stem = ##t
+	\property Voice.Porrectus \override #'stem-direction = #-1
 	\key es \major
 	\clef "vaticana_fa2"
 	c!1 des! e! f! ges!
@@ -37,10 +41,10 @@ upperVoice =  \context Staff = upperVoice <
 	\clef "vaticana_do2"
 
 	\property Voice.NoteHead \override #'style = #'vaticana_subbipunctum
-	a! b! ces'
+	a! b!
 	\property Staff.BarLine \override #'bar-size = #3.0 \bar "|"
 	\property Voice.NoteHead \override #'style = #'vaticana_virga
-	b! a! ges fes
+	ces' b! ces'! \porrectus ges! \porrectus fes!
 	\breathe
 	\clef "vaticana_fa1"
 	\property Voice.NoteHead \override #'style = #'vaticana_quilisma
@@ -112,69 +116,92 @@ lowerVoice =  \context Staff = lowerNotes <
     % \property Staff.StaffSymbol \override #'line-count = #5
     \context Staff \outputproperty #(make-type-checker 'staff-symbol-interface)
       #'line-count = #5
-    
+
     \notes \transpose c' {
 	\property Voice.noAutoBeaming = ##t
 	\property Staff.KeySignature \override #'style = #'mensural
 	\property Staff.Accidentals \override #'style = #'mensural
 	\property Staff.Custos \override #'style = #'mensural
-        \property Voice.NoteHead \override #'style = #'neo_mensural
-        \property Voice.Rest \override #'style = #'neo_mensural
+	\property Voice.NoteHead \override #'style = #'neo_mensural
+	\property Voice.Rest \override #'style = #'neo_mensural
+	\property Voice.Porrectus \override #'style = #'mensural
+	\property Voice.Porrectus \override #'solid = ##f
+	\property Voice.Porrectus \override #'add-stem = ##t
+	\property Voice.Porrectus \override #'stem-direction = #1
 	\key a \major
+
+	% IMPORTANT NOTE:
+	%
+	% The porrectus syntax is subject to change.  For proper
+	% use, it may eventually change into something like this:
+	%
+	% \ligature { e \porrectus c }
+	%
+	% The reason is that there needs to be some enclosing instance
+	% for correct handling of line breaking, alignment with
+	% adjacent note heads, and placement of accidentals.
+
 	\clef "neo_mensural_c2"
-	c2 dis es fis ges
-        \property Staff.forceClef = ##t
+	cis' e' \porrectus d' gis' \porrectus e'
+	\property Staff.forceClef = ##t
 	\clef "neo_mensural_c2"
-	ais bes cis'
-	bis as gis fes
+
+	fis' \porrectus b cis''
+	b \porrectus a a \porrectus fis
 	\clef "petrucci_c2"
-	e d c1 \bar "|"
+	cis \porrectus fis ces1 % \bar "|"
 
 	\clef "petrucci_c2"
 	r\longa
-        \property Staff.forceClef = ##t
+	\property Staff.forceClef = ##t
 	\clef "mensural_c2"
 	r\breve r1 r2
 	\clef "mensural_g"
 	r4 r8 r16 r32 r32 \bar "|"
 
-        \property Voice.NoteHead \override #'style = #'mensural
+	\property Voice.NoteHead \override #'style = #'mensural
 	\property Voice.Stem \override #'style = #'mensural
 	\property Voice.Stem \override #'thickness = #1.0
-        \property Voice.Rest \override #'style = #'mensural
+	\property Voice.Rest \override #'style = #'mensural
 	\clef "petrucci_f"
 	c8 b, c16 b, c32 b, c64 b, c b,
 	d8 e  d16 e  d32 e  d64 e  d e
 	r\longa
-        \property Staff.forceClef = ##t
+	\property Staff.forceClef = ##t
 	\clef "petrucci_f"
-	r\breve r1 \bar "|"
+	r\breve r1 % \bar "|"
 	\clef "mensural_f"
 
-	% FIXME: need this to avoid segmentation fault on r8/r16/r32
-	% (Strange: what has Voice.Stem style to do with mensural rests?)
+	% FIXME: must set Voice.Stem style to #'neo_mensural to avoid
+	% segmentation fault on r8/r16/r32.  (Strange: what has
+	% Voice.Stem style to do with mensural rests?)
 	\property Voice.Stem \override #'style = #'neo_mensural
-
 	r2 r4 r8 r16 r32 r32
 	\property Voice.Stem \override #'style = #'mensural
 
-        \property Staff.forceClef = ##t
+	\property Staff.forceClef = ##t
 	\clef "mensural_f"
 	e2 f g
 	\clef "mensural_g"
-	as'! bes'! cis''!
-	bes'! as'! gis'! fis'!
-        \property Staff.forceClef = ##t
+
+	% FIXME: In the second and all subsequent lines of score, the
+	% stems and accidentals of the junked notes keep visible on
+	% porrectus grobs.  Is this an initialization bug in the line
+	% breaking algorithm?
+
+	bes'! \porrectus as'! \porrectus cis''!
+	bes'! \porrectus fis'! as'! \porrectus ges'!
+	\property Staff.forceClef = ##t
 	\clef "mensural_g"
 	e' d' c'1 \bar "|"
 
-        \property Staff.forceClef = ##t
+	\property Staff.forceClef = ##t
 	\clef "petrucci_g"
 	c'2 d' e' f' g'
 	\clef "petrucci_g"
 	as'! bes'! cis''!
 	bes'! as'! gis'! fis'!
-        \property Staff.forceClef = ##t
+	\property Staff.forceClef = ##t
 	\clef "mensural_g"
 	es'! des'! cis'!1 \bar "||"
     }

@@ -254,8 +254,9 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   Real dy, offset;
 
   calc_position_and_height (me,&offset,&dy);
-  
-  me->set_grob_property ("delta-y", gh_double2scm (dy));
+
+  if (!gh_number_p (me->get_grob_property ("delta-y")))
+    me->set_grob_property ("delta-y", gh_double2scm (dy));
 
   me->translate_axis (offset, Y_AXIS);
   return SCM_UNSPECIFIED;

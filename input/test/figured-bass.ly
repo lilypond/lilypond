@@ -1,27 +1,29 @@
-\version "1.3.146"
-% Example of figured bass, using text scripts.
-% (An alternative is to use a lyrics line if you want the figures
-% aligned vertically.)
+\header {
+texidoc = "Test figured bass.
 
+Figured bass is created by the FiguredBass context which eats
+note-requests and rest-requests.  You can enter these either using
+standard @code{< >} notation, or using the special @code{\figures { }}
+mode, which allows you to type numbers, like @code{<4 6+>}.
+ 
+" }
 
-
-% Scheme macros for accidentals. Note how they can be combined
-% with other strings, for example in: d^#`(columns ,sharp "4")
-
-#(define sharp '((raise . 0.2) (music (named "accidentals-1"))))
-#(define natural '((raise . 0.2) (music (named "accidentals-0"))))
-#(define flat '((raise . 0.2) (music (named "accidentals--1"))))
-
-
-\score{
-  \notes \relative c'{
-    \clef bass
-
-      c^"5" d^#natural g,^"7 6" [a8 e] |
-      fis4^"7 6" [g8 d] e4^"7 6" [f?8 c] |
-      [d^#sharp d b g][c^"7" c^"5" a^"6" f] |
-      [bes^"7" bes^"5" g^"6" e] a4^#sharp d^"6" ~ |
-      d^#`(columns ,sharp "4") c^"6" d e^#sharp |
+\score { \notes  <
+\context FiguredBass \transpose c'' {
+   <e! g >
+   <f8 ais >
+   \figures {
+     r 
+     <1 3 5>4 <3- 5+ 6!> <5>
+   } 
+ }
+ \context Voice {
+   c 
+   g8 g 
+   f4
+   d
+   c
   }
-}
-
+ 
+>
+ }

@@ -35,7 +35,10 @@ class Rational {
 
 public:
   void set_infinite (int sign);
-  bool infty_b () const;
+  bool infty_b () const
+    {
+      return sign_ == 2 || sign_ == -2;
+    }
   void invert ();
   int num () const { return sign_ * num_; }
   int den () const { return den_; }
@@ -52,7 +55,8 @@ public:
      Initialize to 0. 
    */
   Rational ();
-  Rational (int, int =1);
+  Rational (int);
+  Rational (int, int);
   Rational (double);
   Rational (Rational const&r) {   copy (r);}
 

@@ -51,6 +51,10 @@ class Breathing_sign_req : public Request {
   VIRTUAL_COPY_CONS (Music);
 };
 
+class Porrectus_req : public Request {
+  VIRTUAL_COPY_CONS (Music);
+};
+
 /**
     Handle key changes.
 */

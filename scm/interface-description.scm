@@ -568,6 +568,13 @@ contains-grace extra-space stretch-distance ))
 
 
   (lily-interface
+   'porrectus-interface
+   "A porrectus ligature, joining two note heads into a single grob."
+   '(
+    ))
+
+
+  (lily-interface
    'spaceable-element-interface
    "An grob (generally a Paper_column) that takes part in the
 spacing problem. "

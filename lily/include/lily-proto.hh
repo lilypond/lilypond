@@ -132,6 +132,7 @@ class Performer_group_performer;
 class Piano_bar_engraver;
 
 class Pitch_squash_engraver;
+class Porrectus_req;
 class Property_iterator;
 class Rational;
 class Relative_octave_music;

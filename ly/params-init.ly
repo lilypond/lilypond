@@ -41,7 +41,7 @@ blotdiameter = 0.4 / \outputscale
 \translator { \PianoStaffContext}
 \translator { \LyricsVoiceContext }
 \translator { \StaffContainerContext }
-
+\translator { \FiguredBassContext }
 
 
 

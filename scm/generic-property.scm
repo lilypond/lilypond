@@ -1,6 +1,11 @@
 
-; BROKEN as of 1.3.55, FIXME
-;
+
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; DEPRECATED -- DO NOT UPDATE ! -- DO NOT USE !
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
 ;
@@ -167,6 +172,16 @@
 	(list (list 'noteNameStyle symbol? 'style))))
 
 
+(define generic-porrectus-properties
+  (cons 'porrectus-interface
+	(list
+	 (list 'porrectusStyle symbol? 'style)
+	 (list 'porrectusSolid boolean? 'solid)
+	 (list 'porrectusAddStem boolean? 'add-stem)
+	 (list 'porrectusStemDirection dir? 'stem-direction)
+	 )))
+
+
 (define generic-rest-properties
   (cons 'rest-interface
 	(list (list 'restStyle string? 'reststyle))))
@@ -246,6 +261,7 @@
    generic-tie-column-properties   
    generic-tuplet-spanner-properties
    generic-notehead-properties
+   generic-porrectus-properties
    generic-rest-properties
    generic-slur-properties
    generic-beam-properties

@@ -56,8 +56,28 @@ check_meshing_chords (Grob*me,
   Grob * nd_l = Note_column::first_head (cd);
       
      
+
+  /*
+    this case (distant half collide), 
+    
+        |
+      x |
+     | x
+     |
+
+   the noteheads may be closer than this case (close half collide)
+
+       |
+       |
+      x 
+     x
+    |
+    |
+    
+   */
   
-  bool half_collide = false;
+  bool close_half_collide = false;
+  bool distant_half_collide = false;  
   bool full_collide = false;  
 
   /*
@@ -86,7 +106,7 @@ check_meshing_chords (Grob*me,
 
   bool touch = (ups[0] - dps.top () >= 0);
   
-  bool merge_possible = (ups[0] >= dps[0]) && (ups.top () <= dps.top ());
+  bool merge_possible = (ups[0] >= dps[0]) && (ups.top () >= dps.top ());
 
   merge_possible = merge_possible &&
     Rhythmic_head::balltype_i (nu_l) == Rhythmic_head::balltype_i (nd_l);
@@ -100,7 +120,10 @@ check_meshing_chords (Grob*me,
     if (abs (ups[i] - dps[j]) == 1)
       {
 	merge_possible = false;
-	half_collide = true;
+	if (ups[i] > dps[j])
+	  close_half_collide = true;
+	else
+	  distant_half_collide = true;
       }
     else if (ups[i]==dps[j])
       full_collide = true;
@@ -127,21 +150,34 @@ check_meshing_chords (Grob*me,
   
   Real shift_amount = 1;
 
-  if ( touch)
+  if (touch)
     shift_amount *= -1;
-  else
+
   /*
     for full collisions, the right hand head may obscure dots, so
     make sure the dotted heads go to the right.
    */
-    if ((Rhythmic_head::dot_count (nu_l) < Rhythmic_head::dot_count (nd_l)
-	   && full_collide))
-      shift_amount *= -1;
+  if ((Rhythmic_head::dot_count (nu_l) > Rhythmic_head::dot_count (nd_l)
+       && full_collide))
+    shift_amount = 1;
 
+  /*
+    TODO: these numbers are magic; should devise a set of grob props
+    to tune this behavior.  */
+  
   if (merge_possible)
     shift_amount *= 0.0;
-  else if (half_collide || full_collide) 
+  else if (close_half_collide && !touch)
+    shift_amount *= 0.52;
+  else if (distant_half_collide && !touch)
+    shift_amount *= 0.4;
+  else if (distant_half_collide || close_half_collide || full_collide)
     shift_amount *= 0.5;
+  /*
+    we're meshing.
+  */
+  else if (Rhythmic_head::dot_count (nu_l) || Rhythmic_head::dot_count (nd_l))
+    shift_amount *= 0.1;
   else
     shift_amount *= 0.25;
 
@@ -294,51 +330,6 @@ Collision::automatic_shift (Grob *me)
    */
 
   check_meshing_chords (me, &offsets, extents, clash_groups);
-  
-#if 0  
-  /*
-    if the up and down version are close, and can not be merged, move
-    all of them again. */
-  if (extents[UP].size () && extents[DOWN].size ())
-    {
-      Grob *cu_l =clash_groups[UP][0];
-      Grob *cd_l =clash_groups[DOWN][0];
-
-
-      /*
-	TODO.
-       */
-      Grob * nu_l= Note_column::first_head (cu_l);
-      Grob * nd_l = Note_column::first_head (cd_l);
-      
-      int downpos = Note_column::head_positions_interval (cd_l)[BIGGER];
-      int uppos = Note_column::head_positions_interval (cu_l)[SMALLER];      
-      
-      bool merge  =
-	downpos == uppos
-	&& Rhythmic_head::balltype_i (nu_l) == Rhythmic_head::balltype_i (nd_l);
-
-
-      if (!to_boolean (me->get_grob_property ("merge-differently-dotted")))
-	merge = merge && Rhythmic_head::dot_count (nu_l) == Rhythmic_head::dot_count (nd_l);
-
-      /*
-	notes are close, but can not be merged.  Shift
-       */
-      if (abs (uppos - downpos) < 2 && !merge)
-	  do
-	  {
-	    for (int i=0; i < clash_groups[d].size (); i++)
-	      {
-		if(Rhythmic_head::dot_count (nu_l) > Rhythmic_head::dot_count (nd_l))
-		  offsets[d][i] += d * 0.5;
-		else 
-		  offsets[d][i] -= d * 0.5;
-	      }
-	  }
-	  while ((flip (&d))!= UP);
-    }
-#endif
   
   do
     {

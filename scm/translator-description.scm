@@ -436,6 +436,16 @@ making a single line staff that demonstrates the rhythm of a melody."
       )))
    
    (cons
+    'Porrectus_engraver
+    (engraver-description
+     "Porrectus_engraver"
+     "Join adjacent notes to a porrectus ligature."
+     '(Porrectus)
+     '(
+      )))
+
+
+   (cons
     'Property_engraver
     (engraver-description
      "Property_engraver"
