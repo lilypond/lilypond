@@ -90,6 +90,7 @@ Interval
 Axis_group_element::extra_extent (Axis a )const
 {
   Interval g;
+  purge_extra ();
   for (int i=0;  i < extra_elems_.size (); i++)
     {
       Interval ge = extra_elems_[i]->extent (a);
@@ -126,7 +127,7 @@ Axis_group_element::add_extra_element (Score_element *e)
   while (e && e != this)
     {
       se.push (e);
-      e = dynamic_cast<Score_element*> (e->dim_cache_[Y_AXIS]->parent_l_ ? e->dim_cache_[Y_AXIS]->parent_l_->element_l() : 0);
+      e = dynamic_cast<Score_element*> (e->parent_l (Y_AXIS));
     }
 
   if (1)			// e == this)
@@ -138,5 +139,25 @@ Axis_group_element::add_extra_element (Score_element *e)
 	  se[i]->set_elt_property (ly_symbol ("Axis_group_element::add_extra_element"), SCM_BOOL_T); // UGH GUH.
 	}
       
+    }
+}
+
+/*
+  UGH GUH
+ */
+void
+Axis_group_element::purge_extra ()
+{
+  for (int i=0; i < extra_elems_.size ();)
+    {
+      Score_element *e = extra_elems_[i];
+      while (e && e != this)
+	{
+	  e = dynamic_cast<Score_element*> (e->parent_l (Y_AXIS));
+	}
+      if (e != this)
+	extra_elems_.del (i);
+      else
+	i++;
     }
 }

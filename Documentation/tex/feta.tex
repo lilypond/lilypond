@@ -11,7 +11,7 @@
 \font\fetanumber = feta-nummer12
 \font\fetafinger = feta-nummer5
 \font\fetadyn = feta-din10 scaled \magstep 2
-\font\title = cmbx12 scaled \magstep 4
+\font\titlefont = cmbx12 scaled \magstep 4
 \font\subtitle = cmr9
 
 \def\lilyfooter{Lily was here}
@@ -35,10 +35,15 @@
         {\setchar{#1}{\number\n}}
         \repeat}}}}\repeat}
 
+\def\title#1{\centerline{\titlefont #1}}
+\def\author#1{\centerline{#1}}
 
-\centerline{\title FETA}
+\title{FETA}
 
 \centerline{\subtitle (definitely not an abbreviation for Font-En-Tja)}
+
+\author{Han-Wen Nienhuys and Jan Nieuwenhuizen}
+
 
 \vskip5mm
 

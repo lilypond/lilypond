@@ -322,6 +322,8 @@ class TeXOutput:
 \\end{document}
 """)
         this.__fd.close()
+        if os.path.isfile(outfile):
+            os.remove(outfile)
         if ( os.name == 'posix' ):
             stat = os.system('latex \'\\nonstopmode \\input %s\'' %
                              (this.__outfile))
@@ -330,11 +332,11 @@ class TeXOutput:
                              (this.__outfile))
         if stat:
             sys.exit('ExitBadLatex')
-        if os.path.isfile(outfile):
-            os.remove(outfile)
-        os.rename(this.__base + '.' + str(os.getpid()) + '.dvi', outfile)
-        sys.stderr.write( '\n' + program_id() + ': dvi file name is %s\n\n'
-                   % (outfile))
+        if not os.path.isfile(outfile):
+		os.rename(this.__base + '.' + str(os.getpid()) + '.dvi', outfile)
+		
+        sys.stderr.write('\n' + program_id() + ': dvi file name is %s\n\n'
+			 % (outfile))
 
         if Props.get('postscript'):
             psoutfile=this.__base + '.ps'

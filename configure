@@ -3268,23 +3268,6 @@ test -n "$MAKEINFO" || MAKEINFO="error"
 	fi
 
 
-echo $ac_n "checking links for running from sourcetree""... $ac_c" 1>&6
-echo "configure:3273: checking links for running from sourcetree" >&5
-LILYPONDPREFIX=$absolute_builddir
-LOCALES="it nl"
-for i in $LOCALES; do
-	dir=$LILYPONDPREFIX/share/locale/$i/LC_MESSAGES
-	if test ! -x $dir ; then
-		mkdir -p $dir
-	fi
-	rm -f $dir/lilypond.mo 
-	ln -sf $LILYPONDPREFIX/po/out/$i.mo $dir/lilypond.mo
-done
-rm -f afm; ln -sf $LILYPONDPREFIX/mf/out afm
-rm -f tfm; ln -sf $LILYPONDPREFIX/mf/out tfm
-rm -f cmtfm; ln -sf $TEX_TFMDIR cmtfm
-echo "$ac_t""ok" 1>&6
-
 
     trap '' 1 2 15
 cat > confcache <<\EOF

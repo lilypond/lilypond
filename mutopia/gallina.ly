@@ -50,7 +50,7 @@ definition below. --MB
 global = \notes {
   \property StaffGroup.timeSignatureStyle = "old"
   \time 4/4;
-  \tempo 4=80;
+  \tempo 4=100;
   \skip 1*31;
   \property StaffGroup.timeSignatureStyle = "1"
   \time 3/2;
@@ -58,43 +58,45 @@ global = \notes {
   \skip 1.*15;
   \property StaffGroup.timeSignatureStyle = "old"
   \time 4/4;
-  \tempo 4=80;
+  \tempo 4=100;
 }
 
 vi1=\context Staff = vi1 <
 \global
 \notes \relative c'' {
+\property Staff.instrument = "Violin 1"
+\property Staff.midiInstrument = "recorder" % The default midi violin is terrible
 
-  [d8 d d d] d4 [a16 b c a] |
-  [b8 g ][ g g16 a][ b8 g ][ g g16 a] | 
-  [b8 g ][ g a16 b] c4 b |
-  [a8 d,] g2 fis4 |
+  d8 d d d d4 a16 b c a |
+  b8 g  g g16 a b8 g  g g16 a | 
+  b8 g  g a16 b c4 b |
+  a8 d, g2 fis4 |
   g2 r2 |
   r1 |
-  [d'8 d d d] d4 [a16 b c a] |
-  [b8 g ][ g g16 a][ b8 g ][ g g16 a] | 
-  [b8 g ][ g a16 b][ c8 e d c] |
-  [b g] c2 b4 |
+  d'8 d d d d4 a16 b c a |
+  b8 g  g g16 a b8 g  g g16 a | 
+  b8 g  g a16 b c8 e d c |
+  b g c2 b4 |
   c2 r |
   r1 |
-  [g'8 g g g] g4 [d16 e f d] |
-  [e8 c ][ c c16 d][ e8 c ][ c c16 d] |
-  [e8 c ][ c d16 e] f4 e |
-  [d8 g,] c2 b4 |
-  [c8 g ][ g g16 a] b4 g |
-  r8 g [g g16 a] b4 g |
-  r8 [e16 fis ][ g8 g] [ fis! g g fis!] |
+  g'8 g g g g4 d16 e f d |
+  e8 c  c c16 d e8 c  c c16 d |
+  e8 c  c d16 e f4 e |
+  d8 g, c2 b4 |
+  c8 g  g g16 a b4 g |
+  r8 g g g16 a b4 g |
+  r8 e16 fis  g8 g  fis! g g fis! |
   g2 r |
   r1 |
-  r16 [d' c b ][ a g fis e] [d8 d' ][ d d16 c] |
-  [b8 d ][ d d16 c][ b8 d ][ d d16 e] |
+  r16 d' c b  a g fis e d8 d'  d d16 c |
+  b8 d  d d16 c b8 d  d d16 e |
   fis4 g2 fis!4 |
-  r16 [g f e ][ d c b a][ g8 g' ][ g g16 f] |
-  [e8 g ][ g g16 f][ e8 g ][ g g16 a] |
+  r16 g f e  d c b a g8 g'  g g16 f |
+  e8 g  g g16 f e8 g  g g16 a |
   b4 c2 b4 |
-  [c8 g ][ g g16 f] e4 d |
-  r8 g [g g16 f] e4 d |
-  r8 [d16 a ][ b8 b16 c] a2 |
+  c8 g  g g16 f e4 d |
+  r8 g g g16 f e4 d |
+  r8 d16 a  b8 b16 c a2 |
   b1 | 
   
   \repeat "semi" 2 {
@@ -102,31 +104,31 @@ vi1=\context Staff = vi1 <
   e1. |
   r4 c c c c c |
   d1. |
-  r4 [d8 c] b4 [c8 d] g,4 [a8 b] |
+  r4 d8 c b4 c8 d g,4 a8 b |
   e,1. |
-  r4 [e'8 d] cis4 [d8 e] a,4[ b8 cis!] |
+  r4 e'8 d cis4 d8 e a,4 b8 cis! |
   fis,1. |
   r4 d' d d d d |
-  e [e8 d] c4 [d8 e] a,4 [b8 c] |
-  fis,4 [fis'8 e] d4 [e8 fis!] b,4 [c8 d] |
+  e e8 d c4 d8 e a,4 b8 c |
+  fis,4 fis'8 e d4 e8 fis! b,4 c8 d |
   g,4 g' g g g g |
-  a4 [c8 b] a4 [b8 c] f,4 [g8 a] |
+  a4 c8 b a4 b8 c f,4 g8 a |
   d,4 g g g g g |
-  a [d,8 c] b4 [c8 d] a2 |
+  a d,8 c b4 c8 d a2 |
   }
 
   \repeat "semi" 2 {
   b1 |
-  [d8 d d d] d4 [a16 b c a] |
-  [b8 g ][ g g16 a] [b8 g ][ g g16 a] | 
-  [b8 g]  c2 b4 |
+  d8 d d d d4 a16 b c a |
+  b8 g  g g16 a b8 g  g g16 a | 
+  b8 g  c2 b4 |
   c2 r |
-  [g'8 g g g] g4 [d16 e f d] |
-  [e8 g, ][ g g16 a] [b8 d ][ d d16 e] |
+  g'8 g g g g4 d16 e f d |
+  e8 g,  g g16 a b8 d  d d16 e |
   fis4 g2 fis!4 |
-  r16 [g f e ][ d c b a] [g8 g' ][ g g16 f] |
-  e2 r8 d [d d16 e] |
-  [fis a g fis ][ e d c b] [a8 d ][ d d16 e] |
+  r16 g f e  d c b a g8 g'  g g16 f |
+  e2 r8 d d d16 e |
+  fis a g fis  e d c b a8 d  d d16 e |
   fis4 g2 fis!4 |
   \cadenza 1;
   g\breve
@@ -136,67 +138,69 @@ vi1=\context Staff = vi1 <
 vi2=\context Staff = vi2 <
 \global
 \notes \relative c'' {
+\property Staff.instrument = "Violin 2"
+\property Staff.midiInstrument = "recorder" % The default midi violin is terrible
 
   r1 | r | r | 
-  [d8 d d d] d4 [a16 b c a] |
-  [b8 g ][ g g16 a] [b8 g ][ g g16 a] | 
-  [b8 g ][ g a16 b] c4 b |
-  [a8 d,] g2 fis4 |
+  d8 d d d d4 a16 b c a |
+  b8 g  g g16 a b8 g  g g16 a | 
+  b8 g  g a16 b c4 b |
+  a8 d, g2 fis4 |
   g2 r2 |
   r1 |
-  [g'8 g g g] g4 [d16 e f d] |
-  [e8 c ][ c c16 d] [e8 c ][ c c16 d] |
-  [e8 c ][ c d16 e] f4 e |
-  [d8 g,] c2 b4 |
+  g'8 g g g g4 d16 e f d |
+  e8 c  c c16 d e8 c  c c16 d |
+  e8 c  c d16 e f4 e |
+  d8 g, c2 b4 |
   c2 r |
   r1 |
-  [g'8 g g g] g4 [d16 e f d] |
-  e2 r8 g, [g g16 a] |
-  b4 g r8 g [g a16 b] | 
+  g'8 g g g g4 d16 e f d |
+  e2 r8 g, g g16 a |
+  b4 g r8 g g a16 b | 
   c4 b a2 |
-  g r16 [d' c b ][ a g fis e] |
-  [d8 d' ][ d d16 c] [b8 d ][ d d16 e] |
+  g r16 d' c b  a g fis e |
+  d8 d'  d d16 c b8 d  d d16 e |
   fis4 g g4. fis!8 |
   g2 r |
-  r16 [d c b ][ a g fis e] [d8 d' ][ d d16 c] |
+  r16 d c b  a g fis e d8 d'  d d16 c |
   b4 c2 b4 |
   c d g,2 |
-  r16 [g' f e ][ d c b a] [g8 g' ][ g g16 f] |
-  e4 d r8 g [g g16 f] |
-  e4 d r8 [c16 g ][ b8 b16 c] |
+  r16 g' f e  d c b a g8 g'  g g16 f |
+  e4 d r8 g g g16 f |
+  e4 d r8 c16 g  b8 b16 c |
   a4 g2 fis4 |
   g1 |
 
   \repeat "semi" 2 {
   r1. |
-  r4 [g'8 f] e4 [f8 g] c,4 [d8 e] |
+  r4 g'8 f e4 f8 g c,4 d8 e |
   a,1. |
-  r4 [a'8 g] fis4 [g8 a] d,4 [e8 fis!] |
+  r4 a'8 g fis4 g8 a d,4 e8 fis! |
   b,1. |
   r4 g' g g g g |
   a1. |
   r4 a a a a a |
-  b [d,8 c] b4 [c8 d] g,4 [a8 b] |
-  e,4 [g'8 f] e4 [f8 g] c,4 [d8 e] |
-  a,4 [a'8 g] fis4 [g8 a] d,4 [e8 fis!] |
-  b,4 [b'8 a] g4 [a8 b] e,4 [fis8 g] |
+  b d,8 c b4 c8 d g,4 a8 b |
+  e,4 g'8 f e4 f8 g c,4 d8 e |
+  a,4 a'8 g fis4 g8 a d,4 e8 fis! |
+  b,4 b'8 a g4 a8 b e,4 fis8 g |
   c,4 a a a a a |
-  b [d8 c] b4 [c8 d] d,4 e |
+  b d8 c b4 c8 d d,4 e |
   fis2 g fis! |
   }
 
   \repeat "semi" 2 {
   g1 |
   r1 | r1 |
-  [g'8 g g g] g4 [d16 e f d] |
-  [e8 c ][ c c16 d] [e8 g, ][ g g16 a] |
-  [b8 g] c2 b4 |
+  g'8 g g g g4 d16 e f d |
+  e8 c  c c16 d e8 g,  g g16 a |
+  b8 g c2 b4 |
   c2 r |
-  r16 [d c b ][ a g fis e] [d8 d' ][ d d16 c] |
+  r16 d c b  a g fis e d8 d'  d d16 c |
   b4 c2 b4 |
-  [c8 g ][ g g16 a] [b d c b ][ a g fis e] |
-  [d8 d' ][ d d16 e] [fis16 a g fis ][ e d c b] |
-  [a d c b ][ a g fis e] d4 d' |
+  c8 g  g g16 a b d c b  a g fis e |
+  d8 d'  d d16 e fis16 a g fis  e d c b |
+  a d c b  a g fis e d4 d' |
   \cadenza 1;
   b\breve
   }
@@ -207,6 +211,9 @@ bc=\context Staff = bc <
 \global
 \notes\transpose c'{
   \clef "bass";
+\property Staff.instrument = "Basso Continuo"
+\property Staff.midiInstrument = "bassoon" % The default midi violin is terrible
+
 
   G2 d^"4 3" | G1 |
   g2 c4 G | d1^"3 4 3" |
@@ -256,12 +263,9 @@ bc=\context Staff = bc <
     \bc
   >
   \paper{
-    gourlay_maxmeasures=7.;
-
     \translator { \VoiceContext
-
+      textScriptPadding = 3;
 %% Uncomment to get the original layout without beams.
-%%%% Compare to the definition in init/engraver.ly.
 
 %  \remove "Beam_engraver";
 %  \remove "Auto_beam_engraver";
@@ -269,6 +273,5 @@ bc=\context Staff = bc <
  }
   }
   \midi{ 
-        \tempo 4=80;
   }
 }

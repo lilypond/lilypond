@@ -52,7 +52,9 @@ Axis_group_engraver::process_acknowledged ()
 	staffline_p_->add_element (elts_[i]);
 
       /* UGH UGH UGH */
-      else if (elts_[i]->get_elt_property (ly_symbol ("Axis_group_element::add_extra_element")) == SCM_BOOL_F)
+      else if (elts_[i]->get_elt_property (ly_symbol ("Axis_group_element::add_extra_element")) == SCM_BOOL_F
+	       && ! dynamic_cast<Axis_group_element*> (elts_[i]->parent_l (Y_AXIS)))
+	       
 	{
 	  staffline_p_->add_extra_element (elts_[i]);
 	}

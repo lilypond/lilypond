@@ -70,6 +70,7 @@ one of the spacing bugs mentioned in the TODO.
 
 - The paper11/13/26 files have to be updated.
 . * Grace_slur_engraver.
+. * (gulp-file-to-str) for LilyPond
 . * input/star-spangled-banner.ly: fold for lyrics?
 . * don't create $srcdir/share/
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
@@ -148,6 +149,11 @@ following example.
 
 .* BUGS
 . * [c8. c16 c16 c16] in 6/8 timesig. 
+. * 
+> \context Staff <
+>   {\voiceone c''4. r8}
+>   {\voicetwo c,4 r4}
+> >
 
 .* STUFF
 . * break priority setting from SCM.
@@ -393,7 +399,6 @@ languages:
 
 . * add to MIDI output:
 .  * sharp / flat on trills (in MIDI ??)
-.  * tempo change
 .  * ornaments (and trills?)
 .  * slurs
 .  * accents
