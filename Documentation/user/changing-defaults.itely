@@ -1651,6 +1651,21 @@ sfzp = #(make-dynamic-script "sfzp")
 }
 @end lilypond
 
+@cindex Dynamics, editorial
+@cindex Dynamics, parenthesis
+
+It is also possible to print dynamics in round parenthesis or square
+brackets.  These are often used for adding editorial dynamics.
+
+@ignore
+@li lypond[quote,verbatim,raggedright]
+\version "2.4.2"
+rndf = \markup{ \center-align <{ \bold{\italic (} \dynamic f \bold{\italic )} }> }
+boxf = \markup{ \bracket { \dynamic f } }
+{ c'1_\rndf c'1_\boxf }
+@end lilypond
+@end ignore
+
 
 @node Global layout
 @section Global layout

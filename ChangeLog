@@ -1,3 +1,12 @@
+2005-01-27  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/notation.itely: added info about what
+	\voiceFoo does.  Also rewrote warning about marks at
+	a line break.
+
+	* Docuementation/user/changing-defaults.itely: added info
+	about putting dynamics in parenthesis and brackets.
+
 2005-01-27  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-schrift.mf ("Trill (`tr')"): Fix typo.
