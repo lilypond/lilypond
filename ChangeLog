@@ -1,5 +1,11 @@
 2003-10-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/convert-ly.py (sub_chords): Bugfix: convert to -[, so
+	that articulation_substitute will not move beam start again.
+	(articulation_substitute): Bugfix: remove stray space so that new
+	old chords ending '>>' does not get broken up.
+	(sub_chord): Use TAB for indentation (not spaces).
+	
 	* elisp/lilypond-font-lock.el (LilyPond-mode-set-syntax-table):
 	Bugfix for startup: Use ?^ instead of ?\^.
 
