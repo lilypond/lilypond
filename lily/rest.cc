@@ -41,12 +41,12 @@ Rest::after_line_breaking (SCM smob)
   if (d && bt > 4) // UGH.
     {
       d->set_property ("staff-position",
-			    scm_int2num ((bt == 7) ? 4 : 3));
+		       scm_int2num ((bt == 7) ? 4 : 3));
     }
   if (d && bt >= -1 && bt <= 1) // UGH again.
     {
       d->set_property ("staff-position",
-      			    scm_int2num ((bt == 0) ? -1 : 1));
+		       scm_int2num ((bt == 0) ? -1 : 1));
     }
   return SCM_UNSPECIFIED;
 }
@@ -74,39 +74,42 @@ Rest::glyph_name (Grob *me, int balltype, String style, bool try_ledgers)
 
   String actual_style (style.to_str0 ());
 
-  if ((style == "mensural") || (style == "neomensural")) {
+  if ((style == "mensural") || (style == "neomensural"))
+    {
 
-    /*
-      FIXME: Currently, ancient font does not provide ledgered rests;
-      hence the "o" suffix in the glyph name is bogus.  But do we need
-      ledgered rests at all now that we can draw ledger lines with
-      variable width, length and blotdiameter? -- jr
-    */
-    ledgered_b = 0;
+      /*
+	FIXME: Currently, ancient font does not provide ledgered rests;
+	hence the "o" suffix in the glyph name is bogus.  But do we need
+	ledgered rests at all now that we can draw ledger lines with
+	variable width, length and blotdiameter? -- jr
+      */
+      ledgered_b = 0;
 
-    /*
-      There are no 32th/64th/128th mensural/neomensural rests.  In
-      these cases, revert back to default style.
-    */
-    if (balltype > 4)
+      /*
+	There are no 32th/64th/128th mensural/neomensural rests.  In
+	these cases, revert back to default style.
+      */
+      if (balltype > 4)
+	actual_style = "";
+    }
+
+  if ((style == "classical") && (balltype != 2))
+    {
+      /*
+	classical style: revert back to default style for any rest other
+	than quarter rest
+      */
       actual_style = "";
-  }
+    }
 
-  if ((style == "classical") && (balltype != 2)) {
-    /*
-      classical style: revert back to default style for any rest other
-      than quarter rest
-    */
-    actual_style = "";
-  }
-
-  if (style == "default") {
-    /*
-      Some parts of lily still prefer style "default" over "".
-      Correct this here. -- jr
-    */
-    actual_style = "";
-  }
+  if (style == "default")
+    {
+      /*
+	Some parts of lily still prefer style "default" over "".
+	Correct this here. -- jr
+      */
+      actual_style = "";
+    }
 
   return ("rests." + to_string (balltype) + (ledgered_b ? "o" : "")
 	  + actual_style);
@@ -145,6 +148,7 @@ Rest::print (SCM smob)
 {
   return brew_internal_stencil (smob, true);
 }
+
 MAKE_SCHEME_CALLBACK (Rest, extent_callback, 2);
 /*
   We need the callback. The real stencil has ledgers depending on
@@ -175,9 +179,10 @@ Rest::polyphonic_offset_callback (SCM smob, SCM)
     return scm_make_real (0);
 
   Direction d = get_grob_direction (me);
-  Real off = 2* d ;
+  Real off = 2 * d ;
   if (off)
     off *= Staff_symbol_referencer::staff_space (me);
+
   return scm_make_real (off);
 }
 

@@ -109,6 +109,7 @@ Grob::Grob (SCM basicprops,
 	  && ly_c_procedure_p (get_property ("print-function")))
 	cb = stencil_extent_proc;
 
+      dim_cache_[a].dimension_callback_ = cb;
       dim_cache_[a].dimension_ = cb;
     }
 }
@@ -410,10 +411,11 @@ Grob::extent (Grob *refp, Axis a) const
 
   Dimension_cache *d = (Dimension_cache *) &dim_cache_[a];
   Interval ext;
-  if (scm_is_pair (d->dimension_))
+
+  SCM dimpair = d->dimension_;
+  if (scm_is_pair (dimpair))
     ;
   else if (ly_c_procedure_p (d->dimension_))
-    /* FIXME: add doco on types, and should typecheck maybe?  */
     d->dimension_ = scm_call_2 (d->dimension_, self_scm (), scm_int2num (a));
   else
     return ext;
@@ -610,6 +612,7 @@ Grob::mark_smob (SCM ses)
     {
       scm_gc_mark (s->dim_cache_[a].offset_callbacks_);
       scm_gc_mark (s->dim_cache_[a].dimension_);
+      scm_gc_mark (s->dim_cache_[a].dimension_callback_);
 
       /* Do not mark the parents.  The pointers in the mutable
 	 property list form two tree like structures (one for X

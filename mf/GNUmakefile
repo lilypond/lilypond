@@ -1,7 +1,7 @@
 depth = ..
 
 STEPMAKE_TEMPLATES=metafont install install-out
-LOCAL_STEPMAKE_TEMPLATES=lilypond
+LOCALSTEPMAKE_TEMPLATES=lilypond
 
 include $(depth)/make/stepmake.make 
 

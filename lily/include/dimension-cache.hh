@@ -24,7 +24,7 @@ struct Dimension_cache
     Multi typed:
 
      - cons: interval
-     - procedure: callback
+     - procedure: callback     
      - else: empty
    */
   SCM dimension_;

@@ -17,7 +17,7 @@ Dimension_cache::Dimension_cache (Dimension_cache const &d)
 {
   init ();
   dimension_ = d.dimension_;
-
+  dimension_callback_ = d.dimension_callback_;
   offset_ = d.offset_;
   offset_callbacks_ = d.offset_callbacks_;
   offsets_left_ = d.offsets_left_;
