@@ -9,7 +9,7 @@
 #include "chord-name.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "score-element.hh"
 #include "paper-column.hh"
 #include "line-of-score.hh"
@@ -60,8 +60,7 @@ Chord_name::brew_molecule (SCM smob)
   SCM func = me->get_elt_property (ly_symbol2scm ("chord-name-function"));
   SCM text = gh_call3 (func, style, pitches, gh_cons (inversion, bass));
 
-  SCM properties = gh_append2 (me->immutable_property_alist_,
-			       me->mutable_property_alist_);
+  SCM properties = gh_list (me->mutable_property_alist_, me->immutable_property_alist_, SCM_UNDEFINED);
   Molecule mol = Text_item::text2molecule (me, text, properties);
 
   SCM space =  me->get_elt_property ("word-space");

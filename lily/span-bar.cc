@@ -7,7 +7,7 @@
 */
 
 #include "span-bar.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "molecule.hh"

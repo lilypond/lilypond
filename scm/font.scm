@@ -8,15 +8,6 @@
 
 (define style-to-font-alist
   `(
-    (finger . ((font-family . number) (font-relative-size . -3)))
-    (volta . ((font-family . number) (font-relative-size . -2)))
-    (timesig . ((font-family .  number) (font-relative-size . 0)))
-    (mmrest . ((font-family . number) (font-relative-size . -1)))
-    (mark . ((font-family . number) (font-relative-size . 1)))
-    (script . ((font-family . roman) (font-relative-size . -1)))
-    (large . ((font-family . roman) (font-relative-size . 1)))
-    (Large . ((font-series . bold) (font-family . roman) (font-relative-size . 2)))
-    (dynamic . ((font-series . bold) (font-family . dynamic) (font-relative-size . 0)))
 ))
 
 (define (font-field name font-descr)
@@ -28,7 +19,8 @@
 	((eq? name 'font-shape) 2)
 	((eq? name 'font-family) 3)
 	((eq? name 'font-name) 4)
-	((eq? name 'font-point-size-size) 5)
+	((eq? name 'font-point-size) 5)
+	(else (ly-warning "unknown font field name"))
 	)
        ))
   
@@ -60,28 +52,9 @@
 
 (define paper20-style-sheet-alist
   '(
-    ((0 medium upright music feta 20) . "feta20")
-    ((-1 medium upright music feta 16) . "feta16")
-    ((-2 medium upright music feta 13) . "feta13")
-    ((-3 medium upright music feta 13) . "feta11")
-    ((-4 medium upright music feta 13) . "feta11")
-    ((1 medium upright music feta 23) . "feta23")
-    ((2 medium upright music feta 26) . "feta26")
-    ((0 medium upright braces feta-braces 20) . "feta-braces20")
-    ((0 medium italic roman cmti 10) . "cmti10")
-    ((1 medium italic roman cmti 12) . "cmti12")
-    ((3 bold italic dynamic feta 10) . "feta-din13")
-    ((2 bold italic dynamic feta 10) . "feta-din13")
-    ((1 bold italic dynamic feta 10) . "feta-din12")
-    ((0 bold italic dynamic feta 10) . "feta-din10")
-    ((-1 bold italic dynamic feta 10) . "feta-din8")
-    ((-2 bold italic dynamic feta 10) . "feta-din7")
-    ((-3 bold italic dynamic feta 10) . "feta-din6")
-    ((-4 bold italic dynamic feta 10) . "feta-din5")
-    ((-5 bold italic dynamic feta 10) . "feta-din4")
     ((3 medium upright number feta-nummer 13) . "feta-nummer13")
     ((2 medium upright number feta-nummer 13) . "feta-nummer13")
-    ((1 medium upright number feta-nummer 12) . "feta-nummer12")
+    ((1 medium upright number feta-nummer 11) . "feta-nummer11")
     ((0 medium upright number feta-nummer 10) . "feta-nummer10")
     ((-1 medium upright number feta-nummer 8) . "feta-nummer8")
     ((-2 medium upright number feta-nummer 6) . "feta-nummer6")
@@ -94,18 +67,46 @@
     ((-3 medium upright roman cmr 6) . "cmr6" )
     ((-4 medium upright roman cmr 5) . "cmr5" )
     ((-5 medium upright roman cmr 4) . "cmr4" )
+    ((-1 medium italic roman cmti 8) . "cmti8")    
+    ((0 medium italic roman cmti 10) . "cmti10")
+    ((1 medium italic roman cmti 12) . "cmti12")
     ((2 bold upright roman cmbx 10) . "cmbx10")
     ((1 bold upright roman cmbx 12) . "cmbx12")
+    ((2 bold upright roman cmbx 14) . "cmbx14")
     ((-3 medium upright math msam 10) . "msam10")
     ((-2 medium upright math msam 10) . "msam10")
     ((-1 medium upright math msam 10) . "msam10")
     ((0 medium upright math msam 10) . "msam10")
-    ))
+    ;; should use the same brace font every where and fix C++ code.
+    ((0 medium upright braces feta-braces 20) . "feta-braces20")
+    ((2 medium upright braces feta-braces 26) . "feta-braces26")
+    ((1 medium upright braces feta-braces 23) . "feta-braces23")
+    ((3 bold italic dynamic feta 16) . "feta-din16")
+    ((2 bold italic dynamic feta 16) . "feta-din16")
+    ((3 bold italic dynamic feta 10) . "feta-din13")
+    ((2 bold italic dynamic feta 10) . "feta-din13")
+    ((1 bold italic dynamic feta 10) . "feta-din12")
+    ((0 bold italic dynamic feta 10) . "feta-din10")
+    ((-1 bold italic dynamic feta 10) . "feta-din8")
+    ((-2 bold italic dynamic feta 10) . "feta-din7")
+    ((-3 bold italic dynamic feta 10) . "feta-din6")
+    ((-4 bold italic dynamic feta 10) . "feta-din5")
+    ((-5 bold italic dynamic feta 10) . "feta-din4")
+    ((0 medium upright music feta 20) . "feta20")
+    ((-1 medium upright music feta 16) . "feta16")
+    ((-2 medium upright music feta 13) . "feta13")
+    ((-3 medium upright music feta 13) . "feta11")
+    ((-4 medium upright music feta 13) . "feta11")
+    ((1 medium upright music feta 23) . "feta23")
+    ((2 medium upright music feta 26) . "feta26")
+    ((-1 medium upright math msam 10) . "msam10")
+    ((-2 medium upright math msam 10) . "msam10")
+    ((-3 medium upright math msam 10) . "msam10")
+   ))
 
-
-;; return a FONT-DESCR with relative size incremented by INCREMENT 
-(define (change-relative-size font-desc increment)
-  (cons (+ increment (car font-desc)) (cdr font-desc))
+;; return a FONT-DESCR with relative size decremented by DECREMENT
+(define (change-relative-size font-desc decrement)
+  (cons (- (car font-desc) decrement) (cdr font-desc))
   )
 
 ;; map a  function FUNC over the keys of an alist LIST, leaving the vals. 
@@ -129,7 +130,7 @@
 
 
 ;; make style sheet for each paper version.
-(define style-sheet-alist
+(define font-list-alist
   (map-alist-vals (lambda (x) (change-style-sheet-relative-size
 			       paper20-style-sheet-alist x))
 		  '((paper11 . -3)
@@ -142,6 +143,51 @@
   )
 
 
+(define (make-style-sheet sym)
+  `((fonts . ,(cdr (assoc sym font-list-alist)))
+    (font-defaults
+     . ((font-family . music)
+	(font-relative-size . 0)
+	(font-shape . upright)
+	(font-series . medium)
+	))
+    (style-alist
+     . ((finger . ((font-family . number) (font-relative-size . -3)))
+	(volta . ((font-family . number) (font-relative-size . -2)))
+	(tuplet . ((font-family . roman) (font-shape . italic) (font-relative-size . -1)))
+	(timesig . ((font-family .  number) (font-relative-size . 0)))
+	(mmrest . ((font-family . number) (font-relative-size . 1)))
+	(mark . ((font-family . number) (font-relative-size . 1)))
+	(script . ((font-family . roman) (font-relative-size . -1)))
+	(large . ((font-family . roman) (font-relative-size . 1)))
+	(Large . ((font-series . bold) (font-family . roman) (font-relative-size . 2)))
+	(dynamic . ((font-series . bold) (font-family . dynamic) (font-relative-size . 0)))
+	))
+    (properties-to-font . ,properties-to-font-name)
+
+    ;; FIXME: this is a not-so-cool idea to use ALIGN
+    ;; RAISE, LOOKUP, since they are not proper elt-properties,
+    ;; and might interfere with them.
+    (markup-abbrev-to-properties-alist
+     . ((rows . ((align . 0)))
+	(lines . ((align . 1)))
+	(roman . ((font-family . roman)))
+	(music . ((font-family . music)))
+	(finger . ((font-style . finger)))
+	(bold . ((font-series . bold)))
+	(italic . ((font-shape . italic)))
+	(named . ((lookup . name)))
+	(super . ((raise . 1) (font-relative-size . -1)))
+	(sub . ((raise . -1) (font-relative-size . -1)))
+	(text . ((lookup . value)))
+	)
+     )
+    
+    )
+  )
+
+
+
 (define (font-regexp-to-font-name paper regexp)
   (let ((style-sheet (cdr (assoc paper style-sheet-alist))))
     (let loop ((fonts style-sheet))
@@ -152,63 +198,105 @@
 	      '())))))
 
 ;; reduce the font list by successively applying a font-qualifier.
-(define (qualifiers-to-fontname  qualifiers font-descr-alist)
+(define (qualifiers-to-fontnames  qualifiers font-descr-alist)
   (if (null? qualifiers)
-      (if (null? font-descr-alist)
-	  ""  
-	  (cdar font-descr-alist))	; return the topmost.
+      font-descr-alist
       
-      (qualifiers-to-fontname
+      (qualifiers-to-fontnames
        (cdr qualifiers)
        (filter-field (caar qualifiers) (cdar qualifiers) font-descr-alist)
       )
   ))
 
-(define (properties-to-font-name paper properties-alist)
-  (let*  (
-	  (fonts (cdr (assoc paper style-sheet-alist)))
 
-	  ;; change order to change priorities of qualifiers.
-	  (q-order    '(font-name font-family font-series font-shape font-point-size font-relative-size))
-	  (rawqualifiers (map (lambda (x) (assoc x  properties-alist))
-			      q-order))
-			
-	  (qualifiers (filter-list pair? rawqualifiers))
-	  (fontnm (qualifiers-to-fontname qualifiers fonts))
+;; does FONT-DESC satisfy QUALIFIERS?
+(define (font-qualifies? qualifiers font-desc)
+  (if (null? qualifiers) #t
+      (if (eq? (font-field (caar qualifiers) font-desc) (cdar qualifiers))
+	  (font-qualifies? (cdr qualifiers) font-desc)
+	  #f
+	  )
+	)
+  )
+
+(define (find-first-font qualifiers fonts)
+  (if (null? fonts)
+      ""
+      (if (font-qualifies? qualifiers (caar fonts))
+	  (cdar fonts)
+	  (find-first-font qualifiers (cdr fonts))
+	)
+      ))
+
+
+;; return a single font from FONTS (or a default, if none found)
+;; and warn if the selected font is not unique.
+(define (select-unique-font qualifiers fonts)
+  (let*  (
 	  (err (current-error-port))
 	  )
+    
 
-    (if (eq? fontnm "")
+  (if (not (= (length fonts) 1))
+      (begin
+	(display "\ncouldn't find unique font satisfying " err)
+	(write qualifiers err)
+	(display " found " err)
+	  (if (null? fonts)
+	      (display "none" err)
+	      (write (map cdr  fonts) err))
+	  ))
+
+  (if (null? fonts)
+      "cmr10"
+      (cdar fonts))	; return the topmost.
+  
+  ))
+
+
+(define (chain-assoc x alist-list)
+  (if (null? alist-list)
+      #f
+      (let* (
+	     (handle (assoc x (car alist-list)))
+	     )
+	(if (pair? handle)
+	    handle
+	    (chain-assoc x (cdr alist-list))
+	    )
+	)
+      )
+  )
+
+;; TODO
+;; add support for override by font-name
+;; very often-used; hard-code in C++, and use SCM glue code.
+
+(define (properties-to-font-name fonts properties-alist-list)
+  (let*  (
+	  ;; change order to change priorities of qualifiers.
+	  (q-order    '(font-name font-family font-series font-shape font-point-size font-relative-size))
+	  (rawqualifiers (map (lambda (x) (chain-assoc x  properties-alist-list))
+			      q-order))
+	  (qualifiers (filter-list pair? rawqualifiers))
+	  (selected     (find-first-font qualifiers fonts))
+	  (err (current-error-port))	  
+	  )
+
+    (if (equal? selected "")
 	(begin
-	  (display "\ncouldn't find font satisfying " err)
+	  (display "\ncouldn't find any font satisfying " err)
 	  (write qualifiers err)
-	  (display "\n" err)	  
 	  "cmr10"
 	  )
-	fontnm)
-	
-
+	selected)	; return the topmost.
     ))
-
 
 (define markup-abbrev-to-properties-alist
   (append
-   '(
-     (rows . ((align . 0)))
-     (lines . ((align . 1)))
-     (roman . ((font-family . roman)))
-     (music . ((font-family . music)))
-     (finger . ((font-style . finger)))
-     (bold . ((font-series . bold)))
-     (italic . ((font-shape . italic)))
-     (named . ((lookup . name)))
-     (super . ((raise . 1) (font-relative-size . -1)))
-     (sub . ((raise . -1) (font-relative-size . -1)))
-     (text . ((lookup . value)))
-     )
-   (map (lambda (x) (cons (car x) (cons 'font-style (car x))))
+    (map (lambda (x) (cons (car x) (cons 'font-style (car x))))
 	style-to-font-alist)))
-  
+
 (define (markup-to-properties markup)
   ;;(display "markup: `")
   ;;(display markup)
@@ -221,21 +309,23 @@
 
 ; fixme, how's this supposed to work?
 ; and why don't we import font-setting from elt?
-(define (style-to-font-name paper style)
+(define (style-to-font-name sheet style)
   (let* ((entry (assoc style style-to-font-alist))
-	 (qs (if entry (cdr entry) '()))
-	 (sheet (cdr (assoc paper style-sheet-alist)))
-	 (fontnm (qualifiers-to-fontname qs sheet))
-	 (err (current-error-port)))
-    (if (eq? fontnm "")
-	(begin
-	  (display "\ncouldn't find font satisfying " err)
-	  (display qs err)
-	  (display "\n" err)	  
-	  "cmr10")
-	fontnm)))
+	 (qualifiers (if entry (cdr entry) '()))
+	 (font (find-first-font qualifiers sheet))
+	 (err (current-error-port))
+	 )
 
-			    
+    (if (equal? font "")
+	(begin
+	  (display "\ncouldn't find any font satisfying " err)
+	  (write qualifiers err)
+	  "cmr10"
+	  )
+	font)	; return the topmost.
+    ))
+
+		    
 
 
 ; (define (test-module)

@@ -8,13 +8,13 @@
 
 #include "molecule.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
 #include "arpeggio.hh"
 #include "score-element.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "warn.hh"
+#include "font-interface.hh"
 
 bool
 Arpeggio::has_interface (Score_element* me)
@@ -68,7 +68,7 @@ Arpeggio::brew_molecule (SCM smob)
     }
   
   Molecule mol;
-  Molecule arpeggio = me->paper_l ()->lookup_l (0)->afm_find ("scripts-arpeggio");
+  Molecule arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");
 
   Real y = heads[LEFT];
   while (y < heads[RIGHT])
@@ -93,7 +93,7 @@ Arpeggio::width_callback (SCM smob, SCM axis)
   Score_element * me = unsmob_element (smob);
   Axis a = (Axis)gh_scm2int (axis);
   assert (a == X_AXIS);
-  Molecule arpeggio = me->paper_l ()->lookup_l (0)->afm_find ("scripts-arpeggio");
+  Molecule arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");
 
   return ly_interval2scm (arpeggio.extent (X_AXIS) * 1.5);
 }

@@ -10,7 +10,7 @@
 #include "text-item.hh"
 #include "text-spanner.hh"
 #include "spanner.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "debug.hh"
@@ -55,8 +55,9 @@ Text_spanner::brew_molecule (SCM smob)
     text_style = ly_scm2string (s);
 #endif
 
-  SCM properties = gh_append2 (me->immutable_property_alist_,
-			       me->mutable_property_alist_);
+  SCM properties = gh_list (me->mutable_property_alist_,
+			    me->immutable_property_alist_,
+			    SCM_UNDEFINED);
   SCM edge_text = me->get_elt_property ("edge-text");
   Drul_array<Molecule> edge;
   if (gh_pair_p (edge_text))

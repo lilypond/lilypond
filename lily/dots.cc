@@ -10,6 +10,7 @@
 #include "item.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
+#include "font-interface.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
@@ -42,22 +43,25 @@ SCM
 Dots::brew_molecule (SCM d)
 {
   Score_element *sc = unsmob_element (d);
-  Molecule mol (sc->lookup_l ()->blank (Box (Interval (0,0),
-					 Interval (0,0))));
+  /*
+    Molecule mol (Lookup::blank (Box (Interval (0,0),
+				    Interval (0,0))));
+  */
 
+  Molecule mol;
+  
   SCM c = sc->get_elt_property ("dot-count");
+
   if (gh_number_p (c))
     {
-      Molecule d = sc->lookup_l ()->afm_find (String ("dots-dot"));
-
+      Molecule d = Font_interface::get_default_font (sc)->find_by_name (String ("dots-dot"));
       Real dw = d.extent (X_AXIS).length ();
-      d.translate_axis (-dw, X_AXIS);
-
+      //      d.translate_axis (-dw, X_AXIS);
 
       for (int i = gh_scm2int (c); i--; )
 	{
 	  d.translate_axis (2*dw,X_AXIS);
-	  mol.add_molecule (d);
+	  mol.add_at_edge (X_AXIS, RIGHT, d, dw);
 	}
     }
   return mol.create_scheme ();

@@ -31,12 +31,12 @@ Breathing_sign::brew_molecule (SCM smob)
   Interval i1(0, space / 6), i2(-space / 2, space / 2);
   Box b(i1, i2);
 
-  return me->lookup_l()->filledbox(b).create_scheme ();
+  return Lookup::filledbox(b).create_scheme ();
 }
 
 MAKE_SCHEME_CALLBACK(Breathing_sign,offset_callback,2);
 SCM
-Breathing_sign::offset_callback (SCM element_smob, SCM axis)
+Breathing_sign::offset_callback (SCM element_smob, SCM )
 {
   Score_element *me = unsmob_element (element_smob);
   

@@ -11,7 +11,7 @@
 #include "debug.hh"
 #include "paper-def.hh"
 #include "paper-column.hh" // urg
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "rest.hh"
 #include "molecule.hh"
 #include "misc.hh"
@@ -111,7 +111,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
 	  Real pad = s.empty_b ()
 	    ? 0.0 : gh_scm2double (me->get_elt_property ("padding")) * staff_space;
 
-	  Molecule r (me->lookup_l ()->afm_find ("rests-" + to_str (k)));
+	  Molecule r (Font_interface::get_default_font (me)->find_by_name ("rests-" + to_str (k)));
 	  if (k == 0)
 	    r.translate_axis (staff_space, Y_AXIS);
 	  
@@ -124,15 +124,16 @@ Multi_measure_rest::brew_molecule (SCM smob)
   else 
     {
       String idx =  ("rests-") + to_str (-4);
-      s = me->lookup_l ()->afm_find (idx);
+      s = Font_interface::get_default_font (me)->find_by_name (idx);
     }
   
   mol.add_molecule (s);
 
   if (measures > 1)
     {
-      SCM properties = gh_append2 (me->immutable_property_alist_,
-				   me->mutable_property_alist_);
+      SCM properties = gh_list (me->mutable_property_alist_,
+				me->immutable_property_alist_,
+				SCM_UNDEFINED);
       Molecule s =
 	Text_item::text2molecule (me,
 				  ly_str02scm (to_str (measures).ch_C ()),

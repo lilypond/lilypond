@@ -7,12 +7,13 @@
 % header info (macros/defs, etc) should go into a \special{! ... }, 
 % note the ! sign.  See dvips.info for details.
 %
-
+\def\lilySpace{ }
 \def\turnOnPostScript{%
         % This sets CTM so that you get to the currentpoint
         % by executing a 0 0 moveto
         \def\embeddedps##1{%
-                \special{ps: @beginspecial @setspecial ##1 @endspecial}       
+                \special{ps: @beginspecial @setspecial
+        \mudelapaperoutputscale\lilySpace\mudelapaperoutputscale\lilySpace scale ##1 @endspecial}%
         }
 }
 

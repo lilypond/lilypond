@@ -7,15 +7,15 @@
 */
 #include <math.h>
 
+#include "lookup.hh"
 #include "paper-column.hh"
 #include "main.hh"
-#include "dimensions.hh"
 #include "score-element.hh"
 #include "bar.hh"
 #include "string.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "debug.hh"
 #include "all-font-metrics.hh"
 #include "item.hh"
@@ -61,13 +61,13 @@ Bar::compound_barline (Score_element*me, String str, Real h)
   
   Molecule thin = simple_barline (me, hair, h);
   Molecule thick = simple_barline (me, fatline, h);
-  Molecule colon = me->lookup_l ()->afm_find ("dots-repeatcolon");  
+  Molecule colon = Font_interface::get_default_font (me)->find_by_name ("dots-repeatcolon");  
 
   Molecule m;
   
   if (str == "")
     {
-      return me->lookup_l ()->blank (Box (Interval(0, 0), Interval (-h/2, h/2)));
+      return Lookup::blank (Box (Interval(0, 0), Interval (-h/2, h/2)));
     }
   else if (str == "|")
     {
@@ -118,9 +118,9 @@ Bar::compound_barline (Score_element*me, String str, Real h)
 
 
 Molecule
-Bar::simple_barline (Score_element*me,Real w, Real h) 
+Bar::simple_barline (Score_element*,Real w, Real h) 
 {
-  return me->lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
+  return Lookup::filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
 MAKE_SCHEME_CALLBACK(Bar,before_line_breaking ,1);

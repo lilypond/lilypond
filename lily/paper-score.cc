@@ -8,7 +8,7 @@
 
 #include "main.hh"
 #include "debug.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "spanner.hh"
 #include "paper-def.hh"
 #include "line-of-score.hh"
@@ -97,7 +97,7 @@ Paper_score::process ()
   outputter_l_ = new Paper_outputter (paper_l_->paper_stream_p ());
 ;
   outputter_l_->output_header ();
-  outputter_l_->output_version();
+  outputter_l_->output_version ();
   
   if (header_global_p)
     outputter_l_->output_scope (header_global_p, "mudela");
@@ -111,16 +111,15 @@ Paper_score::process ()
     outputter_l_->output_scope (paper_l_->scope_p_, "mudelapaper");
 
   SCM scm;
-  if(experimental_features_global_b)
+  if (experimental_features_global_b)
     {
       SCM scm = gh_list (ly_symbol2scm ("experimental-on"), SCM_UNDEFINED);
       outputter_l_->output_scheme (scm);
     }
   scm = gh_list (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);
-  
-  line_l_->output_lines ();
 
+  line_l_->output_lines ();
 
   scm = gh_list (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);

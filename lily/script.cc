@@ -9,10 +9,12 @@
 
 #include "debug.hh"
 #include "script.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "side-position-interface.hh"
 #include "paper-def.hh"
 #include "item.hh"
+#include "molecule.hh"
+#include "lookup.hh"
 
 Molecule
 Script::get_molecule(Score_element * me, Direction d)
@@ -23,12 +25,12 @@ Script::get_molecule(Score_element * me, Direction d)
   SCM key = gh_car  (s);
   if (key == ly_symbol2scm ("feta"))
     {
-      return me->lookup_l ()->afm_find ("scripts-" +
+      return Font_interface::get_default_font (me)->find_by_name ("scripts-" +
 				    ly_scm2string (index_cell (gh_cdr (s), d)));
     }
   else if (key == ly_symbol2scm ("accordion"))
     {
-      return me->lookup_l ()->accordion (gh_cdr (s), me->paper_l()->get_var("staffspace"));
+      return Lookup::accordion (gh_cdr (s), me->paper_l()->get_var("staffspace"), Font_interface::get_default_font (me));
     }
   else
     assert (false);

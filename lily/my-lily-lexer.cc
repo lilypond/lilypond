@@ -75,6 +75,7 @@ static Keyword_ent the_key_tab[]={
   {"partcombine", PARTCOMBINE},
   {"score", SCORE},
   {"script", SCRIPT},
+  {"stylesheet", STYLESHEET},
   {"skip", SKIP},
   {"textscript", TEXTSCRIPT},
   {"tempo", TEMPO},

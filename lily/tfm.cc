@@ -68,15 +68,16 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
   else if (warn)
 
     {
-      warning (_f ("can't find ascii character: `%d'", ascii));
+      warning (_f ("can't find ascii character %d", ascii));
     }
   return &dummy_static_char_metric;  
 }
 
 Box
-Tex_font_metric::get_char (int a, bool w) const
+Tex_font_metric::get_char (int a) const
 {
-  return find_ascii (a, w)->dimensions ();
+  Box b = find_ascii (a)->dimensions () ;
+  return b;
 }
 
 
@@ -96,7 +97,7 @@ Tex_font_metric::str () const
 SCM
 Tex_font_metric::make_tfm (String fn)
 {
-  Tex_font_metric	* tfm_p = new Tex_font_metric;
+  Tex_font_metric * tfm_p = new Tex_font_metric;
   Tex_font_metric_reader reader (fn);
 
   tfm_p->info_ = reader.info_;
@@ -104,5 +105,5 @@ Tex_font_metric::make_tfm (String fn)
   tfm_p->char_metrics_ = reader.char_metrics_;
   tfm_p->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
   
-  return tfm_p->smobbed_self ();
+  return tfm_p->self_scm ();
 }

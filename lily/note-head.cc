@@ -10,7 +10,7 @@
 #include "dots.hh"
 #include "note-head.hh"
 #include "debug.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "molecule.hh"
 #include "musical-request.hh"
 
@@ -23,7 +23,7 @@ Molecule
 Note_head::ledger_line (Interval xwid, Score_element *me) 
 {
   Drul_array<Molecule> endings;
-  endings[LEFT] = me->lookup_l()->afm_find ("noteheads-ledgerending");
+  endings[LEFT] = Font_interface::get_default_font (me)->find_by_name ("noteheads-ledgerending");
   Molecule *e = &endings[LEFT];
   endings[RIGHT] = *e;
   
@@ -72,7 +72,7 @@ Note_head::brew_molecule (SCM smob)
     }
 
   // ugh: use gh_call ()
-  Molecule out = me->lookup_l()->afm_find (String ("noteheads-") + 
+  Molecule out = Font_interface::get_default_font (me)->find_by_name (String ("noteheads-") + 
 		ly_scm2string (scm_eval2 (gh_list (ly_symbol2scm("find-notehead-symbol"),
 						  me->get_elt_property ("duration-log"),
 						  ly_quote_scm(style),

@@ -8,6 +8,7 @@
  */
 #include "afm.hh"
 #include "warn.hh"
+#include "molecule.hh"
 
 Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
 {
@@ -31,7 +32,7 @@ Adobe_font_metric::make_afm (AFM_Font_info *fi)
 {
   Adobe_font_metric * fm = new Adobe_font_metric (fi);
 
-  return fm->smobbed_self();    
+  return fm->self_scm();    
 }
 
 
@@ -73,14 +74,15 @@ Adobe_font_metric::find_char_metric (String nm, bool warn) const
 
 
 Box
-Adobe_font_metric::get_char (int code, bool warn) const
+Adobe_font_metric::get_char (int code) const
 {
   AFM_CharMetricInfo const
-    * c =  find_ascii_metric (code,warn);
+    * c =  find_ascii_metric (code,false);
+  Box b (Interval (0,0),Interval(0,0));
   if (c)
-    return afm_bbox_to_box (c->charBBox);			
-  else
-    return Box (Interval (0,0),Interval(0,0));
+    b = afm_bbox_to_box (c->charBBox);			
+
+  return b;
 }
 
 SCM
@@ -114,4 +116,29 @@ afm_bbox_to_box (AFM_BBox bb)
 Adobe_font_metric::~Adobe_font_metric ()
 {
   AFM_free (font_inf_);
+}
+
+/*
+  return a molecule, without fontification 
+ */
+Molecule
+Adobe_font_metric::find_by_name (String s) const
+{
+  AFM_CharMetricInfo const *cm = find_char_metric (s, false);
+
+  if (!cm)
+    {
+      Molecule m;
+      m.set_empty (false);
+      return m;
+    }
+  
+  SCM at =  (gh_list (ly_symbol2scm ("char"),
+		      gh_int2scm (cm->code),
+		      SCM_UNDEFINED));
+  
+  //  at= fontify_atom ((Font_metric*)this, at);
+  Box b = afm_bbox_to_box (cm->charBBox);
+
+  return Molecule (b, at);
 }

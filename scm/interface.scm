@@ -388,6 +388,21 @@ Align_interface::center_on_element). ")
     (property-description 'dot-count integer? "number of dots")
     )))
 
+(define font-interface
+  (lily-interface
+   'font-interface
+   "Any symbol that is typeset through fixed sets of glyphs (ie. fonts)"
+   (list
+    (property-description 'font-style symbol? "a precooked set of font definitions, eg. finger volta timesig mark script large Large dynamic")
+    (property-description 'font-series symbol? "partial font definition: medium, bold")
+    (property-description 'font-shape symbol?  "partial font definition: upright or italic")
+    (property-description 'font-family symbol? "partial font definition: music roman braces dynamic math ...")
+    (property-description 'font-name symbol? "partial font definition: base name of font file FIXME: should override other partials")
+    (property-description 'font-point-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size")
+    (property-description 'font-relative-size number? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
+    )))
+
+
 (define text-interface
   (lily-interface
    'text-interface
@@ -424,14 +439,6 @@ The following abbreviations are currently defined:
 <dt> any font-style<dd> finger volta timesig mmrest mark script large Large dynamic
 </dl>
 " )
-    (property-description 'font-style symbol? "font definition for a special purpose, one of: finger volta timesig mark script large Large dynamic")
-    (property-description 'font-series symbol? "partial font definition: medium, bold")
-    (property-description 'font-shape symbol?  "partial font definition: upright or italic")
-    (property-description 'font-family symbol? "partial font definition: music roman braces dynamic math ...")
-    (property-description 'font-name symbol? "partial font definition: base name of font file FIXME: should override other partials")
-    (property-description 'font-point-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size")
-    (property-description 'font-relative-size number? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
-
     ;; Should move this somewhere else?  
     (property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical")
     (property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name")

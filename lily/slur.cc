@@ -522,9 +522,9 @@ Slur::brew_molecule (SCM smob)
   Molecule a;
   SCM d =  me->get_elt_property ("dashed");
   if (gh_number_p (d))
-    a = me->lookup_l ()->dashed_slur (one, thick, thick * gh_scm2double (d));
+    a = Lookup::dashed_slur (one, thick, thick * gh_scm2double (d));
   else
-    a = me->lookup_l ()->slur (one, Directional_element_interface::get (me) * thick, thick);
+    a = Lookup::slur (one, Directional_element_interface::get (me) * thick, thick);
 
   return a.create_scheme();
 }
@@ -555,7 +555,7 @@ Slur::set_control_points (Score_element*me)
       if (gh_number_p (ssb))
 	sb = gh_scm2double (ssb);
 
-      bb.minimise_enclosed_area (me->paper_l(), sb, details);
+      bb.minimise_enclosed_area ( sb, details);
       SCM sbf = scm_assq (ly_symbol2scm ("force-blowfit"), details);
       Real bff = 1.0;
       if (gh_pair_p (sbf) && gh_number_p (gh_cdr (sbf)))

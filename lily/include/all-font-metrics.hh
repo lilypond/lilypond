@@ -21,22 +21,18 @@ class All_font_metrics
 {
   Scheme_hash_table *afm_p_dict_;
   Scheme_hash_table *tfm_p_dict_;
-  Scheme_hash_table *scaled_p_dict_;
-  
   File_path search_path_;
 public:
   ~All_font_metrics ();  
   Adobe_font_metric *find_afm (String name);
   Tex_font_metric *find_tfm (String);
   Font_metric *find_font (String name);  
-  Scaled_font_metric* find_scaled (String , int);
+
   
   All_font_metrics (String search_path);
   
   SCM font_descriptions () const;
 };
-
-Font_metric * find_font (String name);
 
 #endif /* ALL_FONTS_HH */
 

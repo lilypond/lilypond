@@ -10,7 +10,7 @@
 #include "beam.hh"
 #include "box.hh"
 #include "debug.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "molecule.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
@@ -76,8 +76,10 @@ Tuplet_spanner::brew_molecule (SCM smob)
       SCM number = me->get_elt_property ("text");
       if (gh_string_p (number) && number_visibility)
 	{
-	  SCM properties = gh_append2 (me->immutable_property_alist_,
-				       me->mutable_property_alist_);
+	  SCM properties = gh_list ( me->mutable_property_alist_,
+				     me->immutable_property_alist_,
+				    
+				    SCM_UNDEFINED);
 	  Molecule num = Text_item::text2molecule (me, number, properties);
 	  num.align_to (X_AXIS, CENTER);
 	  num.translate_axis (w/2, X_AXIS);

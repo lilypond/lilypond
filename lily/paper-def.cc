@@ -8,11 +8,12 @@
 
 #include <math.h>
 
+#include "all-font-metrics.hh"
 #include "string.hh"
 #include "misc.hh"
 #include "paper-def.hh"
 #include "debug.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "main.hh"
 #include "scope.hh"
 #include "file-results.hh" // urg? header_global_p
@@ -20,9 +21,9 @@
 
 Paper_def::Paper_def ()
 {
-  lookup_alist_ = SCM_EOL;
+  style_sheet_ = SCM_EOL;
+  scaled_fonts_ = SCM_EOL;
 }
-
 
 Paper_def::~Paper_def ()
 {
@@ -31,13 +32,8 @@ Paper_def::~Paper_def ()
 Paper_def::Paper_def (Paper_def const&src)
   : Music_output_def (src)
 {
-  SCM n  = SCM_EOL;
-  for (SCM s = src.lookup_alist_; gh_pair_p(s); s = gh_cdr (s))
-    {
-      n = scm_acons (gh_caar(s), gh_cdar (s), n);
-    }
-
-  lookup_alist_  = n;
+  scaled_fonts_ = SCM_EOL;
+  style_sheet_ = src.style_sheet_;
 }
 
 
@@ -63,9 +59,15 @@ Paper_def::get_realvar (SCM s) const
       return 0.0;
     }
 
+  Real sc = 1.0;
+  SCM ssc;
+  if (scope_p_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
+    {
+      sc = gh_scm2double (ssc);
+    }
   if (gh_number_p (val))
     {
-      return gh_scm2double (val);
+      return gh_scm2double (val) / sc;
     }
   else
     {
@@ -87,19 +89,7 @@ Paper_def::line_dimensions_int (int n) const
   return Interval (ind, lw);
 }
 
-void
-Paper_def::set_lookup (int i, SCM l)
-{
-  assert (unsmob_lookup (l));
-  lookup_alist_ = scm_assq_set_x(lookup_alist_, gh_int2scm (i), l);
-}
 
-Lookup const *
-Paper_def::lookup_l (int i) const
-{
-  SCM l = scm_assq (gh_int2scm(i), lookup_alist_);
-  return l == SCM_BOOL_F ? 0 :  unsmob_lookup (gh_cdr (l));
-}
 
 int Paper_def::default_count_i_ = 0;
 
@@ -146,4 +136,49 @@ Paper_def::base_output_str () const
   return str;
 }
 
+/*
+  todo: use symbols and hashtable idx?
+*/
+Font_metric *
+Paper_def::find_font (SCM fn, Real m)
+{
+  SCM key = gh_cons (fn, gh_double2scm (m));
+  SCM met = scm_assoc (key, scaled_fonts_);
 
+  if (gh_pair_p (met))
+    return unsmob_metrics (gh_cdr (met));
+
+  SCM ssc;
+  if (scope_p_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
+    {
+      m /= gh_scm2double (ssc);
+    }
+  
+  Font_metric*  f = all_fonts_global_p->find_font (ly_scm2string (fn));
+  SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
+  scaled_fonts_ = scm_acons (key, val, scaled_fonts_ );
+
+  scm_unprotect_object (val);
+
+  return dynamic_cast<Scaled_font_metric*> (unsmob_metrics (val));
+}
+
+
+/*
+  Return alist to translate internally used fonts back to real-world
+  coordinates.  */
+SCM
+Paper_def::font_descriptions ()const
+{
+
+  
+  SCM l = SCM_EOL;
+  for (SCM s = scaled_fonts_; gh_pair_p (s); s = gh_cdr(s))
+    {
+      SCM desc = gh_caar (s);
+      SCM mdesc = unsmob_metrics (gh_cdar (s))->description_;
+
+      l = gh_cons (gh_cons (mdesc, desc), l);
+    }
+  return l;
+}

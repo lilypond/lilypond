@@ -12,8 +12,9 @@
 #include "key-item.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "lookup.hh"
 
 /*
   FIXME: too much hardcoding here.
@@ -89,7 +90,7 @@ Key_item::brew_molecule (SCM smob)
   for (SCM s = newas; gh_pair_p (s); s = gh_cdr (s))
     {
       int a = gh_scm2int (gh_cdar (s));
-      Molecule m = me->lookup_l ()->afm_find ("accidentals-" + to_str (a));
+      Molecule m = Font_interface::get_default_font (me)->find_by_name ("accidentals-" + to_str (a));
       m.translate_axis (calculate_position(me, gh_car (s)) * inter, Y_AXIS);
       mol.add_at_edge (X_AXIS, LEFT, m, 0);
     }
@@ -106,7 +107,7 @@ Key_item::brew_molecule (SCM smob)
       Interval x(0, inter);
       Interval y(0,0);
 
-      mol.add_at_edge (X_AXIS, LEFT, me->lookup_l()->blank (Box(x,y)),0);
+      mol.add_at_edge (X_AXIS, LEFT, Lookup::blank (Box(x,y)),0);
       
       for (; gh_pair_p (old); old = gh_cdr (old))
         {
@@ -121,7 +122,7 @@ Key_item::brew_molecule (SCM smob)
 		
 	  if (found == SCM_EOL || gh_cdr (found) != gh_cdar (old))
 	    {
-              Molecule m =me->lookup_l ()->afm_find ("accidentals-0");
+              Molecule m =Font_interface::get_default_font (me)->find_by_name ("accidentals-0");
 
               m.translate_axis (calculate_position (me, gh_car (old)) * inter, Y_AXIS);
               mol.add_at_edge (X_AXIS, LEFT, m,0);	

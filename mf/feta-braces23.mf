@@ -8,10 +8,10 @@
 % 
 
 font_identifier:="feta-braces23";
-font_size 23;
+font_size 22.5;  %% feta23 = 22.5pt  ...
 mode_setup;
 
-staffsize#:=23pt#;
+staffsize#:=22.5pt#;
 input feta-beugel;
 end.
 

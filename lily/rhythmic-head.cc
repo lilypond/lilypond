@@ -8,12 +8,7 @@
 
 #include "rhythmic-head.hh"
 #include "debug.hh"
-#include "molecule.hh"
-#include "paper-def.hh"
-#include "lookup.hh"
 #include "rest.hh"
-#include "dots.hh"
-#include "paper-score.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"

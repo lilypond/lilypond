@@ -1,10 +1,8 @@
-% feta16.mf
+% feta23.mf
 % part of LilyPond's pretty-but-neat music font
 
-% font_identifier:="feta16";
-% font_size 16pt#;
-
 input feta-autometric;
+% why is this 22.5?
 fet_beginfont("feta", 22.5);
 staffsize#:=22.5pt#;
 test:=0;

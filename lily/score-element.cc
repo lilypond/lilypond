@@ -16,7 +16,6 @@
 #include "misc.hh"
 #include "paper-score.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
 #include "molecule.hh"
 #include "score-element.hh"
 #include "debug.hh"
@@ -50,7 +49,6 @@ Score_element::Score_element(SCM basicprops)
    */
 
   pscore_l_=0;
-  lookup_l_ =0;
   status_i_ = 0;
   original_l_ = 0;
   immutable_property_alist_ =  basicprops;
@@ -100,7 +98,6 @@ Score_element::Score_element (Score_element const&s)
   mutable_property_alist_ = SCM_EOL;
   
   status_i_ = s.status_i_;
-  lookup_l_ = s.lookup_l_;
   pscore_l_ = s.pscore_l_;
 
   smobify_self ();
@@ -219,25 +216,6 @@ Paper_def*
 Score_element::paper_l ()  const
 {
  return pscore_l_ ? pscore_l_->paper_l_ : 0;
-}
-
-Lookup const *
-Score_element::lookup_l () const
-{
-  /*
-    URG junkthis, caching is clumsy.
-   */
-  if (!lookup_l_)
-    {
-      Score_element * urg = (Score_element*)this;
-      SCM sz = urg->remove_elt_property ("font-relative-size");
-      int i = (gh_number_p (sz))
-	? gh_scm2int  (sz)
-	: 0;
-
-      urg->lookup_l_ =  (Lookup*)pscore_l_->paper_l_->lookup_l (i);
-    }
-  return lookup_l_;
 }
 
 void

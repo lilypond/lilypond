@@ -11,7 +11,7 @@
 #include "musical-request.hh"
 #include "item.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "side-position-interface.hh"
 
 ADD_THIS_TRANSLATOR (Lyric_engraver);

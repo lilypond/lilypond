@@ -4,11 +4,7 @@
 
 paper_eleven = \paper {
 	staffheight = 11.0\pt;
-	style_sheet = "paper11";
-
-	-1=\font "feta11"
-	-2=\font "feta11"
-	0=\font "feta11"
+	\stylesheet #(make-style-sheet 'paper11)
 
 	\include "params.ly";
 }

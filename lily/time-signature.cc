@@ -12,7 +12,7 @@
 #include "text-item.hh"
 #include "time-signature.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 
 MAKE_SCHEME_CALLBACK(Time_signature,brew_molecule,1);
 
@@ -53,12 +53,12 @@ Time_signature::special_time_signature (Score_element*me, String s, int n, int d
   // First guess: s contains only the signature style
   String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
   
-  Molecule m = me->lookup_l ()->afm_find (symbolname, false);
+  Molecule m = Font_interface::get_default_font (me)->find_by_name (symbolname);
   if (!m.empty_b()) 
     return m;
 
   // Second guess: s contains the full signature name
-  m = me->lookup_l ()->afm_find ("timesig-"+s, false);
+  m = Font_interface::get_default_font (me)->find_by_name ("timesig-"+s);
   if (!m.empty_b ()) 
     return m;
 
@@ -70,18 +70,14 @@ Time_signature::special_time_signature (Score_element*me, String s, int n, int d
 Molecule
 Time_signature::time_signature (Score_element*me,int num, int den)
 {
-  /*
-    UGH: need to look at fontsize.
-    TODO: specify using scm markup.
-   */
-  SCM properties = gh_append2 (me->immutable_property_alist_,
-			       me->mutable_property_alist_);
+  SCM chain = gh_list (me->mutable_property_alist_, me->immutable_property_alist_, SCM_UNDEFINED);
+
   Molecule n = Text_item::text2molecule (me,
 					 ly_str02scm (to_str (num).ch_C ()),
-					 properties);
+					 chain);
   Molecule d = Text_item::text2molecule (me,
 					 ly_str02scm (to_str (den).ch_C ()),
-					 properties);
+					 chain);
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);
   Molecule m;

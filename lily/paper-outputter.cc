@@ -20,7 +20,7 @@
 #include "array.hh"
 #include "string-convert.hh"
 #include "debug.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "main.hh"
 #include "scope.hh"
 #include "identifier.hh"
@@ -137,10 +137,17 @@ Paper_outputter::dump_scheme (SCM s)
 {
   if  (verbatim_scheme_b_)
     {
-      SCM result =  scm_eval2 (scm_listify (ly_symbol2scm ("scm->string"),
-					   ly_quote_scm (gh_car (s)), SCM_UNDEFINED),
-			       SCM_EOL);
-	  
+      SCM p;
+
+      p = scm_mkstrport (SCM_INUM0, 
+			 scm_make_string (SCM_INUM0, SCM_UNDEFINED),
+			 SCM_OPN | SCM_WRTNG,
+			 "Paper_outputter::dump_scheme()");
+
+      SCM wr =scm_eval2 (ly_symbol2scm ("write"), SCM_EOL);
+      scm_apply (wr, s, gh_list (p, SCM_UNDEFINED));
+  
+      SCM result =  scm_strport_to_string (p);
       *stream_p_ << ly_scm2string (result);
     }
   else
@@ -193,16 +200,6 @@ Paper_outputter::output_version ()
 
 
 
-void
-Paper_outputter::output_font_def (int i, String str)
-{
-  SCM scm = gh_list (ly_symbol2scm ("font-def"),
-		     gh_int2scm (i),
-		     ly_str02scm (str.ch_l ()),
-		     SCM_UNDEFINED);
-
-  output_scheme (scm);
-}
 
 void
 Paper_outputter::output_Real_def (String k, Real v)

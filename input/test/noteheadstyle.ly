@@ -1,43 +1,49 @@
+
 \score { \notes \relative c{
-c''4 c2 c8  c16 c16 c1 c\breve 
-\property Voice.noteHeadStyle = #'diamond
+% anyone wanna pop?
+c''4 c2 c8  c16 c16 c1 c\breve
+\property Voice.NoteHead \push #'style = #'diamond
 c4 c2 c8  c16 c16  c1 c\breve
-\property Voice.noteHeadStyle = #'transparent
+\property Voice.NoteHead \push #'style = #'transparent
 c4 c2 c8  c16 c16  c1 c\breve
-\property Voice.noteHeadStyle = #'cross
+\property Voice.NoteHead \push #'style = #'cross
 c4 c2 c8  c16 c16  c1 c\breve
-\property Voice.noteHeadStyle = #'mensural
+\property Voice.NoteHead \push #'style = #'mensural
 c4 c2 c8  c16 c16  c1 c\breve c\longa
-\property Voice.noteHeadStyle = #'harmonic
+\property Voice.NoteHead \push #'style = #'harmonic
 c4 c2 c8  c16 c16  c1 c\breve
-\property Voice.noteHeadStyle = #'baroque
+\property Voice.NoteHead \push #'style = #'baroque
 c4 c2 c8  c16 c16  c1 c\breve c\longa
+
 
    \context Voice <
     \context Thread = TA
-      { \property Thread.noteHeadStyle = #'cross
-        \property Voice.verticalDirection = \up c16} 
+      {
+        \property Thread.NoteHead \push #'style = #'cross
+        \property Voice.Stem \push #'direction = #1
+        c16
+       }
     \context Thread = TB
-      { \property Thread.noteHeadStyle = #'default a16  }
-    
+      { \property Thread.NoteHead \push #'style = #'default a16  }
+
     \context Thread = TC
-      { \property Thread.noteHeadStyle = #'mensural d16 }
-    
+      { \property Thread.NoteHead \push #'style = #'mensural d16 }
+
   >
 
-  
+
    \context Voice <\context Thread = TA {
-   \property Thread.noteHeadStyle = #'default
+   \property Thread.NoteHead \push #'style = #'default
    c4 c4 }
 \context Thread = TB {
-  \property Thread.noteHeadStyle = #'mensural
+   \property Thread.NoteHead \push #'style = #'mensural
   c'4 \stemDown c
 } >
 
 }
 
     \paper {
-       
-    }
+
+
 }
-\version "1.3.96"; 
+}

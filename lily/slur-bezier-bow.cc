@@ -144,7 +144,7 @@ Slur_bezier_bow::area_x_gradients_array (Real area)
   algorithm, instead of this homebrew.
 */
 void
-Slur_bezier_bow::minimise_enclosed_area (Paper_def* paper_l, Real beauty,
+Slur_bezier_bow::minimise_enclosed_area (Real beauty,
 					 SCM bezier_props)
 {
   Real length = curve_.control_[3][X_AXIS]; 

@@ -10,13 +10,14 @@
 */
 #include <math.h>		// m_pi
 
+#include "lookup.hh"
 #include "directional-element-interface.hh"
 #include "note-head.hh"
 #include "stem.hh"
 #include "debug.hh"
 #include "paper-def.hh"
 #include "rhythmic-head.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "molecule.hh"
 #include "paper-column.hh"
 #include "misc.hh"
@@ -413,10 +414,10 @@ Stem::flag (Score_element*me)
     }
 
   char c = (get_direction (me) == UP) ? 'u' : 'd';
-  Molecule m = me->lookup_l ()->afm_find (String ("flags-") + to_str (c) + 
+  Molecule m = Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + 
 				      to_str (flag_i (me)));
   if (!style.empty_b ())
-    m.add_molecule(me->lookup_l ()->afm_find (String ("flags-") + to_str (c) + style));
+    m.add_molecule(Font_interface::get_default_font (me)->find_by_name (String ("flags-") + to_str (c) + style));
   return m;
 }
 
@@ -465,8 +466,8 @@ Stem::brew_molecule (SCM smob)
   if (!invisible_b (me))
     {
       Real stem_width = gh_scm2double (me->get_elt_property ("thickness")) * me->paper_l ()->get_var ("stafflinethickness");
-      Molecule ss =me->lookup_l ()->filledbox (Box (Interval (-stem_width/2, stem_width/2),
-						 Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
+      Molecule ss =Lookup::filledbox (Box (Interval (-stem_width/2, stem_width/2),
+					   Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
       mol.add_molecule (ss);
     }
 

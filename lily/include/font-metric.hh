@@ -13,17 +13,18 @@
 #include "box.hh"
 #include "lily-guile.hh"
 #include "smobs.hh"
-
+#include "lily-proto.hh"
 
 struct Font_metric
 {
-  SCM name_;
-  virtual SCM description () const;
-  virtual Box get_char (int ascii, bool warn) const;
-  virtual ~Font_metric ();
-  virtual Box text_dimension (String) const;
+public:
+  SCM description_;
 
-  DECLARE_SIMPLE_SMOBS(Font_metric,);
+  virtual Box get_char (int ascii) const;
+  virtual Box text_dimension (String)  const;
+  virtual Molecule find_by_name (String) const;
+
+  DECLARE_SMOBS(Font_metric,);
 private:
   Font_metric (Font_metric const&); // no copy.
 protected:
@@ -31,17 +32,19 @@ protected:
 };
 
 
+/*
+  Perhaps junk this, and move iface to paper_def? 
+ */
 struct Scaled_font_metric : public Font_metric
 {
-  virtual SCM description () const;
   virtual Box text_dimension (String) const;
-
-  static SCM make_scaled_font_metric (Font_metric*, int);
+  virtual Molecule find_by_name (String) const;
+  static SCM make_scaled_font_metric (Font_metric*, Real);
 protected:
   Font_metric *orig_l_;
-  int magstep_i_;
+  Real magnification_f_;
   
-  Scaled_font_metric (Font_metric*,int);
+  Scaled_font_metric (Font_metric*,Real);
 };
 
 Font_metric * unsmob_metrics (SCM s);

@@ -11,7 +11,7 @@
 #include "string.hh"
 #include "molecule.hh"
 #include "item.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 
 /*
 FIXME: should use symbol for #'style.
@@ -76,7 +76,7 @@ Clef::brew_molecule (SCM smob)
   SCM glyph = sc->get_elt_property ("glyph");
   if (gh_string_p (glyph))
     {
-      return sc->lookup_l ()->afm_find (String (ly_scm2string (glyph))).create_scheme ();
+      return Font_interface::get_default_font (sc)->find_by_name (String (ly_scm2string (glyph))).create_scheme ();
     }
   else
     {

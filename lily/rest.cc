@@ -8,7 +8,7 @@
 
 #include "molecule.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "rest.hh"
 #include "dots.hh"
 #include "paper-score.hh"
@@ -64,7 +64,7 @@ Rest::brew_molecule (SCM smob)
   String idx =  ("rests-") + to_str (gh_scm2int (balltype))
     + (ledger_b ? "o" : "") + style;
 
-  return me-> lookup_l ()->afm_find (idx).create_scheme();
+  return Font_interface::get_default_font (me)->find_by_name (idx).create_scheme();
 }
 
 

@@ -12,9 +12,10 @@
 #include "system-start-delimiter.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
-#include "lookup.hh"
+#include "font-interface.hh"
 #include "all-font-metrics.hh"
 #include "score-element.hh"
+#include "lookup.hh"
 
 Molecule
 System_start_delimiter::staff_bracket (Score_element*me,Real height)  
@@ -58,7 +59,7 @@ System_start_delimiter::simple_bar (Score_element*me,Real h)
 {
   Real w = me->paper_l ()->get_var ("stafflinethickness") *
     gh_scm2double (me->get_elt_property ("thickness"));
-  return me->lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
+  return Lookup::filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
 MAKE_SCHEME_CALLBACK(System_start_delimiter,after_line_breaking,1);
@@ -122,8 +123,7 @@ System_start_delimiter::brew_molecule (SCM smob)
 Molecule
 System_start_delimiter::staff_brace (Score_element*me,Real y)  
 {
-  Real staffht  = me->paper_l ()->get_var ("staffheight");
-  int staff_size  = int (rint (staffht ));
+  int staff_size  = 20;		// URG.
 
   // URG
   Real step  = 1.0;
@@ -132,17 +132,10 @@ System_start_delimiter::staff_brace (Score_element*me,Real y)
   int idx = int (((maxht - step) <? y - minht) / step);
   idx = idx >? 0;
 
-  SCM l = scm_assoc (ly_str02scm ("brace"),
-		     scm_eval2 (ly_symbol2scm ("cmr-alist"), SCM_EOL));
+  Font_metric *fm = Font_interface::get_default_font (me);
   
-  String nm = "feta-braces";
-  if (l != SCM_BOOL_F)
-    nm = ly_scm2string (gh_cdr (l));
-  nm += to_str (staff_size);
-  SCM e =gh_list (ly_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
-  SCM at = (e);
-
-  at = fontify_atom (find_font (nm), at);
+  SCM at =gh_list (ly_symbol2scm ("char"), gh_int2scm (idx), SCM_UNDEFINED);
+  at = fontify_atom (fm, at);
   
   Box b (Interval (0,0), Interval (-y/2, y/2));
 

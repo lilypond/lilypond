@@ -28,7 +28,6 @@ All_font_metrics::All_font_metrics (String path)
 {
   afm_p_dict_ = new Scheme_hash_table;
   tfm_p_dict_ = new Scheme_hash_table;
-  scaled_p_dict_ = new Scheme_hash_table;
   
   search_path_.parse_path (path);
 }
@@ -37,13 +36,14 @@ All_font_metrics::~All_font_metrics ()
 {
   scm_unprotect_object (afm_p_dict_->self_scm ());
   scm_unprotect_object (tfm_p_dict_->self_scm ());
-  scm_unprotect_object (scaled_p_dict_->self_scm ());
 }
 
 Adobe_font_metric *
 All_font_metrics::find_afm (String name)
 {
   SCM sname = ly_symbol2scm (name.ch_C ());
+
+  SCM name_str = gh_str02scm (name.ch_C ());
 
   SCM val;
   
@@ -68,42 +68,25 @@ All_font_metrics::find_afm (String name)
 	progress_indication ("[" + path);
       val = read_afm_file (path);
 
-      unsmob_metrics (val)->name_ = sname;
+      unsmob_metrics (val)->description_ = gh_cons (name_str, gh_double2scm (1.0));
 
       if (verbose_global_b)
 	progress_indication ("]");
 
       afm_p_dict_->set (sname,val);
 
-      
+      scm_unprotect_object (val);      
     }
   
   return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
 }
 
-Scaled_font_metric * 
-All_font_metrics::find_scaled (String nm, int m)
-{
-  String index =  nm + "@" + to_str (m);
-  SCM sname = ly_symbol2scm (index.ch_C ());
-
-  SCM val;
-
-  if (!scaled_p_dict_->try_retrieve  (sname, &val))
-    {
-      Font_metric *f = find_font (nm);
-      val =  Scaled_font_metric::make_scaled_font_metric (f, m);
-      scaled_p_dict_->set (sname, val);
-    }
-  
-
-  return dynamic_cast<Scaled_font_metric*> (unsmob_metrics (val));
-}
 
 Tex_font_metric *
 All_font_metrics::find_tfm (String name)
 {
   SCM sname = ly_symbol2scm (name.ch_C ());
+  SCM name_str = gh_str02scm (name.ch_C ());
 
   SCM val;
   if (!tfm_p_dict_->try_retrieve (sname, &val))
@@ -128,8 +111,10 @@ All_font_metrics::find_tfm (String name)
       if (verbose_global_b)
 	progress_indication ("]");
 
-      unsmob_metrics (val)->name_ = sname;
+      unsmob_metrics (val)->description_ = gh_cons (name_str, gh_double2scm (1.0));
       tfm_p_dict_->set (sname, val);
+
+      scm_unprotect_object (val);
     }
     
   return
@@ -140,9 +125,7 @@ All_font_metrics::find_tfm (String name)
 Font_metric *
 All_font_metrics::find_font (String name)
 {
-  Font_metric * f=0;
-
-  f= find_afm (name);
+  Font_metric * f= find_afm (name);
   if (f)
     return f;
 
@@ -175,32 +158,4 @@ All_font_metrics::find_font (String name)
   return 0;
 }
 
-SCM
-All_font_metrics::font_descriptions () const
-{
-  SCM l[] = {0,0,0};
 
-  l[0] = afm_p_dict_->to_alist ();
-  l[1] = tfm_p_dict_->to_alist ();
-  l[2] = scaled_p_dict_->to_alist ();  
-
-  SCM list = SCM_EOL;
-  for (int i=0; i < 3; i++)
-    {
-      for (SCM s = l[i];  gh_pair_p (s); s = gh_cdr (s))
-	{
-	  Font_metric * fm = unsmob_metrics (gh_cdar (s));
-
-	  list = gh_cons (fm->description (), list);
-	}
-    }
-  return list;
-}
-
-
-
-Font_metric*
-find_font (String name)
-{
-  return   all_fonts_global_p->find_font (name);
-}

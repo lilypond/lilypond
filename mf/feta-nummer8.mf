@@ -1,7 +1,7 @@
 % feta-nummer8.mf
 % part of LilyPond's pretty-but-neat music font
 
-design_size:=8;
+design_size:=8; % feta16 = 16pt
 
 input feta-nummer.mf;
 
