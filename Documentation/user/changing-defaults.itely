@@ -749,8 +749,8 @@ to indicate improvisation in Jazz pieces,
     \accepts "ImproVoice"
   }}
   \score { \notes \relative c'' {
-    a4 d8 bes8 \new ImproVoice { c4^"ad lib" 
-     c4 c^"undress"  c c_"while playing :)"  } 
+    a4 d8 bes8 \new ImproVoice { c4^"ad lib" c 
+     c4 c^"undress" c_"while playing :)" c } 
     a1 
   }}
 @end lilypond
@@ -851,7 +851,37 @@ which is sometimes when reusing existing context definitions. }
   }
 @end verbatim 
 
+Putting both into a @code{\paper} block, like
 
+@example
+  \paper @{
+    \context @{
+      \name ImproVoice
+      @dots{}
+    @}
+  \context @{
+    \StaffContext
+    \accepts "ImproVoice"
+  @}
+@}
+@end example
+
+Then the output at the start of this subsection can be entered as
+
+@verbatim
+\score {
+  \notes \relative c'' {
+     a4 d8 bes8
+     \new ImproVoice {
+       c4^"ad lib" c 
+       c4 c^"undress"
+       c c_"while playing :)"
+     }
+     a1 
+  }
+}
+@end verbatim
+  
 
     
 @node Which properties to change

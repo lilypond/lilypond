@@ -112,12 +112,14 @@ potential line breaks.")
 spacing breakable items.")
      (break-align-orders ,vector? " Defines the order in which
 prefatory matter (clefs, key signatures) appears. The format is a
-vector of length 3. Each element is an order for (end-of-line, middle
-of line, and start-of-line). The order is a list of  symbols.
-Clefs are put after key signatures by setting 
+vector of length 3, where each element is one order for end-of-line,
+middle of line, and start-of-line respectively. An order is a list of
+symbols.
+
+For example, clefs are put after key signatures by setting
 
 @example
-	\\property Score.breakAlignOrder = #(make-vector  3
+	\\override Score.BreakAlignment #'break-align-orders = #(make-vector  3
 	  '(span-bar
 	  breathing-sign
 	  staff-bar

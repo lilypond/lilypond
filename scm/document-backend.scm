@@ -71,8 +71,12 @@
 
 	      (human-listify
 	       (map ref-ify
-		    (map symbol->string
-			 (hashq-ref iface->grob-table (car interface) '() )))))
+		    (sort 
+		     (map symbol->string
+			  (hashq-ref iface->grob-table (car interface) '() ))
+		     string<?)
+		    
+		    )))
 
       )))
 
