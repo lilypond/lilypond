@@ -355,6 +355,7 @@ SpacingSpanner
 Staff
 \\StaffContainerContext
 \\StaffContext
+StaffGroup
 \\StaffGroupContext
 \\staffheight
 \\staffOne
