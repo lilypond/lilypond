@@ -22,93 +22,93 @@ Override, see scm/midi.scm:
 %}
 
 flauti = \notes \relative c' {
-  \set Staff.midiInstrument =  #"flute"
-  \set Staff.instrument =  #"2 Flauti"
-  \set Staff.instr =  #"Fl."
+  \set Staff.midiInstrument = #"flute"
+  \set Staff.instrument = #"2 Flauti"
+  \set Staff.instr = #"Fl."
 
   c1\f R1*10
 }
 
 oboi = \notes \relative c' {
-  \set Staff.midiInstrument =  #"oboe"
-  \set Staff.instrument =  #"2 Oboi"
-  \set Staff.instr =  #"Ob."
+  \set Staff.midiInstrument = #"oboe"
+  \set Staff.instrument = #"2 Oboi"
+  \set Staff.instr = #"Ob."
 
   R1*1 c1\f R1*9
 }
 
 clarinetti = \notes \relative c' {
-  \set Staff.midiInstrument =  #"clarinet"
-  \set Staff.instrument =  #"Clarinetti"
-  \set Staff.instr =  #"Cl"
+  \set Staff.midiInstrument = #"clarinet"
+  \set Staff.instrument = #"Clarinetti"
+  \set Staff.instr = #"Cl"
 
   R1*2 c1\f R1*8
 }
 
 fagotti = \notes \relative c' {
-  \set Staff.midiInstrument =  #"bassoon"
-  \set Staff.instrument =  #"2 Fagotti"
-  \set Staff.instr =  #"Fg."
+  \set Staff.midiInstrument = #"bassoon"
+  \set Staff.instrument = #"2 Fagotti"
+  \set Staff.instr = #"Fg."
 
   \clef bass
   R1*3 c1\f R1*7
 }
 
 corni = \notes \relative c' {
-  \set Staff.midiInstrument =  #"french horn"
-  \set Staff.instrument =  #"Corni"
-  \set Staff.instr =  #"Cor"
+  \set Staff.midiInstrument = #"french horn"
+  \set Staff.instrument = #"Corni"
+  \set Staff.instr = #"Cor"
 
   R1*4 c1\f R1*6
 }
 
 trombe = \notes \relative c' {
-  \set Staff.midiInstrument =  #"trumpet"
-  \set Staff.instrument =  #"Trombe"
-  \set Staff.instr =  #"Tp."
+  \set Staff.midiInstrument = #"trumpet"
+  \set Staff.instrument = #"Trombe"
+  \set Staff.instr = #"Tp."
 
   \clef bass
   R1*5 c1\f R1*5
 }
 
 timpani = \notes \relative c' {
-  \set Staff.midiInstrument =  #"timpani"
-  \set Staff.instrument =  #"Timpani"
-  \set Staff.instr =  #"Timp."
+  \set Staff.midiInstrument = #"timpani"
+  \set Staff.instrument = #"Timpani"
+  \set Staff.instr = #"Timp."
 
   R1*6 c1\f R1*4
 }
 
 violinoI = \notes \relative c' {
-  \set Staff.midiInstrument =  #"violin"
-  \set Staff.instrument =  #"Violino I "
-  \set Staff.instr =  #"Vl. I "
+  \set Staff.midiInstrument = #"violin"
+  \set Staff.instrument = #"Violino I "
+  \set Staff.instr = #"Vl. I "
 
   R1*7 c1\f R1*3
 }
 
 violinoII = \notes \relative c' {
-  \set Staff.midiInstrument =  #"violin"
-  \set Staff.instrument =  #"Violino II "
-  \set Staff.instr =  #"Vl. II "
+  \set Staff.midiInstrument = #"violin"
+  \set Staff.instrument = #"Violino II "
+  \set Staff.instr = #"Vl. II "
  
   R1*8 c1\f R1*2
 }
 
 viola = \notes \relative c' {
-  \set Staff.midiInstrument =  #"viola"
-  \set Staff.instrument =  #"Viola"
-  \set Staff.instr =  #"Vla."
+  \set Staff.midiInstrument = #"viola"
+  \set Staff.instrument = #"Viola"
+  \set Staff.instr = #"Vla."
 
   \clef alto
   R1*9 c1\f R1*1
 }
 
 violoncello = \notes \relative c' {
-  \set Staff.midiInstrument =  #"cello"
-  %\set Staff.midiInstrument =  #"contrabass"
-  \set Staff.instrument =  #"Violoncello"
-  \set Staff.instr =  #"Vc."
+  \set Staff.midiInstrument = #"cello"
+  %\set Staff.midiInstrument = #"contrabass"
+  \set Staff.instrument = #"Violoncello"
+  \set Staff.instr = #"Vc."
   
   \clef bass
   R1*10 c1\f

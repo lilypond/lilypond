@@ -7,7 +7,7 @@ The two first bars of Biber's Rosary sonata III. " }
 
 
 
-violinincipit =  \notes\relative c''{
+violinincipit = \notes\relative c''{
   \clef "french"
   \time 2/2
   \override Staff.TimeSignature  #'style = #'old
@@ -16,14 +16,14 @@ violinincipit =  \notes\relative c''{
   \override Staff.TimeSignature  #'style = #'C
 }
 
-bcincipit =  \notes\relative c{
+bcincipit = \notes\relative c{
   \clef bass
   \override Staff.TimeSignature  #'style = #'old
   b2. cis4 | 
   \override Staff.TimeSignature  #'style = #'C
 }
 
-violin =  \notes\relative c''{
+violin = \notes\relative c''{
 % Key signatures with different alterations in different octaves
 % are broken since 1.3.58!
 %  \specialkey \keysignature f' fis'' g' gis''
@@ -36,7 +36,7 @@ violin =  \notes\relative c''{
   <<{ a d}\\ { es,4}>>|
 }
 
-BC  = \notes\relative c{
+BC = \notes\relative c{
   \key d \major
   \time 2/2
   \clef "bass"

@@ -17,7 +17,7 @@ vmus = \notes { \repeat volta 2 c1 \alternative { d e } }
 	>>
 	\new StaffGroup <<
 	    \new Staff <<
-		\set Staff.voltaOnThisStaff =  ##t
+		\set Staff.voltaOnThisStaff = ##t
 		\vmus >>
 	    \new Staff \vmus
 	>>

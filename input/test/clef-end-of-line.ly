@@ -9,15 +9,15 @@ Scales, but with clef and key signature at the end of the line.
     \notes \transpose c c' {
 	\override Staff.Clef  #'break-visibility = #end-of-line-visible
 	\override Staff.KeySignature  #'break-visibility = #end-of-line-visible
-	\set Staff.explicitClefVisibility =  #end-of-line-visible
-	\set Staff.explicitKeySignatureVisibility =  #end-of-line-visible
+	\set Staff.explicitClefVisibility = #end-of-line-visible
+	\set Staff.explicitKeySignatureVisibility = #end-of-line-visible
 
 	% We want the time sig to take space, otherwise there is not
 	% enough white at the start of the line.
 	%
 	
 	\override Staff.TimeSignature  #'transparent = ##t
-	\set Score.defaultBarType =  #"empty"
+	\set Score.defaultBarType = #"empty"
 	
 	c1 d e f g a b c
 	\key d \major

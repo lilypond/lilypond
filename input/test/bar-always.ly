@@ -11,8 +11,8 @@ By setting @code{barAlways} and @code{defaultBarType,} you can automatically ins
 
 \score {
 	\notes \relative c''{
-		\set Score.barAlways =  ##t
-		\set Score.defaultBarType =  ":|:"
+		\set Score.barAlways = ##t
+		\set Score.defaultBarType = ":|:"
 		c4 c4 c4 c4 }
 	\paper{raggedright = ##t}
 }

@@ -213,7 +213,7 @@ flat lowers it by a whole tone. A natural cancels the effect of a previous
 accidental.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override TextScript   #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
@@ -323,7 +323,7 @@ FI: luonnollinen molliasteikko,
 N: ?.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \notes\relative c'' {
 a1 b c d e f g a }
 @end lilypond
@@ -572,7 +572,7 @@ Line connecting a series of notes (shorter than a quarter note).
 The number of beams determine the note value of the connected notes.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override TextScript   #'font-style = #'large
 \notes\relative c'' {
   g8_"1/8"[ g g g] s16
@@ -630,7 +630,7 @@ orchestral or choral score.
 
 @lilypond
 \context StaffGroup <<
-%  \set StaffGroup.minVerticalAlign =  #12
+%  \set StaffGroup.minVerticalAlign = #12
   \notes\relative c'' \context Staff = SA { \clef treble g4 e c2 }
   \notes\relative c \context Staff = SB { \clef bass c1 \bar "|." } >>
 @end lilypond
@@ -677,7 +677,7 @@ N: ?.
 in pre-1650 music.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \notes\relative c'' { g\breve }
 @end lilypond
 
@@ -707,7 +707,7 @@ Clef symbol indicating the position of the central C.  Used on all note
 lines.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \override Score.Clef   #'full-size-change = ##t
 %\override Score.LyricText   #'font-style = #'large
 \addlyrics
@@ -806,7 +806,7 @@ third above the lower notes to define their quality as major or minor.  Such
 chords are denoted open chords
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override TextScript   #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
@@ -838,7 +838,7 @@ N: ?.
 A scale consisting of all 11 @aref{semitone}s.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \notes\relative c' { c1 cis d dis e f fis g gis a ais b c }
 @end lilypond
 
@@ -1210,7 +1210,7 @@ The church modes are used in gregorial chant and pre baroque early music but
 also to some extent in newer jazz music.
 
 @lilypond[notime,linewidth=110\mm]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1225,7 +1225,7 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1240,7 +1240,7 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1254,7 +1254,7 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1269,7 +1269,7 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1283,7 +1283,7 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1303,7 +1303,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 7th tone.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1318,7 +1318,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1333,7 +1333,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1348,7 +1348,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1694,7 +1694,7 @@ Two notes, intervals, or scales are enharmonic if they have different names
 but equal pitch.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
@@ -1765,7 +1765,7 @@ symbol indicates playing an octave lower (for example on double bass
 @aref{strings}).
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \override Staff.Clef   #'full-size-change = ##t
 %\override Score.LyricText   #'font-style = #'large
 \addlyrics
@@ -1858,7 +1858,7 @@ less than a quarter note.  The number of flags determines the
 @aref{note value}.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \notes\relative c'' {
   g8_"1/8" s8
@@ -1942,7 +1942,7 @@ dominant (D, the chord on the fifth note).  Other are considered to be
 variants of the base chords.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -1981,7 +1981,7 @@ indicates playing or singing an octave lower (most tenor parts in choral
 scores are notated like that).
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \override Staff.Clef   #'full-size-change = ##t
 %\override Score.LyricText   #'font-style = #'large
 \addlyrics
@@ -2139,7 +2139,7 @@ Tones sounding simultaneously.  Two note harmonies fall into the categories
 Consonances:
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \context Voice \notes\relative c'' {
   <g g>1_"unisone  " s
@@ -2155,7 +2155,7 @@ Consonances:
 Dissonances:
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \context Voice  \notes\relative c'' {
   <g a>1_"second  " s s
@@ -2198,7 +2198,7 @@ because they consist of three @aref{whole tone}s.  The addition
 of such two forms an octave.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -2219,7 +2219,7 @@ of such two forms an octave.
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -2240,7 +2240,7 @@ of such two forms an octave.
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
 %\override Score.TextScript   #'font-style = #'large
 \addlyrics
@@ -2274,7 +2274,7 @@ N: ?.
 The difference between an interval and an octave.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \context Staff \notes\relative c'' {
   < g  a >1_"second " s s < g' a, >_"seventh " s s \bar "||"
@@ -2368,7 +2368,7 @@ N: ?.
 A ledger line is an extension of the staff.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \notes\relative c'' { a,1 s c'' }
 @end lilypond
 
@@ -2388,7 +2388,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato} and
 (d) @aref{staccato}.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \addlyrics
 \context Staff \notes\relative c'' {
   c4-( d e-) \bar "||"
@@ -2463,7 +2463,7 @@ Note value: double length of @aref{breve}.
 @aref{note value}.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \notes\relative c'' {
   \override NoteHead   #'style = #'mensural
   g\longa
@@ -2665,7 +2665,7 @@ N: ?.
 First C below the 440 Hz A.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \override Staff.Clef   #'full-size-change = ##t
 \notes\relative c' {
   \clef bass c1 s
@@ -2889,7 +2889,7 @@ but sometimes (mostly in pre baroque music) the double length note value
 
 @lilypond[notime]
 %\override Score.TextScript   #'font-style = #'large
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \notes\relative c'' {
   \override NoteHead   #'style = #'mensural
   g\longa_"longa" g\breve_"breve"
@@ -2900,7 +2900,7 @@ but sometimes (mostly in pre baroque music) the double length note value
 
 @lilypond[notime]
 %\override Score.TextScript   #'font-style = #'large
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \notes\relative c'' {
   r\longa_"longa" r\breve_"breve"
   r1_"1/1" r2_"1/2" r4_"1/4" s16 r8_"1/8" s16
@@ -3269,7 +3269,7 @@ N: ?.
 with the same @aref{key signature}.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \notes\relative c' {
   \key es \major
@@ -3279,7 +3279,7 @@ with the same @aref{key signature}.
 @end lilypond
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \notes\relative c' {
   \key es \major
@@ -3397,9 +3397,9 @@ roots of chords.  The most important are degrees I = tonic (T), IV =
 sub@-do@-mi@-nant (S) and V = dominant (D).
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.LyricText   #'font-style = #'large
-%\set minVerticalAlign =  #8
+%\set minVerticalAlign = #8
 \addlyrics
 \context Staff \notes\relative c' {
   c1 d e f g a b c
@@ -3461,7 +3461,7 @@ semitone.  An octave may be divided into 12@w{ }semitones.
 @aref{interval}, @aref{chromatic scale}.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \notes\relative c'' { g1 gis s a bes s b! c }
 @end lilypond
 
@@ -3713,8 +3713,8 @@ Vertical line above or below a @aref{note head} shorter than a
 whole note.  @aref{beam}.
 
 @lilypond[notime]
-\set Score.autoBeaming =  ##f
-\set Score.automaticBars =  ##f
+\set Score.autoBeaming = ##f
+\set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \notes\relative c'' {
   g2_"1/2" g' s16
@@ -4041,7 +4041,7 @@ connects two succesive notes of the same pitch, and which has the function of
 uniting them into a single sound equal to the combined durations.
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 \notes\relative c'' { g2 ~ g4. }
 @end lilypond
 
@@ -4152,7 +4152,7 @@ a @aref{chord}, usually in the distance of a third
 (@aref{interval}).
 
 @lilypond[notime]
-\set Score.automaticBars =  ##f
+\set Score.automaticBars = ##f
 %\override Score.TextScript   #'font-style = #'large
 \notes\relative c' {
   e2:32_"a"

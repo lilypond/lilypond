@@ -3,7 +3,7 @@
  common dutch names for notes. es means flat, is means sharp
 %}
 
-dutchPitchnames =  #`(
+dutchPitchnames = #`(
 	(ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
 
 	(ceh . ,(ly:make-pitch -1 0 SEMI-FLAT))

@@ -13,7 +13,7 @@ do wierd tricks with LilyPond (especially with slurs, since you can't attach
 a slur to a rest or spacer rest).
 " }
 
-blanknotes = { \override NoteHead  #'transparent  = ##t
+blanknotes = { \override NoteHead  #'transparent = ##t
 	       \override Stem  #'transparent = ##t }
 unblanknotes = { \revert NoteHead #'transparent
 		 \revert Stem #'transparent }

@@ -1,15 +1,15 @@
 % #(ly:set-point-and-click 'line-column)
 
-longgrace = \property Voice.Stem \override #'stroke-style = #'()
-endlonggrace = \property Voice.Stem \revert #'stroke-style
+longgrace = \override Stem   #'stroke-style = #'()
+endlonggrace = \revert Stem #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.1.7"
+\version "2.1.22"
   
 cresc = \notes {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
-    \property Voice.crescendoText = \markup { \italic \bold "cresc." }
-    \property Voice.crescendoSpanner = #'dashed-line
+    \set crescendoText = \markup { \italic \bold "cresc." }
+    \set crescendoSpanner = #'dashed-line
 }
 
 %%
@@ -18,14 +18,14 @@ cresc = \notes {
 
 startGraceMusic = \sequential { 
     \startGraceMusic 
-    \property Voice.Beam \override #'space-function
-       = #(lambda (beam mult) (* 0.8 0.8))
-    \property Voice.Beam \override #'thickness = #(* 0.384 (/ 0.6 0.48))
+    \override Beam   #'space-function
+    = #(lambda (beam mult) (* 0.8 0.8))
+    \override Beam   #'thickness = #(* 0.384 (/ 0.6 0.48))
 }
 
 stopGraceMusic= \sequential {
-    \property Voice.Beam \revert #'thickness
-    \property Voice.Beam \revert #'space-function
+    \revert Beam #'thickness
+    \revert Beam #'space-function
     \stopGraceMusic
 }
 

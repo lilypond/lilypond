@@ -9,7 +9,7 @@ point away from the center of the staff.  Override with
 }
 
 
-t =  \notes \relative c' {   <c e g> ~ <c e g> }
+t = \notes \relative c' {   <c e g> ~ <c e g> }
 
 	\score { 
 \notes \context Voice {

@@ -97,28 +97,28 @@ epartialJazzAlt = #(sequential-music-to-chord-exceptions epartialmusicJazzAlt #f
 jazzAltProperties =
 
 \sequential { 
-	    \set majorSevenSymbol =  #whiteTriangleMarkup
-	    \set chordNameSeparator =  #(make-simple-markup  "/")
-	    \set chordNameExceptionsFull =  #efullJazzAlt
-	    \set chordNameExceptionsPartial =  #epartialJazzAlt
-	    \set chordNameFunction =  #jazz-chord-names
+	    \set majorSevenSymbol = #whiteTriangleMarkup
+	    \set chordNameSeparator = #(make-simple-markup  "/")
+	    \set chordNameExceptionsFull = #efullJazzAlt
+	    \set chordNameExceptionsPartial = #epartialJazzAlt
+	    \set chordNameFunction = #jazz-chord-names
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 banterProperties = \sequential { 
-	    \set chordNameFunction =  #banter-chord-names
+	    \set chordNameFunction = #banter-chord-names
 }
 
 \score{
     <<
 	\new ChordNames {
-	    \set instrument =  #"Ignatzek (default)"
-	    \set instr =  #"Def"
+	    \set instrument = #"Ignatzek (default)"
+	    \set instr = #"Def"
 	    \chs }
 	\new ChordNames {
-	    \set instrument =  #"Alternative"
-	    \set instr =  #"Alt"
+	    \set instrument = #"Alternative"
+	    \set instr = #"Alt"
 	    \jazzAltProperties
 	    \chs }
 

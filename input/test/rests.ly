@@ -14,7 +14,7 @@ Rests in various styles.
 
 \score {
     \context Staff \notes\relative c {
-	\set Score.timing =  ##f
+	\set Score.timing = ##f
 	\override Staff.Rest  #'style = #'mensural
 	r\maxima^"Rest style = \#'mensural"
 	r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128

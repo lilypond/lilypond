@@ -4,8 +4,8 @@ interesting bug in 1.3.98). " }
 
 \score{
 	\context Staff <<
-	      \set Staff.instrument =  "instrument"
-	      \set Staff.instr =  "instr"
+	      \set Staff.instrument = "instrument"
+	      \set Staff.instr = "instr"
 	      \notes{c''1 \break R1 }
 	    >>
 	 \paper {
@@ -14,7 +14,7 @@ interesting bug in 1.3.98). " }
 
 	    }
 	  }
-	\paper { raggedright =  ##t }
+	\paper { raggedright = ##t }
 	}
 
 

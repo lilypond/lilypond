@@ -31,11 +31,11 @@
     }
   <<
       \new Lyrics \lyricsto "v"  \lyrics {
-        \set stanza =  "1:"
+        \set stanza = "1:"
         Start sentence melisma end.
       }
       \new Lyrics \lyricsto "v" \lyrics {
-        \set stanza =  "2:"
+        \set stanza = "2:"
         x x x __ x.
       }
    >>

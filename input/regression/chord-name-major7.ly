@@ -6,6 +6,6 @@
 
 \score {\context ChordNames \chords {
       c:7+
-      \set majorSevenSymbol =  \markup { "j7" }
+      \set majorSevenSymbol = \markup { "j7" }
       c:7+ }
 }

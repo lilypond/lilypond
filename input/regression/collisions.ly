@@ -28,13 +28,13 @@ twovoicechords = \context Staff \notes <<
 >>
 
 
-threevoice =  \context Staff \notes <<
+threevoice = \context Staff \notes <<
 	 { g4 f e f g a g2 } \\
 	 {  c4 d e d c d es } \\
 	 { e4 e e e e e e e  }
 >>
 
-hairyChord =  \context Staff \notes \relative c''
+hairyChord = \context Staff \notes \relative c''
     << e \\
       fis, \\
       cis' \\

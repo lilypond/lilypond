@@ -15,7 +15,7 @@ Arpeggios are supported, both cross-staff and broken single staff.
 	    \override Staff.Arpeggio  #'arpeggio-direction = #1 
 	     <fis d a >\arpeggio	    
 	     %%\override PianoStaff.SpanArpeggio  #'connect = ##t
-	     \set PianoStaff.connectArpeggios =  ##t
+	     \set PianoStaff.connectArpeggios = ##t
 	     <fis d a>\arpeggio
 	  }
 	 \new Staff\relative c{

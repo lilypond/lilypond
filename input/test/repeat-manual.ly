@@ -8,16 +8,16 @@ unusual output. "
 \score { \notes \relative c'' {
 % First a normal looking repeat:
  c2 c
-    \set Score.repeatCommands =  #'((volta "1."))
+    \set Score.repeatCommands = #'((volta "1."))
  c c
-    \set Score.repeatCommands =  #'((volta #f) end-repeat (volta "2."))
+    \set Score.repeatCommands = #'((volta #f) end-repeat (volta "2."))
  c c
-    \set Score.repeatCommands =  #'((volta #f))
+    \set Score.repeatCommands = #'((volta #f))
 % Then a more strange one:
  c c
-    \set Score.repeatCommands =  #'((volta "93") end-repeat)
+    \set Score.repeatCommands = #'((volta "93") end-repeat)
  c c
-    \set Score.repeatCommands =  #'((volta #f))
+    \set Score.repeatCommands = #'((volta #f))
  c c
 }
 	\paper{raggedright=##t}

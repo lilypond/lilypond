@@ -17,7 +17,7 @@
     \lyricsto "bla" \lyrics \new Lyrics {
 	bla 
 
-	\set ignoreMelismata =  ##t
+	\set ignoreMelismata = ##t
 	
 	blob
 

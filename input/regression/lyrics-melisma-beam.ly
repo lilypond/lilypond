@@ -9,7 +9,7 @@
     <<
 	\new Staff
 	    \notes \relative c'' {
-		\set Staff.autoBeaming =  ##f
+		\set Staff.autoBeaming = ##f
 		c8 c8[ c8 c8]  c8    }
 	
 	\lyricsto "" \new Lyrics \lyrics { bla bla bla }

@@ -127,8 +127,8 @@
     \alias "Staff"
     
     BarLine \override #'bar-size = #4
-    VoltaBracket \override #'minimum-space =  #15
-    VoltaBracket \override #'padding =  #5
+    VoltaBracket \override #'minimum-space = #15
+    VoltaBracket \override #'padding = #5
     StaffSymbol \override #'line-count = #1	
 
     Stem \override #'neutral-direction = #1
@@ -520,7 +520,7 @@ AncientRemoveEmptyStaffContext = \translator {
 
     %% One may change the strings tuning as following :
     %% The lenght of the list must be equal to the number of string
-    stringTunings   = #guitar-tunings
+    stringTunings = #guitar-tunings
     tablatureFormat = #fret-number-tablature-format
 
     %%
@@ -604,9 +604,9 @@ EasyNotation = \translator {
       \remove "New_fingering_engraver"
 
       \description "Context for drawing notes in a Tab staff. "
-      Slur \override #'font-family       = #'roman
+      Slur \override #'font-family    = #'roman
       Slur \override #'print-function = #hammer-print-function
-      Slur \override #'direction    = #-1
+      Slur \override #'direction = #-1
 
       % Draws all stems/beams out of the staff (and not in the middle of the staff !)
       % This feature is now disabled because most of the tab does not use it.
@@ -635,7 +635,7 @@ EasyNotation = \translator {
       \accepts "TabVoice"
       
       % 6 strings
-      StaffSymbol \override #'line-count  = #6
+      StaffSymbol \override #'line-count = #6
       StaffSymbol \override #'staff-space = #1.5
 
      % Don't draw stems over the tablature figures !

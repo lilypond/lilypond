@@ -10,11 +10,11 @@ cases.
 "
 }
 
-scale =  \notes \relative c' {
+scale = \notes \relative c' {
   c8 d e f g a b c c d e f g a b c
 
 }
-rests =  \notes             {
+rests = \notes             {
   r r r  r r r r r r r r r r r r r
 } 
 different = <<  {
@@ -27,13 +27,13 @@ different = <<  {
         r1
       }} >>
 
-scales =  \context Staff \notes <<
+scales = \context Staff \notes <<
 	 {  r1 r2 r2   \scale    c''1 c'2 a'2 \rests  }
 	 \\
 	 { a'1 a'2 d'2 \rests r1 r2 r2  \scale }
 >>
 
-restsII =  \context Staff \notes {
+restsII = \context Staff \notes {
 	r4 r8
 	\context Staff << {  r8 } \\{  r8} >>
 	\context Staff << { r8} r8 \\{  r8} >>

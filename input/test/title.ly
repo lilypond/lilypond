@@ -1,7 +1,7 @@
 \version "2.1.22"
 % MERGE with lilypond-
 \header {
-  filename =  "title.ly"
+  filename = "title.ly"
   dedication = "dedication"
   title = "Title"
   subtitle = "Subtitle"
@@ -15,7 +15,7 @@
   texttranslator = "Translator"
   copyright = "public domain"
   enteredby = "jcn"
-  source =  "urtext"
+  source = "urtext"
 
   texidoc ="This test lilypond titling. process with lilypond, not lilypond-book." 
 }

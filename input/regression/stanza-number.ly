@@ -10,7 +10,7 @@ texidoc = "Stanza numbers are put left of their lyric."
     \context Lyrics
     \lyrics {
 	\skip 2
-	\set stanza =  "1."
+	\set stanza = "1."
 	Foo8 Bar8
     }
 >>

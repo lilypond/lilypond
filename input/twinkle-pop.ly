@@ -9,7 +9,7 @@ copyright = 	 "public domain"
 }
 
 
-melodie =  \notes\relative c'' {
+melodie = \notes\relative c'' {
         \clef "violin"
         \time 2/4 
 
@@ -22,7 +22,7 @@ melodie =  \notes\relative c'' {
         f4 f  | e e  | d d | c2 \bar "|."
 }
 
-acc =  \chords {
+acc = \chords {
 	% why don't \skip, s4 work?
         c2 c f c
         f c g:7 c
@@ -33,7 +33,7 @@ acc =  \chords {
         f c g:7 c
 }
 
-text =  \lyrics{ 
+text = \lyrics{ 
         \override LyricText  #'font-shape = #'italic
 
         Ah!4 vous dir -- ai -- je ma man2

@@ -1,17 +1,17 @@
 \header {
-  title =       "Petite Ouverture à danser"
+  title = "Petite Ouverture à danser"
   subtitle =	"4"
-  source =      ""
-  composer =    "Erik Satie (1866-1925)"
-  enteredby =   "jcn"
-  copyright =   "Public Domain"
+  source = ""
+  composer = "Erik Satie (1866-1925)"
+  enteredby = "jcn"
+  copyright = "Public Domain"
 }
 
 \version "2.1.7"
 
 \include "nederlands.ly"
 
-global =  \notes {
+global = \notes {
   \key a \minor
   \time 2/4
   s2*10
@@ -32,7 +32,7 @@ global =  \notes {
   \bar "|."
 }
   
-i =  \context Staff \notes\relative c''{
+i = \context Staff \notes\relative c''{
   \context Voice=i
   \voiceOne
 
@@ -60,7 +60,7 @@ i =  \context Staff \notes\relative c''{
   
 }
 
-ii =  \context Staff \notes\relative c'{
+ii = \context Staff \notes\relative c'{
   \context Voice=ii
   \voiceTwo
 
@@ -98,7 +98,7 @@ ii =  \context Staff \notes\relative c'{
  
 }
 
-lower =  \context Staff \notes \relative c{
+lower = \context Staff \notes \relative c{
   \context Voice=iii
 
   <as as'>4 <es es'> | r <as as'> | <des, des'> <f f'> | <c c'> r |

@@ -11,7 +11,7 @@ can be printed automatically. This is enabled if the property
 \score {
 \notes \relative c'
 \context PianoStaff <<
-    \set PianoStaff.followVoice =  ##t
+    \set PianoStaff.followVoice = ##t
     \context Staff = one \context Voice {
       c1
       \change Staff=two

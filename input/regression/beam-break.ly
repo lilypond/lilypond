@@ -8,6 +8,6 @@
     \paper { raggedright= ##t }
 
 \score { \notes \relative c''  {
-    \set Score.forbidBeamBreak =  ##f
+    \set Score.forbidBeamBreak = ##f
    \time 3/16 c16-[ d e \break f-] 
 }}

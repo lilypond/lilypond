@@ -16,7 +16,7 @@ to control the horizontal size of text.  " }
 	c_"very wide and long text" c
     }
     \paper {
-	linewidth  = 3.0\cm
+	linewidth = 3.0\cm
     }
 }
 

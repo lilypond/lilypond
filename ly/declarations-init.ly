@@ -28,12 +28,12 @@ working with lyric sections)
 
 %}
 break =#(make-event-chord (list (make-penalty-music -10001)))
-noBreak =  #(make-event-chord (list (make-penalty-music 10001)))
+noBreak = #(make-event-chord (list (make-penalty-music 10001)))
 
 \include "scale-definitions-init.ly"
 
-melisma = \set Staff.melismaBusy =  ##t
-melismaEnd = \set Staff.melismaBusy =  ##f
+melisma = \set Staff.melismaBusy = ##t
+melismaEnd = \set Staff.melismaBusy = ##f
 
 
 \include "grace-init.ly"

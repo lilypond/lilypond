@@ -23,7 +23,7 @@ a(a a a a a d a)
 c,(g' c e f d b g) 
 c,(g' c e f d b g) 
 
-\set autoBeaming =  ##f
+\set autoBeaming = ##f
 \stemUp
 a8(a a a a a a a)
 

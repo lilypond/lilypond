@@ -14,8 +14,8 @@
 @tab durations 
 @tab
 @lilypond[relative=1,notime]
-\set Staff.autoBeaming =  ##f
-\set Staff.Clef =  \turnOff
+\set Staff.autoBeaming = ##f
+\set Staff.Clef = \turnOff
 c1 c2 c8 c16
 @end lilypond
 
@@ -23,7 +23,7 @@ c1 c2 c8 c16
 @tab augmentation dots
 @tab
 @lilypond[relative=1,notime]
-\set Staff.Clef =  \turnOff
+\set Staff.Clef = \turnOff
 c4. c4..  
 @end lilypond
 
@@ -67,7 +67,7 @@ s16_" "
 @tab rest 
 @tab
 @lilypond[relative=1,notime]
-\set Staff.Clef =  \turnOff
+\set Staff.Clef = \turnOff
 r4 r8
 @end lilypond
 
@@ -75,8 +75,8 @@ r4 r8
 @tab tie
 @tab
 @lilypond[relative=1,notime]
-\set Score.timing =  ##f
-\set Staff.autoBeaming =  ##f
+\set Score.timing = ##f
+\set Staff.autoBeaming = ##f
 d ~ d
 @end lilypond
 
@@ -93,8 +93,8 @@ s4
 @tab raise octave
 @tab
 @lilypond[relative=1,notime]
-\set Score.timing =  ##f
-\set Staff.autoBeaming =  ##f
+\set Score.timing = ##f
+\set Staff.autoBeaming = ##f
 a a'
 @end lilypond
 
@@ -102,8 +102,8 @@ a a'
 @tab lower octave
 @tab
 @lilypond[relative=1,notime]
-\set Score.timing =  ##f
-\set Staff.autoBeaming =  ##f
+\set Score.timing = ##f
+\set Staff.autoBeaming = ##f
 c c,
 @end lilypond
 
@@ -112,9 +112,9 @@ c c,
 @tab slur
 @tab
 @lilypond[fragment,relative=1]
-\set Score.timing =  ##f
-\set Staff.TimeSignature =  \turnOff
-\set Staff.autoBeaming =  ##f
+\set Score.timing = ##f
+\set Staff.TimeSignature = \turnOff
+\set Staff.autoBeaming = ##f
 c( d e)
 @end lilypond
 
@@ -123,9 +123,9 @@ c( d e)
 @tab phrasing slur
 @tab
 @lilypond[fragment,relative=1]
-\set Score.timing =  ##f
-\set Staff.TimeSignature =  \turnOff
-\set Staff.autoBeaming =  ##f
+\set Score.timing = ##f
+\set Staff.TimeSignature = \turnOff
+\set Staff.autoBeaming = ##f
 c\(  c( d) e\)
 @end lilypond
 
@@ -134,9 +134,9 @@ c\(  c( d) e\)
 @tab beam
 @tab
 @lilypond[fragment,relative=1]
-\set Score.timing =  ##f
-\set Staff.TimeSignature =  \turnOff
-\set Staff.autoBeaming =  ##f
+\set Score.timing = ##f
+\set Staff.TimeSignature = \turnOff
+\set Staff.autoBeaming = ##f
 a8-[ b-]
 @end lilypond
 
@@ -154,7 +154,7 @@ a8-[ b-]
 @tab articulations
 @tab
 @lilypond[fragment,relative=1]
-\set Staff.TimeSignature =  \turnOff
+\set Staff.TimeSignature = \turnOff
 c-> c-.
 @end lilypond
 
@@ -163,7 +163,7 @@ c-> c-.
 @tab dynamics
 @tab
 @lilypond[fragment,relative=1]
-\set Staff.TimeSignature =  \turnOff
+\set Staff.TimeSignature = \turnOff
 c\mf c\sfz
 @end lilypond
 
@@ -172,9 +172,9 @@ c\mf c\sfz
 @tab crescendo
 @tab
 @lilypond[fragment,relative=1]
-\set Score.timing =  ##f
-\set Staff.TimeSignature =  \turnOff
-\set Staff.autoBeaming =  ##f
+\set Score.timing = ##f
+\set Staff.TimeSignature = \turnOff
+\set Staff.autoBeaming = ##f
 a\< a \!a
 @end lilypond
 
@@ -182,9 +182,9 @@ a\< a \!a
 @tab decrescendo
 @tab
 @lilypond[fragment,relative=1]
-\set Score.timing =  ##f
-\set Staff.TimeSignature =  \turnOff
-\set Staff.autoBeaming =  ##f
+\set Score.timing = ##f
+\set Staff.TimeSignature = \turnOff
+\set Staff.autoBeaming = ##f
 a\> a a\!
 @end lilypond
 

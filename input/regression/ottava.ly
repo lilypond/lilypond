@@ -48,7 +48,7 @@ with @code{Staff.ottavation}.
   \break
   a, 
   #(set-octavation 1)
-  \set Staff.ottavation =  #"8"
+  \set Staff.ottavation = #"8"
   b
   #(set-octavation 0)
   c a 
@@ -56,12 +56,12 @@ with @code{Staff.ottavation}.
   #(set-octavation 0)
   c 
   #(set-octavation -1)
-  \set Staff.ottavation =  #"8"
+  \set Staff.ottavation = #"8"
   c,,16
   #(set-octavation 0)
   c'16
   #(set-octavation -1)
-  \set Staff.ottavation =  #"8"
+  \set Staff.ottavation = #"8"
   g,,16
 }
 }

@@ -12,7 +12,7 @@ In some cases you may want to set slur attachments by hand. "
 %%
 
 fragment = \notes {
-  \set autoBeaming =  ##f
+  \set autoBeaming = ##f
   \override Stem  #'direction = #1
   \override Slur  #'direction = #1
   d'32( f'4  d8..)

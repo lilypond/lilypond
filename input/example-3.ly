@@ -1,11 +1,11 @@
 #(ly:set-option 'old-relative)
 \version "2.1.22"
 
-one =  \notes\relative c{
+one = \notes\relative c{
 	c'' d e f
 }
 
-two =  \notes\relative c{
+two = \notes\relative c{
 	\clef "bass"
 	c'2 g2
 }

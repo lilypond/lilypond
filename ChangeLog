@@ -1,5 +1,10 @@
 2004-02-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/: Convert ly files that still had \property.  Fixes make
+	web.  Remove exta spaces around '='. 
+
+	* scripts/convert-ly.py (conv): Redundant space fixes.
+
 	* scripts/lilypond-book.py (compile-ly): python2.1 fix.
 
 2004-02-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>

@@ -1,6 +1,6 @@
 \header {
 
-    texidoc  = "When merging heads, the dots are merged too."
+    texidoc = "When merging heads, the dots are merged too."
     }
 \version "2.1.22"
 

@@ -72,7 +72,7 @@ regularly. For example, beaming behavior is tuned with
 These use mixed-caps naming: @code{autoBeamSettings},
 @code{ignoreMelismata}. They are assigned as follows:
 @example
-  \set ignoreMelismata =  ...
+  \set ignoreMelismata = ...
 @end example
 
 @item Layout properties
@@ -243,7 +243,7 @@ file using the following expression:
 @cindex properties, context
 
 @example
-\set @var{contextname}.@var{propname} =  @var{value}
+\set @var{contextname}.@var{propname} = @var{value}
 @end example
 
 @noindent
@@ -460,7 +460,7 @@ The complete list of context  modifiers is the following:
 @itemize @bullet
 @item @code{\alias} @var{alternate-name}:
 This specifies a different name.  In the above example,
-@code{\set Staff.X =  Y} will also work on @code{SimpleStaff}s.
+@code{\set Staff.X = Y} will also work on @code{SimpleStaff}s.
 
 @item @code{\consistsend} @var{engravername}:
 Analogous to @code{\consists}, but makes sure that
@@ -529,7 +529,7 @@ evaluated as Scheme. For example, the boolean value @var{true} is
 @code{#t} in Scheme, so for LilyPond @var{true} looks like @code{##t},
 and can be used in property assignments:
 @example
-  \set Staff.autoBeaming =  ##f
+  \set Staff.autoBeaming = ##f
 @end example
 
 

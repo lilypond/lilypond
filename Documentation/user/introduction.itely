@@ -312,14 +312,14 @@ and with some corrections. Can you spot which fragment is which?
 @lilypond[noindent]
     \score { \notes {
       \override Staff.NoteSpacing   #'stem-spacing-correction
-        = #0.6
+     = #0.6
       c'4 e''4 e'4 b'4 |
        \stemDown b'4 e''4 a'4 e''4| \stemBoth
        \bar "||"
       \override Staff.NoteSpacing   #'stem-spacing-correction
-      = #0.0
+   = #0.0
       \override Staff.StaffSpacing   #'stem-spacing-correction
-      = #0.0
+   = #0.0
       c'4 e''4 e'4 b'4 |
       \stemDown b'4 e''4 a'4 e''4|
     }
@@ -450,7 +450,7 @@ example above is calculated by the function
 this function by a more advanced one, we could issue
 @example
     \override DynamicLineSpanner   #'Y-offset-callbacks
-       = #(list gee-whiz-gadget)
+    = #(list gee-whiz-gadget)
 @end example
 
 @noindent

@@ -9,7 +9,7 @@ texidoc = "Percent repeats are not skipped, even when skipBars is set.  "
 
 \score {
      \context Staff <<
-	\set Score.skipBars =  ##t
+	\set Score.skipBars = ##t
 	\notes {
 	\repeat "percent" 2 { g2 a g a }
 	}

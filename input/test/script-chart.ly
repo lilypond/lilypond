@@ -15,8 +15,8 @@ A chart showing all feta scripts.
       \override Score.LyricText  #'font-family = #'typewriter
       \override Score.LyricText  #'font-shape = #'upright
       \context Staff \notes {
-	\set Score.timing =  ##f
-	\set Score.barAlways =  ##t
+	\set Score.timing = ##f
+	\set Score.barAlways = ##t
 	\override Staff.BarLine  #'transparent = ##t
         c''\accent             c''\marcato            c''\staccatissimo
         c''\staccato           c''\tenuto             c''\portato
@@ -50,7 +50,7 @@ A chart showing all feta scripts.
     >>
     \paper {
       linewidth = 5.1\in
-      indent    = 0.0\mm
+      indent = 0.0\mm
     }
   }
 

@@ -10,7 +10,7 @@ printed. The line-spanners connects to the Y position of the note  on the next l
 
 \score{
         \context PianoStaff <<
-	    \set PianoStaff.followVoice =  ##t	    
+	    \set PianoStaff.followVoice = ##t	    
                 \context Staff=one \notes\relative c''{
 		    a1 \break
 		    \change Staff=two

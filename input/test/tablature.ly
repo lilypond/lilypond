@@ -13,7 +13,7 @@ partition = \notes {
     e8\5 fis\5 gis\5 a\5 b\5 cis'\5 dis'\5 e'\5
     e8\4 fis\4 gis\4 a\4 b\4 cis'\4 dis'\4 e'\4
     e8 fis gis a b cis' dis' e'
-    \set Score.minimumFret =  #5
+    \set Score.minimumFret = #5
     e8 fis gis a b cis' dis' e'
 }
 

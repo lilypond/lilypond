@@ -3,7 +3,7 @@
 
 
 \header {
-texidoc =  
+texidoc = 
 "Beaming can be overidden for individual stems."
 }
 \score {

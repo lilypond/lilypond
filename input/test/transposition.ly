@@ -10,7 +10,7 @@ Transposition test file."
 
 
 
-vOne =  \notes \relative c''{
+vOne = \notes \relative c''{
         \clef"violin"
         \key d \major
         \time 2/4 
@@ -21,24 +21,24 @@ vOne =  \notes \relative c''{
         c4 c |
 }
 
-vTwo =  \notes \transpose c d { \vOne }
+vTwo = \notes \transpose c d { \vOne }
 
-vThree =  \notes \relative c''{
+vThree = \notes \relative c''{
         \clef"violin"
 %        keysignature fis cis
-	\set Staff.keySignature =  #'((0 . 2)(3 . 2))
+	\set Staff.keySignature = #'((0 . 2)(3 . 2))
         \time 2/4 
         d4 d |       
 %        keysignature bes es fis
-	\set Staff.keySignature =  #'((3 . 2)(2 . -2)(6 . -2))
+	\set Staff.keySignature = #'((3 . 2)(2 . -2)(6 . -2))
         fis4 fis |         
 %        keysignature fis cis gis dis ais eis
-	\set Staff.keySignature =  #'((2 . -2)(5 . -2)(1 . 2)(4 . 2)(0 . 2)(3 . 2))
+	\set Staff.keySignature = #'((2 . -2)(5 . -2)(1 . 2)(4 . 2)(0 . 2)(3 . 2))
         cis4 ais4 |
 }
 
 
-vFour =  \notes \transpose c d \vThree
+vFour = \notes \transpose c d \vThree
 
 \score {
   \context StaffGroup <<

@@ -26,7 +26,7 @@ You can make LilyPond print text spanners. "
         a \stopTextSpan
 
 
-        \set Staff.centralCPosition =  #-13
+        \set Staff.centralCPosition = #-13
 
         \override TextSpanner  #'dash-period = #10
         \override TextSpanner  #'dash-fraction = #.5
@@ -34,7 +34,7 @@ You can make LilyPond print text spanners. "
         a \startTextSpan
 	b c 
         a \stopTextSpan
-        \set Staff.centralCPosition =  #-6	
+        \set Staff.centralCPosition = #-6	
     }
 	\paper{ raggedright = ##t}
 }

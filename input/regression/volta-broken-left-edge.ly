@@ -41,8 +41,8 @@ Bar 23	Perfect
 
 voiceB = \notes {
     \clef bass
-     \set Staff.instrument =  "Bass"
-     \set Staff.instr =  "B"
+     \set Staff.instrument = "Bass"
+     \set Staff.instr = "B"
      \key f \minor 
      \time 4/4  
     f1

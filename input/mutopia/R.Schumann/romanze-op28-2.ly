@@ -4,7 +4,7 @@
 \include "deutsch.ly"
 
 #(set-global-staff-size 16)
-\version "2.1.21"
+\version "2.1.22"
 
 \header {
   title = "Romanzen"
@@ -26,22 +26,22 @@ d = { \change Staff = down  \stemUp }
 forcedBreak = \break
 
 global = \notes { \key fis \major \time 6/8
-  \property Score.beatLength = #(ly:make-moment 3 8)
+  \set Score.beatLength = #(ly:make-moment 3 8)
   \repeat volta 2 { s2.*8 } s2.*26 \bar "|."
 }
 
 righta = \notes \transpose c cis' {
  % \stemUp \slurUp \tieUp
  \stemUp
- \property Voice.Slur \override #'attachment = #'(stem . stem)
+ \override Slur   #'attachment = #'(stem . stem)
  \repeat volta 2 {
-  \property Voice.TextScript \override #'extra-offset = #'(-8.0 . 2.5)
+  \override TextScript   #'extra-offset = #'(-8.0 . 2.5)
   \m  a,16[^\p( \u c^\markup {
       \large "Einfach ("
       \note #"8" #1
       \large " = 100)" }
   a c ] \m  g,[ \u c^3 ] \m  b,[ \u c^2 b c] \m  a,[ \u c^3]) | 
-  \property Voice.TextScript \revert #'extra-offset
+  \revert TextScript #'extra-offset
   \m  f,[( \u c f c] \m  g,[ \u c^4] \m  a,[ \u c^2 a c8  c16)] | 
   \m  c16[( \u f c' f] \m  b,[ \u f] \m  d[ \u f^3 d' f^2] \m  c[ \u  f)^4] |
   \m  f,16[( \u c16^3 f c] \m  g,[ \u c^4] \m  a,[ \u c^2 a c8  c16)] |
@@ -107,13 +107,13 @@ rightb = \notes \transpose c cis' {
  c_3 g,_2 es, g, h,_4 g, d, g, c g,8 f,16 |
  c g, es, g, es c_3 as, c^2 d^3 c h, c |
  e des b,\< des g e_3 ces_4 d_2 f^3 d cis d |
- \property Voice.PhrasingSlur \override #'extra-offset =  #'(0 . 3)
- \property Voice.PhrasingSlur \override #'beautiful = #42
+ \override PhrasingSlur   #'extra-offset = #'(0 . 3)
+ \override PhrasingSlur   #'beautiful = #42
  g\( fes des fes b g_3 es_1\! ges_2 a^3 ges f_1 ges_2 |
  r ges_2 b des_1 ges b,_2 des ges,^1 b, \d des,^1 \stemDown \transpose c' c { b,[_1 as,] |
  g,8  b,16[ g, e, cis,]  d,\)_4 \< f, h, d_3 f_2  r16\! }
- \property Voice.PhrasingSlur \revert #'extra-offset
- \property Voice.PhrasingSlur \revert #'beautiful
+ \revert PhrasingSlur #'extra-offset
+ \revert PhrasingSlur #'beautiful
 
  \change Staff=mid
  \relative c { \stemDown \slurDown
@@ -123,16 +123,16 @@ rightb = \notes \transpose c cis' {
   f,8.. f32^1 g8^2  a4.) |
   a4^1( c8^1_\accent~[c b)] g16^1([ b^2] |
    c4)^1 es8^1~es d^1 f^1~ |
-  \property PianoStaff.Arpeggio \override #'direction = #1
+  \override PianoStaff.Arpeggio   #'direction = #1
   f f8.. f32^1( as4.)^\fermata\arpeggio ~ |
-  \property PianoStaff.Arpeggio \revert #'direction
+  \revert PianoStaff.Arpeggio #'direction
   \stemUp \tieUp as r4 r8 |
  }
   s2. s
  \u s4. \grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+  \override Stem   #'stroke-style = #"grace"
   f8(
-  \property Voice.Stem \revert #'stroke-style }
+  \revert Stem #'stroke-style }
   f4) e8 |
  f g16_2 b_1 a_2 gis_1 c_2 h, c cis_1 d_2 b,_1 |
  \tieDown c4.~<f, c  >16\< \tieBoth <f h>~ < f^3 h >8[\>\! < e b^2> \!] |
@@ -172,7 +172,7 @@ lefta = \notes \transpose c cis {
    c4) r8 f4-4( as8-5~ | as g-4  b)-5 as4-5( ces'8-4~ |
   ces' b des'-4  c'4)-5( <es'-4 es''>8 |
   \stemDown \tieDown  des'4.)_5~des'~ |
-  \property Voice.NoteColumn \override #'horizontal-shift = #-1 des' s
+  \override NoteColumn   #'horizontal-shift = #-1 des' s
  }
  >>
  \change Staff=down \stemUp \slurUp \tieUp \phrasingSlurUp
@@ -186,9 +186,9 @@ lefta = \notes \transpose c cis {
  s2.*2
  s8 r16 h\( c' d' es' as g8\arpeggio  fis(
  ges)\) f16-2( a-1 c'-3  f')-1 \grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+  \override Stem   #'stroke-style = #"grace"
   \stemDown \slurUp  b,[( f] \stemUp 
-  \property Voice.Stem \revert #'stroke-style }
+  \revert Stem #'stroke-style }
   e')-1( d' c' b-1 a-2\prall g 
   f16)-4 f' <c' e'> d'-1 c'-2 h-1 s4.
  s2.
@@ -239,30 +239,30 @@ leftb = \notes \transpose c cis {
 \score { \notes
   \context PianoStaff <<
     \pianoCautionaries
-    \property PianoStaff.NoteCollision \override #'merge-differently-dotted = ##t
-    \property PianoStaff.connectArpeggios = ##t
-    \property PianoStaff.Arpeggio \override #'print-function = \arpeggioBracket
+    \override PianoStaff.NoteCollision   #'merge-differently-dotted = ##t
+    \set PianoStaff.connectArpeggios = ##t
+    \override PianoStaff.Arpeggio   #'print-function = \arpeggioBracket
 
-    \property PianoStaff.InstrumentName \set #'font-size = #6
-    \property PianoStaff.InstrumentName \set #'font-shape   = #'italic
-    \property PianoStaff.InstrumentName \set #'font-magnification   = #3
+    \override PianoStaff.InstrumentName   #'font-size = #6
+    \override PianoStaff.InstrumentName   #'font-shape = #'italic
+    \override PianoStaff.InstrumentName   #'font-magnification = #3
     
-    \property PianoStaff.instrument="2. "
+    \set PianoStaff.instrument = "2. "
     \context Staff = up {
-      \property Staff.DynamicLineSpanner \override #'direction = #-1
+      \override Staff.DynamicLineSpanner   #'direction = #-1
       \clef G <<\global \context Voice=upv \righta >>
     }
     \context Staff = mid {
-    \property Staff.InstrumentName \set #'font-size = #0
-    \property Staff.InstrumentName \set #'font-shape   = #'upright
-    \property Staff.InstrumentName \set #'font-magnification   = #1
-    \property Staff.InstrumentName \set #'extra-offset = #'(0 . 6)
-   % \property Staff.instrument="\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
-    \property Staff.instrument= \markup { \column < Rechte Hand >  }
+    \override Staff.InstrumentName   #'font-size = #0
+    \override Staff.InstrumentName   #'font-shape = #'upright
+    \override Staff.InstrumentName   #'font-magnification = #1
+    \override Staff.InstrumentName   #'extra-offset = #'(0 . 6)
+   % \set Staff.instrument = "\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
+    \set Staff.instrument = \markup { \column < Rechte Hand >  }
       \clef F <<\global \context Voice=midv \rightb>>
     }
       \context Staff = down {
-        \property Staff.DynamicLineSpanner \override #'direction = #1
+        \override Staff.DynamicLineSpanner   #'direction = #1
         \clef F
 	<< \global \context Voice=lva \lefta \context Voice=lvb \leftb >>
     }

@@ -1,12 +1,12 @@
 #(ly:set-option 'old-relative)
 
-\version "2.1.7"
+\version "2.1.22"
 \include  "mozart-hrn3-defs.ly"
 
 romanze = \notes \relative c' {
 	\key f \major
 	\time 2/2
-	\property Score.skipBars = ##t
+	\set Score.skipBars = ##t
 
 	c'4.( _\markup { \dynamic "p" \italic { "" con molto espressione } }
 		 f8) a,4 a
@@ -45,20 +45,20 @@ romanze = \notes \relative c' {
 	 c[ ( e) g g]  g[( f e  d)]
 	c4(
 	\grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+  \override Stem   #'stroke-style = #"grace"
    \longgrace e16 \endlonggrace 
-  \property Voice.Stem \revert #'stroke-style }
+  \revert Stem #'stroke-style }
 
 	 d8.[  c16) \< ]  c8[ c-.( c-. c)-.]\!
 	\mark "C"
 
 	%% this is a trick to get the sfp-s to align. 
-	\property Voice.Hairpin \override #'transparent = ##t
+	\override Hairpin   #'transparent = ##t
 	des1\sfp \> 
 	g,1\sfp\!  \> 
 	c\sfp \!   \> 
 	c,\sfp\!
-	\property Voice.Hairpin \revert #'transparent 
+	\revert Hairpin #'transparent 
 	R1*3
 	r8  c[\p c c] c2~
 	 c8[ c' c c] c2~

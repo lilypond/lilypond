@@ -15,7 +15,7 @@ improvisation is active.
 
 
 improOn = \notes {
-    \set squashedPosition =  #0
+    \set squashedPosition = #0
     \override NoteHead  #'style = #'slash
 }
 

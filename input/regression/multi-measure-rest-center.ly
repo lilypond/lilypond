@@ -8,7 +8,7 @@
 \score {
     \notes
     {
-	\set Score.skipBars =  ##t
+	\set Score.skipBars = ##t
 	\override Staff.BarLine  #'hair-thickness = #7.5
 	\override Staff.MultiMeasureRest  #'hair-thickness = #10
 

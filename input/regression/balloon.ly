@@ -16,7 +16,7 @@ with lines and explanatory text added."
        \once\override Stem  #'balloon-text = #"I'm a stem"
        \once\override Stem  #'balloon-text-offset = #'(3 . 4)
        \once\override Stem  #'balloon-text-props
-         = #'((font-family .  roman))
+      = #'((font-family .  roman))
 
 
        %% use predefd function. 

@@ -42,14 +42,14 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "2.1.21"
+\version "2.1.22"
 
-dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
-dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
+dynamicUp = \override DynamicLineSpanner   #'direction = #1
+dynamicRevert = \revert DynamicLineSpanner #'direction
 
 #(set-global-staff-size 16)
 
-vocalVerse =  \notes\relative c''{
+vocalVerse = \notes\relative c''{
 	\dynamicUp
 	\times 2/3 {  g8[(  as)] g } c4. g8 |
 	\times 2/3 {  f8[(  g)] f } c'4 f,8 r |
@@ -66,31 +66,31 @@ vocalVerse =  \notes\relative c''{
 	g8. b16 es4. d8 |
 	c8. g16 es4. c8 |
 	\grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+  \override Stem   #'stroke-style = #"grace"
     as'32[( bes ] 
-  \property Voice.Stem \revert #'stroke-style }
+  \revert Stem #'stroke-style }
  \times 2/3 {  as8[)(  g)] as } c4. as8 |
 	g2. |
 	\grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+  \override Stem   #'stroke-style = #"grace"
     f32[( g ] 
-  \property Voice.Stem \revert #'stroke-style }
+  \revert Stem #'stroke-style }
  \times 2/3 {  f8[)(  e)] f } as4. f8 |
   
 	es!2. |
 	g8. b16 es4. d8 |
 	c8. g16 e4. c8 |
  	\grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+  \override Stem   #'stroke-style = #"grace"
     a'32[( b ] 
-  \property Voice.Stem \revert #'stroke-style }
+  \revert Stem #'stroke-style }
  \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
 	g!2. |
 	\times 2/3 {  d'8[\f(  cis)] d } f4. b,8 |
 	c!2. |
 }
 
-vocalThrough =  \notes\relative c{
+vocalThrough = \notes\relative c{
 	\dynamicUp
 	g''8. g16 b8. b16 d8. d16 |
 	c4 b r |
@@ -101,9 +101,9 @@ vocalThrough =  \notes\relative c{
 	R2. |
 	R2. |
 	\grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+  \override Stem   #'stroke-style = #"grace"
     a32[( b ] 
-  \property Voice.Stem \revert #'stroke-style }
+  \revert Stem #'stroke-style }
  \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
 	g!2. |
 	\times 2/3 {  d'8[\f(  cis)] d } f4. b,8 |
@@ -115,7 +115,7 @@ vocalThrough =  \notes\relative c{
 	e2 r4 |
 }
 
-lyricVerseOne =  \lyrics {
+lyricVerseOne = \lyrics {
 	Lei -- se fle -- hen mei -- ne Lie -- der
 	durch die Nacht zu dir;
 	in den stil -- len Hain her nie -- der,
@@ -130,7 +130,7 @@ lyricVerseOne =  \lyrics {
 	fürch -- te, Hol -- de, nicht.
 }
 	
-lyricVerseTwo =  \lyrics{
+lyricVerseTwo = \lyrics{
 	Hörst die Nach -- ti -- gal -- len schla -- gen?
 	ach! sie fle -- hen dich, 
 	mit der Tö -- ne sü -- "\ss en" Kla -- gen
@@ -145,7 +145,7 @@ lyricVerseTwo =  \lyrics{
 	jed -- es wei -- che Herz.
 }
 
-lyricThrough =  \lyrics{
+lyricThrough = \lyrics{
 	La\ss auch dir die Brust be -- we -- gen 
 	Lieb -- chen, hö -- re mich! 
 	be -- bend harr' ich dir ent -- ge -- gen! 
@@ -155,14 +155,14 @@ lyricThrough =  \lyrics{
 	be -- glük -- ke mich!
 }
 
-trebleIntro =  \notes\relative c{
+trebleIntro = \notes\relative c{
 	r8^"\bf Mäßig"\pp <g' c>-. <c es>-. <g c>-. <c es>-. <g c>-. |
 	r8 <as c>-. <c es>-. <as c>-. <c es>-. <as c>-. |
 	r8 <as c>-. <c d>-. <as c>-. <c d>-. <as c>-. |
 	r8 <g b>-. <b d>-. <g b>-. <b d>-. <g b>-. |
 }
 
-trebleVerseOne =  \notes\relative c{
+trebleVerseOne = \notes\relative c{
 	%5
 	r8 <g' c> <c es> <g c> <c es> <g c> |
 	r8 <f c'> <c' d> <f, c'> <c' d> <f, c'> |
@@ -193,14 +193,14 @@ trebleVerseOne =  \notes\relative c{
 	r8\pp <es as c> <as c es> <es as c> <as c es> <es as c> |
 	%20
 	r8 <es g bes> <g bes es> <es g bes> <g bes es> <es g bes> |
-	\property Voice.Slur \override #'attachment = #'(stem . stem)
+	\override Slur   #'attachment = #'(stem . stem)
 	\grace {
-  \property Voice.Stem \override #'stroke-style = #"grace"
+  \override Stem   #'stroke-style = #"grace"
     as'32[( bes ] 
-  \property Voice.Stem \revert #'stroke-style }
+  \revert Stem #'stroke-style }
 
 	\times 2/3 {  as8[)( g as] } c4.->  as8) |
-	\property Voice.Slur \revert #'attachment
+	\revert Slur #'attachment
 	g2. |
 	r8 <f, g> <g b> <f g> <g b> <f g> |
 	r8 <e g> <g c> <e g> <g c> <e g> |
@@ -210,7 +210,7 @@ trebleVerseOne =  \notes\relative c{
 	<a a'>4.-> <f f'>8)  |
 }
 
-trebleEentje =  \notes \relative c' \context Voice {
+trebleEentje = \notes \relative c' \context Voice {
 	\stemBoth
 	<e e'>2 r4 |
 	<f as!>2\(\mf <as c>8.(-> <f as>16)\) |
@@ -225,7 +225,7 @@ trebleEentje =  \notes \relative c' \context Voice {
 	<e g>2 r4 |
 }
 
-trebleThrough =  \notes \relative c'{
+trebleThrough = \notes \relative c'{
 	\stemBoth
 	<e e'>2. |
 	%61
@@ -256,9 +256,9 @@ trebleThrough =  \notes \relative c'{
 	<a a'>4.-> <f f'>8)
 	<e e'>2. |
 	<es! es'! >2. |
-	\property Voice . TextScript \override #'font-shape = #'italic
+	\override TextScript   #'font-shape = #'italic
 	<d d'>2._"decresc."
-	\property Voice . TextScript \revert #'font-shape
+	\revert TextScript #'font-shape
 
 	%75
 	<b b'>2. |
@@ -270,15 +270,15 @@ trebleThrough =  \notes \relative c'{
 	<f g>4. <b, g'>8(-. <d g>-. <f g>)-. |
 	%80
 
-	\property Voice . TextScript \override #'font-shape = #'italic
+	\override TextScript   #'font-shape = #'italic
 	<e g>2._"dim."
-	\property Voice . TextScript \revert #'font-shape
+	\revert TextScript #'font-shape
 
 	<g, e' g>2. |
 	<g e' g>2.\fermata |
 }
 
-bassIntro =  \notes\relative c{
+bassIntro = \notes\relative c{
 	\dynamicUp
 %1
 	<c, c'>2 r4 |
@@ -287,7 +287,7 @@ bassIntro =  \notes\relative c{
 	<g g'>2 r4 |
 }
 
-bassVerseOne =  \notes\relative c{
+bassVerseOne = \notes\relative c{
 %	\clef bass
 	\dynamicUp
 %5
@@ -319,7 +319,7 @@ bassVerseOne =  \notes\relative c{
 	c,8 <c' e g>[ <e g c> <c e g> <e g c> <c e g>] |
 }
 
-bassEentje =  \notes\relative c{
+bassEentje = \notes\relative c{
 	\dynamicUp
 	<c, c'>8 <c' f as!>[ <f as c> <c f as> <f as c> <c f as>] |
 	c,8 <c' e g>[ <e g c> <c e g> <e g c> <c e g>] |
@@ -331,7 +331,7 @@ bassEentje =  \notes\relative c{
 	c,8 <e' g>[ <g c> <e g> <g c> <e g>] |
 }
 
-bassThrough =  \notes\relative c{
+bassThrough = \notes\relative c{
 	\dynamicUp
 	%61
 	<g, g'>8^"cresc." <g' b d>[ <b d f> <g b d> <as! b d >-> <b d f>] |
@@ -365,7 +365,7 @@ bassThrough =  \notes\relative c{
 	<c, g' c>2._\fermata |
 }
 		
-global =  \notes{
+global = \notes{
 	\time 3/4 
 	\key es \major
 	\skip 1 * 3/4 * 4
@@ -380,7 +380,7 @@ global =  \notes{
 	\bar "|."
 }
 
-allLyrics =  {
+allLyrics = {
 	% maybe should be bigger by default, in grob-description.scm ?
 	\lyricsto "leise" \new Lyrics {
 	    \lyricVerseOne
@@ -403,11 +403,11 @@ vocals = \context Voice = leise \notes {
 	R1 * 3/4 * 6
 }
 
-trebleStaff =  \context Staff = treble<< 
-        \property Staff.midiInstrument = "acoustic grand"
+trebleStaff = \context Staff = treble<< 
+        \set Staff.midiInstrument = "acoustic grand"
 	\global
 	{\clef treble
-	\property Voice.autoBeamSettings \override #'(begin * * * *) = #(ly:make-moment 0 1)
+	\override autoBeamSettings   #'(begin * * * *) = #(ly:make-moment 0 1)
 	\trebleIntro 
 	\trebleVerseOne 
 	\trebleEentje
@@ -415,8 +415,8 @@ trebleStaff =  \context Staff = treble<<
 	\trebleThrough }
 >>
 
-bassStaff =  \context Staff = bass<<
-        \property Staff.midiInstrument = "acoustic grand"
+bassStaff = \context Staff = bass<<
+        \set Staff.midiInstrument = "acoustic grand"
 	\global
 	\clef bass
 	{\bassIntro 
@@ -430,7 +430,7 @@ bassStaff =  \context Staff = bass<<
 \score{
     <<
 	\new Staff <<
-	    \property Staff.midiInstrument = "synth voice"
+	    \set Staff.midiInstrument = "synth voice"
 	    %% insert \transpose if necessary, depending on voice range.
 	    \global
 	    \vocals

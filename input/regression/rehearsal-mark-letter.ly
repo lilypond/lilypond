@@ -12,7 +12,7 @@ with @code{\mark NUMBER}, or with @code{Score.rehearsalMark}."
   c1  \mark \default
   c1  \mark \default
   c1  \mark \default
-  \set Score.rehearsalMark =  #24
+  \set Score.rehearsalMark = #24
   c1  \mark \default
   c1  \mark \default
   c1  \mark \default
