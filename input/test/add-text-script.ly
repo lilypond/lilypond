@@ -1,4 +1,5 @@
-\version "1.7.18"  %% or actually: 1.7.1 ...
+\version "1.7.23"
+
 \header {
 texidoc= "@cindex make-music Fingering
 You can add various stuff to notes using make-music.
@@ -11,12 +12,12 @@ create, then write a function that will build the structure for you.
 
 #(define (make-text-script x) 
    (let ((m (make-music-by-name 'TextScriptEvent)))
-     (ly:set-mus-property! m 'text-type 'finger)
-     (ly:set-mus-property! m 'text x)
+    (ly:set-mus-property! m 'direction DOWN) 
+     (ly:set-mus-property! m 'text (make-simple-markup x))
      m))
      
 #(define (add-text-script m x)
-   (if (equal? (ly:music-name m) 'RequestChord)
+   (if (equal? (ly:get-mus-property m 'name) 'EventChord)
        (ly:set-mus-property! m 'elements
 			    (cons (make-text-script x)
 				  (ly:get-mus-property m 'elements)))
@@ -29,7 +30,7 @@ create, then write a function that will build the structure for you.
    m)
 
 \score {
-  \apply #(lambda (x) (add-text-script x "6") (display x) x ) \notes { c4-3 }
+  \apply #(lambda (x)  (add-text-script x "6") (display-music x) x ) \notes { c'4-3 }
 	\paper{ raggedright = ##t }
 }
 

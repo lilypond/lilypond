@@ -262,5 +262,5 @@ Mensural_ligature::brew_molecule (SCM)
 
 ADD_INTERFACE (Mensural_ligature, "mensural-ligature-interface",
 	       "A mensural ligature",
-	       "delta-pitch flexa-width head-width join-left "
+	       "delta-pitch flexa-width head-width join-left join-left-amount "
 	       "ligature-primitive-callback primitive thickness");

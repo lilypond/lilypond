@@ -25,11 +25,11 @@ texidoc = "This file tests ly2dvi titling. It should be processed with ly2dvi. "
 
 
 \score {
-	\notes { c1 c1 c1 c1 }
+	\relative c'' \notes { c1 c1 c1 c1 }
 }
 
 \score {
-	\notes { c1 c1 c1 c1 }
+\relative c''	\notes { c1 c1 c1 c1 }
 	
 	\header {
 

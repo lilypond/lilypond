@@ -4,7 +4,7 @@ You can manually control repeat signs and numbers to produce
 unusual output. "
 }
 
-\score { \notes {
+\score { \notes \relative c'' {
 % First a normal looking repeat:
  c2 c
     \property Score.repeatCommands = #'((volta "1."))

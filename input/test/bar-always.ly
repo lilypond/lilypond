@@ -8,7 +8,7 @@ automatically insert barlines everywhere.
 
 
 \score {
-	\notes {
+	\notes \relative c''{
 		\property Score.barAlways = ##t
 		\property Score.defaultBarType = ":|:"
 		c4 c4 c4 c4 }

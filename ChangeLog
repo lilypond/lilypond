@@ -1,5 +1,12 @@
 2003-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/spanner-after-break-tweak.ly: import
+	broken-spanner-adjustment
+
+	* input/no-notation/midi-transposing.ly: move from input/test/
+
+	* input/test/: remove chord-markup
+
 	* input/regression/instrument-name-partial.ly: move from input/test.
 
 	* input/test/vertical-text.ly: remove

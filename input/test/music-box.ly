@@ -82,10 +82,8 @@ endc = \notes {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
 
 \score {
   \notes \transpose c c' \context PianoStaff <
-    \context Staff=up   { \clef "G" s1*32 \enda }
-    \context Staff=down { \clef "F" s1*32 < \context Voice=vup \endb
-			                     \context Voice=vdwn \endc
-			> }
+    \context Staff=up   { \clef "G"  }
+    \context Staff=down { \clef "F" }
     { \apply #transform {\pat {c e g c' e' }
                          \pat {c d a d' f' }
 			 \pat {h, d g d' f' }

@@ -50,7 +50,7 @@ gcdg =  \notes{ \grace {  g'32-[ c d]}}
 
 % 
 \score {
-  \notes { \time 6/8 \partial 4
+  \notes  { \time 6/8 \partial 4
   \tieUp
   \slurUp
 f4 |
