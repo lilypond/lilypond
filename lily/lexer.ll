@@ -45,6 +45,7 @@
 #include "lilypond-input-version.hh"
 #include "translator-def.hh"
 #include "music-output-def.hh"
+#include "identifier-smob.hh"
 
 /*
 RH 7 fix (?)
@@ -262,14 +263,21 @@ HYPHEN		--
 		yylval.scm =  SCM_EOL;
 		return SCM_T;
 	}
-	yylval.scm = ly_parse_scm (s, &n, here_input());
-	
+	SCM sval = ly_parse_scm (s, &n, here_input());
+
 	for (int i=0; i < n; i++)
 	{
 		yyinput ();
 	}
 	char_count_stack_.top () += n;
 
+	if (unpack_identifier (sval) != SCM_UNDEFINED)
+	{
+		yylval.scm = unpack_identifier(sval);
+		return identifier_type (yylval.scm);
+	}
+		
+	yylval.scm = sval;
 	return SCM_T;
 }
 <figures>{
@@ -524,17 +532,8 @@ My_lily_lexer::pop_state ()
 }
 
 int
-My_lily_lexer::scan_escaped_word (String str)
+My_lily_lexer::identifier_type(SCM sid)
 {
-	// use more SCM for this.
-
-	SCM sym = ly_symbol2scm (str.to_str0 ());
-
-	int l = lookup_keyword (str);
-	if (l != -1) {
-		return l;
-	}
-	SCM sid = lookup_identifier (str);
 	if (gh_string_p (sid)) {
 		yylval.scm = sid; 
 		return STRING_IDENTIFIER;
@@ -558,10 +557,26 @@ My_lily_lexer::scan_escaped_word (String str)
 		yylval.scm = sid;
 		return MUSIC_OUTPUT_DEF_IDENTIFIER;
 	}
+	return SCM_IDENTIFIER;
+}
 
-	if (sid != SCM_UNDEFINED) {
+
+int
+My_lily_lexer::scan_escaped_word (String str)
+{
+	// use more SCM for this.
+
+	SCM sym = ly_symbol2scm (str.to_str0 ());
+
+	int l = lookup_keyword (str);
+	if (l != -1) {
+		return l;
+	}
+	SCM sid = lookup_identifier (str);
+	if (sid != SCM_UNDEFINED)
+	{
 		yylval.scm = sid;
-		return SCM_IDENTIFIER;
+		return identifier_type (sid);
 	}
 
 	if ((YYSTATE != notes) && (YYSTATE != chords)) {

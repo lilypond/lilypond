@@ -38,10 +38,10 @@
   (sign (- up down)))
 
 ;; arguments are in the form (up . down)
-(define (beam-dir-majority count total)
+(define-public (beam-dir-majority count total)
   (dir-compare (car count) (cdr count)))
 
-(define (beam-dir-majority-median count total)
+(define-public (beam-dir-majority-median count total)
   "First try majority. If that doesn't work, try median."
   (let ((maj (dir-compare (car count) (cdr count))))
     (if (not (= maj 0))
@@ -50,10 +50,10 @@
     ))
 
 
-(define (beam-dir-mean count total)
+(define-public (beam-dir-mean count total)
   (dir-compare (car total) (cdr total)))
 
-(define (beam-dir-median count total)
+(define-public (beam-dir-median count total)
   (if (and (> (car count) 0)
 	   (> (cdr count) 0))
       (dir-compare (/ (car total) (car count)) (/ (cdr total) (cdr count)))

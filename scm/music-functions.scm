@@ -325,6 +325,9 @@ this is not an override
      m
      ))
 
+(define-public (empty-music)
+  (ly-id (ly-make-music "Music"))
+  )
 ;;;
 
 ; Make a function that checks score element for being of a specific type. 

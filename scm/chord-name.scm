@@ -440,7 +440,7 @@
 
 ;; DONT use non-ascii characters, even if ``it works'' in Windows
 
-(define chord::names-alist-american '())
+(define-public chord::names-alist-american '())
 
 (set! chord::names-alist-american
       (append 
@@ -488,7 +488,7 @@
 
 ;; American style chordnames use no "no",
 ;; but otherwise very similar to banter for now
-(define (chord::name-american tonic exception-part unmatched-steps
+(define-public (chord::name-american tonic exception-part unmatched-steps
 			      bass-and-inversion steps)
   (let ((additions (chord::additions unmatched-steps))
 	(subtractions #f))
@@ -519,7 +519,7 @@
 ;;
 ;; DONT use non-ascii characters, even if ``it works'' in Windows
 
-(define chord::names-alist-jazz '())
+(define-public chord::names-alist-jazz '())
 (set! chord::names-alist-jazz
       (append 
       '(
@@ -815,7 +815,7 @@ If we encounter a chromatically altered step, turn on list-step
 ;; If you set subtract #f, the chord::inner-name-jazz does not see any
 ;; subtractions, ever, so they don't turn up in the chord name.
 ;;
-(define (chord::name-jazz tonic exception-part unmatched-steps
+(define-public (chord::name-jazz tonic exception-part unmatched-steps
 			  bass-and-inversion steps)
   (let ((additions (chord::additions unmatched-steps))
 	;; get no 'omit' or 'no'

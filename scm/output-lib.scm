@@ -222,7 +222,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 	  (string-encode-integer (quotient i 26))))))
 
 
-(define ((every-nth-bar-number-visible n) barnum) (= 0 (modulo barnum n)))
+(define-public ((every-nth-bar-number-visible n) barnum) (= 0 (modulo barnum n)))
 
 (define-public (default-bar-number-visibility barnum) (> barnum 1))
 
