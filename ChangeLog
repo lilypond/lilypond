@@ -1,3 +1,14 @@
+2004-08-08  Carl Sorensen  <carldsorensen@comcast.net>
+
+	* scm/define-grob-interfaces.scm (fret-diagram-interface): add
+	number-type and label-dir
+
+	* scm/define-grob-properties.scm: add number-type and label-dir
+
+	* scm/fret-diagrams.scm (label-fret): allow fret label to be on either 
+	left or right.  Allow choice of upper-case roman, lower-case roman, or
+	arabic numerals in fret label
+
 2004-08-04  Werner Lemberg  <wl@gnu.org>
 
 	* lily/slur-quanting.cc: Include libc-extension.hh.
