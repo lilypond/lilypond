@@ -1,3 +1,3 @@
 
-$(PYTHON_MODULE): $(outdir)/config.h $(LO_FILES)
-	$(LD) $(SHARED_FLAGS) -o $@ $(LO_FILES) $(LDFLAGS)
+$(outdir)/%$(SHARED_LIB_SUFFIX): $(outdir)/%.lo
+	$(LD) $(SHARED_FLAGS) -o $@ $< $(LDFLAGS)

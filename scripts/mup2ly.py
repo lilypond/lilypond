@@ -34,9 +34,26 @@ import __main__
 import operator
 import tempfile
 
-sys.path.append ('@datadir@/python')
-sys.path.append ('@datadir@/buildscripts/out')
-sys.path.append ('@datadir@/modules/out')
+
+# if set, LILYPONDPREFIX must take prevalence
+# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+datadir = '@datadir@'
+if os.environ.has_key ('LILYPONDPREFIX') \
+   or '@datadir@' == '@' + 'datadir' + '@':
+	datadir = os.environ['LILYPONDPREFIX']
+else:
+	datadir = '@datadir@'
+
+sys.path.append (os.path.join (datadir, 'python'))
+sys.path.append (os.path.join (datadir, 'python/out'))
+
+program_name = 'ly2dvi'
+program_version = '@TOPLEVEL_VERSION@'
+original_dir = os.getcwd ()
+temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+errorport = sys.stderr
+keep_temp_dir_p = 0
+verbose_p = 0
 
 try:
 	import gettext
@@ -47,17 +64,8 @@ except:
 	def _ (s):
 		return s
 
-# Attempt to fix problems with limited stack size set by Python!
-# Sets unlimited stack size. Note that the resource module only
-# is available on UNIX.
-try:
-       import resource
-       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
-except:
-       pass
 
 program_name = 'mup2ly'
-package_name = 'lilypond'
 help_summary = _ ("Convert mup to LilyPond source")
 
 option_definitions = [
