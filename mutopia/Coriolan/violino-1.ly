@@ -449,7 +449,7 @@ violinoI =  \notes \relative c {
 violinoIStaff =  \context Staff = violino1 <
 	\property Staff.midiInstrument = #"violin"
 	\property Staff.instrument = #"Violino I  "
-	\property Staff.instr = #"Vl. I  "
+	\property Staff.instr = #"Vl. I   "
 	\notes< 
 		\global
 		\context Voice=violinoi

@@ -5,7 +5,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2001-02-27 21:26+0100\n"
+"POT-Creation-Date: 2001-03-06 12:36+0100\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Date: 1998-05-30 00:17:12+0200\n"
 "From:  <jantien@xs4all.nl>\n"
@@ -13,13 +13,124 @@ msgstr ""
 "--output-dir=../po/out --add-comments --keyword=_ --keyword=_f\n"
 "Files: bow.cc int.cc\n"
 
+#: ly2dvi.py:67 main.cc:95 main.cc:109
+msgid "this help"
+msgstr ""
+
+#: ly2dvi.py:68
+msgid "change global setting KEY to VAL"
+msgstr ""
+
+#: ly2dvi.py:69
+#, fuzzy
+msgid "generate PostScript output"
+msgstr "vincoli degenerati"
+
+#: ly2dvi.py:70
+msgid "keep all output, and name the directory ly2dvi.dir"
+msgstr ""
+
+#: ly2dvi.py:71
+msgid "don't run LilyPond"
+msgstr ""
+
+#: ly2dvi.py:72 main.cc:104 main.cc:119
+msgid "print version number"
+msgstr ""
+
+#: ly2dvi.py:73 main.cc:106 main.cc:121
+#, fuzzy
+msgid "show warranty and copyright"
+msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
+
+#: ly2dvi.py:74
+msgid "dump all final output into DIR"
+msgstr ""
+
+#: ly2dvi.py:75 main.cc:113
+#, fuzzy
+msgid "write Makefile dependencies for every input file"
+msgstr ""
+"  -d, --dependencies     scrive le dependenze del Makefile per ogni file di "
+"input\n"
+
+#: ly2dvi.py:101
+msgid "Exiting ... "
+msgstr ""
+
+#: ly2dvi.py:120
+#, c-format
+msgid "Reading `%s'"
+msgstr ""
+
+#: ly2dvi.py:124 mapped-file-storage.cc:87 mudela-stream.cc:111
+#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
+#, c-format
+msgid "can't open file: `%s'"
+msgstr "non posso aprire il file: `%s'"
+
+#: ly2dvi.py:187
+#, fuzzy, c-format
+msgid "Usage: %s [OPTION]... FILE"
+msgstr "Uso: %s [OPZIONE... [FILE]"
+
+#: ly2dvi.py:189
+msgid "Generate .dvi with LaTeX for LilyPond"
+msgstr ""
+
+#: ly2dvi.py:191 main.cc:119 main.cc:151
+msgid "Options:"
+msgstr "Opzioni: "
+
+#: data-file.cc:118 input.cc:85 ly2dvi.py:195 midi-parser.cc:100 warn.cc:23
+msgid "warning: "
+msgstr "attenzione: "
+
+#: ly2dvi.py:196
+msgid "all output is written in the CURRENT directory"
+msgstr ""
+
+#: ly2dvi.py:198 main.cc:123 main.cc:174
+#, c-format
+msgid "Report bugs to %s"
+msgstr ""
+
+#: ly2dvi.py:230
+#, c-format
+msgid "Invoking `%s'"
+msgstr ""
+
+#: input.cc:90 ly2dvi.py:234 warn.cc:9 warn.cc:17
+msgid "error: "
+msgstr "errore: "
+
+#: ly2dvi.py:234
+#, c-format
+msgid "command exited with value %d"
+msgstr ""
+
+#: ly2dvi.py:236
+msgid "(ignored)"
+msgstr ""
+
+#: ly2dvi.py:277
+#, c-format
+msgid "Analyzing `%s'"
+msgstr ""
+
+#: ly2dvi.py:539 scores.cc:44
+#, fuzzy, c-format
+msgid "dependencies output to %s..."
+msgstr "L'output stampato è inviato a %s..."
+
+#: ly2dvi.py:540
+#, c-format
+msgid "%s file left in `%s'"
+msgstr ""
+
 #: data-file.cc:54
 msgid "EOF in a string"
 msgstr "EOF in una corda"
-
-#: data-file.cc:118 input.cc:85 midi-parser.cc:100 warn.cc:23
-msgid "warning: "
-msgstr "attenzione: "
 
 #: dstream.cc:186
 #, fuzzy
@@ -46,10 +157,6 @@ msgstr "opzione non riconosciuta: `%s'"
 msgid "invalid argument `%s' to option `%s'"
 msgstr "argomento `%s' non valido per l'opzione `%s'"
 
-#: input.cc:90 warn.cc:9 warn.cc:17
-msgid "error: "
-msgstr "errore: "
-
 #: input.cc:96
 #, fuzzy
 msgid "non fatal error: "
@@ -62,12 +169,6 @@ msgstr "posizione sconosciuta"
 #: mapped-file-storage.cc:74
 msgid "can't map file"
 msgstr "non posso mappare il documento"
-
-#: mapped-file-storage.cc:87 mudela-stream.cc:111 paper-stream.cc:40
-#: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
-#, c-format
-msgid "can't open file: `%s'"
-msgstr "non posso aprire il file: `%s'"
 
 #: simple-file-storage.cc:56
 #, fuzzy, c-format
@@ -316,7 +417,7 @@ msgstr ""
 msgid "can't find file: `%s'"
 msgstr "non trovo il file: `%s'"
 
-#: key-engraver.cc:103 key-performer.cc:72
+#: key-engraver.cc:103 key-performer.cc:77
 msgid "FIXME: key change merge"
 msgstr ""
 
@@ -355,10 +456,6 @@ msgstr ""
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr ""
 
-#: main.cc:95 main.cc:109
-msgid "this help"
-msgstr ""
-
 #: main.cc:110
 msgid "FIELD"
 msgstr ""
@@ -384,13 +481,6 @@ msgstr ""
 #, fuzzy
 msgid "use FILE as init file"
 msgstr "  -i, --init=NOMEFILE    usa NOMEFILE come file iniziale\n"
-
-#: main.cc:113
-#, fuzzy
-msgid "write Makefile dependencies for every input file"
-msgstr ""
-"  -d, --dependencies     scrive le dependenze del Makefile per ogni file di "
-"input\n"
 
 #: main.cc:114
 msgid "prepend DIR to dependencies"
@@ -422,18 +512,9 @@ msgid "don't timestamp the output"
 msgstr ""
 "  -T, --no-timestamps    non inserisce marcatori temporali nell'output\n"
 
-#: main.cc:104 main.cc:119
-msgid "print version number"
-msgstr ""
-
 #: main.cc:120
 msgid "verbose"
 msgstr ""
-
-#: main.cc:106 main.cc:121
-#, fuzzy
-msgid "show warranty and copyright"
-msgstr "  -w, --warranty         mostra la garanzia e il copyright\n"
 
 #: main.cc:122
 msgid "write midi ouput in formatted ascii"
@@ -459,19 +540,10 @@ msgid ""
 "the GNU Project.\n"
 msgstr ""
 
-#: main.cc:119 main.cc:151
-msgid "Options:"
-msgstr "Opzioni: "
-
 #: main.cc:155
 #, fuzzy
 msgid "This binary was compiled with the following options:"
 msgstr "GNU LilyPond è stata compilata con le seguenti impostazioni:"
-
-#: main.cc:123 main.cc:174
-#, c-format
-msgid "Report bugs to %s"
-msgstr ""
 
 #: main.cc:55 main.cc:182
 #, c-format
@@ -528,16 +600,11 @@ msgstr ""
 msgid "no such instrument: `%s'"
 msgstr "% strumento:"
 
-#: midi-item.cc:367
-#, c-format
-msgid "unconventional key: flats: %d, sharps: %d"
-msgstr "armatura non convenzionale: %d bemolli e %d diesis"
-
-#: midi-item.cc:414
+#: midi-item.cc:402
 msgid "silly duration"
 msgstr "indicazione durata priva di senso"
 
-#: midi-item.cc:427
+#: midi-item.cc:415
 msgid "silly pitch"
 msgstr "indicazione altezza priva di senso"
 
@@ -596,7 +663,7 @@ msgstr "L'output stampato è inviato a %s..."
 msgid ", at "
 msgstr ", a "
 
-#: paper-outputter.cc:240
+#: paper-outputter.cc:245
 #, fuzzy, c-format
 msgid "writing header field %s to %s..."
 msgstr "scrivo il file delle dipendenze: `%s'..."
@@ -605,7 +672,7 @@ msgstr "scrivo il file delle dipendenze: `%s'..."
 msgid "Preprocessing elements..."
 msgstr "Pre-elaborazione..."
 
-#: paper-score.cc:112
+#: paper-score.cc:113
 #, fuzzy
 msgid "Outputting Score, defined at: "
 msgstr "emetto lo Score, definito a: "
@@ -645,12 +712,12 @@ msgstr "traccia "
 msgid "Creator: "
 msgstr "Autore: "
 
-#: performance.cc:111
+#: performance.cc:116
 #, c-format
 msgid "from musical definition: %s"
 msgstr "della definizione musicale: %s"
 
-#: performance.cc:166
+#: performance.cc:171
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "L'output MIDI è inviato a %s..."
@@ -720,11 +787,6 @@ msgstr "durata: %.2f secondi"
 #, fuzzy, c-format
 msgid "unbound spanner `%s'"
 msgstr "Spanner non legato `%s'"
-
-#: scores.cc:44
-#, fuzzy, c-format
-msgid "dependencies output to %s..."
-msgstr "L'output stampato è inviato a %s..."
 
 #: scores.cc:106
 #, fuzzy
@@ -982,6 +1044,10 @@ msgstr "aspettavo uno spazio bianco"
 msgid "Can't evaluate Scheme in safe mode"
 msgstr ""
 
+#: lexer.ll:335
+msgid "Brace found at end of lyric. Did you forget a space?"
+msgstr ""
+
 #: lexer.ll:439
 #, fuzzy, c-format
 msgid "invalid character: `%c'"
@@ -1224,6 +1290,17 @@ msgid "% from input file: "
 msgstr "% dal file di input: "
 
 #, fuzzy
+#~ msgid "Dependency file left in `%s'"
+#~ msgstr "scrivo il file delle dipendenze: `%s'..."
+
+#, fuzzy
+#~ msgid "Usage: ly2dvi [OPTION]... FILE\n"
+#~ msgstr "Uso: %s [OPZIONE... [FILE]"
+
+#~ msgid "unconventional key: flats: %d, sharps: %d"
+#~ msgstr "armatura non convenzionale: %d bemolli e %d diesis"
+
+#, fuzzy
 #~ msgid "wrong identifier type, expected: `%s'"
 #~ msgstr "Tipo di identificatore sbagliato: "
 
@@ -1239,10 +1316,6 @@ msgstr "% dal file di input: "
 
 #~ msgid "Automatically generated"
 #~ msgstr "Generato automaticamente"
-
-#, fuzzy
-#~ msgid "Writing dependency file: `%s'..."
-#~ msgstr "scrivo il file delle dipendenze: `%s'..."
 
 #, fuzzy
 #~ msgid "Wrong type for property"
@@ -1346,9 +1419,6 @@ msgstr "% dal file di input: "
 #~ msgstr ""
 #~ "Non posso risolvere esattamente questo problema di conversione; ritorno al "
 #~ "Word_wrap"
-
-#~ msgid "degenerate constraints"
-#~ msgstr "vincoli degenerati"
 
 #~ msgid "time: %.2f seconds"
 #~ msgstr "durata: %.2f secondi"
