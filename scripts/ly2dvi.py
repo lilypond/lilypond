@@ -552,15 +552,16 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 		s = s + '\\include{%s}\n' \
 			% string.join (extra['latexheaders'], '}\n\\include{')
 
+ 	unit = extra['unit'][-1]
+
 	textheight = ''
 	if extra['textheight']:
-		textheight = ',textheight=%fpt' % extra['textheight'][0]
+		textheight = ',textheight=%f%s' % (extra['textheight'][0], unit)
 
 	orientation = 'portrait'
 	if extra['orientation']:
 		orientation = extra['orientation'][0]
 
- 	unit = extra['unit'][-1]
  	# set sane geometry width (a4-width) for linewidth = -1.
 	maxlw = max (extra['linewidth'] + [-1])
 	if maxlw < 0:

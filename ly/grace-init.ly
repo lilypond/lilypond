@@ -1,8 +1,4 @@
 
-#(define (grace-beam-space-function multiplicity)
-  (* (if (<= multiplicity 3) 0.816 0.844) 0.8))
-
-
 startGraceMusic = {
     \property Voice.Stem \override  #'direction = #1
     \property Voice.Stem \override #'length = #6
@@ -26,7 +22,6 @@ startGraceMusic = {
 
 stopGraceMusic = {
     \property Staff.Accidentals \revert #'font-relative-size
-    \property Voice.Beam \revert #'space-function
     \property Voice.Beam \revert #'thickness
 
     \property Voice.Stem \revert #'flag-style
