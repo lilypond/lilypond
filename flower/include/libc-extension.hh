@@ -53,8 +53,6 @@ extern "C" {
 #include <libio.h>
 #else
 
-#ifdef ALIAS_FILE_TO_FILECOOKIE
-  
 #define cookie_io_functions_t le_cookie_io_functions_t 
   typedef struct
   {
@@ -75,7 +73,11 @@ extern "C" {
   int handle_cookie_io_fprintf (FILE *file, char const *format, ...);
   int handle_cookie_io_putc (int c, FILE *file);
 
-/* FIXME: ttftool uses fclose fopencookie fprintf and putc only... */
+/* FIXME: ttftool uses fclose fopencookie fprintf and putc only.  if
+          ALIAS_FILE_TO_FILECOOKIE, blondly redefine those functions
+          to wrappers that check for and handle Memory_out_stream.  */
+#ifdef ALIAS_FILE_TO_FILECOOKIE
+
 #define fclose handle_cookie_io_fclose
 #define fprintf handle_cookie_io_fprintf
 #ifdef putc
@@ -83,6 +85,7 @@ extern "C" {
 #undef putc
 #endif
 #define putc handle_cookie_io_putc
+
 #endif /* ALIAS_FILE_TO_FILECOOKIE */
   
 #endif /* ! HAVE_FUNOPEN */

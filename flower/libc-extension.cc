@@ -192,7 +192,6 @@ extern "C" {
     return 0;
   }
 
-#undef fclose
   int 
   handle_cookie_io_fclose (FILE *file)
   {
@@ -201,7 +200,6 @@ extern "C" {
     return fclose (file);
   }
 
-#undef fprintf
   int 
   handle_cookie_io_fprintf (FILE *file, char const *format, ...)
   {
@@ -220,11 +218,6 @@ extern "C" {
     return i;
   }
 
-#ifdef std_putc
-#define putc std_putc
-#else
-#undef putc
-#endif
   int 
   handle_cookie_io_putc (int c, FILE *file)
   {

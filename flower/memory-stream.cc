@@ -44,7 +44,6 @@ Memory_out_stream::Memory_out_stream ()
   file_ = fopencookie ((void*) this, "w", functions_);
 }
 
-#undef fclose
 Memory_out_stream::~Memory_out_stream ()
 {
   if (file_)
