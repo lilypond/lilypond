@@ -7,7 +7,7 @@ two different notehead styles on the same stem. " }
 \notes { c'4
 
 	 < c'4 \context Thread = tb {
-	     \property Thread.NoteHead \set #'style = #'mensural
+	     \property Thread.NoteHead \set #'style = #'harmonic
 	     g'4
 	     } >
 	     

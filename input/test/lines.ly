@@ -1,10 +1,7 @@
 \version "1.7.18"
 
-\header {
-texidoc="
-Draw abritrary lines.  This brings LilyPond on par with Mup.
-"
-}
+\header { texidoc="@cindex Lines
+Draw abritrary lines.  This brings LilyPond on par with Mup. " }
 
 \score {
   \notes\relative c {

@@ -1,10 +1,9 @@
 \version "1.7.18"
 % candidate for remove or regression.
 \header {
-
     texidoc = "Check whether all @code{duration} properties can 
 be printed. This once helped track down an obscure memory corruption
-bug.  "
+bug.  MOVE TO REGRESSION?  (probably not DELETE) "
 
 }
 

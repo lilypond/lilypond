@@ -1,7 +1,10 @@
 \version "1.7.18"
+% delete?  I don't think it demonstrates much. -gp
+% the only unusual thing here is \melisma
 \header{
 filename = 	 "twinkle-pop.ly"
-texidoc = 	 "twinkle twinkle in pop-song-settings"
+%texidoc = 	 "twinkle twinkle in pop-song-settings"
+texidoc = "DELETE (unless \melisma is really special.  In that case, rename file.) "
 }
 
 

@@ -1,6 +1,5 @@
 \version "1.7.18"
-
-
+% candidate for regression.  -gp
 %{
   Test ly2dvi features.
 %}
@@ -16,7 +15,8 @@ metre = "metre"
 opus = "opus"
 piece = "piece"
 poet = "poet"
-texidoc = "This file tests ly2dvi titling. It should be processed with ly2dvi."
+texidoc = "This file tests ly2dvi titling. It should be processed with ly2dvi.
+REGRESSION?  (probably not DELETE) "
 
 %
 % todo: check whether title.ly does the same. --hwn
