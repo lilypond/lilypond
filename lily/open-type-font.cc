@@ -211,7 +211,8 @@ Real
 Open_type_font::design_size () const
 {
   SCM entry = scm_hashq_ref (lily_global_table_,
-			     ly_symbol2scm ("staffsize"), SCM_BOOL_F);
+			     ly_symbol2scm ("staffsize"),
+			     scm_from_int (12));
   return scm_to_double (entry);
 }
 

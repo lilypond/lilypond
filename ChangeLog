@@ -1,3 +1,17 @@
+2004-12-16  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/font.scm (add-music-fonts): Load aybabtu iso all separate
+	braces.
+
+	* lily/open-type-font.cc (design_size): Use 12 as default for
+	design size.
+
+	* mf/aybabtu.pe.in: New file.  Merge all our braces.
+
+	* mf/GNUmakefile: Generate aybabtu.
+
+	* tex/lilyponddefs.tex: teTeX 3.0 pdfetex fix.
+
 2004-12-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/lily-library.scm (char->unicode-index): Remove.
