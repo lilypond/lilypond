@@ -186,7 +186,7 @@ trebleVerseOne =  \notes\relative c{
 	< {a4.- > )f8}  { a'4. f8 }  > |
 }
 
-trebleEentje =  \notes \relative c'{
+trebleEentje =  \notes \relative c' \context Voice {
 	\stemBoth
 	<e2 e'> r4 |
 	<f2\mf as!\(> <as8.->( c> <f16 \))as> |
@@ -316,11 +316,11 @@ bassEentje =  \notes\relative c{
 bassThrough =  \notes\relative c{
 	\dynamicUp
 	%61
-	<g,8^"cresc." g'> [<g' b d> <b d f> <g b d> <as!-> b-> d->> <b d f>] |
-	<g,8 g'> [<g' d'> <d' f> <g, d'> <as-> b-> d->> <b d f>] |
+	<g,8^"cresc." g'> [<g' b d> <b d f> <g b d> <as!-> b-> d-> > <b d f>] |
+	<g,8 g'> [<g' d'> <d' f> <g, d'> <as-> b-> d-> > <b d f>] |
 	% copied
-	<g,8 g'> [<g' d'> <d' f> <g, d'> <as-> b-> d->> <b d f>] |
-	<g,8 g'> [<g' d'> <d' f> <g, d'> <gis-> b-> d->> <b d f>] |
+	<g,8 g'> [<g' d'> <d' f> <g, d'> <as-> b-> d-> > <b d f>] |
+	<g,8 g'> [<g' d'> <d' f> <g, d'> <gis-> b-> d-> > <b d f>] |
 	%65
 	<gis,8 gis'> [<d''\> e> <e b'> <d e> <e b'> <d\! e>] |
 	<a,8 a'> [<c' e> <e a> <c e> <e a> <c e>] |

@@ -1074,8 +1074,8 @@ if 1:
 
 if 1:
 	def conv(str):
-		str = re.sub (r'<<' '< <', str)
-		str = re.sub (r'>>' '> >', str)
+		str = re.sub (r'<<', '< <', str)
+		str = re.sub (r'>>', '> >', str)
 
 		return str
 	

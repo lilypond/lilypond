@@ -9,10 +9,6 @@ dashLarger= "accent"
 dashDot= "staccato"
 dashUnderscore = "portato"
 
-
-#(display set-mus-properties!)
-#(display make-articulation)
-
 thumb = #(make-articulation "thumb")
 accent = #(make-articulation "accent")
 marcato = #(make-articulation "marcato")

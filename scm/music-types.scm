@@ -242,7 +242,7 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
      . (
 	(description . "Start or end phrasing slur. Syntax NOTE \\(  and \\) NOTE")
 	(internal-class-name . "Event")
-	(types . (general-music span-event phrasing-slur-event slur-event))
+	(types . (general-music span-event phrasing-slur-event))
 	))
     (PropertySet
      . (
