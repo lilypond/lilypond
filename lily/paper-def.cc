@@ -36,7 +36,6 @@ find_scaled_font (Output_def *mod, Font_metric *f, Real m,
       font_table = scm_c_make_hash_table (11);
       mod->set_variable (ly_symbol2scm ("scaled-fonts"), font_table);
     }
-
   
   SCM sizes = scm_hashq_ref (font_table, f->self_scm (), SCM_BOOL_F);
   if (sizes != SCM_BOOL_F)

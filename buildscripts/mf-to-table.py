@@ -103,7 +103,7 @@ def parse_logfile (fn):
 			tags = tags[:-1]
 			name = tags[1:]
 			global_info['DesignSize'] = string.atof (tags[4])
-			global_info['FontName'] = string.join (name,'-')
+			global_info['FontName'] = string.join (name, '-')
 			global_info['FullName'] = string.join (name,' ')
 			global_info['FamilyName'] = string.join (name[1:-1],
 								 '-')
@@ -153,6 +153,7 @@ def write_afm_metric (file, global_info, charmetrics):
 
 
 def write_tex_defs (file, global_info, charmetrics):
+	nm = global_info['font
 	## nm = global_info['FontFamily']
 	nm = font_family
 	for m in charmetrics:
