@@ -132,7 +132,7 @@ enddef;
 
 def def_some_vars =
 	save hs, mb, mt, thin, thick, height, width, cOne, cTwo;
-	width = .8staffsize;
+	width = .8(4 staff_space);
 	height = 2.4staff_space;
 	% URG.  smaller sizes should be wider and fatter
 	%thin = 0.05staff_space;
@@ -156,14 +156,14 @@ def print_penpos (suffix $)=
 enddef;
 
 %fet_beginchar("accTEST", "accTEST", "accTEST")
-%	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4staff_space#);
+%	set_char_box(.4(4 staff_space#), .4(4 staff_space#), 0, 2.4staff_space#);
 %	def_some_vars;
 %	penlabels(10, 11, 12, 13, 14);
 %	penstroke z10e--z11e{right}..z12e..z13e{left}--z14e;
 %fet_endchar;
 
 fet_beginchar("accSB", "accSB", "accSB")
-	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4staff_space#);
+	set_char_box(.4(4 staff_space#), .4(4 staff_space#), 0, 2.4staff_space#);
 	def_some_vars;
 	def_B(.35width, .7height);
 
@@ -197,7 +197,7 @@ fet_beginchar("accSB", "accSB", "accSB")
 fet_endchar;
 
 fet_beginchar("accBB", "accBB", "accBB")
-	set_char_box(.4staffsize#, .4staffsize#, 0, 2.4staff_space#);
+	set_char_box(.4(4 staff_space#), .4(4 staff_space#), 0, 2.4staff_space#);
 	def_some_vars;
 	def_B(.35width, .7height);
 

@@ -305,3 +305,5 @@ def draw_bulb(expr turndir, zl, zr, bulb_rad, radius_factor)=
 
 	endgroup
 enddef;
+
+pi:=3.14159;

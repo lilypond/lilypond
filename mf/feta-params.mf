@@ -7,15 +7,10 @@ stafflines = 5;
 staff_space#:=staffsize#/(stafflines-1);
 
 
-% URG!
-%font_x_height  staff_space# ;
 
-%
-% [D.K.Roush & J.S.Gourlay] say this should be 0.072
-% We know better
-% FIXME: generally, the "blackness" of most chars depends on this.
-%        these dimensions should be independent.
-stafflinethickness#:=0.1 staff_space#;
+% measuring on pocket scores turns out: stafflinethickness is
+% independent on staff size, and generally 0.5 pt.
+stafflinethickness#  :=0.5 pt#; 
 
 stemthickness# := 1.3 stafflinethickness#;
 ledgerlinethickness# := 2 stafflinethickness#;
@@ -50,3 +45,5 @@ if (blot_diameter# * vppp) < 1:
 	blot_diameter# := 1/vppp;
 fi
 define_pixels(blot_diameter);
+
+
