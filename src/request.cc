@@ -11,6 +11,7 @@ RCONS(Rest_req);
 RCONS(Barcheck_req);
 RCONS(Text_req);
 RCONS(Rhythmic_req);
+RCONS(Mark_req);
 RCONS(Stem_req);
 RCONS(Script_req);
 RCONS(Note_req);
@@ -18,7 +19,11 @@ RCONS(Melodic_req);
 RCONS(Span_req);
 RCONS(Slur_req);
 RCONS(Beam_req);
-
+void
+Stem_req::print() const
+{
+    mtor << "Stem\n";
+}
 void
 Barcheck_req::print() const    
 {
@@ -80,7 +85,7 @@ Rhythmic_req::print() const
     while (d--)
 	mtor << '.';
     
-    mtor<<"xPlet factor"<<plet_factor<<"\n";
+    mtor<<", plet factor"<<plet_factor<<"\n";
 }
 
 void
@@ -168,4 +173,15 @@ Text_req::~Text_req()
     delete spec;
 }
 
+Mark_req::Mark_req(String s)
+{
+    mark_str_ = s;
+}
 
+void
+Mark_req::print()const
+{
+#ifndef NDEBUG
+    mtor<< "Mark `" << mark_str_ << "\'\n";
+#endif
+}
