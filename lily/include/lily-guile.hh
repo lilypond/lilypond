@@ -17,8 +17,11 @@
 
 #ifndef SCM_PACK
 #define SCM_PACK(x) ((SCM) x)
-#endif
 
+#endif
+#ifndef SCM_UNPACK
+#define SCM_UNPACK(x) ( x)
+#endif
 
 /*
   conversion functions follow the GUILE naming convention, i.e.

@@ -72,13 +72,26 @@ Break_align_item::before_line_breaking ()
       else
 	next_origin = ly_symbol2scm ("begin-of-note");
       
-      SCM extra_space
-	= scm_eval (scm_listify (ly_symbol2scm ("break-align-spacer"),
-				 ly_quote_scm (current_origin),
-				 ly_quote_scm (next_origin),
-				 SCM_UNDEFINED));
+      SCM e = scm_assoc (scm_listify (current_origin,
+				      next_origin,
+				      SCM_UNDEFINED),
+			 scm_eval (ly_symbol2scm ("space-alist")));
+      
+      SCM extra_space;
+      if (e != SCM_BOOL_F)
+	{
+	  extra_space = gh_cdr (e);
+	}
+      else
+	{
+	  warning (_f ("unknown spacing pair `%s', `%s'",
+		       ly_symbol2string (current_origin),
+		       ly_symbol2string (next_origin)));
+	  extra_space = scm_listify (ly_symbol2scm ("minimum-space"), gh_double2scm (0.0), SCM_UNDEFINED);
+	}
+
       SCM symbol = gh_car  (extra_space);
-      Real spc = gh_scm2double (SCM_CADR(extra_space));
+      Real spc = gh_scm2double (gh_cadr(extra_space));
       spc *= interline;
 
       dists.push(spc);
