@@ -64,7 +64,7 @@ protected:
 };
 
 
-void add_bound_item (Spanner*, Item* n);
+void add_bound_item (Spanner*, Grob*);
 void extend_spanner_over_elements (Grob*  span);
 
 

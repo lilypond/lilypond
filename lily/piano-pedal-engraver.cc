@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 2000--2002 Jan Nieuwenhuizen <janneke@gnu.org>
+ (c) 2000--2002 Jan Nieuwenhuizen <janneke@gnu.org>
   
   Chris Jackson <chris@fluffhouse.org.uk> - extended to support
   bracketed pedals.
@@ -22,10 +22,28 @@
 #include "directional-element-interface.hh"
 #include "note-column.hh"
 
+struct Pedal_info
+{
+  char const * name_;
+  Span_req* start_req_l_;
+  Drul_array<Span_req*> req_l_drul_;
+  Item* item_p_;
+  Spanner* bracket_p_;     // A single portion of a pedal bracket
+  Spanner* finished_bracket_p_;
+
+  /*
+    This grob contains all the pedals of the same type on the same staff
+   */
+  Spanner* line_spanner_;
+  Spanner* finished_line_spanner_;
+  Span_req* current_bracket_req_;
+};
+
+
 class Piano_pedal_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Piano_pedal_engraver);
+  TRANSLATOR_DECLARATIONS (Piano_pedal_engraver);
   ~Piano_pedal_engraver ();
 protected:
   virtual void initialize ();
@@ -37,43 +55,45 @@ protected:
   virtual void create_grobs ();
 
 private:
-  struct Pedal_info
-  {
-    char const * name_;
-    Span_req* start_req_l_;
-    Drul_array<Span_req*> req_l_drul_;
-    Item* item_p_;
-    Spanner* bracket_p_;     // A single portion of a pedal bracket
-    Spanner* finished_bracket_p_;
-    Spanner* line_spanner_;  // This grob contains all the pedals of the same type on the same staff
-    Spanner* finished_line_spanner_;
-    Span_req* current_bracket_req_;
-  };
-
 
   Pedal_info *info_list_;
 
-  Spanner *previous_p_ [4]; // Record a stack of the current pedal spanners, so if more than one pedal
-  int nspanners_i;          // occurs simultaneously then extra space can be added between them.
-  Drul_array<SCM> edge_width_drul_; // Left and right flare widths of a \___/, as specified by the grob property edge-width.
+  /*
+    Record a stack of the current pedal spanners, so if more than one pedal
+    occurs simultaneously then extra space can be added between them.
+
+
+    Why 4, why not 3. Why not 3423 ?  ---hwn.
+  */
+  
+  Spanner *previous_p_ [4];
+  
+  int spanner_count_;
+
+  /*
+    Left and right flare widths of a \___/, as specified by the grob
+    property edge-width.
+   */
+  Drul_array<SCM> edge_width_drul_;
+  
   void create_text_grobs (Pedal_info *p, SCM pedaltype);
   void create_bracket_grobs (Pedal_info *p, SCM pedaltype);
-  void typeset_all();
+  void typeset_all ();
 };
-
 
 
 Piano_pedal_engraver::Piano_pedal_engraver ()
 {
   info_list_ = 0;
 }
+
 void
 Piano_pedal_engraver::initialize ()
 {
   info_list_ = new Pedal_info[4];
   Pedal_info *p = info_list_;
 
-  nspanners_i = 0;
+  spanner_count_ = 0;
   for (int i = 0; i < 3; ++i)
     previous_p_[i] = 0; 
 
@@ -112,24 +132,31 @@ Piano_pedal_engraver::acknowledge_grob (Grob_info info)
 {
   for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
-      Grob *g  = (Grob *) p->item_p_;
-      int i = 0; 
-      while ( i < 2 )
+      Grob *gs[]  = {p->item_p_,
+		     p->bracket_p_};
+      for (int i = 0; i < 2 ; i++)
 	{
+	  Grob *g = gs[i];
 	  if (g && p->line_spanner_) 
 	    {
 	      if (Note_column::has_interface (info.grob_l_))
 		{
 		  Side_position_interface::add_support (p->line_spanner_, info.grob_l_);
-		  add_bound_item (p->line_spanner_,dynamic_cast<Item*> (info.grob_l_));
-		  
+		  add_bound_item (p->line_spanner_,info.grob_l_);
+
+		  if (p->bracket_p_)
+		    add_bound_item (p->bracket_p_,info.grob_l_);		  
+
+		  /*
+		    What the h*ll is this supposed to do? --hwn
+		   */
+#if 0
 		  if (Side_position_interface::get_axis (g) == X_AXIS
 		      && !g->get_parent (Y_AXIS))
 		    g->set_parent (info.grob_l_, Y_AXIS);
+#endif
 		}
 	    }
-	  g = (Grob *) p->bracket_p_;
-	  ++i;
 	}
     }
 }
@@ -170,27 +197,30 @@ Piano_pedal_engraver::create_grobs ()
 	{
 	  if (!p->line_spanner_)
 	    {
-	      p->line_spanner_ = new Spanner (get_property ( ( String (p->name_) + "PedalLineSpanner").ch_C() ));
+	      String name  = String (p->name_) + "PedalLineSpanner";
+	      p->line_spanner_ = new Spanner (get_property (name.ch_C ()));
 	      Side_position_interface::set_axis (p->line_spanner_, Y_AXIS);
 	      Music * rq = (p->req_l_drul_[START]  ?  p->req_l_drul_[START]  :  p->req_l_drul_[STOP]);
 	      announce_grob (p->line_spanner_, rq->self_scm ());
 	    }
       
-	  // Choose the appropriate grobs to add to the line spanner
-	  // These can be text items or text-spanners
-	  
-	  SCM type = ly_cdr (scm_assoc (ly_symbol2scm("pedal-type"), 
-					get_property( ( String (p->name_) + "Pedal").ch_C () )));
-	  if (type == ly_symbol2scm("text") ||      // Ped.     *Ped.  *
-	      type == ly_symbol2scm("mixed")   )    // Ped. _____/\____|
-	    if (! p->item_p_)
-	      create_text_grobs(p, type);
-
-	  if (type == ly_symbol2scm("bracket") ||   // |_________/\____|
-	      type == ly_symbol2scm("mixed")   )
-	    create_bracket_grobs(p, type);
+	  /* Choose the appropriate grobs to add to the line spanner
+	   These can be text items or text-spanners
+	  */
+	  SCM type = ly_cdr (scm_assoc (ly_symbol2scm ("pedal-type"), 
+					get_property ( (String (p->name_) + "Pedal").ch_C ())));
+	  if (type == ly_symbol2scm ("text") ||      // Ped.     *Ped.  *
+	      type == ly_symbol2scm ("mixed")  )    // Ped. _____/\____|
+	    {
+	      if (! p->item_p_)
+		create_text_grobs (p, type);
+	    }
+	  if (type == ly_symbol2scm ("bracket") ||   // |_________/\____|
+	      type == ly_symbol2scm ("mixed")  )
+	   {
+	     create_bracket_grobs (p, type);
+	   }
 	}
-      
     }
 }
 
@@ -200,13 +230,13 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, SCM pedaltype)
 {
   SCM b;
   SCM s = SCM_EOL;
-  SCM strings = get_property (("pedal" + String (p->name_) + "Strings").ch_C ());
+  SCM strings = get_property ( ("pedal" + String (p->name_) + "Strings").ch_C ());
 
-  if (! (scm_ilength (strings) < 3))
+  if (scm_ilength (strings) >= 3)
     {
       if (p->req_l_drul_[STOP] && p->req_l_drul_[START]) 
 	{
-	  if (pedaltype == ly_symbol2scm("text")) 
+	  if (pedaltype == ly_symbol2scm ("text")) 
 	    {
 	      if (!p->start_req_l_)
 		{
@@ -219,10 +249,9 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, SCM pedaltype)
 	      p->start_req_l_ = p->req_l_drul_[START];
 	    }
 	}
-      
       else if (p->req_l_drul_[STOP])
 	{ 
-	  if (pedaltype == ly_symbol2scm("text"))
+	  if (pedaltype == ly_symbol2scm ("text"))
 	    {
 	      if (!p->start_req_l_)
 		{
@@ -231,23 +260,24 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, SCM pedaltype)
 	      else
 		{
 		  s = ly_caddr (strings);
-		  nspanners_i --;
+		  spanner_count_ --;
 		}
 	      p->start_req_l_ = 0;
 	    }
 	}
-      
-      else if ( p->req_l_drul_[START] )
+      else if (p->req_l_drul_[START])
 	{
 	  p->start_req_l_ = p->req_l_drul_[START];
 	  s = ly_car (strings);
-	  if (pedaltype == ly_symbol2scm("text")) {
-	    nspanners_i ++;
-	    previous_p_[nspanners_i] = p->line_spanner_;
-	    if  (nspanners_i > 1)
-	      // add extra space below the previous already-occuring pedal
-	      Side_position_interface::add_support(p->line_spanner_, previous_p_[nspanners_i - 1]);
-	  }
+	  if (pedaltype == ly_symbol2scm ("text"))
+	    {
+	      spanner_count_ ++;
+	      previous_p_[spanner_count_] = p->line_spanner_;
+	      if (spanner_count_ > 1)
+		// add extra space below the previous already-occuring pedal
+		Side_position_interface::add_support (p->line_spanner_,
+						     previous_p_[spanner_count_ - 1]);
+	    }
 	}
       
       if (gh_string_p (s))
@@ -261,10 +291,10 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, SCM pedaltype)
 	  announce_grob (p->item_p_,
 			 (p->req_l_drul_[START]
 			 ? p->req_l_drul_[START]
-			 : p->req_l_drul_[STOP])->self_scm() );
+			 : p->req_l_drul_[STOP])->self_scm ());
 	  
 	}
-      if (pedaltype == ly_symbol2scm("text")) 
+      if (pedaltype == ly_symbol2scm ("text")) 
 	{
 	  p->req_l_drul_[START] = 0;
 	  p->req_l_drul_[STOP] = 0;
@@ -283,19 +313,19 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 	  p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", p->name_));
 	}
       else if (!p->req_l_drul_[START])
-	nspanners_i -- ;
+	spanner_count_ -- ;
 
       assert (!p->finished_bracket_p_ && p->bracket_p_);
 
-      p->bracket_p_->set_bound (RIGHT, unsmob_grob(get_property ("currentMusicalColumn")));
+      p->bracket_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
 
-      // Set properties so that the molecule-creating function will know whether the right edge should be flared ___/
-      SCM eleft = ly_car ( p->bracket_p_->get_grob_property("edge-width") );
-      SCM eright = ( (bool) p->req_l_drul_[START]  ?
-		     edge_width_drul_[RIGHT] : 
-		     gh_double2scm(0) );
-      p->bracket_p_->set_grob_property("edge-width", gh_cons ( eleft, eright ) );
-      add_bound_item (p->line_spanner_, p->bracket_p_->get_bound (RIGHT));	  
+      /*
+	Set properties so that the molecule-creating function will
+	know whether the right edge should be flared ___/
+       */
+      SCM eleft = ly_car (p->bracket_p_->get_grob_property ("edge-width"));
+      SCM eright = (p->req_l_drul_[START]  ? edge_width_drul_[RIGHT] : gh_double2scm (0));
+      p->bracket_p_->set_grob_property ("edge-width", gh_cons (eleft, eright));
       
       p->finished_bracket_p_ = p->bracket_p_;
       p->bracket_p_ = 0;
@@ -310,21 +340,29 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 
       p->bracket_p_  = new Spanner (get_property ("PianoPedalBracket"));
 
-      // Set properties so that the molecule-creating function will know whether the left edge should be flared \___
-      edge_width_drul_[LEFT] =  ly_car ( p->bracket_p_->get_grob_property("edge-width") );
-      edge_width_drul_[RIGHT] = ly_cdr ( p->bracket_p_->get_grob_property("edge-width") );
+      /*
+	Set properties so that the molecule-creating function will
+	know whether the left edge should be flared \___
+      */
+
+      SCM ew = p->bracket_p_->get_grob_property ("edge-width");
+      edge_width_drul_[LEFT] =  ly_car (ew);
+      edge_width_drul_[RIGHT] = ly_cdr (ew);
+      
       SCM eleft = ( (bool) p->req_l_drul_[STOP]  ? 
 		    edge_width_drul_[LEFT]  :
-		    gh_double2scm(0) );
-      SCM eright = gh_double2scm(0);
-      p->bracket_p_->set_grob_property("edge-width", gh_cons ( eleft, eright ) );
+		    gh_double2scm (0));
+      SCM eright = gh_double2scm (0);
+      p->bracket_p_->set_grob_property ("edge-width", gh_cons (eleft, eright));
 
-      // Set this property for 'mixed style' pedals,    Ped._______/\ ,  
-      // so the molecule function will shorten the ____ line by the length of the Ped. text. 
-      p->bracket_p_->set_grob_property("text-start", 
-				       pedaltype == ly_symbol2scm("mixed") ? 
-				       gh_bool2scm((bool) ! p->req_l_drul_[STOP]) :
-				       gh_bool2scm(false));
+      /* Set this property for 'mixed style' pedals,    Ped._______/\ ,  
+        so the molecule function will shorten the ____ line by the length of the Ped. text.
+      */
+      
+      p->bracket_p_->set_grob_property ("text-start", 
+				       pedaltype == ly_symbol2scm ("mixed") ? 
+				       gh_bool2scm ( (bool) ! p->req_l_drul_[STOP]) :
+				       gh_bool2scm (false));
       if (p->item_p_)
 	p->bracket_p_->set_parent (p->item_p_, Y_AXIS);
 
@@ -332,18 +370,17 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
       Axis_group_interface::add_element (p->line_spanner_, p->bracket_p_);	      
 
       add_bound_item (p->line_spanner_, p->bracket_p_->get_bound (LEFT));
-      announce_grob (p->bracket_p_, p->req_l_drul_[START]->self_scm());
+      announce_grob (p->bracket_p_, p->req_l_drul_[START]->self_scm ());
 
-      if (!p->req_l_drul_[STOP]) {
+      if (!p->req_l_drul_[STOP])
+	{
+	  spanner_count_ ++;
+	  previous_p_[spanner_count_] = p->line_spanner_;	
 
-	nspanners_i ++;
-	previous_p_[nspanners_i] = p->line_spanner_;	
-
-	if (nspanners_i > 1) 
-	  // position new pedal spanner below the current one
-	  Side_position_interface::add_support(p->line_spanner_, previous_p_[nspanners_i - 1]);      
-	
-      }
+	  if (spanner_count_ > 1) 
+	    // position new pedal spanner below the current one
+	    Side_position_interface::add_support (p->line_spanner_, previous_p_[spanner_count_ - 1]);
+	}
     }
 
   p->req_l_drul_[START] = 0;
@@ -355,9 +392,13 @@ Piano_pedal_engraver::finalize ()
 {  
   for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
+      /*
+	suicide?
+       */
       if (p->line_spanner_
 	  && p->line_spanner_->immutable_property_alist_ == SCM_EOL)
 	p->line_spanner_ = 0;
+      
       if (p->line_spanner_)
 	{
 	  p->finished_line_spanner_ = p->line_spanner_;
@@ -381,8 +422,13 @@ Piano_pedal_engraver::stop_translation_timestep ()
 {
   for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
-      p->finished_line_spanner_ = p->line_spanner_;
+      if (!p->bracket_p_)
+	{
+	  p->finished_line_spanner_ = p->line_spanner_;
+	  p->line_spanner_ = 0;
+	}
     }
+  
   typeset_all ();
 }
 
@@ -390,17 +436,20 @@ Piano_pedal_engraver::stop_translation_timestep ()
 void
 Piano_pedal_engraver::typeset_all ()
 {
-
-
   Item * sustain = 0;
   for (Pedal_info*p = info_list_; p->name_; p ++)
     {
+      /*
+	Handle suicide. 
+       */
       if (p->finished_line_spanner_
 	  && p->finished_line_spanner_->immutable_property_alist_ == SCM_EOL)
 	p->finished_line_spanner_ = 0;
       if (p->finished_bracket_p_
 	  && p->finished_bracket_p_->immutable_property_alist_ == SCM_EOL)
 	p->finished_bracket_p_ = 0;
+
+
       if (p->name_ == String ("Sustain"))
 	sustain = p->item_p_;
 
@@ -422,14 +471,13 @@ Piano_pedal_engraver::typeset_all ()
       
       if (p->finished_bracket_p_)
 	{
-	  if (!p->finished_bracket_p_->get_bound (RIGHT))
+	  Grob * l = p->finished_line_spanner_->get_bound (LEFT);
+	  Grob * r = p->finished_line_spanner_->get_bound (RIGHT);      
+	  if (!r)
 	    {
 	      p->finished_bracket_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
-
-	      if (p->finished_line_spanner_)
-		add_bound_item (p->finished_line_spanner_,
-				p->finished_bracket_p_->get_bound (RIGHT));
 	    }
+
 	  typeset_grob (p->finished_bracket_p_);
 	  p->finished_bracket_p_ =0;
 	}
@@ -437,7 +485,7 @@ Piano_pedal_engraver::typeset_all ()
       if (p->finished_line_spanner_)
 	{
 	  Side_position_interface::add_staff_support (p->finished_line_spanner_);
-	  Grob * l = p->finished_line_spanner_->get_bound (LEFT );
+	  Grob * l = p->finished_line_spanner_->get_bound (LEFT);
 	  Grob * r = p->finished_line_spanner_->get_bound (RIGHT);      
 	  if (!r && l)
 	    p->finished_line_spanner_->set_bound (RIGHT, l);
@@ -446,7 +494,7 @@ Piano_pedal_engraver::typeset_all ()
 	  else if (!r && !l)
 	    {
 	      Grob * cc = unsmob_grob (get_property ("currentMusicalColumn"));
-	      Item * ci = dynamic_cast<Item*>(cc);
+	      Item * ci = dynamic_cast<Item*> (cc);
 	      p->finished_line_spanner_->set_bound (RIGHT, ci);
 	      p->finished_line_spanner_->set_bound (LEFT, ci);	  
 	    }
@@ -465,7 +513,7 @@ Piano_pedal_engraver::start_translation_timestep ()
       p->req_l_drul_[START] = 0;
     }
 }
-ENTER_DESCRIPTION(Piano_pedal_engraver,
+ENTER_DESCRIPTION (Piano_pedal_engraver,
 /* descr */       "Engrave piano pedal symbols and brackets.",
 /* creats*/       "SostenutoPedal SustainPedal UnaCordaPedal SostenutoPedalLineSpanner SustainPedalLineSpanner UnaCordaPedalLineSpanner",
 /* acks  */       "note-column-interface",

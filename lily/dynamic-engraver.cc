@@ -147,14 +147,14 @@ Dynamic_engraver::process_music ()
 	}
     }
   
-	/*
-	During a (de)crescendo, pending request will not be cleared,
-	and a line-spanner will always be created, as \< \! are already
-	two requests.
+  /*
+    During a (de)crescendo, pending request will not be cleared,
+    and a line-spanner will always be created, as \< \! are already
+    two requests.
 
-	Note: line-spanner must always have at least same duration
-	as (de)crecsendo, b.o. line-breaking.
-	*/
+    Note: line-spanner must always have at least same duration
+    as (de)crecsendo, b.o. line-breaking.
+  */
 
   
 
@@ -209,11 +209,11 @@ Dynamic_engraver::process_music ()
     {
       if (current_cresc_req_)
 	{
-	  accepted_spanreqs_drul_[START]->origin ()->warning
- (current_cresc_req_->get_span_dir () == 1
-	     ? _ ("already have a crescendo")
-	     : _ ("already have a decrescendo"));
-
+	  String msg = current_cresc_req_->get_span_dir () == 1
+	    ? _ ("already have a crescendo")
+	    : _ ("already have a decrescendo");
+      
+	  accepted_spanreqs_drul_[START]->origin ()->warning (msg);
 	  current_cresc_req_->origin ()->warning (_("Cresc started here"));
 	}
       else
