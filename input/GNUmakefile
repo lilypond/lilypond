@@ -3,7 +3,7 @@ depth = ..
 SUBDIRS=bugs test regression tutorial no-notation ascii-art template
 
 # nereides is tweaked a lot, can't do (read webpage)
-examples=trip star-spangled-banner paddy twinkle #nereides
+examples=trip star-spangled-banner paddy twinkle baerenreiter-sarabande #nereides
 
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
 EXTRA_DIST_FILES=paddy.abc
