@@ -28,7 +28,7 @@ GS_LIB="$WINDOWS_GS_LIB"
 PATH="/usr/lilypond/bin:$PATH"
 PATH="@prefix@/bin:$PATH"
 
-PATH="/usr/lilypond/wrappers:$PATH"
-PATH="@prefix@/wrappers:$PATH"
+# PATH="/usr/lilypond/wrappers:$PATH"
+# PATH="@prefix@/wrappers:$PATH"
 
 
