@@ -1,3 +1,8 @@
+2002-09-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/simultaneous-music-iterator.cc (skip): call quit()
+	when an iterator exits early.
+
 2002-09-13  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/rests.ly: added comment on bogus warnings about missing flags

@@ -108,6 +108,7 @@ Simultaneous_music_iterator::process (Moment until)
 	}
       if (!i->ok ())
 	{
+	  i->quit ();
 	  *proc = gh_cdr (*proc);
 	}
       else
@@ -130,6 +131,7 @@ Simultaneous_music_iterator::skip (Moment until)
 	}
       if (!i->ok ())
 	{
+	  i->quit ();
 	  *proc = gh_cdr (*proc);
 	}
       else
