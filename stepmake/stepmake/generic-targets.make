@@ -95,13 +95,8 @@ TAGS:
 
 	$(LOOP)
 
-$(outdir)/version.hh: $(config_make) $(depth)/VERSION
-	$(PYTHON) $(step-bindir)/make-version.py PACKAGE_NAME=$(PACKAGE_NAME) \
-		MAJOR_VERSION=$(MAJOR_VERSION) \
-		MINOR_VERSION=$(MINOR_VERSION) \
-		PATCH_LEVEL=$(PATCH_LEVEL) \
-		MY_PATCH_LEVEL=$(MY_PATCH_LEVEL) \
-		> $@
+$(outdir)/version.hh: $(depth)/VERSION $(config_make)
+	$(PYTHON) $(step-bindir)/make-version.py $< > $@
 
 $(outdir)/config.h: $(config_h)
 	cp -p $< $@

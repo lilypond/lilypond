@@ -97,16 +97,8 @@ prebuild () {
 	cd $build || exit 1
 
 	PATH=/bin:/usr/bin:$PATH \
-	    PYTHONPATH=$build/python/out-for-build:$PYTHONPATH \
 	    make conf=for-build all doc web || exit 1
 	
-        # as of 1.9.9, this should no longer be necessary:
-	for i in $(find . -path ".*out-for-build/*.1"); do
-	    o=$(dirname $(dirname $i))/out
-	    mkdir -p $o
-	    cp -pv $i $o/$(basename $i)
-	done
-
 	mkdir -p mf/out
 	cp -pv mf/out-for-build/* mf/out
     fi
@@ -116,14 +108,6 @@ prebuild () {
 
 preinstall () {
 
-    # cross-compiling: fix manual pages
-    if ! iscygwin; then
-        # as of 1.9.9, this should no longer be necessary:
-	cd $build || exit 1
-	cp -v scripts/out-for-build/midi2ly.1 scripts/out
-	cp -v lily/out-for-build/lilypond.1 lily/out
-    fi
-    
     addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
 }
 
@@ -140,8 +124,12 @@ postinstall () {
     cd $src || exit 1
     install -d -m755 $inst/$packagedocdir
 
-    ## Generic READMEs
-    find . -maxdepth 1 -type f -exec cp -pv \{\} $inst/$packagedocdir \;
+    ## Generic READMEs -- too crude!
+    ## find . -maxdepth 1 -type f -exec install -m644 \{\} \
+    ##   $inst/$packagedocdir \;
+    
+    install -m644 AUTHORS.txt COPYING ChangeLog DEDICATION INSTALL.txt \
+	NEWS.txt README.txt THANKS VERSION $inst/$packagedocdir
 
     ## Cygwin readmes
     cygwin=cygwin

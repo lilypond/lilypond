@@ -1,8 +1,15 @@
 2003-09-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* stepmake/aclocal.m4: 
+	* cygwin/mknetrel: Remove PYTHONPATH and manpage workarounds.
+
+	* stepmake/stepmake/generic-targets.make:
+	* stepmake/stepmake/bin/make-version.py: 
+	* stepmake/aclocal.m4:
 	* make/stepmake.make:
-	* make/toplevel-version.make: Revert/fix VERSION/PACKAGE stuff.
+	* make/toplevel-version.make: Build fixes: remove last traces of
+	  VERSION/PACKAGE_NAME/LILYPONDPREFIX experiment.
+
+	* lily/beam.cc: Add gap-count property.
 
 2003-09-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
