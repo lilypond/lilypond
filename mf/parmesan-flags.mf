@@ -1,31 +1,13 @@
-% flags 
-%
+% -*-Fundamental-*-
+% parmesan-flags.mf -- implement ancient flags
+% 
+% source file of LilyPond's pretty-but-neat music font
+% 
+% (c) 2001--2002 Juergen Reuter <reuter@ipd.uka.de>
+% 
 
+fet_begingroup ("flags")
 
-fet_begingroup("flags")
-save outer_path;
-path outer_path;
-% Flags pointing down overlap with  the notehead (in x-direction), so 
-% the down-flag can be bigger
-upflag_width# = .750 black_notehead_width# + stemthickness#/2;
-downflag_width# = .833 black_notehead_width# + stemthickness#/2;
-
-right_upflag_space# = .2 upflag_width#;
-right_downflag_space# = .2 downflag_width#;
-
-%
-% Flags pointing down cannot overlap with the notehead in y-direction,
-% so they have less slant.
-
-% Because of optical illusion, the utmost flag (bottom for
-% down-pointing, top for up-pointing) should be smaller than the other
-% flags.  Adobe Sonata doesn't do this correctly.  (Instead they have
-% an extension flag, which looks less elegant)
-%
-
-save hip_thickness, foot_thickness;
-hip_thickness# = 1.3 stemthickness#;
-foot_thickness# =  hip_thickness#;
 
 %%%%%%%%
 %
@@ -389,83 +371,4 @@ fet_beginchar("64th Mensural Flag (down)", "mensurald16", "mensd1sixtyfourthflag
 	currentpicture := currentpicture xscaled -1 yscaled -1;
 fet_endchar;
 
-%%%%%%%%
-%
-%
-%
-% Single Stroke for Short Appogiatura
-%
-%
-%
-
-fet_beginchar("grace dash (up)", "ugrace", "gracedash")
-	save flare, 
-		hip_depth_ratio, hip_width,
-		foot_depth;
-
-	flare# = 1.0 staff_space#;
-	hip_depth_ratio = .72; 
-	hip_width# = upflag_width# - hip_thickness#/2;
-
-	foot_depth# =  3 staff_space#;
-
-	define_pixels(flare, hip_width, hip_thickness,
-		foot_depth, foot_thickness);
-
-	set_char_box(hip_width# * hip_depth_ratio,
-	  hip_width# + stemthickness#/2 + right_upflag_space#, 
-	  foot_depth# * hip_depth_ratio, -flare#)
-
-	pickup pencircle scaled 1.5 stemthickness;
-	draw (-b ,-d) ..
-	  (w, h);
-fet_endchar;
-
-fet_beginchar("grace dash (down)", "dgrace", "dgracedash")
-	save flare, hip_depth_ratio, hip_width,	foot_depth;
-	save flagspace, total_depth, flag_count;
-	
-	flag_count = 1;
-	flare# = .99 staff_space#;
-	flagspace# = .9 staff_space#;	
-	hip_depth_ratio = .72 ;
-	hip_width# = downflag_width# - hip_thickness#/2;
-	total_depth# = 2.85 staff_space#;
-	(flag_count-1) * flagspace# + foot_depth# = total_depth#;
-
-	foot_width_ratio = .8;
-
-	define_pixels(flare, hip_width, hip_thickness,
-		flagspace, foot_depth);
-
-	set_char_box(hip_width# * hip_depth_ratio,
-	  hip_width# + stemthickness#/2 + right_downflag_space#,
-	  foot_depth# * hip_depth_ratio, -flare#)
-
-	pickup pencircle scaled 1.5 stemthickness;
-	draw (-b, -d) .. (w,h);
-	y_mirror_char;
-fet_endchar;
-
-% ustem?
-%
-%
-% Stem characters so we can compose metronome markings with Feta
-% entirely.
-%
-
-fet_beginchar("stem (up)", "stem", "stem")
-	set_char_box(stemthickness#/2, stemthickness#/2, 0, 3.5staff_space#);
-	pickup pencircle scaled stemthickness;
-	draw (0, 0.2staff_space) .. (0, 3.5staff_space);
-fet_endchar;
-
-% do we want this?
-fet_beginchar("stem (down)", "dstem", "dstem")
-	set_char_box(stemthickness#/2, stemthickness#/2, 3.5staff_space#, 0);
-	pickup pencircle scaled stemthickness;
-	draw (0, -0.2staff_space) .. (0, -3.5staff_space);
-fet_endchar;
-
-
-fet_endgroup("flags");
+fet_endgroup ("flags")

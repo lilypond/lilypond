@@ -171,6 +171,7 @@
                (visibility-lambda . ,end-of-line-visible)
 	       (style .  vaticana)
 	       (Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	       (font-family . music)
                (meta . ,(grob-description custos-interface staff-symbol-referencer-interface break-aligned-interface) )
        ))
 	
@@ -625,6 +626,7 @@
 		(X-offset-callbacks . (,Stem::off_callback))
 		(X-extent-callback . ,Stem::dim_callback)	
 		(Y-extent-callback . ,Stem::height)
+		(font-family . music)	   
 		(meta . ,(grob-description stem-interface  font-interface))
 	))
 

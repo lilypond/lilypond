@@ -1,106 +1,13 @@
+% -*-Fundamental-*-
+% parmesan-rests.mf -- implement ancient rests
 % 
-% feta-toevallig.mf --  implement Accidentals
+% source file of LilyPond's pretty-but-neat music font
 % 
-% source file of the Feta (Font-En-Tja) music font
-% 
-% (c) 1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+% (c) 2001--2002 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
-fet_begingroup("accidentals");
+fet_begingroup("rests")
 
-
-
-%%%%%%%%
-%
-%
-%
-% EDITIO MEDICAEA
-%
-%
-%
-fet_beginchar("Ed. Med. Flat" , "medicaea-1", "medicaeaflat");
-	set_char_box(0, 0.8 staff_space#, 0.6 staff_space#, 
-	  2.0 staff_space#);
-
-	pickup pencircle
-		xscaled 0.50 stafflinethickness
-		yscaled 0.22 staff_space;
-
-	save za, zb;
-	pair za, zb;
-
-	za = (0.00 staff_space, +0.90 staff_space);
-	zb = (0.00 staff_space, -0.50 staff_space);
-	draw za -- zb;
-
-	pickup pencircle
-		xscaled 0.50 stafflinethickness
-		yscaled 0.22 staff_space
-		rotated -63;
-
-	save zc, zd, ze;
-	pair zc, zd, ze;
-
-	zc = (0.10 staff_space, -0.50 staff_space);
-	zd = (0.40 staff_space, +0.40 staff_space);
-	ze = (0.10 staff_space, +0.40 staff_space);
-
-	draw zc{(1,2)} .. zd .. ze{(-1,-1)};
-
-	fet_endchar;
-
-%%%%%%%%
-%
-%
-%
-% EDITIO VATICANA
-%
-%
-%
-fet_beginchar("Ed. Vat. Flat" , "vaticana-1", "vaticanaflat");
-        set_char_box(0, 0.7 staff_space#, 0.6 staff_space#, 
-                2.0 staff_space#);
-        define_pixels (stafflinethickness, staff_space);
-
-        save za, zb, zc, zd, ze, zf, zg;
-        pair za, zb, zc, zd, ze, zf, zg;
-        za = (0.00 staff_space, +0.80 staff_space);
-        zb = (0.00 staff_space, -0.03 staff_space);
-        zc = (0.25 staff_space, -0.23 staff_space);
-        zd = (0.50 staff_space, -0.23 staff_space);
-        ze = (0.50 staff_space, +0.00 staff_space);
-        zf = (0.25 staff_space, +0.20 staff_space);
-        zg = (0.15 staff_space, +0.26 staff_space);
-
-        pickup pencircle
-                xscaled 0.50 stafflinethickness
-                yscaled 0.22 staff_space;
-        draw za{down} .. {down}zb .. zc .. zd{up} .. {up}ze .. zf .. zg;
-        fet_endchar;
-
-fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
-	set_char_box(0, 0.6 staff_space#, 0.6 staff_space#, 
-		2.0 staff_space#);
-	define_pixels (stafflinethickness, staff_space);
-
-	save za, zb, zc, zd;
-	pair za, zb, zc, zd;
-	pickup pencircle
-		xscaled 0.80 stafflinethickness
-		yscaled 0.22 staff_space;
-	za = (0.00 staff_space, +0.65 staff_space);
-	zb = (0.00 staff_space, -0.35 staff_space);
-	zc = (0.00 staff_space, -0.30 staff_space);
-	zd = (0.40 staff_space, -0.08 staff_space);
-	draw za -- zb;
-	draw zc -- zd;
-
-	addto currentpicture also currentpicture
-		xscaled -1
-		yscaled -1
-		shifted (0.40 staff_space, 0.0 staff_space);
-
-	fet_endchar;
 
 %%%%%%%%
 %
@@ -110,68 +17,102 @@ fet_beginchar("Ed. Vat. Natural" , "vaticana0", "vaticananatural");
 %
 %
 %
-fet_beginchar("Mensural Sharp" , "mensural1", "mensuralsharp");
-	set_char_box(0.4 staff_space#, 0.6 staff_space#, 0.5 staff_space#, 
-		0.5 staff_space#);
-	save stemthick;
-	define_pixels (stemthick, staff_space);
-	stemthick# = stafflinethickness#;
 
-	save za, zb;
-	pair za, zb;
-	pickup pencircle scaled 0.8 stemthick;
-	za = 0.4 * staff_space * (0.8, 1);
-	za = -zb;
-	draw za .. zb;
+pen_width# = 2/5 staff_space#;
+pen_height# = 0;
+pen_rotation = 30;
+slight_pen_rotation = 15;
 
-	addto currentpicture also currentpicture xscaled -1;
-	addto currentpicture also currentpicture shifted (0.20 staff_space, 0);
+mens_block_rest_y# = 1/1 staff_space#;
+mens_half_block_rest_y# = 5/8 staff_space#;
 
-	fet_endchar;
+define_pixels(mens_block_rest_y, mens_half_block_rest_y,
+	      pen_width, pen_height);
 
-fet_beginchar("Mensural Flat" , "mensural-1", "mensuralflat");
-	set_char_box(0.1 staff_space#, 0.7 staff_space#, 0.4 staff_space#, 
-		1.8 staff_space#);
-	save stemthick;
-	define_pixels (stemthick, staff_space);
-	stemthick# = stafflinethickness#;
-
-	save za, zb, zc, zd, ze;
-	pair za, zb, zc, zd, ze;
+fet_beginchar("Mensural longa rest", "-2mensural", "menslongarest");
+	set_char_box(pen_width#/2, pen_width#/2,
+		     mens_block_rest_y#, mens_block_rest_y#);
 	pickup pencircle
-		xscaled 1.4 stemthick
-		yscaled 0.6 stemthick
-		rotated 45;
+		xscaled pen_width
+		yscaled pen_height
+		rotated slight_pen_rotation;
+	draw (0, -mens_block_rest_y) -- (0, mens_block_rest_y);
+fet_endchar;
 
-	za = (0.00 staff_space, +1.80 staff_space);
-	zb = (0.00 staff_space, -0.25 staff_space);
-	zc = (0.35 staff_space, -0.25 staff_space);
-	zd = (0.35 staff_space, +0.25 staff_space);
-	ze = (0.00 staff_space, +0.25 staff_space);
-	draw za -- zb .. zc .. zd .. ze;
-	fet_endchar;
-
-fet_beginchar("Hufnagel Flat" , "hufnagel-1", "hufnagelflat");
-	set_char_box(0.5 staff_space#, 0.7 staff_space#, 0.4 staff_space#, 
-		1.8 staff_space#);
-	save stemthick;
-	define_pixels (stemthick, staff_space);
-	stemthick# = stafflinethickness#;
-
-	save za, zb, zc, zd, ze, zf;
-	pair za, zb, zc, zd, ze, zf;
+fet_beginchar("Mensural breve rest", "-1mensural", "mensbreverest");
+	set_char_box(pen_width#/2, pen_width#/2,
+		     0, mens_block_rest_y#);
 	pickup pencircle
-		xscaled 2.4 stemthick
-		yscaled 0.4 stemthick
-		rotated 45;
+		xscaled pen_width
+		yscaled pen_height
+		rotated slight_pen_rotation;
+	draw (0, 0) -- (0, mens_block_rest_y);
+fet_endchar;
 
-	za = (0.00 staff_space, +1.80 staff_space);
-	zb = (0.00 staff_space, -0.15 staff_space);
-	zc = (0.25 staff_space, -0.30 staff_space);
-	zd = (0.50 staff_space, +0.00 staff_space);
-	ze = (0.30 staff_space, +0.30 staff_space);
-	zf = (0.00 staff_space, +0.15 staff_space);
-	draw za -- zb -- zc .. zd .. ze -- zf;
-	fet_endchar;
+fet_beginchar("Mensural whole rest", "0mensural", "menssemibrevisrest");
+	set_char_box(pen_width#/2, pen_width#/2,
+		     mens_half_block_rest_y#, 0);
+	pickup pencircle
+		xscaled pen_width
+		yscaled pen_height
+		rotated slight_pen_rotation;
+	draw (0, 0) -- (0, -mens_half_block_rest_y);
+fet_endchar;
 
-fet_endgroup ("accidentals")
+fet_beginchar("Mensural half rest", "1mensural", "mensminimahalfrest");
+	set_char_box(pen_width#/2, pen_width#/2,
+		     0, mens_half_block_rest_y#);
+	pickup pencircle
+		xscaled pen_width
+		yscaled pen_height
+		rotated slight_pen_rotation;
+	draw (0, 0) -- (0, mens_half_block_rest_y);
+fet_endchar;
+
+mensrestsize# = .8staff_space#;
+
+fet_beginchar("Mensural 4th rest","2mensural","menssemiminimarest")
+	set_char_box(0,mensrestsize#,0,mensrestsize#);
+	pickup pencircle
+		xscaled pen_width
+		yscaled pen_height
+		rotated pen_rotation;
+	lft x1 =      0;     y1 = 0;
+	lft x2 =      0; top y2 = 5/8 h;
+	rt  x3 =  4/8 w; bot y3 = 6/8 h;
+	rt  x4 = 10/8 w; bot y4 = 4/8 h;
+	draw z1 -- z2 -- z3 -- z4;
+fet_endchar
+
+fet_beginchar("Mensural 8th rest","3mensural","mensfusarest")
+	set_char_box(0,mensrestsize#,0,mensrestsize#);
+	pickup pencircle
+		xscaled pen_width
+		yscaled pen_height
+		rotated pen_rotation;
+	rt  x1 = 10/8 w;     y1 = 0;
+	rt  x2 = 10/8 w; top y2 = 5/8 h;
+	lft x3 =  2/8 w; bot y3 = 6/8 h;
+	lft x4 =      0; bot y4 = 4/8 h;
+	draw z1 -- z2 -- z3 -- z4;
+fet_endchar
+
+fet_beginchar("Mensural 16th rest","4mensural","menssemifusarest")
+	set_char_box(0,mensrestsize#,0,staff_space#);
+	pickup pencircle
+		xscaled pen_width
+		yscaled pen_height
+		rotated pen_rotation;
+
+	rt  x1 = 10/8 w;     y1 = 0;
+	rt  x2 = 10/8 w; top y2 = 5.5/8 h;
+	lft x3 =  2/8 w; bot y3 = 6.5/8 h;
+	lft x4 =      0; bot y4 = 4.5/8 h;
+	rt  x5 = 10/8 w; top y5 = 2.5/8 h;
+	lft x6 =  2/8 w; bot y6 = 3.5/8 h;
+	lft x7 =      0; bot y7 = 1.5/8 h;
+	draw z1 -- z2 -- z3 -- z4;
+	draw z5 -- z6 -- z7;
+fet_endchar
+
+fet_endgroup ("rests")

@@ -294,6 +294,32 @@ fet_beginchar("grace dash (up)", "ugrace", "gracedash")
 	  (w, h);
 fet_endchar;
 
+fet_beginchar("grace dash (down)", "dgrace", "dgracedash")
+	save flare, hip_depth_ratio, hip_width,	foot_depth;
+	save flagspace, total_depth, flag_count;
+	
+	flag_count = 1;
+	flare# = .99 staff_space#;
+	flagspace# = .9 staff_space#;	
+	hip_depth_ratio = .72 ;
+	hip_width# = downflag_width# - hip_thickness#/2;
+	total_depth# = 2.85 staff_space#;
+	(flag_count-1) * flagspace# + foot_depth# = total_depth#;
+
+	foot_width_ratio = .8;
+
+	define_pixels(flare, hip_width, hip_thickness,
+		flagspace, foot_depth);
+
+	set_char_box(hip_width# * hip_depth_ratio,
+	  hip_width# + stemthickness#/2 + right_downflag_space#,
+	  foot_depth# * hip_depth_ratio, -flare#)
+
+	pickup pencircle scaled 1.5 stemthickness;
+	draw (-b, -d) .. (w,h);
+	y_mirror_char;
+fet_endchar;
+
 fet_beginchar("16th (down)", "d4", "dsixteenthflag")
 	save flare, 
 		hip_depth_ratio, hip_width,

@@ -1,15 +1,15 @@
 % -*-Fundamental-*-
-% feta-custodes.mf --  implement custos symbols
+% parmesan-custodes.mf -- implement ancient custodes
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (C) 2000, 2002 Juergen Reuter <reuter@ipd.uka.de>
+% (c) 2000--2002 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 save black_notehead_width;
 numeric black_notehead_width;
 
-fet_begingroup("custodes");
+fet_begingroup ("custodes")
 
 noteheight#:=staff_space#+ (1 + overdone_heads) *stafflinethickness#;
 define_pixels(noteheight);
@@ -17,7 +17,9 @@ define_pixels(noteheight);
 
 %%%%%%%%
 %
+%
 % Hufnagel style
+%
 %
 
 % stem up
@@ -270,6 +272,4 @@ fet_beginchar("Reverse Custos Mensural", "rmensural", "rmensural")
 	draw z1 -- z2 -- z3 -- z4 -- z5 -- z6;
 fet_endchar;
 
-fet_endgroup("custodes");
-define_pixels(black_notehead_width);
-
+fet_endgroup ("custodes")
