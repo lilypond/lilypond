@@ -1,4 +1,6 @@
 
 TEXI_FILES = $(wildcard *.texi)
 
-EXTRA_DIST_FILES += $(TEXI_FILES)
+ALL_SOURCES += $(TEXI_FILES)
+
+OUTTXT_FILES += $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.txt))

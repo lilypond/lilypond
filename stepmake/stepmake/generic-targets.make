@@ -82,10 +82,10 @@ Note that all commands recurse into SUBSDIRS\n\
 
 local-help:
 
-doc:
-#UGH
-	true #	$(MAKE) -C $(depth)/Documentation all
+doc: local-doc
+	$(LOOP)
 
+local-doc:
 
 # Ugh.  C++ specific.
 doc++:

@@ -126,7 +126,8 @@ documentation on-line documentation. It is made by entering @example
   make website
  
 @end example 
-This does require a fully functioning
+This does require a  functioning  LilyPond. The binary doesn't have to
+be installed. 
 
 If you want to auto-generate Lily's website, you'll need some additional
 conversion tools.
