@@ -38,6 +38,7 @@ Slur_performer::process_music ()
   if (now_stop_ev_)
     {
       slur_ = false;
+      set_melisma (false);
     }
 
   if (start_ev_)
@@ -57,11 +58,6 @@ Slur_performer::set_melisma (bool ml)
 void
 Slur_performer::start_translation_timestep ()
 {
-  if (slur_)
-    {
-      set_melisma (true);
-    }
-  
   start_ev_ = 0;
   now_stop_ev_ = 0;
 }

@@ -241,6 +241,9 @@ i.e.  this is not an override"
 (define-public (make-skip-music dur)
   (make-music 'SkipMusic
 	      'duration dur))
+(define-public (make-grace-music music)
+  (make-music 'GraceMusic
+	      'element music))
 
 ;;;;;;;;;;;;;;;;
 
