@@ -23,7 +23,7 @@ Sources* source_global_l = 0;
 Array<String> inclusion_global_array;
 Array<String> target_str_global_array;
 Link_array<Score> score_global_array;
-Header * header_global_p;
+Scope * header_global_p;
 
 
 void write_dependency_file (String fn, Array<String> targets,
@@ -69,7 +69,7 @@ void
 do_scores()
 {
   if (!header_global_p)
-    header_global_p = new Header;
+    header_global_p = new Scope;
   for (int i=0; i < score_global_array.size(); i++)
     {
       Score* is_p = score_global_array[i];
