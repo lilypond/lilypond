@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-07-19 01:17+0200\n"
+"POT-Creation-Date: 2004-07-21 01:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -127,6 +127,10 @@ msgid ""
 "\n"
 msgstr ""
 
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
+#. Bug in option parser: --output=foe is taken as an abbreviation
+#. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format.
 #. Bug in option parser: --output=foe is taken as an abbreviation
@@ -723,7 +727,7 @@ msgid "Continuing; crossing fingers"
 msgstr ""
 
 #: accidental.cc:219 key-signature-interface.cc:139 lily/accidental.cc:218
-#: lily/key-signature-interface.cc:137
+#: lily/key-signature-interface.cc:137 lily/accidental.cc:217
 #, c-format
 msgid "accidental `%s' not found"
 msgstr ""
@@ -751,6 +755,8 @@ msgstr ""
 msgid "Error parsing AFM file: `%s'"
 msgstr ""
 
+#. FIXME: broken sentence
+#. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
 #. FIXME: broken sentence
@@ -871,6 +877,18 @@ msgstr ""
 #. errors hard to catch
 #.
 #. last->translator_id_string_  = get_change ()->change_to_id_string_;
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
+#.
+#.
+#. We could change the current translator's id, but that would make
+#. errors hard to catch
+#.
+#. last->translator_id_string ()  = get_change ()->change_to_id_string ();
 #.
 #.
 #. We could change the current translator's id, but that would make
@@ -1320,6 +1338,8 @@ msgstr ""
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
 #. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
+#. No version number or newline here.  It confuses help2man.
 #: main.cc:196 lily/main.cc:181
 #, c-format
 msgid "Usage: %s [OPTIONS]... FILE..."
@@ -1417,6 +1437,12 @@ msgstr ""
 msgid "Braces don't match"
 msgstr ""
 
+#.
+#. music for the softenon children?
+#.
+#.
+#. music for the softenon children?
+#.
 #.
 #. music for the softenon children?
 #.
@@ -1673,6 +1699,8 @@ msgstr ""
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
 #. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
+#. this shouldn't happen, but let's continue anyway.
 #: separation-item.cc:53 separation-item.cc:97 lily/separation-item.cc:53
 #: lily/separation-item.cc:97
 msgid "Separation_item:  I've been drinking too much"
@@ -1687,6 +1715,10 @@ msgstr ""
 msgid "unterminated slur"
 msgstr ""
 
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start event?
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start event?
 #. How to shut up this warning, when Voice_devnull_engraver has
 #. eaten start event?
 #. How to shut up this warning, when Voice_devnull_engraver has
@@ -1759,6 +1791,8 @@ msgstr ""
 #. FIXME:
 #. FIXME:
 #. FIXME:
+#. FIXME:
+#. FIXME:
 #: stem-engraver.cc:128 lily/stem-engraver.cc:126 lily/stem-engraver.cc:117
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
@@ -1799,6 +1833,10 @@ msgstr ""
 msgid "can't find ascii character: %d"
 msgstr ""
 
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
+#. Not using ngettext's plural feature here, as this message is
+#. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
 #. more of a programming error.
 #. Not using ngettext's plural feature here, as this message is
@@ -1881,11 +1919,25 @@ msgstr ""
 #. (Here really with a warning!)
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
 #: time-signature.cc:95 lily/time-signature.cc:95
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr ""
 
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
 #.
 #. Todo: should make typecheck?
 #.
@@ -2171,6 +2223,8 @@ msgstr ""
 msgid "No such internal option: %s"
 msgstr ""
 
+#. FIXME:
+#. FIXME:
 #. FIXME:
 #. FIXME:
 #. FIXME:
