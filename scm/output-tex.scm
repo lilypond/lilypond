@@ -106,7 +106,7 @@
 	     ;;(val (if (variable-bound? var) (variable-ref var) '""))
 	     (tex-key (symbol->string sym)))
 	 
-	 (if (memq sym fields)
+	 (if (and (memq sym fields) (string? val))
 	     (header-to-file basename sym val))
 
 	 (cond
