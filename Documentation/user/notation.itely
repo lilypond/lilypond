@@ -764,11 +764,13 @@ used.  It is described in the next section.
 It is also possible to redefine the meaning of @code{|}.  This is done
 by assigning a music expression to @code{pipeSymbol},
 
-@lilypond[quote,fragment,raggedright,verbatim]
-pipeSymbol = \bar "||"
+FIXME: example removed to allow doc builds.  Needs to be fixed soon.  -gp
 
-{ c'2 c'2 | c'2 c'2 | }
-@end lilypond 
+@c @lilypond[quote,fragment,raggedright,verbatim]
+@c pipeSymbol = \bar "||"
+
+@c { c'2 c' | c'2 c }
+@c @end lilypond 
 
 
 @node Skipping corrected music
@@ -1094,6 +1096,7 @@ command
 \time 2/4 c'2 \time 3/4 c'2. 
 @end lilypond
 
+@c  FIXME: broken numbers for 4/4 and 2/2 time.
 The symbol that is printed can be customized with the @code{style}
 property.  Setting it to @code{#'()} uses fraction style for 4/4 and
 2/2 time,
@@ -1352,7 +1355,10 @@ the measure, so the next bar line will fall at 2/4 + 3/8.
 @node Controlling formatting of prefatory matter
 @subsection Controlling formatting of prefatory matter
 
-TODO
+TODO  Somebody needs to explain this example, but I don't know what
+they're trying to do, so it won't be me.  -gp
+
+TODO part 2, build message: programming error: No spacing entry from KeyCancellation to `key-signature'
 
 @lilypond[verbatim]
 \transpose c c' {
@@ -1385,6 +1391,13 @@ TODO
 
 @node Polyphony
 @section Polyphony
+
+Polyphony in music refers to having more than one voice occuring in
+a piece of music.  Polyphony in LilyPond refers to having more than
+one voice on the same staff.
+
+@subsection Writing polyphonic music
+@subsection Writing polyphonic music
 @cindex polyphony
 
 The easiest way to enter fragments with more than one voice on a staff
@@ -1401,7 +1414,7 @@ small, short-lived voices or for single chords
 @end lilypond
 
 The separator causes @internalsref{Voice} contexts@footnote{Polyphonic
-voices are sometimes called "layers" in other notation packages}
+voices are sometimes called ``layers'' in other notation packages}
 @cindex layers
 to be instantiated.  They bear the names @code{"1"}, @code{"2"}, etc.  In
 each of these contexts, vertical direction of slurs, stems, etc. is set
@@ -1536,7 +1549,22 @@ notation (see @ref{Clusters}).
 @section Beaming
 
 Beams are used to group short notes into chunks that are aligned with
-the metrum.  They are inserted automatically
+the metrum.  LilyPond normally inserts beams automatically, but if you
+wish you may control them manually or changed how beams are automatically
+grouped.
+
+@cindex Automatic beams
+@menu
+* Automatic beams::
+* Manual beams::                
+* Setting automatic beam behavior::  
+* Beam formatting::             
+@end menu
+
+@node Automatic beams
+@subsection Automatic beams
+
+LilyPond inserts beams automatically
 
 @lilypond[quote,fragment,verbatim,relative=2]
 \time 2/4 c8 c c c \time 6/8 c c c c8. c16  c8
@@ -1558,13 +1586,6 @@ from being beamed
 
 Program reference: @internalsref{Beam}. 
 
-
-@cindex Automatic beams
-@menu
-* Manual beams::                
-* Setting automatic beam behavior::  
-* Beam formatting::             
-@end menu
 
 @node Manual beams
 @subsection Manual beams
@@ -1593,8 +1614,11 @@ is erased
 
 @lilypond[quote,fragment,relative=1,verbatim]
 {
-  f8[ r16 f g a]
-  f8[ r16 \set stemLeftBeamCount = #1 f g a]
+   f8[ r16
+      f g a]
+   f8[ r16
+   \set stemLeftBeamCount = #1
+      f g a]
 }
 @end lilypond
 @cindex @code{stemRightBeamCount}
@@ -1635,7 +1659,7 @@ User manual: @ref{Changing context properties on the fly} for the
 
 @cindex Frenched staves
 Kneed beams are inserted automatically, when a large gap is detected
-between the note heads.  This behavior can be tuned through the object
+between the note heads.  This behavior can be tuned through the object.
 
 
 Automatically kneed cross-staff beams cannot be used together with
@@ -1766,8 +1790,8 @@ down.  However, this behaviour can be altered with the
 @code{neutral-direction} property.
 
 
-@lilypond
-\relative c'' {
+@lilypond[quote,raggedright,relative=2,fragment,verbatim]
+{
    b8[ b]
   \override Beam  #'neutral-direction = #-1
    b[ b]
@@ -5763,6 +5787,8 @@ with respect to that clef.
 @b{Description} @tab
 @b{Supported Clefs} @tab
 @b{Example}
+
+@c  FIXME: Unknown clef type `neomensural_c2'
 
 @item
 modern style mensural C clef @tab
