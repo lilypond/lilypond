@@ -14,14 +14,14 @@ source file of the GNU LilyPond music typesetter
 
 struct Piano_pedal_bracket
 {
-  DECLARE_SCHEME_CALLBACK(brew_molecule,(SCM));
+  DECLARE_SCHEME_CALLBACK(print,(SCM));
   static bool has_interface (Grob*);
 };
 
 
-MAKE_SCHEME_CALLBACK(Piano_pedal_bracket,brew_molecule,1);
+MAKE_SCHEME_CALLBACK(Piano_pedal_bracket,print,1);
 SCM
-Piano_pedal_bracket::brew_molecule (SCM smob)
+Piano_pedal_bracket::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
   

@@ -302,9 +302,9 @@ Beam::connect_beams (Grob *me)
 /*
   TODO: should not make beams per stem, but per Y-level.
  */
-MAKE_SCHEME_CALLBACK (Beam, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Beam, print, 1);
 SCM
-Beam::brew_molecule (SCM grob)
+Beam::print (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
   position_beam (me);

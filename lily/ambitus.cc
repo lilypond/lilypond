@@ -125,9 +125,9 @@ add_accidentals (Item *me, Molecule *head, int num_acc,
     }
 }
 
-MAKE_SCHEME_CALLBACK (Ambitus,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Ambitus,print,1);
 SCM
-Ambitus::brew_molecule (SCM smob)
+Ambitus::print (SCM smob)
 {
   Item *me = (Item *)unsmob_grob (smob);
   Molecule molecule = Molecule ();

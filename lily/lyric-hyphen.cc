@@ -18,9 +18,9 @@
 #include "lyric-hyphen.hh"
 #include "moment.hh"
 
-MAKE_SCHEME_CALLBACK (Hyphen_spanner,brew_molecule,1)
+MAKE_SCHEME_CALLBACK (Hyphen_spanner,print,1)
 SCM 
-Hyphen_spanner::brew_molecule (SCM smob)
+Hyphen_spanner::print (SCM smob)
 {
   Spanner * me = unsmob_spanner (smob);
   Drul_array<Item*> bounds (me->get_bound (LEFT),

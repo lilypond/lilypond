@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.11"
+\version "2.1.21"
 % ASCII Art output
 %
 % Process as:
@@ -21,7 +21,7 @@
     raggedright = ##t
     \translator {
       \StaffContext
-      StaffSymbol \override #'molecule-callback = #(lambda (x) '())
+      StaffSymbol \override #'print-function = #(lambda (x) '())
     }
   }
 }

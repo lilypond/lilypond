@@ -19,7 +19,7 @@ public:
   
   static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (dim_callback, (SCM smob, SCM axis));
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM ));
   DECLARE_SCHEME_CALLBACK (height, (SCM,SCM));
   static void set_stem (Grob*me, Grob *st);
   static Molecule raw_molecule (Grob*);

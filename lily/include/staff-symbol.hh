@@ -25,7 +25,7 @@ public:
     
   static int get_steps (Grob*) ;
   static int line_count (Grob*);
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM ));
   static bool has_interface (Grob*);
   
 };

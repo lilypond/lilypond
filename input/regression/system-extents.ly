@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.21"
 \header {
 
     texidoc = "LilyPond correctly determines the size of every
@@ -16,7 +16,7 @@
     \paper { 
 	 \translator {
 	     \ScoreContext
-	     System \override #'molecule-callback = #box-grob-molecule
+	     System \override #'print-function = #box-grob-molecule
 	     }
     }
 }

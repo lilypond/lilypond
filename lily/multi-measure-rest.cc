@@ -64,9 +64,9 @@ Multi_measure_rest::percent (SCM smob)
   return r.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest,print,1);
 SCM
-Multi_measure_rest::brew_molecule (SCM smob) 
+Multi_measure_rest::print (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
   Spanner * sp = dynamic_cast<Spanner*> (me);

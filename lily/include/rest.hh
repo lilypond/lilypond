@@ -20,6 +20,6 @@ public:
   static String glyph_name (Grob*, int, String); 
   static SCM brew_internal_molecule (SCM);
   DECLARE_SCHEME_CALLBACK (extent_callback, (SCM,SCM));
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM ));
 };
 #endif // REST_HH

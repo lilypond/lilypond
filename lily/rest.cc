@@ -111,7 +111,7 @@ Rest::glyph_name (Grob *me, int balltype, String style)
 }
 
 
-MAKE_SCHEME_CALLBACK (Rest,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Rest,print,1);
 
 SCM
 Rest::brew_internal_molecule (SCM smob)
@@ -143,7 +143,7 @@ Rest::brew_internal_molecule (SCM smob)
 }
 
 SCM 
-Rest::brew_molecule (SCM smob) 
+Rest::print (SCM smob) 
 {
   return brew_internal_molecule (smob);
 }

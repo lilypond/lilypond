@@ -84,7 +84,7 @@ Line_spanner::after_line_breaking (SCM  g)
       /*
 	Can't do suicide, since this mucks up finding the trend.
        */
-      me->set_grob_property ("molecule-callback", SCM_EOL);
+      me->set_grob_property ("print-function", SCM_EOL);
       
     }
   return SCM_EOL;
@@ -172,9 +172,9 @@ line_spanner_common_parent (Grob *me)
 */
 
 
-MAKE_SCHEME_CALLBACK (Line_spanner, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, print, 1);
 SCM
-Line_spanner::brew_molecule (SCM smob) 
+Line_spanner::print (SCM smob) 
 {
   Spanner *me = dynamic_cast<Spanner*> (unsmob_grob (smob));
 

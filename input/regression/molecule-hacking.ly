@@ -1,5 +1,5 @@
 
-\version "2.1.7"
+\version "2.1.21"
 
 \header { texidoc=" You can write molecule callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -16,7 +16,7 @@ parens are also not seen by accidentals.
    "Construct a function that will do CALLBACK and add parentheses.
 Example usage:
 
-  \\property Voice.NoteHead \\override #'molecule-callback
+  \\property Voice.NoteHead \\override #'print-function
 		      =
 		      #(parenthesize-callback Note_head::brew_molecule)
 		    
@@ -59,12 +59,12 @@ GROB.  The dimensions of the molecule is not affected.
 \score {
 	\notes \relative c' { c4 e
 
-		    \property Voice.NoteHead \override #'molecule-callback
+		    \property Voice.NoteHead \override #'print-function
 		      =
 		      #(parenthesize-callback Note_head::brew_molecule)
 		    g bes
-		    \property Voice.NoteHead \revert #'molecule-callback
-		    \property Voice.Beam \override #'molecule-callback
+		    \property Voice.NoteHead \revert #'print-function
+		    \property Voice.Beam \override #'print-function
 		      =
 		      #(parenthesize-callback Beam::brew_molecule)
 

@@ -540,7 +540,7 @@ Stem::before_line_breaking (SCM smob)
     }
   else
     {
-      me->set_grob_property ("molecule-callback", SCM_EOL);
+      me->set_grob_property ("print-function", SCM_EOL);
     }
   
   return SCM_UNSPECIFIED;
@@ -701,10 +701,10 @@ Stem::thickness (Grob* me)
     * Staff_symbol_referencer::line_thickness (me);
 }
 
-MAKE_SCHEME_CALLBACK (Stem,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Stem,print,1);
 
 SCM
-Stem::brew_molecule (SCM smob) 
+Stem::print (SCM smob) 
 {
   Grob*me = unsmob_grob (smob);
   Molecule mol;

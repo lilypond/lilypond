@@ -18,7 +18,7 @@
 struct Hairpin
 {
 public:
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob*);
 };
 

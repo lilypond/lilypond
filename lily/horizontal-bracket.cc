@@ -16,7 +16,7 @@
 
 struct Horizontal_bracket
 {
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob*);
 };
 
@@ -30,10 +30,10 @@ struct Horizontal_bracket
 
 */
 
-MAKE_SCHEME_CALLBACK(Horizontal_bracket, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK(Horizontal_bracket, print, 1);
 
 SCM
-Horizontal_bracket::brew_molecule (SCM smob)
+Horizontal_bracket::print (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner*> (me);

@@ -538,9 +538,9 @@ Slur::height (SCM smob, SCM ax)
 /*
   Ugh should have dash-length + dash-period
  */
-MAKE_SCHEME_CALLBACK (Slur, brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Slur, print,1);
 SCM
-Slur::brew_molecule (SCM smob)
+Slur::print (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   if (!scm_ilength (me->get_grob_property ("note-columns")))

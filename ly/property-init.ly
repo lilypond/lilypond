@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "1.9.8"
+\version "2.1.21"
 
 stemUp = \property Voice.Stem \set #'direction = #1
 stemDown = \property Voice.Stem \set #'direction = #-1 
@@ -222,7 +222,7 @@ forgetAccidentals = {
 turnOff = #(cons '() '())
 
 % For drawing vertical chord brackets with \arpeggio
-% This is a shorthand for the value of the molecule-callback property 
+% This is a shorthand for the value of the print-function property 
 % of either Staff.Arpeggio or PianoStaff.Arpeggio, depending whether 
 % cross-staff brackets are desired. 
 

@@ -99,12 +99,12 @@ Ligature_engraver::create_ligature_spanner ()
  * This method should do something that comes close to the following
  * .ly snippet:
  *
- * \property Voice.NoteHead \override #'molecule-callback =
+ * \property Voice.NoteHead \override #'print-function =
  *     < value of #'ligature-primitive-callback of Voice.NoteHead >
  *
  * TODO: What we are doing here on the c++ level, should actually be
  * performed on the SCM level.  However, I do not know how to teach
- * lilypond to apply an \override and \revert on #'molecule-callback,
+ * lilypond to apply an \override and \revert on #'print-function,
  * whenever lily encounters a \[ and \] in an .ly file, respectively.
  * Also encounter, that lily should not crash if a user erronously
  * nests \[ and \].
@@ -112,7 +112,7 @@ Ligature_engraver::create_ligature_spanner ()
 void
 Ligature_engraver::override_molecule_callback ()
 {
-  SCM target_callback = ly_symbol2scm ("molecule-callback");
+  SCM target_callback = ly_symbol2scm ("print-function");
   SCM source_callback = ly_symbol2scm ("ligature-primitive-callback");
   SCM noteHeadProperties = updated_grob_properties (daddy_trans_, ly_symbol2scm ("NoteHead"));
   SCM value = ly_cdr (scm_sloppy_assq (source_callback, noteHeadProperties));
@@ -124,11 +124,11 @@ Ligature_engraver::override_molecule_callback ()
  * This method should do something that comes close to the following
  * .ly snippet:
  *
- * \property Voice.NoteHead \revert #'molecule-callback
+ * \property Voice.NoteHead \revert #'print-function
  *
  * TODO: What we are doing here on the c++ level, should actually be
  * performed on the SCM level.  However, I do not know how to teach
- * lilypond to apply an \override and \revert on #'molecule-callback,
+ * lilypond to apply an \override and \revert on #'print-function,
  * whenever lily encounters a \[ and \] in an .ly file, respectively.
  * Also encounter, that lily should not crash if a user erronously
  * nests \[ and \].
@@ -137,7 +137,7 @@ void
 Ligature_engraver::revert_molecule_callback ()
 {
   SCM symbol = ly_symbol2scm ("NoteHead");
-  SCM key = ly_symbol2scm ("molecule-callback");
+  SCM key = ly_symbol2scm ("print-function");
   execute_pushpop_property (daddy_trans_, symbol, key, SCM_UNDEFINED);
 }
 
@@ -270,7 +270,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
       if (Note_head::has_interface (info.grob_))
 	{
 	  primitives_.push (info);
-	  info.grob_->set_grob_property ("molecule-callback",
+	  info.grob_->set_grob_property ("print-function",
 					 brew_ligature_primitive_proc);
 	}
       if (Rest::has_interface (info.grob_))

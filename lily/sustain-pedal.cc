@@ -23,20 +23,20 @@
 
   Properties:
 
-  glyph -- text string (TODO: make one large glyph of the Ped symbol, removes need for member_brew_molecule ())
+  glyph -- text string (TODO: make one large glyph of the Ped symbol, removes need for member_print ())
 
 */
 
 struct Sustain_pedal
 {
 public:
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 
 
-MAKE_SCHEME_CALLBACK (Sustain_pedal,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Sustain_pedal,print,1);
 SCM
-Sustain_pedal::brew_molecule (SCM smob) 
+Sustain_pedal::print (SCM smob) 
 {
   Grob * e = unsmob_grob (smob);
   

@@ -47,9 +47,9 @@ Clef::before_line_breaking (SCM smob)
 
 
 
-MAKE_SCHEME_CALLBACK (Clef,brew_molecule,1)
+MAKE_SCHEME_CALLBACK (Clef,print,1)
 SCM
-Clef::brew_molecule (SCM smob) 
+Clef::print (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
   SCM glyph_scm = me->get_grob_property ("glyph-name");

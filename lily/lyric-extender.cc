@@ -31,9 +31,9 @@ Lyric_extender::is_visible (Grob *gr)
   return true;
 }
 
-MAKE_SCHEME_CALLBACK (Lyric_extender,brew_molecule,1)
+MAKE_SCHEME_CALLBACK (Lyric_extender,print,1)
 SCM 
-Lyric_extender::brew_molecule (SCM smob) 
+Lyric_extender::print (SCM smob) 
 {
   Spanner *me = unsmob_spanner (smob);
   Item *l = me->get_bound (LEFT);

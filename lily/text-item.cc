@@ -54,9 +54,9 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
     }
 }
 
-MAKE_SCHEME_CALLBACK(Text_item,brew_molecule,1);
+MAKE_SCHEME_CALLBACK(Text_item,print,1);
 SCM
-Text_item::brew_molecule (SCM grob)
+Text_item::print (SCM grob)
 {
   Grob * me = unsmob_grob (grob);
   

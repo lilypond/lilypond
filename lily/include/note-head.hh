@@ -20,7 +20,7 @@
 class Note_head 
 {
 public:
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+  DECLARE_SCHEME_CALLBACK (print, (SCM ));
   static Interval head_extent (Grob*, Axis);
   static Molecule brew_ledger_lines (Grob *me, int pos, int interspaces,
 				     Interval x_extent, Real, bool);

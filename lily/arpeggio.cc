@@ -18,9 +18,9 @@
 #include "lookup.hh"
 
 
-MAKE_SCHEME_CALLBACK (Arpeggio, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Arpeggio, print, 1);
 SCM 
-Arpeggio::brew_molecule (SCM smob) 
+Arpeggio::print (SCM smob) 
 {
   Grob *me = unsmob_grob (smob);
   
@@ -135,7 +135,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
 
 
 /*
-  We have to do a callback, because brew_molecule () triggers a
+  We have to do a callback, because print () triggers a
   vertical alignment if it is cross-staff.
   This callback also adds padding.
 */

@@ -15,7 +15,7 @@ class Slur
 {
 public:
   static void add_column (Grob *me, Grob *col);
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
   static void set_interface (Grob*);
   static bool  has_interface (Grob*);
   static Array<Offset> get_encompass_offsets (Grob *me);

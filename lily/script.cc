@@ -76,10 +76,10 @@ Script_interface::before_line_breaking (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK (Script_interface,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Script_interface,print,1);
 
 SCM
-Script_interface::brew_molecule (SCM smob)
+Script_interface::print (SCM smob)
 {
   Grob *me= unsmob_grob (smob);
 

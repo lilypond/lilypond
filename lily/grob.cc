@@ -109,7 +109,7 @@ Grob::Grob (SCM basicprops)
       */
       if (cb != SCM_BOOL_F
 	  && !gh_procedure_p (cb) && !gh_pair_p (cb)
-	  && gh_procedure_p (get_grob_property ("molecule-callback"))
+	  && gh_procedure_p (get_grob_property ("print-function"))
 	  )
 	cb = molecule_extent_proc;
     
@@ -243,7 +243,7 @@ Grob::get_molecule ()  const
 SCM
 Grob::get_uncached_molecule ()const
 {
-  SCM proc = get_grob_property ("molecule-callback");
+  SCM proc = get_grob_property ("print-function");
 
   SCM  mol = SCM_EOL;
   if (gh_procedure_p (proc)) 
@@ -848,7 +848,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 "anything.\n"
 ,
   "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause "
-"Y-extent-callback molecule-callback extra-offset spacing-procedure "
+"Y-extent-callback print-function extra-offset spacing-procedure "
 "staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
 "meta layer before-line-breaking-callback "
 "after-line-breaking-callback extra-Y-extent minimum-X-extent "

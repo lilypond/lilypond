@@ -1821,6 +1821,15 @@ def conv (str):
 
 conversions.append (((2,1,20), conv, """nonevent-skip -> skip-music""" ))
 
+def conv (str):
+	str = re.sub (r'molecule-callback', 'print-function', str)
+	str = re.sub (r'brew_molecule', 'print', str)
+	return str
+
+conversions.append (((2,1,21), conv, """molecule-callback -> print-function,
+brew_molecule -> print
+""" ))
+
 
 
 

@@ -25,9 +25,9 @@
   
  */
 
-MAKE_SCHEME_CALLBACK (Time_signature, brew_molecule, 1);
+MAKE_SCHEME_CALLBACK (Time_signature, print, 1);
 SCM
-Time_signature::brew_molecule (SCM smob) 
+Time_signature::print (SCM smob) 
 {
   Grob * me = unsmob_grob (smob);
   SCM st = me->get_grob_property ("style");

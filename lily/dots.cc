@@ -15,9 +15,9 @@
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Dots,brew_molecule,1);
+MAKE_SCHEME_CALLBACK (Dots,print,1);
 SCM  
-Dots::brew_molecule (SCM d)
+Dots::print (SCM d)
 {
   Grob *sc = unsmob_grob (d);
   Molecule mol;
