@@ -59,21 +59,6 @@ alists (but not the entries).
 
 // #define HASHING_FOR_MUTABLE_PROPS
 
-/*
-  Remove the value associated with KEY, and return it. The result is
-  that a next call will yield SCM_EOL (and not the underlying
-  `basic' property.
-*/
-SCM
-Grob::remove_grob_property (const char* key)
-{
-  SCM val = get_grob_property (key);
-  if (val != SCM_EOL)
-    set_grob_property (key, SCM_EOL);
-  return val;
-}
-
-
 SCM
 Grob::get_property_alist_chain (SCM def) const
 {

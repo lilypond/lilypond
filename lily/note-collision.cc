@@ -411,7 +411,7 @@ Note_collision_interface::forced_shift (Grob *me)
     {
       Grob * se = unsmob_grob (ly_car (s));
 
-      SCM force =  se->remove_grob_property ("force-hshift");
+      SCM force =  se->get_grob_property ("force-hshift");
       if (gh_number_p (force))
 	{
 	  tups = gh_cons (gh_cons (se->self_scm (), force),

@@ -317,7 +317,7 @@ Score_engraver::forbid_breaks ()
     result is junked.
    */
   if (command_column_)
-    command_column_->remove_grob_property ("breakable");
+    command_column_->set_grob_property ("breakable", SCM_EOL);
 }
   
 void

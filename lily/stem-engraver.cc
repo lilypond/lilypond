@@ -146,24 +146,6 @@ Stem_engraver::stop_translation_timestep ()
 	  daddy_trans_->unset_property (ly_symbol2scm ("stemRightBeamCount"));
 	}
 
-      
-      // UGH. Should mark non-forced instead.
-      /*
-	 aargh: I don't get it.  direction is being set (and then set
-	 to forced), if we have a Chord_tremolo.
-       */
-
-      /*
-	Why the separate check for forced directions? --hwn.
-
-	(docme)
-       */
-      SCM dir = stem_->get_grob_property ("direction");
-      if (gh_number_p (dir) && to_dir (dir))
-	{
-	  stem_->set_grob_property ("dir-forced", SCM_BOOL_T);	  
-	}
-
       typeset_grob (stem_);
       stem_ = 0;
     }

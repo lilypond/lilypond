@@ -254,7 +254,7 @@ ly_axis_p (SCM s)
 Direction
 to_dir (SCM s)
 {
-  return (Direction) gh_scm2int (s);
+  return SCM_INUMP (s) ?  (Direction) gh_scm2int (s) : CENTER;
 }
 
 Interval

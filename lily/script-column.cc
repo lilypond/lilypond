@@ -70,7 +70,7 @@ Script_column::before_line_breaking (SCM smob)
 	if (last)
 	  Side_position_interface::add_support (arr[i],last);
 	    
-	arr[i]->remove_grob_property ("script-priority");
+	arr[i]->set_grob_property ("script-priority", SCM_EOL);
 	last = arr[i];
       }
     

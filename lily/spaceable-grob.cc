@@ -94,9 +94,9 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength, bool expan
 void
 Spaceable_grob::remove_interface (Grob*me)
 {
-  me->remove_grob_property ("minimum-distances");
-  me->remove_grob_property ("spacing-wishes");
-  me->remove_grob_property ("ideal-distances");
+  me->set_grob_property ("minimum-distances" , SCM_EOL);
+  me->set_grob_property ("spacing-wishes", SCM_EOL);
+  me->set_grob_property ("ideal-distances", SCM_EOL);
 }
 
 

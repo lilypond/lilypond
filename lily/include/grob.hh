@@ -77,8 +77,6 @@ public:
   
   void set_elt_pointer (const char*, SCM val);
   friend class Property_engraver; //  UGHUGHUGH.
-  SCM remove_grob_property (const char* nm);
-
   /*
     related classes.
    */

@@ -1,15 +1,18 @@
 \version "1.5.68"
 
 \header{
-texidoc="Two automatic knees"
-}
+
+    texidoc="Automatic cross-staff knees also work (here we see them
+with explicit staff switches)."
+
+     }
 
 \score {
   \notes \context PianoStaff <
     \context Staff = "up" \notes\relative c''{
       [ b8 \translator Staff="down" d,, ]
       [ c \translator Staff="up" c'' ]
-      [ b, \translator Staff="down" d ]
+      [ b, \translator Staff="down" d^"no knee" ]
     }
     \context Staff = "down" {
       \clef bass 
@@ -17,11 +20,6 @@ texidoc="Two automatic knees"
     }
   >
   \paper{
-    linewidth = 40*\staffspace
-% Now by default
-%    \translator{
-%      \VoiceContext
-%      Beam \override #'auto-knee-gap = #7
-%    }
+    linewidth = -1.0
   }
 }

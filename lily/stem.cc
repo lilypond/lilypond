@@ -491,7 +491,7 @@ Stem::before_line_breaking (SCM smob)
     }
   else
     {
-      me->remove_grob_property ("molecule-callback");
+      me->set_grob_property ("molecule-callback", SCM_EOL);
     }
   
   return SCM_UNSPECIFIED;
@@ -896,6 +896,6 @@ Stem::beam_multiplicity (Grob *stem)
 
 ADD_INTERFACE (Stem,"stem-interface",
   "A stem",
-  "up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length style no-stem-extend flag-style dir-forced");
+  "up-to-staff avoid-note-head adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length style no-stem-extend flag-style");
 
 

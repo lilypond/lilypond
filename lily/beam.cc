@@ -146,7 +146,7 @@ Beam::before_line_breaking (SCM smob)
 	{
 	  me->warning (_ ("Beam has less than two stems. Removing beam."));
 
-	  unsmob_grob (gh_car (stems))->remove_grob_property ("beam");
+	  unsmob_grob (gh_car (stems))->set_grob_property ("beam", SCM_EOL);
 	  me->suicide ();
 
 	  return SCM_UNSPECIFIED;
@@ -539,25 +539,12 @@ Beam::set_stem_directions (Grob *me, Direction d)
   for (int i=0; i <stems.size (); i++)
     {
       Grob *s = stems[i];
-      /* For knees, non-forced stems should probably have their
-	 natural direction. In any case, when knee, beam direction is
-	 foe.
-	 
-	 TODO: for x staff knees, set direction pointing to 'the
-	 other' staff, rather than natural.
-      */
-      if (knee_b(me))
-	{
-	  Stem::get_direction (s); // this actually sets it, if necessary
-	}
-      else
-	{
-	  SCM force = s->remove_grob_property ("dir-forced");
-	  if (!gh_boolean_p (force) || !gh_scm2bool (force))
-	    Directional_element_interface::set (s, d);
-	}
+  
+      SCM forcedir = s->get_grob_property ("direction");
+      if (!to_dir (forcedir))
+	Directional_element_interface::set (s, d);
     }
-} 
+}
 
 /*
   A union of intervals in the real line.
@@ -649,20 +636,25 @@ Beam::consider_auto_knees (Grob* me)
       Grob* stem = stems[i];
       if (Stem::invisible_b (stem))
 	continue;
-      
 
       Interval hps = Stem::head_positions (stem);
-
       if(!hps.empty_b())
 	{
 	  hps[LEFT] += -1;
 	  hps[RIGHT] += 1; 
 	  hps *= staff_space * 0.5 ;
+
+	  /*
+	    We could subtract beam Y position, but this routine only
+	    sets stem directions, a constant shift does not have an
+	    influence.
+	    
+	   */
 	  hps += stem->relative_coordinate (common, Y_AXIS);
-      
-	  if (to_boolean (stem->get_grob_property ("dir-forced")))
+
+	  if (to_dir (stem->get_grob_property ("direction")))
 	    {
-	      Direction stemdir =Directional_element_interface::get (stem);
+	      Direction stemdir = to_dir (stem->get_grob_property ("direction"));
 	      hps[-stemdir] = - stemdir * infinity_f;
 	    }
 	}
@@ -707,12 +699,6 @@ Beam::consider_auto_knees (Grob* me)
 	    UP : DOWN ;
 	  
 	  stem->set_grob_property ("direction", scm_int2num (d));
-
-	  /*
-	    UGH. Check why we still need dir-forced; I think we can
-	    junk it.
-	   */
-	  stem->set_grob_property ("dir-forced", SCM_BOOL_T);
 	  
 	  hps.intersect (max_gap);
 	  assert (hps.empty_b () || hps.length () < 1e-6 );
