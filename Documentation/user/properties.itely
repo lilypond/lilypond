@@ -47,24 +47,30 @@ TODO:
 @cindex properties!Thread
 
 @table @samp
-  @item @code{noteheadStyle}@indexcode{noteheadStyle} @propertytype{string}
-    Selects type of note head.  Choices are @code{cross},
-    @code{diamond}, @code{harmonic}, @code{transparent}, and @code{""}. 
-    They are shown in that order below.
+  @item @code{noteHeadStyle}@indexcode{noteHeadStyle} @propertytype{symbol}
+    Selects type of note head.  Choices are @code{'cross},
+    @code{'diamond}, @code{'harmonic}, @code{'transparent}, 
+    @code{'mensural}, @code{'baroque}, and @code{'default}. 
+    They are shown in that order below. The  @code{'baroque}, 
+    style gives the default symbols except for brevis and 
+    longa notes which are square shaped as in the @code{'mensural} 
+    style.
 
     @mudela[center,verbatim]
       \score {
         \notes { 
           \property Staff.barNonAuto = 1
-          \property Voice.noteHeadStyle = cross 
+          \property Voice.noteHeadStyle = #'cross 
           a'
-          \property Voice.noteHeadStyle = diamond
+          \property Voice.noteHeadStyle = #'diamond
           a'
-          \property Voice.noteHeadStyle = harmonic
+          \property Voice.noteHeadStyle = #'harmonic
           a'
-          \property Voice.noteHeadStyle = transparent
+          \property Voice.noteHeadStyle = #'transparent
           a' 
-          \property Voice.noteHeadStyle = ""
+          \property Voice.noteHeadStyle = #'mensural
+          a' 
+          \property Voice.noteHeadStyle = #'default
           a'
         }
         \paper {
