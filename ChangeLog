@@ -1,3 +1,8 @@
+2002-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/beam.cc (connect_beams): don't crash if there are quarter
+	notes in beams.
+
 2002-09-24  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/refman.itely: corrected ancient clef
