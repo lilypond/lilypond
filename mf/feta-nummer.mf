@@ -6,7 +6,7 @@
 % 
 % (c) 1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 
-fet_begingroup("nummer")
+fet_begingroup("number")
 
 define_pixels(height,thick,thick,thin,hair,flare);
 define_pixels(foot_top,foot_width);
@@ -85,7 +85,8 @@ save dot_diam;
 dot_diam# = 7/8flare#;
 define_pixels(dot_diam);
 
-code := 43;
+
+code := 43;  % , = 44 
 
 % urg
 fet_beginchar("Numeral comma", ",", "comma")
@@ -121,7 +122,7 @@ fet_endchar;
 
 % skip slash
 
-code := 47;
+code := 47; % 0 = 48
 
 fet_beginchar("Numeral 0", "0", "zero")
 %	set_char_box(0, 4/5height#*widen, 0, height#);
@@ -416,5 +417,5 @@ fet_beginchar("Numeral 9", "9", "nine")
 	currentpicture := currentpicture shifted (w,h);
 fet_endchar;
 
-fet_endgroup("nummer")
+fet_endgroup("number")
 

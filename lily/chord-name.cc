@@ -13,6 +13,7 @@
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
+#include "staff-symbol-referencer.hh"
 
 
 /*
@@ -296,5 +297,11 @@ Chord_name::do_brew_molecule () const
     mol.add_at_edge (X_AXIS, RIGHT, name.inversion_mol, 0);
   if (!name.bass_mol.empty_b ())
     mol.add_at_edge (X_AXIS, RIGHT, name.bass_mol, 0);
+
+  s = get_elt_property ("word-space");
+  if (gh_number_p (s))
+    mol.dim_.interval_a_[X_AXIS][RIGHT] += gh_scm2double (s)
+      * staff_symbol_referencer (this).staff_space ();
+
   return mol;
 }

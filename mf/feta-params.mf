@@ -4,7 +4,7 @@ stafflines = 5;
 staff_space#:=staffsize#/(stafflines-1);
 
 % URG!
-font_x_height  staff_space# ;
+%font_x_height  staff_space# ;
 
 %
 %  [D.K.Roush & J.S.Gourlay] say this should be 0.072
@@ -39,4 +39,10 @@ overdone_heads = 0.0;
 %
 numeric blot_diameter;
 blot_diameter# = .4pt#;
+if (blot_diameter# * hppp) < 1:
+	blot_diameter# := 1/hppp;
+fi
+if (blot_diameter# * vppp) < 1:
+	blot_diameter# := 1/vppp;
+fi
 define_pixels(blot_diameter);

@@ -502,8 +502,14 @@ Midi_piano_pedal::str () const
   Byte status_byte = (char) (0xB0 + channel_i_);
   String str = to_str ((char)status_byte);
 
-  str += to_str ((char)0x40);
-  int pedal = audio_l_->type_b_ ? 0x7f : 0;
+  if (audio_l_->type_str_ == "Sostenuto")
+    str += to_str ((char)0x42);
+  else if (audio_l_->type_str_ == "Sustain")
+    str += to_str ((char)0x40);
+  else if (audio_l_->type_str_ == "UnaChorda")
+    str += to_str ((char)0x43);
+
+  int pedal = ((1 - audio_l_->dir_) / 2 ) * 0x7f;
   str += to_str ((char)pedal);
   return str;
 }

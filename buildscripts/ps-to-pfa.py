@@ -122,8 +122,7 @@ end                                         % of font dictionary
 	f.write (''
 'exch definefont pop                         % Define the font\n')
 
-
-suspect_re = re.compile ('closepath (.*?) 1 setgray newpath (.*?) closepath fill')
+suspect_re = re.compile ('closepath ((gsave )*fill( grestore stroke)*) 1 setgray newpath (.*?) closepath fill')
 
 def characters (f):
 	sys.stderr.write ('[')
@@ -153,7 +152,7 @@ def characters (f):
 			m = suspect_re.search (s)
 			while m:
 				fill = m.group (1)
-				path = m.group (2)
+				path = m.group (4)
 
 				# be complicated, in case of gsave/grestore.
 				# vill as quick hack to avoid duple substitutions.

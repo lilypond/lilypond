@@ -1,3 +1,32 @@
+1.3.44.jcn2
+===========
+
+* Implemented una-chorda and sostenuto piano pedals in performer and engraver.
+
+* Added Properties textScriptWordSpace and chordNameWordSpace.
+
+* Junked old lyrics in star-spangled-banner.
+
+1.3.44.jcn1
+===========
+
+* Added a Piano_pedal_engraver.
+
+* Removed some empty files.
+
+* Created piano pedal symbols: * - . P e d.
+
+* Fixed ps-to-pfa.py to handle multiple unfills.
+
+* Moved accordion symbols out of feta-script to end of font.
+
+* Bugfix: don't create tfm's, pfa's etc of feta-test fonts.
+
+* Fixed blot_diameter for small resolutions.
+
+1.3.43
+======
+
 1.3.43.hwn1
 ===========
 
@@ -55,7 +84,7 @@ Also updated index.texi.
 * Change all occurances of Staff_margin_engraver to
 Instrument_name_engraver, add a convert-mudela rule
 
-* Change status == busy assert into programming a error
+* Change status == busy assert into programming sample/sample/error
 
 1.3.42
 ======

@@ -606,6 +606,7 @@ copy < olddll
 copy < newdll 
 bash setup.sh
 if not errorlevel 0 goto nobash
+attrib +s \\Cygnus\\usr\\share\\lilypond\\cmtfm
 goto :exit
 :nobash
 @echo "setup.bat: can't find bash"

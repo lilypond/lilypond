@@ -22,7 +22,7 @@
       \StaffGroupContext
         \consists "Instrument_name_engraver";
         marginScriptPadding = #10  % urg: this is in PT
-	instrument = #"Piano in het midden"
+	instrument = #"Piano\n(For rehearsal only)"
       }
   }
 }

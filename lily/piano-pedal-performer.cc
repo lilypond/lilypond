@@ -1,5 +1,5 @@
 /*
- piano-pedal-performer.cc -- implement Piano_pedal_performer
+  piano-pedal-performer.cc -- implement Piano_pedal_performer
 
   source file of the GNU LilyPond music typesetter
 
@@ -10,19 +10,20 @@
 #include "command-request.hh"
 #include "musical-request.hh"
 #include "audio-item.hh"
-
-
-/*
-  TODO:
-    sostenuto
-    una-chorda ?
- */
+#include "dictionary.hh"
+#include "dictionary-iter.hh"
 
 /**
    perform Piano pedals
  */
 class Piano_pedal_performer : public Performer
 {
+  struct Pedal_info
+  {
+    Span_req* start_req_l_;
+    Drul_array<Span_req*> req_l_drul_;
+  };
+
 public:
   VIRTUAL_COPY_CONS (Translator);
   
@@ -36,43 +37,55 @@ protected:
 
 private:
   Link_array<Audio_piano_pedal> audio_p_arr_;
-  Span_req* span_start_req_l_;
-  Drul_array<Span_req*> span_req_l_drul_;
+  Dictionary<Pedal_info> info_dict_;
 };
 
 ADD_THIS_TRANSLATOR (Piano_pedal_performer);
 
 Piano_pedal_performer::Piano_pedal_performer ()
 {
-  span_req_l_drul_[START] = 0;
-  span_req_l_drul_[STOP] = 0;
-  span_start_req_l_ = 0;
+  (void)info_dict_["Sostenuto"];
+  (void)info_dict_["Sustain"];
+  (void)info_dict_["UnaChorda"];
+  for (Dictionary_iter <Pedal_info> i (info_dict_); i.ok (); i++)
+    {
+      Pedal_info& p = i.val_ref ();
+      p.req_l_drul_[START] = 0;
+      p.req_l_drul_[STOP] = 0;
+      p.start_req_l_ = 0;
+    }
 }
 
 void
 Piano_pedal_performer::do_process_music ()
 {
-  if (span_req_l_drul_[STOP])
+  for (Dictionary_iter <Pedal_info> i (info_dict_); i.ok (); i++)
     {
-      if (!span_start_req_l_)
+      Pedal_info& p = i.val_ref ();
+      if (p.req_l_drul_[STOP])
 	{
-	  span_req_l_drul_[STOP]->warning (_ ("can't find start of piano_pedal"));
+	  if (!p.start_req_l_)
+	    {
+	      p.req_l_drul_[STOP]->warning (_f ("can't find start of piano pedal: %s", i.key ()));
+	    }
+	  else
+	    {
+	      Audio_piano_pedal* a = new Audio_piano_pedal;
+	      a->type_str_ = i.key ();
+	      a->dir_ = STOP;
+	      audio_p_arr_.push (a);
+	    }
+	  p.start_req_l_ = 0;
 	}
-      else
-	{
-	  Audio_piano_pedal* p = new Audio_piano_pedal;
-	  p->type_b_ = false;
-	  audio_p_arr_.push (p);
-	}
-      span_start_req_l_ = 0;
-    }
 
-  if (span_req_l_drul_[START])
-    {
-      span_start_req_l_ = span_req_l_drul_[START];
-      Audio_piano_pedal* p = new Audio_piano_pedal;
-      p->type_b_ = true;
-      audio_p_arr_.push (p);
+      if (p.req_l_drul_[START])
+	{
+	  p.start_req_l_ = p.req_l_drul_[START];
+	  Audio_piano_pedal* a = new Audio_piano_pedal;
+	  a->type_str_ = i.key ();
+	  a->dir_ = START;
+	  audio_p_arr_.push (a);
+	}
     }
 }
 
@@ -87,19 +100,27 @@ Piano_pedal_performer::do_pre_move_processing ()
 void
 Piano_pedal_performer::do_post_move_processing ()
 {
-  span_req_l_drul_[STOP] = 0;
-  span_req_l_drul_[START] = 0;
+  for (Dictionary_iter <Pedal_info> i (info_dict_); i.ok (); i++)
+    {
+      Pedal_info& p = i.val_ref ();
+      p.req_l_drul_[STOP] = 0;
+      p.req_l_drul_[START] = 0;
+    }
 }
 
 bool
 Piano_pedal_performer::do_try_music (Music* r)
 {
-  if (Span_req * s = dynamic_cast<Span_req*>(r))
+  for (Dictionary_iter <Pedal_info> i (info_dict_); i.ok (); i++)
     {
-      if (s-> span_type_str_ == "sustain")
+      Pedal_info& p = i.val_ref ();
+      if (Span_req * s = dynamic_cast<Span_req*>(r))
 	{
-	  span_req_l_drul_[s->span_dir_] = s;
-	  return true;
+	  if (s->span_type_str_ == i.key ())
+	    {
+	      p.req_l_drul_[s->span_dir_] = s;
+	      return true;
+	    }
 	}
     }
   return false;
