@@ -12,6 +12,8 @@
 @end macro
 
 
+
+
 @c .{Reference Manual}
 
 @node Reference Manual
@@ -968,7 +970,7 @@ property. Setting it to @code{#'()} uses fraction style for 4/4 and
 
 The object for this symbol is @internalsref{TimeSignature}.  There are
 many more options for its layout. They are selected through the
-@code{style} object property. See @file{input/test/time.ly} for more
+@code{style} object property. See @inputfileref{input/test,time.ly} for more
 examples.
 
 This command sets the property @code{timeSignatureFraction},
@@ -1621,7 +1623,7 @@ Each rule cosists of
 @end table
 
 As described in the internal documentation of
-@reng{Accidental_engraver}, the properties @code{autoAccidentals} and
+@internalsref{Accidental_engraver}, the properties @code{autoAccidentals} and
 @code{autoCautionaries} contain lists of rule descriptions. Notice
 that the contexts must be listed from in to out - that is
 @internalsref{Thread} before @internalsref{Voice},
@@ -2009,7 +2011,7 @@ effect on the MIDI rendering of the music.
 
 Unfortunately, there is no support for adding fingering instructions or 
 ornaments to individual note heads. Some hacks exist, though. See
-@file{input/test/script-horizontal.ly}.
+@inputfileref{input/test,script-horizontal.ly}.
 
 
 @c .  {Text scripts}
@@ -2321,7 +2323,7 @@ alternative endings (voltas) are printed, left to right.
 @item fold
 Alternative endings are written stacked. This has limited use but may be
 used to typeset two lines of lyrics in songs with repeats, see
-@file{input/star-spangled-banner.ly}.
+@inputfileref{input,star-spangled-banner.ly}.
 
 @item tremolo
 Make tremolo beams.
@@ -2402,7 +2404,7 @@ the specified number of repeats.
 @cindex expanding repeats
 
 For instructions on how to unfoldi repeats for MIDI output, see
-the example file @file{input/test/unfold-all-repeats.ly}.
+the example file @inputfileref{input/test,unfold-all-repeats.ly}.
 
 
 @refbugs
@@ -2862,7 +2864,7 @@ other pianistic peculiarities.
 There is no support for putting chords across staves.  You can get
 this result by increasing the length of the stem in the lower stave so
 it reaches the stem in the upper stave, or vice versa. An example is
-included with the distribution as @file{input/test/stem-cross-staff.ly}.
+included with the distribution as @inputfileref{input/test,stem-cross-staff.ly}.
 
 @cindex cross staff stem
 @cindex stem, cross staff
@@ -2961,7 +2963,7 @@ c''4 \sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4 \sostenutoUp
 For fine-tuning of the appearance of a pedal bracket, the properties
 @code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
 @code{PianoPedalBracket} objects (see the detailed documentation of
-@rgrob{PianoPedalBracket}) can be modified.  For example, the bracket
+@internalsref{PianoPedalBracket}) can be modified.  For example, the bracket
 may be extended to the end of the note head.
 
 @lilypond[fragment,verbatim]
@@ -3662,7 +3664,7 @@ As you can see, the mark is incremented automatically if you use
 @code{\mark \default}. The value to use is stored in the property
 @code{rehearsalMark} is used and automatically incremented.  The object
 is @internalsref{RehearsalMark} in @internalsref{Score} context. See
-@code{input/test/boxed-molecule.ly} if you need boxes around the
+@inputfileref{input/test,boxed-molecule.ly} if you need boxes around the
 marks.
 
 The @code{\mark} command can also be used to put signs like coda,
@@ -3985,8 +3987,8 @@ may set the property @var{soloADue} to false.
 
 There are a number of other properties that you can use to tweak the
 behavior of part combining, refer to the automatically generated
-documentation of @reng{Thread_devnull_engraver} and
-@reng{Voice_devnull_engraver}. Look at the documentation of the
+documentation of @internalsref{Thread_devnull_engraver} and
+@internalsref{Voice_devnull_engraver}. Look at the documentation of the
 responsible engravers, @code{Thread_devnull_engraver},
 @code{Voice_devnull_engraver} and @code{A2_engraver}.
 
@@ -5054,7 +5056,7 @@ changed by setting the @code{fontSize} property for that context:
  This command will not change the size of variable symbols, such as
 beams or slurs.  You can use this command to get smaller symbol for
 cue notes, but that involves some more subtleties. An elaborate
-example of those is in @file{input/test/cue-notes.ly}.
+example of those is in @inputfileref{input/test,cue-notes.ly}.
 
 @cindex cue notes
 @cindex font size

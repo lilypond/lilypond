@@ -11,49 +11,6 @@
 @end macro
 
 
-@c Reference ENGraver description
-@ifnottex
-@macro reng {word}
-@ref{ (lilypond-internals)\word\, \word\ }
-
-@end macro
-@end ifnottex
-
-@iftex
-@macro reng {word}
-\word\
-@end macro
-@end iftex
-
-
-@c Reference GROB description
-@ifnottex
-@macro rgrob {word}
-@ref{ (lilypond-internals)\word\, \word\ }
-
-@end macro
-@end ifnottex
-
-@iftex
-@macro rgrob {word}
-\word\
-@end macro
-@end iftex
-
-
-@c Reference INTernals document
-@ifnottex
-@macro rint {word}
-@ref{ (lilypond-internals)\word\, \word\ }
-
-@end macro
-@end ifnottex
-
-@iftex
-@macro rint {word}
-\word\
-@end macro
-@end iftex
 
 
 @c Reference GLOSsary
@@ -133,6 +90,10 @@ $\\flat$%
 @uref{../lilypond-internals/\NAME\.html,\NAME\}
 @cindex \NAME\
 @end macro
+
+@macro fileref{DIR,NAME}
+@uref{../../../\DIR\/out-www/collated-files.html#\NAME\}
+@end macro
 @end ifhtml
 
 @ifinfo
@@ -140,12 +101,20 @@ $\\flat$%
 @inforef{\NAME\,,lilypond-internals}
 @cindex \NAME\
 @end macro
+
+@macro fileref{DIR,NAME}
+@file{\DIR\/\NAME\}
+@end macro
+
 @end ifinfo
 
 @iftex
 @macro internalsref{NAME}
 @cindex \NAME\
 @code{\NAME\}
+@end macro
+@macro fileref{DIR,NAME}
+@file{\DIR\/\NAME\}
 @end macro
 @end iftex
 

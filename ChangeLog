@@ -1,3 +1,10 @@
+2003-04-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/macros.itexi: @fileref macro.
+
+	* buildscripts/lys-to-tely.py (name2line): add <NAME> tags for
+	each file. 
+
 2003-04-04  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/include/custos.hh, make/lilypond.suse.spec.in,

@@ -229,7 +229,7 @@ pitch relations, and there is no universal agreement on how to do
 this.
 
 Fortunately, we have a concrete application, so we don't run the risk
-of loosing ourselves in philosophical arguments over the essence of
+of losing ourselves in philosophical arguments over the essence of
 music.  We want to produce a printed score from a music
 representation, so this gives us a nice guide for designing a format:
 we need a format containing mainly musical elements, such as pitch and
