@@ -624,7 +624,7 @@ In principle, the way in which you nest sequential and simultaneous to
 produce music is not relevant.  In the following example, three chords
 are expressed in two different ways:
 
-@lilypond[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center,quote]
 \notes \context Voice {
   <a c'> <b d'> <c' e'>
   < { a b c' } { c' d' e' } >

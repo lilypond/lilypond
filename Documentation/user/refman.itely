@@ -225,7 +225,7 @@ a2 s4 a4 \skip 1 a4
 
 In Lyrics mode, you can make invisible syllables by entering `@code{" "}' 
 or `@code{_}':
-@lilypond[singleline,verbatim]
+@lilypond[singleline,verbatim,quote]
 <
   \context Lyrics \lyrics { lah2 di4 " " dah2 _4 di }
   \notes\relative c'' { a2 a4 a a2 a4 a }
@@ -277,7 +277,7 @@ r\longa r\breve
 r1 r2 r4 r8 r16 r32 r64 r64 
 @end example 
 
-@lilypond[noindent,noquote]
+@lilypond[noindent]
 \score {
   \notes \relative c'' {
     a\breve  \autoBeamOff
@@ -364,7 +364,7 @@ In its meaning a tie is just a way of extending a note duration, similar
 to the augmentation dot: the following example are two ways of notating
 exactly the same concept.
 @c
-@lilypond[fragment, singleline]
+@lilypond[fragment, singleline,quote]
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
 If you need to tie notes over bars, it may be easier to use
@@ -391,7 +391,7 @@ LilyPond can automatically converting long notes to tied notes.  This
 is done by replacing the @code{Note_heads_engraver} by the
 @code{Completion_heads_engraver}. 
 
-@lilypond[verbatim,noindent,noquote]
+@lilypond[verbatim,noindent]
 \score{
   \notes\relative c'{ \time 2/4
   c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 
@@ -1271,7 +1271,7 @@ c32-[ c c c c c c c c c c c c c c c-]
 \property Score.beatLength = #(ly:make-moment 1 8)
 c32-[ c c c c c c c c c c c c c c c-]
 @end example
-@lilypond[noindent,noquote]
+@lilypond[noindent]
 \score {
     \notes \relative c' {
         c16-[ c c c c c c c-]
@@ -1418,7 +1418,7 @@ It is not possible to specify beaming parameters for beams with mixed
 durations, that differ from the beaming parameters of all separate
 durations, i.e., you'll have to specify manual beams to get:
 
-@lilypond[singleline,fragment,relative,noverbatim]
+@lilypond[singleline,fragment,relative,noverbatim,quote]
   \property Voice.autoBeamSettings
   \override #'(end * * * *) = #(ly:make-moment 3 8)
   \time 12/8 c'8 c c c16 c c c c c c-[ c c c-] c8 c c4
@@ -1506,7 +1506,7 @@ The macros are:
       Warning: This leads to some weird and often unwanted results
       because accidentals from one voice DO NOT get cancelled in other
       voices:
-@lilypond[singleline,relative,fragment,verbatim]
+@lilypond[singleline,relative,fragment,verbatim,quote]
     \context Staff <
         \voiceAccidentals
         \context Voice=va { \voiceOne es g }
@@ -2240,7 +2240,7 @@ the last note of the dynamic mark whereas @code{\rc} and @code{\rced} go
 after the last note.  Because these marks are bound to notes, if you
 want several marks during one note, you have to use spacer notes.
 
-@lilypond[fragment,verbatim,center]
+@lilypond[fragment,verbatim,center,quote]
   c'' \< \! c''   d'' \decr e'' \rced 
   < f''1 { s4 s4 \< \! s4 \> \! s4 } >
 @end lilypond
@@ -2554,7 +2554,7 @@ list of percussion instrument names, notehead scripts and staff
 positions (that is: pitches relative to the C-clef) and uses this to
 transform the input music by moving the pitch, changing the notehead
 and (optionally) adding a script:
-@lilypond[singleline,verbatim]
+@lilypond[singleline,verbatim,quote]
 \include "drumpitch-init.ly"
 up = \notes { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
 down = \notes { bassdrum4 snare8 bd r bd sn4 }
@@ -2875,7 +2875,7 @@ The autochanger switches on basis of pitch (central C is the turning
 point), and it looks ahead skipping over rests to switch rests in
 advance. Here is a practical example:
         
-@lilypond[verbatim,singleline]
+@lilypond[verbatim,singleline,quote]
 \score { \notes \context PianoStaff <
   \context Staff = "up" {
     \autochange Staff \context Voice = VA < \relative c' {
@@ -3224,7 +3224,7 @@ e8 fis gis a b cis' dis' e'
 \property TabStaff.minimumFret = #8
 e8 fis gis a b cis' dis' e'
 @end example
-@lilypond[noindent,noquote]
+@lilypond[noindent]
 frag = \notes {
     \key e \major
     e8 fis gis a b cis' dis' e'
@@ -3358,7 +3358,7 @@ Chord mode is a mode where you can input sets of pitches using common
 names.  It is introduced by the keyword @code{\chords}.
 In chords mode,  a  chord is entered by the root, which is entered
 like a common pitch, for example,
-@lilypond[fragment,verbatim]
+@lilypond[fragment,verbatim,quote]
   es4.  d8 c2
 @end lilypond
 is the notation for an E-flat major chord.
@@ -3369,7 +3369,7 @@ is the notation for an E-flat major chord.
 Other chords may be entered
 by suffixing a colon, and introducing a modifier, and optionally, a
 number, for example
-@lilypond[fragment,verbatim]
+@lilypond[fragment,verbatim,quote]
 \chords { e1:m e1:7 e1:m7  }
 @end lilypond
 The first number following the root is taken to be the `type' of the
@@ -3387,12 +3387,12 @@ More complex chords may also be constructed  adding separate steps
 to a chord. Additions are added after the  number following
 the colon, and are separated by dots. For example
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,fragment,quote]
   \chords { c:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
 Chord steps can be  altered by suffixing a @code{-} or @code{+} sign
 to the number, for example:
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,fragment,quote]
   \chords { c:7+ c:5+.3-  c:3-.5-.7- }
 @end lilypond
 Removals are specified similarly, and are introduced by a caret.  They
@@ -3704,7 +3704,7 @@ adds a box around the bar numbers:
   #(make-molecule-boxer 0.1 0.25 0.25 Text_item::brew_molecule)
 \property Score.BarNumber \override #'font-relative-size = #0
 @end example
-@lilypond[noindent,noquote]
+@lilypond[noindent]
 \score {
     \context Staff \notes \transpose c c'' {
 	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible
@@ -3735,7 +3735,7 @@ resetBarnum = \context Score \applycontext
 \mark \default \resetBarnum
 \repeat unfold 8 c
 @end example
-@lilypond[noindent,noquote]
+@lilypond[noindent]
 resetBarnum = \context Score \applycontext
   #(set-bar-number-visibility 4)
 \score {
@@ -3863,6 +3863,7 @@ fractions:
  R1*13/8
  R1*13/8*12
 @end lilypond
+
 Notice that a @code{R} spanning a single measure is printed as a whole
 rest centered in the measure, regardless of the time signature.
 
@@ -3882,6 +3883,7 @@ is provided for a fermata.
   R2._\markup { \roman "Ad lib" }
   R2.^\fermataMarkup
 @end lilypond
+
 By default, the multi-measure rest uses the number font, which does
 not contain any letters. This is the reason for the explicit
 @code{\roman} in the above example.
@@ -4301,7 +4303,7 @@ anticipates the pitch of the first note(s) of the following line and
 thus helps the player or singer to manage line breaks during
 performance, thus enhancing readability of a score.
 
-@lilypond[verbatim,noquote]
+@lilypond[verbatim]
 \score {
   \notes { c'1 \break
         \property Staff.Custos \set #'style = #'mensural
@@ -4665,7 +4667,7 @@ A object definition is a Scheme association list, that is stored in a
 context property.  By assigning to that property (using plain
 @code{\property}), you can change the resulting objects.
 
-@lilypond[verbatim, fragment]
+@lilypond[verbatim, fragment,quote]
 c'4 \property Voice.NoteHead  = #'() c'4
 @end lilypond
 This mechanism is fairly crude, since you can only set, but not modify,
@@ -4685,7 +4687,7 @@ in @file{scm/grob-description.scm}), includes the following definitions for
 
 You can add a property on top of the existing definition, or remove a
 property, thus overriding the system defaults:
-@lilypond[verbatim]
+@lilypond[verbatim,quote]
 c'4 \property Voice.Stem \override #'thickness = #4.0
 c'4 \property Voice.Stem \revert #'thickness
 c'4
@@ -4694,7 +4696,7 @@ You should balance @code{\override} and @code{\revert}. If that's too
 much work, you can use the @code{\set} shorthand. It performs a revert
 followed by an override. The following example gives exactly the same
 result as the previous one. 
-@lilypond[verbatim]
+@lilypond[verbatim,quote]
 c'4 \property Voice.Stem \set #'thickness = #4.0
 c'4 \property Voice.Stem \set #'thickness = #0.8
 c'4
@@ -4845,7 +4847,7 @@ The most common thing to change about the appearance of fonts is
 their size. The font size of a @internalsref{Voice},
 @internalsref{Staff} or @internalsref{Thread} context, can be easily
 changed by setting the @code{fontSize} property for that context:
-@lilypond[fragment,relative=1]
+@lilypond[fragment,relative=1,verbatim,quote]
   c4 c4 \property Voice.fontSize = #-1
   f4 g4
 @end lilypond
@@ -5036,7 +5038,7 @@ Raising and lowering texts can be done with @code{\super} and
 
 If you want to give an explicit amount for lowering or raising, use
 @code{\raise}.  This command takes a Scheme valued argument,
-@lilypond[verbatim,fragment,relative=1]
+@lilypond[verbatim,fragment,relative=1,quote]
  c1^\markup { C \small \raise #1.0 { "9/7+" }}
 @end lilypond
 The argument to @code{\raise} is the vertical displacement amount,
