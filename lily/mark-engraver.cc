@@ -45,7 +45,6 @@ Mark_engraver::Mark_engraver ()
 {
   text_ =0;
   mark_ev_ = 0;
-  staff_ = 0;
 }
 
 void
