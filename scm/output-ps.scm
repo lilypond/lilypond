@@ -68,10 +68,6 @@
 (define (escape-parentheses s)
   (regexp-substitute/global #f "(^|[^\\])([\\(\\)])" s 'pre 1 "\\" 2 'post))
 
-(define (offset-add a b)
-  (cons (+ (car a) (car b))
-	(+ (cdr a) (cdr b))))
-
 (define (ps-encoding text)
   (escape-parentheses text))
 

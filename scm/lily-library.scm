@@ -232,6 +232,9 @@ found."
   (cons (+ (car a) (car b))
 	(+ (cdr a) (cdr b)))) 
 
+(define-public (offset-flip-y o)
+  (cons (car o) (- (cdr o))))
+
 (define-public (ly:list->offsets accum coords)
   (if (null? coords)
       accum
