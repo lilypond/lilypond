@@ -61,7 +61,9 @@ the grob to the nearest open space.
 
 (grob-property-description 'accidental-grobs list? "Alis with (NOTENAME . GROBLIST) entries")
 (grob-property-description 'accidentals list? "List of alteration numbers.")
-(grob-property-description 'add-stem boolean? "does this flexa shape require an additional stem on the left side?.")
+(grob-property-description 'add-cauda boolean? "does this flexa require an additional cauda on the left side?.")
+(grob-property-description 'add-join boolean? "is this ligature head joined with the next one by a vertical line?")
+(grob-property-description 'add-stem boolean? "is this ligature head a virga and therefore needs an additional stem on the right side?")
 (grob-property-description 'adjust-if-on-staffline boolean? "If this grob is on a staff line, adjust its appearance, so that it better fits into the staff.  E.g., if set true on stem grobs, flares of mensural flags will always be aligned with the staff lines, regardless if the associated note head is printed on a staff line or inbetween.")
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
 This procedure is called (using dependency resolution) after line breaking. Return value is ignored.")
@@ -126,6 +128,7 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 (grob-property-description 'c0-position integer? "integer indicating the position of central C.")
 (grob-property-description 'cautionary-style symbol? "style  of cautionary accidentals. Choices are 'smaller (one size smaller) or 'parentheses.")
 (grob-property-description 'cautionary boolean? "is this a cautionary accidentals.?")
+(grob-property-description 'cavum boolean? "is this neume outlined?.")
 
 (grob-property-description 'center-element ly:grob? "grob which will
 be at the center of the group after aligning (when using
@@ -290,6 +293,7 @@ space to add. For barline, space after a thick line.")
 multiplicity of flag.  The Nth element of the list gives the stem
 length of a note with N flags.
 ")
+(grob-property-description 'linea boolean? "attach vertical lines to this neume?.")
 (grob-property-description 'line-count integer? "Number of staff
 lines.  If you want to override this for staffs individually, you must
 use @code{\outputproperty}. @code{\property .. \override} will not
@@ -382,7 +386,6 @@ reference point.
 
 TODO: revise typing.")
 (grob-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis.")
-(grob-property-description 'semivocalis boolean? "is this neume a lisquescending one?.")
 (grob-property-description 'shorten ly:dimension? "the amount of space that a stem should be shortened (DOCME!)")
 (grob-property-description 'shorten-pair number-pair? "the length on each side to shorten a text-spanner, for example a pedal bracket")
 (grob-property-description 'common-shortest-duration ly:moment?
@@ -526,10 +529,13 @@ staff in a row more often, when the heights of the notes vary.
 (grob-property-description 'grace-space-factor number? "space grace at this fraction of the increment.")
 (grob-property-description 'position-callbacks list? "list of
 functions set spanner positions.")
-(grob-property-description 'join-left boolean? "is this ligature head joined with the previous one?")
+
+;;; Junk me, replace it by add-join.
+(grob-property-description 'join-left boolean? "is this ligature head joined with the previous one by a vertical line?")
+
 (grob-property-description 'join-left-amount number? "DOCME")
 
-(grob-property-description 'delta-pitch number? "the interval between this and the neighbouring note, or, more precisely, their vertical distance; this is used in ligatures for calculation of the height of vertical joins flexa shapes")
+(grob-property-description 'delta-pitch number? "the interval between this and the next note, or, more precisely, their vertical distance; this is used in ligatures for calculation of the height of vertical joins flexa shapes")
 (grob-property-description 'head-width ly:dimension? "width of this ligature head")
 (grob-property-description 'primitive integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. [TODO: change this]")
 (grob-property-description 'minimum-beam-collision-distance ly:dimension?

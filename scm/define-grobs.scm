@@ -1191,7 +1191,7 @@
 
     (VaticanaLigature
      . (
-	(thickness . 1.0)
+	(thickness . 0.6)
 	(flexa-width . 2.0)
 	(ligature-primitive-callback . ,Vaticana_ligature::brew_ligature_primitive)
 	(molecule-callback . ,Vaticana_ligature::brew_molecule)

@@ -325,14 +325,6 @@ Mensural_ligature_engraver::transform_heads (Array<Grob_info> primitives)
   // TODO: if (state == STATE_ERROR) { ... }
 }
 
-void set_delta_pitch (Item *primitive, Grob_info info1, Grob_info info2)
-{
-  Pitch pitch1 = *unsmob_pitch (info1.music_cause ()->get_mus_property ("pitch"));
-  Pitch pitch2 = *unsmob_pitch (info2.music_cause ()->get_mus_property ("pitch"));
-  int delta_pitch = (pitch2.steps () - pitch1.steps ());
-  primitive->set_grob_property ("delta-pitch", gh_int2scm (delta_pitch));
-}
-
 /*
  * A MensuralLigature grob consists of a bunch of NoteHead grobs that
  * are glued together.  It (a) does not make sense to change
@@ -390,8 +382,6 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 					gh_double2scm (half_flexa_width));
 	  primitive->set_grob_property ("flexa-width",
 					gh_double2scm (flexa_width));
-	  set_delta_pitch (primitive,
-			   primitives[i], primitives[i+1]);
 	  break;
 	default:
 	  programming_error (_f ("unexpected case fall-through"));

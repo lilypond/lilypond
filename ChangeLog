@@ -1,3 +1,52 @@
+2003-09-08  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/regression/breathing-sign.ly: tiny fixes
+
+	* lily/mensural-ligature.cc: renamed stem->cauda/join to avoid
+	semantical collision with vaticana ligatures
+
+	* lily/vaticana-ligature-engraver.cc, lily/vaticana-ligature.cc,
+	scm/define-grob-properties.scm: bugfix: semantics of delta_pitch
+	now consistent with mensural ligatures
+
+	* lily/vaticana-ligature-engraver.cc, lily/vaticana-ligature.cc,
+	mf/parmesan-heads.mf: bugfix: length of cauda of flexa depends on
+	context pitches and staff position; dto. for virga stem; removed
+	obsolete virga and clivis characters from parmesan font (WARNING:
+	font changed)
+
+	* mf/parmesan-heads.mf, mf/parmesan-clefs.mf,
+	mf/parmesan-timesig.mf: fixed several set_char_box ()'s
+
+	* lily/vaticana-ligature-engraver.cc, lily/vaticana-ligature.cc,
+	scm/define-grob-properties.scm: consistency fix: renamed
+	join_left->add_cauda
+
+	* mf/parmesan-heads.mf: bugfix: cephalicus head: corrected
+	appendix length; bugfix: yoffs_bt for reverse direction punctum
+	characters
+
+	* lily/vaticana-ligature-engraver.cc, lily/vaticana-ligature.cc:
+	small cleanups; added more docu
+
+	* lily/mensural-ligature-engraver.cc, lily/vaticana-ligature-engraver.cc,
+	lily/coherent-ligature-engraver.cc: cleanup: moved delta-pitch
+	computation to CoherentLigatureEngraver
+
+	* ly/gregorian-init.ly, lily/gregorian-ligature.cc,
+	scm/define-grob-properties.scm: bugfix: added missing linea and
+	cavum properties; bugfix: removed dead semivocalis property
+
+	* mf/parmesan-heads.mf: bugfix: linea punctum: vertical lines
+	length; redesigned quilisma, stropha and auctum
+
+	* ly/engraver-init.ly, scm/define-grobs.scm: use 0.6 as default
+	line thickness
+
+	* lily/vaticana-ligature-engraver.cc, mf/parmesan-heads.mf,
+	Documentation/user/refman.itely: bugfix: introduced shifted
+	epiphonus head to avoid collision with adjacent plica
+
 2003-09-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/font.scm (paper20-style-sheet-alist): add smaller font sizes.
