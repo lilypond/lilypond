@@ -1,0 +1,251 @@
+%%
+%% include file for LilyPond
+
+\def\mdef#1#2{\def#1{\mchar{#2}}}
+\def\mchar#1{\musicfnt\char#1}
+\def\rationalmultiply#1*#2/#3{\multiply #1 by #2 \divide #1 by #3}
+\def\maccentraise#1#2{\dimen0=\noteheight
+        \rationalmultiply\dimen0*#2%
+        \raise\dimen0\hbox{#1}}
+\def\maccentdef#1#2#3{\def#1{\maccentraise{\mchar{#2}}{#3}}}
+\def\vcenter#1{\vbox to 0pt{\vss #1\vss}}
+
+\def\topalign#1{\vbox to 0pt{#1\vss}}
+\def\botalign#1{\vbox to 0pt{\vss #1}}
+
+\def\centeralign#1{\hbox to 0pt{\hss#1\hss}}
+\def\leftalign#1{\hbox to 0pt{#1\hss}}
+\def\rightalign#1{\hbox to 0pt{\hss#1}}
+
+
+%% musix defs
+\parindent=0pt
+\newdimen\smallspace
+\newdimen\interlinedist
+        \newcount\n
+        \newdimen\balkhoog
+        \newdimen\notewidth
+        \newdimen\noteheight
+        \newdimen\notewidthhalf
+        \newdimen\notewidthdouble
+        \newdimen\staffrulethickness
+        \newdimen\interstaffrule
+\newdimen\balkhalf
+\def\musixtwentydefs{
+        \font\textfont=cmr10
+        \font\meterfont=cmbx12
+        \font\slurufont=xslu20
+        \font\slurdfont=xsld20
+        \font\slurhfont=xslz20
+        \font\hslurufont=xslhu20
+        \font\hslurdfont=xslhd20
+        \font\hslurhfont=xslhz20
+        \font\musicfnt=musix20
+        \font\italicfont=cmti10
+        \font\dynfont=cmbxti10 scaled \magstep1
+        \balkhoog=20pt
+        \notewidth=6pt
+        \noteheight=5pt
+        \staffrulethickness=0.4pt
+        \musixcalc
+}
+
+
+\def\musixsixteendefs{
+        \font\textfont=cmr8
+        \font\meterfont=cmbx12
+        \font\italicfont=cmti8
+        \font\slurufont=xslu16
+        \font\slurdfont=xsld16
+        \font\slurhfont=xslz20 % sigh
+        \font\hslurufont=xslhu16
+        \font\hslurdfont=xslhd16
+        \font\hslurhfont=xslhz20
+        \font\musicfnt=musix16
+        \font\dynfont=cmbxti10
+        \balkhoog=16pt
+        \staffrulethickness=0.4pt
+        \notewidth=5pt
+        \noteheight=4pt
+        \musixcalc
+}
+
+\def\musixcalc{
+        \interlinedist=\fontdimen5\musicfnt
+        \smallspace=.3\interlinedist
+        \interstaffrule=\balkhoog
+        \advance\interstaffrule by-\staffrulethickness
+        \divide\interstaffrule by 4
+        \advance\interstaffrule by -\staffrulethickness
+        \notewidthhalf=\notewidth
+        \notewidthdouble=\notewidth
+        \rationalmultiply \notewidthhalf*1/2
+        \multiply \notewidthdouble by 2
+               \balkhalf=\balkhoog
+ \rationalmultiply\balkhalf*1/2 
+}
+% \def\dyn{\italicfont}
+\def\dyn{\dynfont}
+\def\dynf{f\kern-.1ex}
+\def\dynm{f\kern-.15ex}
+\def\dynp{p\kern-.15ex}
+\def\ppp{\dynfont\dynp\dynp p}
+\def\pp{\dynfont\dynp p}
+\def\p{\dynfont p}
+\def\mp{\dynfont\dynm p}
+\def\mf{\dynfont\dynm f}
+\def\f{\dynfont f}
+\def\ff{\dynfont\dynf f}
+\def\fff{\dynfont\dynf\dynf f}
+
+\def\slurcharh#1{{\slurhfont\char#1}}
+\def\slurcharu#1{{\slurufont\char#1}}
+\def\slurchard#1{{\slurdfont\char#1}}
+\def\hslurcharh#1{{\hslurhfont\char#1}}
+\def\hslurcharu#1{{\hslurufont\char#1}}
+\def\hslurchard#1{{\hslurdfont\char#1}}
+
+\mdef\quartball{'007}
+\mdef\halfball{'010}
+\mdef\wholeball{'011}
+\mdef\halfrest{'074}
+\mdef\wholerest{'075}
+\mdef\quartrest{62}
+\mdef\eighthrest{63}
+\mdef\sixteenthrest{64}
+\mdef\thirtysecondrest{65}
+\mdef\sharp{52}
+\mdef\flat{50}
+\mdef\natural{54}
+\mdef\sharpsharp{53}
+\mdef\flatflat{51}
+
+\mdef\singledot{'00}
+\mdef\doubledot{'01}
+\mdef\tripledot{'02}
+\mdef\mussepline{155}
+
+\mdef\violinclef{71}
+\mdef\bassclef{73}
+\mdef\altoclef{75}
+\mdef\cviolinclef{72}
+\mdef\cbassclef{74}
+\mdef\caltoclef{76}
+
+\mdef\deigthflag{45}
+\mdef\dsixteenthflag{46}
+\mdef\dthirtysecondflag{47}
+
+% pointing up
+\mdef\ueigthflag{40}
+\mdef\usixteenthflag{41}
+\mdef\uthirtysecondflag{42}
+
+\maccentdef\repeatcolon{55}{2/1}
+\def\emptybar{}
+
+\def\thinbar{\vrule height\balkhoog}
+%? what-s wrong with rightalign?
+\def\thickbar{\vrule height\balkhoog width 2\smallspace}
+\def\maatstreep{\thinbar}
+% \def\finishbar{\rightalign{\thinbar\kern\smallspace\thickbar}}
+\def\finishbar{\hss\rightalign{\thinbar\kern\smallspace\thickbar}}
+% \def\repeatstopbar{\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
+\def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
+% \def\repeatstopbar{\kern-3\smallspace\rightalign{\repeatcolon\kern2\smallspace\thinbar\kern\smallspace\thickbar}\kern3\smallspace}
+\def\repeatstartbar{\hbox{\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
+\def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\thinbar\kern\smallspace\thickbar\kern\smallspace\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
+\def\doublebar{\hbox{\thinbar\hskip\smallspace\thinbar}}
+
+%compatability
+\def\repeatbar{\repeatstopbar}
+\def\startrepeat{\repeatstartbar}
+\def\repeatbarstartrepeat{\repeatstopstart}
+
+\def\generalmeter#1#2{\botalign{\vbox to\balkhalf{\vss \meterfont#1}%
+        \nointerlineskip
+        \vbox to \balkhalf{\vss\meterfont #2}}}
+\def\defaultlineseparator{\vbox{\mussepline\vskip -5pt\mussepline}}
+\def\lineseparator{\defaultlineseparator}
+\def\beauty{%
+        \par\vskip 10pt plus 30pt minus 10pt\par
+        \hskip -5pt\lineseparator
+        \par\vskip 10pt plus 30pt minus 10pt\par
+}
+
+\def\interstaffline{%
+        \vskip 10pt
+}
+\def\ugly{\nointerlineskip\par
+\vskip 40pt\par\vbox{\leftalign{\vrule width30pt height1pt}}\par\vskip 40pt
+}
+\def\interscoreline{\beauty}
+
+
+\def\lines#1#2{%
+ \vbox{\kern-\interstaffrule
+        \n=0\nointerlineskip%
+        \loop\ifnum\n<#1\advance\n by1%
+                \kern\interstaffrule
+                \hrule height \staffrulethickness width#2
+                \repeat
+        }}
+
+\def\toplines#1{ % why space needed here?
+        \topalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
+\def\botlines#1{ % idem ditto
+        \botalign{\hbox{\kern-\notewidth\lines{#1}{\notewidthdouble}}}}
+
+%
+% a staffsymbol with #1 lines, width #2
+% bottom at baseline
+\def\linestafsym#1#2{\leftalign{\botalign{\lines{#1}{#2}}}}
+
+\def\eigthflag{\topalign{\ueigthflag}}
+\def\sixteenthflag{\topalign{\usixteenthflag}}
+\def\thirtysecondflag{\topalign{\uthirtysecondflag}}
+
+\def\cquartrest{\vcenter\quartrest}
+\def\ceighthrest{\vcenter\eighthrest}
+\def\csixteenthrest{\vcenter\sixteenthrest}
+\def\cthirtysecondrest{\vcenter\thirtysecondrest}
+
+\def\lsingledot{\kern-\notewidth\singledot}
+\def\ldoubledot{\kern-\notewidth\doubledot}
+\def\ltripledot{\kern-\notewidth\tripledot}
+
+\maccentdef\sforzato{30}{-3/2}
+\maccentdef\marcato{20}{-1/1}
+\maccentdef\imarcato{21}{1/1}
+\maccentdef\staccato{24}{-1/1}
+\maccentdef\istaccato{25}{1/1}
+\maccentdef\staccatissimo{28}{-1/1}
+\maccentdef\istaccatissimo{29}{1/1}
+\maccentdef\portato{18}{-9/10}
+\maccentdef\iportato{19}{9/10}
+\maccentdef\tenuto{26}{0/1}
+\maccentdef\itenuto{27}{0/1}
+\maccentdef\fermata{80}{-1/1}
+\maccentdef\ifermata{81}{1/1}
+
+
+
+\mdef\spicato{28}
+\mdef\ispicato{29}
+\mdef\upbow{23}
+\mdef\downbow{22}
+\mdef\portato{26}
+
+\def\stem#1#2{\vrule height#2 depth-#1}
+
+\def\placebox#1#2#3{%
+        \botalign{\hbox{\raise #1\leftalign{\kern #2{}#3}}}%
+}
+
+
+\def\beamslope#1#2{{\count0=#2\advance\count0 by#1\musicfnt\char\count0}}
+\def\rulesym#1#2{\vrule height #1 width #2}
+\def\crescendosym#1{\count0=84\advance\count0 by #1}
+\def\decrescendosym#1{\count0=116\advance\count0 by #1}
+\def\settext#1{\textfont #1}
+\def\setitalic#1{\italicfont #1}
