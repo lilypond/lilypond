@@ -56,7 +56,7 @@ Stem::beam_count (Grob*me,Direction d)
 Interval
 Stem::head_positions (Grob*me) 
 {
-  if (!heads_i (me))
+  if (!head_count (me))
     {
       Interval iv;
       return iv;
@@ -135,13 +135,13 @@ Stem::support_head (Grob*me)
   Grob * nh = unsmob_grob (h);
   if (nh)
     return nh;
-  else if (heads_i (me) == 1)
+  else if (head_count (me) == 1)
     {
       /*
 	UGH.
        */
       
-      return unsmob_grob (ly_car (me->get_grob_property ("heads")));
+      return unsmob_grob (ly_car (me->get_grob_property ("note-heads")));
     }
   else
     return first_head (me);
@@ -149,9 +149,9 @@ Stem::support_head (Grob*me)
 
 
 int
-Stem::heads_i (Grob*me)
+Stem::head_count (Grob*me)
 {
-  return  Pointer_group_interface::count (me, "heads");
+  return  Pointer_group_interface::count (me, "note-heads");
 }
 
 /*
@@ -177,7 +177,7 @@ Stem::extremal_heads (Grob*me)
   Drul_array<Grob *> exthead;
   exthead[LEFT] = exthead[RIGHT] =0;
   
-  for (SCM s = me->get_grob_property ("heads"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_grob_property ("note-heads"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * n = unsmob_grob (ly_car (s));
 
@@ -207,7 +207,7 @@ Array<int>
 Stem::note_head_positions (Grob *me)
 {
   Array<int> ps ;
-  for (SCM s = me->get_grob_property ("heads"); gh_pair_p (s); s = ly_cdr (s))
+  for (SCM s = me->get_grob_property ("note-heads"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob * n = unsmob_grob (ly_car (s));
       int p = int (Staff_symbol_referencer::position_f (n));
@@ -228,14 +228,14 @@ Stem::add_head (Grob*me, Grob *n)
 
   if (Note_head::has_interface (n))
     {
-      Pointer_group_interface::add_grob (me, ly_symbol2scm ("heads"), n);
+      Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-heads"), n);
     }
 }
 
 bool
 Stem::invisible_b (Grob*me)
 {
-  return ! (heads_i (me) && Rhythmic_head::balltype_i (support_head (me)) >= 1);
+  return ! (head_count (me) && Rhythmic_head::balltype_i (support_head (me)) >= 1);
 }
 
 Direction
@@ -380,11 +380,11 @@ Stem::duration_log (Grob*me)
 void
 Stem::position_noteheads (Grob*me)
 {
-  if (!heads_i (me))
+  if (!head_count (me))
     return;
   
   Link_array<Grob> heads =
-    Pointer_group_interface__extract_grobs (me, (Grob*)0, "heads");
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-heads");
 
   heads.sort (compare_position);
   Direction dir =get_direction (me);
@@ -392,6 +392,13 @@ Stem::position_noteheads (Grob*me)
   if (dir < 0)
     heads.reverse ();
 
+
+  bool invisible = invisible_b (me);
+  Real thick = 0.0;
+  if (invisible)
+        thick = gh_scm2double (me->get_grob_property ("thickness"))
+	  * me->paper_l ()->get_var ("linethickness");
+      
 
   Grob *hed = support_head (me);
   Real w = Note_head::head_extent (hed,X_AXIS)[dir];
@@ -414,7 +421,26 @@ Stem::position_noteheads (Grob*me)
 	    {
 	      Real l = Note_head::head_extent (heads[i], X_AXIS).length ();
 
-	      heads[i]->translate_axis (l * get_direction (me), X_AXIS);
+	      Direction d = get_direction (me);
+	      heads[i]->translate_axis (l * d, X_AXIS);
+
+	      if (invisible_b(me))
+		heads[i]->translate_axis (-thick *2* d , X_AXIS);
+
+	      
+	     /* TODO:
+		 
+	      For some cases we should kern some more: when the
+	      distance between the next or prev note is too large, we'd 
+	      get large white gaps, eg.
+	      
+               |
+              X|
+	       |X  <- kern this.
+	       |
+	      X
+	      
+	      */
 	    }
 	  parity = !parity;
 	}
@@ -431,7 +457,12 @@ Stem::before_line_breaking (SCM smob)
 {
   Grob*me = unsmob_grob (smob);
 
-  if (!invisible_b (me))
+
+  /*
+    Do the calculations for visible stems, but also for invisible stems
+    with note heads (i.e. half notes.)
+   */
+  if (head_count (me))
     {
       stem_end_position (me);	// ugh. Trigger direction calc.
       position_noteheads (me);
@@ -809,5 +840,5 @@ Stem::calc_stem_info (Grob*me)
 
 ADD_INTERFACE (Stem,"stem-interface",
   "A stem",
-  "adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head heads direction length style no-stem-extend flag-style dir-forced");
+  "adjust-if-on-staffline thickness stem-info beamed-lengths beamed-minimum-lengths lengths beam stem-shorten duration-log beaming neutral-direction stem-end-position support-head note-heads direction length style no-stem-extend flag-style dir-forced");
 

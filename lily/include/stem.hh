@@ -33,7 +33,7 @@ public:
   static void set_stemend (Grob *,Real);
   static Direction get_default_dir (Grob *) ;
 
-  static int heads_i (Grob *) ;
+  static int head_count (Grob *) ;
   static bool invisible_b (Grob *) ;
   static Interval head_positions (Grob *) ;
   static Real get_default_stem_end_position (Grob*me) ;

@@ -26,7 +26,7 @@
   This file deals with building such skyline structure, and computing
   the minimum distance between two opposing skylines.
   
-  
+   
   Invariants for a skyline:
 
   skyline[...].width_ forms a partition of the real interval, where

@@ -370,7 +370,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
       /*
 	Don't (start) auto-beam over empty stems; skips or rests
 	*/
-      if (!Stem::heads_i (stem_l))
+      if (!Stem::head_count (stem_l))
 	{
 	  if (stem_l_arr_p_)
 	    end_beam ();

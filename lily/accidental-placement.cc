@@ -100,11 +100,27 @@ struct Accidental_placement_entry
   }
 };
 
+static Interval all_accidental_vertical_extent;
+Real ape_priority (Accidental_placement_entry const * a)
+{
+  Real c = a->vertical_extent_.center();
+
+  /*
+    far from center means we can fold more. Hopefully.
+   */
+  Real center_distance =
+    fabs(c - all_accidental_vertical_extent[LEFT]) >?
+    fabs(c - all_accidental_vertical_extent[RIGHT]);
+  
+  return 20 * a->vertical_extent_.length  ()  + center_distance;
+}
+
+  
 
 int ape_compare (Accidental_placement_entry *const &a,
 		 Accidental_placement_entry *const &b)
 {
-  return sign (a->vertical_extent_.length () - b->vertical_extent_.length());
+  return sign (ape_priority (a) - ape_priority(b));
 }
 
 /*
@@ -158,10 +174,42 @@ Accidental_placement::position_accidentals (Grob * me)
 
 
   Grob *commony =0 ;
-  for (int i= apes.size (); i--;)
-    commony = common_refpoint_of_array  (apes[i]->grobs_, commony, Y_AXIS);
 
+  /*
+    First we must extract *all* pointers. We can only determine
+    extents if we're sure that we've found the right common refpoint
+   */
   Link_array<Grob> note_cols, heads;
+  for (int i= apes.size (); i--;)
+    { 
+      Accidental_placement_entry * ape = apes[i];
+      for (int j = ape->grobs_.size(); j--;)
+	{
+	  Grob * a = ape->grobs_[j];
+	  
+	  commony = commony->common_refpoint (a, Y_AXIS);
+	  Grob *head = a->get_parent (Y_AXIS);
+
+	  Grob * col = head->get_parent (X_AXIS);
+	  if (Note_column::has_interface (col))
+	    note_cols.push (col);
+	  else
+	    heads.push (head);
+	}
+    }
+  
+  for (int i = note_cols.size() ; i--;)
+    {
+      heads.concat (Pointer_group_interface__extract_grobs (note_cols[i],
+							    (Grob*)0,
+							    "note-heads"));
+      
+    }
+  heads.default_sort();
+  heads.uniq();
+  commony = common_refpoint_of_array (heads, commony, Y_AXIS);
+
+  
   for (int i= apes.size (); i--;)
     {
       Accidental_placement_entry * ape = apes[i];
@@ -175,14 +223,6 @@ Accidental_placement::position_accidentals (Grob * me)
 	  b[X_AXIS] = a->extent (me, X_AXIS);
 	  b[Y_AXIS] = a->extent (commony, Y_AXIS);
 
-	  Grob *head = a->get_parent (Y_AXIS);
-
-	  Grob * col = head->get_parent (X_AXIS);
-	  if (Note_column::has_interface (col))
-	    note_cols.push (col);
-	  else
-	    heads.push (head);
-	  
 	  ape->extents_.push (b);
 	  
 	  /*
@@ -194,18 +234,8 @@ Accidental_placement::position_accidentals (Grob * me)
 	}
     }
 
-  
-  for (int i = note_cols.size() ; i--;)
-    {
-      heads.concat (Pointer_group_interface__extract_grobs (note_cols[i],
-							    (Grob*)0,
-							    "note-heads"));
-      
-    }
-  heads.default_sort();
-  heads.uniq();
-  commony = common_refpoint_of_array (heads, commony, Y_AXIS);
-  
+
+  Interval total;
   for (int i = apes.size(); i--;)
     {
       Interval y ;
@@ -215,8 +245,9 @@ Accidental_placement::position_accidentals (Grob * me)
 	  y.unite (apes[i]->extents_[j][Y_AXIS]);
 	}
       apes[i]->vertical_extent_ = y;
+      total.unite (y);
     }
-  
+  all_accidental_vertical_extent = total;
   apes.sort (&ape_compare);  
 
   Accidental_placement_entry * head_ape = new Accidental_placement_entry;
@@ -244,20 +275,10 @@ Accidental_placement::position_accidentals (Grob * me)
     {
       Accidental_placement_entry *ape = apes[i];
       Real d = 0.0;
-      /*
-	confusing naming: left_skyline is a skyline pointing to the
-	left. It is on the right of the curent entry.
-       */
-
       int j = i+1;
       do {
-	Array<Skyline_entry> const *right_sky =
-	  (j < apes.size())
-	  ? &apes[j]->left_skyline_
-	  : &head_skyline;
-
 	d = - skyline_meshing_distance (ape->right_skyline_,
-					     *right_sky);
+					apes[j]->left_skyline_);
 
 	if (!isinf(d)
 	    || j + 1 == apes.size())
