@@ -1,5 +1,7 @@
 2004-04-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/scaled-font-metric.cc (derived_mark): is a const method.
+
 	* scm/output-tex.scm (text): remove debugging code.
 
 	* lily/scaled-font-metric.cc (ly_font_encoding): return vector
