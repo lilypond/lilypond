@@ -3064,8 +3064,8 @@ See also the sections on @ref{Slurs} and @ref{Breath marks}.
 @subsection Ambitus
 @cindex ambitus
 
-The term @emph{ambitus} denotes a range of pitches for a given voice a
-part of music.  It also may denote the pitch range that a musical
+The term @emph{ambitus} denotes a range of pitches for a given voice in
+a part of music.  It also may denote the pitch range that a musical
 instrument is capable of playing.  Most musical instruments have their
 ambitus standardized (or at least there is agreement upon the minimal
 ambitus of a particular type of instrument), such that a composer or
