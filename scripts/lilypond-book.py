@@ -376,7 +376,7 @@ output_dict= {
 		## inline music doesn't.
 		## possibly other center options?
 		'output-html': r'''
-%(pageimages)s''',
+%(htmlimages)s''',
 		},
 
 
@@ -1250,7 +1250,7 @@ linking to the menu.
 		outname = base + '.ly'
 		changed = update_file (content, outname)
 
-		preview = base + ".png"
+		preview = base + ".preview.png"
 		preview_page = base + '-page1.png'
 		
 		if changed or not (os.path.isfile (preview) or
@@ -1258,7 +1258,7 @@ linking to the menu.
 			
 			ly.system ('%s --preview --postscript --verbose %s ' % (ly2dvi_binary, base) ) 
 
-			ly.make_ps_images (base)
+			ly.make_ps_images (base + '.ps')
 			ly.system ('gzip -9 - < %s.ps > %s.ps.gz' %  (base, base))
 			
 		def size_str (fn):
@@ -1281,7 +1281,7 @@ linking to the menu.
 		menu = ''
 		page_files = glob.glob ('%s-page*.png' % base)
 
-		for p in string.split (page_files, '\n'):
+		for p in page_files:
 			p = p.strip()
 			if os.path.isfile (p):
 				sz = size_str (p)
@@ -1319,7 +1319,7 @@ use scalable fonts and should look OK at any resolution."""
 		
 		open (base + '.html','w'). write (separate_menu)
 
-		inline_menu = '<p/><a href="%s.html"><img src="%s"><p/></a>' % (base, original_name, preview)
+		inline_menu = '<p/><a href="%s.html"><img alt="%s" src="%s"></a><p/>' % (base, original_name, preview)
 
 		return ('ly2dvi', inline_menu)
 

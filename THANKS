@@ -1,13 +1,19 @@
 
+HEAD HACKERS
+
+Han-Wen Nienhuys
+Jan Nieuwenhuizen
+
+
 CONTRIBUTORS
 
 Graham Percival
 Heikki Junes
-Jeremie Lumbroso
 Juergen Reuter
 Kim Shrier
 Rune Zedeler
 Werner Lemberg
+
 
 BUG HUNTERS
 
@@ -33,6 +39,7 @@ Pedro Kroger
 Richard Shann
 Ryan O'Neil
 Simon Bailey
+Simon Weatherill
 Stanislav Brabec
 Thomas Rijniers
 Werner Lemberg

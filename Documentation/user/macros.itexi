@@ -87,20 +87,20 @@ $\\flat$%
 @c dup?
 @ifhtml
 @macro internalsref{NAME}
-@uref{../lilypond-internals/\NAME\.html,\NAME\}
-@cindex \NAME\
+@uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+@cindex \NAME\@c
 @end macro
 
 @macro inputfileref{DIR,NAME}
-@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 
 @end ifhtml
 
 @ifinfo
 @macro internalsref{NAME}
-@inforef{\NAME\,,lilypond-internals}
-@cindex \NAME\
+@inforef{\NAME\,,lilypond-internals}@c
+@cindex \NAME\@c
 @end macro
 
 @macro inputfileref{DIR,NAME}i
@@ -110,12 +110,12 @@ $\\flat$%
 @end ifinfo
 
 @iftex
-@macro internalsref{NAME}
-@cindex \NAME\
-@code{\NAME\}
+@macro internalsref{NAME}@c
+@cindex \NAME\@c
+@code{\NAME\}@c
 @end macro
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/\NAME\}
+@macro inputfileref{DIR,NAME}@c
+@file{\DIR\/\NAME\}@c
 @end macro
 @end iftex
 
