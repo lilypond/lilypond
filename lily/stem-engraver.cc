@@ -80,8 +80,11 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 	       */
 	      int requested_type = gh_scm2int (tremolo_req_->get_mus_property ("tremolo-type"));
 	      SCM f = get_property ("tremoloFlags");
-	      if (!requested_type && gh_number_p (f))
-		requested_type = gh_scm2int (f);
+	      if (!requested_type)
+		if ( gh_number_p (f))
+		  requested_type = gh_scm2int (f);
+		else
+		  requested_type = 8;
 	      else
 		daddy_trans_->set_property ("tremoloFlags", gh_int2scm (requested_type));
 
