@@ -19,7 +19,7 @@ make-root?=$(wildcard /usr/local/share/lilypond/make)
 # make-root=<LilyPond's datadir>/make
 
 ifeq ($(SUBDIRS),)
-SUBDIRS = $(filter-out .,$(shell find . -maxdepth 1 -type d -not -name 'out*'))
+SUBDIRS = $(filter-out .,$(shell find . -maxdepth 1 -type d -not -name 'out*' -and -not -name 'CVS'))
 endif
 
 ifneq ($(make-root),)
