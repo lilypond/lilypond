@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
-#define MUDELA_VERSION "0.0.53"
+#define MUDELA_VERSION "0.0.54"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -190,8 +190,9 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <midi>	midi_block midi_body
 %type <moment>	duration_length
 %type <music>	init_music
+%type <mvoice>	 simple_horizontal_music horizontal_music  horizontal_music_body
 %type <mvoice>	 transposed_music_voice init_lyrics_voice
-%type <mvoice>	music_voice_body music_voice  init_music_voice  concat_body
+%type <mvoice>	music_voice_body init_music_voice  
 %type <paper>	paper_block paper_body
 %type <real>	dim real
 %type <real>	unit
@@ -513,14 +514,15 @@ init_music:
 
 init_lyrics_voice:
 	LYRIC { THIS->lexer_p_->push_lyric_state(); } 
-	music_voice { $$ = $3; THIS->lexer_p_->pop_state(); }
+	horizontal_music { $$ = $3; THIS->lexer_p_->pop_state(); }
 	;
 
 init_music_voice:
 	MELODIC { THIS->lexer_p_->push_note_state(); } 
-	/* cont*/ music_voice
+	/* cont*/ horizontal_music
 		{ $$=$3; THIS->lexer_p_->pop_state(); }
 	;
+
 init_music_chord:
 	{ THIS->lexer_p_->push_note_state(); } 
 	/* cont*/ music_chord
@@ -530,37 +532,46 @@ init_music_chord:
 	MUSIC
 */
 
+horizontal_music:
+	'{' horizontal_music_body '}'	{
+		$$ = $2;
+	}
+	;
+
+horizontal_music_body:
+	simple_horizontal_music 			{
+		$$ = $1;
+	}
+	| horizontal_music_body CONCAT simple_horizontal_music	{
+		$$->add($3);/* niet echt */
+	}
+	;
+
+
+simple_horizontal_music:
+	TRANSPOSE '{' transposed_music_voice '}' {
+		$$ = $3;
+	}
+	| VOICE_IDENTIFIER {
+		$$ = $1->mvoice(true);
+	}
+	| music_voice_body  	{
+		$$ = $1;
+	}
+	;
 
 
 transposed_music_voice:
-	steno_melodic_req music_voice { 
+	steno_melodic_req horizontal_music { 
 		$$ = $2;
 		$$->transpose(*$1);
 		delete $1;
 	}
 	;
 
-music_voice:  '{' concat_body '}'	{ $$ = $2; }
-	| TRANSPOSE '{' transposed_music_voice '}' {
-		$$ = $3;
-	}
-	;
-
-
-concat_body:
-	music_voice_body 			{
-		$$ = $1;
-	}
-	| concat_body CONCAT music_voice_body	{
-		$$->add($3);/* niet echt */
-	}
-	;
 
 music_voice_body:
-	VOICE_IDENTIFIER {
-		$$ = $1->mvoice(true);
-	}
-	| /* */ 	{
+	 /* */ 	{
 		$$ = new Music_voice;
 	}
 	| music_voice_body full_element {
@@ -592,7 +603,7 @@ music_chord_body:
 	| MULTIVOICE {
 		$$ = new Multi_voice_chord;
 	}
-	| music_chord_body music_voice {
+	| music_chord_body horizontal_music {
 		$$->add($2);
 	}
 	| music_chord_body full_element {
