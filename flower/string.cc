@@ -15,7 +15,7 @@
 //#include "globals.hh"
 #include "string.hh"
 
-char* strlwr( char* s )
+static char* strlwr( char* s )
 {
     char* p = s;
 
@@ -27,7 +27,7 @@ char* strlwr( char* s )
     return s;
 }
 
-char* strupr( char* s )
+static char* strupr( char* s )
 {
     char* p = s;
 
@@ -320,7 +320,13 @@ String String::lower()
 
 String::String (double f, const char *fmt)
 {
-    char buf[100]; // ugly
+    /* worst case would be printing HUGE (or 1/HUGE), which is approx
+      2e318, this number would have approx 318 zero's in its string.
+
+      1024 is a safe length for the buffer
+      */
+
+    char buf[1024]; 
     if (!fmt)
 	sprintf(buf, "%f", f);
     else
