@@ -1,3 +1,12 @@
+2003-04-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/pdf.scm (use-modules): Include lily.
+
+	* scm/pdftex.scm (start-system): Bugfix: add closing brace (Beernd
+	Noordkamp).
+	(use-modules): Include lily.
+	(lily-def): Bugfix: include tex-val in let.
+
 2003-04-12  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: sensible error if lilypond.words not found.

@@ -7,15 +7,14 @@
 
 ;currently no font commands; this is a helper for pdftex.scm.
 
-(define-module (scm pdf)
-  )
+(define-module (scm pdf))
 
 
 (define this-module (current-module))
 
 (use-modules
  (guile)
- )
+ (lily))
 
 
 

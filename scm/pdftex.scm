@@ -15,8 +15,9 @@
 (use-modules (scm pdf)
 	     (guile)
 	     (ice-9 regex)
-	     (ice-9 string-fun)	  
-	     )
+	     (ice-9 string-fun)
+	     (lily))
+
 (define font-name-alist  '())
 
 (define this-module (current-module))
@@ -192,13 +193,11 @@
 (define (lily-def key val)
   (let ((tex-key
 	 (regexp-substitute/global 
-	      #f "_" (output-tex-string key) 'pre "X" 'post)
-	     
-	 ))
+	      #f "_" (output-tex-string key) 'pre "X" 'post))
 	(tex-val (output-tex-string val)))
     (if (equal? (sans-surrounding-whitespace tex-val) "")
 	(string-append "\\let\\" tex-key "\\undefined\n")
-	(string-append "\\def\\" tex-key "{" tex-val "}%\n")))
+	(string-append "\\def\\" tex-key "{" tex-val "}%\n"))))
 
 (define (number->dim x)
   (string-append
@@ -225,7 +224,7 @@
 		 "  {\\advance\\scoreshift by -\\lilypondscoreshift}%\n"
 		 "\\lybox{"
 		 (ly:number->string wd) "}{"
-		 (ly:number->string ht) "{%\n"))
+		 (ly:number->string ht) "}{%\n"))
 
 (define (stop-system) 
   "}%\n%\n\\interscoreline\n%\n")
