@@ -7,8 +7,17 @@
 # strange shell, this C
 set datadir="@datadir@"
 
-setenv GS_FONTPATH "$datadir/afm:@datadir@/pfa:$GS_FONTPATH"
-setenv GS_LIB "$datadir/ps:$GS_LIB"
+if ( $?GS_FONTPATH ) then
+       setenv GS_FONTPATH "$datadir/afm:/usr/share/lilypond/pfa:$GS_FONTPATH"
+ else
+       setenv GS_FONTPATH "$datadir/afm:/usr/share/lilypond/pfa"
+ endif
+ if ( $?GS_LIB ) then
+       setenv GS_LIB "$datadir/ps:$GS_LIB"
+ else
+       setenv GS_LIB "$datadir/ps"
+ endif
+
 
 # setenv LILYPONDPREFIX "$datadir"
 
