@@ -18,8 +18,11 @@
 class Note_head : public Rhythmic_head {
 public:
   
-
+  /// position of top line (5 linestaff: 8)
   int position_i_;
+
+  /// pitch in steps
+  int steps_i_;
     
   /// -1 = lowest, 0 = inside, 1 = top
   int extremal_i_;
@@ -28,9 +31,6 @@ public:
   int staff_size_i_;
   Direction x_dir_;
     
-  /**
-    position of top line (5 linestaff: 8)
-    */
   Note_head ();
   static int compare (Note_head * const &a, Note_head *const &b) ;
 

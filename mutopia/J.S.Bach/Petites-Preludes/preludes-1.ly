@@ -68,7 +68,8 @@ one = \type Voice=one \notes\relative c {
 	[)d c'-5( f,-3 e-2] [d-1 b'-5 f-3 d-2] |
 	[)c b'-5( e,-3 d-2] [c-1 a'-5 e-3 c-2] 
 	[)b-1 a'-5( d,-3 c-2] [b-1 g'-5 d-3 b-2] |
-	[)a g'-5 c,-4 b] [a-"poco a poco dim." fis'-5 c-2 a-1]
+%	[)a g'-5 c,-4 b] [a-"poco a poco dim." fis'-5 c-2 a-1]
+	[)a g'-5 c,-4 b] [a fis'-5 c-2 a-1]
 	[b-2 f' d-4 c] [b f' d-4 b-2] |
 	[g e' c-3 b] [a e'-5 c-3 a-1]
 	[fis-2 d' b-3 a] [g-1 d'-5 b-4 g-2] |

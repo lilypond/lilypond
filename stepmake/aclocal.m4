@@ -265,7 +265,7 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     AC_SUBST(CONFIGSUFFIX)
      
     AC_CANONICAL_HOST
-    AC_CHECK_PROGS(MAKE, make gmake, error)
+    AC_CHECK_PROGS(MAKE, gmake make, error)
     AC_CHECK_PROGS(FIND, find, error)
 
 dnl system supplied INSTALL is unsafe; use our own install.
@@ -285,7 +285,7 @@ dnl    fi
 	if test "$?" = 1
 	then
 		AC_STEPMAKE_WARN(Please install *GNU* make) 
-	fi 
+	fi
     fi 
 
     AC_CHECK_SEARCH_RESULT($PYTHON, python, You should install Python)
