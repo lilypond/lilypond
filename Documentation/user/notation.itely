@@ -5241,9 +5241,9 @@ Program reference: @internalsref{PartCombineMusic},
 
 @refbugs
 
-When @code{soloADue} is set, when the two voices play the same notes
-on and off, the part combiner may typeset @code{a2} more than once in
-a measure.
+When @code{printPartCombineTexts} is set, when the two voices play the
+same notes on and off, the part combiner may typeset @code{a2} more
+than once in a measure.
 
 @code{\partcombine} cannot be inside @code{\times}. 
 
@@ -5362,16 +5362,14 @@ Examples: @inputfileref{input/regression,tag-filter.ly}.
 
 With quotations, fragments of other parts can be inserted into a part
 directly. Before a part can be quoted, it must be marked especially as
-quotable. This is done with code @code{\addquote} command. The
-quotation may then be done with @code{\quote}
+quotable. This is done with code @code{\addquote} command.
 
 @example
 \addquote @var{name} @var{music}
-\quote @var{name} @var{duration}  
 @end example
 
-@noindent
 
+@noindent
 Here, @var{name} is an identifying string. The @var{music} is any kind
 of music.  This is an example of @code{\addquote}
 
@@ -5381,6 +5379,16 @@ of music.  This is an example of @code{\addquote}
 }
 @end verbatim
 
+This command must be entered at toplevel, i.e.  outside any music
+blocks.
+
+After calling @code{\addquote}, the quotation may then be done with
+@code{\quote},
+
+@example
+\quote @var{name} @var{duration}  
+@end example
+
 During a part, a piece of music can be quoted with the @code{\quote}
 command. 
   
@@ -5388,10 +5396,16 @@ command.
 \quote clarinet 2.
 @end example
 
-This would cite 3 quarter notes (a dotted half note) of the previously
-added clarinet voice.
+This would cite three quarter notes (@code{2.} is a dotted half note)
+of the previously added @code{clarinet} voice.
 
-Quotations take into account the transposition both source and target
+More precisely, it takes the current time-step of the part being
+printed, and extracts the notes at the corresponding point of the
+@code{\addquote}d voice.  Therefore, the argument to @code{\addquote}
+should be the entire part of the voice to be quoted, including any
+rests at the beginning. 
+
+Quotations take into account the transposition of both source and target
 instruments, if they are specified using the @code{\transposition} command.
 
 @lilypond[quote,raggedright,verbatim]
@@ -5495,19 +5509,42 @@ and Gregorian Chant notation.  There is also limited support for
 figured bass notation.
 
 Many graphical objects provide a @code{style} property, see
-@ref{Ancient note heads}, @ref{Ancient accidentals}, @ref{Ancient
-rests}, @ref{Ancient clefs}, @ref{Ancient flags} and @ref{Ancient time
-signatures}.  By manipulating such a grob property, the typographical
-appearance of the affected graphical objects can be accommodated for a
-specific notation flavor without need for introducing any new
-notational concept.
+@itemize @bullet
+@item
+@ref{Ancient note heads},
+@item
+@ref{Ancient accidentals},
+@item
+@ref{Ancient
+rests},
+@item
+@ref{Ancient clefs},
+@item
+@ref{Ancient flags}
+@item
+@ref{Ancient time signatures}.
+@end itemize
+
+By manipulating such a grob property, the typographical appearance of
+the affected graphical objects can be accommodated for a specific
+notation flavor without need for introducing any new notational
+concept.
 
 Other aspects of ancient notation can not that easily be expressed as
 in terms of just changing a style property of a graphical object.
 Therefore, some notational concepts are introduced specifically for
-ancient notation, see @ref{Custodes}, @ref{Divisiones},
-@ref{Ligatures}, and @ref{Figured bass}.
+ancient notation,
 
+@itemize @bullet
+@item
+@ref{Custodes},
+@item
+@ref{Divisiones},
+@item
+@ref{Ligatures}, 
+@item
+@ref{Figured bass}.
+@end itemize
 
 @menu
 * Ancient note heads::          
@@ -5523,25 +5560,12 @@ ancient notation, see @ref{Custodes}, @ref{Divisiones},
 * Figured bass::                
 @end menu
 
-If this all is way too much of documentation for you, and you just
-want to dive into typesetting without worrying too much about the
-details on how to customize a context, you may have a look at the
-predefined contexts (see @ref{Vaticana style contexts}).  Use them to
-set up predefined style-specific voice and staff contexts, and
-directly go ahead with the note entry.
-
-@refbugs
-
-Ligatures need special spacing that has not yet been implemented.  As
-a result, there is too much space between ligatures most of the time,
-and line breaking often is unsatisfactory.  Also, lyrics do not
-correctly align with ligatures.
-
-Accidentals must not be printed within a ligature, but instead need to
-be collected and printed in front of it.
-
-Augmentum dots within ligatures are  not handled correctly.
-
+If this all is too much of documentation for you, and you just want to
+dive into typesetting without worrying too much about the details on
+how to customize a context, you may have a look at the predefined
+contexts (see @ref{Vaticana style contexts}).  Use them to set up
+predefined style-specific voice and staff contexts, and directly go
+ahead with the note entry.
 
 @node Ancient note heads
 @subsection Ancient note heads
@@ -5551,37 +5575,35 @@ Augmentum dots within ligatures are  not handled correctly.
 
 For ancient notation, a note head style other than the @code{default}
 style may be chosen.  This is accomplished by setting the @code{style}
-property of the NoteHead object to the desired value (@code{baroque},
-@code{neomensural} or @code{mensural}).  The @code{baroque} style
-differs from the @code{default} style only in using a square shape for
-@code{\breve} note heads.  The @code{neomensural} style differs from
-the @code{baroque} style in that it uses rhomboidal heads for whole
-notes and all smaller durations.  Stems are centered on the note
-heads.  This style is in particular useful when transcribing mensural
-music, e.g. for the incipit.  The @code{mensural} style finally
-produces note heads that mimic the look of note heads in historic
-printings of the 16th century.
+property of the NoteHead object to @code{baroque}, @code{neomensural}
+or @code{mensural}.  The @code{baroque} style differs from the
+@code{default} style only in using a square shape for @code{\breve}
+note heads.  The @code{neomensural} style differs from the
+@code{baroque} style in that it uses rhomboidal heads for whole notes
+and all smaller durations.  Stems are centered on the note heads.
+This style is in particular useful when transcribing mensural music,
+e.g. for the incipit.  The @code{mensural} style finally produces note
+heads that mimic the look of note heads in historic printings of the
+16th century.
 
 The following example demonstrates the @code{neomensural} style
 
-@lilypond[quote,fragment,raggedright,verbatim]
+@lilypond[quote,fragment,raggedright]
+\set Score.skipBars = ##T 
 \override NoteHead #'style = #'neomensural
 a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
-When typesetting a piece in Gregorian Chant notation, a Gregorian
-ligature engraver will automatically select the proper note heads,
-such there is no need to explicitly set the note head style.  Still,
-the note head style can be set e.g. to @code{vaticana_punctum} to
-produce punctum neumes.  Similarly, a mensural ligature engraver is
-used to automatically assemble mensural ligatures.  See
-@ref{Ligatures} for how ligature engravers work.
+When typesetting a piece in Gregorian Chant notation, the
+@internalsref{Gregorian_ligature_engraver} will automatically select
+the proper note heads, such there is no need to explicitly set the
+note head style.  Still, the note head style can be set e.g.@: to
+@code{vaticana_punctum} to produce punctum neumes.  Similarly, a
+@internalsref{Mensural_ligature_engraver} is used to automatically
+assemble mensural ligatures.  See @ref{Ligatures} for how ligature
+engravers work.
 
 @seealso
-
-In this manual
-@ref{Percussion staves} use note head styles of their own that are
-frequently used in contemporary music notation.
 
 Examples: @inputfileref{input/regression,note-head-style.ly} gives an
 overview over all available note head styles.
@@ -5679,8 +5701,9 @@ in historic prints of the 16th century.
 
 The following example demonstrates the @code{neomensural} style
 
-@lilypond[quote,fragment,raggedright,verbatim]
+@lilypond[quote,fragment,raggedright]
 \override Rest #'style = #'neomensural
+\set Score.skipBars = ##t 
 r\longa r\breve r1 r2 r4 r8 r16
 @end lilypond
 
@@ -5873,8 +5896,7 @@ In this manual: see @ref{Clef}.
 
 @refbugs
 
-The mensural g clef is mapped to the Petrucci g clef, until a new
-mensural g clef is implemented.
+The mensural g clef is mapped to the Petrucci g clef.
 
 
 
@@ -5915,7 +5937,7 @@ c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
 @end lilypond
 
 There is no particular flag style for neo-mensural notation.  Hence,
-when typesetting e.g. the incipit of a transcribed piece of mensural
+when typesetting  the incipit of a transcribed piece of mensural
 music, the default flag style should be used.  There are no flags in
 Gregorian Chant notation.
 
@@ -5981,7 +6003,7 @@ following table
 Use the @code{style} property of grob @internalsref{TimeSignature} to
 select ancient time signatures.  Supported styles are
 @code{neomensural} and @code{mensural}.  The above table uses the
-@code{neomensural} style.  This style is appropriate e.g. for the
+@code{neomensural} style.  This style is appropriate  for the
 incipit of transcriptions of mensural pieces.  The @code{mensural}
 style mimics the look of historical printings of the 16th century.
 
@@ -6021,10 +6043,12 @@ be made by hand, by setting
 
 @example
   breveTP = #(ly:make-duration -1 0 3 2)
+  @dots{}
+  { c\breveTP f1 }
 @end example
 
 @noindent
-This sets breveTP to 3/2 times 2 = 3 times a whole note. 
+This sets @code{breveTP} to 3/2 times 2 = 3 times a whole note. 
 
 The @code{old6/8alt} symbol (an alternate   symbol for 6/8) is not
 addressable with @code{\time}. Use a @code{\markup} instead
@@ -6037,9 +6061,8 @@ addressable with @code{\time}. Use a @code{\markup} instead
 
 A @emph{custos} (plural: @emph{custodes}; Latin word for `guard') is a
 symbol that appears at the end of a staff.  It anticipates the pitch
-of the first note(s) of the following line and thus helps the player
-or singer to manage line breaks during performance, thus enhancing
-readability of a score.
+of the first note(s) of the following line thus helping the performer
+to manage line breaks during performance.
 
 Custodes were frequently used in music notation until the 17th
 century.  Nowadays, they have survived only in a few particular forms
@@ -6089,21 +6112,21 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
        \new Lyrics    \lyrics {
         \markup {
             \column <
-                "vaticana" 
+                \typewriter                "vaticana" 
                 { " " \musicglyph #"custodes-vaticana-u0" }
             > }
 	\markup {    \column <
-                "medicaea"
+                \typewriter                "medicaea"
 		{ " " \musicglyph #"custodes-medicaea-u0" }
             >}
             \markup {
 	    \column <
-                "hufnagel"
+                \typewriter                "hufnagel"
 		{ " " \musicglyph #"custodes-hufnagel-u0" }
             >}
             \markup {
             \column <
-                "mensural"
+                \typewriter                "mensural"
                 { " " \musicglyph #"custodes-mensural-u0" }
             >}
         }
@@ -6133,9 +6156,9 @@ A @emph{divisio} (plural: @emph{divisiones}; Latin word for
 Gregorian music into phrases and sections.  The musical meaning of
 @emph{divisio minima}, @emph{divisio maior} and @emph{divisio maxima}
 can be characterized as short, medium and long pause, somewhat like
-@ref{Breath marks}.  The @emph{finalis} sign not only marks the end of
-a chant, but is also frequently used within a single
-antiphonal/responsorial chant to mark the end of each section.
+the breathmarks from @ref{Breath marks}.  The @emph{finalis} sign not
+only marks the end of a chant, but is also frequently used within a
+single antiphonal/responsorial chant to mark the end of each section.
 
 
 To use divisiones, include the file @code{gregorian-init.ly}.  It
@@ -6179,10 +6202,9 @@ Examples: @inputfileref{input/test,divisiones.ly}.
 @c TODO: Should double check if I recalled things correctly when I wrote
 @c down the following paragraph by heart.
 
-A ligature is a coherent graphical symbol that represents at least two
-distinct notes.  Ligatures originally appeared in the manuscripts of
-Gregorian chant notation roughly since the 9th century to denote
-ascending or descending sequences of notes.  
+A ligature is a graphical symbol that represents at least two distinct
+notes.  Ligatures originally appeared in the manuscripts of Gregorian
+chant notation to denote ascending or descending sequences of notes.
 
 Ligatures are entered by enclosing them in @code{\[} and @code{\]}.
 Some ligature styles may need additional input syntax specific for
@@ -6202,6 +6224,21 @@ To select a specific style of ligatures, a proper ligature engraver
 has to be added to the @internalsref{Voice} context, as explained in
 the following subsections.   Only white mensural ligatures
 are supported with certain limitations.
+
+
+
+@refbugs
+
+Ligatures need special spacing that has not yet been implemented.  As
+a result, there is too much space between ligatures most of the time,
+and line breaking often is unsatisfactory.  Also, lyrics do not
+correctly align with ligatures.
+
+Accidentals must not be printed within a ligature, but instead need to
+be collected and printed in front of it.
+
+Augmentum dots within ligatures are  not handled correctly.
+
 
 @menu
 * White mensural ligatures::    
@@ -6292,9 +6329,8 @@ to the following
 
 @refbugs
 
-The implementation is experimental; it may output strange warnings or
-even crash in some cases or produce weird results on more complex
-ligatures.
+The implementation is experimental. It may output strange warnings,
+incorrect results, and might even crash on more complex ligatures.
 
 @node Gregorian square neumes ligatures
 @subsubsection Gregorian square neumes ligatures
@@ -6302,14 +6338,12 @@ ligatures.
 @cindex Square neumes ligatures
 @cindex Gregorian square neumes ligatures
 
-Gregorian square neumes notation (following the style of the Editio
-Vaticana) is under heavy development, but not yet really usable for
-production purposes.  Core ligatures can already be typeset, but
-essential issues for serious typesetting are still under development,
-such as (among others) horizontal alignment of multiple ligatures,
-lyrics alignment and proper accidentals handling.  Still, this section
-gives a sneak preview of what Gregorian chant may look like once it
-will work.
+There is limited support for Gregorian square neumes notation
+(following the style of the Editio Vaticana).  Core ligatures can
+already be typeset, but essential issues for serious typesetting are
+still lacking, such as (among others) horizontal alignment of multiple
+ligatures, lyrics alignment and proper accidentals handling.
+
 
 The following table contains the extended neumes table of the 2nd
 volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
@@ -6825,17 +6859,17 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 
 
 Unlike most other neumes notation systems, the input language for
-neumes does not necessarily reflect directly the typographical
-appearance, but is designed to solely focuse on musical meaning.  For
-example, @code{\[ a \pes b \flexa g \]} produces a Torculus consisting
-of three Punctum heads, while @code{\[ a \flexa g \pes b \]} produces
-a Porrectus with a curved flexa shape and only a single Punctum head.
-There is no command to explicitly typeset the curved flexa shape; the
-decision of when to typeset a curved flexa shape is purely taken from
-the musical input.  The idea of this approach is to separate the
-musical aspects of the input from the notation style of the output.
-This way, the same input can be reused to typeset the same music in a
-different style of Gregorian chant notation.
+neumes does not reflect the typographical appearance, but is designed
+to focus on musical meaning.  For example, @code{\[ a \pes b
+\flexa g \]} produces a Torculus consisting of three Punctum heads,
+while @code{\[ a \flexa g \pes b \]} produces a Porrectus with a
+curved flexa shape and only a single Punctum head.  There is no
+command to explicitly typeset the curved flexa shape; the decision of
+when to typeset a curved flexa shape is based on the musical
+input.  The idea of this approach is to separate the musical aspects
+of the input from the notation style of the output.  This way, the
+same input can be reused to typeset the same music in a different
+style of Gregorian chant notation.
 
 The following table shows the code fragments that produce the
 ligatures in the above neumes table.  The letter in the first column
@@ -7105,11 +7139,11 @@ respectively.
 @cindex VaticanaStaffContext
 
 The predefined @code{VaticanaVoiceContext} and
-@code{VaticanaStaffContext} can be used to easily engrave a piece of
+@code{VaticanaStaffContext} can be used to engrave a piece of
 Gregorian Chant in the style of the Editio Vaticana.  These contexts
 initialize all relevant context properties and grob properties to
-proper values.  With these contexts, you can immediately go ahead
-entering the chant, as the following short excerpt demonstrates
+proper values, so you can immediately go ahead entering the chant, as
+the following excerpt demonstrates
 
 @lilypond[quote,raggedright,verbatim,noindent]
 \include "gregorian-init.ly"
@@ -7379,11 +7413,11 @@ aligned vertically, but bar lines distort the regular spacing.
 
 A cluster indicates a continuous range of pitches to be played.  They
 can be denoted as the envelope of a set of notes.  They are entered by
-applying the function @code{notes-to-clusters} to a sequence of
+applying the function @code{makeClusters} to a sequence of
 chords, e.g.
 @c
 @lilypond[quote,relative=2,verbatim]
-\applymusic #notes-to-clusters {  <c e > <b f'>  }
+\makeClusters {  <c e > <b f'>  }
 @end lilypond
 
 The following example (from
@@ -7412,16 +7446,13 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 
 
 
-@node Fermatas
-@subsection Fermatas
+@node Special fermatas
+@subsection Special Fermatas
 
-@cindex fermatas
+@cindex fermatas, special
 
-
-
-Contemporary music notation frequently uses special fermata symbols to
-indicate fermatas of differing lengths.  The following fermatas are
-supported
+In contemporary music notation, special fermata symbols denote breaks
+of differing lengths.  The following fermatas are supported
 
 @lilypond[quote,raggedright]
 <<
@@ -7509,7 +7540,7 @@ c8
 The function @code{add-balloon-text} takes the name of a grob, the
 label to print, and the position where to put the label relative to 
 the object. In the above example, the text ``heads or tails?'' ends 
-3 spaces below the `balloon.' 
+3 spaces below and 1 space to the right of the marked head.
 
 @cindex balloon
 @cindex notation, explaining
@@ -7589,13 +7620,6 @@ The command @code{\setEasyHeads} overrides settings for the
 @internalsref{NoteHead} object.  To make the letters readable, it has
 to be printed in a large font size.  To print with a larger font, see
 @ref{Setting global staff size}.
-
-@cindex Xdvi
-@cindex ghostscript
-
-If you view the result with Xdvi, staff lines may show through the
-letters.  Printing the PostScript file obtained does produce the
-correct result.
 
 @refcommands
 
