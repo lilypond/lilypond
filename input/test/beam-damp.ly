@@ -1,3 +1,7 @@
+\header {
+texidoc = "Beams are less steep than the notes they encompass. "
+}
+
 \version "1.7.6"
 \score{
 	\notes\relative c''{

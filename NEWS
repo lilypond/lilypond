@@ -38,9 +38,8 @@ for a beamed slurred pair of eighth notes.
 
 * NOTATION
 
-* Completely rewritten text formatting support. It is implemented in a
+** Completely rewritten text formatting support. It is implemented in a
 completely modular way.
-
 
 ** Better chord names. 
 

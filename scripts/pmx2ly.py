@@ -162,6 +162,7 @@ class Voice:
 		
 	def last_chord (self):
 		return self.chords[-1]
+	
 	def add_chord (self, ch):
 		self.chords.append (ch)
 		self.entries.append (ch)
@@ -258,9 +259,11 @@ class Staff:
 			v.number = i
 			i = i+1
 	def set_clef (self, letter):
-		clstr = clef_table[letter]
-		self.voices[0].add_nonchord (Clef (clstr))
-
+		if clef_table.has_key (letter):
+			clstr = clef_table[letter]
+			self.voices[0].add_nonchord (Clef (clstr))
+		else:
+			sys.stderr.write ("Clef type `%c' unknown\n" % letter)
 	
 	def current_voice (self):
 		return self.voices[self.voice_idx]
@@ -600,7 +603,7 @@ Huh? expected duration, found %d Left was `%s'""" % (durdigit, str[:20]))
 			numbers = numbers + map (atonum, opening)
 
 		(no_staffs, no_instruments, timesig_num, timesig_den, ptimesig_num,
-		 ptimesig_den, pickup_beats,keysig_number) = tuple (numbers[0:8])
+		 esig_den, pickup_beats,keysig_number) = tuple (numbers[0:8])
 		(no_pages,no_systems, musicsize, fracindent) = tuple (numbers[8:])
 
 		# ignore this.
@@ -765,11 +768,13 @@ Huh? Unknown directive `%s', before `%s'""" % (c, left[:20] ))
 		ls = open (fn).readlines ()
 		def subst(s):
 			return re.sub ('%.*$', '', s)
+		
 		ls = map (subst, ls)
+		ls = filter (lambda x: x <> '\n', ls)
 		ls = self.parse_header (ls)
 		left = string.join (ls, ' ')
 
-		print left
+#		print left
 		self.parse_body (left)
 		for c in self.staffs:
 			c.calculate ()
