@@ -8,6 +8,24 @@
 
 @itemize @bullet
 
+@item The parser is encapsulated in a Scheme function
+@code{ly:parse-file}, so the following fragment processes two files
+
+@verbatim
+  #(ly:parse-file "another.ly")
+  \score { \notes  { c4 }}
+@end verbatim
+
+@item The @code{font-encoding} property can now be used to select
+differently encoded fonts. The previous default setting
+@code{TeX-text} has been replaced by latin1. LilyPond requires the
+@uref{ec-fonts-mftraced,http://www.lilypond.org/download/fonts/}
+installed to function properly.
+
+@item The encoding of a file can be switched with
+@code{\encoding}. The strings for markup texts are translated
+automatically.
+
 @item The toplevel block @code{book} introduces page layout.
 A @code{book} groups @code{score} blocks into one page layout entity.
 Page layout consists of markup titles, headers and footers, and page
@@ -29,6 +47,8 @@ ragged pages (the default), and optimal page breaking
 The @code{lilypond} program does not generate La@TeX{} titles or page
 layout.  If you need La@TeX{} titles, you can use the
 @code{lilypond-book} program.
+
+@item There is now less of a noticeable ``hook'' at the end of a long slur.
 
 @item The meaning of the @code{|} in the input can be redefined, by
  assigning a music expression to @code{pipeSymbol}.

@@ -420,7 +420,7 @@ def to_eps (file):
 	# Redirect to stderr
 	cmd = '(( %s  >&2 ) >&- )' % cmd
 	ly.system (cmd)
-	ly.system ('dvips -Ppdf -u+lilypond.map -E -o %s.eps %s' \
+	ly.system ('dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map -E -o %s.eps %s' \
 		   % (file, file))
 
 
@@ -435,7 +435,7 @@ def to_eps (file):
 		if re.search ("^%%Pages: ", f.readline ()):
 
 			# make non EPS.
-			ly.system ('dvips -Ppdf -u+lilypond.map -o %s.eps %s' \
+			ly.system ('dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map -o %s.eps %s' \
 				   % (file, file))
 			break
 	

@@ -24,13 +24,14 @@ TEXTABLES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tex)
 AFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.afm) \
 	$(AF_FILES:%.af=$(outdir)/%.afm)
 ENC_FILES = $(TEXTABLES:.tex=.enc) $(outdir)/cmr.enc
-TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)
+TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm) $(addprefix $(outdir)/,$(addsuffix .tfm,$(SAUTER_FONTS)))
 FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 
 
 ENCODING_FILE=$(findstring $(<:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
-
+bla:
+	echo $(TFM_FILES) 
 
 # only for fonts which
 #
@@ -41,10 +42,9 @@ MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
 
 
 ## use separate package sauter-fonts-mftraced.
-SAUTER_FONTS = 
+SAUTER_FONTS = ecb10
 
 #cmbxti8 ecbm14 ecrm12
-
 MORE_SAUTER_FONTS = cmbx14 cmbx17 \
 	 cmbxti12 cmbxti14 \
 	 cmbxti6 cmbxti7 cmbxti8 \
