@@ -1,11 +1,8 @@
 \version "1.7.18"
-
-
-%{
-
-Test clef engraver by setting \property directly. \clef is merely a front-end  to this.
-
-%}
+% possible rename to clef-manual-control
+\header{ texidoc = "@cindex Clef Manual Control
+You can use the clef engraver by setting \property directly.  \clef
+is merely a front-end to this. " }
 
 \score { \notes {
   \property Staff.clefGlyph = #"clefs-F"
@@ -21,8 +18,10 @@ Test clef engraver by setting \property directly. \clef is merely a front-end  t
 	\property Staff.clefOctavation = #0 
 	\property Staff.clefPosition = #0
   c'4
-	\clef "bla"
+	\clef "bass"
   c'4
 
-}}
+}
+	\paper{ raggedright = ##t }
+}
 %% new-chords-done %%

@@ -1,10 +1,9 @@
 \version "1.7.18"  %% or actually: 1.7.1 ...
-\header {
-
- texidoc = "You can create music expressions from Scheme.  The
- mechanism for this is rather clumsy to use, so avoid if possible."
-
- }
+% possible rename to scheme- something.  -gp
+\header { texidoc = "@cindex Scheme Music Creation
+You can create music expressions from Scheme.  The
+mechanism for this is rather clumsy to use, so avoid it if possible. "
+}
 
 #(define (make-note-req p d)
    (let* ((ml (make-music-by-name 'NoteEvent)))
@@ -28,5 +27,7 @@ fooMusic  = #(seq-music-list
      (make-note (list (make-note-req (ly:make-pitch 1 1 0) (ly:make-duration 2 0)))))
      )
      
-\score { \fooMusic }
+\score { \fooMusic 
+\paper { raggedright = ##t }
+}
 %% new-chords-done %%

@@ -1,5 +1,6 @@
 \version "1.7.18"
-
+% candidate for regression.  -gp
+\header { texidoc = "" }
 \score {
   \context Staff \notes <
     \context Voice=i {
@@ -22,6 +23,7 @@
       \consists Multi_measure_rest_engraver
       \consists Bar_engraver
     }
+	raggedright = ##t
   }
 }
 %% new-chords-done %%

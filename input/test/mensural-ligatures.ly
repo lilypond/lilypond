@@ -1,6 +1,9 @@
 \version "1.7.19"
-\header {
-    title	= "mensural ligature test"
+% TODO:
+% check with ancient- stuff.  rename, merge, something.  -gp
+% check font size -- 26 looks too big, but need to ask.  -gp
+\header { texidoc = "@cindex Ancient Mensural Ligatures
+Lilypond can print mensural ligatures."
 }
 
 \include "paper26.ly"

@@ -1,6 +1,8 @@
 \version "1.7.18"
+% possible rename to rest-foo
 \header {
-    texidoc = "Control the number of rests in a collision   with maximum-rest-count."
+    texidoc = "@cindex Rest Collision Count
+Control the number of rests in a collision with maximum-rest-count."
 }
 
 \score{
@@ -36,10 +38,6 @@
 		r
 	}
 	>
-\paper{
-}
-\midi{
-\tempo 1 = 60
-}
+	\paper{ raggedright = ##t }
 }
 %% new-chords-done %%

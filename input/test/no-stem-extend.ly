@@ -1,6 +1,7 @@
 \version "1.7.18"
-\header {
- texidoc = "Don't extend stems to cetner line."
+
+\header { texidoc = "@cindex No Stem Extend
+You can stop Lilypond from extending stems to the center line. "
 }
 
 \score { 
@@ -19,7 +20,6 @@
 	>
 	
   }
-  \paper { }  
-  \midi { }
+  \paper { raggedright = ##t}  
 }
 %% new-chords-done %%
