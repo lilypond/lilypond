@@ -13,6 +13,19 @@ beam_thickness = 0.48 * (\interline - \staffline);
 interbeam = (2.0 * \interline - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 
+% some beam-stemlength settings...
+%
+%    beam_*1 : multiplicity < beam_multiple_break
+%    beam_*2 : multiplicity >= beam_multiple_break
+%
+beam_multiple_break = 3.0;
+beam_minimum_stem1 = 1.5 * \interline;
+beam_minimum_stem2 = 1.0 * \interline;
+beam_ideal_stem1 = 2.0 * \interline;
+beam_ideal_stem2 = 1.5 * \interline;
+% beam_slope_damp_correct_factor = 2.0;
+beam_slope_damp_correct_factor = 0.0;
+
 % OSU: suggested gap = ss / 5;
 slur_x_gap = \interline / 5.0;
 slur_x_minimum = 2.0 * \interline;
