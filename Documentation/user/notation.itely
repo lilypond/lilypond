@@ -147,7 +147,7 @@ c' c'' es' g' as' gisis' ais'
 @refcommands
 Notes can be hidden and unhidden with the following commands
 
-cindex @code{\hideNotes}
+@cindex @code{\hideNotes}
 @code{\hideNotes}, 
 @cindex @code{\unHideNotes}
 @code{\unHideNotes}.
@@ -655,9 +655,6 @@ to determine the first note of the next chord
 
 The pitch after the @code{\relative} contains a note name.
 
-
-@c Perfect place for a "refwarning"!  -gp
-@c @refwarning
 
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.  To use
@@ -1357,8 +1354,6 @@ the measure, so the next bar line will fall at 2/4 + 3/8.
 TODO  Somebody needs to explain this example, but I don't know what
 they're trying to do, so it won't be me.  -gp
 
-TODO part 2, build message: programming error: No spacing entry from KeyCancellation to `key-signature'
-
 @lilypond[verbatim]
 \transpose c c' {
 	\override Staff.Clef  #'break-visibility = #end-of-line-visible
@@ -1961,18 +1956,21 @@ problematic notes.
 @c todo: should change ordering
 @c where to put text spanners, metronome marks,
 @c fingering?
- 
+
+Expressive marks help musicians to bring more to the music than simple
+notes and rhythms.
+
 @menu
 * Slurs::                       
 * Phrasing slurs::              
 * Breath marks::                
 * Metronome marks::             
+* Text scripts::                
 * Text spanners::               
 * Analysis brackets::           
 * Articulations::               
 * Running trills::              
 * Fingering instructions::      
-* Text scripts::                
 * Grace notes::                 
 * Glissando::                   
 * Dynamics::                    
@@ -1986,8 +1984,8 @@ A slur indicates that notes are to be played bound or @emph{legato}.
 
 They are entered using parentheses
 @lilypond[quote,relative=2,fragment,verbatim]
-f( g a) a8 b( a4 g2 f4)
-<c e>2( <b d>2)
+  f( g a) a8 b( a4 g2 f4)
+  <c e>2( <b d>2)
 @end lilypond
 
 The direction of a slur can be set with the
@@ -1995,7 +1993,7 @@ generic commands
 
 @example
   \override Slur #'direction = #UP
-  \slurUp     % shortcut for the previous line 
+  \slurUp            % shortcut for the previous line 
 @end example
 
 @noindent
@@ -2004,16 +2002,16 @@ directions.  By adding @code{_} or @code{^} before the opening
 parentheses, the direction is also set.  For example,  
 
 @lilypond[relative=2,verbatim,fragment]
-   c4_( c)   c^( c)
+  c4_( c)   c^( c)
 @end lilypond
 
 Some composers write two slurs when they want legato chords.  This can
-be achieved in LilyPond, by setting @code{doubleSlurs},
+be achieved in LilyPond by setting @code{doubleSlurs},
 
 @lilypond[verbatim,raggedright]
 \relative {
-    \set doubleSlurs = ##t
-    <c e>4 ( <d f> <c e> <d f> )
+   \set doubleSlurs = ##t
+   <c e>4 ( <d f> <c e> <d f> )
 }
 @end lilypond  
 
@@ -2044,11 +2042,11 @@ Program reference: @seeinternals{Slur}, and @internalsref{SlurEvent}.
 @cindex phrasing marks
 
 A phrasing slur (or phrasing mark) connects chords and is used to
-indicate a musical sentence.  It is started using @code{\(} and @code{\)}
+indicate a musical sentence.  It is written using @code{\(} and @code{\)}
 respectively
 
 @lilypond[quote,fragment,verbatim,relative=1]
-\time 6/4 c'\( d( e) f( e)  d\) 
+  \time 6/4 c'\( d( e) f( e)  d\) 
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a
@@ -2085,18 +2083,18 @@ Breath marks are entered using @code{\breathe}
 
 
 @lilypond[quote,fragment,relative=1,verbatim]
-c'4 \breathe d4
+  c'4 \breathe d4
 @end lilypond
 
 The glyph of the breath mark can be tuned by overriding the
 @code{text} property of the @code{BreathingSign} layout object with
-any markup text.   For example,
+any markup text.  For example,
 @lilypond[quote,fragment,verbatim,relative=1]
-c'4
-\override BreathingSign #'text
-  = #(make-musicglyph-markup "scripts-rvarcomma")
-\breathe
-d4
+  c'4
+  \override BreathingSign #'text
+    = #(make-musicglyph-markup "scripts-rvarcomma")
+  \breathe
+  d4
 @end lilypond
 
 @seealso 
@@ -2116,14 +2114,14 @@ Examples: @inputfileref{input/regression,breathing-sign.ly}.
 
 Metronome settings can be entered as follows
 @example 
- i \tempo @var{duration} = @var{per-minute} 
+  \tempo @var{duration} = @var{per-minute} 
 @end example
 
-In the MIDI output, they are interpreted as a tempo change, and in the
+In the MIDI output, they are interpreted as a tempo change.  In the
 paper output, a metronome marking is printed
 @cindex @code{\tempo}
 @lilypond[quote,fragment,verbatim]
-\tempo 8.=120 c''1
+  \tempo 8.=120 c''1
 @end lilypond
 
 @seealso
@@ -2131,27 +2129,65 @@ paper output, a metronome marking is printed
 Program reference: @internalsref{MetronomeChangeEvent}.
   
 
+@node Text scripts
+@subsection Text scripts
+@cindex Text scripts
+
+@cindex text items, non-empty
+@cindex non-empty texts
+
+It is possible to place arbitrary strings of text or markup text (see
+@ref{Text markup}) above or below notes by using a string
+@code{c^"text"}.  By default, these indications do not influence the
+note spacing, but by using the command @code{\fatText}, the widths
+will be taken into account
+@c
+@lilypond[quote,fragment,raggedright,verbatim,relative=1]
+  c4^"longtext" \fatText c4_"longlongtext" c4
+@end lilypond
+
+More complex formatting may also be added to a note by using the
+markup command,
+@lilypond[fragment,raggedright,verbatim]
+  c'4^\markup { bla \bold bla }
+@end lilypond
+
+The @code{\markup} is described in more detail in
+@ref{Text markup}.
+ 
+
+@refcommands
+
+@cindex @code{\fatText}
+@code{\fatText}, 
+@cindex @code{\emptyText}
+@code{\emptyText}.
+
+@seealso
+
+In this manual: @ref{Text markup}.
+
+Program reference: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
+
 
 @node Text spanners
 @subsection Text spanners
 @cindex Text spanners
 
 Some performance indications, e.g. @i{rallentando} or @i{accelerando},
-are written as texts, and extended over many measures with dotted
-lines.  Such texts are created using text spanners: attach
-@code{\startTextSpan} and @code{\stopTextSpan} to the start and ending
-note of the spanner.
+are written as text and are extended over many measures with dotted
+lines.  Such texts are created using text spanners; attach
+@code{\startTextSpan} and @code{\stopTextSpan} to the first and last
+notes of the spanner.
 
 The string to be printed, as well as the style, is set through object
 properties
 
 @lilypond[quote,fragment,relative=1,verbatim]
-\relative c' {
   c1 
   \override TextSpanner #'direction = #-1
   \override TextSpanner #'edge-text = #'("rall " . "")
   c2\startTextSpan b c\stopTextSpan a
-}
 @end lilypond
 
 
@@ -2171,9 +2207,9 @@ Examples: @inputfileref{input/regression,text-spanner.ly}.
 @cindex note grouping bracket
 
 Brackets are used in musical analysis to indicate structure in musical
-pieces.  LilyPond supports a simple form of nested horizontal brackets.
-To use this, add the @internalsref{Horizontal_bracket_engraver} to
-@internalsref{Staff} context.  A bracket is started with
+pieces.  LilyPond supports a simple form of nested horizontal
+brackets.  To use this, add the @internalsref{Horizontal_bracket_engraver}
+to @internalsref{Staff} context.  A bracket is started with
 @code{\startGroup} and closed with @code{\stopGroup}
 
 @lilypond[quote,raggedright,verbatim]
@@ -2218,20 +2254,21 @@ The meanings of these shorthands can be changed.  See
 
 
 The script is automatically placed, but the direction can be forced as
-well.  @code{_} will put them down, and @code{^} will put them up,
+well.  Like other pieces of LilyPond code, @code{_} will place them
+below the staff, and @code{^} will place them above.
 
 
 @lilypond[quote,fragment,verbatim]
-c''4^^ c''4_^
+  c''4^^ c''4_^
 @end lilypond
 
 Other symbols can be added using the syntax
-@var{note}@code{\}@var{name}, e.g. @code{c4\fermata}.  Again, they
+@var{note}@code{\}@var{name}.  Again, they
 can be forced up or down using @code{^} and @code{_},
 e.g.
 
 @lilypond[quote,verbatim,fragment,relative=2]
-c\fermata c^\fermata c_\fermata
+  c\fermata c^\fermata c_\fermata
 @end lilypond
 
 
@@ -2280,14 +2317,12 @@ inside.  When two objects have the same priority, the order in which
 they are entered decides which one comes first.
 
 
-@lilypond[verbatim,raggedright]
-\relative g''{
-    \once \override TextScript #'script-priority = #-100
-    a4^\prall^\markup { \sharp }
+@lilypond[verbatim,relative=3,raggedright,fragment,quote]
+  \once \override TextScript #'script-priority = #-100
+  a4^\prall^\markup { \sharp }
     
-    \once \override Script  #'script-priority = #-100
-    a4^\prall^\markup { \sharp }
-}
+  \once \override Script  #'script-priority = #-100
+  a4^\prall^\markup { \sharp }
 @end lilypond
 
 
@@ -2311,11 +2346,11 @@ Long running trills are made with @code{\startTrillSpan} and
 @code{\stopTrillSpan},
 
 
-@lilypond[verbatim,raggedright]
-\relative \new Voice {
-    << { c1 \startTrillSpan }
-       { s2. \grace { d16[\stopTrillSpan e] } } >>
-    c4 }
+@lilypond[verbatim,raggedright,relative=2,quote,fragment]
+\new Voice {
+  << { c1 \startTrillSpan }
+     { s2. \grace { d16[\stopTrillSpan e] } } >>
+  c4 }
 @end lilypond
 
 @refcommands
@@ -2341,9 +2376,9 @@ Fingering instructions can be entered using
 @end example
 For finger changes, use markup texts
 @c
-@lilypond[quote,verbatim,raggedright,fragment]
-c'4-1 c'4-2 c'4-3 c'4-4
-c'^\markup { \finger "2-3" }
+@lilypond[quote,verbatim,raggedright,fragment,relative=1]
+  c4-1 c-2 c-3 c-4
+  c^\markup { \finger "2-3" }
 @end lilypond
 
 @cindex finger change
@@ -2354,14 +2389,14 @@ c'^\markup { \finger "2-3" }
 You can use the thumb-script to indicate that a note should be
 played with the thumb (e.g. in cello music)
 
-@lilypond[quote,verbatim,raggedright,fragment]
-<a'_\thumb a''-3>8 <b'_\thumb b''-3>
+@lilypond[quote,verbatim,raggedright,fragment,relative=2]
+  <a_\thumb a'-3>8 <b_\thumb b'-3>
 @end lilypond
 
 Fingerings for chords can also be added to individual notes
 of the chord by adding them after the pitches
 @lilypond[quote,verbatim,raggedright,fragment,relative=2]
-< c-1 e-2 g-3 b-5 >4
+  < c-1 e-2 g-3 b-5 >4
 @end lilypond
 
 @noindent
@@ -2369,10 +2404,10 @@ In this case, setting @code{fingeringOrientations} will put fingerings next
 to note heads
 
 @lilypond[quote,verbatim,raggedright,fragment,relative=1]
-\set fingeringOrientations = #'(left down)
-<c-1 es-2 g-4 bes-5 > 4
-\set fingeringOrientations = #'(up right down)
-<c-1 es-2 g-4 bes-5 > 4
+  \set fingeringOrientations = #'(left down)
+  <c-1 es-2 g-4 bes-5 > 4
+  \set fingeringOrientations = #'(up right down)
+  <c-1 es-2 g-4 bes-5 > 4
 @end lilypond
 
 Using this feature, it is also possible to put fingering instructions
@@ -2392,50 +2427,6 @@ Program reference: @internalsref{FingerEvent}, and @internalsref{Fingering}.
 
 Examples: @inputfileref{input/regression,finger-chords.ly}.
 
-@node Text scripts
-@subsection Text scripts
-@cindex Text scripts
-
-@cindex text items, non-empty
-@cindex non-empty texts
-
-It is possible to place arbitrary strings of text or markup text (see
-@ref{Text markup}) above or below notes by using a string
-@code{c^"text"}.  By default, these indications do not influence the
-note spacing, but by using the command @code{\fatText}, the widths
-will be taken into account
-@c
-@lilypond[quote,fragment,raggedright,verbatim]
-\relative c' {
-  c4^"longtext" \fatText c4_"longlongtext" c4
-}
-@end lilypond
-
-More complex formatting may also be added to a note by using the
-markup command,
-@lilypond[fragment,raggedright,verbatim]
-{
-  c'4^\markup { bla \bold bla }
-}
-@end lilypond
-
-The @code{\markup} is described in more detail in
-@ref{Text markup}.
- 
-
-@refcommands
-
-@cindex @code{\fatText}
-@code{\fatText}, 
-@cindex @code{\emptyText}
-@code{\emptyText}.
-
-@seealso
-
-In this manual: @ref{Text markup}.
-
-Program reference: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
-
 
 
 
@@ -2452,9 +2443,9 @@ Program reference: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
 Grace notes are ornaments that are written out.  The most common ones
 are acciaccatura, which should be played as very short.  It is denoted
 by a slurred small note with a slashed stem.  The appoggiatura is a
-grace note that takes a fixed fraction of the main note, is and
-denoted as a slurred note in small print without a slash.
-They are entered with the commands @code{\acciaccatura} and
+grace note that takes a fixed fraction of the main note, and is
+denoted as a slurred note in small print without a slash.  They
+are entered with the commands @code{\acciaccatura} and
 @code{\appoggiatura}, as demonstrated in the following example
 
 
@@ -2462,8 +2453,8 @@ They are entered with the commands @code{\acciaccatura} and
 @cindex acciaccatura
 
 @lilypond[quote,relative=2,verbatim,fragment]
-b4 \acciaccatura d8 c4 \appoggiatura e8 d4
-\acciaccatura { g16[ f] } e4
+  b4 \acciaccatura d8 c4 \appoggiatura e8 d4
+  \acciaccatura { g16[ f] } e4
 @end lilypond
 
 Both are special forms of the @code{\grace} command.  By prefixing this
@@ -2471,8 +2462,8 @@ keyword to a music expression, a new one is formed, which will be
 printed in a smaller font and takes up no logical time in a measure.
 
 @lilypond[quote,relative=2,verbatim,fragment]
-c4 \grace c16 c4
-\grace { c16[ d16] } c2 c4
+  c4 \grace c16 c4
+  \grace { c16[ d16] } c2 c4
 @end lilypond
 
 @noindent
@@ -2541,9 +2532,9 @@ for example,
 @lilypond[quote,fragment,verbatim,relative=2]
 \new Voice {
   \acciaccatura {
-    \override Stem #'direction = #-1
+    \stemDown
     f16->
-    \revert Stem #'direction
+    \stemNeutral
   }
   g4
 }
@@ -2613,8 +2604,8 @@ A glissando is a smooth change in pitch.  It is denoted by a line or a
 wavy line between two notes.  It is requested by attaching 
 @code{\glissando} to a note
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c'\glissando c'
+@lilypond[quote,fragment,relative=2,verbatim]
+c\glissando c'
 @end lilypond
 
 @seealso
@@ -2660,9 +2651,9 @@ Absolute dynamic marks are specified using a command after a note
 @code{\fff}, @code{\fff}, @code{\fp}, @code{\sf}, @code{\sff},
 @code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}
 
-@lilypond[quote,verbatim,raggedright,fragment,relative=1]
-c'\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
-c2\sf c\rfz
+@lilypond[quote,verbatim,raggedright,fragment,relative=2]
+  c\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
+  c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
 @end lilypond
 
 @cindex @code{\<}
@@ -2676,26 +2667,26 @@ A crescendo mark is started with @code{\<} and terminated with
 with @code{\!}.  Because these marks are bound to notes, if you must
 use spacer notes if multiple marks are needed during one note 
 
-@lilypond[quote,fragment,verbatim]
-c''\< c''\! d''\> e''\! 
-<< f''1 { s4 s4\< s4\! \> s4\! } >>
+@lilypond[quote,fragment,verbatim,relative=2]
+  c\< c\! d\> e\! 
+  << f1 { s4 s4\< s4\! \> s4\! } >>
 @end lilypond
 This may give rise to very short hairpins.  Use @code{minimum-length}
 in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
 example
 
 @example
- \override Staff.Hairpin #'minimum-length = #5
+  \override Staff.Hairpin #'minimum-length = #5
 @end example
 
 You can also use a text saying @emph{cresc.} instead of hairpins.  Here
 is an example how to do it
 
 @lilypond[quote,fragment,relative=2,verbatim]
-\setTextCresc
-c \< d e f\!
-\setHairpinCresc
-e\> d c b\!
+  \setTextCresc
+  c \< d e f\!
+  \setHairpinCresc
+  e\> d c b\!
 @end lilypond
 
 @cindex crescendo
@@ -2703,11 +2694,9 @@ e\> d c b\!
 
 You can also supply your own texts
 @lilypond[quote,fragment,relative=1,verbatim]
-\context Voice {
   \set crescendoText = \markup { \italic "cresc. poco" }
   \set crescendoSpanner = #'dashed-line
   a'2\< a a a\!\mf
-}
 @end lilypond
 
 @cindex diminuendo
