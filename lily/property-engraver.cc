@@ -116,18 +116,14 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 	{
 	  e->set_grob_property (elt_prop_sym, val);
 
-	  SCM errport = scm_current_error_port ();
 	  SCM meta = e->get_grob_property ("meta");
 	  SCM name = scm_assoc (ly_symbol2scm ("name"), meta);
-	  /* warning () ? */
-	  scm_puts (_f ("%s is deprecated.  Use\n \\property %s.%s \\override #'%s = #%s",
-			ly_symbol2string (prop_sym).ch_C (),
-			origin->type_str_.ch_C (),
-			ly_scm2string (gh_cdr (name)).ch_C (),
-			ly_symbol2string (elt_prop_sym).ch_C (),
-			ly_scm2string (ly_write2scm (val)).ch_C ()).ch_C (),
-		    errport);
-	  scm_puts ("\n", errport);
+	  warning (_f ("%s is deprecated.  Use\n \\property %s.%s \\override #'%s = #%s",
+		       ly_symbol2string (prop_sym).ch_C (),
+		       origin->type_str_.ch_C (),
+		       ly_scm2string (gh_cdr (name)).ch_C (),
+		       ly_symbol2string (elt_prop_sym).ch_C (),
+		       ly_scm2string (ly_write2scm (val)).ch_C ()));
 	}
       else
 
@@ -146,11 +142,13 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 	    SCM errport = scm_current_error_port ();
 	    SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
 	    SCM type_name = gh_call1 (typefunc, type_p);
+#if 0 
 	    warning (_f ("Wrong type for property: %s, type: %s, value found: %s, type: %s",
 			 ly_symbol2string (prop_sym).ch_C (),
-			 ly_symbol2string (type_name).ch_C (),
+			 ly_scm2string (type_name).ch_C (),
 			 ly_scm2string (ly_write2scm (val)).ch_C (),
 			 ly_scm2string (ly_type (val)).ch_C ()));
+#endif
 	    scm_puts ("\n", errport);
 	  }
     }
