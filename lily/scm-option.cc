@@ -1,10 +1,10 @@
-/*   
+/*
   scm-option.cc --  implement option setting from Scheme
-  
+
   source file of the GNU LilyPond music typesetter
-  
+
   (c) 2001--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  
+
  */
 #include <stdio.h>
 
@@ -25,7 +25,7 @@
   preferably, also dont use TESTING_LEVEL_GLOBAL, since it defeats
   another purpose of this very versatile interface, which is to
   support multiple debug/testing options concurrently.
-  
+
  */
 
 
@@ -48,7 +48,7 @@ bool internal_type_checking_global_b;
 
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
 		  "Print ly-set-option usage")
-{  
+{
   printf ( _("lilypond -e EXPR means:").to_str0 ());
   puts ("");
   printf (_ ("  Evalute the Scheme EXPR before parsing any .ly files.").to_str0 ());
@@ -66,7 +66,7 @@ LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
 	   "  midi-debug BOOLEAN\n"
 	   "  parse-protect BOOLEAN\n"
 	   "  testing-level INTEGER\n");
-  
+
   exit (0);
   return SCM_UNSPECIFIED;
 }
@@ -104,48 +104,34 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
     val = SCM_BOOL_T;
 
   if (var == ly_symbol2scm ("help"))
-    {
-      /* lilypond -e "(ly-set-option 'help #t)" */
-      ly_option_usage (SCM_EOL);
-    }
+    /* lilypond -e "(ly-set-option 'help #t)" */
+    ly_option_usage (SCM_EOL);
   else if (var == ly_symbol2scm ("midi-debug"))
-    {
-      midi_debug_global_b = to_boolean (val);
-    }
+    midi_debug_global_b = to_boolean (val);
   else if (var == ly_symbol2scm ("testing-level"))
-    {
-     testing_level_global = ly_scm2int (val); 
-    }
+    testing_level_global = ly_scm2int (val);
   else if (var == ly_symbol2scm ("parse-protect" ))
-    {
-      parse_protect_global = to_boolean (val);
-    }
+    parse_protect_global = to_boolean (val);
   else if (var == ly_symbol2scm ("internal-type-checking"))
-    {
-     internal_type_checking_global_b = to_boolean (val); 
-    }
+    internal_type_checking_global_b = to_boolean (val);
   else if (var == ly_symbol2scm ("old-relative"))
     {
       lily_1_8_relative = true;
-      lily_1_8_compatibility_used = false; 
+      /*  Needs to be reset for each file that uses this option.  */
+      lily_1_8_compatibility_used = false;
     }
   else if (var == ly_symbol2scm ("new-relative"))
-    {
-      lily_1_8_relative = false;
-    }
+    lily_1_8_relative = false;
   else if (var == ly_symbol2scm ("debug-beam"))
     {
       extern bool debug_beam_quanting_flag;
       debug_beam_quanting_flag = true;
     }
   else
-    {
-      warning (_("Unknown internal option!"));
-    }
+    warning (_f ("No such internal option: %s", ly_scm2string (var)));
 
   return SCM_UNSPECIFIED;
 }
-
 
 LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	    "Get a global option setting.  Supported options include\n"
@@ -159,22 +145,14 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	   "@end table\n"
 	   "\n")
 {
+  SCM o = SCM_UNSPECIFIED;
   if (var == ly_symbol2scm ("old-relative-used"))
-    {
-      return ly_bool2scm (lily_1_8_compatibility_used);
-    }
-  if (var == ly_symbol2scm ("old-relative"))
-    {
-      return ly_bool2scm (lily_1_8_relative);
-    }
-  if (var == ly_symbol2scm ("verbose"))
-    {
-      return ly_bool2scm (verbose_global_b);
-    }  
+    o = ly_bool2scm (lily_1_8_compatibility_used);
+  else if (var == ly_symbol2scm ("old-relative"))
+    o = ly_bool2scm (lily_1_8_relative);
+  else if (var == ly_symbol2scm ("verbose"))
+    o = ly_bool2scm (verbose_global_b);
   else
-    {
-      warning (_("Unknown internal option!"));
-    }
-
-  return SCM_UNSPECIFIED;
+    warning (_f ("No such internal option: %s", ly_scm2string (var)));
+  return o;
 }

@@ -28,7 +28,8 @@ typedef Interval_t<int> Slice;	// junkme.
 struct Offset;
 struct Long_option_init;
 struct Rational;
-struct File_path;
+class File_name;
+class File_path;
 struct Getopt_long;
 struct String_data;
 struct String_handle;

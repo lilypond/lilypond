@@ -18,20 +18,20 @@
 #include <libintl.h>
 #endif
 
-#include "lily-guile.hh"
-#include "lily-version.hh"
 #include "all-font-metrics.hh"
-#include "getopt-long.hh"
-#include "misc.hh"
-#include "string.hh"
-#include "main.hh"
+#include "file-name.hh"
 #include "file-path.hh"
-#include "warn.hh"
-#include "lily-guile.hh"
-#include "paper-def.hh"
-#include "midi-def.hh"
+#include "getopt-long.hh"
 #include "global-ctor.hh"
 #include "kpath.hh"
+#include "lily-guile.hh"
+#include "lily-version.hh"
+#include "main.hh"
+#include "midi-def.hh"
+#include "misc.hh"
+#include "paper-def.hh"
+#include "string.hh"
+#include "warn.hh"
 
 /*
  * Global options that can be overridden through command line.
@@ -212,7 +212,7 @@ setup_paths ()
   if (char const *lilypond_prefix = getenv ("LILYPONDPREFIX"))
     prefix_directory[1] = lilypond_prefix;
 
-  global_path.add ("");
+  global_path.append ("");
 
   /* Adding mf/out make lilypond unchanged source directory, when setting
      LILYPONDPREFIX to lilypond-x.y.z */
@@ -318,7 +318,7 @@ parse_argv (int argc, char **argv)
 {
   bool help_b = false;
   option_parser = new Getopt_long (argc, argv, options_static);
-  while (Long_option_init const * opt = (*option_parser) ())
+  while (Long_option_init const *opt = (*option_parser) ())
     {
       switch (opt->shortname_char_)
 	{
@@ -329,10 +329,10 @@ parse_argv (int argc, char **argv)
 	case 'o':
 	  {
 	    String s = option_parser->optional_argument_str0_;
-	    Path p = split_path (s);
-	    if (s != "-" && p.ext.is_empty ())
-	      p.ext = output_format_global;
-	    output_name_global = p.to_string ();
+	    File_name file_name (s);
+	    if (s != "-" && file_name.ext_.is_empty ())
+	      file_name.ext_ = output_format_global;
+	    output_name_global = file_name.to_string ();
 	  }
 	  break;
 	case 'e':
@@ -356,7 +356,7 @@ parse_argv (int argc, char **argv)
 	    .push (option_parser->optional_argument_str0_);
 	  break;
 	case 'I':
-	  global_path.push (option_parser->optional_argument_str0_);
+	  global_path.append (option_parser->optional_argument_str0_);
 	  break;
 	case 'i':
 	  init_name_global = option_parser->optional_argument_str0_;

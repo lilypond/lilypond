@@ -22,6 +22,7 @@
 #include "paper-def.hh"
 #include "paper-line.hh"
 #include "paper-outputter.hh"
+#include "file-name.hh"
 #include "scm-hash.hh"
 #include "stencil.hh"
 #include "string-convert.hh"
@@ -30,11 +31,12 @@
 
 Paper_outputter::Paper_outputter (String filename)
 {
-  if (safe_global_b)
-    scm_define (ly_symbol2scm ("safe-mode?"), SCM_BOOL_T);      
-  
+  filename_ = filename;
   file_ = scm_open_file (scm_makfrom0str (filename.to_str0 ()),
 			 scm_makfrom0str ("w"));
+
+  if (safe_global_b)
+    scm_define (ly_symbol2scm ("safe-mode?"), SCM_BOOL_T);      
 
   String module_name = "scm output-" + output_format_global;
   if (safe_global_b)
@@ -116,11 +118,15 @@ Paper_outputter::output_metadata (Paper_def *paper, SCM scopes)
     fields
       = scm_cons (ly_symbol2scm (dump_header_fieldnames_global[i].to_str0 ()),
 		 fields);
+
+  File_name file_name (filename_);
+  file_name.ext_ = "";
+  String basename = file_name.to_string ();
   output_scheme (scm_list_n (ly_symbol2scm ("output-scopes"),
 			     paper->self_scm (),
 			     ly_quote_scm (scopes),
 			     ly_quote_scm (fields),
-			     scm_makfrom0str (basename_.to_str0 ()), 
+			     scm_makfrom0str (basename.to_str0 ()), 
 			     SCM_UNDEFINED));
 }
 
@@ -182,12 +188,17 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
   (*origin)[Y_AXIS] += dim[Y_AXIS];
 }
 
+void
+Paper_outputter::output_music_output_def (Music_output_def *odef)
+{
+  output_scheme (scm_list_2 (ly_symbol2scm ("output-paper-def"),
+			      odef->self_scm ()));
+}
 
 void
-Paper_outputter::output_music_output_def (Music_output_def* odef)
+Paper_outputter::output_stencil (Stencil *stil)
 {
-  output_scheme (scm_list_n (ly_symbol2scm ("output-paper-def"),
-			     odef->self_scm (), SCM_UNDEFINED));
+  output_expr (stil->get_expr (), stil->origin ());
 }
 
 /* TODO: replaceme/rewriteme, see output-ps.scm: output-stencil  */
@@ -202,18 +213,17 @@ Paper_outputter::output_expr (SCM expr, Offset o)
       SCM head =ly_car (expr);
       if (unsmob_input (head))
 	{
-	  Input * ip = unsmob_input (head);
-      
-	  output_scheme (scm_list_n (ly_symbol2scm ("define-origin"),
-				     scm_makfrom0str (ip->file_string ().to_str0 ()),
-				     scm_int2num (ip->line_number ()),
-				     scm_int2num (ip->column_number ()),
-				     SCM_UNDEFINED));
+	  Input *ip = unsmob_input (head);
+	  output_scheme (scm_list_4 (ly_symbol2scm ("define-origin"),
+				      scm_makfrom0str (ip->file_string ()
+						       .to_str0 ()),
+				      scm_int2num (ip->line_number ()),
+				      scm_int2num (ip->column_number ())));
 	  expr = ly_cadr (expr);
 	}
       else  if (head ==  ly_symbol2scm ("no-origin"))
 	{
-	  output_scheme (scm_list_n (head, SCM_UNDEFINED));
+	  output_scheme (scm_list_1 (head));
 	  expr = ly_cadr (expr);
 	}
       else if (head == ly_symbol2scm ("translate-stencil"))
@@ -228,13 +238,11 @@ Paper_outputter::output_expr (SCM expr, Offset o)
 	}
       else
 	{
-	  output_scheme (scm_list_n (ly_symbol2scm ("placebox"),
+	  output_scheme (scm_list_4 (ly_symbol2scm ("placebox"),
 				     scm_make_real (o[X_AXIS]),
 				     scm_make_real (o[Y_AXIS]),
-				     expr,
-				     SCM_UNDEFINED));
+				     expr));
 	  return;
 	}
     }
 }
-

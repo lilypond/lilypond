@@ -1,5 +1,5 @@
 /*
-  file-path.hh -- declare Path and File_path
+  file-path.hh -- declare File_name and File_path
 
   source file of the Flower Library
 
@@ -9,9 +9,8 @@
 #ifndef FILE_PATH_HH
 #define FILE_PATH_HH
 
-#include "string.hh"
 #include "array.hh"
-
+#include "string.hh"
 
 /**    
   search in directories for a file.
@@ -22,30 +21,16 @@
    TODO: add a unix style PATH interface 
 */
 
-class Path
-{
-public:
-  String root;
-  String dir;
-  String base;
-  String ext;
-
-  String to_string () const;
-};
-
 class File_path : private Array<String>
 {
 public:
-  String find (String nm) const;
-
-  Array<String>::push;
-  void prepend (String str) { Array<String>::insert (str, 0); }
-  String to_string ()const;
-  bool try_add (String str);
-  void add (String);
+  String find (String name) const;
+  String find (String name, char const *extensions[]);
+  String to_string () const;
+  bool try_append (String str);
+  void append (String str) { Array<String>::push (str); }
   void parse_path (String);
+  void prepend (String str) { Array<String>::insert (str, 0); }
 };
-
-Path split_path (String path);
 
 #endif /* FILE_PATH */
