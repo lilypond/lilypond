@@ -168,7 +168,9 @@ fet_beginchar( "Natural", "0", "natural")
 def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	clearxy;
 	save crook_thinness;
+	save bottom_overshoot;
 	save top_stem_thick, bottom_stem_thick, hair, smaller_hole;
+	save zwiep; 
 	save center;
 	pair center;
 	save clearing;
@@ -186,13 +188,15 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	else:
 		smaller_hole = 0.0 stafflinethickness;
 	fi
-	crook_thinness = 1.25 stafflinethickness;
+	crook_thinness = 1.1 stafflinethickness;
 	top_stem_thick = 2.2 stafflinethickness;
+	bottom_overshoot = stafflinethickness;
 	bottom_stem_thick = 1.2 stafflinethickness;
 
 
-	z1 = (0, 2 staff_space) + center - (0, stafflinethickness/2 + clearing);
-	z2 = (0, - 1/2 staff_space)+  center;
+	z1 = (0, 2 staff_space) + center - (0, stafflinethickness/2
+		+ clearing);
+	z2 =  (0, - 1/2 staff_space - stafflinethickness/2 )+  center;
 
 	penpos1(top_stem_thick, 0);
 	penpos2(bottom_stem_thick, 0); 
@@ -200,55 +204,54 @@ def draw_meta_flat(expr xcenter, w, crook_fatness) =
 	fill simple_serif(z1r, z1l, 30) -- z2l -- z2r -- cycle;
 
 
-	y3l = (staff_space - stafflinethickness)/2 + ypart center;
+	y3l = (staff_space - stafflinethickness) / 2 + ypart center;
 	z3l = whatever [z2r,z1r];
 
-	z3r = .26 [z2r, z1r] + (smaller_hole, 0);
+	z3r = .3 [z2r, z1r] + (smaller_hole, 0);
+
 	z10 = whatever [z2r, z1r] + (smaller_hole , 0);
+	z11 = center + (bottom_overshoot/3,
+		-staff_space/2 - stafflinethickness/2) - (0,bottom_overshoot);
 
-	
-
-	z4 = (3/8 staff_space, staff_space/2) + center;
 	penpos4(whatever, 53);
-	y4l - y4r = 2 crook_thinness ;
-%	y4l - y4r = 6/20[crook_thinness, crook_fatness] ;
+	y4l - y4r = 1.5 crook_thinness ;
 
-	y5r = 1/4 staff_space + ypart center;
+	y5r = .20 staff_space + ypart center;
 	x5l = w + xpart center;
-	penpos5(crook_fatness, -175);
+	y4 = ypart center + staff_space/2;
+	x4r = .45 [x5r, x3r];
 
-	z8 = (0, - staff_space/2 - stafflinethickness/2) + center;
+	penpos5(crook_fatness, -185);
 
-	z9 = (x5,0);
+	save bot_crook_dir ;
+	pair bot_crook_dir ;
+	bot_crook_dir =  unitvector ((x5l,0) - z11);
+	z8 = z11 +  whatever * bot_crook_dir;
+	y8 = - staff_space /2  +0.0* stafflinethickness;
 
-	save ne_angle;
-	ne_angle = angle(z9 - z8);
+	z7 = z8 + whatever * bot_crook_dir + crook_thinness  * (bot_crook_dir rotated 90);
 
-	z7 = 8/33 [z8,z9] + (1.0 smaller_hole, 0);
-	z6l = 18/33 [z8,z9] + .5 crook_thinness *dir(ne_angle -90);
-  
-	penpos7(crook_thinness, ne_angle + 90);
+	x7 = .5 [x11, x8];
 
-	z6r = .3 (z9-z8) + z7r;
-
-	penpos8(whatever, ne_angle + 90);
-	x8r =  xpart center - bottom_stem_thick/2;
 	penlabels(range 0 thru 10);
 
 	y10 = -1/5 staff_space;
+%	draw_staff (-2, 2, 0.5);
+%	draw_staff (-2, 2, 0.0);
 
-	unfill z3r .. z4r{right} .. tension .9 
-		.. z6r ---
-		z7r{left} 
+	unfill z3r{z3r-z10} .. z4r{right} .. z5r{down}
+
+		..  z7{- bot_crook_dir}
+		& z7 .. tension 1.3
 		.. z10{z3r-z10}  -- cycle;
-	fill z8r{down}
-		.. tension 0.8 ..z8l{(z9-z8)}
-		.. z7l
-		.. z6l
+	fill z2l{down}
+		
+		.. z11{right}
+		.. z8{bot_crook_dir}
 		.. z5l{up}
 		.. z4l{left} .. z3l -- cycle;
 		
-	labels(10);
+	labels(11);
 enddef;
 
 	
