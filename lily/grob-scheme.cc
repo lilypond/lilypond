@@ -21,7 +21,7 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
     error ("typecheck failed");
@@ -40,7 +40,7 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   return sc->internal_get_property (sym);
 }
@@ -187,7 +187,7 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 {
   Grob *me = unsmob_grob (g);
   SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ly_c_number_p (d), d, SCM_ARG2, __FUNCTION__, "dimension");
+  SCM_ASSERT_TYPE (scm_is_number (d), d, SCM_ARG2, __FUNCTION__, "dimension");
   SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG3, __FUNCTION__, "axis");
 
   me->translate_axis (scm_to_double (d), Axis (scm_to_int (a)));

@@ -114,7 +114,7 @@ Tuplet_bracket::print (SCM smob)
     SCM lp = me->get_property ("left-position");
     SCM rp = me->get_property ("right-position");  
 
-    if (!ly_c_number_p (rp) || !ly_c_number_p (lp))
+    if (!scm_is_number (rp) || !scm_is_number (lp))
       after_line_breaking (smob);
   }
   
@@ -133,7 +133,7 @@ Tuplet_bracket::print (SCM smob)
     Fixme: the type of this prop is sucky.
    */
   SCM bracket = me->get_property ("bracket-visibility");
-  if (ly_c_boolean_p (bracket))
+  if (scm_is_bool (bracket))
     {
       bracket_visibility = ly_scm2bool (bracket);
     }
@@ -141,7 +141,7 @@ Tuplet_bracket::print (SCM smob)
     bracket_visibility = !par_beam;
 
   SCM numb = me->get_property ("number-visibility");  
-  if (ly_c_boolean_p (numb))
+  if (scm_is_bool (numb))
     {
       number_visibility = ly_scm2bool (numb);
     }
@@ -487,15 +487,15 @@ Tuplet_bracket::after_line_breaking (SCM smob)
   SCM lp =  me->get_property ("left-position");
   SCM rp = me->get_property ("right-position");  
   
-  if (ly_c_number_p (lp) && !ly_c_number_p (rp))
+  if (scm_is_number (lp) && !scm_is_number (rp))
     {
       rp = scm_make_real (scm_to_double (lp) + dy);
     }
-  else if (ly_c_number_p (rp) && !ly_c_number_p (lp))
+  else if (scm_is_number (rp) && !scm_is_number (lp))
     {
       lp = scm_make_real (scm_to_double (rp) - dy);
     }
-  else if (!ly_c_number_p (rp) && !ly_c_number_p (lp))
+  else if (!scm_is_number (rp) && !scm_is_number (lp))
     {
       lp = scm_make_real (offset);
       rp = scm_make_real (offset +dy);

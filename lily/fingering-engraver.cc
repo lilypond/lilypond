@@ -105,7 +105,7 @@ Fingering_engraver::make_script (Direction d, Music *r, int i)
   // Hmm
   int priority = 200;
   SCM s = fingering->get_property ("script-priority");
-  if (ly_c_number_p (s))
+  if (scm_is_number (s))
     priority = scm_to_int (s);
   
   /* See script-engraver.cc */

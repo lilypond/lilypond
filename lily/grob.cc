@@ -485,7 +485,7 @@ Grob::name () const
   SCM meta = get_property ("meta");
   SCM nm = scm_assoc (ly_symbol2scm ("name"), meta);
   nm = (ly_c_pair_p (nm)) ? ly_cdr (nm) : SCM_EOL;
-  return ly_c_symbol_p (nm) ? ly_symbol2string (nm) : classname (this);
+  return scm_is_symbol (nm) ? ly_symbol2string (nm) : classname (this);
 }
 
 void

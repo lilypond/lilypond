@@ -952,7 +952,7 @@ score_extra_encompass (Grob *me, Grob *common[],
 	
 	      SCM accs = g->get_property ("accidentals");
 	      SCM scm_style = g->get_property ("style");
-	      if (!ly_c_symbol_p (scm_style)
+	      if (!scm_is_symbol (scm_style)
 		  && !parens
 		  && scm_ilength (accs) == 1)
 		{

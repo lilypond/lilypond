@@ -91,7 +91,7 @@ Stem::stem_end_position (Grob *me)
 {
   SCM p = me->get_property ("stem-end-position");
   Real pos;
-  if (!ly_c_number_p (p))
+  if (!scm_is_number (p))
     {
       pos = get_default_stem_end_position (me);
       me->set_property ("stem-end-position", scm_make_real (pos));
@@ -271,7 +271,7 @@ Stem::get_default_stem_end_position (Grob *me)
   /* WARNING: IN HALF SPACES */
   Real length = 7;
   SCM scm_len = me->get_property ("length");
-  if (ly_c_number_p (scm_len))
+  if (scm_is_number (scm_len))
     length = scm_to_double (scm_len);
   else
     {
@@ -380,7 +380,7 @@ int
 Stem::duration_log (Grob *me)
 {
   SCM s = me->get_property ("duration-log");
-  return (ly_c_number_p (s)) ? scm_to_int (s) : 2;
+  return (scm_is_number (s)) ? scm_to_int (s) : 2;
 }
 
 void
@@ -532,7 +532,7 @@ Stem::flag (Grob *me)
   String flag_style;
 
   SCM flag_style_scm = me->get_property ("flag-style");
-  if (ly_c_symbol_p (flag_style_scm))
+  if (scm_is_symbol (flag_style_scm))
     flag_style = ly_symbol2string (flag_style_scm);
   
   if (flag_style == "no-flag")

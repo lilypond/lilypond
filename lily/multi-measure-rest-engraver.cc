@@ -233,7 +233,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	{
 	  SCM thres = get_property ("restNumberThreshold");
 	  int t = 1;
-	  if (ly_c_number_p (thres))
+	  if (scm_is_number (thres))
 	    t = scm_to_int (thres);
       
 	  if (num <= t)

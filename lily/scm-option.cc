@@ -126,7 +126,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
     lily_1_8_relative = false;
   else
     {
-      if (ly_c_symbol_p (var))
+      if (scm_is_symbol (var))
 	var = scm_symbol_to_string (var);
       
       warning (_f ("No such internal option: %s", ly_scm2string (var)));

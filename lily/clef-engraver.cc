@@ -92,11 +92,11 @@ Clef_engraver::create_clef ()
       clef_ = c;
       SCM cpos = get_property ("clefPosition");
 
-      if (ly_c_number_p (cpos))
+      if (scm_is_number (cpos))
 	clef_->set_property ("staff-position", cpos);
 
       SCM oct =  get_property ("clefOctavation");
-      if (ly_c_number_p (oct) && scm_to_int (oct))
+      if (scm_is_number (oct) && scm_to_int (oct))
 	{
 	  Item * g = make_item ("OctavateEight", SCM_EOL);
 

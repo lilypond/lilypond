@@ -110,7 +110,7 @@ Modified_font_metric::make_scaled_font_metric (SCM coding,
   /*
     UGH.
    */
-  if (ly_c_symbol_p (coding))
+  if (scm_is_symbol (coding))
     coding = scm_symbol_to_string (coding);
   
   String scheme = scm_is_string (coding) ? ly_scm2string (coding) : ""; 
@@ -277,7 +277,7 @@ Modified_font_metric::text_dimension (String text)
 
 	  Box char_box;
 
-	  if (!ly_c_symbol_p (sym))
+	  if (!scm_is_symbol (sym))
 	    continue;
 
 	  char const * chars =  scm_i_string_chars (scm_symbol_to_string(sym));

@@ -39,7 +39,7 @@ Drum_note_performer::create_audio_elements ()
       SCM sym = n->get_property ("drum-type");
       SCM defn = SCM_EOL;
 
-      if (ly_c_symbol_p (sym)
+      if (scm_is_symbol (sym)
 	  &&  (scm_hash_table_p (tab) == SCM_BOOL_T))
 	defn = scm_hashq_ref (tab, sym, SCM_EOL);
       

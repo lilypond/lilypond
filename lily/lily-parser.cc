@@ -356,7 +356,7 @@ LY_DEFINE (ly_parser_define, "ly:parser-define",
 	   "Bind SYMBOL to VAL in PARSER_SMOB's module.")
 {
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
-  SCM_ASSERT_TYPE (ly_c_symbol_p (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (scm_is_symbol (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");  
 
   parser->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
@@ -370,7 +370,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 {
   Lily_parser *parser = unsmob_my_lily_parser (parser_smob);
 
-  SCM_ASSERT_TYPE (ly_c_symbol_p (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (scm_is_symbol (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
   SCM_ASSERT_TYPE (parser, parser_smob, SCM_ARG2, __FUNCTION__, "parser");  
 
   SCM val= parser->lexer_->lookup_identifier (ly_scm2string (scm_symbol_to_string (symbol)));

@@ -144,7 +144,7 @@ Separation_item::extremal_break_aligned_grob (Grob *separation_item, Direction d
     {
       Grob * break_item = unsmob_grob (ly_car (s));
       
-      if (!ly_c_symbol_p (break_item->get_property ("break-align-symbol")))
+      if (!scm_is_symbol (break_item->get_property ("break-align-symbol")))
 	continue;
 
       Interval ext = break_item->extent (col, X_AXIS);

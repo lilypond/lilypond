@@ -138,7 +138,7 @@ LY_DEFINE (ly_paper_lookup, "ly:output-def-lookup",
 {
   Output_def *op = unsmob_output_def (pap);
   SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Output_def");
-  SCM_ASSERT_TYPE (ly_c_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   return op->lookup_variable (sym);
 }

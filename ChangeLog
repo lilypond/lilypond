@@ -1,6 +1,25 @@
+2004-09-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/regression/key-signature-cancellation.ly (Module): new file.
+
+	* lily/*.cc: more ly_scm2 -> scm_to converions.
+
+	* lily/key-signature-interface.cc (print): take position
+	difference into account when spacing naturals.
+
+	* lily/key-engraver.cc (create_key): create KeyCancellation grob
+	separately, so the cancellation can be put before the staff-bar
+
+	* scm/define-grobs.scm (all-grob-descriptions): add a
+	KeyCancellation grob.
+
+	* lily/tuplet-engraver.cc (struct Tuplet_description): new
+	struct. Use to clean-up Tuplet_engraver
+
 2004-09-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* lily/*: ly_scm2int -> scm_to_int
+	ly_scm2double -> scm_to_double
 
 	* lily/include/lily-guile.hh (scm_from_double): more compat glue.
 

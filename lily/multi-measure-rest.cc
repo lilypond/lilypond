@@ -102,7 +102,7 @@ Multi_measure_rest::print (SCM smob)
 
   int measures = 0;
   SCM m (me->get_property ("measure-count"));
-  if (ly_c_number_p (m))
+  if (scm_is_number (m))
     {
       measures = scm_to_int (m);
     }
@@ -118,7 +118,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 {
   int measures = 0;
   SCM m (me->get_property ("measure-count"));
-  if (ly_c_number_p (m))
+  if (scm_is_number (m))
     {
       measures = scm_to_int (m);
     }

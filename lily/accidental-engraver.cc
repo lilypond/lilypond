@@ -151,7 +151,7 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
       if (ly_c_pair_p (prev_local))
 	{
 	  if (ly_c_pair_p (ly_cdr (prev_local))
-	      && ly_c_number_p (laziness))
+	      && scm_is_number (laziness))
 	    {
 	      int barnum = scm_to_int (ly_cddr (prev_local));
 
@@ -168,10 +168,10 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
   prev_alt =  (prev_alt == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev_alt); 
     
   /* UGH. prev_acc can be #t in case of ties. What is this for?  */
-  int p = ly_c_number_p (prev_alt) ? scm_to_int (prev_alt) : 0;
+  int p = scm_is_number (prev_alt) ? scm_to_int (prev_alt) : 0;
 
   int num;
-  if (a == p && ly_c_number_p (prev_alt))
+  if (a == p && scm_is_number (prev_alt))
     num = 0;
   else if ( (abs (a)<abs (p) || p*a<0) && a != 0 )
     num = 2;
@@ -190,7 +190,7 @@ number_accidentals (bool *different,
   int number = 0;
 
   *different = false;
-  if (ly_c_pair_p (accidentals) && !ly_c_symbol_p (ly_car (accidentals)))
+  if (ly_c_pair_p (accidentals) && !scm_is_symbol (ly_car (accidentals)))
     warning (_f ("Accidental typesetting list must begin with context-name: %s", 
 		 ly_scm2string (ly_car (accidentals)).to_str0 ()));
   
@@ -206,9 +206,9 @@ number_accidentals (bool *different,
 	  SCM localsig = origin->get_property ("localKeySignature");
 	  
 	  bool same_octave_b = 
-	    ly_c_eq_p (ly_symbol2scm ("same-octave"), type);
+	    scm_is_eq (ly_symbol2scm ("same-octave"), type);
 	  bool any_octave_b = 
-	    ly_c_eq_p (ly_symbol2scm ("any-octave"), type);
+	    scm_is_eq (ly_symbol2scm ("any-octave"), type);
 
 	  if (same_octave_b || any_octave_b)
 	    {
@@ -227,7 +227,7 @@ number_accidentals (bool *different,
       /*
 	if symbol then it is a context name. Scan parent contexts to find it.
       */
-      else if (ly_c_symbol_p (rule))
+      else if (scm_is_symbol (rule))
 	{
 	  Context *dad = origin;
 	  while (dad && !dad->is_alias (rule))

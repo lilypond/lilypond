@@ -220,18 +220,19 @@
 	(breakable . #t)
 	(stacking-dir . 1)
 	(break-align-orders . #(; end-of-line:
-				(instrument-name left-edge ambitus breathing-sign
-						 clef  staff-bar key-signature
-						 time-signature custos)
+				(instrument-name
+				 left-edge ambitus breathing-sign
+				 clef key-cancellation staff-bar key-signature
+				 time-signature custos)
 
 				; unbroken
 				(instrument-name left-edge ambitus breathing-sign
-						 clef  staff-bar key-signature
+						 clef key-cancellation staff-bar key-signature
 						 staff
 						 time-signature custos)
 				; begin of line
 				(instrument-name left-edge ambitus breathing-sign
-						 clef key-signature staff-bar
+						 clef key-cancellation key-signature staff-bar
 						 time-signature custos)
 
 				))
@@ -278,6 +279,7 @@
 	(break-visibility . ,begin-of-line-visible)
 	(space-alist . ((ambitus . (extra-space . 2.0))
 			(staff-bar . (extra-space . 0.7))
+			(key-cancellation . (minimum-space . 4.0))
 			(key-signature . (minimum-space . 4.0))
 			(time-signature . (minimum-space . 4.2))
 			(first-note . (minimum-fixed-space . 5.0))
@@ -427,6 +429,8 @@
 			(first-note . (fixed-space . 1.0))
 			(right-edge . (extra-space . 0.0))
 			(key-signature . (extra-space . 0.0))
+			(key-cancellation . (extra-space . 0.0))
+			
 			))
 	(meta . ((interfaces . (break-aligned-interface item-interface ))))
 	))
@@ -525,7 +529,23 @@
 				side-position-interface text-interface
 				break-aligned-interface item-interface ))))
 	))
-
+    (KeyCancellation
+     . (
+	(print-function . ,Key_signature_interface::print)
+	(space-alist . (
+			(time-signature . (extra-space . 1.25))
+			(staff-bar .  (extra-space . 0.6))
+			(right-edge . (extra-space . 0.5))
+			(first-note . (fixed-space . 2.5))
+			))
+	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
+	(break-align-symbol . key-cancellation)
+	(break-visibility . ,begin-of-line-invisible)
+	(breakable . #t)
+	
+	(meta . ((interfaces . (key-signature-interface font-interface
+							break-aligned-interface item-interface ))))
+	))
     (KeySignature
      . (
 	(print-function . ,Key_signature_interface::print)

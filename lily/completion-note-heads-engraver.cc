@@ -244,7 +244,7 @@ Completion_heads_engraver::process_music ()
 
       int pos = pit->steps ();
       SCM c0 = get_property ("middleCPosition");
-      if (ly_c_number_p (c0))
+      if (scm_is_number (c0))
 	pos += scm_to_int (c0);
 
       note->set_property ("staff-position",   scm_int2num (pos));

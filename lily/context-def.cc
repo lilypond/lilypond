@@ -158,7 +158,7 @@ Context_def::get_accepted (SCM user_mod) const
 Link_array<Context_def>
 Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
 {
-  assert (ly_c_symbol_p (type_sym));
+  assert (scm_is_symbol (type_sym));
   
   SCM accepted = get_accepted (SCM_EOL);
 
@@ -364,7 +364,7 @@ Context_def::to_alist () const
   ell = scm_cons (scm_cons (ly_symbol2scm ("context-name"), context_name_),
 		  ell);
 
-  if (ly_c_symbol_p (translator_group_type_))
+  if (scm_is_symbol (translator_group_type_))
     ell = scm_cons (scm_cons (ly_symbol2scm ("group-type"),
 			      translator_group_type_), ell);    
   return ell;  

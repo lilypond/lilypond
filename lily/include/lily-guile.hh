@@ -26,13 +26,22 @@
 #define scm_hash_table_p scm_vector_p
 #define scm_i_string_chars(x) SCM_STRING_CHARS(x)
 #define scm_i_string_length(x) SCM_STRING_LENGTH(x)
+inline bool ly_c_number_p (SCM x) { return SCM_NUMBERP (x); }
 #define scm_is_number(x) (scm_number_p(x)==SCM_BOOL_T)
 inline int ly_scm2int (SCM x) { return scm_num2int (x, 0, "ly_scm2int"); }
 #define scm_to_int(x) (ly_scm2int(x))
+inline bool ly_c_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
+#define scm_is_symbol(x) ly_c_symbol_p(x)
+inline bool ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
+#define scm_is_bool(x) ly_c_boolean_p(
+inline bool ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
+#define scm_is_eq(x,y)  (SCM_EQ_P (x, y));
 
 inline double ly_scm2double (SCM x) { return scm_num2dbl (x, "ly_scm2double"); }
 #define scm_to_double(x) (ly_scm2double(x))
 #define scm_from_double(x) (scm_make_real(x))
+
+
 #endif /* SCM_MINOR_VERSION < 7 */
 
 #ifndef SMOB_FREE_RETURN_VAL
@@ -152,15 +161,10 @@ inline SCM ly_assoc_front_x(SCM alist, SCM key, SCM val)
   return scm_acons(key, val, scm_assoc_remove_x (alist, key));
 }
 inline bool ly_c_pair_p (SCM x) { return SCM_NFALSEP (scm_pair_p (x)); }
-inline bool ly_c_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
-inline bool ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
 inline bool ly_c_char_p (SCM x) { return SCM_CHARP (x); }
-inline bool ly_c_number_p (SCM x) { return SCM_NUMBERP (x); }
-inline bool ly_c_string_p (SCM x) { return scm_is_string (x); }
 inline bool ly_c_vector_p (SCM x) { return SCM_VECTORP (x); }
 inline bool ly_c_list_p (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_c_procedure_p (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
-inline bool ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
 inline bool ly_c_equal_p (SCM x, SCM y) {
   return SCM_NFALSEP (scm_equal_p (x, y));
 }

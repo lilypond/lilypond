@@ -45,7 +45,7 @@ Time_signature::print (SCM smob)
     {
       m = numbered_time_signature (me, n, 0);
     }
-  else if (ly_c_symbol_p (st))
+  else if (scm_is_symbol (st))
     {
       m = special_time_signature (me, st, n, d);
     }

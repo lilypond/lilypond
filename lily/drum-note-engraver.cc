@@ -98,7 +98,7 @@ Drum_notes_engraver::process_music ()
 	  
 	  if (scm_integer_p (pos) == SCM_BOOL_T)
 	    note->set_property ("staff-position", pos);
-	  if (ly_c_symbol_p (style))
+	  if (scm_is_symbol (style))
 	    note->set_property ("style", style);
 
 	  if (scm_is_string (script))

@@ -29,9 +29,10 @@ class Key_engraver : public Engraver
 {
   void create_key (bool);
   void read_ev (Music const * r);
-  Music * key_ev_;
-  Item * item_;
 
+  Music *key_ev_;
+  Item *item_;
+  Item *cancellation_;
 public:
   TRANSLATOR_DECLARATIONS (Key_engraver);
 
@@ -56,6 +57,7 @@ Key_engraver::Key_engraver ()
 {
   key_ev_ = 0;
   item_ = 0;
+  cancellation_ = 0;
 }
 
 
@@ -68,10 +70,19 @@ Key_engraver::create_key (bool def)
 
       item_->set_property ("c0-position",
 			   get_property ("middleCPosition"));
+
+      SCM last = get_property ("lastKeySignature");
+      SCM key = get_property ("keySignature");
+      if (to_boolean (get_property ("printKeyCancellation"))
+	  && !scm_is_eq (last, key))
+	{
+	  cancellation_ = make_item ("KeyCancellation", key_ev_ ? key_ev_->self_scm () : SCM_EOL);
+	  cancellation_->set_property ("old-accidentals",last);
+	  cancellation_->set_property ("c0-position",
+			   get_property ("middleCPosition"));
       
-      if (to_boolean (get_property ("printKeyCancellation")))
-	item_->set_property ("old-accidentals", get_property ("lastKeySignature"));
-      item_->set_property ("new-accidentals", get_property ("keySignature"));
+	}
+      item_->set_property ("new-accidentals", key);
     }
 
   if (!def)
@@ -133,6 +144,7 @@ Key_engraver::stop_translation_timestep ()
 {
   item_ = 0;
   context ()->set_property ("lastKeySignature", get_property ("keySignature"));
+  cancellation_ = 0; 
 }
 
 
