@@ -1,3 +1,57 @@
+1.5.9.hjj2
+==========
+* Emacs-mode: Keyboard shortcuts, separated identifiers from keywords
+and spacing not necessary in font-locking.
+
+1.5.9.jcn3
+==========
+
+* add-html-footer.py: use html <title> as fallback title for pages
+where @WEB-TITLE@ is not defined.
+
+* Bugfix: stepmake: don't go building executables all over the place,
+if NAME is set in environment.  Some cleanups. 
+ 
+ 
+* add-html-footer.py: remove href to self.  Substitute @at-variables@
+defined in html comments.  Any occurrence of
+
+	<!-- @foo@=bar -->
+
+in the html page, will subsequently substitute any occurrence of @foo@
+in the same html page with `bar'.
+
+* Bugfix: update-lily: remove unprotected gettext.py include.
+
+* po update.
+
+* windows doc update.
+
+1.5.9.hwn3
+==========
+
+* Optimizations:
+  - speed up Rational::operator+= 
+  - speed up Rational::compare ()
+  - don't store origins if point-and-click not set. 
+
+* \figures input mode:  \figures { <4 6+> <3- 5>2. } 
+
+* Obscure bugfix: call kpsewhich with --format for mfplain.
+
+* Don't put  volta bracket on top of following note (vertically).
+
+* Collision fixes.
+
+* Crude figured bass support (supports rests as well, now)
+
+* Bugfix: various collision issues, updated regtest example.
+
+* Porrectus support (Juergen Reuter)
+
+1.5.9
+=====
+
 1.5.8.uu1
 =========
 

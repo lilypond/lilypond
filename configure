@@ -2748,7 +2748,7 @@ echo "configure:2748: checking for mfplain.mp" >&5
     #
     # For now let people define these in their environments
     #
-    : ${MFPLAIN_MP=`kpsewhich mp mfplain.mp`}
+    : ${MFPLAIN_MP=`kpsewhich --format mp mfplain.mp`}
     echo "$ac_t""$MFPLAIN_MP" 1>&6
 
     echo $ac_n "checking for inimetapost flags""... $ac_c" 1>&6
