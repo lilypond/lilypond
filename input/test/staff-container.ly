@@ -4,7 +4,7 @@
 
     texidoc = "
 
-Container By splitting the grouping (Axis_group_engraver) and creation
+Container by splitting the grouping (Axis_group_engraver) and creation
 functionality into separate contexts, you can override interesting
 things.
 
@@ -18,25 +18,20 @@ what you would expect.
 
 
 
-%% 
-%% s4 would create a staff.
-%%
-quarterSkip = #(make-skip-music (ly:make-duration 2 0))
-
 \score  {
  \notes \relative c'' <<
  	\new StaffContainer {
 
 	    %% need << >>, otherwise we descend to the voice inside SA  
 	    << \new Staff { c4 c4 } >>
-	    \quarterSkip
+	    \skip 4  % s4 would create staff.
 	    
 	    << \new Staff { b4 b4 } >> 
 	}
  	\new StaffContainer {
-	    \quarterSkip
-	    << \context Staff { e d f } >>
-	    \quarterSkip
+	    \skip 4
+	    << \context Staff { e d f \bar ":|" } >>
+	    \skip 4
 	}
  >>
 
@@ -50,6 +45,7 @@ quarterSkip = #(make-skip-music (ly:make-duration 2 0))
 		\type Engraver_group_engraver
 		\consists Clef_engraver
 		\consists Time_signature_engraver
+		\consists Separating_line_group_engraver
 		\consistsend "Axis_group_engraver"
 		\accepts "Staff"
 		
@@ -58,6 +54,7 @@ quarterSkip = #(make-skip-music (ly:make-duration 2 0))
 	\translator {
 		\StaffContext
 		\remove Axis_group_engraver
+		\remove Separating_line_group_engraver
 		\remove Clef_engraver
 		\remove Time_signature_engraver
 	}

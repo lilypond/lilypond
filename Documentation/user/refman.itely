@@ -34,6 +34,7 @@ somewhat familiar with using LilyPond.
 * Contemporary notation::       
 * Special notation::            
 * Tuning output::               
+* Text markup::                 
 * Global layout::               
 * Sound::                       
 @end menu
@@ -7564,7 +7565,6 @@ treatment of the difference between translation and layout.
 * Constructing a tweak::        
 * Applyoutput::                 
 * Font selection::              
-* Text markup::                 
 @end menu
 
 
@@ -8039,7 +8039,7 @@ Computer Modern family.
 
 
 @node Text markup
-@subsection Text markup
+@section Text markup
 @cindex text markup
 @cindex markup text
 
@@ -8077,167 +8077,6 @@ For clarity, you can also do this for single arguments, e.g.
 @cindex font size, texts
 
 
-
-
-
-@menu
-* Common text markup commands::  
-* Markup construction in scheme::  
-* Markup command definition::   
-@end menu
-
-@node Common text markup commands
-@subsubsection Common text markup commands
-
-
-The following size commands set absolute sizes:
-
-@cindex @code{\teeny}
-@cindex @code{\tiny}
-@cindex @code{\small}
-@cindex @code{\large}
-@cindex @code{\huge}
-
-@table @code
-@item \teeny
-@item \tiny
-@item \small
-@item \large
-@item \huge
-@end table
-
-You can also make letter larger or smaller relative to their neighbors,
-with the commands @code{\larger} and @code{\smaller}.
-@cindex smaller
-@cindex larger
-
-@cindex font style, for texts
-@cindex @code{\bold}
-@cindex @code{\dynamic}
-@cindex @code{\number}
-@cindex @code{\italic}
-
-The following font change commands are defined:
-@table @code
-@item \dynamic
-changes to the font used in dynamic signs.  This font does not
-contain all characters of the alphabet, so when producing ``piu f'',
-the ``piu'' should be done in a different font.
-
-
-@item \number
-changes to the font used in time signatures. It only contains
-numbers and a few punctuation marks.
-@item \italic
-changes @code{font-shape} to @code{italic}.
-@item \bold
-changes @code{font-series} to @code{bold}.
-@end table
-
-@cindex raising text
-@cindex lowering text
-@cindex moving text
-@cindex translating text
-
-@cindex @code{\sub}
-@cindex @code{\super}
-
-Raising and lowering texts can be done with @code{\super} and
-@code{\sub}:
-
-@lilypond[verbatim,fragment,relative=1]
- c1^\markup { E "=" mc \super "2" }
-@end lilypond
-
-@cindex @code{\raise}
-
-If you want to give an explicit amount for lowering or raising, use
-@code{\raise}.  This command takes a Scheme valued first argument, and
-a markup object as second argument:
-@c
-@lilypond[verbatim,fragment,relative=1,quote]
- c1^\markup { C \small \raise #1.0 \bold { "9/7+" }}
-@end lilypond
-The argument to @code{\raise} is the vertical displacement amount,
-measured in (global) staff spaces.  @code{\raise} and @code{\super}
-raise objects in relation to their surrounding markups. They cannot be
-used to move a single text up or down, when it is above or below a
-note, since the mechanism that positions it next to the note cancels
-any vertical shift. For vertical positioning, use the @code{padding}
-and/or @code{extra-offset} properties.
-
-Other commands taking  single arguments include
-@table @code
-
-@item \bracket, \hbracket
- Bracket the argument markup with normal and horizontal brackets
-respectively.
-
-@item \musicglyph
-@cindex @code{\musicglyph}
-  This is converted to a musical symbol, e.g. @code{\musicglyph
-#"accidentals-0"} will select the natural sign from the music font.
-See @ref{The Feta font} for  a complete listing of the possible glyphs.
-
-@item \char
-This produces a single character, e.g. @code{\char #65} produces the 
-letter 'A'.
-
-@item \note  @var{duration} @var{dir}
-@cindex @code{\note}
-
-This produces a note with a stem pointing in @var{dir} direction, with
-the @var{duration} for the note head type and augmentation dots. For
-example, @code{\note #"4." #-0.75} creates a dotted quarter note, with
-a shortened down stem.
-
-@item \hspace #@var{amount}
-@cindex @code{\hspace}
-This produces a invisible object taking horizontal space.
-@example 
-\markup @{ A \hspace #2.0 B @} 
-@end example
-will put extra space between A and B, on top of the space that is
-normally inserted before elements on a line.
-
-@item \fontsize #@var{size}
-@cindex @code{\fontsize}
-This sets the relative font size, eg.
-@example
-A \fontsize #2 @{ B C @} D
-@end example
-
-
-This will enlarge the B and the C by two steps.
-@item  \translate #(cons @var{x} @var{y})
-@cindex  \translate
-This translates an object. Its first argument is a cons of numbers
-@example
-A \translate #(cons 2 -3) @{ B C @} D
-@end example
-This moves `B C' 2 spaces to the right, and 3 down, relative to its
-surroundings. This command cannot be used to move isolated scripts
-vertically, for the same reason that @code{\raise} cannot be used for
-that.
-
-@item \magnify  #@var{mag}
-@cindex @code{\magnify}
-This sets the font magnification for the its argument. In the following
-example, the middle A will be 10% larger:
-@example
-A \magnify #1.1 @{ A @} A
-@end example
-
-
-@item \override #(@var{key} . @var{value})
-@cindex @code{\override}
-This overrides a  formatting property for its argument. The argument
-should be a key/value pair, e.g.
-@example
-  m \override #'(font-family . math) m m
-@end example
-@end table
-
 In markup mode you can compose expressions, similar to mathematical
 expressions, XML documents and music expressions.  The braces group
 notes into horizontal lines. Other types of lists also exist: you can
@@ -8268,18 +8107,14 @@ effect. Similarly, whole texts over notes cannot be moved vertically
 with @code{\raise}. For moving and aligning complete objects, grob
 properties should be used.
 
-@seealso
 
-Internals: @internalsref{Markup-functions} contains a complete list of
-all markup commands.
+
+@seealso
 
 Init files:  @file{scm/new-markup.scm}.
 
 
 @refbugs
-
-@cindex kerning
-
 
 Text layout is ultimately done by @TeX{}, which does kerning of
 letters.  LilyPond does not account for kerning, so texts will be
@@ -8293,8 +8128,19 @@ for formatting.
 
 
 
+@menu
+* Overview of text markup commands::  
+* Markup construction in scheme::  
+* Markup command definition::   
+@end menu
+
+@node  Overview of text markup commands
+@subsection Overview of text markup commands
+
+@include markup-commands.tely
+
 @node Markup construction in scheme
-@subsubsection Markup construction in scheme
+@subsection Markup construction in scheme
 
 @cindex defining markup commands 
 
@@ -8348,17 +8194,18 @@ instead:
 @end lisp
 
 @node Markup command definition
-@subsubsection Markup command definition
+@subsection Markup command definition
 
 New markup commands can be defined thanks to the @code{def-markup-command} scheme macro.
 @lisp
-(def-markup-command (@emph{command-name} @emph{paper} @emph{props} @emph{arg1} @emph{arg2} ...) (@emph{arg1-type?} @emph{arg2-type?} ...)
+(def-markup-command (@var{command-name} @var{paper} @var{props} @var{arg1} @var{arg2} ...)
+            (@var{arg1-type?} @var{arg2-type?} ...)
   ..command body..)
 
-    @emph{argi}: i@emph{th} command argument
-    @emph{argi-type?}: a type predicate for the i@emph{th} argument
-    @emph{paper}: the `paper' definition
-    @emph{props}: a list of alists, containing all active properties. 
+    @var{argi}: i@var{th} command argument
+    @var{argi-type?}: a type predicate for the i@var{th} argument
+    @var{paper}: the `paper' definition
+    @var{props}: a list of alists, containing all active properties. 
 @end lisp
 
 As a simple example, we show how to add a @code{\smallcaps} command,

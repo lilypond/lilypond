@@ -80,18 +80,6 @@
 
 
 \translator {
-    \type Engraver_group_engraver
-    \consists "Axis_group_engraver"
-    minimumVerticalExtent = ##f
-    extraVerticalExtent = ##f
-    verticalExtent = ##f 
-    localKeySignature = #'()
-
-    \accepts Staff
-    \name StaffContainer
-}
-
-\translator {
     \type "Engraver_group_engraver"
     \name InnerChoirStaff
     \consists "System_start_delimiter_engraver"
@@ -436,7 +424,6 @@ AncientRemoveEmptyStaffContext = \translator {
     \accepts "TabStaff"
     \accepts "VaticanaStaff"
     \accepts "GregorianTranscriptionStaff"
-    \accepts "StaffContainer"
     \accepts "StaffGroup"
     \accepts "RhythmicStaff"
     \accepts "DrumStaff"

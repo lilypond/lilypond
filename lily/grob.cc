@@ -86,6 +86,7 @@ Grob::Grob (SCM basicprops)
     eg. when using \override with StaffSymbol.  */
   
   char const*onames[] = {"X-offset-callbacks", "Y-offset-callbacks"};
+  char const*xnames[] = {"X-extent", "Y-extent"};
   char const*enames[] = {"X-extent-callback", "Y-extent-callback"};
   
   for (int a = X_AXIS; a <= Y_AXIS; a++)
@@ -103,14 +104,16 @@ Grob::Grob (SCM basicprops)
 	}
 
       SCM cb = get_grob_property (enames[a]);
-
+      SCM xt = get_grob_property (xnames[a]);
+      
       /*
-	Should change default to be empty? 
+	Should change default to empty? 
       */
-      if (cb != SCM_BOOL_F
+      if (is_number_pair (xt))
+	cb = xt;
+      else if (cb != SCM_BOOL_F
 	  && !gh_procedure_p (cb) && !gh_pair_p (cb)
-	  && gh_procedure_p (get_grob_property ("print-function"))
-	  )
+	  && gh_procedure_p (get_grob_property ("print-function")))
 	cb = molecule_extent_proc;
     
       dim_cache_[a].dimension_ = cb;
@@ -162,25 +165,6 @@ Grob::molecule_extent (SCM element_smob, SCM scm_axis)
     e = m->extent (a);
   return ly_interval2scm (e);
 }
-
-MAKE_SCHEME_CALLBACK (Grob,preset_extent,2);
-SCM
-Grob::preset_extent (SCM element_smob, SCM scm_axis)
-{
-  Grob *s = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (scm_axis);
-
-  SCM ext = s->get_grob_property ((a == X_AXIS)
-				 ? "X-extent"
-				 : "Y-extent");
-
-  if (is_number_pair (ext))
-    return ext;
-  else
-    return ly_interval2scm (Interval());
-}
-
-
 
 Paper_def*
 Grob::get_paper ()  const
@@ -487,13 +471,6 @@ Grob::get_offset (Axis a) const
   return dim_cache_[a].offset_;
 }
 
-
-MAKE_SCHEME_CALLBACK (Grob,point_dimension_callback,2);
-SCM
-Grob::point_dimension_callback (SCM , SCM)
-{
-  return ly_interval2scm (Interval (0,0));
-}
 
 bool
 Grob::is_empty (Axis a)const
@@ -851,7 +828,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 "Y-extent-callback print-function extra-offset spacing-procedure "
 "staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
 "meta layer before-line-breaking-callback "
-"after-line-breaking-callback extra-Y-extent minimum-X-extent "
+"after-line-breaking-callback extra-Y-extent minimum-X-extent X-extent Y-extent "
 "minimum-Y-extent transparent");
 
 

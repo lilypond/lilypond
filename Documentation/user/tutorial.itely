@@ -427,7 +427,7 @@ not be added automatically, and you must enter what you want to hear.
 
 For example, in this example:
 @lilypond[fragment]
-\property Staff.TimeSignature = #'()
+\property Staff.TimeSignature = \turnOff
 \key d \major
 d' cis' fis'
 @end lilypond
@@ -445,7 +445,7 @@ staff.'' Rather, it means: ``a note with pitch D-natural.'' In the key
 of A-flat, it gets an accidental:
 
 @lilypond[fragment]
-\property Staff.TimeSignature = #'()
+\property Staff.TimeSignature =\turnOff
 \key as \major
 d'
 @end lilypond
