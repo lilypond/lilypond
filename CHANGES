@@ -1,3 +1,22 @@
+
+
+1.4.3.jcn2
+==========
+
+* Included documentatioon and post-flex lexer.cc patch for
+Debian/unstable gcc-3.0.
+
+* Enhanced gcc autoconf and make messages.
+
+* Added -mieee to CFLAGS for alpha.
+
+* Fixed help and documentation of new LilyPond command line.
+
+* Redirected SuSE download to ftp.lilypond.org (where mirror script runs).
+
+1.4.3
+=====
+
 1.4.2.jcn4
 ==========
 

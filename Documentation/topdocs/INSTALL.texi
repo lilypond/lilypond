@@ -34,6 +34,8 @@ site}.
 If you want to compile LilyPond from source, download here:
 @itemize @bullet
 @item Download development releases from
+@c Hmm, these won't show up in lilypond.org/stats
+@c Otoh, lilypond.org is not updated when release mail arrives
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/} by FTP and
 @uref{http://ftp.cs.uu.nl/pub/GNU/LilyPond/}, by HTTP.
 @item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror)
@@ -308,12 +310,12 @@ Red Hat 7.0 i386 RPMS are available from
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
 
 You can also compile them yourself.  A spec file is in
-@file{make/out/redhat.spec}. This file is distributed along with the
-sources.  You can make the rpm by issuing
+@file{make/out/lilypond.redhat.spec}. This file is distributed along
+with the sources.  You can make the rpm by issuing
 @example 
 
         tar xfz lilypond-x.y.z.tar.gz
-	rpm -bb lilypond-x.y.z/make/out/redhat.spec
+	rpm -bb lilypond-x.y.z/make/out/lilypond.redhat.spec
 	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 
 @end example 
@@ -340,16 +342,16 @@ to recompile Xdvi from source.
 Some LinuxPPC RPMS should available from
 @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
 
-A LinuxPPC RPM can be made using the @file{redhat.spec} file.
+A LinuxPPC RPM can be made using the @file{lilypond.redhat.spec} file.
 
 @subsection SuSE
 
 Some SUSE RPMS should available from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
+@uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/SuSE}.
 
 You can also compile a RPM for SUSE yourself.  A spec file is in
-@file{make/out/suse.spec}, see the instructions for building the Red Hat
-RPM.
+@file{make/out/lilypond.suse.spec}, see the instructions for building
+the Red Hat RPM.
 
 You must have the following packages: guile tcsh tetex te_latex te_kpath
 te_mpost libpng python gpp libgpp gettext autoconf netpbm libnetpb
@@ -493,6 +495,17 @@ mailing your problems.  If you find bugs, please send bug reports to
 @email{bug-gnu-music@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
+
+@unnumberedsubsec Debian GNU/Linux unstable gcc-3.0
+
+Flex (2.5.4a-11) in unstable does not produce g++-3.0 compliant C++
+code.  To compile LilyPond with gcc-3.0 you may do:
+@example
+        CC=gcc-3.0 CXX=g++-3.0 ./configure
+        make conf=gcc-3.0 -C lily out-gcc-3.0/lexer.cc
+        patch -p1 < lexer-gcc-3.0.patch
+        make conf=gcc-3.0 -C lily
+@end example
 
 @unnumberedsubsec NetBSD
 
