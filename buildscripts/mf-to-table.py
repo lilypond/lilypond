@@ -317,6 +317,8 @@ for filenm in files:
 		enc_name = 'ParmesanEncoding'
 	elif re.search ('feta-brace', filenm):
 		enc_name = 'FetaBraceEncoding'
+	elif re.search ('feta-alphabet', filenm):
+		enc_name = 'FetaAlphabetEncoding';
 
 	write_ps_encoding (enc_name, open (enc_nm, 'w'), g, m)
 	write_character_lisp_table (open (char_lisp_nm, 'w'), g, m)  
