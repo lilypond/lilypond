@@ -340,7 +340,7 @@
 	  (format (current-error-port) (_ "Converting to `~a'...")
 		  (string-append base ".dvi"))
 	  (newline (current-error-port))))
-    (ly:system cmd)))
+    (ly:system cmd))
 
 (define-public (convert-to-dvi book name)
   (let* ((curr-extra-mem
