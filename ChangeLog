@@ -1,3 +1,9 @@
+2005-03-10  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/fixcc.py: New file.
+
+	* input/regression/utf8.ly: Update Debian font description.
+
 2005-03-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Fix test.

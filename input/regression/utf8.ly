@@ -13,7 +13,8 @@ Red Hat Fedora
 
 Debian GNU/Linux
 
-   apt-get install emacs-intl-fonts xfonts-intl-.*
+   apt-get install emacs-intl-fonts xfonts-intl-.* \
+	ttf-kochi-gothic ttf-kochi-mincho
 
 %} 
 
