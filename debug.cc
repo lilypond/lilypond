@@ -1,4 +1,5 @@
 #include "debug.hh"
+#include "dstream.hh"
 int debug_flags;
 
 void
@@ -13,3 +14,5 @@ set_debug(String s)
 	mtor << "Turning on parser debugger\n";
     }
 }
+
+Dstream monitor(cout,".dstreamrc");
