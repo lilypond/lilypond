@@ -22,6 +22,9 @@ Spanner_elem_group::do_width() const
 void
 Spanner_elem_group::do_print() const
 {
+#ifndef NPRINT
+    Spanner::do_print();
     Horizontal_vertical_group::do_print();
+#endif
 }
 
