@@ -1,3 +1,13 @@
+2003-06-09  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el: Use similar parenthesis highlighting for 
+	Emacs and XEmacs through redefinitions of parenthesis highlighting 
+	functions; removed LilyPond-show-paren-function. Fix indenting.
+	Turn paren-matching on also in XEmacs.
+
+	* lilypond-font-lock.el: Set brackets' syntax to open/close-chars,
+	as needed by parenthesis highlighting functions (in scan-sexp).
+
 2003-06-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4 (STEPMAKE_CHECK_VERSION_UNSUPPORTED): New

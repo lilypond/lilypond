@@ -1,7 +1,8 @@
 ;;; lilypond-indent.el --- Auto-indentation for lilypond code
 ;;;
 ;;; Heikki Junes <hjunes@cc.hut.fi>
-;;; show-paren-function was taken and then modified from FSF Emacs paren.el 
+;;; * redefine Emacs' show-paren-function and XEmacs' paren-highlight
+;;; * match two-char slurs '\( ... \)' and '\[ ... \]' separately.
 
 ;;; Chris Jackson <chris@fluffhouse.org.uk>
 ;;; some code is taken from ESS (Emacs Speaks Statistics) S-mode by A.J.Rossini <rossini@biostat.washington.edu>
@@ -9,8 +10,11 @@
 ;;; Variables for customising indentation style
 
 ;;; TODO:
-;;;    * fontify emulate show-paren-mode also in XEmacs
-;;;    * currently, brackets may need a non-bracket char between ( ( ) )
+;;;    * currently, in bracket matching one may need a non-bracket 
+;;;      chararacter between the bracket characters, like ( ( ) )
+;;;    * in syntax-highlighting slurs are not always highlighted the right way
+;;;      e.g. opening slurs are found found better in "#( ( ) ( ) )" than
+;;;      opening slurs
 
 (defcustom LilyPond-indent-level 4
   "*Indentation of lilypond statements with respect to containing block.")
@@ -20,15 +24,15 @@
 Compares with other text in same context.")
 
 (defcustom LilyPond-angle-offset 0
-  "*Extra indentation for open angled brackets .
+  "*Extra indentation for open angled brackets.
 Compares with other text in same context.")
 
 (defcustom LilyPond-square-offset 0
-  "*Extra indentation for open square brackets .
+  "*Extra indentation for open square brackets.
 Compares with other text in same context.")
 
 (defcustom LilyPond-scheme-paren-offset 0
-  "*Extra indentation for open scheme parens .
+  "*Extra indentation for open scheme parens.
 Compares with other text in same context.")
 
 (defcustom LilyPond-close-brace-offset 0
@@ -56,7 +60,7 @@ Returns nil if line starts inside a string"
     (let ((indent-point (point))
 	  (case-fold-search nil)
 	  state)
-      (setq containing-sexp (save-excursion (LilyPond-beginning-of-containing-sexp)))
+      (setq containing-sexp (save-excursion (LilyPond-scan-containing-sexp)))
       (beginning-of-defun)
       (while (< (point) indent-point)
 	(setq state (parse-partial-sexp (point) indent-point 0)))
@@ -320,10 +324,11 @@ slur-paren-p defaults to nil.
 "
 ;;; An user does not call this function directly, or by a key sequence.
   ;;  (interactive)
-  (let ( (level (if (/= dir 1) 1 -1))
+  (let ( (level (if (not (eq dir 1)) 1 -1))
 	 (regexp-alist LilyPond-parens-regexp-alist) 
 	 (oldpos (point))
-	 (assoc-bracket-type (if (/= dir 1) bracket-type (LilyPond-matching-paren bracket-type))))
+	 (assoc-bracket-type (if (not (eq dir 1)) bracket-type (LilyPond-matching-paren bracket-type))))
+    
     (if (LilyPond-inside-scheme-p)
 	(setq paren-regexp "(\\|)")
       (if slur-paren-p
@@ -337,10 +342,10 @@ slur-paren-p defaults to nil.
     (if (and (eq dir 1)
 	     (memq (char-after oldpos) '(?[ ?{)))
 	(forward-char 1))
-    (while (and (if (/= dir 1) 
+    (while (and (if (not (eq dir 1)) 
 		    (> level 0) 
 		  (< level 0))
-		(if (/= dir 1)
+		(if (not (eq dir 1))
 		    (re-search-backward paren-regexp nil t)
 		  (re-search-forward paren-regexp nil t))
 		(setq match (char-before (match-end 0))))
@@ -349,8 +354,8 @@ slur-paren-p defaults to nil.
 			       (LilyPond-inside-string-or-comment-p)))
 	  (if (memq match '(?} ?> ?] ?\)))
 	      (progn (setq level (1+ level))
-		     ;; single '<' was not matched .. need to correct
-		     (if (and (eq dir 1) (eq (char-after (match-end 0)) ?>))
+		     ;; single '>' was not matched .. need to correct
+		     (if (and (eq dir 1) (eq (char-after (match-end 0)) match))
 			 (if (/= level 0)
 			     (progn
 			       (setq level (1+ level))
@@ -365,7 +370,7 @@ slur-paren-p defaults to nil.
 			    (looking-at ".\\s-+<\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)<"))
 		       (forward-char 1))))))
     ;; jump to the matching slur
-    (if (/= dir 1)
+    (if (not (eq dir 1))
 	(progn
 	  (if (sequencep bracket-type)
 	      (if (looking-at "..[][)(]") (forward-char 1)))
@@ -415,14 +420,13 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 `lilypond-font-lock.el', all brackets are punctuation characters."
 ;;; An user does not call this function directly, or by a key sequence.
   ;;  (interactive)
-  (let ( (dir (if (eq dir 1) 1 -1))
-	 (oldpos (point))
+  (let ( (oldpos (point))
 	 (level 0) 
 	 (mismatch) )
-    ;; Test if a ligature \] or expressional slur \) was encountered
     (if (not (or (equal this-command 'LilyPond-electric-close-paren)
 		 (eq dir 1)))
 	(goto-char (setq oldpos (- oldpos 1))))
+    ;; Test if a ligature \] or expressional slur \) was encountered
     (setq bracket-type (char-after (point)))
     (setq char-before-bracket-type nil)
     (if (memq bracket-type '(?] ?\) ?[ ?\())
@@ -491,7 +495,7 @@ builtin 'blink-matching-open' is not used. In syntax table, see
     (if (not (equal this-command 'LilyPond-electric-close-paren))
 	(goto-char (setq oldpos (+ oldpos 1)))
       (goto-char oldpos))
-    (if (/= dir 1)
+    (if (not (eq dir 1))
 	blinkpos
       (+ blinkpos 1))))
 
@@ -510,114 +514,27 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 	       (LilyPond-blink-matching-paren)
 	       (forward-char 1)))))
 
-;; Find the place to show, if there is one,
-;; and show it until input arrives.
-(defun LilyPond-show-paren-function ()
-  (if show-paren-mode
-      (let (pos (dir nil) mismatch face (oldpos (point)))
-	(cond ((memq (preceding-char) '(?\) ?\] ?} ?>))
-	       (setq dir -1))
-	      ((memq (following-char) '(?\( ?\[ ?{ ?<))
-	       (setq dir 1)))
-	;;
-	;; Find the other end of the sexp.
-	;;
-	;; try first only one direction
-	(when (and dir;(= dir -1)
-		   (not (LilyPond-inside-string-or-comment-p)))
-	  (save-excursion
-	    (save-restriction
-	      ;; Determine the range within which to look for a match.
-	      (when blink-matching-paren-distance
-		(narrow-to-region
-		 (max (point-min) (- (point) blink-matching-paren-distance))
-		 (min (point-max) (+ (point) blink-matching-paren-distance))))
-	      ;; Scan across one sexp within that range.
-	      ;; Errors or nil mean there is a mismatch.
-	      (condition-case ()
-		  (setq pos (LilyPond-blink-matching-paren dir))
-		(error (setq pos t mismatch t)))
-	      ;; If found a "matching" paren, see if it is the right
-	      ;; kind of paren to match the one we started at.
-	      (when (integerp pos)
-		(let ((beg (min pos oldpos)) (end (max pos oldpos)))
-		  (when (/= (char-after beg) ?\$)
-		    (setq mismatch
-			  (not (eq (char-before end)
-				   ;; This can give nil.
-				   (LilyPond-matching-paren (char-after beg)))))))))))
-	;;
-	;; Highlight the other end of the sexp, or unhighlight if none.
-	(if (not pos)
-	    (progn
-	      ;; If not at a paren that has a match,
-	      ;; turn off any previous paren highlighting.
-	      (and show-paren-overlay (overlay-buffer show-paren-overlay)
-		   (delete-overlay show-paren-overlay))
-	      (and show-paren-overlay-1 (overlay-buffer show-paren-overlay-1)
-		   (delete-overlay show-paren-overlay-1)))
-	  ;;
-	  ;; Use the correct face.
-	  (if mismatch
-	      (progn
-		(if show-paren-ring-bell-on-mismatch
-		    (beep))
-		(setq face 'show-paren-mismatch-face))
-	    (setq face 'show-paren-match-face))
-	  ;;
-	  ;; If matching backwards, highlight the closeparen
-	  ;; before point as well as its matching open.
-	  ;; If matching forward, and the openparen is unbalanced,
-	  ;; highlight the paren at point to indicate misbalance.
-	  ;; Otherwise, turn off any such highlighting.
-	  (if (and (= dir 1) (integerp pos))
-	      (when (and show-paren-overlay-1
-			 (overlay-buffer show-paren-overlay-1))
-		(delete-overlay show-paren-overlay-1))
-	    (let ((from (if (= dir 1)
-			    (point)
-			  (forward-point -1)))
-		  (to (if (= dir 1)
-			  (forward-point 1)
-			(point))))
-	      (if show-paren-overlay-1
-		  (move-overlay show-paren-overlay-1 from to (current-buffer))
-		(setq show-paren-overlay-1 (make-overlay from to)))
-	      ;; Always set the overlay face, since it varies.
-	      (overlay-put show-paren-overlay-1 'priority show-paren-priority)
-	      (overlay-put show-paren-overlay-1 'face face)))
-	  ;;
-	  ;; Turn on highlighting for the matching paren, if found.
-	  ;; If it's an unmatched paren, turn off any such highlighting.
-	  (unless (integerp pos)
-	    (delete-overlay show-paren-overlay))
-	  (let ((to (if (or (eq show-paren-style 'expression)
-			    (and (eq show-paren-style 'mixed)
-				 (not (pos-visible-in-window-p pos))))
-			(point)
-		      pos))
-		(from (if (or (eq show-paren-style 'expression)
-			      (and (eq show-paren-style 'mixed)
-				   (not (pos-visible-in-window-p pos))))
-			  pos
-			(save-excursion
-			  (goto-char pos)
-			  (forward-point (- dir))))))
-	    (if show-paren-overlay
-		(move-overlay show-paren-overlay from to (current-buffer))
-	      (setq show-paren-overlay (make-overlay from to))))
-	  ;;
-	  ;; Always set the overlay face, since it varies.
-	  (overlay-put show-paren-overlay 'priority show-paren-priority)
-	  (overlay-put show-paren-overlay 'face face)))
-    ;; show-paren-mode is nil in this buffer.
-    (and show-paren-overlay
-	 (delete-overlay show-paren-overlay))
-    (and show-paren-overlay-1
-	 (delete-overlay show-paren-overlay-1))))
+;;; REDEFINITIONS
+(defun scan-sexps (pos dir) 
+  "This function is redefined to be used in Emacs' show-paren-function and
+in XEmacs' paren-highlight."
+  (LilyPond-blink-matching-paren dir))
 
-;; Comment the following line to disable show-paren-function
-;; Currently, works only in Emacs, should tune for XEmacs
+;; Emacs and XEmacs have slightly different names for parenthesis highlighting.
 (if (not (string-match "XEmacs\\|Lucid" emacs-version))
-    (defun show-paren-function () (LilyPond-show-paren-function))
-  )
+    (progn
+      (fset 'old-show-paren-function (symbol-function 'show-paren-function))
+      (defun show-paren-function ()
+      "Highlights the matching slur if cursor is moved before opening or 
+after closing slur. In this redefinition strings and comments are skipped."
+      (if (not (LilyPond-inside-string-or-comment-p))
+	  (old-show-paren-function))))
+  (progn
+    ;; NOTE: paren-set-mode must be set before paren-highlight is redefined
+    (paren-set-mode 'paren)
+    (fset 'old-paren-highlight (symbol-function 'paren-highlight))
+    (defun paren-highlight ()
+      "Highlights the matching slur if cursor is moved before opening or 
+after closing slur. In this redefinition strings and comments are skipped."
+      (if (not (LilyPond-inside-string-or-comment-p))
+	  (old-paren-highlight)))))
