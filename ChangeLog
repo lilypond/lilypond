@@ -1,5 +1,8 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/parser.yy (relative_music): whoops. All \relative were off
+	by ...  a lot .... Ahem.
+
 	* scm/define-music-types.scm (music-descriptions): idem.
 
 	* lily/beam-engraver.cc: move new-beam-event to beam-event

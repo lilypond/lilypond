@@ -1,4 +1,4 @@
-
+#(ly:set-option 'old-relative)
 \header
 {
 texidoc = "Grace beams and normal beams may occur simultaneously.

@@ -1,4 +1,4 @@
-
+#(ly:set-option 'old-relative)
 \header {
     texidoc = "Beams can be printed across line breaks if forced.
 "

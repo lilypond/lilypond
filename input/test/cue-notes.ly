@@ -19,7 +19,7 @@ Cue notes should be set in smaller type. "
 	    R1
 	    \property Voice.MultiMeasureRest \revert #'staff-position
 	}
-     \context Voice = cue { s2
+     \newcontext Voice { s2
        \clef tenor
 
 	%% this should probably be put into an identifier.

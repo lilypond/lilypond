@@ -1,4 +1,4 @@
-
+#(ly:set-option 'old-relative)
 \header {
     texidoc = "Ambituses indicate pitch ranges for voices.
 

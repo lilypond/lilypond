@@ -116,7 +116,7 @@ banterProperties = \sequential {
 	    \property ChordNames.instrument = #"Ignatzek (default)"
 	    \property ChordNames.instr = #"Def"
 	    \chs }
-	\context ChordNames = ALT {
+	\newcontext ChordNames {
 	    \property ChordNames.instrument = #"Alternative"
 	    \property ChordNames.instr = #"Alt"
 	    \jazzAltProperties
@@ -127,7 +127,7 @@ banterProperties = \sequential {
 	% making this file take up to 4 pages.
 	
 %{
-		\context ChordNames = BANTER  {
+		\newcontext ChordNames  {
 	    \banterProperties
 	    \chs
 	    }

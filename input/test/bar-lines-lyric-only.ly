@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "1.9.1"
 \header { texidoc = "@cindex Bar line lyric only
 You can move around @code{Bar_engraver} and
@@ -6,16 +5,15 @@ You can move around @code{Bar_engraver} and
 }
 
 \score {
-\notes \relative c' \context ChoirStaff = groupie <
- \context Staff = SA { c1 c1 c1}
+\notes \relative c' \context ChoirStaff <
+ \newcontext Staff { c1 c1 c1}
  \context Lyrics \lyrics <
   { bla1 die bla }
   { foo bar foo }
   { foo bar foo }  
  >
- \context Staff = SB { c1 c1 c1} 
-
- > 
+ \newcontext Staff { c1 c1 c1} 
+ >
 
 
 \paper  {

@@ -1077,9 +1077,9 @@ relative_music:
 		scm_gc_unprotect_object (p->self_scm ());
 
 
+		Pitch retpitch = p->to_relative_octave (pit);
 		if (lily_1_8_relative)
-			$$->set_mus_property ("last-pitch", p->to_relative_octave (pit).smobbed_copy ());
-
+			$$->set_mus_property ("last-pitch", retpitch.smobbed_copy ());
 	}
 	;
 

@@ -1,4 +1,4 @@
-
+#(ly:set-option 'old-relative)
 \header
 {
 texidoc = "Ottava brackets are supported, through the
