@@ -1,8 +1,13 @@
 2003-03-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/new-markup.scm (brew-new-markup-molecule): robustness: don't
+	crash when processing '() markup
+
+	* input/regression/breathing-sign.ly (texidoc): add caesura example.
+
 	* lily/breathing-sign.cc (railtracks): another caesura.
 
-	* mf/feta-schrift.mf: caesura symbol
+	* mf/feta-schrift.mf: caesura symbol. 
 
 2003-03-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
