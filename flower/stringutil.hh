@@ -2,17 +2,15 @@
 #define STRINGUTIL_HH
 #include <assert.h>
 
-#ifndef EVELYN
+#if !defined(NDEBUG)
 #define NDEBUG BLONDE
-  // switching into "blonde" mode
-  // i trust stringclass nowadays.
 #endif
 
 class String_handle;
 /// Internal String struct
 class StringData {
     // GNU malloc: storage overhead is 8 bytes anyway.
-    const int INITIALMAX = 8;  
+    const int INITIALMAX =8;	// how to do this in ANSI C++ ?
 
 friend class String_handle;
     int maxlen;	// maxlen is arraysize-1
@@ -156,7 +154,8 @@ friend class String_handle;
 
 /**
    the data itself. Handles simple tasks (resizing, resetting)
- */
+   */
+
 /****************************************************************/
 /// ref. counting for strings
 class String_handle {
