@@ -48,12 +48,24 @@ ln -sf $LILYPOND_SOURCEDIR/scripts/out/mudela-book $prefix/bin/mudela-book
 chmod 755 $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh
 ln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
 ln -sf $LILYPOND_SOURCEDIR/mf/out/ afm
-TFMDIR=`kpsewhich cmr10.tfm`
-ln -sf `dirname $TFMDIR` tfm
+TFMDIR=`kpsewhich tfm cmr10.tfm`
+ln -sf `dirname $TFMDIR` cmtfm
+rm -f tfm;
+ln -s mf/out tfm
+
 mkdir -p $prefix/share/
 if [ ! -x $prefix/share/lilypond ]; then
     echo ln -sf  $sources/lilypond $prefix/share
     ln -sf  $sources/lilypond $prefix/
+fi
+# real weird locale dir if $LILYPONDPREFIX is set...
+if [ $LILYPONDPREFIX != "" ]; then
+	LOCALES="it nl"
+	for i in $LOCALES; do
+		dir=$LILYPONDPREFIX/share/locale/$i/LC_MESSAGES
+		mkdir -p $dir
+		ln -sf $LILYPOND_SOURCEDIR/po/out/$i.mo $dir/lilypond.mo
+	done
 fi
 if [ -f ../.gdbinit ];
 then
