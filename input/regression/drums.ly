@@ -14,7 +14,8 @@ drl = \drums {\repeat "unfold" 3 {bd4 sn8 bd bd4 << bd ss >> } bd8 tommh tommh b
 timb = \drums \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r4 cb8 cb}
 
 \score {
-    \repeat "volta" 2
+%% FIXME: broken    
+%%    \repeat "volta" 2
     <<
 	\new DrumStaff \with {
 	    drumStyleTable = #timbales-style
