@@ -103,6 +103,54 @@ Context::Context (Object_key const* key)
   scm_gc_unprotect_object (key_->self_scm ());
 }
 
+Context*
+Context::create_unique_context (SCM n, SCM operations)
+{
+  /*
+    Don't create multiple score contexts.
+   */
+  if (dynamic_cast<Global_context*> (this)
+      && dynamic_cast<Global_context*> (this)->get_score_context ())
+    return get_score_context ()->create_unique_context (n, operations);
+
+  /*
+    TODO: use accepts_list_.
+   */
+  Link_array<Context_def> path
+    = unsmob_context_def (definition_)->path_to_acceptable_context (n, get_output_def ());
+
+  if (path.size ())
+    {
+      Context * current = this;
+
+      // start at 1.  The first one (index 0) will be us.
+      for (int i=0; i < path.size (); i++)
+	{
+	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
+
+	  current = current->create_context (path[i],
+					     "",
+					     ops); 
+	}
+
+      return current;
+    }
+
+  /*
+    Don't go up to Global_context, because global goes down to
+    Score_context
+   */
+  Context *ret = 0;
+  if (daddy_context_ && !dynamic_cast<Global_context*> (daddy_context_))
+    ret = daddy_context_->create_unique_context (n, operations);
+  else
+    {
+      warning (_f ("Cannot find or create new `%s'",
+		   ly_symbol2string (n).to_str0 ()));
+      ret =0;
+    }
+  return ret;
+}
 
 
 Context *
@@ -121,7 +169,6 @@ Context::find_create_context (SCM n, String id, SCM operations)
   if (n == ly_symbol2scm ("Bottom"))
     {
       Context* tg = get_default_interpreter ();
-      tg->id_string_ = id;
       return tg;
     }
 
@@ -188,6 +235,8 @@ Context::create_context (Context_def * cdef,
 
   return new_group;
 }
+
+
 
 Object_key const*
 Context::get_context_key (String type, String id)

@@ -29,11 +29,15 @@ Context_specced_music_iterator::construct_children ()
     c_id = ly_scm2string (ci);
   SCM ops = get_music ()->get_property ("property-operations");
   
-  Context * a
-    = get_outlet ()->find_create_context (ct, c_id, ops);
+  Context * a = 0;
+
+  if (c_id == "$uniqueContextId")
+    a = get_outlet ()->create_unique_context (ct, ops);
+  else
+    a = get_outlet ()->find_create_context (ct, c_id, ops);
 
   if (a
-      && to_boolean (get_music ()->get_property ("descend-only"))
+       && to_boolean (get_music ()->get_property ("descend-only"))
       && !is_child_context (get_outlet (), a))
     a = 0;
   

@@ -576,15 +576,47 @@ Syntax:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-public (cue-substitute quote-music)
+  (if (vector? (ly:music-property quote-music 'quoted-events))
+      (let*
+	  ((dir (ly:music-property quote-music 'quoted-voice-direction))
+	   (main-voice (if (eq? 1 dir) 2 1))
+	   (cue-voice (if (eq? 1 dir) 1 2))
+	   (main-music (ly:music-property quote-music 'element))
+	   (return-value quote-music)
+	   )
+	
+	(if (or (eq? 1 dir) (eq? -1 dir))
+
+	    ;; if we have stem dirs, change both quoted and main music
+	    ;; to have opposite stems.
+	    (begin
+	      (set! return-value
+		    (make-sequential-music
+		     (list
+		      (context-spec-music (make-voice-props-set cue-voice) 'Voice "cue")
+		      quote-music
+		      (context-spec-music (make-voice-props-revert)  'Voice "cue"))
+		     ))
+	      (set! main-music
+		    (make-sequential-music
+		     (list
+		      (make-voice-props-set main-voice)
+		      main-music
+		      (make-voice-props-revert)))
+		    )
+	      (set! (ly:music-property quote-music 'element) main-music)))
+
+	return-value)
+      quote-music))
+
 (define-public ((quote-substitute quote-tab) music)
   (let*
       ((quoted-name (ly:music-property music 'quoted-music-name))
        (quoted-vector (if (string? quoted-name)
 			  (hash-ref quote-tab quoted-name #f)
 			  #f
-			  ))
-
-       )
+			  )))
 
     (if (string? quoted-name)
 	(if  (vector? quoted-vector)
@@ -624,6 +656,7 @@ Syntax:
    (lambda (music parser) (voicify-music music))
    (lambda (x parser) (music-map glue-mm-rest-texts x))
    (lambda (x parser) (music-map music-check-error x))
+   (lambda (x parser) (music-map cue-substitute x))
    (lambda (music parser)
 
      (music-map (quote-substitute (ly:parser-lookup parser 'musicQuotes))  music))
