@@ -563,29 +563,19 @@ possibly turned off."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
 (define-public (ly:system command)
-  (let*
-      ((status 0))
-    
+  (let* ((status 0))
     (if (ly:get-option 'verbose)
-	(display (format (_ "Invoking `~a'...\n") command) (current-error-port)))
-    
+	(format  (current-error-port) (_ "Invoking `~a'...\n") command))
     (set! status (system command))
-
-
     (if (> status 0)
-	(display (format (_ "Error invoking `~a'. Return value ~a")
-			 command status)))
-    ))
+	(format (current-error-port) (_ "Error invoking `~a'. Return value ~a")
+			 command status))))
 
 (define-public (postscript->pdf papersizename name)
   (let* ((cmd (string-append "ps2pdf -sPAPERSIZE=" papersizename " " name))
 	 (output-name
 	  (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)))
-
-    (newline (current-error-port))
-    (display (format (_ "Converting to `~a'...") output-name)
-	     (current-error-port))
-
+    (format (current-error-port) (_ "Converting to `~a'...") output-name)
     (ly:system cmd)))
 
 (define-public (postscript->png resolution name)

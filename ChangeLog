@@ -1,5 +1,19 @@
 2004-11-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/lily-parser.cc (LY_DEFINE): Remove "Now " from message.
+
+	* lily/main.cc (main): Invoke identify.
+
+	* scm/lily.scm (postscript->pdf): Remove progress newline.
+	Write progress to stderr.
+
+	* lily/paper-book.cc (output): Remove progress newline.
+
+	* scm/framework-tex.scm (convert-to-dvi, convert-to-ps): Call
+	gettext on user messages, and remove whitespace.
+
+	* lily/paper-outputter.cc (get_paper_outputter): Add progress newline.
+
 	* scripts/lilypond-latex.py (program_name): Bugfix: use only basename of
 	argv[0] (Thomas Scharkowski).
 

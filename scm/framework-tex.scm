@@ -288,17 +288,16 @@
 
 			     (if (ly:get-option 'verbose)
 				 " "
-				 " 2>&1 1>& /dev/null ")
-			     )))
+				 " 2>&1 1>& /dev/null "))))
 
     (if (ly:get-option 'verbose)
 	(begin 
 	  (newline (current-error-port))
-
-	  (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
+	  (format (current-error-port) (_ "Invoking ~S") cmd)
 	  (newline (current-error-port)))
-	(display (format #f "Converting to `~a.ps'...\n" base) (current-error-port))
-	)
+	(begin
+	  (format (current-error-port) (_ "Converting to `~a.ps'...") base)
+	  (newline (current-error-port))))
     (system cmd)))
 
 (define-public (convert-to-dvi book name)
@@ -313,16 +312,16 @@
 	       "latex \\\\nonstopmode \\\\input " name
 	       (if (ly:get-option 'verbose)
 		   " "
-		   " 2>&1 1>& /dev/null ")
-
-	       )))
+		   " 2>&1 1>& /dev/null "))))
     (setenv "extra_mem_top" (number->string (max curr-extra-mem 1024000)))
     (if (ly:get-option 'verbose)
 	(begin 
 	  (newline (current-error-port))
-	  (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
+	  (format (current-error-port) (_ "Invoking ~S") cmd)
 	  (newline (current-error-port)))
-	(format (current-error-port) "Converting to `~a.dvi'...\n" base))
+	(begin
+	  (format (current-error-port) (_ "Converting to `~a.dvi'...") base)
+	  (newline (current-error-port))))
 
     ;; fixme: set in environment?
     (if (ly:get-option 'safe)

@@ -281,7 +281,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       Sources sources;
       sources.set_path (&global_path);
   
-      progress_indication (_f ("Now processing `%s'", file_name.to_str0 ()));
+      progress_indication (_f ("Processing `%s'", file_name.to_str0 ()));
       progress_indication ("\n");
 
       Lily_parser *parser = new Lily_parser (&sources);

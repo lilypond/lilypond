@@ -127,10 +127,10 @@ Paper_book::post_processing (SCM module,
     {make_ps, "convert-to-ps"},
     {make_pdf, "convert-to-pdf"},
     {make_png, "convert-to-png"},
-    {0,0}
+    {0, 0},
   };
 
-  for (int i= 0; settings[i].func_name_; i++)
+  for (int i = 0; settings[i].func_name_; i++)
     {
       if (settings[i].do_it_)
 	{
@@ -139,7 +139,7 @@ Paper_book::post_processing (SCM module,
 	    {
 	      func = scm_variable_ref (func);
 	      if (ly_c_procedure_p (func))
-		scm_call_2 (func, self_scm(), file_name);
+		scm_call_2 (func, self_scm (), file_name);
 	    }
 	}
     }
@@ -207,9 +207,8 @@ Paper_book::output (String outname)
 
 	  post_processing (mod, scm_makfrom0str (file_name.to_str0 ()));
      	}
-      
-      progress_indication ("\n");
     }
+  progress_indication ("\n");
 }
 
 void
