@@ -30,11 +30,12 @@ POD2HTML5004=$(POD2HTML) --noindex --infile $< --outfile=$@;  sh $(depth)/bin/ad
 POD2HTML5003=$(POD2HTML) $< ; mv $(notdir $@) $(outdir)/
 
 
-do_pod2html=$(POD2HTML5003)
+do_pod2html=$(POD2HTML5004)
 
 
 $(outdir)/%.html: %.pod $(depth)/VERSION
 	$(do_pod2html) 
+	add-html-footer $@
 
 $(outdir)/%.5: %.pod
 	$(pod2groff)
