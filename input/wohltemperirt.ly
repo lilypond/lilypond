@@ -47,7 +47,7 @@ bassdux = music { $
 	[G c16 B] [c8 d] [F16 G] As4 [G16 F] | 
 $}
 
-trebstaf =	staff { melodic
+trebstaf = staff { melodic
 		% every "music {} " in a staff has its own "voicegroup"
 		music { dux }
 		music { comes }
@@ -59,8 +59,8 @@ basstaf = staff { melodic
 }
 
 score {
-	staff { basstaf }
 	staff { trebstaf }
+	staff { basstaf }
 	
 	commands {
 		meter {4*4}
