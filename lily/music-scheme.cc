@@ -1,5 +1,5 @@
 /*
-  music-scheme.cc --  implement
+  music-scheme.cc -- implement Music bindings
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,6 +7,8 @@
 
 */
 
+#include "duration.hh"
+#include "warn.hh"
 #include "music.hh"
 #include "pitch.hh"
 

@@ -8,7 +8,6 @@
 
 #include "paper-book.hh"
 
-#include "ly-module.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-outputter.hh"

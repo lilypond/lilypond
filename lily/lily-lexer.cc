@@ -19,7 +19,6 @@
 #include "source-file.hh"
 #include "main.hh"
 #include "moment.hh"
-#include "ly-module.hh"
 
 static Keyword_ent the_key_tab[] = {
   {"accepts", ACCEPTS},

@@ -10,7 +10,6 @@
 
 #include <cstdio>
 
-#include "ly-module.hh"
 #include "main.hh"
 #include "paper-book.hh"
 #include "source-file.hh"

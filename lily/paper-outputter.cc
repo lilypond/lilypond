@@ -17,7 +17,6 @@
 #include "font-metric.hh"
 #include "input-smob.hh"
 #include "lily-version.hh"
-#include "ly-module.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-book.hh"

@@ -10,7 +10,6 @@
 
 #include "all-font-metrics.hh"
 #include "gourlay-breaking.hh"
-#include "ly-module.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "output-def.hh"

@@ -15,7 +15,6 @@
 #include "book.hh"
 #include "cpu-timer.hh"
 #include "global-context.hh"
-#include "ly-module.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
 #include "music-iterator.hh"
