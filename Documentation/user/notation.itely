@@ -7202,7 +7202,7 @@ as numbers, and there is a context called @internalsref{FiguredBass} that
 takes care of making @internalsref{BassFigure} objects.
 
 In figures input mode, a group of bass figures is delimited by
-@code{<} and @code{>}. The duration is entered after the @code{>>}
+@code{<} and @code{>}. The duration is entered after the @code{>}
 @example
 <4 6>
 @end example
@@ -7257,11 +7257,12 @@ Slash notation for alterations is not supported.
 
 In the 20th century, composers have greatly expanded the musical
 vocabulary. With this expansion, many innovations in musical notation
-have been tried. The book by Stone (1980) gives a comprehensive
-overview (see @ref{Literature list}). In general, the use of new,
-innovative notation makes a piece harder to understand and perform and
-its use should therefore be avoided if possible.  For this reason,
-support for contemporary notation in LilyPond is limited.
+have been tried. The book ``Music Notation in the 20th century'' by
+Kurt Stone gives a comprehensive overview (see @ref{Literature
+list}). In general, the use of new, innovative notation makes a piece
+harder to understand and perform and its use should therefore be
+avoided.  For this reason, support for contemporary notation in
+LilyPond is limited.
 
 
 @menu
@@ -7424,8 +7425,9 @@ can be denoted as the envelope of a set of notes.  They are entered by
 applying the function @code{makeClusters} to a sequence of
 chords, e.g.
 @c
-@lilypond[quote,relative=2,verbatim]
-\makeClusters {  <c e > <b f'>  }
+@lilypond[quote,verbatim]
+\relative c'' 
+  \makeClusters { <c e > <b f'> }
 @end lilypond
 
 The following example (from

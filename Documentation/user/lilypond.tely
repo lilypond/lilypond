@@ -170,7 +170,8 @@ this and other documentation.
 * Invoking LilyPond::              Operation.
 * Converting from other formats::  Converting to lilypond source format.
 * Integrating text and music::     Integrating text and music with lilypond-book.
-* Unified index::                  
+* Unified index::
+* Scheme tutorial::
 * Notation manual details::
 * Literature list::
 * Cheat sheet::     
@@ -201,6 +202,7 @@ this and other documentation.
 
 @printindex cp
 
+@include scheme-tutorial.itely
 @include notation-appendices.itely
 
 @include literature.itely

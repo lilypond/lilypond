@@ -37,7 +37,8 @@
     (interpret-markup paper props str))
 
 (def-markup-command (encoded-simple paper props sym str) (symbol? string?)
-  "A text string, encoded with encoding @var{sym}. "
+  "A text string, encoded with encoding @var{sym}. See
+@usermanref{Text encoding} for more information."
   (Text_item::interpret_string paper
 			       props sym str))
 
@@ -175,7 +176,7 @@ Use @code{\\fontsize} otherwise."
   (interpret-markup paper (prepend-alist-chain 'font-series 'bold props) arg))
 
 (def-markup-command (sans paper props arg) (markup?)
-  "Switch to the sans-serif family"
+  "Switch to the sans serif family"
   (interpret-markup paper (prepend-alist-chain 'font-family 'sans props) arg))
 
 (def-markup-command (number paper props arg) (markup?)
@@ -213,12 +214,12 @@ some punctuation. It doesn't have any letters.  "
   (interpret-markup paper (prepend-alist-chain 'font-size -3 props) arg))
 
 (def-markup-command (caps paper props arg) (markup?)
-  "Set font shape to @code{caps}."
+  "Set @code{font-shape} to @code{caps}."
   (interpret-markup paper (prepend-alist-chain 'font-shape 'caps props) arg))
 
-(def-markup-command (latin-i paper props arg) (markup?)
-  "TEST latin1 encoding."
-  (interpret-markup paper (prepend-alist-chain 'font-shape 'latin1 props) arg))
+;(def-markup-command (latin-i paper props arg) (markup?)
+;  "TEST latin1 encoding."
+;  (interpret-markup paper (prepend-alist-chain 'font-shape 'latin1 props) arg))
 
 (def-markup-command (dynamic paper props arg) (markup?)
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
@@ -326,9 +327,9 @@ of the @code{#'direction} layout property."
   ))
 
 (def-markup-command (halign paper props dir arg) (number? markup?)
-  "Set horizontal alignment. If @var{dir} is -1, then it is
-left-aligned, while+1 is right. Values in between interpolate alignment
-accordingly."
+  "Set horizontal alignment. If @var{dir} is @code{-1}, then it is
+left-aligned, while @code{+1} is right. Values in between interpolate
+alignment accordingly."
 
   
   (let* ((m (interpret-markup paper props arg)))
@@ -352,7 +353,7 @@ See @usermanref{The Feta font} for  a complete listing of the possible glyphs.
                          glyph-name))
 
 (def-markup-command (char paper props num) (integer?)
-  "This produces a single character, e.g. @code{\\char #65} produces the 
+  "Produce a single character, e.g. @code{\\char #65} produces the 
 letter 'A'."
   (ly:get-glyph (ly:paper-get-font paper props) num))
 
@@ -483,7 +484,7 @@ a shortened down stem."
     (note-by-number-markup paper props (car parsed) (cadr parsed) dir)))
 
 (def-markup-command (normal-size-super paper props arg) (markup?)
-  "A superscript which does not use a smaller font."
+  "Set @var{arg} in superscript with a normal font size."
   
   (ly:stencil-translate-axis (interpret-markup
                                paper
@@ -528,7 +529,8 @@ surroundings. This command cannot be used to move isolated scripts
 vertically, for the same reason that @code{\\raise} cannot be used for
 that.
 
-. "
+"
+  
   (ly:stencil-translate (interpret-markup  paper props arg)
                          offset))
 
@@ -614,16 +616,17 @@ markup."
         (m (interpret-markup paper props arg)))
     (box-stencil m th pad)))
 
-(def-markup-command (strut paper props) ()
-  
-  "Create a box of the same height as the space in the current font.
+(if #f
+    (def-markup-command (strut paper props) ()
+      
+      "Create a box of the same height as the space in the current font.
 
 FIXME: is this working? 
 "
-  
-  (let ((m (Text_item::interpret_markup paper props " ")))
-    (ly:stencil-set-extent! m X '(1000 . -1000))
-    m))
+      
+      (let ((m (Text_item::interpret_markup paper props " ")))
+	(ly:stencil-set-extent! m X '(1000 . -1000))
+	m)))
 
 (define number->mark-letter-vector (make-vector 25 #\A))
 
