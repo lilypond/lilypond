@@ -322,7 +322,7 @@ the central C is at its default position, the center line.
 @end lilypond
 
 A list of all engravers is in the internal documentation,
-@internalsref{All engravers}.
+see @internalsref{All engravers}.
 
 It is also possible to define new contexts from scratch.  To do this,
 you must define give the new context a name.  In the following
@@ -388,10 +388,10 @@ do anything.
 @cindex evaluating Scheme
 @cindex LISP
 
-LilyPond internally uses GUILE, a Scheme-interpreter.  Scheme is a
-language from the LISP family.  You can learn more about Scheme at
-@uref{http://www.scheme.org}.  It is used to represent data throughout
-the whole program.
+LilyPond internally uses GUILE, a Scheme-interpreter.
+
+
+Scheme is used to represent data throughout the whole program.
 
 In some places of the input file, Scheme expressions also form valid
 syntax: wherever it is allowed, GUILE can be accessed directly by
@@ -403,12 +403,17 @@ and can be used in property assignments:
   \property Staff.autoBeaming = ##f
 @end example
 
-Scheme is a full-blown programming language, and a full discussion is
-outside the scope of this document.  Interested readers are referred to
-the website @uref{http://www.schemers.org/} for more information on
-Scheme.
+Scheme is a full-blown programming language, from the LISP family. and
+a full discussion is outside the scope of this document.  Interested
+readers are referred to the website @uref{http://www.schemers.org/}
+for more information on Scheme.
 
-
+The GUILE library for extension is documented at
+@uref{http://www.gnu.org/software/guile}.
+@ifinfo
+When it is installed, the following link should take you to its manual
+@ref{(guile.info)guile}
+@end ifinfo
 
 @menu
 * Input variables and Scheme::  
@@ -528,7 +533,8 @@ not yet user-accessible.
 @end itemize
 
 Many functions are defined to manipulate these data structures. They
-are all listed and documented in @internalsref{All scheme functions}.
+are all listed and documented in the internals manual, see
+@internalsref{All scheme functions}.
 
 
 @node Assignments
@@ -756,7 +762,8 @@ must --like music expressions themselves-- be recursive.
 
 The following example is such a recursive function: it first extracts
 the @code{elements} of an expression, reverses them and puts them
-back. Then it recurses, both on @code{elements} and @code{element}.
+back. Then it recurses, both on @code{elements} and @code{element}
+children.
 @example
 #(define (reverse-music music)
   (let* ((elements (ly:get-mus-property music 'elements))

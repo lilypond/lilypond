@@ -5,36 +5,35 @@
 @unnumbered Preface
 
 @menu
-* Preface to version 1.8::      
-* Preface to version 1.6::      
+* Preface to version 1.8::
+* Preface to version 1.6::
 @end menu
 
 @node Preface to version 1.8
 @unnumberedsec Preface to version 1.8
 
-The 1.8 release brings old thing, in new, flashier
-clothes. Previously, the program used to have half-baked solutions to
-various problems. In version 1.8, we took the good parts of the
-solutions, threw away the bad code, and rebuilt the rest of the
-formatting code. Version 1.8 has revamped support for
+During the past year when we worked on 1.8, the focus has not so much
+been on adding shiny new features, or more excellent
+typography. Instead, we have taken stock of how various things worked
+on the inside. In many cases, we found new and more elegant ways to
+implement these systems, making them more robust and more flexible.
 
-@itemize
-@item Chord names
-@item Entering normal chords
-@item Formatting text
-@item Storing music expressions
-@item Manipulating identifiers and music
-@end itemize
+If you are familiar with LilyPond version 1.6, then version 1.8 will
+no offer no big surprises. The only real change from 1.6 to 1.8 is the
+way that formatted text is entered. There is now a new syntax that is
+more friendly, more versatile and extensible. We hope you like it.
 
-Version 1.8 is a preparation for version 2.0, which is expected to
-follow 1.8 shortly. Version 2.0 will have a number of significant,
-non-backwards-compatible changes in the input syntax.
+Less visible changes include rewritten chord name formatting and entry
+code, revised music expression storage, and tighter integration
+between lilypond variables and Scheme variables.
 
-Special thanks for version  1.8 go out to Juergen  Reuter for lots of
-work on the ancient notation engine, and to Amy Zapf for pushing to
-rewrite chord name support
+Special thanks for version 1.8 go out to Juergen Reuter for lots of
+work on the ancient notation engine, and to Amy Zapf for pushing us to
+rewrite the chord name support
 
 [wie meer?]  
+
+Utrecht/Eindhoven, April/May 2003  
 
 @node Preface to version 1.6
 @unnumberedsec Preface to version 1.6

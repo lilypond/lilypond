@@ -231,150 +231,149 @@ difficult problem, and in the scientific world, problems can only be
 solved if they are well-specified. Moreover, formally defined formats
 are easier to write programs for.
 
-
 These ideas shaped our music representation: it is a compact format
 that can easily be typed by hand. It complex musical constructs from
 simple entities like notes and rests, in much the same way that one
 builds complex formulas from simple expressions such as numbers and
 mathematical operators.
 
-@node Program design
-@section Program design
-
-The strict separation between musical information and typesetting also
-gives a blueprint of the program: first it reads the music
-representation, then it interprets the music---reading it
-`left-to-right', and translating the musical information to a layout
-specification. When the layout is computed, the resulting symbols are
-written to an output file.
-
-TODO: more about design? 
-
 @node Example applications
 @section Example applications
 
-TODO: show what sort of things lily can be used for.
+As programmers and hedonists enjoy beautifully written code, and
+beautifully printed music, but this program can applied to
+do useful things. In this section, we show a few small examples of
+what is possible.
+
+[todo: show examples]
+
+
+The following example combines some more  exotic uses of notation
+
+@lilypondfile{screech-boink.ly}  
 
 
 
 @node About this manual
 @section About this manual
 
-[
-
 The manual is divided into the following chapters
-@itemize
+@table @strong
 @item Tutorial
-gives a gentle introduction into using lilypond
-@item
-Reference manual: each aspect of typesetting music is discussed
-@item
-Advanced topics: how it works from the inside, scripting lilypond.
-@item
-Invoking: running LilyPond and its helper programs. 
+  Gives a gentle introduction into typesetting music.
+  Start here if you have never used lilypond before.
+@item   Reference manual
+  Here, each aspect of typesetting music is discussed.
+@item Internals
+  This chapter discusses how it works from the inside, and how you can
+  extend the program.
+@item Invoking
+  This chapter explains how to runn LilyPond and its helper programs. 
 @end itemize
 
-This manual is not complete: a part of the functionality is available
-through a generic system of properties: variables that can be set by
-the user to override certain functionality. Accompanying this manual
-is a document that describes all properties available, and all types
-of typographic and musical objects.
+Once you are experienced with, you can simply use the manual as
+reference: there is an extensive index@footnote{If you are looking for
+something, and you cannot find it by using the index, that is
+considered a bug.  In that case, please file a bug report}, but the
+document is also available in
+@ifhtml
+One Big Page,
+@end ifhtml
+@ifnothtml
+@uref{One Big Page,../lilypond.html}
+@end ifnothtml 
+which is is available for text search using your browser's search
+facility.
+@cindex search in manual
+@cindex using the manual
 
-TODO: rewrite rest of this section too.
-]
 
-As you will notice in the coming pages the program makes good
-decisions in a lot of cases: what comes out of LilyPond generally
-looks good.  The default layout of lilypond even is suitable for
-publication for some specific files. However, some aspects of the
-formatting are not yet very good. For us programmers, this gives
-inspiration for improving the program. However, most users are more
-interested in improving their printouts, and then they have to make
-manual adjustments to the output.  Another aspect of our system of
-encoding through ASCII then shows: it can be complicated to fine tune
-the layout of a piece. There is no graphical user interface, where you
-can simply click and drag a symbol. On the other hand, if you have
-written the code for tuning one specific aspect of the layout, then
-you can simply store the file on disk, retrieve it when you need it:
-there is no need to remember how you did it, since it is all in the
-input file.
+If you are familiar with music notation, and music terminology
+(especially if you are a foreigner), then it is advisable to consult
+the glossary as well. This documents explains many terms, and includes
+translations to various languages. It is a 
+@ifhtml
+@uref{separate document,../glossary.html}
+@end ifhtml
+@ifnothtml
+separate document, and can be printed as well.
+@end ifnothtml
+@cindex idiom
+@cindex jargon
+@cindex terminology
+@cindex foreign languages
+@cindex language
 
+
+This manual is not complete without a number of other documents. They
+are not available in print, but should be included with the
+documentation package for your platform
+
+@itemize @bullet
+@item
+Generated internal documentation.
+@ifhtml
+available @uref{here,../lilypond-internals/lilypond-internals.html}
+@end ifhtml
+
+Almost all formatting functionality that is used internally, is
+available directly to the user. For example, all variables that
+control thicknesses, distances, etc, can be changed from input
+files. There are a huge number of formatting options, and it would be
+impossible to describe them all in a hand-written manual. The
+generated internal documentation is a heavily crosslinked HTML
+document, produced directly from the formatting definitions used.  It
+the nit-gritty details of each and every LilyPond class, object and
+function.
+
+Each section of the reference manual has a @b{See also}
+subsection, with links (in the HTML document, at least) to the
+generated documentation.
+
+@item
+  Templates
+@ifhtml
+available @uref{here,../../../input/templates/out-www/collated-files.html}
+@end ifhtml
+
+  When you have gone through the tutorial, you theoretically should be
+able to start writing input files. However, this turns out to be a
+little intimidating.  To give you a headstart, we have collected a
+number of often-used formats in example files. You can take one of
+these example files, and add notes in the appropriate places to
+generate output.
+
+@item
+  Various input examples
+@ifhtml
+available @uref{here,../../../input/test/out-www/collated-files.html}
+@end ifhtml
 @cindex snippets
+
+These small files show various applications of lilypond, and are
+available as a big HTML document, with pictures and explanatory texts
+included.
+
+
+@item
+  The regression test
+@ifhtml
+available @uref{here,../../../input/regression/out-www/collated-files.html}
+@end ifhtml
+
+We strive to test each feature in a collection of input snippets. This
+is primarily to help us debug the program, but it can be instructive
+to see how we excercise the program. The format is like the input
+examples.
+
+@end itemize
+
 @cindex adjusting output
-
-Lilypond also comes with a huge collection of snippets that show all
-kinds of tricks.  This collection is much needed, because of the way
-LilyPond is structured. It is a large program, but almost all of the
-internal functionality is exported: that is, the variables that are
-internally used for formatting the sheet music are available directly
-to the user. These are variables to control thicknesses, distances,
-and other formatting options. There are a huge number of them, and it
-would be impossible to describe them all in a hand-written
-manual. There is no need to despair, there is an `automatic' manual,
-that lists all of the variables that are available.  It is directly
-generated from the definitions that LilyPond itself uses, so it is
-always up to date. If you are reading this from a screen: it is
-available from the web, and is included with most binary
-distributions.  If you are reading this from paper, then we advise you
-to use the digital version anyway: the hyperlinks make finding topics
-in the lilypond-internals manual much easier.
-
 @cindex variables
 @cindex properties
 @cindex lilypond-internals
 @cindex internal documentation
-
-For those who really want to get their hands dirty: it is even
-possible to add your own functionality, by extending LilyPond in the
-built-in scripting language, a dialect of the powerful programming
-language Scheme. There is no real distinction between what a user can
-do and what a programmer is allowed to do.
-
 @cindex Scheme
 @cindex extending lilypond
-
-In summary, this manual does not pretend to be exhaustive, but it is
-merely a guide that tries to explain the most important principles,
-and shows popular input idioms.  The rest of the manual is structured
-as follows: it starts with a tutorial that explains how to use
-lilypond. In the tutorial, a number of fragments of increasing
-complexity are shown and explained.  Then comes the reference manual,
-which gives more detailed information on all features. If you are new
-to lilypond, then you should start reading the tutorial, and
-experiment for yourself.  If you already have some experience, then
-you can simply use the manual as reference: there is an extensive
-index@footnote{If you are looking for something, and you cannot find it
-by using the index, that is considered a bug.  In that case, please
-file a bug report}, but the document is also available in One Big Page,
-@c should have hyperlink?
-which is is available for text search using your browser's search
-facility.
-
-@cindex searchin manual
-@cindex using the manual
 @cindex bugreport
 @cindex index
-@cindex tutorial
-@cindex overview of manual
-@cindex idiom
-
-[TODO: edit following]
-
-This is the end of the tutorial.  If you read everything until this point
-(and understood everything!) then you are now an accomplished lilypond
-hacker.  From here you should try fiddling with input files or making your
-own input files.  Come back to the reference manual for more information
-if you get stuck!
-
-Do not forget to check out the 
-@ifhtml
-@uref{../../../../input/template/out-www/template.html,templates},
-@uref{../../../../input/test/out-www/test.html,examples} and 
-@uref{../../../../input/regression/out-www/regression.html,feature tests}.
-@end ifhtml
-@ifnothtml
-templates, examples and feature tests.
-@end ifnothtml
-If you want to see real action LilyPond, head over to
-@uref{http://www.mutopiaproject.org}, which has many examples of
-classical music typeset with LilyPond.
