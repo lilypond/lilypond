@@ -5,6 +5,8 @@ Experimental scons (www.scons.org) building:
 
 Usage:
     scons
+    LILYPONDPREFIX=out-scons/usr/share/lilypond lily/out-scons/lilypond-bin
+
     scons install
     scons -c              # clean
     scons -h              # help
@@ -20,6 +22,7 @@ optimising=0
 debugging=1
 gui=1
 os.path.join (os.getcwd (), '=install')
+prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 
 '''
 
@@ -311,11 +314,57 @@ for d in subdirs:
 		env.BuildDir (b, d, duplicate=0)
 	SConscript (os.path.join (b, 'SConscript'))
 
-
-readmes = ['AUTHORS.txt', 'ChangeLog', 'NEWS.txt']
+readme_files = ['ChangeLog', 'COPYING', 'DEDICATION', 'ROADMAP', 'THANKS']
+readme_txt = ['AUTHORS.txt', 'README.txt', 'INSTALL.txt', 'NEWS.txt']
+# to be [re]moved after spit
+patch_files = ['emacsclient.patch', 'server.el.patch', 'darwin.patch']
 
 #testing
 env.Append (TARFLAGS = '-z --owner=0 --group=0')
 env.Append (GZIPFLAGS = '-9')
-all_sources = ['SConstruct',] + readmes + subdirs
+all_sources = ['SConstruct',] + subdirs \
+	      + ['VERSION', '.cvsignore']\
+	      + readme_files + readme_txt + patch_files
+
 tar = env.Tar (env['tarball'], all_sources)
+
+def symlink_tree (prefix):
+	def mkdirs (dir):
+		def mkdir (dir):
+			if not dir:
+				os.chdir (os.sep)
+				return
+			if not os.path.isdir (dir):
+				if os.path.exists (dir):
+					os.unlink (dir)
+				os.mkdir (dir)
+			os.chdir (dir)
+		map (mkdir, string.split (dir, os.sep))
+	srcdir = os.getcwd ()
+	def symlink (src, dst):
+		dir = os.path.dirname (dst)
+		mkdirs (dir)
+		if src[0] == '#':
+			frm = os.path.join (srcdir, src[1:])
+		else:
+			depth = len (string.split (dir))
+			frm = os.path.join ('../' * depth, src, out)
+		os.symlink (frm, os.path.basename (dst))
+		os.chdir (srcdir)
+	map (lambda x: symlink (x[0], os.path.join (prefix, x[1])),
+	     (('python', 'lib/lilypond/python'),
+	      ('#mf',    'share/lilypond/fonts/mf'),
+	      ('mf',     'share/lilypond/fonts/amf'),
+	      ('mf',     'share/lilypond/fonts/tfm'),
+	      ('mf',     'share/lilypond/fonts/type1'),
+	      ('#tex',   'share/lilypond/tex/source'),
+	      ('mf',     'share/lilypond/tex/generate'),
+	      ('#ly',    'share/lilypond/ly'),
+	      ('#scm',   'share/lilypond/scm'),
+	      ('#ps',    'share/lilypond/ps'),
+	      ('elisp',  'share/lilypond/elisp')))
+
+if env['debugging']:
+	prefix = os.path.join (outdir, 'usr')
+	if not os.path.exists (prefix):
+		symlink_tree (prefix)

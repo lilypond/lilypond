@@ -1,5 +1,11 @@
 2004-07-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* SConstruct: Add Tar target (incomplete), fix install issues, fix
+	run from build-dir.
+
+	* ly/SConscript:
+	* scm/SConscript: New file.
+
 	* lily/main.cc (dir_info): Print variables in sh format.
 
 	* lily/includable-lexer.cc: Use #if iso #ifdef for HAVE_ tests.
