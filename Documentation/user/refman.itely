@@ -1651,6 +1651,7 @@ accidentals using @code{!} and @code{?}.
 * Breath marks::                
 * Tempo::                       
 * Text spanners::               
+* Analysis brackets::           
 @end menu
 
 @node Slurs 
@@ -1813,6 +1814,32 @@ An application---or rather, a hack---is to fake octavation indications.
   a\startTextSpan b c a \stopTextSpan }
 @end lilypond
 
+
+@node Analysis brackets
+@subsection Analysis brackets
+@cindex brackets
+@cindex phrasing brackets
+@cindex musicological analysis
+@cindex note grouping bracket
+
+Brackets are used in musical analysis to indicate structure in musical
+pieces. LilyPond supports a simple form of nested horizontal brackets.
+To use this, add the @internalsref{Horizontal_bracket_engraver} to
+@internalsref{Staff} context.  A bracket is started with
+@code{\groupOpen} and closed with @code{\groupClose}. This produces
+@internalsref{HorizontalBracket} objects.
+
+@lilypond[singleline,verbatim]
+\score { \notes \relative c'' {  
+	c4-\groupOpen-\groupOpen
+	c4-\groupClose
+	c4-\groupOpen
+        c4-\groupClose-\groupClose
+  }
+  \paper { \translator {
+	    \StaffContext \consists "Horizontal_bracket_engraver"
+	}}}
+@end lilypond
 
 @c .  {Ornaments}
 @node Ornaments
@@ -2865,7 +2892,7 @@ Piano pedal instruction can be expressed using
 The symbols that are printed can be modified by setting
 @code{pedal@var{X}Strings}, where @var{X} is one of the pedal types:
 Sustain, Sostenuto or UnaCorda.  Refer to the generated documentation of
-@rgrob{SustainPedal}, for example, for more information.
+@internalsref{SustainPedal}, for example, for more information.
 
 Pedals can also be indicated by a sequence of brackets, by setting the 
 @code{pedal-type} property of SustainPedal objects: 
