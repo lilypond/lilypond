@@ -16,6 +16,7 @@ Staff_info::score_l()
 {
     return score_l_;
 }
+
 Staff_info::Staff_info()
 {
     score_l_ =0;
