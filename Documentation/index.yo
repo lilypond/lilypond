@@ -20,7 +20,7 @@ it()url(DEDICATION)(DEDICATION.html)
 it()url(FAQs)(faq.html)
 it()url(The README)(DOEXPAND(tops)/README.html)
 it()url(The installation instructions)(DOEXPAND(tops)/INSTALL.html)
-it()url(But i'm using Windows, am i concerned now?)(README-W32.html)
+it()url(Microsoft Windows instructions)(README-W32.html)
 )
 
 nsubsect(Why: Background Information)
