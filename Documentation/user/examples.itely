@@ -712,7 +712,15 @@ bassWords = \lyricmode {
    ho ho ho ho
 }
 
-\score {
+\layout {
+  \context {
+         % a little smaller so lyrics
+         % can be closer to the staff
+         \Staff
+          minimumVerticalExtent = #'(-3 . 3)
+  }
+}
+
 <<
   \context ChoirStaff
   <<
@@ -743,6 +751,7 @@ bassWords = \lyricmode {
     \new Staff <<
     \context Lyrics = tenors \lyricsto tenors \tenorWords
     \context Lyrics = basses \lyricsto basses \bassWords
+    >>
   >>
   \new PianoStaff
   <<
@@ -761,15 +770,6 @@ bassWords = \lyricmode {
     >>
   >>
 >>
-   
-   \layout {
-      \context {
-         % a little smaller so lyrics
-         % can be closer to the staff
-         \Staff minimumVerticalExtent = #'(-3 . 3)
-      }
-   }
-}
 @end lilypond
 
 
