@@ -2701,7 +2701,7 @@ dutch pitch names anymore. Hence you might wan't to reinclude
 up = \notes { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
 down = \notes { bassdrum4 snare8 bd r bd sn4 }
 \include "nederlands.ly"
-bass = \notes \transpose c, { a4. e8 r e g e }
+bass = \notes \transpose c c,, { a4. e8 r e g e }
 \score {
     <
         \apply #(drums->paper 'drums) \context Staff = drums <
@@ -3124,7 +3124,7 @@ the standard staff.
 
 LilyPond has support for both entering and printing chords. 
 @lilypond[verbatim,singleline]
-twoWays = \notes \transpose c'' {
+twoWays = \notes \transpose c c' {
   \chords {
     c1 f:sus4 bes/f
   }
@@ -3169,7 +3169,7 @@ Throughout these examples, chords have been shifted around the staff
 using @code{\transpose}.
 
 @lilypond[fragment,verbatim]
-\transpose c'' {
+\transpose c c' {
   \chords {
     c1  c:3-       c:7     c:8
     c:9 c:9-.5+.7+ c:3-.5- 
@@ -3191,7 +3191,7 @@ raises the 5th, `@code{dim}' which lowers the 5th,
 which replaces the 5th with a 4th.
 
 @lilypond[fragment,verbatim]
-\transpose c'' {
+\transpose c c' {
   \chords {
     c1:m c:min7 c:maj c:aug c:dim c:sus
   }
@@ -3204,7 +3204,7 @@ notes to be subtracted are listed after a @code{^} character,
 separated by dots.
 
 @lilypond[fragment,verbatim,center]
-  \transpose c'' {
+  \transpose c c' {
     \chords {
       c1^3 c:7^5.3 c:8^7
     }
@@ -3218,7 +3218,7 @@ transposed down until it is the lowest note in the chord.  If the note
 is not in the chord, a warning will be printed.
 
 @lilypond[fragment,verbatim,center]
-  \transpose c''' {
+  \transpose c c'' {
     \chords {
       c1 c/e c/g c:7/e
     }
@@ -3233,7 +3233,7 @@ adding the specified note to the chord, lowered by an octave,
 so it becomes the lowest note in the chord.
 
 @lilypond[fragment,verbatim,center]
-  \transpose c''' {
+  \transpose c c'' {
     \chords {
       c1 c/+c c/+g c:7/+b
     }
@@ -3281,7 +3281,7 @@ scheme = \notes {
 \score {
   \notes<
     \context ChordNames \scheme
-    \context Staff \transpose c'' \scheme
+    \context Staff \transpose c c' \scheme
   >
 }
 @end lilypond
@@ -3300,7 +3300,7 @@ scheme = \chords {
     \context ChordNames {
         \property ChordNames.chordChanges = ##t
         \scheme }
-    \context Staff \transpose c'' \scheme
+    \context Staff \transpose c c' \scheme
   >
 \paper{linewidth= 9.\cm}
 }
@@ -3357,7 +3357,7 @@ scheme = \chords {
     \context ChordNames = jazz {
       \property ChordNames.ChordName \override
         #'style = #'jazz \scheme }
-    \context Staff \transpose c'' \scheme
+    \context Staff \transpose c c' \scheme
   >
 }
 @end lilypond
@@ -3461,7 +3461,7 @@ adds a box around the bar numbers:
 @end example
 @lilypond[noindent,noquote]
 \score {
-    \context Staff \notes \transpose c''' {
+    \context Staff \notes \transpose c c'' {
 	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible
 	\property Score.barNumberVisibility = #(every-nth-bar-number-visible 5)
 	\property Score.BarNumber \override #'molecule-callback =
@@ -3526,24 +3526,24 @@ the name to avoid a collision.
 A music expression can be transposed with @code{\transpose}.  The syntax
 is
 @example
-  \transpose @var{pitch} @var{musicexpr}
+  \transpose @var{from} @var{to} @var{musicexpr}
 @end example
 
-This means that middle C in @var{musicexpr} is transposed to
-@var{pitch}.
+This means that @var{musicexpr} is transposed to by the interval
+between @var{from} is @var{to}.
 
 @code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose cis'} or @code{\transpose des'} will transpose up half
-a tone.  The first version will print sharps and the second version
-will print flats.
+@code{\transpose c cis} or @code{\transpose c des} will transpose up
+half a tone.  The first version will print sharps and the second
+version will print flats.
 
 @lilypond[singleline, verbatim]
 mus =\notes { \key d \major cis d fis g }
 \score { \notes \context Staff {
   \clef "F" \mus
   \clef "G"
-  \transpose g'' \mus
-  \transpose f'' \mus
+  \transpose c g' \mus
+  \transpose c f' \mus
 }}
 @end lilypond
 
@@ -4075,7 +4075,7 @@ a ligature by small square angles:
 
 @lilypond[singleline,verbatim]
 \score {
-    \notes \transpose c'' {
+    \notes \transpose c c' {
 	\[ g c a f d' \]
 	a g f
 	\[ e f a g \]
@@ -4118,7 +4118,7 @@ Example:
 
 @lilypond[singleline,verbatim]
 \score {
-    \notes \transpose c'' {
+    \notes \transpose c c' {
 	\property Score.timing = ##f
 	\property Score.defaultBarType = "empty"
 	\property Voice.NoteHead \set #'style = #'neo_mensural
@@ -4144,7 +4144,7 @@ following:
 
 @lilypond[singleline,verbatim]
 \score {
-    \notes \transpose c'' {
+    \notes \transpose c c' {
 	\property Score.timing = ##f
 	\property Score.defaultBarType = "empty"
 	\property Voice.NoteHead \set #'style = #'neo_mensural
@@ -4846,7 +4846,7 @@ kneed stems.
 
 @lilypond
 \score {
-     \context PianoStaff \notes \transpose c''' <
+     \context PianoStaff \notes \transpose c c'' <
      \context Staff = up { s1 }
      \context Staff = down { [c8 c \translator Staff=up <c d> c 
 \translator Staff=down c c c] }

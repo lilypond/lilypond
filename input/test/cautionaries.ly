@@ -1,8 +1,8 @@
-\version "1.5.68"
+\version "1.7.5"
 
 %% FIXME
 
-\score { \notes \context Staff \transpose c''' {
+\score { \notes \context Staff \transpose c c'' {
   \key d \major
 %  \property Staff.autoReminders = #'cautionary
   \property Staff.Accidental \override #'font-relative-size = #0

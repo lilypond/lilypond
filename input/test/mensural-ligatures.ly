@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header {
     title	= "mensural ligature test"
     date	= "2002"
@@ -10,7 +10,7 @@
 % graphical width of the ligatures rather to the musical moment in time.
 % This is intended behaviour.
 
-voice = \notes \transpose c'' {
+voice = \notes \transpose c c' {
   \property Score.timing = ##f
   \property Score.defaultBarType = "empty"
   g\longa c\breve a\breve f\breve d'\longa^\fermata

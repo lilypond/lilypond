@@ -111,8 +111,8 @@ Repeat_acknowledge_engraver::process_music ()
 }
 
 ENTER_DESCRIPTION(Repeat_acknowledge_engraver,
-/* descr */       "Acknowledge repeated music, and convert the contents of
-repeatCommands ainto an appropriate setting for whichBar",
+/* descr */       "Acknowledge repeated music, and convert the contents of "
+"repeatCommands ainto an appropriate setting for whichBar.",
 /* creats*/       "",
 /* accepts */     "",
 /* acks  */      "",

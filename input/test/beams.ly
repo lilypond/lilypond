@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 filename = 	 "beams.ly"
 composer = 	 "heu"
@@ -12,7 +12,7 @@ TestedFeatures = 	 "beams and beamflags"
 \score{
 	<
 		\context GrandStaff < 
-\context Staff = SA		\notes\transpose c' { 
+\context Staff = SA		\notes\transpose c c { 
 
 			\time 8/4
 			\stemUp [c8 c'' a' f']
@@ -29,7 +29,7 @@ TestedFeatures = 	 "beams and beamflags"
 			\stemUp [g128 g g g]
 			r32
 
-						\transpose c{
+						\transpose c' c{
 			\stemBoth
 			[c'8 c'] [b b] [a a] [g g] [f f] [e e]
 			[c'16 c'] [b b] [a a] [g g]  [f f] [e e]
@@ -39,7 +39,7 @@ TestedFeatures = 	 "beams and beamflags"
 	>
 	<	
 \context Staff = SB		\notes { 
-\transpose c' {
+\transpose c c {
 			\time 8/4
 			\stemDown [a'8 a, c e]
 			\stemDown [a'16 a, c e]
@@ -48,7 +48,7 @@ TestedFeatures = 	 "beams and beamflags"
 			\stemDown [a'128 a, c e]
 			r32}
 
-			\transpose c{
+			\transpose c' c{
 			\stemDown [d''8 d'' d'' d'']
 			\stemDown [d''16 d'' d'' d'']
 			\stemDown [d''32 d'' d'' d'']
@@ -56,7 +56,7 @@ TestedFeatures = 	 "beams and beamflags"
 			\stemDown [d''128 d'' d'' d'']
 			r32}
 
-			\transpose c''{
+			\transpose c c'{
 			\stemBoth
 			[a8 a] [b b] [c' c'] [d' d'] [e' e'] [f' f']
 			[a16 a] [b b] [c' c'] [d' d']  [e' e'] [f' f']

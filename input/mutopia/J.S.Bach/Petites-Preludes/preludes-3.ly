@@ -14,10 +14,10 @@ note, some have dotted half notes.
 This file was partly generated using m4.
 %}
 
-\version "1.7.3"
+\version "1.7.5"
 
 
-upper =   \notes \transpose c'' {
+upper =   \notes \transpose c c' {
 	r16 [c es g] [es c es c] r c r c |
 	r16 [c es g] [es c es c] r c r c |
 	r16 [c f as] [f c f c] r c r c |

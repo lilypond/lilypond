@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 filename = 	 "twinkle-pop.ly"
 xtitle = 	 "Ah, vous dirais-je, maman "
@@ -59,8 +59,8 @@ text =  \lyrics{
 
 \score {
         <  
-	   \chords \context ChordNames \transpose d'\acc
-	   \notes \context Staff=melody \transpose d'\melodie
+	   \chords \context ChordNames \transpose c d\acc
+	   \notes \context Staff=melody \transpose c d\melodie
            \lyrics \context Lyrics \text
         >
 	\header{

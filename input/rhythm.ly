@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 filename = 	 "rhythm.ly"
 enteredby = 	 "HWN"
@@ -10,7 +10,7 @@ TestedFeatures = 	 "multiple meters, beaming, unsynced bars, userdefd engravers"
 
 
 
-ritme =  \notes\transpose c'' {
+ritme =  \notes\transpose c c' {
 	\time  4/4
 	\partial 8
 	c8					|

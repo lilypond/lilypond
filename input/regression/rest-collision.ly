@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 texidoc="
 Rests should not collide with beams, stems and noteheads.  Rests may
@@ -41,7 +41,7 @@ restsII =  \context Staff \notes {
 	\context Staff < {\stemUp r} { \stemDown r} >
 	\context Staff < {\stemUp r} r { \stemDown r} >
 	\stemUp
-	\transpose c'' { [c''8 r8 c''8 c''8]
+	\transpose c c' { [c''8 r8 c''8 c''8]
 	[c8 r8 c8 c8]
 	[c8 r8 r8 c'''8]	
 	\stemDown

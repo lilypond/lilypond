@@ -1,4 +1,4 @@
-\version "1.7.3"
+\version "1.7.5"
 
 \header{
 texidoc="
@@ -37,11 +37,11 @@ The last f gets cautionary natural because fis was only in the other voice.
 
     music))
 
-voicea = \notes \transpose c'' {
+voicea = \notes \transpose c c' {
     \stemUp
     fis2 a2 f4 fis a2
 }
-voiceb = \notes \transpose c'' {
+voiceb = \notes \transpose c c' {
     \stemDown
     c2 fis2  f4 c   f2
 }

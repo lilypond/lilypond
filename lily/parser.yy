@@ -293,7 +293,7 @@ yylex (YYSTYPE *s,  void * v)
 	
 %type <scm>  pre_events post_events
 %type <music> gen_text_def
-%type <scm>   steno_pitch pitch absolute_pitch
+%type <scm>   steno_pitch pitch absolute_pitch pitch_also_in_chords
 %type <scm>   explicit_pitch steno_tonic_pitch
 
 %type <scm>	chord_additions chord_subtractions chord_notes chord_step
@@ -912,24 +912,15 @@ Composite_music:
 	| Repeated_music		{ $$ = $1; }
 	| Simultaneous_music		{ $$ = $1; }
 	| Sequential_music		{ $$ = $1; }
-	| TRANSPOSE pitch Music {
+	| TRANSPOSE pitch_also_in_chords pitch_also_in_chords Music {
 		$$ = MY_MAKE_MUSIC("TransposedMusic");
-		Music *p = $3;
-		Pitch pit = *unsmob_pitch ($2);
+		Music *p = $4;
+		Pitch from = *unsmob_pitch ($2);
+		Pitch to = *unsmob_pitch ($3);
 
-		p->transpose (pit);
+		p->transpose (interval (from, to));
 		$$->set_mus_property ("element", p->self_scm ());
 		scm_gc_unprotect_object (p->self_scm ());
-	}
-	| TRANSPOSE steno_tonic_pitch Music {
-		$$ = MY_MAKE_MUSIC("TransposedMusic");
-		Music *p = $3;
-		Pitch pit = *unsmob_pitch ($2);
-
-		p->transpose (pit);
-		$$->set_mus_property ("element", p->self_scm ());
-		scm_gc_unprotect_object (p->self_scm ());
-	
 	}
 	| APPLY embedded_scm Music  {
 		SCM ret = gh_call1 ($2, $3->self_scm ());
@@ -1530,6 +1521,11 @@ pitch:
 	}
 	;
 
+pitch_also_in_chords:
+	pitch
+	| steno_tonic_pitch
+	;
+
 explicit_pitch:
 	PITCH embedded_scm {
 		$$ = $2;
@@ -1643,7 +1639,6 @@ gen_text_def:
 	}
 	| DIGIT {
 		Music * t = MY_MAKE_MUSIC("FingerEvent");
-		SCM finger = ly_symbol2scm ("finger");
 		t->set_mus_property ("digit",  gh_int2scm ($1));
 		t->set_spot (THIS->here_input ());
 		$$ = t;

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 texidoc="
 Chord names are generated from a list pitches, and are customisable
@@ -7,7 +7,7 @@ by default.
 "
 }
 
-chord =  \notes\transpose c''\chords{
+chord =  \notes\transpose c c'\chords{
    c1
    c:m
    c:m5-

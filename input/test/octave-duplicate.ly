@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header {
 texidoc="Octave duplicate parts of music"
 }
@@ -11,7 +11,7 @@ upperOne = \notes\relative c'' {
 }
 
 upperOctave = \notes <
-  \context Thread=upperOne { \transpose c \upperOne }
+  \context Thread=upperOne { \transpose c' c \upperOne }
   \context Thread=upperOne {
     \property Thread.devNullThread = #'allways s1*2
     \property Thread.devNullThread = #'() s1*2
@@ -31,7 +31,7 @@ firstEight = \notes {
 }
 
 lowerOctave = \notes <
-  \context Thread=lowerOne { \transpose c  \lowerOne }
+  \context Thread=lowerOne { \transpose c' c  \lowerOne }
   \context Thread=lowerOne {
     \repeat "unfold" 4 { \firstEight }
   }

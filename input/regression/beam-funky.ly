@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header {
     texidoc = "Knee beaming. (funky)"
 }
@@ -17,7 +17,7 @@
 	     [c,,,16 c c c
 	      b'''   b b b]
 
-	     \transpose a, { \relative b'' { [g,16  g'''16  
+	     \transpose c' a, { \relative b'' { [g,16  g'''16  
 	     g,,,16  g'''16 
 	     g,,,16  g'''16 	     	     
 	     g,,,16  g'''16

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
 texidoc="
 When tieing chords, the outer slurs point outwards, the inner slurs
@@ -13,7 +13,7 @@ t =  \notes \relative c' {   <c e g> ~ <c e g> }
 	\score { 
 \notes \context Voice {
    \t
-   \transpose g' \t
+   \transpose c g \t
 
    \property Voice.TieColumn \override #'direction = #-1
    \t

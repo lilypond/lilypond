@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 
 
 \header{
@@ -47,7 +47,7 @@ TestedFeatures = 	 "Banter named chords"
 
 % }
 
-chord =  \notes\transpose c''\chords{
+chord =  \notes\transpose c' c''\chords{
 	% dim modifier means: lower all implicit additions
 	c:dim9
 	c:dim

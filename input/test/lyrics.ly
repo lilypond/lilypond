@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 
 
 somewhatLong =  \lyrics{
@@ -44,7 +44,7 @@ quiteLongLyricsStaff =  \context Lyrics = quite <
 >
 
 melody =  \notes
-\transpose c'{
+\transpose c c{
 	c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4
 	c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4
 }

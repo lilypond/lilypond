@@ -630,7 +630,7 @@ Other compound music expressions include
 
 @example
 \repeat @var{expr}
-\transpose @var{pitch} @var{expr}
+\transpose @var{from} @var{to} @var{expr}
 \apply @var{func} @var{expr}
 \context @var{type} = @var{id} @var{expr}
 \times @var{fraction} @var{expr}

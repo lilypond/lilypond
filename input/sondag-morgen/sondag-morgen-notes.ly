@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \include "deutsch.ly"
 
 marks = \lyrics {
@@ -643,7 +643,7 @@ pial = \notes {
     }
 
 }
-guitar = \notes \transpose c' {
+guitar = \notes \transpose c c {
     \guitar
     \time 2/2
     \key e \minor

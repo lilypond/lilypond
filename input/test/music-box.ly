@@ -22,7 +22,7 @@ using Scheme functions to save typing work.
 }
 
 \include "deutsch.ly"
-\version "1.7.3"
+\version "1.7.5"
 
 #(define (transform music)
   (let* ((es (ly:get-mus-property music 'elements))
@@ -79,9 +79,9 @@ using Scheme functions to save typing work.
 
 
 
-\version "1.7.3"
+\version "1.7.5"
 
-pat = \notes \transpose c'' \repeat unfold 2 {
+pat = \notes \transpose c c' \repeat unfold 2 {
   < { \context Staff=up {r8 e16 f g e f g } }
     { \context Staff=down <
       \context Voice=vup  { \stemUp \tieUp r16 d8.~d4 }
@@ -98,7 +98,7 @@ endb = \notes {\stemUp \tieUp r16 c,8.~c,4~c,2 r16 h,,8.~h,,4~h,,2 c,1 \bar "|."
 endc = \notes {\stemDown \tieDown c,,2~c,, c,,~c,, c,,1_\fermata }
 
 \score {
-  \notes \transpose c'' \context PianoStaff <
+  \notes \transpose c c' \context PianoStaff <
     \context Staff=up   { \clef "G" s1*32 \enda }
     \context Staff=down { \clef "F" s1*32 < \context Voice=vup \endb
 			                     \context Voice=vdwn \endc

@@ -1,11 +1,11 @@
-\version "1.5.68"
+\version "1.7.5"
 \header {
 	texidoc = "If two forced accidentals happen at the same time, only one
 	sharp sign is printed."
 }
 
 
-\score { \notes \transpose c''
+\score { \notes \transpose c c'
    \context Staff <
      \key g \major
      \context Voice=va { \stemUp c' fis! }

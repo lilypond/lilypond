@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \header{
   title= "Stems and Beams"
   subtitle =  "proofsheet" 
@@ -14,18 +14,18 @@ of beams"
 beamintervals = \notes{
   \time 7/4
   \stemUp
-  \transpose c''{
+  \transpose c c'{
     [ c8 d ] [ c e ] [ c f ] [ c g ] [ c a ] [ c b ] [ c c' ] |
     [ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
   }
-  \transpose c'''{
+  \transpose c c''{
     [ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
     \stemDown
   }
-  \transpose c''''{
+  \transpose c c'''{
     [ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
   }
-  \transpose c'''{
+  \transpose c c''{
     [ c b, ] [ c a, ] [ c g, ] [ c f, ] [ c e, ] [ c d, ] [ c c, ] |
     [ c d ] [ c e ] [ c f ] [ c g ] [ c a ] [ c b ] [ c c' ] |
   }
@@ -50,12 +50,12 @@ beamintervals = \notes{
       d c b a g f e d c b a g f e d c b a g
     }      
     \beamintervals
-    \transpose d' \beamintervals
-    \transpose e' \beamintervals
-    \transpose f' \beamintervals
-    \transpose g' \beamintervals
-    \transpose a' \beamintervals
-    \transpose b' \beamintervals
+    \transpose c d \beamintervals
+    \transpose c e \beamintervals
+    \transpose c f \beamintervals
+    \transpose c g \beamintervals
+    \transpose c a \beamintervals
+    \transpose c b \beamintervals
   }
   \paper{
     indent = 0.0\mm

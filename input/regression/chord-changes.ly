@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 
 \header{
 texidoc="property chordChanges: only display chord names when
@@ -19,7 +19,7 @@ settings = {
 \score {
   \notes <
     \context ChordNames < \scheme \settings >
-    \context Staff \transpose c'' \scheme
+    \context Staff \transpose c c' \scheme
   >
   \paper{
     linewidth = 40 * \staffspace

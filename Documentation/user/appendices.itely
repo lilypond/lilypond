@@ -71,7 +71,7 @@ scheme = \chords {
 \score {
   \notes <
     \context ChordNames \scheme
-    \context Staff \transpose c'' \scheme
+    \context Staff \transpose c c' \scheme
   >
   \paper {
     linewidth = 5.7\in
@@ -135,7 +135,7 @@ scheme = \chords {
 \score {
   \notes <
     \context ChordNames \scheme
-    \context Staff \transpose c'' \scheme
+    \context Staff \transpose c c' \scheme
   >
   \paper {
     linewidth = 5.7\in

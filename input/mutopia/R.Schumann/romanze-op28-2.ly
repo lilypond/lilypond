@@ -5,7 +5,7 @@
 
 %% 19 is broken --hwn.
 %\include "paper19.ly"
-\version "1.7.3"
+\version "1.7.5"
 
 \header {
   title = "Romanzen"
@@ -36,7 +36,7 @@ global = \notes { \key fis \major \time 6/8
   \repeat volta 2 { s2.*8 } s2.*26 \bar "|."
 }
 
-righta = \notes \transpose cis'' {
+righta = \notes \transpose c cis' {
  % \stemUp \slurUp \tieUp
  \stemUp
  \property Voice.Slur \override #'attachment = #'(stem . stem)
@@ -89,7 +89,7 @@ righta = \notes \transpose cis'' {
 
 }
 
-rightb = \notes \transpose cis'' {
+rightb = \notes \transpose c cis' {
  \relative c { \stemDown \slurDown
   \repeat volta 2 {
    a4^1( g8^1 b4^1 a8^1 |
@@ -112,7 +112,7 @@ rightb = \notes \transpose cis'' {
  \property Voice.Slur \override #'extra-offset =  #'(0 . 3)
  \property Voice.Slur \override #'beautiful = #42
  g( fes des fes b g_3 \! es_1 ges_2 a^3 ges f_1 ges_2 |
- r ges_2 b des_1 ges b,_2 des ges,^1 b, \d des,^1 \stemDown \transpose c {[b,_1 as,] |
+ r ges_2 b des_1 ges b,_2 des ges,^1 b, \d des,^1 \stemDown \transpose c' c {[b,_1 as,] |
  g,8 [b,16 g, e, cis,] )d,_4 \< f, h, d_3 f_2 \! r16 }
  \property Voice.Slur \revert #'extra-offset
  \property Voice.Slur \revert #'beautiful
@@ -135,7 +135,7 @@ rightb = \notes \transpose cis'' {
  f g16_2 b_1 a_2 gis_1 c_2 h, c cis_1 d_2 b,_1 |
  \tieDown c4.~<f,16 c \< > \tieBoth <f h>~[< \! f8^3 h \> > < \! e b^2>] |
  \translator Staff=mid
- \transpose c {
+ \transpose c' c {
   a4^1( g8^1 b4 a8^2 |
   f8..^1 f32^1 g8^2 )a8..   \slurUp <f32 f'^3(> <g8 g'^4> |
   <)a8.. a'^5> <f32 f'^3(> <g8 g'^4> <)a4. a'^5 \> > ~ |
@@ -143,7 +143,7 @@ rightb = \notes \transpose cis'' {
  }
 }
 
-lefta = \notes \transpose cis' {
+lefta = \notes \transpose c cis {
  \stemUp \slurUp \tieUp
  \repeat volta 2 {
   f4^1( e8^1 g4^1 f8^1 |
@@ -157,14 +157,14 @@ lefta = \notes \transpose cis' {
  }
  \d \tieBoth \slurDown
  <
- \transpose c {
+ \transpose c' c {
   g4 a8~a f g | a4 g8~g f e |
   d4 g8~g es f | g4 f8~f es d |
   c4 r8 f4 as8~ | as g b as4 ces'8~ |
   ces' b des' c'4 \context Voice=another { \stemUp \tieUp <es'8 es>~ |
   es' des'4^1~ \stemDown [des'8. c'16] }
  }
- \transpose c, {
+ \transpose c' c, {
   g4(-4 a8-3~a f-5 g-4 | a4-3 g8-#'(finger "4-3") ~g f-4 e-5 |
   )d4-#'(finger "4-5")( g8-3~g es f-4 | g4-3 f8-4~f es d-4 |
   )c4 r8 f4-4( as8-5~ | as g-4 )b-5 as4-5( ces'8-4~ |
@@ -192,7 +192,7 @@ lefta = \notes \transpose cis' {
  f~ f-\fermata |
 }
 
-leftb = \notes \transpose cis' {
+leftb = \notes \transpose c cis {
  \stemDown \slurDown \tieDown
  \repeat volta 2 {
   f16^\p c f, c e c-3 g c-2 f, c f c |
@@ -214,7 +214,7 @@ leftb = \notes \transpose cis' {
  fis^1 d d, d [a d_2] g, d g d_3 [b,_5( g_2] |
  ) a c_3 f, c [c' f_2] b, f b f_3 d' as |
  h, as d' as h, as() f'4.^\fermata-\arpeggio_2 ~
- \d \stemDown f'8. \clef G \stemBoth \tieBoth \transpose c'' {[e16_4( f g] [as des_3] [c8_4 <h, d f d'>]~ |
+ \d \stemDown f'8. \clef G \stemBoth \tieBoth \transpose c c' {[e16_4( f g] [as des_3] [c8_4 <h, d f d'>]~ |
  <h, d f d'>} \clef F [<c_3( f_1> <b,_4 e^2>] <)a,8._5 eis^1> h,16_4( c d |
  \voiceTwo
  es as,_3 g,8 fis,~fis, g,_4-\arpeggio gis,_5~ |

@@ -122,10 +122,9 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
 
 
 ENTER_DESCRIPTION(Instrument_name_engraver,
-/* descr */       " Prints the name of the instrument (specified by
-@code{Staff.instrument} and @code{Staff.instr})
-at the left of the
-staff.",
+/* descr */       " Prints the name of the instrument (specified by "
+" @code{Staff.instrument} and @code{Staff.instr}) "
+"at the left of the staff. ",
 /* creats*/       "InstrumentName",
 /* accepts */     "",
 /* acks  */      "bar-line-interface axis-group-interface",

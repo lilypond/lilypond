@@ -41,7 +41,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "1.7.3"
+\version "1.7.5"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
@@ -434,12 +434,12 @@ grandStaff =  \context PianoStaff <
 %{
 	Transpose as you like for your voice
 	Range untransposed is c' to f'' (for tenors and sopranos)
-	\transpose a gives a' to d'' (for basses, who sing an octave down)
+	\transpose c' a gives a' to d'' (for basses, who sing an octave down)
 
 		\addlyrics 
-			\notes \transpose a \vocalStaff
+			\notes \transpose c' a \vocalStaff
 			\lyricStaff
-		\notes \transpose a \grandStaff
+		\notes \transpose c' a \grandStaff
 %}
 
 		\addlyrics

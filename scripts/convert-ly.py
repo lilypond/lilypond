@@ -1078,7 +1078,19 @@ if 1:
 	def conv(str):
 		str = re.sub (r'<<', '< <', str)
 		str = re.sub (r'>>', '> >', str)
+		return str
+	
+	conversions.append (((1,7,4), conv, '<< >> -> < <  > >'))
 
+if 1:
+	def conv(str):
+		str = re.sub (r"\\transpose", r"\\transpose c'", str)
+		str = re.sub (r"\\transpose c' *([a-z]+)'", r"\\transpose c \1", str)
+		return str
+	conversions.append (((1,7,5), conv, '\transpose TO -> \transpose FROM  TO'))
+
+if 0:
+	def conv(str):
 		kws =   ['arpeggio',
 			 'sustainDown',
 			 'sustainUp',
@@ -1095,10 +1107,8 @@ if 1:
 
 		origstr = string.join (kws, '|')
 		str = re.sub (r'([^-])\\(%s)\b' % origstr, r'\1-\\\2', str)
-		return str
+	conversions.append (((1,7,4), conv, 'note\\script -> note-\script'))
 	
-	conversions.append (((1,7,4), conv, '<< >> -> < <  > >'))
-
 
 ################################
 #	END OF CONVERSIONS	

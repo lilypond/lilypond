@@ -62,15 +62,12 @@ public:
   /// return pitch from central c (in halfnotes)
   int semitone_pitch () const; 
   String string () const;
-  
-
 
   SCM smobbed_copy () const;
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
   DECLARE_SIMPLE_SMOBS (Pitch,);
-
-
 };
+
 SCM ly_pitch_transpose (SCM p, SCM delta);
 DECLARE_UNSMOB(Pitch,pitch);
 
@@ -79,6 +76,7 @@ INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
 int compare (Array<Pitch>*, Array<Pitch>*);
 extern SCM pitch_less_proc;
+Pitch interval (Pitch const & from , Pitch const & to );
 
 #endif /* MUSICAL_PITCH_HH */
 

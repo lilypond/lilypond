@@ -1,9 +1,9 @@
-\version "1.5.68"
+\version "1.7.5"
 	
 
 
 
-blah =  	\notes{ \transpose c'' {
+blah =  	\notes{ \transpose c c' {
 
 	c,4 ->-.-\fermata-"text"
 	c ->-.-\fermata-"text"

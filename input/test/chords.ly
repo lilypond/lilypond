@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 
 
 %{
@@ -18,7 +18,7 @@ Would this be acceptable/good enough/convenient for entry?
 %}
 
 % used to be quarter notes here. Why? --hwn 
-scales =  \notes \transpose c'' \chords{
+scales =  \notes \transpose c c' \chords{
 		%<c1 e g>
 		c1:m c:min c:dim c:aug c:sus c:maj
                 c1:6 c:7 c:9 c:11 c:13

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.5"
 \include  "mozart-hrn3-defs.ly"
 
 allegro =
@@ -160,7 +160,7 @@ allegro =
 
 \score
 {
-	\notes { \transpose bes \allegro }
+	\notes { \transpose c' bes \allegro }
 	\paper{ }
 	\header { piece = "allegro" opus = "" }	
 	\midi{ \tempo 4=90 }
