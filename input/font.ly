@@ -26,12 +26,13 @@ TestedFeatures =	 "This file tests the Feta music-font"
 		[c d e f] [as' ges' f' e']
 		[cis' dis' c' des'] [cisis' disis' ceses' deses'] |
 		  r1 r2 r4 r8 r16 r32 r64 r128 r128 |
-		\multi 2 < { \stemup r1} {\stemdown c''}>
+		\multi 2 < { \stemup r2 r2} {\stemdown c'' c''}>
 		\multi 2 < { \stemup c1 } {\stemdown r1}>		
 		\stemboth
 		
 		e8_. g'8-> e16^^ g'16_^ 
 		e32 _| g'32^| g''32-\ltoe g''32-\lheel
+		e64 g'64 c4... |
 		}
 	\paper{ 
 	    gourlay_maxmeasures =5.;
@@ -41,7 +42,5 @@ TestedFeatures =	 "This file tests the Feta music-font"
 	    gourlay_maxmeasures =5.;
 	    \output "lelie20.tex";
 	}
-% oeps
-%	\midi{ }
 }
 

@@ -8,11 +8,8 @@ fet_begingroup("rests");
 
 begingroup
 
-med#:=1/33designsize;
 thick#:=1/16designsize;
-define_blacker_pixels(med,thick);
-pen med_pen;
-med_pen:= pencircle scaled med;
+define_blacker_pixels(thick);
 
 rthin:=1/8*interline;
 % rthick:=2rthin;
@@ -59,9 +56,10 @@ def block_rest=
 enddef;
 
 fet_beginchar( "whole rest", "0", "wholerest");
-set_char_box(0, block_rest_x#, -interline# + block_rest_y#,  interline# );
+	set_char_box(0, block_rest_x#,
+		block_rest_y#,  0);
 	block_rest;
-	currentpicture := currentpicture shifted (0,interline - block_rest_y);
+	currentpicture := currentpicture shifted (0,- block_rest_y);
 fet_endchar;
 
 fet_beginchar("half rest", "1", "halfrest");
@@ -75,20 +73,26 @@ fet_endchar;
 %
 fet_beginchar( "whole rest (outside staff)", "0o", "outsidewholerest");
 	set_char_box(block_rest_y#, block_rest_x# + block_rest_y#, 
-		-interline# + block_rest_y#, interline#);
+		block_rest_y#, ledgerlinethickness#/2);
 	block_rest;
-	currentpicture := currentpicture shifted (0,interline - block_rest_y);
+	currentpicture := currentpicture shifted (0, - block_rest_y);
 	pickup pencircle scaled ledgerlinethickness;
-	draw (-block_rest_y, interline) 
-             .. (block_rest_x + block_rest_y, interline);
+
+	y5 = y6 = 0;
+	lft x5 = - b; 
+	rt x6 = w;
+	draw z5 .. z6;
 fet_endchar;
 
 fet_beginchar("half rest (outside staff)", "1o", "outsidehalfrest");
 	set_char_box(block_rest_y#, block_rest_x#+ block_rest_y#, 
-		0, block_rest_y#);
+		ledgerlinethickness#/2, block_rest_y#);
 	block_rest;
 	pickup pencircle scaled ledgerlinethickness;
-	draw (-block_rest_y,0) .. (block_rest_x + block_rest_y,0);
+	y5 = y6 = 0;
+	lft x5 = - b; 
+	rt x6 = w;
+	draw z5 .. z6;
 fet_endchar;
 
 fet_beginchar("Quarter rest","2","quartrest");
