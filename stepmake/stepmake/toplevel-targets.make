@@ -36,6 +36,12 @@ $(README_TXT_FILES): do-top-doc
 
 local-clean:
 
+install:
+	$(LOOP)
+ifeq ($(strip $(SRCMAKE)),)
+	$(MAKE) final-install
+endif
+
 local-dist: do-top-doc
 
 dist:
@@ -75,3 +81,4 @@ Some of these top level targets (diff, dist, release) can be issued\n\
 from anywhere in the source tree.\n\
 "\
 #
+

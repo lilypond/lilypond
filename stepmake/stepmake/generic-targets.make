@@ -118,11 +118,13 @@ local-maintainerclean:
 install-strip:
 	$(MAKE) INSTALL="$(INSTALL) -s" install
 
+ifneq ($(strip $(depth)),.)
 final-install:
+	$(LOOP)
 
 install: local-install
 	$(LOOP)
-	$(MAKE) final-install
+endif
 
 local-install:
 
