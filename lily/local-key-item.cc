@@ -76,12 +76,12 @@ Local_key_item::brew_molecule_p() const
 	  octmol= new Molecule;
 	}
       lastoct = accs[i].octave_i_;
-      Symbol s =paper()->lookup_l ()->accidental (accs[i].accidental_i_);   
-      Atom a (s);
+      
       Real dy = (accs[i].name_i_ + c0_position) * paper()->internote_f ();
+      Atom a (paper()->lookup_l ()->accidental (accs[i].accidental_i_));
       a.translate (dy, Y_AXIS);
-
-      octmol->add_at_edge (X_AXIS, RIGHT, a);
+      Molecule m(a);
+      octmol->add_at_edge (X_AXIS, RIGHT, m);
     }
 
   if (octmol)
