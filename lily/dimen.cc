@@ -1,5 +1,5 @@
 #include <ctype.h>
-#include "dimen.hh"
+#include "dimension.hh"
 #include "debug.hh"
 #include "string.hh"
 
@@ -28,13 +28,19 @@ convert_dimen (Real quant, String unit)
     return quant*CM_TO_PT/10;
   if (unit == "in")
     return quant * INCH_TO_PT;
-  error (_("unknown length unit: `") + unit+"'");
+  error (_f ("unknown length unit: `%s\'", unit));
 }
 
 String
 print_dimen (Real r)
 {
-  String s (r, "%.3f");
+  String s = to_str (r, "%.3f");
+  if (s.index_i ("NaN") != -1)
+    {
+      warning (_ ("NaN"));
+      s = "0.0";
+    }
   s += "pt ";
   return s;
 }
+

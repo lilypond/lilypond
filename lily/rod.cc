@@ -3,14 +3,14 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 1998 Han-Wen Nienhuys <hanwen@cs.ruu.nl>
+  (c) 1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
 #include "rod.hh"
 #include "p-col.hh"
 #include "debug.hh"
 #include "single-malt-grouping-item.hh"
-#include "dimen.hh"
+#include "dimension.hh"
 
 
 Rod::Rod (Single_malt_grouping_item *l, Single_malt_grouping_item *r)
