@@ -1,3 +1,9 @@
+2004-04-05  Werner Lemberg  <wl@gnu.org>
+
+	* Documentation/user/tutorial.itely: Revised (finished).
+
+	* Documentation/user/macros.itexi (@separate): Removed.
+
 2004-04-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scm/output-ps.scm (define-fonts): fix scaling.

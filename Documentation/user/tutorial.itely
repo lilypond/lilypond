@@ -119,7 +119,6 @@ r2 r4 r8 r16
 \set Score.timing = ##f
 r2 r4 r8 r16 s16_" "
 @end lilypond
-@separate
 
 Add a dot @samp{.} after the duration to get a @rglos{dotted note}
 
@@ -448,7 +447,6 @@ being tied
 @lilypond[quote,notime,fragment,verbatim,relative=3]
 g4~ g a2~ a4
 @end lilypond
-@separate
 
 For more information on Ties see @ref{Ties}.
 
@@ -463,7 +461,6 @@ Beams are drawn automatically
 @lilypond[quote,fragment,relative=2,verbatim]
 a8 ais d es r d
 @end lilypond
-@separate
 
 @noindent
 If you do not like where beams are put, they can be entered by
@@ -473,7 +470,6 @@ with @samp{]}.
 @lilypond[quote,fragment,relative=2,verbatim]
 a8[ ais] d[ es r d]
 @end lilypond
-@separate
 
 For more information on beams, see @ref{Beaming}.
 
@@ -541,7 +537,6 @@ c'4 c'' c''' \clef bass c c,
 @lilypond[quote,notime,fragment]
 c'4 c'' c''' \clef bass c c,
 @end lilypond
-@separate
 
 An example of the use of quotes is in the following Mozart fragment
 
@@ -568,7 +563,6 @@ one.  For example, @samp{c f} goes up while @samp{c g} goes down
   c f c g c
 }
 @end lilypond
-@separate
 
 
 Since most music has small intervals, pieces can be written almost
@@ -595,7 +589,6 @@ Larger intervals are made by adding octavation quotes.
   c f, f c' c g' c,
 }
 @end lilypond
-@separate
 
 In summary, quotes or commas no longer determine the absolute height
 of a note in @code{\relative} mode.  Rather, the height of a note is
@@ -785,7 +778,6 @@ single character
 @lilypond[quote,verbatim,relative=2]
 c-.  c-- c-> c-^ c-+ c-_
 @end lilypond
-@separate
 
 @cindex fingering
 Similarly, fingering indications can be added to a note using a dash
@@ -802,7 +794,6 @@ the note
 @lilypond[quote,verbatim,relative=2]
 c\ff c\mf
 @end lilypond
-@separate
 
 @cindex dynamics
 @cindex decrescendo
@@ -815,7 +806,6 @@ crescendo, or the command @code{\!} can be used
 @lilypond[quote,verbatim,relative=2]
 c2\< c2\ff\> c2 c2\!
 @end lilypond
-@separate
 
 
 
@@ -828,7 +818,6 @@ articulation.  The starting note and ending note are marked with
 @lilypond[quote,fragment,relative=2,verbatim]
 d4( c16)( cis d e c cis d e)( d4)
 @end lilypond
-@separate
 
 @cindex slurs versus ties
 A slur looks like a tie, but it has a different meaning.  A tie simply
@@ -873,13 +862,12 @@ see @ref{Dynamics}.
 @section Combining notes into chords
 
 @cindex chords
-Chords can be made by surrounding pitches with angled brackets.
-Angled brackets are the symbols @code{<} and @code{>}.
+Chords can be made by surrounding pitches with angle brackets.
+Angle brackets are the symbols @samp{<} and @samp{>}.
 
 @lilypond[quote,relative=1,fragment,verbatim]
 r4 <c e g>4 <c f a>8
 @end lilypond
-@separate
 
 
 You can combine markings like beams and ties with chords.  They must
@@ -897,7 +885,6 @@ r4 <c e g>8\>( <c e g> <c e g> <c f a>8\!)
 \slurUp
 r4 <c e g>8\>( <c e g> <c e g> <c f a>8\!)
 @end lilypond
-@separate
 
 
 
@@ -945,6 +932,7 @@ c4 \acciaccatura b16 c4
 
 For more information on
 
+@quotation
 @table @asis
 @item Grace notes
 see @ref{Grace notes},
@@ -953,7 +941,7 @@ see @ref{Tuplets},
 @item Pickups
 see @ref{Partial measures}.
 @end table
-
+@end quotation
 
 
 @node Commenting input files
@@ -962,11 +950,11 @@ see @ref{Partial measures}.
 @cindex comments
 @cindex line comment
 @cindex block comment
-A comment is a remark for the human reader of the music input, it is
+A comment is a remark for the human reader of the music input; it is
 ignored and has no effect on the printed output.  There are two types
-of comments.  The percent symbol @code{%} introduces a line comment;
+of comments.  The percent symbol @samp{%} introduces a line comment;
 the rest of the line is ignored.  A block comments marks a whole
-section of music input, anything that is enclosed in @code{%@{} and
+section of music input---anything that is enclosed in @code{%@{} and
 @code{%@}} is ignored.  The following fragment shows possible uses for
 comments
 
@@ -983,14 +971,15 @@ c4 c g' g a a
 %@}
 @end example
 
-There is a special statement that really is a kind of comment. The
+There is a special statement that really is a kind of comment.  The
 version statement marks for which version of LilyPond the file was
-written. To mark a file for version 2.1.17, use
+written.  To mark a file for version 2.1.17, use
 
 @example
 \version "2.1.17"
 @end example
 
+@noindent
 These annotations make future upgrades of LilyPond go more
 smoothly. Changes in the syntax are handled with a special program,
 @file{convert-ly} (see @ref{Invoking convert-ly}), and it uses
@@ -1035,8 +1024,8 @@ to explicitly specify a @code{Lyrics} context,
 The melody for this song is as follows
 
 @lilypond[quote,fragment,relative=2]
-c4
-\times 2/3 { f4 g g } \times 2/3 { g4( a2) }
+r4 c \times 2/3 { f4 g g }
+\times 2/3 { g4( a2) }
 @end lilypond
 
 The lyrics can be set to these notes, combining both with the
@@ -1055,14 +1044,13 @@ The final result is
 
 @lilypond[quote,verbatim,fragment,raggedright]
 \score {
- \notes <<
-   \partial 4
-   \relative c' {
-      c4
-      \times 2/3 { f g g } \times 2/3 { g4( a2) }
-   }
-   \lyricsto "" \new Lyrics \lyrics { I want to break free }
- >>
+  \notes <<
+    \relative c' {
+      r4 c \times 2/3 { f g g }
+      \times 2/3 { g4( a2) }
+    }
+    \lyricsto "" \new Lyrics \lyrics { I want to break free }
+  >>
 }
 @end lilypond
 
@@ -1081,12 +1069,11 @@ line}.  It is entered as two underscores, i.e.,
 \score {
   <<
     \notes \relative c' \new Voice {
-      \partial 8
-      c8
-      \times 2/3 { f g g } \times 2/3 { g4( a2) }
+      r4 c \times 2/3 { f g g }
+      \times 2/3 { g4( a2) }
     }
     \lyricsto "" \new Lyrics \lyrics { I want to break free __ }
-   >>
+  >>
 }
 @end lilypond
 
@@ -1102,7 +1089,7 @@ Twin -- kle twin -- kle
   <<
     \notes \relative f' \context Voice = bla {
       \time 2/4
-      f4 f c' c'
+      f4 f c' c
     }
     \new Lyrics \lyrics \lyricsto "bla" { Twin -- kle twin -- kle }
   >>
@@ -1121,7 +1108,7 @@ discussed in @ref{Vocal music}.
 @cindex chords
 @cindex chord names
 
-In popular music, it is common to denote accompaniment as chord-names.
+In popular music, it is common to denote accompaniment as chord names.
 Such chords can be entered like notes,
 
 @example
@@ -1155,7 +1142,6 @@ context
 @end lilypond
 
 @cindex lead sheet
-@separate
 When put together, chord names, lyrics and a melody form
 a lead sheet, for example,
 
@@ -1172,20 +1158,19 @@ a lead sheet, for example,
 @lilypond[quote,raggedright]
 \score {
   <<
-    \partial 4
-    \new ChordNames \chords { r8 c2:sus4 f } 
+    \new ChordNames \chords { r2 c:sus4 f } 
     \notes \relative c' {
-      c4
-      \times 2/3 { f g g } \times 2/3 { g4( a2) }
+      r4 c \times 2/3 { f g g }
+      \times 2/3 { g4( a2) }
     }
    \new Lyrics \lyricsto "" \lyrics { I want to break free __ }
   >>
 }
 @end lilypond
 
-
 A complete list of modifiers and other options for layout can be found
 in @ref{Chords}.
+
 
 @node Listening to output
 @section Listening to output
@@ -1207,36 +1192,37 @@ The @code{\midi} block is added to @code{\score}, for example,
 
 @example 
 \score @{
-    @var{..music..}
+    @var{...music...}
     \midi @{ \tempo 4=72 @}
 @}
 @end example 
 
 Here, the tempo is specified using the @code{\tempo} command.  In this
 case the tempo of quarter notes is set to 72 beats per minute.  More
-information on auditory output in the notation manual, @ref{Sound}.
+information on auditory output in the notation manual can be found in
+@ref{Sound}.
 
 If there is a @code{\midi} command in a @code{\score}, only MIDI will
 be produced.  If notation is needed too, a @code{\paper} block must be
-added too
+added
 
 @example 
 \score @{
-    @var{..music..}
+    @var{...music...}
     \midi @{ \tempo 4=72 @}
     \paper @{ @}
 @}
 @end example 
-
 @cindex paper block
+
 
 @node Titling
 @section Titling
 
 Bibliographic information is entered in a separate block, the
 @code{\header} block.  The name of the piece, its composer, etc., are
-entered as an assignment, within @code{\header @{ @dots{} @}}.  For
-example,
+entered as an assignment, within @code{\header @{@tie{}@dots{}@tie{}@}}.
+For example,
 
 @example 
 \header @{
@@ -1261,16 +1247,14 @@ beautiful.'@footnote{Nicely printed parts are good PR for us, so
 please leave the tagline if you can.}
 
 Normally, the @code{\header} is put at the top of the file.  However,
-for a document that contains multiple pieces (e.g.  an etude book, or
+for a document that contains multiple pieces (e.g., an etude book, or
 an orchestral part with multiple movements), the header can be
-put in the @code{\score} block as follows; in this case, the name of
-each piece will be printed before each movement
-
+put into the @code{\score} block as follows; in this case, the name of
+each piece will be printed before each movement.
 
 @cindex Engraved by LilyPond
 @cindex signature line
 @cindex tag line
-
 @example 
 \header @{
   title = "Eight miniatures" 
@@ -1278,10 +1262,12 @@ each piece will be printed before each movement
   tagline = "small is beautiful"
 @}
 
-\score @{ @dots{}
+\score @{
+  @dots{}
   \header @{ piece = "Adagio" @}
 @}
-\score @{ @dots{}
+\score @{
+  @dots{}
   \header @{ piece = "Menuetto" @}
 @}
 @end example
@@ -1295,14 +1281,13 @@ More information on titling can be found in @ref{Invoking lilypond}.
 @cindex polyphony
 @cindex multiple voices
 @cindex voices, more -- on a staff
-
 When different melodic lines are combined on a single staff they are
 printed as polyphonic voices: each voice has its own stems, slurs and
 beams, and the top voice has the stems up, while the bottom voice has
 them down.
 
 Entering such parts is done by entering each voice as a sequence (with
-@code{@{ ..  @}}), and combining those simultaneously, separating the
+@code{@{...@}}), and combining those simultaneously, separating the
 voices with @code{\\}
 
 @lilypond[quote,verbatim,relative=3]
@@ -1313,16 +1298,17 @@ voices with @code{\\}
 For polyphonic music typesetting, spacer rests can also be convenient: these
 are rests that do not print.  It is useful for filling up voices that
 temporarily do not play.  Here is the same example with a spacer rest
-instead of a normal rest
+instead of a normal rest---just use @samp{s} instead of @samp{r}
 
-@lilypond[quote,relative=3]
+@lilypond[quote,verbatim,relative=3]
 << { a4 g2 f4~ f4 } \\
    { s4 g4 f2 f4 } >>
 @end lilypond
 
+@noindent
 Again, these expressions can be nested arbitrarily
 
-@lilypond[quote,fragment,relative=3]
+@lilypond[quote,fragment,verbatim,relative=3]
 <<
   \new Staff <<
     { a4 g2 f4~ f4 } \\
@@ -1336,8 +1322,9 @@ Again, these expressions can be nested arbitrarily
 >>
 @end lilypond
 
-More features of polyphonic typesetting in the notation manual
-in @ref{Polyphony}.
+More features of polyphonic typesetting in the notation manual are
+described in @ref{Polyphony}.
+
 
 @node Piano staves
 @section Piano staves
@@ -1345,7 +1332,6 @@ in @ref{Polyphony}.
 @cindex staff switch, manual
 @cindex cross staff voice, manual
 @cindex @code{\context}
-
 Piano music is typeset in two staves connected by a brace.  Printing
 such a staff is similar to the polyphonic example in @ref{More staves},
 
@@ -1364,7 +1350,7 @@ but now this entire expression must be interpreted as a
 
 Here is a full-fledged example
 
-@lilypond[quote,relative=1,fragment]
+@lilypond[quote,verbatim,relative=1,fragment]
 \new PianoStaff <<
   \new Staff { \time 2/4 c4 c g' g }
   \new Staff { \clef bass c,, c' e c }
@@ -1372,6 +1358,7 @@ Here is a full-fledged example
 @end lilypond
 
 More information on formatting piano music is in @ref{Piano music}.  
+
 
 @node Organizing larger pieces
 @section Organizing larger pieces
@@ -1385,12 +1372,13 @@ By using variables, also known as identifiers, it is possible to break
 up complex music expressions.  An identifier is assigned as follows
 
 @example
-namedMusic = \notes @{ @dots{}
+namedMusic = \notes @{ @dots{} @}
 @end example
 
+@noindent
 The contents of the music expression @code{namedMusic}, can be used
 later by preceding the name with a backslash, i.e., @code{\namedMusic}.
-In the next example, a two note motive is repeated two times by using
+In the next example, a two-note motive is repeated two times by using
 variable substitution
 
 @lilypond[quote,raggedright,verbatim]
@@ -1435,15 +1423,15 @@ technical manual, in TODO.
 @node An orchestral part
 @section An orchestral part
 
-In orchestral music, all notes are printed twice: both in a part for
+In orchestral music, all notes are printed twice: in a part for
 the musicians, and in a full score for the conductor.  Identifiers can
 be used to avoid double work: the music is entered once, and stored in
 a variable.  The contents of that variable is then used to generate
 both the part and the score.
 
-It is convenient to define the notes in a special file, for example,
-suppose that the @file{horn-music.ly} contains the following part of a
-horn/bassoon duo,
+It is convenient to define the notes in a special file.  For example,
+suppose that the file @file{horn-music.ly} contains the following part
+of a horn/bassoon duo
 
 @example
 hornNotes = \notes \relative c @{
@@ -1452,6 +1440,7 @@ hornNotes = \notes \relative c @{
 @}
 @end example
 
+@noindent
 Then, an individual part is made by putting the following in a file
 
 @example
@@ -1473,11 +1462,11 @@ The line
 @noindent
 substitutes the contents of @file{horn-music.ly} at this position in
 the file, so @code{hornNotes} is defined afterwards.  The command
-@code{\transpose f c'} indicates that the argument, being
+@code{\transpose f@tie{}c'} indicates that the argument, being
 @code{\hornNotes}, should be transposed by a fifth downwards: sounding
-@code{f} is denoted by notated @code{c'}, which corresponds with
-tuning of a normal French Horn in F.  The transposition can be seen in
-the following output
+@samp{f} is denoted by notated @code{c'}, which corresponds with
+tuning of a normal French Horn in@tie{}F.  The transposition can be seen
+in the following output
 
 @lilypond[quote,raggedright]
 \score {
@@ -1490,10 +1479,10 @@ the following output
 
 In ensemble pieces, one of the voices often does not play for many
 measures.  This is denoted by a special rest, the multi-measure
-rest.  It is entered with a capital @code{R} followed by a duration (1
-for a whole note, 2 for a half note, etc.).  By multiplying the
+rest.  It is entered with a capital @samp{R} followed by a duration
+(1@tie{}for a whole note, 2@tie{}for a half note, etc.).  By multiplying the
 duration, longer rests can be constructed.  For example, this rest
-takes 3 measures in 2/4 time
+takes 3@tie{}measures in 2/4 time
 
 @example
 R2*3
@@ -1506,8 +1495,8 @@ must be condensed.  This is done by setting a run-time variable
 \set Score.skipBars = ##t
 @end example
 
-
-This commands sets the property @code{skipBars} property in the
+@noindent
+This command sets the property @code{skipBars} in the
 @code{Score} context to true (@code{##t}).  Prepending the rest and
 this option to the music above, leads to the following result
 
@@ -1558,10 +1547,11 @@ leading to
 }
 @end lilypond
 
-More in-depth information on preparing parts and scores in the
-notation manual, in @ref{Orchestral music}.
+More in-depth information on preparing parts and scores can be found
+in the notation manual; see @ref{Orchestral music}.
 
 Setting run-time variables (`properties') is discussed in ref-TODO.
+
 
 @node Integrating text and music
 @section Integrating text and music
@@ -1569,7 +1559,6 @@ Setting run-time variables (`properties') is discussed in ref-TODO.
 @cindex La@TeX{}, music in
 @cindex HTML, music in
 @cindex Texinfo, music in
-
 Some texts include music examples.  Examples are musicological
 treatises, songbooks or manuals like this.  Such texts can be made by
 hand, simply by importing a PostScript figure into the word processor.
@@ -1598,25 +1587,25 @@ example,
 If there is no \verb+\score+ block in the fragment,
 \texttt@{lilypond-book@} will supply one
 
-\begin@{lilypond@}
+\begin[quote]@{lilypond@}
   c'4
 \end@{lilypond@}
 
+\noindent
 In this example two things happened: a
 \verb+\score+ block was added, and the line width was set to natural
 length.
 
 Options are put in brackets.
 
-\begin[staffsize=26,verbatim]@{lilypond@}
+\begin[quote,staffsize=26,verbatim]@{lilypond@}
   c'4 f16
 \end@{lilypond@}
-
 
 Larger examples can be put in a separate file, and introduced with
 \verb+\lilypondfile+.
 
-\lilypondfile@{screech-boink.ly@}
+\lilypondfile[quote,noindent]@{screech-boink.ly@}
 
 \end@{document@}
 @end example
@@ -1646,34 +1635,35 @@ $ dvips -Ppdf -u +lilypond lilybook
 $ ps2pdf lilybook.ps
 @end example
 
-
 Running lilypond-book and running latex creates a lot of temporary
 files, which would clutter up the working directory.  To remedy this,
-use the @code{output} option.  It will create the files in a separate
-subdirectory @file{out}.
+use the @code{--output=@var{dir}} option.  It will create the files in
+a separate subdirectory @file{dir}.
 
-The result looks more or less like 
+Finally the result of the La@TeX{} example shown above.@footnote{Note
+that in this tutorial the example is processed with Texinfo.  This gives
+slightly different results in layout.}  This finishes the tutorial
+section.
 
-@separate
+@page
 
 Documents for lilypond-book may freely mix music and text.  For
-example
+example,
 
-@lilypond[quote,raggedright]
-\score {
-  \notes \relative c' {
-    c2 g'2 \times 2/3 { f8 e d } c'2 g4
-  }
-}
+@lilypond
+\score { \notes \relative c' {
+  c2 g'2 \times 2/3 { f8 e d } c'2 g4
+} }
 @end lilypond
 
-If you have no @code{\score} block in the fragment,
+If there is no @code{\score} block in the fragment,
 @code{lilypond-book} will supply one
 
 @lilypond[quote]
 c'4
 @end lilypond
 
+@noindent
 In this example two things happened: a
 @code{score} block was added, and the line width was set to natural
 length.
