@@ -1,10 +1,16 @@
 \version "1.3.146"
 
 
+\header {
+
+    texidoc = "By setting barAlways and defaultBarType, you can
+    automatically insert barlines everywhere." 
+}
+
 
 \score {
 	\notes {
-		\property Staff.barAlways = ##t
-		\property Staff.defaultBarType = ":|:"
+		\property Score.barAlways = ##t
+		\property Score.defaultBarType = ":|:"
 		c4 c4 c4 c4 }
 }

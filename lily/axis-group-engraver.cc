@@ -60,7 +60,7 @@ void
 Axis_group_engraver::finalize ()
 {
   String type = daddy_grav_l ()->type_str_ ;
-  SCM dims = get_property ("VerticalExtent");
+  SCM dims = get_property ("verticalExtent");
   
   if (gh_pair_p (dims) && gh_number_p (ly_car (dims))
       && gh_number_p (ly_cdr (dims)))
@@ -69,12 +69,12 @@ Axis_group_engraver::finalize ()
       staffline_p_->set_grob_property ("extent-Y", dims);
     }
 
-  dims = get_property ("MinimumVerticalExtent");
+  dims = get_property ("minimumVerticalExtent");
   if (gh_pair_p (dims) && gh_number_p (ly_car (dims))
       && gh_number_p (ly_cdr (dims)))
     staffline_p_->set_grob_property ("minimum-extent-Y", dims);
 
-  dims = get_property ("ExtraVerticalExtent");
+  dims = get_property ("extraVerticalExtent");
   if (gh_pair_p (dims) && gh_number_p (ly_car (dims))
       && gh_number_p (ly_cdr (dims)))
     staffline_p_->set_grob_property ("extra-extent-Y", dims);
@@ -176,5 +176,5 @@ ENTER_DESCRIPTION(Axis_group_engraver,
 /* descr */       "Group all objects created in this context in a VerticalAxisGroup spanner.",
 /* creats*/       "VerticalAxisGroup",
 /* acks  */       "grob-interface",
-/* reads */       "VerticalExtent MinimumVerticalExtent ExtraVerticalExtent",
+/* reads */       "verticalExtent minimumVerticalExtent extraVerticalExtent",
 /* write */       "");

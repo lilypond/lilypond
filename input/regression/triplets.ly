@@ -14,8 +14,8 @@ ex = \notes \relative c' {
   \repeat "volta" 2 {
     \times 2/3 {c8( cis d} \times 2/3 {dis e f} 
     \times 2/3 {fis g gis} \times 2/3 {a bes b} |
-    \property Voice.TupletBracket \override #'tuplet-number-visibility = ##f
-    \property Voice.TupletBracket \override #'tuplet-bracket-visibility = ##f
+    \property Voice.TupletBracket \override #'number-visibility = ##f
+    \property Voice.TupletBracket \override #'bracket-visibility = ##f
     \times 2/3 {c8 cis d} \times 2/3 {dis e f} 
     \times 2/3 {fis g gis} \times 2/3 {a bes b} |
     \times 2/3 {c b bes} \times 2/3 {a aes g}
