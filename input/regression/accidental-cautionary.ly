@@ -16,5 +16,8 @@ parentheses (default) or smaller accidentals.
     cis''?4
     \property Staff.Accidental \set #'cautionary-style = #'parentheses
     cis''?4
-    }}
+    }
+
+\paper { raggedright = ##t }
+}
 %% new-chords-done %%
