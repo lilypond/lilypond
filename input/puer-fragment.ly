@@ -80,13 +80,16 @@ verba = \context Lyrics = "verba" \lyricmode {
   et fi -- li -- us da -- tus est no -- bis:
 }
 
+\bookpaper  {
+    linethickness = \staffspace / 7.0
+}
+
 \score {
   <<
     \cantus
     \lyricsto "cantus" \verba
   >>
   \paper {
-    linethickness = \staffspace / 7.0
     linewidth = 137.0\mm
     width = 137.0\mm
     indent = 0.0

@@ -32,6 +32,9 @@ voice =  \transpose c c' {
   \bar "||"
 }
 
+\bookpaper {
+    linethickness = \staffspace / 5.0
+}
 \score {
     \context ChoirStaff <<
 	\new MensuralStaff <<
@@ -46,7 +49,6 @@ voice =  \transpose c c' {
 	>>
     >>
     \paper {
-	linethickness = \staffspace / 5.0
 	\context {
 	    \Voice
 	    \name MensuralVoice

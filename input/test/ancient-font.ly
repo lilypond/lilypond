@@ -210,6 +210,10 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
   >>
 >>
 
+\bookpaper {
+	linethickness = #(/ staffspace 5.0)
+}
+
 \score {
     \context Score <<
 	\upperStaff
@@ -219,7 +223,6 @@ lowerStaff = \context MensuralStaff = lowerStaff <<
 % do we want to keep these settings? -gp
 	linewidth = 17.25\cm
 	textheight = 26.0\cm
-	linethickness = #(/ staffspace 5.0)
 	indent = 0.0
 	\context {
 	    \Score

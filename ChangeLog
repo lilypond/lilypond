@@ -1,5 +1,8 @@
 2004-09-20  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/test/mensural-ligatures.ly (voice): move linethickness
+	settings to bookpaper.
+
 	* lily/simple-spacer.cc (Module): use force to stretch to 
 	line length as force measure for ragged spacing.
 	
