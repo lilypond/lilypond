@@ -8,7 +8,7 @@
 	* ly/chord-modifiers-init.ly (ignatzekExceptions): Update, tidy up.
 
 	* scm/chord-name.scm (sequential-music-to-chord-exceptions):
-	Better docstring, add parameter NON-ROOT, tidy up.
+	Better docstring, add parameter OMIT-ROOT, tidy up.
 
 2003-06-03  Heikki Junes  <hjunes@cc.hut.fi>
 
