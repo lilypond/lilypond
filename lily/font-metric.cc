@@ -103,10 +103,20 @@ Font_metric::get_char (int)const
 }
 
 
+void
+Font_metric::derived_mark ()
+{
+  
+}
+
+  
+
 SCM
 Font_metric::mark_smob (SCM s)
 {
   Font_metric * m = (Font_metric*) SCM_CELL_WORD_1 (s);
+
+  do_derived_mark();
   return m->description_;
 }
 

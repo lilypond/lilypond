@@ -1,5 +1,10 @@
 2002-08-31  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/virtual-font-metric.cc: new file
+
+	* lily/include/virtual-font-metric.hh (class Virtual_font_metric):
+	new file
+
 	* scripts/lilypond-book.py: use old re's for python 2.2 as well
 
 	* debian/control: Debian patches by Anthony Fok
