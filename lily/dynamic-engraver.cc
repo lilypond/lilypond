@@ -14,6 +14,7 @@
 #include "event.hh"
 #include "group-interface.hh"
 #include "hairpin.hh"
+#include "interval.hh"
 #include "item.hh"
 #include "new-slur.hh"
 #include "note-column.hh"
@@ -44,7 +45,7 @@ class Dynamic_engraver : public Engraver
 {
   Item *script_;
   Spanner *line_spanner_;
-  Grob *slur_;
+  Spanner *slur_;
   Spanner *cresc_;
 
   Spanner *finished_line_spanner_;
@@ -89,7 +90,7 @@ Dynamic_engraver::Dynamic_engraver ()
 }
 
 bool
-Dynamic_engraver::try_music (Music * m)
+Dynamic_engraver::try_music (Music *m)
 {
   if (m->is_mus_type ("absolute-dynamic-event"))
     {
@@ -277,7 +278,6 @@ Dynamic_engraver::stop_translation_timestep ()
       finished_line_spanner_ = line_spanner_;
       line_spanner_ = 0;
       typeset_all ();
-      slur_ = 0;
     }
 
   script_ev_ = 0;
@@ -320,11 +320,15 @@ Dynamic_engraver::typeset_all ()
 
      which are unacceptable, but it most probably breaks for more
      interesting cases.  Maybe make a new colission engraver.  */
-  if (finished_line_spanner_ && slur_
-      && get_slur_dir (slur_) == get_grob_direction (finished_line_spanner_))
+  if (finished_line_spanner_
+      && slur_
+      && get_slur_dir (slur_) == get_grob_direction (finished_line_spanner_)
+      && !intersection (slur_->spanned_rank_iv (),
+			finished_line_spanner_->spanned_rank_iv ()).is_empty ())
     {
       Real ss = Staff_symbol_referencer::staff_space (finished_line_spanner_);
-      Real pad = robust_scm2double (finished_line_spanner_->get_property ("padding"), 0);
+      Real pad = robust_scm2double (finished_line_spanner_
+				    ->get_property ("padding"), 0);
       /* FIXME: 1ss padding hardcoded */
       finished_line_spanner_->set_property ("padding",
 					    scm_make_real (pad + ss));
@@ -382,31 +386,31 @@ Dynamic_engraver::typeset_all ()
 }
 
 void
-Dynamic_engraver::acknowledge_grob (Grob_info i)
+Dynamic_engraver::acknowledge_grob (Grob_info info)
 {
   if (!line_spanner_)
     return;
 
-  if (Note_column::has_interface (i.grob_))
+  if (Note_column::has_interface (info.grob_))
     {
       if (line_spanner_
 	  /* Don't refill killed spanner */
 	  && line_spanner_->is_live ())
 	{
-	  Side_position_interface::add_support (line_spanner_,i.grob_);
-	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.grob_));
+	  Side_position_interface::add_support (line_spanner_,info.grob_);
+	  add_bound_item (line_spanner_,dynamic_cast<Item*> (info.grob_));
 	}
 
       if (script_ && !script_->get_parent (X_AXIS))
 	{
-	  SCM head = scm_last_pair (i.grob_->get_property ("note-heads"));
+	  SCM head = scm_last_pair (info.grob_->get_property ("note-heads"));
 	  if (ly_c_pair_p (head))
 	    script_->set_parent (unsmob_grob (ly_car (head)),  X_AXIS);
 	}
     }
-  else if (Script_interface::has_interface (i.grob_) && script_)
+  else if (Script_interface::has_interface (info.grob_) && script_)
     {
-      SCM p = i.grob_->get_property ("script-priority");
+      SCM p = info.grob_->get_property ("script-priority");
 
       /*
 	UGH.
@@ -416,10 +420,10 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
       if (ly_c_number_p (p)
 	  && ly_scm2int (p)
 	  < ly_scm2int (script_->get_property ("script-priority")))
-	Side_position_interface::add_support (line_spanner_, i.grob_);
+	Side_position_interface::add_support (line_spanner_, info.grob_);
     }
-  else if (New_slur::has_interface (i.grob_) && line_spanner_)
-    slur_ = i.grob_;
+  else if (New_slur::has_interface (info.grob_))
+    slur_ = dynamic_cast<Spanner*> (info.grob_);
 }
 
 ENTER_DESCRIPTION (Dynamic_engraver,

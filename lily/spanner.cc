@@ -124,7 +124,7 @@ Spanner::do_break_processing ()
 }
 
 int
-Spanner::get_break_index ()const
+Spanner::get_break_index () const
 {
   return break_index_;
 }
@@ -146,14 +146,10 @@ Spanner::spanned_rank_iv ()
 {
   Interval_t<int> iv (0, 0);
 
-  if (spanned_drul_[LEFT])
-    {
-      iv[LEFT] = Paper_column::get_rank (spanned_drul_[LEFT]->get_column ());
-    }
-  if (spanned_drul_[RIGHT])
-    {
-      iv[RIGHT] = Paper_column::get_rank (spanned_drul_[RIGHT]->get_column ());
-    }
+  if (spanned_drul_[LEFT] && spanned_drul_[LEFT]->get_column ())
+    iv[LEFT] = Paper_column::get_rank (spanned_drul_[LEFT]->get_column ());
+  if (spanned_drul_[RIGHT] && spanned_drul_[RIGHT]->get_column ())
+    iv[RIGHT] = Paper_column::get_rank (spanned_drul_[RIGHT]->get_column ());
   return iv;
 }
 

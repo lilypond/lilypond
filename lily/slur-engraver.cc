@@ -43,19 +43,19 @@ Slur_engraver::Slur_engraver ()
 }
 
 bool
-Slur_engraver::try_music (Music *ev)
+Slur_engraver::try_music (Music *m)
 {
-  if (ev->is_mus_type ("slur-event"))
+  if (m->is_mus_type ("slur-event"))
     {
       /*
 	Let's not start more than one slur per moment.
       */
-      Direction d = to_dir (ev->get_property ("span-direction"));
+      Direction d = to_dir (m->get_property ("span-direction"));
       if (d == START)
 	{
 	  if (now_mom () > last_start_)
 	    {
-	      new_slur_evs_.push (ev);
+	      new_slur_evs_.push (m);
 	      last_start_ = now_mom ();
 	    }
 
@@ -78,7 +78,7 @@ Slur_engraver::try_music (Music *ev)
 		return true;
 	    }
 	      
-	  new_slur_evs_.push (ev);
+	  new_slur_evs_.push (m);
 	  return true;
 	}
     }
