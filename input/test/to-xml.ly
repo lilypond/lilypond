@@ -10,7 +10,7 @@ fooBar = \notes { << c''4 \\ g'4 >> }
 \header {
     texidoc = "@cindex To XML"
 	texidoc = #(string-append
-      "The input representation is very generic. It
+      "The input representation is very generic. Therefore, it
       should not be hard to convert it to XML or a similar format:\n\n"
 
       "@example\n"

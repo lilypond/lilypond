@@ -5,9 +5,9 @@
 @cindex rotated text
 @cindex choir, rotated text
 
-Rotated text may be faked using inline TeX (or inline
-postscript). To see the result, this files must be processed with
-the lilypond.py script, and a line must be uncommented.
+Inline TeX (or PostScript) may be used, for example, to rotate text.
+To see the result, use the @code{lilypond.py} script to generate the 
+output for printing of the source of this example (commenting one line).
 
 "
 

@@ -1,7 +1,7 @@
 
 \version "2.1.26"
 \header {texidoc = "@cindex Tablature hammer
-You can fake a hammer in tablature with slurs. "
+A hammer in tablature can be faked with slurs. "
 } 
 
 \score{

@@ -2,8 +2,8 @@
 % regression.  -gp
 
 \header { 
-texidoc = "The standard function unfold-repeats will recursively unfold
-all repeats for correct MIDI output. Thanks to Rune Zedeler."
+texidoc = "Applying the standard function @code{unfold-repeats} unfolds 
+recursively all repeats for a correct MIDI output."
 }
 
 

@@ -4,7 +4,7 @@
 
 \header { texidoc = "@cindex Time
 
-Old time signatures. For further information, consult the file. 
+The different styles for time signatures are shown in this file.
     
 "
 }

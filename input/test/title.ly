@@ -17,7 +17,8 @@
   enteredby = "jcn"
   source = "urtext"
 
-  texidoc ="This test lilypond titling. process with lilypond, not lilypond-book." 
+  texidoc ="This example tests titling. By processing with @code{lilypond} 
+  (not @code{lilypond-book}), you will see all the titles." 
 }
 
 \score {

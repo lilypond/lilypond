@@ -2,7 +2,9 @@
 \version "2.1.26"
 
 \header { texidoc = "@cindex text spanner
-You can make LilyPond print text spanners. "
+Text spanners can be used in the similar manner than markings for pedals
+or octavation.
+"
 }
 
 \score{

@@ -2,9 +2,10 @@
 \version "2.1.26"
 
 \header { texidoc = "@cindex Tie Sparse
-Setting sparseTies causes only one tie to be
-generated per chord pair. "
+Setting @code{sparseTies} generated only one tie per chord pair. "
 }
+
+% seem not to work -HJJ
 	
 \score { 
   \context Voice \notes\relative c {

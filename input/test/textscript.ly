@@ -2,7 +2,7 @@
 \version "2.1.26"
 
 \header { texidoc = "@cindex Textscript
-Test font selection and scm text markup. "
+There are different fonts and glyphs to be used with @code{\markup} command. "
 }
 
 \score{

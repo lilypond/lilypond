@@ -1,11 +1,15 @@
 \version "2.1.26"
 
 \header{ texidoc = "@cindex Tabulature
-A sample tablature, with both normal staff and tab.
+Tablature is internally done by overriding the note-head formatting function
+and let it act on a 6-line staff. A special engraver takes then care of 
+choosing the fret and converting the pitch to a number. 
 
-Tablature is done by overriding the note-head formatting function, and
-putting it on a 6-line staff. A special engraver takes care of going
-from string-number + pitch to number. "
+Thus, by providing the fret numbers, the same music can be generated both 
+for a normal and tabulature staffs. By default, the fret is the smallest 
+possible, according to @code{minimumFret}.
+
+"
 }
 
 partition = \notes {

@@ -2,7 +2,8 @@
 
 \header {
   texidoc="@cindex Trills
-Document trills, pralls and turns."
+Trills, pralls and turns may also be written out in full. Here the
+D'Anglebert system (1689) is shown."
   
 }
 
