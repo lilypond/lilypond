@@ -3,7 +3,7 @@
 
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
-@c to automagically fill in these menus before saving changes
+@c to automatically fill in these menus before saving changes
 @c
 @c FIXME: singular vs. plural:  Beams/Beam
 
@@ -1101,7 +1101,6 @@ of bar lines can be forced with the @code{\bar} command:
 @end lilypond
 
 The following bar types are available:
-
 @lilypond[fragment,relative,raggedright,verbatim]
 c4
 \bar "|" c
@@ -1115,12 +1114,11 @@ c4
 \bar "|." c
 \bar ":" c
 @end lilypond
-
 For allowing line breaks, there is a special command,
 @example
   \bar "empty"
 @end example 
-This will insert an invisible bar line, and allow linebreaks at this
+This will insert an invisible bar line, and allow line breaks at this
 point.
 
 In scores with many staves, a @code{\bar} command in one staff is
@@ -1350,7 +1348,7 @@ Internals: @internalsref{Beam}.
 @cindex @code{[}
 
 In some cases it may be necessary to override the automatic beaming
-algorithm.  For example, the auto beamer will not put beams over rests
+algorithm.  For example, the autobeamer will not put beams over rests
 or bar lines. Such beams are specified by manually: the begin and end
 point are marked with @code{[} and @code{]}:
 
@@ -1509,7 +1507,7 @@ So, while it is possible to have different ending rules for eight
 beams and sixteenth beams, a beam that contains both eight and
 sixteenth notes will use the rules for the sixteenth beam.
 
-In the example below, the auto beamer makes eight beams and sixteenth
+In the example below, the autobeamer makes eight beams and sixteenth
 end at 3 eights; the third beam can only be corrected by specifying
 manual beaming.
 
@@ -1614,7 +1612,7 @@ instead.
 @item modern-voice
 is used for multivoice accidentals to be read both by musicians
 playing one voice and musicians playing all voices.  Accidentals are
-typeset for each voice, but they @emph{are} cancelled across voices in
+typeset for each voice, but they @emph{are} canceled across voices in
 the same @internalsref{Staff}.
 
       @cindex @code{modern-voice-cautionary}
@@ -1628,7 +1626,7 @@ some of them are typeset as cautionaries.
 @item piano
       @cindex @code{piano} accidentals
       20th century practice for piano notation. Very similar to
-      @code{modern} but accidentals also get cancelled
+      @code{modern} but accidentals also get canceled
       across the staves in the same @internalsref{GrandStaff} or
       @internalsref{PianoStaff}.
 
@@ -1689,7 +1687,7 @@ voices in the same staff share accidentals, but staves do not.
 
 @item laziness
 
-                        Over how many barlines the accidental lasts.
+                        Over how many bar lines the accidental lasts.
                               If @var{laziness} is @code{-1} then the accidental is forget
                         immediately, and if @var{laziness} is @code{#t} then the accidental
                               lasts forever.
@@ -1903,7 +1901,7 @@ Examples: @inputfileref{input/regression,breathing-sign.ly}.
 
 Metronome settings can be entered as follows:
 @example 
-  \tempo @var{duration} = @var{perminute} 
+  \tempo @var{duration} = @var{per-minute} 
 @end example
 
 In the MIDI output, they are interpreted as a tempo change, and in the
@@ -2010,7 +2008,7 @@ put them up:
 Other symbols can be added using the syntax
 @var{note}@code{\}@var{name}, e.g. @code{c4\fermata}. Again, they
 can be forced up or down using @code{^} and @code{_},
-eg.
+e.g.
 
 @lilypond[verbatim,fragment,relative=2]
   c\fermata c^\fermata c_\fermata
@@ -2301,7 +2299,7 @@ A score that starts with an @code{\grace} section needs an explicit
 note end up on different staves.
 
 Grace note synchronization can also lead to surprises. Staff notation,
-such as key signatures, barlines, etc. are also synchronized. Take
+such as key signatures, bar lines, etc. are also synchronized. Take
 care when you mix staves with grace notes and staves without, for example,
 
 @lilypond[relative=2,verbatim,fragment]
@@ -2472,7 +2470,7 @@ output, and entering repetitive music.
 
 @item volta
 This is the normal notation: Repeats are not written out, but
-alternative endings (voltas) are printed, left to right.
+alternative endings (volte) are printed, left to right.
 
 @ignore
 @item fold
@@ -2648,7 +2646,7 @@ A similar mechanism  is the tremolo subdivision, described in
 In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
 Internals: tremolo beams are @internalsref{Beam} objects. Single stem
-tremolos are @internalsref{StemTremolo}s.  The music expression is
+tremolos are @internalsref{StemTremolo} objects.  The music expression is
 @internalsref{TremoloEvent}.
 
 Example files: @inputfileref{input/regression,chord-tremolo.ly},
@@ -2967,7 +2965,7 @@ Internals: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 Short polyphonic notation, @code{<< @dots{} \\ @dots{} >>}, does not
 work for @internalsref{DrumVoices}.
 
-Because general MIDI does not contain rimshots the sidestick is used
+Because general MIDI does not contain rim shots, the sidestick is used
 for this purpose instead.
 
 @node Piano music
@@ -3123,7 +3121,7 @@ c'4\sustainUp\sustainDown
  f'4 g'4 a'4\sustainUp
 @end lilypond
 
-The default `*Ped' style for sustain and damper pedals corresponds to
+The default `*Ped.' style for sustain and damper pedals corresponds to
 style @code{#'text}. The sostenuto pedal uses @code{mixed} style by
 default.
 
@@ -3583,7 +3581,7 @@ performers.
 
 The ambitus is typically notated on a per-voice basis at the very
 beginning of a piece, e.g. nearby the initial clef or time signature of
-each staff.  The range is graphically specified by two noteheads, that
+each staff.  The range is graphically specified by two note heads, that
 represent the minimum and maximum pitch.  Some publishers use a textual
 notation: they put the range in words in front of the corresponding
 staff.  LilyPond only supports the graphical ambitus notation.
@@ -3996,7 +3994,7 @@ alteration. The transformation from pitch to letter is done by this
 function.  Special note names (for example, the German ``H'' for a
 B-chord) can be produced by storing a new function in this property.
 
-The pre-defined variables @code{\germanChords},
+The predefined variables @code{\germanChords},
 @code{\semiGermanChords} set these variables.
 
 
@@ -4153,7 +4151,7 @@ formatting functions.
 @cindex bar lines, symbols on
 
 The @code{\mark} command can also be used to put signs like coda,
-segno and fermatas on a barline. Use @code{\markup} to
+segno and fermatas on a bar line. Use @code{\markup} to
 to access the appropriate symbol:
 
 @lilypond[fragment,verbatim,relative=1]
@@ -4172,7 +4170,7 @@ that behavior:
 @cindex fermatas
 @cindex coda
 @cindex segno
-@cindex barlines, putting symbols on 
+@cindex bar lines, putting symbols on 
 
 @seealso
 
@@ -4288,7 +4286,7 @@ For example, consider  a piece written in the key of  D major.  If
 this piece is a  little too low for its performer, it can be
 transposed up to E major with
 @example
- \tranpose d e @dots{}
+ \transpose d e @dots{}
 @end example
 
 Consider a part  written for violin (a C instrument). If
@@ -4716,8 +4714,8 @@ Many graphical objects provide a @code{style} property, see
 @ref{Ancient note heads}, @ref{Ancient accidentals}, @ref{Ancient
 rests}, @ref{Ancient clefs}, @ref{Ancient flags} and @ref{Ancient time
 signatures}.  By manipulating such a grob property, the typographical
-appearance of the affected graphical objects can be accomodated for a
-specific notation flavour without need for introducing any new
+appearance of the affected graphical objects can be accommodated for a
+specific notation flavor without need for introducing any new
 notational concept.
 
 
@@ -4779,7 +4777,7 @@ the @code{baroque} style in that it uses rhomboidal heads for whole
 notes and all smaller durations.  Stems are centered on the note
 heads.  This style is in particular useful when transcribing mensural
 music, e.g. for the incipit.  The @code{mensural} style finally
-produces note heads that mimick the look of note heads in historic
+produces note heads that mimic the look of note heads in historic
 printings of the 16th century.
 
 The following example demonstrates the @code{neo_mensural} style:
@@ -4896,7 +4894,7 @@ ancient accidentals.   Supported styles are @code{classical},
 from the @code{default} style only in that the quarter rest looks like
 a horizontally mirrored 8th rest.  The @code{neo_mensural} style suits
 well for e.g. the incipit of a transcribed mensural piece of music.
-The @code{mensural} style finally mimicks the appearance of rests as
+The @code{mensural} style finally mimics the appearance of rests as
 in historic prints of the 16th century.
 
 The following example demonstrates the @code{neo_mensural} style:
@@ -4963,8 +4961,8 @@ modern style mensural C clef @tab
 @code{clefs-petrucci_c5}
 
 @tab
-petrucci style mensural C clefs, for use  on different  stafflines
-(the examples shows the 2nd staffline C clef).
+petrucci style mensural C clefs, for use  on different  staff lines
+(the examples shows the 2nd staff line C clef).
 
 @tab
 @code{petrucci_c1}
@@ -5123,7 +5121,7 @@ editions (other than those of Petrucci)''.
 @emph{Editio XXX style} means ``as is/was printed in Editio XXX''.
 
 Petrucci used C clefs with differently balanced left-side vertical
-beams, depending on which staffline it is printed.
+beams, depending on which staff line it is printed.
 
 @seealso
 
@@ -5161,7 +5159,7 @@ select ancient flags.  Besides the @code{default} flag style,
 
 Note that the innermost flare of each mensural flag always is
 vertically aligned with a staff line.  If you do not like this
-behaviour, you can set the @code{adjust-if-on-staffline} property of
+behavior, you can set the @code{adjust-if-on-staffline} property of
 grob @internalsref{Stem} to @code{##f}.  Then, the vertical position
 of the end of each flare is different between notes on staff lines and
 notes between staff lines:
@@ -5177,7 +5175,7 @@ notes between staff lines:
 @end lilypond
 
 There is no particular flag style for neo-mensural notation.  Hence,
-when typesetting e.g. the incipit of a transcibed piece of mensural
+when typesetting e.g. the incipit of a transcribed piece of mensural
 music, the default flag style should be used.  There are no flags in
 Gregorian Chant notation.
 
@@ -5249,7 +5247,7 @@ select ancient time signatures.  Supported styles are
 @code{neo_mensural} and @code{mensural}.  The above table uses the
 @code{neo_mensural} style.  This style is appropriate e.g. for the
 incipit of transcriptions of mensural pieces.  The @code{mensural}
-style mimicks the look of historical printings of the 16th century.
+style mimics the look of historical printings of the 16th century.
 
 @inputfileref{input/test,time.ly} gives an overview over all available
 ancient and modern styles.
@@ -5288,7 +5286,7 @@ music is subject to change.
 @cindex custos
 @cindex custodes
 
-A @emph{custos} (plural: @emph{custodes}; latin word for `guard') is a
+A @emph{custos} (plural: @emph{custodes}; Latin word for `guard') is a
 symbol that appears at the end of a staff.  It anticipates the pitch
 of the first note(s) of the following line and thus helps the player
 or singer to manage line breaks during performance, thus enhancing
@@ -5298,7 +5296,7 @@ Custodes were frequently used in music notation until the 17th
 century.  Nowadays, they have survived only in a few particular forms
 of musical notation such as contemporary editions of Gregorian chant
 like the @emph{editio vaticana}.  There are different custos glyphs
-used in different flavours of notational style.
+used in different flavors of notational style.
 
 @syntax
 
@@ -5386,14 +5384,14 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
 If the boolean property @code{adjust-if-on-staffline} is set to
 @code{#t} (which it is by default), lily typesets slightly different
 variants of the custos glyph, depending on whether the custos, is
-typeset on or between stafflines.   The glyph will
+typeset on or between staff lines.   The glyph will
 optically fit well into the staff, with the appendage on the right of
 the custos always ending at the same vertical position between two
-stafflines regardless of the pitch.  If you set
+staff lines regardless of the pitch.  If you set
 @code{adjust-if-on-staffline} to @code{#f}, then
 a compromise between both forms is  used.
 
-Just like stems can be attached to noteheads in two directions
+Just like stems can be attached to note heads in two directions
 @emph{up} and @emph{down}, each custos glyph is available with its
 appendage pointing either up or down.  If the pitch of a custos is
 above a selectable position, the appendage will point downwards; if
@@ -5421,7 +5419,7 @@ Examples: @inputfileref{input/regression,custos.ly}.
 @cindex divisiones
 @cindex finalis
 
-A @emph{divisio} (plural: @emph{divisiones}; latin word for
+A @emph{divisio} (plural: @emph{divisiones}; Latin word for
 `division') is a staff context symbol that is used to structure
 Gregorian music into phrases and sections.  The musical meaning of
 @emph{divisio minima}, @emph{divisio maior} and @emph{divisio maxima}
@@ -5476,7 +5474,7 @@ Examples: @inputfileref{input/test,divisiones.ly}.
 In musical terminology, a ligature is a coherent graphical symbol that
 represents at least two distinct notes.  Ligatures originally appeared
 in the manuscripts of Gregorian chant notation roughly since the 9th
-century as an allusion to the accent symbols of greek lyric poetry to
+century as an allusion to the accent symbols of Greek lyric poetry to
 denote ascending or descending sequences of notes.  Both, the shape
 and the exact meaning of ligatures changed tremendously during the
 following centuries: In early notation, ligatures were used for
@@ -7408,14 +7406,14 @@ support for contemporary notation in LilyPond is limited.
 
 In musical terminology, a @emph{cluster} denotes a range of
 simultaneously sounding pitches that may change over time.  The set of
-available pitches to apply usually depends on the accoustic source.
-Thus, in piano music, a cluster typically consists of a continous range
+available pitches to apply usually depends on the acoustic source.
+Thus, in piano music, a cluster typically consists of a continuous range
 of the semitones as provided by the piano's fixed set of a chromatic
 scale.  In choral music, each singer of the choir typically may sing an
 arbitrary pitch within the cluster's range that is not bound to any
 diatonic, chromatic or other scale.  In electronic music, a cluster
 (theoretically) may even cover a continuous range of pitches, thus
-resulting in coloured noise, such as pink noise.
+resulting in colored noise, such as pink noise.
 
 Clusters can be denoted in the context of ordinary staff notation by
 engraving simple geometrical shapes that replace ordinary notation of
@@ -7425,7 +7423,7 @@ shape of the note head rather than by the horizontal graphical extent of
 the note symbol.  In contrast, the shape of a cluster geometrically
 describes the development of a range of pitches (vertical extent) over
 time (horizontal extent).  Still, the geometrical shape of a cluster
-covers the area in wich any single pitch contained in the cluster would
+covers the area in which any single pitch contained in the cluster would
 be notated as an ordinary note.  From this point of view, it is
 reasonable to specify a cluster as the envelope of a set of notes.
 
@@ -7723,7 +7721,7 @@ Internals: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
 
 @refbugs
 
-The backend is not very strict in type-checking object properties.
+The back-end is not very strict in type-checking object properties.
 Cyclic references in Scheme values for properties can cause hangs
 and/or crashes.
 
@@ -8500,7 +8498,7 @@ spacing. This is controlled with @code{stem-spacing-correction}
 property in @internalsref{NoteSpacing}, which are generated for every
 @internalsref{Voice} context. The @code{StaffSpacing} object
 (generated at @internalsref{Staff} context) contains the same property
-for controlling the stem/barline spacing. The following example
+for controlling the stem/bar line spacing. The following example
 shows these corrections, once with default settings, and once with
 exaggerated corrections:
 
@@ -8646,7 +8644,7 @@ point.
 @cindex regular line breaks
 @cindex four bar music. 
 
-For linebreaks at regular intervals  use @code{\break} separated by
+For line breaks at regular intervals  use @code{\break} separated by
 skips and repeated with @code{\repeat}:
 @example
 <<  \repeat unfold 7 @{

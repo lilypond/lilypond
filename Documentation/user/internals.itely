@@ -3,7 +3,7 @@
 @c
 @c A menu is needed before every deeper *section nesting of @nodes
 @c Run M-x texinfo-all-menus-update
-@c to automagically fill in these menus
+@c to automatically fill in these menus
 @c before saving changes
 
 
@@ -678,7 +678,7 @@ foo = \foo * 2.0
 @end example
 
 When a variable is referenced in LilyPond syntax, the information it
-points to is copied.  For this reason, an variable reference must
+points to is copied.  For this reason, a variable reference must
 always be the first item in a block.
 
 @example

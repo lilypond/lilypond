@@ -994,7 +994,7 @@ FI: kontratenori.
 
 @aitem{Copying, Music}
 A music copyist did fast freehand scores and parts on preprinted staff lines
-for performance.  Some of their conventions (e.g., the placement of noteheads
+for performance.  Some of their conventions (e.g., the placement of note heads
 on stems) varied slightly from those of engravers.  Some of their working
 methods were superior and could well be adopted by music typesetters.  This
 required more skill than engraving.
@@ -3488,7 +3488,7 @@ S: staccato,
 FI: staccato, lyhyesti, ter@"av@"asti.
 
 Playing the note(s) short.  Staccato is indicated by a dot above or below the
-notehead.
+note head.
 
 @lilypond
 \key d \major

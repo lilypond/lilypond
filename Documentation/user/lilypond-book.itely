@@ -30,7 +30,7 @@ This procedure may be applied to La@TeX{}, @code{html} or Texinfo
 documents.  A tutorial on using lilypond-book is in @ref{Integrating
 text and music}.  For more information about La@TeX{}
 @uref{http://www.ctan.org/tex-archive/info/lshort/english/,The not so
-Short Introduction to LaTeX} provides a introction to using La@TeX{}.
+Short Introduction to LaTeX} provides a introduction to using La@TeX{}.
 
 
 
@@ -227,7 +227,7 @@ music fragments:
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 @end lilypond
 
-For inline pictures, use @code{<lilypond ... />} syntax, eg.
+For inline pictures, use @code{<lilypond ... />} syntax, e.g.
 @example
 Some music in <lilypond a b c/> a line of text.
 @end example
@@ -407,7 +407,7 @@ La@TeX{} commands that change margins and line widths are ignored.
 Only the first @code{\score} of a LilyPond block is processed.
 
 @c CHECKME--FIXME
-The size of a music block is limited to 1.5 kb, due to technical
+The size of a music block is limited to 1.5 KB, due to technical
 problems with the Python regular expression engine.  For longer files,
 use @code{\lilypondfile}.
 
