@@ -12,7 +12,7 @@
 #include <iostream.h>
 
 // mmm
-#define MUDELA_VERSION "0.1.9"
+#define MUDELA_VERSION "0.1.10"
 
 #include "scalar.hh"
 #include "translation-property.hh"
@@ -39,6 +39,7 @@
 #include "header.hh"
 #include "duration-convert.hh"
 #include "change-translator.hh"
+#include "file-results.hh"
 
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>
@@ -264,7 +265,7 @@ mudela:	/* empty */
 		THIS->default_header_p_ = $2;
 	}
 	| mudela score_block {
-		add_score ($2);
+		score_global_array.push ($2);
 	}
 	| mudela add_declaration { }
 	| mudela error
@@ -933,7 +934,7 @@ open_abbrev_parens:
 	'[' ':' unsigned {
 		$$ = '[';
 		if (!Duration::duration_type_b ($3))
-			THIS->parser_error ("1:Not a duration");
+			THIS->parser_error (String ("Not a duration: ") + $3);
 		else if ($3 < 8)
 			THIS->parser_error ("Can't abbreviate");
 		else
@@ -1121,9 +1122,13 @@ dots:
 entered_notemode_duration:
 	/* */		{
 		$$ = new Duration (THIS->default_duration_);
+		// get sticky plet part too
+		$$->set_plet (THIS->plet_.iso_i_, THIS->plet_.type_i_);
 	}
 	| dots		{
 		$$ = new Duration (THIS->default_duration_);
+		// get sticky plet part too
+		$$->set_plet (THIS->plet_.iso_i_, THIS->plet_.type_i_);
 		$$->dots_i_  = $1;
 	}
 	| explicit_steno_duration	{
@@ -1142,10 +1147,10 @@ explicit_steno_duration:
 	unsigned		{
 		$$ = new Duration;
 		if (!Duration::duration_type_b ($1))
-			THIS->parser_error ("2:Not a duration");
+			THIS->parser_error ("Not a duration:" + String ($1));
 		else {
 			$$->durlog_i_ = Duration_convert::i2_type ($1);
-			$$->set_plet (THIS->default_duration_);
+			$$->set_plet (THIS->plet_.iso_i_, THIS->plet_.type_i_);
 		     }
 	}
 	| DURATION_IDENTIFIER	{
@@ -1155,10 +1160,10 @@ explicit_steno_duration:
 		$$->dots_i_ ++;
 	}
 	| explicit_steno_duration '*' unsigned  {
-		$$->plet_.iso_i_ = $3;
+		$$->plet_.iso_i_ = $3;  /* ugh.  should do *= */
 	}
 	| explicit_steno_duration '/' unsigned {
-		$$->plet_.type_i_ = $3;
+		$$->plet_.type_i_ = $3; /* ugh. should do *= iso = */
 	}
 	;
 
@@ -1169,7 +1174,7 @@ abbrev_type:
 	}
 	| ':' unsigned {
 		if (!Duration::duration_type_b ($2))
-			THIS->parser_error ("3:Not a duration");
+			THIS->parser_error ("Not a duration:" + String ($2));
 		else if ($2 < 8)
 			THIS->parser_error ("Can't abbreviate");
 		$$ = $2;
