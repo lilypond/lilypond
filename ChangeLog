@@ -1,3 +1,12 @@
+2004-07-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/bibliography/SConscript (bibs): failed try to get
+	bib2html find html-long.bst.
+
+	* buildscripts/bib2html.py (stat): fail if bibtex fails.
+
+	* make/stepmake.make: use usescons for using scons. 
+
 2004-07-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py (Lilypond_snippet.is_outdated): Check
