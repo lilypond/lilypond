@@ -383,7 +383,7 @@ is the  first to satisfy CRIT
        "c++.scm"
        "chord-ignatzek-names.scm"
        "chord-entry.scm"
-       "double-plus-new-chord-name.scm"
+       "chord-generic-names.scm"
        "molecule.scm"
        "new-markup.scm"
        "bass-figure.scm"

@@ -22,12 +22,17 @@
 	     markup))
       markup))
 
-(define-public (double-plus-new-chord->markup
-		pitches bass inversion context)
-  (let ((options '())
-	(style (ly:get-context-property context 'chordNameStyle)))
-    (ugh-compat-double-plus-new-chord->markup
-     style pitches bass inversion context options)))
+(define-public (banter-chord-names pitches bass inversion context)
+  (ugh-compat-double-plus-new-chord->markup
+   'banter pitches bass inversion context '())
+  )
+
+
+(define-public (jazz-chord-names pitches bass inversion context)
+  (ugh-compat-double-plus-new-chord->markup
+   'jazz pitches bass inversion context '())
+  )
+
 
 (define-public (ugh-compat-double-plus-new-chord->markup
 		style pitches bass inversion context options)

@@ -101,8 +101,7 @@ epartial = #(sequential-music-to-chord-exceptions epartialmusic #f)
 	%% FIXME
 	%%\property ChordNames.chordNoteNamer = #'step->markup-ignatzek
 	%%chordRootNamer = #note-name->markup
-	
-	#(set-chord-name-style 'jazz)
+       \property ChordNames.chordNameFunction = #jazz-chord-names
 	
 	\chs
     }

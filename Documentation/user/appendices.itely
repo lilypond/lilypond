@@ -12,27 +12,6 @@
 @node Lyrics mode definition
 @section Lyrics mode definition
 
-The definition of lyrics mode is ludicrous, and this will remain so
-until the authors of LilyPond acquire a deeper understanding of
-character encoding, or someone else steps up to fix this.
-
-
-A word in Lyrics mode begins with: an alphabetic character, @code{_},
-@code{?}, @code{!}, @code{:}, @code{'}, the control characters @code{^A}
-through @code{^F}, @code{^Q} through @code{^W}, @code{^Y}, @code{^^},
-any 8-bit character with ASCII code over 127, or a two-character
-combination of a backslash followed by one of @code{`}, @code{'},
-@code{"}, or @code{^}.
-
-Subsequent characters of a word can be any character that is not a digit
-and not white space.  One important consequence of this is that a word
-can end with `@code{@}}', which may be confusing. However, LilyPond will
-issue a warning.  Any @code{_} character which appears in an unquoted
-word is converted to a space.  This provides a mechanism for introducing
-spaces into words without using quotes.  Quoted words can also be used
-in Lyrics mode to specify words that cannot be written with the above
-rules.
-
 
 @node American Chords 
 @section American Chords

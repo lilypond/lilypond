@@ -14,7 +14,7 @@
 
 texidoc = "@cindex Orchestra Score
 @cindex Coriolan Score
-Demonstration of how to set up an orchestral score (Bethoven's Coriolan overture).
+Demonstration of how to set up an orchestral score (Beethoven's Coriolan overture).
 " }
 
 raisedFlat = \markup { \raise #0.4 \smaller \smaller \musicglyph #"accidentals--1"  }
@@ -37,7 +37,6 @@ oboi = \notes \relative c' {
 }
 
 clarinetti = \notes \relative c' {
-%   \property Staff.instrument = #`("Clarinetti in B" ,text-flat)
     \property Staff.instrument
 	= \markup { \column << "Clarinetti" { "in B" \raisedFlat } >> }
     \property Staff.instr

@@ -1,3 +1,18 @@
+2003-06-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chord-generic-names.scm: move from
+	double-plus-new-chord-name.scm
+
+	* input/test/orchestscore.ly: remove file
+
+	* Documentation/user/refman.itely (Vocal music): update documentation.
+
+	* scm/define-translator-properties.scm (chordNoteNamer): remove
+	chordNameStyle
+
+	* scm/chord-name.scm (set-chord-name-style): remove
+	set-chord-name-style.
+
 2003-06-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/lilypond-book.itely (Integrating LaTeX and
@@ -262,6 +277,8 @@
 
 2003-05-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: release 1.7.20
+	
 	* lily/text-spanner.cc (brew_molecule): clean up function. This
 	fixes bugs with broken 8va spanners.
 

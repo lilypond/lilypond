@@ -56,7 +56,6 @@
 * Skips::                       
 * Durations::                   
 * Ties::                        
-* Automatic note splitting ::   
 * Tuplets::                     
 * Easy Notation note heads ::   
 @end menu
@@ -504,6 +503,7 @@ shown on screen. See @ref{Point and click} for more information.
 * Relative octaves::            
 * Bar check::                   
 * Skipping corrected music::    
+* Automatic note splitting ::   
 @end menu
 
 
@@ -2968,111 +2968,201 @@ The associated object is @internalsref{VoiceFollower}.
 @node Vocal music
 @section Vocal music
 
-For a discussion of how to put lyrics into a score, see section
-@code{Printing lyrics} in the tutorial.
-
-@cindex context variables
-@cindex setting context variables
-An interpretation context has variables that tune its behavior.  These
-variables are also called @emph{properties}.  The @code{autoBeaming}
-variable in a @code{Staff} controls whether 8th and shorter notes are
-beamed automatically. Setting the variable to @code{##f}, which is the
-boolean value @var{false}, turns it off.
-
-
-This will create an extender, which is a line
-that extends over the entire duration of the lyric.  This line will
-run all the way to the start of the next lyric, so you may want to
-shorten it by using a blank lyric (using @code{_}).
-
-@cindex lyric mode
-@cindex @code{\lyrics}
-
- To get them printed, you must do two
-things: indicate that lyrics   are entered with @code{\lyrics}, and
-indicate that this type of music must be interpreted as texts (and not
-notes). This is done with @code{\context Lyrics}. 
-
-You can enter lyrics in a special input mode of LilyPond. This mode is
-called Lyrics mode, and it is introduced by the keyword
-@code{\lyrics}.  In this mode you can enter lyrics, with punctuation
-and accents without any hassle.  Syllables are entered like notes, but
-with pitches replaced by text.  For example,
-@example
-  Twin- kle twin- kle
-@end example
-
-
-
-
-You can use ordinary hyphens at the end of a syllable, i.e.
-@example
-        soft- ware
-@end example
-but then the hyphen will be attached to the end of the first syllable.
- 
-If you want them centered between syllables you can use the special
-`@code{-}@code{-}' lyric as a separate word between syllables.  The
-hyphen will have variable length depending on the space between
-the syllables and it will be centered between the syllables.
-
-
-
-
-Normally the notes that you enter are transformed into note heads.
-Note heads alone make no sense. They need surrounding information: a
-key signature, a clef, staff lines, etc.  They need @emph{context}.
-In LilyPond, these symbols are created by objects called
-`interpretation contexts'.  Interpretation contexts exist for
-generating notation (`notation context') and for generating sound
-(`performance context').  These objects only exist while LilyPond is
-executing.  For lyrics, the command
-@example
-  \context Lyrics
-@end example
-must be used to interpret a set of syllables as lyrics.
-
-
-
-@cindex context
-@cindex interpretation context
-@cindex notation context
-
-
-
-The melody and the lyrics can be combined with the @code{\addlyrics}:
-@example
-\addlyrics
-  \notes \relative c' @dots{}
-  \context Lyrics \lyrics @dots{} 
-@end example
-
-[TODO: Move lyrics section from tutorial to here?]
-
-See also the sections on @ref{Slurs} and @ref{Breath marks}.
-
-[TODO: Move slurs / breath marks section to here?]
-
-[TODO: Write subsection upon usage of ChoirStaff.]
+This section discusses how to enter, and print lyrics.
 
 @menu
+* Entering lyrics::             
+* The Lyrics context::          
 * More stanzas::                
 * Ambitus::                     
 @end menu
+
+@node Entering lyrics
+@subsection Entering lyrics
+
+
+@cindex lyrics
+@cindex @code{\lyrics}
+@cindex punctuation
+
+Lyrics are entered in a special input mode. This mode is is introduced
+by the keyword @code{\lyrics}.  In this mode you can enter lyrics, with
+punctuation and accents without any hassle.  Syllables are entered like
+notes, but with pitches replaced by text.  For example,
+@example
+  \lyrics @{ Twin-4 kle4 twin- kle litt- le star2 @}
+@end example
+
+A word in Lyrics mode begins with: an alphabetic character, @code{_},
+@code{?}, @code{!}, @code{:}, @code{'}, the control characters @code{^A}
+through @code{^F}, @code{^Q} through @code{^W}, @code{^Y}, @code{^^},
+any 8-bit character with ASCII code over 127, or a two-character
+combination of a backslash followed by one of @code{`}, @code{'},
+@code{"}, or @code{^}.
+
+Subsequent characters of a word can be any character that is not a digit
+and not white space.  One important consequence of this is that a word
+can end with @code{@}}. The following example is usually a bug. The
+syllable includes a @code{@}}, and hence the opening brace is not balanced.
+@example
+  \lyrics @{ twinkle@}
+@end example
+which may be confusing. 
+
+@cindex @code{\property}, in @code{\lyrics}
+Similarly, a  period following a alphabetic sequence, is included in the
+resulting string. As a consequence, spaces must be inserted around
+@code{\property} commands:
+@example
+  \property Lyrics . LyricText \set #'font-shape = #'italic
+@end example
+
+@cindex @code{_}
+@cindex spaces, in lyrics
+@cindex quotes, in lyrics
+
+Any @code{_} character which appears in an unquoted word is converted
+to a space.  This provides a mechanism for introducing spaces into words
+without using quotes.  Quoted words can also be used in Lyrics mode to
+specify words that cannot be written with the above rules:
+
+@example
+  \lyrics @{ He said: "\"Let" my peo ple "go\"" @}
+@end example
+
+@cindex hyphens
+Hyphens can be entered as ordinary hyphens at the end of a syllable, i.e.
+@example
+        soft- ware
+@end example
+
+These will be attached to the end of the first syllable.
+
+Centered hyphens are entered using the special `@code{-}@code{-}' lyric
+as a separate word between syllables.  The hyphen will have variable
+length depending on the space between the syllables and it will be
+centered between the syllables.
+
+@cindex melisma
+@cindex extender
+
+When a lyric is sung over many notes (this is called a melisma), this is
+indicated with a horizontal line centered between a syllable and the
+next one. Such a line is called an extender line, and it is entered as
+@code{__}.
+
+@seealso
+
+@internalsref{LyricEvent}, @internalsref{HyphenEvent},
+@internalsref{ExtenderEvent}.
+
+@refbugs
+
+The definition of lyrics mode is too complex.
+
+@node The Lyrics context
+@subsection  The Lyrics context
+
+Lyrics are printed by interpreting them in @internalsref{Lyrics}
+context:
+@example
+ \context Lyrics \lyrics @dots{}
+@end example
+
+@cindex automatic syllable durations
+@cindex @code{\addlyrics}
+@cindex lyrics and melodies
+
+This will place the lyrics according to the durations that were
+entered. The lyrics can also be aligned under a given melody
+automatically.  In this case, it is no longer necessary to enter the
+correct duration for each syllable.  This is achieved by combining the
+melody and the lyrics with the @code{\addlyrics} expression
+@example
+\addlyrics
+  \notes @dots{}
+  \context Lyrics @dots{} 
+@end example
+
+@cindex staff order, with @code{\addlyrics}
+
+Normally, this will put the lyrics below the staff. For different or
+more complex orderings, the best way is to setup the hierarchy of
+staffs and lyrics first, e.g.
+@example
+\context ChoirStaff \notes <
+  \context Lyrics = LA @{ s1 @}
+  \context Staff = SA @{ s1 @}
+  \context Lyrics = LB @{ s1 @}
+  \context Staff = SB @{ s1 @}
+>
+@end example
+and then combine the appropriate melodies and lyric lines:
+@example
+  \addlyrics
+    \context Staff = SA @emph{the music}
+    \context Lyrics = LA @emph{the lyrics}
+@end example
+
+putting both together, you would get
+@example
+\context ChoirStaff \notes <
+  \context Lyrics = LA @dots{}
+  \context Staff = SB @dots{}
+  \addlyrics @dots{}
+>
+@end example
+
+@cindex SATB
+@cindex choral score
+
+An example of a  SATB score setup is in the file
+@inputfileref{input/template,satb}.
+
+@seealso
+
+@internalsref{LyricCombineMusic}, @internalsref{Lyrics},
+@inputfileref{input/template,satb}.
+
+@refbugs
+
+@code{\addlyrics} is not automatic enough: melismata are not detected
+automatically, and melismata are not stopped when they hit a rest.
 
 
 @node More stanzas
 @subsection More stanzas
 
 
-@cindex phrasing
+@cindex phrasing, in lyrics
 
-If you have multiple stanzas printed underneath each other, the vertical
-groups of syllables should be aligned around punctuation.  LilyPond can
-do this if you tell it which lyric lines belong to which melody.
-We show how you can do this by showing how you could print a frivolous
-fragment of a fictional Sesame Street duet. 
+When multiple stanzas are printed underneath each other, the vertical
+groups of syllables should be aligned around punctuation.  This can be
+done automatically when corresponding lyric lines and melodies are
+marked.
 
+To this end, give the @internalsref{Voice} context an identity,
+@example
+\context Voice = duet @{
+     \time 3/4
+     g2 e4 a2 f4 g2.  @}
+@end example
+
+Then set the @internalsref{LyricsVoice} contexts to names starting with
+that identity followed by a dash.  In the preceding example, the
+@internalsref{Voice} identity is @code{duet}, so the identities of the
+@internalsref{LyricsVoices} are marked @code{duet-1} and @code{duet-2}.
+@example
+  \context LyricsVoice = "duet-1" @{
+    Hi, my name is bert. @}
+  \context LyricsVoice = "duet-2" @{
+    Ooooo, ch\'e -- ri, je t'aime. @}
+@end example
+The convention for naming @internalsref{LyricsVoice} and
+@internalsref{Voice} must also be used to get melismata on rests
+correct.
+
+The complete example is shown here.
 @lilypond[singleline,verbatim]
 \score {
 \addlyrics
@@ -3089,30 +3179,10 @@ fragment of a fictional Sesame Street duet.
 }
 @end lilypond
 
-To this end, give the Voice context an identity, and set the
-LyricsVoice to a name starting with that identity followed by a dash.
-In the following example, the Voice identity is @code{duet},
-@example
-\context Voice = duet @{
-     \time 3/4
-     g2 e4 a2 f4 g2.  @}
-@end example
-and the
-identities of the LyricsVoices are @code{duet-1} and @code{duet-2}.
-@example
-  \context LyricsVoice = "duet-1" @{
-    Hi, my name is bert. @}
-  \context LyricsVoice = "duet-2" @{
-    Ooooo, ch\'e -- ri, je t'aime. @}
-@end example
-The convention for naming @code{LyricsVoice} and @code{Voice} must
-also be used to get melismata on rests correct.
-
-
-We add the names of the singers.  This can be done by setting
+Stanza numbers, or the names of the singers can be added by setting
 @code{LyricsVoice.Stanza} (for the first system) and
-@code{LyricsVoice.stz} for the following systems.   You must
-surround dots with spaces in @code{\lyrics} mode.
+@code{LyricsVoice.stz} for the following systems.  Notice how dots are
+surrounded with spaces in @code{\lyrics} mode.
 
 @example
     \property LyricsVoice . stanza = "Bert"
@@ -3120,17 +3190,9 @@ surround dots with spaces in @code{\lyrics} mode.
     \property LyricsVoice . stanza = "Ernie" 
 @end example
 
-
-
-
-For entering quotes in Lyrics mode, use the following
-@example
-"\"God\"" is "`King'"
-@end example
-
 You can use empty syllables, e.g. @code{_4} or @code{" "4} to enter
 lyrics. This can confuse the LilyPond -- for example, this might put
-(empty) lyrics under rests. To remedy this, use @code{\skip}.
+(empty) lyrics under rests. To remedy this, use @code{\skip} instead.
 
 
 

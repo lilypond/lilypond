@@ -139,21 +139,3 @@ FOOBAR-MARKUP) if OMIT-ROOT.
 	molecule)
     ))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(define-public (set-chord-name-style sym)
-  "Return music expressions that set the chord naming style. For
-inline use in .ly file"
-  
-  (define (chord-name-style-setter function style)
-    (context-spec-music
-     (make-sequential-music 
-      (list (make-property-set 'chordNameFunction function)
-	    (make-property-set 'chordNameStyle style)))
-     "ChordNames"))
-
-  (ly:export
-   (case sym
-     ((ignatzek) (chord-name-style-setter ignatzek-chord-names 'foobar))
-     ((banter) (chord-name-style-setter double-plus-new-chord->markup 'banter))
-     ((jazz) (chord-name-style-setter double-plus-new-chord->markup 'jazz)))))

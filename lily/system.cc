@@ -362,11 +362,6 @@ System::add_column (Paper_column*p)
   Axis_group_interface::add_element (me, p);
 }
 
-
-
-/*
-  TODO: use scm_map iso. for loops.
- */
 void
 System::pre_processing ()
 {

@@ -5,9 +5,11 @@ texidoc="Template for part-combining orchestral scores"
 }
   
 \include "paper16.ly" 
-% \include "mutopia/Coriolan/coriolan-paper.ly"
 
-#(define text-flat '((font-relative-size . -2 ) (music "accidentals--1")))
+				
+raisedFlat = \markup { \raise #0.4 \smaller \smaller \musicglyph #"accidentals--1"  }
+
+
 
 End = { \skip 1*9 \bar "|." }
 
@@ -45,11 +47,11 @@ flautiStaff =  \notes \context VoiceCombineStaff = flauti <
 %  \property VoiceCombineStaff.instrument = #"2 Flauti"
 %  \property VoiceCombineStaff.instr = #"Fl."
 
-  \property VoiceCombineStaff.instrument = #`((kern . 0.5) (lines
-    "2 Clarinetti" (columns "(B" ,text-flat ")")))
+  \property VoiceCombineStaff.instrument =
+    \markup { \column << "Clarinetti" { "in B" \raisedFlat } >> }
 
-  \property VoiceCombineStaff.instr = #`((kern . 0.5) (lines
-    "Cl."  (columns "(B" ,text-flat ")")))
+  \property VoiceCombineStaff.instr
+  	= \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
 
   %\global
   \context VoiceCombineVoice=one \partcombine VoiceCombineVoice
@@ -148,10 +150,9 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
     \property StaffCombineStaff.midiInstrument = #"cello"
 
     % Ugh, markup burps
-    \property StaffCombineStaff.instrument = #'((kern . 0.5)
-    (lines "Violoncello" (columns "    e") (columns "Contrabasso")))
+    \property StaffCombineStaff.instrument	= \markup \column << "Violoncello" "e" "Contrabasso" >>
+  \property StaffCombineStaff.instr		= \markup \column <<  "Vc." "Cb." >>
 
-    \property StaffCombineStaff.instr = #"Vc."
     
     %\clef "bass"
     % Ugh, clef broken in 1.3.125
