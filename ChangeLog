@@ -1,9 +1,11 @@
 2004-09-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* mf/GNUmakefile (SAUTER_FONTS): remove ecb10. This is  provided
+	by the latest ec-fonts-mftraced package.
+
 	* scm/define-context-properties.scm
 	(all-internal-translation-properties): add property. Remove
 	definition of quotes property.
-
 
 	* Documentation/user/notation.itely (Quoting other voices):
 	document it
