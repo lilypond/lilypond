@@ -11,6 +11,7 @@
 ;;     syntax, description and example. 
 
 (define-public empty-stencil (ly:make-stencil '() '(1 . -1) '(1 . -1)))
+(define-public point-stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
 
 (def-markup-command (stencil layout props stil) (ly:stencil?)
   "Stencil as markup"
@@ -98,32 +99,38 @@ gsave /ecrm10 findfont
    If there are no arguments, return an empty stencil.
 "
 
-  (let* ((stencils (filter
-		    (lambda (stc) (not (ly:stencil-empty? stc)))
+  (let* ((orig-stencils
 		    (map (lambda (x) (interpret-markup layout props x))
-			markups)))
-	 (text-width (apply + (map interval-length
-				   (map (lambda (x)
-					  (ly:stencil-extent x X))
-					stencils))))
-	(word-count (length stencils))
-	(word-space (chain-assoc-get 'word-space props))
-	(line-width (chain-assoc-get 'linewidth props))
-	(fill-space (if (< line-width text-width)
-			word-space
-			(/ (- line-width text-width)
-			   (if (= word-count 1) 2 (- word-count 1)))))
-	(line-stencils (if (= word-count 1)
-			   (list
-			    (ly:make-stencil '() '(0 . 0) '(0 . 0))  
-			    (car stencils)
-			    (ly:make-stencil '() '(0 . 0) '(0 . 0))  )
-			   stencils)))
+			markups))
+	 (stencils
+	  (map (lambda (stc)
+		 (if (ly:stencil-empty? stc)
+		     point-stencil
+		     stc))  orig-stencils))
+	 (text-width (apply +
+			    (map (lambda (stc)
+				   (if (ly:stencil-empty? stc)
+				       0.0
+				       (interval-length (ly:stencil-extent stc X))))
+				 stencils)))
+	 (word-count (length stencils))
+	 (word-space (chain-assoc-get 'word-space props))
+	 (line-width (chain-assoc-get 'linewidth props))
+	 (fill-space (if (< line-width text-width)
+			 word-space
+			 (/ (- line-width text-width)
+			    (if (= word-count 1) 2 (- word-count 1)))))
+	 (line-stencils (if (= word-count 1)
+			    (list
+			     point-stencil
+			     (car stencils)
+			     point-stencil)
+			    stencils)))
 
-    (if (null? stencils)
+    (if (null? (remove ly:stencil-empty? orig-stencils))
 	empty-stencil
 	(stack-stencils X RIGHT fill-space line-stencils))))
-  
+
 (define (font-markup qualifier value)
   (lambda (layout props arg)
     (interpret-markup layout

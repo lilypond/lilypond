@@ -89,7 +89,7 @@ Score::Score (Score const &s)
 
   header_ = ly_make_anonymous_module (false);
   if (ly_c_module_p (s.header_))
-    ly_import_module (header_, s.header_);
+    ly_module_copy (header_, s.header_);
 }
 
 

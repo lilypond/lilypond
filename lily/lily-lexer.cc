@@ -123,7 +123,7 @@ Lily_lexer::Lily_lexer (Lily_lexer const &src)
   for (SCM s = src.scopes_; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM newmod = ly_make_anonymous_module (false);
-      ly_import_module (newmod, scm_car (s));
+      ly_module_copy (newmod, scm_car (s));
       *tail = scm_cons (newmod, SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }

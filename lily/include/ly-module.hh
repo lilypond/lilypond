@@ -11,7 +11,7 @@
 #include "lily-guile.hh"
 
 SCM ly_make_anonymous_module (bool safe);
-SCM ly_import_module (SCM dest, SCM src);
+SCM ly_module_copy (SCM dest, SCM src);
 SCM ly_module2alist (SCM mod);
 SCM ly_module_lookup (SCM module, SCM sym);
 SCM ly_modules_lookup (SCM modules, SCM sym, SCM);
