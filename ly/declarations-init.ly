@@ -45,7 +45,7 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 
 % Do units first; must be done before any units are specified.
 \paper {
-    unit = "mm"
+    unit = "mm"  %% ugh: coupled to LilyPond C++ code.
     mm = 1.0
     in = 25.4
     pt = #(/  in 72.27)
@@ -130,4 +130,6 @@ partCombineListener = \paper {
 % reset default duration
 unusedEntry = \notes { c4 }
 
-#(define musicQuotes (make-hash-table)) 
+
+% must have size argument for GUILE 1.6 compat.
+#(define musicQuotes (make-hash-table 29)) 

@@ -106,6 +106,10 @@ fi
 
 # chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
 
+%postun
+if [ -f /usr/share/lilypond/%{version}/ls-R ]; then
+  rm -f /usr/share/lilypond/%{version}/ls-R
+fi
 
 %post documentation
 scrollkeeper-update

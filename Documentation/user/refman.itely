@@ -4069,6 +4069,7 @@ some common problems in orchestral music.
 * Automatic part combining::    
 * Hiding staves::               
 * Different editions from one source::  
+* Quoting other voices::        
 * Sound output for transposing instruments::  
 @end menu
 
@@ -4467,7 +4468,7 @@ first part (with context called @code{one}) always gets up stems, and
 If you just want the merging parts, and not the textual markings, you
 may set the property @var{soloADue} to false:
 
-@lilypond[verbatim,raggedright,fragment]
+@lilypond[verbatim,raggedright,fragment,relative=1]
    \new Staff <<
     \set Staff.soloADue = ##f
     \partcombine 
@@ -4596,6 +4597,15 @@ of symbols, for example,
 @seealso
 
 Examples: @inputfileref{input/regression,tag-filter.ly}.
+
+
+@node Quoting other voices
+@subsection Quoting other voices
+
+TODO: document!
+
+
+
 
 
 @node Sound output for transposing instruments
