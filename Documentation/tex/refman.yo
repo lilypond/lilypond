@@ -1080,7 +1080,7 @@ mudela(center)(
            \clef baritone; c'4_"\kern -10mm baritone"
            \clef varbaritone; c'4^"\kern -10mm varbaritone"
            \clef tenor;     c'4_"\kern -10mm tenor"
-%           \clef "G_8";   c'4^"\kern -6mm G\_8"  %%% BROKEN!
+           \clef "G_8";   c'4^"\kern -6mm G\_8" 
    }  
    \paper{ linewidth= 4.5 \in; }
 }
@@ -1542,20 +1542,21 @@ dit(code(timeSignatureStyle)) Changes the default two-digit layout
    description(
       dit(code(C)) 4/4 and 2/2 are typeset as C and struck C,
       respectively. All other time signatures are written with two digits.
-      dit(code(old)) 2/2, 3/2, 3/4, 4/4, 6/4 and 9/4 are typeset with
-      old-style mensuration marks. All other time signatures are 
+      dit(code(old)) 2/2, 3/2, 3/4, 4/4, 6/4, 9/4, 6/8 and 9/8 are typeset 
+      with old-style mensuration marks. All other time signatures are 
       written with two digits.
       dit(code(1)) All time signatures are typeset with a single
       digit, e.g. 3/2 is written as 3.
       dit(code(C2/2), code(C4/4), code(old2/2), code(old3/2),
-      code(old3/4), code(old4/4), code(old6/4) or
-      code(old9/4)) Tells Lilypond to use a specific symbol as time
-      signature.
+      code(old3/4), code(old4/4), code(old6/4), code(old9/4), 
+      code(old6/8) or code(old9/8))Tells Lilypond to use a 
+      specific symbol as time signature.
    )
 The different time signature characters are shown below with
 their names:
-mudela(fragment,center)(
-\relative c'' {
+mudela(center)(
+\score{
+  \notes\relative c'' {
 \property Voice.textstyle = typewriter
 \property Staff.timeSignatureStyle = "C2/2"
 \time 2/2; a2^"C2/2" a2 
@@ -1571,6 +1572,12 @@ mudela(fragment,center)(
 \time 2/2; a2^"old6/4" a2 
 \property Staff.timeSignatureStyle = "old9/4"
 \time 2/2; a2^"old9/4" a2 
+\property Staff.timeSignatureStyle = "old6/8"
+\time 2/2; a2^"old6/8" a2 
+\property Staff.timeSignatureStyle = "old9/8"
+\time 2/2; a2^"old9/8" a2 
+}
+   \paper{ linewidth= 4.5 \in; }
 }
 )
 
