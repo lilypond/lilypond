@@ -1,3 +1,15 @@
+pl 10.hwn1
+	- Auto_change_music, Auto_change_iterator: auto staff
+switching. 2nd try.  See input/test/auto-change.ly
+
+pl 10.uu1
+	- doc restructure: hacking.texi
+	- make & install .pfas
+	- updates: faq.texi
+	- rpm fixes.
+	- Windows fixes (9.jbr)
+
+******
 pl 9.rrr1
 	- abc2ly bug fixes and extensions
 	- volta spanner given height to avoid collisions
