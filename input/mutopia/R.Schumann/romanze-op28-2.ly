@@ -41,7 +41,7 @@ righta = \notes \transpose c cis' {
       \large "Einfach ("
       \note #3 #0 #1
       \large " = 100)" }
-  a c -] \m  g,-[ \u c^3 -] \m  b,-[ \u c^2 b c-] \m  a,-[ \u )c^3-] | 
+  a c -] \m  g,-[ \u c^3 -] \m  b,-[ \u c^2 b c-] \m  a,-[ \u c^3-]-) | 
   \property Voice.TextScript \revert #'extra-offset
   \m  f,-[( \u c f c-] \m  g,-[ \u c^4-] \m  a,-[ \u c^2 a c8  c16-)-] | 
   \m  c16-[( \u f c' f-] \m  b,-[ \u f-] \m  d-[ \u f^3 d' f^2-] \m  c-[ \u  f-)^4-] |
@@ -110,9 +110,9 @@ rightb = \notes \transpose c cis' {
  e des b,\< des g e_3 ces_4 d_2 f^3 d cis d |
  \property Voice.PhrasingSlur \override #'extra-offset =  #'(0 . 3)
  \property Voice.PhrasingSlur \override #'beautiful = #42
- g\( fes des fes b g_3 \! es_1 ges_2 a^3 ges f_1 ges_2 |
+ g\( fes des fes b g_3 es_1-\! ges_2 a^3 ges f_1 ges_2 |
  r ges_2 b des_1 ges b,_2 des ges,^1 b, \d des,^1 \stemDown \transpose c' c { b,-[_1 as,] |
- g,8  b,16-[ g, e, cis,]  d,-\)_4 \< f, h, d_3 f_2 \! r16 }
+ g,8  b,16-[ g, e, cis,]  d,-\)_4 \< f, h, d_3 f_2  r16-\! }
  \property Voice.PhrasingSlur \revert #'extra-offset
  \property Voice.PhrasingSlur \revert #'beautiful
 
@@ -132,13 +132,13 @@ rightb = \notes \transpose c cis' {
   s2. s
  \u s4. \grace {f8(}  f4-) e8 |
  f g16_2 b_1 a_2 gis_1 c_2 h, c cis_1 d_2 b,_1 |
- \tieDown c4.~<<f, c  >>16-\< \tieBoth <<f h>>~ << f^3 h >>8-[-\> -\! << e b^2>> -\!] |
+ \tieDown c4.~<<f, c  >>16-\< \tieBoth <<f h>>~ << f^3 h >>8-[-\>-\! << e b^2>> -\!] |
  \translator Staff=mid
  \transpose c' c {
   a4^1( g8^1 b4 a8^2 |
   f8..^1 f32^1 g8^2  a8..-)   \slurUp <<f f'^3>>32-( <<g g'^4>>8 |
   <<a a'^5>>8..-) <<f f'^3>>32-( <<g g'^4>>8 <<a a'^5 >>4.-\>-) ~ |
-  a~ \! a^\fermata \bar "|."
+  a~ a-\!^\fermata \bar "|."
  }
 }
 

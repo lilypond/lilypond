@@ -9,6 +9,8 @@
 
 2003-08-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/* : postfix syntax fixes.
+
 	* Documentation/user/refman.itely (Text markup): add note about
 	raise/lower with ^ or _ .
 	

@@ -46,7 +46,7 @@ allegro =
 	r2 r4  d8-[-(_\markup { \italic \bold "con espressione" } b-) ]
 	 a-[(  g-) d'(  b-)]  a-[(  g-) e'(  c-) ]
 	 b8-[(  a-)] a4 r4  a8-[ a]
-	 a-[( \< b c \!cis\> ]  d4 \!  c-)
+	 a-[( \< b c cis-\!-\> ]  d4  c-\!-)
 	 ais8-[( b-)] r8 \cresc b  b-[( c-)] r c
 	 cis-[ ( d-)] r4 r2
 	\endcresc g,1-\f ~ g2 ~  g8-[ a16 b]  c-[( d-) e c]

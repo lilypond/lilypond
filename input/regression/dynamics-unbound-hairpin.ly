@@ -5,7 +5,7 @@ texidoc = "Crescendi may start off-notes. In that case, they should  not collaps
 }
 
 \score { \notes { \context  Voice { 
-  < f''1 { s4 s4 \< \! s4 \> \! s4 } >
+  < f''1 { s4 s4 \< s4-\! \> s4-\! } >
 }}
 
 \paper { raggedright = ##t}

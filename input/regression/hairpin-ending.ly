@@ -10,7 +10,7 @@ into them."
 
 
 \score {
-\notes \relative c'' { c4 \> c4 \! c4 c4_\ff \> c4 \! c4 -\p }
+\notes \relative c'' { c4 \> c4 c4-\! c4_\ff \> c4 c4-\!-\p }
 \paper { raggedright = ##t} 
 }
 

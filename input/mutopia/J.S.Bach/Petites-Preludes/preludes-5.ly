@@ -1,4 +1,4 @@
-#(ly:set-point-and-click 'line-column)
+%#(ly:set-point-and-click 'line-column)
 
 piece = "5"
 opus = "BWV 926"

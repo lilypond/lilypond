@@ -85,7 +85,7 @@ rondo = \notes 	\relative c'
 	g2.~
 	 g8-[ \> a g]  f-[ e d]
 	< \rondotheme
-	  { \! s8-\p } >
+	  { s8-\!-\p } >
 	  
 	R2.*12
 	r4 r8 r4 c8
@@ -135,7 +135,7 @@ rondo = \notes 	\relative c'
 	
 	% Edition breitkopf says a-flat (silly!)
 	 fis-[  g gis] 
-		  a-[ bes \! b]
+		  a-[ bes b-]-\!
 
 	%% EB does the slur in the Rondo differently from the 1st adn 2nd time.
 	%% why. Should check with MS.
