@@ -82,7 +82,7 @@ static void
 set_property_on_children (Translator_group * trans, const char * sym, SCM val)
 {
   trans->set_property (sym, val);
-  for (SCM p = trans -> trans_group_list_; gh_pair_p (p); p = ly_cdr(p)) {
+  for (SCM p = trans->trans_group_list_; gh_pair_p (p); p = ly_cdr(p)) {
     Translator_group *trg =  dynamic_cast<Translator_group*> (unsmob_translator (ly_car (p)));
     set_property_on_children(trg,sym,ly_deep_copy(val));
   }

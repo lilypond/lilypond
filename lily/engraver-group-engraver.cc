@@ -23,7 +23,7 @@ Engraver_group_engraver::announce_grob (Grob_info info)
 void
 Engraver_group_engraver::process_acknowledged_grobs_in_simple_children ()
 {
-  for (SCM p = simple_trans_list_; gh_pair_p (p); p = ly_cdr (p))
+  for (SCM p = get_simple_trans_list (); gh_pair_p (p); p = ly_cdr (p))
     {
       Translator * t = unsmob_translator (ly_car (p));
       Engraver * eng = dynamic_cast<Engraver*> (t);
@@ -71,7 +71,7 @@ Engraver_group_engraver::acknowledge_grobs ()
       SCM acklist = scm_hashq_ref (tab, nm, SCM_UNDEFINED);
       if (acklist == SCM_BOOL_F)
 	{
-	  acklist= find_acknowledge_engravers (gh_cons (self_scm (), simple_trans_list_), meta);
+	  acklist = find_acknowledge_engravers (gh_cons (self_scm (), get_simple_trans_list ()), meta);
 	  scm_hashq_set_x (tab, nm, acklist);
 	}
 
@@ -113,7 +113,7 @@ Engraver_group_engraver::do_announces ()
 void
 Engraver_group_engraver::process_music ()
 {
-   for (SCM p = simple_trans_list_; gh_pair_p (p); p =ly_cdr (p))
+   for (SCM p = get_simple_trans_list (); gh_pair_p (p); p =ly_cdr (p))
     {
       Translator * t = unsmob_translator (ly_car (p));
       Engraver * eng = dynamic_cast<Engraver*> (t);
