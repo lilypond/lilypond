@@ -258,7 +258,11 @@ Slur::broken_trend_offset (Grob *me, Direction dir)
   if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_))
     {
       int k = broken_spanner_index (dynamic_cast<Spanner*> (me));
-      Grob *neighbour = mother->broken_intos_[k + dir];      
+      int j = k + dir;
+      if (j < 0 || j >= mother->broken_intos_.size ())
+	return o;
+      
+      Grob *neighbour = mother->broken_intos_[j];      
       if (dir == RIGHT)
 	neighbour->set_grob_property ("direction",
 				      me->get_grob_property ("direction"));

@@ -38,6 +38,7 @@ Context_def::mark_smob (SCM smob)
   scm_gc_mark (me->translator_mods_);
   scm_gc_mark (me->property_ops_);  
   scm_gc_mark (me->translator_group_type_);
+
   return me->context_name_;
 }
 

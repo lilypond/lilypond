@@ -1,16 +1,13 @@
 /*   
-score-context.cc -- implement
+	score-context.cc -- implement Score_context
 
-source file of the GNU LilyPond music typesetter
+	source file of the GNU LilyPond music typesetter
 
-(c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
- */
-
+	(c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
+*/
 
 #include "score-context.hh"
 #include "score-translator.hh"
-
 
 void
 Score_context::prepare (Moment w)

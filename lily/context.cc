@@ -25,7 +25,6 @@ Context::is_removable () const
     ;
 }
 
-
 void
 Context::check_removal ()
 {
@@ -99,7 +98,8 @@ Context::Context ()
 Context *
 Context::find_existing_context (SCM n, String id)
 {
-  if ((is_alias (n) && (id_string_ == id || id.is_empty ())) || n == ly_symbol2scm ("Current"))
+  if ((is_alias (n) && (id_string_ == id || id.is_empty ()))
+      || n == ly_symbol2scm ("Current"))
     return this;
 
   Context* r = 0;
