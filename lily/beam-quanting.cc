@@ -27,6 +27,12 @@ const int INTER_QUANT_PENALTY = 1000;
 const Real SECONDARY_BEAM_DEMERIT  = 10.0;
 const int STEM_LENGTH_DEMERIT_FACTOR = 5;
 
+/*
+  threshold to combat rounding errors.
+ */
+
+const Real BEAM_EPS = 1e-3; 
+
 // possibly ridiculous, but too short stems just won't do
 const int STEM_LENGTH_LIMIT_PENALTY = 5000;
 const int DAMPING_DIRECTION_PENALTY = 800;
@@ -443,7 +449,7 @@ Beam::score_forbidden_quants (Real yl, Real yr,
   Direction d = LEFT;
   do
     {
-      if (fabs (y[d]) <= (radius + 0.5) && fabs (my_modf (y[d]) - 0.5) < 1e-3)
+      if (fabs (y[d]) <= (radius + 0.5) && fabs (my_modf (y[d]) - 0.5) < BEAM_EPS)
 	dem += INTER_QUANT_PENALTY;
     }
   while ((flip (&d))!= LEFT); 
@@ -466,8 +472,10 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	  gap.add_point (gap1);
 	  gap.add_point (gap2);
 
-	  if (gap.contains (radius))
-	    dem += extra_demerit;
+	  for (Real k = - radius ;
+	       k <= radius + BEAM_EPS; k += 1.0) 
+	    if (gap.contains (k))
+	      dem += extra_demerit;
 	}
       while ((flip (&d))!= LEFT); 
     }
@@ -482,28 +490,26 @@ Beam::score_forbidden_quants (Real yl, Real yr,
       Real inter = 0.5;
       Real hang = 1.0 - (thickness - slt) / 2;
 
-      Real eps = 1e-3;
-
       // hmm, without Interval/Drul_array, you get ~ 4x same code...
       if (fabs (y[LEFT] - dirs[LEFT] * beam_translation) < radius + inter)
 	{
-	  if (dirs[LEFT] == UP && dy <= eps
-	      && fabs (my_modf (y[LEFT]) - sit) < eps)
+	  if (dirs[LEFT] == UP && dy <= BEAM_EPS
+	      && fabs (my_modf (y[LEFT]) - sit) < BEAM_EPS)
 	    dem += extra_demerit;
 	  
-	  if (dirs[LEFT] == DOWN && dy >= eps
-	      && fabs (my_modf (y[LEFT]) - hang) < eps)
+	  if (dirs[LEFT] == DOWN && dy >= BEAM_EPS
+	      && fabs (my_modf (y[LEFT]) - hang) < BEAM_EPS)
 	    dem += extra_demerit;
 	}
 
       if (fabs (y[RIGHT] - dirs[RIGHT] * beam_translation) < radius + inter)
 	{
-	  if (dirs[RIGHT] == UP && dy >= eps
-	      && fabs (my_modf (y[RIGHT]) - sit) < eps)
+	  if (dirs[RIGHT] == UP && dy >= BEAM_EPS
+	      && fabs (my_modf (y[RIGHT]) - sit) < BEAM_EPS)
 	    dem += extra_demerit;
 	  
-	  if (dirs[RIGHT] == DOWN && dy <= eps
-	      && fabs (my_modf (y[RIGHT]) - hang) < eps)
+	  if (dirs[RIGHT] == DOWN && dy <= BEAM_EPS
+	      && fabs (my_modf (y[RIGHT]) - hang) < BEAM_EPS)
 	    dem += extra_demerit;
 	}
       
@@ -511,23 +517,23 @@ Beam::score_forbidden_quants (Real yl, Real yr,
 	{
 	  if (fabs (y[LEFT] - 2 * dirs[LEFT] * beam_translation) < radius + inter)
 	    {
-	      if (dirs[LEFT] == UP && dy <= eps
-		  && fabs (my_modf (y[LEFT]) - straddle) < eps)
+	      if (dirs[LEFT] == UP && dy <= BEAM_EPS
+		  && fabs (my_modf (y[LEFT]) - straddle) < BEAM_EPS)
 		dem += extra_demerit;
 	      
-	      if (dirs[LEFT] == DOWN && dy >= eps
-		  && fabs (my_modf (y[LEFT]) - straddle) < eps)
+	      if (dirs[LEFT] == DOWN && dy >= BEAM_EPS
+		  && fabs (my_modf (y[LEFT]) - straddle) < BEAM_EPS)
 		dem += extra_demerit;
 	    }
 	  
 	  if (fabs (y[RIGHT] - 2 * dirs[RIGHT] * beam_translation) < radius + inter)
 	    {
-	      if (dirs[RIGHT] == UP && dy >= eps
-		  && fabs (my_modf (y[RIGHT]) - straddle) < eps)
+	      if (dirs[RIGHT] == UP && dy >= BEAM_EPS
+		  && fabs (my_modf (y[RIGHT]) - straddle) < BEAM_EPS)
 		dem += extra_demerit;
 	      
-	      if (dirs[RIGHT] == DOWN && dy <= eps
-		  && fabs (my_modf (y[RIGHT]) - straddle) < eps)
+	      if (dirs[RIGHT] == DOWN && dy <= BEAM_EPS
+		  && fabs (my_modf (y[RIGHT]) - straddle) < BEAM_EPS)
 		dem += extra_demerit;
 	    }
 	}
