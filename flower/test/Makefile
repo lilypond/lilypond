@@ -28,20 +28,6 @@ include ./$(depth)/make/Variables.make
 include ./$(depth)/make/Files.make 
 #
 
-# descent order into subdirectories:
-#
-SUBDIRS =
-#
-
-# to be remade each build:
-#
-VERSION_DEPENDENCY = #
-#
-
-# module compile settings: (not generally needed!
-#
-
-
 # list of distribution files:
 #
 EXTRA_DISTFILES = result 
@@ -56,18 +42,15 @@ MODULE_LIBES = -lflower
 
 # main target of this module:
 #
-# MAINTARGET = $(EXECUTABLE)
-# MAINTARGET = $(LIBRARY)
 MAINTARGET = $(lily_bindir)/$(EXECUTABLE)# huh?
-# MAINTARGET = $(libdir)/$(LIBRARY)# huh?
-
-#default: $(MAINTARGET)
 BUILDSTRINGTEST=$(MAINTARGET)
 EXECSTRINGTEST=$(EXECUTABLE)
 
-default:  $(BUILDSTRINGTEST) do-stringtest
+# don't do the exec, as this might fail if flowerlib isn't installed yet.
+default:  $(BUILDSTRINGTEST) 
+
 do-stringtest:
-	$(EXECSTRINGTEST) > $(outdir)/result    # should cmp with a 'standard result'
+	$(EXECSTRINGTEST) > $(outdir)/result
 	cmp $(outdir)/result result
 
 dummy:
@@ -76,12 +59,7 @@ dummy:
 #
 include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
-#
 
-# list of depend files:
-#
-DEPFILES = $(wildcard $(depdir)/*.dep )
-#
 
 # auto dependencies:
 #
