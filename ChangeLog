@@ -1,5 +1,9 @@
 2005-03-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* make/ly-rules.make: 
+	* stepmake/aclocal.m4: 
+	* Documentation/user/GNUmakefile: Remove old makeinfo compatibility.
+
 	* buildscripts/fixcc.py (rules): Leave space after operator.
 
 2005-03-14  Werner Lemberg  <wl@gnu.org>

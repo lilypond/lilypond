@@ -93,7 +93,6 @@ STEPMAKE_PERL(OPTIONAL)
 # without the docs, they can find this comment and use an older
 # makeinfo -- but hopefully won't report makeinfo problems.
 STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.7)
-AC_SUBST(MAKEINFO_VERSION)
 
 
 if test "$optimise_b" = yes; then
