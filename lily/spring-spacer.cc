@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c) 1996, 1997, 1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
 
@@ -71,7 +71,7 @@ Spring_spacer::handle_loose_cols()
       connected.connect (i->left_i_,i->right_i_);
     }
   for (int i = 0; i < cols.size(); i++)
-    if (cols[i].fixed())
+    if (cols[i].fixed_b())
       fixed.push (i);
   for (int i=1; i < fixed.size(); i++)
     connected.connect (fixed[i-1], fixed[i]);
@@ -152,61 +152,77 @@ Spring_spacer::check_constraints (Vector v) const
 
   for (int i=0; i < dim; i++)
     {
-
-      if (cols[i].fixed()&&
+      if (cols[i].fixed_b() &&
 	  abs (cols[i].fixed_position() - v (i)) > COLFUDGE)
 	return false;
 
-      if (!i)
-	continue;
-
-      Real mindist=cols[i-1].width_[RIGHT]
-	-cols[i].width_[LEFT];
-
-      // ugh... compares
-      Real dif =v (i) - v (i-1)- mindist;
-      bool b = (dif > - COLFUDGE);
-
-
-      if (!b)
-	return false;
+      Array<Column_rod> &rods (cols[i].pcol_l_->minimal_dists_arr_drul_[RIGHT]);
+      for (int j =0; j < rods.size (); j++)
+	{
+	  int delta_idx=  rods[j].other_l_->rank_i () - cols[i].rank_i ();
+	  if (i + delta_idx >= dim )
+	    break;
+	  if (rods[j].other_l_ != cols[i + delta_idx].pcol_l_)
+	    continue;
+	  if (v (i + delta_idx) - v (i) < rods[j].distance_f_)
+	    return false;
+	}
 
     }
   return true;
 }
 
-/// try to generate a solution which obeys the min distances and fixed
-/// positions
+/** try to generate a solution which obeys the min distances and fixed positions
+ */
 Vector
 Spring_spacer::try_initial_solution() const
 {
+  Vector v;
+  if (try_initial_solution_and_tell (v))
+    warning ("I'm too fat; call Oprah");
+  return v;
+
+}
+
+bool
+Spring_spacer::try_initial_solution_and_tell (Vector &v) const
+{
   int dim=cols.size();
+  bool succeeded = true;
   Vector initsol (dim);
   for (int i=0; i < dim; i++)
     {
-      if (cols[i].fixed())
+      int first_rank = cols[0].rank_i ();
+      int last_rank = cols.top ().rank_i ();
+
+      Real min_x = i ?  initsol (i-1) : 0.0;
+      for (int j=0; j < cols[i].pcol_l_->minimal_dists_arr_drul_[LEFT].size (); j++)
+	{
+	  Column_rod cr (cols[i].pcol_l_->minimal_dists_arr_drul_[LEFT] [j]);
+	  if (cr.other_l_->rank_i () < first_rank)
+	    break;
+
+	  int idx = cr.other_l_->rank_i () - first_rank;
+	  assert (i > idx && idx >= 0);
+	  if (cr.other_l_->break_status_i_ !=  cols[idx].pcol_l_->break_status_i_ )
+	    continue;
+	  
+	  min_x = min_x >? (initsol (idx) + cr.distance_f_);
+	}
+      
+      if (cols[i].fixed_b())
 	{
 	  initsol (i)=cols[i].fixed_position();
-
-	  if (i > 0)
+	  if (initsol (i) < min_x )
 	    {
-	      Real r =initsol (i-1)  + cols[i-1].width_[RIGHT];
-	      if (initsol (i) < r)
-		  initsol (i) =r;
+	      initsol (i) = min_x;
+	      succeeded = false;
 	    }
-
-	}
-      else
-	{
-	  Real mindist=cols[i-1].width_[RIGHT]
-	    - cols[i].width_[LEFT];
-	  if (mindist < 0.0)
-	    warning (_("Excentric column"));
-	  initsol (i)=initsol (i-1)+mindist;
 	}
     }
-
-  return initsol;
+  v = initsol;
+  
+  return succeeded;
 }
 
 
@@ -240,7 +256,7 @@ void
 Spring_spacer::set_fixed_cols (Mixed_qp &qp) const
 {
   for (int j=0; j < cols.size(); j++)
-    if (cols[j].fixed())
+    if (cols[j].fixed_b())
       qp.add_fixed_var (j,cols[j].fixed_position());
 } 
 
@@ -249,18 +265,30 @@ void
 Spring_spacer::make_constraints (Mixed_qp& lp) const
 {
   int dim=cols.size();
-  for (int j=0; j < dim; j++)
+  int last_rank = cols.top ().pcol_l_->rank_i ();
+  
+  for (int j=0; j < dim -1; j++)
     {
-      Colinfo c=cols[j];
-      if (j > 0)
+      Paper_column* lc = cols[j].pcol_l_;
+      int my_rank = lc->rank_i();
+      for (int i = 0; i < lc->minimal_dists_arr_drul_[RIGHT].size (); i++)
 	{
 	  Vector c1(dim);
+	  Column_rod & cr = lc->minimal_dists_arr_drul_[RIGHT][i];
+	  int right_rank = cr.other_l_->rank_i ();
 
-	  c1(j)=1.0 ;
-	  c1(j-1)=-1.0 ;
+	  cout << "lr, rr, last = " << my_rank << ", " <<right_rank << ", " << last_rank << endl;
 
-	  lp.add_inequality_cons (c1, cols[j-1].width_[RIGHT] 
-				  - cols[j].width_[LEFT]);
+	  if (right_rank > last_rank)
+	    break;
+	      
+	  int right_idx = right_rank - my_rank + j;
+	  cout << "li, ri = " << j << "," << right_idx;
+	  cout << "lr, rr = " << my_rank << ", " <<right_rank << endl;
+	  c1(right_idx)=1.0 ;
+	  c1(j)=-1.0 ;
+
+	  lp.add_inequality_cons (c1, cr.distance_f_);
 	}
     }
 }
@@ -337,6 +365,8 @@ Spring_spacer::add_column (Paper_column  *col, bool fixed, Real fixpos)
   else
     c.rank_i_ = 0;
   cols.push (c);
+
+  
 }
 
 Line_of_cols
@@ -524,7 +554,7 @@ Spring_spacer::calc_idealspacing()
 
   /* 
      First do all non-musical columns
-   */
+  */
   for (int i=0; i < cols.size(); i++)
     {
       if (!scol_l (i)->musical_b() && i+1 < cols.size())
@@ -551,7 +581,7 @@ Spring_spacer::calc_idealspacing()
 
   /* 
      Then musicals
-     */
+  */
   for (int i=0; i < cols.size(); i++)
     {
       if (scol_l (i)->musical_b())
