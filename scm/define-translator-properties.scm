@@ -335,6 +335,11 @@ for an 8va spanner. Changing this implies a new text spanner. ")
 this is done with the pedal.")
 (translator-property-description 'pedalUnaCordaStrings list? "see pedalSustainStrings.")
 (translator-property-description 'pedalSostenutoStrings list? "see pedalSustainStrings.")
+(translator-property-description 'pedalSustainStyle symbol? "A symbol
+that indicates how to print sustain pedals: text, bracket or mixed
+(both).")
+(translator-property-description 'pedalUnaCordaStyle symbol? "see pedalSustainStyle.")
+(translator-property-description 'pedalSostenutoStyle symbol? "see pedalSustainStyle.")
 
 (translator-property-description 'phrasingPunctuation string?
 				 "A string of characters that are considered

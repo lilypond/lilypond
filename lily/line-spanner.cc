@@ -19,6 +19,18 @@
 
 #include <math.h>
 
+/*
+  TODO: convert all Molecule functions to taking arguments of the form
+
+  Offset FROM, Offset TO.
+
+
+  TODO:
+
+  Introduce line-interface that allows dots/dashes/etc. to be set as
+  grob-properties. Make arbitrary paths.
+  
+ */
 
 /*
   slightishly clumsy interface?
@@ -121,28 +133,32 @@ Line_spanner::after_line_breaking (SCM  g)
 
 
 Molecule
-Line_spanner::line_molecule (Grob *me, Real thick, Real dx, Real dy)
+Line_spanner::line_molecule (Grob *me, Real thick,
+			     Offset from,
+			     Offset to)
 {
+  Offset dz = to -from ; 
   Molecule mol;
   SCM type = me->get_grob_property ("style");
   if (gh_symbol_p (type)
       && (type == ly_symbol2scm ("line")
 	  || type == ly_symbol2scm ("dashed-line")
 	  || type == ly_symbol2scm ("dotted-line")
-	  || (type == ly_symbol2scm ("trill") && dy != 0)))
+	  || type == ly_symbol2scm ("zigzag") 
+	  || (type == ly_symbol2scm ("trill") && dz[Y_AXIS] != 0)))
     {
-      Box b (Interval (-0.5* thick +  (0 <? dx) ,0.5* thick+ (0 >? dx)),
-	     Interval (- 0.5* thick + (0<? dy), 0.5*thick + (0 >? dy)));
-      mol = Molecule (b, line_atom (me, thick, dx, dy));
-    }
-  else if (gh_symbol_p (type)
-	   && type == ly_symbol2scm ("zigzag"))
-    {
-      // TODO:
-      Box b (Interval (-0.5* thick +  (0 <? dx) ,0.5* thick+ (0 >? dx)),
-	     Interval (- 0.5* thick + (0<? dy), 0.5*thick + (0 >? dy)));
-      mol = Molecule (b, zigzag_atom (me, thick, dx, dy));
+      Box b;
+      b.add_point (Offset (0,0));
+      b.add_point (dz);
+      b[X_AXIS].widen (thick/2);
+      b[Y_AXIS].widen (thick/2);
 
+      SCM atom =  (type == ly_symbol2scm ("zigzag"))
+	? zigzag_atom (me, thick, dz[X_AXIS], dz[Y_AXIS])
+	: line_atom (me, thick, dz[X_AXIS], dz[Y_AXIS]);
+
+      mol = Molecule (b, atom);
+      mol.translate (from);
     }
   else if (gh_symbol_p (type)
 	   && type == ly_symbol2scm ("trill"))
@@ -160,15 +176,18 @@ Line_spanner::line_molecule (Grob *me, Real thick, Real dx, Real dy)
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0,0);
       while (m.extent (X_AXIS).length ()
 	     && mol.extent (X_AXIS).length ()
-	     + m.extent (X_AXIS).length () < dx);
+	     + m.extent (X_AXIS).length () < dz[X_AXIS]);
 
       /*
 	FIXME: should center element on x/y
        */
       mol.translate_axis (m.extent (X_AXIS).length () / 2, X_AXIS);
       mol.translate_axis (-(mol.extent (Y_AXIS)[DOWN]
-			    + mol.extent (Y_AXIS).length ())/2, Y_AXIS); 
+			    + mol.extent (Y_AXIS).length ())/2, Y_AXIS);
+
+      mol.translate (from);
     }
+
   return mol;
 }
 
@@ -280,8 +299,7 @@ Line_spanner::brew_molecule (SCM smob)
       dz = (dz.length () - 2*gap) *dir;
       
   
-      Molecule l (line_molecule (me, thick, dz[X_AXIS],
-				 dz[Y_AXIS]));
+      Molecule l (line_molecule (me, thick, Offset(0, 0), dz));
 
       l.translate (dir * gap +  p1
 		   - Offset (me->relative_coordinate (commonx, X_AXIS),
@@ -316,9 +334,9 @@ Line_spanner::brew_molecule (SCM smob)
       ofxy = dxy * (off/dxy.length ());
       dxy -= 2*ofxy;
   
-      Molecule line = line_molecule (me, thick, dxy[X_AXIS], dxy[Y_AXIS]);
-      line.translate_axis (bound[LEFT]->extent (bound[LEFT],
-						X_AXIS).length ()/2, X_AXIS); 
+      Molecule line = line_molecule (me, thick, Offset (0,0),dxy);
+
+      line.translate_axis (bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()/2, X_AXIS); 
       line.translate (ofxy - my_off + his_off);
       return line.smobbed_copy ();
     }

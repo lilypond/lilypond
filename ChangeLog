@@ -1,5 +1,17 @@
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/text-spanner.cc (brew_molecule): use bracket-flare
+	iso. edge-widen.
+
+	* lily/piano-pedal-engraver.cc (process_music): change from
+	process_acknowledged ()
+
+	* lily/piano-pedal-bracket.cc: new file. Change
+	setup_pedal_bracket in after_line_breaking callback.  Thoroughly
+	cleaned up.
+
+	* lily/text-spanner.cc (setup_pedal_bracket): cleanup.
+
 	* input/regression/tuplets.ly (texidoc): rename file.
 
 	* po/fr.po: update
