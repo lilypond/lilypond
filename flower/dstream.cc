@@ -2,28 +2,35 @@
 #include "assoc.hh"
 #include "dstream.hh"
 #include "scalar.hh"
-#include "textdb.hh"
+#include "text-db.hh"
+#include "string-convert.hh"
 
 /// indent of each level 
-const INDTAB = 3;
+const INDTAB = 2;
 
 /*
   should use Regexp library.
   */
 static String
-strip_pretty(String pret)
+strip_pretty(String pretty_str)
 {
-    String cl(pret.left_str(pret.index_i('(')));
-    int l = cl.index_last_i(' ');
-    cl = cl.right_str(cl.len() - l - 1);
-    return cl;
+    int i = pretty_str.index_i('(');
+    if (i>=0)
+	pretty_str = pretty_str.left_str(i);
+    
+    int l = pretty_str.index_last_i(' '); // strip until last ' '
+    if (l>=0)
+	pretty_str = pretty_str.nomid_str(0,l+1);
+    return pretty_str;
 }
 
 static String
 strip_member(String pret)
 {
-    String cl(pret.left_str(pret.index_last_i(':')-1));
-    return cl;
+    int l=pret.index_last_i(':')-1;
+    if (l>=0)
+	pret = pret.left_str(l );
+    return pret;
 }
 
 Dstream&
@@ -46,7 +53,7 @@ Dstream::identify_as(String name)
     local_silence = (*silent)[idx];
     if (classname != idx && !local_silence) {
 	classname=idx;
-	*os << "[" << classname << ":]";
+//	*os << "[" << classname << ":]"; // messy.
     }
     return *this;
 }
@@ -59,17 +66,37 @@ Dstream::silence(String s)
     return (*silent)[s];
 }
 
-/** only output possibility. Delegates all conversion to String class.
- */
+/** Output a string via the Dstream. This is the only output
+ interface. It delegates all conversion to String class.  */
 Dstream &
 Dstream::operator<<(String s)
 {
+    output(s);
+    return *this;
+}
+
+Dstream &
+Dstream::operator<<(const void *v_l)
+{
+    output(String_convert::pointer_str(v_l));
+    return *this;
+}
+
+Dstream &
+Dstream::operator<<(const char *ch_l)
+{
+    output(ch_l);
+    return *this;
+}
+
+void
+Dstream::output(String s)
+{
     if (local_silence|| !os)
-	return *this;
+	return ;
     
     for (const char *cp = s  ; *cp; cp++)
-	switch(*cp) 
-	    {
+	switch(*cp) {
 	    case '{':
 	    case '[':
 	    case '(': indentlvl += INDTAB;
@@ -92,7 +119,7 @@ Dstream::operator<<(String s)
 		*os << *cp;
 		break;
 	    }
-    return *this;    
+    return ;    
 }
 
 
@@ -125,6 +152,7 @@ Dstream::Dstream(ostream *r, const char * cfg_nm )
 
 
 Dstream::~Dstream()
-{
+{    
     delete silent;
+    assert(!indentlvl) ;
 }
