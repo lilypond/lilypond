@@ -46,6 +46,12 @@ if os.environ.has_key ('TEXMF'):
 env.Append (ENV = {'TEXMF' : '{$LILYPONDPREFIX,' \
 		   + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}' })
 
+#if os.environ.has_key ('GS_LIB'):
+#	env.Append (ENV = {'GS_LIB' : os.environ['GS_LIB'] })
+#
+#env.PrependENVPath ('GS_LIB', ['$run_prefix/share/lilyond/ps',
+#			       '$run_prefix/share/lilypond/fonts/type1/'])
+
 if os.environ.has_key ('LD_LIBRARY_PATH'):
 	env.Append (ENV = {'LD_LIBRARY_PATH' : os.environ['LD_LIBRARY_PATH']})
 if os.environ.has_key ('GUILE_LOAD_PATH'):
@@ -142,10 +148,11 @@ def add_enc_src (target, source, env):
 	return (target, source + [base + '.enc'])
 
 # UGH, should fix --output option for mftrace
+# mftrace --verbose is too verbose
 a = 'cd ${TARGET.dir} && \
 if test -e ${SOURCE.filebase}.enc; then encoding="--encoding=${SOURCE.filebase}.enc"; fi; \
 MFINPUTS=$srcdir/mf:.: \
-mftrace --pfa --simplify --keep-trying $$encoding $__verbose \
+mftrace --pfa --simplify --keep-trying $$encoding $TOO__verbose \
 --include=${TARGET.dir} \
 ${SOURCE.file}'
 

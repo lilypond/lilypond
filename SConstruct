@@ -587,8 +587,8 @@ def symlink_tree (target, source, env):
 			else:
 				frm = os.path.join ('../' * depth, src,
 						    env['out'])
-			if src[-1] == '/':
-				frm = os.path.join (frm, os.path.basename (dst))
+		if src[-1] == '/':
+			frm = os.path.join (frm, os.path.basename (dst))
 		if env['verbose']:
 			print 'ln -s %s -> %s' % (frm, os.path.basename (dst))
 		os.symlink (frm, os.path.basename (dst))
@@ -602,6 +602,10 @@ def symlink_tree (target, source, env):
 	      ('lily/',      'bin/lilypond-bin'),
 	      ('scripts/',   'bin/lilypond'),
 	      ('scripts/',   'bin/lilypond-book'),
+	      ('mf',         'share/lilypond/dvips'),
+	      ('#ps',        'share/lilypond/tex/music-drawing-routines.ps'),
+	      ('mf',         'share/lilypond/afm'),
+	      ('mf',         'share/lilypond/tfm'),
 	      ('#mf',        'share/lilypond/fonts/mf'),
 	      ('mf',         'share/lilypond/fonts/afm'),
 	      ('mf',         'share/lilypond/fonts/tfm'),
@@ -674,7 +678,8 @@ map (lambda x: env.Depends (tar_ball, x), ball_files)
 map (lambda x: env.Command (os.path.join (ball_prefix, x), x,
 			    'ln $SOURCE $TARGET'), dist_files)
 tar = env.Command (tar_ball, src_files,
-		   'tar czf $TARGET -C $TARGET.dir %s' % tar_base)
+		   ['rm -f $$(find $TARGET.dir -name .sconsign)',
+		    'tar czf $TARGET -C $TARGET.dir %s' % tar_base,])
 env.Alias ('tar', tar)
 
 dist_ball = os.path.join (package.release_dir, tar_name)
