@@ -10,7 +10,7 @@
  Tested Features: example file with comments
 EndMudelaHeader
 %}
-\version "0.0.59";
+\version "0.0.60";
 
 
 % the % is a comment.
@@ -50,7 +50,7 @@ begeleiding = \melodic{
 	'c4			% ' before note means one octave lower.
 				% Similarly: ' after means one higher.
 	   c	e c	f c	e c	d 'b	c 'a	'f 'g	'c2 |
-	\octave  'c ;
+	\octave  c ;
 	e4 'g	d 'g	c 'g	'b 'g	e 'g	d 'g	c 'g	'b 'g
 	%%%% var 1
 	r8 e8()  c4  	r8 e8()  c4  	r8 f8() c4 	r8 e8() c4
@@ -64,7 +64,7 @@ begeleiding = \melodic{
 	 \begeleiding 
 	>
 	\paper{
-		\unitspace 2.5\cm	% a whole note takes 2.5 \cm ideally.
+		\unitspace 2.5\cm;	% a whole note takes 2.5 \cm ideally.
 	}
 }
 
