@@ -40,10 +40,12 @@ INSTALLATION_OUT_SUFFIXES=1 2
 # LilyPond on windows is configured with --prefix=/usr/lilypond-x.y.x
 # The cygwin profile.d dir, however, is in /etc
 
-INSTALLATION_DIR=$(shell dirname $(shell dirname $(prefix)))/etc/postinstall
+# avoid collapsed directory constructs '//'
+etc=$(dir $(patsubst %/, %, $(dir $(prefix))))etc
+INSTALLATION_DIR=$(etc)/postinstall
 INSTALLATION_FILES=$(OUT_POST_INSTALLS)
 
-INSTALLATION_OUT_DIR1=$(shell dirname $(shell dirname $(prefix)))/etc/profile.d
+INSTALLATION_OUT_DIR1=$(etc)/profile.d
 INSTALLATION_OUT_FILES1=$(OUT_PROFILES)
 
 INSTALLATION_OUT_DIR2=$(datadir)/tex
