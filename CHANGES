@@ -1,5 +1,7 @@
-1.5.4.jcn1
+1.5.4.jcn2
 ==========
+
+* Fixed off by one error for point and click.
 
 * Website fixes, found bug in grace note stem lengths.
 
