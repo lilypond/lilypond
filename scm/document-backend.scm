@@ -124,13 +124,14 @@ node."
 
 ;;;;;;;;;; check for dangling backend properties.
 (define (mark-interface-properties entry)
-  (map (lambda (x) (set-object-property! x  'iface-marked #t)) (caddr (cdr entry))))
+  (map (lambda (x) (set-object-property! x 'iface-marked #t))
+       (caddr (cdr entry))))
 
 (map mark-interface-properties interface-description-alist)
 
 (define (check-dangling-properties prop)
   (if (not (object-property prop 'iface-marked))
-      (error  "\ndefine-grob-properties.scm: Can't find interface for property:" prop)))
+      (error "\ndefine-grob-properties.scm: Can't find interface for property:" prop)))
 
 (map check-dangling-properties all-backend-properties)
 

@@ -102,9 +102,7 @@ Context::Context (Object_key const *key)
   scm_gc_unprotect_object (key_->self_scm ());
 }
 
-/*
-  TODO:  this shares code with find_create_context().
-*/
+/* TODO:  this shares code with find_create_context ().  */
 Context *
 Context::create_unique_context (SCM n, SCM operations)
 {

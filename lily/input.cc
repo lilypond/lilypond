@@ -103,6 +103,7 @@ Input::warning (String message_string) const
 {
   message (_ ("warning: ") + message_string);
 }
+
 void
 Input::error (String s) const
 {
@@ -114,6 +115,7 @@ Input::non_fatal_error (String s) const
 {
   message (_ ("non fatal error: ") + s);
 }
+
 String
 Input::location_string () const
 {
