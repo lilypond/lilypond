@@ -1,3 +1,6 @@
+pl 41
+	- matrix fixes; more inlining no virtual methods
+
 pl 40
 	- do some Complex number stuff in Offset
 	- included axies, offset from lily

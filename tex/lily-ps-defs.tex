@@ -96,39 +96,122 @@ def
  /lily_distance {
         1 copy mul exch 1 copy mul add sqrt
  } bind def
- /draw_plet
-        {
-                staffrulethickness setlinewidth
-                /dir exch def
-                /plet_dy exch def
-                /plet_dx exch def
-		staffheight 2 div /plet_gapx exch def
-		plet_dy plet_dx div plet_gapx mul /plet_gapy exch def
-		staffheight 4 div dir mul /plet_h exch def
+staffrulethickness 1.2 mul /plet_t exch def
+/draw_plet
+{
+	plet_t setlinewidth
+	true setstrokeadjust
+	1 setlinecap
+	1 setlinejoin
+	/dir exch def
+	/plet_dy exch def
+	/plet_dx exch def
+	staffheight 2 div /plet_gapx exch def
+	plet_dy plet_dx div plet_gapx mul /plet_gapy exch def
+	staffheight 4 div dir mul /plet_h exch def
 %
-		0 0 moveto
-                0 plet_h lineto 
-		plet_dx plet_gapx sub 2 div 
-			plet_dy plet_gapy sub 2 div plet_h add lineto
-		plet_dx plet_gapx add 2 div 
-			plet_dy plet_gapy add 2 div plet_h add moveto
-		plet_dx plet_dy plet_h add lineto
-		plet_dx plet_dy lineto
-		stroke
-        }
-        bind def
- staffheight 2 div /slurhtlimit exch def
+	0 0 moveto
+	0 plet_h lineto 
+	plet_dx plet_gapx sub 2 div 
+		plet_dy plet_gapy sub 2 div plet_h add lineto
+	plet_dx plet_gapx add 2 div 
+		plet_dy plet_gapy add 2 div plet_h add moveto
+	plet_dx plet_dy plet_h add lineto
+	plet_dx plet_dy lineto
+	stroke
+} bind def
+staffheight 2 div /slurhtlimit exch def
 /draw_slur
 {
 	staffrulethickness setlinewidth
-	0 0 moveto
-	rcurveto
-	rcurveto
+	moveto
+	curveto
+	lineto
+	curveto
 	gsave
 	fill
 	grestore
 	stroke
 	} bind def
+%
+staffheight 4 div /interline exch def
+%
+/bracket_traject
+{
+  /traject_ds exch def
+  /traject_alpha exch def
+  traject_ds traject_alpha sin mul add
+  exch
+  traject_ds traject_alpha cos mul add
+  exch
+} bind def
+%
+interline 2 div /bracket_b exch def
+interline 2 mul /bracket_w exch def
+staffrulethickness /stafflinethickness exch def
+stafflinethickness 2 mul /bracket_t exch def
+interline 1.5 mul /bracket_v exch def
+bracket_v /bracket_u exch def
+50 /bracket_alpha exch def
+%
+/half_bracket
+{
+%6
+	0 0
+%5a
+	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add
+	bracket_alpha bracket_v -0.15 mul bracket_traject
+%5b
+	1 bracket_h
+	0 bracket_v 0.5 mul bracket_traject
+%5c
+	0 bracket_h
+%4a
+	bracket_b bracket_h bracket_t sub
+	0 bracket_v 0.4 mul bracket_traject
+%4b
+	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add
+	bracket_alpha bracket_v -0.25 mul bracket_traject
+%4c
+	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add
+%3
+	bracket_b bracket_h bracket_t sub
+%2
+	bracket_b 0
+%1
+	0 0
+} bind def
+%
+/draw_half_bracket {
+	moveto
+	lineto
+	lineto
+	curveto
+	curveto
+	lineto
+	gsave
+	fill
+	grestore
+} bind def
+%
+/draw_bracket
+{
+	2 div bracket_b add /bracket_h exch def
+	bracket_t setlinewidth
+	true setstrokeadjust
+	1 setlinecap
+	1 setlinejoin
+	half_bracket
+	20 copy
+	1 -1 scale
+	draw_half_bracket
+	stroke
+	1 -1 scale
+% ugh, ugh:
+	0.05 0 translate
+	draw_half_bracket
+	stroke
+} bind def
 }}
 
 \def\turnOnExperimentalFeatures{%

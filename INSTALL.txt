@@ -33,6 +33,8 @@ PREREQUISITES
 
        o    GNU C++ version 2.7 or newer (yes, 2.8 is fine).
 
+       o    Python
+
 RUNNING
        GNU LilyPond does use a lot of resources. For operation
        you need the following:
@@ -52,16 +54,14 @@ RECOMMENDED
 
        o    Flex (version 2.5.4 or newer).
 
-       o    Bison (version 1.25 or newer).  =item *
+       o    Bison (version 1.25 or newer).
 
-            Perl-5.  Most documentation was created with the
+       o    Perl-5.  Most documentation was created with the
             perl's Plain Old Documentation. (I use 5.003)
 
 
 
-
-
-21/Apr/98                LilyPond 0.1.58                        1
+27/Apr/98                LilyPond 0.1.59                        1
 
 
 
@@ -84,6 +84,7 @@ CONFIGURING and COMPILING
        to install GNU LilyPond, simply type:
 
                configure
+               make
                make install
 
        This will install the following files:
@@ -123,11 +124,10 @@ CONFIGURING and COMPILING
        your TeX has no default hooks for local stuff (mine is
        broken too), you can do:
 
-               configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
 
 
 
-21/Apr/98                LilyPond 0.1.58                        2
+27/Apr/98                LilyPond 0.1.59                        2
 
 
 
@@ -135,6 +135,8 @@ CONFIGURING and COMPILING
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+               configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
 
        Since GNU LilyPond currently is beta, you are advised to
        also use
@@ -166,6 +168,10 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        --enable-mf-dir
            Set the directory mf input is in (idem)
 
+       --enable-config
+           Output to different configuration files.  Needed for
+           multi-platform builds
+
        All options are documented in the configure help The
        option --enable-optimise is recommended for Real Life
        usage.
@@ -179,6 +185,37 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        subdirectories out/ (which contain all files generated
        during compilation).
 
+CONFIGURING FOR MULTIPLE PLATFORMS
+       If you want to compile LilyPond with different
+       configuration settings, then, you can use the --enable-
+       config option.  Example: suppose I want to build with and
+       without profiling.  Then I'd use the following for the
+
+
+
+27/Apr/98                LilyPond 0.1.59                        3
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
+       normal build,
+
+             configure --prefix=~ --disable-optimise --enable-checking
+             make
+             make install
+
+       and for the profiling version, I specify a different
+       configuration.
+
+             configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
+             make configuration=optprof
+             make configuration=optprof install
+
+
 INSTALLING
        If you have done a successful make, then a simple
 
@@ -189,18 +226,6 @@ INSTALLING
        If you are doing an upgrade, please remember to remove
        obsolete .pk and .tfm files of the fonts.  A script has
        been provided to do the work, see bin/clean-fonts.sh.
-
-
-
-
-21/Apr/98                LilyPond 0.1.58                        3
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
 
 CAVEATS
        o    The -O2 option to gcc triggers a gcc bug on DEC Alpha
@@ -230,6 +255,19 @@ EXAMPLE
                TeX output to someinput.tex ...
                Creating MIDI elements ...MIDI output to someinput.midi ...
 
+
+
+
+
+27/Apr/98                LilyPond 0.1.59                        4
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
                hw:~/musix/spacer$ xdvi someinput&
                [1] 855
 
@@ -256,18 +294,6 @@ WINDOWS NT/95
        http://www.cygnus.com/gnu-win32.
 
        To make GNU LilyPond under, brr, aargh, shudder...
-
-
-
-21/Apr/98                LilyPond 0.1.58                        4
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
-
        windows32, well, simply type:
 
                bash configure
@@ -277,62 +303,6 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        pkzip/WinZIP to unpack the distribution, make sure the
        entire source tree is unpacked correctly, in particular
        the empty out directories (flower/out, lib/out et. al.)
-
-MUSIXTEX
-       Previous versions (before 0.1.39) used fonts from the TeX
-       macro package "MusixTeX".  You can still use these, but
-       they are not supported.  Since LilyPond's Feta font is
-       much prettier, you'd be seriously misguided if you used
-       them, but anyway, here are the installation instructions
-       for those deprecated fonts.
-
-       [obsolete] I use the MusixTeX fonts those found in
-       MusixTeX T.73. Beware, the clef symbol seems to have
-       changed its position in some versions, (notably Egler's,
-       a.k.a. OpusTeX). The MusixTeX fonts are included in
-       MusixTeX (T73 or newer), which can be had from any CTAN
-       site, e.g. at
-
-       ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
-
-       ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
-
-       ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
-
-       You only need the contents of the mf/ subdirectory of the
-       package. The primary site of the Taupin version is
-       ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
-
-       Install the musixtex fonts in a directory which TeX and MF
-       knows (if you are root, look for a directory which
-       contains the directories with AMS and CM source (*.mf)
-       files. Create a subdir lilypond or musixtex and copy the
-       fonts into that). Do not forget to rehash TeX (if
-       applicable)
-
-       Example: my fonts are in
-       /usr/local/lib/texfonts/musixtex/, and I have a symlink
-       pointing to that in
-       /usr/lib/texmf/texmf/fonts/source/public/. After I copied
-       the files, I ran "texhash"
-
-       Andreas Egler's version of MusixTeX, now called OpusTeX,
-       will also work. Andreas moved some characters around in
-       the fonts, so you have to edit the definitions in
-       tex/eglerdefs.tex.
-
-
-
-
-
-21/Apr/98                LilyPond 0.1.58                        5
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
 
 AUTHORS
        Han-Wen Nienhuys <hanwen@cs.ruu.nl>
@@ -355,42 +325,6 @@ AUTHORS
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-21/Apr/98                LilyPond 0.1.58                        6
+27/Apr/98                LilyPond 0.1.59                        5
 
 

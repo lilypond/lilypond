@@ -31,18 +31,6 @@ public:
   bool eof() {
     return feof (f);
   }
-  bool eol() {
-    return (peek() == '\n');
-  }
-  char peek() {
-    char c = get();
-    unget (c);
-    return c;
-  }
-  int line(){
-    return line_no;
-  }
-
   char    get() {
     char c;
 	
@@ -60,6 +48,18 @@ public:
       line_no--;
     pushback.push (c);
   }
+  char peek() {
+    char c = get();
+    unget (c);
+    return c;
+  }
+  bool eol() {
+    return (peek() == '\n');
+  }
+  int line(){
+    return line_no;
+  }
+
   ~Text_stream(){
     if (!eof()) 
       cerr <<__FUNCTION__<< ": closing unended file";

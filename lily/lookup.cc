@@ -149,31 +149,26 @@ Lookup::flag (int j, Direction d) const
 Atom
 Lookup::slur (Array<Offset> controls) const
 {
-  assert (postscript_global_b);
   assert (controls.size () == 8);
 
   String ps = "\\embeddedps{\n";
   
-#if 1
-  for (int i = 1; i < 4; i++)
-    ps += String_convert::double_str (controls[i].x ()) + " "
-      + String_convert::double_str (controls[i].y ()) + " ";
-
-  Real dx = controls[3].x ();
-  Real dy = controls[3].y ();
-  for (int i = 5; i < 8; i++)
-    ps += String_convert::double_str (controls[i].x () - dx) + " "
-      + String_convert::double_str (controls[i].y () - dy) + " ";
-#else
-  // this would be nice
-  for (int i = 1; i < 4; i++)
-    ps += String_convert::double_str (controls[i].x ()) + " "
-      + String_convert::double_str (controls[i].y ()) + " ";
+  Real dx = controls[3].x () - controls[0].x ();
+  Real dy = controls[3].y () - controls[0].y ();
 
   for (int i = 5; i < 8; i++)
     ps += String_convert::double_str (controls[i].x ()) + " "
       + String_convert::double_str (controls[i].y ()) + " ";
-#endif
+
+  ps += String_convert::double_str (controls[4].x ()) + " "
+    + String_convert::double_str (controls[4].y ()) + " ";
+
+  for (int i = 1; i < 4; i++)
+    ps += String_convert::double_str (controls[i].x ()) + " "
+      + String_convert::double_str (controls[i].y ()) + " ";
+
+  ps += String_convert::double_str (controls[0].x ()) + " "
+    + String_convert::double_str (controls[0].y ()) + " ";
 
   ps += " draw_slur}";
 
@@ -199,41 +194,20 @@ Lookup::streepje (int type) const
 Atom
 Lookup::hairpin (Real &wid, bool decresc, bool continued) const
 {
-  bool embedded_b = postscript_global_b;
   String embed;
   Atom ret;  
   Real height = paper_l_->get_var ("barsize") / 6;
-  if (embedded_b)
-    {
-      embed = "\\embeddedps{\n" ;
-      embed += String (wid) + " " 
+  embed = "\\embeddedps{\n" ;
+  embed += String (wid) + " " 
 	+ String (height) + " " 
-	+ String (continued ? height/2 : 0) + 
-	+ " draw_"  + String(decresc ? "de" : "") + "cresc}\n";
-      ret.tex_ = embed;
-    }
-  else
-    {
-      if (wid > 32 * 6 PT)
-	{
-	  warning (_("Crescendo too long (") + print_dimen (wid) 
-		   +_( ") shrinking (ugh)"));
-	  wid = 32*6 PT;
-	}
-      int idx = int (rint (wid / 6 PT));
-      if (!idx) idx ++;
-      wid = idx*6 PT;
-      String idxstr = (decresc)? "decrescendosym" : "crescendosym";
-      ret=(*symtables_p_)("param")->lookup (idxstr);
-      
-      Array<String> a;
-      a.push (idx);
-      ret.tex_ = substitute_args (ret.tex_, a);
-    }
-  
+    + String (continued ? height/2 : 0) + 
+    + " draw_"  + String(decresc ? "de" : "") + "cresc}\n";
+  ret.tex_ = embed;
+
+
   ret.dim_.x () = Interval (0,wid);
   ret.dim_.y () = Interval (-2*height,2*height);
-//  ret.translate_axis (ret.dim_[Y_AXIS][DOWN], Y_AXIS);
+
   return ret;
 }
 
@@ -308,8 +282,15 @@ Lookup::vbrace (Real &y) const
 Atom
 Lookup::vbracket (Real &y) const
 {
+  Atom psbracket;
+  psbracket.tex_ = String ("\\embeddedps{ ") + y + " draw_bracket}";
+  psbracket.dim_[Y_AXIS] = Interval (-y/2,y/2);
+  psbracket.dim_[X_AXIS] = Interval (0,4 PT);
+  return psbracket;
   Atom bracket = (*symtables_p_)("param")->lookup ("bracket");
   Interval ydims = bracket.dim_[Y_AXIS];
+
+  
   Real min_y = ydims[LEFT];
   Real max_y = ydims[RIGHT];
   Real step = 1.0 PT;

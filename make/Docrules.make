@@ -10,10 +10,6 @@ pod2groff=pod2man --center="LilyPond documentation" --section="0"\
 $(outdir)/%.gif: %.xpm
 	xpmtoppm $< | ppmtogif > $@
 
-
-$(outdir)/%.ps: $(outdir)/%.dvi
-	dvips -o $@ $<
-
 $(outdir)/%.dvi: $(outdir)/%.mudtex
 	latex '\nonstopmode \input $<'
 	mv $(notdir $@) $(outdir)
@@ -27,8 +23,8 @@ $(outdir)/%.txt: $(outdir)/%.1
 $(depth)/%.txt: $(outdir)/%.txt
 	cp $< $@
 
-#  perl 5.003/4
 
+#  perl 5.003/4
 POD2HTML5004=$(POD2HTML) --noindex --infile $< --outfile=$@;  sh $(depth)/bin/add-URLs.sh $@
 
 POD2HTML5003=$(POD2HTML) $< ; mv $(notdir $@) $(outdir)/
@@ -46,15 +42,3 @@ $(outdir)/%.5: %.pod
 $(outdir)/%.1: %.pod
 	$(pod2groff)
 
-$(outdir)/%.gz: $(outdir)/%
-	gzip -c9 $< > $@
-
-name-stem= $(notdir $(basename $<))
-
-$(outdir)/%.gif: $(outdir)/%.ps
-	sh $(depth)/bin/ps-to-gifs.sh $<
-	mv $(name-stem)-page*.gif $(outdir)/
-	touch $@
-
-$(outdir)/%.ly.txt: $(depth)/input/%.ly
-	ln -f $< $@

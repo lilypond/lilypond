@@ -8,157 +8,130 @@
 
 #include "matrix.hh"
 #include "full-storage.hh"
-#include "diagonal-storage.hh"
-
-bool
-Matrix::band_b() const
-{
-  return dat->is_type_b (Diagonal_storage::static_name());
-}
-
-void
-Matrix::set_full() const
-{
-  if (dat->name() != Full_storage::static_name ()) 
-    {
-	Matrix_storage::set_full (((Matrix*)this)->dat);
-    }
-}
-
-void
-Matrix::try_set_band() const
-{
-  if (band_b())
-	return;
-  
-  int b = band_i();
-  if (b > dim()/2)
-	return;
-  // it only looks constant
-  Matrix*self  = (Matrix*)this;
-  Matrix_storage::set_band (self->dat,b);
-}
 
 Real
 Matrix::norm() const
 {
   Real r =0.0;
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))
-  	r += sqr (dat->elem (i,j));
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j))
+    r += sqr (dat_->elem (i,j));
   return sqrt (r);
 }
 
 void
 Matrix::fill (Real r)
 {
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))
-	dat->elem (i,j)=r;
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j))
+    dat_->elem (i,j)=r;
 }
 
 void
 Matrix::set_diag (Real r)
 {
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))	  
- 	dat->elem (i,j)=(i==j) ? r: 0.0;
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j))	  
+    dat_->elem (i,j)=(i==j) ? r: 0.0;
 }
 
 void
 Matrix::set_diag (Vector d)
 {
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))	  
- 	dat->elem (i,j)=(i==j) ? d (i): 0.0;
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j))	  
+    dat_->elem (i,j)=(i==j) ? d (i): 0.0;
 }
 
 void
 Matrix::operator+=(Matrix const &m)
 {
-  Matrix_storage::set_addition_result (dat, m.dat);
   assert (m.cols() == cols ());
   assert (m.rows() == rows ());
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))
-  	dat->elem (i,j) += m (i,j);
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j))
+    dat_->elem (i,j) += m (i,j);
 }
  
 void
 Matrix::operator-=(Matrix const &m)
 {
-  Matrix_storage::set_addition_result (dat, m.dat);
   assert (m.cols() == cols ());
   assert (m.rows() == rows ());
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))
-  	dat->elem (i,j) -= m (i,j);
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j))
+    dat_->elem (i,j) -= m (i,j);
 }
 
 
 void
 Matrix::operator*=(Real a)
 {
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))
-	dat->elem (i,j) *= a;
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j))
+    dat_->elem (i,j) *= a;
 }
 
 void
 Matrix::operator=(Matrix const &m)
 {
   if (&m == this)
-	return ;
-  delete dat;
-  dat = m.dat->clone();
+    return ;
+  delete dat_;
+  dat_ = new Full_storage (*m.dat_);
+}
+
+
+int
+Matrix::band_i () const
+{
+  return dat_->band_i_;
+}
+
+void
+Matrix::set_band ()
+{
+  dat_->band_i_ = calc_band_i ();
 }
 
 int
-Matrix::band_i() const
+Matrix::calc_band_i() const
 {
-  if (band_b()) 
-    {
-	Diagonal_storage const * diag = (Diagonal_storage*) dat;
-	return diag->band_size_i();
-    }
   int starty = dim();
   while (starty >= 0) 
     {
-	for (int i = starty, j = 0; i < dim(); i++, j++)
-	    if (dat->elem (i,j))
-		goto gotcha;
-	for (int i=0, j = starty; j < dim(); i++,j++)
-	    if (dat->elem (i,j))
-		goto gotcha;
-	starty --;
+      for (int i = starty, j = 0; i < dim(); i++, j++)
+	if (dat_->elem (i,j))
+	  goto gotcha;
+      for (int i=0, j = starty; j < dim(); i++,j++)
+	if (dat_->elem (i,j))
+	  goto gotcha;
+      starty --;
     }
-gotcha:
+ gotcha:
   return  starty;
 }
   
 Matrix::Matrix (Matrix const &m)
 {
-  m.OK();
-  
-  dat = m.dat->clone();
+  dat_ = new Full_storage (*m.dat_);
 }
 
 
 Matrix::Matrix (int n, int m)
 {
-  dat = Matrix_storage::get_full (n,m);
+  dat_ = new Full_storage(n,m);
   fill (0);
 }
 
-Matrix::Matrix (Matrix_storage*stor_p)
-{
-  dat = stor_p;
-}
 
 Matrix::Matrix (int n)
 {
-  dat = Matrix_storage::get_full (n,n);
+  dat_= new Full_storage (n,n);
   fill (0);
 }
 
 Matrix::Matrix (Vector v, Vector w)
-{   
-  dat = Matrix_storage::get_full (v.dim(), w.dim ());
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))
-	dat->elem (i,j)=v (i)*w (j);
+{
+  int n = v.dim();
+  int m = w.dim ();
+  dat_= new Full_storage (n,m);
+  for (int i=0; i < n; i++)
+    for (int j=0; j < m ; j++)
+      dat_->elem (i,j)=v (i)*w (j);
 }
 
 
@@ -170,7 +143,7 @@ Matrix::row (int k) const
   
   Vector v (n);
   for (int i=0; i < n; i++)
-	v (i)=dat->elem (k,i);
+    v (i)=dat_->elem (k,i);
 
   return v;
 }
@@ -181,17 +154,17 @@ Matrix::col (int k) const
   int n=rows();
   Vector v (n);
   for (int i=0; i < n; i++)
-	v (i)=dat->elem (i,k);
+    v (i)=dat_->elem (i,k);
   return v;
 }
 
 Vector
 Matrix::left_multiply (Vector const & v) const
 {
-   Vector dest (v.dim());
-  assert (dat->cols()==v.dim ());
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))
-	dest (i)+= dat->elem (j,i)*v (j);
+  Vector dest (v.dim());
+  assert (dat_->cols()==v.dim ());
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j))
+    dest (i)+= dat_->elem (j,i)*v (j);
   return dest;
 }
 
@@ -199,9 +172,9 @@ Vector
 Matrix::operator *(Vector const & v) const
 {
   Vector dest (rows());
-  assert (dat->cols()==v.dim ());
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j))
-	dest (i)+= dat->elem (i,j)*v (j);
+  assert (dat_->cols()==v.dim ());
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j))
+    dest (i)+= dat_->elem (i,j)*v (j);
   return dest;
 }
 
@@ -217,18 +190,16 @@ operator /(Matrix const& m1,Real a)
   ugh. Only works for square matrices.
  */
 void
-Matrix::transpose()		// delegate to storage?
+Matrix::transpose()
 {
-#if 1
-  for (int i=0, j=0; dat->mult_ok (i,j); dat->mult_next (i,j)) 
+  for (int i=0, j=0; dat_->mult_ok (i,j); dat_->mult_next (i,j)) 
     {
-	if (i >= j)
-	    continue;
-	Real r=dat->elem (i,j);
-	dat->elem (i,j) = dat->elem (j,i);
-	dat->elem (j,i)=r;
+      if (i >= j)
+	continue;
+      Real r=dat_->elem (i,j);
+      dat_->elem (i,j) = dat_->elem (j,i);
+      dat_->elem (j,i)=r;
     }
-#endif
 }
 
 Matrix
@@ -251,11 +222,12 @@ Matrix::transposed() const
 Matrix
 operator *(Matrix const &m1, Matrix const &m2)
 {
-  Matrix result (Matrix_storage::get_product_result (m1.dat, m2.dat));
-
+  Matrix result (m1.rows (), m2.cols ());
   result.set_product (m1,m2);
   return result;
 }
+
+
 
 void
 Matrix::set_product (Matrix const &m1, Matrix const &m2)
@@ -263,17 +235,17 @@ Matrix::set_product (Matrix const &m1, Matrix const &m2)
   assert (m1.cols()==m2.rows ());
   assert (cols()==m2.cols () && rows ()==m1.rows ());
   
-  if (m1.dat->try_right_multiply (dat, m2.dat))
-	return; 
-  
-  for (int i=0, j=0; dat->mult_ok (i,j);
-	 dat->mult_next (i,j)) 
-	   {
+  for (int i=0; i < rows (); i++)
+    for (int j=0; j <  cols (); j++)
+      {
 	Real r=0.0;
-	for (int k = 0; k < m1.cols(); k++)
+	for (int k = 0 >? i - m1.band_i () >? j - m2.band_i ();
+	     k < m1.cols(); k++)
+	  {
 	    r += m1(i,k)*m2(k,j);
-	dat->elem (i,j)=r;
-    }
+	  }
+	dat_->elem (i,j)=r;
+      }
 }
 
 void
@@ -281,9 +253,9 @@ Matrix::insert_row (Vector v, int k)
 {
   int c = cols();
   assert (v.dim()==cols ());
-  dat->insert_row (k);
+  dat_->insert_row (k);
   for (int j=0; j < c; j++)
-	dat->elem (k,j)=v (j);
+    dat_->elem (k,j)=v (j);
 }
 
 
@@ -294,9 +266,9 @@ Matrix::swap_columns (int c1, int c2)
   int r = rows();
   for (int i=0; i< r; i++) 
     {
-	Real r=dat->elem (i,c1);
-	dat->elem (i,c1) = dat->elem (i,c2);
-	dat->elem (i,c2)=r;
+      Real r=dat_->elem (i,c1);
+      dat_->elem (i,c1) = dat_->elem (i,c2);
+      dat_->elem (i,c2)=r;
     }
 }
 
@@ -307,9 +279,9 @@ Matrix::swap_rows (int c1, int c2)
   int c = cols();
   for (int i=0; i< c; i++) 
     {
-	Real r=dat->elem (c1,i);
-	dat->elem (c1,i) = dat->elem (c2,i);
-	dat->elem (c2,i)=r;
+      Real r=dat_->elem (c1,i);
+      dat_->elem (c1,i) = dat_->elem (c2,i);
+      dat_->elem (c2,i)=r;
     }
 }
 
@@ -321,5 +293,7 @@ Matrix::dim() const
   return rows();
 }
 
-
-
+Matrix::~Matrix ()
+{
+  delete dat_;
+}

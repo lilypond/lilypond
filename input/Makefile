@@ -5,21 +5,10 @@
 depth = ..
 #
 
-build = ./$(depth)/lily/$(outdir)/.build
+SUBDIRS=test bugs
 
-# generic stuff/Makefile
-#
-include ./$(depth)/make/Include.make
-#
+include $(depth)/make/Mutopia.make
 
-# list of distribution files:
-# 
-LYFILES = $(wildcard *.ly)
-TEXFILES = $(wildcard *.tex)
-M4FILES = $(wildcard *.m4)
-DISTFILES = Makefile TODO $(LYFILES) $(TEXFILES) $(wildcard *.m4)
-#
+WWW_examples=twinkle-pop praeludium-fuga-E cadenza twinkle
 
-OUTFILES = $(addprefix $(outdir)/,$(M4FILES:%.m4=%))
-
-all: $(OUTFILES)
+include $(depth)/make/WWW.make

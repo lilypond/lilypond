@@ -5,7 +5,7 @@
 # abstract 
 #
 # do not change this file for site-wide extensions; please use 
-# make/$(OUTDIR_NAME)/Site.make; 
+# make/$(outdir)/Site.make; 
 #
 # Any change in files in this directory (make/) would be distributed, if 
 # you do make dist 
@@ -19,32 +19,41 @@
 include $(depth)/make/Toplevel_version.make
 
 
-ifeq (0,${MAKELEVEL})
-
 # Don't try to outsmart us, you puny computer!
-MAKE:=$(MAKE) --no-builtin-rules
+ifeq (0,${MAKELEVEL})
+  MAKE:=$(MAKE) --no-builtin-rules
 endif
 
-ifndef OUTDIR_NAME
-OUTDIR_NAME=out
+
+ifndef config
+configuration=config
+else
+configuration=config-$(config)
 endif
+
+include $(depth)/$(configuration).make
 
 # directory names:
 buildprefix=$(depth)
-outdir=$(OUTDIR_NAME)
+
+ifdef CONFIGSUFFIX
+outdir=out-$(CONFIGSUFFIX)
+else
+outdir=out
+endif
 
 # derived names
 lily_bindir = $(depth)/bin
 distdir = $(depth)/$(outdir)/$(DIST_NAME)
 depdir = $(outdir)
 
-flowerout = $(buildprefix)/flower/$(OUTDIR_NAME)
-libout = $(buildprefix)/lib/$(OUTDIR_NAME)
-lilyout = $(buildprefix)/lily/$(OUTDIR_NAME)
-mi2muout = $(buildprefix)/mi2mu/$(OUTDIR_NAME)
-makeout = $(buildprefix)/make/$(OUTDIR_NAME)
-docout = $(buildprefix)/Documentation/$(OUTDIR_NAME)
-binout = $(buildprefix)/bin/$(OUTDIR_NAME)
+flowerout = $(buildprefix)/flower/$(outdir)
+libout = $(buildprefix)/lib/$(outdir)
+lilyout = $(buildprefix)/lily/$(outdir)
+mi2muout = $(buildprefix)/mi2mu/$(outdir)
+makeout = $(buildprefix)/make/$(outdir)
+docout = $(buildprefix)/Documentation/$(outdir)
+binout = $(buildprefix)/bin/$(outdir)
 
 doc-dir = $(depth)/Documentation
 flower-dir = $(depth)/flower
@@ -59,11 +68,10 @@ include-flower = $(depth)/flower/include
 rpm-sources = ${HOME}/rpms/SOURCES
 #
 
-ifndef configuration
-configuration=config
-endif
+configheader=$(outdir)/config.hh
 
-include $(depth)/$(configuration).make
+
+
 
 # user settings:
 #
@@ -145,12 +153,12 @@ CFLAGS = $(ICFLAGS) $(DEFINES) $(INCLUDES) $(USER_CFLAGS) $(EXTRA_CFLAGS)
 
 # -pipe makes it go faster, but is not supported on all platforms. 
 # EXTRA_CXXFLAGS= -fno-rtti -fno-exceptions -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
-EXTRA_CXXFLAGS= -Wall -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
+EXTRA_CXXFLAGS= -Wall -Winline -W -Wmissing-prototypes -Wmissing-declarations -Wconversion
 
 CXXFLAGS = $(CFLAGS) $(USER_CXXFLAGS) $(EXTRA_CXXFLAGS) $(MODULE_CXXFLAGS)
-INCLUDES = -I$(depth) -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
+INCLUDES =  -Iinclude -I$(outdir) -I$(include-lib) -I$(libout) -I$(include-flower) -I$(flowerout) 
 CXX_OUTPUT_OPTION = $< -o $@
-LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(depth)/lib/$(OUTDIR_NAME) -L$(depth)/flower/$(OUTDIR_NAME)
+LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) -L$(depth)/lib/$(outdir) -L$(depth)/flower/$(outdir)
 LOADLIBES = $(EXTRA_LIBES) $(MODULE_LIBES)  -lstdc++ # need lg++ for win32, really!
 #
 

@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 0.1.58
+Version: 0.1.59
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: alpha.gnu.org:/gnu/lilypond/development/lilypond-0.1.58.tar.gz
+Source0: pcnov095.win.tue.nl:/pub/lilypond/development/lilypond-0.1.59.tar.gz
 Summary: A program for typesetting music.
 URL: http://www.cs.ruu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
@@ -31,17 +31,19 @@ strip lily/out/lilypond mi2mu/out/mi2mu
 make -C Documentation gifs
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc Documentation/out/AUTHORS.txt Documentation/out/CodingStyle.txt Documentation/out/INSTALL.txt Documentation/out/MANIFESTO.txt Documentation/out/PATCHES.txt Documentation/out/convert-mudela.txt Documentation/out/faq.txt Documentation/out/gnu-music.txt Documentation/out/index.txt Documentation/out/internals.txt Documentation/out/language.txt Documentation/out/lilypond.txt Documentation/out/links.txt Documentation/out/literature.txt Documentation/out/ly2dvi.txt Documentation/out/mi2mu.txt Documentation/out/mudela-book.txt Documentation/out/mutopia.txt Documentation/out/other-packages.txt BUGS TODO NEWS DEDICATION ANNOUNCE README
-%doc input/abbrev.ly input/beam-bug.ly input/beams.ly input/cadenza.ly input/clefs.ly input/collisions.ly input/coriolan-alto.ly input/denneboom.ly input/dummy.tex input/font-body.ly input/font.ly input/font11.ly input/font13.ly input/font16.ly input/font20.ly input/font26.ly input/gourlay.ly input/keys.ly input/kortjakje.ly input/multi.ly input/pedal.ly input/praeludium-fuga-E.ly input/rhythm.ly input/scales.ly input/scripts.ly input/sleur.ly input/slur-bug.ly input/slurs.ly input/spacing.ly input/stem.ly input/test-lyrics.ly input/tril.ly input/twinkle-pop.ly input/twinkle.ly Documentation/mudela-man.doc Documentation/mudela.doc 
+%doc Documentation/out/AUTHORS.txt Documentation/out/CodingStyle.txt Documentation/out/INSTALL.txt Documentation/out/MANIFESTO.txt Documentation/out/PATCHES.txt Documentation/out/faq.txt Documentation/out/gnu-music.txt Documentation/out/index.txt Documentation/out/internals.txt Documentation/out/language.txt Documentation/out/links.txt Documentation/out/literature.txt Documentation/out/mutopia.txt Documentation/out/other-packages.txt BUGS TODO NEWS DEDICATION ANNOUNCE README
+%doc input/cadenza.ly input/coriolan-alto.ly input/dummy.tex input/keys.ly input/kortjakje.ly input/multi.ly input/part.ly input/pedal.ly input/praeludium-fuga-E.ly input/rhythm.ly input/scales.ly input/scripts.ly input/tril.ly input/twinkle-pop.ly input/twinkle.ly Documentation/mudela.doc 
 %doc Documentation/out/lelie_logo.gif
 /usr/bin/convert-mudela
 /usr/bin/mudela-book
+/usr/bin/ly2dvi
 /usr/bin/lilypond
-/usr/lib/libflower.so
 /usr/bin/mi2mu
+# /usr/lib/libflower.so
 /usr/man/man1/mi2mu.1
 /usr/man/man1/lilypond.1
 /usr/man/man1/mudela-book.1
+/usr/man/man1/ly2dvi.1
 /usr/man/man1/convert-mudela.1
 /usr/lib/texmf/texmf/tex/lilypond/
 /usr/lib/texmf/texmf/fonts/source/public/lilypond

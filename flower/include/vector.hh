@@ -16,9 +16,18 @@ class Vector  {
 public:
     void OK() const { dat.OK();}
     int dim() const { return dat.size (); }
+    void fill (Real r) {
+	for (int i=0; i < dim(); i++)
+	    dat[i] =r;
+    }
+
     Vector() { }
     Vector (Array<Real> d);
     Vector (Vector const &n);
+
+    Real &operator()(int i) { return dat[i]; }
+    Real operator()(int i) const { return dat[i]; }
+    Real elem (int i) { return dat[i]; }
     Vector (int n) {
 	dat.set_size (n);
 	fill (0);
@@ -33,10 +42,6 @@ public:
     }
     void del (int i) { dat.del (i); }
     operator String() const;
-    void fill (Real r) {
-	for (int i=0; i < dim(); i++)
-	    dat[i] =r;
-    }
 
     void operator +=(Vector v) {
 	assert (v.dim() == dim ());
@@ -44,24 +49,12 @@ public:
 	    dat[i] += v.dat[i];
     }
     
-    void operator /=(Real a) {
-	(*this) *= 1/a;
-    }
-
-    void operator *=(Real a) {
-	for (int i=0; i < dim(); i++)
-	    dat[i] *= a;
-    }
-
     void operator -=(Vector v) {
 	assert (v.dim() == dim ());
 	for (int i=0; i < dim(); i++)
 	    dat[i] -= v (i);	
     }
 
-    Real &operator()(int i) { return dat[i]; }
-    Real operator()(int i) const { return dat[i]; }
-    Real elem (int i) { return dat[i]; }
     Real operator *(Vector v) const {
 	Real ip=0;
 	assert (v.dim() == dim ());
@@ -69,12 +62,19 @@ public:
 	    ip += dat[i] *v (i);
 	return ip;
     }
-    Vector operator-() const;
-    Real norm() {
-	return sqrt (norm_sq());
+    void operator *=(Real a) {
+	for (int i=0; i < dim(); i++)
+	    dat[i] *= a;
     }
+    void operator /=(Real a) {
+	(*this) *= 1/a;
+    }
+    Vector operator-() const;
     Real norm_sq() {
 	return ((*this) * (*this));
+    }
+    Real norm() {
+	return sqrt (norm_sq());
     }
     operator Array<Real>() { return dat; }
     void print() const;

@@ -31,5 +31,5 @@ fi
 
 ln -sf $lelie/current/lily/out/lilypond bin/lilypond
 ln -sf $lelie/current/mi2mu/out/mi2mu bin/mi2mu
-configure --prefix=/usr --enable-debugging --enable-printing --enable-checking
 
+configure --prefix=/usr --enable-debugging --enable-printing --enable-checking

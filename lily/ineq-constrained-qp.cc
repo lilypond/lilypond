@@ -12,7 +12,7 @@
 #include "main.hh"
 
 /*
-  MAy be this also should go into a library
+  May be this also should go into a library
  */
 
 const int MAXITER=100;		// qlpsolve.hh
@@ -112,10 +112,6 @@ Ineq_constrained_qp::constraint_solve (Vector start) const
 {
   if (!dim())
     return Vector (0);
-
-  // experimental
-  if (quad_.dim() > 10)
-    quad_.try_set_band();
 
   Active_constraints act (this);
   act.OK();

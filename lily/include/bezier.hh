@@ -53,9 +53,11 @@ public:
   void calc ();
   Real calc_f (Real height);
   void calc_bezier ();
+  bool calc_clipping ();
   void calc_controls ();
   void calc_default (Real h);
   void calc_return (Real begin_alpha, Real end_alpha);
+  void calc_tangent_controls ();
   bool check_fit_bo ();
   Real check_fit_f ();
   void set (Array<Offset> points, int dir);

@@ -9,6 +9,10 @@ depth = ..
 #
 SUBDIRS = J.S.Bach Coriolan
 EXTRA_DISTFILES +=  TODO
+
+examples=standje gallina
+
+
 #
 # generic stuff/Makefile
 #

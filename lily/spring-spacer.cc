@@ -253,6 +253,11 @@ Spring_spacer::make_matrices (Matrix &quad, Vector &lin, Real &c) const
 
       c += sqr (i->space_f_);
     }
+  // experimental
+  if (quad.dim() > 10)
+    quad.set_band();
+  
+
 }
 
 void
@@ -268,7 +273,6 @@ void
 Spring_spacer::make_constraints (Mixed_qp& lp) const
 {
   int dim=cols_.size();
-  int last_rank = cols_.top ().pcol_l_->rank_i ();
   
   for (int j=0; j < dim -1; j++)
     {

@@ -1,3 +1,53 @@
+pl 59
+	- ly2dvi 0.9.hwn1, -K switch, 
+	- doc: moved manpages in separate directory.
+	- do WWW stuff via make
+	- mutopia-index.py
+	- ly2dvi 0.9 (JAF)
+	- multi platform build fixes
+	- junked embedded switches, embedded MF, obsolete TeX stuff
+	- junked virtual matrix storage: inlined most matrix computation,
+	speed increase of 30%
+	- junked taupindefs,  eglerdefs
+	- rm'd taupin/egler from INSTALL
+	- doc: engraving.bib, colorado.bib
+	- input hierarchy.
+ 
+
+pl 58.jcn6
+	- multi-measure rests: moved acknowledge from timing-translator
+	to -grav
+	- slur clipping experimental...
+	- bo to b
+	- always announce multi-measure
+
+pl 58.jcn5
+	- bf: reset plet after reading mmrest
+	- try at not generating moments...
+	- Multi_measure_rest 'symbol'
+
+pl 58.jcn4
+	- try at multi-measure rests: part.ly
+	- bf's: slur get_encompass
+	- bf: slur clipping
+
+pl 58.jcn3
+	- experimental (--test) clipping of too high or tilted slurs
+	- nicer slur control output and ps code
+	- bit thicker and round-capped tuplet bracket
+	- bf: slur.cc: RESIZE_ICE
+
+pl 58.jcn1
+	- varray.hh bezier.cc, slur.cc patches to avoid gcc 2.8.1 ice
+	- some inlining fixes
+	- configure: use -O to enable inlining
+	- included and fixed new make-patch.py
+	- bf: Mutopia.make
+	- bf: offset: operator - ()
+	- ugly hack bezier: do blow_fit twice
+	- bf's: bezier: rotate,translate
+
+***************
 pl 58
 	- more *.make hacking
 	- bracket fix (AG)
@@ -32,7 +82,7 @@ pl 57
 	- solaris/irix patches (AO)
 
 
-pl 56.jcn5
+ pl 56.jcn5
 	- bezier and slur: cleaning and fixes
 	- bf: removed silly experimental beam feature
 

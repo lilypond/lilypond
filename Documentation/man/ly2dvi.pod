@@ -44,6 +44,10 @@ Print help.
 
 Keep the LaTeX file after the run.
 
+=item B<-K>
+
+Keep LilyPond output after the run.
+
 =item B<-l,--language>
 
 Specify LaTeX language.

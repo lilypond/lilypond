@@ -35,7 +35,6 @@ struct Lookup {
   /// round slope to closest TeXslope
   Atom beam (Real&,Real, Real) const;
   Atom ps_beam (Real, Real, Real)const;
-  Atom tex_beam (Real&, Real) const;
 
   Atom streepje (int type) const;
 

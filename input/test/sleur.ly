@@ -159,6 +159,18 @@ bug = \melodic{
 	c' () b () c' c'
 }
 
+clipping = \melodic{
+	\octave c';
+	\stemboth
+	c( c''' c''')c
+	c( c''' c )c''
+	c''( c c''' )c
+	\stemdown
+	c( \stemup '''c '''c \stemdown )c
+	c( \stemup '''c c \stemdown )''c
+	''c( \stemup c '''c \stemdown )c
+}
+
 \score{
 	\melodic{ 
 		% use blend for fast check
@@ -173,6 +185,7 @@ bug = \melodic{
 		\tiltup
 		\tiltdown
 		\bug
+		\clipping
 % }
 		% use broken with small linewidth
 		%\broken

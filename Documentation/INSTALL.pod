@@ -34,13 +34,15 @@ work in Windows NT/95, but we don't promise to support it.
 
 GNU C++ version 2.7 or newer (yes, 2.8 is fine).
 
+=item *
+
+Python
 
 =back
 
 =head1 RUNNING
 
 GNU LilyPond does use a lot of resources. For operation you need the following:
-
 
 =over 5
 
@@ -73,6 +75,7 @@ Flex (version 2.5.4 or newer).
 =item *
 
 Bison (version 1.25 or newer).
+
 =item *
 
 Perl-5.  Most documentation was created with the perl's Plain Old
@@ -101,6 +104,7 @@ most MusiXTeX preprocessors)
 to install GNU LilyPond, simply type:
 
 	configure
+	make
 	make install
 
 This will install the following files:
@@ -175,6 +179,12 @@ Set then directory TeX input is in (detected as a subdir of tex-prefix)
 
 Set the directory mf input is in (idem)
 
+=item B<--enable-config>
+
+Output to different configuration files.  Needed for multi-platform
+builds
+
+
 =back
 
 All options are documented in the F<configure> help
@@ -187,6 +197,24 @@ If you do
 everything will be compiled, but nothing will be installed.  The
 resulting binaries can be found in the subdirectories F<out/> (which
 contain all files generated during compilation).
+
+=head1 CONFIGURING FOR MULTIPLE PLATFORMS
+
+If you want to compile LilyPond with different configuration settings,
+then, you can use the B<--enable-config> option.  Example: suppose I
+want to build with and   without profiling.  Then I'd use the
+following for the normal build, 
+
+      configure --prefix=~ --disable-optimise --enable-checking
+      make
+      make install
+
+and for the profiling version, I specify a different configuration.
+
+      configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
+      make configuration=optprof
+      make configuration=optprof install
+
 
 =head1 INSTALLING
 
@@ -274,52 +302,6 @@ B<Note> If you rely on broken DOS/Windows tools such as pkzip/WinZIP
 to unpack the distribution, make sure the B<entire> source tree 
 is unpacked correctly, in particular the empty out directories 
 (F<flower/out>, F<lib/out> et. al.)
-
-=head1 MUSIXTEX
-
-Previous versions (before 0.1.39) used fonts from the TeX macro
-package "MusixTeX".  You can still use these, but they are not
-supported.  Since LilyPond's Feta font is much prettier, you'd be
-seriously misguided if you used them, but anyway, here are the 
-installation instructions for those deprecated fonts.
-
-
-[obsolete] I use the MusixTeX fonts those found in MusixTeX
-T.73. Beware, the clef symbol seems to have changed its position in
-some versions, (notably Egler's, a.k.a. OpusTeX). The MusixTeX fonts
-are included in MusixTeX (T73 or newer), which can be had from any
-CTAN site, e.g. at
-
-=over 4
-
-=item ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
-
-=item ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
-
-=item ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
-
-=back 
-
-You only need the contents of the F<mf/> subdirectory of the
-package. The primary site of the Taupin version is
-ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
-
-Install the musixtex fonts in a directory which TeX and MF knows (if
-you are root, look for a directory which contains the directories with
-AMS and CM source (*.mf) files. Create a subdir lilypond or musixtex
-and copy the fonts into that). Do not forget to rehash TeX (if
-applicable)
-
-Example: my fonts are in F</usr/local/lib/texfonts/musixtex/>, and I
-have a symlink pointing to that in
-F</usr/lib/texmf/texmf/fonts/source/public/>. After I copied the
-files, I ran "texhash"
-
-Andreas Egler's version of MusixTeX, now called OpusTeX, will also
-work. Andreas moved some characters around in the fonts, so you have
-to edit the definitions in F<tex/eglerdefs.tex>.
-
-
 
 =head1 AUTHORS
 
