@@ -7,6 +7,7 @@
 */
 
 #include "translator.hh"
+
 Translator::Translator()
 {
     iterator_count_  = 0;
@@ -19,4 +20,11 @@ bool
 Translator::try_request(Request*)
 {
     return false;
+}
+
+
+void
+Translator::print()const
+{
+
 }
