@@ -3,6 +3,7 @@
 //
 // copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
 
+#include <stdlib.h>
 #include <iostream.h>
 #include <assert.h>
 #include <locale.h>
