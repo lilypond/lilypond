@@ -290,7 +290,7 @@ DK: altn@o{}gle,
 S: altklav,
 FI: alttoavain.
 
-C clef setting central C on the middle line of the staff
+C clef setting middle C on the middle line of the staff
 @aref{C clef}.
 
 @aitem{ambitus}
@@ -508,7 +508,7 @@ DK: barytonn@o{}gle,
 S: barytonklav,
 FI: baritoniavain.
 
-C or F clef setting central C on the upper staff line.
+C or F clef setting middle C on the upper staff line.
 @aref{C clef}, @aref{F clef}.
 
 @aitem{bass clef}
@@ -521,7 +521,7 @@ DK: basn@o{}gle,
 S: basklav,
 FI: bassoavain.
 
-A clef setting with central C on the first top ledger line.
+A clef setting with middle C on the first top ledger line.
 @aref{F clef}.
 
 @aitem{bass}
@@ -675,7 +675,7 @@ DK: c-n@o{}gle,
 S: c-klav,
 FI: C-avain.
 
-Clef symbol indicating the position of the central C.  Used on all note
+Clef symbol indicating the position of the middle C.  Used on all note
 lines.
 
 @lilypond[notime]
@@ -750,7 +750,7 @@ Logarithmic unit of measurement.  1 cent is 1/1200 of an octave (1/100 of an
 equally tempered @aref{semitone}).
 @aref{equal temperament}.
 
-@aitem{central C}
+@aitem{middle C}
 @aref{middle C}.
 
 @aitem{chord}

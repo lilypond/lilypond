@@ -409,7 +409,7 @@ engraver. The syntax for these operations is
 Here @var{engravername} is a string, the name of an engraver in the
 system. In the following example, the @code{Clef_engraver} is removed
 from the Staff context. The result is a staff without a clef, where
-the central C is at its default position, the center line:
+the middle C is at its default position, the center line:
 
 @lilypond[verbatim,raggedright]
 \score {
