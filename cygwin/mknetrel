@@ -69,7 +69,7 @@ EOF
     chmod 755 guile-config
     PATH=$(pwd):$PATH
 
-
+    export CFLAGS="-fpermissive"
     if [ "$ABI" != "1.5" ];then
 	export LDFLAGS="$cygwin_prefix/bin/cygkpathsea-3abi13.dll"
     fi
