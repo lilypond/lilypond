@@ -84,7 +84,7 @@ parse_handler (void * data, SCM tag, SCM args)
 
   /*
     The following is a kludge; we should probably search for
-    [a-z][0-9] a note, and start before that.
+    [a-z][0-9] (a note), and start before that.
    */
   ps->nchars = 1;
     

@@ -33,10 +33,6 @@ My_lily_parser::~My_lily_parser ()
     scm_gc_unprotect_object (default_header_->self_scm());
 }
 
-void
-My_lily_parser::set_version_check (bool)
-{
-}
 
 void
 My_lily_parser::parse_file (String init, String s)

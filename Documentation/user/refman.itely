@@ -344,6 +344,8 @@ of a chord is not supported in a simple way.  It can be achieved by
 moving the tie-engraver into the Thread context and turning on and off
 ties per Thread.
 
+Switching staffs when a tie is active will not work.
+
 @node Automatic note splitting 
 @subsection Automatic note splitting
 @c FIXME: This subsection doesn't belong in @ref{Note entry}.
@@ -1153,6 +1155,14 @@ the grob property @code{auto-knee-gap}.
 @refbugs
 
 Auto knee beams can not be used together with hara kiri staffs.
+
+[TODO from bugs]
+
+The Automatic beamer does not put @strong{unfinished} beams on the
+last notes of a score.
+
+Formatting of ties is a difficult subject. LilyPond often does not
+give optimal results.
 
 @menu
 * Setting automatic beam behavior ::  
@@ -4103,6 +4113,11 @@ marking:
 
 The syntax and semantics of markup texts are not clean, and both
 syntax and semantics are slated for a rewrite.
+
+LilyPond does not do kerning, and there generally spaces texts
+slightly too wide.
+
+
 
 @node Global layout
 @section Global layout

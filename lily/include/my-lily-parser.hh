@@ -35,7 +35,6 @@ public:
 
   void do_init_file ();
   void parse_file ( String init_string, String file_string);
-  void set_version_check (bool ignore);
 
 public:
   Duration default_duration_;
