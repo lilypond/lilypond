@@ -4,7 +4,8 @@ t = \notes \relative c' {   <c e g> ~ <c e g> }
 \notes \context Voice {
    \t
    \transpose g' \t
-   \property Voice.tieVerticalDirection = #-1
+
+   \property Voice.TieColumn \push #'direction = #-1
    \t
 
   }

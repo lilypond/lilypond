@@ -30,10 +30,14 @@ Tie_column::has_interface (Score_element*me)
   return  me->has_interface (ly_symbol2scm ("tie-column-interface"));
 }
 
+
+/*
+  tie dir depends on what Tie_column does.
+*/
+
 void
 Tie_column::add_tie (Score_element*me,Score_element *s)
 {
-
   if (!  Pointer_group_interface ::count (me, "ties"))
     {
       dynamic_cast<Spanner*> (me)->set_bound (LEFT, Tie::head (s,LEFT));
@@ -67,9 +71,12 @@ Tie_column::set_directions (Score_element*me)
   Link_array<Score_element> ties =
     Pointer_group_interface__extract_elements (me, (Score_element*)0, "ties");
 
+  for (int i = ties.size (); i--; )
+    if (Directional_element_interface::get (ties[i]))
+      ties.del (i);
+  
 
   Direction d = Directional_element_interface::get (me);
-
   if (d)
     {
       for (int i = ties.size (); i--;)
