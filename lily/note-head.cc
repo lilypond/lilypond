@@ -110,3 +110,24 @@ Note_head::has_interface (Grob*m)
 {
   return m&& m->has_interface (ly_symbol2scm ("note-head-interface"));
 }
+
+
+MAKE_SCHEME_CALLBACK(Note_head,brew_ez_molecule,1);
+
+SCM
+Note_head::brew_ez_molecule (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  int l = gh_scm2int (me->get_grob_property ("duration-log"));
+
+  int b = (l >= 2);
+  SCM at = gh_list (ly_symbol2scm ("ez-ball"),
+		    me->get_grob_property ("note-character"),
+		    gh_int2scm (b),
+		    gh_int2scm (1-b),
+		    SCM_UNDEFINED);
+  Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
+  Molecule m (bx, at);
+
+  return m.smobbed_copy ();
+}

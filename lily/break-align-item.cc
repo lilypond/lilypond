@@ -170,6 +170,11 @@ Break_align_interface::do_alignment (Grob *me)
   scm_set_car_x (first_pair, gh_double2scm (-dists[0]));
   elems[0]->set_grob_property ("minimum-space", first_pair);
 
+  Direction bsd = item->break_status_dir();
+  if (bsd == LEFT)
+    {
+      me->set_grob_property ("self-alignment-X", gh_int2scm (RIGHT));
+    }
 
   /*
     Force callbacks for alignment to be called   
