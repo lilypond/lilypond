@@ -107,10 +107,8 @@
 ;; do nothing in .scm output
 (define-public (comment s) "")
 
-(define-public (numbers->string l)
-  (apply string-append (map ly:number->string l)))
-
-; (define (chop-decimal x) (if (< (abs x) 0.001) 0.0 x))
+(define-public (numbers->string lst)
+  (apply string-append (map ly:number->string lst)))
 
 (define (number->octal-string x)
   (let* ((n (inexact->exact x))

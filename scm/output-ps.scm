@@ -16,26 +16,13 @@
 ;;;;   * text setting, kerning.
 ;;;;   * document output-interface
 
-;;(if (not safe-mode?)
-;;    (debug-enable 'backtrace))
 (debug-enable 'backtrace)
 
 (define-module (scm output-ps))
-(define this-module (current-module))
-
-(use-modules
- (guile)
- (ice-9 regex)
- (srfi srfi-13)
- (lily))
-
-(define (expression->string expr)
-  (eval expr this-module))
-
-;;; Output interface entry
-(define (output-expression expr port)
-  (display (expression->string expr) port))
-
+(use-modules (guile)
+	     (ice-9 regex)
+	     (srfi srfi-13)
+	     (lily))
 
 ;;; Global vars
 ;; alist containing fontname -> fontcommand assoc (both strings)

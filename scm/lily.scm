@@ -367,11 +367,9 @@ L1 is copied, L2 not.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  output
 (use-modules (scm output-tex)
-	     (scm output-ps)
 	     (scm output-sketch)
 	     (scm output-sodipodi)
-	     (scm output-pdftex)
-	     )
+	     (scm output-pdftex))
 
 (define output-alist
   `(
@@ -395,10 +393,6 @@ L1 is copied, L2 not.
     (if (pair? d)
 	(caddr d)
 	(scm-error "Could not find dumper for format ~s" format))))
-
-(define-public (get-output-module output-format)
-  (resolve-module `(scm ,(string->symbol
-			  (string-append "output-" output-format)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
