@@ -266,9 +266,9 @@ of this and other documentation.
 * Scheme tutorial::
 * Notation manual details::
 * Point and click::             
-* Unified index::
 * GNU Free Documentation License:: FDL.
 * Cheat sheet::     
+* Unified index::
 @end menu
 @end ifnottex
 
@@ -297,13 +297,13 @@ of this and other documentation.
 @include notation-appendices.itely
 @include point-and-click.itely
 
+@include fdl.itexi
+
+@include cheatsheet.itely
+
 @node Unified index
 @appendix Unified index
 
 @printindex cp
-
-@include fdl.itexi
-
-@include cheatsheet.itely
 
 @bye
