@@ -36,7 +36,9 @@ Interval
 Item::width() const
 {
     Interval i =output->extent().x ;
-    return i+=offset_.x;
+    if (!i.empty())		// float exception on DEC Alpha
+	 i+=offset_.x;
+    return i;
 }
 
 Interval
