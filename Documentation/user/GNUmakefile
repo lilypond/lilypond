@@ -69,6 +69,12 @@ else
 
 DEEP_HTML_FILES = $(outdir)/lilypond.html $(outdir)/lilypond-internals.html
 
+local-WWW: deep-symlinks
+
+deep-symlinks:
+	cd $(outdir) && rm -f lilypond && ln -s . lilypond
+	cd $(outdir) && rm -f lilypond-internals && ln -s . lilypond-internals
+
 endif
 
 
