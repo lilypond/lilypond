@@ -275,12 +275,12 @@ String_convert::precision_str (double x, int n)
   String str = double_str (abs (x), format.ch_C ());
 
   int exp = str.right_str (3).value_i ();
-  str = str.left_str (str.len () - 4);
+  str = str.left_str (str.length_i () - 4);
 
-  while (str[str.len () - 1] == '0')
-    str = str.left_str (str.len () - 1);
-  if (str[str.len () - 1] == '.')
-    str = str.left_str (str.len () - 1);
+  while (str[str.length_i () - 1] == '0')
+    str = str.left_str (str.length_i () - 1);
+  if (str[str.length_i () - 1] == '.')
+    str = str.left_str (str.length_i () - 1);
 
   if (exp == 0)
     return (sign (x) > 0 ? str : "-" + str);
@@ -289,9 +289,9 @@ String_convert::precision_str (double x, int n)
   int dot = 1 + exp;
   if (dot <= 0)
     str = "0." + String ('0', -dot) + str;
-  else if (dot >= str.len ())
-    str += String ('0', dot - str.len ());
-  else if (( dot > 0) && (dot < str.len ()))
+  else if (dot >= str.length_i ())
+    str += String ('0', dot - str.length_i ());
+  else if (( dot > 0) && (dot < str.length_i ()))
     str = str.left_str (dot) + '.' + str.cut (dot, INT_MAX);
   else
     assert (0);
