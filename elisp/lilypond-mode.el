@@ -74,6 +74,16 @@ Finds file lilypond-words.el from load-path."
   "Contains all words: \keywords \Identifiers and ReservedWords."
   (nconc '(("" . 1)) x))
 
+(if (> emacs-major-version 20)
+    (defun get-buffer-size (b) (buffer-size b))
+  (defun get-buffer-size (b)
+    (let (size (current-buffer (current-buffer)))
+      (set-buffer b)
+      (setq size (buffer-size))
+      (set-buffer current-buffer)
+      size
+    )))
+
 ;; creates dictionary if empty
 (if (and (eq (length (LilyPond-add-dictionary-word ())) 1)
 	 (not (eq (LilyPond-words-filename) nil)))
@@ -81,7 +91,7 @@ Finds file lilypond-words.el from load-path."
       (setq b (find-file-noselect (LilyPond-words-filename) t t))
       (setq m (set-marker (make-marker) 1 (get-buffer b)))
       (setq i 1)
-      (while (> (buffer-size b) (marker-position m))
+      (while (> (get-buffer-size b) (marker-position m))
 	(setq i (+ i 1))
 	(setq copy (copy-alist (list (eval (symbol-name (read m))))))
 	(setcdr copy i)
@@ -865,15 +875,15 @@ command."
    ;; find the place first
    (if (LilyPond-mark-active)
        (goto-char (min (mark-marker) (point-marker))))
-   (while (and (not found) (> (buffer-size b) (marker-position m)))
+   (while (and (not found) (> (get-buffer-size b) (marker-position m)))
     (setq copy (car (copy-alist (list (eval (symbol-name (read m)))))))
     (if (string-equal word copy) (setq found t)))
    (if found (insert word))
-   (if (> (buffer-size b) (marker-position m))
+   (if (> (get-buffer-size b) (marker-position m))
        (setq copy (car (copy-alist (list (eval (symbol-name (read m))))))))
    (if (not (string-equal "-" copy)) 
        (setq found nil))
-   (while (and found (> (buffer-size b) (marker-position m)))
+   (while (and found (> (get-buffer-size b) (marker-position m)))
     ;; find next symbol
     (setq copy (car (copy-alist (list (eval (symbol-name (read m)))))))
     ;; check whether it is the word, or the word has been found
