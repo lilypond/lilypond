@@ -1,12 +1,14 @@
 #!/bin/csh
 
-# env. vars for the C-shell.
-# set environment for LilyPond.  To be installed in /etc/profile.d/
+# Setup TeX/LaTeX Ghostscript C-shell environment for LilyPond.
+# 
+# Red Hat-like systems should install this in /etc/profile.d/
 
-setenv GS_FONTPATH "@datadir@/afm"
+setenv GS_FONTPATH "@datadir@/afm:@datadir@/pfa:$GS_FONTPATH"
+setenv GS_LIB "@datadir@/ps:$GS_LIB"
 
 # bit silly. for ly2dvi, overrules compiled-in datadir...
-setenv LILYPONDPREFIX "@datadir@"
+# setenv LILYPONDPREFIX "@datadir@"
 
 # include an empty path component for the system wide includes.
 if ($?MFINPUTS) then
@@ -19,7 +21,7 @@ if ($?TEXINPUTS) then
 else
         setenv TEXINPUTS "/usr/share/lilypond/tex::"
 endif
-if ($?TEXINPUTS) then
+if ($?TFMFONTS) then
         setenv TFMFONTS "@datadir@/tfm:$TFMFONTS"
 else
         setenv TFMFONTS "@datadir@/tfm:"

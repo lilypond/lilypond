@@ -49,6 +49,8 @@ def help ():
 		'Generate a patch to go to current version\n'
 		'  -f, --from=FROM      old is FROM\n'
 		'  -h, --help           print this help\n'
+		'      --outdir=DIR     generate in DIR\n'
+		'  -o, --output=NAME    write patch to NAME\n'
 		'  -p, --package=DIR    specify package\n'
 		'  -r, --release        diff against latest release\n'  
 		'  -t, --to=TO          to version TO\n'  
@@ -57,12 +59,12 @@ def help ():
 		)
 
 def cleanup ():
-	global from_diff, to_diff, prev_cwd
+	global from_diff, to_diff, original_dir
 	os.chdir ('/tmp/package-diff')
 	sys.stderr.write ('Cleaning ... ')
 	os.system ('rm -fr %s %s' % (from_diff, to_diff))
 	sys.stderr.write ('\n')
-	os.chdir (prev_cwd)
+	os.chdir (original_dir)
 
 def untar (fn):
 	# os.system ('pwd');
@@ -176,11 +178,13 @@ def makediff (fromdir, todir, patch_name):
    
 
 os.environ['GZIP'] = '-q'
-print 'argv: ' + string.join (sys.argv[2:])
+print 'argv: ' + string.join (sys.argv[1:])
 (options, files) = getopt.getopt (sys.argv[1:], 
-	'hF:f:o:p:rT:t:', ['from=', 'dir-from=', 'dir-to=', 'help', 'output=', 'package=', 'release', 'to='])
+	'hF:f:o:p:rT:t:', ['conf=', 'from=', 'dir-from=', 'dir-to=', 'help', 'outdir=', 'output=', 'package=', 'release', 'to='])
 
 patch_name = ''
+conf = ''
+outdir = ''
 from_src = ''
 to_src = ''
 release=0
@@ -200,8 +204,12 @@ for opt in options:
 	elif o == '--help' or o == '-h':
 		help ()
 		sys.exit (0)
+	elif o == '--outdir':
+		outdir = a
+	elif o == '--conf':
+		conf = a
 	elif o == '--output' or o == '-o':
-		patch_name = os.path.join (os.getcwd (), a)
+		patch_name = a
 	elif o == '-p' or o == '--package':
 		topdir = a
 	elif o == '--release' or o == '-r':
@@ -241,7 +249,7 @@ if release:
 		flags.from_version[1], flags.from_version[2], '');
 
 import tempfile
-prev_cwd = os.getcwd ();
+original_dir = os.getcwd ();
 
 os.system ('rm -rf /tmp/package-diff') 
 try:
@@ -260,10 +268,15 @@ if to_diff == from_diff:
 	      sys.stderr.write (patch_name + ': nothing to do: to == from = ' + from_diff + '\n')
 	      sys.exit (1)
 
+def compat_abspath (path):
+	return os.path.normpath (os.path.join (os.getcwd (), path))
+
+if conf and not outdir:
+	outdir = 'out-' + conf
+
 if not patch_name:
-	pn = to_diff + '.diff'
-	patch_name =  os.path.join (os.getcwd (), 'out')
-	patch_name =  os.path.join (patch_name, pn)
+	to_diff + '.diff'
+patch_name = compat_abspath (os.path.join (outdir, to_diff + '.diff'))
 
 from_diff = '/tmp/package-diff/' + from_diff
 to_diff =  '/tmp/package-diff/' + to_diff
@@ -271,7 +284,7 @@ to_diff =  '/tmp/package-diff/' + to_diff
 if not from_src:
 	os.chdir ('/tmp/package-diff')
 	untar (released_tarball (flags.from_version))
-	os.chdir (prev_cwd)
+	os.chdir (original_dir)
 else:
 	sys.stderr.write ('copying ' + from_src + ' to ' + from_diff + '\n')
 	# os.system ('cp -pr %s %s' % (srcdir, from_diff))
@@ -284,7 +297,7 @@ else:
 if not to_src:
 	os.chdir ('/tmp/package-diff')
 	untar (released_tarball (flags.to_version))
-	os.chdir (prev_cwd)
+	os.chdir (original_dir)
 else:
 	sys.stderr.write ('copying ' + to_src + ' to ' + to_diff + '\n')
 	os.system ('mkdir -p %s '% (to_diff))

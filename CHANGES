@@ -1,3 +1,17 @@
+1.3.143.jcn2
+============
+
+* Added environment settings to ly2dvi and lilypond-book.
+
+* Bugfix: make diff links diff into patch-dir, like make release.
+
+* Bugfix: make diff/release for different configs.
+
+* Bugfix: convert-ly: don't change item name ChordName to ChordNames.
+
+* Added flag (LilyPond-kick-xdvi) to LilyPond emacs mode to allow
+simultaneous view processes.
+
 1.3.143.jcn1
 ============
 

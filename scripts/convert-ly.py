@@ -675,6 +675,7 @@ if 1:
 		str = re.sub ('LyricVoice', 'LyricsVoice', str)
 		# old fix
 		str = re.sub ('Chord[Nn]ames*.Chord[Nn]ames*', 'ChordNames.ChordName', str)
+		str = re.sub ('Chord[Nn]ames([ \t\n]+\\\\override)', 'ChordName\\1', str)
 		return str
 	
 	conversions.append (((1,3,113), conv, 'LyricVoice -> LyricsVoice'))

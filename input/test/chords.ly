@@ -62,7 +62,7 @@ keys =  \notes{
 	\paper{
         	\translator { 
 			\ChordNamesContext
-			ChordNames \override #'word-space = #1 
+			ChordName \override #'word-space = #1 
 		}
 	}
 }

@@ -222,6 +222,7 @@ option_definitions = [
 	('DIR', 'b', 'build-root', _ ("unpack and build in DIR [%s]") % build_root),
 	('', 'h', 'help', _ ("this help")),
         ('', 'k', 'keep', _ ("keep all output, and name the directory %s") % temp_dir),
+	('', 'r', 'remove-previous', _ ("remove previous build")),
 	('', 'V', 'verbose', _ ("verbose")),
 	('', 'v', 'version', _ ("print version number")),
 	('URL', 'u', 'url', _ ("fetch and build URL [%s]") % url),

@@ -20,9 +20,6 @@ TODO:
 
   * head/header tagline/endfooter
 
-  * check/set TEXINPUTS: see to it that/warn if not/
-    kpathsea can find titledefs.tex?
-    
   * dvi from lilypond .tex output?  This is hairy, because we create dvi
     from lilypond .tex *and* header output.
 
@@ -43,7 +40,8 @@ import __main__
 import operator
 import tempfile
 
-sys.path.append ('@datadir@/python')
+datadir = '@datadir@'
+sys.path.append (datadir + '/python')
 try:
 	import gettext
 	gettext.bindtextdomain ('lilypond', '@localedir@')
@@ -106,6 +104,27 @@ original_dir = os.getcwd ()
 temp_dir = '%s.dir' % program_name
 keep_temp_dir_p = 0
 verbose_p = 0
+
+#
+# Try to cater for bad installations of LilyPond, that have
+# broken TeX setup.  Just hope this doesn't hurt good TeX
+# setups.  Maybe we should check if kpsewhich can find
+# feta16.{afm,mf,tex,tfm}, and only set env upon failure.
+#
+environment = {
+	'MFINPUTS' : datadir + '/mf:',
+	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:.:',
+	'TFMFONTS' : datadir + '/tfm:',
+	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
+	'GS_LIB' : datadir + '/ps',
+}
+
+def setup_environment ():
+	for key in environment.keys ():
+		val = environment[key]
+		if os.environ.has_key (key):
+			val = val + os.pathsep + os.environ[key]
+		os.environ[key] = val
 
 def identify ():
 	sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
@@ -544,6 +563,8 @@ files = map (lambda x: strip_extension (x, '.ly'), files)
 
 if files:
 	setup_temp ()
+	setup_environment ()
+	
 	extra = extra_init
 	
 	dvi_name = do_files (files, extra)

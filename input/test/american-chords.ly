@@ -48,8 +48,8 @@ scheme = \chords {
   \paper {
     \translator { 
       \ChordNamesContext
-      ChordNames \override #'word-space = #1 
-      ChordNames \override #'style = #'american
+      ChordName \override #'word-space = #1 
+      ChordName \override #'style = #'american
     }
   }
 }

@@ -60,8 +60,8 @@ scheme = \chords {
   \paper {
     \translator { 
       \ChordNamesContext
-      ChordNames \override #'word-space = #1 
-      ChordNames \override #'style = #'jazz
+      ChordName \override #'word-space = #1 
+      ChordName \override #'style = #'jazz
     }
   }
 }

@@ -20,7 +20,8 @@ deb:
 makeflags=$(patsubst %==, %, $(patsubst ---%,,$(patsubst ----%,,$(MAKEFLAGS:%=--%))))
 
 diff:
-	$(PYTHON) $(step-bindir)/package-diff.py --package=$(topdir) $(makeflags)
+	$(PYTHON) $(step-bindir)/package-diff.py  --outdir=$(topdir)/$(outdir) --package=$(topdir) $(makeflags)
+	-ln -f $(depth)/$(outdir)/$(distname).diff.gz $(patch-dir)
 
 release: 
 	$(PYTHON) $(step-bindir)/release.py --outdir=$(topdir)/$(outdir) --package=$(topdir)
