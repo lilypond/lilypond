@@ -9,7 +9,7 @@ LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
 ## examples = font20 ancient-font
 ## LOCALSTEPMAKE_TEMPLATES += ly mutopia 
 
-EXTRA_DIST_FILES= 
+EXTRA_DIST_FILES= README
 
 include $(depth)/make/stepmake.make 
 
