@@ -445,6 +445,7 @@ ScoreContext = \translator {
  		(molecule-callback . ,Arpeggio::brew_molecule)
 		(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 		(X-offset-callbacks . (,Side_position::aligned_side))
+		(right-padding . 0.4)  ; Hmm, not generic?
 		(direction . -1)
 		(staff-position . 0.0)
  		(name . "Arpeggio") 
@@ -730,7 +731,13 @@ ScoreContext = \translator {
 	PaperColumn = #`(
 		(interfaces . (paper-column-interface axis-group-interface))
 		(axes 0)
-		(rank . -1)
+		(before-musical-spacing-factor . 0.4)
+		(name . "PaperColumn")
+	)
+	NonMusicalPaperColumn = #`(
+		(interfaces . (paper-column-interface axis-group-interface))
+		(axes 0)
+		(before-musical-spacing-factor . 1.0)
 		(name . "PaperColumn")
 	)
 
@@ -760,7 +767,22 @@ ScoreContext = \translator {
 		(name . "ScriptColumn")
 	)
 	
-	Slur = #default-basic-slur-properties
+	Slur = #`(
+	        (interfaces . (slur-interface))
+		(molecule-callback . ,Slur::brew_molecule)
+		(thickness . 1.2)		
+		(spacing-procedure . ,Slur::set_spacing_rods)		
+		(minimum-length . 1.5)
+		(after-line-breaking-callback . ,Slur::after_line_breaking)
+		(extremity-rules . ,default-slur-extremity-rules)
+		(extremity-offset-alist . ,default-slur-extremity-offset-alist)
+		(de-uglify-parameters . ( 1.5  0.8  -2.0))
+		(details . ((height-limit . 2.0) (ratio . 0.333) (force-blowfit . 0.5) (beautiful . 0.5)))
+		(y-free . 0.75)
+		(slope-limit . 0.8)
+		(attachment-offset . ((0 . 0) . (0 . 0)))
+		(name . "Slur")
+		)
 
 	SpacingSpanner =#`(
 		(spacing-procedure . ,Spacing_spanner::set_springs)

@@ -26,8 +26,8 @@
 ;
 (define (default-beam-flag-width-function type)
   (cond
-   ((eq? type 1) 1.98)
-   ((eq? type 1) 1.65)
+   ((eq? type 1) 1.98) 
+   ((eq? type 1) 1.65) ;; FIXME: check what this should be and why
    (else 1.32)
    ))
 

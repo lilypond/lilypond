@@ -1,3 +1,12 @@
+1.3.96.jcn1
+===========
+
+* Added slope-limit and attachment-offset properties to slur.
+
+* Slur's broken trend now weighs in the number of note-columns.
+
+* Spacing tweaks: 
+
 1.3.95.jcn5
 ===========
 

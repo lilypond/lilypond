@@ -32,8 +32,8 @@ Score_engraver::prepare (Moment w)
 {
   Global_translator::prepare (w);
 
-  SCM props = get_property (ly_symbol2scm ("PaperColumn"));
-  set_columns (new Paper_column (props),  new Paper_column (props));
+  set_columns (new Paper_column (get_property (ly_symbol2scm ("NonMusicalPaperColumn"))),
+	       new Paper_column (get_property (ly_symbol2scm ("PaperColumn"))));
   
   command_column_l_->set_elt_property ("when", w.make_scm());
   musical_column_l_->set_elt_property ("when", w.make_scm());
