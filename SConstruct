@@ -125,7 +125,7 @@ for i in functions:
                 defines[key] = '1'
 
 
-key = 'HAVE_FLEXLEXER_YY_CURRENT_BUFFER'
+key = 'zHAVE_FLEXLEXER_YY_CURRENT_BUFFER'
 defines[key] = conf.TryCompile("""using namespace std;
 #include <FlexLexer.h>
 class yy_flex_lexer: public yyFlexLexer
@@ -145,7 +145,7 @@ if conf.CheckLib ('kpathsea'):
 
 # huh? 
 if conf.CheckLib ('kpathsea', 'kpse_find_file'):
-	defines['HAVE_KPSE_FIND_FILE'] = '1'
+	defines['zHAVE_KPSE_FIND_FILE'] = '1'
 
 env = conf.Finish ()
 
@@ -200,7 +200,7 @@ def assert_version (program, minimal, description, package):
 
 required = []
 assert_version ('gcc', '3.0.5', 'GNU C compiler', 'gcc')
-assert_version ('makeinfo', '4.7, 'Makeinfo tool', 'texinfo')
+assert_version ('makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
 
 if required:
 	print
