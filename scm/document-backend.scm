@@ -99,10 +99,7 @@ node."
        (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
        (ifacedoc (map (lambda (iface)
 			(string-append
-"@html
-<hr>
-@end html
-
+"
 @subsubheading "
 (ref-ify (symbol->string (car iface)))
 
