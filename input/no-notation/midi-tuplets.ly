@@ -1,5 +1,4 @@
 \version "1.7.18"
-% candidate for regression.  -gp
 \header {
 texidoc = "
 
@@ -18,7 +17,7 @@ Midi2ly tuplet test.
 
 
 \score { 
-  \context Voice \notes {
+  \context Voice \notes \relative c' {
 
     a1 a2 a2. a4 a4. a8 a8. a16 a16. a32 a32. a64
 

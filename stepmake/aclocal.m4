@@ -24,6 +24,7 @@ AC_DEFUN(STEPMAKE_GET_VERSION, [
     ##     gcc (GCC) 3.1.1 20020606 (Debian prerelease)
     ##
     ## Assume, and hunt for, dotted version multiplet.
+
     changequote(<<, >>)dnl
     "$1" --version 2>&1 | grep '[0-9]\.[0-9]' | head -1 | \
 	sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/'
@@ -385,7 +386,6 @@ AC_DEFUN(STEPMAKE_GCC, [
 	STEPMAKE_ADD_ENTRY($1, $warn)
     fi
 ])
-
 
 AC_DEFUN(STEPMAKE_GETTEXT, [
     presome=${prefix}

@@ -6,7 +6,7 @@ by moving the timing engraver to staff context. "
 
 \score {
 
-    \notes
+    \notes\relative c'
     <
 	\context Staff = SA
 	{

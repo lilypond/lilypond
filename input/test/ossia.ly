@@ -7,7 +7,7 @@ really supported, but can be somewhat faked in lily. "
 }
 
 \score {
-\notes { c1 c1 <
+\notes\relative c'' { c1 c1 <
 	{\clef "treble" c1 c1 }
 	\context Staff = stb { c1 c1 }
 	>

@@ -24,7 +24,7 @@ after the line break is moved around. "
 
 #(debug-enable 'backtrace)
 
-\score {\notes { 
+\score {\notes \relative c'' { 
     \property Voice.Tie \override #'after-line-breaking-callback =
        #my-callback
     c1\break ~ c2 ~ c

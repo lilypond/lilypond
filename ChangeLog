@@ -1,5 +1,16 @@
 2003-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/script-stack.ly: change name from stacked-scripts
+
+	* input/test/ossia.ly: octave errors.
+
+	* input/no-notation/midi-tuplets.ly: move from input/test/, idem
+	for midi-volume-equaliser
+
+	* 
+
+m2003-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
 	* scm/output-ps.scm (lily-traced-cm-fonts): substitution for lily
 	cm fonts.
 
