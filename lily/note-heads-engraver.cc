@@ -76,7 +76,7 @@ Note_heads_engraver::process_music ()
 	  Rhythmic_head::set_dots (note, d);
 	  
 	  if (dur.dot_count ()
-	      != gh_scm2int (d->get_grob_property ("dot-count")))
+	      != robust_scm2int (d->get_grob_property ("dot-count"), 0))
 	    d->set_grob_property ("dot-count", gh_int2scm (dur.dot_count ()));
 
 	  d->set_parent (note, Y_AXIS);
