@@ -44,7 +44,7 @@
 #define scm_c_resolve_module(x) (SCM)0
 
 inline SCM scm_c_make_vector  (int k, SCM val) {
-  return scm_make_vector (SCM_MAKINUM (k), val);
+  return scm_make_vector (scm_from_int (k), val);
 }
 #define scm_c_define_gsubr scm_make_gsubr
 #define scm_remember_upto_here_1(s) scm_remember (&s)

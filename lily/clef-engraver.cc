@@ -105,7 +105,7 @@ Clef_engraver::create_clef ()
 	  abs_oct = abs (abs_oct)  + 1;
 
 	  SCM txt = scm_number_to_string (scm_int2num (abs_oct),
-					  SCM_MAKINUM (10));
+					  scm_from_int (10));
 
 	  g->set_property ("text",
 			   scm_list_n (ly_scheme_function ("vcenter-markup"),

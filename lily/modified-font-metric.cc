@@ -264,7 +264,7 @@ Modified_font_metric::text_dimension (String text)
       for (int i = 0; i < text.length (); i++) 
 	{
 	  SCM sym = scm_vector_ref (coding_vector_,
-				    SCM_MAKINUM((unsigned char) text[i]));
+				    scm_from_int((unsigned char) text[i]));
 
 	  Box char_box;
 

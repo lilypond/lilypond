@@ -58,7 +58,16 @@ virtuoso that taught in Geneva.
 \score
 {
 	 { \transpose c' bes \allegro }
-	\paper{ }
+	\paper{
+	    \context { \Score
+
+		       \override Slur #'after-line-breaking-callback = #New_slur::after_line_breaking
+		       \override Slur #'print-function = #New_slur::print     
+		       \override Slur #'height = ##f
+
+		       
+		       }
+	}
 	\header { piece = "allegro" opus = "" }	
 	\midi{ \tempo 4=90 }
 }

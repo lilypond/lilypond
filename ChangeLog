@@ -1,3 +1,10 @@
+2004-07-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/staff-symbol-referencer.cc (on_staffline): bugfix 
+
+	* lily/scm-hash.cc (get): SCM_MAKINUM is deprecated. Use
+	scm_from_int instead.
+
 2004-07-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* SConstruct: Updates.  Add targets: tar, dist, release.

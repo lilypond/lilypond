@@ -1,5 +1,5 @@
 /*
-  slur.cc -- implement Slur
+  slur.cc -- implement score based Slur
 
   source file of the GNU LilyPond music typesetter
 
@@ -12,17 +12,12 @@
 
 #include "font-interface.hh"
 #include "text-item.hh"
-
 #include "directional-element-interface.hh"
 #include "group-interface.hh"
-#include "group-interface.hh"
 #include "lily-guile.hh"
-#include "lily-proto.hh"
 #include "lookup.hh"
-#include "main.hh"
 #include "note-column.hh"
 #include "output-def.hh"
-#include "paper-column.hh"
 #include "rod.hh"
 #include "slur-bezier-bow.hh"
 #include "slur.hh"
@@ -31,6 +26,15 @@
 #include "stem.hh"
 #include "stencil.hh"
 #include "warn.hh"
+
+/*
+  TODO:
+
+  - avoid collision with staff line
+  - curve around flag/stem for x coordinate
+  - better scoring.
+  
+ */
 
 struct Encompass_info {
   Real x_;
@@ -275,9 +279,14 @@ New_slur::set_end_points (Grob *me)
 
       y += dir * 0.5 * staff_space;
       int p = Staff_symbol_referencer::get_position (h) + 2*dir;
-      if (Staff_symbol_referencer::on_staffline (h, p))
-	y += 0.5 * staff_space * dir ; 
 
+      
+      if (Staff_symbol_referencer::on_staffline (h, p))
+	/*
+	  start off staffline.
+	 */
+	y += staff_space * dir / 10 ;
+      
       Grob * fh = Note_column::first_head (extremes[d]);
       Real x = fh->extent (common[X_AXIS],  X_AXIS).linear_combination (CENTER);
 
@@ -296,8 +305,8 @@ New_slur::set_end_points (Grob *me)
 
   do {
     staff_offsets[d] = staves[d]->relative_coordinate (common[Y_AXIS], Y_AXIS);
-    end_ys[d] =  dir * (dir * base_attachment[d][Y_AXIS] + 4.0 *dir >?
-			dir * (dir + extremes[d]->extent(common[Y_AXIS],Y_AXIS)[dir]));
+    end_ys[d] =  dir * ((dir * (base_attachment[d][Y_AXIS] + 4.0 *dir)) >?
+			(dir * (dir + extremes[d]->extent(common[Y_AXIS],Y_AXIS)[dir])));
   } while (flip (&d) != LEFT);
   
   Array<Slur_score> scores;
@@ -338,7 +347,7 @@ New_slur::set_end_points (Grob *me)
   score_slopes (me, common, base_attachment, &scores);
 
   Real opt = 1e6;
-  int opt_idx = -1;
+  int opt_idx = 0;
   for (int i = scores.size (); i--;)
     {
       if (scores[i].score_  < opt)
@@ -348,7 +357,7 @@ New_slur::set_end_points (Grob *me)
 	}
     }
   
-  Bezier b (get_bezier (me, scores[opt_idx].attachment_));
+  Bezier b (get_bezier (me, scores.size () ? scores[opt_idx].attachment_ : base_attachment));
   
   SCM controls = SCM_EOL;
   for (int i = 4; i--;)
@@ -440,7 +449,6 @@ New_slur::score_slopes (Grob * me,  Grob *common[], Drul_array<Offset> base_atta
 {
  Link_array<Grob> columns =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
-  
 
   Drul_array<Grob *> extremes (columns[0], columns.top ());
   Direction dir = get_grob_direction (me);
@@ -465,7 +473,7 @@ New_slur::score_slopes (Grob * me,  Grob *common[], Drul_array<Offset> base_atta
 
       Real demerit = 0.0;
 
-      demerit += STEEPER_SLOPE_FACTOR *  (dir * (slur_dy - dy) >? 0);
+      demerit += STEEPER_SLOPE_FACTOR *  (dir * (fabs (slur_dy) - fabs (dy)) >? 0);
       if (sign (dy) == 0 &&
 	  sign (slur_dy) != 0)
 	demerit += NON_HORIZONTAL_PENALTY;

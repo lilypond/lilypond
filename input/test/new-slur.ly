@@ -9,10 +9,10 @@
     \override Slur #'height = ##f
 
     f'=''16( e)
-%    d( c)
-%    c'=''2(~c8 d16 c b8 a)
-    
-%{    <c g> ( f <g b>)
+    d( c)
+    c'=''2(~c8 d16 c b8 a)
+    f='4
+    <c g>4 ( f <g b>)
      f
     <c g>^( f <g b>)
     f
@@ -22,5 +22,4 @@
     c,^( c'' c) 
     c,,^( c'')
     c,,^( c') 
-%}
 }
