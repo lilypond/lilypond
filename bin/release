@@ -16,7 +16,7 @@ MI=$TOPLEVEL_MINOR_VERSION
 PA=$TOPLEVEL_PATCH_LEVEL 
 MP=$TOPLEVEL_MY_PATCH_LEVEL
 NEWVER=$MJ.$MI.$PA$MP
-if [ -z $MP ]
+if [ -z $MP -o x$MP = xpre ]
 then
     LASTVER=$MJ.$MI.`expr $PA - 1`
 else

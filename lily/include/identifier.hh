@@ -10,6 +10,7 @@
 #include "lily-proto.hh"
 #include "string.hh"
 #include "input.hh"
+#include "virtual-methods.hh"
 
 /* boolean argument to accesor is copy_b..*/
 #define IDACCESSOR( Input_staff, staff)\
@@ -27,20 +28,17 @@ struct Identifier : public Input {
     virtual ~Identifier() ;
 
     void print()const;
-    virtual char const *classname() const{ return "new Identifier"; }
+    NAME_MEMBERS();
     void error(String);
-    IDACCESSOR(Input_staff, staff)
-    IDACCESSOR(Input_music, music)
-    IDACCESSOR(Music_voice, mvoice)
+    IDACCESSOR(Music, music)
     IDACCESSOR(Input_register, iregs)	
-	       
-    IDACCESSOR(Script_def, script)
+    IDACCESSOR(General_script_def, script)
     IDACCESSOR(Symtables, symtables)
-    IDACCESSOR(Music_general_chord, mchord)
     IDACCESSOR(Lookup,lookup)
     IDACCESSOR(Real,real)
     IDACCESSOR(Request, request)
-    IDACCESSOR(Input_score, score)
+    IDACCESSOR(Score, score)
+    IDACCESSOR(int, intid)
 
 protected:
     virtual void do_print()const=0;
@@ -50,7 +48,7 @@ private:
 
 #define declare_id_class(Idclass, Class, accessor)	\
 struct Idclass : Identifier {\
-	virtual char const *classname()const;\
+        NAME_MEMBERS(); 			    \
 	Idclass(String s, Class*st, int code);\
 	virtual Class* accessor(bool copy);\
 	~Idclass();\
@@ -60,13 +58,12 @@ struct Idclass : Identifier {\
 
 
 declare_id_class(Real_id, Real, real);
-declare_id_class(Script_id, Script_def, script);
+declare_id_class(Script_id, General_script_def, script);
 declare_id_class(Lookup_id, Lookup, lookup);
 declare_id_class(Symtables_id, Symtables, symtables);
-declare_id_class(Staff_id, Input_staff, staff);
-declare_id_class(M_chord_id, Music_general_chord, mchord);
-declare_id_class(M_voice_id, Music_voice, mvoice);
-declare_id_class(Score_id, Input_score, score);
+declare_id_class(Music_id, Music, music);
+declare_id_class(Int_id, int, intid);
+declare_id_class(Score_id, Score, score);
 declare_id_class(Request_id, Request, request);
 declare_id_class(Input_regs_id, Input_register, iregs);
 

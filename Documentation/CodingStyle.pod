@@ -421,4 +421,14 @@ files, doing a release.
 
 Use them.
 
+The following generic identifications are used:
+
+	up == 1
+	left == -1
+	right == 1
+	down == -1
+
+Intervals are pictured lying on a horizontal numberline (Interval[-1]
+is the minimum)
+
 

@@ -2,21 +2,19 @@
 % scales with accents.
 %
 
-\version "0.0.58";
-blah = \staff{  melodicregs
-	\melodic {
+\version "0.0.59";
+blah = 	\melodic {
 		\meter 6/8;	
-		\duration 4.;
 		\octave  'c ;
-	\clef "bass";
-			c d
+		\clef "bass";
+			c4. d
 		\octave  c ;
 			c d 
 		\clef "violin" ;
 		\octave  c' ;
-		++ \transpose { d { e f } } ++
+		\transpose  d { e f } 
 		\octave  c'' ;
-			c d 
+		c d 
 		\duration  8 ;
 	%ugr
 		 |[6/9 a \< a a a a a a  \! a a \ff \> ]1/1 
@@ -66,7 +64,7 @@ c1
 }
 
 \score{
-	blah
+	\melodic {\blah}
 	\paper{
 		\symboltables {table_sixteen}
 		\unitspace 1.5 \cm

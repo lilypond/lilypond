@@ -20,13 +20,21 @@ Q: Some of your neat scripts fail, what directories do you use:
 
 A:
 	
-	~/something
-	  lilypond	# the directory as unpacked from the tarball
-	  releases	# directory for .tar.gz releases
-	  patches	# directory for patches between different releases
+	~/something/
 
+which contains:
+
+	  lilypond/	# the directory as unpacked from the tarball
+	  releases/	# directory for .tar.gz releases
+	  patches/	# directory for patches between different releases
+	  test/
+	
 ~/something/lilypond/bin is in the PATH, and contains symlinks to the
 compiled executables.
+
+If you don't use patches, you'd probably want to symlink
+
+	lilypond -> lilypond-x.y.z
 
 =head2 Language: mudela
 
@@ -49,6 +57,20 @@ in stead of:
 	cis cis
 	#c #c
 
+Why, you might ask? Because independently of how it was written, you
+would say that you are playing and reading "two C-sharp" notes.
+
+
+Q: What is C<cis> anyway
+
+A: C<cis> is the dutch naming for C-sharp. The notes are named
+a, b,.., g. The suffix -is means sharp, and -es flat. This system is
+common in a number of languages (such as swedish, dutch, german.)
+Certain other languages (such as English, French and Italian) just add
+the word for "sharp" to the notename.
+
+We chose the Dutch system, because we're dutch. You are free to chose
+whatever names you like; they are user definable.
 
 Q: I can type
 

@@ -16,10 +16,10 @@ class Text_register : public Request_register{
     /* *************** */
 protected:
     virtual void set_feature(Feature );
-    virtual bool try_request(Request*);
-    virtual void process_requests();
-    virtual void pre_move_processing();
-    virtual void post_move_processing();
+    virtual bool do_try_request(Request*);
+    virtual void do_process_requests();
+    virtual void do_pre_move_processing();
+    virtual void do_post_move_processing();
     virtual void acknowledge_element(Score_elem_info);
 public:
     Text_register();

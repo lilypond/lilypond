@@ -8,14 +8,13 @@
 #include "debug.hh"
 #include "musical-request.hh"
 #include "command-request.hh"
-#include "voice.hh"
+#include "music-list.hh"
 #include "script.hh"
 #include "identifier.hh"
 #include "varray.hh"
 #include "text-def.hh"
 #include "parseconstruct.hh"
-#include "input-music.hh"
-#include "voice-element.hh"
+
 
 
 String *
@@ -46,7 +45,7 @@ get_scriptdef(char c)
 }
 
 Request*
-get_script_req(int d , Script_def*def)
+get_script_req(int d , General_script_def*def)
 {
     Musical_script_req* script_req_p = new Musical_script_req;
     script_req_p->dir_i_ =d;
@@ -54,12 +53,7 @@ get_script_req(int d , Script_def*def)
     return script_req_p;
 }
 
-Request*
-get_text_req(int d , Text_def*def)
-{
-    Text_req* text_req_p = new Text_req(d, def);
-    return text_req_p;
-}
+
 
 Request*
 get_stemdir_req(int d)

@@ -24,7 +24,7 @@ protected:
     virtual void do_post_processing();
     virtual void do_substitute_dependency(Score_elem*, Score_elem*);
     virtual void do_pre_processing();
-    SPANNER_CLONE(Slur)
+    SCORE_ELEM_CLONE(Slur)
     NAME_MEMBERS();
 };
 

@@ -1,40 +1,48 @@
+/*
+  scores.cc -- implement some globals
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "main.hh"
-#include "input-score.hh"
 #include "score.hh"
 #include "string.hh"
 #include "paper-def.hh"
 #include "debug.hh"
 
-static Array<Input_score*> score_array_global;
+static Array<Score*> score_array_global;
 String default_out_fn = "lelie";
 
 void
 do_scores()
 {
     for (int i=0; i < score_array_global.size(); i++) {
-	Input_score* &is_p = score_array_global[i];
-	if (is_p->errorlevel_i_) {
-	    is_p->warning("Score contains errors. Will not process it. ");
-	    delete is_p;
-	    continue;
-	} 
+	Score *&is_p = score_array_global[i];
 	
 	if (only_midi) {
 	    delete is_p->paper_p_;
 	    is_p->paper_p_ = 0;
 	}
-
-	Score * s_p = is_p->parse();	
+	
+	if (is_p->errorlevel_i_) {
+	    is_p->warning("Score contains errors. Will not process it. ");
+	  
+	} else { 
+	
+	    is_p->print ();
+	    is_p->process();
+	}
 	delete is_p;
-	s_p->print ();
-	s_p->process();
-	delete s_p;
+	is_p =0;
+
     }
     score_array_global.set_size(0);
 }
 
 void
-add_score(Input_score * s)
+add_score(Score * s)
 {
     score_array_global.push(s);
 }

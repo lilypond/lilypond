@@ -64,7 +64,7 @@ Note_column_register::acknowledge_element(Score_elem_info i)
 }
 
 void
-Note_column_register::pre_move_processing()
+Note_column_register::do_pre_move_processing()
 {
     Script_column *col_l = ( ncol_p_ ) ? ncol_p_ : restcol_p_;
     if (!col_l)
@@ -92,7 +92,7 @@ Note_column_register::pre_move_processing()
 }
 
 void
-Note_column_register::post_move_processing()
+Note_column_register::do_post_move_processing()
 {
     script_l_arr_.set_size(0);
     stem_l_ =0;
@@ -114,7 +114,8 @@ Note_column_register::Note_column_register()
     
     ncol_p_=0;
     restcol_p_ =0;
-    post_move_processing();
+    do_post_move_processing();
 }
 IMPLEMENT_STATIC_NAME(Note_column_register);
+IMPLEMENT_IS_TYPE_B1(Note_column_register,Request_register);
 ADD_THIS_REGISTER(Note_column_register);

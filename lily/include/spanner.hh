@@ -11,7 +11,6 @@
 #include "score-elem.hh"
 
 
-#define SPANNER_CLONE(T) VIRTUAL_COPY_CONS(T, Spanner)
 
 /** a symbol which is attached between two columns. A spanner is a
   symbol which spans across several columns, so its final appearance
@@ -44,7 +43,7 @@ public:
     bool broken_b() const;
     Spanner* find_broken_piece(Line_of_score*)const;
 protected:
-    SPANNER_CLONE(Spanner)
+    SCORE_ELEM_CLONE(Spanner)
     virtual void break_into_pieces();
 
     Link_array<Spanner> broken_into_l_arr_;

@@ -19,7 +19,9 @@ struct Key_item : Item {
 
     
     /* *************** */
-NAME_MEMBERS();
+    NAME_MEMBERS();
+    SCORE_ELEM_CLONE(Key_item)
+
     Key_item(int cposition);
     void add(int pitch, int acc);
     void read(const Key_register&);

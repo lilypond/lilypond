@@ -44,6 +44,7 @@ Note_head::set_rhythmic(Rhythmic_req*r_req_l)
 }
     
 IMPLEMENT_STATIC_NAME(Note_head);
+IMPLEMENT_IS_TYPE_B1(Note_head,Item);
 
 void
 Note_head::do_print()const
@@ -82,10 +83,10 @@ Note_head::brew_molecule_p() const
 	Molecule dm;
 	dm.add(Atom(d));
 	if (!(position_i_ %2))
-	    dm.translate(Offset(0,dy));
+	    dm.translate_y(dy);
 	out->add_right(dm);
     }
-    out->translate(Offset(x_dir_i_ * p->note_width(),0));
+    out->translate_x(x_dir_i_ * p->note_width());
     bool streepjes = (position_i_<-1)||(position_i_ > staff_size_i_+1);
     
     if (rest_b_ && balltype_i_ > 2)
@@ -98,11 +99,11 @@ Note_head::brew_molecule_p() const
 	Molecule sm;
 	sm.add(Atom(str));
 	if (position_i_ % 2)
-	    sm.translate(Offset(0,-dy* dir));
+	    sm.translate_y(-dy* dir);
 	out->add(sm);	    
     }
     
-    out->translate(Offset(0,dy*position_i_));
+    out->translate_y(dy*position_i_);
     return out;
 }
 

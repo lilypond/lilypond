@@ -18,8 +18,6 @@
 class Command_req  : public virtual Request  {
 public:
     REQUESTMETHODS(Command_req, command);
-    virtual Terminate_voice_req *terminate() {return 0;}
-    virtual Group_change_req * groupchange() { return 0;}
     virtual Group_feature_req * groupfeature() { return 0; }
     virtual Measure_grouping_req * measuregrouping() { return 0; }
     virtual Clef_change_req * clefchange() { return 0; }
@@ -93,12 +91,6 @@ public:
     REQUESTMETHODS(Measure_grouping_req, measuregrouping);
 };
 
-class Group_change_req  : public Command_req  {
-public:
-    String newgroup_str_;
-    REQUESTMETHODS(Group_change_req, groupchange);
-};
-
 /** draw a (repeat)-bar. This something different than #Barcheck_req#,
   the latter should only happen at the start of a measure.  */
 class Bar_req  : public Command_req  {
@@ -107,10 +99,6 @@ public:
     Bar_req(String);
     int compare(const Bar_req&)const;
     REQUESTMETHODS(Bar_req,bar);
-};
-class Terminate_voice_req  : public Command_req  {
-public:
-    REQUESTMETHODS(Terminate_voice_req,terminate);
 };
 
 class Group_feature_req  : public Command_req  {

@@ -108,16 +108,29 @@ Cursor<T>::ok()const
 {
     return ( pointer_ != 0 );
 }
-
+template<class T>
+inline void
+Cursor<T>::next() 
+{
+    assert( pointer_ );
+    pointer_ = pointer_->next();
+}
 
 template<class T>
 inline Cursor<T> 
 Cursor<T>::operator ++( int )    
 {
     Cursor<T> r (*this);
-    assert( pointer_ );
-    pointer_ = pointer_->next();
+    next();
     return r;
+}
+
+template<class T>
+inline void
+Cursor<T>::previous() 
+{
+    assert( pointer_ );
+    pointer_ = pointer_->previous();
 }
 
 template<class T>
@@ -125,8 +138,7 @@ inline Cursor<T>
 Cursor<T>::operator --( int )
 {
     Cursor<T> r (*this);
-    assert( pointer_ );
-    pointer_ = pointer_->previous();
+    previous();
     return r;
 }
 

@@ -16,10 +16,9 @@
 
 class Lyric_register : public Request_register {
     Array<Lyric_req*> lreq_arr_;
-    virtual bool acceptable_request_b(Request*);
-    virtual bool try_request(Request*);
-    virtual void process_requests();
-    virtual void post_move_processing();
+    virtual bool do_try_request(Request*);
+    virtual void do_process_requests();
+    virtual void do_post_move_processing();
 public:
     NAME_MEMBERS();
     Lyric_register();

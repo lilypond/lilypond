@@ -19,20 +19,20 @@
 Dynamic_register::Dynamic_register()
 {
     dir_i_ =0;
-    post_move_processing();
+    do_post_move_processing();
     dynamic_p_ =0;
     to_end_cresc_p_ = cresc_p_ = 0;
     cresc_req_l_ = 0;
 }
 
 void
-Dynamic_register::post_move_processing()
+Dynamic_register::do_post_move_processing()
 {
     dynamic_req_l_arr_.set_size(0);
 }
 
 bool    
-Dynamic_register::try_request(Request * r)
+Dynamic_register::do_try_request(Request * r)
 {
     Musical_req * m = r->musical();
     if (!m || !m->dynamic())
@@ -41,7 +41,7 @@ Dynamic_register::try_request(Request * r)
     return true;
 }
 void
-Dynamic_register::process_requests()
+Dynamic_register::do_process_requests()
 {
     Crescendo*  new_cresc_p=0; 
     for (int i=0; i < dynamic_req_l_arr_.size(); i++) {
@@ -90,7 +90,7 @@ Dynamic_register::process_requests()
 }
 
 void
-Dynamic_register::pre_move_processing()
+Dynamic_register::do_pre_move_processing()
 {
     Staff_symbol* s_l = get_staff_info().staff_sym_l_;
     if (dynamic_p_) {
@@ -109,13 +109,6 @@ Dynamic_register::pre_move_processing()
     }
 }
 
-bool
-Dynamic_register::acceptable_request_b(Request*r)const
-{
-    Musical_req * m = r->musical();
-    return  (m && m->dynamic());
-}
-
 void
 Dynamic_register::set_feature(Feature i)
 {
@@ -124,6 +117,7 @@ Dynamic_register::set_feature(Feature i)
 }
 
 IMPLEMENT_STATIC_NAME(Dynamic_register);
+IMPLEMENT_IS_TYPE_B1(Dynamic_register,Request_register);
 ADD_THIS_REGISTER(Dynamic_register);
 
 Dynamic_register::~Dynamic_register()

@@ -1,3 +1,33 @@
+pl 68
+	- doco: other-packages.pod, lots of lilyliterature.pod
+	- last duration mode now is default.
+	- some OpusTeX stuff.
+	- bf Y2K in convert-mudela
+	- Grand rewrite of Music/Register stuff:
+	  * separation of Y and X-elt-groups
+	  * Registers: info up: broadcasts, info down: get_xxx_info()
+	  * Registers: try_request works from bottom to top of tree.
+	  * Score_elem invisible_b_ flag
+	  * Junk Staff_column, and find the requests while walking the
+	  Voices.
+	  * Score_register
+	  * Staff_group, Score_request_register.
+	  * align key/Meters/bar across staffs
+	  * junked Staff, Staff_column, Staff_walker, Complex_walker,
+	    Request_column Pulk_voice, Pulk_voices, Walker_registers,
+	    Voice_element, 
+	    Input_score, Input_staff, Input_music and a lot of
+	    parserjunk.
+	  * mudela: lots of structure changes : now much simpler
+	  * generation of pre/postbreak items now in Score_elem with deps.
+	
+	- bf: make_patch explanation
+	- bf: make install TeX stuff
+	- new Beam/Stem code (WL)
+	- mudela: . mandatory for REALs
+
+******
+june 3
 pl 67
 	- sketch of Music classes
 	- General_script_def as baseclass for Text_def and Script_def

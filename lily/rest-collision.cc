@@ -56,6 +56,9 @@ Rest_collision::do_post_processing()
 #endif
 }
 IMPLEMENT_STATIC_NAME(Rest_collision);
+IMPLEMENT_IS_TYPE_B1(Rest_collision,Item);
+
+
 void
 Rest_collision::do_substitute_dependency(Score_elem*o,Score_elem*n)
 {

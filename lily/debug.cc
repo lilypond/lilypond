@@ -5,9 +5,12 @@
 #include "debug.hh"
 #include "dstream.hh"
 #include "flower-debug.hh"
+#include "moment.hh"
 
 Dstream *monitor=0;
 ostream * nulldev =0;
+static void (*rat_printer)(Moment const&);
+
 // ugh
 struct _Dinit {
     _Dinit() {
@@ -41,6 +44,7 @@ float_handler(int)
 void
 debug_init()
 {
+    rat_printer = printm;	// make sure this is linked in
 #ifndef NDEBUG
     set_new_handler(&mynewhandler);
 #endif
@@ -56,6 +60,6 @@ set_debug(bool b)
 {
     check_debug =b;
     set_flower_debug(*monitor, check_debug);
-  }
+}
 
 

@@ -28,8 +28,8 @@ class Note_column_register :public Request_register {
 protected:
     virtual void set_feature(Feature);
     virtual void acknowledge_element(Score_elem_info);
-    virtual void pre_move_processing();
-    virtual void post_move_processing();
+    virtual void do_pre_move_processing();
+    virtual void do_post_move_processing();
 public:
     Note_column_register();
     NAME_MEMBERS();

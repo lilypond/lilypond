@@ -1,5 +1,5 @@
 /*
-  atom.hh -- declare 
+  bar-align-reg.hh -- declare 
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,11 +7,7 @@
 */
 
 
-#ifndef ATOM_HH
-#define ATOM_HH
+#ifndef BAR_ALIGN_REG_HH
+#define BAR_ALIGN_REG_HH
 
-#include "symbol.hh"
-#error
-
-
-#endif // ATOM_HH
+#endif // BAR_ALIGN_REG_HH

@@ -27,7 +27,7 @@ Rest_collision_register::acknowledge_element(Score_elem_info i)
 }
 
 void
-Rest_collision_register::pre_move_processing()
+Rest_collision_register::do_pre_move_processing()
 {
     if (rest_collision_p_) {
 	typeset_element(rest_collision_p_);
@@ -41,4 +41,5 @@ Rest_collision_register::Rest_collision_register()
 }
 
 IMPLEMENT_STATIC_NAME(Rest_collision_register);
+IMPLEMENT_IS_TYPE_B1(Rest_collision_register, Request_register);
 ADD_THIS_REGISTER(Rest_collision_register);

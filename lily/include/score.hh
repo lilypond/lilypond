@@ -20,19 +20,17 @@
 #include "lily-proto.hh"
 
 /// the total music def of one movement
-struct Score {
+class Score: public Input {
+public:
     /// paper_, staffs_ and commands_ form the problem definition.
     Paper_def *paper_p_;
     Midi_def *midi_p_;
-    Pointer_list<Staff*> staffs_;
+    Music * music_p_;
     
-    /// "runtime" fields for setting up spacing    
-    Pointer_list<Request_column*> rcols_;
     
     Pointer_list<Score_column*> cols_;
     PScore *pscore_p_;
 
-    Input input_;
     int errorlevel_i_;
     
     /* *************************************************************** */
@@ -40,7 +38,6 @@ struct Score {
     /// construction
     Score();
     ~Score();    
-    void add(Staff*);
 
     /// do everything except outputting to file
     void process();
@@ -64,10 +61,11 @@ struct Score {
     /// when does the last *musical* element finish?
     Moment last() const;
 
+    Score(Score const&);
+
 private:
     void paper_output();
     void setup_music();
-    void process_music();
     /// do midi stuff
     void midi();
 
@@ -77,7 +75,6 @@ private:
     // utils:
     PCursor<Score_column*> create_cols(Moment, PCursor<Score_column*> &last);
 
-    Score(Score const&){}
 
     /**
       make the pcol_l_ fields of each Score_column point to the correct PCol,

@@ -60,10 +60,11 @@ Text_item::brew_molecule_p() const
     Molecule* mol_p = new Molecule(a);
 
     if(dir_i_<0 )		// should do something better anyway.
-	mol_p->translate(Offset(0, -mol_p->extent().y.left ));
-    mol_p->translate(Offset(0, pos_i_ * paper()->internote_f()));
+	mol_p->translate_y( -mol_p->extent().y.left );
+    mol_p->translate_y( pos_i_ * paper()->internote_f());
     
     return mol_p;
 }
 
 IMPLEMENT_STATIC_NAME(Text_item);
+IMPLEMENT_IS_TYPE_B1(Text_item,Item);

@@ -53,45 +53,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % set fonts and primary dimensions
 \def\musixtwentydefs{
-        \font\textfont=cmr10
-        \font\meterfont=cmbx12
-        \font\slurufont=xslu20
-        \font\slurdfont=xsld20
-        \font\slurhfont=xslz20
-        \font\hslurufont=xslhu20
-        \font\hslurdfont=xslhd20
-        \font\hslurhfont=xslhz20
-        \font\musicfnt=musix20
-        \font\musicdraw=musixsps
-        \font\italicfont=cmti10
-        \font\dynfont=cmbxti10 scaled \magstep1
-        \font\mathfont=cmsy10
         \balkheight=20pt
         \notewidth=6pt
         \noteheight=5pt
         \staffrulethickness=0.4pt
+        \musixtwentyfonts
         \musixcalc
 }
 
-
 \def\musixsixteendefs{
-        \font\textfont=cmr8
-        \font\meterfont=cmbx12
-        \font\italicfont=cmti8
-        \font\slurufont=xslu16
-        \font\slurdfont=xsld16
-        \font\slurhfont=xslz20 % sigh
-        \font\hslurufont=xslhu16
-        \font\hslurdfont=xslhd16
-        \font\hslurhfont=xslhz20
-        \font\musicfnt=musix16
-        \font\dynfont=cmbxti12
-        \font\musicdraw=musixsps
-        \font\mathfont=cmsy8
         \balkheight=16pt
         \staffrulethickness=0.4pt
         \notewidth=5pt
         \noteheight=4pt
+        \musixsixteenfonts
         \musixcalc
 }
 
@@ -244,3 +219,4 @@
 % big fat marks, if errors are detected.
 \def\columnerrormark{\placebox{-5pt}{0pt}{\bf C!}}
 \def\scorelineerrormark{\placebox{0pt}{-10pt}{\bf L!}}
+\def\unknown{{\bf u}}

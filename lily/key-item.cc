@@ -59,14 +59,16 @@ Key_item::brew_molecule_p()const
     for (int i =0; i < pitch.size(); i++) {
 	Symbol s= paper()->lookup_l()->accidental(acc[i]);
 	Atom a(s);
-	a.translate(Offset(0,(c_position + pitch[i]) * inter));
+	a.translate_y((c_position + pitch[i]) * inter);
 	Molecule m(a);
 	output->add_right(m);	
     }
     Molecule m(paper()->lookup_l()->fill(Box(
 	Interval(0, paper()->note_width()),
 	Interval(0,0))));
-    output->add_right(m);
+    if ( pitch.size() )
+	output->add_right(m);
     return output;
 }
 IMPLEMENT_STATIC_NAME(Key_item);
+IMPLEMENT_IS_TYPE_B1(Key_item,Item);

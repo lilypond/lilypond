@@ -120,7 +120,8 @@ Collision::do_pre_processing()
 // reproduction of bugfix at 3am ?
 	Note_head * nu_l= col_l_a[idx(1,0)]->head_l_arr_[0];
 	Note_head * nd_l = col_l_a[idx(-1,0)]->head_l_arr_.top();
-	if (! (nu_l->balltype_i_ == nd_l->balltype_i_ && nu_l->dots_i_ == nd_l->dots_i_  && middle.length() == 0 )) {
+	if (! (nu_l->balltype_i_ == nd_l->balltype_i_ 
+	       && nu_l->dots_i_ == nd_l->dots_i_  && middle.length() == 0 )) {
 	    x_off[idx(1,0)] -= 0.5;
 	    x_off[idx(1,1)] -= 0.5;
 	    x_off[idx(-1,1)] += 0.5;
@@ -139,6 +140,7 @@ Collision::do_pre_processing()
 }
 
 IMPLEMENT_STATIC_NAME(Collision);
+IMPLEMENT_IS_TYPE_B1(Collision, Item);
 
 void
 Collision::do_substitute_dependency(Score_elem*o_l,Score_elem*n_l)

@@ -8,18 +8,19 @@
 
 #include <assert.h>
 
+#include "score.hh"
 #include "identifier.hh"
 #include "my-lily-lexer.hh"
 #include "debug.hh"
 #include "input-register.hh"
-#include "input-score.hh" 
 #include "symtable.hh"
-#include "input-staff.hh"
-#include "input-music.hh"
 #include "lookup.hh"
 #include "script-def.hh"
 #include "request.hh"
 #include "input-register.hh"
+
+IMPLEMENT_STATIC_NAME(Identifier);
+IMPLEMENT_IS_TYPE_B(Identifier);
 
 Identifier::~Identifier()
 {
@@ -30,7 +31,7 @@ void
 Identifier::error(String expect)
 {
     String e("Wrong identifier type: ");
-    e += String(classname()) + "(expected " + expect + ")";
+    e += String(name()) + "(expected " + expect + ")";
     ::error(e);
 }
 
@@ -58,14 +59,12 @@ Class::do_print() const { \
 } \
 class Class
 
-DEFAULT_PRINT(Script_id, Script_def, script);
+DEFAULT_PRINT(Script_id, General_script_def, script);
 DEFAULT_PRINT(Lookup_id, Lookup, lookup);
 DEFAULT_PRINT(Symtables_id, Symtables, symtables);
-DEFAULT_PRINT(Staff_id, Input_staff, staff);
-DEFAULT_PRINT(M_chord_id, Music_general_chord, mchord);
-DEFAULT_PRINT(M_voice_id, Music_voice, mvoice);
+DEFAULT_PRINT(Music_id,Music , music);
 DEFAULT_PRINT(Request_id, Request, request);
-DEFAULT_PRINT(Score_id, Input_score, score);
+DEFAULT_PRINT(Score_id, Score, score);
 DEFAULT_PRINT(Input_regs_id, Input_register, iregs);
 
 void
@@ -75,11 +74,7 @@ Real_id::do_print() const
     mtor << *((Real_id*)this)->real(false)<< "\n";
 }
 
-#define implement_id_class(Idclass, Class, accessor)	\
-char const * Idclass::classname() const\
-{\
-    return #Class;\
-}\
+#define default_accessor(Idclass, Class, accessor)\
 Class*\
 Idclass::accessor(bool copy) {\
 	if (copy){ \
@@ -88,18 +83,32 @@ Idclass::accessor(bool copy) {\
         }else\
 	    return (Class*) data;\
     }\
+
+#define virtual_accessor(Idclass, Class, accessor)\
+Class*\
+Idclass::accessor(bool copy) {\
+	if (copy){ \
+	    accessed_b_ = true;\
+	    return (Class*) ((Class*) data)->clone();\
+        }else\
+	    return (Class*) data;\
+    }\
+
+
+#define implement_id_class(Idclass, Class, accessor)	\
+IMPLEMENT_STATIC_NAME(Idclass)\
+IMPLEMENT_IS_TYPE_B1(Idclass,Identifier)\
 Idclass::~Idclass() { delete accessor(false); }\
 Idclass::Idclass(String s, Class*st, int code):Identifier(s,code) { data = st; }\
 
 
+
 implement_id_class(Real_id, Real, real);
-implement_id_class(Script_id, Script_def, script);
+implement_id_class(Script_id, General_script_def, script);
 implement_id_class(Lookup_id, Lookup, lookup);
 implement_id_class(Symtables_id, Symtables, symtables);
-implement_id_class(Staff_id, Input_staff, staff);
-implement_id_class(M_chord_id, Music_general_chord, mchord);
-implement_id_class(M_voice_id, Music_voice, mvoice);
-implement_id_class(Score_id, Input_score, score);
+implement_id_class(Music_id, Music, music);
+implement_id_class(Score_id, Score, score);
 implement_id_class(Request_id, Request, request);
 implement_id_class(Input_regs_id, Input_register, iregs);
 
@@ -107,3 +116,13 @@ Identifier::Identifier(Identifier const&)
 {
     assert(false);
 }
+
+
+default_accessor(Real_id, Real, real);
+default_accessor(Script_id, General_script_def, script);
+default_accessor(Lookup_id, Lookup, lookup);
+default_accessor(Symtables_id, Symtables, symtables);
+virtual_accessor(Music_id, Music, music);
+default_accessor(Score_id, Score, score);
+virtual_accessor(Request_id, Request, request);
+default_accessor(Input_regs_id, Input_register, iregs);

@@ -80,6 +80,7 @@ Script_def::get_atom(Paper_def *p , int d)const
 }
 
 IMPLEMENT_STATIC_NAME(Script_def);
+IMPLEMENT_IS_TYPE_B1(Script_def,General_script_def);
 
 int
 Script_def::priority_i()const

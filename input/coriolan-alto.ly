@@ -21,7 +21,6 @@ EndMudelaHeader
 alto = \melodic{ 
 	
 	\meter 4/4; 
-	\duration  8 ;
 	\key bes es as;
 		
 	\clef "alto";
@@ -31,13 +30,13 @@ alto = \melodic{
 	< 	
 		{ \octave  c ;
 			
-			[ c c-. ] c2.( | 
+			[ c8 c-. ] c2.( | 
 %31
-			[ ) c c-. ] c2.( | 
+			[ ) c8 c-. ] c2.( | 
 %32
-			[ ) c c-. ] c4. c-. c4( |
+			[ ) c8 c-. ] c4. c-. c4( |
 %33
-			[ ) c c-. ] c4. c-. c4 
+			[ ) c8 c-. ] c4. c-. c4 
 		\group "+bla";
 		 \stem  1 ;[ c16^"div." c16 c16 c16 ] c4 c2 
 		\group "-";
@@ -53,11 +52,11 @@ alto = \melodic{
 				- \ \ \ \ - \ \ \ \ -" ] c2.( |  
 			\textstyle "roman";
 %31:2
-			[ ) c c-. ] c2.( | 
+			[ ) c8 c-. ] c2.( | 
 %32:2
-			[ ) c c-. ] c4. c-. c4( | 
+			[ ) c8 c-. ] c4. c-. c4( | 
 %33:2
-			[ ) c c-. ] c4. c-. c4 |
+			[ ) c8 c-. ] c4. c-. c4 |
 			\octave c ;
 
 %34		

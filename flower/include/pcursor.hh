@@ -25,6 +25,9 @@ public:
     Cursor<void*>::ok;
     Cursor<void*>::del;
     Cursor<void*>::backspace;
+    Cursor<void*>::next;
+    Cursor<void*>::previous;
+
     T remove_p() {
 	T p = ptr();
 	Cursor<void*>::del();

@@ -14,7 +14,7 @@
 
 %}
 
-\version "0.0.58";
+\version "0.0.59";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names
@@ -29,7 +29,7 @@ dux =
     \melodic {
         \clef "violin";
         \octave c';
-        \duration \last;
+
         \stem -1;
         r8 [c'16 b] [c'8 g] [as c'16 b] [c'8 d'] |
         [g c'16 b] [c'8 d'] [f16 g] as4 [g16 f] |
@@ -131,7 +131,6 @@ comes =
 bassdux =
     \melodic {
         \clef "bass";
-
         \octave c';
         r1 |
         r |
@@ -175,27 +174,28 @@ bassdux =
         [F16 G] As4 [G16 F] Es4 r8 es |
         [d c g G]
 %% 30
-        < \multivoice 
+        < \multi 2;
         { \stem 1; c2~ | c1~ | c1 }
         { \stem -1; C2~ | C1~ | C1 }
         >
     }
 
 
-% every "melody" declared in a staff has its own "voicegroup"
-trebstaf =
-    \staff { 
-        \inputregister{melodicregs}
-        global dux comes 
-    }
 
         
 \score {
-    trebstaf
-    \staff {
-        \inputregister{melodicregs}
-        global bassdux
-    }
+ 	\melodic < \multi 1;
+		< \multi 2; 
+			\global 
+			\dux
+			\comes 
+		>
+		< \multi 2;
+			\global
+			\bassdux
+		>
+		
+	>
     \paper{}
     \midi {
         \tempo 4:84

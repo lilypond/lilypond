@@ -29,7 +29,6 @@
 #include "varray.hh"
 #include "parser.hh"
 #include "debug.hh"
-#include "input-score.hh"
 #include "parseconstruct.hh"
 #include "main.hh"
 #include "identifier.hh"
@@ -71,13 +70,12 @@ TEX		{AA}|-|{PUNCT}|{ACCENT}|{NATIONAL}
 WORD		{A}{AN}*
 ALPHAWORD	{A}+
 INT		-?{N}+
-REAL		{INT}?(\.{N}+)?
+REAL		{INT}?\.{N}*
 KEYWORD		\\{WORD}
 WHITE		[ \n\t\f]
 BLACK		[^ \n\t\f]
 RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
-DOTS		\.+
 LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 
 %%
@@ -177,10 +175,6 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 		return scan_escaped_word(YYText()+1);
 	}
 
-	{DOTS}		{
-		yylval.i = strlen(YYText());
-		return DOTS;
-	}
 	{INT}		{
 		yylval.i = String_convert::dec2_i( String( YYText() ) );
 		return INT;
@@ -218,10 +212,6 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 
 	\" {
 		start_quote();
-	}
-	{DOTS}		{
-		yylval.i = strlen(YYText());
-		return DOTS;
 	}
 	{INT}		{
 		yylval.i = String_convert::dec2_i( String( YYText() ) );
@@ -272,9 +262,9 @@ LYRICS		({AA}|{NATIONAL})[^0-9 \t\n\f]*
 	return REAL;
 }
 
-{INT}\. { // backup rule
-	cerr << "int. encountered" << endl;
-	exit( 1 );
+{INT}	{
+	yylval.i = String_convert::dec2_i( String( YYText() ) );
+	return INT;
 }
 
 [{}]	{

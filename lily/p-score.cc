@@ -23,6 +23,7 @@ PScore::typeset_element(Score_elem * elem_p)
 {
     elem_p_list_.bottom().add(elem_p);
     elem_p->pscore_l_ = this;
+
     elem_p->add_processing();
 }
 
@@ -31,12 +32,12 @@ PScore::typeset_item(Item *i, PCol *c, int breakstat)
 {
     assert(c && i);
 
-    if (breakstat == 0) {
+    if (breakstat == -1) {
 	typeset_item(i, c->prebreak_p_);
 	return;
     }
 
-    if (breakstat == 2) {
+    if (breakstat == 1) {
 	typeset_item(i, c->postbreak_p_);
 	return;
     }
@@ -177,6 +178,7 @@ PScore::print() const
 void
 PScore::preprocess()
 {
+    super_elem_l_->breakable_col_processing();
     super_elem_l_->pre_processing();
 }
 
@@ -205,7 +207,7 @@ PScore::set_breaking(Array<Col_hpositions> const &breaking)
     super_elem_l_->break_processing();
 
 
-    for (iter_top(spanners,i); i.ok(); ) {
+    for (iter(spanners.top(),i); i.ok(); ) {
 	Spanner *span_p = i.remove_p();
 	if (span_p->broken_b()) {
 	    span_p->unlink();
@@ -214,6 +216,9 @@ PScore::set_breaking(Array<Col_hpositions> const &breaking)
 	    typeset_broken_spanner(span_p);
 	}
     }
+
+    for (iter_top(cols, i); i.ok(); i++)
+	i->clean_breakable_items();
 }
 
 void
@@ -235,6 +240,7 @@ PScore::process()
     *mlog << "\nPostprocessing elements..." << endl;
     postprocess();
 }
+
 /** Get all breakable columns between l and r, (not counting l and r).  */
 Link_array<PCol>
 PScore::breakable_col_range(PCol*l,PCol*r)const

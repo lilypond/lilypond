@@ -6,6 +6,13 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+bugs introduced in pl68:
+	
+	* lyrics broken,
+
+	* midi broken
+
+	* scripts broken
 
 IMPORTANT
 
@@ -26,6 +33,9 @@ IMPORTANT
 	* a Hands on tutorial [HKN]
 
 PROJECTS
+
+	* Convert all ref/bib stuff into BibTeX.
+
 	* Output class, handles : (smallish)
 	- help text /(c) notice?
 	- version line
@@ -44,12 +54,14 @@ PROJECTS
 	- poor man's ascii output possible?
 	- MusixTeX output possible? (would have to be done before break calc.)
 	- NIFF ?
+	- Common Music Notation
 	- PostScript output (esp. Beams, Slurs, etc)
 	- Move PScore, Items, Spanners etc. into libmutype.a
 
 
 	* separate Score_elem settings in user-settable (properties
-	.. ) and non-user-settable part.
+	.. ) and non-user-settable part. Maybe use something like X-resources:
+	"Staff=oboe*dir: 0", "Staff=*.Voice_group=solo*dir: 1"
 
 	* TeX spanners , use texbeam.cc as an example (smallish)
 	- Glissando
@@ -124,6 +136,8 @@ BUGS
 
 	* stacked scripts.
 
+	* should adjust stemlength for flag number.
+
 	* lilypond - -> crash
 
 	* standchen triool beam up/down
@@ -147,7 +161,24 @@ FURTHER FOR ORCHESTRAL SCORE:
 
 INPUTLANGUAGE
 
+	* c4 4 4 4 for c4 c4 c4 c4?
+
+	* neatly (and readably) expressing concurrent
+	voices
+
+	* <c f a>4 ?
+
 	* should have \require{package.ly} to read req'd packages.
+
+	* Viola mode?
+
+		@c c g e g 
+	for
+		c g es g, 
+
+		@A c g e g
+	for
+		cis gis e gis
 
 	* relative mode for pitch entering
 
@@ -169,13 +200,13 @@ PROJECTS
 
 	* Do RTTI i.s.o. static_name(), name() and request-junk.
 
-	* add remove() methods to all items/spanners.
-
 SMALLISH PROJECTS
 
 	* A range for context errors (eg. mark both { and }. )
 
 	* text in staff  (sharpsharp in staff, text below)
+
+	* fix Egler definitions ( see tex/eglerdefs.tex )
 
 	* replace Score_elem member access by get()/set() methods, to enable
 	future embedded code.
@@ -193,14 +224,14 @@ SMALLISH PROJECTS
 	* bugreport to doc++ devel: struct not in class hier; public
 	virtual baseclasses
 
+	* get rid of init_end;
+
 	* cleanup lily-proto.hh and proto.hh
 
 	* half-sharps, half-flats
 
 	* adaptive accidental spacing.
 
-	* Score_elem invisible_b_ flag
-	
 	* unix style paths for LILYINCLUDE env
 
 	* indentable stream as baseclass for TeX stream, lily stream, Dstream.
@@ -243,8 +274,7 @@ SMALLISH PROJECTS
 
 	* Brackets
 
-	* caching of Register_group_register hierarchies.
-
+	
 	* use (char *) iso. String for communication between lexer and
 	parser.
 
@@ -278,9 +308,6 @@ FUTURE
 	* put scripts on bars
 
 	* guitar chord
-
-	* Junk Staff_column, and find the requests while walking the
-	Voices.?
 
 	* better beamslope calculation:	QLP for beams?
 
@@ -319,13 +346,7 @@ IDEAS
 
 	* Spacing_request for manually adjusting spacing
 
-	* Staff_group, Score_request_register.
-
-	* Meters/bars should be aligned, which is difficult if
-	we get different keychanges in different staffs.
-
-	* Horizontal_align item for meter,bar etc.
-
+	
 	* caching breakpoints
 
 	* #c <-> cis
@@ -336,10 +357,6 @@ IDEAS
 
 	* default convert mudela-file.ly -> mudela-file.tex
 	  - rename {standchen,scsii-menuetto,...}.tex
-
-	* (related with above) --simple-mudela option for lily,
-	  to lily input files with one-voice simple mudela 
-	  (no red tape)
 
 	* stack scripts in chords:
 	  % fingering:        footing:
@@ -356,3 +373,4 @@ IDEAS
           (where "to" is a tiny bow)
 
 	* move towards incremental algorithms.
+

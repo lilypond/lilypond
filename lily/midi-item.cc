@@ -15,7 +15,7 @@
 #include "string-convert.hh"
 #include "request.hh"
 #include "musical-request.hh"
-#include "voice.hh"
+#include "music-list.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
 

@@ -25,13 +25,19 @@ struct Symbol {
 
 /// a symbol which can be translated, and freely copied
 struct Atom {
-    Offset off;
-    Symbol sym;
+    Offset off_;
+    Symbol sym_;
 
     /* *************** */
     
     void translate(Offset o) {
-	off += o;
+	off_ += o;
+    }
+    void translate_x(Real r){ 
+	off_.x += r;
+    }
+    void translate_y(Real r) {
+	off_.y += r;
     }
     
     /// how big is #this#?

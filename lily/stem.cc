@@ -1,3 +1,11 @@
+/*
+  stem.cc -- implement Stem
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1996,1997 Han-Wen Nienhuys <hanwen@stack.nl>
+*/
+
 #include "stem.hh"
 #include "dimen.hh" 
 #include "debug.hh"
@@ -41,10 +49,10 @@ Stem::Stem(int c)
 
     print_flag_b_=true;
     stem_xoffset_f_ =0;
-
 }
 
 IMPLEMENT_STATIC_NAME(Stem);
+IMPLEMENT_IS_TYPE_B1(Stem,Item);
 
 void
 Stem::do_print() const
@@ -105,31 +113,39 @@ Stem::invisible_b()const
 {
     return !head_l_arr_.size();
 }
-bool
-Stem::chord_b() const
-{
-    return head_l_arr_.size() > 1;
-}
 
-// if dir_i_ is set we return a fake value.
+// if dir_i_ is set we return fake values.
+
 int
-Stem::get_center_distance()
+Stem::get_center_distance_from_top()
 {
     if (dir_i_)
-      return -dir_i_;
+	return (dir_i_ > 0) ? 0 : 1;
 
     int staff_center = staff_size_i_ / 2;
-    int min = min_head_i() - staff_center;
     int max = max_head_i() - staff_center;
-    return (abs(max) > abs(min)) ? max : min;
+    return max >? 0;
+}
+
+// if dir_i_ is set we return fake values.
+int
+Stem::get_center_distance_from_bottom()
+{
+    if (dir_i_)
+	return (dir_i_ > 0) ? 1 : 0;
+
+    int staff_center = staff_size_i_ / 2;
+    int min = staff_center - min_head_i();
+    return min >? 0;
 }
 
 int
 Stem::get_default_dir()
 {
     if (dir_i_)
-        return dir_i_;
-    return -sign(get_center_distance());
+	return dir_i_;
+    return (get_center_distance_from_top() >=
+	get_center_distance_from_bottom()) ? -1 : 1;
 }
 
 
@@ -211,6 +227,8 @@ Stem::do_pre_processing()
 	set_default_extents();
     set_noteheads();
     flag_i_ = dir_i_*abs(flag_i_);
+    transparent_b_ = invisible_b();
+    empty_b_ = invisible_b();
 }
 
 
@@ -229,9 +247,7 @@ Molecule*
 Stem::brew_molecule_p()const 
 {
     Molecule *out =0;
-    if ( invisible_b() )
-	return Score_elem::brew_molecule_p();
-    
+        
     Real bot  = stem_bottom_f_;
     Real top = stem_top_f_;
     
@@ -255,7 +271,7 @@ Stem::brew_molecule_p()const
 	    assert(false); 
     }
 
-    out->translate(Offset(stem_xoffset_f_,0));
+    out->translate_x(stem_xoffset_f_);
     return out;
 }
 

@@ -6,9 +6,11 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "staff-column.hh"
-#include "request-column.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"
 
-IPL_instantiate(Request_column);
+#include "music-list.hh"
+#include "music-iterator.hh"
+
+IPL_instantiate(Music);
+IPL_instantiate(Music_iterator);

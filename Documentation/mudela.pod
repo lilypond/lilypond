@@ -8,6 +8,10 @@ This document describes the the GNU LilyPond input format, which is an
 effective language for defining music.  We call this language
 (rather arrogantly) The Musical Definition Language (S<Mudela 0.1>).
 
+[If anybody comes up with a better name, we'd gladly take this Gourlay
+already uses Musical Description Language, GSharp Score Definition
+Language. We're not being original here]
+
 The first aim of Mudela is to define a piece of music, 
 being complete from both from a musical typesetting, 
 as from a musical performing point of view.
@@ -24,7 +28,7 @@ The below included for explanatory purposes only (i.e., for a complete
 and up-to-date definition, see F<lily/parser.y> and F<lily/lexer.l>):
 
 As a related note, you should take a look at the examples and the init
-file, as this document does not cover every aspect of mudela yet, and
+files, as this document does not cover every aspect of mudela yet, and
 may be out of date.
 
 =head2 Files

@@ -7,18 +7,20 @@
 #include "note-head.hh"
 #include "head-reg.hh"
 #include "paper-def.hh"
-#include "complex-walker.hh"
 #include "musical-request.hh"
 
 Note_head_register::Note_head_register()
 {
     note_p_ = 0;
-    post_move_processing();
+    do_post_move_processing();
 }
 
 bool
-Note_head_register::try_request(Request *req_l) 
+Note_head_register::do_try_request(Request *req_l) 
 {
+    if (note_req_l_)
+	return false;
+    
     if (req_l->musical() && (req_l->musical()->note() || req_l->musical()->rest()))
 	note_req_l_=req_l->musical()->rhythmic();
     else
@@ -28,7 +30,7 @@ Note_head_register::try_request(Request *req_l)
 }
 
 void
-Note_head_register::process_requests()
+Note_head_register::do_process_requests()
 {
     if (!note_req_l_)
 	return;
@@ -53,7 +55,7 @@ Note_head_register::process_requests()
 }
 
 void
-Note_head_register::pre_move_processing()
+Note_head_register::do_pre_move_processing()
 {
     if (note_p_) {
 	typeset_element(note_p_);
@@ -61,10 +63,11 @@ Note_head_register::pre_move_processing()
     }
 }
 void
-Note_head_register::post_move_processing()
+Note_head_register::do_post_move_processing()
 {
     note_req_l_ = 0;
 }
 
 IMPLEMENT_STATIC_NAME(Note_head_register);
+IMPLEMENT_IS_TYPE_B1(Note_head_register,Request_register);
 ADD_THIS_REGISTER(Note_head_register);

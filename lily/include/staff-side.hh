@@ -34,6 +34,7 @@ public:
   
     Staff_side();
     void add_support(Score_elem*);
+    NAME_MEMBERS();
     
 protected:
     virtual void do_substitute_dependency(Score_elem *, Score_elem*);

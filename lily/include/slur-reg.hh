@@ -19,13 +19,12 @@ class Slur_register :public Request_register {
     /* *************** */
 protected:
     virtual ~Slur_register();
-    virtual bool try_request(Request*);
+    virtual bool do_try_request(Request*);
     virtual void set_feature(Feature);
-    virtual bool acceptable_request_b(Request*);
-    virtual void process_requests();
+    virtual void do_process_requests();
     virtual void acknowledge_element(Score_elem_info);
-    virtual void pre_move_processing();
-    virtual void post_move_processing();
+    virtual void do_pre_move_processing();
+    virtual void do_post_move_processing();
 public:
     Slur_reg();
     NAME_MEMBERS();

@@ -16,7 +16,7 @@
 
 
 /**
-  A request which is coupled to a #Voice_element# with nonzero duration.
+  A request which is coupled to a #Voice_element#
   Base class only
  */
 class Musical_req  : public virtual Request  {
@@ -30,6 +30,8 @@ public:
     virtual Beam_req *beam() { return 0 ; }
     virtual Rhythmic_req*rhythmic() { return 0; }
     virtual Musical_script_req*musicalscript() { return 0; }
+    virtual Text_req*text() { return 0; }
+    virtual Rest_req *rest() { return 0; }
     virtual Skip_req* skip() { return 0; }
     virtual Dynamic_req* dynamic() { return 0; }
     virtual Absolute_dynamic_req * absdynamic() { return 0; }
@@ -40,13 +42,6 @@ public:
 };
 
 
-class Skip_req  : public Musical_req  {
-public:
-    Moment duration_;
-    
-    virtual Moment duration() const;
-    REQUESTMETHODS(Skip_req, skip);
-};
 
 /** a request with a duration.
   This request is used only a base class.
@@ -63,6 +58,10 @@ public:
     REQUESTMETHODS(Rhythmic_req, rhythmic);
 };
 
+class Skip_req  : public Rhythmic_req  {
+public:
+    REQUESTMETHODS(Skip_req, skip);
+};
 struct Spacing_req :virtual Request {
     Moment next;
     Real distance;

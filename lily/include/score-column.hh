@@ -1,11 +1,15 @@
 /*
-  sccol.hh -- part of GNU LilyPond
+  score-column.hh -- declare Score_column
 
-  (c) 1996,97 Han-Wen Nienhuys
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#ifndef SCCOL_HH
-#define SCCOL_HH
+
+#ifndef SCORE_COLUMN_HH
+#define SCORE_COLUMN_HH
+
 #include "lily-proto.hh"
 #include "varray.hh"
 #include "moment.hh"
@@ -54,7 +58,9 @@ public:
 
 instantiate_compare(Score_column&, Score_column::compare);
 
-#endif // SCCOL_HH
+#endif // SCORE_COLUMN_HH
+
+
 
 
 

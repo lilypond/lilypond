@@ -21,6 +21,10 @@
   \end{itemize}
 
   should move beam_{left, right} into Beam
+
+  TODO.
+  
+  Stem size depends on flag.
   */
 class Stem : public Item {
     
@@ -73,7 +77,8 @@ public:
     void do_print() const;
     void set_stemend(Real);
     int get_default_dir();
-    int get_center_distance();
+    int get_center_distance_from_top();
+    int get_center_distance_from_bottom();
     void set_default_dir();
     void set_default_stemlen();
     void set_default_extents();
@@ -84,7 +89,6 @@ public:
     Real stem_start_f() const;
 
     bool invisible_b()const;
-    bool chord_b()const;
     
     /// heads that the stem encompasses (positions)
     int max_head_i() const;

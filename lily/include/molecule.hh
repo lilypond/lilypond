@@ -22,6 +22,8 @@ struct Molecule {
     void add_bottom(const Molecule &m);
     void add(Molecule const &m);
     void translate(Offset);
+    void translate_y(Real);
+    void translate_x(Real);
     void add(Atom const & a) ;
     /// how big is #this#? 
     Box extent() const;

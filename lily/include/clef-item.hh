@@ -1,4 +1,3 @@
-
 /*
   clef-item.hh -- declare Clef_item
 
@@ -14,6 +13,7 @@
  */
 class Clef_item : public Item {
 protected:
+    virtual void do_pre_processing();
     Molecule* brew_molecule_p()const;
 public:
     
@@ -21,10 +21,14 @@ public:
     int y_off;
 
     /// is this a change clef (smaller size)?
-    bool change;
+    bool change_b_;
+    
+    /// set because of existence of a bar
+    bool default_b_;
 
     /* *************** */
-NAME_MEMBERS();
+    NAME_MEMBERS();
+    SCORE_ELEM_CLONE(Clef_item)
     Clef_item();
     void read(Clef_register const&);
     void read(String);

@@ -25,11 +25,12 @@ class My_lily_parser {
     Array<Input> define_spot_array_;
     String init_str_;
 
-    void add_requests( Voice_element*v);
+    void add_requests( Chord*v);
 
-    Voice_element * get_note_element(Note_req * ,Duration *);
-    Voice_element* get_rest_element(String,Duration *);
-    Voice_element* get_word_element(Text_def*, Duration*);
+    Chord * get_note_element(Note_req * ,Duration *);
+    Chord* get_rest_element(String,Duration *);
+    Chord* get_word_element(Text_def*, Duration*);
+
     void set_last_duration(Duration const *);
     void set_default_duration(Duration const *);
     void set_duration_mode(String s);
@@ -39,7 +40,7 @@ public:
     Duration default_duration_;
     String textstyle_str_;
     bool first_b_;
-    bool last_duration_mode ;
+    bool last_duration_mode_b_ ;
     Array<Request*> pre_reqs, post_reqs;
     int fatal_error_i_;
     Sources * source_l_;

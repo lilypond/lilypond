@@ -15,10 +15,6 @@
 
 
 
-// golden ratio
-const Real PHI = (1+sqrt(5))/2;
-
-// see  Roelofs, p. 57
 Real
 Paper_def::duration_to_dist(Moment d)
 {

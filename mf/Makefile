@@ -55,7 +55,7 @@ lily-mfdir = $(MFDIR)/lilypond
 
 localinstall:
 	$(INSTALL) -d $(lily-mfdir)
-	$(INSTALL) -m 755 $(MFFILES) $(lily-mfdir)
+	$(INSTALL) -m 644 $(MFFILES) $(lily-mfdir)
 
 localuninstall:
 	for i in $(MFFILES); do rm -f $(lily-mfdir)/$$i; done

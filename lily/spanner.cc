@@ -12,6 +12,7 @@
 #include "p-score.hh"
 
 IMPLEMENT_STATIC_NAME(Spanner);
+IMPLEMENT_IS_TYPE_B1(Spanner,Score_elem);
 
 void
 Spanner::do_print()const
@@ -36,7 +37,7 @@ Spanner::break_into_pieces()
     break_cols.push(right);
 
     for (int i=1; i < break_cols.size(); i++) {
-	Spanner* span_p = clone();
+	Spanner* span_p = clone()->spanner();
 	left = break_cols[i-1];
 	right = break_cols[i];
 	if (!right->line_l_)

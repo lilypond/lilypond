@@ -42,7 +42,10 @@ class Cursor
     int operator -(Cursor<T> op) const;
     Cursor<T> operator -=(int);
     Cursor<T> operator +=(int);
-    
+    /// move one down
+    void next();
+    /// move one up.
+    void previous();
     /// return current and move one down
     Cursor<T> operator ++( int );
     
