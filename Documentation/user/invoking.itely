@@ -298,14 +298,14 @@ following example, the accidental touches the note head.
 
 Using Mac OSX 10.3.5, fink package lilypond-unstable
 
-\version "2.3.16"
+\version "2.3.22"
 \relative c''{
    a4 b cis d
 }
 @end verbatim
 
 @lilypond
-\version "2.3.16"
+\version "2.3.22"
 \relative c''{
    \override Accidental #'extra-offset = #'(1.0 . 0) 
    a4 b cis d
