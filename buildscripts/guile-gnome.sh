@@ -21,7 +21,7 @@ SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
-GGVERSION=2.7.96
+GGVERSION=2.7.95
 GWRAPVERSION=1.9.3
 
 download=$HOME/usr/src/releases
@@ -77,7 +77,7 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
 	./autogen.sh --help
     fi
     ./configure --prefix=$OPT/pango --enable-maintainer-mode --enable-gtk-doc
-    make XFT_LIBS="-L/usr/lib -lXft -L/usr/X11R6/lib -lfreetype -lz -lXrender -lX11 -lfontconfig" install
+    make XFT_LIBS="-L/usr/lib -lXft -L/usr/X11R6/lib -lfreetype -lz -lXrender -lX11 -lfontconfig" all install
     cd ../..
 fi
 
@@ -202,7 +202,7 @@ if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
     # or use gcc-3.4 with libtool-1.6.0
 	CC=$GCC34 ../src/configure --prefix=$OPT/guile-gnome --enable-maintainer-mode
     fi
-    make install G_WRAP_MODULE_DIR=$OPT/g-wrap/share/guile/site
+    make all install G_WRAP_MODULE_DIR=$OPT/g-wrap/share/guile/site
 fi
 
 # simple test -- fails atm

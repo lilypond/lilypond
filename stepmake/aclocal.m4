@@ -1103,9 +1103,9 @@ AC_DEFUN(STEPMAKE_GTK2, [
 ])
 
 AC_DEFUN(STEPMAKE_PANGO, [
-    PKG_CHECK_MODULES(PANGO, pango >= 1.5.0, have_pango_cvs=true, true)
-    if $have_pango_cvs ; then
-	AC_DEFINE(HAVE_PANGO_CVS)
+    PKG_CHECK_MODULES(PANGO, pango >= 1.6.0, have_pango16=true, true)
+    if $have_pango16 ; then
+	AC_DEFINE(HAVE_PANGO16)
 	PANGO_CFLAGS="$PANGO_CFLAGS $GTK2_CFLAGS"
 	PANGO_LIBS="$PANGO_LIBS $GTK2_LIBS"
 	CPPFLAGS="$PANGO_CFLAGS $CPPFLAGS"

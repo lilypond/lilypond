@@ -67,6 +67,7 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 else
 
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
 	(cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)
 endif
@@ -99,6 +100,7 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo
 else
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
 	@echo
 	@echo "***************************************************************"
