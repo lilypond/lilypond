@@ -486,6 +486,7 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-next-midi)
   (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
   (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
+  (define-key LilyPond-mode-map "\C-c;" 'comment-region)
   )
 
 ;;; Menu Support
