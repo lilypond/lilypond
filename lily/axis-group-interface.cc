@@ -30,8 +30,6 @@ Axis_group_interface::has_axis (Grob*me,Axis a)
 {
   /*
     urg. FIXME, check for Hara_kiri_group_spanner shouldn't be necessary?
-
-    
    */
   return me->has_extent_callback (group_extent_callback_proc, a) ||
  (me->has_extent_callback (Hara_kiri_group_spanner::y_extent_proc, a));

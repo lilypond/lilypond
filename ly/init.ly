@@ -34,8 +34,3 @@
   (ly:parser-print-book parser
    (apply ly:make-book $defaultbookpaper $globalheader toplevel-scores)))
 
-#(if (ly:get-option 'verbose)
-  (begin
-   (gc)
-   (write (gc-stats) (current-error-port))))
-

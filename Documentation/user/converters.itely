@@ -71,7 +71,7 @@ Not all language changes are handled. Only one output option can be specified.
 
 @cindex MIDI
 
-Midi2ly translates a MIDI input file to a LilyPond source file.
+Midi2ly translates a Type 1 MIDI file to a LilyPond source file.
 
 MIDI (Music Instrument Digital Interface) is a standard for digital
 instruments: it specifies cabling, a serial protocol and a file
@@ -129,6 +129,20 @@ The following options are supported by midi2ly:
 @item -x, --text-lyrics
     Treat every text as a lyric.
 @end table
+
+
+@refbugs
+
+
+Quantizing start-times and durations should be recommended. 
+This relates to the notes regarding the transcription of a MIDI 
+recording of a performance. I realize it can be done via the utility, 
+but a sequencer gives better visual feedback.
+
+Overlapping notes in an arpeggio will not be correctly 
+rendered. The first note will be read and the others will be ignored. 
+Set them all to a single duration and add phrase markings or pedal 
+indicators.
 
 
 @node Invoking etf2ly
