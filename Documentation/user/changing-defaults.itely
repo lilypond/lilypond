@@ -1554,7 +1554,10 @@ Syntax errors for markup mode are confusing.
 
 LilyPond uses the Pango library to format multi-lingual texts.  This
 means that any text, be it title, lyric text, or musical instruction
-contaning non-ASCII characters should be entered as Unicode.
+contaning non-ASCII characters should be entered as Unicode.  Such
+files should be edited using a Unicode aware editor, and saved as UTF8
+encoded. Most popular modern editors have UTF8 support, for example,
+vim, Emacs, jEdit, and GEdit do.
 
 Depending on the fonts installed, the following fragment shows Hebrew
 and Cyrillic lyrics,
@@ -1565,21 +1568,22 @@ and Cyrillic lyrics,
 
 @lilypondfile{utf8.ly}
 
+
 The @TeX{} backend does not handle encoding specially at all. Strings
 in the input are put in the output as-is. Extents of text items in the
 @TeX{} backend, are determined by reading a file created via the
 @file{texstr} backend,
 
 @example
-  lilypond -b texstr input/les-nereides.ly
-  latex les-nereides.texstr
+lilypond -b texstr input/les-nereides.ly
+latex les-nereides.texstr
 @end example
 
 The last command produces @file{les-nereides.textmetrics}, which is
 read when you execute
 
 @example
-  lilypond -b tex input/les-nereides.ly
+lilypond -b tex input/les-nereides.ly
 @end example
 
 Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
@@ -1588,7 +1592,7 @@ interpreting non-ASCII strings.
 
 @seealso
 
-@inputfileref{input/regression/,utf8.ly}
+@inputfileref{input/regression,utf8.ly}
 
 
 @node Nested scores
