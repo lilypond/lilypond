@@ -92,15 +92,6 @@ Beam::solve_slope()
     left_pos *= dir;    
     slope *= dir;
     
-    {
-	Real inter =paper()->internote();
-	Real unitslope = slope*inter;
-
-	// set beamslope, for setting stems correctly
-	// ignoring return.
-	Symbol sy = paper()->lookup_->beam(unitslope, width().length());
-	slope =unitslope / inter;
-    }
 }
 
 void
@@ -122,7 +113,6 @@ Beam::calculate()
 	set_default_dir();
 
     solve_slope();
-    set_stemlens();
 }
 
 void
@@ -130,6 +120,7 @@ Beam::process()
 {
     calculate();
     brew_molecule();
+    set_stemlens();
 }
 
 
@@ -169,7 +160,8 @@ Beam::brew_molecule()
     Real sl = slope*inter;
     Real w =  width().length() + paper()->rule_thickness();
     Symbol s = paper()->lookup_->beam(sl,w);
-
+    slope = sl / inter;
+    
     Atom a(s);
     
     Real dx = width().min -left->hpos;
