@@ -396,11 +396,21 @@ undefd ()
   return SCM_UNDEFINED;
 }
 
+#include "version.hh"
+SCM
+ly_version ()
+{
+  char const* vs =  "\'(" MAJOR_VERSION " " MINOR_VERSION " "  PATCH_LEVEL " " MY_PATCH_LEVEL ")" ;
+
+  
+  return gh_eval_str (vs);
+}
 
 static void
 init_functions ()
 {
   scm_make_gsubr ("ly-warn", 1, 0, 0, (Scheme_function_unknown)ly_warning);
+  scm_make_gsubr ("ly-version", 0, 0, 0, (Scheme_function_unknown)ly_warning);  
   scm_make_gsubr ("ly-gulp-file", 1,0, 0, (Scheme_function_unknown)ly_gulp_file);
   scm_make_gsubr ("dir?", 1,0, 0, (Scheme_function_unknown)ly_isdir_p);
   scm_make_gsubr ("undefd", 0,0, 0, (Scheme_function_unknown)undefd);  

@@ -66,18 +66,9 @@ void
 System_start_delimiter_engraver::do_creation_processing()
 {
   delim_ = new Spanner (get_property ("SystemStartDelimiter"));
-  System_start_delimiter::set_interface (delim_);
+
   delim_->set_bound (LEFT, unsmob_element (get_property ("currentCommandColumn")));
 
-  /*
-    You can't override the glyph using \property, you must do it in
-    the predefined context (ie. \translator { ... } )
-   */
-  SCM s = get_property ("systemStartDelimiterGlyph");
-  if (gh_symbol_p (s))
-    {
-      delim_->set_elt_property ("glyph", s);
-    }
 
   announce_element (delim_,0);
 }
@@ -85,11 +76,6 @@ System_start_delimiter_engraver::do_creation_processing()
 void
 System_start_delimiter_engraver::do_removal_processing ()
 {
-  // ugh, should have naming without bracket
-  SCM collapse = get_property ("bracketCollapseHeight");
-  if (gh_number_p (collapse))
-    delim_->set_elt_property ("collapse-height", collapse);
-      
   delim_->set_bound (RIGHT, unsmob_element (get_property ("currentCommandColumn")));
   typeset_element (delim_);
 }

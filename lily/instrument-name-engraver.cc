@@ -1,4 +1,3 @@
-
 /*   
   new-staff-margin-engraver.cc --  implement Instrument_name_engraver
   
@@ -13,11 +12,12 @@
 #include "bar.hh"
 #include "system-start-delimiter.hh"
 #include "side-position-interface.hh"
+#include "align-interface.hh"
 
 class Instrument_name_engraver : public Engraver
 {
   Item *text_;
-  Spanner * delim_ ;
+  Score_element * delim_ ;
 
   void create_text (SCM s);
 public:
@@ -55,9 +55,6 @@ Instrument_name_engraver::create_text (SCM txt)
       text_ = new Item (get_property ("InstrumentName"));
       text_->set_elt_property ("text", txt);
 
-      /*
-	TODO: use more lispish names for break-align-symbols
-       */
       if (delim_)
 	text_->set_parent (delim_, Y_AXIS);
 
@@ -81,10 +78,12 @@ Instrument_name_engraver::acknowledge_element (Score_element_info i)
 	}
     }
 
-  if (System_start_delimiter::has_interface (i.elem_l_)
+  if (Align_interface::has_interface (i.elem_l_)
+      && Align_interface::axis  (i.elem_l_) == Y_AXIS      
+      //System_start_delimiter::has_interface (i.elem_l_)
       && i.origin_trans_l_->daddy_trans_l_ == daddy_trans_l_)
     {
-      delim_ = dynamic_cast<Spanner*> (i.elem_l_);
+      delim_ = i.elem_l_;
     }
 }
 

@@ -11,10 +11,10 @@
 #include "string.hh"
 #include "molecule.hh"
 #include "item.hh"
+#include "lookup.hh"
 
 /*
 FIXME: should use symbol for #'style.
-
 */
 MAKE_SCHEME_CALLBACK(Clef,before_line_breaking,1);
 SCM
@@ -66,3 +66,20 @@ Clef::set_interface (Score_element* me)
 }
 
 
+
+
+MAKE_SCHEME_CALLBACK(Clef,brew_molecule,1)
+SCM
+Clef::brew_molecule (SCM smob) 
+{
+  Score_element * sc = unsmob_element (smob);
+  SCM glyph = sc->get_elt_property ("glyph");
+  if (gh_string_p (glyph))
+    {
+      return sc->lookup_l ()->afm_find (String (ly_scm2string (glyph))).create_scheme ();
+    }
+  else
+    {
+      return SCM_EOL;
+    }
+}

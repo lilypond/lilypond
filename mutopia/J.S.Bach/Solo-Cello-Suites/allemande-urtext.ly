@@ -60,6 +60,7 @@ allemande_a = \context Staff \notes \relative c {
 	cis(e g!)bes e()a, bes()g f()cis d()gis, a8 cis! |
 	% knee
 	\stemUp d,16 \stemBoth d''(c!)a bes!(g)e cis' d a f d d,8.
+	\bar "|.";
 }
 
 allemande_b = \notes \relative c {

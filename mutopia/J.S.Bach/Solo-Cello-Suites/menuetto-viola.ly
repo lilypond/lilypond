@@ -58,8 +58,9 @@ menuetto_i_viola_staff = \context Staff <
 	}
 	\midi{ \tempo 4 = 110; }
 	\header{
-	opus= "" ; 
-	piece ="Menuetto I"; }
+		opus= "" ; 
+		piece ="Menuetto I";
+	}
 }
 
 menuetto_ii_viola_global = \notes{

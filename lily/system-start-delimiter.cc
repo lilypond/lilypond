@@ -44,7 +44,6 @@ System_start_delimiter::staff_bracket (Score_element*me,Real height)
 void
 System_start_delimiter::set_interface (Score_element*me)
 {
-  me->set_extent_callback (SCM_EOL, Y_AXIS);
   me->set_interface (ly_symbol2scm ("system-start-delimiter-interface"));
 }
 

@@ -153,8 +153,11 @@ Property_engraver::apply_properties (SCM p, Score_element *e, Translator_group*o
 	    SCM errport = scm_current_error_port ();
 	    warning (_("Wrong type for property"));
 	    scm_display (prop_sym, errport);
-	    scm_puts (", type predicate: ", errport);
-	    scm_display (type_p, errport);
+	    scm_puts (", type: ", errport);
+
+	    SCM typefunc = scm_eval2 (ly_symbol2scm ("type-name"), SCM_EOL);
+	    
+	    scm_display (gh_call1 (typefunc, type_p), errport);
 	    scm_puts (", value found: ", errport);
 	    scm_display (val, errport);
 	    scm_puts (" type: ", errport);

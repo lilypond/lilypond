@@ -66,6 +66,7 @@ menuetto_i_b = \context Staff \notes \relative c {
 	g4 \skip 4*1; f4 |
 	cis8 \skip 8*3; d4 |
 	s2.*2
+	\bar "|.";		
 }
 
 % UGH, fix this like in sarabande
@@ -146,6 +147,7 @@ menuetto_ii = \context Staff\notes \relative c {
 	e( fis g )b a4 |
 	g8()fis e()d e()cis |
 	d2.
+	\bar "|.";	
 }
 
 \version "1.3.93";

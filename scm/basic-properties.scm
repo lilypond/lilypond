@@ -156,7 +156,7 @@
     (flag-width-function . ,default-beam-flag-width-function)
     (space-function . ,default-beam-space-function)
     (damping . 1)
-    (meta . ,(element-description "Beam" general-element-interface beam-interface))
+    (meta . ,(element-description "Beam" beam-interface))
     )
   )
 
