@@ -1,5 +1,11 @@
-% ascii art output
- 
+% ASCII Art output
+%
+% Process as:
+%
+%     lilypond -fas foo.ly
+%     as2text foo.as
+
+
 \header{
 filename = 	"twinkle.ly";
 title = 		"Twinkle Twinkle Little Star";
