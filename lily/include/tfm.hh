@@ -144,31 +144,18 @@ struct Tex_font_char_metric : Character_metric
 class Tex_font_metric : public Font_metric
 {
 public:
-  Character_metric *get_char (int, bool) const;
-  
   Tex_font_metric ();
+
+  void clear (int n);
+  Character_metric *get_char (int, bool) const;
   Tex_font_char_metric const &find_ascii (int ascii, bool warn=true) const;
+  void read_file (String name);
   String str () const;
 
-  /// the reader
   Tfm_info info_;
   Tfm_header header_;
-  void clear (int n);
-  void read_file (String name);
-
   Array<Tex_font_char_metric> char_metrics_;
   Array<int> ascii_to_metric_idx_;
-
-private:
-  Real get_U32_fix_f (Binary_source_file* input);
-  Real get_U32_fix_scaled_f (Binary_source_file* input);
-  String get_bcpl_str (Binary_source_file* input);
-  void read_header (Binary_source_file* input);
-  void read_params (Binary_source_file* input);
-  void read_char_metrics (Binary_source_file* input);
-  Tex_font_char_metric read_char_metric (Binary_source_file* input, Char_code code);
-  Tex_font_char_metric read_char (Binary_source_file* input);
-  void read_lig_kern_program (Binary_source_file* input, Array<Tfm_ligature>* ligature_arr_p, Array <Tfm_kern>* kern_arr_p);
 };
 
 

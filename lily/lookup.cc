@@ -170,10 +170,8 @@ Lookup::bar (String str, Real h) const
   else if (str == ":|:")
     {
       m.add_at_edge (X_AXIS, LEFT, thick,kern/2);
-      m.add_at_edge (X_AXIS, LEFT, thin,kern);
       m.add_at_edge (X_AXIS, LEFT, colon,kern);      
       m.add_at_edge (X_AXIS, RIGHT, thick,kern);
-      m.add_at_edge (X_AXIS, RIGHT, thin,kern);
       m.add_at_edge (X_AXIS, RIGHT, colon,kern);      
     }
   else if (str == "||")

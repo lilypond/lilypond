@@ -1,3 +1,8 @@
+pl 24.jcn1
+	- bf: rest collisions
+	- separate tfm-reader
+	- bf: :|: should not have thin lines
+
 pl 24, Hacking Apart Together (Jan 25)
 
 pl 23.jbr1
