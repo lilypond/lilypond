@@ -53,7 +53,13 @@ Volta_bracket_interface::brew_molecule (SCM smob)
   SCM bars = me->get_grob_property ("bars");
   Grob * endbar =   unsmob_grob (ly_car (bars));
   SCM glyph = endbar->get_grob_property("glyph");
-  String str = ly_scm2string(glyph);
+  
+  String str;
+  if (gh_string_p (glyph))
+    str = ly_scm2string(glyph);
+  else
+    return SCM_EOL;
+  
   const char* cs = str.ch_C();
   no_vertical_end |=
     (strcmp(cs,":|")!=0 && strcmp(cs,"|:")!=0 && strcmp(cs,"|.")!=0

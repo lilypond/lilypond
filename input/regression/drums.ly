@@ -2,6 +2,10 @@
 % see ly/drumpitch.ly for list of instruments and paper-kits.
 %     scm/midi.scm for list of midi-drumkits.
 
+\header {
+texidoc = "Drum notation, although kludgy, should work. "
+}
+
 \include "drumpitch-init.ly"
 
 \version "1.5.1"
