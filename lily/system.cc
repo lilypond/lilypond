@@ -373,7 +373,7 @@ System::post_processing ()
   /* Generate all stencils to trigger font loads.
      This might seem inefficient, but Stencils are cached per grob
      anyway. */
-  SCM all = get_property ("all-elements")  ;
+  SCM all = get_property ("all-elements");
   all = uniquify_list (all);
 
   this->get_stencil ();

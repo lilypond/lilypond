@@ -26,8 +26,15 @@ stencil2line (Stencil* stil)
 		   scm_list_1 (scm_cons (z, stil->smobbed_copy ())));
 }
 
-// WIP -- simplistic page interface
-// Do we need this at all?  SCM, smob?
+static SCM
+title2line (Stencil* stil)
+{
+  SCM s = stencil2line (stil);
+  /* whugh, add marker recognise titles.  */
+  return scm_cons (scm_cons (ly_symbol2scm ("title"), ly_car (s)), ly_cdr (s));
+}
+
+/* Simplistic page interface */
 class Page
 {
 public:
@@ -39,8 +46,12 @@ public:
   Protected_scm lines_;
   Protected_scm header_;
   Protected_scm footer_;
+  Protected_scm copyright_;
+  Protected_scm tagline_;
   
   Stencil *get_header () { return unsmob_stencil (header_); }
+  Stencil *get_copyright () { return unsmob_stencil (copyright_); }
+  Stencil *get_tagline () { return unsmob_stencil (tagline_); }
   Stencil *get_footer () { return unsmob_stencil (footer_); }
 
   /* actual height filled with text.  */
@@ -74,7 +85,7 @@ Page::Page (Paper_def *paper, int number)
   height_ = 0;
   lines_ = SCM_EOL;
   line_count_ = 0;
-  
+
   hsize_ = paper->get_realvar (ly_symbol2scm ("hsize"));
   vsize_ = paper->get_realvar (ly_symbol2scm ("vsize"));
   top_margin_ = paper->get_realvar (ly_symbol2scm ("top-margin"));
@@ -84,18 +95,20 @@ Page::Page (Paper_def *paper, int number)
   text_width_ = paper->get_realvar (ly_symbol2scm ("linewidth"));
   left_margin_ = (hsize_ - text_width_) / 2;
   
+  copyright_ = SCM_EOL;
+  tagline_ = SCM_EOL;
+  
   SCM make_header = scm_primitive_eval (ly_symbol2scm ("make-header"));
   SCM make_footer = scm_primitive_eval (ly_symbol2scm ("make-footer"));
 
   header_ = scm_call_2 (make_header, paper_->smobbed_copy (),
-					scm_int2num (number_));
+			scm_int2num (number_));
+  // FIXME: why does this (generates Stencil) not trigger font load?
   if (get_header ())
     get_header ()->align_to (Y_AXIS, UP);
     
-  // FIXME: tagline/copyright
   footer_ = scm_call_2 (make_footer, paper_->smobbed_copy (),
 			scm_int2num (number_));
-
   if (get_footer ())
     get_footer ()->align_to (Y_AXIS, UP);
 }
@@ -103,22 +116,41 @@ Page::Page (Paper_def *paper, int number)
 void
 Page::output (Paper_outputter *out, bool is_last)
 {
+  progress_indication ("[" + to_string (number_));
+  out->output_scheme (scm_list_1 (ly_symbol2scm ("start-page")));
   Offset o (left_margin_, top_margin_);
   Real vfill = line_count_ > 1 ? (text_height () - height_) / (line_count_ - 1)
     : 0;
-  out->output_scheme (scm_list_1 (ly_symbol2scm ("start-page")));
   if (get_header ())
-    out->output_line (stencil2line (get_header ()), &o, false);
+    {
+      out->output_line (stencil2line (get_header ()), &o, false);
+      o[Y_AXIS] += head_sep_;
+    }
   for (SCM s = lines_; gh_pair_p (s); s = ly_cdr (s))
     {
-      out->output_line (ly_car (s), &o, is_last && gh_pair_p (ly_cdr (s)));
-      if (gh_pair_p (ly_cdr (s)))
-	o[Y_AXIS] += vfill;
+      SCM line = ly_car (s);
+      SCM offset = ly_car (line);
+      if (ly_car (offset) == ly_symbol2scm ("title"))
+	line = scm_cons (ly_cdr (offset), ly_cdr (line));
+      out->output_line (line, &o,
+			is_last && gh_pair_p (ly_cdr (s)) && !get_copyright ()
+			&& !get_tagline () && !get_footer ());
+      if (gh_pair_p (ly_cdr (s)) && ly_car (offset) != ly_symbol2scm ("title"))
+	o[Y_AXIS] += vfill; 
     }
+  if (get_copyright () || get_tagline () || get_footer ())
+    o[Y_AXIS] += foot_sep_;
+  if (get_copyright ())
+    out->output_line (stencil2line (get_copyright ()), &o,
+		      is_last && !get_tagline () && !get_footer ());
+  if (get_tagline ())
+    out->output_line (stencil2line (get_tagline ()), &o,
+		      is_last && !get_footer ());
   if (get_footer ())
     out->output_line (stencil2line (get_footer ()), &o, is_last);
   out->output_scheme (scm_list_2 (ly_symbol2scm ("stop-page"),
 				  gh_bool2scm (is_last && !get_footer ())));
+  progress_indication ("]");
 }
 
 Real
@@ -127,8 +159,14 @@ Page::text_height ()
   Real h = vsize_ - top_margin_ - bottom_margin_;
   if (get_header ())
     h -= get_header ()->extent (Y_AXIS).length () + head_sep_;
+  if (get_copyright () || get_tagline () || get_footer ())
+    h -= foot_sep_;
+  if (get_copyright ())
+    h -= get_copyright ()->extent (Y_AXIS).length ();
+  if (get_tagline ())
+    h -= get_tagline ()->extent (Y_AXIS).length ();
   if (get_footer ())
-    h -= get_footer ()->extent (Y_AXIS).length () + foot_sep_;
+    h -= get_footer ()->extent (Y_AXIS).length ();
   return h;
 }
 
@@ -203,10 +241,8 @@ Paper_book::get_title (int i)
   return title;
 }
 
-/* TODO:
-   - decent page breaking algorithm
-   - top/bottom & inter-line filling
-   - footer: tagline/copyright
+/* Ideas:
+   - real page breaking algorithm (Gourlay?)
    - override: # pages, or pageBreakLines= #'(3 3 4), ?  */
 Link_array<Page>*
 Paper_book::get_pages ()
@@ -232,21 +268,43 @@ Paper_book::get_pages ()
     }
 
   Paper_def *paper = papers_[0];
+  SCM scopes = get_scopes (0);
+
+  SCM make_tagline = scm_primitive_eval (ly_symbol2scm ("make-tagline"));
+  SCM tagline = scm_call_2 (make_tagline, paper->smobbed_copy (), scopes);
+  Real tag_height = 0;
+  if (Stencil *s = unsmob_stencil (tagline))
+    tag_height = s->extent (Y_AXIS).length ();
+  book_height += tag_height;
+
+  SCM make_copyright = scm_primitive_eval (ly_symbol2scm ("make-copyright"));
+  SCM copyright = scm_call_2 (make_copyright, paper->smobbed_copy (), scopes);
+  Real copy_height = 0;
+  if (Stencil *s = unsmob_stencil (copyright))
+    copy_height = s->extent (Y_AXIS).length ();
+  book_height += copy_height;
+  
   Page::page_count_ = 0;
-  int page_number = 1;
-  Page *page = new Page (paper, page_number++);
+  int page_number = 0;
+  Page *page = new Page (paper, ++page_number);
+  int page_count = int (book_height / page->text_height () + 0.5);
+  if (unsmob_stencil (copyright))
+    page->copyright_ = copyright;
+  if (unsmob_stencil (tagline) && page_number == page_count)
+    page->tagline_ = tagline;
+  
+#if 0  
   fprintf (stderr, "book_height: %f\n", book_height);
   fprintf (stderr, "vsize: %f\n", page->vsize_);
-  fprintf (stderr, "pages: %f\n", book_height / page->text_height ());
+  fprintf (stderr, "pages: %d\n", page_count);
+#endif
 
   /* Simplistic page breaking.  */
   Real text_height = page->text_height ();
   for (int i = 0; i < score_count; i++)
     {
-      Stencil *title = get_title (i);
-      if (title)
-	book_height += title->extent (Y_AXIS).length ();
       Real h = 0;
+      Stencil *title = get_title (i);
       if (title)
 	h = title->extent (Y_AXIS).length ();
 
@@ -258,12 +316,16 @@ Paper_book::get_pages ()
 	  if (page->height_ + h > text_height)
 	    {
 	      pages->push (page);
-	      page = new Page (paper, page_number++);
+	      page = new Page (paper, ++page_number);
+	      if (unsmob_stencil (tagline) && page_number == page_count)
+		page->tagline_ = tagline;
+	      text_height = page->text_height ();
 	    }
 	  if (page->height_ + h <= text_height || page->height_ == 0)
 	    {
 	      if (j == 0 && title)
-		page->lines_ = ly_snoc (stencil2line (title), page->lines_);
+		page->lines_
+		  = ly_snoc (title2line (title), page->lines_);
 	      page->lines_ = ly_snoc (line, page->lines_);
 	      page->line_count_++;
 	      page->height_ += h;
@@ -328,4 +390,3 @@ Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
   scm_puts (">", port);
   return 1;
 }
-

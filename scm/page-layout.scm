@@ -90,17 +90,47 @@
 					      paper 'linewidth))
 			       (font-family . roman))
 			     (ly:paper-lookup paper 'font-defaults)))))
-    
   (interpret-markup paper props
-		    (markup #:fill-line ("" (number->string page-number))))))
-
+		    (markup #:fill-line
+			    ;; FIXME: font not found
+			    ;; ("" #:bold (number->string page-number))))))
+			    ("" (number->string page-number))))))
 
 (define-public (make-footer paper page-number)
   (let ((props (list (append `((linewidth . ,(ly:paper-get-number
 					      paper 'linewidth))
 			       (font-family . roman))
 			     (ly:paper-lookup paper 'font-defaults)))))
-    
   (interpret-markup paper props
 		    (markup #:fill-line ("" (number->string page-number))))))
+
+
+(define TAGLINE
+  (string-append "Engraved by LilyPond (version " (lilypond-version) ")"))
+
+(define-public (make-tagline paper scopes)
+  (let* ((props (list (append `((linewidth . ,(ly:paper-get-number
+					       paper 'linewidth))
+				(font-family . roman))
+			      (ly:paper-lookup paper 'font-defaults))))
+	 (tagline-var (ly:modules-lookup scopes 'tagline))
+	 (tagline (if (markup? tagline-var) tagline-var TAGLINE)))
+    (cond ((string? tagline)
+	   (if (not (equal? tagline ""))
+	       (interpret-markup paper props
+				 (markup #:fill-line (tagline "")))))
+	  ((markup? tagline) (interpret-markup paper props tagline)))))
+
+(define-public (make-copyright paper scopes)
+  (let ((props (list (append `((linewidth . ,(ly:paper-get-number
+					      paper 'linewidth))
+			       (font-family . roman))
+			     (ly:paper-lookup paper 'font-defaults))))
+	(copyright (ly:modules-lookup scopes 'copyright)))
+    (cond ((string? copyright)
+	   (if (not (equal? copyright ""))
+	       (interpret-markup paper props
+				 (markup #:fill-line (copyright "")))))
+	  ((markup? copyright) (interpret-markup paper props copyright)))))
+
 
