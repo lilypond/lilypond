@@ -137,15 +137,13 @@ Score_engraver::typeset_all()
 	}
       else 
 	{
-	  Item *item_p = dynamic_cast <Item *> (elem_p);
-
-	  if (!item_p->parent_l (X_AXIS))
+	  if (!elem_p->parent_l (X_AXIS))
 	    {
-	      bool br = to_boolean (item_p->remove_elt_property ("breakable"));
+	      bool br = to_boolean (elem_p->remove_elt_property ("breakable"));
 	      if (br)
-		command_column_l_->add_element(item_p);
+		command_column_l_->add_element(elem_p);
 	      else
-		musical_column_l_->add_element(item_p);
+		musical_column_l_->add_element(elem_p);
 	    }
 	}
       if (!elem_p->parent_l(Y_AXIS))

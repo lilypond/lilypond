@@ -6,6 +6,7 @@
   (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "atom.hh"
 #include "beam.hh"
 #include "box.hh"
 #include "debug.hh"
@@ -19,7 +20,6 @@
 #include "dimensions.hh"
 #include "group-interface.hh"
 #include "directional-element-interface.hh"
-
 
 
 Tuplet_spanner::Tuplet_spanner ()
@@ -89,8 +89,17 @@ Tuplet_spanner::do_brew_molecule_p () const
       if (bracket_visibility)      
 	{
 	  Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
-	
-	  mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, staff_space, dir));
+	  Real height = staff_space;
+	  Atom *at = new Atom (gh_list(ly_symbol2scm ("tuplet"),
+				       gh_double2scm (height),
+				       gh_double2scm (gap),
+				       gh_double2scm (w),
+				       gh_double2scm (dy),
+				       gh_double2scm (thick),
+				       gh_int2scm (dir),
+				       SCM_UNDEFINED));
+
+	  mol_p->add_atom (at->self_scm_);
 	}
 
       mol_p->translate_axis (dir * staff_space, Y_AXIS);
@@ -186,17 +195,16 @@ Tuplet_spanner::do_post_processing ()
 Direction
 Tuplet_spanner::get_default_dir () const
 {
-  assert (false);
-  
   Direction d = UP;
   SCM dir_sym =get_elt_property ("dir-forced");
-  if (gh_number_p (dir_sym))
+  if (isdir_b (dir_sym))
     {
       d= to_dir (dir_sym);
       if (d != CENTER)
 	return d;
     }
 
+  d = UP ;
   for (SCM s = get_elt_property ("columns"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * sc = unsmob_element (gh_car (s));

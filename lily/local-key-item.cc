@@ -8,16 +8,12 @@
 #include "local-key-item.hh"
 #include "molecule.hh"
 #include "staff-symbol-referencer.hh"
-
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "musical-request.hh"
 #include "note-head.hh"
 #include "misc.hh"
 
-Local_key_item::Local_key_item ()
-{
-}
 
 void
 Local_key_item::add_pitch (Musical_pitch p, bool cautionary, bool natural)
@@ -40,7 +36,6 @@ void
 Local_key_item::do_pre_processing()
 {
   accidental_arr_.sort (Local_key_cautionary_tuple::compare);
-  Note_head_side::do_pre_processing ();
 }
 
 Molecule
@@ -49,9 +44,9 @@ Local_key_item::accidental (int j, bool cautionary, bool natural) const
   Molecule m (lookup_l ()->afm_find (String ("accidentals-") + to_str (j)));
   if (natural)
     {
-	  Molecule prefix = lookup_l ()->afm_find (String ("accidentals-0"));
-	  m.add_at_edge(X_AXIS, LEFT, Molecule(prefix), 0);
-	}
+      Molecule prefix = lookup_l ()->afm_find (String ("accidentals-0"));
+      m.add_at_edge(X_AXIS, LEFT, Molecule(prefix), 0);
+    }
   if (cautionary) 
     {
       Molecule open = lookup_l ()->afm_find (String ("accidentals-("));

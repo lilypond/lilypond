@@ -18,12 +18,50 @@
 #include "engraver-group-engraver.hh"
 #include "grace-align-item.hh"
 #include "staff-symbol-referencer.hh"
+#include "side-position-interface.hh"
+#include "engraver.hh"
+#include "key.hh"
+#include "parray.hh"
+
+
+/**
+   Make accidentals.  Catches note heads, ties and notices key-change
+   events.  Due to interaction with ties (which don't come together
+   with note heads), this needs to be in a context higher than Tie_engraver.
+   (FIXME).
+ */
+struct Local_key_engraver : Engraver {
+  Local_key_item *key_item_p_;
+protected:
+  VIRTUAL_COPY_CONS(Translator);
+  virtual void do_process_requests();
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_pre_move_processing();
+  virtual void do_creation_processing ();
+  virtual void process_acknowledged ();
+  virtual void do_removal_processing ();
+public:
+  
+  Key local_key_;
+  Key_engraver *key_grav_l_;
+  Array<Note_req* > mel_l_arr_;
+  Array<Item*> support_l_arr_;
+  Link_array<Item  > forced_l_arr_;
+  Link_array<Item > tied_l_arr_;
+  Local_key_engraver();
+  bool self_grace_b_;
+  Grace_align_item * grace_align_l_;
+  Timing_translator * time_trans_l_  ;
+};
+
+
 
 Local_key_engraver::Local_key_engraver()
 {
   key_grav_l_ = 0;
   key_item_p_ =0;
   grace_align_l_ =0;
+  time_trans_l_ = 0;
 }
 
 void
@@ -33,7 +71,7 @@ Local_key_engraver::do_creation_processing ()
     UGHGUHGUH.
 
     Breaks if Key_engraver is removed from under us.
-   */
+  */
   Translator * result =
     daddy_grav_l()->get_simple_translator ("Key_engraver");
 
@@ -53,67 +91,71 @@ Local_key_engraver::do_creation_processing ()
     TODO
     (if we are grace) get key info from parent Local_key_engraver
   */
+
+  Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
+  time_trans_l_ = dynamic_cast<Timing_translator*> (tr);
 }
 
 void
 Local_key_engraver::process_acknowledged ()
 {
-    if (!key_item_p_ && mel_l_arr_.size()) 
+  if (!key_item_p_ && mel_l_arr_.size()) 
     {
-        SCM f = get_property ("forgetAccidentals",0);
-        bool forget = to_boolean (f);
-        for (int i=0; i  < mel_l_arr_.size(); i++) 
+      SCM f = get_property ("forgetAccidentals",0);
+      bool forget = to_boolean (f);
+      for (int i=0; i  < mel_l_arr_.size(); i++) 
+	{
+	  Item * support_l = support_l_arr_[i];
+	  Note_req * note_l = mel_l_arr_[i];
+
+	  /* see if there's a tie that "changes" the accidental */
+	  /* works because if there's a tie, the note to the left
+	     is of the same pitch as the actual note */
+	  bool tie_changes = tied_l_arr_.find_l (support_l)
+	    && !local_key_.different_acc (note_l->pitch_);
+
+	  if (!forget
+
+	      && ((note_l->forceacc_b_
+		   || !local_key_.different_acc (note_l->pitch_)
+		   || local_key_.internal_forceacc (note_l->pitch_)))
+
+	      && !tie_changes)
 	    {
-	        Item * support_l = support_l_arr_[i];
-	        Note_req * note_l = mel_l_arr_[i];
-
-            /* see if there's a tie that "changes" the accidental */
-            /* works because if there's a tie, the note to the left
-               is of the same pitch as the actual note */
-            bool tie_changes = tied_l_arr_.find_l (support_l)
-                  && !local_key_.different_acc (note_l->pitch_);
-
-            if (!forget
-
-	         && ((note_l->forceacc_b_
-	         || !local_key_.different_acc (note_l->pitch_)
-			 || local_key_.internal_forceacc (note_l->pitch_)))
-
-             && !tie_changes)
-             {
-                 if (!key_item_p_) 
-	             {
-	                 key_item_p_ = new Local_key_item;
-			 Staff_symbol_referencer_interface si(key_item_p_);
-			 si.set_interface ();
+	      if (!key_item_p_) 
+		{
+		  key_item_p_ = new Local_key_item;
+		  side_position (key_item_p_).set_axis (X_AXIS);
+		  side_position (key_item_p_).set_direction (LEFT);
+		  staff_symbol_referencer(key_item_p_).set_interface ();
 			 
-	                 announce_element (Score_element_info (key_item_p_, 0));
-	             }
+		  announce_element (Score_element_info (key_item_p_, 0));
+		}
 
-	             key_item_p_->add_pitch (note_l->pitch_,
+	      key_item_p_->add_pitch (note_l->pitch_,
 	  			      note_l->cautionary_b_,
-					  local_key_.double_to_single_acc(note_l->pitch_));
-	             key_item_p_->add_support (support_l);
-             }
+				      local_key_.double_to_single_acc(note_l->pitch_));
+	      side_position (key_item_p_).add_support (support_l);
+	    }
 	  
-	         if (!forget)
-			 {
-				 local_key_.set (note_l->pitch_);
-                 if (!tied_l_arr_.find_l (support_l))
-			     {
-			         local_key_.clear_internal_forceacc (note_l->pitch_);
-			     }
-                 else if (tie_changes)
-				 {
-                     local_key_.set_internal_forceacc (note_l->pitch_);
-			     }
-			}
+	  if (!forget)
+	    {
+	      local_key_.set (note_l->pitch_);
+	      if (!tied_l_arr_.find_l (support_l))
+		{
+		  local_key_.clear_internal_forceacc (note_l->pitch_);
+		}
+	      else if (tie_changes)
+		{
+		  local_key_.set_internal_forceacc (note_l->pitch_);
+		}
+	    }
         }
     }
-    if (key_item_p_ && grace_align_l_)
+  if (key_item_p_ && grace_align_l_)
     {
-        grace_align_l_->add_support (key_item_p_);
-        grace_align_l_ =0;
+      side_position (grace_align_l_).add_support (key_item_p_);
+      grace_align_l_ =0;
     }
   
 }
@@ -130,7 +172,7 @@ Local_key_engraver::do_pre_move_processing()
   if (key_item_p_)
     {
       for (int i=0; i < support_l_arr_.size(); i++)
-	key_item_p_->add_support (support_l_arr_[i]);
+	side_position (key_item_p_).add_support (support_l_arr_[i]);
 
       typeset_element (key_item_p_);
       key_item_p_ =0;
@@ -169,7 +211,7 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
       mel_l_arr_.push (note_l);
       support_l_arr_.push (note_head);
     }
- else if (Tie * tie_l = dynamic_cast<Tie *> (info.elem_l_))
+  else if (Tie * tie_l = dynamic_cast<Tie *> (info.elem_l_))
     {
       tied_l_arr_.push (tie_l->head (RIGHT));
     }
@@ -178,14 +220,9 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
 void
 Local_key_engraver::do_process_requests()
 {
-  Translator * tr = daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
-  Timing_translator * time_C_  = dynamic_cast<Timing_translator*> (tr);
-  
-  if (time_C_ && !time_C_->measure_position ())
+  if (time_trans_l_ && !time_trans_l_->measure_position ())
     {
-      SCM n =  get_property ("noResetKey",0);
-      bool no_res = to_boolean (n);
-      if (!no_res && key_grav_l_)
+      if (!to_boolean (get_property ("noResetKey",0)) && key_grav_l_)
 	local_key_= key_grav_l_->key_;
     }
   else if (key_grav_l_ && key_grav_l_->key_changed_b ())

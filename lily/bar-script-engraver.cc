@@ -16,13 +16,14 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "dimension-cache.hh"
-
+#include "staff-symbol-referencer.hh"
+#include "side-position-interface.hh"
+#include "staff-symbol.hh"
 
 Bar_script_engraver::Bar_script_engraver ()
 {
   axis_ = Y_AXIS;
   text_p_ =0;
-
   visibility_lambda_ 
     = ly_eval_str ("non-postbreak-visibility");
 }
@@ -101,6 +102,11 @@ Bar_script_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
+      Staff_symbol * st = staff_symbol_referencer (text_p_).staff_symbol_l();
+      
+      if (st)
+	side_position (text_p_).add_support (st);
+      
       typeset_element (text_p_);
       text_p_ =0;
     }

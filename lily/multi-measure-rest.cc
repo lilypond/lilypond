@@ -22,22 +22,20 @@
 
 Multi_measure_rest::Multi_measure_rest ()
 {
-  measures_i_ = 0;
   set_elt_property ("columns", SCM_EOL);
 }
 
 
 /*
-   [TODO]                                          17
+   [TODO]                                      17
  * variable-sized multi-measure rest symbol: |====| ??
- 
- * build 3, 5, 6, 7, 8 symbols (how far, property?)
-       from whole, brevis and longa rests
-
 */
 Molecule*
 Multi_measure_rest::do_brew_molecule_p () const
 {
+  Real staff_space
+    = staff_symbol_referencer (this).staff_space ();
+
   Interval sp_iv;
   Direction d = LEFT;
   do
@@ -67,17 +65,53 @@ Multi_measure_rest::do_brew_molecule_p () const
 
   
   Molecule s;
-  bool rest_symbol=true;
-  SCM alt_symbol_sym =get_elt_property ("alt-symbol");
-  if (gh_string_p (alt_symbol_sym))
+
+  int measures = 1;
+  SCM m (get_elt_property ("measure-count"));
+  if (gh_number_p (m))
     {
-      s = lookup_l () -> afm_find (ly_scm2string (alt_symbol_sym));
-      rest_symbol = false;
+      measures = gh_scm2int (m);
     }
-  else if (measures_i_ == 1 || measures_i_ == 2 || measures_i_ == 4) 
+  
+
+  if (measures <= paper_l() ->get_var ("multi_measure_rest_expand_limit"))
     {
-      s = lookup_l ()->afm_find ("rests-" + to_str (- intlog2(measures_i_)));
-      s.translate_axis (-s.extent ()[X_AXIS].length () / 2, X_AXIS);
+      /*
+	Build a rest from smaller parts. Distances inbetween are
+	really variable, see Wanske pp. 125 */
+
+      int l = measures;
+      while (l)
+	{
+	  int k;
+	  if (l >= 4)
+	    {
+	      l-=4;
+	      k = -2;
+	    }
+	  else if (l>= 2)
+	    {
+	      l -= 2;
+	      k = -1;
+	    }
+	  else
+	    {
+	      k = 0;
+	      l --;
+	    }
+
+	  Real pad = s.empty_b ()
+	    ? 0.0 : paper_l ()->get_var ("multi_measure_rest_padding");
+      
+	  Molecule r (lookup_l ()->afm_find ("rests-" + to_str (k)));
+	  if (k == 0)
+	    r.translate_axis (staff_space, Y_AXIS);
+	  
+	  s.add_at_edge (X_AXIS, RIGHT, r, pad);
+	}
+
+
+      s.align_to (X_AXIS, CENTER);
     }
   else 
     {
@@ -86,15 +120,10 @@ Multi_measure_rest::do_brew_molecule_p () const
     }
   
   mol_p->add_molecule (s);
-  Real staff_space
-    = staff_symbol_referencer (this).staff_space ();
-  if (measures_i_ == 1 && rest_symbol)
+
+  if (measures > 1)
     {
-      mol_p->translate_axis (staff_space, Y_AXIS);
-    }
-  else if (measures_i_ > 1)
-    {
-      Molecule s (lookup_l ()->text ("number", to_str (measures_i_), paper_l ()));
+      Molecule s (lookup_l ()->text ("number", to_str (measures), paper_l ()));
       s.align_to (X_AXIS, CENTER);
       s.translate_axis (3.0 * staff_space, Y_AXIS);
       mol_p->add_molecule (s);
@@ -117,6 +146,8 @@ Multi_measure_rest::do_add_processing ()
       set_bounds (LEFT, column_arr[0 >? column_arr.size () - 2]);
       set_bounds (RIGHT, column_arr.top ());
     }
+
+  // set columns to SCM_EOL?
 }
   
 void
@@ -172,7 +203,7 @@ Multi_measure_rest::get_rods () const
 	  should do something more advanced.
 	 */
       rod.distance_f_ = l->extent (X_AXIS)[BIGGER] - r->extent (X_AXIS)[SMALLER]
-	+ paper_l ()->get_var ("mmrest_x_minimum");
+	+ paper_l ()->get_var ("multi_measure_rest_x_minimum");
   
       a.push (rod);
     }

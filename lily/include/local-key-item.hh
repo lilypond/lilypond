@@ -10,7 +10,7 @@
 #include "array.hh"
 #include "musical-pitch.hh"
 
-#include "note-head-side.hh"
+
 
 struct Local_key_cautionary_tuple
 {
@@ -40,13 +40,13 @@ struct Local_key_cautionary_tuple
   
  */
 
-class Local_key_item : public Note_head_side
+class Local_key_item : public Item
 {
   Array<Local_key_cautionary_tuple> accidental_arr_;
 
   Molecule accidental (int,bool,bool) const;
 public:
-  Local_key_item ();
+
   void add_pitch (Musical_pitch, bool cautionary, bool natural);
 protected:
   virtual void do_pre_processing();

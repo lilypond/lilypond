@@ -25,7 +25,8 @@ protected:
 
   Real stem_dir_correction (Paper_column*,Paper_column*)  const;
   Real default_bar_spacing (Paper_column*,Paper_column*,Moment)  const;
-  Real note_spacing (Paper_column*,Paper_column*,Moment)  const;  
+  Real note_spacing (Paper_column*,Paper_column*,Moment)  const;
+  Real get_duration_space (Moment dur, Moment shortest) const;
 };
 
 #endif /* SPACING_SPANNER_HH */

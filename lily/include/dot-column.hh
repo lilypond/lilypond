@@ -11,12 +11,12 @@
 #define DOT_COLUMN_HH
 
 #include "axis-group-item.hh"
-#include "note-head-side.hh"
+
 
 /**
   Group dots.  This is needed because, the dots have to be aligned per voice
  */
-class Dot_column : public Axis_group_item, public Note_head_side
+class Dot_column : public Axis_group_item
 {
   static int compare (Dots * const&,Dots * const&);
   void add_dots (Dots*);

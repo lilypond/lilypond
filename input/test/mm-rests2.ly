@@ -16,6 +16,6 @@ R1*11 |
 }
 
 \score { < \context Staff \thenotes
-	\context NoteNames \thenotes
+
 	>
 }

@@ -153,18 +153,18 @@ additional conversion tools.
 
      You can then install the new pnmtopng into `/usr/local/bin/'
 
-   * Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
-     (http://pertsserver.cs.uiuc.edu/~hull/bib2html.)      Which, in
-     turn depends on man2html for proper installation.  man2html can be
-     had from
+   * Bib2html (http://pertsserver.cs.uiuc.edu/~hull/bib2html).
+     Which, in turn depends on man2html for proper installation.
+     man2html can be had from
      http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05
      (http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05).
 
      The website will build without this utility, but you will not see
      our hypertextified bibliography.
 
-   * Doc++ (optional) to read the source code.
-
+   * DOC++ (http://www.zib.de/Visual/software/doc++/index.html)     A
+     documentation system for C++ sources, which is used for the
+     LilyPond sources.
 
 Configuring and compiling
 =========================

@@ -13,6 +13,7 @@
 #include "local-key-item.hh"
 #include "warn.hh"
 #include "directional-element-interface.hh"
+#include "side-position-interface.hh"
 
 /**
    Catch notes, and put them in a row. Used for aligning grace notes.
@@ -44,6 +45,8 @@ void
 Align_note_column_engraver::do_creation_processing ()
 {
   align_item_p_ = new Grace_align_item;
+  side_position (align_item_p_).set_axis (X_AXIS);
+  side_position (align_item_p_).set_direction (LEFT);  
   // needed  for setting font size.
   announce_element (Score_element_info (align_item_p_, 0));
 }

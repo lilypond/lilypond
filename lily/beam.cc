@@ -93,7 +93,6 @@ Beam::do_pre_processing ()
 
   auto_knees ();
   set_stem_directions ();
-
   set_stem_shorten (); 
 }
 

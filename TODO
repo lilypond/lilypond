@@ -24,6 +24,7 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * interstaff stems
 . * junk dstream output.
 . * Change website to be index to documentation.
+. * \grace { c d } c1 in midi
 . * \prop slurdir in grace notes
 . * \eltproperty "=Context" "Elt_name" "prop-name" #value
 . * script columns
@@ -36,6 +37,7 @@ verse=\lyrics {
 . * \accepts -> \acceptedby 
 . * context in embedded SCM errors.
 . * acc at tied note after linebreak.
+. * fontSize for time sigs and beams.
 . * fix font-naming and selecting
 . * add context information to warnings
 Paper:
@@ -147,18 +149,6 @@ of the grace notes and extend to the note after the grace notes.
 .  * don't  shorten stems/staffs closer to each other.
 .  * to space the staffs/staffgroups contained in the score.  
 .  * heavier beams?
-
-. * tuplets that are written as "number : note", for example
-   "3 : [image of a half note here]".  possible?
-. * a note with a circle after it, meaning:
-
-   note + circle = note + 1/4 of its length
-
-   the circle is like a dot that's not filled in.  for example, on
-   page three, the c-sharp on the second line should be a quarter with 
-   a circle, not a quarter tied to a sixteenth.  is this at all
-   possible with lily?
-. * deprecate hangOnClef.
 . * Abstraction for engravers:
 .  * make "in-between" engraver (Tie)
 .  * make wide_spanner_engraver (line_group_spanner, staff_symbol)
@@ -414,10 +404,6 @@ languages:
 . * more spanners (smallish)
 .  * Glissando
 .  * trill
-
-. * Collisions
-.  * left/right note balls should be handled by Collision:
-	< \multi 2; { \stem 1; <b c> } { <f as b> } >
 
 . * Keys:
 .  * merge key{item} & localkey{item}?

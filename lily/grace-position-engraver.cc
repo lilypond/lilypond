@@ -13,6 +13,7 @@
 #include "local-key-item.hh"
 #include "paper-column.hh"
 #include "dimension-cache.hh"
+#include "side-position-interface.hh"
 
 class Grace_position_engraver:public Engraver
 {
@@ -63,7 +64,7 @@ Grace_position_engraver::process_acknowledged ()
   if (align_l_)
     {
       for (int i=0; i < support_.size (); i++)
-	align_l_->add_support (support_[i]);
+	side_position  (align_l_).add_support (support_[i]);
       support_.clear ();
     }
 }
@@ -71,6 +72,8 @@ Grace_position_engraver::process_acknowledged ()
 void
 Grace_position_engraver::do_pre_move_processing ()
 {
+  if (align_l_ && !side_position (align_l_).supported_b ())
+    {
   /*
      We don't have support. Either some moron tried attaching us to a rest,
      or we're at the end of the piece.  In the latter case, we have a
@@ -80,8 +83,7 @@ Grace_position_engraver::do_pre_move_processing ()
      Solution: attach ourselves to  the last musical column known.  A little intricate.
      
   */
-  if (align_l_ && !align_l_->supported_b ())
-    {
+
       Score_element * elt = align_l_->parent_l (X_AXIS);
       if (elt)
 	return;

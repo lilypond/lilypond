@@ -35,12 +35,10 @@ Time_signature_engraver::do_process_requests()
   Time_signature_change_req *req = timing_grav_l->time_signature_req_l();
   if (req)
     {
-      Array<int> args;
-      args.push (req->beats_i_);
-      args.push (req->one_beat_i_);
-	
       time_signature_p_ = new Time_signature;
-      time_signature_p_->args_ = args;
+      time_signature_p_->set_elt_property ("fraction",
+					   gh_cons (gh_int2scm (req->beats_i_),
+						    gh_int2scm (req->one_beat_i_))); 
       time_signature_p_->set_elt_property ("break-aligned", SCM_BOOL_T);
     }
 

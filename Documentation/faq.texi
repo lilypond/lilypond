@@ -120,14 +120,11 @@ be used by LilyPond, not by any other programs.
 @node Documentation, Language- mudela, Installing, FAQ - GNU LilyPond FAQs
 @section Documentation
 
-@subsubsection Why is the documentation/website/etc. so lousy?
+@subsubsection What  a sober website/manual you have there!
 
 LilyPond development is moving quite fast, documentation will often lag
-a bit behind.  We must always make a choice between writing more
-documentation, writing HTML, writing more code and answering email.
-
-If you think you can make a correction, or devised a solution that
-should be documented, please write it up, and us a diff.
+a bit behind.  But don't hesitate to point out inaccuracies. Whip up
+your mail reader and write to the mailing list.
 
 @node Language- mudela, Do you support -, Documentation, FAQ - GNU LilyPond FAQs
 @section Language: mudela
@@ -177,7 +174,7 @@ of (x,y) positions and symbols.  You can only sensibly do TeX stuff in
 the symbol string.  You can access the symbol string easily for some
 symbols (notably lyrics and @code{^"text"} commands).
 
-@node Do you support -, How do I -, Language- mudela, FAQ - GNU LilyPond FAQs
+@node Do you support -,  How do I -, Language- mudela, FAQ - GNU LilyPond FAQs
 @section Do you support ...
 
 @subsubsection Do you support pop songs (chords, single staff, lyrics)?
@@ -186,20 +183,18 @@ Yes, see the @file{twinkle-pop} example.
 
 @subsubsection Do you support guitar chord diagrams?
 
-No. Go ahead and send a patch.
-
-We ourselves don't play guitar, and don't know the fine points of this
-notation.  We would welcome anyone who could give this a try.
+No. We ourselves don't play guitar, and don't know the fine points of
+this notation.  We would welcome anyone who could give this a try.
 
 @subsubsection Do you support TAB notation?
 
-No. The same as for the previous subsubsection goes.
+No. The same as for the previous question goes.
 
 
 @subsubsection Do you support multiple staff-sizes?
 
 Yes.  At this time you can choose between 11, 13, 16, 19, 20, 23 and 20
-pt staff-size.  Use the @code{staffLineLeading} property for setting the
+pt staff-size.  Use the @code{staffSpace} property for setting the
 size of the staff, and @code{fontSize} for setting the size of the
 glyphs.
 
@@ -210,7 +205,7 @@ No.
 
 @subsubsection Do you support grace notes?
 
-Yes. See @file{input/test/grace.ly}
+Yes. See @file{input/test/grace.ly}.
 
 @node How do I -, Development, Do you support -, FAQ - GNU LilyPond FAQs
 @section How do I ....
@@ -225,8 +220,7 @@ You change the order lyrics and staves.  You have to name all
 staves (lyric and melodic), otherwise they will end up in the same
 staff/lyricline
 @example 
-	
-4	\score @{
+	\score @{
 		< \melodic \type Staff = "treble" \trebleMelody
 		  \lyric \type Lyrics = "tlyrics" \trebtext
 		  \type Staff = "bass" \melodic \bassMelody	   
@@ -300,16 +294,14 @@ There are several examples in the @file{mutopia} directory.
 
 See @file{input/test/bar-scripts.ly}.
 
-@subsubsection How do I change the tagline 'Lily was here'
+@subsubsection How do I change the tagline 'Lily was here'?
 
-In the @code{\header} field, add a @code{tagline} entry, eg
+In the @code{\header} field, add a @code{tagline} entry, e.g.
 @example 
 
 tagline="Typeset by GNU LilyPond"
  
 @end example 
-
-to get a bit less frivolous tagging.
 
 @node Development, Running, How do I -, FAQ - GNU LilyPond FAQs
 @section Development

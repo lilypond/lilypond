@@ -35,12 +35,6 @@
 @end itemize
 
 
-@unnumberedsubsec Links
-
-@itemize @bullet
-@item @uref{links.html, interesting links}
-@end itemize
-
 @unnumberedsubsec Logo:
 @itemize @bullet
 @item @uref{../pictures/out-www/lelieblond.png,  logo} in large size

@@ -17,9 +17,9 @@ class Multi_measure_rest : public Spanner
 {
 public:
   Multi_measure_rest ();
-  int measures_i_;
-  void add_column (Item*);
 
+  void add_column (Item*);
+  Molecule compound_rest (int)const;
 protected:
   virtual Molecule *do_brew_molecule_p () const;
   VIRTUAL_COPY_CONS (Score_element);
