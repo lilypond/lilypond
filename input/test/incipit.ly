@@ -1,8 +1,9 @@
 \version "2.1.26"
 \header { texidoc = "@cindex Incipit
-This shows how to make an ``incipit'' to indicate scordatora 
-tuning of a violin part, using the clefStyle property.
-The two first bars of Biber's Rosary sonata III. " }
+This example shows how to make an ``incipit'' to indicate 
+scordatora tuning of a violin part, by overriding the @code{style} of
+a @code{TimeSignature}.
+Here are the two first bars of Biber's Rosary sonata III. " }
 
 
 

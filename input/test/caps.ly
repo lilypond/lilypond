@@ -2,7 +2,7 @@
 \version "2.1.26"
 \header {
 texidoc = "@cindex Capital Letters
-You can set the font to use small caps.
+The font can be changed to small caps.
 " }
 
 shapeSC = \override LyricText  #'font-shape = #'caps

@@ -2,21 +2,21 @@
 \version "2.1.26"
 \header {
     
-texidoc = "The notation problem, @emph{what} symbols to create,
+texidoc = "The notation problem, creating a certain symbol,
     is handled by plugins. Each plugin is called Engraver. In this example,
-  we switch on engravers  one by one, in the following order
+engravers is switched on one by one, in the following order:
 
 @itemize
-@item Note heads
-@item Staff symbol
-@item Clef
-@item Stem
-@item Beams, slurs, accents
-@item Accidentals, bar lines, time signature, and key signature.
+@item note heads,
+@item staff symbol,
+@item clef,
+@item stem,
+@item beams, slurs, accents,
+@item accidentals, bar lines, time signature, and key signature.
 @end itemize
 
 Engravers are grouped. For example, note heads, slurs, beams etc. form
-a Voice context. Engravers for key, accidental, bar, etc. form the
+a Voice context. Engravers for key, accidental, bar, etc. form a
 Staff context.
 
 "

@@ -1,6 +1,6 @@
 \version "2.1.26"
 \header { texidoc = "@cindex Horizontal Shift
-You can manually shift notes horizontally. " }
+Notes may be manually horizontally shifted. " }
 
 shiftI = \override NoteColumn  #'horizontal-shift = #0
 shiftII = \override NoteColumn  #'horizontal-shift = #1

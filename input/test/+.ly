@@ -8,7 +8,7 @@ texidoc = #(string-append "
 @section Introduction
 
 This document shows all kinds of tips and tricks, from simple to
-advanced.  Here you may also find dirty tricks, or very the very
+advanced.  You may also find dirty tricks, or the very very
 latest features that have not been documented or fully implemented
 yet. 
 This document is for LilyPond version 

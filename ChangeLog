@@ -1,3 +1,8 @@
+2004-02-27  Heikki Junes <hjunes@cc.hut.fi>
+
+	* input/test/[+c-i]*.ly: refresh descriptions -- maintain
+	impersonal style.
+
 2004-02-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/define-markup-commands.scm (upright): New markup command.

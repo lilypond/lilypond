@@ -3,9 +3,9 @@
 
 @cindex Clef Manual Control
 
-You can use the clef engraver by using @code{\property} directly.
-@code{\clef} is merely a front-end to this. All the notes in this
-example are central C."
+The positioning of glyph and note can be separated. @code{\clef} is 
+a front-end, which keeps them together. All the notes in this example 
+are central C."
 
 }
 

@@ -1,7 +1,8 @@
 \version "2.1.26"
 \header{
 	texidoc="@cindex Cautionary Accidentals
-LilyPond can display cautionary accidentals in different ways.
+Cautinary accidnetals are displayed in slurs by default. They can be 
+shown also with accidentals of smaller size.
 " }
 \score { \notes \context Staff \transpose c c'' {
   \key d \major

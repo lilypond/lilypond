@@ -1,6 +1,6 @@
 \version "2.1.26"
 \header {
-texidoc = "Jazz chords can also be used without notes."
+texidoc = "Jazz chord names can also be printed without notes."
 }
 
 \score{

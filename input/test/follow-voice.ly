@@ -3,8 +3,8 @@
 
 % followVoice: connect note heads with line when thread switches staff 
 \header{ texidoc="@cindex followVoice Voice
-Voices can be traced automagically when they switch staves by setting
-property @code{followVoice}. " }
+Voices can be traced automatically when they switch staves by setting
+@code{followVoice}. " }
 
 
 \score {

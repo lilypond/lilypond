@@ -2,7 +2,7 @@
 \header {
 
     texidoc = "@cindex Clef End of Line
-Scales, but with clef and key signature at the end of the line.
+In these scales, the clef and key signature are shown at the end of the line.
 " }
 
 \score {
