@@ -7,9 +7,9 @@
 */
 
 
-#include <errno.h>
-
 #include "midi-stream.hh"
+
+#include <errno.h>
 
 #include "stream.hh"
 #include "string-convert.hh"
