@@ -11,13 +11,8 @@ TODO: cleanup
 
 @end ignore
 
-@c @node Merging text and music with lilypond-book
-@c @chapter Merging text and music with lilypond-book
-
-@c  fix this node name , this is too long.
-
-@node lilypond-book: Integrating text and music
-@chapter lilypond-book: Integrating text and music
+@node Integrating text and music with lilypond-book
+@chapter Integrating text and music with lilypond-book
 
 If you want to add pictures of music to a document, you can simply do
 it the way you would do with other types of pictures.  You write
@@ -32,7 +27,7 @@ The line width and font size definitions for the music are adjusted so
 they match the layout of your document.
 
 It can work on La@TeX{}, @code{html} or texinfo documents.  A tutorial
-on using lilypond-book is in @ref{integrating text and music}.
+on using lilypond-book is in @ref{Integrating text and music}.
 
 @menu
 * Integrating Texinfo and music::  

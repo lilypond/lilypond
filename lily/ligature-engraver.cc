@@ -193,4 +193,4 @@ ENTER_DESCRIPTION (Ligature_engraver,
 /* creats*/       "Ligature",
 /* acks  */       "ligature-head-interface rest-interface",
 /* reads */       "",
-/* write */       "ligature-primitive-callback");
+/* write */       "");

@@ -580,4 +580,4 @@ ENTER_DESCRIPTION (Mensural_ligature_engraver,
 /* creats*/       "MensuralLigature",
 /* acks  */       "ligature-head-interface note-head-interface rest-interface",
 /* reads */       "",
-/* write */       "head-width join-left primitive");
+/* write */       "");

@@ -16,8 +16,11 @@
 ;;; General settings
 
 
+;; debugging evaluator is slower.
 
-(debug-enable 'backtrace)
+;(debug-enable 'debug)
+;(debug-enable 'backtrace)
+;(read-enable 'positions)
 
 
 (define point-and-click #f)

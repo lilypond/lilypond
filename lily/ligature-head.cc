@@ -43,5 +43,8 @@ Ligature_head::brew_molecule (SCM smob)
     }
 }
 
+/*
+  UGH  primitive is only used within the engraver.
+*/
 ADD_INTERFACE (Ligature_head,"ligature-head-interface","Ligature head",
-	       "ligature-primitive-callback");
+	       "primitive ligature-primitive-callback thickness flexa-width head-width delta-pitch join-left");
