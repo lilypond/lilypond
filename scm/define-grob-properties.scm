@@ -515,7 +515,9 @@ sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (apply define-internal-grob-property x))
    
    `(
+     
      (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
+     (adjacent-hairpins ,grob-list? "List of directly neighboring hairpins")
      (after-line-breaking-callback ,procedure? "This procedure is called after line breaking. Its return value is ignored.")     
      (all-elements ,grob-list? "list of all grobs in this line. Its
 function is to protect objects from being garbage collected.")
