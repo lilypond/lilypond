@@ -1,16 +1,16 @@
 # -*- shell-script -*-
 
-# stable LilyPond releases: lilypond-1.6
+# ancient LilyPond releases: lilypond-1.6
 # archive=ftp://lilypond.org/pub/LilyPond/v1.6
 
-# LilyPond development: lilypond-1.7
-# archive=ftp://lilypond.org/pub/LilyPond/v1.7
+# stable LilyPond releases: lilypond-1.8
+# archive=ftp://lilypond.org/pub/LilyPond/v1.8
 
 # LilyPond mknetrel overrides
 # To use this, do something like:
 cat >/dev/null <<EOC
 
-   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.7/lilypond-1.7.29.tar.gz
+   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.8/lilypond-1.8.0.tar.gz
    rm -rf /home/netrel/src/lilypond-*
    mkdir -p /home/netrel/src && cd /home/netrel/src
    ## TODO: look at pimport
@@ -36,211 +36,13 @@ sub_packages="doc"
 old_path=$PATH
 
 
-
-##. $extra/jcn
-
-
-# -*- shell-script -*-
-
-# jcn -- unsorted stuff
-
-
-#
-# Patching and configuring
-#
-
-presplit () { true; }
-
-# Maybe add to mknetrel or pimport.
-dopatchsrc () {
-    cd $src
-    patch -p1 < $patch/$package.patch
-    [ -d cygwin -a ! -e CYGWIN-PATCHES ] && ln -s cygwin CYGWIN-PATCHES
-    [ -d CYGWIN-PATCHES -a ! -e cygwin ] && ln -s CYGWIN-PATCHES cygwin
-    [ -d CYGWIN-PATCHES ] || mkdir CYGWIN-PATCHES
-}
-
-# Maybe add to mknetrel or pimport.
-patchsrc () {
-    [ -r $patch/$package.patch -a ! -r $src/CYGWIN-PATCHES -a ! -r $src/cygwin ] && dopatchsrc
-}
-
-autoupdate () {
-    for i in bootstrap autogen.sh; do
-	if [ -x ./$i ]; then
-	    ./$i || exit 1
-	    return 0
-	fi
-    done
-    
-    aclocal
-    rm -rf libltdl
-    libtoolize --force --copy --automake --ltdl
-    autoheader
-    autoconf
-    automake --add-missing
-}
-
-crosscache () {
-	cat <<EOF > config.cache
-
-ac_cv_c_bigendian=${ac_cv_c_bigendian=no}
-ac_cv_sizeof_char=${ac_cv_sizeof_char=1}
-ac_cv_sizeof_char_p=${ac_cv_sizeof_char_p=4}
-ac_cv_sizeof_double=${ac_cv_sizeof_double=8}
-ac_cv_sizeof_float=${ac_cv_sizeof_float=4}
-ac_cv_sizeof_int=${ac_cv_sizeof_int=4}
-ac_cv_sizeof_long=${ac_cv_sizeof_long=4}
-ac_cv_sizeof_long_double=${ac_cv_sizeof_long_double=12}
-ac_cv_sizeof_long_long=${ac_cv_sizeof_long_long=8}
-ac_cv_sizeof_short=${ac_cv_sizeof_short=2}
-ac_cv_sizeof_void_p=${ac_cv_sizeof_void_p=4}
-ac_cv_c_long_size_t=${ac_cv_c_long_size_t=no}
-ac_cv_c_long_time_t=${ac_cv_c_long_time_t=yes}
-ac_16bit_type=${ac_16bit_type=short}
-ac_32bit_type=${ac_32bit_type=int}
-ac_64bit_type=${ac_64bit_type=none}
-ac_cv_sys_restartable_syscalls=${ac_cv_sys_restartable_syscalls=no}
-ac_cv_sprintf_count=${ac_cv_sprintf_count=yes}
-ac_cv_spinlocks=${ac_cv_spinlocks=no}
-ac_cv_func_getpgrp_void=${ac_cv_func_getpgrp_void=yes}
-ac_cv_func_setvbuf_reversed=${ac_cv_func_setvbuf_reversed=no}
-ac_cv_func_mkfifo=yes
-
-# Try at preventing to break make rules while crosscompiling.  This
-# used work, but nowadays ./configure thinks it knows better than me.
-
-# But what ./configure doesn't know, is that automake and libtool are
-# broken wrt cross-building, and wrt cc_for_build.  See new
-# workarounds above.
-
-ac_exeext=${ac_exeext=}
-ac_cv_exeext=${ac_cv_exeext=}
-EOF
-}
-
-
-
-#
-# Subpackage stuff -- Maybe move to mknetrel
-#
-
-# Possibly, using file-lists globs is smarter than separate install
-# prefixes.  We'll see what happens when packaging tetex-*.
-
-
-lib_name () {
-    echo lib$base$sover
-}
-
-devel_name () {
-    echo $base-devel
-}
-
-doc_name () {
-    echo $base-doc
-}
-
-lib_split () {
-    mkdir -p ./$prefix/bin || exit 1
-    mv $inst/$prefix/bin/*.dll ./$prefix/bin
-    mkdir -p ./$prefix/share || exit 1
-    mv $inst/$prefix/share/$base ./$prefix/share
-    true
-}
-   
-devel_split () {
-    mkdir -p ./$prefix/bin || exit 1
-    mv $inst/$prefix/include ./$prefix/include
-    mkdir -p ./$prefix/lib || exit 1
-    mv $inst/$prefix/lib/*.a ./$prefix/lib
-    mkdir -p ./$prefix/lib || exit 1
-    mv $inst/$prefix/lib/*.la ./$prefix/lib
-    mkdir -p ./$prefix/share || exit 1
-    mv $inst/$prefix/share/aclocal ./$prefix/share
-    true
-}
-
-doc_split () {
-    mkdir -p ./$prefix || exit 1
-    mv $inst/$prefix/info ./$prefix
-    true
-}
-
-prebuild () {
-    for i in $sub_packages; do
-	rm -rf $inst-$i
-	mkdir -p $inst-$i || exit 1
-    done
-}
-    
-domkdist() {
-    #
-    # Fix up installation slightly
-    #
-    cd $inst || exit 1
-    chmod -R a+w .
-    cd usr 2>/dev/null && dousrstuff
-
-
-    # Split off any sub-packages.  The actual splitting is handled by
-    # a package's specific code in extra/.
-
-    # To package `foo' in foo, foo-doc and foo-devel, set
-    # sub_packages='doc devel'.
-
-    # Then provide functions doc_name and devel_name, that return the
-    # full name of the sub-package.  Also provide functions doc_split
-    # and devel_split, that mv part of foo's installation in $inst to
-    # the sub-packages' installation roots $inst-doc and $inst-devel.
-
-    cd $inst || exit 1
-    presplit
-
-    for i in $sub_packages; do
-	subname=$(${i}_name)
-  	cd $inst-$i || exit 1
-	${i}_split || exit 1
-    done
-    
-    #
-    # Make tar balls
-    #
-
-    cd $inst || exit 1
-    prepackage
-
-    # The base package
-    echo creating $tarstem.tar.bz2
-    cd $inst || exit 1
-
-    f=$src/cygwin/setup.hint && test -r $f && cp $f $uploads
-    f=$src/cygwin/$base.hint && test -r $f && cp $f $uploads/setup.hint
-    find * -print | sort | tar -T - --no-recursion -cjf $tarstem.tar.bz2
-
-    # Any sub-packages
-    for i in $sub_packages; do
-	subname=$(${i}_name)
-	subload=$uploads/$subname
-	subtarstem=$subload/$subname-$ver
-	mkdir -p $subload || exit 1
-	echo creating $subtarstem.tar.bz2
-	f=$src/cygwin/$subname.hint && test -r $f && cp $f $subload/setup.hint
-  	cd $inst-$i
-	find * -print | sort | tar -T - --no-recursion -cjf $subtarstem.tar.bz2
-    done
-
-    # The source package
-    cd $src/.. || exit 1
-    echo creating "$tarstem"-src.tar.bz2
-    find $package_src/* -print -follow | egrep -v '\.cvsignore|\.bak$|\.orig$|\.o$|~$|^.#|CVS|%redact|/tags$' | egrep -v "$src_exclude" | sort | tar -T - --no-recursion -cjf "$tarstem"-src.tar.bz2
-    postpackage
-}
-
-
-# end jcn
-
-
+# copy and include extra mknetrel stuff
+extras="doc patch auto cross split"
+for i in $extras; do
+    f=mknetrel.$i
+    [ -r $extra/$f ] && cp -pv $extra/$f $src/cygwin/$f
+    . $src/cygwin/$f
+done
 
 
 needdevoflags () {
@@ -267,6 +69,10 @@ EOF
     chmod 755 guile-config
     PATH=$(pwd):$PATH
 
+
+    if [ "$ABI" != "1.5" ];then
+	export LDFLAGS="$cygwin_prefix/bin/cygkpathsea-3abi13.dll"
+    fi
     ##opt='-O2 -g' LDFLAGS='"$cygwin_prefix/bin/libpython2.2.dll"
     rm -f config.cache
 }
@@ -307,7 +113,11 @@ prebuild () {
     mkdir -p mf/out
     cp -pv mf/out-for-build/* mf/out
     
-    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" ' ' 'target=i686-pc-cygwin'
+    if false; then #[ "$ABI" != "1.5" ]; then
+	addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" ' ' 'target=i686-pc-cygwin'
+    else
+	addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
+    fi
 }
 
 preinstall () {
@@ -315,62 +125,45 @@ preinstall () {
     cp -v scripts/out-for-build/midi2ly.1 scripts/out
     cp -v lily/out-for-build/lilypond.1 lily/out
     
-    addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" ' ' 'target=i686-pc-cygwin'
+    if false; then # [ "$ABI" != "1.5" ]; then
+	addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll" ' ' 'target=i686-pc-cygwin'
+    else
+	addmakeflags MAKE_PFA_FILES=1 ' ' LDFLAGS="$cygwin_prefix/bin/libpython2.3.dll" ' ' 'target=i686-pc-cygwin'
+    fi
 }
 
 postinstall () {
-    mkdir -p $inst-doc/$prefix
-    cd $build || exit 1
-    docdir=$prefix/share/doc/$base-$ver
+    fixdoc
     
-    #make conf=for-build docdir=$inst-doc/$docdir install-html-doc
-    make conf=for-build webdir=$inst-doc/$docdir web-install
-
+    mkdir -p $inst-doc/$docprefix
+    cd $build || exit 1
+    
+    make conf=for-build webdir=$inst-doc/$packagedocdir web-install
 
     ## copy READMEs etc
 
     cd $src || exit 1
-    install -d -m755 $inst/$docdir
+    install -d -m755 $inst/$packagedocdir
 
     ## Generic READMEs
-    find . -maxdepth 1 -type f -exec cp -pv \{\} $inst/$docdir \;
+    find . -maxdepth 1 -type f -exec cp -pv \{\} $inst/$packagedocdir \;
 
     ## Cygwin readmes
     cygwin=cygwin
     cd $src || exit 1
-    #install -m644 $cygwin/README $inst/$docdir/README.Cygwin
-    install -m644 $cygwin/changelog $inst/$docdir/changelog.Cygwin
+    install -m644 $cygwin/changelog $inst/$cygdocdir/changelog.Cygwin
     install -d -m755 $inst/$prefix/doc/Cygwin
-    #install -m644 $cygwin/README $inst/$prefix/doc/Cygwin/$package.README
+    #install -m644 $cygwin/README $inst/$cygdocdir/Cygwin/$package.README
 
     cd $build || exit 1
-    install -m644 $cygwin/out/README $inst/$docdir/README.Cygwin
-    install -m644 $cygwin/out/README $inst/$prefix/doc/Cygwin/$package.README
+    install -m644 $cygwin/out/README $inst/$packagedocdir/README.Cygwin
+    install -m644 $cygwin/out/README $inst/$cygdocdir/$package.README
 
     ## copy examples
     cd $src || exit 1
-    cp -prv input $inst/$docdir
+    cp -prv input $inst/$packagedocdir
 
-    cd $inst-doc/$prefix/share/doc/$base-$ver &&
+    cd $inst-doc/$packagedocdir &&
     ln -s $(find html/Documentation -name '*.ps.gz') .
-
-    ## Cygwin doesn't adhere to FHS (and why should they?)
-    cd $inst/$prefix/share && tar cf - doc | (cd ..; tar xf -) && rm -rf doc
-    cd $inst-doc/$prefix/share && tar cf - doc | (cd ..; tar xf -) && rm -rf doc
 }
 
-#presplit () {
-#    docdir=$prefix/share/doc/$base-$ver
-#    mkdir -p $inst-doc/$docdir || exit 1
-#}
-
-doc_split () {
-    mkdir -p ./$prefix || exit 1
-    mv $inst/$prefix/info ./$prefix
-    true
-}
-
-
-#prepackage () {
-#  mv $inst/$prefix/bin/guile-* $inst-devel/$prefix/bin
-#}
