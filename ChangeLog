@@ -1,3 +1,16 @@
+2002-09-05  Rune Zedeler  <rune@zedeler.dk>
+
+	* scm/output-lib.scm (make-molecule-boxer): Fixed and moved from
+	input/test/boxed-molecule.ly
+
+	* input/test/boxed-molecule.ly: Fixed to use default
+	make-molecule-boxer
+
+	* input/test/bar-number-every-fifth.ly: Added
+	
+	* lily/bar-number-engraver.cc: Add property barNumberVisibility
+	and use it to decide which BarNumbers to suicide.
+	
 2002-09-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/test/poly-metric.ly: new file.

@@ -127,6 +127,7 @@ using barchecks in polyphonic music.")
     still counted.  Bar generation will resume according to that
     count if this property is set to zero.
 ")
+(translator-property-description 'barNumberVisibility procedure? "Procedure that takes an int and returns whether the corresponding bar number should be printed")
 (translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is set when automaticMelismata is set")
 (translator-property-description 'beatLength moment? "The length of one beat in this time signature.")
 (translator-property-description 'breakAlignOrder list? "Defines the order in which

@@ -51,19 +51,20 @@ Bar_number_engraver::process_music ()
   
   if (gh_string_p (wb))
     {
-      SCM bn = get_property ("currentBarNumber");
       SCM smp = get_property ("measurePosition");
-      int ibn = gh_number_p (bn) ? gh_scm2int(bn) : 1;
       
       Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
-      if (mp.main_part_ == Rational (0)
-	  && ibn != 1)
+      if (mp.main_part_ == Rational (0))
 	{
-	  create_items ();
-	  
-	  // guh.
-	  text_->set_grob_property ("text",
-				      scm_makfrom0str (to_string (gh_scm2int (bn)).to_str0 ()));
+	  SCM bn = get_property ("currentBarNumber");
+	  SCM proc = get_property ("barNumberVisibility");
+	  if (to_boolean(gh_call1(proc, bn)))
+	    {
+	      create_items ();
+	      // guh.
+	      text_->set_grob_property
+		("text", scm_makfrom0str (to_string (gh_scm2int (bn)).to_str0 ()));
+	    }
 	}
     }
 
