@@ -339,7 +339,6 @@ is the  first to satisfy CRIT
 ;;  output
 (use-modules (scm output-tex)
 	     (scm output-ps)
-	     (scm output-pysk)
 	     (scm output-ascii-script)
 	     (scm output-sketch)
 	     (scm output-sodipodi)

@@ -1,5 +1,7 @@
 2003-05-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/lily.scm (scm): remove output-pysk.scm, music-types.scm
+
 	* ly/engraver-init.ly: remove GraceContext. Update examples.
 
 2003-05-18  Jan Nieuwenhuizen  <janneke@gnu.org>
