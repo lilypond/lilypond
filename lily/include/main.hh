@@ -7,6 +7,7 @@
 */
 #ifndef MAIN_HH
 #define MAIN_HH
+
 #include "lily-proto.hh"
 
 void debug_init();
@@ -16,7 +17,6 @@ void clear_scores();
 void add_score (Score* s);
 void set_default_output (String s);
 String find_file (String);
-String get_version_str();
 void call_constructors ();
 
 extern Sources* source_global_l;

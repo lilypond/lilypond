@@ -15,8 +15,6 @@
 #include "fproto.hh"
 #include "scalar.hh"
 #include "direction.hh"
-#include "curve.hh"
-#include "symtable.hh"
 #include "box.hh"
 
 /** handy interface to symbol table
@@ -26,25 +24,21 @@ class Lookup
 public:
   Lookup ();
   Lookup (Lookup const&);
-  Lookup (Symtables const&);
-  ~Lookup ();
   
+  Atom simple_bar (String s, Real w) const;
   Molecule accidental (int, bool cautionary) const;
-  void add (String, Symtable*);
   Atom afm_find (String, bool warn=true) const;
   Atom ball (int) const;
-  Atom bar (String, Real height) const;
+  Molecule bar (String, Real height) const;
   Atom beam (Real, Real, Real) const;
   Atom clef (String) const;
   Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
   Atom dots () const;
-  Atom dynamic (String) const;
   Atom extender (Real) const;
   Atom fill (Box b) const;
   Atom flag (int, Direction) const;
   Atom hairpin (Real width, bool decresc, bool continued) const;
   Atom plet (Real dy, Real dx, Direction dir) const;
-  void print () const;
   Atom rest (int, bool outside) const;
   Atom rule_symbol (Real height, Real width) const;
   Atom script (String idx) const;
@@ -59,7 +53,6 @@ public:
   Atom time_signature (Array<int>) const;
 
   Paper_def * paper_l_;
-  Symtables *symtables_p_;
 
   String font_name_;
   Adobe_font_metric * afm_l_;

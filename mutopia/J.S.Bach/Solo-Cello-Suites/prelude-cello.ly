@@ -38,7 +38,10 @@ prelude_cello_staff = \type Staff <
 
 \score{
 	\$prelude_cello_staff
-	\include "scs-paper.ly";
+	\paper{
+		\include "scs-paper.ly";
+		gourlay_maxmeasures = 7.0;
+	}
 	\midi{ \tempo 4 = 40; }
 	\header{ piece = "Pr\\'elude"; }	
 }

@@ -7,26 +7,22 @@
 */
 
 
-#ifndef BARGRAV_HH
-#define BARGRAV_HH
+#ifndef BAR_ENGRAVER_HH
+#define BAR_ENGRAVER_HH
+
 #include "engraver.hh"
 
 /**
   generate bars. Either user ("|:"), or default (new measure)
   */
-class Bar_engraver : public Engraver {
-  Bar_req * bar_req_l_;
-  Bar * bar_p_;
-  Bar * bar_l_;
-  bool auto_create_bar_b_;
-
-  void create_bar ();
+class Bar_engraver : public Engraver
+{
 public:
-  VIRTUAL_COPY_CONS(Translator);
   Bar_engraver();
+  VIRTUAL_COPY_CONS(Translator);
   
-
-     
+  void request_bar (String type_str);
+    
 protected:
   virtual void acknowledge_element (Score_element_info i);
   virtual void do_creation_processing ();
@@ -35,6 +31,13 @@ protected:
   virtual void do_process_requests();
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
+
+private:
+  void create_bar ();
+
+  Bar_req * bar_req_l_;
+  Bar * bar_p_;
+  bool auto_create_bar_b_;
 };
 
-#endif // BARGRAV_HH
+#endif // BAR_ENGRAVER_HH

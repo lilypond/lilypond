@@ -63,7 +63,6 @@ public:
   Midi_parser_info* info_l_;
 
 protected:
-//  Byte const* inline_forward_byte_L (int n)
   Byte const* inline_forward_byte_L (char const* fun, int n)
   {
     if (info_l_->byte_L_ + n < info_l_->end_byte_L_ )
@@ -72,28 +71,23 @@ protected:
       info_l_->byte_L_ += n;
       return p;
     }
-//    exit (__FUNCTION__": unexpected EOF");
     exit (String (fun) + ": unexpected EOF");
     return 0;
   }
 
 #ifdef INLINES
-//  Byte inline_next_byte () 
   Byte inline_next_byte (char const* fun) 
     {
       if (info_l_->byte_L_ < info_l_->end_byte_L_)
 	 return *info_l_->byte_L_++;
-//    exit (__FUNCTION__": unexpected EOF");
       exit (String (fun) + ": unexpected EOF");
       return 0;
     }
 
-//  Byte inline_peek_byte ()
   Byte inline_peek_byte (char const* fun)
     {
       if (info_l_->byte_L_ < info_l_->end_byte_L_)
 	return *info_l_->byte_L_;
-//      exit (__FUNCTION__": unexpected EOF");
       exit (String (fun) + ": unexpected EOF");
       return 0;
     }

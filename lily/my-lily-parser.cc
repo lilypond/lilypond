@@ -165,7 +165,7 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
   for (int i = 0; i < sub_arr_p->size (); i++)
     {
       Musical_pitch p = tonic;
-      Musical_pitch q = (*add_arr_p)[i];
+      Musical_pitch q = (*sub_arr_p)[i];
       // duh, c7 should mean <c bes>
       if (q.notename_i_ == 6)
         q.accidental_i_--;
@@ -257,10 +257,18 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
       int j = 0;
       for (; j < sub_arr_p->size (); j++)
 	if (p == (*sub_arr_p)[j])
-	  break;
+	  {
+	    sub_arr_p->del (j);
+	    j = -1;
+	    break;
+	  }
       if (j == sub_arr_p->size ())
         pitch_arr.push (p);
     }
+
+  for (int i = 0; i < sub_arr_p->size (); i++)
+    warning (_f ("invalid subtraction: not part of chord: %s",
+		 (*sub_arr_p)[i].str ()));
 
   if (inversion_p)
     {
@@ -270,7 +278,8 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
 	  && (pitch_arr[i].accidental_i_ == inversion_p->accidental_i_))
 	  break;
       if (i == pitch_arr.size ())
-	warning (_ ("invalid inversion pitch (not part of chord)"));
+	warning (_f ("invalid inversion pitch: not part of chord: %s",
+		      inversion_p->str ()));
       else
         {
 	  Array<Musical_pitch> pitches;
@@ -333,7 +342,6 @@ My_lily_parser::get_parens_request (int t)
       reqs.push (new Tie_req);
       break;
 
-      /* fall through */
     case '[':
     case ']':
       {

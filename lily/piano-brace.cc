@@ -18,7 +18,7 @@ Piano_brace::Piano_brace ()
   extra_move_left_f_ = 0.0;
 }
 
-Atom
+Molecule
 Piano_brace::get_bar_sym (Real dy) const
 {
   Atom a = lookup_l ()->vbrace (dy);

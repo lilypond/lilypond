@@ -179,16 +179,21 @@ Rational::Rational(double x)
       const int FACT = 1 << 20;
 
       /*
-	FIXME
+	Thanks to Afie for this too simple  idea.
 
-	SHOULD TEST THIS
-	
-	suck me gently with a vacuum cleaner.  Thanks to Afie for this wierd idea.
-       */
+	do not blindly substitute by libg++ code, since that uses
+	arbitrary-size integers.  The rationals would overflow too
+	easily.
+      */
+
       num_ = (unsigned int) (mantissa * FACT);
       den_ = (unsigned int) FACT;
+      normalise ();      
+      if (expt < 0)
+	den_ <<= -expt;
+      else
+	num_ <<= expt;
       normalise ();
-      num_ <<= expt;
     }
   else
     {

@@ -19,7 +19,6 @@
 Bar_engraver::Bar_engraver()
 {
   bar_p_ =0;
-  bar_l_ =0;
   do_post_move_processing();
 }
 
@@ -32,7 +31,6 @@ Bar_engraver::do_try_music (Music*r_l)
 	return false;
       
       bar_req_l_ = b;
-
       return true;
     }
   
@@ -45,8 +43,8 @@ Bar_engraver::acknowledge_element (Score_element_info i)
 {
   if (Bar *b = dynamic_cast<Bar *> (i.elem_l_))
     {
-      bar_l_ = b;
-      //      auto_create_bar_b_ = false;
+      // only bar-engraver should create bars
+      assert (0);
     }
 }
 
@@ -67,6 +65,16 @@ Bar_engraver::create_bar ()
     }
 }
 
+void
+Bar_engraver::request_bar (String type_str)
+{
+  create_bar ();
+  if (((type_str == "|:") && (bar_p_->type_str_ == ":|"))
+    || ((type_str == ":|") && (bar_p_->type_str_ == "|:")))
+    bar_p_->type_str_ = ":|:";
+  else
+    bar_p_->type_str_ = type_str;
+}
 
 void 
 Bar_engraver::do_creation_processing ()
@@ -93,10 +101,13 @@ Bar_engraver::do_process_requests()
   Time_description const *time = get_staff_info().time_C_;
   if (bar_req_l_) 
     {
-      if (!bar_p_)
-	create_bar ();    
-
+      create_bar ();    
       bar_p_->type_str_ = bar_req_l_->type_str_;
+    }
+  else if (!now_moment ())
+    {
+      create_bar ();
+      bar_p_->type_str_ = "";
     }
   else 
     {
@@ -110,16 +121,7 @@ Bar_engraver::do_process_requests()
 	}
     }
   
-  /*
-    hmm, perhaps it's Better to create empty bars if you want none
-    displayed, and keep bars for breakpoints ?
-   */
-#if 0
-  if ((time && time->whole_in_measure_)
-      && !always.to_bool ()
-      && !bar_p_ && !bar_l_)
-#endif
-  if (!bar_p_ && !bar_l_)
+  if (!bar_p_)
     {
       Break_req r;
       r.penalty_i_ = Break_req::DISALLOW;
@@ -131,15 +133,6 @@ Bar_engraver::do_process_requests()
 void 
 Bar_engraver::do_pre_move_processing()
 {
-  if (bar_l_)
-    {
-      bar_l_ = 0;
-      if (bar_p_)
-	{
-	  bar_p_->unlink ();
-	  bar_p_ = 0;
-	}
-    }
   if (bar_p_) 
     {
       typeset_element (bar_p_);

@@ -23,6 +23,7 @@
 #include "main.hh"
 #include "scope.hh"
 #include "identifier.hh"
+#include "lily-version.hh"
 
 Paper_outputter::Paper_outputter (Paper_stream *s)
 {
@@ -50,12 +51,13 @@ Paper_outputter::output_header ()
   
   String creator;
   if (no_timestamps_global_b)
-    creator = "GNU LilyPond\n";
+    creator = gnu_lilypond_str ();
   else
-    creator = get_version_str ();
+    creator = gnu_lilypond_version_str ();
+  
   String generate;
   if (no_timestamps_global_b)
-    generate = ".";
+    generate = ".\n";
   else
     {
       generate = _ (", at ");
@@ -167,7 +169,7 @@ Paper_outputter::output_scheme (SCM scm)
 void
 Paper_outputter::output_scope (Scope *scope, String prefix)
 {
-  for (Dictionary_iter<Identifier*> i (*scope); i.ok (); i++)
+  for (Scope_iter i (*scope); i.ok (); i++)
     {
       if (dynamic_cast<String_identifier*> (i.val ()))
 	{
@@ -197,7 +199,7 @@ Paper_outputter::output_version ()
   if (no_timestamps_global_b)
     id_str += ".";
   else
-    id_str += String (", ") + get_version_str ();
+    id_str += String (", ") + version_str ();
   output_String_def ( "LilyIdString", id_str);
 }
 

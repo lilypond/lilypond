@@ -39,6 +39,9 @@ Adobe_font_char_metric::width ()
 
 Adobe_font_char_metric::Adobe_font_char_metric ()
 {
+  B_ = Box( Interval(0,0), Interval (0,0));
+  WX_ = 0.0;
+  C_ = 0;
   C_ = -1;
 }
 
@@ -49,6 +52,19 @@ Adobe_font_metric::Adobe_font_metric ()
   UnderlinePosition_ =0.;
   UnderlineThickness_=0.;
 }
+
+
+Box
+Adobe_font_char_metric::dimensions () const
+{
+  Box b= B_;
+  
+  b[X_AXIS] *= 1/1000.0;
+  b[Y_AXIS] *= 1/1000.0;
+
+  return b;
+}
+
 
 
 #define APPEND_CHAR_METRIC_ELT(k)  outstr += to_str (#k) + " "  + to_str (k ## _)  + "; "
@@ -101,19 +117,38 @@ Adobe_font_metric::str () const
   return outstr;
 }
 
-/*
-  UGH. should have hashtable.
- */
-Adobe_font_char_metric
+Adobe_font_char_metric dummy_static_char_metric;
+
+Adobe_font_char_metric const &
 Adobe_font_metric::find_char (String nm, bool warn) const
 {
   if (warn && !name_to_metric_dict_.elem_b (nm))
     {
-      Adobe_font_char_metric m;
       warning (_f ("can't find character called `%s'", nm.ch_C()));
-      return m;
+      return dummy_static_char_metric;
     }
   
   return char_metrics_[name_to_metric_dict_ [nm]];
 }
 
+
+Character_metric *
+Adobe_font_metric::get_char (int code, bool warn) const
+{
+  return &find_ascii (code,warn);
+}
+
+Adobe_font_char_metric const &
+Adobe_font_metric::find_ascii (int a , bool warn) const
+{
+  int  code = ascii_to_metric_idx_[a];
+  if (code>=0)
+    {
+      return char_metrics_[code];
+    }
+  else if (warn )
+    {
+      warning (_f ("can't find character number %d", a));
+    }
+  return dummy_static_char_metric;
+}

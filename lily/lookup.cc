@@ -15,7 +15,6 @@
 #include "lookup.hh"
 #include "debug.hh"
 #include "dimensions.hh"
-#include "symtable.hh"
 #include "scalar.hh"
 #include "paper-def.hh"
 #include "string-convert.hh"
@@ -24,6 +23,8 @@
 #include "lily-guile.hh"
 #include "all-fonts.hh"
 #include "afm.hh"
+#include "scope.hh"
+#include "molecule.hh"
 
 SCM
 array_to_list (SCM *a , int l)
@@ -40,30 +41,17 @@ array_to_list (SCM *a , int l)
 Lookup::Lookup ()
 {
   paper_l_ = 0;
-  symtables_p_ = new Symtables;
   afm_l_ = 0;  
 }
 
 Lookup::Lookup (Lookup const& s)
 {
   font_name_ = s.font_name_;
-  paper_l_ = s.paper_l_;
-  symtables_p_ = new Symtables (*s.symtables_p_);
+  paper_l_ = 0;
   afm_l_ = 0;  
 }
 
-Lookup::Lookup (Symtables const& s)
-{
-  font_name_ = s.font_name_;
-  paper_l_ = 0;
-  symtables_p_ = new Symtables (s);
-  afm_l_ = 0;
-}
 
-Lookup::~Lookup ()
-{
-  delete symtables_p_;
-}
 
 Molecule
 Lookup::accidental (int j, bool cautionary) const
@@ -71,28 +59,21 @@ Lookup::accidental (int j, bool cautionary) const
   Molecule m(afm_find (String ("accidentals") + String ("-") + to_str (j)));
   if (cautionary) 
     {
-      m.add_at_edge(X_AXIS, LEFT, 
-                    Molecule(afm_find (String ("accidentals") + String ("-("))))
-;
-      m.add_at_edge(X_AXIS, RIGHT, 
-                    Molecule(afm_find (String ("accidentals") + String ("-)"))))
-;
+      Atom open = afm_find (String ("accidentals") + String ("-("));
+      Atom close = afm_find (String ("accidentals") + String ("-)"));
+      m.add_at_edge(X_AXIS, LEFT, Molecule(open), 0);
+      m.add_at_edge(X_AXIS, RIGHT, Molecule(close), 0);
     }
   return m;
 }
 
-void
-Lookup::add (String s, Symtable*p)
-{
-  symtables_p_->add (s, p);
-}
 
 
 Atom
 Lookup::afm_find (String s, bool warn) const
 {
   if (!afm_l_)      
-    ((Lookup*)this)->afm_l_ = all_fonts_global_p->find_font (font_name_);
+    ((Lookup*)this)->afm_l_ = all_fonts_global_p->find_afm (font_name_);
   
   Adobe_font_char_metric m = afm_l_->find_char (s, warn);
 
@@ -108,7 +89,6 @@ Lookup::afm_find (String s, bool warn) const
   a.lambda_ = gh_list (ly_symbol ("char"),
 		       gh_int2scm (m.code ()),
 		       SCM_UNDEFINED);
-  a.str_ = "afm_find: " + s;
   a.font_ = font_name_;
   return a;
 }
@@ -123,20 +103,92 @@ Lookup::ball (int j) const
 }
 
 Atom
-Lookup::bar (String str, Real h) const
+Lookup::simple_bar (String type, Real h) const
 {
-
-  Atom a = (*symtables_p_) ("bars")->lookup (str);
+  SCM thick = ly_symbol ("barthick_" + type);
+  Real w = 0.1 PT;
+  if (paper_l_->scope_p_->elem_b (thick))
+    {
+      w = paper_l_->get_realvar (thick);
+    }
   
-  
-  a.lambda_ = gh_list (ly_symbol (a.str_.ch_C()),
-		       gh_double2scm (h),
+  Atom a;
+  a.lambda_ = gh_list (ly_symbol ("filledbox"),
+		       gh_double2scm (0),
+		       gh_double2scm (w),		       
+		       gh_double2scm (h/2),
+		       gh_double2scm (h/2),		       
 		       SCM_UNDEFINED);
 
-
-  a.dim_.y () = Interval (-h/2, h/2);
-  a.font_ = font_name_;
+  a.dim_[X_AXIS] = Interval(0,w);
+  a.dim_[Y_AXIS] = Interval (-h/2, h/2);
   return a;
+}
+
+  
+Molecule
+Lookup::bar (String str, Real h) const
+{
+  Real kern = paper_l_->get_var ("bar_kern");
+  Real thinkern = paper_l_->get_var ("bar_thinkern");  
+  Atom thin = simple_bar ("thin", h);
+  Atom thick = simple_bar ("thick", h);
+  Atom colon = afm_find ("dots-repeatcolon");  
+
+  Molecule m;
+
+  if (str == "")
+    {
+      return fill (Box (Interval(0,0),Interval (-h/2, h/2)));
+    }
+  else if (str == "|")
+    {
+      return thin;
+    }
+  else if (str == "|.")
+    {
+      m.add_at_edge (X_AXIS, LEFT, thick, 0);      
+      m.add_at_edge (X_AXIS, LEFT, thin,kern);
+    }
+  else if (str == ".|")
+    {
+      m.add_at_edge (X_AXIS, RIGHT, thick, kern);
+      m.add_at_edge (X_AXIS, RIGHT, thin, 0);
+    }
+  else if (str == ":|")
+    {
+      m.add_at_edge (X_AXIS, LEFT, thick, 0);
+      m.add_at_edge (X_AXIS, LEFT, thin, kern);
+      m.add_at_edge (X_AXIS, LEFT, colon, kern);      
+    }
+  else if (str == "|:")
+    {
+      m.add_at_edge (X_AXIS, RIGHT, thick,0);
+      m.add_at_edge (X_AXIS, RIGHT, thin,kern);
+      m.add_at_edge (X_AXIS, RIGHT, colon,kern);      
+    }
+  else if (str == ":|:")
+    {
+      m.add_at_edge (X_AXIS, LEFT, thick,kern/2);
+      m.add_at_edge (X_AXIS, LEFT, thin,kern);
+      m.add_at_edge (X_AXIS, LEFT, colon,kern);      
+      m.add_at_edge (X_AXIS, RIGHT, thick,kern);
+      m.add_at_edge (X_AXIS, RIGHT, thin,kern);
+      m.add_at_edge (X_AXIS, RIGHT, colon,kern);      
+    }
+  else if (str == "||")
+    {
+      m.add_at_edge (X_AXIS, RIGHT, thin,0);
+      m.add_at_edge (X_AXIS, RIGHT, thin,thinkern);      
+    }
+
+  else if (str == ".|.")
+    {
+      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thick, kern);      
+    }
+
+  return m;
 }
 
 Atom 
@@ -198,7 +250,6 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
 	     ly_quote_scm (array_to_list (sc, 4)),
 	     SCM_UNDEFINED);
 
-  a.str_ = "dashed_slur";
   return a;
 }
 
@@ -208,20 +259,18 @@ Lookup::dots () const
   return afm_find (String ("dots") + String ("-") + String ("dot"));
 }
 
-Atom
-Lookup::dynamic (String st) const
-{
-  return (*symtables_p_) ("dynamics")->lookup (st);
-}
 
 Atom
 Lookup::extender (Real width) const
 {
-  Atom a = (*symtables_p_) ("param")->lookup ("extender");
-  a.lambda_ = gh_list (ly_symbol (a.str_),
+  Atom a;
+  a.lambda_ = gh_list (ly_symbol ("extender"),
 		       gh_double2scm (width),
 		       SCM_UNDEFINED);
-  a.str_ = "extender";
+
+  a.dim_[X_AXIS] = Interval (0, width);
+  a.dim_[Y_AXIS] = Interval (0,0);
+  
   a.font_ = font_name_;
   return a;
 }
@@ -240,16 +289,6 @@ Lookup::flag (int j, Direction d) const
   char c = (d == UP) ? 'u' : 'd';
   Atom a = afm_find (String ("flags") + String ("-") + to_str (c) + to_str (j));
   return a;
-}
-
-void
-Lookup::print () const
-{
-#ifndef NPRINT
-  DOUT << "Lookup {\n";
-  symtables_p_->print ();
-  DOUT << "}\n";
-#endif
 }
 
 Atom
@@ -314,9 +353,9 @@ Lookup::stem (Real y1, Real y2) const
 
   Real stem_width = paper_l_->get_var ("stemthickness");
 
-  a.lambda_ = gh_list (ly_symbol ("stem"),
-		       gh_double2scm(-stem_width /2),
-		       gh_double2scm(stem_width),
+  a.lambda_ = gh_list (ly_symbol ("filledbox"),
+		       gh_double2scm(stem_width /2),
+		       gh_double2scm(stem_width/2),
 		       gh_double2scm(y2),
 		       gh_double2scm(-y1),
 		       SCM_UNDEFINED);
@@ -340,6 +379,10 @@ static Dict_initialiser<char const*> cmr_init[] = {
   {"finger", "feta-nummer"},
   {"italic", "cmti"},
   {"roman", "cmr"},
+  {"large", "cmbx"},
+  {"Large", "cmbx"},
+  {"mark", "feta-nummer"},
+  {"nummer", "feta-nummer"},
   {0,0}
 };
 
@@ -348,21 +391,23 @@ static Dictionary<char const *> cmr_dict (cmr_init);
 Atom
 Lookup::text (String style, String text) const
 {
-  Atom a =  (*symtables_p_) ("style")->lookup (style);
-
-  a.lambda_ = gh_list(ly_symbol (a.str_),
+  Atom a;
+  a.lambda_ = gh_list(ly_symbol ("set" + style),
 		      gh_str02scm (text.ch_C()),
 		      SCM_UNDEFINED);
-  
-  Real font_w = a.dim_.x ().length ();
-  Real font_h = a.dim_.y ().length ();
 
+  Real font_h = paper_l_->get_var ("font_normal");
+  if (paper_l_->scope_p_->elem_b ("font_" + style))
+    {
+      font_h = paper_l_->get_var ("font_" + style);
+    }
+  
   if (cmr_dict.elem_b (style))
     {
       style = String (cmr_dict [style]) + to_str  ((int)font_h); // ugh
     }
   Real w = 0;
-  Adobe_font_metric* afm_l = all_fonts_global_p->find_font (style);
+  Font_metric* afm_l = all_fonts_global_p->find_font (style);
   DOUT << "\nChars: ";
   
   for (int i = 0; i < text.length_i (); i++) 
@@ -372,16 +417,11 @@ Lookup::text (String style, String text) const
 	  ;
       else
 	{
-	  int c = text[i];
-	  int code = afm_l->ascii_to_metric_idx_[c];
-	  if (code >=0)
-	    {
-	      Adobe_font_char_metric m = afm_l->char_metrics_[code];
-	      w += m.B_.x ().length ();
-	      DOUT << to_str (m.B_.x ().length ()) << " ";
-	    }
+	  Character_metric *c = afm_l->get_char (text[i],false);
+	  w += c->dimensions()[X_AXIS].length ();
 	}
     }
+
   DOUT << "\n" << to_str (w) << "\n";
   a.dim_.x () = Interval (0, w);
   a.font_ = font_name_;
@@ -389,14 +429,21 @@ Lookup::text (String style, String text) const
 }
   
 
+/*
+  TODO: should return a molecule with 2 stacked nums.
+ */
 Atom
 Lookup::time_signature (Array<int> a) const
 {
-  Atom s ((*symtables_p_) ("param")->lookup ("time_signature"));
-  s.lambda_ = gh_list (ly_symbol (s.str_),
+  Atom s;
+  s.lambda_ = gh_list (ly_symbol ("generalmeter"),
 		       gh_int2scm (a[0]),
 		       gh_int2scm (a[1]),
 		       SCM_UNDEFINED);
+
+  Real r = paper_l_->interline_f () ;
+  s.dim_[Y_AXIS] =  Interval (-2*r, 2*r);
+  s.dim_[X_AXIS] = Interval (0, 2*r);
   return s;
 }
 
@@ -409,6 +456,7 @@ Lookup::vbrace (Real &y) const
 		       SCM_UNDEFINED
 		       );
   a.dim_[Y_AXIS] = Interval (-y/2,y/2);
+  a.dim_[X_AXIS] = Interval (0,0);
   a.font_ = font_name_;
   return a;
 }
@@ -475,7 +523,6 @@ Lookup::vbracket (Real &y) const
   a.lambda_ =  gh_list (ly_symbol ("bracket"),
 			gh_double2scm (y),
 			SCM_UNDEFINED);
-  a.str_ = "vbracket";
   a.dim_[Y_AXIS] = Interval (-y/2,y/2);
   a.dim_[X_AXIS] = Interval (0,4 PT);
   return a;
@@ -489,7 +536,7 @@ Lookup::volta (Real w, bool last_b) const
 		       gh_double2scm (w),
 		       gh_int2scm (last_b),
 		       SCM_UNDEFINED);
-  a.str_ = "volta";
+
   Real interline_f = paper_l_->interline_f ();
 
   a.dim_[Y_AXIS] = Interval (-interline_f, interline_f);

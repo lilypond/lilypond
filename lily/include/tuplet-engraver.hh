@@ -22,7 +22,7 @@ public:
 protected:
   Link_array<Compressed_music> compressed_music_arr_;
   Array<Moment> stop_moments_;
-  Link_array<Plet_spanner> started_span_p_arr_;
+  Link_array<Tuplet_spanner> started_span_p_arr_;
 
 
   virtual void do_removal_processing ();

@@ -41,14 +41,14 @@ public:
   
   Dimension_cache * parent_l_;
   Link_array<Dimension_cache> dependencies_l_arr_;
-  
+  Graphical_element *element_l () { return elt_l_; }
   Real absolute_coordinate () const;
   void invalidate ();
   void invalidate_dependencies ();
   
   Dimension_cache(Dimension_cache const&);
   Dimension_cache ();
-  void set_group_l (Graphical_axis_group*);
+
   Real relative_coordinate (Dimension_cache *d) const;
   Dimension_cache*common_group (Dimension_cache const* s) const;
   Dimension_cache*common_group (Link_array<Dimension_cache> caches) const;

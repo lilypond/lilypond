@@ -29,10 +29,7 @@ protected:
   virtual void do_post_move_processing ();
 
 private:
-  Moment rest_stop_mom_;
-//  Moment rest_item_creation_mom_;
-  Moment rest_start_mom_;
-
+  Drul_array<Moment> rest_moments_;
   
   int start_measure_i_;
   Multi_measure_rest_req* multi_measure_req_l_;

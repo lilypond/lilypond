@@ -12,13 +12,12 @@
 #include "lookup.hh"
 #include "main.hh"
 
-Atom
+Molecule
 Staff_bracket::get_bar_sym (Real dy) const
 {
   Atom a = lookup_l ()->vbracket (dy);
-
   a.translate_axis (- 1.33 * a.extent ().x ().length (), X_AXIS);
-  return a;
+  return Molecule (a);
 }
 
 Interval

@@ -14,7 +14,6 @@
 #include "debug.hh"
 
 
-
 Bar::Bar ()
 {
   breakable_b_ = true;
@@ -33,9 +32,8 @@ Molecule*
 Bar::do_brew_molecule_p () const
 {    
   Paper_def *p = paper ();
-  Atom s = lookup_l ()->bar (type_str_, p->get_var ("barsize"));
+  Molecule *output = new Molecule (lookup_l ()->bar (type_str_, p->get_var ("barsize")));
   
-  Molecule*output = new Molecule (Atom (s));
   return output;
 }
 

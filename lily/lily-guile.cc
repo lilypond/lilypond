@@ -42,8 +42,14 @@ ly_symbol (String name)
   return gh_car (scm_intern (name.ch_C(), name.length_i()));
 }
 
+String
+symbol_to_string (SCM s)
+{
+  return String((Byte*)SCM_CHARS (s), (int) SCM_LENGTH(s));
+}
+
 SCM
-ly_set_scm (String name , SCM val)
+ly_set_scm (String name, SCM val)
 {
   return scm_sysintern (name.ch_C(), val);
   
@@ -75,3 +81,10 @@ read_lily_scm_file (String fn)
   *mlog << ']' << flush;  
 }
 
+
+void
+ly_display_scm (SCM s)
+{
+  gh_display (s);
+  gh_newline ();
+}

@@ -10,7 +10,7 @@
 #ifndef PAPER_DEF_HH
 #define PAPER_DEF_HH
 #include "lily-proto.hh"
-
+#include "lily-guile.hh"
 #include "real.hh"
 
 #include "moment.hh"
@@ -47,8 +47,8 @@ public:
   
 
   Array<Interval> shape_int_a_;
-
-  Real get_var (String) const;
+  Real get_realvar (SCM symbol) const;
+  Real get_var (String id) const;
   void reinit ();
   Paper_def ();
   void set_lookup (int, Lookup*);

@@ -46,8 +46,6 @@ Staff_symbol::do_brew_molecule_p() const
   Real w = extent (X_AXIS).length ();
   Real left_dx = -spanned_drul_[LEFT]->extent (X_AXIS)[LEFT];
   Real right_dx = spanned_drul_[RIGHT]->extent (X_AXIS)[RIGHT];
-  //  w += right_dx+ left_dx;
-
   
   Paper_def * p = paper();
   Atom rule  = lookup_l ()->rule_symbol (p->get_var ("rulethickness"),

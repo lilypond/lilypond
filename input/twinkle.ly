@@ -1,10 +1,9 @@
 \header{
-filename =	 "twinkle.ly";
-title =	 "Twinkle Twinkle Little Star";
-
-composer =	 "Traditional";
-enteredby =	 "HWN & JCN";
-copyright =	 "public domain";
+filename =	"twinkle.ly";
+title =		"Twinkle Twinkle Little Star";
+composer =	"Traditional";
+enteredby =	"hwn and jcn";
+copyright =	"public domain";
 }
 
 %{
@@ -17,7 +16,7 @@ traditional song in various languages.
 %}
 
 %{
-Tested Features: lyrics, interleaving lyrics and staffs
+Tested Features: lyrics, interleaving lyrics and staffs, repeats
 %}
 
 \version "1.0.14";
@@ -55,11 +54,6 @@ global = \notes {
 tekst = \lyrics{ 
  	Al-4 tijd is Kort- jak- je ziek,2
 	midden4 in_de week maar s,_zon- dags niet.2
-% ugly hack: insertion of  empty syllables creates columns on extra 
-% moments.  The net result is more spacing.
-%
-% probably not necessary anymore
-%	midden8 _8 in_de8 _8 week4 maar s,_zon- dags niet.2
 	s,_Zon-4 dags gaat ze naar de kerk,2
 	met4 een boek vol zil- ver werk.2
 	Al-4 tijd is Kort- jak- je ziek,2
@@ -121,45 +115,17 @@ textiii = \lyrics{
 	How4 I won- der what you are!2
 }
 
-$top_lyrics = \type Lyrics = top <
-	\tekst
->
-
-$treble_staff = \type Staff = treble <
-	\global
-	\melody 
->
-
-$bass_staff = \type Staff = bass <
-	\global
-	\accompany
->
-
-$middle_lyrics = \type Lyrics = middle <
-	\texte
->
-
-$bottom_lyrics = \type Lyrics = bottom <
-%	\global
-	\texti
-	\textii
-	\textiii
->
-
-$grand_staff = \type GrandStaff <
-	\$treble_staff
-	\$middle_lyrics
-	\$bass_staff
->
-
 \score{
-	\repeat 2 { < 
-		\$treble_staff
-		\$middle_lyrics
-		\$top_lyrics
-		\$grand_staff
-		\$bottom_lyrics
-	> }
+	<
+		\type Staff=i \repeat 2 < \global\melody >
+		\type Lyrics=top \repeat 2 {} \alternative < \tekst \texte >
+		\type GrandStaff <
+			\type Staff=ii \repeat 2 < \global\melody >
+			\type Staff=iii \repeat 2 < \global\accompany >
+		>
+		\type Lyrics=bottom \repeat 3 {} 
+			\alternative < \texti \textii \textiii >
+	>
 	\paper{
 		gourlay_maxmeasures = 14.0;
 	}

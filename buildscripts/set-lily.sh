@@ -6,6 +6,7 @@ PACKAGE_NAME=LilyPond
 export PACKAGE_NAME
 prefix=$HOME/usr
 sources=$prefix/src
+
 #
 #
 . ./stepmake/bin/package-zet.sh
@@ -47,9 +48,8 @@ ln -sf $LILYPOND_SOURCEDIR/scripts/out/mudela-book $prefix/bin/mudela-book
 chmod 755 $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh
 ln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
 ln -sf $LILYPOND_SOURCEDIR/mf/out/ afm
-mkdir -p $prefix/share/lilypond
-ln -sf $LILYPOND_SOURCEDIR/ $prefix/share/lilypond
-rm $prefix/share/lilypond
+mkdir -p $prefix/share/
+ln -sf $prefix/lilypond/ $sources/lilypond
 
 if [ -f ../.gdbinit ];
 then

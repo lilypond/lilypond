@@ -2,11 +2,11 @@
   text-item.cc -- implement Text_item
 
   source file of the GNU LilyPond music typesetter
-
+  
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
+#if 0
 #include "musical-request.hh"
 #include "paper-def.hh"
 #include "text-item.hh"
@@ -14,6 +14,7 @@
 #include "molecule.hh"
 #include "lookup.hh"
 #include "debug.hh"
+
 
 Text_item::Text_item (General_script_def* tdef_l, Direction d) 
 {
@@ -87,3 +88,4 @@ Text_item::do_brew_molecule_p () const
 
 
 
+#endif

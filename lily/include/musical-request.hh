@@ -66,21 +66,6 @@ public:
   REQUESTMETHODS(Spacing_req);
 };
 
-/// Put a text above or below (?) this staff.
-class Text_req  : public virtual Musical_req  {
-public:
-  /// preferred position (above/below)
-  Direction dir_;
-  /// the characteristics of the text
-  Text_def *tdef_p_;
-
-  Text_req (int d, Text_def*);
-  ~Text_req();
-  Text_req (Text_req const&);
-
-  REQUESTMETHODS(Text_req);
-};
-
 /** a syllable  or lyric is a string with rhythm.
   */
 class Lyric_req  : public  Rhythmic_req  {

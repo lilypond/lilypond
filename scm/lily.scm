@@ -74,7 +74,7 @@
 
 ;;; and these suck as well.
 (define (setdynamic s) (text "dynamic" (string-append "\\" s)))
-(define (settext s) (text "text" s))
+(define (setroman s) (text "text" s))
 (define (settypewriter s) (text "typewriter" s))
 (define (setnumber s) (text "number" s))
 (define (setbold s) (text "bold" s))
@@ -185,8 +185,8 @@
 
   (define (pianobrace y)
     (define step 1.0)
-    (define minht mudelapaperstaffheight)
-    (define maxht (* 6 minht))
+    (define minht (* 2 mudelapaperstaffheight))
+    (define maxht (* 7 minht))
     (string-append
      "{\\bracefont " (char  (/  (- (min y (- maxht step)) minht)   step)) "}"))
   
@@ -222,10 +222,10 @@
      "\\hbox{%\n")
     )
 
-  (define (stem kern width height depth) 
+  (define (filledbox breapth width height depth) 
     (string-append 
-     "\\kern" (number->dim kern)
-     "\\vrule width " (number->dim width)
+     "\\kern" (number->dim (- breapth))
+     "\\vrule width " (number->dim (+ breapth width))
      "depth " (number->dim depth)
      "height " (number->dim height) " "))
 
@@ -281,7 +281,7 @@
 	    (define startrepeat ,startrepeat)
 	    (define stoprepeat ,stoprepeat)
 	    (define start-line ,start-line)
-	    (define stem ,stem)
+	    (define filledbox ,filledbox)
 	    (define stop-line ,stop-line)
 	    (define text ,text)
 	    (define experimental-on  ,experimental-on)
@@ -392,7 +392,7 @@
 
   (define (invoke-dim1 s d) 
     (string-append
-     (number->string d) " " s ))
+     (number->string (* d  (/ 72.27 72))) " " s ))
 
   (define (placebox x y s) 
     (string-append 

@@ -10,13 +10,6 @@
 
 char const * flower_version_sz();
 
-// what the F*** is "int" ?
-// deprecate int, long, etc., use i32, i64, remember: linux-16/linux-64 ?
-/// (i32)
-typedef int i32;
-/// (i64)
-typedef long long I64;
-
 template<class T> struct Link_array;
 template<class T> struct Array;
 template<class T> struct sstack;
@@ -70,6 +63,14 @@ struct Text_stream;
 struct Data_file;
 struct Text_db;
 struct Scalar;
+
+typedef unsigned char U8;
+typedef short I16;
+typedef unsigned short U16;
+typedef unsigned U32;
+typedef int I32;
+typedef long long I64;
+
 typedef unsigned char Byte;
 
 

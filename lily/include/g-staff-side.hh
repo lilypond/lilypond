@@ -12,17 +12,15 @@
 
 #include "item.hh"
 
-/*
-  DO NOT USE AS BREAKABLE ITEM!
-
-  (-> core dump!)
- */
 class G_staff_side_item : public Item
 {
+  void position_self ();
 public:
   Score_element * to_position_l_;
   Direction dir_;
   Link_array<Score_element> support_l_arr_;
+  Real padding_f_;
+  Axis axis_;
   
   G_staff_side_item ();
   void set_victim (Score_element*);

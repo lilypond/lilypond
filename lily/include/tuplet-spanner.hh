@@ -4,18 +4,18 @@
   (c)  1997--1998 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#ifndef PLET_SPANNER_HH
-#define PLET_SPANNER_HH
+#ifndef Tuplet_spanner_HH
+#define Tuplet_spanner_HH
 #include "text-def.hh"
 #include "pointer.hh"
 #include "directional-spanner.hh"
 
 /** supportable plet: triplets, eentweetjes, ottava, etc.  */
 
-class Plet_spanner : public Directional_spanner
+class Tuplet_spanner : public Directional_spanner
 {
 public:
-  Plet_spanner ();
+  Tuplet_spanner ();
  
   void add_column (Note_column*);
   void set_beam (Beam*);
@@ -36,5 +36,5 @@ protected:
   virtual void do_substitute_dependency (Score_element*,Score_element*);
 };
 
-#endif // PLET_SPANNER_HH
+#endif // Tuplet_spanner_HH
 

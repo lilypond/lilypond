@@ -106,6 +106,7 @@ protected:
   virtual void do_break_processing ();
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
+  virtual void handle_prebroken_dependents ();
   virtual Link_array<Score_element> get_extra_dependencies () const;
   virtual void do_unlink ();
   virtual void do_junk_links ();

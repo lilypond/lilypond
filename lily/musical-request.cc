@@ -305,34 +305,6 @@ Script_req::~Script_req ()
   delete scriptdef_p_;
 }
 
-
-Text_req::~Text_req ()
-{
-  delete tdef_p_;
-  tdef_p_ = 0;
-}
-
-Text_req::Text_req (Text_req const& src)
-{
-  tdef_p_ = new Text_def (*src.tdef_p_);
-  dir_ = src.dir_;
-}
-
-Text_req::Text_req (int dir_i, Text_def* tdef_p)
-{
-  dir_ = Direction (dir_i);
-  tdef_p_ = tdef_p;
-}
-
-void
-Text_req::do_print () const
-{
-#ifndef NPRINT
-  DOUT << " dir " << dir_;
-  tdef_p_->print ();
-#endif
-}
-
 void
 Skip_req::do_print () const
 {

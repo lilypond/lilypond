@@ -19,7 +19,7 @@ unsigned long prime_list (int idx)
   return my_prime_list [idx];
 }
 
-unsigned int hash (String s)
+unsigned int string_hash (String s)
 {
   const char* str = s.ch_C ();
   unsigned int result = 0;
@@ -37,7 +37,9 @@ unsigned int hash (unsigned int i)
   return i;
 }
 
-unsigned int hash (int i)
+unsigned int int_hash (int i)
 {
   return (unsigned) i;
 }
+
+unsigned int hash ( ); 

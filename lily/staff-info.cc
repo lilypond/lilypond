@@ -22,6 +22,7 @@ Staff_info::Staff_info()
   score_l_ =0;
   time_C_ = 0;
   rhythmic_C_ =0;
+  staff_sym_l_=0;
 }
 
 Score_column*

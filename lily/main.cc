@@ -11,6 +11,7 @@
 #include <assert.h>
 #include <locale.h>
 #include "lily-guile.hh"
+#include "lily-version.hh"
 
 #include "all-fonts.hh"
 #include "proto.hh"
@@ -128,8 +129,8 @@ usage ()
     "  -V, --ignore-version   ignore mudela version\n"
     );
   cout  << _ (
-    "  -w, --warranty         show warranty and copyright\n"
-    );
+	      "  -w, --warranty         show warranty and copyright\n"
+	      );
   cout << '\n';
   cout << _ ("GNU LilyPond was compiled with the following settings:");
   cout << '\n';
@@ -143,9 +144,9 @@ usage ()
 #ifdef STRING_UTILS_INLINED
     "STRING_UTILS_INLINED "
 #endif
-        "datadir=" DIR_DATADIR
-	"\n"
-        "localedir=" DIR_LOCALEDIR
+    "datadir=" DIR_DATADIR
+    "\n"
+    "localedir=" DIR_LOCALEDIR
 
     "\n";
 
@@ -157,8 +158,8 @@ about ()
 {
   cout << '\n';
   cout << 
-  #include "BLURB.hh"
-  cout << '\n';
+#include "BLURB.hh"
+    cout << '\n';
   cout << _ ("GNU LilyPond is Free software, see --warranty");
   cout << '\n';
   cout << '\n';
@@ -181,25 +182,25 @@ notice ()
   cout << "  " + _ ("Jan Nieuwenhuizen <janneke@gnu.org>") + "\n";
   cout << '\n';
   cout << _ (
-    "    This program is free software; you can redistribute it and/or\n"
-    "modify it under the terms of the GNU General Public License version 2\n"
-    "as published by the Free Software Foundation.\n"
-    "\n"
-    "    This program is distributed in the hope that it will be useful,\n"
-    "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
-    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
-    "General Public License for more details.\n"
-    "\n"
-    "    You should have received a copy (refer to the file COPYING) of the\n"
-    "GNU General Public License along with this program; if not, write to\n"
-    "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
-    "USA.\n");
+	     "    This program is free software; you can redistribute it and/or\n"
+	     "modify it under the terms of the GNU General Public License version 2\n"
+	     "as published by the Free Software Foundation.\n"
+	     "\n"
+	     "    This program is distributed in the hope that it will be useful,\n"
+	     "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+	     "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+	     "General Public License for more details.\n"
+	     "\n"
+	     "    You should have received a copy (refer to the file COPYING) of the\n"
+	     "GNU General Public License along with this program; if not, write to\n"
+	     "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
+	     "USA.\n");
 }
 
 void
 identify ()
 {
-  *mlog << get_version_str () << endl;
+  *mlog << gnu_lilypond_version_str () << endl;
 }
 
 void
@@ -234,12 +235,12 @@ setup_paths ()
     global_path.parse_path (env_sz);
 
 
-  char *suffixes[] = {"ly", "afm", "scm", "init", 0};
+  char *suffixes[] = {"ly", "afm", "scm", "tfm", 0};
   for (char **s = suffixes; *s; s++){
-      if (!prefix_directory.empty_b())
-	  global_path.add (prefix_directory + to_str ('/') + String (*s));
-      else
-	  global_path.add (String (DIR_DATADIR) + to_str ('/') + String(*s));
+    if (!prefix_directory.empty_b())
+      global_path.add (prefix_directory + to_str ('/') + String (*s));
+    else
+      global_path.add (String (DIR_DATADIR) + to_str ('/') + String(*s));
   }
 }
 
@@ -247,6 +248,7 @@ setup_paths ()
 void
 main_prog (int argc, char **argv)
 {
+  call_constructors ();
   default_outname_base_global = "lelie";
   all_fonts_global_p = new All_font_metrics (global_path.str ());
   
@@ -296,13 +298,12 @@ main_prog (int argc, char **argv)
   exit( exit_status_i_);
 }
 
+
 int
 main (int argc, char **argv)
 {
   identify ();
-  call_constructors ();
   debug_init ();		// should be first
-
   setup_paths ();
 
   oparser_global_p = new Getopt_long(argc, argv,theopts);

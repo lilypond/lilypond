@@ -1,7 +1,5 @@
 
-
-
-\version "1.0.14";
+	\version "1.0.14";
 
 onestaff = \type Staff = foo\notes  {
 	\property Staff.instr = instr
@@ -18,10 +16,9 @@ grstaff = \notes \type GrandStaff <
 	\type Staff = bufl { c1 c2  }
 >
 
-scpaper =  \paper {\translator {\OrchestralScoreContext}}
+scpaper = \paper {\translator {\OrchestralScoreContext}}
+stpaper = \paper{ \translator {\BarNumberingStaffContext }}
 
-
-stpaper =\paper{ \BarNumberingStaffContext }
 scscore = \score { \grstaff \paper {
 \scpaper
 }}
@@ -31,5 +28,5 @@ stscore = \score { \onestaff \paper {
  \stpaper
 }}
 
-\score {\stscore}
-%\score {\scscore}
+%\score {\stscore}
+\score {\scscore}

@@ -21,6 +21,15 @@ Molecule::extent() const
   return b;
 }
 
+Interval
+Molecule::extent(Axis a) const
+{
+  Interval i;
+  for (iter_top (atoms_,c); c.ok(); c++)
+    i.unite (c->extent(a));
+  return i;
+}
+
 void
 Molecule::translate (Offset o)
 {
@@ -46,16 +55,15 @@ Molecule::add_molecule (Molecule const &m)
 
 
 void
-Molecule::add_at_edge (Axis a, Direction d, Molecule const &m)
+Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
 {
-  if (!atoms_.size()) 
-    {
-      add_molecule (m);
-      return;
-    }
-  Real offset = extent ()[a][d] - m.extent ()[a][-d];
+  Real my_extent= atoms_.size()
+    ? extent ()[a][d] 
+    : 0.0;
+  
+  Real offset = my_extent -  m.extent ()[a][-d];
   Molecule toadd (m);
-  toadd.translate_axis (offset, a);
+  toadd.translate_axis (offset + d * padding, a);
   add_molecule (toadd);
 }
 

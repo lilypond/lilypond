@@ -26,12 +26,14 @@ public:
   Link_array<Bar> column_arr_;
   Link_array<Note_column> note_column_arr_;
   bool last_b_;
+  bool visible_b_;
  
 protected:
   virtual Molecule* do_brew_molecule_p () const;
   VIRTUAL_COPY_CONS (Score_element);
 
   virtual void do_add_processing ();
+  virtual Interval do_height () const;
   virtual void do_post_processing ();
   virtual void do_substitute_dependency (Score_element*,Score_element*);
 };

@@ -21,8 +21,6 @@ Item::Item ()
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
 }
 
-
-
 void
 Item::do_print() const
 {
@@ -42,7 +40,7 @@ Item::hpos_f() const
 Line_of_score *
 Item::line_l() const
 {
-  Graphical_element *g =parent_l (X_AXIS);
+  Graphical_element *g = parent_l (X_AXIS);
   if (!g)
     return 0;
   return dynamic_cast <Score_element *> (g)-> line_l ();
@@ -63,36 +61,63 @@ Item::copy_breakable_items()
   Direction  i=LEFT;
   do 
     {
-      Item * item_p = dynamic_cast<Item*>(clone());
+      Score_element * dolly = clone();
+      Item * item_p = dynamic_cast<Item*>(dolly);
 
       item_p->break_status_dir_ =  i;
       pscore_l_->typeset_element (item_p);
-      item_p->handle_prebroken_dependencies();
       new_copies[i] =item_p;
     }
   while (flip(&i) != LEFT);
   broken_to_drul_= new_copies;
+
+  do 
+    {
+       broken_to_drul_[i]->handle_prebroken_dependencies();
+       broken_to_drul_[i]->try_visibility_lambda();
+    }
+  while (flip(&i) != LEFT);
+  try_visibility_lambda ();
+}
+
+void
+Item::try_visibility_lambda ()
+{
+  if (visibility_lambda_)
+    {
+      SCM args = scm_listify (gh_int2scm (break_status_dir_), SCM_UNDEFINED);
+      SCM result = gh_apply (visibility_lambda_, args);
+      int trans = gh_scm2bool (gh_car (result));
+      int empty = gh_scm2bool (gh_cdr (result));
+
+      if (empty)
+	set_empty (true);
+      if (trans)
+	transparent_b_ = true;
+    }
+}
+
+void
+Item::do_break ()
+{
+  copy_breakable_items();
+  handle_prebroken_dependencies();
+  
+  /*
+    Otherwise the broken items won't be pre_process()'ed.
+  */
+  add_dependency (broken_to_drul_[LEFT]);
+  add_dependency (broken_to_drul_[RIGHT]);
+
 }
 
 void
 Item::do_breakable_col_processing()
 {
-  if (!breakable_b_)
-    return;
+  if (breakable_b_)
+    do_break ();
 
-  if (!column_l ()->breakable_b_)
-    return;
-
-  copy_breakable_items();
-  handle_prebroken_dependencies();
-
-  /*
-    Otherwise the broken items won't be pre_process()'ed.
-  */
-  add_dependency (broken_to_drul_[LEFT]);
-  add_dependency (broken_to_drul_[RIGHT]);    
 }
-
 Item*
 Item::find_prebroken_piece (Line_of_score*l) const
 {
@@ -176,8 +201,34 @@ Item::Item (Item const &s)
   unbroken_original_l_ = &s;
   /* do not copy attached_span_l_arr_ */
   breakable_b_ = s.breakable_b_;
+  visibility_lambda_ = s.visibility_lambda_;
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
   break_status_dir_ = s.break_status_dir_;
   break_priority_i_ = s.break_priority_i_;
+}
+
+
+void
+Item::handle_prebroken_dependents ()
+{
+  Dimension_cache * dim = dim_cache_[X_AXIS].parent_l_;
+  if (!dim)
+    return;
+  
+  Item * parent =  dynamic_cast<Item*> (dim->element_l ());
+  if (parent && parent->broken_to_drul_[LEFT])
+    {
+      if(!(broken_to_drul_[LEFT] || broken_to_drul_[RIGHT]))
+	do_break ();
+
+      Direction d = LEFT;
+      do
+	{
+	  broken_to_drul_[d]->dim_cache_[X_AXIS].parent_l_ =
+	    &parent->broken_to_drul_[d]->dim_cache_[X_AXIS];
+	  parent->broken_to_drul_[d]->add_dependency (broken_to_drul_[d]);
+	}
+      while ((flip (&d))!=LEFT);
+    }
 }
 

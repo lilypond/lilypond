@@ -7,20 +7,18 @@
 */
 
 #include "staff-margin-engraver.hh"
-#include "script.hh"
-#include "text-def.hh"
-#include "paper-def.hh"
-#include "command-request.hh"
 #include "bar.hh"
-#include "stem.hh"
 #include "time-description.hh"
-
+#include "g-text-item.hh"
 
 ADD_THIS_TRANSLATOR (Staff_margin_engraver);
 
 Staff_margin_engraver::Staff_margin_engraver ()
 {
-  script_p_ = 0;
+  axis_ = X_AXIS;
+  type_ = "margin";
+  visibility_lambda_
+    = gh_eval_str ("(lambda (d) (if (= d 1) '(#f . #f) '(#t . #t)))");
 }
 
 
@@ -40,51 +38,25 @@ Staff_margin_engraver::Staff_margin_engraver ()
 void
 Staff_margin_engraver::acknowledge_element (Score_element_info i)
 {
-  Item * it =  dynamic_cast <Item *> (i.elem_l_);
+  Bar * b =dynamic_cast<Bar *> (i.elem_l_);
+  if (!b)
+    return ;
 
-  if (!it
-      || script_p_ 
-      || !(dynamic_cast<Bar *> (it))
-      || (i.origin_grav_l_arr_.size() != 1))
+  if (i.origin_grav_l_arr_.size() != 1)
     return;
 
-  String string = get_property ("instrument", 0);
+
+  String long_str = get_property ("instrument", 0);
   String str = get_property ("instr", 0);
   if (now_moment () > Moment (0))
-    string = str;
+    long_str = str;
 
-  if (!string.length_i ())
+  if (!long_str.empty_b ())
     return;
 
-  script_p_ = new Script;
-  script_p_->axis_ = X_AXIS;
-  
-  Text_def *td_p =new Text_def;
-  td_p->align_dir_ = LEFT;
-  td_p->text_str_ = string;
-  script_p_->dir_ = LEFT;
-  script_p_->specs_p_ = td_p;
-  script_p_->breakable_b_ = true;
-
-  
-  Scalar pri = get_property ("marginBreakPriority", 0);
-  if (pri.length_i () && pri.isnum_b ())
-    {
-      script_p_->break_priority_i_ = int (pri);
-    }
-  else
-    script_p_ ->break_priority_i_ = it->break_priority_i_;
-
-  announce_element (Score_element_info (script_p_, 0));
+  create_items (0);
+  text_p_->text_str_ = long_str;
+  Bar_script_engraver::acknowledge_element(i);
 }
 
-void
-Staff_margin_engraver::do_pre_move_processing ()
-{
-  if (script_p_) 
-    {
-      typeset_element (script_p_);
-      script_p_ =0;
-    }
-}
 

@@ -297,6 +297,11 @@ articulation.  This stress pattern is called \emph{meter}.
 
 \subsection{Music notation}
 
+Music notation is a system that tries to represent musical ideas
+through printed symbols.  Music notation has no precise definition,
+but most conventions have described in reference manuals on music
+notation\cite{read-notation}.
+
 In music notation, sounds and silences are represented by symbols that
 are called note and rest respectively.\footnote{These names serve a
   double purpose: the same terms are used to denote the musical
@@ -343,18 +348,176 @@ linewidth = -1.;
     \label{fig:noteshapes}
 \end{center}
 \end{figure}
-      
 
 Notes are printed in a grid of horizontal lines called \emph{staff} to
-denote their pitch: each line represents the pitch of from the 
+denote their pitch: each line represents the pitch of from the
+standard scale (c, d, e, f, g, a, b).  The reference point is the
+\emph{clef}, eg., the treble clef marks the location of the $g^1$
+pitch.  The notes are printed in their time order, from left to right.
+
+
+\begin{figure}[h]
+  \begin{center}
+    \begin{mudela}
+      \score { \notes {
+      a4 b c d e f g a \clef bass;
+      a4 b c d e f g a \clef alto;
+      a4 b c d e f g a \clef treble;
+      }
+      \paper { linewidth = 15.\cm; }
+      }
+    \end{mudela}
+    \caption{Pitches ranging from $a, b, c',\ldots a'$, in different
+      clefs.  From left right the bass, alto and treble clef are
+      featured.}
+    \label{fig:pitches}
+  \end{center}
+\end{figure}
+
+The chromatic alterations are indicated by printing a flat sign or a
+sharp sign in front of the note head.  If these chromatic alterations
+occur systematically (if they are part of the tonality of the piece),
+then this indicated with a \emph{key signature}.  This is a list of
+sharp/flat signs which is printed next to the clef.
+
+Articulation is notated by marking the note shapes wedges, hats and
+dots all indicate specific articulations.  If the notes are to be
+bound fluently (legato), the note shapes are encompassed by a smooth
+curve called \emph{slur},
+
+\begin{figure}[h]
+  \begin{center}
+    \begin{mudela}
+      c'4-> c'4-. g'4 ( b'4  ) g''4
+    \end{mudela}
+    \caption{Some articulations.  From left to right: extra stress
+      (\emph{marcato}), short (staccato), slurred notes (legato).}
+    \label{fig:articulation}
+  \end{center}
+\end{figure}
+
+
+
+Dynamics are notated in two ways: absolute dynamics are indicated by
+letters: \textbf{f} (from Italian ``forte'') stands for loud,
+\textbf{p} (from Italian ``piano'') means soft.  Gradual changes in
+loudness are notated by (de)crescendos.  These are hairpin like shapes
+below the staff.
+
+\begin{figure}[h]
+  \begin{center}
+    \begin{mudela}
+      g'4\pp \<  g'4 \! g'4 \ff \> g'4 g' \! g'\ppp
+    \end{mudela}
+    \caption{Dynamics: start very soft (pp), grow to loud (ff) and
+      decrease to extremely soft (ppp)}
+    \label{fig:dynamics}
+  \end{center}
+\end{figure}
+
+
+The meter is indicated by barlines: every start of the stress pattern
+is preceded by a vertical line, the \emph{bar line}.  The space
+between two bar lines is called measure.  It is therefore the unit of
+the rhythmic pattern.
+
+The time signature also indicates what kind of rhythmic pattern is
+desired.  The time signature takes the form of two numbers stacked
+vertically. The top number is the number of beats in one measure, the
+bottom number is the duration (relative to the whole note) of the note
+that takes  one beat.  Example: 2/4  time signature means ``two beats
+per measure, and a quarter note takes one beat''
+
+Chords are written by attaching multiple note heads to one stem.  When
+the composer wants to emphasize the horizontal relationships between
+notes, the simultaneous notes can be written as voices (where every
+note head has its own stem).  A small example is given in
+Figure~\ref{fig:simultaneous}.
+
+\begin{figure}[h]
+  \begin{center}
+    \begin{mudela}
+      \relative c'' {\time 2/4;  <c4 e> <d f>
+                \type Staff < \type Voice = VA{
+                  \stemdown
+                  c4 d
+                  b16 b b b b b b b }
+                \type Voice = VB {
+                  \stemup e4 f g8 g4 g8 } >
+          }
+    \end{mudela}
+    \caption{Notes sounding together.  Chord notation (left, before
+      the bar line) emphasizes vertical relations, voice notation
+      emphasizes horizontal relations. Separate voices needn't have
+      synchronous rhythms (third measure). 
+      }
+    \label{fig:simultaneous}
+  \end{center}
+\end{figure}
+
+Separate voices do not have to share one rhythmic pattern---this is
+also demonstrated in Figure~\ref{fig:simultaneous}--- they are in a sense%vaag
+independent.  A different way to express this in notation, is by
+printing each voice on a different staff.  This is customary when
+writing for piano (both left and right hand have a staff of their own)
+and for ensemble (every instrument has a staff of its own).
+
+
 
 \subsection{Music typography}
 
+Music typography is the art of placing symbols in esthetically
+pleasing configuration.  Little is explicitly known about music
+typography.  There are only a few reference works
+available\cite{ross,wanske}.  Most of the knowledge of this art has
+been transmitted verbally, and was subsequently lost.
 
+The motivation behind choices in typography is to represent the idea
+as clearly as possible. Among others, this results in the following
+guidelines:
+\begin{itemize}
+\item The printed score should use visual hints to accentuate the
+  musical content
+\item The printed score should not contain distracting elements, such
+  as large empty regions or blotted regions.
+\end{itemize}
 
+An example of the first guideline in action is the horizontal spacing.
+The amount of space following a note should reflect the duration of
+that note: short notes get a small amount of space, long notes larger
+amounts.  Such spacing constraints can be quite subtle, for the
+``amount of space'' is only the impression that should be conveyed; there
+has to be some correction for optical illusions.  See
+Figure~\ref{fig:spacing}.
 
+\begin{figure}[h]
+  \begin{center}
+    \begin{mudela}
+      \relative c'' { \time 3/4; c16 c c c c8 c8 | f4 f, f'  }
+    \end{mudela}
+    \caption{Spacing conveys information about duration. Sixteenth
+      notes at the left get less space than quarter notes in the
+      middle. Spacing is ``visual'', there should be more space
+      after  the first note of the last measure, and  less after second. }
+    \label{fig:spacing}
+  \end{center}
+\end{figure}
 
-
+Another clearly visible example of music typography is visible in
+collisions.  When chords or separate voices are printed, the notes
+that start at the same time should be printed aligned (ie., with the
+same $x$ position).  If the pitches are close to each other, the note
+heads would collide. To prevent this, some notes (or note heads) have
+to be shifted horizontally.  An example of this is given in Figure~\ref{fig:collision}.
+\begin{figure}[h]
+  \begin{center}
+    \begin{mudela}
+      
+    \end{mudela}
+    \caption{Collisions}
+    \label{fig:collision}
+  \end{center}
+\end{figure}
 
 \bibliographystyle{hw-plain}
 \bibliography{engraving,boeken,colorado,computer-notation,other-packages}

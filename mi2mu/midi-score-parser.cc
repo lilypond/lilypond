@@ -23,7 +23,6 @@ Midi_score_parser::open (String filename_str, Sources* sources_l)
   if (!info_l_->source_l_)
     ::error (_f ("can't find file: `%s\'", filename_str));
   info_l_->byte_L_ = (Byte const*)info_l_->source_l_->ch_C ();
-//  info_l_->end_byte_L_ = info_l_->byte_L_ + info_l_->source_l_->length_i ();
   info_l_->end_byte_L_ = info_l_->byte_L_ + info_l_->source_l_->length_i () + 1;
 }
 

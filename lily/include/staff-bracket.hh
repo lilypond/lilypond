@@ -20,7 +20,7 @@ public:
 protected:
   virtual Interval do_width() const;
   virtual void do_post_processing();
-  virtual Atom get_bar_sym (Real) const;
+  virtual Molecule get_bar_sym (Real) const;
 };
 
 

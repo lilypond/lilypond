@@ -26,6 +26,6 @@
 			minVerticalAlign = 3.0*\staffheight;
 			maxVerticalAlign = 3.0*\staffheight;
 		}
-		linewidth=-1.;
+%		linewidth=-1.;
 	}
 }

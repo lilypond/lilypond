@@ -23,10 +23,11 @@ sarabande_viola_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef alto;
-	\skip 2.*12;
-	\bar ":|:";
-	\skip 2.*16;
-	\bar ":|";
+	\repeat 2 {
+		s2.*12
+	} \repeat 2 {
+		s2.*16
+	}
 }
 
 sarabande_viola_scripts = \notes{
@@ -40,7 +41,20 @@ sarabande_viola_staff = \type Staff <
 
 \score{
 	\$sarabande_viola_staff
-	\include "scs-paper.ly";
+	% \paper { \include "scs-paper.ly"; }
+	\paper{
+	        linewidth = 180.\mm;
+		\translator { \BarNumberingStaffContext }
+		\translator{
+			\VoiceContext
+			% add experimental auto-beaming
+			\consists Auto_beam_engraver;
+			beamAuto = 1.;
+			beamAutoEnd8 = "1/4";
+			beamAutoEnd16 = "1/4";
+			beamAutoEnd32 = "1/4";
+		}
+	}
 	\midi{ \tempo 4 = 40; }
 	\header{ piece = "Sarabande"; }
 }

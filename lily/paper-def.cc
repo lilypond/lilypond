@@ -22,9 +22,17 @@
 #include "paper-outputter.hh"
 #include "paper-stream.hh"
 
+
+#define SCMVAR(s)  { static SCM sym; \
+	if (!sym)\
+		sym = scm_protect_object (ly_symbol (#s));\
+	return get_realvar (sym); }
+
+
 Paper_def::Paper_def ()
 {
   lookup_p_tab_p_ = new Hash_table<int, Lookup*>;
+  lookup_p_tab_p_->hash_func_ = int_hash;
 }
 
 
@@ -42,6 +50,8 @@ Paper_def::Paper_def (Paper_def const&s)
   : Music_output_def (s)
 {
   lookup_p_tab_p_ = new Hash_table<int, Lookup*>;
+  lookup_p_tab_p_->hash_func_ = int_hash;
+  
   for (Hash_table_iter<int, Lookup*> ai(*s.lookup_p_tab_p_); ai.ok (); ai++)
     {
       Lookup * l = new Lookup (*ai.val ());
@@ -53,12 +63,18 @@ Paper_def::Paper_def (Paper_def const&s)
 Real
 Paper_def::get_var (String s) const
 {
+  return get_realvar (ly_symbol (s));
+}
+
+Real
+Paper_def::get_realvar (SCM s) const
+{
   if (!scope_p_->elem_b (s))
-    error (_f ("unknown paper variable: `%s\'", s));
+    error (_f ("unknown paper variable: `%s\'", symbol_to_string (s)));
   Real * p = scope_p_->elem (s)->access_content_Real (false);
   if (!p)
     {
-      error (_ ("not a real variable"));
+      error (_("not a real variable"));
       return 0.0;
     }
 
@@ -83,13 +99,13 @@ Paper_def::line_dimensions_int (int n) const
 Real
 Paper_def::beam_thickness_f () const
 {
-  return get_var ("beam_thickness");
+SCMVAR(beam_thickness);
 }
 
 Real
 Paper_def::linewidth_f () const
 {
-  return get_var ("linewidth");
+SCMVAR(linewidth);
 }
 
 Real
@@ -131,49 +147,50 @@ Paper_def::set_lookup (int i, Lookup*l)
   (*lookup_p_tab_p_)[i] = l;
 }
 
+
 Real
 Paper_def::interline_f () const
 {
-  return get_var ("interline");
+  SCMVAR(interline)
 }
 
 Real
 Paper_def::rule_thickness () const
 {
-  return get_var ("rulethickness");
+  SCMVAR(rulethickness);
 }
 
 Real
 Paper_def::staffline_f () const
 {
-  return get_var ("rulethickness");
+  SCMVAR(rulethickness)
 }
 
 Real
 Paper_def::staffheight_f () const
 {
-  return get_var ("staffheight");
+  SCMVAR(staffheight)
 }
 
 Real
 Paper_def::interbeam_f (int multiplicity_i) const
 {
   if (multiplicity_i <= 3)
-    return get_var ("interbeam");
+    SCMVAR(interbeam)
   else
-    return get_var ("interbeam4");
+    SCMVAR(interbeam4)
 }
 
 Real
 Paper_def::internote_f () const
 {
-  return get_var ("interline") /2.0 ;
+  return interline_f () /2.0 ;
 }
 
 Real
 Paper_def::note_width () const
 {
-  return get_var ("notewidth");
+SCMVAR(notewidth)
 }
 
 void
@@ -185,8 +202,7 @@ Paper_def::print () const
 
   for (Hash_table_iter<int, Lookup*> ai(*lookup_p_tab_p_); ai.ok (); ai++)
     {
-      DOUT << "Lookup: " << ai.key () ;
-      ai.val ()->print ();
+      DOUT << "Lookup: " << ai.key () << " = " << ai.val ()->font_name_ << '\n';
     }
 
   DOUT << "}\n";
@@ -214,8 +230,6 @@ Paper_def::reset_default_count()
 {
   default_count_i_ = 0;
 }
-
-extern char const* lily_version_number_sz ();
 
 Paper_outputter*
 Paper_def::paper_outputter_p (Paper_stream* os_p, Header* header_l, String origin_str) const

@@ -183,8 +183,6 @@ verb(
 Options to configure include:
 
 description(
-dit(bf(--enable-guile))
-    Link in GUILE (experimental)
 dit(bf(--enable-printing))
     Enable debugging print routines (lilypond bf(-D) option)
 dit(bf(--enable-optimise))

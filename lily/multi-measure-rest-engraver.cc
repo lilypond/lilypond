@@ -24,8 +24,8 @@ ADD_THIS_TRANSLATOR (Multi_measure_rest_engraver);
 Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 {
   start_measure_i_ = 0;
-  rest_stop_mom_ =0;
-  // rest_item_creation_mom_ = 0;
+  rest_moments_[START] =
+    rest_moments_[STOP] =0;
   multi_measure_req_l_ = 0;
   mmrest_p_ = 0;
 }
@@ -49,13 +49,13 @@ Multi_measure_rest_engraver::do_try_music (Music* req_l)
    {
      if (multi_measure_req_l_)
        if (!multi_measure_req_l_->equal_b (mr)
-	   || rest_start_mom_ != now_moment ())
+	   || rest_moments_[START] != now_moment ())
 	 return false;
   
      multi_measure_req_l_ = mr;
-     rest_start_mom_ = now_moment ();
+     rest_moments_[START] = now_moment ();
      
-     rest_stop_mom_ = rest_start_mom_ + multi_measure_req_l_->duration_.length ();
+     rest_moments_[STOP] = rest_moments_[START] + multi_measure_req_l_->duration_.length ();
      return true;
    }
  return false;
@@ -78,7 +78,7 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
 {
   Moment now (now_moment ());
   Time_description const *time = get_staff_info().time_C_;
-  if (mmrest_p_ && (now >= rest_start_mom_) 
+  if (mmrest_p_ && (now >= rest_moments_[START]) 
     && !time->whole_in_measure_
     && (mmrest_p_->column_arr_.size () >= 2))
     {
@@ -107,7 +107,7 @@ Multi_measure_rest_engraver::do_post_move_processing ()
       mmrest_p_ = 0;
     }
 
-  if (now >= rest_stop_mom_)
+  if (now >= rest_moments_[STOP])
     {
       multi_measure_req_l_ = 0;
       mmrest_p_ = 0;

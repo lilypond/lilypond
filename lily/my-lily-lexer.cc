@@ -62,9 +62,7 @@ static Keyword_ent the_key_tab[]={
   {"script", SCRIPT},
   {"shape", SHAPE},
   {"skip", SKIP},
-  {"table", TABLE},
   {"spandynamic", SPANDYNAMIC},
-  {"symboltables", SYMBOLTABLES},
   {"tempo", TEMPO},
   {"translator", TRANSLATOR},
   {"type", TYPE},
@@ -93,9 +91,11 @@ My_lily_lexer::lookup_keyword (String s)
 Identifier*
 My_lily_lexer::lookup_identifier (String s)
 {
+  SCM sym = ly_symbol (s.ch_C());
+  
   for (int i = scope_l_arr_.size (); i--; )
-    if (scope_l_arr_[i]->elem_b (s))
-      return (*scope_l_arr_[i])[s];
+    if (scope_l_arr_[i]->elem_b (sym))
+      return scope_l_arr_[i]->elem(sym);
   return 0;
 }
 
@@ -136,7 +136,7 @@ My_lily_lexer::set_identifier (String name_str, Identifier* i, bool )
       warning (  _f ("Identifier name is a keyword (`%s')", name_str));
     }
   
-  (*scope_l_arr_.top ())[name_str] = i;
+  scope_l_arr_.top ()->elem (name_str) = i;
 }
 
 My_lily_lexer::~My_lily_lexer()

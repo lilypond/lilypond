@@ -55,8 +55,8 @@ if ! make install ; then
     exit 1
 fi
 
-if ! make -C Documentation/man doc ; then
-    echo "make -C documentation/man doc failed"
+if ! make -C Documentation/man WWW ; then
+    echo "make -C documentation/man WWW failed"
     exit 1
 fi
 
@@ -74,6 +74,29 @@ fi
 #
 cp $CYGWIN_LIB $distdir/bin
 
+ASH_EXE=$PACKAGE_ROOTDIR/distfiles/winnt/ash.exe
+if [ ! -e $ASH_EXE ]; then
+    echo "Unable to locate $ASH_EXE"
+    exit 1
+fi
+
+#
+# copy ash into bin
+#
+cp $ASH_EXE $distdir/bin
+
+GUILE_SCM=$PACKAGE_ROOTDIR/distfiles/winnt/ice-9
+if [ ! -e $GUILE_SCM ]; then
+    echo "Unable to locate $GUILE_SCM"
+    exit 1
+fi
+
+#
+# copy guile init files into share/lilypond
+#
+echo "copy $GUILE_SCM to $distdir/share/lilypond"
+cp -r $GUILE_SCM $distdir/share/lilypond
+
 #
 # Rename python files to <filename>.py
 #
@@ -85,8 +108,7 @@ mv $distdir/bin/mudela-book $distdir/bin/mudela-book.py
 # copy man documentation to doc directory
 #
 mkdir $distdir/doc
-cp Documentation/man/out/*.txt $distdir/doc
-mv $distdir/doc/ly2dvi32.txt $distdir/doc/ly2dvi.txt
+cp Documentation/man/out/*.html $distdir/doc
 cd $distdir/..
 $ZIP_CMD $ZIP_FILE $name
 echo "Wrote $ZIP_FILE"

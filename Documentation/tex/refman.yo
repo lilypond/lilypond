@@ -165,7 +165,7 @@ keywords: code(\mm), code(\pt), code(\in), or code(\cm).  Dimensions
 are converted immediately to a real which gives the dimension in
 points, so they can be mixed with reals, but the result is no longer
 of type dimension.  The keywords that require a dimension
-(code(\shape) and code(\symboltables)) will not accept this.
+(code(\shape)).
 
 dit(pitch) 
 A pitch is a string which is the name of a pitch.  Example: code(a).
@@ -224,8 +224,8 @@ will only be able to refer to identifiers whose names begin with a
 letter and are entirely alphanumeric.  It is also impossible to refer
 to an identifier whose name is the same as the name of a keyword.  The
 following words are keywords:
-verb(absdynamic    grouping       mm              relative     symboltables
-accepts       header         musicalpitch    remove       table
+verb(absdynamic    grouping       mm              relative     
+accepts       header         musicalpitch    remove       
 alternative   in             name            repeat       tempo
 bar           include        notenames       scm          time
 cadenza       key            notes           scmfile      times
@@ -929,7 +929,7 @@ note, etc.  The number of dots  after  the  note is given by
 var(dotcount). 
 
 dit(code(\font) var(string)) Internal keyword.  Used within
-code(\symboltables) to specify the font.
+code(\paper) to specify the font.
 
 dit(code(\grouping) var(durationseq)code(;))  Sets  the  metric structure of
 the measure.  Each argument specifies the duration of one metric unit.
@@ -973,9 +973,9 @@ files like file(init.fly) that read the user file into the middle of another
 file.  Using it in a user file will lead to an infinite loop.
         
 dit(code(\mark) var(unsigned)code(;) or code(\mark) var(string)code(;)) 
-Allowed in music only.  Prints a mark over or under (?) the staff.
-You must add code(Mark_engraver) to the Score context and it only
-seems to work if the mark appears at the beginning of a line.
+Allowed in music only.  Prints a mark over or under (depending on the
+code(markDirection) property) the staff.
+You must add code(Mark_engraver) to the Score context.
 
 dit(code(\midi) var(statementlist)) Appears in a score block to
 indicate that musical output should be produced and to set output
@@ -1093,13 +1093,6 @@ var(kind) is set to 1 for a crescendo and -1 for a decrescendo.  The
 second parameter is set to 1 to start the mark and 2 to stop it.
 Users should use the abbreviations which are defined in the
 initialization file file(dynamic.ly).
-
-dit(code(\symboltables)) Internal keyword.  Used to create symbol
-tables.  See initialization files file(paper*.ly), file(feta*.ly), and
-file(table*.ly).  
-
-dit(code(\table)) Internal keyword.  Used within code(\symboltables)
-to specify the tables.  See initialization files. 
 
 dit(code(\tempo) var(duration) = var(perminute)code(;)) Used within
 code(\midi) or within music to specify the tempo.  For example, 
@@ -1300,6 +1293,13 @@ labelled.  Setting to 0 shows nothing; setting to 1 shows a number;
 setting to 2 shows a number and a bracket if there is no beam; setting
 to 3 shows a number, and if there is no beam it adds a bracket;
 setting to 4 shows both a number and a bracket unconditionally.  
+
+dit(code(markScriptPadding)) Determines the extra space added between
+the mark and the closest staff line or note.
+
+dit(code(markDirection)) Determines if marks should be printed above
+or below the staff. Set to code(\up) to print marks above the staff;
+set to code(\down) to print marks below the staff.
 
 )
 
@@ -1566,7 +1566,7 @@ inside a code(\paper) block.
 
 description(
   dit(var(integer)) If an integer appears on the left side of an
-assignment then a code(\symboltables) keyword must appear on the right
+assignment then a code(\font) keyword must appear on the right
 side.  This defines a music font at a particular size.  See Voice
 property code(\fontsize).
 

@@ -9,11 +9,23 @@
 
 #include "g-staff-side.hh"
 
+G_staff_side_item::G_staff_side_item ()
+{
+  dir_ = CENTER;
+  to_position_l_ = 0;
+  transparent_b_ = true;
+  padding_f_ = 0;
+}
+
+
 void
 G_staff_side_item::do_pre_processing ()
 {
   if (!dir_)
     set_default_direction ();
+
+  if (axis_ == X_AXIS)
+    position_self ();
 }
 
 void
@@ -22,12 +34,6 @@ G_staff_side_item::set_default_direction ()
   dir_ = DOWN;
 }
 
-G_staff_side_item::G_staff_side_item ()
-{
-  dir_ = CENTER;
-  to_position_l_ = 0;
-  transparent_b_ = true;
-}
 
 void
 G_staff_side_item::set_victim (Score_element *e)
@@ -54,28 +60,33 @@ G_staff_side_item::do_substitute_dependency (Score_element*o, Score_element*n)
     support_l_arr_.unordered_substitute (o,n);
 }
 
-
 void
-G_staff_side_item::do_post_processing ()
+G_staff_side_item::position_self ()
 {
   if (!support_l_arr_.size ())
     return ;
   
   Dimension_cache *common = common_group (typecast_array (support_l_arr_, (Graphical_element*)0),
-					  Y_AXIS);
+					  axis_);
 
   Interval dim;
   for (int i=0; i < support_l_arr_.size (); i++)
     {
       Score_element * e = support_l_arr_ [i];
-      Real coord = e->relative_coordinate (common, Y_AXIS);
-      dim.unite (coord + e->extent (Y_AXIS));
+      Real coord = e->relative_coordinate (common, axis_);
+      dim.unite (coord + e->extent (axis_));
     }
-  if (!support_l_arr_.size ())
-    dim = Interval (0,0);
 
-  Interval sym_dim = to_position_l_->extent (Y_AXIS);
-  Real off = dim_cache_[Y_AXIS].relative_coordinate (common);
+  Interval sym_dim = to_position_l_->extent (axis_);
+  Real off = dim_cache_[axis_].relative_coordinate (common) - padding_f_ * dir_;
   
-  dim_cache_[Y_AXIS].set_offset (dim[dir_] - sym_dim[-dir_] - off);
+  dim_cache_[axis_].set_offset (dim[dir_] - sym_dim[-dir_] - off);
 }
+
+void
+G_staff_side_item::do_post_processing ()
+{
+  if (axis_ == Y_AXIS)
+    position_self ();
+}
+

@@ -16,16 +16,6 @@ Span_score_bar::Span_score_bar()
 {
 }
 
-void
-Score_bar::do_pre_processing ()
-{
-  type_str_ = "|";
-  if (break_status_dir() != RIGHT) 
-    {
-      set_empty (true);
-      transparent_b_ = true;
-    }
-}
 
 void
 Span_score_bar::do_pre_processing()
