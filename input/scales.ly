@@ -7,20 +7,20 @@ blah =
 \duration { 8 }
 			\octave{ }
 			 |[ a a a a a a a a a ]6/9 
-			\octave{ ' }
+			\octave{ 1 }
 			 |[ a a a a a a a a a ]6/9 
-			\octave { ` } 
-			 [ `c `g d a e' b' f'' c''' g''' ]6/9
-			 [ g''' c''' f'' b' e' a d `g `c ]6/9
-			\octave{ ' }
-			 [ `c `g d a e' b' f'' c''' g''' ]6/9
-			 [ g''' c''' f'' b' e' a d `g `c ]6/9
+			\octave { ' } 
+			 [ 'c 'g d a e' b' f'' c''' g''' ]6/9
+			 [ g''' c''' f'' b' e' a d 'g 'c ]6/9
+			\octave{ 1 }
+			 [ 'c 'g d a e' b' f'' c''' g''' ]6/9
+			 [ g''' c''' f'' b' e' a d 'g 'c ]6/9
 			\octave { } 
 			 [ c g d' ]2/3 
 			 [ d' g c ]2/3  
 			 [ f c' g' ]2/3 
 			 [ g' c' f ]2/3  
-			\octave{ ' }
+			\octave{ 1 }
 			 [ c g d' ]2/3 
 			 [ d' g c ]2/3  
 			 [ f c' g' ]2/3 
@@ -42,7 +42,7 @@ c1
 	[c d e f][g a b c'] % 10 
 	|[c' b a g][f e d c]
 			
-		}
+	}
 }
 
 \score {
