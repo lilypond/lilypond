@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.0"  %% or actually: 1.7.1 ...
 \header {
 texidoc= "Using make-music, you can add
 various stuff to notes. Here is an example
@@ -9,7 +9,7 @@ create, then write a function that will build the structure for you."
 } 
 
 #(define (make-text-script x) 
-   (let ((m (ly-make-music "Text_script_req")))
+   (let ((m (make-music-by-name "Text_script_req")))
      (ly-set-mus-property! m 'text-type 'finger)
      (ly-set-mus-property! m 'text x)
      m))

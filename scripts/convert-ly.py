@@ -965,6 +965,13 @@ if 1:
 	
 	conversions.append (((1,5,72), conv, 'set! point-and-click -> set-point-and-click!'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('ly-make-music', 'make-music-by-name', str)
+		return str
+	
+	conversions.append (((1,7,1), conv, 'ly-make-music -> make-music-by-name'))
+
 
 ################################
 #	END OF CONVERSIONS	

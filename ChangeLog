@@ -1,5 +1,11 @@
 2002-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/convert-ly.py: Add rule.
+
+	* input/test/music-creation.ly:
+	* input/test/add-staccato.ly:
+	* input/test/add-text-script.ly: ly-make-music.
+
 	* scm/drums.scm (make-head-type-elem, make-articulation-script):
 	More ly-make-music renamings.
 
