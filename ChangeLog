@@ -7,6 +7,8 @@
 
 2002-04-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/windows/setup.hint (requires): Add gsview dependency.
+
 	* scripts/lilypond-book.py (re_dict): Fix for python 2.x.
 
 	* lilypond-mode.el (LilyPond-xdvi-command): Default to plain xdvi.
