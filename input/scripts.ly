@@ -1,10 +1,10 @@
 	
-\version "0.1.9";
+\version "0.1.10";
 
 
 blah = 	\melodic {
 	\octave c';
-	'c ->-.-\fermata-"text"
+	'c4 ->-.-\fermata-"text"
 	c ->-.-\fermata-"text"
 	c' ->-.-\fermata-"text"
 	c'' ->-.-\fermata-"text"
@@ -45,9 +45,8 @@ blah = 	\melodic {
 	\stemboth
 
       \meter 4/4;
-	\duration  8;
 	\octave c';
-	[c \< d e \! f][d' \> e' f' \! g'] 
+	[c8 \< d e \! f][d' \> e' f' \! g'] 
 	[c-> \< d-> e-> \! f->][d'-> \> e'-> f'-> \! g'->] 
 	[c-^ \< d-^ e-^ \! f-^][d'-^ \> e'-^ f'-^ \! g'-^] 
 	[c-. \< d-. e-. \! f-.][d'-. \> e'-. f'-. \! g'-.]

@@ -15,7 +15,7 @@ copyright =	 "public domain";
 Tested Features: lyrics, interleaving lyrics and staffs
 %}
 
-\version "0.1.9";
+\version "0.1.10";
 
 melody = \melodic{
 	\clef violin;
@@ -36,7 +36,6 @@ melody = \melodic{
 accompany = \melodic {
 	\clef "bass";
 	\octave 'c;
-	\duration 4;
 	c4 c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 | 
 
