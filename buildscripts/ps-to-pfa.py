@@ -93,7 +93,7 @@ def header (f):
 /FontType 3 def                             %% Required elements of font
 /FontName /%s def""" % font_name)
 	f.write (r"""
-/FontMatrix [.083 0 0 .083 0 0] def       %% why .83?
+/FontMatrix [.083 0 0 .083 0 0] def       %% 12 is default height: 1/12 = 0.083
 /FontBBox [-1000 -1000 1000 1000] def	  %% does not seem to matter.
 /Encoding 256 array def                     %% Trivial encoding vector
 0 1 255 {Encoding exch /.notdef put} for

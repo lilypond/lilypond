@@ -10,10 +10,12 @@
 #ifndef DICTIONARY_HH
 #define DICTIONARY_HH
 
+#include <map>
+
+
 #include "string.hh"
 #include "array.hh"
 
-#include <map>
 
 unsigned int string_hash (String);
 

@@ -187,4 +187,5 @@
 	)
   )
 
-
+(define (scm-as-output)
+  (ly-eval (as-scm 'all-definitions)))
