@@ -18,8 +18,8 @@ import time
 
 begin_autometric_re = regex.compile('@{')
 end_autometric_re = regex.compile('@}')
-autometric_re = regex.compile('@{\([^@]*\)@}')
-version = '0.3'
+autometric_re = regex.compile('@{\(.*\)@}')
+version = '0.4'
 
 class File:
     """silly wrapper for Python file object."""
@@ -63,10 +63,12 @@ class Feta_file(File):
     def readline(self):
 	"""return what is enclosed in one @{ @} pair"""
 	line = '';
-	while autometric_re.match(line) == -1 and not self.eof():
+	while autometric_re.search(line) == -1 and not self.eof():
 	    line = self.read_autometricline()
+
 	if self.eof():
 	    return '';
+
 	return autometric_re.group(1);
     def __init__(self, nm):
 	File.__init__(self, nm)
@@ -105,16 +107,20 @@ class Indentable_file(File):
 class Ly_file(Indentable_file):
     """extra provisions for mozarella quirks"""
     def print_lit(self, str):
-	self.write('\"' + str + '\" ')
+	self.write('\"%s\"\t' % str)
+
+    def print_f_dimen(self, f):
+	self.write( '%.2f\\pt\t' % f);
 
     def print_dimen(self, str):
-	self.write( '%.2f' % atof(str) + '\\pt ');
+	self.print_f_dimen(atof(str))
     
     def neg_print_dimen(self, str):
-	self.write( '%.2f' % -atof(str) + '\\pt ');
+	self.print_f_dimen(-atof(str));
+	
     def def_symbol(self, lily_id, tex_id, dims):
 	self.print_lit(lily_id)
-	self.print_lit('\\' + tex_id)
+	self.print_lit('\\\\' + tex_id)
 
 	self.neg_print_dimen(dims [0])
 	self.print_dimen(dims [1])
@@ -126,9 +132,10 @@ class Ly_file(Indentable_file):
 class Log_reader:
     """Read logs, destill info, and put into output files"""
     def output_label(self, line):
+
 	if not line:
 	    return;
-	tags = split(line, ':')
+	tags = split(line, '@:')
 	label = tags[0]
 	name = tags[1]
 	ly = self.lyfile	
@@ -155,14 +162,14 @@ class Log_reader:
 	    
 	    ly.def_symbol(id, texstr, tags[3:7])
 	    
-	    self.texfile.write("\\fetdef\\" + texstr + '{' + code + '}\n')
+	    self.texfile.write("\\fetdef\\%s{%s}\n" % (texstr, code))
 	else:
 	    raise 'unknown label: ' + label
 
 
     def do_file(self,filenm):
 	self.lyfile.write('\n% input from ' + filenm + '\n')
-	self.texfile.write('\n% input from ' + filenm + '\n')	
+	self.texfile.write('\n% input from ' + filenm + '\n')
 	feta = Feta_file(filenm)
 	while not feta.eof():
 	    line = feta.readline()
@@ -173,9 +180,9 @@ class Log_reader:
 	self.lyfile = Ly_file(lyfile_nm, 'w')
 	self.texfile = Indentable_file(texfile_nm, 'w')
 
-	headerstr = '% generated automatically by ' + program_id()
-	headerstr = headerstr + '\n% on ' + today_str()
-	headerstr = headerstr + '\n% Do not edit\n'
+
+	headerstr = '%% generated automatically by %s\n%% on %s\n%% Do not edit' % \
+		   (program_id(), today_str())
 
 	self.lyfile.write(headerstr)
 	self.texfile.write(headerstr)
