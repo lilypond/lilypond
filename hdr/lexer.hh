@@ -43,6 +43,7 @@ struct My_flex_lexer : yyFlexLexer {
     void new_input(String s);
     bool  close_input();
     int yylex();
+    void print_declarations() const;
 };
 
 extern My_flex_lexer *lexer;
