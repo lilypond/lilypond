@@ -73,15 +73,9 @@ efull = \chordnames {
     c:3-.5-.7- = \markup { \super " o" }
 
     %% Hmm
-    %%    	   ;;Pick your favorite maj7
-    %%	   ((0) mathm-markup-object)  ;;a white triangle
-    %%	   ;;((0) mathn-markup-object) ;;a black triangle
-    %% ;;((0) (make-simple-markup "maj7")) ;;good old maj7
 
     %% This ok?
     c:7+ = \markup { \normal-size-super \override #'(font-family . math) "N" }
-    %%c:3.5.7 = \markup { \override #'(font-family . math) "M" }
-    %%c:3.5.7 = \markup { \normal-size-super "maj7" }
 }
 
 epartial = \chordnames {

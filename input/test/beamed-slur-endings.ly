@@ -2,8 +2,8 @@
 
 \score{
 	\notes \relative c''{
-		\slurUp c8(()c())c4
-		\slurDown a8(()a)a4
+		\slurUp c8((c-)(c4-))
+		\slurDown a8-(-(a-)a4-)
 		\break
 
 		\slurDown a8(()a())a4
