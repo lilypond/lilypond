@@ -7,6 +7,8 @@
 
 	* Documentation/index.html.in: remove <hr>.
 
+	* THANKS: change 2.3 to 2.4.
+
 2004-11-05  Jan Nieuwenhuizen  <jannneke@gnu.org>
 
 	* scm/output-gnome.scm: More fontconfig comment.
