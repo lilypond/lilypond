@@ -1,3 +1,7 @@
+2004-09-27  Werner Lemberg  <wl@gnu.org>
+
+	* tex/lilyponddefs.tex (\lilypondstart): Use \frenchspacing.
+
 2004-09-26  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/examples.itely: removed \midi block to
