@@ -60,7 +60,7 @@ export XEDITOR='/usr/bin/emacsclient --no-wait +%l:%c %f'
 ;;;
 ;;;  * Run lily:
 "
-lilypond-bin -fgnome input/simple-song.ly
+lilypond -fgnome input/simple-song.ly
 "
 ;;; point-and-click: (mouse-1) click on a graphical object;
 ;;; grob-property-list: (mouse-3) click on a graphical object.
