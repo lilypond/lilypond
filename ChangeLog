@@ -1,3 +1,14 @@
+2004-11-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scripts/abc2ly.py (dump_slyrics): add ord(). 
+
+	* lily/note-heads-engraver.cc (process_music): add shapeNoteStyles
+	to regular engraver. 
+
+2004-11-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* mf/feta-bolletjes.mf (triangle): rewrite solfa heads.
+
 2004-11-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/define-markup-commands.scm (fill-line): Typo.

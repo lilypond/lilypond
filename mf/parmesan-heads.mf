@@ -129,15 +129,15 @@ enddef;
 %
 % (ze is wel breed)
 % 
-fet_beginchar("Neo-mensural maxima notehead", "-3neomensural", "neomensuralmaximahead");
+fet_beginchar("Neo-mensural maxima notehead", "s-3neomensural", "neomensuralmaximahead");
 	draw_neomensural_longa (2.6 staff_space#)
 fet_endchar;
 
-fet_beginchar("Neo-mensural longa notehead", "-2neomensural", "neomensurallongahead");
+fet_beginchar("Neo-mensural longa notehead", "s-2neomensural", "neomensurallongahead");
 	draw_neomensural_longa (2 staff_space#)
 fet_endchar;
 
-fet_beginchar("Neo-mensural brevis notehead", "-1neomensural", "neomensuralbrevishead")
+fet_beginchar("Neo-mensural brevis notehead", "s-1neomensural", "neomensuralbrevishead")
 	draw_neomensural_brevis(2 staff_space#);
 fet_endchar;
 
@@ -181,7 +181,7 @@ def draw_neomensural_open_head (expr wid, height)=
 	unfill z5 -- z6 -- z7 -- z8 --cycle;
 enddef;
 
-fet_beginchar("Neo-mensural open head","0neomensural","neomensuralsemibrevishead")
+fet_beginchar("Neo-mensural open head","s0neomensural","neomensuralsemibrevishead")
       draw_neomensural_open_head (staff_space#, noteheight#);
 fet_endchar;
 
@@ -198,11 +198,11 @@ fet_beginchar("Harmonic notehead (Neo-mensural open)",
 fet_endchar;
 
 
-fet_beginchar("Neo-mensural open head","1neomensural","neomensuralminimahead")
+fet_beginchar("Neo-mensural open head","s1neomensural","neomensuralminimahead")
       draw_neomensural_open_head (staff_space#, noteheight#);
 fet_endchar;
 
-fet_beginchar("Neo-mensural black head","2neomensural","neomensuralsemiminimahead")
+fet_beginchar("Neo-mensural black head","s2neomensural","neomensuralsemiminimahead")
       draw_neomensural_black_head (staff_space#, noteheight#);
 fet_endchar;
 
@@ -231,19 +231,19 @@ def draw_mensural_longa (expr wid) =
 	draw z6 .. z7;
 enddef;
 
-fet_beginchar("Mensural left stemmed notehead", "lmensural", "mensuralleftstemmedhead");
+fet_beginchar("Mensural left stemmed notehead", "slmensural", "mensuralleftstemmedhead");
 	draw_mensural_left_stemmed_head (staff_space#)
 fet_endchar;
 
-fet_beginchar("Mensural maxima notehead", "-3mensural", "mensuralmaximahead");
+fet_beginchar("Mensural maxima notehead", "-s3mensural", "mensuralmaximahead");
 	draw_mensural_longa (2.0 staff_space#)
 fet_endchar;
 
-fet_beginchar("Mensural longa notehead", "-2mensural", "mensurallongahead");
+fet_beginchar("Mensural longa notehead", "s-2mensural", "mensurallongahead");
 	draw_mensural_longa (staff_space#)
 fet_endchar;
 
-fet_beginchar("Mensural brevis notehead", "-1mensural", "mensuralbrevishead")
+fet_beginchar("Mensural brevis notehead", "s-1mensural", "mensuralbrevishead")
 	draw_mensural_brevis(staff_space#);
 fet_endchar;
 
@@ -288,15 +288,15 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 enddef;
 
 
-fet_beginchar("Mensural open head","0mensural","mensuralsemibrevishead")
+fet_beginchar("Mensural open head","s0mensural","mensuralsemibrevishead")
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
 
-fet_beginchar("Mensural open head","1mensural","mensuralminimahead")
+fet_beginchar("Mensural open head","s1mensural","mensuralminimahead")
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, true);
 fet_endchar;
 
-fet_beginchar("Mensural black head","2mensural","mensuralsemiminimahead")
+fet_beginchar("Mensural black head","s2mensural","mensuralsemiminimahead")
 	draw_diamond_head (staff_space#, 0.15, 0.30, 30, false);
 fet_endchar;
 

@@ -84,6 +84,32 @@ Note_heads_engraver::process_music ()
 	pos += scm_to_int (c0);
 
       note->set_property ("staff-position",   scm_int2num (pos));
+
+      /*
+	Shaped note heads change on step of the scale.
+       */
+      SCM shape_vector = get_property ("shapeNoteStyles");
+      if (ly_c_vector_p (shape_vector))
+	{
+	  SCM scm_tonic = get_property ("tonic");
+	  Pitch tonic (0,0,0); 
+	  if (unsmob_pitch (scm_tonic))
+	    tonic = *unsmob_pitch (scm_tonic);
+      
+	  unsigned int delta = (pit->get_notename() - tonic.get_notename() + 7) % 7;
+	  
+	  SCM style = SCM_EOL;
+	  if (SCM_VECTOR_LENGTH (shape_vector) > delta
+	      && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
+	    {
+	      style = scm_vector_ref (shape_vector, scm_from_int (delta));
+	    }
+	  if (scm_is_symbol (style))
+	    {
+	      note->set_property ("style", style);
+	    }
+	}
+      
       notes_.push (note);
     }
 }

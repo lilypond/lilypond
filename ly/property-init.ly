@@ -37,14 +37,21 @@ setEasyHeads = \sequential {
 	\override NoteHead #'X-extent-callback = #'()
 }
 
+aikenHeads = \set shapeNoteStyles = ##(do re mi fa #f la ti)
+
+sacredHarpHeads =
+  \set shapeNoteStyles = ##(#f #f mi #f fa la #f)
+
 dynamicUp = {
   \override DynamicText  #'direction = #1
   \override DynamicLineSpanner  #'direction = #1
 }
+
 dynamicDown = {
   \override DynamicText  #'direction = #-1
   \override DynamicLineSpanner  #'direction = #-1
 }
+
 dynamicNeutral = {
   \revert DynamicText #'direction
   \revert DynamicLineSpanner #'direction

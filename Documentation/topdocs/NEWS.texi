@@ -8,6 +8,9 @@
 
 @itemize @bullet
 @item
+Shaped note heads. This feature has been sponsored by Jonathan Walther.
+
+@item
 Layout for titles, page header and footer can now be entered as
 @code{\markup} commands.
 
