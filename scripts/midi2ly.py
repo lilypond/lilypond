@@ -891,7 +891,7 @@ def dump_track (channels, n):
 
 		if item and item.__class__ == Note:
 			skip = 's'
-			s = s + '%s = \\notes' % (track + channel)
+			s = s + '%s = ' % (track + channel)
 			if not absolute_p:
 				s = s + '\\relative c '
 		elif item and item.__class__ == Text:
@@ -899,8 +899,7 @@ def dump_track (channels, n):
 			s = s + '%s = \\lyricmode ' % (track + channel)
 		else:
 			skip = '\\skip '
-			# must be in \notes mode for parsing \skip
-			s = s + '%s = \\notes ' % (track + channel)
+			s = s + '%s =  ' % (track + channel)
 		s = s + '{\n'
 		s = s + '  ' + dump_channel (channels[i][0], skip)
 		s = s + '}\n\n'

@@ -524,7 +524,7 @@ class Voice:
 		str = str  + ln
 		id = self.idstring ()
 			
-		str = '''%s = \\context Voice = %s \\notes {
+		str = '''%s = \\context Voice = %s {
 %s
 }
 
@@ -566,9 +566,9 @@ class Key:
 		if self.sharps and self.flats:
 			k = '\\keysignature %s ' % 'TODO'
 		elif self.sharps:
-			k = '\\notes\\key %s \major' % key_sharps[self.sharps]
+			k = '\\key %s \major' % key_sharps[self.sharps]
 		elif self.flats:
-			k = '\\notes\\key %s \major' % key_flats[self.flats]
+			k = '\\key %s \major' % key_flats[self.flats]
 		return k
 
 class Time:

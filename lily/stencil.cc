@@ -316,3 +316,4 @@ LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
 
   return SCM_UNSPECIFIED;
 }
+

@@ -86,6 +86,20 @@ LY_DEFINE (ly_stencil_get_extent, "ly:stencil-extent",
   return ly_interval2scm (s->extent (Axis (scm_to_int (axis))));
 }
 
+
+LY_DEFINE (ly_stencil_origin, "ly:stencil-origin",
+	   2, 0, 0, (SCM stil, SCM axis),
+	   "Return a pair of numbers signifying the origin @var{stil} in "
+	   "@var{axis} direction (0 or 1 for x and y axis respectively).")
+{
+  Stencil *s = unsmob_stencil (stil);
+  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
+  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+
+  return scm_from_double (s->origin()[Axis (scm_to_int (axis))]);
+}
+
+
 LY_DEFINE (ly_stencil_moved_to_edge, "ly:stencil-moved-to-edge",
 	   4, 2, 0, (SCM first, SCM axis, SCM direction, SCM second,
 		     SCM padding, SCM minimum),
