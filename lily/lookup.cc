@@ -115,11 +115,17 @@ Lookup::bar (String str, Real h) const
 Atom 
 Lookup::beam (Real slope, Real width, Real thick) const
 {
-  Atom a (ps_beam (slope, width, thick));
   Real height = slope * width; 
   Real min_y = (0 <? height) - thick/2;
   Real max_y = (0 >? height) + thick/2;
-  
+
+  Array<Real> arr;
+  arr.push (width);
+  arr.push (slope);
+  arr.push (thick);
+
+  Atom a;
+  a.lambda_ = lambda_scm ("beam", arr);
   a.dim_[X_AXIS] = Interval (0, width);
   a.dim_[Y_AXIS] = Interval (min_y, max_y);
   return a;
@@ -223,19 +229,26 @@ Lookup::script (String str) const
 }
 
 Atom
-Lookup::special_time_signature (String s, Array<Scalar> arr) const
+Lookup::special_time_signature (String s, Array<Real> arr) const
 {
-#if 0
-  String symbolname = "timesig-"+s+"%/%";
-  Atom a (afm_find (lambda_scm (symbolname, arr)));
+  String symbolname = "timesig-" + s;
+  if (!arr.empty ())
+    symbolname += to_str (arr[0]);
+  if (arr.size () >1)
+    symbolname += "/" + to_str (arr[1]);
+  
+  Atom a = afm_find (symbolname);
   if (!a.empty ()) 
     return a;
+
+#if 0 //guess we covered this
   // Try if the full name was given
   a = afm_find ("timesig-"+s);
   if (!a.empty ()) 
     return a;
-  // Resort to default layout with numbers
 #endif
+
+  // Resort to default layout with numbers
   return time_signature (arr);
 }
 
@@ -289,7 +302,7 @@ Lookup::text (String style, String text) const
 }
 
 Atom
-Lookup::time_signature (Array<Scalar> a) const
+Lookup::time_signature (Array<Real> a) const
 {
   Atom s ((*symtables_p_) ("param")->lookup ("time_signature"));
   s.lambda_ = lambda_scm (s.str_, a);
@@ -364,18 +377,6 @@ Lookup::plet (Real dy , Real dx, Direction dir) const
     + String_convert::double_str (dy) + " "
     + String_convert::int_str ( (int)dir) +
     " draw_plet ";
-
-  Atom s;
-  s.str_ = ps;
-  return s;
-}
-
-Atom
-Lookup::ps_beam (Real slope, Real width, Real thick) const
-{
-  String ps;
-  ps += to_str (width) + " "+ to_str (slope) + " " + to_str (thick)
-    + " draw_beam ";
 
   Atom s;
   s.str_ = ps;

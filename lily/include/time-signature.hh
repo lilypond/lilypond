@@ -6,9 +6,10 @@
 
 #ifndef METER_HH
 #define METER_HH
+
 #include "item.hh"
 #include "array.hh"
-#include "scalar.hh"
+#include "real.hh"
 
 /**
    Print a time_signature sign.
@@ -25,7 +26,7 @@ protected:
   virtual Molecule*brew_molecule_p() const;
 public:
   Time_signature () ;
-  Array<Scalar> args_;
+  Array<Real> args_;
   String time_sig_type_str_;
   
   DECLARE_MY_RUNTIME_TYPEINFO;

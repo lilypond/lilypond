@@ -34,7 +34,7 @@ public:
   Atom afm_find (String) const;
   Atom ball (int) const;
   Atom bar (String, Real height) const;
-  Atom beam (Real,Real, Real) const;
+  Atom beam (Real, Real, Real) const;
   Atom clef (String) const;
   Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
   Atom dots () const;
@@ -44,7 +44,6 @@ public:
   Atom hairpin (Real width, bool decresc, bool continued) const;
   Atom plet (Real dy, Real dx, Direction dir) const;
   void print () const;
-  Atom ps_beam (Real slope, Real width, Real thick) const;
   Atom rest (int, bool outside) const;
   Atom rule_symbol (Real height, Real width) const;
   Atom script (String idx) const;
@@ -54,8 +53,8 @@ public:
   Atom text (String style, String text) const;
   Atom vbrace (Real &dy) const;
   Atom vbracket (Real &dy) const;
-  Atom special_time_signature (String, Array<Scalar>) const;
-  Atom time_signature (Array<Scalar>) const;
+  Atom special_time_signature (String, Array<Real>) const;
+  Atom time_signature (Array<Real>) const;
 
   Paper_def * paper_l_;
   Symtables *symtables_p_;

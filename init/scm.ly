@@ -44,6 +44,23 @@
    (eval-string (string-append s \"-\" o)))
 
 ;;; output definitions
+
+(define 
+  (beam o width slope thick) 
+  ((invoke-output o \"beam\") width slope thick))
+
+(define 
+  (beam-ps width slope thick)
+  (string-append
+   (numbers->string (list width slope thick)) \" draw_beam \" ))
+
+(define 
+  (beam-tex width slope thick)
+  (string-append 
+    \"\\\\embeddedps{\"
+    (beam-ps width slope thick)
+   \"}\"))
+
 (define 
   (char o n) 
   ((invoke-output o \"char\") n))
@@ -159,12 +176,12 @@
 
 (define 
   (generalmeter-ps num den)
-  (string-append num \" \" den \" generalmeter \"))
+  (string-append (number->string (inexact->exact num)) \" \" (number->string (inexact->exact den)) \" generalmeter \"))
 
 (define 
   (generalmeter-tex num den)
   (string-append 
-   \"\\\\generalmeter{\" num \"}{\" den \"}\"))
+   \"\\\\generalmeter{\" (number->string (inexact->exact num)) \"}{\" (number->string (inexact->exact den)) \"}\"))
 
 (define 
   (header o creator generate) 
@@ -257,10 +274,32 @@
    \"\\\\rulesym{\" (number->dim-tex x) \"}{\" (number->dim-tex y) \"}\"))
 
 (define 
-  (setitalic o s) (empty o))
+  (setbold o s) 
+  ((invoke-output o \"text\") \"bold\" s))
 
 (define 
-  (settext o s) (empty o))
+  (setfinger o s) 
+  ((invoke-output o \"text\") \"finger\" s))
+
+(define 
+  (sethuge o s) 
+  ((invoke-output o \"text\") \"huge\" s))
+
+(define 
+  (setitalic o s) 
+  ((invoke-output o \"text\") \"italic\" s))
+
+(define 
+  (setlarge o s) 
+  ((invoke-output o \"text\") \"large\" s))
+
+(define 
+  (setLarge o s) 
+  ((invoke-output o \"text\") \"Large\" s))
+
+(define 
+  (settext o s) 
+  ((invoke-output o \"text\") \"text\" s))
 
 (define 
   (slur o l) 
@@ -323,6 +362,14 @@
 (define 
   (stop-line-tex) 
   \"}\\\\interscoreline\")
+
+(define
+  (text-ps f s)
+  (string-append \"(\" s \") set\" f \" \"))
+
+(define
+  (text-tex f s)
+  (string-append \"\\\\set\" f \"{\" s \"}\"))
 
 (define
   (urg-fix-font-ps)
