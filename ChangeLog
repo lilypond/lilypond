@@ -1,5 +1,7 @@
 2005-01-07  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/lily-parser-scheme.cc: new file.
+
 	* lily/output-def-scheme.cc: new file.
 
 	* lily/paper-book-scheme.cc: new file.
