@@ -96,8 +96,11 @@ Repeated_music::alternatives_length_mom (bool fold) const
 Moment
 Repeated_music::alternatives_volta_length_mom () const
 {
-  SCM p = alternatives ()->music_list ();
+  if (!alternatives ())
+    return 0;
+
   Moment m;
+  SCM p = alternatives ()->music_list ();
   while (gh_pair_p (p))
     {
       m = m + unsmob_music (gh_car (p))->length_mom ();
