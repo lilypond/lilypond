@@ -50,7 +50,7 @@ Translator::Translator (Translator const &s)
 bool
 Translator::is_alias (SCM sym) const
 {
-  return unsmob_translator_def (definition_)->is_alias (sym);
+  return unsmob_context_def (definition_)->is_alias (sym);
 }
 
 bool

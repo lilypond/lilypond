@@ -1303,6 +1303,11 @@ be used to override typesetting decisions.
 When using @code{merge-differently-headed} with an upstem 8th or a shorter
 note, and a downstem half note, the 8th note gets the wrong offset.
 
+There is no support for clusters where the same note occurs with
+different accidentals in the same chord. In this case, it is
+recommended to use enharmonic transcription, or to use special cluster
+notation (see @ref{Clusters}).
+
 @node Beaming
 @section Beaming
 
@@ -4281,7 +4286,9 @@ is
 @end example
 
 This means that @var{musicexpr} is transposed by the interval
-between @var{from} and @var{to}.
+between the pitches @var{from} and @var{to}.
+Since @var{from} and @var{to} are pitches, @code{\transpose} must be
+inside a @code{\notes} section.
 
 @code{\transpose} distinguishes between enharmonic pitches: both
 @code{\transpose c cis} or @code{\transpose c des} will transpose up
@@ -4297,6 +4304,7 @@ mus =\notes { \key d \major cis d fis g }
   \transpose c f' \mus
 }}
 @end lilypond
+
 
 @seealso
 
@@ -5119,34 +5127,34 @@ following table:
         \property Score.timing = ##f
         \property Score.barAlways = ##t
         s_\markup { "$\\backslash$time 4/4" }
-         ^\markup { "       " \musicglyph #"timesig-neo\_mensural4/4" }
+         ^\markup { "       " \musicglyph #"timesig-neo_mensural4/4" }
 	s
 	s_\markup { "$\\backslash$time 2/2" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural2/2" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural2/2" }
 	s
 	s_\markup { "$\\backslash$time 6/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural6/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural6/4" }
 	s
 	s_\markup { "$\\backslash$time 6/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural6/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural6/8" }
 	\break
 	s_\markup { "$\\backslash$time 3/2" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural3/2" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural3/2" }
 	s
 	s_\markup { "$\\backslash$time 3/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural3/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural3/4" }
 	s
 	s_\markup { "$\\backslash$time 9/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural9/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural9/4" }
         s
 	s_\markup { "$\\backslash$time 9/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural9/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural9/8" }
         \break
 	s_\markup { "$\\backslash$time 4/8" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural4/8" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural4/8" }
 	s
 	s_\markup { "$\\backslash$time 2/4" }
-	 ^\markup { "       " \musicglyph #"timesig-neo\_mensural2/4" }
+	 ^\markup { "       " \musicglyph #"timesig-neo_mensural2/4" }
 	\break
     }
     \paper {

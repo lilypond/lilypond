@@ -169,13 +169,15 @@ def write_fontlist (file, global_info, charmetrics):
 		count += 1
 		
 ## \musicglyph and \markup require "_" to be escaped differently:
-		musicglyphname=re.sub('_','\\\\_', m['name'])
-		markupname=re.sub('_','\\\\_', musicglyphname)
+		
 
+		scm_string = re.sub('_', r'_', m['name'])
+		tex_string = re.sub ('_', r'\\_' , m['name'])
+		
 ## prevent TeX from interpreting "--" as long dash:
-		markupname=re.sub('--','-{}-', markupname)
+		tex_string=re.sub('--','-{}-', tex_string)
 
-		file.write ('  s^\\markup { \\musicglyph #"%s" "%s" }\n' % (musicglyphname, markupname))
+		file.write ('  s^\\markup { \\musicglyph #"%s" "%s" }\n' % (scm_string, tex_string))
 
 		if (count % 3) ==0:
 			file.write ('  \\break\n')

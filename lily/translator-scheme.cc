@@ -196,7 +196,7 @@ Translator::print_smob (SCM s, SCM port, scm_print_state *)
   Translator *sc = (Translator *) ly_cdr (s);
      
   scm_puts ("#<Translator ", port);
-  if (Translator_def *d=unsmob_translator_def (sc->definition_))
+  if (Context_def *d=unsmob_context_def (sc->definition_))
     {
       scm_display (d->get_context_name (), port);
     }

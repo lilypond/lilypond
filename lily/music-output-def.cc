@@ -70,7 +70,7 @@ Music_output_def::mark_smob (SCM m)
 void
 Music_output_def::assign_translator (SCM transdef)
 {
-  Translator_def *tp = unsmob_translator_def (transdef);
+  Context_def *tp = unsmob_context_def (transdef);
   assert (tp);
 
   translator_tab_->set (tp->get_context_name (), transdef);
@@ -97,7 +97,7 @@ Global_translator *
 Music_output_def::get_global_translator () 
 {
   SCM key = ly_symbol2scm ("Score");
-  Translator_def * t = unsmob_translator_def (find_translator (key));
+  Context_def * t = unsmob_context_def (find_translator (key));
 
   if (!t)
     error (_f ("can't find `%s' context", "Score"));

@@ -112,7 +112,7 @@ Score_performer::get_output ()
 void
 Score_performer::initialize ()
 {
-  unsmob_translator_def (definition_)->apply_default_property_operations (this);
+  unsmob_context_def (definition_)->apply_default_property_operations (this);
   assert (dynamic_cast<Midi_def *> (output_def_));
   performance_ = new Performance;
   performance_->midi_ = dynamic_cast<Midi_def*> (output_def_);

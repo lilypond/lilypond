@@ -86,5 +86,6 @@ public:
 
 bool melisma_busy (Translator* tr); // where to put this? --hwn
 void apply_property_operations (Translator_group*tg, SCM pre_init_ops);
+SCM names_to_translators (SCM namelist, Translator_group*tg);
 
 #endif // TRANSLATOR_GROUP_HH

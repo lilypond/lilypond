@@ -1,5 +1,5 @@
 /*   
-  translator-def.hh -- declare Translator_def
+  translator-def.hh -- declare Context_def
   
   source file of the GNU LilyPond music typesetter
   
@@ -18,7 +18,7 @@
   The definition of a interpretation context as given in the
   input. The lists are stored in order of definition.
 */
-struct Translator_def : public Input
+struct Context_def : public Input
 {
 private:
   /*
@@ -42,7 +42,7 @@ public:
   SCM get_translator_names (SCM) const;
   void set_acceptor (SCM accepts, bool add);
 
-  Link_array<Translator_def> path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const;
+  Link_array<Context_def> path_to_acceptable_translator (SCM type_string, Music_output_def* odef) const;
   Translator_group * instantiate (Music_output_def*, SCM extra_ops);
 
   SCM to_alist () const;
@@ -52,12 +52,12 @@ public:
   SCM clone_scm ()const;
   void apply_default_property_operations (Translator_group*);
 private:
-  DECLARE_SMOBS (Translator_def,foo);
-  Translator_def ();
-  Translator_def (Translator_def const&);
+  DECLARE_SMOBS (Context_def,foo);
+  Context_def ();
+  Context_def (Context_def const&);
 };
 
-DECLARE_UNSMOB(Translator_def,translator_def);
+DECLARE_UNSMOB(Context_def,context_def);
 
 
 #endif /* TRANSLATOR_DEF_HH */

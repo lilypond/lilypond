@@ -32,8 +32,6 @@ public:
   virtual void process_music ();
 };
 
-
-
 Instrument_name_engraver::Instrument_name_engraver ()
 {
   text_ = 0;

@@ -89,10 +89,8 @@ void
 Translator_group::add_fresh_group_translator (Translator*t)
 {
   Translator_group*tg = dynamic_cast<Translator_group*> (t);
-
   trans_group_list_ = add_translator (trans_group_list_,t); 
-  
-  Translator_def * td = unsmob_translator_def (tg->definition_);
+  Context_def * td = unsmob_context_def (tg->definition_);
 
   /*
     this can not move before add_translator(), because \override
@@ -102,7 +100,6 @@ Translator_group::add_fresh_group_translator (Translator*t)
 
   t->initialize ();
 }
-
 
 bool
 Translator_group::is_removable () const
@@ -121,8 +118,7 @@ Translator_group::find_existing_translator (SCM n, String id)
     {
       Translator *  t = unsmob_translator (ly_car (p));
       
-      r = dynamic_cast<Translator_group*> (t)->find_existing_translator (n, id);
-    }
+      r = dynamic_cast<Translator_group*> (t)->find_existing_translator (n, id);    }
 
   return r;
 }
@@ -135,8 +131,8 @@ Translator_group::find_create_translator (SCM n, String id, SCM operations)
   if (existing)
     return existing;
 
-  Link_array<Translator_def> path
-    = unsmob_translator_def (definition_)->path_to_acceptable_translator (n, get_output_def ());
+  Link_array<Context_def> path
+    = unsmob_context_def (definition_)->path_to_acceptable_translator (n, get_output_def ());
 
   if (path.size ())
     {
@@ -228,7 +224,7 @@ Translator_group::remove_translator (Translator*trans)
 bool
 Translator_group::is_bottom_translator_b () const
 {
-  return !gh_symbol_p (unsmob_translator_def (definition_)->default_child_context_name ());
+  return !gh_symbol_p (unsmob_context_def (definition_)->default_child_context_name ());
 }
 
 Translator_group*
@@ -236,14 +232,14 @@ Translator_group::get_default_interpreter ()
 {
   if (!is_bottom_translator_b ())
     {
-      SCM nm = unsmob_translator_def (definition_)->default_child_context_name ();
+      SCM nm = unsmob_context_def (definition_)->default_child_context_name ();
       SCM st = get_output_def ()->find_translator (nm);
 
-      Translator_def *t = unsmob_translator_def (st);
+      Context_def *t = unsmob_context_def (st);
       if (!t)
 	{
 	  warning (_f ("can't find or create: `%s'", ly_symbol2string (nm).to_str0 ()));
-	  t = unsmob_translator_def (this->definition_);
+	  t = unsmob_context_def (this->definition_);
 	}
       Translator_group *tg = t->instantiate (output_def_, SCM_EOL);
       add_fresh_group_translator (tg);
@@ -404,7 +400,7 @@ Translator_group::initialize ()
 {
   SCM tab = scm_make_vector (gh_int2scm (19), SCM_BOOL_F);
   set_property ("acceptHashTable", tab);
-  static_each (trans_group_list_, &Translator::initialize);
+  each (&Translator::initialize);
 }
 
 void
@@ -477,7 +473,7 @@ Translator_group::properties_as_alist () const
 String
 Translator_group::context_name () const
 {
-  Translator_def * td = unsmob_translator_def (definition_ );
+  Context_def * td = unsmob_context_def (definition_ );
   return ly_symbol2string (td->get_context_name ());
 }
 
@@ -536,10 +532,13 @@ names_to_translators (SCM namelist, Translator_group*tg)
 SCM
 Translator_group::get_simple_trans_list ()
 {
+  return simple_trans_list_;
+  
+#if 0
   if (simple_trans_list_ != SCM_BOOL_F)
     return simple_trans_list_;
   
-  Translator_def * td = unsmob_translator_def (definition_);
+  Context_def * td = unsmob_context_def (definition_);
 
   /*
     The following cannot work, since start_translation_timestep ()
@@ -547,10 +546,11 @@ Translator_group::get_simple_trans_list ()
     \property Voice.Voice =#'()
     
    */
+      trans_names = td->get_translator_names (SCM_EOL); 
+  
   SCM trans_names = internal_get_property (td->get_context_name ());
   if (!gh_pair_p (trans_names))
     {
-      trans_names = td->get_translator_names (SCM_EOL); 
     }
 
   simple_trans_list_ = names_to_translators (trans_names, this);
@@ -558,4 +558,5 @@ Translator_group::get_simple_trans_list ()
   
   static_each (simple_trans_list_, &Translator::initialize);
   return simple_trans_list_;
+#endif
 }

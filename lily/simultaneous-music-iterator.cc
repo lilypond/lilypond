@@ -77,7 +77,7 @@ Simultaneous_music_iterator::construct_children ()
       /* if separate_contexts_b_ is set, create a new context with the
 	 number number as name */
 
-      SCM name = unsmob_translator_def (report_to ()->definition_)->get_context_name ();
+      SCM name = unsmob_context_def (report_to ()->definition_)->get_context_name ();
       Translator_group * t = (j && separate_contexts_b_)
 	? report_to ()->find_create_translator (name, to_string (j), SCM_EOL)
 	: report_to ();

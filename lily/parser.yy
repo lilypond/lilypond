@@ -590,14 +590,14 @@ translator_spec_block:
 translator_spec_body:
 	/**/ {
 		$$ = Translator_def::make_scm ();
-		unsmob_translator_def ($$)->set_spot (THIS->here_input ());
+		unsmob_context_def ($$)->set_spot (THIS->here_input ());
 	}
 	| TRANSLATOR_IDENTIFIER	{
 		$$ = $1;
-		unsmob_translator_def ($$)->set_spot (THIS->here_input ());
+		unsmob_context_def ($$)->set_spot (THIS->here_input ());
 	}
 	| translator_spec_body GROBDESCRIPTIONS embedded_scm {
-		Translator_def*td = unsmob_translator_def($$);
+		Translator_def*td = unsmob_context_def($$);
 
 		for (SCM p = $3; gh_pair_p (p); p = ly_cdr (p)) {
 			SCM tag = gh_caar (p);
@@ -606,7 +606,7 @@ translator_spec_body:
 		}
 	}
 	| translator_spec_body context_mod {
-		unsmob_translator_def ($$)->add_context_mod ($2);		
+		unsmob_context_def ($$)->add_context_mod ($2);		
 	}
 	;
 
@@ -2314,8 +2314,8 @@ My_lily_lexer::try_special_identifiers (SCM * destination, SCM sid)
 	} else if (gh_number_p (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;
-	} else if (unsmob_translator_def (sid)) {
-		*destination = unsmob_translator_def (sid)->clone_scm();
+	} else if (unsmob_context_def (sid)) {
+		*destination = unsmob_context_def (sid)->clone_scm();
 		return TRANSLATOR_IDENTIFIER;
 	} else if (unsmob_score (sid)) {
 		Score *sc =  new Score (*unsmob_score (sid));

@@ -1,5 +1,5 @@
 /*   
-  translator-def.cc --  implement Translator_def
+  translator-def.cc --  implement Context_def
   
   source file of the GNU LilyPond music typesetter
   
@@ -15,11 +15,11 @@
 #include "ly-smobs.icc"
 
 int
-Translator_def::print_smob (SCM smob, SCM port, scm_print_state*)
+Context_def::print_smob (SCM smob, SCM port, scm_print_state*)
 {
-  Translator_def* me = (Translator_def*) SCM_CELL_WORD_1 (smob);
+  Context_def* me = (Context_def*) SCM_CELL_WORD_1 (smob);
 
-  scm_puts ("#<Translator_def ", port);
+  scm_puts ("#<Context_def ", port);
   scm_display (me->context_name_, port);
   scm_puts (">", port);
   return 1;
@@ -27,9 +27,9 @@ Translator_def::print_smob (SCM smob, SCM port, scm_print_state*)
 
 
 SCM
-Translator_def::mark_smob (SCM smob)
+Context_def::mark_smob (SCM smob)
 {
-  Translator_def* me = (Translator_def*) SCM_CELL_WORD_1 (smob);
+  Context_def* me = (Context_def*) SCM_CELL_WORD_1 (smob);
 
   scm_gc_mark (me->description_);
   scm_gc_mark (me->context_aliases_);
@@ -41,7 +41,7 @@ Translator_def::mark_smob (SCM smob)
 }
 
 
-Translator_def::Translator_def ()
+Context_def::Context_def ()
 {
   context_aliases_ = SCM_EOL;
   translator_group_type_ = SCM_EOL;
@@ -54,11 +54,11 @@ Translator_def::Translator_def ()
   smobify_self();
 }
 
-Translator_def::~Translator_def ()
+Context_def::~Context_def ()
 {
 }
 
-Translator_def::Translator_def (Translator_def const & s)
+Context_def::Context_def (Context_def const & s)
   : Input (s)
 {
   context_aliases_ = SCM_EOL;
@@ -82,7 +82,7 @@ Translator_def::Translator_def (Translator_def const & s)
 
 
 void
-Translator_def::add_context_mod (SCM mod)
+Context_def::add_context_mod (SCM mod)
 {
   SCM tag  = gh_car (mod);
   if (ly_symbol2scm ("description")  == tag)
@@ -138,13 +138,13 @@ Translator_def::add_context_mod (SCM mod)
 
 
 SCM
-Translator_def::get_context_name () const
+Context_def::get_context_name () const
 {
   return context_name_;
 }
 
 SCM
-Translator_def::get_accepted () const
+Context_def::get_accepted () const
 {
   SCM correct_order = scm_reverse (accept_mods_);
   SCM acc = SCM_EOL;
@@ -161,23 +161,23 @@ Translator_def::get_accepted () const
 }
 
 	   
-Link_array<Translator_def>
-Translator_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* odef) const
+Link_array<Context_def>
+Context_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* odef) const
 {
   assert (gh_symbol_p (type_sym));
   
   SCM accepted = get_accepted ();
 
-  Link_array<Translator_def> accepteds;
+  Link_array<Context_def> accepteds;
   for (SCM s = accepted; gh_pair_p (s); s = ly_cdr (s))
     {
-      Translator_def *t = unsmob_translator_def (odef->find_translator (ly_car (s)));
+      Context_def *t = unsmob_context_def (odef->find_translator (ly_car (s)));
       if (!t)
 	continue;
       accepteds.push (t);
     }
 
-  Link_array<Translator_def> best_result;
+  Link_array<Context_def> best_result;
   for (int i=0; i < accepteds.size (); i++)
     {
       /*
@@ -193,9 +193,9 @@ Translator_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* o
   int best_depth= INT_MAX;
   for (int i=0; i < accepteds.size (); i++)
     {
-      Translator_def * g = accepteds[i];
+      Context_def * g = accepteds[i];
 
-      Link_array<Translator_def> result
+      Link_array<Context_def> result
 	= g->path_to_acceptable_translator (type_sym, odef);
       if (result.size () && result.size () < best_depth)
 	{
@@ -213,14 +213,14 @@ Translator_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* o
   return best_result;
 }
 
-IMPLEMENT_SMOBS (Translator_def);
-IMPLEMENT_DEFAULT_EQUAL_P (Translator_def);
+IMPLEMENT_SMOBS (Context_def);
+IMPLEMENT_DEFAULT_EQUAL_P (Context_def);
 
 
 
 
 SCM
-Translator_def::get_translator_names (SCM user_mod) const
+Context_def::get_translator_names (SCM user_mod) const
 {
   SCM l1 = SCM_EOL;
   SCM l2 = SCM_EOL;
@@ -252,7 +252,7 @@ Translator_def::get_translator_names (SCM user_mod) const
 
 
 Translator_group *
-Translator_def::instantiate (Music_output_def* md, SCM ops)
+Context_def::instantiate (Music_output_def* md, SCM ops)
 {
   Translator * g = get_translator (translator_group_type_);
   g = g->clone (); 
@@ -261,22 +261,25 @@ Translator_def::instantiate (Music_output_def* md, SCM ops)
   tg->output_def_ = md;
   tg->definition_ = self_scm ();
 
+  SCM trans_names = get_translator_names (ops); 
+  tg->simple_trans_list_ = names_to_translators (trans_names);
+
   return tg;
 }
 
 
 SCM
-Translator_def::clone_scm () const
+Context_def::clone_scm () const
 {
-  Translator_def * t = new Translator_def (*this);
+  Context_def * t = new Context_def (*this);
   scm_gc_unprotect_object (t->self_scm());
   return t->self_scm();
 }
 
 SCM
-Translator_def::make_scm ()
+Context_def::make_scm ()
 {
-  Translator_def* t = new Translator_def;
+  Context_def* t = new Context_def;
   scm_gc_unprotect_object (t->self_scm());
   return t->self_scm();
 }
@@ -287,19 +290,19 @@ Translator_def::make_scm ()
   none.
 */
 SCM
-Translator_def::default_child_context_name ()
+Context_def::default_child_context_name ()
 {
   SCM d = get_accepted ();
   return gh_pair_p (d) ? ly_car (scm_last_pair (d)) : SCM_EOL;
 }
 void
-Translator_def::apply_default_property_operations (Translator_group *tg)
+Context_def::apply_default_property_operations (Translator_group *tg)
 {
   apply_property_operations (tg , property_ops_);
 }
 
 SCM
-Translator_def::to_alist () const
+Context_def::to_alist () const
 {
   SCM l = SCM_EOL;
 
@@ -316,7 +319,7 @@ Translator_def::to_alist () const
 }
 
 bool
-Translator_def::is_alias (SCM sym) const
+Context_def::is_alias (SCM sym) const
 {
   bool b  = sym == context_name_;
 
