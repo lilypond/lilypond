@@ -709,7 +709,7 @@ command_req:
 	;
 
 abbrev_command_req:
-	 '|'				{
+	'|'				{
 		$$ = new Barcheck_req;
 	}
 	| COMMAND_IDENTIFIER	{
@@ -729,8 +729,8 @@ verbose_command_req:
 	}
 	| SKIP duration_length {
 		Skip_req * skip_p = new Skip_req;
-		skip_p->duration_.set_plet ($2->numerator ().as_long (),
-			$2->denominator ().as_long ());
+		skip_p->duration_.set_plet ($2->num (),
+			$2->den ());
 
 		delete $2;
 		$$ = skip_p;
