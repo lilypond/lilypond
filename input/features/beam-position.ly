@@ -1,7 +1,7 @@
 
 fragment = \notes {
-  \property Voice.Beam \set #'y-position-hs = #4
-  \property Voice.Beam \set #'height-hs = #-4
+  \property Voice.Beam \set #'staff-position = #2
+  \property Voice.Beam \set #'height = #-2
   [c'8 c]
 }
 

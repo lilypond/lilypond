@@ -70,7 +70,7 @@
 #'thickness= weight of beams, in staffspace
   "
    '(
-    y-position 
+     staff-position
     height 
     flag-width-function 
     damping 

@@ -107,6 +107,7 @@ Align_interface::center_on_element). .")
 (grob-property-description 'dot-count integer? "number of dots.")
 (grob-property-description 'duration-log integer? "2-log of the notehead duration.")
 (grob-property-description 'duration-log integer? "log of the duration, ie. 0=whole note, 1 = half note, etc.")
+(grob-property-description 'dy number? "set by beam: vertical travel height")
 (grob-property-description 'edge-height pair? "a cons that specifies the heights of the vertical egdes '(LEFT-height . RIGHT-height).")
 (grob-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")
 (grob-property-description 'elements list? "list of grobs, type depending on the Grob where this is set in.")
@@ -156,8 +157,7 @@ is used by @ref{note-collision-interface}.")
 FIXME: in Tie this is a pair of grob pointers, pointing to the two heads of the  tie.
 
 .")
-(grob-property-description 'height number? "in staffspace .")
-(grob-property-description 'height-hs number? "in halfspace.  Only used by Beam.") ; Remove-me 
+(grob-property-description 'height number? "in staffspace.")
 (grob-property-description 'height-quants procedure? "function of type (beam staff-line-thickness) -> list of quants.  Default value: default-beam-dy-quants.
 .")
 (grob-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting. This is used by @ref{note-collision-interface}.")
@@ -318,5 +318,4 @@ function of type (beam multiplicity dy staff-line-thickness) -> real.  Default v
 (grob-property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics).")
 (grob-property-description 'x-gap number? "horizontal gap between notehead and tie.")
 (grob-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems.")
-(grob-property-description 'y-position number? "position of left edge.")
-(grob-property-description 'y-position-hs number? "in half space, position of left edge.  Only used by @ref{Beam}.") ;FXIME
+(grob-property-description 'y number? "set by beam: position of left edge.")

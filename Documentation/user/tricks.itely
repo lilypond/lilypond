@@ -133,26 +133,26 @@ extension can be controlled through @code{Voice.Stem}'s grob-property
 @end quotation
 
 The beam symbol can be tweaked through @code{Voice.Beam}'s
-grob-properties @code{height-hs} and @code{y-position-hs}.
+grob-properties @code{height} and @code{staff-position},
+in staff-spaces.
 
-Set @code{height-hs} to zero, to get horizontal beams:
+Set @code{height} to zero, to get horizontal beams:
 
 @quotation
 @lilypond[fragment,relative,verbatim]
   \property Voice.Beam \set #'direction = #1
-  \property Voice.Beam \set #'height-hs = #0
+  \property Voice.Beam \set #'height = #0
   [a''8 e' d c]
 @end lilypond
 @end quotation
 
-Both are in half spaces.  Here's how you'd specify a weird looking beam
-that instead of being horizontal, falls two staff spaces (ie, four half
-spaces):
+Here's how you'd specify a weird looking beam that instead of being
+horizontal, falls two staff spaces:
 
 @quotation
 @lilypond[fragment,relative,verbatim]
-  \property Voice.Beam \set #'y-position-hs = #4
-  \property Voice.Beam \set #'height-hs = #-4
+  \property Voice.Beam \set #'staff-position = #2
+  \property Voice.Beam \set #'height = #-2
   [c'8 c] 
 @end lilypond
 @end quotation

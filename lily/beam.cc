@@ -11,14 +11,8 @@
 /*
   [TODO]
 
-  * remove *-hs variables, and do all y-position stuff in staff-space.
-    This is not trivial, as Stem, and Stem_info both use point dimensions
-    (indicated by _f suffix) in several places too.
-
   * shorter! (now +- 1000 lines)
   * less hairy code
-  * move paper vars to scm
-
   */
 
 
@@ -331,6 +325,7 @@ Beam::least_squares (SCM smob)
   Real y = 0;
   Real dy = 0;
 
+  /* Stem_info, and thus y,dy in this function are corrected for beam-dir */
   Real first_ideal = Stem::calc_stem_info (first_visible_stem (me)).idealy_f_;
   if (first_ideal == Stem::calc_stem_info (last_visible_stem (me)).idealy_f_)
     {
@@ -361,8 +356,10 @@ Beam::least_squares (SCM smob)
       dy = dydx * dx;
     }
 
-  me->set_grob_property ("y", gh_double2scm (y));
-  me->set_grob_property ("dy", gh_double2scm (dy));
+  /* Store true, not dir-corrected values */
+  Direction dir = Directional_element_interface::get (me);
+  me->set_grob_property ("y", gh_double2scm (y * dir));
+  me->set_grob_property ("dy", gh_double2scm (dy * dir));
   return SCM_UNSPECIFIED;
 }
 
@@ -375,9 +372,11 @@ Beam::cancel_suspect_slope (SCM smob)
   if (visible_stem_count (me) <= 1)
     return SCM_UNSPECIFIED;
   
-  Real y = gh_scm2double (me->get_grob_property ("y"));
-  Real dy = gh_scm2double (me->get_grob_property ("dy"));
-
+  /* Stem_info, and thus y,dy in this function are corrected for beam-dir */
+  Direction dir = Directional_element_interface::get (me);
+  Real y = gh_scm2double (me->get_grob_property ("y")) * dir;
+  Real dy = gh_scm2double (me->get_grob_property ("dy")) * dir;
+  
  /* steep slope running against lengthened stem is suspect */
   Real first_ideal = Stem::calc_stem_info (first_visible_stem (me)).idealy_f_;
   Real last_ideal = Stem::calc_stem_info (last_visible_stem (me)).idealy_f_;
@@ -392,7 +391,8 @@ Beam::cancel_suspect_slope (SCM smob)
       || ((y + dy - last_ideal > lengthened) && (dydx < -steep)))
     {
       Real adjusted_y = y + dy / 2;
-      me->set_grob_property ("y", gh_double2scm (adjusted_y));
+      /* Store true, not dir-corrected values */
+      me->set_grob_property ("y", gh_double2scm (adjusted_y * dir));
       me->set_grob_property ("dy", gh_double2scm (0)); 
     }
   return SCM_UNSPECIFIED;
@@ -417,8 +417,10 @@ Beam::slope_damping (SCM smob)
 
   if (damping)
     {
-      Real y = gh_scm2double (me->get_grob_property ("y"));
-      Real dy = gh_scm2double (me->get_grob_property ("dy"));
+      /* y,dy in this function are corrected for beam-dir */
+      Direction dir = Directional_element_interface::get (me);
+      Real y = gh_scm2double (me->get_grob_property ("y")) * dir;
+      Real dy = gh_scm2double (me->get_grob_property ("dy")) * dir;
       
       // ugh -> use commonx
       Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS)
@@ -428,8 +430,9 @@ Beam::slope_damping (SCM smob)
 
       Real damped_dy = dydx * dx;
       Real adjusted_y = y + (dy - damped_dy) / 2;
-      me->set_grob_property ("y", gh_double2scm (adjusted_y));
-      me->set_grob_property ("dy", gh_double2scm (damped_dy));
+      /* Store true, not dir-corrected values */
+      me->set_grob_property ("y", gh_double2scm (adjusted_y * dir));
+      me->set_grob_property ("dy", gh_double2scm (damped_dy * dir));
     }
     return SCM_UNSPECIFIED;
 }
@@ -458,8 +461,10 @@ Beam::quantise_dy (SCM smob)
   
   if (a.size () > 1)
     {
-      Real y = gh_scm2double (me->get_grob_property ("y"));
-      Real dy = gh_scm2double (me->get_grob_property ("dy"));
+      /* y,dy in this function are corrected for beam-dir */
+      Direction dir = Directional_element_interface::get (me);
+      Real y = gh_scm2double (me->get_grob_property ("y")) * dir;
+      Real dy = gh_scm2double (me->get_grob_property ("dy")) * dir;
 
       Real staff_space = Staff_symbol_referencer::staff_space (me);
       
@@ -470,58 +475,37 @@ Beam::quantise_dy (SCM smob)
       
       Real quantised_dy = q * sign (dy);
       Real adjusted_y = y + (dy - quantised_dy) / 2;
-      me->set_grob_property ("y", gh_double2scm (adjusted_y));
-      me->set_grob_property ("dy", gh_double2scm (quantised_dy));
+      /* Store true, not dir-corrected values */
+      me->set_grob_property ("y", gh_double2scm (adjusted_y * dir));
+      me->set_grob_property ("dy", gh_double2scm (quantised_dy * dir));
     }
   return SCM_UNSPECIFIED;
 }
 
-
-/*
-  What to do?  Why do we have two dimensions (staff-position and
-  staff-space)?  Do other grobs export staff-position to the user,
-  should we junk that?
-  
-  height-hs -> staff-position-height
-  y-position-hs -> staff-position
-
-  or
-
-  height-hs -> height / 2
-  y-postion-hs -> y-position / 2
-
-  
-  UGHUGH.  IF this callback is omitted, we hang.
-  FIXME: until here, we used only stem_info, which acts as if dir=up.
-*/
+/* It's tricky to have the user override y,dy directly, so we use this
+   translation func.  Also, if our staff_space != 1 (smaller staff, eg),
+   user will expect staff-position to be discrete values. */
 MAKE_SCHEME_CALLBACK (Beam, user_override, 1);
 SCM
 Beam::user_override (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Real half_space = Staff_symbol_referencer::staff_space (me) / 2;
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real y = gh_scm2double (me->get_grob_property ("y"));
-  Real dy = gh_scm2double (me->get_grob_property ("dy"));
-
-  
-  SCM s = me->get_grob_property ("y-position-hs");
+  SCM s = me->get_grob_property ("staff-position");
   if (gh_number_p (s))
-    y = gh_scm2double (s) * half_space;
-  else
-    // ughugh
-    y *= Directional_element_interface::get (me);
+    {
+      Real y = gh_scm2double (s) * staff_space;
+      me->set_grob_property ("y", gh_double2scm (y));
+    }
 
-  s = me->get_grob_property ("height-hs");
+  /* Name suggestions? Tilt, slope, vertical-* ? */
+  s = me->get_grob_property ("height");
   if (gh_number_p (s))
-    dy = gh_scm2double (s) * half_space;
-  else
-    // ughugh
-    dy *= Directional_element_interface::get (me);
-
-  
-  me->set_grob_property ("y", gh_double2scm (y));
-  me->set_grob_property ("dy", gh_double2scm (dy));
+    {
+      Real dy = gh_scm2double (s) * staff_space;
+      me->set_grob_property ("dy", gh_double2scm (dy));
+    }
   
   return SCM_UNSPECIFIED;
 }

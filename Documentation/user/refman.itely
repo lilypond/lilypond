@@ -312,6 +312,13 @@ numbers and dots.
 @node Modifying music
 @section Modifying music
 @cindex Modifying music
+
+FIXME: more verbose titling:
+music expressions?
+Repeat?
+Repeated music?
+Repeating music expressions?
+
 @menu
 * Relative::                    
 * Transpose::                   
@@ -1157,6 +1164,10 @@ warning message will appear and no ties will be created.
 @subsubsection Tuplet
 @cindex Tuplet
 
+A @rgrob{TupletBracket} is typeset automatically for music that
+is time scaled, see @ref{Times}.
+
+
 See @ref{Times}.
 
 @c.   {Volta}
@@ -1164,7 +1175,9 @@ See @ref{Times}.
 @subsubsection Volta
 @cindex Volta
 
-See @ref{Repeat}.
+A @rgrob{VoltaBracket} is typeset automatically for music that contains a
+repetition, see @ref{Repeat}.
+
 
 @c.   {Crescendo and Decrescendo}
 @node Crescendo and Decrescendo
