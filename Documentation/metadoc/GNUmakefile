@@ -44,7 +44,6 @@ OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 # URG.  Lilypond specific. Move out. 
 $(outdir)/%.html: %.data $(depth)/VERSION
 	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ $<
-	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $@
 
 $(outdir)/%.tex: %.data $(depth)/VERSION
 	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ --latex $<
@@ -52,10 +51,9 @@ $(outdir)/%.tex: %.data $(depth)/VERSION
 
 
 local-WWW-donotdoit: $(HTML_FILES) $(OUTTEX_FILES:.doc=.ps.gz)  $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html)) $(datafiles) ps
-	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about design and implementation of LilyPond' \
+	$(PYTHON) $(step-bindir)/ls-latex.py --title 'LaTeX documents about design and implementation of LilyPond' \
 	  $(TELY_FILES)  $(BIB_FILES) $(DOC_FILES) $(TEX_FILES)\
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
-	  $(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@

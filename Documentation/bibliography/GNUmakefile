@@ -44,19 +44,18 @@ OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 #urg should generalise and move Lilypond -> StepMake
 # URG.  Lilypond specific. Move out. 
 $(outdir)/%.html: %.data $(depth)/VERSION
-	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ $<
-	$(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $@
+	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' -o $@ $<
+	$(PYTHON) $(step-bindir)/add-html-footer.py  $@
 
 $(outdir)/%.tex: %.data $(depth)/VERSION
-	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep='' --package=$(topdir) -o $@ --latex $<
+	$(PYTHON) $(step-bindir)/table-to-html.py --columns=7 --linesep=''  -o $@ --latex $<
 
 
 
 local-WWW: $(HTML_FILES) $(OUTTEX_FILES:.tex=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz) $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html)) $(datafiles)
-	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about design and implementation of LilyPond' \
+	$(PYTHON) $(step-bindir)/ls-latex.py  --title 'LaTeX documents about design and implementation of LilyPond' \
 	  $(YO_FILES) $(OUTYO_FILES:.yo=.latex) $(BIB_FILES) $(DOC_FILES) $(TEX_FILES)\
 	  | sed "s!$(outdir)/!!g" > $(outdir)/index.html
-	  $(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) $(outdir)/index.html
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
