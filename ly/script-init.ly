@@ -13,15 +13,10 @@ thumb = \script "thumb"
 accent = \script "accent"
 marcato = \script "marcato"
 staccatissimo = \script "staccatissimo"
-
-% portato is indicated
-% either by
-%   *  slurred & dotted notes. 
-%or by
-%  * slur and dash notes.
-% Neither are  really supported, but c4-.-- should work.
-% portato = \script "portato"
-
+% Changed 27th October 2001 Heikki Junes <heikki.junes@hut.fi>
+%  * portato = tenuto & staccato
+%  * if you use portato = slur & staccato, then apply "c( d )e-."
+portato = \script "portato"
 fermata = \script "fermata"
 stopped = \script "stopped"
 staccato = \script "staccato"

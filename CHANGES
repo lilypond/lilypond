@@ -1,3 +1,55 @@
+1.5.19.jcn3
+===========
+
+* Sketch output:
+
+  - Sketch uses feta font.
+  - Fix to linewidth and feta fontsize.
+   - mf-to-table: write dummy values in afm to make sketch happy.
+  - Fixes to glyphs: rectangles beziers work now.
+   - Bugfix: sketch.scm: use primitive-eval.
+
+* Sketch and feta Type1 fonts:
+   - textrace:
+      wget http://www.inf.bme.hu/~pts/textrace-latest.tar.gz
+      tar xzf textrace-latest.tar.gz
+@@ -15,18 +17,23 @@
+      (cd autotrace-0.27ap; ./configure; make)
+      ./traceall.sh feta20 feta20.pfb $HOME/usr/src/lilypond/mf/out
+
+  - copy mf/out/feta20.* to sketch/Resources/Fontmetrics
+
+   - append to sketch/Resources/Fontmetrics/std.sfd:
+      echo 'TeX-feta20,feta20,Roman,-gnu-feta20-medium-r-normal,adobe-fontspec\ific,feta20' > $HOME/usr/src/sketch/sketch/Resources/Fontmetrics/std.sfd
+
+   - Hmm, then find that
+
+     + Sketch accesses characters by name, ie, the
+      name characters have in default text fonts.  Luckily, textrace
+      mangles the feta names too.  Sadly, textrace chooses different names
+      for characters > 128.
+
+    + Textrace mangles font name by prepending `TeX-'.  Doesn't seem to
+      pose a big problem; we'll have to pefix `TeX-' to feta fonts.
+
+    + Sadly, only the sketch-0.7.x is happy with the feta type1 font, but
+      printing is not yet implemented?
+
+ * Remove modules directory (again?).
+
+
+1.5.18.moh1
+===========
+
+* Further work on more flexible control of lyric alignment.
+   - new properties "alignment", "ignore-length-mismatch", "begin-alignment" a\nd "end-alignment" to control non-centered lyric alignment
+
+
+1.5.19.hjj1
+===========
+
+* Added \portato.
+
 1.5.18.jcn1
 ===========
 

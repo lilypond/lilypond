@@ -177,6 +177,42 @@ fet_beginchar("portato/single tenuto", "tenuto", "tenuto")
 fet_endchar;
 
 
+%
+% Portato by Heikki Junes <heikki.junes@hut.fi>
+%
+
+def draw_portato = 
+	save thick, radius;
+	thick# = 1.4 stafflinethickness#;
+	define_pixels(thick);
+	radius# = 1.4 stafflinethickness#;
+	define_pixels(radius);
+	
+	set_char_box(.6 staff_space#, .6 staff_space#, thick#/2,.5 staff_space#+ radius#);
+	pickup pencircle scaled thick;
+	lft x1 = -b;
+	rt x2 = w;
+	y1 = y2 = 0;
+	draw z1 .. z2;
+
+	pickup pencircle scaled 2 radius;
+	draw (0,h);
+enddef;
+
+
+fet_beginchar("portato/tenuto with staccato", "uportato", 
+		"uportato")
+	draw_portato;
+fet_endchar;
+
+
+fet_beginchar("portato/tenuto with staccato", "dportato", 
+		"dportato")
+	draw_portato;
+	y_mirror_char
+fet_endchar;
+
+
 def draw_marcato = 
 	save fat_factor, thinness;
 	set_char_box(staff_space#/2, staff_space#/2, 0, 1.1 staff_space#);
