@@ -112,7 +112,12 @@ system	"gzip -f9 website.tar;";
 $depth = "../../";
 $ENV{"TEXINPUTS"} .= ":$depth/input/:";
 $ENV{"LILYINCLUDE"} = "$depth/input/";
+my $cwd;
+chomp($cwd = `pwd`);
+
+die "need to be in directory Documentation\n" if ( ! ($cwd =~ /Documentation$/));
 chdir ("out");
+
 gen_html;
 gen_examples;
 gen_list;
