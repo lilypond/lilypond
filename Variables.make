@@ -7,7 +7,7 @@ OPTIFLAG=-DNDEBUG -DNPRINT -O2
 DEBUGFLAG=-g
 
 # turn off -pipe if linker doesn't support it
-#EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes 
+EXTRACXXFLAGS=-pipe -Wall -W   -Wmissing-prototypes 
 
 #
 # -lefence = ElectricFence.
@@ -37,7 +37,7 @@ endif
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=23
+PATCHLEVEL=24
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 CXXVER=`$(CXX) --version`
 
@@ -80,7 +80,7 @@ DNAME=$(PACKAGENAME)-$(VERSION)
 
 # distribution files.
 othersrc=lexer.l parser.y
-SCRIPTS=make_version make_patch genheader clean
+SCRIPTS=make_version make_patch genheader clearlily
 MAKFILES=Makefile Variables.make Sources.make Initial.make Generate.make \
 	configure
 OFILES=COPYING README NEWS TODO
