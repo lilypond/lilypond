@@ -1,16 +1,13 @@
 \score{
-	\notes\relative c''{
-  	\outputproperty #(make-type-checker 'Note_head) 
-		#'extra-offset = #'(2 . 3)
-  	c2
-	c
+\context Staff \notes\relative c''{
+	c1 
 	\context Score {
 		\outputproperty #(make-type-checker 'Mark) 
 		#'extra-offset = #'(-1 . 4)
 	}
 	\mark A;
-	d1
-	\mark;
+	d
+	\mark ;
 	e
 }
 \paper{

@@ -8,7 +8,8 @@ http://www.Arkkra.com/doc/star.ps
 
 % TODO: 
 %
-%  * centre non-melismata lyrics under notehead:
+%  * centre non-melismata lyrics (where there's only one verse!) under 
+%    notehead:
 %
 %      l       c    c    c    l
 %        ___
@@ -16,8 +17,8 @@ http://www.Arkkra.com/doc/star.ps
 %      x|()x|  x|   x|   x|   x|( )x|
 %      Oh_____say  can  you   see
 %
+%  NOT!
 %
-%  * repeat colons in Lyrics / running into barline of 'Whose broad'
 %
 %  * slur/lyric clash
 %
@@ -108,14 +109,10 @@ text = \lyrics {
       say, can you | see, by the dawn's ear- ly light 
       What so proud- ly we hailed, 
       At the twi- light's last gleam- ing. 
-      %Whose broad
-      %Whose broad_justoseewhatsgoingonhere \bar ":|";
       % Ah, it seems that this context stops to exist just before
       % the :| barline is set, and doesn't see its width?
-      % Adding one here fixes running into the span-bar,
-      % but adds yet another repeatcolon -- maybe we can fix that 
-      % elsewhere.
-      Whose broad \bar ":|";
+      % Ugly fix:
+      Whose broad \bar "|.";
     }
     { 
       stripes and bright stars, through the per- il- ous fight,
@@ -176,23 +173,10 @@ text = \lyrics {
 		\translator {
 			\LyricsContext
 			\consists "Span_bar_engraver";
-			% Urg
-			% 'Whose broad' still runs into the :| span-bar
-			%\consists "Span_bar_engraver";
-
-			% Urg
-			% Moet iemand kunnen begrijpen hoe die visibilities
-			% werken?
-			%% #'Span_bar_engraver-visibility = #all-invisible
-			"Span_bar_engraver-visibility" = #all-invisible
-			"Bar_engraver-visibility" = #all-invisible
-			"Span_bar::visibility-lambda" = #all-invisible
 		}
 		\translator {
 			\LyricsVoiceContext
 			\consists "Bar_engraver";
-			"Bar_engraver-visibility" = #all-invisible
-			"Bar::visibility-lambda" = #all-invisible
 		}
 	}
 	\midi {

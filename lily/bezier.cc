@@ -7,6 +7,16 @@
 */
 
 #include <math.h>
+#include "config.h"
+
+/* 
+  IS_INF tests its floating point number for infiniteness 
+  Ripped from guile's number.c.  Solaris has no isinf ().
+  */
+#if ! HAVE_ISINF
+    #define isinf(x) ((x) == (x) / 2)
+#endif
+
 #include "bezier.hh"
 #include "polynomial.hh"
 

@@ -105,7 +105,7 @@ local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
 	esac
 
 	case "$(OUT_DIST_FILES)x" in x) ;; *) \
-		mkdir $(distdir)/$(localdir)/out; \
+		mkdir -p $(distdir)/$(localdir)/out; \
 		$(LN) $(OUT_DIST_FILES) $(distdir)/$(localdir)/out;; \
 	esac
 #	$(foreach i, $(SUBDIRS), $(MAKE) distdir=../$(distdir) localdir=$(localdir)/$(i) -C $(i) local-dist &&) true

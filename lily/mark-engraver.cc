@@ -6,7 +6,7 @@
  (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-
+#include <ctype.h>
 #include "bar.hh"
 #include "clef-item.hh"
 #include "command-request.hh"
@@ -21,7 +21,8 @@
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "text-item.hh"
-#include <ctype.h>
+#include "group-interface.hh"
+
 /**
   put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
   rehearsal marks.
@@ -109,6 +110,7 @@ Mark_engraver::create_items (Request *rq)
   
   text_p_ = new Text_item;
   text_p_->set_elt_property ("breakable", SCM_BOOL_T); // ugh
+  Group_interface (text_p_, "interfaces").add_thing (ly_symbol2scm ("Mark"));
   Side_position_interface staffside(text_p_);
   staffside.set_axis (Y_AXIS);
 

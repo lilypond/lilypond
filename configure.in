@@ -50,7 +50,7 @@ dnl AC_CHECK_SEARCH_RESULT($FIND, find, Please use --enable-tex-dir)
 
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS(memmem snprintf vsnprintf gettext)
+AC_CHECK_FUNCS(memmem snprintf vsnprintf gettext isinf)
 
 AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, "${FULL_VERSION}")
 AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
