@@ -1,9 +1,7 @@
 \score{
     <
         \context Staff=one \notes\relative c''{
-            a \glissando e'
-	    % test: link thread to other staff
-	    a, \glissando
+            a \glissando e' \glissando a, \glissando
 	    \translator Staff=two
 	    a,,
 	}

@@ -15,7 +15,6 @@
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "translator-group.hh"
-#include "protected-scm.hh"
 
 /**
    Create line-spanner grobs for glissandi (and possibly other) lines
@@ -37,8 +36,9 @@ protected:
 private:
   Spanner* line_; 
   Request* req_;
-  Protected_scm heads_;
+  Request* last_req_;
   Translator* last_staff_;
+  Grob* head_;
   Grob* last_head_;
 };
 
@@ -46,7 +46,8 @@ Note_head_line_engraver::Note_head_line_engraver ()
 {
   line_ = 0;
   req_ = 0;
-  heads_ = SCM_EOL;
+  last_req_ = 0;
+  head_ = 0;
   last_head_ = 0;
   last_staff_ = 0;
 }
@@ -70,20 +71,18 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
 {
   if (Rhythmic_head::has_interface (info.elem_l_))
     {
-      if (req_)
-	heads_ = gh_cons (info.elem_l_->self_scm (), heads_);
-      else if (to_boolean (get_property ("followThread")))
+      last_head_ = head_;
+      head_ = info.elem_l_;
+      if (to_boolean (get_property ("followThread")))
 	{
     	  Translator* staff = daddy_trans_l_ && daddy_trans_l_->daddy_trans_l_
 	    ? daddy_trans_l_->daddy_trans_l_->daddy_trans_l_ : 0;
 	  if (staff != last_staff_)
 	    {
 	      if (last_head_)
-		heads_ = gh_list (info.elem_l_->self_scm (),
-				  last_head_->self_scm (), SCM_UNDEFINED);
+		last_req_ = (Request*)1; // ugh
 	      last_staff_ = staff;
 	    }
-	  last_head_ = info.elem_l_;
 	}
     }
 }
@@ -91,22 +90,26 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
 void
 Note_head_line_engraver::create_grobs ()
 {
-  if (!line_ && scm_ilength (heads_) > 1)
+  if (!line_ && last_req_ && last_head_ && head_)
     {
       /* type Glissando? */
       line_ = new Spanner (get_property ("NoteHeadLine"));
-      line_->set_bound (LEFT, unsmob_grob (gh_car (heads_)));
-      line_->set_bound (RIGHT, unsmob_grob (ly_last (heads_)));
+      line_->set_bound (LEFT, head_);
+      line_->set_bound (RIGHT, last_head_);
 
-      line_->set_parent (unsmob_grob (gh_car (heads_)), X_AXIS);
-      line_->set_parent (unsmob_grob (gh_car (heads_)), Y_AXIS);
+      line_->set_parent (head_, X_AXIS);
+      line_->set_parent (head_, Y_AXIS);
 
-      line_->set_parent (unsmob_grob (ly_last (heads_)), X_AXIS);
-      line_->set_parent (unsmob_grob (ly_last (heads_)), Y_AXIS);
+      line_->set_parent (last_head_, X_AXIS);
+      line_->set_parent (last_head_, Y_AXIS);
 
-      announce_grob (line_, req_);
-      req_ = 0;
-      heads_ = SCM_EOL;
+      if ((int)last_req_ == 1) // ugh
+	last_req_ = 0;
+      
+      announce_grob (line_, last_req_);
+      last_req_ = 0;
+      last_head_ = head_;
+      head_ = 0;
     }
 }
 
@@ -118,6 +121,9 @@ Note_head_line_engraver::stop_translation_timestep ()
       typeset_grob (line_);
       line_ = 0;
     }
+  if (req_)
+    last_req_ = req_;
+  req_ = 0;
 }
 
 
