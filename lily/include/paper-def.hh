@@ -60,7 +60,6 @@ public:
 
   /// thickness of the standard line 
   Real rule_thickness() const;
-  Real whole_width() const;
   Real linewidth_f() const;
   /// height of the staff
   Real standard_height() const;
