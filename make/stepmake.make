@@ -1,6 +1,7 @@
 # make/Stepmake.make
 
 include $(depth)/make/toplevel-version.make
+
 # Use alternate configurations alongside eachother:
 #
 #     ./configure --enable-config=debug
@@ -40,7 +41,6 @@ else
   outroot=$(builddir)/$(patsubst $(shell cd $(depth); pwd)%,%,$(pwd))
 endif
 
-include $(depth)/VERSION
 include $(config_make)
 
 outdir=$(outroot)/$(outbase)

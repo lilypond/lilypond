@@ -1,3 +1,9 @@
+2003-09-22  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* stepmake/aclocal.m4: 
+	* make/stepmake.make:
+	* make/toplevel-version.make: Revert/fix VERSION/PACKAGE stuff.
+
 2003-09-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/define-grob-properties.scm (gap-count): add gap-count
