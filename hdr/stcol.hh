@@ -26,6 +26,7 @@ struct Staff_column {
     bool mus() const;
     Real when() const;
     void add(Voice_element*ve);
+
     /****************************************************************
       VIRTUAL
     ****************************************************************/

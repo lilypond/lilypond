@@ -19,7 +19,7 @@ Staff_column::add(Voice_element*ve)
 {
     Real d= ve->duration;
     if (d){
-	score_column->durations.add(d);
+	score_column->add_duration(d);
     }
 	
     v_elts.add(ve);
@@ -28,3 +28,4 @@ Staff_column::add(Voice_element*ve)
 Staff_column::Staff_column(Score_column*s) {
     score_column = s;
 }
+
