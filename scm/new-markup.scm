@@ -665,8 +665,8 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
       ((t (ly:get-grob-property grob 'text))
        (chain (Font_interface::get_property_alist_chain grob)))
     (if (markup? t)
-	(interpret-markup grob  chain t)
-	(Text_item::text_to_molecule grob t chain)
+	(interpret-markup grob chain t)
+	(Text_item::text_to_molecule grob chain t)
 	)))
 
 (define-public empty-markup (make-simple-markup ""))

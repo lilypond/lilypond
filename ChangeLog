@@ -1,5 +1,8 @@
 2003-07-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/new-markup.scm (brew-new-markup-molecule): arg order
+	bugfix. Fixes old-style markup compatibility.
+
 	* Documentation/user/introduction.itely (Introduction): historical
 	elucidations
 

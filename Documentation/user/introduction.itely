@@ -40,28 +40,28 @@ elegant.
 
 Common music notation has its roots in the medieval centuries. In this
 time, monks started to write down hints that indicated how their
-sacred music was sung. These hints (neumes), gradually evolved, and at
-some point became the note heads.  Lines were added to the neumes, to
-indicate a reference pitch, which later became the staff.  Over many
-centuries, improvements and extensions were added, while other
-concepts disappeared. For example, the neumes notation did not have an
-explicit notion of rhythm, but it did have @emph{custodes}, symbols at
-the end of the line to indicate the starting pitch of the next line.
-Mensural notation, a notation where each note head takes a fixed
-amount of time, came into being together with the rise of counterpoint
-in the early renaissance.  The graphic language of notation is still
-under development; the innovations of contemporary music require still
-newer and more complex notations. A system of notation encompasses
-such a wide scope of music inherently is complex: there are many
-rules, and for every rule there are exceptional situations where they
-do not apply.
+sacred music was sung. These hints, neumes, gradually became simpler,
+and at some point became the note heads.  Lines were added to the
+neumes, to indicate a reference pitch, which later became the staff.
+Over many centuries, improvements and extensions were added, while
+other concepts disappeared. For example, the neume notation did not
+have an explicit notion of rhythm, but it did have @emph{custodes},
+symbols at the end of the line to indicate the starting pitch of the
+next line.  Mensural notation, a notation where each note head takes a
+fixed amount of time, came into being together with the rise of
+counterpoint in the early renaissance.  The graphic language of
+notation is still under development; the innovations of contemporary
+music require still newer and more complex notations.
 
-The result is that LilyPond cannot support each and every form of
-notation in existence. Rather, we focus on a specific style and idiom:
-we take inspiration from late-romantic music printed at the beginning
-of the 20th century. Most of the contemporary music after that, and
-most of the music going back to 17th century can be written in this
-system. That is not a fundamental limit, though. There is support for
+In summary, common music notation encompasses such a wide scope of
+music inherently is complex: there are many rules, and for every rule
+there are exceptional situations where they do not apply.  The result
+is that LilyPond cannot support each and every form of notation in
+existence. Rather, we focus on a specific style and idiom: we take
+inspiration from late-romantic music printed at the beginning of the
+20th century. Most of the contemporary music after that, and most of
+the music going back to 17th century can be written in this
+idiom. That is not a fundamental limit, though. There is support for
 some modern notation like clusters, and older notation, such as white
 mensural and gregorian notation, is being worked on.
 
