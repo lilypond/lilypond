@@ -1027,6 +1027,7 @@ relative_music:
 		$$->set_mus_property ("element", p->self_scm ());
 		scm_gc_unprotect_object (p->self_scm ());
 
+
 		$$->set_mus_property ("last-pitch", p->to_relative_octave (pit).smobbed_copy ());
 
 	}

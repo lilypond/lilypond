@@ -1,3 +1,9 @@
+2003-04-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/new-chord-name-engraver.cc (process_music): use octavation
+	(a number) instead of original-pitch to store inversions. This
+	fixes a problem with transposed chords with inversions.  
+
 2003-04-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Include compile fix for broken flex, as

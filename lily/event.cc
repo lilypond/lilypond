@@ -33,6 +33,11 @@ Event::compress (Moment m)
 void
 Event::transpose (Pitch delta)
 {
+  /*
+    TODO: should change music representation such that
+    _all_ pitch values are transposed automatically.
+   */
+  
   Pitch *p = unsmob_pitch (get_mus_property ("pitch"));
   if (!p)
     return ;

@@ -65,7 +65,10 @@ New_chord_name_engraver::process_music ()
   for (int i =0 ; i < notes_.size (); i++)
     {
       Music *n = notes_[i];
-      SCM p = n->get_mus_property ("pitch");;
+      SCM p = n->get_mus_property ("pitch");
+      if (!unsmob_pitch (p))
+	continue;
+      
       if (n->get_mus_property ("inversion") == SCM_BOOL_T)
 	{
 	  inversion_event = n;
@@ -79,9 +82,15 @@ New_chord_name_engraver::process_music ()
 
   if (inversion_event)
     {
-      SCM op = inversion_event->get_mus_property ("original-pitch");
-      if (unsmob_pitch (op))
-	pitches= gh_cons (op, pitches);
+      SCM oct = inversion_event->get_mus_property ("octavation");
+      if (gh_number_p (oct))
+	{
+	  Pitch *p = unsmob_pitch (inversion_event->get_mus_property ("pitch"));
+	  int octavation =  gh_scm2int (oct);
+	  Pitch orig = p->transposed (Pitch (-octavation, 0,0));
+	  
+	  pitches= gh_cons (orig.smobbed_copy (), pitches);
+	}
       else
 	programming_error ("Inversion does not have original pitch.");
     }
