@@ -260,82 +260,88 @@ prepend_load_path (String dir)
 void init_global_tweak_registry ();
 void init_fontconfig ();
 
-
 static void
 do_chroot_jail ()
 {
-  /* Now we chroot, setuid/setgrp and chdir. If something goes wrong, we exit (this is a
-     security-sensitive area). First we split jail_spec into its components, then we
-     retrieve the user/group id (necessarily *before* chroot'ing!) and finally we perform
-     the actual actions. */
+  /* Now we chroot, setuid/setgrp and chdir.  If something goes wrong,
+     we exit (this is a security-sensitive area).  First we split
+     jail_spec into its components, then we retrieve the user/group id
+     (necessarily *before* chroot'ing) and finally we perform the
+     actual actions.  */
 
-  Array<String> components = String_convert::split(jail_spec, ',');
-  if (components.size() < 3)
+  enum Jail
     {
-      error (_ ("too few elements in jail specification"));
-      exit(1);
-    }
-  if (components.size() > 4)
+      USER_NAME, GROUP_NAME, JAIL, DIR, JAIL_MAX
+    };
+  
+  Array<String> components = String_convert::split (jail_spec, ',');
+  if (components.size () != JAIL_MAX)
     {
-      error (_ ("too many elements in jail specification"));
-      exit(1);
+      error (_f ("expected %d arguments with jail, found: %d", JAIL_MAX,
+		 components.size ()));
+      exit (2);
     }
 
-  int uid, gid;
-  char *user_name = components[0].get_str0 ();
-  char *group_name = components[1].get_str0 ();
-  char *jail = components[2].get_str0 ();
-  char *wd = components[3].get_str0 ();
-
+  /* Hmm.  */
   errno = 0;
-  struct passwd *passwd = getpwnam(user_name);
-  if (passwd == NULL)
+
+  int uid;
+  if (passwd *passwd = getpwnam (components[USER_NAME].to_str0 ()))
+    uid = passwd->pw_uid;
+  else
     {
-      if (errno == 0) 
-	error (_ ("user not found"));
+      if (errno == 0)
+	error (_f ("no such user: %s", components[USER_NAME]));
       else 
-	error(_f ("can't get user id from user name (%s)", strerror (errno)));
+	error(_f ("can't get user id from user name: %s: %s",
+		  components[USER_NAME],
+		  strerror (errno)));
       exit (3);
     }
-  uid = passwd->pw_uid;
 
+  /* Hmm.  */
   errno = 0;
-  struct group *group = getgrnam(group_name);
-  if (group == NULL)
+
+  int gid;
+  if (group *group = getgrnam (components[GROUP_NAME].to_str0 ()))
+    gid = group->gr_gid;
+  else
     {
       if (errno == 0) 
-	error (_ ("group not found"));
+	error (_f ("no such group: %s", components[GROUP_NAME]));
       else 
-	error(_f ("can't get group id from group name (%s)", strerror (errno)));
+	error (_f ("can't get group id from group name: %s: ",
+		   components[GROUP_NAME],
+		   strerror (errno)));
       exit (3);
     }
-  gid = group->gr_gid;
 
-  if (chroot (jail))
+  if (chroot (components[JAIL].to_str0 ()))
     {
-      error (_f ("can't chroot (%s)", strerror (errno)));
+      error (_f ("can't chroot to: %s: %s", components[JAIL],
+		 strerror (errno)));
       exit (3);
     }
 
   if (setgid (gid))
     {
-      error (_f ("can't change group id (%s)", strerror (errno)));
+      error (_f ("can't change group id to: %d: %s", gid, strerror (errno)));
       exit (3);
     }
 
   if (setuid (uid))
     {
-      error (_f ("can't change user id (%s)", strerror (errno)));
+      error (_f ("can't change user id to: %d: %s", uid, strerror (errno)));
       exit (3);
     }
 
-  if (chdir (wd))
+  if (chdir (components[DIR].to_str0 ()))
     {
-      error (_f ("can't change working directory (%s)", strerror (errno)));
+      error (_f ("can't change working directory to: %s: %s", components[DIR],
+		 strerror (errno)));
       exit (3);
     }
 }
-
 
 static void
 main_with_guile (void *, int, char **)
