@@ -558,27 +558,6 @@
     ))
 
 
-(define-public (old-span-event->event name)
-  (let
-      (
-       (entry   (assoc
-		 name
-		 '(
-		   ("text" . TextSpanEvent)
-		   ("decrescendo" . DecrescendoEvent)
-		   ("crescendo" . CrescendoEvent)
-		   ("Sustain" . SustainPedalEvent)
-		   ("slur" . SlurEvent)
-		   ("UnaCorda" . UnaCordaEvent)
-		   ("Sostenuto" . SostenutoEvent)
-		   )))
-       )
-    (if (eq? entry #f)
-	(error (format "Could not find span type ~a" name))
-	
-	(make-music-by-name (cdr entry))
-	)
-    ))
 
 (define-public (make-repeated-music name)
   (let*

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.2"
 % Symbols needed to print accordion music
 % 
 %  2' = T
@@ -7,50 +7,50 @@
 % 16' = S
 %
 
-accDiscant = \script "accDiscant"
-accDiscantF = \script "accDiscantF"
-accDiscantE = \script "accDiscantE"
-accDiscantEh = \script "accDiscantEh"
-accDiscantFE = \script "accDiscantFE"
-accDiscantFEh = \script "accDiscantFEh"
-accDiscantEE = \script "accDiscantEE"
-accDiscantFEE = \script "accDiscantFEE"
-accDiscantEEE = \script "accDiscantEEE"
-accDiscantFEEE = \script "accDiscantFEEE"
-accDiscantS = \script "accDiscantS"
-accDiscantFS = \script "accDiscantFS"
-accDiscantES = \script "accDiscantES"
-accDiscantEhS = \script "accDiscantEhS"
-accDiscantFES = \script "accDiscantFES"
-accDiscantFEhS = \script "accDiscantFEhS"
-accDiscantEES = \script "accDiscantEES"
-accDiscantFEES = \script "accDiscantFEES"
-accDiscantEEES = \script "accDiscantEEES"
-accDiscantFEEES = \script "accDiscantFEEES"
-accDiscantSS = \script "accDiscantSS"
-accDiscantESS = \script "accDiscantESS"
-accDiscantEESS = \script "accDiscantEESS"
-accDiscantEEESS = \script "accDiscantEEESS"
+accDiscant = #(make-articulation "accDiscant")
+accDiscantF = #(make-articulation "accDiscantF")
+accDiscantE = #(make-articulation "accDiscantE")
+accDiscantEh = #(make-articulation "accDiscantEh")
+accDiscantFE = #(make-articulation "accDiscantFE")
+accDiscantFEh = #(make-articulation "accDiscantFEh")
+accDiscantEE = #(make-articulation "accDiscantEE")
+accDiscantFEE = #(make-articulation "accDiscantFEE")
+accDiscantEEE = #(make-articulation "accDiscantEEE")
+accDiscantFEEE = #(make-articulation "accDiscantFEEE")
+accDiscantS = #(make-articulation "accDiscantS")
+accDiscantFS = #(make-articulation "accDiscantFS")
+accDiscantES = #(make-articulation "accDiscantES")
+accDiscantEhS = #(make-articulation "accDiscantEhS")
+accDiscantFES = #(make-articulation "accDiscantFES")
+accDiscantFEhS = #(make-articulation "accDiscantFEhS")
+accDiscantEES = #(make-articulation "accDiscantEES")
+accDiscantFEES = #(make-articulation "accDiscantFEES")
+accDiscantEEES = #(make-articulation "accDiscantEEES")
+accDiscantFEEES = #(make-articulation "accDiscantFEEES")
+accDiscantSS = #(make-articulation "accDiscantSS")
+accDiscantESS = #(make-articulation "accDiscantESS")
+accDiscantEESS = #(make-articulation "accDiscantEESS")
+accDiscantEEESS = #(make-articulation "accDiscantEEESS")
 
-accFreebase = \script "accFreebase"
-accFreebaseF = \script "accFreebaseF"
-accFreebaseE = \script "accFreebaseE"
-accFreebaseFE = \script "accFreebaseFE"
+accFreebase = #(make-articulation "accFreebase")
+accFreebaseF = #(make-articulation "accFreebaseF")
+accFreebaseE = #(make-articulation "accFreebaseE")
+accFreebaseFE = #(make-articulation "accFreebaseFE")
 
-accBayanbase = \script "accBayanbase"
-accBayanbaseT = \script "accBayanbaseT"
-accBayanbaseE = \script "accBayanbaseE"
-accBayanbaseTE = \script "accBayanbaseTE"
-accBayanbaseEE = \script "accBayanbaseEE"
-accBayanbaseTEE = \script "accBayanbaseTEE"
+accBayanbase = #(make-articulation "accBayanbase")
+accBayanbaseT = #(make-articulation "accBayanbaseT")
+accBayanbaseE = #(make-articulation "accBayanbaseE")
+accBayanbaseTE = #(make-articulation "accBayanbaseTE")
+accBayanbaseEE = #(make-articulation "accBayanbaseEE")
+accBayanbaseTEE = #(make-articulation "accBayanbaseTEE")
 
-accStdbase = \script "accStdbase"
-accStdbaseFE = \script "accStdbaseFE"
-accStdbaseTFE = \script "accStdbaseTFE"
-accStdbaseMES = \script "accStdbaseMES"
-accStdbaseTFMES = \script "accStdbaseTFMES"
+accStdbase = #(make-articulation "accStdbase")
+accStdbaseFE = #(make-articulation "accStdbaseFE")
+accStdbaseTFE = #(make-articulation "accStdbaseTFE")
+accStdbaseMES = #(make-articulation "accStdbaseMES")
+accStdbaseTFMES = #(make-articulation "accStdbaseTFMES")
 
-accSB = \script "accSB"
-accBB = \script "accBB"
-accOldEE = \script "accOldEE"
-accOldEES = \script "accOldEES"
+accSB = #(make-articulation "accSB")
+accBB = #(make-articulation "accBB")
+accOldEE = #(make-articulation "accOldEE")
+accOldEES = #(make-articulation "accOldEES")

@@ -31,8 +31,8 @@ print_box (SCM b, SCM port, scm_print_state *pstate)
 
 /* This defines the primitve `make-box', which returns a new smob of
    type `box', initialized to `#f'.  */
-LY_DEFINE(package_identifier, "ly-id", 1,0,0, (SCM arg),
-	  "Package a Scheme object, so it is treated as an identifier.")
+LY_DEFINE(package_identifier, "ly-export", 1,0,0, (SCM arg),
+	  "Export a Scheme object to the parser, so it is treated as an identifier.")
 {
   /* This macro creates the new objects, stores the value `#f' into it
      and returns it to the caller.  */

@@ -251,7 +251,6 @@ Dynamic_engraver::process_music ()
 	      
 	    }
 
-
 	  
 	  /*
 	    This is a convenient (and legacy) interface to TextSpanners

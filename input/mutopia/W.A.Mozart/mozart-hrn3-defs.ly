@@ -6,7 +6,7 @@ longgrace = \property Voice.Stem \override #'stroke-style = #'()
 endlonggrace = \property Voice.Stem \revert #'stroke-style
 ritenuto = \textscript #'(italic  "rit.")
 
-\version "1.6.4"
+\version "1.7.2"
 
 #(define italic-bf '((font-shape . italic) (font-series . bold)))
 
@@ -22,7 +22,7 @@ ritenuto = \textscript #'(italic  "rit.")
                                      (font-relative-size . 3)))
   
 cresc = \notes {
-    \commandspanrequest \start "crescendo" 
+    #(ly-export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
     \property Voice.crescendoText = #`(,italic-bf "cresc.")
     \property Voice.crescendoSpanner = #'dashed-line
 }

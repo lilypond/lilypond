@@ -234,6 +234,21 @@ this is not an override
       ))
     ))
 
+(define-public (make-penalty-music pen)
+ (let
+     ((m (make-music-by-name 'BreakEvent)))
+    (ly-set-mus-property! m 'penalty pen)
+    m))
+
+(define-public (make-articulation name)
+  (let* (
+	 (m (make-music-by-name 'ArticulationEvent))
+      )
+      (ly-set-mus-property! m 'articulation-type name)
+      m
+  ))
+
+
 (define-public (set-mus-properties! m alist)
   "Set all of ALIST as properties of M." 
   (if (pair? alist)

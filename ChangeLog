@@ -1,3 +1,18 @@
+2002-10-13  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/music-types.scm: junk compat glue
+
+	* scripts/convert-ly.py: add rules for stuff below, junk
+	compatibility glue for spanrequest.
+
+	* lily/parser.yy (verbose_event): remove \spanrequest,
+	\commandspanrequest, \script. 
+	
+	* lily/identifier-smob.cc (LY_DEFINE): change name to ly-export
+
+	* lily/parser.yy: remove arpeggio keyword; use identifier. Idem
+	for \penalty, \glissando.
+
 2002-10-13  Rune Zedeler  <rune@zedeler.dk>
 
 	* lily/accidental-engraver.cc: Fix

@@ -93,16 +93,6 @@ set_property_music (SCM sym, SCM value)
 	return p;
 }
 
-Music*
-make_span_req (SCM name)
-{
-  static SCM proc;
-  if (!proc)
-    proc = scm_c_eval_string ("old-span-event->event");
-  SCM m = scm_call_1 (proc, name);
-  scm_gc_protect_object (m);
-  return unsmob_music (m);
-}
 
 // needed for bison.simple's malloc () and free ()
 
@@ -135,7 +125,6 @@ of the parse stack onto the heap. */
     String *string; // needed by the lexer as temporary scratch area.
     Music *music;
     Score *score;
-    Scheme_hash_table *scmhash;
     Music_output_def * outputdef;
     SCM scm;
     int i;
@@ -162,7 +151,6 @@ yylex (YYSTYPE *s,  void * v)
 %token AUTOCHANGE
 %token ALIAS
 %token APPLY
-%token ARPEGGIO
 %token ACCEPTS
 %token ALTERNATIVE
 %token BAR
@@ -179,11 +167,9 @@ yylex (YYSTYPE *s,  void * v)
 %token SIMULTANEOUS
 %token CONSISTSEND
 %token DENIES
-%token DURATION
 %token EXTENDER
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
-%token GLISSANDO
 %token GRACE 
 %token HEADER
 %token HYPHEN
@@ -203,7 +189,6 @@ yylex (YYSTYPE *s,  void * v)
 %token ONCE
 %token PAPER
 %token PARTIAL
-%token PENALTY
 %token PROPERTY
 %token OVERRIDE SET REVERT 
 %token PT_T
@@ -214,10 +199,8 @@ yylex (YYSTYPE *s,  void * v)
 %token PARTCOMBINE
 %token SCM_T
 %token SCORE
-%token SCRIPT
 %token SKIP
 %token SPANREQUEST
-%token STYLESHEET
 %token COMMANDSPANREQUEST
 %token TEMPO
 %token OUTPUTPROPERTY
@@ -252,7 +235,6 @@ yylex (YYSTYPE *s,  void * v)
 
 %token <scm>	SCORE_IDENTIFIER
 %token <scm>	MUSIC_OUTPUT_DEF_IDENTIFIER
-
 %token <scm>	NUMBER_IDENTIFIER
 %token <scm>	EVENT_IDENTIFIER
 %token <scm>	MUSIC_IDENTIFIER TRANSLATOR_IDENTIFIER
@@ -1295,13 +1277,7 @@ shorthand_command_req:
 	;
 
 verbose_command_req:
-	COMMANDSPANREQUEST bare_int STRING {
-		Music *sp = make_span_req ($3);
-		sp->set_mus_property ("span-direction", gh_int2scm (Direction ($2)));
-		sp->set_spot (THIS->here_input ());
-		$$ = sp;
-	}
-	| MARK DEFAULT  {
+	MARK DEFAULT  {
 		Music * m = MY_MAKE_MUSIC("MarkEvent");
 		$$ = m;
 	}
@@ -1309,16 +1285,6 @@ verbose_command_req:
 		Music *m = MY_MAKE_MUSIC("MarkEvent");
 		m->set_mus_property ("label", $2);
 		$$ = m;
-	}
-	| PENALTY SCM_T 	{
-		Music * b = MY_MAKE_MUSIC("BreakEvent");
-		SCM s = $2;
-		if (!gh_number_p (s))
-			s = gh_int2scm (0);
-
-		b->set_mus_property ("penalty", s);
-		b->set_spot (THIS->here_input ());
-		$$ = b;
 	}
 	| SKIP duration_length {
 		Music * skip = MY_MAKE_MUSIC("SkipEvent");
@@ -1359,7 +1325,6 @@ post_event:
 	| string_event
 	;
 
-
 string_event:
 	E_UNSIGNED {
 		Music * s = MY_MAKE_MUSIC("StringNumberEvent");
@@ -1396,38 +1361,12 @@ verbose_event:
 	EVENT_IDENTIFIER	{
 		$$ = unsmob_music ($1);
 	}
-	| SPANREQUEST bare_int STRING {
- 		Music * sp = make_span_req ($3);
-		sp->set_mus_property ("span-direction", gh_int2scm ( $2));
-		sp->set_spot (THIS->here_input ());
-		$$ = sp;
-	}
 	| tremolo_type  {
                Music * a = MY_MAKE_MUSIC("TremoloEvent");
                a->set_spot (THIS->here_input ());
                a->set_mus_property ("tremolo-type", gh_int2scm ($1));
                $$ = a;
         }
-	| SCRIPT STRING 	{ 
-		Music * a = MY_MAKE_MUSIC("ArticulationEvent");
-		a->set_mus_property ("articulation-type", $2);
-		a->set_spot (THIS->here_input ());
-		$$ = a;
-	}
-
-	/*
-		duh, junk this syntax from the parser, if possible. 
-	*/
-	| ARPEGGIO {
-		Music *a = MY_MAKE_MUSIC("ArpeggioEvent");
-		a->set_spot (THIS->here_input ());
-		$$ = a;
-	}
-	| GLISSANDO {
-		Music *g = MY_MAKE_MUSIC("GlissandoEvent");
-		g->set_spot /* No pun intended */ (THIS->here_input ());
-		$$ = g;
-	}	
 	;
 
 sup_quotes:
@@ -2165,6 +2104,7 @@ which is entirely legitimate.
 Or we can scrap it. Barchecks should detect wrong durations, and
 skipTypesetting speeds it up a lot.
 */
+
 void
 My_lily_parser::beam_check (SCM dur)
 {
