@@ -51,20 +51,20 @@ env.Append (ENV = {'TEXMF' : '{' + LILYPONDPREFIX + ',' \
 		   + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}' })
 
 verbose = verbose_opt (env, ' --verbose')
-a = (r'''rm -f $$(grep -LF '\lilypondend' $$(dirname $TARGET)/lily-*.tex 2>/dev/null); ''' \
+a = (r'''rm -f $$(grep -LF '\lilypondend' ${TARGET.dir}/lily-*.tex 2>/dev/null); ''' \
      + 'LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
      + '%(PYTHON)s %(LILYPOND_BOOK)s%(verbose)s'\
-     + ' --include=$$(dirname $TARGET) %(LILYPOND_BOOK_INCLUDES)s'\
+     + ' --include=${TARGET.dir} %(LILYPOND_BOOK_INCLUDES)s'\
      + r""" --process='%(LILYPOND_BIN)s %(LILYPOND_BOOK_INCLUDES)s'"""\
-     + ' --output=$$(dirname $TARGET) --format=%(LILYPOND_BOOK_FORMAT)s\
+     + ' --output=${TARGET.dir} --format=%(LILYPOND_BOOK_FORMAT)s\
      %(LILYPOND_BOOK_FLAGS)s\
      $SOURCE') % vars ()
 tely2texi = Builder (action = a, suffix = '.texi', src_suffix = '.tely')
 env.Append (BUILDERS = {'Tely2texi': tely2texi})
 
 TEXINFO_PAPERSIZE_OPTION = env['TEXINFO_PAPERSIZE_OPTION']
-a = '(cd $$(dirname $TARGET) &&\
- texi2dvi --batch %(TEXINFO_PAPERSIZE_OPTION)s $$(basename $SOURCE))' % vars ()
+a = '(cd ${TARGET.dir} &&\
+ texi2dvi --batch %(TEXINFO_PAPERSIZE_OPTION)s ${SOURCE.file})' % vars ()
 texi2dvi = Builder (action = a, suffix = '.dvi', src_suffix = '.texi')
 env.Append (BUILDERS = {'Texi2dvi': texi2dvi})
 
@@ -100,8 +100,8 @@ env.Append (BUILDERS = {'LilyPond': lilypond})
 verbose = verbose_opt (env, ' --verbose')
 a = ('LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
      + '%(PYTHON)s %(ABC2LY_PY)s%(verbose)s'\
-     + ' --include=$$(dirname $TARGET)'\
-     + ' --output=$$(dirname $TARGET)/$$(basename $TARGET .ly)'\
+     + ' --include=${TARGET.dir}'\
+     + ' --output=${TARGET.base}'\
      + ' $SOURCE') % vars ()
 abc2ly = Builder (action = a, suffix = '.ly', src_suffix = '.abc')
 env.Append (BUILDERS = {'Abc2ly': abc2ly})
@@ -123,15 +123,15 @@ def add_suffixes (target, source, env, target_suffixes, src_suffixes):
 		source + map (lambda x: base + x, src_suffixes))
 
 #outdir = os.path.join (env['build'], reldir, env['out'])
-outdir = '$$(dirname $TARGET)'
+outdir = '${TARGET.dir}'
 scrdir = env['srcdir']
 #MFINPUTS = '.:' + str (Dir ('#/mf'))
-#MFINPUTS = '.:$$(dirname $SOURCE)'
-a = ('(cd $$(dirname $TARGET) &&'\
-#     + ' MFINPUTS=.:$$(dirname $SOURCE)'\
-     + ' MFINPUTS=.:$$(dirname $SOURCE):%(srcdir)s/$$(dirname $SOURCE)'\
+#MFINPUTS = '.:${SOURCE.dir}'
+a = ('(cd ${TARGET.dir} &&'\
+#     + ' MFINPUTS=.:${SOURCE.dir}'\
+     + ' MFINPUTS=.:${SOURCE.dir}:%(srcdir)s/${SOURCE.dir}'\
      + ' mf "\\mode:=%(MFMODE)s; nonstopmode;'\
-     + ' input $$(basename $SOURCE);" ' \
+     + ' input ${SOURCE.filebase};" ' \
      + ' | grep -v "@\|>>")') % vars ()
 tfm = Builder (action = a, suffix = '.tfm', src_suffix = '.mf',
 #	       emitter = lambda t, s, e: add_suffixes (t, s, e, ['.log'], []))
@@ -142,12 +142,12 @@ MF_TO_TABLE_PY = env['MF_TO_TABLE_PY']
 #verbose = verbose_opt (env, ' --verbose')
 verbose = ''
 a = ('%(PYTHON)s %(MF_TO_TABLE_PY)s%(verbose)s'\
-     + ' --outdir=$$(dirname $TARGET)'\
-     + ' --afm=%(outdir)s/$$(basename $TARGET .afm).afm' \
-     + ' --enc=%(outdir)s/$$(basename $TARGET .afm).enc' \
-     + ' --tex=%(outdir)s/$$(basename $TARGET .afm).tex' \
-     + ' --ly=%(outdir)s/$$(basename $TARGET .afm)list.ly'\
-     + ' $$(dirname $TARGET)/$$(basename $SOURCE)') % vars ()
+     + ' --outdir=${TARGET.dir}'\
+     + ' --afm=${TARGET.base}.afm' \
+     + ' --enc=${TARGET.base}.enc' \
+     + ' --tex=${TARGET.base}' \
+     + ' --ly=${TARGET.base}list.ly'\
+     + ' ${TARGET.base}.log') % vars ()
 afm = Builder (action = a, suffix = '.afm', src_suffix = '.log',
 	       emitter = add_enc_ly_tex_target)
 env.Append (BUILDERS = {'AFM': afm})
@@ -167,8 +167,8 @@ def encoding_opt (target):
 xpfa = Builder (action = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
 			 + ' mftrace -I %(outdir)s --pfa' \
 			 + ' --simplify --keep-trying' \
-			 + ' $$(basename $SOURCE .mf) ' \
-			 + ' && mv $$(basename $TARGET) $TARGET') % vars (),
+			 + ' ${SOURCE.filebase} ' \
+			 + ' && mv ${TARGET.filebase} $TARGET') % vars (),
 	       suffix = '.pfa',
 	       src_suffix = '.mf',
 	       emitter = add_enc_src)
@@ -183,10 +183,10 @@ def run_mftrace (target, source, env):
 	mfdir = os.path.join (here, reldir)
 	outdir = os.path.join (env['build'], reldir, env['out'])
 	encoding = encoding_opt (target)
-	command = ('(cd $$(dirname $TARGET) && '
-		   + ' MFINPUTS=.:$$(dirname $TARGET):' + mfdir\
+	command = ('(cd ${TARGET.dir} && '
+		   + ' MFINPUTS=.:${TARGET.dir}:' + mfdir\
 		   + ' mftrace --pfa --simplify --keep-trying%(verbose)s'\
-		   + ' --include=$$(dirname $TARGET)'\
+		   + ' --include=${TARGET.dir}'\
 		   + ' %(encoding)s %(mf)s)') % vars ()
 	return os.system (command)
 

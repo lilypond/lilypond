@@ -56,7 +56,7 @@ env = Environment ()
 
 # put your favourite stuff in custom.py
 opts = Options ('custom.py', ARGUMENTS)
-#opts = Options (None, ARGUMENTS)
+#opts = Options (['config.cache', 'custom.py'], ARGUMENTS)
 opts.Add ('prefix', 'Install prefix', '/usr/')
 opts.Add ('out', 'Output directory', 'out-scons')
 opts.Add ('build', 'Build directory', '.')
@@ -80,6 +80,10 @@ opts.AddOptions (
 Help (opts.GenerateHelpText (env))
 
 env = Environment (options = opts)
+
+opts.Update (env)
+#opts.Save ('config.cache', env)
+
 
 env.CacheDir (os.path.join (env['build'], '=build-cache'))
 
@@ -351,15 +355,16 @@ env['MAKEINFO_PATH'] = ['.', '#/Documentation/user',
 
 ## TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 env['TEXINFO_PAPERSIZE_OPTION'] = '-t @afourpaper'
-#FIXME: ./python isn't sconsed yet, add scrdir/python for lilylib.py ...
 env.Append (PYTHONPATH = [os.path.join (outdir, 'usr/lib/python'),
 			  os.path.join (srcdir, 'buildscripts'),
 			  os.path.join (srcdir, 'python')])
 # huh, aha?
+# GS_FONTPATH, GS_LIB?
 env.Append (ENV = { 'PYTHONPATH' : string.join (env['PYTHONPATH'],
 						os.pathsep) } )
+# UGHR, lilypond.py uses lilypond-bin from PATH
+env.Append (ENV = { 'PATH' : os.path.join (outdir, 'usr/bin') })
 
-# GS_FONTPATH, GS_LIB?
 SConscript ('buildscripts/builder.py')
 
 #subdirs = ['mf',]
@@ -410,19 +415,26 @@ def symlink_tree (prefix):
 		map (mkdir, string.split (dir, os.sep))
 	#srcdir = os.getcwd ()
 	def symlink (src, dst):
+		os.chdir (absbuild)
 		dir = os.path.dirname (dst)
 		mkdirs (dir)
 		if src[0] == '#':
 			frm = os.path.join (srcdir, src[1:])
 		else:
-			depth = len (string.split (dir))
+			print 'dst: ' + dst
+			depth = len (string.split (dir, '/'))
+			print 'depth: ' + `depth`
 			frm = os.path.join ('../' * depth, src, out)
+		print 'cwd: ' + `os.getcwd ()`
+		print 'frm: ' + frm
+		print 'dst: ' + dst
 		os.symlink (frm, os.path.basename (dst))
-		os.chdir (srcdir)
 	map (lambda x: symlink (x[0], os.path.join (prefix, x[1])),
 	     (('python', 'lib/lilypond/python'),
+	      # UGHR, lilypond.py uses lilypond-bin from PATH
+	      ('lily',   'bin'),
 	      ('#mf',    'share/lilypond/fonts/mf'),
-	      ('mf',     'share/lilypond/fonts/amf'),
+	      ('mf',     'share/lilypond/fonts/afm'),
 	      ('mf',     'share/lilypond/fonts/tfm'),
 	      ('mf',     'share/lilypond/fonts/type1'),
 	      ('#tex',   'share/lilypond/tex/source'),
@@ -431,8 +443,9 @@ def symlink_tree (prefix):
 	      ('#scm',   'share/lilypond/scm'),
 	      ('#ps',    'share/lilypond/ps'),
 	      ('elisp',  'share/lilypond/elisp')))
+	os.chdir (srcdir)
 
 if env['debugging']:
-	prefix = os.path.join (outdir, 'usr')
+	prefix = os.path.join (out, 'usr')
 	if not os.path.exists (prefix):
 		symlink_tree (prefix)
