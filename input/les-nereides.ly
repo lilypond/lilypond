@@ -5,10 +5,17 @@
     title =      "LES N\\'ER\\'EIDES"
     subtitle =   "THE NEREIDS"
     enteredby =  "JCN"
-    %piece =      "Allegretto scherzando"
+    piece =      "Allegretto scherzando"
     copyright =  "public domain"
-    description = "Nastiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf"
 }
+
+%{
+
+Nastiest piece of competition at
+http://www.orphee.com/comparison/study.html, see
+http://www.orphee.com/comparison/gray.pdf
+
+%}
 
 #(ly:set-point-and-click 'line-column)
 #(define (make-text-checker text)
@@ -16,112 +23,67 @@
 
 
 treble =  \context Voice=treble \notes\relative c''{
-\key a \major
-    % Broken?
-    \property Voice.NoteColumn \override #'horizontal-shift = #0
-    \outputproperty #(make-type-checker 'text-interface) 
-	    #'extra-offset = #'(-6 . 2)
-    r2^#'((Large upright) "Allegretto scherzando")
+    \key a \major
+    r2
     %2
-    \property Voice.Stem \revert #'direction
-    \property Voice.Stem \override #'direction = #1
-    r4 <cis-\arpeggio eis a cis> r2
+    \stemUp
+    r4 <<cis eis a cis>>-\arpeggio r2
     %3
-    r4 <cis-\arpeggio fis a cis> r8.
+    r4 <<cis fis a cis>>-\arpeggio r8.
 
-    % Urg, this lifts us up to staff context
     \translator Staff=bass
 
-    % Get back:
-    \context Voice
-    
-    % If we don't get back to Voice, this text-checker doesn't work
-    \outputproperty #(make-text-checker "m.d.")
-	    #'extra-offset = #'(-3 . -4)
+    \once\property Voice.TextScript \set #'extra-offset = #'(-3 . -4)
 	    
-    % currently, this can't be (small) italic, because in the paperblock
+    % currently, this can't be (small italic,-) because in the paperblock
     % we set italic_magnifictation to get large italics.
-    cis,16^2^"m.d."( <fis8 fis,> <e! e,!>
+    cis,16^2^"m.d."( <<fis fis,>>8 <<e! e,!>>
     %4
-    <)dis,4 a' dis>
+    <<dis, a' dis>>4-)
     
-    % Urg, this lifts us up to staff context
     \translator Staff=treble
-    % Get back:
-    \context Voice
     
-    \property Voice.Slur \revert #'direction
-    \property Voice.Slur \override #'direction = #1
+    \slurUp 
     \property PianoStaff.connectArpeggios = ##t
-    \property Voice.TextSpanner \revert #'type
 
-    %% Ghostview is ok, but xdvi shows a solid line
-    \property Voice.TextSpanner \override #'thickness = #2
-    \property Voice.TextSpanner \override #'dash-period = #0.5
+    #(set-octavation 1)
 
-    \property Voice.TextSpanner \override #'type = #'dotted-line
-    \property Voice.TextSpanner \override #'edge-height = #'(0 . 1.5)
-    %% \property Voice.TextSpanner \override #'edge-text = #'("8 " . "")
-    \property Voice.TextSpanner \override #'edge-text = #'("8 " . "  ")
-
-    % Urg, this lifts us up to staff context
-    \property Staff.centralCPosition = #-13
-
-    % Get back:
-    \context Voice
-
-    % If we don't get back to Voice, this text-checker doesn't work
-    \outputproperty #(make-text-checker "m.g.")
-	    #'extra-offset = #'(-3 . -3)
+    \once\property Voice.TextScript \set #'extra-offset = #'(-3 . -2)
 	    
-    % currently, this can't be (small) italic, because in the paperblock
-    % we set italic_magnifictation to get large italics.
-    cis''''4^"m.g."-\arpeggio #(ly:export (make-span-event 'TextSpanEvent START)) (
-
-    \property Voice.Stem \revert #'direction
-
+    \tieUp
+    cis''''4^\markup { \small \italic "m.g." }-\arpeggio-~
     \grace {
-        )cis8
-	\property Voice.Stem \revert #'direction
-	\property Voice.Stem \override #'direction = #0
-        [a16-5( fis dis #(ly:export (make-span-event 'TextSpanEvent STOP)) ]
-	\property Staff.centralCPosition = #-6
+         cis8
+	\stemBoth
+          a16-[-5( fis dis-]
+	 #(set-octavation 0)
 	
-	[cis32 a-1 fis-4 dis] [cis a )fis-2]
+ 	 cis32-[ a-1 fis-4 dis]   cis-[ a  fis-)-2]
     }
 
-    \property Voice.Stem \revert #'direction
-    \property Voice.Stem \override #'direction = #1
-    cis'4()bis
+    \stemUp
+    cis'4( bis-)
     r8
-    <a'8( a,> <gis gis,> <fis fis,> <gis gis,> <fis fis,> )e^" "^1^4^5 r|
-    r <a8( a,> <gis gis,> <fis fis,> <gis gis,> <fis fis,> )e r|
+    <<a' a,>>8-( <<gis gis,>> <<fis fis,>> <<gis gis,>> <<fis fis,>>  e-)^" "^1^4^5 r|
+    r <<a a,>>8-( <<gis gis,>> <<fis fis,>> <<gis gis,>> <<fis fis,>>  e-) r|
 
     \bar "||"
 
 }
 
 trebleTwo =  \context Voice=trebleTwo \notes\relative c''{
-    \property Voice.NoteColumn \override #'horizontal-shift = #1
     s2
     s1*2
     s4
-    \property Voice.Stem \revert #'direction
-    \property Voice.Stem \override #'direction = #-1
-    <cis'4-\arpeggio a fis dis>
+    \stemDown
+    <<cis' a fis dis>>4-\arpeggio
 
-    \property Voice.NoteColumn \override #'force-hshift = #-0.2
-    <e,2 gis, e d!>
-    % Hmm s/r?
-    %r8 cis4. d4
+    <<e, gis, e d!>>2
     s8 cis4. d4
-    \property Voice.NoteColumn \revert #'force-hshift
-    [<cis8( e,> <b-3 d,-1> |
-    \property Voice.NoteColumn \override #'force-hshift = #-0.2
-    <)a-2 cis,-1>] cis4. d4 
-    \property Voice.NoteColumn \revert #'force-hshift
-    [<cis8( e,> <b d,> |
-    <)a cis,>]
+    <<cis e,>>8-[-( <<b-3 d,-1>> |
+    <<a-2 cis,-1>>-)] cis4. d4 
+    <<cis e,>>8-[-( <<b d,>> |
+    <<a cis,>>-)]
 }
 
 bass =  \context Voice=bass \notes\relative c{
@@ -131,87 +93,66 @@ bass =  \context Voice=bass \notes\relative c{
     
     \property Voice.Slur \override #'beautiful = #5.0
     \property Voice.Slur \override #'attachment-offset = #'((0 . 3) . (0 . -4))
-    \property Voice.Stem \revert #'direction
-    \property Voice.Slur \override #'direction = #-1
-    % huh, auto-beamer?
-    r8. e,16_2( [<a8 a,> <b b,>] |
+    \slurDown
+    r8. e,16_2( <<a a,>>8-[ <<b b,>>] |
     %2
-    <cis4 cis,>
-    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
+    <<cis cis,>>4
     \translator Staff=treble
-    % Get back
-    \context Voice
-    \property Voice.Stem \revert #'direction
-    \property Voice.Stem \override #'direction = #-1
+    \stemDown
     \property Voice.Slur \override #'attachment = #'(stem . stem)
-    <)a''4-\arpeggio eis cis> 
+    <<a'' eis cis>>4-)-\arpeggio 
     %\stemBoth
     \property Voice.Slur \revert #'attachment
-    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
     \translator Staff=bass
-    % Get back
-    \context Voice 
-    \property Voice.Stem \revert #'direction
+    \stemBoth
     \property Voice.Slur \revert #'y-free
     \property Voice.Slur \override #'y-free = #0.1
     \property Voice.Slur \revert #'attachment-offset
     \property Voice.Slur \override #'attachment-offset = #'((0 . 3) . (0 . 8))
-    r8. cis,,16( <fis8 fis,> <gis gis,>
+    r8. cis,,16( <<fis fis,>>8 <<gis gis,>>
     %3
-    \property Voice.Stem \revert #'length
-    \property Voice.Stem \override #'length = #5
-    <a4 a,>
-    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
+    \property Voice.Stem \set #'length = #5
+    <<a a,>>4
     \translator Staff=treble
-    % Get back
-    \context Voice 
+			    
     \property Voice.Stem \revert #'length
     \property Voice.Stem \revert #'direction
     \property Voice.Stem \override #'direction = #-1
-    <)a'-\arpeggio fis cis>
-    % Huh, urg?  Implicit \context Staff lifts us up to Staff context???
+    <<a' fis cis>>-)-\arpeggio
     \translator Staff=bass
-    % Get back
-    \context Voice 
     \property Voice.Stem \revert #'direction
     r2
     %4
     \property Voice.Slur \revert #'beautiful
     \property Voice.Slur \revert #'attachment-offset
-    \property Voice.Stem \revert #'direction
-    \property Voice.Stem \override #'direction = #-1
-    <b,,4 b,>
+    \stemDown
+    <<b,, b,>>4
     \clef treble
-    \property Voice.Stem \revert #'direction
-    \property Voice.Stem \override #'direction = #0
+    \stemBoth
     <
         %urg: staff-change: ! on dis
-        <cis''-\arpeggio a fis dis!>
+        <<cis'' a fis dis!>>-\arpeggio
 %	{ s8. \clef bass}
     >
 
     %Hmm
     %\grace { s16 s s s s32 s s s s \clef bass s }
     \clef bass
-    \grace { <e,,,32( e,> } <)gis'2 e>
+    \grace { <<e,,, e,>>32-( } <<gis' e>>2-)
     %5
-    \property Voice.Slur \revert #'direction
-    \property Voice.Slur \override #'direction = #1
-    a,8 [e'-5(<)a-2 cis-3>]
-    r b,-5 <e4-3 gis-5 d'>
-    \property Voice.Slur \revert #'direction
-    \property Voice.Slur \override #'direction = #0
-    [e,8-5(|
+    \slurUp
+    a,8   e'-[-5(<<a-2 cis-3>>-)]
+    r b,-5 <<e-3 gis-5 d'>>4
+    \slurBoth
+      e,8-[-5(|
     %6
-    )a-2]
-    \property Voice.Slur \revert #'direction
-    \property Voice.Slur \override #'direction = #1
-    [e'(<)a cis>] r b, <e4 gis d'>
-    \property Voice.Slur \revert #'direction
-    \property Voice.Slur \override #'direction = #0
-    [e,8(|
+     a-)-2]
+    \slurUp
+      e'-[(<<a cis>>-)] r b, <<e gis d'>>4
+    \slurBoth
+      e,8-[(|
     %7
-    )a]
+     a-)]
 }
 
 bassTwo =  \context Voice=bassTwo \notes\relative c{
@@ -219,12 +160,10 @@ bassTwo =  \context Voice=bassTwo \notes\relative c{
     \skip 1*2
     \skip 2
 
-    \property Voice.Stem \revert #'direction
-    \property Voice.Stem \override #'direction = #1
-    \property Voice.Slur \revert #'direction
-    \property Voice.Slur \override #'direction = #1
+    \stemUp
+    \slurUp
 
-    cis'4()bis
+    cis'4( bis-)
 }
 
 middleDynamics =  \context Dynamics=middle \notes{
@@ -234,22 +173,16 @@ middleDynamics =  \context Dynamics=middle \notes{
     s2
 
     s32 
-    \outputproperty #(make-type-checker 'text-interface) 
-	    #'extra-offset = #'(0 . 1.5)
+    \once \property Dynamics.TextScript \set #'extra-offset = #'(0 . 1.5)
     s-"rall." s s
     s8 s4
-
-    \outputproperty #(make-type-checker 'dynamic-interface) 
-	    #'extra-offset = #'(0 . 4)
+    
     %s1-\mf-"a tempo"
-%%    s2-\mf-"a tempo" s4
     s2-\mf-"a tempo" s8
-%%    s\> \!s8
-    s16 s32 s64 \> s s8  s \!s8
-    \outputproperty #(make-type-checker 'dynamic-interface) 
-	    #'extra-offset = #'(-1 . 4)
-%%    s8-\mf s4 s4 s8\> s32 s s \!s
-    s8-\mf s4 s8 s16 s32 s64 \> s s16 s8 s32 s s s\! s128
+%%    s\>  s8-\!
+    s16 s32 s64 \> s s8  s  s8-\!
+%%    s8-\mf s4 s4 s8\> s32 s s  s-\!
+    s8-\mf s4 s8 s16 s32 s64 \> s s16 s8 s32 s s s s128-\!
 }
 
 lowerDynamics =  \context Dynamics=lower \notes{
@@ -301,21 +234,14 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	>
     >
     \paper {
-        % Hmm
-	% magnification_italic = 1.
 	\translator {
 	    \ScoreContext
-	    TimeSignature \override #'style = #'C
-	    %% SpacingSpanner \override #'maximum-duration-for-spacing = #(ly:make-moment 1 4)
-
 	    \remove Bar_number_engraver
         }
 	\translator {
 	    \type "Engraver_group_engraver"
 	    \name Dynamics
 	    \consists "Output_property_engraver"
-	    %%Generic_property_list = #generic-voice-properties
-	    %%\consists "Property_engraver"
 	    minimumVerticalExtent = #'(-1 . 1)
 
 	    pedalSustainStrings = #'("Ped." "*Ped." "*")
@@ -345,3 +271,4 @@ lowerDynamics =  \context Dynamics=lower \notes{
 %%% Local variables:
 %%% LilyPond-indent-level:4
 %%% End:
+%% new-chords-done %%

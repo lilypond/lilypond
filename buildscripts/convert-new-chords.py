@@ -127,8 +127,12 @@ def sub_chords (str):
 	str= re.sub (r'\\>', '@STARTDECRESC@', str)
 	str= re.sub (r'([_^-])>', r'\1@ACCENT@', str)
 	str = re.sub ('<([^<>{}]+)>', sub_chord, str)
-	str = re.sub (r'\\! *@STARTCHORD@([^@]+)@ENDCHORD@',
-		      r'@STARTCHORD@\1@ENDCHORD@-\!',
+
+	str = re.sub (r'\[ *(@STARTCHORD@[^@]+@ENDCHORD@[0-9.]+)',
+		      r'\1-[',
+		      str)
+	str = re.sub (r'\\! *(@STARTCHORD@[^@]+@ENDCHORD@[0-9.]+)',
+		      r'\1-\\!',
 		      str)
 	str = re.sub ('<([^?])', r'%s\1' % simstart, str)
 	str = re.sub ('>([^?])', r'%s\1' % simend,  str)

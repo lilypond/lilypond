@@ -312,8 +312,8 @@ DVI output to `test.dvi'...
 @cindex Viewing music
 @cindex xdvi
 
-The result of the ly2dvi is the file @file{test.pdf}.@footnote{ For
-@TeX{} afficionados, there is also a (@file{test.dvi}) file. It can be
+The result of the ly2dvi is the file @file{test.pdf}.@footnote{For
+@TeX{} afficionados, there is also a @file{test.dvi} file. It can be
 viewed with @code{xdvi}. The DVI uses a lot of PostScript specials,
 which do not show up in the magnifying glass. The specials also mean
 that the DVI file cannot be processed with @code{dvilj}. Use
@@ -323,7 +323,6 @@ that the DVI file cannot be processed with @code{dvilj}. Use
 @cindex DVI driver
 }  One of the following commands should put the PDF on your
 screen:
-@c eeek
 @quotation
 @example
   gv test.pdf
@@ -333,6 +332,7 @@ screen:
   xpdf test.pdf
   gpdf test.pdf
   acroread test.pdf
+  gsview32 test.pdf
 @end example
 @end quotation
 If the music on your screen looks good, you can print it by clicking
@@ -345,28 +345,24 @@ File/Print inside your viewing program.
 @cindex PDF
 
 
-On Windows,  the terminal is started by clicking on the LilyPond or
-Cygwin icon.  Any text editor (such as NotePad, Emacs or Vim) may be
-used to edit the LilyPond file.  If you have a PDF viewer installed,
-use that for viewing the PDF
-@c where on file system for double-click people?
-If you have no viewer, then  you can download @code{GSView}  from
-@uref{http://www.cs.wisc.edu/~ghost}. With @code{GSView},
-the PDF file can viewed with
-@quotation
-@example
-@code{gsview32 test.pdf}
-@end example
-@end quotation
-Printing may be done with
-@quotation
-@example
-@code{gsview32 /s test.pdf}
-@end example
-@end quotation
+On Windows, the same procedure should work, the terminal is started by
+clicking on the LilyPond or Cygwin icon.  Any text editor (such as
+NotePad, Emacs or Vim) may be used to edit the LilyPond file.
 
-The commands for formatting and printing music are detailed in
-@ref{Invoking LilyPond}.
+To view the PDF file, try the following:
+@itemize
+@item
+If your system has a PDF viewer installed, open
+@file{C:\Cygwin\home\@var{your-name}} in the explorer and double-click
+@file{test.pdf}.
+@item
+If you prefer the keyboard, you can also try the list of commands
+shown before. If none work, go to
+@uref{http://www.cs.wisc.edu/~ghost/} to install the proper software.
+@end itemize
+
+The commands for formatting and printing music on all platforms are
+detailed in @ref{Invoking LilyPond}.
 
 @node More about pitches and accidentals
 @section More about pitches and accidentals

@@ -1,3 +1,10 @@
+2003-08-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/regression/spacing-note-flags.ly (raggedright): remove
+	stafflinethickness
+
+	* input/les-nereides.ly: update to new syntax, cleanups.
+
 2003-08-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/user/refman.itely: Clarify shortest-note problem
@@ -23,7 +30,7 @@
 	* lilypond-mode.el: add menu keywords separately.
 
 	* lilypond.words: post-syntaxed slur pairs and syntax for \times.
-	
+
 2003-08-01  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* Documentation/topdocs/INSTALL.texi (Top): Documentation of the
