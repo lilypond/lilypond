@@ -26,16 +26,16 @@ Paper_score::Paper_score ()
 {
   paper_l_ =0;
   outputter_l_ =0;
-  line_l_ = 0;
+  system_ = 0;
   main_smob_ = SCM_EOL;
 }
 
 void
 Paper_score::typeset_line (System *l)
 {
-  if (!line_l_)
+  if (!system_)
     {
-      line_l_ = l;		// ugh.
+      system_ = l;		// ugh.
     }
   main_smob_ = gh_cons (l->self_scm (), main_smob_);
   l->pscore_l_ = this;
@@ -73,7 +73,7 @@ void
 Paper_score::process ()
 {
   if (verbose_global_b)
-    progress_indication (_f ("Element count %d ",  line_l_->element_count ()));
+    progress_indication (_f ("Element count %d ",  system_->element_count ()));
 
   
   progress_indication (_ ("Preprocessing elements...") + " ");
@@ -81,15 +81,15 @@ Paper_score::process ()
   /*
     Be sure to set breakability on first & last column.
    */
-  Link_array<Grob> pc (line_l_->column_l_arr ());
+  Link_array<Grob> pc (system_->column_l_arr ());
   
   pc[0]->set_grob_property ("breakable", SCM_BOOL_T);
   pc.top ()->set_grob_property ("breakable", SCM_BOOL_T);
 
-  line_l_->pre_processing ();
+  system_->pre_processing ();
  
   Array<Column_x_positions> breaking = calc_breaking ();
-  line_l_->break_into_pieces (breaking);
+  system_->break_into_pieces (breaking);
   
   outputter_l_ = paper_l_->paper_outputter_p ();
 ;
@@ -119,7 +119,7 @@ Paper_score::process ()
   SCM scm = scm_list_n (ly_symbol2scm ("header-end"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);
 
-  line_l_->output_lines ();
+  system_->output_lines ();
 
   scm = scm_list_n (ly_symbol2scm ("end-output"), SCM_UNDEFINED);
   outputter_l_->output_scheme (scm);

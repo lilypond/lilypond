@@ -54,10 +54,10 @@ Item::column_l () const
 }
 
 System *
-Item::line_l () const
+Item::get_system () const
 {
   Grob *g = get_parent (X_AXIS);
-  return g ?  g->line_l () : 0;
+  return g ?  g->get_system () : 0;
 }
 
 
@@ -70,7 +70,7 @@ Item::copy_breakable_items ()
     {
       Grob * dolly = clone ();
       Item * item_p = dynamic_cast<Item*> (dolly);
-      pscore_l_->line_l_->typeset_grob (item_p);
+      pscore_l_->system_->typeset_grob (item_p);
       new_copies[i] =item_p;
     }
   while (flip (&i) != LEFT);
@@ -101,13 +101,13 @@ Item::discretionary_processing ()
 Grob*
 Item::find_broken_piece (System*l) const
 {
-  if (line_l () == l) 
+  if (get_system () == l) 
     return (Item*) (this);
 
   Direction d = LEFT;
   do {
     Grob *s = broken_to_drul_[d];
-    if (s && s->line_l () == l)
+    if (s && s->get_system () == l)
       return s;
   }
   while (flip (&d) != LEFT);

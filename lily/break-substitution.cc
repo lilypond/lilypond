@@ -30,17 +30,17 @@ substitute_grob (Grob *sc)
     {
       System * line
 	= dynamic_cast<System*> (unsmob_grob (break_criterion));
-      if (sc->line_l () != line)
+      if (sc->get_system () != line)
 	{
 	  sc = sc->find_broken_piece (line);
 
 	}
 	  
-      /* now: !sc || (sc && sc->line_l () == line) */
+      /* now: !sc || (sc && sc->get_system () == line) */
       if (!sc)
 	return SCM_UNDEFINED;
 
-      /* now: sc && sc->line_l () == line */
+      /* now: sc && sc->get_system () == line */
       if (!line)
 	return sc->self_scm();
 

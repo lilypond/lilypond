@@ -361,7 +361,7 @@ Spacing_spanner::set_springs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  Link_array<Grob> all (me->pscore_l_->line_l_->column_l_arr ()) ;
+  Link_array<Grob> all (me->pscore_l_->system_->column_l_arr ()) ;
 
   set_explicit_neighbor_columns (all);
 

@@ -7,8 +7,8 @@
 */
 
 
-#ifndef SCORE_GRAV_HH
-#define SCORE_GRAV_HH
+#ifndef SCORE_ENGRAVER_HH
+#define SCORE_ENGRAVER_HH
 
 #include "engraver-group-engraver.hh"
 #include "global-translator.hh"
@@ -19,7 +19,7 @@
 class Score_engraver : 
   public Engraver_group_engraver, public Global_translator 
 {
-  System * scoreline_l_;
+  System *system_;
   int breaks_i_;
   
   
@@ -57,4 +57,4 @@ protected:
   virtual void stop_translation_timestep ();
 };
 
-#endif // SCORE_GRAV_HH
+#endif /* SCORE_ENGRAVER_HH */

@@ -56,9 +56,9 @@ Paper_column::rank_i (Grob*me)
 }
 
 System*
-Paper_column::line_l () const
+Paper_column::get_system () const
 {
-  return line_l_;
+  return system_;
 }
 
 Paper_column*
@@ -70,7 +70,7 @@ Paper_column::column_l () const
 Paper_column::Paper_column (SCM l)
   : Item (l)		// guh.?
 {
-  line_l_=0;
+  system_=0;
   rank_i_ = -1;
 }
 

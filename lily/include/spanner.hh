@@ -60,7 +60,7 @@ protected:
 
   VIRTUAL_COPY_CONS (Grob);
   virtual void do_break_processing ();
-  virtual System*line_l () const;
+  virtual System *get_system () const;
 };
 
 
