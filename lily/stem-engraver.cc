@@ -144,6 +144,9 @@ Stem_engraver::stop_translation_timestep ()
 
   if (stem_)
     {
+      /*
+	toDO: junk these properties.
+       */
       SCM prop = get_property ("stemLeftBeamCount");
       if (gh_number_p (prop))
 	{

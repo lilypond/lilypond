@@ -217,7 +217,7 @@ Music::origin () const
 
 LY_DEFINE (ly_music_length, "ly:music-length",
 	   1, 0, 0, (SCM mus),
-	  "Get the length (in musical time) of music expression @var{mus}.")
+	  "Get the length of music expression @var{mus}, and return as a @code{Moment} object.")
 {
   Music *sc = unsmob_music (mus);
   SCM_ASSERT_TYPE (sc, mus, SCM_ARG1, __FUNCTION__, "music");
@@ -283,11 +283,12 @@ LY_DEFINE (ly_extended_make_music, "ly:make-bare-music",
 }
 
 /* todo: property args */
-LY_DEFINE (ly_get_mutable_properties, "ly:get-mutable-properties",
+LY_DEFINE (ly_mutable_music_properties, "ly:mutable-music-properties",
 	  1, 0, 0, (SCM mus),
 	  "Return an alist containing the mutable properties of @var{mus}.\n"
-	  "The immutable properties are not available; "
-	  "they should be initialized by the @code{make-music} function.\n")
+	  "The immutable properties are not available, since "
+	  "they are constant and initialized by the "
+	   "@code{make-music} function.\n")
 {
   Music *m = unsmob_music (mus);
   SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__, "music");

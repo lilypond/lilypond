@@ -80,7 +80,7 @@ Cluster_spanner_engraver::process_music ()
 {
   if (cluster_notes_.size ())
     {
-      SCM c0scm = get_property ("centralCPosition");
+      SCM c0scm = get_property ("middleCPosition");
 
       int c0 =  gh_number_p (c0scm) ? gh_scm2int (c0scm) : 0;
       int pmax = INT_MIN;

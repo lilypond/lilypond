@@ -51,12 +51,12 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
 }
 
 LY_DEFINE (ly_context_property, "ly:context-property",
-	   2, 0, 0, (SCM context, SCM name),
-	  "Return the value of @var{name} from context @var{context}")
+	   2, 0, 0, (SCM c, SCM name),
+	  "Return the value of @var{name} from context @var{c}")
 {
-  Context *t = unsmob_context (context);
+  Context *t = unsmob_context (c);
   Context * tr= (t);
-  SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Translator group");
+  SCM_ASSERT_TYPE (tr, c, SCM_ARG1, __FUNCTION__, "Translator group");
   SCM_ASSERT_TYPE (gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
 
   return tr->internal_get_property (name);
@@ -64,7 +64,7 @@ LY_DEFINE (ly_context_property, "ly:context-property",
 
 LY_DEFINE (ly_context_set_property, "ly:context-set-property!",
 	   3, 0, 0, (SCM context, SCM name, SCM val),
-	   "set value of property @var{name} in context @var{context} "
+	   "Set value of property @var{name} in context @var{context} "
 	   "to @var{val}.")
 {
   Context *tr = unsmob_context (context);
@@ -92,7 +92,7 @@ LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined
   return SCM_EOL;
 }
 
-LY_DEFINE (ly_unset_context_property, "ly:unset-context-property", 2, 0, 0,
+LY_DEFINE (ly_unset_context_property, "ly:context-unset-property", 2, 0, 0,
 	   (SCM context, SCM name),
 	   "Unset value of property @var{name} in context @var{context}.")
 {
@@ -106,7 +106,7 @@ LY_DEFINE (ly_unset_context_property, "ly:unset-context-property", 2, 0, 0,
 
 LY_DEFINE (ly_context_parent, "ly:context-parent",
 	   1, 0, 0, (SCM context),
-	   "Return the parent of @var{context}, #f if none.")
+	   "Return the parent of @var{context}, @code{#f} if none.")
 {
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
@@ -119,7 +119,7 @@ LY_DEFINE (ly_context_parent, "ly:context-parent",
 }
 
 /* FIXME: todo: should support translator IDs, and creation? */
-LY_DEFINE (ly_translator_find, "ly:translator-find",
+LY_DEFINE (ly_context_find, "ly:context-find",
 	   2, 0, 0, (SCM context, SCM name),
 	   "Find a parent of @var{context} that has name or alias @var{name}. "
 	   "Return @code{#f} if not found.")
@@ -138,6 +138,10 @@ LY_DEFINE (ly_translator_find, "ly:translator-find",
   return SCM_BOOL_F;
 }
 
+#if 0
+/*
+  What is this used for? Should remove? --hwn
+ */
 LY_DEFINE (ly_context_properties, "ly:context-properties",
 	   1, 0, 0, (SCM context),
 	   "Return all properties  of @var{context} in an alist.")
@@ -146,3 +150,4 @@ LY_DEFINE (ly_context_properties, "ly:context-properties",
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
   return tr->properties_as_alist ();
 }
+#endif

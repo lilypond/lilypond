@@ -48,7 +48,7 @@ Moment::print_smob (SCM s, SCM port, scm_print_state *)
   TODO: add optional factor argument.
 */
 LY_DEFINE (make_moment,"ly:make-moment", 2,0,0, (SCM n, SCM d),
-	   "create the rational number with main timing @var{n}/@var{d}. \n"
+	   "Create the rational number with main timing @var{n}/@var{d}. \n"
 	   "\n"
 	   "\n"
 	   "Moment is a point in musical time. It is consists of a pair of\n"

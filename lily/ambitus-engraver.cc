@@ -13,6 +13,13 @@
 #include "event.hh"
 #include "pitch.hh"
 
+
+/*
+  UGH UGH UGH .
+
+  rewrite this complely. --hwn
+ */
+
 /*
  * This class implements an engraver for ambitus grobs.
  *
@@ -72,7 +79,7 @@ TRANSLATOR_DECLARATIONS (Ambitus_engraver);
 private:
   void create_ambitus ();
   Item *ambitus_;
-  int/*bool*/ is_typeset;
+  bool is_typeset;
   Pitch pitch_min, pitch_max;
 };
 
@@ -109,12 +116,12 @@ Ambitus_engraver::stop_translation_timestep ()
   if (ambitus_ && !is_typeset)
     {
       /*
-       * Evaluate centralCPosition not until now, since otherwise we
+       * Evaluate middleCPosition not until now, since otherwise we
        * may then oversee a clef that is defined in a staff context if
-       * we are in a voice context; centralCPosition would then be
+       * we are in a voice context; middleCPosition would then be
        * assumed to be 0.
        */
-      SCM c0 = get_property ("centralCPosition");
+      SCM c0 = get_property ("middleCPosition");
       ambitus_->set_property ("c0-position", c0);
 
       /*
@@ -124,7 +131,7 @@ Ambitus_engraver::stop_translation_timestep ()
       ambitus_->set_property ("accidentals", key_signature);
 
       typeset_grob (ambitus_);
-      is_typeset = 1;
+      is_typeset = true;
     }
 }
 
@@ -163,7 +170,7 @@ void
 Ambitus_engraver::create_ambitus ()
 {
   ambitus_ = make_item ("Ambitus");
-  is_typeset = 0;		// UGH.
+  is_typeset = false;		
   announce_grob (ambitus_, SCM_EOL);
 }
 
@@ -173,12 +180,12 @@ Ambitus_engraver::finalize ()
   if (ambitus_)
     {
       if (Pitch::compare (pitch_min, pitch_max) <= 0)
-	{
-	  ambitus_->set_property ("pitch-min",
-					 pitch_min.smobbed_copy ());
-	  ambitus_->set_property ("pitch-max",
-					 pitch_max.smobbed_copy ());
-	}
+  	{
+ 	  ambitus_->set_property ("pitch-min",
+				  pitch_min.smobbed_copy ());
+  	  ambitus_->set_property ("pitch-max",
+				  pitch_max.smobbed_copy ());
+  	}
       else // have not seen any pitch, so forget about the ambitus
 	{
 	  /*

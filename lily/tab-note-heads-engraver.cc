@@ -182,6 +182,6 @@ ENTER_DESCRIPTION (Tab_note_heads_engraver,
 /* creats*/       "TabNoteHead Dots",
 /* accepts */     "note-event string-number-event busy-playing-event",
 /* acks  */      "",
-/* reads */       "centralCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
+/* reads */       "middleCPosition stringTunings minimumFret tablatureFormat highStringOne stringOneTopmost",
 /* write */       "");
 

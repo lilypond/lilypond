@@ -52,7 +52,7 @@ Ottava_spanner_engraver::process_music ()
 	  span_->set_property ("text", ott);
 	  announce_grob (span_, SCM_EOL);
 
-	  SCM c0 (get_property ("centralCPosition"));
+	  SCM c0 (get_property ("middleCPosition"));
 	  SCM oc0 (get_property ("originalCentralCPosition"));
 	  if (scm_less_p (oc0, c0) == SCM_BOOL_T)
 	    span_->set_property ("direction", gh_int2scm (DOWN));

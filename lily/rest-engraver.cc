@@ -93,7 +93,7 @@ Rest_engraver::process_music ()
       if (p)
 	{
 	  int pos= p->steps ();
-	  SCM c0 = get_property ("centralCPosition");
+	  SCM c0 = get_property ("middleCPosition");
 	  if (gh_number_p (c0))
 	    pos += gh_scm2int (c0);
 	  
@@ -120,5 +120,5 @@ ENTER_DESCRIPTION (Rest_engraver,
 /* creats*/       "Rest Dots",
 /* accepts */     "rest-event",
 /* acks  */      "",
-/* reads */       "centralCPosition",
+/* reads */       "middleCPosition",
 /* write */       "");

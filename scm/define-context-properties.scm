@@ -26,16 +26,17 @@
    (lambda (x)
      (apply translator-property-description x))
    `(
-     (aDueText ,string? "text for begin of a due")
+     (aDueText ,string? "Text to print at a unisono passage.")
      (alignBassFigureAccidentals ,boolean?
 				 "If true, then the accidentals are aligned in bass figure context.")
 
-     (allowBeamBreak ,boolean? "If true allow line breaks during beams.")
+     (allowBeamBreak ,boolean? "If true allow line breaks for  beams over barlines.")
      (associatedVoice ,string? "Name of the
-Voice that has the melody for this Lyrics.")
+@code{Voice} that has the melody for this @code{Lyrics} line.")
      (autoBeamSettings ,list? "Specifies
 when automatically generated beams should begin and end.
-See the notation manual for more information. ")
+See @usermanref{Setting automatic beam behavior} for more information.
+")
      (autoAccidentals ,list? "List of
 different ways to typeset an accidental.
 
@@ -75,11 +76,11 @@ immediately, and if @var{laziness} is @code{#t} then the accidental
 lasts forever.
 @end table
 ")
-     (autoBeaming ,boolean? "If set to true
-then beams are generated automatically.")
+     (autoBeaming ,boolean? "If set to true then beams are generated
+automatically.")
 
      (autoCautionaries ,list? "List similar to
-autoAccidentals, but it controls cautionary accidentals rather than
+@code{autoAccidentals}, but it controls cautionary accidentals rather than
 normal ones. Both lists are tried, and the one giving the most accidentals
 wins. In case of draw, a normal accidental is typeset.
 ")
@@ -93,15 +94,15 @@ if this property is unset.
      (barAlways ,boolean? "If set to true a bar line is drawn after each
 note.")
 
-     (barCheckSynchronize ,boolean? "If true then reset measurePosition
+     (barCheckSynchronize ,boolean? "If true then reset @code{measurePosition}
 when finding a barcheck.")
 
      (barNumberVisibility ,procedure? "Procedure that takes an int and
 returns whether the corresponding bar number should be printed")
-     (bassFigureFormatFunction ,procedure? "DOCME")
+     (bassFigureFormatFunction ,procedure? "Procedure that produces a markup text. It takes a list of @code{BassFigureEvent}s, and a context.")
      (beatLength ,ly:moment? "The length of one beat in this time signature.")
      (beatGrouping ,list?
-		   "List of beatgroups. Eg. in 5/8 time #(list 2 3).")
+		   "List of beatgroups. Eg. in 5/8 time @code{'(2 3)}.")
 
 
      (breakAlignOrder ,list? "Defines the order in which
@@ -120,9 +121,9 @@ key signatures after the bar lines:
 @end example
 ")
 
-     (centralCPosition ,number? "Place of the central C, measured in half
-staffspaces.  Usually determined by looking at clefPosition and
-clefGlyph.")
+     (middleCPosition ,number? "Place of the middle C, measured in half
+staffspaces.  Usually determined by looking at @code{clefPosition} and
+@code{clefGlyph}.")
 
      (chordNameFunction ,procedure?
 			"The function that converts lists of pitches to chord names.")
@@ -131,24 +132,28 @@ clefGlyph.")
      (chordRootNamer ,procedure?
 		     "Function that converts from a pitch object to a text markup. Used for chords.")
      (chordNameExceptions ,list?
-			  "Alist of chord exceptions. Contains (CHORD . MARKUP) entries.")
+			  "Alist of chord exceptions.
+Contains (@var{chord} . @var{markup}) entries.")
      (chordNameExceptionsFull ,list?
-			      "Alist of chord exceptions. Contains (CHORD . (MARKUP)) entries.")
-     (chordNameExceptionsPartial ,list?
-				 "Alist of partial chord exceptions. Contains (CHORD . (PREFIX-MARKUP SUFFIX-MARKUP)) entries.")
+			      "Alist of chord exceptions.
+Contains (@var{chord} . @var{markup}) entries.")
+     (chordNameExceptionsPartial
+      ,list?
+      "Alist of partial chord exceptions. Contains (@var{chord} . (@var{prefix-markup} @var{suffix-markup})) entries.")
+     
      (chordNameSeparator ,markup?
-			 "The markup object used to separate parts of a chord name.")
-
+			 "The markup object used to separate
+ parts of a chord name.")
      (chordChanges ,boolean? "Only show changes in chords scheme?")
-     (clefGlyph ,string? "Name of the symbol within the music font")
+     (clefGlyph ,string? "Name of the symbol within the music font.")
      (clefOctavation ,integer? "Add
 this much extra octavation. Values of 7 and -7 are common.")
 
-     (clefPosition ,number? "Where should the center of the clef symbol go?
-The unit of this distance is the half staff space, and 0 represents the vertical center.")
+     (clefPosition ,number? "Where should the center of the clef
+symbol go, measured in half staff spaces from the center of the staff.")
 
-     (connectArpeggios ,boolean? " If set, connect all arpeggios that are
-found.  In this way, you can make arpeggios that cross staves. ")
+     (connectArpeggios ,boolean? " If set, connect arpeggios across
+piano staff.")
      (createKeyOnClefChange ,boolean? "Print a key signature whenever the clef is changed.")
      (crescendoText ,markup? "Text to print at start of non-hairpin crecscendo, ie: @samp{cresc.}")
      (crescendoSpanner ,symbol? "Type of spanner to be used for crescendi.
@@ -160,56 +165,54 @@ One of: @samp{hairpin}, @samp{line}, @samp{dashed-line},
 instruments (symbols) to pitches.")
 
      (drumStyleTable ,hash-table? "A hash table containing mapping
-drums to layout settings.  Predefined values: @code{drums-style},
-@code{timbales-style}, @code{congas-style}, @code{bongos-style} and
-@code{percussion-style}.
+drums to layout settings.  Predefined values: @samp{drums-style},
+@samp{timbales-style}, @samp{congas-style}, @samp{bongos-style} and
+@samp{percussion-style}.
 
 The layout style is a hash table, containing the drum-pitches (eg. the
-symbol @code{hihat}) as key, and a list (@var{notehead-style}
+symbol @samp{hihat}) as key, and a list (@var{notehead-style}
 @var{script} @var{vertical-position}) as values.
  ")
      (currentBarNumber ,integer? "Contains the current barnumber. This property is incremented at
 every barline.
 ")
      (defaultBarType ,string? "Sets the default type of bar line.
-Available bar types: [FIXME];
+See @code{whichBar} for information on available bar types.
 
-This variable is typically read by Timing_engraver at Score level, so
-overriding Staff.defaultBarType will have no effect.
+This variable is  read by @internalsref{Timing_engraver} at
+@internalsref{Score} level.
 ")
 
-     (decrescendoSpanner ,symbol? "Type of spanner to be used for
-decrescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line},
-@samp{dotted-line}.  If unset, hairpin type is used.")
+     (decrescendoSpanner ,symbol? "See @code{crescendoSpanner}.")
 
-     (explicitClefVisibility ,procedure? "break-visibility function for clef changes.")
+     (explicitClefVisibility ,procedure? "@samp{break-visibility} function for clef changes.")
 
-     (explicitKeySignatureVisibility ,procedure? "break-visibility
-function for explicit Key changes; \\override of #'break-visibility
-will set the visibility for normal (ie. at the start of the line) key
-signatures.")
+     (explicitKeySignatureVisibility ,procedure?
+"@samp{break-visibility} function for explicit key
+changes. @samp{\\override} of @samp{#'break-visibility} will set the
+visibility for normal (i.e. at the start of the line) key signatures.")
 
      (extraNatural ,boolean? "Whether to typeset an
 extra natural sign before accidentals changing from a non-natural to 
 another non-natural.")
 
      (extraVerticalExtent ,number-pair?
-			  "extra vertical extent, same format as MinimumVerticalExtent")
+			  "extra vertical extent, same format as @var{minimumVerticalExtent}")
 
 
      (followVoice ,boolean? "if set, note heads are tracked across staff
 switches by a thin line")
 
      (fontSize ,number?
-	       "The relative size of all grobs in a context. This is
-done using the @code{Font_size_engraver}.")
+	       "The relative size of all grobs in a context. ")
 
      (fingeringOrientations ,list?
-			    "List of symbols, containing left, right, up and/or down. This list
+			    "List of symbols, containing
+@samp{left}, @samp{right}, @samp{up} and/or @samp{down}. This list
 determines where fingerings are put relative to the chord being
 fingered.")
 
-     (forceClef ,boolean? "Show clef symbol, even if it hasn't
+     (forceClef ,boolean? "Show clef symbol, even if it has not
 changed. Only active for the first clef after the property is set, not
 for the full staff.")
 
@@ -217,36 +220,36 @@ for the full staff.")
 highest pitch on the instrument. This used by the automatic string
 selector for tab notation.")
 
-     (ignoreMelismata ,boolean? "Ignore melismata for this @internalsref{Lyrics}.")
-     (instr ,markup? "see @code{instrument}")
+     (ignoreMelismata ,boolean? "Ignore melismata for this @internalsref{Lyrics} line.")
+     (instr ,markup? "See @code{instrument}")
 
      (instrument ,markup? "The name to print left of a staff.  The
 @code{instrument} property labels the staff in the first system, and
 the @code{instr} property labels following lines.")
-     (instrumentEqualizer ,procedure? "[DOCUMENT-ME]")
+     (instrumentEqualizer ,procedure? "
+Function taking a string (instrument name), and returning a (@var{min} . @var{max}) pair of numbers for the loudness range of the instrument.
+")
      (instrumentTransposition ,ly:pitch? "Define the transposition of the instrument. This is used to transpose the MIDI output, and @code{\\quote}s.")
 
-     (instrumentSupport ,list? "list of grobs to attach instrument name
-to.")
-     (keyAccidentalOrder ,list? "
-Alist that defines in what order  alterations should be printed.
-The format is (NAME . ALTER), where NAME is from 0 .. 6 and ALTER from  -1, 1.
+     (keyAccidentalOrder ,list? " Alist that defines in what order
+alterations should be printed.  The format is (@var{name}
+. @var{alter}), where @var{name} is from 0 .. 6 and @var{alter} from -1, 1.
 ")
 
      (keySignature ,list? "The current key signature. This is an alist
-containing (NAME . ALTER) or ((OCTAVE . NAME) . ALTER).
- where NAME is from 0.. 6 and
-ALTER from -4 (double flat) to 4 (double sharp).
+containing (@var{name} . @var{alter}) or ((@var{octave} . @var{name}) . @var{alter}).
+ where @var{name} is from 0.. 6 and
+@var{alter} from -4 (double flat) to 4 (double sharp).
 ")
 
      (majorSevenSymbol ,markup? "How should
-the major7 be formatted in a chord name?")
+the major 7th be formatted in a chord name?")
      (markFormatter ,procedure? "Procedure
 taking as arguments context and rehearsal mark. It should return the
 formatted mark as a markup object.")
 
      (measureLength ,ly:moment? "Length of one
-measure in the current time signature last?")
+measure in the current time signature.")
 
      (measurePosition ,ly:moment? "How much of the current measure
 have we had.  This can be set manually to create incomplete
@@ -264,30 +267,33 @@ manual beams are considered. Possible values include
      (metronomeMarkFormatter ,procedure? "How to produce a metronome
 markup.  Called with 2 arguments, event and context.")
      (midiInstrument ,string? "Name of the MIDI instrument to use ")
-     (midiMinimumVolume ,number? "[DOCUMENT-ME]")
-     (midiMaximumVolume ,number? "[DOCUMENT-ME]")
+     (midiMinimumVolume ,number? "Sets the minimum loudness for MIDI. Ranges from 0 to 1.")
+     (midiMaximumVolume ,number? "Analogous to @code{midiMinimumVolume}.")
      (minimumFret ,number? "The tablature auto string-selecting mechanism
-selects the highest string with a fret not less than minimumFret")
+selects the highest string with a fret at least @var{minimumFret}")
      (minimumVerticalExtent ,number-pair? "minimum vertical extent, same
-format as VerticalExtent")
-     (recordEventSequence ,procedure? "Upon termination of this context,
-this function is called with current context and a list of music
-objects.  The list of contains entries with start times, music objects
-and whether they're processed in this context.")
-     (ottavation ,string? "If set, the text for an 8va spanner. Changing
-this implies a new text spanner. ")
+format as @var{verticalExtent}")
+     (recordEventSequence ,procedure? "When
+@internalsref{Recording_group_engraver} is in this context, then upon
+termination of the context, this function is called with current
+context and a list of music objects.  The list of contains entries
+with start times, music objects and whether they are processed in this
+context.")
+     (ottavation ,string? "If set, the text for an ottava spanner. Changing
+this creates a new text spanner. ")
      (pedalSustainStrings ,list? "List of string to print for
-sustain-pedal. Format is (UP UPDOWN DOWN), where each of the three is
-the string to print when this is done with the pedal.")
-     (pedalUnaCordaStrings ,list? "see pedalSustainStrings.")
-     (pedalSostenutoStrings ,list? "see pedalSustainStrings.")
+sustain-pedal. Format is (@var{up} @var{updown} @var{down}), where
+each of the three is the string to print when this is done with the
+pedal.")
+     (pedalUnaCordaStrings ,list? "See @code{pedalSustainStrings}.")
+     (pedalSostenutoStrings ,list? "See @code{pedalSustainStrings}.")
      (pedalSustainStyle ,symbol? "A symbol that indicates how to print
-sustain pedals: text, bracket or mixed (both).")
-     (pedalUnaCordaStyle ,symbol? "see pedalSustainStyle.")
-     (pedalSostenutoStyle ,symbol? "see pedalSustainStyle.")
+sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
+     (pedalUnaCordaStyle ,symbol? "see @code{pedalSustainStyle}.")
+     (pedalSostenutoStyle ,symbol? "see @code{pedalSustainStyle}.")
      (printOctaveNames ,boolean? "Print octave marks for the NoteNames context.")
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
-     (repeatCommands ,list? "This property is read to find any command of the form (volta . X), where X is a string or #f")
+     (repeatCommands ,list? "This property is read to find any command of the form @{code(volta . @var{x})}, where @var{x} is a string or @code{#f}")
 
      (restNumberThreshold ,number?
 			  "If a multimeasure rest takes less
@@ -308,15 +314,13 @@ r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
 @end example
 ")
      (skipTypesetting ,boolean?
-		      "When true, all no typesetting is done at this
-moment, causing the interpretation phase to go a lot faster. This can
-help with debugging large scores.")
+		      "When true, all no typesetting is done, speeding
+up  the interpretation phase. This speeds up debugging large scores.")
      (soloADue ,boolean? "set Solo/A due texts in the part combiner?")
      (soloIIText ,string? "text for begin of solo for voice ``two'' when part-combining.")
      (soloText ,string? "text for begin of solo when part-combining.")
-     (sparseTies ,boolean? "only create one tie per chord.")
      (squashedPosition ,integer? " Vertical position of
-squashing for Pitch_squash_engraver.")
+squashing for @internalsref{Pitch_squash_engraver}.")
 
      (stringOneTopmost ,boolean? "Whether the 1st string is printed on the
 top line of the tablature.")
@@ -326,16 +330,16 @@ verse. Use in Lyrics context.")
 
      (stemLeftBeamCount ,integer? " Specify the number of beams to draw on
 the left side of the next note.  Overrides automatic beaming.  The
-value is only used once, and then it is erased. [JUNKME.]")
+value is only used once, and then it is erased.")
 
-     (stemRightBeamCount ,integer? "idem, for the right side. [JUNKME]")
+     (stemRightBeamCount ,integer? "See @code{stemLeftBeamCount}.")
 
-     (stringTunings ,list? "The tablature strings tuning. Must be a list of
-the different semitons pitch of each string (starting by the lower
+     (stringTunings ,list? "The tablature strings tuning. It is a list
+of the pitch (in semitones) of each string (starting with the lower
 one).")
 
      (subdivideBeams ,boolean? "If set, multiple beams will be subdivided
-at beat positions - by only drawing one beam over the beat.")
+at beat positions by only drawing one beam over the beat.")
 
      (systemStartDelimiter ,symbol? "Which grob to make for the start of
 the system/staff? Set to @code{SystemStartBrace},
@@ -346,15 +350,16 @@ takes a string number, a list of string tunings and Pitch object. It
 returns the text as a string.")
 
      (timeSignatureFraction ,number-pair?
-			    "pair of numbers, signifying the time signature. For example #'(4 . 4)
-is a 4/4 time signature.")
+			    "pair of numbers, signifying the time
+signature. For example @code{#'(4 . 4)} is a 4/4 time signature.")
 
      (timing ,boolean? " Keep administration of measure length, position, bar number, etc?
 Switch off for cadenzas.")
      (tonic ,ly:pitch?
 	    "The tonic of the current scale")
 
-     (tremoloFlags ,integer? "Number of tremolo flags to add if none is specified.")
+     (tremoloFlags ,integer? "Number of tremolo flags to add if no
+number is specified.")
 
      (tupletNumberFormatFunction
       ,procedure?
@@ -375,15 +380,15 @@ context Voice \\times 2/3 @{
 @@end lilypond
 @end example
 .")
-     (verticalAlignmentChildCallback ,procedure? "what callback to add to children of a vertical alignment.
-It determines what alignment procedure is used on the alignment
-itself.  .")
-     (verticalExtent ,number-pair? "hard coded vertical extent.  The format
+     (verticalAlignmentChildCallback ,procedure? "What callback to add
+to children of a vertical alignment.  It determines what
+procedure is used on the alignment itself.")
+     (verticalExtent ,number-pair? "Hard coded vertical extent.  The format
 is a pair of dimensions, for example, this sets the sizes of a staff
 to 10 (5+5) staffspaces high.
 
 @example
-property Staff.verticalExtent = #'(-5.0 . 5.0)
+\set Staff.verticalExtent = #'(-5.0 . 5.0)
 @end example
 
 
@@ -394,9 +399,9 @@ vertical group.")
      (vocNam ,markup? "Name of a vocal line, short version.")
 
      (voltaOnThisStaff ,boolean?
-		       "Normally, volta brackets are put only on the topmost staff. Setting
-this variable to true, will force a bracket to be on this staff as
-well.")
+		       "Normally, volta brackets are put only on the
+topmost staff. Setting this variable will create a bracket on
+this staff as well.")
 
      (voltaSpannerDuration ,ly:moment? "This specifies the maximum duration
 to use for the brackets printed for @code{\\alternative}.  This can be
@@ -409,7 +414,7 @@ alternative is very large.")
 
 Example:
 @example
-\\property Staff.whichBar = \"|:\"
+\\set Staff.whichBar = \"|:\"
 @end example
 
 This will create a start-repeat bar in this staff only.
@@ -428,7 +433,7 @@ Valid values are described in @internalsref{bar-line-interface}.
    `((slurMelismaBusy ,boolean? "Signal if a slur is present.")
      (originalCentralCPosition
       ,integer?
-      "Used for temporary overriding central C in octavation brackets. ")
+      "Used for temporary overriding middle C in octavation brackets. ")
      (melismaBusy ,boolean? "Signifies
 whether a melisma is active. This can be used to signal melismas on
 top of those automatically detected. ")
@@ -476,6 +481,8 @@ Script_engraver for typesetting note-super/subscripts. See
 ")
      (quotes ,hash-table? "Hash table, mapping names to music-event vectors.")
      (stavesFound ,grob-list? "list of all staff-symbols found.")
+     (instrumentSupport ,ly:grob-list? "list of grobs to attach instrument name
+to.")
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
      )
    ))

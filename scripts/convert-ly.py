@@ -1991,10 +1991,27 @@ conversions.append (((2,1,29), conv,
 
 def conv (str):
 	str = re.sub (r'\\threeq(flat|sharp)', r'\\sesqui\1', str)
+	str = re.sub (r'ly:stencil-get-extent',
+		      'ly:stencil-extent', str)
+	str = re.sub (r'ly:translator-find',
+		      'ly:context-find', str)
+	str = re.sub ('ly:context-unset-property',
+		     'ly:unset-context-property', str)
+		     
+	str = re.sub (r'ly:get-mutable-properties',
+		      'ly:mutable-music-properties',str)
+	str = re.sub (r'centralCPosition',
+		      'middleCPosition',str)
 	return str
 
 conversions.append (((2,1,30), conv,
-		     '\\threeq{flat,sharp} -> \\sesqui{flat,sharp}'))
+		     '''\\threeq{flat,sharp} -> \\sesqui{flat,sharp}
+ly:get-mutable-properties -> ly:mutable-music-properties
+centralCPosition -> middleCPosition
+ly:unset-context-property -> ly:unset-context-property
+ly:translator-find -> ly:context-find
+ly:get-stencil-extent -> ly:stencil-extent
+'''))
 
 ################################
 #	END OF CONVERSIONS	

@@ -275,7 +275,7 @@ fet_endchar;
 def draw_portato = 
 	save thick, radius;
 	thick# = 1.4 linethickness#;
-	radius# = 1.7 linethickness#;
+	radius# = 1.2 linethickness# + 0.04 staff_space#;
 	define_whole_pixels(thick,radius);
 	
 	set_char_box(.6 staff_space#, .6 staff_space#, thick#/2,.5 staff_space#+ radius#);

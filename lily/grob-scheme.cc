@@ -34,13 +34,9 @@ LY_DEFINE (ly_get_property, "ly:grob-property",
 	   2, 0, 0, (SCM grob, SCM sym),
 	  "Return the value of a value in grob @var{g} of property @var{sym}. "
 	   "It will return @code{' ()} (end-of-list) "
-	   "if @var{g} does nott have @var{sym} set."
+	   "if  @var{sym} is undefined in @var{g}."
 	   "\n\n"
-	   "Grob properties are stored as GUILE association lists, "
-	   "with symbols as keys. "
-	   "All lookup functions identify undefined properties "
-	   "with end-of-list (i.e. @code{' ()} in Scheme "
-	   "or @code{SCM_EOL} in C.")
+	   )
 {
   Grob *sc = unsmob_grob (grob);
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
@@ -63,11 +59,11 @@ LY_DEFINE (spanner_get_bound, "ly:spanner-get-bound", 2 , 0, 0,
 /* TODO: make difference between scaled and unscalead variable in
    calling (i.e different funcs.) */
 LY_DEFINE (ly_grob_paper,"ly:grob-paper", 1, 0, 0,
- (SCM grob),
-  "Get \\paper definition from a grob.")
+ (SCM g),
+  "Get @code{\\paper} definition from grob @var{g}.")
 {
-  Grob * sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+  Grob * sc = unsmob_grob (g);
+  SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
 
   return sc->get_paper ()->self_scm ();
 }
@@ -100,11 +96,11 @@ LY_DEFINE (ly_get_parent, "ly:grob-parent", 2, 0, 0, (SCM grob, SCM axis),
 }
 
 LY_DEFINE (ly_get_system, "ly:grob-system",
-	   1, 0, 0, (SCM grob),
-	   "Return the System Grob of @var{grob}.")
+	   1, 0, 0, (SCM g),
+	   "Return the System Grob of @var{g}.")
 {
-  Grob *me = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
+  Grob *me = unsmob_grob (g);
+  SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
 
   if (System *g = me->get_system ())
     return g->self_scm ();
@@ -173,7 +169,7 @@ LY_DEFINE (ly_spanner_p, "ly:spanner?",
 
 LY_DEFINE (ly_item_p, "ly:item?",
 	   1, 0, 0, (SCM g),
-	   "Is @var{g} a item object?")
+	   "Is @var{g} an @code{Item} object?")
 {
   Grob *me = unsmob_grob (g);
   bool b = dynamic_cast<Item*> (me);
@@ -182,9 +178,10 @@ LY_DEFINE (ly_item_p, "ly:item?",
 
 LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
 	   1, 0, 0, (SCM it),
-	   "The break status dir of  @var{it}.")
+	   "The break status dir of item @var{it}. @code{-1} is end of "
+	   "line, @code{0} unbroken, and @code{1} begin of line.")
 {
-  Item *me = dynamic_cast<Item*> ( unsmob_grob (it));
+  Item *me = dynamic_cast<Item*> (unsmob_grob (it));
   SCM_ASSERT_TYPE (me, it, SCM_ARG1, __FUNCTION__, "Item");
   return gh_int2scm (me->break_status_dir ());
 }
