@@ -23,7 +23,7 @@ class Note_column_engraver :public Engraver {
     bool h_shift_b_;
     int dir_i_;
     
-    /* *************** */
+
     bool acceptable_elem_b(Score_elem const*)const;
 protected:
     virtual void set_feature(Feature);
