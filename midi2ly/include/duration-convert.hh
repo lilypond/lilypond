@@ -48,7 +48,7 @@ struct Duration_convert {
   /// Return Rational representation (fraction of whole note).
   static Rational dur2_mom (Duration dur );
 
-  /// Return Mudela string representation.
+  /// Return Lilypond string representation.
   static String dur2_str (Duration dur );
 
   /// Return duration from Rational (fraction of whole) representation.

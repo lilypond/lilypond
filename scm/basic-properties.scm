@@ -21,6 +21,7 @@
 ;
 ; How should a  bar line behave at a break? 
 ;
+;; Why prepend `default-' to every scm identifier?
 (define (default-break-barline glyph dir)
    (let ((result (assoc glyph 
 			'((":|:" . (":|" . "|:"))

@@ -65,7 +65,7 @@ These images are generated at approximately 180dpi. If you want a better impress
 #
 # FIXME breaks on multiple strings.
 #
-def read_mudela_header (fn):
+def read_lilypond_header (fn):
 	s = open(fn).read ()
 	s = re.sub('%.*$', '', s)
 	s = re.sub('\n', ' ', s)		
@@ -126,7 +126,7 @@ def gen_list(inputs, filename):
 		ext = ext2 + ext
 		
 		print '%s, ' % ex
-		header = read_mudela_header(ex)
+		header = read_lilypond_header(ex)
 		
 		def read_dict(s, default, h =header):
 				try:

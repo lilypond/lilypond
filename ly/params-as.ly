@@ -26,18 +26,17 @@ outputscale = \staffheight / 4.0;
 
 \translator { \NoteNamesContext }
 \translator { \ScoreContext }
-\translator { \ChoirStaffContext}
-\translator { \GraceContext}
+\translator { \ChoirStaffContext }
+\translator { \GraceContext }
 \translator { \RhythmicStaffContext}
 \translator { \StaffContext }
-\translator { \VoiceContext}
+\translator { \VoiceContext }
 \translator { \StaffGroupContext }
 \translator { \ChordNamesContext }
-\translator { \ChordNamesVoiceContext}
-\translator { \GrandStaffContext}
+\translator { \GrandStaffContext }
 \translator { \LyricsContext }
-\translator { \ThreadContext}
-\translator { \PianoStaffContext}
+\translator { \ThreadContext }
+\translator { \PianoStaffContext }
 \translator { \LyricsVoiceContext }
 \translator { \StaffContainerContext }
 

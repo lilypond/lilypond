@@ -378,10 +378,10 @@ Options:
       (begin
        (set! fonts (cons (cons "default" (generate-default-font)) fonts))
        (display "\n" (current-error-port))
-       (if (and (defined? 'mudelapaperlinewidth)
-		(> (string->number mudelapaperlinewidth) 0))
+       (if (and (defined? 'lilypondpaperlinewidth)
+		(> (string->number lilypondpaperlinewidth) 0))
 	   (set! canvas-width 
-		 (inexact->exact (string->number mudelapaperlinewidth))))))
+		 (inexact->exact (string->number lilypondpaperlinewidth))))))
   (set! canvas-height height)
   (set! canvas (make-array " " canvas-height canvas-width)))
 

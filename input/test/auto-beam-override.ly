@@ -28,7 +28,7 @@
       	c8 c c4
       	r8 c c c
 	% no autobeaming
-	\property Voice.beamAuto = ##f
+	\property Voice.noAutoBeaming = ##t
       	c8 c c c
     }
     \paper{

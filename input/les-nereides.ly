@@ -36,7 +36,7 @@ global =  \notes{
     \skip 2;
     \skip 1*2;
 
-#ifndef FAKE_GRACE
+#ifndef FAKE_GRACE  /* First run this through cpp.  See head les-nereides.ly */
     \skip 1;
 #else % FAKE_GRACE
     \skip 2.; \partial 32*24;

@@ -1,7 +1,15 @@
 
+New features in 1.4
+
 * Finale (.etf), PMX (.pmx) and musedata import tools.
 
 * Point and click functionality using emacs and Xdvi.
+
+* Comprehensive documentation, including tutorial.
+
+* Self-documenting: generated internal documentation.
+
+* Includes an extensive glossary of musical terms.
 
 * Improved design and implementation: Complete rewrite of the
 internals: LilyPond is smaller, cleaner, more flexible, etc.
@@ -29,21 +37,24 @@ internals: LilyPond is smaller, cleaner, more flexible, etc.
   and stanza numbering.
 
 * Part combining for orchestral scores and hymns: two voices are
-  combined into a staff automatically, including Solo/`a2
+  combined into a staff automatically, including Solo/a2
   indications as appropriate.
 
 * Chordnames are now configurable in every respect
 
-* Includes an extensive glossary of musical terms.
-
-* Many bugfixes.
+* Easy-play notation
 
 * Finished ouverture Coriolan as full orchestral score example.
 
-* Self-documenting: generated internal documentation.
+* Mutopia ports collection: easy accessible music archive.
 
 * AsciiScript: ASCII-art output 
 
 * Translations into Japanese, French and Russian
 
-* EZ play notation
+* Many bugfixes.
+
+
+Removed features
+
+* margin shape

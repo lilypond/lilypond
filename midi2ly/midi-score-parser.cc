@@ -12,8 +12,8 @@
 #include "midi2ly-global.hh"
 #include "midi-score-parser.hh"
 #include "midi-track-parser.hh"
-#include "mudela-item.hh"
-#include "mudela-score.hh"
+#include "lilypond-item.hh"
+#include "lilypond-score.hh"
 
 
 void
@@ -26,7 +26,7 @@ Midi_score_parser::open (String filename_str, Sources* sources_l)
   info_l_->end_byte_L_ = info_l_->byte_L_ + info_l_->source_l_->length_i () + 1;
 }
 
-Mudela_score*
+Lilypond_score*
 Midi_score_parser::parse (String filename_str, Sources* sources_l)
 {
   Midi_parser_info info;
@@ -77,14 +77,14 @@ Midi_score_parser::find_earliest_i (Link_array<Midi_track_parser>& tracks)
   return earliest_i;
 }
 
-Mudela_score*
+Lilypond_score*
 Midi_score_parser::parse_score ()
 {
   int current_bar_i = 0;
-  Mudela_time_signature m4 (4, 2, 24, 8);
+  Lilypond_time_signature m4 (4, 2, 24, 8);
   Rational bar4_mom = m4.bar_mom ();
 
-  Mudela_score* score_p = new Mudela_score( 1, 1, 1 );
+  Lilypond_score* score_p = new Lilypond_score( 1, 1, 1 );
   info_l_->score_l_ = score_p;
 
   Link_array<Midi_track_parser> tracks;
@@ -97,8 +97,8 @@ Midi_score_parser::parse_score ()
     {
       int i = find_earliest_i (tracks);
       Rational at_mom = tracks [i]->at_mom ();
-      Mudela_column* column_l = score_p->get_column_l (at_mom);
-      Mudela_staff* staff_p = tracks [i]->parse (column_l);
+      Lilypond_column* column_l = score_p->get_column_l (at_mom);
+      Lilypond_staff* staff_p = tracks [i]->parse (column_l);
       if ( staff_p )
 	{
 	  score_p->add_staff (staff_p);

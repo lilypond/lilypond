@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Lilypond 1.2.8\n"
-"POT-Creation-Date: 2001-03-06 12:36+0100\n"
+"POT-Creation-Date: 2001-03-21 16:06+0100\n"
 "PO-Revision-Date: 1999-09-18 01:30+0200\n"
 "Last-Translator: Erwin Dieterich <bamse@gmx.de>\n"
 "Language-Team: LANGUAGE <de@li.org>\n"
@@ -13,117 +13,137 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ly2dvi.py:67 main.cc:95 main.cc:109
+#: ly2dvi.py:86 main.cc:95 main.cc:105
 msgid "this help"
 msgstr "Diese Hilfe"
 
-#: ly2dvi.py:68
+#: ly2dvi.py:87
 msgid "change global setting KEY to VAL"
 msgstr ""
 
-#: ly2dvi.py:69
+#: ly2dvi.py:88
 #, fuzzy
 msgid "generate PostScript output"
 msgstr "Degenerierte Zwangsbedingungen"
 
-#: ly2dvi.py:70
+#: ly2dvi.py:89
 msgid "keep all output, and name the directory ly2dvi.dir"
 msgstr ""
 
-#: ly2dvi.py:71
+#: ly2dvi.py:90
 msgid "don't run LilyPond"
 msgstr ""
 
-#: ly2dvi.py:72 main.cc:104 main.cc:119
+#: ly2dvi.py:91 main.cc:115
+#, fuzzy
+msgid "verbose"
+msgstr "Sei geschwätzig"
+
+#: ly2dvi.py:92 main.cc:104 main.cc:114
 msgid "print version number"
 msgstr "Zeige die Versionsnummer"
 
-#: ly2dvi.py:73 main.cc:106 main.cc:121
+#: ly2dvi.py:93 main.cc:106 main.cc:116
 msgid "show warranty and copyright"
 msgstr "Zeige Garantie und Urheberrechte"
 
-#: ly2dvi.py:74
+#: ly2dvi.py:94
 msgid "dump all final output into DIR"
 msgstr ""
 
-#: ly2dvi.py:75 main.cc:113
+#: ly2dvi.py:95 main.cc:109
 msgid "write Makefile dependencies for every input file"
 msgstr "Schreibe Makefile-Abhängigkeiten für jede Eingabedatei"
 
-#: ly2dvi.py:101
+#: data-file.cc:118 input.cc:85 ly2dvi.py:123 midi-parser.cc:100 warn.cc:23
+msgid "warning: "
+msgstr "Warnung: "
+
+#: input.cc:90 ly2dvi.py:128 ly2dvi.py:263 warn.cc:9 warn.cc:17
+msgid "error: "
+msgstr "Fehler: "
+
+#: ly2dvi.py:130
 #, fuzzy
 msgid "Exiting ... "
 msgstr "Linie ... "
 
-#: ly2dvi.py:120
+#: ly2dvi.py:149
 #, fuzzy, c-format
-msgid "Reading `%s'"
+msgid "Reading %s..."
 msgstr "Uralt-Bitte: `%s'"
 
-#: ly2dvi.py:124 mapped-file-storage.cc:87 mudela-stream.cc:111
+#: lilypond-stream.cc:111 ly2dvi.py:153 mapped-file-storage.cc:87
 #: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "Kann die Datei %s nicht öffnen"
 
-#: ly2dvi.py:187
+#: ly2dvi.py:216
 #, fuzzy, c-format
 msgid "Usage: %s [OPTION]... FILE"
 msgstr "Verwendung: %s [OPTIONEN] ... [DATEI]"
 
-#: ly2dvi.py:189
+#: ly2dvi.py:218
 msgid "Generate .dvi with LaTeX for LilyPond"
 msgstr ""
 
-#: ly2dvi.py:191 main.cc:119 main.cc:151
+#: ly2dvi.py:220 main.cc:119 main.cc:146
 msgid "Options:"
 msgstr "Optionen:"
 
-#: data-file.cc:118 input.cc:85 ly2dvi.py:195 midi-parser.cc:100 warn.cc:23
-msgid "warning: "
-msgstr "Warnung: "
-
-#: ly2dvi.py:196
+#: ly2dvi.py:224
 msgid "all output is written in the CURRENT directory"
 msgstr ""
 
-#: ly2dvi.py:198 main.cc:123 main.cc:174
+#: ly2dvi.py:226 main.cc:123 main.cc:169
 #, fuzzy, c-format
 msgid "Report bugs to %s"
 msgstr "Melde Fehler an"
 
-#: ly2dvi.py:230
+#: ly2dvi.py:260
 #, fuzzy, c-format
 msgid "Invoking `%s'"
 msgstr "Uralt-Bitte: `%s'"
 
-#: input.cc:90 ly2dvi.py:234 warn.cc:9 warn.cc:17
-msgid "error: "
-msgstr "Fehler: "
-
-#: ly2dvi.py:234
+#: ly2dvi.py:263
 #, c-format
 msgid "command exited with value %d"
 msgstr ""
 
-#: ly2dvi.py:236
+#: ly2dvi.py:265
 msgid "(ignored)"
 msgstr ""
 
-#: ly2dvi.py:277
+#: ly2dvi.py:301
+#, fuzzy, c-format
+msgid "no such setting: %s"
+msgstr "Kein solches instrument: `%s'"
+
+#: ly2dvi.py:309
 #, c-format
 msgid "Analyzing `%s'"
 msgstr ""
 
-#: ly2dvi.py:539 scores.cc:44
+#: ly2dvi.py:353
+#, c-format
+msgid "no lilypond output found for %s"
+msgstr ""
+
+#: ly2dvi.py:395
+#, fuzzy, c-format
+msgid "invalid value: %s"
+msgstr "Ungültiger Buchstabe `%c'"
+
+#: ly2dvi.py:602 scores.cc:44
 #, fuzzy, c-format
 msgid "dependencies output to %s..."
 msgstr "Ausgabe auf Papier auf %s..."
 
-#: ly2dvi.py:540
-#, c-format
-msgid "%s file left in `%s'"
-msgstr ""
+#: ly2dvi.py:603
+#, fuzzy, c-format
+msgid "%s output to %s..."
+msgstr "MIDI-Ausgabe nach %s..."
 
 #: data-file.cc:54
 msgid "EOF in a string"
@@ -232,12 +252,12 @@ msgstr "Kann die Schrift %s nicht finden, lade die Standardschrift."
 msgid "can't find default font: `%s'"
 msgstr "Kann Schrift `%s' nicht finden"
 
-#: all-font-metrics.cc:172 includable-lexer.cc:50 scores.cc:137
+#: all-font-metrics.cc:172 includable-lexer.cc:51 scores.cc:137
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(Suchpfad: `%s')"
 
-#: all-font-metrics.cc:173 parser.yy:1663
+#: all-font-metrics.cc:173 parser.yy:1681
 msgid "Giving up"
 msgstr ""
 
@@ -317,7 +337,7 @@ msgstr "Unerlaubte Subtraktion: nicht Teil eines Akkords: %s"
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "Unerlaubter Baßton: gehört nicht zum Akkord: %s"
 
-#: chord-tremolo-engraver.cc:141
+#: chord-tremolo-engraver.cc:141 percent-repeat-engraver.cc:162
 #, fuzzy
 msgid "unterminated chord tremolo"
 msgstr "Unbeendeter Bindestrich"
@@ -327,7 +347,7 @@ msgstr "Unbeendeter Bindestrich"
 msgid "no one to print a tremolos"
 msgstr "Keiner darf eine Wiederholungsklammer drucken"
 
-#: collision.cc:116
+#: collision.cc:118
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "Zu viele aneinanderstoßende Notenspalten. Ich ignoriere sie."
 
@@ -360,7 +380,7 @@ msgstr "Habe schon einen Balken"
 msgid "already have a decrescendo"
 msgstr "Habe schon einen Balken"
 
-#: dynamic-engraver.cc:307
+#: dynamic-engraver.cc:318
 #, fuzzy
 msgid "unterminated (de)crescendo"
 msgstr "Nichtbeendetes Crescendo"
@@ -378,7 +398,7 @@ msgstr ""
 msgid "no one to print a repeat brace"
 msgstr "Keiner darf eine Wiederholungsklammer drucken"
 
-#: font-interface.cc:220
+#: font-interface.cc:237
 msgid "couldn't find any font satisfying "
 msgstr ""
 
@@ -414,7 +434,7 @@ msgstr "Unbeendeter Bindestrich"
 msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
 msgstr ""
 
-#: includable-lexer.cc:48 lily-guile.cc:139 midi-score-parser.cc:24
+#: includable-lexer.cc:49 lily-guile.cc:139 midi-score-parser.cc:24
 #: scores.cc:136 scores.cc:142
 #, c-format
 msgid "can't find file: `%s'"
@@ -451,90 +471,85 @@ msgstr ""
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:108
+#: main.cc:104
 msgid "EXT"
 msgstr "EXT"
 
-#: main.cc:108
+#: main.cc:104
 #, fuzzy
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "Benutze das Ausgabeformat EXT"
 
-#: main.cc:110
+#: main.cc:106
 #, fuzzy
 msgid "FIELD"
 msgstr "DATEI"
 
-#: main.cc:110
+#: main.cc:106
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:111 main.cc:114
+#: main.cc:107 main.cc:110
 msgid "DIR"
 msgstr "DIR"
 
-#: main.cc:111
+#: main.cc:107
 msgid "add DIR to search path"
 msgstr "Hänge DIR an den Suchpfad an"
 
-#: main.cc:98 main.cc:112
+#: main.cc:98 main.cc:108
 msgid "FILE"
 msgstr "DATEI"
 
-#: main.cc:112
+#: main.cc:108
 msgid "use FILE as init file"
 msgstr "Verwende FILE als Initialisierungsdatei"
 
-#: main.cc:114
+#: main.cc:110
 msgid "prepend DIR to dependencies"
 msgstr ""
 
-#: main.cc:115
+#: main.cc:111
 #, fuzzy
 msgid "produce MIDI output only"
 msgstr "Nur Midiausgabe"
 
-#: main.cc:116
+#: main.cc:112
 #, fuzzy
 msgid "NAME"
 msgstr "BASENAME"
 
-#: main.cc:116
+#: main.cc:112
 #, fuzzy
 msgid "write output to NAME"
 msgstr "Schreibe die Ausgabe in BASENAME[-x].Erweiterung"
 
-#: main.cc:117
+#: main.cc:113
 msgid "inhibit file output naming and exporting"
 msgstr "Unterdrücke die automatische Benennung von Ausgabedateien und Export"
 
-#: main.cc:103 main.cc:118
-msgid "don't timestamp the output"
-msgstr "Keine Datumsangabe auf der Ausgabe"
+#: main.cc:117
+msgid "EXPR"
+msgstr ""
 
-#: main.cc:120
-#, fuzzy
-msgid "verbose"
-msgstr "Sei geschwätzig"
-
-#: main.cc:122
-msgid "write midi ouput in formatted ascii"
+#: main.cc:117
+msgid "evalute EXPR as Scheme after .scm init is read"
 msgstr ""
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:139
+#: main.cc:134
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "Benutzung: %s [OPTIONEN] ... [DATEI] ..."
 
-#: main.cc:141
+#: main.cc:136
 #, fuzzy
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "Setze Musik oder spiele MIDI von DATEI"
 
-#: main.cc:145
+#: main.cc:140
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -544,11 +559,11 @@ msgstr ""
 "Notenblätter erzeugen. Dazu verwendet es eine eigene Beschreibungssprache.\n"
 "lilyPond ist Teil des GNU-Projekts\n"
 
-#: main.cc:155
+#: main.cc:150
 msgid "This binary was compiled with the following options:"
 msgstr "Diese Programm wurde mit den folgenden Optionen übersetzt:"
 
-#: main.cc:55 main.cc:182
+#: main.cc:55 main.cc:177
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -561,17 +576,17 @@ msgstr ""
 "einhalten. Wenn Sie das Programm mit `%s --warranty starten, bekommen\n"
 "Sie mehr Informationen.\n"
 
-#: main.cc:62 main.cc:189 main.cc:201
+#: main.cc:62 main.cc:184 main.cc:196
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Urheberrechte (Copyright) (c) %s bei"
 
-#: main.cc:199
+#: main.cc:194
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- Der Notensatz des GNU-Projekts"
 
-#: main.cc:71 main.cc:207
+#: main.cc:71 main.cc:202
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -619,16 +634,24 @@ msgstr "unsinnige Tonhöhe"
 msgid "Transposition by %s makes accidental larger than two"
 msgstr "Transponieren um %s macht Vorzecihen größer als zwei"
 
-#: music.cc:222
+#: music.cc:224
 msgid "ly_get_mus_property (): Not a Music"
 msgstr ""
 
-#: music.cc:236
+#: music.cc:238
 msgid "ly_set_mus_property (): Not a symbol"
 msgstr ""
 
-#: music.cc:248
+#: music.cc:250
 msgid "ly_set_mus_property ():  not of type Music"
+msgstr ""
+
+#: music.cc:264
+msgid "ly_make_music (): Not a string"
+msgstr ""
+
+#: music.cc:284
+msgid "ly_music_name (): Not a music expression"
 msgstr ""
 
 #: music-output-def.cc:115
@@ -636,12 +659,12 @@ msgstr ""
 msgid "can't find `%s' context"
 msgstr "Kann Partiturkontext nicht finden"
 
-#: my-lily-lexer.cc:137
+#: my-lily-lexer.cc:138
 #, fuzzy, c-format
 msgid "Identifier name is a keyword: `%s'"
 msgstr "name ist ein Schlüsselbegriff (keyword) (`%s')"
 
-#: my-lily-lexer.cc:157
+#: my-lily-lexer.cc:158
 #, c-format
 msgid "error at EOF: %s"
 msgstr "Fehler am Dateiende(EOF): %s"
@@ -650,7 +673,7 @@ msgstr "Fehler am Dateiende(EOF): %s"
 msgid "Parsing..."
 msgstr "Verarbeite..."
 
-#: my-lily-parser.cc:55
+#: my-lily-parser.cc:57
 #, fuzzy
 msgid "Braces don't match"
 msgstr "Klammern passen nicht zusammen"
@@ -665,11 +688,11 @@ msgstr "Uralt-Bitte: `%s'"
 msgid "paper output to %s..."
 msgstr "Ausgabe auf Papier auf %s..."
 
-#: mudela-stream.cc:93 paper-outputter.cc:94 performance.cc:102
+#: lilypond-stream.cc:93 paper-outputter.cc:85 performance.cc:95
 msgid ", at "
 msgstr ", bei "
 
-#: paper-outputter.cc:245
+#: paper-outputter.cc:232
 #, fuzzy, c-format
 msgid "writing header field %s to %s..."
 msgstr "Schreibe Datei mit Abhängigkeiten: `%s'..."
@@ -678,7 +701,7 @@ msgstr "Schreibe Datei mit Abhängigkeiten: `%s'..."
 msgid "Preprocessing elements..."
 msgstr "Verarbeite Element vor..."
 
-#: paper-score.cc:113
+#: paper-score.cc:114
 #, fuzzy
 msgid "Outputting Score, defined at: "
 msgstr "Gebe Partitur aus, definiert bei: "
@@ -709,6 +732,16 @@ msgstr ""
 msgid "none of these in my family: `%s'"
 msgstr ""
 
+#: percent-repeat-engraver.cc:108
+#, fuzzy
+msgid "Don't know yet how to handle this percent repeat."
+msgstr "Weiß nicht, wie ich eine fehlende Tonart behandeln soll"
+
+#: percent-repeat-iterator.cc:53
+#, fuzzy
+msgid "no one to print a percent"
+msgstr "Keiner darf eine Wiederholungsklammer drucken"
+
 #: performance.cc:51
 msgid "Track ... "
 msgstr "Stück ... "
@@ -717,12 +750,12 @@ msgstr "Stück ... "
 msgid "Creator: "
 msgstr "Erstellt von: "
 
-#: performance.cc:116
+#: performance.cc:109
 #, c-format
 msgid "from musical definition: %s"
 msgstr "von der musiaklischen Definition: %s"
 
-#: performance.cc:171
+#: performance.cc:164
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "MIDI-Ausgabe nach %s..."
@@ -789,7 +822,7 @@ msgstr "Habe Fehler gefunden, /* die Partitur wird nicht verarbeitet */"
 msgid "elapsed time: %.2f seconds"
 msgstr "verstrichene Zeit %.2f Sekunden"
 
-#: score-engraver.cc:177
+#: score-engraver.cc:183
 #, fuzzy, c-format
 msgid "unbound spanner `%s'"
 msgstr "Unbeschränkter Abstand `%s'"
@@ -828,7 +861,9 @@ msgstr "Bindebogen übe den Rest?"
 msgid "unterminated slur"
 msgstr "Unbeendeter Bindebogen"
 
-#: slur-engraver.cc:142
+#. How to shut up this warning, when Voice_devnull_engraver has
+#. eaten start request?
+#: slur-engraver.cc:144
 #, fuzzy
 msgid "can't find start of slur"
 msgstr "Kann nicht beide Enden von %s finden"
@@ -868,21 +903,23 @@ msgstr "Unbeendete Linienfortführung"
 msgid "can't find ascii character: %d"
 msgstr "Kann ASCII-Zeichen `%d' nicht finden"
 
-#: tfm-reader.cc:105
-#, c-format
-msgid "TFM header of `%s' has only %u word(s)"
+#: tfm-reader.cc:106
+#, fuzzy, c-format
+msgid "TFM header of `%s' has only %u word (s)"
 msgstr "TFM header von `%s' hat nur %u Wort(e)"
 
-#: tfm-reader.cc:139
+#: tfm-reader.cc:140
 #, fuzzy, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr "%s: TFM-Datei hat %u Parameter. Das ist mehr als die"
 
-#: tie-engraver.cc:211 tie-performer.cc:173
+#. How to shut up this warning, when no notes appeared because
+#. they were suicided by Thread_devnull_engraver?
+#: tie-engraver.cc:215 tie-performer.cc:173
 msgid "No ties were created!"
 msgstr "Es wurden keine Haltebögen erzeugt!"
 
-#: tie-engraver.cc:230
+#: tie-engraver.cc:234
 msgid "lonely tie"
 msgstr "Einsamer Haltebogen"
 
@@ -901,21 +938,21 @@ msgstr "Überprüfung der Takte is fehlgeschlagen bei: %s"
 msgid "unknown translator: `%s'"
 msgstr "unbekannter Übersetzer `%s'"
 
-#: translator-def.cc:96
+#: translator-def.cc:99
 msgid "Program has no such type"
 msgstr ""
 
-#: translator-def.cc:102
+#: translator-def.cc:105
 #, fuzzy, c-format
 msgid "Already contains: `%s'"
 msgstr "Enthält schon ein `%s'"
 
-#: translator-def.cc:103
+#: translator-def.cc:106
 #, fuzzy, c-format
 msgid "Not adding translator: `%s'"
 msgstr "unbekannter Übersetzer `%s'"
 
-#: translator-def.cc:215
+#: translator-def.cc:224
 #, fuzzy, c-format
 msgid "can't find: `%s'"
 msgstr "Kann `%s' nicht finden"
@@ -930,19 +967,19 @@ msgstr "Kann ein `%s', genannt `%s' weder finden noch erzeugen"
 msgid "can't find or create: `%s'"
 msgstr "Kann ein `%s' weder finden noch erzeugen"
 
-#: translator-group.cc:403
+#: translator-group.cc:414
 #, c-format
 msgid ""
 "Can't find property type-check for `%s'.  Perhaps you made a typing error?"
 msgstr ""
 
-#: translator-group.cc:417
+#: translator-group.cc:428
 #, c-format
 msgid "Type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
 #. programming_error?
-#: translator-group.cc:436
+#: translator-group.cc:447
 msgid "ly-get-trans-property: expecting a Translator_group argument"
 msgstr ""
 
@@ -963,118 +1000,190 @@ msgstr ""
 msgid "Oldest supported input version: %s"
 msgstr "Älteste noch unterstütze Version der Eingabe: %s"
 
-#: parser.yy:471
+#: parser.yy:473
 msgid "Wrong type for property value"
 msgstr "Falsche Type für Besitz-Wert"
 
-#: parser.yy:666
+#: parser.yy:672
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr ""
 
-#: parser.yy:730
+#: parser.yy:736
 msgid "Second argument must be a symbol"
 msgstr ""
 
-#: parser.yy:735
+#: parser.yy:741
 msgid "First argument must be a procedure taking 1 argument"
 msgstr ""
 
-#: parser.yy:1211
+#: parser.yy:1236
 msgid "Expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1221
+#: parser.yy:1246
 msgid "Can't specify direction for this request"
 msgstr ""
 
-#: parser.yy:1353
+#: parser.yy:1371
 msgid "Expecting musical-pitch value"
 msgstr ""
 
-#: parser.yy:1364
+#: parser.yy:1382
 #, fuzzy
 msgid "Must have duration object"
 msgstr "Setze kürzeste Dauer (?)"
 
-#: parser.yy:1373 parser.yy:1381 parser.yy:1661
+#: parser.yy:1391 parser.yy:1399 parser.yy:1679
 #, fuzzy
 msgid "Have to be in Lyric mode for lyrics"
 msgstr "Um Text zu verarbeiten, muß ich im Text-(Lyrics)-Modus sein"
 
-#: parser.yy:1546 parser.yy:1575
+#: parser.yy:1564 parser.yy:1593
 #, c-format
 msgid "not a duration: %d"
 msgstr "Keine Dauer: %d"
 
-#: parser.yy:1584
+#: parser.yy:1602
 #, fuzzy
 msgid "Have to be in Note mode for notes"
 msgstr "Für Noten muß ich im Noten-(Note)-Modus sein"
 
-#: parser.yy:1680
+#: parser.yy:1698
 #, fuzzy
 msgid "Have to be in Chord mode for chords"
 msgstr "Für Akkorde muß ich im Akkord-(Chord)-Modus sein"
 
-#: parser.yy:1842 parser.yy:1860
+#: parser.yy:1860 parser.yy:1878
 msgid "need integer number arg"
 msgstr ""
 
-#: parser.yy:1846
+#: parser.yy:1864
 msgid "Must be positive integer"
 msgstr ""
 
-#: lexer.ll:165
+#: lexer.ll:166
 msgid "EOF found inside a comment"
 msgstr "Während eines Kommentar war die Datei zu Ende (EOF gefunden)"
 
-#: lexer.ll:179
+#: lexer.ll:180
 msgid "\\maininput disallowed outside init files"
 msgstr ""
 
-#: lexer.ll:203
+#: lexer.ll:204
 #, fuzzy, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "Unbekannter Identifier: `%s'"
 
 #. backup rule
-#: lexer.ll:208
+#: lexer.ll:209
 #, fuzzy
 msgid "Missing end quote"
 msgstr "Endnote fehlt"
 
 #. backup rule
-#: lexer.ll:230 lexer.ll:234
+#: lexer.ll:231 lexer.ll:235
 msgid "white expected"
 msgstr "Erwarte Weiß"
 
-#: lexer.ll:243
+#: lexer.ll:244
 #, fuzzy
 msgid "Can't evaluate Scheme in safe mode"
 msgstr "Kann Scheme nicht interpretieren, wenn ich im sicheren Modus bin"
 
-#: lexer.ll:335
+#: lexer.ll:336
 msgid "Brace found at end of lyric. Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:439
+#: lexer.ll:440
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "Ungültiger Buchstabe `%c'"
 
-#: lexer.ll:520
+#: lexer.ll:521
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "Unbekannte Sonder-Zeichenkette"
 
-#: lexer.ll:602
+#: lexer.ll:603
 #, fuzzy, c-format
 msgid "incorrect lilypond version: %s (%s, %s)"
-msgstr "Falsche Version von Mudela: (s /%s, %s)"
+msgstr "Falsche Version von Lilypond: %s (%s, %s)"
 
-#: lexer.ll:603
+#: lexer.ll:604
 msgid "Consider converting the input with the convert-ly script"
 msgstr ""
+
+#: lilypond-item.cc:161
+#, c-format
+msgid "#32 in quarter: %d"
+msgstr "#32 in Vierteln: %d"
+
+#: lilypond-score.cc:108
+#, c-format
+msgid "Lily output to %s..."
+msgstr "Lily-Ausgabe nach %s..."
+
+#: lilypond-score.cc:119
+#, fuzzy, c-format
+msgid "track %d:"
+msgstr "Spur "
+
+#: lilypond-score.cc:155
+msgid "Processing..."
+msgstr "Verarbeite..."
+
+#: lilypond-score.cc:164
+msgid "Creating voices..."
+msgstr "Erzeuge Stimmen..."
+
+#: lilypond-score.cc:168
+msgid "track "
+msgstr "Spur "
+
+#: lilypond-score.cc:177
+msgid "NOT Filtering tempo..."
+msgstr "Ich filtere das Tempo NICHT..."
+
+#: lilypond-score.cc:186
+msgid "NOT Quantifying columns..."
+msgstr "ich quantifiziere die Spalten NICHT..."
+
+#: lilypond-score.cc:190
+msgid "Quantifying columns..."
+msgstr "Quantifiziere Spalten..."
+
+#: lilypond-score.cc:223
+msgid "Settling columns..."
+msgstr "Erledige Spalten..."
+
+#: lilypond-staff.cc:209
+#, fuzzy
+msgid "% MIDI copyright:"
+msgstr "% Midi Urheberrecht:"
+
+#: lilypond-staff.cc:210
+#, fuzzy
+msgid "% MIDI instrument:"
+msgstr "% Instrument:"
+
+#: lilypond-stream.cc:37
+#, c-format
+msgid "lily indent level: %d"
+msgstr "lily Einrücklevel: %d"
+
+#. Maybe better not to translate these?
+#: lilypond-stream.cc:83
+msgid "% Creator: "
+msgstr "% erstellt von: "
+
+#: lilypond-stream.cc:88
+msgid "% Automatically generated"
+msgstr "% Automatisch generiert"
+
+#: lilypond-stream.cc:97
+#, c-format
+msgid "% from input file: "
+msgstr "% aus Eingabedatei: "
 
 #: main.cc:93
 msgid "write exact durations, e.g.: a4*385/384"
@@ -1124,6 +1233,10 @@ msgstr "DUR"
 msgid "set smallest duration"
 msgstr "Setze kürzeste Dauer (?)"
 
+#: main.cc:103
+msgid "don't timestamp the output"
+msgstr "Keine Datumsangabe auf der Ausgabe"
+
 #: main.cc:105
 msgid "be verbose"
 msgstr "Sei geschwätzig"
@@ -1139,8 +1252,8 @@ msgstr "Verwendung: %s [OPTIONEN] ... [DATEI]"
 
 #: main.cc:116
 #, fuzzy
-msgid "Translate MIDI-file to mudela"
-msgstr "Übersetze MIDI in mudela"
+msgid "Translate MIDI-file to lilypond"
+msgstr "Übersetze MIDI in Lilypond"
 
 #: main.cc:130
 #, c-format
@@ -1219,78 +1332,6 @@ msgstr "Erwarte MIDI-Stück"
 #: midi-track-parser.cc:353
 msgid "invalid track length"
 msgstr "Unzulässige Länge für ein Stück"
-
-#: mudela-item.cc:161
-#, c-format
-msgid "#32 in quarter: %d"
-msgstr "#32 in Vierteln: %d"
-
-#: mudela-score.cc:108
-#, c-format
-msgid "Lily output to %s..."
-msgstr "Lily-Ausgabe nach %s..."
-
-#: mudela-score.cc:119
-#, fuzzy, c-format
-msgid "track %d:"
-msgstr "Spur "
-
-#: mudela-score.cc:155
-msgid "Processing..."
-msgstr "Verarbeite..."
-
-#: mudela-score.cc:164
-msgid "Creating voices..."
-msgstr "Erzeuge Stimmen..."
-
-#: mudela-score.cc:168
-msgid "track "
-msgstr "Spur "
-
-#: mudela-score.cc:177
-msgid "NOT Filtering tempo..."
-msgstr "Ich filtere das Tempo NICHT..."
-
-#: mudela-score.cc:186
-msgid "NOT Quantifying columns..."
-msgstr "ich quantifiziere die Spalten NICHT..."
-
-#: mudela-score.cc:190
-msgid "Quantifying columns..."
-msgstr "Quantifiziere Spalten..."
-
-#: mudela-score.cc:223
-msgid "Settling columns..."
-msgstr "Erledige Spalten..."
-
-#: mudela-staff.cc:209
-#, fuzzy
-msgid "% MIDI copyright:"
-msgstr "% Midi Urheberrecht:"
-
-#: mudela-staff.cc:210
-#, fuzzy
-msgid "% MIDI instrument:"
-msgstr "% Instrument:"
-
-#: mudela-stream.cc:37
-#, c-format
-msgid "lily indent level: %d"
-msgstr "lily Einrücklevel: %d"
-
-#. Maybe better not to translate these?
-#: mudela-stream.cc:83
-msgid "% Creator: "
-msgstr "% erstellt von: "
-
-#: mudela-stream.cc:88
-msgid "% Automatically generated"
-msgstr "% Automatisch generiert"
-
-#: mudela-stream.cc:97
-#, c-format
-msgid "% from input file: "
-msgstr "% aus Eingabedatei: "
 
 #, fuzzy
 #~ msgid "Dependency file left in `%s'"
@@ -1373,10 +1414,6 @@ msgstr "% aus Eingabedatei: "
 #, fuzzy
 #~ msgid "No key name, assuming `C'"
 #~ msgstr "Keine Tonart: ich nehme `C' an"
-
-#, fuzzy
-#~ msgid "Don't know how handle empty keys"
-#~ msgstr "Weiß nicht, wie ich eine fehlende Tonart behandeln soll"
 
 #, fuzzy
 #~ msgid "out of tune:"

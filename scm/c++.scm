@@ -86,11 +86,11 @@
 	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
 
 
+;; used in denneboom.ly
+(define (cons-map f x)
+  (cons (f (car x)) (f (cdr x))))
 
-;;(define (cons-map f x)
-;;  (cons (f (car x)) (f (cdr x))))
-
-
+;; used where?
 ;;(define (reduce operator list)
 ;;      (if (null? (cdr list)) (car list)
 ;;	  (operator (car list) (reduce operator (cdr list)))))

@@ -9,20 +9,24 @@
 #
 # Magic: find and include LilyPond's StepMake rules
 #
-# 0: follow LILYPONDPREFIX
-# 1: try source tree
-# 2: try installed tree in $HOME
-# 3: try system installed tree
+# 0: try local tree
+# 1: follow LILYPONDPREFIX
+# 2: try source tree in home
+# 3: try installed tree in $HOME
+# 4: try system installed tree
+# 5: try system installed tree
 #
-make-root=$(wildcard $(LILYPONDPREFIX)/make)
+make-root=$(wildcard $(depth)/make)
+make-root?=$(wildcard $(LILYPONDPREFIX)/make)
 make-root?=$(wildcard $(HOME)/usr/src/lilypond/make)
+make-root?=$(wildcard $(HOME)/usr/share/lilypond/make)
 make-root?=$(wildcard /usr/share/lilypond/make)
-make-root?=$(wildcard /usr/share/lilypond/make)
+make-root?=$(wildcard /usr/local/share/lilypond/make)
 #make-root=<LilyPond's datadir>/make
 ifneq ($(make-root),)
 ### some versions apparently choke on $(message)
 ### $(message running from $(make-root))
-depth=$(make-root)/..
+depth:=$(make-root)/..
 LOCALSTEPMAKE_TEMPLATES=ly mutopia
 include $(make-root)/stepmake.make
 else
@@ -65,7 +69,7 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 # or make `foo-book' to make out/foo-book.ps
 #
 %: $(outdir)/%.ps
-	@echo Making $@ from $<
+	@echo Generated $< for target $@.
 
 #
 # Also clean hand-compiled stuff in cwd

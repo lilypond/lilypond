@@ -8,10 +8,10 @@
 
 
 @example
-        lilypond [OPTION]... [MUDELA-FILE]...
+        lilypond [OPTION]... [FILE]...
 @end example
 
-@unnumberedsec Command Options
+@unnumberedsec Options
 
 @table @code
 

@@ -16,8 +16,8 @@
 
 #include "midi2ly-global.hh"
 #include "midi-score-parser.hh"
-#include "mudela-item.hh"
-#include "mudela-score.hh"
+#include "lilypond-item.hh"
+#include "lilypond-score.hh"
 
 #if HAVE_GETTEXT
 #include <libintl.h>
@@ -28,7 +28,7 @@
 String filename_str_g;
 
 // ugh
-Mudela_score* mudela_score_l_g = 0;
+Lilypond_score* lilypond_score_l_g = 0;
 
 bool no_timestamps_b_g = false;
 bool no_rests_b_g = false;
@@ -113,7 +113,7 @@ usage()
 {
   cout << _f ("Usage: %s [OPTION]... [FILE]", "midi2ly");
   cout << '\n';
-  cout << _ ("Translate MIDI-file to mudela");
+  cout << _ ("Translate MIDI-file to lilypond");
   cout << '\n';
   cout << '\n';
   cout << _ ("Options:");
@@ -154,7 +154,7 @@ main (int argc_i, char* argv_sz_a[])
 #endif
 
   bool key_override_b = false;
-  Mudela_key key (0, 0);
+  Lilypond_key key (0, 0);
 
  
   Getopt_long getopt_long (argc_i, argv_sz_a, long_option_init_a);
@@ -254,15 +254,15 @@ main (int argc_i, char* argv_sz_a[])
       show_settings ();
       filename_str_g = arg_sz;
       Midi_score_parser midi_parser;
-      Mudela_score* score_p = midi_parser.parse (arg_sz, &source);
+      Lilypond_score* score_p = midi_parser.parse (arg_sz, &source);
 
       if (!score_p)
 	return 1;
 
       // if given on command line: override
-      if (key_override_b || !score_p->mudela_key_l_)
-	score_p->mudela_key_l_ = &key;
-      mudela_score_l_g = score_p;
+      if (key_override_b || !score_p->lilypond_key_l_)
+	score_p->lilypond_key_l_ = &key;
+      lilypond_score_l_g = score_p;
       score_p->process();
 
       if (!output_str.length_i ())
