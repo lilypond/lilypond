@@ -1,3 +1,7 @@
+2004-07-01  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/abc2ly.py: Backport.
+
 2004-06-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* debian/: Apply Debian patch (Anthony Fok).
