@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header {
 texidoc ="
   Dynamics on a separate line, neatly centered between staffs.
@@ -48,10 +48,10 @@ pedal = \notes {
       \consists "Dynamic_engraver"
       \consists "Text_engraver"
 
-      TextScript \override #'font-size = #2
-      TextScript \override #'font-shape = #'italic
-      DynamicText \override #'extra-offset = #'(0 . 2.5)
-      Hairpin \override #'extra-offset = #'(0 . 2.5)
+      \override TextScript #'font-size = #2
+      \override TextScript #'font-shape = #'italic
+      \override DynamicText #'extra-offset = #'(0 . 2.5)
+      \override Hairpin #'extra-offset = #'(0 . 2.5)
 
       \consists "Skip_event_swallow_translator"
 
@@ -60,7 +60,7 @@ pedal = \notes {
     \translator {
       \PianoStaffContext
       \accepts Dynamics
-      VerticalAlignment \override #'forced-distance = #7
+      \override VerticalAlignment #'forced-distance = #7
     }
   }
   \midi {

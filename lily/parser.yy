@@ -1129,21 +1129,17 @@ property_operation:
 		$$ = scm_list_n (ly_symbol2scm ("assign"),
 			scm_string_to_symbol ($1), $3, SCM_UNDEFINED);
 	}
-	| STRING UNSET {
+	| UNSET STRING {
 		$$ = scm_list_n (ly_symbol2scm ("unset"),
-			scm_string_to_symbol ($1), SCM_UNDEFINED);
+			scm_string_to_symbol ($2), SCM_UNDEFINED);
 	}
-	| STRING SET embedded_scm '=' embedded_scm {
-		$$ = scm_list_n (ly_symbol2scm ("poppush"),
-			scm_string_to_symbol ($1), $3, $5, SCM_UNDEFINED);
-	}
-	| STRING OVERRIDE embedded_scm '=' embedded_scm {
+	| OVERRIDE STRING embedded_scm '=' embedded_scm {
 		$$ = scm_list_n (ly_symbol2scm ("push"),
-			scm_string_to_symbol ($1), $3, $5, SCM_UNDEFINED);
+			scm_string_to_symbol ($2), $3, $5, SCM_UNDEFINED);
 	}
-	| STRING REVERT embedded_scm {
+	| REVERT STRING embedded_scm {
 		$$ = scm_list_n (ly_symbol2scm ("pop"),
-			scm_string_to_symbol ($1), $3, SCM_UNDEFINED);
+			scm_string_to_symbol ($2), $3, SCM_UNDEFINED);
 	}
 	;
 

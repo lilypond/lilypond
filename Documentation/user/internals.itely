@@ -365,7 +365,7 @@ and without a @code{Clef_engraver}.
 <<
   \new Staff { c4 es4 g2 }
   \new Staff \with {
-        StaffSymbol \set #'staff-space = #(magstep 1.5)
+        \override StaffSymbol #'staff-space = #(magstep 1.5)
         fontSize = #1.5
         \remove "Clef_engraver"
   } {

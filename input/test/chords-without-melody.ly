@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header {
 texidoc = "Jazz chords can also be used without notes."
 }
@@ -15,7 +15,7 @@ texidoc = "Jazz chords can also be used without notes."
 		\translator{
 			\ChordNamesContext
 
-			BarLine \override #'bar-size = #4
+			\override BarLine #'bar-size = #4
 
 			
 			\consists Bar_engraver

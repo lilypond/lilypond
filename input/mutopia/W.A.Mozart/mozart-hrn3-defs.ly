@@ -4,7 +4,7 @@ longgrace = \override Stem  #'stroke-style = #'()
 endlonggrace = \revert Stem #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.1.22"
+\version "2.1.23"
   
 cresc = \notes {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
@@ -35,16 +35,16 @@ stopGraceMusic= \sequential {
         skipBars = ##t
         midiInstrument = #"french horn"
         %% try to mimic Breitkopf
-        RehearsalMark \override #'padding = #1
-        MultiMeasureRest \override #'padding = #0.5
+        \override RehearsalMark #'padding = #1
+        \override MultiMeasureRest #'padding = #0.5
         restNumberThreshold = #1
 
-	RehearsalMark \override #'font-series = #'bold
-	RehearsalMark \override #'font-size = #6
+	\override RehearsalMark #'font-series = #'bold
+	\override RehearsalMark #'font-size = #6
 
-        Beam \override #'thickness = #0.6
-        Beam \override #'space-function = #(lambda (beam mult) 0.8)
-        Slur \override #'beautiful = #0.3
+        \override Beam #'thickness = #0.6
+        \override Beam #'space-function = #(lambda (beam mult) 0.8)
+        \override Slur #'beautiful = #0.3
     }
     \translator {
         \StaffContext

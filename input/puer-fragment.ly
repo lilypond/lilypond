@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -95,7 +95,7 @@ verba = \context Lyrics = "verba" \lyrics {
     \translator {
       \ScoreContext
       \remove Bar_number_engraver
-%     SpacingSpanner \set #'spacing-increment = #0.5
+%     \override SpacingSpanner #'spacing-increment = #0.5
       timing = ##f
 
       % Maybe don't do this except for transcription -- it may produce

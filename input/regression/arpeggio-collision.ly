@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 
 \header  {
 texidoc = "Arpeggio stays clear of accidentals and flipped note heads."

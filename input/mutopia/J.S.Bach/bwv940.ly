@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.22"
+\version "2.1.23"
 
 %{
  Header for Petites Preludes.
@@ -153,7 +153,7 @@ global = \notes{
 		linewidth = 17.0 \cm  
 		\translator {
 		    \ScoreContext
-		    SpacingSpanner \set #'spacing-increment = #2.0
+		    \override SpacingSpanner #'spacing-increment = #2.0
 		}
 	}
 	\midi{ \tempo 4 = 40 }

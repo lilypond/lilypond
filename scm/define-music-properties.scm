@@ -68,7 +68,7 @@ eg. @code{\\tag #'part ...} could tag a piece of music as only being active in a
      (name ,symbol? "Name of this music object")
      (numerator ,integer? "numerator of a time signature")
      (once ,boolean? "Apply this operation only during one time step?")
-     (octavation  integer?
+     (octavation ,integer?
 		  "This pitch was octavated by how many octaves?
 For chord inversions, this is negative.")
      (origin ,ly:input-location? "where was this piece of music defined?")

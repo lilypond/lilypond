@@ -7,7 +7,7 @@
   copyright = "Public Domain"
 }
 
-\version "2.1.22"
+\version "2.1.23"
 
 \include "nederlands.ly"
 
@@ -144,9 +144,9 @@ lower = \context Staff \notes \relative c{
   \paper {
     \translator{
 	    \VoiceContext
-	    Slur \override #'attachment = #'(stem . stem)
-	    autoBeamSettings \override #'(end 1 8 * *) = #(ly:make-moment 1 4)
-	    autoBeamSettings \override #'(end 1 16 * *) = #(ly:make-moment 1 4)
+	    \override Slur #'attachment = #'(stem . stem)
+	    \override autoBeamSettings #'(end 1 8 * *) = #(ly:make-moment 1 4)
+	    \override autoBeamSettings #'(end 1 16 * *) = #(ly:make-moment 1 4)
     }
   }
   \midi {

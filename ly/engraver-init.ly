@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 
 
 %
@@ -8,9 +8,6 @@
 \translator {
 	\type "Engraver_group_engraver"
 	\name Staff
-
-	\description "Handles clefs, bar lines, keys, accidentals.  It can contain
-@code{Voice} contexts."
 
 	
 	\consists "Output_property_engraver"	
@@ -54,6 +51,9 @@
 	instr = #'()
 	  
 	\accepts "Voice"
+	\description "Handles clefs, bar lines, keys, accidentals.  It can contain
+@code{Voice} contexts."
+
 }
 
 \translator {
@@ -75,7 +75,7 @@
 
     clefGlyph = #"clefs-percussion"
     clefPosition = #0
-    Script \set #'staff-padding = #0.75 
+    \override Script #'staff-padding = #0.75 
 }
 
 
@@ -99,11 +99,11 @@
 	\InnerChoirStaffContext
 	\name ChoirStaff
 	
+	\accepts "InnerChoirStaff"
+	\accepts "InnerStaffGroup"
 	\description "Identical to @code{StaffGroup} except that the
     contained staves are not connected vertically."
 	
-	\accepts "InnerChoirStaff"
-	\accepts "InnerStaffGroup"
 }
 
 
@@ -112,10 +112,6 @@
     
     \consists "Output_property_engraver"	
 
-    \description  "
-    A context like @code{Staff} but for printing rhythms.  Pitches are
-    ignored; the notes are printed on one line.  
-"
     minimumVerticalExtent = ##f
     extraVerticalExtent = ##f
     verticalExtent = ##f 
@@ -126,13 +122,13 @@
     \name RhythmicStaff
     \alias "Staff"
     
-    BarLine \override #'bar-size = #4
-    VoltaBracket \override #'minimum-space = #15
-    VoltaBracket \override #'padding = #5
-    StaffSymbol \override #'line-count = #1	
+    \override BarLine #'bar-size = #4
+    \override VoltaBracket #'minimum-space = #15
+    \override VoltaBracket #'padding = #5
+    \override StaffSymbol #'line-count = #1	
 
-    Stem \override #'neutral-direction = #1
-    Beam \override #'neutral-direction = #1 	
+    \override Stem  #'neutral-direction = #1
+    \override Beam  #'neutral-direction = #1 	
 				%	\consists "Repeat_engraver"
     \consists "Dot_column_engraver"
     \consists "Volta_engraver"
@@ -142,6 +138,10 @@
     \consists "Instrument_name_engraver"
     \consistsend "Axis_group_engraver"
     \accepts "Voice"
+    \description  "
+    A context like @code{Staff} but for printing rhythms.  Pitches are
+    ignored; the notes are printed on one line.  
+"
 }
 
 
@@ -263,8 +263,8 @@
     the staves, so cross staff beaming and slurring can be used."
     
     verticalAlignmentChildCallback = #Align_interface::fixed_distance_alignment_callback
-    VerticalAlignment \override #'forced-distance = #12
-    VerticalAlignment \override #'self-alignment-Y = #0
+    \override VerticalAlignment #'forced-distance = #12
+    \override VerticalAlignment #'self-alignment-Y = #0
 
     \consists "Vertical_align_engraver"
     \consists "Instrument_name_engraver"
@@ -329,7 +329,7 @@ printing of a single line of lyrics.  "
     \consists "Stanza_number_engraver"
     \consists "Vocal_name_engraver"
     \consists "Skip_event_swallow_translator"
-    SeparationItem \set #'padding = #0.2
+    \override SeparationItem #'padding = #0.2
 }
 
 \translator {
@@ -364,7 +364,7 @@ printing of a single line of lyrics.  "
     
     minimumVerticalExtent = #'(0 . 2.5)
     extraVerticalExtent = ##f
-    SeparatingGroupSpanner \override #'padding = #0.8
+    \override SeparatingGroupSpanner #'padding = #0.8
     verticalExtent = ##f 
 }
 
@@ -373,7 +373,7 @@ RemoveEmptyStaffContext= \translator {
     \StaffContext
     \remove "Axis_group_engraver"
     \consistsend "Hara_kiri_engraver"
-    Beam \override #'auto-knee-gap = #'()
+    \override Beam #'auto-knee-gap = #'()
 }
 
 AncientRemoveEmptyStaffContext = \translator {
@@ -565,9 +565,9 @@ OrchestralScoreContext = \translator {
 
 EasyNotation = \translator {
 	\ScoreContext
-	NoteHead \override #'print-function = #Note_head::brew_ez_stencil
-	NoteHead \override #'Y-extent-callback = #'()
-	NoteHead \override #'X-extent-callback = #'()
+	\override NoteHead #'print-function = #Note_head::brew_ez_stencil
+	\override NoteHead #'Y-extent-callback = #'()
+	\override NoteHead #'X-extent-callback = #'()
 }
 
 
@@ -604,14 +604,14 @@ EasyNotation = \translator {
       \remove "New_fingering_engraver"
 
       \description "Context for drawing notes in a Tab staff. "
-      Slur \override #'font-family    = #'roman
-      Slur \override #'print-function = #hammer-print-function
-      Slur \override #'direction = #-1
+      \override Slur #'font-family    = #'roman
+      \override Slur #'print-function = #hammer-print-function
+      \override Slur #'direction = #-1
 
       % Draws all stems/beams out of the staff (and not in the middle of the staff !)
       % This feature is now disabled because most of the tab does not use it.
-      %Beam \override #'damping = #100000
-      %Stem \override #'up-to-staff = ##t
+      %\override Beam #'damping = #100000
+      %\override Stem #'up-to-staff = ##t
 
       % No accidental in tablature !
       \remove Accidental_engraver
@@ -635,11 +635,11 @@ EasyNotation = \translator {
       \accepts "TabVoice"
       
       % 6 strings
-      StaffSymbol \override #'line-count = #6
-      StaffSymbol \override #'staff-space = #1.5
+      \override StaffSymbol #'line-count = #6
+      \override StaffSymbol #'staff-space = #1.5
 
      % Don't draw stems over the tablature figures !
-      Stem \override #'avoid-note-head = ##t
+      \override Stem #'avoid-note-head = ##t
       
       % No accidental in tablature !
       \remove "Accidental_engraver"
@@ -672,21 +672,21 @@ EasyNotation = \translator {
   \consists "Vaticana_ligature_engraver"
 
   % Set default head for notes outside of \[ \].
-  NoteHead \set #'style = #'vaticana_punctum
+  \override NoteHead #'style = #'vaticana_punctum
 
   % Put some space before and after divisiones.
   % FIXME: This does not seem to show any effect.
-  Script \set #'padding = #0.5
+  \override Script #'padding = #0.5
 
   % There are no beams in Gregorian Chant notation.
   autobeaming = ##f
 
   % Prepare TextSpanner for \episem{Initium|Finis} use.
-  TextSpanner \set #'style = #'line
-  TextSpanner \set #'edge-height = #'(0 . 0)
-  TextSpanner \set #'padding = #0.5
-  TextSpanner \set #'enclose-bounds = #1
-  TextSpanner \set #'edge-text = #'("" . "")
+  \override TextSpanner #'style = #'line
+  \override TextSpanner #'edge-height = #'(0 . 0)
+  \override TextSpanner #'padding = #0.5
+  \override TextSpanner #'enclose-bounds = #1
+  \override TextSpanner #'edge-text = #'("" . "")
 }
 
 \translator {
@@ -703,13 +703,13 @@ EasyNotation = \translator {
   % We can not remove Bar_engraver; otherwise clefs and custodes will
   % not show up any more among other line breaking issues.
   % Instead, we make the grob transparent.
-  BarLine \set #'transparent = ##t
+  \override BarLine #'transparent = ##t
 
-  StaffSymbol \set #'line-count = #4
-  StaffSymbol \set #'thickness = #0.6
+  \override StaffSymbol #'line-count = #4
+  \override StaffSymbol #'thickness = #0.6
 
   % FIXME: unit on StaffSymbol's width should be \linewidth.
-  % StaffSymbol \set #'width = #60.0
+  % \override StaffSymbol #'width = #60.0
 
   % Choose vaticana do clef on 3rd line as default.
   clefGlyph = #"clefs-vaticana_do"
@@ -718,12 +718,12 @@ EasyNotation = \translator {
   clefOctavation = #0
 
   % Select vaticana style font.
-  KeySignature \set #'style = #'vaticana
-  Accidental \set #'style = #'vaticana
-  Custos \set #'style = #'vaticana
-  Custos \set #'neutral-position = #3
-  Custos \set #'neutral-direction = #-1
-  Custos \set #'adjust-if-on-staffline = ##t
+  \override KeySignature #'style = #'vaticana
+  \override Accidental #'style = #'vaticana
+  \override Custos #'style = #'vaticana
+  \override Custos #'neutral-position = #3
+  \override Custos #'neutral-direction = #-1
+  \override Custos #'adjust-if-on-staffline = ##t
 
   % Score.timing = ##f
   % Score.barAlways = ##t
@@ -738,21 +738,21 @@ EasyNotation = \translator {
   % other ligature engraver would cause a "Junking event: `LigatureEvent'"
   % warning for every "\[" and "\]".  Therefore, we make the grob
   % transparent instead.
-  LigatureBracket \set #'transparent = ##t
+  \override LigatureBracket #'transparent = ##t
 
   % Put some space before and after divisiones.
   % FIXME: This does not seem to show any effect.
-  Script \set #'padding = #0.5
+  \override Script #'padding = #0.5
 
   % There are no beams in Gregorian Chant notation.
   autobeaming = ##f
 
   % Prepare TextSpanner for \episem{Initium|Finis} use.
-  TextSpanner \set #'style = #'line
-  TextSpanner \set #'edge-height = #'(0 . 0)
-  TextSpanner \set #'padding = #0.5
-  TextSpanner \set #'enclose-bounds = #1
-  TextSpanner \set #'edge-text = #'("" . "")
+  \override TextSpanner #'style = #'line
+  \override TextSpanner #'edge-height = #'(0 . 0)
+  \override TextSpanner #'padding = #0.5
+  \override TextSpanner #'enclose-bounds = #1
+  \override TextSpanner #'edge-text = #'("" . "")
 }
  \translator {
   \StaffContext
@@ -764,5 +764,5 @@ EasyNotation = \translator {
   % We can not remove Bar_engraver; otherwise clefs and custodes will
   % not show up any more among other line breaking issues.
   % Instead, we make the grob transparent.
-  BarLine \set #'transparent = ##t
+  \override BarLine #'transparent = ##t
 }

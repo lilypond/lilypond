@@ -1,5 +1,5 @@
 
-\version "2.1.22"
+\version "2.1.23"
 
 \header{
 texidoc=" The number of stafflines of a staff can be set.  Ledger
@@ -14,7 +14,7 @@ adjusted.  "
   \paper {
 
 \translator { \StaffContext
-StaffSymbol \override #'line-count = #3
+\override StaffSymbol #'line-count = #3
 }  }
   \midi { }
 }

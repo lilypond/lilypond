@@ -1,4 +1,4 @@
-\version "2.1.22"
+\version "2.1.23"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -242,8 +242,8 @@ drumContents = {
                 \translator { \RemoveEmptyStaffContext }
                 \translator {
                         \ScoreContext
-                        BarNumber \override #'padding = #3
-                        RehearsalMark \override #'padding = #2
+                        \override BarNumber #'padding = #3
+                        \override RehearsalMark #'padding = #2
                         skipBars = ##t
                 }
         }
