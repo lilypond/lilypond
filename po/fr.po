@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.3.21\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-10-09 03:01+0200\n"
-"PO-Revision-Date: 2004-10-10 08:00-0500\n"
+"PO-Revision-Date: 2004-10-19 08:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -1748,19 +1748,16 @@ msgid "unknown translator: `%s'"
 msgstr "traducteur inconnu: « %s »"
 
 #: trill-spanner-engraver.cc:71 lily/trill-spanner-engraver.cc:71
-#, fuzzy
 msgid "can't find start of trill spanner"
-msgstr "ne peut repérer le début du texte de clef"
+msgstr "ne peut repérer le début de l'étendue de la clé de trill"
 
 #: trill-spanner-engraver.cc:85 lily/trill-spanner-engraver.cc:85
-#, fuzzy
 msgid "already have a trill spanner"
-msgstr "a déjà un texte de clef"
+msgstr "a déjà une étendue de clé de trill"
 
 #: trill-spanner-engraver.cc:145 lily/trill-spanner-engraver.cc:145
-#, fuzzy
 msgid "unterminated trill spanner"
-msgstr "texte de clef non terminé"
+msgstr "étendue de clé de trill non terminée"
 
 #: tuplet-bracket.cc:448 lily/tuplet-bracket.cc:447
 msgid "Killing tuplet bracket across linebreak."

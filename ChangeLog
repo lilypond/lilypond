@@ -1,3 +1,9 @@
+2004-10-22  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* po/fr.po (Module): updated po file.
+
+	* po/de.po: updated po file.
+
 2004-10-22  Werner Lemberg  <wl@gnu.org>
 
 	* tex/lilyponddefs.tex (\lilypondend): Undo change from 2004-10-20.
