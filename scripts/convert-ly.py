@@ -1265,11 +1265,11 @@ if 1:
 			return origstr
 
 		durs = []
-		def sub_durs (m):
+		def sub_durs (m, durs = durs):
 			durs.append(m.group(2))
 			return m.group (1)
 
-		str = re.sub ("([a-z]+[,'!? ]*)([0-9.]+)", sub_durs, str)
+		str = re.sub (r"([a-z]+[,'!? ]*)([0-9]+\.*)", sub_durs, str)
 		dur_str = ''
 
 		for d in durs:
@@ -1285,7 +1285,8 @@ if 1:
 		last_str = ''
 		while last_str <> str:
 			last_str = str
-			def sub_tremolos (m):
+
+			def sub_tremolos (m, slur_strs = slur_strs):
 				tr = m.group (2)
 				if tr not in slur_strs:
 					slur_strs.append (tr)
@@ -1294,31 +1295,31 @@ if 1:
   			str = re.sub (r"([a-z]+[',!? ]*)(:[0-9]+)",
 				      sub_tremolos, str)
 
-			def sub_dyn_end (m):
+			def sub_dyn_end (m, dyns = dyns):
 				dyns.append (' \!')
 				return ' ' + m.group(2)
 
 			str = re.sub (r'(\\!)\s*([a-z]+)', sub_dyn_end, str)
-			def sub_slurs(m):
+			def sub_slurs(m, slur_strs = slur_strs):
 				if '-)' not in slur_strs:
 					slur_strs.append (')')
 				return m.group(1)
 			
-			def sub_p_slurs(m):
+			def sub_p_slurs(m, slur_strs = slur_strs):
 				if '-\)' not in slur_strs:
 					slur_strs.append ('\)')
 				return m.group(1)
 			
 			str = re.sub (r"\)[ ]*([a-z]+)", sub_slurs, str)
 			str = re.sub (r"\\\)[ ]*([a-z]+)", sub_p_slurs, str)
-			def sub_begin_slurs(m):
+			def sub_begin_slurs(m, slur_strs = slur_strs):
 				if '-(' not in slur_strs:
 					slur_strs.append ('(')
 				return m.group(1)
 			
 			str = re.sub (r"([a-z]+[,'!?0-9 ]*)\(",
 				      sub_begin_slurs, str)
-			def sub_begin_p_slurs(m):
+			def sub_begin_p_slurs(m, slur_strs = slur_strs):
 				if '-\(' not in slur_strs:
 					slur_strs.append ('\(')
 				return m.group(1)
@@ -1326,7 +1327,7 @@ if 1:
 			str = re.sub (r"([a-z]+[,'!?0-9 ]*)\\\(",
 				sub_begin_p_slurs, str)
 
-			def sub_dyns (m):
+			def sub_dyns (m, slur_strs = slur_strs):
 				s = m.group(0)
 				if s == '@STARTCRESC@':
 					slur_strs.append ("\\<")
@@ -1339,7 +1340,7 @@ if 1:
 			str = re.sub (r'@STARTCRESC@', sub_dyns, str)
 			str = re.sub (r'-?\\!', sub_dyns, str)
 
-			def sub_articulations (m):
+			def sub_articulations (m, slur_strs = slur_strs):
 				a = m.group(1)
 				if a not in slur_strs:
 					slur_strs.append (a)
@@ -1351,8 +1352,10 @@ if 1:
 				      str)
 			str = re.sub (r"([_^-][>_.+|^-])", sub_articulations,
 				      str)
+			str = re.sub (r'([_^-]"[^"]+")', sub_articulations,
+				      str)
 
-			def sub_pslurs(m):
+			def sub_pslurs(m, slur_strs = slur_strs):
 				slur_strs.append (' \\)')
 				return m.group(1)
 			str = re.sub (r"\\\)[ ]*([a-z]+)", sub_pslurs, str)

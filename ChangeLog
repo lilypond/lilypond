@@ -1,5 +1,10 @@
 2004-01-25  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.sub_durs): bugfix:
+	do correct chord conversion for ^"sim."   
+	(FatalConversionError.sub_articulations): substitute ^"foo" in
+	chords too.
+
 	* scm/define-grobs.scm (all-grob-descriptions): use staff-padding
 	for Fingering.
 
