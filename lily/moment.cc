@@ -11,7 +11,6 @@
 #include "lily-guile.hh"
 #include "moment.hh"
 #include "warn.hh"
-
 #include "ly-smobs.icc"
 
 IMPLEMENT_UNSMOB(Moment,moment);

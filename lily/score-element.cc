@@ -31,6 +31,8 @@
 #include "side-position-interface.hh"
 #include "item.hh"
 
+#include "ly-smobs.icc"
+
 /*
 TODO:
 
@@ -706,7 +708,6 @@ Score_element::fixup_refpoint (SCM smob)
   SMOB funcs
  ****************************************************/
 
-#include "ly-smobs.icc"
 
 IMPLEMENT_UNSMOB(Score_element, element);
 IMPLEMENT_SMOBS(Score_element);
