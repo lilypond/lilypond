@@ -7,8 +7,9 @@ Lily Literature -- reading on music engraving/typesetting/etc.
 A list of resources on music printing/writing and engraving.  Please
 note that don't have access to most material.
 
-[What I do know, I've commented inside brackets. They are just my
-personal comments, not to be taken too seriously]
+[Personal comments appear in brackets.  What I (HWN) know, I've
+commented myself. They are just my personal comments, not to be taken
+too seriously]
 
 =head2 Music engraving: references
 
@@ -81,8 +82,9 @@ John S. Gourlay. ``Spacing a Line of Music,'' Technical Report
 OSU-CISRC-10/87-TR35, Department of Computer and Information Science,
 The Ohio State University, 1987.
 
-[Algorithm to generate spacing in polyphonic music, tailored for use
-with MusiCopy HWN]
+[Algorithm for generating spacing in one line of (polyphonic) music,
+tailored for use with MusiCopy. LilyPond uses a variant of it (as of
+pl 76) HWN]
 
 Allen Parish, Wael A. Hegazy, John S. Gourlay, Dean K. Roush and
 F. Javier Sola. ``MusiCopy: An automated Music Formatting System''.
@@ -188,7 +190,7 @@ Muziek'' afstudeerscriptie Bestuurlijke informatica, no 45327, Erasmus
 universiteit Rotterdam, 1991.  (``An automated system for printing
 music'' Master's Thesis Managerial Computer Science.)
 
-[This thesis describes a simplistic (monophonic) typesetting system,
+[This dutch thesis describes a simplistic (monophonic) typesetting system,
 and focuses on the breaking algorithm, which is taken from Hegazy &
 Gourlay HWN]
 
@@ -261,12 +263,10 @@ Software Inc., 1995.  ftp://blackbox.cartah.washington.edu/pub/
 
 [Specs for NIFF, a comprehensive but binary (yuk) format for notation HWN]
 
-Alexander Brinkman, ``PASCAL Programming for Music Research''.  The
-University of Chicago Press, 1990.
-
 =head1 AUTHORS
 
-References contributed by Han-Wen Nienhuys, Miguel Filgueiras, Mark
-Basinski, Dorothea Blostein, Stephen Page, Jan Nieuwenhuizen.
+References and comments contributed by Han-Wen Nienhuys (HWN), Miguel
+Filgueiras, Mark Basinski (MB), Dorothea Blostein, Stephen Page (SP),
+Jan Nieuwenhuizen.
 
 This should really be redone in BibTeX
