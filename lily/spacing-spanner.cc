@@ -90,19 +90,19 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	  
 	  SCM hint = lc->get_elt_property (extra_space_scm_sym);
 	  SCM next_hint = rc->get_elt_property (extra_space_scm_sym);
-	
+	  SCM stretch_hint = rc->get_elt_property (stretch_distance_scm_sym);
+	    
 	  if (hint != SCM_BOOL_F)
 	    {
 	      hint = SCM_CDDR (hint);
 	      
 	      s.distance_f_ = gh_scm2double (hint); 
 	      if (!lc->musical_b ())
-		s.strength_f_ = 2.0;
+		s.strength_f_ = non_musical_space_strength; // fixed after complaints by michael krause 2.0;
 	    }
 	  else if (!lc->musical_b() && i+1 < col_count())
 	    {
 	      s.distance_f_ = default_bar_spacing (lc,rc,shortest);
-	      s.strength_f_ = non_musical_space_strength; // fixed after complaints by michael krause
 	    }
 	  else if (lc->musical_b())
 	    {
@@ -129,7 +129,7 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	      s.distance_f_ += correction;
 	    }
 
-	  if (s.distance_f_ <=0)
+	  if (s.distance_f_ == 0.0)
 	    {
 	      /*
 		\bar "".  We give it 0 space, with high strength. 
@@ -137,6 +137,16 @@ Spacing_spanner::do_measure (int col1, int col2) const
 	      s.distance_f_ = 0.0 PT;
 	      s.strength_f_ = 20.0; 
 	    }
+	  else if (stretch_hint != SCM_BOOL_F)
+	    {
+	      Real hint_sp = gh_scm2double (SCM_CDR (stretch_hint));
+	      s.strength_f_ /= hint_sp;
+	    }
+	  else
+	    {
+	      s.strength_f_ /= s.distance_f_; 
+	    }
+
 	  meas_springs.push (s);	
 	}
     }
