@@ -28,13 +28,18 @@ GROFFFILES = $(OUTPODFILES:.pod=.1)
 HTMLFILES = $(OUTPODFILES:.pod=.html)
 DVIFILES = $(addprefix $(outdir)/, $(DOCFILES:.doc=.dvi))
 
+
+default: do-doc
 #
 # list of distribution files:
 #
-EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif  $(DOCFILES) 
-# $(wildcard Vocab*)
+XPMS=$(wildcard *.xpm)
+giffiles=$(XPMS:.xpm=.gif)
 
-default: do-doc
+gifs: $(addprefix $(outdir)/, $(giffiles))
+
+
+EXTRA_DISTFILES = $(XPMS)  $(DOCFILES)  $(wildcard Vocab*)
 
 # don't do DVI files. They can only be made if lily is installed
 do-doc: $(TEXTFILES)
