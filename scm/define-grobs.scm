@@ -923,8 +923,8 @@
 	;; looking at Baerenreiter examples) for a number of common
 	;; boundary cases.  Subtracting half a beam thickness fixes
 	;; this, but the bug may well be somewhere else.
-	(beamed-lengths . (3.26))
-
+	(beamed-lengths . (3.26 3.26 1.5))
+	
 	;; [Wanske] lists three sets of minimum lengths.  One
 	;; set for the nomal case, and one set for beams with `der
 	;; Balkenendpunkt weiter "uber bzw. unter die Systemgrenze
@@ -938,13 +938,10 @@
 	;; and the extreme minima as abolute minimum length.
 	
 	;; The 'normal' minima
-	(beamed-minimum-free-lengths . (2.5 2.0 1.5))
-	
-	;; The 'far outside staff' minima, not used
-	;(beamed-far-minimum-free-lengths . (1.83))
+	(beamed-minimum-free-lengths . (2.5 2.0 1.0))
 	
 	;; The 'extreme case' minima
-	(beamed-extreme-minimum-free-lengths . (1.83 1.5))
+	(beamed-extreme-minimum-free-lengths . (1.83 1.5 1.25))
 
 	(X-offset-callbacks . (,Stem::off_callback))
 	(X-extent-callback . ,Stem::dim_callback)	

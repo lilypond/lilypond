@@ -1,7 +1,11 @@
 \version "1.7.18"
 
 \header{
-texidoc =	 "Test beam quant positions for horizontal beams."
+
+    texidoc = "Test beam quant positions for horizontal beams.  Staff
+lines should be covered in all cases. For 32nd beams, the free stem
+lengths are between 2 and 1.5."
+
 }
 
 \score{
@@ -10,11 +14,13 @@ texidoc =	 "Test beam quant positions for horizontal beams."
 		 a,-[ a]  c-[ c]
 		 d,8-[ d]  g'-[ g]
 		 g,-[ g]  d'-[ d]
-		 c,16-[ c c c]  a''-[ a a a]
-		 a,-[ a a a]  c-[ c c c]
+		 c,16-[ c]  a''-[ a]
+		 a,-[ a ]  c-[ c]
 		\break
-		 c,32-[ c c c c c c c]  a''-[ a a a a a a a]
-		 f,-[ f f f f f f f]  e'-[ e e e e e e e]
+		 c,32-[  c]  a''-[ a]
+		 f,-[ f]  e'-[ e]
+		 c,64-[ c]  a''-[ a]
+		 f,-[ f]  e'-[ e]
 		\break
 	}
 }

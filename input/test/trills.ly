@@ -32,7 +32,6 @@ endHorizScript = {
 
 \score {
   <
-    \property Score.TimeSignature = \turnOff
     \context GrandStaff <
       \context Staff=upper \notes\relative c'' {
 	\time 1/4
