@@ -4410,6 +4410,7 @@ This section discusses issues that arise when writing popular music.
 * Chord names::                 
 * Chords mode::                 
 * Printing chord names::        
+* Fret diagrams::               
 * Improvisation::               
 @end menu
 
@@ -4417,10 +4418,10 @@ This section discusses issues that arise when writing popular music.
 @subsection Chord names
 @cindex Chords
 
-LilyPond has support for both printing chord names.  Chords may be
-entered in musical chord notation, i.e. @code{< .. >}, but they can
-also be entered by name.  Internally, the chords are represented as a
-set of pitches, so they can be transposed
+LilyPond has support for printing chord names.  Chords may be entered
+in musical chord notation, i.e. @code{< .. >}, but they can also be
+entered by name.  Internally, the chords are represented as a set of
+pitches, so they can be transposed
 
 
 @lilypond[quote,raggedright,verbatim,raggedright]
@@ -4728,6 +4729,52 @@ Chord names are determined solely from the list of pitches.  Chord
 inversions are not identified, and neither are added bass notes.  This
 may result in strange chord names when chords are entered with the
 @code{< .. >} syntax.
+
+
+@node Fret diagrams
+@subsection Fret diagrams
+@cindex fret diagrams
+@cindex chord diagrams
+
+Fret diagrams can be added to music as a markup to the desired note. The
+markup contains information about the desired fret diagram, as shown in the
+following example
+
+@lilypond[verbatim, raggetright, quote]
+\context Voice {
+  d' ^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
+  fis' ^\markup \override #'(size . 0.75) {
+    \override #'(finger-code . below-string) {
+      \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
+                               (place-fret 5 4 3) (place-fret 4 4 4)
+                               (place-fret 3 3 2) (place-fret 2 2 1)
+                               (place-fret 1 2 1))
+    }
+  }
+  c' ^\markup  \override #'(dot-radius . 0.35) {
+    \override #'(finger-code . in-dot) {
+      \override #'(dot-color . white) {
+        \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+      }
+    }
+  }
+}
+@end lilypond
+
+
+There are three different fret-diagram markup interfaces: standard, terse,
+and verbose.  The three interfaces produce equivalent markups, but have
+varying amounts of information in the markup string.  Details about the
+markup interfaces are found at @ref{Overview of text markup commands}. 
+
+You can set a number of graphical properties according to your preference.
+Details about the property interface to fret diagrams are found at 
+@internalsref{fret-diagram-interface}.
+
+
+@seealso
+
+Examples: @inputfileref{input/test,fret-diagram.ly}
 
 
 @node Improvisation

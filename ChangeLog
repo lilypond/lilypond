@@ -3,6 +3,8 @@
 	* scm/fret-diagrams.scm (fret-diagram-terse): Fix mistake in internal
 	documentation for fret-diagram-terse
 
+	* Documentation/user/notation.itely: Added section on fret diagrams.
+
 2004-10-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/convert-ly.py (usage): Fix --help description.  Apply
