@@ -280,6 +280,7 @@ def system (cmd, ignore_error = 0):
 	"""
 	
         if ( os.name != 'posix' ):
+		cmd = re.sub (r'''\\''', r'''\\\\\\''', cmd)
 		cmd = "sh -c \'%s\'" % cmd
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
@@ -499,10 +500,12 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 		orientation = extra['orientation'][0]
 
 	# set sane geometry width (a4-width) for linewidth = -1.
-	if not extra['linewidth'] or extra['linewidth'][0] < 0:
+	maxlw = max (extra['linewidth'] + [-1])
+	if maxlw < 0:
+	        # who the hell is 597 ?
 		linewidth = 597
 	else:
-		linewidth = extra['linewidth'][0]
+		linewidth = maxlw
 	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=12pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
 	if extra['latexoptions']:
@@ -534,11 +537,16 @@ lily output file in TFILES after that, and return the Latex file constructed.  '
 		first = 0
 
 	s = s + r'''
-% I do not see why we want to clobber the footer here
-\vfill\hfill\parbox{\textwidth}{\mbox{}\makelilypondtagline}
-%\makeatletter
-%\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
-%\makeatother
+%% I do not see why we want to clobber the footer here
+%% \vfill\hfill\parbox{\textwidth}{\mbox{}\makelilypondtagline}
+%% Well, maybe you don't submit music to mutopia?
+%% I would not object to this kind of change, but I don't know how
+%% to get the last mutopia tagline right (ie: no footer on last page)
+%% Please check that mutopia footers and endfooter are OK before changing
+%% this again. -- jcn
+\makeatletter
+\renewcommand{\@oddfoot}{\parbox{\textwidth}{\makelilypondtagline}}%
+\makeatother
 '''
 	s = s + '\\end{document}'
 
@@ -562,12 +570,9 @@ None
 	f.write (s)
 	f.close ()
 
-        if ( os.name == 'posix' ):
-		cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
-	else:
-		cmd = 'latex \\\\\\\\nonstopmode \\\\\\\\input %s' % latex_fn
+	cmd = 'latex \\\\nonstopmode \\\\input %s' % latex_fn
 
-	if not verbose_p:
+	if not verbose_p and os.name == 'posix':
 		progress ( _("Running %s...") % 'LaTeX')
 		cmd = cmd + ' 1> /dev/null 2> /dev/null'
 
@@ -592,7 +597,7 @@ None.
 
 	cmd = 'dvips %s -o%s %s' % (opts, outbase + '.ps', outbase + '.dvi')
 	
-	if not verbose_p:
+	if not verbose_p and os.name == 'posix':
 		progress ( _("Running %s...") % 'dvips')
 		cmd = cmd + ' 1> /dev/null 2> /dev/null'
 		

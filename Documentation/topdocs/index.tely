@@ -11,102 +11,40 @@ i\input texinfo @c -*-texinfo-*-
 @end html
 
 
-@unnumberedsec What is LilyPond?
+@unnumberedsec What is LilyPond? What can it do for you?
 
-@c also use keywords: music notation software
-LilyPond is a music typesetter.  It produces beautiful sheet music
-using a high level description file as input. It excels at typesetting
-classical music, but you can also print pop-songs.  With LilyPond we
-hope to make music publication software available to anyone on the
-internet.
+LilyPond prints music notation.  It produces beautiful sheet music from
+a description file. It excels at typesetting classical music, but you
+can also print pop-songs.
 
-@unnumberedsec Why should I use it?
-
-The input to LilyPond is plain text. So, you can use your favorite text
+LilyPond input is @b{plain text}. So, you can use your favorite text
 editor to enter it, you can put it in mail or embed it in an article like
 this:
-
-
-@lilypond[fragment,verbatim]
-\relative c'' { \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 }
+@lilypond[fragment,verbatim, relative 1]
+ \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 
 @end lilypond 
+Or you can use it to print music from other programs, using one of the
+numerous input filters.
 
-The output looks very good: the font and the layout algorithms were
-inspired by engraved music, so you can expect that same clear and
+LilyPond output looks @b{beautiful}. The font and the layout algorithms
+were inspired by engraved music, so you can expect that same clear and
 elegant look from your LilyPond output.  And if you don't like the
 looks, you can tweak almost everything.
 
-The program also has limited MIDI functionality: you can write MIDI
-files with lilypond. You can also import files in PMX, MUP, MIDI, ABC,
-Finale and Musedata format.
+LilyPond is @b{free software}. It is part of the
+@uref{http://www.gnu.org/,GNU Project}. It is licensed under GNU General
+Public License, so you can use, modify and redistribute the program with
+almost no restrictions.  LilyPond is part of the
 
-LilyPond is free software. It is licensed under GNU General Public
-License, so you can use, modify and redistribute the program with
-almost no restrictions.  LilyPond is part of the 
-@uref{http://www.gnu.org/,GNU Project}.
+@unnumberedsec Want to know more?
 
-The version numbers are in Linux-kernel style: even numbered versions
-are `stable'. The webpages for the stable version (1.2) reside
-@uref{http://www.gnu.org/software/lilypond, on the GNU servers}. Big
-enhancements go into the latest odd numbered version (1.3), whose
-webpages are on @uref{http://www.lilypond.org/,the lilypond site}.
-Information on the latest and greatest features can be found in the
-@uref{Documentation/out-www/CHANGES.html, Change Log}.
-
-If want more information, you can browse the
-@uref{Documentation/user/out-www/lilypond.html, manual} or other
-@uref{Documentation/out-www/index.html, documentation}.
-
-@html
-<a name="music">
-@end html
-@unnumberedsec Sheet music
+If you want to know more, visit the
+@uref{Documentation/out-www/index.html, documentation page}. If you want
+to see some sheet music, then have a look at the examples: we have
+@uref{short-examples.html,short examples} and
+@uref{long-examples.html,longer examples}.  For even more sheet music,
+head over to @uref{http://www.mutopiaproject.org, the mutopia project}.
 
 
-If you are interested in sheet music typeset by LilyPond, have a look at
-the examples included. We have @uref{short-examples.html,short
-examples} and @uref{long-examples.html,longer examples}. The
-examples include sound bites  in MIDI, pictures in PNG, printable scores
-in PostScript, and LilyPond input. Others use LilyPond too, and have put
-scores on the web. Head over to @uref{http://appel.lilypond.org/wiki?DownloadLilyPondScores}
-
-
-@html
-<a name="mailing-lists">
-@end html
-@unnumberedsec Mailing lists
-
-If you have questions, do write to the mailing lists.  But don't forget
-to read the @uref{Documentation/topdocs/out-www/FAQ.html,Very Frequently
-Asked Questions} and @uref{http://appel.dyndns.org/wiki?LilyPondFaqs,
-Frequently Asked Questions} first.
-
-
-@itemize @bullet
-@item @uref{http://mail.gnu.org/mailman/listinfo/info-gnu-music,info-gnu-music@@gnu.org}
-is a low-volume list for information on the GNU Music project.
-    This list is moderated; ask 
-    @email{drl@@gnu.org, David R. Linn} or
-    @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this list.
-@item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music,help-gnu-music@@gnu.org}
-    For help with using LilyPond.
-@item @uref{http://mail.gnu.org/mailman/listinfo/bug-gnu-music,bug-gnu-music@@gnu.org}
-If you have bugreports, you should send them to this list.  
-
-
-
-        Please include in your bugreport the version of LilyPond that
-you experience the problem with, a description of your system and sample
-input to reproduce the problem. Do not send output files over the list,
-they tend to be very big and don't help with describing the problem.
-
-
-@item @uref{http://mail.gnu.org/mailman/listinfo/gnu-music-discuss,gnu-music-discuss@@gnu.org}
-    For discussions concerning LilyPond.
-@end itemize
-
-These pages were entirely created from a @strong{development snapshot}
-of the LilyPond package.  The version of this webpage is printed at the
-bottom.
 
 @bye

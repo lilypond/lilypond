@@ -8,6 +8,13 @@
   (c)  1997--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
+
+/*
+  Two shift/reduce problems:
+    -
+    -
+ */
+
 #include <ctype.h>
 #include <iostream.h>
 
@@ -1593,10 +1600,10 @@ multiplied_duration:
 	steno_duration {
 		$$ = $1;
 	}
-	| steno_duration '*' bare_unsigned {
+	| multiplied_duration '*' bare_unsigned {
 		$$ = unsmob_duration ($$)->compressed ( $3) .smobbed_copy ();
 	}
-	| steno_duration '*' FRACTION {
+	| multiplied_duration '*' FRACTION {
 		Moment m (gh_scm2int (gh_car ($3)), gh_scm2int (gh_cdr ($3)));
 
 		$$ = unsmob_duration ($$)->compressed (m).smobbed_copy ();

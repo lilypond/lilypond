@@ -14,7 +14,7 @@
 Until now, installing LilyPond on Windows was
 @uref{http://mail.gnu.org/pipermail/help-gnu-music/2001-April/000620.html,
 almost} a dull process that could easily be @uref{
-ftp://ftp.lilypond.org/pub/LilyPond/gnu-windows/latest/bin/tar/lily-install-0.6-i686-cygwin.bin.tar.gz,
+ftp://appel.lilypond.org/pub/gnu-windows/cygwin-1.1.7/bin/tar/lily-install-0.7-1.tar.gz,
 automated} and scripted.  This meant that you would have more time left
 for actual work, and we all know that's not what computers were designed
 for.
@@ -47,9 +47,9 @@ mutilating } @uref{http://sources.redhat.com/cygwin,Cygwin}'s
 ftp://ftp.franken.de/pub/win32/develop/gnuwin32/cygwin/mirrors/cygnus/snapshots/cygwin-src-20010410.tar.bz2,
 Windows installer}.
 No
-@uref{http://appel.lilypond.org/lilypond/gnu-windows/tar/lilypond/md5.sum,
+@uref{http://www.lilypond.org/gnu-windows/tar/lilypond/md5.sum,
 difficult checksums} or signatures.  Enjoy the the thrills of running
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/gnu-windows/latest/setup.exe,
+@uref{http://www.lilypond.org/gnu-windows/latest/setup.exe,
 untrusted binaries} with adminstrator rights, on your painfully
 firewalled intranet.
 

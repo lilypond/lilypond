@@ -73,7 +73,10 @@
 {
 	dup base-line-skip gt {
 		/line-height exch def
-	} if
+	}
+	{
+		pop /line-height base-line-skip def
+	} ifelse
 	line-y top-margin sub base-line-skip lt {
 		showpage
 		/line-y vsize top-margin sub def
