@@ -133,7 +133,7 @@ fet_endchar;
 %
 fet_beginchar("staccato dot", "staccato", "staccato")
 	save radius;
-	radius# =   (3/8) / 1.75 staff_space#;
+	radius# =   ((3/8) * 1.75) staff_space#;
 	define_whole_pixels(radius);
 	pickup pencircle scaled 2 radius;
 	drawdot (0,0);
