@@ -62,9 +62,6 @@ public:
 
   Grob * accidental_placement_;
 
-  /*
-    The next 
-   */
   Array<Accidental_entry> accidentals_;
   Link_array<Spanner> ties_;
 
@@ -110,7 +107,6 @@ Accidental_engraver::initialize ()
   sig (passed as argument)
 
   Returns number of accidentals (0, 1 or 2).
-  Negative (-1 or -2) if accidental has changed.
 
 */
 static int
@@ -222,17 +218,15 @@ number_accidentals (bool *different,
 SCM
 Accidental_engraver::get_bar_num ()
 {
-   SCM barnum = get_property ("currentBarNumber");
-      SCM smp = get_property("measurePosition");
+  SCM barnum = get_property ("currentBarNumber");
+  SCM smp = get_property("measurePosition");
       
-      Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
-      if (mp.main_part_ < Rational (0)
-	  && gh_number_p (barnum))
-	barnum = scm_int2num (gh_scm2int (barnum) - 1);
+  Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  if (mp.main_part_ < Rational (0)
+      && gh_number_p (barnum))
+    barnum = scm_int2num (gh_scm2int (barnum) - 1);
       
-
-      return barnum ;
-  
+  return barnum ;
 }
 
 void
@@ -240,7 +234,6 @@ Accidental_engraver::process_acknowledged_grobs ()
 {
   if (accidentals_.size () && !accidentals_.top().done_)
     {
-      //SCM localsig = get_property ("localKeySignature");
       SCM accidentals =  get_property ("autoAccidentals");
       SCM cautionaries =  get_property ("autoCautionaries");
       SCM barnum = get_bar_num ();
@@ -286,18 +279,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	    Can not look for ties: it's not guaranteed that they reach
 	    us before the notes
 	   */
-	  /* See if there's a tie that makes the accidental disappear */
-	  Grob *tie_break_reminder = 0;
-	  bool tie_changes = false;
-	  for (int j = 0; j < ties_.size (); j++)
-	    if (support == Tie::head (ties_[j], RIGHT))
-	      {
-		tie_changes = different;
-		if (different)
-		  tie_break_reminder = ties_[j];
-		break;
-	      }
-
+	
 	  if (num)
 	    {
 	      /*
@@ -331,12 +313,6 @@ Accidental_engraver::process_acknowledged_grobs ()
 	      if (cautionary)
 		{
 		  a->set_grob_property ("cautionary", SCM_BOOL_T);
-		}
-	      
-	      if (tie_break_reminder)
-		{
-		  // TODO.
-		  a->set_grob_property ("tie", tie_break_reminder->self_scm());
 		}
 	      
 	      
@@ -447,7 +423,8 @@ Accidental_engraver::stop_translation_timestep ()
 
   if (accidental_placement_)
     typeset_grob(accidental_placement_);
-  accidental_placement_ = 00;
+
+  accidental_placement_ = 0;
   
   accidentals_.clear();
   left_objects_.clear ();
