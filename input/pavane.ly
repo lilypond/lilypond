@@ -1,12 +1,18 @@
 % Pavane pour une Infante d\'efunte
 % by Maurice Ravel
 %
-% (Ravel has been dead for over 50 years. This does not have copyright)
+% Ravel deceased in 1937, so copyright on the music will pass in 2008.
+%
+% The purpose of this file is to demonstrate features of LilyPond; 
+% I hope this citation isn't beyond the bounds of "fairness"
+%
 %
 % (there is an accompanying LaTeX file, pavane.tex)
 %
+
 horn =
-staff {melodic
+staff {
+	melodic
 	music{ 	$
 	\octave { ' }
 	\duration { 8}
@@ -109,8 +115,7 @@ score {
 		skip 1:0
 		skip 20:0
 		bar "|:"
-		skip 9:0
-		skip 1:0
+		skip 10:0
 		bar ":|"
 		meter 4* 4
 		skip 13:0

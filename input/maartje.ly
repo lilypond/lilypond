@@ -1,3 +1,11 @@
+% The purpose of this file is to demonstrate features of LilyPond; 
+%
+% COPYRIGHT: GPL
+%
+%
+
+
+
 ritme = staff {rhythmic
 	music {$
 	c8
@@ -48,7 +56,7 @@ staff { melodic
 		skip 2:0
 		key 
 		skip 5:0
-		clef bass
+		clef "bass"
 	}
 }
 
