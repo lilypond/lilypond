@@ -41,7 +41,7 @@ int
 main (int argc, char **argv)
 {
     Getopt_long oparser(argc, argv,theopts);
-
+    debug_init();
     cout << get_version();
     
     while (long_option_init * opt = oparser()) {
