@@ -123,20 +123,28 @@ LY_DEFINE(ly_molecule_combined_at_edge,
   
  */
 LY_DEFINE(ly_molecule_add , 
-	  "ly:molecule-add", 2, 0, 0, (SCM first, SCM second),
-	  "Combine two molecules."
+	  "ly:molecule-add", 0, 0, 1, (SCM args),
+	  "Combine molecules. Takes any number of arguments."
 	  )
 {
-  Molecule * m1 = unsmob_molecule (first);
-  Molecule * m2 = unsmob_molecule (second);
+#define FUNC_NAME __FUNCTION__
+  SCM_VALIDATE_REST_ARGUMENT (args);
+
   Molecule result;
 
+  while (!SCM_NULLP (args))
+    {
+      Molecule * m = unsmob_molecule (gh_car (args));
 
-  if (m1)
-    result = *m1;
-  if (m2)
-    result.add_molecule (*m2);
+      if (!m)
+	SCM_ASSERT_TYPE(m, gh_car (args), SCM_ARGn, __FUNCTION__,
+			"Molecule");
 
+      result.add_molecule (*m);
+
+      args = gh_cdr (args);
+    }
+  
   return result.smobbed_copy ();
 }
 

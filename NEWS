@@ -14,8 +14,8 @@ LilyPond identifiers in Scheme, and use Scheme expressions instead of
 LilyPond identifiers.
 
 ** The internal representation of music has been cleaned up completely
-converted to Scheme data structure.  The representation can optionally
-be exported as XML.
+converted to Scheme data structure.  The representation may be
+exported as XML.
 
 ** A new syntax has been added for chords:
 
@@ -30,7 +30,6 @@ and
    \simultaneous { .. } for simultaneous music.
 
 ** A new uniform postfix syntax for articulation has been introduced.
-
 A beamed slurred pair of eighth notes can be entered as
 
 	c8-[-( d8-]-) 
@@ -53,11 +52,10 @@ exceptions.
 
 	R1*20^\markup { "GP" }
 
-** Ancient notation now supports ligatures in Gregorian square neumes
+** Ancient notation now prints ligatures in Gregorian square neumes
 notation, roughly following the typographical style of the Liber
-hymnarius of Solesmes, published in 1983.  The line breaking and
-horizontal spacing algorithms however are still completely messed up
-by ligatures.
+hymnarius of Solesmes, published in 1983.  Ligatures are still printed
+without the proper line breaking and horizontal spacing.
 
 ** Glissandi can now be printed using the zigzag style.
 
@@ -95,7 +93,7 @@ The syntax is
 
 ** The emacs support has been extended.
 
-** The manual has been completely revised and extended manual.
+** The manual has been completely revised and extended.
 
 
 

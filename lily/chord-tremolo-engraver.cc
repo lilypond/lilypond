@@ -25,6 +25,7 @@
 #include "math.h"           // ceil
 
 /**
+
   This acknowledges repeated music with "tremolo" style.  It typesets
   a beam.
 
@@ -35,13 +36,13 @@
 
   - create dots if appropriate.
 
-  - create  TremoloBeam iso Beam?
- */
+  - create TremoloBeam iso Beam?
 
+*/
 class Chord_tremolo_engraver : public Engraver
 {
   void typeset_beam ();
-TRANSLATOR_DECLARATIONS(Chord_tremolo_engraver);
+  TRANSLATOR_DECLARATIONS(Chord_tremolo_engraver);
 protected:
   Repeated_music * repeat_;
 
@@ -111,7 +112,6 @@ Chord_tremolo_engraver::try_music (Music * m)
 	  rp->origin ()->warning ("Chord tremolo is too short to denote properly.");
 	}
       
-      Rational written_note_dur = total_dur / Rational (elt_count);
       flags_ = intlog2 (note_dur.den ()) -2 ;
       
       return true;
@@ -169,7 +169,6 @@ Chord_tremolo_engraver::typeset_beam ()
     }
 }
 
-
 void
 Chord_tremolo_engraver::acknowledge_grob (Grob_info info)
 {
@@ -216,7 +215,6 @@ Chord_tremolo_engraver::start_translation_timestep ()
   if (beam_ && stop_mom_ == now_mom ())
     {
       finished_beam_ = beam_;
-
       repeat_ = 0;
       beam_ = 0;
     }
@@ -233,7 +231,6 @@ Chord_tremolo_engraver::stop_translation_timestep ()
       typeset_grob (stem_tremolo_);
       stem_tremolo_ = 0;
     }
-  
 }
 
 

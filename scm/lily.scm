@@ -121,6 +121,7 @@
 
 ;; TODO: use the srfi-1 partition function.
 (define-public (uniq-list list)
+  "Uniq LIST, assuming that it is sorted"
   (if (null? list) '()
       (if (null? (cdr list))
 	  list
@@ -218,25 +219,16 @@ L1 is copied, L2 not.
   "map F to contents of X"
   (cons (f (car x)) (f (cdr x))))
 
-;; TODO: remove.
-(define-public (reduce-no-unit operator list)
-  "reduce OP [A, B, C, D, ... ] =
-   A op (B op (C ... ))
-"
-      (if (null? (cdr list)) (car list)
-	  (operator (car list) (reduce-no-unit operator (cdr list)))))
 
-(define-public (list-insert-separator list between)
+(define-public (list-insert-separator lst between)
   "Create new list, inserting BETWEEN between elements of LIST"
-  (if (null? list)
-      '()
-      (if (null? (cdr list))
-	  list
-	  (cons (car list)
-		(cons between (list-insert-separator (cdr list) between)))
-  
-  )))
-
+  (define (conc x y )
+    (if (eq? y #f)
+	(list x)
+	(cons x  (cons between y))
+	))
+  (fold-right conc #f lst)
+  )
 
 ;;;;;;;;;;;;;;;;
 ; other
