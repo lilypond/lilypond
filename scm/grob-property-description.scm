@@ -87,7 +87,7 @@ column as start/begin point. Only columns that have grobs or act as bounds are s
 (grob-property-description 'break-glyph-function procedure? "function taking glyph and break-direction, returning the glyph at a line break.")
 (grob-property-description 'breakable boolean? "boolean indicating if this is a breakable item (clef, barline, key sig, etc.).")
 (grob-property-description 'c0-position integer? "integer indicating the position of central C.")
-(grob-property-description 'cautionary-size integer? "size of cautionary accidentals (relative to size of accidentals)")
+(grob-property-description 'cautionary-style symbol? "style  of cautionary accidentals. Choices are 'smaller (one size smaller) or 'parentheses.")
 (grob-property-description 'center-element ly-grob? "grob which will
 be at the center of the group after aligning (when using
 Align_interface::center_on_element). .")
@@ -268,8 +268,6 @@ FIXME: also pair? (cons LEFT RIGHT)
 (grob-property-description 'number-threshold number? "only put numbers bigger than this threshold over multi measuer rest.")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
-(grob-property-description 'paren-cautionaries boolean? "Whether to add parenthesis around cautionary accidentals.")
-
 (grob-property-description 'pedal-type symbol? "Style of piano pedal: text, bracket or mixed.")
 (grob-property-description 'penalty number? "Penalty for breaking at
 this column. 10000 or more means forbid linebreak, -10000 or less

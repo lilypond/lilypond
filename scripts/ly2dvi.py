@@ -335,7 +335,7 @@ option_definitions = [
 	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
 	# why capital P?
 	('', '', 'preview', _("Make a picture of the first system.")),
-	('', '', 'preview-resolution', _("Set the resolution of the preview.")),
+	(_ ('RES'), '', 'preview-resolution', _("Set the resolution of the preview to RES.")),
 	('', 'P', 'postscript', _ ("generate PostScript output")),
 	(_ ("KEY=VAL"), 's', 'set', _ ("change global setting KEY to VAL")),
 	('', 'V', 'verbose', _ ("verbose")),
@@ -739,7 +739,7 @@ def make_preview (name, extra):
 
 	cmd = r'''gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s'''
 	
-	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.preview.ps',name + '.png')
+	cmd = cmd % (x, y, preview_resolution, name + '.trans.eps', name + '.preview.ps',name + '.png')
 	quiet_system (cmd, 'gs')
 
 	try:
