@@ -1,25 +1,23 @@
-@node Reference manual details
-@appendix Reference manual details
+@node Notation manual details
+@appendix Notation manual details
 
 @menu
-* Chord name chart::		
-* MIDI instruments::		
-* The Feta font::
-* Scheme functions::
-* Layout property overview::
-* Context property overview::
-* Literature list::
+* Chord name chart::            
+* MIDI instruments::            
+* The Feta font::               
+* All context properties::      
+* Layout properties::           
 @end menu
 
 
 
 @node Chord name chart
-@section Chord name chart
+@appendixsec Chord name chart
 
 @lilypondfile{chord-names-jazz.ly}
 
 @node MIDI instruments
-@section MIDI instruments
+@appendixsec MIDI instruments
 
 @example 
 "acoustic grand"            "contrabass"           "lead 7 (fifths)"
@@ -40,7 +38,7 @@
 "dulcimer"                  "tuba"                 "fx 6 (goblins)"
 "drawbar organ"             "muted trumpet"        "fx 7 (echoes)"
 "percussive organ"          "french horn"          "fx 8 (sci-fi)"
-"rock organ"                "brass section"        "sitar"
+"rock organ"                "brass appendixsection"        "sitar"
 "church organ"              "synthbrass 1"         "banjo"
 "reed organ"                "synthbrass 2"         "shamisen"
 "accordion"                 "soprano sax"          "koto"
@@ -68,10 +66,11 @@
 @end example 
 
 @node The Feta font
-@section The Feta font
+@appendixsec The Feta font
+
 The following symbols are available in the Feta font and may be
-accessed directly using text markup such as 
-@code{g^\markup @{ \musicglyph #"scripts-segno" @}}, see @ref{Text markup}.
+accessed directly using text markup such as @code{g^\markup @{
+\musicglyph #"scripts-segno" @}}, see @ref{Text markup}.
 
 
 @lilypondfile[noindent]{feta16list.ly}
@@ -80,10 +79,15 @@ accessed directly using text markup such as
 @lilypondfile[noindent]{parmesan16list.ly}
 
 
-@include scheme-functions.tely
+
+@node All context properties
+@appendixsec All context properties
 
 @include context-properties.tely
 
+
+@node Layout properties
+@appendixsec Layout properties
+
 @include layout-properties.tely
 
-@include literature.itely

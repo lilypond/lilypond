@@ -644,10 +644,9 @@ The
 @ifhtml
  The
  @end ifhtml
-@emph{@ref{Technical manual}}
+@emph{@ref{Changing defaults}}
 @c
-discusses the general design of the program, and how to extend its
-functionality.
+Explains how to fine tune layout.
 @item
 @ifhtml
 The chapter

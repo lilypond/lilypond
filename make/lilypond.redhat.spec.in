@@ -107,7 +107,7 @@ fi
     /sbin/install-info --delete %{_infodir}/music-glossary.info.gz %{_infodir}/dir 
 %endif
 
-# chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
+# chkfontpath --remove=%{_datadir}/share/lilypond/@TOPLEVEL_VERSION@/fonts/type1n/
 
 %postun
 
@@ -144,7 +144,7 @@ scrollkeeper-update
 %doc NEWS.txt
 
 %if %{info}
-%{_infodir}/*
+%{_infodir}/lilypond/
 %endif
 
 %{_mandir}/man1/abc2ly.1.gz

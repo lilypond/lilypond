@@ -410,6 +410,7 @@ be skipped.
 Something is definitely wrong, and LilyPond cannot continue. This
 happens rarely. The most usual cause is misinstalled fonts.
 
+@cindex trace, Scheme
 @cindex call trace
 @cindex Scheme error
 @item Scheme error

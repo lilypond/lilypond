@@ -1,3 +1,22 @@
+2004-03-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* Documentation/user/changing-defaults.itely (Changing defaults):
+	new file.
+
+	* Documentation/user/notation.itely (Notation manual): rename from 
+	refman.itely
+
+	* Documentation/user/notation-appendices.itely (The Feta font):
+	new file.
+
+	* Documentation/user/advanced.itely: add aborted attempt for
+	advanced topics manual.
+
+2004-03-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/new-markup.scm: display Markups in sane format. Patch by
+	Nicolas Sceaux.
+
 2004-03-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/main.cc: Cleanups.
