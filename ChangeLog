@@ -1,5 +1,8 @@
 2002-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/lilypond-book.py (LatexPaper.find_latex_dims): give more
+	meaningful error if running latex fails 
+
 	* Documentation/user/refman.itely (Tablatures): small
 	corrections. Thanks to Karl Berry
 

@@ -190,22 +190,48 @@ class LatexPaper:
 
 		cmd = "latex '\\nonstopmode \input %s'" % fname
 		if verbose_p:
-			sys.stderr.write ("Invoking `%s' as pipe" % cmd) 
-		p = os.popen(cmd)
-		ln = p.readline()
-		while ln:
+			sys.stderr.write ("Invoking `%s' as pipe" % cmd)
+		try:
+			status = quiet_system (cmd, "Latex for finding dimensions")
+		except:
+			sys.stderr.write (_("Invoking LaTeX failed.") + '\n' )
+			sys.stderr.write (_("This is the error log:\n") + '\n')
+
+			lns = open ('lily-tmp.log').readlines()
+
+			countdown = -3
+			for ln in lns:
+				sys.stderr.write (ln)
+				if re.match('^!', ln):
+					countdown = 3
+
+				if countdown == 0:
+					break
+				
+				if countdown > 0:
+					countdown = countdown -1
+
+			sys.stderr.write ("  ... (further messages elided)...\n")
+			sys.exit (1)
+			
+		lns = open ('lily-tmp.log').readlines()
+		for ln in lns:
 			ln = string.strip(ln)
 			m = re_dim.match(ln)
 			if m:
 				if m.groups()[0] in ('textwidth', 'columnsep'):
 					self.__dict__['m_%s' % m.groups()[0]] = float(m.groups()[1])
-			ln = p.readline()
+					
 		try:
 			os.remove (fname)
 			os.remove (os.path.splitext(fname)[0]+".aux")
 			os.remove (os.path.splitext(fname)[0]+".log")
 		except:
 			pass
+
+		if not self.__dict__.has_key ('m_textwidth'):
+			raise 'foo!'
+		
 	def get_linewidth(self):
 		if self.m_num_cols == 1:
 			w = self.m_textwidth
