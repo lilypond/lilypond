@@ -1,5 +1,13 @@
 2004-10-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* THANKS: add Meisters to the Development team.
+
+	* scm/framework-tex.scm (convert-to-dvi): redirect output to
+	/dev/null for non-verbose.
+
+	* Documentation/user/invoking.itely (Invoking lilypond): add note
+	about resource usage.
+
 	* tex/GNUmakefile (TEX_FILES): add texinfo.cnf
 
 	* stepmake/stepmake/texinfo-vars.make (MAKEINFO): add

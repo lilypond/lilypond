@@ -283,9 +283,21 @@
 				 " -t landscape "
 				 " ")
 			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
-			     (basename name ".tex"))))
-    (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
-    (newline (current-error-port))
+			     (basename name ".tex")
+
+			     (if (ly:get-option 'verbose)
+				 " "
+				 " 2>&1 1>& /dev/null ")
+			     )))
+
+    (if (ly:get-option 'verbose)
+	(begin 
+	  (newline (current-error-port))
+
+	  (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
+	  (newline (current-error-port)))
+	(display "Converting to PS" (current-error-port))
+	)
     (system cmd)))
 
 (define-public (convert-to-dvi book name)
@@ -295,11 +307,20 @@
 	    #f " *%.*\n?"
 	    (ly:kpathsea-expand-variable "$extra_mem_top")
 	    'pre "" 'post)))
-	 (cmd (string-append "latex \\\\nonstopmode \\\\input " name)))
+	 (cmd (string-append
+	       "latex \\\\nonstopmode \\\\input " name
+	       (if (ly:get-option 'verbose)
+		   " "
+		   " 2>&1 1>& /dev/null ")
+
+	       )))
     (setenv "extra_mem_top" (number->string (max curr-extra-mem 1024000)))
-    (newline (current-error-port))
-    (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
-    (newline (current-error-port))
+    (if (ly:get-option 'verbose)
+	(begin 
+	  (newline (current-error-port))
+	  (display (format #f (_ "Invoking ~S") cmd) (current-error-port))
+	  (newline (current-error-port)))
+	(display "Converting to PDF" (current-error-port)))
 
     ;; fixme: set in environment?
     (if (ly:get-option 'safe)
