@@ -94,12 +94,9 @@ Paper_column::column_l () const
   return (Paper_column*)(this);
 }
 
-Paper_column::Paper_column (Moment w)
-  : Item (SCM_EOL)		// guh.?
+Paper_column::Paper_column (SCM l)
+  : Item (l)		// guh.?
 {
-  SCM when = smobify (new Moment (w));
-  set_elt_property ("when", when);
-
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (X_AXIS, X_AXIS);
   set_elt_pointer ("bounded-by-me", SCM_EOL);
