@@ -1,16 +1,16 @@
-/*
-  align-elem.cc -- implement Align_elem
-
+/*   
+  align-interface.cc --  implement Align_interface
+  
   source file of the GNU LilyPond music typesetter
+  
+  (c) 2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  
+ */
 
-  (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-*/
-
-#include "align-element.hh"
-#include "interval.hh"
-#include "direction.hh"
-#include "debug.hh"
+#include "align-interface.hh"
 #include "dimension-cache.hh"
+#include "score-element.hh"
+#include "group-interface.hh"
 #include "axis-group-interface.hh"
 
 /*
@@ -18,23 +18,16 @@
   not compute anything, but a side effect of a->do_side_processing ()
   is that the elements are placed correctly.  */
 Real
-Align_element::alignment_callback (Dimension_cache const *c)
+Align_interface::alignment_callback (Dimension_cache const *c)
 {
   Axis ax = c->axis ();
   Score_element * sc = c->element_l ()->parent_l (ax);
-  Align_element * a = dynamic_cast<Align_element*> (sc);
-  if (a && a->get_elt_property ("alignment-done") == SCM_UNDEFINED) 
+
+  if (sc && sc->get_elt_property ("alignment-done") == SCM_UNDEFINED) 
     {
-      a->do_side_processing (ax);
+      Align_interface (sc).do_side_processing (ax);
     }
   return 0.0;
-}
-
-void
-Align_element::add_element (Score_element* s)
-{
-  s->add_offset_callback (alignment_callback, axis ());
-  axis_group (this).add_element (s);
 }
 
 /*
@@ -42,11 +35,11 @@ Align_element::add_element (Score_element* s)
   from the outside by setting minimum-space and extra-space in its
   children */
 void
-Align_element::do_side_processing (Axis a)
+Align_interface::do_side_processing (Axis a)
 {
-  set_elt_property ("alignment-done", SCM_BOOL_T);
+  elt_l_->set_elt_property ("alignment-done", SCM_BOOL_T);
   
-  SCM d = get_elt_property ("stacking-dir");
+  SCM d =   elt_l_->get_elt_property ("stacking-dir");
   Direction stacking_dir = gh_number_p(d) ? to_dir (d) : CENTER;
   if (!stacking_dir)
     stacking_dir = DOWN;
@@ -56,10 +49,10 @@ Align_element::do_side_processing (Axis a)
 
   Link_array<Score_element> elems;
   Link_array<Score_element> all_elts
-    = Group_interface__extract_elements (this, (Score_element*) 0, "elements");
+    = Group_interface__extract_elements (  elt_l_, (Score_element*) 0, "elements");
   for (int i=0; i < all_elts.size(); i++) 
     {
-      Interval y = all_elts[i]->extent(a) + all_elts[i]->relative_coordinate (this, a);
+      Interval y = all_elts[i]->extent(a) + all_elts[i]->relative_coordinate (elt_l_, a);
       if (!y.empty_b())
 	{
 	  Score_element *e =dynamic_cast<Score_element*>(all_elts[i]);
@@ -90,7 +83,7 @@ Align_element::do_side_processing (Axis a)
 
   
   Interval threshold = Interval (0, Interval::infinity ());
-  SCM thr = get_elt_property ("threshold");
+  SCM thr = elt_l_->get_elt_property ("threshold");
   if (gh_pair_p (thr))
     {
       threshold[SMALLER] = gh_scm2double (gh_car (thr));
@@ -116,10 +109,20 @@ Align_element::do_side_processing (Axis a)
 }
 
 
-int
-Align_element::get_count (Score_element*s)const
+Axis
+Align_interface::axis ()const
 {
-  SCM e = get_elt_property ("elements");
+  return  Axis (gh_scm2int (gh_car (elt_l_->get_elt_property ("axes"))));
+}
+
+
+/*
+  should  use generic Scm funcs.
+ */
+int
+Align_interface::get_count (Score_element*s)const
+{
+  SCM e = elt_l_->get_elt_property ("elements");
   int c =0;
   while (gh_pair_p (e))
     {
@@ -131,19 +134,39 @@ Align_element::get_count (Score_element*s)const
   return c;
 }
 
-Axis
-Align_element::axis () const
+void
+Align_interface::add_element (Score_element* s)
 {
-  return Axis (gh_scm2int (gh_car (get_elt_property ("axes"))));
+  s->add_offset_callback (alignment_callback, axis ());
+  Axis_group_interface (elt_l_).add_element (s);
+  
+}
+
+Align_interface::Align_interface (Score_element const*s)
+{
+  elt_l_ = (Score_element*)s;
 }
 
 void
-Align_element::set_axis (Axis a)
+Align_interface::set_interface ()
 {
-  axis_group (this).set_axes (a, a);
+  Axis_group_interface (elt_l_).set_interface ();
+
+  Group_interface (elt_l_, "interfaces").add_thing (ly_symbol2scm ("Alignment"));
 }
 
-Align_element::Align_element ()
+void
+Align_interface::set_axis (Axis a)
 {
-  axis_group (this).set_interface ();
+  Axis_group_interface (elt_l_).set_axes (a,a );
 }
+
+bool
+Align_interface::has_interface_b ()
+{
+  SCM memq = scm_memq (ly_symbol2scm ("Alignment"),
+	      elt_l_->get_elt_property ("interfaces"));
+  
+  return (memq != SCM_BOOL_F);
+}
+

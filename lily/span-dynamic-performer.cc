@@ -72,10 +72,10 @@ void
 Span_dynamic_performer::do_process_music ()
 {
   if (finished_dynamic_tuple_arr_.size () > 1
-     && finished_dynamic_tuple_arr_.top ().audio_l_->volume_)
+     && finished_dynamic_tuple_arr_.top ().audio_l_->volume_i_)
     {
-      Real start_volume = finished_dynamic_tuple_arr_[0].audio_l_->volume_;
-      Real dv = finished_dynamic_tuple_arr_.top ().audio_l_->volume_
+      Real start_volume = finished_dynamic_tuple_arr_[0].audio_l_->volume_i_;
+      Real dv = finished_dynamic_tuple_arr_.top ().audio_l_->volume_i_
 	- start_volume;
       /*
 	urg.
@@ -90,11 +90,11 @@ Span_dynamic_performer::do_process_music ()
        */
       if (!dv || sign (dv) != finished_dir_)
 	{
-	  // urg.  10%: about one volume step
-	  dv = (Real)finished_dir_ * 0.1;
+	  // urg.  about one volume step
+	  dv = (int)finished_dir_ * 13;
 	  if (!start_volume)
 	    start_volume = finished_dynamic_tuple_arr_.top
-	      ().audio_l_->volume_ - dv;
+	      ().audio_l_->volume_i_ - dv;
 	}
       Moment start_mom = finished_dynamic_tuple_arr_[0].mom_;
       Moment dt = finished_dynamic_tuple_arr_.top ().mom_ - start_mom;
@@ -103,7 +103,7 @@ Span_dynamic_performer::do_process_music ()
 	  Audio_dynamic_tuple* a = &finished_dynamic_tuple_arr_[i];
 	  Real volume = start_volume + dv * (Real)(a->mom_ - start_mom)
 	    / (Real)dt;
-	  a->audio_l_->volume_ = volume;
+	  a->audio_l_->volume_i_ = (int)volume;
 	}
       finished_dynamic_tuple_arr_.clear ();
     }

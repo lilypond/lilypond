@@ -16,6 +16,7 @@
 #include "axis-group-interface.hh"
 
 
+// todo: dots and elements duplicate each other.
 void
 Dot_column::add_dots (Dots *d)
 {
@@ -23,7 +24,7 @@ Dot_column::add_dots (Dots *d)
   gi.add_element (d);
 
   add_dependency (d);
-  axis_group (this).add_element (d);
+  Axis_group_interface (this).add_element (d);
 }
 
 void
@@ -51,9 +52,10 @@ Dot_column::Dot_column ()
 {
   Group_interface gi (this, "dots");
   gi.set_interface ();
-  
   directional_element (this).set (RIGHT);
-  axis_group (this).set_axes(X_AXIS,X_AXIS);
+  
+  Axis_group_interface (this).set_interface ();
+  Axis_group_interface (this).set_axes(X_AXIS,X_AXIS);
 }
 
 /*

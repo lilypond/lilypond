@@ -10,14 +10,14 @@
 #ifndef HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
 #define HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
 
-#include "axis-group-spanner.hh"
+#include "spanner.hh"
 
 /** 
   As Vertical_group_spanner, but keep track of interesting items.  If
   we don't contain any interesting items after linebreaking, then
   gracefully commit suicide.  Objective: don't disgrace Lily by
   typesetting empty lines in orchestral scores.  */
-class Hara_kiri_group_spanner : public Axis_group_spanner
+class Hara_kiri_group_spanner : public Spanner
 {
 public:
   Hara_kiri_group_spanner ();

@@ -19,6 +19,17 @@ Item::Item ()
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
 }
 
+/**
+   Item copy ctor.  Copy nothing: everything should be a elt property
+   or a special purpose poitner (such as broken_to_drul_[]) */
+Item::Item (Item const &s)
+  : Score_element (s)
+{
+  broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
+}
+
+
+
 bool
 Item::breakable_b () const
 {
@@ -27,12 +38,6 @@ Item::breakable_b () const
   
   Item * i  =dynamic_cast<Item*> (parent_l (X_AXIS));
   return (i) ?  i->breakable_b () : to_boolean (get_elt_property( "breakable"));
-}
-
-Real 
-Item::hpos_f() const
-{
-  return relative_coordinate (0, X_AXIS);
 }
 
 Line_of_score *
@@ -161,12 +166,6 @@ Paper_column *
 Item::column_l () const
 {
   return dynamic_cast<Item*> (parent_l (X_AXIS))->column_l ();
-}
-
-Item::Item (Item const &s)
-  : Score_element (s)
-{
-  broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
 }
 
 Direction

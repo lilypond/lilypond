@@ -47,8 +47,8 @@
 	}
 	\translator { 
 		\ScoreContext skipBars = ##t 
-		%% URG: this changes dynamics too
-		%%textStyle = #"italic"
+		%textEmptyDimension = ##t
+		textStyle = #"italic"
 		timeSignatureStyle = #"C"
 	}
 }

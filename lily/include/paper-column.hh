@@ -10,7 +10,7 @@
 #ifndef P_COL_HH
 #define P_COL_HH
 
-#include "axis-group-item.hh"
+#include "item.hh"
 #include "rod.hh"
 #include "spring.hh"
 
@@ -27,7 +27,8 @@
     \end{itemize}
   */
 
-class Paper_column : public Axis_group_item { 
+class Paper_column : public Item
+{ 
 public:
   VIRTUAL_COPY_CONS(Score_element);
   Drul_array<Array<Column_rod> > minimal_dists_arr_drul_;

@@ -10,13 +10,13 @@
 #ifndef DOT_COLUMN_HH
 #define DOT_COLUMN_HH
 
-#include "axis-group-item.hh"
+#include "item.hh"
 
 
 /**
   Group dots.  This is needed because, the dots have to be aligned per voice
  */
-class Dot_column : public Axis_group_item
+class Dot_column : public Item
 {
   static int compare (Dots * const&,Dots * const&);
   void add_dots (Dots*);

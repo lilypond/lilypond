@@ -60,8 +60,8 @@ Stem_tremolo::do_brew_molecule () const
       SCM s = beam->get_elt_property ("height");
       if (gh_number_p (s))
 	dy = gh_scm2double (s);
-      Real dx = beam->last_visible_stem ()->hpos_f ()
-	- beam->first_visible_stem ()->hpos_f ();
+      Real dx = beam->last_visible_stem ()->relative_coordinate (0, X_AXIS)
+	- beam->first_visible_stem ()->relative_coordinate (0, X_AXIS);
       dydx = dx ? dy/dx : 0;
     }
   else
@@ -99,7 +99,7 @@ Stem_tremolo::do_brew_molecule () const
     {
       // ugh, rather calc from Stem_tremolo_req
       int beams_i = stem->beam_count(RIGHT) >? stem->beam_count (LEFT);
-      mol.translate (Offset(stem->hpos_f () - hpos_f (),
+      mol.translate (Offset(stem->relative_coordinate (0, X_AXIS) - relative_coordinate (0, X_AXIS),
 			    stem->stem_end_position () * half_space - 
 			    directional_element (beam).get () * beams_i * interbeam_f));
     }
@@ -121,7 +121,7 @@ Stem_tremolo::do_brew_molecule () const
       else
 	whole_note_correction = 0;
 	 
-      mol.translate (Offset (stem->hpos_f () - hpos_f () +
+      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS) - relative_coordinate (0, X_AXIS) +
 			     whole_note_correction, dy));
     }
   

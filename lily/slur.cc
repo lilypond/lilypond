@@ -320,12 +320,12 @@ Slur::encompass_offset (Note_column const* col) const
   if (!stem_l)
     {
       warning (_ ("Slur over rest?"));
-     o[X_AXIS] = col->hpos_f ();
+     o[X_AXIS] = col->relative_coordinate (0, X_AXIS);
       o[Y_AXIS] = col->extent (Y_AXIS)[dir];
       return o;  
     }
   Direction stem_dir = directional_element (stem_l).get ();
-  o[X_AXIS] = stem_l->hpos_f ();
+  o[X_AXIS] = stem_l->relative_coordinate (0, X_AXIS);
 
   /*
     Simply set x to middle of notehead
@@ -444,7 +444,7 @@ Slur::set_extremities ()
 	  */
 	  else
 	    {
-	      dx_f_drul_[d] = stem_l->hpos_f ()
+	      dx_f_drul_[d] = stem_l->relative_coordinate (0, X_AXIS)
 		- get_bound (d)->relative_coordinate (0, X_AXIS);
 	      /*
 		side attached to beamed stem

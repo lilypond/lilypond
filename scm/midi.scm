@@ -5,21 +5,19 @@
 ;;; (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
-
 (define absolute-volume-alist '())
 (set! absolute-volume-alist
       (append 
       '(
-	("sf" . 1.00)
-	("ffff" . 0.91)
-	("fff" . 0.81)
-	("ff" . 0.71)
-	("f" . 0.61)
-	("mf" . 0.50)
-	("mp" . 0.40)
-	("p" . 0.30)
-	("pp" . 0.20)
-	("ppp" . 0.10)
+	("sf" . 115)
+	("fff" . 102)
+	("ff" . 90)
+	("f" . 77)
+	("mf" . 64)
+	("mp" . 51)
+	("p" . 38)
+	("pp" . 26)
+	("ppp" . 13)
 	)
       absolute-volume-alist))
 
@@ -28,31 +26,6 @@
     (if entry
 	(cdr entry))))
 
-(define instrument-equaliser-alist '())
-(set! instrument-equaliser-alist
-      (append 
-       '(
-	 ("flute" . (0 . 1))
-	 ("oboe" . (0 . 1))
-	 ("clarinet" . (0 . 1))
-	 ("bassoon" . (0 . 1))
-	 ("french horn" . (0 . 1))
-	 ("trumpet" . (0 . 1))
-	 ("timpani" . (0 . 1))
-	 ("violin" . (0 . 1))
-	 ("viola" . (0 . 1))
-	 ("cello" . (0 . 1))
-	 ("contrabass" . (0 . 1))
-	 )
-       instrument-equaliser-alist))
-
-(define (instrument-equaliser s)
-  (let ((entry (assoc s absolute-volume-alist)))
-    (if entry
-	(cdr entry))))
-
-(define instrument-equaliser-alist '())
-
-;; 90 == 90/127 == 0.71 is supposed to be the default value
+;; 90 is supposed to be the default value
 ;; urg: we should set this at start of track
-(define dynamic-default-volume 0.71)
+(define dynamic-default-volume 90)

@@ -7,7 +7,6 @@
 */
 
 #include "staff-symbol.hh"
-#include "axis-group-spanner.hh"
 #include "command-request.hh"
 #include "bar.hh"
 #include "debug.hh"
@@ -26,7 +25,7 @@ void
 Line_group_engraver_group::typeset_element (Score_element *elem)
 {
   if (!elem->parent_l (Y_AXIS))      
-    axis_group (staffline_p_).add_element (elem);
+    Axis_group_interface (staffline_p_).add_element (elem);
   Engraver_group_engraver::typeset_element (elem);
 }
 
@@ -53,8 +52,9 @@ Line_group_engraver_group::do_creation_processing()
 void
 Line_group_engraver_group::create_line_spanner ()
 {
-  staffline_p_ = new Axis_group_spanner ;
-  axis_group (staffline_p_).set_axes (Y_AXIS,Y_AXIS);
+  staffline_p_ = new Spanner ;
+  Axis_group_interface (staffline_p_).set_interface ();
+  Axis_group_interface (staffline_p_).set_axes (Y_AXIS,Y_AXIS);
 }
 
 

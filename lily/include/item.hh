@@ -24,31 +24,27 @@
   NB. This doesn't mean an Item has to initialize the output field before
   spacing calculation. 
   
-
   
-  @signature
-  visibility_lambda :: int -> (bool . bool)
-     
-  @in
-  break direction
-     
-  @out
-  (transparent, empty) cons
-     
+  Element properties
+  
+  visibility-lambda -- a function that takes the break
+  direction and returns a (transparent, empty) cons
+
+  breakable -- boolean indicating if this is a breakable item (clef,
+  barline, key sig, etc.)
+
    */
-class Item : public virtual Score_element {
+class Item : public Score_element
+{
+  Drul_array<Item*> broken_to_drul_;
+
   void do_break ();
   void try_visibility_lambda ();
 public:
-  /*
-    ugh.
-   */
-  Drul_array<Item*> broken_to_drul_;
+  VIRTUAL_COPY_CONS(Score_element);
+  Item();
+  Item (Item const &);
 
-
-public:
-
-  /// I am really to be broken?
   bool breakable_b () const;
   bool broken_b () const;
   
@@ -57,18 +53,10 @@ public:
   Item * find_broken_piece (Direction) const;
   Score_element * find_broken_piece (Line_of_score*) const;    
 
-  Item();
-  Real hpos_f() const;
-  
   virtual Line_of_score * line_l() const;
   virtual Paper_column * column_l () const;
-    
-  static int left_right_compare (Item const *, Item const*);
-  
-  Item (Item const &);
 protected:
   virtual void do_breakable_col_processing();
-
   void copy_breakable_items();
 };
 

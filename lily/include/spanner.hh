@@ -20,13 +20,10 @@ class Axis_group_spanner;
 
   Examples
 
-  \begin{itemize}
-  \item (de)crescendo
-  \item slur
-  \item beam
-  \item bracket
-  \end{itemize}
-  
+  * (de)crescendo
+  * slur
+  * beam
+  * bracket
 
   Spanner should know about the items which it should consider:
   e.g. slurs should be steep enough to "enclose" all those items. This
@@ -34,7 +31,7 @@ class Axis_group_spanner;
   length of stems of notes they encompass.
 
   */
-class Spanner : public virtual Score_element {
+class Spanner : public  Score_element {
   Drul_array<Item*> spanned_drul_;
 
 public:

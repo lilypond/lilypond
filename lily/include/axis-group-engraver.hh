@@ -19,14 +19,14 @@
 class Axis_group_engraver : public Engraver
 {
 protected:
-  Axis_group_spanner *staffline_p_;
+  Spanner *staffline_p_;
   Link_array<Score_element> elts_;
 
   virtual void do_creation_processing();
   virtual void do_removal_processing();
   virtual void acknowledge_element (Score_element_info);
   virtual void process_acknowledged ();
-  virtual Axis_group_spanner* get_spanner_p () const;
+  virtual Spanner* get_spanner_p () const;
 public:
   VIRTUAL_COPY_CONS(Translator);
   

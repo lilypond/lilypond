@@ -9,6 +9,7 @@
 
 #include "engraver.hh"
 #include "grace-align-item.hh"
+#include "align-interface.hh"
 #include "note-column.hh"
 #include "local-key-item.hh"
 #include "warn.hh"
@@ -104,7 +105,7 @@ Align_note_column_engraver::process_acknowledged ()
 
   if (now_column_l_)
     {
-      align_item_p_->add_element (now_column_l_);
+      Align_interface (align_item_p_).add_element (now_column_l_);
       now_column_l_ =0;
     }
 }

@@ -34,10 +34,6 @@ struct Audio_tie;
 struct Audio_time_signature;
 struct Auto_beam_engraver;
 struct Axis_align_item;
-struct Axis_group;
-struct Axis_group_element;
-struct Axis_group_item;
-struct Axis_group_spanner;
 struct Bar;
 struct Bar_column;
 struct Bar_column_engraver;
@@ -273,7 +269,6 @@ struct Tremolo_req;
 struct Tuplet_spanner;
 struct Unfolded_repeat_iterator;
 struct Vertical_brace;
-struct Vertical_spanner;
 struct Volta_spanner;
 struct Moment;
 

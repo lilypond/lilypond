@@ -17,24 +17,24 @@
 
 typedef void (Score_element::*Score_element_method_pointer) (void);
 
-/** Both Spanner and Item are Score_element's. Most Score_element's depend
-  on other Score_element's, eg, Beam needs to know and set direction of
-  Stem. So the Beam has to be calculated *before* Stem. This is
-  accomplished with the dependencies fields of struct Score_element,
-  which are implemented in the Directed_graph_node class: all elements
-  form an acyclic graph.
+/**
+   Basic output object.
 
-  (elem)
+    Element Properties:
 
+   transparent -- boolean: if true, do not print anything black.
 
-Element Properties:
+   dependencies -- list of score-element pointers that indicate who to
+   compute first.
 
-Boolean (true iff defined)
+   interfaces -- list of symbols indicating the interfaces supported
+   by this object.
 
- break_helper_only -- if defined try to junk this after calcing breakpoints.
+   extra-offset -- pair of reals (a cons) forcing an extra offset
+   before outputting
 
- transparent -- do not calc. output
-
+   glyph -- afm character name to output.
+   
 */
 class Score_element  {
   /**
@@ -170,6 +170,8 @@ public:
 
   /**
      Set this if anyone points to me, or if I point to anyone.
+
+     JUNKME.
    */
   bool used_b_;
   

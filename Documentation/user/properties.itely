@@ -149,6 +149,11 @@ c''16 \property Staff.fontSize = -2 c''16
     automatic collision resolution.  The value is the shift amount
     expressed in @code{note_width}, as set in the paper section.
 
+@item @code{collisionMergeDotted}@indexcode{collisionMergeDotted} @propertytype{boolean}
+
+Merge noteheads in collisions, even if they have a different number of
+dots. This normal notation for polyphonic guitar music.
+
 @mudelafile[verbatim]{force-hshift.sly}
 
 

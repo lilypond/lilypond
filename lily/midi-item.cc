@@ -476,11 +476,8 @@ Midi_dynamic::str () const
     07 MSB
     27 LSB
    */
-  static Real const full_scale = 127;
-
   str += to_str ((char)0x07);
-  int volume = (int)(audio_l_->volume_*full_scale);
-  str += to_str ((char)volume);
+  str += to_str ((char)audio_l_->volume_i_);
   return str;
 }
 

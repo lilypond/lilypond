@@ -152,7 +152,7 @@ Score_engraver::typeset_all()
 	    }
 	}
       if (!elem_p->parent_l(Y_AXIS))
-	axis_group (scoreline_l_).add_element (elem_p);
+	Axis_group_interface (scoreline_l_).add_element (elem_p);
     }
   elem_p_arr_.clear();
 }

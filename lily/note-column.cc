@@ -42,7 +42,8 @@ Note_column::Note_column()
 {
   set_elt_property ("rests", SCM_EOL);
   set_elt_property ("note-heads", SCM_EOL);  
-  axis_group (this).set_axes (X_AXIS, Y_AXIS);
+  Axis_group_interface (this).set_interface ();
+  Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
 }
 
 Stem *
@@ -92,7 +93,7 @@ Note_column::set_stem (Stem * stem_l)
   set_elt_property ("stem", stem_l->self_scm_);
 
   add_dependency (stem_l);
-  axis_group (this).add_element (stem_l);
+  Axis_group_interface (this).add_element (stem_l);
 }
 
 
@@ -110,7 +111,7 @@ Note_column::add_head (Rhythmic_head *h)
       Group_interface gi (this, "note-heads");
       gi.add_element (nh);
     }
-  axis_group (this).add_element (h);
+  Axis_group_interface (this).add_element (h);
 }
 
 /**
@@ -133,7 +134,7 @@ Note_column::translate_rests (int dy_i)
 void
 Note_column::set_dotcol (Dot_column *d)
 {
-  axis_group (this).add_element (d);
+  Axis_group_interface (this).add_element (d);
 }
 
 /*
@@ -172,12 +173,12 @@ Note_column::after_line_breaking ()
     beam_y = gh_scm2double (s);
 
   
-  Real x0 = b->first_visible_stem ()->hpos_f ();
-  Real dx = b->last_visible_stem ()->hpos_f () - x0;
+  Real x0 = b->first_visible_stem ()->relative_coordinate (0, X_AXIS);
+  Real dx = b->last_visible_stem ()->relative_coordinate (0, X_AXIS) - x0;
   Real dydx = beam_dy && dx ? beam_dy/dx : 0;
 
   Direction d = stem_l ()->get_direction ();
-  Real beamy = (stem_l ()->hpos_f () - x0) * dydx + beam_y;
+  Real beamy = (stem_l ()->relative_coordinate (0, X_AXIS) - x0) * dydx + beam_y;
 
   s = get_elt_property ("rests");
   Score_element * se = unsmob_element (gh_car (s));

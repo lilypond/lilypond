@@ -93,7 +93,7 @@ Grace_position_engraver::do_pre_move_processing ()
       warning (_("Unattached grace notes.  Attaching to last musical column."));
       
       align_l_->set_parent (0, X_AXIS);
-      axis_group(last_musical_col_l_).add_element (align_l_);
+      Axis_group_interface (last_musical_col_l_).add_element (align_l_);
     }
 
   last_musical_col_l_ = get_staff_info ().musical_pcol_l ();

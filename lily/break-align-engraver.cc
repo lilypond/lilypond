@@ -9,7 +9,7 @@
 #include "engraver.hh"
 #include "protected-scm.hh"
 #include "break-align-item.hh"
-#include "axis-group-item.hh"
+#include "align-interface.hh"
 #include "axis-group-interface.hh"
 
 class Break_align_engraver : public Engraver
@@ -34,7 +34,7 @@ void
 Break_align_engraver::add_column (SCM smob)
 {
   Score_element * e = unsmob_element (smob);
-  align_l_->add_element (e);
+  Align_interface (align_l_).add_element (e);
   typeset_element (e);
 }
 
@@ -103,21 +103,25 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
       SCM name = ly_str02scm (inf.elem_l_->name());
       SCM s = scm_assoc (name, column_alist_);
 
-      Axis_group_item * group = 0;
+      Item * group = 0;
+
       if (s != SCM_BOOL_F)
 	{
 	  Score_element *e =  unsmob_element (gh_cdr(s));
-	  group = dynamic_cast<Axis_group_item*> (e);
+	  group = dynamic_cast<Item*> (e);
 	}
       else
 	{
-	  group = new Axis_group_item;
-	  axis_group(group).set_axes (X_AXIS,X_AXIS);
+	  group = new Item;
+
+	  Axis_group_interface (group).set_interface ();
+	  Axis_group_interface (group).set_axes (X_AXIS,X_AXIS);
+
 	  group->set_elt_property ("origin", name);
 	  group->set_parent (align_l_, Y_AXIS);
 	  announce_element (Score_element_info (group, 0));
 	  column_alist_ = scm_assoc_set_x (column_alist_, name, group->self_scm_);
 	}
-      axis_group (group).add_element (item_l);
+      Axis_group_interface (group).add_element (item_l);
     }
 }

@@ -350,19 +350,19 @@ Beam::calc_position_and_height (Real* y, Real* dy) const
     }
 
   Array<Offset> ideals;
-  Real x0 = first_visible_stem ()->hpos_f ();
+  Real x0 = first_visible_stem ()->relative_coordinate (0, X_AXIS);
   for (int i=0; i < stem_count (); i++)
     {
       Stem* s = stem (i);
       if (s->invisible_b ())
         continue;
-      ideals.push (Offset (s->hpos_f () - x0, 
+      ideals.push (Offset (s->relative_coordinate (0, X_AXIS) - x0, 
 			   s->calc_stem_info ().idealy_f_));
     }
   Real dydx;
   minimise_least_squares (&dydx, y, ideals); // duh, takes references
 
-  Real dx = last_visible_stem ()->hpos_f () - x0;
+  Real dx = last_visible_stem ()->relative_coordinate (0, X_AXIS) - x0;
   *dy = dydx * dx;
 }
 
@@ -378,7 +378,7 @@ Beam::suspect_slope_b (Real y, Real dy) const
   Real lengthened = paper_l ()->get_var ("beam_lengthened");
   Real steep = paper_l ()->get_var ("beam_steep_slope");
 
-  Real dx = last_visible_stem ()->hpos_f () - first_visible_stem ()->hpos_f ();
+  Real dx = last_visible_stem ()->relative_coordinate (0, X_AXIS) - first_visible_stem ()->relative_coordinate (0, X_AXIS);
   Real dydx = dy && dx ? dy/dx : 0;
 
   if (((y - first_ideal > lengthened) && (dydx > steep))
@@ -404,8 +404,8 @@ Beam::calc_slope_damping_f (Real dy) const
 
   if (damping)
     {
-      Real dx = last_visible_stem ()->hpos_f ()
-	- first_visible_stem ()->hpos_f ();
+      Real dx = last_visible_stem ()->relative_coordinate (0, X_AXIS)
+	- first_visible_stem ()->relative_coordinate (0, X_AXIS);
       Real dydx = dy && dx ? dy/dx : 0;
       dydx = 0.6 * tanh (dydx) / damping;
       return dydx * dx;
@@ -421,9 +421,9 @@ Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
   int stem_multiplicity = (s->flag_i () - 2) >? 0;
 
   Real interbeam_f = paper_l ()->interbeam_f (beam_multiplicity);
-  Real x0 = first_visible_stem ()->hpos_f ();
-  Real dx = last_visible_stem ()->hpos_f () - x0;
-  Real stem_y = (dy && dx ? (s->hpos_f () - x0) / dx * dy : 0) + y;
+  Real x0 = first_visible_stem ()->relative_coordinate (0, X_AXIS);
+  Real dx = last_visible_stem ()->relative_coordinate (0, X_AXIS) - x0;
+  Real stem_y = (dy && dx ? (s->relative_coordinate (0, X_AXIS) - x0) / dx * dy : 0) + y;
 
   /* knee */
    Direction dir  = directional_element(this).get ();
@@ -590,8 +590,8 @@ Beam::set_beaming (Beaming_info_list *beaming)
 Molecule
 Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 {
-  if ((next && !(next->hpos_f () > here->hpos_f ())) ||
-      (prev && !(prev->hpos_f () < here->hpos_f ())))
+  if ((next && !(next->relative_coordinate (0, X_AXIS) > here->relative_coordinate (0, X_AXIS))) ||
+      (prev && !(prev->relative_coordinate (0, X_AXIS) < here->relative_coordinate (0, X_AXIS))))
       programming_error ("Beams are not left-to-right");
 
   Real staffline_f = paper_l ()->get_var ("stafflinethickness");
@@ -605,9 +605,9 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Real stemdx = staffline_f;
 
   Real dx = visible_stem_count () ?
-    last_visible_stem ()->hpos_f () - first_visible_stem ()->hpos_f ()
+    last_visible_stem ()->relative_coordinate (0, X_AXIS) - first_visible_stem ()->relative_coordinate (0, X_AXIS)
     : 0.0;
-  Real dy = get_real ("height");
+  Real dy = gh_scm2double (get_elt_property ("height"));
   Real dydx = dy && dx ? dy/dx : 0;
 
   Molecule leftbeams;
@@ -636,7 +636,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
        Half beam should be one note-width, 
        but let's make sure two half-beams never touch
        */
-      Real w = here->hpos_f () - prev->hpos_f ();
+      Real w = here->relative_coordinate (0, X_AXIS) - prev->relative_coordinate (0, X_AXIS);
       w = w/2 <? nw_f;
       Molecule a;
       if (lhalfs)		// generates warnings if not
@@ -655,7 +655,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       int rhalfs  = here->beam_count (RIGHT) - next->beam_count (LEFT);
       int rwholebeams= here->beam_count (RIGHT) <? next->beam_count (LEFT) ;
 
-      Real w = next->hpos_f () - here->hpos_f ();
+      Real w = next->relative_coordinate (0, X_AXIS) - here->relative_coordinate (0, X_AXIS);
       Molecule a = lookup_l ()->beam (dydx, w + stemdx, thick);
       a.translate_axis( - stemdx/2, X_AXIS);
       int j = 0;
@@ -717,19 +717,19 @@ Beam::do_brew_molecule () const
   Real x0,dx;
   if (visible_stem_count ())
     {
-      x0 = first_visible_stem ()->hpos_f ();
-      dx = last_visible_stem ()->hpos_f () - x0;
+      x0 = first_visible_stem ()->relative_coordinate (0, X_AXIS);
+      dx = last_visible_stem ()->relative_coordinate (0, X_AXIS) - x0;
     }
   else
     {
-      x0 = stem (0)->hpos_f ();
-      dx = stem_top ()->hpos_f () - x0;
+      x0 = stem (0)->relative_coordinate (0, X_AXIS);
+      dx = stem_top ()->relative_coordinate (0, X_AXIS) - x0;
     }
   
   
-  Real dy = get_real ("height");
+  Real dy = gh_scm2double (get_elt_property ("height"));
   Real dydx = dy && dx ? dy/dx : 0;
-  Real y = get_real ("y-position");
+  Real y = gh_scm2double (get_elt_property ("y-position"));
   for (int j=0; j <stem_count (); j++)
     {
       Stem *i = stem (j);
@@ -737,7 +737,7 @@ Beam::do_brew_molecule () const
       Stem * next = (j < stem_count ()-1) ? stem (j+1) :0;
 
       Molecule sb = stem_beams (i, next, prev);
-      Real x = i->hpos_f ()-x0;
+      Real x = i->relative_coordinate (0, X_AXIS)-x0;
       sb.translate (Offset (x, x * dydx + y));
       mol.add_molecule (sb);
     }

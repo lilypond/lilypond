@@ -55,7 +55,7 @@ disk-space run configure with @code{--disable-debugging}.
 Although we recommend to use Unix, LilyPond is known to run on Windows
 NT/95/98 as well.  See Section Windows NT/95,es.
 
-@item  EGCS 1.1 or newer. Check out @uref{ftp://ftp.gnu.org/pub/gcc/}.
+@item  EGCS 1.1 or newer. Check out @uref{ftp://ftp.gnu.org/gnu/gcc/}.
 
 @item  Python 1.5,
 Check out
@@ -64,16 +64,16 @@ Check out
 @item  GUILE 1.3.4,  check out @uref{http://www.gnu.org/software/guile/guile.html,http://www.gnu.org/software/guile/guile.html}.
 
 @item GNU make. 
-Check out @uref{ftp://ftp.gnu.org/make/,ftp://ftp.gnu.org/make/}.
+Check out @uref{ftp://ftp.gnu.org/gnu/make/,ftp://ftp.gnu.org/gnu/make/}.
 
 @item Flex (version 2.5.4 or newer). 
-Check out @uref{ftp://ftp.gnu.org/flex/,ftp://ftp.gnu.org/flex/}.
+Check out @uref{ftp://ftp.gnu.org/gnu/flex/,ftp://ftp.gnu.org/gnu/flex/}.
 
 @item Bison (version 1.25 or newer).
-Check out @uref{ftp://ftp.gnu.org/bison/,ftp://ftp.gnu.org/bison/}.
+Check out @uref{ftp://ftp.gnu.org/gnu/bison/,ftp://ftp.gnu.org/gnu/bison/}.
 
 @item Texinfo (version 4.0 or newer). 
-Check out @uref{ftp://ftp.gnu.org/pub/texinfo/,ftp://ftp.gnu.org/pub/texinfo/}.
+Check out @uref{ftp://ftp.gnu.org/gnu/texinfo/,ftp://ftp.gnu.org/gnu/texinfo/}.
 Most documentation is in texinfo.
 
 @item The geometry package for LaTeX is needed to use ly2dvi.  

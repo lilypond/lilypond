@@ -11,15 +11,15 @@
 #define NOTE_COLUMN_HH
 
 #include "item.hh"
-#include "axis-group-item.hh"
 
 /** a struct for treating a group of noteheads (noteheads, stem
-  (chord) and scripts) as a single entity.  */
-class Note_column : public Axis_group_item {
+  (chord) and scripts) as a single entity.
+*/
+class Note_column : public Item
+{
 protected:
   virtual void after_line_breaking () ;
 public:
-
   static int shift_compare (Note_column *const &, Note_column*const&);
   
   /** The relative position of the "voice" containing this

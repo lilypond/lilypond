@@ -15,15 +15,14 @@
 #include "lily-guile.hh"
 #include "smobs.hh"
 
-/*
-  rename to list interface?
- */
-
 /**
    Look at Score element ELT as thing which has a list property called
    NAME_. Normally the list would contain Score_elements, but
    sometimes it can be different things.
+
+   todo: reename as list_interface?
 */
+
 struct Group_interface
 {
   Score_element * elt_l_;

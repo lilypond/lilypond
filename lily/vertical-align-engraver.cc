@@ -8,11 +8,26 @@
 #include "translator-group.hh"
 #include "axis-group-engraver.hh"
 #include "paper-column.hh"
-#include "vertical-align-engraver.hh"
-#include "axis-align-spanner.hh"
-#include "axis-group-spanner.hh"
+#include "align-interface.hh"
 #include "span-bar.hh"
 #include "axis-group-interface.hh"
+#include "engraver.hh"
+#include "spanner.hh"
+
+class Vertical_align_engraver : public Engraver {
+  Spanner * valign_p_;
+  bool qualifies_b (Score_element_info) const;  
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+  Vertical_align_engraver();
+protected:
+  
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_creation_processing();
+  virtual void do_removal_processing();
+};
+
 
 Vertical_align_engraver::Vertical_align_engraver()
 {
@@ -22,9 +37,11 @@ Vertical_align_engraver::Vertical_align_engraver()
 void
 Vertical_align_engraver::do_creation_processing()
 {
-  valign_p_ =new Axis_align_spanner;
-  valign_p_->set_axis (Y_AXIS);
-  valign_p_->set_elt_property ("stacking-dir",  gh_int2scm (DOWN));
+  valign_p_ =new Spanner; //Axis_align_spanner
+  Align_interface (valign_p_).set_interface ();
+  Align_interface (valign_p_).set_axis (Y_AXIS);
+  valign_p_->set_elt_property ("stacking-dir",
+			       gh_int2scm (DOWN));
   
   valign_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
   announce_element (Score_element_info (valign_p_ , 0));
@@ -67,10 +84,11 @@ Vertical_align_engraver::acknowledge_element (Score_element_info i)
 {
   if (qualifies_b (i))
     {
-      valign_p_->add_element (i.elem_l_);
+      Align_interface(valign_p_).add_element (i.elem_l_);
     }
   /*
-    ? huh
+     Add make sure spanbars (whose size depends on vertical alignment)
+     depend on the vertical alignment element
    */
   else if (dynamic_cast<Span_bar*>(i.elem_l_) && i.origin_trans_l_arr (this).size ())
     {

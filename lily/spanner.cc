@@ -18,63 +18,21 @@
 #include "line-of-score.hh"
 #include "break-align-item.hh"
 
-
 void
-Spanner::do_break_processing ()
+Spanner::do_break_processing()
 {
   //break_into_pieces
-  Item * left = spanned_drul_[LEFT];
-  Item * right = spanned_drul_[RIGHT];
-  
-  if  (left == right)
-    {
-      warning (_f ("Spanner `%s' has equal left and right spanpoints",
-		   classname (this)));
-    }
-
-  /*
-    Check if our parent in X-direction spans equally wide
-    or wider than we do.
-   */
-  for (int a = X_AXIS; a < NO_AXES; a ++)
-    {
-      if (Spanner* parent = dynamic_cast<Spanner*> (parent_l ((Axis)a)))
-	{
-#if 1
-	  /*
-	    Urg, should use instantiate-compare, or maybe mysterious
-	    column_width/contains functions?
-	  */
-	  if (spanned_drul_[LEFT] && spanned_drul_[RIGHT] 
-	      && parent->spanned_drul_[LEFT] && parent->spanned_drul_[RIGHT])
-	    {
-	      if (parent->spanned_drul_[LEFT]->column_l ()->rank_i ()
-		  > spanned_drul_[LEFT]->column_l ()->rank_i () > 0
-		  || parent->spanned_drul_[RIGHT]->column_l ()->rank_i ()
-		  < spanned_drul_[RIGHT]->column_l ()->rank_i ())
-		{
-		  warning (_f ("Spanner `%s' is not fully contained in parent spanner `%s'.",
-			       classname (this), classname (parent)));
-		}
-	    }
-#else
-	  /*
-	    column_width (), contains ()?
-	  */
-	  if (!parent->column_width ().contains (this->column_width ()))
-	    {
-	      warning (_f ("Spanner `%s' is not fully contained in parent spanner `%s'.",
-			   classname (this), classname (parent)));
-	    }
-#endif	    
-	}
-    }
   
   if (line_l () || broken_b ())
     return;
+  
+  Item * left = spanned_drul_[LEFT];
+  Item * right = spanned_drul_[RIGHT];
 
   if  (left == right)
     {
+      warning (_ ("Left spanpoint is right spanpoint"));
+
       /*
 	FIXME: this is broken.
        */
@@ -167,8 +125,7 @@ Spanner::set_bound(Direction d, Item*i)
   
   if (spanned_drul_[Direction(-d)] == spanned_drul_[d]
        && i)
-    warning (_f ("Spanner `%s' has equal left and right spanpoints",
-		 classname (this)));
+    warning (_f ("Spanner `%s' has equal left and right spanpoints", classname (this)));
 }
 
 

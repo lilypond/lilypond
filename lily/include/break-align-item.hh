@@ -10,12 +10,11 @@
 #ifndef BREAK_ALIGN_ITEM_HH
 #define BREAK_ALIGN_ITEM_HH
 
-#include "axis-align-item.hh"
+#include "item.hh"
 
 /// align breakable items (clef, bar, etc.)
-class Break_align_item : public Axis_align_item {
-
-
+class Break_align_item : public Item
+{
 protected:
   virtual void before_line_breaking ();
 public:

@@ -233,7 +233,8 @@ Side_position_interface::set_axis (Axis a)
   if (elt_l_->get_elt_property ("side-support") == SCM_UNDEFINED)
     elt_l_->set_elt_property ("side-support" ,SCM_EOL);
 
-  elt_l_->add_offset_callback (aligned_side, a);
+  if (!elt_l_->has_offset_callback_b (aligned_side, a))
+    elt_l_->add_offset_callback (aligned_side, a);
 }
 
 

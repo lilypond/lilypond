@@ -40,9 +40,9 @@ private:
 class Audio_dynamic : public Audio_item
 {
 public:
-  Audio_dynamic (Real volume);
+  Audio_dynamic (int volume);
 
-  Real volume_;
+  int volume_i_;
 };
 
 class Audio_key : public Audio_item

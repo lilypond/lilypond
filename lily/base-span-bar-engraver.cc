@@ -10,7 +10,6 @@
 #include "lily-guile.hh"
 #include "span-bar.hh"
 #include "base-span-bar-engraver.hh"
-#include "axis-align-spanner.hh"
 
 Base_span_bar_engraver::Base_span_bar_engraver()
 {

@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2000-03-20 16:31+0100\n"
+"POT-Creation-Date: 2000-03-15 19:34+0100\n"
 "Content-Type: text/plain; charset=\n"
 "Date: 1998-05-26 11:26:28+0200\n"
 "From:  <janneke@gnu.org>\n"
@@ -205,7 +205,7 @@ msgstr "ongeldige inversie toon: geen onderdeel van accoord: %s"
 msgid "unknown clef type"
 msgstr "onbekend type sleutel"
 
-#: collision.cc:101
+#: collision.cc:99
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "Te veel botsende nootkolommen.  Negeer ze."
 
@@ -236,19 +236,19 @@ msgstr "kan geheugen controle niet zetten!"
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:285 span-dynamic-performer.cc:116
+#: dynamic-engraver.cc:244 span-dynamic-performer.cc:114
 msgid "can't find start of (de)crescendo"
 msgstr "kan start van (de)crescendo niet vinden"
 
-#: dynamic-engraver.cc:304
+#: dynamic-engraver.cc:263
 msgid "already have a crescendo"
 msgstr "heb al een crescendo"
 
-#: dynamic-engraver.cc:305
+#: dynamic-engraver.cc:264
 msgid "already have a decrescendo"
 msgstr "heb al een decrescendo"
 
-#: dynamic-engraver.cc:380
+#: dynamic-engraver.cc:339
 msgid "unterminated (de)crescendo"
 msgstr "onbeëindigd (de)crescendo"
 
@@ -273,7 +273,7 @@ msgstr "Geen doenbare regelafbreuk gevonden"
 msgid "no Grace context available"
 msgstr "geen Grace context voor handen"
 
-#: grace-position-engraver.cc:93
+#: grace-position-engraver.cc:91
 msgid "Unattached grace notes.  Attaching to last musical column."
 msgstr "Losse grace noten.  Maak ze vast aan vorige muziekale kolom."
 
@@ -335,7 +335,6 @@ msgstr "vals:"
 
 #: local-key-engraver.cc:83 time-signature-engraver.cc:29
 #: translator-group.cc:416 translator-group.cc:425
-#, c-format
 msgid "can't find: `%s'"
 msgstr "kan niet vinden: `%s'"
 
@@ -537,7 +536,6 @@ msgid "Interpretation context with empty type"
 msgstr "Vertolk context met leeg type"
 
 #: music-output-def.cc:84
-#, c-format
 msgid "can't find `%s' context"
 msgstr "kan `%s' context niet vinden"
 
@@ -569,20 +567,20 @@ msgstr "Ontleden..."
 msgid "Braces don't match"
 msgstr "Haakjes paren niet"
 
-#: paper-column.cc:49
+#: paper-column.cc:48
 msgid "Must set spring between differing columns"
 msgstr "Moet veertje zetten tussen verschillende kolommen"
 
-#: paper-def.cc:70
+#: paper-def.cc:69
 #, c-format
 msgid "unknown paper variable: `%s'"
 msgstr "onbekende papier veranderlijke: `%s'"
 
-#: paper-def.cc:74
+#: paper-def.cc:73
 msgid "not a real variable"
 msgstr "niet een reële veranderlijke"
 
-#: paper-def.cc:184
+#: paper-def.cc:180
 #, c-format
 msgid "paper output to %s..."
 msgstr "papier uitvoer naar %s..."
@@ -645,7 +643,6 @@ msgid "Huh?  Not a Request: `%s'"
 msgstr "Huh?  Geen Request: `%s'"
 
 #: request-iterator.cc:20
-#, c-format
 msgid "Junking music: `%s'"
 msgstr "Schroot muziek: `%s'"
 
@@ -657,7 +654,7 @@ msgstr "te veel botsende rusten"
 msgid "too many notes for rest collision"
 msgstr "te veel noten voor bosting met rusten"
 
-#: score-engraver.cc:141
+#: score-engraver.cc:139
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr "ongebonden spanner `%s'"
@@ -712,7 +709,6 @@ msgid "unterminated slur"
 msgstr "onbeëindigde bindingsboog"
 
 #: slur-engraver.cc:77
-#, c-format
 msgid "can't find both ends of %s"
 msgstr "kan niet beide uiteinden vinden van %s"
 
@@ -728,15 +724,14 @@ msgstr "Zet bindingsboog over rust.  Negeer."
 msgid "Slur over rest?"
 msgstr "Boogje over rust?"
 
-#: spanner.cc:31 spanner.cc:170
+#: spanner.cc:34
+msgid "Left spanpoint is right spanpoint"
+msgstr "Linker spanpunt is rechter spanpunt"
+
+#: spanner.cc:128
 #, c-format
 msgid "Spanner `%s' has equal left and right spanpoints"
 msgstr "Spanner `%s' heeft gelijke linker en rechter spanpunten"
-
-#: spanner.cc:56 spanner.cc:66
-#, c-format
-msgid "Spanner `%s' is not fully contained in parent spanner `%s'."
-msgstr "Spanner `%s' is niet volledig opgenomen in parent spanner `%s'."
 
 #: stem-engraver.cc:124
 #, c-format
@@ -759,7 +754,6 @@ msgstr ""
 "%s: TFM bestand heeft %u parameters, wat meer is dan de %u die ik aan kan"
 
 #: tfm.cc:70
-#, c-format
 msgid "can't find ascii character: `%d'"
 msgstr "kan teken niet vinden: `%s'"
 
@@ -807,12 +801,10 @@ msgid "Already contains: `%s'"
 msgstr "Bevat reeds: `%s'"
 
 #: translator-group.cc:210
-#, c-format
 msgid "can't find or create `%s' called `%s'"
 msgstr "kan niet vinden of scheppen `%s' genaamd `%s'"
 
 #: translator-group.cc:322
-#, c-format
 msgid "can't find or create: `%s'"
 msgstr "kan niet vinden of scheppen: `%s'"
 
@@ -1093,9 +1085,6 @@ msgstr "% Automatisch gegenereerd"
 #, c-format
 msgid "% from input file: "
 msgstr "% van invoerbestand: "
-
-#~ msgid "Left spanpoint is right spanpoint"
-#~ msgstr "Linker spanpunt is rechter spanpunt"
 
 #~ msgid "(search path: `%s'"
 #~ msgstr "(zoekpad: `%s')"

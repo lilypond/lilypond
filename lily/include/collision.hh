@@ -10,7 +10,7 @@
 #ifndef COLLISION_HH
 #define COLLISION_HH
 #include "lily-proto.hh"
-#include "axis-group-item.hh"
+#include "item.hh"
 #include "tuple.hh"
 
 //junkme, use SCM conses.
@@ -24,7 +24,8 @@ typedef Tuple<Score_element*, Real> Shift_tup;
   multistaff support (see Chlapik: equal noteheads should be on the
   same hpos.)  
 */
-class Collision : public Axis_group_item {
+class Collision : public Item
+{
 protected:
   Array<Shift_tup> automatic_shift ();
   Array<Shift_tup> forced_shift ();

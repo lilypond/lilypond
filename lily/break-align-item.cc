@@ -17,12 +17,7 @@
 #include "paper-def.hh"
 #include "paper-column.hh"
 #include "group-interface.hh"
-
-/*
-  Handle spacing for prefatory matter. 
-
-  TODO: rewrite this.  It is kludgy
-*/
+#include "align-interface.hh"
 
 void
 Break_align_item::before_line_breaking ()
@@ -40,7 +35,7 @@ Break_align_item::before_line_breaking ()
   
   for (int i=0; i < all_elems.size(); i++) 
     {
-      Interval y = all_elems[i]->extent(axis ());
+      Interval y = all_elems[i]->extent(X_AXIS);
       if (!y.empty_b())
 	elems.push (dynamic_cast<Score_element*> (all_elems[i]));
     }
@@ -105,10 +100,12 @@ Break_align_item::before_line_breaking ()
   
   scm_set_car_x (first_pair, gh_double2scm (-dists[0]));
   elems[0]->set_elt_property ("minimum-space", first_pair);
-  
-  Axis_align_item::before_line_breaking ();
 
 
+  /*
+    Force callbacks for alignment to be called   
+   */
+  Real unused =  elems[0]->relative_coordinate (this, X_AXIS);
   Real pre_space = elems[0]->relative_coordinate (column_l (), X_AXIS);
 
   Real xl = elems[0]->extent (X_AXIS)[LEFT];
@@ -156,7 +153,9 @@ Break_align_item::before_line_breaking ()
 Break_align_item::Break_align_item ()
 {
   set_elt_property ("stacking-dir" , gh_int2scm (RIGHT));
-  set_axis (X_AXIS);
+
+  Align_interface (this).set_interface (); 
+  Align_interface (this).set_axis (X_AXIS);
 
   add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
 }
