@@ -1,5 +1,10 @@
 2002-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/to-xml.scm: new file.
+
+	* input/test/to-xml.ly (fooBar): demo of what is possible with the
+	new Input representation: dump music as XML.
+
 	* scm/engraver-documentation-lib.scm
 	(engraver-accepts-music-types?): add links from music to engraver,
 	from music-type to engraver.

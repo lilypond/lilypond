@@ -15,15 +15,11 @@
    ml))
 
 #(define (make-note elts)
-   ;; huh?  lily-guile: Could not find music type `Request_chord'
-   ;;(let* ((ml (make-music-by-name "Request_chord")))
    (let* ((ml (make-music-by-name 'RequestChord)))
    (ly-set-mus-property! ml 'elements elts)
    ml))
 
 #(define (seq-music-list elts)
-   ;; huh? lily-guile: Could not find music type `Sequential_music' 
-   ;;(let* ((ml (make-music-by-name "Sequential_music")))
    (let* ((ml (make-music-by-name 'SequentialMusic)))
    (ly-set-mus-property! ml 'elements elts)
    ml))
