@@ -1,3 +1,29 @@
+pl 2.jcn2
+
+pl 2.uu1
+	- ly2dvi.py -I fix
+	- obsoleted ly2dvi.sh
+ 	- removed Note_head_engraver
+
+pl 2.hwn1
+ 	- scm cleanups, chop-decimal
+ 	- scarlatti clef.
+
+pl 2.jcn1
+	- commented-out Level-2 PostScript in lily.ps (J. Buehler)
+	- moved tex/*.ps to ps/
+	- merged lilyponddefs.ps, lily-ps-defs: tex/lily.ps
+	- be sure to set:
+	    export GS_LIB=$HOME/usr/src/lilypond/ps
+	- added tex and empty ps-symbols
+
+pl 1.jcn4
+	- more little website fixes
+
+********
+
+pl 2
+
 pl 1.mb1
         - Support for cautionary accidentals. , i.e. accidentals 
           within parantheses. Syntax: 'cis?'. Try input/test/accid.fly
@@ -6,6 +32,7 @@ pl 1.mb1
         - Added optional second argument of \key. Set to \major or \minor 
           to get a major or minor key. Default: major.
 	- bf: Compilation error in midi-walker.cc
+
 pl 1.jcn2
  	- fixes for htmldoc, website
  	- silly jcn1 fixes
