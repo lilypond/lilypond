@@ -2,7 +2,7 @@ depth = ..
 
 NAME = cygwin
 
-EXTRA_DIST_FILES = changelog mknetrel $(wildcard *.sh *.hint)
+EXTRA_DIST_FILES = changelog mknetrel $(wildcard  *.hint)
 
 SEXECUTABLES=bug-lilypond-cygwin
 STEPMAKE_TEMPLATES = install install-out script
