@@ -8,8 +8,6 @@
 
 fet_begingroup ("rests");
 
-begingroup
-
 save block_rest_y, block_rest_x;
 save breve_rest_y, breve_rest_x;
 
@@ -18,7 +16,8 @@ breve_rest_x# = 3/5 staff_space#;
 block_rest_y# = 5/8 staff_space#;
 block_rest_x# = 3/2 staff_space#;
 
-define_pixels (block_rest_y, block_rest_x);
+define_whole_pixels (block_rest_y, block_rest_x);
+define_whole_pixels (breve_rest_y, breve_rest_x);
 
 
 def block_rest =
@@ -29,21 +28,28 @@ enddef;
 fet_beginchar ("whole rest", "0");
 	set_char_box (0, block_rest_x#,
 		      block_rest_y#, 0);
+
 	block_rest;
-	currentpicture := currentpicture shifted (0, -block_rest_y);
+	currentpicture := currentpicture
+			    shifted (0, -block_rest_y + feta_space_shift);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
 fet_beginchar ("half rest", "1");
 	set_char_box (0, block_rest_x#, 0, block_rest_y#);
+
 	block_rest;
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
 %
 % should use ledgerline thickness?
 %
-fet_beginchar ("whole rest (outside staff)", "0o")
+fet_beginchar ("whole rest (outside staff)", "0o");
 	set_char_box (0, block_rest_x#,
 		      block_rest_y#, ledgerlinethickness# / 2);
 
@@ -55,7 +61,9 @@ fet_beginchar ("whole rest (outside staff)", "0o")
 	y5 = y6 = 0;
 	lft x5 = -b - block_rest_y;
 	rt x6 = w + block_rest_y;
-	draw_gridline (z5, z6, ledgerlinethickness);
+	draw_gridline (z5, z6, ledgerlinethickness_rounded);
+
+	draw_staff (-2, 2, -3);
 fet_endchar;
 
 
@@ -70,56 +78,59 @@ fet_beginchar ("half rest (outside staff)", "1o");
 	y5 = y6 = 0;
 	lft x5 = -b - block_rest_y;
 	rt x6 = w + block_rest_y;
-	draw_gridline (z5, z6, ledgerlinethickness);
+
+	draw_gridline (z5, z6, ledgerlinethickness_rounded);
+
+	draw_staff (-2, 2, 3);
 fet_endchar;
 
 
-define_pixels (breve_rest_y, breve_rest_x);
-
 fet_beginchar ("maxima rest", "-3");
 	set_char_box (0, 3 breve_rest_x#, breve_rest_y#, breve_rest_y#);
-	draw_block ((0, -floor (breve_rest_y)),
-		    (breve_rest_x, floor (breve_rest_y)));
+
+	draw_block ((0, -breve_rest_y + feta_shift),
+		    (breve_rest_x, breve_rest_y));
+
 	addto currentpicture also currentpicture shifted (2 breve_rest_x, 0);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
 fet_beginchar ("longa rest", "-2");
 	set_char_box (0, breve_rest_x#, breve_rest_y#, breve_rest_y#);
-	draw_block ((0, -floor (breve_rest_y)),
-		    (breve_rest_x, floor (breve_rest_y)));
+
+	draw_block ((0, -breve_rest_y + feta_shift),
+		    (breve_rest_x, breve_rest_y));
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
 fet_beginchar ("breve rest", "-1");
 	set_char_box (0, breve_rest_x#, 0, breve_rest_y#);
-	draw_block ((0, 0), (breve_rest_x, floor (breve_rest_y)));
+
+	draw_block ((0, 0), (breve_rest_x, breve_rest_y));
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-tracingvariables := 1;
-
 fet_beginchar ("Quarter rest", "2");
-%	draw_staff (-2, 2, 0.0);
 	save alpha, yshift, height;
-	alpha:=-50;
+	save xcenter;
 
-	thick# := 1/4 staff_space#;
-	define_blacker_pixels (thick);
+	yshift# := -1.25 staff_space#;
+	height# := 2.8125 staff_space#;
+	define_pixels (yshift, height);
 
+	alpha := -50;
+	thick := 1/4 staff_space;
 	rthin := 1.25 linethickness;
+	xcenter := -0.1 staff_space;
 	rthick := 2 thick + rthin;
 
-	yshift# = -1.25 staff_space#;
-	height# = 2.8125 staff_space#;
-
-	define_pixels (yshift, height);
-	save xcenter;
-	xcenter = -0.1 staff_space;
-
-	set_char_box (0, 0.95 staff_space#,
-		      -yshift#,
-		      yshift# + height#);
+	set_char_box (0, 0.95 staff_space#, -yshift#, yshift# + height#);
 
 	save ne, nw, se, sw;
 	pair ne, nw, se, sw;
@@ -151,10 +162,13 @@ fet_beginchar ("Quarter rest", "2");
 	z3 = 1/2 [z2, z4];
 	x4 = xcenter + 3/8 staff_space;
 	y4 = 0;
-	z5 = z4l + 1.3 staff_space * se;
+	y4l := vround y4l;
+	z5 = round (z4l + 1.3 staff_space * se) + feta_offset;
 	x6l = x4l;
-	y6l = y4r;
-	x7 = xcenter + 2/5 staff_space;
+	y6l = vround y4r;
+	x6r := hround x6r + xpart feta_offset;
+	y6r := vround y6r + ypart feta_offset;
+	x7 = hround (xcenter + 2/5 staff_space) + xpart feta_offset;
 	y7 = -d;
 
 	save before, after;
@@ -183,6 +197,8 @@ fet_beginchar ("Quarter rest", "2");
 
 	penlabels (1, 2, 3, 4, 5, 6, 7);
 	penlabels (10, 11, 12, 13);
+
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
@@ -221,12 +237,13 @@ save bulb_diam, thin, thick;
 
 bulb_diam# := 0.64 staff_space#;
 thin# := 1.4 linethickness# - 0.02 staff_space#;
-thick# :=  2.2 linethickness#;
-crook_thin := 0.5 linethickness + 0.08 staff_space;
+thick# := 2.2 linethickness#;
 
+crook_thin := 0.5 linethickness + 0.08 staff_space;
 lower_brush := 1.5 linethickness;
 
-define_pixels (bulb_diam, thin, thick);
+define_pixels (bulb_diam);
+define_whole_blacker_pixels (thin, thick);
 
 
 %
@@ -246,11 +263,16 @@ begingroup;
 	y10 = ycenter;
 	z10 = whatever [z2, z1] + left * bulb_diam * stretch;
 
+	% this enforces similar bulb shapes for lower resolutions
+	x10 := hround x10;
+
 	z3 = z10 + bulb_diam / 2.15 * dir (-72);
+	y3 := hround y3;
 	z5 = z10 + up * bulb_diam / 2 + right * linethickness / 3;
+	y5 := hround y5;
 
 	z7 = 0.5 [z4, z5] + crook_thin * (0.45, 0.4) / 1.3;
-	x8 = x10 - 0.4 bulb_diam;
+	x8 = hround (x10 - 0.4 bulb_diam);
 	y8 = y10 + 0.25 linethickness;
 
 	z6 = whatever [z1l, z2l];
@@ -259,7 +281,7 @@ begingroup;
 	z4 = z3 + whatever * (z6 - z3)
 	     + 1.1 crook_thin * (unitvector (z6 - z3) rotated 90);
 	x4 = x10 + bulb_diam * .62;
-	y4 := ceiling (y4);
+	y4 := vround y4;
 
 	(pt, whatever) = pat intersectiontimes ((0, ycut) -- (w, ycut));
 
@@ -282,26 +304,27 @@ enddef;
 
 
 def draw_eighth_rest (expr show_labels) =
-	save width;
 	save ycenter;
 	save pat, bulb;
 	path pat, bulb;
 
-	width# := 1.0 staff_space#;
-
-	define_pixels (width);
-	set_char_box (0, width#,
+	set_char_box (0, 1.0 staff_space#,
 		      1.0 staff_space# + 0.5 linethickness#,
 		      0.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
 
-	y1 = - staff_space;
-	y2 = h -  lower_brush;
-	x2r = width;
+	y1 = -staff_space_rounded;
+	y2 = h - vround lower_brush;
+	x2r = w;
 	z2 = z1 + whatever * dir (72);
 	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	y9 := vround y9;
+
+	x1l := hround x1l;
+	x1r := hround x1r;
+	x1 := .5 [x1l, x1r];
 
 	if show_labels = 1:
 		penlabels (1, 2);
@@ -309,21 +332,21 @@ def draw_eighth_rest (expr show_labels) =
 	fi;
 
 	pat = z1l
-	      --- z2l
+	      -- z2l
 	      .. z9
 	      .. z2r
-	      --- z1r
+	      -- z1r
 	      .. cycle;
 	bulb = draw_rest_bulb (0.5 staff_space, y2r, pat, 1.0, show_labels);
 
 	fill simple_serif (z1l, z1r, 40)
-	     --- z2r
+	     -- z2r
 	     .. z9
 	     .. bulb
-	     --- z1l
+	     -- z1l
 	     .. cycle;
 
-	% draw_staff (-2, 2, 0.0);
+	draw_staff (-2, 2, 0);
 enddef;
 
 
@@ -344,207 +367,227 @@ fet_endchar;
 %
 
 fet_beginchar ("16th rest", "4");
-	save width;
 	save ycenter;
 	save pat, bulb_a, bulb_b;
 	path pat, bulb_a, bulb_b;
 
-	width# := 1.2 staff_space#;
-
-	define_pixels (width);
-	set_char_box (0, width#,
+	set_char_box (0, 1.2 staff_space#,
 		      2.0 staff_space# + 0.5 linethickness#,
 		      0.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
 
-	y1 = -2 staff_space ;
-	y2 = h -  lower_brush;
-	x2r = width;
-	z2 = z1 + whatever*dir (74);
-       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1)- 10);
+	y1 = -2 staff_space_rounded;
+	y2 = h - vround lower_brush;
+	x2r = w;
+	z2 = z1 + whatever * dir (74);
+       	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	y9 := vround y9;
+
+	x1l := hround x1l;
+	x1r := hround x1r;
+	x1 := .5 [x1l, x1r];
+
 	pat = z1l
-	      --- z2l
+	      -- z2l
 	      .. z9
 	      .. z2r
-	      --- z1r
+	      -- z1r
 	      .. cycle;
-	bulb_a = draw_rest_bulb (0.5 staff_space, y2r, pat, 0.98, 1);
-	bulb_b = draw_rest_bulb (-0.5 staff_space,
-				(-0.5 + 0.2) * staff_space, pat, 1.02, 1);
+	bulb_a = draw_rest_bulb (.5 staff_space,
+				 y2r, pat, 0.98, 1);
+	bulb_b = draw_rest_bulb (.5 staff_space - staff_space_rounded,
+				 hround ((-0.5 + 0.2) * staff_space),
+				 pat, 1.02, 1);
 
 	fill simple_serif (z1l, z1r, 40)
-	     --- z2r
+	     -- z2r
 	     .. z9
 	     .. bulb_a
-	     --- bulb_b
-	     --- z1l
+	     -- bulb_b
+	     -- z1l
 	     .. cycle;
 
 	penlabels (1, 2);
 	labels (9);
 
-	% draw_staff (-2, 2, 0.0);
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
 fet_beginchar ("32th rest", "5");
-	save width;
 	save ycenter;
 	save pat, bulb_a, bulb_b, bulb_c;
 	path pat, bulb_a, bulb_b, bulb_c;
 
-	width# := 1.3 staff_space#;
-
-	define_pixels (width);
-	set_char_box (0, width#,
+	set_char_box (0, 1.3 staff_space#,
 		      2.0 staff_space# + 0.5 linethickness#,
 		      1.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
 
-	y1 = -2 staff_space ;
-	y2 = h - lower_brush;
-	x2r = width;
+	y1 = -2 staff_space_rounded;
+	y2 = h - vround lower_brush;
+	x2r = w;
 	z2 = z1 + whatever * dir (76);
        	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	y9 := vround y9;
+
+	x1l := hround x1l;
+	x1r := hround x1r;
+	x1 := .5 [x1l, x1r];
+
 	pat = z1l
-	      --- z2l
+	      -- z2l
 	      .. z9
 	      .. z2r
-	      --- z1r
+	      -- z1r
 	      .. cycle;
-	bulb_a = draw_rest_bulb ( 1.5 staff_space, y2r, pat, 0.96, 1);
-	bulb_b = draw_rest_bulb (0.5 staff_space,
-				 (0.5 + 0.2) * staff_space, pat, 1.00, 1);
-	bulb_c = draw_rest_bulb (-0.5 staff_space,
-				 (-0.5 + 0.21) * staff_space, pat, 1.04, 1);
+	bulb_a = draw_rest_bulb (.5 staff_space + staff_space_rounded,
+				 y2r, pat, 0.96, 1);
+	bulb_b = draw_rest_bulb (.5 staff_space,
+				 hround ((0.5 + 0.2) * staff_space),
+				 pat, 1.00, 1);
+	bulb_c = draw_rest_bulb (.5 staff_space - staff_space_rounded,
+				 hround ((-0.5 + 0.21) * staff_space),
+				 pat, 1.04, 1);
 
 	fill simple_serif (z1l, z1r, 40)
-	     --- z2r
+	     -- z2r
 	     .. z9
 	     .. bulb_a
-	     --- bulb_b
-	     --- bulb_c
-	     --- z1l
+	     -- bulb_b
+	     -- bulb_c
+	     -- z1l
 	     .. cycle;
 
 	penlabels (1, 2);
 	labels (9);
 
-	% draw_staff (-2, 2, 0.0);
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
 fet_beginchar ("64th rest", "6");
-	save width;
 	save ycenter;
 	save pat, bulb_a, bulb_b, bulb_c, bulb_d;
 	path pat, bulb_a, bulb_b, bulb_c, bulb_d;
 
-	width# := 1.4 staff_space#;
-
-	define_pixels (width);
-	set_char_box (0, width#,
+	set_char_box (0, 1.4 staff_space#,
 		      3.0 staff_space# + 0.5 linethickness#,
 		      1.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
 
-	y1 = -3 staff_space;
-	y2 = h - lower_brush;
-	x2r = width;
+	y1 = -3 staff_space_rounded;
+	y2 = h - vround lower_brush;
+	x2r = w;
 	z2 = z1 + whatever * dir (78);
        	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1) - 10);
+	y9 := vround y9;
+
+	x1l := hround x1l;
+	x1r := hround x1r;
+	x1 := .5 [x1l, x1r];
+
 	pat = z1l
-	      --- z2l
+	      -- z2l
 	      .. z9
 	      .. z2r
-	      --- z1r
+	      -- z1r
 	      .. cycle;
-	bulb_a = draw_rest_bulb (1.5 staff_space, y2r, pat, 0.94, 1);
-	bulb_b = draw_rest_bulb (0.5 staff_space,
-				 (0.5 + 0.20) * staff_space, pat, 0.98, 1);
-	bulb_c = draw_rest_bulb (-0.5 staff_space,
-				 (-0.5 + 0.21) * staff_space, pat, 1.02, 1);
-	bulb_d = draw_rest_bulb (-1.5 staff_space,
-				 (-1.5 + 0.22) * staff_space, pat, 1.06, 1);
+	bulb_a = draw_rest_bulb (.5 staff_space + staff_space_rounded,
+				 y2r, pat, 0.94, 1);
+	bulb_b = draw_rest_bulb (.5 staff_space,
+				 hround ((0.5 + 0.20) * staff_space),
+				 pat, 0.98, 1);
+	bulb_c = draw_rest_bulb (.5 staff_space - staff_space_rounded,
+				 hround ((-0.5 + 0.21) * staff_space),
+				 pat, 1.02, 1);
+	bulb_d = draw_rest_bulb (.5 staff_space - 2 staff_space_rounded,
+				 hround ((-1.5 + 0.22) * staff_space),
+				 pat, 1.06, 1);
 
 	fill simple_serif (z1l, z1r, 40)
-	     --- z2r
+	     -- z2r
 	     .. z9
 	     .. bulb_a
-	     --- bulb_b
-	     --- bulb_c
-	     --- bulb_d
-	     --- z1l
+	     -- bulb_b
+	     -- bulb_c
+	     -- bulb_d
+	     -- z1l
 	     .. cycle;
 
 	penlabels (1, 2);
 	labels (9);
 
-	% draw_staff (-2, 2, 0.0);
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
 fet_beginchar ("128th rest", "7");
-	save width;
 	save ycenter;
 	save pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e;
 	path pat, bulb_a, bulb_b, bulb_c, bulb_d, bulb_e;
 
-	width# = 1.5 staff_space#;
-
-	define_pixels (width);
-	set_char_box (0, width#,
+	set_char_box (0, 1.5 staff_space#,
 		      3.0 staff_space# + 0.5 linethickness#,
 		      2.5 staff_space# + bulb_diam# / 2);
 
 	penpos1 (thick, 0);
 	penpos2 (thin, 10);
 
-	y1 = -3 staff_space;
-	y2 = h - lower_brush;
-	x2r = width;
+	y1 = -3 staff_space_rounded;
+	y2 = h - vround lower_brush;
+	x2r = w;
 	z2 = z1 + whatever * dir (80);
        	z9 = z2 + 0.5 linethickness * dir (angle (z2 - z1)- 10);
+	y9 := vround y9;
+
+	x1l := hround x1l;
+	x1r := hround x1r;
+	x1 := .5 [x1l, x1r];
+
 	pat = z1l
-	      --- z2l
+	      -- z2l
 	      .. z9
 	      .. z2r
-	      --- z1r
+	      -- z1r
 	      .. cycle;
-	bulb_a = draw_rest_bulb (2.5 staff_space, y2r, pat, 0.92, 1);
-	bulb_b = draw_rest_bulb (1.5 staff_space,
-				 (1.5 + 0.20) * staff_space, pat, 0.96, 1);
-	bulb_c = draw_rest_bulb (0.5 staff_space,
-				 (0.5 + 0.21) * staff_space, pat, 1.0, 1);
-	bulb_d = draw_rest_bulb (-0.5 staff_space,
-				 (-0.5 + 0.22) * staff_space, pat, 1.04, 1);
-	bulb_e = draw_rest_bulb (-1.5 staff_space,
-				 (-1.5 + 0.23) * staff_space, pat, 1.08, 1);
+	bulb_a = draw_rest_bulb (.5 staff_space + 2 staff_space_rounded,
+				 y2r, pat, 0.92, 1);
+	bulb_b = draw_rest_bulb (.5 staff_space + staff_space_rounded,
+				 hround ((1.5 + 0.20) * staff_space),
+				 pat, 0.96, 1);
+	bulb_c = draw_rest_bulb (.5 staff_space,
+				 hround ((0.5 + 0.21) * staff_space),
+				 pat, 1.0, 1);
+	bulb_d = draw_rest_bulb (.5 staff_space - staff_space_rounded,
+				 hround ((-0.5 + 0.22) * staff_space),
+				 pat, 1.04, 1);
+	bulb_e = draw_rest_bulb (.5 staff_space - 2 staff_space_rounded,
+				 hround ((-1.5 + 0.23) * staff_space),
+				 pat, 1.08, 1);
 
 	fill simple_serif (z1l, z1r, 40)
-	     --- z2r
+	     -- z2r
 	     .. z9
 	     .. bulb_a
-	     --- bulb_b
-	     --- bulb_c
-	     --- bulb_d
-	     --- bulb_e
-	     --- z1l
+	     -- bulb_b
+	     -- bulb_c
+	     -- bulb_d
+	     -- bulb_e
+	     -- z1l
 	     .. cycle;
 
 	penlabels (1, 2);
 	labels (9);
 
-	% draw_staff (-2, 2, 0.0);
+	draw_staff (-2, 2, 0);
 fet_endchar;
 
 
-endgroup;
-
-fet_endgroup ("rests")
+fet_endgroup ("rests");
