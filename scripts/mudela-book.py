@@ -199,7 +199,6 @@ class LatexPaper:
 		#return self.m_paperdef[self.m_papersize][self.m_landscape]
 	
 	def _calc_linewidth(self):
-	Fortsettt
 		# since geometry sometimes ignores 'includemp', this is
 		# more complicated than it should be
 		mp = 0
@@ -742,10 +741,12 @@ def read_doc_file (filename):
 			error("error: can't determine format, please specify")
 		if texinfo:
 			__main__.format = 'texi'
-			__main__.paperguru = TexiPaper()
 		else:
 			__main__.format = 'latex'
-			__main__.paperguru = LatexPaper()
+	if __main__.format == 'texi':
+		__main__.paperguru = TexiPaper()
+	else:
+		__main__.paperguru = LatexPaper()
 	chunks = [('input', str)]
 	# we have to check for verbatim before doing include,
 	# because we don't want to include files that are mentioned
