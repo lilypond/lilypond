@@ -18,12 +18,10 @@ struct Phrasing_association
   Link_array<Grob> lyrics_;
   Link_array<Grob> heads_;
   bool melisma_;
-  bool last_melisma_;
   
   Phrasing_association()
   {
     melisma_ = false;
-    last_melisma_ = false;
   }
   
   void clear () {
@@ -143,7 +141,6 @@ New_phrasing_engraver::stop_translation_timestep ()
   for (int i = assocs_.size ();  i--; )
     {
       assocs_[i]->clear ();
-      assocs_[i]->last_melisma_ = assocs_[i]->melisma_;
     }
 }
 
@@ -158,7 +155,7 @@ New_phrasing_engraver::process_acknowledged_grobs ()
 
       Grob *h = a->heads_[0];	
       Direction alignment = CENTER;
-      if (a->melisma_ && !a->last_melisma_)
+      if (a->melisma_)
 	alignment = LEFT;
       
       for (int j = 0; j < a->lyrics_.size (); j++)

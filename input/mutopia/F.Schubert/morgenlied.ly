@@ -73,12 +73,13 @@ secondVerse = \lyrics {
     }
 
 pianoRH = \notes \relative c''' \repeat volta 2 {
-    g16( fis a g fis g f e d c b a ) | 
+    g16(_\p fis a g fis g f e d c b a ) | 
     <g e>8( <es fis a> <d f b> <c e c'>) r8 r | 
-    r8 c'( e,) f r a | 
-    r8 << { fis( g)} \\ { c,4 } >> r8 <e c g> <e c g> |
+    r8 c'( e,) f r a |
+    \property Voice.DynamicLineSpanner \set #'padding =#3
+    r8_\> << { s8 s8-\! }  << { fis( g)\!} \\ { c,4 } >> >> r8 <e c g> <e c g> |
     <d c a>4. r8 \clef bass  <d b f> <d b f> |
-    e,16 g c g e g d gis b gis d g |
+    e,16_" "_\markup { \italic cresc } g c g e g d gis b gis d g |
     c, e a e c e a,-\f d fis d a d |
     b d g  d b g r4\fermata \clef treble g''8 |
     as4.( g 4.) | fis4. r4 <d g>8 ( |
@@ -119,7 +120,9 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 	 \context LyricsVoice = "singer-2" \secondVerse
 	 >>
      \new PianoStaff <<
-	 \property PianoStaff.instrument = \markup { \bold \bigger "2.  " }
+	 \property PianoStaff.instrument = \markup {
+	     \bold
+	     \huge "2.  " }
 	 \new Staff \pianoRH
 	 \new Staff \pianoLH
 	>> 
