@@ -75,12 +75,20 @@
     (list arch_angle arch_width arch_height height arch_thick thick))
    " draw_bracket"))
 
+(define (symmetric-x-triangle thick w h)
+  (string-append
+   (numbers->string (list thick w h ))
+   " draw_symmetric_x_triangle"))
+
+
 (define (char i)
   (string-append 
    "(\\" (inexact->string i 8) ") show " ))
 
+
 (define (comment s)
   (string-append "% " s "\n"))
+
 
 (define (dashed-line thick on off dx dy)
   (string-append 

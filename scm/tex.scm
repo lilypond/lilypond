@@ -99,6 +99,9 @@
 (define (zigzag-line centre? zzw zzh thick dx dy)
   (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))
 
+(define (symmetric-x-triangle t w h)
+  (embedded-ps (list 'symmetric-x-triangle t w h)))
+
 (define (font-load-command name-mag command)
   (string-append
    "\\font\\" command "="

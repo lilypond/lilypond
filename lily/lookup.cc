@@ -551,15 +551,31 @@ Lookup::bracket (Axis a, Interval iv, Real thick, Real protude)
   return m;
 }
 
+Molecule
+Lookup::triangle (Interval iv, Real thick, Real protude)
+{
+  Box b ;
+  b[X_AXIS] =iv;
+  b[Y_AXIS] = Interval (0, protude);
+
+  SCM s = scm_list_n (ly_symbol2scm ("symmetric-x-triangle"),
+		      gh_double2scm (thick),
+		      gh_double2scm (iv.length()), 
+		      gh_double2scm (protude), SCM_UNDEFINED);
+
+  return Molecule (b, s);
+}
+
+
 /*
   TODO: use rounded boxes.
  */
 LY_DEFINE(ly_bracket ,"ly:bracket",
 	  4, 0, 0,
 	  (SCM a, SCM iv, SCM t, SCM p),
-	  "Make a bracket in direction @var{a}. The extent of the bracket is
-given by @var{iv}. The wings protude by an amount of @var{p}, which
-may be negative. The thickness is given by @var{t}.")
+	  "Make a bracket in direction @var{a}. The extent of the bracket is " 
+	  "given by @var{iv}. The wings protude by an amount of @var{p}, which "
+	  "may be negative. The thickness is given by @var{t}.")
 {
   SCM_ASSERT_TYPE(ly_axis_p (a), a, SCM_ARG1, __FUNCTION__, "axis") ;
   SCM_ASSERT_TYPE(ly_number_pair_p (iv), iv, SCM_ARG2, __FUNCTION__, "number pair") ;
