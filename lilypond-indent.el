@@ -9,11 +9,7 @@
 ;;; Variables for customising indentation style
 
 ;;; TODO:
-;;;    * emulate show-paren-mode, i.e., highlight the matching bracket if
-;;;      - the cursor is on the matching opening bracket
-;;;      - the cursor is after the matching closing bracket
-;;;    * separate '('- and ')'-slurs from '\('- and '\)'-slurs.
-;;;    * separate '['- and ']'-slurs from '\['- and '\]'-slurs.
+;;;    * fontify emulate show-paren-mode also in XEmacs
 ;;;    * currently, brackets may need a non-bracket char between ( ( ) )
 
 (defcustom LilyPond-indent-level 4
@@ -278,10 +274,11 @@ Argument LIM limit."
 ;; () are treated specially (need to indent in Scheme but not in music)
 
 (defconst LilyPond-parens-regexp-alist
-  `( ( ?>  .  ("\\([^\\]\\|^\\)<" . "[^ \\n\\t_^-]\\s-*>\\|[_^-]\\s-*[-^]\\s-*>"))
+  `( ( ?>  .  ("\\([^\\]\\|^\\)<" . "\\([^ \\n\\t_^-]\\|[_^-][-^]\\|\\s-\\)\\s-*>"))
      ;; a b c->, a b c^> and a b c_> are not close-angle-brackets, they're accents
      ;; but a b c^-> and a b c^^> are close brackets with tenuto/marcato before them
      ;; also \> and \< are hairpins
+     ;; duh .. a single '>', as in chords '<< ... >>', was not matched here
      ( ?}  .  ("{" . "}"))
      ;; ligatures  '\[ ... \]' are skipped in the following expression
      ( ?]  .  ("\\([^\\]\\([\\][\\]\\)*\\|^\\)[[]" . "\\([^\\]\\([\\][\\]\\)*\\|^\\)[]]"))
@@ -352,6 +349,12 @@ slur-paren-p defaults to nil.
 			       (LilyPond-inside-string-or-comment-p)))
 	  (if (memq match '(?} ?> ?] ?\)))
 	      (progn (setq level (1+ level))
+		     ;; single '<' was not matched .. need to correct
+		     (if (and (eq dir 1) (eq (char-after (match-end 0)) ?>))
+			 (if (/= level 0)
+			     (progn
+			       (setq level (1+ level))
+			       (forward-char 1))))
 ;;;		     (message "%d %c" level match) (sit-for 0 300)
 		     (if (and (= match ?>) 
 			      (looking-at ".\\s-+>\\|\\({\\|}\\|<\\|>\\|(\\|)\\|[][]\\)>"))
@@ -531,10 +534,6 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 		 (min (point-max) (+ (point) blink-matching-paren-distance))))
 	      ;; Scan across one sexp within that range.
 	      ;; Errors or nil mean there is a mismatch.
-	      ;;; NOTE: HERE IT IS VERY MUCH WRONG
-	      ;;; ONE CANNOT USE scan-sexps BECAUSE
-	      ;;; BRACKETS ARE NOT IN THE SYNTAX TABLE.
-              ;;; HENCE BY REPLACING THE FOLLOWING IT WILL WORK.
 	      (condition-case ()
 		  (setq pos (LilyPond-blink-matching-paren dir))
 		(error (setq pos t mismatch t)))
@@ -619,4 +618,6 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 
 ;; Comment the following line to disable show-paren-function
 ;; Currently, works only in Emacs, should tune for XEmacs
-(defun show-paren-function () (LilyPond-show-paren-function))
+(if (not (string-match "XEmacs\\|Lucid" emacs-version))
+    (defun show-paren-function () (LilyPond-show-paren-function))
+  )
