@@ -1,9 +1,7 @@
 
 \header  {
 texidoc = "
-Texts may be added to the rests by setting @code{text} in
-@code{MultiMeasureRestNumber.}. This is done automatically
-for the first script specified by @code{R_\markup @{ .. @}}.
+Texts may be added to the multi measure rests.
 "
 
 }
@@ -13,5 +11,6 @@ for the first script specified by @code{R_\markup @{ .. @}}.
   R2._\markup { \center << \musicglyph  #"scripts-dfermata" \roman "Ad lib"  >>  }
   R2.^\fermataMarkup
   R2.^"4"
+  R2.*10^"inner"^"top"_"inner"_"bot"
   c2.
 }}

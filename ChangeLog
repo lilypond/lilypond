@@ -1,3 +1,16 @@
+2003-04-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/multi-measure-rest-engraver.cc (class
+	Multi_measure_rest_engraver): make multiple Number objects, one
+	for each MultiMeasureTextEvent.
+
+	* scm/music-functions.scm (glue-mm-rest-texts): use
+	MultiMeasureTextEvent
+
+	* scm/music-types.scm (music-descriptions): add MultiMeasureTextEvent
+
+	* Documentation/user/refman.itely (Multi measure rests): update.
+
 2003-04-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/ly-module.cc (ly_copy_module_variables): use

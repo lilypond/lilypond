@@ -256,19 +256,13 @@ a property set for MultiMeasureRestNumber."
 	(
 	 (text (ly:get-mus-property script-music 'text))
 	 (dir (ly:get-mus-property script-music 'direction))
-	 (p (make-grob-property-set 'MultiMeasureRestNumber 'text text))
-	 (d (if (ly:dir? dir)
-		(make-grob-property-set 'MultiMeasureRestNumber 'direction dir)
-		#f))
-	 (l (list p))
+	 (p (make-music-by-name 'MultiMeasureTextEvent))
 	 )
-      (ly:set-mus-property! p 'once #t)
-      (if d
-	  (begin
-	    (ly:set-mus-property! d 'once #t)
-	    (set! l (cons d l))))
-      
-      (context-spec-music (make-sequential-music l) "Voice")
+
+      (if (ly:dir? dir)
+	  (ly:set-mus-property! p  'direction dir))
+      (ly:set-mus-property! p 'text text)
+      p
     ))
   
   (if (eq? (ly:get-mus-property music 'name)  'MultiMeasureRestMusicGroup)
@@ -276,15 +270,15 @@ a property set for MultiMeasureRestNumber."
 	  (
 	   (text? (lambda (x) (memq 'script-event (ly:get-mus-property x 'types))))
 	   (es (ly:get-mus-property  music 'elements))
-	   (texts (filter-list text? es))
+	   (texts (map script-to-mmrest-text  (filter-list text? es)))
 	   (others (filter-out-list text? es))
 	   )
 	(if (pair? texts)
 	    (ly:set-mus-property!
 	     music 'elements
-	     (cons (script-to-mmrest-text (car texts))
-		   others))
-	    )
+	     (cons (make-event-chord texts) others)
+	    ))
+	(display-music music)
       ))
   music
   )

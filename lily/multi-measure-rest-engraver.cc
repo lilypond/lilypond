@@ -35,14 +35,15 @@ private:
   Music * new_req_;
   Music * busy_span_req_;
   Music * stop_req_;
+  Link_array<Music> text_events_;
   int start_measure_;
   Moment start_moment_;
   
 
   Spanner *mmrest_;
-  Spanner *number_;
+  Link_array<Spanner> numbers_;
 
-  Spanner *last_number_;
+  Link_array<Spanner> last_numbers_;
   Spanner *last_rest_;
 };
 
@@ -51,7 +52,6 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
   start_measure_ = 0;
   mmrest_ = 0;
   last_rest_ =0;
-  number_ = 0;
   new_req_ = busy_span_req_ = stop_req_ =0;
 }
 
@@ -69,6 +69,11 @@ Multi_measure_rest_engraver::try_music (Music* req)
 	{
 	  new_req_ = req;
 	}
+      return true;
+    }
+  else if (req->is_mus_type ("multi-measure-text-event"))
+    {
+      text_events_.push (req);
       return true;
     }
   return false;
@@ -98,13 +103,57 @@ Multi_measure_rest_engraver::process_music ()
   if (busy_span_req_ && !mmrest_)
     {
       mmrest_ = new Spanner (get_property ("MultiMeasureRest"));
-      number_ = new Spanner (get_property ("MultiMeasureRestNumber"));
 
-      Side_position_interface::add_support (number_, mmrest_);
-      number_->set_parent (mmrest_, Y_AXIS);
+      if (text_events_.size())
+	{
+	  for (int i = 0; i < text_events_.size(); i++)
+	    {
+	      Spanner *sp
+		= new Spanner (get_property ("MultiMeasureRestText"));
 
+	      Music* e = text_events_[i];
+	      SCM t = e->get_mus_property ("text");
+	      SCM dir = e->get_mus_property ("direction");
+	      sp->set_grob_property ("text",t);
+	      if (ly_dir_p (dir))
+		sp->set_grob_property ("direction",dir);
+	      
+	      numbers_.push (sp);
+	      announce_grob (sp, e->self_scm());
+	    }
+
+	  /*
+	    Stack different scripts.
+	   */
+	  Direction d = DOWN; 
+	  do {
+	    Grob *last =0;
+	    for (int i=0; i <numbers_.size(); i++)
+	      {
+		if (gh_int2scm (d) == numbers_[i]->get_grob_property ("direction"))
+		  {
+		    if (last)
+		      Side_position_interface::add_support (numbers_[i], last);
+		    last = numbers_[i];
+		  }
+	      }
+	  } while (flip (&d) != DOWN);
+	}
+      else
+	{
+	  Spanner *sp
+	    = new Spanner (get_property ("MultiMeasureRestNumber"));
+	  numbers_.push (sp);
+	  announce_grob (sp, busy_span_req_->self_scm());
+	}
+
+      for (int i =0 ; i < numbers_.size(); i++)
+	{
+	  Side_position_interface::add_support (numbers_[i], mmrest_);
+	  numbers_[i]->set_parent (mmrest_, Y_AXIS);
+	}
+      
       announce_grob (mmrest_, busy_span_req_->self_scm());
-      announce_grob (number_, busy_span_req_->self_scm());
       start_measure_
 	= gh_scm2int (get_property ("currentBarNumber"));
     }
@@ -116,12 +165,14 @@ Multi_measure_rest_engraver::process_music ()
       if (mmrest_)
 	{
 	  add_bound_item (mmrest_, it);
-	  add_bound_item (number_, it);
+	  for (int i = 0; i < numbers_.size(); i++)
+	    add_bound_item (numbers_[i], it);
 	}
       if (last_rest_)
 	{
 	  add_bound_item (last_rest_,it);
-	  add_bound_item (last_number_, it);
+	  for (int i = 0; i < last_numbers_.size(); i++)
+	    add_bound_item (last_numbers_[i], it);
 	}      
     }
 }
@@ -137,14 +188,16 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       && mmrest_->get_bound (LEFT) && mmrest_->get_bound (RIGHT))
     {
       typeset_grob (mmrest_);
-      typeset_grob (number_);
-      Side_position_interface::add_staff_support (number_);
+      for (int i = 0 ; i < numbers_.size(); i++)
+	{
+	  typeset_grob (numbers_[i]);
+	  Side_position_interface::add_staff_support (numbers_[i]);
+	}
+      
       /*
 	we must keep mmrest_ around to set measure-count, so
 	no mmrest_ = 0 here. 
        */
-
-      
     }
 
   if (last_rest_)
@@ -154,10 +207,15 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
 	  && last_rest_->get_bound (LEFT) != last_rest_->get_bound (RIGHT))
 	{
 	  typeset_grob (last_rest_);
-	  typeset_grob (last_number_);
+
+	  /*
+	    huh ? add-staff-support ?
+	  */
+	  for (int i = 0; i < last_numbers_.size ();i++)
+	    typeset_grob (last_numbers_[i]);
 	}
       last_rest_ = 0;
-      last_number_ = 0;
+      last_numbers_.clear();
     }
 
   if (new_req_)
@@ -165,7 +223,8 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       busy_span_req_ = new_req_;
       new_req_ =0;
     }
-  
+
+  text_events_.clear ();
 }
 
 void
@@ -177,7 +236,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
   if (mmrest_ && !mp.to_bool ())
     {
       last_rest_ = mmrest_;
-      last_number_ = number_;
+      last_numbers_ = numbers_;
 
       int cur = gh_scm2int (get_property ("currentBarNumber"));
       int num = cur - start_measure_;
@@ -192,22 +251,25 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 
       mmrest_ = 0;
 
-      SCM text =last_number_->get_grob_property ("text");
-      SCM thres = get_property ("restNumberThreshold");
-      int t = 1;
-      if (gh_number_p (thres))
-	t = gh_scm2int (thres);
-      
-      if (text == SCM_EOL && num <= t)
-	last_number_->suicide();
-      else if (text == SCM_EOL)
+      Grob * last = last_numbers_.size() ? last_numbers_[0] : 0;
+      if (last && last->get_grob_property ("text") == SCM_EOL)
 	{
-	  text = scm_number_to_string (gh_int2scm (num), SCM_MAKINUM (10));
-	  last_number_->set_grob_property ("text", text);
+	  SCM thres = get_property ("restNumberThreshold");
+	  int t = 1;
+	  if (gh_number_p (thres))
+	    t = gh_scm2int (thres);
+      
+	  if (num <= t)
+	    last->suicide();
+	  else 
+	    {
+	      SCM text
+		= scm_number_to_string (gh_int2scm (num), SCM_MAKINUM (10));
+	      last->set_grob_property ("text", text);
+	    }
 	}
     }
 }
-
 
 void
 Multi_measure_rest_engraver::finalize ()
@@ -215,13 +277,18 @@ Multi_measure_rest_engraver::finalize ()
   if (mmrest_)
     {
       typeset_grob (mmrest_);
-      typeset_grob (number_);
     }
   if (last_rest_)
     {
       typeset_grob (last_rest_);
-      typeset_grob (last_number_);
     }
+
+  for (int i = 0; i < last_numbers_.size ();i++)
+    typeset_grob (last_numbers_[i]);
+
+  for (int i = 0; i < numbers_.size ();i++)
+    typeset_grob (numbers_[i]);
+
 }
 
 ENTER_DESCRIPTION(Multi_measure_rest_engraver,
@@ -231,8 +298,8 @@ ENTER_DESCRIPTION(Multi_measure_rest_engraver,
 "over the MultiMeasureRest.  Reads measureLength to determine if it "
 "should use a whole rest or a breve rest to represent 1 measure "
 		  ,
-/* creats*/       "MultiMeasureRest MultiMeasureRestNumber",
-/* accepts */     "multi-measure-rest-event",
+/* creats*/       "MultiMeasureRest MultiMeasureRestNumber MultiMeasureRestText",
+/* accepts */     "multi-measure-rest-event multi-measure-text-event",
 /* acks  */      "",
 /* reads */       "currentBarNumber restNumberThreshold currentCommandColumn measurePosition measureLength",
 /* write */       "");
