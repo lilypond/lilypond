@@ -1,5 +1,12 @@
 2004-05-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/my-lily-lexer.cc (My_lily_lexer): copy keytable.
+
+	* lily/include/paper-book.hh (class Paper_book): remove height_
+	member.
+
+	* input/test/coriolan-margin.ly (texidoc): remove latex macros.
+
 	* lily/ly-module.cc (LY_DEFINE): bugfix.
 
 	* lily/paper-book.cc (book_title): separate function for the book

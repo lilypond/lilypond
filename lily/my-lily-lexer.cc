@@ -102,7 +102,7 @@ My_lily_lexer::My_lily_lexer (Sources *sources)
 My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
   : Includable_lexer ()
 {
-  keytable_ = src.keytable_;
+  keytable_ = new Keyword_table (*src.keytable_);
   encoding_ = src.encoding_;
   chordmodifier_tab_ = src.chordmodifier_tab_;
   pitchname_tab_stack_ = src.pitchname_tab_stack_;
@@ -111,6 +111,13 @@ My_lily_lexer::My_lily_lexer (My_lily_lexer const &src)
   error_level_ = src.error_level_; 
   main_input_b_ = src.main_input_b_;
 }
+
+My_lily_lexer::~My_lily_lexer ()
+{
+  delete keytable_;
+}
+
+
 
 SCM
 My_lily_lexer::encoding () const
@@ -203,11 +210,6 @@ My_lily_lexer::set_identifier (SCM name, SCM s)
     {
       programming_error ("Identifier is not a symbol.");
     }
-}
-
-My_lily_lexer::~My_lily_lexer ()
-{
-  delete keytable_;
 }
 
 
