@@ -17,6 +17,7 @@ class Ligature_bracket_engraver : public Ligature_engraver
 protected:
   virtual Spanner *create_ligature_spanner ();
   virtual void acknowledge_grob (Grob_info);
+  virtual void typeset_ligature (Spanner *ligature, Array<Grob_info>);
 
 public:
   TRANSLATOR_DECLARATIONS(Ligature_bracket_engraver);
@@ -37,13 +38,20 @@ Ligature_bracket_engraver::create_ligature_spanner ()
 }
 
 void
+Ligature_bracket_engraver::typeset_ligature (Spanner *ligature, Array<Grob_info>)
+{
+  typeset_grob (ligature);
+}
+
+void
 Ligature_bracket_engraver::acknowledge_grob (Grob_info info)
 {
-  if (ligature_)
+  if (current_ligature ())
     {
       if (Note_column::has_interface (info.grob_))
 	{
-	  Tuplet_bracket::add_column (ligature_, dynamic_cast<Item*> (info.grob_));
+	  Tuplet_bracket::add_column (current_ligature (),
+				      dynamic_cast<Item*> (info.grob_));
 	}
       else Ligature_engraver::acknowledge_grob (info);
     }

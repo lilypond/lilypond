@@ -76,6 +76,7 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 (grob-property-description 'arpeggio ly:grob? "pointer to arpeggio object.") 
 (grob-property-description 'arpeggio-direction ly:dir? "If set, put an
 arrow on the arpeggio squiggly line.")
+(grob-property-description 'ascendens boolean? "is this neume of an ascending?.")
 (grob-property-description 'attachment pair? "cons of symbols
 indicating how a slur should be attached at the ends. The format is
 '(LEFT-TYPE . RIGHT-TYPE), where both TYPEs are symbols. The values of
@@ -84,6 +85,7 @@ these symbols may be alongside-stem, stem, head or loose-end.")
 '(LEFT-offset . RIGHT-offset).  This offset is added to the
 attachments to prevent ugly slurs.  [fixme: we need more documentation here].
 .")
+(grob-property-description 'auctum boolean? "is this neume augmented?.")
 (grob-property-description 'auto-properties boolean? "if true, as many properties of this grob as possible will be determined automatically from the musical context.")
 (grob-property-description 'auto-knee-gap number? "If a gap is found between noteheads
 where a  horizontal beam fits that is larger than this number,  make a kneed beam.")
@@ -147,10 +149,12 @@ square of the inner notes involved.")
 (grob-property-description 'dash-length number? "the length of a dash.")
 (grob-property-description 'dash-period number? "the length of one dash + white space.")
 (grob-property-description 'dashed number? "[FIXME: use dash-period/dash length; see text-spanner] number representing the length of the dashes.")
+(grob-property-description 'descendens boolean? "is this neume of a descendent type?.")
 (grob-property-description 'de-uglify-parameters list? "list of 3 real constants. They define the valid areas for the middle control points. Used in de_uglyfy. They are a bit empirical.")
 
 (grob-property-description 'neutral-direction ly:dir? "Where to go if we're on the neutral position of the staff (by default, the middle of the staff; see also grob-property neutral-position).  [Ross] has the following to say about this: Some engravers consider the middle line neutral, and take the option of using either up- or down-stems for notes that fall on it. However, more up-to-date engraving no longer permits an option; now a down-stem is always appropriate.")
 (grob-property-description 'neutral-position number? "Position (in half staff spaces) where to flip the direction of stems: by default, custodes above this position get their stems downwards; custodes below this position get their stems upwards.  A value of 0 designates the center of the staff.  Use property neutral-direction to control the behaviour of stems on the neutral position itself.  (Note: currently, neutral-position is supported only for custodes; for stems of note heads, neutral-position is currently fixed to 0, i.e. the middle of the staff.)")
+(grob-property-description 'deminutum boolean? "is this neume deminished?.")
 (grob-property-description 'dependencies grob-list? "list of score-grob pointers that indicate who to compute first for certain global passes.")
 (grob-property-description 'details list? "alist of parameters for detailed grob behavior.")
 (grob-property-description 'dir-function procedure? "function of type (count total)->direction.  Default value: beam-dir-majority, also available: beam-dir-mean, beam-dir-median.
@@ -262,6 +266,7 @@ name of character within font.")
 ")
 (grob-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting. This is used by @ref{note-collision-interface}.")
 (grob-property-description 'ideal-distances list? "(OBJ . (DIST . STRENGTH)) pairs.")
+(grob-property-description 'inclinatum boolean? "is this neume an inclinatum?.")
 (grob-property-description 'interfaces list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
 (grob-property-description 'inversion list? " musical-pitch, optional.")
 (grob-property-description 'items-worth-living grob-list? "list of interesting items. If empty in a particular system, clear that system.")
@@ -354,6 +359,7 @@ provided in @code{input/regression/molecule-hacking.ly}.
 (grob-property-description 'note-head-style string? "name of the font character to be used as note heads in the ambitus grob.")
 (grob-property-description 'note-heads grob-list? "List of note head grobs")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
+(grob-property-description 'oriscus boolean? "is this neume an oriscus?.")
 (grob-property-description 'outer boolean? "whether a text spanner should extend to the outer edge of the spanned notes")
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
 (grob-property-description 'pedal-type symbol? "Style of piano pedal: text, bracket or mixed.")
@@ -363,11 +369,13 @@ this column. 10000 or more means forbid linebreak, -10000 or less
 means force linebreak.  Other values influence linebreaking decisions
 as a real penalty.")
 
+(grob-property-description 'pes-or-flexa boolean? "shall this neume be joined with the previous head?.")
 (grob-property-description 'pitch-max ly:pitch? "FIXME, JUNKME")
 (grob-property-description 'pitch-min ly:pitch? "FIXME, JUNKME")
 
 
 (grob-property-description 'pitches list? "list of musical-pitch.")
+(grob-property-description 'quilisma boolean? "is this neume a quilisma?.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
 (grob-property-description 'ratio number? "Slur parameter.  See height-limit.")
@@ -385,6 +393,7 @@ reference point.
 TODO: revise typing.")
 (grob-property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis.")
 (grob-property-description 'segments list? "DOCME.  ")
+(grob-property-description 'semivocalis boolean? "is this neume a lisquescending one?.")
 (grob-property-description 'shape symbol? "shape of cluster segments.  Valid values include 'leftsided-stairs', 'rightsided-stairs', 'centered-stairs', and 'ramp'.")
 (grob-property-description 'shorten number? "the amount of space that a stem should be shortened (DOCME!)")
 (grob-property-description 'shorten-pair number-pair? "the length on each side to shorten a text-spanner, for example a pedal bracket")
@@ -430,6 +439,7 @@ the Nth element of the list gives the amount stem shortening of a note with N fl
 ")
 (grob-property-description 'stem-spacing-correction number? "optical correction amount.  [TODO: doco] ")
 (grob-property-description 'stems grob-list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
+(grob-property-description 'stropha boolean? "is this neume a stropha?.")
 (grob-property-description 'style symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. .")
 (grob-property-description 'support-head ly:grob? "the note head at
 one end of the stem.")
@@ -531,6 +541,7 @@ of booleans, signifying whether this grob should be transparent and have
 no extent.
 
 ")
+(grob-property-description 'virga boolean? "is this neume a virga?.")
 (grob-property-description 'when ly:moment? "when does this column happen?.")
 (grob-property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics).")
 (grob-property-description 'alignment number? "alignment of lyrics on notehead, -1 is LEFT, 0 is CENTRE, 1 is RIGHT .")

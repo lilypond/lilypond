@@ -18,6 +18,15 @@
 /**
   make balls and rests
  */
+
+/*
+ * TODO: junk bool in_ligature (and all the messy code around it).
+ * This can be done by also junking LigatureHead in
+ * scm/grob-description.scm.  Instead, NoteHead should be used
+ * throughout typesetting of ligatures; ligature-(start/stop)-events
+ * should simply modify NoteHead properties values of
+ * molecule-callback ligature-primitive-callback.  --jr
+ */
 class Note_heads_engraver : public Engraver
 {
   Link_array<Item> notes_;
