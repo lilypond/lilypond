@@ -177,8 +177,8 @@ Paper_outputter::write_header_field_to_file (String filename, SCM key, SCM value
 void
 Paper_outputter::write_header_fields_to_file (SCM mod)
 {
-  
-  if (dump_header_fieldnames_global.size ())
+  if (ly_module_p (mod)&&
+      dump_header_fieldnames_global.size ())
     {
       SCM fields = ly_module_to_alist (mod);
       for (int i = 0; i < dump_header_fieldnames_global.size (); i++)

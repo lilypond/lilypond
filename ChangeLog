@@ -1,6 +1,10 @@
+2002-09-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/main.cc: small cleanups.
+
 2002-09-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* lily/ly-module.cc: new file.
+	* lily/ly-module.{cc,hh}: new file.
 
 2002-09-17  Rune Zedeler  <rune@zedeler.dk>
 

@@ -222,7 +222,7 @@ notice ()
 /* Where LilyPond's init files live.  Typically:
    LILYPOND_DATADIR = /usr/local/share/lilypond
    LOCAL_LILYPOND_DATADIR = /usr/local/share/lilypond/1.5.68 */
-char const *prefix_directory[2] = {LILYPOND_DATADIR, LOCAL_LILYPOND_DATADIR};
+char const *prefix_directory[] = {LILYPOND_DATADIR, LOCAL_LILYPOND_DATADIR, 0};
 
 void
 setup_paths ()
@@ -258,8 +258,7 @@ setup_paths ()
      LILYPONDPREFIX to lilypond-x.y.z */
   char *suffixes[] = {"ly", "afm", "mf/out", "scm", "tfm", "ps", 0};
 
-  for (unsigned i = 0; i < sizeof (prefix_directory)
-	 / sizeof (*prefix_directory); i++)
+  for (unsigned i = 0; prefix_directory[i]; i++)
     for (char **s = suffixes; *s; s++)
       {
 	String p = prefix_directory[i] + to_string ('/') + String (*s);
@@ -329,10 +328,10 @@ main_prog (void *, int, char **)
   /* Engravers use lily.scm contents, need to make Guile find it.
      Prepend onto GUILE %load-path, very ugh. */
      
-  for (unsigned i = 0; i < sizeof (prefix_directory)
-	 / sizeof (*prefix_directory); i++)
+  for (unsigned i = 0; prefix_directory[i]; i++)
     {
       prepend_load_path (prefix_directory[i]);
+
       /* Junk this.  We should make real modules iso. just loading files. */
       prepend_load_path (String (prefix_directory[i]) + "/scm");
     }
