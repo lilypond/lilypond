@@ -510,9 +510,9 @@ Like @code{bracket-visibility}, but for the number.")
 (grob-property-description 'tie ly:grob? "") 
 (grob-property-description 'type symbol? " 
 
-one of: line, dashed-line, trill or dotted-line.
+one of: line, dashed-line, trill, dotted-line or zigzag.
 
-[FIXME: type is too generic for this doc, move doco to intefrace] 
+[FIXME: type is too generic for this doc, move doco to interface] 
 ")
 
 (grob-property-description 'break-visibility procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).
@@ -543,7 +543,14 @@ no extent.
 (grob-property-description 'width-correct number? "width correction for (de)cresc. text spanners.")
 (grob-property-description 'x-gap number? "horizontal gap between notehead and tie.")
 (grob-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems.")
-(grob-property-description 'y-offset number? "extra vertical offset for ties away from the center line.")
+(grob-property-description 'y-offset number? "extra vertical offset
+for ties away from the center line.")
+(grob-property-description 'zigzag-length number? "The length of the
+lines of a zigzag - relative to zigzag-width. a value of 1
+gives 60-degree zigzags.")
+(grob-property-description 'zigzag-width number? "the width of one
+zigzag-squiggle, measured in staff space. The width will be adjusted
+so that the line can be constructed from a whole number of squiggles.")
 
 
 ;;; INTERNAL

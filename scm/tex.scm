@@ -96,6 +96,9 @@
 (define (dashed-line thick on off dx dy)
   (embedded-ps (list 'dashed-line  thick on off dx dy)))
 
+(define (zigzag-line centre? zzw zzh thick dx dy)
+  (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))
+
 (define (font-load-command name-mag command)
   (string-append
    "\\font\\" command "="
