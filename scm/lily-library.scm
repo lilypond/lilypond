@@ -293,6 +293,12 @@ possibly turned off."
   (display message) (write x) (newline) x)
 ;;  x)
 
+
+(define-public (stderr string . rest)
+  (apply format (cons (current-error-port) (cons string rest)))
+  (force-output (current-error-port)))
+
+
 (define (index-cell cell dir)
   (if (equal? dir 1)
       (cdr cell)

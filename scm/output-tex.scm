@@ -56,10 +56,6 @@
 	     (scm framework-tex)
 	     (lily))
 
-;; helper functions
-(define (stderr string . rest)
-  (apply format (cons (current-error-port) (cons string rest)))
-  (force-output (current-error-port)))
 
 
 ;;;;;;;;
