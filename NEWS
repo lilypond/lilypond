@@ -1,27 +1,28 @@
 
 New features in 1.5
 
-* Simple tablature
+* Simple tablature.
 
 * Many speedups, many slowdowns.
 
-* More extensibility
+* More extensibility.
 
-* Figured bass support
+* Figured bass support.
 
 * Improved beam formatting.
 
 * Improved grace notes.
 
-* Improved accidental handling and formatting
+* Improved accidental handling and formatting.
 
-* Better spacing. Includes subtle details like optical stem spacing.
+* Better spacing.  Includes subtle details like optical stem spacing.
 
-* More ancient notation support: mensural ligatures, porrectuses, more
-shapes.
+* More ancient notation support: mensural ligatures, porrectuses, more shapes.
 
 * Bracket piano pedals.
 
-* Some entry optimizations.
+* Some music entry optimizations.
 
 * Font completely revised and improved.
+
+* Completely rewritten midi input support.
