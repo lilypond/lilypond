@@ -22,50 +22,86 @@
 @end itemize
 
 @html
-<a name="new-users">
+<a name="newbies">
 @end html
+
+
+@c Flat lists of links are not so handy
+@c the links themselves (basename of filename) do not make for
+@c intuitive clicking.
 
 
 @unnumberedsubsec Information for new users
 
+@c Hmm, this looks a bit better; maybe for users/developers too?
+
+@quotation
+
+@unnumberedsubsubsec Installation
+
 @itemize @bullet
-@item @uref{../../index.html,index} What is Lilypond?
-@item @uref{../topdocs/out-www/README.html, README} general information
+@item @uref{../topdocs/out-www/README.html, README} General information.
 @item @uref{../topdocs/out-www/INSTALL.html, INSTALL}
   How install on Unix.
 @item @uref{../windows/out-www/installing.html, WINDOWS}
 How to install on Windows.
-@item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQ} Frequently
-asked questions, with answers.
+@end itemize
+
+@c also for users...
+@unnumberedsubsubsec Support
+
+@itemize @bullet
+@item @uref{../../index.html,index} What is Lilypond?
+@item @uref{../topdocs/out-www/FAQ.html,mini-FAQ} Mini FAQ -- very
+frequently asked questions, with answers.
+@item @uref{http://www.lilypond.org/wiki?LilyPondFaqs,FAQs} Frequently
+Asked Questions, with answers.
 @item @uref{http://www.lilypond.org/wiki?MailingLists,MailingLists} Subscribe to
-the mailing lists
+the mailing lists.
+@end itemize
+
+@unnumberedsubsubsec Documents
+
+@c direct links into first steps and running lily?
+@itemize @bullet
 @item @uref{../user/out-www/lilypond/Tutorial.html,Tutorial} Learn how to use LilyPond.
 @end itemize
 
-
+@end quotation
 
 @html
-<a name="other-users">
+<a name="users">
 @end html
 
 @unnumberedsubsec Information for users
 
 
 @itemize @bullet
-@item @uref{CHANGES.html, CHANGES} things recently done
+@item @uref{CHANGES.html, CHANGES} Things recently done.
 
 @c download sites?
 
 @c archives?
 
-@item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,lilypond-internals}
-Documentation of internals, generated from the sources. If you want to
-fine-tune output, you need the information in this document.
-@item @uref{../user/out-www/lilypond/lilypond.html,lilypond}
-  The user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript})
+@c tutorial?
+
+@item
+@uref{../user/out-www/lilypond/Reference-Manual.html,Reference-Manual}
+The reference manual.
+
+@item @uref{../user/out-www/lilypond/lilypond.html,lilypond} The complete
+user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript}). This
+manual contains among others the tutorial, the reference manual.
+
+@c glossary maybe for new users?
 @item @uref{../user/out-www/glossary.html,glossary} A glossary of musical
 terms, including translations.  (in
-@uref{../user/out-www/glossary.ps.gz,Postscript})
+@uref{../user/out-www/glossary.ps.gz,Postscript})  Read this if you're not
+familiar with English terms for notation.
+
+@item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,lilypond-internals}
+Full documentation of internals, generated from the sources.  If you
+want to fine-tune output, you need the information in this document.
 @end itemize
 
 
@@ -76,11 +112,13 @@ terms, including translations.  (in
 
 @unnumberedsubsec Information for developers
 
+@c Han-Wen's site?
+@c Jan's site?
 
 @itemize @bullet
-@item @uref{../out-www/regression-test.html,regression-test} A glossary
-of musical terms, including translations.  (in
-@uref{../out-www/regression-test.ps.gz,Postscript})
+@item @uref{../out-www/regression-test.html,regression-test}
+A large document that tests all kinds of features (in
+@uref{../out-www/regression-test.ps.gz,Postscript}).
 @item
 @uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,lilypond
 textual domain
