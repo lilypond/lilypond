@@ -341,13 +341,12 @@ fet_endchar;
 %
 % NOTES:
 %
-% * right stem is fatter and more straight than the left 2 two  stems.
+% * right stem is fatter and more straight than the left 2 two stems.
 %
 % * The twiddle  at the left is similar to the p twiddle 
 %
 % * The bottoms of the stems are blotted. 
 %
-
 
 %
 %
