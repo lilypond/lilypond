@@ -18,7 +18,7 @@ Buildrequires: t1utils bison flex mftrace ImageMagick
 Buildrequires: texinfo >= 4.7
 Buildrequires: guile-devel >= 1.6.4-8 
 Buildrequires: freetype-devel >= 2.1
-#Buildrequires: fontforge >= 20041211
+Buildrequires: fontforge #  >= 20041211 urg. 0.0.0-fdr.1.20041211
 
 Requires: tetex  tetex-latex libstdc++ python  tetex-dvips tetex-latex
 Requires: guile >= 1.6.4-8 ghostscript >= 8.15
