@@ -69,6 +69,7 @@ help: generic-help local-help
   release     roll tarball and generate patch\n\
   rpm         build RedHat package\n\
   po          make new translation Portable Object database\n\
+  po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\
   tar         same as dist\n\
   TAGS        genarate tagfiles\n\

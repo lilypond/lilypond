@@ -1,22 +1,8 @@
 \version "1.3.130";
 
-\include "paper16.ly";
+\include "paper13.ly";
 
 % #(set! point-and-click #t)
-#(define text-flat '((font-relative-size . -2) (music "accidentals--1")))
-
-staffCombinePianoStaffProperties = {
-	\property PianoStaff.devNullThread = #'()
-	\property PianoStaff.soloADue = ##t
-	\property PianoStaff.soloText = #""
-	\property PianoStaff.soloIIText = #""
-	% This is non-conventional, but currently it is
-	% the only way to tell the difference.
-	\property PianoStaff.aDueText = #"\\`a2"
-	\property PianoStaff.splitInterval = #'(1 . 0)
-	\property PianoStaff.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
-	\property PianoStaff.noDirection = ##t
-}
 
 % Coriolan 218-222
 flautoI = \notes\relative c'' {
@@ -98,6 +84,20 @@ contrabasso = \notes\relative c {
 }
 
 
+#(define text-flat '((font-relative-size . -2) (music "accidentals--1")))
+
+staffCombinePianoStaffProperties = {
+	\property PianoStaff.devNullThread = #'()
+	\property PianoStaff.soloADue = ##t
+	\property PianoStaff.soloText = #""
+	\property PianoStaff.soloIIText = #""
+	% This is non-conventional, but currently it is
+	% the only way to tell the difference.
+	\property PianoStaff.aDueText = #"\\`a2"
+	\property PianoStaff.splitInterval = #'(1 . 0)
+	\property PianoStaff.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+	\property PianoStaff.noDirection = ##t
+}
 
 %%
 %% Hmm, can't we move this to a `template.ly'
@@ -144,7 +144,7 @@ contrabasso = \notes\relative c {
       >
     >
     \context StaffGroup = brass <
-      \context Staff = frenshHorns <
+      \context Staff = frenchHorns <
         \property Staff.midiInstrument = #"french horn"
 	\property Staff.instrument = #`(lines
 	  "2 Corni" (rows "(E" ,text-flat ")"))
@@ -157,7 +157,7 @@ contrabasso = \notes\relative c {
 	  \context Thread=two \cornoII
       >
       \context Staff = trumpets <
-  	\property Staff.midiInstrument = #"clarinet"
+  	\property Staff.midiInstrument = #"trumpet"
 	\property Staff.instrument = #`(lines
 	  "2 Trombe" (rows "(C)"))
 	\property Staff.instr = #`(lines
@@ -224,7 +224,7 @@ contrabasso = \notes\relative c {
     >
   >
   \paper {
-    \paperSixteen
+    \paperThirteen
     linewidth = 80 * \staffspace;
     textheight = 200 * \staffspace;
     \translator{

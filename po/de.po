@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Lilypond 1.2.8\n"
-"POT-Creation-Date: 2001-02-24 12:58+0100\n"
+"POT-Creation-Date: 2001-02-27 21:26+0100\n"
 "PO-Revision-Date: 1999-09-18 01:30+0200\n"
 "Last-Translator: Erwin Dieterich <bamse@gmx.de>\n"
 "Language-Team: LANGUAGE <de@li.org>\n"
@@ -63,8 +63,8 @@ msgstr "Position unbekannt"
 msgid "can't map file"
 msgstr "Kann die Datei nicht mappen"
 
-#: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:111
-#: paper-stream.cc:40 scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
+#: mapped-file-storage.cc:87 mudela-stream.cc:111 paper-stream.cc:40
+#: scores.cc:48 simple-file-storage.cc:44 text-stream.cc:23
 #, c-format
 msgid "can't open file: `%s'"
 msgstr "Kann die Datei %s nicht öffnen"
@@ -185,7 +185,7 @@ msgstr "Notenhals passt nicht in den Balken"
 msgid "beam was started here"
 msgstr "Der Balken bagann hier"
 
-#: break-align-item.cc:131
+#: break-align-item.cc:136
 #, fuzzy, c-format
 msgid "unknown spacing pair `%s', `%s'"
 msgstr "unbekannter Übersetzer `%s'"
@@ -247,22 +247,22 @@ msgstr "Kann die Speicherüberprüfung nicht setzen"
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:194 span-dynamic-performer.cc:86
+#: dynamic-engraver.cc:198 span-dynamic-performer.cc:86
 #, fuzzy
 msgid "can't find start of (de)crescendo"
 msgstr "Ich kann kein (De)crescendo bis zum Ende finden"
 
-#: dynamic-engraver.cc:219
+#: dynamic-engraver.cc:223
 #, fuzzy
 msgid "already have a crescendo"
 msgstr "Habe schon einen Balken"
 
-#: dynamic-engraver.cc:220
+#: dynamic-engraver.cc:224
 #, fuzzy
 msgid "already have a decrescendo"
 msgstr "Habe schon einen Balken"
 
-#: dynamic-engraver.cc:303
+#: dynamic-engraver.cc:307
 #, fuzzy
 msgid "unterminated (de)crescendo"
 msgstr "Nichtbeendetes Crescendo"
@@ -353,102 +353,106 @@ msgstr ""
 msgid "Huh? Melismatic note found to have associated lyrics."
 msgstr ""
 
-#: main.cc:105
+#: main.cc:108
 msgid "EXT"
 msgstr "EXT"
 
-#: main.cc:105
+#: main.cc:108
 #, fuzzy
 msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "Benutze das Ausgabeformat EXT"
 
-#: main.cc:95 main.cc:106
+#: main.cc:95 main.cc:109
 msgid "this help"
 msgstr "Diese Hilfe"
 
-#: main.cc:107
+#: main.cc:110
 #, fuzzy
 msgid "FIELD"
 msgstr "DATEI"
 
-#: main.cc:107
+#: main.cc:110
 msgid "write header field to BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:108 main.cc:111
+#: main.cc:111 main.cc:114
 msgid "DIR"
 msgstr "DIR"
 
-#: main.cc:108
+#: main.cc:111
 msgid "add DIR to search path"
 msgstr "Hänge DIR an den Suchpfad an"
 
-#: main.cc:98 main.cc:109
+#: main.cc:98 main.cc:112
 msgid "FILE"
 msgstr "DATEI"
 
-#: main.cc:109
+#: main.cc:112
 msgid "use FILE as init file"
 msgstr "Verwende FILE als Initialisierungsdatei"
 
-#: main.cc:110
+#: main.cc:113
 msgid "write Makefile dependencies for every input file"
 msgstr "Schreibe Makefile-Abhängigkeiten für jede Eingabedatei"
 
-#: main.cc:111
+#: main.cc:114
 msgid "prepend DIR to dependencies"
 msgstr ""
 
-#: main.cc:112
+#: main.cc:115
 #, fuzzy
 msgid "produce MIDI output only"
 msgstr "Nur Midiausgabe"
 
-#: main.cc:113
+#: main.cc:116
 #, fuzzy
 msgid "NAME"
 msgstr "BASENAME"
 
-#: main.cc:113
+#: main.cc:116
 #, fuzzy
 msgid "write output to NAME"
 msgstr "Schreibe die Ausgabe in BASENAME[-x].Erweiterung"
 
-#: main.cc:114
+#: main.cc:117
 msgid "inhibit file output naming and exporting"
 msgstr "Unterdrücke die automatische Benennung von Ausgabedateien und Export"
 
-#: main.cc:103 main.cc:115
+#: main.cc:103 main.cc:118
 msgid "don't timestamp the output"
 msgstr "Keine Datumsangabe auf der Ausgabe"
 
-#: main.cc:104 main.cc:116
+#: main.cc:104 main.cc:119
 msgid "print version number"
 msgstr "Zeige die Versionsnummer"
 
-#: main.cc:117
+#: main.cc:120
 #, fuzzy
 msgid "verbose"
 msgstr "Sei geschwätzig"
 
-#: main.cc:106 main.cc:118
+#: main.cc:106 main.cc:121
 msgid "show warranty and copyright"
 msgstr "Zeige Garantie und Urheberrechte"
+
+#: main.cc:122
+msgid "write midi ouput in formatted ascii"
+msgstr ""
 
 #.
 #. No version number or newline here. It confuses help2man
 #.
-#: main.cc:135
+#: main.cc:139
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "Benutzung: %s [OPTIONEN] ... [DATEI] ..."
 
-#: main.cc:137
+#: main.cc:141
 #, fuzzy
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "Setze Musik oder spiele MIDI von DATEI"
 
-#: main.cc:141
+#: main.cc:145
 msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
@@ -458,20 +462,20 @@ msgstr ""
 "Notenblätter erzeugen. Dazu verwendet es eine eigene Beschreibungssprache.\n"
 "lilyPond ist Teil des GNU-Projekts\n"
 
-#: main.cc:119 main.cc:147
+#: main.cc:119 main.cc:151
 msgid "Options:"
 msgstr "Optionen:"
 
-#: main.cc:151
+#: main.cc:155
 msgid "This binary was compiled with the following options:"
 msgstr "Diese Programm wurde mit den folgenden Optionen übersetzt:"
 
-#: main.cc:123 main.cc:170
+#: main.cc:123 main.cc:174
 #, fuzzy, c-format
 msgid "Report bugs to %s"
 msgstr "Melde Fehler an"
 
-#: main.cc:55 main.cc:178
+#: main.cc:55 main.cc:182
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -484,17 +488,17 @@ msgstr ""
 "einhalten. Wenn Sie das Programm mit `%s --warranty starten, bekommen\n"
 "Sie mehr Informationen.\n"
 
-#: main.cc:62 main.cc:185 main.cc:197
+#: main.cc:62 main.cc:189 main.cc:201
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Urheberrechte (Copyright) (c) %s bei"
 
-#: main.cc:195
+#: main.cc:199
 #, fuzzy
 msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- Der Notensatz des GNU-Projekts"
 
-#: main.cc:71 main.cc:203
+#: main.cc:71 main.cc:207
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -524,28 +528,23 @@ msgstr ""
 "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
 "USA.\n"
 
-#: midi-item.cc:311
+#: midi-item.cc:312
 #, fuzzy, c-format
 msgid "no such instrument: `%s'"
 msgstr "Kein solches instrument: `%s'"
 
-#: midi-item.cc:366
+#: midi-item.cc:367
 #, c-format
 msgid "unconventional key: flats: %d, sharps: %d"
 msgstr "Ungewöhnliche Tonart: Bes: %d, Kreuze: %d"
 
-#: midi-item.cc:413
+#: midi-item.cc:414
 msgid "silly duration"
 msgstr "Unsinnige Dauer"
 
-#: midi-item.cc:426
+#: midi-item.cc:427
 msgid "silly pitch"
 msgstr "unsinnige Tonhöhe"
-
-#: midi-stream.cc:29 paper-stream.cc:50
-#, fuzzy
-msgid "Error syncing file (disk full?)"
-msgstr "Fehler beim Abspeichern der Datei (Platte voll?)"
 
 #: musical-request.cc:29
 #, fuzzy, c-format
@@ -621,6 +620,11 @@ msgstr "Gebe Partitur aus, definiert bei: "
 msgid "can't create directory: `%s'"
 msgstr "Kann ein `%s' weder finden noch erzeugen"
 
+#: paper-stream.cc:50
+#, fuzzy
+msgid "Error syncing file (disk full?)"
+msgstr "Fehler beim Abspeichern der Datei (Platte voll?)"
+
 #.
 #. We could change the current translator's id, but that would make
 #. errors hard to catch
@@ -650,7 +654,7 @@ msgstr "Erstellt von: "
 msgid "from musical definition: %s"
 msgstr "von der musiaklischen Definition: %s"
 
-#: performance.cc:161
+#: performance.cc:166
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "MIDI-Ausgabe nach %s..."
@@ -777,7 +781,7 @@ msgstr ""
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr "Setze Note auf unpassenden Hals (Typ = %d)"
 
-#: text-spanner.cc:117
+#: text-spanner.cc:121
 msgid "Text_spanner too small"
 msgstr ""
 
@@ -811,11 +815,11 @@ msgstr "TFM header von `%s' hat nur %u Wort(e)"
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr "%s: TFM-Datei hat %u Parameter. Das ist mehr als die"
 
-#: tie-engraver.cc:212 tie-performer.cc:173
+#: tie-engraver.cc:211 tie-performer.cc:173
 msgid "No ties were created!"
 msgstr "Es wurden keine Haltebögen erzeugt!"
 
-#: tie-engraver.cc:231
+#: tie-engraver.cc:230
 msgid "lonely tie"
 msgstr "Einsamer Haltebogen"
 

@@ -34,3 +34,5 @@ po-update: po
 po-changes:
 	$(MAKE) -C $(po-dir) po-changes
 
+po-replace: po
+	$(MAKE) -C $(po-dir) po-replace
