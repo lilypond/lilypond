@@ -5,7 +5,7 @@
 
 }
 
-\version "2.1.35"
+\version "2.1.36"
 
 \paper {
    indent = 0.0\mm

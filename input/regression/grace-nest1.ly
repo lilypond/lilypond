@@ -1,4 +1,4 @@
-\version "2.1.30"
+\version "2.1.36"
 \header {
 texidoc = "Grace code should not be confused by nested sequential musics, containing grace notes; practically speaking, this means that the end-bar and measure bar coincide in this example." 
 

@@ -1,15 +1,15 @@
 /*   
-accidental-placement.cc --  implement Accidental_placement
+     accidental-placement.cc --  implement Accidental_placement
 
-source file of the GNU LilyPond music typesetter
+     source file of the GNU LilyPond music typesetter
 
-(c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+     (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
- */
+*/
 
 #include <math.h>
-#include <libc-extension.hh>
 
+#include "libc-extension.hh" 	// isinf
 #include "item.hh"
 #include "skyline.hh"
 #include "music.hh"

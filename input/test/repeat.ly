@@ -1,4 +1,4 @@
-\version "2.1.30"
+\version "2.1.36"
 
 % possible rename to lyric-repeat or repeat-lyric.
 

@@ -85,12 +85,12 @@ get_voice_to_lyrics (Context *lyrics)
 	nm = nm.left_string (idx);
     }
 
-  Context *c =  lyrics->find_existing_context (ly_symbol2scm ("Voice"), nm);
+  Context *c =  lyrics->find_context_below (ly_symbol2scm ("Voice"), nm);
 
   if (c)
     return c;
 
-  return lyrics->find_existing_context (ly_symbol2scm ("Voice"), "");
+  return lyrics->find_context_below (ly_symbol2scm ("Voice"), "");
 }
 
 Grob *

@@ -1,4 +1,4 @@
-\version "2.1.30"
+\version "2.1.36"
 
 \header {
     texidoc = "Stress optimal page breaking.  This should look nice on 4 a6 pages."
@@ -25,7 +25,7 @@
 	\repeat unfold 17 { a b c d \break }
     }
     \paper {
-	#(set-paper-size "a6")
+	#(set-default-paper-size "a6")
 	#(define page-breaking ly:optimal-page-breaks)
     }
 }

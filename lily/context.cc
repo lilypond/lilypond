@@ -96,7 +96,7 @@ Context::Context ()
 }
 
 Context *
-Context::find_existing_context (SCM n, String id)
+Context::find_context_below (SCM n, String id)
 {
   if ((is_alias (n) && (id_string_ == id || id.is_empty ())))
     return this;
@@ -106,7 +106,7 @@ Context::find_existing_context (SCM n, String id)
     {
       Context *  t = unsmob_context (ly_car (p));
       
-      r = dynamic_cast<Context*> (t)->find_existing_context (n, id);
+      r = dynamic_cast<Context*> (t)->find_context_below (n, id);
     }
 
   return r;
@@ -125,7 +125,7 @@ Context::find_create_context (SCM n, String id,
     return get_score_context ()->find_create_context (n, id, operations);
     
   
-  Context * existing = find_existing_context (n,id);
+  Context * existing = find_context_below (n,id);
   if (existing)
     return existing;
 

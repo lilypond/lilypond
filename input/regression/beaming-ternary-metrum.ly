@@ -1,5 +1,5 @@
 
-\version "2.1.30"
+\version "2.1.36"
 \header {
 texidoc = "Automatic beaming works also in ternary time sigs."
 }

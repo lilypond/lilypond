@@ -2062,6 +2062,14 @@ def conv (str):
 conversions.append (((2,1, 36), conv,
 		     '''ly:mutable-music-properties -> ly:music-mutable-properties'''))
 
+
+
+def conv (str):
+	return str
+
+conversions.append (((2,2, 0), conv,
+		     '''clean up version. '''))
+
 ################################
 #	END OF CONVERSIONS	
 ################################

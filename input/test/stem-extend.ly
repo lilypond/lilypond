@@ -1,4 +1,4 @@
-\version "2.1.30"
+\version "2.1.36"
 
 \header { texidoc = "@cindex Stem Extend
 Extending stems to the center line may be prevented using @code{no-stem-extend}.

@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "2.2.0"
 
 \header{
 texidoc="
@@ -18,6 +18,6 @@ Different text styles are used for various purposes.
 			 f4\ff^""^\markup  { \large "Largo" } \mark "B" g 
 	}
 	\paper { raggedright = ##t
-	% \translator {\BarNumberingStaffContext} }
+	% \context {\BarNumberingStaffContext} }
 	}
 }

@@ -1,4 +1,4 @@
-\version "2.1.30"
+\version "2.1.36"
 \header {
     texidoc = "The layout of the major 7 can be tuned with
 @code{majorSevenSymbol}."

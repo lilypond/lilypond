@@ -230,7 +230,7 @@ public:
 
 MAKE_SCHEME_CALLBACK (Cluster_beacon,height,2);
 SCM
-Cluster_beacon::height (SCM g, SCM ax)
+Cluster_beacon::height (SCM g, SCM)
 {
   (void) ax;
   Grob *me = unsmob_grob (g);

@@ -64,16 +64,22 @@ Change_iterator::process (Moment m)
   if (current) 
     if (last)
       {
-	Context * dest = 
-	  get_outlet ()->find_existing_context (to_type, to_id);
+	Context * dest = 0;
+	Context * where = get_outlet ();
+	while (!dest && where)
+	  {
+	    dest = where->find_context_below (to_type, to_id);
+	    where = where->daddy_context_;
+	  }
+	
 	if (dest)
 	  {
-	current->remove_context (last);
-	dest->add_context (last);
+	    current->remove_context (last);
+	    dest->add_context (last);
 	  }
 	else
 	  {
-	    get_music ()->origin ()->warning  ("Could not find context to switch to.");
+	    get_music ()->origin ()->warning  ("could not find context to switch to.");
 	  }
       }
     else

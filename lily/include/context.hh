@@ -55,7 +55,7 @@ public:
   
   virtual Music_output_def *get_output_def () const;
   virtual Moment now_mom () const;
-  Context *find_existing_context (SCM context_name, String id);
+  Context *find_context_below (SCM context_name, String id);
   Context *find_create_context (SCM context_name,
 					    String id, SCM ops);
   Link_array<Context> path_to_acceptable_context (SCM alias,
