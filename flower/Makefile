@@ -5,6 +5,9 @@ $(staticlib): $(obs) fversion.hh
 
 include deps/*.dep
 
+flower-config.hh:
+	touch flower-config.hh
+
 deps/*.dep:
 	touch deps/dummy.dep
 

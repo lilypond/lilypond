@@ -152,9 +152,8 @@ String::compare_i(String const& s1, String const& s2 )
 
     int i1 = s1.length_i();
     int i2 = s2.length_i();
-    int i = i1 <? i2;
 
-    int result=  memcmp( p1, p2, i );
+    int result=  memcmp( p1, p2, i1 <? i2 );
     return result ? result : i1-i2;
 }
 
@@ -220,8 +219,8 @@ int
 String::index_i( String searchfor ) const
 {
     char const* me = strh_.ch_c_l();
-    char const* p = (char const *) memmem(me, length_i(), searchfor.ch_c_l(), 
-					  searchfor.length_i());
+    char const* p = (char const *) memmem(
+	me, length_i(), searchfor.ch_c_l(), searchfor.length_i());
     
     if ( p )
 	return p - me;
@@ -300,6 +299,11 @@ String::nomid_str( int index_i, int n ) const
 String
 String::mid_str( int index_i, int n ) const
 {
+    if (index_i <0) {
+	n += index_i;
+	index_i=0;
+    }
+    
     if ( !length_i() || ( index_i < 0 ) || ( index_i >= length_i() ) || ( n < 1 ) )
 	return String();
 

@@ -13,13 +13,20 @@
 
 char* strnlwr( char* start_l ,int n);
 char* strnupr( char* start_l, int n);
-/*
-  should use void* like in libc
- */
-char *memmem(const Byte * haystack, const Byte *needle,
-	       int haystack_len, int needle_len);
+
+#ifndef HAVE_MEMMEM		// GNU extension.
+char *memmem(const Byte * haystack, int haystack_len,
+	     const Byte *needle, int needle_len);
+#endif HAVE_MEMMEM
+
+#ifndef HAVE_SNPRINTF		// GNU extension.
+int snprintf (char *str, size_t n,
+	      const char *format, ... );
+#endif
+
+
 Byte *memrchr(const Byte * p, int n, char c);
-Byte*strrev( Byte* byte_l, int length_i );
+Byte *strrev( Byte* byte_l, int length_i );
 
 
 #endif // LIBC_EXTENSION_HH
