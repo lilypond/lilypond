@@ -37,6 +37,7 @@
 
 #include "proto.hh"
 #include "moment.hh"
+#include "mi2mu-proto.hh"
 
 struct Midi_parser_info
 {
@@ -48,6 +49,7 @@ struct Midi_parser_info
   Byte const* byte_L_;
   Byte const* end_byte_L_;
   Source_file* source_l_;
+  Mudela_score* score_l_;
   Moment bar_mom_;
 };
 

@@ -25,8 +25,8 @@ Duration_convert::dur2_str( Duration dur )
 		return String( "["  ) + String( dur.ticks_i_ ) + "]";
 	
 	String str;
-	if (dur.durlog_i_ >= 0)
-	    str="breve";
+	if (dur.durlog_i_ <= 0)
+	    str="\\breve";
 	else
 	    str= String( type2_i(dur.durlog_i_) );
 	str += String( '.', dur.dots_i_ );

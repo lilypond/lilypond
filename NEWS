@@ -1,3 +1,10 @@
+pl 9.jcn3
+	- bf: standchen
+	- update 20pt table
+	- mi2mu: bf's, --key option
+	- removed Duration(int,int)
+	- bf: Duration_convert::dur2_str
+
 pl 9.jcn2
 	- redo of mi2mu frontend (midi-parser)
 	- bf: String_convert::bin2_i; added bin2_u

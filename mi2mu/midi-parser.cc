@@ -20,6 +20,7 @@ Midi_parser_info::Midi_parser_info ()
   errorlevel_i_ = 0;
   byte_L_ = 0;
   end_byte_L_ = 0;
+  score_l_ = 0;
 }
 
 Midi_parser::Midi_parser ()

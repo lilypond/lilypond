@@ -40,20 +40,21 @@ Mudela_key::Mudela_key (int accidentals_i, int minor_i)
 {
   accidentals_i_ = accidentals_i;
   minor_i_ = minor_i;
-  if (accidentals_i >= 0)
-	key_i_ =   ((accidentals_i % 7)[ "cgdaebf" ] - 'a' - 2) % 7;
-  else
-	key_i_ =   ((-accidentals_i % 7)[ "cfbeadg" ] - 'a' - 2) % 7;
 }
 
 String
 Mudela_key::str ()
 {
+  int key_i = 0;
+  if (accidentals_i_ >= 0)
+	key_i =   ((accidentals_i_ % 7)[ "cgdaebf" ] - 'a' - 2) % 7;
+  else
+	key_i =   ((-accidentals_i_ % 7)[ "cfbeadg" ] - 'a' - 2) % 7;
   String str = "\\key ";
   if (!minor_i_) 
-	str += String ((char)  ((key_i_ + 2) % 7 + 'A'));
+	str += String ((char)  ((key_i + 2) % 7 + 'A'));
   else // heu, -2: should be - 1 1/2: A -> fis
-	str += String ((char)  ((key_i_ + 2 - 2) % 7 + 'a'));
+	str += String ((char)  ((key_i + 2 - 2) % 7 + 'a'));
   str = String ("% \"") + str
 	+ String ('"') + "; % not supported yet\n"; 
   return str;
@@ -97,7 +98,7 @@ Mudela_key::notename_str (int pitch_i)
 Mudela_meter::Mudela_meter (int num_i, int den_i, int clocks_4_i, int count_32_i)
    : Mudela_item (0)
 {
-  sync_dur_.durlog_i_ = 3 ;
+  sync_dur_.durlog_i_ = 3;
   sync_f_ = 1.0;
   if (count_32_i != 8)
 	warning (String ("#32 in quarter: ") + String (count_32_i));
@@ -110,7 +111,7 @@ Moment
 Mudela_meter::bar_mom ()
 {
   Duration d;
-  d.durlog_i_ =   den_i_;
+  d.durlog_i_ = den_i_;
   return Moment (num_i_) * Duration_convert::dur2_mom (d);
 }
 

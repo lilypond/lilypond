@@ -12,6 +12,7 @@
 #include "midi-track-parser.hh"
 #include "mudela-column.hh"
 #include "mudela-item.hh"
+#include "mudela-score.hh"
 #include "mudela-staff.hh"
 
 Midi_track_parser::Midi_track_parser (Midi_parser_info* info_l)
@@ -240,7 +241,15 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	  int length_i = get_var_i ();
 	  String str = get_str (length_i);
 	  // LOGOUT (DEBUG_ver) << str << endl;
-	  item_p = new Mudela_text ((Mudela_text::Type)byte, str);
+	  Mudela_text::Type t = (Mudela_text::Type)byte;
+	  Mudela_text* p = new Mudela_text (t, str);
+	  item_p = p;
+	  if (t == Mudela_text::COPYRIGHT) 
+	     mudela_staff_p_->copyright_str_ = p->text_str_;
+	  else if (t == Mudela_text::TRACK_NAME)
+	     mudela_staff_p_->name_str_ = p->text_str_;
+	  else if (t == Mudela_text::INSTRUMENT_NAME)
+	     mudela_staff_p_->instrument_str_ = p->text_str_;
 	}
       // END_OF_TRACK	[\x2f][\x00]
       else
@@ -258,7 +267,9 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      unsigned useconds_per_4_u = get_u (3);
 	      // $$ = new Mudela_tempo ( ($2 << 16) +  ($3 << 8) + $4);
 	      // LOGOUT (DEBUG_ver) << $$->str() << endl;
-	      item_p = new Mudela_tempo ( useconds_per_4_u );
+	      Mudela_tempo* p = new Mudela_tempo ( useconds_per_4_u );
+	      item_p = p;
+	      info_l_->score_l_->mudela_tempo_l_ = p;
 	    }
 	  // SMPTE_OFFSET	[\x54][\x05]
 	  else if ((byte == 0x54) && (next == 0x05))
@@ -280,6 +291,7 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      int count_32_i = (int)next_byte ();
 	      Mudela_meter* p = new Mudela_meter ( num_i, den_i, clocks_4_i, count_32_i );
 	      item_p = p;
+	      info_l_->score_l_->mudela_meter_l_ = p;
 	      info_l_->bar_mom_ = p->bar_mom ();
 	    }
 	  // KEY		[\x59][\x02]
@@ -288,7 +300,9 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      next_byte ();
 	      int accidentals_i = (int)next_byte ();
 	      int minor_i = (int)next_byte ();
-	      item_p = new Mudela_key (accidentals_i, minor_i);
+	      Mudela_key* p = new Mudela_key (accidentals_i, minor_i);
+	      item_p = p;
+	      info_l_->score_l_->mudela_key_l_ = p;
 	    }
 	  // SSME		[\0x7f][\x03]
 	  else if ((byte == 0x7f) && (next == 0x03))
@@ -299,7 +313,11 @@ Midi_track_parser::parse_event (Mudela_column* col_l)
 	      item_p = new Mudela_text ((Mudela_text::Type)byte, str);
 	    }
 	  else
-	    exit ("Invalid MIDI meta-event");
+	    {
+	      next_byte ();
+	      next_byte ();
+	      warning ("Unimplemented MIDI meta-event");
+	    }
 	}
     }
   else

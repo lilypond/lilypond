@@ -13,6 +13,7 @@
 
 #include "mi2mu-global.hh"
 #include "midi-score-parser.hh"
+#include "mudela-item.hh"
 #include "mudela-score.hh"
 #include "version.hh"
 
@@ -43,6 +44,7 @@ usage()
   "  -d, --debug            print lots of debugging stuff\n"
   "  -h, --help             this help\n"
   "  -I, --include=DIR      add DIR to search path\n"
+  "  -k, --key=ACC[:MINOR]  set key: ACC +sharps/-flats; :1 minor\n"
   "  -n, --no-silly         assume no plets or double dots, smallest is 32\n"
   "  -o, --output=FILE      set FILE as default output\n"
   "  -p, --no-plets         assume no plets\n"
@@ -88,6 +90,7 @@ notice()
 int
 main (int argc_i, char* argv_sz_a[])
 {
+  Mudela_key key (0, 0);
   rat_printer = print_rat;	
 
   Long_option_init long_option_init_a[] = 
@@ -95,6 +98,7 @@ main (int argc_i, char* argv_sz_a[])
 	{0, "no-quantify", 'b'},
 	{0, "debug", 'd'},
 	{0, "help", 'h'},
+	{1, "key", 'k'},
 	{0, "no-silly", 'n'},
 	{1, "output", 'o'},
 	{0, "no-plets", 'p'},
@@ -125,6 +129,15 @@ main (int argc_i, char* argv_sz_a[])
 //	case 'I':
 //	    path->push (getopt_long.optional_argument_ch_C_);
 //	    break;
+	case 'k':
+	  { 
+	    String str = getopt_long.optional_argument_ch_C_;
+	    int i = str.index_i (':');
+	    i = (i >=0 ? i : str.length_i ());
+	    key.accidentals_i_ = String_convert::dec2_i (str.left_str (i));
+	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.mid_str (i,1));
+	    break;
+	  }
 	case 'n':
 	    Duration_convert::no_double_dots_b_s = true;
 	    Duration_convert::no_triplets_b_s = true;
@@ -185,6 +198,8 @@ main (int argc_i, char* argv_sz_a[])
 	if (!score_p)
 	  return 1;
 
+	if (!score_p->mudela_key_l_)
+	  score_p->mudela_key_l_ = &key;
 	mudela_score_l_g = score_p;
 	score_p->process();
 

@@ -57,6 +57,8 @@ Midi_score_parser::parse_header ()
   info_l_->division_1_i_ = get_i (2) * 4;
   if (info_l_->division_1_i_ < 0)
     exit ("Cannot handle non-metrical time");
+  // ugh
+  Duration::division_1_i_s = info_l_->division_1_i_;
   forward_byte_L (length_i - 6);
 }
 
@@ -79,16 +81,18 @@ Midi_score_parser::find_earliest_i (Link_array<Midi_track_parser>& tracks)
 Mudela_score*
 Midi_score_parser::parse_score ()
 {
-  Mudela_meter m4 (1, 4, 0, 0);
+  int current_bar_i = 0;
+  Mudela_meter m4 (4, 2, 24, 8);
   Moment bar4_mom = m4.bar_mom ();
+
+  Mudela_score* score_p = new Mudela_score( 1, 1, 1 );
+  info_l_->score_l_ = score_p;
 
   Link_array<Midi_track_parser> tracks;
   for (int i = 0; i < info_l_->tracks_i_; i++)
     tracks.push (new Midi_track_parser (info_l_));
 
-  int current_bar_i = 0;
-
-  Mudela_score* score_p = new Mudela_score( 1, 1, 1 );
+  LOGOUT (NORMAL_ver) << "Parsing...\n";
   while (tracks.size ())
     {
       int i = find_earliest_i (tracks);

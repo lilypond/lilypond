@@ -20,10 +20,7 @@
 		% 20pt music uses whole pagewidth
 		linewidth= 195.\mm;
 		% 20pt music needs some space
-		unitspace= 12.\mm;
-		% we want gourlay, don't set geometric
-		% geometric= 1.4;
-		gourlay_maxmeasures = 9.;
+		unitspace= 13.\mm;
 	}
 	\midi{
 		\tempo 4 = 54;
