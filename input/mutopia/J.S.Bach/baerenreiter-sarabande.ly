@@ -1,19 +1,11 @@
 
-%% #(set! point-and-click line-column-location)
+#(set! point-and-click line-column-location)
 
-%% We want this to perfectly match the Baerenreiter spacing.
-%% If we're not using 6 systems, there's definately a problem.
-#(define (assert-system-count smob n)
-  (let ((systems (length (Spanner::get_broken_into
-			  (Grob::original_scm
-			   (Grob::line_scm smob))))))
-    (if (not (equal? n systems))
-	;; Can't use error yet, as we know that we're not using 6...
-	;;(error
-	(warn
-	(string-append "Got " (number->string systems)
-			     " systems (expecting " (number->string n))))))
-            
+forcedBreak = \notes { }
+%%forcedBreak = \notes { \break }
+forcedLastBreak = \notes { \break }
+%%forcedLastBreak = \notes { }
+
 \header {
   title = "Solo Cello Suite II"
   piece ="Sarabande"
@@ -61,18 +53,20 @@ sarabandeA =  \context Voice \notes \relative c {
       f4. [d8 e f] }
     \\
     { <a,4 f> a2 <a4. d,4.>  } > |
-  %%5
 
+  %%7
   g8 bes16()a c()bes a()g d'8 f, |
   <  e4.-\trill
   \\ <c,4 g'> >
   [d8 c bes]
-  %%8
+
+  %%9
   < { f'8 g16()a a4. g16()f  |
       g8 a16()bes bes4. c16()d }
     \\
     { a,4 <bes4. d4. > r8 bes4 <g2 f'2>  }
   > |
+  \forcedBreak
 
   %% 11
   [e,8 f] [c, g'] [f' e] |
@@ -85,12 +79,16 @@ sarabandeA =  \context Voice \notes \relative c {
   [bes g']
   [a, fis']
   [es' d] |
+  \forcedBreak
+  
   %%16
   < bes4.-\trill d, g, > [a8 g f!] |
   e bes a f' g a |
   d, as g es' f g |
   [cis, bes'] [a g16 f] [e!8 f16 d] |
   cis8 e16 a a,8. g'16 f8()e |
+  \forcedBreak
+  
   %%21
   < { d e16()f f4. e16()d |
       e8 f16()g g4. a16()bes |
@@ -102,7 +100,7 @@ sarabandeA =  \context Voice \notes \relative c {
   \stemUp
   d4 d,16 a'( b cis d e f )g |
   \stemBoth
-  \break
+  \forcedLastBreak
   %%25
   < { a16(b c)b c4. b16()a |
       b cis d cis d4. e16()f | }
@@ -114,12 +112,7 @@ sarabandeA =  \context Voice \notes \relative c {
   [a,8 e']
   \oneVoice
   [d' cis] |
-  %%  d4 d,,2 |
-  d4
-  \property Thread.NoteHead
-  \override #'after-line-breaking-callback
-  = #(lambda (smob) (assert-system-count smob 6))
-  d,,2 |
+  d4 d,,2 |
 }
 
 
