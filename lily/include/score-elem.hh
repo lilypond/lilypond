@@ -123,6 +123,7 @@ protected:
     virtual void do_post_processing();
     
     virtual void do_substitute_dependency(Score_elem * , Score_elem *);
+    virtual void do_substitute_dependent(Score_elem *, Score_elem *);
     virtual void do_break_processing();
     virtual void handle_broken_dependencies();
     virtual void handle_prebroken_dependencies();
