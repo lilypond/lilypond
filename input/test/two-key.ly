@@ -1,12 +1,10 @@
 \version "1.7.18"
-% regression
-
-
+% regression -gp
 % no, it doesn't test notation. Perhaps no-notation, but
 % delete is also fine with me. -hwn
-\header { texidoc = "If you specify two different key sigs at one point, a
-  warning is printed."
 
+\header { texidoc = "If you specify two different key sigs at one point, a
+  warning is printed.  DELETE"
 }
 
 \score { \notes
