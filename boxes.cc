@@ -17,8 +17,7 @@ Box::Box(svec<Real> s)
 }
 
 Box::Box()
-{
-    
+{        
 }
 Box::Box(Interval ix, Interval iy)
 {
