@@ -13,7 +13,7 @@
 #include <math.h>  /* isinf */
 #include <stdio.h>
 #include <string.h>  /* memset */
-#ifdef HAVE_UTF8_WCHAR_H
+#if HAVE_UTF8_WCHAR_H
 #include <utf8/wchar.h>  /* wcrtomb */
 #else
 #include <wchar.h> /* wcrtomb */
