@@ -10,11 +10,12 @@
 #include "single-malt-grouping-item.hh"
 #include "paper-column.hh"
 #include "debug.hh"
+#include "group-interface.hh"
 
-Single_malt_grouping_item ::Single_malt_grouping_item()
+Single_malt_grouping_item ::Single_malt_grouping_item(SCM s)
+  : Item (s)
 {
-  set_elt_property ("transparent", SCM_BOOL_T);
-  set_elt_property ("elements", SCM_EOL);
+  set_elt_pointer ("elements", SCM_EOL);
 
   // this is weird! , but needed!
   set_extent_callback (0, X_AXIS);
@@ -26,9 +27,7 @@ void
 Single_malt_grouping_item::add_item (Item* i)
 {
   assert (i);
-  set_elt_property ("elements",
-		    gh_cons (i->self_scm_,
-			     get_elt_property ("elements")));
+  Pointer_group_interface (this).add_element (i);
 
   add_dependency (i);
 }
@@ -39,7 +38,7 @@ Single_malt_grouping_item::my_width () const
   Paper_column * pc = column_l ();
   Interval w;
   
-  for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM elt = gh_car (s);
       if (!SMOB_IS_TYPE_B(Score_element, elt))
