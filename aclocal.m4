@@ -1,4 +1,7 @@
 dnl aclocal.m4   -*-shell-script-*-
+dnl WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
+dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
 
@@ -6,7 +9,12 @@ dnl StepMake subroutines for configure.in
 
 # Get full path of executable ($1)
 AC_DEFUN(STEPMAKE_GET_EXECUTABLE, [
-    type -p "$1" 2>&1 | awk '{print $NF}'
+    ## which doesn't work in ash, if /usr/bin/which isn't installed
+    ## type -p doesn't work in ash
+    ## command -v doesn't work in zsh
+    ## command -v "$1" 2>&1
+    ## this test should work in ash, bash, pdksh (ksh), zsh
+    type -p "$1" 2>/dev/null | tail -1 | awk '{print $NF}'
 ])
 
 
@@ -70,6 +78,7 @@ AC_DEFUN(STEPMAKE_CHECK_SEARCH_RESULT, [
 AC_DEFUN(STEPMAKE_CHECK_VERSION, [
     r="`eval echo '$'"$1"`"
     AC_MSG_CHECKING("$r version")
+    #exe=`STEPMAKE_GET_EXECUTABLE($r)`
     exe=`STEPMAKE_GET_EXECUTABLE($r)`
     ver=`STEPMAKE_GET_VERSION($exe)`
     num=`STEPMAKE_NUMERIC_VERSION($ver)`
