@@ -1,3 +1,36 @@
+1.3.77.jcn5
+===========
+
+* Added a devnull engraver, that junks (notehead) requests of the second
+  stem when combined parts are in unison (a2).
+
+* Part-combine iterator identifies Soli and A2 parts in threads by 
+  looking at rhythm and pitches.  It switches Voice context automagically,
+  and communicates current state using a2/solo/solo2 properties.
+
+* Simple A2_engraver (`a due) prints `a2/Solo/Solo II.  Soli seem to
+  arrive one request late.
+
+* First try at combining parts: part-combine*
+
+
+* fixed problem with HaraKiri
+
+* fixed problem with dynamicDirection
+
+* fixed problem with nonEmptyText 
+
+* `Fixed' chord notation, as per request of David Arnold, ie, 
+   Added a chord-name-mode, that only displays chord names
+   when there's a change in the chord-name-scheme, Also, a chord
+   name should always be displayed after a line break.  See
+
+       input/test/drarn-chords.ly
+
+* Reverted duration-iter change in midi2ly, moved printing of options.
+
+* warning bugfix in lexer.ll (Mats Bengtsson)
+
 1.3.77
 ======
 
@@ -37,14 +70,14 @@
 1.3.76
 ======
 
-* Lyric_phrasing_engraver now adjusts for melisma.  (Glenn Prideaux).
+* Lyric_phrasing_engraver now adjusts for melisma.  (Glen Prideaux).
 
 * Mudela-book fix for Windows95 (Mark Hindley)
 
 * Debian update (Anthony Fok)
 
 * Added beam melisma for when automaticMelismata and noAutoBeaming are both
-  #t (primarily for hymns).  Courtesy Glenn Prideaux.
+  #t (primarily for hymns).  Courtesy Glen Prideaux.
 
 * Bugfix: .pfa dependency on $(outdir)/mfplain.mem
 
