@@ -1,5 +1,13 @@
 2004-05-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/context-def.cc (filter_performers): don't go to cdrloc if
+	skipping last pair. Fixes: crash-bar-number.
+
+	* scm/fret-diagrams.scm (nil): fret-diagrams (courtesy Carl
+	D. Sorensen)
+
+	* input/test/fret-diagram.ly: new file.
+
 	* scm/paper.scm (paper-set-staff-size): scale linewidth too.
 	(scale-paper): divide by scale.
 

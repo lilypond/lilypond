@@ -31,12 +31,15 @@ Book_paper_def::Book_paper_def ()
 
 Book_paper_def::Book_paper_def (Book_paper_def const & src)
 {
+  output_scale_ = src.output_scale_;
   scope_ = SCM_EOL;
   scaled_fonts_ = SCM_EOL;
   smobify_self ();
   scope_= ly_make_anonymous_module (false);
   if (is_module (src.scope_))
     ly_import_module (scope_, src.scope_);
+
+  scaled_fonts_ = scm_c_make_hash_table (11); // copying is not done with live defs. hopefully.
 }
 
 Book_paper_def::~Book_paper_def ()

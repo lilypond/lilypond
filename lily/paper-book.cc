@@ -16,6 +16,7 @@
 #include "paper-score.hh"
 #include "stencil.hh"
 #include "warn.hh"
+#include "book-paper-def.hh"
 
 // JUNKME
 SCM
@@ -38,7 +39,7 @@ Paper_book::Paper_book ()
 {
   copyright_ = SCM_EOL;
   tagline_ = SCM_EOL;
-  
+  bookpaper_ = 0;
   smobify_self ();
 }
 
@@ -60,6 +61,9 @@ Paper_book::mark_smob (SCM smob)
     b->score_lines_[i].gc_mark ();
 
   scm_gc_mark (b->copyright_);
+  if (b->bookpaper_)
+    scm_gc_mark (b->bookpaper_->self_scm ());
+
   return b->tagline_;
 }
 
@@ -113,12 +117,9 @@ Paper_book::scopes (int i)
 Stencil
 Paper_book::title (int i)
 {
-  /*
-    TODO: get from book-paper definition.
-   */
-  SCM user_title = ly_scheme_function ("user-title");
-  SCM book_title = ly_scheme_function ("book-title");
-  SCM score_title = ly_scheme_function ("score-title");
+  SCM user_title = bookpaper_->lookup_variable (ly_symbol2scm ("user-title"));
+  SCM book_title = bookpaper_->lookup_variable (ly_symbol2scm ("book-title"));
+  SCM score_title = bookpaper_->lookup_variable (ly_symbol2scm ("score-title"));
   SCM field = (i == 0 ? ly_symbol2scm ("bookTitle")
 	       : ly_symbol2scm ("scoreTitle"));
 
