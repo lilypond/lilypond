@@ -21,7 +21,6 @@ public:
     NAME_MEMBERS(Script_register);
     Script_register();
 protected:
-    virtual    void set_feature(Features dir_i_);
     virtual bool try_request(Request*);
     virtual void process_requests();
     virtual void acknowledge_element(Staff_elem_info);

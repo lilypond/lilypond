@@ -118,15 +118,22 @@ int
 main (int argc, char **argv)
 {    
     debug_init();		// should be first
-    File_path path(String(DIR_DATADIR)+"/init/") ;
-    path_l = & path;
-    path_l->push(DIR_DATADIR );
 
+//    File_path path(String(DIR_DATADIR)+"/init/") ;
+    // silly File_path, now has two .:.
+    File_path path( "." );
+    
+    // must override (come before) "/usr/local/share/lilypond"!
     char const * env_l=getenv("LILYINCLUDE");
     if (env_l) {
 	path.add(env_l);
     }
     
+    path.add( String( DIR_DATADIR ) + "/init/" );
+    
+    path_l = & path;
+    path_l->push(DIR_DATADIR );
+
     Getopt_long oparser(argc, argv,theopts);
     cout << get_version_str() << endl;
     String init_str("symbol.ini");
@@ -151,7 +158,7 @@ main (int argc, char **argv)
 	    exit(0);
 	    break;
 	case 'V':
-	    version_ignore_b_ = false;
+	    version_ignore_b_ = true;
 	    break;
 	case 'd':
 	    set_debug(true);
