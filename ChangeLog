@@ -1,5 +1,10 @@
 2002-06-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/test/ambitus.ly:
+	* lily/ambitus-engraver.cc:
+	* lily/ambitus.cc:
+	* lily/include/ambitus.hh: New file.
+
 	* GNUmakefile.in (local-clean): Also remove builddir-setup's symlinks.
 
 2002-06-25  Juergen Reuter  <reuter@ipd.uka.de>
@@ -7,7 +12,7 @@
 	* input/test/ambitus.ly, lily/ambitus-engraver.cc,
 	lily/ambitus.cc, lily/include/ambitus.hh, ly/engraver-init.ly,
 	scm/basic-properties.scm, scm/grob-description.scm,
-	scm/grob-property-description.scm: added support for ambitus
+	scm/grob-property-description.scm: Add support for ambitus.
 
 2002-06-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
