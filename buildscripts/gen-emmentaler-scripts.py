@@ -59,16 +59,16 @@ endloop
 MergeFonts("feta-alphabet%(design_size)d.pfa");
 MergeKern("feta-alphabet%(design_size)d.tfm");
 
-LoadTableFromFile("LILF", "%(name)s%(design_size)d.subfonts")
+LoadTableFromFile("LILF", "%(name)s-%(design_size)d.subfonts")
 LoadTableFromFile("LILC", "feta%(design_size)d.otf-table")
 LoadTableFromFile("LILY", "feta%(design_size)d.otf-gtable")
 
-Generate("%(name)s%(design_size)d.otf");
-Generate("%(name)s%(design_size)d.cff");
-Generate("%(name)s%(design_size)d.svg");
+Generate("%(name)s-%(design_size)d.otf");
+Generate("%(name)s-%(design_size)d.cff");
+Generate("%(name)s-%(design_size)d.svg");
 ''' % vars()
 
-	path = os.path.join (outdir, name + '%d' % design_size +  '.pe')
+	path = os.path.join (outdir, '%s-%d.pe' % (name, design_size))
 	open (path, 'w').write (script)
 
 	subfonts = ['feta%(design_size)d',
@@ -81,11 +81,11 @@ Generate("%(name)s%(design_size)d.svg");
 		
 	subfonts_str = string.join (ns)
 	
-	open (os.path.join (outdir, '%(name)s%(design_size)d.subfonts' % vars()), 'w').write (subfonts_str)
+	open (os.path.join (outdir, '%(name)s-%(design_size)d.subfonts' % vars()), 'w').write (subfonts_str)
 
-	path = os.path.join (outdir, name + '%d' % design_size +  '.dep')
+	path = os.path.join (outdir, '%s-%d.dep' % (name, design_size))
 
-	deps = r'''%(name)s%(design_size)d.otf: $(outdir)/feta%(design_size)d.pfa \
+	deps = r'''%(name)s-%(design_size)d.otf: $(outdir)/feta%(design_size)d.pfa \
   $(outdir)/parmesan%(design_size)d.pfa  \
   $(outdir)/feta-alphabet%(design_size)d.pfa feta%(design_size)d.otf-table \
   $(outdir)/feta-alphabet%(design_size)d.pfa feta%(design_size)d.otf-gtable

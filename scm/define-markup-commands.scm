@@ -100,19 +100,34 @@ gsave /ecrm10 findfont
 		 (if (ly:stencil-empty? stc)
 		     point-stencil
 		     stc)) orig-stencils))
-	 (text-width (apply +
-			    (map (lambda (stc)
-				   (if (ly:stencil-empty? stc)
-				       0.0
-				       (interval-length (ly:stencil-extent stc X))))
-				 stencils)))
+     (text-widths
+     	(map (lambda (stc)
+     		(if (ly:stencil-empty? stc)
+     			0.0
+				(interval-length (ly:stencil-extent stc X))))
+			stencils))
+     (text-width (apply + text-widths))
 	 (word-count (length stencils))
 	 (word-space (chain-assoc-get 'word-space props))
 	 (line-width (chain-assoc-get 'linewidth props))
-	 (fill-space (if (< line-width text-width)
-			 word-space
-			 (/ (- line-width text-width)
-			    (if (= word-count 1) 2 (- word-count 1)))))
+	 (fill-space
+	 	(cond
+			((= word-count 1) 
+				(list
+					(/ (- line-width text-width) 2)
+					(/ (- line-width text-width) 2)))
+			((= word-count 2)
+				(list
+					(- line-width text-width)))
+			(else 
+				(get-fill-space word-count line-width text-widths))))
+     (fill-space-normal
+     	(map (lambda (x)
+     		(if (< x word-space)
+     			word-space
+				x))
+			fill-space))
+					
 	 (line-stencils (if (= word-count 1)
 			    (list
 			     point-stencil
@@ -122,7 +137,30 @@ gsave /ecrm10 findfont
 
     (if (null? (remove ly:stencil-empty? orig-stencils))
 	empty-stencil
-	(stack-stencils X RIGHT fill-space line-stencils))))
+	(stack-stencils-padding-list X RIGHT fill-space-normal line-stencils))))
+	
+(define (get-fill-space word-count line-width text-widths)
+	"Calculates the necessary paddings between each two adjacent texts.
+	The lengths of all texts are stored in @var{text-widths}.
+	The normal formula for the padding between texts a and b is:
+	padding = line-width/(word-count - 1) - (length(a) + length(b))/2
+	The first and last padding have to be calculated specially using the
+	whole length of the first or last text.
+	Returns a list of paddings.
+"
+	(cond
+		;; special case first padding
+		((= (length text-widths) word-count)
+			(cons 
+				(- (- (/ line-width (1- word-count)) (car text-widths)) (/ (car (cdr text-widths)) 2))
+				(get-fill-space word-count line-width (cdr text-widths))))
+		;; special case last padding
+		((= (length text-widths) 2)
+			(list (- (/ line-width (1- word-count)) (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
+		(else
+			(cons 
+				(- (/ line-width (1- word-count)) (/ (+ (car text-widths) (car (cdr text-widths))) 2))
+				(get-fill-space word-count line-width (cdr text-widths))))))
 
 (define (font-markup qualifier value)
   (lambda (layout props arg)

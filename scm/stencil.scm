@@ -13,6 +13,15 @@
 	  (car stils) axis dir (stack-stencils axis dir padding (cdr stils))
 	  padding))))
 
+(define-public (stack-stencils-padding-list axis dir padding stils)
+  "Stack stencils STILS in direction AXIS, DIR, using a list of PADDING."
+  (cond
+   ((null? stils) empty-stencil)
+   ((null? (cdr stils)) (car stils))
+   (else (ly:stencil-combine-at-edge
+	  (car stils) axis dir (stack-stencils-padding-list axis dir (cdr padding) (cdr stils))
+	  (car padding)))))
+
 (define-public (stack-lines dir padding baseline stils)
   "Stack vertically with a baseline-skip."
   (if (null? stils)
