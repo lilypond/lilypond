@@ -1,8 +1,10 @@
 *** WARNING(reminder): all output via TeX (ie: using ly2dvi or plain
 *** lilypond) still yields broken stems, bars and staff lines.
 
-1.5.1.jcn2
+1.5.1.jcn3
 ==========
+
+* Added some template .ly's for evaluation.
 
 * Make blot work without -fps too.
 
