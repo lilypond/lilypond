@@ -48,7 +48,6 @@ Staff_symbol_engraver::process_music ()
       span_ = make_spanner ("StaffSymbol", SCM_EOL);
 
       span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
-
     }
 }
 
@@ -67,7 +66,6 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 {
   s.grob_->set_property ("staff-symbol", span_->self_scm ());
 }
-
 
 ADD_TRANSLATOR (Staff_symbol_engraver,
 		/* descr */ "Create the constellation of five (default) "
@@ -96,7 +94,7 @@ Tab_staff_symbol_engraver::process_music ()
   if (init)
     {
       int k = scm_ilength (get_property ("stringTunings"));
-      if (k>= 0)
+      if (k >= 0)
 	span_->set_property ("line-count", scm_int2num (k));
     }
 }

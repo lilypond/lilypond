@@ -40,7 +40,7 @@ protected:
   AFM_CharMetricInfo const *find_ascii_metric (int) const;
 
   Array<int> ascii_to_metric_idx_;
-  std::map < String, int> name_to_metric_dict_;
+  std::map<String, int> name_to_metric_dict_;
 
   Adobe_font_metric (AFM_Font_info *);
 };

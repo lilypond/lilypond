@@ -90,7 +90,7 @@ Percent_repeat_engraver::try_music (Music *m)
       Moment meas_len (robust_scm2moment (get_property ("measureLength"), Moment (1)));
       if (meas_len == body_length_)
 	repeat_sign_type_ = MEASURE;
-      else if (Moment (2)* meas_len == body_length_)
+      else if (Moment (2) * meas_len == body_length_)
 	{
 	  repeat_sign_type_ = DOUBLE_MEASURE;
 	  next_moment_ += meas_len;
@@ -113,7 +113,6 @@ Percent_repeat_engraver::try_music (Music *m)
 	  */
 	  if (repeat_sign_type_ == DOUBLE_MEASURE)
 	    global->add_moment_to_process (next_moment_ + meas_len + Moment (i) * body_length_);
-
 	}
 
       return true;
@@ -174,7 +173,6 @@ Percent_repeat_engraver::typeset_perc ()
   double_percent_ = 0;
 }
 
-
 void
 Percent_repeat_engraver::start_translation_timestep ()
 {
@@ -196,7 +194,6 @@ Percent_repeat_engraver::stop_translation_timestep ()
 {
   typeset_perc ();
 }
-
 
 ADD_TRANSLATOR (Percent_repeat_engraver,
 		/* descr */ "Make whole bar and double bar repeats.",

@@ -224,7 +224,6 @@ Slur_score_state::get_encompass_info (Grob *col) const
   return ei;
 }
 
-
 Drul_array<Bound_info>
 Slur_score_state::get_bound_info () const
 {
@@ -264,6 +263,7 @@ Slur_score_state::get_bound_info () const
 	}
     }
   while (flip (&d) != LEFT);
+
   return extremes;
 }
 
@@ -459,7 +459,7 @@ Slur_score_state::get_y_attachment_range () const
       if (extremes_[d].note_column_)
 	{
 	  end_ys[d] = dir_
-	    * ((dir_ * (base_attachments_[d][Y_AXIS] + parameters_.region_size_* dir_))
+	    * ((dir_ * (base_attachments_[d][Y_AXIS] + parameters_.region_size_ * dir_))
 	       >? (dir_ * (dir_ + extremes_[d].note_column_->extent (common_[Y_AXIS],
 								     Y_AXIS)[dir_]))
 	       >? (dir_ * base_attachments_[-d][Y_AXIS]));
@@ -525,7 +525,6 @@ Slur_score_state::get_base_attachments () const
 	    .linear_combination (CENTER);
 	}
       base_attachment[d] = Offset (x, y);
-
     }
   while (flip (&d) != LEFT);
 
@@ -588,11 +587,10 @@ void
 Slur_score_state::generate_curves () const
 {
   Real r_0 = robust_scm2double (slur_->get_property ("ratio"), 0.33);
-  Real h_inf = staff_space_ *scm_to_double (slur_->get_property ("height-limit"));
+  Real h_inf = staff_space_ * scm_to_double (slur_->get_property ("height-limit"));
   for (int i = 0; i < configurations_.size (); i++)
     configurations_[i]->generate_curve (*this, r_0, h_inf);
 }
-
 
 Link_array<Slur_configuration>
 Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
@@ -703,7 +701,7 @@ Slur_score_state::get_extra_encompass_infos () const
 
 	  for (int k = 0; k < 3; k++)
 	    {
-	      Direction hdir = Direction (k /2 - 1);
+	      Direction hdir = Direction (k / 2 - 1);
 
 	      /*
 		Only take bound into account if small slur starts
@@ -720,7 +718,7 @@ Slur_score_state::get_extra_encompass_infos () const
 	      yext[dir_] = z[Y_AXIS] + dir_ * thickness_ * 1.0;
 
 	      Interval xext (-1, 1);
-	      xext = xext * (thickness_*2) + z[X_AXIS];
+	      xext = xext * (thickness_ * 2) + z[X_AXIS];
 	      Extra_collision_info info (small_slur,
 					 k - 1.0,
 					 xext,

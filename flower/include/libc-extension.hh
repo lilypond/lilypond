@@ -62,8 +62,7 @@ extern "C" {
     ssize_t (*write) (void *, char const *, size_t);
     int (*seek) (void *, off64_t *, int);
     int (*close) (void *);
-  }
-    cookie_io_functions_t;
+  } cookie_io_functions_t;
 
 #else
 
@@ -73,8 +72,7 @@ extern "C" {
     int (*write) (void *, char const *, int);
     fpos_t (*seek) (void *, fpos_t, int);
     int (*close) (void *);
-  }
-    cookie_io_functions_t;
+  } cookie_io_functions_t;
 
 #endif /* ! HAVE_FUNOPEN */
 #endif /* ! HAVE_LIBIO_H */

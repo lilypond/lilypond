@@ -33,10 +33,9 @@ Collision_engraver::process_acknowledged_grobs ()
   if (!col_)
     {
       col_ = make_item ("NoteCollision", SCM_EOL);
-
     }
 
-  for (int i = 0; i< note_columns_.size (); i++)
+  for (int i = 0; i < note_columns_.size (); i++)
     Note_collision_interface::add_column (col_, note_columns_[i]);
 }
 
@@ -64,7 +63,6 @@ Collision_engraver::Collision_engraver ()
 {
   col_ = 0;
 }
-
 
 ADD_TRANSLATOR (Collision_engraver,
 		/* descr */ "Collect NoteColumns, and as soon as there are two or more, put them in a NoteCollision object.",

@@ -81,7 +81,6 @@ Global_context::prepare (Moment m)
   clear_key_disambiguations ();
   if (get_score_context ())
     get_score_context ()->prepare (m);
-
 }
 
 Moment
@@ -122,7 +121,7 @@ Global_context::finish ()
 void
 Global_context::run_iterator_on_me (Music_iterator *iter)
 {
-  if (iter-> ok ())
+  if (iter->ok ())
     prev_mom_ = now_mom_ = iter->pending_moment ();
 
   bool first = true;

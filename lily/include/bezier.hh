@@ -40,9 +40,9 @@ public:
   Offset control_[4];
 };
 
-void scale (Array<Offset>* array, Real xscale, Real yscale);
-void rotate (Array<Offset>* array, Real phi);
-void translate (Array<Offset>* array, Offset o);
+void scale (Array<Offset> *array, Real xscale, Real yscale);
+void rotate (Array<Offset> *array, Real phi);
+void translate (Array<Offset> *array, Offset o);
 
 Bezier slur_shape (Real width, Real height_limit,
 		   Real height_proportion);

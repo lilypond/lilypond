@@ -33,7 +33,7 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 
   pango_description_ = pango_font_description_copy (description);
   //  context_ = pango_ft2_font_map_create_context (fontmap);
-  attribute_list_= pango_attr_list_new ();
+  attribute_list_ = pango_attr_list_new ();
 
   /*
     urgh. I don't understand this. Why isn't this 1/(scale *
@@ -123,7 +123,7 @@ Pango_font::pango_item_string_stencil (PangoItem *item, String str, Real dx) con
 
   FcPattern *fcpat = fcfont->font_pattern;
   char *filename = 0;
-  FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) &filename);
+  FcPatternGetString (fcpat, FC_FILE, 0, (FcChar8 **) & filename);
   char const *ps_name_str0 = FT_Get_Postscript_Name (ftface);
 
   if (!ps_name_str0)
@@ -238,8 +238,8 @@ Pango_font::text_stencil (String str) const
     {
       Stencil frame = Lookup::frame (dest.extent_box (), 0.1, 0.1);
       Box empty;
-      empty.set_empty();
-      Stencil dimless_frame (empty, frame.expr());
+      empty.set_empty ();
+      Stencil dimless_frame (empty, frame.expr ());
       dest.add_stencil (frame);
     }
 #endif

@@ -78,7 +78,7 @@ Tie::get_column_rank (Grob *me, Direction d)
 Real
 Tie::get_position (Grob *me)
 {
-  Direction d = head (me, LEFT) ? LEFT:RIGHT;
+  Direction d = head (me, LEFT) ? LEFT : RIGHT;
   return Staff_symbol_referencer::get_position (head (me, d));
 }
 
@@ -95,8 +95,8 @@ Tie::get_position (Grob *me)
 Direction
 Tie::get_default_dir (Grob *me)
 {
-  Item *sl = head (me, LEFT) ? Rhythmic_head::get_stem (head (me, LEFT)) :0;
-  Item *sr = head (me, RIGHT) ? Rhythmic_head::get_stem (head (me, RIGHT)) :0;
+  Item *sl = head (me, LEFT) ? Rhythmic_head::get_stem (head (me, LEFT)) : 0;
+  Item *sr = head (me, RIGHT) ? Rhythmic_head::get_stem (head (me, RIGHT)) : 0;
   if (sl && sr)
     {
       if (get_grob_direction (sl) == UP
@@ -175,7 +175,7 @@ Tie::get_control_points (SCM smob)
 	This correction is due te the shape of the black note head.
       */
       if (Rhythmic_head::duration_log (l) == 2)
-	where += dir* 0.2;
+	where += dir * 0.2;
       left_x = l->extent (l, X_AXIS).linear_combination (where)
 	+ x_gap_f;
     }
@@ -230,7 +230,7 @@ Tie::get_control_points (SCM smob)
   if (Note_head::has_interface (l) && Rhythmic_head::get_dots (l))
     {
       Grob *dots = Rhythmic_head::get_dots (l);
-      if (fabs (staff_space * Staff_symbol_referencer::get_position (dots) /2
+      if (fabs (staff_space * Staff_symbol_referencer::get_position (dots) / 2
 		- ypos) < 0.5)
 	{
 	  ypos += 0.5 * dir;

@@ -48,7 +48,7 @@ Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
 }
 
 void
-Scheme_hash_table::operator= (Scheme_hash_table const &src)
+Scheme_hash_table::operator = (Scheme_hash_table const &src)
 {
   if (&src == this)
     return;
@@ -115,7 +115,7 @@ Scheme_hash_table::set (SCM k, SCM v)
   */
   if (elt_count_ > 2 * scm_c_vector_length (hash_tab_))
     {
-      SCM nh = scm_make_vector (scm_int2num (3* elt_count_ + 1), SCM_EOL);
+      SCM nh = scm_make_vector (scm_int2num (3 * elt_count_ + 1), SCM_EOL);
       elt_count_ = copy_scm_hashes (nh, hash_tab_);
       hash_tab_ = nh;
     }

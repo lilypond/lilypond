@@ -149,7 +149,6 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 		Pointer_group_interface::add_grob (last_spacings_.note_spacings_[i],
 						   ly_symbol2scm ("right-items"),
 						   break_item_);
-
 	    }
 	  else if (last_spacings_.staff_spacing_)
 	    {
@@ -190,7 +189,6 @@ Separating_line_group_engraver::stop_translation_timestep ()
       if (musical_item_)
 	Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"),
 					   musical_item_);
-
     }
 
   if (!current_spacings_.is_empty ())

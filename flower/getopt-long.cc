@@ -77,7 +77,6 @@ Getopt_long::parselong ()
 	}
       if (!optional_argument_str0_)
 	report (E_ARGEXPECT);
-
     }
   else
     {
@@ -211,7 +210,7 @@ Getopt_long::parseshort ()
 }
 
 const Long_option_init *
-Getopt_long::operator() ()
+Getopt_long::operator () ()
 {
   if (!ok ())
     return 0;
@@ -258,10 +257,9 @@ Getopt_long::Getopt_long (int c, char **v, Long_option_init *lo)
   argument_index_ = 0;
 
   //    reached end of option table?
-  table_len_ =0;
-  for (int i = 0; option_a_[i].longname_str0_ ||option_a_[i].shortname_char_; i++)
+  table_len_ = 0;
+  for (int i = 0; option_a_[i].longname_str0_ || option_a_[i].shortname_char_; i++)
     table_len_++;
-
 }
 
 bool
@@ -298,7 +296,7 @@ Getopt_long::get_next_arg ()
   if (a)
     {
       array_index_++;
-      argument_index_= 0;
+      argument_index_ = 0;
     }
   return a;
 }

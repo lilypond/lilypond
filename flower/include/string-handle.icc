@@ -40,7 +40,7 @@ String_handle::up (String_data *d)
 INLINE void
 String_handle::copy ()
 {
-  if (data->ref_count_ !=1)
+  if (data->ref_count_ != 1)
     {
       String_data *newdata = new String_data (*data);
       down ();
@@ -93,7 +93,7 @@ String_handle::to_str0 () const
 }
 
 INLINE void
-String_handle::operator= (String_handle const &src)
+String_handle::operator = (String_handle const &src)
 {
   if (this == &src)
     return;
@@ -102,14 +102,14 @@ String_handle::operator= (String_handle const &src)
 }
 
 INLINE void
-String_handle::operator+= (char const *s)
+String_handle::operator += (char const *s)
 {
   copy ();
   *data += s;
 }
 
 INLINE Byte
-String_handle::operator[] (int j) const
+String_handle::operator [] (int j) const
 {
   return (*data)[j];
 }
@@ -117,7 +117,7 @@ String_handle::operator[] (int j) const
 // !NOT SAFE!
 // don't use this for loops. Use to_bytes ()
 INLINE Byte &
-String_handle::operator[] (int j)
+String_handle::operator [] (int j)
 {
   copy (); 	// hmm. Not efficient
   return data->get_bytes ()[j];
@@ -138,7 +138,7 @@ String_handle::set (Byte const *byte, int length_i)
 }
 
 INLINE void
-String_handle::operator= (char const *p)
+String_handle::operator = (char const *p)
 {
   copy ();
   data->set (p);

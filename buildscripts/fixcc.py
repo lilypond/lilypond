@@ -5,9 +5,11 @@
 # TODO
 #  * maintainable rules: regexp's using whitespace (?x) and match names
 #    <identifier>)
-#  * trailing * vs function definition
+#  * trailing `*' vs. function definition
+#  * do not break/change indentation of fixcc-clean files
 #  * check lexer, parser
 #  * rewrite in elisp, add to cc-mode
+#  * using regexes is broken by design
 #  * ?
 #  * profit
 
@@ -47,7 +49,7 @@ rules = {
 	#('\)[ \t]*([^\w])', ')\\1'),
 	# delete space around operator
 	# ('([\w\(\)\]])([ \t]*)(::|\.)([ \t]*)([\w\(\)])', '\\1\\3\\5'),
-	('([\w\(\)\]])([ \t]*)(\.)([ \t]*)([\w\(\)])', '\\1\\3\\5'),
+	('([\w\(\)\]])([ \t]*)(\.|->)([ \t]*)([\w\(\)])', '\\1\\3\\5'),
 	# delete space after operator
 	('(::)([ \t]*)([\w\(\)])', '\\1\\3'),
 	# delete superflous space around operator
@@ -57,24 +59,27 @@ rules = {
 	# space around operator2
 	('([\w\)\]]) *(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|=|/|:|&|\||\*) ([^\w\s])', '\\1 \\2 \\3'),
 	# space around operator3
-	('([^\w\s]) (&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|=|/|:|&|\||\*) *([\w\(])', '\\1 \\2 \\3'),
+	('([^\w\s]) (&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|[^-]>|=|/|:|&|\||\*) *([\w\(])', '\\1 \\2 \\3'),
+	# space around operator4
+	('([\w\(\)\]]) (\*|/|\+|-) *([-:])', '\\1 \\2 \\3'),
 	# space around +/-; exponent
 	('([\w\)\]])(\+|-)([_A-Za-z\(])', '\\1 \\2 \\3'),
 	('([_\dA-Za-df-z\)\]])(\+|-)([\w\(])', '\\1 \\2 \\3'),
 	# trailing operator
 	(' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&XXX|\||\*XXX)[ \t]*\n([ \t]*)',	 '\n\\2\\1 '),
-	#breaks function definitions
-	#to#(' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|<|>|\+|-|=|/|&|\||\*)[ \t]*\n([ \t]*)',	 '\n\\2\\1 '),
 	# pointer
-	('(bool|char|const|delete|int|stream|unsigned|void|(struct \w+)|([A-Z]\w*)|[,]|&&|\|\|)[ \t]*(\*|&)[ \t]*', '\\1 \\4'),
+	##('(bool|char|const|delete|int|stream|unsigned|void|size_t|struct \w+|[A-Z]\w*|,|;|&&|<|[^-]>|\|\||-|\+)[ \t]*(\*|&)[ \t]*', '\\1 \\2'),
+	('(bool|char|const|delete|int|stream|unsigned|void|size_t|struct \w+|[A-Z]\w*|,|;|:|=|\?\)|&&|<|[^-]>|\|\||-|\+)[ \t]*(\*|&)[ \t]*', '\\1 \\2'),
 	#to#('(bool|char|const|delete|int|stream|unsigned|void|([A-Z]\w*)|[,])[ \n\t]*(\*|&)[ \t]*', '\\1 \\3'),
 	# pointer with template
-	('(( *((bool|char|delete|int|stream|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)|[,])[ \*&],*)+)>) *(\*|&) *', '\\1 \\7'),
+	('(( *((bool|char|const|delete|int|stream|unsigned|void|size_t|class[ \t]+\w*|[A-Z]\w*|\w+::\w+|[,])[ \*&],*)+)>) *(\*|&) *', '\\1 \\5'),
 	#to#('(( *((bool|char|delete|int|stream|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)|[,])[ \*&],*)+)>)[ \t\n]*(\*|&) *', '\\1 \\7'),
 	# unary pointer, minus, not
 	('(return|=) (\*|&|-|!) ([\w\(])', '\\1 \\2\\3'),
 	# space after `operator'
 	('(\Woperator) *([^\w\s])', '\\1 \\2'),
+	# dangling brace close
+	('\n[ \t]*(\n[ \t]*})', '\\1'),
 	# dangling newline
 	('\n[ \t]*\n[ \t]*\n', '\n\n'),
 	# dangling parenthesis open
@@ -112,12 +117,15 @@ rules = {
 	('(typedef struct\s+([\w]*\s){([^}]|{[^}]*})*})\s*\n\s*(\w[\w\d]*;)', '\\1 \\4'),
 	# delete spaces around template brackets
 	#('(dynamic_cast|template|([A-Z]\w*))[ \t]*<[ \t]*(( *(bool|char|int|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)),?)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\3\\8>'),
-	('(dynamic_cast|template|([A-Z]\w*))[ \t]*<[ \t]*(( *(bool|char|int|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*))[,\*&]*)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\3\\8>'),
+	('(dynamic_cast|template|typedef|\w+::\w+|[A-Z]\w*)[ \t]*<[ \t]*(( *(bool|char|const|int|unsigned|void|size_t|class[ \t]+\w*|[A-Z]\w*)( *[\*&]?,|[\*&])*)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\2\\6>'),
+	('(\w+::\w+|[A-Z]\w*) < ((\w+::\w+|[A-Z]\w*)<[A-Z]\w*>) >', '\\1<\\2 >'),
 	('((if|while)\s+\(([^\)]|\([^\)]*\))*\))\s*;', '\\1\n;'),
 	('(for\s+\(([^;]*;[^;]*;([^\)]|\([^\)]*\))*)\))\s*;', '\\1\n;'),
-	# do .. while
-	('(\Wdo\s*{([^}]|{[^}]*})*}\s*while\s*)(\(([^\)]|\([^\)]*\))*\))\s*;', '\\1\\3;\n'),
+	# do {..} while
+	('(}\s*while\s*)(\(([^\)]|\([^\)]*\))*\))\s*;', '\\1\\2;'),
+
 	## Fix code that gets broken by rules above.
+	##('->\s+\*', '->*'),
 	# delete space before #define x()
 	('#[ \t]*define (\w*)[ \t]*\(', '#define \\1('),
 	# add space in #define x ()
@@ -490,54 +498,73 @@ def main ():
 		nitpick_file (outdir, i)
 
 
+## TODO: make this compilable and check with g++
 TEST = '''
+#include <libio.h>
+#include <map>
+class
+ostream ;
+
+class Foo {
+public: static char* foo ();
+std::map<char*,int>* bar (char, char) { return 0; }
+};
+typedef struct
+{
+  Foo **bar;
+} String;
+
 ostream &
 operator << (ostream & os, String d);
 
 typedef struct _t_ligature
 {
   char *succ, *lig;
-  struct _t_ligature *next;
   struct _t_ligature * next;
 }  AFM_Ligature;
+  
+typedef std::map < AFM_Ligature const *, int > Bar;
 
+/*      ||
+ *      vv
+ * !OK  OK
+ */
+/*     ||
+       vv
+  !OK  OK
+ */
 char *
-Bar:: foe ()
+Foo:: foo ()
 {
-  char* a= ++ 3  ;
-  a [x] = foe (*i, &bar) *
+int
+i
+;
+  char* a= &++ i ;
+  a [*++ a] = (char*) foe (*i, &bar) *
   2;
   int operator double ();
-  int x =foe(1 ,3);
-  Interval_t<T> &operator*= (T r);
+  std::map<char*,int> y =*bar(-*a ,*b);
+  Interval_t<T> & operator*= (T r);
+  Foo<T>*c;
   int compare (Pqueue_ent < K, T > const& e1, Pqueue_ent < K,T> *e2);
   delete *p;
   if (abs (f)*2 > abs (d) *FUDGE)
     ;
   while (0);
-  for (; i < x (); foo > bar);
-  for (; i < x > y;
-  foo > bar)
+  for (; i<x foo(); foo>bar);
+  for (; *p && > y;
+       foo > bar)
 ;
   do {
-  ..
+  ;;;
   }
   while (foe);
 
   squiggle. extent;
-
   1 && * unsmob_moment (lf);
-  
-  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm
+  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->*self_scm
 (): SCM_EOL);
-
   case foo: k;
-
-  typedef struct
-  {
-    ...
-  } cookie_io_functions_t;
-
 
   if (0) {a=b;} else {
    c=d;
@@ -548,7 +575,19 @@ Bar:: foe ()
     ...
   };
 
+  int compare (Array < Pitch> *, Array < Pitch> *);
+  original_ = (Grob *) & s;
+  Drul_array< Link_array<Grob> > o;
 }
+
+  header_.char_info_pos = (6 + header_length) * 4;
+  return ly_bool2scm (*ma < * mb);
+
+  1 *::sign(2);
+
+  (shift) *-d;
+
+  a = 0 ? *x : *y;
 '''
 
 def test ():

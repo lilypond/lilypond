@@ -161,11 +161,11 @@ Midi_walker::process ()
 bool
 Midi_walker::ok () const
 {
-  return index_ <items_->size ();
+  return index_ < items_->size ();
 }
 
 void
-Midi_walker::operator++ (int)
+Midi_walker::operator ++ (int)
 {
   assert (ok ());
   index_++;

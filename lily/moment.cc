@@ -91,13 +91,13 @@ Moment::compare (Moment const &a, Moment const &b)
 }
 
 void
-Moment::operator+= (Moment const &src)
+Moment::operator += (Moment const &src)
 {
   main_part_ += src.main_part_;
   grace_part_ += src.grace_part_;
 }
 void
-Moment::operator-= (Moment const &src)
+Moment::operator -= (Moment const &src)
 {
   main_part_ -= src.main_part_;
   grace_part_ -= src.grace_part_;
@@ -107,7 +107,7 @@ Moment::operator-= (Moment const &src)
   only take the main part of SRC for multiplication.
 */
 void
-Moment::operator*= (Moment const &src)
+Moment::operator *= (Moment const &src)
 {
   main_part_ *= src.main_part_;
   grace_part_ *= src.main_part_;
@@ -117,7 +117,7 @@ Moment::operator*= (Moment const &src)
   only take the main part of SRC for multiplication.
 */
 void
-Moment::operator/= (Moment const &src)
+Moment::operator /= (Moment const &src)
 {
   main_part_ /= src.main_part_;
   grace_part_ /= src.main_part_;
@@ -159,17 +159,17 @@ Moment::to_string () const
 }
 
 Moment
-Moment::operator- () const
+Moment::operator - () const
 {
   Moment m;
   m.grace_part_ = -grace_part_;
-  m. main_part_ = -main_part_;
+  m.main_part_ = -main_part_;
   return m;
 }
 
 #ifdef STREAM_SUPPORT
 std::ostream &
-operator<< (std::ostream &os, Moment const &m)
+operator << (std::ostream &os, Moment const &m)
 {
   os << m.to_string ();
   return os;

@@ -99,7 +99,7 @@ get_slur_indent_height (Real *indent, Real *height,
 
   Real q = 2 * h_inf / max_fraction;
   *indent
-    = 2 *h_inf - sqr (q) * max_fraction / (width + q);
+    = 2 * h_inf - sqr (q) * max_fraction / (width + q);
 }
 
 Bezier

@@ -118,7 +118,7 @@ Beam_engraver::set_melisma (bool ml)
 {
   SCM b = get_property ("autoBeaming");
   if (!to_boolean (b))
-    context ()->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T :SCM_BOOL_F);
+    context ()->set_property ("beamMelismaBusy", ml ? SCM_BOOL_T : SCM_BOOL_F);
 }
 
 void
@@ -149,7 +149,6 @@ Beam_engraver::process_music ()
 
       /* urg, must copy to Auto_beam_engraver too */
     }
-
 }
 
 void
@@ -246,7 +245,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	    }
 
 	  last_stem_added_at_ = now;
-	  int durlog = unsmob_duration (m->get_property ("duration"))-> duration_log ();
+	  int durlog = unsmob_duration (m->get_property ("duration"))->duration_log ();
 	  if (durlog <= 2)
 	    {
 	      m->origin ()->warning (_ ("stem doesn't fit in beam"));
@@ -267,7 +266,6 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	}
     }
 }
-
 
 ADD_TRANSLATOR (Beam_engraver,
 		/* descr */ "Handles Beam events by engraving Beams.    If omitted, then notes will be "

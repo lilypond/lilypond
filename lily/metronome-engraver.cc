@@ -61,7 +61,6 @@ Metronome_mark_engraver::create_items (Music *rq)
     return;
 
   text_ = make_item ("MetronomeMark", rq->self_scm ());
-
 }
 
 bool

@@ -67,7 +67,7 @@ Staff_symbol::print (SCM smob)
 
   int l = Staff_symbol::line_count (me);
 
-  Real height = (l - 1) * staff_space (me) /2;
+  Real height = (l - 1) * staff_space (me) / 2;
   Stencil a
     = Lookup::horizontal_line (span_points
 			       -me->relative_coordinate (common, X_AXIS),
@@ -119,7 +119,7 @@ Staff_symbol::get_ledger_line_thickness (Grob *me)
   SCM lt_pair = me->get_property ("ledger-line-thickness");
   Offset z = robust_scm2offset (lt_pair, Offset (1.0, 0.1));
 
-  return z[X_AXIS] * get_line_thickness (me) + z[Y_AXIS]* staff_space (me);
+  return z[X_AXIS] * get_line_thickness (me) + z[Y_AXIS] * staff_space (me);
 }
 
 ADD_INTERFACE (Staff_symbol, "staff-symbol-interface",

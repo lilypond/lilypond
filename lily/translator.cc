@@ -36,7 +36,6 @@ Translator::do_announces ()
 void
 Translator::process_music ()
 {
-
 }
 
 Translator::Translator ()
@@ -128,7 +127,7 @@ Translator::translator_description () const
 Global_context *
 Translator::get_global_context () const
 {
-  return daddy_context_ ->get_global_context ();
+  return daddy_context_->get_global_context ();
 }
 
 Score_context *
@@ -156,5 +155,4 @@ Translator::must_be_last () const
 void
 Translator::derived_mark () const
 {
-
 }

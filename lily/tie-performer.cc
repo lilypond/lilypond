@@ -84,7 +84,6 @@ Tie_performer::start_translation_timestep ()
 {
   context ()->set_property ("tieMelismaBusy",
 			    ly_bool2scm (heads_to_tie_.size ()));
-
 }
 
 void

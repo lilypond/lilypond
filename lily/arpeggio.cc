@@ -82,7 +82,7 @@ Arpeggio::print (SCM smob)
     }
 
   for (Real y = heads[LEFT]; y < heads[RIGHT];
-       y+= squiggle. extent (Y_AXIS).length ())
+       y += squiggle.extent (Y_AXIS).length ())
     mol.add_at_edge (Y_AXIS, UP, squiggle, 0.0, 0);
 
   mol.translate_axis (heads[LEFT], Y_AXIS);

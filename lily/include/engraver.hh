@@ -57,5 +57,4 @@ public:
 Item *make_item_from_properties (Engraver *tg, SCM x, SCM cause, const char *name);
 Spanner *make_spanner_from_properties (Engraver *tg, SCM x, SCM cause, const char *name);
 
-
 #endif // ENGRAVER_HH

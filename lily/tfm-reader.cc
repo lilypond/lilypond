@@ -29,7 +29,6 @@ Tex_font_metric_reader::Tex_font_metric_reader (String name)
   read_header ();
   read_params ();
   read_char_metrics ();
-
 }
 
 static const Real
@@ -114,7 +113,6 @@ Tex_font_metric_reader::read_header ()
      font family and face byte probably aren't.  So we don't read them.  */
   info_.coding_scheme = header_length > 2
     ? get_bcpl_string () : "unspecified";
-
 }
 
 /* Although TFM files are only usable by TeX if they have at least seven
@@ -151,7 +149,6 @@ Tex_font_metric_reader::read_params ()
 
   for (Char_code i = 2; i <= header_.param_word_count; i++)
     info_.parameters[i - 1] = get_U32_fix_scaled ();
-
 }
 
 /* Read every character in the TFM file, storing the result in the
@@ -222,7 +219,7 @@ Tex_font_metric_reader::read_char ()
 #define GET_CHAR_DIMEN(d)					\
   if (d##_index != 0)						\
     {								\
-      input_.seek_str0 (header_. d##_pos + d##_index*4);	\
+      input_.seek_str0 (header_.d##_pos + d##_index * 4);	\
       tfm_char.d##_fix_ = input_.get_U32 ();			\
       tfm_char.d##_ = fix_to_real (tfm_char.d##_fix_)		\
 	* info_.design_size;					\
@@ -257,7 +254,7 @@ Tex_font_metric_reader::read_char ()
 #define KERN_FLAG 128
 
 void
-Tex_font_metric_reader::read_lig_kern_program (Array<Tfm_ligature>* ligatures, Array<Tfm_kern>* kerns)
+Tex_font_metric_reader::read_lig_kern_program (Array<Tfm_ligature> *ligatures, Array<Tfm_kern> *kerns)
 {
   bool end_b;
 
@@ -280,7 +277,6 @@ Tex_font_metric_reader::read_lig_kern_program (Array<Tfm_ligature>* ligatures, A
 	  input_.set_pos (old_pos);
 
 	  kerns->push (kern_element);
-
 	}
       else
 	{
@@ -288,10 +284,8 @@ Tex_font_metric_reader::read_lig_kern_program (Array<Tfm_ligature>* ligatures, A
 	  ligature_element.character = next_char;
 	  ligature_element.ligature = remainder;
 	  ligatures->push (ligature_element);
-
 	}
     }
   while (!end_b);
-
 }
 

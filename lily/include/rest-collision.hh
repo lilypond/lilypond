@@ -12,7 +12,6 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
-
 class Rest_collision
 {
 public:

@@ -36,7 +36,7 @@ is_concave_single_notes (Array<int> const &positions, Direction beam_dir)
     note is reached in the opposite direction as the last-first dy
   */
   int dy = positions.top () - positions[0];
-  int closest = (beam_dir * positions.top ()) >? (beam_dir *positions[0]);
+  int closest = (beam_dir * positions.top ()) >? (beam_dir * positions[0]);
   for (int i = 2; !concave && i < positions.size () - 1; i++)
     {
       int inner_dy = positions[i] - positions[i - 1];

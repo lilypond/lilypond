@@ -26,6 +26,5 @@ public:
   static int line_count (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob *);
-
 };
 #endif // STAFF_SYMBOL_HH

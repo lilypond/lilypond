@@ -20,7 +20,6 @@ Object_key::mark_smob (SCM key)
 void
 Object_key::derived_mark () const
 {
-
 }
 
 Object_key::~Object_key ()
@@ -138,7 +137,7 @@ Copied_key::get_type () const
 int
 Copied_key::do_compare (Object_key const *key) const
 {
-  Copied_key const *other = dynamic_cast < Copied_key const *> (key);
+  Copied_key const *other = dynamic_cast<Copied_key const *> (key);
 
   int c = original_->compare (other->original_);
   if (c)

@@ -110,8 +110,8 @@ Beam::space_function (SCM smob, SCM beam_count)
   Real thickness = get_thickness (me);
 
   Real beam_translation = scm_to_int (beam_count) < 4
-    ? (2*staff_space + line - thickness) / 2.0
-    : (3*staff_space + line - thickness) / 3.0;
+    ? (2 * staff_space + line - thickness) / 2.0
+    : (3 * staff_space + line - thickness) / 3.0;
 
   return scm_make_real (beam_translation);
 }
@@ -194,7 +194,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
   int best_count = 0;
   int best_start = 0;
   for (int i = lslice[-left_dir];
-       (i - lslice[left_dir])* left_dir <= 0; i+= left_dir)
+       (i - lslice[left_dir]) * left_dir <= 0; i += left_dir)
     {
       int count = 0;
       for (SCM s = scm_car (right_beaming); scm_is_pair (s); s = scm_cdr (s))
@@ -224,7 +224,7 @@ Beam::connect_beams (Grob *me)
   last_int.set_empty ();
   SCM last_beaming = SCM_EOL;
   Direction last_dir = CENTER;
-  for (int i = 0; i< stems.size (); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       Grob *this_stem = stems[i];
       SCM this_beaming = this_stem->get_property ("beaming");
@@ -253,7 +253,6 @@ Beam::connect_beams (Grob *me)
 		  new_slice.add_point (new_beam_pos);
 		  scm_set_car_x (s, scm_int2num (new_beam_pos));
 		}
-
 	    }
 	  while (flip (&d) != LEFT);
 
@@ -342,13 +341,13 @@ Beam::print (SCM grob)
   Stencil the_beam;
   Real lt = me->get_layout ()->get_dimension (ly_symbol2scm ("linethickness"));
 
-  for (int i = 0; i<= stems.size (); i++)
+  for (int i = 0; i <= stems.size (); i++)
     {
       Grob *st = (i < stems.size ()) ? stems[i] : 0;
 
       SCM this_beaming = st ? st->get_property ("beaming") : SCM_EOL;
       Real xposn = st ? st->relative_coordinate (xcommon, X_AXIS) : 0.0;
-      Real stem_width = st ? robust_scm2double (st->get_property ("thickness"), 1.0) *lt : 0;
+      Real stem_width = st ? robust_scm2double (st->get_property ("thickness"), 1.0) * lt : 0;
       Direction stem_dir = st ? to_dir (st->get_property ("direction")) : CENTER;
       /*
 	We do the space left of ST, with lfliebertjes pointing to the
@@ -399,7 +398,7 @@ Beam::print (SCM grob)
 	}
 
       if (st)
-	w += stem_width/ 2;
+	w += stem_width / 2;
 
       Real blot = me->get_layout ()->get_dimension (ly_symbol2scm ("blotdiameter"));
       Stencil whole = Lookup::beam (slope, w, thick, blot);
@@ -517,7 +516,6 @@ Beam::print (SCM grob)
   return the_beam.smobbed_copy ();
 }
 
-
 Direction
 Beam::get_default_dir (Grob *me)
 {
@@ -570,7 +568,7 @@ Beam::set_stem_directions (Grob *me, Direction d)
   Link_array<Grob> stems
     = extract_grob_array (me, ly_symbol2scm ("stems"));
 
-  for (int i = 0; i <stems.size (); i++)
+  for (int i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
 
@@ -591,7 +589,6 @@ Beam::set_stem_directions (Grob *me, Direction d)
 
   this routine should take into account the stemlength scoring
   of a possible knee/nonknee beam.
-  
 */
 void
 Beam::consider_auto_knees (Grob *me)
@@ -680,8 +677,8 @@ Beam::consider_auto_knees (Grob *me)
 
 	  Interval head_extents = head_extents_array[j++];
 
-	  Direction d = (head_extents.center () < max_gap.center ()) ?
-	    UP : DOWN;
+	  Direction d = (head_extents.center () < max_gap.center ())
+	    ? UP : DOWN;
 
 	  stem->set_property ("direction", scm_int2num (d));
 
@@ -898,7 +895,7 @@ Beam::least_squares (SCM smob)
   /*
     "position" is relative to the staff.
   */
-  scale_drul (&pos, 1/ Staff_symbol_referencer::staff_space (me));
+  scale_drul (&pos, 1 / Staff_symbol_referencer::staff_space (me));
 
   me->set_property ("positions", ly_interval2scm (pos));
 
@@ -1000,7 +997,7 @@ Beam::shift_region_to_valid (SCM grob)
     }
 
   pos = Drul_array<Real> (y, (y + dy));
-  scale_drul (&pos, 1/ Staff_symbol_referencer::staff_space (me));
+  scale_drul (&pos, 1 / Staff_symbol_referencer::staff_space (me));
 
   me->set_property ("positions", ly_interval2scm (pos));
   return SCM_UNSPECIFIED;
@@ -1170,7 +1167,7 @@ Beam::set_stem_lengths (Grob *me)
       if (gap)
 	stem_y += thick * 0.5 * get_grob_direction (s);
 
-      Stem::set_stemend (s, 2* stem_y / staff_space);
+      Stem::set_stemend (s, 2 * stem_y / staff_space);
     }
 }
 
@@ -1233,7 +1230,6 @@ Beam::forced_stem_count (Grob *me)
     }
   return f;
 }
-
 
 int
 Beam::visible_stem_count (Grob *me)
@@ -1359,7 +1355,7 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
       < rad
       || (rest->extent (common_y, Y_AXIS)[-d] + staff_space * shift) * -d
       < rad)
-    shift = ceil (fabs (shift)) *sign (shift);
+    shift = ceil (fabs (shift)) * sign (shift);
 
   return scm_make_real (staff_space * shift);
 }

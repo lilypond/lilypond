@@ -132,7 +132,6 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob)
       for (SCM t = g->get_property ("elements");
 	   scm_is_pair (t); t = scm_cdr (t))
 	max_corr = max_corr >? next_note_correction (me, unsmob_grob (scm_car (t)), bar_size);
-
     }
 
   return max_corr;

@@ -79,7 +79,6 @@ LY_DEFINE (ly_outputter_close, "ly:outputter-close",
   return SCM_UNSPECIFIED;
 }
 
-
 LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
 	   2, 0, 0, (SCM outputter, SCM expr),
 	   "Eval @var{expr} in module of @var{outputter}.")

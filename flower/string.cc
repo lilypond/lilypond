@@ -46,7 +46,7 @@ String::get_copy_str0 () const
   copying, constructing.
 */
 String &
-String::operator= (String const &source)
+String::operator = (String const &source)
 {
   strh_ = source.strh_;
   return *this;
@@ -107,7 +107,7 @@ String::append (String s)
   strh_.append (s.to_bytes (), s.length ());
 }
 void
-String::operator+= (String s)
+String::operator += (String s)
 {
   append (s);
 }
@@ -264,7 +264,7 @@ String::index_any (String set) const
   void const *me = (void const *) strh_.to_str0 ();
   for (int i = 0; i < set.length (); i++)
     {
-      char *found= (char *) memchr (me, set[i], n);
+      char *found = (char *) memchr (me, set[i], n);
       if (found)
 	{
 	  return found - (char const *)me;
@@ -317,7 +317,7 @@ String::nomid_string (int index_i, int n) const
 String
 String::cut_string (int index_i, int n) const
 {
-  if (index_i <0)
+  if (index_i < 0)
     {
       n += index_i;
       index_i = 0;
@@ -365,14 +365,14 @@ String::to_double () const
 
 #ifdef STREAM_SUPPORT
 ostream &
-operator<< (ostream& os, String d)
+operator << (ostream &os, String d)
 {
   d.print_on (os);
   return os;
 }
 
 void
-String::print_on (ostream& os) const
+String::print_on (ostream &os) const
 {
   if (!strh_.is_binary_bo ())
     os << to_str0 ();

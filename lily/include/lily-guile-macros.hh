@@ -84,13 +84,13 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
   Make TYPE::FUNC available as a Scheme function.
 */
 #define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)			\
-  SCM TYPE :: FUNC ## _proc;						\
+  SCM TYPE ::FUNC ## _proc;						\
   void									\
   TYPE ## _ ## FUNC ## _init_functions ()				\
   {									\
-    TYPE :: FUNC ## _proc = scm_c_define_gsubr (#TYPE "::" #FUNC,	\
-						(ARGCOUNT), 0, 0,	\
-						(Scheme_function_unknown)TYPE :: FUNC);	\
+    TYPE ::FUNC ## _proc = scm_c_define_gsubr (#TYPE "::" #FUNC,	\
+					       (ARGCOUNT), 0, 0,	\
+					       (Scheme_function_unknown)TYPE ::FUNC); \
     scm_c_export (#TYPE "::" #FUNC, NULL);				\
   }									\
 									\

@@ -18,14 +18,12 @@
 #include "warn.hh"
 #include "paper-column.hh"
 
-
 class Dynamic_text_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static bool has_interface (Grob *);
 };
-
 
 /*
   This is a partial C&P from text-spanner.cc

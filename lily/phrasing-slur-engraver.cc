@@ -95,7 +95,7 @@ Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
 	}
       else if (inside == SCM_BOOL_F)
 	{
-	  Grob *slur = slurs_.size ()?slurs_[0] : 0;
+	  Grob *slur = slurs_.size () ? slurs_[0] : 0;
 	  slur = (end_slurs_.size () && !slur)
 	    ? end_slurs_[0] : slur;
 

@@ -66,7 +66,7 @@ DECLARE_UNSMOB (Object_key, key);
 
 struct Object_key_less
 {
-  bool operator() (Object_key const *const &t1, Object_key const *const &t2) const
+  bool operator () (Object_key const *const &t1, Object_key const *const &t2) const
   {
     return t1->compare (t2);
   }

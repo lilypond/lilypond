@@ -47,7 +47,7 @@ private:
   */
   Moment shortest_mom_;
   Spanner *finished_beam_;
-  Link_array<Item>* stems_;
+  Link_array<Item> *stems_;
 
   int count_;
   Moment last_add_mom_;

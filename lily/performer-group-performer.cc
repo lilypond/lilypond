@@ -43,7 +43,7 @@ Performer_group_performer::acknowledge_audio_elements ()
 	{
 	  Translator *t = unsmob_translator (scm_car (p));
 	  Performer *eng = dynamic_cast<Performer *> (t);
-	  if (eng && eng!= info.origin_trans_)
+	  if (eng && eng != info.origin_trans_)
 	    eng->acknowledge_audio_element (info);
 	}
     }

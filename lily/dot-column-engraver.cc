@@ -56,7 +56,6 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
       if (!dotcol_)
 	{
 	  dotcol_ = make_item ("DotColumn", SCM_EOL);
-
 	}
 
       Dot_column::add_head (dotcol_, info.grob_);
@@ -66,7 +65,6 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
       stem_ = info.grob_;
     }
 }
-
 
 ADD_TRANSLATOR (Dot_column_engraver,
 		/* descr */ "Engraves dots on dotted notes shifted to the right of the note.\n"

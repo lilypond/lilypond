@@ -88,11 +88,10 @@ Part_combine_iterator::do_quit ()
     second_iter_->quit ();
 
   null_.set_context (0);
-  one_ .set_context (0);
+  one_.set_context (0);
   two_.set_context (0);
   shared_.set_context (0);
   solo_.set_context (0);
-
 }
 
 Part_combine_iterator::Part_combine_iterator ()
@@ -125,7 +124,6 @@ Part_combine_iterator::derived_substitute (Context *f,
 {
   if (first_iter_)
     first_iter_->substitute_outlet (f, t);
-
 }
 
 Moment
@@ -194,7 +192,7 @@ Part_combine_iterator::solo1 ()
 	  if (!event)
 	    event = make_music_by_name (ly_symbol2scm ("SoloOneEvent"));
 
-	  first_iter_-> try_music_in_children (event);
+	  first_iter_->try_music_in_children (event);
 	}
       playing_state_ = SOLO1;
     }
@@ -282,7 +280,7 @@ Part_combine_iterator::solo2 ()
 	  if (!event)
 	    event = make_music_by_name (ly_symbol2scm ("SoloTwoEvent"));
 
-	  second_iter_-> try_music_in_children (event);
+	  second_iter_->try_music_in_children (event);
 	  playing_state_ = SOLO2;
 	}
     }
@@ -331,7 +329,7 @@ Part_combine_iterator::construct_children ()
     = get_outlet ()->find_create_context (ly_symbol2scm ("Voice"),
 					  "solo", props);
 
-  solo_ .set_context (solo_tr);
+  solo_.set_context (solo_tr);
 
   Context *null
     = get_outlet ()->find_create_context (ly_symbol2scm ("Devnull"),
@@ -380,7 +378,6 @@ Part_combine_iterator::construct_children ()
       execute_pushpop_property (two, sym,
 				ly_symbol2scm ("direction"), scm_int2num (-1));
     }
-
 }
 
 void

@@ -161,8 +161,8 @@ Repeated_music::first_start (SCM m)
   Music *me = unsmob_music (m);
   Music *body = unsmob_music (me->get_property ("element"));
 
-  Moment rv = (body) ? body->start_mom () :
-    Music_sequence::first_start (me->get_property ("elements"));
+  Moment rv = (body) ? body->start_mom ()
+    : Music_sequence::first_start (me->get_property ("elements"));
 
   return rv.smobbed_copy ();
 }

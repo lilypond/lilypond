@@ -34,9 +34,9 @@ zigzag_stencil (Grob *me,
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  double w = robust_scm2double (me->get_property ("zigzag-width"), 1)*staff_space;
-  double l = robust_scm2double (me->get_property ("zigzag-length"), 1)* w;
-  double h = l > w / 2 ? sqrt (l*l - w*w / 4) : 0;
+  double w = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
+  double l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
+  double h = l > w / 2 ? sqrt (l * l - w * w / 4) : 0;
 
   SCM list = scm_list_n (ly_symbol2scm ("zigzag-line"),
 			 ly_bool2scm (true),
@@ -84,7 +84,6 @@ Line_spanner::after_line_breaking (SCM g)
 	Can't do suicide, since this mucks up finding the trend.
       */
       me->set_property ("print-function", SCM_EOL);
-
     }
   return SCM_EOL;
 }
@@ -125,7 +124,8 @@ Line_spanner::line_stencil (Grob *me,
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0, 0);
       while (m.extent (X_AXIS).length ()
 	     && mol.extent (X_AXIS).length ()
-	     + m.extent (X_AXIS).length () < dz[X_AXIS]);
+	     + m.extent (X_AXIS).length () < dz[X_AXIS])
+	;
 
       /*
 	FIXME: should center element on x/y
@@ -237,8 +237,8 @@ Line_spanner::print (SCM smob)
       Offset dz (p2 -p1);
       Real len = dz.length ();
 
-      Offset dir = dz * (1/ len);
-      dz = (dz.length () - 2*gap) *dir;
+      Offset dir = dz * (1 / len);
+      dz = (dz.length () - 2 * gap) * dir;
 
       Stencil l (line_stencil (me, Offset (0, 0), dz));
 
@@ -258,7 +258,7 @@ Line_spanner::print (SCM smob)
 	}
 
       // distance from center to start of line      
-      Real off = gap + ((bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()*3) / 4);
+      Real off = gap + ((bound[LEFT]->extent (bound[LEFT], X_AXIS).length () * 3) / 4);
 
       for (int a = X_AXIS; a < NO_AXES; a++)
 	{
@@ -269,7 +269,6 @@ Line_spanner::print (SCM smob)
 
 	  my_off[ax] = me->relative_coordinate (common[a], ax);
 	  his_off[ax] = bound[LEFT]->relative_coordinate (common[a], ax);
-
 	}
 
       ofxy = dxy * (off / dxy.length ());

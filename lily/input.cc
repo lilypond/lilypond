@@ -148,7 +148,6 @@ Input::line_number () const
     return source_file_->get_line (start_);
   else
     return 0;
-
 }
 
 int
@@ -158,7 +157,6 @@ Input::column_number () const
     return source_file_->get_column (start_);
   else
     return 0;
-
 }
 
 int
@@ -168,7 +166,6 @@ Input::end_line_number () const
     return source_file_->get_line (end_);
   else
     return 0;
-
 }
 
 int
@@ -178,5 +175,4 @@ Input::end_column_number () const
     return source_file_->get_column (end_);
   else
     return 0;
-
 }

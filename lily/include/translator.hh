@@ -90,7 +90,6 @@ protected:			// should be private.
   }									\
   ADD_GLOBAL_CTOR (_ ## T ## _adder);
 
-
 #define ADD_TRANSLATOR(classname, desc, grobs, accepted, acked, read, write) \
   ADD_THIS_TRANSLATOR (classname);					\
   SCM									\

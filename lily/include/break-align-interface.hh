@@ -20,7 +20,6 @@ public:
   static void add_element (Grob *me, Grob *add);
   DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element, SCM axis));
   DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element, SCM axis));
-
 };
 struct Break_aligned_interface
 {

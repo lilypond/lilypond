@@ -40,12 +40,12 @@ struct Polynomial
   /// eliminate #x#  close to  zero
   void real_clean ();
   void scalarmultiply (Real fact);
-  void operator*= (Real f) { scalarmultiply (f); }
-  void operator/= (Real f) { scalarmultiply (1 / f); }
-  void operator+= (Polynomial const &p2);
-  void operator*= (Polynomial const &p2);
-  void operator-= (Polynomial const &p2);
-  Polynomial (Real a, Real b =0.0);
+  void operator *= (Real f) { scalarmultiply (f); }
+  void operator /= (Real f) { scalarmultiply (1 / f); }
+  void operator += (Polynomial const &p2);
+  void operator *= (Polynomial const &p2);
+  void operator -= (Polynomial const &p2);
+  Polynomial (Real a, Real b = 0.0);
   Polynomial (){}
   void set_negate (const Polynomial &src);
 
@@ -67,15 +67,15 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Polynomial, *);
 
 inline Polynomial
-operator* (Polynomial p, Real a)
+operator * (Polynomial p, Real a)
 {
-  p *=a;
+  p *= a;
   return p;
 }
 inline Polynomial
-operator* (Real a, Polynomial p)
+operator * (Real a, Polynomial p)
 {
-  p *=a;
+  p *= a;
   return p;
 }
 #endif

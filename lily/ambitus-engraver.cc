@@ -61,6 +61,7 @@ Ambitus_engraver::create_ambitus ()
       Side_position_interface::add_support (accidentals_[d], heads_[d]);
     }
   while (flip (&d) != DOWN);
+
   ambitus_->set_parent (heads_[DOWN], X_AXIS);
   Axis_group_interface::add_element (group_, ambitus_);
 
@@ -175,6 +176,7 @@ Ambitus_engraver::finalize ()
 	  heads_[d]->suicide ();
  	}
       while (flip (&d) != DOWN);
+
       ambitus_->suicide ();
     }
 }

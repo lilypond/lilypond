@@ -358,7 +358,7 @@ Accidental_placement::position_accidentals (Grob *me)
       insert_extent_into_skyline (&head_skyline, b, Y_AXIS, LEFT);
     }
 
-  head_ape-> left_skyline_ = head_skyline;
+  head_ape->left_skyline_ = head_skyline;
   head_ape->offset_ = 0.0;
 
   Real padding = robust_scm2double (me->get_property ("padding"), 0.2);

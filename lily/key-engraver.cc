@@ -73,7 +73,6 @@ Key_engraver::create_key (bool def)
 	  cancellation_->set_property ("old-accidentals", last);
 	  cancellation_->set_property ("c0-position",
 				       get_property ("middleCPosition"));
-
 	}
       item_->set_property ("new-accidentals", key);
     }
@@ -178,7 +177,6 @@ Key_engraver::initialize ()
 
   Pitch p (0, 0, 0);
   context ()->set_property ("tonic", p.smobbed_copy ());
-
 }
 
 ADD_TRANSLATOR (Key_engraver,

@@ -47,7 +47,6 @@ private:
   Moment here_mom_;
   SCM cursor_;
   Grace_fixup *grace_fixups_;
-
 };
 
 #endif /* SEQUENTIAL_ITERATOR_HH */

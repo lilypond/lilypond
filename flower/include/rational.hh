@@ -45,7 +45,7 @@ public:
   //   operator bool () const;
   int to_int () const;
   operator double () const;
-  Rational operator- () const;
+  Rational operator - () const;
   /**
      Initialize to 0.
   */
@@ -54,16 +54,16 @@ public:
   Rational (int, int);
   Rational (double);
   Rational (Rational const &r) { copy (r);}
-  Rational &operator= (Rational const &r)
+  Rational &operator = (Rational const &r)
   {
     copy (r); return *this;
   }
 
-  Rational &operator*= (Rational);
-  Rational &operator/= (Rational);
-  Rational &operator+= (Rational);
-  Rational &operator-= (Rational);
-  Rational &operator%= (Rational);
+  Rational &operator *= (Rational);
+  Rational &operator /= (Rational);
+  Rational &operator += (Rational);
+  Rational &operator -= (Rational);
+  Rational &operator %= (Rational);
   static int compare (Rational const &, Rational const &);
   int sign () const;
   String to_string () const;
@@ -90,7 +90,7 @@ Rational::copy (Rational const &r)
 
 #if 0
 ostream &
-operator<< (ostream &, Rational);
+operator << (ostream &, Rational);
 #endif
 
 const Rational infinity_rat = INT_MAX;

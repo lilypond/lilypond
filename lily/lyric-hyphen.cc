@@ -16,7 +16,7 @@
 #include "moment.hh"
 
 MAKE_SCHEME_CALLBACK (Hyphen_spanner, print, 1)
-SCM
+  SCM
 Hyphen_spanner::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
@@ -35,7 +35,7 @@ Hyphen_spanner::print (SCM smob)
   do
     {
       Interval iv = bounds[d]->extent (common, X_AXIS);
-      
+
       span_points[d] = iv.is_empty ()
 	? bounds[d]->relative_coordinate (common, X_AXIS)
 	: iv[-d];
@@ -51,24 +51,23 @@ Hyphen_spanner::print (SCM smob)
   Real dash_period = robust_scm2double (me->get_property ("dash-period"), 1.0);
   Real dash_length = robust_scm2double (me->get_property ("length"), .5);
   Real padding = robust_scm2double (me->get_property ("padding"), 0.1);
-  
+
   if (dash_period < dash_length)
     dash_period = 1.5 * dash_length;
 
-  
   Real l = span_points.length ();
 
   int n = int (ceil (l / dash_period - 0.5));
   if (n <= 0)
     n = 1;
 
-  if (l < dash_length + 2*padding
+  if (l < dash_length + 2 * padding
       && !bounds[RIGHT]->break_status_dir ())
     {
       Real minimum_length = robust_scm2double (me->get_property ("minimum-length"), .3);
-      dash_length = (l - 2*padding) >? minimum_length;
+      dash_length = (l - 2 * padding) >? minimum_length;
     }
-  
+
   Real space_left = l - dash_length - (n - 1) * dash_period;
 
   /*
@@ -124,7 +123,7 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
 	  && r.item_drul_[RIGHT])
 	r.add_to_cols ();
     }
-  
+
   return SCM_UNSPECIFIED;
 }
 

@@ -33,8 +33,7 @@ Rod::columnize ()
       distance_ += -d * item_drul_[d]->relative_coordinate (pc, X_AXIS);
       item_drul_[d] = pc;
     }
-  while ((flip (&d))!= LEFT);
-
+  while ((flip (&d)) != LEFT);
 }
 
 void

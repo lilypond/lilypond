@@ -42,7 +42,7 @@ minimise_least_squares (Real *coef, Real *offset,
     }
   else
     {
-      *coef = (N *sxy - sx*sy) / den;
+      *coef = (N *sxy - sx * sy) / den;
       *offset = (sy - (*coef) * sx) / N;
     }
 }

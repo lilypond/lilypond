@@ -55,7 +55,7 @@ Separating_group_spanner::find_rods (Item *r, SCM next, Real padding)
 	  Rod rod;
 
 	  rod.item_drul_[LEFT] = l;
-	  rod.item_drul_[RIGHT]= r;
+	  rod.item_drul_[RIGHT] = r;
 
 	  rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
 
@@ -68,7 +68,6 @@ Separating_group_spanner::find_rods (Item *r, SCM next, Real padding)
 	this grob doesn't cause a constraint. We look further until we
 	find one that does.
       */
-
     }
 }
 
@@ -111,7 +110,6 @@ Separating_group_spanner::add_spacing_unit (Grob *me, Item *i)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), i);
   me->add_dependency (i);
 }
-
 
 ADD_INTERFACE (Separating_group_spanner, "separation-spanner-interface",
 	       "A spanner that calculates spacing constraints (\"rods\") "

@@ -139,7 +139,6 @@ Fingering_engraver::start_translation_timestep ()
 
 Fingering_engraver::Fingering_engraver ()
 {
-
 }
 
 ADD_TRANSLATOR (Fingering_engraver,

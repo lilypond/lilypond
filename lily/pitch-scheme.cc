@@ -30,9 +30,9 @@ LY_DEFINE (ly_make_pitch, "ly:make-pitch",
 	   "The @var{alter} is zero for a natural, negative for "
 	   "flats, or positive for sharps. ")
 {
-  SCM_ASSERT_TYPE (scm_integer_p (octave)== SCM_BOOL_T, octave, SCM_ARG1, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE (scm_integer_p (note)== SCM_BOOL_T, note, SCM_ARG2, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE (scm_integer_p (alter)== SCM_BOOL_T, alter, SCM_ARG3, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_integer_p (octave) == SCM_BOOL_T, octave, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_integer_p (note) == SCM_BOOL_T, note, SCM_ARG2, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_integer_p (alter) == SCM_BOOL_T, alter, SCM_ARG3, __FUNCTION__, "integer");
 
   Pitch p (scm_to_int (octave), scm_to_int (note), scm_to_int (alter));
   return p.smobbed_copy ();

@@ -55,7 +55,7 @@ Multi_measure_rest::percent (SCM smob)
   /*
     center between stuff.
   */
-  x_off += sp_iv.length ()/ 2;
+  x_off += sp_iv.length () / 2;
 
   r.translate_axis (x_off, X_AXIS);
 
@@ -124,7 +124,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
   if (measures > scm_to_int (limit))
     {
       Real padding = 0.15;
-      Stencil s = big_rest (me, (1.0 - 2*padding) * space);
+      Stencil s = big_rest (me, (1.0 - 2 * padding) * space);
       s.translate_axis (padding * space, X_AXIS);
       return s;
     }
@@ -185,7 +185,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Real blot = width ? (.8 * (y <? ythick)) : 0.0;
 
   Stencil m = Lookup::round_filled_box (b, blot);
-  Stencil yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5)* ythick, Interval (-ss, ss)), blot);
+  Stencil yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5) * ythick, Interval (-ss, ss)), blot);
 
   m.add_at_edge (X_AXIS, RIGHT, yb, 0, 0);
   m.add_at_edge (X_AXIS, LEFT, yb, 0, 0);
@@ -239,7 +239,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
 	      l -= 4;
 	      k = -2;
 	    }
-	  else if (l>= 2)
+	  else if (l >= 2)
 	    {
 	      l -= 2;
 	      k = -1;

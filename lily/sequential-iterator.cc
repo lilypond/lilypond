@@ -52,7 +52,6 @@ Sequential_iterator::do_quit ()
     iter_->quit ();
 }
 
-
 void
 Sequential_iterator::derived_mark () const
 {

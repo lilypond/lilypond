@@ -86,7 +86,6 @@ String_convert::i64_string (I64 i64, char const *fmt)
   snprintf (buffer, STRING_BUFFER_LEN,
 	    (fmt ? fmt : "%Ld"), i64); // assume radix 10
   return String (buffer);
-
 }
 // breendet imp from String
 double
@@ -107,7 +106,7 @@ String_convert::hex2bin (String hex_string, String &bin_string_r)
     hex_string = "0" + hex_string;
 
   bin_string_r = "";
-  Byte const *byte= hex_string.to_bytes ();
+  Byte const *byte = hex_string.to_bytes ();
   int i = 0;
   while (i < hex_string.length ())
     {
@@ -319,11 +318,12 @@ String_convert::split (String str, char c)
 {
   Array<String> a;
   int i = str.index (c);
-  while (i >=0)
+  while (i >= 0)
     {
       String s = str.left_string (i);
       a.push (s);
-      while (str[++i] == c);
+      while (str[++i] == c)
+	;
       str = str.cut_string (i, INT_MAX);
       i = str.index (c);
     }

@@ -44,13 +44,13 @@ Box::Box (Interval ix, Interval iy)
 }
 
 Interval &
-Box::operator[] (Axis a)
+Box::operator [] (Axis a)
 {
   return interval_a_[a];
 }
 
 Interval
-Box::operator[] (Axis a) const
+Box::operator [] (Axis a) const
 {
   return interval_a_[a];
 }

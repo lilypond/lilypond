@@ -34,7 +34,6 @@ substitute_grob (Grob *sc)
       if (sc->get_system () != line)
 	{
 	  sc = sc->find_broken_piece (line);
-
 	}
 
       /* now: !sc || (sc && sc->get_system () == line) */
@@ -233,7 +232,7 @@ item_system_range (Item *it)
       if (bi && bi->get_system ())
 	sr.add_point (bi->get_system ()->rank_);
     }
-  while (flip (&d)!= LEFT);
+  while (flip (&d) != LEFT);
 
   return sr;
 }
@@ -378,7 +377,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
     ordering, since they go across the entire score.
   */
   for (int i = sp_indices.size (); i--;)
-    sp_indices[i]= Slice (sp_index, len - 1);
+    sp_indices[i] = Slice (sp_index, len - 1);
 
   assert (it_index <= sp_index);
 
@@ -387,7 +386,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
     {
       Grob *sc = broken_intos_[i];
       System *l = sc->get_system ();
-      set_break_subsititution (l ? l->self_scm (): SCM_UNDEFINED);
+      set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
 
       SCM newval = SCM_EOL;
       SCM *tail = &newval;
@@ -396,13 +395,12 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
 	for (int j = (*arrs[k])[i][LEFT]; j <= (*arrs[k])[i][RIGHT]; j++)
 	  {
 	    SCM subs = substitute_grob (vec[j].grob_);
-	    if (subs!= SCM_UNDEFINED)
+	    if (subs != SCM_UNDEFINED)
 	      {
 		*tail = scm_cons (subs, SCM_EOL);
 
 		tail = SCM_CDRLOC (*tail);
 	      }
-
 	  }
 
 #ifdef PARANOIA
@@ -489,7 +487,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
     fast_done = s->fast_fubstitute_grob_list (sym, val);
 
   if (!fast_done)
-    for (int i = 0; i < s->broken_intos_ .size (); i++)
+    for (int i = 0; i < s->broken_intos_.size (); i++)
       {
 	Grob *sc = s->broken_intos_[i];
 	System *l = sc->get_system ();

@@ -48,7 +48,6 @@ Stanza_number_engraver::process_music ()
 
       text_ = make_item ("StanzaNumber", SCM_EOL);
       text_->set_property ("text", stanza);
-
     }
 }
 

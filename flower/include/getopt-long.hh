@@ -102,7 +102,7 @@ public:
        @return pointer to next option found.
        0 if error occurred, or next argument is no option.
   */
-  const Long_option_init *operator() ();
+  const Long_option_init *operator () ();
 
   char const *current_arg ();
   char const *get_next_arg ();

@@ -25,14 +25,13 @@ struct Key_signature_interface
 /*
   FIXME: too much hardcoding here.
 */
-const int FLAT_TOP_PITCH =2; /* fes, ges, as and bes typeset in lower octave */
-const int SHARP_TOP_PITCH =4; /*  ais and bis typeset in lower octave */
+const int FLAT_TOP_PITCH = 2; /* fes, ges, as and bes typeset in lower octave */
+const int SHARP_TOP_PITCH = 4; /*  ais and bis typeset in lower octave */
 
 /*
   TODO: look this up. I'm not sure where the naturals ought to go.
 */
 const int NATURAL_TOP_PITCH = 4;
-
 
 /*
   FIXME: key-item should just get a list of (position, acc), and leave
@@ -56,8 +55,8 @@ alteration_pos (SCM what, int alter, int c0p)
   from_bottom_pos = (from_bottom_pos + 7)%7; // Precaution to get positive.
   int c0 = from_bottom_pos - 4;
 
-  if ((alter <0 && ((p > FLAT_TOP_PITCH) || (p + c0 > 4)) && (p + c0 > 1))
-      || (alter >0 && ((p > SHARP_TOP_PITCH) || (p + c0 > 5)) && (p + c0 > 2))
+  if ((alter < 0 && ((p > FLAT_TOP_PITCH) || (p + c0 > 4)) && (p + c0 > 1))
+      || (alter > 0 && ((p > SHARP_TOP_PITCH) || (p + c0 > 5)) && (p + c0 > 2))
       || (alter == 0 && ((p > NATURAL_TOP_PITCH) || (p + c0 > 5)) && (p + c0 > 2)))
     {
       p -= 7; /* Typeset below c_position */
@@ -67,7 +66,7 @@ alteration_pos (SCM what, int alter, int c0p)
      it's a hack, but probably not worth
      the effort of finding a nicer solution.
      --dl. */
-  if (c0 == 2 && alter >0 && p ==3)
+  if (c0 == 2 && alter > 0 && p == 3)
     p -= 7;
   if (c0==-3 && alter > 0 && p ==-1)
     p += 7;
@@ -158,7 +157,7 @@ Key_signature_interface::print (SCM smob)
 	      int pos = alteration_pos (what, alteration, c0p);
 
 	      Stencil m = natural;
-	      m.translate_axis (pos* inter, Y_AXIS);
+	      m.translate_axis (pos * inter, Y_AXIS);
 
 	      /*
 		The natural sign (unlike flat & sharp)
@@ -167,7 +166,7 @@ Key_signature_interface::print (SCM smob)
 	      */
 	      Real padding = 0.0;
 	      if (last_pos < pos + 2
-		  && last_pos> pos - 6)
+		  && last_pos > pos - 6)
 		padding = 0.3;
 
 	      mol.add_at_edge (X_AXIS, LEFT, m, padding, 0);

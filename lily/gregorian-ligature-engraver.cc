@@ -91,18 +91,18 @@ void check_and_fix_all_prefixes (Array<Grob_info> primitives)
 
       /* compute head prefix set by inspecting primitive grob properties */
       int prefix_set
-	= (VIRGA *to_boolean (primitive->get_property ("virga"))) |
-	(STROPHA *to_boolean (primitive->get_property ("stropha"))) |
-	(INCLINATUM *to_boolean (primitive->get_property ("inclinatum"))) |
-	(AUCTUM *to_boolean (primitive->get_property ("auctum"))) |
-	(DESCENDENS *to_boolean (primitive->get_property ("descendens"))) |
-	(ASCENDENS *to_boolean (primitive->get_property ("ascendens"))) |
-	(ORISCUS *to_boolean (primitive->get_property ("oriscus"))) |
-	(QUILISMA *to_boolean (primitive->get_property ("quilisma"))) |
-	(DEMINUTUM *to_boolean (primitive->get_property ("deminutum"))) |
-	(CAVUM *to_boolean (primitive->get_property ("cavum"))) |
-	(LINEA *to_boolean (primitive->get_property ("linea"))) |
-	(PES_OR_FLEXA *to_boolean (primitive->get_property ("pes-or-flexa")));
+	= (VIRGA *to_boolean (primitive->get_property ("virga")))
+	| (STROPHA *to_boolean (primitive->get_property ("stropha")))
+	| (INCLINATUM *to_boolean (primitive->get_property ("inclinatum")))
+	| (AUCTUM *to_boolean (primitive->get_property ("auctum")))
+	| (DESCENDENS *to_boolean (primitive->get_property ("descendens")))
+	| (ASCENDENS *to_boolean (primitive->get_property ("ascendens")))
+	| (ORISCUS *to_boolean (primitive->get_property ("oriscus")))
+	| (QUILISMA *to_boolean (primitive->get_property ("quilisma")))
+	| (DEMINUTUM *to_boolean (primitive->get_property ("deminutum")))
+	| (CAVUM *to_boolean (primitive->get_property ("cavum")))
+	| (LINEA *to_boolean (primitive->get_property ("linea")))
+	| (PES_OR_FLEXA *to_boolean (primitive->get_property ("pes-or-flexa")));
 
       /* check: ascendens and descendens exclude each other; same with
 	 auctum and deminutum */

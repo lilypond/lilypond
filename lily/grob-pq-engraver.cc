@@ -11,7 +11,7 @@
 #include "grob.hh"
 #include "warn.hh"
 
-class Grob_pq_engraver: public Engraver
+class Grob_pq_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Grob_pq_engraver);

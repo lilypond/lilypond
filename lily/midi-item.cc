@@ -101,7 +101,7 @@ String
 Midi_event::to_string () const
 {
   Rational rat_dt = (delta_mom_.main_part_ * Rational (384)
-		     + delta_mom_.grace_part_ * Rational (100))*Rational (4);
+		     + delta_mom_.grace_part_ * Rational (100)) * Rational (4);
   int delta_i = int (rat_dt);
 
   String delta_string = Midi_item::i2varint_string (delta_i);
@@ -149,7 +149,7 @@ Midi_instrument::to_string () const
   else
     warning (_f ("no such MIDI instrument: `%s'", audio_->str_.to_str0 ()));
 
-  String str = ::to_string ((char) (0xc0 + channel_)); //YIKES! FIXME: Should be track. -rz
+  String str = ::to_string ((char) (0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
   str += ::to_string ((char)program_byte);
   return str;
 }
@@ -340,7 +340,7 @@ Midi_dynamic::to_string () const
   */
   static Real const full_scale = 127;
 
-  int volume = (int) (audio_->volume_*full_scale);
+  int volume = (int) (audio_->volume_ * full_scale);
   if (volume <= 0)
     volume = 1;
   if (volume > full_scale)

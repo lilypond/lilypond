@@ -133,7 +133,7 @@ Rest_collision::do_shift (Grob *me)
 	This is incomplete: in case of an uneven number of rests, the
 	center one should be centered on the staff.
       */
-      Drul_array< Link_array<Grob> > ordered_rests;
+      Drul_array<Link_array<Grob> > ordered_rests;
       for (int i = 0; i < rests.size (); i++)
 	{
 	  Grob *r = Note_column::get_rest (rests[i]);
@@ -191,13 +191,12 @@ Rest_collision::do_shift (Grob *me)
 	      Real last_y = ordered_rests[d][i + 1]->extent (common, Y_AXIS)[d];
 	      Real y = ordered_rests[d][i]->extent (common, Y_AXIS)[-d];
 
-	      Real diff = d * ((last_y - y) /staff_space);
+	      Real diff = d * ((last_y - y) / staff_space);
 	      if (diff > 0)
 		Note_column::translate_rests (ordered_rests[d][i], d * (int) ceil (diff) * 2);
 	    }
 	}
       while (flip (&d) != LEFT);
-
     }
   else
     {
@@ -243,15 +242,15 @@ Rest_collision::do_shift (Grob *me)
       if (!stafflines)
 	{
 	  programming_error ("No staff line count ? ");
-	  stafflines =5;
+	  stafflines = 5;
 	}
 
       // move discretely by half spaces.
-      int discrete_dist = int (ceil (dist / (0.5 *staff_space)));
+      int discrete_dist = int (ceil (dist / (0.5 * staff_space)));
 
       // move by whole spaces inside the staff.
       if (discrete_dist < stafflines + 1)
-	discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
+	discrete_dist = int (ceil (discrete_dist / 2.0) * 2.0);
 
       Note_column::translate_rests (rcol, dir * discrete_dist);
     }

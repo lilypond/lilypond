@@ -41,13 +41,12 @@ Dots::print (SCM d)
 
       for (int i = scm_to_int (c); i--;)
 	{
-	  d.translate_axis (2*dw, X_AXIS);
+	  d.translate_axis (2 * dw, X_AXIS);
 	  mol.add_at_edge (X_AXIS, RIGHT, d, dw, 0);
 	}
     }
   return mol.smobbed_copy ();
 }
-
 
 ADD_INTERFACE (Dots, "dots-interface",
 	       "The dots to go with a notehead or rest."

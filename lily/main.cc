@@ -278,7 +278,7 @@ do_chroot_jail ()
   errno = 0;
 
   int uid;
-  if (passwd *passwd = getpwnam (components[USER_NAME].to_str0 ()))
+  if (passwd * passwd = getpwnam (components[USER_NAME].to_str0 ()))
     uid = passwd->pw_uid;
   else
     {
@@ -295,7 +295,7 @@ do_chroot_jail ()
   errno = 0;
 
   int gid;
-  if (group *group = getgrnam (components[GROUP_NAME].to_str0 ()))
+  if (group * group = getgrnam (components[GROUP_NAME].to_str0 ()))
     gid = group->gr_gid;
   else
     {

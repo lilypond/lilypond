@@ -132,7 +132,7 @@ Bar_line::compound_barline (Grob *me, String str, Real h)
 	  Real y = (- (c - 1.0) / 2 + 0.5 + i * staff_space);
 	  Stencil d (dot);
 
-	  d. translate_axis (y, Y_AXIS);
+	  d.translate_axis (y, Y_AXIS);
 	  m.add_stencil (d);
 	}
     }
@@ -179,7 +179,6 @@ Bar_line::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-
 MAKE_SCHEME_CALLBACK (Bar_line, get_staff_bar_size, 1);
 SCM
 Bar_line::get_staff_bar_size (SCM smob)
@@ -188,7 +187,7 @@ Bar_line::get_staff_bar_size (SCM smob)
   Real ss = Staff_symbol_referencer::staff_space (me);
   SCM size = me->get_property ("bar-size");
   if (scm_is_number (size))
-    return scm_make_real (scm_to_double (size)*ss);
+    return scm_make_real (scm_to_double (size) * ss);
   else if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       /*

@@ -33,7 +33,7 @@ template<class T> inline T max (T x, T y)
 
 template<class T> inline T sqr (T x)
 {
-  return x*x;
+  return x * x;
 }
 
 template<class T> inline T min (T x, T y)

@@ -107,9 +107,9 @@ vaticana_brew_flexa (Grob *me,
    * Compensate optical illusion regarding vertical position of left
    * and right endings due to curved shape.
    */
-  Real ypos_correction = -0.1*staff_space * sign (interval);
-  Real interval_correction = 0.2*staff_space * sign (interval);
-  Real corrected_interval = interval*staff_space + interval_correction;
+  Real ypos_correction = -0.1 * staff_space * sign (interval);
+  Real interval_correction = 0.2 * staff_space * sign (interval);
+  Real corrected_interval = interval * staff_space + interval_correction;
 
   /*
    * middle curve of flexa shape
@@ -123,7 +123,7 @@ vaticana_brew_flexa (Grob *me,
   Bezier top_curve = curve, bottom_curve = curve;
   for (int i = 0; i < 4; i++)
     {
-      Real curve_thickness = 0.33 * ((3 - i)*left_height + i*right_height);
+      Real curve_thickness = 0.33 * ((3 - i) * left_height + i * right_height);
       top_curve.control_[i] += Offset (0, 0.5 * curve_thickness);
       bottom_curve.control_[i] -= Offset (0, 0.5 * curve_thickness);
     }
@@ -157,12 +157,12 @@ vaticana_brew_flexa (Grob *me,
        * the left end of the bezier curve.
        */
       Box left_edge_box (Interval (0, line_thickness),
-			 Interval (-0.5*left_height, +0.5*left_height));
+			 Interval (-0.5 * left_height, +0.5 * left_height));
       Stencil left_edge = Lookup::filled_box (left_edge_box);
       stencil.add_stencil (left_edge);
 
       Box right_edge_box (Interval (-line_thickness, 0),
-			  Interval (-0.5*right_height, +0.5*right_height));
+			  Interval (-0.5 * right_height, +0.5 * right_height));
       Stencil right_edge = Lookup::filled_box (right_edge_box);
       right_edge.translate_axis (width, X_AXIS);
       right_edge.translate_axis (corrected_interval / 2.0, Y_AXIS);
@@ -184,8 +184,8 @@ vaticana_brew_join (Grob *me, int delta_pitch,
       return Stencil ();
     }
   Interval x_extent = Interval (0, join_thickness);
-  Interval y_extent = (delta_pitch > 0) ?
-    Interval (0, delta_pitch * 0.5 * staff_space) : // ascending join
+  Interval y_extent = (delta_pitch > 0)
+    ? Interval (0, delta_pitch * 0.5 * staff_space) : // ascending join
     Interval (delta_pitch * 0.5 * staff_space, 0); // descending join
   Box join_box (x_extent, y_extent);
   return Lookup::round_filled_box (join_box, blotdiameter);
@@ -238,9 +238,9 @@ vaticana_brew_primitive (Grob *me)
        * flexa_width.)
        */
       Real staff_space = Staff_symbol_referencer::staff_space (me);
-      Real flexa_width = robust_scm2double (me->get_property ("flexa-width"), 2) *staff_space;
+      Real flexa_width = robust_scm2double (me->get_property ("flexa-width"), 2) * staff_space;
       out
-	= Lookup::blank (Box (Interval (0, 0.5*flexa_width), Interval (0, 0)));
+	= Lookup::blank (Box (Interval (0, 0.5 * flexa_width), Interval (0, 0)));
     }
   else if (!String::compare (glyph_name, "flexa"))
     {

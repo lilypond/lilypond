@@ -222,7 +222,6 @@ token (FILE *stream)
   ident[idx] = 0;
 
   return (ident);	/* returns pointer to the token */
-
 } /* token */
 
 /*************************** linetoken *************************/
@@ -251,7 +250,6 @@ linetoken (FILE *stream)
   ident[idx] = 0;
 
   return (ident);	/* returns pointer to the token */
-
 } /* linetoken */
 
 /*************************** recognize *************************/
@@ -461,7 +459,6 @@ parseGlobals (FILE *fp, register AFM_GlobalFontInfo *gfi)
     } /* while */
 
   return (error);
-
 } /* parseGlobals */
 
 #if 0
@@ -541,7 +538,6 @@ initializeArray (FILE *fp, register int *cwi)
   fseek (fp, opos, 0);
 
   return (error);
-
 } /* initializeArray */
 #endif
 
@@ -644,7 +640,6 @@ parseCharWidths (FILE *fp, register int *cwi)
     } /* while */
 
   return (error);
-
 } /* parseCharWidths */
 
 /************************* parseCharMetrics ************************/
@@ -765,7 +760,6 @@ parseCharMetrics (FILE *fp, register AFM_Font_info *fi)
       error = AFM_parseError;
     }
   return (error);
-
 } /* parseCharMetrics */
 
 /************************* parseAFM_TrackKernData ***********************/
@@ -870,7 +864,6 @@ parseAFM_TrackKernData (FILE *fp, register AFM_Font_info *fi)
     error = AFM_parseError;
 
   return (error);
-
 } /* parseAFM_TrackKernData */
 
 /************************* parseAFM_PairKernData ************************/
@@ -991,7 +984,6 @@ parseAFM_PairKernData (FILE *fp, register AFM_Font_info *fi)
     error = AFM_parseError;
 
   return (error);
-
 } /* parseAFM_PairKernData */
 
 /************************* parseAFM_CompCharData **************************/
@@ -1116,9 +1108,7 @@ parseAFM_CompCharData (FILE *fp, register AFM_Font_info *fi)
     error = AFM_parseError;
 
   return (error);
-
 } /* parseAFM_CompCharData */
-
 
 /*************************** 'PUBLIC' FUNCTION ********************/
 
@@ -1375,7 +1365,6 @@ AFM_parseFile (FILE *fp, AFM_Font_info **fi, int flags)
 
       if ((error != AFM_earlyEOF) && (code < 0))
 	error = code;
-
     } /* while */
 
   if ((error != AFM_earlyEOF) && (code < 0))
@@ -1384,6 +1373,5 @@ AFM_parseFile (FILE *fp, AFM_Font_info **fi, int flags)
   if (ident != NULL) { free (ident); ident = NULL; }
 
   return (error);
-
 } /* parseFile */
 

@@ -49,7 +49,6 @@ Time_signature_performer::create_audio_elements ()
       audio_ = new Audio_time_signature (b, o);
       Audio_element_info info (audio_, 0);
       announce_element (info);
-
     }
 }
 

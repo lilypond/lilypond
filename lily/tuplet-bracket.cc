@@ -210,9 +210,9 @@ Tuplet_bracket::print (SCM smob)
 	  if (is_number_pair (fl))
 	    flare[d] += ss * scm_to_double (index_get_cell (fl, d));
 	  if (is_number_pair (eh))
-	    height[d] += -dir * ss *scm_to_double (index_get_cell (eh, d));
+	    height[d] += -dir * ss * scm_to_double (index_get_cell (eh, d));
 	  if (is_number_pair (sp))
-	    shorten[d] += ss *scm_to_double (index_get_cell (sp, d));
+	    shorten[d] += ss * scm_to_double (index_get_cell (sp, d));
 	}
       while (flip (&d) != LEFT);
 
@@ -260,7 +260,7 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
   Direction d = LEFT;
   do
     {
-      straight_corners[d] += -d * shorten[d] /length * dz;
+      straight_corners[d] += -d * shorten[d] / length * dz;
     }
   while (flip (&d) != LEFT);
 
@@ -318,7 +318,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
     Use outer non-rest columns to determine slope
   */
   int l = 0;
-  while (l <columns.size () && Note_column::has_rests (columns[l]))
+  while (l < columns.size () && Note_column::has_rests (columns[l]))
     l++;
 
   int r = columns.size ()- 1;
@@ -362,7 +362,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
   /*
     Slope.
   */
-  Real factor = columns.size () > 1 ? 1/ (x1 - x0) : 1.0;
+  Real factor = columns.size () > 1 ? 1 / (x1 - x0) : 1.0;
 
   for (int i = 0; i < columns.size (); i++)
     {
@@ -378,7 +378,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
     }
 
   // padding
-  *offset += scm_to_double (me->get_property ("padding")) *dir;
+  *offset += scm_to_double (me->get_property ("padding")) * dir;
 
   /*
     horizontal brackets should not collide with staff lines.
@@ -396,7 +396,6 @@ Tuplet_bracket::calc_position_and_height (Grob *me, Real *offset, Real *dy)
 
       *offset *= 0.5 * ss;
     }
-
 }
 
 /*
@@ -413,7 +412,7 @@ Tuplet_bracket::before_line_breaking (SCM smob)
   for (int i = columns.size (); i--;)
     {
       Grob *s = Note_column::get_stem (columns[i]);
-      Grob *b = s ? Stem::get_beam (s): 0;
+      Grob *b = s ? Stem::get_beam (s) : 0;
       if (b)
 	me->add_dependency (b);
     }
@@ -523,8 +522,6 @@ Tuplet_bracket::add_column (Grob *me, Item *n)
 
   add_bound_item (dynamic_cast<Spanner *> (me), n);
 }
-
-
 
 ADD_INTERFACE (Tuplet_bracket,
 	       "tuplet-bracket-interface",

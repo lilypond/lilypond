@@ -62,7 +62,7 @@ class String_data
   /// concatenation.
   void append (Byte const *byte, int length_i);
 
-  void operator+= (char const *str0);
+  void operator += (char const *str0);
 
   char const *to_str0 () const;
 
@@ -77,8 +77,8 @@ class String_data
 
   /** access element. not really safe. Can alter length_ without
       #String_data# knowing it.  */
-  Byte &operator[] (int j);
-  Byte operator[] (int j) const;
+  Byte &operator [] (int j);
+  Byte operator [] (int j) const;
   bool is_binary_bo () const;
 };
 

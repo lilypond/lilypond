@@ -83,7 +83,6 @@ Hara_kiri_group_spanner::add_element (Grob *me, Grob *e)
   Axis_group_interface::add_element (me, e);
 }
 
-
 void
 Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 {

@@ -24,24 +24,24 @@ class Offset
 public:
   Real coordinate_a_[NO_AXES];
 
-  Real &operator[] (Axis i)
+  Real &operator [] (Axis i)
   {
     return coordinate_a_[i];
   }
 
-  Real operator[] (Axis i) const
+  Real operator [] (Axis i) const
   {
     return coordinate_a_[i];
   }
 
-  Offset &operator+= (Offset o)
+  Offset &operator += (Offset o)
   {
     (*this)[X_AXIS] += o[X_AXIS];
     (*this)[Y_AXIS] += o[Y_AXIS];
     return *this;
   }
 
-  Offset operator- () const
+  Offset operator - () const
   {
     Offset o = *this;
 
@@ -50,7 +50,7 @@ public:
     return o;
   }
 
-  Offset &operator-= (Offset o)
+  Offset &operator -= (Offset o)
   {
     (*this)[X_AXIS] -= o[X_AXIS];
     (*this)[Y_AXIS] -= o[Y_AXIS];
@@ -66,7 +66,7 @@ public:
     return *this;
   }
 
-  Offset &operator*= (Real a)
+  Offset &operator *= (Real a)
   {
     (*this)[X_AXIS] *= a;
     (*this)[Y_AXIS] *= a;
@@ -76,13 +76,13 @@ public:
 
   Offset (Real ix, Real iy)
   {
-    coordinate_a_[X_AXIS] =ix;
-    coordinate_a_[Y_AXIS] =iy;
+    coordinate_a_[X_AXIS] = ix;
+    coordinate_a_[Y_AXIS] = iy;
   }
 
   Offset ()
   {
-    coordinate_a_[X_AXIS] = coordinate_a_[Y_AXIS]= 0.0;
+    coordinate_a_[X_AXIS] = coordinate_a_[Y_AXIS] = 0.0;
   }
 
   String to_string () const;
@@ -96,12 +96,11 @@ public:
   Real arg () const;
   Real length () const;
 
-  Offset operator*= (Offset z2)
+  Offset operator *= (Offset z2)
   {
     *this = complex_multiply (*this, z2);
     return *this;
   }
-
 };
 
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, +);
@@ -109,14 +108,14 @@ IMPLEMENT_ARITHMETIC_OPERATOR (Offset, -);
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, *);
 
 inline Offset
-operator* (Real o1, Offset o2)
+operator * (Real o1, Offset o2)
 {
   o2 *= o1;
   return o2;
 }
 
 inline Offset
-operator* (Offset o1, Real o2)
+operator * (Offset o1, Real o2)
 {
   o1 *= o2;
   return o1;

@@ -135,7 +135,6 @@ Side_position_interface::aligned_on_support_refpoints (SCM smob, SCM axis)
   return general_side_position (me, a, false);
 }
 
-
 Real
 directed_round (Real f, Direction d)
 {
@@ -164,7 +163,7 @@ Side_position_interface::quantised_position (SCM element_smob, SCM)
     {
       Real p = Staff_symbol_referencer::get_position (me);
       Real rp = directed_round (p, d);
-      Real rad = Staff_symbol_referencer::staff_radius (me) *2;
+      Real rad = Staff_symbol_referencer::staff_radius (me) * 2;
       int ip = int (rp);
 
       Grob *head = me->get_parent (X_AXIS);
@@ -226,8 +225,8 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
       Grob *common = me->common_refpoint (st, Y_AXIS);
 
       Interval staff_size = st->extent (common, Y_AXIS);
-      Real diff = d*staff_size[d] + padding - d* (o + iv[-d]);
-      o += (d* (diff >? 0));
+      Real diff = d*staff_size[d] + padding - d * (o + iv[-d]);
+      o += (d * (diff >? 0));
     }
 
   return scm_make_real (o);

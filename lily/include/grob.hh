@@ -26,7 +26,7 @@ enum Grob_status
     POSTCALCED, // after spacing calcs done
   };
 
-typedef void (Grob::*Grob_method_pointer) (void);
+typedef void (Grob:: *Grob_method_pointer) (void);
 
 // looking at gtk+/pango docstrings .. WIP
 

@@ -36,8 +36,8 @@ Note_column::shift_compare (Grob *const &p1, Grob *const &p2)
   SCM s1 = p1->get_property ("horizontal-shift");
   SCM s2 = p2->get_property ("horizontal-shift");
 
-  int h1 = (scm_is_number (s1))? scm_to_int (s1) :0;
-  int h2 = (scm_is_number (s2)) ? scm_to_int (s2):0;
+  int h1 = (scm_is_number (s1)) ? scm_to_int (s1) : 0;
+  int h2 = (scm_is_number (s2)) ? scm_to_int (s2) : 0;
   return h1 - h2;
 }
 
@@ -139,12 +139,11 @@ Note_column::set_dotcol (Grob *me, Grob *d)
   Axis_group_interface::add_element (me, d);
 }
 
-
 Grob *
 Note_column::first_head (Grob *me)
 {
   Grob *st = get_stem (me);
-  return st? Stem::first_head (st): 0;
+  return st ? Stem::first_head (st) : 0;
 }
 
 /*

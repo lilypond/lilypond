@@ -24,7 +24,6 @@ private:
   Audio_text *audio_;
 };
 
-
 Lyric_performer::Lyric_performer ()
 {
   audio_ = 0;

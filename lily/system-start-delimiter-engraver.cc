@@ -74,7 +74,6 @@ System_start_delimiter_engraver::process_music ()
 					     ly_symbol2string (delim_name).to_str0 ());
 
       delim_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
-
     }
 }
 void
@@ -83,7 +82,6 @@ System_start_delimiter_engraver::finalize ()
   if (delim_)
     {
       delim_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
-
     }
 }
 

@@ -75,7 +75,7 @@ LY_DEFINE (ly_module_copy, "ly:module-copy",
 	   "Copy all bindings from module SRC into DEST.")
 {
   SCM_VALIDATE_MODULE (1, src);
-  scm_internal_hash_fold ((Hash_cl_func) &module_define_closure_func,
+  scm_internal_hash_fold ((Hash_cl_func) & module_define_closure_func,
 			  (void *) dest,
 			  SCM_EOL, SCM_MODULE_OBARRAY (src));
   return SCM_UNSPECIFIED;
@@ -95,7 +95,7 @@ ly_module_symbols (SCM mod)
   SCM_VALIDATE_MODULE (1, mod);
 
   SCM obarr = SCM_MODULE_OBARRAY (mod);
-  return scm_internal_hash_fold ((Hash_cl_func) &accumulate_symbol,
+  return scm_internal_hash_fold ((Hash_cl_func) & accumulate_symbol,
 				 NULL, SCM_EOL, obarr);
 }
 
@@ -121,7 +121,7 @@ LY_DEFINE (ly_module2alist, "ly:module->alist",
   SCM_VALIDATE_MODULE (1, mod);
   SCM obarr = SCM_MODULE_OBARRAY (mod);
 
-  return scm_internal_hash_fold ((Hash_cl_func) &entry_to_alist, NULL, SCM_EOL, obarr);
+  return scm_internal_hash_fold ((Hash_cl_func) & entry_to_alist, NULL, SCM_EOL, obarr);
 }
 
 /* Lookup SYM, but don't give error when it is not defined.  */

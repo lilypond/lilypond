@@ -10,15 +10,15 @@
 #define PQUEUE_HH
 #include "array.hh"
 
-template < class K, class T>
+template<class K, class T>
 struct PQueue_ent
 {
   T val;
   K key;
 };
 
-template < class K, class T>
-int compare (PQueue_ent < K, T> const &e1, PQueue_ent < K, T> const &e2)
+template<class K, class T>
+int compare (PQueue_ent<K, T> const &e1, PQueue_ent<K, T> const &e2)
 {
   return compare (e1.key, e2.key);
 }
@@ -48,12 +48,12 @@ public:
       priority might fuck up the invariants
 
       @param 1 <= i < size () */
-  T &operator[] (int i) { return heap_array_[i]; }
-  T operator[] (int i) const { return heap_array_[i]; }
+  T &operator [] (int i) { return heap_array_[i]; }
+  T operator [] (int i) const { return heap_array_[i]; }
   void OK () const
   {
 #ifndef NDEBUG
-    for (int i =2; i <= size (); i++)
+    for (int i = 2; i <= size (); i++)
       assert (compare (elt (i / 2), elt (i)) <= 0);
 #endif
   }
@@ -97,7 +97,7 @@ public:
 
     while (mini < size ())
       {
-	if (compare (elt (mini + 1), elt (mini)) <0)
+	if (compare (elt (mini + 1), elt (mini)) < 0)
 	  mini++;
 	if (compare (last, elt (mini)) < 0)
 	  break;

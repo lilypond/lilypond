@@ -86,7 +86,6 @@ Script_column::before_line_breaking (SCM smob)
 
 	  last = g;
 	}
-
     }
   while (flip (&d) != DOWN);
 

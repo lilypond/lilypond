@@ -165,7 +165,6 @@ Span_dynamic_performer::stop_translation_timestep ()
 
   span_events_[STOP] = 0;
   span_events_[START] = 0;
-
 }
 
 bool

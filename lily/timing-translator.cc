@@ -74,7 +74,6 @@ Timing_translator::measure_length () const
 
 Timing_translator::Timing_translator ()
 {
-
 }
 
 Moment

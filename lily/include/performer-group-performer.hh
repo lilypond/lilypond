@@ -11,7 +11,7 @@
 #include "performer.hh"
 #include "translator-group.hh"
 
-typedef void (Performer::*Performer_method) (void);
+typedef void (Performer:: *Performer_method) (void);
 
 class Performer_group_performer : public Performer, public virtual Translator_group
 {

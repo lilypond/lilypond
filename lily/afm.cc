@@ -75,7 +75,7 @@ Adobe_font_metric::find_char_metric (String nm) const
 int
 Adobe_font_metric::name_to_index (String name) const
 {
-  std::map < String, int>::const_iterator ai = name_to_metric_dict_.find (name);
+  std::map<String, int>::const_iterator ai = name_to_metric_dict_.find (name);
   if (ai == name_to_metric_dict_.end ())
     return -1;
   return (*ai).second;

@@ -25,7 +25,6 @@ String_number_engraver::try_music (Music *)
 
 String_number_engraver::String_number_engraver ()
 {
-
 }
 
 /*

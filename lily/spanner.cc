@@ -10,7 +10,7 @@
 
 #include <math.h>
 
-#include <libc-extension.hh>
+#include < libc - extension.hh>
 
 #include "warn.hh"
 #include "paper-column.hh"
@@ -78,7 +78,7 @@ Spanner::do_break_processing ()
 	      broken_intos_.push (span);
 	    }
 	}
-      while ((flip (&d))!= LEFT);
+      while ((flip (&d)) != LEFT);
     }
   else
     {
@@ -87,7 +87,7 @@ Spanner::do_break_processing ()
       break_points.insert (left, 0);
       break_points.push (right);
 
-      for (int i =1; i < break_points.size (); i++)
+      for (int i = 1; i < break_points.size (); i++)
 	{
 	  Drul_array<Item *> bounds;
 	  bounds[LEFT] = break_points[i - 1];
@@ -98,7 +98,7 @@ Spanner::do_break_processing ()
 	      if (!bounds[d]->get_system ())
 		bounds[d] = bounds[d]->find_prebroken_piece (- d);
 	    }
-	  while ((flip (&d))!= LEFT);
+	  while ((flip (&d)) != LEFT);
 
 	  if (!bounds[LEFT] || ! bounds[RIGHT])
 	    {
@@ -208,8 +208,8 @@ Spanner::Spanner (SCM s, Object_key const *key)
   : Grob (s, key)
 {
   break_index_ = 0;
-  spanned_drul_[LEFT]= 0;
-  spanned_drul_[RIGHT]= 0;
+  spanned_drul_[LEFT] = 0;
+  spanned_drul_[RIGHT] = 0;
 
   Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("spanner-interface"));
 }
@@ -226,7 +226,7 @@ Spanner::spanner_length () const
   Real l = spanned_drul_[LEFT]->relative_coordinate (0, X_AXIS);
   Real r = spanned_drul_[RIGHT]->relative_coordinate (0, X_AXIS);
 
-  if (r< l)
+  if (r < l)
     programming_error ("spanner with negative length");
 
   return r - l;
@@ -303,7 +303,8 @@ Spanner::do_derived_mark () const
   do
     if (spanned_drul_[d])
       scm_gc_mark (spanned_drul_[d]->self_scm ());
-  while (flip (&d) != LEFT);
+  while (flip (&d) != LEFT)
+    ;
 
   for (int i = broken_intos_.size (); i--;)
     scm_gc_mark (broken_intos_[i]->self_scm ());
