@@ -104,11 +104,14 @@ Tie_engraver::do_pre_move_processing()
     }
 }
 
-Tie_engraver::~Tie_engraver()
+void
+Tie_engraver::do_removal_processing ()
 {
+  do_pre_move_processing ();
   if (tie_p_) 
     {
       req_l_->warning ("unended Tie");
+      tie_p_->unlink ();
       delete tie_p_;
     }
 }

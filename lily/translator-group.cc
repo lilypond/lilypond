@@ -115,12 +115,17 @@ Translator_group::find_create_translator_l (String n, String id)
     return existing;
   
   Link_array<Translator_group> path = path_to_acceptable_translator (n);
-
-  if (path.size ())
+      
+  /* 
+	 if path.size () == 1, then 
+	 type_str_ == n, but not id == id_str_
+	 */
+  if (path.size () > 1)
     {
+      assert (path.size () > 1);
       Translator_group * current = this;
 
-      // start at 1.  The first one will be us.
+      // start at 1.  The first one (index 0) will be us.
       for (int i=1; i < path.size (); i++) 
 	{
 	  Translator_group * new_group = path[i]->clone ()->group_l ();
@@ -130,9 +135,8 @@ Translator_group::find_create_translator_l (String n, String id)
       current->id_str_ = id;
       return current;
     }
-
   
-  Translator_group *  ret =0;
+  Translator_group *ret = 0;
   if (daddy_trans_l_)
     ret = daddy_trans_l_->find_create_translator_l (n,id);
   else 
@@ -208,7 +212,14 @@ Translator *
 Translator_group::remove_translator_p (Translator*trans_l)
 {
   PCursor<Translator*> trans_cur (trans_p_list_.find (trans_l));
-  return trans_cur.remove_p();
+  Translator * t =  trans_cur.remove_p();
+  /*
+    For elegant design, we would do this too.  Alas, it does not work yet..
+    
+    t-> removal_processing ();
+  */
+  t-> daddy_trans_l_ = 0;
+  return t;
 }
 
 
@@ -314,9 +325,8 @@ Translator_group::do_removal_processing ()
 }
 
 void
-Translator_group::add_processing ()
+Translator_group::do_add_processing ()
 {
-  Translator::add_processing ();
    for (int i=0; i < consists_str_arr_.size(); i++) 
     {
       Translator * t = output_def_l ()->find_translator_l (consists_str_arr_[i]);
