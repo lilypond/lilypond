@@ -1,7 +1,9 @@
 \input texinfo @c -*-texinfo-*-
 @setfilename index.info
-@settitle 
+
 @c title looks silly in HTML, because it's just below WEB-TITLE.
+@c well, tough.  a web page needs a title
+@settitle GNU LilyPond
 
 @html
 <!--- @@WEB-TITLE@@=GNU Music Typesetter Homepage --->
@@ -19,11 +21,11 @@
 @end html
 
 
-@unnumberedsec What is LilyPond? What can it do for you?
+@unnumberedsec What is LilyPond?
 
-LilyPond prints beautiful sheet music.  It produces music notation from
-a description file. It excels at typesetting classical music, but you
-can also print pop-songs.
+LilyPond prints beautiful sheet music.  It produces music notation
+from a description file.  It excels at typesetting classical music,
+but you can also print pop-songs.
 
 LilyPond input is @b{plain text}. So, you can use your favorite text
 editor to enter it, you can put it in mail or embed it in an article like
@@ -34,7 +36,7 @@ this:
 @end lilypond
 @end quotation
 Or you can use it to print music from other programs, using one of the
-numerous input filters.
+various input filters.
 
 LilyPond output looks @b{beautiful}. The font and the layout algorithms
 were inspired by engraved music, so you can expect that same clear and
@@ -46,13 +48,25 @@ LilyPond is @b{free software}. It is part of the
 Public License, so you can use, modify and redistribute the program with
 almost no restrictions.
 
+@c stable:
+@ignore
+LilyPond has a stable version and a development version.  This webpage
+is for the @b{stable} version.  This means that it won't change much,
+and it is essentially bug-free.  The development releases contain
+experimental and often buggy code, so you should use those if you need
+any special new features.  If you're still insterested, you may visit
+the @uref{http://lilypond.org/development, latest development
+website}.
+@end ignore
 
-LilyPond has a development version and a stable version. This webpage is
-for the @b{development} release. This release contains experimental and
-often buggy code, so use it only if you need special new features.  On
-the other hand, stable releases don't change much, and are essentially
-bug-free.  You can access the website for the stable releases
-@uref{http://lilypond.org/stable, here}.
+@c development:
+LilyPond has a development version and a stable version.  This webpage
+is for the @b{development} version.  The development releases contain
+experimental and often buggy code, so you should use this only if you
+need any special new features.  The stable releases don't change much,
+and are essentially bug-free.  If you're not a developer, you probably
+want to visit the @uref{http://lilypond.org/stable, latest stable
+website}.
 
 @unnumberedsec Want to know more?
 
@@ -60,6 +74,6 @@ If you want to know more, visit the
 @uref{Documentation/out-www/index.html, documentation page}. If you
 want to see some sheet music, then have a look at the
 @uref{examples.html, examples}.  For even more sheet music, head over
-to @uref{http://www.mutopiaproject.org, the mutopia project}.
+to @uref{http://www.mutopiaproject.org, the Mutopia Project}.
 
 @bye

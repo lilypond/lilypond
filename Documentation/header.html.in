@@ -41,8 +41,9 @@ which substitutes some @AT_VARIABLES@ as well.
       <b>What is LilyPond</b>
       </td></tr>
       <tr><td><font size="-1">
-    	<a href="@TOP@index.html">General information</a><br>
+    	<a href="@TOP@index.html">Home</a><br>
 	<a href="@TOP@examples.html">Examples</a><br>
+	<a href="@TOP@input/template/out-www/template.html">Templates</a><br>
       </font></td></tr>
       <tr><td bgcolor="#e8e8ff">
 	<b>Download </b>
@@ -73,8 +74,8 @@ which substitutes some @AT_VARIABLES@ as well.
       </font></td></tr>
     <tr><td bgcolor="#e8e8ff"><b>External sites</b></td></tr>
       <tr><td><font size="-1">
-        <a href="http://www.lilypond.org/development">lilypond.org/development</a><br>
         <a href="http://www.lilypond.org/stable">lilypond.org/stable</a><br>
+        <a href="http://www.lilypond.org/development">lilypond.org/development</a><br>
         <a href="http://savannah.gnu.org/projects/lilypond/">savannah.gnu.org</a><br>
         <a href="ftp://ftp.lilypond.org/pub">ftp.lilypond.org</a><br>
         <a href="http://www.mutopiaproject.org/">Mutopia</a><br>
