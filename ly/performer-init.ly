@@ -10,7 +10,7 @@ StaffContext = \translator {
 	\consists "Key_performer"
 	\consists "Tempo_performer"
 	\consists "Time_signature_performer"
-	dynamicStyle = #"dynamic"
+
 }
 \translator { \StaffContext }
 \translator { \StaffContext

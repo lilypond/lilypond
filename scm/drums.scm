@@ -33,7 +33,7 @@
    (let* ( (m (ly-make-music "Music"))
          )
      (ly-set-mus-property m 'iterator-ctor Push_property_iterator::constructor)
-     (ly-set-mus-property m 'symbols 'NoteHead)
+     (ly-set-mus-property m 'symbol 'NoteHead)
      (ly-set-mus-property m 'grob-property 'style)
      (ly-set-mus-property m 'grob-value t)
      m

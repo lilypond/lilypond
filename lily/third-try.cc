@@ -39,9 +39,9 @@ public:
   static Real note_spacing (Grob*,Grob*,Grob*,Moment)  ;
   static Real get_duration_space (Grob*,Moment dur, Moment shortest) ;
   
-  static   void breakable_column_spacing (Item* l, Item *r);
-  static  void find_loose_columns () {}
-  static  void prune_loose_colunms (Link_array<Grob> *cols);
+  static void breakable_column_spacing (Item* l, Item *r);
+  static void find_loose_columns () {}
+  static void prune_loose_colunms (Link_array<Grob> *cols);
   static void find_loose_columns (Link_array<Grob> cols);
   static void set_explicit_neighbor_columns (Link_array<Grob> cols);
   static void set_implicit_neighbor_columns (Link_array<Grob> cols);

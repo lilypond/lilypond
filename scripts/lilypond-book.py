@@ -98,7 +98,7 @@ include_path = [os.getcwd()]
 
 
 # g_ is for global (?)
-
+g_extra_opts = ''
 g_here_dir = os.getcwd ()
 g_dep_prefix = ''
 g_outdir = ''
@@ -106,6 +106,7 @@ g_force_lilypond_fontsize = 0
 g_read_lys = 0
 g_do_pictures = 1
 g_num_cols = 1
+
 format = ''
 g_run_lilypond = 1
 no_match = 'a\ba'
@@ -368,6 +369,7 @@ option_definitions = [
   ('EXT', 'f', 'format', 'set format.  EXT is one of texi and latex.'),
   ('DIM',  '', 'default-music-fontsize', 'default fontsize for music.  DIM is assumed to be in points'),
   ('DIM',  '', 'default-lilypond-fontsize', 'deprecated, use --default-music-fontsize'),
+  ('OPT', '', 'extra-options' , 'Pass OPT quoted to the lilypond command line'),
   ('DIM', '', 'force-music-fontsize', 'force fontsize for all inline lilypond. DIM is assumed be to in points'),
   ('DIM', '', 'force-lilypond-fontsize', 'deprecated, use --force-music-fontsize'),
   ('DIR', 'I', 'include', 'include path'),
@@ -1046,7 +1048,7 @@ def compile_all_files (chunks):
 			if g_outdir:
 				lilyopts = lilyopts + '--dep-prefix=' + g_outdir + '/'
 		texfiles = string.join (tex, ' ')
-		system ('lilypond --header=texidoc %s %s' % (lilyopts, texfiles))
+		system ('lilypond --header=texidoc %s %s %s' % (lilyopts, g_extra_opts, texfiles))
 
 		#
 		# Ugh, fixing up dependencies for .tex generation
@@ -1329,6 +1331,8 @@ for opt in options:
 	elif o == '--default-lilypond-fontsize':
 		print "--default-lilypond-fontsize is deprecated, use --default-music-fontsize"
 		default_music_fontsize = string.atoi (a)
+	elif o == '--extra-options':
+		g_extra_opts = a
 	elif o == '--force-music-fontsize':
 		g_force_lilypond_fontsize = string.atoi(a)
 	elif o == '--force-lilypond-fontsize':

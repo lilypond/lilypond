@@ -173,7 +173,7 @@ Item::handle_prebroken_dependencies ()
 	  set_extent_callback (SCM_EOL, Y_AXIS);
 	}
       else if (trans)
-	set_grob_property ("molecule-callback", SCM_BOOL_T);
+	set_grob_property ("molecule-callback", SCM_EOL);
     }
 }
 

@@ -44,6 +44,10 @@ and therefore only work in contexts which contain an
 @code{Axis_group_engraver}.
 ")
 
+(translator-property-description
+ 'acknowledgeHashTable vector?
+ "Internal variable: store interface to engraver smob table for current context. Don't mess with this."
+ )
 
 (translator-property-description 'aDueText string? "text for begin of a due")
 (translator-property-description 'associatedVoice string? "Name of the Voice that has the melody for this LyricsVoice.")
@@ -193,7 +197,13 @@ Do nothing.
 @end table
 ")
 (translator-property-description 'decrescendoSpanner symbol? "Type of spanner to be used for decrescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line}, @samp{dotted-line}.  If unset, hairpin type is used.")
+
+(translator-property-description 'dynamicAbsoluteVolumeFunction procedure? "
+[DOCUMENT-ME]
+")
 (translator-property-description 'explicitClefVisibility procedure? "visibility-lambda function for clef changes.")
+
+
 
 (translator-property-description 'explicitKeySignatureVisibility
 procedure? "visibility-lambda function for explicit Key changes;
@@ -224,7 +234,9 @@ in a context. This is done using the @code{Font_size_engraver}.")
     is used to determine the instrument for MIDI output.")
 
 (translator-property-description 'instrumentEqualizer procedure? "[DOCUMENT-ME]")
-				 
+(translator-property-description 'instrumentSupport list? "
+list of grobs to attach instrument name to. 
+")				 
 (translator-property-description 'keyAccidentalOrder list? "
 Alist that defines in what order  alterations should be printed.
 The format is (NAME . ALTER), where NAME is from 0 .. 6 and ALTER from  -1, 1.
@@ -251,6 +263,10 @@ top of those automatically detected. ")
 (translator-property-description 'melismaEngraverBusy boolean? "See @ref{(lilypond)melismaBusy}. This is set automatically.")
 (translator-property-description 'midiInstrument string? "Name of the
 MIDI instrument to use ")
+(translator-property-description 'midiMinimumVolume number? "[DOCUMENT-ME]")
+(translator-property-description 'midiMaximumVolume number? "[DOCUMENT-ME]")
+
+
 (translator-property-description 'noAutoBeaming boolean? "If set to true then beams are not generated automatically.
 ")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
@@ -258,8 +274,8 @@ MIDI instrument to use ")
 (translator-property-description 'pedalSustainStrings list? "List of   string to print for sustain-pedal. Format is
  (UP UPDOWN DOWN), where each of the three is the string to print when
 this is done with the pedal.")
-(translator-property-description 'pedalUnaCordaStrings string? "see pedalSustainStrings.")
-(translator-property-description 'pedalSostenutoStrings string? "see pedalSustainStrings.")
+(translator-property-description 'pedalUnaCordaStrings list? "see pedalSustainStrings.")
+(translator-property-description 'pedalSostenutoStrings list? "see pedalSustainStrings.")
 
 (translator-property-description 'phrasingPunctuation string? "")
 (translator-property-description 'rehearsalMark number-or-string? "")
@@ -323,6 +339,7 @@ is erased.
 (translator-property-description 'stz markup? "Abbreviated form for a stanza, see also Stanza property.")
 (translator-property-description 'subdivideBeams boolean? "If set, multiple beams will be subdivided at beat
 positions - by only drawing one beam over the beat.")
+(translator-property-description 'systemStartDelimiter symbol? "Which grob to make for the start of the system/staff?")
 (translator-property-description 'textNonEmpty boolean? " If set
 to true then text placed above or below the staff is not assumed to
 have zero width.  @code{\fatText} and @code{\emptyText} are predefined

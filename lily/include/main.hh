@@ -31,6 +31,8 @@ extern String output_name_global;
 extern bool safe_global_b;
 extern bool verbose_global_b;
 extern bool store_locations_global_b;
+extern bool internal_type_checking_global_b;
+
 
 /* misc */
 extern All_font_metrics *all_fonts_global_p;

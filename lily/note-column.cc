@@ -105,13 +105,14 @@ Note_column::add_head (Grob*me,Grob *h)
 }
 
 /**
-  translate the rest symbols vertically by amount DY_I.
- */
+  translate the rest symbols vertically by amount DY_I, but only if
+  they have no staff-position set.
+*/
 void
 Note_column::translate_rests (Grob*me,int dy_i)
 {
   Grob * r = unsmob_grob (me->get_grob_property ("rest"));
-  if (r)
+  if (r && !gh_number_p (r->get_grob_property ("staff-position")))
     {
       r->translate_axis (dy_i * Staff_symbol_referencer::staff_space (r)/2.0, Y_AXIS);
     }
@@ -150,7 +151,7 @@ Note_column::accidentals (Grob *me)
   for (;gh_pair_p (heads); heads =gh_cdr (heads))
     {
       Grob * h = unsmob_grob (gh_car (heads));
-      Grob *a = h ? unsmob_grob(h->get_grob_property ("accidentals")) : 0;
+      Grob *a = h ? unsmob_grob(h->get_grob_property ("accidentals-grob")) : 0;
       if (a)
 	return a;
     }

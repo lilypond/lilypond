@@ -1,5 +1,5 @@
 /*   
-  new-staff-margin-engraver.cc --  implement Instrument_name_engraver
+  instrument-name-engraver.cc --  implement Instrument_name_engraver
   
   source file of the GNU LilyPond music typesetter
   
@@ -101,6 +101,10 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     but is only a vehicle for the placement routine it contains, and
     therefore the location of its refpoint won't be very useful.
     
+
+    We could also just use staffsFound, but lets keep this working
+    without staffs as well.
+
   */
   if (dynamic_cast<Spanner*> (i.grob_l_)
       && ((Axis_group_interface::has_interface (i.grob_l_)

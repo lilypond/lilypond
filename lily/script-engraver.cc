@@ -69,7 +69,7 @@ Script_engraver::process_music ()
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
       Grob *p =new Item (get_property ("Script"));
       art = ly_cdr (art);
-      p->set_grob_property ("molecule", ly_car (art));
+      p->set_grob_property ("script-molecule", ly_car (art));
 
       art = ly_cdr (art);
       bool follow_staff = gh_scm2bool (ly_car (art));
@@ -96,7 +96,7 @@ Script_engraver::process_music ()
       SCM axisprop = get_property ("scriptHorizontal");
       bool xaxis = to_boolean (axisprop);
       Side_position_interface::set_axis (p, xaxis ? X_AXIS : Y_AXIS);
-      
+
       if (!follow_staff && ! xaxis)
 	p->set_grob_property ("staff-support", SCM_BOOL_T);
 
@@ -152,6 +152,10 @@ Script_engraver::stop_translation_timestep ()
 {
   for (int i=0; i < script_p_arr_.size (); i++) 
     {
+
+      /*
+	TODO: junk staff-support.
+       */
       Grob * sc = script_p_arr_[i];
       if (to_boolean (sc->get_grob_property ("staff-support")))
 	{

@@ -330,7 +330,7 @@ Midi_piano_pedal::str () const
     str += to_str ((char)0x42);
   else if (audio_l_->type_str_ == "Sustain")
     str += to_str ((char)0x40);
-  else if (audio_l_->type_str_ == "UnaChorda")
+  else if (audio_l_->type_str_ == "UnaCorda")
     str += to_str ((char)0x43);
 
   int pedal = ((1 - audio_l_->dir_) / 2) * 0x7f;

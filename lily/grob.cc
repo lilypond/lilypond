@@ -168,10 +168,15 @@ Grob::set_immutable_grob_property (SCM s, SCM v)
 }
 #endif
 
-
 void
 Grob::internal_set_grob_property (SCM s, SCM v)
 {
+#ifndef NDEBUG
+  if (internal_type_checking_global_b)
+    assert (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")));
+#endif
+
+  
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
 
@@ -818,6 +823,9 @@ ly_set_grob_property (SCM elt, SCM sym, SCM val)
       return SCM_UNSPECIFIED;
     }
 
+  if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
+    return SCM_UNSPECIFIED;
+      
   if (sc)
     {
       sc->internal_set_grob_property (sym, val);

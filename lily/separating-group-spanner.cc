@@ -76,7 +76,7 @@ SCM
 Separating_group_spanner::set_spacing_rods_and_seqs (SCM smob)
 {
   set_spacing_rods (smob);
-  find_musical_sequences (unsmob_grob (smob));
+
   return SCM_UNSPECIFIED;
 }
 
@@ -104,7 +104,6 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
       if (rb)
 	find_rods (rb, ly_cdr (s));
     }
-  find_musical_sequences (me);
 
 #if 0
   /*
@@ -134,103 +133,6 @@ Separating_group_spanner::add_spacing_unit (Grob* me ,Item*i)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), i);
   me->add_dependency (i);
 }
-
-
-void
-Separating_group_spanner::find_musical_sequences (Grob *me)
-{
-  Item *last = 0;
-  Item *llast = 0;
-  for (SCM s = me->get_grob_property ("elements");
-       gh_pair_p (s); s = ly_cdr (s))
-    {
-      Item *it = dynamic_cast<Item*> (unsmob_grob (ly_car (s)));
-      if (last)
-	{	
-	  Item *lcol = last->column_l ();
-	  Item *col = it->column_l ();
-
-	  int lrank = Paper_column::rank_i (lcol);
-	  int rank = Paper_column ::rank_i (col);
-
-	  bool mus = Paper_column::musical_b (col);
-	  bool lmus = Paper_column::musical_b (lcol);
-
-	  if ((lrank - rank == 2) && lmus && mus)
-	    {
-	      SCM seq = col->get_grob_property ("spacing-sequence");
-	      col->set_grob_property ("spacing-sequence",
-				      gh_cons (gh_cons (it->self_scm (), last->self_scm ()), seq));
-	    }
-
-	  if (llast && !Paper_column::breakable_b (last))
-	    {
-	      Item *llcol = llast->column_l ();
-	      int llrank = Paper_column::rank_i (llcol);
-	      bool llmus= Paper_column::musical_b (llcol);
-	      if (llrank - lrank == 1
-		  && lrank - rank == 1
-		  && llmus && !lmus && mus)
-		{
-		  /*
-		    these columns are adjacent, so set spacing-sequence in
-		    IT.
-		    
-		     Q     Q+1    Q+2   (rank)
-		    Note  Clef   Note
-
-		    IT    LAST   LLAST  
-		    
-		   */
-		  SCM seq = col->get_grob_property ("spacing-sequence");
-		  col->set_grob_property ("spacing-sequence",
-					  gh_cons (gh_cons (it->self_scm (), last->self_scm ()), seq));
-
-		  /*
-		    lcol can not be a loose column, so we make sure
-		    that is and will not be marked as such.
-		  */
-		  lcol->set_grob_property ("between-cols" ,  SCM_BOOL_F);
-		}
-	      else if (!lmus)
-		{
-		  SCM between = lcol->get_grob_property ("between-cols");
-
-		  if (between == SCM_BOOL_F)
-		    continue;
-		  
-		  if (!gh_pair_p (between))
-		    {
-		      between = gh_cons (it->self_scm (), llast->self_scm ());
-		      lcol ->set_grob_property ("between-cols", between);
-		    }
-
-		  Item * left
-		    = dynamic_cast<Item*> (unsmob_grob (ly_car (between)));
-		  if(Paper_column::rank_i (left->column_l ()) < rank)
-		    gh_set_car_x (between, col->self_scm());
-		  
-		  Item * right
-		    = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
-		  if (Paper_column::rank_i (right->column_l ()) > llrank )
-		    gh_set_cdr_x (between, llcol->self_scm ());
-		}
-	    }
-	}
-
-      llast = last;
-      last = it;
-    }
-}
-
-#if 0
-void
-Separating_group_spanner::set_loose_rods ()
-{
-  // loose columns should  also generate minimum distances.
-  // TODO
-}
-#endif
 
 
 void

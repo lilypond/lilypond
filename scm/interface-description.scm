@@ -184,7 +184,7 @@
 #'direction = where to put the victim object (left or right?)
 "
  '(
-   side-support 
+   side-support-elements 
    direction-source 
    direction 
    side-relative-direction 

@@ -4,7 +4,7 @@ NAME = documentation
 SUBDIRS=user bibliography pictures topdocs misc windows
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
-
+LILYPOND_BOOK_FLAGS=--extra-options '-e "(set-lily-option (quote internal-type-checking) \#t)"'
 README_TOP_FILES=NEWS DEDICATION CHANGES 
 EXTRA_DIST_FILES=
 

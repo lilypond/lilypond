@@ -49,11 +49,11 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
       /*
 	UGH UGH
        */
-      if (gh_symbol_p (gl) && gl  == ly_symbol2scm ("brace")
-	  && gh_symbol_p (my_gl) && my_gl == ly_symbol2scm ("bracket"))
+      if (gh_string_p (gl) && gh_equal_p (gl, ly_symbol2scm ("brace"))
+	  && gh_string_p (my_gl) && gh_equal_p (my_gl, ly_symbol2scm ("bracket")))
 	inf.grob_l_->translate_axis (-0.8, X_AXIS); // ugh
-      else if (gh_symbol_p (gl) && gl  == ly_symbol2scm ("bracket")
-              && gh_symbol_p (my_gl) && my_gl == ly_symbol2scm ("bracket"))
+      else if (gh_string_p (gl) && gh_equal_p (gl, ly_symbol2scm ("bracket"))
+	       && gh_string_p (my_gl) && gh_equal_p (my_gl, ly_symbol2scm ("bracket")))
        {
          inf.grob_l_->translate_axis ( -0.8, X_AXIS); // ugh
          inf.grob_l_->set_grob_property ("arch-height",
@@ -71,7 +71,7 @@ System_start_delimiter_engraver::System_start_delimiter_engraver ()
 void
 System_start_delimiter_engraver::initialize ()
 {
-  SCM delim_name =get_property ("SystemStartDelimiter");
+  SCM delim_name =get_property ("systemStartDelimiter");
   delim_ = new Spanner (internal_get_property (delim_name));
 
   delim_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
@@ -91,5 +91,5 @@ ENTER_DESCRIPTION(System_start_delimiter_engraver,
 /* descr */       "creates a system start delimiter (ie. SystemStart@{Bar,Brace,Bracket@} spanner",
 /* creats*/       "SystemStartBar SystemStartBrace SystemStartBracket",
 /* acks  */       "system-start-delimiter-interface staff-symbol-interface",
-/* reads */       "",
+/* reads */       "systemStartDelimiter",
 /* write */       "");

@@ -33,7 +33,10 @@ bool midi_debug_global_b;
 /* General purpose testing flag */
 int testing_level_global;
 
-
+/*
+  crash if internally the wrong type is used for a grob property.
+ */
+bool internal_type_checking_global_b;
 
 /*
 
@@ -59,15 +62,22 @@ set_lily_option (SCM var, SCM val)
    */
   if (var == ly_symbol2scm ("help"))
     {
-      cout << '\n';
-      cout << _ ("Scheme options:");
-      cout << '\n';
-      cout << "  help (any-symbol)"; 
-      cout << '\n';
-      cout << "  midi-debug (boolean)"; 
-      cout << '\n';
-      cout << "  testing-level (int)"; 
-      cout << '\n';
+      cout << _("lilypond -e EXPR means
+
+evalute EXPR as Scheme after init.scm has been read.  In particular,
+the function set-lily-option allows for access to some internal
+variables. Usage:
+
+  (set-lily-option SYMBOL VAL)
+
+possible options for SYMBOL are :
+")<<endl;
+      
+      cout << "  help (any-symbol)"<<endl; 
+      cout << "  internal-type-checks #t"<<endl; 
+      cout << "  midi-debug (boolean)"<<endl; 
+      cout << "  testing-level (int)"<<endl; 
+
       exit (0);
     }
   else if (var == ly_symbol2scm ("midi-debug"))
@@ -77,6 +87,10 @@ set_lily_option (SCM var, SCM val)
   else if (var == ly_symbol2scm ("testing-level"))
     {
      testing_level_global = gh_scm2int (val); 
+    }
+  else if (var == ly_symbol2scm ("internal-type-checks"))
+    {
+     internal_type_checking_global_b = to_boolean (val); 
     }
   else if (var == ly_symbol2scm ("find-old-relative"))
     {

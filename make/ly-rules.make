@@ -5,19 +5,20 @@
 
 $(outdir)/%.latex: %.doc
 	rm -f $@
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES)\
+$(LILYPOND_BOOK_FLAGS) --dependencies --outdir=$(outdir) $<
 	chmod -w $@
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
 	rm -f $@
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi $(LILYPOND_BOOK_FLAGS) $<
 	chmod -w $@
 
 $(outdir)/%.texi: $(outdir)/%.tely
 	rm -f $@
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi $(LILYPOND_BOOK_FLAGS) $<
 	rm -f $<
 	chmod -w $@
 
@@ -25,7 +26,7 @@ $(outdir)/%.texi: $(outdir)/%.tely
 # for plain info doco: don't run lily
 $(outdir)/%.nexi: %.tely
 	rm -f $@
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi --no-lily $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --dependencies --outdir=$(outdir) --format=texi --no-lily $(LILYPOND_BOOK_FLAGS) $<
 	mv $(@D)/$(*F).texi $@
 	chmod -w $@
 

@@ -10,7 +10,10 @@
 (define (number-pair?  x)
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))
-
+(define (number-or-grob? x)
+  (or (ly-grob? x) (number? x))
+  )
+	 
 (define (moment-pair?  x)
   (and (pair? x)
        (moment? (car x)) (moment? (cdr x))))
@@ -57,6 +60,7 @@
    (,number-or-string? . "number or string")
    (,number-or-boolean? . "number or boolean")
    (,markup? . "markup (list or string)")
+   (,number-or-grob? . "number or grob")
    ))
 
 

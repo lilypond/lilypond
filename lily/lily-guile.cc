@@ -609,9 +609,20 @@ SCM my_gh_symbol2scm (const char* x)
 
 
 bool
-type_check_assignment (SCM val, SCM sym,  SCM type_symbol) 
+type_check_assignment (SCM sym, SCM val,  SCM type_symbol) 
 {
   bool ok = true;
+
+  /*
+    Always succeeds.
+
+
+    TODO: should remove #f from allowed vals?
+   */
+  if (val == SCM_EOL || val == SCM_BOOL_F)
+    return ok;
+
+  
   SCM type_p = SCM_EOL;
 
   if (gh_symbol_p (sym))
@@ -619,8 +630,11 @@ type_check_assignment (SCM val, SCM sym,  SCM type_symbol)
 
   if (type_p != SCM_EOL && !gh_procedure_p (type_p))
       {
-	warning (_f ("Can't find property type-check for `%s'.  Perhaps you made a typing error? Doing assignment anyway.",
-		     ly_symbol2string (sym).ch_C ()));
+	warning (_f ("Can't find property type-check for `%s' (%s).  Perhaps you made a typing error? Doing assignment anyway.",
+		     ly_symbol2string (sym).ch_C (),
+		     ly_symbol2string (type_symbol).ch_C ()
+
+		     ));
       }
   else
     {

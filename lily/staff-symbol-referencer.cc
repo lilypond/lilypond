@@ -99,9 +99,8 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM)
     {
       Real space = Staff_symbol_referencer::staff_space (me);
       off = gh_scm2double (pos) * space/2.0;
+      me->set_grob_property ("staff-position", gh_double2scm (0.0));
     }
-
-  me->set_grob_property ("staff-position", gh_double2scm (0.0));
 
   return gh_double2scm (off);
 }
@@ -164,9 +163,6 @@ compare_position (Grob *const  &a, Grob * const &b)
 void
 Staff_symbol_referencer::set_interface (Grob * e)
 {
-  if (!gh_number_p (e->get_grob_property ("staff-position")))
-      e->set_grob_property ("staff-position", gh_double2scm (0.0));
-
   e->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
 }
 

@@ -6,6 +6,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "main.hh"
 #include "input-smob.hh"
 #include "music.hh"
 #include "music-list.hh"
@@ -167,9 +168,16 @@ Music::internal_get_mus_property (SCM sym) const
 }
 
 
+
 void
 Music::internal_set_mus_property (SCM s, SCM v)
 {
+#ifndef NDEBUG
+  if (internal_type_checking_global_b)
+    assert (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")));
+#endif
+  
+
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
 
@@ -238,7 +246,7 @@ ly_set_mus_property (SCM mus, SCM sym, SCM val)
     }
 
 
-  bool ok = type_check_assignment (val, sym, ly_symbol2scm ("music-type?"));
+  bool ok = type_check_assignment (sym, val, ly_symbol2scm ("music-type?"));
   if (ok)
     {
       sc->internal_set_mus_property (sym, val);

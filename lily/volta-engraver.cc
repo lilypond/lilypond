@@ -111,13 +111,6 @@ Volta_engraver::process_music ()
     {
       end_volta_span_p_ = volta_span_p_;
       volta_span_p_ =0;
-
-      /*
-	maybe do typeset_grob () directly?
-      */
-
-      if (!gh_string_p (start_str_))
-	end_volta_span_p_->set_grob_property ("last-volta", SCM_BOOL_T);
     }
 
   if (gh_string_p (start_str_) && volta_span_p_)

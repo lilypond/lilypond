@@ -19,7 +19,7 @@
 Molecule
 Script::get_molecule (Grob * me, Direction d)
 {
-  SCM s = me->get_grob_property ("molecule");
+  SCM s = me->get_grob_property ("script-molecule");
   assert (gh_pair_p (s));
 
   SCM key = ly_car (s);

@@ -215,7 +215,7 @@ Accidental_engraver::create_grobs ()
 					 tie_break_reminder);
 	      Side_position_interface::add_support (key_item_p_,support_l);
 	      
-	      support_l->set_grob_property ("accidentals", key_item_p_->self_scm ());
+	      support_l->set_grob_property ("accidentals-grob", key_item_p_->self_scm ());
 	    }
 	  
 

@@ -255,6 +255,14 @@ r1 r2 r4 r8
 The grob is @internalsref{Rest}. Whole bar rests centered in the bar are
 specified using @code{R}, see @ref{Multi measure rests}.
 
+For polyphonic music, it can be convenient to specify the rest position
+directly. You can do that by entering a note, with the keyword
+@code{\rest} appended, e.g. Rest collisions will leave these rests alone.
+
+@lilypond[singleline,verbatim]
+a'4\rest d'4\rest
+@end lilypond
+
 
 @c .  {Skips}
 @c FIXME: naming.
@@ -855,11 +863,9 @@ The easiest way to enter such fragments, is the Scheme function
 @code{\\}, to make multiple voices.  You can use it for small,
 short-lived voices (make a chord of voices) or for single chords:
 
-@lilypond
-\score {
-\notes \context Voice = VA \apply #voicify-music \relative c'' {
+@lilypond[verbatim,fragment]
+\context Voice = VA \apply #voicify-music \relative c'' {
  c4 < { f d e  } \\ { b c2 } > c4 < g' \\ c, \\  f \\ d >
-}
 }
 @end lilypond
 
@@ -2869,12 +2875,11 @@ block:
 
 Figured bass is printed by @internalsref{FiguredBass} context.  This
 context will print notes (relative to the central C) as figures.  To
-ease entering these notes, the special @code{\figures} mode, is
+ease entering these notes, the special @code{\figures} mode is
 available which allows you to type numbers, like @code{<4 6+>}.
 
-@lilypond
-\score { \notes  <
- \context FiguredBass \transpose c'' {
+@lilypond[verbatim,fragment]
+< \context FiguredBass \transpose c'' {
    <e! g >
    <f8 ais >
    \figures {
@@ -2884,10 +2889,7 @@ available which allows you to type numbers, like @code{<4 6+>}.
  }
  \context Voice {
    c g8 g f4 d c
-  }
- 
->
- }
+  } >
 @end lilypond
 
 @c . {Tuning output}

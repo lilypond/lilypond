@@ -74,14 +74,14 @@ Fingering_engraver."
 ;;;;;;;;;;;;;;;;
 
 
-(define (make-grob-property-set grobs gprop val)
+(define (make-grob-property-set grob gprop val)
   "Make a M-exp that sets GPROP to VAL in GROBS. Does a pop first, i.e.
 this is not an override 
 "
   
    (let* ((m (ly-make-music  "Music")))
      (ly-set-mus-property m 'iterator-ctor Push_property_iterator::constructor)
-     (ly-set-mus-property m 'symbols grobs)
+     (ly-set-mus-property m 'symbol grob)
      (ly-set-mus-property m 'grob-property gprop)
      (ly-set-mus-property m 'grob-value val)
      (ly-set-mus-property m 'pop-first #t)
@@ -90,10 +90,11 @@ this is not an override
    
    ))
    
-(define (make-grob-property-revert grobs gprop)
+(define (make-grob-property-revert grob gprop)
+  "Revert the grob property GPROP for GROB."
    (let* ((m (ly-make-music  "Music")))
      (ly-set-mus-property m 'iterator-ctor Pop_property_iterator::constructor)
-     (ly-set-mus-property m 'symbols grobs)
+     (ly-set-mus-property m 'symbol grob)
      (ly-set-mus-property m 'grob-property gprop)
 		
      m
@@ -102,18 +103,22 @@ this is not an override
    
 (define (make-voice-props-set n)
   (make-sequential-music
-   (list
-      (make-grob-property-set '(Tie Slur Stem Dots) 'direction
-			 (if (odd? n) -1 1))
-      (make-grob-property-set '(NoteColumn) 'horizontal-shift (quotient n 2))
+   (append
+      (map (lambda (x) (make-grob-property-set x 'direction
+					       (if (odd? n) -1 1)))
+	   '(Tie Slur Stem Dots))
+      (list (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2)))
    )
   ))
 
 (define (make-voice-props-revert)
   (make-sequential-music
    (list
-      (make-grob-property-revert '(Tie Slur Stem Dots) 'direction)
-      (make-grob-property-revert '(NoteColumn) 'horizontal-shift)
+      (make-grob-property-revert 'Tie 'direction)
+      (make-grob-property-revert 'Dots 'direction)
+      (make-grob-property-revert 'Stem 'direction)
+      (make-grob-property-revert 'Slur 'direction)	    
+      (make-grob-property-revert 'NoteColumn 'horizontal-shift)
    ))
   )
 

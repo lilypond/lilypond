@@ -153,7 +153,7 @@ Bar::before_line_breaking (SCM smob)
   
   if (!gh_string_p (g))
     {
-      me->set_grob_property ("molecule-callback", SCM_BOOL_T);
+      me->set_grob_property ("molecule-callback", SCM_EOL);
       me->set_extent_callback (SCM_EOL, X_AXIS);
       // leave y_extent for spanbar? 
     }

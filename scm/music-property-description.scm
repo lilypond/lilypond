@@ -24,8 +24,12 @@
 (music-property-description 'iterator-ctor c++-function? "Function to construct music-event-iterator object for this Music")
 (music-property-description 'duration duration? "Duration of this note/lyric.")
 (music-property-description 'metronome-count number? "How many beats in a minute?")
-(music-property-description 'span-type symbol? "What kind of spanner should be created?")
-(music-property-description 'articulation-type symbol? "key for scriptDefinitions alist")
+(music-property-description 'span-type string? "What kind of spanner should be created?
+
+TODO: consider making type into symbol") 
+(music-property-description 'articulation-type string? "key for script definitions alist.
+
+TODO: consider making type into symbol ")
 (music-property-description 'bass boolean? "Set if this note is a bass note in a chord")
 (music-property-description 'cautionary boolean? "If set, this alteration needs cautionary accidental")
 (music-property-description 'change-to-id string? "name of the context to change to ")
@@ -55,8 +59,10 @@
 (music-property-description 'type symbol? "The type of this music object. Determines iteration in some cases.")
 (music-property-description 'repeat-count  integer? "do a @code{\repeat} how ofen?")
 (music-property-description 'span-direction dir? "Does this start or stop a spanner?")
-(music-property-description 'symbols list? "List of Grob names (symbols) to perform an override/revert on.")
-(music-property-description 'text string? "markup expression to be printed");; markup?
+(music-property-description 'symbol symbol? "Grob name to perform an override/revert on.")
+(music-property-description 'text string? "markup expression to be printed")
+;; markup?
 (music-property-description 'tremolo-type integer? "")
-
+(music-property-description 'value scheme? "Assignment value for a
+translation property")
 (music-property-description 'what string? "What to change for auto-change. FIXME, naming")
