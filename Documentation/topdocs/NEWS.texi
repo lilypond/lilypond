@@ -8,6 +8,10 @@
 
 @itemize @bullet
 @item
+LilyPond will now avoid line breaks that cause long texts to stick
+outside of the page staff.
+
+@item
 Grace notes following a main note, used to be entered by letting the
 grace notes follow a skip in a parallel expression, for example,
 
@@ -18,10 +22,10 @@ grace notes follow a skip in a parallel expression, for example,
 @end verbatim
 
 @noindent
-This can verbose input can now be shortened, by doing
+This can now be shortened by doing
 
 @example
-\afterGrace { d1 } { c16[ d] } 
+\afterGrace @{ d1 @} @{ c16[ d] @} 
 @end example 
 
 @item

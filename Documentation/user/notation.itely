@@ -2512,7 +2512,7 @@ If you want to end a note with a grace, use the @code{\afterGrace}
 command. It takes two arguments: the main note, and the grace notes
 following the main note. 
 
-@lilypond[raggedright, verbatim,relative=2]
+@lilypond[raggedright, verbatim,relative=2,fragment]
 c1 \afterGrace d1 { c16[ d] } c4   
 @end lilypond
 

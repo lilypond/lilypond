@@ -132,6 +132,26 @@ LY_DEFINE (ly_div_moment,"ly:div-moment",
   return (*ma / *mb).smobbed_copy ();
 }
 
+LY_DEFINE (ly_moment_main_numerator,"ly:moment-main-numerator",
+	   1, 0, 0, (SCM mom),
+	   "Extract numerator from main timing.")
+{
+  Moment *ma = unsmob_moment (mom);
+  SCM_ASSERT_TYPE (ma, mom, SCM_ARG1, __FUNCTION__, "moment");
+
+  return scm_from_int (ma->main_part_.numerator ()); 
+}
+
+LY_DEFINE (ly_moment_main_denominator,"ly:moment-main-denominator",
+	   1, 0, 0, (SCM mom),
+	   "Extract denominator from main timing.")
+{
+  Moment *ma = unsmob_moment (mom);
+  SCM_ASSERT_TYPE (ma, mom, SCM_ARG1, __FUNCTION__, "moment");
+
+  return scm_from_int (ma->main_part_.denominator ()); 
+}
+
 LY_DEFINE (ly_moment_less_p,"ly:moment<?",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Compare two moments.")

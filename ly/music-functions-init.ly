@@ -11,6 +11,7 @@ oldaddlyrics = #(def-music-function (parser location music lyrics) (ly:music? ly
                           'elements (list music lyrics)))
 
 grace = #(def-grace-function startGraceMusic stopGraceMusic)
+
 acciaccatura = #(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
 appoggiatura = #(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic)
 
@@ -113,6 +114,32 @@ killCues =
 	  mus)) music))
    
 
+afterGraceFraction = #(cons 6 8)
+
+afterGrace =
+#(def-music-function
+  (parser location main grace)
+  (ly:music? ly:music?)
+
+  (let*
+      ((main-length (ly:music-length main))
+       (fraction  (ly:parser-lookup parser 'afterGraceFraction)))
+    
+    (make-simultaneous-music
+     (list
+      main
+      (make-sequential-music
+       (list
+
+	(make-music 'SkipMusic
+		    'duration (ly:make-duration
+			       0 0
+			       (* (ly:moment-main-numerator main-length)
+				  (car fraction))
+			       (* (ly:moment-main-denominator main-length)
+				  (cdr fraction)) ))
+	(make-music 'GraceMusic
+		    'element grace)))))))
 
 %{
 
