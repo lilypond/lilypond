@@ -50,16 +50,16 @@
     (let ((slur (Slur::brew_molecule grob))
           (text (fontify-text (ly:get-default-font grob) letter)))
     
-      (let ((x (/ (- (cdr (ly:get-molecule-extent slur 0)) 
-                     (/ (cdr (ly:get-molecule-extent text 0)) 2.0)
+      (let ((x (/ (- (cdr (ly:molecule-get-extent slur 0)) 
+                     (/ (cdr (ly:molecule-get-extent text 0)) 2.0)
                      )
                   -2.0)))
       
-        (ly:set-molecule-extent! text 0 (cons x x))
-        (ly:align-to! text 0 1)
+        (ly:molecule-set-extent! text 0 (cons x x))
+        (ly:molecule-align-to! text 0 1)
         )
-      
-      (ly:combine-molecule-at-edge slur 1 1 text -0.6)
+
+      (ly:molecule-combine-at-edge slur 1 1 text -0.6)
       )
     )
   )
@@ -77,17 +77,17 @@
   (let*
    (
     (mol    (callback grob))
-    (x-ext (widen-interval (ly:get-molecule-extent mol 0) x-padding))
-    (y-ext (widen-interval (ly:get-molecule-extent mol 1) y-padding))
+    (x-ext (widen-interval (ly:molecule-get-extent mol 0) x-padding))
+    (y-ext (widen-interval (ly:molecule-get-extent mol 1) y-padding))
     (x-rule (box-molecule (widen-interval x-ext line-thick)
                               (cons 0 line-thick)))
     (y-rule (box-molecule (cons 0 line-thick) y-ext))
     )
     
-    (set! mol (ly:combine-molecule-at-edge mol 0 1 y-rule x-padding))
-    (set! mol (ly:combine-molecule-at-edge mol 0 -1  y-rule x-padding))
-    (set! mol (ly:combine-molecule-at-edge mol 1 1  x-rule 0))  
-    (set! mol (ly:combine-molecule-at-edge mol 1 -1 x-rule 0))
+    (set! mol (ly:molecule-combine-at-edge mol 0 1 y-rule x-padding))
+    (set! mol (ly:molecule-combine-at-edge mol 0 -1  y-rule x-padding))
+    (set! mol (ly:molecule-combine-at-edge mol 1 1  x-rule 0))  
+    (set! mol (ly:molecule-combine-at-edge mol 1 -1 x-rule 0))
     
     mol
  ))

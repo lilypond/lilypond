@@ -888,7 +888,7 @@ pitches. EXCEPTIONS is an alist (see scm file).
     ;;
     ;; chord names aren't in staffs, so WS is in global staff space.
     (if (number? ws)
-	(ly:combine-molecule-at-edge
+	(ly:molecule-combine-at-edge
 	 molecule
 	 X RIGHT (ly:make-molecule "" (cons 0 ws) '(-1 . 1) )
 	 0.0)

@@ -9,7 +9,7 @@
 #include "molecule.hh"
 #include "font-metric.hh"
 
-LY_DEFINE(ly_set_molecule_extent_x,"ly:set-molecule-extent!", 3 , 0, 0, 
+LY_DEFINE(ly_molecule_set_extent_x,"ly:molecule-set-extent!", 3 , 0, 0, 
 	  (SCM mol, SCM axis, SCM np),
 	  "Set the extent (@var{extent} must be a pair of numbers) of @var{mol} in \n"
 "@var{axis} direction (0 or 1 for x- and y-axis respectively).\n"
@@ -61,7 +61,7 @@ LY_DEFINE(ly_translate_molecule,"ly:molecule-translate", 2, 0, 0,
 }
 
 LY_DEFINE(ly_get_molecule_extent,
-	  "ly:get-molecule-extent", 2 , 0, 0,  (SCM mol, SCM axis),
+	  "ly:molecule-get-extent", 2 , 0, 0,  (SCM mol, SCM axis),
 	  "Return a pair of numbers signifying the extent of @var{mol} in "
 "@var{axis} direction (0 or 1 for x and y axis respectively)."
 )
@@ -75,7 +75,7 @@ LY_DEFINE(ly_get_molecule_extent,
 
 
 LY_DEFINE(ly_molecule_combined_at_edge,
-	  "ly:combine-molecule-at-edge",
+	  "ly:molecule-combine-at-edge",
 	  4, 2, 0,  (SCM first, SCM axis, SCM direction,
 		     SCM second,
 		     SCM padding,
@@ -121,8 +121,8 @@ LY_DEFINE(ly_molecule_combined_at_edge,
 /*
   FIXME: support variable number of arguments "
  */
-LY_DEFINE(ly_add_molecule , 
-	  "ly:add-molecule", 2, 0, 0, (SCM first, SCM second),
+LY_DEFINE(ly_molecule_add , 
+	  "ly:molecule-add", 2, 0, 0, (SCM first, SCM second),
 	  "Combine two molecules."
 	  )
 {
@@ -201,7 +201,7 @@ LY_DEFINE(ly_fontify_atom,"ly:fontify-atom", 2, 0, 0,
 
   return fontify_atom (unsmob_metrics (met), f);
 }
-LY_DEFINE(ly_align_to_x,"ly:align-to!", 3, 0, 0,  (SCM mol, SCM axis, SCM dir),
+LY_DEFINE(ly_align_to_x,"ly:molecule-align-to!", 3, 0, 0,  (SCM mol, SCM axis, SCM dir),
 	  "Align @var{mol} using its own extents.")
 {
   SCM_ASSERT_TYPE(unsmob_molecule (mol), mol, SCM_ARG1, __FUNCTION__, "molecule");

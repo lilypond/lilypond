@@ -55,10 +55,10 @@ for the reader.
 	  (let* (
 		 (tail (stack-molecule-line  space (cdr molecules)))
 		 (head (car molecules))
-		 (xoff (+ space (cdr (ly:get-molecule-extent head X))))
+		 (xoff (+ space (cdr (ly:molecule-get-extent head X))))
 		 )
 	    
-	    (ly:add-molecule
+	    (ly:molecule-add
 	     head
 	     (ly:molecule-translate-axis tail xoff X))
 	  )
@@ -74,11 +74,11 @@ for the reader.
 
 (define (combine-molecule-list lst)
   (if (null? (cdr lst)) (car lst)
-      (ly:add-molecule (car lst) (combine-molecule-list (cdr lst)))
+      (ly:molecule-add (car lst) (combine-molecule-list (cdr lst)))
       ))
 
 (define-public (combine-markup grob props . rest)
-  (ly:add-molecule
+  (ly:molecule-add
    (interpret-markup grob props (car rest))
    (interpret-markup grob props (cadr rest))))
   
@@ -137,7 +137,7 @@ for the reader.
   (let*
     (
      (mols (map (lambda (x) (interpret-markup grob props x)) (car rest)))
-     (cmols (map (lambda (x) (ly:align-to! x X CENTER)) mols))
+     (cmols (map (lambda (x) (ly:molecule-align-to! x X CENTER)) mols))
      )
     
     (stack-lines

@@ -1,5 +1,10 @@
 2003-03-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/convert-ly.py (FatalConversionError.conv): add
+	ly:molecule-XXX conversions.
+
+	* lily/molecule-scheme.cc: change names to ly:molecule-XXX
+
 	* input/regression/multi-measure-rest-text.ly: new file.
 
 	* scm/music-functions.scm (glue-mm-rest-texts): automatically
@@ -75,6 +80,8 @@
 
 2003-02-22  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.7.13 released
+	
 	* input/test/*: lots of cleanups/comment-outs/removals in chord
 	examples
 	
