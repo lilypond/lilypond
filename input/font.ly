@@ -10,8 +10,8 @@ TestedFeatures	font-en-tja
 	\melodic{ 
 		\octave c';
 		\meter 4/4;
-		% \longa
-		% \breve % \brevis
+		a\longa
+		a\breve
 		c1 g c' a'
 		c2 g c' a'
 		c4 g c' a'

@@ -1,0 +1,175 @@
+% eindelijk.mf
+% LilyPond's own rest(s)
+
+
+interline#:=staffsize#/(stafflines-1)+stafflinethickness#;
+% ugh
+define_pixels(interline);
+nhh#:=interline#;
+nhw#:=6/5*interline#;
+define_pixels(nhh,nhw);
+
+
+if false:
+beginchar(62, 0, 4nhh#, 0); "quarter rest";
+%  rthin:= 1/8 nhh;           % .1
+%  rthick:= 2 thick+rthin;    %       .2
+  alpha:= -50;               %    .3
+  penpos1(rthin, 90+alpha);  % .4
+  penpos5(rthin, alpha);     %       .5,10
+  penpos2(rthick, alpha);    %   .6
+  penpos4(rthick, alpha);    %
+  penpos3(3/4rthick, alpha); %       .7
+  penpos6(4/3thick, alpha);
+  penpos7(rthin, 45);
+  y1l = 4nhh - 1/2nhh;
+  x1l = 1/2nhh;
+  z2r = z1 +(nhh* right) rotated alpha;
+  z3  = 1/2[z2,z4];
+  z4  = (nhw,4nhh) scaled .55;
+  z5  = z4l+(nhh* right) rotated alpha;
+  x6l = x4l; y6r = 1.45nhh;
+  x7  = .9nhw; y7= nhh-1/8nhh;
+  z10 = z5r shifted (sqrt(2)*rthin/4,sqrt(2)*rthin/4);
+
+  pickup penrazor scaled rthin rotated 45;
+  draw z1--z2r; draw z4l--z10;
+  penstroke z2e..z3e..z4e;
+  penstroke z5e..z6e..z7e;
+  penlabels(1,2,3,4,5,6,7,10);
+  shift_pic (-.2nhw, 0);
+endchar;
+
+fi
+
+
+rthin:=1/8interline;
+rthick:=2rthin;
+
+med#:=1/33designsize;
+thick#:=1/16designsize;
+define_blacker_pixels(med);
+pen med_pen;
+med_pen:= pencircle scaled med;
+
+def shift_pic (expr pone, ptwo) =
+  currentpicture:=currentpicture shifted (round(pone),round(ptwo))
+enddef;
+
+fet_begingroup("almostrests");
+
+stem#:=interline#/8;
+flare#:=interline#/2;
+define_pixels(stem,flare);
+
+def crook(expr a,w) =
+	begingroup;
+	save x,y;
+	penpos1(flare/2,-90);
+	penpos2(flare/2,0);
+	penpos3(flare/2,90);
+	penpos4(flare/2,180);
+	x4r=xpart a-w; y3r=ypart a+flare/4;
+	x1l=x2l=x3l=x4l;
+	y1l=y2l=y3l=y4l;
+	penpos5(stem,250);
+	x5=x4r+9/8flare; y5r=y1r;
+	penpos6(stem,260);
+	x6l=xpart a; y6l=ypart a;
+	penstroke z1e..z2e..z3e..z4e..z1e..z5e{right}..z6e;
+	penlabels(1,2,3,4,5,6);
+	endgroup;
+	enddef;
+
+def brush(expr a,w,b,v) =
+	begingroup;
+	save x,y;
+	z1=a; z2=b;
+	penpos3(w,angle(z2-z1)+90);
+	penpos4(w,angle(z2-z1));
+	penpos5(v,angle(z1-z2)+90);
+	penpos6(v,angle(z1-z2));
+	x3=x4=x1; y3=y4=y1;
+	x5=x6=x2; y5=y6=y2;
+	fill z3r{z1-z2}..z4l..{z2-z1}z3l..z5r{z2-z1}..z6l..{z1-z2}z5l..cycle;
+	penlabels(1,2,3,4,5,6);
+	endgroup;
+	enddef;
+
+fet_beginchar(incr code,interline#,1.5interline#,0,"Eighth rest","-2","eighthrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	crook (z1,w-stem/6);
+	z2-z1=whatever*dir70;
+	y2=stem/2;
+	brush (z1,stem/3,z2,stem);
+	endchar;
+
+fet_beginchar(incr code,interline#,1.5interline#+5/3flare#,0,"Sixteenth rest","-2","sixteenthrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	crook (z1,7/8w);
+	z3-z1=whatever*dir74;
+	y3=y1-5/3flare;
+	crook (z3,7/8w);
+	z2-z1=whatever*dir74;
+	y2=stem/2;
+	brush (z1,stem/3,z2,stem);
+	endchar;
+
+fet_beginchar(incr code,interline#,1.5interline#+10/3flare#,0,"Thirtysecond rest","-2","thirtysecondrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir76;
+	y2=stem/2;
+	brush (z1,stem/3,z2,stem);
+	crook (z1,7/8w);
+	z3-z1=whatever*dir76;
+	y3=y1-5/3flare;
+	crook (z3,7/8w);
+	z4-z1=whatever*dir76;
+	y4=y1-10/3flare;
+	crook (z4,7/8w);
+	endchar;
+
+fet_beginchar(incr code,interline#,1.5interline#+15/3flare#,0,"Sixtyfourth rest","-2","sixtyfourthrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir78;
+	y2=stem/2;
+	brush (z1,stem/3,z2,stem);
+	crook (z1,7/8w);
+	z3-z1=whatever*dir78;
+	y3=y1-5/3flare;
+	crook (z3,7/8w);
+	z4-z1=whatever*dir78;
+	y4=y1-10/3flare;
+	crook (z4,7/8w);
+	z5-z1=whatever*dir78;
+	y5=y1-15/3flare;
+	crook (z5,7/8w);
+	endchar;
+
+fet_beginchar(incr code,interline#,1.5interline#+20/3flare#,0,"Hundredtwentyeighth rest","-2","hundredtwentyeighthrest");
+	save x,y;
+	x1=w-stem/6; y1=h-flare/4;
+	z2-z1=whatever*dir80;
+	y2=stem/2;
+	brush (z1,stem/3,z2,stem);
+	crook (z1,7/8w);
+	z3-z1=whatever*dir80;
+	y3=y1-5/3flare;
+	crook (z3,7/8w);
+	z4-z1=whatever*dir80;
+	y4=y1-10/3flare;
+	crook (z4,7/8w);
+	z5-z1=whatever*dir80;
+	y5=y1-15/3flare;
+	crook (z5,7/8w);
+	z6-z1=whatever*dir80;
+	y6=y1-20/3flare;
+	crook (z6,7/8w);
+	endchar;
+
+fet_endgroup("rests");
+
