@@ -388,7 +388,7 @@ def draw_gclef (expr exact_center, reduction)=
 		.. z7r{down} .. z5r{down} .. z4r{right}
 		.. z3r .. z2r{left} .. 
 		tension .95 .. 
-		z1r -- z1l 
+		z1r -- simple_serif(z1r, z1l, 80) -- z1l 
 		.. tension 0.85 ..cycle;
 
  	save p, staffline_time, staff_line_path, down_staff_line_intersection;
@@ -446,8 +446,6 @@ def draw_gclef (expr exact_center, reduction)=
 		-- cycle;
 
 	pickup pencircle scaled 1;
-
-	fill simple_serif(z1r, z1l, 80)  -- cycle;
 
 	debugfill
 		z11r{dir(start_angle)}
