@@ -510,6 +510,12 @@ sect(Copyright)
 
 question(What is Urtext?  Critical Edition?)
 
+Werner Lemberg:
+
+It may be translated best as `that what the composer intended to tell
+the reader'
+
+
 Peter Chubb <peterc@aurema.com> writes:
 
 An Urtext is a reconstruction of the earliest form of a text,
@@ -539,6 +545,7 @@ was present in the original) and may have had key changes, time
 signature changes, time compression (original in 4/1, playing edition
 in 4/4, for example, with all semibreves replaced with crotchets)
 Copyright is in the arranger/editor.
+
 
 question(How does copyright for sheet music work? Can I enter and spread my newly bought Bach urtext?) 
 
