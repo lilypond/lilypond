@@ -936,8 +936,8 @@ if 1:
 
 if 1:
 	def conv (str):
-		str = re.sub ('ly-set-grob-property', 'ly-set-grob-property!', str)
-		str = re.sub ('ly-set-mus-property', 'ly-set-mus-property!', str)		
+		str = re.sub ('ly-set-grob-property([^!])', 'ly-set-grob-property!\1', str)
+		str = re.sub ('ly-set-mus-property([^!])', 'ly-set-mus-property!\1', str)		
 		return str
 	
 	conversions.append (((1,5,68), conv, 'ly-set-X-property -> ly-set-X-property!'))

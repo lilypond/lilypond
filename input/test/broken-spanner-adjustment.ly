@@ -17,7 +17,7 @@ this requires complicated scheme code.
     ;; if you're using this for other grob-types.
     
     (if (and  (>= (length b) 2) (eq? (car (last-pair b)) grob))
-	(ly-set-grob-property!! grob 'extra-offset '(4 . -2))
+	(ly-set-grob-property! grob 'extra-offset '(4 . -2))
 	)
   ))
 

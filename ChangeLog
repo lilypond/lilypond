@@ -1,5 +1,10 @@
 2002-08-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Grace notes): explain grace
+	after  main note.
+
+	* input/test/ : small convert-ly mishaps.
+
 	* Documentation/user/preface.itely: small bits 
 
 	* Documentation/user/introduction.itely: add sectioning
