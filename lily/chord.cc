@@ -35,7 +35,7 @@ ly_unique (SCM list)
 
 /* Hmm, rewrite this using ly_split_list? */
 SCM
-ly_remove_member (SCM s, SCM list)
+ly_delete1 (SCM s, SCM list)
 {
   SCM removed = SCM_EOL;
   for (SCM i = list; gh_pair_p (i); i = gh_cdr (i))
@@ -94,10 +94,7 @@ Chord::pitches_and_requests_to_chord (SCM pitches,
 				      SCM bass_req,
 				      bool find_inversion_b)
 {
-  pitches = scm_sort_list (pitches,
-			   scm_eval2 (ly_symbol2scm ("Pitch::less_p"),
-				      SCM_EOL));
-
+  pitches = scm_sort_list (pitches, Pitch::less_p_proc);
 			   
   if (bass_req != SCM_EOL)
     {
@@ -115,7 +112,7 @@ Chord::pitches_and_requests_to_chord (SCM pitches,
       
       SCM tonic = member_notename (tonic_req, pitches);
       if (tonic != SCM_EOL)
-	pitches = rebuild_insert_inversion (pitches); //, tonic);
+	pitches = add_above_tonic (gh_car (pitches), gh_cdr (pitches));
     }
   else if (find_inversion_b)
     {
@@ -124,10 +121,7 @@ Chord::pitches_and_requests_to_chord (SCM pitches,
 	: guess_tonic (pitches);
 	
       if (tonic != SCM_EOL)
-	{
-	  inversion_req = gh_car (pitches);
-	  pitches = rebuild_insert_inversion (pitches); //, tonic);
-	}
+	pitches = add_above_tonic (gh_car (pitches), gh_cdr (pitches));
     }
 
   if (tonic_req != SCM_EOL)
@@ -188,20 +182,14 @@ Chord::lower_step (SCM tonic, SCM pitches, SCM step)
       if (gh_equal_p (step_scm (tonic, gh_car (i)), step)
 	  || gh_scm2int (step) == 0)
 	{
-#if 0
-	  Pitch x = *unsmob_pitch (p);
-	  x.alteration_i_--;
-	  p = x.smobbed_copy ();
-#else
 	  p = Pitch::transpose (p, Pitch (0, 0, -1).smobbed_copy ());
-#endif
 	}
       lowered = gh_cons (p, lowered);
     }
   return gh_reverse (lowered);
 }
 
-/* Return member that has same notename, disregarding octave or accidentals */
+/* Return member that has same notename, disregarding octave or alterations */
 SCM
 Chord::member_notename (SCM p, SCM pitches)
 {
@@ -226,6 +214,31 @@ Chord::member_notename (SCM p, SCM pitches)
   return member;
 }
 
+/* Return member that has same notename and alteration, disregarding octave */
+SCM
+Chord::member_pitch (SCM p, SCM pitches)
+{
+  /* If there's an exact match, make sure to return that */
+  SCM member = gh_member (p, pitches);
+  if (member == SCM_BOOL_F)
+    {
+      for (SCM i = pitches; gh_pair_p (i); i = gh_cdr (i))
+	{
+	  if (unsmob_pitch (p)->notename_i_
+	      == unsmob_pitch (gh_car (i))->notename_i_
+	      && unsmob_pitch (p)->alteration_i_
+	      == unsmob_pitch (gh_car (i))->alteration_i_)
+	    {
+	      member = gh_car (i);
+	      break;
+	    }
+	}
+    }
+  return member;
+}
+
+
+
 int
 Chord::step_i (Pitch tonic, Pitch p)
 {
@@ -244,8 +257,16 @@ Chord::step_scm (SCM tonic, SCM p)
 }
 
 /*
-  docme
- */
+  Assuming that PITCHES is a chord, with tonic (CAR PITCHES), find
+  missing thirds, only considering notenames.  Eg, for
+
+    PITCHES = c gis d'
+
+  return
+  
+    MISSING = e b'
+
+*/
 SCM
 Chord::missing_thirds (SCM pitches)
 {
@@ -295,15 +316,15 @@ Chord::missing_thirds (SCM pitches)
 }
 
 
-/*
- Mangle
+/* Mangle
 
- (PITCHES . (INVERSION . BASS))
+     (PITCHES . (INVERSION . BASS))
  
- into list of pitches.
- 
- For normal chord entry, inversion and bass pitches are retained in
- specific *_requests */
+ into full list of pitches.
+
+ This means:
+   - delete INVERSION and add as lowest note of PITCHES
+   - add BASS as lowest note of PITCHES */
 
 SCM
 Chord::to_pitches (SCM chord)
@@ -312,29 +333,26 @@ Chord::to_pitches (SCM chord)
   SCM modifiers = gh_cdr (chord);
   SCM inversion = gh_car (modifiers);
   SCM bass = gh_cdr (modifiers);
+
   if (inversion != SCM_EOL)
     {
-      Pitch inversion_pitch = *unsmob_pitch (inversion);
-      SCM i = pitches;
-      for (; gh_pair_p (i); i = gh_cdr (i))
+      /* If inversion requested, check first if the note is part of chord */
+      SCM s = member_pitch (inversion, pitches);
+      if (s != SCM_BOOL_F)
 	{
-	  Pitch p = *unsmob_pitch (gh_car (i));
-	  if ((p.notename_i_ == inversion_pitch.notename_i_)
-	      && (p.alteration_i_ == inversion_pitch.alteration_i_))
-	    break;
+	  /* Then, delete and add as base note, ie: the inversion */
+	  scm_delete (s, pitches);
+	  pitches = add_below_tonic (s, pitches);
 	}
-      if (gh_pair_p (i))
-	pitches = rebuild_with_bass (pitches, gh_car (i));
       else
 	warning (_f ("invalid inversion pitch: not part of chord: %s",
 		     unsmob_pitch (inversion)->str ()));
     }
 
+  /* Bass is easy, just add if requested */
   if (bass != SCM_EOL)
-    {
-      pitches = gh_cons (bass, pitches);
-      pitches = rebuild_with_bass (pitches, bass);
-    }
+    pitches = add_below_tonic (bass, pitches);
+    
   return pitches;
 }
 
@@ -351,82 +369,47 @@ Chord::guess_tonic (SCM pitches)
   return gh_car (scm_sort_list (pitches, Pitch::less_p_proc)); 
 } 
 
+/* Return PITCHES with PITCH added not as lowest note */
 SCM
-Chord::rebuild_from_base (SCM pitches, SCM base)
+Chord::add_above_tonic (SCM pitch, SCM pitches)
 {
-  SCM split = ly_split_list (base, pitches);
-  SCM before = gh_car (split);
-  SCM after = gh_cdr (split);
-
-  SCM last = Pitch (0, 0, -5).smobbed_copy ();
-  SCM rebuilt = SCM_EOL;
-  rebuilt = gh_cons (base, rebuilt);
-  for (SCM i = gh_append2 (after, before); gh_pair_p (i); i = gh_cdr (i))
-    {
-      SCM p = gh_car (i);
-      if (Pitch::less_p (p, last) == SCM_BOOL_T)
-	{
-	  // UHUHUrg
-	  p = Pitch (unsmob_pitch (last)->octave_i_,
-			     unsmob_pitch (p)->notename_i_,
-			     unsmob_pitch (p)->alteration_i_).smobbed_copy ();
-	  if (Pitch::less_p (p, last))
-	    p = Pitch::transpose (p, Pitch (1, 0, 0).smobbed_copy ());
-	}
-      rebuilt = gh_cons (p, rebuilt);
-      last = p;
-    }
-
-  return gh_reverse (rebuilt);
-}
-
-SCM
-Chord::rebuild_insert_inversion (SCM pitches) //, SCM tonic)
-{
-  SCM inversion = gh_car (pitches);
-  pitches = gh_cdr (pitches);
-  SCM tonic = gh_car (pitches);
-  pitches = rebuild_from_base (pitches, tonic);
+  /* Should we maybe first make sure that PITCH is below tonic? */
   if (pitches != SCM_EOL)
-    {
-      // UHUHUrg
-      inversion = Pitch (unsmob_pitch (gh_car (pitches))->octave_i_-1,
-				 unsmob_pitch (inversion)->notename_i_,
-				 unsmob_pitch (inversion)->alteration_i_).smobbed_copy ();
-      while (Pitch::less_p (inversion, gh_car (pitches)) == SCM_BOOL_T)
-	inversion = Pitch::transpose (inversion, Pitch (1, 0, 0).smobbed_copy ());
-    }
-  pitches = gh_cons (inversion, pitches);
-  return scm_sort_list (pitches,
-			scm_eval2 (ly_symbol2scm ("Pitch::less_p"),
-				   SCM_EOL));
+    while (Pitch::less_p (pitch, gh_car (pitches)) == SCM_BOOL_T)
+      pitch = Pitch::transpose (pitch, Pitch (1, 0, 0).smobbed_copy ());
+   
+  pitches = gh_cons (pitch, pitches);
+  return scm_sort_list (pitches, Pitch::less_p_proc);
 }
 
+/* Return PITCHES with PITCH added as lowest note */
 SCM
-Chord::rebuild_with_bass (SCM pitches, SCM bass)
+Chord::add_below_tonic (SCM pitch, SCM pitches)
 {
-  pitches = ly_remove_member (bass, pitches);
-  // is lowering fine, or should others be raised?
   if (pitches != SCM_EOL)
-    while (Pitch::less_p (gh_car (pitches), bass) == SCM_BOOL_T)
-      bass = Pitch::transpose (bass, Pitch (-1, 0, 0).smobbed_copy ());
-  return gh_cons (bass, pitches);
+    while (Pitch::less_p (gh_car (pitches), pitch) == SCM_BOOL_T)
+      pitch = Pitch::transpose (pitch, Pitch (-1, 0, 0).smobbed_copy ());
+  return gh_cons (pitch, pitches);
 }
 
 
 
-/*********************************/
-/* Parser stuff */
+/*****
+      Parser stuff 
 
-/* Construct from parser output:
+      Construct from parser output:
 
-  (PITCHES . (INVERSION . BASS)) */
+      (PITCHES . (INVERSION . BASS))
+
+      PITCHES is the plain chord, it does not include bass or inversion
+
+      Part of Chord:: namespace for now, because we do lots of
+      chord-manipulating stuff. */
+
 SCM
 Chord::tonic_add_sub_inversion_bass_to_scm (SCM tonic, SCM add, SCM sub,
 					    SCM inversion, SCM bass)
 {
-  SCM less = scm_eval2 (ly_symbol2scm ("Pitch::less_p"), SCM_EOL);
-
   /* urg: catch dim modifier: 3rd, 5th, 7th, .. should be lowered */
   bool dim_b = false;
   for (SCM i = add; gh_pair_p (i); i = gh_cdr (i))
@@ -440,12 +423,12 @@ Chord::tonic_add_sub_inversion_bass_to_scm (SCM tonic, SCM add, SCM sub,
     }
   add = transpose_pitches (tonic, add);
   add = lower_step (tonic, add, gh_int2scm (7));
-  add = scm_sort_list (add, less);
+  add = scm_sort_list (add, Pitch::less_p_proc);
   add = ly_unique (add);
   
   sub = transpose_pitches (tonic, sub);
   sub = lower_step (tonic, sub, gh_int2scm (7));
-  sub = scm_sort_list (sub, less);
+  sub = scm_sort_list (sub, Pitch::less_p_proc);
   
   /* default chord includes upto 5: <1, 3, 5>   */
   add = gh_cons (tonic, add);
@@ -470,21 +453,21 @@ Chord::tonic_add_sub_inversion_bass_to_scm (SCM tonic, SCM add, SCM sub,
   /* if additions include any 3, don't add third */
   SCM third = gh_cadr (base_pitches (tonic));
   if (member_notename (third, add) != SCM_BOOL_F)
-    missing = ly_remove_member (third, missing);
+    missing = scm_delete (third, missing);
 
   /* if additions include any 4, assume sus4 and don't add third implicitely
      C-sus (4) = c f g (1 4 5) */
   SCM sus = Pitch::transpose (tonic, Pitch (0, 3, 0).smobbed_copy ());
   if (member_notename (sus, add) != SCM_BOOL_F)
-    missing = ly_remove_member (third, missing);
+    missing = scm_delete (third, missing);
   
   /* if additions include some 5, don't add fifth */
   if (member_notename (fifth, add) != SCM_BOOL_F)
-    missing = ly_remove_member (fifth, missing);
+    missing = scm_delete (fifth, missing);
     
   /* complete the list of thirds to be added */
   add = gh_append2 (missing, add);
-  add = scm_sort_list (add, less);
+  add = scm_sort_list (add, Pitch::less_p_proc);
   
   SCM pitches = SCM_EOL;
   /* Add all that aren't subtracted */
@@ -493,11 +476,11 @@ Chord::tonic_add_sub_inversion_bass_to_scm (SCM tonic, SCM add, SCM sub,
       SCM p = gh_car (i);
       SCM s = member_notename (p, sub);
       if (s != SCM_BOOL_F)
-	sub = ly_remove_member (s, sub);
+	sub = scm_delete (s, sub);
       else
 	pitches = gh_cons (p, pitches);
     }
-  pitches = scm_sort_list (pitches, less);
+  pitches = scm_sort_list (pitches, Pitch::less_p_proc);
   
   for (SCM i = sub; gh_pair_p (i); i = gh_cdr (i))
     warning (_f ("invalid subtraction: not part of chord: %s",
@@ -508,17 +491,6 @@ Chord::tonic_add_sub_inversion_bass_to_scm (SCM tonic, SCM add, SCM sub,
 
 
 /*
-  junk me
-
-  snapnie
-  
-  Een chord invoer bestaat uit een naam.  Maar, we willen een aantal
-  pitch-requests doen, zodat na het parsen van een chord geen verschil
-  meer is met een gewoon accoord.  Die vertaalslag is behoorlijk
-  harig, hoe wil je dit junken?  Nouja, cleanup lijkt me aardige
-  eerste stap enniewee.
-
-
   --Het lijkt me dat dit in het paarse gedeelte moet.
 
   Zo-en-zo, lijktme dat je ipv. Inversion_req een (inversion . #t) aan
@@ -539,7 +511,9 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
   inversion = gh_car (modifiers);
   bass = gh_cdr (modifiers);
 
-  //urg
+  /* This sucks.
+     Should add (inversion . #t) to the pitch that is an inversion
+   */
   if (inversion != SCM_EOL)
     {
       Inversion_req* i = new Inversion_req;
@@ -548,6 +522,9 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
       scm_unprotect_object (i->self_scm ());
     }
 
+  /*
+    Should add (base . #t) to the pitch that is an added base
+   */
   if (bass != SCM_EOL)
     {
       Bass_req* b = new Bass_req;

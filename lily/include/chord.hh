@@ -29,14 +29,14 @@ public:
   static SCM transpose_pitches (SCM tonic, SCM pitches);
   static SCM lower_step (SCM tonic, SCM pitches, SCM step);
   static SCM member_notename (SCM p, SCM pitches);
+  static SCM member_pitch (SCM p, SCM pitches);
   static int step_i (Pitch tonic, Pitch p);
   static SCM step_scm (SCM tonic, SCM p);
   static SCM missing_thirds (SCM pitches);
   static SCM to_pitches (SCM chord);
   static SCM guess_tonic (SCM pitches);
-  static SCM rebuild_from_base (SCM pitches, SCM base);
-  static SCM rebuild_insert_inversion (SCM pitches); //, SCM tonic);
-  static SCM rebuild_with_bass (SCM pitches, SCM bass);
+  static SCM add_above_tonic (SCM pitch, SCM pitches);
+  static SCM add_below_tonic (SCM pitch, SCM pitches);
   static SCM tonic_add_sub_inversion_bass_to_scm (SCM tonic, SCM add, SCM sub,
 					    SCM inversion, SCM bass);
   static Simultaneous_music *get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur);
