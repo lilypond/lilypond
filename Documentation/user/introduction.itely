@@ -118,7 +118,7 @@ the fonts were that we admired at first.
 #(define magfact 3.0)
 \score {  \notes { as'2 r4 }
           \paper {
-              linewidth = -1.
+                 raggedright = ##t
               \translator {
                   \ScoreContext
                   AccidentalPlacement \override #'right-padding = #3.0
@@ -172,7 +172,7 @@ which?
       c'4 e''4 e'4 b'4 |
       \stemDown b'4 e''4 a'4 e''4|
     }
-    \paper { linewidth = -1. } }
+    \paper { raggedright = ##t } }
 @end lilypond
 
 @cindex regular rhythms

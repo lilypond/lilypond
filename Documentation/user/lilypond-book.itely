@@ -301,7 +301,7 @@ of the code is used.
 
 @item singleline
 Produce a single, naturally spaced, unjustified line
-(i.e., linewidth = @minus{}1).
+(i.e., @code{raggedright = ##t}).
 
 @item multiline
 The opposite of @code{singleline}: Justify and break lines.
