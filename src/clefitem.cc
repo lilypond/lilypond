@@ -25,14 +25,15 @@ Clef_item::read(Clef k)
     read(k.clef_type);
 }
 
-void
-Clef_item::preprocess()
+Molecule*
+Clef_item::brew_molecule()const
 {
     String t = type;
     if  (change)
 	t += "_change";
     Symbol s = paper()->lookup_->clef(t);
-    output = new Molecule(Atom(s));
+    Molecule*output = new Molecule(Atom(s));
     output->translate(Offset(0, paper()->interline()/2 * y_off));
+    return output;
 }
 

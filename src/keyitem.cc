@@ -21,6 +21,7 @@ Keyitem::read(svec<int> s)
 	add(note, acc);
     }
 }
+
 void
 Keyitem::add(int p, int a)
 {
@@ -28,16 +29,11 @@ Keyitem::add(int p, int a)
     acc.add(a);
 }
 
-void
-Keyitem::preprocess()
-{
-    brew_molecole();
-}
 
-void
-Keyitem::brew_molecole()
+Molecule*
+Keyitem::brew_molecule()const
 {
-    output = new Molecule;
+    Molecule*output = new Molecule;
     Real inter = paper()->interline()/2;
     
     for (int i =0; i < pitch.sz(); i++) {
@@ -50,5 +46,6 @@ Keyitem::brew_molecole()
     Molecule m(paper()->lookup_->fill(Box(
 	Interval(0, paper()->note_width()),
 	Interval(0,0))));
-    output->add_right(m);	
+    output->add_right(m);
+    return output;
 }

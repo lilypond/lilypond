@@ -15,7 +15,7 @@ struct Accidental : Item {
     Accidental(int type, int position);
     void print()const;
 private:
-    void brew_molecole();
+    void brew_molecule();
 };
 #endif // ACCIDENTAL_HH
 

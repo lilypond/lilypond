@@ -49,9 +49,11 @@ struct Stem : public Item {
     svec<Notehead*> heads;
 
     /****************/
-
+    Stem(int center, Moment duration);
+    
     /// ensure that this Stem also encompasses the Notehead #n#
     void add(Notehead*n);
+
     Real hpos()const;
     void print() const;
     void set_stemend(Real);
@@ -59,14 +61,13 @@ struct Stem : public Item {
     void set_default_stemlen();
     void set_default_extents();
     void set_noteheads();
-    void postprocess();
-    void preprocess();
-    Stem(int center, Moment duration);
+    
+
+    void do_pre_processing();
 
     Interval width() const;
-private:
 
-    void brew_molecole();
+    Molecule* brew_molecule() const;
 };
 /**
   takes care of:
