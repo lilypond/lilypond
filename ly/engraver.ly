@@ -472,6 +472,7 @@ ScoreContext = \translator {
 	basicChordNameProperties = #`(
 		(molecule-callback . ,Chord_name::brew_molecule)
 		(interfaces . (chord-name-interface))
+		(after-line-breaking-callback . ,Chord_name::after_line_breaking) 
 	)
 	basicCollisionProperties = #`(
 		(axes 0 1)

@@ -1,4 +1,21 @@
-1.3.77.mb1
+--- ../lilypond-1.3.77/CHANGES	Tue Aug  8 16:14:36 2000
+++ b/CHANGES	Wed Aug  9 23:30:23 2000
+@@ -1,3 +1,15 @@
+1.3.77.jcn1
+===========
+
+* `Fixed' chord notation, as per request of David Arnold, ie, 
+   Added a chord-name-mode, that only displays chord names
+   when there's a change in the chord-name-scheme, Also, a chord
+   name should always be displayed after a line break.  See
+
+       input/test/drarn-chords.ly
+
+* Reverted duration-iter change in midi2ly, moved printing of options.
+
+ 1.3.77
+ ======
+ 1.3.77.mb1
 ==========
 
 * Minor documentation updates

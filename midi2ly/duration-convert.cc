@@ -148,7 +148,6 @@ Duration_convert::set_array ()
   dur_array_s.clear ();
 
   Duration_iterator i;
-  dur_array_s.push (i.dur ());
   while (i.ok ())
     dur_array_s.push (i.forward_dur ());
 }

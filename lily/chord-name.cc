@@ -11,6 +11,8 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "score-element.hh"
+#include "paper-column.hh"
+#include "line-of-score.hh"
 
 /*
   TODO: move text lookup out of Chord_name
@@ -124,8 +126,29 @@ Chord_name::ly_text2molecule (Score_element * me, SCM text)
   return mol;
 }
 
-MAKE_SCHEME_CALLBACK(Chord_name,brew_molecule);
+MAKE_SCHEME_CALLBACK (Chord_name, after_line_breaking);
+SCM
+Chord_name::after_line_breaking (SCM smob)
+{
+  Item* me = dynamic_cast<Item*> (unsmob_element (smob));
+  assert (me);
+    
+  SCM s = me->get_elt_property ("begin-of-line-visible");
+  if (to_boolean (s))
+    {
+      if (Paper_column::rank_i (me->column_l ()) -
+	  /*
+	    hmm, what's my column number in this line?
+	    why doesn't this work?
+	    me->line_l ()->rank_i_ > 2)
+	  */
+	  me->line_l ()->spanned_rank_iv ()[LEFT] > 1)
+	me->suicide ();
+    }
+  return SCM_UNSPECIFIED;
+}
 
+MAKE_SCHEME_CALLBACK (Chord_name, brew_molecule);
 SCM
 Chord_name::brew_molecule (SCM smob) 
 {

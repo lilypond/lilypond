@@ -50,4 +50,6 @@ Chord to_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musi
 
 Chord to_chord (Array<Musical_pitch> pitch_arr, Tonic_req* tonic_req, Inversion_req* inversion_req, Bass_req* bass_req, bool find_inversion_b);
 
+int compare (Chord*, Chord*);
+
 #endif // CHORD_HH
