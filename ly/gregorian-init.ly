@@ -34,7 +34,7 @@ deminutum =
 % declare divisiones shortcuts
 %
 virgula = {
-  \once \property Voice.BreathingSign \override #'text = #"scripts-rcomma"
+  \once \property Voice.BreathingSign \override #'text = #(make-musicglyph-markup "scripts-rcomma")
   \once \property Voice.BreathingSign \override #'font-relative-size = #-1
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.
@@ -43,7 +43,7 @@ virgula = {
   \breathe
 }
 caesura = {
-  \once \property Voice.BreathingSign \override #'text = #"scripts-rvarcomma"
+  \once \property Voice.BreathingSign \override #'text = #(make-musicglyph-markup "scripts-rvarcomma")
   \once \property Voice.BreathingSign \override #'font-relative-size = #-1
 
   % Workaround: add padding.  Correct fix would be spacing engine handle this.

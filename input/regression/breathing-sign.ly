@@ -21,73 +21,84 @@ finalis, the latter three looking similar to bar glyphs.
 \include "gregorian-init.ly"
 
 \score {
-  \notes \relative c' {
-    \key es \major \time 3/4
+  {
+    %
+    % Modern notation:
+    %
+    \context Staff {
+      \notes \relative c' {
+	\key es \major \time 3/4
 
-% this bar contains no \breathe
-    <         {  g4 as g }
-\\{  es4 bes es }
-    > |
+	% this bar contains no \breathe
+	<
+	  { g4 as g } \\
+	  { es4 bes es }
+	> |
 
-% by default, \breathe uses the rcomma, just as if saying:
-% \property Voice.BreathingSign \set #'text = #"scripts-rcomma"
-    <  
-       { g4 as g }\\{  es4 \breathe bes es }
-    > |
+	% by default, \breathe uses the rcomma, just as if saying:
+	% \property Voice.BreathingSign \set #'text =
+	%	#(make-musicglyph-markup "scripts-rcomma")
+	<
+	  { g4 as g } \\
+	  { es4 \breathe bes es }
+	> |
 
-% rvarcomma and lvarcomma are variations of the default rcomma and lcomma
-    % N.B.: must use Staff context here, since we start a Voice below
-    \property Staff.BreathingSign \override #'text = #"scripts-rvarcomma"
-    <       { g4 as g }\\
-	    { es4 \breathe bes es }
-    > |
+	% rvarcomma and lvarcomma are variations of the default rcomma
+	% and lcomma
 
-% wedge
-    \property Voice.BreathingSign \override #'text = #"scripts-upbow"
-    es8 d es f g8 \breathe f |
+    	% N.B.: must use Staff context here, since we start a Voice below
+	\property Staff.BreathingSign \set #'text =
+		#(make-musicglyph-markup "scripts-rvarcomma")
+	<
+	  { g4 as g } \\
+	  { es4 \breathe bes es }
+	> |
 
-% caesura
-    \property Voice.BreathingSign \set #'text = #"scripts-caesura"
-     es8[ d] \breathe  es[ f g f] |
-    es2 r4 \bar "||" \break
+	% wedge
+	\property Voice.BreathingSign \set #'text =
+		 #(make-musicglyph-markup "scripts-upbow")
+	es8 d es f g8 \breathe f |
 
-%
-% Gregorian stuff:
-%
+	% caesura
+	\property Voice.BreathingSign \set #'text =
+		 #(make-musicglyph-markup "scripts-caesura")
+	es8[ d] \breathe  es[ f g f] |
+	es2 r4 \bar "||" \break
+      }
+    }
 
-% we turn bars off for Gregorian stuff
-    \property Staff.BarLine \override #'transparent = ##t
+    %
+    % Gregorian notation:
+    %
+    \context VaticanaStaff {
+      \notes \relative c' {
 
-% this bar contains no \breathe
-    < \context Voice = two { \stemDown es4 bes es }
-      \context Voice = one { \stemUp g4 as g }
-    > |
+	% we turn bars off for Gregorian stuff
+	\property Staff.BarLine \override #'transparent = ##t
 
-% \virgula applies rcomma, but in a smaller font
-    < \context Voice = two { \stemDown es4 \virgula bes es }
-      \context Voice = one { \stemUp g4 as g }
-    > |
+	% here is no \breathe
+	c g c
 
-% \caesura applies rvarcomma, but in a smaller font
-    < \context Voice = two { \stemDown es4 \caesura bes es }
-      \context Voice = one { \stemUp g4 as g }
-    > |
+	% \virgula applies rcomma, but in a smaller font
+	c \virgula g c
 
-% \divisioMinima is a simple vertical stroke through the uppermost
-% staffline, just like the original implementation of breathing signs.
-    < \context Voice = two { \stemDown es4 \divisioMinima bes es }
-      \context Voice = one { \stemUp g4 as g }
-    > |
-% \divisio{maior,maxima} and \finalis look like bars and are vertically
-% centered on the staff; the direction property has no effect
-    < \context Voice = two { \stemDown es4 \divisioMaior bes es }
-      \context Voice = one { \stemUp g4 as g }
-    > |
-    < \context Voice = two { \stemDown es4 \divisioMaxima bes es }
-      \context Voice = one { \stemUp g4 as g }
-    > |
+	% \caesura applies rvarcomma, but in a smaller font
+	c \caesura g c
 
-% this one looks almost like a "||" type bar
-    \finalis
+	% \divisioMinima is a simple vertical stroke through the
+	% uppermost staffline, just like the original implementation
+	% of breathing signs.
+	c \divisioMinima g c
+
+	% \divisio{maior,maxima} and \finalis look like bars and are
+	% vertically centered on the staff; the direction property has
+	% no effect
+	c \divisioMaior g c
+	c \divisioMaxima g c
+
+	% this one looks almost like a "||" type bar
+	\finalis
+      }
+    }
   }
 }
