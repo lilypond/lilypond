@@ -711,7 +711,7 @@ midi_body: /* empty */ 		{
 	;
 
 tempo_request:
-	TEMPO entered_notemode_duration '=' unsigned	{
+	TEMPO steno_duration '=' unsigned	{
 		$$ = new Tempo_req;
 		$$->dur_ = *$2;
 		delete $2;
