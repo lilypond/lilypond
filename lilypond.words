@@ -237,7 +237,7 @@ NoteHead
 \\notenames
 NoteNames
 \\NoteNamesContext
-\\notes
+\\notes - { _ } -
 \\nt
 \\number
 \\once
@@ -297,7 +297,7 @@ PianoStaff
 \\ratherLongLyricsStaff
 \\rc
 \\rced
-\\relative
+\\relative - % { _ } -
 \\remove
 \\repeat
 \\rest
@@ -319,7 +319,7 @@ RhythmicStaff
 \\scale
 \\scales
 \\scheme
-\\score
+\\score - { \\n \? \\simultaneous { \\n _ \\n } \! \\n \\paper {  } \\n \? \\midi {  } \\n \! } \\n -
 Score
 \\ScoreContext
 \\scpaper
@@ -353,7 +353,7 @@ Score
 \\shortlong
 \\showStaffSwitch
 \\signumcongruentiae
-\\simultaneous
+\\simultaneous - { _ } -
 \\singlepart
 \\skip
 Slur
@@ -449,7 +449,7 @@ TimeSignature
 \\toeters
 \\touch
 \\translator
-\\transpose
+\\transpose - % { _ } -
 treble
 \\treCorde
 \\treCordeBoth

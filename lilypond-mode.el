@@ -88,17 +88,26 @@ Finds file lilypond-words from load-path."
 	(LilyPond-add-dictionary-word (list copy)))
       (kill-buffer b)))
 
+(defconst LilyPond-menu-keywords nil
+  "Keywords which can be inserted from the menu.")
+
 (defconst LilyPond-keywords 
   (let ((wordlist '("\\score")) ; add \keywords to lilypond.words
-	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
+	(co (all-completions "" (LilyPond-add-dictionary-word ())))
+	(currword ""))
     (progn
+      (setq LilyPond-menu-keywords '())
       (while (> (length co) 0)
-	(if (> (length (car co)) 1)
-	    (if (and (string-equal "\\" (substring (car co) 0 1))
-		     (string-equal (downcase (car co)) (car co)))
-		(if (not (member (car co) wordlist))
-		    (add-to-list 'wordlist (car co)))))
-	(setq co (cdr co)))
+	(setq currword (car co))
+	(if (> (length currword) 1)
+	    (if (and (string-equal "\\" (substring currword 0 1))
+		     (string-equal (downcase currword) currword))
+		(add-to-list 'wordlist currword)))
+	(if (string-equal "-" (car (setq co (cdr co))))
+	    (progn
+	      (add-to-list 'LilyPond-menu-keywords currword)
+	      (while (and (> (length co) 0)
+			  (not (string-equal "-" (car (setq co (cdr co))))))))))
       wordlist))
   "LilyPond \\keywords")
 
@@ -110,9 +119,10 @@ Finds file lilypond-words from load-path."
 	(if (> (length (car co)) 1)
 	    (if (and (string-equal "\\" (substring (car co) 0 1))
 		     (not (string-equal (downcase (car co)) (car co))))
-		(if (not (member (car co) wordlist))
-		    (add-to-list 'wordlist (car co)))))
-	(setq co (cdr co)))
+		(add-to-list 'wordlist (car co))))
+	(if (string-equal "-" (car (setq co (cdr co))))
+	    (while (and (> (length co) 0)
+			(not (string-equal "-" (car (setq co (cdr co)))))))))
       wordlist))
   "LilyPond \\Identifiers")
 
@@ -123,9 +133,10 @@ Finds file lilypond-words from load-path."
       (while (> (length co) 0)
 	(if (> (length (car co)) 0)
 	    (if (not (string-match "[^a-zA-Z]" (car co)))
-		(if (not (member (car co) wordlist))
-		    (add-to-list 'wordlist (car co)))))
-	(setq co (cdr co)))
+		(add-to-list 'wordlist (car co))))
+	(if (string-equal "-" (car (setq co (cdr co))))
+	    (while (and (> (length co) 0)
+			(not (string-equal "-" (car (setq co (cdr co)))))))))
       wordlist))
   "LilyPond ReservedWords")
 
@@ -677,8 +688,6 @@ command."
   (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
   ;; the following will should be overriden by Lilypond Quick Insert Mode
   (define-key LilyPond-mode-map "\C-cq" 'LilyPond-quick-insert-mode)
-  (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
-  (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
   (define-key LilyPond-mode-map "\C-c;" 'LilyPond-comment-region)
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
@@ -787,61 +796,58 @@ command."
     (LilyPond-info)
     (Info-index str)))
 
-(defun LilyPond-insert-string (pre)
-  "Insert text to the buffer."
-  (insert pre)
-  (length pre))
-
-(defun LilyPond-insert-between (text pre post)
-  "Insert text to the buffer if non-empty string is given."
-  (let ((str (read-string text)))
-    (if (string-equal str "")
-	0
-      (progn (setq pre_str_post (concat pre str post))
-	     (insert pre_str_post)
-	     (length pre_str_post)))))
-
-(defun LilyPond-insert-tag-notes ()
-  "LilyPond notes tag."
-  (interactive)
-  (setq begin (if (LilyPond-mark-active)
-		  (mark-marker) (point-marker)))
-  (setq end (point-marker))
-  (goto-char begin)
-  (setq l1 (LilyPond-insert-string "\\notes "))
-  (setq l2 (LilyPond-insert-between "Relative (e.g. c'): " "\\relative " " "))
-  (if (eq l2 0)
-      (setq l2 (LilyPond-insert-between "Transpose (e.g. c c'): " "\\transpose " " ")))
-  (setq l3 (LilyPond-insert-string "{ "))
-  (goto-char (+ end l1 l2 l3))
-  (LilyPond-insert-string " }")
-  (goto-char (+ end l1 l2 l3)))
-
-(defun LilyPond-insert-tag-score ()
-  "LilyPond score tag."
-  (interactive)
-  (setq begin (if (LilyPond-mark-active) 
-		  (mark-marker) (point-marker)))
-  (setq end (point-marker))
-  (goto-char begin)
-  (setq l1 (LilyPond-insert-string "\\score {\n    ")) ; keep track of lengths
-  (goto-char (+ end l1))
-  (LilyPond-insert-string "\n    \\paper { }\n")
-  (setq l2 (if (y-or-n-p "Insert \"\\header\" field? ")
-	       (+ (LilyPond-insert-string "    \\header {")
-		  (LilyPond-insert-between "Title: " "\n      title = \"" "\"")
-		  (LilyPond-insert-between "Subtitle: " "\n      subtitle = \"" "\"")
-		  (LilyPond-insert-between "Piece: " "\n      piece = \"" "\"")
-		  (LilyPond-insert-between "Opus: "  "\n      opus = \"" "\"")
-		  (LilyPond-insert-string "\n    }\n"))
-	     0))
-  (setq l3 (if (y-or-n-p "Insert \"\\midi\" field? ")
-	       (+ (LilyPond-insert-string "    \\midi {")
-		  (LilyPond-insert-between "Tempo: (e.g. 4=60) " " \\tempo " "")
-		  (LilyPond-insert-string " }\n"))
-	     0))
-  (setq l4 (LilyPond-insert-string "}\n"))
-  (goto-char (+ end l1)))
+(defun LilyPond-insert-tag (word)
+  "Insert syntax for given word. The definition is in lilypond.words."
+  (setq b (find-file-noselect (LilyPond-words-filename) t t))
+  (let ((found nil)
+	(p nil)
+	(query nil)
+        (m (set-marker (make-marker) 1 (get-buffer b)))
+        (distance (if (LilyPond-mark-active)
+		      (abs (- (mark-marker) (point-marker))) 0))
+       )
+   ;; find the place first
+   (if (LilyPond-mark-active)
+       (goto-char (min (mark-marker) (point-marker))))
+   (while (and (not found) (> (buffer-size b) (marker-position m)))
+    (setq copy (car (copy-alist (list (eval (symbol-name (read m)))))))
+    (if (string-equal word copy) (setq found t)))
+   (if found (insert word))
+   (if (> (buffer-size b) (marker-position m))
+       (setq copy (car (copy-alist (list (eval (symbol-name (read m))))))))
+   (if (not (string-equal "-" copy)) 
+       (setq found nil))
+   (while (and found (> (buffer-size b) (marker-position m)))
+    ;; find next symbol
+    (setq copy (car (copy-alist (list (eval (symbol-name (read m)))))))
+    ;; check whether it is the word, or the word has been found
+    (cond 
+     ((string-equal "-" copy) (setq found nil))
+     ((string-equal "%" copy) (insert " " (read-string "Give Arguments: ")))
+     ((string-equal "_" copy) 
+      (progn 
+       (setq p (point))
+       (goto-char (+ p distance))))
+     ((string-equal "\?" copy) (setq query t))
+     ((string-equal "\!" copy) (setq query nil))
+     ((string-equal "\\n" copy) 
+      (if (not query)
+       (progn (LilyPond-indent-line) (insert "\n") (LilyPond-indent-line))))
+     ((string-equal "{" copy) 
+      (if (not query) 
+	  (progn (insert " { "))))
+     ((string-equal "}" copy)
+      (if (not query)
+       (progn (insert " } ") (setq query nil) )))
+     ((not query)
+      (insert copy))
+     (query
+      (if (y-or-n-p (concat "Proceed with `" copy "'? "))
+       (progn (insert copy) (setq query nil))))
+   ))
+   (if p (goto-char p))
+   (kill-buffer b))
+)
 
 (defun LilyPond-command-menu-entry (entry)
   ;; Return LilyPond-command-alist ENTRY as a menu item.
@@ -892,20 +898,23 @@ command."
 	  '([ "Midi all" LilyPond-command-all-midi t])
 	  ))
 
+(defun LilyPond-menu-keywords (arg)
+  "Make vector for LilyPond-mode-menu."
+  (vector arg (list 'LilyPond-insert-tag arg)))
+
 ;;; LilyPond-mode-menu should not be interactive, via "M-x LilyPond-<Tab>"
 (easy-menu-define LilyPond-mode-menu
   LilyPond-mode-map
   "Menu used in LilyPond mode."
   (append '("LilyPond")
-	  '(("Insert"
-	     [ "\\notes..."  LilyPond-insert-tag-notes t]
-	     [ "\\score..."  LilyPond-insert-tag-score t]
-	     ["Autocompletion"   LilyPond-autocompletion t]
-	     ))
+	  '(["Add index menu" LilyPond-add-imenu-menu])
+	  (list (cons "Insert" (mapcar 'LilyPond-menu-keywords 
+				       (reverse LilyPond-menu-keywords))))
 	  '(("Miscellaneous"
+	     ["Autocompletion"   LilyPond-autocompletion t]
 	     ["(Un)comment Region" LilyPond-comment-region t]
 	     ["Refontify buffer" font-lock-fontify-buffer t]
-	     ["Add index menu" LilyPond-add-imenu-menu]
+	     "-----"
 	     ["Quick Insert Mode"  LilyPond-quick-insert-mode :keys "C-c q"]
  	     ))
 	  '(("Info"
