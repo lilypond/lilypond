@@ -1,9 +1,25 @@
 
 interline#:=staffsize#/(stafflines-1);
-  
-        %  [D.K.Roush & J.S.Gourlay] say this should be 0.072
-        % We know better
+
+%
+%  [D.K.Roush & J.S.Gourlay] say this should be 0.072
+% We know better
+% generally, the "blackness" of most chars depends on this.
+%
 stafflinethickness#:=0.1 interline#;
 
 define_pixels(interline);
 define_pixels(stafflinethickness);
+
+% 
+% Because of the engraving/stamping process, no traditional
+% characters have sharp edges and corners
+% The following variable controls the amount of "roundness"
+%
+numeric blot_diameter;
+
+%
+% this is not a meta variable: it is related to absolute sizes.
+%
+blot_diameter# = .4pt#;
+define_pixels(blot_diameter);

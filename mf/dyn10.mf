@@ -124,6 +124,8 @@ font_setup;
 
 input ital-f;
 stem#:=54/36pt#;    % lowercase stem breadth
+hair#:=12/36pt#;    % lowercase hairline breadth
+vair#:=7/36pt#;    % vertical diameter of hairlines
 
 % mode_setup; font_setup;
 font_setup;
@@ -133,16 +135,20 @@ input ital-p;
 slant:=.28;      % tilt ratio $(\Delta x/\Delta y)$
 stem#:=26/36pt#;    % lowercase stem breadth
 ess#:=24/36pt#;      % breadth in middle of lowercase s
+hair#:=9/36pt#;    % lowercase hairline breadth
+vair#:=6/36pt#;    % vertical diameter of hairlines
+flare#:=32/36pt#;    % diameter of bulbs or breadth of terminals
 
 crisp#:=13/36pt#;    % diameter of serif corners
 tiny#:=13/36pt#;    % diameter of rounded corners
 fine#:=10/36pt#;    % diameter of sharply rounded corners
 thin_join#:=10/36pt#;    % width of extrafine details
-hair#:=20/36pt#;    % lowercase hairline breadth
+% hair#:=20/36pt#;    % lowercase hairline breadth
 % stem#:=38/36pt#;    % lowercase stem breadth
 curve#:=43/36pt#;    % lowercase curve breadth
-flare#:=42/36pt#;    % diameter of bulbs or breadth of terminals
+% flare#:=42/36pt#;    % diameter of bulbs or breadth of terminals
 % ess#:=35/36pt#;      % breadth in middle of lowercase s
+% vair#:=13/36pt#;    % vertical diameter of hairlines
 
 % mode_setup; font_setup;
 font_setup;

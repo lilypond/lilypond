@@ -22,13 +22,29 @@ Dots::do_post_processing ()
 {
   if (!(position_i_ % 2))
     position_i_ ++;
+  if (!no_dots_i_)
+    {
+      transparent_b_ = true;
+      set_empty(true);
+    }
 }
 
 Molecule* 
 Dots::brew_molecule_p () const
 {
-  Atom d = paper ()->lookup_l ()->dots (no_dots_i_);
-  Molecule *out = new Molecule (Atom (d));
+  Molecule *out = new Molecule;
+  Atom fill = paper()->lookup_l ()->fill (Box(Interval(0,0),Interval(0,0)));
+  out->add(fill);
+
+  Atom d = paper ()->lookup_l ()->dots (0);
+
+  Real dw = d.dim_[X_AXIS].length();
+  d.translate(-dw,X_AXIS);
+  for (int i=no_dots_i_; i--; )
+    {
+      d.translate(2*dw,X_AXIS);
+      out->add (d);
+    }
   Real inter_f = paper ()->internote_f ();
   out->translate (inter_f * position_i_, Y_AXIS);
   return out;

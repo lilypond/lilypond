@@ -9,8 +9,6 @@ fet_beginfont("font-en-tja", 16);
 
 mode_setup;
 
-test:=0;
-
 staffsize#:=16pt#;
 stafflines:=5;
 code:=-1;

@@ -1,10 +1,16 @@
+pl 19
+	- bf: keyword.cc rm'd struct defs
+	- dots: support for feta dots.
+	- lots of font (feta) tjanges
+	- mf-to-table rewrite in python
+
+*********
+pl 18.jcn1
+	- check for python, mf-deps fix
 
 pl 18
 	- bf: Box[X_AXIS] = b
-	- sharp sign, natural sign
-	- linethickness parametric
 	- bin/mf-deps.py script
-	- split into size/generic mf-files
 	- moved beams out of font-en-tja into vette-beams.  
 	- Made corresponding .cc changes.
 	

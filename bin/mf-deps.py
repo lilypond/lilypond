@@ -4,7 +4,7 @@
 
  fixme: python path
  fixme: error reporting
- fixem: why doesn't python have closures..
+ fixem: python sucks slightly: why doesn't it have closures?
 
 """
 
@@ -13,7 +13,7 @@ from regsub import * ;
 import sys;
 import os;
 
-input_re = compile('^ *input *\([^;]+\);')
+input_re = compile('^[ \t]*input *\([^;]+\);')
 postfixes = ['log', 'dvi', '2602gf', 'tfm']
 
 
@@ -50,13 +50,14 @@ class Targetdeps:
 	    return
 
 	self.depfiles.append(filename)
-_	lines = file.readlines()
+	lines = file.readlines()
 	file.close()
 	for line in lines:
-	    if input_re.match ( line) <> -1:
+	    if input_re.search (line) <> -1:
 		self.checkdep( input_re.group(1))
 
     def target_string(self):
+	# ugh.  Closures, anyone?
 	targets =  map (lambda x,y = self.basename: 'out/' + y + '.' + x, postfixes)
 	depstring = reduce(lambda x,y: x + ' ' + y, self.depfiles) 
 	dependencies = map (lambda x, y=depstring: x + ': ' + y, targets)
@@ -65,7 +66,7 @@ _	lines = file.readlines()
 
 
 
-for file in sys.argv[1:]:
+for file in sys.argv[1:]: # skip programname
     t = Targetdeps(file)
     print t.target_string()
 

@@ -134,6 +134,7 @@ AC_SUBST(BISON)
 AC_SUBST(FLEX)
 AC_SUBST(LN)
 AC_SUBST(PERL)
+AC_SUBST(PYTHON)
 AC_SUBST(ZIP)
 AC_SUBST(TEXPREFIX)
 AC_SUBST(TEXDIR)
@@ -145,6 +146,7 @@ AC_CHECK_PROGS(BISON, bison, error)
 AC_CHECK_PROGS(FLEX, flex, error)
 AC_CHECK_PROGS(MAKE, make, error)
 AC_PATH_PROG(PERL, perl, error)
+AC_PATH_PROG(PYTHON, python, error)
 AC_CHECK_PROGS(PODMAN, pod2man, error)
 
 
@@ -171,6 +173,7 @@ AC_JUNK_ARGS( [if test "x$MFDIR" = xauto; then
 AC_CHECK_SEARCH_RESULT($MAKE, GNU make,  You should install GNU make)
 AC_CHECK_SEARCH_RESULT( $BISON, bison,  Please install Bison, 1.25 or better)
 AC_CHECK_SEARCH_RESULT($PERL, perl, You should install Perl, version 5 or better)
+AC_CHECK_SEARCH_RESULT($PYTHON, python, You should install Python)
 AC_CHECK_SEARCH_RESULT($PODMAN, pod,  You should install Perl, version 5 or better)
 AC_CHECK_SEARCH_RESULT( $FLEX,  flex, Please install Flex, 2.5 or better)
 
