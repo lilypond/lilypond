@@ -1,5 +1,10 @@
 2004-12-19  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/framework-texstr.scm (output-framework): new file.  
+
+	* scm/output-texstr.scm: new file. Collect (TEXT . ) calls for TeX
+	processing.
+
 	* Documentation/user/invoking.itely (Invoking lilypond): add SVG
 
 	* stepmake/stepmake/metafont-rules.make: make single SVG/PFA/PFB
