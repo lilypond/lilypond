@@ -18,9 +18,9 @@ class ostream;
 #include "plist.hh"
 #include "plist.tcc"
 
-template IPL_INSTANTIATE(Mudela_item);
-template IPL_INSTANTIATE(Mudela_staff);
-template PL_INSTANTIATE(Mudela_voice);
-template IPL_INSTANTIATE(Mudela_voice);
-template IPL_INSTANTIATE(Mudela_column);
+template POINTERLIST_INSTANTIATE(Mudela_item);
+template POINTERLIST_INSTANTIATE(Mudela_staff);
+template POINTERLIST_INSTANTIATE(Mudela_voice);
+template POINTERLIST_INSTANTIATE(Mudela_voice);
+template POINTERLIST_INSTANTIATE(Mudela_column);
 
