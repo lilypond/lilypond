@@ -6,7 +6,7 @@
 #
 # (not finished.)
 # ABC standard v1.6:  http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt
-# 
+#
 # Enhancements  (Roy R. Rankin)
 #
 # Header section moved to top of lilypond file
@@ -25,13 +25,16 @@
 # Chord strings([-^]"string") can contain a '#'
 # Header fields enclosed by [] in notes string processed
 # W: words output after tune as abc2ps does it (they failed before)
+
+# Enhancements (Laura Conrad)
+#
+# Beaming now preserved between ABC and lilypond
 #
 # Limitations
 #
 # Multiple tunes in single file not supported
 # Blank T: header lines should write score and open a new score
 # Not all header fields supported
-# Beaming not preserved between ABC and lilypond
 # ABC line breaks are ignored
 # Block comments generate error and are ignored
 # Postscript commands are ignored
@@ -71,6 +74,7 @@ current_lyric_idx = -1
 lyric_idx = -1
 part_names = 0
 default_len = 8
+length_specified = 0
 global_key = [0] * 7			# UGH
 names = ["One", "Two", "Three"]
 DIGITS='0123456789'
@@ -147,6 +151,10 @@ def dump_lyrics (outf):
 			outf.write ("\n")
 		outf.write("    >\n    \\paper{}\n}\n")
 
+def dump_default_bar (outf):
+	outf.write ("\n\\property Score.defaultBarType=\"empty\"\n")
+
+
 def dump_slyrics (outf):
 	ks = voice_idx_dict.keys()
 	ks.sort ()
@@ -161,6 +169,7 @@ def dump_voices (outf):
 	ks.sort ()
 	for k in ks:
 		outf.write ("\nvoice%s = \\notes {" % k)
+		dump_default_bar(outf)
 		outf.write ("\n" + voices [voice_idx_dict[k]])
 		outf.write ("\n}")
 	
@@ -201,6 +210,7 @@ def set_default_length (s):
 	m =  re.search ('1/([0-9]+)', s)
 	if m:
 		__main__.default_len = string.atoi ( m.group (1))
+		length_specified = 1
 
 def set_default_len_from_time_sig (s):
 	m =  re.search ('([0-9]+)/([0-9]+)', s)
@@ -502,8 +512,8 @@ def try_parse_header_line (ln, state):
 					state.common_time = 1
 					voices_append ("\\property Staff.timeSignatureStyle=\"C\"\n")
 				a = '2/2'
-#			global_voice_stuff.append ('\\time %s;' % a)
-			set_default_len_from_time_sig (a)
+			if not length_specified:
+				set_default_len_from_time_sig (a)
 			voices_append ('\\time %s;' % a)
 			state.next_bar = ''
 		if g == 'K': # KEY
@@ -595,12 +605,9 @@ def parse_num (str):
 
 def duration_to_mudela_duration  (multiply_tup, defaultlen, dots):
 	base = 1
-
 	# (num /  den)  / defaultlen < 1/base
 	while base * multiply_tup[0] < multiply_tup[1]:
 		base = base * 2
-
-
 	return '%d%s' % ( base, '.'* dots)
 
 class Parser_state:
@@ -889,7 +896,8 @@ bar_dict = {
 '::' : '::',
 '|1' : '|',
 '|2' : '|',
-':|2' : ':|'
+':|2' : ':|',
+'|' :  '|'
 }
 
 
@@ -899,7 +907,7 @@ def try_parse_bar (str,state):
 	bs = None
 
 	# first try the longer one
-	for trylen in [3,2]:
+	for trylen in [3,2,1]:
 		if str[:trylen] and bar_dict.has_key (str[:trylen]):
 			s = str[:trylen]
 			bs = "\\bar \"%s\";" % bar_dict[s]

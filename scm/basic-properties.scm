@@ -180,6 +180,7 @@
 			  (":|" . (":|" . nil))
 			  ("||" . ("||" . nil))
 			  (".|." . (".|." . nil))
+			  ("empty" . ("nil" . nil))
 			  ("brace" . (nil . "brace"))
 			  ("bracket" . (nil . "bracket"))  
 			  )
