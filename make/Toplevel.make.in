@@ -51,9 +51,10 @@ include ./$(depth)/make/Rules.make
 
 localdist: configure
 
-INSTALL.text: check-doc-deps
+INSTALL.text: check-doc-deps check-mf-deps
 	rm -f INSTALL.text
 	ln `$(FIND) ./ -name INSTALL.text|head -1` .
+
 
 # all machine generated junk resides in out/
 distclean: 

@@ -243,6 +243,10 @@ rpm: check-rpm-doc-deps
 check-rpm-doc-deps: 
 	$(MAKE) -C $(depth)/Documentation gifs
 
+check-mf-deps:
+	$(MAKE) -C $(depth)/mf
+
+
 
 installexe:
 	$(INSTALL) -d $(bindir)
