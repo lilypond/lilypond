@@ -12,7 +12,6 @@ sequencers and XML converters.  Refer to the
 
 
 @menu
-* Invoking convert-ly::         Older LilyPond versions.
 * Invoking midi2ly::            Importing MIDI.
 * Invoking etf2ly::             Importing Finale.
 * Invoking abc2ly::             Importing ABC.          
@@ -20,113 +19,6 @@ sequencers and XML converters.  Refer to the
 * Other formats::               
 @end menu
 
-
-@node Invoking convert-ly
-@section Invoking @command{convert-ly}
-
-The LilyPond input syntax is routinely changed to simplify it or improve
-it in different ways.  As a side effect of this, the LilyPond interpreter
-often is no longer compatible with older input files.  To remedy this,
-the program @command{convert-ly} can be used to deal with most of the
-syntax changes between LilyPond versions.
-
-It uses @code{\version} statements in the input files to detect the old
-version number.  In most cases, to upgrade your input file it is sufficient
-to run
-
-@example
-covert-ly -e myfile.ly
-@end example
-
-If there are no changes to myfile.ly and file called myfile.ly.NEW
-is created, then myfile.ly is already updated.
-
-To upgrade LilyPond fragments in texinfo files, use
-
-@example
-convert-ly --from=... --to=... --no-version *.itely
-@end example
-
-In general, the program is invoked as follows:
-
-@example
-convert-ly [@var{option}]@dots{} @var{file}@dots{}
-@end example
-
-
-The following options can be given:
-
-@table @code
-@item -e,--edit
-Do an inline edit of the input file.  Overrides @code{--output}.
-
-@item -f,--from=@var{from-patchlevel}
-Set the version to convert from.  If this is not set, @command{convert-ly}
-will guess this, on the basis of @code{\version} strings in the file.
-
-@item -o,--output=@var{file}
-Set the output file to write.  
-
-@item -n,--no-version
-Normally, @command{convert-ly} adds a @code{\version} indicator 
-to the output.  Specifying this option suppresses this.  
-
-@item -s, --show-rules
-Show all known conversions and exit.
-
-@item --to=@var{to-patchlevel}
-Set the goal version of the conversion.  It defaults to the latest
-available version.
-
-@item -h, --help
-Print usage help.
-@end table
-
-@command{convert-ly} always converts up to the last syntax change handled by
-it.  This means that the @code{\version} number left in the file is
-usually lower than the version of @command{convert-ly} itself.
-
-@refbugs
-
-Not all language changes are handled.  Only one output option can be
-specified.
-
-
-@c  We might want to make this a completely new section, along with more
-@c  info about how to upgrade old input files.  -gp
-
-@ignore
-Copy and paste from CVS, last updated
-Feb 14, 2005
-
-http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/convert-ly.txt?rev=HEAD&content-type=text/plain
-@end ignore
-@verbatim
-
-There are a few things that the convert-ly cannot handle.  Here's a list of limitations
-that the community has complained about.
-
-This bug report structure has been chosen because convert-ly has a structure that doesn't
-allow to smoothly implement all needed changes.  Thus this is just a wishlist, placed
-here for reference.
-
-1.6->2.0:
- Doesn't always convert figured bass correctly, specifically things like {< >}. Mats' comment on working around this:
-   To be able to run convert-ly
-   on it, I first replaced all occurencies of '{<' to some dummy like '{#'
-   and similarly I replaced '>}' with '&}'. After the conversion, I could
-   then change back from '{ #' to '{ <' and from '& }' to '> }'.
- Doesn't convert all text markup correctly. Only very simple cases are fixed.
-2.0->2.2:
- Doesn't handle \partcombine
- Doesn't do \addlyrics => \lyricsto, this breaks some scores with multiple stanzas.
-2.2->2.4:
- \turnOff (used in \set Staff.VoltaBracket = \turnOff) is not properly converted.
-2.4.2->2.5.9
- \markup{ \center-align <{ ... }> } should be converted to:
- \markup{ \center-align {\line { ... }} }
- but now, \line is missing.
-@end verbatim
 
 
 @node Invoking midi2ly
