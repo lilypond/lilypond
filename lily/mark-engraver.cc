@@ -185,7 +185,8 @@ Mark_engraver::process_music ()
 	    text_->set_grob_property ("font-family",  family);
 	}
 
-      daddy_trans_->set_property ("rehearsalMark", m);
+      if (gh_number_p (m) || gh_string_p (m))
+	daddy_trans_->set_property ("rehearsalMark", m);
     }
 }
 

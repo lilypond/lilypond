@@ -34,16 +34,33 @@ footer_file = ''
 default_header = r"""
 """
 
+
+wiki_base = 'http://afavant.elte.hu/lywiki/'
+
+
 default_footer = r"""<hr>Please take me <a href=@INDEX@>back to the index</a>
 of @PACKAGE_NAME@
 """
 
-built = r"""<hr>
-<p><font size="-1">
-This page is for @PACKAGE_NAME@-@PACKAGE_VERSION@ (@BRANCH@). <br>
+built = r"""
+<p>
+<table align="center" width="100%%" cellspacing="2" BGCOLOR="#e8ffe8">
+ <tr>
+          <td align=left>
+
+<a href="%(wiki_base)s%(wiki_page)s">Read </a> comments on this page, or
+<a href="%(wiki_base)s%(wiki_page)s?action=edit">add</a> one.
+<p>
+<font size="-1">
+This page is for %(package_name)s-%(package_version)s (%(branch_str)s). <br>
 </font>
 <address><font size="-1">
-Report errors to &lt;<a href="mailto:@MAILADDRESS@">@MAILADDRESS@</a>&gt;.</font></address>"""
+Report errors to &lt;<a href="mailto:%(mail_address)s">%(mail_address)s</a>&gt;.</font></address>
+        </tr>
+        </table>
+
+
+"""
 
 
 def gulp_file (f):
@@ -186,6 +203,7 @@ def remove_self_ref (s):
 
 def do_file (f):
 	s = gulp_file (f)
+	s = re.sub ('%', '%%', s)
 
 	if changelog_file:
 		changes = gulp_file (changelog_file)
@@ -241,28 +259,18 @@ def do_file (f):
 	branch_str = 'stable-branch'
 	if string.atoi ( versiontup[1]) %  2:
 		branch_str = 'development-branch'
-		
-	s = re.sub ('@INDEX@', index, s)
-	s = re.sub ('@TOP@', top, s)
-	s = re.sub ('@PACKAGE_NAME@', package_name, s)
-	s = re.sub ('@PACKAGE_VERSION@', package_version, s)
-	s = re.sub ('@WEBMASTER@', webmaster, s)
-	s = re.sub ('@GCOS@', gcos, s)
-	s = re.sub ('@LOCALTIME@', localtime, s)
-	s = re.sub ('@MAILADDRESS@', mail_address, s)
-	s = re.sub ('@BRANCH@', branch_str, s)	
 
-	# ugh, python2.[12] re is broken.
-	#pat = re.compile ('.*?<!--\s*(@[^@]*@)\s*=\s*([^>]*)\s*-->', re.DOTALL)
-	pat = re.compile ('[.\n]*?<!--\s*(@[^@]*@)\s*=\s*([^>]*)\s*-->')
-	m = pat.search (s)
-	while m:
-		at_var = m.group (1)
-		at_val = m.group (2)
-		sys.stderr.write ('at: %s -> %s\n' % (at_var, at_val))
-		s = re.sub (at_var, at_val, s)
- 		m = pat.search (s)
+	wiki_page = ('v%s.%s-' % (versiontup[0], versiontup[1]) +  f)
+	wiki_page = re.sub ('out-www/', '', wiki_page)
+	wiki_page = re.sub ('/', '-', wiki_page) 
+	wiki_page = re.sub ('.html', '', wiki_page)
 
+	subst = globals ()
+	subst.update (locals())
+	
+	
+	s = s % subst
+	
 	# urg
 	# maybe find first node?
 	fallback_web_title = '-- --'
