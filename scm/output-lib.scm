@@ -37,11 +37,15 @@
          (note-column2 (car  note-collums))
          (note1        (car (ly:get-grob-property note-column1 'note-heads)))
          (note2        (car (ly:get-grob-property note-column2 'note-heads)))
-         (fret1        (string->number (ly:get-grob-property note1 'text)))
-         (fret2        (string->number (ly:get-grob-property note2 'text)))
-         (letter       (if (< fret1 fret2) "H"
-                       (if (> fret1 fret2) "P"
-                                           "")))
+	 (text1  (ly:get-grob-property note1 'text))
+	 (text2  (ly:get-grob-property note2 'text))
+         (fret1        (if (string? text1) (string->number text1) 0))
+         (fret2        (if (string? text2) (string->number text2) 0))
+         (letter       (cond
+			((< fret1 fret2) "H")
+			((> fret1 fret2) "P")
+			(else "")))
+                                   
          )
     (let ((slur (Slur::brew_molecule grob))
           (text (fontify-text (ly:get-default-font grob) letter)))

@@ -366,22 +366,6 @@ printing of a single line of lyrics.  "
 
 \translator {
     \type "Engraver_group_engraver"
-    \name Lyrics
-    \description  "Typesets lyrics."
-    
-    %% To get folded repeats right.
-    \consists Vertical_align_engraver 
-
-    minimumVerticalExtent = ##f
-    extraVerticalExtent = ##f
-    verticalExtent = ##f 
-    
-    \accepts "LyricsVoice"
-}
-
-
-\translator {
-    \type "Engraver_group_engraver"
     \name ChordNames
     \description "Typesets chord names."
     
@@ -633,6 +617,7 @@ EasyNotation = \translator {
       \VoiceContext
       \name "TabVoice"
       \consists "Tab_note_heads_engraver"
+      \remove "Note_heads_engraver"
       \remove "Fingering_engraver"
       \remove "New_fingering_engraver"
 
