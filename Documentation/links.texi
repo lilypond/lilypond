@@ -2,66 +2,50 @@
 @setfilename links.info
 @settitle links - Links to other related websites
 
-@node Top, , Backlinks, (dir)
+@node Top, , , (dir)
 @top
 
+This page contains links to sites which may be of interest to LilyPond
+users.
 
-@node links - Links to other related websites, Description, , Top
-@chapter links - Links to other related websites
+@unnumberedsubsec Music
 
+@itemize
+@item @uref{http://www.geocities.com/Vienna/Studio/1714/} and
+@uref{http://johnsankey.webjump.com/} 
+	John Sankey has taken up the task of recording classical
+	music, and distributing the results at no cost.
+@item @uref{http://sca.uwaterloo.ca/Mutopia/}
+	Mutopia project (under construction).
+@item @uref{http://www4.smart.net/~jcovey/scores/}
+    Jeff Covey's guitar music.
+@item @uref{http://www.pbm.com/~lindahl/ravenscroft/modern}
+    Transcriptions of the music of Thomas Ravenscroft, partly using
+    LilyPond
+@end itemize
 
-@node Description, Www, links - Links to other related websites, links - Links to other related websites
-@section Description
+@unnumberedsubsec Software
 
-This page contains links to organisations and ftp-sites, which may be
-of interest to LilyPond users.
+@itemize
+@item @uref{http://www.zib.de/Visual/software/doc++/index.html}
+    A documentation system for C++ sources, which is used for the
+    LilyPond sources.
+@item @uref{ http://sound.condorow.net}
+    Dave Philips' Linux sound applications page
+@item @uref{http://www.home.fh-karlsruhe.de/~rost0001/web/musik/musik.html}
+    Stochastic composing using LilyPond 
+@end itemize
 
-@node Www, Ftp, Description, links - Links to other related websites
-@section Www
+@unnumberedsubsec Philosophy
 
-@unnumberedsubsec LilyPond
-
-
-@table @samp
+@itemize
 @item @uref{http://www.gnu.org/}
     LilyPond is part of the GNU Project.  The GNU project is the name 
     of Richard Stallman's effort to create a freely available 
     system of software.
-@item @uref{http://www.zib.de/Visual/software/doc++/index.html}
-    The documentation system for C++ sources, which is used for the
-    LilyPond sources.
-@item @uref{http://www.iat.unc.edu/technology/music/music.html}
-    An enormous collection of music related URLs
 @item @uref{http://www.ram.org/ramblings/philosophy/fmp.html}
     Musings on free music, plus hints how to record your own (free) music.
-@item @uref{http://www.geocities.com/Vienna/Studio/1714/}
-	John Sankey has taken up the task of recording classical
-	music, and distributing the results at no cost.
-@end table
-
-@node Backlinks, Top, mail-yo, links - Links to other related websites
-@section Backlinks
-
-@table @samp
-@item @uref{http://sca.uwaterloo.ca/Mutopia/}
-	Mutopia project (under construction).
-@item @uref{http://www.ssc.com/linux/}
-    The Number One Free Operating System Kernel: Linux 
-@item @uref{ http://sound.condorow.net}
-    Dave Philips' Linux sound applications page
-@item @uref{http://www4.smart.net/~jcovey/scores.html}
-	Jeff Covey's guitar music
-@item @uref{http://www.home.fh-karlsruhe.de/~rost0001/web/musik/musik.html}
-    Stochastic composing using LilyPond 
-@item @uref{http://www.medieval.org/emfaq/scores/software.html}
-    More software for (early) music.
-@item @uref{http://www.pbm.com/~lindahl/ravenscroft/modern}
-    Transcriptions of the music of Thomas Ravenscroft, partly using
-    LilyPond
-@item @uref{http://www.redhat.com/}
-    RedHat Software Inc. develops and markets a GNU/Linux distribution (of
-    which we are avid users)
-@end table
+@end itemize
 
 
 @bye
