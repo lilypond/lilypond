@@ -1,3 +1,7 @@
+2004-10-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION (PATCH_LEVEL): Branch lilypond_2_4, release 2.4.0
+
 2004-10-30  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: add warning about bar numbers
