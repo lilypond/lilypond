@@ -34,6 +34,8 @@ StaffContext=\translator {
 
 	\consists "Piano_pedal_engraver";
 
+%	\consists "Arpeggio_engraver";
+
 	\consistsend "Axis_group_engraver";
 
 %{
@@ -191,6 +193,7 @@ GrandStaffContext=\translator{
 	\type "Engraver_group_engraver";
 	\name GrandStaff;
 	\consists "Span_bar_engraver";
+	\consists "Span_arpeggio_engraver";
 	\consists "System_start_delimiter_engraver";
 	systemStartDelimiterGlyph = #'brace
 	
@@ -212,11 +215,13 @@ PianoStaffContext = \translator{\GrandStaffContext
 
 StaffGroupContext= \translator {
 	\type "Engraver_group_engraver";
-	\consists "Span_bar_engraver";
-	\consists "Output_property_engraver";	
-	\consists "System_start_delimiter_engraver";
-       systemStartDelimiterGlyph = #'bracket
 	\name StaffGroup;
+
+	\consists "Span_bar_engraver";
+	\consists "Span_arpeggio_engraver";
+	\consists "Output_property_engraver";	
+	systemStartDelimiterGlyph = #'bracket
+	\consists "System_start_delimiter_engraver";
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";
@@ -337,6 +342,7 @@ ScoreContext = \translator {
 
 	\consists "Lyric_phrasing_engraver";
 	\consists "Bar_number_engraver";
+	\consists "Span_arpeggio_engraver";
 
 	
 	\accepts "Staff";
@@ -433,6 +439,11 @@ ScoreContext = \translator {
 	% distances are given in stafflinethickness (thicknesses) and
 	% staffspace (distances)
 	%
+	Arpeggio = #`(
+ 		(interfaces . (arpeggio-interface))
+ 		(molecule-callback . ,Arpeggio::brew_molecule)
+ 		(name . "arpeggio") 
+ 	)
 	BarLine = #`(
 		(interfaces . (bar-interface staff-bar-interface))
 		(break-align-symbol . Staff_bar)
@@ -754,7 +765,11 @@ ScoreContext = \translator {
 		(maximum-duration-for-spacing . ,(make-moment 1 8))
 		(name . "SpacingSpanner")
 	)
-
+	SpanArpeggio = #`(
+		(interfaces . (span-arpeggio-interface))
+		(molecule-callback . ,Span_arpeggio::brew_molecule)
+		(name . "SpanArpeggio") 
+	)
 	SpanBar = #`(
 		(interfaces . (bar-interface span-bar-interface))
 		(break-align-symbol . Staff_bar)

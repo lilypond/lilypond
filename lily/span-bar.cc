@@ -145,6 +145,7 @@ Span_bar::get_bar_size (SCM smob)
     }
   return gh_double2scm (iv.length ());
 }
+
 void
 Span_bar::set_interface (Score_element *me)
 {
