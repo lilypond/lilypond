@@ -49,6 +49,7 @@ ln -sf $LILYPOND_SOURCEDIR/buildscripts/ps-to-gifs.sh $prefix/bin/ps-to-gifs
 ln -sf $LILYPOND_SOURCEDIR/mf/out/ afm
 mkdir -p $prefix/share/lilypond
 ln -sf $LILYPOND_SOURCEDIR/ $prefix/share/lilypond
+rm $prefix/share/lilypond
 
 if [ -f ../.gdbinit ];
 then

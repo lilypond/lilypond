@@ -53,6 +53,10 @@
 #     and \end{mudela}. (saves keystrokes in mudela-book-doc.doc)
 #   - intertext="bla bla bla" option
 #   - mudela-book now understand latex \begin{verbatim}
+# 0.5.3:
+#   - bf: \mudela{ \times 2/3{...} }
+#        * \t in \times is not tab character and
+#        * dont treat the first '}' as command ending
 
 import os
 import string
@@ -62,7 +66,7 @@ import sys
 
 outdir = 'out'
 initfile = ''
-program_version = '0.5.2'
+program_version = '0.5.3'
 
 out_files = []
 
@@ -352,6 +356,26 @@ class Tex_output:
                 file.write(line)
         file.close()
 
+# given parameter s="\mudela[some options]{CODE} some text and commands"
+# it returns a tuple:
+#    (CODE, integer)
+# where the last number is the index of the ending '}'
+def extract_command(s):
+    start_found_b = 0
+    count = 0
+    start = 0
+    for idx in range(len(s)):
+        if s[idx] == '{':
+            if not start_found_b:
+                start = idx
+                start_found_b = 1
+            count = count + 1
+        if s[idx] == '}':
+            count = count - 1
+        if (start_found_b == 1) and (count == 0):
+            break
+    return s[start+1:idx], idx
+
 class Tex_input:
     def __init__ (self, filename):
         for fn in [filename, filename+'.tex', filename+'.doc']:
@@ -402,35 +426,45 @@ class Tex_input:
                           % r_inc.groups()[0]
                     retlines.append (line)
             else:
+                # This code should be rewritten, it looks terrible
                 r_mud = defined_mudela_cmd_re.search(line)
                 if r_mud:
                     ss = "\\\\verb(?P<xx>[^a-zA-Z])\s*\\\\%s\s*(?P=xx)" \
                          % re.escape(r_mud.group()[1:])
+                    # just append the line if the command is inside \verb|..|
                     if re.search(ss, line):
                         retlines.append(line)
                         continue
                     while 1:
                         opts = r_mud.groups()[2]
+                        cmd_start_idx = r_mud.span()[0]
+                        if cmd_start_idx > 0:
+                            retlines.append(line[:cmd_start_idx])
+                            
+                        cmd_data, rest_idx = extract_command(line[cmd_start_idx:])
+                        rest_idx = rest_idx + cmd_start_idx + 1
                         if opts == None:
                             opts = ''
                         else:
                             opts = ', '+opts
-                        (start, rest) = string.split(line, r_mud.group(), 1)
-                        retlines.append(start)#+'\n')
+                        
                         v = string.split(defined_mudela_cmd[r_mud.groups()[0]], '\n')
                         for l in v[1:-1]:
-                            l = re.sub(r'\\fontoptions', opts, l)
-                            l = re.sub(r'\\maininput', r_mud.groups()[3], l)
+                            l = string.replace(l, '\\fontoptions', opts)
+                            l = string.replace(l, '\\maininput', cmd_data)
                             retlines.append(l)
-                        r_mud = defined_mudela_cmd_re.search(rest)
+                        r_mud = defined_mudela_cmd_re.search(line[rest_idx:])
                         if not r_mud:
-                            retlines.append(rest)
+                            rs = line[rest_idx:]
+                            while rs[0] == " ":
+                                rs = rs[1:]
+                            if rs != "\n":
+                                retlines.append(line[rest_idx:])
                             break;
-                        line = rest
+                        line = line[rest_idx:]
                 else:
                     retlines.append (line)
-        else:
-            return (retlines, retdeps)
+        return (retlines, retdeps)
 
 
 class Main_tex_input(Tex_input):
@@ -636,7 +670,11 @@ def main():
 
     defined_mudela_cmd = {'mudela': r"""
 \begin{mudela}[eps \fontoptions]
-    \maininput
+  \type Staff <
+    \type Voice{
+      \maininput
+    }
+  >
 \end{mudela}
 """}
     if initfile != '':
