@@ -19,9 +19,13 @@ set datadir="@local_lilypond_datadir@"
 # Add the installation directory to the teTeX system tree, 
 # see Documentation/misc/fontinstallation
 
-set noglob
-setenv TEXMF "{$datadir,"`kpsexpand  \$TEXMF`"}"
-unset noglob
+set alreadyset = `echo $TEXMF | grep "$datadir"`
+if ( "$alreadyset" == "" ) then
+    set noglob
+    setenv TEXMF "{$datadir,"`kpsexpand  \$TEXMF`"}"
+    unset noglob
+endif
+unset alreadyset
 
 
 

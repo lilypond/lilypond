@@ -73,8 +73,11 @@ else
 
 	# Add the installation directory to the teTeX system tree, 
 	# see Documentation/misc/fontinstallation
-	TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
-	export TEXMF
+	if [ -z `echo $TEXMF | grep "$datadir"` ]; then
+		TEXMF="{$datadir,"`kpsexpand  \\$TEXMF`"}"
+		export TEXMF
+	fi
+
 
 	# For direct ps output: ps/lilyponddefs.ps
 	## GS_LIB="$datadir/ps:"${GS_LIB:=""}
