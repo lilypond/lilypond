@@ -85,24 +85,20 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
       if (!note_column_)
 	{
 	  note_column_ = new Item (get_property ("NoteColumn"));
-	  announce_grob(note_column_, SCM_EOL);
+	  announce_grob(note_column_, rheads_[0]->self_scm ());
+
+	  spacing_ = new Item (get_property ("NoteSpacing"));
+	  spacing_->set_grob_property ("left-items", gh_cons (note_column_->self_scm (), SCM_EOL));
 
 
-         spacing_ = new Item (get_property ("NoteSpacing"));
-         spacing_->set_grob_property ("left-items", gh_cons (note_column_->self_scm (), SCM_EOL));
+	  announce_grob (spacing_, SCM_EOL);
 
-	 /*
-	   Should insert a cause. Collision warnings go into the  void.
-	   
-	  */
-         announce_grob(spacing_, SCM_EOL);
-
-         if (last_spacing_)
-           {
-	     Pointer_group_interface::add_grob (last_spacing_,
-						ly_symbol2scm ("right-items" ),
-						note_column_);
-           }
+	  if (last_spacing_)
+	    {
+	      Pointer_group_interface::add_grob (last_spacing_,
+						 ly_symbol2scm ("right-items" ),
+						 note_column_);
+	    }
 
 	}
 

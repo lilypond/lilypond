@@ -314,7 +314,7 @@ AC_DEFUN(STEPMAKE_END, [
     if test -n "$OPTIONAL$REQUIRED$UNSUPPORTED"; then
 	echo
 	echo "See INSTALL.txt for more information on how to build $PACKAGE_NAME"
-	if [ -f config.cache ] ; then
+	if test -f config.cache ; then
 	    echo "Remove config.cache before rerunning ./configure"
 	fi 
     fi
