@@ -1,3 +1,7 @@
+2004-09-13  Graham Percival  <gperlist@shaw.ca>
+
+	* scm/scripts.scm: change behaviour of slur and accent.
+
 2004-09-13  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* input/regression/rehearsal-mark-number.ly: Reuse the existing
