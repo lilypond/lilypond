@@ -3,7 +3,7 @@
     texidoc = "With balloon texts, objects in the output can be marked,
 with lines and explanatory text added."
     }
-\version "2.1.36"
+\version "2.2.0"
 
 \score  {
  \notes {

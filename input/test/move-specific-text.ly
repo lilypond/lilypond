@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 % possible rename to scheme- or something like that.  -gp
 \header { texidoc = "@cindex Scheme Move Text
 Objects, like text, can be moved around by using some Scheme code.

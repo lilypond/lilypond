@@ -8,7 +8,7 @@ Currently, this is for testing purposes.  "
 
 }
 
-\version "2.1.36"
+\version "2.2.0"
 
 #(define ((futz-alignment-callback distance count) grob axis)
 

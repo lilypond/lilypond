@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 
 
 % Ugh, we need to override some LaTeX titling stuff

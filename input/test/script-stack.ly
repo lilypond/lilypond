@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 
 \header { texidoc = "@cindex Stacked Text Articulation
 Text and articulations may be stacked on top of each other. "

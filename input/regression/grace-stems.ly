@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 \header{
 texidoc = "Here @code{startGraceMusic} should set @code{no-stem-extend} to 
 true; the two grace beams should be the same here.

@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 % possible rename to scheme-something.
 \header { texidoc="@cindex Scheme Reverse Music
 Symmetric, or palindromical music can be produced, first, by printing

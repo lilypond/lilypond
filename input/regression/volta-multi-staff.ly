@@ -4,7 +4,7 @@
     on more staves in a score."
 
 }
-\version "2.1.36"
+\version "2.2.0"
 
 
 vmus = \notes { \repeat volta 2 c1 \alternative { d e } } 

@@ -7,7 +7,7 @@ including alterations. "
 }
 
 
-\version "2.1.36"
+\version "2.2.0"
 
 
 textFlat = \markup {\smaller \flat}

@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 \header {
     texidoc = "@cindex Dynamic Absolute Volume
 Absolute dynamics have an effect on MIDI files.

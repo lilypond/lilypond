@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 \header{
 	texidoc="@cindex Crescendi
 Crescendi can be printed in a number of different ways.

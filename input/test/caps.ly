@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 \header {
 texidoc = "@cindex Capital Letters
 The font can be changed to small caps.

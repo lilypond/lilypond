@@ -1,4 +1,4 @@
-\version "2.1.36"
+\version "2.2.0"
 \header {
     texidoc = "Cross staff  (kneed) beams do not cause extreme slopes."
 }

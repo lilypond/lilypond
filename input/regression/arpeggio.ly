@@ -1,5 +1,5 @@
 
-\version "2.1.36"
+\version "2.2.0"
 \header{
 texidoc="
 Arpeggios are supported, both cross-staff and broken single staff.
