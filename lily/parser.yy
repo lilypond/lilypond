@@ -2002,8 +2002,8 @@ new_chord:
 	;
 
 chord_items:
-	chord_item {
-		$$ = gh_cons ($1, SCM_EOL);		
+	/**/ {
+		$$ = SCM_EOL;		
 	}
 	| chord_items chord_item {
 		$$ = gh_cons ($2, $$);
@@ -2017,11 +2017,11 @@ chord_separator:
 	| CHORD_CARET {
 		$$ = ly_symbol2scm ("chord-caret"); 
 	}
-	| CHORD_SLASH {
-		$$ = ly_symbol2scm ("chord-slash"); 
+	| CHORD_SLASH steno_tonic_pitch {
+		$$ = scm_list_n (ly_symbol2scm ("chord-slash"), $2, SCM_UNDEFINED); 
 	}
-	| CHORD_BASS {
-		$$ = ly_symbol2scm ("chord-bass"); 
+	| CHORD_BASS steno_tonic_pitch {
+		$$ = scm_list_n (ly_symbol2scm ("chord-bass"), $2, SCM_UNDEFINED); 
 	}
 	;
 
