@@ -102,7 +102,7 @@ def main ():
     (options, files) = getopt.getopt (
 	sys.argv[1:], 'to:hp:s:', ['help', 'latex', 'output=', 'package=', 'separator='])
     latex = 0
-    separator = ':'
+    separator = '@'
     output = ''
     for opt in options:
 	o = opt[0]
