@@ -222,7 +222,7 @@
 	 )
 
     (if location
-	(format "~a ~a ~a ~a (textedit://~a:~a:~a) mark_file_line\n"
+	(format "~a ~a ~a ~a (textedit://~a:~a:~a) mark_URI\n"
 		(+ (car offset) (car x-ext))
 		(+ (cdr offset) (car y-ext))
 		(+ (car offset) (cdr x-ext))
@@ -231,6 +231,14 @@
 		(cadr location)
 		(caddr location))
 	"")))
+
+(define (url-link url x y)
+  (format "~a ~a ~a ~a (~a) mark_URI"
+	  (car x)
+	  (car y)
+	  (cdr x)
+	  (cdr y)
+	  url))
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)

@@ -69,6 +69,8 @@
 (define (unknown) 
   "%\n\\unknown\n")
 
+(define (url-link url x y)
+  "")
 
 
 (define (blank)

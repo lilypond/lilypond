@@ -12,15 +12,37 @@
 @macro inputfileref{DIR,NAME}
 @uref{../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
+@macro usermanref{NAME}
+@inforef{\NAME\,,../../user/out-www/lilypond/index}@c
+@end macro
 @end ifhtml
 
 @ifnothtml
 @macro inputfileref{DIR,NAME}
 @file{\DIR\/\NAME\}@c
 @end macro
+@macro usermanref{NAME}
+See user manual, \NAME\
+@end macro
 @end ifnothtml
 
+
+
 @itemize @bullet
+
+@item
+Point and click editing is now supported in the PS/PDF backend as
+well.
+See
+@ifhtml
+@uref{../../user/out-www/lilypond/Point-and-click.html,Point and click}
+@end ifhtml
+@ifnothtml
+the section Point and click in he user manual. 
+@end ifnothtml
+
+
+
 
 @item
 With the new @code{tieWaitForNote} property, arpeggios may be written

@@ -64,6 +64,7 @@ gvim --remote +:@var{line}:norm@var{column} @var{file}
 @end example
 
 @item nedit
+this will invoke
 @example
   nc -noask +@var{line} @var{file}'
 @end example
