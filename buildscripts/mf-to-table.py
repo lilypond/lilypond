@@ -52,7 +52,7 @@ def tfm_checksum (fn):
 	shift = 24
 	cs = 0
 	for b in cs_bytes:
-		cs = cs  + (ord (b) << shift)
+		cs = cs  + (long (ord (b)) << shift)
 		shift = shift - 8
 
 	return cs
@@ -277,7 +277,7 @@ for filenm in files:
 	afm = open (afmfile_nm, 'w')
 
 	write_afm_header (afm)
-	afm.write ("Comment TfmCheckSum %u\n" % cs)
+	afm.write ("Comment TfmCheckSum %d\n" % cs)
 	write_afm_metric (afm, g, m)
 	
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
