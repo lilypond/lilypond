@@ -36,7 +36,7 @@ struct Assoc {
   int find_creat (K key) {
     int free = -1;
     for (int i = 0; i < arr.size(); i++) {
-      if (key == arr[i].key) {		
+      if (!arr[i].free && key == arr[i].key) {		
 	return i;
       } else if (arr[i].free) {
 	free = i;
@@ -79,6 +79,11 @@ public:
   V const & elem (K key) const { 
     assert (elt_b (key));
     return arr[find (key)].val;
+  }
+  void clear () 
+  {
+    for (int i=0 ;  i < arr.size (); i++)
+      arr[i].free = true;
   }
 };
 
