@@ -84,7 +84,7 @@
 	   (meta . ,(element-description "Clef" clef-interface font-interface break-aligned-interface ))
 	))
 
-	(ChordNames . (
+	(ChordName . (
 		(molecule-callback . ,Chord_name::brew_molecule)
 		(after-line-breaking-callback . ,Chord_name::after_line_breaking)
 		(chord-name-function . ,default-chord-name-function)
@@ -242,7 +242,8 @@
 	))
 	
 	(RehearsalMark . (
-		(molecule-callback . ,Text_item::brew_molecule)	
+		(molecule-callback . ,Text_item::brew_molecule)
+		(direction . 1)
 		(breakable . #t)
 		(font-family . number)
 		(font-relative-size . 1)
@@ -454,12 +455,12 @@
 		(collapse-height . 1.0)
 		(thickness . 1.6)
 		(arch-height . 1.5)
-		(arch-angle . 25.0)
+		(arch-angle . 50.0)
 		(arch-thick . 0.25)
 		(glyph . bar-line)
 		(arch-width . 1.5)
 		(bracket-thick . 0.25)
-		(bracket-width . 0.4)
+		(bracket-width . 2.0)
 		(font-family . braces)
 		(font-point-size . 20)
 		(Y-extent-callback . #f)
