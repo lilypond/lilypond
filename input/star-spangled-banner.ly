@@ -105,7 +105,7 @@ global = \notes {
 		>
 	>
 	\paper{
-		\paper_sixteen;
+		\paper_sixteen
 		textheight = 230.\mm;
 		linewidth= 180.\mm;
 		\translator {
