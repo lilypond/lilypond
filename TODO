@@ -10,9 +10,8 @@ grep for TODO and ugh/ugr/urg
 
 .* BUGS
 . * .ly files
-.  * input/praeludium-fuga-E.ly
-.  * input/font20
 .  * mutopia/J.S.Bach/wtk1-fugue2.ly
+.  * input/test/grace
 .  * fix: text on rests: rediculous dims
 . * fix midi output:
 .  * default duration?  d
@@ -22,47 +21,42 @@ grep for TODO and ugh/ugr/urg
 . * turn slope-damping on/off
 . * c4 \! \> c4
 . * tremolo stuff
-. * gallina barlines.
 . * fix height of / collisions with lyrics (chords), 
     see input/test/vertical-text.ly; input/test/repeat.ly
+. * We need feta-din*.mf files for more sizes than 10.
 . * latex bla.tex broken (titles / \lilyfooter stuff?)
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * fix "I've been drinking too much"
 . * support_l_arr_ empty in staff-margin's G_staff_side_item
 . * remove old preformats in RPM
+. * minVerticalAlign for StaffGroups.
+. * I have tried the barAuto property to get barlines when
+typesetting rhythms. Lily prints all barlines except 
+between first and second bar. Where is my mistake??
+
+\score{
+  \type RhythmicStaff<
+    \property RhythmicStaff.barAuto=1
+    \notes{ 
+      \time 3/4;
+        c4 c c | c c c | c c c
+    }
+  > 
+}
 . * declaring \score	
 . * is \break broken? input/test/hara-kiri.ly
 . * fix OrchestralScore and Hara-kiri (i.e., fix Coriolan)
-. *
-\score{
-	\type Staff \notes\relative c''{
-		\property Staff.instrument = "Toeters"
-		c c c c(\break
-		)c c c c ~\break
-		c c c c\break
-	}
-	\paper{
-		linewidth=60.0\mm;
-%		\translator { \HaraKiriStaffContext }
-		\translator { \OrchestralScoreContext }
-		\translator {
-			\StaffContext
-			\consists "Staff_margin_engraver";
-		}
-	}
-}
-
-. *
-Phrasing:  Indicating the textual underlay of a piece, or
-		otherwise dividing a piece into phrases.
+. * Phrasing:  Indicating the textual underlay of a piece, or
+otherwise dividing a piece into phrases.
 
 There are distinct ways of specifying the first two (although at
 present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
 
 .* TODO before 1.2
-. *
-> Yes.  I want ties to tie only notes of the same pitch, so that
+. * Check gcc 2.8.1 compatibility
+. * use Drul_array for Interval.
+. * ties to tie only notes of the same pitch, so that
 > 	< a~  a,>  a
 > works as you'd expect it to.
 . * 1. Can Lily be told where to start numbering?
@@ -71,7 +65,6 @@ specify the third.  Should there be?
    but use the hara-kiri mechanism on the remaining pages?
 . * do scaled fonts.
 . * profile atom smobs
-. * make ly2dvi test page.
 . * Try to use Killing_cons iso. Pointer_list
 . * make dependencies () a virtual function.
 . * fix Repeated_music_iterator::ok() (constness.)
@@ -207,9 +200,9 @@ The beams are at the right angle, but they aren't in the right place.
 . * 'hinterfleisch' before bar (e.g. wtk1-fugue2)?
 . * \type Voice \times 2/3 { [c8 c16 c16 c16 c16] }
 . * repeat bars: need distance after ":|" and before "|:"
-.* Summary of minor spelling irregularities:
-. *  capitalization/use of underscores in property names
-. * fix SkipBars  -> skipBars
+. * Summary of minor spelling irregularities:
+.  *  capitalization/use of underscores in property names
+.  * fix SkipBars  -> skipBars
 
 . * fix marks/barnumbers/marginal notes
 . * broken scripts:
@@ -221,9 +214,7 @@ The beams are at the right angle, but they aren't in the right place.
 	rfheel = \script { "fheel" 0 0 1 0 0 }
 	lftoe = \script { "ftoe" 0 0 -1 0 0 }
 	rftoe = \script { "ftoe" 0 0 1 0 0 }
-	
 	and also
-	
 	portato= \script { "portato" 0 -1 0 1 0 }
 . * ly2dvi
 .  * bottomnote for ly2dvi
@@ -729,12 +720,13 @@ if you just sit there."
   "Additional expressions to highlight in Outline mode.")
 
 (add-hook 'outline-mode-hook
-	  (lambda ()
+	  '(lambda ()
 	    (setq font-lock-maximum-decoration t)
 	    (setq font-lock-maximum-decoration t)
 	    (make-local-variable 'font-lock-defaults)
 	    (setq font-lock-defaults '(outline-font-lock-keywords t))
-	    (font-lock-mode (global-font-lock-mode))))
+	    (font-lock-mode global-font-lock-mode)
+	))
  
 (require 'allout)
 (outline-init 't)
