@@ -150,7 +150,10 @@
   (stderr "HI\n")
   (let ((m output-gnome-module))
 
-    ;; this does not seem to work
+    ;; this does not seem to work?
+    ;;/home/janneke/cvs/savannah/lilypond/lilypond/share/lilypond/scm/output-gnome.scm:267:27: While evaluating arguments to canvas in expression (canvas go):
+    ;;/home/janneke/cvs/savannah/lilypond/lilypond/share/lilypond/scm/output-gnome.scm:267:27: Unbound variable: go
+
     (module-define! m 'go go)
 
     (eval expr m)))
