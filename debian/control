@@ -10,9 +10,9 @@ Package: lilypond
 Architecture: any
 Replaces: lilypond1.3
 Provides: lilypond1.3
-Depends: ${shlibs:Depends}, tetex-bin (>= 1.0.5-1), tetex-extra (>= 1.0-1), python, guile-1.6 | guile, ${misc:Depends}, lilypond-data (= ${Source-Version})
+Depends: ${shlibs:Depends}, python, guile-1.6 | guile, ${misc:Depends}, lilypond-data (= ${Source-Version})
 # , ec-fonts-mftraced (>= 1.0.5-1)
-Recommends: lilypond-doc
+Recommends: lilypond-doc, libkpathsea3 (>= 1.0.5-1), tetex-bin (>= 1.0.5-1), tetex-extra (>= 1.0-1)
 Conflicts: lilypond1.3 (<= 1.3.132-1)
 Description: A program for typesetting sheet music
  LilyPond is a music typesetter, an automated engraving system.  It
