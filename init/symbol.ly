@@ -35,17 +35,14 @@ center=0
 stemup = {
 	\skip 1*0;
 	% Stupid hack to make < { \stemup } > work
-%	\property Thread.cocktailbar = 1
 	\property Voice.ydirection = \up 
 	}
 stemboth= {
 	\skip 1*0;
-	% \property Thread.cocktailbar = 0
 	\property Voice.ydirection = \center
 }
 stemdown = { 	
 	\skip 1*0;
-	%\property Thread.cocktailbar = -1
 	\property Voice.ydirection = \down
 }
 
