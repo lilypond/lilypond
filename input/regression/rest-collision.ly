@@ -40,23 +40,15 @@ restsII =  \context Staff \notes {
 	\context Staff << { r8} r8 r8 \\ {  r8} >>
 	\context Staff << { r} \\ {  r} >>
 	\context Staff << { r} r\\ { \stemDown r} >>
-	\stemUp
-	\transpose c c' {  c''8[ r8 c''8 c''8]
-	 c8[ r8 c8 c8]
-	 c8[ r8 r8 c'''8]	
-	\stemDown
-	 c8[ r8 c8 c8]
-	 c''8[ r8 c''8 c''8]
-	 c'8[ r8 r8 c'''8]
 	\different	
 	}
-}
 
 \score{
 	\notes { 
 		\scales 
 		\restsII 
 	}
+	\paper { raggedright = ##t }
 }	
 
 
