@@ -5,7 +5,7 @@
 ; (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
-(debug-enable 'backtrace)
+;(debug-enable 'backtrace)
 
 ;;; library funtions
 (define
@@ -82,9 +82,7 @@
   (define (cached-fontname i)
     (string-append
      "\\lilyfont"
-     (make-string 1 (integer->char (+ 65 i)))
-     )
-    )
+     (make-string 1 (integer->char (+ 65 i)))))
     
   (define (select-font font-name)
       (if (not (equal? font-name current-font))
@@ -96,18 +94,10 @@
 		  (set! font-cmd (cached-fontname font-count))
 		  (set! font-alist (acons font-name font-cmd font-alist))
 		  (set! font-count (+ 1 font-count))
-		  (string-append "\\font" font-cmd "=" font-name font-cmd)
-		  )
-		(cdr font-cmd))
-	    )
-	  
+		  (string-append "\\font" font-cmd "=" font-name font-cmd))
+		(cdr font-cmd)))
 	  ""				;no switch needed
-
-	  )
-      
-      )
-
-
+	  ))
   
   (define (beam width slope thick)
     (embedded-ps ((ps-scm 'beam) width slope thick)))
@@ -121,9 +111,11 @@
   (define (crescendo w h cont)
     (embedded-ps ((ps-scm 'crescendo) w h cont)))
 
+  (define (char i)
+    (string-append "\\show{" (inexact->string i 10) "}"))
+  
   (define (decrescendo w h cont)
     (embedded-ps ((ps-scm 'decrescendo) w h cont)))
-
 
   (define (embedded-ps s)
     (string-append "\\embeddedps{" s "}"))
@@ -131,11 +123,8 @@
   (define (end-output) 
     "\n\\EndLilyPondOutput")
   
-  (define (experimental-on) "\\turnOnExperimentalFeatures")
-
-
-
-
+  (define (experimental-on)
+    "\\turnOnExperimentalFeatures")
 
   (define (font-switch i)
     (string-append
@@ -158,9 +147,7 @@
   (define (invoke-char s i)
     (string-append 
      "\n\\" s "{" (inexact->string i 10) "}" ))
-  (define (char i)
-    (string-append "\\show{" (inexact->string i 10) "}"))
-  
+
   (define (invoke-dim1 s d)
     (string-append
      "\n\\" s "{" (number->dim d) "}"))
@@ -235,18 +222,21 @@
   (define (volta w thick last)
     (embedded-ps ((ps-scm 'volta) w thick last)))
 
-
+  ;; TeX
   ;; The procedures listed below form the public interface of TeX-scm.
   ;; (should merge the 2 lists)
   (cond ((eq? action-name 'all-definitions)
 	 `(begin
 	    (define beam ,beam)
-	    (define tuplet ,tuplet)
+	    (define bezier-sandwich ,bezier-sandwich)
 	    (define bracket ,bracket)
+	    (define char ,char)
 	    (define crescendo ,crescendo)
 	    (define dashed-slur ,dashed-slur) 
 	    (define decrescendo ,decrescendo) 
 	    (define end-output ,end-output)
+	    (define experimental-on ,experimental-on)
+	    (define filledbox ,filledbox)
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
 	    (define generalmeter ,generalmeter)
@@ -255,21 +245,17 @@
 	    (define header ,header) 
 	    (define invoke-char ,invoke-char) 
 	    (define invoke-dim1 ,invoke-dim1)
+	    (define pianobrace ,pianobrace)
 	    (define placebox ,placebox)
 	    (define rulesym ,rulesym)
-	    (define bezier-sandwich ,bezier-sandwich)
 	    (define select-font ,select-font)
 	    (define start-line ,start-line)
-	    (define filledbox ,filledbox)
 	    (define stop-line ,stop-line)
 	    (define text ,text)
-	    (define experimental-on  ,experimental-on)
-	    (define char  ,char)
-	    (define pianobrace ,pianobrace)
+	    (define tuplet ,tuplet)
 	    (define volta ,volta)
 	    ))
 
-	((eq? action-name 'experimental-on) experimental-on)
 	((eq? action-name 'beam) beam)
 	((eq? action-name 'tuplet) tuplet)
 	((eq? action-name 'bracket) bracket)
@@ -277,6 +263,7 @@
 	((eq? action-name 'dashed-slur) dashed-slur) 
 	((eq? action-name 'decrescendo) decrescendo) 
 	((eq? action-name 'end-output) end-output)
+	((eq? action-name 'experimental-on) experimental-on)
 	((eq? action-name 'font-def) font-def)
 	((eq? action-name 'font-switch) font-switch)
 	((eq? action-name 'generalmeter) generalmeter)
@@ -298,12 +285,48 @@
 
 ;;;;;;;;;;;; PS
 (define (ps-scm action-name)
+
+  (define font-alist '())
+  (define font-count 0)
+  (define current-font "")
+  (define (clear-fontcache)
+    (begin
+      (set! font-alist '())
+      (set! font-count 0)
+      (set! current-font "")))
+  
+  (define (cached-fontname i)
+    (string-append
+     "lilyfont"
+     (make-string 1 (integer->char (+ 65 i)))))
+
+  (define (select-font font-name)
+      (if (not (equal? font-name current-font))
+	  (begin
+	    (set! current-font font-name)
+	    (define font-cmd (assoc font-name font-alist))
+	    (if (eq? font-cmd #f)
+		(begin
+		  (set! font-cmd (cached-fontname font-count))
+		  (set! font-alist (acons font-name font-cmd font-alist))
+		  (set! font-count (+ 1 font-count))
+		  (string-append "\n/" font-cmd " {/"
+				 font-name
+				 " findfont 12 scalefont setfont} bind def\n"
+				 font-cmd "\n"))
+		(cdr font-cmd)))
+	  ""				;no switch needed
+	  ))
+		  
   (define (beam width slope thick)
     (string-append
      (numbers->string (list width slope thick)) " draw_beam " ))
 
   (define (bracket h)
     (invoke-dim1 "draw_bracket" h))
+
+  (define (char i)
+    (invoke-char "show" i))
 
   (define (crescendo w h cont)
     (string-append 
@@ -327,9 +350,14 @@
 
   (define (end-output)
     "\nshowpage\n")
-
+  
   (define (experimental-on) "")
+  
+  (define (filledbox kern width height depth) 
+    (string-append (numbers->string (list kern width height depth))
+		   "draw_stem" ))
 
+  ;; obsolete?
   (define (font-def i s)
     (string-append
      "\n/" (font i) " {/" 
@@ -351,11 +379,11 @@
     (string-append
      "%!PS-Adobe-3.0\n"
      "%%Creator: " creator generate "\n"))
-
+  
   (define (invoke-char s i)
     (string-append 
      "(\\" (inexact->string i 8) ") " s " " ))
-
+  
   (define (invoke-dim1 s d) 
     (string-append
      (number->string (* d  (/ 72.27 72))) " " s ))
@@ -406,19 +434,21 @@
     "\n unknown\n")
 
 
-  ; dispatch on action-name
+  ;; PS
   (cond ((eq? action-name 'all-definitions)
 	 `(begin
 	    (define beam ,beam)
 	    (define tuplet ,tuplet)
 	    (define bracket ,bracket)
+	    (define char ,char)
 	    (define crescendo ,crescendo)
 	    (define volta ,volta)
 	    (define bezier-sandwich ,bezier-sandwich)
 	    (define dashed-slur ,dashed-slur) 
 	    (define decrescendo ,decrescendo) 
-
 	    (define end-output ,end-output)
+	    (define experimental-on ,experimental-on)
+	    (define filledbox ,filledbox)
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
 	    (define generalmeter ,generalmeter)
@@ -429,6 +459,7 @@
 	    (define invoke-dim1 ,invoke-dim1)
 	    (define placebox ,placebox)
 	    (define rulesym ,rulesym)
+	    (define select-font ,select-font)
 	    (define start-line ,start-line)
 	    (define stem ,stem)
 	    (define stop-line ,stop-line)
@@ -436,12 +467,16 @@
 	    ))
 	((eq? action-name 'tuplet) tuplet)
 	((eq? action-name 'beam) beam)
-	((eq? action-name 'bracket) bracket)
-	((eq? action-name 'crescendo) crescendo)
-	((eq? action-name 'volta) volta)
 	((eq? action-name 'bezier-sandwich) bezier-sandwich)
+	((eq? action-name 'bracket) bracket)
+	((eq? action-name 'char) char)
+	((eq? action-name 'crescendo) crescendo)
 	((eq? action-name 'dashed-slur) dashed-slur) 
 	((eq? action-name 'decrescendo) decrescendo)
+	((eq? action-name 'experimental-on) experimental-on)
+	((eq? action-name 'filledbox) filledbox)
+	((eq? action-name 'select-font) select-font)
+	((eq? action-name 'volta) volta)
 	(else (error "unknown tag -- PS-SCM " action-name))
 	)
   )
