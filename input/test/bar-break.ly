@@ -12,7 +12,7 @@
   	linewidth=150.0\mm;
     \translator {
       \StaffContext
-        \consists "Staff_margin_engraver";
+        \consists "Instrument_name_engraver";
 	numberOfStaffLines  = #1
         marginScriptPadding = #30  % urg: this is in PT
 	instrument = #"Foo"
@@ -20,7 +20,7 @@
     }
     \translator {
       \StaffGroupContext
-        \consists "Staff_margin_engraver";
+        \consists "Instrument_name_engraver";
         marginScriptPadding = #10  % urg: this is in PT
 	instrument = #" \n \n \n \n \n \n \n \n \n \nPiano\n(For rehearsal only)"
       }

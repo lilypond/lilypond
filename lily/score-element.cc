@@ -239,7 +239,12 @@ Score_element::calculate_dependencies (int final, int busy,
   if (status_i_ >= final)
     return;
 
-  assert (status_i_!= busy);
+  if (status_i_== busy)
+    {
+      programming_error ("Element is busy, come back later");
+      return;
+    }
+  
   status_i_= busy;
 
   for (SCM d=  get_elt_property ("dependencies"); d != SCM_EOL; d = gh_cdr (d))

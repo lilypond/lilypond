@@ -38,8 +38,8 @@
 #include "main.hh"
 #include "musical-request.hh"
 #include "identifier.hh"
-#include "mudela-version.hh"
 #include "version.hh"
+#include "mudela-version.hh"
 
 void strip_trailing_white (String&);
 void strip_leading_white (String&);

@@ -2759,7 +2759,7 @@ The engravers for paper output are:
 
   @item @code{Staff_group_bar_engraver}@indexcode{Staff_group_bar_engraver}
 
-  @item @code{Staff_margin_engraver}@indexcode{Staff_margin_engraver}  
+  @item @code{Instrument_name_engraver}@indexcode{Instrument_name_engraver}
     Prints the name of the instrument (specified by
     @code{Staff.instrument} and @code{Staff.instr}) at the left of the
     staff.

@@ -8,7 +8,7 @@ SEE THE REFERENCE MANUAL FOR EXPLANATIONS.
 
 %}
 
-\version "1.3.4";
+\version "1.3.42";
 
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
@@ -121,6 +121,6 @@ autoBeamOff = \property Voice.noAutoBeaming = ##t
 autoBeamOn = \property Voice.noAutoBeaming = ##f
 
 
-emptyText = \property Voice.textEmptyDimension = ##t
-fatText = \property Voice.textEmptyDimension = ##f
+emptyText = \property Voice.textNonEmpty = ##f
+fatText = \property Voice.textNonEmpty = ##t
 

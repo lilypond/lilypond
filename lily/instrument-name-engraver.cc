@@ -1,3 +1,4 @@
+
 /*   
   new-staff-margin-engraver.cc --  implement Instrument_name_engraver
   
@@ -10,11 +11,13 @@
 #include "engraver.hh"
 #include "text-item.hh"
 #include "bar.hh"
-#include "span-bar.hh"
+#include "system-start-delimiter.hh"
+#include "side-position-interface.hh"
 
 class Instrument_name_engraver : public Engraver
 {
   Text_item *text_;
+  System_start_delimiter * delim_ ;
 
   void create_text (SCM s);
 public:
@@ -30,6 +33,7 @@ ADD_THIS_TRANSLATOR(Instrument_name_engraver);
 Instrument_name_engraver::Instrument_name_engraver ()
 {
   text_ = 0;
+  delim_ =0;
 }
 
 
@@ -38,6 +42,9 @@ Instrument_name_engraver::do_pre_move_processing ()
 {
   if (text_)
     {
+      text_->add_offset_callback (Side_position_interface::centered_on_parent,
+				  Y_AXIS);
+
       typeset_element (text_);
       text_ = 0;
     }
@@ -59,6 +66,9 @@ Instrument_name_engraver::create_text (SCM txt)
       text_->set_elt_property ("visibility-lambda",
 			       scm_eval (ly_symbol2scm ("begin-of-line-visible")));
 
+      if (delim_)
+	text_->set_parent (delim_, Y_AXIS);
+
       announce_element (Score_element_info (text_,0));
     }
 }
@@ -76,11 +86,13 @@ Instrument_name_engraver::acknowledge_element (Score_element_info i)
       if (Bar* b= dynamic_cast<Bar*> (i.elem_l_))
 	{
 	  create_text (s);
-	  if (Span_bar* s= dynamic_cast<Span_bar*> (b))
-	    {
-	      text_->set_parent (s, Y_AXIS);
-	    }
 	}
+    }
+
+  if (dynamic_cast <System_start_delimiter*> (i.elem_l_)
+      && i.origin_trans_l_->daddy_trans_l_ == daddy_trans_l_)
+    {
+      delim_ = dynamic_cast<System_start_delimiter*> (i.elem_l_);
     }
 }
 

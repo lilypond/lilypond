@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.3.42
+Version: 1.3.43
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.42.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.43.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 # Icon: lilypond-icon.gif
@@ -67,6 +67,10 @@ mkdir -p out/examples/
 tar -cf - input/  | tar -C out/examples/ -xf- || true
 
 %ifos cygwin
+# urg, this symlink doesn't come through on cygwin
+# this is the way symlinks work over there, let's fake one
+rm -f $RPM_BUILD_ROOT%{_prefix}/share/lilypond/cmtfm
+echo '!<symlink>c:\\texmf\\fonts\\tfm\\public\\cm' > $RPM_BUILD_ROOT%{_prefix}/share/lilypond/cmtfm
 %{fix_suffixes}
 %endif
 

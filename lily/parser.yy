@@ -42,14 +42,15 @@
 #include "auto-change-music.hh"
 #include "output-property.hh"
 
-// mmm
-Mudela_version oldest_version ("1.3.4");
-
 bool
 is_duration_b (int t)
 {
   return t == 1 << intlog2(t);
 }
+
+
+// mmm JUNKME ?
+Mudela_version oldest_version ("1.3.42");
 
 void
 print_mudela_versions (ostream &os)
@@ -57,6 +58,7 @@ print_mudela_versions (ostream &os)
   os << _f ("Oldest supported input version: %s", oldest_version.str ()) 
     << endl;
 }
+
 
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>

@@ -101,10 +101,9 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
 
 
 	  Item * edge = new Item;
-	  SCM edge_sym =   ly_symbol2scm ("Left_edge_item");
+	  SCM edge_sym = ly_symbol2scm ("Left_edge_item");
 	  edge->set_elt_property ("break-align-symbol", edge_sym);
 
-	  Axis_group_interface (edge).set_axes (X_AXIS,X_AXIS);
 	  /*
 	    If the element is empty, it will be ignored in the break
 	    alignment stuff.

@@ -18,6 +18,9 @@ StaffContext=\translator {
 
 	voltaPadding = #5  % urg, in \pt
 	voltaMinimumSpace = #25  % urg, in \pt
+
+	StaffMinimumVerticalExtent = #(cons -4.0 4.0)
+
 	\consists "Repeat_engraver";
 
 

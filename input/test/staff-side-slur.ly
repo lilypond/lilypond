@@ -11,11 +11,11 @@
 		\translator { \OrchestralScoreContext }
 		\translator {
 			\StaffContext
-			\consists "Staff_margin_engraver";
+			\consists "Instrument_name_engraver";
 			marginHangOnClef = 1;
 		}
 	}
 }
 
 
-\version "1.3.5"; 
+\version "1.3.42"; 
