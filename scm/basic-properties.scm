@@ -2,6 +2,7 @@
 
 ;; See documentation of Item::visibility_lambda_
 (define (begin-of-line-visible d) (if (= d 1) '(#f . #f) '(#t . #t)))
+(define (end-of-line-visible d) (if (= d -1) '(#f . #f) '(#t . #t)))
 (define (spanbar-begin-of-line-invisible d) (if (= d -1) '(#t . #t) '(#f . #f)))
 (define (all-visible d) '(#f . #f))
 (define (all-invisible d) '(#t . #t))
@@ -203,6 +204,8 @@
 ;; (Measured in staff space)
 (define default-break-align-space-alist
  '(
+   ((Staff_bar Custos) . (minimum-space 2.0))
+   ((Custos begin-of-note) . (minimum-space 0.0))
    ((none Instrument_name) . (extra-space 1.0))
    ((Instrument_name Left_edge_item) . (extra-space 1.0))
    ((Left_edge_item Clef_item) . (extra-space 1.0))
