@@ -1,5 +1,7 @@
 2003-06-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/spanner-after-break-tweak.ly (texidoc): new file.
+
 	* input/test/chords-without-melody.ly (texidoc): add from
 	input/just-friends.ly
 
