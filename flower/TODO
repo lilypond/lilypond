@@ -1,5 +1,7 @@
 	* shared lib.
 
+	* LGPL?
+
 	* integrate Make mechanisms of flower & lily
 
 	* disable this auto conv: const pointer -> bool -> string
