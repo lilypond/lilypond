@@ -1,5 +1,6 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
+#include "lookup.hh"
 
 #include "lexer.hh"
 #include "paper.hh"
@@ -20,10 +21,13 @@
 #endif
 
 svec<Request*> pre_reqs, post_reqs;
+
+Paperdef*default_paper();
 %}
 
 
-%union {    
+%union {
+    Request * request;
     Real real;
     Input_command *command;
     Identifier *id;    
@@ -32,7 +36,6 @@ svec<Request*> pre_reqs, post_reqs;
     String *string;
     const char *consstr;
     Paperdef *paper;
-    Request* request;
     Horizontal_music *horizontal;
     Vertical_music *vertical;
     Music_general_chord *chord;
@@ -42,16 +45,25 @@ svec<Request*> pre_reqs, post_reqs;
 
     svec<String> * strvec;
     svec<Input_command*> *commandvec;
-    Voice_list *voicelist;
-	Input_staff *staff;    
-	Input_score *score;
+    svec<int> *intvec;
+
+    Input_staff *staff;    
+    Input_score *score;
+    Symtables * symtables;
+    Symtable * symtable;
+    Symbol * symbol;
+    Lookup*lookup;
+    Interval *interval;
+    Box *box;
 }
 
 %token VOICE STAFF SCORE TITLE  BAR NOTENAME OUTPUT
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
 %token KEY CLEF VIOLIN BASS MULTI TABLE CHORD VOICES
-%token PARTIAL RHYTHMIC MELODIC MUSIC
+%token PARTIAL RHYTHMIC MELODIC MUSIC GROUPING
+
+%token END SYMBOLTABLES TEXID TABLE 
 
 %token <id>  IDENTIFIER
 %token <string> NEWIDENTIFIER 
@@ -59,7 +71,6 @@ svec<Request*> pre_reqs, post_reqs;
 %token <real> REAL
 %token <string> STRING
 %token <i> OPEN_REQUEST_PARENS CLOSE_REQUEST_PARENS
-
 
 %type <consstr> unit
 
@@ -72,6 +83,7 @@ svec<Request*> pre_reqs, post_reqs;
 %type <score> score_block score_body
 %type <staff> staff_block staff_init staff_body
 %type <i> int
+%type <intvec> int_list
 %type <commandvec> score_commands_block score_commands_body
 %type <commandvec> staff_commands_block staff_commands_body
 %type <request> post_request pre_request
@@ -82,6 +94,12 @@ svec<Request*> pre_reqs, post_reqs;
 %type <horizontal>  horizontal_music
 %type <mvoice>  music_voice_body music_voice
 
+%type <interval> dinterval
+%type <box> box
+%type <symtable> symtable symtable_body
+%type <lookup> symtables symtables_body
+%type <symbol> symboldef
+
 
 %%
 
@@ -91,6 +109,7 @@ mudela:	/* empty */
 	}
 	| mudela add_declaration { }
 	;
+
 /*
 	DECLARATIONS
 */
@@ -112,13 +131,20 @@ declaration:
 		$$ = new M_chord_id(*$1, $3);
 		delete $1;
 	}
+	| NEWIDENTIFIER '=' symtables {
+		$$ = new Lookup_id(*$1, $3);
+		delete $1;
+	}
 	;
 
 
 /*
 	SCORE
 */
-score_block: SCORE '{' score_body '}' 	{ $$ = $3; }
+score_block: SCORE '{' score_body '}' 	{ $$ = $3;
+		if (!$$->paper_)
+			$$->paper_ = default_paper();
+	}
 	;
 
 score_body:		{ $$ = new Input_score; }
@@ -178,8 +204,13 @@ score_command:
 	| PARTIAL REAL			{
 		$$ = get_partial_command($2);
 	}
+	| GROUPING int_list		{
+		$$ = get_grouping_command(*$2);
+		delete $2;
+	}
 	;
-	
+
+
 
 /*
 	PAPER
@@ -189,25 +220,29 @@ paper_block:
 	;
 
 paper_body:
-	/* empty */		 	{ $$ = new Paperdef; }
+	/* empty */		 	{
+		$$ = default_paper();
+	}
 	| paper_body WIDTH dim		{ $$->linewidth = $3;}
 	| paper_body OUTPUT STRING	{ $$->outfile = *$3;
 		delete $3;
 	}
+	| paper_body symtables		{ $$->set($2); }
 	| paper_body UNITSPACE dim	{ $$->whole_width = $3; }
 	| paper_body GEOMETRIC REAL	{ $$->geometric_ = $3; }
 	;
+
 /*
 	STAFFs
 */
 staff_block:
-	 STAFF '{' staff_body '}' 	{ $$ = $3; }
+	STAFF '{' staff_body '}' 	{ $$ = $3; }
 	;
 
 
 
 staff_init:
-	IDENTIFIER		{ $$ = new Input_staff(*$1->staff()); }
+	IDENTIFIER		{ $$ = $1->staff(true); }
 	| RHYTHMIC		{
 		$$ = new Input_staff("rhythmic");
 	}
@@ -355,7 +390,14 @@ int:
 		
 	}
 	;
-
+int_list:
+	/* */ 		{
+		$$ = new svec<int>;
+	}
+	| int		{
+		$$->add($1);
+	}
+	;
 
 dim:
 	REAL unit	{ $$ = convert_dimen($1,$2); }
@@ -372,6 +414,64 @@ clef_id:
 	VIOLIN		{ $$ = new String("violin"); }
 	| BASS		{ $$ = new String("bass"); }
 	;
+/*
+	symbol tables
+*/
+symtables:
+	SYMBOLTABLES '{' symtables_body '}'	{ $$ = $3; }
+	;
+
+symtables_body:
+	 		{
+		$$ = new Lookup;
+	}
+	| IDENTIFIER		{
+		$$ = new Lookup(*$1->lookup(true));
+	}
+	| symtables_body TEXID STRING 		{
+		$$->texsetting = *$3;
+		delete $3;
+	}
+	| symtables_body STRING '=' symtable		{
+		$$->add(*$2, $4);
+		delete $2;
+	}
+	;
+
+symtable:
+	TABLE '{' symtable_body '}' { $$ = $3; }
+	;
+
+symtable_body:
+				{ $$ = new Symtable; }
+	| symtable_body	STRING	symboldef {
+		$$->add(*$2, *$3);
+		delete $2;
+		delete $3;
+	}
+	;
+
+symboldef:
+	STRING	box		{
+		$$ = new Symbol(*$1, *$2);
+		delete $1;
+		delete $2;
+	}
+	;
+
+box:
+	dinterval dinterval 	{
+		$$ = new Box(*$1, *$2);
+		delete $1;
+		delete $2;
+	}
+	;
+
+dinterval: dim	dim		{
+		$$ = new Interval($1, $2);	
+	}
+	;
+
 %%
 
 void
@@ -380,13 +480,22 @@ parse_file(String s)
    *mlog << "Parsing ... ";
 
 #ifdef YYDEBUG
-   yydebug = !monitor.silence("Parser") & check_debug;
+   yydebug = !monitor.silence("Parser") && check_debug;
 #endif
 
+   new_input("symbol.ini");
+   yyparse();
    new_input(s);
    yyparse();
+
    delete_identifiers();
    kill_lexer();
    *mlog << "\n";
 }
 
+Paperdef*
+default_paper()
+{
+	return 	new Paperdef(
+		lookup_identifier("default_table")->lookup(true));
+}

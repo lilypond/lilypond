@@ -1,4 +1,5 @@
 #include "beam.hh"
+#include "misc.hh"
 #include "debug.hh"
 #include "symbol.hh"
 #include "molecule.hh"
@@ -61,6 +62,7 @@ Beam::set_default_dir()
 	sc->dir = dir;
     }
 }
+
 /*
   should use minimum energy formulation (cf linespacing)
   */
@@ -116,10 +118,18 @@ Beam::calculate()
     solve_slope();
 }
 
+
 void
 Beam::process()
 {
     calculate();
+
+    for (PCursor<Stem*> i(stems); i.ok(); i++)
+	i->beams_left = i->beams_right = intlog2(ABS(i->flag)) - 2;
+
+    stems.top()->beams_left = 0;
+    stems.bottom()->beams_right = 0;
+
     brew_molecule();
     set_stemlens();
 }
@@ -152,6 +162,61 @@ Beam::width() const
     return Interval( (*me->stems.top()) ->hpos(),
 		     (*me->stems.bottom()) ->hpos() );
 }
+/*
+  beams to go with one stem.
+  */
+Molecule
+Beam::stem_beams(Stem *here, Stem *next, Stem *prev)
+{
+    assert( !next || next->hpos() > here->hpos()  );
+    assert( !prev || prev->hpos() < here->hpos()  );
+    Real dy=paper()->internote()*2;
+    Real stemdx = paper()->rule_thickness();
+    Real sl = slope*paper()->internote();
+    Molecule leftbeams;
+    Molecule rightbeams;
+
+    /* half beams extending to the left. */
+    if (prev) {
+	int lhalfs= lhalfs = here->beams_left - prev->beams_right ;
+	int lwholebeams= here->beams_left <? prev->beams_right ;
+	Real w = (here->hpos() - prev->hpos())/4;
+	Atom a =  paper()->lookup_->beam(sl, w);
+	a.translate(Offset (-w, -w * sl));
+	for (int j = 0; j  < lhalfs; j++) {
+	    Atom b(a);
+	    b.translate(Offset(0, -dir * dy * (lwholebeams+j)));
+	    leftbeams.add( b );
+	}
+    }
+	
+    if (next){
+	int rhalfs = here->beams_right - next->beams_left;
+	int rwholebeams = here->beams_right <? next->beams_left; // g++
+
+	Real w = next->hpos() - here->hpos();
+	Atom a = paper()->lookup_->beam(sl, w + stemdx);
+	
+	int j = 0;
+	for (; j  < rwholebeams; j++) {
+	    Atom b(a);
+	    b.translate(Offset(0, -dir * dy * j));
+	    rightbeams.add( b ); 
+	}
+	w /= 4;
+	a = paper()->lookup_->beam(sl, w);
+	
+	for (; j  < rwholebeams + rhalfs; j++) {
+	    Atom b(a);
+	    b.translate(Offset(0, -dir * dy * j));
+	    rightbeams.add(b ); 
+	}
+	
+    }
+    leftbeams.add(rightbeams);
+    return leftbeams;
+}
+
 
 void
 Beam::brew_molecule()
@@ -159,20 +224,32 @@ Beam::brew_molecule()
     assert(left->line == right->line);
     Real inter=paper()->internote();
     Real sl = slope*inter;
-    Real w =  width().length() + paper()->rule_thickness();
-    Symbol s = paper()->lookup_->beam(sl,w);
+
+    output = new Molecule;
     slope = sl / inter;
+    Real x0 = stems.top()->hpos();
     
-    Atom a(s);
-    
-    Real dx = width().min -left->hpos;
-    a.translate(Offset(dx,left_pos*inter));
-    output = new Molecule(a);
+    for (PCursor<Stem*> i(stems); i.ok(); i++) {
+	PCursor<Stem*> p(i-1);
+	PCursor<Stem*> n(i+1);
+	Stem * prev = p.ok() ? p.ptr() : 0;
+	Stem * next = n.ok() ? n.ptr() : 0;
+
+	Molecule sb = stem_beams(i, next, prev);
+	Real  x = i->hpos()-x0;
+	sb.translate(Offset(x, (x * slope  + left_pos)* inter));
+	output->add(sb);
+    }
+    output->translate(Offset(x0 - left->hpos,0));
 }
 
 void
 Beam::print()const
 {
-    mtor << "Beam, slope " <<slope << "left ypos " << left_pos<<'\n';    
+#ifndef NPRINT
+    mtor << "{ slope " <<slope << "left ypos " << left_pos;
+    Spanner::print();
+    mtor << "}\n";
+#endif
 }
 
