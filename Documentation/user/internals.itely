@@ -757,10 +757,10 @@ An example is a function that reverses the order of elements in
 its argument:
 @lilypond[verbatim,singleline]
   #(define (rev-music-1 m)
-     (ly:set-mus-property! 'elements (reverse
-       (ly:get-mus-property mus 'elements)))
+     (ly:set-mus-property! m 'elements (reverse
+       (ly:get-mus-property m 'elements)))
      m)
-  \apply #rev-music-1 { c4 d4 }
+  \score {  \notes \apply #rev-music-1 { c4 d4 } }
 @end lilypond
 
 The use of such a function is very limited. The effect of this
