@@ -1,4 +1,24 @@
+pl 15
+pl 14.hwn1
+	- \lyrics iso \lyric (mudela 1.0.7)
+	- cleaned up real_expression syntax.
+	- removed optional_semicolon nonterminal after toplevel assignment
+	- MInterval Music::time_int () -> Moment Music::duration ()
+	- junked Music_iterator::daddy_iter_l_
+	- junked Sequential_music::offset_mom_
+	- tempo compression:
+		* syntax: \times 2/3 Music
+		* Compressed_music, Compressed_music_iterator
+	- flower: init rational to 0
+	- flower: removed P?Cursor<>::P?Cursor (), using pointer iso ref now.
+	- don't install into TeX, but into ${datadir}/{mf,tex,ly} (todo: ps)
+
+
+*********
+pl 14
+
 pl 13.uu1
+	- syntax for \translator: (\name  "Name")
 	- bfs for footer
 	- bf: init/{book,center}-fragment.ly, YODL nofooter stuff. 
 	- bf: redeclaration
