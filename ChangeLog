@@ -1,3 +1,15 @@
+2004-10-26  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* lily/music-function.cc (ly_make_music_function): when an
+	argument predicate is markup?, the signature keyword becomes
+	"markup" iso "scm".
+
+	* lily/lexer.ll (music_function_type): new MUSIC_FUNCTION_*MARKUP*
+	tokens, for functions which signatures contain "markup".
+
+	* lily/parser.yy (Generic_prefix_music_scm): add treatment for new
+	MUSIC_FUNCTION_*MARKUP* tokens.
+
 2004-10-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/regression/lyrics-bar.ly: Make StaffGroup accept the new

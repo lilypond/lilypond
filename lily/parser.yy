@@ -365,6 +365,11 @@ or
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_MUSIC_MUSIC 
 %token <scm> MUSIC_FUNCTION_SCM_SCM_MUSIC 
+%token <scm> MUSIC_FUNCTION_MARKUP 
+%token <scm> MUSIC_FUNCTION_MARKUP_MARKUP 
+%token <scm> MUSIC_FUNCTION_MARKUP_MUSIC 
+%token <scm> MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC 
+%token <scm> MUSIC_FUNCTION_MARKUP_MARKUP_MUSIC 
 
 %token DRUMS
 %token DRUMMODE
@@ -989,6 +994,11 @@ Generic_prefix_music_scm:
 	} embedded_scm {
 		$$ = scm_list_3 ($1, make_input (THIS->pop_spot ()), $3);
 	}
+	| MUSIC_FUNCTION_MARKUP {
+		THIS->push_spot ();
+	} full_markup {
+		$$ = scm_list_3 ($1, make_input (THIS->pop_spot ()), $3);
+	}
 	| MUSIC_FUNCTION_MUSIC {
 		THIS->push_spot (); 
 	} Music {
@@ -1006,6 +1016,17 @@ Generic_prefix_music_scm:
 	}  embedded_scm embedded_scm {
 		$$ = scm_list_4 ($1, make_input (THIS->pop_spot ()), $3, $4);
 	}
+	| MUSIC_FUNCTION_MARKUP_MUSIC {
+		THIS->push_spot (); 
+	}  full_markup Music {
+		$$ = scm_list_4 ($1, make_input (THIS->pop_spot ()), $3, $4->self_scm ());
+		scm_gc_unprotect_object ($4->self_scm ());
+	}
+	| MUSIC_FUNCTION_MARKUP_MARKUP {
+		THIS->push_spot (); 
+	}  full_markup full_markup {
+		$$ = scm_list_4 ($1, make_input (THIS->pop_spot ()), $3, $4);
+	}
 	| MUSIC_FUNCTION_MUSIC_MUSIC {
 		THIS->push_spot (); 
 	}  Music  Music {
@@ -1016,6 +1037,14 @@ Generic_prefix_music_scm:
 	| MUSIC_FUNCTION_SCM_MUSIC_MUSIC {
 		THIS->push_spot (); 
 	} embedded_scm Music Music {
+		$$ = scm_list_5 ($1, make_input (THIS->pop_spot ()),
+			$3, $4->self_scm (), $5->self_scm ());
+		scm_gc_unprotect_object ($5->self_scm ());
+		scm_gc_unprotect_object ($4->self_scm ());
+	}
+	| MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC {
+		THIS->push_spot (); 
+	} full_markup Music Music {
 		$$ = scm_list_5 ($1, make_input (THIS->pop_spot ()),
 			$3, $4->self_scm (), $5->self_scm ());
 		scm_gc_unprotect_object ($5->self_scm ());

@@ -922,6 +922,26 @@ music_function_type (SCM func)
 	{
 		return MUSIC_FUNCTION_SCM_SCM_MUSIC;
 	}
+	else if (type == ly_symbol2scm ("markup"))
+	{
+		return MUSIC_FUNCTION_MARKUP;
+	}
+	else if (type == ly_symbol2scm ("markup-music"))
+	{
+		return MUSIC_FUNCTION_MARKUP_MUSIC;
+	}
+	else if (type == ly_symbol2scm ("markup-markup"))
+	{
+		return MUSIC_FUNCTION_MARKUP_MARKUP;
+	}
+	else if (type == ly_symbol2scm ("markup-music-music"))
+	{
+		return MUSIC_FUNCTION_MARKUP_MUSIC_MUSIC;
+	}
+	else if (type == ly_symbol2scm ("markup-markup-music"))
+	{
+		return MUSIC_FUNCTION_MARKUP_MARKUP_MUSIC;
+	}
 	else if (type == ly_symbol2scm ("noarg"))
 	{
 		return MUSIC_FUNCTION;
