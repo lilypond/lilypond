@@ -580,14 +580,16 @@ error in the sheet music.
 To use it, you need the following software
 
 @itemize @bullet
-@item 
-@uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,plain
-Xdvi} version 22.36 or newer.
+@item A dvi viewer that supports src specials.
+@itemize @bullet
+@item Plain Xdvi, version 22.36 or newer.  Available from
+@uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,ftp.math.berkeley.edu}.
 
   Note that most @TeX{} distributions ship with xdvik, which is a
   different and less well maintained program. To find out which xdvi you
   are running, try @code{xdvi --version} or @code{xdvi.bin --version}.
-
+@item KDVI.  A dvi viewer for KDE.  You need KDVI from KDE 3.0 or newer.
+@end itemize
 @item An editor with a client/server interface (or a lightweight GUI editor).
 @itemize @bullet
 @item Emacs. Emacs is an extensible text-editor.  It is available from
@@ -614,6 +616,10 @@ When viewing, Control-Mousebutton 1 will take you to the originating
 spot in the @file{.ly} file.  Control-Mousebutton 2 will show all
 clickable boxes.
 
+If you correct large files with point-and-click, be sure to start
+correcting at the end of the file. When you start at the top, and
+insert one line, all following locations will be off by a line.
+
 @subsubsection Emacs
 @cindex Emacs
 In your emacs startup file (usually @file{~/.emacs}), add the following
@@ -621,10 +627,11 @@ In your emacs startup file (usually @file{~/.emacs}), add the following
 (server-start)
 @end example
 
-Make sure that the environment variable @code{XEDITOR} is set to
+Make sure that the environment variable @var{XEDITOR} is set to
 @example
 emacsclient --no-wait +%l %f
 @end example
+use this argument with xdvi's @code{-editor} option.
 @cindex @var{XEDITOR}
 
 If you use Emacs version 21, you can make emacs jump to the exact spot
@@ -637,10 +644,6 @@ the @code{set!} line with the following line
 @cindex line-colomn-location
 Set @var{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}, or
 use this argument with xdvi's @file{-editor} option.
-
-If you correct large files with point-and-click, be sure to start
-correcting at the end of the file. When you start at the top, and
-insert one line, all following locations will be off by a line.
 
 @subsubsection GVim
 @cindex GVIM
