@@ -1,3 +1,8 @@
+2002-04-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/tutorial.itely (Running LilyPond):  Separate
+	windows viewing commands, remove silly comment about Yap.
+
 2002-04-10  Mats Bengtsson  <matsb@s3.kth.se>
 
         * scm/grob-description.scm (MultiMeasureRest): number-threshold=1
