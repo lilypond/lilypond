@@ -9,4 +9,4 @@ foollilypondbook = "
 
 
 \include "paper23.ly"
-\include "allfontstyle.ly"
+\include "allfontstyle.lyinc"
