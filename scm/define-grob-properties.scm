@@ -353,7 +353,7 @@ spacing constraints.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
 get stems extending to the middle staff line.")
      (number-type ,symbol? "Type of numbers to use in label.  Choices
-include @code{roman-lower}, @code{roman-upper}, and @code{arabic}."
+include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
      
      (old-accidentals ,list? "List of @code{(@var{pitch} . @var{accidental})
 pairs.}")
