@@ -1,7 +1,7 @@
 //
 // lilypond-item.cc -- implement Lilypond_item
 //
-// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+// (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #include <string.h>
 #include <assert.h>
@@ -255,14 +255,17 @@ Lilypond_note::str ()
   String str;
 
   //ugh
-  if (dur.plet_b ())
-    str += String ("\\times ")
-      + String_convert::i2dec_str (dur.plet_.iso_i_, 0, 0)
-      + "/"
-      + String_convert::i2dec_str (dur.plet_.type_i_, 0, 0)
-      + " { ";
+  if (dur.plet_b () && dur.plet_.type_i_ != 1)
+    {
+	{
+	  str += String ("\\times ")
+	    + String_convert::i2dec_str (dur.plet_.iso_i_, 0, 0)
+	    + "/"
+	    + String_convert::i2dec_str (dur.plet_.type_i_, 0, 0)
+	    + " { ";
+	}
+    }
   
-
   str += name_str;
 
   Duration tmp = dur;
@@ -270,8 +273,13 @@ Lilypond_note::str ()
   str += Duration_convert::dur2_str (tmp);
 
   if (dur.plet_b ())
-    str += String (" }");
-
+    {
+      if (dur.plet_.type_i_ != 1)
+	str += String (" }");
+    else
+      str += String ("*") + to_str (dur.plet_.iso_i_);
+    }
+  
   /* 
      note of zero duration is nonsense, 
      but let's output anyway for convenient debugging
@@ -303,16 +311,29 @@ Lilypond_skip::duration_mom ()
 String
 Lilypond_skip::str ()
 {
-  if (!mom_)
-    return String ("");
+  String str;
+  Rational m = mom_;
+  if (m.to_int () >= 1)
+    {
+      int n = m.to_int ();
+      str += "\\skip 1";
+      if (n > 1)
+	{
+	  str += "*";
+	  str += to_str (n);
+	}
+      str += " ";
+      m -= n;
+    }
 
-  Duration dur = duration ();
-  if (dur.durlog_i_<-10)
-    return "";
-
-  String str = "\\skip ";
-  str += Duration_convert::dur2_str (dur);
-
+  if (m > Rational (0))
+    {
+      
+      Duration dur = Duration_convert::mom2_dur (m);
+      str += "\\skip ";
+      str += Duration_convert::dur2_str (dur);
+      str += " ";
+    }
   return str;
 }
 

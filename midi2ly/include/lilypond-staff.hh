@@ -1,7 +1,7 @@
 //
 // lilypond-staff.hh -- declare lilypond_staff
 //
-// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+// (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef LILYPOND_STAFF_HH
 #define LILYPOND_STAFF_HH

@@ -1,7 +1,7 @@
 //
 // lilypond-item.hh -- declare lilypond_item
 //
-// copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+// (c) 1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef LILYPOND_ITEM_HH
 #define LILYPOND_ITEM_HH
