@@ -83,12 +83,29 @@ Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
   else
     {
       /*
-	TODO: maybe take more objects?  
-       */
-      for (int i = slurs_.size (); i--; )
-	Slur::add_extra_encompass (slurs_[i], e);
-      for (int i = end_slurs_.size (); i--; )
-	Slur::add_extra_encompass (end_slurs_[i], e);
+	ugh. cut & paste from slur-engraver.cc
+      */
+      SCM inside = e->get_property ("inside-slur");
+      if (Tie::has_interface (e)
+	  || to_boolean (inside))
+	{
+	  for (int i = slurs_.size (); i--; )
+	    Slur::add_extra_encompass (slurs_[i], e);
+	  for (int i = end_slurs_.size (); i--; )
+	    Slur::add_extra_encompass (end_slurs_[i], e);
+	}
+      else if (inside == SCM_BOOL_F)
+	{
+	  Grob *slur = slurs_.size()?slurs_[0] : 0;
+	  slur =  (end_slurs_.size () && !slur)
+	    ? end_slurs_[0] : slur;
+
+	  if (slur)
+	    {
+	      e->add_offset_callback (Slur::outside_slur_callback_proc, Y_AXIS);
+	      e->set_property ("slur", slur->self_scm());
+	    }
+	}
     }
 }
 
@@ -133,6 +150,6 @@ ENTER_DESCRIPTION (Phrasing_slur_engraver,
 /* descr */       "Print phrasing slurs. Similar to @ref{Slur_engraver}",
 /* creats*/       "PhrasingSlur",
 /* accepts */     "phrasing-slur-event",
-/* acks  */       "note-column-interface slur-interface",
+/* acks  */       "note-column-interface tie-interface fingering-interface script-interface slur-interface",
 /* reads */       "",
 /* write */       "");
