@@ -97,7 +97,7 @@ Local_key_item::after_line_breaking (SCM smob)
 	  if (!sp->original_l_)
 	    {
 	      /* there should be a better way to delete part of me */
-	      scm_set_car_x (s, scm_listify (gh_caar (s),
+	      scm_set_car_x (s, scm_list_n (gh_caar (s),
 					 ly_symbol2scm ("deleted"),
 					 SCM_UNDEFINED));
 	      me->set_grob_property ("molecule", SCM_EOL);

@@ -111,7 +111,7 @@ ly_parse_scm (char const* s, int* n)
 SCM
 ly_quote_scm (SCM s)
 {
-  return scm_listify (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
+  return scm_list_n (ly_symbol2scm ("quote"), s, SCM_UNDEFINED);
 }
 
 

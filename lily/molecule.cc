@@ -61,7 +61,7 @@ Molecule::translate (Offset o)
       incr (a);
     }
 
-  expr_ = scm_listify (ly_symbol2scm ("translate-molecule"),
+  expr_ = scm_list_n (ly_symbol2scm ("translate-molecule"),
 		   ly_offset2scm (o),
 		   expr_, SCM_UNDEFINED);
   if (!empty_b ())
@@ -82,7 +82,7 @@ Molecule::translate_axis (Real x,Axis a)
 void
 Molecule::add_molecule (Molecule const &m)
 {
-  expr_ = scm_listify (ly_symbol2scm ("combine-molecule"),
+  expr_ = scm_list_n (ly_symbol2scm ("combine-molecule"),
 		   m.expr_,
 		   expr_, SCM_UNDEFINED);
   dim_.unite (m.dim_);
@@ -222,7 +222,7 @@ fontify_atom (Font_metric * met, SCM f)
   if (f == SCM_EOL)
     return f;
   else
-    return  scm_listify (ly_symbol2scm ("fontify"),
+    return  scm_list_n (ly_symbol2scm ("fontify"),
 		     ly_quote_scm (met->description_), f, SCM_UNDEFINED);
 }
 

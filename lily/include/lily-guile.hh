@@ -87,18 +87,56 @@ SCM ly_type (SCM);
 bool type_check_assignment (SCM val, SCM sym,  SCM type_symbol) ;
 SCM ly_number2string (SCM s);
 
-
-#define ly_cdr(x) SCM_CDR(x)
-#define ly_car(x) SCM_CAR(x)
-#define ly_caar(x) SCM_CAAR(x)
-#define ly_cdar(x) SCM_CDAR(x)
-#define ly_cadr(x) SCM_CADR(x)
-#define ly_cddr(x) SCM_CDDR(x)
-
-#define ly_pair_p(x) SCM_PAIRP(x)
-#define ly_symbol_p(x) SCM_SYMBOLP(x)
-#define ly_number_p(x) SCM_NUMBERP(x)
-#define ly_procedure_p(x) SCM_NFALSEP(scm_procedure_p(x))
+inline SCM
+ly_cdr (SCM x)
+{
+  return SCM_CDR (x);
+}
+inline SCM
+ly_car (SCM x)
+{
+  return SCM_CAR (x);
+} 
+inline SCM
+ly_caar (SCM x)
+{
+  return SCM_CAAR (x);
+}
+inline SCM
+ly_cdar (SCM x)
+{
+  return SCM_CDAR (x);
+}
+inline SCM
+ly_cadr (SCM x)
+{
+  return SCM_CADR (x);
+}
+inline SCM
+ly_cddr (SCM x)
+{
+  return SCM_CDDR (x);
+}
+inline SCM
+ly_pair_p (SCM x)
+{
+  return scm_pair_p (x);
+}
+inline bool
+ly_symbol_p (SCM x)
+{
+  return SCM_SYMBOLP (x);
+}
+inline bool
+ly_number_p (SCM x)
+{
+  return SCM_NUMBERP (x);
+}
+inline bool
+ly_procedure_p (SCM x)
+{
+  return SCM_NFALSEP (scm_procedure_p(x));
+}
 
 /*
   display and print newline.

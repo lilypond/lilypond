@@ -93,7 +93,7 @@ Volta_spanner::brew_molecule (SCM smob)
   /*
     ugh: should build from line segments.
    */
-  SCM at = (scm_listify (ly_symbol2scm ("volta"),
+  SCM at = (scm_list_n (ly_symbol2scm ("volta"),
 		     gh_double2scm (h),
 		     gh_double2scm (w),
 		     gh_double2scm (t),
@@ -104,7 +104,7 @@ Volta_spanner::brew_molecule (SCM smob)
   Box b (Interval (0, w), Interval (0, h));
   Molecule mol (b, at);
   SCM text = me->get_grob_property ("text");
-  SCM properties = scm_listify (me->mutable_property_alist_, me->immutable_property_alist_,SCM_UNDEFINED);
+  SCM properties = scm_list_n (me->mutable_property_alist_, me->immutable_property_alist_,SCM_UNDEFINED);
   Molecule num = Text_item::text2molecule (me, text, properties);
 
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()

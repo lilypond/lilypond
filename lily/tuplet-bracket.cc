@@ -113,7 +113,7 @@ Tuplet_bracket::brew_molecule (SCM smob)
       SCM thick = me->get_grob_property ("thick");
       SCM gap = me->get_grob_property ("number-gap");
 	  
-      SCM at =scm_listify (ly_symbol2scm ("tuplet"),
+      SCM at =scm_list_n (ly_symbol2scm ("tuplet"),
 		       gh_double2scm (1.0),
 		       gap,
 		       gh_double2scm (w),

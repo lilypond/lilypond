@@ -242,7 +242,7 @@ Line_of_score::output_molecule (SCM expr, Offset o)
 	  Input * ip = unsmob_input (head);
       
 
-	  pscore_l_->outputter_l_->output_scheme (scm_listify (define_origin_sym,
+	  pscore_l_->outputter_l_->output_scheme (scm_list_n (define_origin_sym,
 							   ly_str02scm (ip->file_str ().ch_C ()),
 							   gh_int2scm (ip->line_number ()),
 							   gh_int2scm (ip->column_number ()),
@@ -251,7 +251,7 @@ Line_of_score::output_molecule (SCM expr, Offset o)
 	}
       else  if (head ==  no_origin_sym)
 	{
-	  pscore_l_->outputter_l_->output_scheme (scm_listify (no_origin_sym, SCM_UNDEFINED));
+	  pscore_l_->outputter_l_->output_scheme (scm_list_n (no_origin_sym, SCM_UNDEFINED));
 	  expr = gh_cadr (expr);
 	}
       else if (head == offset_sym)
@@ -267,7 +267,7 @@ Line_of_score::output_molecule (SCM expr, Offset o)
       else
 	{
 	  pscore_l_->outputter_l_->
-	    output_scheme (scm_listify (placebox_sym,
+	    output_scheme (scm_list_n (placebox_sym,
 				    gh_double2scm (o[X_AXIS]),
 				    gh_double2scm (o[Y_AXIS]),
 				    expr,
@@ -370,14 +370,14 @@ Line_of_score::post_processing (bool last_line)
     font defs;
    */
   SCM font_names = ly_quote_scm (paper_l ()->font_descriptions ());  
-  output_scheme (scm_listify (ly_symbol2scm ("define-fonts"),
+  output_scheme (scm_list_n (ly_symbol2scm ("define-fonts"),
 					font_names,
 					SCM_UNDEFINED));
 
   /*
     line preamble.
    */
-  output_scheme (scm_listify (ly_symbol2scm ("start-line"),
+  output_scheme (scm_list_n (ly_symbol2scm ("start-line"),
 			  gh_double2scm (height),
 			  SCM_UNDEFINED));
   
@@ -412,11 +412,11 @@ Line_of_score::post_processing (bool last_line)
   
   if (last_line)
     {
-      output_scheme (scm_listify (ly_symbol2scm ("stop-last-line"), SCM_UNDEFINED));
+      output_scheme (scm_list_n (ly_symbol2scm ("stop-last-line"), SCM_UNDEFINED));
     }
   else
     {
-      output_scheme (scm_listify (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
+      output_scheme (scm_list_n (ly_symbol2scm ("stop-line"), SCM_UNDEFINED));
     }
 }
 

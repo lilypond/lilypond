@@ -1,5 +1,5 @@
-1.5.11
-======
+1.5.11.hwn1
+===========
 
 * Allow breaks at measures starting with grace notes.
 
@@ -10,10 +10,10 @@ measure/line.
 
 * Midi module: add timestamps.
 
-* 
-
-1.5.11.jcn1
+1.5.11.jcn2
 ===========
+
+* guile > 1.4 fixes.
 
 * Add -p flag to package-diff.py's diff invocation, to show changed function.
 

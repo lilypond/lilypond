@@ -703,7 +703,7 @@ Beam::quantise_y_f (Grob*me,Real y, Real dy, int quant_dir)
   SCM proc = me->get_grob_property ("vertical-position-quant-function");
   SCM quants = scm_apply (proc,
 			  me->self_scm (),
-			  scm_listify (gh_int2scm (multiplicity),
+			  scm_list_n (gh_int2scm (multiplicity),
 				   gh_double2scm (dy/staff_space),
 				   gh_double2scm (thick/staff_space),
 				   SCM_EOL, SCM_UNDEFINED));

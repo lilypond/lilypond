@@ -99,7 +99,7 @@ Note_head::brew_molecule (SCM smob)
     UGH: use grob-property.
   */
   Molecule out = Font_interface::get_default_font (me)->find_by_name (String ("noteheads-") + 
-		ly_scm2string (scm_primitive_eval (scm_listify (ly_symbol2scm ("find-notehead-symbol"),
+		ly_scm2string (scm_primitive_eval (scm_list_n (ly_symbol2scm ("find-notehead-symbol"),
 						  me->get_grob_property ("duration-log"),
 						  ly_quote_scm (style),
 							    SCM_UNDEFINED))));
@@ -133,7 +133,7 @@ Note_head::brew_ez_molecule (SCM smob)
   int l = gh_scm2int (me->get_grob_property ("duration-log"));
 
   int b = (l >= 2);
-  SCM at = scm_listify (ly_symbol2scm ("ez-ball"),
+  SCM at = scm_list_n (ly_symbol2scm ("ez-ball"),
 		    me->get_grob_property ("note-character"),
 		    gh_int2scm (b),
 		    gh_int2scm (1-b),
@@ -170,7 +170,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
     return 0.0;
 
   SCM st = me->get_grob_property ("style");
-  SCM result = gh_apply (v, scm_listify (st, SCM_UNDEFINED));
+  SCM result = gh_apply (v, scm_list_n (st, SCM_UNDEFINED));
 
   if (!gh_pair_p (result))
     return 0.0;

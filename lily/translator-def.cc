@@ -138,14 +138,14 @@ Translator_def::add_last_element (SCM s)
 void
 Translator_def::add_push_property (SCM props, SCM syms,  SCM vals)
 {
-  this->property_ops_ = gh_cons (scm_listify (push_sym, props, syms, vals, SCM_UNDEFINED),
+  this->property_ops_ = gh_cons (scm_list_n (push_sym, props, syms, vals, SCM_UNDEFINED),
 				 this->property_ops_);
 }
 
 void
 Translator_def::add_pop_property (SCM props, SCM syms)
 {
-  this->property_ops_ = gh_cons (scm_listify (push_sym, props, syms, SCM_UNDEFINED),
+  this->property_ops_ = gh_cons (scm_list_n (push_sym, props, syms, SCM_UNDEFINED),
 				 this->property_ops_);
 }
 
@@ -299,7 +299,7 @@ Translator_def::make_scm ()
 void
 Translator_def::add_property_assign (SCM nm, SCM val)
 {
-  this->property_ops_ = gh_cons (scm_listify (assign_sym, scm_string_to_symbol (nm), val, SCM_UNDEFINED),
+  this->property_ops_ = gh_cons (scm_list_n (assign_sym, scm_string_to_symbol (nm), val, SCM_UNDEFINED),
 				 this->property_ops_);
 }
 

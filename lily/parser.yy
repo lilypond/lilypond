@@ -1177,7 +1177,7 @@ command_element:
 		Music *p2 = set_property_music (ly_symbol2scm ("measureLength"), len.smobbed_copy ());
 		Music *p3 = set_property_music (ly_symbol2scm ("beatLength"), one_beat.smobbed_copy ());
 
-		SCM list = scm_listify (p1->self_scm (), p2->self_scm (), p3->self_scm(), SCM_UNDEFINED);
+		SCM list = scm_list_n (p1->self_scm (), p2->self_scm (), p3->self_scm(), SCM_UNDEFINED);
 		Sequential_music *seq = new Sequential_music (SCM_EOL);
 		seq->set_mus_property ("elements", list);
 		
@@ -1764,7 +1764,7 @@ simple_element:
 			n->set_mus_property ("force-accidental", SCM_BOOL_T);
 
 		Simultaneous_music*v = new Request_chord (SCM_EOL);
-		v->set_mus_property ("elements", scm_listify (n->self_scm (), SCM_UNDEFINED));
+		v->set_mus_property ("elements", scm_list_n (n->self_scm (), SCM_UNDEFINED));
 		
 		v->set_spot (i);
 		n->set_spot (i);
@@ -1798,7 +1798,7 @@ simple_element:
 			e = rest_req_p->self_scm ();
 		    }
  		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
-		velt_p-> set_mus_property ("elements", scm_listify (e,SCM_UNDEFINED));
+		velt_p-> set_mus_property ("elements", scm_list_n (e,SCM_UNDEFINED));
 		velt_p->set_spot (i);
 
  		$$ = velt_p;
@@ -1817,13 +1817,13 @@ simple_element:
 		sp2->set_mus_property ("span-type", r);
 
 		Request_chord * rqc1 = new Request_chord (SCM_EOL);
-		rqc1->set_mus_property ("elements", scm_listify (sp1->self_scm (), SCM_UNDEFINED));
+		rqc1->set_mus_property ("elements", scm_list_n (sp1->self_scm (), SCM_UNDEFINED));
 		Request_chord * rqc2 = new Request_chord (SCM_EOL);
-		rqc2->set_mus_property ("elements", scm_listify (sk->self_scm (), SCM_UNDEFINED));;
+		rqc2->set_mus_property ("elements", scm_list_n (sk->self_scm (), SCM_UNDEFINED));;
 		Request_chord * rqc3 = new Request_chord (SCM_EOL);
-		rqc3->set_mus_property ("elements", scm_listify (sp2->self_scm (), SCM_UNDEFINED));;
+		rqc3->set_mus_property ("elements", scm_list_n (sp2->self_scm (), SCM_UNDEFINED));;
 
-		SCM ms = scm_listify (rqc1->self_scm (), rqc2->self_scm (), rqc3->self_scm (), SCM_UNDEFINED);
+		SCM ms = scm_list_n (rqc1->self_scm (), rqc2->self_scm (), rqc3->self_scm (), SCM_UNDEFINED);
 
 		$$ = new Sequential_music (SCM_EOL);
 		$$->set_mus_property ("elements", ms);
@@ -1836,7 +1836,7 @@ simple_element:
 		lreq_p->set_mus_property ("duration",$2);
 		lreq_p->set_spot (i);
 		Simultaneous_music* velt_p = new Request_chord (SCM_EOL);
-		velt_p->set_mus_property ("elements", scm_listify (lreq_p->self_scm (), SCM_UNDEFINED));
+		velt_p->set_mus_property ("elements", scm_list_n (lreq_p->self_scm (), SCM_UNDEFINED));
 
 		$$= velt_p;
 	}
@@ -1910,7 +1910,7 @@ chord_step:
 		$$ = gh_cons (unsmob_pitch ($1)->smobbed_copy (), SCM_EOL);
 	}
 	| CHORDMODIFIER_PITCH chord_note { /* Ugh. */
-		$$ = scm_listify (unsmob_pitch ($1)->smobbed_copy (),
+		$$ = scm_list_n (unsmob_pitch ($1)->smobbed_copy (),
 			$2, SCM_UNDEFINED);
 	}
 	;

@@ -84,7 +84,7 @@ Figured_bass_engraver::process_music ()
 				     figure_->get_grob_property ("accidental-alist"));
 	      if (gh_pair_p (alter))
 		{
-		  one_fig = scm_listify (ly_symbol2scm ("columns"),
+		  one_fig = scm_list_n (ly_symbol2scm ("columns"),
 				     one_fig,
 				     ly_cdr(alter),
 				     SCM_UNDEFINED);

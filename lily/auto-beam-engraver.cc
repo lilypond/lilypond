@@ -109,19 +109,19 @@ Auto_beam_engraver::Auto_beam_engraver ()
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 {
-  SCM wild = scm_listify (ly_symbol2scm ("*"), ly_symbol2scm ("*"), SCM_UNDEFINED);
+  SCM wild = scm_list_n (ly_symbol2scm ("*"), ly_symbol2scm ("*"), SCM_UNDEFINED);
   SCM function;
   if (dir == START)
-    function = scm_listify (ly_symbol2scm ("begin"), SCM_UNDEFINED);
+    function = scm_list_n (ly_symbol2scm ("begin"), SCM_UNDEFINED);
   else
-    function = scm_listify (ly_symbol2scm ("end"), SCM_UNDEFINED);
+    function = scm_list_n (ly_symbol2scm ("end"), SCM_UNDEFINED);
 
   Moment one_beat = *unsmob_moment (get_property ("beatLength"));
   int num = int ((*unsmob_moment (get_property ("measureLength")) / one_beat).main_part_);
   int den = one_beat.den ();
-  SCM time = scm_listify (gh_int2scm (num), gh_int2scm (den), SCM_UNDEFINED);
+  SCM time = scm_list_n (gh_int2scm (num), gh_int2scm (den), SCM_UNDEFINED);
 
-  SCM type = scm_listify (gh_int2scm (test_mom.num ()),
+  SCM type = scm_list_n (gh_int2scm (test_mom.num ()),
 		      gh_int2scm (test_mom.den ()), SCM_UNDEFINED);
 
   SCM settings = get_property ("autoBeamSettings");

@@ -74,7 +74,7 @@ Paper_outputter::output_header ()
       gh_define ("security-paranoia", SCM_BOOL_T);      
     }
 
-  SCM exp = scm_listify (ly_symbol2scm ((output_format_global + "-scm").ch_C ()),
+  SCM exp = scm_list_n (ly_symbol2scm ((output_format_global + "-scm").ch_C ()),
 		     ly_quote_scm (ly_symbol2scm ("all-definitions")),
 		     SCM_UNDEFINED);
   exp = scm_primitive_eval (exp);
@@ -93,7 +93,7 @@ Paper_outputter::output_header ()
   generate = generate + to_str (' ' * (120 - generate.length_i ())>? 0)  ;
   
   SCM args_scm = 
-    scm_listify (ly_str02scm (creator.ch_l ()),
+    scm_list_n (ly_str02scm (creator.ch_l ()),
 	     ly_str02scm (generate.ch_l ()), SCM_UNDEFINED);
 
 
@@ -106,7 +106,7 @@ Paper_outputter::output_header ()
 void
 Paper_outputter::output_comment (String str)
 {
-  output_scheme (scm_listify (ly_symbol2scm ("comment"),
+  output_scheme (scm_list_n (ly_symbol2scm ("comment"),
 			  ly_str02scm ((char*)str.ch_C ()),
 			  SCM_UNDEFINED)
 		 );
@@ -190,7 +190,7 @@ void
 Paper_outputter::output_Real_def (String k, Real v)
 {
   
-  SCM scm = scm_listify (ly_symbol2scm ("lily-def"),
+  SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
 		     ly_str02scm (k.ch_l ()),
 		     ly_str02scm (to_str (v).ch_l ()),
 		     SCM_UNDEFINED);
@@ -201,7 +201,7 @@ void
 Paper_outputter::output_String_def (String k, String v)
 {
   
-  SCM scm = scm_listify (ly_symbol2scm ("lily-def"),
+  SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
 		     ly_str02scm (k.ch_l ()),
 		     ly_str02scm (v.ch_l ()),
 		     SCM_UNDEFINED);
@@ -211,7 +211,7 @@ Paper_outputter::output_String_def (String k, String v)
 void
 Paper_outputter::output_int_def (String k, int v)
 {
-  SCM scm = scm_listify (ly_symbol2scm ("lily-def"),
+  SCM scm = scm_list_n (ly_symbol2scm ("lily-def"),
 		     ly_str02scm (k.ch_l ()),
 		     ly_str02scm (to_str (v).ch_l ()),
 		     SCM_UNDEFINED);

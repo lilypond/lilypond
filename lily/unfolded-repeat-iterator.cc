@@ -165,7 +165,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 		}		  
 	      
 	      if (do_repcommands)
-		add_repeat_command (scm_listify (ly_symbol2scm ("volta"),
+		add_repeat_command (scm_list_n (ly_symbol2scm ("volta"),
 					     ly_str02scm (repstr.ch_C ()), SCM_UNDEFINED));
 	    }	  
 	}
@@ -199,7 +199,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	    alternative_cons_ = ly_cdr (alternative_cons_);
 	  
 	  if (do_repcommands)
-	    add_repeat_command (scm_listify (ly_symbol2scm ("volta"), SCM_BOOL_F, SCM_UNDEFINED));
+	    add_repeat_command (scm_list_n (ly_symbol2scm ("volta"), SCM_BOOL_F, SCM_UNDEFINED));
 
 	  
 	  
@@ -223,7 +223,7 @@ Unfolded_repeat_iterator::next_element (bool side_effect)
 	  if (do_repcommands)
 	    {
 	      String repstr = to_str (done_count_ + 1) + ".";
-	      add_repeat_command (scm_listify (ly_symbol2scm ("volta"),
+	      add_repeat_command (scm_list_n (ly_symbol2scm ("volta"),
 					   ly_str02scm (repstr.ch_C ()), SCM_UNDEFINED));
 	      add_repeat_command (ly_symbol2scm ("end-repeat"));
 	    }

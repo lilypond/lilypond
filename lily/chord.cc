@@ -50,7 +50,7 @@ ly_remove_member (SCM s, SCM list)
 SCM
 ly_snoc (SCM s, SCM list)
 {
-  return gh_append2 (list, scm_listify (s, SCM_UNDEFINED));
+  return gh_append2 (list, scm_list_n (s, SCM_UNDEFINED));
 }
 
 

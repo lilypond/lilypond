@@ -43,7 +43,7 @@ Text_item::text2molecule (Grob *me, SCM text, SCM alist_chain)
       /* urg, why not just do  this in markup_text2molecule ? */
       if (gh_string_p (ly_car (text)))
 	return markup_text2molecule (me,
-				     gh_append2 (scm_listify (SCM_EOL,
+				     gh_append2 (scm_list_n (SCM_EOL,
 							 SCM_UNDEFINED),
 						 text),
 				     alist_chain);
@@ -116,7 +116,7 @@ Text_item::lookup_text (Grob *me, Font_metric*fm, SCM text)
 #endif
   
 
-  SCM list = scm_listify (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
+  SCM list = scm_list_n (ly_symbol2scm ("text"), text, SCM_UNDEFINED);
   list = fontify_atom (fm, list);
   
   return Molecule (fm->text_dimension (ly_scm2string (text)), list);
@@ -201,7 +201,7 @@ Text_item::markup_text2molecule (Grob *me, SCM markup_text,
 	
       SCM next_p = SCM_EOL;
       if (gh_pair_p (ly_car (text)))
-	next_p = scm_listify (gh_call2 (f, sheet, gh_caar (text)), SCM_UNDEFINED);
+	next_p = scm_list_n (gh_call2 (f, sheet, gh_caar (text)), SCM_UNDEFINED);
       SCM next_k = ly_assoc_chain (ly_symbol2scm ("kern"), next_p);
       Real next_kern = kern[axis];
       if (gh_pair_p (next_k) && gh_number_p (ly_cdr (next_k)))

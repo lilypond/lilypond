@@ -293,7 +293,7 @@ Stem::get_default_stem_end_position (Grob*me)
 
   // stem uses half-spaces
 
-  // fixme: use scm_listify_ref () iso. array[]
+  // fixme: use scm_list_n_ref () iso. array[]
   Real shorten_f = a[ ((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
 
   /* URGURGURG

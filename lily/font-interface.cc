@@ -38,7 +38,7 @@ Font_interface::font_alist_chain (Grob *me)
   SCM defaults = ly_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
 				    me->paper_l ()->style_sheet_));
 
-  SCM ch = scm_listify (me->mutable_property_alist_,
+  SCM ch = scm_list_n (me->mutable_property_alist_,
 		    me->immutable_property_alist_,
 		    defaults,
 		    SCM_UNDEFINED);
@@ -236,7 +236,7 @@ Font_interface::properties_to_font_name (SCM fonts, SCM alist_chain)
     }
 
   warning (_ ("couldn't find any font satisfying "));
-  scm_write (scm_listify (name, point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
+  scm_write (scm_list_n (name, point_sz, shape, series , family, rel_sz, SCM_UNDEFINED), scm_current_error_port ());
   scm_flush (scm_current_error_port ());
  
   return ly_str02scm ("cmr10");
