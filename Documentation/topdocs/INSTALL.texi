@@ -518,6 +518,48 @@ interfere with your build, you may want to do this before the build too:
 	dpkg --purge lilypond lilypond1.3
 @end example
 
+@subsection MacOS X
+
+LilyPond has been built on Darwin, to be precise, on:
+@example
+    Darwin buoux.aspiratie.nl 5.3 Darwin Kernel Version 5.3: Thu Jan 24
+    22:06:02 PST 2002; root:xnu/xnu-201.19.obj~1/RELEASE_PPC  Power Macintosh powerpc
+@end example
+
+using:   
+
+@example
+    Apple Computer, Inc. version gcc-932.1, based on gcc version 2.95.2 19991024 (release)
+@end example
+
+To make sure you have all packages needed to build LilyPond installed,
+run as root:
+
+@example
+        apt-get install bash python guile debianutils flex bison texinfo \
+                ghostscript6 netpbm m4 gettext
+@end example        
+
+and:
+                
+@example
+        fink install tetex
+@end example        
+
+@c  brokenness of autoconf; don't ask
+Then, configure, patch, make and install LilyPond using these commands:
+
+@example
+        CC="cc -I/sw/include" CXX="c++ -I/sw/include" LDFLAGS="-L/sw/lib" \
+            ./configure --prefix=/sw
+        make -C lily out/parser.hh out/parser.cc
+        patch -p0 < darwin.patch
+        make -C lily out/parser.o
+        make all
+        make install
+@end example
+
+For installing, you must be root, of course.
 
 @c Why isn't this in BUGS (where it belongs?)
 @section Problems

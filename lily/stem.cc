@@ -36,7 +36,7 @@ Stem::set_beaming (Grob*me ,int i,  Direction d)
   
   if (!gh_pair_p (pair))
     {
-      pair = gh_cons (gh_int2scm (0),gh_int2scm (0));
+      pair = gh_cons (gh_int2scm (-1),gh_int2scm (-1));
       me->      set_grob_property ("beaming", pair);
     }
   index_set_cell (pair, d, gh_int2scm (i));
@@ -49,7 +49,7 @@ Stem::beam_count (Grob*me,Direction d)
   if (gh_pair_p (p))
     return gh_scm2int (index_cell (p,d));
   else
-    return 0;
+    return -1;
 }
 
 Interval
@@ -296,6 +296,10 @@ Stem::get_default_stem_end_position (Grob*me)
   // fixme: use scm_list_n_ref () iso. array[]
   Real shorten_f = a[ ((flag_i (me) - 2) >? 0) <? (a.size () - 1)] * 2;
 
+  /* On boundary: shorten only half */
+  if (abs (chord_start_f (me)) == 0.5)
+    shorten_f *= 0.5;
+
   /* URGURGURG
      'set-default-stemlen' sets direction too
    */
@@ -306,11 +310,9 @@ Stem::get_default_stem_end_position (Grob*me)
       Directional_element_interface::set (me, dir);
     }
   
-  /* 
-    stems in unnatural (forced) direction should be shortened, 
-    according to [Roush & Gourlay]
-   */
-  if (( (int)chord_start_f (me))
+  /* stems in unnatural (forced) direction should be shortened, 
+    according to [Roush & Gourlay] */
+  if (chord_start_f (me)
       && (get_direction (me) != get_default_dir (me)))
     length_f -= shorten_f;
 
