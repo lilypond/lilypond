@@ -1,5 +1,8 @@
 2003-07-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/define-grobs.scm (all-grob-descriptions): decrease space
+	before clef.
+
 	* flower/libc-extension.cc (my_round): ANSI-C compatible rounding.
 
 2003-07-27  Rune Zedeler  <rz@daimi.au.dk>
@@ -8,7 +11,7 @@
 	clarifications and fixes.
 
 	* scm/drums.scm: Bugfix: Use string instead of symbol when naming
-	threads. This fixes different heads playing simultainously.
+	threads. This fixes different heads playing simultaneously.
 
 2003-07-27  Heikki Junes  <hjunes@cc.hut.fi>
 

@@ -356,7 +356,7 @@
 			(time-signature . (extra-space . 0.0)) 
 			(staff-bar . (extra-space . 0.0))
 			(breathing-sign . (minimum-space  . 0.0))
-			(clef . (extra-space . 1.0))
+			(clef . (extra-space . 0.85))
 			(first-note . (extra-space . 1.0))
 			(right-edge . (extra-space . 0.0))
 			(key-signature . (extra-space . 0.0))
