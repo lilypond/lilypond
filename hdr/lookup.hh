@@ -43,7 +43,7 @@ struct Lookup {
     Symbol half_slur_middlepart(Real &dx, int dir);
     Symbol big_slur(int dy, Real &dx, int dir);
     Symbol text(String style, String text, int align = 1);
-
+    Symbol script(String idx);
 
 
     Lookup();
