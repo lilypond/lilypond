@@ -1,23 +1,15 @@
---- ../lilypond-1.1.20/NEWS	Tue Jan 12 12:39:56 1999
-++ b/NEWS	Tue Jan 12 18:17:32 1999
-@@ -1,3 +1,7 @@
-pl 20.ms1
-	- mutopia : first movement of Sinfonia in G by Leopold Mozart
-
-********
- pl 20
- 
- pl 20.jcn2
-	- mutopia fixes; see preludes-1.ly for cross-staff beams and slurs
-	- bf: broken interstaff slur
-	- sm66: check for gmake
 
 pl 20.jcn1
 	- interstaff slurs v0: preludes-1.ly
 	- warnings for silly interbeam settings
 
-pl 20
+pl 20.hwn1
+	- inclusion of WIP article about LilyPond.
+	- L.Mozart sinfonfia
+	- bf: [c8 [c8 c8]
 
+********
+pl 20
 
 pl 19.jcn5
 	- interstaff beams v0: see beam-interstaff.ly and wtk1-fugue2.ly
@@ -110,9 +102,6 @@ pl 16.jcn2
 
 pl 16.jcn1
 	- resurrected po-stuff
-
-********
-pl 16
 
 *********
 pl 16

@@ -1,6 +1,3 @@
-pl 66
-	- check for tbl and gmake
-
 pl 65
 	- unix style pathsep/dirsep for cygwin
 

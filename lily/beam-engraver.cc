@@ -29,7 +29,22 @@ Beam_engraver::do_try_music (Music *m)
 {
   if (Beam_req * c = dynamic_cast<Beam_req*>(m))
     {
-      reqs_drul_[c->spantype_] = c;
+      Direction d =c->spantype_;
+
+      /*
+	Perhaps not print warnings ?
+       */
+      if (d == START && beam_p_)
+	{
+	  m->warning ("Already have a Beam");
+	  return false;
+	}
+      if (d == STOP && !beam_p_)
+	{
+	  m->warning ("No Beam to end");
+	  return false;
+	}
+      reqs_drul_[d ] = c;
       return true;
     }
   return false;
@@ -111,9 +126,13 @@ void
 Beam_engraver::do_removal_processing ()
 {
   typeset_beam ();
-  finished_beam_p_ = beam_p_;
-  finished_grouping_p_ = grouping_p_;
-  typeset_beam ();
+  if (beam_p_)
+    {
+      warning ("Unfinished beam");
+      finished_beam_p_ = beam_p_;
+      finished_grouping_p_ = grouping_p_;
+      typeset_beam ();
+    }
 }
 
 void

@@ -7,6 +7,9 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+
+	* decimal point in \paper {}
+
 	> I have changed Mark_engraver to use the G_... classes.
 	> My implementation has the following shortcomings at the
 	> moment.
@@ -47,7 +50,7 @@ BUGS:
 
 	* fix:  cello suites
 
-	* fix:  text on rests: rediculous dims
+	* fix:  petites preludes (rediculous dims)
 
 	* fix extender
 
@@ -68,7 +71,7 @@ BUGS:
 	* gallina barlines.
 
 	* fix height of / collisions with lyrics (chords), 
-	   see input/test/vertical-text.ly; input/test/repeat.ly
+	   see input/test/vertical-text.ly
 
 	* repeat/volta:
 	  - one volta spanner per score

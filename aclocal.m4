@@ -267,8 +267,9 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     AC_SUBST(CONFIGSUFFIX)
      
     AC_CANONICAL_HOST
-    AC_CHECK_PROGS(MAKE, make gmake, error)
+    AC_CHECK_PROGS(MAKE, make, error)
     AC_CHECK_PROGS(FIND, find, error)
+
 
 dnl system supplied INSTALL is unsafe; use our own install.
 dnl    AC_PROG_INSTALL
@@ -282,8 +283,10 @@ dnl    fi
     AC_PATH_PROG(PYTHON, ${PYTHON:-python}, -echo no python)
     AC_SUBST(PYTHON)
 
+
+    AC_CHECK_SEARCH_RESULT($MAKE, GNU make,  You should install GNU make)
     if test $MAKE != "error" ; then
-	$MAKE -v 2> /dev/null | grep GNU > /dev/null
+	$MAKE -v| grep GNU > /dev/null
 	if test "$?" = 1
 	then
 		AC_STEPMAKE_WARN(Please install *GNU* make) 
@@ -447,7 +450,6 @@ AC_DEFUN(AC_STEPMAKE_GETTEXT, [
 
 AC_DEFUN(AC_STEPMAKE_MAN, [
     AC_CHECK_PROGS(TROFF, troff, -echo no troff)
-    AC_CHECK_PROGS(TBL, tbl, cat)
 ])
 
 AC_DEFUN(AC_STEPMAKE_MSGFMT, [
