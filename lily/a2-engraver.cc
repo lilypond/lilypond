@@ -113,6 +113,8 @@ A2_engraver::acknowledge_element (Score_element_info i)
 	  
   if (Stem::has_interface (i.elem_l_))
     {
+      Item *stem_l = dynamic_cast<Item*> (i.elem_l_);
+
       SCM unirhythm = get_property ("unirhythm");
       SCM unison = get_property ("unison");
       SCM solo = get_property ("solo");
@@ -121,25 +123,19 @@ A2_engraver::acknowledge_element (Score_element_info i)
       /*
 	This still needs some work.
        */
-      if ((unirhythm != SCM_BOOL_T && solo != SCM_BOOL_T))
-#if 0
-	/*
-	  Apart from the uglyness of this, we can't do this yet
-	  because to get up/down stems for small intervals, we
-	  need Part_combine_music_iterator to uncombine the
-	  voices (while still setting unison).
-	 */
+      if ((unirhythm != SCM_BOOL_T && solo != SCM_BOOL_T)
 	  || (unirhythm == SCM_BOOL_T
 	      && gh_number_p (interval) && gh_scm2int (interval) < 3))
-#endif
 	{
 	  if (daddy_trans_l_->id_str_ == "one")
 	    {
-	      Directional_element_interface (i.elem_l_).set (UP);
+	      //Directional_element_interface (stem_l).set (UP);
+	      stem_l->set_elt_property ("direction", gh_int2scm (1));
 	    }
 	  else if (daddy_trans_l_->id_str_ == "two")
 	    {
-	      Directional_element_interface (i.elem_l_).set (DOWN);
+	      //Directional_element_interface (stem_l).set (DOWN);
+	      stem_l->set_elt_property ("direction", gh_int2scm (-1));
 	    }
 	}
     }

@@ -14,7 +14,7 @@
 
 Part_combine_music_iterator::Part_combine_music_iterator ()
 {
-  unirhythm_b_ = false;
+  combined_b_ = false;
 
   first_iter_p_ = 0;
   second_iter_p_ = 0;
@@ -119,7 +119,6 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 
   Part_combine_music const * p = dynamic_cast<Part_combine_music const* > (music_l_);
 
-  String to_id =  unirhythm_b_ ? "one" : "two";
   /*
     different rhythm for combined voices: separate 
     same rhythm for separated voices: combine
@@ -132,25 +131,7 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
     use + junk the result, and then do the real process_and_next...?
     
   */
-  if ((first_next != second_next && unirhythm_b_)
-      || (first_next == second_next && !unirhythm_b_))
-    {
-      unirhythm_b_ = !unirhythm_b_;
-      to_id =  unirhythm_b_ ? "one" : "two";
-      change_to (second_iter_p_, p->what_str_, to_id);
-    }
 
-  Translator_group * fd = 
-    first_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_,
-							     "one");
-  Translator_group * sd = 
-    second_iter_p_->report_to_l ()->find_create_translator_l (p->what_str_,
-							      to_id);
-
-  fd->set_property ("unirhythm", unirhythm_b_ ? SCM_BOOL_T : SCM_BOOL_F);
-  sd->set_property ("unirhythm", unirhythm_b_ ? SCM_BOOL_T : SCM_BOOL_F);
-  first_iter_p_->report_to_l ()->set_property ("unirhythm", unirhythm_b_ ? SCM_BOOL_T : SCM_BOOL_F);
-  second_iter_p_->report_to_l ()->set_property ("unirhythm", unirhythm_b_ ? SCM_BOOL_T : SCM_BOOL_F);
 
   if (first_next <= m)
     first_iter_p_->process_and_next (m);
@@ -162,16 +143,14 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 
   /*
     TODO:
-    
-    * "a2" string is fine, but "Soli" strings are one request late??
-    
-      The problem seems to be: we need to do_try_music for the
-      spanish_inquisition to work; but the properties that we set
-      need to be set *before* we do_try_music?
-      
-    * setting of stem directions by a2-engraver don't work
 
-    * separate for small ( <3 ?) intervals too
+    * setting of stem directions by a2-engraver don't work !!
+
+    * check setting/resetting of properties
+
+    * use some unexpectedly handy abrvs.
+    
+    (customise) * separate for small ( <3 ?) intervals too
       
     Later (because currently, we only handle thread switching, really):
 
@@ -200,46 +179,82 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
     second_spanish_inquisition = new Pitch_interrogate_req;
   Music_iterator* sit = second_iter_p_->try_music (second_spanish_inquisition);
 
-  if ((first_next == second_next)
+  SCM interval = SCM_BOOL_F;
+  if (first_spanish_inquisition->pitch_arr_.size ()
+      && second_spanish_inquisition->pitch_arr_.size ())
+    {
+      first_spanish_inquisition->pitch_arr_.sort (Musical_pitch::compare);
+      second_spanish_inquisition->pitch_arr_.sort (Musical_pitch::compare);
+      interval = gh_int2scm (first_spanish_inquisition->pitch_arr_.top ().semitone_pitch ());
+    }
+
+
+  Translator_group * fir = first_iter_p_->report_to_l ();
+  Translator_group * sir = second_iter_p_->report_to_l ();
+
+  bool solo = (first_spanish_inquisition->pitch_arr_.empty ()
+	       != second_spanish_inquisition->pitch_arr_.empty ());
+
+  bool unirhythm_b = (first_next == second_next) && !solo;
+
+  bool too_close_b = false;
+  if (gh_number_p (interval) && gh_scm2int (interval) < 3)
+    too_close_b = true;
+
+  String to_id =  combined_b_ ? "one" : "two";
+  if ((!unirhythm_b && combined_b_)
+      || (unirhythm_b && !combined_b_)
+      || (too_close_b && combined_b_)
+      || (solo && combined_b_))
+    {
+      combined_b_ = !combined_b_;
+      to_id =  combined_b_ ? "one" : "two";
+      change_to (second_iter_p_, p->what_str_, to_id);
+    }
+
+  if (!combined_b_)
+    sir = second_iter_p_->report_to_l ();
+
+  Translator_group * fd = fir->find_create_translator_l (p->what_str_, "one");
+  Translator_group * sd = sir->find_create_translator_l (p->what_str_, "two");
+
+  fd->set_property ("unirhythm", unirhythm_b ? SCM_BOOL_T : SCM_BOOL_F);
+  sd->set_property ("unirhythm", unirhythm_b ? SCM_BOOL_T : SCM_BOOL_F);
+  fir->set_property ("unirhythm", unirhythm_b ? SCM_BOOL_T : SCM_BOOL_F);
+  sir->set_property ("unirhythm", unirhythm_b ? SCM_BOOL_T : SCM_BOOL_F);
+
+  if (unirhythm_b
       && !compare (&first_spanish_inquisition->pitch_arr_,
 		   &second_spanish_inquisition->pitch_arr_))
     {
       fd->set_property ("unison", SCM_BOOL_T);
       sd->set_property ("unison", SCM_BOOL_T);
-      first_iter_p_->report_to_l ()->set_property ("unison", SCM_BOOL_T);
-      second_iter_p_->report_to_l ()->set_property ("unison", SCM_BOOL_T);
+      fir->set_property ("unison", SCM_BOOL_T);
+      sir->set_property ("unison", SCM_BOOL_T);
     }
   else
     {
       fd->set_property ("unison", SCM_BOOL_F);
       sd->set_property ("unison", SCM_BOOL_F);
-      first_iter_p_->report_to_l ()->set_property ("unison", SCM_BOOL_F);
-      second_iter_p_->report_to_l ()->set_property ("unison", SCM_BOOL_F);
+      fir->set_property ("unison", SCM_BOOL_F);
+      sir->set_property ("unison", SCM_BOOL_F);
     }
 
-  if (first_spanish_inquisition->pitch_arr_.size () &&
-      second_spanish_inquisition->pitch_arr_.size ())
-    {
-      first_spanish_inquisition->pitch_arr_.sort (Musical_pitch::compare);
-      second_spanish_inquisition->pitch_arr_.sort (Musical_pitch::compare);
-      SCM interval = gh_int2scm (first_spanish_inquisition->pitch_arr_.top ().semitone_pitch ()
-				 - second_spanish_inquisition->pitch_arr_[0].semitone_pitch ());
-      fd->set_property ("interval", interval);
-      sd->set_property ("interval", interval);
-      first_iter_p_->report_to_l ()->set_property ("interval", interval);
-      second_iter_p_->report_to_l ()->set_property ("interval", interval);
-    }
+  fd->set_property ("interval", interval);
+  sd->set_property ("interval", interval);
+  fir->set_property ("interval", interval);
+  sir->set_property ("interval", interval);
       
   if (first_spanish_inquisition->pitch_arr_.size ()
       && !second_spanish_inquisition->pitch_arr_.size ())
     {
       fd->set_property ("solo", SCM_BOOL_T);
-      first_iter_p_->report_to_l ()->set_property ("solo", SCM_BOOL_T);
+      fir->set_property ("solo", SCM_BOOL_T);
     }
   else
     {
       fd->set_property ("solo", SCM_BOOL_F);
-      first_iter_p_->report_to_l ()->set_property ("solo", SCM_BOOL_F);
+      fir->set_property ("solo", SCM_BOOL_F);
     }
 
 
@@ -247,13 +262,14 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
       && second_spanish_inquisition->pitch_arr_.size ())
     {
       sd->set_property ("solo", SCM_BOOL_T);
-      second_iter_p_->report_to_l ()->set_property ("solo", SCM_BOOL_T);
+      sir->set_property ("solo", SCM_BOOL_T);
     }
   else
     {
       sd->set_property ("solo", SCM_BOOL_F);
-      second_iter_p_->report_to_l ()->set_property ("solo", SCM_BOOL_F);
+      sir->set_property ("solo", SCM_BOOL_F);
     }
+
 
   first_spanish_inquisition->pitch_arr_.clear ();
   second_spanish_inquisition->pitch_arr_.clear ();

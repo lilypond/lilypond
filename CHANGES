@@ -1,3 +1,8 @@
+1.3.78.jcn2
+===========
+
+* Fixed part combiner's too-late problem (Dankje!)
+
 1.3.78.jcn1
 ===========
 
@@ -5,7 +10,7 @@
 
 * Renamed part combiner music names to "one", "two".
 
-* Cleaned up property setting of part combiner, renamed to "solo"/"unison"
+* Cleaned up decision making in part combiner, renamed to "solo"/"unison"
 
 
 1.3.77.jcn5
