@@ -64,7 +64,7 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
       )
 
     #(define text-font-defaults
-      '((font-encoding . TeX-text)
+      '((font-encoding . latin1)
 	(baseline-skip . 2)
 	(word-space . 0.6)
 	))

@@ -18,8 +18,9 @@
     (interpret-markup paper props str))
 
 (def-markup-command (encoded-simple paper props sym str) (symbol? string?)
-  "A text string, encoded with encoding @var{sym}."
-  (Text_item::interpret_string paper props sym str))
+  "A text string, encoded with encoding @var{sym}. "
+  (Text_item::interpret_string paper
+			       props sym str))
 
 ;; TODO: use font recoding.
 ;;		      (make-line-markup
