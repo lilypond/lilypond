@@ -1,6 +1,6 @@
 2004-04-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* mf/feta-beugel.mf: set design to 10 (constant).
+	* mf/feta-beugel.mf: document why design size is not fixed.
 
 	* mf/feta-braces-a.mf: rename to stress that it's not design size.
 
