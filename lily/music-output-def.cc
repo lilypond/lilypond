@@ -107,7 +107,15 @@ Music_output_def::print_smob (SCM s, SCM p, scm_print_state *)
 }
 
 SCM
-Music_output_def::get_scmvar (String s) const
+Music_output_def::lookup_variable (SCM sym) const
+{
+  SCM var = ly_module_lookup (scope_, sym);
+
+  return scm_variable_ref (var);
+}
+
+SCM
+Music_output_def::c_variable (String s) const
 {
   return lookup_variable (ly_symbol2scm (s.to_str0 ()));
 }
@@ -116,14 +124,6 @@ void
 Music_output_def::set_variable (SCM sym, SCM val)
 {
   scm_module_define (scope_, sym, val);
-}
-
-SCM
-Music_output_def::lookup_variable (SCM sym) const
-{
-  SCM var = ly_module_lookup (scope_, sym);
-
-  return scm_variable_ref (var);
 }
 
 LY_DEFINE (ly_paper_lookup, "ly:paper-lookup",

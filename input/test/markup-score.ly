@@ -31,12 +31,12 @@ inBed = \paper {
     %% #(paper-set-staff-size (* 11.0 pt))
     
     raggedright = ##t
-    linewidth = 40\mm
+    linewidth = 0\mm
     indent = 0 \mm
 
-    %% #(define page-to-stencil page-stack-lines)
-    #(define (page-to-stencil page)
-      (box-stencil (page-stack-lines page) 0.1 0.5))
+    #(define page-to-stencil page-stack-lines)
+    %%#(define (page-to-stencil page)
+    %%  (box-stencil (page-stack-lines page) 0.1 0.5))
 
     \context {
 	\StaffContext
@@ -44,22 +44,70 @@ inBed = \paper {
     }
 }
 
+noCruft = \paper {
+    \context {
+	\StaffContext
+	%% Hmm, no effect ?
+	%% \override StaffSymbol #'print-function = ##f
+	%% Clef = \turnOff
+	%% StaffSymbol = \turnOff
+	%% TimeSignature = \turnOff
+	\override Clef #'print-function = ##f
+	\override StaffSymbol #'line-count = #0
+	\override TimeSignature #'print-function = ##f
+    }
+}
+
+noCruftInBed = \paper {
+    \inBed
+
+    %%\noCruft
+    %%URGHSr
+    \context {
+	\StaffContext
+	%% Hmm, no effect ?
+	%% \override StaffSymbol #'print-function = ##f
+	%% Clef = \turnOff
+	%% StaffSymbol = \turnOff
+	%% TimeSignature = \turnOff
+	\override Clef #'print-function = ##f
+	\override StaffSymbol #'line-count = #0
+	\override TimeSignature #'print-function = ##f
+    }
+}
+
+tuning = \markup {
+    \score { \notes { \clef bass  <c, g, d g>1 } \paper{ \inBed }}
+}
+
+#(define-public (my-footer paper page-number)
+  (let ((props (page-properties paper)))
+    (interpret-markup paper props
+     (markup #:fill-line ( #:line ( "Tuning: " tuning) "")))))
+
+tempoChange = \markup {
+    %% wtf, no horizontal shift?
+    "" %%\kern #-10 
+    \translate #'(-15 . 0)
+    \score { \notes \times 2/3 { c'8 c' c' } \paper { \noCruftInBed }}
+    " ="
+    \score { \notes { c'8[ c'] } \paper { \noCruftInBed } }
+}
+
 \header {
-    title = "title"
-    subtitle = \markup { \fill-line <
-	"subtitle with score: "
-	\score { \relative \notes { a'^"Hi" b c } \paper { \inBed } }
-	"woo!"
-    > }
-    subsubtitle = "subsubtitle"
+    title = "Solo Cello Suites"
+    subtitle = "Suite IV"
+    subsubtitle = \markup { \fill-line < { "Originalstimmung: " \tuning } > }
+}
+
+\paper {
+    #(define make-footer my-footer)
 }
 
 \relative {
-    a' b c d \break
-    a b c d \break
-    %% interesting bug:
-    %%a b^\markup { \score{ \notes\relative{ <b'1 dis fis> } \paper{ \inBed }}} c d
-    a b c d \break
-    a b c d \break
+    \time 4/8
+    \times 2/3 { c'8 d e } \times 2/3 {c d e}
+    \time 4/8
+    g8^\tempoChange a8 g8 a \break
 }
 

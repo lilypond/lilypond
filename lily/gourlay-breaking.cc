@@ -79,8 +79,8 @@ Gourlay_breaking::do_solve () const
   Break_node first_node ;
   optimal_paths.push (first_node);
 
-  bool ragged_right = to_boolean (pscore_->paper_->get_scmvar ("raggedright"));
-  bool ragged_last = to_boolean (pscore_->paper_->get_scmvar ("raggedlast"));
+  bool ragged_right = to_boolean (pscore_->paper_->c_variable ("raggedright"));
+  bool ragged_last = to_boolean (pscore_->paper_->c_variable ("raggedlast"));
 
   Real worst_force = 0.0;
   for (int break_idx = 1; break_idx< breaks.size (); break_idx++) 

@@ -10,7 +10,7 @@
 	(variable-ref v)
 	(if (module? (cdr modules)) (ly:modules-lookup (cdr modules) sym)))))
 
-(define (page-properties paper)
+(define-public (page-properties paper)
   (list (append `((linewidth . ,(ly:paper-get-number
 				 paper 'linewidth)))
 		(ly:paper-lookup paper 'text-font-defaults))))
@@ -80,13 +80,13 @@
        ("" (get 'opus))
        #:fill-line (#:large #:bigger #:caps (get 'piece) "")))))))
 
-(define-public (make-header paper page-number)
+(define-public (plain-header paper page-number)
   (let ((props (page-properties paper) ))
     (interpret-markup paper props
 		      (markup #:fill-line
 			      ("" #:bold (number->string page-number))))))
 
-(define-public (make-footer paper page-number)
+(define-public (plain-footer paper page-number)
   (let ((props (page-properties paper)))
 
     (interpret-markup paper props
@@ -96,7 +96,7 @@
 (define TAGLINE
   (string-append "Engraved by LilyPond (version " (lilypond-version) ")"))
 
-(define-public (make-tagline paper scopes)
+(define-public (TAGLINE-or-tagline-from-header paper scopes)
   (let* ((props (page-properties paper))
 	 (tagline-var (ly:modules-lookup scopes 'tagline))
 	 (tagline (if (markup? tagline-var) tagline-var TAGLINE)))
@@ -107,7 +107,7 @@
 				 (markup #:fill-line (tagline "")))))
 	  ((markup? tagline) (interpret-markup paper props tagline)))))
 
-(define-public (make-copyright paper scopes)
+(define-public (copyright-from-header paper scopes)
   (let ((props (page-properties paper))
 	(copyright (ly:modules-lookup scopes 'copyright)))
     
