@@ -35,27 +35,24 @@
 #include "dot-column.hh"
 
 void
-Stem::set_beaming (Grob*me ,int i,  Direction d)
+Stem::set_beaming (Grob*me, int beam_count,  Direction d)
 {
   SCM pair = me->get_grob_property ("beaming");
   
   if (!gh_pair_p (pair))
     {
-      pair = gh_cons (gh_int2scm (-1),gh_int2scm (-1));
-      me->      set_grob_property ("beaming", pair);
+      pair = gh_cons (SCM_EOL, SCM_EOL);
+      me->set_grob_property ("beaming", pair);
     }
-  index_set_cell (pair, d, gh_int2scm (i));
+
+  SCM l = index_get_cell (pair, d);
+  for( int i = 0; i<  beam_count; i++)
+    {
+      l = gh_cons (gh_int2scm (i), l);
+    }
+  index_set_cell (pair, d, l);		
 }
 
-int
-Stem::beam_count (Grob*me,Direction d)
-{
-  SCM p=me->get_grob_property ("beaming");
-  if (gh_pair_p (p))
-    return gh_scm2int (index_cell (p,d));
-  else
-    return -1;
-}
 
 Interval
 Stem::head_positions (Grob*me) 
@@ -807,8 +804,8 @@ Stem::calc_stem_info (Grob*me)
   Real half_space = staff_space / 2;
 
   Grob * beam = beam_l (me);
-  int multiplicity = Beam::get_multiplicity (beam);
-  Real interbeam_f = Beam::get_interbeam (beam);
+  int beam_count = Beam::get_beam_count (beam);
+  Real beam_space_f = Beam::get_beam_space (beam);
 
   Real thick = gh_scm2double (beam->get_grob_property ("thickness"));
   
@@ -830,14 +827,14 @@ Stem::calc_stem_info (Grob*me)
     a.push (gh_scm2double (ly_car (q)));
 
 
-  Real minimum_length = a[multiplicity <? (a.size () - 1)] * staff_space;
+  Real minimum_length = a[beam_count <? (a.size () - 1)] * staff_space;
   s = me->get_grob_property ("beamed-lengths");
 
   a.clear ();
   for (SCM q = s; q != SCM_EOL; q = ly_cdr (q))
     a.push (gh_scm2double (ly_car (q)));
 
-  Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
+  Real stem_length =  a[beam_count <? (a.size () - 1)] * staff_space;
 
   Grob *fvs = Beam::first_visible_stem (beam);
 
@@ -848,8 +845,8 @@ Stem::calc_stem_info (Grob*me)
 
   // FIXME, hairy.  see beam::calc_stem_y, for knees it's not trival
   // to calculate where secondary, ternary beams will go.
-  if (multiplicity && first_dir == mydir)
-    ideal_y += thick + (multiplicity - 1) * interbeam_f;
+  if (beam_count && first_dir == mydir)
+    ideal_y += thick + (beam_count - 1) * beam_space_f;
 
   ideal_y += stem_length;
 
@@ -876,8 +873,8 @@ Stem::calc_stem_info (Grob*me)
       shortest_y =
 	shortest_y >? 0
 	>? (- 2 * half_space - thick
-	    + (multiplicity > 0) * thick
-	    + interbeam_f * (multiplicity - 1));
+	    + (beam_count > 0) * thick
+	    + beam_space_f * (beam_count - 1));
     }
     
   
@@ -887,6 +884,7 @@ Stem::calc_stem_info (Grob*me)
   if (gh_number_p (s))
     ideal_y -= gh_scm2double (s);
 
+#if 0
   Grob *common = me->common_refpoint (beam, Y_AXIS);
 
   /*
@@ -904,7 +902,8 @@ Stem::calc_stem_info (Grob*me)
   
   ideal_y += interstaff_f;
   shortest_y += interstaff_f;
-
+#endif
+  
   ideal_y *= mydir;
   shortest_y *= mydir; 
   

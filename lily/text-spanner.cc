@@ -101,7 +101,7 @@ Text_spanner::brew_molecule (SCM smob)
 	  /*  Don't repeat edge text for broken end */
 	  if (!broken[d])
 	    {
-	      SCM text = index_cell (edge_text, d);
+	      SCM text = index_get_cell (edge_text, d);
 	      edge[d] = Text_item::text2molecule (me, text, properties);
 	      if (!edge[d].empty_b ())
 		edge[d].align_to (Y_AXIS, CENTER);
@@ -152,9 +152,9 @@ Text_spanner::brew_molecule (SCM smob)
       do
 	{
 	  Real dx = ( gh_pair_p (ew)  ? 
-		      gh_scm2double (index_cell (ew, d)) * d :  
+		      gh_scm2double (index_get_cell (ew, d)) * d :  
 		      0 );
-	  Real dy = gh_scm2double (index_cell (s, d)) * - dir;
+	  Real dy = gh_scm2double (index_get_cell (s, d)) * - dir;
 	  if (dy)
 	    {
 	      edge_line[d] = Line_spanner::line_molecule (me, thick, dx, dy);
@@ -230,11 +230,11 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
       height[d] =  0;
       shorten[d] = 0;
       if ( ly_number_pair_p (ew) )
-	width[d] +=  gh_scm2double (index_cell (ew, d));
+	width[d] +=  gh_scm2double (index_get_cell (ew, d));
       if ( !broken[d] && (ly_number_pair_p (eh) ) )
-	height[d] += gh_scm2double (index_cell (eh, d));
+	height[d] += gh_scm2double (index_get_cell (eh, d));
       if ( ly_number_pair_p (sp) )
-	shorten[d] +=  gh_scm2double (index_cell (sp, d));
+	shorten[d] +=  gh_scm2double (index_get_cell (sp, d));
     }
   while (flip (&d) != LEFT);
   

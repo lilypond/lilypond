@@ -9,21 +9,18 @@
 */
 
 /*
-  [TODO]
-
-  * Fix TODO
   
   * Junk stem_info.
-  
-  * Remove #'direction from beam.  A beam has no direction per se.
-    It may only set directions for stems.
-
-  * Rewrite stem_beams.
 
   * Use Number_pair i.s.o Interval to represent (yl, yr).
 
+Notes:
+
+ - Stems run to the Y-center of the beam.
   
-  */
+ - beam_space is the offset between Y centers of the beam.
+
+*/
 
 
 #include <math.h> // tanh.
@@ -70,6 +67,33 @@ shrink_extra_weight (Real x)
   return fabs (x) * ((x < 0) ? 1.5 : 1.0);
 }
 
+// move to somewhree?
+Slice
+int_list_to_slice (SCM l)
+{
+  Slice s;
+  s.set_empty ();
+  for (; gh_pair_p (l); l = gh_cdr (l))
+    {
+      if (gh_number_p (gh_car (l)))
+	s.add_point (gh_scm2int (gh_car (l))); 
+    }
+
+  return s;
+}
+
+// move to stem?
+Slice
+stem_beam_multiplicity (Grob *stem)
+{
+  SCM beaming= stem->get_grob_property ("beaming");
+  Slice l = int_list_to_slice (gh_car (beaming));
+  Slice r = int_list_to_slice (gh_cdr (beaming));
+  l.unite (r);
+
+  return l;
+}
+
 void
 Beam::add_stem (Grob *me, Grob *s)
 {
@@ -84,33 +108,32 @@ Beam::add_stem (Grob *me, Grob *s)
 }
 
 Real
-Beam::get_interbeam (Grob *me)
+Beam::get_beam_space (Grob *me)
 {
   SCM func = me->get_grob_property ("space-function");
-  SCM s = gh_call2 (func, me->self_scm (), gh_int2scm (get_multiplicity (me)));
+  SCM s = gh_call2 (func, me->self_scm (), gh_int2scm (get_beam_count (me)));
   return gh_scm2double (s);
 }
 
 /*
-  Maximum multiplicity.
+  Maximum beam_count.
  */
 int
-Beam::get_multiplicity (Grob *me) 
+Beam::get_beam_count (Grob *me) 
 {
   int m = 0;
   for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
       Grob *sc = unsmob_grob (ly_car (s));
-
-      if (Stem::has_interface (sc))
-	m = m >? Stem::beam_count (sc, LEFT) >? Stem::beam_count (sc, RIGHT);
+      
+      m = m >? (stem_beam_multiplicity (sc).length () + 1);
     }
   return m;
 }
 
 MAKE_SCHEME_CALLBACK (Beam, space_function, 2);
 SCM
-Beam::space_function (SCM smob, SCM multiplicity)
+Beam::space_function (SCM smob, SCM beam_count)
 {
   Grob *me = unsmob_grob (smob);
   
@@ -119,11 +142,11 @@ Beam::space_function (SCM smob, SCM multiplicity)
   Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
     * staff_space;
   
-  Real interbeam = gh_scm2int (multiplicity) < 4
+  Real beam_space = gh_scm2int (beam_count) < 4
     ? (2*staff_space + line - thickness) / 2.0
     : (3*staff_space + line - thickness) / 3.0;
   
-  return gh_double2scm (interbeam);
+  return gh_double2scm (beam_space);
 }
 
 
@@ -174,11 +197,258 @@ Beam::before_line_breaking (SCM smob)
 
       consider_auto_knees (me, d);
       set_stem_directions (me, d);
+
+      connect_beams (me);
+
       set_stem_shorten (me);
     }
 
   return SCM_EOL;
 }
+
+
+
+void
+Beam::connect_beams (Grob *me)
+{
+  Link_array<Grob> stems=
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+
+  Slice last_int;
+  last_int.set_empty();
+  for (int i = 0; i< stems.size(); i++)
+    {
+      Grob *this_stem = stems[i];
+      SCM this_beaming = this_stem->get_grob_property ("beaming");
+
+      Direction this_dir = Directional_element_interface::get(this_stem);
+      if (i > 0)
+	{
+	  int start_point = last_int [this_dir];
+	  
+	  Direction d = LEFT;
+	  Slice new_slice ; 
+	  do
+	    {
+	      if (d == RIGHT && i == stems.size()-1)
+		continue;
+	      
+	      new_slice.set_empty();
+	      SCM s = index_get_cell (this_beaming, d);
+	      for (; gh_pair_p (s); s = gh_cdr (s))
+		{
+		  int new_beam_pos =
+		    start_point - this_dir * gh_scm2int (gh_car (s));
+
+		  new_slice.add_point (new_beam_pos);
+		  gh_set_car_x (s, gh_int2scm (new_beam_pos));
+		}
+	    }
+	  while (flip (&d) != LEFT);
+
+	  last_int =  new_slice;
+	}
+      else
+	{
+	  SCM s = gh_cdr (this_beaming);
+	  for (; gh_pair_p (s); s = gh_cdr (s))
+	    {
+	      int np = - this_dir * gh_scm2int (gh_car(s));
+	      gh_set_car_x (s, gh_int2scm (np));
+	      last_int.add_point (np);
+	    }
+	}
+    }
+}
+
+MAKE_SCHEME_CALLBACK (Beam, brew_molecule, 1);
+SCM
+Beam::brew_molecule (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+  Link_array<Grob> stems=
+    Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
+  Grob* xcommon = common_refpoint_of_array (stems, me, X_AXIS);
+
+  Real x0, dx;
+  if (visible_stem_count (me))
+    {
+      // ugh -> use commonx
+      x0 = first_visible_stem (me)->relative_coordinate (xcommon, X_AXIS);
+      dx = last_visible_stem (me)->relative_coordinate (xcommon, X_AXIS) - x0;
+    }
+  else
+    {
+      x0 = stems[0]->relative_coordinate (xcommon, X_AXIS);
+      dx = stems.top ()->relative_coordinate (xcommon, X_AXIS) - x0;
+    }
+
+  SCM posns = me->get_grob_property ("positions");
+  Interval pos;
+  if (!ly_number_pair_p (posns))
+    {
+      programming_error ("No beam posns");
+      pos = Interval (0,0);
+    }
+  else
+    pos= ly_scm2interval (posns);
+
+  Real dy = pos.delta ();
+  Real dydx = dy && dx ? dy/dx : 0;
+  
+  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
+  Real bdy = get_beam_space (me);
+
+  SCM last_beaming = SCM_EOL;;
+  Real last_xposn = -1;
+  Real last_width = -1 ;
+  
+
+  
+  Molecule the_beam;
+  Real lt = me->paper_l ()->get_var ("linethickness");
+  for (int i = 0; i< stems.size(); i++)
+    {
+      Grob * st =stems[i];
+      
+      SCM this_beaming = st->get_grob_property ("beaming");
+      Real xposn = st->relative_coordinate (xcommon, X_AXIS);
+      Real stem_width = gh_scm2double (st->get_grob_property ("thickness")) *lt;
+
+      if (i > 0)
+	{
+	  SCM left = gh_cdr (last_beaming);
+	  SCM right = gh_car (this_beaming);
+
+	  Array<int> fullbeams;
+	  Array<int> lfliebertjes;
+	  Array<int> rfliebertjes;	  
+
+	  for (SCM s = left;
+	       gh_pair_p (s); s =gh_cdr (s))
+	    {
+	      int b = gh_scm2int (gh_car (s));
+	      if (scm_memq (gh_car(s), right) != SCM_BOOL_F)
+		{
+		  fullbeams.push (b);
+		}
+	      else
+		{
+		  lfliebertjes.push (b); 
+		}
+	    }
+	  for (SCM s = right;
+	       gh_pair_p (s); s =gh_cdr (s))
+	    {
+	      int b = gh_scm2int (gh_car (s));
+	      if (scm_memq (gh_car(s), left) == SCM_BOOL_F)
+		{
+		  rfliebertjes.push (b);
+		}
+	    }
+
+	  
+	  Real w = xposn - last_xposn;
+	  Real stem_offset = 0.0;
+	  Real width_corr = 0.0;
+	  if (i == 1)
+	    {
+	      stem_offset -= last_width/2;
+	      width_corr += last_width/2;
+	    }
+	  
+	  if (i == stems.size() -1)
+	    {
+	      width_corr += stem_width/2;
+	    }
+	  
+	  Molecule whole = Lookup::beam (dydx, w + width_corr, thick);
+	  for (int j = fullbeams.size(); j--;)
+	    {
+	      Molecule b (whole);
+	      b.translate_axis (last_xposn -  x0 + stem_offset, X_AXIS);
+	      b.translate_axis (dydx * (last_xposn - x0) + bdy * fullbeams[j], Y_AXIS);
+	      the_beam.add_molecule (b);	      
+	    }
+
+	  if (lfliebertjes.size() || rfliebertjes.size())
+	    {
+
+	      Real nw_f;
+	      if (!Stem::first_head (st))
+		nw_f = 0;
+	      else
+		{
+		  int t = Stem::duration_log (st); 
+
+		  SCM proc = me->get_grob_property ("flag-width-function");
+		  SCM result = gh_call1 (proc, gh_int2scm (t));
+		  nw_f = gh_scm2double (result);
+		}
+	      
+	      /* Half beam should be one note-width,
+		 but let's make sure two half-beams never touch */
+	      
+	      Real w = xposn - last_xposn;
+	      w = w/2 <? nw_f;
+
+	      Molecule half = Lookup::beam (dydx, w, thick);
+	      for (int j = lfliebertjes.size(); j--;)
+		{
+		  Molecule b (half);
+		  b.translate_axis (last_xposn -  x0, X_AXIS);
+		  b.translate_axis (dydx * (last_xposn-x0) + bdy * lfliebertjes[j], Y_AXIS);
+		  the_beam.add_molecule (b);	      
+		}
+	      for (int j = rfliebertjes.size(); j--;)
+		{
+		  Molecule b (half);
+		  b.translate_axis (xposn -  x0 - w , X_AXIS);
+		  b.translate_axis (dydx * (xposn-x0 -w) + bdy * rfliebertjes[j], Y_AXIS);
+		  the_beam.add_molecule (b);	      
+		}
+	    }
+      	}
+
+      last_xposn = xposn;
+      last_width = stem_width;
+      last_beaming = this_beaming;
+    }
+
+  the_beam.translate_axis (x0 - me->relative_coordinate (xcommon, X_AXIS), X_AXIS);
+  the_beam.translate_axis (pos[LEFT], Y_AXIS);
+
+#if (DEBUG_QUANTING)
+    {
+      /*
+	This code prints the demerits for each beam. Perhaps this
+	should be switchable for those who want to twiddle with the
+	parameters.
+      */
+      String str;
+      if (1)
+	{
+	  str += to_str (gh_scm2int (me->get_grob_property ("best-idx")));
+	  str += ":";
+	}
+      str += to_str (gh_scm2double (me->get_grob_property ("quant-score")),
+		     "%.2f");
+
+      SCM properties = Font_interface::font_alist_chain (me);
+
+      
+      Molecule tm = Text_item::text2molecule (me, ly_str02scm (str.ch_C ()), properties);
+      the_beam.add_at_edge (Y_AXIS, UP, tm, 5.0);
+    }
+#endif
+    
+  
+  
+  return the_beam.smobbed_copy();
+}
+  
+
+
 
 Direction
 Beam::get_default_dir (Grob *me) 
@@ -326,7 +596,7 @@ Beam::set_stem_shorten (Grob *m)
 
   Real forced_fraction = forced_stem_count (me) / visible_stem_count (me);
 
-  int multiplicity = get_multiplicity (me);
+  int beam_count = get_beam_count (me);
 
   SCM shorten = me->get_grob_property ("beamed-stem-shorten");
   if (shorten == SCM_EOL)
@@ -336,7 +606,7 @@ Beam::set_stem_shorten (Grob *m)
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   SCM shorten_elt = scm_list_ref (shorten,
-				  gh_int2scm (multiplicity <? (sz - 1)));
+				  gh_int2scm (beam_count <? (sz - 1)));
   Real shorten_f = gh_scm2double (shorten_elt) * staff_space;
 
   /* your similar cute comment here */
@@ -441,16 +711,18 @@ Beam::quanting (SCM smob)
   Array<Real> rbase_lengths;  
 
   Drul_array<bool> dirs_found(0,0);
+
+  bool french = to_boolean (me->get_grob_property ("french-beaming"));
   for (int i= 0; i < stems.size(); i++)
     {
       Grob*s = stems[i];
       stem_infos.push (Stem::calc_stem_info (s));
       dirs_found[stem_infos.top ().dir_] = true;
 
-      Real b = calc_stem_y (me, s, Interval (1,0), false);
+      Real b = calc_stem_y (me, s, Interval (1,0), french && i > 0&& (i < stems.size  () -1));
       lbase_lengths.push (b);
 
-      Real a = calc_stem_y (me, s, Interval (0,1), false);
+      Real a = calc_stem_y (me, s, Interval (0,1),  french && i > 0&& (i < stems.size  () -1));
       rbase_lengths.push (a);
     }
 
@@ -503,8 +775,8 @@ Beam::quanting (SCM smob)
       }
 
   Real rad = Staff_symbol_referencer::staff_radius (me);
-  int multiplicity = get_multiplicity (me);
-  Real interbeam = multiplicity < 4
+  int beam_count = get_beam_count (me);
+  Real beam_space = beam_count < 4
     ? (2*ss + slt - thickness) / 2.0
      : (3*ss + slt - thickness) / 3.0;
 
@@ -513,8 +785,8 @@ Beam::quanting (SCM smob)
       {
 	qscores[i].demerits
 	  += score_forbidden_quants (me, qscores[i].yl, qscores[i].yr,
-				     rad, slt, thickness, interbeam,
-				     multiplicity, ldir, rdir); 
+				     rad, slt, thickness, beam_space,
+				     beam_count, ldir, rdir); 
       }
 
 
@@ -623,8 +895,8 @@ Beam::score_forbidden_quants (Grob*me,
 			      Real yl, Real yr,
 			      Real rad,
 			      Real slt,
-			      Real thickness, Real interbeam,
-			      int multiplicity,
+			      Real thickness, Real beam_space,
+			      int beam_count,
 			      Direction ldir, Direction rdir)
 {
   Real dy = yr - yl;
@@ -635,8 +907,8 @@ Beam::score_forbidden_quants (Grob*me,
   if (fabs (yr) < rad && fabs ( my_modf (yr) - 0.5) < 1e-3)
     dem += INTER_QUANT_PENALTY;
 
-  // todo: use multiplicity of outer stems.
-  if (multiplicity >= 2)
+  // todo: use beam_count of outer stems.
+  if (beam_count >= 2)
     {
      
       Real straddle = 0.0;
@@ -645,10 +917,10 @@ Beam::score_forbidden_quants (Grob*me,
       Real hang = 1.0 - (thickness - slt) / 2;
       
 
-      if (fabs (yl - ldir * interbeam) < rad
+      if (fabs (yl - ldir * beam_space) < rad
 	  && fabs (my_modf (yl) - inter) < 1e-3)
 	dem += SECONDARY_BEAM_DEMERIT;
-      if (fabs (yr - rdir * interbeam) < rad
+      if (fabs (yr - rdir * beam_space) < rad
 	  && fabs (my_modf (yr) - inter) < 1e-3)
 	dem += SECONDARY_BEAM_DEMERIT;
 
@@ -665,7 +937,7 @@ Beam::score_forbidden_quants (Grob*me,
 
 
       // hmm, without Interval/Drul_array, you get ~ 4x same code...
-      if (fabs (yl - ldir * interbeam) < rad + inter)
+      if (fabs (yl - ldir * beam_space) < rad + inter)
 	{
 	  if (ldir == UP && dy <= eps
 	      && fabs (my_modf (yl) - sit) < eps)
@@ -676,7 +948,7 @@ Beam::score_forbidden_quants (Grob*me,
 	    dem += SECONDARY_BEAM_DEMERIT;
 	}
 
-      if (fabs (yr - rdir * interbeam) < rad + inter)
+      if (fabs (yr - rdir * beam_space) < rad + inter)
 	{
 	  if (rdir == UP && dy >= eps
 	      && fabs (my_modf (yr) - sit) < eps)
@@ -687,9 +959,9 @@ Beam::score_forbidden_quants (Grob*me,
 	    dem += SECONDARY_BEAM_DEMERIT;
 	}
       
-      if (multiplicity >= 3)
+      if (beam_count >= 3)
 	{
-	  if (fabs (yl - 2 * ldir * interbeam) < rad + inter)
+	  if (fabs (yl - 2 * ldir * beam_space) < rad + inter)
 	    {
 	      if (ldir == UP && dy <= eps
 		  && fabs (my_modf (yl) - straddle) < eps)
@@ -700,7 +972,7 @@ Beam::score_forbidden_quants (Grob*me,
 		dem += SECONDARY_BEAM_DEMERIT;
 	}
 	  
-	  if (fabs (yr - 2 * rdir * interbeam) < rad + inter)
+	  if (fabs (yr - 2 * rdir * beam_space) < rad + inter)
 	    {
 	      if (rdir == UP && dy >= eps
 		  && fabs (my_modf (yr) - straddle) < eps)
@@ -1062,24 +1334,35 @@ Beam::slope_damping (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+Slice
+where_are_the_whole_beams(SCM beaming)
+{
+  Slice l; 
+  
+  for( SCM s = gh_car (beaming); gh_pair_p (s) ; s = gh_cdr (s))
+    {
+      if (scm_memq (gh_car (s), gh_cdr (beaming)) != SCM_BOOL_F)
+	
+	l.add_point (gh_scm2int (gh_car (s)));
+    }
+
+  return l;
+}
+
 /*
   Calculate the Y position of the stem-end, given the Y-left, Y-right
   in POS, and for stem S.
 
-  If CORRECT, correct for multiplicity of beam in case of knees.
+  If CORRECT, correct for beam_count of beam in case of knees.
 
 
   TODO: junk CORRECT from this.
  */
 Real
-Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool correct)
+Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool french) 
 {
-  int beam_multiplicity = get_multiplicity (me);
-  int stem_multiplicity = (Stem::duration_log (s) - 2) >? 0;
-  
-
   Real thick = gh_scm2double (me->get_grob_property ("thickness"));
-  Real interbeam = get_interbeam (me);
+  Real beam_space = get_beam_space (me);
 
   // ugh -> use commonx
   Grob * fvs = first_visible_stem (me);
@@ -1089,58 +1372,26 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool correct)
   Real dx = fvs ? lvs->relative_coordinate (0, X_AXIS) - x0 : 0.0;
   Real r = s->relative_coordinate (0, X_AXIS) - x0;
   Real dy = pos.delta ();
-  Real stem_y = (dy && dx
-		 ? r / dx
-		 * dy
-		 : 0) + pos[LEFT];
+  Real stem_y_beam0 = (dy && dx
+		       ? r / dx
+		       * dy
+		       : 0) + pos[LEFT];
 
+
+  
   Direction my_dir = Directional_element_interface::get (s);
-  Direction first_dir = fvs? Directional_element_interface::get (fvs) : my_dir;
-
-  if (correct && my_dir != first_dir)
+  SCM beaming = s->get_grob_property ("beaming");
+ 
+  Real stem_y = stem_y_beam0;
+  if (french)
     {
-      /*
-	WTF is happening here ?
-
-	 It looks as if this is some kind of fixup for multiple kneed
-	 beams to get a piece of stem at the #.
-	 
-
-                x
-	        |
-         =======|
-	 |======#
-	 |
-	 |
-	x 
-
-	Rules for this kind of stuff are hairy. In any event, the
-	current stem should look at the multiplicity of its
-	predecessor.
-
-	--hwn.
-	
-       */
-      
-      // FIXME, hairy stuff
-      stem_y += my_dir * (thick / 2 + (beam_multiplicity - 1) * interbeam);
-
-      // huh, why not for first visible?
-
-      /*
-	What the heck is happening here?? 
-       */
-      Grob *last_visible = last_visible_stem (me);
-      if (last_visible)
-	{
-	  if ( Staff_symbol_referencer::staff_symbol_l (s)
-	       != Staff_symbol_referencer::staff_symbol_l (last_visible))
-	    stem_y += Directional_element_interface::get (me)
-	      * (beam_multiplicity - stem_multiplicity) * interbeam;
-	}
-      else
-	programming_error ("No last visible stem");
+      stem_y += beam_space * where_are_the_whole_beams (beaming)[-my_dir];
     }
+  else
+    {
+      stem_y += (stem_beam_multiplicity(s)[my_dir]) * beam_space;
+    }
+
   return stem_y;
 }
 
@@ -1165,30 +1416,16 @@ Beam::set_stem_lengths (Grob *me)
   Interval pos = ly_scm2interval (me->get_grob_property ("positions"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  /*
-    DOCUMENT THIS.
-   */
-#if 0
-  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
-  Direction dir = Directional_element_interface::get (me);
-  bool ps_testing = to_boolean (ly_symbol2scm ("ps-testing"));
-#endif
-  
+  bool french = to_boolean (me->get_grob_property ("french-beaming"));
+ 
   for (int i=0; i < stems.size (); i++)
     {
       Item* s = stems[i];
       if (Stem::invisible_b (s))
 	continue;
 
-      Real stem_y = calc_stem_y (me, s, pos, true);
+      Real stem_y = calc_stem_y (me, s, pos, french && i > 0&& (i < stems.size  () -1));
 
-#if 0
-      // doesn't play well with dvips
-      if (ps_testing)
-	if (Stem::get_direction (s) == dir)
-	  stem_y += Stem::get_direction (s) * thick / 2;
-#endif
-      
       /* caution: stem measures in staff-positions */
       Real id = me->relative_coordinate (common, Y_AXIS)
 	- stems[i]->relative_coordinate (common, Y_AXIS);
@@ -1205,13 +1442,21 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
   Direction d = LEFT;
   for (int i=0; i  < stems.size (); i++)
     {
+      /*
+	Don't overwrite user settings.
+       */
+      
       do
 	{
-	  /* Don't overwrite user override (?) */
-	  if (Stem::beam_count (stems[i], d) == -1
-	      /* Don't set beaming for outside of outer stems */
-	      && ! (d == LEFT && i == 0)
-	      && ! (d == RIGHT && i == stems.size () -1))
+	  /* Don't set beaming for outside of outer stems */	  
+	  if ((d == LEFT && i == 0)
+	      ||(d == RIGHT && i == stems.size () -1))
+	    continue;
+
+
+	  SCM beaming_prop = stems[i]->get_grob_property ("beaming");
+	  if (beaming_prop == SCM_EOL ||
+	      index_get_cell (beaming_prop, d) == SCM_EOL)
 	    {
 	      int b = beaming->infos_.elem (i).beams_i_drul_[d];
 	      Stem::set_beaming (stems[i], b, d);
@@ -1219,239 +1464,6 @@ Beam::set_beaming (Grob *me, Beaming_info_list *beaming)
 	}
       while (flip (&d) != LEFT);
     }
-}
-
-
-
-/*
-  beams to go with one stem.
-
-  FIXME: clean me up:
-
-  The beam should be constructed by one function that knows where the
-  X and Y points are, and only inspects the stems to obtain
-  multiplicity and stem directions.
-  
-  */
-Molecule
-Beam::stem_beams (Grob *me, Item *here, Item *next, Item *prev, Real dydx)
-{
-  // ugh -> use commonx
-  if ((next
-       && ! (next->relative_coordinate (0, X_AXIS)
-	    > here->relative_coordinate (0, X_AXIS)))
-      || (prev
-	  && ! (prev->relative_coordinate (0, X_AXIS)
-	       < here->relative_coordinate (0, X_AXIS))))
-    programming_error ("Beams are not left-to-right");
-
-  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
-  Real bdy = get_interbeam (me);
-  
-  Molecule leftbeams;
-  Molecule rightbeams;
-
-  Real nw_f;
-  if (!Stem::first_head (here))
-    nw_f = 0;
-  else
-    {
-      int t = Stem::duration_log (here); 
-
-      SCM proc = me->get_grob_property ("flag-width-function");
-      SCM result = gh_call1 (proc, gh_int2scm (t));
-      nw_f = gh_scm2double (result);
-    }
-
-
-  /* [Tremolo] beams on whole notes may not have direction set? */
-  Direction dir = Directional_element_interface::get (here);
-
-  /* half beams extending to the left. */
-  if (prev)
-    {
-      int lhalfs= lhalfs = Stem::beam_count (here, LEFT)
-	- Stem::beam_count (prev, RIGHT);
-      int lwholebeams= Stem::beam_count (here, LEFT)
-	<? Stem::beam_count (prev, RIGHT);
-      
-      /* Half beam should be one note-width,
-	 but let's make sure two half-beams never touch */
-
-      // FIXME: TODO (check) stem width / sloped beams
-      Real w = here->relative_coordinate (0, X_AXIS)
-	- prev->relative_coordinate (0, X_AXIS);
-      Real stem_w = gh_scm2double (prev->get_grob_property ("thickness"))
-	// URG
-	* me->paper_l ()->get_var ("linethickness");
-
-      w = w/2 <? nw_f;
-      Molecule a;
-      if (lhalfs)		// generates warnings if not
-	a =  Lookup::beam (dydx, w + stem_w, thick);
-      a.translate (Offset (-w, -w * dydx));
-      a.translate_axis (-stem_w/2, X_AXIS);
-      for (int j = 0; j  < lhalfs; j++)
-	{
-	  Molecule b (a);
-	  b.translate_axis (-dir * bdy * (lwholebeams+j), Y_AXIS);
-	  leftbeams.add_molecule (b);
-	}
-    }
-
-  if (next)
-    {
-      int rhalfs  = Stem::beam_count (here, RIGHT)
-	- Stem::beam_count (next, LEFT);
-      int rwholebeams= Stem::beam_count (here, RIGHT)
-	<? Stem::beam_count (next, LEFT);
-
-      Real w = next->relative_coordinate (0, X_AXIS)
-	- here->relative_coordinate (0, X_AXIS);
-
-      Real stem_w = gh_scm2double (next->get_grob_property ("thickness"))
-	// URG
-	* me->paper_l ()->get_var ("linethickness");
-
-      Molecule a = Lookup::beam (dydx, w + stem_w, thick);
-      a.translate_axis (- stem_w/2, X_AXIS);
-      int j = 0;
-      Real gap_f = 0;
-      
-      SCM gap = me->get_grob_property ("gap");
-      if (gh_number_p (gap))
-	{
-	  int gap_i = gh_scm2int ((gap));
-	  int nogap = rwholebeams - gap_i;
-	  
-	  for (; j  < nogap; j++)
-	    {
-	      Molecule b (a);
-	      b.translate_axis (-dir  * bdy * j, Y_AXIS);
-	      rightbeams.add_molecule (b);
-	    }
-	  if (Stem::invisible_b (here))
-	    gap_f = nw_f;
-	  else
-	    gap_f = nw_f / 2;
-	  w -= 2 * gap_f;
-	  a = Lookup::beam (dydx, w + stem_w, thick);
-	}
-
-      for (; j  < rwholebeams; j++)
-	{
-	  Molecule b (a);
-	  Real tx = 0;
-	  if (Stem::invisible_b (here))
-	    // ugh, see chord-tremolo.ly
-	    tx = (-dir + 1) / 2 * nw_f * 1.5 + gap_f/4;
-	  else
-	    tx = gap_f;
-	  b.translate (Offset (tx, -dir * bdy * j));
-	  rightbeams.add_molecule (b);
-	}
-
-      w = w/2 <? nw_f;
-      if (rhalfs)
-	a = Lookup::beam (dydx, w, thick);
-
-      for (; j  < rwholebeams + rhalfs; j++)
-	{
-	  Molecule b (a);
-	  b.translate_axis (- dir * bdy * j, Y_AXIS);
-	  rightbeams.add_molecule (b);
-	}
-
-    }
-  leftbeams.add_molecule (rightbeams);
-
-  return leftbeams;
-}
-
-
-MAKE_SCHEME_CALLBACK (Beam, brew_molecule, 1);
-SCM
-Beam::brew_molecule (SCM smob)
-{
-  Grob *me =unsmob_grob (smob);
-
-  Molecule mol;
-  if (!gh_pair_p (me->get_grob_property ("stems")))
-    return SCM_EOL;
-  Real x0, dx;
-  Link_array<Item>stems = 
-    Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");  
-  if (visible_stem_count (me))
-    {
-      // ugh -> use commonx
-      x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
-      dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
-    }
-  else
-    {
-      x0 = stems[0]->relative_coordinate (0, X_AXIS);
-      dx = stems.top ()->relative_coordinate (0, X_AXIS) - x0;
-    }
-
-  SCM posns = me->get_grob_property ("positions");
-  Interval pos;
-  if (!ly_number_pair_p (posns))
-    {
-      programming_error ("No beam posns");
-      pos = Interval (0,0);
-    }
-  else
-    pos= ly_scm2interval (posns);
-  Real dy = pos.delta ();
-  Real dydx = dy && dx ? dy/dx : 0;
-
-
-  for (int i=0; i < stems.size (); i++)
-    {
-      Item *item = stems[i];
-      Item *prev = (i > 0)? stems[i-1] : 0;
-      Item *next = (i < stems.size ()-1) ? stems[i+1] :0;
-
-
-      
-      Molecule sb = stem_beams (me, item, next, prev, dydx);
-      Real x = item->relative_coordinate (0, X_AXIS) - x0;
-      sb.translate (Offset (x, x * dydx + pos[LEFT]));
-
-
-      mol.add_molecule (sb);
-    }
-  
-  mol.translate_axis (x0 
-		      - dynamic_cast<Spanner*> (me)
-		      ->get_bound (LEFT)->relative_coordinate (0, X_AXIS),
-		      X_AXIS);
-
-#if (DEBUG_QUANTING)
-    {
-      /*
-	This code prints the demerits for each beam. Perhaps this
-	should be switchable for those who want to twiddle with the
-	parameters.
-      */
-      String str;
-      if (1)
-	{
-	  str += to_str (gh_scm2int (me->get_grob_property ("best-idx")));
-	  str += ":";
-	}
-      str += to_str (gh_scm2double (me->get_grob_property ("quant-score")),
-		     "%.2f");
-
-      SCM properties = Font_interface::font_alist_chain (me);
-
-      
-      Molecule tm = Text_item::text2molecule (me, ly_str02scm (str.ch_C ()), properties);
-      mol.add_at_edge (Y_AXIS, UP, tm, 5.0);
-    }
-#endif
-    
-  return mol.smobbed_copy ();
 }
 
 int
@@ -1609,6 +1621,6 @@ the ideal slope, how close the result is to the ideal stems, etc.). We
 take the best scoring combination.
 
 ",
-  "position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy damping flag-width-function neutral-direction positions space-function thickness");
+  "french-beaming position-callbacks concaveness-gap concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy damping flag-width-function neutral-direction positions space-function thickness");
 
 

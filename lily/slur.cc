@@ -159,8 +159,8 @@ Slur::check_slope (Grob *me)
 	  Direction d = (Direction) (- dir * (sign (dy)));
 	  SCM a = me->get_grob_property ("attachment-offset");
 	  Drul_array<Offset> o;
-	  o[LEFT] = ly_scm2offset (index_cell (a, LEFT));
-	  o[RIGHT] = ly_scm2offset (index_cell (a, RIGHT));
+	  o[LEFT] = ly_scm2offset (index_get_cell (a, LEFT));
+	  o[RIGHT] = ly_scm2offset (index_get_cell (a, RIGHT));
 	  o[d][Y_AXIS] -= (limit - slope) * dx * dir / staff_space;
 
 	  o[d][Y_AXIS] *= Directional_element_interface::get (me);
@@ -196,7 +196,7 @@ Slur::set_extremities (Grob *me)
   do 
     {
     
-      if (!gh_symbol_p (index_cell (att, dir)))
+      if (!gh_symbol_p (index_get_cell (att, dir)))
 	{
 	  for (SCM s = me->get_grob_property ("extremity-rules");
 	       s != SCM_EOL; s = ly_cdr (s))
@@ -290,7 +290,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 		      Grob **common) 
 {
   SCM s = me->get_grob_property ("attachment");
-  if (!gh_symbol_p (index_cell (s, dir)))
+  if (!gh_symbol_p (index_get_cell (s, dir)))
     {
       s = set_extremities (me);
     }
@@ -393,7 +393,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 	- me->relative_coordinate (common[Y_AXIS], Y_AXIS);
     }
 
-  Offset off = ly_scm2offset (index_cell (me->get_grob_property
+  Offset off = ly_scm2offset (index_get_cell (me->get_grob_property
 					  ("attachment-offset"),
 					  dir)) * staff_space;
 
@@ -642,8 +642,8 @@ Slur::get_curve (Grob*me)
 
   
   if (!Directional_element_interface::get (me)
-      || ! gh_symbol_p (index_cell (attach, LEFT))
-      || ! gh_symbol_p (index_cell (attach, RIGHT)))
+      || ! gh_symbol_p (index_get_cell (attach, LEFT))
+      || ! gh_symbol_p (index_get_cell (attach, RIGHT)))
     set_extremities (me);
   
   if (!gh_pair_p (me->get_grob_property ("control-points")))

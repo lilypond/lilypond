@@ -152,6 +152,10 @@ Grace note do weird things with timing. Fragile.
 
 @section Beams
 
+@lilypondfile[printfilename]{beams.ly}
+
+@lilypondfile[printfilename]{beam-funky.ly}
+
 @lilypondfile[printfilename]{beaming.ly}
 
 @lilypondfile[printfilename]{beam-concave.ly}

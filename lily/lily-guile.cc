@@ -218,7 +218,7 @@ ly_scm2string (SCM s)
 }
 
 SCM
-index_cell (SCM s, Direction d)
+index_get_cell (SCM s, Direction d)
 {
   assert (d);
   return (d == LEFT) ? ly_car (s) : ly_cdr (s);
