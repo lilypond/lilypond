@@ -62,7 +62,7 @@ protected:
   virtual Translator_group * group_l () { return this; }
   virtual void do_print () const;
   virtual void do_process_requests ();
-  virtual void add_processing ();
+  virtual void do_add_processing ();
   virtual bool do_try_request (Request* req_l);       
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();   
