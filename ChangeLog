@@ -1,3 +1,9 @@
+2002-06-03  Heikki Junes  <heikki.junes@hut.fi>
+
+	* lilypond-mode.el: Extend "Quick notes" containing note tuples.
+
+	* lilypond-font-lock.el: Add fixes and comments to syntax-table.
+
 2002-06-03  Han-Wen  <hanwen@cs.uu.nl>
 
 	* lily/beam-engraver.cc (class Grace_beam_engraver): derive from
