@@ -14,6 +14,7 @@
 #include "paper-def.hh"
 #include "score-column.hh"
 #include "staff-sym.hh"
+#include "note-column.hh"
 
 Dynamic_register::Dynamic_register()
 {
@@ -132,4 +133,15 @@ Dynamic_register::~Dynamic_register()
 	cresc_req_l_->warning("unended crescendo");
     }
     delete cresc_p_;
+}
+void
+Dynamic_register::acknowledge_element(Staff_elem_info i)
+{
+    if (i.elem_l_->name() == Note_column::static_name()) {
+	if (dynamic_p_) dynamic_p_->add_support(i.elem_l_);
+	if (to_end_cresc_p_)
+	    to_end_cresc_p_->add_support(i.elem_l_);
+	if (cresc_p_) 
+	    cresc_p_->add_support(i.elem_l_);
+    }
 }
