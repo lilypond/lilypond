@@ -3,29 +3,30 @@ old=$1
 new=$2
 nm=$3-
 
-newarc=$nm$new.tar.gz
-oldarc=$nm$old.tar.gz
+newarc=../releases/$nm$new.tar.gz
+oldarc=../releases/$nm$old.tar.gz
 
 
 if [ ! -x  $nm$new ]
 then
    echo untarring ..
-  tar zfxv $nm$new.tar.gz
   if [ ! -f $newarc ]
   then
 	echo cant find $newarc
 	exit
   fi
+  tar zfxv $newarc
 fi
 if [ ! -x  $nm$old ]
 then
    echo untarring
-   tar zfxv $nm$old.tar.gz
+
   if [ ! -f $oldarc ]
   then
 	echo cant find oldarc
 	exit
   fi
+   tar zfxv $oldarc
 fi
 
 #(cd $nm$old; touch depend; make clean)
