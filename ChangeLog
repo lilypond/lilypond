@@ -1,3 +1,8 @@
+2004-11-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/GNUmakefile (local-install-info): Invoke
+	install-info --remove first.
+
 2004-11-17  Werner Lemberg  <wl@gnu.org>
 
 	* python/lilylib.py (options_help_str): Support pretty-printing of
