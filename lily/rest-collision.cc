@@ -17,6 +17,7 @@
 #include "paper-def.hh"
 #include "rest.hh"
 #include "group-interface.hh"
+#include "staff-symbol-referencer.hh"
 
 void
 Rest_collision::add_column (Note_column *nc_l)
@@ -115,8 +116,10 @@ Rest_collision::do_pre_processing()
 
 
       // FIXME
-      int stafflines = 5; // rcol->rest_l_arr[0]->line_count;
-
+      //int stafflines = 5; // rcol->rest_l_arr[0]->line_count;
+      int stafflines = Staff_symbol_referencer_interface (this).line_count ();
+      // hurg?
+      stafflines = stafflines != 0 ? stafflines : 5;
       
       // move discretely by half spaces.
       int discrete_dist = int (ceil (dist / (0.5 *staff_space)));

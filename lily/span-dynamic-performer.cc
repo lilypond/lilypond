@@ -18,7 +18,7 @@ struct Audio_dynamic_tuple
 };
 
 /**
-   handle perform span-dynamics
+   perform span-dynamics
  */
 class Span_dynamic_performer : public Performer
 {
@@ -34,17 +34,11 @@ protected:
   virtual void do_pre_move_processing ();
 
 private:
-  Drul_array<Span_req*> request_drul_;
-  Drul_array<Moment> moment_drul_;
-  Drul_array<int> volume_drul_;
-  Array<Audio_dynamic_tuple> dynamic_tuple_arr_;
-
-  // BURP
-  Drul_array<Moment> done_moment_drul_;
-  Drul_array<int> done_volume_drul_;
-  Array<Audio_dynamic_tuple> done_dynamic_tuple_arr_;
-
   Audio_dynamic* audio_p_;
+  Drul_array<Span_req*> request_drul_;
+  Array<Audio_dynamic_tuple> dynamic_tuple_arr_;
+  Array<Audio_dynamic_tuple> finished_dynamic_tuple_arr_;
+  Direction finished_dir_;
 };
 
 ADD_THIS_TRANSLATOR (Span_dynamic_performer);
@@ -52,7 +46,6 @@ ADD_THIS_TRANSLATOR (Span_dynamic_performer);
 Span_dynamic_performer::Span_dynamic_performer ()
 {
   request_drul_[START] = request_drul_[STOP] = 0;
-  volume_drul_[START] = volume_drul_[STOP] = 0;
   audio_p_ = 0;
 }
 
@@ -61,59 +54,64 @@ Span_dynamic_performer::acknowledge_element (Audio_element_info i)
 {
   if (Audio_dynamic * d = dynamic_cast <Audio_dynamic*> (i.elem_l_))
     {
-      Direction dir = volume_drul_[START] ? STOP : START;
-      volume_drul_[dir] = d->volume_i_;
-      if (done_dynamic_tuple_arr_.size ())
-	done_volume_drul_[STOP] = d->volume_i_;
-#if 0
       Audio_dynamic_tuple a = { d, now_mom () };
+      if (!request_drul_[START])
+	dynamic_tuple_arr_.clear ();
       dynamic_tuple_arr_.push (a);
-#endif
+      if (finished_dynamic_tuple_arr_.size ())
+	finished_dynamic_tuple_arr_.push (a);
     }
 }
 
 void
 Span_dynamic_performer::do_process_requests ()
 {
+  if (finished_dynamic_tuple_arr_.size () > 1
+     && finished_dynamic_tuple_arr_.top ().audio_l_->volume_i_)
+    {
+      Real start_volume = finished_dynamic_tuple_arr_[0].audio_l_->volume_i_;
+      Real dv = finished_dynamic_tuple_arr_.top ().audio_l_->volume_i_
+	- start_volume;
+      if (!dv)
+	{
+	  // urg.  about one volume step
+	  dv = (int)finished_dir_ * 13;
+	  if (!start_volume)
+	    start_volume = finished_dynamic_tuple_arr_.top
+	      ().audio_l_->volume_i_ - dv;
+	}
+      Moment start_mom = finished_dynamic_tuple_arr_[0].mom_;
+      Moment dt = finished_dynamic_tuple_arr_.top ().mom_ - start_mom;
+      for (int i=0; i < finished_dynamic_tuple_arr_.size (); i++)
+	{
+	  Audio_dynamic_tuple* a = &finished_dynamic_tuple_arr_[i];
+	  Real volume = start_volume + dv * (Real)(a->mom_ - start_mom)
+	    / (Real)dt;
+	  a->audio_l_->volume_i_ = (int)volume;
+	}
+      finished_dynamic_tuple_arr_.clear ();
+    }
+
+  if (request_drul_[STOP])
+    {
+      finished_dynamic_tuple_arr_ = dynamic_tuple_arr_;
+      finished_dir_ = request_drul_[STOP]->span_type_str_ == "crescendo"
+	? RIGHT : LEFT;
+      dynamic_tuple_arr_.clear ();
+      if (finished_dynamic_tuple_arr_.size ())
+	dynamic_tuple_arr_.push (finished_dynamic_tuple_arr_.top ());
+      request_drul_[STOP] = 0;
+      request_drul_[START] = 0;
+    }
+
   if (request_drul_[START])
     {
-      audio_p_ = new Audio_dynamic (volume_drul_[START]);
+      audio_p_ = new Audio_dynamic (0);
       Audio_element_info info (audio_p_, 0);
       announce_element (info);
 
       Audio_dynamic_tuple a = { audio_p_, now_mom () };
       dynamic_tuple_arr_.push (a);
-    }
-
-  if (done_dynamic_tuple_arr_.size ())
-    {
-      if (done_volume_drul_[STOP])
-	{
-	  Real dv = done_volume_drul_[STOP] - done_volume_drul_[START];
-	  Moment dt = done_moment_drul_[STOP] - done_moment_drul_[START];
-	  for (int i=0; i < done_dynamic_tuple_arr_.size (); i++)
-	    {
-	      Real volume =
-		(done_volume_drul_[START]
-		 + dv * (Real)(done_dynamic_tuple_arr_[i].mom_
-			       - done_moment_drul_[START]) / (Real)dt);
-	      done_dynamic_tuple_arr_[i].audio_l_->volume_i_ = (int)volume;
-	    }
-	}
-      done_dynamic_tuple_arr_.clear ();
-    }
-
-  if (request_drul_[STOP])
-    {
-      done_dynamic_tuple_arr_ = dynamic_tuple_arr_;
-      dynamic_tuple_arr_.clear ();
-      done_volume_drul_[START] = volume_drul_[START];
-      done_volume_drul_[STOP] = volume_drul_[STOP];
-      done_moment_drul_[START] = moment_drul_[START];
-      done_moment_drul_[STOP] = moment_drul_[STOP];
-      request_drul_[STOP] = 0;
-      volume_drul_[START] = volume_drul_[STOP];
-      volume_drul_[STOP] = 0;
     }
 }
 
@@ -144,9 +142,6 @@ Span_dynamic_performer::do_try_music (Music* r)
 	  return false;
 	}
       request_drul_[d] = s;
-      moment_drul_[d] = now_mom ();
-      if (d == START && volume_drul_[STOP])
-	volume_drul_[START] = volume_drul_[STOP];
       return true;
     }
   return false;
