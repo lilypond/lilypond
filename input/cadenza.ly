@@ -31,28 +31,28 @@ cad = \melodic  {
 		\bar "empty";
 			c [c_"rubato" e g c']
 	\octave c'';
-	e4. e [g ~ f_"rit" e d]
+	e4. e [g () f_"rit" e d]
 
 	\duration 16;
-	dis4~ e4
+	dis4() e4
 		\bar "" ;
 		r8 [c d] [e f g gis]
 	\duration 4;
-	a-> 'f~ 'e g
-	f-> 'd~ 'cis e
+	a-> 'f() 'e g
+	f-> 'd() 'cis e
 	\duration 8;	
 	d4^\fermata
 		\bar "" ;
 
 	r8 'a ['b cis]
 	\duration 16;	[d cis d e]
-	f4~ [f e d c]
+	f4() [f e d c]
 	'b4-\turn
 	\octave c'; [2/3 d'8 c'8 a8]1/1
 	g2
 		\bar "" ;
 	[g c e g] [c' e g c']\octave c''; 
-	[e 'g c e] g4^\fermata %~ % BUG!
+	[e 'g c e] g4^\fermata 
 		\bar "" ;
 	[g8.(_"a tempo" e g8. )e]
 	a4. g8 [f8 e8 d8 c8]
