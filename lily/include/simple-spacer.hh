@@ -63,7 +63,10 @@ struct Spring_description
 struct Simple_spacer
 {
   Array<Spring_description> springs_;
+  Link_array<Item> spaced_cols_;
+  Link_array<Item> all_cols_; 
 
+  
   Real force_f_;
   Real indent_f_;
   Real line_len_f_;
@@ -71,9 +74,10 @@ struct Simple_spacer
 
 
   Simple_spacer ();
-  
+
+  void do_wide_springs (Column_x_positions*) const;
   void solve (Column_x_positions *) const;
-  void add_columns (Link_array<Grob>);
+  void add_columns (Link_array<Item>);
   void my_solve_linelen ();
   void my_solve_natural_len ();
   Real active_springs_stiffness () const;

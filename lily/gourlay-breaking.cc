@@ -54,7 +54,7 @@ Array<Column_x_positions>
 Gourlay_breaking::do_solve () const
 {
   Array<Break_node> optimal_paths;
-  Link_array<Grob> all =
+  Link_array<Item> all =
     pscore_l_->line_l_->column_l_arr ();
   
   Array<int> breaks = find_break_indices ();
@@ -80,7 +80,7 @@ Gourlay_breaking::do_solve () const
 
       for (int start_idx = break_idx; start_idx--;)
 	{
-	  Link_array<Grob> line = all.slice (breaks[start_idx], breaks[break_idx]+1);
+	  Link_array<Item> line = all.slice (breaks[start_idx], breaks[break_idx]+1);
   
 	  line[0]     = dynamic_cast<Item*> (line[0])    ->find_prebroken_piece (RIGHT);
 	  line.top () = dynamic_cast<Item*> (line.top ())->find_prebroken_piece (LEFT);

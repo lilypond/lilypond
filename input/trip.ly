@@ -69,7 +69,7 @@ praeludiumLeft =  \notes \relative c {
 
       cis] }
       \translator Staff = bass 
-      \shiftOff
+      \shiftOff \stemUp
       [bis gis] cis4 |
       dis2 cis4 r8 cis }
     \context Voice = one { \stemUp bis2 }

@@ -13,7 +13,7 @@
 
 struct Column_x_positions
 {
-  Link_array<Grob> cols_;
+  Link_array<Item> cols_;
   Array<Real> config_;
   Real force_f_;
   bool satisfies_constraints_b_;

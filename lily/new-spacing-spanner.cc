@@ -39,7 +39,7 @@ New_spacing_spanner::set_interface (Grob*me)
   
  */
 void
-New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols) 
+New_spacing_spanner::do_measure (Grob*me, Link_array<Item> const & cols) 
 {
   Moment shortest;
   Moment mean_shortest;
@@ -77,30 +77,54 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
   Array<Spring> springs;
 
   Item * first_col = 0;
-  Item * last_col = 0;
-  
   for (int i= 0; i < cols.size () - 1; i++)
     {
       Item * l = dynamic_cast<Item*> (cols[i]);
 
-      if (!Paper_column::musical_b (l))
-	continue ;
-
-      if (!first_col)
+      if (!first_col && Paper_column::musical_b (l))
 	first_col = l;
+
+      SCM between = cols[i]->get_grob_property ("between-cols"); 
+      if (gh_pair_p (between)
+	  && i > 0
+	  && i < cols.size ()-1
+	  && (gh_cdr (between) != cols[i+1]->self_scm ()
+	   || gh_car (between) != cols[i-1]->self_scm ()) 
+	  )
+	continue ;
       
-      last_col = l;
       int j = i+1;
-      for (; j < cols.size () -1 ; j++)
-	if (Paper_column::musical_b (cols[j]))
-	  break ;
-      
+      for (; j < cols.size () - 1; j++)
+	{
+	  if  (Paper_column::musical_b (cols[j]))
+	    break;
+
+	  SCM between = cols[j]->get_grob_property ("between-cols");
+	  if (!gh_pair_p (between))
+	    continue;
+
+	  if (gh_car (between) == cols[i]->self_scm () )
+	    break ;
+	}
+
       Item * r =  dynamic_cast<Item*> (cols[j]);
       Paper_column * lc = dynamic_cast<Paper_column*> (l);
       Paper_column *rc = dynamic_cast<Paper_column*> (r);
-      if (!lc || !rc)
-	continue;
 
+
+      cout << "params for cols " << Paper_column::rank_i (l) << " " << Paper_column::rank_i (r) << endl;
+      cout << " musical: " << Paper_column::musical_b (l) << " " << Paper_column::musical_b (r) << endl;
+      if (!Paper_column::musical_b (l))
+	{
+	  breakable_column_spacing (l, r);
+
+	  l = l->find_prebroken_piece (RIGHT);
+	  if (l)
+	    breakable_column_spacing (l,r);
+
+	  continue ; 
+	}
+      
       Real note_space = note_spacing (me,lc, rc, shortest <? base_shortest_duration);
       Real hinterfleisch = note_space;
       Real headwid = gh_scm2double (me->get_grob_property ("arithmetic-multiplier"));
@@ -139,11 +163,14 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 	}
     }
 
-  Item * l = dynamic_cast<Item*> (cols[0])->find_prebroken_piece (RIGHT);
+}
 
-  /*
-    TODO read different spacing hints from break-alignment.
-   */
+/*
+  Read hints from L (todo: R) and generate springs.
+ */
+void
+New_spacing_spanner::breakable_column_spacing (Item* l, Item *r)
+{
   Spring s;
 
   Real break_dist = 0.0;
@@ -167,11 +194,8 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
   s.distance_f_ = break_dist;
   s.strength_f_ = 1/break_stretch;
   s.item_l_drul_[LEFT] = l;
-  s.item_l_drul_[RIGHT] = first_col;
+  s.item_l_drul_[RIGHT] = r;
 
-  s.add_to_cols ();
-
-  s.item_l_drul_[LEFT] = dynamic_cast<Item*>(cols[0]);
   s.add_to_cols ();
 }
 
@@ -213,7 +237,7 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 void
 New_spacing_spanner::stretch_to_regularity (Grob *me,
 					Array<Spring> * springs,
-					Link_array<Grob> const & cols)
+					Link_array<Item> const & cols)
 {
   /*
     Find the starting column of the run. REGULAR-DISTANCE-TO points
@@ -225,7 +249,7 @@ New_spacing_spanner::stretch_to_regularity (Grob *me,
   for (int i = 0 ;  i <  cols.size () && !first_regular_spaced_col; i++)
     {
       SCM rdt = cols[i]->get_grob_property ("regular-distance-to");
-      if (cols.find_l (unsmob_grob (rdt)))
+      if (cols.find_l (dynamic_cast<Item*> (unsmob_grob (rdt))))
 	first_regular_spaced_col = unsmob_grob (rdt);
     }
   for (int i = springs->size ();  i-- ;)
@@ -446,7 +470,7 @@ SCM
 New_spacing_spanner::set_springs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Link_array<Grob> all (me->pscore_l_->line_l_->column_l_arr ()) ;
+  Link_array<Item> all (me->pscore_l_->line_l_->column_l_arr ()) ;
 
   int j = 0;
 
@@ -455,7 +479,7 @@ New_spacing_spanner::set_springs (SCM smob)
       Grob *sc = all[i];
       if (Item::breakable_b (sc))
         {
-	  Link_array<Grob> measure (all.slice (j, i+1));	  
+	  Link_array<Item> measure (all.slice (j, i+1));	  
           do_measure (me, measure);
 	  j = i;
         }

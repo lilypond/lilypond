@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2001  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; (c) 1998--20.301  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ; distances are given in stafflinethickness (thicknesses) and
@@ -466,7 +466,7 @@
 	(Script . (
 		;; don't set direction here: it breaks staccato.
 		(molecule-callback . ,Script::brew_molecule)
-		(padding . 0.3) 
+		(padding . 0.29) 
 		(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
 		(before-line-breaking-callback . ,Script::before_line_breaking)
 		(meta . ,(grob-description "Script" script-interface side-position-interface font-interface))
