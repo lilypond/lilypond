@@ -2,6 +2,10 @@
 
 	* Documentation/topdocs/INSTALL.texi: finish install orders for vim.
 
+	* vim/filetype.vim, vim/lilypond-ftplugin.vim,
+	vim/lilypond-syntax.vim, vim/lilypond-compiler.vim,
+	vim/lilypond-indent.vim: doc targets and deps in comments.
+
 2004-03-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/paper-book.cc (stencil2line): Bugfix: put stencil in line.

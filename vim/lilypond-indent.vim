@@ -2,7 +2,9 @@
 " Language:     LilyPond
 " Maintainer:   Heikki Junes <hjunes@cc.hut.fi>
 " Last Change:  2004 Mar 01
-
+"
+" Installed As:	vim/indent/lilypond.vim
+"
 " Only load this indent file when no other was loaded.
 if exists("b:did_indent")
   finish
