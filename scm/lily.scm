@@ -305,7 +305,6 @@ predicates. Print a message at LOCATION if any predicate failed."
 
 (define-public (postscript->pdf papersizename name)
   (let* ((cmd (string-append "ps2pdf "
-
 			     (string-append
 			      " -sPAPERSIZE="
 			      (sanitize-command-option papersizename)
