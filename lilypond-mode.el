@@ -48,6 +48,17 @@
   :type 'string
   :group 'LilyPond)
 
+(defun LilyPond-words-filename ()
+  "The file containing LilyPond \keywords \Identifiers and ReservedWords.
+Finds file lilypond-words from load-path."
+  (let ((fn nil)
+	(lp load-path)
+	(words-file "lilypond.words"))
+    (while (and (> (length lp) 0) (not fn))
+      (setq fn (concat (car lp) "/" words-file))
+      (if (not (file-readable-p fn)) 
+	  (progn (setq fn nil) (setq lp (cdr lp)))))
+    fn))
 
 (defun LilyPond-check-files (derived originals extensions)
   "Check that DERIVED is newer than any of the ORIGINALS.
@@ -523,6 +534,7 @@ command."
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren)
+  (define-key LilyPond-mode-map "\C-x\C-t" 'LilyPond-autocompletion)
   )
 
 ;;; Menu Support
@@ -623,6 +635,31 @@ command."
 	     (message "Insert note triplets \"\\times 2/3 { a b } \" by typing \"/23ab}\".") (sit-for 5 0 1) 
 	     (message "Remember to add all other details as well.") (sit-for 5 0 1)))
     )))
+
+(defun LilyPond-autocompletion ()
+  "Show completions in mini-buffer for the given word."
+  (interactive)
+  (setq fn (LilyPond-words-filename))
+  (setq b (find-file-noselect fn))
+  (setq m (set-marker (make-marker) 1 (get-buffer b)))
+  (defun add-dictionary-word (x)
+    (nconc '(("" . 1)) x))
+  (setq i 1)
+  (while (> (buffer-size b) (marker-position m))
+    (setq i (+ i 1))
+    (setq copy (copy-alist (list (eval (symbol-name (read m))))))
+    (setcdr copy i)
+    (add-dictionary-word (list copy))
+    )
+  (setq ch (preceding-char))
+;  (if (or (and (>= ch 65) (<= ch 90)) 
+;	  (and (>= ch 97) (<= ch 122))) ; A-Z,a-z
+;      (message "yes") (message "no"))
+  (setq co (all-completions (char-to-string ch) (add-dictionary-word ())))
+  (while (> (length co) 0)
+    (message (car co)) 
+    (sit-for 0 500 1)
+    (setq co (cdr co))))
 
 (defun LilyPond-insert-string (pre)
   "Insert text to the buffer."
