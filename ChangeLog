@@ -1,3 +1,14 @@
+2002-04-08  Chris Jackson <chris@fluffhouse.org.uk>
+
+	* lilypond-indent.el: Bugfix of indentation of final point in buffer
+
+2002-04-09  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: new command: LilyPond-un-comment-region.
+	Added 2Midi to "Command"-menu. Inspired by latex.el and tex.el: 
+	separate "Command"-menu and "LilyPond"-menu. Added "Miscellanous"-
+	submenu to "LilyPond"-menu.
+
 2002-04-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/script-stack-order.ly: new file.

@@ -2,7 +2,7 @@
 ;;; lilypond-mode.el --- Major mode for editing GNU LilyPond music scores
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
-;;; 
+;;;  
 ;;; (c) 1999--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;; 
 ;;; Changed 2001 Heikki Junes <heikki.junes@hut.fi>
@@ -25,7 +25,7 @@
 (require 'easymenu)
 (require 'compile)
 
-(defconst LilyPond-version "1.5.28"
+(defconst LilyPond-version "1.5.51"
   "`LilyPond-mode' version number.")
 
 (defconst LilyPond-help-address "bug-lilypond@gnu.org"
@@ -369,6 +369,11 @@ Must be the car of an entry in `LilyPond-command-alist'."
 		".midi"))
      "Midi")))
 
+(defun LilyPond-un-comment-region (start end level)
+  "Remove up to LEVEL comment characters from each line in the region."
+  (interactive "*r\np") 
+  (comment-region start end (- level)))
+
 ;; FIXME, this is broken
 (defun LilyPond-region-file (begin end)
   (let (
@@ -487,6 +492,7 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-next-midi)
   (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
   (define-key LilyPond-mode-map "\C-cs" 'LilyPond-insert-tag-score)
+  (define-key LilyPond-mode-map "\C-c:" 'LilyPond-un-comment-region)
   (define-key LilyPond-mode-map "\C-c;" 'comment-region)
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren)
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren)
@@ -537,7 +543,7 @@ command."
 	   (vector name (list 'LilyPond-command-menu name) t)))))
 
 
-(easy-menu-define LilyPond-mode-menu
+(easy-menu-define LilyPond-command-menu
     LilyPond-mode-map
     "Menu used in LilyPond mode."
   (append '("Command")
@@ -551,12 +557,6 @@ command."
 	     [ "Region" LilyPond-command-select-region
 	       :keys "C-c C-r" :style radio
 	       :selected (eq LilyPond-command-current 'LilyPond-command-region) ]))
-	  '(("Insert"
-	     [ "\\notes..."  LilyPond-insert-tag-notes
-	       :keys "C-c n" ]
-	     [ "\\score..."  LilyPond-insert-tag-score
-	       :keys "C-c s" ]
-	     ))
 ;	  (let ((file 'LilyPond-command-on-current))
 ;	    (mapcar 'LilyPond-command-menu-entry LilyPond-command-alist))
 ;;; Some kind of mapping which includes :keys might be more elegant
@@ -564,12 +564,27 @@ command."
 	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-master-file) ])
 	  '([ "2Dvi" (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-master-file) :keys "C-c C-d"])
 	  '([ "2PS" (LilyPond-command (LilyPond-command-menu "2PS") 'LilyPond-master-file) :keys "C-c C-f"])
+	  '([ "2Midi" (LilyPond-command (LilyPond-command-menu "2Midi") 'LilyPond-master-file)])
 	  '([ "Book" (LilyPond-command (LilyPond-command-menu "Book") 'LilyPond-master-file) ])
 	  '([ "LaTeX" (LilyPond-command (LilyPond-command-menu "LaTeX") 'LilyPond-master-file) ])
 	  '([ "SmartView" (LilyPond-command (LilyPond-command-menu "SmartView") 'LilyPond-master-file) :keys "C-c C-s"])
 	  '([ "View" (LilyPond-command (LilyPond-command-menu "View") 'LilyPond-master-file) :keys "C-c C-v"])
 	  '([ "ViewPS" (LilyPond-command (LilyPond-command-menu "ViewPS") 'LilyPond-master-file) :keys "C-c C-p"])
 	  '([ "Midi (off)" (LilyPond-command-next-midi) :keys "C-c C-m"])
+	  ))
+
+(easy-menu-define LilyPond-mode-menu
+  LilyPond-mode-map
+  "Menu used in LilyPond mode."
+  (append '("LilyPond")
+	  '(("Insert"
+	     [ "\\notes..."  LilyPond-insert-tag-notes t]
+	     [ "\\score..."  LilyPond-insert-tag-score t]
+	     ))
+	  '(("Miscellaneous"
+	     ["Uncomment Region" LilyPond-un-comment-region t]
+	     ["Comment Region" comment-region t]
+	     ))
 	  ))
 
 (defconst LilyPond-imenu-generic-re "^\\([a-zA-Z_][a-zA-Z0-9_]*\\) *="
