@@ -2614,6 +2614,9 @@ and @var{grobname} are strings and @var{value} is a Scheme expression.
 @refbugs
 
 LilyPond will hang or crash if @var{value} contains cyclic references.
+The backend is not very strict in type-checking grob properties. If you
+@code{\revert} properties that are expected to be set by default,
+LilyPond may crash.
 
 
 

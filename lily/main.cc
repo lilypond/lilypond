@@ -328,7 +328,7 @@ main_prog (int, char**)
   all_fonts_global_p = new All_font_metrics (global_path.str ());
 
   init_scheme_code_string += ")";
-  gh_eval_str (init_scheme_code_string.ch_C());
+  gh_eval_str ((char *)init_scheme_code_string.ch_C());
   
   int p=0;
   const char *arg ;

@@ -190,12 +190,12 @@ breakmusic =  \notes {
     \context PianoStaff <
       \context Staff = treble {
  	\property Score.midiInstrument = "church organ"
-        \praeludium_right \breakmusic \fugaII_right }
+        \praeludiumRight \breakmusic \fugaIIRight }
       \context Staff = bass { 
-        \praeludium_left \breakmusic \fugaII_left }
+        \praeludiumLeft \breakmusic \fugaIILeft }
     > 
     \context Staff = pedal {
-      \praeludium_pedal \breakmusic \fugaII_pedal }
+      \praeludiumPedal \breakmusic \fugaIIPedal }
   >
 
   \paper {

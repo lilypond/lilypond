@@ -1138,7 +1138,7 @@ oboes = \notes \relative c'' \context Voice = oboe {
 }
 
 hoomPah  =  \repeat unfold 8
-  \notes  \transpose c' { c8 \stemDown c'8 \stemUp }
+  \notes  \transpose c' { \stemUp c8 \stemBoth \stemDown c'8  \stemBoth  }
 
 bassvoices = \notes \relative c' {
 	c4 g8. b,16

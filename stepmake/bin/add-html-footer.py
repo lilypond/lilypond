@@ -124,7 +124,7 @@ set_gcos ()
 localtime = time.strftime ('%c %Z', time.localtime (time.time ()))
 
 if os.path.basename (index_url) != "index.html":
-	index_url = index_url + "/index.html"
+	index_url = os.path.join (index_url , "index.html")
 top_url = os.path.dirname (index_url) + "/"
 
 header = compose (default_header, header_file)
@@ -172,8 +172,12 @@ def do_file (f):
 	if os.path.basename (f) == "index.html":
 		cwd = os.getcwd ()
 		if os.path.basename (cwd) == "topdocs":
-			index = "./index.html"
-			top = "./"
+			index = "index.html"
+			top = ""
+
+		# don't cause ///////index.html entries in log files.
+		#	index = "./index.html"
+		#	top = "./"
 
 	s = re.sub ('@INDEX@', index, s)
 	s = re.sub ('@TOP@', top, s)

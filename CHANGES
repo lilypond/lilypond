@@ -1,8 +1,3 @@
-1.3.140.jcn7
-============
-
-* Ports: grep for '\score' in .lys if main .ly file can't be found.
-
 1.3.140.jcn6
 ============
 
@@ -21,22 +16,13 @@ they're now accessible throug the ports.
 
 * Ly2dvi: don't hang compilation process: run latex in batchmode.
 
-1.3.140.jcn4
-============
-
 * Some ly2dvi updates.
 
 * Junked cruft from makefiles.
 
-1.3.140.jcn4
-============
-
 * Added message about make help at end of configure.
 
 * Some documentation updates.
-
-1.3.140.jcn3
-============
 
 * Convert-ly: added some missing rules.
 
@@ -46,24 +32,35 @@ they're now accessible throug the ports.
 --assume-old will apply all conversions if version cannot be
 determined.
 
-1.3.140.jcn2
-============
-
 * Small documentation fixes.
 
 * Removed default (font-shape . italic) settings from TextScript and
 TextSpanner.
 
-1.3.140.jcn1
-============
-
 * Moved ports section of mutopia to mutopia/ports.  Fixed make
 bootstrapping.  Added sync target, synced with www.mutopiaproject.org.
 
-1.3.139.jcn6
+* Bugfix: ly2dvi sets footers, headers, tagline.  Pagenumbering on by default.
+
+1.3.140.hwn1
 ============
 
-* Bugfix: ly2dvi sets footers, headers, tagline.  Pagenumbering on by default.
+* input/trick/boxed-molecule.ly : show how to draw boxes around grobs.
+
+* added font-shape caps, input/test/caps.
+
+* Added minimum-length for hairpin. Unified Tie::set_spacing_rods and
+Slur::set_spacing_rods into Spanner::set_spacing_rods
+
+* Small doco fixes.
+
+1.3.140.mb1
+===========
+
+* Bugfix: Some more examples in input/test/ work again.
+
+* bugfix: cautionary accidentals
+
 
 1.3.140
 =======

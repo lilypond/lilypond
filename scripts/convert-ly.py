@@ -753,6 +753,7 @@ if 1:
 if 1:
 	def conv (str):
 		str = re.sub ('followThread', 'followVoice', str)
+		str = re.sub ('Thread.FollowThread', 'Voice.VoiceFollower', str)
 		str = re.sub ('FollowThread', 'VoiceFollower', str)
 		return str
 	

@@ -4,6 +4,7 @@ enteredby = 	 "jcn";
 copyright = 	 "public domain";
 }
 %{ file tests silly line shapes %}
+% Broken since 1.3.55
 
 \include "paper20.ly"
 

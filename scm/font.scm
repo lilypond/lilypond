@@ -106,7 +106,16 @@
     ((-3 medium upright typewriter cmtt 6) . "cmtt6" )
     ((-4 medium upright typewriter cmtt 5) . "cmtt5" )
     ((-5 medium upright typewriter cmtt 5) . "cmtt5" )
+    
+    ((3 medium caps roman cmcsc 12) . "cmcsc12")
+    ((2 medium caps roman cmcsc 12) . "cmcsc12")
+    ((1 medium caps roman cmcsc 12) . "cmcsc12")
+    ((0 medium caps roman cmcsc 10) . "cmcsc10")
+    ((-1 medium caps roman cmcsc 8) . "cmcsc8")
+    ((-2 medium caps roman cmcsc 7) . "cmcsc7")
+    ((-3 medium caps roman cmcsc 7) . "cmcsc7")
 
+    
     ;; should use the same brace font every where and fix C++ code.
     ((2 * * braces feta-braces 26) . "feta-braces26")
     ((1 * * braces feta-braces 23) . "feta-braces23")
