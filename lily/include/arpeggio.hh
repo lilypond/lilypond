@@ -16,6 +16,7 @@ class Arpeggio
 {
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (brew_chord_bracket, (SCM));
   DECLARE_SCHEME_CALLBACK (width_callback, (SCM,SCM));
   static bool has_interface (Grob*);
 };

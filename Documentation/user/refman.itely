@@ -2016,7 +2016,7 @@ to the chords in both staves, and set
 @end lilypond
 
 This command creates @internalsref{Arpeggio} grobs.  Cross staff arpeggios
-are @code{PianoStaff.Arpeggio}. @internalsref{Arpeggio}
+are @code{PianoStaff.Arpeggio}.
 
 To add an arrow head to explicitly specify the direction of the
 arpeggio, you should set the arpeggio grob property
@@ -2031,19 +2031,20 @@ arpeggio, you should set the arpeggio grob property
   }
 @end lilypond
 
-@ignore
 A square bracket on the left indicates that the player should not
-arpeggiate the chord.
+arpeggiate the chord. To draw these brackets, set the
+@code{molecule-callback} property of @code{Arpeggio} or
+@code{PianoStaff.Arpeggio} grobs to @code{\arpeggioBracket}, and use
+@code{\arpeggio} statements within the chords as before.
 
-@lil ypond[fragment,relative,verbatim]
+@lilypond[fragment,relative,verbatim]
   \context PianoStaff <
     \property PianoStaff.connectArpeggios = ##t
-    \property PianoStaff.Arpeggio \override #'arpeggio-direction = #'bracket
+    \property PianoStaff.Arpeggio \override #'molecule-callback = \arpeggioBracket
     \context Voice = one  { <c'\arpeggio e g c> }
     \context Voice = other { \clef bass  <c,,\arpeggio e g>}
   >  
-@ e nd lilypond
-@end ignore
+@end lilypond
 
 
 @refbugs

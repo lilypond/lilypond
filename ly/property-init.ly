@@ -220,3 +220,10 @@ forgetAccidentals = {
 % set it to turnOff. Example: \property Staff.VoltaBracket = \turnOff
 
 turnOff = #'()
+
+% For drawing vertical chord brackets with \arpeggio
+% This is a shorthand for the value of the molecule-callback property 
+% of either Staff.Arpeggio or PianoStaff.Arpeggio, depending whether 
+% cross-staff brackets are desired. 
+
+arpeggioBracket = #(lambda (grob) (Arpeggio::brew_chord_bracket grob))

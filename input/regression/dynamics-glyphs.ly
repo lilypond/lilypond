@@ -7,6 +7,7 @@ of the hairpin signs."
     
 \notes\relative c'' { c4-\ff
 		      c \f
+		      c \rfz		      
 		      c \mf
 		      c \mp \> \!
 		      c \pp \< \!

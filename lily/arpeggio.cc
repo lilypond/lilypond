@@ -1,5 +1,5 @@
 /*   
-  arpegggio.cc -- implement Arpeggio
+  arpeggio.cc -- implement Arpeggio
 
   source file of the GNU LilyPond music typesetter
   
@@ -15,6 +15,7 @@
 #include "staff-symbol.hh"
 #include "warn.hh"
 #include "font-interface.hh"
+#include "lookup.hh"
 
 bool
 Arpeggio::has_interface (Grob* me)
@@ -92,6 +93,52 @@ Arpeggio::brew_molecule (SCM smob)
   
   return mol.smobbed_copy () ;
 }
+
+/* Draws a vertical bracket to the left of a chord 
+   Chris Jackson <chris@fluffhouse.org.uk> */
+
+MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_bracket, 1);
+SCM 
+Arpeggio::brew_chord_bracket (SCM smob) 
+{
+  Grob *me = unsmob_grob (smob);
+  
+  Grob * common = me;
+  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
+    {
+      Grob * stem =  unsmob_grob (ly_car (s));
+      common =  common->common_refpoint (Staff_symbol_referencer::staff_symbol_l (stem),
+				 Y_AXIS);
+    }
+
+  Interval heads;
+  Real my_y = me->relative_coordinate (common, Y_AXIS);
+      
+  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
+    {
+      Grob * stem = unsmob_grob (ly_car (s));
+      Grob * ss = Staff_symbol_referencer::staff_symbol_l (stem);
+      Interval iv = Stem::head_positions (stem);
+      iv *= Staff_symbol::staff_space (ss)/2.0;      
+      heads.unite (iv  +  ss->relative_coordinate (common, Y_AXIS)  -  my_y);
+    }
+
+  Real lt =  me->paper_l ()->get_var ("linethickness");
+  Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
+  Real dy = heads.length() + sp;
+  Real x = 0.7;
+
+  Molecule l1     = Lookup::line (lt, Offset(0, 0),  Offset (0, dy));
+  Molecule bottom = Lookup::line (lt, Offset(0, 0),  Offset (x, 0));
+  Molecule top    = Lookup::line (lt, Offset(0, dy), Offset (x, dy));
+  Molecule mol;
+  mol.add_molecule (l1);
+  mol.add_molecule (bottom);
+  mol.add_molecule (top);
+  mol.translate_axis (heads[LEFT] - sp/2.0, Y_AXIS);
+  return mol.smobbed_copy();
+}
+
 
 /*
   We have to do a callback, because brew_molecule () triggers a
