@@ -36,13 +36,13 @@ Key_engraver::create_key ()
 bool
 Key_engraver::do_try_request (Request * req_l)
 {
-  Command_req* creq_l= req_l->access_Command_req ();
-  if (!creq_l|| !creq_l->access_Key_change_req ())
+  Command_req* creq_l= dynamic_cast <Command_req *> (req_l);
+  if (!creq_l|| !dynamic_cast <Key_change_req *> (creq_l))
     return false;
    
   if (keyreq_l_)
     return false;		// TODO
-  keyreq_l_ = creq_l->access_Key_change_req ();
+  keyreq_l_ = dynamic_cast <Key_change_req *> (creq_l);
   read_req (keyreq_l_);
   return true;
 }
@@ -50,9 +50,9 @@ Key_engraver::do_try_request (Request * req_l)
 void
 Key_engraver::acknowledge_element (Score_element_info info)
 {
-  Command_req * r_l = info.req_l_->access_Command_req () ;
+  Command_req * r_l = dynamic_cast <Command_req *> (info.req_l_) ;
 
-  if (r_l && r_l->access_Clef_change_req ()) 
+  if (r_l && dynamic_cast <Clef_change_req *> (r_l)) 
     {
       int i= get_property ("createKeyOnClefChange").length_i ();
       if (i)

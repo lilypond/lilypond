@@ -240,22 +240,22 @@ My_lily_parser::get_parens_request (int t)
   switch (t)
     {
     case BEAMPLET:
-      reqs.top ()->access_Span_req ()->spantype = Span_req::START;
+      dynamic_cast<Span_req*> (reqs.top ())->spantype = Span_req::START;
       /* fall through */
     case '<':
     case '>':
     case '(':
     case '[':
     case PLET:
-      reqs[0]->access_Span_req ()->spantype = Span_req::START;
+      dynamic_cast<Span_req*> (reqs.top ())->spantype = Span_req::START;
       break;
     case MAEBTELP:
-      reqs.top ()->access_Span_req ()->spantype = Span_req::STOP;
+      dynamic_cast<Span_req*> (reqs.top ())->spantype = Span_req::STOP;
       /* fall through */
     case '!':
     case ')':
     case ']':
-      reqs[0]->access_Span_req ()->spantype = Span_req::STOP;
+      dynamic_cast<Span_req*> (reqs[0])->spantype = Span_req::STOP;
       break;
 
     default:
@@ -263,9 +263,9 @@ My_lily_parser::get_parens_request (int t)
     }
 
   for (int i = 0; i < reqs.size (); i++)
-    if (reqs[i]->access_Musical_req ()->access_Span_dynamic_req ())
+    if (dynamic_cast<Span_dynamic_req*> (reqs[i]))
       {
-	Span_dynamic_req* s_l= reqs[i]->access_Musical_req ()->access_Span_dynamic_req ();
+	Span_dynamic_req* s_l= dynamic_cast<Span_dynamic_req*> (reqs[i]);
 	s_l->dynamic_dir_ = (t == '<') ? UP:DOWN;
       }
 

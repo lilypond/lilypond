@@ -40,7 +40,7 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
   if (depth > 1
       && i.elem_l_->is_type_b (Bar::static_name())) 
     {
-      bar_l_arr_.push ((Bar*)i.elem_l_->access_Item ());
+      bar_l_arr_.push ((Bar*)dynamic_cast <Item *> (i.elem_l_));
 	
       if (bar_l_arr_.size() >= 2 && !spanbar_p_) 
 	/*
@@ -65,7 +65,7 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
   else if  (i.elem_l_->is_type_b (Vertical_align_spanner::static_name()) 
 	    && i.origin_grav_l_arr_.size() <= 2) 
     {
-      valign_l_ = (Vertical_align_spanner*)i.elem_l_->access_Spanner ();
+      valign_l_ = (Vertical_align_spanner*)dynamic_cast <Spanner *> (i.elem_l_);
     }
 }
 

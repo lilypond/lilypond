@@ -21,11 +21,7 @@
 #include "word-wrap.hh"
 #include "gourlay-breaking.hh"
 #include "paper-stream.hh"
-#include "ps-stream.hh"
-#include "tex-stream.hh"
 #include "paper-outputter.hh"
-#include "ps-outputter.hh"
-#include "tex-outputter.hh"
 #include "file-results.hh"
 #include "misc.hh"
 
@@ -151,7 +147,7 @@ Paper_score::set_breaking (Array<Column_x_positions> const &breaking)
     }
   for (iter (elem_p_list_.top (),i); i.ok  () ;)
     {
-      Item *i_l =i->access_Item ();
+      Item *i_l =dynamic_cast <Item *> (i);
       if (i_l && !i_l->line_l ())
 	{
 	  i_l->unlink ();
@@ -210,8 +206,8 @@ Paper_score::process ()
 
   Array<Column_x_positions> breaking = calc_breaking ();
 
-  Paper_stream* paper_stream_p = global_lookup_l->paper_stream_p ();
-  outputter_l_ = global_lookup_l->paper_outputter_p (paper_stream_p, paper_l_, header_l_, origin_str_);
+  Paper_stream* paper_stream_p = paper_l_->paper_stream_p ();
+  outputter_l_ = paper_l_->paper_outputter_p (paper_stream_p, header_l_, origin_str_);
 
   Link_array<Line_of_score> lines;
   for (int i=0; i < breaking.size (); i++)
@@ -324,10 +320,10 @@ Paper_score::broken_col_range (Item const*l_item_l, Item const*r_item_l) const
   Item const*r=r_item_l;
 
   while (! l->is_type_b(Paper_column::static_name ()))
-    l = l->axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ();
+    l = dynamic_cast<Item*> (l->axis_group_l_a_[X_AXIS]);
 
   while (! r->is_type_b(Paper_column::static_name ()))
-    r = r->axis_group_l_a_[X_AXIS]->access_Score_element ()->access_Item ();
+    r = dynamic_cast<Item*>(r->axis_group_l_a_[X_AXIS]);
 
   PCursor<Paper_column*> start (l ? find_col ((Paper_column*)l)+1 : col_p_list_.top ());
   PCursor<Paper_column*> stop (r ? find_col ((Paper_column*)r) : col_p_list_.bottom ());

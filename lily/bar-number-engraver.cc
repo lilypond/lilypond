@@ -26,7 +26,7 @@ void
 Bar_number_engraver::acknowledge_element (Score_element_info i)
 {
 
-  Item *it=i.elem_l_->access_Item ();
+  Item *it=dynamic_cast <Item *> (i.elem_l_);
   if (script_p_
       || !it || !it->is_type_b (Bar::static_name()))
       return;

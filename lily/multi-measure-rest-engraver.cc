@@ -26,7 +26,7 @@ Multi_measure_rest_engraver::Multi_measure_rest_engraver ()
 bool
 Multi_measure_rest_engraver::do_try_request (Request* req_l)
 {
-  if (!req_l->access_Musical_req () || !req_l->access_Musical_req ()->access_Multi_measure_rest_req ())
+ if (!dynamic_cast<Multi_measure_rest_req *> (req_l))
     return false;
 
   if (multi_measure_req_l_)
@@ -34,7 +34,7 @@ Multi_measure_rest_engraver::do_try_request (Request* req_l)
 	|| req_start_mom_ != now_moment ())
       return false;
   
-  multi_measure_req_l_ = req_l->access_Musical_req ()->access_Multi_measure_rest_req ();
+  multi_measure_req_l_ = dynamic_cast<Multi_measure_rest_req *> (req_l);
   req_start_mom_ = now_moment ();
   
   rest_req_stop_mom_ = req_start_mom_ + multi_measure_req_l_->duration_.length ();

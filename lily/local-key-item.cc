@@ -116,8 +116,8 @@ IMPLEMENT_IS_TYPE_B1(Local_key_item,Item);
 void
 Local_key_item::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  Item* o_l = o->access_Item ();
-  Item* n_l = n?n->access_Item ():0;
+  Item* o_l = dynamic_cast <Item *> (o);
+  Item* n_l = n?dynamic_cast <Item *> (n):0;
 
   support_items_.substitute (o_l, n_l);
 }

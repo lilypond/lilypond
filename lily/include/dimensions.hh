@@ -14,5 +14,7 @@ const Real PT_TO_PT =1.0;
 #define CM  *CM_TO_PT
 #define INCH *INCH_TO_PT
 
+String print_dimen (Real);
+
 #endif // DIMENSIONS_HH
 

@@ -23,11 +23,10 @@ Note_head_engraver::do_try_request (Request *req_l)
   if (note_req_l_)
     return false;
   
-  if (!(req_l->access_Musical_req () && req_l->access_Musical_req ()->access_Note_req ()))
-
+  if (!(dynamic_cast <Note_req *> (req_l)))
     return false;
   
-  note_req_l_=req_l->access_Musical_req ()->access_Rhythmic_req ();
+  note_req_l_=dynamic_cast <Rhythmic_req *> (req_l);
   return true;
 }
 
@@ -47,7 +46,7 @@ Note_head_engraver::do_process_requests()
       announce_element (Score_element_info (dot_p_,0));
     }
   
-  note_p_->position_i_ = note_req_l_->access_Note_req ()->pitch_.steps ();
+  note_p_->position_i_ = dynamic_cast <Note_req *> (note_req_l_)->pitch_.steps ();
 
   
   Score_element_info itinf (note_p_,note_req_l_);

@@ -38,10 +38,10 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 {
   if (i.elem_l_->is_type_b (Rhythmic_head::static_name()))
     {
-      Rhythmic_head *h  = (Rhythmic_head*) i.elem_l_->access_Item ();
+      Rhythmic_head *h  = (Rhythmic_head*) dynamic_cast <Item *> (i.elem_l_);
       if (!stem_p_) 
 	{
-	  Rhythmic_req * r = i.req_l_->access_Musical_req ()->access_Rhythmic_req ();
+	  Rhythmic_req * r = dynamic_cast <Rhythmic_req *> (i.req_l_);
 	  stem_p_ = new Stem;
 	  int durlog_i = r->duration_.durlog_i_;
 	  stem_p_->flag_i_ = durlog_i;
@@ -103,11 +103,11 @@ Stem_engraver::do_pre_move_processing()
 bool
 Stem_engraver::do_try_request (Request* r)
 {
-  Musical_req* mus_l = r->access_Musical_req ();
+  Musical_req* mus_l = dynamic_cast <Musical_req *> (r);
   if (!mus_l)
     return false;
   
-  Abbreviation_req* a = mus_l->access_Abbreviation_req ();
+  Abbreviation_req* a = dynamic_cast <Abbreviation_req *> (mus_l);
   if (!a)
     return false;
 

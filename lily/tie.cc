@@ -151,10 +151,10 @@ Tie::do_post_processing()
 void
 Tie::do_substitute_dependency (Score_element*o, Score_element*n)
 {
-  Note_head *new_l =n?(Note_head*)n->access_Item ():0;
-  if (o->access_Item () == head_l_drul_[LEFT])
+  Note_head *new_l =n?(Note_head*)dynamic_cast <Item *> (n):0;
+  if (dynamic_cast <Item *> (o) == head_l_drul_[LEFT])
     head_l_drul_[LEFT] = new_l;
-  else if (o->access_Item () == head_l_drul_[RIGHT])
+  else if (dynamic_cast <Item *> (o) == head_l_drul_[RIGHT])
     head_l_drul_[RIGHT] = new_l;
 }
 

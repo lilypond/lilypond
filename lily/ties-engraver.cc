@@ -28,15 +28,15 @@ Ties_engraver::do_post_move_processing()
 bool
 Ties_engraver::do_try_request (Request*req)
 {
-  if (! req->access_Musical_req ())
+  if (! dynamic_cast <Musical_req *> (req))
       return false;
 
-  Tie_req * r=  req->access_Musical_req ()->access_Tie_req ();
-  if (!r)
-    return false;
-  
-  req_l_ = r;
-  return true;
+  if(Tie_req * r=  dynamic_cast <Tie_req *> (req))
+    {  
+      req_l_ = r;
+      return true;
+    }
+  return false;
 }
 
 
@@ -47,8 +47,8 @@ Ties_engraver::acknowledge_element (Score_element_info i)
     return;
   if (i.elem_l_->is_type_b (Note_head::static_name ()))
     {
-      Note_head * h = (Note_head*)i.elem_l_->access_Item ();
-      Melodic_req *m = i.req_l_->access_Musical_req ()->access_Melodic_req ();
+      Note_head * h = dynamic_cast <Note_head *> (i.elem_l_);
+      Melodic_req *m = dynamic_cast <Melodic_req *> (i.req_l_);
       
       head_mel_tuple_arr_.push (Head_melodic_tuple (h, m));
     }

@@ -10,13 +10,10 @@ grep for TODO and ugh/ugr/urg
 
 BUGS:
 
-	* document new TeX/mf layout
-
-	* egcs-1.1 -O2 -finline-functions  causes crash
+	
+	* add new glyphs to font.ly
 
 	* formatting of input stuff. 
-
-	* use real RTTI iso access_Stuff.
 
 	* \notes{ a \< b \cr } vs \notes{ a \< b \! }
 

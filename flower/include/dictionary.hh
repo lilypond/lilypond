@@ -100,7 +100,6 @@ public:
 	  nexti = (nexti + j*j)%sz;
 	}
       
-    finish:
       return retval;
     }
 };
@@ -181,7 +180,10 @@ public:
 
   V operator [] (String k) const
     {
-      return elem (k);
+      V retval;
+      if (!elem_b (k))
+	return retval ;
+      retval ((Dictionary<V> *) this)->elem (k);
     }
 
   V remove (String s)

@@ -32,8 +32,8 @@ Dot_column::add_head (Rhythmic_head *r)
 void
 Dot_column::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  Item *oi =o->access_Item ();
-  Item *ni = n?n->access_Item ():0;
+  Item *oi =dynamic_cast <Item *> (o);
+  Item *ni = n?dynamic_cast <Item *> (n):0;
   
   if (oi&&oi->is_type_b (Rhythmic_head::static_name ()))
     head_l_arr_.substitute ((Rhythmic_head*)oi, (Rhythmic_head*)ni);

@@ -26,12 +26,12 @@ Engraver::announce_element (Score_element_info i)
   daddy_grav_l()->announce_element (i);
 }
 
-
 void
 Engraver::typeset_element (Score_element*p)
 {
   daddy_grav_l()->typeset_element (p);
 }
+
 
 Paper_def*
 Engraver::paper() const
@@ -57,6 +57,6 @@ Engraver_group_engraver*
 Engraver::daddy_grav_l () const
 {
   return (daddy_trans_l_ )
-       ? (Engraver_group_engraver*) daddy_trans_l_->access_Engraver  ()
+       ? (Engraver_group_engraver*) dynamic_cast <Engraver *> (daddy_trans_l_)
        : 0;
 }

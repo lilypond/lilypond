@@ -9,7 +9,6 @@
 
 #include <string.h>
 
-#include "tex-outputter.hh"
 #include "p-score.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -22,6 +21,7 @@
 #include "p-col.hh"
 #include "molecule.hh"
 #include "misc.hh"
+#include "paper-outputter.hh"
 
 #define PARANOID
 
@@ -291,17 +291,17 @@ Score_element::handle_broken_dependencies()
       Score_element * elt = dependency (i);
       if (elt->line_l() != line)
 	{
-	  if (elt->access_Spanner ()) 
+	  if (dynamic_cast <Spanner *> (elt)) 
 	    {
-	      Spanner * sp = elt->access_Spanner ();
+	      Spanner * sp = dynamic_cast <Spanner *> (elt);
 	      Spanner * broken = sp->find_broken_piece (line);
 	      substitute_dependency (sp, broken);
 
 	      add_dependency (broken);
 	    }
-	  else if (elt->access_Item ())
+	  else if (dynamic_cast <Item *> (elt))
 	    {
-	      Item * my_item = elt->access_Item ()->find_prebroken_piece (line);
+	      Item * my_item = dynamic_cast <Item *> (elt)->find_prebroken_piece (line);
 		
 	      substitute_dependency (elt, my_item);
 	      if (my_item)
@@ -338,11 +338,11 @@ Score_element::handle_prebroken_dependencies()
   for (int i=0; i < dependency_size(); i++) 
     {
       Score_element * elt = dependency (i);
-      Item *it_l = elt->access_Item ();
+      Item *it_l = dynamic_cast <Item *> (elt);
       if (it_l && it_l->breakable_b_)
-	if (access_Item ()) 
+	if (Item *me = dynamic_cast<Item*> (this) )
 	  {
-	    Score_element *new_l = it_l->find_prebroken_piece (access_Item ()->break_status_dir_);
+	    Score_element *new_l = it_l->find_prebroken_piece (me->break_status_dir_);
 	    if (new_l != elt) 
 	      {
 		new_arr.push (new_l);

@@ -105,9 +105,9 @@ Script_column::add_support (Item*i_l)
 void
 Script_column::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  if (o->access_Item ()) 
+  if (dynamic_cast <Item *> (o)) 
     {
-      script_l_arr_.substitute ((Script*)o->access_Item (),(Script*) (n?n->access_Item ():0));
-      support_l_arr_.substitute (o->access_Item (), (n?n->access_Item ():0));
+      script_l_arr_.substitute ((Script*)dynamic_cast <Item *> (o),(Script*) (n?dynamic_cast <Item *> (n):0));
+      support_l_arr_.substitute (dynamic_cast <Item *> (o), (n?dynamic_cast <Item *> (n):0));
     }
 }

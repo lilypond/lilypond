@@ -88,7 +88,7 @@ Translator_group::removable_b() const
 {
   for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
     {
-      if (i->access_Translator_group ())
+      if (dynamic_cast <Translator_group *> (i.ptr ()))
 	return false;
     }
 
@@ -118,9 +118,9 @@ Translator_group::path_to_acceptable_translator (String type) const
   for (int i=0; i < accepts_str_arr_.size (); i++)
     {
       Translator *t = output_def_l ()->find_translator_l (accepts_str_arr_[i]);
-      if (!t || !t->access_Translator_group ())
+      if (!t || !dynamic_cast <Translator_group *> (t))
 	continue;
-      accepted_arr.push (t->access_Translator_group ());
+      accepted_arr.push (dynamic_cast <Translator_group *> (t));
     }
 
 
@@ -166,7 +166,7 @@ Translator_group::find_create_translator_l (String n, String id)
       // start at 1.  The first one (index 0) will be us.
       for (int i=0; i < path.size (); i++)
 	{
-	  Translator_group * new_group = path[i]->clone ()->access_Translator_group ();
+	  Translator_group * new_group = dynamic_cast<Translator_group*>(path[i]->clone ());
 	  current->add_translator (new_group);
 	  current = new_group;
 	}
@@ -221,8 +221,8 @@ Translator_group::group_l_arr () const
   Link_array<Translator_group> groups;
   for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
     {
-      if (i->access_Translator_group ())
-	groups.push (i->access_Translator_group ());
+      if (dynamic_cast <Translator_group *> (i.ptr ()))
+	groups.push (dynamic_cast <Translator_group *> (i.ptr ()));
     }
   return groups;
 }
@@ -233,7 +233,7 @@ Translator_group::nongroup_l_arr () const
   Link_array<Translator> groups;
   for (PCursor<Translator*> i (trans_p_list_.top ()); i.ok (); i++)
     {
-      if (!i->access_Translator_group ())
+      if (!dynamic_cast <Translator_group *> (i.ptr ()))
 	groups.push (i.ptr ());
     }
   return groups;
@@ -300,7 +300,7 @@ Translator_group::get_default_interpreter()
 	  warning (_f ("can't find or create `%s\'", accepts_str_arr_[0]));
 	  t = this;
 	}
-      Translator_group * g= t->clone ()->access_Translator_group ();
+      Translator_group * g= dynamic_cast <Translator_group*>(t->clone ());
       add_translator (g);
 
       if (!g->is_bottom_translator_b ())

@@ -32,7 +32,7 @@ void
 Note_performer::do_process_requests () 
 {
   // this is _really_ braindead, but it generates some output
-  if (!note_req_l_ || !note_req_l_->access_Melodic_req ()  || !note_req_l_->access_Rhythmic_req ())
+  if (!note_req_l_ || !dynamic_cast <Melodic_req *> (note_req_l_)  || !dynamic_cast <Rhythmic_req *> (note_req_l_))
     return;
 
   int transposing_i = 0;
@@ -53,10 +53,10 @@ Note_performer::do_try_request (Request* req_l)
   if (note_req_l_)
     return false;
   
-  if (!req_l->access_Musical_req () || !req_l->access_Musical_req ()->access_Note_req ())
-    return false;
-
-  note_req_l_ = req_l->access_Musical_req ()->access_Melodic_req ();
-
-  return true;
+  if (Note_req *nr = dynamic_cast <Note_req *> (req_l))
+    {
+      note_req_l_ = nr;
+      return true;
+    }
+  return false;
 }

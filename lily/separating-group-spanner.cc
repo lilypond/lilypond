@@ -65,8 +65,8 @@ Separating_group_spanner::do_substitute_dependency (Score_element*o, Score_eleme
   if (o->is_type_b (Single_malt_grouping_item::static_name ()))
     {
       Single_malt_grouping_item*ns = n ?
-	(Single_malt_grouping_item*)n->access_Item () : 0;
-      spacing_unit_l_arr_.substitute ((Single_malt_grouping_item*)o->access_Item (), ns);
+	(Single_malt_grouping_item*)dynamic_cast <Item *> (n) : 0;
+      spacing_unit_l_arr_.substitute ((Single_malt_grouping_item*)dynamic_cast <Item *> (o), ns);
     }
 }
 

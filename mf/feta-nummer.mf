@@ -1,5 +1,10 @@
-% feta-nummer.mf
+% feta-nummer.mf -- implement bold Orator numerals
+%
 % part of LilyPond's pretty-but-neat music font
+%
+% source file of the Feta (not the Font-En-Tja) music font
+% 
+% (c) 1997, 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
 fet_begingroup("nummer")
 code := 47;

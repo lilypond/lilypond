@@ -46,9 +46,9 @@ IMPLEMENT_IS_TYPE_B1(Single_malt_grouping_item, Item);
 void
 Single_malt_grouping_item::do_substitute_dependency (Score_element*o, Score_element*n)
 {
-  if (o->access_Item ())
+  if (dynamic_cast <Item *> (o))
     {
-      item_l_arr_.unordered_substitute (o->access_Item (),  n ? n->access_Item () : 0);
+      item_l_arr_.unordered_substitute (dynamic_cast <Item *> (o),  n ? dynamic_cast <Item *> (n) : 0);
     }
 }
 

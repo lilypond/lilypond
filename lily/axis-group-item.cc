@@ -16,7 +16,7 @@ Axis_group_item::OK() const
   Link_array<Score_element> elems = elem_l_arr ();
   for (int i=0; i < elems.size(); i++) 
     {
-      Item * it_l = elems[i]->access_Item ();
+      Item * it_l = dynamic_cast<Item*> (elems[i]);
       assert (it_l);
     }
 }
@@ -34,7 +34,7 @@ Axis_group_item::do_breakable_col_processing()
   Link_array<Score_element> elems = elem_l_arr ();
   for (int i=0; i < elems.size(); i++) 
     {
-      Item* it_l = elems[i]->access_Item ();
+      Item* it_l = dynamic_cast<Item*> (elems[i]);
       Direction  j=LEFT;
       do 
 	{

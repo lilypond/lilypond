@@ -34,23 +34,23 @@ Dynamic_engraver::do_post_move_processing()
 bool
 Dynamic_engraver::do_try_request (Request * r)
 {
-  Musical_req * m = r->access_Musical_req ();
+  Musical_req * m = dynamic_cast <Musical_req *> (r);
   if (!m)
     return false;
-  Dynamic_req * d = m->access_Dynamic_req ();
+  Dynamic_req * d = dynamic_cast <Dynamic_req *> (m);
   if (!d)
     return false;
 
 #if 0
-  if (cresc_p_ && d->access_Span_dynamic_req ()
-      && d->access_Span_dynamic_req ()->spantype == Span_req::START)
+  if (cresc_p_ && dynamic_cast <Span_dynamic_req *> (d)
+      && dynamic_cast <Span_dynamic_req *> (d)->spantype == Span_req::START)
     return false;
 #endif
   for (int i=0; i < dynamic_req_l_arr_.size (); i++)
     if (d->equal_b (dynamic_req_l_arr_[i]))
       return true;
 
-  dynamic_req_l_arr_.push (m->access_Dynamic_req ());
+  dynamic_req_l_arr_.push (dynamic_cast <Dynamic_req *> (m));
   return true;
 }
 void
@@ -60,7 +60,7 @@ Dynamic_engraver::do_process_requests()
   for (int i=0; i < dynamic_req_l_arr_.size(); i++)
     {
       Dynamic_req *dreq_l = dynamic_req_l_arr_[i];
-      if (dreq_l->access_Absolute_dynamic_req ())
+      if (dynamic_cast <Absolute_dynamic_req *> (dreq_l))
 	{
 
 	  if (dynamic_p_)
@@ -71,7 +71,7 @@ Dynamic_engraver::do_process_requests()
 	  
 	  Text_def * td_p = new Text_def;
 	  td_p->align_dir_ = CENTER;
-	  String loud = dreq_l->access_Absolute_dynamic_req ()->loudness_str ();
+	  String loud = dynamic_cast <Absolute_dynamic_req *> (dreq_l)->loudness_str ();
 	  td_p->text_str_ = paper ()->lookup_l (0)->dynamic (loud).str_;
 	  td_p->style_str_ = "dynamic";
 
@@ -80,9 +80,9 @@ Dynamic_engraver::do_process_requests()
 	  dynamic_p_ = new Text_item (td_p);
 	  announce_element (Score_element_info (dynamic_p_, dreq_l));
 	}
-      else if (dreq_l->access_Span_dynamic_req ())
+      else if (dynamic_cast <Span_dynamic_req *> (dreq_l))
 	{
-	  Span_dynamic_req* span_l = dreq_l->access_Span_dynamic_req ();
+	  Span_dynamic_req* span_l = dynamic_cast <Span_dynamic_req *> (dreq_l);
 	  if (span_l->spantype == Span_req::STOP)
 	    {
 	      if (!cresc_p_)

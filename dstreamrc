@@ -34,6 +34,7 @@ Beam			0
 Bow			1
 Bezier_bow		1
 Change_iterator		1
+Change_translator	1
 Chord			1
 Chord_iterator		1
 Clef_item		1
@@ -50,8 +51,10 @@ Engraver_group_engraver 0
 General_script_def	1
 Graphical_element	1
 Group_change_req	1
+Guile			1
 Head_column		0
 Horizontal_align_item	1
+Horizontal_group_item	1 
 Idealspacing		1
 Identifier		1
 Ineq_constrained_qp 	1
@@ -113,6 +116,7 @@ Symtable		1
 Symtables		1
 
 Text_def		1
+Text_item		1
 Text_req		1
 Time_description	1
 Translation_property	0

@@ -153,6 +153,16 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
     fi
 ])
 
+AC_DEFUN(AC_STEPMAKE_GUILE, [
+    # urg, must check for different functions in libguile
+    # to force new check iso reading from cache
+    AC_CHECK_LIB(guile, scm_shell, \
+      LIBS="-lguile $LIBS" AC_DEFINE(HAVE_LIBGUILE), \
+      AC_CHECK_LIB(readline, readline) \
+      AC_CHECK_LIB(dl, dlopen) \
+      AC_CHECK_LIB(guile, scm_boot_guile))
+])
+
 AC_DEFUN(AC_STEPMAKE_INIT, [
 
     . $srcdir/VERSION
@@ -167,16 +177,44 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     package=`echo $PACKAGE_NAME | tr '[A-Z]' '[a-z]'`
     changequote([, ])dnl
 
+    # No versioning on directory names of sub-packages 
+    # urg, urg
+    stepmake=${datadir}/stepmake
+    presome=${prefix}
+    if test "$prefix" = "NONE"; then
+	    presome=${ac_default_prefix}
+    fi
+    stepmake=`echo ${stepmake} | sed "s!\\\${prefix}!$presome!"`
+
     if test "x$PACKAGE" = "xSTEPMAKE"; then
         echo Stepmake package!
 	(cd stepmake; rm -f stepmake; ln -s ../stepmake .)
 	(cd stepmake; rm -f bin; ln -s ../bin .)
 	AC_CONFIG_AUX_DIR(bin)
+	stepmake=stepmake
     else
         echo Package: $PACKAGE
-	AC_CONFIG_AUX_DIR(stepmake/bin)
+	# Check for installed stepmake
+	if test -d $stepmake; then
+	    echo Using installed stepmake: $stepmake
+	else
+	    stepmake='$(depth)'/stepmake
+	    echo Using local stepmake: $datadir/stepmake not found
+	fi
+	AC_CONFIG_AUX_DIR(\
+	  $HOME/usr/local/share/stepmake/bin\
+	  $HOME/usr/local/lib/stepmake/bin\
+	  $HOME/usr/share/stepmake/bin\
+	  $HOME/usr/lib/stepmake/bin\
+	  /usr/local/share/stepmake/bin\
+	  /usr/local/lib/stepmake/bin\
+	  /usr/share/stepmake/bin\
+	  /usr/lib/stepmake/bin\
+	  stepmake/bin\
+	)
     fi
 
+    AC_SUBST(stepmake)
     AC_SUBST(package)
     AC_SUBST(PACKAGE)
     AC_SUBST(PACKAGE_NAME)
@@ -190,10 +228,6 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
     AC_SUBST(AUTOGENERATE)
     absolute_builddir="`pwd`"
     AC_SUBST(absolute_builddir)
-
-    # No versioning on directory names of sub-packages 
-    stepmake=stepmake
-    AC_SUBST(stepmake)
 
     STATE_VECTOR=`ls make/STATE-VECTOR 2>/dev/null`
     if test "x$STATE_VECTOR" != "x"; then
@@ -249,14 +283,14 @@ dnl    fi
 	DOTEXE=.exe
        DIRSEP='\\'
  	PATHSEP=';'
-       INSTALL="\$(stepdir)/../bin/install-dot-exe.sh -c"
+       INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
     else
 	DIRSEP='/'
 	PATHSEP=':'
 	LN=ln
 	LN_S='ln -s'
 	ZIP="zip -r -9"
-        INSTALL="\$(stepdir)/../bin/install-sh -c"
+        INSTALL="\$(SHELL) \$(stepdir)/../bin/install-sh -c"
     fi
     AC_SUBST(DOTEXE)
     AC_SUBST(ZIP)
@@ -461,11 +495,13 @@ AC_DEFUN(AC_STEPMAKE_YODL, [
 	AC_CHECK_PROGS(YODL2MSLESS, yodl2msless, -echo no yodl)
 	AC_CHECK_PROGS(YODL2TEXINFO, yodl2texinfo, -echo no yodl)
 	AC_CHECK_PROGS(YODL2TXT, yodl2txt, -echo no yodl)
+	YODL2LESS_DIR='$(bindir)/'
     else
 	AC_SUBST(STRIPROFF)
 	AC_SUBST(YODL)
 	AC_SUBST(YODL2HTML)
 	AC_SUBST(YODL2LATEX)
+	AC_SUBST(YODL2LESS_DIR)
 	AC_SUBST(YODL2MAN)
 	AC_SUBST(YODL2MSLESS)
 	AC_SUBST(YODL2TEXINFO)

@@ -35,7 +35,7 @@ def help ():
 	sys.stdout.write (
 		'Generate a patch to go to current version\n'
 		'  -f, --from=FROM      old is FROM\n'
-		'  -h, --help	        print this help\n'
+		'  -h, --help           print this help\n'
 		'  -p, --package=DIR    specify package\n'
 		'  -r, --release        diff against latest release\n'  
 		'  -t, --to=TO          to version TO\n'  
@@ -58,7 +58,10 @@ def remove_automatic (dirnames):
 	for d in dirs:
 		files = files + multiple_find (['*'], [d])
 	for f in files:
-		os.remove (f)
+		try:
+			os.remove (f)
+		except:
+			sys.stderr.write ("can't remove: `" + f + "'\n'")
 
 def dirname (v):
 	# urg, again?

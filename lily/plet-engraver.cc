@@ -35,16 +35,16 @@ Plet_engraver::acknowledge_element (Score_element_info i)
     return;
 
   if (!plet_spanner_p_->stem_l_drul_[LEFT])
-    plet_spanner_p_->set_stem (LEFT, (Stem*)i.elem_l_->access_Item ());
+    plet_spanner_p_->set_stem (LEFT, (Stem*)dynamic_cast <Item *> (i.elem_l_));
   else
     if (span_reqs_drul_[RIGHT] && !plet_spanner_p_->stem_l_drul_[RIGHT]) 
-      plet_spanner_p_->set_stem (RIGHT, (Stem*)i.elem_l_->access_Item ());
+      plet_spanner_p_->set_stem (RIGHT, (Stem*)dynamic_cast <Item *> (i.elem_l_));
 }
 
 bool
 Plet_engraver::do_try_request (Request* req_l)
 {
-  Musical_req* mus_l = req_l->access_Musical_req ();
+  Musical_req* mus_l = dynamic_cast <Musical_req *> (req_l);
   if (!mus_l)
     return false;
 
@@ -52,7 +52,7 @@ Plet_engraver::do_try_request (Request* req_l)
     UGH! This is incorrect!
     Beam_req might not reach the Plet_engraver if ordering is wrong!
    */
-  Beam_req* b = mus_l->access_Beam_req ();
+  Beam_req* b = dynamic_cast <Beam_req *> (mus_l);
   if (b)
     {
       if (b->spantype)
@@ -63,7 +63,7 @@ Plet_engraver::do_try_request (Request* req_l)
       return false;
     }
     
-  Plet_req* p = mus_l->access_Plet_req ();
+  Plet_req* p = dynamic_cast <Plet_req *> (mus_l);
   if (!p)
     return false;
 

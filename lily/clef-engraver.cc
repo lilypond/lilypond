@@ -157,7 +157,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
     }
 
   /* ugh; should make Clef_referenced baseclass */
-  Item * it_l =info.elem_l_->access_Item ();
+  Item * it_l =dynamic_cast <Item *> (info.elem_l_);
 if (it_l)
   {
   if (it_l->is_type_b (Note_head::static_name ()))
@@ -195,11 +195,11 @@ Clef_engraver::do_creation_processing()
 bool
 Clef_engraver::do_try_request (Request * r_l)
 {
-  Command_req* creq_l= r_l->access_Command_req ();
-  if (!creq_l || !creq_l->access_Clef_change_req ())
+  Command_req* creq_l= dynamic_cast <Command_req *> (r_l);
+  if (!creq_l || !dynamic_cast <Clef_change_req *> (creq_l))
     return false;
 
-  clef_req_l_ = creq_l->access_Clef_change_req ();
+  clef_req_l_ = dynamic_cast <Clef_change_req *> (creq_l);
   read_req (clef_req_l_);
   return true;
 }

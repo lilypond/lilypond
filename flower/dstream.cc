@@ -16,7 +16,7 @@
 #include "rational.hh"
 
 /// indent of each level
-const INDTAB = 2;
+const int INDTAB = 2;
 
 /*
   should use Regexp library.

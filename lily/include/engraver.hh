@@ -36,6 +36,7 @@ protected:
     Invoke walker method to typeset element. Default: pass on to daddy.
     */
   virtual void typeset_element (Score_element*elem_p);
+
     
   /**
     take note of item/spanner

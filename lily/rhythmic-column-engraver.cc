@@ -12,6 +12,7 @@
 #include "note-column.hh"
 #include "script.hh"
 #include "dot-column.hh"
+#include "musical-request.hh"
 
 Rhythmic_column_engraver::Rhythmic_column_engraver()
 {
@@ -66,12 +67,12 @@ Rhythmic_column_engraver::process_acknowledged ()
 void
 Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
 {
-  Item * item =  i.elem_l_->access_Item ();
+  Item * item =  dynamic_cast <Item *> (i.elem_l_);
   if (!item)
     return;
   if (item->is_type_b (Script::static_name ())
       && i.req_l_
-      && i.req_l_->access_Musical_req ()) 
+      && dynamic_cast <Musical_req *> (i.req_l_)) 
     {
       script_l_arr_.push ((Script*)item);
     }

@@ -30,7 +30,7 @@ $(outdir)/$(package).info: $(outdir)/topinfo.texinfo $(OUTTEXINFO_FILES)
 # what to do here?
 ifneq ($(strip $(INFO_FILES)),)
 
-INFOINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(infodir) depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_FILES)" -f $(stepdir)/install-outfiles.sub.make $@
+INFOINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(infodir) depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_FILES)" -f $(stepdir)/install-out.sub.make $@
 
 localinstall: # $(INFO_FILES)
 	-$(INSTALL) -d $(infodir)

@@ -27,11 +27,11 @@ Abbreviation_beam_engraver::Abbreviation_beam_engraver ()
 bool
 Abbreviation_beam_engraver::do_try_request (Request*r)
 {
-  Musical_req* mus_l = r->access_Musical_req ();
+  Musical_req* mus_l = dynamic_cast <Musical_req *> (r);
   if (!mus_l)
     return false;
 
-  Abbreviation_beam_req * b = mus_l->access_Abbreviation_beam_req ();
+  Abbreviation_beam_req * b = dynamic_cast <Abbreviation_beam_req *> (mus_l);
 
   if (!b)
     return false;
@@ -85,7 +85,7 @@ Abbreviation_beam_engraver::acknowledge_element (Score_element_info i)
   if (!abeam_p_ || !i.elem_l_->is_type_b (Stem::static_name ()))
     return;
 
-  Stem* s = (Stem*)i.elem_l_->access_Item ();
+  Stem* s = (Stem*)dynamic_cast <Item *> (i.elem_l_);
 
   int type_i = span_reqs_drul_[LEFT]->type_i_;
   s->flag_i_ = intlog2 (type_i) - 2;

@@ -13,19 +13,20 @@
 # not eh, normally used
 DEPTH = $(depth)/$(package-depth)
 
+# topdir := $(shell cd $(depth); pwd)
+ifeq ($(topdir),)
 topdir := $(shell cd $(depth); pwd)
+endif
 pwd := $(shell pwd)
-
 
 # derived names
 ifeq ($(distdir),)
-  distdir = $(depth)/$(outdir)/$(DIST_NAME)
+#  distdir = $(depth)/$(outdir)/$(DIST_NAME)
+# must be absolute for 'make dist' with installed stepmake
+  distdir = $(topdir)/$(outdir)/$(DIST_NAME)
   DIST_NAME = $(package)-$(TOPLEVEL_VERSION)
 endif
 distname = $(package)-$(TOPLEVEL_VERSION)
-
-
-
 
 # obsolete?
 makeout = $(depth)/make/$(outdir)
@@ -38,8 +39,9 @@ po-dir = $(depth)/po
 # sort-out which of these are still needed
 #
 $(package)_bindir = $(depth)/bin
-step-bindir = $(depth)/$(stepmake)/bin
-abs-step-bindir = $(topdir)/$(stepmake)/bin
+step-bindir = $(stepmake)/bin
+# deprecated
+# abs-step-bindir = $(topdir)/$(stepmake)/bin
 #
 group-dir = $(shell cd $(DEPTH)/..; pwd)
 release-dir = $(group-dir)/releases
@@ -83,10 +85,7 @@ date := $(shell date +%x)	#duplicated?
 ARFLAGS = ru
 
 INCLUDES =  include $(outdir) $($(PACKAGE)_INCLUDES)
-LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) $($(PACKAGE)_LDFLAGS)
 
-MODULE_LIBES=$(addsuffix /$(outdir)/library.a, $(MODULE_LIBS))
-LOADLIBES = $(MODULE_LIBES) $($(PACKAGE)_LIBES) $(EXTRA_LIBES)
 # urg: for windows ?
 # LOADLIBES = $(MODULE_LIBES) $($(PACKAGE)_LIBES) $(EXTRA_LIBES) -lstdc++
 #
@@ -134,7 +133,7 @@ endif
 
 # substitute $(STRIP) in Site.make if you want stripping
 DO_STRIP=true
-LOOP=$(foreach i,  $(SUBDIRS),  $(MAKE) -C $(i) $@ &&) true
+LOOP=$(foreach i,  $(SUBDIRS), $(MAKE) PACKAGE=$(PACKAGE) -C $(i) $@ &&) true
 
 
 include $(stepdir)/files.make

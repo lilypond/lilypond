@@ -23,7 +23,7 @@ paper_twenty = \paper {
 	-2 = \symboltables { \table_thirteen }	
 	-1 = \symboltables { \table_sixteen }
 	0 = \symboltables { \table_twenty }
-	
+
 	\include "params.ly";
 }
 

@@ -23,7 +23,7 @@ else
 outdir=out
 endif
 
-stepdir = $(depth)/$(stepmake)/stepmake
+stepdir = $(stepmake)/stepmake
 
 STEPMAKE_TEMPLATES := generic $(STEPMAKE_TEMPLATES) 
 LOCALSTEPMAKE_TEMPLATES:= generic $(LOCALSTEPMAKE_TEMPLATES)

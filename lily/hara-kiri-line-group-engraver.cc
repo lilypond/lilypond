@@ -26,7 +26,7 @@ Hara_kiri_line_group_engraver::typeset_element(Score_element * e)
 {
   if (e->is_type_b (Note_head::static_name ()))
     ((Hara_kiri_vertical_group_spanner*)staffline_p_)->add_note 
-      ((Note_head*)e->access_Item ());
+      ((Note_head*)dynamic_cast <Item *> (e));
 
   Line_group_engraver_group::typeset_element (e);
 }

@@ -104,7 +104,7 @@ IMPLEMENT_IS_TYPE_B1 (Melodic_req,Musical_req);
 bool
 Melodic_req::do_equal_b (Request*r) const
 {
-  Melodic_req* m= r->access_Musical_req ()->access_Melodic_req ();
+  Melodic_req* m= dynamic_cast <Melodic_req *> (r);
   return !compare (*m, *this);
 }
 
@@ -129,7 +129,7 @@ Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 bool
 Rhythmic_req::do_equal_b (Request*r) const
 {
-  Rhythmic_req* rh = r->access_Musical_req ()->access_Rhythmic_req ();
+  Rhythmic_req* rh = dynamic_cast <Rhythmic_req *> (r);
 
   return !compare (*this, *rh);
 }
@@ -269,7 +269,7 @@ Plet_req::do_print () const
 bool
 Span_req:: do_equal_b (Request*r) const
 {
-  Span_req * s = r->access_Span_req ();
+  Span_req * s = dynamic_cast <Span_req *> (r);
   return spantype == s->spantype;
 }
 
@@ -292,7 +292,7 @@ Script_req::Script_req (Script_req const&s)
 bool
 Script_req::do_equal_b (Request*r) const
 {
-  Script_req * s = r->access_Script_req ();
+  Script_req * s = dynamic_cast <Script_req *> (r);
 
   return  scriptdef_p_->equal_b (*s->scriptdef_p_);
 }
@@ -400,7 +400,7 @@ Absolute_dynamic_req::do_print () const
 bool
 Absolute_dynamic_req::do_equal_b (Request *r) const
 {
-  Absolute_dynamic_req *a = r->access_Musical_req ()->access_Dynamic_req ()->access_Absolute_dynamic_req ();
+  Absolute_dynamic_req *a = dynamic_cast <Absolute_dynamic_req *> (r);
   return loudness_ == a->loudness_;
 }
 
@@ -449,7 +449,7 @@ Absolute_dynamic_req::Absolute_dynamic_req ()
 bool
 Span_dynamic_req::do_equal_b (Request *req) const
 {
-  Span_dynamic_req * s = req->access_Musical_req ()->access_Span_dynamic_req ();
+  Span_dynamic_req * s = dynamic_cast <Span_dynamic_req *> (req);
 
   return Span_req::do_equal_b (req) && s->dynamic_dir_ == dynamic_dir_;
 }

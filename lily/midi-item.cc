@@ -354,7 +354,7 @@ Midi_key::Midi_key (Audio_item* audio_item_l)
 String
 Midi_key::str () const
 {
-  Key_change_req* k = audio_item_l_->req_l_->access_Command_req ()->access_Key_change_req ();
+  Key_change_req* k = dynamic_cast <Key_change_req *> (audio_item_l_->req_l_);
   int sharps_i = k->sharps_i ();
   int flats_i = k->flats_i ();
 
@@ -383,7 +383,7 @@ Midi_time_signature::Midi_time_signature (Audio_item* audio_item_l)
 String
 Midi_time_signature::str () const
 {
-  Time_signature_change_req* m = audio_item_l_->req_l_->access_Command_req ()->access_Time_signature_change_req ();
+  Time_signature_change_req* m = dynamic_cast <Time_signature_change_req *> (audio_item_l_->req_l_);
   int num_i = m->beats_i_;
   int den_i = m->one_beat_i_;
 
@@ -404,7 +404,7 @@ Midi_note::Midi_note (Audio_item* audio_item_l)
 Moment
 Midi_note::duration () const
 {
-  Moment m = audio_item_l_->req_l_->access_Musical_req ()->access_Rhythmic_req ()->duration ();
+  Moment m = dynamic_cast <Rhythmic_req *> (audio_item_l_->req_l_)->duration ();
   if (m < Moment (1, 1000))
     {
       warning (_ ("silly duration"));
@@ -416,8 +416,7 @@ Midi_note::duration () const
 int
 Midi_note::pitch_i () const
 {
-  int p = audio_item_l_->req_l_->access_Musical_req ()->access_Melodic_req 
-    ()->pitch_.semitone_pitch () 
+  int p = dynamic_cast <Melodic_req*> (audio_item_l_->req_l_)->pitch_.semitone_pitch () 
     + ((Audio_note*)audio_item_l_)->transposing_i_;
   if (p == INT_MAX)
     {
@@ -452,8 +451,7 @@ Midi_note_off::Midi_note_off (Midi_note* midi_note_l)
 int
 Midi_note_off::pitch_i () const
 {
-  return audio_item_l_->req_l_->access_Musical_req ()->access_Melodic_req 
-    ()->pitch_.semitone_pitch ()
+  return dynamic_cast <Melodic_req *> (audio_item_l_->req_l_)->pitch_.semitone_pitch ()
     + ((Audio_note*)audio_item_l_)->transposing_i_;
 }
 

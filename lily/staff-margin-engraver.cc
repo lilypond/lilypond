@@ -40,7 +40,7 @@ Staff_margin_engraver::Staff_margin_engraver ()
 void
 Staff_margin_engraver::acknowledge_element (Score_element_info i)
 {
-  Item * it =  i.elem_l_->access_Item ();
+  Item * it =  dynamic_cast <Item *> (i.elem_l_);
 
   if (!it
       || script_p_ 

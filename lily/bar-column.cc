@@ -28,7 +28,7 @@ Bar_column::do_substitute_dependency (Score_element*o,Score_element*n)
   Script_column::do_substitute_dependency (o,n);
   if (o == bar_l_) 
     {
-      bar_l_ = n ? (Bar*)n->access_Item () : 0;
+      bar_l_ = n ? (Bar*)dynamic_cast <Item *> (n) : 0;
     }
 }
 

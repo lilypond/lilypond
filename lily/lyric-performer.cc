@@ -44,10 +44,10 @@ Lyric_performer::do_process_requests()
 bool
 Lyric_performer::do_try_request (Request* req_l)
 {
-  Musical_req* m_l = req_l->access_Musical_req ();
-  if (!m_l || ! m_l->access_Lyric_req ()) 
+  Musical_req* m_l = dynamic_cast <Musical_req *> (req_l);
+  if (!m_l || ! dynamic_cast <Lyric_req *> (m_l)) 
     return false;
-  lreq_arr_.push (m_l->access_Lyric_req ());
+  lreq_arr_.push (dynamic_cast <Lyric_req *> (m_l));
 
   return true;
 }

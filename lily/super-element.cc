@@ -10,7 +10,7 @@
 #include "line-of-score.hh"
 #include "p-score.hh"
 #include "string.hh"
-#include "tex-outputter.hh"
+#include "paper-outputter.hh"
 
 
 Super_element::Super_element()

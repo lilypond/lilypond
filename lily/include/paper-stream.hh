@@ -21,13 +21,12 @@ public:
     
     /// open a file for writing
     Paper_stream (String filename);
-    virtual void header () = 0;
 
     /// delegate conversion to scalar class
-    virtual Paper_stream &operator <<(Scalar);
+    Paper_stream &operator <<(Scalar);
 
     /// close the file
-    virtual ~Paper_stream();
+    ~Paper_stream();
 
 private:
     Paper_stream (Paper_stream const&);

@@ -1,3 +1,20 @@
+pl 59
+	- bf: package-diff (remove missing automatic)
+	- install templates, (urg) INSTALL*1,2 INSTALL_OUT*1,2
+
+pl 58
+	- distribute formatted txt files: no yodl needed for operation!
+	- guile 1.2 and 1.3 support
+
+pl 57
+	- yodl first build script fixes
+	- uninstall fixes, but, urg, still have to uninstall twice
+	  to get rid of all subdirs
+	- installed stepmake
+	  * install not required
+	  * only installs on explicit make install from toplevel stepdir
+	  * rather urg, 'make dist' needs absolute distdir!
+
 pl 56
 	- crude metapost stuff
 

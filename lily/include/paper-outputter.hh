@@ -13,6 +13,7 @@
 #include "lily-proto.hh"
 #include "array.hh"
 #include "string.hh"
+#include "lily-guile.hh"
 
 /**
   Abstract interface for a Score_element to output itself.
@@ -21,13 +22,18 @@ class Paper_outputter
 {
 public:
   Paper_outputter (Paper_stream *);
-  virtual ~Paper_outputter ();
+  ~Paper_outputter ();
 
-  virtual void output_molecule (Molecule const *, Offset, char const *)=0;
-  void output_molecule (Molecule const *, Offset, char const *, String);
-  virtual void start_line ()=0;
-  virtual void stop_line ()=0;
-  virtual void switch_to_font (String fontname)=0;
+  void output_font_def (int i, String str);
+  void output_font_switch (int i);
+  void output_header ();
+  void output_molecule (Molecule const *, Offset, char const *);
+  void output_comment (String s);
+  void output_scheme (SCM scm);
+  void output_string (String s);
+  void start_line ();
+  void stop_line ();
+  void switch_to_font (String fontname);
 
   Array<String> font_arr_;
   String current_font_;

@@ -347,8 +347,8 @@ Stem::hpos_f () const
 void
  Stem::do_substitute_dependency (Score_element*o,Score_element*n)
 {
-  Item * o_l = o->access_Item ();
-  Item * n_l = n? n->access_Item () : 0;
+  Item * o_l = dynamic_cast <Item *> (o);
+  Item * n_l = n? dynamic_cast <Item *> (n) : 0;
   head_l_arr_.substitute ((Note_head*)o_l, (Note_head*)n_l);
   rest_l_arr_.substitute ((Rest*)o_l, (Rest*)n_l);
 }

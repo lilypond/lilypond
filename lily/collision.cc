@@ -165,6 +165,6 @@ IMPLEMENT_IS_TYPE_B1(Collision, Item);
 void
 Collision::do_substitute_dependency (Score_element*o_l,Score_element*n_l)
 {
-  clash_l_arr_.substitute ((Note_column*)o_l->access_Item (),
-			   (Note_column*)(n_l?n_l->access_Item ():0));
+  clash_l_arr_.substitute ((Note_column*)dynamic_cast <Item *> (o_l),
+			   (Note_column*)(n_l?dynamic_cast <Item *> (n_l):0));
 }
