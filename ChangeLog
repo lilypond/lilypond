@@ -1,5 +1,11 @@
 2004-02-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-ps.scm: Resurrect.
+	
+	* scm/output-tex.scm: Minimal cleanups.
+
+	* scm/paper.scm (paper-set-staff-size): Add lineheight.
+
 	* make/ly-rules.make: Remove any broken lily-*.tex files before
 	lilypond-book run.
 

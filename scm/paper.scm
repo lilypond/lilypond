@@ -26,7 +26,7 @@
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
     (module-define! m 'blotdiameter (* 0.35 pt))
     (module-define! m 'interscoreline (* 4 mm))
-  ))
+    (module-define! m 'lineheight (* 14 ss))))
 
 (define-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
