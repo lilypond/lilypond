@@ -12,6 +12,10 @@ grep for TODO and ugh/ugr
 
 	* dots into separate item.
 
+	* use String iso Text_def for lyrics.
+
+	* use position 0 for center of staff iso bottom.
+
 	* return status
 
 	* lyrics in chords still fuck up.
@@ -185,8 +189,6 @@ INPUTLANGUAGE
 
 	* Raw request syntax
 
-	* subtime with Subtle_reqs
-
 PROJECTS
 
 	* Do RTTI i.s.o. static_name(), name() and request-junk.
@@ -331,7 +333,7 @@ IDEAS
 		- Translators
 		- Complex mudela?
 
-	* y -dims in internote?
+	* y -dims in internote? Staff-space? X-dimensions?
 
 	* merge Atom and Symbol?
 
