@@ -1,3 +1,8 @@
+2004-11-12  Karl Hammar  <karl@aspodata.se>
+
+	* GNUmakefile.in (local-WWW-post): `find ...` overflows the
+	cmdline, use xargs instead (backportme)
+
 2004-11-10  Andreas Scherer  <andreas_mutopia@freenet.de>
 	
 	* Documentation/user/: Numerous fixes in the user manual.
@@ -8,6 +13,8 @@
 	context-id, surround by \new Voice if not found. Fixes:
 	addlyrics-second-staff.ly
 
+	* VERSION: 2.5.0 released.
+	
 2004-11-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/index.html.in: Fix url to one big page.  (backportme)

@@ -55,6 +55,7 @@ inline bool ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
 inline bool ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
 #define scm_is_eq(x,y)  (SCM_EQ_P((x), (y)))
 
+#define scm_c_string_length(x) SCM_STRING_LENGTH(x)
 #define scm_is_pair(x) (SCM_CONSP(x))
 
 
