@@ -8,6 +8,7 @@
 #(define cmr-alist 
   '(("bold" . "cmbx") 
     ("brace" . "as-braces")
+    ("default" . "as-dummy") 
     ("dynamic" . "cmr") 
     ("feta" . "feta") 
     ("feta-1" . "feta") 

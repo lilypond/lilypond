@@ -107,10 +107,20 @@ All_font_metrics::find_font (String name)
   warning (_f ("Can't find font: `%s'", name.ch_C ()));
   warning (_ ("Loading default font"));
   
-  f =  find_tfm (default_font_sz_);
+  String def_name = default_font_sz_;
+  SCM l = ly_eval_str ("(style-to-cmr \"default\")");
+  if (l != SCM_BOOL_F)
+    def_name = ly_scm2string (gh_cdr (l));
+
+  f =  find_tfm (def_name);
   if (f)
     return f;
-  error (_f ("Can't find default font: `%s'", default_font_sz_));
+
+  f= find_afm (def_name);
+  if (f)
+    return f;
+
+  error (_f ("Can't find default font: `%s'", def_name.ch_C ()));
   error (_f ("(search path: `%s'", search_path_.str ()));
   error (_ ("Giving up"));
 

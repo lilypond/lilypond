@@ -87,8 +87,16 @@ Long_option_init theopts[] = {
 };
 
 void
+identify (ostream* os)
+{
+  *os << gnu_lilypond_version_str () << endl;
+}
+
+void
 usage ()
 {
+  identify (&cout);
+  cout << "\n";
   cout << _f ("Usage: %s [OPTION]... [FILE]...", "lilypond");
   cout << "\n\n";
   cout << _ ("Typeset music and or play MIDI from FILE");
@@ -128,15 +136,9 @@ _(
 }
 
 void
-identify ()
-{
-  cout << gnu_lilypond_version_str () << endl;
-}
-
-void
 version ()
 {
-  identify ();
+  identify (&cout);
   cout << '\n';
   cout << _f (""
   "This is free software.  It is covered by the GNU General Public License,\n"
@@ -352,7 +354,7 @@ main (int argc, char **argv)
 	  break;
 	}
     }
-  identify ();
+  identify (&cerr);
 
 #ifdef WINNT
   gh_enter (argc, argv, main_prog);

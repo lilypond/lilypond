@@ -93,7 +93,7 @@
 ;;
 ;;
 
-;; (Measured in interlines? -- jcn)
+;; (Measured in staff space)
 (define space-alist
  '(
    (("" "Clef_item") . (minimum-space 1.0))
@@ -143,6 +143,7 @@
 (define cmr-alist 
   '(("bold" . "cmbx") 
     ("brace" . "feta-braces")
+    ("default" . "cmr10")
     ("dynamic" . "feta-din") 
     ("feta" . "feta") 
     ("feta-1" . "feta") 
@@ -664,6 +665,10 @@
 	      (map (lambda (x) (string-append " " (arg->string x))) args)))
    ")\n"))
 
+(define (sign x)
+  (if (= x 0)
+      1
+      (inexact->exact (/ x (abs x)))))
 
 ;;;; AsciiScript as
 (define (as-scm action-name)
@@ -673,6 +678,29 @@
 	   (func "set-line-char" "#")
 	   (func "rline-to" width (* width slope))
 	   ))
+
+  ; simple flat slurs
+  (define (bezier-sandwich l thick)
+	  (let (
+		(c0 (cadddr l))
+		(c1 (cadr l))
+		(c3 (caddr l)))
+	       (let* ((x (car c0))
+		      (dx (- (car c3) x))
+		      (dy (- (cdr c3) (cdr c0)))
+		      (rc (/ dy dx))
+		      (c1-dx (- (car c1) x))
+		      (c1-line-y (+ (cdr c0) (* c1-dx rc)))
+		      (dir (if (< c1-line-y (cdr c1)) 1 -1))
+		      (y (+ -1 (* dir (max (* dir (cdr c0)) (* dir (cdr c3)))))))
+		     (string-append
+		      (func "rmove-to" x y)
+		      (func "put" (if (< 0 dir) "/" "\\\\"))
+		      (func "rmove-to" 1 (if (< 0 dir) 1 0))
+		      (func "set-line-char" "_")
+		      (func "h-line" (- dx 1))
+		      (func "rmove-to" (- dx 1) (if (< 0 dir) -1 0))
+		      (func "put" (if (< 0 dir) "\\\\" "/"))))))
 
   (define (bracket arch_angle arch_width arch_height width height arch_thick thick)
 	  (string-append
@@ -718,8 +746,15 @@
   (define (header-end) 
     (func "header-end"))
 
-  (define (lily-def key val)
+  ;; urg: this is good for half of as2text's execution time
+  (define (xlily-def key val)
 	  (string-append "(define " key " " (arg->string val) ")\n"))
+
+  (define (lily-def key val)
+	  (if 
+	   (equal? key "mudelapaperlinewidth")
+	   (string-append "(define " key " " (arg->string val) ")\n")
+	   ""))
 
   (define (placebox x y s) 
     (string-append (func "move-to" x y) s))
@@ -744,22 +779,25 @@
   (define (text s)
 	  (func "text" s))
 
-;  (define (volta h w thick vert_start vert_end)
-;     (func "draw-volta" h w thick vert_start vert_end))
-
   (define (volta h w thick vert-start vert-end)
+	  ;; urg
+	  (set! h 1)
 	  (string-append
-	   (if #t  ;(= 0 vert-start)
-	       ""
-	      (func "v-line" h))
-	   ""
-	   ;(func "rmove-to" 0 h)
-	   ;(func "h-line" w)
-	   (if #t ;(= 0 vert-end)
-	       ""
+	   (func "set-line-char" "|")
+	   (func "rmove-to" 0 -4)
+	   ;; definition strange-way around
+	   (if (= 0 vert-start)
+	      (func "v-line" h)
+	       "")
+	   (func "rmove-to" 1 h)
+	   (func "set-line-char" "_")
+	   (func "h-line" (- w 1))
+	   (func "set-line-char" "|")
+	   (if (= 0 vert-end)
 	       (string-append
-		(func "rmove-to" w 0)
-		(func "v-line" (* -1 h))))))
+		(func "rmove-to" (- w 1) (* -1 h))
+		(func "v-line" (* -1 h)))
+	       "")))
 
   (cond ((eq? action-name 'all-definitions)
 	 `(begin
@@ -767,7 +805,7 @@
 	    (define bracket ,bracket)
 	    (define char ,char)
 	    ;;(define crescendo ,crescendo)
-	    ;(define bezier-sandwich ,bezier-sandwich)
+	    (define bezier-sandwich ,bezier-sandwich)
 	    ;;(define dashed-slur ,dashed-slur) 
 	    ;;(define decrescendo ,decrescendo) 
 	    (define end-output ,end-output)

@@ -1,4 +1,4 @@
-#!/usr/bin/guile \
+#!@GUILE@ \
 -e main -s
 !#
 ;;;; as2text.scm -- Translate AsciiScript to Text
@@ -14,9 +14,12 @@
   (ice-9 string-fun)
   (ice-9 regex))
 
-
 ;;; Script stuff
 (define program-name "as2text")
+
+(define lily-home "/usr/share/lilypond")
+(define cur-output-name "-")
+(define cur-output-file '())
 
 (define subst-version "@TOPLEVEL_VERSION@")
 
@@ -25,13 +28,14 @@
       "unknown"
       subst-version))
 
-(define (show-version)
+(define (show-version port)
   (display (string-append 
 	    program-name " - LilyPond version " program-version "\n")
-	   (current-error-port)))
+	   port))
 
 (define (show-help)
   (display "Convert AsciiScript to text.
+
 
 Usage: as2text [OPTION]... AS-FILE
 
@@ -39,40 +43,49 @@ Options:
   -h,--help          this help
   -o,--output=FILE   set output file
   -v,--version       show version
-" (current-error-port)))
+"))
 
 (define (gulp-file name)
-  (let ((port (catch 'system-error (lambda () (open-file name "r"))
-		     (lambda args #f))))
-       (if port 
-	   (let ((content (let loop ((text ""))
-			       (let ((line (read-line port)))
-				    (if (or (eof-object? line)
-					    (not line)) 
-					text
-					(loop (string-append text line "\n")))))))
-		(close port)
-		content)
-	   (begin
-	    (display 
-	     (string-append "warning: no such file: " name "\n")
-	     (current-error-port))
-	    ""))))
+  (let ((port (if (equal? name "-")
+		  (current-input-port)
+		  (catch 'system-error (lambda () (open-file name "r"))
+			 (lambda args #f)))))
+	(if port 
+	    (begin
+	     (display (string-append "[" name) (current-error-port))
+	     (let ((content (let loop ((text ""))
+				 (let ((line (read-line port)))
+				      (if (or (eof-object? line)
+					      (not line)) 
+					  text
+					  (loop (string-append text line "\n")))))))
+		  (close port)
+		  (display "]" (current-error-port))
+		  content))
+	    (begin
+	     (display 
+	      (string-append "warning: no such file: " name "\n")
+	      (current-error-port))
+	     "")))) 
 
-(define (with-exention name ext)
-  (if (equal? ext (substring name (max 0 (- (string-length name) 
-					    (string-length ext)))))
-      name
+(define (with-extention name ext)
+  (if (or (equal? name "-") 
+	  (equal? ext (substring name (max 0 (- (string-length name) 
+						(string-length ext))))))
+      name 
       (string-append name ext)))
 
 (define (do-file file-name output-name)
-  (let ((output-file (current-output-port))
-	(ascii-script (gulp-file (with-exention file-name ".as"))))
+  (let ((ascii-script (gulp-file (with-extention file-name ".as"))))
+       ;; urg
+       (set! cur-output-name output-name)
        (eval-string ascii-script)))
 
 ;;; Script entry point
 (define (main args)
-  (show-version)
+  (set! lily-home (string-append 
+		     (dirname (dirname (car args))) 
+		     "/share/lilypond"))
   (let ((options (getopt-long args
 			      `((output (single-char #\o)
                                           (value #t))
@@ -83,16 +96,17 @@ Options:
         (if pair (cdr pair) default)))
 
     (if (assq 'help options)
-	(begin (show-help) (exit 0)))
-	    
-    (if (assq 'version options)
-	(exit 0))
+	(begin (show-version (current-output-port)) (show-help) (exit 0)))
 
-    (let ((output-name (opt 'output-name "-"))
-	   (files (let ((foo (opt '() '())))
-		       (if (null? foo) 
-			   (list "-")
-			   foo))))
+    (if (assq 'version options)
+	(begin (show-version (current-output-port)) (exit 0)))
+
+    (show-version (current-error-port))
+    (let ((output-name (opt 'output "-"))
+	  (files (let ((foo (opt '() '())))
+		      (if (null? foo) 
+			  (list "-")
+			  foo))))
 	 (do-file (car files) output-name))))
 
 ;;;;
@@ -128,7 +142,7 @@ Options:
 ;; urg: 
 ;; make-uniform array of characters,
 ;; or 1-dim array of strings?
-;; (set! canvas (make-array " " canvas-height canvas-width)))
+;; (set! canvas (make-array " " canvas-height canvas-width))
 
 ;; urg, this kind of naming costs too much indenting
 (define (split c s r)
@@ -141,13 +155,18 @@ Options:
 ;;; Helper functions
 
 (define (af-gulp-file name)
-  (set! %load-path 
-	(cons (string-append 
-	       (getenv 'LILYPONDPREFIX) "/mf") %load-path))
-  (let ((path (%search-load-path name)))
-       (if path
-	   (gulp-file path)
-	   (gulp-file name))))
+  ;; urg
+  (let ((old-load-path %load-path))
+       (set! %load-path 
+	     (cons (string-append 
+		    (or (getenv 'LILYPONDPREFIX) ".") "/mf")
+		   (cons (string-append lily-home "/mf") %load-path)))
+       (let* ((path (%search-load-path name)) 
+	      (text (if path
+			(gulp-file path)
+			(gulp-file name))))
+	     (set! %load-path old-load-path)
+	     text)))
 
 (define (char-width c)
   (let ((bbox (car c)))
@@ -198,9 +217,14 @@ Options:
 	(let ((font (assoc name fonts)))
 	     (map (lambda (x) (show-char x)) font)))
 
+(define (sign x)
+  (if (= x 0)
+      1
+      (inexact->exact (/ x (abs x)))))
+
 (define (generate-default-font)
-  (let loop ((chars '()) (i 32))
-       (if (= 127 i) 
+  (let loop ((chars '()) (i 0))
+       (if (= 256 i) 
 	   chars 
 	   (loop 
 	    (cons (list i '(0 0 1000 1000) 
@@ -209,14 +233,17 @@ Options:
 	    (+ i 1)))))
 
 (define (get-font name)
-  (let ((entry (assoc name fonts)))
-       (if entry
-	   (cdr entry)
-	   (begin
-	    (display 
-	     (string-append "warning: no such font: " name "\n")
-	     (current-error-port))
-	    (get-font "default")))))
+  ;; urg
+  (if (equal? name "as-dummy")
+      (get-font "default")
+      (let ((entry (assoc name fonts)))
+	   (if entry
+	       (cdr entry)
+	       (begin
+		(display 
+		 (string-append "warning: no such font: " name "\n")
+		 (current-error-port))
+		(get-font "default"))))))
 
 (define (get-char font n)
   (let ((entry (assoc n font)))
@@ -242,13 +269,12 @@ Options:
 
 (define (end-output) 
   (display (string-append 
-	    (make-string (- canvas-width (string-length tag-line)) #\space)
-	    tag-line "\n")))
-
-(define (sign x)
-  (if (= x 0)
-      1
-      (inexact->exact (/ x (abs x)))))
+	    (make-string 
+	     (- canvas-width (string-length tag-line)) #\space)
+	    tag-line "\n")
+	   cur-output-file)
+  (close cur-output-file)
+  (set! cur-output-file '()))
 
 (define (h-line len)
   (let ((step (sign len)))
@@ -262,7 +288,8 @@ Options:
 	   ((= i len)) (plot cur-x (+ cur-y i) line-char))))
 
 (define (header x y)
-  (display (string-append x y "\n") (current-error-port)))
+  ;(display (string-append x y "\n") (current-error-port))
+  "")
 
 (define (header-end) "")
 
@@ -299,14 +326,18 @@ Options:
 	(list (list code bbox (cdr char)))))
 
 (define (load-font name mag)
-  (let ((text (af-gulp-file (string-append name ".af"))))
-       (if (< 0 (string-length text))
-	   (let* ((char-list (cdr (split #\np 
+  ;; urg: don't load dummy font
+  (if (not (equal? name "as-dummy"))
+      (let ((text (af-gulp-file (string-append name ".af"))))
+	   (if (< 0 (string-length text))
+	       (let* ((char-list (cdr 
+				  (split #\np 
 					 (regexp-substitute/global 
 					  #f "\t[^\n]*\n" text 'pre "" 'post) 
 					 list)))
-		  (font (apply append (map dissect-char char-list))))
-		 (set! fonts (cons (cons name font) fonts))))))
+		      (font (apply append (map dissect-char char-list))))
+		     (if (< 0 (length font))
+			 (set! fonts (cons (cons name font) fonts))))))))
 
 (define (move-to x y)
   (set! cur-x x)
@@ -328,19 +359,31 @@ Options:
 (define (start-line height)
   (if first-line 
       (begin
-       (set! first-line #f)
-       (set! fonts (cons (cons "default" (generate-default-font)) fonts))))
-  (if (defined? 'mudelapaperlinewidth)
-      (set! canvas-width 
-	    (inexact->exact (string->number mudelapaperlinewidth))))
+       (set! fonts (cons (cons "default" (generate-default-font)) fonts))
+       (display "\n" (current-error-port))
+       (if (defined? 'mudelapaperlinewidth)
+	   (set! canvas-width 
+		 (inexact->exact (string->number mudelapaperlinewidth))))))
   (set! canvas-height height)
   (set! canvas (make-array " " canvas-height canvas-width)))
 
 (define (stop-line)
+  (if first-line
+      (let ((output-file (if (equal? cur-output-name "-")
+			      (current-output-port)
+			      (open-file cur-output-name "w")))
+	     (output-name (if (equal? cur-output-name "-")
+			      "<stdout>"
+			      cur-output-name)))
+	    (set! first-line #f)
+	    (set! cur-output-file output-file)
+	    (display (string-append "text output to " output-name "...\n")
+		     (current-error-port))))
   (display 
    (apply string-append 
 	  (map (lambda (x) (string-append (apply string-append x) "\n")) 
-	       (array->list canvas)))))
+	       (array->list canvas)))
+   cur-output-file))
 
 (define (text s)
   (let ((n (string-length s))

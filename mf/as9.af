@@ -68,7 +68,7 @@ x
 )
  C 23; WX 2; N dots-dot; B -500 -500 500 500;
 .
- C 24; WX 1; N dots-repeatcolon; B 0 1000 1000 4000;
+ C 24; WX 1; N dots-repeatcolon; B 0 -1000 1000 2000;
 *
 
 *
