@@ -41,7 +41,7 @@ public:
 
   void dump_scheme (SCM);
   void output_scheme (SCM scm);
-  void output_stencil (Stencil*);
+  void output_stencil (Stencil);
   void output_header (Paper_def*, SCM, int, bool);
   void output_line (SCM, Offset*, bool);
   void output_page (Page*, bool);

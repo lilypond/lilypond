@@ -12,7 +12,6 @@
 #include "warn.hh"
 #include "libc-extension.hh"
 #include "afm.hh"
-#include "stencil.hh"
 #include "dimensions.hh"
 
 Adobe_font_metric::Adobe_font_metric (AFM_Font_info *fi)

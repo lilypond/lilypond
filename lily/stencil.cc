@@ -9,6 +9,7 @@
 #include <math.h>
 #include <libc-extension.hh>	// isinf
 
+#include "input.hh"
 #include "font-metric.hh" 
 #include "dimensions.hh"
 #include "interval.hh"
@@ -181,4 +182,101 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
 		      Real minimum)
 {
   add_stencil (moved_to_edge (a, d, s, padding, minimum));
+}
+
+
+/****************************************************************/
+
+void
+interpret_stencil_expr (SCM expr,
+			void (*func) (void*, SCM),
+			void *func_arg,
+			Offset o)
+{
+  while (1)
+    {
+      if (!ly_c_pair_p (expr))
+	return;
+  
+      SCM head =ly_car (expr);
+      if (unsmob_input (head))
+	{
+	  Input *ip = unsmob_input (head);
+	  (*func)(func_arg,
+		  scm_list_4 (ly_symbol2scm ("define-origin"),
+			      scm_makfrom0str (ip->file_string ()
+					       .to_str0 ()),
+			      scm_int2num (ip->line_number ()),
+			      scm_int2num (ip->column_number ())));
+	  
+	  expr = ly_cadr (expr);
+	}
+      else  if (head ==  ly_symbol2scm ("no-origin"))
+	{
+	  (*func) (func_arg, scm_list_1 (head));
+	  expr = ly_cadr (expr);
+	}
+      else if (head == ly_symbol2scm ("translate-stencil"))
+	{
+	  o += ly_scm2offset (ly_cadr (expr));
+	  expr = ly_caddr (expr);
+	}
+      else if (head == ly_symbol2scm ("combine-stencil"))
+	{
+	  interpret_stencil_expr (ly_cadr (expr), func, func_arg, o);
+	  expr = ly_caddr (expr);
+	}
+      else
+	{
+	  (*func) (func_arg, 
+		   scm_list_4 (ly_symbol2scm ("placebox"),
+			       scm_make_real (o[X_AXIS]),
+			       scm_make_real (o[Y_AXIS]),
+			       expr));
+	  return;
+	}
+    }
+}
+
+
+struct Font_list
+{
+  SCM list_;
+};
+
+static void
+find_font_function (void * fs, SCM x)
+{
+  Font_struct * me = (Font_struct*)fs;
+  
+  if (ly_car (x) == ly_symbol2scm ("placebox"))
+    {
+      SCM args = ly_cdr (x); 
+      SCM what = ly_caddr (x);
+
+      if (ly_c_pair_p (what))
+	{
+	  SCM head = ly_car (what);
+	  if (ly_symbol2scm ("text")  == head)
+	    me->fonts_ = scm_cons (ly_cadr (what), me->fonts_);
+	  else  if (head == ly_symbol2scm ("char"))
+	    me->fonts_ = scm_cons (ly_cadr (what), me->fonts_);
+	}
+    }
+}
+
+LY_DEFINE(ly_stencil_fonts, "ly:stencil-fonts",
+	  1,0,0, (s),
+	  "Analyse @var{s}, and return a list of fonts used in @var{s}."
+{
+  Stencil *stil =unsmob_stencil (s);
+  SCM_ASSERT_TYPE (stil, s, SCM_ARG1, __FUNCTION__, "Stencil");
+  Font_list fl;
+  
+  fl.list_ = SCM_EOL;
+  
+  interpret_stencil_expr (stil.expr (), &find_font_function, 
+			  (void*) &fl, Offset (0,0));
+
+  return fl.list_;
 }
