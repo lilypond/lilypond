@@ -514,6 +514,7 @@
 	(break-align-symbol . time-signature)
 	(direction . 1)
 	(breakable . #t)
+	(font-relative-size . 1)
 	(font-family . roman)
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)

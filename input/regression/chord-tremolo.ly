@@ -15,6 +15,7 @@ stems.
 \score { 
   \context Voice \notes\relative c' {
         % huh -> one beam missing!
+	\repeat "tremolo" 16 { d16 e }
 	\repeat "tremolo" 8 { d16 e }
 	\repeat "tremolo" 4 { d e }
 	\repeat "tremolo" 2 { d e }
