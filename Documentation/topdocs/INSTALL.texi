@@ -623,6 +623,11 @@ send bug reports to @email{bug-lilypond@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
 
+@unnumberedsubsec Gcc-3.0.4
+
+Gcc 3.0.4, is a bit flaky.  Try downgrading to 2.95.x, or if you're
+adventurous (see below), upgrading to 3.1.x.
+
 @unnumberedsubsec Flex-2.5.4a and gcc-3.x
 
 Flex 2.5.4a does not produce g++-3.0 compliant C++ code.  To compile
