@@ -64,6 +64,84 @@ lilypond-bin -fgnome input/simple-song.ly
 
 ;;; SCRIPT moved to buildscripts/guile-gnome.sh
 
+"
+
+// pango CVS supports custom font mappings
+
+// pango-CVS afm font mapping pseudo code
+//  - ask for help on gnome/gtk list?
+//  - get it to work
+//  - add to guile-gnome or to lily?
+
+#if 0
+// what about these?
+pango_fc_decoder_class_init (PangoFcDecoderClass *klass)
+pango_fc_decoder_init (PangoFcDecoder *decoder)
+#endif
+
+FcCharset *
+get_afm_charset (PangoFcFont *fcfont)
+{
+  // read afm
+  // convert afm mapping into FcCharset
+}
+
+PangoGlyph *
+get_afm_glyph (PangoFcFont *fcfont, guint32 wc)
+{
+  // map wc -> character name
+  // `get' character by name from font
+  // turn character into PangoGlyph
+}
+
+PangoFcDecoder *
+find_afm_decoder (FcPattern *pattern, gpointer user_data)
+{
+  // what is pattern, what is user_data?
+  // where do I get the font-name/font-file-name -> .AFM file mapping in?
+ 
+  // Hmm, now what about the virtual baseclassness,
+  // Should I derive an AfmDecoder, AfmDecoderClass
+  // And how does that work in C / gtk+?
+  
+  PangoFcDecoderClass *dclass;
+  dclass = g_new (PangoFcDecoderClass, 1);
+  dclass->get_charset = &get_afm_charset;
+  dclass->get_charset = &get_afm_glyph;
+
+  // What's the connection between the decoder and the class?
+  // #define _G_TYPE_IGC(ip, gt, ct) ((ct*) (((GTypeInstance*) ip)->g_class))
+  
+  PangoFcDecoder *decoder;
+  decoder = g_new (PangoFcDecoder, 1);
+  
+  //Hmmm, there must be less hairy way?
+  decoder->parent_instance = dclass;
+
+  return decoder;
+}
+
+void
+setup_pango (GtkWidget *canvas)
+{
+  // how to get map?
+  PangoFcFontMap *map;
+#if 1
+  // get map from context from widget
+  map = gtk_widget_get_pango_context (canvas) -> font_map;
+#else
+  pango_x_font_map_for_display (display))
+  //pango_xft_get_font_map (display, screen);
+#endif
+
+  pango_fc_font_map_add_decoder_find_func (map, &find_afm_decoder);
+}
+
+
+
+
+"
+
 
 
 (debug-enable 'backtrace)
