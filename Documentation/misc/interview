@@ -28,7 +28,6 @@ LilyPond also allows very easy integration with TeX: you can write a
 paper that mixes fragments of notation with LaTeX.
 
 * Special problems?
-
 Music notation is very complicated. It is much more difficult than
 typesetting mathematics which is TeX's forte.  Almost everything in
 music notation is a "Special problem".

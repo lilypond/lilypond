@@ -75,7 +75,7 @@ Pitch::semitone_pitch () const
   while (n < 0)
     {
       n += 7;
-      o -= 1;
+      o --;
     }
   return (o + n / 7) * 12 + pitch_byte_a[n % 7] + alteration_i_;
 }

@@ -19,6 +19,7 @@ class String_convert {
   static int hex2nibble_i (Byte byte);
   static Byte nibble2hex_byte (Byte byte);
 public:
+  static String pad_to (String s, int length);
   static String bool_str (bool b);
   static String bin2dec_str (String bin_str);
   static String bin2hex_str (String bin_str);

@@ -27,7 +27,6 @@ extern String dependency_prefix_global;
 extern Array<String> dump_header_fieldnames_global;
 extern bool midi_debug_global_b;
 extern bool no_paper_global_b;
-extern bool no_timestamps_global_b;
 extern String output_format_global;
 extern String output_name_global;
 extern bool safe_global_b;

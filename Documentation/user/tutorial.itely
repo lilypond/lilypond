@@ -910,7 +910,7 @@ For example,  the following file (@file{layout.ly})
   \version "1.3.124";
   \header @{ title = "Two miniatures";  @}
   
-  #(set! point-and-click #t)
+  #(set! point-and-click line-column-location)
   
   \paper @{
         linewidth = -1.0; @}
@@ -1016,7 +1016,7 @@ version.
 This sets the titling information for the entire file.
 
 @example
-        #(set! point-and-click #t)
+        #(set! point-and-click line-column-location)
 @end example
 
 This is Scheme code. It sets the variable @code{point-and-click} to the
@@ -1501,7 +1501,7 @@ conductor's score.
 \include "os-music.ly";
 \include "paper13.ly";
 
-#(set! point-and-click #t)
+#(set! point-and-click line-column-location)
 #(define text-flat '((font-relative-size . -2)
          (music "accidentals--1")))
 
@@ -1598,7 +1598,7 @@ In a large orchestral score like this you're bound to make some small
 mistakes, so we enable point and click (See @ref{Point and click})
 editing.
 @example
-#(set! point-and-click #t)
+#(set! point-and-click line-column-location)
 @end example
 
 We need a flat sign in text to name the tuning of the french horn, so we

@@ -10,6 +10,7 @@
 #include "translator.hh"
 #include "debug.hh"
 #include "translator-group.hh"
+#include "translator-def.hh"
 
 #include "moment.hh"
 #include "ly-smobs.icc"
@@ -55,7 +56,13 @@ Translator::Translator (Translator const &s)
 bool
 Translator::is_alias_b (String s) const
 {
-  return s == type_str_;
+  bool b  = s == type_str_;
+
+  for (SCM a = unsmob_translator_def (definition_)->type_aliases_;
+       !b && gh_pair_p (a); a = gh_cdr (a))
+    b = b || s == ly_scm2string (gh_car (a));
+
+  return b;
 }
 
 bool

@@ -77,10 +77,7 @@ Performance::output_header_track (Midi_stream& midi_stream)
   // perhaps multiple text events?
   String id_str;
   String str = String (_ ("Creator: "));
-  if (no_timestamps_global_b)
-    id_str = gnu_lilypond_str ();
-  else
-    id_str = gnu_lilypond_version_str ();
+  id_str = String_convert::pad_to (gnu_lilypond_version_str (), 40);
   str += id_str;
   str += "\n";
 
@@ -95,19 +92,15 @@ Performance::output_header_track (Midi_stream& midi_stream)
   /* Better not translate this */
   str = "Generated automatically by: ";
   str += id_str;
-  if (no_timestamps_global_b)
-    str += ".\n";
-  else
-    {
-      str += _ (", at ");
-      time_t t (time (0));
-      str += ctime (&t);
-      str = str.left_str (str.length_i () - 1);
-    }
+  str += _ (", at ");
+  time_t t (time (0));
+  str += ctime (&t);
+  str = str.left_str (str.length_i () - 1);
 
   /*
     Pad out time stamps to 120 chars.  */
-  str = str + to_str (' ' , (120 - str.length_i ()) >? 0);
+  
+  str = String_convert::pad_to (str, 120);
   
   Audio_text generate_a (Audio_text::TEXT, str);
   Midi_text generate (&generate_a);

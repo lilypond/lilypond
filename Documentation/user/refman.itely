@@ -10,15 +10,12 @@
 @ignore
  TODO:
 
-   fix all FIXMEs
-
-   Rhythm staff (clef, x-notehead)
-
 @end ignore
 
 
 @macro refbugs
 @unnumberedsubsec Bugs
+
 @end macro
 
 
@@ -28,7 +25,7 @@
 @chapter Reference Manual
 
 This document describes GNU LilyPond and its input format. The last
-revision of this document was for LilyPond 1.3.136.
+revision of this document was for LilyPond 1.3.138.
 
 
 @menu
@@ -40,6 +37,7 @@ revision of this document was for LilyPond 1.3.136.
 * Expressive marks::            
 * Ornaments::                   
 * Repeats::                     
+* Rhythmic music::              
 * Piano music::                 
 * Lyrics::                      
 * Chords::                      
@@ -120,6 +118,7 @@ brevity we omit obligotary lint such as @code{\score} blocks and
 * Notes::                       
 * Easy Notation note heads ::   
 * Tie::                         
+* Tuplets::                     
 * Rests::                       
 * Skip::                        
 * Note mode::                   
@@ -379,15 +378,12 @@ simple way.  It can be achieved by moving the tie-engraver into Thread
 context and turning off ties per Thread.
 
 
-@c .   {Tuplets}
-@menu
-* Tuplets::                     
-@end menu
-
 @node Tuplets
-@subsubsection Tuplets
-@cindex Tuplets
-@cindex Times 
+@subsection Tuplets
+
+@cindex tuplets
+@cindex triplets
+@cindex @code{\times}
 
 Tuplets are made out of a music expression by multiplying their duration
 with a fraction.
@@ -407,10 +403,15 @@ their written length:
   g'4 \times 2/3 {c'4 c' c'} d'4 d'4
 @end lilypond
 
-[todo: document tupletSpannerDuration]
+The property @code{tupletSpannerDuration} specifies how long brackets
+should last.  With this, you can make lots of tuplets while typing
+@code{\times} only once. This saves typing work when you must make lots
+of tuplets.
 
-
-
+@lilypond[fragment,  relative, singleline, verbatim]
+\property Voice.tupletSpannerDuration = #(make-moment 1 4)
+\times 2/3 { c''8 c c c c c }
+@end lilypond
 
 @c .  {Rests}
 @node  Rests
@@ -591,7 +592,7 @@ Internally, this is a short-cut for doing
 [TODO: discuss options for layout]
 
 @c .   {Partial}
-@subsubsection Partial
+@subsection Partial
 @cindex Partial
 @cindex anacrusis
 @cindex upstep
@@ -789,7 +790,7 @@ a melody that goes with lyrics.
 
 @c .    {Manual beams}
 @cindex Automatic beams
-@subsubsection Manual beams
+@subsection Manual beams
 @cindex beams, manual
 @cindex @code{]}
 @cindex @code{[}
@@ -824,7 +825,7 @@ control the number of beams through the properties
 @cindex @code{stemRightBeamCount}
 
 
-[FIXME: explain common tweaks.]
+[TODO: explain common tweaks.]
 
 
 @node Expressive marks
@@ -835,6 +836,7 @@ control the number of beams through the properties
 * Slur ::                       
 * Phrasing slur::               
 * Breath marks::                
+* Tempo::                       
 @end menu
 
 @node Slur 
@@ -853,7 +855,6 @@ possible.  In some instances involving beams slurs may be attached to a
 stem end.  If you want to override this layout you can do this through
 @code{Voice.Slur}'s grob-property @code{attachment}:
 
-[TODO: remove this section]
 Maybe reinclude other slur features and move back to tricks?  Esp. the
 second example, how to fix, can be very helpful.
 
@@ -985,14 +986,8 @@ output.
   
 
 
-
-@c .   {Text spanner}
-@menu
-* Text spanner::                
-@end menu
-
 @node Text spanner
-@subsubsection Text spanner
+@subsection Text spanner
 @cindex Text spanner
 
 Some textual indications, e.g. rallentando, accelerando, often extend
@@ -1141,7 +1136,7 @@ The amount of space taken by these indications by default does not
 influence, spacing, but setting @code{Voice.textNonEmpty} to true will
 take the widths into account.  The identifier @code{\fattext} is defined
 in the standard  includes.
-@lilypond[fragment,singleline]
+@lilypond[fragment,singleline,verbatim]
 \relative c' { c4^"longtext" \fatText c4_"longlongtext" c4 }
 @end lilypond
 
@@ -1546,6 +1541,34 @@ printed once, and then the pattern is replaced with a special sign.
 @end lilypond
 
 At present, only repeats of whole measures are supported.
+
+@node Rhythmic music
+@section Rhythmic music
+
+
+@menu
+* Rhythmic staffs::             
+@end menu
+
+@node Rhythmic staffs
+@subsection Rhythmic staffs
+
+Some times you might want to show only the rhythm of a melody.  This can
+be done  with the rhythmic staff. All pitches of notes on such a staff
+are squashed, and the  staff itself  looks has  a single staff line:
+
+@lilypond[fragment,relative ]
+  \context RhythmicStaff {
+      \time 4/4; 
+      c4 e8 f  g2 | r4 g r2 | g1:32 | r1 |
+  }
+@end lilypond
+
+
+
+[TODO: explain perc notation, if it's finished in time.] 
+
+
 
 @c . {Piano music}
 @node Piano music
@@ -2451,14 +2474,11 @@ that object.  For example, a stem grob has properties that specify its
 direction, length and thickness.
 
 
-
 The most common way of tuning the output is to alter the values of these
-properties. There are two ways of doing that: first, you can
-specifically select a set of grobs at one point, and set properties as
-you wish, or secondly, you can (temporarily) modify the definition of a
-grob, thereby affecting an entire group of grobs.
-
-[Todo: onduidelijk]
+properties. There are two ways of doing that: first, you can temporarily
+change the definition of a certain type of grob, thus affecting a whole
+set of objects.  Second, you can select one specific object, and set a 
+grob property.
 
 @menu
 * Tuning groups of grobs ::     
@@ -2923,8 +2943,9 @@ LilyPond can produce MIDI output.  The performance lacks lots of
 interesting effects, such as swing, articulation, slurring, tieing,
 etc., but it is good enough for proof-hearing the music you enter.
 
-Dynamics and tempo changes are interpreted. [TODO: mention volume
-control/Instrument Equaliser]
+Dynamics and tempo changes are interpreted.
+
+[TODO: mention volume control/Instrument Equaliser]
 
 
 @refbugs
@@ -2973,7 +2994,7 @@ The contexts for MIDI output are defined in @file{ly/performer.ly}.
 The MIDI instrument name is set by the @code{Staff.midiInstrument}
 property or, if that property is not set, the @code{Staff.instrument}
 property.  The instrument name should be chosen from the list in
-@ref{MIDI Instrument}.
+@ref{MIDI instruments}.
 
 @refbugs
 
@@ -2998,7 +3019,10 @@ default piano. It is not possible to select an instrument by number.
 * Point and click::             
 @end menu
 
-
+One of the applications of LilyPond is to enter music from existing
+written or printed material. When you're doing this kind of copying
+work, you can easily make mistakes.  This section deals with tricks and
+features that help you enter music, and find and correct mistakes.
 
 @c .  {Relative}
 @node Relative
@@ -3028,16 +3052,14 @@ This distance is determined without regarding accidentals: a
 @code{fisis} following a @code{ceses} will be put above the
 @code{ceses}.
 
-Entering scales is straightforward in relative mode.
-
-@lilypond[fragment,verbatim,center]
+Entering music that changes octave frequently  is easy in relative mode.
+@lilypond[fragment,singleline,verbatim,center]
   \relative c'' {
-    g a b c d e f g g, g
+    b c d c b c bes a 
   }
 @end lilypond
 
 And octave changing marks are used for intervals greater than a fourth.
-
 @lilypond[fragment,verbatim,center]
   \relative c'' {
     c g c f, c' a, e'' }
@@ -3092,7 +3114,68 @@ A bar check is entered using the bar symbol, @code{|}
 @node Point and click
 @subsection Point and click
 
-[todo]
+Point and click lets you find notes in the input by clicking on them in
+the Xdvi window. This makes it very easy to find input that causes some
+error in the sheet music.
+
+To use it, you need the following software
+
+@itemize
+@item 
+@uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,plain
+Xdvi} version 22.28 or better.
+
+  Note that most @TeX{} distributions ship with xdvik, which is a
+  different and less well maintained program. To find out which xdvi you
+  are running, try @code{xdvi --version} or @code{xdvi.bin --version}.
+@item emacs
+@end itemize
+
+
+Add one these lines to the top of your .ly file. The first one is for
+line location only. The second one is more convenient, but requires
+patching @code{emacsclient}.
+
+@example
+#(set! point-and-click line-location)
+#(set! point-and-click line-column-location)
+@end example
+
+In the emacs startup file (usually @file{~/.emacs}), add the following
+@example
+(server-start)
+@end example
+
+If you want emacs to jump to the exact spot (and not just the line) on a
+click, you must enable column positioning. To do so, you need to patch
+emacsclient. Apply @uref{this patch,
+http://www.cs.uu.nl/~hanwen/public/software/emacsclient-column} to
+@file{emacsclient.c} and @file{server.el} from the emacs source
+code. Stick the compiled emacsclient into a bin directory, and put
+@file{server.el} into a elisp directory
+(eg. @file{~/usr/share/emacs/}). Add the following to your @file{.emacs}
+init file, before invoking server-start.
+
+@example
+ (setq load-path (cons (concat (getenv "HOME") "/usr/share/emacs")
+   load-path))
+@end example
+
+
+Xdvi must be configured to use the emacs editor.  Before starting, set
+the environment variable @code{XEDITOR} to @code{emacsclient --no-wait
++%c:%l %f}. Xdvi also must be configured to find the fonts. Refer to the
+xdvi documentation for more information.
+
+[TODO: is that so?]
+
+When viewing, control-mousebutton 1 will take you to the correct
+line/column. Control-mousebutton 2 will show all clickable boxes.
+
+When you convert the TeX file to PostScript using dvips, dvips
+will complain about not finding @code{src:X:Y} files. Those complaints are
+harmless, and can be ignored.
+
 
 @node Interpretation context
 @section Interpretation context
@@ -3114,13 +3197,13 @@ A bar check is entered using the bar symbol, @code{|}
 @cindex notation contexts
 
 Notation contexts are objects that only exist during a run of LilyPond.
-During the interpretation phase of LilyPond (when lily prints
-"interpreting music"), music a @code{\score} block is interpreted in
-time order, i.e. in much the same order that humans read, play, and
-write music.
+During the interpretation phase of LilyPond (when it prints
+"interpreting music"), the music expresiion in a @code{\score} block is
+interpreted in time order. This is the same order that humans hear and
+play music.
 
-During this reading, the notation context is holds the state
-for the current point within the music. It contains information like
+During this interpretation, the notation context is holds the state for
+the current point within the music. It contains information like
 
 @itemize @bullet
   @item What notes are playing at this point?
@@ -3194,7 +3277,7 @@ enclosing the three notes has an explicit context.
 There are some quirks that you must keep in mind when dealing with
 defaults:
 
-Every top-level music is interpreted by the Score context, in other
+First, every top-level music is interpreted by the Score context, in other
 words, you may think of @code{\score} working like
 @example
         \score @{
@@ -3202,7 +3285,9 @@ words, you may think of @code{\score} working like
         @}
 @end example
 
-Sequential music follows the contexts of its "children".  Take this example
+Second, sequential music follows the contexts of its
+``children''. Consider the following  example.
+
 @lilypond[verbatim, singleline]
 \score { \context Score \notes { c'4 (  d' )e' } }
 @end lilypond
@@ -3284,65 +3369,52 @@ first initializing a translator with an existing context identifier:
     @var{context-identifier}
   @} @}
 @end example
-Then you can add engravers, remove engravers and set context
-properties. The syntax for these operations are respectively
+Then you can add engravers, remove engravers.
+The syntax for these operations are respectively
 @example
  \remove @var{engravername}
  \consists @var{engravername}
+@end example
+
+
+Here @var{engravername} is a string, the name of an engraver in the
+system.
+@example
  @var{propname} = @var{value} 
 @end example
 
-Here @var{engravername} is a string, the name of an engraver in the
-system. @var{propname} is a string and @var{value} is a Scheme
-expression.
 
 @lilypond[verbatim,singleline]
 \score {  \notes {
         c'4 c'4 }
   \paper {
     \translator  { \StaffContext
-        \consists Instrument_name_engraver;
-        instrument = #"foo"
         \remove Clef_engraver;
        } } }
 @end lilypond
 
 @cindex engraver
 
+You can also set properties in a translator definition. The syntax is as
+follows:
+
+@var{propname} is a string and @var{value} is a Scheme
+expression.
+@example
+ @var{propname} = @var{value}
+ @var{propname} \set  @var{symbol} = @var{value}
+ @var{propname} \override @var{symbol} =  @var{value}
+ @var{propname} \revert @var{symbol} 
+
+@end example
+
 These type of property assignments happen before interpretation starts,
 so a @code{\property} expression will override any predefined settings.
 
-Engravers are the actual C++ modules that do the work in the
-interpretation phase.
 
-
-There are some pre-defined identifiers to simplify editing translators,
-they are defined in @file{ly/engraver.ly}.  These pre-defined
-identifiers are:
-
-@table @code
-@cindex @code{StaffContext}
-  @item @code{StaffContext}  
-    Default Staff context. 
-@cindex @code{RhythmicStaffContext}
-
-  @item @code{RhythmicStaffContext}  
-    Default RhythmicStaff context. 
-@cindex @code{VoiceContext}
-
-  @item @code{VoiceContext}  
-    Default Voice context.  
-@cindex @code{ScoreContext}
-
-  @item @code{ScoreContext}  
-    Default Score context. 
-
-@cindex @code{HaraKiriStaffContext}
-
-  @item @code{HaraKiriStaffContext}  
-    Staff context that does not print if it only contains rests.  See
-@ref{Hara-kiri staffs}.
-@end table
+ To simplify editing translators, all standard contexts have standard
+identifiers called @var{name}@code{Context}, e.g. @code{StaffContext},
+@code{VoiceContext}.
 
 @node Defining new contexts
 @subsection Defining new contexts
@@ -3352,29 +3424,29 @@ following extra information:
 @itemize @bullet
   @item  A name, specified by @code{\name @var{contextname};}.
 
-  @item A cooperation engraver. This is specified by   @code{\type
+  @item A cooperation module. This is specified by   @code{\type
 @var{typename};}.
 @end itemize
 
-
-A context definition has this syntax:
-
+This is an example:
 @example
-
-  \translator @code{@{}
-                      @var{translatorinit} @var{translatormodifierlist}
-                    @code{@}}
+\translator @code{
+  \type "Engraver_group_engraver";
+  \name "SimpleStaff";
+  \alias "Staff";
+  \consists "Staff_symbol_engraver";
+  \consists "Note_head_engraver";
+  \consistsend "Axis_group_engraver";
+}@
 @end example
 
-@var{translatorinit} can be an identifier or 
-@example
+Basic building blocks of translation are called engravers; they are
+special C++ classes.
 
-@end example
-where @var{typename} is one of
-
-The cooperation engraver groups other engravers, and specifies how they
-should cooperate. Choices are:
-
+The argument of @code{\type} is the name for a special engraver that
+handles cooperation between simple engravers such as
+@code{Note_head_engraver} and @code{Staff_symbol_engraver}. Alternatives
+for this engraver are the following:
 @table @code
 @cindex @code{Engraver_group_engraver}
   @item @code{Engraver_group_engraver}  
@@ -3394,15 +3466,13 @@ and only the toplevel context.
     `miniscore'.
 @end table 
 
-@var{translatormodifierlist} is a list of items where each item is
-one of
+Other modifiers   are
 
 @itemize @bullet
-  @item  @code{\consists} @var{engravername} @code{;}  
-    Add @var{engravername} to the list of modules in this context. 
-  The order of engravers added with @code{\consists} is
-    significant.
-  
+  @item @code{\alias} @var{alternate-name} @code{;}
+    This specifies a different name. In the above example,
+@code{\property Staff.X = Y} will also work on @code{SimpleStaff}s
+
   @item  @code{\consistsend} @var{engravername} @code{;}  
     Analogous to @code{\consists}, but makes sure that
     @var{engravername} is always added to the end of the list of
@@ -3422,15 +3492,9 @@ one of
 completeness, but is never used in practice.
  
   
-  @item  @code{\remove} @var{engravername} @code{;}  
-    Remove a previously added (with @code{\consists}) engraver.
-  
   @item  @code{\name} @var{contextname} @code{;}  
     This sets name of the context, e.g. @code{Staff}, @code{Voice}.  If
     the name is not specified, the translator won't do anything.
-
-  @item  @var{propname} @code{=} @var{value} @code{;}  
-    A property assignment.
 @end itemize
 
 In the @code{\paper} block, it is also possible to define translator
@@ -3462,27 +3526,15 @@ such an identifier outside of @code{\score}, you must do
       
 
 
-        Properties can be preset within the @code{\translator} block
-corresponding to the appropriate context.  In this case, the syntax
-is
-
-@example
-  @var{propname} @code{=} @var{value}
-@end example
-
-The property settings are used during the interpretation phase.  They
-are read by the LilyPond modules where interpretation contexts are
-built of.  These modules are called @emph{translators}.  Translators for
-notation are called @emph{engravers}, and translators for sound are
-called @emph{performers}.
-
-
 
 
 @c . {Syntactic details}
 @node Syntactic details
 @section Syntactic details
 @cindex Syntactic details
+
+This section describes details that were too boring to be put elsewhere.
+
 @menu
 * Top level::                   
 * Identifiers::                 
@@ -3514,8 +3566,8 @@ definition.  A score block has the following syntax:
   \score @{ @var{musicexpr} @var{outputdefs} @}
 @end example
 
-@var{outputdefs} are zero or more output definitions.  If no output
-definition is supplied, the default @code{\paper} block will be added.
+@var{outputdefs} are zero or more output definitions.  If none is
+supplied, the default @code{\paper} block will be added.
 
 
 
@@ -3530,20 +3582,20 @@ entering such a block at top-level.
 @cindex Header
 @cindex @code{\header}
 
-The syntax is
 
-@example
-  \header @{ @var{key1} = @var{val1};
-@cindex @code{ly2dvi}
-             @var{key2} = @var{val2}; @dots{} @}
-@end example
-
-
-A header describes the file's contents.  It can also appear in a
-@code{\score} block.  Tools like @code{ly2dvi} can use this
-information for generating titles.  Key values that are used by
+A header describes bibilographic information of the file's contents.  It
+can also appear in a @code{\score} block.  Tools like @code{ly2dvi} can
+use this information for generating titles.  Key values that are used by
 @code{ly2dvi} are: title, subtitle, composer, opus, poet, instrument,
 metre, arranger, piece and tagline.
+
+@cindex @code{ly2dvi}
+
+The syntax is
+@example
+  \header @{ @var{key1} = @var{val1};
+             @var{key2} = @var{val2}; @dots{} @}
+@end example
 
 It is customary to put the @code{\header} at the top of the file.
 
@@ -3601,9 +3653,9 @@ not yet user accessible.
 Music in LilyPond is entered as a music expression.  Notes, rests, lyric
 syllables are music expressions, and you can combine music expressions
 to form new ones, for example by enclosing a list of expressions in
-@code{\sequential @{ @}} or @code{< >}.  In this example, a compound
-expression is formed out of the quarter note @code{c} and a quarter note
-@code{d}:
+@code{\sequential @{ @}} or @code{< >}.  In the following example, a
+compound expression is formed out of the quarter note @code{c} and a
+quarter note @code{d}:
 
 @example 
 \sequential @{ c4 d4 @} 
@@ -3865,6 +3917,8 @@ foo = -6
 @node Lexical details
 @section Lexical details
 
+Even more boring details, now on lexical side of the input parser.
+
 @menu
 * Comments::                    
 * Direct Scheme::               
@@ -3978,7 +4032,7 @@ by a @emph{required} decimal point and an optional exponent such as
 A real constant can be followed by one of the dimension keywords:
 @code{\mm} @code{\pt}, @code{\in}, or @code{\cm}, for millimeters,
 points, inches and centimeters, respectively.  This converts the number
-to a real that is the internal representation of dimensions.
+a number that is the internal representation of that dimension.
 
 
 @node Strings

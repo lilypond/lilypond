@@ -64,7 +64,7 @@ A further source of information is the website, which can be found at
 @uref{http://www.lilypond.org/}.  The website contains on-line copies of
 this and other documentation.
 
-
+@mbinclude dedication.itely
 
 @menu
 * Preface::                        Preface 

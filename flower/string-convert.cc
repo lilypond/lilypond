@@ -343,3 +343,9 @@ String_convert::long_str (long l)
   sprintf (s,"%ld", l);
   return s;
 }
+
+String
+String_convert::pad_to (String s, int n)
+{
+  return s + to_str (' ' , (n - s.length_i ()) >? 0);
+}

@@ -684,6 +684,12 @@ if 1:
 	
 	conversions.append (((1,3,136), conv, 'ly-X-elt-property -> ly-X-grob-property'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('point-and-click +#t', 'point-and-click line-column-location', str)
+		return str
+	
+	conversions.append (((1,3,138), conv, 'point-and-click argument changed to procedure.'))
 
 
 ############################
