@@ -71,9 +71,7 @@ Virtual_font_metric::find_by_name (String glyph) const
 {
   Stencil m;  
   for (SCM s = font_list_; m.is_empty () && scm_is_pair (s); s = scm_cdr (s))
-    {
-      m = unsmob_metrics (scm_car (s))->find_by_name (glyph);
-    }
+    m = unsmob_metrics (scm_car (s))->find_by_name (glyph);
 
   return m;
 }

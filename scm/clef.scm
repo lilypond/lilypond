@@ -91,7 +91,7 @@
     ("clefs.petrucci-g" . -4)))
 
 (define-public (make-clef-set clef-name)
-  "Generate the clef setting commands for a clef with name CL."
+  "Generate the clef setting commands for a clef with name CLEF-NAME."
   (define (make-prop-set props)
     (let ((m (make-music 'PropertySet)))
       (map (lambda (x) (set! (ly:music-property m (car x)) (cdr x))) props)
@@ -121,7 +121,7 @@
 	       (csp (make-music 'ContextSpeccedMusic)))
 	  (context-spec-music seq 'Staff))
 	(begin
-	  (ly:warn "Unknown clef type `~a'
-See scm/lily.scm for supported clefs" clef-name)
+	  (ly:warn (_ "Unknown clef type `~a' clef-name"))
+	  (ly:warn (_ "See scm/lily.scm for supported clefs"))
 	  (make-music 'Music)))))
 

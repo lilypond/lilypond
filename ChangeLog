@@ -1,3 +1,9 @@
+2004-12-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* ly/engraver-init.ly: Fix clef glyp names.
+
+	* lily/time-signature.cc (special_time_signature): 
+
 2004-12-11  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* mf/merge.pe: new file.
@@ -13,6 +19,8 @@
 	* lily/all-font-metrics.cc (find_otf): new function.
 
 2004-12-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/time-signature.cc (special_time_signature): Fix.
 
 	* configure.in (PKG_CONFIG_PATH): Remove stray `i'.  Check for
 	GTK2 before checking for pango.  Fixes -fgnome.

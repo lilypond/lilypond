@@ -27,7 +27,7 @@ MAKE_SCHEME_CALLBACK (Time_signature, print, 1);
 SCM
 Time_signature::print (SCM smob) 
 {
-  Grob * me = unsmob_grob (smob);
+  Grob *me = unsmob_grob (smob);
   SCM st = me->get_property ("style");
   SCM frac = me->get_property ("fraction");
   int n = 4;
@@ -40,18 +40,14 @@ Time_signature::print (SCM smob)
 
   Stencil m;
   if (st == ly_symbol2scm ("single-digit"))
-    {
-      m = numbered_time_signature (me, n, 0);
-    }
+    m = numbered_time_signature (me, n, 0);
   else if (scm_is_symbol (st))
-    {
-      m = special_time_signature (me, st, n, d);
-    }
+    m = special_time_signature (me, st, n, d);
   else
     m = numbered_time_signature (me, n,d);
 
   if (Staff_symbol_referencer::line_count (me) % 2 == 0)
-    m.translate_axis (Staff_symbol_referencer::staff_space (me)/2 , Y_AXIS);
+    m.translate_axis (Staff_symbol_referencer::staff_space (me) / 2 , Y_AXIS);
 
   return m.smobbed_copy ();
 }
