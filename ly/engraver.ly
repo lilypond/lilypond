@@ -1,8 +1,8 @@
 \version "1.3.146"
 
-%
-% setup for Request->Element conversion. Guru-only
-%
+%%%
+%%% setup for Request->Element conversion. Guru-only
+%%%
 
 StaffContext=\translator {
 	\type "Engraver_group_engraver"
@@ -11,12 +11,12 @@ StaffContext=\translator {
 	Generic_property_list = #generic-staff-properties
 	\consists "Property_engraver"
 	
+	%% Bar_engraver must be first so default bars aren't overwritten
+	%% with empty ones.
 	\consists "Bar_engraver"
- % Bar_engraver must be first so default bars aren't overwritten
-% with empty ones.
 
 
-%	\consists "Repeat_engraver"
+%%	\consists "Repeat_engraver"
 	\consists "Volta_engraver"
 	\consists "Separating_line_group_engraver"	
 
@@ -98,12 +98,12 @@ RhythmicStaffContext=\translator{
 	\name RhythmicStaff
 	\alias "Staff"
 	
-	Bar \override #'bar-size = #4
+	BarLine \override #'bar-size = #4
 	VoltaBracket \override #'minimum-space =  #15  % urg, in \pt
 	VoltaBracket \override #'padding =  #5  % urg, in \pt
 	StaffSymbol \override #'line-count = #1	
 
-%	\consists "Repeat_engraver"
+%%	\consists "Repeat_engraver"
 	\consists "Volta_engraver"
 	\consists "Bar_engraver"
 	\consists "Time_signature_engraver"

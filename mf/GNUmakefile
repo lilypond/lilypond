@@ -24,12 +24,13 @@ $(outdir)/cmr10.afm:
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
 AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm) $(addsuffix .afm, $(CM_AFM_FILES)))
+ENC_FILES=$(TEXTABLES:.tex=.enc)
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(datadir)/fonts/source/
@@ -64,9 +65,6 @@ INSTALLATION_OUT_FILES4=$(PFA_FILES) $(outdir)/fonts.scale
 INSTALLATION_OUT_DIR5=$(datadir)/dvips/
 INSTALLATION_OUT_FILES5=$(outdir)/lilypond.map
 
-pfa: $(PFA_FILES) $(outdir)/fonts.scale
-
-
 endif
 
 $(outdir)/lilypond.map: 
@@ -83,15 +81,13 @@ default: $(ALL_GEN_FILES)
 
 ##
 ## todo: this also depends on .tfm, FIXME.
-$(outdir)/%.afm  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
-	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=list.ly) $<
-
-
+$(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log 
+	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm)  --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=list.ly) $<
 
 local-clean:
 	rm -f mfplain.mem mfplain.log mpout.log
 	rm -f *.tfm *.log
 
-
+pfa: $(PFA_FILES) $(outdir)/fonts.scale
 
 out/feta-test16.dvi: feta-eindelijk.mf

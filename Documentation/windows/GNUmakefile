@@ -1,7 +1,7 @@
 
 depth=../..
 
-EXTRA_DIST_FILES = LilyPond.ico $(wildcard *.sh *.patch) setup.hint
+EXTRA_DIST_FILES = LilyPond.ico $(wildcard *.sh *.patch *.hint)
 
 STEPMAKE_TEMPLATES=documentation texinfo install install-out
 
@@ -27,7 +27,7 @@ $(outdir)/%.sh: %.sh
 	chmod 755 $@
 
 # Urg
-$(outdir)/lilypond-profile.sh: $(outdir)/../$(depth)/buildscripts/out/lilypond-profile
+$(outdir)/lilypond-profile.sh: $(outdir)/../$(depth)/buildscripts/$(outconfbase)/lilypond-profile
 	cp $< $@
 	chmod 755 $@
 

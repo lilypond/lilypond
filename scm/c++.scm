@@ -11,6 +11,8 @@
   (and (pair? x)
        (number? (car x)) (number? (cdr x))))
 
+(define (grob-list? x) (list? x))
+
 (define (moment-pair?  x)
   (and (pair? x)
        (moment? (car x)) (moment? (cdr x))))
@@ -41,6 +43,7 @@
    (,integer? . "integer")
    (,list? . "list")
    (,symbol? . "symbol")
+   (,grob-list? . "list of grobs")
    (,string? . "string")
    (,boolean? . "boolean")
    (,moment? . "moment")

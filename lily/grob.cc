@@ -336,87 +336,6 @@ Grob::add_dependency (Grob*e)
     programming_error ("Null dependency added");
 }
 
-
-
-
-/**
-      Do break substitution in S, using CRITERION. Return new value.
-      CRITERION is either a SMOB pointer to the desired line, or a number
-      representing the break direction. Do not modify SRC.
-*/
-SCM
-Grob::handle_broken_grobs (SCM src, SCM criterion)
-{
- again:
-  Grob *sc = unsmob_grob (src);
-  if (sc)
-    {
-      if (gh_number_p (criterion))
-	{
-	  Item * i = dynamic_cast<Item*> (sc);
-	  Direction d = to_dir (criterion);
-	  if (i && i->break_status_dir () != d)
-	    {
-	      Item *br = i->find_prebroken_piece (d);
-	      return (br) ? br->self_scm () : SCM_UNDEFINED;
-	    }
-	}
-      else
-	{
-	  Line_of_score * line
-	    = dynamic_cast<Line_of_score*> (unsmob_grob (criterion));
-	  if (sc->line_l () != line)
-	    {
-	      sc = sc->find_broken_piece (line);
-
-	    }
-
-	  /* now: !sc || (sc && sc->line_l () == line) */
-	  if (!sc)
-	    return SCM_UNDEFINED;
-
-	  /* now: sc && sc->line_l () == line */
-	  if (!line
-	      || (sc->common_refpoint (line, X_AXIS)
-		  && sc->common_refpoint (line, Y_AXIS)))
-	    {
-	      return sc->self_scm ();
-	    }
-	  return SCM_UNDEFINED;
-	}
-    }
-  else if (gh_pair_p (src))
-    {
-      SCM oldcar =gh_car (src);
-      /*
-	UGH! breaks on circular lists.
-      */
-      SCM newcar = handle_broken_grobs (oldcar, criterion);
-      SCM oldcdr = gh_cdr (src);
-      
-      if (newcar == SCM_UNDEFINED
-	  && (gh_pair_p (oldcdr) || oldcdr == SCM_EOL))
-	{
-	  /*
-	    This is tail-recursion, ie. 
-	    
-	    return handle_broken_grobs (cdr, criterion);
-
-	    We don't want to rely on the compiler to do this.  Without
-	    tail-recursion, this easily crashes with a stack overflow.  */
-	  src =  oldcdr;
-	  goto again;
-	}
-
-      SCM newcdr = handle_broken_grobs (oldcdr, criterion);
-      return gh_cons (newcar, newcdr);
-    }
-  else
-    return src;
-
-  return src;
-}
-
 void
 Grob::handle_broken_dependencies ()
 {
@@ -430,9 +349,9 @@ Grob::handle_broken_dependencies ()
 	{
 	  Grob * sc = s->broken_into_l_arr_[i];
 	  Line_of_score * l = sc->line_l ();
+	  set_break_subsititution(l ? l->self_scm () : SCM_UNDEFINED);
 	  sc->mutable_property_alist_ =
-	    handle_broken_grobs (mutable_property_alist_,
-				 l ? l->self_scm () : SCM_UNDEFINED);
+	    substitute_mutable_properties (mutable_property_alist_);
 	}
     }
 
@@ -441,14 +360,14 @@ Grob::handle_broken_dependencies ()
 
   if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
     {
+      set_break_subsititution(line ? line->self_scm () : SCM_UNDEFINED);
       mutable_property_alist_
-	= handle_broken_grobs (mutable_property_alist_,
-			       line ? line->self_scm () : SCM_UNDEFINED);
+	= substitute_mutable_properties (mutable_property_alist_);
     }
   else if (dynamic_cast <Line_of_score*> (this))
     {
-      mutable_property_alist_ = handle_broken_grobs (mutable_property_alist_,
-					    SCM_UNDEFINED);
+      set_break_subsititution (SCM_UNDEFINED);
+      mutable_property_alist_ = substitute_mutable_properties (mutable_property_alist_);
     }
   else
     {
@@ -766,12 +685,17 @@ Grob::mark_smob (SCM ses)
       scm_gc_mark (s->dim_cache_[a].offset_callbacks_);
       scm_gc_mark (s->dim_cache_[a].dimension_);
     }
-  
+
+  /*
+    don't mark parents -- this causes nasty deep recursion.
+   */
+#if 0 
   if (s->parent_l (Y_AXIS))
     scm_gc_mark (s->parent_l (Y_AXIS)->self_scm ());
   if (s->parent_l (X_AXIS))
     scm_gc_mark (s->parent_l (X_AXIS)->self_scm ());
-
+#endif
+  
   if (s->original_l_)
     scm_gc_mark (s->original_l_->self_scm ());
   return s->do_derived_mark ();

@@ -39,6 +39,9 @@ ifeq ($(PACKAGE),STEPMAKE)
 SUBDIRS = bin make stepmake 
 else
 SUBDIRS = stepmake
+# don't install stepmake
+install: local-install
+	@echo Not installing stepmake
 endif
 #
 

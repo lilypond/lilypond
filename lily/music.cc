@@ -41,11 +41,15 @@ Music::Music ()
 Music::Music (Music const &m)
 {
   immutable_property_alist_ = m.immutable_property_alist_;
-  SCM c =ly_deep_mus_copy (m.mutable_property_alist_);
-  mutable_property_alist_ = c;
+  mutable_property_alist_ = SCM_EOL;
 
+  /*
+    First we smobify_self, then we copy over the stuff.  If we don't,
+    stack vars that hold the copy might be optimized away, meaning
+    that they won't be protected from GC.
+   */
   smobify_self ();
-
+  mutable_property_alist_ = ly_deep_mus_copy (m.mutable_property_alist_);
   set_spot (*m.origin ());
 }
 
@@ -172,6 +176,8 @@ Music::set_mus_property (const char* k, SCM v)
   SCM s = ly_symbol2scm (k);
   set_mus_property (s, v);
 }
+
+void paranoia_check (Music*);
 
 void
 Music::set_immutable_mus_property (const char*k, SCM v)
@@ -307,3 +313,4 @@ init_functions ()
 }
 ADD_SCM_INIT_FUNC (musicscm,init_functions);
 ADD_MUSIC(Music);
+

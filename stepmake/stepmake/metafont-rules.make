@@ -1,8 +1,9 @@
 
 # Don't remove $(outdir)/.log's.  Logs are a target!
 
+# we want to see botched results as well.
 $(outdir)/%.dvi: %.mf
-	$(METAFONT) "\nonstopmode; input $<;"
+	-$(METAFONT) "\nonstopmode; input $<;"
 	gftodvi  $(basename $<)
 	mv $(basename $<).dvi $(outdir)
 	rm $(basename $<).*gf
@@ -27,15 +28,13 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 	gftopk $< $@
 
 
-
 $(outdir)/%.pfa: %.mf
-	pktrace --simplify --keep-trying $(basename $(@F))
+	pktrace -I $(outdir)/ --pfa --simplify --keep-trying $(basename $(@F))
 	mv $(basename $(@F)).pfa $(outdir)
 
 $(outdir)/%.pfb: %.mf
-	pktrace --simplify --keep-trying  $(basename $(@F))
+	pktrace -I $(outdir)/ --pfb --simplify --keep-trying  $(basename $(@F))
 	mv $(basename $(@F)).pfb $(outdir)
-
 
 #%.afm:
 #	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)

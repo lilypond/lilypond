@@ -100,7 +100,7 @@ Upgrading
    * if you have an unpacked source tree of a previous version, you may
      the patches.
 
-     _If you upgrade by patching do remember to rerun autoconf after
+     _If you upgrade by patching do remember to rerun ./autogen.sh after
      applying the patch_.
 
    * if you have the `.tar.gz' file of a previous release, you can use
@@ -130,7 +130,7 @@ Compilation
    * Python 1.5 or 2.1 Check out the python website
      (http://www.python.org/).
 
-   * GUILE 1.4 or newer GUILE-1.3.4 may work but is no longer
+   * GUILE 1.4 or newer.  GUILE-1.3.4 may work but is no longer
      supported.  Check out the GUILE webpage
      (http://www.gnu.org/software/guile/guile.html).
 

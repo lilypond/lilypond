@@ -222,7 +222,6 @@
    * TODO: any uneven step that's lower than an uneven step which is
      chromatically altered
   "
-  (write-me "adds: " 
   (let ((evens (filter-list (lambda (x) (!= 0 (modulo (cadr x) 2))) steps))
 	(altered-unevens
 	 (filter-list (lambda (x)
@@ -240,13 +239,13 @@
 		       '()))))
     ;; Hmm, what if we have a step twice, can we ignore that?
     (uniq-list (sort (apply append evens altered-unevens highest)
-		     pitch::<)))))
+		     pitch::<))))
 	
      
 ;; FIXME: unLOOP, see ::additions
 ;; find the pitches that are missing from `normal' chord
 (define (chord::subtractions chord-pitches)
-  (write-me "subs: " (let ((tonic (car chord-pitches)))
+  (let ((tonic (car chord-pitches)))
     (let loop ((step 1) (pitches chord-pitches) (subtractions '()))
       (if (pair? pitches)
 	(let* ((pitch (car pitches))
@@ -269,7 +268,7 @@
 	    (if (= p-step step)
 	      (loop (+ step 2) (cdr pitches) subtractions)
 	      (loop step (cdr pitches) subtractions)))))
-	(reverse subtractions))))))
+	(reverse subtractions)))))
 
 (define (chord::additions->text-banter additions subtractions)
   (if (pair? additions)
@@ -381,7 +380,7 @@
 ;; return (MATCHED-EXCEPTION . BASE-CHORD-WITH-UNMATCHED-STEPS)
 ;; BASE-CHORD-WITH-UNMATCHED-STEPS always includes (tonic 3 5)
 (define (chord::exceptions-lookup style steps)
-  (write-me "xl: " (let* ((result (chord::exceptions-lookup-helper
+  (let* ((result (chord::exceptions-lookup-helper
 		  (chord::restyle 'chord::names-alist- style)
 		  steps '() #f))
 	   (exception-part (car result))
@@ -396,7 +395,7 @@
 			((= i 0) base)
 		      ())
 		    unmatched-steps)))
-    (list exception-part unmatched-with-1-3-5))))
+    (list exception-part unmatched-with-1-3-5)))
 
 
 (define (chord::name->text style tonic steps bass-and-inversion)

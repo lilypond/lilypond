@@ -65,6 +65,9 @@ are in PNG format, and should be viewable with any current browser.
 the postscript files.
 """
 
+headertext_nopics= r"""
+<p>Nothing to be seen here, move along.
+"""
 
 #
 # FIXME breaks on multiple strings.

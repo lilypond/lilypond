@@ -96,7 +96,6 @@ public:
      #funcptr# is the function to call to update this element.
    */
   void calculate_dependencies (int final, int busy, SCM funcname);
-  static SCM handle_broken_grobs(SCM, SCM criterion);
 
   virtual void do_break_processing ();
   virtual Grob *find_broken_piece (Line_of_score*) const;
@@ -175,6 +174,8 @@ public:
 };
 
 Grob * unsmob_grob (SCM);
+void set_break_subsititution (SCM criterion);
+SCM substitute_mutable_properties (SCM alist);
 
 #endif // STAFFELEM_HH
 

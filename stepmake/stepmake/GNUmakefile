@@ -19,7 +19,7 @@ STEPMAKE_TEMPLATES=makedir install
 ifeq ($(PACKAGE),STEPMAKE)
 INSTALLATION_DIR=$(datadir)/stepmake
 else
-INSTALLATION_DIR=$(dir $(datadir))/$(package)/stepmake/stepmake
+INSTALLATION_DIR=$(dir $(patsubst %/, %, $(dir $(datadir))))$(package)/stepmake/stepmake
 endif
 INSTALLATION_FILES=GNUmakefile $(MAKE_FILES)
 

@@ -82,6 +82,9 @@ def parse_logfile (fn):
 		elif tags[0] == 'font':
 			global_info['FontName'] = string.join (tags[1:])
 			global_info['FontFamily']=tags[1]
+			global_info['FontBBox'] = '0 0 1000 1000'
+			global_info['Ascender'] = '0'
+			global_info['Descender'] = '0'
 	
 	return (global_info, charmetrics, deps)
 
@@ -119,6 +122,16 @@ def write_tex_defs (file, global_info, charmetrics):
 	for m in charmetrics:
 		file.write (r'''\def\%s%s{\char%d}%s''' % (nm, m['tex'], m['code'],'\n'))
 
+def write_ps_encoding (file, global_info, charmetrics):
+	encs = ['.notdef'] * 256
+	for m in charmetrics:
+		encs[m['code']] = m['tex']
+		
+	file.write ('/FetaEncoding [\n')
+	for m in range(0,256):
+		file.write ('  /%s %% %d\n' % (encs[m], m))
+	file.write ('] def\n')
+	
 def write_fontlist (file, global_info, charmetrics):
 	nm = global_info['FontFamily']
 	file.write (r"""
@@ -148,7 +161,6 @@ def write_fontlist (file, global_info, charmetrics):
 }
 """)
 
-
 def write_deps (file, deps, targets):
 	for t in targets:
 		file.write ('%s '% t)
@@ -175,10 +187,11 @@ Options:
 
 (options, files) = getopt.getopt(
     sys.argv[1:], 'a:d:hl:o:p:t:', 
-    ['afm=', 'outdir=', 'dep=',  'tex=', 'ly=', 'debug', 'help', 'package='])
+    ['enc=', 'afm=', 'outdir=', 'dep=',  'tex=', 'ly=', 'debug', 'help', 'package='])
 
 
-texfile_nm = '';
+enc_nm = ''
+texfile_nm = ''
 depfile_nm = ''
 afmfile_nm = ''
 lyfile_nm = ''
@@ -193,6 +206,8 @@ for opt in options:
 		outdir_prefix = a
 	elif o == '--tex' or o == '-t':
 		texfile_nm = a
+	elif o == '--enc':
+		enc_nm = a
 	elif o == '--ly' or o == '-':
 		lyfile_nm = a
 	elif o== '--help' or o == '-h':
@@ -207,6 +222,8 @@ for opt in options:
 		print o
 		raise getopt.error
 
+base = re.sub ('.tex$', '', texfile_nm)
+
 for filenm in files:
 	(g,m, deps) =  parse_logfile (filenm)
 	cs = tfm_checksum (re.sub ('.log$', '.tfm', filenm))
@@ -216,8 +233,11 @@ for filenm in files:
 	
 	write_afm_metric (afm, g,m)
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
-	write_deps (open (depfile_nm, 'wb'), deps, [texfile_nm, afmfile_nm])
+	write_ps_encoding (open (enc_nm, 'w'), g, m)
+	
+	write_deps (open (depfile_nm, 'wb'), deps, [base + '.dvi', texfile_nm, afmfile_nm])
 	if lyfile_nm != '':
 		write_fontlist(open (lyfile_nm, 'w'), g, m)
+
 
 

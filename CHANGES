@@ -1,3 +1,101 @@
+1.4.14.hwjc1
+============
+
+* Documentation/topdocs/INSTALL.texi (Top): Remove generic Guile
+threads warning.
+
+* backport small stack fixes from 1.5
+
+* backport lilypond-book.py from 1.5
+
+1.4.14.jcn3
+===========
+* backport Documentation/topdocs/FAQ.texi (Installation): Add
+ lilypond-devel list.  Add faq about font removal.  Fix faq about
+ generating and running ./configure.  Typo fixes.  Fix wiki url.
+
+* backport cvs/lilypond-1.4/ly/engraver.ly (RhythmicStaffContext): Resurrect
+  bar lines.
+
+* backport Documentation/topdocs/INSTALL.texi (Top): Add some warnings
+  about guile --with-threads.  Hopefully this issue can be resolved
+  rsn, but maybe we should even add warnings for the standard Debian
+  and Red Hat packages?
+
+* backport configure.in: Warn if guile is configured to use threads.  Maybe
+  we should make this an error (ie, add to REQUIRED list?)
+
+* backport lily/music.cc (Music): fix very subtle and nasty memory
+ corruption bug. Typical symptom: "programming_error: Rhythmic_req
+ has no duration"
+
+* backport lily/part-combine-music-iterator.cc (get_state): Bugfix: use
+  ly_symbol2scm to get a scm symbol (rather than ly_str02scm).
+
+* Documentation/windows/zlily-profile.sh:
+* Documentation/windows/post-lilypond.sh: Assume normal
+  prefix=/usr for lilypond.
+
+* aclocal.m4:
+* autogen.sh: Regenerate.
+	
+* Documentation/topdocs/INSTALL.texi: 
+* configure.in: 
+* stepmake/configure.in:
+* stepmake/aclocal.m4: Revert autoconf upgrade.  Autoconf 2.53 has
+  a serious bug wrt AC_CONFIG_AUX_DIR (reported).  Creating
+  ./configure once again requires autoconf == 2.13.
+
+* stepmake/autogen.sh: Check for autoconf == 2.13.
+
+* backport GNUmakefile.in (short-examples):
+ (long-examples): Bugfix for --srcdir build.
+
+* backport stepmake/bin/config.sub: 
+  stepmake/bin/config.guess: Update from latest autotools.
+
+* aclocal.m4:
+  autogen.sh: Regenerate.
+	
+* configure.in: 
+  stepmake/configure.in: 
+  stepmake/aclocal.m4: Run autoupdate.  Creating ./configure now
+  requires autoconf >= 2.50.
+
+* backport stepmake/autogen.sh: Check for autoconf >= 2.50.
+
+* backport stepmake/stepmake/GNUmakefile (INSTALLATION_DIR): Bugfix: Adapt
+  to new $datadir convention (<package>/<version>).
+
+* backport stepmake/GNUmakefile.in: Don't install stepmake.  This breaks
+  the use of make/ly.make for use as an external makefile.  Probably
+  noone except for myself ever used this anyway.
+
+* scm/chord-name.scm: Remove debug printing.
+
+* backport stepmake/stepmake/generic-vars.make: 
+  make/lilypond-vars.make:
+  GNUmakefile.in (builddir-setup): New setup for builddir run.
+  Fixes LilyPond run from builddir for --srcdir builds.
+
+* backport Documentation/windows/GNUmakefile (OUT_PROFILES): Bugfix for
+  --srcdir build.
+
+* Bugfix: backport .enc file generation.
+
+* Bugfix: Include $(builddir)/mf/out (was $(srcdir)/mf/out.
+
+* Add toplevel target install-html-doc.
+
+* Bugfixes for --srcdir html-doc build.
+
+* Documentation/windows/lilypond.hint: Renamed (previously setup.hint).
+
+* Documentation/windows/lilypond-doc.hint: New file.
+
+1.4.14
+======
+* backport stepmake/aclocal.m4: Fix for ash as /bin/sh.
 * backport stepmake/aclocal.m4: Fix for ash as /bin/sh.
 
 * backport stepmake/aclocal.m4: Append $FULL_VERSION to datadir.

@@ -88,7 +88,7 @@ There are two options for upgrading sources.
 @item if you have an unpacked source tree of a previous version, you
 may the patches.
 
-@emph{If you upgrade by patching do remember to rerun autoconf after
+@emph{If you upgrade by patching do remember to rerun ./autogen.sh after
 applying the patch}.
 
 @item if you have the @code{.tar.gz} file of a previous release, you can
@@ -121,7 +121,7 @@ distribution supports g++ 3.x and flex.
 @item  Python 1.5 or 2.1
 Check out @uref{http://www.python.org/, the python website}.
 
-@item  GUILE 1.4 or newer
+@item  GUILE 1.4 or newer.
 GUILE-1.3.4 may work but is no longer supported.  Check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 
@@ -185,7 +185,8 @@ following software
 @itemize @bullet
 @item @TeX{}.
 @item Xdvi and Ghostscript
-@item GUILE 1.4, or newer.  Check out
+@item GUILE 1.4, or newer.
+Check out
 @uref{http://www.gnu.org/software/guile.html,the GUILE webpage}
 @end itemize
 

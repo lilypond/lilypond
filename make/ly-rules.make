@@ -44,7 +44,16 @@ $(outdir)/%-book.ps: $(outdir)/%.ps
 	psbook $< $<.tmp
 	pstops  '2:0L@.7(21cm,0)+1L@.7(21cm,14.85cm)' $<.tmp $@
 
+$(outdir)/%.pdf: $(outdir)/%.dvi
+## -G0?  not in 1.5...
+##	dvips -Ppdf -G0 -u$(topdir)/mf/out/lilypond.map -o $@.pdfps  $<
+## 1.5 rule:
+##	dvips -u lilypond.map -o $@.pdfps  -Ppdf $<
+	dvips -u$(abs-builddir)/mf/$(outconfbase)/lilypond.map -o $@.pdfps -Ppdf $<
+	ps2pdf $@.pdfps $@
+
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
-	dvips -Ppdf -G0 -u$(topdir)/mf/out/lilypond.map -o $@.pdfps  $<
+	dvips -u lilypond.map -o $@.pdfps  -Ppdf $<
 	ps2pdf $@.pdfps $@
+

@@ -13,16 +13,15 @@
 # internal, not normally used
 DEPTH = $(depth)/$(package-depth)
 
-ifeq ($(topdir),)
-topdir := $(shell cd $(depth); pwd)
+ifeq ($(abs-srcdir),)
+abs-srcdir := $(shell cd $(depth); pwd)
+#deprecated
+topdir := $(abs-srcdir)
+abs-builddir := $(shell cd $(depth)/$(builddir); pwd)
 endif
 pwd := $(shell pwd)
 
-# $(depth) is deprecated, for most cases you'll want $(src-depth)
-#
-# Well, on second thought.
-# It can do no harm, but using src-depth iso depth is only necessary
-# for broken rules that do
+# src-depth is for broken rules that do
 #    cd $(outdir) && foo  $(depth) ...
 src-depth = $(depth)/$(srcdir)
 

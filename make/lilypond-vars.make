@@ -1,14 +1,25 @@
 
-export PATH:=$(topdir)/lily/out:$(topdir)/buildscripts/out:$(PATH)
-export TEXCONFIG:=$(topdir)/mf/out:$(TEXCONFIG)
-export TEXPSHEADERS:=$(topdir)/mf/out::$(TEXPSHEADERS)
-export MFINPUTS:=$(topdir)/mf/:$(MFINPUTS)::
-export TEXINPUTS:=$(topdir)/mf/out/:$(topdir)/tex/:$(topdir)/ps/:$(TEXINPUTS):$(pwd)::
-export LILYINCLUDE:=$(topdir)/ps:$(topdir)/scm:$(topdir)/ly:$(topdir)/mf/out::$(TEX_TFMDIR):$(LILYINCLUDE)
-export TFMFONTS:=$(topdir)/mf/out:
+export PATH:=$(abs-builddir)/lily/$(outconfbase):$(abs-builddir)/buildscripts/$(outconfbase):$(PATH)
+
+# LilyPond is often run from within $(outdir), making a relative
+# PREFIX incorrect.
+export LILYPONDPREFIX:=$(shell cd $(depth)/$(builddir)/share/lilypond/$(TOPLEVEL_VERSION); pwd)
+export PYTHONPATH:=$(topdir)/$(outdir):$(PYTHONPATH)
+
+
+lilypondprefix = $(abs-builddir)/share/lilypond/$(TOPLEVEL_VERSION)
+
+export TEXCONFIG:=$(abs-builddir)/mf/$(outconfbase):$(TEXCONFIG)
+export TEXPSHEADERS:=$(abs-builddir)/mf/$(outconfbase)::$(TEXPSHEADERS)
+export MFINPUTS:=$(abs-srcdir)/mf/:$(MFINPUTS)::
+export TEXINPUTS:=$(abs-builddir)/mf/$(outconfbase)/:$(abs-srcdir)/tex/:$(abs-srcdir)/ps/:$(TEXINPUTS):$(pwd)::
+export TFMFONTS:=$(abs-builddir)/mf/$(outconfbase):
+# most taken care of by LILYPONDPREFIX and builddir-setup
+#export LILYINCLUDE:=$(abs-srcdir)/ps:$(abs-srcdir)/scm:$(abs-srcdir)/ly:$(abs-builddir)/mf/$(outconfbase)::$(TEX_TFMDIR):$(LILYINCLUDE)
+export LILYINCLUDE:=::$(TEX_TFMDIR):$(LILYINCLUDE)
 export extra_mem_top=1000000
 export extra_mem_bottom=1000000
-export pool_size=250000
+export pool_size=300000
 
 
 ifdef DEB_BUILD
@@ -16,11 +27,6 @@ export PKFONTS := $(topdir)/mf/out
 export MT_DESTROOT := $(topdir)/mf/out
 export DVIPSMAKEPK := mktexpk --destdir $(topdir)/mf/out
 endif
-
-# LilyPond is often run from within $(outdir), making a relative
-# PREFIX incorrect.
-export LILYPONDPREFIX:=$(shell cd $(depth)/ ; pwd)
-export PYTHONPATH:=$(buildscript-dir)/$(outdir):$(PYTHONPATH)
 
 # guile load path?
 the-script-dir=$(wildcard $(script-dir))
@@ -32,9 +38,9 @@ ifneq ($(the-script-dir),)
 
 ABC2LY = $(script-dir)/abc2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
-LILYPOND = $(depth)/$(builddir)/lily/$(outconfbase)/lilypond
+LILYPOND = $(abs-builddir)/lily/$(outconfbase)/lilypond
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
-LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(topdir)/mf/$(outdir)/  -I $(topdir)/mf/out/
+LILYPOND_BOOK_INCLUDES = -I $(pwd) -I $(outdir) -I$(input-dir) -I $(input-dir)/tricks/ -I $(input-dir)/regression/ -I $(input-dir)/test/ -I $(input-dir)/tutorial/ -I $(abs-builddir)/mf/$(outconfbase)/  -I $(abs-builddir)/mf/out/
 LY2DVI = $(script-dir)/ly2dvi.py
 PS_TO_GIFS = $(buildscript-dir)/ps-to-gifs.sh
 PS_TO_PNGS = $(buildscript-dir)/ps-to-pngs.sh

@@ -1,11 +1,11 @@
 %define info yes
 
 Name: lilypond
-Version: 1.4.14
+Version: 1.4.15
 Release: 1
 License: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.14.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.15.tar.gz
 Summary: Create and print music notation 
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 BuildRoot: /tmp/lilypond-install
@@ -86,9 +86,8 @@ rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp
 /sbin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
 %endif
 
-/usr/X11R6/bin/mkfontdir  /usr/share/lilypond/pfa/
-/usr/sbin/chkfontpath --add=/usr/share/lilypond/pfa/
-
+/usr/X11R6/bin/mkfontdir  /usr/share/lilypond/1.4.15/fonts/type1/
+chkfontpath --add=/usr/share/lilypond/1.4.15/fonts/type1/
 
 
 echo 'Please logout first before using LilyPond.'
@@ -100,8 +99,11 @@ if [ $1 = 0 ]; then
     /sbin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
 fi
 %endif
-rm -f /usr/share/lilypond/pfa/fonts.dir
-/usr/sbin/chkfontpath --remove=/usr/share/lilypond/pfa/
+
+rm -f /usr/share/lilypond/1.4.15/fonts/type1/fonts.dir
+chkfontpath --remove=/usr/share/lilypond/1.4.15/fonts/type1/
+
+
 
 
 
