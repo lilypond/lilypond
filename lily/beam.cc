@@ -269,14 +269,12 @@ Beam::set_steminfo ()
       total_count_i++;
     }
 
-  Real break_i = (int)rint (paper ()->get_var ("beam_forced_multiple_break"));
-  Real shorten_f;
-  if (multiple_i_ < break_i)
-    shorten_f = paper ()->get_var ("beam_forced_stem_shorten1");
-  else
-    shorten_f = paper ()->get_var ("beam_forced_stem_shorten2");
-    
   Real internote_f = paper ()->internote_f ();
+  int stem_max = (int)rint(paper ()->get_var ("stem_max"));
+  Real shorten_f = paper ()->get_var (String ("forced_stem_shorten"
+					      + to_str (multiple_i_ <? stem_max)))
+    / internote_f;
+    
   Real leftx = 0;
   for (int i=0; i < stems_.size (); i++)
     {
@@ -291,9 +289,9 @@ Beam::set_steminfo ()
       if (info.dir_ == dir_)
         {
 	  if (forced_count_i == total_count_i)
-	    info.idealy_f_ -= shorten_f / internote_f;
+	    info.idealy_f_ -= shorten_f;
 	  else if (forced_count_i > total_count_i / 2)
-	    info.idealy_f_ -= shorten_f / 2 / internote_f;
+	    info.idealy_f_ -= shorten_f / 2;
 	}
       sinfo_.push (info);
     }

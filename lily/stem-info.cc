@@ -28,27 +28,11 @@ Stem_info::Stem_info (Stem*s)
   beam_dir_ = stem_l_->beam_dir_;
   mult_i_ = stem_l_->mult_i_;
 
-  /*
-    [TODO]
-    make this runtime
-
-    Breitkopf + H\"artel:
-    miny_f_ = interline + #beams * interbeam
-    ideal8 = 2 * interline + interbeam
-    ideal16,32,64,128 = 1.5 * interline + #beams * interbeam
-
-    * B\"arenreiter:
-    miny_f_ = interline + #beams * interbeam
-    ideal8,16 = 2 interline + #beams * interbeam
-    ideal32,64,128 = 1.5 interline + #beams * interbeam
-       
-    */
-
-  Real internote_f = stem_l_->paper ()->internote_f ();
-  Real interbeam_f = stem_l_->paper ()->interbeam_f (mult_i_);
-  Real beam_f = stem_l_->paper ()->beam_thickness_f ();
+  Paper_def* paper_l = stem_l_->paper ();
+  Real internote_f = paper_l->internote_f ();
+  Real interbeam_f = paper_l->interbeam_f (mult_i_);
+  Real beam_f = paper_l->beam_thickness_f ();
          
-
   {
       static int i = 1;
       DOUT << "******" << i++ << "******\n" 
@@ -56,47 +40,34 @@ Stem_info::Stem_info (Stem*s)
 	   << "\nchord_f/i: " << stem_l_->chord_start_f () * dir_ / internote_f << '\n';
   }
 
-  /*
-    For simplicity, we'll assume dir = UP and correct if 
-    dir = DOWN afterwards.
-   */
-  idealy_f_ = stem_l_->chord_start_f () * beam_dir_ / internote_f;
+  // strangely enough, dim(chord_start_f) == pt (and not internote!)
+  idealy_f_ = stem_l_->chord_start_f () / internote_f;
+
+  // calculate using dim(y) == pt
   idealy_f_ *= internote_f;
 
-  Real break_i = (int)rint (stem_l_->paper ()->get_var ("beam_multiple_break"));
-  Real min_stem1_f = stem_l_->paper ()->get_var ("beam_minimum_stem1");
-  Real min_stem2_f = stem_l_->paper ()->get_var ("beam_minimum_stem2");
-  Real ideal_stem1_f = stem_l_->paper ()->get_var ("beam_ideal_stem1");
-  Real ideal_stem2_f = stem_l_->paper ()->get_var ("beam_ideal_stem2");
-  Real shorten_f = stem_l_->paper ()->get_var ("forced_stem_shorten");
+  // for simplicity, we calculate as if dir == UP
+  idealy_f_ *= beam_dir_;
+  
+  int stem_max = (int)rint(paper_l->get_var ("stem_max"));
+  Real min_stem_f = paper_l->get_var (String ("minimum_stem_length")
+				     + to_str (mult_i_ <? stem_max));
+  Real stem_f = paper_l->get_var (String ("stem_length")
+				 + to_str (mult_i_ <? stem_max));
 
   if (!beam_dir_ || (beam_dir_ == dir_))
-    /* normal (beamed) stem */
+    /* normal beamed stem */
     {
-      idealy_f_ += interbeam_f * mult_i_;
+      if (mult_i_)
+	{
+	  idealy_f_ += beam_f;
+	  idealy_f_ += (mult_i_ - 1) * interbeam_f;
+	}
       miny_f_ = idealy_f_;
       maxy_f_ = INT_MAX;
 
-      if (mult_i_ < break_i)
-        {
-	  idealy_f_ += ideal_stem1_f;
-	  miny_f_ += min_stem1_f;
-	}
-      else
-        {
-	  idealy_f_ += ideal_stem2_f;
-	  miny_f_ += min_stem2_f;
-	}
-
-      /*
-        stems in unnatural (forced) direction are shortened but
-        - central line is never 'forced'
-        - beamed stems are shortened only by beam itself
-       */
-      if (!mult_i_ && ((int)stem_l_->chord_start_f ()) && (stem_l_->dir_ != stem_l_->get_default_dir ()))
- 	{
-	  idealy_f_ -= shorten_f;
-	}
+      idealy_f_ += stem_f;
+      miny_f_ += min_stem_f;
 
       // lowest beam of (UP) beam must never be lower than second staffline
       miny_f_ = miny_f_ >? (- 2 * internote_f - beam_f
@@ -109,19 +80,11 @@ Stem_info::Stem_info (Stem*s)
       maxy_f_ = idealy_f_;
       miny_f_ = -INT_MAX;
 
-      if (mult_i_ < break_i)
-        {
-	  idealy_f_ -= ideal_stem1_f;
-	  maxy_f_ -= min_stem1_f;
-	}
-      else
-        {
-	  idealy_f_ -= ideal_stem2_f;
-	  maxy_f_ -= min_stem2_f;
-	}
+      idealy_f_ -= stem_f;
+      maxy_f_ -= min_stem_f;
     }
 
-
+  // set dim(y) == internote
   idealy_f_ /= internote_f;
   miny_f_ /= internote_f;
   maxy_f_ /= internote_f;
