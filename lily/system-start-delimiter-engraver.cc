@@ -43,8 +43,8 @@ System_start_delimiter_engraver::acknowledge_grob (Grob_info inf)
     }
   else if (System_start_delimiter::has_interface (inf.grob_l_))
     {
-      SCM gl = inf.grob_l_->get_grob_property ("glyph");
-      SCM my_gl = delim_->get_grob_property ("glyph");
+      SCM gl = scm_string_to_symbol (inf.grob_l_->get_grob_property ("glyph"));
+      SCM my_gl = scm_string_to_symbol (delim_->get_grob_property ("glyph"));
 
       /*
 	UGH UGH
