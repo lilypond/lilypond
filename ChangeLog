@@ -1,3 +1,9 @@
+2002-06-13  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/key-engraver.cc (try_music): read request only once. Don't
+	overwrite lastKeySignature. Call create_key() only once. This
+	fixes a bug with multiple equal key changes on polyphonic staffs.
+
 2002-06-12  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* scm/grob-description.scm: Add side-position-interface to TextSpanner

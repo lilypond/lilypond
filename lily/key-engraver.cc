@@ -37,7 +37,7 @@ protected:
   virtual bool try_music (Music *req_l);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
-  virtual void create_grobs ();
+  virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 };
 
@@ -92,9 +92,16 @@ Key_engraver::try_music (Music * req_l)
 	  keyreq_l_->origin ()->warning (_ ("This was the other key definition."));	  
 	  return false;
 	}
-      keyreq_l_ = kc;
-      read_req (keyreq_l_);
 
+      if (!keyreq_l_)
+	{
+	  /*
+	    do this only once, just to be on the safe side.
+	    */	    
+	  keyreq_l_ = kc;
+	  read_req (keyreq_l_);
+	}
+      
       return true;
     }   
   return  false;
@@ -121,7 +128,7 @@ Key_engraver::acknowledge_grob (Grob_info info)
 
 
 void
-Key_engraver::create_grobs ()
+Key_engraver::process_music ()
 {
   if (keyreq_l_ ||
       get_property ("lastKeySignature") != get_property ("keySignature"))
@@ -163,8 +170,11 @@ Key_engraver::read_req (Key_change_req const * r)
     if (gh_scm2int (ly_cdar (s)))
       accs = gh_cons (ly_car (s), accs);
 
+#if 0
   daddy_trans_l_->set_property ("lastKeySignature",
 				get_property ("keySignature"));
+#endif
+  
   daddy_trans_l_->set_property ("keySignature", accs);
 }
 
