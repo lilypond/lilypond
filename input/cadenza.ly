@@ -33,7 +33,7 @@ cad = music { $
 	\duration{16}	[d cis d e]
 	f4()[f e d c]
 	`b4
-	\octave{} \plet{2/3} ['d8 'c8 a8] \plet{1/1}
+	\octave{} ['d8 'c8 a8]2/3
 	g2
 		\bar \empty 
 	[g c e g] ['c e g 'c]\octave{'} 
@@ -50,7 +50,9 @@ score {
 		music { cad }
 	}
 	commands {
-		cadenza $1$
+		cadenza {1}
 		grouping{1*4}
 	}
+	midi { tempo 4:80 }
+	staff { midi  music { cad } }
 }
