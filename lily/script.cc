@@ -20,40 +20,29 @@ Script ::Script (SCM s)
 }
 
 Molecule
-Script::get_molecule(Direction d) const
+Script::get_molecule(Score_element * me, Direction d)
 {
-  SCM s = get_elt_property ("molecule");
+  SCM s = me->get_elt_property ("molecule");
   assert (gh_pair_p (s));
 
   SCM key = gh_car  (s);
   if (key == ly_symbol2scm ("feta"))
     {
-      return lookup_l ()->afm_find ("scripts-" +
+      return me->lookup_l ()->afm_find ("scripts-" +
 				    ly_scm2string (index_cell (gh_cdr (s), d)));
     }
   else if (key == ly_symbol2scm ("accordion"))
     {
-      return lookup_l ()->accordion (gh_cdr (s), paper_l()->get_var("interline"));
+      return me->lookup_l ()->accordion (gh_cdr (s), me->paper_l()->get_var("interline"));
     }
-
-  else assert (false);
+  else
+    assert (false);
 
   return Molecule ();
 }
 
 
-GLUE_SCORE_ELEMENT(Script,before_line_breaking);
-SCM
-Script::member_before_line_breaking ()
-{
-  /*
-    center my self on the note head.
-   */
-  Score_element * e = parent_l(X_AXIS);
-  translate_axis (e->extent (X_AXIS).center (), X_AXIS);
 
-  return SCM_UNDEFINED;
-}
 
 GLUE_SCORE_ELEMENT(Script,after_line_breaking);
 SCM
@@ -67,17 +56,18 @@ Script::member_after_line_breaking ()
 }
 
 
-GLUE_SCORE_ELEMENT(Script,brew_molecule);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Script,brew_molecule);
 
 SCM
-Script::member_brew_molecule () const
+Script::brew_molecule (SCM smob)
 {
+  Score_element *me= unsmob_element (smob);
   Direction dir = DOWN;
-  SCM d = get_elt_property ("direction");
+  SCM d = me->get_elt_property ("direction");
   if (isdir_b (d))
     dir = to_dir (d);
   
-  return get_molecule (dir).create_scheme();
+  return get_molecule (me, dir).create_scheme();
 }
 
 

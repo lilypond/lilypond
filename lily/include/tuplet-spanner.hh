@@ -7,7 +7,7 @@
 #ifndef Tuplet_spanner_HH
 #define Tuplet_spanner_HH
 
-#include "spanner.hh"
+#include "lily-guile.hh"
 
 /** supportable plet: triplets, eentweetjes, ottava, etc.
 
@@ -16,26 +16,21 @@
 
   todo: handle breaking elegantly.
 */
-class Tuplet_spanner : public Spanner
+class Tuplet_spanner
 {
 public:
-  Tuplet_spanner (SCM);
   static SCM brew_molecule (SCM);
-  
+  static void set_interface (Score_element*);  
 
-  void add_column (Note_column*);
-  void add_beam (Beam*);
+  static void add_column (Score_element*me,Item*);
+  static void add_beam (Score_element*me,Score_element*);
 
-  void calc_dy (Real *) const;
-  void calc_position_and_height (Real*,Real *dy)const;
+  static void calc_dy (Score_element*,Real *) ;
+  static void calc_position_and_height (Score_element*,Real*,Real *dy);
   
-  SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
-  SCM member_brew_molecule () const;
-  VIRTUAL_COPY_CONS(Score_element);
 
-
-  Direction get_default_dir () const;
+  static Direction get_default_dir (Score_element*);
 };
 
 #endif // Tuplet_spanner_HH

@@ -11,14 +11,8 @@
 #include <ctype.h>
 
 #include "staff-symbol-referencer.hh"
-#include "bar.hh"
-
 #include "debug.hh"
 #include "command-request.hh"
-#include "timing-translator.hh"
-#include "rhythmic-head.hh"
-#include "key-item.hh"
-#include "local-key-item.hh"
 #include "array.hh"
 #include "engraver.hh"
 #include "direction.hh"
@@ -126,22 +120,23 @@ Clef_engraver::set_type (String s)
 void
 Clef_engraver::acknowledge_element (Score_element_info info)
 {
-  if (dynamic_cast<Bar*>(info.elem_l_)
-      && gh_string_p (clef_glyph_))
-    create_clef();
-
-  Item * it_l =dynamic_cast <Item *> (info.elem_l_);
-  if (it_l)
+  Item * item =dynamic_cast <Item *> (info.elem_l_);
+  if (item)
     {
-      if (to_boolean (it_l->get_elt_property("note-head-interface"))
-	  || dynamic_cast<Local_key_item*> (it_l))
+      if (to_boolean (info.elem_l_->get_elt_property ("bar-interface"))
+	  && gh_string_p (clef_glyph_))
+	create_clef();
+      
+
+      if (to_boolean (item->get_elt_property("note-head-interface"))
+	  || to_boolean (item->get_elt_property ("accidentals-interface")))
 	{
-	  Staff_symbol_referencer_interface si (it_l);
+	  Staff_symbol_referencer_interface si (item);
 	  si.set_position (int (si.position_f ()) + c0_position_i_);
 	}
-      else if (Key_item *k = dynamic_cast<Key_item*>(it_l))
+      else if (to_boolean (item->get_elt_property ("key-item-interface")))
 	{
-	  k->set_elt_property ("c0-position", gh_int2scm (c0_position_i_));
+	  item->set_elt_property ("c0-position", gh_int2scm (c0_position_i_));
 	}
     } 
 }
@@ -180,8 +175,7 @@ Clef_engraver::create_clef()
       Item *c= new Item ( current_settings_);
       announce_element (Score_element_info (c, clef_req_l_));
 
-      Staff_symbol_referencer_interface si(c);
-      si.set_interface ();
+      Staff_symbol_referencer_interface::set_interface (c);
       
       clef_p_ = c;
     }

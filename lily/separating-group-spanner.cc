@@ -8,19 +8,19 @@
  */
 
 #include "separating-group-spanner.hh"
-#include "single-malt-grouping-item.hh"
+#include "separation-item.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "dimensions.hh"
 #include "group-interface.hh"
 
 static Rod
-make_rod (Single_malt_grouping_item *l, Single_malt_grouping_item *r)
+make_rod (Item *l, Item *r)
 {
   Rod rod;
 
-  Interval li (l->my_width ());
-  Interval ri (r->my_width ());
+  Interval li (Separation_item::my_width (l));
+  Interval ri (Separation_item::my_width (r));
 
   rod.item_l_drul_[LEFT] =l;
   rod.item_l_drul_[RIGHT]=r;
@@ -48,17 +48,17 @@ Separating_group_spanner::get_rods () const
       SCM elt = gh_cadr (s);
       SCM next_elt = gh_car (s);
 
-      Single_malt_grouping_item *l = dynamic_cast<Single_malt_grouping_item*> (unsmob_element (elt));
-      Single_malt_grouping_item *r = dynamic_cast<Single_malt_grouping_item*> (unsmob_element ( next_elt));
+      Item *l = dynamic_cast<Item*> (unsmob_element (elt));
+      Item *r = dynamic_cast<Item*> (unsmob_element ( next_elt));
 
       if (!r || !l)
 	continue;
       
-      Single_malt_grouping_item *lb
-	= dynamic_cast<Single_malt_grouping_item*>(l->find_prebroken_piece (RIGHT));
+      Item *lb
+	= dynamic_cast<Item*>(l->find_prebroken_piece (RIGHT));
 
-      Single_malt_grouping_item *rb
-	= dynamic_cast<Single_malt_grouping_item*>(r->find_prebroken_piece (LEFT));
+      Item *rb
+	= dynamic_cast<Item*>(r->find_prebroken_piece (LEFT));
       
       a.push (make_rod(l,  r));
       if (lb)
@@ -99,7 +99,7 @@ Separating_group_spanner::get_rods () const
 }
 
 void
-Separating_group_spanner::add_spacing_unit (Single_malt_grouping_item*i)
+Separating_group_spanner::add_spacing_unit (Item*i)
 {
   Pointer_group_interface (this, "elements").add_element (i);
   add_dependency (i);

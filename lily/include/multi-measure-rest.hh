@@ -17,17 +17,11 @@ class Multi_measure_rest : public Spanner
 {
 public:
   Multi_measure_rest (SCM);
- static SCM brew_molecule (SCM);
   
-
-  void add_column (Item*);
-  Molecule compound_rest (int)const;
-
-  SCM member_brew_molecule () const;
+  static void set_interface (Score_element*);
+  static SCM brew_molecule (SCM);
+  static  void add_column (Score_element*,Item*);
   VIRTUAL_COPY_CONS (Score_element);
-
-  SCM member_after_line_breaking ();
-  static SCM after_line_breaking (SCM);
   virtual Array<Rod> get_rods () const;
 };
 

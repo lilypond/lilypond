@@ -59,7 +59,7 @@ protected:
   virtual bool do_try_music (Music*);
   virtual void do_process_music ();
   virtual void process_acknowledged ();
-
+  void typeset_tie (Score_element*);
 public:
   VIRTUAL_COPY_CONS(Translator);
   Tie_engraver();
@@ -174,8 +174,8 @@ Tie_engraver::process_acknowledged ()
 	  SCM pair = gh_list_ref (head_list, gh_int2scm (i/2));
 	  
 	  Tie * p = new Tie (basic);
-	  p->set_head (LEFT, dynamic_cast<Item*> (unsmob_element (gh_car (pair))));
-	  p->set_head (RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdr (pair))));
+	  Tie::set_head (p,LEFT, dynamic_cast<Item*> (unsmob_element (gh_car (pair))));
+	  Tie::set_head (p,RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdr (pair))));
 	  
 	  tie_p_arr_.push (p);
 	  announce_element (Score_element_info (p, req_l_));
@@ -183,8 +183,10 @@ Tie_engraver::process_acknowledged ()
       else for (SCM s = head_list; gh_pair_p (s); s = gh_cdr (s))
 	{
 	  Tie * p = new Tie (basic);
-	  p->set_head (LEFT, dynamic_cast<Item*> (unsmob_element (gh_caar (s))));
-	  p->set_head (RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdar (s))));
+	  Tie::set_interface (p);
+	  
+	  Tie::set_head (p, LEFT, dynamic_cast<Item*> (unsmob_element (gh_caar (s))));
+	  Tie::set_head (p, RIGHT, dynamic_cast<Item*> (unsmob_element (gh_cdar (s))));
 	  
 	  tie_p_arr_.push (p);
 	  announce_element (Score_element_info (p, req_l_));
@@ -197,8 +199,9 @@ Tie_engraver::process_acknowledged ()
       else if (tie_p_arr_.size () > 1 && !tie_column_p_)
 	{
 	  tie_column_p_ = new Tie_column (get_property ("basicTieColumnProperties"));
+	  Tie_column::set_interface (tie_column_p_);
 	  for (int i = tie_p_arr_.size (); i--; )
-	    tie_column_p_->add_tie (tie_p_arr_ [i]);
+	    Tie_column::add_tie (tie_column_p_,tie_p_arr_ [i]);
 	  announce_element (Score_element_info (tie_column_p_, 0));
 	}
     }
@@ -216,14 +219,35 @@ Tie_engraver::do_pre_move_processing ()
 
   for (int i=0; i<  tie_p_arr_.size (); i++)
    {
-      typeset_element (tie_p_arr_[i]);
+      typeset_tie (tie_p_arr_[i]);
     }
   tie_p_arr_.clear ();
   if (tie_column_p_)
     {
-      typeset_element (tie_column_p_);
+      typeset_tie (tie_column_p_);
       tie_column_p_ =0;
     }
+}
+
+void
+Tie_engraver::typeset_tie (Score_element *her)
+{
+    if (!(Tie::head (her,LEFT) && Tie::head (her,RIGHT)))
+    warning (_ ("lonely tie"));
+
+  Direction d = LEFT;
+  Drul_array<Item *> new_head_drul;
+  new_head_drul[LEFT] = Tie::head(her,LEFT);
+  new_head_drul[RIGHT] = Tie::head (her,RIGHT);  
+  do {
+    if (!Tie::head (her,d))
+      new_head_drul[d] = Tie::head(her,(Direction)-d);
+  } while (flip(&d) != LEFT);
+
+  index_set_cell (her->get_elt_pointer ("heads"), LEFT, new_head_drul[LEFT]->self_scm_ );
+  index_set_cell (her->get_elt_pointer ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm_ );
+
+  typeset_element (her);
 }
 
 void

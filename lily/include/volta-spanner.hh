@@ -12,20 +12,14 @@
 
 /** Volta bracket with number */
 
-class Volta_spanner : public Spanner
+class Volta_spanner
 {
 public:
-  Volta_spanner (SCM);
+  static void set_interface (Score_element*);
   static SCM brew_molecule (SCM);
-  void add_column (Note_column*);
-  void add_bar (Bar*);
- 
-  SCM member_brew_molecule () const;
-  VIRTUAL_COPY_CONS (Score_element);
+  static void add_column (Score_element*, Score_element*col);
+  static void add_bar (Score_element*me, Item*bar);
 
-
-  SCM member_after_line_breaking ();
-  static SCM after_line_breaking (SCM);
 };
 
 #endif // VOLTA_SPANNER_HH

@@ -32,8 +32,8 @@ public:
   VIRTUAL_COPY_CONS(Translator);
 
   Key_change_req * keyreq_l_;
-  Key_item * item_p_;
-  Protected_scm old_accs_;
+  Item * item_p_;
+  Protected_scm old_accs_;	// ugh. -> property
     
 protected:
   virtual void do_creation_processing();
@@ -56,16 +56,15 @@ Key_engraver::create_key (bool def)
 {
   if (!item_p_) 
     {
-      item_p_ = new Key_item ( get_property ("basicKeyProperties"));
-      
+      item_p_ = new Item ( get_property ("basicKeyProperties"));
+
       item_p_->set_elt_property ("c0-position", gh_int2scm (0));
 
       // todo: put this in basic props.
       item_p_->set_elt_property ("old-accidentals", old_accs_);
       item_p_->set_elt_property ("new-accidentals", get_property ("keySignature"));
 
-      Staff_symbol_referencer_interface st (item_p_);
-      st.set_interface ();
+      Staff_symbol_referencer_interface::set_interface (item_p_);
 
       SCM prop = get_property ("keyOctaviation");
       bool multi = to_boolean (prop);

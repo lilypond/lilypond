@@ -20,18 +20,12 @@
 */
 class Script : public Item
 {
-  Molecule get_molecule (Direction d) const;
 public:
+  static  Molecule get_molecule (Score_element*,Direction d);
   Script (SCM);
-   static SCM brew_molecule (SCM);
-  
-
-
-  SCM member_before_line_breaking ();
-  static SCM before_line_breaking (SCM);
+  static SCM brew_molecule (SCM);
   SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
-  SCM member_brew_molecule () const;
 };
 
 #endif /* Stem_SCRIPT_HH */

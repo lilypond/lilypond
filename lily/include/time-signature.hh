@@ -8,34 +8,20 @@
 #define METER_HH
 
 #include "item.hh"
-#include "array.hh"
-#include "real.hh"
 
 /**
    Print a time_signature sign.
-  TODO:
 
-  C style time_signatures, 2+3+2/8 time_signatures, alla breve.
+   TODO:
+
+   2+3+2/8 time_signatures
   
  */
-class Time_signature: public Item
+struct Time_signature
 {
-  Molecule special_time_signature (String,int,int) const;
-  Molecule time_signature (int, int)const;
-  
-public:
-  SCM member_brew_molecule() const;
-
-  Time_signature (SCM);
- static SCM brew_molecule (SCM);
-  
-
-  /*
-    TODO: make this SCM!
-   */
-  Array<int> args_;
-  
-  VIRTUAL_COPY_CONS(Score_element);
+  static Molecule special_time_signature (Score_element*,String,int,int) ;
+  static Molecule time_signature (Score_element*,int, int);
+  static SCM brew_molecule (SCM);
 };
 #endif // METER_HH
 

@@ -7,10 +7,25 @@
   
  */
 
-#include "dot-column-engraver.hh"
+
 #include "rhythmic-head.hh"
 #include "dot-column.hh"
 #include "side-position-interface.hh"
+#include "engraver.hh"
+
+class Dot_column_engraver : public Engraver
+{
+  Score_element *dotcol_p_ ;
+  Link_array<Rhythmic_head> head_l_arr_;
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  Dot_column_engraver();
+  
+protected:
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_pre_move_processing ();  
+};
+
 
 Dot_column_engraver::Dot_column_engraver ()
 {
@@ -31,22 +46,21 @@ Dot_column_engraver::do_pre_move_processing ()
 void
 Dot_column_engraver::acknowledge_element (Score_element_info info)
 {
-  Rhythmic_head * h = dynamic_cast<Rhythmic_head*>(info.elem_l_);
-  if (!h)
-      return;
-
-  if (!h->dots_l ())
-    return;
-
-  if (!dotcol_p_)
+  Score_element *d = unsmob_element (info.elem_l_->get_elt_pointer ("dot"));
+  if (d)
     {
-      dotcol_p_ = new Dot_column(get_property ("basicDotColumnProperties"));
-      Side_position_interface (dotcol_p_).set_axis (X_AXIS);
-      Side_position_interface (dotcol_p_).set_direction (RIGHT);      
-      announce_element (Score_element_info (dotcol_p_, 0));
-    }
+      if (!dotcol_p_)
+	{
+	  dotcol_p_ = new Item(get_property ("basicDotColumnProperties"));
 
-  dotcol_p_->add_head (h);
+	  Dot_column::set_interface (dotcol_p_);
+	  Side_position_interface (dotcol_p_).set_axis (X_AXIS);
+	  Side_position_interface (dotcol_p_).set_direction (RIGHT);      
+	  announce_element (Score_element_info (dotcol_p_, 0));
+	}
+
+      Dot_column::add_head (dotcol_p_, info.elem_l_);
+    }
 }
 
 

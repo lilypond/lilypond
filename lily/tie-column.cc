@@ -16,23 +16,28 @@
 Tie_column::Tie_column (SCM s)
   : Spanner (s)
 {
-  set_elt_pointer ("ties", SCM_EOL);
-  set_extent_callback (0, X_AXIS);
-  set_extent_callback (0, Y_AXIS);  
+
+}
+void
+Tie_column::set_interface (Score_element*me)
+{
+ me-> set_elt_pointer ("ties", SCM_EOL);
+  me->set_extent_callback (0, X_AXIS);
+  me->set_extent_callback (0, Y_AXIS);  
 }
 
 void
-Tie_column::add_tie (Tie *s)
+Tie_column::add_tie (Score_element*me,Tie *s)
 {
-  Pointer_group_interface g (this, "ties");
+  Pointer_group_interface g (me, "ties");
   if (!g.count ())
     {
-      set_bound (LEFT, s->head (LEFT));
-      set_bound (RIGHT, s->head (RIGHT));
+      dynamic_cast<Spanner*> (me)->set_bound (LEFT, Tie::head (s,LEFT));
+      dynamic_cast<Spanner*> (me)->set_bound (RIGHT, Tie::head (s,RIGHT));
     }
   
-  Pointer_group_interface (this, "ties").add_element (s);
-  s->add_dependency (this);
+  Pointer_group_interface (me, "ties").add_element (s);
+  s->add_dependency (me);
 }
 
 
@@ -40,7 +45,7 @@ int
 tie_compare (Tie* const & s1,
 	     Tie* const & s2)
 {
-  return sign (s1->position_f () - s2->position_f());
+  return sign (Tie::position_f (s1) - Tie::position_f(s2));
 }
 
 /*
@@ -51,15 +56,15 @@ tie_compare (Tie* const & s1,
   direction of the rest is determined by their staff position.
 
   Ross forgets about the tie that is *on* the middle staff line. We
-  assume it goes UP. (TODO: make this settable) */
+  assume it goes UP. (TODO: make me settable) */
 void
-Tie_column::set_directions ()
+Tie_column::set_directions (Score_element*me)
 {
   Link_array<Tie> ties =
-    Pointer_group_interface__extract_elements (this, (Tie*)0, "ties");
+    Pointer_group_interface__extract_elements (me, (Tie*)0, "ties");
 
 
-  Direction d = Directional_element_interface (this).get ();
+  Direction d = Directional_element_interface (me).get ();
 
   if (d)
     {
@@ -74,7 +79,7 @@ Tie_column::set_directions ()
   if (ties.size () == 1)
     {
       Tie * t = ties[0];      
-      Directional_element_interface (t).set (t->get_default_dir ());
+      Directional_element_interface (t).set (Tie::get_default_dir (t));
       return;
     }
   
@@ -89,7 +94,7 @@ Tie_column::set_directions ()
   for (int i=ties.size(); i--; )
     {
       Tie * t = ties[i];
-      Real p = t->position_f ();
+      Real p = Tie::position_f (t);
       Direction d = (Direction) sign (p);
       if (!d)
 	d = UP;
@@ -98,10 +103,10 @@ Tie_column::set_directions ()
   
 }
 
-GLUE_SCORE_ELEMENT(Tie_column,after_line_breaking);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Tie_column,after_line_breaking);
 SCM
-Tie_column::member_after_line_breaking ()
+Tie_column::after_line_breaking (SCM smob)
 {
-  set_directions ();
+  set_directions (unsmob_element (smob));
   return SCM_UNDEFINED;
 }

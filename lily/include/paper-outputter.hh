@@ -46,6 +46,7 @@ public:
   void output_font_switch (int i);
   void output_header ();
   void output_comment (String s);
+  void output_string (SCM s);
   void output_scheme (SCM scm);
 };
 

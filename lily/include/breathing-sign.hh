@@ -10,24 +10,18 @@
 #ifndef BREATHING_SIGN_HH
 #define BREATHING_SIGN_HH
 
-#include "item.hh"
-#include "parray.hh"
+#include "lily-guile.hh"
 
 /*
   breathing sign (apostrophe within staff, not the comma above staff
   type)
 */
-class Breathing_sign : public Item
+class Breathing_sign
 {
 public:
   static SCM brew_molecule (SCM);
-  
-  VIRTUAL_COPY_CONS(Score_element);
-  Breathing_sign (SCM s);
-public:
-  SCM member_after_line_breaking ();
-  static SCM after_line_breaking (SCM);
-  SCM member_brew_molecule () const;
+  static Real offset_callback (Score_element *, Axis);
+  static void set_interface (Score_element*);
 };
 
 #endif // BREATHING_SIGN_HH

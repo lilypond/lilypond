@@ -27,7 +27,7 @@
 class Dots			// interface
 {
 public:
-  static Real quantised_position_callback(Score_element const*, Axis);
+  static Real quantised_position_callback(Score_element*, Axis);
   static SCM brew_molecule (SCM);
 };
 

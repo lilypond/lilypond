@@ -7,22 +7,15 @@
 */
 #include "debug.hh"
 #include "dimensions.hh"
-#include "dimension-cache.hh"
 #include "crescendo.hh"
 #include "musical-request.hh"
-#include "lookup.hh"
-#include "paper-def.hh"
 #include "paper-column.hh"
-#include "staff-symbol.hh"
 #include "note-column.hh"
 #include "item.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
-#include "stem.hh"
-#include "rhythmic-head.hh"
 #include "group-interface.hh"
 #include "directional-element-interface.hh"
-#include "staff-symbol-referencer.hh"
 #include "translator-group.hh"
 #include "axis-group-interface.hh"
 
@@ -40,8 +33,8 @@
 class Dynamic_engraver : public Engraver
 {
   Item * text_p_;
-  Crescendo * finished_cresc_p_;
-  Crescendo * cresc_p_;
+  Spanner * finished_cresc_p_;
+  Spanner * cresc_p_;
 
   Text_script_req* text_req_l_;
   
@@ -214,7 +207,8 @@ Dynamic_engraver::do_process_music ()
       else
 	{
 	  current_cresc_req_ = accepted_spanreqs_drul_[START];
-	  cresc_p_  = new Crescendo (get_property ("basicCrescendoProperties"));
+	  cresc_p_  = new Spanner (get_property ("basicCrescendoProperties"));
+	  Crescendo::set_interface (cresc_p_);
 	  cresc_p_->set_elt_property
 	    ("grow-direction",
 	     gh_int2scm ((accepted_spanreqs_drul_[START]->span_type_str_ == "crescendo")
@@ -262,11 +256,11 @@ Dynamic_engraver::do_process_music ()
 	  
 	  if (text_p_)
 	    {
-	      index_set_cell (cresc_p_->get_elt_property ("dynamic-drul"),
-			      LEFT, SCM_BOOL_T);
+	      index_set_cell (cresc_p_->get_elt_pointer ("dynamic-drul"),
+			      LEFT, text_p_->self_scm_);
 	      if (finished_cresc_p_)
-		index_set_cell (finished_cresc_p_->get_elt_property ("dynamic-drul"),
-				RIGHT, SCM_BOOL_T);
+		index_set_cell (finished_cresc_p_->get_elt_pointer ("dynamic-drul"),
+				RIGHT, text_p_->self_scm_);
 	    }
 
 	  Axis_group_interface (line_spanner_).add_element (cresc_p_);

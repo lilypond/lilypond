@@ -231,5 +231,8 @@ Paper_outputter::output_int_def (String k, int v)
 
 
 
-
-
+void
+Paper_outputter::output_string (SCM str)
+{
+  *stream_p_ <<  ly_scm2string (str);
+}

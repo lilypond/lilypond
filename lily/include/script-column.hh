@@ -10,15 +10,13 @@
 #ifndef Script_COLUMN_HH
 #define Script_COLUMN_HH
 
-#include "item.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
-class Script_column : public Item
+class Script_column
 {
 public:
-  Script_column(SCM);
-  void add_staff_sided (Item*);
-
-  SCM member_before_line_breaking ();
+  static void add_staff_sided (Score_element*, Item*);
   static SCM before_line_breaking (SCM);
 };
 

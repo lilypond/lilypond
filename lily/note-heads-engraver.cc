@@ -87,8 +87,8 @@ Note_heads_engraver::do_process_music()
     {
       Rhythmic_head *note_p  = new Rhythmic_head (get_property ("basicNoteHeadProperties"));
       
-      Staff_symbol_referencer_interface si (note_p);
-      si.set_interface ();
+      Staff_symbol_referencer_interface::set_interface (note_p);
+
 
       
       Note_req * note_req_l = note_req_l_arr_[i];
@@ -100,8 +100,7 @@ Note_heads_engraver::do_process_music()
 	{
 	  Item * d = new Item (get_property ("basicDotsProperties"));
 
-	  Staff_symbol_referencer_interface sd (d);
-	  sd.set_interface ();
+	  Staff_symbol_referencer_interface::set_interface (d);
 	  
 	  note_p->set_dots (d);
 	  
@@ -114,7 +113,8 @@ Note_heads_engraver::do_process_music()
 	  announce_element (Score_element_info (d,0));
 	  dot_p_arr_.push (d);
 	}
-      si.set_position(note_req_l->pitch_.steps ());
+
+      note_p->set_elt_property("staff-position",  gh_int2scm (note_req_l->pitch_.steps ()));
 
       Score_element_info itinf (note_p,note_req_l);
       announce_element (itinf);

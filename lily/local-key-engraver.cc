@@ -65,10 +65,10 @@ Local_key_engraver::do_creation_processing ()
 void
 Local_key_engraver::process_acknowledged ()
 {
-  SCM localsig = get_property ("localKeySignature");
-  
   if (!key_item_p_ && mel_l_arr_.size()) 
     {
+      SCM localsig = get_property ("localKeySignature");
+  
       SCM f = get_property ("forgetAccidentals");
       bool forget = to_boolean (f);
       for (int i=0; i  < mel_l_arr_.size(); i++) 
@@ -100,7 +100,7 @@ Local_key_engraver::process_acknowledged ()
 		  key_item_p_ = new Local_key_item (get_property ("basicLocalKeyProperties"));
 		  Side_position_interface (key_item_p_).set_axis (X_AXIS);
 		  Side_position_interface (key_item_p_).set_direction (LEFT);
-		  Staff_symbol_referencer_interface (key_item_p_).set_interface ();
+		  Staff_symbol_referencer_interface::set_interface (key_item_p_);
 			 
 		  announce_element (Score_element_info (key_item_p_, 0));
 		}
@@ -137,13 +137,13 @@ Local_key_engraver::process_acknowledged ()
 #endif
 	    }
         }
-    }
+
 
   
   
   daddy_trans_l_->set_property ("localKeySignature",  localsig);
+    }
   /*
-    UGH ! 
    */
   
   if (key_item_p_ && grace_align_l_)
@@ -192,12 +192,12 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
     {
       grace_align_l_ = gai;
     }
-  Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
-  Rhythmic_head * note_head = dynamic_cast<Rhythmic_head *> (info.elem_l_);
-
   if (he_gr != selfgr)
     return;
   
+  Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
+  Rhythmic_head * note_head = dynamic_cast<Rhythmic_head *> (info.elem_l_);
+
   if (note_l && note_head)
     {
       mel_l_arr_.push (note_l);
@@ -205,12 +205,12 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
     }
   else if (Tie * tie_l = dynamic_cast<Tie *> (info.elem_l_))
     {
-      tied_l_arr_.push (tie_l->head (RIGHT));
+      tied_l_arr_.push (Tie::head (tie_l, RIGHT));
     }
 }
 
 /*
-  ugh. deep_copy uses lots of space.
+  ugh. repeated deep_copy generates lots of garbage.
  */
 void
 Local_key_engraver::do_process_music()
@@ -227,6 +227,7 @@ Local_key_engraver::do_process_music()
   else if (last_keysig_ != sig) 
     {
       daddy_trans_l_->set_property ("localKeySignature",  ly_deep_copy (sig));
+      last_keysig_ = sig;
     }
 }
 

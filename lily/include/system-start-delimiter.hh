@@ -23,8 +23,8 @@ public:
   
   VIRTUAL_COPY_CONS (Score_element);
 
-  virtual SCM member_after_line_breaking ();
   static SCM after_line_breaking (SCM);
+  static void try_collapse (Score_element*);
   
   Molecule staff_bracket (Real) const;
   Molecule staff_brace (Real) const;

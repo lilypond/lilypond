@@ -22,7 +22,7 @@ Collision::add_column (Note_column* ncol_l)
 }
 
 Real
-Collision::force_shift_callback (Score_element const * c, Axis a)
+Collision::force_shift_callback (Score_element * c, Axis a)
 {
   assert (a == X_AXIS);
   

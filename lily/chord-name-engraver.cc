@@ -6,8 +6,9 @@
   (c) 1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "chord-name-engraver.hh"
+#include "engraver.hh"
 #include "chord-name.hh"
+#include "chord.hh"
 #include "musical-request.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -15,7 +16,27 @@
 #include "main.hh"
 #include "dimensions.hh"
 #include "item.hh"
+#include "musical-pitch.hh"
 
+class Chord_name_engraver : public Engraver 
+{
+public:
+  Chord_name_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
+
+protected:
+  virtual void do_pre_move_processing ();
+  virtual void acknowledge_element (Score_element_info i);
+  virtual void do_process_music ();
+  virtual bool do_try_music (Music* m);
+
+private:
+  Array<Musical_pitch> pitch_arr_;
+  Item* chord_name_p_;
+  Tonic_req* tonic_req_;
+  Inversion_req* inversion_req_;
+  Bass_req* bass_req_;
+};
 
 ADD_THIS_TRANSLATOR (Chord_name_engraver);
 
@@ -73,7 +94,7 @@ Chord_name_engraver::do_process_music ()
   if (gh_boolean_p (chord_inversion))
     find_inversion_b = gh_scm2bool (chord_inversion);
 
-  chord_name_p_ = new Chord_name (get_property ("basicChordNameProperties"));
+  chord_name_p_ = new Item (get_property ("basicChordNameProperties"));
   Chord chord = to_chord (pitch_arr_, tonic_req_, inversion_req_, bass_req_,
 			  find_inversion_b);
 

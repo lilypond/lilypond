@@ -16,7 +16,7 @@
 
 
 Real
-Dots::quantised_position_callback (Score_element const* me, Axis a)
+Dots::quantised_position_callback (Score_element * me, Axis a)
 {
   assert (a == Y_AXIS);
     

@@ -208,6 +208,11 @@ second slur has slurDirection set to down, overriding the stemup  setting.
 
 @mudelafile{generic-property-override.ly}
 
+Paper column supports a special output property that allows you to force
+page breaks (among others).
+
+@mudelafile{between-systems.ly}
+
 @section Repeats
 
 LilyPond has three modes for repeats: folded, unfolded and

@@ -7,11 +7,27 @@
   
  */
 
-#include "separating-line-group-engraver.hh"
 #include "separating-group-spanner.hh"
-#include "single-malt-grouping-item.hh"
+#include "separation-item.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
+#include "engraver.hh"
+
+class Separating_line_group_engraver : public Engraver
+{
+protected:
+  Item * break_malt_p_;
+  Item * nobreak_malt_p_;
+  Separating_group_spanner * sep_span_p_;
+  
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_creation_processing ();
+  virtual void do_removal_processing ();
+  virtual void do_pre_move_processing ();
+public:
+  Separating_line_group_engraver ();
+  VIRTUAL_COPY_CONS (Translator);
+};
 
 Separating_line_group_engraver::Separating_line_group_engraver ()
 {
@@ -43,20 +59,20 @@ Separating_line_group_engraver::acknowledge_element (Score_element_info i)
   if (it && !it->parent_l (X_AXIS))
     {
       bool ib =it->breakable_b ();
-      Single_malt_grouping_item *&p_ref_ (ib ? break_malt_p_
-					  : nobreak_malt_p_);
+      Item *&p_ref_ (ib ? break_malt_p_
+			      : nobreak_malt_p_);
 
       if (!p_ref_)
 	{
 	  p_ref_
-	    = new Single_malt_grouping_item
+	    = new Item
 	    (get_property ("basicSingleMaltGroupingItemProperties"));
 	  
 	  if (ib)
 	    p_ref_->set_elt_property ("breakable", SCM_BOOL_T);
 	  announce_element (Score_element_info (p_ref_, 0));
 	}
-      p_ref_->add_item (it);
+      Separation_item::add_item (p_ref_,it);
     }
 }
 

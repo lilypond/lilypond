@@ -101,6 +101,17 @@ Line_of_score::output_lines ()
 	  progress_indication (to_str (i));
 	  progress_indication ("]");
 	}
+
+      if (i < broken_into_l_arr_.size () - 1)
+	{
+	  SCM lastcol =  gh_car (line_l->get_elt_pointer ("columns"));
+	  Score_element*  e = unsmob_element (lastcol);
+	  SCM inter = e->get_elt_property ("between-system-string");
+	  if (gh_string_p (inter))
+	    {
+	      pscore_l_->outputter_l_->output_string (inter);	      
+	    }
+	}
     }
 }
 
@@ -179,7 +190,6 @@ Line_of_score::add_column (Paper_column*p)
   set_elt_pointer ("columns",  gh_cons (p->self_scm_, cs));
 
   Axis_group_interface (this).add_element (p);
-  typeset_element (p);
 }
 
 

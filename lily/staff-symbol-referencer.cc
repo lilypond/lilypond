@@ -19,19 +19,19 @@ Staff_symbol_referencer_interface::Staff_symbol_referencer_interface (Score_elem
 }
 
 void
-Staff_symbol_referencer_interface::set_interface ()
+Staff_symbol_referencer_interface::set_interface (Score_element * e)
 {
-  if (!gh_number_p (elt_l_->get_elt_property ("staff-position")))
-      elt_l_->set_elt_property ("staff-position", gh_double2scm (0.0));
+  if (!gh_number_p (e->get_elt_property ("staff-position")))
+      e->set_elt_property ("staff-position", gh_double2scm (0.0));
       
-  elt_l_->add_offset_callback (callback, Y_AXIS);
+  e->add_offset_callback (callback, Y_AXIS);
 }
 
 bool
-Staff_symbol_referencer_interface::has_interface_b ()
+Staff_symbol_referencer_interface::has_interface_b (Score_element*e)
 {
-  return unsmob_element (elt_l_->get_elt_pointer ("staff-symbol"))
-    || gh_number_p (elt_l_->get_elt_property ("staff-position"));
+  return unsmob_element (e->get_elt_pointer ("staff-symbol"))
+    || gh_number_p (e->get_elt_property ("staff-position"));
 }
 
 
@@ -91,7 +91,7 @@ Staff_symbol_referencer_interface::position_f () const
   should use offset callback!
  */
 Real
-Staff_symbol_referencer_interface::callback (Score_element const* sc,Axis )
+Staff_symbol_referencer_interface::callback (Score_element * sc,Axis )
 {
   Score_element* me = (Score_element*)sc; // UGH.
   

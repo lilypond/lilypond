@@ -414,6 +414,7 @@ ScoreContext = \translator {
 		(thin-kern . 3.0)
 		(hair-thickness . 1.6)
 		(thick-thickness . 6.0)
+		(bar-interface . #t)
 	)
 
 	basicBarNumberProperties = #`(
@@ -437,11 +438,9 @@ ScoreContext = \translator {
 	
 	basicBreathingSignProperties = #`(
 		(break-align-symbol . Breathing_sign)
-		(after-line-breaking-callback . ,Breathing_sign::after_line_breaking)
 		(breakable . #t )
 		(molecule-callback . ,Breathing_sign::brew_molecule)
 		(visibility-lambda . ,begin-of-line-invisible)
-
 	)
 	 basicClefItemProperties = #`(
    	   (molecule-callback . ,Score_element::brew_molecule)
@@ -488,7 +487,8 @@ ScoreContext = \translator {
 		(before-line-breaking-callback . ,Grace_align_item::before_line_breaking)
 	)
 	basicHaraKiriVerticalGroupspannerProperties = #`(
-		(after-line-breaking-callback . ,Hara_kiri_group_spanner::after_line_breaking)
+		(hara-kiri-interface . #t)
+		(axes 1)
 	)
 	basicHyphenSpannerProperties = #`(
 		(thickness . 1.0)
@@ -498,6 +498,7 @@ ScoreContext = \translator {
 	)
 	basicKeyProperties = #`(
   	  (molecule-callback . ,Key_item::brew_molecule)
+	  (key-item-interface . #t)
 	  (break-align-symbol . Key_item)
 	  (visibility-lambda . ,begin-of-line-visible)
 	  (breakable . #t)
@@ -506,6 +507,7 @@ ScoreContext = \translator {
 		(molecule-callback . ,Local_key_item::brew_molecule)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
+		(accidentals-interface . #t)
 	)
 	basicLyricExtenderProperties = #`(
 		(molecule-callback . ,Lyric_extender::brew_molecule)
@@ -519,12 +521,12 @@ ScoreContext = \translator {
 	basicMarkProperties = #`(
 	  (molecule-callback . ,Text_item::brew_molecule)	
 	  (breakable . #t)
+	  (mark-interface . #t)
 	  (visibility-lambda . ,end-of-line-invisible)
 	)
 	basicMultiMeasureRestProperties = #`(
 		(molecule-callback . ,Multi_measure_rest::brew_molecule)
 		(staff-position . 0)
-
 	)
 	basicNoteColumnProperties = #`(
 		(axes 0 1)
@@ -542,6 +544,10 @@ ScoreContext = \translator {
 		(visibility-lambda . ,begin-of-line-visible) 
 		(molecule-callback . ,Text_item::brew_molecule)
 		(style . "italic")
+	)
+	basicPaperColumnProperties = #`(
+		(paper-column-interface . #t)
+		(axes 0)
 	)
 	basicPedalProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
@@ -563,7 +569,9 @@ ScoreContext = \translator {
 	basicScriptProperties	 = #`(
 		(molecule-callback . ,Script::brew_molecule)
 	)
- 		
+	basicScriptColumnProperties = #`(
+		(before-line-breaking-callback . ,Script_column::before_line_breaking)
+	)
 	basicSlurProperties = #`(
 		(molecule-callback . ,Slur::brew_molecule)
 		(after-line-breaking-callback . ,Slur::after_line_breaking) 
@@ -585,7 +593,7 @@ ScoreContext = \translator {
 		(thin-kern . 3.0)
 		(hair-thickness . 1.6)
 		(thick-thickness . 6.0)
-
+		(bar-interface . #t)
 	)
 	basicSustainPedalProperties = #`(
 		(no-spacing-rods . #t)
@@ -633,6 +641,7 @@ ScoreContext = \translator {
 	)
 	basicTupletSpannerProperties = #`(
 		(number-gap . 2.0)   
+		(delta-y . 0)
 		(thick . 1.0)
 		(after-line-breaking-callback . ,Tuplet_spanner::after_line_breaking)
 		(molecule-callback . ,Tuplet_spanner::brew_molecule)
@@ -657,7 +666,6 @@ ScoreContext = \translator {
 	)
 	basicVoltaSpannerProperties = #`(
 		(molecule-callback . ,Volta_spanner::brew_molecule)
-		(after-line-breaking-callback . ,Volta_spanner::after_line_breaking) 
 	)
 	
 	\accepts "Staff";

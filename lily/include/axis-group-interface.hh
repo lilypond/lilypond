@@ -31,7 +31,7 @@ struct Axis_group_interface
   Score_element *elt_l_;
   Axis_group_interface (Score_element*);
 
-  static Interval group_extent_callback (Score_element const*,Axis);
+  static Interval group_extent_callback (Score_element *,Axis);
   static Interval relative_group_extent (Axis, Score_element * common, SCM list);
 
   void add_element (Score_element*);

@@ -8,51 +8,48 @@
 
 #include "molecule.hh"
 #include "crescendo.hh"
+#include "spanner.hh"
 #include "lookup.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
 #include "debug.hh"
 #include "paper-column.hh"
 
-
-Crescendo::Crescendo (SCM s)
-  : Spanner (s)
+void
+Crescendo::set_interface (Score_element*s)
 {
-  set_elt_property ("dynamic-drul", gh_cons (SCM_BOOL_F, SCM_BOOL_F));
+  s->set_elt_pointer ("dynamic-drul", gh_cons (SCM_UNDEFINED, SCM_UNDEFINED));
 }
 
 
 
-
-GLUE_SCORE_ELEMENT(Crescendo,brew_molecule);
-
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Crescendo,brew_molecule);
 SCM
-Crescendo::member_brew_molecule () const
+Crescendo::brew_molecule (SCM smob) 
 {
-  Real absdyn_dim = paper_l ()-> get_var ("crescendo_shorten");
-  Real extra_left =  get_broken_left_end_align ();
+  Score_element *me= unsmob_element (smob);
+  Spanner * sp = dynamic_cast<Spanner*>(me);
+  Real absdyn_dim = me->paper_l ()-> get_var ("crescendo_shorten");
+  Real extra_left =  sp->get_broken_left_end_align ();
 
-  SCM dir = get_elt_property("grow-direction");
-  SCM dyns = get_elt_property ("dynamic-drul");
+  SCM dir = me->get_elt_property("grow-direction");
+  SCM dyns = me->get_elt_property ("dynamic-drul");
 
   if (!isdir_b (dir) || !gh_pair_p (dyns))
     {
-      Crescendo * me = (Crescendo*)this;
       me->suicide ();
       return SCM_EOL;
     }
   
   Direction gd = to_dir (dir);
 
-  bool dynleft= to_boolean (gh_car (dyns));
-  bool dynright = to_boolean (gh_cdr (dyns));
+  bool dynleft= unsmob_element (gh_car (dyns));
+  bool dynright = unsmob_element (gh_cdr (dyns));
   
   if (dynleft)
     extra_left += absdyn_dim;
 
-  
-
-  Real width = spanner_length()- get_broken_left_end_align ();
+  Real width = sp->spanner_length()- sp->get_broken_left_end_align ();
 
   if (dynleft)
     {
@@ -73,7 +70,7 @@ Crescendo::member_brew_molecule () const
   Direction d = LEFT;
   do
     {
-      Paper_column* s = dynamic_cast<Paper_column*>(get_bound (d)); // UGH
+      Paper_column* s = dynamic_cast<Paper_column*>(sp->get_bound (d)); // UGH
       broken[d] = (!s->musical_b ());
     }
   while (flip (&d) != LEFT);
@@ -82,15 +79,15 @@ Crescendo::member_brew_molecule () const
   Molecule m;
   
   Real pad = 0;
-  SCM s = get_elt_property ("start-text");
+  SCM s = me->get_elt_property ("start-text");
   if (gh_string_p (s))
     {
-      Molecule start_text (lookup_l ()->text ("italic",
+      Molecule start_text (me->lookup_l ()->text ("italic",
 					      ly_scm2string (s),
-					      paper_l ()));
+						  me->paper_l ()));
       m.add_molecule (start_text);
 
-      pad = paper_l ()->get_var ("interline") / 2;
+      pad = me->paper_l ()->get_var ("interline") / 2;
 
       width -= start_text.extent (X_AXIS).length ();
       width -= pad;
@@ -98,12 +95,12 @@ Crescendo::member_brew_molecule () const
     }
 
   SCM at;
-  s = get_elt_property ("spanner");
+  s =me->get_elt_property ("spanner");
   Real height;
   if (gh_string_p (s) && ly_scm2string (s) == "dashed-line")
     {
-      Real thick = paper_l ()->get_var ("crescendo_dash_thickness");
-      Real dash = paper_l ()->get_var ("crescendo_dash");
+      Real thick = me->paper_l ()->get_var ("crescendo_dash_thickness");
+      Real dash = me->paper_l ()->get_var ("crescendo_dash");
       height = thick;
       at = gh_list (ly_symbol2scm (ly_scm2string (s).ch_C ()),
 		    gh_double2scm (thick),
@@ -114,8 +111,8 @@ Crescendo::member_brew_molecule () const
   else
     {
       bool continued = broken[Direction (-gd)];
-      height = paper_l()->get_var ("crescendo_height");
-      Real thick = paper_l ()->get_var ("crescendo_thickness");
+      height = me->paper_l()->get_var ("crescendo_height");
+      Real thick = me->paper_l ()->get_var ("crescendo_thickness");
       
       const char* hairpin = (gd < 0)? "decrescendo" :  "crescendo";
 

@@ -10,13 +10,12 @@
 
 #include "side-position-interface.hh"
 #include "warn.hh"
-#include "dimension-cache.hh"
 #include "lily-guile.hh"
 #include "break-align-item.hh"
 #include "dimensions.hh"
-#include "paper-score.hh"
 #include "paper-def.hh"
 #include "paper-column.hh"
+
 #include "group-interface.hh"
 #include "align-interface.hh"
 

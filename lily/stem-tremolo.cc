@@ -23,37 +23,28 @@
     lengthen stem if necessary
  */
 
-Stem_tremolo::Stem_tremolo (SCM s)
-  : Item (s)
+void
+Stem_tremolo::set_interface (Score_element *me)
 {
-  set_elt_pointer ("stem", SCM_EOL);
+me->set_elt_pointer ("stem", SCM_EOL);
 }
 
-
-Stem *
-Stem_tremolo::stem_l ()const
-{
-  SCM s =   get_elt_pointer ("stem");
-
-  return dynamic_cast<Stem*> (  unsmob_element (s));
-}
 
 Interval
 Stem_tremolo::dim_callback (Score_element * se, Axis )
 {
-  Stem_tremolo * s = dynamic_cast<Stem_tremolo*> (se);
-  Real space = Staff_symbol_referencer_interface (s->stem_l ())
-    .staff_space ();
+  Real space = Staff_symbol_referencer_interface (se).staff_space ();
   return Interval (-space, space);
 }
 
 
 
-GLUE_SCORE_ELEMENT(Stem_tremolo,brew_molecule);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Stem_tremolo,brew_molecule);
 SCM
-Stem_tremolo::member_brew_molecule () const
+Stem_tremolo::brew_molecule (SCM smob)
 {
-  Stem * stem = stem_l ();
+  Score_element *me= unsmob_element (smob);
+  Stem * stem = dynamic_cast<Stem*> (unsmob_element (me->get_elt_pointer ("stem")));
   Beam * beam = stem->beam_l ();
   
   Real dydx;
@@ -72,16 +63,16 @@ Stem_tremolo::member_brew_molecule () const
     dydx = 0.25;
 
   Real ss = Staff_symbol_referencer_interface (stem).staff_space ();
-  Real thick = gh_scm2double (get_elt_property ("beam-thickness"));
-  Real width = gh_scm2double (get_elt_property ("beam-width"));
+  Real thick = gh_scm2double (me->get_elt_property ("beam-thickness"));
+  Real width = gh_scm2double (me->get_elt_property ("beam-width"));
   width *= ss;
   thick *= ss;
   
-  Molecule a (lookup_l ()->beam (dydx, width, thick));
+  Molecule a (me->lookup_l ()->beam (dydx, width, thick));
   a.translate (Offset (-width/2, width / 2 * dydx));
   
   int tremolo_flags;
-  SCM s = get_elt_property ("tremolo-flags");
+  SCM s = me->get_elt_property ("tremolo-flags");
   if (gh_number_p (s))
     tremolo_flags = gh_scm2int (s);
   else
@@ -89,7 +80,7 @@ Stem_tremolo::member_brew_molecule () const
     tremolo_flags = 1;
 
   int mult = beam ? beam->get_multiplicity () : 0;
-  Real interbeam_f = paper_l ()->interbeam_f (mult);
+  Real interbeam_f = me->paper_l ()->interbeam_f (mult);
   Molecule mol; 
   for (int i = 0; i < tremolo_flags; i++)
     {
@@ -103,7 +94,7 @@ Stem_tremolo::member_brew_molecule () const
     {
       // ugh, rather calc from Stem_tremolo_req
       int beams_i = stem->beam_count(RIGHT) >? stem->beam_count (LEFT);
-      mol.translate (Offset(stem->relative_coordinate (0, X_AXIS) - relative_coordinate (0, X_AXIS),
+      mol.translate (Offset(stem->relative_coordinate (0, X_AXIS) - me->relative_coordinate (0, X_AXIS),
 			    stem->stem_end_position () * ss / 2 - 
 			    Directional_element_interface (beam).get () * beams_i * interbeam_f));
     }
@@ -125,7 +116,7 @@ Stem_tremolo::member_brew_molecule () const
       else
 	whole_note_correction = 0;
 	 
-      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS) - relative_coordinate (0, X_AXIS) +
+      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS) - me->relative_coordinate (0, X_AXIS) +
 			     whole_note_correction, dy));
     }
   
@@ -134,9 +125,8 @@ Stem_tremolo::member_brew_molecule () const
 
 
 void
-Stem_tremolo::set_stem (Stem *s)
+Stem_tremolo::set_stem (Score_element*me,Score_element *s)
 {
-  set_elt_pointer ("stem", s->self_scm_);
-  add_dependency (s);
+  me->set_elt_pointer ("stem", s->self_scm_);
 }
 

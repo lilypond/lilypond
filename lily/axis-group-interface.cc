@@ -59,7 +59,7 @@ Axis_group_interface::relative_group_extent (Axis a, Score_element *common, SCM 
 }
 
 Interval
-Axis_group_interface::group_extent_callback (Score_element const*me, Axis a)
+Axis_group_interface::group_extent_callback (Score_element *me, Axis a)
 {
   Score_element * common =(Score_element*) me;
 

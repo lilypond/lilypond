@@ -34,7 +34,7 @@ class Spanner : public  Score_element {
 
 public:
   Link_array<Spanner> broken_into_l_arr_;
-
+  Real get_broken_left_end_align () const;
   // TODO: make virtual and do this for Items as well.
   Interval_t<int> spanned_rank_iv ();
   void set_bound (Direction d, Score_element*);
@@ -54,7 +54,7 @@ public:
 protected:
   void set_my_columns ();
   VIRTUAL_COPY_CONS(Score_element);
-  Real get_broken_left_end_align () const;
+
 
   virtual void do_space_processing ();
   virtual void do_break_processing ();

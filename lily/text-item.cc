@@ -1,5 +1,5 @@
 /*   
-  text-item.cc -- implement Item
+  text-item.cc -- implement Text_item
 
   source file of the GNU LilyPond music typesetter
   

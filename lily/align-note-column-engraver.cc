@@ -11,7 +11,6 @@
 #include "grace-align-item.hh"
 #include "align-interface.hh"
 #include "note-column.hh"
-#include "local-key-item.hh"
 #include "warn.hh"
 #include "directional-element-interface.hh"
 #include "side-position-interface.hh"
@@ -23,7 +22,7 @@ class Align_note_column_engraver: public Engraver
 {
   Grace_align_item * align_item_p_;
   Note_column * now_column_l_;
-  Local_key_item * accidental_l_;
+  Score_element * accidental_l_;
 
   virtual void process_acknowledged ();
   virtual void do_post_move_processing ();
@@ -74,9 +73,9 @@ Align_note_column_engraver::acknowledge_element (Score_element_info inf)
     {
       now_column_l_ =n;
     }
-  else if (Local_key_item * it = dynamic_cast<Local_key_item*> (inf.elem_l_))
+  else if (to_boolean (inf.elem_l_->get_elt_property ("accidentals-interface")))
     {
-      accidental_l_ = it;
+      accidental_l_ = inf.elem_l_;
     }
 }
 void

@@ -39,11 +39,11 @@ struct Side_position_interface
   Score_element * elt_l_;
 public:
   Side_position_interface (Score_element const*);
-  static Real side_position (Score_element const *, Axis);
-  static Real aligned_on_self (Score_element const *, Axis);
-  static Real aligned_side (Score_element const *, Axis);  
-  static Real quantised_position (Score_element const*, Axis);
-  static Real centered_on_parent (Score_element const*, Axis);
+  static Real side_position (Score_element *, Axis);
+  static Real aligned_on_self (Score_element *, Axis);
+  static Real aligned_side (Score_element *, Axis);  
+  static Real quantised_position (Score_element *, Axis);
+  static Real centered_on_parent (Score_element *, Axis);
   void set_axis (Axis);
   void set_minimum_space (Real);
   void set_padding (Real);

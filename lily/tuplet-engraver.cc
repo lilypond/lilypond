@@ -29,7 +29,7 @@ protected:
   Array<Moment> span_stop_moments_;
   
   /// The spanners. Array order is synced with time_scaled_music_arr_
-  Link_array<Tuplet_spanner> started_span_p_arr_;
+  Link_array<Spanner> started_span_p_arr_;
 
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
@@ -73,7 +73,8 @@ Tuplet_engraver::do_process_music ()
       if (i < started_span_p_arr_.size () && started_span_p_arr_[i])
 	continue;
 
-      Tuplet_spanner* glep = new Tuplet_spanner (get_property ("basicTupletSpannerProperties"));
+      Spanner* glep = new Spanner (get_property ("basicTupletSpannerProperties"));
+      Tuplet_spanner::set_interface (glep);
       if (i >= started_span_p_arr_.size ())
 	started_span_p_arr_.push (glep);
       else
@@ -99,13 +100,13 @@ Tuplet_engraver::acknowledge_element (Score_element_info i)
     {
       for (int j =0; j  <started_span_p_arr_.size (); j++)
 	if (started_span_p_arr_[j]) 
-	  started_span_p_arr_[j]->add_column (nc);
+	  Tuplet_spanner::add_column (started_span_p_arr_[j],nc);
     }
   else if (Beam *b = dynamic_cast<Beam *> (i.elem_l_))
     {
       for (int j = 0; j < started_span_p_arr_.size (); j++)
 	if (started_span_p_arr_[j]) 
-	  started_span_p_arr_[j]->add_beam (b);
+	  Tuplet_spanner::add_beam (started_span_p_arr_[j],b);
     }
 }
 

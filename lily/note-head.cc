@@ -16,8 +16,6 @@
 #include "dimension-cache.hh"
 #include "staff-symbol-referencer.hh"
 
-
-
 /*
   build a ledger line for small pieces.
  */

@@ -49,7 +49,7 @@ public:
   void add_rod (Paper_column * to, Real distance);
   void add_spring (Paper_column * to, Real dist, Real strength);
 
-  virtual Paper_column * column_l () const;
+  virtual Paper_column *column_l () const;
   virtual Line_of_score *line_l () const;
 
   /// if lines are broken then this column is in #line#
@@ -58,7 +58,7 @@ public:
   /// which  one (left =0)
   int rank_i() const;
 
-  Paper_column (Moment when);
+  Paper_column (SCM);
   Moment when_mom ()const;
 
   bool musical_b () const;

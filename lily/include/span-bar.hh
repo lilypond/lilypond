@@ -31,7 +31,7 @@ public:
   void add_bar (Score_element*);
   void evaluate_empty ();
 
-  static Interval width_callback(Score_element const*, Axis) ;
+  static Interval width_callback(Score_element *, Axis) ;
   
   virtual Real get_bar_size () const;
   SCM member_before_line_breaking ();

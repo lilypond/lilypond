@@ -9,15 +9,15 @@
 
 #include "engraver.hh"
 #include "script-column.hh"
+#include "item.hh"
 #include "side-position-interface.hh"
-#include "dimension-cache.hh"
 
 /**
    Find potentially colliding scripts, and put them in a
    Script_column, that will fix the collisions.  */
 class Script_column_engraver : public Engraver
 {
-  Script_column *scol_p_;
+  Score_element *scol_p_;
   Link_array<Item> script_l_arr_;
 
 public:
@@ -73,14 +73,16 @@ Script_column_engraver::process_acknowledged ()
 {
   if (!scol_p_ && script_l_arr_.size () > 1)
     {
-      scol_p_ = new Script_column (SCM_EOL);
+      scol_p_ = new Item (get_property ("basicScriptColumnProperties"));
+      scol_p_->set_elt_pointer ("scripts", SCM_EOL);  
+
       announce_element (Score_element_info (scol_p_, 0));
     }
 
   if (scol_p_)
     {
       for (int i=0; i < script_l_arr_.size (); i++)
-	scol_p_->add_staff_sided (script_l_arr_[i]);
+	Script_column::add_staff_sided (scol_p_, script_l_arr_[i]);
       script_l_arr_.clear ();
     }
 }

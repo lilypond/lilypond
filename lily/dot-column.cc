@@ -18,20 +18,18 @@
 
 
 void
-Dot_column::add_head (Rhythmic_head *r)
+Dot_column::add_head (Score_element * dc, Score_element *rh)
 {
-  if (!r->dots_l ())
-    return ;
-
-  Side_position_interface (this).add_support (r);
-  Item * d = r->dots_l ();
+  Score_element * d = unsmob_element (rh->get_elt_pointer ("dot"));
   if (d)
     {
-      Pointer_group_interface gi (this, "dots");
+      Side_position_interface (dc).add_support (rh);
+
+      Pointer_group_interface gi (dc, "dots");
       gi.add_element (d);
       
       d->add_offset_callback (force_shift_callback , Y_AXIS);
-      Axis_group_interface (this).add_element (d);
+      Axis_group_interface (dc).add_element (d);
     }
 }
 
@@ -46,14 +44,14 @@ Dot_column::compare (Score_element * const &d1, Score_element * const &d2)
 }
 
 
-Dot_column::Dot_column (SCM s)
-  : Item (s)
+void
+Dot_column::set_interface (Score_element* dc)
 {
-  this->set_elt_pointer  ("dots", SCM_EOL);
-  Directional_element_interface (this).set (RIGHT);
+  dc->set_elt_pointer  ("dots", SCM_EOL);
+  Directional_element_interface (dc).set (RIGHT);
   
-  Axis_group_interface (this).set_interface ();
-  Axis_group_interface (this).set_axes(X_AXIS,X_AXIS);
+  Axis_group_interface (dc).set_interface ();
+  Axis_group_interface (dc).set_axes(X_AXIS,X_AXIS);
 }
 
 /*
@@ -74,7 +72,7 @@ Dot_column::Dot_column (SCM s)
 
 
 Real
-Dot_column::force_shift_callback (Score_element const * dot, Axis a)
+Dot_column::force_shift_callback (Score_element * dot, Axis a)
 {
   assert (a == Y_AXIS);
   Score_element * me = dot->parent_l (X_AXIS);

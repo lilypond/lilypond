@@ -35,7 +35,7 @@ Score_element_info::origin_trans_l_arr (Translator* end) const
   do {
     r.push (t);
     t = t->daddy_trans_l_;
-  } while (t != end->daddy_trans_l_);
+  } while (t && t != end->daddy_trans_l_);
   
   return r;
 }

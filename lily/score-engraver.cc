@@ -31,9 +31,22 @@ void
 Score_engraver::prepare (Moment w)
 {
   Global_translator::prepare (w);
-  set_columns (new Paper_column (w),  new Paper_column (w));
 
+  SCM props = get_property (ly_symbol2scm ("basicPaperColumnProperties"));
+  set_columns (new Paper_column (props),  new Paper_column (props));
+  
+  SCM when = smobify (new Moment (w));
+  command_column_l_->set_elt_property ("when", when);
+  musical_column_l_->set_elt_property ("when", when);
   command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
+  
+  Score_element_info i1(command_column_l_, 0), i2 (musical_column_l_,0);
+
+  i1.origin_trans_l_ = this;
+  i2.origin_trans_l_ = this;
+  announce_element (i1);
+  announce_element (i2);
+  
   post_move_processing();
 }
 
@@ -181,19 +194,10 @@ Score_engraver::set_columns (Paper_column *new_command_l,
     {
       if (*current[i])
 	{
-	      scoreline_l_->add_column ((*current[i]));
+	  scoreline_l_->add_column ((*current[i]));
 	  if (!(*current[i])->used_b())
 	    {
-	      /*
-		We're forgetting about this column. Dump it, and make SCM
-		forget it.
-
-		FIXME: we should have another way of not putting this
-		column into the spacing problem. Maybe we shouldn't
-		even prevent this.
-
-	      */
-		(*current[i])->suicide ();
+	      (*current[i])->suicide ();
 	      *current[i]  =0;
 	    }
 	}

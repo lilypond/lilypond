@@ -35,7 +35,7 @@ public:
   int visible_stem_count () const;
   Stem* first_visible_stem () const;
   Stem* last_visible_stem () const;
-  static Real rest_collision_callback (Score_element const*,Axis);
+  static Real rest_collision_callback (Score_element *,Axis);
   Beam (SCM);
   void add_stem (Stem*);
   void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);

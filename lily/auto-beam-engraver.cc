@@ -9,9 +9,7 @@
 #include "beaming.hh"
 #include "auto-beam-engraver.hh"
 #include "musical-request.hh"
-#include "bar.hh"
 #include "beam.hh"
-#include "rest.hh"
 #include "stem.hh"
 #include "debug.hh"
 #include "timing-engraver.hh"
@@ -310,7 +308,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	{
 	  end_beam ();
 	}
-      else if (Bar *b = dynamic_cast<Bar *> (info.elem_l_))
+      else if (to_boolean (info.elem_l_->get_elt_property ("bar-interface")))
 	{
 	  end_beam ();
 	}

@@ -6,11 +6,28 @@
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "time-signature-engraver.hh"
 #include "time-signature.hh"
 #include "command-request.hh"
+#include "engraver.hh"
+
 #include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
+
+
+/**
+  generate time_signatures. 
+  */
+class Time_signature_engraver : public Engraver {
+protected:
+  virtual void do_process_music();
+  virtual void do_pre_move_processing();
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  Item * time_signature_p_;
+
+  Time_signature_engraver();
+};
+
 
 Time_signature_engraver::Time_signature_engraver()
 { 
@@ -20,6 +37,10 @@ Time_signature_engraver::Time_signature_engraver()
 void
 Time_signature_engraver::do_process_music()
 {
+  /*
+    UGH.
+    this should use properties.
+   */
   Translator * result =
     daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
 
@@ -35,8 +56,7 @@ Time_signature_engraver::do_process_music()
   Time_signature_change_req *req = timing_grav_l->time_signature_req_l();
   if (req)
     {
-      time_signature_p_ = new Time_signature (get_property ("basicTimeSignatureProperties"));
-
+      time_signature_p_ = new Item (get_property ("basicTimeSignatureProperties"));
       time_signature_p_->set_elt_property ("fraction",
 					   gh_cons (gh_int2scm (req->beats_i_),
 						    gh_int2scm (req->one_beat_i_))); 

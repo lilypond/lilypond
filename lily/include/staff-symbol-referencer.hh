@@ -21,12 +21,12 @@
 class Staff_symbol_referencer_interface 
 {
 public:
-  Score_element * elt_l_;
+  Score_element * elt_l_;	// junkme.
   Staff_symbol_referencer_interface (Score_element const*);
-  void set_interface ();
-  bool has_interface_b ();
+  static void set_interface (Score_element*);
+  static bool has_interface_b (Score_element*);
   void set_position (Real);
-  static Real callback (Score_element const*, Axis a);
+  static Real callback (Score_element *, Axis a);
 
   /**
      Leading are the lead strips between the sticks (lines) of

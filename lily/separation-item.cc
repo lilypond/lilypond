@@ -1,5 +1,5 @@
 /*   
-  single-malt-grouping-item.cc --  implement Single_malt_grouping_item
+  single-malt-grouping-item.cc --  implement Separation_item
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,48 +7,45 @@
   
  */
 
-#include "single-malt-grouping-item.hh"
+#include "separation-item.hh"
 #include "paper-column.hh"
 #include "debug.hh"
 #include "group-interface.hh"
 
-Single_malt_grouping_item ::Single_malt_grouping_item(SCM s)
-  : Item (s)
+void
+Separation_item::set_interface (Score_element*s)
 {
-  set_elt_pointer ("elements", SCM_EOL);
-
-  // this is weird! , but needed!
-  set_extent_callback (0, X_AXIS);
-  set_extent_callback (0,  Y_AXIS);
-
+  s->set_elt_pointer ("elements", SCM_EOL);
+  s->set_extent_callback (0, X_AXIS);
+  s->set_extent_callback (0,  Y_AXIS);
 }
 
 void
-Single_malt_grouping_item::add_item (Item* i)
+Separation_item::add_item (Score_element*s,Item* i)
 {
   assert (i);
-  Pointer_group_interface (this).add_element (i);
-
-  add_dependency (i);
+  Pointer_group_interface (s).add_element (i);
+  s->add_dependency (i);
 }
 
 Interval
-Single_malt_grouping_item::my_width () const
+Separation_item::my_width (Score_element *me)
 {
-  Paper_column * pc = column_l ();
+  Item *item = dynamic_cast<Item*> (me);
+  Paper_column * pc = item->column_l ();
   Interval w;
   
-  for (SCM s = get_elt_pointer ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s =  me->get_elt_pointer ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       SCM elt = gh_car (s);
       if (!SMOB_IS_TYPE_B(Score_element, elt))
 	continue;
       
-      Item *il = dynamic_cast<Item*> (SMOB_TO_TYPE (Score_element, elt));
+      Item *il = dynamic_cast<Item*> (unsmob_element (elt));
       if (pc != il->column_l ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
-	  programming_error (_("Single_malt_grouping_item:  I've been drinking too much"));
+	  programming_error (_("Separation_item:  I've been drinking too much"));
 	  continue;		/*UGH UGH*/ 
 	}
 

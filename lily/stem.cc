@@ -440,7 +440,7 @@ Stem::flag () const
 }
 
 Interval
-Stem::dim_callback (Score_element const *se, Axis ) 
+Stem::dim_callback (Score_element *se, Axis ) 
 {
   Stem * s = dynamic_cast<Stem*> ((Score_element*)se);
   
@@ -498,7 +498,7 @@ Stem::member_brew_molecule () const
 }
 
 Real
-Stem::off_callback (Score_element const* se, Axis)
+Stem::off_callback (Score_element * se, Axis)
 {
   Stem *st = dynamic_cast<Stem*> ((Score_element*)se);
 

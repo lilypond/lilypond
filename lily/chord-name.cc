@@ -7,14 +7,10 @@
 */
 
 #include "chord-name.hh"
-#include "musical-request.hh"
-#include "warn.hh"
-#include "debug.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "staff-symbol-referencer.hh"
-
+#include "score-element.hh"
 
 /*
   TODO: move text lookup out of Chord_name
@@ -27,7 +23,7 @@
  */
 
 Molecule
-Chord_name::ly_word2molecule (SCM word, Real* x) const
+Chord_name::ly_word2molecule (Score_element * me, SCM word, Real* x) 
 {
   *x = 0;
 
@@ -43,10 +39,10 @@ Chord_name::ly_word2molecule (SCM word, Real* x) const
       /*
 	UGH. Should read from font metric structure.
       */
-      Real ex = lookup_l ()->text ("", "x",
-				   paper_l ()).extent (Y_AXIS).length ();
-      Real em = lookup_l ()->text ("", "m",
-				   paper_l ()).extent (X_AXIS).length ();
+      Real ex = me->lookup_l ()->text ("", "x",
+				   me->paper_l ()).extent (Y_AXIS).length ();
+      Real em = me->lookup_l ()->text ("", "m",
+				   me->paper_l ()).extent (X_AXIS).length ();
 
       String w = ly_scm2string (word);
 
@@ -90,9 +86,9 @@ Chord_name::ly_word2molecule (SCM word, Real* x) const
       Molecule mol;
       s = scm_assoc (ly_symbol2scm ("font"), options_alist);
       if (s != SCM_BOOL_F && ly_scm2string (gh_cdr (s)) == "feta")
-        mol = paper_l ()->lookup_l (size)->afm_find (w);
+        mol = me->paper_l ()->lookup_l (size)->afm_find (w);
       else
-	mol = paper_l ()->lookup_l (size)->text (style, w, paper_l ());
+	mol = me->paper_l ()->lookup_l (size)->text (style, w, me->paper_l ());
 
       mol.translate (offset);
       return mol;
@@ -106,7 +102,7 @@ Chord_name::ly_word2molecule (SCM word, Real* x) const
   ;; property: align, kern, font (?), size
  */
 Molecule
-Chord_name::ly_text2molecule (SCM text) const
+Chord_name::ly_text2molecule (Score_element * me, SCM text) 
 {
   Molecule mol;
   if (gh_list_p (text))
@@ -114,7 +110,7 @@ Chord_name::ly_text2molecule (SCM text) const
       while (gh_cdr (text) != SCM_EOL)
         {
 	  Real x;
-	  Molecule m = ly_word2molecule (gh_car (text), &x);
+	  Molecule m = ly_word2molecule (me, gh_car (text), &x);
 	  if (!m.empty_b ())
 	    mol.add_at_edge (X_AXIS, RIGHT, m, x);
 	  text = gh_cdr (text);
@@ -122,7 +118,7 @@ Chord_name::ly_text2molecule (SCM text) const
       text = gh_car (text);
     }  
   Real x;
-  Molecule m = ly_word2molecule (text, &x);
+  Molecule m = ly_word2molecule (me,text, &x);
   if (!m.empty_b ())
     mol.add_at_edge (X_AXIS, RIGHT, m, x);
   return mol;
@@ -154,11 +150,5 @@ Chord_name::brew_molecule (SCM smob)
 				ly_quote_scm (gh_cons (inversion, bass)),
 				SCM_UNDEFINED));
 
-  return dynamic_cast<Chord_name*> (sc)->
-    ly_text2molecule (text).create_scheme ();
-}
-
-Chord_name::Chord_name (SCM s)
-  : Item (s)
-{
+  return ly_text2molecule (sc, text).create_scheme ();
 }

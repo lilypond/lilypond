@@ -13,21 +13,14 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 
-Time_signature::Time_signature (SCM s)
-  :  Item (s)
-{
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Time_signature,brew_molecule);
 
-}
-
-// ugh.!
-
-GLUE_SCORE_ELEMENT(Time_signature,brew_molecule);
 SCM
-Time_signature::member_brew_molecule () const
+Time_signature::brew_molecule (SCM smob) 
 {
-  SCM st = get_elt_property ("style");
-
-  SCM frac = get_elt_property ("fraction");
+  Score_element * me = unsmob_element (smob);
+  SCM st = me->get_elt_property ("style");
+  SCM frac = me->get_elt_property ("fraction");
   int n = 4;
   int d = 4;
   if (gh_pair_p (frac))
@@ -42,47 +35,47 @@ Time_signature::member_brew_molecule () const
       String style (ly_scm2string (st));
       if (style[0]=='1')
 	{
-	  return time_signature (n, 0).create_scheme();
+	  return time_signature (me, n, 0).create_scheme();
 	}
       else
 	{
-	  return special_time_signature (style, n, d).create_scheme();
+	  return special_time_signature (me, style, n, d).create_scheme();
 	}
     }
   else
-    return time_signature (n,d).create_scheme();
+    return time_signature (me, n,d).create_scheme();
 }
 
 Molecule
-Time_signature::special_time_signature (String s, int n, int d) const
+Time_signature::special_time_signature (Score_element*me, String s, int n, int d)
 {
   // First guess: s contains only the signature style
   String symbolname = "timesig-" + s + to_str (n) + "/" + to_str (d);
   
-  Molecule m = lookup_l ()->afm_find (symbolname, false);
+  Molecule m = me->lookup_l ()->afm_find (symbolname, false);
   if (!m.empty_b()) 
     return m;
 
   // Second guess: s contains the full signature name
-  m = lookup_l ()->afm_find ("timesig-"+s, false);
+  m = me->lookup_l ()->afm_find ("timesig-"+s, false);
   if (!m.empty_b ()) 
     return m;
 
   // Resort to default layout with numbers
-  return time_signature (n,d);
+  return time_signature (me, n,d);
 }
 
 
 Molecule
-Time_signature::time_signature (int num, int den) const
+Time_signature::time_signature (Score_element*me,int num, int den)
 {
   String sty = "timesig";
 
   /*
     UGH: need to look at fontsize.
    */
-  Molecule n (lookup_l ()->text (sty, to_str (num), paper_l ()));
-  Molecule d (lookup_l ()->text (sty, to_str (den), paper_l ()));
+  Molecule n (me->lookup_l ()->text (sty, to_str (num), me->paper_l ()));
+  Molecule d (me->lookup_l ()->text (sty, to_str (den), me->paper_l ()));
   n.align_to (X_AXIS, CENTER);
   d.align_to (X_AXIS, CENTER);
   Molecule m;
