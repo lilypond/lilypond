@@ -182,7 +182,7 @@
 		  ,(delay  (ly:font-load "bigcheese23"))		  
 		  ,(delay  (ly:font-load "bigcheese26"))))
 
-     (fetaBraces 15 #(,(delay
+     (fetaBraces 100.0 #(,(delay
 			  (ly:font-load "aybabtu")))))))
 
 (define-public (add-cmr-fonts node factor)
