@@ -361,7 +361,7 @@ discussed in the previous two sections.
 @item @code{1 2 8 16}
 @tab durations 
 @tab
-@lilypond[relative 1, noquote, notime]
+@lilypond[relative 1, notime]
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
 c1 c2 c8 c16
@@ -370,7 +370,7 @@ c1 c2 c8 c16
 @item @code{. ..}
 @tab augmentation dots
 @tab
-@lilypond[relative 1, noquote, notime]
+@lilypond[relative 1, notime]
 \property Staff.Clef = \turnOff
 c4. c4..  
 @end lilypond
@@ -378,7 +378,7 @@ c4. c4..
 @item @code{c d e f g a b }
 @tab scale 
 @tab
-@lilypond[relative 1, noquote, notime]
+@lilypond[relative 1, notime]
 \property Staff.Clef = \turnOff
 c d e f g a b
 @end lilypond
@@ -386,7 +386,7 @@ c d e f g a b
 @item @code{\clef treble \clef bass }
 @tab clefs
 @tab
-@lilypond[noquote, notime]
+@lilypond[notime]
 \clef treble
 s4_" "
 \clef bass
@@ -396,7 +396,7 @@ s4_" "
 @item @code{\time 3/4 \time 4/4 }
 @tab time signature
 @tab
-@lilypond[noquote]
+@lilypond
 \property Staff.Clef \set #'transparent = ##t 
 \time 3/4
 s4_" "
@@ -650,7 +650,7 @@ The following table summarizes the syntax learned so far in this section.
 @item @code{r4 r8}
 @tab rest 
 @tab
-@lilypond[relative 1, noquote, notime]
+@lilypond[relative 1, notime]
 \property Staff.Clef = \turnOff
 r4 r8
 @end lilypond
@@ -658,7 +658,7 @@ r4 r8
 @item @code{~}
 @tab tie
 @tab
-@lilypond[relative 1, noquote, notime]
+@lilypond[relative 1, notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
@@ -668,7 +668,7 @@ d ~ d
 @item @code{\key es \major }
 @tab key signature
 @tab
-@lilypond[noquote, notime]
+@lilypond[notime]
 \clef treble
 \key es \major
 s4 
@@ -677,7 +677,7 @@ s4
 @item @var{note}@code{'}
 @tab raise octave
 @tab
-@lilypond[relative 1, noquote, notime]
+@lilypond[relative 1, notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
@@ -687,7 +687,7 @@ a a'
 @item @var{note}@code{,}
 @tab lower octave
 @tab
-@lilypond[relative 1, noquote, notime]
+@lilypond[relative 1, notime]
 \property Score.timing = ##f
 \property Staff.autoBeaming = ##f
 \property Staff.Clef = \turnOff
@@ -1686,7 +1686,7 @@ input file is a piano reduction of the G major Sinfonia by Giovanni
 Battista Sammartini, composed around 1740.  It's in the source
 package under the name @file{input/tutorial/sammartini.ly}.
 
-@lilypondfile[smallverbatim,noquote]{sammartini.ly}
+@lilypondfile[smallverbatim]{sammartini.ly}
 
 As you can see, this example features multiple voices on one staff.  To
 make room for those voices, their notes should be stemmed in opposite
@@ -2846,7 +2846,7 @@ the default music size, @code{fragment} adds a score block,
 If you include large examples into the text, it may be more convenient
 to put the example in a separate file:
 
-@lilypondfile[printfilename,noquote]{sammartini.ly}
+@lilypondfile[printfilename]{sammartini.ly}
 
 The @code{printfilename} option adds the file name to the output.
 @node  End of tutorial
