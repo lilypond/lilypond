@@ -103,7 +103,8 @@
 	(position-callbacks . (,Beam::least_squares
 			       ,Beam::check_concave
 			       ,Beam::slope_damping
-			       ,Beam::quantise_position))
+			       ,Beam::new_quanting
+			       ))
 	
 	(thickness . 0.48) ; in staff-space
 	(before-line-breaking-callback . ,Beam::before_line_breaking)
@@ -111,7 +112,8 @@
 					 ,Beam::end_after_line_breaking))
 	(neutral-direction . -1)
 	(dir-function . ,beam-dir-majority)
-	(vertical-position-quant-function . ,default-beam-pos-quants)
+	(left-position-quant-function . ,default-left-beam-pos-quants)
+	(right-position-quant-function . ,default-right-beam-pos-quants)
 	(beamed-stem-shorten . (1.0 0.5))
 	(outer-stem-length-limit . 0.2)
 	(slope-limit . 0.2)
@@ -119,6 +121,11 @@
 	(space-function . ,default-beam-space-function)
 	(damping . 1)
 	(auto-knee-gap . 7)
+	(font-name . "cmr10")
+	(quant-score-functions . (,Beam::score_forbidden_quants
+				  ,Beam::score_slopes_dy
+				  ,Beam::score_stem_lengths
+				  ))
 	(meta . ,(grob-description beam-interface))
 	))
 

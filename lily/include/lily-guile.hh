@@ -219,10 +219,12 @@ typedef SCM (*Scheme_function_unknown) ();
 typedef SCM (*Scheme_function_0) ();
 typedef SCM (*Scheme_function_1) (SCM);
 typedef SCM (*Scheme_function_2) (SCM,SCM);	 
+typedef SCM (*Scheme_function_3) (SCM,SCM, SCM);	 
 #else
 typedef SCM (*Scheme_function_0) (...);
 typedef SCM (*Scheme_function_1) (...);
 typedef SCM (*Scheme_function_2) (...);
+typedef SCM (*Scheme_function_3) (...);
 #endif
 
 #define DECLARE_SCHEME_CALLBACK(NAME,ARGS) \

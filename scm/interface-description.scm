@@ -73,20 +73,16 @@
 #'thickness= weight of beams, in staffspace
   "
  '(auto-knee-gap
-   staff-position
-   height
-   flag-width-function 
-   damping 
-   neutral-direction 
-   thickness 
-   space-function 
    beamed-stem-shorten 
-   height-quants 
-   vertical-position-quant-function 
    damping 
+   flag-width-function 
+   neutral-direction 
    outer-stem-length-limit 
+   positions
    slope-limit 
-   auto-knee-gap
+   space-function 
+   thickness 
+   vertical-position-quant-function 
    )
  )
 

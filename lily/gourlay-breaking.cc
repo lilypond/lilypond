@@ -207,9 +207,15 @@ Gourlay_breaking::combine_demerits (Column_x_positions const &prev,
 	}
     }
 
+#if 1
+  /*
+    Q: do want globally non-cramped lines, or locally equally cramped lines. 
+   */
   Real demerit = abs (this_one.force_f_) + abs (prev.force_f_ - this_one.force_f_)
     + break_penalties;
-
+#else
+  Real demerit = abs (this_one.force_f_) + break_penalties;
+#endif
 
    if (!this_one.satisfies_constraints_b_)
      {

@@ -660,6 +660,19 @@ Stem::beam_l (Grob*me)
 Stem_info
 Stem::calc_stem_info (Grob*me) 
 {
+  SCM scm_info = me->get_grob_property ("stem-info");
+
+  if (gh_pair_p (scm_info ))
+    {
+      Stem_info si ;
+
+      si.idealy_f_ = gh_scm2double (gh_car (scm_info)); 
+      si.maxy_f_ = gh_scm2double (gh_cadr (scm_info)); 
+      si.miny_f_ = gh_scm2double (gh_caddr (scm_info));
+
+      return si;
+    }
+    
   Grob * beam = beam_l (me);
 
   Direction beam_dir = Directional_element_interface::get (beam);
@@ -715,7 +728,7 @@ Stem::calc_stem_info (Grob*me)
 	  info.idealy_f_ += thick + (multiplicity - 1) * interbeam_f;
 	}
       info.miny_f_ = info.idealy_f_;
-      info.maxy_f_ = INT_MAX;
+      info.maxy_f_ = 1000;  // INT_MAX;
 
       info.idealy_f_ += stem_length;
       info.miny_f_ += minimum_length;
@@ -749,7 +762,7 @@ Stem::calc_stem_info (Grob*me)
     {
       info.idealy_f_ -= thick;
       info.maxy_f_ = info.idealy_f_;
-      info.miny_f_ = -INT_MAX;
+      info.miny_f_ = - 1000 ; // INT_MAX;
 
       info.idealy_f_ -= stem_length;
       info.maxy_f_ -= minimum_length;
@@ -770,6 +783,12 @@ Stem::calc_stem_info (Grob*me)
   info.miny_f_ += interstaff_f;
   info.maxy_f_ += interstaff_f ;
 
+  me->set_grob_property ("stem-info",
+			 scm_list_n (gh_double2scm (info.idealy_f_),
+				     gh_double2scm (info.maxy_f_ ),
+				     gh_double2scm (info.miny_f_),
+				     SCM_UNDEFINED));
+  
   return info;
 }
 
