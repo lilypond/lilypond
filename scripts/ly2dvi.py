@@ -612,6 +612,7 @@ def one_latex_definition (defn, first):
 ly_paper_to_latexpaper =  {
 	'a4' : 'a4paper',
 	'letter' : 'letterpaper', 
+	'a3' : 'a3paper'
 }
 
 #TODO: should set textheight (enlarge) depending on papersize. 
