@@ -1,4 +1,5 @@
 \version "1.7.18"
+% renamed from auto-beam-override.ly to beam-auto-override.ly
 \header {
 
     texidoc = "@cindex Auto Beaming Override

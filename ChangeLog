@@ -1,3 +1,17 @@
+2003-06-03  Graham Percival  <gperlist@shaw.ca>
+
+	* input/test/[a-c]: more comments in files.
+	* input/test/ac-extra-voice.ly beam-abbrev.ly beam-chord.ly beam-dir.ly 
+	beam-pos.ly beam-position.ly beam-second.ly beam-suspect.ly 
+	beam-trend.ly beams.ly crescendo-text.ly  default-neutral-dir.ly :
+	mark file for proposed deletion.
+	* input/test: renaming files:
+	auto-beam-4-8.ly to beam-auto-4-8.ly
+	auto-beam-override.ly to beam-auto-override.ly
+	auto-beam.ly to beam-auto.ly
+	blank.ly to blank-paper.ly
+	absolute-volume.ly to dynamic-absolute-volume.ly
+
 2003-06-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* input/test/dpncnt.ly: 

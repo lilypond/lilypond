@@ -1,10 +1,11 @@
+\version "1.7.18"
+% renamed from absolute-volume.ly to dynamic-absolute-volume.ly
 \header {
-    texidoc = "@cindex Absolute dynamics
+    texidoc = "@cindex Dynamic Absolute Volume
 Absolute dynamics have effect in MIDI files.
 "
 }
 
-\version "1.7.18"
 
 \score{
 \notes\relative c''{
