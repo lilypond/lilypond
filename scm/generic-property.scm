@@ -62,6 +62,7 @@
 (define generic-text-properties
   (cons 'Text_item (list
 		     (list 'textStyle string? 'style)
+		     (list 'lyricAlignment dir? 'self-alignment-X)
 		     (list 'textScriptPadding number? 'padding)
 		     (list 'textVerticalAlignment dir? 'self-alignment-Y)
 		     (list 'textHorizontalAlignment dir? 'self-alignment-X)
