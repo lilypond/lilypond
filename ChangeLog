@@ -1,5 +1,8 @@
 2004-10-24  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (conv): \context Foo = NOTENAME
+	-> \context Foo = "NOTENAME".
+
 	* lily/main.cc (determine_output_options): fix ordering.
 
 2004-10-24  Erik Sandberg  <ersa9195@student.uu.se>
