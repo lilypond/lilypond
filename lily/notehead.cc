@@ -22,8 +22,8 @@ Notehead::Notehead(int ss)
 void
 Notehead::set_rhythmic(Rhythmic_req*r_req_l)
 {
-    balltype = r_req_l->balltype;
-    dots = r_req_l->dots;
+    balltype = r_req_l->duration_.type_i_;
+    dots = r_req_l->duration_.dots_i_;
 }
     
 void
