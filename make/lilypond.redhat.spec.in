@@ -54,7 +54,7 @@ make -C Documentation
 
 # make  html
 make web
-make -C Documentation/user omf
+make -C Documentation/user local_package_docdir=%{docdir} omf
 
 %install
 
@@ -89,6 +89,7 @@ rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan
 
 %if %{info}
 /sbin/install-info %{_infodir}/lilypond.info.gz %{_infodir}/dir 
+/sbin/install-info %{_infodir}/music-glossary.info.gz %{_infodir}/dir 
 %endif
 
 # chkfontpath --add=%{_datadir}/lilypond/@TOPLEVEL_VERSION@/fonts/type1/
@@ -101,6 +102,7 @@ echo 'Please logout first before using LilyPond.'
 %if %{info}
 if [ $1 = 0 ]; then
     /sbin/install-info --delete %{_infodir}/lilypond.info.gz %{_infodir}/dir 
+    /sbin/install-info --delete %{_infodir}/music-glossary.info.gz %{_infodir}/dir 
 fi
 %endif
 

@@ -4,8 +4,10 @@
     \name Global
 
     \accepts Score
-\description "Hard coded entry point for LilyPond. Cannot be tuned."
-    }
+    \description "Hard coded entry point for LilyPond. Cannot be tuned."
+    \grobdescriptions #all-grob-descriptions    
+
+}
 
 %
 % setup for Request->Element conversion. Guru-only
@@ -559,7 +561,6 @@ AncientRemoveEmptyStaffContext = \translator {
 	(Voice Slur direction -1)
     )
     
-    \grobdescriptions #all-grob-descriptions
 }
 
 OrchestralScoreContext = \translator {

@@ -205,20 +205,9 @@ to @rglos{lyrics}) follows:
   f4 e d c2 r4
 @}
 @end example
-Now the piece of music is almost ready to be printed.  The final step is to
-combine the music with a printing command.
-
-The printing command is the so-called @code{\paper} block:
-
-@example
-\paper @{ @} 
-@end example
-
-The @code{\paper} block is used to customize printing specifics. The
-customization commands go between @code{@{} and @code{@}}, but for
-now, we will accept the defaults.  The music and the @code{\paper} block
-are combined by enclosing them in @code{\score @{ ... @}}, so the
-following is a complete and valid input file:
+Now the piece of music is almost ready to be printed.  Enclosing the
+music in a @code{\score} processes them to printed output,
+so the following is a complete and valid input file:
 
 @example
 \score @{
@@ -228,7 +217,6 @@ following is a complete and valid input file:
     c2 e4 g2.
     f4 e d c2 r4
   @}
-  \paper @{ @}
 @}
 @end example
 
@@ -246,9 +234,9 @@ following is a complete and valid input file:
 }
 @end lilypond
 
-In the rest of the tutorial we will often leave out @code{\score}
-and @code{\paper} for clarity. However, both must be present when
-feeding the file to LilyPond.
+In many examples in this manual, @code{\score} is left out for
+clarity. However, it must be present when feeding the file to
+LilyPond.
 
 For more elaborate information on
 
@@ -487,7 +475,6 @@ This example shows the key signature, accidentals and ties in action:
     fis4 fis8 fis8 eis4  a8 gis~
     gis2 r2
   @}
-  \paper @{ @}
 @}
 @end example
 
@@ -761,7 +748,6 @@ We can now typeset a melody with two staves:
        f4 e d c2.
     }
   >>
-  \paper {} 
 }
 @end lilypond
 @end quotation
@@ -1094,7 +1080,6 @@ The final result is
    }
    \lyricsto "" \new Lyrics \lyrics { I want to break free }
  >>
- \paper{ }
 }
 @end lilypond
 
@@ -1116,7 +1101,6 @@ line}. It is entered as two underscores, i.e.
      \times 2/3 { f g g } \times 2/3 { g4( a2) } }
    \lyricsto "" \new Lyrics \lyrics { I want to break free __ }
    >>
- \paper{ }
 }
 @end lilypond
 
@@ -1190,7 +1174,6 @@ a lead sheet, for example,
     \notes @emph{the melody}
     \lyricsto "" \new Lyrics \lyrics @{ @emph{the text} @}
   >>
-  \paper @{ @}
 @}
 @end example
 @lilypond[]
@@ -1225,13 +1208,11 @@ It is great for checking the music: octaves that are off or
 accidentals that were mistyped stand out very much when listening to
 the musical transcription.
 
-@code{\midi} can be used in similarly to @code{\paper @{ @}}, for
-example,
+The @code{\midi} block is added to @code{\score}, for example,
 @example 
 \score @{
     @var{..music..}
     \midi  @{ \tempo 4=72 @}
-    \paper  @{ @}
 @}
 @end example 
 
@@ -1240,7 +1221,19 @@ case the tempo of quarter notes is set to 72 beats per minute. More
 information on auditory output is in the @ref{Sound} section in the
 notation manual.
 
+If there is a @code{\midi} command in a @code{\score}, then only MIDI
+will be produced. If notation is needed too, then a @code{\paper}
+block must be added too:
 
+@example 
+\score @{
+    @var{..music..}
+    \midi  @{ \tempo 4=72 @}
+    \paper @{ @}
+@}
+@end example 
+
+@cindex paper block
 
 @node Titling
 @section Titling
