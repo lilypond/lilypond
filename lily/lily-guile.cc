@@ -79,9 +79,9 @@ read_lily_scm_file (String fn)
   String s = global_path.find (fn);
   if (s == "")
     {
-      String e = _f ("can't find file: `%s\'", fn);
+      String e = _f ("Can't find file: `%s'", fn);
       e += " ";
-      e += _f ("(load path: `%s\')", global_path.str ());
+      e += _f ("(load path: `%s')", global_path.str ());
       error (e);
     }
   else
@@ -91,7 +91,7 @@ read_lily_scm_file (String fn)
   Simple_file_storage f(s);
   
   ly_ch_C_eval_scm ((char *) f.ch_C());
-  *mlog << ']' << flush;  
+  *mlog << "]" << flush;  
 }
 
 
@@ -102,9 +102,9 @@ ly_gulp_file (SCM name)
  String s = global_path.find (fn);
   if (s == "")
     {
-      String e = _f ("can't find file: `%s\'", fn);
+      String e = _f ("Can't find file: `%s'", fn);
       e += " ";
-      e += _f ("(load path: `%s\')", global_path.str ());
+      e += _f ("(load path: `%s')", global_path.str ());
       error (e);
     }
   else

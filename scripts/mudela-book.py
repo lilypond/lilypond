@@ -57,6 +57,7 @@ options = [
 
 format = ''
 run_lilypond = 1
+use_hash = 1
 no_match = 'a\ba'
 
 # format specific strings, ie. regex-es for input, and % strings for output
@@ -498,7 +499,7 @@ def advance_counters (counter, opts, str):
 			opts.append ('twocolumn')
 		elif g  == 'onecolumn':
 			try:
-				current_opts.remove ('twocolumn')
+				opts.remove ('twocolumn')
 			except IndexError:
 				pass
 		elif g == 'chapter':
@@ -516,7 +517,7 @@ def schedule_mudela_block (base, chunk, extra_opts):
 	for the main file).  The .ly is written, and scheduled in
 	TODO.
 
-	Return: a chunk (TYPE_STR, MAIN_STR, OPTIONS, TODO)
+	Return: a chunk (TYPE_STR, MAIN_STR, OPTIONS, TODO, BASE)
 
 	TODO has format [basename, extension, extension, ... ]
 	
@@ -531,10 +532,13 @@ def schedule_mudela_block (base, chunk, extra_opts):
 		newbody = output_verbatim (body)
 
 	file_body = compose_full_body (body, opts)
-	updated = update_file (file_body, base + '.ly')
-	todo = [base]			# UGH.
+	basename = base
+	if __main__.use_hash:
+		basename = `abs(hash (file_body))`
+	updated = update_file (file_body, basename + '.ly')
+	todo = [basename]			# UGH.
 
-	if not os.path.isfile (base + '.tex') or updated:
+	if not os.path.isfile (basename + '.tex') or updated:
 		todo.append ('tex')
 		updated = 1
 
@@ -550,25 +554,24 @@ def schedule_mudela_block (base, chunk, extra_opts):
 		opts.append ('eps')
 
 	if 'eps' in opts and ('tex' in todo or
-			      not os.path.isfile (base + '.eps')):
+			      not os.path.isfile (basename + '.eps')):
 		todo.append ('eps')
 
 	if 'png' in opts and ('eps' in todo or
-			      not os.path.isfile (base + '.png')):
+			      not os.path.isfile (basename + '.png')):
 		todo.append ('png')
 
 	if format == 'latex':
 		if 'eps' in opts :
-			newbody = newbody + get_output ('output-eps') %  (base, base)
+			newbody = newbody + get_output ('output-eps') %  (basename, basename)
 		else:
-			newbody = newbody + get_output ('output-tex') % base
+			newbody = newbody + get_output ('output-tex') % basename
 
 	elif format == 'texi':
-		newbody = newbody + get_output ('output-all') % (base, base) 
+		newbody = newbody + get_output ('output-all') % (basename, basename) 
 
+	return ('mudela', newbody, opts, todo, base)
 
-	
-	return ('mudela', newbody, opts, todo)
 
 def find_eps_dims (match):
 	"Fill in dimensions of EPS files."
@@ -654,6 +657,7 @@ def compile_all_files (chunks):
 	eps = []
 	tex = []
 	png = []
+	hash_dict = {}
 
 	for c in chunks:
 		if c[0] <> 'mudela':
@@ -667,6 +671,9 @@ def compile_all_files (chunks):
 				tex.append (base + '.ly')
 			elif e == 'png':
 				png.append (base)
+
+		if __main__.use_hash:
+			hash_dict[c[4]] = c[3][0]
 
 	if tex:
 		lilyopts = map (lambda x:  '-I ' + x, include_path)
@@ -684,6 +691,22 @@ def compile_all_files (chunks):
 
 		cmd = cmd % (g + '.eps', g + '.png')
 		system (cmd)
+
+	if __main__.use_hash:
+		name = ''
+		last_name = ''
+		f = 0
+		ks = hash_dict.keys ()
+		ks.sort ()
+		for i in ks:
+			name = re.sub ("(.*)-[0-9]+\.[0-9]+\.[0-9]+", "\\1", i)
+			name = name + '.mix'
+			if name != last_name:
+				if last_name:
+					f.close ()
+				f = open (name, 'w')
+				last_name = name
+			f.write ("%s:%s\n" % (i, hash_dict[i]))
 
 	
 def update_file (body, name):
