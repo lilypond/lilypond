@@ -1137,14 +1137,17 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   ;; In Emacs blink-...-on-screen needs to be declared.
   (if (not (string-match "XEmacs\\|Lucid" emacs-version))
       (progn
-	(make-local-variable 'show-paren-mode)
-	(show-paren-mode nil)
-	(make-local-variable 'LilyPond-show-paren-mode)
-	(LilyPond-show-paren-mode t))
-    (progn 
-      (make-local-variable 'paren-mode) ; used in LilyPond-paren-set-mode
-      (paren-set-mode -1)               ; disable default hook
-      (LilyPond-paren-set-mode 'paren)  ; define buffer-local hook
+;; Commented-out: there may be several idle-timers
+;;	(make-local-variable 'show-paren-mode)
+;;	(show-paren-mode nil)
+;;	(make-local-variable 'LilyPond-show-paren-mode)
+;;	(LilyPond-show-paren-mode t)
+	)
+    (progn
+;; Commented-out: show-paren-command-hook should not be deleted from post-command-hook
+;;	(make-local-variable 'paren-mode) ; used in LilyPond-paren-set-mode
+;;	(paren-set-mode -1)               ; disable default hook
+;;	(LilyPond-paren-set-mode 'paren)  ; define buffer-local hook
       ))
 
   ;; run the mode hook. LilyPond-mode-hook use is deprecated

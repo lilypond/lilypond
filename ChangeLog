@@ -1,3 +1,8 @@
+2003-07-14  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-mode.el: comment-out paren-highlighting, it still causes
+	some interference to other modes.
+
 2003-07-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/main.cc (notice): change FSF address 
