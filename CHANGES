@@ -1,3 +1,13 @@
+1.4.12.jcn1
+===========
+
+* Documentation/topdocs/INSTALL.texi: Add section for MacOS X.
+
+* darwin.patch: New file.
+
+1.4.12
+======
+
 1.4.11.uu1
 ==========
 
