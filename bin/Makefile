@@ -1,24 +1,31 @@
 # bin/Makefile
 
-# subdir level:
-#
 depth = ..
 include $(depth)/make/Include.make
-# list of distribution files:
 
-SCRIPTS = clearlily cpgento genheader make_patch \
-	lily.efence\
-	make-version make-website release convert-mudela show-latest \
-	mudela-book conflily
-EXTRA_DISTFILES = $(SCRIPTS)
+# list of distribution files:
+SCRIPTS = clearlily cpgento make_patch lily.efence \
+	make-version release conflily
+PERL_SCRIPTS_IN = $(wildcard *.in)
+PERL_SCRIPTS = $(addprefix $(outdir)/, $(PERL_SCRIPTS_IN:.in=))
+EXTRA_DISTFILES = $(SCRIPTS) $(PERL_SCRIPTS_IN)
 #
+
+all: $(PERL_SCRIPTS)
+
+$(outdir)/%: %.in
+#	cd .. && CONFIG_FILES=bin/$(notdir $@) CONFIG_HEADERS= ./config.status
+#	mv $(< :.in=) $@
+# this nukes make/out/Configure_variables.make.
+	sed 's!@PERL@!$(PERL)!' < $< > $@
+	chmod 755 $@
 
 
 EXECUTABLES=convert-mudela mudela-book
 localinstall: all
 	$(INSTALL) -d $(bindir)
-	$(INSTALL) -m 755 convert-mudela $(bindir)
-	$(INSTALL) -m 755 mudela-book $(bindir)
+	$(INSTALL) -m 755 $(outdir)/convert-mudela $(bindir)
+	$(INSTALL) -m 755 $(outdir)/mudela-book $(bindir)
 
 localuninstall:
 	rm -f $(bindir)/convert-mudela $(bindir)/mudela-book
