@@ -25,7 +25,7 @@ FontBody=	\melodic{
 		\clef "violin";
 		e8_. g'8-> e16^^ g'16_^ 
 		e32 _| g'32^| g''32-\ltoe g''32-\lheel
-		e64 g'64 c4... |
+		e64-\rtoe g'64-\rheel c4... |
 
 		\octave c'';
 		\meter 4/4;
