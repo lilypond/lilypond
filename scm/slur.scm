@@ -67,10 +67,10 @@
 		       (ly-get-elt-property stem 'beam)
 		       ;; and beam on same side as slur
 		       (let ((beaming (ly-get-elt-property stem 'beaming)))
-			 ;; (display "beaming: ") (write beaming) (newline)
+			 ;; (display "beaming (") (display dir) (display "): ") (write beaming) (newline)
 			 (if (pair? beaming)
-			     (<= 1
-				 (if (= dir -1) (car beaming) (cdr beaming)))
+			     (>= (if (= dir -1) (cdr beaming) (car beaming))
+				1)
 			     #f))))))
 	 'stem)
 

@@ -624,8 +624,15 @@ Beam::set_beaming (Grob*me,Beaming_info_list *beaming)
     {
       do
 	{
-	  if (Stem::beam_count (stems[i], d) == 0)
-	    Stem::set_beaming ( stems[i], beaming->infos_.elem (i).beams_i_drul_[d],d);
+	  /* Don't overwrite user override (?) */
+	  if (Stem::beam_count (stems[i], d) == 0
+	      /* Don't set beaming for outside of outer stems */
+	      && ! (d == LEFT && i == 0)
+	      && ! (d == RIGHT && i == stems.size () -1))
+	    {
+	      int b = beaming->infos_.elem (i).beams_i_drul_[d];
+	      Stem::set_beaming (stems[i], b, d);
+	    }
 	}
       while (flip (&d) != LEFT);
     }

@@ -1,4 +1,15 @@
---- ../lilypond-1.3.116.jcn2/CHANGES	Mon Dec 11 22:17:51 2000
+--- ../lilypond-1.3.116.jcn3/CHANGES	Tue Dec 12 23:23:42 2000
+++ b/CHANGES	Wed Dec 13 22:15:51 2000
+@@ -1,3 +1,9 @@
+1.3.116.jcn4
+============
+
+* Bugfix: don't set beaming for outer half beams.  This fixes some
+slurs attached to stem end.
+
+ 1.3.116.jcn3
+ ============
+ --- ../lilypond-1.3.116.jcn2/CHANGES	Mon Dec 11 22:17:51 2000
 ++ b/CHANGES	Tue Dec 12 23:23:42 2000
 @@ -1,7 +1,15 @@
 -1.3.116.jcn2

@@ -4,7 +4,7 @@
 
 @ignore
 TODO
-  * add more un/badly-documented features
+  * add more un/badly documented features
   * write some text
   * add to/merge with refman
 @end ignore
@@ -18,9 +18,11 @@ TODO
 * Manual beam settings::           Manual beam settings
 * Slur attachments::               Slur attachments
 * Text spanner::                   Text spanner
-* Output property::                Output property
-* Markup text::                    Markup text
 * Engraver hacking::               Engraver hacking
+* Markup text::                    Markup text
+* Output property::                Output property
+* Embedded TeX::                   Embedded TeX
+* Embedded PostScript::            Embedded PostScript
 @end menu
 
 Testin'' a b c...
@@ -65,6 +67,7 @@ Testin'' a b c...
   >  
 @end lilypond
 
+@c part combiner
 
 @node Manual beam settings
 @section Manual beam settings
@@ -135,7 +138,7 @@ Ophee slurs...
 @end lilypond
 
 
-@c  ugly slurs
+@c steep slur correct
 @c  high slurs, eg from gnossienes
 
 
@@ -162,58 +165,6 @@ Have crescendo set a text spanner iso hairpin
     a\spanrequest \start "text" b c a \spanrequest \stop "text"
 @end lilypond
 
-
-@node Output property
-@section Output property
-
-@lilypond[fragment,relative,verbatim,center]
-    \outputproperty #(make-type-checker 'note-head-interface) 
-      #'extra-offset = #'(2 . 3)
-    c''2 c
-@end lilypond
-
-Don't move the finger 2, only text "m.d." ...
-@lilypond[verbatim,center]
-#(define (make-text-checker text)
-   (lambda (grob) (equal? text (ly-get-elt-property grob 'text))))
-
-\score {    
-  \notes\relative c''' {
-    \property Voice.Stem \set #'direction = #1
-    \outputproperty #(make-text-checker "m.d.")
-      #'extra-offset = #'(-3.5 . -4.5)
-    a^2^"m.d."    
-  }
-  \paper { linewidth = -1.; }
-}
-@end lilypond
-
-
-@node Markup text
-@section Markup text
-
-@c markup text hacking
-
-Metrome hack...
-
-@lilypond[verbatim,center]
-#(define note '(rows (music "noteheads-2" ((kern . -0.1) "flags-stem"))))
-#(define eight-note `(rows ,note ((kern . -0.1) (music ((raise . 3.5) "flags-u3")))))
-#(define dotted-eight-note `(rows ,eight-note (music "dots-dot")))
-
-\score {
-  \notes\relative c'' {
-    a1^#`(rows ,dotted-eight-note " = 64")
-  }
-  \paper {
-    linewidth = -1.;
-    \translator{
-      \ScoreContext
-      TextScript \override #'font-shape = #'upright
-    }
-  }
-}
-@end lilypond
 
 @node Engraver hacking
 @section Engraver hacking
@@ -251,11 +202,91 @@ No staff, no clef, squash pitches
   }
 }
 @end lilypond
+
+
+@node Markup text
+@section Markup text
+
+@c markup text hacking
+
+Metrome hack...
+
+@lilypond[verbatim,center]
+#(define note '(rows (music "noteheads-2" ((kern . -0.1) "flags-stem"))))
+#(define eight-note `(rows ,note ((kern . -0.1) (music ((raise . 3.5) "flags-u3")))))
+#(define dotted-eight-note `(rows ,eight-note (music "dots-dot")))
+
+\score {
+  \notes\relative c'' {
+    a1^#`(rows ,dotted-eight-note " = 64")
+  }
+  \paper {
+    linewidth = -1.;
+    \translator{
+      \ScoreContext
+      TextScript \override #'font-shape = #'upright
+    }
+  }
+}
+@end lilypond
+
+
+@node Output property
+@section Output property
+
+@lilypond[fragment,relative,verbatim,center]
+    \outputproperty #(make-type-checker 'note-head-interface) 
+      #'extra-offset = #'(2 . 3)
+    c''2 c
+@end lilypond
+
+Don't move the finger 2, only text "m.d." ...
+@lilypond[verbatim,center]
+#(define (make-text-checker text)
+   (lambda (grob) (equal? text (ly-get-elt-property grob 'text))))
+
+\score {    
+  \notes\relative c''' {
+    \property Voice.Stem \set #'direction = #1
+    \outputproperty #(make-text-checker "m.d.")
+      #'extra-offset = #'(-3.5 . -4.5)
+    a^2^"m.d."    
+  }
+  \paper { linewidth = -1.; }
+}
+@end lilypond
+
   
 @c subsection no clefs
-
-
 @c  equalizer
+
+
+@c Embedded TeX
+
+@node Embedded TeX
+@section Embedded TeX
+@lilypond[fragment,relative,verbatim,center]
+  a''^"3 $\\times$ \\`a deux"
+@end lilypond
+
+@node Embedded PostScript
+@section Embedded PostScript
+
+Arbitrary lines and curves not supported...
+@lilypond[verbatim,center]
+\score {
+  \notes \relative c'' {
+    a-#"\\embeddedps{3 4 moveto 5 3 rlineto stroke}"
+    -#"\\embeddedps{ [ 0 1 ] 0 setdash 3 5 moveto 5 -3 rlineto stroke}"
+    b-#"\\embeddedps{3 4 moveto 0 0 1 2 8 4 20 3.5 rcurveto stroke}"
+    s2
+    a'1
+  }
+  \paper {
+    linewidth = 70.0*\staffspace;
+  }
+}
+@end lilypond
 
 @bye
 

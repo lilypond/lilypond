@@ -5,8 +5,6 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <iostream.h>
-
 #include "translator-group.hh"
 #include "command-request.hh"
 #include "grob-info.hh"
