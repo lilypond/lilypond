@@ -123,7 +123,11 @@ def gen_list(inputs, filename):
 		list = open(filename, 'w')
 	else:
 		list = sys.stdout
-	list.write ('<html><title>Rendered Examples</title>\n')
+	list.write ('<html><head><title>Rendered Examples</title>\n')
+	list.write ('<style type="text/css">\n')
+	list.write ('hr { border:0; height:1; color: #000000; background-color: #000000; }\n')
+	list.write ('</style></head>\n')
+
 	list.write ('<body bgcolor=white>\n')
 	
 	if inputs:

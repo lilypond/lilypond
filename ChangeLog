@@ -2,6 +2,8 @@
 
         * Documentation/index.html.in: use black thin <hr>.
 
+	* buildscripts/mutopia-index.py: use thin black <hr>.
+
 2004-06-19  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/fret-diagrams.scm: Use UNIX style line endings.
