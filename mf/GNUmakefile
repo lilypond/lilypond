@@ -87,7 +87,7 @@ default: $(ALL_GEN_FILES)
 $(outdir)/%.afm  $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm)  --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) --ly $(outdir)/$(<F:.log=list.ly) $<
 
-fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd fonts.scale fonts.dir)
+fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir)
 
 ## Urg
 mapentry=$(1) $(shell fgrep FontName $(outdir)/$(1).afm | sed -e 's/FontName *//') <$(1).pfaX
@@ -115,6 +115,10 @@ $(outdir)/lilypond.sfd:
 #	cd $(outdir) && echo sketch $(FETA_MF_FILES:.mf=.pfa) | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
 	cd $(outdir) && echo sketch *.pfa | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
 
+# Sodipodi map file
+SODIPODI_FONTS = parmesan20 feta-braces0 feta-nummer10 feta20
+$(outdir)/private-fonts:
+	cd $(outdir) && echo sodipodi $(SODIPODI_FONTS:%=%.pfa) | $(PYTHON) $(topdir)/buildscripts/make-font-dir.py  > $(@F)
 
 local-clean:
 	rm -f mfplain.mem mfplain.log 

@@ -7,13 +7,10 @@
 ;;;; NOTE:
 ;;;;
 ;;;; * Get mftrace 1.0.12 or newer
-
+;;;;
 ;;;; * Get sodipodi-cvs from 2002-11-23 or newer
 ;;;;
-;;;; * Put in your ~/.sodipodi/private-fonts:
-;;;;     mf/out/parmesan20.pfa,LilyPond Parmesan,LilyPond,
-;;;;     mf/out/feta-nummer10.pfa,LilyPond Nummer,LilyPond,
-;;;;     mf/out/feta20.pfa,LilyPond Feta,LilyPond,
+;;;; * Link/copy mf/out/private-fonts to ~/.sodipodi/private-fonts 
 
 
 
@@ -255,7 +252,7 @@
 		  "font-family:LilyPond-Feta;font-size:13;"))
     ("feta-nummer10" . ,(string-append
 			 font-cruft
-			 "font-family:LilyPond-Feta-nummer;font-size:13;"))
+			 "font-family:LilyPond-Feta-nummer;font-size:10;"))
     ("feta20" . ,(string-append
 		  font-cruft
 		  "font-family:LilyPond-Feta;font-size:20;"))

@@ -133,11 +133,15 @@ ls =  sys.stdin.readline ()
 ls = string.split (ls)
 
 sketch_p = 0
-if len (ls) and ls[0] == 'sketch':
+sketch_p = 0
+if len (ls) and ls[0] == 'sodipodi':
+	ls = ls[1:]
+	sodipodi_p = 1
+elif len (ls) and ls[0] == 'sketch':
 	ls = ls[1:]
 	sketch_p = 1
 
-if not sketch_p:
+if not (sketch_p or sodipodi_p):
 	print len(ls)
 	
 for filename in ls:
@@ -222,10 +226,16 @@ for filename in ls:
 		
 	family_name = string.join (string.split (fontinfo['FamilyName'],
 							'-'), ' ')
-	if not sketch_p:
-		print filename + ' -' + string.join (fontinfo.get_X11 (), '-')
-		
-	else:
+
+	if sodipodi_p:
+		print string.join ((os.path.abspath (filename),
+				    fontinfo.FamilyName,
+				    fontinfo.FamilyName,''
+				    ),
+				   
+				   ',')
+				   
+	elif sketch_p:
 		# Sketch's lilypond.sfd map:
 		s = string.join ([fontinfo.FontName,
 				  fontinfo.family,
@@ -244,3 +254,5 @@ for filename in ls:
 				  fontinfo.name],
 				 ',')
 		print s
+	else:
+		print filename + ' -' + string.join (fontinfo.get_X11 (), '-')
