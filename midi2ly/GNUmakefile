@@ -3,8 +3,8 @@
 
 depth = ..
 
-NAME = midi2ly
-MODULE_NAME = midi2ly
+NAME = midi2ly-old
+MODULE_NAME = midi2ly-old
 
 SUBDIRS = include
 MODULE_LIBS=$(depth)/flower
