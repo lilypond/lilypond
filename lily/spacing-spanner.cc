@@ -19,8 +19,8 @@
 void
 Spacing_spanner::set_interface (Score_element*me)
 {
-  me->set_extent_callback (0, X_AXIS);
-  me->set_extent_callback (0, Y_AXIS);  
+  me->set_extent_callback (SCM_EOL, X_AXIS);
+  me->set_extent_callback (SCM_EOL, Y_AXIS) ; 
 }
 
 /*
@@ -309,7 +309,7 @@ Spacing_spanner::stem_dir_correction (Score_element*me, Score_element*l, Score_e
 }
   
 
-MAKE_SCHEME_CALLBACK(Spacing_spanner, set_springs);
+MAKE_SCHEME_CALLBACK(Spacing_spanner, set_springs,1);
 SCM
 Spacing_spanner::set_springs (SCM smob)
 {

@@ -13,20 +13,16 @@
 #include "axis-group-interface.hh"
 #include "item.hh"
 
-void
-Collision::add_column (Score_element*me,Score_element* ncol_l)
-{
-  ncol_l->add_offset_callback (force_shift_callback, X_AXIS);
-  Axis_group_interface::add_element (me, ncol_l);
-  me->add_dependency (ncol_l);
-}
 
-Real
-Collision::force_shift_callback (Score_element * c, Axis a)
+MAKE_SCHEME_CALLBACK(Collision,force_shift_callback,2);
+SCM
+Collision::force_shift_callback (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   assert (a == X_AXIS);
   
-  Score_element * me = c->parent_l (a);
+   me = me->parent_l (a);
   /*
     ugh. the way DONE is done is not clean
    */
@@ -36,7 +32,7 @@ Collision::force_shift_callback (Score_element * c, Axis a)
       do_shifts (me);
     }
   
-  return 0.0;
+  return gh_double2scm (0.0);
 }
 
 /*
@@ -228,3 +224,11 @@ Collision::forced_shift (Score_element *me)
 
 
 
+
+void
+Collision::add_column (Score_element*me,Score_element* ncol_l)
+{
+  ncol_l->add_offset_callback (Collision::force_shift_callback_proc, X_AXIS);
+  Axis_group_interface::add_element (me, ncol_l);
+  me->add_dependency (ncol_l);
+}

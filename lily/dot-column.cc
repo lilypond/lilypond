@@ -17,23 +17,6 @@
 
 
 
-void
-Dot_column::add_head (Score_element * me, Score_element *rh)
-{
-  Score_element * d = unsmob_element (rh->get_elt_property ("dot"));
-  if (d)
-    {
-      Side_position::add_support (me,rh);
-
-      Pointer_group_interface gi (me, "dots");
-      gi.add_element (d);
-      
-      d->add_offset_callback (force_shift_callback , Y_AXIS);
-      Axis_group_interface::add_element (me, d);
-    }
-}
-
-
 
 
 void
@@ -63,14 +46,17 @@ Dot_column::set_interface (Score_element* me)
  */
 
 
-Real
-Dot_column::force_shift_callback (Score_element * dot, Axis a)
+MAKE_SCHEME_CALLBACK(Dot_column,force_shift_callback,2);
+SCM
+Dot_column::force_shift_callback (SCM element_smob, SCM axis)
 {
+  Score_element *me = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
-  Score_element * me = dot->parent_l (X_AXIS);
+ me = me->parent_l (X_AXIS);
   SCM dots = me->get_elt_property ("dots");
   do_shifts (dots);
-  return 0.0;
+  return gh_double2scm (0.0);
 }
 
 SCM
@@ -130,3 +116,21 @@ Dot_column::has_interface (Score_element*m)
 {
   return m && m->has_interface (ly_symbol2scm ("dot-column-interface"));
 }
+
+
+void
+Dot_column::add_head (Score_element * me, Score_element *rh)
+{
+  Score_element * d = unsmob_element (rh->get_elt_property ("dot"));
+  if (d)
+    {
+      Side_position::add_support (me,rh);
+
+      Pointer_group_interface gi (me, "dots");
+      gi.add_element (d);
+      
+      d->add_offset_callback (Dot_column::force_shift_callback_proc , Y_AXIS);
+      Axis_group_interface::add_element (me, d);
+    }
+}
+

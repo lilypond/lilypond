@@ -14,11 +14,6 @@
 #include "smobs.hh"
 #include "dimension-cache.hh"
 
-typedef Interval (*Extent_callback)(Score_element *,Axis);
-typedef Real (*Offset_callback)(Score_element *,Axis);
-
-
-
 /**
     for administration of what was done already
     */
@@ -103,8 +98,6 @@ public:
   Paper_def *paper_l () const;
   Lookup const *lookup_l () const;
 
-  void add_processing ();
-
   /**
     add a dependency. It may be the 0 pointer, in which case, it is ignored.
     */
@@ -124,8 +117,6 @@ public:
      #funcptr# is the function to call to update this element.
    */
   void calculate_dependencies (int final, int busy, SCM funcname);
-
-
   static SCM handle_broken_smobs (SCM, SCM criterion);
 
   virtual void do_break_processing ();
@@ -136,16 +127,11 @@ public:
   Molecule get_molecule () const;
   void suicide ();
   
-  static Interval preset_extent (Score_element *,Axis);
-  static Interval point_dimension_callback (Score_element *,Axis );
-  static Interval molecule_extent (Score_element *,Axis);
+  DECLARE_SCHEME_CALLBACK(preset_extent, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK(point_dimension_callback, (SCM smob, SCM axis));
+  DECLARE_SCHEME_CALLBACK(molecule_extent, (SCM smob, SCM axis));
 
-protected:
-  ///executed directly after the item is added to the Paper_score
-  virtual void do_add_processing ();
-  static Interval dim_cache_callback (Dimension_cache const*);
-  
-public:
+
   static SCM ly_set_elt_property (SCM, SCM,SCM);
   static SCM ly_get_elt_property (SCM, SCM);  
 
@@ -153,7 +139,7 @@ public:
   void set_interface (SCM intf);
 
 
-  static SCM brew_molecule (SCM);
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM ));
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();
 
@@ -188,12 +174,13 @@ public:
   Score_element*common_refpoint (SCM elt_list, Axis a) const;
 
   // duh. slim down interface here. (todo)
-  bool has_offset_callback_b (Offset_callback, Axis)const;
-  void add_offset_callback (Offset_callback, Axis);
-  bool has_extent_callback_b (Extent_callback, Axis)const;  
+  bool has_offset_callback_b (SCM callback, Axis)const;
+  void add_offset_callback (SCM callback, Axis);
+  bool has_extent_callback_b (SCM, Axis)const;  
+  void set_extent_callback (SCM , Axis);
   bool has_extent_callback_b (Axis) const;
-  void set_extent_callback (Extent_callback , Axis);
 
+  
   /**
     Invoke callbacks to get offset relative to parent.
    */
@@ -204,7 +191,7 @@ public:
   void set_parent (Score_element* e, Axis);
   
   Score_element *parent_l (Axis a) const;
-  static SCM fixup_refpoint (SCM);
+  DECLARE_SCHEME_CALLBACK(fixup_refpoint, (SCM));
 };
 
 Score_element * unsmob_element (SCM);

@@ -19,9 +19,12 @@
 #include "staff-symbol-referencer.hh"
 #include "duration.hh"
 
-Real
-Rest_collision::force_shift_callback (Score_element *them, Axis a)
+MAKE_SCHEME_CALLBACK(Rest_collision,force_shift_callback,2);
+SCM
+Rest_collision::force_shift_callback (SCM element_smob, SCM axis)
 {
+  Score_element *them = unsmob_element (element_smob);
+  Axis a = (Axis) gh_scm2int (axis);
   assert (a == Y_AXIS);
 
   Score_element * rc = unsmob_element (them->get_elt_property ("rest-collision"));
@@ -37,7 +40,7 @@ Rest_collision::force_shift_callback (Score_element *them, Axis a)
       do_shift (rc, elts);
     }
   
-  return 0.0;
+  return gh_double2scm (0.0);
 }
 
 void
@@ -47,7 +50,7 @@ Rest_collision::add_column (Score_element*me,Score_element *p)
   Pointer_group_interface gi (me);  
   gi.add_element (p);
 
-  p->add_offset_callback (&Rest_collision::force_shift_callback, Y_AXIS);
+  p->add_offset_callback (Rest_collision::force_shift_callback_proc, Y_AXIS);
   p->set_elt_property ("rest-collision", me->self_scm ());
 }
 
@@ -231,7 +234,7 @@ Rest_collision::do_shift (Score_element *me, SCM elts)
 void
 Rest_collision::set_interface (Score_element*me)
 {
-  me->set_extent_callback (0, X_AXIS);
-  me->set_extent_callback (0, Y_AXIS);
+  me->set_extent_callback (SCM_EOL, X_AXIS);
+  me->set_extent_callback (SCM_EOL, Y_AXIS);
 }
 

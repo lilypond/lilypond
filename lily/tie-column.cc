@@ -20,8 +20,8 @@ void
 Tie_column::set_interface (Score_element*me)
 {
   me->set_interface (ly_symbol2scm ("tie-column"));
-  me->set_extent_callback (0, X_AXIS);
-  me->set_extent_callback (0, Y_AXIS);  
+  me->set_extent_callback (SCM_EOL, X_AXIS);
+  me->set_extent_callback (SCM_EOL, Y_AXIS) ; 
 }
 
 bool
@@ -104,7 +104,7 @@ Tie_column::set_directions (Score_element*me)
   
 }
 
-MAKE_SCHEME_CALLBACK(Tie_column,after_line_breaking);
+MAKE_SCHEME_CALLBACK(Tie_column,after_line_breaking,1);
 SCM
 Tie_column::after_line_breaking (SCM smob)
 {

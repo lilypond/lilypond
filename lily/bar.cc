@@ -20,7 +20,7 @@
 #include "item.hh"
 #include "staff-symbol-referencer.hh"
 
-MAKE_SCHEME_CALLBACK(Bar,brew_molecule);
+MAKE_SCHEME_CALLBACK(Bar,brew_molecule,1);
 
 SCM 
 Bar::brew_molecule (SCM smob) 
@@ -122,7 +122,7 @@ Bar::simple_barline (Score_element*me,Real w, Real h)
   return me->lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
-MAKE_SCHEME_CALLBACK(Bar,before_line_breaking );
+MAKE_SCHEME_CALLBACK(Bar,before_line_breaking ,1);
 
 SCM
 Bar::before_line_breaking  (SCM smob)
@@ -143,8 +143,7 @@ Bar::before_line_breaking  (SCM smob)
   if (!gh_string_p (g))
     {
       me->set_elt_property ("molecule-callback", SCM_BOOL_T);
-      me->set_extent_callback (0, X_AXIS);
-
+      me->set_extent_callback (SCM_EOL, X_AXIS);
       // leave y_extent for spanbar? 
     }
 
@@ -169,7 +168,7 @@ Bar::has_interface (Score_element*m)
 }
 
 
-MAKE_SCHEME_CALLBACK(Bar,get_staff_bar_size);
+MAKE_SCHEME_CALLBACK(Bar,get_staff_bar_size,1);
 SCM
 Bar::get_staff_bar_size (SCM smob) 
 {
