@@ -4,7 +4,7 @@
 #include "paper.hh"
 #include "lookup.hh"
 
-Meter::Meter(svec<Scalar>a)
+Meter::Meter(Array<Scalar>a)
     :args(a)
 {
 }
@@ -12,7 +12,7 @@ Meter::Meter(svec<Scalar>a)
 Molecule*
 Meter::brew_molecule()const
 {
-    Symbol s = paper()->lookup_->meter(args);
+    Symbol s = paper()->lookup_p_->meter(args);
 return new Molecule(Atom(s));
 }
 

@@ -7,7 +7,7 @@
 
 /// parameter substitution in TeXstrings
 String
-substitute_args(String source, svec<String> args);
+substitute_args(String source, Array<String> args);
 /**
   this structure provides a simple macro mechanism:
 
@@ -17,7 +17,7 @@ substitute_args(String source, svec<String> args);
 
 /// parameter substitution in TeXstrings
 String
-substitute_args(String source, svec<Scalar> args);
+substitute_args(String source, Array<Scalar> args);
 
 /// #h# is in points
 String vstrut(Real h);

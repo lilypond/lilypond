@@ -28,7 +28,7 @@ struct Lookup {
       pos == -3: below staff
       */
 
-    Symbol meter(svec<Scalar>);
+    Symbol meter(Array<Scalar>);
     Symbol stem(Real y1_pos, Real y2_pos);
     Symbol rule_symbol(Real height, Real width);
     Symbol accidental(int);

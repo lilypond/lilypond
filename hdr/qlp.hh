@@ -7,8 +7,8 @@
 class Ineq_constrained_qp {
     friend class Active_constraints;
 
-    svec<Vector> cons;
-    svec<Real> consrhs;
+    Array<Vector> cons;
+    Array<Real> consrhs;
 public:
     Matrix quad;
     Vector lin;
@@ -55,8 +55,8 @@ public:
 
 /// Quadratic programming with mixed linear constraints
 class Mixed_qp :public Ineq_constrained_qp {
-    svec<int> eq_cons;
-    svec<Real> eq_consrhs;
+    Array<int> eq_cons;
+    Array<Real> eq_consrhs;
 public:
     Mixed_qp(int n);
     void OK() const;

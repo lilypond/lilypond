@@ -18,7 +18,7 @@ Lookup::beam_element(int sidx, int widx, Real slope)
 {
     Symbol bs=(*symtables_)("beamslopes")->lookup("slope");
     
-    svec<String> args;
+    Array<String> args;
     args.add(sidx);
     args.add(widx);
     bs.tex = substitute_args(bs.tex,args);
@@ -51,7 +51,7 @@ Symbol
 Lookup::rule_symbol(Real height, Real width)
 {
     Symbol bs=(*symtables_)("beamslopes")->lookup("horizontal");    
-    svec<String> args;
+    Array<String> args;
     args.add(print_dimen(height));
     args.add(print_dimen(width));
     bs.tex = substitute_args(bs.tex,args);
