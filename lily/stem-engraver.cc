@@ -102,6 +102,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		    tremolo_flags = 0;
 		  tremolo_p_->set_grob_property ("flag-count",
 						gh_int2scm (tremolo_flags));
+		  tremolo_p_->set_parent (stem_p_, X_AXIS);
 		}
 	    }
 

@@ -1,9 +1,10 @@
-2002-05-03  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
-
-	* lily/chord-tremolo-engraver.cc (try_music): Handle chord
-	tremolos of dotted duration.
-
 2002-05-04  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/stem.cc (off_callback): invisible stem over whole note is
+	centered on note now.
+
+	* lily/stem-engraver.cc (acknowledge_grob): X_AXIS Parent of
+	stem-tremolo is stem now.
 
 	* input/mozart-hrn*.ly: many corrections. 
 
@@ -17,6 +18,11 @@
 	threshold. Change the meaning of threshold/gap == 0.0.
 	(check_concave): skip Stolba concaveness check if we have a knee
 	on outer stems.
+
+2002-05-03  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
+
+	* lily/chord-tremolo-engraver.cc (try_music): Handle chord
+	tremolos of dotted duration.
 
 2002-05-03  Han-Wen  <hanwen@cs.uu.nl>
 

@@ -111,8 +111,7 @@ Stem_tremolo::brew_molecule (SCM smob)
       // ugh, rather calc from Stem_tremolo_req
       int beams_i = Stem::beam_count (stem, RIGHT)
 	>? Stem::beam_count (stem, LEFT);
-      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS)
-			     - me->relative_coordinate (0, X_AXIS),
+      mol.translate (Offset (0,
 			     Stem::stem_end_position (stem) * ss / 2 - 
 			     Directional_element_interface::get (beam)
 			     * beams_i * interbeam));
@@ -125,22 +124,7 @@ Stem_tremolo::brew_molecule (SCM smob)
       Real dy = Stem::stem_end_position (stem) * ss / 2;
       dy -= mol.extent (Y_AXIS).length () / 2 *  Stem::get_direction (stem);
 
-      /*
-	uhg.  Should use relative coords and placement
-      */
-      Real whole_note_correction;
-      if (Stem::invisible_b (stem))
-	{
-	  Grob *hed = Stem::support_head (stem);
-	  whole_note_correction = -Stem::get_direction (stem)
-	    *hed->extent (hed, X_AXIS).length () / 2;
-	}
-      else
-	whole_note_correction = 0;
-	 
-      mol.translate (Offset (stem->relative_coordinate (0, X_AXIS)
-			     - me->relative_coordinate (0, X_AXIS) +
-			     whole_note_correction, dy));
+      mol.translate (Offset (0, dy));
     }
   
   return mol.smobbed_copy ();
