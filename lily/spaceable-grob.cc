@@ -80,8 +80,9 @@ Spaceable_grob::remove_interface (Grob*me)
 }
 
 
-void
-Spaceable_grob::set_interface (Grob*me)
-{
-  me->set_interface (ly_symbol2scm ("spaceable-grob-interface"));
-}
+ADD_INTERFACE (Spaceable,"spaceable-grob-interface",
+  "An grob (generally a Paper_column) that takes part in the
+spacing problem. ",
+  "penalty minimum-distances ideal-distances
+left-neighbors right-neighbors");
+

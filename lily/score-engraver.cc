@@ -273,7 +273,6 @@ Score_engraver::try_music (Music*r)
 /*
   TODO:  use property Score.breakForbidden = #t
  */
-
 void
 Score_engraver::forbid_breaks ()
 {

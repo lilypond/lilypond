@@ -16,6 +16,10 @@
 #include "axis-group-interface.hh"
 #include "stem.hh"
 
+/*
+  TODO: let Dot_column communicate with stem via Note_column.
+ */
+
 MAKE_SCHEME_CALLBACK (Dot_column,force_shift_callback,2);
 SCM
 Dot_column::force_shift_callback (SCM element_smob, SCM axis)
@@ -140,4 +144,11 @@ Dot_column::add_head (Grob * me, Grob *rh)
       Axis_group_interface::add_element (me, d);
     }
 }
+
+
+
+
+ADD_INTERFACE (Dot_column, "dot-column-interface",
+  "Interface that groups dots so they form a column",
+  "stem");
 

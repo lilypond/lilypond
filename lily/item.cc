@@ -14,11 +14,14 @@
 #include "spanner.hh"
 #include "lily-guile.hh"
 #include "line-of-score.hh"
+#include "group-interface.hh"
 
 Item::Item (SCM s)
   : Grob (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
+  Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("item-interface"));
+		     
 }
 
 /**
@@ -192,3 +195,8 @@ unsmob_item (SCM s )
 {
   return dynamic_cast<Item*> (unsmob_grob (s));
 }
+
+ADD_INTERFACE(Item,
+	      "item-interface",
+	      "",
+	      "visibility-lambda breakable")

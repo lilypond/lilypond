@@ -52,9 +52,7 @@ Breathing_sign::offset_callback (SCM element_smob, SCM)
   return gh_double2scm (inter_f * sz * d);
 }
 
-void
-Breathing_sign::set_interface (Grob *b)
-{
-  Staff_symbol_referencer::set_interface (b);
 
-}
+ADD_INTERFACE(Breathing_sign, "breathing-sign-interface",
+	      "A breathing sign.",
+	      "direction");

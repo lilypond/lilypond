@@ -35,17 +35,17 @@ Engraver_group_engraver::create_grobs_in_simple_children ()
 
 /*
 
-  '''Done: eliminating useless broadcast/acknowledge'''
+  Done: eliminating useless broadcast/acknowledge
 
 
 One cause for translation slowness: grob broadcasted/acknowledges
-(b/a): every grob is b/a'd to all peer-engravers and all
+ (b/a): every grob is b/a-ed to all peer-engravers and all
 parent-engravers. This means that lots of (often) useless b/a is done
 for large scores (the top-level engravers gets to know every detail of
 every voice, thread, etc. Measurements indicate this is 10% of the
-interpretation time:
+ interpretation time:
 
-standchen
+ standchen
 
 old: (pre 1.5.13)  10.28
 new: 8.73
@@ -64,7 +64,7 @@ The cost of precomputing engraver lists has two elts: computing the
 list itself, GC for the structure, looking up the list during the
 acks.
 
- */
+*/
 SCM find_acknowledge_engravers (SCM gravlist, SCM meta);
 void
 Engraver_group_engraver::acknowledge_grobs ()

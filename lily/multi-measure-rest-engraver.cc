@@ -100,9 +100,6 @@ Multi_measure_rest_engraver::process_music ()
     {
       mmrest_p_ = new Spanner (get_property ("MultiMeasureRest"));
 
-      Multi_measure_rest::set_interface (mmrest_p_);
-      Staff_symbol_referencer::set_interface (mmrest_p_);
-
       announce_grob(mmrest_p_, busy_span_req_l_->self_scm());
       start_measure_i_
 	= gh_scm2int (get_property ("currentBarNumber"));

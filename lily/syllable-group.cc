@@ -285,3 +285,9 @@ Syllable_group::make_entry ()
   Syllable_group *vi = new Syllable_group;
   return vi->smobbed_self ();
 }
+
+
+ADD_INTERFACE (Lyric_syllable,"lyric-syllable-interface",
+  "a single piece of lyrics",
+  "word-space alignment ignore-length-mismatch begin-alignment end-alignment");
+

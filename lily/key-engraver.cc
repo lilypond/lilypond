@@ -69,7 +69,6 @@ Key_engraver::create_key (bool def)
       item_p_->set_grob_property ("old-accidentals", get_property ("lastKeySignature"));
       item_p_->set_grob_property ("new-accidentals", get_property ("keySignature"));
 
-      Staff_symbol_referencer::set_interface (item_p_);
       announce_grob(item_p_, keyreq_l_ ? keyreq_l_->self_scm() : SCM_EOL);
     }
 

@@ -13,6 +13,7 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 #include "dimension-cache.hh"
+#include "grob-interface.hh"
 
 /**
     for administration of what was done already
@@ -125,7 +126,6 @@ public:
   static SCM ly_get_grob_property (SCM, SCM);  
 
   bool has_interface (SCM intf);
-  void set_interface (SCM intf);
 
   virtual void handle_broken_dependencies ();
   virtual void handle_prebroken_dependencies ();

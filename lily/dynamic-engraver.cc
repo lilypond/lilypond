@@ -139,8 +139,6 @@ Dynamic_engraver::process_music ()
 	  line_spanner_ = new Spanner (get_property ("DynamicLineSpanner"));
 
 	  Side_position_interface::set_axis (line_spanner_, Y_AXIS);
-	  Axis_group_interface::set_interface (line_spanner_);
-	  Axis_group_interface::set_axes (line_spanner_, Y_AXIS, Y_AXIS);
 
 	  Music * rq = accepted_spanreqs_drul_[START];
 	  if (script_req_l_)
@@ -172,8 +170,6 @@ Dynamic_engraver::process_music ()
       script_p_->set_grob_property ("text",
 				   script_req_l_->get_mus_property ("text"));
       
-      Side_position_interface::set_direction (script_p_, DOWN);
-
       if (Direction d = script_req_l_->get_direction ())
 	Directional_element_interface::set (line_spanner_, d);
 
@@ -250,9 +246,7 @@ Dynamic_engraver::process_music ()
 	  else
 	    {
 	      cresc_p_  = new Spanner (get_property ("TextSpanner"));
-	      cresc_p_->set_interface (ly_symbol2scm ("dynamic-interface"));
 	      cresc_p_->set_grob_property ("type", s);
-	      
 	      daddy_trans_l_->set_property ((start_type
 					    + "Spanner").ch_C(), SCM_UNDEFINED);
 	      s = get_property ((start_type + "Text").ch_C ());

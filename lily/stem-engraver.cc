@@ -62,9 +62,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
       if (!stem_p_) 
 	{
 	  stem_p_ = new Item (get_property ("Stem"));
-	  Stem::set_interface (stem_p_);
-	  Staff_symbol_referencer::set_interface (stem_p_);
-	  
+
 	  stem_p_->set_grob_property ("duration-log", gh_int2scm (duration_log));
 
 	  if (tremolo_req_l_)
@@ -89,9 +87,8 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 	      if (requested_type)
 		{
 		  tremolo_p_ = new Item (get_property ("StemTremolo"));
-		  Stem_tremolo::set_interface (tremolo_p_);
-
 		  announce_grob(tremolo_p_, tremolo_req_l_->self_scm());
+
 		  /*
 		    The number of tremolo flags is the number of flags of
 		    the tremolo-type minus the number of flags of the note
@@ -101,7 +98,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		    - (duration_log > 2 ? duration_log - 2 : 0);
 		  if (tremolo_flags < 0)
 		    tremolo_flags = 0;
-		  tremolo_p_->set_grob_property ("tremolo-flags",
+		  tremolo_p_->set_grob_property ("flag-count",
 						gh_int2scm (tremolo_flags));
 		}
 	    }

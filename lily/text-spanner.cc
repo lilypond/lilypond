@@ -22,7 +22,7 @@ source file of the GNU LilyPond music typesetter
 /*
   TODO:
   - vertical start / vertical end (fixme-name) |
-  - contination types (vert. star, vert. end)  |-> eat volta-spanner
+  - contination types (vert. star, vert. end)  |-> eat volta-bracket
   - more styles
   - more texts/positions
 */
@@ -291,3 +291,16 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
   me->set_grob_property ("shorten-pair", gh_cons ( gh_double2scm ( shorten[LEFT] ), 
 						   gh_double2scm ( shorten[RIGHT] ) ));
 }
+
+
+
+ADD_INTERFACE (Pianopedal,"piano-pedal-interface",
+  "",
+  "pedal-type edge-width edge-height shorten-pair text-start left-widen right-widen");
+
+
+
+ADD_INTERFACE (Text_spanner,"text-spanner-interface",
+  "generic text spanner",
+  "dash-period dash-length edge-height edge-width edge-text shorten-pair type");
+

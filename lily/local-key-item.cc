@@ -69,15 +69,16 @@ Local_key_item::add_pitch (Grob*me, Pitch p, bool cautionary, bool natural,
 Molecule
 Local_key_item::parenthesize (Grob*me, Molecule m)
 {
-  Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-("));
-  Molecule close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-)"));
+  Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-leftparen"));
+  Molecule close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-rightparen"));
   m.add_at_edge (X_AXIS, LEFT, Molecule (open), 0);
   m.add_at_edge (X_AXIS, RIGHT, Molecule (close), 0);
 
   return m;
 }
 
-/* HW says: maybe move to tie.cc
+/*
+  HW says: maybe move to tie.cc
 
   Note, tie should not kill all accidentals when broken, only the ones
   that are indicated by a property tie-break-reminder, I guess
@@ -248,8 +249,9 @@ Local_key_item::has_interface (Grob*m)
 {
   return m && m->has_interface (ly_symbol2scm ("accidentals-interface"));
 }
-void
-Local_key_item::set_interface (Grob*m)
-{
-  m->set_interface (ly_symbol2scm ("accidentals-interface"));
-}
+
+
+
+ADD_INTERFACE (Local_key_item, "accidentals-interface",
+  "Accidentals",
+  "accidentals left-padding right-padding paren-cautionaries cautionary-size");

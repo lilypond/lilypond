@@ -160,9 +160,12 @@ compare_position (Grob *const  &a, Grob * const &b)
 }
 
 
-void
-Staff_symbol_referencer::set_interface (Grob * e)
-{
-  e->add_offset_callback (Staff_symbol_referencer::callback_proc, Y_AXIS);
-}
 
+
+
+ADD_INTERFACE (Staff_symbol_referencer,"staff-symbol-referencer-interface",
+  "Object whose Y position is meaning with reference to a staff
+symbol. Objects that have this interface should include
+Staff_symbol_referencer::callback in their Y-offset-callback.
+",
+  "staff-position");

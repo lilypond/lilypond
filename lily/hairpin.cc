@@ -140,3 +140,11 @@ Hairpin::brew_molecule (SCM smob)
 
 
 
+ADD_INTERFACE (Hairpin, "hairpin-interface",
+  "hairpin crescendo.
+
+padding -- horizontal padding. This is useful if a crescendo is set next to a text like `mf'
+
+",
+  "grow-direction thickness height padding");
+

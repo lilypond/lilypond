@@ -246,3 +246,9 @@ Text_item::brew_molecule (SCM smob)
   return mol.smobbed_copy (); 
 }
 
+
+
+
+ADD_INTERFACE (Text_item,"text-interface",
+  "A scheme markup text",
+  "text align baseline-skip lookup raise kern word-space magnify");

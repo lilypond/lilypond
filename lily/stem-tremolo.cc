@@ -22,16 +22,10 @@
     lengthen stem if necessary
  */
 
-void
-Stem_tremolo::set_interface (Grob *me)
-{
-  me->set_interface (ly_symbol2scm ("stem-tremolo"));
-}
-
 bool
 Stem_tremolo::has_interface (Grob *me)
 {
-  return me->has_interface (ly_symbol2scm ("stem-tremolo"));
+  return me->has_interface (ly_symbol2scm ("stem-tremolo-interface"));
 }
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo,dim_callback,2);
@@ -76,9 +70,11 @@ Stem_tremolo::brew_molecule (SCM smob)
   if (beam)
     {
       Real dy = 0;
-      SCM s = beam->get_grob_property ("dy");
-      if (gh_number_p (s))
-	dy = gh_scm2double (s);
+      SCM s = beam->get_grob_property ("positions");
+      if (gh_pair_p (s))
+	{
+	  dy = -gh_scm2double (gh_car (s)) +gh_scm2double (gh_cdr (s));
+	}
       Real dx = Beam::last_visible_stem (beam)->relative_coordinate (0, X_AXIS)
 	- Beam::first_visible_stem (beam)->relative_coordinate (0, X_AXIS);
       dydx = dx ? dy/dx : 0;
@@ -97,7 +93,7 @@ Stem_tremolo::brew_molecule (SCM smob)
   a.translate (Offset (-width/2, width / 2 * dydx));
   
   int tremolo_flags;
-  SCM s = me->get_grob_property ("tremolo-flags");
+  SCM s = me->get_grob_property ("flag-count");
   if (gh_number_p (s))
     tremolo_flags = gh_scm2int (s);
   else
@@ -162,3 +158,7 @@ Stem_tremolo::set_stem (Grob*me,Grob *s)
   me->set_grob_property ("stem", s->self_scm ());
 }
 
+
+ADD_INTERFACE (Stem_tremolo,"stem-tremolo-interface",
+  "",
+  "stem beam-width beam-thickness flag-count");

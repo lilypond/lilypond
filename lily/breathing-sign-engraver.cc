@@ -63,8 +63,6 @@ Breathing_sign_engraver::create_grobs ()
       SCM b = get_property ("BreathingSign");
       breathing_sign_p_ = new Item (b);
 
-      Breathing_sign::set_interface (breathing_sign_p_);
-
       announce_grob(breathing_sign_p_, breathing_sign_req_l_->self_scm());
       breathing_sign_req_l_ = 0;
     }

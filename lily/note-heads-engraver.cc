@@ -65,8 +65,6 @@ Note_heads_engraver::process_music ()
     {
       Item *note_p  = new Item (get_property ("NoteHead"));
       
-      Staff_symbol_referencer::set_interface (note_p);
-      
       Music * req = note_req_l_arr_[i];
       
       Duration dur = *unsmob_duration (req->get_mus_property ("duration"));

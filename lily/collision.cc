@@ -374,3 +374,10 @@ Collision::add_column (Grob*me,Grob* ncol_l)
   Axis_group_interface::add_element (me, ncol_l);
   me->add_dependency (ncol_l);
 }
+
+
+ADD_INTERFACE (Collision, "note-collision-interface",
+  "An object that handles collisions between notes with different
+stem directions and horizontal shifts. Most of the interesting
+properties are to be set in @ref{note-column-interface}",
+  "merge-differently-dotted note-width collision-done");

@@ -17,7 +17,6 @@
 #include "paper-outputter.hh"
 #include "paper-column.hh"
 #include "line-of-score.hh"
-
 #include "group-interface.hh"
 
 void
@@ -199,6 +198,9 @@ Spanner::Spanner (SCM s)
 {
   spanned_drul_[LEFT]=0;
   spanned_drul_[RIGHT]=0;
+  Group_interface::add_thing (this, ly_symbol2scm ("interfaces"), ly_symbol2scm ("spanner-interface"));
+		     
+  
 }
 
 Spanner::Spanner (Spanner const &s)
@@ -406,3 +408,8 @@ unsmob_spanner (SCM s )
 {
   return dynamic_cast<Spanner*> (unsmob_grob (s));
 }
+
+ADD_INTERFACE(Spanner,
+	      "spanner-interface",
+	      "",
+	      "minimum-length");

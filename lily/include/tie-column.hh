@@ -17,7 +17,6 @@
 class Tie_column
 {
 public:
-  static void set_interface (Grob*me);
   static bool has_interface (Grob*);
   static void add_tie (Grob*me,Grob*);
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));

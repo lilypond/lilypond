@@ -16,13 +16,6 @@
 
 
 
-void
-Tie_column::set_interface (Grob*me)
-{
-  me->set_interface (ly_symbol2scm ("tie-column-interface"));
-  me->set_extent_callback (SCM_EOL, X_AXIS);
-  me->set_extent_callback (SCM_EOL, Y_AXIS) ; 
-}
 
 bool
 Tie_column::has_interface (Grob*me)
@@ -122,3 +115,10 @@ Tie_column::after_line_breaking (SCM smob)
   set_directions (unsmob_grob (smob));
   return SCM_UNSPECIFIED;
 }
+
+
+
+ADD_INTERFACE (Tie_column,"tie-column-interface",
+  "that sets tie directions in a tied chord",
+  "direction");
+

@@ -170,7 +170,7 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
 	  */
       	  
 	  left_ledger_protusion *= 0.66;
-	  right_ledger_protusion *= 0.8; 
+	  right_ledger_protusion *= 0.9; 
 	}
 
       Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
@@ -276,3 +276,8 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   
   return gh_number_p (result) ?  gh_scm2double (result) : 0.0;
 }
+
+ADD_INTERFACE (Note_head,"note-head-interface",
+  "Note head",
+  "accidentals-grob style stem-attachment-function");
+

@@ -79,3 +79,9 @@ Script_column::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+
+ADD_INTERFACE (Script_column,"script-column-interface",
+  "An interface that sorts scripts according to their @code{script-priority}",
+  "");
+
+

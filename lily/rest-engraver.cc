@@ -66,7 +66,7 @@ Rest_engraver::process_music ()
   if (rest_req_l_ && !rest_p_) 
     {
       rest_p_ = new Item (get_property ("Rest"));
-      Rhythmic_head::set_interface (rest_p_);
+
 
       
       int durlog  = unsmob_duration (rest_req_l_->get_mus_property ("duration"))-> duration_log ();

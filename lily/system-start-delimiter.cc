@@ -57,11 +57,6 @@ Will not fix it since I'm not sure.
   return mol;
 }
 
-void
-System_start_delimiter::set_interface (Grob*me)
-{
-  me->set_interface (ly_symbol2scm ("system-start-delimiter-interface"));
-}
 
 bool
 System_start_delimiter::has_interface (Grob*me)
@@ -185,3 +180,9 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
   return Molecule (b, at);
 }
   
+
+
+
+ADD_INTERFACE (System_start_delimiter,"system-start-delimiter-interface",
+  "#'style can be bar-line, bracket or brace",
+  "bar-line-collapse-height brace-collapse-height bracket-collapse-height thickness arch-height arch-angle arch-thick arch-width bracket-thick glyph");

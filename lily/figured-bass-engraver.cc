@@ -78,7 +78,7 @@ Figured_bass_engraver::process_music ()
 
   
 ENTER_DESCRIPTION(Figured_bass_engraver,
-/* descr */       "Make volta brackets",
+/* descr */       "Make figured bass numbers.",
 /* creats*/       "BassFigure",
 /* acks  */       "",
 /* reads */       "",

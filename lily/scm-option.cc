@@ -40,10 +40,7 @@ bool internal_type_checking_global_b;
 
 /*
 
-  TODO: verzin iets tegen optie code bloot
-
-
-  other interesting stuff to add:
+add these as well:
 
 @item -T,--no-timestamps
 don't timestamp the output

@@ -82,11 +82,6 @@ Hara_kiri_group_spanner::add_element (Grob * me, Grob *e)
 }
 
 
-void
-Hara_kiri_group_spanner::set_interface (Grob*me)
-{
-  me->set_interface (ly_symbol2scm ("hara-kiri-group-interface"));
-}
 
 
 bool
@@ -101,3 +96,12 @@ Hara_kiri_group_spanner::add_interesting_item (Grob* me,Grob* n)
   me->add_dependency (n);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("items-worth-living"),n);
 }
+
+
+ADD_INTERFACE (Hara_kiri_group_spanner,"hara-kiri-group-interface",
+  "  As Vertical_group_spanner, but keep track of interesting items.  If
+we don't contain any interesting items after linebreaking, then
+gracefully commit suicide.  Objective: don't disgrace Lily by
+typesetting empty lines in orchestral scores.",
+  "items-worth-living");
+

@@ -21,36 +21,41 @@
 	(typename (type-name type))
 	(desc (object-property sym 'backend-doc)))
 
-    (cons (string-append "@code{" name "} "
+
+    (if (equal? desc #f)
+	(error "Unknown property " sym)
+	
+	(cons (string-append "@code{" name "} "
 		       "(" typename ")"
 		       ": "
 
 ; index gets too messy
 ;		       "@vindex " name "\n"
-
-
 		       )
-	  desc)))
+	  desc))))
 
 (define (document-grob-property sym grob-description )
+  "Document SYM, filling in default values."
   (let* ((handle (assoc sym grob-description))
 	 (defval (if (eq? handle #f)
 		     "(unset)"
 		   (scm->texi (cdr handle))))
 	 (propdoc (backend-property->texi sym)))
-    
+
     (cons (car propdoc) (string-append (cdr propdoc)
 					   "\nDefault value: "
-					   defval))))
+					   defval)))
+  )
 
 (define (document-interface where interface grob-description)
+
   (let* ((level (if (eq? where 'grob) 3 2))
 	 (name (car interface))
 	 (desc (cadr interface))
 	 (props (caddr interface))
-	 (docfunc (lambda (x)
+	 (docfunc (lambda (pr)
 		    (document-grob-property
-		     x grob-description )))
+		     pr grob-description )))
 	 (docs (map docfunc props)))
 
     (string-append
@@ -68,22 +73,21 @@
      (node (interface-name name))
      (document-interface 'self interface '()))))
 
+
 ;; First level grob description
 (define (document-grob iname description)
   (processing iname)
   (let* ((metah (assoc 'meta description))
 	 
-	 (meta (if (pair? metah)
-		   (cdr metah)
-		   '((properties . ()) (name . "huh?"))
-		   ))
-	 
+	 (meta (cdr metah))
 	 (name (cdr (assoc 'name meta)))
-	 (ifaces (cdr (assoc 'interface-descriptions meta)))
-	 (ifacedoc (map (lambda (x)
-			  (document-interface 'grob x description))
-			(reverse ifaces))))
+	 (ifaces (map lookup-interface (cdr (assoc 'interfaces meta))))
+	 (ifacedoc (map (lambda (iface)
+			  (document-interface 'grob iface description))
+			(reverse ifaces)))
+	 )
 
+    
     (string-append
      (node (grob-name name))
      (texi-section 2 (grob-name name) #f)
@@ -100,7 +104,9 @@
 			    (map engraver-name engraver-names)))))
 
 	    (apply string-append ifacedoc))))
-     
+
+
+
 (define (engraver-makes-grob? name-symbol grav)
   (memq name-symbol (assoc 'grobs-created (Translator::description grav)))
   )
@@ -144,10 +150,44 @@
 
 
 (define interface-description-alist
-  (map (lambda (x) (cons (string->symbol x) (eval-string x)))
-	     (interface-names)))
+  (hash-fold
+   (lambda (key val prior)
+     (cons (cons key val)  prior)
+     )
+   '() (ly-all-grob-interfaces)))
 
 (set! interface-description-alist (sort interface-description-alist alist<?))
+
+
+;;;;;;;;;; check for dangling backend properties.
+(define (mark-interface-properties entry)
+  (map (lambda (x) (set-object-property! x  'iface-marked #t)) (caddr (cdr entry)))
+  )
+
+(map mark-interface-properties interface-description-alist)
+
+(define (check-dangling-properties prop)
+  (if (not (object-property prop 'iface-marked))
+      (error  "\nDangling property: "  prop))
+  )
+
+(map check-dangling-properties all-backend-properties)
+
+;;;;;;;;;;;;;;;;
+
+(define (lookup-interface name)
+  (let*  (
+	  (entry  (hashq-ref (ly-all-grob-interfaces) name #f))
+	  )
+
+    (if (equal? entry #f)
+	(error "Unknown interface" name))
+    
+    entry
+))
+
+;(write  (map car  interface-description-alist) (current-error-port))
+;(display  (lookup-interface 'volta-bracket-interface))
 
 (define (document-all-interfaces name)
   (string-append
@@ -174,4 +214,6 @@
      texi)
   )
   )
-  
+
+;;;;;;;;;;;;;;;;
+

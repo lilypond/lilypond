@@ -286,7 +286,13 @@ Beam::consider_auto_knees (Grob *me)
 
  TODO:
    take some y-position (chord/beam/nearest?) into account
-   scmify forced-fraction */
+   scmify forced-fraction
+
+   TODO:
+   
+   why is shorten stored in beam, and not directly in stem?
+
+*/
 void
 Beam::set_stem_shorten (Grob *m)
 {
@@ -351,11 +357,15 @@ struct Quant_score
 
 /*
   TODO:
+  
    - Make all demerits customisable
-   - One sensible check per demerit
+
+   - One sensible check per demerit (what's this --hwn)
+
    - Add demerits for quants per se, as to forbid a specific quant
      entirely
- */
+
+*/
 MAKE_SCHEME_CALLBACK (Beam, quanting, 1);
 SCM
 Beam::quanting (SCM smob)
@@ -1208,12 +1218,6 @@ Beam::forced_stem_count (Grob *me)
 
 
 
-/*
-
-TODO:
-use filter and standard list functions.
-
-*/
 int
 Beam::visible_stem_count (Grob *me) 
 {
@@ -1331,4 +1335,12 @@ Beam::has_interface (Grob *me)
 {
   return me->has_interface (ly_symbol2scm ("beam-interface"));
 }
+
+
+ADD_INTERFACE (Beam, "beam-interface",
+  "A beam.
+
+#'thickness= weight of beams, in staffspace
+  ",
+  "concaveness-threshold dir-function quant-score auto-knee-gap gap chord-tremolo beamed-stem-shorten shorten least-squares-dy direction damping flag-width-function neutral-direction positions thickness");
 

@@ -164,11 +164,6 @@ Bar_line::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
   
-void
-Bar_line::set_interface (Grob*me)
-{
-  me->set_interface (ly_symbol2scm ("bar-line-interface"));
-}
 
 bool
 Bar_line::has_interface (Grob*m)
@@ -198,3 +193,38 @@ Bar_line::get_staff_bar_size (SCM smob)
   else
     return gh_int2scm (0);
 }
+
+
+
+ADD_INTERFACE (Bar_line, "bar-line-interface",
+  "Bar line.
+
+This is a request to print a special bar symbol. It replaces the 
+regular bar symbol with a special
+symbol.  The argument @var{bartype} is a string which specifies the
+kind of bar to print.  Options are @code{:|}
+@cindex |A@@@code{:|}
+,
+@code{|:}
+@cindex |B@@@code{|:}
+, @code{:|:}
+@cindex |C@@@code{:|:}
+,
+@code{||}
+@cindex |D@@@code{||}
+, @code{|.}
+@cindex |E@@@code{|.}
+,
+@code{.|}
+@cindex |F@@@code{.|}
+, and @code{.|.}
+@cindex |G@@@code{.|.}
+. 
+
+These produce, respectively, a right repeat, a left repeat, a double
+repeat, a double bar, a start bar, an end bar, and a thick double bar.
+If @var{bartype} is set to @code{empty} then nothing is printed,
+but a line break is allowed at that spot.
+"
+,
+  "bar-size-procedure kern thin-kern hair-thickness thick-thickness glyph bar-size break-glyph-function");

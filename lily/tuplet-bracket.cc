@@ -16,7 +16,7 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "text-item.hh"
-#include "tuplet-spanner.hh"
+#include "tuplet-bracket.hh"
 #include "stem.hh"
 #include "note-column.hh"
 #include "dimensions.hh"
@@ -27,22 +27,12 @@
 
 /*
   TODO:
-  staff-line collisions for horizontal tuplet brackets.
-
-  TODO:
 
   in the case that there is no bracket, but there is a (single) beam,
   follow beam precisely for determining tuplet number location.
   
  */
 
-
-
-void
-Tuplet_bracket::set_interface (Grob*me)
-{
-  me->set_interface (ly_symbol2scm ("tuplet-bracket"));
-}
 
 MAKE_SCHEME_CALLBACK (Tuplet_bracket,brew_molecule,1);
 SCM
@@ -301,4 +291,17 @@ Tuplet_bracket::add_column (Grob*me, Item*n)
   add_bound_item (dynamic_cast<Spanner*> (me), n);
 }
 
+
+bool
+Tuplet_bracket::has_interface (Grob*me)
+{
+  return me->has_interface (ly_symbol2scm ("tuplet-bracket-interface"));
+}
+
+
+
+
+ADD_INTERFACE (Tuplet_bracket,"tuplet-bracket-interface",
+  "A bracket with a number in the middle, used for tuplets.",
+  "columns number-gap delta-y tuplet-bracket-visibility tuplet-number-visibility thick direction");
 

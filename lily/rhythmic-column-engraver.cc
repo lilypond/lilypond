@@ -85,7 +85,6 @@ Rhythmic_column_engraver::create_grobs ()
       if (!note_column_)
 	{
 	  note_column_ = new Item (get_property ("NoteColumn"));
-	  Note_column::set_interface (note_column_);
 	  announce_grob(note_column_, SCM_EOL);
 
 

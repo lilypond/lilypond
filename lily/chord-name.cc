@@ -61,3 +61,9 @@ Chord_name::brew_molecule (SCM smob)
 
   return mol.smobbed_copy ();
 }
+
+
+ADD_INTERFACE (Chord_name, "chord-name-interface",
+  "generate a chord name",
+  "pitches chord inversion bass begin-of-line-visible");
+

@@ -120,10 +120,8 @@ Chord_tremolo_engraver::process_music ()
 	  if (flags)
 	    {
 	      stem_tremolo_ = new Item (get_property ("StemTremolo"));
-	      Stem_tremolo::set_interface (stem_tremolo_);
-
 	      announce_grob(stem_tremolo_, repeat_->self_scm());
-	      stem_tremolo_->set_grob_property ("tremolo-flags",
+	      stem_tremolo_->set_grob_property ("flag-count",
 						gh_int2scm (flags));
 
 	    }

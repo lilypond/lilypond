@@ -22,9 +22,6 @@
 
 struct Key_signature_interface
 {
-
-  static void set_interface (Grob*);
-  static bool has_interface (Grob*);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
 };
 
@@ -174,9 +171,6 @@ Key_signature_interface::brew_molecule (SCM smob)
   return mol.smobbed_copy ();
 }
 
-bool
-Key_signature_interface::has_interface (Grob*m)
-{
-  return m && m->has_interface (ly_symbol2scm ("key-signature-interface"));
-}
-
+ADD_INTERFACE (Key_signature_interface, "key-signature-interface",
+  "A group of  accidentals.",
+  "c0-position old-accidentals new-accidentals");

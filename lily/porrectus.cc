@@ -178,12 +178,23 @@ Porrectus::brew_molecule (SCM smob)
   bool solid = to_boolean (me->get_grob_property ("solid"));
   bool add_stem = to_boolean (me->get_grob_property ("add-stem"));
 
-  SCM stem_direction_scm = me->get_grob_property ("stem-direction");
+  /*
+
+  TODO:
+
+  ugr. why not  called direction?
+    
+   */
+  SCM stem_direction_scm = me->get_grob_property ("direction");
   Direction stem_direction =
     gh_number_p (stem_direction_scm) ? to_dir (stem_direction_scm) : DOWN;
   if (!stem_direction)
     stem_direction = DOWN;
 
+
+  /*
+    TODO: revise name.
+   */
   bool auto_properties = to_boolean (me->get_grob_property ("auto-properties"));
   if (auto_properties)
       // determine add_stem and stem_direction automatically from durations
@@ -231,7 +242,7 @@ Porrectus::brew_molecule (SCM smob)
 
   Molecule molecule;
 
-  SCM line_thickness_scm = me->get_grob_property ("line-thickness");
+  SCM line_thickness_scm = me->get_grob_property ("thickness");
   Real line_thickness;
   if (gh_number_p (line_thickness_scm))
     {
@@ -244,7 +255,7 @@ Porrectus::brew_molecule (SCM smob)
   Real thickness =
     line_thickness * me->paper_l ()->get_var ("stafflinethickness");
 
-  SCM porrectus_width_scm = me->get_grob_property ("porrectus-width");
+  SCM porrectus_width_scm = me->get_grob_property ("width");
   Real porrectus_width;
   if (gh_number_p (porrectus_width_scm))
     {
@@ -480,3 +491,9 @@ Porrectus::brew_mensural_molecule (Item *me,
   molecule.translate_axis (ypos_correction, Y_AXIS);
   return molecule;
 }
+
+
+ADD_INTERFACE (Porrectus,"porrectus-interface",
+  "A porrectus ligature, joining two note heads into a single grob.",
+  "left-head right-head width add-stem auto-properties solid direction");
+

@@ -50,7 +50,6 @@ void
 Tie::set_interface (Grob*me)
 {
   me->set_grob_property ("heads", gh_cons (SCM_EOL, SCM_EOL));
-  me->set_interface (ly_symbol2scm ("tie-interface"));
 }
 
 bool
@@ -311,3 +310,8 @@ Tie::brew_molecule (SCM smob)
 }
 
 
+
+ADD_INTERFACE (Tie,"tie-interface",
+  "A tie connecting two noteheads.
+direction = Forced direction for all ties",
+  "y-offset staffline-clearance control-points heads details thickness x-gap direction minimum-length");

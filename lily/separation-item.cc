@@ -1,5 +1,5 @@
 /*   
-  single-malt-grouping-item.cc --  implement Separation_item
+     separation-item.cc --  implement Separation_item
   
   source file of the GNU LilyPond music typesetter
   
@@ -26,6 +26,11 @@ Separation_item::add_item (Grob*s,Item* i)
   s->add_dependency (i);
 }
 
+/*
+  DOCME:
+
+  why don't we use extent()
+ */
 Interval
 Separation_item::my_width (Grob *me)
 {
@@ -73,3 +78,13 @@ Separation_item::my_width (Grob *me)
 
 
 
+
+
+ADD_INTERFACE (Separation_item,"separation-item-interface",
+  "Item that computes widths to generate spacing rods.
+
+Calc dimensions for the Separating_group_spanner; this has to be
+an item to get dependencies correct.  It can't be an grob_group
+since these usually are in a different X_group
+",
+  "elements");

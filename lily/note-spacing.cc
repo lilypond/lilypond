@@ -44,12 +44,22 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 	    {
 	      it = it -> find_prebroken_piece (col_dir);
 	    }
+
 	  /*
 	    some kind of mismatch, eg. a note column, that is behind a
 	    linebreak.
 	   */
 	  if (!it)
 	    continue; 
+
+	  if (d == RIGHT && right_col != it->column_l ())
+	    continue;
+	  
+	  if (Separation_item::has_interface (it))
+	    {
+	      extents[d].unite (Separation_item::my_width (it));
+	      continue;
+	    }
 	  
 	  extents[d].unite (it->extent (it->column_l (), X_AXIS));
 	  if (d == RIGHT)
@@ -84,7 +94,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
       *space += 0.5 * (( -extents[RIGHT][LEFT]) >? 0);
     }
 
-  *space += stem_dir_correction (me, right_col);
+  *space += stem_dir_correction (me, right_col, increment);
 }
 
 Item *
@@ -167,12 +177,10 @@ Note_spacing::right_column (Grob*me)
 
    TODO: have to check wether the stems are in the same staff.
 
-   TODO: also correct for bar lines in RIGHT-ITEMS.  Should check if
-   the barline is the leftmost object of the break alignment.
-
 */
 Real
-Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn)  
+Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
+				   Real increment)  
 {
   Drul_array<Direction> stem_dirs(CENTER,CENTER);
   Drul_array<Interval> stem_posns;
@@ -180,6 +188,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn)
   Drul_array<SCM> props(me->get_grob_property ("left-items"),
 			me->get_grob_property ("right-items"));
 
+  Drul_array<Grob*> beams_drul(0,0);
   Real correction = 0.0;
   
   stem_dirs[LEFT] = stem_dirs[RIGHT] = CENTER;
@@ -228,6 +237,9 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn)
 	      goto exit_func ;
 	    }
 
+	  beams_drul[d] = Stem::beam_l (stem);
+	    
+	  
 	  Direction sd = Stem::get_direction (stem);
 	  if (stem_dirs[d] && stem_dirs[d] != sd)
 	    {
@@ -262,27 +274,40 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn)
   
   if (correct &&stem_dirs[LEFT] *stem_dirs[RIGHT] == -1)
     {
-      
-      intersect = stem_posns[LEFT];  
-      intersect.intersect(stem_posns[RIGHT]);
-      correct = correct && !intersect.empty_b ();
-
-      if (!correct)
-	return 0.0;
-      /*
-	Ugh. 7 is hardcoded.
-      */
-      correction = abs (intersect.length ());
-      correction = (correction/7) <? 1.0;
-      correction *= stem_dirs[LEFT] ;
-      correction *= gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
-
-      if (!bar_yextent.empty_b())
+      if (beams_drul[LEFT] == beams_drul[RIGHT])
 	{
-	  correction *= 0.5;
+	  /*
+	    this is a knee: maximal correction.
+	  */
+	  
+	  correction = increment* stem_dirs[LEFT];
+	}
+      else
+	{
+	  intersect = stem_posns[LEFT];  
+	  intersect.intersect(stem_posns[RIGHT]);
+	  correct = correct && !intersect.empty_b ();
+
+	  if (!correct)
+	    return 0.0;
+	  
+	  correction = abs (intersect.length ());	  
+
+      
+	  /*
+	    Ugh. 7 is hardcoded.
+	  */
+	  correction = (correction/7) <? 1.0;
+	  correction *= stem_dirs[LEFT] ;
+	  correction *= gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
+
+	  if (!bar_yextent.empty_b())
+	    {
+	      correction *= 0.5;
+	    }
 	}
     }
-  else if (correct)
+  else if (correct && stem_dirs[LEFT] *stem_dirs[RIGHT] == UP)
     {
       /*
 	Correct for the following situation:
@@ -326,3 +351,10 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn)
   return correction;
 }
  
+
+
+
+ADD_INTERFACE (Note_spacing,"note-spacing-interface",
+  "",
+  "left-items right-items stem-spacing-correction");
+

@@ -39,7 +39,7 @@ Rest_collision_engraver::create_grobs ()
     return;
 
   rest_collision_p_ = new Item (get_property ("RestCollision"));
-  Rest_collision::set_interface (rest_collision_p_);
+
   announce_grob(rest_collision_p_, SCM_EOL);
   for (int i=0; i< note_column_l_arr_.size (); i++)
     Rest_collision::add_column (rest_collision_p_,note_column_l_arr_[i]);

@@ -34,15 +34,6 @@ Note_column::shift_compare (Grob *const &p1, Grob *const&p2)
   return h1 - h2;
 }
 
-void
-Note_column::set_interface (Grob* me)
-{
-  me->set_interface (ly_symbol2scm ("note-column-interface"));
-  
-  Axis_group_interface::set_interface (me);
-  Axis_group_interface::set_axes (me, X_AXIS, Y_AXIS);
-}
-
 Item *
 Note_column::stem_l (Grob*me) 
 {
@@ -158,3 +149,10 @@ Note_column::accidentals (Grob *me)
 
   return 0;
 }
+
+
+
+ADD_INTERFACE (Note_column,"note-column-interface",
+  "Stem and noteheads combined",
+  "arpeggio note-heads rest-collision rest horizontal-shift stem accidentals force-hshift");
+

@@ -147,7 +147,7 @@ Phrasing_slur_engraver::create_grobs ()
 	  // push a new phrasing_slur onto stack.
 	  // (use temp. array to wait for all phrasing_slur STOPs)
 	  Grob* phrasing_slur = new Spanner (get_property ("PhrasingSlur"));
-	  Slur::set_interface (phrasing_slur);
+	  Slur::set_interface (phrasing_slur); // can't remove.
 	  SCM s = get_property ("phrasingSlurBeginAttachment");
 	  if (gh_symbol_p (s))
 	    {

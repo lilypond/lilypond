@@ -85,7 +85,10 @@ Grob::Grob (SCM basicprops)
       /*
 	Should change default to be empty? 
       */
-      if (cb != SCM_BOOL_F && !gh_procedure_p (cb) && !gh_pair_p (cb))
+      if (cb != SCM_BOOL_F
+	  && !gh_procedure_p (cb) && !gh_pair_p (cb)
+	  && gh_procedure_p (get_grob_property ("molecule-callback"))
+	  )
 	cb = molecule_extent_proc;
     
       dim_cache_[a].dimension_ = cb;
@@ -95,8 +98,13 @@ Grob::Grob (SCM basicprops)
   if (gh_pair_p (meta))
     {
       SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
-  
-      set_grob_property ("interfaces",ly_cdr (ifs));
+
+      /*
+	do it directly to bypass interface checks.
+       */
+      mutable_property_alist_ = gh_cons (gh_cons (ly_symbol2scm ("interfaces"),
+						  gh_cdr (ifs)),
+					 mutable_property_alist_);
     }
 }
 
@@ -168,12 +176,17 @@ Grob::set_immutable_grob_property (SCM s, SCM v)
 }
 #endif
 
+extern void check_interfaces_for_property (Grob *me, SCM sym);
+
 void
 Grob::internal_set_grob_property (SCM s, SCM v)
 {
 #ifndef NDEBUG
   if (internal_type_checking_global_b)
-    assert (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")));
+    {
+      assert (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")));
+      check_interfaces_for_property(this, s);
+    }
 #endif
 
   
@@ -261,6 +274,12 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 Molecule *
 Grob::get_molecule ()  const
 {
+  if (immutable_property_alist_ == SCM_EOL)
+    {
+      return 0;
+      
+    }
+  
   SCM mol = get_grob_property ("molecule");
   if (unsmob_molecule (mol))
     return unsmob_molecule (mol);
@@ -394,12 +413,15 @@ Grob::handle_broken_grobs (SCM src, SCM criterion)
 	  /* now: sc && sc->line_l () == line */
 	  if (!line)
 	    return sc->self_scm();
-	      /*
-		This was introduced in 1.3.49 as a measure to prevent
-		programming errors. It looks expensive (?). TODO:
-		benchmark , document when (what kind of programming
-		errors) this happens.
-	       */
+	  /*
+	    This was introduced in 1.3.49 as a measure to prevent
+	    programming errors. It looks expensive (?).
+
+	    TODO:
+		
+	    benchmark , document when (what kind of programming
+	    errors) this happens.
+	  */
 	  if (sc->common_refpoint (line, X_AXIS)
 	       && sc->common_refpoint (line, Y_AXIS))
 	    {
@@ -583,13 +605,6 @@ Grob::empty_b (Axis a)const
 	    gh_procedure_p (dim_cache_[a].dimension_));
 }
 
-/*
-  TODO: add
-
-    Grob *refpoint
-
-  to arguments?
- */
 Interval
 Grob::extent (Grob * refp, Axis a) const
 {
@@ -935,18 +950,14 @@ Grob::has_interface (SCM k)
   return scm_memq (k, ifs) != SCM_BOOL_F;
 }
 
-void
-Grob::set_interface (SCM k)
-{
-  if (has_interface (k))
-    return ;
-  else
-    {
-      set_grob_property ("interfaces",
-			 gh_cons (k, get_grob_property ("interfaces")));
-    }
-}
-
 
 ADD_SCM_INIT_FUNC (scoreelt, init_functions);
 IMPLEMENT_TYPE_P (Grob, "ly-grob?");
+
+ADD_INTERFACE (Grob, "grob-interface",
+  "All grobs support this",
+  "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause
+Y-extent-callback molecule-callback font-relative-size extra-offset
+staff-symbol interfaces dependencies no-spacing-rods extra-extent-X causes
+layer extra-extent-Y minimum-extent-X minimum-extent-Y transparent");
+

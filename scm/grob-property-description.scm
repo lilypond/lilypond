@@ -69,19 +69,14 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'beam ly-grob? "pointer to the beam, if applicable.")
 (grob-property-description 'beam-thickness number? "thickness, measured in staffspace.")
 (grob-property-description 'beam-width number? "width of the tremolo sign.")
-(grob-property-description 'beamAuto boolean? "enable autobeaming?.")
 (grob-property-description 'beamed-lengths list? "list of stem lengths given beam multiplicity .")
 (grob-property-description 'beamed-minimum-lengths list? "list of minimum stem lengths given beam multiplicity.")
 (grob-property-description 'beamed-stem-shorten number? "shorten beamed stems in forced direction.")
 (grob-property-description 'beaming number-pair? "number of beams extending to left and right.")
-(grob-property-description 'beams list? "list of beam ptrs.")
 (grob-property-description 'beautiful number? "number that dictates when a slur should be de-uglyfied.  It correlates with the enclosed area between noteheads and slurs.  A value of 0.1 yields only undisturbed slurs, a value of 5 will tolerate quite high blown slurs.")
-(grob-property-description 'before-grace-spacing-factor number? " stretch space this much if there are grace notes before the column.")
 (grob-property-description 'before-line-breaking-callback procedure? "Procedure taking grob as argument.
 This procedure is called (using dependency resolution) before line breaking, but after generating discretionary items. Return value is ignored.")
-(grob-property-description 'before-musical-spacing-factor number? "space before musical columns (eg. taken by accidentals) get this much
-stretched when they follow a musical column, in absence of grace
-notes.  0.0 means no extra space (accidentals are ignored).")
+(grob-property-description 'between-cols pair? "Where to attach a loose column to")
 (grob-property-description 'between-system-string string? "string
  to dump between two systems. Useful for forcing pagebreaks.")
 (grob-property-description 'bounded-by-me list? "list of spanners that have this
@@ -104,9 +99,7 @@ square of the inner notes involved.")
 (grob-property-description 'bar-line-collapse-height number? "Minimum height of system start delimiter bar-line glyphs.  If equal or smaller, the bar-line is removed.")
 (grob-property-description 'brace-collapse-height number? "Minimum height of system start delimiter brace glyphs.  If equal or smaller, the brace is removed.")
 (grob-property-description 'bracket-collapse-height number? "Minimum height of system start delimiter bracket glyphs.  If equal or smaller, the bracket is removed.")
-(grob-property-description 'column-space-strength number? "relative strength of space following breakable columns (eg. prefatory matter).")
 (grob-property-description 'columns list? "list of grobs, typically containing paper-columns, list of note-columns.")
-(grob-property-description 'contains-grace boolean? "Used to widen entries for grace notes.")
 (grob-property-description 'control-points list? "List of 4 offsets (number-pairs) that form control points for the  tie/slur shape.")
 (grob-property-description 'damping integer? "amount of beam slope damping should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams .")
 (grob-property-description 'dash-length number? "the length of a dash.")
@@ -134,13 +127,12 @@ mean centre distance weighted per note
 @end table
 
 ")
-(grob-property-description 'dir-list list? "list of stem directions, needed for optical spacing correction.")
 (grob-property-description 'direction dir? "up or down, left or right?.")
 (grob-property-description 'direction-source ly-grob? "in case side-relative-direction is set, which grob  to get the direction from .")
 (grob-property-description 'dot ly-grob? "reference to Dots object.")
 (grob-property-description 'dot-count integer? "number of dots.")
 (grob-property-description 'duration-log integer? "2-log of the notehead duration, i.e. 0=whole note, 1 = half note, etc.")
-(grob-property-description 'dy number? "set by beam: vertical travel height")
+
 (grob-property-description 'edge-height pair? "a cons that specifies the heights of the vertical edges '(LEFT-height . RIGHT-height).")
 (grob-property-description 'edge-width pair? "a cons that specifies the widths of the slanted edges '(LEFT-width . RIGHT-width).")
 (grob-property-description 'edge-text pair? "a cons that specifies the texts to be set at the edges '(LEFT-text . RIGHT-text).")
@@ -199,7 +191,6 @@ FIXME: in Tie this is a pair of grob pointers, pointing to the two heads of the 
 .")
 (grob-property-description 'height number? "in staffspace.")
 (grob-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting. This is used by @ref{note-collision-interface}.")
-(grob-property-description 'horizontal-space number? "amount of space to add after a note (in staff-space).")
 (grob-property-description 'ideal-distances list? "(OBJ . (DIST . STRENGTH)) pairs.")
 (grob-property-description 'interfaces list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
 (grob-property-description 'inversion list? " musical-pitch, optional.")
@@ -213,6 +204,9 @@ For barline, space after a thick line.")
 (grob-property-description 'layer number? "The output layer [0..2].  The default is 1.")
 
 (grob-property-description 'left-padding number? "space left of accs.")
+(grob-property-description 'right-head ly-grob? "")
+(grob-property-description 'left-head ly-grob? "")
+
 (grob-property-description 'left-widen boolean? "Whether the left edge of a piano pedal bracket should be widened by the first element of edge-width.")
 
 (grob-property-description 'length number? "Stem length for unbeamed stems, only for user override.")
@@ -223,10 +217,8 @@ use @code{\outputproperty}. @code{\property .. \override} will not
 work: @code{\override} is processed after the StaffSymbol is created,
 and will have no effect.
 ")
-(grob-property-description 'line-thickness number? "the thickness[stafflinethickness] of the line.")
 (grob-property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name.")
 (grob-property-description 'magnify number? "the magnification factor.  FIXME: doesn't work for feta fonts.")
-(grob-property-description 'maximum-duration-for-spacing moment? "space as if a duration of this type is available in this measure.")
 (grob-property-description 'maximum-length number? "don't make Grob longer than this")
 (grob-property-description 'maximum-rest-count integer? "kill off rests so we don't more than this number left.")
 (grob-property-description 'measure-count integer? "number of measures for a multimeasure rest.")
@@ -263,13 +255,7 @@ FIXME: also pair? (cons LEFT RIGHT)
 (grob-property-description 'note-heads list? "List of note head grobs")
 (grob-property-description 'number-gap number? "size of the gap for tohe number in a tuplet.")
 (grob-property-description 'old-accidentals list? "list of (pitch, accidental) pairs.")
-(grob-property-description 'origin ly-input-location? "location in input file of the definition.")
-(grob-property-description 'outer-stem-length-limit number? "catch
-suspect beam slopes, set slope to zero if outer stem is lengthened
-more than this (in staffspace).")
-
 (grob-property-description 'padding number? "add this much extra space between objects that are next to each other.")
-(grob-property-description 'parallel-beam boolean? "internal: true if there is a beam just as wide as the bracket .")
 (grob-property-description 'paren-cautionaries boolean? "Whether to add parenthesis around cautionary accidentals.")
 (grob-property-description 'pedal-type symbol? "Style of piano pedal: text, bracket or mixed.")
 (grob-property-description 'penalty number? "Penalty for breaking at
@@ -278,7 +264,6 @@ means force linebreak.  Other values influence linebreaking decisions
 as a real penalty.")
 
 (grob-property-description 'pitches list? "list of musical-pitch.")
-(grob-property-description 'porrectus-width number? "width of the porrectus ligature measured in staff space.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
 (grob-property-description 'right-padding number? "space right of accs.")
@@ -309,7 +294,6 @@ TODO: revise typing.")
 spacing tuples: format = (SYMBOL . (TYPE . DISTANCE)), where TYPE can be
 minimum-space or extra-space.")
 
-(grob-property-description 'space-factor number? "Scale horizontal spacing up by this amount.")
 (grob-property-description 'spacing-procedure procedure? "procedure
 taking grob as argument. This is called after
 before-line-breaking-callback, but before the actual line breaking
@@ -324,16 +308,11 @@ itself.  Return value is ignored.")
 does the stem attach to the notehead? Function takes a symbol argument
 being the style. It returns a (X . Y) pair, specifying location in
 terms of note head bounding box.")
-(grob-property-description 'stem-direction dir? "up or down?.
-
-[docme: why not direction]
-")
 (grob-property-description 'stem-end-position number? "Where does the stem end (the end is opposite to the support-head.")
-(grob-property-description 'stem-length number? "length of stem.")
+
 (grob-property-description 'stem-shorten list? "shorten stems in forced directions given flag multiplicity.")
 (grob-property-description 'stem-spacing-correction number? "optical correction amount.  [TODO: doco] ")
 (grob-property-description 'stems list? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
-(grob-property-description 'stretch-distance number-pair? "pair of distances.")
 (grob-property-description 'style symbol? "a string determining what style of  glyph is typeset. Valid choices depend on the function that is reading this property. .")
 (grob-property-description 'support-head ly-grob? "the note head at
 one end of the stem.")
@@ -421,11 +400,10 @@ Like @code{tuplet-bracket-visibility}, but for the number.")
 (grob-property-description 'ignore-length-mismatch boolean? "if #t, stanzas with shorter lyrics can be moved away from their respective note-head by the lyric alignment code.")
 (grob-property-description 'begin-alignment number? "proportion of lyric length from beginning to align with note-head for left-aligned lyrics.")
 (grob-property-description 'end-alignment number? "proportion of lyric length from end to align with note-head for right-aligned lyrics.")
+(grob-property-description 'width number? "width of a grob measured in staff space.")
 (grob-property-description 'x-gap number? "horizontal gap between notehead and tie.")
 (grob-property-description 'y-free number? "minimal vertical gap between slur and noteheads or stems.")
 (grob-property-description 'y-offset number? "extra vertical offset for ties away from the center line.")
-(grob-property-description 'y number? "set by beam: position of left edge.")
-
 
 ;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;; INTERNAL
@@ -454,7 +432,7 @@ columns.
 (grob-property-description 'accidentals-grob ly-grob? "accidentals for this note.")
 
 (grob-property-description 'causes list? "list of cause objects.")
-(grob-property-description 'tremolo-flags number? "")
+(grob-property-description 'flag-count number? "")
 (grob-property-description 'chord-tremolo boolean? "if set, this beam is a tremolo. TODO: use interface for this!")
 (grob-property-description 'chord pair? "?")
 (grob-property-description 'begin-of-line-visible boolean? "?")

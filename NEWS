@@ -5,10 +5,12 @@ New features in 1.5
 
 * Figured bass support
 
-* Improved grace notes
+* Improved beam formatting.
+
+* Improved grace notes.
 
 * Better spacing.
 
 * More ancient notation support.
 
-* Some entry optimizations
+* Some entry optimizations.

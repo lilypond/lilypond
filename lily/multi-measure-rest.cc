@@ -21,13 +21,6 @@
 #include "text-item.hh"
 #include "percent-repeat-item.hh"
 
-
-void
-Multi_measure_rest::set_interface (Grob*me)
-{
-  me->set_interface (ly_symbol2scm ("multi-measure-rest-interface"));
-}
-
 bool
 Multi_measure_rest::has_interface (Grob*me)
 {
@@ -273,3 +266,13 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+
+
+ADD_INTERFACE (Multi_measure_rest,"multi-measure-rest-interface",
+  "A rest that spans a whole number of measures.  For typesetting the
+numbers, fields from font-interface may be used.
+
+padding is the space between number and rest. Measured in staffspace.
+
+",
+  "columns measure-count expand-limit minimum-width padding");
