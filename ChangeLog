@@ -1,5 +1,7 @@
 2004-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* po/nl.po: Spelling fixes.
+
 	* autogen.sh (srcdir): Regenerate.
 
 	* stepmake/autogen.sh (srcdir): Copy SUSE fix to the master
@@ -20,6 +22,10 @@
 	* flower/warn.cc (non_fatal_error, warning, programming_error):
 	Remove whitespace from translated string.
 
+2004-03-31  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* VERSION: release 2.1.37.
+
 2004-03-31  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* configure.in: check for C language.
@@ -29,7 +35,7 @@
 	* scm/documentation-generate.scm (string-append): use name without
 	.texi.
 
-	* autogen.sh (srcdir): suse fix.
+	* autogen.sh (srcdir): SUSE fix.
 
 	* Documentation/user/notation.itely (Ancient clefs): idem.
 
