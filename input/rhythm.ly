@@ -3,7 +3,7 @@
 %
 % add any impressive examples here, please
 
-\version "0.0.56";
+\version "0.0.57";
 
 ritme = \staff {
 	melodicregs
@@ -12,7 +12,7 @@ ritme = \staff {
 	\meter  4/4;
 	c8					|
 	
-	[a8() a8. a8 a16 a16 a16] c4.		|	% watch the beams!
+	[a8~  a8. a8 a16 a16 a16] c4.		|	% watch the beams!
 	 r32 r32 r16 r8 r4 r2			|
 	\meter   5/16;
 
