@@ -3,6 +3,19 @@
 #include "molecule.hh"
 #include "pcol.hh"
 
+void
+Item::postprocess()
+{
+    // default: do nothing
+}
+
+
+void
+Item::preprocess()
+{
+    // default: do nothing
+}
+
 String
 Item::TeXstring() const
 {
