@@ -12,8 +12,14 @@
   mutopiaopus = "BWV847"
   style = "baroque"
   copyright = "Public Domain"
-  tagline =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!"
   maintainer = "hanwen@cs.uu.nl"
+  mutopiapublicdomain = "\\parbox{\\hsize}{\\thefooter\\quad\\small
+    \\\\This music is part of the Mutopia project,
+    \\texttt{http://www.mutopiaproject.org/}\\\\It has been typeset
+    and placed in the public domain by " + \maintainer +
+    ".\\\\Unrestricted modification and redistribution is permitted
+    and encouraged---copy this music and share it.}"
+  tagline = \mutopiapublicdomain
   lastupdated = "2000/Feb/14"
 }
 
@@ -170,6 +176,7 @@ bassdux =  \context Voice=three \notes \relative c' {
 \score {
  
     \notes \context PianoStaff < 
+        \property Score.TimeSignature \override #'style = #'C
 	\context Staff = treble <
 	    \key c \minor
 %	\key es \major
@@ -185,11 +192,6 @@ bassdux =  \context Voice=three \notes \relative c' {
 
     \paper {
         linewidth = 18.0 \cm
-	\translator{ \OrchestralScoreContext
-	 timeSignatureStyle \override #'style = #"C"
-
-	}
-	
     }
     \header{
 	opus = "BWV 847"

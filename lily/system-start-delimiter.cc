@@ -138,25 +138,17 @@ System_start_delimiter::brew_molecule (SCM smob)
 }
 
 Molecule
-System_start_delimiter::staff_brace (Grob*me,Real y)  
+System_start_delimiter::staff_brace (Grob*me, Real y)
 {
-
-  /*
-    FIXME:
-    * should look at afm/tfm file for dimensions.
-     (This breaks ascii-art output: it hasn't got 255 symbols)
-    
-    * more glyphs (or maybe just better sized (fixed # of staff-spaces)),
-      the size mismatches with the staffs are very ugly
-         
-   */
-
-  // ugrhn
-  int lo = 0;
-  int hi = 255;
-  
   Font_metric *fm = Font_interface::get_default_font (me);
   Box b;
+  int lo = 0;
+  int hi = 255; //arg, urg == 0: fm->count () >? 2;
+
+  int big = 1;
+  SCM bigger = gh_list (me->mutable_property_alist_,
+			me->immutable_property_alist_,
+			SCM_UNDEFINED);
 
   /* do a binary search for each Y, not very efficient, but passable?  */
   do
@@ -165,9 +157,35 @@ System_start_delimiter::staff_brace (Grob*me,Real y)
 
     b = fm->get_char (cmp);
     if (b[Y_AXIS].empty_b () || b[Y_AXIS].length () > y)
-      hi = cmp;
+      {
+	  hi = cmp;
+      }
     else
-      lo = cmp;
+      {
+	/*
+	  ugh: 7
+	  We have four fonts: feta-braces0-3.mf
+	  
+	  In the style-sheet, all paper relative sizes need to start
+	  looking at the feta-braces0 font.
+
+	  The smallest paper size, feta11 or -3, has to make 5 steps
+	  to get to feta26 or +2.  Only after that, from +3 to +5 are
+	  the real bigger sizes, so worst case we need 8 steps to get
+	  to the font we need. */
+	if (big < 8)
+	  {
+	    bigger = gh_cons (gh_cons (ly_symbol2scm ("font-relative-size"),
+				       gh_int2scm (big++)),
+			      bigger);
+	    me->set_grob_property ("font", bigger);
+	    fm = Font_interface::get_default_font (me); 
+	    lo = 0;
+	    hi = 255; //fm->count () >? 2;
+	  }
+	else
+	  lo = cmp;
+      }
     }
   while (hi - lo > 1);
 

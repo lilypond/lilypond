@@ -79,6 +79,12 @@ Tex_font_metric::find_ascii (int ascii, bool warn) const
   return &dummy_static_char_metric;  
 }
 
+int
+Tex_font_metric::count () const
+{
+  return ascii_to_metric_idx_.size ();
+}
+
 Box
 Tex_font_metric::get_char (int a) const
 {

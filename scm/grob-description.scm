@@ -275,6 +275,7 @@
 		(thickness . 1.0)
 		(height . 0.4)
 		(minimum-length .  0.5) 
+		(maximum-length .  100)
 		(molecule-callback . ,Hyphen_spanner::brew_molecule)
 		(Y-extent-callback . ,Grob::point_dimension_callback)
 		(meta . ,(grob-description "LyricHyphen" lyric-hyphen-interface ))

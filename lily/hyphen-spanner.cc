@@ -48,7 +48,10 @@ Hyphen_spanner::brew_molecule (SCM smob)
   Real lt = sp->paper_l ()->get_var ("stafflinethickness");
   Real th = gh_scm2double (sp->get_grob_property ("thickness")) * lt ;
   Real h = gh_scm2double (sp->get_grob_property ("height"));
+
+  // interval?
   Real l = gh_scm2double (sp->get_grob_property ("minimum-length"));  
+  Real x = gh_scm2double (sp->get_grob_property ("maximum-length"));
   // The hyphen can exist in the word space of the left lyric ...
   SCM space =  sp->get_bound (LEFT)->get_grob_property ("word-space");
   if (gh_number_p (space))
@@ -56,10 +59,16 @@ Hyphen_spanner::brew_molecule (SCM smob)
       bounds[LEFT] -=  gh_scm2double (space);
     }
   Real w  = bounds.length ();
+
+  
   /* for length, use a geometric mean of the available space and some minimum
-  */
+   */
   if (l < w)
-    l = sqrt (l*w);
+    {
+      l = sqrt (l*w);
+      if (l > x)
+	l = x;
+    }
   else
     {
       /* OK, we have a problem. Usually this means that we're on the

@@ -1184,17 +1184,21 @@ for opt in options:
 # sys.stdout.flush ()
 
 # handy emacs testing
+# if not files:
+# 	files = ['template.mup']
+
 if not files:
-	files = ['template.mup']
-
+	files = ['-']
+	
 for f in files:
-	if f == '-':
-		f = ''
 
-	if f and not os.path.isfile (f):
+	if f == '-':
+		h = sys.stdin
+	elif f and not os.path.isfile (f):
 		f = strip_extension (f, '.mup') + '.mup'
+		h = open (f)
 	progress ( _("Processing %s..." % f))
-	raw_lines = open (f).readlines ()
+	raw_lines = h.readlines ()
 	p = Pre_processor (raw_lines)
 	if only_pre_process_p:
 		if not output:
@@ -1205,7 +1209,13 @@ for f in files:
 			output = os.path.basename (re.sub ('(?i).mup$', '.ly', f))
 		if output == f:
 			output = os.path.basename (f + '.ly')
-		
+			
+	if f == '-':
+		output = '-'
+		out_h = sys.stdout
+	else:
+		out_h = open (output, 'w')
+
 	progress (_ ("Writing %s...") % output)
 
 	tag = '%% Lily was here -- automatically converted by %s from %s' % ( program_name, f)
@@ -1215,9 +1225,8 @@ for f in files:
 	else:
 		ly = tag + '\n\n' + e.dump ()
 
-	o = open (output, 'w')
-	o.write (ly)
-	o.close ()
+	out_h.write (ly)
+	out_h.close ()
 	if debug_p:
 		print (ly)
 	
