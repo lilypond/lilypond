@@ -1,5 +1,5 @@
 /* 
-  ledger-line-engraver.cc --  implement Ledger_line_engraver =
+  ledger-line-engraver.cc -- implement Ledger_line_engraver
   
   source file of the GNU LilyPond music typesetter
   

@@ -1,12 +1,10 @@
 /*   
+  bar-check-iterator.cc -- implement Bar_check_iterator
 
-     bar-check-iterator.cc -- implement Bar_check_iterator
+  source file of the GNU LilyPond music typesetter
 
-     source file of the GNU LilyPond music typesetter
-
-     (c) 2001--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
-
- */
+  (c) 2001--2005  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
 
 #include "simple-music-iterator.hh"
 #include "event.hh"

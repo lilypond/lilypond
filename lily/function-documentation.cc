@@ -1,5 +1,5 @@
 /*   
-  function-documentation.cc -- 
+  function-documentation.cc -- Scheme doc strings.
 
   source file of the GNU LilyPond music typesetter
 

@@ -1,3 +1,11 @@
+/*
+  book-scheme.cc -- implement Book bindings
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2004--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+*/
+
 #include "book.hh"
 #include "output-def.hh"
 #include "score.hh"

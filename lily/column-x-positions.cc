@@ -1,5 +1,5 @@
 /*
-  colhpos.cc -- implement Column_x_positions
+  column-x-positions.cc -- implement Column_x_positions
 
   source file of the GNU LilyPond music typesetter
 

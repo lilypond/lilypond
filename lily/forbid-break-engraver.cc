@@ -1,3 +1,11 @@
+/*
+  forbid-break-engraver.cc -- implement Forbid_line_break_engraver
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2002--_2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+*/
 #include "rhythmic-head.hh"
 #include "grob.hh"
 #include "score-engraver.hh"

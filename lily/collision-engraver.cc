@@ -1,5 +1,5 @@
 /*
-  collision-reg.cc -- implement Collision_engraver
+  collision-engraver.cc -- implement Collision_engraver
 
   source file of the GNU LilyPond music typesetter
 

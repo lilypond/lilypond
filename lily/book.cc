@@ -6,10 +6,10 @@
   (c) 1997--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "book.hh"
 
 #include <cstdio>
 
+#include "book.hh"
 #include "lilypond-key.hh"
 #include "global-context.hh"
 #include "main.hh"

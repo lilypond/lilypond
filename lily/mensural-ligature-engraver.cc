@@ -8,7 +8,6 @@
  */
 
 #include "coherent-ligature-engraver.hh"
-
 #include "mensural-ligature.hh"
 #include "event.hh"
 #include "warn.hh"

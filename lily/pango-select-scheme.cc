@@ -1,3 +1,12 @@
+/*
+  pango-select-scheme.cc --  implement Pango descr <-> string bindings
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2005 Han-Wen Nienhuys <hanwen@xs4all.nl>
+
+*/
+
 #include "config.hh"
 
 #if HAVE_PANGO_FT2
