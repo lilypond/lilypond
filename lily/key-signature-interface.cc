@@ -17,7 +17,7 @@
 #include "lookup.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
-
+#include "accidental-interface.hh"
 
 struct Key_signature_interface
 {
@@ -99,7 +99,7 @@ Key_signature_interface::brew_molecule (SCM smob)
   Grob*me =unsmob_grob (smob);
 
   Real inter = Staff_symbol_referencer::staff_space (me)/2.0;
-  
+
   SCM scm_style = me->get_grob_property ("style");
   String style;
   if (gh_symbol_p (scm_style))
@@ -115,25 +115,34 @@ Key_signature_interface::brew_molecule (SCM smob)
   Molecule mol;
 
   SCM c0s = me->get_grob_property ("c0-position");
-  int c0p=0;
+  int c0p = 0;
   if (gh_number_p (c0s))
-     c0p = gh_scm2int (c0s);
+    c0p = gh_scm2int (c0s);
 
   /*
     SCM lists are stacks, so we work from right to left, ending with
     the cancellation signature.
   */
 
+  Font_metric *fm = Font_interface::get_default_font (me);
   for (SCM s = newas; gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM what = ly_caar (s);
-      int alter = gh_scm2int (ly_cdar (s));
-      int pos = alteration_pos (what, alter, c0p);
-      
-      Molecule m = Font_interface::get_default_font (me)->
-	  find_by_name (String ("accidentals-") + style + to_string (alter));
-      m.translate_axis (pos * inter, Y_AXIS);
-      mol.add_at_edge (X_AXIS, LEFT, m, 0);
+      int alteration = gh_scm2int (ly_cdar (s));
+      String font_char =
+	Accidental_interface::get_fontcharname (style, alteration);
+      Molecule acc (fm->find_by_name ("accidentals-" + font_char));
+
+      if (acc.empty_b())
+	{
+	  me->warning (_f ("accidental `%s' not found", font_char));
+	}
+      else
+	{
+	  SCM what = ly_caar (s);
+	  int pos = alteration_pos (what, alteration, c0p);
+	  acc.translate_axis (pos * inter, Y_AXIS);
+	  mol.add_at_edge (X_AXIS, LEFT, acc, 0);
+	}
     }
 
   Item *it = dynamic_cast<Item*> (me) ;
@@ -163,8 +172,8 @@ Key_signature_interface::brew_molecule (SCM smob)
 	      || ly_cdr (found) != ly_cdar (old))
 	    {
 	      SCM what = ly_caar (old);
-	      int alter = 0;
-	      int pos = alteration_pos (what, alter, c0p);
+	      int alteration = 0;
+	      int pos = alteration_pos (what, alteration, c0p);
 
 	      Molecule m = natural;
               m.translate_axis (pos* inter, Y_AXIS);

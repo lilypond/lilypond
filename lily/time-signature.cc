@@ -133,21 +133,20 @@ ADD_INTERFACE (Time_signature,"time-signature-interface",
         4/4 and 2/2 are typeset as C and struck C, respectively.  All
         other time signatures are written with two digits.
 
-      @item @code{old}
+      @item @code{neo_mensural}
         2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are
-        typeset with old-style mensuration marks.  All other time
+        typeset with neo-mensural style mensuration marks.  All other time
+        signatures are written with two digits.
+
+      @item @code{mensural}
+        2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are
+        typeset with mensural style mensuration marks.  All other time
         signatures are written with two digits.
 
       @item @code{1xxx}
         All time signatures are typeset with a single
         digit, e.g. 3/2 is written as 3. (Any symbol starting
 	with the digit @code{1} will do.)
-
-      @item @code{C}@var{M}@code{/}@var{N}, 
-@code{old}@var{M}@code{/}@var{N} or
-      @code{old6/8alt}
-        Tells LilyPond to use a specific symbol as time signature, 
-	regardless of the actual time signature.
     @end table
 
 See also the test-file @file{input/test/time.ly}.

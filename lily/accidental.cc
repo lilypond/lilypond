@@ -95,6 +95,57 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
   return boxes;
 }
 
+/*
+ * Some styles do not provide all flavours of accidentals, e.g. there
+ * is currently no sharp accidental in vaticana style.  In these cases
+ * this function falls back to one of the other styles.
+ */
+String
+Accidental_interface::get_fontcharname(String style, int alteration)
+{
+  if (style == "hufnagel")
+    switch (alteration)
+      {
+      case -2: return "-2";
+      case -1: return "hufnagel-1";
+      case 0: return "vaticana0";
+      case 1: return "mensural1";
+      case 2: return "2";
+      }
+  if (style == "medicaea")
+    switch (alteration)
+      {
+      case -2: return "-2";
+      case -1: return "medicaea-1";
+      case 0: return "vaticana0";
+      case 1: return "mensural1";
+      case 2: return "2";
+      }
+  if (style == "vaticana")
+    switch (alteration)
+      {
+      case -2: return "-2";
+      case -1: return "vaticana-1";
+      case 0: return "vaticana0";
+      case 1: return "mensural1";
+      case 2: return "2";
+      }
+  if (style == "mensural")
+    switch (alteration)
+      {
+      case -2: return "-2";
+      case -1: return "mensural-1";
+      case 0: return "vaticana0";
+      case 1: return "mensural1";
+      case 2: return "2";
+      }
+  if (style == "neo_mensural")
+    style = ""; // currently same as default
+  if (style == "default")
+    style = "";
+  return style + to_string (alteration);
+}
+
 MAKE_SCHEME_CALLBACK (Accidental_interface,brew_molecule,1);
 SCM
 Accidental_interface::brew_molecule (SCM smob)
@@ -102,7 +153,7 @@ Accidental_interface::brew_molecule (SCM smob)
   Grob *me = unsmob_grob (smob);
   bool smaller = false;
   bool parens = false;
-  
+
   bool caut  = to_boolean (me->get_grob_property ("cautionary"));
   if (caut)
     {
@@ -110,7 +161,7 @@ Accidental_interface::brew_molecule (SCM smob)
       parens = gh_equal_p (cstyle, ly_symbol2scm ("parentheses"));
       smaller = gh_equal_p (cstyle, ly_symbol2scm ("smaller"));
     }
-  
+
   SCM scm_style = me->get_grob_property ("style");
   String style;
   if (gh_symbol_p (scm_style))
@@ -121,10 +172,9 @@ Accidental_interface::brew_molecule (SCM smob)
     {
       /*
 	preferably no name for the default style.
-       */
+      */
       style = "";
     }
-
 
   Font_metric *fm = 0;
   if (smaller)
@@ -141,16 +191,20 @@ Accidental_interface::brew_molecule (SCM smob)
 
   Molecule mol;
   for (SCM s = me->get_grob_property ("accidentals");
-       gh_pair_p (s);  s= gh_cdr (s))
+       gh_pair_p (s); s = gh_cdr (s))
     {
-      SCM entry  = gh_car (s);
-      
-      
-      Molecule acc (fm->find_by_name (String ("accidentals-") +
-				      style +
-				      to_string (gh_scm2int(entry))));
-      
-      mol.add_at_edge (X_AXIS,  RIGHT, acc, 0.1);
+      int alteration = gh_scm2int (gh_car (s));
+      String font_char = get_fontcharname (style, alteration);
+      Molecule acc (fm->find_by_name ("accidentals-" + font_char));
+
+      if (acc.empty_b())
+	{
+	  me->warning (_f ("accidental `%s' not found", font_char));
+	}
+      else
+	{
+	  mol.add_at_edge (X_AXIS,  RIGHT, acc, 0.1);
+	}
     }
 
   if (parens)

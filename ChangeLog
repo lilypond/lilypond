@@ -1,3 +1,16 @@
+	
+2002-09-09  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* input/test/accid.ly: updated test file to show all available
+	accidentals styles
+
+	* lily/accidental.cc, lily/key-signature-interface.cc,
+	lily/include/accidental-interface.hh: added method
+        get_fontcharname() to provide proper fall-back cases for missing
+        accidentals; print warning if font char lookup fails
+
+        * lily/time-signature.cc: fixed documentation bug
+
 2002-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/musical-request.cc: do ADD_MUSIC for String_number_req.
@@ -27,7 +40,7 @@
 
 	* lily/include/music-iterator.hh (class Music_iterator): smobify
 	music-iterator; many changes throughout. They are now constructed
-	through procedures that return the smobbed iterator. 
+	through procedures that return to the smobbed iterator.
 
 	* lily/include/*.hh: all derived_mark() functions are now const.
 
@@ -77,6 +90,9 @@
 
         * Documentation/user/refman.itely: very minor corrections and
 	rephrasing of the reference manual -- revision up to line #400.
+
+	* Documentation/user/refman.itely: replaced all occurrence "staffs"
+	with "staves".
 
 2002-09-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 

@@ -352,7 +352,7 @@ of a chord is not supported in a simple way.  It can be achieved by
 moving the tie-engraver into the Thread context and turning on and off
 ties per Thread.
 
-Switching staffs when a tie is active will not work.
+Switching staves when a tie is active will not work.
 
 @node Automatic note splitting 
 @subsection Automatic note splitting
@@ -1014,8 +1014,8 @@ c4
 You are encouraged to use @code{\repeat} for repetitions.  See
 @ref{Repeats}.
 
-In scores with many staffs, the barlines are automatically placed at
-top level, and they are connected between different staffs of a
+In scores with many staves, the barlines are automatically placed at
+top level, and they are connected between different staves of a
 @internalsref{StaffGroup}:
 @lilypond[fragment, verbatim]
 < \context StaffGroup <
@@ -1235,7 +1235,7 @@ the object property @code{auto-knee-gap}.
 
 @refbugs
 
-Auto knee beams can not be used together with hara kiri staffs.
+Auto knee beams can not be used together with hara kiri staves.
 
 [TODO from bugs]
 
@@ -1973,7 +1973,7 @@ changes may appear halfway in between grace notes:
 @end lilypond
 
 The placement of these grace notes is synchronized between different
-staffs, using this grace timing.
+staves, using this grace timing.
 
 @lilypond[relative=2,verbatim,fragment] 
 < \context Staff = SA { e4 \grace { c16 d e f } e4 }
@@ -2024,7 +2024,7 @@ Grace notes can not be used in the smallest size (@file{paper11.ly}).
 
 Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
-care when you mix staffs with grace notes and staffs without.
+care when you mix staves with grace notes and staves without.
 
 @lilypond[relative=2,verbatim,fragment]
 < \context Staff = SA { e4 \bar "|:" \grace c16 d4 }
@@ -4324,13 +4324,13 @@ are chosen whenever the page gets full.
 @subsection Vertical spacing
 
 @cindex vertical spacing
-@cindex distance between staffs
+@cindex distance between staves
 @cindex staff distance
 @cindex between staves, distance
 
 The height of each system is determined automatically by lilypond, to
 keep systems from bumping into each other, some minimum distances are
-set.  By changing these, you can put staffs closer together, and thus
+set.  By changing these, you can put staves closer together, and thus
 put more  systems onto one page.
 
 Normally staves are stacked vertically. To make
@@ -4352,7 +4352,7 @@ Vertical aligment of staves is handled by the
 @internalsref{VerticalAlignment} object, which lives at
 @internalsref{Score} level.
 
-The piano staffs are handled a little differently: to make cross-staff
+The piano staves are handled a little differently: to make cross-staff
 beaming work correctly, it necessary that the distance between staves
 is fixed.  This is also done with a @internalsref{VerticalAlignment}
 object, created in @internalsref{PianoStaff}, but a forced distance is
@@ -4364,7 +4364,7 @@ want to override this, use a @code{\translator} block as follows:
     VerticalAlignment \override #'forced-distance = #9
   @}
 @end example
-This would bring the staffs together at a distance of 9 staff spaces,
+This would bring the staves together at a distance of 9 staff spaces,
 and again this is measured from the center line of each staff.
 
 
