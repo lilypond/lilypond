@@ -17,7 +17,7 @@
    
     */
 Array<Col_hpositions>
-Word_wrap::solve()
+Word_wrap::do_solve()const
 {
     problem_OK();
     iter_top(pscore_.cols,curcol);

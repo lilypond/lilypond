@@ -1,10 +1,18 @@
 Features you cannot find in the doco as working, should be mentioned here.
-
+	
 This is an assorted collection of stuff that will be done, might be
 done, or is an idea that I want to think about
 
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
+
+	* script for unified musicological source: 
+
+		blah blah latex
+		\begin{mudela} c4  d4 e4 f4 
+		\end{mudela}
+
+	* lyrics with chords broken
 
 	* Redo MIDI output to use Translators
 	- remember more horizontal info than melodics:
@@ -33,7 +41,7 @@ grep for TODO and ugh/ugr
 
 	* enter script priority
 
-	* a Hands on tutorial [HKN]
+	* a Hands on tutorial
 
 PROJECTS
 
@@ -41,7 +49,8 @@ PROJECTS
 	- adapt for multiple font sizes.
 	- make separate class for Grace_*_engravers 
 	(which is at Voice_gravs level)
-	- move stem, beam, slur into baseclass to adapt for (fixed size) grace notes.
+	- move stem, beam, slur into baseclass to adapt for (fixed
+	size) grace notes.
 
 	* accidentals per Voice_group
 
@@ -95,6 +104,7 @@ PROJECTS
 	- hack up mf sources for decent spacing info (and then 
 	read AFM/TFM directly, for text too)
 	- use MF to generate rules.
+	- rewrite : make a metafont iso font
 
 	* lines:
 	- Ledger lines, should be separate item: Ledger_lines, Ledger_lines
@@ -118,10 +128,6 @@ PROJECTS
 
 PARSER
 	* Duration -> Musical_duration, typedef Rational Duration?
-
-HKN buglist:
-
-tekst staat erg ver van notenbalken af
 
 BUGS
 
@@ -358,6 +364,5 @@ IDEAS
           (where "to" is a tiny bow)
 
 	* move towards incremental algorithms.
-
 
 	* design meta-language like TeX and Metafont

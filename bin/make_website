@@ -72,7 +72,7 @@ sub my_system
 
 local $base="lilypond/";
 local @examples=("multi", "wohltemperirt" ,"standchen", "toccata-fuga-E", 
-		 "scsii-menuetto", "collisions", "cadenza", "scales");
+		 "scsii-menuetto", "collisions", "cadenza", "scales", "book");
 
 # rhythm, scales, 
 
@@ -108,7 +108,7 @@ sub gen_examples
     foreach $a (@examples) {
 	$texfile="lelie";
 	$tex = "tex $texfile";
-	if ($a eq "standchen" || $a eq "scsii-menuetto" ) {
+	if ($a eq "standchen" || $a eq "scsii-menuetto" || $a eq "book" ) {
 	    $tex = "latex $a";
 	    $texfile = "$a";
 	}

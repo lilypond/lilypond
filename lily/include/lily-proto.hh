@@ -154,6 +154,7 @@ struct Slur;
 struct Slur_engraver;
 struct Slur_req;
 struct Spacing_req ;
+struct Spacing_problem;
 struct Span_dynamic_req;
 struct Span_req;
 struct Spanner;
