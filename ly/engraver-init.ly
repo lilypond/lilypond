@@ -491,15 +491,26 @@ AncientRemoveEmptyStaffContext = \context {
 	(6 . ,DOUBLE-FLAT) (2  . ,DOUBLE-FLAT) (5 . ,DOUBLE-FLAT ) (1  . ,DOUBLE-FLAT) (4  . ,DOUBLE-FLAT) (0  . ,DOUBLE-FLAT) (3 . ,DOUBLE-FLAT)
 	(3  . ,DOUBLE-SHARP) (0 . ,DOUBLE-SHARP) (4 . ,DOUBLE-SHARP) (2 . ,DOUBLE-SHARP) (5 . ,DOUBLE-SHARP) (2 . ,DOUBLE-SHARP) (6 . ,DOUBLE-SHARP)
     )
+
+    %{
+
+    this order is more complex, see wansek p254 and further.
+
+    for instance, order of clef and :|: depends on function of the clef
+
+    (clef of start-repeat) :|: (change-clef)
+
+    is the proper order.
+    
+    %}
     breakAlignOrder = #'(
     instrument-name
     left-edge
     ambitus
     breathing-sign
     clef
-    rehearsal-mark
-    staff-bar
     key-signature
+    staff-bar
     time-signature
     custos
     )

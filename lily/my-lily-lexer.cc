@@ -94,8 +94,6 @@ static Keyword_ent the_key_tab[]={
 
 My_lily_lexer::My_lily_lexer ()
 {
-  //  yy_flex_debug = 1;
-  
   keytable_ = new Keyword_table (the_key_tab);
 
   chordmodifier_tab_ = scm_make_vector (gh_int2scm (1), SCM_EOL);
@@ -163,7 +161,9 @@ My_lily_lexer::lookup_identifier (String s)
 
 void
 My_lily_lexer::start_main_input ()
-{  
+{
+  // yy_flex_debug = 1;
+
   new_input (main_input_name_, &global_input_file->sources_);
   /* Do not allow \include in --safe-mode */
   allow_includes_b_ = allow_includes_b_ && ! safe_global_b;

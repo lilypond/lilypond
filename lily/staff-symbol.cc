@@ -28,7 +28,8 @@ Staff_symbol::print (SCM smob)
   Grob * common
     = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   
-  Real width  = 0.0;
+  Interval span_points (0,0);
+  
 
   /*
     For raggedright without ragged staffs, simply set width to the linewidth.
@@ -37,30 +38,31 @@ Staff_symbol::print (SCM smob)
 
     --hwn.
    */
-  SCM width_scm = me->get_property ("width");
-  if (gh_number_p (width_scm))
+  Direction d = LEFT;
+  do
     {
+      SCM width_scm = me->get_property ("width");
+      if (d == RIGHT && gh_number_p (width_scm))
+	{
+	  /*
+	    don't multiply by Staff_symbol_referencer::staff_space (me),
+	    since that would make aligning staff symbols of different sizes to
+	    one right margin hell.
+	  */      
+	  span_points[RIGHT] = gh_scm2double (width_scm);
+	}
+      else
+	{
+	  Item * x = sp->get_bound (d);
 
-      /*
-	don't multiply by Staff_symbol_referencer::staff_space (me),
-	since that would make aligning staff symbols of different sizes to
-	one right margin hell.
-      */      
-      width = gh_scm2double (width_scm);
+	  if (x->break_status_dir ())
+	    span_points[d] = x->relative_coordinate (common , X_AXIS);
+	  else
+	    span_points[d] = x->extent (common, X_AXIS)[d];
+	}
     }
-  else
-    {
-      width = sp->get_bound (RIGHT)->relative_coordinate (common , X_AXIS);
-    }
+  while (flip (&d) !=LEFT);
 
-  // respect indentation, if any
-  width -= sp->get_bound (LEFT)->relative_coordinate (common, X_AXIS);
-
-  if (width < 0)
-    {
-      warning (_f ("staff symbol: indentation yields beyond end of line"));
-      width = 0;
-    }
 
   Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   t *= robust_scm2double (me->get_property ("thickness"), 1.0);
@@ -68,16 +70,18 @@ Staff_symbol::print (SCM smob)
   int l = Staff_symbol::line_count (me);
   
   Real height = (l-1) * staff_space (me) /2;
+  Stencil a =
+    Lookup::horizontal_line (span_points
+			     -me->relative_coordinate (common, X_AXIS),
+			     t);
+
   Stencil m;
   for (int i=0; i < l; i++)
     {
-      Stencil a =
-	Lookup::horizontal_line (Interval (0,width), t);
-
-      a.translate_axis (height - i * staff_space (me), Y_AXIS);
-      m.add_stencil (a);
+      Stencil b(a);
+      b.translate_axis (height - i * staff_space (me), Y_AXIS);
+      m.add_stencil (b);
     }
-
   return m.smobbed_copy ();
 }
 

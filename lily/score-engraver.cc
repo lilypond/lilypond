@@ -179,13 +179,13 @@ Score_engraver::typeset_all ()
 	  do {
 	    if (!s->get_bound (d))
 	      {
-		s->set_bound (d, command_column_);
+		Grob * cc
+		  = unsmob_grob (get_property ("currentCommandColumn"));
+		s->set_bound (d, cc);
 		/* don't warn for empty/suicided spanners,
 		   it makes real warningsinvisible.
 		   maybe should be junked earlier? */
-		if (!elem->live ())
-		  ; // gdb hook
-		else
+		if (elem->live ())
 		  elem->warning (_f ("unbound spanner `%s'", s->name ().to_str0 ()));
 	      }
 	  }
