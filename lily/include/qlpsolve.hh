@@ -9,7 +9,7 @@
 
 #ifndef QLPSOLVE_HH
 #define QLPSOLVE_HH
-#include "qlp.hh"
+
 #include "matrix.hh"
 
 
