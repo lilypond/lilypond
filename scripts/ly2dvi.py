@@ -1,4 +1,5 @@
 #!@PYTHON@
+
 # Run lilypond, latex, dvips.
 #
 # This is the third incarnation of ly2dvi.
@@ -14,7 +15,7 @@
 # TODO: should allow to switch off pk cache.
 #
 
-
+#
 # Note: gettext work best if we use ' for docstrings and "
 #       for gettextable strings.
 #       --> DO NOT USE """ for docstrings.
@@ -110,7 +111,11 @@ def progress (s):
 
 def warning (s):
 	progress (_ ("warning: ") + s)
-		
+
+def user_error (s, e=1):
+	errorport.write (program_name + ":" + _ ("error: ") + s + '\n')
+	sys.exit (e)
+	
 def error (s):
 
 
@@ -780,7 +785,7 @@ original_output = output_name
 
 
 if files and files[0] != '-':
-
+	
 	# Ugh, maybe make a setup () function
 	files = map (lambda x: strip_extension (x, '.ly'), files)
 
@@ -802,6 +807,10 @@ if files and files[0] != '-':
 		outbase = strip_extension (outbase, i)
 	files = map (abspath, files)
 
+	for i in files[:] + [output_name]:
+		if string.find (i, ' ') >= 0:
+			user_error (_ ("filename should not contain spaces: `%s'") % i)
+			
 	if os.path.dirname (output_name) != '.':
 		dep_prefix = os.path.dirname (output_name)
 	else:
@@ -889,8 +898,7 @@ if files and files[0] != '-':
 else:
 	# FIXME: read from stdin when files[0] = '-'
 	help ()
-	errorport.write (program_name + ":" + _ ("error: ") + _ ("no files specified on command line.") + '\n')
-	sys.exit (2)
+	user_error (_ ("no files specified on command line."), 2)
 
 
 
