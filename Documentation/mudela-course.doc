@@ -21,26 +21,21 @@
 
 \section{Who is who}
 
-This document describes two different things
+This document describes various  things, but let's first point out the
+different parts of the package, and their names.
 \begin{description}
 \item[Mudela] A language for defining music.
-  
 \item[LilyPond] A package (the only one existing :-) which can 
   read a mudela file and interpret it. 
-  
-  The name ``LilyPond'' does not have much to do with the purpose of
-  the package, but we have a special emotional attachment with the
-  name.  (Of course we are not telling why we chose it; this is an
-  excercise for the reader, most of the vital clues are contained in
-  the documentation and the source code.  If you have guess, then let
-  me know)
+\item[Feta] A (Meta)Font of musical symbols.  LilyPond uses it to
+  render sheet music.
 \end{description}
 
 \section{Overview}
 
-
-Let's start with a very simple example, we will enter ``twinkle twinkle
-little star.''  We start with the most important part: the notes.
+Let's start with a very simple example, we will enter ``twinkle
+twinkle little star.''  We start with the most important part: the
+notes.
 
 Imagine being in a music-lesson, and that you made an error playing
 ``twinkle twinkle''.  Your teacher asks you to read out loud the
