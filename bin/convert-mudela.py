@@ -1,52 +1,7 @@
-#!@PERL@ -w
+#!@PYTHON@ -w
 # -*-perl-*-
 
-=head1 TODO
-
-    detect \lyrics and \melodic, and do substitution accordingly.
-    count <> and {} ?
-
-Ugh . Perl sux. Anybody for Python?
-    
-=cut    
-
-
-
-#
-# version of "supporting" engine, not mudela conversions.
-# 
-
-
-
-
-$convert_mudela_version = "0.1.2";
-
-use Getopt::Long;
-
-
-sub version_compare
-{
-    local ($a,$b)=@_;
-    return &cmpver;
-}
-    
-
-sub  cmpver 
-{ 	
-	my(@a)= split /\./,$a;
-	my(@b)= split /\./,$b;
-
-	for $i (0,1,2) {
-	    return $a[$i] <=> $b[$i] if ($a[$i] != $b[$i]);
-	}
-	return $a cmp $b;
-}
-
-sub version_string_conv
-{
-    my ($from_version, $to_version) = @_;
-    s/\version \"$from_version\"/\version \"$to_version\"/g;
-}
+version = "0.2";
 
 ################################################################
 
@@ -336,7 +291,7 @@ sub do_one_arg
 identify;
 
 
-GetOptions ("help", "output=s", "from=s", "to=s", "minor=i", "edit", "show-rules");
+GetOptions ("help", "output=s", "from=i", "to=i", "minor=i", "edit", "show-rules");
 
 if ($opt_help) {
     usage();
