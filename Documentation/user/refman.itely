@@ -805,7 +805,7 @@ such as keys, clefs and time signatures.
 @cindex Staff notation
 
 @menu
-* Staff symbol::
+* Staff symbol::                
 * Key signature::               
 * Clef::                        
 * Time signature::              
@@ -3754,7 +3754,7 @@ output.
 
 @menu
 * Ancient note heads::          
-* Ancient clefs::               
+* Ancient clefs ::              
 * Custodes::                    
 * Ligatures::                   
 * Figured bass::                
@@ -4240,8 +4240,8 @@ affecting a whole set of objects.  Second, you can select one specific
 object, and set a object property in that object.
 
 @menu
-* Tuning groups of objects ::     
-* Tuning per object ::            
+* Tuning groups of objects ::   
+* Tuning per object ::          
 * Font selection::              
 * Text markup::                 
 @end menu
