@@ -37,14 +37,16 @@ Clef_item::Clef_item()
 void
 Clef_item::read (String t)
 {
-  type_= t;
-  if (type_ == "violin")
+  symbol_= t;
+  if (t == "violin")
     y_position_i_ = -2;
-  if (type_ == "alto")
+  if (t == "alto")
     y_position_i_ = 0;
-  if (type_ == "tenor")
+  if (t == "tenor") {
+    symbol_="alto";
     y_position_i_ = 2;
-  if (type_ == "bass")
+  }
+  if (t == "bass")
     y_position_i_ = 2;
 }
 void
@@ -56,7 +58,7 @@ Clef_item::read (Clef_engraver const &k)
 Molecule*
 Clef_item::brew_molecule_p() const
 {
-  String t = type_;
+  String t = symbol_;
   if  (change_b_)
     t += "_change";
   Atom s = paper()->lookup_l ()->clef (t);

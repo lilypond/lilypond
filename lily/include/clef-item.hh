@@ -17,7 +17,7 @@ protected:
     Molecule* brew_molecule_p() const;
 public:
     
-    String type_;
+    String symbol_;
     int y_position_i_;
 
     /// is this a change clef (smaller size)?
