@@ -104,8 +104,8 @@ Copyright 1999--2004 by the authors
 @ignore
 We do not use refs for Info:
 
-   @w{@ar{}\word\}@c vs:
-   @w{@ar{}@pxref{\word\}}@c
+   @w{@arrow{}\word\}@c vs:
+   @w{@arrow{}@pxref{\word\}}@c
 
 they look too intrusive (says Han-Wen).
 @end ignore
@@ -117,10 +117,10 @@ they look too intrusive (says Han-Wen).
 @w{@arrow{}@strong{\word\}}@c
 @end iftex
 @ifhtml
-@ar{}@ref{\word\, @strong{\word\}}@c
+@arrow{}@ref{\word\, @strong{\word\}}@c
 @end ifhtml 
 @ifinfo
-@w{@ar{}\word\}@c
+@w{@arrow{}\word\}@c
 @end ifinfo
 @end macro
 
