@@ -18,9 +18,6 @@
 ;;; Look lilypond-init.el or Documentation/topdocs/INSTALL.texi
 ;;; for installing instructions.
 
-(load-library "lilypond-font-lock")
-(load-library "lilypond-indent")
-
 (require 'easymenu)
 (require 'compile)
 
@@ -59,6 +56,62 @@ Finds file lilypond-words from load-path."
       (if (not (file-readable-p fn)) 
 	  (progn (setq fn nil) (setq lp (cdr lp)))))
     fn))
+
+(defun LilyPond-add-dictionary-word (x)
+  "Contains all words: keywords, identifiers, reserved words."
+  (nconc '(("" . 1)) x))
+
+; creates dictionary if empty
+(if (eq (length (LilyPond-add-dictionary-word ())) 1)
+    (progn
+      (setq fn (LilyPond-words-filename))
+      (setq b (find-file-noselect fn t t))
+      (setq m (set-marker (make-marker) 1 (get-buffer b)))
+      (setq i 1)
+      (while (> (buffer-size b) (marker-position m))
+	(setq i (+ i 1))
+	(setq copy (copy-alist (list (eval (symbol-name (read m))))))
+	(setcdr copy i)
+	(LilyPond-add-dictionary-word (list copy)))
+      (kill-buffer b)))
+
+(defconst LilyPond-keywords 
+  (let ((wordlist ())
+	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
+    (progn
+      (while (> (length co) 0)
+	(if (> (length (car co)) 1)
+	    (if (and (string-equal "\\" (substring (car co) 0 1))
+		     (string-equal (downcase (car co)) (car co)))
+		(add-to-list 'wordlist (car co))))
+	(setq co (cdr co)))
+      wordlist))
+  "LilyPond \\keywords")
+
+(defconst LilyPond-identifiers 
+  (let ((wordlist ())
+	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
+    (progn
+      (while (> (length co) 0)
+	(if (> (length (car co)) 1)
+	    (if (and (string-equal "\\" (substring (car co) 0 1))
+		     (not (string-equal (downcase (car co)) (car co))))
+		(add-to-list 'wordlist (car co))))
+	(setq co (cdr co)))
+      wordlist))
+  "LilyPond \\Identifiers")
+
+(defconst LilyPond-reserved-words 
+  (let ((wordlist ())
+	(co (all-completions "" (LilyPond-add-dictionary-word ()))))
+    (progn
+      (while (> (length co) 0)
+	(if (> (length (car co)) 0)
+	    (if (not (string-equal "\\" (substring (car co) 0 1)))
+		(add-to-list 'wordlist (car co))))
+	(setq co (cdr co)))
+      wordlist))
+  "LilyPond ReservedWords")
 
 (defun LilyPond-check-files (derived originals extensions)
   "Check that DERIVED is newer than any of the ORIGINALS.
@@ -639,22 +692,6 @@ command."
 (defun LilyPond-autocompletion ()
   "Show completions in mini-buffer for the given word."
   (interactive)
-  (defun add-dictionary-word (x)
-    (nconc '(("" . 1)) x))
-  ; creates dictionary if empty
-  (if (eq (length (add-dictionary-word ())) 1)
-    (progn
-      (setq fn (LilyPond-words-filename))
-      (setq b (find-file-noselect fn t t))
-      (setq m (set-marker (make-marker) 1 (get-buffer b)))
-      (setq i 1)
-      (while (> (buffer-size b) (marker-position m))
-	(setq i (+ i 1))
-	(setq copy (copy-alist (list (eval (symbol-name (read m))))))
-	(setcdr copy i)
-	(add-dictionary-word (list copy))
-	)
-      (kill-buffer b)))
 
   ; search the begin of word
   (setq beg "")
@@ -681,7 +718,7 @@ command."
   ; insert try-completion and show all-completions
   (if (> i 0)
       (progn
-	(setq tryc (try-completion beg (add-dictionary-word ())))
+	(setq tryc (try-completion beg (LilyPond-add-dictionary-word ())))
 	(if (char-or-string-p tryc)
 	    (if (string-equal (concat beg end) tryc)
 		(goto-char (+ (point) (length end)))
@@ -693,7 +730,7 @@ command."
 	    (font-lock-fontify-buffer)))
 	
 	(setq others "")
-	(setq co (all-completions beg (add-dictionary-word ())))
+	(setq co (all-completions beg (LilyPond-add-dictionary-word ())))
 	(while (> (length co) 0)
 	  (setq others (concat others "\"" (car co) "\" "))
 	  (setq co (cdr co)))
@@ -917,6 +954,9 @@ LilyPond-xdvi-command\t\tcommand to display dvi files -- bit superfluous"
   "Echo the current version of `LilyPond-mode' in the minibuffer."
   (interactive)
   (message "Using `LilyPond-mode' version %s" LilyPond-version))
+
+(load-library "lilypond-font-lock")
+(load-library "lilypond-indent")
 
 (provide 'lilypond-mode)
 ;;; lilypond-mode.el ends here

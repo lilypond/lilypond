@@ -322,7 +322,8 @@ and for the profiling version, I specify a different configuration.
 
 An Emacs mode for entering music and running LilyPond is contained in
 the source archive as @file{lilypond-mode.el},
-@file{lilypond-indent.el} and @file{lilypond-font-lock.el}. 
+@file{lilypond-indent.el}, @file{lilypond-font-lock.el} and 
+@file{lilypond.words}.
 You should install these files to a directory included in your 
 @var{load-path}. File @file{lilypond-init.el} should be placed to 
 @var{load-path}@file{/site-start.d/} or appended to your @file{~/.emacs}
