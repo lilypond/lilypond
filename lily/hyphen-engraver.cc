@@ -106,7 +106,10 @@ Hyphen_engraver::finalize ()
       completize_hyphen (finished_hyphen_);
 
       if (!finished_hyphen_->get_bound (RIGHT))
-	  finished_hyphen_->warning (_("unterminated hyphen"));
+	{
+	  finished_hyphen_->warning (_("unterminated hyphen; removing"));
+	  finished_hyphen_->suicide ();
+	}
       typeset_grob (finished_hyphen_);
       finished_hyphen_ =0;
     }
