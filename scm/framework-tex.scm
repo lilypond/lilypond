@@ -21,7 +21,7 @@
   (define formats (ly:output-formats))
   (set! formats (completize-formats formats))
   (if (member "ps" formats)
-      (set! formats (cons "dvi" formats))) 
+      (set! formats (cons "dvi" formats)))
   (if (member "dvi" formats)
       (set! formats (cons "tex" formats)))
 
@@ -330,17 +330,16 @@
 				 "-u+lm.map " "")
 			     (if (ly:kpathsea-find-file "ecrm10.pfa")
 				 "-u+ec-mftrace.map " "")
-			     "-u+lilypond.map -Ppdf " ""
-			     "-o" ps-name
+			     "-u+lilypond.map -Ppdf " " "
+			     "-o" ps-name " "
 			     base)))
     (if (access? ps-name W_OK)
-	(delete-file ps-name)))
+	(delete-file ps-name))
     (if (not (ly:get-option 'verbose))
-	(begin
-	  (format (current-error-port) (_ "Converting to `~a'...")
-		  (string-append base ".dvi"))
-	  (newline (current-error-port))))
-    (ly:system cmd))
+	(format (current-error-port)
+		(_ "Converting to `~a.dvi'...\n")
+		base))
+    (ly:system cmd)))
 
 (define-public (convert-to-dvi book name)
   (let* ((curr-extra-mem

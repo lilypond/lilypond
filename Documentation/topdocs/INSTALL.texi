@@ -101,9 +101,8 @@ Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf},
 (1.0.6 is known to work).  If you are installing binary packages, you
 may need to install tetex-devel, tetex-dev or libkpathsea-dev too.
 
-@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.7 or newer).
 
-@item kpathsea, a library for searching (@TeX{}) files.
+@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.7 or newer).
 
 @item
  @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 3.1 or
@@ -117,11 +116,15 @@ newer).  EGCS and 2.x are known to cause crashes.
 newer, but not 1.50 or 1.75).
 
 @item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}.
+
+@item All packages necessary for running, including  headers.  
+
 @end itemize
 
 @subsection Running requirements
 
-Running LilyPond requires proper installation of the following software
+Running LilyPond requires proper installation of the following
+software
 
 @itemize @bullet
 

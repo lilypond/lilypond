@@ -1,3 +1,8 @@
+2005-03-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* Documentation/topdocs/INSTALL.texi (Top): add running
+	requirement as compilation requirement.
+
 2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* buildscripts/mutopia-index.py (headertext): add h1 header and
