@@ -18,7 +18,7 @@ Property_iterator::Property_iterator (Translation_property *prop_l)
 void
 Property_iterator::process_and_next (Moment m)
 {
-  if (property_l_->var_str_)
+  if (property_l_->var_str_.length_i ())
     report_to_l ()->set_property (property_l_->var_str_, property_l_->value_);
   Music_iterator::process_and_next (m);
 }

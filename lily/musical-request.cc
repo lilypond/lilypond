@@ -451,7 +451,7 @@ String
 Absolute_dynamic_req::loudness_str () const
 {
   String s = loudness_static_str (loudness_);
-  if (!s)
+  if (s.empty_b ())
     {
       s = "mf";
       warning (String ("Never heard of dynamic scale ") 

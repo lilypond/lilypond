@@ -23,7 +23,7 @@ void
 Tex_outputter::output_molecule (Molecule const*m, Offset o)
 {
   String t = m->TeX_string();
-  if (!t)
+  if (t.empty_b ())
     return ;
 
   String s ("\\placebox{%}{%}{%}");

@@ -34,7 +34,7 @@ Simple_file_storage::Simple_file_storage(String s)
     let's hope that "b" opens anything binary, and does not apply 
     CR/LF translation
     */
-  FILE * f =  (s) ?  fopen (s.ch_C(), "rb") : stdin;
+  FILE * f =  (s.length_i ()) ?  fopen (s.ch_C(), "rb") : stdin;
   
   if (!f) 
     {

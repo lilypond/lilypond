@@ -126,6 +126,7 @@ Line_of_score::get_extra_dependencies () const
 void
 Line_of_score::do_unlink () 
 {
+  Spanner::do_unlink ();
   for (int i=0; i < cols.size (); i++)
     cols[i]->line_l_ =0;
   cols.set_size (0);

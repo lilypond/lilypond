@@ -79,7 +79,7 @@ My_lily_lexer::My_lily_lexer()
 int
 My_lily_lexer::lookup_keyword (String s)
 {
-  return keytable_p_->lookup (s);
+  return keytable_p_->lookup (s.ch_C ());
 }
 
 Identifier*

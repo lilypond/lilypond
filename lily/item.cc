@@ -145,6 +145,8 @@ Item::do_junk_links()
 void
 Item::do_unlink()
 {
+  Link_array<Spanner> attached = attached_span_l_arr_;
+
   for (int i=0; i < attached_span_l_arr_.size (); i++) {
     Spanner *&s= attached_span_l_arr_[i];
     if (s->spanned_drul_[LEFT] == this)

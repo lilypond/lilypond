@@ -66,7 +66,7 @@ Translator_group::removable_b() const
 Translator_group * 
 Translator_group::find_existing_translator_l (String n, String id)
 {
-  if (is_alias_b (n) && (id_str_ == id || !id)) 
+  if (is_alias_b (n) && (id_str_ == id || id.empty_b ())) 
     return this;
   Translator_group* r = 0;
   for (int i =0; !r && i < group_l_arr ().size(); i++) 
@@ -290,7 +290,7 @@ Translator_group::do_print() const
     }
   else
     {
-      if (id_str_)
+      if (id_str_.length_i ())
 	DOUT << "ID: " << id_str_ ;
       DOUT << " iterators: " << iterator_count_<< "\n";
     }

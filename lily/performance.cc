@@ -114,7 +114,7 @@ Performance::process()
   print ();
   
   String out=midi_l_->outfile_str_;
-  if (!out)
+  if (out.empty_b ())
     out = default_out_str_ + ".midi";
 
   Midi_stream midi_stream (out);

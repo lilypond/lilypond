@@ -68,9 +68,9 @@ Span_bar::do_pre_processing()
     }
   else 
     {
-      if (!type_str_)
+      if (type_str_.empty_b ())
 	type_str_ = spanning_l_arr_[0]->type_str_;
-      if (!type_str_) 
+      if (type_str_.empty_b ()) 
 	{
 	  transparent_b_=true;
 	  set_empty (true);

@@ -12,7 +12,7 @@ Text_stream::Text_stream (String fn)
 	else 
 	    {
 	    name = fn;	    
-	    f = fopen (fn, "r");
+	    f = fopen (fn.ch_C (), "r");
 	      }
 	
 	if (!f) 

@@ -73,7 +73,7 @@ Timing_translator::do_process_requests()
 	{
 	  Moment m = tr_l->partial()->duration_;
 	  String error = time_.try_set_partial_str (m);
-	  if (error) 
+	  if (error.length_i ()) 
 	    {
 	      tr_l->warning (error);
 	    }
