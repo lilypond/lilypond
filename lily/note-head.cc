@@ -303,7 +303,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 
   result = (a == X_AXIS) ? ly_car (result) : ly_cdr (result);
   
-  return gh_number_p (result) ?  gh_scm2double (result) : 0.0;
+  return robust_scm2double (result,0);
 }
 
 int

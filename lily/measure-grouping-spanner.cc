@@ -25,7 +25,7 @@ Measure_grouping::brew_molecule (SCM grob)
   SCM thick = me->get_grob_property ("thickness");
   SCM height = me->get_grob_property ("height");
 
-  Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) *   gh_scm2double (thick); 
+  Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) * gh_scm2double (thick); 
   Grob *common = me->get_bound(LEFT)->common_refpoint (me->get_bound (RIGHT),
 						       X_AXIS);
 
@@ -39,7 +39,11 @@ Measure_grouping::brew_molecule (SCM grob)
 
   Interval iv (0,w);
 
-  Molecule m; 
+  Molecule m;
+
+  /*
+    TODO: use line interface
+   */
   if (which == ly_symbol2scm ("bracket"))
     {
       m = Lookup::bracket (X_AXIS, iv, t,-gh_scm2double (height), t);

@@ -52,9 +52,7 @@ Dynamic_performer::create_audio_elements ()
 	  svolume = gh_call1 (proc, script_req_->get_mus_property ("text"));
 	}
 
-      Real volume = 0.5; 
-      if (gh_number_p (svolume))
-	volume = gh_scm2double (svolume);
+      Real volume = robust_scm2double (svolume, 0.5); 
 
       /*
 	properties override default equaliser setting
@@ -90,11 +88,9 @@ Dynamic_performer::create_audio_elements ()
 	      s = gh_call1 (eq, s);
 	    }
 
-	  if (gh_pair_p (s))
+	  if (is_number_pair (s))
 	    {
-	      Interval iv;
-	      iv[MIN] = gh_scm2double (ly_car (s));
-	      iv[MAX] = gh_scm2double (ly_cdr (s));
+	      Interval iv = ly_scm2interval (s);
 	      volume = iv[MIN] + iv.length () * volume;
 	    }
 	}

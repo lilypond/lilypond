@@ -56,13 +56,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
   if (!stacking_dir)
     stacking_dir = DOWN;
 
-  SCM force = me->get_grob_property ("forced-distance");
-
-  Real dy = 0.0;
-  if (gh_number_p (force))
-    {
-      dy = gh_scm2double (force);
-    }
+  Real dy = robust_scm2double (me->get_grob_property ("forced-distance"),0.0);
   
   Link_array<Grob> elems
     = Pointer_group_interface__extract_grobs (me, (Grob*) 0, "elements");
@@ -134,14 +128,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   if (!stacking_dir)
     stacking_dir = DOWN;
   
-  Interval threshold = Interval (0, Interval::infinity ());
-  SCM thr = me->get_grob_property ("threshold");
-  if (gh_pair_p (thr))
-    {
-      threshold[SMALLER] = gh_scm2double (ly_car (thr));
-      threshold[BIGGER] = gh_scm2double (ly_cdr (thr));      
-    }
-
+  Interval threshold  = robust_scm2interval ( me->get_grob_property ("threshold"), Interval (0, Interval::infinity ()));
   
   Array<Interval> dims;
 

@@ -64,14 +64,8 @@ Staff_symbol_referencer::get_position (Grob*me)
 
       p += 2.0 * y / Staff_symbol::staff_space (st);
     }
-  else
-    {
-      SCM pos = me->get_grob_property ("staff-position");
-      if (gh_number_p (pos))
-	return gh_scm2double (pos);
-    }
-  
-  return  p;
+
+  return robust_scm2double ( me->get_grob_property ("staff-position"), p);
 }
 
 

@@ -164,7 +164,7 @@ void
 Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational shortest)
 {
   Link_array<Grob> newcols;
-  Real increment = gh_scm2double (me->get_grob_property ("spacing-increment"));
+  Real increment = robust_scm2double (me->get_grob_property ("spacing-increment"), 1.2);
   for (int i=0; i < cols->size ();  i++)
     {
       if (Item::breakable_b (cols->elem(i)) || Paper_column::musical_b (cols->elem (i)))
@@ -508,7 +508,7 @@ void
 Spacing_spanner::do_measure (Rational shortest, Grob*me, Link_array<Grob> *cols) 
 {
 
-  Real headwid =       gh_scm2double (me->get_grob_property ("spacing-increment"));
+  Real headwid = robust_scm2double (me->get_grob_property ("spacing-increment"), 1);
   for (int i= 0; i < cols->size () - 1; i++)
     {
       Item * l = dynamic_cast<Item*> (cols->elem (i));
@@ -695,7 +695,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
       if (dt)
 	mlen = *dt;
       
-      Real incr = gh_scm2double (me->get_grob_property ("spacing-increment"));
+      Real incr = robust_scm2double (me->get_grob_property ("spacing-increment"), 1);
 
       *space =  *fixed + incr * double (mlen.main_part_ / shortest.main_part_) * 0.8;
     }
@@ -812,8 +812,8 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
 Real
 Spacing_spanner::get_duration_space (Grob*me, Moment d, Rational shortest, bool * expand_only) 
 {
-  Real k = gh_scm2double (me->get_grob_property ("shortest-duration-space"));
-  Real incr = gh_scm2double (me->get_grob_property ("spacing-increment"));
+  Real k = robust_scm2double (me->get_grob_property ("shortest-duration-space"), 1);
+  Real incr = robust_scm2double (me->get_grob_property ("spacing-increment"), 1);
   
   if (d < shortest)
     {
@@ -928,10 +928,8 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
       */
       dist = get_duration_space (me, shortest, shortest.main_part_, expand_only);
 
-      Real grace_fact = 1.0;
-      SCM gf = me->get_grob_property ("grace-space-factor");
-      if (gh_number_p (gf))
-	grace_fact = gh_scm2double (gf);
+      Real grace_fact
+	= robust_scm2double (me->get_grob_property ("grace-space-factor"), 1);
 
       dist *= grace_fact;
     }

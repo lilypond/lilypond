@@ -130,7 +130,7 @@ Tie::get_control_points (SCM smob)
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
-  Real x_gap_f = gh_scm2double (me->get_grob_property ("x-gap"));
+  Real x_gap_f = robust_scm2double (me->get_grob_property ("x-gap"), 0);
 
   Grob* l = me->get_bound (LEFT);
   Grob* r = me->get_bound (RIGHT);  

@@ -343,17 +343,13 @@ void
 Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 						  Array<Grob_info> primitives)
 {
-  SCM thickness_scm = ligature->get_grob_property ("thickness");
-  Real thickness = (thickness_scm != SCM_EOL) ?
-    gh_scm2double (thickness_scm) : 1.4;
+  Real thickness = robust_scm2double (ligature->get_grob_property ("thickness"), 1.4);
   thickness *= ligature->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 
   Real head_width =
     Font_interface::get_default_font (ligature)->
     find_by_name ("noteheads--1mensural").extent (X_AXIS).length ();
-  SCM flexa_width_scm = ligature->get_grob_property ("flexa-width");
-  Real flexa_width = (flexa_width_scm != SCM_EOL) ?
-    gh_scm2double (flexa_width_scm) : 2.0;
+    Real flexa_width = robust_scm2double (ligature->get_grob_property ("flexa-width"), 2);
   flexa_width *= Staff_symbol_referencer::staff_space (ligature);
 
   Real half_flexa_width = 0.5 * (flexa_width + thickness);

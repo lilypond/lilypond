@@ -177,15 +177,11 @@ Grob::preset_extent (SCM element_smob, SCM scm_axis)
   SCM ext = s->get_grob_property ((a == X_AXIS)
 				 ? "X-extent"
 				 : "Y-extent");
-  
-  if (gh_pair_p (ext))
-    {
-      Real l = gh_scm2double (ly_car (ext));
-      Real r = gh_scm2double (ly_cdr (ext));
-      return ly_interval2scm (Interval (l, r));
-    }
-  
-  return ly_interval2scm (Interval ());
+
+  if (is_number_pair (ext))
+    return ext;
+  else
+    return ly_interval2scm (Interval());
 }
 
 

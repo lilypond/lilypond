@@ -43,13 +43,13 @@ Hyphen_spanner::brew_molecule (SCM smob)
   while (flip (&d) != LEFT);
   
   Real lt = sp->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  Real th = gh_scm2double (sp->get_grob_property ("thickness")) * lt ;
-  Real h = gh_scm2double (sp->get_grob_property ("height"));
+  Real th = robust_scm2double (sp->get_grob_property ("thickness"), 1) * lt ;
+  Real h = robust_scm2double (sp->get_grob_property ("height"), 0.5);
 
   // interval?
   
-  Real dp = gh_scm2double (sp->get_grob_property ("dash-period"));
-  Real dl = gh_scm2double (sp->get_grob_property ("length"));
+  Real dp = robust_scm2double (sp->get_grob_property ("dash-period"), 1.0);
+  Real dl = robust_scm2double (sp->get_grob_property ("length"), .5 );
 
   if (dp < dl)
     dp = 1.5 * dl;

@@ -63,7 +63,7 @@ Molecule
 System_start_delimiter::simple_bar (Grob*me,Real h) 
 {
   Real lt =me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) ;
-  Real w = lt * gh_scm2double (me->get_grob_property ("thickness"));
+  Real w = lt * robust_scm2double (me->get_grob_property ("thickness"), 1);
   return Lookup::round_filled_box (Box (Interval (0,w), Interval (-h/2, h/2)),
 				   lt);
 }
@@ -112,7 +112,6 @@ System_start_delimiter::brew_molecule (SCM smob)
   if (!gh_string_p (s))
     return SCM_EOL;
   SCM gsym = scm_string_to_symbol (s) ;
-  SCM c = me->get_grob_property ("collapse-height");
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Interval ext = ly_scm2interval (Axis_group_interface::group_extent_callback
@@ -120,7 +119,7 @@ System_start_delimiter::brew_molecule (SCM smob)
   Real l = ext.length () / staff_space;
   
   if (ext.is_empty ()
-      || (gh_number_p (c) && l <= gh_scm2double (c)))
+      || (robust_scm2double (me->get_grob_property ("collapse-height"), 0.0) >= l))
     {
       me->suicide ();
       return SCM_EOL;

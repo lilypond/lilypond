@@ -92,18 +92,7 @@ vaticana_brew_flexa (Grob *me,
       me->warning (_ ("ascending vaticana style flexa"));
     }
 
-  Real width;
-  SCM flexa_width_scm = me->get_grob_property ("flexa-width");
-  if (flexa_width_scm != SCM_EOL)
-    {
-      width = gh_scm2double (flexa_width_scm);
-    }
-  else
-    {
-      me->warning ("Vaticana_ligature: "
-		   "flexa-width undefined; assuming 2.0");
-      width = 2.0 * staff_space;
-    }
+  Real width = robust_scm2double ( me->get_grob_property ("flexa-width"), 2);
 
   /*
    * Compensate curve thickness that appears to be smaller in steep
@@ -238,19 +227,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 
   Molecule out;
   int flexa_height = 0;
-  Real thickness;
-
-  SCM thickness_scm = me->get_grob_property ("thickness");
-  if (thickness_scm != SCM_EOL)
-    {
-      thickness = gh_scm2double (thickness_scm);
-    }
-  else
-    {
-      me->programming_error ("Vaticana_ligature: "
-			     "thickness undefined; assuming 1.0");
-      thickness = 1.0;
-    }
+  Real thickness = robust_scm2double ( me->get_grob_property ("thickness"), 1);
 
   Real line_thickness =
     thickness * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
@@ -267,17 +244,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
   else
     delta_pitch = 0;
 
-  Real x_offset = 0.0;
-  SCM x_offset_scm = me->get_grob_property ("x-offset");
-  if (x_offset_scm != SCM_EOL)
-    {
-      x_offset = gh_scm2double (x_offset_scm);
-    }
-  else
-    {
-      me->programming_error ("Vaticana_ligature: "
-			     "x-offset undefined; assuming 0.0");
-    }
+  Real x_offset = robust_scm2double ( me->get_grob_property ("x-offset"), 0);
 
   bool add_stem = to_boolean (me->get_grob_property ("add-stem"));
   bool add_cauda = to_boolean (me->get_grob_property ("add-cauda"));
@@ -293,18 +260,7 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
        * flexa_width.)
        */
       Real staff_space = Staff_symbol_referencer::staff_space (me);
-      Real flexa_width;
-      SCM flexa_width_scm = me->get_grob_property ("flexa-width");
-      if (flexa_width_scm != SCM_EOL)
-	{
-	  flexa_width = gh_scm2double (flexa_width_scm);
-	}
-      else
-	{
-	  me->warning ("Vaticana_ligature: "
-		       "flexa-width undefined; assuming 2.0");
-	  flexa_width = 2.0 * staff_space;
-	}
+      Real flexa_width  = robust_scm2double ( me->get_grob_property ("flexa-width"), 2);
       out =
 	Lookup::blank (Box (Interval (0, 0.5*flexa_width), Interval (0,0)));
     }

@@ -172,18 +172,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	  delta_pitch = 0;
 	}
 
-      SCM flexa_width_scm = me->get_grob_property ("flexa-width");
-      if (flexa_width_scm != SCM_EOL)
-	{
-	  flexa_width = gh_scm2double (flexa_width_scm);
-	}
-      else
-	{
-	  programming_error (_f ("Mensural_ligature:"
-				 "flexa-width undefined on flexa %d; assuming 2.0",
-				 primitive));
-	  flexa_width = 2.0 * staff_space;
-	}
+      flexa_width = robust_scm2double (me->get_grob_property ("flexa-width"), 2.0 * staff_space);
     }
 
   switch (primitive)

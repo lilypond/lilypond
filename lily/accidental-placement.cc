@@ -121,7 +121,7 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
 
   if (!extent.is_empty ())
     {
-      Real p = gh_scm2double (me->get_grob_property ("left-padding"));
+      Real p = robust_scm2double (me->get_grob_property ("left-padding"), 0.2);
       extent[LEFT] -= p;
     }
   
@@ -380,15 +380,10 @@ Accidental_placement::position_accidentals (Grob * me)
   head_ape-> left_skyline_ = head_skyline;
   head_ape->offset_ = 0.0;
 
-  SCM rs = me->get_grob_property ("right-padding");
-  if (gh_number_p (rs))
-    head_ape->offset_ -= gh_scm2double (rs);
+  head_ape->offset_ -= robust_scm2double ( me->get_grob_property ("right-padding"), 0);
 
   
-  Real padding = 0.2;
-  SCM spad = me->get_grob_property ("padding");
-  if (gh_number_p (spad))
-    padding = gh_scm2double (spad);
+  Real padding = robust_scm2double (me->get_grob_property ("padding"),0.2);
 
   Array<Skyline_entry> left_skyline = head_ape->left_skyline_;
   /*
@@ -431,9 +426,8 @@ Accidental_placement::position_accidentals (Grob * me)
   for (int i = ape->extents_.size(); i--;)
     right_extent.unite (ape->offset_  + ape->extents_[i][X_AXIS]);
 
-  SCM ls = me->get_grob_property ("left-padding");
-  if (gh_number_p (rs))
-    left_extent[LEFT] -= gh_scm2double (ls);
+  
+  left_extent[LEFT] -= robust_scm2double (me->get_grob_property ("left-padding"), 0);
 
   
   Interval width(left_extent[LEFT], right_extent[RIGHT]);

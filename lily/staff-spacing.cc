@@ -78,7 +78,7 @@ Staff_spacing::next_note_correction (Grob * me,
 
 	    Real corr = abs (stem_posns.length ()/7.) <? 1.0;
 	    corr *=
-	      gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
+	      robust_scm2double (me->get_grob_property ("stem-spacing-correction"), 1);
 
 	    if (d != DOWN)
 	      corr = 0.0;
@@ -106,7 +106,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
 	{
 	  SCM sz = Bar_line::get_staff_bar_size (bar_grob->self_scm());
 	  bar_size = Interval (-1,1);
-	  bar_size *= gh_scm2double (sz)
+	  bar_size *= robust_scm2double (sz, 1)
 	    / Staff_symbol_referencer::staff_space (bar_grob);
 	}
     }

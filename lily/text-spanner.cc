@@ -40,10 +40,7 @@ Text_spanner::brew_molecule (SCM smob)
   Spanner *spanner = dynamic_cast<Spanner*> (me);
   
   /* Ugh, must be same as Hairpin::brew_molecule.  */
-  Real padding = 0.0;
-  SCM itp= me->get_grob_property ("if-text-padding");
-  if (gh_number_p (itp))
-    padding = gh_scm2double (itp);
+  Real padding = robust_scm2double ( me->get_grob_property ("if-text-padding"), 0);
 
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
   Paper_def * paper = me->get_paper();
@@ -116,7 +113,7 @@ Text_spanner::brew_molecule (SCM smob)
 	    continue;
 	  
 	  Real dx = 0.0;
-	  if (gh_pair_p (flare))
+	  if (is_number_pair (flare))
 	    dx = gh_scm2double (index_get_cell (flare, d)) * d;
 
 	  Real dy = - dir * edge_height[d] ;
