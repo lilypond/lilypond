@@ -184,7 +184,7 @@ include           { BEGIN(incl); }
 	mtor << "parens\n";
 	return YYText()[0];
 }
-[:=]		{
+[*:=]		{
 	char c = YYText()[0];
 	mtor << "misc char" <<c<<"\n";
 	return c;
