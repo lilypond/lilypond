@@ -7,7 +7,9 @@
 
 
 
-(define-module (scm ps)
+(define-module
+  (scm ps)
+
   )
 
 (define font-name-alist  '())

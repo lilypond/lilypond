@@ -1,3 +1,8 @@
+2002-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/music-functions.scm (music-separator?): don't use name music
+	property.
+
 2002-09-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/new-accidental-engraver.cc: Compile fix.
