@@ -16,19 +16,18 @@
 #include "dimensions.hh"
 
 FT_Byte *
-load_table (char const *tag_str, FT_Face face)
+load_table (char const *tag_str, FT_Face face, FT_ULong *length)
 {
-  FT_ULong length = 0;
   FT_ULong tag = FT_MAKE_TAG(tag_str[0], tag_str[1], tag_str[2], tag_str[3]);
   
-  int error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, &length);
+  int error_code = FT_Load_Sfnt_Table (face, tag, 0, NULL, length);
   if (!error_code)
     {
-      FT_Byte*buffer = (FT_Byte*) malloc (length);
+      FT_Byte*buffer = (FT_Byte*) malloc (*length);
       if (buffer == NULL)
 	error ("Not enough memory");
 
-      error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, &length );
+      error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length );
       if (error_code)
 	{
 	  error (_f ("Could not load %s font table", tag_str));
@@ -58,11 +57,12 @@ Open_type_font::make_otf (String str)
     }
 
 
-  FT_Byte* buffer =load_table ("LILC", otf->face_);
+  FT_ULong length = 0;
+  FT_Byte* buffer =load_table ("LILC", otf->face_, &length);
   if (buffer)
     {
-      String contents ((char const*)buffer);
-      contents = "(quote " +  contents + ")";
+      String contents ((Byte const*)buffer, length);
+      contents = "(quote (" +  contents + "))";
 
       SCM alist = scm_c_eval_string (contents.to_str0());
       otf->lily_character_table_ = alist_to_hashq (alist);
