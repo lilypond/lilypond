@@ -609,8 +609,8 @@ any sort of property supported by @internalsref{font-interface} and
 
 (def-markup-command (box paper props arg) (markup?)
   "Draw a box round @var{arg}.  Looks at @code{thickness} and
-@code{box-padding} to determine line thickness and padding around the
-markup."
+@code{box-padding} properties to determine line thickness and padding
+around the markup."
   (let ((th (chain-assoc-get 'thickness props  0.1))
         (pad (chain-assoc-get 'box-padding props 0.2))
         (m (interpret-markup paper props arg)))

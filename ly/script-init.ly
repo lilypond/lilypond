@@ -1,6 +1,8 @@
 \version "2.3.16"
 
 
+% code char abbreviations
+%
 dashHat= "marcato"
 dashPlus= "stopped"
 dashDash= "tenuto"
