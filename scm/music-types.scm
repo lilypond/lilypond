@@ -15,6 +15,13 @@ where x is one of \@\{\\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.\@\}")
 	(internal-class-name . "Event")
 	(types . (general-music event dynamic-event absolute-dynamic-event))
 	))
+    (ApplyContext
+     . (
+	(description . "Call the argument with the current context during interpreting phase")
+	(internal-class-name . "Music")
+	(types . (general-music apply-context))
+	(iterator-ctor . ,Apply_context_iterator::constructor)
+	))
     (ArpeggioEvent 
      . (
 	(description .  "Make an arpeggio on this note. Syntax:
