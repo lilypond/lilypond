@@ -88,11 +88,9 @@ Stencil::translate (Offset o)
   Axis a = X_AXIS;
   while (a < NO_AXES)
     {
-      /* FIXME: 100CM should relate to paper size.  */
-      if (abs (o[a]) > 100 CM
-	  || isinf (o[a]) || isnan (o[a]))
+      if (isinf (o[a]) || isnan (o[a]))
 	{
-	  programming_error (String_convert::form_string ("Improbable offset for stencil: %f%s", o[a], INTERNAL_UNIT)
+	  programming_error (String_convert::form_string ("Improbable offset for stencil: %f staff space", o[a])
 			     + "\n"
 			     + "Setting to zero.");
 	  o[a] =  0.0;

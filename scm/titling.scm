@@ -11,6 +11,46 @@
 		(ly:output-def-lookup layout 'text-font-defaults))))
 
 ;;;;;;;;;;;;;;;;;;
+
+
+(define-public ((marked-up-title what) layout scopes)
+  "Read variables WHAT from SCOPES, and interpret it as markup. The
+PROPS argument will include variables set in SCOPES (prefixed with
+`header:'
+"
+  
+  (define (get sym)
+    (let ((x (ly:modules-lookup scopes sym)))
+      (if (markup? x) x #f)))
+
+  (let*
+      ((alists  (map ly:module->alist scopes))
+       (prefixed-alist
+	(map (lambda (alist)
+	       (map (lambda (entry)
+		      (cons
+		       (string->symbol
+			(string-append
+			 "header:"
+			 (symbol->string (car entry))))
+		       (cdr entry)
+		      ))
+		    alist))
+	     alists))
+       (props (append prefixed-alist
+		      (page-properties layout)))
+
+       (markup (get what))
+       )
+
+    (if (markup? markup)
+	(interpret-markup layout props markup)
+	(ly:make-stencil '() '(1 . -1) '(1 . -1)))
+  ))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; old
 					; titling.
 (define-public (default-book-title layout scopes)
   "Generate book title from header strings."

@@ -7,6 +7,10 @@
 @unnumbered New features in 2.5 since 2.4
 
 @itemize @bullet
+@item
+Layout for titles, page header and footer can now be entered as
+@code{\markup} commands.
+
 @item Positioning of slurs can now be adjusted manually
 
 @item Grace notes are correctly quoted and formatted when using cue notes.

@@ -7,10 +7,9 @@
 */
 
 #include "ly-module.hh"
-
+#include "warn.hh"
 #include "main.hh"
 #include "string.hh"
-#include "protected-scm.hh"
 
 #define FUNC_NAME __FUNCTION__
 
@@ -106,7 +105,15 @@ static SCM
 entry_to_alist (void *closure, SCM key, SCM val, SCM result)
 {
   (void) closure;
-  return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
+  if (scm_variable_bound_p  (val) == SCM_BOOL_T)
+    {
+      return scm_cons (scm_cons (key, scm_variable_ref (val)), result);
+    }
+  else
+    {
+      programming_error ("Unbound variable in module."); 
+      return result;
+    }
 }
 
 LY_DEFINE (ly_module2alist, "ly:module->alist",
@@ -141,11 +148,10 @@ LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
 {
   for (SCM s = modules; scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM mod = scm_car (s);      
-      SCM v = scm_sym2var (sym, scm_module_lookup_closure (mod),
-			   SCM_UNDEFINED);
-      if (SCM_VARIABLEP(v) && SCM_VARIABLE_REF(v) != SCM_UNDEFINED)
-	return SCM_VARIABLE_REF(v);
+      SCM mod = scm_car (s);
+      SCM v = ly_module_lookup (mod, sym);
+      if (SCM_VARIABLEP (v) && SCM_VARIABLE_REF (v) != SCM_UNDEFINED)
+	return scm_variable_ref(v);
     }
 
   if (def != SCM_UNDEFINED)

@@ -87,6 +87,16 @@ LY_DEFINE (ly_stencil_get_extent, "ly:stencil-extent",
 }
 
 
+LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
+	   1, 0, 0, (SCM stil),
+	   "Return whether @var{stil} is empty ")
+{
+  Stencil *s = unsmob_stencil (stil);
+  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
+  return scm_from_bool (s->is_empty ());
+}
+
+
 LY_DEFINE (ly_stencil_origin, "ly:stencil-origin",
 	   2, 0, 0, (SCM stil, SCM axis),
 	   "Return a pair of numbers signifying the origin @var{stil} in "
