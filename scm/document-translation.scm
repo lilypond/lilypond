@@ -143,11 +143,12 @@
 	 "Revert "
 	 "Set "
 	 )
-     "grob-property "
+     "grob-property @code{"
      (symbol->string (cadr body))
-     " in " (symbol->string sym)
+     "} in @ref{" (symbol->string sym)
+     "}"
      (if (not (null? (cddr body)))
-	 (string-append " to " (scm->texi (cadr (cdr body))))
+	 (string-append " to @code{" (scm->texi (cadr (cdr body))) "}" )
 	 )
     "\n"
      )
@@ -156,11 +157,11 @@
    ((equal? (object-property sym 'is-grob?) #t) "")
    ((equal? (car op) 'assign)
     (string-append
-     "@item Set translator property "
+     "@item Set translator property @code{"
      (symbol->string (car body))
-     " to "
+     "} to @code{"
      (scm->texi (cadr body))
-     "\n"
+     "}\n"
      )
      )
    )
