@@ -599,7 +599,7 @@ def global_latex_preamble (extra):
 	s = s + '\\documentclass[%s]{article}\n' % options
 
 	if extra['language']:
-		s = s + r'\usepackage[%s]{babel}\n' % extra['language'][-1]
+		s = s + r'\usepackage[%s]{babel}' % extra['language'][-1] + '\n'
 
 
 	s = s + '\\usepackage{%s}\n' \
