@@ -418,7 +418,8 @@
 	(breakable . #t)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Side_position_interface::aligned_on_support_refpoints))
-	;; huh? what's this for?
+	;; This direction is for aligned_on_support_refpoints
+	;; (?) --hwn
 	(direction . 0)
 	(space-alist . (
 			(left-edge . (extra-space . 1.0))
@@ -498,7 +499,6 @@
 	(font-family . roman)
 	(font-shape . upright)
 	
-	;; duh, side-position-interface?
 	(meta . ((interfaces . (rhythmic-grob-interface lyric-syllable-interface self-alignment-interface text-interface font-interface item-interface ))))
 	))
 
