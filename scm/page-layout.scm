@@ -337,7 +337,8 @@ is what have collected so far, and has ascending page numbers."
 		  springs rods space
 		  ragged?))
 
-	 (force (car result))
+	 (force (car (ly:solve-spring-rod-problem
+		      springs rods space #f)))
 	 (positions
 	  (map (lambda (y)
 		       (+ y topskip)) 
