@@ -9,24 +9,6 @@ Matrix::norm() const
     return sqrt(r);
 }
 
-//inline
-Real
-Matrix::operator()(int i,int j) const
-{
-    assert(i >= 0 && j >= 0);
-    assert(i < rows() && j < cols());
-    return dat->elem(i,j);
-}
-
-//inline
-Real &
-Matrix::operator()(int i, int j)
-{
-    assert(i >= 0 && j >= 0);
-    assert(i < rows() && j < cols());
-    return dat->elem(i,j);
-}
-
 void
 Matrix::fill(Real r)
 {
