@@ -325,6 +325,26 @@ Part_combine_music_iterator::process (Moment m)
   else if (state & (UNIRHYTHM | UNISILENCE))
     combine_b = true;
 
+  /*
+    When combining, abort all running spanners
+   */
+  if (combine_b && combine_b != previously_combined_b)
+    {
+#if 0
+      // Urg: Error in unknown function during GC: rogue pointer in heap
+      // Who deletes this 'pointer'?
+      Span_req abort;
+      abort.span_type_str_ = "abort";
+      if (second_iter_p_ && second_iter_p_->ok ())
+	second_translator->try_music (&abort);
+#else
+      Span_req* abort = new Span_req;
+      abort->span_type_str_ = "abort";
+      if (second_iter_p_ && second_iter_p_->ok ())
+	second_iter_p_->try_music (abort);
+#endif
+     }
+
   if (combine_b != previously_combined_b)
     change_to (second_iter_p_, p->what_str_, (combine_b ? "one" : "two")
 	       + suffix_);

@@ -13,13 +13,15 @@
 #include "engraver.hh"
 #include "spanner.hh"
 
-class Slur_engraver :public Engraver {
+class Slur_engraver : public Engraver
+{
   Link_array<Span_req> requests_arr_;
   Link_array<Span_req> new_slur_req_l_arr_;
   Link_array<Score_element> slur_l_stack_;
   Link_array<Score_element> end_slur_l_arr_;
 
   void set_melisma (bool);
+
 protected:
   virtual bool do_try_music (Music*);
   virtual void do_process_music ();
@@ -30,7 +32,6 @@ protected:
 
 public:
   VIRTUAL_COPY_CONS (Translator);
-  
 };
 
 bool
@@ -38,11 +39,26 @@ Slur_engraver::do_try_music (Music *req_l)
 {
   if (Span_req *sl = dynamic_cast <Span_req *> (req_l))
     {
-      if (sl->span_type_str_ != "slur")
-	return false;
-      new_slur_req_l_arr_.push (sl);
-
-      return true;
+      if (sl->span_type_str_ == "abort")
+	{
+	  for (int i = 0; i < slur_l_stack_.size (); i++)
+	    {
+	      slur_l_stack_[i]->suicide ();
+	    }
+	  slur_l_stack_.clear ();
+	  for (int i = 0; i < end_slur_l_arr_.size (); i++)
+	    {
+	      end_slur_l_arr_[i]->suicide ();
+	    }
+	  end_slur_l_arr_.clear ();
+	  requests_arr_.clear ();
+	  new_slur_req_l_arr_.clear ();
+	}
+      else if (sl->span_type_str_ == "slur")
+	{
+	  new_slur_req_l_arr_.push (sl);
+	  return true;
+	}
     }
   return false;
 }
@@ -93,7 +109,7 @@ Slur_engraver::do_removal_processing ()
 void
 Slur_engraver::do_process_music ()
 {
-  Link_array<Score_element> start_slur_l_arr_;
+  Link_array<Score_element> start_slur_l_arr;
   for (int i=0; i< new_slur_req_l_arr_.size (); i++)
     {
       Span_req* slur_req_l = new_slur_req_l_arr_[i];
@@ -125,13 +141,13 @@ Slur_engraver::do_process_music ()
 	    {
 	      index_set_cell (slur->get_elt_property ("attachment"), START, s);
 	    }
-	  start_slur_l_arr_.push (slur);
+	  start_slur_l_arr.push (slur);
 	  requests_arr_.push (slur_req_l);
 	  announce_element (slur, slur_req_l);
 	}
     }
-  for (int i=0; i < start_slur_l_arr_.size (); i++)
-    slur_l_stack_.push (start_slur_l_arr_[i]);
+  for (int i=0; i < start_slur_l_arr.size (); i++)
+    slur_l_stack_.push (start_slur_l_arr[i]);
 }
 
 void

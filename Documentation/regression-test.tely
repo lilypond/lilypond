@@ -8,7 +8,7 @@
 @title LilyPond Regression test
 @end ignore
 
-@node Top, , ,
+@node Top, , , (dir)
 
 @section Introduction
 

@@ -100,7 +100,15 @@ Dynamic_engraver::do_try_music (Music * m)
     }
   else if (Span_req* s =  dynamic_cast <Span_req*> (m))
     {
-      if ((s->span_type_str_ == "crescendo"
+      if (s->span_type_str_ == "abort")
+	{
+	  accepted_spanreqs_drul_[LEFT] = 0;
+	  accepted_spanreqs_drul_[RIGHT] = 0;
+	  if (line_spanner_)
+	    line_spanner_->suicide ();
+	  line_spanner_ = 0;
+	}
+      else if ((s->span_type_str_ == "crescendo"
 	   || s->span_type_str_ == "decrescendo"))
 	{
 	  accepted_spanreqs_drul_[s->span_dir_] = s;
