@@ -123,12 +123,16 @@ class Key_change_req  : public Command_req  {
 public:
     Array<Melodic_req*> melodic_p_arr_;
     bool minor_b_;
-  
+
+    /// don't ignore the  octaves in #melodic_p_arr_#?
+    bool multi_octave_b_;
     Key_change_req();
     Key_change_req(Key_change_req const&);
     ~Key_change_req();
     REQUESTMETHODS(Key_change_req, keychange);
 
+    /// squash the octaves to 1
+    void squash_octaves();
     /// return number of flats in key
     int flats_i();
 

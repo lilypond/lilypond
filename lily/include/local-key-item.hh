@@ -14,8 +14,11 @@ struct Local_acc {
     static int compare(Local_acc&, Local_acc&);
 };
 
+/**
+  Accidentals which can be different for each octave.
+ */
 struct Local_key_item : Item {
-NAME_MEMBERS(Local_key_item);
+    NAME_MEMBERS(Local_key_item);
     Array<Local_acc> accs;
     Array<Item*> support_items_;
     int c0_position;
