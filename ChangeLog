@@ -1,5 +1,7 @@
 2005-02-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/changing-defaults.itely (Text encoding): Clarify.
+
 	* ly/titling-init.ly: Do not also print intstrument in header on
 	first page.  Do not print page number on first and only page.
 

@@ -1552,12 +1552,13 @@ Syntax errors for markup mode are confusing.
 @node Text encoding
 @subsection Text encoding
 
-LilyPond uses the Pango library to format multi-lingual texts.  This
-means that any text, be it title, lyric text, or musical instruction
-contaning non-ASCII characters should be entered as Unicode.  Such
-files should be edited using a Unicode aware editor, and saved as UTF8
-encoded. Most popular modern editors have UTF8 support, for example,
-vim, Emacs, jEdit, and GEdit do.
+LilyPond uses the Pango library to format multi-lingual texts, and
+does not perform any input-encoding conversions.  This means that any
+text, be it title, lyric text, or musical instruction containing
+non-ASCII characters, must be utf-8.  Easiest to enter such texts is
+by using a Unicode-aware editor, and save using utf-8 encoding.  Most
+popular modern editors have utf-8 support, for example, vim, Emacs,
+jEdit, and GEdit do.
 
 Depending on the fonts installed, the following fragment shows Hebrew
 and Cyrillic lyrics,
