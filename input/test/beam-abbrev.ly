@@ -1,4 +1,6 @@
 \version "1.7.18"
+% TODO: delete me?  I think this is covered in the "tremolo
+% subdivision" section in refman.
 \score { 
   \context Voice \notes\relative c {
     c'1:16 
@@ -9,6 +11,5 @@
 	
   }
   \paper { }  
-  \midi { }
 }
 %% new-chords-done %%

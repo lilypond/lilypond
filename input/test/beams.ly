@@ -1,4 +1,7 @@
 \version "1.7.18"
+% this looks nice, but I'm not certain that it belongs in input/test
+% Han-Wen suggests we delete it, since we'll know pretty quickly if
+% beams stop working.  :)
 \header{
 filename = 	 "beams.ly"
 composer = 	 "heu"
