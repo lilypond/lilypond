@@ -21,17 +21,17 @@ public:
   int repeats_i_;
   Music* repeat_p_;
 //  Music_list* alternative_p_;
-  Sequential_music* alternative_p_;
+  Music_sequence* alternative_p_;
 
 //  Repeated_music (Music*, int n, Music_list*);
-  Repeated_music (Music*, int n, Sequential_music*);
+  Repeated_music (Music*, int n, Music_sequence*);
   Repeated_music (Repeated_music const& s);
   virtual ~Repeated_music ();
   
   virtual void do_print () const;
   virtual void transpose (Musical_pitch p);
   virtual Moment duration () const;
-
+  virtual Musical_pitch to_relative_octave (Musical_pitch p);
   VIRTUAL_COPY_CONS(Music);
 };
 

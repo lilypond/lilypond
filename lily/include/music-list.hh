@@ -36,7 +36,7 @@ public:
   Music_sequence (Music_list *l_p);
   
   VIRTUAL_COPY_CONS(Music);
-
+  Musical_pitch do_relative_octave (Musical_pitch p, bool b);
   virtual void transpose (Musical_pitch );
   virtual void compress (Moment);
   void add_music (Music *music_p);
