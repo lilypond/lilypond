@@ -28,38 +28,38 @@ brew_flexa (Grob *me,
 	    bool solid,
 	    Real width,
 	    Real thickness,
-	    bool add_stem,
-	    Direction stem_direction)
+	    bool add_cauda,
+	    Direction cauda_direction)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real height = 0.6 * staff_space;
   Molecule molecule = Molecule ();
 
-  if (add_stem)
+  if (add_cauda)
     {
       bool consider_interval =
-	stem_direction * interval > 0.0;
+	cauda_direction * interval > 0.0;
 
-      Interval stem_box_x (0, thickness);
-      Interval stem_box_y;
+      Interval cauda_box_x (0, thickness);
+      Interval cauda_box_y;
 
       if (consider_interval)
         {
 	  Real y_length = max (interval/2.0*staff_space, 1.2*staff_space);
-	  stem_box_y = Interval (0, y_length);
+	  cauda_box_y = Interval (0, y_length);
 	}
       else
-	stem_box_y = Interval (0, staff_space);
+	cauda_box_y = Interval (0, staff_space);
 
       Real y_correction =
-	(stem_direction == UP) ?
+	(cauda_direction == UP) ?
 	+0.5*height :
-	-0.5*height - stem_box_y.length();
+	-0.5*height - cauda_box_y.length();
 
-      Box stem_box (stem_box_x, stem_box_y);
-      Molecule stem = Lookup::filledbox (stem_box);
-      stem.translate_axis (y_correction, Y_AXIS);
-      molecule.add_molecule(stem);
+      Box cauda_box (cauda_box_x, cauda_box_y);
+      Molecule cauda = Lookup::filledbox (cauda_box);
+      cauda.translate_axis (y_correction, Y_AXIS);
+      molecule.add_molecule (cauda);
     }
 
   Real slope = (interval / 2.0 * staff_space) / width;
@@ -228,10 +228,10 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
       Interval y_extent = (join_left > 0) ?
 	Interval (-join_left * 0.5 * staff_space, 0) :
 	Interval (0, -join_left * 0.5 * staff_space);
-      Box stem_box (x_extent, y_extent);
+      Box join_box (x_extent, y_extent);
 
-      Molecule stem = Lookup::round_filled_box (stem_box, blotdiameter);
-      out.add_molecule (stem);
+      Molecule join = Lookup::round_filled_box (join_box, blotdiameter);
+      out.add_molecule (join);
     }
 
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));

@@ -692,6 +692,7 @@ VaticanaStaffContext = \translator {
   BarLine \set #'transparent = ##t
 
   StaffSymbol \set #'line-count = #4
+  StaffSymbol \set #'thickness = #0.6
 
   % FIXME: unit on StaffSymbol's width should be \linewidth.
   % StaffSymbol \set #'width = #60.0

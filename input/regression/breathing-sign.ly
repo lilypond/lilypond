@@ -74,8 +74,9 @@ finalis, the latter three looking similar to bar glyphs.
     \context VaticanaStaff {
       \notes \relative c' {
 
-	% we turn bars off for Gregorian stuff
-	\property Staff.BarLine \override #'transparent = ##t
+	% we turn bars and bar numbers off for Gregorian stuff
+	\property Staff.BarLine \set #'transparent = ##t
+	\property Score.BarNumber \set #'transparent = ##t
 
 	% here is no \breathe
 	c g c
@@ -101,5 +102,8 @@ finalis, the latter three looking similar to bar glyphs.
 	\finalis
       }
     }
+  }
+  \paper {
+    \translator { \RemoveEmptyStaffContext }
   }
 }

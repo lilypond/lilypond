@@ -22,7 +22,7 @@ def draw_vaticana_do_clef(expr exact_center, reduction) =
 
 	reduced_il# = staff_space# * reduction;
 	
-	set_char_box(0.4reduced_il#, 0.0reduced_il#,
+	set_char_box(0.0reduced_il#, 0.4reduced_il#,
 		     0.8reduced_il#, 0.8reduced_il#);
 
 	define_pixels(reduced_il);
@@ -32,12 +32,12 @@ def draw_vaticana_do_clef(expr exact_center, reduction) =
 	save za, zb, zc, zd, ze, zf;
 	pair za, zb, zc, zd, ze, zf;
 
-	za = exact_center + (-0.0reduced_il, -.45reduced_il);
-	zb = exact_center + (-0.2reduced_il, -.50reduced_il);
-	zc = exact_center + (-0.4reduced_il, -.25reduced_il);
-	zd = exact_center + (-0.4reduced_il, +.25reduced_il);
-	ze = exact_center + (-0.2reduced_il, +.50reduced_il);
-	zf = exact_center + (-0.0reduced_il, +.45reduced_il);
+	za = exact_center + (0.4reduced_il, -.45reduced_il);
+	zb = exact_center + (0.2reduced_il, -.50reduced_il);
+	zc = exact_center + (0.0reduced_il, -.25reduced_il);
+	zd = exact_center + (0.0reduced_il, +.25reduced_il);
+	ze = exact_center + (0.2reduced_il, +.50reduced_il);
+	zf = exact_center + (0.4reduced_il, +.45reduced_il);
 	draw za .. zb .. zc --	% lower punctum
 	     zd .. ze .. zf;	% upper punctum
 enddef;
@@ -83,7 +83,7 @@ def draw_vaticana_fa_clef(expr exact_center, reduction) =
 	%right-handed puncta as in do clef
 	draw_vaticana_do_clef(
 		exact_center +
-		(+0.8reduced_il + 1.25stafflinethickness, 0),
+		(+0.4reduced_il + 1.25stafflinethickness, 0),
 		reduction);
 
 	set_char_box(0.0reduced_il#, 0.8reduced_il# + 1.25stafflinethickness#,

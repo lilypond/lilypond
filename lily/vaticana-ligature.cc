@@ -18,14 +18,57 @@
 #include "bezier.hh"
 #include "warn.hh"
 
+Molecule
+vaticana_brew_cauda (Grob *me,
+		     int pos,
+		     int delta_pitch,
+		     Real thickness,
+		     Real blotdiameter)
+{
+  bool on_staffline = Staff_symbol_referencer::on_staffline (me, pos);
+  int interspaces = Staff_symbol_referencer::line_count (me)-1;
+  bool above_staff = pos > interspaces;
+
+  if (delta_pitch > -1)
+    {
+      me->programming_error ("flexa cauda: invalid delta_pitch; assuming -1");
+      delta_pitch = -1;
+    }
+  Real length;
+  if (on_staffline)
+    {
+      if (delta_pitch >= -1)
+	length = 1.30;
+      else if (delta_pitch >= -2)
+	length = 1.35;
+      else
+	length = 1.85;
+    }
+  else
+    {
+      if (delta_pitch >= -1)
+	if (above_staff)
+	  length = 1.30;
+	else
+	  length = 1.00;
+      else if (delta_pitch >= -2)
+	length = 1.35;
+      else if (delta_pitch >= -3)
+	length = 1.50;
+      else
+	length = 1.85;
+    }
+  Box cauda_box (Interval (0, thickness), Interval (-length, 0));
+  return Lookup::round_filled_box (cauda_box, blotdiameter);
+}
+
 /*
  * TODO: move this function to class Lookup?
  */
 Molecule
 vaticana_brew_flexa (Grob *me,
 		     bool solid,
-		     Real thickness,
-		     Direction stem_direction)
+		     Real line_thickness)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Molecule molecule = Molecule ();
@@ -62,50 +105,25 @@ vaticana_brew_flexa (Grob *me,
       width = 2.0 * staff_space;
     }
 
-  bool add_stem = to_boolean (me->get_grob_property ("add-stem"));
-
-  // Compensate thickness that appears to be smaller in steep section
-  // of bend.
+  /*
+   * Compensate curve thickness that appears to be smaller in steep
+   * section of bend.
+   */
   Real left_height =
     right_height +
     min (0.12 * abs(interval), 0.3) * staff_space;
 
-  if (add_stem)
-    {
-      bool consider_interval =
-	stem_direction * interval > 0.0;
-
-      Interval stem_box_x (0, thickness);
-      Interval stem_box_y;
-
-      if (consider_interval)
-	{
-	  Real y_length = max (abs(interval)/2.0*staff_space +
-			       (right_height-left_height),
-			       1.2*staff_space);
-	  stem_box_y = Interval (0, y_length);
-	}
-      else
-	stem_box_y = Interval (0, staff_space);
-
-      Real y_correction =
-	(stem_direction == UP) ?
-	+0.5*left_height :
-	-0.5*left_height - stem_box_y.length();
-
-      Box stem_box (stem_box_x, stem_box_y);
-      Molecule stem = Lookup::filledbox (stem_box);
-      stem.translate_axis (y_correction, Y_AXIS);
-      molecule.add_molecule(stem);
-    }
-
-  // Compensate optical illusion regarding vertical position of left
-  // and right endings due to curved shape.
+  /*
+   * Compensate optical illusion regarding vertical position of left
+   * and right endings due to curved shape.
+   */
   Real ypos_correction = -0.1*staff_space * sign(interval);
   Real interval_correction = 0.2*staff_space * sign(interval);
   Real corrected_interval = interval*staff_space + interval_correction;
 
-  // middle curve of flexa shape
+  /*
+   * middle curve of flexa shape
+   */
   Bezier curve;
   curve.control_[0] = Offset (0.00 * width, 0.0);
   curve.control_[1] = Offset (0.33 * width, corrected_interval / 2.0);
@@ -115,9 +133,9 @@ vaticana_brew_flexa (Grob *me,
   Bezier top_curve = curve, bottom_curve = curve;
   for (int i = 0; i < 4; i++)
     {
-      Real thickness = 0.33 * ((3 - i)*left_height + i*right_height);
-      top_curve.control_[i] += Offset (0, +0.5*thickness);
-      bottom_curve.control_[i] += Offset (0, -0.5*thickness);
+      Real curve_thickness = 0.33 * ((3 - i)*left_height + i*right_height);
+      top_curve.control_[i] += Offset (0, 0.5 * curve_thickness);
+      bottom_curve.control_[i] -= Offset (0, 0.5 * curve_thickness);
     }
 
   if (solid)
@@ -129,29 +147,31 @@ vaticana_brew_flexa (Grob *me,
   else // outline
     {
       Bezier inner_top_curve = top_curve;
-      inner_top_curve.translate (Offset (0.0, -thickness));
+      inner_top_curve.translate (Offset (0.0, -line_thickness));
       Molecule top_edge =
 	Lookup::bezier_sandwich (top_curve, inner_top_curve);
       molecule.add_molecule(top_edge);
 
       Bezier inner_bottom_curve = bottom_curve;
-      inner_bottom_curve.translate (Offset (0.0, +thickness));
+      inner_bottom_curve.translate (Offset (0.0, +line_thickness));
       Molecule bottom_edge =
 	Lookup::bezier_sandwich (bottom_curve, inner_bottom_curve);
       molecule.add_molecule(bottom_edge);
 
-      // TODO: Use horizontal slope with proper slope value rather
-      // than filled box for left edge, since the filled box stands
-      // out from the flexa shape if the interval is big and the line
-      // thickness small.  The difficulty here is to compute a proper
-      // slope value, as it should roughly be equal with the slope of
-      // the left end of the bezier curve.
-      Box left_edge_box (Interval (0, thickness),
+      /*
+       * TODO: Use horizontal slope with proper slope value rather
+       * than filled box for left edge, since the filled box stands
+       * out from the flexa shape if the interval is big and the line
+       * thickness small.  The difficulty here is to compute a proper
+       * slope value, as it should roughly be equal with the slope of
+       * the left end of the bezier curve.
+       */
+      Box left_edge_box (Interval (0, line_thickness),
 			 Interval (-0.5*left_height, +0.5*left_height));
       Molecule left_edge = Lookup::filledbox (left_edge_box);
       molecule.add_molecule(left_edge);
 
-      Box right_edge_box (Interval (-thickness, 0),
+      Box right_edge_box (Interval (-line_thickness, 0),
 			  Interval (-0.5*right_height, +0.5*right_height));
       Molecule right_edge = Lookup::filledbox (right_edge_box);
       right_edge.translate_axis (width, X_AXIS);
@@ -160,6 +180,25 @@ vaticana_brew_flexa (Grob *me,
     }
   molecule.translate_axis (ypos_correction, Y_AXIS);
   return molecule;
+}
+
+Molecule
+vaticana_brew_join (Grob *me, int delta_pitch,
+		    Real join_thickness, Real blotdiameter)
+{
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  if (!delta_pitch)
+    {
+      me->programming_error (_f ("Vaticana_ligature: "
+				 "zero join (delta_pitch == 0)"));
+      return Molecule ();
+    }
+  Interval x_extent = Interval (0, join_thickness);
+  Interval y_extent = (delta_pitch > 0) ?
+    Interval (0, delta_pitch * 0.5 * staff_space) : // ascending join
+    Interval (delta_pitch * 0.5 * staff_space, 0); // descending join
+  Box join_box (x_extent, y_extent);
+  return Lookup::round_filled_box (join_box, blotdiameter);
 }
 
 void
@@ -196,18 +235,10 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
     }
 
   String glyph_name = ly_scm2string (glyph_name_scm);
-  if (!String::compare (glyph_name, ""))
-    {
-      // empty head (typically, this is the right side of flexa shape,
-      // which is already typeset by the associated left side head);
-      // nothing left to do
-      return Molecule ();
-    }
 
   Molecule out;
   int flexa_height = 0;
-  Real thickness = 0.0;
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
+  Real thickness;
 
   SCM thickness_scm = me->get_grob_property ("thickness");
   if (thickness_scm != SCM_EOL)
@@ -216,11 +247,25 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
     }
   else
     {
-      programming_error (_f ("Vaticana_ligature:"
-			     "thickness undefined; assuming 1.4",
-			     me));
-      thickness = 1.4 * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+      me->programming_error ("Vaticana_ligature: "
+			     "thickness undefined; assuming 1.0");
+      thickness = 1.0;
     }
+
+  Real line_thickness =
+    thickness * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
+
+  Real blotdiameter =
+    (me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter")));
+
+  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
+
+  SCM delta_pitch_scm = me->get_grob_property ("delta-pitch");
+  int delta_pitch;
+  if (delta_pitch_scm != SCM_EOL)
+    delta_pitch = gh_scm2int (delta_pitch_scm);
+  else
+    delta_pitch = 0;
 
   Real x_offset = 0.0;
   SCM x_offset_scm = me->get_grob_property ("x-offset");
@@ -235,51 +280,79 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 			     me));
     }
 
-  if (!String::compare (glyph_name, "flexa"))
-    {
-      out = vaticana_brew_flexa (me, true, thickness, DOWN);
-    }
-  else
-    {
-      Molecule mol =
-	Font_interface::get_default_font (me)->
-	find_by_name ("noteheads-" + glyph_name);
-      mol.translate_axis (x_offset, X_AXIS);
-      out.add_molecule (mol);
-    }
+  bool add_stem = to_boolean (me->get_grob_property ("add-stem"));
+  bool add_cauda = to_boolean (me->get_grob_property ("add-cauda"));
+  bool add_join = to_boolean (me->get_grob_property ("add-join"));
 
-  if (to_boolean (me->get_grob_property ("join-left")))
+  if (!String::compare (glyph_name, ""))
     {
-      SCM delta_pitch_scm = me->get_grob_property ("delta-pitch");
-      if (delta_pitch_scm != SCM_EOL)
+      /*
+       * This is an empty head.  This typically applies for the right
+       * side of a curved flexa shape, which is already typeset by the
+       * associated left side head.  The only possible thing left to
+       * do is to draw a vertical join to the next head.  (Urgh: need
+       * flexa_width.)
+       */
+      Real staff_space = Staff_symbol_referencer::staff_space (me);
+      Real flexa_width;
+      SCM flexa_width_scm = me->get_grob_property ("flexa-width");
+      if (flexa_width_scm != SCM_EOL)
 	{
-	  int delta_pitch = gh_scm2int (delta_pitch_scm);
-	  if (!delta_pitch)
-	    programming_error (_f ("Vaticana_ligature: (delta_pitch == 0)"));
-	  Real blotdiameter = (me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter")));
-	  Interval x_extent = Interval (0, thickness);
-	  Interval y_extent = (delta_pitch > 0) ?
-	    Interval (-delta_pitch * 0.5 * staff_space, 0) : // ascending join
-	    Interval (0, -delta_pitch * 0.5 * staff_space); // descending join
-	  Box stem_box (x_extent, y_extent);
-
-	  Molecule stem = Lookup::round_filled_box (stem_box, blotdiameter);
-	  out.add_molecule (stem);
+	  flexa_width = gh_scm2double (flexa_width_scm);
 	}
       else
 	{
-	  programming_error (_f ("Vaticana_ligature:"
-				 "delta-pitch -> ignoring join",
-				 me));
+	  me->warning ("Vaticana_ligature:"
+		       "flexa-width undefined; assuming 2.0");
+	  flexa_width = 2.0 * staff_space;
 	}
+      out =
+	Lookup::blank (Box (Interval (0, 0.5*flexa_width), Interval (0,0)));
+    }
+  else if (!String::compare (glyph_name, "flexa"))
+    {
+      out = vaticana_brew_flexa (me, true, line_thickness);
+    }
+  else
+    {
+      out =
+	Font_interface::get_default_font (me)->
+	find_by_name ("noteheads-" + glyph_name);
+    }
+  out.translate_axis (x_offset, X_AXIS);
+  Real head_width = out.extent (X_AXIS).length ();
+
+  if (add_cauda)
+    {
+      Molecule cauda =
+	vaticana_brew_cauda (me, pos, delta_pitch,
+			     line_thickness, blotdiameter);
+      out.add_molecule (cauda);
     }
 
-  int pos = (int)rint (Staff_symbol_referencer::get_position (me));
+  if (add_stem)
+    {
+      Molecule stem =
+	vaticana_brew_cauda (me, pos, -1,
+			     line_thickness, blotdiameter);
+      stem.translate_axis (head_width - line_thickness, X_AXIS);
+      out.add_molecule (stem);
+    }
+
+  if (add_join)
+    {
+      Molecule join =
+	vaticana_brew_join (me, delta_pitch, line_thickness, blotdiameter);
+      join.translate_axis (head_width - line_thickness, X_AXIS);
+      out.add_molecule (join);
+    }
+
   vaticana_add_ledger_lines(me, &out, pos, 0, ledger_take_space);
   if (!String::compare (glyph_name, "flexa"))
     {
       pos += flexa_height;
-      vaticana_add_ledger_lines(me, &out, pos, 0.5*flexa_height, ledger_take_space);
+      vaticana_add_ledger_lines(me, &out, pos, 0.5*flexa_height,
+				ledger_take_space);
     }
 
   return out;
@@ -303,5 +376,6 @@ Vaticana_ligature::brew_molecule (SCM)
 
 ADD_INTERFACE (Vaticana_ligature, "vaticana-ligature-interface",
 	       "A vaticana style gregorian ligature",
-	       "glyph-name flexa-height flexa-width thickness join-left "
-	       "delta-pitch add-stem x-offset ligature-primitive-callback");
+	       "glyph-name flexa-height flexa-width thickness add-cauda "
+	       "add-stem add-join delta-pitch x-offset "
+	       "ligature-primitive-callback");

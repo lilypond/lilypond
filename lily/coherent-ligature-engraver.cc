@@ -170,6 +170,29 @@ Coherent_ligature_engraver::collect_accidentals (Spanner *, Array<Grob_info>)
 }
 
 void
+compute_delta_pitches (Array<Grob_info> primitives)
+{
+  int prev_pitch = 0;
+  int delta_pitch = 0;
+  Item *prev_primitive = 0, *primitive = 0;
+  for (int i = 0; i < primitives.size(); i++) {
+    primitive = dynamic_cast<Item*> (primitives[i].grob_);
+    Music *music_cause = primitives[i].music_cause ();
+    int pitch =
+      unsmob_pitch (music_cause->get_mus_property ("pitch"))->steps ();
+    if (prev_primitive)
+      {
+	delta_pitch = pitch - prev_pitch;
+	prev_primitive->set_grob_property ("delta-pitch",
+					   gh_int2scm (delta_pitch));
+      }
+    prev_pitch = pitch;
+    prev_primitive = primitive;
+  }
+  primitive->set_grob_property ("delta-pitch", gh_int2scm (0));
+}
+
+void
 Coherent_ligature_engraver::build_ligature (Spanner *, Array<Grob_info>)
 {
   programming_error ("Coherent_ligature_engraver::build_ligature (): "
@@ -181,6 +204,10 @@ void
 Coherent_ligature_engraver::typeset_ligature (Spanner *ligature,
 					      Array<Grob_info> primitives)
 {
+  // compute some commonly needed context info stored as grob
+  // properties
+  compute_delta_pitches (primitives);
+
   // prepare ligature for typesetting
   build_ligature (ligature, primitives);
   collect_accidentals (ligature, primitives);

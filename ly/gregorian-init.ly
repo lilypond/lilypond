@@ -29,6 +29,10 @@ quilisma =
   \once \property Voice.NoteHead \override #'quilisma = ##t
 deminutum =
   \once \property Voice.NoteHead \override #'deminutum = ##t
+linea =
+  \once \property Voice.NoteHead \override #'linea = ##t
+cavum =
+  \once \property Voice.NoteHead \override #'cavum = ##t
 
 %
 % declare divisiones shortcuts

@@ -7076,14 +7076,7 @@ respectively.
 
 @refbugs
 
-Scandicus Deminutus: Punctum Auctum Ascendens overlaps with
-Semivocalis head; this looks awful.
-
 Trigonus: apply equal spacing, regardless of pitch.
-
-Flexa and similar figurae: the left appendix should be adjusted with
-respect to the position of this head (on staffline or on staffspace)
-and the vertical position of the subsequent head.
 
 @node Figured bass
 @subsection Figured bass

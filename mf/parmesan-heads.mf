@@ -278,7 +278,7 @@ fet_endchar;
 % parameterized punctum
 def punctum_char (expr verbose_name, internal_name, ly_name,
 		  left_stem, right_stem, linea, cavum,
-		  straight, auctum, direction_up, excentric, up_shift, mag) =
+		  straight, auctum, direction_up, excentric, up_shift, down_shift, mag) =
 
 	fet_beginchar(verbose_name, internal_name, ly_name)
 		save b_h, a_w;
@@ -324,6 +324,8 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 		save yoffs;
 		if up_shift:
 			yoffs# = 0.08ht#;
+		elseif down_shift:
+			yoffs# = -0.11ht#;
 		else:
 			yoffs# = 0.00ht#;
 		fi
@@ -334,9 +336,8 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 		path p;
 		save height, yoffs_bt;
 		define_pixels (height, yoffs_bt);
-		height# = max (0.5ht# - stafflinethickness#, 0);
-		yoffs_bt# = yoffs# - (height# - stafflinethickness#)/2 -
-			    convexity#;
+		height# = 0.47ht#;
+		yoffs_bt# = yoffs# - 0.5*height# - 0.25*convexity#;
 		xpart z1a = xpart z1b;
 		xpart z2a = xpart z2b;
 		xpart z3a = xpart z3b;
@@ -348,8 +349,8 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 
 		if auctum:
 			z1a = (0.00wd + stafflinethickness/2, yoffs_bt);
-			z2a = (0.20wd, yoffs_bt + 1.0*convexity);
-			z3a = (0.40wd - stafflinethickness/2,
+			z2a = (0.21wd, yoffs_bt + 1.0*convexity);
+			z3a = (0.42wd - stafflinethickness/2,
 			       yoffs_bt + 1.0*excentricity);
 			box_top# = height# + yoffs_bt# +
 				max(0, 1.0*convexity#, 1.0*excentricity#);
@@ -361,7 +362,8 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 			z1a = (0.00wd + stafflinethickness/2,
 			       yoffs_bt - 1.0*convexity);
 			z2a = (0.08wd, yoffs_bt + 1.4*convexity);
-			z3a = (0.40wd - stafflinethickness/2, yoffs_bt);
+			z3a = (0.42wd - stafflinethickness/2,
+			       yoffs_bt - 1.0*convexity);
 			box_top# = height# + yoffs_bt# +
 				max(-1.0*convexity#, 1.4*convexity#, 0);
 			box_bt# = yoffs_bt# +
@@ -370,8 +372,8 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 			    z3b .. {left}z2b .. {-direction}z1b -- cycle;
 		else:
 			z1a = (0.00wd + stafflinethickness/2, yoffs_bt);
-			z2a = (0.20wd, yoffs_bt + 1.0*convexity);
-			z3a = (0.40wd - stafflinethickness/2, yoffs_bt);
+			z2a = (0.21wd, yoffs_bt + 1.0*convexity);
+			z3a = (0.42wd - stafflinethickness/2, yoffs_bt);
 			box_top# = height# + yoffs_bt# +
 				max(0, 1.0*convexity#);
 			box_bt# = yoffs_bt# +
@@ -386,49 +388,47 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 			filldraw p;
 		fi;
 
-		pickup pencircle scaled stafflinethickness;
-
-		if left_stem:
-			z5=(0.00wd + stafflinethickness/2, yoffs);
-			z6=(0.00wd + stafflinethickness/2, yoffs - 1.5ht);
-			draw z5 -- z6;
-		fi;
-
-		if right_stem:
-			z5=(0.40wd - stafflinethickness/2, yoffs);
-			z6=(0.40wd - stafflinethickness/2, yoffs - 1.5ht);
-			draw z5 -- z6;
-		fi;
+		pickup pencircle scaled 0.6stafflinethickness;
 
 		save stem_bt;
 
-		if left_stem or right_stem:
+		if left_stem:
+			z5=(0.00wd + 0.6stafflinethickness/2, yoffs);
+			z6=(0.00wd + 0.6stafflinethickness/2, yoffs - 1.1ht);
+			draw z5 -- z6;
+			stem_bt# = yoffs# - 1.1ht#;
+		elseif right_stem:
+			z5=(0.42wd - 0.6stafflinethickness/2, yoffs);
+			z6=(0.42wd - 0.6stafflinethickness/2, yoffs - 1.5ht);
+			draw z5 -- z6;
 			stem_bt# = yoffs# - 1.5ht#;
 		else:
 			stem_bt# = 0;
 		fi;
 
-		set_char_box(0.00wd#, 0.40wd#,
+		set_char_box(0.00wd#, 0.42wd#,
 			     max(0, -box_bt#, -stem_bt#) + stafflinethickness#/2,
 			     max(0, box_top#) + stafflinethickness#/2);
 
 		if linea:
 			save linea_width, linea_height;
-			linea_width# = stafflinethickness#;
-			linea_height# = 0.85 ht#;
+			linea_width# = 0.6 stafflinethickness#;
+			linea_height# = 0.7 ht#;
 			define_pixels (linea_width, linea_height);
 			draw_block ((-0.10wd - linea_width/2,
-				     linea_height/2),
+				     -linea_height/2),
 				    (-0.10wd + linea_width/2,
-				     linea_height/2));
-			draw_block ((+0.50wd - linea_width/2,
-				     linea_height/2),
-				    (+0.50wd + linea_width/2,
-				     linea_height/2));
-			set_char_box(0.10wd# + linea_width#/2,
-				     0.50wd# + linea_width#/2,
+				     +linea_height/2));
+			draw_block ((+0.52wd - linea_width/2,
+				     -linea_height/2),
+				    (+0.52wd + linea_width/2,
+				     +linea_height/2));
+			set_char_box(0,
+				     0.62wd# + linea_width#,
 				     linea_height#/2,
 				     linea_height#/2);
+			currentpicture := currentpicture
+				shifted (0.10wd + linea_width/2, 0);
 		fi;
 	fet_endchar;
 enddef;
@@ -450,25 +450,26 @@ def inclinatum_char(expr verbose_name, internal_name, ly_name,
 
 		if stropha:
 			pickup pencircle
-				xscaled (0.2*head_height)
-				yscaled (0.5*head_height)
+				xscaled (0.25*head_height)
+				yscaled (0.55*head_height)
 				rotated alpha#;
 			save za, off_angle; pair za;
 			off_angle := 15;
 			za = (0, -0.25*head_height)
 				rotated -(alpha# + off_angle)
-				shifted (0.5 head_width, 0);
+				shifted (0.48 head_width, -0.02 head_width);
 			undraw za;
 		fi;
 
 		if auctum:
 			pickup pencircle scaled stafflinethickness;
-			save za, zb;
-			pair za, zb;
+			save za, zb, zc;
+			pair za, zb, zc;
 			za = (0, -0.5 head_height + stafflinethickness);
-			zb = za + (0.5 head_width, 0);
-			draw za{(0,-1) rotated alpha#} ..
-			     {(0,1) rotated -alpha#}zb;
+			zb = 0.6 (za + zc);
+			zc = za + (0.52 head_width, 0);
+			draw za{(0,-1) rotated alpha#} .. {right}zb{right} ..
+			     {(0,1) rotated -alpha#}zc;
 		fi;
 	fet_endchar;
 enddef;
@@ -476,88 +477,93 @@ enddef;
 % punctum
 punctum_char("Ed. Vat. punctum", "vaticana_punctum", "vatpunctumhead",
 	     false, false, false, false, false,
-	     false, false, false, false, 1.0);
+	     false, false, false, false, false, 1.0);
 
 % punctum cavum (for OpusTeX compatibility)
 punctum_char("Ed. Vat. punctum cavum", "vaticana_punctum_cavum",
 	     "vatpunctumcavumhead",
 	     false, false, false, true, false,
-	     false, false, false, false, 1.0);
+	     false, false, false, false, false, 1.0);
 
 % linea punctum (for OpusTeX compatibility)
 punctum_char("Ed. Vat. linea punctum", "vaticana_linea_punctum",
 	     "vatlineapunctumhead",
 	     false, false, true, false, false,
-	     false, false, false, false, 1.0);
+	     false, false, false, false, false, 1.0);
 
 % linea punctum cavum (for OpusTeX compatibility)
 punctum_char("Ed. Vat. linea punctum cavum", "vaticana_linea_punctum_cavum",
 	     "vatlineapunctumcavumhead",
 	     false, false, true, true, false,
-	     false, false, false, false, 1.0);
+	     false, false, false, false, false, 1.0);
 
 % punctum inclinatum
 inclinatum_char("Ed. Vat. inclinatum", "vaticana_inclinatum",
 		"vatinclinatumhead",
 		false, false, false);
 
-% virga (i.e. right stemmed punctum)
-punctum_char("Ed. Vat. virga", "vaticana_virga", "vatvirgahead",
-	     false, true, false, false, false,
-	     false, false, false, false, 1.0);
-
-% left stemmed punctum as used in clivis (flexa) ligature
-punctum_char("Ed. Vat. reverse virga", "vaticana_rvirga", "vatrvirgahead",
-	     true, false, false, false, false,
-	     false, false, false, false, 1.0);
-
 % pes lower punctum
 punctum_char("Ed. Vat. pes lower punctum", "vaticana_lpes", "vatlpeshead",
 	     false, false, false, false, true,
-	     false, true, false, false, 1.0);
+	     false, true, false, false, false, 1.0);
+
+% pes lower punctum
+punctum_char("Ed. Vat. pes var lower punctum", "vaticana_vlpes", "vatvlpeshead",
+	     false, false, false, false, true,
+	     false, true, false, false, true, 1.0);
 
 % pes upper punctum
 punctum_char("Ed. Vat. pes upper punctum", "vaticana_upes", "vatupeshead",
 	     false, false, false, false, true,
-	     false, false, false, false, 1.0);
+	     false, false, false, false, false, 1.0);
 
 % pes upper punctum (shifted variation)
 %
-% Note: This note head is used instead of the regular pes upper
-% punctum to avoid collision with the lower punctum note of the pes when
-% the upper punctum sits directly on top of the lower punctum.
+% This note head is used instead of the regular pes upper punctum to
+% avoid collision with the lower punctum note of the pes when the upper
+% punctum sits directly on top of the lower punctum.
 %
 punctum_char("Ed. Vat. var pes upper punctum", "vaticana_vupes",
 	     "vatvupeshead",
 	     false, false, false, false, true,
-	     false, false, false, true, 1.0);
+	     false, false, false, true, false, 1.0);
 
 % small punctum as used in epiphonus
 punctum_char("Ed. Vat. plica", "vaticana_plica", "vatplicahead",
 	     false, false, false, false, false,
-	     false, false, false, false, 0.7);
+	     false, false, false, false, false, 0.6);
 
 % excentric punctum as used in epiphonus
 punctum_char("Ed. Vat. epiphonus", "vaticana_epiphonus", "vatepiphonushead",
 	     false, false, false, false, false,
-	     false, true, true, false, 1.0);
+	     false, true, true, false, false, 1.0);
+
+% excentric punctum as used in epiphonus (shifted variation)
+%
+% This note head is used instead of the regular epiphonus punctum to
+% avoid collision with the plica head when the plica sits directly on
+% top of the lower head.
+%
+punctum_char("Ed. Vat. var epiphonus", "vaticana_vepiphonus", "vatvepiphonushead",
+	     false, false, false, false, false,
+	     false, true, true, false, true, 1.0);
 
 % small punctum as used in cephalicus
 punctum_char("Ed. Vat. rev. plica", "vaticana_reverse_plica", "vatrplicahead",
 	     false, false, false, false, false,
-	     false, true, false, false, 0.7);
+	     false, true, false, false, false, 0.6);
 
 % excentric punctum as used in cephalicus; without left stem
 punctum_char("Ed. Vat. cephalicus", "vaticana_inner_cephalicus",
 	     "vatinnercephalicushead",
 	     false, false, false, false, false,
-	     false, false, true, false, 1.0);
+	     false, false, true, false, false, 1.0);
 
 % excentric punctum as used in cephalicus; with left stem
 punctum_char("Ed. Vat. cephalicus", "vaticana_cephalicus",
 	     "vatcephalicushead",
 	     true, false, false, false, false,
-	     false, false, true, false, 1.0);
+	     false, false, true, false, false, 1.0);
 
 % quilisma
 fet_beginchar("Ed. Vat. quilisma", "vaticana_quilisma", "vatquilismahead")
@@ -571,20 +577,19 @@ fet_beginchar("Ed. Vat. quilisma", "vaticana_quilisma", "vatquilismahead")
 	2beta# = ht#*b_h;
 	a# = beta#*a_b;
 	wd# = 2a# / a_w;
-	set_char_box(0, 0.40wd#, 0.31 ht#, 0.41 ht#);
+	set_char_box(0, 0.42wd#, 0.28 ht#, 0.36 ht#);
 	black_notehead_width# := wd#;
 
 	define_pixels(ht, wd);
-	pickup pencircle xscaled stafflinethickness yscaled 0.4ht;
-	lft x1 = 0.00wd; bot y1 = -0.31ht;
-	lft x2 = 0.00wd; y2 = +0.06ht;
-	x3 = 0.10wd;     y3 = -0.05ht;
-	x4 = 0.16wd;     y4 = +0.11ht;
-	x5 = 0.24wd;     y5 = -0.01ht;
-	x6 = 0.30wd;     y6 = +0.15ht;
-	rt x7 = 0.40wd;  y7 = +0.04ht;
-	rt x8 = 0.40wd;  top y8 = +0.41ht;
-	draw z1 -- z2 -- z3 -- z4 -- z5 -- z6 -- z7 -- z8;
+	pickup pencircle xscaled stafflinethickness yscaled 0.44ht;
+	lft x1 = 0.00wd; bot y1 = -0.28ht;
+	x2 = 0.11wd;     y2 = -0.14ht;
+	x3 = 0.12wd;     y3 = +0.03ht;
+	x4 = 0.25wd;     y4 = -0.09ht;
+	x5 = 0.26wd;     y5 = +0.08ht;
+	x6 = 0.40wd;     y6 = -0.04ht;
+	rt x7 = 0.42wd;  top y7 = +0.36ht;
+	draw z1 .. z2 -- z3 .. z4 -- z5 .. z6 -- z7;
 fet_endchar;
 
 % solesmes punctum inclinatum parvum
@@ -596,13 +601,13 @@ inclinatum_char("Solesmes punctum inclinatum parvum", "solesmes_incl_parvum",
 punctum_char("Solesmes punctum auctum ascendens", "solesmes_auct_asc",
 	     "solauctaschead",
 	     false, false, false, false, false,
-	     true, true, false, false, 1.0);
+	     true, true, false, false, false, 1.0);
 
 % solesmes punctum auctum descendens
 punctum_char("Solesmes punctum auctum descendens", "solesmes_auct_desc",
 	     "solauctdeschead",
 	     false, false, false, false, false,
-	     true, false, false, false, 1.0);
+	     true, false, false, false, false, 1.0);
 
 % solesmes punctum inclinatum auctum
 inclinatum_char("Solesmes punctum incl. auctum", "solesmes_incl_auctum",
@@ -679,7 +684,7 @@ def punctum_char (expr verbose_name, internal_name, ly_name,
 			xscaled blot_diameter
 			yscaled 0.50ht;
 		z1 = (0.00wd + blot_diameter/2, 0);
-		z2 = (0.40wd - blot_diameter/2, 0);
+		z2 = (0.4wd - blot_diameter/2, 0);
 		draw z1 .. z2;
 
 		pickup pencircle

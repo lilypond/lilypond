@@ -61,8 +61,8 @@ def mens_timesig (expr verbose_name, internal_name, ly_name,
 
 	fet_beginchar(verbose_name, internal_name, ly_name)
 		if slashed:
-			set_char_box(.5 (Cdiameter# + Cthickness#),
-				     .5 (Cdiameter# + Cthickness#),
+			set_char_box(0,
+				     Cdiameter# + Cthickness#,
 				     .75 (Cdiameter# + Cthickness#),
 				     .75 (Cdiameter# + Cthickness#));
 			if (full_circle or dotted):
@@ -71,8 +71,8 @@ def mens_timesig (expr verbose_name, internal_name, ly_name,
 				draw_nail((-Cthickness, -d), (0, h));
 			fi;
 		else:
-			set_char_box(.5 (Cdiameter# + Cthickness#),
-				     .5 (Cdiameter# + Cthickness#),
+			set_char_box(0,
+				     Cdiameter# + Cthickness#,
 				     .5 (Cdiameter# + Cthickness#),
 				     .5 (Cdiameter# + Cthickness#));
 		fi;
@@ -88,6 +88,7 @@ def mens_timesig (expr verbose_name, internal_name, ly_name,
 			pickup pencircle scaled 4 stafflinethickness;
 			draw (0,0);
 		fi;
+		currentpicture := currentpicture shifted 0.5(Cdiameter + Cthickness, 0);
 	fet_endchar;
 enddef;
 
@@ -154,8 +155,8 @@ def neo_mens_timesig (expr verbose_name, internal_name, ly_name,
 
 	fet_beginchar(verbose_name, internal_name, ly_name)
 		if slashed:
-			set_char_box(.5 (neo_Cdiameter# + neo_Cthickness#),
-				     .5 (neo_Cdiameter# + neo_Cthickness#),
+			set_char_box(0,
+				     neo_Cdiameter# + neo_Cthickness#,
 				     .5 (neo_Cdiameter# + neo_Cthickness#),
 				     .5 (neo_Cdiameter# + neo_Cthickness#));
 			if (full_circle or dotted):
@@ -164,8 +165,8 @@ def neo_mens_timesig (expr verbose_name, internal_name, ly_name,
 				draw_block((-neo_Cthickness, -d), (0, h));
 			fi;
 		else:
-			set_char_box(.5 (neo_Cdiameter# + neo_Cthickness#),
-				     .5 (neo_Cdiameter# + neo_Cthickness#),
+			set_char_box(0,
+				     neo_Cdiameter# + neo_Cthickness#,
 				     .5 (neo_Cdiameter# + neo_Cthickness#),
 				     .5 (neo_Cdiameter# + neo_Cthickness#));
 		fi;
@@ -181,6 +182,7 @@ def neo_mens_timesig (expr verbose_name, internal_name, ly_name,
 			pickup pencircle scaled 4 stafflinethickness;
 			draw (0,0);
 		fi;
+		currentpicture := currentpicture shifted 0.5(neo_Cdiameter + neo_Cthickness, 0);
 	fet_endchar;
 enddef;
 
