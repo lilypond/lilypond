@@ -1,5 +1,9 @@
 #!/usr/bin/perl
+
+
 $reldir="~/musix/releases";
+
+use FileHandle;
 
 sub  cmpver 
 { 	
@@ -26,8 +30,14 @@ while (<LS>) {
 
 @versions = sort cmpver @versions;
 my $last= (pop @versions);
-print $last;
+
 
 system "rm $reldir/zZ*";
-
 system  "> $reldir/zZ_LATEST_IS_$last";
+
+open NEWS, "tar --to-stdout  -zxf $reldir/lilypond-$last.tar.gz lilypond-$last/NEWS |";
+input_record_separator NEWS "****";
+$desc = <NEWS>;
+chop ($desc);
+close NEWS;
+    print $desc;
