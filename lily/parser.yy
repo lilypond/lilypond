@@ -2716,7 +2716,7 @@ property_op_to_music (SCM op)
 			internal_type_checking_global_b = itc;
 		}
 
-	if (op == ly_symbol2scm ("poppush"))
+	if (tag == ly_symbol2scm ("poppush"))
 		m->set_property ("pop-first", SCM_BOOL_T);
 
 
