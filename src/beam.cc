@@ -7,6 +7,7 @@
 #include "stem.hh"
 #include "paper.hh"
 #include "lookup.hh"
+#include "scalar.hh"
 
 
 struct Stem_info {

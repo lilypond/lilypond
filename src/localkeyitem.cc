@@ -1,5 +1,6 @@
 #include "localkeyitem.hh"
 #include "molecule.hh"
+#include "scalar.hh"
 #include "lookup.hh"
 #include "paper.hh"
 
