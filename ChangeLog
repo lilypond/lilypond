@@ -1,3 +1,8 @@
+2005-02-06  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* ly/titling-init.ly: Do not print intstrument twice on first
+	page.  Do not print page number on first page.
+
 2005-02-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* input/regression/*.ly: remove old-relative everywhere
