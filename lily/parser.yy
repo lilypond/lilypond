@@ -747,11 +747,12 @@ Repeated_music:
 		/*
 		we can not get durations and other stuff correct down the line, so we have to
 		add to the duration log here.
-
-		TODO: do dots.
 		*/
 			SCM func = scm_primitive_eval (ly_symbol2scm ("shift-duration-log"));
-			gh_call2 (func, r->self_scm (), gh_int2scm(-intlog2 ($3)));
+			if (($3 % 3) == 0)
+			  gh_call3 (func, r->self_scm (), gh_int2scm(-intlog2 ($3*2/3)),gh_int2scm(1));
+			else
+			  gh_call3 (func, r->self_scm (), gh_int2scm(-intlog2 ($3)), gh_int2scm(0));
 		}
 
 		set_music_properties (r, result);
