@@ -6,6 +6,7 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "dimension-cache.hh"
 #include "graphical-element.hh"
 #include "graphical-axis-group.hh"
 #include "debug.hh"

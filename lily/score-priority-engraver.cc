@@ -6,6 +6,7 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "dimension-cache.hh"
 #include "axis-group-item.hh"
 #include "score-priority-engraver.hh"
 #include "item.hh"

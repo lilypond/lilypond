@@ -7,7 +7,7 @@
   metre = "6 6. 8 6. D";
 }
 
-\version "1.1.52";
+\version "1.1.66";
 
 sop=\notes \transpose c''{
 	ees2  ees4 ees4 g2 g2 |  c'1.

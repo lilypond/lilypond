@@ -6,7 +6,7 @@
   (c) 1998--1999 Jan Nieuwenhuizen <janneke@gnu.org>
 
 */
-
+#include "dimension-cache.hh"
 #include "proto.hh"
 #include "stem.hh"
 #include "note-column.hh"

@@ -14,7 +14,7 @@
 #include "stem.hh"
 #include "warn.hh"
 #include "time-description.hh"
-#include "new-beaming.hh"
+#include "beaming.hh"
 #include "score-engraver.hh"
 
 Beam_engraver::Beam_engraver ()

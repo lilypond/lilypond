@@ -54,6 +54,13 @@ Note_heads_engraver::do_process_requests()
 	{
 	  Dots * d = new Dots;
 	  note_p->dots_l_ = d;
+
+	  Scalar dir = get_property ("verticalDirection",0);
+	  if (dir.isdir_b())
+	    {
+	      d->resolve_dir_ = int (dir);
+	    }
+	  
 	  announce_element (Score_element_info (d,0));
 	  dot_p_arr_.push (d);
 	}

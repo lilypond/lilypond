@@ -15,7 +15,7 @@
 #include "lily-guile.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
-
+#include "dimension-cache.hh"
 Bar_script_engraver::Bar_script_engraver ()
 {
   axis_ = Y_AXIS;

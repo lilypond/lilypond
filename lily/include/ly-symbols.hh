@@ -13,7 +13,7 @@
 #include "lily-guile.hh"
 
 #ifndef DECLARE_LY_SYMBOL
-#define DECLARE_LY_SYMBOL(a) extern SCM a ## _scm_sym
+#define DECLARE_LY_SYMBOL(a) extern SCM a  ## _scm_sym
 #endif
 
 DECLARE_LY_SYMBOL(alt_symbol);
@@ -29,6 +29,7 @@ DECLARE_LY_SYMBOL(break_priority);
 DECLARE_LY_SYMBOL(breakable);
 DECLARE_LY_SYMBOL(char);
 DECLARE_LY_SYMBOL(change);
+DECLARE_LY_SYMBOL(contains_grace);
 DECLARE_LY_SYMBOL(damping);
 DECLARE_LY_SYMBOL(dashed);
 DECLARE_LY_SYMBOL(dangling);
@@ -56,6 +57,7 @@ DECLARE_LY_SYMBOL(molecule);
 DECLARE_LY_SYMBOL(notewidth);
 DECLARE_LY_SYMBOL(non_default);
 DECLARE_LY_SYMBOL(non_rhythmic);
+DECLARE_LY_SYMBOL(no_staff_support);
 DECLARE_LY_SYMBOL(octave_dir);
 DECLARE_LY_SYMBOL(origin);
 DECLARE_LY_SYMBOL(output);

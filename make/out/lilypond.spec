@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.1.66
+Version: 1.1.67
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.66.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.67.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -61,6 +61,8 @@ fi
 %files
 %doc htmldocs/
 %doc out/examples/
+%doc mutopia/
+
 
 # hairy to hook it in (possibly non-existing) emacs
 %doc mudela-mode.el

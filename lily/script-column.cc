@@ -8,6 +8,7 @@
  */
 #include "script-column.hh"
 #include "staff-side.hh"
+#include "dimension-cache.hh"
 
 static Staff_side_item *
 get_Staff_side (Item *i)

@@ -31,17 +31,18 @@
 ;; 
 
 (defconst mudela-font-lock-keywords
-  (let* ((keywords '("alternative" "repeat"
-		     "accepts" "accidentals" "break" "bar" "cadenza" 
-		     "clef" "cm" "consists" "consistsend" "contains" "duration" 
-		     "spanrequest" "grace" "scmfile" "lyrics"
-		     "in" "translator" "context" "key" "maininput" "notes"
-		     "musical_pitch" "time" "midi" "mm" "header"
-		     "notenames" "octave" "output" "partial" "paper" "plet" "name" "addlyrics"
-		     "property" "pt" "shape" "relative" "include" "score"
-		     "scm" "scmfile"
-		     "script" "skip"  "table" "times" "textscript" "symboltables" "type"
-		     "tempo" "transpose" "version" "grouping"
+  (let* ((keywords '("spanrequest" "simultaneous" "sequential" "accepts"
+		     "alternative" "bar" "breathe"
+		     "cadenza" "chordmodifiers" "chords" "clef" "cm" "consists"
+		     "consistsend" "context"
+		     "duration" "font" "grace" "header" "in" "lyrics"
+		     "key" "keysignature" "mark" "musicalpitch"
+		     "time" "times" "midi" "mm" "name" "notenames"
+		     "notes" "partial" "paper" "penalty" "property" "pt"
+		     "relative" "remove" "repeat" "repetitions" "addlyrics"
+		     "scm" "scmfile" "score" "script"
+		     "shape" "skip" "textscript" "tempo" "translator" "transpose"
+		     "type" "version" 
 		     ))
        (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))
 

@@ -8,7 +8,7 @@ enteredby =	 "Shay Rojansky";
 copyright =	 "Public Domain";
 }
 
-\version "1.1.52";
+\version "1.1.66";
 
 % should do programmable input.
 soprane =

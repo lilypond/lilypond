@@ -22,10 +22,11 @@ void
 Dots::do_post_processing ()
 {
   if (!resolve_dir_)
-    resolve_dir_ = DOWN;
+    resolve_dir_ = UP;
   
   if (!(position_i_ % 2))
     position_i_ += resolve_dir_;
+
   if (!dots_i_)
     {
       set_elt_property (transparent_scm_sym, SCM_BOOL_T);

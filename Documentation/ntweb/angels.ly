@@ -13,7 +13,7 @@ global = \notes {
 	\keysignature  bes;
 	\tempo 2=60;
 }
-\version "1.1.52";
+\version "1.1.66";
 % \include "score-paper.ly"
 
 flute1 = \notes \relative c'' {

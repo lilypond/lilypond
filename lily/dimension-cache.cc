@@ -166,3 +166,9 @@ Dimension_cache::set_callback (Dim_cache_callback c)
 {
   callback_l_ =c;
 }
+
+Real
+Dimension_cache::offset () const
+{
+  return offset_;
+}

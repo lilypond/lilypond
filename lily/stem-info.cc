@@ -10,6 +10,7 @@
 #include "proto.hh"
 #include "misc.hh"
 #include "debug.hh"
+#include "dimension-cache.hh"
 
 #include "align-element.hh"
 #include "stem.hh"

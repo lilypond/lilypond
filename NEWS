@@ -1,3 +1,19 @@
+pl 66.hwn1
+	- bf: chord mode unsigned '-' -> unsigned CHORD_MINUS (1 SR conflict).
+	- refman reedit.
+	- dotdown only when verticalDirection is set.
+	- bfs: abc2ly convertor (more or less) successfully converts
+movement 2 of Beethoven 7.
+	- \repeat "semi" -> \repeat "volta"
+	- all spacing params into paper vars.
+	- spacing before grace notes.
+	- warn if font not found.
+	- staccato dot / tenuto centering
+	- spacing for clefs.
+	- bf: Stem_staff_side::do_substitute_element_pointer ();
+	- new screenshot
+
+********
 pl 65.hwn1
 	- refman updates
 	- added \simultaneous { } , \sequential { } syntax, for

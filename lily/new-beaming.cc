@@ -1,5 +1,5 @@
 /*   
-  new-beaming.cc --  implement Beaming_info, Beaming_info_list
+  beaming.cc --  implement Beaming_info, Beaming_info_list
   
   source file of the GNU LilyPond music typesetter
   
@@ -7,7 +7,7 @@
   
  */
 
-#include "new-beaming.hh"
+#include "beaming.hh"
 
 Beaming_info::Beaming_info( )
 {

@@ -5,6 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include "dimension-cache.hh"
 
 #include "paper-score.hh"
 #include "debug.hh"

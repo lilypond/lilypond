@@ -10,6 +10,7 @@
 #include "engraver.hh"
 #include "script-column.hh"
 #include "staff-side.hh"
+#include "dimension-cache.hh"
 
 /**
    Find potentially colliding scripts, and put them in a

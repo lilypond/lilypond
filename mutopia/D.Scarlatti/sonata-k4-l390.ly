@@ -311,4 +311,4 @@ s8 [c''16 g'8 fis'16] [bes'' g' f' ees'] |
  \paper{barsize=50.0; \translator {\StaffContext \consists
 Bar_number_engraver;}}
 }
-\version "1.1.52";
+\version "1.1.66";

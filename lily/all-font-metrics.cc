@@ -56,7 +56,8 @@ All_font_metrics::find_tfm (String name)
 
 Font_metric *
 All_font_metrics::find_font (String name)
-{  Font_metric * f=0;
+{
+  Font_metric * f=0;
   f = find_tfm (name);
   if (f)
     return f;
@@ -65,6 +66,8 @@ All_font_metrics::find_font (String name)
   if (f)
     return f;
 
+  warning (_f("Can't find font `%s', loading default font.", name.ch_C()));
+  
   f =  find_tfm (default_font_sz_);
   if (f)
     return f;

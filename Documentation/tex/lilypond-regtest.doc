@@ -27,9 +27,10 @@ you must create a special context called Thread.
 
 Noteheads can have dots, and ---although this is bad style in duple
 meters--- rests can too.  Augmentation dots should never be printed on
-a staff line, but rather be shifted: down stem notes shift dots down,
-up stem up.  In case of chords, all dots should be in a column.  The
-dots go along as rests are shifted to avoid collisions.
+a staff line, but rather be shifted vertically. They should go up, but
+in case of multiple parts, the down stems have down shifted dots.
+(Wanske p. 186) In case of chords, all dots should be in a column.
+The dots go along as rests are shifted to avoid collisions.
 
 \mudelafile{dots.fly}
 
@@ -71,6 +72,13 @@ Similarly, if \verb+stem_default_neutral_direction+ is set to \verb+-1+.
 
 \mudelafile{stem-direction-down.ly}
 
+\section{Scripts}
+
+The staccato dot (and all scripts with follow-into-staff set), must
+not be on staff lines.
+
+\mudelafile{staccato-pos.sly}
+
 \section{Grace notes}
 
 Grace notes are typeset as an encapsulated piece of music. You can
@@ -92,11 +100,6 @@ case, line breaks are forbidden.  Yet clef and key signatures are
 hidden just as with breakable bar lines.
 
 \mudelafile{beaming.ly}
-
-%Beams should not interfere with various items on the staff (amongst
-%others repeat signs)
-%
-% \mud elafile{beam-repeat.ly}
 
 Beams should behave reasonably well, even under extreme circumstances.
 Stems may be short, but noteheads should never touch the beam.
@@ -184,18 +187,12 @@ inside the staff, and by half spaces outside.  Notice that the half
 and whole rests just outside the staff get ledger lines in different
 cases.
 
-% \m udelafile{rest-collision.ly}
+\mudelafile{rest-collision.ly}
 
-Normal collisions. We have support for four voice polyphony, where the
-middle voices are horizontally shifted in a limited number of cases.
+Normal collisions. We have support for polyphony, where the
+middle voices are horizontally shifted.
 
 \mudelafile{collisions.ly}
-
-In some cases, collisions may be hairy to resolve, or the typesetter
-may have special whishes.  For those special cases, note shifts can be 
-set by hand.
-
-\mudelafile{note-shift.sly}
 
 The number of stafflines of a staff can be set with the property
 numberOfStaffLines.  Ledger lines both on note heads and rests are
@@ -210,6 +207,12 @@ In a limited number of cases, LilyPond corrects for optical spacing
 effects.  In this example, space for opposite pointed stems is adjusted
 
 \mudelafile{stem-spacing.sly}
+
+If there are accidentals in the music, we add space, but the space
+between note and accidentals is less than between the notes with the
+same value.  Clef changes also get extra space, but not as much as
+barlines.
+
 
 Even if a line is very tightly spaced, there will still be room
 between prefatory matter and the following notes.  The space after the

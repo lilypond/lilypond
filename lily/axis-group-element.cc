@@ -8,6 +8,7 @@
 
 #include "axis-group-element.hh"
 #include "graphical-axis-group.hh"
+#include "dimension-cache.hh"
 
 Link_array<Score_element>
 Axis_group_element::get_extra_dependencies() const
@@ -77,12 +78,7 @@ Axis_group_element::do_substitute_element_pointer (Score_element*o,
   
   while ((i = elem_l_arr_.find_i (go))>=0)
     elem_l_arr_.substitute (go,gn);
-#if 0
-  if (n) 
-      elem_l_arr_[i] = n;
-    else
-      elem_l_arr_.del (i);
-#endif
+
   extra_elems_.substitute (o, n);
 }
 

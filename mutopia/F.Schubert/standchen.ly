@@ -16,7 +16,7 @@ multiple \paper{}s in one \score
 Note: Original key F.
 %}
 
-\version "1.1.52";
+\version "1.1.66";
 
 vocalVerse = \notes\relative c''{
 	\property Voice.dynamicDir=1
@@ -335,7 +335,7 @@ vocals = \notes{
 }
 
 vocalStaff = \context Staff = vocal<
-	  \property Staff.instrument = "alto sax"
+	  \property Staff.instrument = "synth voice"
 	  \global
 	  \vocals
 >

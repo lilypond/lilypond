@@ -5,7 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+#include "dimension-cache.hh"
 #include "span-bar.hh"
 #include "lookup.hh"
 #include "dimensions.hh"

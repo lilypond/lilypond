@@ -10,7 +10,7 @@ title = "An Sylvia";
 }
 
 
-\version "1.1.52";
+\version "1.1.66";
 
 \include "paper16.ly";
 \include "paper13.ly";
@@ -238,8 +238,8 @@ tune=\notes  \relative c''  {
 %19
 		d2. \context Staff < {\voiceone b8( )g8} {\voicetwo [b8 g8]} > |
 %20
-		\property Voice.slurdash = 2
-		fis4( )e		\property Voice.slurdash = ""
+		\property Voice.slurDash = 2
+		fis4( )e		\property Voice.slurDash = ""
 		 \context Staff < {\voiceone r2}{\voicetwo r4 e4} > |
 %21
 		c'2. [b16( a g )fis] |

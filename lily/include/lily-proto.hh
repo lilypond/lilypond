@@ -76,6 +76,7 @@ struct Command_req;
 struct Command_script_req;
 struct Command_tie_engraver;
 struct Crescendo ;
+struct Dimension_cache;
 struct Directional_spanner;
 struct Dot_column;
 struct Dots;

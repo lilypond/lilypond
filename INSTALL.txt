@@ -111,29 +111,30 @@ and   C-shell   respectively   are   generated   in   build-
 scripts/out/lilypond-profile and  buildscripts/out/lilypond-
 login during compilation.
 
-LilyPond is a hideously slow program.  A fast CPU and plenty
-of RAM is recommended for comfortable use.
+LilyPond  is  a hiddeously big, slow and bloated program.  A
+fast CPU and plenty of RAM is  recommended  for  comfortable
+use.
 
 5: WEBSITE
 
-If you want to auto-generate  Lily's  website,  you'll  need
+If  you  want  to  auto-generate Lily's website, you'll need
 some additional conversion tools.
 
 o    xpmtoppm (from the Portable Bitmap Utilities) (For Red-
-     Hat Linux users: it  is  included  within  the  package
-     libgr-progs).   the original is at ftp://ftp.x.org/con-
+     Hat  Linux  users:  it  is  included within the package
+     libgr-progs).  the original is at  ftp://ftp.x.org/con-
      trib/utilities/netpbm-1mar1994.p1.tar.gz
 
-o    pnmtopng, which is also in libgr-progs for RedHat.  The
-     original                      is                     at
+o    pnmtopng,  which is also in libgr-progs for RedHat. The
+     original                     is                      at
      ftp://swrinde.nde.swri.edu/pub/png/applications/pnm-
      topng-2.37.2.tar.gz.i
 
      The version of pnmtopng that is distributed with RedHat
-     5.1 and 5.2 contains a  bug:  pnmtopng  is  dynamically
-     linked  to  the  wrong version of libpng.  Recompile it
-     from source, and make sure that the pnmtopng binary  is
-     linked  statically  to  the  libpng that is included in
+     5.1  and  5.2  contains  a bug: pnmtopng is dynamically
+     linked to the wrong version of  libpng.   Recompile  it
+     from  source, and make sure that the pnmtopng binary is
+     linked statically to the libpng  that  is  included  in
      libgr.  RedHat 6.0 does not have this problem.
 
            tar xzf libgr-2.0.13.tar.gz
@@ -142,21 +143,19 @@ o    pnmtopng, which is also in libgr-progs for RedHat.  The
                 rm libpng.so*
                 make pnmtopng
 
-     You  can   then   install   the   new   pnmtopng   into
+     You   can   then   install   the   new   pnmtopng  into
      /usr/local/bin/
 
 o    Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
      Which, in turn depends on man2html for proper installa-
-     tion.    man2html   can   be  had  from  http://askdon-
+     tion.   man2html  can  be   had   from   http://askdon-
      ald.ask.uni-karlsruhe.de/hppd/hpux/Network-
      ing/WWW/Man2html-1.05.
 
-     The  website  will  build without this utility, but you
+     The website will build without this  utility,  but  you
      will not see our hypertextified bibliography.
 
-     TeTeX users should not forget to rerun texhash.
-
-You also have to install  buildscripts/out/ps-to-gifs  in  a
+You  also  have  to install buildscripts/out/ps-to-gifs in a
 directory that is in the path.
 
 6: CONFIGURING and COMPILING
@@ -180,9 +179,9 @@ This will install a number of files, something close to:
           /usr/local/share/lilypond/*
           /usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
 
-The  above assumes that you are root and have the GNU devel-
+The above assumes that you are root and have the GNU  devel-
 opment tools, and your make is GNU make.  If this is not the
-case,  you  can  adjust  your  environment variables to your
+case, you can adjust  your  environment  variables  to  your
 taste:
 
           export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR"
@@ -191,16 +190,16 @@ taste:
 CPPFLAGS are the preprocessor flags.
 
 The configure script is Cygnus configure, and it will accept
---help.  If you are not root, you will probably have to make
+--help. If you are not root, you will probably have to  make
 it with a different --prefix option.  Our favourite location
 is
 
           ./configure --prefix=$HOME/usr
 
-In  this  case, you will have to set up MFINPUTS, and TEXIN-
+In this case, you will have to set up MFINPUTS,  and  TEXIN-
 PUTS accordingly.
 
-Since GNU LilyPond currently is beta,  you  are  advised  to
+Since  GNU  LilyPond  currently  is beta, you are advised to
 also use
 
           --enable-debugging
@@ -212,33 +211,33 @@ Options to configure include:
      Enable debugging print routines (lilypond -D option)
 
 --enable-optimise
-     Set  maximum  optimisation: compile with -O2.  This can
-     be unreliable on  some  compiler/platform  combinations
+     Set maximum optimisation: compile with -O2.   This  can
+     be  unreliable  on  some compiler/platform combinations
      (eg, DEC Alpha and PPC)
 
 --enable-profiling
      Compile with support for profiling.
 
 --enable-config
-     Output  to  a different configuration file.  Needed for
+     Output to a different configuration file.   Needed  for
      multi-platform builds
 
-All options are documented in the configure help The  option
+All  options are documented in the configure help The option
 --enable-optimise is recommended for Real Life usage.
 
 If you do
 
           make all
 
-everything  will be compiled, but nothing will be installed.
-The resulting binaries can be found  in  the  subdirectories
+everything will be compiled, but nothing will be  installed.
+The  resulting  binaries  can be found in the subdirectories
 out/ (which contain all files generated during compilation).
 
 7: CONFIGURING FOR MULTIPLE PLATFORMS
 
 If you want to compile LilyPond with different configuration
-settings,  then,  you  can  use  the --enable-config option.
-Example: suppose I want to build with and   without  profil-
+settings, then, you  can  use  the  --enable-config  option.
+Example:  suppose I want to build with and   without profil-
 ing.  Then I'd use the following for the normal build,
 
            ./configure --prefix=~ --disable-optimise --enable-checking
@@ -261,44 +260,17 @@ If you have done a successful make, then a simple
 should do the trick.
 
 If you are doing an upgrade, please remember to remove obso-
-lete  .pk  and  .tfm  files of the fonts.  A script has been
+lete .pk and .tfm files of the fonts.   A  script  has  been
 provided to do the work for you, see bin/clean-fonts.sh.
 
 CAVEATS
 
-o    The -O2 option  triggers   bugs  on  various  platforms
-     (PowerPC,  Alpha).   If  you  experience  problems, you
+o    The  -O2  option   triggers   bugs on various platforms
+     (PowerPC, Alpha).   If  you  experience  problems,  you
 
      should first try  turning off this.
 
 o    On PPC you need at least EGCS-1.1.2f.
-
-EXAMPLE
-
-This is what I type in my xterm:
-
-          lilypond someinput.ly
-          tex someinput.tex
-          xdvi someinput&
-
-This is what the output looks like over here:
-
-          GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
-          Parsing ... [/home/hw/share/lilypond/init//
-               <..etc..>
-               init//performer.ly]]][input/kortjakje.ly]
-          Creating elements ...[8][16][24][25]
-          Preprocessing elements...
-          Calculating column positions ... [14][25]
-          Postprocessing elements...
-          TeX output to someinput.tex ...
-          Creating MIDI elements ...MIDI output to someinput.midi ...
-
-          hw:~/musix/spacer$ xdvi someinput&
-          [1] 855
-
-Check out the input files, some of them have comments Please
-refer to the man page for more information.
 
 9: REDHAT LINUX
 
@@ -311,8 +283,8 @@ You can make the rpm by issuing
           rpm -tb lilypond-x.y.z.tar.gz
           rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 
-Precompiled    i386   RedHat   RPMS   are   available   from
-http://linux.umbc.edu/software/lilypond/rpms/.
+Precompiled i386 RedHat RPMS are available from ftp://fresh-
+meat.net/pub/rpms/lilypond/.
 
 10: DEBIAN GNU/LINUX
 
@@ -330,5 +302,7 @@ file README-W32.yo.
 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 Jan Nieuwenhuizen <janneke@gnu.org>
+
+In case of problems, please use the mailing list for help.
 
 Have fun!

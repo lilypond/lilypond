@@ -22,6 +22,8 @@
 #include "molecule.hh"
 #include "misc.hh"
 #include "paper-outputter.hh"
+#include "dimension-cache.hh"
+
 
 Interval
 Score_element::dim_cache_callback (Dimension_cache*c)

@@ -5,7 +5,7 @@
 
   (c) 1996, 1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+#include "dimension-cache.hh"
 #include "debug.hh"
 #include "spanner.hh"
 #include "paper-column.hh"

@@ -8,7 +8,8 @@
 # ABC standard v1.6:  http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt
 # 
 
-program_name = 'abc-to-ly'
+
+program_name = 'abc2ly'
 version = '@TOPLEVEL_VERSION@'
 import __main__
 import getopt
@@ -22,11 +23,26 @@ except:
 	sys.exit (1)
 
 
+voice_idx_dict = {}
+
+
 header = {}
 lyrics = []
 voices = []
+current_voice_idx = -1
+current_lyric_idx = -1
+
+def select_voice (name):
+	if not voice_idx_dict.has_key (name):
+		voices.append ('')		
+		voice_idx_dict[name] = len (voices) -1
+	__main__.current_voice_idx =  voice_idx_dict[name]
+	
+#	assert 0
+# current_voice_idx >= 0
+
 global_voice_stuff = []
-default_len = 4
+default_len = 8
 global_key = [0] * 7			# UGH
 names = ["One", "Two", "Three"]
 DIGITS='0123456789'
@@ -54,49 +70,56 @@ class Rational:
 		pass
 	
 
-def dump_global ():
-	print ("global = \\notes{")
+def dump_global (outf):
+	outf.write ("\nglobal = \\notes{")
 	for i in global_voice_stuff:
-		print (i);
-	print ("}")
+		outf.write (i);
+	outf.write ("\n}")
 
 
-def dump_header (hdr):
-	print '\\header {'
-	for k in hdr.keys ():
-		print '%s = "%s";\n'% (k,hdr[k])
- 	print '}'
+def dump_header (outf,hdr):
+	outf.write ('\\header {')
+	ks = hdr.keys ()
+	ks.sort ()
+	for k in ks:
+		outf.write ('\n%s = "%s";\n'% (k,hdr[k]))
+ 	outf.write ('}')
 
-def dump_lyrics ():
+def dump_lyrics (outf):
 	for i in range (len (lyrics)):
-		print ("verse%s = \\lyrics {" % names [i])
-		print (lyrics [i])
-		print ("}")
+		outf.write ("\nverse%s = \\lyrics {" % names [i])
+		outf.write ("\n" + lyrics [i])
+		outf.write ("\n}")
 
-def dump_voices ():
-	for i in range (len (voices)):
-		print ("voice%s = \\notes {" % names [i])
-		print (voices [i])
-		print ("}")
+def dump_voices (outf):
+	ks = voice_idx_dict.keys()
+	ks.sort ()
+	for k in ks:
+		outf.write ("\nvoice%s = \\notes {" % k)
+		outf.write ("\n" + voices [voice_idx_dict[k]])
+		outf.write ("\n}")
 	
-def dump_score ():
-	print r"""\score{
+def dump_score (outf):
+	outf.write (r"""\score{
         \notes<
-           \global"""
+           \global""")
 
-	for i in range (len (voices)):
-		print ("        \\context Staff=%s \\voice%s" %
-			(names [i], names [i]))
+	ks  = voice_idx_dict.keys ();
+	ks.sort ()
+	for k in  ks:
+		outf.write ("\n        \\context Staff=\"%s\" \\$voice%s " % (k,k))# ugh
 	for i in range (len (lyrics)):
 		j = i
 		if j >= len (voices):
 			j = len (voices) - 1
-		print ("        \\context Lyrics=%s \\addlyrics \\voice%s \\verse%s" % 
+		outf.write ("\n        \\context Lyrics=\"%s\" \\addlyrics \\$voice%s \\$verse%s " % 
 			(names [i], names [j], names [i]))
-	print ("    >")
-	dump_header (header)
-	#print "%%%s" % global_voice_stuff, 1
-	print ("}")
+	outf.write ("\n    >")
+	dump_header (outf ,header)
+	outf.write (r"""
+\paper {}
+\midi {}
+}""")
 
 def set_default_length (s):
 	m =  re.search ('1/([0-9]+)', s)
@@ -218,17 +241,20 @@ def compute_key (k):
 	return key_table
 
 tup_lookup = {
+	'2' : '3/2',
 	'3' : '2/3',
 	'4' : '4/3',
 	'5' : '4/5',
 	'6' : '4/6',
+	'7' : '6/7',
+	'9': '8/9',
 	}
 
 
 def try_parse_tuplet_begin (str, state):
-	if str and str[0] in DIGITS:
-		dig = str[0]
-		str = str[1:]
+	if re.match ('\([0-9]', str):
+		dig = str[1]
+		str = str[2:]
 		state.parsing_tuplet = 1
 		
 		voices_append ("\\times %s {" % tup_lookup[dig])
@@ -248,21 +274,30 @@ def header_append (key, a):
 		s = header[key] + "\n"
 	header [key] = s + a
 
-def lyrics_append (a):
-	i = len (lyrics) - 1
-	if i < 0:
-		i = 0
-	if len (lyrics) <= i:
-		lyrics.append ('')
-	lyrics [i] = lyrics [i] + a + "\n"
+def stuff_append (stuff, idx, a):
+	if not stuff:
+		stuff.append ('')
 
-def voices_append (a):
-	i = len (voices) - 1
-	if i < 0:
-		i = 0
-	if len (voices) <= i:
-		voices.append ('')
-	voices [i] = voices [i] + a + "\n"
+	v = stuff[idx]
+
+	#wordwrap
+	linelen = len (v) - string.rfind(v, '\n')
+	if linelen + len (a) > 80:
+		v = v + '\n'
+	v = v + a + ' '
+	stuff [idx] = v
+
+
+
+def voices_append(a):
+	if current_voice_idx < 0:
+		select_voice ('default')
+
+	stuff_append (voices, current_voice_idx, a)
+
+def lyrics_append(a):
+	stuff_append (lyrics, current_lyric_idx, a)
+
 
 def try_parse_header_line (ln):
 	m = re.match ('^(.): *(.*)$', ln)
@@ -295,12 +330,17 @@ def try_parse_header_line (ln):
 			header ['subtitle'] = a
 		if g == 'L':
 			set_default_length (ln)
+		if g == 'V':
+			a = re.sub (' .*$', '', a)
+			select_voice (a)
 		if g == 'W':
 			if not len (a):
 				lyrics.append ('')
 			else:
 				lyrics_append (a);
-	return m
+
+		return ''
+	return ln
 
 def pitch_to_mudela_name (name, acc):
 	s = ''
@@ -349,11 +389,75 @@ def duration_to_mudela_duration  (multiply_tup, defaultlen, dots):
 
 class Parser_state:
 	def __init__ (self):
+		self.next_articulation = ''
 		self.next_dots = 0
 		self.next_den = 1
 		self.parsing_tuplet = 0
 
+# return (num,den,dots) 
+def parse_duration (str, parser_state):
+	num = 0
+	den = parser_state.next_den
+	parser_state.next_den = 1
 
+	(str, num) = parse_num (str)
+	if not num:
+		num = 1
+	
+	if str[0] == '/':
+		while str[0] == '/':
+			str= str[1:]
+			d = 2
+			if str[0] in DIGITS:
+				(str, d) =parse_num (str)
+
+			den = den * d
+
+	current_dots = parser_state.next_dots
+	parser_state.next_dots = 0
+	while str[0] == '>':
+		str = str [1:]
+		current_dots = current_dots + 1;
+		parser_state.next_den = parser_state.next_den * 2
+	
+	while str[0] == '<':
+		str = str [1:]
+		den = den * 2
+		parser_state.next_dots = parser_state.next_dots + 1
+	
+		
+	return (str, num,den,current_dots)
+
+
+def try_parse_rest (str, parser_state):
+	if not str or str[0] <> 'z':
+		return str
+
+	str = str[1:]
+
+	(str, num,den,d) = parse_duration (str, parser_state)
+	voices_append ('r%s' % duration_to_mudela_duration ((num,den), default_len, d))
+
+	return str
+
+def try_parse_articulation (str, state):
+	
+	if str and str[0] == '.':
+		state.next_articulation = state.next_articulation + '-.'
+		str = str[1:]
+		
+	# s7m2 input doesnt care about spaces
+	if re.match('[ \t]*\(', str):
+		str = string.lstrip (str)
+
+	slur_begin =0
+	while str and   str[0] == '(' and str[1] not in DIGITS:
+		slur_begin = slur_begin + 1
+		state.next_articulation = state.next_articulation + '('
+		str = str[1:]
+
+	return str
+		
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
 def try_parse_note (str, parser_state):
 	mud = ''
@@ -361,11 +465,8 @@ def try_parse_note (str, parser_state):
 	slur_begin =0
 	if not str:
 		return str
-	
-	if  str[0] == '(':
-		slur_begin = 1
-		str = str[1:]
 
+	articulation =''
 	acc = 0
 	if str[0] in '^=_':
 		c = str[0]
@@ -397,45 +498,31 @@ def try_parse_note (str, parser_state):
 		 octave = octave + 1
 		 str = str[1:]
 
-	num = 0
-	den = parser_state.next_den
-	parser_state.next_den = 1
+	(str, num,den,current_dots) = parse_duration (str, parser_state)
 
-	(str, num) = parse_num (str)
-	if not num:
-		num = 1
-	
-	if str[0] == '/':
-		while str[0] == '/':
-			str= str[1:]
-			d = 2
-			if str[0] in DIGITS:
-				(str, d) =parse_num (str)
 
-			den = den * d
+	if re.match('[ \t]*\)', str):
+		str = string.lstrip (str)
+	
+	slur_end =0
+	while str and str[0] == ')':
+		slur_end = slur_end + 1
+		str = str[1:]
 
-	current_dots = parser_state.next_dots
-	parser_state.next_dots = 0
-	while str[0] == '>':
-		str = str [1:]
-		current_dots = current_dots + 1;
-		parser_state.next_den = parser_state.next_den * 2
 	
-	while str[0] == '<':
-		str = str [1:]
-		den = den * 2
-		parser_state.next_dots = parser_state.next_dots + 1
-	
-		
-	
+	if slur_end:
+		voices_append ('%s' % ')' *slur_end )
 	voices_append ("%s%s%s" %
 		(pitch_to_mudela_name (notename, acc + global_key[notename]),
 					octave_to_mudela_quotes (octave),
 	 	 duration_to_mudela_duration ((num,den), default_len, current_dots)))
-	slur_end =0
-	if str[0] == ')':
-		slur_begin = 1
-		str = str[1:]
+	if parser_state.next_articulation:
+		articulation = articulation + parser_state.next_articulation
+		parser_state.next_articulation = ''
+
+	voices_append (articulation)
+	if slur_begin:
+		voices_append ('%s' % '(' * slur_begin )
 
 
 	return str
@@ -447,7 +534,7 @@ def junk_space (str):
 	return str
 
 
-def try_parse_guitar_chord (str):
+def try_parse_guitar_chord (str, state):
 	if str and str[0] == '"':
 		str = str[1:]
 		gc = ''
@@ -458,8 +545,7 @@ def try_parse_guitar_chord (str):
 		if str:
 			str = str[1:]
 
-		sys.stderr.write ("warning: ignoring guitar chord: %s\n" % gc)
-		
+		state.next_articulation = "-\"%s\"" % gc
 	return str
 
 def try_parse_escape (str):
@@ -481,8 +567,13 @@ def try_parse_escape (str):
 # :: left-right repeat
 #
 
-def try_parse_bar (str):
+def try_parse_bar (str,state):
 	if str and str[0] == '|':
+
+		if state.parsing_tuplet:
+			state.parsing_tuplet =0
+			voices_append ('} ')
+		
 		bs = ''
 		str = str[1:]
 		if str:
@@ -498,32 +589,57 @@ def try_parse_bar (str):
 			str = str[1:]
 
 	if str and str[:2] == '[|':
+		if state.parsing_tuplet:
+			state.parsing_tuplet =0
+			voices_append ('} ')
 		sys.stderr.write ("warning: thick-thin bar kludge\n")
 		voices_append ('\\bar "||";')
 		str = str[2:]
 
 	if str and str[:2] == ':|':
+		if state.parsing_tuplet:
+			state.parsing_tuplet =0
+			voices_append ('} ')
+		
 		sys.stderr.write ("warning: repeat kludge\n")
 		voices_append ('\\bar ":|:";')
 		str = str[2:]
 
 	if str and str[:2] == '::':
+		if state.parsing_tuplet:
+			state.parsing_tuplet =0
+			voices_append ('} ')
+			
 		sys.stderr.write ("warning: repeat kludge\n")
 		voices_append ('\\bar ":|:";')
 		str = str[2:]
 
 	return str
 	
+def try_parse_tie (str):
+	if str and str[0] == '-':
+		str = str[1:]
+		voices_append (' ~ ')
+	return str
 
 def try_parse_chord_delims (str):
 	if str and str[0] == '[':
 		str = str[1:]
 		voices_append ('<')
 
+	ch = ''
 	if str and str[0] == ']':
 		str = str[1:]
-		voices_append ('>')
+		ch = '>'
 
+	end = 0
+	while str and str[0] == ')':
+		end = end + 1
+		str = str[1:]
+
+	
+	voices_append ("\\spanrequest \\stop \"slur\"" * end);
+	voices_append (ch)
 	return str
 
 def try_parse_grace_delims (str):
@@ -537,43 +653,57 @@ def try_parse_grace_delims (str):
 
 	return str
 
-# Try nibbling characters off until the line doesn't change.
-def try_parse_body_line (ln, state):
-	prev_ln = ''
-	while ln != prev_ln:
-		prev_ln = ln
-		ln = try_parse_chord_delims (ln)
-		ln = try_parse_note  (ln, state)
-		ln = try_parse_bar (ln)
-		ln = try_parse_escape (ln)
-		ln = try_parse_guitar_chord (ln)
-		ln = try_parse_tuplet_begin (ln, state)
-		ln = try_parse_group_end (ln, state)
-		ln = try_parse_grace_delims (ln)
-		ln = junk_space (ln)
-		
-	if ln:
-		sys.stderr.write ("Huh?  Don't understand `%s'\n" % ln)
-	
 
-
+happy_count = 100
 def parse_file (fn):
 	f = open (fn)
 	ls = f.readlines ()
 
-	head = 1
 	state = Parser_state ()
-	for l in ls:
-		if re.match ('^[\t ]*(%.*)?$', l):
-			continue
-		
-		if head:
-			m = try_parse_header_line (l)
-			if not m:
-				head = 0
+	lineno = 0
+	sys.stderr.write ("Parsing line ... ")
+	sys.stderr.flush ()
+	
+	for ln in ls:
+		lineno = lineno + 1
 
-		if not head:
-			m = try_parse_body_line (l,state)
+		if not (lineno % happy_count):
+			sys.stderr.write ('[%d]'% lineno)
+			sys.stderr.flush ()
+		if re.match ('^[\t ]*(%.*)?$', ln):
+			continue
+		m = re.match  ('^(.*?)%(.*)$',ln)
+		if m:
+			voices_append ('%% %s\n' % m.group(2))
+			ln = m.group (1)
+
+		orig_ln = ln
+		
+		ln = try_parse_header_line (ln)
+
+		# Try nibbling characters off until the line doesn't change.
+		prev_ln = ''
+		while ln != prev_ln:
+			prev_ln = ln
+			ln = try_parse_chord_delims (ln)
+			ln = try_parse_rest (ln, state)
+			ln = try_parse_articulation (ln,state)
+			ln = try_parse_note  (ln, state)
+			ln = try_parse_bar (ln, state)
+			ln = try_parse_tie (ln)
+			ln = try_parse_escape (ln)
+			ln = try_parse_guitar_chord (ln, state)
+			ln = try_parse_tuplet_begin (ln, state)
+			ln = try_parse_group_end (ln, state)
+			ln = try_parse_grace_delims (ln)
+			ln = junk_space (ln)
+
+		if ln:
+			msg = "%s: %d: Huh?  Don't understand\n" % (fn, lineno)
+			sys.stderr.write (msg)
+			left = orig_ln[0:-len (ln)]
+			sys.stderr.write (left + '\n')
+			sys.stderr.write (' ' *  len (left) + ln + '\n')	
 
 
 def identify():
@@ -581,24 +711,27 @@ def identify():
 
 def help ():
 	print r"""
-This is a disfunctional ABC to mudela convertor.  It only gulps input, and
-says huh when confused.  Go ahead and fix me.
+This is an ABC to mudela convertor.
 
-Usage: abc-2-ly INPUTFILE
+Usage: abc2ly INPUTFILE
 
 -h, --help   this help.
+-o, --output set output filename
 """
 
 
 
 identify()
-(options, files) = getopt.getopt (sys.argv[1:], 'h', ['help'])
+(options, files) = getopt.getopt (sys.argv[1:], 'o:h', ['help', 'output='])
+out_filename = ''
 
 for opt in options:
 	o = opt[0]
 	a = opt[1]
 	if o== '--help' or o == '-h':
 		help ()
+	if o == '--output' or o == '-o':
+		out_filename = a
 	else:
 		print o
 		raise getopt.error
@@ -607,11 +740,19 @@ for opt in options:
 for f in files:
 	if f == '-':
 		f = ''
+
 	parse_file (f)
 
-	dump_global ()
-	dump_lyrics ()
-	dump_voices ()
-	dump_score ()
+	outf = None
+	if out_filename:
+		outf = open (out_filename, 'w')
+	else:
+		outf = sys.stdout
+
+
+	dump_global (outf)
+	dump_lyrics (outf)
+	dump_voices (outf)
+	dump_score (outf)
 	
 	

@@ -8,7 +8,7 @@ SEE THE REFERENCE MANUAL FOR EXPLANATIONS.
 
 %}
 
-\version "1.1.52";
+\version "1.1.66";
 
 %hmm, (these) abbrevs suck, imo
 % i guess they're meant as some form of doco
@@ -37,6 +37,7 @@ onevoice = {
 	\stemboth \shiftoff	
 }
 
+%{ THESE ARE DEPRECATED  %}
 voiceone = 
 	\context Voice = one  {
 	\stemup
@@ -58,6 +59,8 @@ voicefour =
 	\stemdown
 	\shifton
 }
+
+%{ END OF DEPRECATED %}
 
 
 % ugh, cluttering global namespace...
@@ -121,11 +124,11 @@ normalsize = {
 }
 
 normalkey = {
-	\property Staff.keyoctaviation = 1
+	\property Staff.keyOctaviation = 1
 }
 
 specialkey = {
-	\property Staff.keyoctaviation = 0
+	\property Staff.keyOctaviation = 0
 }
 
 % End the incipit and print a ``normal line start''.

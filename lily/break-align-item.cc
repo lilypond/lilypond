@@ -6,13 +6,13 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "dimension-cache.hh"
 #include "lily-guile.hh"
 #include "break-align-item.hh"
 #include "dimensions.hh"
 #include "paper-score.hh"
 #include "paper-def.hh"
 #include "paper-column.hh"
-
 
 /*
   Handle spacing for prefatory matter. 

@@ -7,7 +7,7 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.1.52";
+\version "1.1.66";
 
 \include "global.ly"
 \include "violino-2.ly"

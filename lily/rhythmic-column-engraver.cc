@@ -6,6 +6,7 @@
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "dimension-cache.hh"
 #include "slur.hh"
 #include "rhythmic-column-engraver.hh"
 #include "note-head.hh"

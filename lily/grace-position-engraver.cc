@@ -12,6 +12,7 @@
 #include "note-head.hh"
 #include "local-key-item.hh"
 #include "paper-column.hh"
+#include "dimension-cache.hh"
 
 class Grace_position_engraver:public Engraver
 {
@@ -93,6 +94,7 @@ Grace_position_engraver::do_pre_move_processing ()
 	align_l_->dim_cache_[X_AXIS]->parent_l_ = 0;
       last_musical_col_l_->add_element (align_l_);
     }
+
   last_musical_col_l_ = get_staff_info ().musical_pcol_l ();
 }
 

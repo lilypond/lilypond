@@ -1,5 +1,5 @@
 /*   
-  g-script.cc --  implement Script
+     script.cc --  implement Script
   
   source file of the GNU LilyPond music typesetter
   
@@ -17,6 +17,7 @@
 #include "lookup.hh"
 #include "staff-side.hh"
 #include "paper-def.hh"
+#include "dimension-cache.hh"
 
 Script::Script ()
 {
@@ -59,6 +60,9 @@ Script::get_molecule(Direction d) const
 void
 Script::do_pre_processing ()
 {
+  /*
+    center my self on the note head.
+   */
   Graphical_element * e
     = staff_side_l_->dim_cache_[X_AXIS]->parent_l_->element_l();
   translate_axis (e->extent (X_AXIS).center (), X_AXIS);
@@ -69,7 +73,12 @@ Script::do_post_processing ()
 {
   Direction d =  staff_side_l_->dir_;
   Molecule m (get_molecule(d));
-  translate_axis (- m.dim_[Y_AXIS][Direction (-d)], Y_AXIS);
+
+  /*
+    UGH UGH UGH
+   */
+  if (staff_side_l_->get_elt_property (no_staff_support_scm_sym) == SCM_BOOL_F) 
+    translate_axis (- m.dim_[Y_AXIS][Direction (-d)], Y_AXIS);
 }
 
 void
