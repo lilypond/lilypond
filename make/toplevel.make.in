@@ -27,7 +27,7 @@ STEPMAKE_TEMPLATES=toplevel yolily-toplevel
 include $(depth)/make/stepmake.make 
 #
 
-website: examples htmldoc doc++
+website: htmldoc examples doc++
 
 examples:
 	$(MAKE) CONFIGSUFFIX='www' -C input WWW
