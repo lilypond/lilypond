@@ -204,9 +204,12 @@ Moment::operator - () const
   return m;
 }
 
+
+#ifdef STREAM_SUPPORT
 ostream &
 operator << (ostream &os, Moment const &m)
 {
   os << m.str ();
   return os;
 }
+#endif

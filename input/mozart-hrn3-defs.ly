@@ -6,7 +6,7 @@ longgrace = \property Voice.Stem \override #'flag-style = #'()
 endlonggrace = \property Voice.Stem \revert #'flag-style
 ritenuto = \textscript #'(italic  "rit.")
 
-\version "1.5.47"
+\version "1.5.49"
 
 #(define italic-bf '((font-shape . italic) (font-series . bold)))
 

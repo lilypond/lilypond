@@ -7,6 +7,7 @@
 */
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <iostream.h>
 #include <assert.h>
 #include <locale.h>
@@ -124,9 +125,9 @@ static Long_option_init options_static[] = {
 };
 
 void
-identify (ostream* os)
+identify (FILE* os)
 {
-  *os << gnu_lilypond_version_str ();
+  fputs(gnu_lilypond_version_str ().ch_C(), os);
 }
 
 void
@@ -136,23 +137,23 @@ usage ()
   /*
     No version number or newline here. It confuses help2man
    */
-  cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond");
+  cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond").ch_C();
   cout << "\n\n";
-  cout << _ ("Typeset music and or play MIDI from FILE");
+  cout << _ ("Typeset music and or play MIDI from FILE").ch_C();
   cout << "\n\n";
   cout << 
 _ (
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
-);
+).ch_C();
 
   cout << '\n';
-  cout << _ ("Options:");
+  cout << _ ("Options:").ch_C();
   cout << '\n';
-  cout << Long_option_init::table_str (options_static);
+  cout << Long_option_init::table_str (options_static).ch_C();
   cout << '\n';
-  cout << _ ("This binary was compiled with the following options:") 
+  cout << _ ("This binary was compiled with the following options:") .ch_C()
     << " " <<
 #ifdef NDEBUG
     "NDEBUG "
@@ -165,22 +166,22 @@ _ (
 
   cout << endl;
 
-  cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org") << endl;
+  cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org").ch_C() << endl;
 }
 
 void
 version ()
 {
-  identify (&cout);
+  identify (stdout);
   cout << '\n';
   cout << _f (""
   "This is free software.  It is covered by the GNU General Public License,\n"
   "and you are welcome to change it and/or distribute copies of it under\n"
   "certain conditions.  Invoke as `%s --warranty' for more information.\n",
-    "lilypond");
+    "lilypond").ch_C();
   cout << endl;
 
-  cout << _f ("Copyright (c) %s by", "1996--2002");
+  cout << _f ("Copyright (c) %s by", "1996--2002").ch_C();
   cout << '\n';
   cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
   cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
@@ -190,9 +191,9 @@ void
 notice ()
 {
   cout << '\n';
-  cout << _ ("GNU LilyPond -- The music typesetter");
+  cout << _ ("GNU LilyPond -- The music typesetter").ch_C();
   cout << '\n';
-  cout << _f ("Copyright (c) %s by", "1996--2002");
+  cout << _f ("Copyright (c) %s by", "1996--2002").ch_C();
   cout << '\n';
   cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
   cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
@@ -210,7 +211,7 @@ notice ()
 	     "    You should have received a copy (refer to the file COPYING) of the\n"
 	     "GNU General Public License along with this program; if not, write to\n"
 	     "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
-	     "USA.\n");
+	     "USA.\n").ch_C();
 }
 
 String prefix_directory;
@@ -488,7 +489,7 @@ main (int argc, char **argv)
 	  break;
 	}
     }
-  identify (&cerr);
+  identify (stderr);
 
 #ifdef WINNT
   scm_boot_guile (argc, argv, main_prog, 0);

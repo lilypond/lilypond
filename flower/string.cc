@@ -42,15 +42,6 @@ String::copy_ch_p () const
   return (char*)copy_byte_p ();
 }
 
-void
-String::print_on (ostream& os) const
-{
-  if (!strh_.is_binary_bo ())
-    os << ch_C ();
-  else
-    for (int i = 0; i < length_i (); i++)
-      os << (Byte) (*this)[ i ];
-}
 
 /*
   copying, constructing.
@@ -397,6 +388,7 @@ String::value_f () const
   return String_convert::dec2_f (*this);
 }
 
+#ifdef STREAM_SUPPORT
 ostream &
 operator << (ostream& os, String d)
 {
@@ -405,4 +397,13 @@ operator << (ostream& os, String d)
 }
 
 
- 
+void
+String::print_on (ostream& os) const
+{
+  if (!strh_.is_binary_bo ())
+    os << ch_C ();
+  else
+    for (int i = 0; i < length_i (); i++)
+      os << (Byte) (*this)[ i ];
+}
+#endif

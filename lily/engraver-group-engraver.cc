@@ -135,7 +135,7 @@ Engraver_group_engraver::do_announces ()
     }
 }
 
-#include <iostream.h>
+
 
 /*
   order is : top to bottom (as opposed to do_announces)

@@ -11,10 +11,13 @@
 #define STRING_HH
 
 
+// too darn slow with gcc3
+#ifdef STREAM_SUPPORT
 #if ( __GNUC__ > 2 )
-#include <iostream.h> /* gcc 3.0 */
+#include <iostream.h>
 #else
 class ostream;
+#endif
 #endif
 
 #include "arithmetic-operator.hh"
@@ -138,9 +141,11 @@ public:
   void to_upper ();
   void to_lower ();
 
+#ifdef STREAM_SUPPORT
   /// provide Stream output
   void print_on (ostream& os) const;
-
+#endif
+  
   /// the length of the string
   int length_i () const;
 
@@ -209,7 +214,8 @@ inline bool operator!= (char const* s1,String s2) {
 }
 
 IMPLEMENT_ARITHMETIC_OPERATOR (String, +);
-
+#ifdef STREAM_SUPPORT
 ostream &operator << (ostream& os, String d);
+#endif
 
 #endif

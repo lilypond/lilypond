@@ -1192,7 +1192,7 @@ def make_pixmap (name):
 	x = (2* margin + bbox[2] - bbox[0]) * res / 72.
 	y = (2* margin + bbox[3] - bbox[1]) * res / 72.
 
-	cmd = r'''gs -g%dx%d -sDEVICE=pgm  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit | pnmtopng > %s'''
+	cmd = r'''gs -g%dx%d -sDEVICE=pnggray  -dTextAlphaBits=4 -dGraphicsAlphaBits=4  -q -sOutputFile=- -r%d -dNOPAUSE %s %s -c quit  > %s'''
 	
 	cmd = cmd % (x, y, res, name + '.trans.eps', name + '.eps',name + '.png')
 	quiet_system (cmd, 'gs')

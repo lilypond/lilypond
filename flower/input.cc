@@ -5,7 +5,9 @@
 
   (c) 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <iostream.h>
+
+#include <stdio.h>
+
 #include "flower-proto.hh"
 #include "input.hh"
 #include "string.hh"
@@ -76,7 +78,7 @@ Input::message (String message_str) const
     str += ":\n";
     str += source_file_l_->error_str (defined_ch_C_);
    }
-  cerr << str << endl;
+  fprintf (stderr, "%s\n", str.ch_C());
 }
 
 void

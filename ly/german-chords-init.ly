@@ -1,4 +1,4 @@
-\version "1.5.12"
+\version "1.5.49"
 
 %  german-chords-init.ly:
 % german/norwegian/danish?

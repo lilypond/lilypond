@@ -8,6 +8,7 @@
  */
 
 #include <iostream.h>
+
 #include "string.hh"
 #include "lily-guile.hh"
 #include "scm-option.hh"
@@ -68,7 +69,7 @@ variables. Usage:
   (set-lily-option SYMBOL VAL)
 
 possible options for SYMBOL are :
-")<<endl;
+").ch_C()<<endl;
       
       cout << "  help (any-symbol)"<<endl; 
       cout << "  internal-type-checking (boolean)"<<endl; 

@@ -17,12 +17,15 @@ Rational::operator double () const
   return (double)sign_ * num_ / den_;
 }
 
+#ifdef STREAM_SUPPORT
 ostream &
 operator << (ostream &o, Rational r)
 {
   o <<  r.str ();
   return o;
 }
+#endif
+
 
 Rational
 Rational::trunc_rat () const

@@ -219,7 +219,7 @@ HYPHEN		--
 	  }
 }
 <incl>\"[^"]*   { // backup rule
-	cerr << _ ("Missing end quote") << endl;
+	error (_ ("Missing end quote"));
 	exit (1);
 }
 <chords,notes,figures>{RESTNAME} 	{
@@ -241,11 +241,11 @@ HYPHEN		--
 	return scan_bare_word (s);
 }
 <INITIAL,chords,lyrics,notes,figures>\\\${BLACK}*		{ // backup rule
-	cerr << _ ("white expected") << endl;
+	error (_("white expected"));
 	exit (1);
 }
 <INITIAL,chords,lyrics,notes,figures>\${BLACK}*		{ // backup rule
-	cerr << _ ("white expected") << endl;
+	error (_("white expected"));
 	exit (1);
 }
 
@@ -640,14 +640,7 @@ strip_trailing_white (String&s)
 
 
 
-Lilypond_version oldest_version ("1.3.59");
-
-void
-print_lilypond_versions (ostream &os)
-{
-  os << _f ("Oldest supported input version: %s", oldest_version.str ()) 
-    << endl;
-}
+Lilypond_version oldest_version ("1.4.0");
 
 
 bool
