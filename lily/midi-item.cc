@@ -235,6 +235,15 @@ Midi_note::get_length () const
 }
 
 int
+Midi_note::get_fine_tuning () const
+{
+  int ft = audio_->pitch_.quartertone_pitch ();
+  ft -= 2 * audio_->pitch_.semitone_pitch();
+  ft *= 50; // 1 quarter tone = 50 cents
+  return ft;
+}
+
+int
 Midi_note::get_pitch () const
 {
   int p = audio_->pitch_.semitone_pitch () + audio_->transposing_;
@@ -250,6 +259,13 @@ String
 Midi_note::to_string () const
 {
   Byte status_byte = (char) (0x90 + channel_);
+
+  // print warning if fine tuning was needed, HJJ
+  if (get_fine_tuning () != 0)
+    {
+      warning (_f ("Omitting fine tuning (of %d cents) a note.", 
+	    get_fine_tuning ()));
+    }
 
   String str = ::to_string ((char)status_byte);
   str += ::to_string ((char) (get_pitch () + c0_pitch_i_));

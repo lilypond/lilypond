@@ -123,6 +123,7 @@ public:
 
   Moment get_length () const;
   int get_pitch () const;
+  int get_fine_tuning () const;
   virtual String to_string () const;
 
   Audio_note* audio_;
