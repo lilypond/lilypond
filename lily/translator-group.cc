@@ -86,15 +86,15 @@ Translator_group::add_used_group_translator (Translator *t)
 
 
 void
-Translator_group::add_fresh_group_translator (Translator*t)
+Translator_group::add_fresh_group_translator (Translator*t, SCM pre_init_ops)
 {
   Translator_group*tg = dynamic_cast<Translator_group*> (t);
   assert (tg);
 
   trans_group_list_ = add_translator (trans_group_list_,t); 
-  unsmob_translator_def (tg->definition_)->apply_property_operations (tg);
+  unsmob_translator_def (tg->definition_)->apply_default_property_operations (tg);
+  apply_property_operations (tg, pre_init_ops);
   t->initialize ();
-  
 }
 
 
@@ -123,7 +123,7 @@ Translator_group::find_existing_translator (SCM n, String id)
 
 
 Translator_group*
-Translator_group::find_create_translator (SCM n, String id)
+Translator_group::find_create_translator (SCM n, String id, SCM operations)
 {
   Translator_group * existing = find_existing_translator (n,id);
   if (existing)
@@ -141,9 +141,14 @@ Translator_group::find_create_translator (SCM n, String id)
 	{
 	  Translator_group * new_group = path[i]->instantiate (output_def_);
 
+	  SCM ops = SCM_EOL; 
 	  if (i == path.size () -1)
-	    new_group->id_string_ = id;
-	  current->add_fresh_group_translator (new_group);
+	    {
+	      new_group->id_string_ = id;
+	      ops = operations;
+	    }
+
+	  current->add_fresh_group_translator (new_group, ops);
 	  current = new_group;
 	}
 
@@ -152,7 +157,7 @@ Translator_group::find_create_translator (SCM n, String id)
 
   Translator_group *ret = 0;
   if (daddy_trans_)
-    ret = daddy_trans_->find_create_translator (n,id);
+    ret = daddy_trans_->find_create_translator (n, id, operations);
   else
     {
       warning (_f ("can't find or create `%s' called `%s'", ly_symbol2string (n).to_str0 (), id));
@@ -232,7 +237,7 @@ Translator_group::get_default_interpreter ()
 	  t = unsmob_translator_def (this->definition_);
 	}
       Translator_group *tg = t->instantiate (output_def_);
-      add_fresh_group_translator (tg);
+      add_fresh_group_translator (tg, SCM_EOL);
 
       if (!tg->is_bottom_translator_b ())
 	return tg->get_default_interpreter ();
@@ -466,4 +471,28 @@ Translator_group::context_name () const
 {
   Translator_def * td = unsmob_translator_def (definition_ );
   return ly_symbol2string (td->type_name_);
+}
+
+void
+apply_property_operations (Translator_group*tg, SCM pre_init_ops)
+{
+  SCM correct_order = scm_reverse (pre_init_ops);
+  for (SCM s = correct_order; gh_pair_p (s); s = ly_cdr (s))
+    {
+      SCM entry = ly_car (s);
+      SCM type = ly_car (entry);
+      entry = ly_cdr (entry); 
+      
+      if (type == ly_symbol2scm ("push") || type == ly_symbol2scm ("poppush"))
+	{
+	  SCM val = ly_cddr (entry);
+	  val = gh_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
+
+	  tg->execute_pushpop_property (ly_car (entry), ly_cadr (entry), val);
+	}
+      else if (type == ly_symbol2scm ("assign"))
+	{
+	  tg->internal_set_property (ly_car (entry), ly_cadr (entry));
+	}
+    }
 }

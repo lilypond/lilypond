@@ -124,7 +124,7 @@ Part_combine_music_iterator::change_to (Music_iterator *it, SCM to_type,
     if (last)
       {
 	Translator_group * dest = 
-	  it->report_to ()->find_create_translator (to_type, to_id);
+	  it->report_to ()->find_create_translator (to_type, to_id, SCM_EOL);
 	current->remove_translator (last);
 	dest->add_used_group_translator (last);
       }
@@ -172,7 +172,7 @@ Part_combine_music_iterator::get_state (Moment)
   SCM w = p->get_mus_property ("what");
     
   
-  Translator_group *first_translator = first_iter_->report_to ()->find_create_translator (w, "one" + suffix_);
+  Translator_group *first_translator = first_iter_->report_to ()->find_create_translator (w, "one" + suffix_, SCM_EOL);
 
   SCM s = first_translator->get_property ("changeMoment");
   if (!gh_pair_p (s))
@@ -399,8 +399,8 @@ s      Consider thread switching: threads "one", "two" and "both".
     change_to (second_iter_, w, (combine_b ? "one" : "two")
 	       + suffix_);
   
-  Translator_group *first_translator = first_iter_->report_to ()->find_create_translator (w, "one" + suffix_);
-  Translator_group *second_translator = second_iter_->report_to ()->find_create_translator (w, "two" + suffix_);
+  Translator_group *first_translator = first_iter_->report_to ()->find_create_translator (w, "one" + suffix_, SCM_EOL);
+  Translator_group *second_translator = second_iter_->report_to ()->find_create_translator (w, "two" + suffix_, SCM_EOL);
   
 
   /* Hmm */

@@ -2,30 +2,26 @@
 \version "1.9.8"
 
 \header { texidoc="@cindex Staff Lines
-Staff symbol property set workaround. "
+Set staff symbol property. "
 }
 
 
 upper = \notes\relative c'' {
-  c1-"x" d-"x" e-"x" f-"x"
+  c1 d e f
 }
 
 lower = \notes\relative c {
-  c1-"x" b-"x" a-"x" g-"x"
+  c1 b a g
 }
 
 \score {
   \context PianoStaff <<
-    %\time 4/4
     \new Staff <<
       \upper
     >>  
-    \new Staff <<
+    \new Staff \with { StaffSymbol \set #'line-count = #4 } <<
       \clef bass
       \lower
-      \applyoutput #(outputproperty-compatibility
-		     (make-type-checker 'staff-symbol-interface)
-		     'line-count  4)
     >>  
   >>
   \paper { raggedright=##t}  

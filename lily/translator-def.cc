@@ -54,7 +54,6 @@ Translator_def::Translator_def ()
   description_ = SCM_EOL;
 
   smobify_self();
-  
 }
 
 Translator_def::~Translator_def ()
@@ -142,20 +141,12 @@ Translator_def::add_last_element (SCM s)
 {
   this->end_consists_name_list_ = modify_definition (this->end_consists_name_list_, s, true);
 }
-void
-Translator_def::add_push_property (SCM props, SCM syms,  SCM vals)
-{
-  this->property_ops_ = gh_cons (scm_list_n (ly_symbol2scm ("push"), props, syms, vals, SCM_UNDEFINED),
-				 this->property_ops_);
-}
 
 void
-Translator_def::add_pop_property (SCM props, SCM syms)
+Translator_def::add_property_operation (SCM what)
 {
-  this->property_ops_ = gh_cons (scm_list_n (ly_symbol2scm ("push"), props, syms, SCM_UNDEFINED),
-				 this->property_ops_);
+  this->property_ops_ = gh_cons (what, this->property_ops_);
 }
-
 
 
 
@@ -176,7 +167,6 @@ Translator_def::path_to_acceptable_translator (SCM type_sym, Music_output_def* o
   Link_array<Translator_def> best_result;
   for (int i=0; i < accepteds.size (); i++)
     {
-
       /*
 	don't check aliases, because \context Staff should not create RhythmicStaff.
       */
@@ -261,30 +251,12 @@ Translator_def::instantiate (Music_output_def* md)
   return tg;
 }
 
-
 void
-Translator_def::apply_property_operations (Translator_group*tg)
+Translator_def::apply_default_property_operations (Translator_group*tg)
 {
-  SCM correct_order = scm_reverse (property_ops_); // pity of the mem.
-  for (SCM s = correct_order; gh_pair_p (s); s = ly_cdr (s))
-    {
-      SCM entry = ly_car (s);
-      SCM type = ly_car (entry);
-      entry = ly_cdr (entry); 
-      
-      if (type == ly_symbol2scm ("push"))
-	{
-	  SCM val = ly_cddr (entry);
-	  val = gh_pair_p (val) ? ly_car (val) : SCM_UNDEFINED;
-
-	  tg->execute_pushpop_property (ly_car (entry), ly_cadr (entry), val);
-	}
-      else if (type == ly_symbol2scm ("assign"))
-	{
-	  tg->internal_set_property (ly_car (entry), ly_cadr (entry));
-	}
-    }
+  apply_property_operations (tg, property_ops_);
 }
+
 
 SCM
 Translator_def::clone_scm () const
@@ -302,12 +274,6 @@ Translator_def::make_scm ()
   return t->self_scm();
 }
 
-void
-Translator_def::add_property_assign (SCM nm, SCM val)
-{
-  this->property_ops_ = gh_cons (scm_list_n (ly_symbol2scm ("assign"), scm_string_to_symbol (nm), val, SCM_UNDEFINED),
-				 this->property_ops_);
-}
 
 /*
   Default child context as a SCM string, or something else if there is

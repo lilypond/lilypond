@@ -1,5 +1,23 @@
+2004-01-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* input/test/slur-shape.ly (x): remove file.
+
+	* lily/translator-group.cc (apply_property_operations): new function.
+
 2004-01-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/parser.yy (optional_prop_ops): allow \with {
+	PROPERTYSETTINGS } following \context or \new.
+
+	* lily/my-lily-lexer.cc: add \with.
+
+	* lily/parser.yy (property_operation): clean up definition of
+	property operations.
+	(property_op_to_music): new function.
+	(context_spec_music): new function
+
+	* VERSION: 2.1.7 released.
+	
 	* input/regression/collision-merge-dots.ly: new file.
 
 	* lily/note-collision.cc (check_meshing_chords): if merging heads,

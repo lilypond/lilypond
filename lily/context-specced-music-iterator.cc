@@ -28,9 +28,10 @@ Context_specced_music_iterator::construct_children ()
   SCM ci = get_music ()->get_mus_property ("context-id");
   if (gh_string_p (ci))
     c_id = ly_scm2string (ci);
+  SCM ops = get_music ()->get_mus_property ("property-operations");
   
   Translator_group* a
-    = report_to ()->find_create_translator (ct, c_id);
+    = report_to ()->find_create_translator (ct, c_id, ops);
 
   if (a)
     set_translator (a);

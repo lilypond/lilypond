@@ -79,7 +79,7 @@ Simultaneous_music_iterator::construct_children ()
 
       SCM name = unsmob_translator_def (report_to ()->definition_)->type_name_;
       Translator_group * t = (j && separate_contexts_b_)
-	? report_to ()->find_create_translator (name, to_string (j))
+	? report_to ()->find_create_translator (name, to_string (j), SCM_EOL)
 	: report_to ();
 
       if (!t)

@@ -65,7 +65,7 @@ Change_iterator::process (Moment m)
     if (last)
       {
 	Translator_group * dest = 
-	  report_to ()->find_create_translator (to_type, to_id);
+	  report_to ()->find_create_translator (to_type, to_id, SCM_EOL);
 	current->remove_translator (last);
 	dest->add_used_group_translator (last);
       }

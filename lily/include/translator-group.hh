@@ -52,7 +52,7 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   Translator_group (Translator_group const &);
   Translator_group ();
-  void add_fresh_group_translator (Translator *trans);
+  void add_fresh_group_translator (Translator *trans, SCM ops);
   void add_used_group_translator (Translator *trans);
   
   /// Score_register = 0, Staff_registers = 1, etc)
@@ -65,7 +65,7 @@ public:
   void check_removal ();
   // Translator *get_simple_translator (String) const;
   Translator_group *find_existing_translator (SCM context_name, String id);
-  Translator_group *find_create_translator (SCM context_name, String id);
+  Translator_group *find_create_translator (SCM context_name, String id, SCM ops);
   Link_array<Translator_group> path_to_acceptable_translator (SCM alias,
 							      Music_output_def*) const;
   Translator_group*get_default_interpreter ();
@@ -84,6 +84,6 @@ public:
 
 
 bool melisma_busy (Translator* tr); // where to put this? --hwn
-
+void apply_property_operations (Translator_group*tg, SCM pre_init_ops);
 
 #endif // TRANSLATOR_GROUP_HH

@@ -85,6 +85,7 @@ static Keyword_ent the_key_tab[]={
   {"transpose", TRANSPOSE},
   {"type", TYPE},
   {"unset", UNSET},
+  {"with", WITH},
   {0,0}
 };
 

@@ -23,17 +23,11 @@ or below the clef respectively."
          \clef "varbaritone"c'1^"{varbaritone}" \bar "||"
          \clef "bass"c'1^"{bass}" \bar "||"
          \clef "subbass"c'1^"{subbass}" \bar "||"
-	 \property Staff.Clef \override #'transparent = ##t
-         \clef "treble" c'1^"transparent=\#t" \bar "||"
-	 \property Staff.Clef \override #'transparent = ##f
-	 \context Staff \applyoutput  #(outputproperty-compatibility (make-type-checker 'clef-interface) 'full-size-change #t)
-         \clef "french" c'1^"full-size-change = \#t" \bar "|."
+	 \property Staff.Clef \override #'full-size-change  = ##t 
+         \clef "treble" c'1^"full-size-change = \#t" \bar "|."
          }
          \paper{
-	   \translator{
-	     \StaffContext
-%	     Clef \override #'full-size-change = ##t
-	   }
+	  raggedright = ##t
          }
 }
 

@@ -84,6 +84,8 @@ TODO:
 
 #define MY_MAKE_MUSIC(x)  make_music_by_name (ly_symbol2scm (x))
 
+Music *property_op_to_music (SCM op);
+Music *context_spec_music (SCM type, SCM id, Music * m, SCM ops_);
 
 
 #define YYERROR_VERBOSE 1
@@ -300,7 +302,7 @@ yylex (YYSTYPE *s,  void * v)
 %token TRANSPOSE
 %token TYPE
 %token UNSET
-
+%token WITH
 
 /* escaped */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE
@@ -313,6 +315,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	 bass_mod
 %type <scm> 	grace_head
+%type <scm> 	prop_ops_body optional_prop_ops
 %type <scm>  	lyric_element
 %type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
 %token <i>	DIGIT
@@ -377,8 +380,8 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm>  embedded_scm scalar
 %type <music>	Music Sequential_music Simultaneous_music 
 %type <music>	relative_music re_rhythmed_music part_combined_music
-%type <music>	property_def translator_change  simple_property_def
-%type <scm> Music_list
+%type <music>	music_property_def translator_change 
+%type <scm> Music_list property_operation
 %type <outputdef>  music_output_def_body
 %type <music> shorthand_command_req
 %type <music>	post_event tagged_post_event
@@ -599,20 +602,8 @@ translator_spec_body:
 	| translator_spec_body DESCRIPTION string  {
 		unsmob_translator_def ($$)->description_ = $3;
 	}
-	| translator_spec_body STRING '=' embedded_scm			{
-		unsmob_translator_def ($$)->add_property_assign ($2, $4);
-	}
-	| translator_spec_body STRING OVERRIDE embedded_scm '=' embedded_scm {
-		unsmob_translator_def ($$)
-			->add_push_property (scm_string_to_symbol ($2), $4, $6);
-	}
-	| translator_spec_body STRING SET embedded_scm '=' embedded_scm {
-		unsmob_translator_def ($$)
-			->add_push_property (scm_string_to_symbol ($2), $4, $6);
-	}
-	| translator_spec_body STRING REVERT embedded_scm  {
-	  unsmob_translator_def ($$)->add_pop_property (
-		scm_string_to_symbol ($2), $4);
+	| translator_spec_body property_operation {
+		unsmob_translator_def ($$)->add_property_operation ($2);
 	}
 	| translator_spec_body NAME STRING  {
 		unsmob_translator_def ($$)->type_name_ = scm_string_to_symbol ($3);
@@ -626,9 +617,14 @@ translator_spec_body:
 	}
 	| translator_spec_body GROBDESCRIPTIONS embedded_scm {
 		Translator_def*td = unsmob_translator_def($$);
-		// td->add_property_assign (ly_symbol2scm ("allGrobDescriptions"), $3);
-		for (SCM p = $3; gh_pair_p (p); p = ly_cdr (p))
-			td->add_property_assign (scm_symbol_to_string (ly_caar (p)), ly_cdar (p));
+
+		for (SCM p = $3; gh_pair_p (p); p = ly_cdr (p)) {
+			SCM tag = gh_caar (p);
+			if (tag == ly_symbol2scm ("poppush"))
+				tag = ly_symbol2scm ("push");
+			td->add_property_operation (scm_list_n (ly_symbol2scm ("assign"),
+							tag, ly_cdar (p), SCM_UNDEFINED));
+		}
 	}
 	| translator_spec_body CONSISTSEND STRING  {
 		unsmob_translator_def ($$)->add_last_element ( $3);
@@ -915,7 +911,7 @@ Simple_music:
 	| MUSIC_IDENTIFIER {
 		$$ = unsmob_music ($1);
 	}
-	| property_def
+	| music_property_def
 	| translator_change
 	;
 
@@ -926,19 +922,25 @@ grace_head:
 	| APPOGGIATURA { $$ = scm_makfrom0str ("Appoggiatura"); }
 	;
 
-Composite_music:
-	CONTEXT STRING Music	{
-		Music*csm =MY_MAKE_MUSIC("ContextSpeccedMusic");
-
-		csm->set_mus_property ("element", $3->self_scm ());
-		scm_gc_unprotect_object ($3->self_scm ());
-
-		csm->set_mus_property ("context-type", scm_string_to_symbol ($2));
-		csm->set_mus_property ("context-id", scm_makfrom0str (""));
-
-		$$ = csm;
+optional_prop_ops:
+	/* */ {
+		$$ = SCM_EOL;
 	}
-	| AUTOCHANGE STRING Music	{
+	| WITH '{' prop_ops_body '}' {
+		$$ = $3;
+	} 
+	;
+
+prop_ops_body:
+	/* */  { $$ = SCM_EOL; }
+	| prop_ops_body property_operation  {
+		 $$ = gh_cons ($2, $1);
+	}
+	;
+	
+
+Composite_music:
+	AUTOCHANGE STRING Music	{
 		Music*chm = MY_MAKE_MUSIC("AutoChangeMusic");
 		chm->set_mus_property ("element", $3->self_scm ());
 		chm->set_mus_property ("iterator-ctor", Auto_change_iterator::constructor_proc);
@@ -1000,33 +1002,21 @@ basic music objects too, since the meaning is different.
 		scm_gc_unprotect_object ($2->self_scm ());
 #endif
 	}
-	| CONTEXT string '=' string Music {
-		Music * csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
+	| CONTEXT string '=' string optional_prop_ops Music {
+		$$ = context_spec_music ($2, $4, $6, $5);
 
-		csm->set_mus_property ("element", $5->self_scm ());
-		scm_gc_unprotect_object ($5->self_scm ());
-
-		csm->set_mus_property ("context-type", scm_string_to_symbol ($2));
-		csm->set_mus_property ("context-id", $4);
-
-		$$ = csm;
 	}
-	| NEWCONTEXT string Music {
+	| CONTEXT STRING optional_prop_ops Music	{
+		$$ = context_spec_music ($2, SCM_UNDEFINED, $4, $3);
+	}
+	| NEWCONTEXT string optional_prop_ops Music {
 		static int new_context_count;
-
-		Music * csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
-
-		csm->set_mus_property ("element", $3->self_scm ());
-		scm_gc_unprotect_object ($3->self_scm ());
-
-		csm->set_mus_property ("context-type", scm_string_to_symbol ($2));
 
 		char s[1024];
 		snprintf (s, 1024, "uniqueContext%d", new_context_count ++);
 		
 		SCM new_id = scm_makfrom0str (s);
-		csm->set_mus_property ("context-id", new_id);
-		$$ = csm;
+		$$ = context_spec_music ($2, new_id, $4, $3);
 	}
 	| TIMES {
 		THIS->push_spot ();
@@ -1172,18 +1162,34 @@ translator_change:
 	}
 	;
 
-property_def:
-	simple_property_def
-	| ONCE simple_property_def {
-		$$ = $2;
-		SCM e = $2->get_mus_property ("element");
-		unsmob_music (e)->set_mus_property ("once", SCM_BOOL_T);
+
+
+property_operation:
+	STRING '='  scalar {
+		$$ = scm_list_n (ly_symbol2scm ("assign"),
+			scm_string_to_symbol ($1), $3, SCM_UNDEFINED);
+	}
+	| STRING UNSET {
+		$$ = scm_list_n (ly_symbol2scm ("unset"),
+			scm_string_to_symbol ($1), SCM_UNDEFINED);
+	}
+	| STRING SET embedded_scm '=' embedded_scm {
+		$$ = scm_list_n (ly_symbol2scm ("poppush"),
+			scm_string_to_symbol ($1), $3, $5, SCM_UNDEFINED);
+	}
+	| STRING OVERRIDE embedded_scm '=' embedded_scm {
+		$$ = scm_list_n (ly_symbol2scm ("push"),
+			scm_string_to_symbol ($1), $3, $5, SCM_UNDEFINED);
+	}
+	| STRING REVERT embedded_scm {
+		$$ = scm_list_n (ly_symbol2scm ("pop"),
+			scm_string_to_symbol ($1), $3, SCM_UNDEFINED);
 	}
 	;
 
-simple_property_def:
-	PROPERTY STRING '.' STRING '='  scalar {
-		Music *t = set_property_music (scm_string_to_symbol ($4), $6);
+music_property_def:
+	PROPERTY STRING '.' property_operation {
+		Music * t = property_op_to_music ($4);
 		Music *csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
 
  		csm->set_mus_property ("element", t->self_scm ());
@@ -1194,96 +1200,10 @@ simple_property_def:
 
 		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
 	}
-	| PROPERTY STRING '.' STRING UNSET {
-		
-		Music *t = MY_MAKE_MUSIC("PropertyUnset");
-		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
-
-		Music *csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
-		csm->set_mus_property ("element", t->self_scm ());
-		scm_gc_unprotect_object (t->self_scm ());
-
-		$$ = csm;
-		$$->set_spot (THIS->here_input ());
-
-		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
-	}
-	| PROPERTY STRING '.' STRING SET embedded_scm '=' embedded_scm {
-		bool autobeam
-		  = gh_equal_p ($4, scm_makfrom0str ("autoBeamSettings"));
-		bool itc = internal_type_checking_global_b;
-		Music *t = MY_MAKE_MUSIC("OverrideProperty");
-		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
-		t->set_mus_property ("pop-first", SCM_BOOL_T);
-		if (autobeam)
-			internal_type_checking_global_b = false;
-		t->set_mus_property ("grob-property", $6);
-		if (autobeam)
-			internal_type_checking_global_b = itc;
-		t->set_mus_property ("grob-value", $8);
-
-		Music *csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
-		csm->set_mus_property ("element", t->self_scm ());
-		scm_gc_unprotect_object (t->self_scm ());
-		$$ = csm;
-		$$->set_spot (THIS->here_input ());
-
-		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
-	}
-	| PROPERTY STRING '.' STRING OVERRIDE
-		embedded_scm '=' embedded_scm
-	{
-		/*
-			UGH UGH UGH UGH.
-		*/
-		bool autobeam
-		  = gh_equal_p ($4, scm_makfrom0str ("autoBeamSettings"));
-		bool itc = internal_type_checking_global_b;
-
-		Music *t = MY_MAKE_MUSIC("OverrideProperty");
-		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
-		if (autobeam)
-			internal_type_checking_global_b = false;
-		t->set_mus_property ("grob-property", $6);
-		t->set_mus_property ("grob-value", $8);
-		if (autobeam)
-			internal_type_checking_global_b = itc;
-
-		Music *csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
-		csm->set_mus_property ("element", t->self_scm ());
-		scm_gc_unprotect_object (t->self_scm ());
-
-		$$ = csm;
-		$$->set_spot (THIS->here_input ());
-
-		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
-
-	}
-	| PROPERTY STRING '.' STRING REVERT embedded_scm {
-		Music *t = MY_MAKE_MUSIC("RevertProperty");
-
-		/*
-			UGH.
-		*/
-		bool autobeam
-		  = gh_equal_p ($4, scm_makfrom0str ("autoBeamSettings"));
-		bool itc = internal_type_checking_global_b;
-
-		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
-		if (autobeam)
-			internal_type_checking_global_b = false;
-		t->set_mus_property ("grob-property", $6);
-		if (autobeam)
-			internal_type_checking_global_b = itc;
-	
-		Music *csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
-		csm->set_mus_property ("element", t->self_scm ());
-		scm_gc_unprotect_object (t->self_scm ());
-
-		$$ = csm;
-		$$->set_spot (THIS->here_input ());
-
-		csm-> set_mus_property ("context-type", scm_string_to_symbol ($2));
+	| ONCE music_property_def {
+		$$ = $2;
+		SCM e = $2->get_mus_property ("element");
+		unsmob_music (e)->set_mus_property ("once", SCM_BOOL_T);
 	}
 	;
 
@@ -2447,3 +2367,71 @@ My_lily_lexer::try_special_identifiers (SCM * destination, SCM sid)
 
 	return -1;	
 }
+
+Music *
+property_op_to_music (SCM op)
+{
+	Music * m = 0;
+	SCM tag = gh_car (op);
+	SCM symbol  = gh_cadr (op);
+	SCM args = gh_cddr (op);
+	SCM grob_val = SCM_UNDEFINED;
+	SCM grob_sym = SCM_UNDEFINED;
+	SCM val = SCM_UNDEFINED;
+	
+	if (tag == ly_symbol2scm ("assign"))
+		{
+		m =  MY_MAKE_MUSIC("PropertySet");
+		val = gh_car (args);
+		}
+	else if (tag == ly_symbol2scm ("unset"))
+		m =  MY_MAKE_MUSIC("PropertyUnset");
+	else if (tag == ly_symbol2scm ("poppush")
+		 || tag == ly_symbol2scm ("push"))
+		{
+		m  = MY_MAKE_MUSIC("OverrideProperty");
+		grob_sym = gh_car (args);
+		grob_val = gh_cadr (args);
+		}
+	else if (tag == ly_symbol2scm ("pop")) {
+		m = MY_MAKE_MUSIC("RevertProperty");
+		grob_sym = gh_car (args);
+		}
+
+	m->set_mus_property ("symbol", symbol);
+	if (val != SCM_UNDEFINED)
+		m->set_mus_property ("value", val);
+	if (grob_val != SCM_UNDEFINED)
+		m->set_mus_property ("grob-value", grob_val);
+
+	if (grob_sym != SCM_UNDEFINED)
+		{
+		bool itc = internal_type_checking_global_b;
+		bool autobeam = gh_equal_p (symbol, ly_symbol2scm ("autoBeamSettings"));
+		if (autobeam)
+			internal_type_checking_global_b = false;
+		m->set_mus_property ("grob-property", grob_sym);
+		if (autobeam)
+			internal_type_checking_global_b = itc;
+		}	
+	if (op == ly_symbol2scm ("poppush"))
+		m->set_mus_property ("pop-first", SCM_BOOL_T); 
+
+
+	return m;
+}
+
+Music*
+context_spec_music (SCM type, SCM id, Music * m, SCM ops)
+{
+	Music * csm = MY_MAKE_MUSIC("ContextSpeccedMusic");
+
+	csm->set_mus_property ("element", m->self_scm ());
+	scm_gc_unprotect_object (m->self_scm ());
+
+	csm->set_mus_property ("context-type", scm_string_to_symbol (type));
+	csm->set_mus_property ("property-operations", ops);
+	csm->set_mus_property ("context-id", id);
+	return csm;
+}
+	
