@@ -17,8 +17,10 @@ all:	 default
 # dependency list of executable:
 #
 
-$(EXECUTABLE):  $(OFILES) $(outdir)/version.hh
-	$(MAKE) $(MODULE_LIBDEPS) 
+$(EXECUTABLE): $(configheader) $(OFILES) $(outdir)/version.hh
+ifdef MODULE_LIBDEPS
+	$(MAKE) $(MODULE_LIBDEPS)
+endif
 ifdef STABLEOBS
 	$(DO_STRIP) $(STABLEOBS)
 endif
@@ -29,11 +31,11 @@ exe: $(EXECUTABLE)
 
 # dependency list of library:
 #
-$(LIBRARY):  $(OFILES)
+$(LIBRARY): $(configheader) $(OFILES)
 	$(AR_COMMAND) $(OFILES)
 	$(RANLIB_COMMAND)
 
-$(SHAREDLIBRARY):   $(OFILES) $(MODULE_LIBDEPS)
+$(SHAREDLIBRARY):  $(configheader) $(OFILES) $(MODULE_LIBDEPS)
 	$(LD_COMMAND) $(OFILES) -o $@.$(VERSION)
 	rm -f $@
 	ln -sf $(outdir)/$(LIB_PREFIX)$(NAME).so.$(VERSION) $@.$(MAJOR_VERSION)
@@ -44,11 +46,11 @@ lib: $(LIBRARY)
 #
 
 
-make-all-outdirs: make-outdir
+outdirs: outdir
 	$(LOOP)
 
-make-outdir:
-	-mkdir $(OUTDIR_NAME)
+outdir:
+	-mkdir $(outdir)
 
 # be careful about deletion.
 clean: localclean
@@ -225,6 +227,8 @@ check-rpm-doc-deps:
 check-mf-deps:
 	$(MAKE) -C $(depth)/mf
 
+$(configheader): $(depth)/$(configuration).hh
+	cp $< $@
 
 
 
