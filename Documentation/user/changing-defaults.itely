@@ -2234,6 +2234,9 @@ The default layout responds to the following settings in the
 @item raggedlastbottom
  If set to true, systems will not be spread to fill the last page.
 
+ This is the default. Only pieces that amply fill two pages or more
+should have this set to true.
+
 @item betweensystemspace
   This dimensions determines the distance between systems. It is the
 ideal distance between the center of the bottom staff of one system,
