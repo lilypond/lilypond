@@ -19,9 +19,15 @@ Scalar::Scalar (Rational r)
 
 Scalar::operator Rational ()
 {
+  return to_rat ();
+}
+
+Rational
+Scalar::to_rat () const
+{
   int p = index_i ('/');
   if (p == -1)
-    return int (*this);
+    return this->to_i ();
   
   String s2 = right_str (length_i ()-p-1);
   String s1 = left_str (p);
@@ -43,11 +49,23 @@ Scalar::isnum_b () const
 
 Scalar::operator Real()
 {
+  return to_f ();
+}
+
+Real
+Scalar::to_f () const
+{
   assert (isnum_b ());
   return value_f ();
 }
 
-Scalar::operator int()
+Scalar::operator int ()
+{
+  return to_i ();
+}
+
+int
+Scalar::to_i () const
 {
   if (!length_i ())
     return 0;			// ugh

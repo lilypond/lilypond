@@ -112,7 +112,7 @@ class Indentable_file(File):
 
 class Afm_file (File):
     def print_f_dimen(self, f):
-	f = f * 1000
+	f = f * 1000 / self.fontsize
     
 	dimstr = '%.2f' % f
 
@@ -189,7 +189,7 @@ class Log_reader:
 	    afm.write ('FontName %s\n' % name)
 	    afm.start ('FontMetrics')
 	    afm.start ('CharMetrics')	    
-	    
+	    afm.fontsize = atof(tags[2])
 	elif label == "group":
 	    ly.indent()
 	    ly.print_lit(name)

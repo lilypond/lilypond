@@ -65,10 +65,6 @@ Text_def::get_atom (Paper_def *p, Direction) const
   Atom a= p->lookup_l(0)->text (style_str_, text_str_);
 
   a.translate_axis (-(align_dir_ + 1)* guess_width_f (a) / 2, X_AXIS);
-  // urg 1/1 is too much; see input/test/vertical-text.ly
-//  a.translate_axis (a.dim_.y ().length () * 9 / 10, Y_AXIS);
-  // fine for one lyric, urg for lyric chord
-  a.translate_axis (a.dim_.y ().length () * 2 / 5, Y_AXIS);
   
   return a;
 }

@@ -1,9 +1,6 @@
 
 \version "1.0.14";
 
-\include "table13.ly";
-\include "table16.ly";
-
 \score{
 	<
 	\type Staff = a \notes\relative c <
@@ -21,9 +18,6 @@
 	>
 	\paper {
 		linewidth = 120.0\mm;
-		-2 = \symboltables { \table_thirteen }	
-		-1 = \symboltables { \table_sixteen }
-
 	}
 }
 

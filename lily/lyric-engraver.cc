@@ -7,32 +7,13 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "lyric-engraver.hh"
 #include "musical-request.hh"
-#include "main.hh"
-#include "dimensions.hh"
 #include "g-text-item.hh"
-#include "engraver.hh"
-#include "array.hh"
-#include "lily-proto.hh"
+#include "paper-def.hh"
+#include "lookup.hh"
 
-class Lyric_engraver : public Engraver 
-{
-protected:
-  virtual void do_pre_move_processing();
-  virtual bool do_try_music (Music*);
-  virtual void do_process_requests();
-
-public:
-  Lyric_engraver();
-  VIRTUAL_COPY_CONS(Translator);
-
-private:
-  Link_array<Lyric_req> lyric_req_l_arr_;
-  Link_array<Item> text_p_arr_;
-};
-
-
-ADD_THIS_TRANSLATOR(Lyric_engraver);
+ADD_THIS_TRANSLATOR (Lyric_engraver);
 
 
 Lyric_engraver::Lyric_engraver()
@@ -65,8 +46,13 @@ Lyric_engraver::do_process_requests()
       Scalar style = get_property ("textstyle", 0);
       if (style.length_i ())
 	item_p->style_str_ = style;
-      // urg, when/how can one get the height of this thing?
-      item_p->translate (Offset (0, - i * 12 PT));
+      if (i)
+	{
+	  Real dy = paper ()->lookup_l (0)-> text
+	    (item_p->style_str_, String ("Cg")).dim_. y ().length ();
+	  dy *= 1.1;
+	  item_p->translate_axis (-i * dy, Y_AXIS);
+	}
       
       text_p_arr_.push (item_p);
       announce_element (Score_element_info (item_p, request_l));

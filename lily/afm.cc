@@ -59,8 +59,8 @@ Adobe_font_char_metric::dimensions () const
 {
   Box b= B_;
   
-  b[X_AXIS] *= 1/1000.0;
-  b[Y_AXIS] *= 1/1000.0;
+  b[X_AXIS] *= size_ / 1000.0;
+  b[Y_AXIS] *= size_ / 1000.0;
 
   return b;
 }

@@ -11,6 +11,7 @@
 #include "afm.hh"
 #include "data-file.hh"
 #include "string-convert.hh"
+#include <ctype.h>
 
 
 Box
@@ -29,16 +30,17 @@ String
 strip_leading_white (String c)
 {
   int i=0;
-  while (c[i] == ' ')
+  while (isspace(c[i]))
     i++;
   c = c.cut_str (i, INT_MAX);
   return c;
 }
 
 Adobe_font_char_metric
-read_char_metric (String s)
+read_char_metric (String s, int size)
 {
   Adobe_font_char_metric char_metric;
+  char_metric.size_ = size;
   Array<String> a= String_convert::split_arr (s, ';');
   for (int i=0; i < a.size (); i++)
     {
@@ -47,18 +49,18 @@ read_char_metric (String s)
       Array<String> b = String_convert::split_arr (c, ' ');
       if (b[0] == "C")
 	char_metric.C_ = b[1].value_i ();
-      if (b[0] == "WX")
+      else if (b[0] == "WX")
 	char_metric.WX_ = b[1].value_f ();
-      if (b[0] == "N")
+      else if (b[0] == "N")
 	char_metric.N_ = strip_leading_white (b[1]);
-      if (b[0] == "B")
+      else if (b[0] == "B")
 	char_metric.B_ = parse_box (b.slice (1, b.size()));
     }
   return char_metric;
 }
 
 void
-Adobe_font_metric::read_char_metrics (Data_file &input)
+Adobe_font_metric::read_char_metrics (Data_file &input, int size)
 {
   while (!input.eof_b ())
     {
@@ -66,7 +68,7 @@ Adobe_font_metric::read_char_metrics (Data_file &input)
       String s= input.get_line ();
       if (s == "EndCharMetrics")
 	return ;
-      Adobe_font_char_metric afm_char =read_char_metric (s);
+      Adobe_font_char_metric afm_char =read_char_metric (s, size);
       char_metrics_.push (afm_char);
       int i = char_metrics_.size ()-1;
       ascii_to_metric_idx_ [afm_char.C_] = i;
@@ -108,9 +110,14 @@ read_afm_file (String fn)
 
   assert (!input.eof_b ());
   
+  int i = fn.index_i(".afm");
+  for (; i>0 && isdigit(fn[--i]); )
+    {}
+  int font_size = String_convert::dec2_i(fn.cut_str(i+1,INT_MAX));
+
   Adobe_font_metric afm;
 
-  for (int i=0; i < 256; i++)
+  for (i=0; i < 256; i++)
     {
       afm.ascii_to_metric_idx_.push (-1);
     }
@@ -145,7 +152,7 @@ read_afm_file (String fn)
       if (key == "StartCharMetrics")
 	{
 	  input.get_line ();
-  	  afm.read_char_metrics (input);
+  	  afm.read_char_metrics (input, font_size);
 	}
       if (key == "EndFontMetrics")
 	break;

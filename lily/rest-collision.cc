@@ -31,39 +31,10 @@ void
 Rest_collision::do_post_processing()
 {
   /*
+    [TODO]
     handle rest under beam (do_post: beams are calculated now)
-
-    [todo]
-    i-d like to have access to the beam itself, 
-    iso only the (half-initialised?) stem
-
     what about combination of collisions and rest under beam
    */
-
-  // no rests to collide
-  if (!rest_l_arr_.size())
-  	return;
-  // can this happen?
-  Stem* stem_l = rest_l_arr_[0]->stem_l_;
-  if (!stem_l)
-    return;
-  // no beam
-  if (!(stem_l->beams_i_drul_[LEFT] || stem_l->beams_i_drul_[RIGHT]))
-    return;
-
-  int dir_i = rest_l_arr_[0]->dir_;
-  int midpos = 4;
-  // ugh
-  int stem_length_i = 7 - 2;
-  // ugh, Stem::stem_start vs Stem::stem_end
-  int pos = (int)(stem_l->stem_end_f() - midpos) - dir_i * stem_length_i;
-  /*
-    nogo: stem_start not set for rests?
-  int pos = (stem_l->stem_begin_f() - midpos) + dir_i * 2;
-
-  WHY IS THIS STILL HERE? --hwn
-  */
-  rest_l_arr_[0]->translate_rests (pos);	
 }
 
 void
@@ -98,8 +69,6 @@ Rest_collision::do_pre_processing()
     {
       // int dir_i = - ncol_l_arr_[0]->dir_;
       int dir_i = rest_l_arr_[0]->dir_;
-      // hope it's 4: if it works->doco
-      int midpos = 0;
 	
       // minimum move
       int minpos = 4;
@@ -108,14 +77,18 @@ Rest_collision::do_pre_processing()
       // UGH Should get dims from table!
       int size_i = 6;
 	
+      Real internote_f = paper ()->internote_f ();
       int sep_i = 3 + size_i / 2;
       for (int i = 0; i < ncol_l_arr_.size(); i++) 
 	{
 	  // how to know whether to sort?
 	  ncol_l_arr_[i]->sort();
 	  for (int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++)
-	    minpos = minpos >? dir_i * 
-	      (ncol_l_arr_[i]->head_l_arr_[j]->position_i_ -midpos) + sep_i;
+	    {
+	      int stem = (int)((ncol_l_arr_[i]->stem_l_->extent
+			       (Y_AXIS)[dir_i]) / internote_f);
+	      minpos = minpos >? (dir_i * stem + sep_i);
+	    }
 	}
       rest_l_arr_[0]->translate_rests (dir_i * minpos);	
     }

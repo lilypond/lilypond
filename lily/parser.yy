@@ -240,7 +240,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <notereq>	steno_notepitch
 %type <pitch_arr>	pitch_list
 %type <music>	chord notemode_chord
-%type <pitch_arr>	chord_additions chord_subtractions
+%type <pitch_arr>	chord_additions chord_subtractions chord_notes
 %type <pitch>	chord_addsub chord_note chord_inversion notemode_chord_inversion
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
@@ -1389,12 +1389,12 @@ simple_element:
 	;
 
 chord:
-	steno_tonic_pitch duration_length chord_additions chord_subtractions chord_inversion {
+	steno_tonic_pitch notemode_duration chord_additions chord_subtractions chord_inversion {
                 $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
 
 notemode_chord:
-	steno_musical_pitch duration_length chord_additions chord_subtractions notemode_chord_inversion {
+	steno_musical_pitch notemode_duration chord_additions chord_subtractions notemode_chord_inversion {
                 $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
 
@@ -1402,9 +1402,18 @@ chord_additions:
 	{
 		$$ = new Array<Musical_pitch>;
 	} 
-	| chord_additions '-' chord_addsub {
+	| '-' chord_notes {
+		$$ = $2;
+	}
+	;
+
+chord_notes:
+	{
+		$$ = new Array<Musical_pitch>;
+	}
+	| chord_notes chord_addsub {
 		$$ = $1;
-		$$->push (*$3);
+		$$->push (*$2);
 	}
 	;
 
@@ -1452,13 +1461,12 @@ chord_note:
 	}
         ;
 
-chord_subtractions:
+chord_subtractions: 
 	{
 		$$ = new Array<Musical_pitch>;
-	}
-	| chord_subtractions '^' chord_addsub {
-		$$ = $1;
-		$$->push (*$3);
+	} 
+	| '^' chord_notes {
+		$$ = $2;
 	}
 	;
 
