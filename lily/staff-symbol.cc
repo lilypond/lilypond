@@ -27,11 +27,24 @@ Staff_symbol::brew_molecule (SCM smob)
   Grob * common
     = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   
-  Real width =
-    // right_shift     - left_shift
-    + sp->get_bound (RIGHT)->relative_coordinate (common , X_AXIS)
-    - sp->get_bound (LEFT)->relative_coordinate (common, X_AXIS)
-    ;
+  bool ragged = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
+  Real width;
+  if (ragged)
+    {
+      // *prevent* staff symbol from being ragged right
+      width =
+	me->paper_l ()->get_var ("linewidth")
+	- sp->get_bound (LEFT)->relative_coordinate (common, X_AXIS)
+	;
+    }
+  else
+    {
+      width =
+	// right_shift     - left_shift
+	+ sp->get_bound (RIGHT)->relative_coordinate (common , X_AXIS)
+	- sp->get_bound (LEFT)->relative_coordinate (common, X_AXIS)
+	;
+    }
 
   Real t = me->paper_l ()->get_var ("stafflinethickness");
   int l = Staff_symbol::line_count (me);

@@ -314,7 +314,7 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
 #include <stdio.h>
 
 void
-Simple_spacer::solve (Column_x_positions *positions) const
+Simple_spacer::solve (Column_x_positions *positions, bool ragged) const
 {
   positions->force_f_ = force_f_;
   if ((force_f_ < 0))
@@ -333,7 +333,15 @@ Simple_spacer::solve (Column_x_positions *positions) const
   positions->config_.push (indent_f_);
   for (int i=0; i <springs_.size (); i++)
     {
-      positions->config_.push (positions->config_.top () + springs_[i].length (force_f_));
+      if (ragged)
+        {
+	  // ragged right operation: do not apply any force
+	  positions->config_.push (positions->config_.top () + springs_[i].length (0.0));
+	}
+      else
+        {
+	  positions->config_.push (positions->config_.top () + springs_[i].length (force_f_));
+	}
     }
   positions->cols_ = spaced_cols_;
   positions->loose_cols_ = loose_cols_;

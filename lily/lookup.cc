@@ -87,11 +87,11 @@ Lookup::filledbox (Box b)
 /*
  * round filled box:
  *
- *   __________________________
- *  /     \  ^           /     \
- * |         |blot              |
- * |   +   | |dia       |   +---|------
- * |         |meter             |     ^
+ *   __________________________________
+ *  /     \  ^           /     \      ^
+ * |         |blot              |     |
+ * |       | |dia       |       |     |
+ * |         |meter             |     |
  * |\ _ _ /  v           \ _ _ /|     |
  * |                            |     |
  * |                            |     | Box
@@ -101,19 +101,30 @@ Lookup::filledbox (Box b)
  * |                            |     |
  * |  _ _                  _ _  |     |
  * |/     \              /     \|     |
- * | (0,0)                      |     v
- * |   x   |            |   +---|------
- * |   |                    |   |
- *  \__|__/______________\__|__/
- *     |                    |
- *     |                    |
- *     |                    |
- *     |<------------------>|
+ * |                            |     |
+ * |       |            |       |     |
+ * |                            |     |
+ * x\_____/______________\_____/|_____v
+ * |(0,0)                       |
+ * |                            |
+ * |                            |
+ * |<-------------------------->|
  *       Box extent(X_AXIS)
  */
 Molecule
 Lookup::roundfilledbox (Box b, Real blotdiameter)
 {
+  if (b.x ().length () < blotdiameter)
+    {
+      programming_error (_f ("round filled box horizontal extent smaller than blot; decreasing blot"));
+      blotdiameter = b.x ().length ();
+    }
+  if (b.y ().length () < blotdiameter)
+    {
+      programming_error (_f ("round filled box vertical extent smaller than blot; decreasing blot"));
+      blotdiameter = b.y ().length ();
+    }
+
   SCM at = (scm_list_n (ly_symbol2scm ("roundfilledbox"),
 			gh_double2scm (-b[X_AXIS][LEFT]),
 			gh_double2scm (b[X_AXIS][RIGHT]),

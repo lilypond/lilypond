@@ -52,6 +52,33 @@
 	} ifelse
 } bind def
 
+/draw_round_box % breapth width depth height blot
+{
+	/blot exch def
+
+	0 setlinecap
+	blot setlinewidth
+	1 setlinejoin
+
+	blot 2 div sub /h exch def
+	blot 2 div sub /d exch def
+	blot 2 div sub /w exch def
+	blot 2 div sub /b exch def
+
+	b neg d neg moveto
+	b w add 0 rlineto
+	0 d h add rlineto
+	b w add neg 0 rlineto
+	0 d h add neg rlineto
+
+	currentdict /testing known {
+		%% outline only, for testing:
+		stroke
+	}{
+		closepath gsave stroke grestore fill
+	} ifelse
+} bind def
+
 % Nice beam with rounded corners
 /draw_beam % slope width thick 
 {
