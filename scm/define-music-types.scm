@@ -247,11 +247,12 @@ Syntax: @code{\\key } @var{name} @var{scale}.")
      . (
 	(description .	"Align lyrics to the start of notes.
 
+Syntax @var{\\oldaddlyrics }@var{music} @var{lyrics}.")
 
-Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
-
-	(internal-class-name . "Lyric_combine_music")
+	(internal-class-name . "Music")
 	(types . (general-music lyric-combine-music))
+	(length-callback . ,Lyric_combine_music::length_callback)
+	(start-callback . ,Music_sequence::first_start_callback)
 	(iterator-ctor . ,Lyric_combine_music_iterator::constructor)
 	))
     
@@ -259,8 +260,7 @@ Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
      . (
 	(description .	"Align lyrics to the start of notes.
 
-
-Syntax @var{\\addlyrics }@var{music} @var{lyrics}.")
+Syntax @var{\\lyricsto }@var{voicename} @var{lyrics}.")
 	(internal-class-name . "Music")
 	(length . ,(ly:make-moment 0 1))
 	(types . (general-music lyric-combine-music))

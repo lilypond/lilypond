@@ -7,7 +7,6 @@
 */
 
 #include "context.hh"
-#include "lyric-combine-music.hh"
 #include "event.hh"
 #include "grob.hh"
 #include "music-iterator.hh"
@@ -34,8 +33,8 @@ private:
 
   bool music_found_;
   bool made_association_;
-  Context * lyrics_context_;
-  Context * music_context_;
+  Context *lyrics_context_;
+  Context *music_context_;
   SCM lyricsto_voice_name_;
   
   Music_iterator * lyric_iter_;
