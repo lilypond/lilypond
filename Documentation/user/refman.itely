@@ -4486,6 +4486,8 @@ In @code{soloADue} mode, when the two voices play the same notes on and
 off, the part combiner may typeset @code{a2} more than once in a
 measure.
 
+@code{\partcombine} can not be inside @code{\times}. 
+
 
 
 @node Hiding staves
@@ -8283,10 +8285,6 @@ field. Titles are made by La@TeX{}, so La@TeX{} commands should be used
 for formatting.
 
 
-@menu
-* Markup construction in scheme::  
-* Markup command definition::   
-@end menu
 
 @node Markup construction in scheme
 @subsubsection Markup construction in scheme
@@ -8399,20 +8397,7 @@ consing a list with the extra setting.
 
 However, suppose that we are using a font that does not have a
 small-caps variant. In that case, we have to fake the small caps font,
-by setting a string in upcase, with the first letter a little larger.
-
-The @code{smallcaps} command first splits its string argument into
-tokens separated by spaces (@code{(string-split str #\Space)}); for
-each token, a markup is built with the first letter made large and
-upcased (@code{#:large (string-upcase (substring s 0 1))}), and a
-second markup built with the following letters made tiny and upcased
-(@code{#:tiny (string-upcase (substring s 1))}). As LilyPond
-introduces a space between markups on a line, the second markup is
-translated to the left (@code{#:translate (cons -0.6 0) ...}). Then,
-the markups built for each token are put in a line
-(@code{(make-line-markup ...)}). Finally, the resulting markup is
-passed to the @code{interpret-markup} function, with the @code{paper}
-and @code{props} arguments.
+by setting a string in upcase, with the first letter a little larger:
 
 @example
 #(def-markup-command (smallcaps paper props str) (string?)
@@ -8427,6 +8412,19 @@ and @code{props} arguments.
                         #:tiny (string-upcase (substring s 1)))))
           (string-split str #\Space)))))
 @end example
+
+The @code{smallcaps} command first splits its string argument into
+tokens separated by spaces (@code{(string-split str #\Space)}); for
+each token, a markup is built with the first letter made large and
+upcased (@code{#:large (string-upcase (substring s 0 1))}), and a
+second markup built with the following letters made tiny and upcased
+(@code{#:tiny (string-upcase (substring s 1))}). As LilyPond
+introduces a space between markups on a line, the second markup is
+translated to the left (@code{#:translate (cons -0.6 0) ...}). Then,
+the markups built for each token are put in a line
+(@code{(make-line-markup ...)}). Finally, the resulting markup is
+passed to the @code{interpret-markup} function, with the @code{paper}
+and @code{props} arguments.
 
 Finally, suppose that we are typesetting a recitative in an opera, and
 we would like to define a command that will show character names in a
