@@ -1,4 +1,6 @@
 
+stafflines = 5;
+
 interline#:=staffsize#/(stafflines-1);
 
 %

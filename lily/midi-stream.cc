@@ -24,6 +24,12 @@ Midi_stream::Midi_stream (String filename_str)
 
 Midi_stream::~Midi_stream()
 {
+  *os_p_ << flush;		// ugh. Share with tex_stream.
+  if (!*os_p_)
+    {
+      warning("error syncing file (disk full?)");
+      exit_status_i_ = 1;
+    }  
   delete os_p_;
 }
 

@@ -74,6 +74,8 @@ def no_dimen_beginchar(expr c) =
 	scantokens extra_beginchar;
 enddef;
 
+code:=-1;
+
 % starts just as plain mf's beginchar:
 %     charcode, 
 % and then adds:

@@ -7,9 +7,6 @@ input autometric;
 fet_beginfont("font-en-tja", 20);
 
 staffsize#:=20pt#;
-stafflines:=5;
-stafflinethickness#:=0.4pt#;
-code:=-1;
 
 input feta-generic;
 

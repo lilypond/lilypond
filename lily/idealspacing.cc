@@ -34,3 +34,15 @@ Idealspacing::OK() const
 {
   assert (hooke_f_ >= 0);
 }
+
+Real
+Idealspacing::energy_f(Real x) const
+{
+  Real dx = (space_f_ - x);
+  
+  Real e =  sqr(dx);
+  if ( dx < 0)
+    e *= 4;			// ugh.
+  
+  return hooke_f_ * e;
+}

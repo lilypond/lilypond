@@ -61,7 +61,7 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
 
 
-8/Oct/97                 LilyPond 0.1.20                        1
+8/Oct/97                 LilyPond 0.1.21                        1
 
 
 
@@ -87,9 +87,8 @@ RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
        Although not strictly necessary, these are recommended to
        have.
 
-       +o         Perl-5.  Most scripts are written in Perl. Most
-                 documentation was created with the perl's Plain
-                 Old Documentation. (I use 5.003)
+       +o         Perl-5.  Most documentation was created with the
+                 perl's Plain Old Documentation. (I use 5.003)
 
        +o         Python.  Although perl is nice, python is
                  better.  We will shift towards python for build
@@ -124,10 +123,11 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
        can be adjusted with --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----pppprrrreeeeffffiiiixxxx and --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----
        ddddiiiirrrr. The above assumes that you are root and have the GNU
        development tools, and your make is GNU make.  If this is
+       not the case, you can adjust your environment variables to
 
 
 
-8/Oct/97                 LilyPond 0.1.20                        2
+8/Oct/97                 LilyPond 0.1.21                        2
 
 
 
@@ -136,7 +136,6 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
-       not the case, you can adjust your environment variables to
        your taste:
 
                export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR"
@@ -190,10 +189,11 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
        --enable-mf-dir
                 Set the directory mf input is in (idem)
+                [obsolete]
 
 
 
-8/Oct/97                 LilyPond 0.1.20                        3
+8/Oct/97                 LilyPond 0.1.21                        3
 
 
 
@@ -201,8 +201,6 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
-
-                [obsolete]
 
        --enable-out-dir
                 Set the directory for machine generated output.
@@ -256,10 +254,12 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
        should do the trick.
 
+       Install the musixtex fonts in a directory which TeX and MF
+       knows (if you are root, look for a directory which
 
 
 
-8/Oct/97                 LilyPond 0.1.20                        4
+8/Oct/97                 LilyPond 0.1.21                        4
 
 
 
@@ -268,8 +268,6 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 
-       Install the musixtex fonts in a directory which TeX and MF
-       knows (if you are root, look for a directory which
        contains the directories with AMS and CM source (*.mf)
        files. Create a subdir lilypond or musixtex and copy the
        fonts into that). Do not forget to rehash TeX (if
@@ -325,7 +323,9 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
 
 
 
-8/Oct/97                 LilyPond 0.1.20                        5
+
+
+8/Oct/97                 LilyPond 0.1.21                        5
 
 
 
@@ -391,6 +391,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-8/Oct/97                 LilyPond 0.1.20                        6
+8/Oct/97                 LilyPond 0.1.21                        6
 
 
