@@ -1,6 +1,15 @@
 % params.ly
 % generic paper parameters
 
+%{
+
+TODO:
+
+* cleanup
+* use elt properties, iso. paper variables.
+%}
+
+
 
 paperfile = \papersize + ".ly";
 % paperfile = "a4.ly";

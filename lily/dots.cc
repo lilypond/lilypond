@@ -43,7 +43,7 @@ Dots::do_brew_molecule () const
 					 Interval (0,0))));
 
   SCM c = get_elt_property ("dot-count");
-  if (!gh_number_p (c))
+  if (gh_number_p (c))
     {
       Molecule d = lookup_l ()->afm_find (String ("dots-dot"));
 
