@@ -1,4 +1,6 @@
 \version "1.7.18"
+% renamed from auto-beam-4-8.ly to beam-auto-4-8.ly
+% keep for now, although mergin into beam-auto-override is a possibility.
 \header {
 	texidoc = "@cindex Auto Beaming 4/8
 You can override Lilypond's automatic beaming.
