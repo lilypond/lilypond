@@ -4,13 +4,6 @@
     
 }
 
-%% FIXME:
-%% THIS does not parse:
-%\new PianoStaff <<
-
-%% and THIS: gives incorrect results (all lyrics below pianostaff)
-%\context PianoStaff <<
-
 %% only this works as advertised...
 <<
     \new Staff \relative {

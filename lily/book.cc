@@ -83,7 +83,7 @@ Book::process (String outname, Output_def *default_def)
       
       /* If the score is empty, generate no output.  Should we
 	 do titling?  */
-      if (ly_c_pair_p (systems))
+      if (SCM_NFALSEP(scm_vector_p (systems)))
 	{
 	  Score_lines sc;
 	  sc.lines_ = systems;
