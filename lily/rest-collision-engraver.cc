@@ -66,7 +66,7 @@ Rest_collision_engraver::stop_translation_timestep ()
   rest_count_ = 0;
 }
 
-ENTER_DESCRIPTION (Rest_collision_engraver,
+ADD_TRANSLATOR (Rest_collision_engraver,
 /* descr */       "Handles collisions of rests.",
 /* creats*/       "RestCollision",
 /* accepts */     "",

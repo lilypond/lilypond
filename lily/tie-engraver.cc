@@ -185,7 +185,7 @@ Tie_engraver::typeset_tie (Grob *her)
 }
 
 
-ENTER_DESCRIPTION (Tie_engraver,
+ADD_TRANSLATOR (Tie_engraver,
 /* descr */       "Generate ties between noteheads of equal pitch.",
 /* creats*/       "Tie TieColumn",
 /* accepts */     "tie-event",

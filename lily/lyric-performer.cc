@@ -70,4 +70,4 @@ Lyric_performer::try_music (Music* req)
   return false;
 }
 
-ENTER_DESCRIPTION (Lyric_performer,"","","lyric-event","","","");
+ADD_TRANSLATOR (Lyric_performer,"","","lyric-event","","","");

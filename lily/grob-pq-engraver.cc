@@ -112,7 +112,7 @@ Grob_pq_engraver::start_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Grob_pq_engraver,
+ADD_TRANSLATOR (Grob_pq_engraver,
 
 /* descr */       "Administrate when certain grobs (eg. note heads) stop playing; this \
 engraver is a sort-of a failure, since it doesn't handle all sorts of \

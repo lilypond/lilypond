@@ -128,7 +128,7 @@ Break_align_engraver::add_to_group (SCM align_name, Item*item)
   Axis_group_interface::add_element (group, item);
 }
 
-ENTER_DESCRIPTION (Break_align_engraver,
+ADD_TRANSLATOR (Break_align_engraver,
 		   "Align grobs with corresponding @code{break-align-symbols} into "
 		   "groups, and order the groups according to @code{breakAlignOrder}. "
 		   "The left edge of the alignment gets a separate group, with a symbol @code{left-edge}. "

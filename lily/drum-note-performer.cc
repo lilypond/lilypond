@@ -108,7 +108,7 @@ Drum_note_performer::try_music (Music* ev)
   return false;
 }
 
-ENTER_DESCRIPTION (Drum_note_performer,
+ADD_TRANSLATOR (Drum_note_performer,
 		  "Play drum notes.","",
 		  "note-event busy-playing-event","","","");
 

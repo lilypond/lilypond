@@ -55,7 +55,7 @@ Stanza_number_align_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Stanza_number_align_engraver,
+ADD_TRANSLATOR (Stanza_number_align_engraver,
 		  "This engraver ensures that stanza numbers are neatly aligned. ",
 		  "",
 		  "",

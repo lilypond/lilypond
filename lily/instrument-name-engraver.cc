@@ -124,7 +124,7 @@ Instrument_name_engraver::process_music ()
     create_text ();
 }
 
-ENTER_DESCRIPTION (Instrument_name_engraver,
+ADD_TRANSLATOR (Instrument_name_engraver,
 /* descr */       " Prints the name of the instrument (specified by "
 " @code{Staff.instrument} and @code{Staff.instr}) "
 "at the left of the staff. ",
@@ -176,7 +176,7 @@ Vocal_name_engraver::create_text ()
 
 
 
-ENTER_DESCRIPTION (Vocal_name_engraver,
+ADD_TRANSLATOR (Vocal_name_engraver,
 /* descr */       " Prints the name of the a lyric voice (specified by "
 " @code{Staff.vocalName} and @code{Staff.vocNam}) "
 "at the left of the staff. ",

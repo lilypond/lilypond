@@ -106,7 +106,7 @@ Bar_number_engraver::create_items ()
   Side_position_interface::set_axis (text_,Y_AXIS);
 }
 
-ENTER_DESCRIPTION (Bar_number_engraver,
+ADD_TRANSLATOR (Bar_number_engraver,
 /* descr */       "A bar number is created whenever measurePosition is zero. It is\n"
 		   "put on top of all staves, and appears only at  left side of the staff. "
 		   "The staves are taken from @code{stavesFound}, which is maintained by "

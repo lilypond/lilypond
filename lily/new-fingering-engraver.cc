@@ -323,7 +323,7 @@ New_fingering_engraver::New_fingering_engraver ()
   stem_ = 0;  
 }
 
-ENTER_DESCRIPTION (New_fingering_engraver,
+ADD_TRANSLATOR (New_fingering_engraver,
 /* descr */       "Create fingering-scripts for notes in a new chord.  "
 		  "This engraver is ill-named, since it "
 		  "also takes care of articulations and harmonic note heads",

@@ -124,7 +124,7 @@ Note_heads_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION (Note_heads_engraver,
+ADD_TRANSLATOR (Note_heads_engraver,
 /* descr */       "Generate noteheads.",
 /* creats*/       "NoteHead Dots",
 /* accepts */     "note-event busy-playing-event",

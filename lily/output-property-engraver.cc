@@ -84,7 +84,7 @@ Output_property_engraver::Output_property_engraver ()
 {
 }
 
-ENTER_DESCRIPTION (Output_property_engraver,
+ADD_TRANSLATOR (Output_property_engraver,
 /* descr */       "Interpret Music of Output_property type, and apply a function "
 " to any Graphic objects that satisfies the predicate.",
 /* creats*/       "",

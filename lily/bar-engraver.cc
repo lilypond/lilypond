@@ -96,7 +96,7 @@ Bar_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Bar_engraver,
+ADD_TRANSLATOR (Bar_engraver,
 /* descr */       "Create barlines. This engraver is controlled through the "
 "@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point",
 /* creats*/       "BarLine",

@@ -108,7 +108,7 @@ Measure_grouping_engraver::Measure_grouping_engraver ()
   grouping_ = 0;
 }
 
-ENTER_DESCRIPTION (Measure_grouping_engraver,
+ADD_TRANSLATOR (Measure_grouping_engraver,
 /* descr */       "Creates MeasureGrouping to indicate beat subdivision.",
 /* creats*/       "MeasureGrouping",
 /* accepts */     "",

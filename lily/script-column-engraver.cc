@@ -72,7 +72,7 @@ Script_column_engraver::process_acknowledged_grobs ()
 
 }
 
-ENTER_DESCRIPTION (Script_column_engraver,
+ADD_TRANSLATOR (Script_column_engraver,
 /* descr */       "",
 /* creats*/       "ScriptColumn",
 /* accepts */     "",

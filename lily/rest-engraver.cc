@@ -105,7 +105,7 @@ Rest_engraver::try_music (Music *m)
   return false;
 }
 
-ENTER_DESCRIPTION (Rest_engraver,
+ADD_TRANSLATOR (Rest_engraver,
 /* descr */       "",
 /* creats*/       "Rest Dots",
 /* accepts */     "rest-event",

@@ -64,7 +64,7 @@ Breathing_sign_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Breathing_sign_engraver,
+ADD_TRANSLATOR (Breathing_sign_engraver,
 /* descr */       "",
 /* creats*/       "BreathingSign",
 /* accepts */     "breathing-event",

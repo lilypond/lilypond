@@ -13,7 +13,7 @@
 #include "audio-element.hh"
 #include "warn.hh"
 
-ENTER_DESCRIPTION (Performer_group_performer,
+ADD_TRANSLATOR (Performer_group_performer,
 /* descr */       "",
 /* creats*/       "",
 /* accepts */     "",

@@ -146,7 +146,7 @@ Phrasing_slur_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Phrasing_slur_engraver,
+ADD_TRANSLATOR (Phrasing_slur_engraver,
 /* descr */       "Print phrasing slurs. Similar to @ref{Slur_engraver}",
 /* creats*/       "PhrasingSlur",
 /* accepts */     "phrasing-slur-event",

@@ -166,7 +166,7 @@ Stem_engraver::try_music (Music *m)
   return false;
 }
 
-ENTER_DESCRIPTION (Stem_engraver,
+ADD_TRANSLATOR (Stem_engraver,
 /* descr */       "Create stems and single-stem tremolos.  It also works together with "
 "the beam engraver for overriding beaming.",
 /* creats*/       "Stem StemTremolo",

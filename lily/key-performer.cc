@@ -93,7 +93,7 @@ Key_performer::try_music (Music* req)
   return false;
 }
 
-ENTER_DESCRIPTION (Key_performer,
+ADD_TRANSLATOR (Key_performer,
 		  "","",
 		  "key-change-event",
 		  "","","");

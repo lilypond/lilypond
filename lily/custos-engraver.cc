@@ -139,7 +139,7 @@ Custos_engraver::finalize ()
 
 
 
-ENTER_DESCRIPTION (Custos_engraver,
+ADD_TRANSLATOR (Custos_engraver,
 /* descr */       "",
 /* creats*/       "Custos",
 /* accepts */     "",

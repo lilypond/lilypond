@@ -276,7 +276,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 
 
 
-ENTER_DESCRIPTION (Beam_engraver,
+ADD_TRANSLATOR (Beam_engraver,
 /* descr */       "Handles Beam events by engraving Beams.    If omitted, then notes will be "
 "printed with flags instead of beams.",
 /* creats*/       "Beam",
@@ -317,7 +317,7 @@ Grace_beam_engraver::valid_end_point ()
 
 
 
-ENTER_DESCRIPTION (Grace_beam_engraver,
+ADD_TRANSLATOR (Grace_beam_engraver,
 /* descr */       "Handles Beam events by engraving Beams.  If omitted, then notes will "
 "be printed with flags instead of beams. Only engraves beams when we "
 " are at grace points in time. "

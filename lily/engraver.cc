@@ -66,7 +66,7 @@ Engraver::get_score_engraver () const
 }
 
 
-ENTER_DESCRIPTION (Engraver,
+ADD_TRANSLATOR (Engraver,
 		   "", "",
 		  "",
 		  "", "", "");

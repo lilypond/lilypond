@@ -137,7 +137,7 @@ Mark_engraver::process_music ()
     }
 }
 
-ENTER_DESCRIPTION (Mark_engraver,
+ADD_TRANSLATOR (Mark_engraver,
 /* descr */       "This engraver will create RehearsalMark objects. "
 		   "It puts them on top of all staves (which is taken from "
 		   "the property @code{stavesFound}). If moving this engraver "

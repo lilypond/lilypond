@@ -93,7 +93,7 @@ Part_combine_engraver::stop_translation_timestep ()
   event_ = 0;
 }
 
-ENTER_DESCRIPTION (Part_combine_engraver,
+ADD_TRANSLATOR (Part_combine_engraver,
 /* descr */       "Part combine engraver for orchestral scores:		"
 		  "Print markings a2, Solo, Solo II, and unisono ",
 /* creats*/       "CombineTextScript",

@@ -88,7 +88,7 @@ Metronome_mark_engraver::process_music ()
     }
 }
 
-ENTER_DESCRIPTION (Metronome_mark_engraver,
+ADD_TRANSLATOR (Metronome_mark_engraver,
 /* descr */       "Engrave metro nome marking. This delegates the formatting work "
 		   "to the function in the metronomeMarkFormatter property. "
 		   "The mark is put over all staves. "

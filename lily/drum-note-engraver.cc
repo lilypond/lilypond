@@ -168,7 +168,7 @@ Drum_notes_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION (Drum_notes_engraver,
+ADD_TRANSLATOR (Drum_notes_engraver,
 /* descr */       "Generate noteheads.",
 /* creats*/       "NoteHead Dots Script",
 /* accepts */     "note-event busy-playing-event",

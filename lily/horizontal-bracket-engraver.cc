@@ -28,7 +28,7 @@ public:
   virtual  void acknowledge_grob (Grob_info);
 };
 
-ENTER_DESCRIPTION (Horizontal_bracket_engraver,
+ADD_TRANSLATOR (Horizontal_bracket_engraver,
 		  "Create horizontal brackets over notes for musical analysis purposes.",
 		  "HorizontalBracket",
 		  "note-grouping-event",

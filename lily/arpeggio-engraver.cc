@@ -93,7 +93,7 @@ Arpeggio_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION (Arpeggio_engraver,
+ADD_TRANSLATOR (Arpeggio_engraver,
 /* descr */       "Generate an Arpeggio from a Arpeggio_req",
 /* creats*/       "Arpeggio",
 /* accepts */     "arpeggio-event",

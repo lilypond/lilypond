@@ -152,7 +152,7 @@ Extender_engraver::finalize ()
 }
 
 
-ENTER_DESCRIPTION (Extender_engraver,
+ADD_TRANSLATOR (Extender_engraver,
 /* descr */       "Create lyric extenders",
 /* creats*/       "LyricExtender",
 /* accepts */     "extender-event",

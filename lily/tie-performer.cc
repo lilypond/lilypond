@@ -107,7 +107,7 @@ Tie_performer::stop_translation_timestep ()
   now_heads_.clear ();
 }
 
-ENTER_DESCRIPTION (Tie_performer,
+ADD_TRANSLATOR (Tie_performer,
 /* descr */       "Generate ties between noteheads of equal pitch.",
 /* creats*/       "",
 /* accepts */     "tie-event",

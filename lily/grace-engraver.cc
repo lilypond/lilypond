@@ -93,7 +93,7 @@ Grace_engraver::start_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Grace_engraver,
+ADD_TRANSLATOR (Grace_engraver,
 		   /* descr */       "Set font size and other properties for grace notes.",
 		   /* creats*/       "",
 		   /* accepts */     "",

@@ -534,7 +534,7 @@ Auto_beam_engraver::process_acknowledged_grobs ()
   count_ ++;
 }
 
-ENTER_DESCRIPTION (Auto_beam_engraver,
+ADD_TRANSLATOR (Auto_beam_engraver,
 /* descr */       "Generate beams based on measure characteristics and observed "
 "Stems.  Uses beatLength, measureLength and measurePosition to decide "
 "when to start and stop a beam.  Overriding beaming is done through "

@@ -84,7 +84,7 @@ Recording_group_engraver::try_music (Music  *m)
 }
 
 
-ENTER_DESCRIPTION (Recording_group_engraver,
+ADD_TRANSLATOR (Recording_group_engraver,
 		  "Engraver_group_engraver that records all music events "
 		  "for this context. Calls the procedure "
 		  "in @code{recordEventSequence} when finished.",

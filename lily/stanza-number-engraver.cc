@@ -72,7 +72,7 @@ Stanza_number_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION (Stanza_number_engraver,
+ADD_TRANSLATOR (Stanza_number_engraver,
 /* descr */       "",
 /* creats*/       "StanzaNumber",
 /* accepts */     "",

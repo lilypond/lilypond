@@ -192,7 +192,7 @@ Key_engraver::initialize ()
 }
 
 
-ENTER_DESCRIPTION (Key_engraver,
+ADD_TRANSLATOR (Key_engraver,
 /* descr */       "",
 /* creats*/       "KeySignature",
 /* accepts */     "key-change-event",

@@ -186,7 +186,7 @@ Clef_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION (Clef_engraver,
+ADD_TRANSLATOR (Clef_engraver,
 /* descr */       "Determine and set reference point for pitches",
 /* creats*/       "Clef OctavateEight",
 /* accepts */     "",

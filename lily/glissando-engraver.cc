@@ -110,7 +110,7 @@ Glissando_engraver::finalize ()
 
 
 
-ENTER_DESCRIPTION (Glissando_engraver,
+ADD_TRANSLATOR (Glissando_engraver,
 /* descr */       "Engrave a glissandi",
 /* creats*/       "Glissando",
 /* accepts */     "glissando-event",
