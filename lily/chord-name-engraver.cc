@@ -106,7 +106,7 @@ Chord_name_engraver::process_music ()
   
   chord_name_ = new Item (get_property ("ChordName"));
   chord_name_->set_grob_property("text", markup);
-  announce_grob(chord_name_, SCM_EOL);
+  announce_grob(chord_name_, notes_[0]->self_scm ());
   SCM s = get_property ("chordChanges");
   if (to_boolean (s) && gh_pair_p (last_chord_) 
       && gh_equal_p (chord_as_scm, last_chord_))

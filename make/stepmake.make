@@ -1,7 +1,6 @@
 # make/Stepmake.make
 
 include $(depth)/make/toplevel-version.make
-
 # Use alternate configurations alongside eachother:
 #
 #     ./configure --enable-config=debug

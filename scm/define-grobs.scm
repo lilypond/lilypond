@@ -377,10 +377,11 @@
 	))
 
 
-    (HaraKiriVerticalGroup
+    (RemoveEmptyVerticalGroup
      . (
 	(Y-offset-callbacks . (,Hara_kiri_group_spanner::force_hara_kiri_callback))
 	(Y-extent-callback . ,Hara_kiri_group_spanner::y_extent)
+	(remove-first . #t)
 	(axes . (1))
 	(meta . ((interfaces . (axis-group-interface hara-kiri-group-interface item-interface  spanner-interface))))
 	))

@@ -191,8 +191,8 @@ ways. For more information, refer to @ref{Accidentals}.
 @node Chords
 @subsection Chords
 
-A chord is formed by a enclosing a set of pitches in @code{<<} and
-@code{>>}. A chord may be followed by  a duration, and a set of
+A chord is formed by a enclosing a set of pitches in @code{<} and
+@code{>}. A chord may be followed by  a duration, and a set of
 articulations, just like simple notes.
 
 
@@ -247,10 +247,10 @@ other situations, you should use the @code{\skip} command:
 
 @lilypond[singleline,verbatim]
 \score {
-  \context Staff <
+  \context Staff <<
     { \time 4/8 \skip 2 \time 4/4 } 
     \notes\relative c'' { a2 a1 }
-  >
+  >>
 }
 @end lilypond
 
@@ -391,7 +391,7 @@ slurs, which indicate articulation, or phrasing slurs, which indicate
 musical phrasing.  A tie is entered using the tilde symbol `@code{~}':
 
 @lilypond[fragment,verbatim,center]
-  e' ~ e' <<c' e' g'>> ~ <<c' e' g'>>
+  e' ~ e' <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
 When a tie is applied to a chord, all note heads whose pitches match
@@ -615,9 +615,9 @@ to determine the first note of the next chord:
 
 @lilypond[fragment,verbatim,center]
   \relative c' {
-    c <<c e g>> 
-    <<c' e g>>
-    <<c, e' g>>
+    c <c e g> 
+    <c' e g>
+    <c, e' g>
   }
 @end lilypond 
 @cindex @code{\notes}
@@ -1121,12 +1121,12 @@ automatically applied to all staves. The resulting bar lines are
 connected between different staves of a @internalsref{StaffGroup}:
 @c
 @lilypond[fragment, verbatim]
-< \context StaffGroup <
+<< \context StaffGroup <<
   \new Staff { e'4 d'
      \bar "||"
      f' e' }
-  \new Staff { \clef bass c4 g e g } >
-\new Staff { \clef bass c2 c2 } >
+  \new Staff { \clef bass c4 g e g } >>
+\new Staff { \clef bass c2 c2 } >>
 @end lilypond
 
 
@@ -1178,7 +1178,7 @@ small, short-lived voices or for single chords:
 
 @lilypond[verbatim,fragment]
 \context Staff \relative c'' {
- c4 < { f d e  } \\ { b c2 } > c4 < g' \\ b, \\  f' \\ d >
+ c4 << { f d e  } \\ { b c2 } >> c4 << g' \\ b, \\  f' \\ d >>
 }
 @end lilypond
 
@@ -1195,39 +1195,39 @@ a stem directions and horizontal shift for each part:
 
 @lilypond[singleline, verbatim]
 \relative c''
-\context Staff < \new Voice { \voiceOne cis2 b  }
+\context Staff << \new Voice { \voiceOne cis2 b  }
   \new Voice { \voiceThree b4 ais ~ ais4 gis4 } 
-  \new Voice { \voiceTwo fis4~  fis4 f ~ f  } >
+  \new Voice { \voiceTwo fis4~  fis4 f ~ f  } >>
 @end lilypond
 
 Normally, note heads with a different number of dots are not merged, but
 when  the object property @code{merge-differently-dotted} is set in
 the @internalsref{NoteCollision} object, they are merged:
 @lilypond[verbatim,fragment,singleline]
-\relative c'' \context Voice < {
+\relative c'' \context Voice << {
      g8 g8 
      \property Staff.NoteCollision \override
         #'merge-differently-dotted = ##t
      g8 g8
   } \\ { g8.[ f16] g8.[ f16] } 
-  >
+  >>
 @end lilypond
 
 Similarly, you can merge half note heads with eighth notes, by setting
 @code{merge-differently-headed}:
 @lilypond[fragment, relative=2,verbatim]
-\context Voice < {
+\context Voice << {
     c8 c4.
     \property Staff.NoteCollision
       \override #'merge-differently-headed = ##t
-    c8 c4. } \\ { c2 c2 } >
+    c8 c4. } \\ { c2 c2 } >>
 @end lilypond
 
 LilyPond also vertically shifts rests that are opposite of a stem:
 
 
 @lilypond[singleline,fragment,verbatim]
-\context Voice < c''4 \\  r4 >
+\context Voice << c''4 \\  r4 >>
 @end lilypond
 
 
@@ -1535,28 +1535,28 @@ staff then issue @code{\pianoAccidentals} first thing after the
 creation of the piano staff:
 @example
 \score @{
-    \notes \relative c'' <
+    \notes \relative c'' <<
         \new Staff @{ cis4 d e2 @}
-        \context GrandStaff <
+        \context GrandStaff <<
             \pianoAccidentals
             \new Staff @{ cis4 d e2 @}
             \new Staff @{ es2 c @}
-        >
+        >>
         \new Staff @{ es2 c @}
-    >
+    >>
 @}
 @end example
 @lilypond[singleline]
 \score {
-    \notes \relative c'' <
+    \notes \relative c'' <<
         \new Staff { cis4 d e2 }
-        \context GrandStaff <
+        \context GrandStaff <<
             \pianoAccidentals
             \new Staff { cis4 d e2 }
             \new Staff { es2 c }
-        >
+        >>
         \new Staff { es2 c }
-    >
+    >>
     \paper {
         \translator {
             \StaffContext
@@ -1587,12 +1587,12 @@ rule is similar to @code{\defaultAccidentals}.
       because accidentals from one voice do not get cancelled in other
       voices:
 @lilypond[singleline,relative,fragment,verbatim,quote]
-    \context Staff <
+    \context Staff <<
         \voiceAccidentals
-        <
+        <<
          { es g } \\
          { c, e }
-     > >
+     >> >>
 @end lilypond
       Hence you should only use @code{\voiceAccidentals} if the voices
 are to be read solely by individual musicians. If the staff is to be
@@ -1748,8 +1748,8 @@ input file:
 
 @lilypond[singleline,fragment,verbatim]
 \property Staff.autoAccidentals = #'( Staff (any-octave . 0) )
-cis'4 <<c'' c'>> r2 | cis'4 <<c' c''>> r2
-| <<cis' c''>> r | <<c'' cis'>> r | 
+cis'4 <c'' c'> r2 | cis'4 <c' c''> r2
+| <cis' c''> r | <c'' cis'> r | 
 @end lilypond
 
 This problem can be solved by manually inserting @code{!} and @code{?}
@@ -1778,7 +1778,7 @@ A slur indicates that notes are to be played bound or @emph{legato}.
 They are entered using parentheses:
 @lilypond[fragment,verbatim,center]
   f'( g')( a') a'8[ b'(] a'4 g'2 f'4)
-  <<c' e'>>2( <<b d'>>2)
+  <c' e'>2( <b d'>2)
 @end lilypond
 
 
@@ -2104,14 +2104,14 @@ You can use the thumb-script to indicate that a note should be
 played with your thumb (used in cello music):
 
 @lilypond[verbatim, singleline, fragment]
-      <<a' a''-3>>8(_\thumb[ <<b' b''-3>>)_\thumb
-      <<c'' c'''-3>>(_\thumb <<d'' d'''-3>>)_\thumb]
+      <a' a''-3>8(_\thumb[ <b' b''-3>)_\thumb
+      <c'' c'''-3>(_\thumb <d'' d'''-3>)_\thumb]
 @end lilypond
 
 Fingerings for chords can also be added to individual notes
 of the chord by adding them after the pitches:
 @lilypond[verbatim,singleline,fragment,relative=1]
-        << c-1  e-2 g-3 b-5 >> 4
+        < c-1  e-2 g-3 b-5 > 4
 @end lilypond
 
 Setting @code{fingeringOrientations} will put  fingerings next
@@ -2119,9 +2119,9 @@ to note heads:
 
 @lilypond[verbatim,singleline,fragment,relative=1]
 	\property Voice.fingeringOrientations = #'(left down)
-	<<c-1 es-2 g-4 bes-5 >> 4
+	<c-1 es-2 g-4 bes-5 > 4
 	\property Voice.fingeringOrientations = #'(up right down)
-	<<c-1 es-2 g-4 bes-5 >> 4
+	<c-1 es-2 g-4 bes-5 > 4
 @end lilypond
         
 @seealso
@@ -2205,7 +2205,7 @@ denotes the logical time, one denotes the grace timing. The above
 example is shown here with timing tuples:
 
 @lilypond[singleline]
-<
+<<
   \relative c''{ 
   c4  \grace c16  c4  \grace {
   c16[  d16] } c4
@@ -2220,7 +2220,7 @@ example is shown here with timing tuples:
 	  \markup { (\fraction 2 4 , \fraction "-1" 16 ) } 16
 	  } 
       \markup { ( \fraction 2 4 , 0 ) }
-  } >
+  } >>
 @end lilypond
 
 
@@ -2229,8 +2229,8 @@ In the following example, there are two sixteenth graces notes for
 every eighth grace note:
 
 @lilypond[relative=2,verbatim,fragment] 
-< \new Staff { e4 \grace { c16[ d e f] } e4 }
-  \new Staff { c'4 \grace { g8[ b] } c4 } >
+<< \new Staff { e4 \grace { c16[ d e f] } e4 }
+  \new Staff { c'4 \grace { g8[ b] } c4 } >>
 @end lilypond
 
 
@@ -2239,8 +2239,8 @@ If you want to end a note with a grace note, then the standard trick
 is to put the grace notes before a phantom ``space note'', e.g.
 @lilypond[fragment,verbatim, relative=2]
 \context Voice {
-    < { d1^\trill ( }
-     { s2 \grace { c16[ d] } } >
+    << { d1^\trill ( }
+     { s2 \grace { c16[ d] } } >>
    c4)
 }
 @end lilypond
@@ -2304,8 +2304,8 @@ such as key signatures, barlines, etc. are also synchronized. Take
 care when you mix staves with grace notes and staves without, for example,
 
 @lilypond[relative=2,verbatim,fragment]
-< \new Staff { e4 \bar "|:" \grace c16 d4 }
-  \new Staff { c4 \bar "|:"  d4 } >
+<< \new Staff { e4 \bar "|:" \grace c16 d4 }
+  \new Staff { c4 \bar "|:"  d4 } >>
 @end lilypond
 
 Grace sections should only be used within sequential music
@@ -2396,7 +2396,7 @@ use spacer notes if multiple marks during one note are needed:
 
 @lilypond[fragment,verbatim,center,quote]
   c''\< c''\!   d''\decr e''\rced 
-  < f''1 { s4 s4\< s4\! \>  s4\! } >
+  << f''1 { s4 s4\< s4\! \>  s4\! } >>
 @end lilypond
 This may give rise to very short hairpins. Use @code{minimum-length}
 in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
@@ -2747,11 +2747,11 @@ adding a script:
 up = \notes { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
 down = \notes { bassdrum4 snare8 bd r bd sn4 }
 \score {
-    \apply #(drums->paper 'drums) \context Staff <
+    \apply #(drums->paper 'drums) \context Staff <<
         \clef percussion
         \new Voice { \voiceOne \up }
         \new Voice { \voiceTwo \down }
-    >
+    >>
 }
 
 @end lilypond
@@ -2768,13 +2768,13 @@ nam = \lyrics { cymc cyms cymr hh hhc hho hhho hhp cb hc
 mus = \notes  { cymc cyms cymr hh hhc hho hhho hhp cb hc
     bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
 \score {
-    <
-        \apply #(drums->paper 'drums) \context Staff <
+    <<
+        \apply #(drums->paper 'drums) \context Staff <<
             \clef percussion
             \mus
-        >
+        >>
         \context Lyrics \nam 
-    >
+    >>
     \paper {
         linewidth = 100.0\mm
         \translator {
@@ -2806,13 +2806,13 @@ to typeset timbales on a two line staff:
 nam = \lyrics { timh ssh timl ssl cb }
 mus = \notes  { timh ssh timl ssl cb s16 }
 \score {
-    <
-        \apply #(drums->paper 'timbales) \context Staff <
+    <<
+        \apply #(drums->paper 'timbales) \context Staff <<
             \clef percussion
             \mus
-        >
+        >>
         \context Lyrics \nam 
-    >
+    >>
     \paper {
         \translator {
             \StaffContext
@@ -2838,13 +2838,13 @@ to typeset congas on a two line staff:
 nam = \lyrics { cgh cgho cghm ssh cgl cglo cglm ssl }
 mus = \notes  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 \score {
-    <
-        \apply #(drums->paper 'congas) \context Staff <
+    <<
+        \apply #(drums->paper 'congas) \context Staff <<
             \clef percussion
             \mus
-        >
+        >>
         \context Lyrics \nam 
-    >
+    >>
     \paper {
         \translator {
             \StaffContext
@@ -2869,13 +2869,13 @@ to typeset bongos on a two line staff:
 nam = \lyrics { boh boho bohm ssh bol bolo bolm ssl }
 mus = \notes  { boh boho bohm ssh bol bolo bolm ssl s16 }
 \score {
-    <
-        \apply #(drums->paper 'bongos) \context Staff <
+    <<
+        \apply #(drums->paper 'bongos) \context Staff <<
             \clef percussion
             \mus
-        >
+        >>
         \context Lyrics \nam 
-    >
+    >>
     \paper {
         \translator {
             \StaffContext
@@ -2899,13 +2899,13 @@ to typeset all kinds of simple percussion on one line staves:
 nam = \lyrics { tri trio trim gui guis guil cb cl tamb cab mar hc }
 mus = \notes  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 \score {
-    <
-        \apply #(drums->paper 'percussion) \context Staff <
+    <<
+        \apply #(drums->paper 'percussion) \context Staff <<
             \clef percussion
             \mus
-        >
+        >>
         \context Lyrics \nam 
-    >
+    >>
     \paper {
         \translator {
             \StaffContext
@@ -2938,11 +2938,11 @@ list at the top of your file:
 up = \notes { hh8 hh hh hh hhp4 hhp }
 down = \notes { bd4 sn bd toml8 toml }
 \score {    
-    \apply #(drums->paper 'mydrums) \context Staff <
+    \apply #(drums->paper 'mydrums) \context Staff <<
         \clef percussion
         \new Voice { \voiceOne \up }
         \new Voice { \voiceTwo \down }
-    >
+    >>
 }
 @end lilypond
 
@@ -2968,14 +2968,14 @@ down = \notes { bassdrum4 snare8 bd r bd sn4 }
 \include "nederlands.ly"
 bass = \notes \transpose c c,, { a4. e8 r e g e }
 \score {
-    <
-        \apply #(drums->paper 'drums) \new Staff <
+    <<
+        \apply #(drums->paper 'drums) \new Staff <<
             \clef percussion
             \new Voice { \voiceOne \up }
             \new Voice { \voiceTwo \down }
-        >
+        >>
         \new Staff { \clef "F_8" \bass }
-    >
+    >>
 }
 @end lilypond
 
@@ -2991,18 +2991,18 @@ none of the scheme functions to get the correct MIDI output:
 
 @example
 \score @{    
-    \apply #(drums->paper 'mydrums) \context Staff <
+    \apply #(drums->paper 'mydrums) \context Staff <<
         \clef percussion
         @{ \up @}  \\
         @{ \down @}
-    >
+    >>
     \paper@{@}
 @}
 \score @{    
-    \context Staff <
+    \context Staff <<
         \property Staff.instrument = #'drums
         \up \down
-    >
+    >>
     \midi@{@}
 @}
 @end example
@@ -3068,14 +3068,14 @@ point), and it looks ahead skipping over rests to switch in
 advance. Here is a practical example:
         
 @lilypond[verbatim,singleline,quote]
-\score { \notes \context PianoStaff <
+\score { \notes \context PianoStaff <<
   \context Staff = "up" {
-    \autochange Staff \context Voice = VA < \relative c' {
-       g4 a  b c d r4 a g } > }
+    \autochange Staff \context Voice = VA << \relative c' {
+       g4 a  b c d r4 a g } >> }
   \context Staff = "down" {
        \clef bass
        s1*2
-} > }
+} >> }
 @end lilypond
 
 @noindent
@@ -3188,7 +3188,7 @@ You can specify an arpeggio sign on a chord by attaching an
 
 
 @lilypond[fragment,relative,verbatim]
-  <<c e g c>>\arpeggio
+  <c e g c>\arpeggio
 @end lilypond
 
 When an arpeggio crosses staves, you attach an arpeggio to the chords
@@ -3196,11 +3196,11 @@ in both staves, and set
 @internalsref{PianoStaff}.@code{connectArpeggios}:
 
 @lilypond[fragment,relative,verbatim]
-  \context PianoStaff <
+  \context PianoStaff <<
     \property PianoStaff.connectArpeggios = ##t
-    \new Staff  { <<c' e g c>>\arpeggio }
-    \new Staff { \clef bass  <<c,, e g>>\arpeggio }
-  >
+    \new Staff  { <c' e g c>\arpeggio }
+    \new Staff { \clef bass  <c,, e g>\arpeggio }
+  >>
 @end lilypond
 
 The direction of the arpeggio is sometimes denoted by adding an
@@ -3210,9 +3210,9 @@ arrowhead to the wiggly line.  This can be typeset by setting
 @lilypond[fragment,relative,verbatim]
   \context Voice {
      \property Voice.Arpeggio \set #'arpeggio-direction = #1
-     <<c e g c>>\arpeggio
+     <c e g c>\arpeggio
      \property Voice.Arpeggio \set #'arpeggio-direction = #-1
-     <<c e g c>>\arpeggio
+     <c e g c>\arpeggio
   }
 @end lilypond
 
@@ -3225,7 +3225,7 @@ arpeggiate the chord. To draw these brackets, set the
 @lilypond[fragment,relative,verbatim]
     \property PianoStaff.Arpeggio \override
         #'molecule-callback = \arpeggioBracket
-       <<c' e g c>>\arpeggio
+       <c' e g c>\arpeggio
 @end lilypond
 
 @refcommands
@@ -3261,7 +3261,7 @@ can be printed automatically. This is enabled if the property
 @code{PianoStaff.followVoice} is set to true:
 
 @lilypond[fragment,relative,verbatim]
-  \context PianoStaff <
+  \context PianoStaff <<
     \property PianoStaff.followVoice = ##t
     \context Staff \context Voice {
       c1
@@ -3269,7 +3269,7 @@ can be printed automatically. This is enabled if the property
       b2 a
     }
     \context Staff=two { \clef bass \skip 1*2 }
-  >  
+  >>  
 @end lilypond
 
 The associated object is @internalsref{VoiceFollower}.
@@ -3405,12 +3405,12 @@ Normally, this will put the lyrics below the staff. For different or
 more complex orderings, the best way is to setup the hierarchy of
 staves and lyrics first, e.g.
 @example
-\context ChoirStaff \notes <
+\context ChoirStaff \notes <<
   \new Lyrics @{ s1 @}
   \new Staff @{ s1 @}
   \new Lyrics @{ s1 @}
   \new Staff @{ s1 @}
->
+>>
 @end example
 and then combine the appropriate melodies and lyric lines:
 @example
@@ -3421,11 +3421,11 @@ and then combine the appropriate melodies and lyric lines:
 
 putting both together, you would get
 @example
-\context ChoirStaff \notes <
+\context ChoirStaff \notes <<
   \new Lyrics @dots{}
   \new Staff @dots{}
   \addlyrics @dots{}
->
+>>
 @end example
 
 @cindex SATB
@@ -3484,14 +3484,14 @@ The complete example is shown here:
 \addlyrics
   \notes \relative c'' \context Voice = duet { \time 3/4
      g2 e4 a2 f4 g2.  }
-  \lyrics \context Lyrics <
+  \lyrics \context Lyrics <<
   \context LyricsVoice = "duet-1" {
     \property LyricsVoice . stanza = "Bert"
     Hi, my name is bert.    }
   \context LyricsVoice = "duet-2" {
     \property LyricsVoice . stanza = "Ernie" 
     Ooooo, ch\'e -- ri, je t'aime. }
-  >
+  >>
 }
 @end lilypond
 
@@ -3579,10 +3579,10 @@ lower = \notes \relative c {
 }
 \score {
   \context ChoirStaff {
-    <
+    <<
       \new Staff { \upper }
       \new Staff { \lower }
-    >
+    >>
   }
   \paper {
     \translator {
@@ -3647,10 +3647,10 @@ frag = \notes {
     e8 fis gis a b cis' dis' e'
 }
 \score {
-  \context StaffGroup <
+  \context StaffGroup <<
     \context Staff { \clef "G_8" \frag }
     \context TabStaff { \frag }
-  >
+  >>
 }
 @end lilypond
 
@@ -3685,7 +3685,7 @@ by default middle C, in string order. Thus, the notes are e, a, d, and
 g:
 
 @lilypond[fragment,verbatim]
-  \context TabStaff <
+  \context TabStaff <<
 
     \outputproperty #(make-type-checker 'staff-symbol-interface)
                     #'line-count = #4
@@ -3694,7 +3694,7 @@ g:
     \notes {
       a,4 c' a e' e c' a e'
     }
-  > 
+  >> 
 @end lilypond
 
 It is possible to change the Scheme function to format the tablature
@@ -3715,7 +3715,7 @@ implemented yet.
 @cindex Chords
 
 LilyPond has support for both printing chord names.  Chords may be
-entered in musical chord notation, i.e. @code{<< .. >>}, but they can
+entered in musical chord notation, i.e. @code{< .. >}, but they can
 also be entered by name. Internally, the chords are represented as a
 set of pitches, so they can be transposed:
 
@@ -3725,14 +3725,14 @@ twoWays = \notes \transpose c c' {
   \chords {
     c1 f:sus4 bes/f
   }
-  <<c e g>>
-  <<f bes c'>>
-  <<f bes d'>>
+  <c e g>
+  <f bes c'>
+  <f bes d'>
   }
 
 \score {
-   < \context ChordNames \twoWays
-     \context Voice \twoWays > }
+   << \context ChordNames \twoWays
+     \context Voice \twoWays >> }
 @end lilypond
 
 This example also shows that the chord printing routines do not try to
@@ -3875,17 +3875,17 @@ last:
 
 For displaying printed chord names, use the @internalsref{ChordNames} context.
 The chords may be entered either using the notation
-described above, or directly using @code{<<} and @code{>>}:
+described above, or directly using @code{<} and @code{>}:
 
 @lilypond[verbatim,singleline]
 scheme = \notes {
-  \chords {a1 b c} <<d' f' a'>>  <<e' g' b'>>
+  \chords {a1 b c} <d' f' a'>  <e' g' b'>
 }
 \score {
-  \notes<
+  \notes<<
     \context ChordNames \scheme
     \context Staff \scheme
-  >
+  >>
 }
 @end lilypond
 
@@ -3899,12 +3899,12 @@ scheme = \chords {
   c1:m c:m \break c:m c:m d
 }
 \score {
-  \notes <
+  \notes <<
     \context ChordNames {
         \property ChordNames.chordChanges = ##t
         \scheme }
     \context Staff \transpose c c' \scheme
-  >
+  >>
 }
 @end lilypond
 
@@ -3993,7 +3993,7 @@ chart}.  Turning on these styles is described in the input file
 Chord names are determined solely from the list of pitches. Chord
 inversions are not identified, and neither are added bass notes. This
 may result in strange chord names when chords are entered with the
-@code{<< .. >>} syntax.
+@code{< .. >} syntax.
 
 
 
@@ -4152,11 +4152,11 @@ names:
 @lilypond[fragment,verbatim,singleline]
   \notes {
     \property Staff.instrument = \markup {
-        \column << "Clarinetti"
+        \column < "Clarinetti"
           { "in B"
             \smaller \musicglyph #"accidentals--1"
           }
-          >>
+          >
      }
      { c''1 }
   }
@@ -4332,7 +4332,7 @@ combiner: putting parts on one staff, and setting stem directions and
 polyphony:
 
 @lilypond[verbatim,singleline,fragment]
-  \context Staff <
+  \context Staff <<
     \context Voice=one \partcombine Voice
       \context Thread=one \relative c'' {
         g a( b) r
@@ -4340,7 +4340,7 @@ polyphony:
       \context Thread=two \relative c'' {
         g r4 r f
       }
-  >
+  >>
 @end lilypond
 
 The first @code{g} appears only once, although it was
@@ -4354,7 +4354,7 @@ If you just want the merging parts, and not the textual markings, you
 may set the property @var{soloADue} to false:
 
 @lilypond[verbatim,singleline,fragment]
-  \context Staff <
+  \context Staff <<
     \property Staff.soloADue = ##f
     \context Voice=one \partcombine Voice
       \context Thread=one \relative c'' {
@@ -4363,7 +4363,7 @@ may set the property @var{soloADue} to false:
       \context Thread=two \relative c'' {
         d,2 a4 g'
       }
-  >
+  >>
 @end lilypond
 
 @seealso
@@ -4382,7 +4382,7 @@ off, the part combiner may typeset @code{a2} more than once in a
 measure:
 
 @lilypond[fragment,singleline]
-  \context Staff <
+  \context Staff <<
     \context Voice=one \partcombine Voice
       \context Thread=one \relative c'' {
         c b c b c a c a
@@ -4390,7 +4390,7 @@ measure:
       \context Thread=two \relative c'' {
         b b b b f a f a
       }
-  >
+  >>
 @end lilypond
 
 The part combiner is rather buggy, and it will be replaced by a better
@@ -4422,10 +4422,10 @@ in this example disappears in the second line:
 
 @lilypond[verbatim]
 \score  {
-  \notes \relative c' <
+  \notes \relative c' <<
     \new Staff { e4 f g a \break c1 }
     \new Staff { c4 d e f \break R1 }
-  >
+  >>
   \paper {
     linewidth = 6.\cm 
     \translator { \RemoveEmptyStaffContext }
@@ -4433,6 +4433,10 @@ in this example disappears in the second line:
 }
 @end lilypond
 
+In orchestral scores, the first page usually shows all staffs in
+full. To prevent empty staffs from being discarded from the first
+page, set @code{remove-first} to false in
+@internalsref{RemoveEmptyVerticalGroup}.
 
 @node Different editions from one source
 @subsection Different editions from one source
@@ -4446,15 +4450,15 @@ for the full score, and one with cue notes for the instrumental part:
 
 @example
     c1
-    \relative c' <
-	\tag #'part <
+    \relative c' <<
+	\tag #'part <<
 	  R1 \\
 	  @{
 	      \property Voice.fontSize = #-1
 	      c4_"cue" f2 g4 @} 
-        >
+        >>
 	\tag #'score R1
-     >
+     >>
      c1
 @end example
 
@@ -4638,24 +4642,24 @@ select ancient accidentals.  Currently supported styles are
         \fatText
         s
         ^\markup {
-            \column <<
+            \column <
                 "vaticana" 
                 { " " \musicglyph #"accidentals-vaticana-1"
                   " " \musicglyph #"accidentals-vaticana0" }
-            >>
-	    \column <<
+            >
+	    \column <
                 "medicaea"
 		{ " " \musicglyph #"accidentals-medicaea-1" }
-            >>
-	    \column <<
+            >
+	    \column <
                 "hufnagel"
 		{ " " \musicglyph #"accidentals-hufnagel-1" }
-            >>
-            \column <<
+            >
+            \column <
                 "mensural"
                 { " " \musicglyph #"accidentals-mensural-1"
                   " " \musicglyph #"accidentals-mensural1" }
-            >>
+            >
         }
     }
     \paper {
@@ -5156,22 +5160,22 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
         \fatText
         s
         ^\markup {
-            \column <<
+            \column <
                 "vaticana" 
                 { " " \musicglyph #"custodes-vaticana-u0" }
-            >>
-	    \column <<
+            >
+	    \column <
                 "medicaea"
 		{ " " \musicglyph #"custodes-medicaea-u0" }
-            >>
-	    \column <<
+            >
+	    \column <
                 "hufnagel"
 		{ " " \musicglyph #"custodes-hufnagel-u0" }
-            >>
-            \column <<
+            >
+            \column <
                 "mensural"
                 { " " \musicglyph #"custodes-mensural-u0" }
-            >>
+            >
         }
     }
     \paper {
@@ -7090,14 +7094,14 @@ Trigonus: apply equal spacing, regardless of pitch.
 LilyPond has limited support for figured bass:
 
 @lilypond[verbatim,fragment]
-<
+<<
  \context Voice \notes { \clef bass dis4  c d ais}
  \context FiguredBass
    \figures {
-    < 6 >4 < 7 >8 < 6+ [_!] >
+       < 6 >4 < 7 >8 < 6+ [_!] >
     < 6 >4 <6 5 [3+] >
    }
- >
+ >>
 @end lilypond
 
 The support for figured bass consists of two parts: there is an input
@@ -7106,7 +7110,7 @@ as numbers, and there is a context called @internalsref{FiguredBass} that
 takes care of making @internalsref{BassFigure} objects.
 
 In figures input mode, a group of bass figures is delimited by
-@code{<} and @code{>}. The duration is entered after the @code{>}:
+@code{<} and @code{>}. The duration is entered after the @code{>>}:
 @example
 	<4 6>
 @end example
@@ -7240,7 +7244,7 @@ cluster-notes. Cluster notes are created by applying the function
 @code{notes-to-clusters} to a sequence of chords, e.g.
 @c
 @lilypond[relative 1,verbatim]
-    \apply #notes-to-clusters {  <<c e >> <<b f'>>  }
+    \apply #notes-to-clusters {  <c e > <b f'>  }
 @end lilypond
 
 The following example (from
@@ -7263,8 +7267,8 @@ ordinary notes and clusters.
 
 @refbugs
 
-Music expressions like @code{< @{ g8 e8 @} a4 >} are not printed
-accurately.  Use @code{<<g a>>8 <<e a>>8} instead.
+Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
+accurately.  Use @code{<g a>8 <e a>8} instead.
 
 
 
@@ -7284,7 +7288,7 @@ The following are supported
 
 @lilypond[singleline]
 \score {
-  <  \addlyrics \notes {
+  <<  \addlyrics \notes {
         b'
         ^\shortfermata
         _\shortfermata
@@ -7306,7 +7310,7 @@ The following are supported
     }
     \context Lyrics \lyrics {
       "shortfermata" "fermata"  "longfermata" "verylongfermata"
-    } >
+    } >>
 }
 @end lilypond
 
@@ -8015,14 +8019,14 @@ should be a key/value pair, e.g.
 In markup mode you can compose expressions, similar to mathematical
 expressions, XML documents and music expressions.  The braces group
 notes into horizontal lines. Other types of lists also exist: you can
-stack expressions grouped with @code{<<}, and @code{>>} vertically with
+stack expressions grouped with @code{<}, and @code{>} vertically with
 the command @code{\column}. Similarly, @code{\center} aligns texts by
 their center lines:
 
 @lilypond[verbatim,fragment,relative=1]
- c1^\markup { \column << a bbbb c >> }
- c1^\markup { \center << a bbbb c >> }
- c1^\markup { \line << a b c >> }
+ c1^\markup { \column < a bbbb c > }
+ c1^\markup { \center < a bbbb c > }
+ c1^\markup { \line < a b c > }
 @end lilypond
 
 The markup mechanism is extensible.  Refer to
@@ -8298,9 +8302,9 @@ point.
 For linebreaks at regular intervals  use @code{\break} separated by
 skips and repeated with @code{\repeat}:
 @example
-<  \repeat unfold 7 @{ s1 * 4 \break  @}
+<<  \repeat unfold 7 @{ s1 * 4 \break  @}
    @emph{the real music}
-> 
+>> 
 @end  example
 
 @noindent

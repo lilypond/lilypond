@@ -145,8 +145,8 @@ Hara_kiri_engraver::add_element (Grob*e)
 Spanner*
 Hara_kiri_engraver::get_spanner () const
 {
-  Spanner * sp = new Spanner (get_property ("HaraKiriVerticalGroup"));
-
+  Spanner * sp = new Spanner (get_property ("RemoveEmptyVerticalGroup"));
+  
   return sp;
 }
 
@@ -160,6 +160,7 @@ Hara_kiri_engraver::acknowledge_grob (Grob_info i)
     }
 }
 
+
 Hara_kiri_engraver::Hara_kiri_engraver()
 {
 }
@@ -167,7 +168,7 @@ Hara_kiri_engraver::Hara_kiri_engraver()
 ENTER_DESCRIPTION(Hara_kiri_engraver,
 /* descr */       "Like Axis_group_engraver, but make a hara kiri spanner, and add "
 "interesting items (ie. note heads, lyric syllables and normal rests) ",
-/* creats*/       "HaraKiriVerticalGroup",
+/* creats*/       "RemoveEmptyVerticalGroup",
 /* accepts */     "",
 /* acks  */      "grob-interface",
 /* reads */       "",

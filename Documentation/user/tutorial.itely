@@ -654,7 +654,7 @@ staff is marked by adding @code{\context Staff} before it.  These
 
 In this example, @code{\simultaneous } indicates that both music
 fragments happen at the same time, and must be printed stacked
-vertically.  The notation @code{< .. >} can also be used as a
+vertically.  The notation @code{<< .. >>} can also be used as a
 shorthand for @code{\simultaneous @{ .. @}}.
 
 @code{\context} introduces a ``notation context''.  To understand this
@@ -686,7 +686,7 @@ We can now typeset a melody with two staves:
 @lilypond[verbatim,singleline]
 \score {
   \notes 
-  < \new Staff {
+  << \new Staff {
       \time 3/4
       \clef violin
       \relative c'' {
@@ -698,7 +698,7 @@ We can now typeset a melody with two staves:
        c2 e4  g2.
        f4 e d c2.
     }
-  >
+  >>
   \paper {} 
 }
 @end lilypond
@@ -708,7 +708,7 @@ The example shows how small chunks of music, for example, the notes
 @code{c2}, @code{e4}, etc. of the second staff, are combined to form a
 larger chunk by enclosing it in braces. Again, a larger chunk is
 formed by prefix @code{\context Staff} to it, and that chunk is
-combined with @code{< >}. This mechanism is similar with mathematical
+combined with @code{<< >>}. This mechanism is similar with mathematical
 formulas: in a formula, a so-called expression is formed by combining
 simpler expressions into larger expressions. For example, 
 
@@ -727,17 +727,17 @@ is a sequence of expressions, where each expression is contained in
 the next one.  The simplest expressions are numbers and operators
 (like +, * and /). Parentheses are used to group expressions.  In
 LilyPond input, a similar mechanism is used. Here, the simplest
-expressions are notes and rests.  By enclosing expressions in @code{<
->} and @code{@{ @}}, more complex music is formed. The @code{\context}
+expressions are notes and rests.  By enclosing expressions in @code{<<
+>>} and @code{@{ @}}, more complex music is formed. The @code{\context}
 also forms new expressions; prepending it to a music expression yields
 a new expression.
 
 Like mathematical expressions, music expressions can be nested
 arbitrarily deep, e.g.
 @lilypond[verbatim,relative 1] 
-  { c <c e>
-      < { e f } { c <b d> }
-      >
+  { c <<c e>>
+      << { e f } { c <<b d>> }
+      >>
   }
 @end lilypond 
 
@@ -749,14 +749,14 @@ eases reading, and helps you  insert the right amount of closing
 braces at the end of an expression. For example,
 @example
 \score @{
-  \notes <
+  \notes <<
     @{
       @dots{}
     @}
     @{
       @dots{}
     @}
-  >
+  >>
 @}
 @end example
 
@@ -855,10 +855,10 @@ respectively.
 
 @cindex chords
 Chords can be made by
-surrounding pitches with @code{<<} and @code{>}>:
+surrounding pitches with @code{<} and @code{>}:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
-r4 <<c e g>>4 <<c f a>>8
+r4 <c e g>4 <c f a>8
 @end lilypond
 @end quotation
 @separate
@@ -868,17 +868,17 @@ You can combine beams and ties with chords.  Beam and tie markings
 must be placed outside the chord markers:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
-r4 <<c e g>>8[ <<c f a>>]-~ <<c f a>>
+r4 <c e g>8[ <c f a>]-~ <c f a>
 @end lilypond
 @end quotation
 
 @quotation
 @example
-r4 <<c e g>>8\>( <<c e g>> <<c e g>>  <<c f a>>8\!)
+r4 <c e g>8\>( <c e g> <c e g>  <c f a>8\!)
 @end example
 @lilypond[relative 0, fragment]
 \slurUp
-r4 <<c e g>>8\>( <<c e g>> <<c e g>>  <<c f a>>8\!)
+r4 <c e g>8\>( <c e g> <c e g>  <c f a>8\!)
 @end lilypond
 @end quotation
 @separate
@@ -1083,7 +1083,7 @@ root of the chord), and a durations following that:
 
 @noindent
 The result of @code{\chords} is a list of chords, and is  equivalent
-to entering chords with @code{<<@dots{}>>}.
+to entering chords with @code{<@dots{}>}.
 
 Other chords can be created by adding modifiers, after a colon.  The
 following example shows a few common modifiers:
@@ -1105,18 +1105,18 @@ a lead sheet, for example,
 
 @example
 \score @{
-  <
+  <<
     \context ChordNames \chords @{ @emph{chords} @}
     \addlyrics
       \notes @emph{the melody}
       \context Lyrics \lyrics @{ @emph{the text} @}
-  >
+  >>
   \paper @{ @}
 @}
 @end example
 @lilypond[]
 \score  {
-  < 
+  << 
    \context ChordNames \chords { r8 c2:sus4 f } 
    \addlyrics
     \notes \relative c' {
@@ -1124,7 +1124,7 @@ a lead sheet, for example,
      c8
      \times 2/3 { f g g } \times 2/3 { g4( a2) } }
    \context Lyrics  \lyrics { I want to break free __ }
-  >
+  >>
  \paper{ raggedright = ##t }
 }
 @end lilypond
@@ -1184,7 +1184,7 @@ example,
 @cindex bibliographic information
 @cindex titles
 @cindex composer
-
+@cindex Engraved by LilyPond
 
 When the file is processed by @code{lilypond}, the title and composer
 specified are printed above the music. The `tagline' is a short line
@@ -1238,39 +1238,39 @@ Entering such parts is done by entering each voice as a sequence (with
 voices with @code{\\}:
 
 @example
-  < @{ a4 g2 f4-~ f4 @} \\
-    @{ r4 g4 f2 f4 @} >
+  << @{ a4 g2 f4-~ f4 @} \\
+    @{ r4 g4 f2 f4 @} >>
 @end example
 @lilypond[relative 1]
-\context Staff   < { a4 g2 f4-~ f4 } \\
-    { r4 g4 f2 f4 } >
+\context Staff   << { a4 g2 f4-~ f4 } \\
+    { r4 g4 f2 f4 } >>
 @end lilypond
 
 For polyphonic music typesetting, spacer rests can also be convenient: these
 are rests that do not print.  It is useful for filling up voices that
 temporarily do not play:
 @example
-  < @{ a4 g2 f4-~ f4 @} \\
-    @{ s4 g4 f2 f4 @} >
+  << @{ a4 g2 f4-~ f4 @} \\
+    @{ s4 g4 f2 f4 @} >>
 @end example
 @lilypond[relative 1]
-\context Staff  < { a4 g2 f4-~ f4 } \\
-    { s4 g4 f2 f4 } >
+\context Staff  << { a4 g2 f4-~ f4 } \\
+    { s4 g4 f2 f4 } >>
 @end lilypond
 
 Again, these expressions can be nested arbitrarily:
 
 @lilypond[fragment]
-<
+<<
  \new Staff 
   \relative c''
-    < { a4 g2 f4-~ f4 } \\
-      { s4 g4 f2 f4 } >
+    << { a4 g2 f4-~ f4 } \\
+      { s4 g4 f2 f4 } >>
  \new Staff 
-  <  { \clef bass <<c g>>1  } \\
+  <<  { \clef bass <c g>1  } \\
      { f4 d e2 }
-  >
->
+  >>
+>>
 @end lilypond
 
 
@@ -1288,25 +1288,25 @@ Piano music is always typeset in two staves connected by a brace.
 Printing such a staff is done similar to the polyphonic example in
 @ref{Combining music into compound expressions}:
 @example
- < \new Staff @{ @dots{} @}
+ << \new Staff @{ @dots{} @}
    \new Staff @{ @dots{} @}
- >
+ >>
 @end example
 but now this entire expression must be interpreted as a
 @code{PianoStaff}:
 @example
- \context PianoStaff < \context Staff @dots{} >
+ \context PianoStaff << \context Staff @dots{} >>
 @end example
 
 Here is a full-fledged example:
 
 @lilypond[relative 0,fragment]
 \context PianoStaff
- < \new Staff { \time 2/4
+ << \new Staff { \time 2/4
      c4 c g' g  }
    \new Staff {
      \clef bass c,, c' e c }
- >
+ >>
 @end lilypond
 
 More information on formatting piano music is in @ref{Piano music}. 
@@ -1476,12 +1476,12 @@ voice. By introducing a tie in a different voice, and blanking a stem
 in that voice, the tie appears to cross voices:
 
 @lilypond[fragment,relative 1,verbatim]
-\context Staff < {
+\context Staff << {
       \once \property Voice.Stem \set #'transparent = ##t
       b8~ b8
   } \\ {
        b[ g8]
-  } >
+  } >>
 @end lilypond
 
 @item

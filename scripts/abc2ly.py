@@ -173,11 +173,11 @@ def dump_header (outf,hdr):
 
 def dump_lyrics (outf):
 	if (len(lyrics)):
-		outf.write("\n\\score\n{\n    \\context Lyrics\n    <\n")
+		outf.write("\n\\score\n{\n    \\context Lyrics\n    <<\n")
 		for i in range (len (lyrics)):
 			outf.write ( lyrics [i])
 			outf.write ("\n")
-		outf.write("    >\n    \\paper{}\n}\n")
+		outf.write("    >>\n    \\paper{}\n}\n")
 
 def dump_default_bar (outf):
 	"""
@@ -240,7 +240,7 @@ def try_parse_q(a):
         
 def dump_score (outf):
 	outf.write (r"""\score{
-        \notes <
+        \notes <<
 """)
 
 	ks  = voice_idx_dict.keys ();
@@ -260,7 +260,7 @@ def dump_score (outf):
 		outf.write ("\t    \\voice%s " % m)
 		outf.write ("\n\t}\n")
 		if len ( slyrics [voice_idx_dict[k]] ):
-			outf.write ("\n\t\\context Lyrics=\"%s\" \n\t<\t" % k)
+			outf.write ("\n\t\\context Lyrics=\"%s\" \n\t<<\t" % k)
 			if re.match('[1-9]',k):
 				m = alphabet[string.atoi(k)]
 			else:
@@ -268,8 +268,8 @@ def dump_score (outf):
 			for i in range (len(slyrics[voice_idx_dict[k]])):
 				l=alphabet[i]
 				outf.write("\n\t  { \\words%sV%s }" % ( m, l) )
-			outf.write ( "\n\t>\n" )
-	outf.write ("\n    >")
+			outf.write ( "\n\t>>\n" )
+	outf.write ("\n    >>")
 	outf.write ("\n\t\\paper {\n")
 	if part_names:
 		outf.write ("\t    \\translator \n\t    {\n")

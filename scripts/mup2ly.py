@@ -638,8 +638,8 @@ class Staff:
 				str = str + v.dump()
 				refs = refs + '\n  \\' + v.idstring ()
 		str = str + '''
-%s = \context Staff = %s <%s
->
+%s = \context Staff = %s <<%s
+>>
 
 ''' % (self.idstring (), self.idstring (), refs)
 		return str
@@ -727,7 +727,7 @@ class Chord:
 		str = self.note_prefix +str  + self.note_suffix
 		
 		if len (self.pitches) > 1:
-			str = '<<%s>>' % str
+			str = '<%s>' % str
 		elif self.multimeasure:
 			str = 'R'
 		elif len (self.pitches) == 0:
@@ -1100,8 +1100,8 @@ class Parser:
 		str = str + '''
 
 \score {
-  <%s
-  >
+  <<%s
+  >>
   \paper {}
   \midi {}
 }

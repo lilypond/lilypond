@@ -785,12 +785,12 @@ def dump_chord (ch):
 		s = s + dump (notes[0])
 	elif len (notes) > 1:
 		global reference_note
-		s = s + '<<'
+		s = s + '<'
 		s = s + notes[0].dump (dump_dur = 0)
 		r = reference_note
 		for i in notes[1:]:
 			s = s + i.dump (dump_dur = 0 )
-		s = s + '>>'
+		s = s + '>'
 
 		s = s + notes[0].duration.dump()
 		reference_note = r
@@ -906,7 +906,7 @@ def dump_track (channels, n):
 		s = s + '  ' + dump_channel (channels[i][0], skip)
 		s = s + '}\n\n'
 
-	s = s + '%s = <\n' % track
+	s = s + '%s = <<\n' % track
 
 	if clef.type != 2:
 		s = s + clef.dump () + '\n'
@@ -920,7 +920,7 @@ def dump_track (channels, n):
 		else:
 			s = s + '  \\context Voice = %s \\%s\n' % (channel,
 								   track + channel)
-	s = s + '>\n\n'
+	s = s + '>>\n\n'
 	return s
 
 def thread_first_item (thread):
@@ -989,7 +989,7 @@ def convert_midi (f, o):
 	for i in range (len (tracks)):
 		s = s + dump_track (tracks[i], i)
 
-	s = s + '\n\\score {\n  <\n'
+	s = s + '\n\\score {\n  <<\n'
 	for i in range (len (tracks)):
 		track = track_name (i)
 		item = track_first_item (tracks[i])
@@ -997,7 +997,7 @@ def convert_midi (f, o):
 			s = s + '    \\context Staff=%s \\%s\n' % (track, track)
 		elif item and item.__class__ == Text:
 			s = s + '    \\context Lyrics=%s \\%s\n' % (track, track)
-	s = s + '  >\n}\n'
+	s = s + '  >>\n}\n'
 
  	progress (_ ("%s output to `%s'...") % ('LY', o))
 
