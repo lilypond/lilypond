@@ -2,7 +2,10 @@
 
     texidoc = "This file demonstrates how to load different
     (postscript) fonts. The file @file{font.scm} shows how to define
-    the scheme-function @code{make-century-schoolbook-tree}."
+    the scheme-function @code{make-century-schoolbook-tree}.
+
+    This file should be run with the TeX and extra options should be
+    passed to LaTeX and dvips to help it find the uncb font."
 
 }
 \version "2.3.22"
@@ -30,8 +33,8 @@
     raggedright = ##t
 }
 
-    {
-        \key a \major
-\time 6/8
-cis''8. d''16 cis''8 e''4 e''8
-    }
+{
+    \key a \major
+    \time 6/8
+    cis''8.^"test!"  d''16 cis''8 e''4 e''8
+}

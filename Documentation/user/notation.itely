@@ -4643,7 +4643,28 @@ following properties
 @cindex @code{chordNameExceptions}
 @item chordNameExceptions
 This is a list that contains the chords that have special formatting.
-For an example of tuning this property, see
+
+The exceptions list should be encoded as encoded as
+@verbatim
+	@{ <c f g bes>1 \markup @{ \\super \"7\" \"wahh\" @} @}
+@end verbatim
+
+To get this information into @code{chordNameExceptions} takes a little
+manoeuvring. The following code transforms @code{chExceptionMusic}
+(which is a sequential music) into a list of exceptions.
+@example
+	(sequential-music-to-chord-exceptions chExceptionMusic #t)
+@end example
+Then,
+@example
+(append
+ (sequential-music-to-chord-exceptions chExceptionMusic #t)
+ ignatzekExceptions)
+@end example
+adds the new exceptions to the default ones, which are defined in
+@file{ly/chord-modifier-init.ly}.
+
+For an example of tuning this property, see also
 @inputfileref{input/regression,chord-name-exceptions.ly}.
 @cindex exceptions, chord names.
 

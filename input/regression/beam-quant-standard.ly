@@ -1,6 +1,8 @@
 \header {
 
-    texidoc = "This file tests a few standard beam quants."
+    texidoc = "This file tests a few standard beam quants, taken from
+    Ted Ross' book. If LilyPond finds another quant, the correct quant
+    is printed over the beam."
     
 }
 
