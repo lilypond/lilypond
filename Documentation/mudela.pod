@@ -39,8 +39,8 @@ Other considerations were (and will be):
 
 =item *
 
-be able to edit the layout 
-without danger of changing the original music (Urtext),
+be able to edit the layout without danger of changing the original
+music (Urtext),
 
 =item *
 
@@ -314,12 +314,22 @@ Mudela defines the following dynamic identifiers:
 
 	ppp pp p mp mf df ff fff	% df iso f, f is a notename.
 
+and the following abbreviations:
+
+	\<	%start crescendo
+	\>	% start decrescendo
+	\!	% end crescendo/decrescendo
+
+=head2 General
+
 The general form of a note is:
 
 	post-requests de-octavate notename octavate duration pre-requests 
 
 Notenames are just identifiers, and can be declared for any
 language appropriate (see F<dutch.ini>). 
+
+
 
 =head2 Defaults
 
@@ -353,9 +363,10 @@ Thus the following inputs are  equivalent
 
 If you are typing music which does not lie in the "small" and "large"
 octave, you can prevent having to type C<'> all the time by using the
-C<\octave> command: These two notes have the same pitch.
+C<\octave> command: These two lines have the same pitch.
 
-	c''	\octave{2} c
+	c'' d'' e'' 	
+	\octave{c''} c d e
 
 By default the setting of C<\octave> is 0.
 
@@ -407,6 +418,25 @@ below.
 Rhythms in Mudela are entered identical to Simple mudela.
 The melodic part of the information is ignored.
 
+=head2 Durations
+
+A duration always starts with the duration type (1,2,4 etc), and then
+any optional multipliers/dots
+
+=head2 Meters/groupings
+
+A meter has this form:
+
+	\meter { 3/4 }
+
+Rhythmic grouping is  a concept closely associated with this. For
+example, in a 5/8 meter, the counts are grouped 2+3. In mudela this is
+entered as
+
+	\grouping { 8*2 8*3 }
+
+
+
 =head1 STRUCTURE
 
 In concrete, a piece of Mudela has the following structure:
@@ -434,7 +464,7 @@ maintenance no long examples are included in this document.
 
 This chapter deals with the internals of Mudela. In the end Mudela
 converted to Voice, which contain Voice_elements which (in turn)
-contain Requests. The former 2 types are basically containers.
+contain Requests. The former 2 types are basically containers (lists).
 Consider the following simple mudela
 
 	\music { c4 <e4 g4> }
@@ -491,72 +521,6 @@ whether to to honor the request, ignore it, or merge it with other
 requests. Merging of requests is preferably done with other requests
 done by members of the same voicegroups (beams, brackets, stems)
 
-Please refer to the documentation of the Child classes of
-C<Request> for explanation of each request type.
-
-The result of a request will be an C<Item> or a C<Spanner>, which
-will be put on a C<PStaff>. Note that the C<PStaff> and the original
-C<Staff> need not have anything in common. For example, the
-``double'' piano Staff could interpret commands which juggle
-melodies across the left and right hand, and may put the result in
-two five-line PStaffs (maybe with extra PStaffs to carry the dynamic
-signs and any lyric.
-
-The class C<Staff> should be thought as a container for the
-C<Voice>s, and an interpreter for C<Request>s and C<Command>s.
-Different staffs can produce different outputs; a melodious voice
-which is put into a percussion-Staff, will be typeset as the rythm of
-that voice.
-
-After C<Staff> made up her mind, the resultant items and
-spanners are put on the PScore.
-
-=over 5
-
-=item C<Barcheck_req>
-
-Checks during music processing if start of this voice element
-coincides with the start of a measure. Handy to check if you left out
-some voice elts.
-
-=item C<Note_req>
-
-Staff has to decide if the ball should be hanging left or right. This
-influences the horizontal dimensions of a column, and this  is why
-request processing should be done before horizontal spacing.
-
-Other voices' frivolities may cause the need for accidentals, so this
-is also for the  C<Staff> to decide. The  C<Staff> can decide on positioning
-based on ottava commands and the appropriate clef.
-
-=item C<Rest_req>
-
-Why a request? It might be a good idea to not typeset the rest, if the
-paper is too crowded.
-
-=item C<Span_req>
-
-This type of request typically results in the creation of a C<Spanner>
-
-=item C<Beam_req>
-
-Staff has to combine this request with the stem_request, since the
-number of flags that a stem wants to carry will determine the
-number of beams.
-
-=item  C<Dynamic>
-
-Each dynamic is bound to one note (a crescendo spanning multiple
-notes is thought to be made of two "dynamics": a start and a stop).
-Dynamic changes can occur in a smaller time than the length of its
-note, therefore fore each  C<Dynamic> request carries a time, measured
-from the start of its note.
-
-=head2 Voice
-
-=head2 Voice_element
-
-=head2 Voice groups
 
 =head2 Other
 
