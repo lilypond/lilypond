@@ -50,12 +50,21 @@ Score_elem::TeX_string() const
     assert( status > POSTCALCED);
     if (transparent_b_ )
 	return "";
-    String s("\\placebox{%}{%}{%}");
+    String s( "\\placebox{%}{%}{%}");
     Array<String> a;
     a.push(print_dimen(offset_.y));
     a.push(print_dimen(offset_.x));
-    a.push( output->TeX_string());
-    return substitute_args(s, a);
+    String t = output->TeX_string();
+    if (t == "")
+	return t;
+
+    a.push( t);
+    String r;
+    if (check_debug)
+	r = String("\n%start: ") + name() + "\n";
+    r += substitute_args(s, a);;
+    return r;
+    
 }
 
 
@@ -165,7 +174,11 @@ Score_elem::print()const
 #ifndef NPRINT
     mtor << name() << "{\n";
     mtor << "dets: " << dependent_size() << "dependencies: " << 
-	dependency_size() << "\n";
+	dependency_size();
+    if (offset_.x || offset_.y)
+	mtor << "offset (" << offset_.x << ", " << offset_.y <<")";
+    mtor << "\n";
+
     do_print();
     if (output)
 	output->print();
@@ -341,7 +354,7 @@ Score_elem::line_l()const
     return 0;
 }
 
-/********************
+/*
   DEPENDENCIES
  */
 
