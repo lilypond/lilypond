@@ -66,7 +66,8 @@ Score::Score (Score const &s)
   : Input (s)
 {
   music_ = SCM_EOL;
-
+  error_found_ = s.error_found_;
+  
   /* FIXME: SCM_EOL? */
   header_ = 0;
 
