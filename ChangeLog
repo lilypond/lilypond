@@ -1,5 +1,11 @@
 2005-03-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* buildscripts/gen-emmentaler-scripts.py (outdir): capitalize
+	emmentaler.
+
+	* lily/score-engraver.cc (initialize): remove check for ecrm10 /
+	lcrm10.
+
 	* scm/define-markup-commands.scm (fontsize): new markup
 	command. Also set baseline-skip
 

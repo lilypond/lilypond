@@ -23,7 +23,7 @@ for opt in options:
 
 
 for design_size in [11,13,14,16,18,20,23,26]:
-	name = 'emmentaler' 
+	name = 'Emmentaler' 
 	script = '''#!@FONTFORGE@
 New();
 

@@ -154,6 +154,9 @@
 		   ,(delay  (ly:font-load "feta-alphabet20"))		  
 		   ,(delay  (ly:font-load "feta-alphabet23"))		  
 		   ,(delay  (ly:font-load "feta-alphabet26"))))
+     (fetaTest ,(ly:pt 20)
+		 #((cons (ly:pt 20)
+			 "Emmentaler 20 7.02799479")))
      
      (fetaDynamic ,(ly:pt 20.0)  #(,(delay  (ly:font-load "feta-alphabet11"))
 				   ,(delay  (ly:font-load "feta-alphabet13"))

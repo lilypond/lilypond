@@ -111,18 +111,7 @@ Score_engraver::initialize ()
 	     + "\n"
 	     + _ ("Aborting"));       
     }
-  
-  if (!scm_is_string (ly_kpathsea_find_file (scm_makfrom0str ("ecrm10.pfa")))
-      && (!scm_is_string (ly_kpathsea_find_file (scm_makfrom0str ("lmr10.pfb")))))
-      error (_f ("cannot find `%s'", "ecrm10.pfa")
-	     + "\n"
-	     + _f ("cannot find `%s'", "lmr10.pfb")
-	     + "\n"
-	     + _f ("Install the ec-fonts-mftraced package from: %s.",
-		   "http://lilypond.org/download/fonts/")
-	     + "\n"
-	     + _ ("Aborting."));
-      
+
   pscore_ = new Paper_score;
   pscore_->layout_ = dynamic_cast<Output_def*> (get_output_def ());
 
