@@ -1,5 +1,13 @@
 2003-06-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/chords-without-melody.ly (texidoc): add from
+	input/just-friends.ly
+
+	* input/regression/size{13--26}.ly: move from input/
+
+	* input/{opus-130,praeludium-fuga,scarlatti-*}.ly
+	input/{star-spangled-banner,twinkle}.ly: remove 
+	
 	* lily/slur.cc: remove slur over rest warnings.
 
 	* lily/note-spacing.cc (get_spacing): include left part of right
