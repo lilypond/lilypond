@@ -1,9 +1,9 @@
-;;; tex.scm -- implement Scheme output routines for TeX
-;;;
-;;;  source file of the GNU LilyPond music typesetter
-;;; 
-;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;; tex.scm -- implement Scheme output routines for TeX
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  1998--2004 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;                  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
 
 (define-module (scm output-tex) )

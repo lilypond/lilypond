@@ -321,7 +321,7 @@
     (define (scope-entry->string key var)
       (if (variable-bound? var)
 	  (let ((val (variable-ref var)))
-	    (if (and (memq sym fields) (string? val))
+	    (if (and (memq key fields) (string? val))
 		(header-to-file basename key val))
 	    (cond
 	     ((string? val) (ps-string-def prefix key val))
