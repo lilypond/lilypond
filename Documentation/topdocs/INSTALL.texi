@@ -364,12 +364,10 @@ augroup
 
 @subsection Red Hat Linux
 
-Red Hat 7.x i386 RPMS are available from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.  For running on
-a Red Hat system you need these packages: guile, tetex, tetex-latex,
-tetex-dvips, libstdc++, python, ghostscript.
 
-You can also compile them yourself.  A spec file is in
+You can compile RPMS yourself.  For running on a Red Hat system you
+need these packages: guile, tetex, tetex-latex, tetex-dvips,
+libstdc++, python, ghostscript.  A spec file is in
 @file{make/out/lilypond.redhat.spec}. This file is distributed along
 with the sources.  You can make the rpm by issuing
 @example 
@@ -385,16 +383,6 @@ For compilation on a Red Hat system you need these packages, in
 addition to the those needed for running: glibc-devel, gcc-c++,
 libstdc++-devel, guile-devel, flex, bison, texinfo, groff, mftrace,
 netpbm-progs, autotrace, t1utils.
-
-
-
-@subsection LinuxPPC
-
-
-Some LinuxPPC RPMS should available from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/binaries/}.
-
-A LinuxPPC RPM can be made using the @file{lilypond.redhat.spec} file.
 
 @subsection SuSE
 
