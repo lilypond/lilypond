@@ -300,7 +300,7 @@ Accidental_engraver::get_bar_number ()
 
   int bn = robust_scm2int (barnum, 0);
   
-  Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
+  Moment mp = robust_scm2moment (smp,  Moment (0));
   if (mp.main_part_ < Rational (0))
     bn--;
   

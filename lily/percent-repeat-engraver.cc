@@ -93,11 +93,7 @@ Percent_repeat_engraver::try_music (Music * m)
       stop_mom_ = start_mom_ + Moment (count) * body_length_;
       next_moment_ = start_mom_ + body_length_;
 
-      SCM m = get_property ("measureLength");
-      Moment meas_len;
-      if (unsmob_moment (m))
-	meas_len = *unsmob_moment (m);
-
+      Moment meas_len (robust_scm2moment (get_property ("measureLength"), Moment (1)));
       if (meas_len == body_length_)
 	repeat_sign_type_ = MEASURE;
       else if (Moment (2)* meas_len == body_length_)
