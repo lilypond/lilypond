@@ -63,7 +63,7 @@ Key::oldkey_undo(svec<Scalar>s)
     for (int i=0; i < newkey.sz(); i++)
 	newkey[i] = 0;
 	
-    for (int i=0; i < s.sz(); i++) {
+    for (int i=0; i < s.sz(); ) {
 	int large = s[i++];
 	int small = s[i++];
 	newkey[large] = small;
