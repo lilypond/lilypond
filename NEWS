@@ -1,4 +1,52 @@
+pl 53.jbr1
+	- scripts/ly2dvi.py: A fix for the multitude of file systems supported
+          by windows.  As long as the paths that the cygwin apps use are
+          UNC style and the paths that the native windows apps use are DOS 
+          style everybody is happy.  I add quick and dirty  unc2dos function
+          to facilitate this approach.
 
+pl 53.hwn1
+	- bf mudela-book.
+	- better min distance for multi measure rests.
+	- junk ATOM_SMOB
+	- control tuplet gap size from paper.
+	- bf:  output header as PS strings for PS out.
+	- bf: cached-fontname 
+	- control volta height from paper block.
+
+pl 53.jcn5
+	- \rhythm-ified and text bfs: standchen.ly 
+	- walk rhythm through *_iterator::next_music_l ()
+
+pl 53.jcn4
+	- more abc2ly hacking, including lyrics and \rhythm
+	- bfs: \rhythm
+	- \rhythm-ified input/twinkle.ly
+
+pl 53.jcn3
+	- put rhythm A on pitches/lyrics B: \rhythm MUSICA MUSICB
+	    input/test/rhythm-melody.fly
+	    input/test/rhythm-lyrics.fly
+	- syntax changes:
+o	  * dot-only duration dropped: use c4 c4. iso now invalid: c4 c.
+	  * chords: optional_dot now mandatory:
+	    \chords { c-1.2.3 } iso now invalid: \chords { c-1 2 3 }
+	  * @c@ (notemode_chords) syntax dropped.  rather use:
+	    \notes { c d \chords { e f } }
+
+pl 53.jcn2
+	- \property graceFraction: part of next note taken-up by grace(s).
+	- Note_performer: add moments for delayed notes,
+	  fine for single grace notes: hear gnossienne-4.ly
+
+pl 53.jcn1
+	- grace performance
+	- fixed tie-performance
+	- bf: abe
+  
+pl 53.gp1
+	- added Hyphen-engraver, Hyphen-spanner
+************
 pl 52.jcn3
 	- bf: mi2mu: midi without key
 	- try at grace-performer-group; breaks MIDI output even when no \grace
@@ -20,7 +68,8 @@ pl 52.hwn2
 	  * beam over barlines
 	  * non-fitting stems handled gracefully (eg. [c8 c4 c8] ) 
 	- junked rhythmic grouping, \grouping and all associated bits.
-	- bf: do try_visibility_lambda for nonbreakable items as well (fixes \nobreak on barline)
+	- bf: do try_visibility_lambda for nonbreakable items as well
+	  (fixes \nobreak on barline)
 	- bf: Cons_list::truncate() 
 
 pl 52.hwn1
@@ -35,7 +84,6 @@ pl 52.mb3
        - Added barSize property. Junked barsize variable.
 
 ************
-i
 pl 51.uu2
 	- grace note flags, move Lookup::flag into Stem
 	- faq updates: doc++, Matt's page
@@ -576,7 +624,7 @@ pl 31.hwn3
 	- Span_bar bugfix (there you go, Mats).
 	- bf: Score copy ctor (-> bf declaring score)
 	- new Tie behavior: only tie identical pitches, switchable with
-oldTieBehavior
+	  oldTieBehavior
 	- junked cautionary_b_ from Musical_pitch
 
 pl 32.jcn1
@@ -1299,7 +1347,7 @@ pl5.jcn4
 pl5.jcn3
 	- website fixes
 
-opl5.jcn2
+pl5.jcn2
 	- extender-*, see input/test/extender.ly
 	- bf: half-beam length (urg)
 	- fixes: standchen, star
@@ -1529,7 +1577,7 @@ pl 17.jcn3
 	- tex output support
 	- all output through scheme
 	- option: f, output-format=X
-o	- geile placebox 
+	- geile placebox 
 	- mf/mfplain.ini
 
 pl 17.jcn2

@@ -63,7 +63,7 @@
 #   - bf: Default fragments have linewidth=-1.0
 #   - Added 'singleline' and 'multiline' options.
 # 0.5.6:
-#   - \mudelafile{} set linewith correct, -1 for .sly and texlinewidth for .fly
+#   - \mudelafile{} set linewidth correct, -1 for .sly and texlinewidth for .fly
 #   - changes to Mudela_output
 #   - changed RE to search for pre/postMudelaExample to make it possible to
 #     comment out a definition.
@@ -84,6 +84,8 @@ out_files = []
 fontsize_i2a = {11:'eleven', 13:'thirteen', 16:'sixteen',
                 20:'twenty', 26:'twentysix'}
 fontsize_pt2i = {'11pt':11, '13pt':13, '16pt':16, '20pt':20, '26pt':26}
+
+# perhaps we can do without this?
 
 begin_mudela_re = re.compile ('^ *\\\\begin{mudela}')
 begin_verbatim_re = re.compile ('^ *\\\\begin{verbatim}')
@@ -600,6 +602,7 @@ class Main_tex_input(Tex_input):
 
 		f = open (full_path, 'r')
 		lines =f.readlines ()
+		self.mudela.write ('%% This is a copy of file %s\n' % full_path)
 		for x in lines:
 		    self.mudela.write (x)
 		r = file_ext_re.search(fn)

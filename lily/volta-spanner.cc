@@ -39,8 +39,9 @@ Volta_spanner::do_brew_molecule_p () const
 
   Real dx = internote_f;
   Real w = extent (X_AXIS).length () - dx;
-  Molecule volta (lookup_l ()->volta (w, t, interline_f, last_b_));
-  Real h = volta.dim_.y ().length ();
+  Real h = paper_l()->get_var ("volta_spanner_height");
+  Molecule volta (lookup_l ()->volta (h, w, t, last_b_));
+
   
   Molecule num (lookup_l ()->text ("volta", number_str_, paper_l ()));
   Real dy = bar_arr_.top ()->extent (Y_AXIS) [UP] > 

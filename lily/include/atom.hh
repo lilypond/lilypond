@@ -15,37 +15,6 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
-//#define ATOM_SMOB
-
-#ifdef ATOM_SMOB
-
-/// a symbol which can be translated, and freely copied
-class Atom {
-  static long smob_tag_;
-
-  static SCM smob_mark (SCM);
-  static scm_sizet smob_free (SCM);
-  static int smob_display (SCM, SCM, scm_print_state*);
-public:
-  SCM make_smob () const;
-
-  Offset off_;
-  Atom (SCM s);
-
-  static SCM make_atom (SCM outputfunc);
-  SCM copy_self () const;
-  static Atom *atom_l (SCM);
-
-  /// Is #obj# a Foo?
-  static bool Atom_b(SCM obj);
-  static void init_smob ();
-  
-  SCM func_;
-  SCM font_;
-};
-
-#else
-
 class Atom {
 public:
   Atom (SCM s);
@@ -57,6 +26,5 @@ representing a musical notation symbol.  */
   Protected_scm font_;
 };
 
-#endif
 
 #endif

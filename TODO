@@ -12,11 +12,9 @@ Grep for TODO and ugh/ugr/urg.
 . * indent = 0.0 with linewidth=-1.0
 . * music ending in grace notes.
 . * PostScript
-.  * header for PS enteredby = "bla <bla@bar.com>"
 .  * ps/lily.ps see comments.
 . * didot / big point.
 . * fix singleStaffBracket
-. * declare performers in \midi
 . * check EGCS version
 . * input/test/stem-spacing.ly: 12/4 touches first note
 . * \shape 1st dim skipped? 
@@ -24,14 +22,8 @@ Grep for TODO and ugh/ugr/urg.
 . * We need feta-din*.mf files for more sizes than 10.
 . * fix dynamics decently, ie. use kerning & ligatures.  
 . * dots & rest collisions?
-. * mudela-book.py
-.  * fix \mudelafile{} to have decent functionality
-.  * P.P.S. It can be cool in mudela-book to distinguish in
-pre,postMudelaExample, whether MudelaExample is epsed or not: ( if
-this fragment is floating eps, than 1, otherwise 2). say
-preMudelaExample[eps]{}, and change it in document body sometimes.
-.  * use less RE's
-. * junk _ in lyric mode for " "
+. * behavior of  "that the obvious solution
+\lyrics { foo1*4 __ _ }" is unintuitive.
 . * Lyrics and scripts collide.
 . * a note with a circle after it, meaning:
 
@@ -72,25 +64,7 @@ preMudelaExample[eps]{}, and change it in document body sometimes.
 .  * Remove non-free software links.
 .  * Remove meta article LilyPond.
 . * break priority setting from SCM.
-. * Gade score
-.  * remove [] in favour of auto-beamer
 . * hangOnClef with non-breakable clefs.
-. * Aha, the problem is the new TeX code generation for changing fonts.
-> (The explanation below is mostly intended for Han-Wen and Jan)
-> Before, the font was changed with macros declared separately for 
-> pure TeX and LaTeX, but now all the fonts are declared directly in
-> the generated code using the low-level TeX commands. This circumvents
-> the fontencoding mechanism of LaTeX and is a potential source of
-> problems also for us users of the Latin-1 character set. 
-> I think it still works since the inputencoding latin1 is 
-> declared by ly2dvi, but it still means that e.g. an o with
-> umlaut is typeset as a combination of the two symbols 'o' and
-> 'umlaut' instead of as a single character, as would be the case
-> if fontencoding OT1 had been used. This shouldn't give any 
-> difference in layout, though. One of the main argument for using
-> fontencoding OT1 is for the hyphenation mechanism to work, an 
-> argument that's clearly irrelevant in our application. Yet we
-> see the problem for August.
 . * Abstraction for engravers:
 .  * make "in-between" engraver (Tie, Extender)
 .  * make wide_spanner_engraver (line_group_spanner, staff_symbol)
@@ -316,11 +290,23 @@ touching it.
 .  * PS output
 .  * optimal pagebreaking.
 
-. * Unicode support? -> man 7 unicode
-.  * 16 bit Strings
-.  * -u switch
-.  * detect of 16/8 bit files
-.  * examples to go with it.
+. * internationalisation for input.
+.  * Unicode support? -> man 7 unicode
+.  * (The explanation below is mostly intended for Han-Wen and Jan)
+> Before, the font was changed with macros declared separately for 
+> pure TeX and LaTeX, but now all the fonts are declared directly in
+> the generated code using the low-level TeX commands. This circumvents
+> the fontencoding mechanism of LaTeX and is a potential source of
+> problems also for us users of the Latin-1 character set. 
+> I think it still works since the inputencoding latin1 is 
+> declared by ly2dvi, but it still means that e.g. an o with
+> umlaut is typeset as a combination of the two symbols 'o' and
+> 'umlaut' instead of as a single character, as would be the case
+> if fontencoding OT1 had been used. This shouldn't give any 
+> difference in layout, though. One of the main argument for using
+> fontencoding OT1 is for the hyphenation mechanism to work, an 
+> argument that's clearly irrelevant in our application. Yet we
+> see the problem for August.
 
 . * \header
 .  * output header info to MIDI too.
@@ -352,7 +338,6 @@ languages:
 .  * SMDL?
 
 . * add to MIDI output:
-.  * tied notes for MIDI
 .  * sharp / flat on trills (in MIDI ??)
 .  * tempo change
 .  * ornaments (and trills?)
@@ -456,7 +441,6 @@ hesitate to ask.
 .  * specify number of lines
 
 .* INPUTLANGUAGE
-. * \rhythms 4 16 16 16 16; c c c c c -> c4 c16 etc.
 . * convention for slurs vs. phrasing marks.
 . * Language:
 .  * \translator -> ?
@@ -485,8 +469,6 @@ hesitate to ask.
 .* SMALLISH PROJECTS
 
 . * fix confusing naming in Engraver vs Engraver_group_engraver (context)
-
-. * progress when creating MIDI elts.
 
 . * A range for context errors (eg. mark both { and }. )
 

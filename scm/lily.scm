@@ -49,8 +49,7 @@
    (string-append (number->string (cadr c)) " ")))
 
 
-(define
-  (font i)
+(define (font i)
   (string-append
    "font"
    (make-string 1 (integer->char (+ (char->integer #\A) i)))
@@ -316,11 +315,11 @@
   (define (text s)
     (string-append "\\hbox{" (output-tex-string s) "}"))
   
-  (define (tuplet ht dx dy thick dir)
-    (embedded-ps ((ps-scm 'tuplet) ht dx dy thick dir)))
+  (define (tuplet ht gapx dx dy thick dir)
+    (embedded-ps ((ps-scm 'tuplet) ht gapx dx dy thick dir)))
 
-  (define (volta w thick last)
-    (embedded-ps ((ps-scm 'volta) w thick last)))
+  (define (volta h w thick last)
+    (embedded-ps ((ps-scm 'volta) h w thick last)))
 
   ;; TeX
   ;; The procedures listed below form the public interface of TeX-scm.
@@ -401,7 +400,7 @@
   
   (define (cached-fontname i)
     (string-append
-     " lilyfont"
+     "lilyfont"
      (make-string 1 (integer->char (+ 65 i)))))
 
   (define (select-font font-name)
@@ -477,9 +476,12 @@
 
   (define (header-end) "")
   (define (lily-def key val)
-    (string-append
-     "/" key " {" val "} bind def\n"))
 
+     (if (string=? (substring  key 0 (string-length "mudelapaper") ) "mudelapaper")
+	 (string-append "/" key " {" val "} bind def\n")
+	 (string-append "/" key " (" val ") def\n")
+	 )
+     )
   (define (header creator generate) 
     (string-append
      "%!PS-Adobe-3.0\n"
@@ -527,14 +529,14 @@
     (string-append "(" s ") show  "))
 
 
-  (define (volta w thick last)
+  (define (volta h w thick last)
     (string-append 
-     (numbers->string (list w thick (inexact->exact last)))
+     (numbers->string (list h w thick (inexact->exact last)))
      " draw_volta"))
 
-  (define (tuplet ht dx dy thick dir)
+  (define (tuplet ht gap dx dy thick dir)
     (string-append 
-     (numbers->string (list ht dx dy thick (inexact->exact dir)))
+     (numbers->string (list ht gap dx dy thick (inexact->exact dir)))
      " draw_tuplet"))
 
 

@@ -4,14 +4,6 @@
 % round cappings
 1 setlinecap
 
-% URG
-% staffheight 4 div /interline exch def
-% interline 3 div /bracket_b exch def
-% interline 2 mul /bracket_w exch def
-% stafflinethickness 2 mul /bracket_t exch def
-% interline 1.5 mul /bracket_v exch def
-% bracket_v /bracket_u exch def
-% 50 /bracket_alpha exch def
 
 /draw_beam % width slope thick
 {
@@ -61,7 +53,7 @@
 	1 copy mul exch 1 copy mul add sqrt
 } bind def
 
-/draw_tuplet % height dx dy thick dir
+/draw_tuplet % height gap dx dy thick dir
 {
 % urg: the only Level-2 PS, check effect in print
 %	true setstrokeadjust
@@ -71,8 +63,8 @@
 	1 setlinejoin
 	/tuplet_dy exch def
 	/tuplet_dx exch def
+	/tuplet_gapx exch def
 	/tuplet_h exch def
-	staffheight 2 div /tuplet_gapx exch def
 	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def
 
 
@@ -87,12 +79,12 @@
 	stroke
 } bind def
 
-/draw_volta % w thick last
+/draw_volta % h w thick last
 {
 	/last exch def
 	setlinewidth
 	/volta_w exch def
-	staffheight 2 div /volta_h exch def
+ 	/volta_h exch def
 % urg: the only Level-2 PS, check effect in print
 %	true setstrokeadjust
 	1 setlinecap

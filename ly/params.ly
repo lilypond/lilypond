@@ -143,8 +143,10 @@ barthick_thick = 6.0* \staffline;
 barthick_thin = 1.6*\staffline;
 barthick_score = 1.6*\staffline;
 
+tuplet_spanner_gap = 2.0 * \interline;
 tuplet_thick = 1.0*\staffline;
 volta_thick = 1.6*\staffline;
+volta_spanner_height = 2.0 *\interline;
 
 % relative thickness of thin lines  1.6 : 1 : 0.8
 stemthickness = 0.8*\staffline;
@@ -152,6 +154,10 @@ rulethickness = \staffline;
 
 
 extender_height = 0.8*\staffline;
+
+hyphen_thickness = 0.05*\font_normal;
+hyphen_height = 0.2*\font_normal;
+hyphen_minimum_length = 0.25*\font_normal;
 
 % Multi-measure rests
 mmrest_x_minimum = 2.0*\staffheight;
@@ -167,7 +173,12 @@ restcollision_minimum_beamdist = 1.5;
 % deprecated!
 postBreakPadding = 0.0;
 
+% optical correction amount.
 stemSpacingCorrection = 0.5*\interline;
+
+
+
+
 
 \include "engraver.ly";
 

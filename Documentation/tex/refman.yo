@@ -231,7 +231,7 @@ to an identifier whose name is the same as the name of a keyword.  The
 following words are keywords:
 verb(accepts         duration      midi          relative      textscript 
 alternative     font          mm            remove        time       
-bar             grouping      musicalpitch  repeat        times      
+bar                   musicalpitch  repeat        times      
 cadenza         header        name          scm           translator 
 chordmodifiers  in            notenames     scmfile       transpose  
 chords          include       notes         score         type       
@@ -883,6 +883,21 @@ mudela(verbatim)(\score{
      foo1 __  bar2. __ _4 baz1 __ }
 > })
      
+If you want to have hyphens centred between syllables (rather than attached
+to the end of the first syllable) you can use the special code(--) lyric as
+separate word between syllables. This will result in a hyphen whose length
+varies depending on the space between syllables, and centred between the
+syllables. For example: 
+mudela(verbatim)(\score{
+  <  \notes \transpose c'' {c d e c | c d e c | e f g'2 | 
+                              e'4 f g'2 \bar "|."; }
+     \context Lyrics \lyrics { 
+              DOEXPAND(Fr\)`e4 -- re Ja -- que DOEXPAND(Fr\)`e -- re Ja -- que
+              Dor -- mez vous?2 Dor4 -- mez vous?2  }
+  >
+})
+
+ 
 
 
 sect(Time)  
@@ -908,14 +923,6 @@ starting measure lasting two eighth notes.
 In order to help with error checking, you can insert bar markers in
 your music by typing code(|).  Whenever LilyPond encounters a code(|)
 that doesn't fall at a measure boundary, she prints a warning message.
-
-Rhythmic grouping is  a concept closely associated with this. 
-A default grouping is selected for the chosen time signature.  
-The default consists of combinations of 2 and 3 beats with as many
-groups of 3 as possible, and the groups of 3 coming first.  For
-example, 4/4 is divided into 2+2 and 8/8 is divided into 3+3+2.  This
-default grouping can be changed using the \grouping keyword which
-takes a list of durations to specify the grouping. 
 
 
 COMMENT(
@@ -1140,11 +1147,6 @@ var(dotcount).
 dit(code(\font) var(string)) Internal keyword.  Used within
 code(\paper) to specify the font.
 
-dit(code(\grouping) var(durationseq)code(;))  Sets  the  metric structure of
-the measure.  Each argument specifies the duration of one metric unit.
-For example, code(\duration 16*5;) specifies a grouping of five beats
-together in 5/16 time.  The default grouping is to have as many groups
-of 3 as possible followed by groups of two.  
 
 dit(code(\header) code({) var(key1) = var(val1); var(key2) = var(val2); ... code(}))
 Specifies information about the music.  A header should appear at the

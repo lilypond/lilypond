@@ -49,6 +49,7 @@
 #include "mudela-version.hh"
 #include "scope.hh"
 #include "relative-music.hh"
+#include "re-rhythmed-music.hh"
 #include "transposed-music.hh"
 #include "time-scaled-music.hh"
 #include "new-repeated-music.hh"
@@ -143,6 +144,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CADENZA
 %token CHORDMODIFIERS
 %token CHORDS
+%token HYPHEN
 %token CLEF
 %token CM_T
 %token CONSISTS
@@ -173,6 +175,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token REMOVE
 %token REPEAT
 %token REPETITIONS
+%token RHYTHM
 %token SCM_T
 %token SCMFILE
 %token SCORE
@@ -192,7 +195,7 @@ yylex (YYSTYPE *s,  void * v_l)
 /* escaped */
 %token E_EXCLAMATION E_SMALLER E_BIGGER E_CHAR
 
-%type <i>	dots exclamations questions
+%type <i>	exclamations questions
 %token <i>	DIGIT
 %token <pitch>	NOTENAME_PITCH
 %token <pitch>	TONICNAME_PITCH
@@ -227,7 +230,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	script_dir
 %type <i>	optional_modality
 %type <id>	identifier_init  
-%type <duration> steno_duration notemode_duration
+%type <duration> steno_duration optional_notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
 %type <intvec>	 int_list
 %type <reqvec>  pre_requests post_requests
@@ -236,14 +239,15 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <pitch>   steno_tonic_pitch
 
 %type <pitch_arr>	pitch_list
-%type <music>	chord notemode_chord
+%type <music>	chord
 %type <pitch_arr>	chord_additions chord_subtractions chord_notes
-%type <pitch>	chord_addsub chord_note chord_inversion notemode_chord_inversion
+%type <pitch>	chord_addsub chord_note chord_inversion
 %type <midi>	midi_block midi_body
 %type <duration>	duration_length
 
 %type <scalar>  scalar
-%type <music>	Music  relative_music Sequential_music Simultaneous_music Music_sequence
+%type <music>	Music Sequential_music Simultaneous_music Music_sequence
+%type <music>	relative_music re_rhythmed_music
 %type <music>	property_def translator_change
 %type <music_list> Music_list
 %type <paper>	paper_block paper_def_body
@@ -252,6 +256,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <request>	post_request 
 %type <request> command_req verbose_command_req
 %type <request>	extender_req
+%type <request> hyphen_req
 %type <string>	string
 %type <score>	score_block score_body
 %type <intarr>	shape_array
@@ -260,7 +265,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <trans>	translator_spec_block translator_spec_body
 %type <tempo> 	tempo_request
 %type <notenametab> notenames_body notenames_block chordmodifiers_block
-
 
 
 
@@ -554,11 +558,6 @@ paper_block:
 	;
 
 
-optional_dot:
-	/* empty */
-	| '.'
-	;
-
 paper_def_body:
 	/* empty */		 	{
 		Paper_def *p = THIS->default_paper_p ();
@@ -663,6 +662,9 @@ midi_body: /* empty */ 		{
 	}
 	| MIDI_IDENTIFIER	{
 		$$ = $1-> access_content_Midi_def (true);
+	}
+	| midi_body assignment semicolon {
+
 	}
 	| midi_body translator_spec_block	{
 		$$-> assign_translator ($2);
@@ -826,12 +828,19 @@ Composite_music:
 		  THIS->lexer_p_->pop_state ();
 	}
 	| relative_music	{ $$ = $1; }
+	| re_rhythmed_music	{ $$ = $1; }
 	;
 
 relative_music:
 	RELATIVE absolute_musical_pitch Music {
 		$$ = new Relative_octave_music ($3, *$2);
 		delete $2;
+	}
+	;
+
+re_rhythmed_music:
+	RHYTHM Music Music {
+		$$ = new Re_rhythmed_music ($3, $2);
 	}
 	;
 
@@ -849,7 +858,7 @@ translator_change:
 	;
 
 property_def:
-	PROPERTY STRING '.' STRING '=' scalar	{
+	PROPERTY STRING '.' STRING '=' scalar {
 		Translation_property *t = new Translation_property;
 
 		t-> var_str_ = *$4;
@@ -902,6 +911,9 @@ command_req:
 
 abbrev_command_req:
 	extender_req {
+		$$ = $1;
+	}
+	| hyphen_req {
 		$$ = $1;
 	}
 	| '|'				{
@@ -1133,8 +1145,14 @@ explicit_musical_pitch:
 	;
 
 musical_pitch:
-	steno_musical_pitch
-	| explicit_musical_pitch
+	steno_musical_pitch {
+		$$ = $1;
+		THIS->set_last_pitch ($1);
+	}
+	| explicit_musical_pitch {
+		$$ = $1;
+		THIS->set_last_pitch ($1);
+	}
 	;
 
 explicit_duration:
@@ -1155,6 +1173,14 @@ extender_req:
 		if (!THIS->lexer_p_->lyric_state_b ())
 			THIS->parser_error (_ ("have to be in Lyric mode for lyrics"));
 		$$ = new Extender_req;
+	}
+	;
+
+hyphen_req:
+	HYPHEN {
+		if (!THIS->lexer_p_->lyric_state_b ())
+			THIS->parser_error (_ ("have to be in Lyric mode for lyrics"));
+		$$ = new Hyphen_req;
 	}
 	;
 
@@ -1276,18 +1302,16 @@ duration_length:
 	;
 
 entered_notemode_duration:
-	dots		{
-		$$ = new Duration (THIS->default_duration_);
-		if ($1)
-			$$->dots_i_  = $1;
-	}
-	| steno_duration	{
+	steno_duration	{
 		THIS->set_last_duration ($1);
 	}
 	;
 
-notemode_duration:
-	entered_notemode_duration {
+optional_notemode_duration:
+	{
+		$$ = new Duration (THIS->default_duration_);
+	}
+	| entered_notemode_duration {
 		$$ = $1;
 	}
 	;
@@ -1325,7 +1349,7 @@ abbrev_type:
 
 
 simple_element:
-	musical_pitch exclamations questions notemode_duration  {
+	musical_pitch exclamations questions optional_notemode_duration {
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("have to be in Note mode for notes"));
 
@@ -1347,11 +1371,42 @@ simple_element:
 
 		$$ = v;
 	}
-	| RESTNAME notemode_duration		{
+	/*
+	This rhythm option introduces a lot of shift/reduce conflicts;
+	ie, for every optional_notemode_duration.
+	However, we always want the default behaviour, which is to shift:
+	if an optional_notemode_duration is allowed, a following duration
+	is to be taken as this default duration.  Thus
+
+	   c4 c 8 4
+
+	are three notes, ie: c4 c8 c4.
+	Parsing whitespace is a snaky thing to do.
+	* /
+	| entered_notemode_duration {
+		if (!THIS->lexer_p_->note_state_b ())
+			THIS->parser_error (_ ("have to be in Note mode for notes"));
+
+		Note_req *n = new Note_req;
+		
+		n->pitch_ = THIS->default_pitch_;
+		n->duration_ = *$1;
+		delete $1;
+
+		Simultaneous_music*v = new Request_chord;
+		v->set_spot (THIS->here_input ());
+		n->set_spot (THIS->here_input ());
+
+		v->add_music (n);
+
+		$$ = v;
+	}
+*/
+	| RESTNAME optional_notemode_duration		{
 		$$ = THIS->get_rest_element (*$1, $2);
 		delete $1;  // delete notename
 	}
-	| MEASURES notemode_duration  	{
+	| MEASURES optional_notemode_duration  	{
 		Multi_measure_rest_req* m = new Multi_measure_rest_req;
 		m->duration_ = *$2;
 		delete $2;
@@ -1361,7 +1416,7 @@ simple_element:
 		velt_p->add_music (m);
 		$$ = velt_p;
 	}
-	| REPETITIONS notemode_duration  	{
+	| REPETITIONS optional_notemode_duration  	{
 		Repetitions_req* r = new Repetitions_req;
 		r->duration_ = *$2;
 		delete $2;
@@ -1371,7 +1426,7 @@ simple_element:
 		velt_p->add_music (r);
 		$$ = velt_p;
 	}
-	| STRING notemode_duration 			{
+	| STRING optional_notemode_duration 	{
 		if (!THIS->lexer_p_->lyric_state_b ())
 			THIS->parser_error (_ ("have to be in Lyric mode for lyrics"));
 		$$ = THIS->get_word_element (*$1, $2);
@@ -1382,23 +1437,12 @@ simple_element:
 			THIS->parser_error (_ ("have to be in Chord mode for chords"));
 		$$ = $1;
 	}
-	| '@' notemode_chord '@' {
-		if (!THIS->lexer_p_->note_state_b ())
-			THIS->parser_error (_ ("have to be in Note mode for @chords"));
-		$$ = $2;
-	}
 	;
 
 chord:
-	steno_tonic_pitch notemode_duration chord_additions chord_subtractions chord_inversion {
+	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion {
                 $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
         };
-
-notemode_chord:
-	steno_musical_pitch notemode_duration chord_additions chord_subtractions notemode_chord_inversion {
-                $$ = THIS->get_chord (*$1, $3, $4, $5, *$2);
-        };
-
 
 chord_additions: 
 	{
@@ -1410,12 +1454,13 @@ chord_additions:
 	;
 
 chord_notes:
-	{
+	chord_addsub {
 		$$ = new Array<Musical_pitch>;
+		$$->push (*$1);
 	}
-	| chord_notes chord_addsub {
+	| chord_notes '.' chord_addsub {
 		$$ = $1;
-		$$->push (*$2);
+		$$->push (*$3);
 	}
 	;
 
@@ -1435,8 +1480,8 @@ chord_subtractions:
 
 
 chord_addsub:
-	chord_note optional_dot
-	| CHORDMODIFIER_PITCH optional_dot
+	chord_note
+	| CHORDMODIFIER_PITCH
 	;
 
 chord_inversion:
@@ -1444,15 +1489,6 @@ chord_inversion:
 		$$ = 0;
 	}
 	| '/' steno_tonic_pitch {
-		$$ = $2
-	}
-	;
-
-notemode_chord_inversion:
-	{
-		$$ = 0;
-	}
-	| '/' steno_musical_pitch {
 		$$ = $2
 	}
 	;
@@ -1533,15 +1569,6 @@ string:
 		delete $3;
 	}
 	;
-
-
-
-
-dots:
-			{ $$ = 0; }
-	| dots '.'	{ $$ ++; }
-	;
-
 
 
 exclamations:

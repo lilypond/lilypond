@@ -16,8 +16,9 @@
 #include "direction.hh"
 #include "box.hh"
 
-/** handy interface to symbol table
-    TODO: move this into GUILE?
+/**
+   handy interface to symbol table
+   TODO: move this into GUILE?
  */
 class Lookup
 {
@@ -38,14 +39,14 @@ public:
   Molecule fill (Box b) const;
   Molecule filledbox (Box b) const;  
   Molecule hairpin (Real width, Real height, bool decresc, bool continued) const;
-  Molecule tuplet_bracket (Real dy, Real dx, Real thick,Real interline, Direction dir) const;
+  Molecule tuplet_bracket (Real dy, Real dx, Real gap, Real thick,Real interline, Direction dir) const;
   Molecule rest (int, bool outside, String) const;
   Molecule accordion (SCM arg, Real interline_f) const;
   Molecule slur (Array<Offset> controls) const;
   Molecule text (String style, String text, Paper_def*) const;
   Molecule staff_brace (Real dy) const;
   Molecule staff_bracket (Real dy) const;
-  Molecule volta (Real w, Real h, Real il, bool last_b) const;
+  Molecule volta (Real h, Real w,  Real thick,  bool last_b) const;
   Molecule special_time_signature (String, int,int, Paper_def*) const;
   Molecule time_signature (int n,int d, Paper_def*) const;
 
