@@ -1,12 +1,14 @@
 #!@PYTHON@
 
 '''
-TODO: \input, @include
-      check latex parameters
+TODO:
+      intertext
+      --linewidth
+      check latex parameters, twocolumn
+      multicolumn?
       papersizes?
+      ly2dvi/notexidoc?
       
-
-
 Example usage:
 
 test:
@@ -15,10 +17,15 @@ test:
 convert-ly on book:
      filter-lilypond-book --filter="convert-ly --no-version --from=1.6.11 -" BOOK
 
-minimal classic lilypond-book (WIP):
+classic lilypond-book (WIP):
      filter-lilypond-book --process="lilypond-bin" BOOK.tely
 
+  options in .tely/.lytex must be converted (or grokked by me :-)
      (([0-9][0-9])*pt) -> staffsize=\2
+     @mbinclude foo.itely -> @include foo.itely
+     \mbinput -> \input
+     relative X -> relative=X
+     singleline -> raggedright
      
 '''
 
@@ -228,33 +235,37 @@ ly_options = {
 	},
 	}
 
-# WIP
 output = {
 	HTML : {
 	AFTER: '',
 	BEFORE: '',
-	OUTPUT: r'''<src image="%(base)s.png">''',
+	OUTPUT: r'''<img align="center" valign="center"
+border="0" src="%(base)s.png" alt="[picture of music]">''',
 	VERBATIM: r'''<pre>
-%(code)s</pre>''',
+%(verb)s</pre>''',
 	},
 	
 	LATEX :	{
 	AFTER: '',
 	BEFORE: '',
 	OUTPUT: r'''{\parindent 0pt
+\catcode`\@=12
 \ifx\preLilyPondExample\preLilyPondExample\fi
 \def\lilypondbook{}
 \input %(base)s.tex
-\ifx\preLilyPondExample\postLilyPondExample\fi}
-''',
+\ifx\preLilyPondExample\postLilyPondExample\fi
+\catcode`\@=0}''',
 	VERBATIM: r'''\begin{verbatim}
-%(code)s\end{verbatim}
+%(verb)s\end{verbatim}
 ''',
 	},
 	
 	TEXINFO :	{
 	BEFORE: '',
 	AFTER: '',
+	VERBATIM: r'''@example
+%(verb)s@end example''',
+	
 	},
 	
 	}
@@ -312,6 +323,9 @@ def compose_ly (code, option_string):
 			preamble_options.append (ly_options[PREAMBLE][key])
 		elif key in ly_options[PAPER].keys ():
 			paper_options.append (ly_options[PAPER][key])
+		elif key not in ('fragment', 'nofragment',
+				 'relative', 'verbatim'):
+			ly.warning (_("ignoring unknown ly option: %s") % i)
 
 	relative_quotes = (",,,", ",,", ",", "", "'", "''", "'''")[relative-3]
 	program_name = __main__.program_name
@@ -345,6 +359,16 @@ def find_file (name):
 	ly.exit (1)
 	return ''
 	
+def verbatim_html (s):
+	return re.sub ('>', '&gt;',
+		       re.sub ('<', '&lt;',
+			       re.sub ('&', '&amp;', s)))
+
+def verbatim_texinfo (s):
+	return re.sub ('{', '@{',
+		       re.sub ('}', '@}',
+			       re.sub ('@', '@@', s)))
+
 class Snippet:
 	def __init__ (self, type, index, match):
 		self.type = type
@@ -400,8 +424,10 @@ class Snippet:
 	def output_html (self, source):
 		base = self.basename (source)
 		option_string = self.match.group ('options')
-		if option_string and VERBATIM in string.split (option_string):
-			code = self.substring (source, 'code')
+		if option_string and VERBATIM in string.split (option_string,
+							       ',')\
+		   and format == HTML:
+			verb = verbatim_html (self.substring (source, 'code'))
 			h.write (output[HTML][VERBATIM] % vars ())
 		h.write (output[HTML][BEFORE])
 		h.write (output[HTML][OUTPUT] % vars ())
@@ -409,8 +435,10 @@ class Snippet:
 			
 	def output_latex (self, source):
 		option_string = self.match.group ('options')
-		if option_string and VERBATIM in string.split (option_string):
-			code = self.substring (source, 'code')
+		if option_string and VERBATIM in string.split (option_string,
+							       ',')\
+		   and format == LATEX:
+			verb = self.substring (source, 'code')
 			h.write (output[LATEX][VERBATIM] % vars ())
 		h.write (output[LATEX][BEFORE])
 		base = self.basename (source)
@@ -418,6 +446,12 @@ class Snippet:
 		h.write (output[LATEX][AFTER])
 			
 	def output_texinfo (self, source):
+		option_string = self.match.group ('options')
+		if option_string and VERBATIM in string.split (option_string,
+							       ','):
+			verb = verbatim_texinfo (self.substring (source,
+								 'code'))
+			h.write (output[TEXINFO][VERBATIM] % vars ())
 		h.write ('\n@tex\n')
 		self.output_latex (source)
 		h.write ('\n@end tex\n')
@@ -566,51 +600,68 @@ def get_latex_textwidth (source):
 	return textwidth
 
 
+ext2format = {
+	'.html' : HTML,
+	'.itely' : TEXINFO,
+	'.lytex' : LATEX,
+	'.tely' : TEXINFO,
+	'.tex': LATEX,
+	'.texi' : TEXINFO,
+	'.texinfo' : TEXINFO,
+	'.xml' : HTML,
+	}
+			       
+format2ext = {
+	HTML: '.html',
+	#TEXINFO: '.texinfo',
+	TEXINFO: '.texi',
+	LATEX: '.tex',
+	}
+
 def do_file (input_filename):
 	global format
 	
 	if not format:
-		ext2format = {
-			'.html' : HTML,
-			'.itely' : TEXINFO,
-			'.lytex' : LATEX,
-			'.tely' : TEXINFO,
-			'.tex': LATEX,
-			'.texi' : TEXINFO,
-			'.xml' : HTML,
-			}
-			       
 		e = os.path.splitext (input_filename)[1]
 		if e in ext2format.keys ():
+			#FIXME
 			format = ext2format[e]
 		else:
 			ly.error (_ ("cannot determine format for: %s" \
 				     % input_filename))
 
+	ly.progress (_ ("Reading %s...") % input_filename)
 	global h
-
-	h = sys.stdin
-	if input_filename != '-':
+	if not input_filename or input_filename == '-':
+		h = sys.stdin
+	else:
 		h = open (input_filename)
 	source = h.read ()
+	ly.progress ('\n')
 
+	ly.progress (_ ("Dissecting..."))
 	snippet_types = ('verbatim', 'verb', 'multiline-comment',
-			 'lilypond', 'lilypond-block', 'lilypond-file',)
+			 'lilypond', 'lilypond-block', 'lilypond-file',
+			 'include',)
 	snippets = []
 	for i in snippet_types:
 		snippets += find_snippets (source, i)
-
 	snippets.sort (compare_index)
+	ly.progress ('\n')
 
-	h = sys.stdout
-	if output_name and output_name != '-':
+	if output_name == '-' or not output_name:
+		h = sys.stdout
+		output_filename = '-'
+	else:
 		if not os.path.isdir (output_name):
 			os.mkdir (output_name, 0777)
-		if input_filename != '-':
-			h = open (output_name + '/' \
-				  + os.path.split (input_filename)[0] \
-				  + '.' + format,
-				  'w')
+		if input_filename == '-':
+			input_base = 'stdin'
+		else:
+			input_base = os.path.splitext (input_filename)[0]
+		output_filename = output_name + '/' + input_base \
+				  + format2ext[format]
+		h = open (output_filename, 'w')
 		os.chdir (output_name)
 
 	def filter_source (snippet, source):
@@ -637,9 +688,17 @@ def do_file (input_filename):
 		       or snippet.type == 'lilypond-file':
 			h.write (source[index:snippet.start (0)])
 			snippet_output (snippet, source)
+		elif snippet.type == 'include':
+			h.write (source[index:snippet.start ('filename')])
+			base = os.path.splitext (snippet.substring (source, 'filename'))[0]
+			h.write (base + format2ext[format])
+			h.write (source[snippet.end ('filename'):snippet.end (0)])
+		else:
+			h.write (source[index:snippet.end (0)])
  		index = snippet.end (0)
 
 	global default_ly_options
+	textwidth = 0
 	if format == LATEX and LINEWIDTH not in default_ly_options.keys ():
 		textwidth = get_latex_textwidth (source)
 		default_ly_options[LINEWIDTH] = '''%.0f\pt''' % textwidth
@@ -650,16 +709,33 @@ def do_file (input_filename):
 		h.write (source[index:])
 	elif process_cmd:
 		outdated = map_snippets (source, snippets, Snippet.outdated_p)
+		ly.progress (_ ("Writing snippets..."))
 		do_snippets (source, snippets, Snippet.write_ly)
-		process_snippets (source, outdated, process_cmd)
+		ly.progress ('\n')
+		if outdated:
+			ly.progress (_ ("Processing..."))
+			process_snippets (source, outdated, process_cmd)
+		else:
+			ly.progress (_ ("All snippets are up to date..."))
+		ly.progress ('\n')
+		ly.progress (_ ("Compiling %s...") % output_filename)
 		do_snippets (source, snippets, compile_output)
 		h.write (source[index:])
+		ly.progress ('\n')
 
-	# misusing snippet bit silly?
 	includes = find_snippets (source, 'include')
 	for i in includes:
 		os.chdir (original_dir)
-		sys.stderr.write ('DO: ' + sys.argv[0] + ' OPTIONS ' + i.substring (source, 'filename') + '\n')
+ 		options = []
+ 		if textwidth:
+ 			options.append ('--linewidth=%f' % textwidth)
+
+		name = i.substring (source, 'filename')
+		ly.progress (_ ('Processing include: %s') % name)
+		ly.progress ('\n')
+		cmd = 'python ' + string.join (sys.argv[:-1]) \
+		      + string.join (options) + ' ' + name
+		ly.system (cmd)
 
 def do_options ():
 	global format, output_name
