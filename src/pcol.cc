@@ -3,33 +3,6 @@
 #include "pstaff.hh"
 #include "debug.hh"
 
-void
-Idealspacing::print() const
-{
-#ifndef NPRINT
-    mtor << "idealspacing {" ;
-    mtor << "distance "<<space<< " strength " << hooke << "}\n";
-#endif
-}
-
-Idealspacing::Idealspacing(const PCol * l,const PCol * r)
-{
-    space = 0.0;
-    hooke = 0.0;
-    left = l;
-    right = r;
-}
-
-void
-Idealspacing::OK() const
-{
-#ifndef NDEBUG
-    assert(hooke >= 0 && left  && right);
-#endif    
-}
-
-/****************************************************************/
-
 Interval
 PCol::width() const
 {
@@ -41,19 +14,27 @@ PCol::width() const
 	w.unite(Interval(0,0));
     return w;
 }
+int
+PCol::rank() const
+{
+    if(!pscore_)
+	return -1;
+    PCursor<PCol*> me=pscore_->find_col(this);
+    if (!me.ok())
+	return -1;
+    PCursor<PCol*> bot(pscore_->cols.top());
+    return me - bot;
+}
 
 void
 PCol::print() const
 {
 #ifndef NPRINT
     mtor << "PCol {";
-    if (pscore_) {		// ugh
-	PCursor<PCol*> me=pscore_->find_col(this);
-	PCursor<PCol*> bot(pscore_->cols.top());
-	if (me.ok()) {
-	    mtor << "rank: " << me - bot << '\n';
-	}
-    }
+
+    if (rank() >= 0)
+	mtor << "rank: " << rank() << '\n';
+
     mtor << "# symbols: " << its.size() ;
     if (breakable()){
 	mtor << "\npre,post: ";
