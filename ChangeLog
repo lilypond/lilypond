@@ -1,3 +1,10 @@
+2004-08-04  Werner Lemberg  <wl@gnu.org>
+
+	* lily/slur-quanting.cc: Include libc-extension.hh.
+	s/round/my_round/.
+	* ly/engraver-init.ly (VaticanaVoice, GregorianTranscriptionVoice):
+	s/autobeaming/autoBeaming/.
+
 2004-08-03  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* scripts/lilypond-book.py (Lilypond_file_snippet.ly): reinstate
