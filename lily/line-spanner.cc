@@ -113,13 +113,13 @@ Line_spanner::line_stencil (Grob *me,
 	   && type == ly_symbol2scm ("trill"))
     {
       SCM alist_chain = Font_interface::text_font_alist_chain (me);
-      SCM style_alist = scm_list_n (gh_cons (ly_symbol2scm ("font-family"),
+      SCM style_alist = scm_list_n (gh_cons (ly_symbol2scm ("font-encoding"),
 					     ly_symbol2scm ("music")),
 				    SCM_UNDEFINED);
       
       Font_metric *fm = select_font (me->get_paper (),
-						  gh_cons (style_alist,
-							   alist_chain));
+				     gh_cons (style_alist,
+					      alist_chain));
       Stencil m = fm->find_by_name ("scripts-trill-element");
       Stencil mol;
 

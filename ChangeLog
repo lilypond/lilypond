@@ -1,3 +1,16 @@
+2004-03-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* tex/titledefs.tex: remove scshape for piece.
+
+	* lily/line-spanner.cc (line_stencil): font-encoding = music, not
+	font-family
+
+	* lily/time-signature.cc (special_time_signature): font-encoding
+	not family.
+
+	* lily/dynamic-engraver.cc (acknowledge_grob): fix typo, attach
+	dynamic to head. This fixes p placement in morgenlied.
+
 2004-03-23  Werner Lemberg  <wl@gnu.org>
 
 	* stepmake/stepmake/generic-targets.make (help): Improve text.
