@@ -115,7 +115,8 @@ Beam_engraver::acknowledge_element (Score_elem_info i)
   if (!current_grouping_p_->child_fit_b (start))
     {
       String s (_("please fix me: Stem at ") 
-		+ String(now_moment ()) + _(" does not fit in beam"));
+		+ now_moment ().str ()
+		+ _(" does not fit in beam"));
       if (i.req_l_)
 	i.req_l_->warning(s);
       else 
