@@ -22,7 +22,7 @@ ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 Auto_beam_engraver::Auto_beam_engraver ()
 {
   beam_p_ = 0;
-  mult_i_ = 0;
+  shortest_mom_ = 1;
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
   grouping_p_ = 0;
@@ -41,8 +41,11 @@ Auto_beam_engraver::consider_end_and_begin ()
   int num = time->whole_per_measure_ / time->one_beat_;
   int den = time->one_beat_.den_i ();
   String time_str = String ("time") + to_str (num) + "_" + to_str (den);
-  int type = 1 << (mult_i_ + 2);
-  String type_str = to_str (type);
+  String type_str;
+  if (shortest_mom_.num () != 1)
+    type_str = to_str (shortest_mom_.num ());
+  if (shortest_mom_.den () != 1)
+    type_str = type_str + "_" + to_str (shortest_mom_.den ());
 
   /*
     Determine end moment for auto beaming (and begin, mostly 0==anywhere) 
@@ -92,7 +95,7 @@ Auto_beam_engraver::consider_end_and_begin ()
   /*
     third guess: property time exception, specific for duration type
   */
-  if (mult_i_)
+  if (type_str.length_i ())
     {
       Scalar end_mult = get_property (time_str + "beamAutoEnd" + type_str, 0);
       if (end_mult.length_i ())
@@ -116,7 +119,7 @@ Auto_beam_engraver::consider_end_and_begin ()
   /*
     fifth guess [user override]: property plain, specific for duration type
   */
-  if (mult_i_)
+  if (type_str.length_i ())
     {
       Scalar end_mult = get_property (String ("beamAutoEnd") + type_str, 0);
       if (end_mult.length_i ())
@@ -194,7 +197,7 @@ Auto_beam_engraver::end_beam ()
       finished_grouping_p_ = grouping_p_;
       beam_p_ = 0;
       grouping_p_ = 0;
-      mult_i_ = 0;
+      shortest_mom_ = 1;
     }
 }
  
@@ -300,17 +303,16 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	}
       else
 	{
-	  int m = (rhythmic_req->duration_.durlog_i_ - 2);
 	  /*
-	    if multiplicity would become greater,
+	    if shortest duration would change
 	    reconsider ending/starting beam first.
 	   */
-	  if (m > mult_i_)
+	  Moment mom = rhythmic_req->duration_.length_mom ();
+	  if (mom < shortest_mom_)
 	    {
-	      mult_i_ = m;
+	      shortest_mom_ = mom;
 	      consider_end_and_begin ();
 	    }
-	  mult_i_ = m;
 	  grouping_p_->add_child (start, rhythmic_req->length_mom ());
 	  stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
 	  beam_p_->add_stem (stem_l);
@@ -325,22 +327,11 @@ void
 Auto_beam_engraver::junk_beam () 
 {
   assert (beam_p_);
-#if 0
-  for (int i=0; i < beam_p_->stems_.size (); i++)
-    {
-      Stem* s = beam_p_->stems_[i];
-      s->beams_i_drul_[LEFT] = 0;
-      s->beams_i_drul_[RIGHT] = 0;
-      s->mult_i_ = 0;
-      s->beam_l_ = 0;
-    }
-#endif
-  
   beam_p_->unlink ();
   beam_p_ = 0;
   delete grouping_p_;
   grouping_p_ = 0;
-  mult_i_ = 0;
+  shortest_mom_ = 1;
 }
 
 void

@@ -1,3 +1,6 @@
+pl 33.jcn1
+	- allow autobeaming according to duration iso (crude) multiplicity
+
 pl 32.mb1
 	- bf: \> and \< were interchanged!!
 	- Added property: textScriptPadding
