@@ -117,6 +117,75 @@ support.
 
 =back
 
+=head1 Request_register
+
+In the previous section the idea of Request has been explained, but
+this only solves one half of the problem. The other half is
+deciding which requests should be honored, which should merged with
+other requests, and which should be ignored. Consider this (pseudo)input
+
+	{ % chord
+		\music { [c() c] }
+		\music { [e() e] }
+	}
+
+Both the c and e are part of a chord (they are in the same
+Voice_group), so they should share the beams, and the two [ ] pairs
+should be merged. The slurs OTOH are specific for each voice, so they
+should not be shared.
+
+The judge in this "allocation" problem is Staff (actually, it's child
+C<Complex_staff>). It uses the C<Request_register> to do most of the
+work class.  For each request C<Complex_staff> queries so-called
+C<Request_register>s if they want to accept a request eg, the
+C<Notehead_register> will accept C<Note_req>s, and turn down
+C<Slur_req>s. If C<Complex_staff> cannot find a register wants the
+request, it is junked (with a warning message).
+
+After all requests have been either assigned, or junked, the Register
+will process the requests (which usually means creating an C<Item> or
+C<Spanner>). If a C<Request_register> creates something, it tells
+C<Complex_staff>. If all requests have been processed, then each
+Register is notified of any created Staff_element.
+
+=head2 example:
+
+	c4
+
+produces:
+
+	note_request (duration 1/4)
+	stem_request (duration 1/4)
+
+note_request will be taken by a C<Notehead_register>, stem_request
+will be taken by a C<Stem_beam_register>. C<Notehead_register> creates
+a C<Notehead>, C<Stem_beam_register> creates a C<Stem>. Both announce
+this to the Staff. Staff will tell C<Stem_beam_register> about the
+C<Notehead>, which will add the C<Notehead> to the C<Stem> it just
+created.
+
+To decide on merging, C<Complex_staff> has grouped several
+registers. There are a few groups:
+
+=item *
+Staff wide, contains
+	Local_key_register
+
+=item *
+Voice group, contains
+	Stem_beam_register
+	Script_register
+	Text_register
+
+=item *
+Voice, contains
+	Slur_register
+	Notehead_register
+
+
+=item 1
+
+
 =head1 COMMANDS
 
 
