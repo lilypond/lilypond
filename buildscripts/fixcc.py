@@ -3,6 +3,9 @@
 # fixcc -- nitpick lily's c++ code
 
 # TODO
+#  * maintainable rules: regexp's using whitespace (?x) and match names
+#    <identifier>)
+#  * trailing * vs function definition
 #  * check lexer, parser
 #  * rewrite in elisp, add to cc-mode
 #  * ?
@@ -18,6 +21,8 @@ import time
 
 COMMENT = 'COMMENT'
 CXX = 'C++'
+verbose_p = 0
+indent_p = 0
 
 rules = {
 	CXX:
@@ -40,25 +45,36 @@ rules = {
 	('([\w\)\]])[ \t]*(--|\+\+)', '\\1\\2'),
 	# delete space after parenthesis close
 	#('\)[ \t]*([^\w])', ')\\1'),
+	# delete space around operator
+	# ('([\w\(\)\]])([ \t]*)(::|\.)([ \t]*)([\w\(\)])', '\\1\\3\\5'),
+	('([\w\(\)\]])([ \t]*)(\.)([ \t]*)([\w\(\)])', '\\1\\3\\5'),
+	# delete space after operator
+	('(::)([ \t]*)([\w\(\)])', '\\1\\3'),
 	# delete superflous space around operator
-	('([\w\)\]])([ \t]+)(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|<|>|\+|-|=|/|&|\|\*)([ \t]+)([\w\(])', '\\1 \\3 \\5'),
-	# space around operator
-	('([\w\)\]])(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|<|>|=|/|&|\|\*)([\w\(])', '\\1 \\2 \\3'),
+	('([\w\(\)\]])([ \t]+)(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&|\||\*)([ \t]+)([\w\(\)])', '\\1 \\3 \\5'),
+	# space around operator1
+	('([\w\)\]]) *(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|=|/|:|&|\||\*) *([\w\(])', '\\1 \\2 \\3'),
+	# space around operator2
+	('([\w\)\]]) *(&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|=|/|:|&|\||\*) ([^\w\s])', '\\1 \\2 \\3'),
+	# space around operator3
+	('([^\w\s]) (&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|=|/|:|&|\||\*) *([\w\(])', '\\1 \\2 \\3'),
 	# space around +/-; exponent
 	('([\w\)\]])(\+|-)([_A-Za-z\(])', '\\1 \\2 \\3'),
 	('([_\dA-Za-df-z\)\]])(\+|-)([\w\(])', '\\1 \\2 \\3'),
 	# trailing operator
-	(' (&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|<|>|\+|-|=|/|\*XXX)[ \t]*\n([ \t]*)',
-	 '\n\\2\\1 '),
+	(' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|\?|<|>|\+|-|=|/|:|&XXX|\||\*XXX)[ \t]*\n([ \t]*)',	 '\n\\2\\1 '),
+	#breaks function definitions
+	#to#(' (::|&&|\|\||<=|>=|!=|\|=|==|\+=|-=|\*=|/=|<|>|\+|-|=|/|&|\||\*)[ \t]*\n([ \t]*)',	 '\n\\2\\1 '),
 	# pointer
-	('(bool|char|const|int|unsigned|void|([A-Z]\w*))[ \t]*(\*|&)[ \t]*',
-	 '\\1 \\3'),
+	('(bool|char|const|delete|int|stream|unsigned|void|(struct \w+)|([A-Z]\w*)|[,]|&&|\|\|)[ \t]*(\*|&)[ \t]*', '\\1 \\4'),
+	#to#('(bool|char|const|delete|int|stream|unsigned|void|([A-Z]\w*)|[,])[ \n\t]*(\*|&)[ \t]*', '\\1 \\3'),
+	# pointer with template
+	('(( *((bool|char|delete|int|stream|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)|[,])[ \*&],*)+)>) *(\*|&) *', '\\1 \\7'),
+	#to#('(( *((bool|char|delete|int|stream|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)|[,])[ \*&],*)+)>)[ \t\n]*(\*|&) *', '\\1 \\7'),
 	# unary pointer, minus, not
 	('(return|=) (\*|&|-|!) ([\w\(])', '\\1 \\2\\3'),
-	# delete space after `operator'
-	#('(\Woperator) (\W)', '\\1\\2'),
 	# space after `operator'
-	('(\Woperator) *(\W)', '\\1 \\2'),
+	('(\Woperator) *([^\w\s])', '\\1 \\2'),
 	# dangling newline
 	('\n[ \t]*\n[ \t]*\n', '\n\n'),
 	# dangling parenthesis open
@@ -71,13 +87,17 @@ rules = {
 	# dangling semicolon
 	('\n[ \t]*;', ';'),
 	# brace open
-	('(\w[^\n]*){[ \t]*\n', '\\1\n{\n'),
+	('(\w)[ \t]*([^\s]*){([ \t]*\n)', '\\1\\2\n{\n'),
 	# brace open backslash
 	('(\w[^\n]*){[ \t]*\\\\\n', '\\1\\\n{\\\n'),
 	# brace close
-	('}[ \t]*([^\n]*\w[^\n\\\]*\n)', '}\n\\1\n'),
+	('}[ \t]*([^\n]*\w[^\n\\\]*)\n', '}\n\\1\n'),
 	# brace close backslash
-	('}[ \t]*([^\n]*\w[^\n]*?\\\\\n)', '}\\\n\\1\n'),
+	('}[ \t]*([^\n]*\w[^\n\\\]*)', '\n}\n\\1'),
+	# delete space after `operator'
+	#('(\Woperator) (\W)', '\\1\\2'),
+	# delete space after case, label
+	('(\W(case|label) ([\w]+)) :', '\\1:'),
 	# delete space before comma
 	('[ \t]*,', ','),
 	# delete space before semicolon
@@ -87,18 +107,23 @@ rules = {
 	# delete trailing whitespace
 	('[ \t]*\n', '\n'),
 
-	## Massage code that gets broken by rules above.
+	## Deuglify code that also gets ugly by rules above.
+	# delete newline after typedef struct
+	('(typedef struct\s+([\w]*\s){([^}]|{[^}]*})*})\s*\n\s*(\w[\w\d]*;)', '\\1 \\4'),
 	# delete spaces around template brackets
-	# Note that this does not work for PQueue_event.  Fix C++ name?
-	('(dynamic_cast|template|([A-Z]\w*))[ \t]*<[ \t]*((bool|char|int|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)))[ \t]*?(| \*)[ \t]*>',
-	 '\\1<\\3\\7>'),
+	#('(dynamic_cast|template|([A-Z]\w*))[ \t]*<[ \t]*(( *(bool|char|int|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*)),?)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\3\\8>'),
+	('(dynamic_cast|template|([A-Z]\w*))[ \t]*<[ \t]*(( *(bool|char|int|unsigned|void|(class[ \t]+\w*)|([A-Z]\w*))[,\*&]*)+)[ \t]?(| [\*&])[ \t]*>', '\\1<\\3\\8>'),
+	('((if|while)\s+\(([^\)]|\([^\)]*\))*\))\s*;', '\\1\n;'),
+	('(for\s+\(([^;]*;[^;]*;([^\)]|\([^\)]*\))*)\))\s*;', '\\1\n;'),
+
+	## Fix code that gets broken by rules above.
 	# delete space before #define x()
 	('#[ \t]*define (\w*)[ \t]*\(', '#define \\1('),
 	# add space in #define x ()
 	('#[ \t]*define (\w*)(\(([^\(\)]|\([^\(\)]*\))*\)\\n)',
 	 '#define \\1 \\2'),
 	# delete space in #include <>
-	('#[ \t]*include[ \t]*<[ \t]*([^ \t>]*)[ \t]*(/?)[ \t]*([^ \t>]*)[ \t]*>',	 
+	('#[ \t]*include[ \t]*<[ \t]*([^ \t>]*)[ \t]*(/?)[ \t]*([^ \t>]*)[ \t]*>',
 	'#include <\\1\\2\\3>'),
 	# delete backslash before empty line (emacs' indent region is broken)
 	('\\\\\n\n', '\n\n'),
@@ -118,7 +143,6 @@ rules = {
 	#('\n(\*/)', '\\1'),
 	],
 	}
-
 
 # Recognize special sequences in the input.
 #
@@ -187,8 +211,19 @@ class Substring (Chunk):
 
 	def replacement_text (self):
 		s = self.source[self.start:self.end]
+		if verbose_p:
+			sys.stderr.write ('CXX Rules')
 		for i in rules[CXX]:
+			if verbose_p:
+				sys.stderr.write ('.')
+				#sys.stderr.write ('\n*********\n')
+				#sys.stderr.write (i[0])
+				#sys.stderr.write ('\n=========\n')
+				#sys.stderr.write (s)
+				#sys.stderr.write ('\n*********\n')
 			s = re.sub (i[0], i[1], s)
+		if verbose_p:
+			sys.stderr.write ('done\n')
 		return s
 		
 
@@ -219,7 +254,11 @@ class Multiline_comment (Snippet):
 
 	def replacement_text (self):
 		s = self.match.group ('match')
+		if verbose_p:
+			sys.stderr.write ('COMMENT Rules')
 		for i in rules[COMMENT]:
+			if verbose_p:
+				sys.stderr.write ('.')
 			s = re.sub (i[0], i[1], s)
 		return s
 
@@ -231,6 +270,9 @@ snippet_type_to_class = {
 }
 
 def find_toplevel_snippets (s, types):
+	if verbose_p:
+		sys.stderr.write ('Dissecting')
+
 	res = {}
 	for i in types:
 		res[i] = re.compile (snippet_res[format][i])
@@ -252,6 +294,8 @@ def find_toplevel_snippets (s, types):
 	# every type of snippet, this is linear.
 
 	while 1:
+		if verbose_p:
+			sys.stderr.write ('.')
 		first = None
 		endex = 1 << 30
 		for type in types:
@@ -324,7 +368,8 @@ def nitpick_file (outdir, file):
 		h = open (fixt, "w")
 		h.write (t)
 		h.close ()
-	indent_file (fixt)
+	if s != t or indent_p:
+		indent_file (fixt)
 
 def indent_file (file):
 	emacs = '''emacs\
@@ -354,13 +399,22 @@ def indent_file (file):
 		  % { 'file': file,
 		      'socketdir' : socketdir,
 		      'socketname' : socketname, }
+	if verbose_p:
+		sys.stderr.write (emacs)
+		sys.stderr.write ('\n')
 	os.system (emacs)
 
 
 def usage ():
 	sys.stdout.write (r'''
 Usage:
-fixcc [--outdir=DIR] FILE...
+fixcc [OPTION]... FILE...
+
+Options:
+   --help
+   --indent   reindent, even if no changes
+   --verbose
+   --test
 
 Typical use with LilyPond:
 
@@ -370,15 +424,23 @@ This script is licensed under the GNU GPL
 ''')
 
 def do_options ():
-	global outdir
+	global indent_p, outdir, verbose_p
 	(options, files) = getopt.getopt (sys.argv[1:], '',
-					  ['help', 'outdir='])
+					  ['help', 'indent', 'outdir=',
+					   'test', 'verbose'])
 	for (o, a) in options:
 		if o == '--help':
 			usage ()
 			sys.exit (0)
+		elif o == '--indent':
+			indent_p = 1
 		elif o == '--outdir':
 			outdir = a
+		elif o == '--verbose':
+			verbose_p = 1
+		elif o == '--test':
+			test ()
+			sys.exit (0)
 		else:
 			assert unimplemented
 	if not files:
@@ -425,6 +487,70 @@ def main ():
 	for i in files:
                 sys.stderr.write ('%s...\n' % i)
 		nitpick_file (outdir, i)
+
+
+TEST = '''
+ostream &
+operator << (ostream & os, String d);
+
+typedef struct _t_ligature
+{
+  char *succ, *lig;
+  struct _t_ligature *next;
+  struct _t_ligature * next;
+}  AFM_Ligature;
+
+char *
+Bar:: foe ()
+{
+  char* a= ++ 3  ;
+  a [x] = foe (*i, &bar) *
+  2;
+  int operator double ();
+  int x =foe(1 ,3);
+  Interval_t<T> &operator*= (T r);
+  int compare (Pqueue_ent < K, T > const& e1, Pqueue_ent < K,T> *e2);
+  delete *p;
+  if (abs (f)*2 > abs (d) *FUDGE)
+    ;
+  while (0);
+  for (; i < x (); foo > bar);
+  for (; i < x > y;
+  foo > bar)
+;
+
+  squiggle. extent;
+
+  1 && * unsmob_moment (lf);
+  
+  line_spanner_ = make_spanner ("DynamicLineSpanner", rq ? rq->self_scm
+(): SCM_EOL);
+
+  case foo: k;
+
+  typedef struct
+  {
+    ...
+  } cookie_io_functions_t;
+
+
+  if (0) {a=b;} else {
+   c=d;
+  }
+
+  cookie_io_functions_t Memory_out_stream::functions_ = {
+    Memory_out_stream::reader,
+    ...
+  };
+
+}
+'''
+
+def test ():
+	test_file = 'fixcc.cc'
+	open (test_file, 'w').write (TEST)
+	nitpick_file (outdir, test_file)
+	sys.stdout.write (open (test_file).read ())
 
 if __name__ == '__main__':
 	main ()
