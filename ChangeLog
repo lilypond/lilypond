@@ -1,3 +1,15 @@
+2004-05-06  Kristof Bastiaensen  <kristof.bastiaensen@vleeuwen.org>
+
+	* elisp/lilypond-mode.el: changed the order of some commands
+	("Midi" after "2Midi"), use the user-defined
+	LilyPond-command-default as default instead of "LilyPond"
+
+	* elisp/lilypond-mode.el: added a LilyPond-master-file variable,
+	to set the master file for the next command.
+
+	* elisp/lilypond-font-lock.el: replaced font-lock-warning-face
+	with font-lock-reference-face.
+
 2004-05-07  Heikki Junes <hjunes@cc.hut.fi>
 
         * Documentation/user/music-glossary.tely ([ab]*): small fixes.
