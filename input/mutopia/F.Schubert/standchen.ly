@@ -50,30 +50,30 @@ dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
 
 vocalVerse =  \notes\relative c''{
 	\dynamicUp
-	\times 2/3 { [ g8( )as] g } c4. g8 |
-	\times 2/3 { [ f8( )g] f } c'4 f,8 r |
-	g4.-> f8 \times 2/3 { [ f( )es] d } |
+	\times 2/3 {  g8-[(  as-)] g } c4. g8 |
+	\times 2/3 {  f8-[(  g-)] f } c'4 f,8 r |
+	g4.-> f8 \times 2/3 {  f-[(  es-)] d } |
 	es2 r4 |
 	R2. |
 	R2. |
-	\times 2/3 { [ g8( )as] g } es'4. g,8 |
-	\times 2/3 { [ f8( )g] f } d'4. c8 |
-	bes4. as8 \times 2/3 { [ as( )g] f } |
+	\times 2/3 {  g8-[(  as-)] g } es'4. g,8 |
+	\times 2/3 {  f8-[(  g-)] f } d'4. c8 |
+	bes4. as8 \times 2/3 {  as-[(  g-)] f } |
 	g2 r4 |
 	R2. |
 	R2. |
 	g8. b16 es4. d8 |
 	c8. g16 es4. c8 |
-	\grace { [ as'32( bes ] } \times 2/3 { [ )as8( )g] as } c4. as8 |
+	\grace {  as'32-[( bes ] } \times 2/3 {  as8-[-)(  g-)] as } c4. as8 |
 	g2. |
-	\grace { [ f32( g ] } \times 2/3 { [ )f8( )e] f } as4. f8 |
+	\grace {  f32-[( g ] } \times 2/3 {  f8-[-)(  e-)] f } as4. f8 |
   
 	es!2. |
 	g8. b16 es4. d8 |
 	c8. g16 e4. c8 |
- 	\grace { [ a'32( b ] } \times 2/3 { [ )a!8( ) gis] a } c4. a8 |
+ 	\grace {  a'32-[( b ] } \times 2/3 {  a!8-[-)(  gis-)] a } c4. a8 |
 	g!2. |
-	\times 2/3 { [ d'8-\f( )cis] d } f4. b,8 |
+	\times 2/3 {  d'8-[-\f(  cis-)] d } f4. b,8 |
 	c!2. |
 }
 
@@ -83,13 +83,13 @@ vocalThrough =  \notes\relative c{
 	c4 b r |
 	g4. b8 d8. c16 |
 	b2 r4 |
-	e4. d8 \times 2/3 { [ d( )c] b } |
+	e4. d8 \times 2/3 {  d-[(  c-)] b } |
 	a8. b16 c4-> a8 r |
 	R2. |
 	R2. |
-	\grace { [ a32( b ] } \times 2/3 { [ )a!8( ) gis] a } c4. a8 |
+	\grace {  a32-[( b ] } \times 2/3 {  a!8-[-)(  gis-)] a } c4. a8 |
 	g!2. |
-	\times 2/3 { [ d'8-\f( )cis] d } f4. b,8 |
+	\times 2/3 {  d'8-[-\f(  cis-)] d } f4. b,8 |
 	c!2. ~ |
 	% bug: slur on other staff fools lily into extending melisma
 	c4 r c |
@@ -152,15 +152,15 @@ trebleVerseOne =  \notes\relative c{
 	r8 <<f g b>> <<g b d>> <<f g b>> <<g b d>> <<f g b>> |
 	r8 <<es g c>> <<g c es>> <<es g c>> <<g c es>> <<es g c>> |
 	<<g'' b,>>4.-( <<f d>>8-)
-	\times 2/3 < { [ f( es )d ] } { d c b } > |
+	\times 2/3 < {  f-[( es  d-) ] } { d c b } > |
 	%10
 	<<c es>>2. |
 	r8 <<g, c>> <<c es>> <<g c>> <<c es>> <<g c>> |
 	r8 <<f c'>> <<c' d>> <<f, c'>> <<c' d>> <<f, c'>> |
 	r8 <<f as bes>> <<as bes d>> <<f as bes>> <<as bes d>> <<f as bes>> |
-	r8 < { [ es g es g ] } { g bes g bes } { bes es bes es } >
-	<{ es'( )  d4.() f8}{ c' | bes4.  as8 } >
-	\times 2/3 < { [ f( es )d ] } { as' g f } > |
+	r8 < {  es-[ g es g ] } { g bes g bes } { bes es bes es } >
+	<{ es'(  d4.-)( f8-)}{ c' | bes4.  as8 } >
+	\times 2/3 < {  f-[( es  d-) ] } { as' g f } > |
 	%16
 	<<es g>>2. |
 	r8 <<f, g>> <<g b>> <<f g>> <<g b>> <<f g>> |
@@ -169,15 +169,15 @@ trebleVerseOne =  \notes\relative c{
 	%20
 	r8 <<es g bes>> <<g bes es>> <<es g bes>> <<g bes es>> <<es g bes>> |
 	\property Voice.Slur \override #'attachment = #'(stem . stem)
-	\grace { [ as'32( bes ] } \times 2/3 { [ )as8( g as] } c4.-> ) as8 |
+	\grace {  as'32-[( bes ] } \times 2/3 {  as8-[-)( g as] } c4.->  as8-) |
 	\property Voice.Slur \revert #'attachment
 	g2. |
 	r8 <<f, g>> <<g b>> <<f g>> <<g b>> <<f g>> |
 	r8 <<e g>> <<g c>> <<e g>> <<g c>> <<e g>> |
 	r8 <<f a c>> <<a c f>> <<f a c>> <<a c f>> <<f a c>> |
 	r8 <<e g c>> <<g c e>> <<e g c>> <<g c e>> <<e g c>> |
-	\times 2/3 < { [ f'8-\f( e f] } {  f' e f } >
-	< {a4.- > )f8}  { a'4. f8 }  > |
+	\times 2/3 < {  f'8-[-\f( e f] } {  f' e f } >
+	< {a4.- >  f8-)}  { a'4. f8 }  > |
 }
 
 trebleEentje =  \notes \relative c' \context Voice {
@@ -203,33 +203,27 @@ trebleThrough =  \notes \relative c'{
 	[<<g, g'>>8.-\< <<g g'>>16 <<b b'>>8. <<b b'>>16-\>-\! <<d d'>>8. <<d d'>>16] |
 
 	%% score has double slur on chord.
-	< { c4( )b } { c'4 b } > \!r |
+	<<c c'>>4-( <<b c'>>-) \! r  
 
 	<<g g'>>4. <<b b'>>8 [<<d' d, >>8.-> c16] |
 	%65
-	< { d,2.(-\f )a'2} { e2. ~ e2 } { b'2.( )c,2 }> r4 |
-	\context Staff < 
-		\context Voice=one {
-			\voiceOne
-			%urg
-			%a8. b16 c4-> () a8 r |
-			a8. b16 c4^> () a8 r |
-			%a8. b16 c4-> () a8 r |
-			a8. b16 c4^> () a8 r |
-		}
-		\context Voice=two {
-			\voiceTwo
-			<<d, f>>4 <<d f>>2 |
-			<<c! es>>4 <<c es>>2 |
-		}
-	>
+        <<d, e b'>>2.-~-(-\f
+	<<c e a>>2-)  r4
+	< 
+	{ 	a'8. b16 c4^> ( a8-) r |
+		a8. b16 c4^> ( a8-) r |
+	}\\{ 
+		<<d, f>>4 <<d f>>2 |
+		<<c! es>>4 <<c es>>2 |
+	} >
 
 	% 4 bars copied from end verse1
 	r8 <<f, a c>> <<a c f>> <<f a c>> <<a c f>> <<f a c>> |
 	%70
 	r8 <<e g c>> <<g c e>> <<e g c>> <<g c e>> <<e g c>> |
-	\times 2/3 < { [ f'8-\f( e f] } {  f' e f } >
-	< { a4.-> )f8 } { a'4. f8 } > |
+	\times 2/3 {  <<f' f'>>8-( <<e e'>> <<f f'>> }
+
+	<<a a'>>4.-> <<f f'>>8-)
 	<<e e'>>2. |
 	<<es! es'! >>2. |
 	\property Voice . TextScript \override #'font-shape = #'italic
@@ -360,10 +354,10 @@ allLyrics = \lyrics {
 	% maybe should be bigger by default, in grob-description.scm ?
 	\property Lyrics . LyricText \override #'font-relative-size = #1
 	\property Lyrics . LyricHyphen \override #'maximum-length = #1.5
-	\lyricVerseOne
+	\context LyricsVoice = "leise-1"  { \lyricVerseOne
 	\lyricVerseTwo
 	\lyricThrough
-}
+} }
 
 lyricStaff = \context Lyrics {
 	\allLyrics
@@ -387,8 +381,8 @@ vocals = \context Voice \notes {
 
 vocalStaff =  \context Staff = vocal<
 	  \property Staff.midiInstrument = "synth voice"
-	  \global
-	  \vocals
+	\context Voice = "leise" < 	  \global
+	  \vocals >
 >
 
 treble =  {

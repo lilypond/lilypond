@@ -860,8 +860,8 @@
 
 	;; Changed this from 0.75.
 	;; If you ever change this back, please document! --hwn
-	
 	(knee-spacing-correction . 1.0)
+	
 	(meta . ((interfaces . (spacing-interface note-spacing-interface item-interface ))))
 	))
 

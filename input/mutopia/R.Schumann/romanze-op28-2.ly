@@ -263,6 +263,7 @@ leftb = \notes \transpose c cis {
     indent = 0.5 \in
     textheight = 27.0 \cm
     pagenumber = no
+   
     \translator {
       \HaraKiriStaffContext
     }
