@@ -63,6 +63,7 @@ public:
 
   Drul_array<int> beams_i_drul_;
 
+  void set_direction (Direction d);
   /// direction stem (that's me)
   Direction dir_;
 
@@ -97,7 +98,7 @@ public:
     
   /// heads that the stem encompasses (positions)
   Interval_t<int> head_positions() const;
-  virtual ~Stem ();
+
 protected:
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual void do_pre_processing();

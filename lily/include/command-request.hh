@@ -15,44 +15,30 @@
 #include "duration.hh"
 #include "musical-pitch.hh"
 
-/** Request which are  assumed to be "happening" before the
-  musical requests.  Not coupled to a note or rest. */
-class Command_req  : public virtual Request  {
-public:
-  REQUESTMETHODS(Command_req);
-
-};
-
-
-class Break_req : public Command_req {
+class Break_req : public Request {
 public:
   enum { DISALLOW = -10000, FORCE = 10000 };
   int penalty_i_;
   Break_req ();
-  REQUESTMETHODS (Break_req);
+protected:
+  VIRTUAL_COPY_CONS(Music);
 };
 
-class Mark_req : public Command_req {
+class Mark_req : public Request {
 public:
   Mark_req (String);
   String str_;
-  REQUESTMETHODS (Mark_req);
-};
-
-class Command_script_req : public Command_req,  public Script_req {
-public:
-  // huh? 
-  Command_script_req();
-  ~Command_script_req();
-  REQUESTMETHODS(Command_script_req);
+protected:
+  virtual void do_print () const;  
+  VIRTUAL_COPY_CONS(Music);
 };
 
 
 /** Baseclass for time_signature/partial req. It has to be handled by
   Staff_{walker,column} baseclass.  */
-class Timing_req  : public Command_req  {
+class Timing_req  : public Request  {
 public:
-  REQUESTMETHODS(Timing_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 
@@ -63,7 +49,9 @@ public:
   int metronome_i_;
 
   Tempo_req();
-  REQUESTMETHODS(Tempo_req);
+protected:
+    virtual void do_print () const;
+  VIRTUAL_COPY_CONS(Music);
   bool do_equal_b (Request *) const;
 };
 
@@ -72,7 +60,9 @@ public:
   Moment length_mom_;
 
   Partial_measure_req (Moment);
-  REQUESTMETHODS(Partial_measure_req);
+protected:
+  VIRTUAL_COPY_CONS(Music);
+  virtual void do_print () const;
   bool do_equal_b (Request*) const;
 };
 
@@ -81,11 +71,14 @@ public:
  */
 class Time_signature_change_req  : public Timing_req  {
 public:
-  int beats_i_, one_beat_i_;
+  int beats_i_;
+  int one_beat_i_;
 
   Time_signature_change_req();
+protected:
+  virtual void do_print () const;
   bool do_equal_b (Request*) const;
-  REQUESTMETHODS(Time_signature_change_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /// toggle Cadenza mode
@@ -93,35 +86,42 @@ class Cadenza_req  : public Timing_req  {
 public:
   /// turn on?
   bool on_b_;
-  bool do_equal_b (Request*) const;
   Cadenza_req (bool);
-  REQUESTMETHODS(Cadenza_req);
+protected:
+  virtual void do_print () const;
+  
+  bool do_equal_b (Request*) const;
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /// check if we're at start of a  measure.
 class Barcheck_req  : public Timing_req  {
 public:
   bool do_equal_b (Request *) const;
-  REQUESTMETHODS(Barcheck_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 class Measure_grouping_req : public Timing_req  {
 public:
   Array<int> beat_i_arr_;
   Array<Moment> elt_length_arr_;
+protected:
+  virtual void do_print () const;
   bool do_equal_b (Request *) const;
-  REQUESTMETHODS(Measure_grouping_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /** draw a (repeat)-bar. This something different than #Barcheck_req#,
   the latter should only happen at the start of a measure.  */
-class Bar_req  : public Command_req  {
+class Bar_req  : public Request  {
 public:
   String type_str_;
   Bar_req (String);
+protected:
+  virtual void do_print () const;
   bool do_equal_b (Request*) const;
 
-  REQUESTMETHODS(Bar_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 
@@ -130,14 +130,13 @@ public:
     Routines for sharps and flats are separated, 
     so that caller may identify non-conventional keys.
 */
-class Key_change_req  : public Command_req  {
+class Key_change_req  : public Request  {
 public:
   Array<Musical_pitch> pitch_arr_;
   int modality_i_;
   bool ordinary_key_b_;
 
   Key_change_req();
-  REQUESTMETHODS(Key_change_req);
 
   /// squash the octaves to 1
   void squash_octaves();
@@ -146,22 +145,27 @@ public:
 
   /// return number of sharps in key
   int sharps_i();
-
-  void transpose (Musical_pitch  d);
   bool minor_b() const;
+
+protected:
+  VIRTUAL_COPY_CONS(Music);
+  void transpose (Musical_pitch  d);
+  virtual void do_print () const;
 };
 
-class Clef_change_req  : public Command_req  {
+class Clef_change_req  : public Request  {
 public:
   String clef_str_;
   Clef_change_req (String);
-  REQUESTMETHODS(Clef_change_req);
+protected:
+  virtual void do_print () const;
+  VIRTUAL_COPY_CONS(Music);
 };
 
-class Bracket_req :  public Span_req, public Command_req {
+class Bracket_req :  public Span_req {
 
 public:
-  REQUESTMETHODS(Bracket_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 

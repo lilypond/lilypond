@@ -101,6 +101,9 @@ Dynamic_engraver::do_process_requests()
 	  text_p_->style_str_ = prop.length_i () ? prop :  "dynamic";
 
 	  staff_side_p_ = new G_staff_side_item;
+	  staff_side_p_->set_elt_property (script_priority_scm_sym,
+					   gh_int2scm (100));
+					   
 	  staff_side_p_->set_victim (text_p_);
 	  staff_side_p_->axis_ = Y_AXIS;
 	  

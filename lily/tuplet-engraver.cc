@@ -12,7 +12,7 @@
 #include "tuplet-spanner.hh"
 #include "note-column.hh"
 #include "compressed-music.hh"
-#include "text-def.hh"
+
 #include "beam.hh"
 #include "music-list.hh"
 
@@ -40,10 +40,7 @@ Tuplet_engraver::do_process_requests ()
     {
       Tuplet_spanner* glep = new Tuplet_spanner;
       started_span_p_arr_.push (glep);
-
-      Text_def *t = new Text_def;
-      t->text_str_ = to_str (compressed_music_arr_[i]->den_i_);
-      glep->tdef_p_.set_p  (t);
+      glep->number_str_ = to_str (compressed_music_arr_[i]->den_i_);
       announce_element (Score_element_info (glep, compressed_music_arr_ [i]));
     }
 }

@@ -227,9 +227,11 @@ Paper_outputter::output_version ()
 }
 
 void
-Paper_outputter::start_line ()
+Paper_outputter::start_line (Real height)
 {
-  SCM scm = gh_list (ly_symbol ("start-line"), SCM_UNDEFINED);
+  SCM scm = gh_list (ly_symbol ("start-line"),
+		     gh_double2scm (height),
+		     SCM_UNDEFINED);
   output_scheme (scm);
 }
 

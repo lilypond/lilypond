@@ -1,5 +1,5 @@
 /*   
-  axis-align-item.cc --  implement 
+  axis-align-item.cc --  implement Axis_align_item
   
   source file of the GNU LilyPond music typesetter
   
@@ -11,4 +11,10 @@
 
 Axis_align_item::Axis_align_item ()
 {
+}
+
+void
+Axis_align_item::do_print () const
+{
+  Axis_group_item::do_print ();
 }

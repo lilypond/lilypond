@@ -17,17 +17,12 @@
 #include "paper-def.hh"
 #include "volta-spanner.hh"
 #include "stem.hh"
-#include "text-def.hh"
-#include "pointer.tcc"
 
-template class P<Text_def>;		// UGH
+#include "pointer.tcc"
 
 Volta_spanner::Volta_spanner ()
 {
   last_b_ = false;
-  visible_b_ = true;
-  number_p_.set_p (new Text_def);
-  number_p_->align_dir_ = LEFT;
 }
 
 Molecule*
@@ -38,8 +33,6 @@ Volta_spanner::do_brew_molecule_p () const
   if (!column_arr_.size ())
     return mol_p;
 
-  if (!visible_b_)
-    return mol_p;
 
   Real internote_f = paper_l ()->get_realvar (interline_scm_sym)/2.0;
 
@@ -47,7 +40,9 @@ Volta_spanner::do_brew_molecule_p () const
   Real w = extent (X_AXIS).length () - dx;
   Molecule volta (lookup_l ()->volta (w, last_b_));
   Real h = volta.dim_.y ().length ();
-  Molecule num (number_p_->get_molecule (paper_l (), LEFT));
+
+  
+  Molecule num (lookup_l ()->text ("volta", number_str_));
   Real dy = column_arr_.top ()->extent (Y_AXIS) [UP] > 
      column_arr_[0]->extent (Y_AXIS) [UP];
   dy += 2 * h;
@@ -59,10 +54,7 @@ Volta_spanner::do_brew_molecule_p () const
     dy = dy >? note_column_arr_[i]->extent (Y_AXIS).max ();
   dy -= h;
 
-  Text_def two_text;
-  two_text.text_str_ = "2";
-  two_text.style_str_ = number_p_->style_str_;
-  Molecule two (two_text.get_molecule (paper_l (), LEFT));
+  Molecule two (lookup_l ()->text ("number", "2"));
   Real gap = two.dim_.x ().length () / 2;
   Offset off (num.dim_.x ().length () + gap, 
 	      h / internote_f - gap);
@@ -81,9 +73,6 @@ Volta_spanner::do_add_processing ()
       set_bounds (LEFT, column_arr_[0]);
       set_bounds (RIGHT, column_arr_.top ());  
     }
-
-  // number_p_->style_str_ = "number-1";
-  number_p_->style_str_ = "volta";
 }
   
 Interval

@@ -14,9 +14,6 @@
 #include "collision.hh"
 #include "paper-def.hh"
 
-
-
-
 void
 Rest_collision::add_column (Note_column *nc_l)
 {
@@ -60,15 +57,15 @@ Rest_collision::do_pre_processing()
     {
       int dy = rest_l_arr_.size() > 2 ? 6 : 4;
 	
-      rest_l_arr_[0]->translate_rests (rest_l_arr_[0]->dir_ *dy);	
+      rest_l_arr_[0]->translate_rests (rest_l_arr_[0]->dir () *dy);	
       // top is last element...
-      rest_l_arr_.top()->translate_rests (rest_l_arr_.top ()->dir_* dy);	
+      rest_l_arr_.top()->translate_rests (rest_l_arr_.top ()->dir ()* dy);	
     }
   // meisjes met jongetjes
   else 
     {
       // int dir_i = - ncol_l_arr_[0]->dir_;
-      Direction dir = rest_l_arr_[0]->dir_;
+      Direction dir = rest_l_arr_[0]->dir ();
 	
       // minimum move
       int minpos = 4;

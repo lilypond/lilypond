@@ -210,12 +210,13 @@ Paper_score::process ()
     *mlog << elem_p_arr_.size ()  + span_p_arr_.size () << " elements. ";
 
   *mlog << "\nLine ... ";
+  line_l_->break_processing ();
   for (int i=0; i < lines.size (); i++)
     {
       *mlog << '[' << flush;
       
       Line_of_score *line_l = lines[i];
-      line_l->break_processing ();
+
       line_l->post_processing ();
 	*mlog << i << flush;
       line_l->output_all ();

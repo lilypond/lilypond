@@ -10,7 +10,6 @@
 #include "note-head.hh"
 #include "stem.hh"
 #include "note-column.hh"
-#include "script.hh"
 #include "dot-column.hh"
 #include "musical-request.hh"
 
@@ -53,14 +52,6 @@ Rhythmic_column_engraver::process_acknowledged ()
 	  ncol_p_->set_stem (stem_l_);
 	  stem_l_ = 0;
 	}
-      
-      for (int i=0; i < script_l_arr_.size(); i++) 
-	{
-	  if (ncol_p_)
-	    ncol_p_->add_script (script_l_arr_[i]);
-	}
-  
-      script_l_arr_.clear();
     }
 }
 
@@ -70,14 +61,7 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
   Item * item =  dynamic_cast <Item *> (i.elem_l_);
   if (!item)
     return;
-  if (Script *s=dynamic_cast<Script *> (item))
-    {
-      if (i.req_l_ && dynamic_cast <Musical_req *> (i.req_l_)) 
-	{
-	  script_l_arr_.push (s);
-	}
-    }
-  else if (Stem*s=dynamic_cast<Stem *> (item))
+ if (Stem*s=dynamic_cast<Stem *> (item))
     {
       stem_l_ = s;
     }
@@ -101,9 +85,6 @@ Rhythmic_column_engraver::do_pre_move_processing()
 	{
 	  ncol_p_->set_elt_property (horizontal_shift_scm_sym, SCM_BOOL_T);
 	}
-      
-      if (! ncol_p_->dir_)
-	ncol_p_->dir_ =(Direction) int(get_property ("ydirection", 0));
 
       typeset_element (ncol_p_);
       ncol_p_ =0;
@@ -113,7 +94,6 @@ Rhythmic_column_engraver::do_pre_move_processing()
 void
 Rhythmic_column_engraver::do_post_move_processing()
 {
-  script_l_arr_.clear();
   dotcol_l_ =0;
   stem_l_ =0;
 }

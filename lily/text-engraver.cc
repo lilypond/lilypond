@@ -10,14 +10,14 @@
 #include "engraver.hh"
 #include "g-staff-side.hh"
 #include "g-text-item.hh"
-#include "text-def.hh"
+#include "musical-request.hh"
 #include "note-head.hh"
 #include "stem.hh"
 #include "staff-symbol.hh"
 
 class Text_engraver : public Engraver
 {
-  Link_array<Script_req> reqs_;
+  Link_array<Text_script_req> reqs_;
   Link_array<G_staff_side_item> positionings_;
   Link_array<G_text_item> texts_;
 public:
@@ -39,11 +39,8 @@ Text_engraver::Text_engraver ()
 bool
 Text_engraver::do_try_music (Music *m)
 {
-  if (Script_req *r = dynamic_cast<Script_req*> (m))
+  if (Text_script_req *r = dynamic_cast<Text_script_req*> (m))
     {
-      Text_def * t = dynamic_cast<Text_def*> (r->scriptdef_p_);
-      if (!t)
-	return false;
       reqs_.push (r);
       return true;
     }
@@ -75,19 +72,28 @@ Text_engraver::do_process_requests ()
 {
   for (int i=0; i < reqs_.size (); i++)
     {
-      Script_req * r = reqs_[i];
-      Text_def * t= dynamic_cast<Text_def*> (r->scriptdef_p_);
+      Text_script_req * r = reqs_[i];
 
       G_text_item *text = new G_text_item;
       G_staff_side_item *ss = new G_staff_side_item;
 
       ss->set_victim (text);
-      ss->dir_ = r->dir_;
-      Scalar p (get_property ("textstyle", 0)); // textStyle?
-      if (p.length_i ())
-	text->style_str_ = p;
-      text->text_str_ = t->text_str_;
+      ss->set_elt_property (script_priority_scm_sym,
+			    gh_int2scm (200));
 
+      ss->dir_ = r->dir_;
+
+      text->text_str_ = r->text_str_;
+      
+      if (r->style_str_.empty_b ())
+	{
+	  Scalar p (get_property ("textStyle", 0));
+	  if (p.length_i ())
+	    text->style_str_ = p;
+	}
+      else
+	text->style_str_ = r->style_str_;
+      
       Scalar padding = get_property ("textScriptPadding", 0);
       if (padding.length_i() && padding.isnum_b ())
 	{

@@ -14,7 +14,6 @@
 #include "parray.hh"
 
 class Rhythmic_column_engraver :public Engraver {
-  Link_array<Script> script_l_arr_;
   Link_array<Rhythmic_head> rhead_l_arr_;
   Stem * stem_l_;
   Note_column *ncol_p_;

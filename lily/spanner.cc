@@ -21,12 +21,9 @@ Spanner::do_print() const
 #ifndef NPRINT
   DOUT << "Between " << classname (spanned_drul_[LEFT])
        << " and " << classname (spanned_drul_[RIGHT]) << '\n';
-  /*  if (broken_into_l_arr_.size())
-    {
-      DOUT << "with broken pieces:\n";
-      for (int i=0; i < broken_into_l_arr_.size (); i++)
-	broken_into_l_arr_[i]->print ();
-	}*/  
+
+  if (broken_b ())
+    DOUT << "Broken in " << to_str (broken_info_.size ()) << " pieces";
 #endif
 }
 
@@ -178,12 +175,6 @@ Spanner::find_broken_piece (Line_of_score*l) const
 
 	      
 	      info.broken_spanner_l_ = span_p;
-	      /*	      if (Axis_group_spanner *ags
-		  = dynamic_cast<Axis_group_spanner*> (span_p))
-		{
-		do something
-		}
-	      */
 	      span_p->handle_broken_dependencies();
 
 	    }

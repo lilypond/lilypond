@@ -45,11 +45,12 @@ Time_signature_performer::do_try_music (Music* req_l)
   if (time_signature_req_l_)
     return false;
 
-  if (dynamic_cast <Command_req *> (req_l))
-    time_signature_req_l_ = dynamic_cast <Time_signature_change_req *> (req_l);
-
-  if (time_signature_req_l_)
-    return true;
+  if (Time_signature_change_req *t =
+      dynamic_cast <Time_signature_change_req *> (req_l))
+    {
+      time_signature_req_l_ = t;
+      return true;
+    }
 
   return false;
 }

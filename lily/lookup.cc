@@ -305,9 +305,9 @@ Lookup::flag (int j, Direction d) const
 }
 
 Molecule
-Lookup::rest (int j, bool o) const
+Lookup::rest (int j, bool o, String style) const
 {
-  return afm_find (String ("rests-") + to_str (j) + (o ? "o" : ""));
+  return afm_find (String ("rests-") + to_str (j) + (o ? "o" : "") + style);
 }
 
 Molecule
@@ -325,12 +325,6 @@ Lookup::rule_symbol (Real height, Real width) const
   m.add_atom (&at);
 
   return m;
-}
-
-Molecule
-Lookup::script (String str) const
-{
-  return afm_find (String ("scripts-") + str);
 }
 
 Molecule
@@ -396,6 +390,8 @@ Molecule
 Lookup::text (String style, String text) const
 {
   Molecule m;
+  if (style.empty_b ())
+    style = "roman";
   
   int font_mag = 1;
   Real font_h = paper_l_->get_var ("font_normal");
@@ -409,6 +405,9 @@ Lookup::text (String style, String text) const
       font_mag = (int)paper_l_->get_var ("magnification_" + style);
     }
 
+  /*
+    UGH.
+   */
   SCM l = gh_eval_str (("(style-to-cmr \"" + style + "\")").ch_C());
   if (l != SCM_BOOL_F)
     {

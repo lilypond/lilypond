@@ -61,12 +61,13 @@
 (define (spanbar_non_postbreak_visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 (define (non_postbreak_visibility d) (if (= d 1) '(#t . #t) '(#f . #f)))
+(define (non_prebreak_visibility d) (if (= d -1) '(#t . #t) '(#f . #f)))
 
 
 ;; Score_span_bars are only visible at start of line
 ;; i.e. if break_dir == RIGHT == 1
 (define Span_bar_engraver_visibility non_postbreak_visibility)
-
+(define mark-visibility non_prebreak_visibility)
 (define Span_score_bar_engraver_visibility postbreak_only_visibility)
 (define Piano_bar_engraver_visibility postbreak_only_visibility)
 (define Staff_group_bar_engraver_visibility postbreak_only_visibility)
@@ -90,6 +91,10 @@
     ("volta" . "feta-nummer"))
 )
 
+(define script-alist '())
+(define (articulation-to-scriptdef a)
+  (assoc a script-alist)
+  )
 
 ;; Map style names to TeX font names.  Return false if 
 ;; no font name found. 
@@ -127,6 +132,8 @@
 		  (set! font-cmd (cached-fontname font-count))
 		  (set! font-alist (acons font-name font-cmd font-alist))
 		  (set! font-count (+ 1 font-count))
+		  (if (equal? font-name "")
+		      (error "Empty fontname -- SELECT-FONT"))
 		  (string-append "\\font" font-cmd "=" font-name font-cmd))
 		(cdr font-cmd)))
 	  ""				;no switch needed
@@ -231,11 +238,13 @@
     (embedded-ps ((ps-scm 'bezier-sandwich) l)))
 
 
-  (define (start-line)
+  (define (start-line ht)
     (begin
       (clear-fontcache)
-      "\\hbox{%\n")
+      (string-append"\\vbox to " (number->dim ht) "{\\hbox{%\n"))
     )
+  (define (stop-line) 
+    "}\\vss}\\interscoreline")
 
   (define (filledbox breapth width depth height) 
     (string-append 
@@ -244,8 +253,6 @@
      "depth " (number->dim depth)
      "height " (number->dim height) " "))
 
-  (define (stop-line) 
-    "}\\interscoreline")
 
 
   (define (text s)
@@ -522,9 +529,8 @@
 	(else (error "unknown tag -- PS-SCM " action-name))
 	)
   )
-  
 
-;
+					;
 ; Russ McManus, <mcmanus@IDT.NET>  
 ; 
 ; I use the following, which should definitely be provided somewhere

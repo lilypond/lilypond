@@ -35,7 +35,7 @@ public:
   void output_molecule (Molecule const *, Offset, char const *);
   void output_comment (String s);
   void output_scheme (SCM scm);
-  void start_line ();
+  void start_line (Real height);
   void stop_line ();
   void switch_to_font (String fontname);
 

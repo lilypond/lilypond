@@ -39,9 +39,9 @@ public:
   Molecule flag (int, Direction) const;
   Molecule hairpin (Real width, bool decresc, bool continued) const;
   Molecule plet (Real dy, Real dx, Direction dir) const;
-  Molecule rest (int, bool outside) const;
+  Molecule rest (int, bool outside, String) const;
   Molecule rule_symbol (Real height, Real width) const;
-  Molecule script (String idx) const;
+
   Molecule stem (Real y1_pos, Real y2_pos) const;
   Molecule slur (Array<Offset> controls) const;
   Molecule streepje (int type) const;

@@ -47,6 +47,7 @@ DECLARE_LY_SYMBOL(pianobrace);
 DECLARE_LY_SYMBOL(placebox);
 DECLARE_LY_SYMBOL(rulesym);
 DECLARE_LY_SYMBOL(rulethickness);
+DECLARE_LY_SYMBOL(script_priority);
 DECLARE_LY_SYMBOL(staffheight);
 DECLARE_LY_SYMBOL(style);
 DECLARE_LY_SYMBOL(text);

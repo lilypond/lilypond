@@ -171,20 +171,6 @@ My_lily_parser::get_chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p,
   return v;
 }
 
-// junk me
-Simultaneous_music *
-My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
-{
-  Simultaneous_music*v = new Request_chord;
-  v->set_spot (here_input ());
-
-  v->add_music (rq);
-
-  rq->duration_ = *duration_p;
-  rq->set_spot (here_input ());
-  delete duration_p ;
-  return v;
-}
 
 
 Input

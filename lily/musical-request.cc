@@ -9,30 +9,8 @@
 #include "musical-request.hh"
 #include "misc.hh"
 #include "debug.hh"
-#include "script-def.hh"
-#include "text-def.hh"
+
 #include "music-list.hh"
-
-
-
-
-void
-Musical_req::do_print () const{}
-void
-Tie_req::do_print () const{}
-
-
-
-
-
-
-
-void
-Musical_span_req::do_print () const
-{
-  Span_req::do_print ();
-}
-	     
 
 void
 Span_req::do_print () const
@@ -41,25 +19,6 @@ Span_req::do_print () const
   DOUT << spantype_;
 #endif
 }
-
-
-
-Spacing_req::Spacing_req ()
-{
-  next = 0;
-  distance = 0;
-  strength = 0;
-}
-
-void
-Spacing_req::do_print () const
-{
-#ifndef NPRINT
-  DOUT << "next " << next << "dist " << distance << "strength\n";
-#endif
-}
-
-
 
 Abbreviation_req::Abbreviation_req ()
 {
@@ -76,16 +35,6 @@ Abbreviation_req::do_print () const
 
 
 
-
-void
-Blank_req::do_print () const
-{
-  Spacing_req::do_print ();
-}
-
-Melodic_req::Melodic_req ()
-{
-}
 
 void
 Melodic_req::transpose (Musical_pitch delta)
@@ -117,21 +66,11 @@ Melodic_req::compare (Melodic_req const &m1 , Melodic_req const&m2)
 void
 Melodic_req::do_print () const
 {
-pitch_.print ();
+  pitch_.print ();
 }
 
 
-Tonic_req::Tonic_req ()
-{
-}
 
-void
-Tonic_req::do_print () const
-{
-#ifndef NPRINT
-  Melodic_req::do_print ();
-#endif
-}
 
 int
 Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
@@ -146,9 +85,6 @@ Rhythmic_req::do_equal_b (Request*r) const
 
   return rh && !compare (*this, *rh);
 }
-
-
-
 
 void
 Rhythmic_req::do_print () const
@@ -211,53 +147,11 @@ Note_req::do_print () const
 #endif
 }
 
-void
-Rest_req::do_print () const
-{
-      Rhythmic_req::do_print ();
-}
-
-void
-Multi_measure_rest_req::do_print () const
-{
-      Rhythmic_req::do_print ();
-}
-
-
-void
-Beam_req::do_print () const
-{
-}
 
 Abbreviation_beam_req::Abbreviation_beam_req ()
 {
   type_i_ = 0;
 }
-
-void
-Abbreviation_beam_req::do_print () const
-{
-}
-
-
-void
-Slur_req::do_print () const
-{
-}
-
-
-
-
-
-Extender_req::Extender_req ()
-{
-}
-
-void
-Extender_req::do_print () const
-{
-}
-
 
 bool
 Span_req::do_equal_b (Request*r) const
@@ -271,66 +165,6 @@ Span_req::Span_req ()
   spantype_ = CENTER;
 }
 
-Script_req::Script_req (Script_req const&s)
-{
-  dir_ = s.dir_;
-  scriptdef_p_ = s.scriptdef_p_ ? s.scriptdef_p_->clone () : 0;
-}
-
-/*
-  don't check dirs?
-
-  (d1.dir_ == d2.dir_)
- */
-bool
-Script_req::do_equal_b (Request*r) const
-{
-  Script_req * s = dynamic_cast <Script_req *> (r);
-  return s &&  scriptdef_p_->equal_b (*s->scriptdef_p_);
-}
-
-Script_req::Script_req ()
-{
-  dir_ = CENTER;
-  scriptdef_p_ = 0;
-}
-
-
-
-
-void
-Script_req::do_print () const
-{
-#ifndef NPRINT
-  DOUT << " dir " << dir_;
-  scriptdef_p_->print ();
-#endif
-}
-
-void
-Musical_script_req::do_print () const
-{
-  Script_req::do_print ();
-}
-
-Script_req::~Script_req ()
-{
-  delete scriptdef_p_;
-}
-
-void
-Skip_req::do_print () const
-{
-#ifndef NPRINT
-  DOUT << "duration: " << length_mom ();
-#endif
-}
-
-void
-Dynamic_req::do_print () const
-{
-  Musical_req::do_print ();
-}
 
 void
 Absolute_dynamic_req::do_print () const
@@ -376,5 +210,22 @@ Span_dynamic_req::do_print () const
 #endif
 }
 
+void
+Text_script_req::do_print () const
+{
+  DOUT << "text" << text_str_
+       << ", style = " << style_str_;
+}
 
+void
+Articulation_req::do_print () const
+{
+  DOUT << articulation_str_;
+}
 
+bool
+Articulation_req::do_equal_b (Request*r) const
+{
+  Articulation_req * a = dynamic_cast<Articulation_req*>(r);
+  return articulation_str_ == a->articulation_str_;
+}

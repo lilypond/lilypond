@@ -18,7 +18,7 @@
 #include "paper-def.hh"
 #include "tuplet-spanner.hh"
 #include "stem.hh"
-#include "text-def.hh"
+
 #include "note-column.hh"
 
 Tuplet_spanner::Tuplet_spanner ()
@@ -26,10 +26,6 @@ Tuplet_spanner::Tuplet_spanner ()
   beam_l_ =0;
   bracket_visibility_b_ = true;
   num_visibility_b_ = true;
-  
-  tdef_p_.set_p(new Text_def);
-  tdef_p_->align_dir_ = CENTER;
-  tdef_p_->style_str_ = "italic";
 }
 
 Molecule*
@@ -39,7 +35,8 @@ Tuplet_spanner::do_brew_molecule_p () const
 
   if (column_arr_.size ()){
     Real ncw = column_arr_.top ()->extent (X_AXIS).length ();
-    Molecule num (tdef_p_->get_molecule (paper_l (), CENTER));
+    Molecule num (lookup_l ()->text ("italic",
+				     number_str_));
 
     if (beam_l_ && !bracket_visibility_b_)
       {
@@ -106,7 +103,7 @@ Tuplet_spanner::set_default_dir ()
   dir_ = UP;
   for (int i=0; i < column_arr_.size (); i ++) 
     {
-      if (column_arr_[i]->dir_ < 0) 
+      if (column_arr_[i]->dir () < 0) 
 	{
 	  dir_ = DOWN;
 	  break;

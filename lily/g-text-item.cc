@@ -8,7 +8,7 @@
  */
 
 #include "g-text-item.hh"
-
+#include "debug.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
@@ -24,4 +24,10 @@ G_text_item::do_brew_molecule_p () const
 G_text_item::G_text_item ()
 {
   style_str_ = "roman";
+}
+
+void
+G_text_item::do_print () const
+{
+  DOUT <<  "text= " << text_str_;
 }

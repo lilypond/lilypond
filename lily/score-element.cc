@@ -134,17 +134,14 @@ Score_element::do_height() const
   return r;
 }
 
-
-/*
-  STANDARD METHS
- */
 void
 Score_element::print() const
 {
 #ifndef NPRINT
   DOUT << classname(this) << "{\n";
   DOUT << "dependencies: " << dependency_size();
- 
+  if (original_l_)
+    DOUT << "Copy ";
   Graphical_element::do_print ();
   do_print();
   

@@ -109,7 +109,8 @@ VoiceContext = \translator {
 
 	% ugh.  Order matters here.
 	\consists "Text_engraver";
-	\consists "Script_engraver";
+	\consists "G_script_engraver";
+	\consists "G_script_column_engraver";
 	\consists "Rhythmic_column_engraver";
 	\consists "Font_size_engraver";
 	\consists "Slur_engraver";

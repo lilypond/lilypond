@@ -14,10 +14,9 @@
 bool
 Slur_engraver::do_try_music (Music *req_l)
 {
-  Musical_req *mus_l = dynamic_cast <Musical_req *> (req_l);
-  if (Slur_req *sl = dynamic_cast <Slur_req *> (mus_l))
+  if (Slur_req *sl = dynamic_cast <Slur_req *> (req_l))
     {
-      new_slur_req_l_arr_.push (dynamic_cast <Slur_req *> (mus_l));
+      new_slur_req_l_arr_.push (sl);
       return true;
     }
   return false;

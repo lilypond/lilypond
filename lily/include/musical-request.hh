@@ -15,84 +15,88 @@
 #include "duration.hh"
 #include "musical-pitch.hh"
 
-/**
-  A request which is coupled to a note (that has duration).
-  Base class only
- */
-class Musical_req  : public virtual Request  {
-public:
-
-
-  REQUESTMETHODS(Musical_req);
-};
-
-
 
 /** a request with a duration.
   This request is used only used as a base class.
  */
-class Rhythmic_req  : public virtual Musical_req  {
+class Rhythmic_req  : public virtual Request  {
 public:
   Duration duration_;
-    
+  virtual void do_print () const;
+
+
   bool do_equal_b (Request*) const;
   void compress (Moment);
   virtual Moment length_mom () const;
   static int compare (Rhythmic_req const&,Rhythmic_req const&);
-  REQUESTMETHODS(Rhythmic_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 class Skip_req  : public Rhythmic_req  {
 public:
-  REQUESTMETHODS(Skip_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
-struct Spacing_req :virtual Request {
-  Moment next;
-  Real distance;
-  Real strength;
-  Spacing_req();
-  REQUESTMETHODS(Spacing_req);
-};
 
-struct Abbreviation_req : public Musical_req {
-  REQUESTMETHODS (Abbreviation_req);
+struct Abbreviation_req : public Request {
+  VIRTUAL_COPY_CONS (Abbreviation_req);
   Abbreviation_req ();
   int type_i_;
+  virtual void do_print () const;
 };
 
-class Blank_req  : public Spacing_req, Rhythmic_req  {
-public:
-  REQUESTMETHODS(Spacing_req);
-};
 
 /** a syllable  or lyric is a string with rhythm.
   */
 class Lyric_req  : public  Rhythmic_req  {
 public:
+  virtual void do_print () const;
   String text_str_;
-  REQUESTMETHODS(Lyric_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 
+class Articulation_req : public G_script_req
+{
+public:
+  String articulation_str_;
+protected:
+  virtual bool do_equal_b (Request*) const;
+  virtual void do_print () const;
+  VIRTUAL_COPY_CONS(Music);
+};
+
+class Text_script_req : public G_script_req {
+public:
+  String text_str_;
+
+  // should be generic property of some kind.. 
+  String style_str_;
+protected:
+  VIRTUAL_COPY_CONS(Music);
+  virtual void do_print () const;
+};
+
 
 /// request which has some kind of pitch
-struct Melodic_req :virtual Musical_req
+struct Melodic_req :virtual Request
 {
   Musical_pitch pitch_;
+
+  static int compare (Melodic_req const&,Melodic_req const&);
+  
+protected:
   /// transpose. #delta# is relative to central c.
   virtual void transpose (Musical_pitch delta);
-  Melodic_req();
-  bool do_equal_b (Request*) const;
-  static int compare (Melodic_req const&,Melodic_req const&);
-  REQUESTMETHODS(Melodic_req);
+  virtual bool do_equal_b (Request*) const;
+  virtual void do_print () const;
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /// specify tonic of a chord
 struct Tonic_req : public Melodic_req
 {
-  Tonic_req ();
-  REQUESTMETHODS(Tonic_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /// Put a note of specified type, height, and with accidental on the staff.
@@ -104,8 +108,10 @@ public:
   /// Cautionary, i.e. parenthesized accidental.
   bool cautionary_b_;
   Note_req();
+protected:
+  virtual void do_print () const;
   bool do_equal_b (Request*) const;
-  REQUESTMETHODS(Note_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /**
@@ -113,7 +119,7 @@ Put a rest on the staff. Why a request? It might be a good idea to not typeset t
 */
 class Rest_req : public Rhythmic_req {
 public:
-  REQUESTMETHODS(Rest_req);
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /**
@@ -122,24 +128,17 @@ public:
  */
 class Multi_measure_rest_req : public Rhythmic_req  {
 public:
-  REQUESTMETHODS(Multi_measure_rest_req);
+  VIRTUAL_COPY_CONS(Music);
 
-};
-
-class Musical_span_req : public Span_req, public virtual Musical_req
-{
-public:
-  REQUESTMETHODS(Musical_span_req);
-  
 };
 
 
 /** 
  Start / stop an abbreviation beam at this note. 
  */
-class Abbreviation_beam_req : public Musical_span_req  {
+class Abbreviation_beam_req : public Span_req  {
 public:
-  REQUESTMETHODS (Abbreviation_beam_req);
+  VIRTUAL_COPY_CONS(Abbreviation_beam_req);
 
   Abbreviation_beam_req ();
 
@@ -149,46 +148,49 @@ public:
 
 
 /// a slur
-class Slur_req  : public Musical_span_req  {
+class Slur_req  : public Span_req  {
 public:
-  REQUESTMETHODS(Slur_req);
+  VIRTUAL_COPY_CONS(Music);
 
 };
 
 /// an extender line
 class Extender_req : public Request  {
 public:
-  REQUESTMETHODS(Extender_req);
-  Extender_req ();
+  VIRTUAL_COPY_CONS(Music);
+
 };
 
-class Musical_script_req : public Musical_req,  public Script_req {
+
+class Dynamic_req  : public virtual Request  {
 public:
-  REQUESTMETHODS(Musical_script_req);
+  VIRTUAL_COPY_CONS(Music);
 };
-
-
-class Dynamic_req  : public virtual Musical_req  {
-public:
-  REQUESTMETHODS(Dynamic_req);
-};
-
+/*
+   merge with Articulation_req? 
+ */
 class Absolute_dynamic_req  : public Dynamic_req  {
 public:
   String loudness_str_;
-  virtual bool do_equal_b (Request*) const;
-  String loudness_str () const;
   Absolute_dynamic_req();
-  REQUESTMETHODS(Absolute_dynamic_req);
+
+protected:
+  virtual void do_print () const;
+  virtual bool do_equal_b (Request*) const;
+  VIRTUAL_COPY_CONS(Music);
 };
 
-class Span_dynamic_req  : public Dynamic_req, public Musical_span_req  {
+class Span_dynamic_req  : public Dynamic_req, public Span_req  {
 public:
-  virtual bool do_equal_b (Request*) const;
+
   /// Grow or shrink the volume: 1=cresc, -1 = decresc 
   Direction dynamic_dir_;
+
   Span_dynamic_req();
-  REQUESTMETHODS(Span_dynamic_req);
+protected:
+  virtual bool do_equal_b (Request*) const;
+  virtual void do_print () const;
+  VIRTUAL_COPY_CONS(Music);
 };
 
 #endif // MUSICALREQUESTS_HH

@@ -1,8 +1,45 @@
+pl 37.script2
+	- bf: AFM for BlueSky AFM files.
+	- \penalty = 4278 -> \penalty 4278
+	- URG!! fixed major (unnoticed) bug in dependency engine
+	- Further Script hacking:
+	  * G_script_column
+	  * G_script_column_engraver
 
-	- diamond heads (probably really ugly).
-	- cross head.
-	- tweaked harmonic head a bit.
-	- property noteHeadStyle
+  pl 37.script1
+	- major Script rehack:
+	  * G_stem_staff_side_item
+	  * G_script
+	  * G_script_engraver
+	  * G_script_req
+	- junked Text_def, changed \property textstyle -> \property textStyle
+(todo -> convert-mudela)
+	- Line_of_score is an Axis_group_element, no more overlapping
+lines, hopefully.
+	- mf: whole diamond head tweak 
+  
+pl 37.mb2
+	- Added property clefStyle: "" / "transparent" / "fullSizeChanges"
+	- New example: input/test/incipit.ly
+	- Documented clefStyle and restStyle in refman.tex
+	- Partial bug fix: octaviated clefs. Still broken!!!
+
+ 
+pl 37.mb1
+	- Added property restStyle. 
+ 	- mensural 4th, 8th and 16th rests.
+pl 37.uu1
+	- FreeBSD bf
+
+****
+pl 37 (march 30, 1999)
+	- note head styles, see input/test/noteheadstyle.fly
+	  * \property noteHeadStyle:
+	  * diamond note heads (probably really ugly)
+	  * cross note head.
+	  * harmonic head (mf sources were tweaked)
+	  * transparent for no \heads
+	  * \property noteHeadStyle ="" for normal heads.
 
 pl 36.mb2
 	- bf: timeSignatureStyle
@@ -13,11 +50,12 @@ pl 36.hwn1
 	- debian fixes.
 	- don't insert extra alignment space for empty stuff.
 	- Align_element derives from Axis_group_element
+	- junk cruft for detecting upbeam / downbeam.
 	- junk all *{horizontal,vertical}* Score_element derived classes.
 	- G_staff_side_item::padding_f_ now generic property.
 	- some tweaking of beam & stem. 
 	- junk pointerlist in Sources
-	- junk Stem::mult_i_, Stem::beam_gap_i_, G_staff_side_item::padding
+	- junk Stem::mult_i_, Stem::beam_gap_i_, G_staff_side_item::padding, 
 	Bar::at_line_start_b_, Key_item::c_position_, Note_head::type_str_,
 	Note_head::staff_size, Stem::xdir_
 	

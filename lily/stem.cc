@@ -19,8 +19,17 @@
 #include "beam.hh"
 #include "rest.hh"
 
-Stem::~Stem ()
+void
+Stem::set_direction (Direction d)
 {
+  if  (!dir_)
+    warning ("Stem direction set already!");
+
+  dir_ = d;
+
+  /*
+    todo
+  */
 }
 
 Stem::Stem ()

@@ -16,13 +16,11 @@ enum Axis {
     NO_AXES=2,
 };
 
-#ifndef STANDALONE
 
 #include "string.hh"		// ugh
 
 String axis_name_str (Axis);
 
-#endif // STANDALONE
 
 /**
   the operator ++ for Axis. 

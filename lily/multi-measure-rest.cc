@@ -14,8 +14,6 @@
 #include "bar.hh"
 #include "lookup.hh"
 #include "rest.hh"
-#include "script.hh"
-#include "text-def.hh"
 #include "molecule.hh"
 #include "misc.hh"
 
@@ -47,12 +45,12 @@ Multi_measure_rest::do_brew_molecule_p () const
   Molecule s;
   if (measures_i_ == 1 || measures_i_ == 2 || measures_i_ == 4) 
     {
-      s = (lookup_l ()->rest (- intlog2(measures_i_), 0));
+      s = (lookup_l ()->rest (- intlog2(measures_i_), 0, ""));
       s.translate_axis (-s.extent ()[X_AXIS].length () / 2, X_AXIS);
     }
   else 
     {
-      s = (lookup_l ()->rest (-4, 0));
+      s = (lookup_l ()->rest (-4, 0, ""));
     }
   mol_p->add_molecule (s);
   Real interline_f = staff_line_leading_f ();
@@ -63,11 +61,8 @@ Multi_measure_rest::do_brew_molecule_p () const
 
   if (measures_i_ > 1)
     {
-      Text_def text;
-      text.text_str_ = to_str (measures_i_);
-      text.style_str_ = "number";
-      text.align_dir_ = CENTER;
-      Molecule s = text.get_molecule (paper_l (), UP);
+      Molecule s ( lookup_l ()->text ("number", to_str (measures_i_)));
+
       s.translate_axis (3.0 * interline_f, Y_AXIS);
       mol_p->add_molecule (s);
     }

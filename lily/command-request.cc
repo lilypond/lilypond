@@ -11,17 +11,6 @@
 #include "musical-request.hh"
 
 void
-Command_script_req::do_print() const
-{}
-Command_script_req::Command_script_req(){}
-Command_script_req::~Command_script_req(){}
-
-
-
-
-
-
-void
 Cadenza_req::do_print() const
 {
 #ifndef NPRINT
@@ -58,14 +47,11 @@ Bar_req::do_equal_b (Request*r) const
 void
 Bar_req::do_print() const
 {
+#ifndef NPRINT
   DOUT << type_str_;
+#endif
 }
 
-void
-Bracket_req::do_print () const
-{
-  Span_req::do_print ();
-}
 
 Bar_req::Bar_req (String s)
 {
@@ -87,30 +73,12 @@ Partial_measure_req::do_equal_b (Request* r) const
 
 
 
-
-void
-Timing_req::do_print() const{}
-
-
-
-
-void
-Command_req::do_print() const{}
-
-
-
-void
-Barcheck_req::do_print() const{}
-
 bool
 Barcheck_req::do_equal_b (Request*r) const
 {
   Barcheck_req *b = dynamic_cast<Barcheck_req*> (r);
   return b;
 }
-
-
-
 
 void
 Clef_change_req::do_print() const
@@ -124,11 +92,6 @@ Clef_change_req::Clef_change_req (String s)
 {
   clef_str_ = s;
 }
-
-
-
-
-
 
 void
 Partial_measure_req::do_print() const
@@ -183,11 +146,6 @@ Tempo_req::do_equal_b (Request *r) const
 
   return t&& t->dur_.length_mom ()== dur_.length_mom () && metronome_i_ == t->metronome_i_;
 }
-
-
-
-
-
 
 void
 Measure_grouping_req::do_print() const
@@ -332,13 +290,6 @@ Break_req::Break_req ()
 {
   penalty_i_ = 0;
 }
-
-void
-Break_req::do_print () const
-{
-}
-
-
 
 Mark_req::Mark_req (String s)
 {

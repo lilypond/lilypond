@@ -92,7 +92,9 @@ void
 Music_output_def::print () const
 {
 #ifndef NPRINT
+  DOUT << "Translators: \n";
   translator_p_dict_p_->print ();
+  DOUT << "Other definitions.\n";
   scope_p_->print( );
 #endif
 }

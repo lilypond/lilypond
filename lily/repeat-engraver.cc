@@ -144,13 +144,13 @@ Repeat_engraver::do_process_requests ()
     {
       Volta_spanner* v = new Volta_spanner;
       Scalar prop = get_property ("voltaVisibility", 0);
-      v->visible_b_ = prop.to_bool ();
+      if (!prop.to_bool ())
+	v->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
       prop = get_property ("voltaSpannerDuration", 0);
       if ((i == alternative_music_arr_.size () - 1) || prop.length_i ())
         v->last_b_ = true;
-      Text_def* t = new Text_def;
-      t->text_str_ = alternative_str_arr_[i];
-      v->number_p_.set_p (t);
+
+      v->number_str_ = alternative_str_arr_[i];
       volta_p_arr_.push (v);
       announce_element (Score_element_info (v, alternative_music_arr_[i]));
     }
