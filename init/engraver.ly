@@ -102,7 +102,7 @@ VoiceContext = \translator {
 	\consists "Font_size_engraver";
 	\consists "Slur_engraver";
 	\consists "Ties_engraver";
-	\consists "Tuplet_engraver";	
+%	\consists "Tuplet_engraver";	
 	\consists "Note_heads_engraver" ;	
 	\consists "Skip_req_swallow_translator";
 };

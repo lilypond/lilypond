@@ -31,8 +31,11 @@ Axis_group_administration	0
 Bar			1
 Bar_req			1
 Beam			0
-Bow			1
+Bezier			1
 Bezier_bow		1
+Bezier_bow_controls	1
+Bezier_controls		0
+Bow			1
 Change_iterator		1
 Change_translator	1
 Chord			1

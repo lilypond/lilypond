@@ -1,3 +1,7 @@
+pl 9.jcn2
+	- bf/redo: slur.cc, encompass-info: setting of encompass array.  
+	- switched tuplet-engaver off (core dumps)
+
 pl 9.jcn1	
 	- bf (urg): no |: at start of piece
 	- bf?: text defs without width

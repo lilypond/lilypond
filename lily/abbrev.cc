@@ -54,13 +54,7 @@ Abbreviation::brew_molecule_p () const
       b.translate_axis (interbeam_f * i, Y_AXIS);
       beams->add_atom (b);
     }
-#define EGCS_ICE
-#ifndef EGCS_ICE
   beams->translate_axis (-beams->extent ()[Y_AXIS].center (), Y_AXIS);
-#else
-  beams->translate_axis (-(beams->extent ()[Y_AXIS].min () + 
-    beams->extent ()[Y_AXIS].max ()) / 2 , Y_AXIS);
-#endif
 
   if (stem_l_)
     { 

@@ -26,6 +26,7 @@ public:
   Calculate bezier curve into Offset (x,y) array.
   */
   void calc (int steps);
+  void print () const;
 
   void set (Array<Offset> points);
 
@@ -60,6 +61,7 @@ public:
   void calc_tangent_controls ();
   bool check_fit_bo ();
   Real check_fit_f ();
+  void print () const;
   void set (Array<Offset> points, int dir);
   void transform ();
   void transform_back ();

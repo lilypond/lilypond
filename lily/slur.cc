@@ -100,7 +100,8 @@ Slur::do_post_processing ()
 
   Real interline_f = paper ()->interline_f ();
   Real internote_f = interline_f / 2;
-  Real notewidth_f = paper ()->note_width ();
+  // URG
+  Real notewidth_f = paper ()->note_width () * 0.8;
   Real slur_min = paper ()->get_var ("slur_x_minimum");
 
   /* 
@@ -219,8 +220,35 @@ Slur::do_post_processing ()
 Array<Offset>
 Slur::get_encompass_offset_arr () const
 {
+  Real notewidth = paper ()->note_width () * 0.8;
+  Real gap = paper ()->get_var ("slur_x_gap");
+  Real internote = paper ()->internote_f ();
+
   Offset left = Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]);
   left.x () += encompass_arr_[0]->stem_l_->hpos_f ();
+
+  /*
+    <URG>
+    i don't understand these two, but *must* for symmetry 
+    look at encompass array: 
+       lilypond -D input/test/slur-symmetry*.ly
+       lilypond -D input/test/sleur.ly
+
+    do_post_processing should have calculated these into
+    dx_f_drul_[], no??
+
+   */
+
+  if (dir_ != encompass_arr_[0]->stem_l_->dir_)
+    left.x () += - 0.5 * notewidth * encompass_arr_[0]->stem_l_->dir_
+      + gap;
+  else if (encompass_arr_[0]->stem_l_->dir_ == UP)
+    left.x () -= notewidth;
+
+  if ((dir_ == encompass_arr_[0]->stem_l_->dir_) 
+    && (encompass_arr_[0]->stem_l_->dir_ == DOWN))
+    left.y () -= internote * encompass_arr_[0]->stem_l_->dir_;
+  /* </URG> */
 
   Offset d = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
@@ -237,37 +265,15 @@ Slur::get_encompass_offset_arr () const
   if (encompass_arr_.top () != spanned_drul_[RIGHT])
     last++;
 
-#define RESIZE_ICE
-#ifndef RESIZE_ICE
-
   Array<Offset> notes;
   notes.push (Offset (0,0));
-//  notes.push (left);
 
   for (int i = first; i < last; i++)
     {
       Encompass_info info (encompass_arr_[i], dir_);
       notes.push (info.o_ - left);
-//      notes.push (info.o_ - left);
     }
   notes.push (d);
-
-#else
-
-  int n = last - first + 2;
-  Array<Offset> notes (n);
-  notes[0] = Offset (0,0);
-//  notes[0] = left;
-
-  for (int i = first; i < last; i++)
-    {
-      Encompass_info info (encompass_arr_[i], dir_);
-      notes[i - first + 1] = info.o_ - left;
-//     notes[i - first + 1] = info.o_;
-    }
-  notes[n - 1] = Offset (d);
-
-#endif
 
   return notes;
 }

@@ -77,9 +77,8 @@ Bow::center () const
 Interval
 Bow::do_height () const
 {
-  Array<Offset> c (get_controls());
-
   Interval iv;
+  Array<Offset> c (get_controls());
   for (int i=0; i < c.size (); i++)
     {
       Real y = c[i][Y_AXIS];
@@ -118,16 +117,9 @@ Bow::get_encompass_offset_arr () const
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
   d.x() += width (). length ();
 
-#define RESIZE_ICE
-#ifndef RESIZE_ICE
   Array<Offset> notes;
-  notes.push (Offset 0, 0));
+  notes.push (Offset (0, 0));
   notes.push (d);
-#else
-  Array<Offset> notes (2);
-  notes[0] = Offset (0, 0);
-  notes[1] = Offset (d);
-#endif
 
   return notes;
 }

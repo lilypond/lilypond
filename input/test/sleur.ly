@@ -170,6 +170,7 @@ clipping = \notes\transpose c'{
 
 \score{
 	\notes{ 
+%		\property Voice.pletvisibility = 0;
 		% use blend for fast check
 		\blend
 % {

@@ -322,12 +322,7 @@ Stem::note_delta_f () const
       Real rule_thick(paper ()->rule_thickness ());
       Interval stem_wid(-rule_thick/2, rule_thick/2);
       if (stem_xdir_ == CENTER)
-#define EGCS_ICE
-#ifndef EGCS_ICE
 	r = head_wid.center ();
-#else
-	r = (head_wid.min () + head_wid.max ()) / 2;
-#endif
       else
 	r = head_wid[stem_xdir_] - stem_wid[stem_xdir_];
     }

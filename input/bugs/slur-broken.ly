@@ -1,4 +1,4 @@
-shortlong = \melodic{
+shortlong = \notes{
 	c4()c( c c  |
 	c c c c |
 	c c c c |

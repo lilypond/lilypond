@@ -22,44 +22,36 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir)
 {
   Paper_def* paper = note->paper ();
   Real interline = paper->interline_f ();
-  Real notewidth = paper->note_width ();
+  // UGH
+  Real notewidth = paper->note_width () * 0.8;
   Real internote = interline / 2;
 
   Stem* stem = note->stem_l_;
   /* 
-    set o_.x () to middle of notehead or on eo_.x ()act o_.x () position of stem,
+    set o_.x () to middle of notehead or on the exact position of stem,
     according to slur direction
-       */
+   */
   o_.x () = stem->hpos_f ();
 
-  if (stem->dir_ != dir)
-    {
-      o_.x () += 0.5 * notewidth;
-      // ugh
-      if (dir == DOWN)
-	o_.x () -= 0.5 * notewidth;
-      else
-	o_.x () += 0.5 * notewidth;
-    }
-  else if (stem->dir_ == UP)
-    o_.x () += 1.0 * notewidth;
+  /*
+     stem->dir == dir
+                      ________
+           |   |     /        \
+          x|  x|       |x  |x
+        \________/     |   |
 
-//  o_.x () -= left_o_.x ();
+   */
+
+  if (stem->dir_ != dir)
+    o_.x () -= 0.5 * notewidth * stem->dir_;
 
   o_.y () = stem->height ()[dir];
-
   /*
-    leave a gap: slur mustn't touch head/stem
+   leave a gap: slur mustn't touch head/stem
    */
+  o_.y () += 2.5 * internote * dir;
+
   if (stem->dir_ != dir)
-    o_.y () += 3.0 * internote * dir;
-  else
-    o_.y () += 2.0 * internote * dir;
-
-  // ugh
-  if (dir == DOWN)
-    o_.y () += 1.5 * internote * dir;
-
-//  o_.y () -= left_o_.y ();
+    o_.y () += 1.0 * internote * dir;
 }
 
