@@ -1,5 +1,5 @@
 \header {
-  texidoc="Manual hack for nested tuplets"
+  texidoc="Manual hack for nested tuplets, move outer tuplet up."
 }
 
 #(define (make-text-checker-once text)
@@ -17,7 +17,7 @@
     \property Voice.tupletNumberFormatFunction = #fraction-tuplet-formatter
 
     \outputproperty #(make-text-checker-once "2:3")
-      #'extra-offset = #'(0 . 1)
+      #'extra-offset = #'(0 . 1.5)
     \times 2/3 {
       \times 2/3 {
         a a a

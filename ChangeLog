@@ -1,5 +1,14 @@
 2002-08-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/regression/tuplet-properties.ly:
+	* input/regression/tuplet-nest.ly: Fix.
+
+	* lilypond-font-lock.el (LilyPond-font-lock-keywords):
+	* input/test/improv.ly:
+	* input/test/cautionaries.ly: Accidentals -> Accidental.
+
+	* input/test/add-text-script.ly: Bugfix.  How did this ever work?
+
 	* Documentation/windows/installing.texi: 
 	* Documentation/windows/compiling.texi:
 	* cygwin/README: Update to reflect new binary release setup and

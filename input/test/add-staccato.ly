@@ -7,25 +7,23 @@ one would not use scm constructs.  See separate-staccato.ly first."
 } 
 
 #(define (make-script x)
-  (let ((m (ly-make-music "Articulation_req")))
-     ;;(ly-set-mus-property! m 'articulation-type 'staccato)
-     ;; urg
+   (let ((m (ly-make-music "Articulation_req")))
      (ly-set-mus-property! m 'articulation-type x)
      (ly-set-mus-property! m 'script x)
      m))
-     
+    
 #(define (add-script m x)
-  (if (equal? (ly-music-name m) "Request_chord")
-      (ly-set-mus-property! m 'elements
-			   (cons (make-script x)
-				 (ly-get-mus-property m 'elements)))
-      
-      (let ((es (ly-get-mus-property m 'elements))
-	    (e (ly-get-mus-property m 'element)) )
-	(map (lambda (y) (add-script y x)) es)
-	(if (music? e)
-	    (add-script e x))))
-  m)
+   (if (equal? (ly-music-name m) "Request_chord")
+       (ly-set-mus-property! m 'elements
+			    (cons (make-script x)
+				  (ly-get-mus-property m 'elements)))
+
+       (let ((es (ly-get-mus-property m 'elements))
+	     (e (ly-get-mus-property m 'element)) )
+	 (map (lambda (y) (add-script y x)) es)
+	 (if (music? e)
+	     (add-script e x))))
+   m)
 
 #(define (add-staccato m)
    (add-script m "staccato"))

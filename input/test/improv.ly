@@ -34,7 +34,7 @@ global = \notes { s1*3 \bar "|." }
       \consists "Accidental_engraver"
       squashedPosition = #0
       NoteHead \override #'style = #'slash
-      Accidentals \override #'transparent = ##t
+      Accidental \override #'transparent = ##t
     }
     \translator {
       \VoiceContext
