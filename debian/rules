@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-# Made with the aid of debhelper by by Joey Hess,
+# Made with the aid of debhelper by Joey Hess,
 # based on the sample debian/rules file for GNU hello by Ian Jackson.
 #
 # This is free software; see the GNU General Public Licence
@@ -12,10 +12,14 @@ package = lilypond
 
 SHELL = /bin/sh
 r = debian/tmp
+TMP = `pwd`/debian/tmp
 d = usr/doc/$(package)
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
+
+# This is the debhelper compatability version to use.
+export DH_COMPAT=1
 
 build: build-stamp
 build-stamp:
@@ -23,13 +27,16 @@ build-stamp:
 
 	./configure --disable-checking --disable-debugging \
 		--enable-printing --prefix=/usr --disable-optimise \
-		--enable-shared
+		--enable-shared \
+		--infodir='$${prefix}/share/info' \
+		--mandir='$${prefix}/share/man'
 	$(MAKE) all
 	$(MAKE) -C Documentation/pictures pngs
 
 	# Remove the "-" and the "-k" once the \times segfault
 	# bug is fixed.  (lilypond-1.1.31, 1999-02-17)
-	-$(MAKE) -k -C Documentation/tex dvi
+	# -$(MAKE) -k -C Documentation/tex dvi
+	-$(MAKE) -C Documentation/tex dvi
 	-$(MAKE) -C Documentation info
 
 	# $(MAKE) htmldoc
@@ -57,18 +64,18 @@ install-stamp: build-stamp
 	dh_installdirs usr/doc/texmf \
 		usr/lib/emacs/site-lisp \
 		usr/doc/$(package)/examples \
-		usr/lib/texmf/tex \
-		usr/lib/texmf/fonts/source/public \
-		usr/lib/texmf/fonts/afm/public \
-		usr/lib/texmf/fonts/tfm/public
+		usr/share/texmf/tex \
+		usr/share/texmf/fonts/source/public \
+		usr/share/texmf/fonts/afm/public \
+		usr/share/texmf/fonts/tfm/public
 	ln -fs ../lilypond $(r)/usr/doc/texmf/lilypond
 
-	$(MAKE) prefix=`pwd`/$(r)/usr install
+	$(MAKE) prefix=$(TMP)/usr install
 
-	ln -s ../../../share/lilypond/tex $(r)/usr/lib/texmf/tex/lilypond
-	ln -s ../../../../../share/lilypond/mf $(r)/usr/lib/texmf/fonts/source/public/lilypond
-	ln -s ../../../../../share/lilypond/afm $(r)/usr/lib/texmf/fonts/afm/public/lilypond
-	ln -s ../../../../../share/lilypond/tfm $(r)/usr/lib/texmf/fonts/tfm/public/lilypond
+	ln -s ../../lilypond/tex $(r)/usr/share/texmf/tex/lilypond
+	ln -s ../../../../lilypond/mf $(r)/usr/share/texmf/fonts/source/public/lilypond
+	ln -s ../../../../lilypond/afm $(r)/usr/share/texmf/fonts/afm/public/lilypond
+	ln -s ../../../../lilypond/tfm $(r)/usr/share/texmf/fonts/tfm/public/lilypond
 
 	touch install-stamp
 
@@ -80,8 +87,8 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	cp -av mudela-mode.el $(r)/usr/lib/emacs/site-lisp
-	dh_installdocs ANNOUNCE* NEWS-* DEDICATION \
-		BUGS TODO *.txt \
+	dh_installdocs AIMS ANNOUNCE* NEWS-* DEDICATION \
+		BUGS TASKS TODO *.txt \
 		Documentation/pictures/out/*.png \
 		Documentation/out/*.txt \
 		Documentation/tex/*.doc \
@@ -98,6 +105,7 @@ binary-arch: build install
 #	dh_installmanpages
 #	dh_undocumented
 	dh_installchangelogs -k NEWS
+	dh_link
 	dh_strip
 	dh_compress
 	dh_fixperms

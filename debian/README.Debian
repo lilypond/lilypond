@@ -8,6 +8,9 @@ Dear music lover:
   Hope you enjoy producing beautiful music scores with GNU LilyPond
   and other related packages!  ^_^
 
+  Note:
+    If you experience problems about missing EC fonts during the TeX run,
+    please make sure you have the tetex-extra package installed.
 
 Old LilyPond Fonts Issue:
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -33,8 +36,8 @@ Old LilyPond Fonts Issue:
 
   Nonetheless, GNU LilyPond now comes with the standard "feta" fonts,
   and they are already listed in the latest teTeX 0.9 / Web2C 7.2
-  /usr/lib/texmf/fontname/special.map file, so there shouldn't be any
+  /usr/share/texmf/fontname/special.map file, so there shouldn't be any
   more problems!  Enjoy!  :-)
 
 
-Anthony Fok <foka@debian.org>, Wed, 22 Apr 1998 03:37:00 -0600
+Anthony Fok <foka@debian.org>, Wed,  7 Jul 1999 15:19:48 -0600
