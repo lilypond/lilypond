@@ -17,6 +17,20 @@ Version 2.1.9
 @end ignore
 
 @itemize @bullet
+@item Objects in the output can now be documented: the following fragment
+ boxes the note head, and adds the text ``heads or tails?'' three
+spaces below the box.
+
+@example
+       \context Voice \applyoutput #(add-balloon-text
+				     'NoteHead "heads, or tails?"
+				     '(0 . -3))
+
+      
+       c8
+@end example
+
+
 @item Default staff sizes are now scalable. There are two new mechanisms for
 setting staff sizes. Both are demonstrated in this fragment:
 
@@ -37,16 +51,14 @@ piece. Similarly, the paper size may be changed as follows
 @end example 
 
 
-@item
-   Warnings for bar check errors are more cleverly printed.  This
-makes barCheckSynchronize superfluous. barCheckSynchronize is now
-switched off by default.
+@item Warnings for bar check errors are more cleverly printed.  This
+makes @code{barCheckSynchronize} superfluous, so it is now switched
+off by default.
 
 Warning: this will cause problems in scores that use bar checks to
 shorten measures.
 
-@item
- The black note head was made a little rounder, which causes a less
+@item The black note head was made a little rounder, which causes a less
  frantic graphic impression.
 
 @item

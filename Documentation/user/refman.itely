@@ -8140,18 +8140,18 @@ respectively.
   This is converted to a musical symbol, e.g. @code{\musicglyph
 #"accidentals-0"} will select the natural sign from the music font.
 See @ref{The Feta font} for  a complete listing of the possible glyphs.
+
 @item \char
 This produces a single character, e.g. @code{\char #65} produces the 
 letter 'A'.
 
-@item \note  @var{log} @var{dots} @var{dir}
+@item \note  @var{duration} @var{dir}
 @cindex @code{\note}
 
 This produces a note with a stem pointing in @var{dir} direction, with
-duration log @var{log} and @var{dots} augmentation dots. The duration
-log is the negative 2-logarithm of the duration denominator. For
-example, a quarter note has log 2, an eighth note 3 and a breve has
-log -1.
+the @var{duration} for the note head type and augmentation dots. For
+example, @code{\note #"4." #-0.75} creates a dotted quarter note, with
+a shortened down stem.
 
 @item \hspace #@var{amount}
 @cindex @code{\hspace}
