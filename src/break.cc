@@ -19,7 +19,7 @@ Break_algorithm::find_breaks() const
     for (iter_top(pscore_.cols,c); c.ok(); c++)
 	if (c->breakable())
 	    retval.push(c);
-    assert(retval.last() == pscore_.cols.bottom().ptr());
+    assert(retval.top() == pscore_.cols.bottom().ptr());
     return retval;
 }
 
@@ -32,7 +32,7 @@ Break_algorithm::solve_line(Line_of_cols curline) const
    sp.add_column(curline[0], true, 0.0);
    for (int i=1; i< curline.size()-1; i++)
        sp.add_column(curline[i]);
-   sp.add_column(curline.last(), true, linelength);
+   sp.add_column(curline.top(), true, linelength);
 
    // misschien  moeven uit Spacing_problem? 
    for (iter_top(pscore_.suz,i); i.ok(); i++) {
@@ -41,8 +41,7 @@ Break_algorithm::solve_line(Line_of_cols curline) const
    Array<Real> the_sol=sp.solve();
    Col_hpositions col_hpos;
    col_hpos.cols = curline;
-   col_hpos.energy = the_sol.last();
-   the_sol.pop();
+   col_hpos.energy = the_sol.pop();
    col_hpos.config = the_sol;
    col_hpos.OK();
    return col_hpos;

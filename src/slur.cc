@@ -22,7 +22,7 @@ Slur::Slur()
 Offset
 Slur::center() const
 {
-    int pos1 = encompass.last()->position;
+    int pos1 = encompass.top()->position;
     int pos2 = encompass[0]->position;
 
     int dy =  pos1-pos2;
@@ -58,7 +58,7 @@ Slur::set_default_dir()
 void
 Slur::do_pre_processing()
 {
-    right  = encompass.last()->pcol_l_;
+    right  = encompass.top()->pcol_l_;
     left = encompass[0]->pcol_l_;    
 }
 
@@ -101,7 +101,7 @@ Slur::brew_molecule_p() const
     assert(encompass.size()>0);	// todo
     
     Notehead *lnote_p =encompass[0];
-    Notehead *rnote_p =encompass.last();
+    Notehead *rnote_p =encompass.top();
     int lpos_i = lnote_p->position;
     int rpos_i = rnote_p->position;
     Offset  left_off(lnote_p->x_dir, lpos_i + 2*dir);

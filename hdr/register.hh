@@ -7,7 +7,7 @@
 #ifndef REGISTER_HH
 #define REGISTER_HH
 #include "proto.hh"
-#include "sstack.hh"
+#include "varray.hh"
 
 /// data container.
 struct Staff_elem_info {
@@ -79,8 +79,8 @@ struct Notehead_register : Request_register {
 };
 
 struct Slur_register : Request_register {
-    sstack<Slur_req*> requests_arr_;
-    sstack<Slur *> slur_l_stack_;
+    Array<Slur_req*> requests_arr_;
+    Array<Slur *> slur_l_stack_;
     Array<Slur*> end_slur_l_arr_;
     
     /****************/
