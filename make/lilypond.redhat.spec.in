@@ -21,7 +21,7 @@ Buildrequires: t1utils bison flex mftrace ImageMagick
 # for now
 
 Buildrequires: texinfo
-Requires: tetex  tetex-latex libstdc++ python 
+Requires: tetex  tetex-latex libstdc++ python  tetex-dvips tetex-latex
 Requires: guile >= 1.6.4-7
 
 %description
