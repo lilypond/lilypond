@@ -1,5 +1,13 @@
 2004-03-19  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* scm/music-functions.scm (descend-to-context): new
+	function. Similar to context-spec-music.
+	(make-time-signature-set): specify Score as descend-only. This
+	fixes the polymetric.ly example.
+
+	* lily/context-specced-music-iterator.cc (construct_children): add
+	support for descend-only context spec.
+
 	* lily/note-head.cc (brew_ez_stencil): read vector note-names to
 	determine ez-notation letter. 
 
