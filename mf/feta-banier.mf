@@ -55,9 +55,10 @@ def draw_flag(expr center, flare,
 enddef;
 
 %
-% TODO: calc intersectpoint
+% TODO: calc intersectpoint (see TeX book, p. 137)
 % TODO: calc incision_depth
 % 
+
 def add_flag(expr yoff, flare, hip_wid_multiplier, 
 		hip_dep_multiplier,
 		intersectpoint, hip_thickness, foot_thickness) =
@@ -116,7 +117,7 @@ fet_beginchar("8th Flag (up)", "u3", "eighthflag")
 		hip_depth_ratio, foot_width_ratio, hip_thickness, foot_thickness);
 
 	pickup pencircle scaled stemthickness;
-	draw (0, 0) .. (0,-2 staff_space);
+	draw (0, 0) .. (0,-1 staff_space);
 fet_endchar;
 
 fet_beginchar("16th Flag (up)", "u4", "sixteenthflag")

@@ -587,11 +587,6 @@ LilyPond with gcc-3.0 you may do:
 
 Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
 
-@unnumberedsubsec Python-2.1[.1]
-
-Regular expressions are broken in Python 2.1.[.1], either upgrade or
-downgrade python.
-
 @unnumberedsubsec Linux-2.4.0, Guile-1.4 --with-threads
 
 There's a bug in certain kernels around version 2.4.0, that is

@@ -20,4 +20,6 @@ should not confuse the spacing engine."
       r4 fis  }
   >
   c4
-}}}
+}}
+\paper { linewidth = -1. }
+}

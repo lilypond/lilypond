@@ -4,6 +4,9 @@
 
 # Red Hat-like systems should install this in /etc/profile.d/
 
+# If run by hand or from you .profile, run as follows
+#   . lilypond-profile
+
 # This is a bit of a kludge.  Ideally, lilypond's tex, afm, pfa, ps
 # directories should be installed into their location in the texmf/gs
 # trees, rather than messing around with environment variables (eg,

@@ -112,7 +112,10 @@ set_music_properties (Music *p, SCM a)
 
 
 // needed for bison.simple's malloc () and free ()
+
 #include <malloc.h>
+#include <stdlib.h>
+
 
 #ifndef NDEBUG
 #define YYDEBUG 1
@@ -130,6 +133,10 @@ set_music_properties (Music *p, SCM a)
 
 %}
 
+/* We use SCMs to do strings, because it saves us the trouble of
+deleting them.  Let's hope that a stack overflow doesnt trigger a move
+of the parse stack onto the heap. */
+
 
 %union {
 
@@ -143,10 +150,6 @@ set_music_properties (Music *p, SCM a)
     Music_output_def * outputdef;
 
     Request * request;
-
-    /* We use SCMs to do strings, because it saves us the trouble of
-deleting them.  Let's hope that a stack overflow doesnt trigger a move
-of the parse stack onto the heap. */
 
     SCM scm;
 

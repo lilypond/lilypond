@@ -28,7 +28,6 @@ INSTALL - compiling and installing GNU LilyPond
     MacOS X
   Problems
     FLex-2.5.4a and gcc-3.0
-    Python-2.1[.1]
     Linux-2.4.0, Guile-1.4 -with-threads
     NetBSD
     Solaris:
@@ -508,15 +507,18 @@ installed, run as root:
 
              fink install tetex
 
+   For more information about `apt-get' and `fink', see
+fink.sourceforge.net (http://fink.sf.net).
+
    Then, configure, patch, make and install LilyPond using these
 commands:
 
              CC="cc -I/sw/include" CXX="c++ -I/sw/include" LDFLAGS="-L/sw/lib" \
                  ./configure --prefix=/sw
-             make -C lily out/parser.hh out/parser.cc
+             make -C lily out/parser.hh out/parser.cc out/config.h
              patch -p0 < darwin.patch
              make -C lily out/parser.o
-             make all
+             make DEPENDENCIES_OUTPUT=/dev/null all
              make install
 
    For installing, you must be root, of course.
@@ -542,12 +544,6 @@ LilyPond with gcc-3.0 you may do:
              make conf=gcc-3.0 -C lily
 
    Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
-
-Python-2.1[.1]
---------------
-
-   Regular expressions are broken in Python 2.1.[.1], either upgrade or
-downgrade python.
 
 Linux-2.4.0, Guile-1.4 -with-threads
 ------------------------------------

@@ -4,6 +4,11 @@
 # 
 # Red Hat-like systems should install this in /etc/profile.d/
 
+# If run by hand or from you .login, run as follows
+#   source lilypond-profile
+
+
+
 # strange shell, this C
 set datadir="@datadir@"
 
