@@ -63,7 +63,7 @@ Beam_engraver::do_process_music ()
     }
 
 
-  if (beam_p_)
+  if (beam_p_  &&  !to_boolean (get_property ("weAreGraceContext")))
     {
       Score_engraver * e = 0;
       Translator * t  =  daddy_grav_l ();
