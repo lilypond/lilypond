@@ -37,7 +37,7 @@ We will upload major releases to the following sites:
 
 =over 4
 
-=item ftp://sunsite.unc.edu/pub/Linux/apps
+=item ftp://sunsite.unc.edu/pub/Linux/apps/sound/convert
 
 The GNU/Linux FTP site
 

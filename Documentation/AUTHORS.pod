@@ -32,31 +32,34 @@ Mats Bengtsson <matsb@s3.kth.se>, parts of clef-reg.cc, clef-item.cc
 swedish notenames, testing, general comments, duration
 logs/longa/brevis etc
 
-=item *
+=item * Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>,
 
-Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc bugfixes, some
+TeX titling and lytodvi.sh
+
+=item * Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>,
+
+misc bugfixes, some
 Beam and Stem code. 
 
-=item *
+=item * Donald Ervin Knuth, http://www.cs.stanford.edu/~?
 
-Donald Ervin Knuth, mf/ital-*.mf (these were taken from the CM fonts)
+mf/ital-*.mf (these were taken from the CM fonts)
 
-=item *
+=item * Alexandre Oliva <oliva@dcc.unicamp.br>, http://?.unicamp.br/
 
-Alexandre Oliva <oliva@dcc.unicamp.br>, testing
+testing
 
-=item *
+=item * Anthony Fok <foka@gpu.srv.ualberta.ca>, 
 
-Anthony Fok <foka@gpu.srv.ualberta.ca>, debian package: make/debian/*
+debian package: make/debian/*
 
-=item *
+=item * Franc,ois Pinard <pinard@iro.umontreal.ca>, 
 
-Franc,ois Pinard <pinard@iro.umontreal.ca>, Documentation/Vocab*,
-internationalization stuff
+Documentation/Vocab*, internationalization stuff
 
-=item * 
+=item *  Neil Jerram <nj104@cus.cam.ac.uk>. 
 
-Neil Jerram <nj104@cus.cam.ac.uk>. Documentation/Vocab*
+Documentation/Vocab*
 
 =back
 

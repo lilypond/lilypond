@@ -14,54 +14,18 @@
 \def\title#1{\def\thetitle{#1\\}}
 \def\subtitle#1{\def\thesubtitle{#1}}
 \def\composer#1{\def\thecomposer{#1}}
+\def\composers#1{\def\thecomposer{#1}}
 \def\arranger#1{\def\thearranger{#1}}
+\def\arrangers#1{\def\thearranger{#1}}
 \def\instrument#1{\def\theinstrument{#1}}
 %
 \def\makelilytitle{
   \begin{center}
     {\huge\bfseries\thetitle}{\large\bfseries\thesubtitle}
   \end{center}
-  {\hfill\scshape\thecomposer}{\flushleft\theinstrument}{\hfill\thearranger}
-  %\bigskip
+  {\flushleft\theinstrument\hfill\scshape\thecomposer\\}
+  {\hfill\thearranger}
   }
-
-
 
 
 \endinput
-
-%
-% ideally, we should create a LaTeX/TeX class
-% for setting music in different sizes.
-%
-\input lilyponddefs
-\def\EndLilyPondOutput{\endinput}
-\def\thetitle{}
-\def\thecomposer{}
-\def\thearranger{}
-\def\theinstrument{}
-\def\theLineOne{}
-\def\theLineTwo{}
-\def\theLineThree{}
-\def\lineOne#1{\def\theLineOne{#1}}
-\def\lineTwo#1{\def\theLineTwo{#1}}
-\def\lineThree#1{\def\theLineThree{#1}}
-\def\title#1{\def\thetitle{#1}}
-\def\composer#1{\def\thecomposer{#1}}
-\def\arranger#1{\def\thearranger{#1}}
-\def\instrument#1{\def\theinstrument{#1}}
-
-\def\makelilytitle{
-  \begin{center}
-    {\Large\bfseries\thetitle}\\
-    \vskip12pt
-    {\scshape\theLineOne}
-    {\hfill\scshape\thecomposer}
-    \vskip4pt
-    {\bfseries\theLineTwo}
-    {\bfseries\thearranger}
-  \end{center}
-  \bfseries\theLineThree
-  \bfseries\theinstrument
-  \bigskip
-  }
