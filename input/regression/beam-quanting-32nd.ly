@@ -8,7 +8,7 @@ texidoc = "Stem lengths take precedence over beam quants: `forbidden'
 
 }
 
-\version "2.1.26"
+\version "2.1.28"
 
 \score {
     \notes \relative c''{ 

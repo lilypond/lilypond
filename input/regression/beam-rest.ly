@@ -3,7 +3,7 @@
  texidoc = "The number of beams does not change on a rest."
 }
 
-\version "2.1.26"
+\version "2.1.28"
 
 \score { \notes \relative c, {
   \clef bass	 

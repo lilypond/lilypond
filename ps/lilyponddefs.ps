@@ -29,10 +29,9 @@ output-scale output-scale scale
 
 /paper-size { lilypondpaperpapersize } bind def
 
-% FIXME
-% urg, read from paper block
-% fixed base line skip value, for single line staves
-/base-line-skip lilypondpaperlineheight def
+%% FIXME: base-line-skip is too big, is this RIGHT?
+%% /base-line-skip lilypondpaperlineheight def
+/base-line-skip lilypondpaperlineheight lilypondpaperoutputscale div def
 
 /init-paper {
 	gsave
@@ -43,7 +42,8 @@ output-scale output-scale scale
 
 	%FIXME:
 	%vsize text-height sub 2 div /top-margin exch def
-	144 2 div /top-margin exch def
+	% 144 2 div /top-margin exch def
+	/top-margin 100 def
 	hsize line-width sub 2 div /left-margin exch def
 	grestore
 } bind def

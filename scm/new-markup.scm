@@ -106,7 +106,7 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
 
  - #:COMMAND is used instead of \\COMMAND
  - #:lines ( ... ) is used instead of { ... }
- - #:center ( ... ) is used instead of \\center < ... >
+ - #:center-align ( ... ) is used instead of \\center-align < ... >
  - etc.
 
 Example:

@@ -13,9 +13,9 @@
 #include "font-interface.hh"
 #include "warn.hh"
 
-LY_DEFINE(ly_paper_get_font,"ly:paper-get-font", 2, 0, 0,
-	  (SCM paper, SCM chain),
-	  "Return a font metric satisfying the font-qualifiers in the alist chain @var{chain}.\n"
+LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,
+	   (SCM paper, SCM chain),
+	   "Return a font metric satisfying the font-qualifiers in the alist chain @var{chain}.\n"
 "\n"
 "The font object represents the metric information of a font. Every font\n"
 "that is loaded into LilyPond can be accessed via Scheme. \n"
@@ -29,12 +29,20 @@ LY_DEFINE(ly_paper_get_font,"ly:paper-get-font", 2, 0, 0,
 "An alist chain is a list of alists, containing grob properties.\n")
 {
   Paper_def *pap = unsmob_paper (paper);
-  SCM_ASSERT_TYPE(pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
+  SCM_ASSERT_TYPE (pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
   
-  Font_metric*fm = select_font (pap, chain);
-  return fm->self_scm();
+  Font_metric *fm = select_font (pap, chain);
+  return fm->self_scm ();
 }
 
+LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
+	   (SCM paper, SCM name),
+	   "Return the paper variable @var{name}.")
+{
+  Paper_def *pap = unsmob_paper (paper);
+  SCM_ASSERT_TYPE (pap, paper, SCM_ARG1, __FUNCTION__, "paper definition");
+  return gh_double2scm (pap->get_realvar (name));
+}
 
 bool
 wild_compare (SCM field_val, SCM val)

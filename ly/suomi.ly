@@ -48,4 +48,4 @@ pitchnamesSuomi = #`(
 
 pitchnames = \pitchnamesSuomi
 
-\version "2.1.26"
+\version "2.1.28"

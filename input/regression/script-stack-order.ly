@@ -1,5 +1,5 @@
 
-\version "2.1.26"
+\version "2.1.28"
 \header {
     texidoc = "Scripts can be stacked. The order is determined by a
 priority field, but when objects have the same priority, the input

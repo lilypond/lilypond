@@ -1,5 +1,5 @@
 
-\version "2.1.26"
+\version "2.1.28"
 \header{ texidoc="@cindex Embedded Tex
 You can embed Tex commands in your score. "}
 

@@ -1,4 +1,4 @@
-\version "2.1.26"
+\version "2.1.28"
 \header{
 	texidoc="@cindex Cautionary Accidentals
 Cautinary accidentals are displayed in slurs by default. They can be 
