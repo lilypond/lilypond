@@ -96,7 +96,23 @@ My_lily_parser* my_lily_parser;
 
 #define yyerror THIS->parser_error
 
+/*
+  Add symbols to the  TAGS field of a music object. 
+*/
 
+void
+tag_music (Music*m,  SCM tag, Input ip)
+{
+	SCM tags = m->get_mus_property ("tags");
+	if (gh_symbol_p (tag))
+		tags = scm_cons (tag, tags);
+	else if (gh_list_p (tag))
+		tags = gh_append2 (tag, tags);
+	else
+		ip.warning (_("Tag must be symbol or list of symbols."));
+
+	m->set_mus_property ("tags", tags);
+}
 
 
 
@@ -278,6 +294,7 @@ yylex (YYSTYPE *s,  void * v)
 %token SIMULTANEOUS
 %token SKIP
 %token SPANREQUEST
+%token TAG
 %token TEMPO
 %token TIMES
 %token TIME_T
@@ -352,7 +369,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm> steno_duration optional_notemode_duration multiplied_duration
 %type <scm>  verbose_duration
 	
-%type <scm>   post_events
+%type <scm>   post_events 
 %type <music> gen_text_def direction_less_event direction_reqd_event
 %type <scm>   steno_pitch pitch absolute_pitch pitch_also_in_chords
 %type <scm>   explicit_pitch steno_tonic_pitch
@@ -367,7 +384,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <scm> Music_list
 %type <outputdef>  music_output_def_body
 %type <music> shorthand_command_req
-%type <music>	post_event 
+%type <music>	post_event tagged_post_event
 %type <music> command_req verbose_command_req
 %type <music>	extender_req
 %type <music> hyphen_req
@@ -1092,7 +1109,11 @@ basic music objects too, since the meaning is different.
 	}
 	| relative_music	{ $$ = $1; }
 	| re_rhythmed_music	{ $$ = $1; } 
-	| part_combined_music	{ $$ = $1; } 
+	| part_combined_music	{ $$ = $1; }
+	| TAG embedded_scm Music {
+		tag_music ($3, $2, THIS->here_input ());
+		$$ = $3;
+	}
 	;
 
 relative_music:
@@ -1510,20 +1531,33 @@ post_events:
 		$$ = gh_cons ($2->self_scm(), $$);
 		scm_gc_unprotect_object ($2->self_scm());
 	}
+	| post_events tagged_post_event {
+		$2 -> set_spot (THIS->here_input ());
+		$$ = scm_cons ($2->self_scm(), $$);
+		scm_gc_unprotect_object ($2->self_scm());
+	}
 	;
 
 
+tagged_post_event:
+	'-' TAG embedded_scm post_event {
+		tag_music ($4, $3, THIS->here_input ());
+		$$ = $4;
+	}
+	;
 
 post_event:
 	direction_less_event {
 		$$ = $1;
 	}
 	| script_dir direction_reqd_event {
-		$2->set_mus_property ("direction", gh_int2scm ($1));
+		if ($1)
+			$2->set_mus_property ("direction", gh_int2scm ($1));
 		$$ = $2;
 	}
 	| script_dir direction_less_event {
-		$2->set_mus_property ("direction", gh_int2scm ($1));
+		if ($1)
+			$2->set_mus_property ("direction", gh_int2scm ($1));
 		$$ = $2;
 	}
 	| string_number_event

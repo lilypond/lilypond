@@ -1,5 +1,13 @@
 2003-08-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/music-functions.scm (remove-tag): filter \tagged music
+	expressions.
+
+	* input/regression/tag-filter.ly (texidoc): new file.
+
+	* lily/parser.yy (post_event): add \tag #'symbol / \tag #'(symbol1
+	symbol2 .. ) etc. 
+
 	* scripts/convert-ly.py (FatalConversionError.conv): fingering
 	convert rule.
 

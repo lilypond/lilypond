@@ -8,6 +8,35 @@
 @chapter New features in 1.9 since 1.8
 
 @itemize
+
+@item
+Each music expression can now be tagged, to make different printed
+versions from the same music expression.  In the following example,
+we see two versions of a piece of music, one for the full score, and
+one with cue notes for the instrumental part:
+@example
+< \tag #'part <
+  @{ c4 f2 g @}      % in the part, we have cue-notes  
+  \\ R1 >
+  \tag #'score R1  % in the score: only a rest
+>
+@end example
+ 
+The same can be applied to articulations, texts, etc.: they are
+made by prepending
+@example
+        -\tag #@var{your-tag(s)} 
+@end example
+to an articulation, for example, 
+@example
+        c4-\tag #'with-fingerings -4 -\tag #'with-strings \6
+@end example
+
+This defines a note, which has a fingering and a string-number
+indication. 
+
+
+
 @item
 Markup text (ie. general text formatting) may now be used for lyrics too. 
 
