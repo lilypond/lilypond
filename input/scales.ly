@@ -13,7 +13,7 @@ blah = \staff{  melodicregs
 			c d 
 		\clef "violin" ;
 		\octave  c' ;
-		< \transpose { d { e f } } >
+		++ \transpose { d { e f } } ++
 		\octave  c'' ;
 			c d 
 		\duration  8 ;
@@ -22,6 +22,7 @@ blah = \staff{  melodicregs
 		\octave  c' ;
 		 |[ a  a a a a a a a \! a ]6/9 
 		\octave  c'' ; 
+
 		 ['c->-.-\fermata \< 'g->-.-\fermata d->-.-\fermata a->-.-\fermata
 		e'->-.-\fermata b'-. f''-. c'''->-.-\fermata \! g'''->-.-\fermata \> ]6/9
 		 [g'''->-.-\fermata c'''->-.-\fermata f''->-.-\fermata b'->-.-\fermata e'->-.-\fermata a->-.-\fermata d->-.-\fermata 'g->-.-\fermata \! 'c->-.-\fermata ]6/9
@@ -45,6 +46,7 @@ blah = \staff{  melodicregs
 	
 c1
 	\duration  8;
+		r8-"text" r8^. r8_. r8 r8 r8 r8 r8
 	[c-> d-> e-> f->][g-> a-> b-> c'->] % 1
 \octave c';	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]
 \octave c;	[c'-^ b-^ a-^ g-^][f-^ e-^ d-^ c-^]
