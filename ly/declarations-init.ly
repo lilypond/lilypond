@@ -1,6 +1,6 @@
 #(ly:set-option 'old-relative)
 
-\version "2.1.36"
+\version "2.2.0"
 breve = #(ly:make-duration -1 0)
 longa = #(ly:make-duration -2 0 )
 maxima = #(ly:make-duration -3 0)
