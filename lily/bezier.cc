@@ -86,6 +86,24 @@ Bezier::calc (int steps)
 }
 
 void
+Bezier::print () const
+{
+#ifndef NPRINT
+  if (check_debug && !monitor->silent_b ("Bezier_controls"))
+    {
+      if (control_[1].length ())
+        {
+	  cout << "Bezier\n";
+	  cout << "Controls:  ";
+	  for (int i=0; i < control_.size (); i++)
+	    cout << control_[i].str () << ", ";
+//	  cout << "\n";
+	}
+    }
+#endif
+}
+
+void
 Bezier::set (Array<Offset> points)
 {       
   assert (points.size () == 4);
@@ -212,11 +230,33 @@ Bezier_bow::calc_f (Real height)
 void
 Bezier_bow::calc ()
 {
+#ifndef NPRINT
+//  if (check_debug && !monitor->silent_b ("Bezier_bow_controls"))
+  if (check_debug && !(monitor->silent_b ("Bezier_controls")
+    && monitor->silent_b ("Bezier_bow_controls")))
+    {
+      cout << "Before transform*********\n";
+      print ();
+      cout << "************************\n";
+    }
+#endif
   transform ();
+  print ();
 
   calc_controls ();
 
+  print ();
   transform_back ();
+#ifndef NPRINT
+//  if (check_debug && !monitor->silent_b ("Bezier_bow_controls"))
+  if (check_debug && !(monitor->silent_b ("Bezier_controls")
+    && monitor->silent_b ("Bezier_bow_controls")))
+    {
+      cout << "After transform*********\n";
+      print ();
+      cout << "************************\n";
+    }
+#endif
 }
 
 /*
@@ -475,6 +515,22 @@ Bezier_bow::check_fit_f ()
 }
 
 void
+Bezier_bow::print () const
+{
+#ifndef NPRINT
+  Bezier::print ();
+  if (check_debug && !monitor->silent_b ("Bezier_bow_controls"))
+    {
+      cout << "Bezier_bow\n";
+      cout << "Encompass: ";
+      for (int i=0; i < encompass_.size (); i++)
+	cout << encompass_[i].str () << ", ";
+//      cout << "\n";
+    }
+#endif
+}
+
+void
 Bezier_bow::set (Array<Offset> points, int dir)
 {
   dir_ = dir;
@@ -541,20 +597,11 @@ Bezier_bow::calc_default (Real h)
   Real indent = alpha * atan (beta * b);
   Real height = indent + h;
  
-#define RESIZE_ICE
-#ifndef RESIZE_ICE
   Array<Offset> control;
   control.push (Offset (0, 0));
   control.push (Offset (indent, height));
   control.push (Offset (b - indent, height));
   control.push (Offset (b, 0));
-#else
-  Array<Offset> control (4);
-  control[0] = Offset (0, 0);
-  control[1] = Offset (indent, height);
-  control[2] = Offset (b - indent, height);
-  control[3] = Offset (b, 0);
-#endif
   Bezier::set (control);
 }
 

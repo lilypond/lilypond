@@ -1,5 +1,5 @@
 \score{
-	\melodic { R1 }
+	\notes { R1 }
 	\paper{
 		linewidth = 40.0\mm;
 

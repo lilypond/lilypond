@@ -62,14 +62,15 @@ Dynamic_engraver::do_process_requests()
 	    }
 	  
 	  Text_def * td_p = new Text_def;
-	  td_p->align_dir_ = CENTER;
 	  String loud = absd->loudness_str ();
 	  td_p->text_str_ =  paper ()->lookup_l (0)->dynamic (loud).str_; // ugh
 	  td_p->style_str_ = "dynamic";
-
-	  
+	  td_p->align_dir_ = RIGHT;
+	  Real nw_f = paper ()->note_width () * 0.8;
 
 	  dynamic_p_ = new Text_item (td_p);
+	  dynamic_p_->translate (Offset (nw_f, 0));
+
 	  announce_element (Score_element_info (dynamic_p_, dreq_l));
 	}
       else if (Span_dynamic_req *span_l = dynamic_cast <Span_dynamic_req *> (dreq_l))
