@@ -138,20 +138,29 @@
 					; The vector should be sorted according to ascending design size.
 					;
 (define feta-alphabet-size-vector
-  (list->vector
-   (map (lambda (tup)
-	  (cons (ly:pt (cdr tup))
-		(format "feta-alphabet~a ~a"
-			(car tup)
-			(ly:pt (cdr tup)))))
-	'((11 . 11.22)
-	  (13 . 12.60)
-	  (14 .  14.14)
-	  (16 . 15.87)
-	  (18 . 17.82)
-	  (20 . 20)
-	  (23 . 22.45)
-	  (26 . 25.20)))))
+  (if (defined? 'ly:kpathsea-find-file)
+      `#(,(delay  (ly:font-load "feta-alphabet11"))
+	 ,(delay  (ly:font-load "feta-alphabet13"))
+	 ,(delay  (ly:font-load "feta-alphabet14"))
+	 ,(delay  (ly:font-load "feta-alphabet16"))
+	 ,(delay  (ly:font-load "feta-alphabet18"))
+	 ,(delay  (ly:font-load "feta-alphabet20"))
+	 ,(delay  (ly:font-load "feta-alphabet23"))
+	 ,(delay  (ly:font-load "feta-alphabet26")))
+      (list->vector
+       (map (lambda (tup)
+	      (cons (ly:pt (cdr tup))
+		    (format "feta-alphabet~a ~a"
+			    (car tup)
+			    (ly:pt (cdr tup)))))
+	    '((11 . 11.22)
+	      (13 . 12.60)
+	      (14 .  14.14)
+	      (16 . 15.87)
+	      (18 . 17.82)
+	      (20 . 20)
+	      (23 . 22.45)
+	      (26 . 25.20))))))
 
 (define-public (add-music-fonts node factor)
   (for-each
