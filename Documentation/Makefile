@@ -32,7 +32,7 @@ EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif
 #
 
 default: do-doc
-	echo $(TEXTFILES) $(OUTPODFILES) $(PODFILES)
+	true
 do-doc: $(TEXTFILES)
 
 html: $(HTMLFILES)
@@ -56,6 +56,6 @@ localinstall: $(outdir)/lilypond.1 $(outdir)/mudela.5
 	$(INSTALL) -d $(mandir)/man1
 	$(INSTALL) -m 755 $(outdir)/lilypond.1 $(mandir)/man1
 	$(INSTALL) -m 755 $(outdir)/mudela.5 $(mandir)/man5
- 
+
 localuninstall:
 	rm -f $(mandir)/man1/lilypond.1
