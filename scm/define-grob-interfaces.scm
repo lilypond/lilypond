@@ -23,6 +23,12 @@
  )
 
 (ly:add-interface
+ 'string-number-interface
+ "A string number instruction"
+ '()
+ )
+
+(ly:add-interface
  'fret-diagram-interface
  "A fret diagram"
  '(align-dir barre-type dot-color dot-radius finger-code fret-count 
