@@ -115,6 +115,7 @@ ADD_MUSIC (Melisma_playing_req);
 ADD_MUSIC (Melisma_req);
 ADD_MUSIC (Melodic_req);
 ADD_MUSIC (Note_req);
+ADD_MUSIC (Porrectus_req);
 ADD_MUSIC (Rest_req);
 ADD_MUSIC (Rhythmic_req);
 ADD_MUSIC (Script_req);

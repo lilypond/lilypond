@@ -29,6 +29,7 @@
 (grob-property-description 'X-offset-callbacks list? "list of functions, each taking an grob and axis argument. The function determine the position relative to this grob's parent. The last one in the list is called first.")
 (grob-property-description 'Y-extent-callback procedure? "see @code{X-extent-callback}.")
 (grob-property-description 'Y-offset-callbacks list? "see @code{X-offset-callbacks}.")
+(grob-property-description 'add-stem boolean? "Add stem to porrectus?.")
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
 This procedure is called (using dependency resolution) after line breaking. Return value is ignored.")
 (grob-property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical.")
@@ -269,6 +270,7 @@ reference point.
 (grob-property-description 'side-support list? "the support, a list of grobs.")
 (grob-property-description 'slope number? "some kind of slope")
 (grob-property-description 'slope-limit number? "set slope to zero if slope is running away steeper than this.")
+(grob-property-description 'solid boolean? "should porrectus be solidly filled?.")
 (grob-property-description 'space-alist list? "Alist of break align spacing tuples. See basic-property.scm")
 (grob-property-description 'space-function procedure? "function of type multiplicity -> real (in staffspace).")
 (grob-property-description 'spacing-procedure procedure? "procedure
@@ -281,6 +283,7 @@ itself.  Return value is ignored.")
 (grob-property-description 'staff-symbol boolean? "the staff symbol grob that we're in.")
 (grob-property-description 'staffline-clearance number? "don't get closer than this to stafflines.")
 (grob-property-description 'stem ly-grob? "pointer to Stem object.")
+(grob-property-description 'stem-direction dir? "up or down?.")
 (grob-property-description 'stem-end-position number? "Where does the stem end (the end is opposite to the support-head.")
 (grob-property-description 'stem-length number? "length of stem.")
 (grob-property-description 'stem-shorten list? "shorten stems in forced directions given flag multiplicity.")
