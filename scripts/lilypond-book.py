@@ -526,11 +526,11 @@ class Lilypond_snippet (Snippet):
 			 + output[LATEX][AFTER])
 		str += ('\n@end tex\n')
 		
-		str += ('\n@html\n')
+		str += ('\n\n@html\n')
 		str += (output[HTML][BEFORE] 
 			+ (output[HTML][OUTPUT] % vars ())
 			+ output[HTML][AFTER])
-		str += ('\n@end html\n')
+		str += ('\n@end html\n\n') # need par after picture.
 
 		if  VERBATIM in self.options:
 			verb = verbatim_texinfo (self.substring ('code'))
@@ -796,7 +796,7 @@ def do_file (input_filename):
 	output_file.writelines ([s.replacement_text () for s in chunks])
 
 
-	included_files = []
+	included_files = [input_filename]
 	def notice_include (target, snip):
 		included_files.append (snip.match.group ('filename'))
 		included_files.append (os.path.join (output_name, snip.processed_filename ()))
