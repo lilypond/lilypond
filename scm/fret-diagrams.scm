@@ -1,3 +1,9 @@
+;;;; fret-diagrams.scm -- 
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c) 2004 Carl D. Sorensen <c_sorensen@byu.edu>
+
 (define nil '())
 (define (fret-parse-string definition-string)
  "parse a fret diagram string and return an alist with the appropriate values"
