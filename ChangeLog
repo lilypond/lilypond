@@ -1,3 +1,10 @@
+2004-11-19  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* GNUmakefile.in (install-WWW): Invoke install-info, so that when
+	building the documentation, info with images are installed.
+	(final-install): Fix description.  Mention sourcing of login
+	scripts (instead of running).
+
 2004-11-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Debian lmodern support.  Note that LilyPond will issue warnings
@@ -12,7 +19,6 @@
 	
 	* configure.in: Test for and accept lmodern if EC fonts not found.
 
-	* Debian lmodern support.
 	* scm/framework-tex.scm (font-load-command): TeX font name
 	mangling for latin1 encoded cork-lm fonts.
 	(convert-to-ps): Load lm.map if available.
