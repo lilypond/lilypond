@@ -25,6 +25,11 @@ is buggy; you should upgrade:
 All compiling with -O2 is suspect, in particular guile-1.3, and
 Lily herself will break.
 
+[Linux i386]
+
+A binary RPM of Guile 1.3 has been distributed from the LilyPond ftp
+site.  This binary was made in RedHat 5.x, and it will fail if this
+RPM is used with RedHat 6.x.
 
 [LinuxPPC, egcs-1.1b]
 

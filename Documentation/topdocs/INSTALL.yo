@@ -291,6 +291,17 @@ lurl(ftp://freshmeat.net/pub/rpms/lilypond/) and
 lurl(http://linux.umbc.edu/software/lilypond/rpms/).
 
 
+For compilation on a RedHat system you need these packages,
+in addition to the thoes needed for running:
+itemize(
+it() glibc-devel
+it() libstdc++-devel
+it() guile-devel
+it() flex
+it() bison
+)
+
+
 sect(DEBIAN GNU/LINUX)
 
 A Debian package is also available; contact Anthony Fok
