@@ -351,14 +351,24 @@
 	       (("cmbx10"  . 0.569055118110236) "cmbx10" . 1.0)
 	       (("cmr10"   . 0.569055118110236) "cmr10" . 1.0)
 	       (("cmr10"   . 0.638742773474948) "cmr10" . 1.0)
-	       (("cmcsc10" . 0.451659346558038) "cmcs10" . 1.0)
-	       (("cmcsc10" . 0.638742773474948) "cmcs10" . 1.0)
+	       (("cmcsc12" . 0.376382788798365) "cmcsc12" . 1.0)
+	       (("cmcsc12" . 0.752765577596731) "cmcsc12" . 1.0)
+	       (("cmcsc12" . 0.948425196850394) "cmcsc12" . 1.0)
+
+	       (("cmr10" . 0.7169645218575) "cmr10" . 1.0)
+	       (("cmr10" . 0.638742773474948) "cmr10" . 1.0)
+
+	       (("cmcsc10" . 0.451659346558038) "cmcsc10" . 1.0)
+	       (("cmcsc10" . 0.638742773474948) "cmcsc10" . 1.0)
 	       (("cmbx8"   . 0.564574183197548) "cmbx8" . 1.0)))
 	       
 	(props '(((font-family . roman)
 		  (word-space . 1)
+		  (baseline-skip . 2)
 		  (font-shape . upright)
-		  (font-size . -2)))))
+		  ;;(font-size . -2)
+		  (font-size . 0)
+		  ))))
 
   
     (define (output-scope scope)
@@ -378,9 +388,14 @@
 
 	     ;; output markups ourselves
 	     ((markup? val) (string-append
-			     (expression->string
-			      (ly:stencil-get-expr
-			       (interpret-markup paper props val)))
+			     (write-me "expr:"
+				       ;; siamo bionde :-)
+				       ;;(expression->string
+				       (output-stencil
+					(ly:stencil-get-expr
+					 (interpret-markup paper props val))
+					'(0 . 0)
+					))
 			     "\n"))
 	     ((number? val) (ps-number-def
 			     "lilypond" sym (if (integer? val)
@@ -395,3 +410,45 @@
      " 0 0 moveto\n"
      (define-fonts nmp)
      (apply string-append (map output-scope scopes)))))
+
+(define (add-offsets a b)
+  (cons (+ (car a) (car b))
+	(+ (cdr a) (cdr b))))
+
+(define (input? foe)
+  #f)
+
+;; TODO:
+;; de-urg me
+;; implement ly:input stuff
+;; replace C++ variant
+;; stencil->string?
+(define (output-stencil expr o)
+  (let ((s ""))
+    (format (current-output-port) "output-stencil: ~S\n" expr)
+    (while
+     (pair? expr)
+     (let ((head (car expr)))
+       (format (current-output-port) "head: ~S\n" head)
+       (cond ((input? head)
+	      (set! s (string-append
+		       s (define-origin (ly:input-file-string head))))
+	      (set! expr (cadr expr)))
+	     ((eq? head 'no-origin)
+	      (set! s (string-append s expression->string head))
+	      (set! expr (cadr expr)))
+	     ((eq? head 'translate-stencil)
+	      (set! o (add-offsets o (cadr expr)))
+	      (set! expr (caddr expr)))
+	     ((eq? head 'combine-stencil)
+	      (set! s (string-append s (output-stencil (cadr expr) o)))
+	      (set! expr (caddr expr)))
+	     (else
+	      (set!
+	       s (string-append
+		  s
+		       (placebox (car o) (cdr o)
+				 (expression->string expr))))
+	      (set! expr #f)))))
+;;   (set! expr (cadr expr)))
+  s))
