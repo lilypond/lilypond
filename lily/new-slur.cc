@@ -180,5 +180,5 @@ New_slur::outside_slur_callback (SCM grob, SCM axis)
 
 ADD_INTERFACE (New_slur, "new-slur-interface",
 	       "A slur",
-	       "excentricity encompass-objects control-points dashed details direction height-limit note-columns ratio thickness");
+	       "excentricity encompass-objects control-points dashed slur-details direction height-limit note-columns ratio thickness");
 

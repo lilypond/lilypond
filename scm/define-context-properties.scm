@@ -99,9 +99,9 @@ when finding a barcheck.")
 
      (barNumberVisibility ,procedure? "Procedure that takes an int and
 returns whether the corresponding bar number should be printed")
-     (bassStaffProperties list? "Alist of property settings to apply
+     (bassStaffProperties ,list? "Alist of property settings to apply
 for the down staff of PianoStaff. Used by @code{\\autochange}")
-     (trebleStaffProperties list? "Alist of property settings to apply
+     (trebleStaffProperties ,list? "Alist of property settings to apply
 for the up staff of PianoStaff. Used by @code{\\autochange}")
      (bassFigureFormatFunction ,procedure? "Procedure that is called
 to produce the formatting for a @code{BassFigure} grob. It takes a
