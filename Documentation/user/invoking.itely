@@ -55,15 +55,24 @@ sequentially.  The function @code{ly:set-option} allows access to
 some internal variables.  Use @code{-e '(ly:option-usage)'} for more
 information.
 
+
 @item -f,--format=@var{format}
 A comma separated list of back-end output formats to use.  Choices are
-@code{tex} (for @TeX{} output, to be processed with La@TeX{}), and
-@code{ps} for PostScript.
-
-There are other output options, but they are intended for developers.
-@cindex output format, setting
+@table @code
+@item tex
+for @TeX{} output, to be processed with La@TeX{}
+@item ps
+ for PostScript
 @cindex PostScript output
+@item svg
+ for SVG (Scalable Vector Graphics.)
+@cindex SVG (Scalable Vector Graphics)
+@item scm
+ for a dump of the raw, internal Scheme-based drawing commands.
 @cindex Scheme dump
+@end itemize 
+ 
+@cindex output format, setting
 
 @item -h,--help
 Show a summary of usage.
