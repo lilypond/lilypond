@@ -27,7 +27,6 @@
   (and (pair? x) (number? (car x)) (number? (cdr x))))
 (define (boolean-or-symbol? x) (or boolean? x) (or symbol? x))
 (define (number-or-string? x) (or (number? x) (string? x)))
-(define (list-or-string? x) (or (list? x) (string? x)))
 (define markup?
   (lambda (x) (or (string? x) (list? x))))
 
@@ -53,6 +52,9 @@
    ((output-port? obj) "output port")   
    ((vector? obj) "vector")
    ((procedure? obj) "procedure") 
+   ((boolean-or-symbol? obj) "boolean or symbol")
+   ((number-or-string? obj) "number or string")
+   ((markup? obj) "markup (list or string)")
    (else "unknown type")
   ))
 
@@ -76,6 +78,9 @@
    ((eq? predicate output-port?) "output port")   
    ((eq? predicate vector?) "vector")
    ((eq? predicate procedure?) "procedure") 
+   ((eq? predicate boolean-or-symbol?) "boolean or symbol")
+   ((eq? predicate number-or-string?) "number or string")
+   ((eq? predicate markup?) "markup (list or string)")
    (else "unknown type")
   ))
 

@@ -570,7 +570,7 @@ if 1:
 
 		return str
 	
-	conversions.append (((1,3,110), conv, '\\push -> \\override, \\pop -> \\revert'))
+	conversions.append (((1,3,111), conv, '\\push -> \\override, \\pop -> \\revert'))
 
 if 1:
 	def conv (str):
@@ -611,9 +611,9 @@ def do_conversion (infile, from_version, outfile, to_version):
 
 	if last_conversion:
 		sys.stderr.write ('\n')
-		new_ver =  '\\\\version \"%s\"' % tup_to_str (last_conversion)
+		new_ver =  '\\version \"%s\"' % tup_to_str (last_conversion)
 		if re.search (lilypond_version_re_str, str):
-			str = re.sub (lilypond_version_re_str,new_ver , str)
+			str = re.sub (lilypond_version_re_str,'\\'+new_ver , str)
 		else:
 			str = new_ver + '\n' + str
 
