@@ -97,8 +97,8 @@ Syllable_group::add_extender (Grob * extender)
 bool 
 Syllable_group::set_lyric_align (const char *punc, Grob *default_notehead)
 {
-  if (lyric_list_.size ()==0) {
-    // No lyrics: nothing to do.
+  if (lyric_list_.size ()<=1) {
+    // No lyrics or single line: nothing to do.
     return true;
   }
 

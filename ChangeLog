@@ -1,3 +1,9 @@
+2002-07-28  Glen Prideaux  <gprideau@odyssey.apana.org.au>
+       
+       * lily/syllable-group.cc (set_lyric_align): Only fiddle with
+       alignment if a note has more than a single lyric so single stanza
+       songs are aligned correctly.
+
 2002-07-28  Han-Wen  <hanwen@cs.uu.nl>
 
 	* input/test/broken-spanner-adjustment.ly: new file.
