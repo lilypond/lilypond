@@ -90,7 +90,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
   String m = ly_scm2string (msg);
   ip->message (m);
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 /*

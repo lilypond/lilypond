@@ -30,7 +30,7 @@ LY_DEFINE (ly_stencil_set_extent_x, "ly:stencil-set-extent!",
   Interval iv = ly_scm2interval (np);
   s->dim_[Axis (ly_scm2int (axis))] = iv;
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",

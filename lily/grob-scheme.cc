@@ -156,7 +156,7 @@ LY_DEFINE (ly_grob_suicide, "ly:grob-suicide",
   SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
 
   me->suicide ();
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
@@ -169,7 +169,7 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
   SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG3, __FUNCTION__, "axis");
 
   me->translate_axis (ly_scm2double (d), Axis (ly_scm2int (a)));
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_spanner_p, "ly:spanner?",

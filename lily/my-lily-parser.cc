@@ -442,7 +442,7 @@ LY_DEFINE (ly_parser_print_score, "ly:parser-print-score",
 			 header, os);
       scm_gc_unprotect_object (paper->self_scm ());
     }
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
 
@@ -493,6 +493,6 @@ LY_DEFINE (ly_parser_print_book, "ly:parser-print-book",
   scm_gc_unprotect_object (paper->self_scm ());
   scm_gc_unprotect_object (pb->self_scm ());
 
-  return SCM_UNDEFINED;
+  return SCM_UNSPECIFIED;
 }
 
