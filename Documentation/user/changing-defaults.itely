@@ -1695,11 +1695,11 @@ from the @code{\paper} block (or @code{\bookpaper}, if @code{\paper}
 does not specify encoding). The variable @code{inputencoding} may be
 set to a string or symbol specifying  the encoding, eg.
 
-@example
+@verbatim
   \paper {
     inputencoding = "latin1"
   } 
-@end example
+@end verbatim
 
 There is a special encoding, called @code{TeX}. This encoding does not
 reencode text for the font used. Rather, it tries to guess the width
@@ -1716,7 +1716,7 @@ are passed to the output back-end verbatim.
 
 @node  Overview of text markup commands
 @subsection Overview of text markup commands
-}
+
 @include markup-commands.tely
 
 

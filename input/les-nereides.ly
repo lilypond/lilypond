@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.4"
+\version "2.3.8"
 \encoding "latin1"
 \header {
     composer = "ARTHUR GRAY"
@@ -298,7 +298,7 @@ theScore = \score{
 
 	    \consists "Skip_event_swallow_translator"
 
-	    \consistsend "Axis_group_engraver"
+	    \consists "Axis_group_engraver"
     	}
 
 	\context {
