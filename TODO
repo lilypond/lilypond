@@ -8,6 +8,38 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr/urg
 
 
+* check out PS points vs. LilyPond points (PS = 1/72 inch, LilyPond=1/72.27)
+
+* Instrument names in the margin. Example: 
+  input/test/hara-kiri.ly. The text should of course
+  be to the left of the staff lines.
+
+* There is a bug in pl 22. Try /input/test/slurs.ly and 
+  you will find '#.#' instead of real numbers at some
+  places in the empedded ps code.
+
+* (Annoying but not a bug:) Slurs that are broken at line 
+  breaks often extend too far into the margin, both to the 
+  left and to the right. How do you adjust it?
+
+* SkipBars=0 doesn't work. My score contains lots of 
+  multibar rests, which should be written out bar by bar
+  in the score (where the 'harakiri' mechanism doesn't
+  remove full staff lines that only contain rests).
+  In the parts, the multibar rests should be split
+  by the rehearsal marks I've included every here and 
+  there.
+  In short, I want the multibar rests to work as they
+  used to do before pl 20 but preferably with a nice
+  centered rest symbol. 
+	* junk backlinks?
+
+	* junk text{sharp,flat,etc}
+
+	* fix convert-mudela manpage
+
+	* automatic staff selection.
+
 	* decimal point in \paper {}
 
 	> I have changed Mark_engraver to use the G_... classes.
@@ -58,11 +90,13 @@ BUGS:
 
 	* fix braces
 
-	* multibar rests: SkipBars=0
-
 	* ly2dvi barfs on linewidth = -1.
 
-	* fix midi output.
+	* fix midi output:
+	   - default duration?  duration must be not entered
+	     explicitely on first note.
+
+	* turn slope-damping on/off
 
 	* c4 \! \> c4
 
@@ -75,8 +109,6 @@ BUGS:
 
 	* repeat/volta:
 	  - one volta spanner per score
-	  - repeat bars span staffs
-	  - placement alternative number
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
@@ -246,9 +278,6 @@ ydirection and hshift preset
 	* en-,discouraged linebreaking: 
 	  - handle DISALLOW < penalty > FORCE
 	  - discourage breaking of slurs
-
-	* multibar rest
-	  - symbol(s)
 
 	* fix variable define/lookup parser global<->paper
 
