@@ -1,3 +1,13 @@
+2004-02-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scripts/lilypond-book.py (Snippet.output_print_filename): new
+	file, process printfilename option.
+	(Snippet.__init__): rewrite: do not use global variables h or
+	index.
+	(main): really support -I option.
+
+	* tex/texinfo.tex: really add file.
+	
 2004-02-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scripts/lilypond-book.py (find_toplevel_snippets): Python < 2.3
