@@ -2,7 +2,7 @@
 
 static char *s = "LilyPond version " VERSIONSTR " compiled on " __DATE__ " at " __TIME__ "\n";
 
-char *
+const char *
 get_version()
 {
    return s;
