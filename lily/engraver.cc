@@ -49,7 +49,9 @@ Engraver::announce_grob (Grob* e, SCM cause)
   if (!i.origin_trans_)
     i.origin_trans_ = this;
 
-  get_daddy_engraver ()->announce_grob (i);
+  Engraver * g = get_daddy_engraver ();
+  if (g)
+    g->announce_grob (i);
 }
 
 
@@ -58,7 +60,8 @@ void
 Engraver::typeset_grob (Grob*p)
 {
   Engraver *dad = get_daddy_engraver ();
-  dad->typeset_grob (p);
+  if (dad)
+    dad->typeset_grob (p);
 }
 
 

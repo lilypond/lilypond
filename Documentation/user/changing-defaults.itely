@@ -44,12 +44,12 @@ entering numbers, lists, strings and symbols in Scheme.
 
 @menu
 * Scheme tutorial::             
-* Context ::                    
-* Fine tuning layout::          
+* Interpretation contexts::     
 * Tuning output::               
+* Fonts::                       
 * Text markup::                 
 * Global layout::               
-* Interpretation context::      
+* Font Size::                   
 * Output details::              
 @end menu
 
@@ -110,7 +110,7 @@ mark @code{#}. So, the previous examples translated in LilyPondese are
 
 @example
   ##t ##f 
-  #1 #1.5
+  #1 #-1.5
   #"this is a string"
   #"this
   is
@@ -227,8 +227,8 @@ respectively,
 @end example
 
 
-@node Context 
-@section Context
+@node Interpretation contexts
+@section Interpretation contexts
 
 When music is printed, a lot of things notation elements must be added
 to the input, which is often bare bones.  For example, compare the
@@ -274,9 +274,11 @@ Translation @arrow{} Context.
 @node Creating contexts
 @subsection Creating contexts
 
-For simple scores, the correct contexts are created automatically. For
-more complex scores, it is necessary to instantiate them by hand.
-There are three commands to do this.
+[TODO: propagation]
+
+For scores with only one voice and one staff, correct contexts are
+created automatically. For more complex scores, it is necessary to
+instantiate them by hand.  There are three commands to do this.
 
 The easiest command is @code{\new}, and it also the quickest to type.
 It is prepended to a  music expression, for example
@@ -300,9 +302,9 @@ Staff}.
   >>
 @end lilypond
 
-
-The @code{\context} command also directs a music expression to a
-context object, but gives the context an extra name. The syntax is
+Like @code{\new}, the @code{\context} command also directs a music
+expression to a context object, but gives the context an extra name. The
+syntax is
 
 @example
   \context @var{type} = @var{id} @var{music}
@@ -390,7 +392,7 @@ in that context. They can be changed during the interpretation step.
 This is achieved by inserting the @code{\set} command in the music,
 
 @quotation
-  @code{\set }[@var{context}]@code{.}@var{prop}@code{ = #}@var{value} 
+  @code{\set } @var{context}@code{.}@var{prop}@code{ = #}@var{value} 
 @end quotation
 
 For example,
@@ -404,9 +406,9 @@ This command skips measures that have no notes. The result is that
 multi rests are condensed.  The value assigned is a Scheme object. In
 this case, it is @code{#t}, the boolean True value.
 
-If the @var{context} argument is left out, then the current
-bottom-most context (typically ChordNames, @context{Voice} or Lyrics)
-is used.  In this example,
+If the @var{context} argument is left out, then the current bottom-most
+context (typically @context{ChordNames}, @context{Voice} or
+@context{Lyrics}) is used.  In this example,
 
 @lilypond[verbatim,relative=2]
   c8 c c c
@@ -419,14 +421,14 @@ the @var{context} argument to @code{\set} is left out, and the current
 @internalsref{Voice} is used.
 
 Contexts are hierarchical, so if a bigger context was specified, for
-example @code{Staff}, then the change would also apply to all
+example @context{Staff}, then the change would also apply to all
 @context{Voice}s in the current stave. The change is applied
 `on-the-fly', during the music, so that the setting only affects the
 second group of eighth notes.
 
 There is also an @code{\unset} command,
 @quotation
-  @code{\set }[@var{context}]@code{.}@var{prop}
+  @code{\set }@var{context}@code{.}@var{prop}
 @end quotation
 
 @noindent
@@ -440,7 +442,9 @@ the definition if it is set in @var{context}. In
 
 @noindent
 the current @context{Voice} does not have the property, and the
-definition at @context{Staff} level remains intact.
+definition at @context{Staff} level remains intact. Like @code{\set},
+the @var{context} argument does not have to be specified for a bottom
+context.
 
 Settings that should only apply to a single time-step can be entered
 easily with @code{\once}, for example in
@@ -493,7 +497,7 @@ lists the engravers used for that context.
 
 It can be useful to shuffle around these plug-ins. This is done by
 starting a new context, with @code{\new} or @code{\context}, and
-modifying them like this, 
+modifying it like this, 
 
 @example
  \new @var{context} \with @{
@@ -524,8 +528,9 @@ example which removes @code{Time_signature_engraver} and
 @end lilypond
 
 In the second stave there are no time signature or clef symbols.  This
-is a rather crude method of making objects disappear, it will affect
-the entire staff. More sophisticated methods are shown in (TODO).
+is a rather crude method of making objects disappear, it will affect the
+entire staff. The spacing will be adversely influenced too. More
+sophisticated methods of blanking objects are shown in (TODO).
 
 The next example shows a practical application.  Bar lines and time
 signatures are normally synchronized across the score.  This is done
@@ -619,9 +624,8 @@ beams, the @code{\override} command must be executed at the moment that
 the object is created. In this example,
 
 
-
 @lilypond[verbatim,relative=2]
-  \override Slur #'thickness = #2.0
+  \override Slur #'thickness = #3.0
   c8[( c
   \override Beam #'thickness = #0.6
   c8 c]) 
@@ -640,6 +644,22 @@ affects settings that were made in the same context. In other words, the
   \override Voice.Stem #'thickness = #4.0
   \revert Staff.Stem #'thickness
 @end verbatim
+
+
+
+
+@seealso
+
+Internals: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
+@internalsref{PropertySet}, @internalsref{All-backend-properties}, and
+@internalsref{All-layout-objects}.
+
+
+@refbugs
+
+The back-end is not very strict in type-checking object properties.
+Cyclic references in Scheme values for properties can cause hangs
+and/or crashes.
 
 
 @node Defining context defaults 
@@ -677,45 +697,54 @@ tips-and-tricks
 examples.
 
 
-@node Fine tuning layout
-@section Fine tuning layout
+@node Tuning output
+@section Tuning output
 
-Sometimes it is necessary to change music layout by hand.  When music
-is formatted, layout objects are created for each symbol.  For
-example, every clef and every note head is represented by a layout
-object.  These layout objects also carry variables, which we call
-@emph{layout properties}. By changing these variables from their
-values, we can alter the look of a formatted score:
 
-@lilypond[verbatim,relative]
-  c4
-  \override Stem #'thickness = #3.0
-  c4 c4 c4 
-@end lilypond
 
-@noindent
-In the example shown here, the layout property @code{thickness} (a
-symbol) is set to 3 in the @code{Stem} layout objects of the current
-As a result, the notes following @code{\override} have thicker
-stems.
 
-For the most part, a manual override is needed only on a case by
-case basis and not for all subsequent instances of the altered
-property. To accomplish this, simply prefix @code{\once} to the
-@code{\override} statement and the override will apply only once,
-immediately reverting to its default setting, i.e.
+There are situations where default layout decisions are not
+sufficient.  In this section we discuss ways to override these
+defaults.
 
+Formatting is internally done by manipulating so called objects
+(graphic objects). Each object carries with it a set of properties
+(object or layout properties) specific to that object.  For example, a
+stem object has properties that specify its direction, length and
+thickness.
+
+The most direct way of tuning the output is by altering the values of
+these properties. There are two ways of doing that: first, you can
+temporarily change the definition of one type of object, thus
+affecting a whole set of objects.  Second, you can select one specific
+object, and set a layout property in that object.
+
+Do not confuse layout properties with translation
+properties. Translation properties always use a mixed caps style
+naming, and are manipulated using @code{\set} and @code{\unset}: 
 @example
- \once \override Stem #'thickness = #3.0
+  \set Context.propertyName = @var{value}
 @end example
 
-@lilypond[relative]
-  c4
-  \once \override Stem #'thickness = #3.0
-  c4 c4 c4 
-@end lilypond
+Layout properties are use Scheme style variable naming, i.e.  lower
+case words separated with dashes. They are symbols, and should always
+be quoted using @code{#'}.  For example, this could be an imaginary
+layout property name:
+@example
+  #'layout-property-name
+@end example
 
-@noindent
+
+@menu
+* Common tweaks::               
+* Constructing a tweak::        
+@end menu
+
+
+
+@node Common tweaks
+@subsection Common tweaks
+
 Some overrides are so common that predefined commands are provided as
 a short cut.  For example, @code{\slurUp} and @code{\stemDown}. These
 commands are described in
@@ -768,10 +797,10 @@ using ties. Normally, ties only connect two notes in the same
 voice. By introducing a tie in a different voice, and blanking a stem
 in that voice, the tie appears to cross voices:
 
-@lilypond[fragment,relative=1,verbatim]
-  c4 << {
+@lilypond[fragment,relative=2,verbatim]
+  << {
       \once \override Stem #'transparent = ##t
-      b8~ b8
+      b8~ b8\noBeam
   } \\ {
        b[ g8]
   } >>
@@ -793,145 +822,8 @@ tweak}:
 
 @end itemize
 
-More specific overrides are also possible.  The notation manual
-discusses in depth how to figure out these statements for yourself, in
-@ref{Tuning output}.
-
-
-
-
-@node Tuning output
-@section Tuning output
-
-There are situations where default layout decisions are not
-sufficient.  In this section we discuss ways to override these
-defaults.
-
-Formatting is internally done by manipulating so called objects
-(graphic objects). Each object carries with it a set of properties
-(object or layout properties) specific to that object.  For example, a
-stem object has properties that specify its direction, length and
-thickness.
-
-The most direct way of tuning the output is by altering the values of
-these properties. There are two ways of doing that: first, you can
-temporarily change the definition of one type of object, thus
-affecting a whole set of objects.  Second, you can select one specific
-object, and set a layout property in that object.
-
-Do not confuse layout properties with translation
-properties. Translation properties always use a mixed caps style
-naming, and are manipulated using @code{\set} and @code{\unset}: 
-@example
-  \set Context.propertyName = @var{value}
-@end example
-
-Layout properties are use Scheme style variable naming, i.e.  lower
-case words separated with dashes. They are symbols, and should always
-be quoted using @code{#'}.  For example, this could be an imaginary
-layout property name:
-@example
-  #'layout-property-name
-@end example
-
-
-@menu
-* Tuning objects::              
-* Constructing a tweak::        
-* Selecting font sizes::        
-* Font selection::              
-@end menu
-
-
-
-@node Tuning objects
-@subsection Tuning objects 
-
-@cindex object description
-
-The definition of an object is a list of default object
-properties. For example, the definition of the Stem object (available
-in @file{scm/define-grobs.scm}), includes the following definitions
-for @internalsref{Stem}:
-
-@example
-        (thickness . 1.3)
-	(beamed-lengths . (3.5 3.5 3.5 4.5 5.0))
-        (Y-extent-callback . ,Stem::height)
-        @var{...}
-@end example
-
-
-Adding variables on top of this existing definition overrides the
-system default, and alters the resulting appearance of the layout
-object.
-
-
-
-Changing a variable for only one object is commonly achieved with
-@code{\once}:
-
-@example
-\once \override @var{context}.@var{objectname}
-    @var{symbol} = @var{value}
-@end example
-Here @var{symbol} is a Scheme expression of symbol type, @var{context}
-and @var{objectname} is a string and @var{value} is a Scheme expression.
-This command applies a setting only during one moment in the score.
-
-In the following example, only one @internalsref{Stem} object is
-changed from its original setting:
-
-@lilypond[verbatim,fragment,relative=1]
-  c4 
-  \once \override Voice.Stem #'thickness = #4
-  c4
-  c4
-@end lilypond
-@cindex @code{\once}
-
-For changing more objects, the same command, without @code{\once} can
-be used:
-@example
-\override @var{context}.@var{objectname}   @var{symbol} = @var{value}
-@end example
-This command adds @code{@var{symbol} = @var{value}} to the definition
-of @var{objectname} in the context @var{context}, and this definition
-stays in place until it is removed.
-
-An existing definition may be removed by the following command:
-@c
-@example
-\property @var{context}.@var{objectname} \revert @var{symbol}
-@end example
-@c
-
-Some examples: 
-@lilypond[verbatim]
-c'4 \override Stem   #'thickness = #4.0
-c'4
-c'4 \revert Stem #'thickness
-c'4
-@end lilypond
-
-
-
-Reverting a setting which was not set in the first place has no
-effect.
-
-
-@seealso
-
-Internals: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
-@internalsref{PropertySet}, @internalsref{All-backend-properties}, and
-@internalsref{All-layout-objects}.
-
-
-@refbugs
-
-The back-end is not very strict in type-checking object properties.
-Cyclic references in Scheme values for properties can cause hangs
-and/or crashes.
+More specific overrides are also possible.  The following section
+discusses in depth how to figure out these statements for yourself.
 
 
 @node Constructing a tweak
@@ -1086,6 +978,13 @@ Internals: the program reference also contains alphabetical lists of
 @internalsref{Music-expressions}, so you can also find which objects
 to tweak by browsing the internals document.
 
+@node Fonts
+@section Fonts
+
+@menu
+* Selecting font sizes::        
+* Font selection::              
+@end menu
 
 @node Selecting font sizes
 @subsection Selecting font sizes
@@ -1348,9 +1247,6 @@ are chosen whenever the page gets full.
 @menu
 * Vertical spacing::            
 * Horizontal spacing::          
-* Font Size::                   
-* Line breaking::               
-* Page layout::                 
 @end menu
 
 
@@ -1522,7 +1418,7 @@ There is no convenient mechanism to manually override spacing.
 
 
 @node Font Size
-@subsection Font size
+@section Font size
 
 @cindex font size, setting
 @cindex staff size, setting
@@ -1600,6 +1496,13 @@ fonts accordingly.
 
 This manual: @ref{Selecting font sizes}.
 
+
+@menu
+* Line breaking::               
+* Page layout::                 
+* Defining contexts::           
+* Defining new contexts::       
+@end menu
 
 @node Line breaking
 @subsection Line breaking
@@ -1734,87 +1637,6 @@ LilyPond has no concept of page layout, which makes it difficult to
 reliably choose page breaks in longer pieces.
 
 
-@node Interpretation context
-@section Interpretation context
-
-@menu
-* Context properties::          
-* Defining contexts::           
-* Changing contexts locally::   
-* Engravers and performers::    
-* Defining new contexts::       
-@end menu
-
-
-Interpretation contexts are objects that only exist during program
-run.  During the interpretation phase (when @code{interpreting music}
-is printed on the standard output), the music expression in a
-@code{\score} block is interpreted in time order, the same order in
-which we hear and play the music.  During this phase, the interpretation
-context holds the state for the current point within the music, for
-example:
-@itemize @bullet
-@item What notes are playing at this point?
-
-@item What symbols will be printed at this point?
-
-@item What is the current key signature, time signature, point within
-the measure, etc.?
-@end itemize
-
-Contexts are grouped hierarchically: A @internalsref{Voice} context is
-contained in a @internalsref{Staff} context (because a staff can contain
-multiple voices at any point), a @internalsref{Staff} context is contained in
-@internalsref{Score}, @internalsref{StaffGroup}, or
-@internalsref{ChoirStaff} context.
-
-Contexts associated with sheet music output are called @emph{notation
-contexts}, those for sound output are called @emph{performance
-contexts}.  The default definitions of the standard notation and
-performance contexts can be found in @file{ly/engraver-init.ly} and
-@file{ly/performer-init.ly}, respectively.
-
-
-
-@node Context properties
-@subsection Context properties
-
-Contexts have properties.  These properties are set from the @file{.ly}
-file using the following expression:
-@cindex context properties
-@cindex properties, context
-
-@example
-\set @var{contextname}.@var{propname} = @var{value}
-@end example
-
-@noindent
-Sets the @var{propname} property of the context @var{contextname} to
-the specified Scheme expression @var{value}.  Both @var{propname} and
-@var{contextname} are strings, which can often be written unquoted.
-
-@cindex inheriting
-Properties that are set in one context are inherited by all of the
-contained contexts.  This means that a property valid for the
-@internalsref{Voice} context can be set in the @internalsref{Score} context
-(for example) and thus take effect in all @internalsref{Voice} contexts.
-
-Properties can be unset using the following statement.
-@example
-\unset @var{contextname}.@var{propname} 
-@end example
-
-@cindex properties, unsetting
-@cindex @code{\unset}
-
-@noindent
-This removes the definition of @var{propname} in @var{contextname}.  If
-@var{propname} was not defined in @var{contextname} (but was inherited
-from a higher context), then this has no effect.
-
-If @var{contextname} is left out, then it defaults to the current
-``bottom'' context: this is a context like @internalsref{Voice} that
-cannot contain any other contexts.
 
 
 @node Defining contexts
@@ -1859,93 +1681,7 @@ It is not possible to collect multiple property assignments in a
 variable, and apply to one @code{\context} definition by
 referencing that variable.
 
-@node Changing contexts locally
-@subsection Changing contexts locally
 
-
-Extending an existing context can also be done locally. A piece of
-music can be interpreted in a changed context by using the following syntax
-
-@example
-  \with @{
-     @var{context modifications}
-  @}
-@end example
-
-These statements comes between @code{\new} or @code{\context} and the
-music to be interpreted. The @var{context modifications} property
-settings and @code{\remove}, @code{\consists} and @code{\consistsend}
-commands. The syntax is similar to the @code{\context} block.
-
-The following example shows how a staff is created with bigger spaces,
-and without a @code{Clef_engraver}.
-
-@lilypond[relative=1,fragment,verbatim]
-<<
-  \new Staff { c4 es4 g2 }
-  \new Staff \with {
-        \override StaffSymbol #'staff-space = #(magstep 1.5)
-        fontSize = #1.5
-        \remove "Clef_engraver"
-  } {
-        c4 es4 g2
-  } >>
-@end lilypond
-
-@refbugs
-
-The command @code{\with} has no effect on contexts that already
-exist. 
-
-
-@node Engravers and performers
-@subsection  Engravers and performers
-
-
-Each context is composed of a number of building blocks, or plug-ins
-called engravers.  An engraver is a specialized C++ class that is
-compiled into the executable. Typically, an engraver is responsible
-for one function: the @code{Slur_engraver} creates only @code{Slur}
-objects, and the @code{Skip_event_swallow_translator} only swallows
-(silently gobbles) @code{SkipEvent}s.
-
-
-
-@cindex engraver
-@cindex plug-in
-
-An existing context definition can be changed by adding or removing an
-engraver. The syntax for these operations is
-@example
-\consists @var{engravername}
-\remove @var{engravername}
-@end example
-
-@cindex @code{\consists}
-@cindex @code{\remove}
-
-@noindent
-Here @var{engravername} is a string, the name of an engraver in the
-system. In the following example, the @code{Clef_engraver} is removed
-from the Staff context. The result is a staff without a clef, where
-the middle C is at its default position, the center line:
-
-@lilypond[verbatim,raggedright]
-\score {
-  \notes {
-    c'4 f'4
-  }
-  \paper {
-    \context {
-      \StaffContext
-      \remove Clef_engraver
-    }
-  }
-}
-@end lilypond
-
-A list of all engravers is in the internal documentation,
-see @internalsref{Engravers}.
 
 @node Defining new contexts
 @subsection Defining new contexts
