@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: 1999-08-20 18:48+0200\n"
+"POT-Creation-Date: 1999-09-15 23:21+0200\n"
 "Content-Type: text/plain; charset=\n"
 "Date: 1998-05-26 11:26:28+0200\n"
 "From:  <janneke@gnu.org>\n"
@@ -43,12 +43,7 @@ msgstr "optie `%s' staat geen argument toe"
 msgid "unrecognized option: `%s'"
 msgstr "onbekende optie: `%s'"
 
-#: getopt-long.cc:151
-#, c-format
-msgid "%c"
-msgstr ""
-
-#: getopt-long.cc:155
+#: getopt-long.cc:156
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "onjuist argument: `%s' voor optie `%s'"
@@ -75,17 +70,9 @@ msgstr "Niet noodlottige fout: "
 msgid "position unknown"
 msgstr "positie onbekend"
 
-#: mapped-file-storage.cc:65
-msgid "map_fd: "
-msgstr ""
-
 #: mapped-file-storage.cc:74
 msgid "can't map file"
 msgstr "kan bestand niet inkaarten"
-
-#: mapped-file-storage.cc:109
-msgid "vm_deallocate: "
-msgstr ""
 
 #: simple-file-storage.cc:56
 #, c-format
@@ -122,16 +109,16 @@ msgstr "Kan verval font `%s' niet vinden, ik geef op."
 
 #: all-font-metrics.cc:75
 #, c-format
-msgid "search path = %s"
-msgstr "zoek pad = %s"
+msgid "(search path: `%s)'"
+msgstr "(zoekpad: `%s')"
 
 #: beam-engraver.cc:42
 msgid "No Beam to end"
-msgstr "Geen Balk te beëidigen"
+msgstr "geen Balk te beëidigen"
 
 #: beam-engraver.cc:58
 msgid "No beam to end"
-msgstr "Geen balk te beëindigen"
+msgstr "geen balk te beëindigen"
 
 #: beam-engraver.cc:87
 msgid "Already have a Beam"
@@ -153,13 +140,13 @@ msgstr "stok past niet in balk"
 msgid "beam was started here"
 msgstr "balk is hier gestart"
 
-#: beam.cc:142
+#: beam.cc:147
 msgid "beam with less than two stems"
 msgstr "balk met minder dan twee stokken"
 
-#: beam.cc:307
+#: beam.cc:312
 msgid "weird beam shift, check your knees"
-msgstr "vreemde balk verplaatsing, controleer uw knie-en"
+msgstr "vreemde balk verplaatsing, controleer balken"
 
 #: break-algorithm.cc:25
 msgid "0 lines"
@@ -201,33 +188,33 @@ msgstr "kan `%s' niet in `%s' veranderen"
 
 #: chord-tremolo-engraver.cc:41 chord-tremolo-engraver.cc:58
 msgid "No abbreviation beam to end"
-msgstr ""
+msgstr "Geen tremolo balk te beëindigen"
 
 #: chord-tremolo-engraver.cc:83
 msgid "Already have an abbreviation beam"
-msgstr ""
+msgstr "Heb al een tremolo balk"
 
 #: chord-tremolo-engraver.cc:124
 msgid "Unfinished abbreviation beam"
-msgstr ""
+msgstr "Onbeëindigde tremolo balk"
 
 #: chord.cc:231
 #, c-format
 msgid "invalid subtraction: not part of chord: %s"
-msgstr ""
+msgstr "ongeldige aftrek: maakt geen deel uit van accoord: %s"
 
 #: chord.cc:245
 #, c-format
 msgid "invalid inversion pitch: not part of chord: %s"
-msgstr ""
+msgstr "ongeldige inversie toon: maakt geen deel uit van accoord: %s"
 
 #: clef-engraver.cc:178
 msgid "unknown clef type "
-msgstr "onbekende sleutel"
+msgstr "onbekend type sleutel "
 
 #: collision.cc:95
-msgid "Too many clashing notecolumns. Ignoring them."
-msgstr "Te veel botsende nootkolommen.  Ik negeer ze."
+msgid "Too many clashing notecolumns.  Ignoring them."
+msgstr "Te veel botsende nootkolommen.  Negeer ze."
 
 #: crescendo.cc:42
 msgid "crescendo"
@@ -243,7 +230,7 @@ msgstr "Drijvende komma uitzondering"
 
 #: debug.cc:139
 msgid "can't set mem-checking"
-msgstr ""
+msgstr "kan geheugen controle niet zetten"
 
 #: dimensions.cc:13
 msgid "NaN"
@@ -251,15 +238,15 @@ msgstr "NaN"
 
 #: dynamic-engraver.cc:109
 msgid "Got a dynamic already.  Continuing dazed and confused"
-msgstr ""
+msgstr "Heb al een dynamiek.  Ga verder, verstrooid en verward"
 
 #: dynamic-engraver.cc:162
 msgid "can't find (de)crescendo to end"
-msgstr ""
+msgstr "kan te beëindigen (de)crescendo niet vinden"
 
 #: dynamic-engraver.cc:216
 msgid "Too many crescendi here"
-msgstr ""
+msgstr "Te veel cescendi hier"
 
 #: dynamic-engraver.cc:254
 msgid "unended crescendo"
@@ -267,28 +254,30 @@ msgstr "niet beeindigd crescendo"
 
 #: encompass-info.cc:32
 msgid "Slur over rest?"
-msgstr ""
+msgstr "Boogje over rust?"
 
 #: encompass-info.cc:67 stem-info.cc:140
 msgid ""
 "minVerticalAlign != maxVerticalAlign: interstaff beams/slurs may be broken"
 msgstr ""
+"minVerticalAlign != maxVerticalAlign: balken/boogjes tussen notenbalken "
+"kunnen breken"
 
 #: extender-engraver.cc:62
 msgid "unterminated extender"
-msgstr ""
+msgstr "onbeëindigde extender"
 
 #: folded-repeat-iterator.cc:64
 msgid "No one to print a repeat brace"
-msgstr ""
+msgstr "Niemand om een herhalings haak af te drukken"
 
 #: grace-iterator.cc:43
 msgid "No Grace context available!"
-msgstr ""
+msgstr "Geen Grace context voor handen"
 
 #: grace-position-engraver.cc:89
-msgid "Unattached grace notes. Attaching to last musical column."
-msgstr ""
+msgid "Unattached grace notes.  Attaching to last musical column."
+msgstr "Losse grace noten.  Maak ze vast aan vorige muziekale kolom."
 
 #: hyphen-engraver.cc:60
 msgid "unterminated hyphen"
@@ -296,24 +285,22 @@ msgstr "onafgesloten balk"
 
 #: identifier.cc:46
 msgid "Wrong identifier type: "
-msgstr ""
+msgstr "Verkeerd type identifier: "
 
 #: identifier.cc:47
 #, c-format
 msgid "%s expected"
 msgstr "%s verwacht"
 
-#: includable-lexer.cc:47 midi-score-parser.cc:24 scores.cc:108 scores.cc:114
+#: includable-lexer.cc:47 lily-guile.cc:82 lily-guile.cc:105
+#: midi-score-parser.cc:24 scores.cc:108 scores.cc:114
 #, c-format
 msgid "can't find file: `%s'"
 msgstr "kan bestand niet vinden: `%s'"
 
-#: includable-lexer.cc:48
-#, c-format
-msgid ""
-"\n"
-"Search path is `%s'\n"
-msgstr ""
+#: includable-lexer.cc:49 lookup.cc:104 scores.cc:109
+msgid "(search path: `%s')"
+msgstr "(zoekpad: `%s')"
 
 #: ineq-constrained-qp.cc:169
 #, c-format
@@ -322,29 +309,24 @@ msgstr "Ineq_constrained_qp::solve (): voorwaarde zit er %f naast"
 
 #: ineq-constrained-qp.cc:233
 msgid "didn't converge!"
-msgstr "ik convergederde niet!"
+msgstr "convergeerde niet!"
 
 #: ineq-constrained-qp.cc:235
 msgid "Too much degeneracy. "
-msgstr ""
+msgstr "Te veel degenaratie. "
 
 #: key-def.cc:31
 msgid "No key name: assuming `C'"
-msgstr ""
+msgstr "Geen toonsoort: ga uit van `C'"
 
 #: key-def.cc:92
 msgid "don't know how handle empty keys"
-msgstr ""
+msgstr "weet niet hoe lege toonsoorten te behandelen"
 
 #: lily-guile.cc:84 lily-guile.cc:107
 #, c-format
-msgid "Can not find file `%s'"
-msgstr ""
-
-#: lily-guile.cc:86 lily-guile.cc:109
-#, c-format
-msgid "(Load path is `%s'"
-msgstr ""
+msgid "(load path: `%s')"
+msgstr "(zoekpad: `%s')"
 
 #: local-key-engraver.cc:42
 msgid "out of tune"
@@ -355,23 +337,17 @@ msgid "can't find"
 msgstr "kan niet vinden"
 
 #: lookup.cc:103
-#, c-format
-msgid "Can't open `%s'\n"
-msgstr ""
-
-#: lookup.cc:104
-#, c-format
-msgid "Search path %s\n"
-msgstr ""
+msgid "can't find font: `%s'"
+msgstr "kan font niet vinden: `%s'"
 
 #: lookup.cc:105
 msgid "Aborting"
-msgstr ""
+msgstr "Breek af"
 
 #: lookup.cc:436
 #, c-format
 msgid "Non-matching braces in text `%s', adding braces."
-msgstr ""
+msgstr "Ongepaarde haakjes in tekst `%s', voeg haakje toe."
 
 #: main.cc:68
 msgid "BASENAME"
@@ -391,7 +367,7 @@ msgstr "deze hulp"
 
 #: main.cc:71
 msgid "switch on experimental features"
-msgstr "doe experimentele kunstjes"
+msgstr "zet experimentele kunstjes aan"
 
 #: main.cc:72 main.cc:91
 msgid "enable debugging output"
@@ -466,29 +442,33 @@ msgstr "Opties:"
 msgid "This binary was compiled with the following options:"
 msgstr "Dit programma is vertaald met de volgende instellingen:"
 
-#: main.cc:118 main.cc:119
+#: main.cc:119
 msgid "Report bugs to"
 msgstr "Rapporteer bugs naar"
 
-#: main.cc:52 main.cc:134
+#: main.cc:52 main.cc:135
 #, c-format
 msgid ""
-"This is free software.  It is covered by the GNU General Public License,and "
-"you are welcome to change it and/or distribute copies of it undercertain "
-"conditions.  Invoke as `%s --warranty' for more information.\n"
+"This is free software.  It is covered by the GNU General Public License,\n"
+"and you are welcome to change it and/or distribute copies of it under\n"
+"certain conditions.  Invoke as `%s --warranty' for more information.\n"
 msgstr ""
+"Dit is vrije programmatuur.  Het valt onder de GNU Algemene Openbare\n"
+"Licentie, en u wordt uitgenodigd het te veranderen en/of te verspreiden\n"
+"onder bepaalde voorwaarden.  Roep aan als `%s --warranty' voor meer\n"
+"informatie.\n"
 
-#: main.cc:59 main.cc:141 main.cc:153
+#: main.cc:59 main.cc:142 main.cc:154
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s "
 
 #. GNU GNU?
-#: main.cc:151
+#: main.cc:152
 msgid "GNU LilyPond -- The GNU Project music typesetter"
 msgstr "GNU LilyPond -- De Muziekzetter van het GNU Project"
 
-#: main.cc:68 main.cc:159
+#: main.cc:68 main.cc:160
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -504,7 +484,7 @@ msgid ""
 "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
 "USA.\n"
 msgstr ""
-"    Dit programma is vrij bedenksel; u mag het verspreiden en/of\n"
+"    Dit programma is vrije programmatuur; u kunt het verspreiden en/of\n"
 "veranderen onder de voorwaarden van de GNU Algemene Openbare Licentie\n"
 "versie 2, zoals gepubliceerd door de Free Software Foundation.\n"
 "\n"
@@ -513,15 +493,15 @@ msgstr ""
 "het UITBATEN of als zijnde GESCHIKT VOOR EEN BEPAALD DOEL.  Zie de GNU\n"
 "Algemene Openbare Licentie voor details.\n"
 "\n"
-"    Als het goed is, heeft u bij dit programma een copie (zie het bestand\n"
-"COPYING) ontvangen van de GNU Algemene Openbare Licentie; zoniet, schrijf\n"
-"dan naar de Free Software Foundation, Inc., 675 Mass Ave, Cambridge, \n"
-"MA 02139, USA.\n"
+"    Als het goed is, heeft u bij dit programma een exemplaar (zie het\n"
+"bestand COPYING) ontvangen van de GNU Algemene Openbare Licentie;\n"
+"zoniet, schrijf dan naar de Free Software Foundation, Inc.,\n"
+"675 Mass Ave, Cambridge, MA 02139, USA.\n"
 
 #: midi-item.cc:303
 #, c-format
 msgid "No such instrument: `%s'"
-msgstr ""
+msgstr "Geen zulks instrument: `%s'"
 
 #: midi-item.cc:357
 #, c-format
@@ -538,15 +518,15 @@ msgstr "rare toonhoogte"
 
 #: midi-stream.cc:29 paper-stream.cc:36
 msgid "error syncing file (disk full?)"
-msgstr "kan file niet wegschrijven (disk vol?)"
+msgstr "fout by synchroniseren van bestand (disk vol?)"
 
 #: music-output-def.cc:56
 msgid "Interpretation context with empty type"
-msgstr ""
+msgstr "Vertaal context met leeg type"
 
 #: music-output-def.cc:83
-msgid "Can't find Score context"
-msgstr ""
+msgid "can't find Score context"
+msgstr "kan Score context niet vinden"
 
 #: musical-request.cc:42
 #, c-format
@@ -561,12 +541,12 @@ msgstr "`\\%s' wordt opnieuw gedeclareerd"
 #: my-lily-lexer.cc:143
 #, c-format
 msgid "Identifier name is a keyword (`%s')"
-msgstr ""
+msgstr "Identifier naam is een sleutelwoord (`%s')"
 
 #: my-lily-lexer.cc:172
 #, c-format
 msgid "error at EOF: %s"
-msgstr "fout aan het einde van file: %s"
+msgstr "fout bij EOF: %s"
 
 #: my-lily-parser.cc:60
 msgid "Parsing..."
@@ -574,26 +554,26 @@ msgstr "Ontleden..."
 
 #: my-lily-parser.cc:69
 msgid "braces don't match"
-msgstr "haakjes passen niet"
+msgstr "haakjes paren niet"
 
 #: paper-def.cc:95
 #, c-format
 msgid "unknown paper variable: `%s'"
-msgstr "onbekende \\paper variabele"
+msgstr "onbekende papier varanderlijke: `%s'"
 
 #: paper-def.cc:99
 msgid "not a real variable"
-msgstr "variabele is geen reeal getal"
+msgstr "niet een reële veranderlijke"
 
 #. for now; breaks -fscm output
 #: paper-def.cc:251
 msgid "outputting Score, defined at: "
-msgstr ""
+msgstr "uitvoer Score, gedefinieerd op: "
 
 #: paper-def.cc:280
 #, c-format
 msgid "Paper output to %s..."
-msgstr ""
+msgstr "Papier uitvoer naar %s..."
 
 #: mudela-stream.cc:85 paper-outputter.cc:76 performance.cc:97
 msgid ", at "
@@ -602,7 +582,7 @@ msgstr ", bij "
 #: paper-outputter.cc:130
 #, c-format
 msgid "Improbable offset for object type `%s'"
-msgstr ""
+msgstr "Onwaarschijnlijke verschuiving voor object type `%s'"
 
 #: paper-score.cc:131
 msgid "Can't solve this casting problem exactly; revert to Word_wrap"
@@ -618,15 +598,15 @@ msgstr "Berekenen van kolomposities..."
 
 #: paper-score.cc:179
 msgid " elements. "
-msgstr ""
+msgstr " elementen. "
 
 #: paper-score.cc:182
 msgid "Line ... "
-msgstr ""
+msgstr "Regel ..."
 
 #: performance.cc:50
 msgid "Track ... "
-msgstr ""
+msgstr "Spoor ... "
 
 #. perhaps multiple text events?
 #: performance.cc:77
@@ -658,16 +638,16 @@ msgstr "schroot verzoek: `%s'"
 
 #: request-chord-iterator.cc:76
 #, c-format
-msgid "Huh? Not a Request: `%s'"
-msgstr ""
+msgid "Huh?  Not a Request: `%s'"
+msgstr "Huh?  Geen Request: `%s'"
 
 #: rest-collision.cc:64
 msgid "Too many colliding rests."
-msgstr ""
+msgstr "Te veer botsende rusten."
 
 #: rest-collision.cc:68
 msgid "Too many notes for rest collision."
-msgstr ""
+msgstr "Te veel noten voor bosting met rusten."
 
 #: score-engraver.cc:149
 #, c-format
@@ -676,7 +656,7 @@ msgstr "Vrijgezelle spanner `%s'"
 
 #: score.cc:56
 msgid "no toplevel translator"
-msgstr ""
+msgstr "geen hoogste niveau vertaler"
 
 #: score.cc:59
 msgid "Interpreting music..."
@@ -689,7 +669,7 @@ msgstr "zonder muziek geen partituur"
 #. should we? hampers debugging.
 #: score.cc:83
 msgid "errors found, /*not processing score*/"
-msgstr ""
+msgstr "fouten gevonden, /*verwerk partituur niet */"
 
 #: score.cc:88
 #, c-format
@@ -699,16 +679,11 @@ msgstr "duur: %.2f seconden"
 #: scores.cc:35
 #, c-format
 msgid "writing dependency file: `%s'..."
-msgstr ""
+msgstr "schijven van afhankelijkheden bestand: `%s'..."
 
 #: scores.cc:79
 msgid "score contains errors; will not process it"
-msgstr ""
-
-#: scores.cc:109
-#, c-format
-msgid "Search path: %s"
-msgstr ""
+msgstr "partituur bevat fouten; zal hem niet verwerken"
 
 #: script-engraver.cc:49
 #, c-format
@@ -716,13 +691,13 @@ msgid "don't know how to interpret articulation `%s'\n"
 msgstr ""
 
 #. this shouldn't happen, but let's continue anyway.
-#: single-malt-grouping-item.cc:42
+#: single-malt-grouping-item.cc:43
 msgid "Single_malt_grouping_item: I've been drinking too much"
 msgstr ""
 
 #: slur-engraver.cc:64
 msgid "unterminated slur"
-msgstr "onsterfelijke boog"
+msgstr "onbeëindigde boog"
 
 #: slur-engraver.cc:80
 #, c-format
@@ -731,27 +706,27 @@ msgstr "kan uiteinden van %s niet beide vinden"
 
 #: slur-engraver.cc:80
 msgid "slur"
-msgstr ""
+msgstr "boog"
 
-#: slur.cc:39
+#: slur.cc:38
 msgid "Putting slur over rest. Ignoring"
 msgstr ""
 
-#: spacing-spanner.cc:215
+#: spacing-spanner.cc:218
 #, c-format
 msgid "can't find a ruling note at %s"
 msgstr ""
 
-#: spacing-spanner.cc:221
+#: spacing-spanner.cc:224
 #, c-format
 msgid "no minimum in measure at %s"
 msgstr ""
 
-#: spanner.cc:39
+#: spanner.cc:41
 msgid "left spanpoint is right spanpoint\n"
 msgstr ""
 
-#: spanner.cc:109
+#: spanner.cc:111
 #, c-format
 msgid "Spanner `%s' with equal left and right spanpoints"
 msgstr ""
@@ -762,6 +737,15 @@ msgstr ""
 
 #: spring-spacer.cc:295
 msgid "solution doesn't satisfy constraints"
+msgstr ""
+
+#: spring-spacer.cc:378
+#, c-format
+msgid "Improbable distance: %f point, setting to 10 mm"
+msgstr ""
+
+#: spring-spacer.cc:383
+msgid "Negative distance. Setting to 10 mm"
 msgstr ""
 
 #: stem-engraver.cc:80
@@ -964,33 +948,10 @@ msgid ""
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
-"\n"
 msgstr ""
 "LilyPond is een muziekzetter.  Zij maakt prachtige bladmuziek\n"
 "uitgaande van een hoog niveau beschrijving bestand.  LilyPond \n"
 "maakt deel uit van het GNU Project.\n"
-"\n"
-
-#: out/COPERTINA.hh:2
-msgid ""
-"LilyPond è il programma di notazione musicale del progetto\n"
-"GNU. Questo programma può generare delle ottime partiture musicali\n"
-"a partire da un file contenente la descrizione della musica. Può\n"
-"anche generare esecuzioni meccaniche della partitura in formato\n"
-"MIDI. Le caratteristiche del programma includono un versatile\n"
-"linguaggio di descrizione musicale, pentagrammi multipli, segni di\n"
-"divisione, chiavi, tasti, parole, cadenze, legature, acciaccature,\n"
-"terzine, segni di formattazione ed estrazione delle parte. Nella\n"
-"distribuzione è compreso anche un fort di simboli musicali.\n"
-"\n"
-msgstr ""
-
-#: out/FLAPTEKST.hh:2
-msgid ""
-"LilyPond is een muziekzetter.  Zij maakt prachtige bladmuziek\n"
-"uitgaande van een hoog niveau beschrijving bestand.  LilyPond \n"
-"maakt deel uit van het GNU Project.\n"
-msgstr ""
 
 #: main.cc:90
 msgid "write exact durations, e.g.: a4*385/384"
@@ -1168,43 +1129,3 @@ msgstr ""
 #, c-format
 msgid "% from input file: "
 msgstr ""
-
-#~ msgid "this help "
-#~ msgstr "deze hulp"
-
-#~ msgid "GNU LilyPond is Free Software, see --warranty"
-#~ msgstr "GNU LilyPond is Vrij bedenksel, zie --warranty"
-
-#~ msgid "Midi2ly, translate midi to mudela"
-#~ msgstr "Midi2ly, vertaal midi naar mudela"
-
-#~ msgid "of"
-#~ msgstr "van"
-
-#~ msgid "please fix me"
-#~ msgstr "repareer mij alsjeblieft"
-
-#~ msgid "stem at %s doesn't fit in beam"
-#~ msgstr "stok op %s past niet in balk"
-
-#~ msgid "No stem direction set. Ignoring column in clash."
-#~ msgstr "Geen stokrichting gezet.  Negeer kolom in botsing."
-
-#~ msgid "script needs stem direction"
-#~ msgstr "schrift benodigt stokrichting"
-
-#~ msgid ""
-#~ "LilyPond is the GNU Project music typesetter.  This program can print\n"
-#~ "beautiful sheet music from a music definition file.  It can also play\n"
-#~ "mechanical performances to a MIDI file.  Features include multiple\n"
-#~ "staffs, meters, clefs, keys, lyrics, versatile input language, cadenzas,\n"
-#~ "beams, slurs, triplets, named chords, transposing, formatting scores, \n"
-#~ "part extraction.  It includes a nice font of musical symbols.\n"
-#~ msgstr ""
-#~ "LilyPond is de muziekzetter van het GNU Project.  Dit programma drukt\n"
-#~ "prachtige bladmuziek volgens een muzikaal definitie bestand.  Ook kan\n"
-#~ "het een mechanische uitvoering afspelen naar een MIDI bestand.\n"
-#~ "Bijzondere kunstjes zijn verscheidene notenbalken, maatsoorten, sleutels, \n"
-#~ "toonaarden, zangteksten, krachtige invoer taal, cadensa, balken, boogjes, \n"
-#~ "triolen, accoordnamen, transponeren, partituren, en uittreksels voor \n"
-#~ "individuele partijen.  Een fraaie set muziektekens is inbegrepen.\n"

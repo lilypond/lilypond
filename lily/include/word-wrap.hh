@@ -15,7 +15,6 @@
 /// wordwrap type algorithm: move to next line if current is optimal.
 struct Word_wrap : Break_algorithm {
     virtual Array<Column_x_positions> do_solve() const;
-    Word_wrap();
 };
 
 #endif // WORD_WRAP_HH

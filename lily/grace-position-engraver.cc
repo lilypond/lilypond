@@ -86,7 +86,7 @@ Grace_position_engraver::do_pre_move_processing ()
       if (elt)
 	return;
 
-      warning (_("Unattached grace notes. Attaching to last musical column."));
+      warning (_("Unattached grace notes.  Attaching to last musical column."));
       Axis_group_element * ae = dynamic_cast<Axis_group_element*> (elt);
       if (ae)
 	ae->remove_element (align_l_);

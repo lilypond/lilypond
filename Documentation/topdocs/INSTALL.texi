@@ -26,7 +26,7 @@ LilyPond more often.
 @section Obtaining
 
 You can get the latest version of LilyPond at
-@url{ ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.  Refer to the links
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.  Refer to the links
 document for mirror sites.
 
 @emph{If you upgrade by patching do remember to rerun autoconf after
@@ -48,30 +48,30 @@ disk-space run configure with @code{--disable-debugging}.
 Although we recommend to use Unix, LilyPond is known to run on Windows
 NT/95/98 as well.  See Section @xref{w32}.
 
-@item  EGCS 1.1 or newer. Check out @url{ ftp://ftp.gnu.org/pub/gcc/}
+@item  EGCS 1.1 or newer. Check out @uref{ ftp://ftp.gnu.org/pub/gcc/, ftp://ftp.gnu.org/pub/gcc/}
 
 @item  Python 1.5,
 Check out
-@url{ftp://ftp.python.org} or @url{ftp://ftp.cwi.nl/pub/python}.
+@uref{ftp://ftp.python.org,ftp://ftp.python.org} or @uref{ftp://ftp.cwi.nl/pub/python,ftp://ftp.cwi.nl/pub/python}.
 
-@item  GUILE 1.3,  check out @url{http://www.gnu.org/software/guile/guile.html}.
+@item  GUILE 1.3,  check out @uref{http://www.gnu.org/software/guile/guile.html,http://www.gnu.org/software/guile/guile.html}.
 
 @item GNU make. 
-Check out @url{ftp://ftp.gnu.org/make/}.
+Check out @uref{ftp://ftp.gnu.org/make/,ftp://ftp.gnu.org/make/}.
 
 @item Flex (version 2.5.4 or newer). 
-Check out @url{ftp://ftp.gnu.org/flex/}.
+Check out @uref{ftp://ftp.gnu.org/flex/,ftp://ftp.gnu.org/flex/}.
 
 @item Bison (version 1.25 or newer).
-Check out @url{ftp://ftp.gnu.org/bison/}.
+Check out @uref{ftp://ftp.gnu.org/bison/,ftp://ftp.gnu.org/bison/}.
 
-@item Texinfo. Check out @url{ftp://ftp.gnu.org/pub/texinfo/}.
+@item Texinfo. Check out @uref{ftp://ftp.gnu.org/pub/texinfo/,ftp://ftp.gnu.org/pub/texinfo/}.
 Most documentation is in texinfo.
 
 @item The geometry package for LaTeX is needed to use ly2dvi.  
 Available at 
-@url{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry}
-or at mirror site @url{ftp://ftp.dante.de}
+@uref{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry,ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry}
+or at mirror site @uref{ftp://ftp.dante.de,ftp://ftp.dante.de}
 
 @item MetaPost, if you want to use direct PostScript output. Please
 note  that  tetex-0.4pl8 (included with Redhat 5.x) does not include
@@ -89,7 +89,7 @@ following software
 @item A PostScript printer and/or viewer (such as Ghostscript) is strongly
     recommended.  Xdvi will show all embedded PostScript too if you have
     Ghostscript installed.
-@item  GUILE 1.3, check out @url{http://www.gnu.org/programs/guile.html}
+@item  GUILE 1.3, check out @uref{http://www.gnu.org/programs/guile.html,http://www.gnu.org/programs/guile.html}
 @end itemize
 
 For running LilyPond successfully you have to help TeX and MetaFont
@@ -128,11 +128,11 @@ conversion tools.
 @item xpmtoppm (from the Portable Bitmap Utilities) (For RedHat Linux
 	     users: it is included within the package libgr-progs).
 	the original is at
-@url{ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz}
+@uref{ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz,ftp://ftp.x.org/contrib/utilities/netpbm-1mar1994.p1.tar.gz}
 
 @item pnmtopng, which is also in libgr-progs for RedHat. The original is
 at
-@url{ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz}.i
+@uref{ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz,ftp://swrinde.nde.swri.edu/pub/png/applications/pnmtopng-2.37.2.tar.gz}.i
 
 The version of @file{pnmtopng} that is distributed with RedHat 5.1 and
 5.2 contains a bug: pnmtopng is dynamically linked to the wrong
@@ -152,9 +152,9 @@ problem.
 
 You can then install the new pnmtopng into @file{/usr/local/bin/}
 
-@item Bib2html @url{http://pertsserver.cs.uiuc.edu/~hull/bib2html.}
+@item Bib2html @uref{http://pertsserver.cs.uiuc.edu/~hull/bib2html.,http://pertsserver.cs.uiuc.edu/~hull/bib2html.}
     Which, in turn depends on man2html for proper installation.
-man2html can be had from @url{http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05}.
+man2html can be had from @uref{http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05,http://askdonald.ask.uni-karlsruhe.de/hppd/hpux/Networking/WWW/Man2html-1.05}.
 
 The website will build without this utility, but you will not see our
 hypertextified bibliography.
@@ -325,8 +325,8 @@ You can make the rpm by issuing
 @end example 
 
 Precompiled i386 RedHat RPMS are available from
-@url{ftp://freshmeat.net/pub/rpms/lilypond/} and
-@url{http://linux.umbc.edu/software/lilypond/rpms/}.
+@uref{ftp://freshmeat.net/pub/rpms/lilypond/,ftp://freshmeat.net/pub/rpms/lilypond/} and
+@uref{http://linux.umbc.edu/software/lilypond/rpms/,http://linux.umbc.edu/software/lilypond/rpms/}.
 
 For compilation on a RedHat system you need these packages,
 in addition to the those needed for running:
@@ -349,7 +349,7 @@ A Debian package is also available; contact Anthony Fok
 
 
 Separate instructions on building for W32 are available
-@url{../../outdir/README-W32.html}.
+@uref{../../outdir/README-W32.html,README-W32}.
 
 @section Bugs
 

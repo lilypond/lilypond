@@ -92,7 +92,7 @@ Collision::automatic_shift ()
 	{
 	  if (shift[i-1] == shift[i])
 	    {
-	      warning (_ ("Too many clashing notecolumns. Ignoring them."));
+	      warning (_ ("Too many clashing notecolumns.  Ignoring them."));
 	      return tups;
 	    }
 	}

@@ -309,8 +309,8 @@ Beam::check_stemlengths_f (bool set_b)
 	{ 
 	  // when all too short, normal stems win..
 	  if (dy_f < -epsilon_f)
-	    warning (_ ("weird beam shift, check your knees"));
-	  dy_f = dy_f >? sinfo_[i].miny_f_ - y;
+	    warning (_ ("weird beam vertical offset"));
+	  dy_f = dy_f >? sinfo_[i].miny_f_ - y; 
 	}
     }
   return dy_f;

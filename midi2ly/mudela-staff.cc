@@ -39,7 +39,13 @@ Mudela_staff::add_item (Mudela_item* mudela_item_p)
   if (mudela_item_p->mudela_column_l_)
     mudela_item_p->mudela_column_l_->add_item (mudela_item_p);
 }
+/**
+   Walk ITEMS and find voices.  Remove categorised items.
 
+   TODO: collect all channels into separate voices. Use chords for sim
+   notes on same channel.
+   
+ */
 void
 Mudela_staff::eat_voice (Cons_list<Mudela_item>& items)
 {
@@ -52,9 +58,6 @@ Mudela_staff::eat_voice (Cons_list<Mudela_item>& items)
   for (Cons<Mudela_item>** pp = &items.head_; *pp;)
     {
       Cons<Mudela_item>* i = *pp;
-      LOGOUT (DEBUG_ver) << "At: " << i->car_->at_mom ().str () << "; ";
-      LOGOUT (DEBUG_ver) << "dur: " << i->car_->duration_mom ().str () << "; ";
-      LOGOUT (DEBUG_ver) << "mom: " << mom.str () << " -> ";
       if (i->car_->at_mom () > mom)
 	{
 	  Moment dur = i->car_->at_mom () - mom;
@@ -62,17 +65,67 @@ Mudela_staff::eat_voice (Cons_list<Mudela_item>& items)
 	  Mudela_column* start = mudela_score_l_g->find_column_l (mom);
 	  voice_p->add_item (new Mudela_skip (start, dur));
 	  mom = i->car_->at_mom ();
+	  continue;		// unnecessary
 	}
-      if (i->car_->at_mom () == mom)
+      
+      Link_array<Mudela_item> now_items;
+      for (Cons<Mudela_item> *cp = i; cp && cp->car_->at_mom () == mom; cp = cp->next_)
+	now_items.push (i->car_);
+
+      Mudela_item * which = 0;
+      Mudela_note * last_note = dynamic_cast<Mudela_note*> (voice_p->last_item_l_);
+
+      for (int i=0; !which && last_note && i < now_items.size (); i++)
 	{
-	  mom = i->car_->at_mom () + i->car_->duration_mom ();
-	  Cons<Mudela_item>* c = items.remove_cons (pp);
-	  voice_p->add_item (c->car_);
-	  delete c;
+	  Mudela_note * now_note = dynamic_cast<Mudela_note*> (now_items[i]);
+	  if (now_note && last_note->channel_i_ != now_note->channel_i_)
+	    which = now_note;
 	}
-      else if (*pp)
-	pp = &i->next_;
-      LOGOUT (DEBUG_ver) << "mom: " << mom.str () << '\n';
+
+#if 0
+      // use pitch difference for determining which item to pick.
+      if (!which)
+	{
+	  int mindiff = 100000;	// ugh
+	  for (int i=0; !which && last_note && i < now_items.size (); i++)
+	    {
+	      Mudela_note *nt = dynamic_cast<Mudela_note*> (now_items[i]);
+	      if (!nt)
+		continue;
+	      int diff = abs (last_note->pitch_i_ - nt->pitch_i_ );
+	      if(diff < mindiff)
+		{
+		  mindiff =  diff;
+		  which = now_items [i];
+		}
+	    }
+
+	  if (which && mindiff > 18)		// more than 1.5 octaves apart.  Don't put in same voice.
+	    {
+	      which =0;
+	    }
+
+	}
+#endif
+      
+      if (!which && now_items.size ())
+	which = now_items[0];
+
+      
+
+      if (!which)
+	{
+	  pp = &(*pp)->next_;
+	  continue;
+	}
+      
+      while ((*pp)->car_ != which)
+	pp = &(*pp)->next_;
+      
+      mom += (*pp)->car_->duration_mom ();
+      Cons<Mudela_item>* c = items.remove_cons (pp);
+      voice_p->add_item (c->car_);
+      delete c;
     }
 }
 
@@ -105,25 +158,27 @@ Mudela_staff::name_str ()
 void
 Mudela_staff::output (Mudela_stream& mudela_stream_r)
 {
-  mudela_stream_r << id_str () << " = \\notes";
-  mudela_stream_r << (mudela_voice_p_list_.size_i () > 1 ? "<" : "{");
-  mudela_stream_r << '\n';
+  int c =0;
+  
+  String trackbody = "";
+  for (Cons<Mudela_voice>* i = mudela_voice_p_list_.head_; i; i = i->next_)
+    {
+      String voicename = id_str () + "voice" + to_str (char (c + 'A'));
+      
+      mudela_stream_r << voicename << " = \\notes ";
+
+      trackbody += "\\"  + voicename + "\n";
+
+      mudela_stream_r << "\n";
+      i->car_->output (mudela_stream_r);
+      c++;      
+    }
+
   mudela_stream_r << _ ("% midi copyright:") << copyright_str_ << '\n';
   mudela_stream_r << _ ("% instrument:") << instrument_str_ << '\n';
+  mudela_stream_r << id_str () << " = ";
+  mudela_stream_r << "<\n " << trackbody << " >\n";
 
-  // don't use last duration mode
-  //  mudela_stream_r << "\\duration 4;\n";
-  if (mudela_voice_p_list_.size_i () == 1)
-    mudela_voice_p_list_.head_->car_->output (mudela_stream_r);
-  else
-      for (Cons<Mudela_voice>* i = mudela_voice_p_list_.head_; i; i = i->next_)
-      {
-	mudela_stream_r << "{ ";
-	i->car_->output (mudela_stream_r);
-	mudela_stream_r << "} ";
-      }
-
-  mudela_stream_r << (mudela_voice_p_list_.size_i () > 1 ? "\n>" : "\n}");
   mudela_stream_r << " % " << name_str () << '\n';
 }
 

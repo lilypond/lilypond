@@ -73,7 +73,7 @@ Request_chord_iterator::do_process_and_next (Moment mom)
 		req_l->warning (_f ("junking request: `%s\'", classname( req_l)));
 	    }
 	  else
-	    i->car_->warning (_f ("Huh? Not a Request: `%s\'",
+	    i->car_->warning (_f ("Huh?  Not a Request: `%s\'",
 				   classname (i->car_)));
 	}
       first_b_ = false;

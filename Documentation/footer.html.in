@@ -14,10 +14,11 @@ footer substitutions:
 >
 
 <hr>
+Go <a href=%s>back</a> to index of LilyPond.
 
 <p>
 Please send GNU LilyPond questions and comments to 
-<!-- back to idx. %s > 
+
 <a href="mailto:gnu-music-discuss@gnu.org">
 <em>gnu-music-discuss@gnu.org</em></a>.
 <p>

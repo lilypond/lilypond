@@ -191,7 +191,6 @@ Gourlay_breaking::do_solve () const
 
 Gourlay_breaking::Gourlay_breaking ()
 {
-  get_line_spacer = Spring_spacer::constructor;
   energy_bound_f_ = infinity_f;
   max_measures_i_ = INT_MAX;
 }

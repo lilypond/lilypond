@@ -50,8 +50,8 @@ version ()
   identify ();
   cout << '\n';
   cout << _f (""
-  "This is free software.  It is covered by the GNU General Public License,"
-  "and you are welcome to change it and/or distribute copies of it under"
+  "This is free software.  It is covered by the GNU General Public License,\n"
+  "and you are welcome to change it and/or distribute copies of it under\n"
   "certain conditions.  Invoke as `%s --warranty' for more information.\n", 
     "midi2ly");
   cout << endl;

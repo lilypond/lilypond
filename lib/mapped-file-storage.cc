@@ -62,7 +62,7 @@ Mapped_file_storage::map ()
  
      r = map_fd (fildes_i_, (vm_offset_t) 0, &address, TRUE, size_off_);
      if (r != KERN_SUCCESS)
-       warning (String (_ ("map_fd: ")) + mach_error_string (r));
+       warning (String ("map_fd: ") + mach_error_string (r));
      else
        data_caddr_ = (char *) address;
    }
@@ -106,7 +106,7 @@ Mapped_file_storage::unmap ()
        r = vm_deallocate (task_self (), (vm_address_t) data_caddr_, 
 size_off_);
        if (r != KERN_SUCCESS)
-       warning (String (_ ("vm_deallocate: ")) + mach_error_string (r));
+       warning (String ("vm_deallocate: ") + mach_error_string (r));
 #else
        munmap (data_caddr_, size_off_);
 #endif

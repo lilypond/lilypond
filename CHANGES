@@ -1,6 +1,16 @@
+pl 7.hwn1
+	- website fixes.
+	- spacer cleanups
+	- Simple_spacer: a simpler constraint solver. Enabled by default.
+pl 7.jcn1
+	- fixes to nl.po
+
+****************
+
 pl 6.uu1
 	- website fixes.
 
+*******
 pl 5.hwn1
 	- more .texi; yodl completely removed.
 	- rm'd several doc stuff: engraving.yo, gnu-page.yo, translated blurbs (leave it to translation project)

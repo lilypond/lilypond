@@ -31,7 +31,7 @@ sys.path.append (topdir + '/stepmake/bin')
 from packagepython import *
 package = Package (topdir)
 packager = Packager ()
-from flower import *
+
 
 os.chdir(package.topdir)
 status =os.system('make dist')

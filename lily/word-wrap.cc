@@ -125,7 +125,3 @@ Word_wrap::do_solve () const
   return breaking;
 }
 
-Word_wrap::Word_wrap ()
-{
-  get_line_spacer = Spring_spacer::constructor;
-}

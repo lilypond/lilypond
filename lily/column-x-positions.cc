@@ -59,7 +59,7 @@ Column_x_positions::set_stupid_solution(Vector v)
 void
 Column_x_positions::stupid_solution()
 {
-  set_stupid_solution (spacer_l_->default_solution());
+  //  set_stupid_solution (spacer_l_->default_solution());
 }
 
 void
