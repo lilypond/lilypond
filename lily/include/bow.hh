@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -32,6 +32,7 @@ protected:
   virtual Interval do_width () const;    
   Array<Offset> get_controls () const;
   virtual Array<Offset> get_encompass_offset_arr () const;
+  virtual Interval do_height () const;
 
   Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "my-lily-parser.hh"
@@ -27,8 +27,7 @@ My_lily_parser::My_lily_parser (Sources * source_l)
   lexer_p_ = 0;
   abbrev_beam_type_i_ = 0;
   default_duration_.durlog_i_ = 2;
-  default_octave_i_ = 0;
-  textstyle_str_="roman";		// in lexer?
+  default_abbrev_i_ = 0;
   error_level_i_ = 0;
   fatal_error_i_ = 0;
   default_header_p_ =0;
@@ -60,17 +59,16 @@ My_lily_parser::parse_file (String init, String s)
   init_str_ = init;
   lexer_p_->main_input_str_ = s;
 
-  *mlog << _("Parsing ... ");
+  *mlog << _ ("Parsing...");
 
   init_parse_b_ = false;
   set_yydebug (!monitor->silent_b ("Parser") && check_debug);
   lexer_p_->new_input (init, source_l_);
   do_yyparse ();
 
-
   if (!define_spot_array_.empty())
     {
-      warning (_("Braces don't match."));
+      warning (_ ("braces don't match"));
       error_level_i_ = 1;
     }
 
@@ -110,21 +108,22 @@ void
 My_lily_parser::set_last_duration (Duration const *d)
 {
   default_duration_ = *d;
-      /* 
-	 forget plet part,
-	 sticky plet factor only within plet brackets
-      */  
-  default_duration_.set_plet (1, 1);
+
+  /* 
+     forget plet part,
+     but keep sticky plet factor within plet brackets
+    */  
+  default_duration_.plet_ = plet_;
 }
 
 
 Chord*
-My_lily_parser::get_word_element (Text_def* tdef_p, Duration * duration_p)
+My_lily_parser::get_word_element (String s, Duration * duration_p)
 {
   Chord* velt_p = new Request_chord;
 
-  Lyric_req* lreq_p = new Lyric_req (tdef_p);
-
+  Lyric_req* lreq_p = new Lyric_req;
+  lreq_p ->text_str_ = s;
   lreq_p->duration_ = *duration_p;
   lreq_p->set_spot (here_input());
 
@@ -246,22 +245,22 @@ My_lily_parser::get_parens_request (int t)
   switch (t)
     {
     case BEAMPLET:
-      reqs.top ()->span()->spantype = Span_req::START;
+      reqs.top ()->access_Span_req ()->spantype = Span_req::START;
       /* fall through */
     case '<':
     case '>':
     case '(':
     case '[':
     case PLET:
-      reqs[0]->span ()->spantype = Span_req::START;
+      reqs[0]->access_Span_req ()->spantype = Span_req::START;
       break;
     case MAEBTELP:
-      reqs.top ()->span()->spantype = Span_req::STOP;
+      reqs.top ()->access_Span_req ()->spantype = Span_req::STOP;
       /* fall through */
     case '!':
     case ')':
     case ']':
-      reqs[0]->span ()->spantype = Span_req::STOP;
+      reqs[0]->access_Span_req ()->spantype = Span_req::STOP;
       break;
 
     default:
@@ -269,9 +268,9 @@ My_lily_parser::get_parens_request (int t)
     }
 
   for (int i = 0; i < reqs.size (); i++)
-    if (reqs[i]->musical ()->span_dynamic ())
+    if (reqs[i]->access_Musical_req ()->access_Span_dynamic_req ())
       {
-	Span_dynamic_req* s_l= (reqs[i]->musical ()->span_dynamic ()) ;
+	Span_dynamic_req* s_l= (reqs[i]->access_Musical_req ()->access_Span_dynamic_req ()) ;
 	s_l->dynamic_dir_ = (t == '<') ? UP:DOWN;
       }
 
@@ -292,6 +291,14 @@ My_lily_parser::add_requests (Chord*v)
     {
       v->add (post_reqs[i]);
     }
+#if 0 //disabling...
+  if (default_abbrev_i_)
+    {
+      Abbreviation_req* a = new Abbreviation_req;
+      a->type_i_ = default_abbrev_i_;
+      v->add (a);
+    }
+#endif
   post_reqs.clear();
 }
 
@@ -319,13 +326,13 @@ Paper_def*
 My_lily_parser::default_paper_p ()
 {
   Identifier *id = lexer_p_->lookup_identifier ("default_paper");
-  return id ? id->paperdef () : new Paper_def ;
+  return id ? id->access_Paper_def () : new Paper_def ;
 }
 
 Midi_def*
 My_lily_parser::default_midi_p ()
 {
   Identifier *id = lexer_p_->lookup_identifier ("default_midi");
-  return id ? id->mididef () : new Midi_def ;
+  return id ? id->access_Midi_def () : new Midi_def ;
 }
 
