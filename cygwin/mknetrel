@@ -29,6 +29,7 @@ patch=$mknetrel_root/patch
 iscygwin || (uploads=$here/uploads/$base && mkdir -p $uploads)
 
 sub_packages="doc"
+old_path=$PATH
 
 
 
@@ -256,16 +257,16 @@ exit 0
 EOF
 
     chmod 755 guile-config
-    old_path=$PATH
     PATH=$(pwd):$PATH
     
-    LDFLAGS="$PREFIX/bin/libpython2.2.dll"
+    ##opt='-O2 -g' LDFLAGS='"$cygwin_prefix/bin/libpython2.2.dll"
 }
 
 postconfig () {
     # Configure for build, for generating doc
     rm -f config.cache
     (PATH="$old_path" \
+	PATH="$HOME/usr/pkg/guile-1.5.6/bin:$PATH" \
 	CFLAGS="-O2 -g" \
 	$src/configure --prefix=/usr --enable-config=for-build)
 }
@@ -282,11 +283,13 @@ prebuild () {
     for i in $(find . -path "out-for-build/*.1"); do
 	cp -pv $i $(dirname $(dirname $i))/$(basename $i)
     done
+
+    addmakeflags LDFLAGS="$cygwin_prefix/bin/libpython2.2.dll"
 }
 
 postinstall () {
     mkdir -p $inst-doc/$prefix
-    cd $src || exit 1
+    cd $build || exit 1
     make conf=for-build prefix=$inst-doc/$prefix install-html-doc
 
 

@@ -1,14 +1,6 @@
 # make/Stepmake.make
 
-
-all: foe
-
-foe:
-	@echo one=.$(shell cd $(builddir); pwd).
-	@echo two=.$(shell cd $(depth); pwd).
-
 include $(depth)/make/toplevel-version.make
-
 
 # Use alternate configurations alongside eachother:
 #

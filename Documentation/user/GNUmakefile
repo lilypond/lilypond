@@ -120,13 +120,13 @@ ifneq ($(CROSS),yes)
 # however, this triggers compilation during install, which  is a bad thing (tm).
 
 $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(builddir)/lily/$(outconfbase)/lilypond
-	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond --verbose ../$(src-depth)/ly/generate-documentation
+	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond --verbose $(abs-srcdir)/ly/generate-documentation
 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 
 
 ## unused
 $(outdir)/interfaces.itexi: dummy
-	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond ../$(src-depth)/ly/generate-interface-doc
+	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond $(abs-srcdir)/ly/generate-interface-doc
 
 else
 
