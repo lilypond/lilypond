@@ -1,5 +1,8 @@
 2002-07-01  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/glossary.tely: Precautions for lilypond-book:
+	don't use spaces after @lilypond options.
+
 	* Documentation/topdocs/INSTALL.texi (Top): Remove generic Guile
 	threads warning.
 
