@@ -499,6 +499,36 @@ any sort of property supported by @ref{font-interface} and
     (ly:molecule-set-extent! m X '(1000 . -1000))
     m))
 
+
+(define number->mark-letter-vector (make-vector 25 #\A))
+
+(do ((i 0 (1+ i))
+     (j 0 (1+ j)) )
+    ((>= i 26))
+  (if (= i (- (char->integer #\I) (char->integer #\A)))
+      (set! i (1+ i)))
+  (vector-set! number->mark-letter-vector j
+	       (integer->char (+ i (char->integer #\A))))  )
+
+(define (number->markletter-string n)
+  "Double letters for big marks."
+  (let*
+      ((l (vector-length number->mark-letter-vector)))
+    
+  (if (>= n l)
+      (string-append (number->markletter-string (1- (quotient n l)))
+		     (number->markletter-string (remainder n l)))
+      (make-string 1 (vector-ref number->mark-letter-vector n)))))
+
+
+(define-public (markletter-markup paper props . rest)
+  "Markup letters: skip I and do double letters for big marks.
+Syntax: \\markletter #25"
+  
+  (Text_item::interpret_markup paper props
+			       (number->markletter-string (car rest))
+			       ))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -644,7 +674,7 @@ any sort of property supported by @ref{font-interface} and
    (cons note-markup (list string? number?))
    (cons note-by-number-markup (list number? number? number?))
    (cons fraction-markup (list markup? markup?))
-   
+   (cons markletter-markup (list number?))
    (cons column-markup (list markup-list?))
    (cons dir-column-markup (list markup-list?))
    (cons center-markup (list markup-list?))

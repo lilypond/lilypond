@@ -436,6 +436,30 @@ Rest can contain a list of beat groupings
     (context-spec-music
      (make-sequential-music basic) 'Timing)))
 
+(define-public (make-mark-set label)
+  " Set properties for time signature NUM/DEN.
+Rest can contain a list of beat groupings 
+
+"
+  
+  (let*
+      ((set (if (integer? label)
+		(context-spec-music (make-property-set 'rehearsalMark label)
+				    'Score)
+		#f))
+       (ev (make-music-by-name 'MarkEvent))
+       (ch (make-event-chord (list ev)))
+       )
+
+    
+    (if set
+	(make-sequential-music (list set ch))
+	(begin
+	  (ly:set-mus-property! ev 'label label)
+	  ch))))
+    
+
+
 (define-public (set-time-signature num den . rest)
   (ly:export (apply make-time-signature-set `(,num ,den . ,rest))))
 
