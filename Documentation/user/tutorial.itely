@@ -1707,8 +1707,9 @@ tuturial.
     linewidth = 60 * \staffspace;
 @end example
 
-Because we have a Thread representing one instument, we move the
-need the @code{Rest_engraver} from Voice to Thread level.
+Because we have a Thread representing one instrument, we need to move
+the @code{Rest_engraver} from Voice to Thread level.  Similarly, we need
+to move the @code{Multi_measure_rest_engraver} from Staff to Voice level.
 @example
     \translator@{
       \ThreadContext

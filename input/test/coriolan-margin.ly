@@ -2,11 +2,11 @@
 
 % Ugh, we need to override some LaTeX titling stuff
 \header {
-  title =	"Ouverture\\vrule width0pt height 0pt depth 1ex";
+  title =	"Ouvertüre\\vrule width0pt height 0pt depth 1ex";
   subtitle =	"\\normalsize Zu Heinrich Joseph v. Collins Trauerspiel\\vrule width0pt height 0pt depth 1ex";
   subsubtitle =	"\\Large\\bf Coriolan";
   opus =  "Op. 62";
-  piece = "\\normalfont\\large Allegro con brio";
+  piece = "\\hspace*{30mm}\\normalfont\\large Allegro con brio";
   composer = 	 "Ludwig van Beethoven (1770-1827)";
   enteredby = 	 "JCN";
 }
@@ -30,8 +30,8 @@ oboi = \notes \relative c' {
 }
 
 clarinetti = \notes \relative c' {
-   \property Staff.instrument = #`("Clarinetti in B" ,text-flat)
-%  \property Staff.instrument	= #`(lines "2 Clarinetti" (rows "(B" ,raisedflat ")"))
+%   \property Staff.instrument = #`("Clarinetti in B" ,text-flat)
+  \property Staff.instrument	= #`(lines "2 Clarinetti" (rows "(B" ,raisedflat ")"))
   \property Staff.instr		= #`(lines "Cl." (rows "(B" ,raisedflat ")"))
 
   c1 c

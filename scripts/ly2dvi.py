@@ -42,7 +42,7 @@ extra_init = {
 	'language' : [],
 	'latexheaders' : [],
 	'latexpackages' :  ['geometry'],
-	'papersizename' : [],
+	'papersize' : [],
 	'pagenumber' : [],
 	'textheight' : [], 
 	'linewidth' : [],
@@ -275,7 +275,7 @@ def set_setting (dict, key, val):
 	try:
 		val = string.atof (val)
 	except ValueError:
-		warning (_ ("invalid value: %s") % `val`)
+		#warning (_ ("invalid value: %s") % `val`)
 		pass
 
 	try:
@@ -294,7 +294,7 @@ def analyse_lilypond_output (filename, extra):
 
 	# search only the first 10k
 	s = s[:10240]
-	for x in ('textheight', 'linewidth', 'papersizename', 'orientation'):
+	for x in ('textheight', 'linewidth', 'papersize', 'orientation'):
 		m = re.search (r'\\def\\lilypondpaper%s{([^}]*)}'%x, s)
 		if m:
 			set_setting (extra, x, m.group (1))
@@ -357,7 +357,7 @@ def one_latex_definition (defn, first):
 
 ly_paper_to_latexpaper =  {
 	'a4' : 'a4paper',
-	
+	'letter' : 'letterpaper', 
 }
 
 def global_latex_definition (tfiles, extra):
@@ -371,8 +371,13 @@ def global_latex_definition (tfiles, extra):
 
 	paper = ''
 
-	if extra['papersizename']:
-		paper = '[%s]' % ly_paper_to_latexpaper[extra['papersizename'][0]]
+	if extra['papersize']:
+		try:
+			paper = '[%s]' % ly_paper_to_latexpaper[extra['papersize'][0]]
+		except:
+			warning (_ ("invalid value: %s") % `extra['papersize'][0]`)
+			pass
+	
 	s = s + '\\documentclass%s{article}\n' % paper
 
 	if extra['language']:
@@ -445,8 +450,8 @@ def generate_postscript (dvi_name, extra):
 	'''Run dvips on DVI_NAME, optionally doing -t landscape'''
 
 	opts = ''
-	if extra['papersizename']:
-		opts = opts + ' -t %s' % extra['papersizename'][0]
+	if extra['papersize']:
+		opts = opts + ' -t %s' % extra['papersize'][0]
 
 	if extra['orientation'] and extra['orientation'][0] == 'landscape':
 		opts = opts + ' -t landscape'
