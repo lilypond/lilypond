@@ -19,6 +19,7 @@ import __main__
 import operator
 import tempfile
 
+sys.path.append ('@datadir@/python')
 import gettext
 gettext.bindtextdomain ('lilypond', '@localedir@')
 gettext.textdomain('lilypond')
@@ -321,9 +322,14 @@ def find_tex_files (files, extra):
 	return tfiles
 
 def one_latex_definition (defn, first):
-	s = ''
+	s = '\n'
 	for (k,v) in defn[1].items ():
-		s = r'''\def\the%s{%s}''' % (k,open (v).read ())
+		val = open (v).read ()
+		if (string.strip (val)):
+			s = s + r'''\def\lilypond%s{%s}''' % (k, val)
+		else:
+			s = s + r'''\let\lilypond%s\relax''' % k
+		s = s + '\n'
 
 	if first:
 		s = s + '\\def\\mustmakelilypondtitle{}\n'
@@ -526,6 +532,8 @@ if files:
 		type = 'DVI'
 
 	dest = os.path.join (outdir, dest)
+	if outdir != '.':
+		system ('mkdir -p %s' % outdir)
 	system ('cp \"%s\" \"%s\"' % (srcname, dest ))
 	system ('cp *.midi %s' % outdir, ignore_error = 1)
 

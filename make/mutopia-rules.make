@@ -31,5 +31,5 @@ $(outdir)/%.dvi: %.ly
 	$(PYTHON) $(LY2DVI) --outdir=$(outdir) --dependencies $< 
 
 $(outdir)-$(PAPERSIZE)/%.dvi: %.ly
-	$(PYTHON) $(LY2DVI) --outdir=$(outdir)-$(PAPERSIZE) --dependencies --papersize=$(PAPERSIZE) $< 
+	$(PYTHON) $(LY2DVI) --outdir=$(outdir)-$(PAPERSIZE) --dependencies --set=papersize=$(PAPERSIZE) $< 
 

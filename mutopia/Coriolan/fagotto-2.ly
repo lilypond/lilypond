@@ -28,11 +28,11 @@ fagottoII =  \notes \relative c {
 	f\sf r|
 	e1\sf|
 	es\sf|
-	d2. es4\sf(|
-	)d2. es4\sf(|
-	)d2. es4\sf(|
-	)d2. es4\sf(|
-	)d4 r r2|
+	d2. es4\sf|
+	d2. es4\sf|
+	d2. es4\sf|
+	d2. es4\sf|
+	d4 r r2|
 	R1*9|
 	
 	\clef "tenor";
@@ -107,7 +107,7 @@ fagottoII =  \notes \relative c {
 	%% 110|
 	% copied from cello, copied from viola|
 	[g8 bes d es][f, a cis d]|
-	[es,8:8 g: b: c!:][d,: f: a: bes:]|
+	[es,8:8 g: b: c:][d,: f: a: bes:]|
 	[c,: es: g: a:][cis,: e: g: bes:]|
 	[d,: g: bes: d:][d,: fis: a: d:]|
 	g,,2 ~ g4. g8|
@@ -172,8 +172,8 @@ fagottoII =  \notes \relative c {
 	b,2\sf r|
 	b\sf r|
 	R1*3|
-	bes2 r\ff|
-	bes2 r\sf|
+	bes2\ff r|
+	bes2\sf r|
 	R1*2|
 	r2 r4 bes\ff(|
 	)as2. bes4\sf(|
@@ -223,13 +223,12 @@ fagottoII =  \notes \relative c {
 	\property Voice.crescendoSpanner = #'dashed-line
 	r4 r8 c\< c4. c8|
 	r4 r8 c c4. c8|
-
+	
+	r4 r8
 	\clef "tenor";
 	%\property Staff.clefGlyph = #"clefs-C"
 	%\property Staff.clefPosition = #2
-
-	
-	r4 r8 d d4. d8|
+	d d4. d8|
 	r4 r8 es es4. es8|
 	
 	\clef "bass";
@@ -266,8 +265,8 @@ fagottoII =  \notes \relative c {
 
 	%a deux|
 	%%238 copied from cello from viola|
-	[c8\f e g as][bes, d fis g]|
-	[as, c e f!][g, bes d es]|
+	[c8\f es g as][bes, d fis g]|
+	[as, c e f][g, bes d es]|
 
 	f4 r r2|
 
@@ -293,7 +292,7 @@ fagottoII =  \notes \relative c {
 
 	% a deux|
 	%% 270 copied from cello|
-	[c,8-"sempre"\ff b c d][es\ff d es c]|
+	[c,8-"sempre"\ff b c d][es d es c]|
 	[b c d c][b c b g]|
 	[c8 b c d][es d es c]|
 	[b c d c][b c b g]|

@@ -27,16 +27,19 @@ Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 {
   SCM s = get_property ("devNullThread");
 #if 0
-  /* No need */
-  if (gh_equal_p (s, ly_symbol2scm ("never")))
+  /* No need, next if will never be true */
+  if (s == ly_symbol2scm ("never"))
     return;
 #endif
 
-  if (gh_equal_p (s, ly_symbol2scm ("allways"))
+  if (s == ly_symbol2scm ("allways")
       || (s == SCM_EOL
 	  && daddy_trans_l_->id_str_.left_str (3) == "two"
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))
 	  && to_boolean (get_property ("soloADue"))))
-    i.elem_l_->suicide ();
+    {
+      /* Ugh, we can suicide them, but they remain living */
+      i.elem_l_->suicide ();
+    }
 }

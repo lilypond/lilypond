@@ -32,13 +32,20 @@
 		
 		%% devNullThread = #'never
 		\consists "Thread_devnull_engraver";
+
+		%\consists "Multi_measure_rest_engraver";
+		%\consists "Bar_engraver";
 	}
 	% We need the HaraKiri staff for Staff Combining,
 	% but we better remove the Instrument_name_engraver.
 	\translator {
 		\HaraKiriStaffContext
+		
 		\consists "Mark_engraver";
 		\remove "Instrument_name_engraver";
+		
+		%\remove "Multi_measure_rest_engraver";
+		%\remove "Bar_engraver";
 	}
 	\translator  {
 		\OrchestralScoreContext

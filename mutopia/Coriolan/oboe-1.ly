@@ -41,11 +41,11 @@ oboeI =  \notes \relative c'' {
 	as\sf r|
 	g1\sf|
 	ges\sf|
-	f2. ges4(|
-	)f2. ges4(|
-	)f2. ges4(|
-	)f2. ges4(|
-	)f4 r r2|
+	f2. ges4|
+	f2. ges4|
+	f2. ges4|
+	f2. ges4|
+	f4 r r2|
 	R1*9|
 	\property Voice.crescendoText = #"cresc."
 	\property Voice.crescendoSpanner = #'dashed-line
@@ -168,8 +168,8 @@ oboeI =  \notes \relative c'' {
 	f2.\<( g4|
 	f e cis)a|
 	\!a'2\ff c|
-	b1\p~|
-	b~|
+	b1~|
+	b\p~|
 	b~|
 	b~|
 	b|
@@ -258,9 +258,11 @@ oboeI =  \notes \relative c'' {
 	R1|
 	c4-. g-. r2|
 	as4-. e-. r2|
-	f4-"dim" r f r|
+	\property Voice.decrescendoText = #"dim."
+	\property Voice.decrescendoSpanner = #'dashed-line
+	f4\> r f r|
 	R1|
-	es4\p r r2|
+	\!es4\p r r2|
 	R1|
 	d4 r r2|
 	R1|

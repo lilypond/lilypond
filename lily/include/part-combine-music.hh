@@ -27,6 +27,8 @@ public:
   virtual Moment length_mom () const;
   virtual Pitch to_relative_octave (Pitch);
   virtual void compress (Moment);
+
+  Part_combine_music ();
 };
 
 #endif /* PART_COMBINE_MUSIC_HH */
