@@ -173,7 +173,9 @@ This variable is  read by @internalsref{Timing_engraver} at
 ")
 
      (decrescendoSpanner ,symbol? "See @code{crescendoSpanner}.")
-
+     (doubleSlurs ,boolean?
+		  "When set, two slurs are created for every slurred
+note, one above and one below the chord.")
      (explicitClefVisibility ,procedure? "@samp{break-visibility} function for clef changes.")
 
      (explicitKeySignatureVisibility ,procedure?

@@ -9,7 +9,7 @@
 #include "warn.hh"
 #include "note-column.hh"
 #include "context.hh"
-
+#include "directional-element-interface.hh"
 #include "engraver.hh"
 #include "spanner.hh"
 
@@ -17,16 +17,14 @@
   It is possible that a slur starts and ends on the same note.  At
   least, it is for phrasing slurs: a note can be both beginning and
   ending of a phrase.
- */
+*/
 
 class Slur_engraver : public Engraver
 {
   Drul_array<Music *> events_;
   Music * running_slur_start_;
-  Grob * slur_;
-  Grob * end_slur_;
-
-  Moment last_start_;
+  Link_array<Grob> slurs_;
+  Link_array<Grob> end_slurs_;
 
   void set_melisma (bool);
 
@@ -44,8 +42,6 @@ public:
 Slur_engraver::Slur_engraver ()
 {
   events_[START] =events_[STOP] = 0;
-  end_slur_ = slur_ = 0;
-  last_start_ = Moment (-1);
 }
 
 bool
@@ -59,15 +55,12 @@ Slur_engraver::try_music (Music *m)
       Direction d = to_dir (m->get_property ("span-direction"));
       if (d == START)
 	{
-	  if (slur_)
-	    return false;
-	  
 	  events_[START] = m;
 	  return true;
 	}
       else if (d == STOP)
 	{
-	  if (!slur_)
+	  if (slurs_.is_empty ())
 	    return false;
 	  
 	  events_[STOP] = m;
@@ -89,25 +82,25 @@ Slur_engraver::acknowledge_grob (Grob_info info)
   Grob *e =info.grob_;
   if (Note_column::has_interface (info.grob_))
     {
-      if (slur_)
-	New_slur::add_column (slur_, e);
-      if (end_slur_)
-	New_slur::add_column (end_slur_, e);
+      for (int i = slurs_.size (); i--; )
+	New_slur::add_column (slurs_[i], e);
+      for (int i = end_slurs_.size (); i-- ; )
+	New_slur::add_column (end_slurs_[i], e);
     }
   else
     {
-      if (slur_)
-	New_slur::add_extra_encompass (slur_, e);
-      if (end_slur_)
-	New_slur::add_extra_encompass (end_slur_, e);
+      for (int i = slurs_.size (); i--; )
+	New_slur::add_extra_encompass (slurs_[i], e);
+      for (int i = end_slurs_.size (); i--; )
+	New_slur::add_extra_encompass (end_slurs_[i], e);
     }
 }
 
 void
 Slur_engraver::finalize ()
 {
-  if (slur_)
-    slur_->warning (_("unterminated slur"));
+  if (slurs_.size ())
+    slurs_[0]->warning (_("unterminated slur"));
 }
 
 void
@@ -115,32 +108,45 @@ Slur_engraver::process_music ()
 {
   if (events_[STOP])
     {
-      end_slur_ = slur_;
-      slur_ = 0;
+      end_slurs_ = slurs_;
+      slurs_.clear ();
     }
   
-  if (events_[START] && !slur_)
+  if (events_[START] && slurs_.is_empty ())
     {
       Music *ev = events_[START];
-      slur_ = make_spanner ("Slur", events_[START]->self_scm ());
-      if (Direction updown = to_dir (ev->get_property ("direction")))
-	slur_->set_property ("direction", scm_int2num (updown));
-    }
 
-  set_melisma (slur_);
+      bool double_slurs = to_boolean (get_property ("doubleSlurs"));
+
+      Grob * slur = make_spanner ("Slur", events_[START]->self_scm ());
+      Direction updown = to_dir (ev->get_property ("direction"));
+      if (updown && !double_slurs)
+	set_grob_direction (slur, updown);
+
+      slurs_.push (slur);
+
+      if (double_slurs)
+	{
+	  set_grob_direction (slur, DOWN);
+	  slur = make_spanner ("Slur", events_[START]->self_scm ());
+	  set_grob_direction (slur, UP);
+	  slurs_.push (slur); 
+	}
+}
+set_melisma (slurs_.size ());
 }
 
 void
 Slur_engraver::stop_translation_timestep ()
 {
-  end_slur_ = 0;
-  events_[START] = events_[STOP] = 0;
+end_slurs_.clear ();
+events_[START] = events_[STOP] = 0;
 }
 
 ENTER_DESCRIPTION (Slur_engraver,
-/* descr */       "Build slurs grobs from slur events",
-/* creats*/       "Slur",
-/* accepts */     "slur-event",
-/* acks  */      "note-column-interface accidental-interface fingering-interface script-interface",
-/* reads */       "slurMelismaBusy",
-/* write */       "");
+  /* descr */       "Build slurs grobs from slur events",
+  /* creats*/       "Slur",
+  /* accepts */     "slur-event",
+  /* acks  */      "note-column-interface accidental-interface fingering-interface script-interface",
+  /* reads */       "slurMelismaBusy doubleSlurs",
+  /* write */       "");
