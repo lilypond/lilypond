@@ -8,6 +8,8 @@ the break alignment."
     
 }
 
+\paper { raggedright= ##t }
+
 \score{ \notes {
 a a a a \break
 \mark A

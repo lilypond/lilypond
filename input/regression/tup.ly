@@ -14,6 +14,7 @@ direction as the
 "
 
 }
+\paper { raggedright= ##t }
 
 \score{
 	\notes \context Voice \relative c'' {

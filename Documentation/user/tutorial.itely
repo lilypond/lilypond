@@ -365,6 +365,7 @@ Printing may be done by executing
 We continue with the introduction of more musical constructs.  Normal
 rests are entered just like notes with the name ``@code{r}'':
 
+@cindex rests
 @quotation
 @example
 r2 r4 r8 r16
@@ -406,6 +407,8 @@ c'4 c'' c''' \clef bass c c,
 @end quotation
 @separate
 
+@cindex tie
+ 
 A tie is created by adding a tilde ``@code{~}'' to the first note
 being tied.
 @quotation
@@ -414,6 +417,7 @@ g'4-~ g' a'2-~ a'4
 @end lilypond
 @end quotation
 @separate
+@cindex slurs versus ties
 A tie is different from a slur. A tie simply makes the first note
 sound longer, and can only be used on pairs of notes with the same
 pitch. Slurs indicate the articulations of notes, and can be used on
@@ -423,6 +427,8 @@ c2-~-( c8 fis fis4 ~ fis2 g2-)
 @end lilypond
 
 The notation manual discusses ties in @ref{Ties}.
+
+@cindex key signature, setting
 
 The key signature is set with the command ``@code{\key}'', followed by
 a pitch and  @code{\major} or @code{\minor}:
@@ -481,7 +487,8 @@ This example shows notes, ties, octave marks, and rests in action.
 @end lilypond
 @end quotation
 
-@c accidentals...
+@cindex accidentals
+
 There are some interesting points to note in this example.
 Accidentals (sharps and flats) do not have to be marked explicitly:
 you just enter the note name, and an accidental is printed
@@ -591,6 +598,8 @@ Here is an example of the difference between relative mode and
 @end quotation
 @separate
 
+@cindex slur
+
 A slur is drawn across many notes, and indicates bound articulation
 (legato).  The starting note and ending note are marked with a
 ``@code{(}'' and a ``@code{)}'' respectively:
@@ -602,6 +611,7 @@ d4-( c16-)-( cis d e c cis d e-)-( d4-)
 @end quotation
 @separate
 
+@cindex phrasing slurs
 If you need two slurs at the same time (one for articulation, one for
 phrasing), you can also make a phrasing slur with @code{\(} and
 @code{\)}.
@@ -621,6 +631,7 @@ a8-(-\( ais b  c-) cis2 b'2 a4 cis,  c-\)
 @end quotation
 @separate
 
+@cindex beams, by hand 
 Beams are drawn automatically, but if you do not like where they are
 put, they can be entered by hand. Mark the first note to be beamed
 with @code{[} and the last one with @code{]}:
@@ -706,7 +717,9 @@ simpler expressions into larger expressions. For example,
   (1 + 2) * 3
   
   ((1 + 2) * 3) / (4 * 5)
-@end quotation     
+@end quotation
+@cindex expression
+@cindex music expression
 is a sequence of expressions, where each expression is contained in
 the next one.  The simplest expressions are numbers and operators
 (like +, * and /). Parentheses are used to group expressions.  In
@@ -715,6 +728,7 @@ expressions are notes and rests.  By enclosing expressions in @code{<
 >} and @code{@{ @}}, more complex music is formed. The @code{\context}
 also forms new expressions; it is prepended to a music expression.
 
+@cindex indent
 When spreading expressions over multiple lines, it is customary to use
 an indent that indicates the nesting level. Formatting music like this
 eases reading, and helps you  insert the right amount of closing
@@ -735,6 +749,10 @@ braces at the end of an expression. For example
 @node Adding articulation marks to notes 
 @subsection Adding articulation marks to notes
 
+@cindex articulation
+@cindex accents
+@cindex staccato
+
 Common accents can be added to a note using @code{-.}, @code{--}, @code{->}:
 @quotation
 @lilypond[verbatim,relative 1]
@@ -743,6 +761,7 @@ c-. c-- c->
 @end quotation
 @separate
 
+@cindex fingering
 Similarly, fingering indications can be added to a note using @code{-}
 and the digit to be printed.
 @lilypond[verbatim,relative 1]
@@ -758,6 +777,10 @@ c-\ff c-\mf
 @end quotation
 @separate
 
+@cindex dynamics
+@cindex decrescendo
+@cindex crescendo
+
 Crescendi and decrescendi are started with the commands @code{\<} and
 @code{\>}. The command @code{\!} finishes a crescendo on the note it
 is attached to.
@@ -768,6 +791,7 @@ c2-\<  c2-\!-\ff  c2-\>  c2-\!
 @end quotation
 @separate
 
+@cindex chords
 Chords can be made by
 surrounding pitches with @code{<<} and @code{>}>:
 @quotation
@@ -798,9 +822,13 @@ r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-)
 @separate
 
 
-@node More basic rhythms
-@subsection More basic rhythms
+@node Basic rhythmical commands
+@subsection  Basic rhythmical commands
 
+@cindex pickup
+@cindex anacruse
+@cindex upstep
+@cindex partial measure
 A pickup (or upstep) is entered with the keyword @code{\partial}. It
 is followed by a duration: @code{\partial 4} is a quarter note upstep
 and @code{\partial 8} an eighth note.
@@ -809,6 +837,8 @@ and @code{\partial 8} an eighth note.
   f8 c2 d e
 @end lilypond
 
+@cindex tuplets
+@cindex triplets
 Tuplets are made with the @code{\times} keyword.  It takes two
 arguments: a fraction and a piece of music.  The duration of the piece
 of music is multiplied by the fraction.  Triplets make notes occupy
@@ -819,6 +849,8 @@ of music is multiplied by the fraction.  Triplets make notes occupy
   \times 2/3 { c r c }
 @end lilypond 
 
+@cindex grace notes
+@cindex accacciatura
 Grace notes are also made by prefixing a note, or a set of notes with
 a keyword. In this case, the keyword is @code{\grace}. 
 @lilypond[relative 1, verbatim,fragment]
@@ -833,6 +865,9 @@ More information on the use of grace notes is in @ref{Grace notes}.
 @node Commenting input files
 @subsection Commenting input files
 
+@cindex comments
+@cindex line comment
+@cindex block comment
 Comments are pieces of the input that are ignored.  There are two
 types of comments. A line comments are introduced by @code{%}: after
 that, the rest of that line is ignored.  Block comments span larger
@@ -861,6 +896,8 @@ for comments.
 @section Printing lyrics
 @cindex lyrics
 
+@cindex Lyrics
+@cindex Songs
 Lyrics are entered by separating each syllable with a space, and
 surrounding them with @code{\lyrics @{ @dots{} @}}, for example
 @example
@@ -905,6 +942,9 @@ The final result is
 }
 @end lilypond
 
+@cindex melisma
+@cindex extender line
+@c synonyms?
 This melody ends on a @rglos{melisma}, a single syllable (``free'')
 sung to more than one note. This is indicated with a @emph{extender
 line}. It is entered as two  underscores, i.e.,
@@ -957,6 +997,10 @@ TODO: discuss contexts.
 @node A lead sheet
 @section A lead sheet
 
+@cindex Lead sheets
+@cindex chords
+@cindex chord names
+ 
 In popular music, it is common to denote accompaniment as chord-names.
 Using them in LilyPond has two parts, just like lyrics: entering the
 chords (with @code{\chords}), and printing them (with @code{\context
@@ -1024,6 +1068,9 @@ a lead sheet, for example,
 
 @node Listening to output
 @section Listening to output
+
+@cindex sound
+@cindex MIDI
 
 MIDI (Musical Instrument Digital Interface) is a standard for
 connecting and recording digital instruments.  A MIDI file is like a
@@ -1110,6 +1157,10 @@ More information on titling can be found in @ref{Invoking ly2dvi}.
 @node Single staff polyphony  
 @section Single staff polyphony
 
+@cindex polyphony
+@cindex multiple voices
+@cindex voices, more -- on a staff
+
 When different melodic lines are combined on a single staff, these are
 printed as polyphonic voices: each voice has its own stems, slurs
 and beams, and the top voice has the stems up, while the bottom voice
@@ -1171,7 +1222,7 @@ Here is a full-fledged example:
  < \context Staff = up {
      c4 c g' g  }
    \context Staff = down {
-     \clef bass c, c' e c }
+     \clef bass c,, c' e c }
  >
 @end lilypond
 

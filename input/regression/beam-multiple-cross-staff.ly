@@ -25,5 +25,6 @@ to the last beam.
 	     }	     
 	     
 	     >
+    \paper { raggedright= ##t }
 
 }

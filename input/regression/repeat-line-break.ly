@@ -7,6 +7,8 @@ bracket should be equal
 "
 }
 
+    \paper { raggedright= ##t }
+
 \score  {
 \notes
 \context Staff\relative c''  {

@@ -11,4 +11,7 @@ beams even if they're auto generated."
   \times 2/3 {
 	 f8-[ f f ] f8-[ f f ] f f f f f f 
  }
-}}
+}
+    \paper { raggedright= ##t }
+
+     }

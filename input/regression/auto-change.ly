@@ -8,6 +8,7 @@ note. When central C is reached, we don't switch (by default).
 
 "
 }
+    \paper { raggedright= ##t }
 
 \score {
 	\notes \context PianoStaff <

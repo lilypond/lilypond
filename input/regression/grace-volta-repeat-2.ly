@@ -8,6 +8,8 @@ merged into one :||:."
 
       }
 
+    \paper { raggedright= ##t }
+
 \score {\notes\relative c' {
 \repeat volta 2 {
         c1 

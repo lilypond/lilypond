@@ -11,6 +11,9 @@
      \context Voice=va { \stemUp c' fis! }
      \context Voice=vb { \stemDown c fis! }
    >
+
+    \paper { raggedright= ##t }
+	 
 }
 
 

@@ -2,6 +2,7 @@
 \header {
     texidoc = "partcombiner and grace notes can go together"
 }
+    \paper { raggedright= ##t }
 
 \score {
     \context StaffGroup = group <

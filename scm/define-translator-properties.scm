@@ -28,6 +28,11 @@ variable: store table with MusicName to Engraver entries.")
 "Internal variable: store interface to engraver smob table for current
 context. Don't mess with this.")
 (translator-property-description 'aDueText string? "text for begin of a due")
+(translator-property-description 'alignBassFigureAccidentals boolean?
+				 "If true, then the accidentals are aligned in bass figure context.")
+
+(translator-property-description 'allowBeamBreak boolean?
+				 "If true allow line breaks during beams.")
 (translator-property-description 'associatedVoice string? "Name of the
 Voice that has the melody for this LyricsVoice.")
 (translator-property-description 'autoBeamSettings list? "Specifies
@@ -111,8 +116,7 @@ file @file{lyrics-multi-stanza.ly}.
 set, \\addlyrics will assume that beams, slurs and ties signal
 melismata, and align lyrics accordingly.
 ")
-(translator-property-description 'allowBeamBreak boolean?
-				 "If true allow line breaks during beams.")
+
 
 (translator-property-description 'barAlways boolean? "If set to true a bar line is drawn after each note.
 ")

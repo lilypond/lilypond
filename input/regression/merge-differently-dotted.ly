@@ -5,6 +5,9 @@ texidoc = "If NoteCollision has merge-differently-dotted set, note
 heads that have differing dot counts may be merged anyway."
 
  }
+    \paper { raggedright= ##t }
+
+
 	
 \score { \notes {
   \context Staff <

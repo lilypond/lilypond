@@ -4,6 +4,9 @@ texidoc = "Oppositely stemmed chords,  meshing into each other,
 are resolved."
 }
 
+    \paper { raggedright= ##t }
+
+
 \score {
   \context Staff \notes \transpose c c' {
      \time 3/4

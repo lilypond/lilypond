@@ -4,6 +4,8 @@ texidoc = "grace code should not be confused by nested sequential musics, contai
 
 }
 
+    \paper { raggedright= ##t }
+
 \score { \notes \context Voice {
 	 { \grace b'8 c''2 }
        \grace b'16 c''4 c''4 \bar "|."

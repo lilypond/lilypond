@@ -6,6 +6,9 @@ next to noteheads.
 "
 }
 
+    \paper { raggedright= ##t }
+
+
 \score {
 
  \notes\relative c' {

@@ -15,6 +15,7 @@
 	)))
 
 (define-public (make-bass-figure-markup figures context)
+  
   (define (no-end-bracket? f1 f2)
     (eq? (ly:get-mus-property f1 'bracket-stop) '())
     )
@@ -25,22 +26,21 @@
   ;; TODO: support slashed numerals here.
   (define (fig-to-markup fig-music)
     (let*
-	(
+	((align-accs (eq? #t (ly:get-context-property context 'alignBassFigureAccidentals)))
 	 (fig  (ly:get-mus-property fig-music 'figure))
 	 (acc  (ly:get-mus-property fig-music 'alteration))
 	 (acc-markup #f)
 	 (fig-markup
 	  (if (number? fig)
 	      (make-number-markup (number->string fig))
-	      (make-simple-markup " ")
-	      ))
-	 )
-
-    (if (number? acc)
-	(make-line-markup (list fig-markup
-				(alteration->text-accidental-markup acc)))
-	fig-markup)
-    ))
+	      (make-simple-markup (if align-accs " " ""))
+	      )))
+      
+      (if (number? acc)
+	  (make-line-markup (list fig-markup
+				  (alteration->text-accidental-markup acc)))
+	  fig-markup)
+      ))
   
   (define (fig-seq-to-markup figs)
     (let*

@@ -7,6 +7,8 @@ It also works for whole heads that have invisible stems.
 
 }
 
+    \paper { raggedright= ##t }
+
 \score { \notes \relative c''
 	 \context Thread {
 	     <<g a c>>4

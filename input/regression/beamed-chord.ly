@@ -7,6 +7,9 @@ texidoc = "Hairy case for beam, chord, and automatic knees."
 %be fixed by uncommenting \stemUp"
 }
 
+\paper { raggedright= ##t }
+
+
 \score{
   \notes\relative c'{
     %\stemUp
