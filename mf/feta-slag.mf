@@ -108,7 +108,6 @@ fet_beginchar("prallprall", "prallprall", "prallprall")
 	trills := 3;
 	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
 	draw_trill_three;
-	draw_mordent(twidth-0.5toverlap);
 fet_endchar;
 
 fet_beginchar("prallmordent", "prallmordent", "prallmordent")
