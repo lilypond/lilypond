@@ -57,6 +57,55 @@
         (interpret-markup layout props (make-fill-line-markup line))
         '())))
 
+(define-public ((marked-up-headfoot what-odd what-even) layout scopes page-number last?)
+
+  "Read variables WHAT-ODD, WHAT-EVEN, and interpret them as
+markup. The PROPS argument will include variables set in SCOPES and
+page:last?, page:page-number-string and page:page-number
+" 
+
+  (define (get sym)
+    (let ((x (ly:modules-lookup scopes sym)))
+      (if (markup? x) x #f)))
+  (define (interpret-in-page-env potential-markup)
+    (if (markup? potential-markup)
+	(let*
+	    ((alists  (map ly:module->alist scopes))
+	     (prefixed-alists
+	      (map (lambda (alist)
+		     (map (lambda (entry)
+			    (cons
+			     (string->symbol
+			      (string-append
+			       "header:"
+			       (symbol->string (car entry))))
+			     (cdr entry)
+			     ))
+			  alist))
+		   alists))
+	     (pgnum-alist (list
+			   (cons 'page:last? last?)
+			   (cons 'page:page-number-string
+				 (number->string page-number))
+			   (cons 'page:page-number  page-number)))
+	     (props (append
+		     (list pgnum-alist)
+		     prefixed-alists
+		     (page-properties layout)))
+	     )
+
+	  (interpret-markup layout props potential-markup))
+	
+	empty-stencil))
+
+  (interpret-in-page-env
+   (if (and (even? page-number)
+	    (markup? (get what-even)))
+       (get what-even)
+       (get what-odd)))) 
+
+
+
 ;; TODO: add publisher ID on non-first page.
 (define-public (plain-footer layout scopes page-number last?)
   "Standard footer. Empty, save for first (copyright) and last (tagline) page."

@@ -10,6 +10,7 @@
 ;;;  * each markup function should have a doc string with
 ;;     syntax, description and example. 
 
+(define-public empty-stencil (ly:make-stencil '() '(1 . -1) '(1 . -1)))
 
 (def-markup-command (stencil layout props stil) (ly:stencil?)
   "Stencil as markup"
@@ -17,6 +18,7 @@
 
 
 (def-markup-command (score layout props score) (ly:score?)
+  "Inline an image of music."
   (let*
       ((systems (ly:score-embedded-format score layout)))
 
@@ -92,15 +94,19 @@ gsave /ecrm10 findfont
 (def-markup-command (fill-line layout props markups)
   (markup-list?)
   "Put @var{markups} in a horizontal line of width @var{line-width}.
-   The markups are spaced/flushed to fill the entire line."
+   The markups are spaced/flushed to fill the entire line.
+   If there are no arguments, return an empty stencil.
+"
 
-  (let* ((stencils (map (lambda (x) (interpret-markup layout props x))
-			markups))
+  (let* ((stencils (filter
+		    (lambda (stc) (not (ly:stencil-empty? stc)))
+		    (map (lambda (x) (interpret-markup layout props x))
+			markups)))
 	 (text-width (apply + (map interval-length
 				   (map (lambda (x)
 					  (ly:stencil-extent x X))
 					stencils))))
-	(word-count (length markups))
+	(word-count (length stencils))
 	(word-space (chain-assoc-get 'word-space props))
 	(line-width (chain-assoc-get 'linewidth props))
 	(fill-space (if (< line-width text-width)
@@ -113,7 +119,10 @@ gsave /ecrm10 findfont
 			    (car stencils)
 			    (ly:make-stencil '() '(0 . 0) '(0 . 0))  )
 			   stencils)))
-    (stack-stencils X RIGHT fill-space line-stencils)))
+
+    (if (null? stencils)
+	empty-stencil
+	(stack-stencils X RIGHT fill-space line-stencils))))
   
 (define (font-markup qualifier value)
   (lambda (layout props arg)
@@ -121,12 +130,37 @@ gsave /ecrm10 findfont
 		      (prepend-alist-chain qualifier value props)
                       arg)))
 
+
 (def-markup-command (line layout props args) (markup-list?)
   "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between each markup in @var{args}."
   (stack-stencil-line
    (chain-assoc-get 'word-space props)
    (map (lambda (m) (interpret-markup layout props m)) args)))
+
+(def-markup-command (fromproperty layout props symbol) (symbol?)
+  "Read the @var{symbol} from property settings, and produce a stencil from the markup contained within. If @var{symbol} is not defined, it returns an empty markup"
+  (let*
+      ((m (chain-assoc-get symbol props)))
+
+    (if (markup? m)
+	(interpret-markup layout props m)
+	(ly:make-stencil '()  '(1 . -1) '(1 . -1) ))))
+
+
+(def-markup-command (on-the-fly layout props procedure arg) (symbol? markup?)
+  "Apply the @var{procedure} markup command to
+@var{arg}. @var{procedure} should take a single argument."
+  (let*
+      ((anonymous-with-signature (lambda (layout props arg) (procedure layout props arg))))
+
+    (set-object-property! anonymous-with-signature
+			 'markup-signature
+			 (list markup?))
+    
+    (interpret-markup layout props (list anonymous-with-signature arg))
+  ))
+
 
 (def-markup-command (combine layout props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
@@ -282,7 +316,8 @@ recommend font for this is bold and italic"
   "Stack the markups in @var{args} vertically."
   (stack-lines
    -1 0.0 (chain-assoc-get 'baseline-skip props)
-   (map (lambda (m) (interpret-markup layout props m)) args)))
+   (remove ly:stencil-empty?
+	   (map (lambda (m) (interpret-markup layout props m)) args))))
 
 (def-markup-command (dir-column layout props args) (markup-list?)
   "Make a column of args, going up or down, depending on the setting

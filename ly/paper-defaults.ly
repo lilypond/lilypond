@@ -26,8 +26,10 @@
     outputscale = #1.7573
     
     #(define-public score-title default-score-title)
-    #(define-public user-title default-user-title)
-    #(define-public book-title default-book-title)
+%    #(define-public user-title default-user-title)
+%    #(define-public book-title default-book-title)
+    #(define-public book-title (marked-up-title 'bookTitleMarkup))
+    #(define-public score-title (marked-up-title 'scoreTitleMarkup))
 
     %%
     %% ugh. hard coded?
@@ -77,7 +79,9 @@
     #(define page-music-height default-page-music-height )
     #(define page-make-stencil default-page-make-stencil )
 
-    #(define make-header plain-header)
-    #(define make-footer plain-footer)
+    #(define make-header (marked-up-headfoot 'oddHeaderMarkup 'evenHeaderMarkup))
+    #(define make-footer (marked-up-headfoot 'oddFooterMarkup 'evenFooterMarkup))
     #(set-paper-dimension-variables (current-module))
+
+    \include "titling-init.ly"
 }
