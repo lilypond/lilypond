@@ -161,7 +161,7 @@ internals document,  @internalsref{\NAME\}
 @end macro
 
 @macro context{NAME}
-@code{NAME}@c should use internalsref
+@code{\NAME\}@c should use internalsref
 @cindex \NAME\@c
 @end macro
 

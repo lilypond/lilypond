@@ -56,15 +56,17 @@ scm_default_compare (const void * a, const void *b)
   SCM pa = *(SCM *)a;
   SCM pb = *(SCM *)b;
 
-  if (pa < pb) return -1 ;
-  else if (pa > pb) return 1;
-  else return 0;
+  if (pa < pb)
+    return -1;
+  else if (pa > pb)
+    return 1;
+  else
+    return 0;
 }
 
 /*
   modify L in place: sort it 
 */
-
 SCM
 uniquify_list (SCM l)
 {
@@ -389,13 +391,18 @@ SCM
 System::get_line ()
 {  
   static int const LAYER_COUNT = 3;
+
   SCM stencils = SCM_EOL;
   if (Stencil *me = get_stencil ())
     stencils = scm_cons (me->smobbed_copy (), stencils);
 
   /* Output stencils in three layers: 0, 1, 2.  The default layer is
-     1.  */
-  for (int i = 0; i < LAYER_COUNT; i++)
+     1.
+
+     Start with layer 3, since  scm_cons prepends to list.
+     
+  */
+  for (int i = LAYER_COUNT; i--;)
     for (SCM s = get_property ("all-elements"); gh_pair_p (s); s = ly_cdr (s))
       {
 	Grob *g = unsmob_grob (ly_car (s));
