@@ -11,8 +11,8 @@ with lines and explanatory text added."
    \relative c'  {
 
        %% by hand:
-       \once\property Voice.Stem \set #'print-function = #Balloon_interface::brew_molecule
-       \once\property Voice.Stem \set #'balloon-original-callback = #Stem::brew_molecule
+       \once\property Voice.Stem \set #'print-function = #Balloon_interface::print
+       \once\property Voice.Stem \set #'balloon-original-callback = #Stem::print
        \once\property Voice.Stem \set #'balloon-text = #"I'm a stem"
        \once\property Voice.Stem \set #'balloon-text-offset = #'(3 . 4)
        \once\property Voice.Stem \set #'balloon-text-props

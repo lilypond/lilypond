@@ -777,7 +777,7 @@ Rest can contain a list of beat groupings
     
    (if (equal? nm object-name)
     (begin
-     (ly:set-grob-property! grob 'print-function Balloon_interface::print_function)
+     (ly:set-grob-property! grob 'print-function Balloon_interface::print)
      (ly:set-grob-property! grob 'balloon-original-callback cb)
      (ly:set-grob-property! grob 'balloon-text text)
      (ly:set-grob-property! grob 'balloon-text-offset off)

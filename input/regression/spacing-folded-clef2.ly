@@ -14,8 +14,8 @@ show where columns are in the score."
 	\paper { raggedright = ##t
 
 	\translator { \ScoreContext
-	  NonMusicalPaperColumn \override #'print-function = #Paper_column::brew_molecule
-	  PaperColumn \override #'print-function = #Paper_column::brew_molecule	  
+	  NonMusicalPaperColumn \override #'print-function = #Paper_column::print
+	  PaperColumn \override #'print-function = #Paper_column::print	  
 	  NonMusicalPaperColumn \override #'font-family = #'roman
 	  PaperColumn \override #'font-family = #'roman	  
 

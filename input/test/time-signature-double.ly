@@ -23,7 +23,7 @@ tsMarkup =
 
 \score  { \notes \relative c'
 	  {
-	   \property Staff.TimeSignature \override #'print-function = #Text_item::print_function
+	   \property Staff.TimeSignature \override #'print-function = #Text_item::print
 	   \property Staff.TimeSignature \override #'text = #tsMarkup
 	   
 	   

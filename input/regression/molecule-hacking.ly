@@ -18,7 +18,7 @@ Example usage:
 
   \\property Voice.NoteHead \\override #'print-function
 		      =
-		      #(parenthesize-callback Note_head::brew_molecule)
+		      #(parenthesize-callback Note_head::print)
 		    
 "
 
@@ -61,12 +61,12 @@ GROB.  The dimensions of the molecule is not affected.
 
 		    \property Voice.NoteHead \override #'print-function
 		      =
-		      #(parenthesize-callback Note_head::brew_molecule)
+		      #(parenthesize-callback Note_head::print)
 		    g bes
 		    \property Voice.NoteHead \revert #'print-function
 		    \property Voice.Beam \override #'print-function
 		      =
-		      #(parenthesize-callback Beam::brew_molecule)
+		      #(parenthesize-callback Beam::print)
 
 		    a8 gis8 a2.
 		    
