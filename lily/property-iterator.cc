@@ -8,6 +8,7 @@
 
 #include "property-iterator.hh"
 #include "translation-property.hh"
+#include "translator-def.hh"
 #include "translator-group.hh"
 
 /**
@@ -31,7 +32,7 @@ Push_property_iterator::do_process_and_next (Moment m)
   SCM eprop = music_l_->get_mus_property ("element-property");
   SCM val = music_l_->get_mus_property ("element-value");
 
-  Translator_group_initializer::apply_pushpop_property (report_to_l (), syms,eprop, val);
+  Translator_def::apply_pushpop_property (report_to_l (), syms, eprop, val);
   
   Music_iterator::do_process_and_next (m);
 }
@@ -41,7 +42,7 @@ Pop_property_iterator::do_process_and_next (Moment m)
 {
   SCM syms = music_l_->get_mus_property ("symbols");
   SCM eprop = music_l_->get_mus_property ("element-property");
-  Translator_group_initializer::apply_pushpop_property (report_to_l (), syms, eprop, SCM_UNDEFINED);
+  Translator_def::apply_pushpop_property (report_to_l (), syms, eprop, SCM_UNDEFINED);
   
   Music_iterator::do_process_and_next (m);
 }

@@ -147,13 +147,15 @@ read_lily_scm_file (String fn)
   gh_eval_str ((char *) gulp_file_to_string (fn).ch_C());
 }
 
-
+extern "C" {
+  // maybe gdb 5.0 becomes quicker if it doesn't do fancy C++ typing?
 void
 ly_display_scm (SCM s)
 {
   gh_display (s);
   gh_newline ();
 }
+};
 
 String
 ly_scm2string (SCM s)

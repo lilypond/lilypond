@@ -51,7 +51,9 @@ SCM ly_type (SCM);
 /*
   display and print newline.
  */
+extern "C" { 
 void ly_display_scm (SCM s);
+}
 
 #include "array.hh"
 

@@ -1,43 +1,7 @@
 #!@PYTHON@
 # vim: set noexpandtab:
-import time
-t1 = time.clock()
-
-# support bruk av convert-mudela
-#
-# option:
-# 11pt, 13pt, 16pt, 20pt, 26pt
-# singleline
-# multiline
-# fragment  (used when a comment containg \score confuses mudela-book)
-# nonfragment (probably not needed)
-# verbatim
-
-# latex only options:
-# eps
-# 
-
-# command line options
-# --defalt-mudela-fontsize
-# --force-mudela-fontsize
-# --outname
-# --force-verbatim make all mudela verbatim. Maybe not that useful
-# --dependencies
-# --dep-prefix
-# --no-pictures
-# --no-lily
 # TODO: Figure out clean set of options.
-
-# BUG: does not handle \verb|\begin{verbatim}\end{verbatim}| correctly.
-# Should make a joint RE for \verb and \begin, \end{verbatim}
-
-# TODO: add an option to read the .ly files from a previous run and dump
-# the .tex file, so you can do
-#
-# * mudela-book file.tex
-# * convert-mudela *.ly
-# * mudela-book --read-lys *.ly
-#
+# add support for .lilyrc
 
 import os
 import stat
@@ -47,8 +11,6 @@ import getopt
 import sys
 import __main__
 
-
-initfile = ''
 
 
 program_version = '@TOPLEVEL_VERSION@'
@@ -65,7 +27,6 @@ g_do_pictures = 1
 g_num_cols = 1
 format = ''
 g_run_lilypond = 1
-g_use_hash = 1
 no_match = 'a\ba'
 
 default_music_fontsize = 16
@@ -104,22 +65,20 @@ def get_linewidth(cols, paper, fontsize):
 
 option_definitions = [
   ('EXT', 'f', 'format', 'set format.  EXT is one of texi and latex.'),
-  ('DIM',  '', 'default-music-fontsize', 'default fontsize for music.  DIM is assumed to in points'),
+  ('DIM',  '', 'default-music-fontsize', 'default fontsize for music.  DIM is assumed to be in points'),
   ('DIM',  '', 'default-mudela-fontsize', 'deprecated, use --default-music-fontsize'),
-  ('', 'h', 'help', 'print help'),
-  ('DIR', 'I', 'include', 'include path'),
-  ('', '', 'init', 'mudela-book initfile'),
-  ('DIM', '', 'force-music-fontsize', 'force fontsize for all inline mudela. DIM is assumed to in points'),
+  ('DIM', '', 'force-music-fontsize', 'force fontsize for all inline mudela. DIM is assumed be to in points'),
   ('DIM', '', 'force-mudela-fontsize', 'deprecated, use --force-music-fontsize'),
-  ('', '', 'force-verbatim', 'make all mudela verbatim'),
+  ('DIR', 'I', 'include', 'include path'),
   ('', 'M', 'dependencies', 'write dependencies'),
+  ('PREF', '',  'dep-prefix', 'prepend PREF before each -M dependency'),
   ('', 'n', 'no-lily', 'don\'t run lilypond'),
   ('', '', 'no-pictures', "don\'t generate pictures"),
   ('', '', 'read-lys', "don't write ly files."),
-  ('FILE', 'o', 'outname', 'prefix for filenames'),
-  ('', 'v', 'version', 'print version information' ),
-  ('PREF', '',  'dep-prefix', 'prepend PREF before each -M dependency'),
+  ('FILE', 'o', 'outname', 'filename main output file'),
   ('FILE', '', 'outdir', "where to place generated files"),
+  ('', 'v', 'version', 'print version information' ),
+  ('', 'h', 'help', 'print help'),
   ]
 
 # format specific strings, ie. regex-es for input, and % strings for output
@@ -194,16 +153,16 @@ re_dict = {
 		  'option-sep' : ', *',
 		  'header': r"""\\documentclass(\[.*?\])?""",
 		  'preamble-end': '\\\\begin{document}',
-		  'verbatim': r"""(?s)\\begin{verbatim}(?P<code>.*?)\\end{verbatim}""",
-		  'verb': r"""\\verb(.)(?P<code>.*?)\1""",
+		  'verbatim': r"""(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})""",
+		  'verb': r"""(?P<code>\\verb(?P<del>.).*?(?P=del))""",
 		  'mudela-file': r'\\mudelafile(\[(?P<options>.*?)\])?\{(?P<filename>.+)}',
-		  'mudela' : '\\\\mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)}',
+		  'mudela' : '(?m)\\\\mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)}',
+		  #'mudela-block': r"""(?m)^[^%]*?\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela}""",
 		  'mudela-block': r"""(?s)\\begin(\[(?P<options>.*?)\])?{mudela}(?P<code>.*?)\\end{mudela}""",
-		  'interesting-cs': '\\\\(chapter|section|twocolumn|onecolumn)',
 		  'def-post-re': r"""\\def\\postMudelaExample""",
 		  'def-pre-re': r"""\\def\\preMudelaExample""",		  
 		  'intertext': r',?\s*intertext=\".*?\"',
-		  'ignore': no_match,
+		  'ignore': r"(?m)(?P<code>%.*?^)",
 		  'numcols': r"(?P<code>\\(?P<num>one|two)column)",
 		  },
 	
@@ -213,14 +172,13 @@ re_dict = {
 		 'header': no_match,
 		 'preamble-end': no_match,
 		 'verbatim': r"""(?s)(?P<code>@example\s.*?@end example\s)""",
-		 'verb': r"""@code{(?P<code>.*?)}""",
+		 'verb': r"""(?P<code>@code{.*?})""",
 		 'mudela-file': '@mudelafile(\[(?P<options>.*?)\])?{(?P<filename>[^}]+)}',
 		 'mudela' : '@mudela(\[(?P<options>.*?)\])?{(?P<code>.*?)}',
 		 'mudela-block': r"""(?s)@mudela(\[(?P<options>.*?)\])?\s(?P<code>.*?)@end mudela\s""",
-		 'interesting-cs': r"""[\\@](chapter|section)""",
 		  'option-sep' : ', *',
 		  'intertext': r',?\s*intertext=\".*?\"',
-		  'ignore': r"(?s)@ignore\s(.*?)@end ignore\s",
+		  'ignore': r"(?s)(?P<code>@ignore\s.*?@end ignore)\s",
 		  'numcols': no_match,
 		 }
 	}
@@ -396,7 +354,7 @@ def find_file (name):
 		return ''
 
 def do_ignore(match_object):
-	return []
+	return [('ignore', match_object.group('code'))]
 
 def make_verbatim(match_object):
 	return [('verbatim', match_object.group('code'))]
@@ -468,7 +426,9 @@ def chop_chunks(chunks, re_name, func):
                     str = ''
                 else:
                     newchunks.append (('input', str[:m.start (0)]))
-                    newchunks.extend(func(m))
+                    #newchunks.extend(func(m))
+		    # python 1.5 compatible:
+		    newchunks = newchunks + func(m)
                     str = str [m.end(0):]
         else:
             newchunks.append(c)
@@ -493,7 +453,6 @@ def read_doc_file (filename):
 	# we have to check for verbatim before doing include,
 	# because we don't want to include files that are mentioned
 	# inside a verbatim environment
-	chunks = chop_chunks(chunks, 'ignore', do_ignore)
 	chunks = chop_chunks(chunks, 'verbatim', make_verbatim)
 	chunks = chop_chunks(chunks, 'verb', make_verb)
 	#ugh fix input
@@ -502,25 +461,8 @@ def read_doc_file (filename):
 	return chunks
 
 
-def advance_counters (counter, str):
-	"""Advance chap/sect counters,
-	Return the new counter tuple
-	"""
-	(chapter, section, count) = counter
-	while str:
-		m = get_re ('interesting-cs').search(str)
-		if not m:
-			break
-		str = str[m.end(0):]
-		g = m.group (1)
-		if g == 'chapter':#ugh use dict
-			(chapter, section, count)  = (chapter + 1, 0, 0)
-		elif g == 'section':
-			(section, count)  = (section + 1, 0)
-	return (chapter, section, count)
-
-taken_file_names = []
-def schedule_mudela_block (basename, chunk, extra_opts):
+taken_file_names = {}
+def schedule_mudela_block (chunk, extra_opts):
 	"""Take the body and options from CHUNK, figure out how the
 	real .ly should look, and what should be left MAIN_STR (meant
 	for the main file).  The .ly is written, and scheduled in
@@ -539,15 +481,16 @@ def schedule_mudela_block (basename, chunk, extra_opts):
 	assert type == 'mudela'
 	opts = opts +  extra_opts
 	file_body = compose_full_body (body, opts)
-	if __main__.g_use_hash:
-		basename = `abs(hash (file_body))`
+	basename = `abs(hash (file_body))`
 	for o in opts:
 		m = re.search ('filename="(.*?)"', o)
 		if m:
-			basename = m.group (1)#ugh add check if more than
-			#one file has the same name
-			assert basename not in taken_file_names
-			taken_file_names.append(basename)
+			basename = m.group (1)
+			if not taken_file_names.has_key(basename):
+			    taken_file_names[basename] = 0
+			else:
+			    taken_file_names[basename] = taken_file_names[basename] + 1
+			    basename = basename + "-%i" % taken_file_names[basename]
 	# writes the file if necessary, returns true if it was written
 	if not g_read_lys:
 		update_file(file_body, os.path.join(g_outdir, basename) + '.ly')
@@ -587,16 +530,11 @@ def schedule_mudela_block (basename, chunk, extra_opts):
 	return ('mudela', newbody, opts, todo, basename)
 
 def process_mudela_blocks(outname, chunks, global_options):#ugh rename
-	(chap,sect,count) = (0,0,0)
 	newchunks = []
 	# Count sections/chapters.
 	for c in chunks:
-		if c[0] == 'input':
-			(chap,sect,count) = advance_counters((chap,sect,count), c[1])
-		elif c[0] == 'mudela':
-			base = '%s-%d.%d.%d' % (outname, chap, sect, count)
-			count = count + 1
-			c = schedule_mudela_block (base, c, global_options)
+		if c[0] == 'mudela':
+			c = schedule_mudela_block (c, global_options)
 		elif c[0] == 'numcols':
 			__main__.g_num_cols = c[2]
 		newchunks.append (c)
@@ -781,8 +719,9 @@ def do_file(input_filename):
 	chunks = chop_chunks(chunks, 'mudela', make_mudela)
 	chunks = chop_chunks(chunks, 'mudela-file', make_mudela_file)
 	chunks = chop_chunks(chunks, 'mudela-block', make_mudela_block)
-	chunks = chop_chunks(chunks, 'numcols', do_columns)
 	#for c in chunks: print c, "\n"
+	chunks = chop_chunks(chunks, 'ignore', do_ignore)
+	chunks = chop_chunks(chunks, 'numcols', do_columns)
 	global_options = scan_preamble(chunks[0][1])
 	chunks = process_mudela_blocks(my_outname, chunks, global_options)
 	# Do It.
@@ -805,8 +744,7 @@ def do_file(input_filename):
 	sys.stderr.write ("Writing `%s'\n" % foutn)
 	fout = open (foutn, 'w')
 	for c in chunks:
-		#if c[1] is not None:
-			fout.write (c[1])
+		fout.write (c[1])
 	fout.close ()
 
 	if do_deps:
@@ -828,11 +766,10 @@ for opt in options:
 
 	if o == '--include' or o == '-I':
 		include_path.append (a)
-	elif o == '--version':
+	elif o == '--version' or o == '-v':
 		print_version ()
 		sys.exit  (0)
-
-	elif o == '--format' or o == '-o':
+	elif o == '--format' or o == '-f':
 		__main__.format = a
 	elif o == '--outname' or o == '-o':
 		if len(files) > 1:
@@ -844,7 +781,7 @@ for opt in options:
 		help ()
 	elif o == '--no-lily' or o == '-n':
 		__main__.g_run_lilypond = 0
-	elif o == '--dependencies':
+	elif o == '--dependencies' or o == '-M':
 		do_deps = 1
 	elif o == '--default-music-fontsize':
 		default_music_fontsize = string.atoi (a)
@@ -856,9 +793,6 @@ for opt in options:
 	elif o == '--force-mudela-fontsize':
 		print "--force-mudela-fontsize is deprecated, use --default-mudela-fontsize"
 		g_force_mudela_fontsize = string.atoi(a)
-
-	elif o == '--init':
-		initfile =  a
 	elif o == '--dep-prefix':
 		g_dep_prefix = a
 	elif o == '--no-pictures':
@@ -877,10 +811,6 @@ if g_outdir:
 for input_filename in files:
 	do_file(input_filename)
 	
-
-
-t2 = time.clock()
-print "Time:", t2-t1
 #
 # Petr, ik zou willen dat ik iets zinvoller deed,
 # maar wat ik kan ik doen, het verandert toch niets?

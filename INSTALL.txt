@@ -270,9 +270,9 @@ following for the normal build,
    and for the profiling version, I specify a different configuration.
 
 
-           ./configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
-           make config=optprof
-           make config=optprof install
+           ./configure --prefix=~ --enable-profiling --enable-config=prof --enable-optimise --disable-checking
+           make config=prof
+           make config=prof install
 
 Installing
 ==========
@@ -316,14 +316,44 @@ addition to the those needed for running:
 
    * texinfo
 
+   * tetex-devel
+
 Debian GNU/linux
 ================
 
    A Debian package is also available; see
 http://packages.debian.org/lilypond
 (http://packages.debian.org/lilypond) or contact Anthony Fok
-<foka@debian.org> for more information.  The build scripts are in the
-subdirectory `debian/'.
+<foka@debian.org> for more information.
+
+   The build scripts are in the subdirectory `debian/'; you can make
+the .deb by doing
+
+
+     	tar xzf lilypond-x.y.z.tar.gz
+     	cd lilypond-x.y.z
+     	dpkg-buildpackage
+     	dpkg -i ../lilypond_x.y.z*deb
+
+   For compilation on a Debian GNU/Linux system you need these packages,
+in addition to the those needed for running:
+   * libc6-dev
+
+   * libstdc++<your-libstdc++-version-here>-dev
+
+   * libguile<your-libguile-version-here>-dev
+
+   * flex
+
+   * bison
+
+   * gettext
+
+   * texinfo
+
+   * tetex-dev
+
+   * debhelper
 
 Windows NT/95
 =============

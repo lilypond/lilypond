@@ -76,8 +76,8 @@ RhythmicStaffContext=\translator{
 	\consists "Separating_line_group_engraver";	
 	\name RhythmicStaff;
 
-	\pushproperty #'basicVoltaSpannerProperties #'minimum-space #15  % urg, in \pt
-	\pushproperty #'basicVoltaSpannerProperties #'padding #5  % urg, in \pt
+	basicVoltaSpannerProperties \push #'minimum-space =  #15  % urg, in \pt
+	basicVoltaSpannerProperties \push #'padding =  #5  % urg, in \pt
 
 
 
@@ -160,12 +160,18 @@ GraceContext=\translator {
 
 	\consists "Property_engraver";
 
-	\pushproperty #'basicStemProperties #'style #"grace"
-	\pushproperty #'basicStemProperties #'flag-style #"grace"
-	\pushproperty #'basicStemProperties #'stem-length #6.0
-	\pushproperty #'basicStemProperties #'direction #1
-	\pushproperty #'(basicNoteHeadProperties basicStemProperties basicBeamProperties basicTextScriptProperties basicSlurProperties basicLocalKeyProperties) #'font-size #-1
-		
+	basicStemProperties \push  #'style = #"grace"
+	basicStemProperties \push  #'flag-style = #"grace"
+	basicStemProperties \push  #'stem-length = #6.0
+	basicStemProperties \push  #'direction = #1
+
+	basicNoteHeadProperties \push #'font-size = #-1
+	basicStemProperties \push #'font-size = #-1
+	basicBeamProperties \push #'font-size = #-1
+	basicTextScriptProperties \push #'font-size = #-1
+	basicSlurProperties \push #'font-size = #-1
+	basicLocalKeyProperties \push #'font-size = #-1
+
 	weAreGraceContext = ##t 
 	graceAccidentalSpace= 1.5 * \staffspace;
 };
@@ -705,7 +711,7 @@ ScoreContext = \translator {
 		(visibility-lambda . ,begin-of-line-visible)
 		(name . "stanza number")
 	)
-	staffSymbolBasicProperties = #`(
+	basicStaffSymbolProperties = #`(
 		(interfaces . (staff-symbol-interface ))
 		(molecule-callback . ,Staff_symbol::brew_molecule)
 		(staff-space . 1.0)

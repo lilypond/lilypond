@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.3.84
+Version: 1.3.85
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.84.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.85.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 # Icon: lilypond-icon.gif
@@ -91,7 +91,9 @@ fi
 %doc mudela-mode.el
 
 %ifnos cygwin
-%{_prefix}/bin/abc2ly
+%{_prefix}/bin/etf2ly
+%{_prefix}/bin/musedata2ly
+%{_prefix}/bin/pmx2ly
 %{_prefix}/bin/convert-mudela
 %{_prefix}/bin/mudela-book
 %{_prefix}/bin/ly2dvi

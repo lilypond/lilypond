@@ -68,6 +68,13 @@ IMPLEMENT_SIMPLE_SMOBS(CL)							\
 SCM										\
 CL::smobify_self ()								\
 {										\
+  SCM s =   unprotected_smobify_self ();\
+  scm_protect_object (s);\
+  return s;\
+}\
+SCM										\
+CL::unprotected_smobify_self ()								\
+{										\
   /*										\
     This is local. We don't assign to self_scm_ directly, to assure		\
     that S isn't GC-ed from under us.						\
@@ -82,7 +89,6 @@ CL::smobify_self ()								\
   SCM_SETCDR (s, SCM_PACK(this));						\
   self_scm_ = s;								\
  scm_done_malloc(sizeof(CL));							\
-  scm_protect_object (s);							\
   return s;									\
 }
 

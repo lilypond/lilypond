@@ -60,6 +60,8 @@ static Keyword_ent the_key_tab[]={
   {"outputproperty", OUTPUTPROPERTY},
   {"pushproperty", PUSHPROPERTY},
   {"popproperty", POPPROPERTY},
+  {"push", PUSH},
+  {"pop", POP},
   {"partial", PARTIAL},
   {"paper", PAPER},
   {"penalty", PENALTY},
