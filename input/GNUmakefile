@@ -2,7 +2,7 @@
 
 depth = ..
 
-SUBDIRS=bugs features test regression tutorial
+SUBDIRS=bugs tricks test regression tutorial
 
 examples=trip  star-spangled-banner paddy scarlatti-test
 flexamples=
