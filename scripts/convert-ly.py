@@ -1366,6 +1366,9 @@ if 1:
 
 		if re.search (marker_str,str):
 			return str
+		str = re.sub ('<<', '@STARTCHORD@', str)
+		str = re.sub ('>>', '@ENDCHORD@', str)
+		
 		str= re.sub (r'\\<', '@STARTCRESC@', str)
 		str= re.sub (r'\\>', '@STARTDECRESC@', str)
 		str= re.sub (r'([_^-])>', r'\1@ACCENT@', str)
