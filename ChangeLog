@@ -1,3 +1,10 @@
+2005-01-31  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-book.py: Resurrect HTML links to .ly source.
+	Bugfix: @include .tex (not .texi).  Small cleanups.
+
+	* stepmake/bin/add-html-footer.py (i18n): New function.
+
 2005-01-31  Werner Lemberg  <wl@gnu.org>
 
 	* mf/feta-nummer.mf: Removed.  Unused.

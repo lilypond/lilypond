@@ -489,14 +489,22 @@ output = {
 
 		OUTPUT: r'''
 @iftex
-@include %(base)s-systems.texi
+@include %(base)s-systems.tex
 @end iftex
 ''',
 
 		OUTPUTIMAGE: r'''@noindent
-@ifnottex
+@ifinfo
 @image{%(base)s,,,[image of music],%(ext)s}
-@end ifnottex
+@end ifinfo
+@html
+<p>
+  <a href="%(base)s.ly">
+    <img align="center" valign="center"
+	 border="0" src="%(image)s" alt="[image of music]">
+  </a>
+</p>
+@end html
 ''',
 
 		PRINTFILENAME: '''@file{%(filename)s}
@@ -878,7 +886,7 @@ class Lilypond_snippet (Snippet):
 	def texstr_is_outdated (self):
 		if backend == 'ps':
 			return 0
-		
+
 		base = self.basename ()
 		ok = self.ly_is_outdated ()
 		ok = ok and (os.path.exists (base + '.texstr'))
@@ -939,8 +947,8 @@ class Lilypond_snippet (Snippet):
 			ext = ''
 			str += output[TEXINFO][OUTPUTIMAGE] % vars ()
 
-		base = self.basename()
-		str += output[format][OUTPUT] % vars()
+		base = self.basename ()
+		str += output[format][OUTPUT] % vars ()
 		return str
 
 	def output_latex (self):
@@ -985,10 +993,10 @@ class Lilypond_snippet (Snippet):
 			verb = verbatim_texinfo (self.substring ('code'))
 			str += (output[TEXINFO][VERBATIM] % vars ())
 			if not QUOTE in self.options:
-				str = output[TEXINFO][NOQUOTE] % vars()
+				str = output[TEXINFO][NOQUOTE] % vars ()
 
 		str += self.output_info ()
-		
+
 #		str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
 #		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
 #		str += ('@html\n' + self.output_html () + '\n@end html\n')
@@ -1247,7 +1255,7 @@ def guess_format (input_filename):
 			     % input_filename))
 		ly.exit (1)
 	return format
-	
+
 def do_file (input_filename):
 	# Ugh.
 	if not input_filename or input_filename == '-':
@@ -1429,7 +1437,7 @@ def main ():
 	global process_cmd, format
 	format = guess_format (files[0])
 
-	formats = "ps"
+	formats = 'ps'
 	if format == TEXINFO:
 		formats += ',png' 
 	if process_cmd == '':
