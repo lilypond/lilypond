@@ -19,7 +19,7 @@ struct Spanner {
     String TeXstring () const ;
     Spanner();
     Paperdef*paper() const;
-
+    virtual ~Spanner();
     virtual Interval height()const=0;
     /**
       PRE:
@@ -39,7 +39,18 @@ struct Spanner {
     */
     virtual void print() const;
 };
-/** Spanner should know about the items which it should consider:
+/**
+  A spanner is a symbol whose appearance can only be calculated after the breaking problem is solved.
+
+  Examples
+
+  - (de)crescendo
+  - slur
+  - beam
+  - bracket
+  
+
+  Spanner should know about the items which it should consider:
     e.g. slurs should be steep enough to "enclose" all those items. This
     is absolutely necessary for beams, since they have to adjust the
     length of stems of notes they encompass.
