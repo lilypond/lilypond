@@ -174,7 +174,7 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	{
 	
 	  /* Blunt axe method: every grob gets a propertysetting. */
-	  i.grob_->set_grob_property ("direction", gh_int2scm (d));
+	  i.grob_->set_grob_property ("direction", scm_int2num (d));
 	}
     }
 
@@ -184,7 +184,7 @@ A2_engraver::acknowledge_grob (Grob_info i)
     if (state_ == UNIRHYTHM
 	&& unisilence != SCM_BOOL_T)
     {
-      i.grob_->set_grob_property ("staff-position", gh_int2scm (d * 6));
+      i.grob_->set_grob_property ("staff-position", scm_int2num (d * 6));
     }
 }
 

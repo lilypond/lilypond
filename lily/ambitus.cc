@@ -65,9 +65,9 @@ number_accidentals (SCM key_signature, Pitch *pitch,
 
   SCM prev;
   if (ignore_octave_b)
-    prev = ly_assoc_cdr (gh_int2scm (notename), key_signature);
+    prev = ly_assoc_cdr (scm_int2num (notename), key_signature);
   else
-    prev = gh_assoc (gh_cons (gh_int2scm (octave), gh_int2scm (notename)),
+    prev = gh_assoc (gh_cons (scm_int2num (octave), scm_int2num (notename)),
 		     key_signature);
 
   /* should really be true unless prev == SCM_BOOL_F */
@@ -78,9 +78,9 @@ number_accidentals (SCM key_signature, Pitch *pitch,
 
   /* If an accidental was not found */
   if (prev == SCM_BOOL_F)
-    prev = gh_assoc (gh_int2scm (notename), key_signature);
+    prev = gh_assoc (scm_int2num (notename), key_signature);
 
-  SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm (0) : ly_cdr (prev);
+  SCM prev_acc = (prev == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev);
   int sig_alteration = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
 
   if (alteration == sig_alteration) // no accidental at all needed

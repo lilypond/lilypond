@@ -361,7 +361,11 @@ so you can add multiple packages using multiple @code{-s=latexpackages} options.
 @code{geometry}.
 
 @item latexoptions
-    Specify additional options for the La@TeX{} @code{\documentclass}. You can put any valid value here. This was designed to allow ly2dvi to produce output for double-sided paper, with balanced margins and pagenumbers on alternating sides. To achieve this specify @code{twoside}
+    Specify additional options for the La@TeX{}
+@code{\documentclass}. You can put any valid value here. This was
+designed to allow ly2dvi to produce output for double-sided paper,
+with balanced margins and pagenumbers on alternating sides. To achieve
+this specify @code{twoside}
 
 @item orientation
     Set orientation. Choices are @code{portrait} or @code{landscape}. Is
@@ -380,8 +384,8 @@ block.
 the @code{\paper} block.
 
 @item pagenumber
-   If set to @code{no}, no page numbers will be printed.
-
+   If set to @code{no}, no page numbers will be printed.  If set to a
+positive integer, start with this value as the first page number.
 
   
   @item fontenc

@@ -77,7 +77,7 @@ Real
 Beam::get_beam_translation (Grob *me)
 {
   SCM func = me->get_grob_property ("space-function");
-  SCM s = gh_call2 (func, me->self_scm (), gh_int2scm (get_beam_count (me)));
+  SCM s = gh_call2 (func, me->self_scm (), scm_int2num (get_beam_count (me)));
   return gh_scm2double (s);
 }
 
@@ -203,7 +203,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
       for ( SCM s = gh_car (right_beaming); gh_pair_p (s); s = gh_cdr (s))
 	{
 	  int k = - right_dir * gh_scm2int (gh_car (s)) + i;
-	  if (scm_memq (gh_int2scm (k), left_beaming) != SCM_BOOL_F)
+	  if (scm_memq (scm_int2num (k), left_beaming) != SCM_BOOL_F)
 	    count ++;
 	}
 
@@ -254,7 +254,7 @@ Beam::connect_beams (Grob *me)
 		    start_point - this_dir * gh_scm2int (gh_car (s));
 
 		  new_slice.add_point (new_beam_pos);
-		  gh_set_car_x (s, gh_int2scm (new_beam_pos));
+		  gh_set_car_x (s, scm_int2num (new_beam_pos));
 		}
 
 
@@ -271,7 +271,7 @@ Beam::connect_beams (Grob *me)
 	  for (; gh_pair_p (s); s = gh_cdr (s))
 	    {
 	      int np = - this_dir * gh_scm2int (gh_car(s));
-	      gh_set_car_x (s, gh_int2scm (np));
+	      gh_set_car_x (s, scm_int2num (np));
 	      last_int.add_point (np);
 	    }
 	}
@@ -417,7 +417,7 @@ Beam::brew_molecule (SCM grob)
 		  int t = Stem::duration_log (st); 
 
 		  SCM proc = me->get_grob_property ("flag-width-function");
-		  SCM result = gh_call1 (proc, gh_int2scm (t));
+		  SCM result = gh_call1 (proc, scm_int2num (t));
 		  nw_f = gh_scm2double (result);
 		}
 	      
@@ -494,8 +494,8 @@ Beam::get_default_dir (Grob *me)
   count[UP]  = count[DOWN] = 0;
   Direction d = DOWN;
 
-  Link_array<Item> stems=
-	Pointer_group_interface__extract_grobs (me, (Item*)0, "stems");
+  Link_array<Grob> stems=
+	Pointer_group_interface__extract_grobs (me, (Grob*)0, "stems");
 
   for (int i=0; i <stems.size (); i++)
     do {
@@ -514,10 +514,10 @@ Beam::get_default_dir (Grob *me)
   
   SCM func = me->get_grob_property ("dir-function");
   SCM s = gh_call2 (func,
-		    gh_cons (gh_int2scm (count[UP]),
-			     gh_int2scm (count[DOWN])),
-		    gh_cons (gh_int2scm (total[UP]),
-			     gh_int2scm (total[DOWN])));
+		    gh_cons (scm_int2num (count[UP]),
+			     scm_int2num (count[DOWN])),
+		    gh_cons (scm_int2num (total[UP]),
+			     scm_int2num (total[DOWN])));
 
   if (gh_number_p (s) && gh_scm2int (s))
     return to_dir (s);
@@ -533,8 +533,8 @@ Beam::get_default_dir (Grob *me)
 void
 Beam::set_stem_directions (Grob *me, Direction d)
 {
-  Link_array<Item> stems
-    =Pointer_group_interface__extract_grobs (me, (Item*) 0, "stems");
+  Link_array<Grob> stems
+    =Pointer_group_interface__extract_grobs (me, (Grob*) 0, "stems");
   
   for (int i=0; i <stems.size (); i++)
     {
@@ -599,13 +599,13 @@ struct Int_set
 	    before[RIGHT] = s[LEFT];
 	    after[LEFT] = s[RIGHT];
 
-	    if (!before.empty_b())
+	    if (before.empty_b() && before.length () > 0.0)
 	      {
 		allowed_regions_.insert (before, i);
 		i++;
 	      }
 	    allowed_regions_.del (i);
-	    if (!after.empty_b ())
+	    if (!after.empty_b () && after.length () > 0.0)
 	      {
 		allowed_regions_.insert (after, i);
 		i++;
@@ -707,7 +707,7 @@ Beam::consider_auto_knees (Grob* me, Direction d)
 	  Direction d =  (hps.center () < max_gap.center()) ?
 	    UP : DOWN ;
 	  
-	  stem->set_grob_property ("direction", gh_int2scm (d));
+	  stem->set_grob_property ("direction", scm_int2num (d));
 
 	  /*
 	    UGH. Check why we still need dir-forced; I think we can
@@ -754,7 +754,7 @@ Beam::set_stem_shorten (Grob *me)
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   SCM shorten_elt = scm_list_ref (shorten,
-				  gh_int2scm (beam_count <? (sz - 1)));
+				  scm_int2num (beam_count <? (sz - 1)));
   Real shorten_f = gh_scm2double (shorten_elt) * staff_space;
 
   /* your similar cute comment here */

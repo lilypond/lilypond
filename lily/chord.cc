@@ -130,7 +130,7 @@ Chord::step_scm (SCM tonic, SCM p)
   while (i < 0)
     i += 7;
   i++;
-  return gh_int2scm (i);
+  return scm_int2num (i);
 }
 
 /*
@@ -169,7 +169,7 @@ Chord::missing_thirds (SCM pitches)
 	{
 	  int third = (unsmob_pitch (last)->notename_
 		       - unsmob_pitch (tonic)-> notename_ + 7) % 7;
-	  last = ly_pitch_transpose (last, scm_vector_ref (thirds, gh_int2scm (third)));
+	  last = ly_pitch_transpose (last, scm_vector_ref (thirds, scm_int2num (third)));
 	}
       
       if (step > gh_scm2int (step_scm (tonic, last)))
@@ -180,7 +180,7 @@ Chord::missing_thirds (SCM pitches)
 	      int third = (unsmob_pitch (last)->notename_
 			   - unsmob_pitch (tonic)->notename_ + 7) % 7;
 	      last = ly_pitch_transpose (last, scm_vector_ref (thirds,
-						      gh_int2scm (third)));
+						      scm_int2num (third)));
 	    }
 	}
       else
@@ -189,7 +189,7 @@ Chord::missing_thirds (SCM pitches)
 	}
     }
   
-  return lower_step (tonic, missing, gh_int2scm (7));
+  return lower_step (tonic, missing, scm_int2num (7));
 }
 
 /* Return PITCHES with PITCH added not as lowest note */
@@ -246,12 +246,12 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
 	}
     }
   add = transpose_pitches (tonic, add);
-  add = lower_step (tonic, add, gh_int2scm (7));
+  add = lower_step (tonic, add, scm_int2num (7));
   add = scm_sort_list (add, Pitch::less_p_proc);
   add = ly_unique (add);
   
   sub = transpose_pitches (tonic, sub);
-  sub = lower_step (tonic, sub, gh_int2scm (7));
+  sub = lower_step (tonic, sub, scm_int2num (7));
   sub = scm_sort_list (sub, Pitch::less_p_proc);
   
   /* default chord includes upto 5: <1, 3, 5>   */
@@ -264,8 +264,8 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
     tmp = ly_snoc (fifth, tmp);
   else if (dim_b)
     {
-      add = lower_step (tonic, add, gh_int2scm (5));
-      add = lower_step (tonic, add, gh_int2scm (7));
+      add = lower_step (tonic, add, scm_int2num (5));
+      add = lower_step (tonic, add, scm_int2num (7));
     }
 
   /* find missing thirds */
@@ -275,7 +275,7 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
 
   /* if dim modifier is given: lower all missing */
   if (dim_b)
-    missing = lower_step (tonic, missing, gh_int2scm (0));
+    missing = lower_step (tonic, missing, scm_int2num (0));
   
   /* if additions include any 3, don't add third */
   SCM third = ly_cadr (base_pitches (tonic));

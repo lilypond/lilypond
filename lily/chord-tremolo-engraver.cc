@@ -122,7 +122,7 @@ Chord_tremolo_engraver::process_music ()
 	      stem_tremolo_ = new Item (get_property ("StemTremolo"));
 	      announce_grob(stem_tremolo_, repeat_->self_scm());
 	      stem_tremolo_->set_grob_property ("flag-count",
-						gh_int2scm (flags_));
+						scm_int2num (flags_));
 
 	    }
 	}

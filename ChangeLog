@@ -1,3 +1,20 @@
+2002-08-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/grob-description.scm (all-grob-descriptions): set
+	X-offset-callbacks for TextScript
+
+	* lily/stem.cc (invisible_b): don't use support_head(), since it
+	sets stem direction.
+
+	* lily/beam.cc (struct Int_set): don't get stuck inserting
+	interval segments of length 0.0.
+
+	* scripts/convert-ly.py:  break-align conversion.
+
+2002-08-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/*.cc (process_music): gh_int2scm -> scm_int2num
+
 2002-08-06  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: Also "C-xC-s" sets default command to LilyPond.

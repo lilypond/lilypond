@@ -422,10 +422,17 @@ def setup_environment ():
 #what a name.
 def set_setting (dict, key, val):
 	try:
-		val = string.atof (val)
+		val = string.atoi (val)
 	except ValueError:
 		#warning (_ ("invalid value: %s") % `val`)
 		pass
+
+	if type(val) == type ('hoi'):
+		try:
+			val = string.atof (val)
+		except ValueError:
+			#warning (_ ("invalid value: %s") % `val`)
+			pass
 
 	try:
 		dict[key].append (val)
@@ -638,7 +645,7 @@ def global_latex_preamble (extra):
 '''
 	
 	if extra['pagenumber'] and extra['pagenumber'][-1] and extra['pagenumber'][-1] != 'no':
-		s = s + '\setcounter{page}{%s}\n' % (extra['pagenumber'][-1])
+		s = s + '\setcounter{page}{%d}\n' % (extra['pagenumber'][-1])
                 s = s + '\\pagestyle{plain}\n'
 	else:
 		s = s + '\\pagestyle{empty}\n'

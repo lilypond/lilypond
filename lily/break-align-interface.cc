@@ -52,7 +52,7 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
   Direction bsd = item->break_status_dir ();
   if (bsd == LEFT)
     {
-      me->set_grob_property ("self-alignment-X", gh_int2scm (RIGHT));
+      me->set_grob_property ("self-alignment-X", scm_int2num (RIGHT));
     }
 
   /*

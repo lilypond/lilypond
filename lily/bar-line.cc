@@ -146,7 +146,7 @@ Bar_line::before_line_breaking (SCM smob)
   if (gh_string_p (g) && bsd)
     {
       SCM proc = me->get_grob_property ("break-glyph-function");
-      g = gh_call2 (proc, g, gh_int2scm (bsd));
+      g = gh_call2 (proc, g, scm_int2num (bsd));
     }
 
   
@@ -185,7 +185,7 @@ Bar_line::get_staff_bar_size (SCM smob)
       return gh_double2scm ((Staff_symbol_referencer::line_count (me) -1) * ss);
     }
   else
-    return gh_int2scm (0);
+    return scm_int2num (0);
 }
 
 

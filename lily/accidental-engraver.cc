@@ -136,9 +136,9 @@ number_accidentals (SCM sig, Note_req * note, Pitch *pitch, SCM curbarnum, SCM l
 
   SCM prev;
   if (ignore_octave_b)
-    prev = ly_assoc_cdr (gh_int2scm (n), sig);
+    prev = ly_assoc_cdr (scm_int2num (n), sig);
   else
-    prev = gh_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), sig);
+    prev = gh_assoc (gh_cons (scm_int2num (o), scm_int2num (n)), sig);
 
   /* should really be true unless prev == SCM_BOOL_F */
   if (gh_pair_p (prev) && gh_pair_p (ly_cdr (prev)))
@@ -150,10 +150,10 @@ number_accidentals (SCM sig, Note_req * note, Pitch *pitch, SCM curbarnum, SCM l
   /* If an accidental was not found or the accidental was too old */
   if (prev == SCM_BOOL_F ||
       (gh_number_p (lazyness) && curbarnum_i > accbarnum_i + gh_scm2int (lazyness)))
-    prev = gh_assoc (gh_int2scm (n), sig);
+    prev = gh_assoc (scm_int2num (n), sig);
 
 
-  SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm (0) : ly_cdr (prev);
+  SCM prev_acc = (prev == SCM_BOOL_F) ? scm_int2num (0) : ly_cdr (prev);
 
   int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
 
@@ -301,9 +301,9 @@ Accidental_engraver::process_acknowledged_grobs ()
 	      announce_grob (a, SCM_EOL);
 
 	      
-	      SCM accs = gh_cons (gh_int2scm (pitch->alteration_), SCM_EOL);
+	      SCM accs = gh_cons (scm_int2num (pitch->alteration_), SCM_EOL);
 	      if (num == 2 && extra_natural_b)
-		accs = gh_cons (gh_int2scm (0), accs);
+		accs = gh_cons (scm_int2num (0), accs);
 
 	      /* TODO:
 
@@ -348,7 +348,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 	  int n = pitch->notename_;
 	  int o = pitch->octave_;
 	  int a = pitch->alteration_;
-	  SCM on_s = gh_cons (gh_int2scm (o), gh_int2scm (n));
+	  SCM on_s = gh_cons (scm_int2num (o), scm_int2num (n));
 
 	  /*
 	    TODO: Speed this up!
@@ -387,7 +387,7 @@ Accidental_engraver::process_acknowledged_grobs ()
 		    noteheads with the same notename.
 		  */
 		  localsig = ly_assoc_front_x
-		    (localsig, on_s, gh_cons (gh_int2scm (a), barnum)); 
+		    (localsig, on_s, gh_cons (scm_int2num (a), barnum)); 
 		}
 	      origin->set_property ("localKeySignature",  localsig);
 	      origin = origin->daddy_trans_;

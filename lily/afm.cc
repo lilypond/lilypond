@@ -169,7 +169,7 @@ Adobe_font_metric::find_by_name (String s) const
     }
   
   SCM at = (scm_list_n (ly_symbol2scm ("char"),
-		      gh_int2scm (cm->code),
+		      scm_int2num (cm->code),
 		      SCM_UNDEFINED));
   
   //  at= fontify_atom ((Font_metric*)this, at);

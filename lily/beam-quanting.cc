@@ -235,7 +235,7 @@ Beam::quanting (SCM smob)
   // debug quanting
   me->set_grob_property ("quant-score",
 			 gh_double2scm (qscores[best_idx].demerits));
-  me->set_grob_property ("best-idx", gh_int2scm (best_idx));
+  me->set_grob_property ("best-idx", scm_int2num (best_idx));
 #endif
 
   return SCM_UNSPECIFIED;
