@@ -26,9 +26,10 @@ public:
   static void set_stemlens (Grob*);
   static int get_multiplicity (Grob*me);
   static Real get_interbeam (Grob*me);
-  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
-  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM ));
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM ));
+  DECLARE_SCHEME_CALLBACK (space_function, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
+  DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
 
   /* position callbacks */
   DECLARE_SCHEME_CALLBACK (least_squares, (SCM));

@@ -48,8 +48,6 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 (grob-property-description 'shortest-duration-space number? "Start
 with this much space for the shortest duration. This is explessed in @code{spacing-increment} as unit. See also
 @ref{spacing-spanner-interface}.")
-(grob-property-description 'spacing-increment number? "Add this much space for a doubled duration. Typically, the width of a note head. See also @ref{spacing-spanner-interface}.")
-
 (grob-property-description 'arpeggio ly-grob? "pointer to arpeggio object.") 
 (grob-property-description 'arpeggio-direction dir? "If set, put an
 arrow on the arpeggio squiggly line.")
@@ -71,7 +69,6 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'bass list? " musical-pitch, optional.")
 (grob-property-description 'beam ly-grob? "pointer to the beam, if applicable.")
 (grob-property-description 'beam-thickness number? "thickness, measured in staffspace.")
-(grob-property-description 'beam-space (or number? list?) "the vertical distance between two beams, indexed by multiplicity")
 (grob-property-description 'beam-width number? "width of the tremolo sign.")
 (grob-property-description 'beamed-lengths list? "list of stem lengths given beam multiplicity .")
 (grob-property-description 'beamed-minimum-lengths list? "list of minimum stem lengths given beam multiplicity.")
@@ -300,6 +297,8 @@ TODO: revise typing.")
 (grob-property-description 'space-alist list? "Alist of break align
 spacing tuples: format = (SYMBOL . (TYPE . DISTANCE)), where TYPE can be
 minimum-space or extra-space.")
+(grob-property-description 'space-function procedure? "return interbeam space given Beam grob and multiplicity.")
+(grob-property-description 'spacing-increment number? "Add this much space for a doubled duration. Typically, the width of a note head. See also @ref{spacing-spanner-interface}.")
 
 (grob-property-description 'spacing-procedure procedure? "procedure
 taking grob as argument. This is called after
