@@ -1,5 +1,8 @@
 2004-04-11  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* make/mutopia-rules.make ($(outdir)-$(PAPERSIZE)/%.dvi): incude
+	ec-sauter.map in rules
+
 	* mf/ecb.mf (font_identifier): new file, based on ecbx
 
 	* mf/ecb10.mf (gensize): new file.

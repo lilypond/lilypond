@@ -16,4 +16,4 @@ TEXINFO_SOURCES += $(TELY_FILES) $(ITELY_FILES) $(ITEXI_FILES)
 
 EXTRA_DIST_FILES += $(TELY_FILES) $(LY_FILES) $(ITEXI_FILES) $(ITELY_FILES) $(LYINC_FILES)
 
-DVIPS_FLAGS= -u +lilypond.map  -Ppdf
+DVIPS_FLAGS= -u+ec-mftrace.map -u +lilypond.map  -Ppdf
