@@ -17,8 +17,4 @@ one =  \notes \relative c {
 
 \score{
 \context Staff	< \global \one >
-	\paper {
-		\translator { \OrchestralPartStaffContext 
-		}
-	}
 }

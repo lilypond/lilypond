@@ -1054,8 +1054,8 @@ def draw_percussion_clef(expr reduction) =
 	save reduced_il;
 	reduced_il# = staff_space# * reduction;
 	define_pixels(reduced_il);
-	set_char_box(0,.6reduced_il#,reduced_il#,reduced_il#);
-        pickup pencircle scaled 1.5 stafflinethickness;
+	set_char_box(.5reduced_il#,1.25reduced_il#,reduced_il#,reduced_il#);
+        pickup pencircle scaled 3.33 stafflinethickness;
 	draw (b,h) -- (b,-d);
 	draw (w,h) -- (w,-d);
 enddef;
