@@ -1,5 +1,7 @@
 2004-02-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* debian/: Late Debian update (sorry Anthony).
+
 	* scripts/lilypond-book.py (do_file): Look for input_file in
 	include path, or ask kpathsea if LATEX.
 

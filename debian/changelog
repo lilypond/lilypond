@@ -1,8 +1,18 @@
-lilypond (1.9.9-jcn1) unstable; urgency=low
+lilypond (2.1.0-1) unstable; urgency=low
 
-  * Testing.
+  * New upstream release.
+  * Build-Requires: pfaedit (>= 0.0.20031020-3) to prevent FTBFS on alpha.
+    Thanks to Petter Reinholdtsen for the bug report, and thanks to
+     Peter Hawkins for adopting the PfaEdit package!  (Closes: Bug#217216)
+  * Build process used to redirect to /dev/stderr which does not exist in
+    all environments.  Upstream replaced it with ">&2" in 1.9.0 in August.
+    Thanks to Daniel Schepler for the bug report.  (Closes: #215481)
+  * Added symlink from /usr/share/lilypond/$(VERSION)/fonts/type1 to
+    /usr/share/texmf/fonts/type1/public/lilypond.  Thanks to Pedro Kroger
+    and Mats Bengtsson's discussion on the lilypond-devel:
+    http://mail.gnu.org/archive/html/lilypond-devel/2003-10/msg00016.html
 
- -- Jan Nieuwenhuizen <janneke@gnu.org>  Tue, 23 Sep 2003 23:06:05 +0200
+ -- Anthony Fok <foka@debian.org>  Sat, 25 Oct 2003 19:34:41 +0800
 
 lilypond (1.8.1-1) unstable; urgency=low
 

@@ -158,6 +158,8 @@ binary-arch: build install
 			usr/share/texmf/fonts/afm/public/lilypond \
 		usr/share/lilypond/$(VERSION)/fonts/tfm \
 			usr/share/texmf/fonts/tfm/public/lilypond \
+		usr/share/lilypond/$(VERSION)/fonts/type1 \
+			usr/share/texmf/fonts/type1/public/lilypond \
 		etc/texmf/dvips/lilypond.map \
 			usr/share/lilypond/$(VERSION)/dvips/lilypond.map
 	dh_strip
