@@ -69,7 +69,25 @@ INSTALLATION_OUT_FILES5=$(outdir)/lilypond.map
 
 export MFINPUTS:=.:$(MFINPUTS)
 
-default: $(ALL_GEN_FILES)
+default: pfa_warning $(ALL_GEN_FILES)
+
+
+pfa_warning:
+ifneq ($(basename $(MFTRACE)),mftrace)
+	@echo ""
+	@echo "ERROR: mftrace not found"
+	@echo ""
+	@echo "For obtaining PFA fonts, either install mftrace "
+	@echo "(see http://www.xs4all.nl/~hanwen/mftrace/ ),"
+	@echo "or try one of the following commands in this directory: "
+	@echo ""
+	@echo " make get-pfa "
+	@echo " make get-rpm-pfa "
+	@echo " make get-deb-pfa "
+	@echo ""
+	@echo "These commands will try to download the files from the internet."
+	@false
+endif
 
 
 debian-mirror=http://ftp.us.debian.org
@@ -77,7 +95,7 @@ debian-package =lilypond_$(TOPLEVEL_VERSION)-1_i386.deb
 $(outdir)/$(debian-package):
 	wget -P $(outdir) $(debian-mirror)/debian/pool/main/l/lilypond/$(debian-package)
 
-get-debian-pfa: $(outdir)/$(debian-package)
+get-deb-pfa: $(outdir)/$(debian-package)
 	rm -rf $(outdir)/./usr
 	ar p $< data.tar.gz | \
 		tar -C $(outdir) -zvxf - '*.pfa'
@@ -96,6 +114,7 @@ get-rpm-pfa: $(outdir)/$(redhat-package)
 
 # change this dependency 
 get-pfa: get-rpm-pfa
+
 
 ##
 ## todo: this also depends on .tfm, FIXME.

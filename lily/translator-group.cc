@@ -341,6 +341,10 @@ Translator_group::execute_pushpop_property (SCM prop, SCM eltprop, SCM val)
 	{
 	  SCM prev = internal_get_property (prop);
 
+	  /*
+	    TODO: should have scm_equal_something () for reverting
+	    autobeam properties.
+	   */
 	  SCM newprops= SCM_EOL ;
 	  while (gh_pair_p (prev) && ly_caar (prev) != eltprop)
 	    {

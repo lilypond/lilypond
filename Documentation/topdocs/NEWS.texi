@@ -10,8 +10,7 @@
 @itemize
 
 @item
-@c dotted or dashed?
-Crescendos can now be drawn dotted or stippled.
+Crescendos can now be drawn dotted or dashed.
 
 @item
 Quarter tones are now supported. They are entered by suffixing
@@ -81,11 +80,11 @@ we see two versions of a piece of music, one for the full score, and
 one with cue notes for the instrumental part:
 
 @example
-< \tag #'part <
+<< \tag #'part <<
   @{ c4 f2 g4 @}      % in the part, we have cue-notes  
-  \\ R1 >
+  \\ R1 >>
   \tag #'score R1  % in the score: only a rest
->
+>>
 @end example
  
 The same can be applied to articulations, texts, etc.: they are
