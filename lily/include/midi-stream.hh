@@ -12,7 +12,7 @@
 
 /// Midi outputfile
 struct Midi_stream {
-  Midi_stream (String filename_string);
+  Midi_stream (String file_name_string);
   ~Midi_stream ();
 
   Midi_stream& operator << ( String str);
@@ -22,7 +22,7 @@ struct Midi_stream {
   void open ();
 
   FILE *out_file_;
-  String filename_string_;
+  String file_name_string_;
 };
 
 #endif // MIDI_STREAM_HH

@@ -36,7 +36,7 @@
   (string-append
    "magfont"
    (string-encode-integer
-    (hashq (ly:font-filename font) 1000000))
+    (hashq (ly:font-file-name font) 1000000))
    "m"
    (string-encode-integer
     (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
@@ -46,7 +46,7 @@
 	 (font-encoding (assoc-get 'output-name coding-alist)))
     (string-append
      "\\font\\lilypond" (tex-font-command font) "="
-     (ly:font-filename font)
+     (ly:font-file-name font)
      " scaled "
      (ly:number->string (inexact->exact
 			 (round (* 1000

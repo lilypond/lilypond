@@ -324,3 +324,19 @@ possibly turned off."
    ((equal? (ly:unit) "pt") (/ 72.0 72.27))
    (else (error "unknown unit" (ly:unit)))))
 
+;;; font
+(define-public (font-family font)
+  (let ((name (ly:font-name font)))
+    (if name
+	(regexp-substitute/global #f "^GNU-(.*)-[.0-9]*$" name 'pre 1 'post)
+	(begin
+	  ;;(stderr "font-name: ~S\n" (ly:font-name font))
+	  ;;(stderr "font-file-name: ~S\n" (ly:font-file-name font))
+	  (ly:font-file-name font)))))
+
+(define-public (char->unicode-index font char)
+  (+ (case (ly:font-encoding font) 
+       ((fetaMusic) (- #xe000 #x20))
+       ((fetaBraces) (- #xe000 #x40))
+       (else 0))
+     (char->integer char)))

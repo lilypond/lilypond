@@ -23,7 +23,7 @@
 class Paper_outputter
 {
   SCM output_module_;
-  String filename_;
+  String file_name_;
   SCM file_;
 
   SCM file ();

@@ -40,7 +40,7 @@ public:
   ~Includable_lexer ();
 
   /// store dependencies for Makefile stuff.
-  Array<String> filename_strings_;
+  Array<String> file_name_strings_;
 
   Source_file* get_source_file () const;
   void new_input (String s, Sources*);

@@ -36,7 +36,7 @@
      ly:find-glyph-by-name
      ly:font-design-size
      ly:font-encoding-alist
-     ly:font-filename
+     ly:font-file-name
      ly:font-magnification
      ly:font-metric?
      ly:font-name

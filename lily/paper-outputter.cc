@@ -31,13 +31,13 @@
 #include "ly-smobs.icc"
 
 
-Paper_outputter::Paper_outputter (String filename, String format)
+Paper_outputter::Paper_outputter (String file_name, String format)
 {
   file_ = SCM_EOL;
   output_module_ = SCM_EOL;
   smobify_self ();
   
-  filename_ = filename;
+  file_name_ = file_name;
   String module_name = "scm output-" + format;
   output_module_ = scm_c_resolve_module (module_name.to_str0 ());
 }
@@ -70,10 +70,10 @@ SCM
 Paper_outputter::file ()
 {
   if (file_ == SCM_EOL)
-    if (filename_ == "-")
+    if (file_name_ == "-")
       file_ = scm_current_output_port();
     else
-      file_ = scm_open_file (scm_makfrom0str (filename_.to_str0 ()),
+      file_ = scm_open_file (scm_makfrom0str (file_name_.to_str0 ()),
 			     scm_makfrom0str ("w"));
   return file_;
 }

@@ -86,23 +86,6 @@ Modified_font_metric::Modified_font_metric (String input_encoding,
 		     coding_description_);
     } 
 }
-
-
-
-LY_DEFINE (ly_font_encoding_alist, "ly:font-encoding-alist",
-	   1, 0, 0,
-	   (SCM font),
-	   "Given the Modified_font_metric @var{font}, return an "
-	   "alist. Keys are input-name, input-vector, "
-	   "output-name, output-table, mapping.")
-{
-  Modified_font_metric *fm
-    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
-  
-  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
-  return fm->coding_description_;
-}
-
 SCM
 Modified_font_metric::make_scaled_font_metric (SCM coding,
 					       Font_metric *m, Real s)
@@ -251,7 +234,7 @@ Modified_font_metric::text_dimension (String text)
     {
       Interval ydims;
 
-      Real w=0.0;
+      Real w = 0.0;
 
       for (int i = 0; i < text.length (); i++) 
 	{
@@ -280,7 +263,7 @@ Modified_font_metric::text_dimension (String text)
 	  if (!scm_is_symbol (sym))
 	    continue;
 
-	  char const * chars =  scm_i_string_chars (scm_symbol_to_string(sym));
+	  char const *chars = scm_i_string_chars (scm_symbol_to_string (sym));
 	  
 	  int idx = orig_->name_to_index (chars);
 	  if (idx >= 0)
@@ -308,3 +291,30 @@ Modified_font_metric::original_font () const
 {
   return orig_;
 }
+
+
+LY_DEFINE (ly_font_encoding_alist, "ly:font-encoding-alist",
+	   1, 0, 0,
+	   (SCM font),
+	   "Given the Modified_font_metric @var{font}, return an "
+	   "alist.  Keys are input-name, input-vector, "
+	   "output-name, output-table, mapping.")
+{
+  Modified_font_metric *fm
+    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
+  
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
+  return fm->coding_description_;
+}
+
+LY_DEFINE (ly_font_encoding, "ly:font-encoding",
+	   1, 0, 0,
+	   (SCM font),
+	   "Return encoding of @var{font}.")
+{
+  Modified_font_metric *fm
+    = dynamic_cast<Modified_font_metric*> (unsmob_metrics (font));
+  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "Modified_font_metric");
+  return ly_symbol2scm (fm->original_font ()->coding_scheme ().to_str0 ());
+}
+
