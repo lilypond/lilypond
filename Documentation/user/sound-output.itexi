@@ -123,6 +123,12 @@ The MIDI instrument name is set by the @code{Staff.midiInstrument}
 property.  The instrument name should be chosen from the list in
 @ref{MIDI instruments}.
 
+@example
+  \set Staff.midiInstrument = "glockenspiel"
+  @var{...notes...}
+@end example
+
 If the selected instrument does not exactly match an instrument from
-the list of MIDI instruments, the Grand Piano instrument is used.
+the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
+instrument is used.
 

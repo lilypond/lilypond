@@ -1,3 +1,7 @@
+2004-11-14  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/user/sound-output.itexi: add code snippets for MIDI.
+
 2004-11-14  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/font-metric.cc (get_indexed_char_stencil): Bugfix: get
