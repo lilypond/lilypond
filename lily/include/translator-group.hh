@@ -53,7 +53,7 @@ public:
   Translator_group (Translator_group const &);
   Translator_group ();
 
-
+  bool is_alias (SCM) const;
   void add_fresh_group_translator (Translator *trans);
   void add_used_group_translator (Translator *trans);
   bool is_bottom_context () const;

@@ -10,7 +10,7 @@
 #include "item.hh"
 #include "vaticana-ligature.hh"
 #include "font-interface.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 #include "note-head.hh"
@@ -18,7 +18,7 @@
 #include "bezier.hh"
 #include "warn.hh"
 
-Molecule
+Stencil
 vaticana_brew_cauda (Grob *me,
 		     int pos,
 		     int delta_pitch,
@@ -65,13 +65,13 @@ vaticana_brew_cauda (Grob *me,
 /*
  * TODO: move this function to class Lookup?
  */
-Molecule
+Stencil
 vaticana_brew_flexa (Grob *me,
 		     bool solid,
 		     Real line_thickness)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Molecule molecule = Molecule ();
+  Stencil stencil = Stencil ();
   Real right_height = 0.6 * staff_space;
 
   Real interval;
@@ -129,23 +129,23 @@ vaticana_brew_flexa (Grob *me,
 
   if (solid)
     {
-      Molecule solid_head =
+      Stencil solid_head =
 	Lookup::bezier_sandwich (top_curve, bottom_curve);
-      molecule.add_molecule (solid_head);
+      stencil.add_stencil (solid_head);
     }
   else // outline
     {
       Bezier inner_top_curve = top_curve;
       inner_top_curve.translate (Offset (0.0, -line_thickness));
-      Molecule top_edge =
+      Stencil top_edge =
 	Lookup::bezier_sandwich (top_curve, inner_top_curve);
-      molecule.add_molecule(top_edge);
+      stencil.add_stencil(top_edge);
 
       Bezier inner_bottom_curve = bottom_curve;
       inner_bottom_curve.translate (Offset (0.0, +line_thickness));
-      Molecule bottom_edge =
+      Stencil bottom_edge =
 	Lookup::bezier_sandwich (bottom_curve, inner_bottom_curve);
-      molecule.add_molecule(bottom_edge);
+      stencil.add_stencil(bottom_edge);
 
       /*
        * TODO: Use horizontal slope with proper slope value rather
@@ -157,21 +157,21 @@ vaticana_brew_flexa (Grob *me,
        */
       Box left_edge_box (Interval (0, line_thickness),
 			 Interval (-0.5*left_height, +0.5*left_height));
-      Molecule left_edge = Lookup::filled_box (left_edge_box);
-      molecule.add_molecule(left_edge);
+      Stencil left_edge = Lookup::filled_box (left_edge_box);
+      stencil.add_stencil(left_edge);
 
       Box right_edge_box (Interval (-line_thickness, 0),
 			  Interval (-0.5*right_height, +0.5*right_height));
-      Molecule right_edge = Lookup::filled_box (right_edge_box);
+      Stencil right_edge = Lookup::filled_box (right_edge_box);
       right_edge.translate_axis (width, X_AXIS);
       right_edge.translate_axis (corrected_interval / 2.0, Y_AXIS);
-      molecule.add_molecule(right_edge);
+      stencil.add_stencil(right_edge);
     }
-  molecule.translate_axis (ypos_correction, Y_AXIS);
-  return molecule;
+  stencil.translate_axis (ypos_correction, Y_AXIS);
+  return stencil;
 }
 
-Molecule
+Stencil
 vaticana_brew_join (Grob *me, int delta_pitch,
 		    Real join_thickness, Real blotdiameter)
 {
@@ -180,7 +180,7 @@ vaticana_brew_join (Grob *me, int delta_pitch,
     {
       me->programming_error (_f ("Vaticana_ligature: "
 				 "zero join (delta_pitch == 0)"));
-      return Molecule ();
+      return Stencil ();
     }
   Interval x_extent = Interval (0, join_thickness);
   Interval y_extent = (delta_pitch > 0) ?
@@ -191,7 +191,7 @@ vaticana_brew_join (Grob *me, int delta_pitch,
 }
 
 void
-vaticana_add_ledger_lines (Grob *me, Molecule *out, int pos, Real offs,
+vaticana_add_ledger_lines (Grob *me, Stencil *out, int pos, Real offs,
 			   bool ledger_take_space)
 {
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
@@ -203,16 +203,16 @@ vaticana_add_ledger_lines (Grob *me, Molecule *out, int pos, Real offs,
 
       Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
 				     hd[RIGHT] + right_ledger_protusion);
-      Molecule ledger_lines =
+      Stencil ledger_lines =
 	Note_head::brew_ledger_lines (me, pos, interspaces,
 				      l_extents, 0,
 				      ledger_take_space);
       ledger_lines.translate_axis (offs, Y_AXIS);
-      out->add_molecule (ledger_lines);
+      out->add_stencil (ledger_lines);
     }
 }
 
-Molecule
+Stencil
 vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 {
   SCM glyph_name_scm = me->get_grob_property ("glyph-name");
@@ -220,12 +220,12 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
     {
       me->programming_error ("Vaticana_ligature: "
 			     "undefined glyph-name -> ignoring grob");
-      return Molecule ();
+      return Stencil ();
     }
 
   String glyph_name = ly_scm2string (glyph_name_scm);
 
-  Molecule out;
+  Stencil out;
   int flexa_height = 0;
   Real thickness = robust_scm2double ( me->get_grob_property ("thickness"), 1);
 
@@ -279,27 +279,27 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
 
   if (add_cauda)
     {
-      Molecule cauda =
+      Stencil cauda =
 	vaticana_brew_cauda (me, pos, delta_pitch,
 			     line_thickness, blotdiameter);
-      out.add_molecule (cauda);
+      out.add_stencil (cauda);
     }
 
   if (add_stem)
     {
-      Molecule stem =
+      Stencil stem =
 	vaticana_brew_cauda (me, pos, -1,
 			     line_thickness, blotdiameter);
       stem.translate_axis (head_width - line_thickness, X_AXIS);
-      out.add_molecule (stem);
+      out.add_stencil (stem);
     }
 
   if (add_join)
     {
-      Molecule join =
+      Stencil join =
 	vaticana_brew_join (me, delta_pitch, line_thickness, blotdiameter);
       join.translate_axis (head_width - line_thickness, X_AXIS);
-      out.add_molecule (join);
+      out.add_stencil (join);
     }
 
   vaticana_add_ledger_lines(me, &out, pos, 0, ledger_take_space);

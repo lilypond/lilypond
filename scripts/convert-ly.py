@@ -1845,6 +1845,33 @@ Grob::preset_extent removed.
 """ ))
 
 
+def conv (str):
+	str = re.sub (r'\\property\s+([^.]+)\s*\.\s*([^\\=]+)\s*\\(set|override)',
+		      r"\\overrid@ \1.\2 ", str)
+	str = re.sub (r'\\property\s+([^. ]+)\s*\.\s*([^\\= ]+)\s*=',
+		      r'\\s@t \1.\2 = ', str)
+	str = re.sub (r'\\property\s+([^. ]+)\s*\.\s*([^\\= ]+)\s*\\unset',
+		      r'\\uns@t \1.\2 ', str)
+	str = re.sub (r'\\property\s+([^. ]+)\s*\.\s*([^\\= ]+)\s*\\revert'
+		      + r"\s*#'([-a-z0-9_]+)",
+		      r"\\rev@rt \1.\2 #'\3", str)
+	str = re.sub (r'Voice\.', '', str)
+	str = re.sub (r'Lyrics\.', '', str)
+	str = re.sub (r'ChordNames\.', '', str)
+	
+	str = re.sub ('rev@rt', 'revert',str)
+	str = re.sub ('s@t', 'set',str)
+	str = re.sub ('overrid@', 'override',str)
+
+	str = re.sub ('molecule', 'stencil', str)
+	str = re.sub ('Molecule', 'Stencil', str)
+	return str
+
+conversions.append (((2,1,22), conv, """new syntax for property settings:
+	\set A.B = #C , \unset A.B
+	\override A.B #C = #D, \revert A.B #C
+
+"""))
 
 
 ################################

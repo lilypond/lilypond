@@ -7,7 +7,7 @@
 #include "line-interface.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "lily-guile.hh"
 #include "paper-def.hh"
 #include "misc.hh"
@@ -34,7 +34,7 @@ Balloon_interface::print (SCM smob)
       scm_mol = scm_call_1 (cb, smob);
     }
 
-  if (!unsmob_molecule (scm_mol))
+  if (!unsmob_stencil (scm_mol))
     return scm_mol;
 
   SCM scm_off = me->get_grob_property ("balloon-text-offset");
@@ -43,7 +43,7 @@ Balloon_interface::print (SCM smob)
     return scm_mol;
 
   Offset off = ly_scm2offset (scm_off);
-  Molecule * m = unsmob_molecule (scm_mol);
+  Stencil * m = unsmob_stencil (scm_mol);
   Box orig_extent = m->extent_box ();
   Box box_extent = orig_extent;
 
@@ -51,10 +51,10 @@ Balloon_interface::print (SCM smob)
   box_extent.widen (w, w);
   
   
-  Molecule fr = Lookup::frame (box_extent, 0.1, 0.05);
+  Stencil fr = Lookup::frame (box_extent, 0.1, 0.05);
 
   
-  fr.add_molecule (*m);
+  fr.add_stencil (*m);
 
 
 
@@ -66,7 +66,7 @@ Balloon_interface::print (SCM smob)
   SCM text = Text_item::interpret_markup (me->get_paper ()->self_scm (), chain, bt);
 
   
-  Molecule *text_mol = unsmob_molecule (text);
+  Stencil *text_mol = unsmob_stencil (text);
   
   Offset z1;
 
@@ -79,12 +79,12 @@ Balloon_interface::print (SCM smob)
 
   Offset z2 = z1 + off;
   
-  fr.add_molecule (Line_interface::line (me, z1, z2));
+  fr.add_stencil (Line_interface::line (me, z1, z2));
 
   text_mol->translate (z2);
-  fr.add_molecule (*text_mol);
+  fr.add_stencil (*text_mol);
   
-  fr = Molecule (orig_extent, fr.get_expr ());
+  fr = Stencil (orig_extent, fr.get_expr ());
   return fr.smobbed_copy ();
 }
 

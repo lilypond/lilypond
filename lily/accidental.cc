@@ -6,7 +6,7 @@
  */
 #include "font-interface.hh"
 #include "item.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "accidental-interface.hh"
 #include "paper-def.hh"
 #include "pitch.hh"
@@ -21,13 +21,13 @@
 */
 
 
-Molecule
-parenthesize (Grob*me, Molecule m)
+Stencil
+parenthesize (Grob*me, Stencil m)
 {
-  Molecule open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-leftparen"));
-  Molecule close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-rightparen"));
-  m.add_at_edge (X_AXIS, LEFT, Molecule (open), 0,0);
-  m.add_at_edge (X_AXIS, RIGHT, Molecule (close), 0,0);
+  Stencil open = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-leftparen"));
+  Stencil close = Font_interface::get_default_font (me)->find_by_name (String ("accidentals-rightparen"));
+  m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0,0);
+  m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0,0);
 
   return m;
 }
@@ -201,13 +201,13 @@ Accidental_interface::print (SCM smob)
   else
     fm = Font_interface::get_default_font (me);
 
-  Molecule mol;
+  Stencil mol;
   for (SCM s = me->get_grob_property ("accidentals");
        gh_pair_p (s); s = gh_cdr (s))
     {
       int alteration = gh_scm2int (gh_car (s));
       String font_char = get_fontcharname (style, alteration);
-      Molecule acc (fm->find_by_name ("accidentals-" + font_char));
+      Stencil acc (fm->find_by_name ("accidentals-" + font_char));
 
       if (acc.is_empty ())
 	{

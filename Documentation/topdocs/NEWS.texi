@@ -18,6 +18,36 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item The syntax for setting properties has been simplified:
+the following table lists the differences:
+
+@example
+\property A.B = #C                \set A.B = #C
+\property A.B \unset              \unset A.B
+\property A.B \set #C = #D        \override A.B #C = #D 
+\property A.B \override #C = #D   (removed)
+\property A.B \revert #C          \revert A.B #C
+@end example
+
+Furthermore, if @code{A} is left out, the bottommost context is used
+by default.  In other words, it is no longer necessary to explicitly
+mention @code{Voice}, @code{Lyrics} or @code{ChordNames}. 
+
+Old:
+
+@example
+   \property Voice.autoBeaming = ##f
+   \property Staff.TimeSignature \set #'style = #'C
+@end example
+
+New:
+
+@example
+   \set autoBeaming = ##f
+   \override Staff.TimeSignature #'style = #'C
+@end example
+
+
 @item Tweaks  made with @code{\override} and @code{\revert} no longer
 hide tweaks at higher context levels.
 

@@ -10,7 +10,7 @@
 #include "font-interface.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "warn.hh"
 #include "axis-group-interface.hh"
 #include "group-interface.hh"
@@ -71,7 +71,7 @@ Span_bar::print (SCM smobbed_me)
   String glyph_string = ly_scm2string (glyph);
 
   /* compose span_bar_mol */
-  Molecule span_bar_mol;
+  Stencil span_bar_mol;
 
   Interval prev_extent;
   for (SCM elts = first_elt; gh_pair_p (elts); elts = ly_cdr (elts))
@@ -93,11 +93,11 @@ Span_bar::print (SCM smobbed_me)
 	    }
 	  else
 	    {
-	      Molecule interbar = Bar_line::compound_barline (staff_bar,
+	      Stencil interbar = Bar_line::compound_barline (staff_bar,
 							      glyph_string,
 							      l.length ());
 	      interbar.translate_axis (l.center (), Y_AXIS);
-	      span_bar_mol.add_molecule (interbar);
+	      span_bar_mol.add_stencil (interbar);
 	    }
 	}
       prev_extent = ext;
@@ -121,7 +121,7 @@ Span_bar::width_callback (SCM element_smob, SCM scm_axis)
   /*
     urg.
   */
-  Molecule m = Bar_line::compound_barline (se, gl, 40 PT);
+  Stencil m = Bar_line::compound_barline (se, gl, 40 PT);
   
   return ly_interval2scm (m.extent (X_AXIS));
 }

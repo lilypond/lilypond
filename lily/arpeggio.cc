@@ -6,7 +6,7 @@
   (c) 2000--2004 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 #include "arpeggio.hh"
 #include "grob.hh"
@@ -72,11 +72,11 @@ Arpeggio::print (SCM smob)
       dir = to_dir (ad);
     }
   
-  Molecule mol;
+  Stencil mol;
   Font_metric *fm =Font_interface::get_default_font (me);
-  Molecule squiggle = fm->find_by_name ("scripts-arpeggio");
+  Stencil squiggle = fm->find_by_name ("scripts-arpeggio");
 
-  Molecule arrow ;  
+  Stencil arrow ;  
   if (dir)
     {
       arrow = fm->find_by_name ("scripts-arpeggio-arrow-" + to_string (dir));
@@ -128,7 +128,7 @@ Arpeggio::brew_chord_bracket (SCM smob)
   Real dy = heads.length() + sp;
   Real x = 0.7;
 
-  Molecule mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x, lt));
+  Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x, lt));
   mol.translate_axis (heads[LEFT] - sp/2.0, Y_AXIS);
   return mol.smobbed_copy();
 }
@@ -146,7 +146,7 @@ Arpeggio::width_callback (SCM smob, SCM axis)
   Grob * me = unsmob_grob (smob);
   Axis a = (Axis)gh_scm2int (axis);
   assert (a == X_AXIS);
-  Molecule arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");
+  Stencil arpeggio = Font_interface::get_default_font (me)->find_by_name ("scripts-arpeggio");
 
   return ly_interval2scm (arpeggio.extent (X_AXIS) * 1.5);
 }

@@ -1,3 +1,4 @@
+\version "2.1.22"
 \input texinfo  @c -*-texinfo-*-
 @settitle Music Glossary
 @setfilename music-glosssary.info
@@ -213,14 +214,14 @@ flat lowers it by a whole tone. A natural cancels the effect of a previous
 accidental.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Voice.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override TextScript   #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
   gis1 s s gisis s s ges s s geses s s g!
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \set #'self-alignment-X = #-1
+  \override Lyrics .LyricText   #'self-alignment-X = #-1
   "sharp  " "db. sharp  " "flat  " "db. flat  " natural
 }
 @end lilypond
@@ -323,7 +324,7 @@ FI: luonnollinen molliasteikko,
 N: ?.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
+\set Score.automaticBars =  ##f
 \notes\relative c'' {
 a1 b c d e f g a }
 @end lilypond
@@ -363,16 +364,16 @@ the duration of the long a. is proportional to that of the main note.
 \key d \major
 \time 4/4
 
-%\property Score.TextScript \set #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 <d a fis>4_"notation" r
-{ \property Voice.Stem \override #'flag-style = #'()
+{ \override Stem   #'flag-style = #'()
   \grace g16
-  \property Voice.Stem \revert #'flag-style
+  \revert Stem #'flag-style
    }
 fis8 e16 fis
-{ \property Voice.Stem \override #'flag-style = #'()
+{ \override Stem   #'flag-style = #'()
   \grace a16
-  \property Voice.Stem \revert #'flag-style
+  \revert Stem #'flag-style
   }
 g8 fis16 g |
 \cadenzaOn a4 \bar "||" \cadenzaOff }
@@ -387,7 +388,7 @@ An appoggiatura may have more notes preceding the main note.
 \notes\relative c'' {
   \key as \major
   \time 2/4
-%  \property Score.TextScript \set #'font-style = #'large
+%  \override Score.TextScript   #'font-style = #'large
   \grace { bes16 } as8_"notation" as16 bes as8 g |
   \grace { as16[( bes] } < c as >4-)
   \grace { as16[( bes] } < c as >4-) \bar "||"
@@ -572,8 +573,8 @@ Line connecting a series of notes (shorter than a quarter note).
 The number of beams determine the note value of the connected notes.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Voice.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override TextScript   #'font-style = #'large
 \notes\relative c'' {
   g8_"1/8"[ g g g] s16
   g16_"1/16"[ g g g] s16
@@ -630,7 +631,7 @@ orchestral or choral score.
 
 @lilypond
 \context StaffGroup <<
-%  \property StaffGroup.minVerticalAlign = #12
+%  \set StaffGroup.minVerticalAlign =  #12
   \notes\relative c'' \context Staff = SA { \clef treble g4 e c2 }
   \notes\relative c \context Staff = SB { \clef bass c1 \bar "|." } >>
 @end lilypond
@@ -677,7 +678,7 @@ N: ?.
 in pre-1650 music.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
+\set Score.automaticBars =  ##f
 \notes\relative c'' { g\breve }
 @end lilypond
 
@@ -707,9 +708,9 @@ Clef symbol indicating the position of the central C.  Used on all note
 lines.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-\property Score.Clef \override #'full-size-change = ##t
-%\property Score.LyricText \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+\override Score.Clef   #'full-size-change = ##t
+%\override Score.LyricText   #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c' {
   \clef soprano c1 s s
@@ -719,7 +720,7 @@ lines.
   \clef baritone c s s
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \override #'self-alignment-X = #-1
+  \override Lyrics .LyricText   #'self-alignment-X = #-1
   "Soprano  " "Mezzosoprano  " "Alto  " "Tenor  " Baritone
 }
 @end lilypond
@@ -806,8 +807,8 @@ third above the lower notes to define their quality as major or minor.  Such
 chords are denoted open chords
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Voice.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override TextScript   #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
   <g b d>1 s s
@@ -818,7 +819,7 @@ chords are denoted open chords
   <g b d f a> s s
 }
 \context Lyrics \lyrics{
-  \property Lyrics . LyricText \set #'self-alignment-X = #-1
+  \override Lyrics .LyricText   #'self-alignment-X = #-1
   "major  " "minor  " "diminished  " "augmented  "
   "seventh-chord  " "ninth-chord  "
 }
@@ -838,7 +839,7 @@ N: ?.
 A scale consisting of all 11 @aref{semitone}s.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
+\set Score.automaticBars =  ##f
 \notes\relative c' { c1 cis d dis e f fis g gis a ais b c }
 @end lilypond
 
@@ -989,7 +990,7 @@ music of the baroque era, has been one of the most popular polyphonic
 composition methods.
 
 @lilypond[staffsize=11,noquote]
-\property Score.TimeSignature \override #'style =\turnOff
+\override Score.TimeSignature   #'style =\turnOff
 \notes\context PianoStaff <<
   \context Staff = SA \relative c' {
     \key bes \major
@@ -1094,11 +1095,11 @@ of the 20th century
 @lilypond
 \score {
     \notes {
-	\property Staff.Custos \set #'neutral-position = #4
-	\property Staff.Custos \set #'neutral-direction = #-1
-	\property Staff.Custos \set #'adjust-if-on-staffline = ##t
+	\override Staff.Custos   #'neutral-position = #4
+	\override Staff.Custos   #'neutral-direction = #-1
+	\override Staff.Custos   #'adjust-if-on-staffline = ##t
 
-	\property Staff.Custos \set #'style = #'hufnagel
+	\override Staff.Custos   #'style = #'hufnagel
 	c'1
 	\break < d' a' f''>1
     }
@@ -1152,8 +1153,8 @@ Abbreviated ``d.s.''.  Repetition, not from the beginning, but from
 another place frequently near the beginning marked by a sign:
 
 @lilypond
-%\property Voice.TextScript \set #'font-style = #'large
-\property Voice.TextScript \set #'font-shape = #'italic
+%\override TextScript   #'font-style = #'large
+\override TextScript   #'font-shape = #'italic
 \key g \major \time 4/4
 \notes\relative c'' { d1 | g,4^\segno  a b c | b a g2_"d.s." \bar "|." }
 @end lilypond
@@ -1210,13 +1211,13 @@ The church modes are used in gregorial chant and pre baroque early music but
 also to some extent in newer jazz music.
 
 @lilypond[notime,linewidth=110\mm]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \context Staff \notes\relative c' {
     c1 d
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c
   }
   \context Lyrics \lyrics {
@@ -1225,13 +1226,13 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \context Staff \notes\relative c' {
     d1
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c d
   }
   \context Lyrics \lyrics {
@@ -1240,12 +1241,12 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \notes\relative c' {
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     e1^"~~ S" f g a b^"~~ S" c d e
   }
   \context Lyrics \lyrics {
@@ -1254,13 +1255,13 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \notes\relative c' {
     f1 g a
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     b^"~~ S" c d e^"~~ S" f
   }
   \context Lyrics \lyrics {
@@ -1269,13 +1270,13 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \notes\relative c'' {
     g1 a
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g }
   \context Lyrics \lyrics {
     Mixolydian
@@ -1283,13 +1284,13 @@ also to some extent in newer jazz music.
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \notes\relative c'' {
     a1
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g a
   }
   \context Lyrics \lyrics {
@@ -1303,13 +1304,13 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 7th tone.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \notes\relative c' {
     c1 d
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     e^"~~ S" f g a b^"~~ S" c
   }
   \context Lyrics \lyrics {
@@ -1318,13 +1319,13 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \notes\relative c'' {
     a1
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     b^"~~ S" c d e^"~~ S" f g a
   }
   \context Lyrics \lyrics {
@@ -1333,13 +1334,13 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \notes\relative c'' {
     a1
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     b^"~~ S" c d e^"~~ S" f!^"~~ A" gis^"~~ S" a
   }
   \context Lyrics \lyrics {
@@ -1348,13 +1349,13 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
   \notes\relative c'' {
     a1
-    \property Voice.TextScript \set #'padding = #-4
+    \override TextScript   #'padding = #-4
     b^"~~ S" c d e fis gis^"~~ S"
     a g! f!^"~~ S" e d c^"~~ S" b a
   }
@@ -1694,14 +1695,14 @@ Two notes, intervals, or scales are enharmonic if they have different names
 but equal pitch.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
   gis1 s s as s s <des g,!> s s <cis g!> s s
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \set #'self-alignment-X = #-1
+  \override Lyrics .LyricText   #'self-alignment-X = #-1
   "g sharp  " "a flat  " "dim fifth  " "augm fourth"
 }
 @end lilypond
@@ -1765,9 +1766,9 @@ symbol indicates playing an octave lower (for example on double bass
 @aref{strings}).
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-\property Staff.Clef \override #'full-size-change = ##t
-%\property Score.LyricText \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+\override Staff.Clef   #'full-size-change = ##t
+%\override Score.LyricText   #'font-style = #'large
 \addlyrics
 \notes\relative c {
   \clef varbaritone
@@ -1782,7 +1783,7 @@ symbol indicates playing an octave lower (for example on double bass
   f1
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \set #'self-alignment-X = #-1
+  \override Lyrics .LyricText   #'self-alignment-X = #-1
   "baritone  "
   "bass  "
   "sub-bass  "
@@ -1858,8 +1859,8 @@ less than a quarter note.  The number of flags determines the
 @aref{note value}.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.TextScript   #'font-style = #'large
 \notes\relative c'' {
   g8_"1/8" s8
   g16_"1/16" s8
@@ -1942,9 +1943,9 @@ dominant (D, the chord on the fifth note).  Other are considered to be
 variants of the base chords.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
 \context Voice \notes\relative c'' {
   <g e c >1 < a f d > < b g e >
@@ -1981,9 +1982,9 @@ indicates playing or singing an octave lower (most tenor parts in choral
 scores are notated like that).
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-\property Staff.Clef \set #'full-size-change = ##t
-%\property Score.LyricText \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+\override Staff.Clef   #'full-size-change = ##t
+%\override Score.LyricText   #'font-style = #'large
 \addlyrics
 \notes\relative c'' {
   \clef french
@@ -1996,7 +1997,7 @@ scores are notated like that).
   g s s
 }
 \context Lyrics \lyrics {
-  \property Lyrics . LyricText \set #'self-alignment-X = #-1
+  \override Lyrics .LyricText   #'self-alignment-X = #-1
   "french violin clef  "
   "violin clef  "
   "octaved up  "
@@ -2109,7 +2110,7 @@ section.  @aref{functional harmony}.
     \partial 4 < c g e >4 |
     < c a f > < b g d > < c g e >2
   }
-%  %\property Score.LyricText \set #'font-style = #'large
+%  %\override Score.LyricText   #'font-style = #'large
   \addlyrics
   \context Staff = SB \relative c {
     \clef bass
@@ -2139,8 +2140,8 @@ Tones sounding simultaneously.  Two note harmonies fall into the categories
 Consonances:
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.TextScript   #'font-style = #'large
 \context Voice \notes\relative c'' {
   <g g>1_"unisone  " s
   <g b>_"third  " s
@@ -2155,8 +2156,8 @@ Consonances:
 Dissonances:
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.TextScript   #'font-style = #'large
 \context Voice  \notes\relative c'' {
   <g a>1_"second  " s s
   <g f'>_"seventh  " s s
@@ -2198,9 +2199,9 @@ because they consist of three @aref{whole tone}s.  The addition
 of such two forms an octave.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
 \context Voice \notes\relative c'' {
   < g g >1 s
@@ -2219,9 +2220,9 @@ of such two forms an octave.
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
   < g c >^"perfect" s
@@ -2240,9 +2241,9 @@ of such two forms an octave.
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
   < gis f'! >1^"dimin"  s
@@ -2274,8 +2275,8 @@ N: ?.
 The difference between an interval and an octave.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.TextScript   #'font-style = #'large
 \context Staff \notes\relative c'' {
   < g  a >1_"second " s s < g' a, >_"seventh " s s \bar "||"
   < g, b >_"third  " s s < g' b, >_"sixth  " s s \bar "||"
@@ -2368,7 +2369,7 @@ N: ?.
 A ledger line is an extension of the staff.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
+\set Score.automaticBars =  ##f
 \notes\relative c'' { a,1 s c'' }
 @end lilypond
 
@@ -2388,7 +2389,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato} and
 (d) @aref{staccato}.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
+\set Score.automaticBars =  ##f
 \addlyrics
 \context Staff \notes\relative c'' {
   c4-( d e-) \bar "||"
@@ -2397,7 +2398,7 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato} and
   c4-. d-. e-. \bar "||"
 }
 \context Lyrics \lyrics {
-%  \property Lyrics . LyricText \set #'font-style = #'large
+%  \override Lyrics .LyricText   #'font-style = #'large
   a
   b "" ""
   c
@@ -2463,9 +2464,9 @@ Note value: double length of @aref{breve}.
 @aref{note value}.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
+\set Score.automaticBars =  ##f
 \notes\relative c'' {
-  \property Voice.NoteHead \set #'style = #'mensural
+  \override NoteHead   #'style = #'mensural
   g\longa
 }
 @end lilypond
@@ -2665,8 +2666,8 @@ N: ?.
 First C below the 440 Hz A.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-\property Staff.Clef \set #'full-size-change = ##t
+\set Score.automaticBars =  ##f
+\override Staff.Clef   #'full-size-change = ##t
 \notes\relative c' {
   \clef bass c1 s
   \clef alto c s
@@ -2756,8 +2757,8 @@ The briefest intelligible and self-contained fragment of a musical theme or
 subject.
 
 @lilypond
-\property Score.TimeSignature \override #'style = \turnOff
-%\property Score.TextScript \set #'font-style = #'large
+\override Score.TimeSignature   #'style = \turnOff
+%\override Score.TextScript   #'font-style = #'large
 \notes\relative c'' {
   \time 4/4
   \key g \major
@@ -2796,7 +2797,7 @@ N: ?.
 @lilypond
 \notes\relative c'' {
   a1
-  \property Score.skipBars=##t R1*3
+  \set Score.skipBars = ##t R1*3
   a1
 }
 @end lilypond
@@ -2888,19 +2889,19 @@ but sometimes (mostly in pre baroque music) the double length note value
 @emph{longa} is used.
 
 @lilypond[notime]
-%\property Score.TextScript \set #'font-style = #'large
-\property Score.automaticBars = ##f
+%\override Score.TextScript   #'font-style = #'large
+\set Score.automaticBars =  ##f
 \notes\relative c'' {
-  \property Voice.NoteHead \override #'style = #'mensural
+  \override NoteHead   #'style = #'mensural
   g\longa_"longa" g\breve_"breve"
-  \property Voice.NoteHead \revert #'style
+  \revert NoteHead #'style
   g1_"1/1" g2_"1/2" g4_"1/4" s16 g8_"1/8" s16
   g16_"1/16" s16 g32_"1/32" s16 g64_"1/64" s32 }
 @end lilypond
 
 @lilypond[notime]
-%\property Score.TextScript \set #'font-style = #'large
-\property Score.automaticBars = ##f
+%\override Score.TextScript   #'font-style = #'large
+\set Score.automaticBars =  ##f
 \notes\relative c'' {
   r\longa_"longa" r\breve_"breve"
   r1_"1/1" r2_"1/2" r4_"1/4" s16 r8_"1/8" s16
@@ -2911,7 +2912,7 @@ An augmentation dot after a note multiplies the duration by one and a
 half.  Another dot adds yet a fourth of the duration.
 
 @lilypond
-%\property Score.TextScript \set #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \notes\relative c'' {
   \time 4/4
   g4._"pointed" g8 g2 | g4 ~ g8 g g2 \bar "||"
@@ -2924,7 +2925,7 @@ Subdivisions by@w{ }2 (@emph{tuplets}) or@w{ }4 (@emph{quadruplets}) of
 dotted notes are also frequently used.
 
 @lilypond
-%\property Score.TextScript \set #'font-style = #'large
+%\override Score.TextScript   #'font-style = #'large
 \notes\relative c'' {
   \time 4/4
   \times 2/3 {g8_"triplets" g g} g4 g8 g g4 \bar "||"
@@ -2978,7 +2979,7 @@ the upper note is played first.
 @lilypond
 <<
   \context Staff = sa {
-%        \property Score.TextScript \set #'font-style = #'large
+%        \override Score.TextScript   #'font-style = #'large
     \notes\relative c'' {
       c2._"pre-1850"  b4\trill | c1 \bar "||"
       c2._"post-1850" b4\trill | c1 \bar "||"
@@ -2997,7 +2998,7 @@ Other frequently used ornaments are the @emph{turn}, the @emph{mordent} and the
 @lilypond
 <<
   \context Staff = sa {
-%        \property Score.TextScript \set #'font-style = #'large
+%        \override Score.TextScript   #'font-style = #'large
     \notes\relative c'' {
       a4_"turn" b\turn c2 \bar "||"
       g4_"mordent" a b\mordent a \bar "||"
@@ -3269,8 +3270,8 @@ N: ?.
 with the same @aref{key signature}.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.TextScript   #'font-style = #'large
 \notes\relative c' {
   \key es \major
   es1_"e flat major" f g as bes c d es
@@ -3279,8 +3280,8 @@ with the same @aref{key signature}.
 @end lilypond
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.TextScript   #'font-style = #'large
 \notes\relative c' {
   \key es \major
   c1_"c minor" d es f g a! b! c \bar "||"
@@ -3397,9 +3398,9 @@ roots of chords.  The most important are degrees I = tonic (T), IV =
 sub@-do@-mi@-nant (S) and V = dominant (D).
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.LyricText \set #'font-style = #'large
-%\property Lyrics.minVerticalAlign = #8
+\set Score.automaticBars =  ##f
+%\override Score.LyricText   #'font-style = #'large
+%\set minVerticalAlign =  #8
 \addlyrics
 \context Staff \notes\relative c' {
   c1 d e f g a b c
@@ -3461,7 +3462,7 @@ semitone.  An octave may be divided into 12@w{ }semitones.
 @aref{interval}, @aref{chromatic scale}.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
+\set Score.automaticBars =  ##f
 \notes\relative c'' { g1 gis s a bes s b! c }
 @end lilypond
 
@@ -3713,9 +3714,9 @@ Vertical line above or below a @aref{note head} shorter than a
 whole note.  @aref{beam}.
 
 @lilypond[notime]
-\property Score.autoBeaming = ##f
-\property Score.automaticBars = ##f
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.autoBeaming =  ##f
+\set Score.automaticBars =  ##f
+%\override Score.TextScript   #'font-style = #'large
 \notes\relative c'' {
   g2_"1/2" g' s16
   g,4_"1/4" g' s16
@@ -4018,7 +4019,7 @@ with figures designating the chief @aref{interval}s and
     es8 c d bes c as bes16 as g f | es4
   }
   \context Lyrics \lyrics {
-    \property Lyrics . VerticalAlign \override #'threshold = #'(6 . 12)
+    \override Lyrics .VerticalAlign   #'threshold = #'(6 . 12)
     << { "" "6" "" "4" "" "6" "" "" "6" "4" }
       { "" ""  "" "2" "" ""  "" "" ""  "2" } >>
   }
@@ -4041,7 +4042,7 @@ connects two succesive notes of the same pitch, and which has the function of
 uniting them into a single sound equal to the combined durations.
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
+\set Score.automaticBars =  ##f
 \notes\relative c'' { g2 ~ g4. }
 @end lilypond
 
@@ -4152,8 +4153,8 @@ a @aref{chord}, usually in the distance of a third
 (@aref{interval}).
 
 @lilypond[notime]
-\property Score.automaticBars = ##f
-%\property Score.TextScript \set #'font-style = #'large
+\set Score.automaticBars =  ##f
+%\override Score.TextScript   #'font-style = #'large
 \notes\relative c' {
   e2:32_"a"
   f:32 [ e8:16 f:16 g:16 a:16 ] s4

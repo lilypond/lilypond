@@ -29,7 +29,7 @@
 #include "note-column.hh"
 #include "stem.hh"
 #include "paper-column.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "warn.hh"
 #include "slur-bezier-bow.hh"
 #include "main.hh"
@@ -528,9 +528,9 @@ Slur::height (SCM smob, SCM ax)
   Grob * me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
-  SCM mol = me->get_uncached_molecule ();
+  SCM mol = me->get_uncached_stencil ();
   Interval ext;
-  if (Molecule * m = unsmob_molecule (mol))
+  if (Stencil * m = unsmob_stencil (mol))
     ext = m->extent (a);
   return ly_interval2scm (ext);
 }
@@ -559,7 +559,7 @@ Slur::print (SCM smob)
   if (!scm_ilength (me->get_grob_property ("note-columns")))
     return SCM_EOL;
 
-  Molecule a;
+  Stencil a;
   SCM d =  me->get_grob_property ("dashed");
   if (gh_number_p (d))
     a = Lookup::dashed_slur (one, thick, thick * robust_scm2double (d, 0));

@@ -27,7 +27,7 @@
    TODO: Add support for cubic spline segments.
 
  */
-Molecule
+Stencil
 brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_points)
 {
   Real blotdiameter = Staff_symbol_referencer::staff_space (me)/2;
@@ -49,11 +49,11 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
     {
       programming_error ("#'style should be symbol.");
       me->suicide();
-      return  Molecule();
+      return  Stencil();
     }
 
 
-  Molecule out = Molecule ();
+  Stencil out = Stencil ();
   Array<Offset> points;
   points.clear ();
   int size = bottom_points.size ();
@@ -65,7 +65,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 	  box.add_point (bottom_points[i] - hvpadding);
 	  box.add_point (Offset(top_points[i + 1][X_AXIS],
 				top_points[i][Y_AXIS]) + hvpadding);
-	  out.add_molecule (Lookup::round_filled_box (box, blotdiameter));
+	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
 	}
     }
   else if (String::compare (shape, "rightsided-stairs") == 0)
@@ -76,7 +76,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 	  box.add_point (Offset(bottom_points[i][X_AXIS],
 				bottom_points[i + 1][Y_AXIS]) - hvpadding);
 	  box.add_point (top_points[i + 1] + hvpadding);
-	  out.add_molecule (Lookup::round_filled_box (box, blotdiameter));
+	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
 	}
     }
   else if (String::compare (shape, "centered-stairs") == 0)
@@ -91,7 +91,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 			 hvpadding);
 	  box.add_point (Offset (right_xmid, top_points[i][Y_AXIS]) +
 			 hvpadding);
-	  out.add_molecule (Lookup::round_filled_box (box, blotdiameter));
+	  out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
 	  left_xmid = right_xmid;
 	}
       Real right_xmid = bottom_points[size - 1][X_AXIS];
@@ -100,7 +100,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 		     hvpadding);
       box.add_point (Offset (right_xmid, top_points[size - 1][Y_AXIS]) +
 		     hvpadding);
-      out.add_molecule (Lookup::round_filled_box (box, blotdiameter));
+      out.add_stencil (Lookup::round_filled_box (box, blotdiameter));
     }
   else if (String::compare (shape, "ramp") == 0)
     {
@@ -116,7 +116,7 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 	  points.push (top_points[i] + vpadding);
 	}
       points.push (top_points[0] + vpadding + hpadding);
-      out.add_molecule (Lookup::round_filled_polygon (points, blotdiameter));
+      out.add_stencil (Lookup::round_filled_polygon (points, blotdiameter));
     }
   else
     {
@@ -213,7 +213,7 @@ Cluster::print (SCM smob)
   bottom_points.reverse ();
   top_points.reverse ();
 
-  Molecule out = brew_cluster_piece (me, bottom_points, top_points);
+  Stencil out = brew_cluster_piece (me, bottom_points, top_points);
   return out.smobbed_copy ();
 }
 

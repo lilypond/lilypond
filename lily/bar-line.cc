@@ -13,7 +13,7 @@
 #include "grob.hh"
 #include "bar-line.hh"
 #include "string.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
 
@@ -44,7 +44,7 @@ Bar_line::print (SCM smob)
 }
 
 
-Molecule
+Stencil
 Bar_line::compound_barline (Grob*me, String str, Real h)
 {
   Real kern = robust_scm2double (me->get_grob_property ("kern"), 1);
@@ -60,17 +60,17 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   hair *= staffline;
   fatline *= staffline;
   
-  Molecule thin = simple_barline (me, hair, h);
-  Molecule thick = simple_barline (me, fatline, h);
-  Molecule dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
+  Stencil thin = simple_barline (me, hair, h);
+  Stencil thick = simple_barline (me, fatline, h);
+  Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots-dot");
   Real dist = ( Staff_symbol_referencer::line_count (me) & 1 ? 1 :
 		(staff_space<2 ? 2 : .5) ) * staff_space;
-  Molecule colon (dot);
+  Stencil colon (dot);
   colon.translate_axis(dist,Y_AXIS);
-  colon.add_molecule(dot);
+  colon.add_stencil(dot);
   colon.translate_axis(-dist/2,Y_AXIS);
 
-  Molecule m;
+  Stencil m;
   
   if (str == "")
     {
@@ -130,16 +130,16 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
       for (int i = 0 ; i < c - 1; i++)
 	{
 	  Real y = (- (c-1.0) / 2 + 0.5  +   i * staff_space);
-	  Molecule d (dot);
+	  Stencil d (dot);
 
 	  d. translate_axis (y,Y_AXIS);
-	  m.add_molecule (d);
+	  m.add_stencil (d);
 	}
     }
   return m;
 }
 
-Molecule
+Stencil
 Bar_line::simple_barline (Grob *me,Real w, Real h) 
 {
   Real blot = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));

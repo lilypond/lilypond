@@ -1,3 +1,4 @@
+\version "2.1.22"
 @c -*-texinfo-*-
 
 
@@ -311,14 +312,14 @@ and with some corrections. Can you spot which fragment is which?
 @cindex optical spacing
 @lilypond[noindent]
     \score { \notes {
-      \property Staff.NoteSpacing \set #'stem-spacing-correction
+      \override Staff.NoteSpacing   #'stem-spacing-correction
         = #0.6
       c'4 e''4 e'4 b'4 |
        \stemDown b'4 e''4 a'4 e''4| \stemBoth
        \bar "||"
-      \property Staff.NoteSpacing \override #'stem-spacing-correction
+      \override Staff.NoteSpacing   #'stem-spacing-correction
       = #0.0
-      \property Staff.StaffSpacing \override #'stem-spacing-correction
+      \override Staff.StaffSpacing   #'stem-spacing-correction
       = #0.0
       c'4 e''4 e'4 b'4 |
       \stemDown b'4 e''4 a'4 e''4|
@@ -393,7 +394,7 @@ high note and the `f', as shown in this example:
 @lilypond
 \score { \notes \relative c'' {
 \stemUp
-    \once\property Voice. DynamicLineSpanner  \override #'padding = #4.0 
+    \once\override DynamicLineSpanner    #'padding = #4.0 
     a4_\f f,8
   	}
 \paper { raggedright = ##t }
@@ -402,7 +403,7 @@ high note and the `f', as shown in this example:
 
 This was achieved with the following input statement:
 @example
-   \once \property Voice. DynamicLineSpanner  \override #'padding = #4.0 
+   \once \override DynamicLineSpanner    #'padding = #4.0 
 @end example
 It increases the amount of space (@code{padding}) between the note and
 the dynamic symbol to 4.0 (which is measured in staff space, so 4.0
@@ -423,13 +424,13 @@ require them to be twice the thickness of the staff lines. The same
 mechanism can be used to adjust a setting globally. By issuing the
 following command, the entire piece is now formatted with thicker stems:
 @example
-    \property Score.Stem \override #'thickness = #3.0 
+    \override Score.Stem   #'thickness = #3.0 
 @end example
 
 @lilypond
 \score { \notes \relative c'' {
-    \property Score.Stem \override #'thickness = #3.0 
-    \once\property Voice. DynamicLineSpanner  \override #'padding = #4.0 
+    \override Score.Stem   #'thickness = #3.0 
+    \once\override DynamicLineSpanner    #'padding = #4.0 
 \stemUp
     a4_\f f,8
   	}
@@ -449,7 +450,7 @@ example above is calculated by the function
 @code{Side_position_interface::aligned_side}.  If we want to replace
 this function by a more advanced one, we could issue
 @example
-    \property Voice.DynamicLineSpanner \override #'Y-offset-callbacks
+    \override DynamicLineSpanner   #'Y-offset-callbacks
        = #(list gee-whiz-gadget)
 @end example
 

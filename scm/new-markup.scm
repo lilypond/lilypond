@@ -10,7 +10,7 @@ When the markup is formatted, then FUNCTION is called as follows
 GROB is the current grob, PROPS is a list of alists, and ARG1.. are
 the rest of the arguments.
 
-The function should return a molecule (i.e. a formatted, ready to
+The function should return a stencil (i.e. a formatted, ready to
 print object).
 
 
@@ -360,7 +360,7 @@ Also set markup-signature and markup-keyword object properties."
       (make-line-markup (list-insert-separator markups sep))
       empty-markup))
 
-(define-public brew-new-markup-molecule Text_item::print)
+(define-public brew-new-markup-stencil Text_item::print)
 (define-public interpret-markup Text_item::interpret_markup)
 (define-public (prepend-alist-chain key val chain)
   (cons (acons key val (car chain)) (cdr chain)))
@@ -368,15 +368,15 @@ Also set markup-signature and markup-keyword object properties."
 
 
 
-(define-public (stack-molecule-line space molecules)
-  (if (pair? molecules)
-      (if (pair? (cdr molecules))
-          (let* ((tail (stack-molecule-line  space (cdr molecules)))
-                 (head (car molecules))
-                 (xoff (+ space (cdr (ly:molecule-get-extent head X)))))
-            (ly:molecule-add head
-                             (ly:molecule-translate-axis tail xoff X)))
-          (car molecules))
+(define-public (stack-stencil-line space stencils)
+  (if (pair? stencils)
+      (if (pair? (cdr stencils))
+          (let* ((tail (stack-stencil-line  space (cdr stencils)))
+                 (head (car stencils))
+                 (xoff (+ space (cdr (ly:stencil-get-extent head X)))))
+            (ly:stencil-add head
+                             (ly:stencil-translate-axis tail xoff X)))
+          (car stencils))
       '()))
 
 

@@ -37,7 +37,7 @@ Text_item::interpret_markup (SCM paper, SCM props, SCM markup)
 	list = fontify_atom (fm, list);
 
       Box b = fm->text_dimension (ly_scm2string (markup));
-      return Molecule (b, list).smobbed_copy();
+      return Stencil (b, list).smobbed_copy();
     }
   else if (gh_pair_p (markup))
     {

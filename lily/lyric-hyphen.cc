@@ -10,7 +10,7 @@
 
 #include "box.hh"
 #include "lookup.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 #include "paper-column.hh"
 #include "spanner.hh"
@@ -74,14 +74,14 @@ Hyphen_spanner::print (SCM smob)
   space_left = space_left >? 0.0;
   
   Box b (Interval (0, dl), Interval (h,h+th));
-  Molecule dash_mol (Lookup::round_filled_box (b, 0.8 * lt));
+  Stencil dash_mol (Lookup::round_filled_box (b, 0.8 * lt));
 
-  Molecule total;
+  Stencil total;
   for (int i = 0; i < n; i++)
     {
-      Molecule m (dash_mol);
+      Stencil m (dash_mol);
       m.translate_axis (span_points[LEFT] + i * dp + space_left / 2, X_AXIS);
-      total.add_molecule (m);
+      total.add_stencil (m);
     }
 
   total.translate_axis ( -me->relative_coordinate (common, X_AXIS), X_AXIS);

@@ -1,4 +1,4 @@
-\version "1.9.8"
+\version "2.1.22"
 
 startGroup = #(make-span-event 'NoteGroupingEvent START)
 stopGroup = #(make-span-event 'NoteGroupingEvent STOP)
@@ -18,29 +18,29 @@ stopTextSpan = #(make-span-event 'TextSpanEvent STOP)
 
 cresc = \notes {
   #(ly:export (make-event-chord (list cr)))
-  \property Voice.crescendoText = \markup { \italic "cresc." }
-  \property Voice.crescendoSpanner = #'dashed-line
+  \set crescendoText =  \markup { \italic "cresc." }
+  \set crescendoSpanner =  #'dashed-line
 }
 
 % ah, this is handy: maybe drop resetting of properties in
 % dynamic-engraver ?
 endcresc = \notes {
   #(ly:export (make-event-chord (list rc)))
-  \property Voice.crescendoText \unset
-  \property Voice.crescendoSpanner \unset
+  \unset crescendoText 
+  \unset crescendoSpanner 
 }
 
 dim = \notes {
   #(ly:export (make-event-chord (list decr)))
 
-  \property Voice.decrescendoText = \markup { \italic "dim." }
-  \property Voice.decrescendoSpanner = #'dashed-line
+  \set decrescendoText =  \markup { \italic "dim." }
+  \set decrescendoSpanner =  #'dashed-line
 }
 
 enddim = \notes {
   #(ly:export (make-event-chord (list rced)))
-   \property Voice.decrescendoText \unset
- \property Voice.decrescendoSpanner \unset
+   \unset decrescendoText 
+ \unset decrescendoSpanner 
 }
 
 %{
@@ -60,6 +60,6 @@ treCorde = #(make-span-event 'UnaCordaEvent STOP)
 sostenutoDown = #(make-span-event 'SostenutoEvent START)
 sostenutoUp = #(make-span-event 'SostenutoEvent STOP)
 
-%crescpoco = \property Voice.crescendoText = "cresc. poco a poco"
-%decresc = \property Voice.crescendoText = "decr."
-%dim = \property Voice.crescendoText = "dim."
+%crescpoco = \set crescendoText =  "cresc. poco a poco"
+%decresc = \set crescendoText =  "decr."
+%dim = \set crescendoText =  "dim."

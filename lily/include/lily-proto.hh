@@ -94,7 +94,7 @@ class Midi_tempo;
 class Midi_text;
 class Midi_time_signature;
 class Midi_track;
-class Molecule;
+class Stencil;
 class Moment;
 class Music;
 class Music_iterator;

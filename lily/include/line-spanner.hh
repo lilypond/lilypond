@@ -17,7 +17,7 @@ class Line_spanner
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK(after_line_breaking, (SCM));  
-  static Molecule line_molecule (Grob* me, Offset f, Offset t);
+  static Stencil line_stencil (Grob* me, Offset f, Offset t);
   static bool has_interface (Grob*);
 
 private:

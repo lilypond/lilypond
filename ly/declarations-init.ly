@@ -1,6 +1,6 @@
 #(ly:set-option 'old-relative)
 
-\version "2.1.19"
+\version "2.1.22"
 breve = #(ly:make-duration -1 0)
 longa = #(ly:make-duration -2 0 )
 maxima = #(ly:make-duration -3 0)
@@ -32,8 +32,8 @@ noBreak =  #(make-event-chord (list (make-penalty-music 10001)))
 
 \include "scale-definitions-init.ly"
 
-melisma = \property Staff.melismaBusy = ##t
-melismaEnd = \property Staff.melismaBusy = ##f
+melisma = \set Staff.melismaBusy =  ##t
+melismaEnd = \set Staff.melismaBusy =  ##f
 
 
 \include "grace-init.ly"

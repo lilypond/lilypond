@@ -6,7 +6,7 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "rest.hh"
@@ -114,13 +114,13 @@ Rest::glyph_name (Grob *me, int balltype, String style)
 MAKE_SCHEME_CALLBACK (Rest,print,1);
 
 SCM
-Rest::brew_internal_molecule (SCM smob)
+Rest::brew_internal_stencil (SCM smob)
 {
   Grob* me = unsmob_grob (smob);
 
   SCM balltype_scm = me->get_grob_property ("duration-log");
   if (!gh_number_p (balltype_scm))
-    return Molecule ().smobbed_copy ();
+    return Stencil ().smobbed_copy ();
 
   int balltype = gh_scm2int (balltype_scm);
   
@@ -133,7 +133,7 @@ Rest::brew_internal_molecule (SCM smob)
 
   Font_metric *fm = Font_interface::get_default_font (me);
   String font_char = glyph_name (me, balltype, style);
-  Molecule out = fm->find_by_name (font_char);
+  Stencil out = fm->find_by_name (font_char);
   if (out.is_empty ())
     {
       me->warning (_f ("rest `%s' not found, ", font_char.to_str0 ()));
@@ -145,18 +145,18 @@ Rest::brew_internal_molecule (SCM smob)
 SCM 
 Rest::print (SCM smob) 
 {
-  return brew_internal_molecule (smob);
+  return brew_internal_stencil (smob);
 }
 MAKE_SCHEME_CALLBACK (Rest,extent_callback,2);
 /*
-  We need the callback. The real molecule has ledgers depending on
+  We need the callback. The real stencil has ledgers depending on
   Y-position. The Y-position is known only after line breaking.  */
 SCM
 Rest::extent_callback (SCM smob, SCM ax)
 {
   Axis a = (Axis) gh_scm2int (ax);
-  SCM m = brew_internal_molecule (smob);
-  return ly_interval2scm (unsmob_molecule (m)->extent (a));
+  SCM m = brew_internal_stencil (smob);
+  return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
 
 

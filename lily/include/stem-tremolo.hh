@@ -22,7 +22,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM ));
   DECLARE_SCHEME_CALLBACK (height, (SCM,SCM));
   static void set_stem (Grob*me, Grob *st);
-  static Molecule raw_molecule (Grob*);
+  static Stencil raw_stencil (Grob*);
 };
 
 #endif /* ABBREV_HH */

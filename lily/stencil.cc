@@ -1,5 +1,5 @@
 /*
-  molecule.cc -- implement Molecule
+  stencil.cc -- implement Stencil
 
   source file of the GNU LilyPond music typesetter
 
@@ -13,7 +13,7 @@
 #include "dimensions.hh"
 #include "interval.hh"
 #include "string.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "warn.hh"
 
 
@@ -21,33 +21,33 @@
 
 
 SCM
-Molecule::smobbed_copy () const
+Stencil::smobbed_copy () const
 {
-  Molecule * m = new Molecule (*this);
+  Stencil * m = new Stencil (*this);
 
   return m->smobbed_self ();
 }
 
 Interval
-Molecule::extent (Axis a) const
+Stencil::extent (Axis a) const
 {
   return dim_[a];
 }
 
-Molecule::Molecule (Box b, SCM func)
+Stencil::Stencil (Box b, SCM func)
 {
   expr_ = func;
   dim_ = b;
 }
 
-Molecule::Molecule ()
+Stencil::Stencil ()
 {
   expr_ = SCM_EOL;
   set_empty (true);
 }
 
 void
-Molecule::translate (Offset o)
+Stencil::translate (Offset o)
 {
   Axis a = X_AXIS;
   while (a < NO_AXES)
@@ -61,7 +61,7 @@ Molecule::translate (Offset o)
       incr (a);
     }
 
-  expr_ = scm_list_n (ly_symbol2scm ("translate-molecule"),
+  expr_ = scm_list_n (ly_symbol2scm ("translate-stencil"),
 		   ly_offset2scm (o),
 		   expr_, SCM_UNDEFINED);
   if (!is_empty ())
@@ -70,7 +70,7 @@ Molecule::translate (Offset o)
   
 
 void
-Molecule::translate_axis (Real x,Axis a)
+Stencil::translate_axis (Real x,Axis a)
 {
   Offset o (0,0);
   o[a] = x;
@@ -80,16 +80,16 @@ Molecule::translate_axis (Real x,Axis a)
 
 
 void
-Molecule::add_molecule (Molecule const &m)
+Stencil::add_stencil (Stencil const &m)
 {
-  expr_ = scm_list_n (ly_symbol2scm ("combine-molecule"),
+  expr_ = scm_list_n (ly_symbol2scm ("combine-stencil"),
 		   m.expr_,
 		   expr_, SCM_UNDEFINED);
   dim_.unite (m.dim_);
 }
 
 void
-Molecule::set_empty (bool e)
+Stencil::set_empty (bool e)
 {
   if (e)
     {
@@ -105,7 +105,7 @@ Molecule::set_empty (bool e)
 
 
 void
-Molecule::align_to (Axis a, Real x)
+Stencil::align_to (Axis a, Real x)
 {
   if (is_empty ())
     return ;
@@ -118,7 +118,7 @@ Molecule::align_to (Axis a, Real x)
   See scheme Function.
  */
 void
-Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding,
+Stencil::add_at_edge (Axis a, Direction d, Stencil const &m, Real padding,
 		       Real minimum)
 {
   Real my_extent= is_empty () ? 0.0 : dim_[a][d];
@@ -126,7 +126,7 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding,
   Real his_extent;
   if (i.is_empty ())
     {
-      programming_error ("Molecule::add_at_edge: adding empty molecule.");
+      programming_error ("Stencil::add_at_edge: adding empty stencil.");
       his_extent = 0.0;
     }
   else
@@ -136,9 +136,9 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding,
   if (minimum > 0  && fabs (offset) <  minimum)
     offset = sign (offset) * minimum; 
   
-  Molecule toadd (m);
+  Stencil toadd (m);
   toadd.translate_axis (offset, a);
-  add_molecule (toadd);
+  add_stencil (toadd);
 }
 
 
@@ -148,13 +148,13 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding,
   while expr_ == '()
  */
 bool
-Molecule::is_empty () const
+Stencil::is_empty () const
 {
   return expr_ == SCM_EOL;
 }
 
 SCM
-Molecule::get_expr () const
+Stencil::get_expr () const
 {
   return expr_;
 }
@@ -162,17 +162,17 @@ Molecule::get_expr () const
 
 
 Box
-Molecule::extent_box () const
+Stencil::extent_box () const
 {
   return dim_;
 }
-IMPLEMENT_SIMPLE_SMOBS (Molecule);
+IMPLEMENT_SIMPLE_SMOBS (Stencil);
 
 
 int
-Molecule::print_smob (SCM , SCM port, scm_print_state *)
+Stencil::print_smob (SCM , SCM port, scm_print_state *)
 {
-  scm_puts ("#<Molecule ", port);
+  scm_puts ("#<Stencil ", port);
   scm_puts (" >", port);
   
   return 1;
@@ -180,13 +180,13 @@ Molecule::print_smob (SCM , SCM port, scm_print_state *)
 
   
 SCM
-Molecule::mark_smob (SCM s)
+Stencil::mark_smob (SCM s)
 {
-  Molecule  *r = (Molecule *) ly_cdr (s);
+  Stencil  *r = (Stencil *) ly_cdr (s);
   
   return r->expr_;
 }
 
-IMPLEMENT_TYPE_P (Molecule, "ly:molecule?");
-IMPLEMENT_DEFAULT_EQUAL_P (Molecule);
+IMPLEMENT_TYPE_P (Stencil, "ly:stencil?");
+IMPLEMENT_DEFAULT_EQUAL_P (Stencil);
 

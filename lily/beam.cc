@@ -28,7 +28,7 @@ Notes:
 
 #include <math.h> // tanh.
 
-#include "molecule.hh" 
+#include "stencil.hh" 
 #include "directional-element-interface.hh"
 #include "beaming.hh"
 #include "beam.hh"
@@ -350,7 +350,7 @@ Beam::print (SCM grob)
 
   Real gap_length =robust_scm2double ( me->get_grob_property ("gap"), 0.0);
   
-  Molecule the_beam;
+  Stencil the_beam;
   Real lt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   
   for (int i = 0; i<= stems.size(); i++)
@@ -414,8 +414,8 @@ Beam::print (SCM grob)
       
 
       Real blot = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
-      Molecule whole = Lookup::beam (dydx, w, thick, blot);
-      Molecule gapped;
+      Stencil whole = Lookup::beam (dydx, w, thick, blot);
+      Stencil gapped;
 
       int gap_count = 0;
       if (gh_number_p (me->get_grob_property ("gap-count")))
@@ -431,7 +431,7 @@ Beam::print (SCM grob)
       int k = 0;
       for (int j = full_beams.size (); j--;)
 	{
-	  Molecule b (whole);
+	  Stencil b (whole);
 	  
 	  if (k++ < gap_count)
 	    {
@@ -441,7 +441,7 @@ Beam::print (SCM grob)
 	  b.translate_axis (last_xposn -  x0 + stem_offset, X_AXIS);
 	  b.translate_axis (dydx * (last_xposn - x0) + bdy * full_beams[j], Y_AXIS);
 
-	  the_beam.add_molecule (b);	      
+	  the_beam.add_stencil (b);	      
 	}
 
       
@@ -466,20 +466,20 @@ Beam::print (SCM grob)
 	  Real w = (i>0 && st) ? (xposn - last_xposn) : break_overshoot;
 	  w = w/2 <? nw_f;
 
-	  Molecule half = Lookup::beam (dydx, w, thick, blot);
+	  Stencil half = Lookup::beam (dydx, w, thick, blot);
 	  for (int j = lfliebertjes.size(); j--;)
 	    {
-	      Molecule b (half);
+	      Stencil b (half);
 	      b.translate_axis (last_xposn -  x0, X_AXIS);
 	      b.translate_axis (dydx * (last_xposn-x0) + bdy * lfliebertjes[j], Y_AXIS);
-	      the_beam.add_molecule (b);	      
+	      the_beam.add_stencil (b);	      
 	    }
 	  for (int j = rfliebertjes.size(); j--;)
 	    {
-	      Molecule b (half);
+	      Stencil b (half);
 	      b.translate_axis (xposn -  x0 - w , X_AXIS);
 	      b.translate_axis (dydx * (xposn-x0 -w) + bdy * rfliebertjes[j], Y_AXIS);
-	      the_beam.add_molecule (b);	      
+	      the_beam.add_stencil (b);	      
 	    }
 	}
 
@@ -506,7 +506,7 @@ Beam::print (SCM grob)
       String str;
       SCM properties = Font_interface::font_alist_chain (me);
 
-      Molecule tm = *unsmob_molecule (Text_item::interpret_markup
+      Stencil tm = *unsmob_stencil (Text_item::interpret_markup
 	(me->get_paper ()->self_scm (), properties, quant_score));
       the_beam.add_at_edge (Y_AXIS, UP, tm, 5.0, 0);
     }

@@ -29,9 +29,9 @@ public:
   virtual Box text_dimension (String)  const;
   virtual int name_to_index (String) const;
 
-  virtual Molecule find_by_name (String) const;
-  virtual Molecule get_indexed_char_molecule (int k) const;
-  virtual Molecule get_ascii_char_molecule (int k) const;  
+  virtual Stencil find_by_name (String) const;
+  virtual Stencil get_indexed_char_stencil (int k) const;
+  virtual Stencil get_ascii_char_stencil (int k) const;  
   
   DECLARE_SMOBS (Font_metric,);
 private:

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.1.21"
+\version "2.1.22"
 \header{
 filename = 	 "twinkle-pop.ly"
 xtitle = 	 "Ah, vous dirais-je, maman "
@@ -34,7 +34,7 @@ acc =  \chords {
 }
 
 text =  \lyrics{ 
-        \property Lyrics . LyricText \set #'font-shape = #'italic
+        \override LyricText  #'font-shape = #'italic
 
         Ah!4 vous dir -- ai -- je ma man2
         Ce4 qui cau -- se mon tour -- ment2

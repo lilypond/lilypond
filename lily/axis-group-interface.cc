@@ -93,9 +93,9 @@ Axis_group_interface::set_axes (Grob*me,Axis a1, Axis a2)
   /*
     why so convoluted ? (fixme/documentme?) 
    */
-  if (me->has_extent_callback_b (Grob::molecule_extent_proc, a1))
+  if (me->has_extent_callback_b (Grob::stencil_extent_proc, a1))
     me->set_extent (Axis_group_interface::group_extent_callback_proc,a1);
-  if (me->has_extent_callback_b (Grob::molecule_extent_proc, a2))
+  if (me->has_extent_callback_b (Grob::stencil_extent_proc, a2))
     me->set_extent (Axis_group_interface::group_extent_callback_proc,a2);
 }
 

@@ -14,7 +14,7 @@
 #include "directional-element-interface.hh"
 #include "breathing-sign.hh"
 #include "string.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 
@@ -64,7 +64,7 @@ Breathing_sign::divisio_minima (SCM smob)
   Interval xdim (0, thickness);
   Interval ydim (-0.5 * staff_space, +0.5 * staff_space);
   Box b (xdim, ydim);
-  Molecule out = Lookup::round_filled_box (b, blotdiameter);
+  Stencil out = Lookup::round_filled_box (b, blotdiameter);
   return out.smobbed_copy ();
 }
 
@@ -104,7 +104,7 @@ Breathing_sign::divisio_maior (SCM smob)
   Interval xdim (0, thickness);
   Interval ydim (-0.5 * height, +0.5 * height);
   Box b (xdim, ydim);
-  Molecule out = Lookup::round_filled_box (b, blotdiameter);
+  Stencil out = Lookup::round_filled_box (b, blotdiameter);
   return out.smobbed_copy ();
 }
 
@@ -134,7 +134,7 @@ Breathing_sign::divisio_maxima (SCM smob)
   Interval xdim (0, thickness);
   Interval ydim (-0.5 * staff_size, +0.5 * staff_size);
   Box b (xdim, ydim);
-  Molecule out = Lookup::round_filled_box (b, blotdiameter);
+  Stencil out = Lookup::round_filled_box (b, blotdiameter);
   return out.smobbed_copy ();
 }
 
@@ -164,10 +164,10 @@ Breathing_sign::finalis (SCM smob)
   Interval xdim (0, thickness);
   Interval ydim (-0.5 * staff_size, +0.5 * staff_size);
   Box b (xdim, ydim);
-  Molecule line1 = Lookup::round_filled_box (b, blotdiameter);
-  Molecule line2 (line1);
+  Stencil line1 = Lookup::round_filled_box (b, blotdiameter);
+  Stencil line2 (line1);
   line2.translate_axis (0.5 * staff_space, X_AXIS);
-  line1.add_molecule (line2);
+  line1.add_stencil (line2);
 
   return line1.smobbed_copy ();
 }

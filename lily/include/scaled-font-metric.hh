@@ -18,7 +18,7 @@
 struct Scaled_font_metric : public Font_metric
 {
   virtual Box text_dimension (String) const;
-  virtual Molecule find_by_name (String) const;
+  virtual Stencil find_by_name (String) const;
   static SCM make_scaled_font_metric (Font_metric*, Real);
   virtual int count () const;
   virtual Offset get_indexed_wxwy (int) const;

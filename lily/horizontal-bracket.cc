@@ -56,7 +56,7 @@ Horizontal_bracket::print (SCM smob)
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= robust_scm2double (me->get_grob_property ("thickness"), 1.0);
   
-  Molecule b = Lookup::bracket (X_AXIS, ext, thickness, - d* 1.0, thickness/2); 
+  Stencil b = Lookup::bracket (X_AXIS, ext, thickness, - d* 1.0, thickness/2); 
   
   b.translate_axis ( - sp->get_bound (LEFT)->relative_coordinate (cx, X_AXIS), X_AXIS);
 

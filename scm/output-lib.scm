@@ -11,14 +11,14 @@
 (define (tablature-stem-attachment-function style duration)
   (cons 0.0 0.5))
 
-; The TabNoteHead molecule callback.
-; Create a text molecule
+; The TabNoteHead stencil callback.
+; Create a text stencil
 (define-public (tablature-print-function grob)
-  (let ((molecule (fontify-text
+  (let ((stencil (fontify-text
                    (ly:get-default-font grob)
                    (ly:get-grob-property grob 'text)
                    )))
-    molecule ; return the molecule.
+    stencil ; return the stencil.
     ))
 
 ; The TabNoteHead tablatureFormat callback.
@@ -50,16 +50,16 @@
     (let ((slur (Slur::print grob))
           (text (fontify-text (ly:get-default-font grob) letter)))
     
-      (let ((x (/ (- (cdr (ly:molecule-get-extent slur 0)) 
-                     (/ (cdr (ly:molecule-get-extent text 0)) 2.0)
+      (let ((x (/ (- (cdr (ly:stencil-get-extent slur 0)) 
+                     (/ (cdr (ly:stencil-get-extent text 0)) 2.0)
                      )
                   -2.0)))
       
-        (ly:molecule-set-extent! text 0 (cons x x))
-        (ly:molecule-align-to! text 0 1)
+        (ly:stencil-set-extent! text 0 (cons x x))
+        (ly:stencil-align-to! text 0 1)
         )
 
-      (ly:molecule-combine-at-edge slur 1 1 text -0.6)
+      (ly:stencil-combine-at-edge slur 1 1 text -0.6)
       ) ) )
 
 
@@ -69,27 +69,27 @@
 ; end of tablature functions
 
 
-(define-public (make-molecule-boxer line-thick x-padding y-padding callback)
+(define-public (make-stencil-boxer line-thick x-padding y-padding callback)
    "Makes a routine that adds a box around the grob parsed as argument"
-  (define (molecule-boxer grob)
+  (define (stencil-boxer grob)
   (let*
    (
     (mol    (callback grob))
-    (x-ext (interval-widen (ly:molecule-get-extent mol 0) x-padding))
-    (y-ext (interval-widen (ly:molecule-get-extent mol 1) y-padding))
-    (x-rule (make-filled-box-molecule (interval-widen x-ext line-thick)
+    (x-ext (interval-widen (ly:stencil-get-extent mol 0) x-padding))
+    (y-ext (interval-widen (ly:stencil-get-extent mol 1) y-padding))
+    (x-rule (make-filled-box-stencil (interval-widen x-ext line-thick)
                               (cons 0 line-thick)))
-    (y-rule (make-filled-box-molecule (cons 0 line-thick) y-ext))
+    (y-rule (make-filled-box-stencil (cons 0 line-thick) y-ext))
     )
     
-    (set! mol (ly:molecule-combine-at-edge mol 0 1 y-rule x-padding))
-    (set! mol (ly:molecule-combine-at-edge mol 0 -1  y-rule x-padding))
-    (set! mol (ly:molecule-combine-at-edge mol 1 1  x-rule 0))  
-    (set! mol (ly:molecule-combine-at-edge mol 1 -1 x-rule 0))
+    (set! mol (ly:stencil-combine-at-edge mol 0 1 y-rule x-padding))
+    (set! mol (ly:stencil-combine-at-edge mol 0 -1  y-rule x-padding))
+    (set! mol (ly:stencil-combine-at-edge mol 1 1  x-rule 0))  
+    (set! mol (ly:stencil-combine-at-edge mol 1 -1 x-rule 0))
     
     mol
  ))
- molecule-boxer
+ stencil-boxer
  )
 
 (define-public (arg->string arg)

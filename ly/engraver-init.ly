@@ -1,4 +1,4 @@
-\version "2.1.21"
+\version "2.1.22"
 
 
 %
@@ -565,7 +565,7 @@ OrchestralScoreContext = \translator {
 
 EasyNotation = \translator {
 	\ScoreContext
-	NoteHead \override #'print-function = #Note_head::brew_ez_molecule
+	NoteHead \override #'print-function = #Note_head::brew_ez_stencil
 	NoteHead \override #'Y-extent-callback = #'()
 	NoteHead \override #'X-extent-callback = #'()
 }

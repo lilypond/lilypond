@@ -1,4 +1,4 @@
-\version "2.1.7"
+\version "2.1.22"
 \header {
     title = "Screech and boink"
     subtitle = "Random complex notation"
@@ -13,9 +13,9 @@
 
 
 	    << {
-		\property Voice.Stem \revert #'direction
+		\revert Stem #'direction
 		\change Staff = down
-		\property Voice.subdivideBeams = ##t	     
+		\set subdivideBeams =  ##t	     
 		g16.[
 		    \change Staff = up
 		    c'''32 	\change Staff = down
@@ -23,8 +23,8 @@
 		    c'''32	\change Staff = down
 		    g16]
 		\change Staff = up
-		\property Voice.Stem \set #'direction = #1
-		\property Voice.followVoice = ##t
+		\override Stem  #'direction = #1
+		\set followVoice =  ##t
 		c'''32([ b''16 a''16 gis''16 g''32)]  } \\
 	       { s4 \times 2/3 { d'16[ f' g'] } as'32[ b''32 e'' d''] } \\
 	       { s4 \autoBeamOff d''8.. f''32  } \\
@@ -35,10 +35,10 @@
 	\context Staff = down {
 	    \clef bass
 	    \key c \minor
-	    \property Voice.subdivideBeams = ##f
-	    \property Voice.Stem \set #'french-beaming =  ##t
-	    \property Voice.Beam \set #'thickness = #0.3
-	    \property Voice.Stem \set #'thickness = #4.0
+	    \set subdivideBeams =  ##f
+	    \override Stem  #'french-beaming =  ##t
+	    \override Beam  #'thickness = #0.3
+	    \override Stem  #'thickness = #4.0
 	    g'16[ b16 fis16 g16]
 	    << \apply #notes-to-clusters { 
 		as16 <as b>
@@ -46,7 +46,7 @@
 		<g cis>
 	    } \\
 	       {
-		   \property Staff.Arpeggio \set #'arpeggio-direction =#-1
+		   \override Staff.Arpeggio  #'arpeggio-direction =#-1
 		   <cis, e, gis, b, cis>4\arpeggio  }
 	   >>
 	}

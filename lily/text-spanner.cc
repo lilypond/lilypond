@@ -8,7 +8,7 @@
   Revised over good by Han-Wen. 
 */
 
-#include "molecule.hh"
+#include "stencil.hh"
 #include "text-item.hh"
 #include "text-spanner.hh"
 #include "line-spanner.hh"
@@ -79,7 +79,7 @@ Text_spanner::print (SCM smob)
 
   SCM properties = Font_interface::font_alist_chain (me);
   SCM edge_text = me->get_grob_property ("edge-text");
-  Drul_array<Molecule> edge;
+  Drul_array<Stencil> edge;
   if (gh_pair_p (edge_text))
     {
       Direction d = LEFT;
@@ -92,7 +92,7 @@ Text_spanner::print (SCM smob)
 	  SCM text = index_get_cell (edge_text, d);
 
 	  if (Text_item::markup_p (text)) 
-	    edge[d] = *unsmob_molecule (Text_item::interpret_markup (paper->self_scm (), properties, text));
+	    edge[d] = *unsmob_stencil (Text_item::interpret_markup (paper->self_scm (), properties, text));
 	  
 	  if (!edge[d].is_empty ())
 	    edge[d].align_to (Y_AXIS, CENTER);
@@ -102,7 +102,7 @@ Text_spanner::print (SCM smob)
   
   Drul_array<Real> edge_height = robust_scm2interval (me->get_grob_property ("edge-height"),
 						      Interval (0.0, 0.0));
-  Drul_array<Molecule> edge_line;
+  Drul_array<Stencil> edge_line;
     {
       Direction d = LEFT;
       int dir = to_dir (me->get_grob_property ("direction"));
@@ -117,19 +117,19 @@ Text_spanner::print (SCM smob)
 
 	  Real dy = - dir * edge_height[d] ;
 	  if (dy)
-	    edge_line[d] = Line_spanner::line_molecule (me, Offset(0,0), Offset (dx, dy));
+	    edge_line[d] = Line_spanner::line_stencil (me, Offset(0,0), Offset (dx, dy));
 	}
       while (flip (&d) != LEFT);
     }
   
-  Molecule m;
+  Stencil m;
   do
     {
       Interval ext = edge[d].extent (X_AXIS);
       if (!ext.is_empty ())
 	{
 	  edge[d].translate_axis (span_points[d], X_AXIS);
-	  m.add_molecule (edge[d]);
+	  m.add_stencil (edge[d]);
 	  span_points[d] += -d *  ext[-d];
 	}
     }
@@ -139,16 +139,16 @@ Text_spanner::print (SCM smob)
       if (d* span_points[d] > d * edge[-d].extent(X_AXIS)[d])
 	{
 	  edge_line[d].translate_axis (span_points[d], X_AXIS);
-	  m.add_molecule (edge_line[d]);
+	  m.add_stencil (edge_line[d]);
 	}
     }
   while (flip (&d) != LEFT);
 
   if (!span_points.is_empty ())
     {
-      Molecule l =Line_spanner::line_molecule (me, Offset (span_points[LEFT], 0),
+      Stencil l =Line_spanner::line_stencil (me, Offset (span_points[LEFT], 0),
 					       Offset (span_points[RIGHT], 0));
-      m.add_molecule (l);
+      m.add_stencil (l);
     }
   m.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
   return m.smobbed_copy ();

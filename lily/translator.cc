@@ -48,11 +48,6 @@ Translator::Translator (Translator const &s)
   smobify_self ();
 }
 
-bool
-Translator::is_alias (SCM sym) const
-{
-  return unsmob_context_def (definition_)->is_alias (sym);
-}
 
 bool
 Translator::try_music (Music *)

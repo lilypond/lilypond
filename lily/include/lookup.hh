@@ -11,28 +11,28 @@
 #define LOOKUP_HH
 
 #include "string.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "flower-proto.hh"
 #include "direction.hh"
 #include "box.hh"
 
 struct Lookup
 {
-  static Molecule dot (Offset p, Real radius);
-  static Molecule bracket (Axis a, Interval iv, Real thick, Real protude, Real blot);
-  static Molecule accordion (SCM arg, Real interline_f, Font_metric*fm);
-  static Molecule round_filled_polygon (Array<Offset> points, Real blotdiameter);
-  static Molecule frame (Box b, Real thick, Real blot);
-  static Molecule slur (Bezier controls, Real cthick, Real thick);
-  static Molecule bezier_sandwich (Bezier top_curve, Bezier bottom_curve);
-  static Molecule beam (Real slope, Real width, Real thick, Real blot);
-  static Molecule dashed_slur (Bezier, Real thick, Real dash);
-  static Molecule blank (Box b);
-  static Molecule filled_box (Box b);
-  static Molecule round_filled_box (Box b, Real blotdiameter);
-  static Molecule repeat_slash (Real w, Real slope, Real th);
-  static Molecule horizontal_line (Interval w, Real th);
-  static Molecule triangle (Interval, Real, Real);
+  static Stencil dot (Offset p, Real radius);
+  static Stencil bracket (Axis a, Interval iv, Real thick, Real protude, Real blot);
+  static Stencil accordion (SCM arg, Real interline_f, Font_metric*fm);
+  static Stencil round_filled_polygon (Array<Offset> points, Real blotdiameter);
+  static Stencil frame (Box b, Real thick, Real blot);
+  static Stencil slur (Bezier controls, Real cthick, Real thick);
+  static Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve);
+  static Stencil beam (Real slope, Real width, Real thick, Real blot);
+  static Stencil dashed_slur (Bezier, Real thick, Real dash);
+  static Stencil blank (Box b);
+  static Stencil filled_box (Box b);
+  static Stencil round_filled_box (Box b, Real blotdiameter);
+  static Stencil repeat_slash (Real w, Real slope, Real th);
+  static Stencil horizontal_line (Interval w, Real th);
+  static Stencil triangle (Interval, Real, Real);
 };
 
 #endif // LOOKUP_HH

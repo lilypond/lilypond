@@ -12,7 +12,7 @@
 #include "warn.hh"		// error()
 #include "libc-extension.hh"
 #include "afm.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "dimensions.hh"
 
 Adobe_font_metric::Adobe_font_metric (AFM_Font_info * fi)
@@ -178,9 +178,9 @@ Adobe_font_metric::~Adobe_font_metric ()
 }
 
 /*
-  return a molecule, without fontification 
+  return a stencil, without fontification 
  */
-Molecule
+Stencil
 Adobe_font_metric::find_by_name (String s) const
 {
   AFM_CharMetricInfo const *cm = find_char_metric (s);
@@ -191,7 +191,7 @@ Adobe_font_metric::find_by_name (String s) const
 	Why don't we return empty?
        */
       
-      Molecule m;
+      Stencil m;
       m.set_empty (false);
       return m;
     }
@@ -203,5 +203,5 @@ Adobe_font_metric::find_by_name (String s) const
   //  at= fontify_atom ((Font_metric*)this, at);
   Box b = afm_bbox_to_box (cm->charBBox);
 
-  return Molecule (b, at);
+  return Stencil (b, at);
 }

@@ -3,162 +3,162 @@
       (append 
        '(("thumb" .
 	  (
-	   (script-molecule . (feta . ("thumb"  . "thumb")))
+	   (script-stencil . (feta . ("thumb"  . "thumb")))
 	   (direction . 1)))
 	 ("accent" .
 	  (
-	   (script-molecule . (feta . ("sforzato" .  "sforzato")))
+	   (script-stencil . (feta . ("sforzato" .  "sforzato")))
 	   (side-relative-direction . -1))
 	  )	 
 	 ("marcato" .
 	  (
-	   (script-molecule . (feta . ("dmarcato" . "umarcato")))
+	   (script-stencil . (feta . ("dmarcato" . "umarcato")))
 	   (side-relative-direction .  -1)))
 	 ("staccatissimo" .
 	  (
-	   (script-molecule . (feta . ("dstaccatissimo" . "ustaccatissimo")))
+	   (script-stencil . (feta . ("dstaccatissimo" . "ustaccatissimo")))
 	   (side-relative-direction .  -1)))
 	 
 	 ("portato" .
-	  ((script-molecule . (feta . ("dportato" . "uportato")))
+	  ((script-stencil . (feta . ("dportato" . "uportato")))
 	   (side-relative-direction . -1)))
 
 	 ("accentus" .
-	  ((script-molecule . (feta . ("uaccentus" . "uaccentus")))
+	  ((script-stencil . (feta . ("uaccentus" . "uaccentus")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
 	   (priority . -100)
 	   (direction  . 1)))
 	 ("ictus" .
-	  ((script-molecule . (feta . ("ictus" . "ictus")))
+	  ((script-stencil . (feta . ("ictus" . "ictus")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
 	   (priority . -100)
 	   (direction  . -1)))
 	 ("semicirculus" .
-	  ((script-molecule . (feta . ("dsemicirculus" . "dsemicirculus")))
+	  ((script-stencil . (feta . ("dsemicirculus" . "dsemicirculus")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
 	   (priority . -100)
 	   (direction  . 1)))
 	 ("circulus" .
-	  ((script-molecule . (feta . ("circulus" . "circulus")))
+	  ((script-stencil . (feta . ("circulus" . "circulus")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
 	   (priority . -100)
 	   (direction  . 1)))
 
 	 ("signumcongruentiae" .
-	  ((script-molecule . (feta . ("dsignumcongruentiae" . "usignumcongruentiae")))
+	  ((script-stencil . (feta . ("dsignumcongruentiae" . "usignumcongruentiae")))
 	   (direction .  1)))
 	 ("fermata" .
-	  ((script-molecule . (feta . ("dfermata" . "ufermata")))
+	  ((script-stencil . (feta . ("dfermata" . "ufermata")))
 	   (direction .  1)))
 	 ("shortfermata" .
-	  ((script-molecule . (feta . ("dshortfermata" . "ushortfermata")))
+	  ((script-stencil . (feta . ("dshortfermata" . "ushortfermata")))
 	   (direction .  1)))
 	 ("longfermata" .
-	  ((script-molecule . (feta . ("dlongfermata" . "ulongfermata")))
+	  ((script-stencil . (feta . ("dlongfermata" . "ulongfermata")))
 	   (direction .  1)))
 	 ("verylongfermata" .
-	  ((script-molecule . (feta . ("dverylongfermata" . "uverylongfermata")))
+	  ((script-stencil . (feta . ("dverylongfermata" . "uverylongfermata")))
 	   (direction .  1)))
 	 ("stopped" .
-	  ((script-molecule . (feta . ("stopped" . "stopped")))
+	  ((script-stencil . (feta . ("stopped" . "stopped")))
 	   (direction  . 1) ))
 	 ("staccato" .
-	  ((script-molecule . (feta . ("staccato" . "staccato")))
+	  ((script-stencil . (feta . ("staccato" . "staccato")))
 	   (side-relative-direction .  -1)
 	   (follow-into-staff  . #t)
 	   (priority . -100)))
 	 ("tenuto" .
-	  ((script-molecule . (feta . ("tenuto" . "tenuto")))
+	  ((script-stencil . (feta . ("tenuto" . "tenuto")))
 	   (follow-into-staff . #t)
 	   (side-relative-direction . -1)))
 	 ("comma" .
-	  ((script-molecule . (feta . ("lcomma" . "rcomma")))
+	  ((script-stencil . (feta . ("lcomma" . "rcomma")))
 	   (follow-into-staff . #t)
 	   (direction . 1)))
 	 ("varcomma" .
-	  ((script-molecule . (feta . ("lvarcomma" . "rvarcomma")))
+	  ((script-stencil . (feta . ("lvarcomma" . "rvarcomma")))
 	   (follow-into-staff . #t)
 	   (direction . 1)))
 	 ("upbow" .
-	  ((script-molecule . (feta . ("upbow" . "upbow")))
+	  ((script-stencil . (feta . ("upbow" . "upbow")))
 	   (direction  . 1) ))
 	 ("downbow" .
-	  ((script-molecule . (feta . ("downbow" . "downbow")))
+	  ((script-stencil . (feta . ("downbow" . "downbow")))
 	   (direction  . 1) ))
 	 ("lheel" .
-	  ((script-molecule . (feta . ("upedalheel" . "upedalheel")))
+	  ((script-stencil . (feta . ("upedalheel" . "upedalheel")))
 	   (direction .  -1))
 	  )
 	 ("rheel" .
-	  ((script-molecule . (feta . ("dpedalheel" . "dpedalheel")))
+	  ((script-stencil . (feta . ("dpedalheel" . "dpedalheel")))
 	   (direction  . 1) ))
 	 ("ltoe" .
-	  ((script-molecule . (feta . ("upedaltoe" . "upedaltoe")))
+	  ((script-stencil . (feta . ("upedaltoe" . "upedaltoe")))
 	   (direction  . -1) ))
 	 ("rtoe" .
-	  ((script-molecule . (feta . ("dpedaltoe" . "dpedaltoe")))
+	  ((script-stencil . (feta . ("dpedaltoe" . "dpedaltoe")))
 	   (direction  . 1) ))
 	 ("turn" .
-	  ((script-molecule . (feta . ("turn" . "turn")))
+	  ((script-stencil . (feta . ("turn" . "turn")))
 	   (direction  . 1) ))
 	 ("open" .
-	  ((script-molecule . (feta . ("open" . "open")))
+	  ((script-stencil . (feta . ("open" . "open")))
 	   (direction  . 1) ))
 	 ("flageolet" .
-	  ((script-molecule . (feta . ("flageolet" . "flageolet")))
+	  ((script-stencil . (feta . ("flageolet" . "flageolet")))
 	   (direction  . 1) ))
 	 ("reverseturn" .
-	  ((script-molecule . (feta . ("reverseturn" . "reverseturn")))
+	  ((script-stencil . (feta . ("reverseturn" . "reverseturn")))
 	   (direction  . 1) ))
 	 ("trill" .
-	  ((script-molecule . (feta . ("trill" . "trill")))
+	  ((script-stencil . (feta . ("trill" . "trill")))
 	   (direction . 1)
 	   (priority . 2000)))
 	 ("prall" .
-	  ((script-molecule . (feta . ("prall" . "prall")))
+	  ((script-stencil . (feta . ("prall" . "prall")))
 	   (direction  . 1) ))
 	 ("mordent" .
-	  ((script-molecule . (feta . ("mordent" . "mordent")))
+	  ((script-stencil . (feta . ("mordent" . "mordent")))
 	   (direction  . 1) ))
 	 ("prallprall" .
-	  ((script-molecule . (feta . ("prallprall" . "prallprall")))
+	  ((script-stencil . (feta . ("prallprall" . "prallprall")))
 	   (direction  . 1) ))
 	 ("prallmordent" .
-	  ((script-molecule . (feta . ("prallmordent" . "prallmordent")))
+	  ((script-stencil . (feta . ("prallmordent" . "prallmordent")))
 	   (direction  . 1) ))
 	 ("upprall" .
-	  ((script-molecule . (feta . ("upprall" . "upprall")))
+	  ((script-stencil . (feta . ("upprall" . "upprall")))
 	   (direction  . 1) ))
 	 ("downprall" .
-	  ((script-molecule . (feta . ("downprall" . "downprall")))
+	  ((script-stencil . (feta . ("downprall" . "downprall")))
 	   (direction  . 1) ))
 	 ("upmordent" .
-	  ((script-molecule . (feta . ("upmordent" . "upmordent")))
+	  ((script-stencil . (feta . ("upmordent" . "upmordent")))
 	   (direction  . 1) ))
 	 ("downmordent" .
-	  ((script-molecule . (feta . ("downmordent" . "downmordent")))
+	  ((script-stencil . (feta . ("downmordent" . "downmordent")))
 	   (direction  . 1) ))
 	 ("lineprall" .
-	  ((script-molecule . (feta . ("lineprall" . "lineprall")))
+	  ((script-stencil . (feta . ("lineprall" . "lineprall")))
 	   (direction  . 1) ))
 	 ("pralldown" .
-	  ((script-molecule . (feta . ("pralldown" . "pralldown")))
+	  ((script-stencil . (feta . ("pralldown" . "pralldown")))
 	   (direction  . 1) ))
 	 ("prallup" .
-	  ((script-molecule . (feta . ("prallup" . "prallup")))
+	  ((script-stencil . (feta . ("prallup" . "prallup")))
 	   (direction  . 1) ))
 	 ("segno" .
-	  ((script-molecule . (feta . ("segno" . "segno")))
+	  ((script-stencil . (feta . ("segno" . "segno")))
 	   (direction  . 1) ))
 	 ("coda" .
-	  ((script-molecule . (feta . ("coda" . "coda")))
+	  ((script-stencil . (feta . ("coda" . "coda")))
 	   (direction  . 1) ))
 	 ("varcoda" .
-	  ((script-molecule . (feta . ("varcoda" . "varcoda")))
+	  ((script-stencil . (feta . ("varcoda" . "varcoda")))
 	   (direction  . 1) )))
        default-script-alist)
       )

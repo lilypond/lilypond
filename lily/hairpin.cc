@@ -7,7 +7,7 @@
 */
 
 #include "staff-symbol-referencer.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "line-interface.hh"
 #include "hairpin.hh"
 #include "spanner.hh"
@@ -120,9 +120,9 @@ Hairpin::print (SCM smob)
     should do relative to staff-symbol staff-space?
    */
 
-  Molecule mol;
+  Stencil mol;
   mol  = Line_interface::line (me, Offset (0, starth), Offset (width, endh));
-  mol.add_molecule (Line_interface::line (me,
+  mol.add_stencil (Line_interface::line (me,
 						 Offset (0, -starth),
 						 Offset (width, -endh)));
 

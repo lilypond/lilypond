@@ -11,14 +11,14 @@
 #include "axis-group-interface.hh"
 #include "system-start-delimiter.hh"
 #include "paper-def.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "font-interface.hh"
 #include "all-font-metrics.hh"
 #include "grob.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
 
-Molecule
+Stencil
 System_start_delimiter::staff_bracket (Grob*me,Real height)  
 {
   Real arc_height = gh_scm2double (me->get_grob_property ("arch-height")) ;
@@ -52,14 +52,14 @@ Will not fix it since I'm not sure.
 
   Real h = height + 2 * arc_height;
   Box b (Interval (0, 1.5), Interval (-h/2, h/2));
-  Molecule mol (b, at);
+  Stencil mol (b, at);
   mol.align_to (X_AXIS, CENTER);
   return mol;
 }
 
 
 
-Molecule
+Stencil
 System_start_delimiter::simple_bar (Grob*me,Real h) 
 {
   Real lt =me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness")) ;
@@ -125,7 +125,7 @@ System_start_delimiter::print (SCM smob)
       return SCM_EOL;
     }
 
-  Molecule m;
+  Stencil m;
 
   if (gsym== ly_symbol2scm ("bracket"))
     m = staff_bracket (me,l);
@@ -138,7 +138,7 @@ System_start_delimiter::print (SCM smob)
   return m.smobbed_copy ();
 }
 
-Molecule
+Stencil
 System_start_delimiter::staff_brace (Grob*me, Real y)
 {
   Font_metric *fm = 0;
@@ -172,11 +172,11 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
     }
   while (hi - lo > 1);
       
-  Molecule m (fm->get_indexed_char_molecule (lo)); // ugh.  ascii?
+  Stencil m (fm->get_indexed_char_stencil (lo)); // ugh.  ascii?
   b=m.extent_box();
   b[X_AXIS] = Interval (0,0);
 
-  return Molecule (b, m.get_expr());
+  return Stencil (b, m.get_expr());
 }
   
 

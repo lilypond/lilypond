@@ -13,7 +13,7 @@
 #include "paper-column.hh" // urg
 #include "font-interface.hh"
 #include "rest.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "misc.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
@@ -29,7 +29,7 @@ Multi_measure_rest::percent (SCM smob)
   Grob *me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner*> (me);
   
-  Molecule r = Percent_repeat_item_interface::x_percent (me, 1,  0.75, 1.6);
+  Stencil r = Percent_repeat_item_interface::x_percent (me, 1,  0.75, 1.6);
 
   // ugh copy & paste.
   
@@ -97,8 +97,8 @@ Multi_measure_rest::print (SCM smob)
   Real x_off = (sp_iv[LEFT] -  rx) >? 0;
 
 
-  Molecule mol;
-  mol.add_molecule (symbol_molecule (me, space));
+  Stencil mol;
+  mol.add_stencil (symbol_stencil (me, space));
 
   int measures = 0;
   SCM m (me->get_grob_property ("measure-count"));
@@ -113,8 +113,8 @@ Multi_measure_rest::print (SCM smob)
 
 
 
-Molecule
-Multi_measure_rest::symbol_molecule (Grob *me, Real space)
+Stencil
+Multi_measure_rest::symbol_stencil (Grob *me, Real space)
 {
   int measures = 0;
   SCM m (me->get_grob_property ("measure-count"));
@@ -123,14 +123,14 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
       measures = gh_scm2int (m);
     }
   if (measures <= 0)
-    return Molecule();
+    return Stencil();
   
 
   SCM limit = me->get_grob_property ("expand-limit");
   if (measures > gh_scm2int (limit))
     {
       Real padding = 0.15;  
-      Molecule s =  big_rest (me, (1.0 - 2*padding) * space);
+      Stencil s =  big_rest (me, (1.0 - 2*padding) * space);
       s.translate_axis (padding * space,  X_AXIS); 
       return s;
     }
@@ -146,7 +146,7 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
     {
       if (sml == SCM_BOOL_T)
 	{
-	  Molecule s = musfont->find_by_name (Rest::glyph_name (me, -1, ""));
+	  Stencil s = musfont->find_by_name (Rest::glyph_name (me, -1, ""));
 
 	  s.translate_axis ((space - s.extent (X_AXIS).length ())/2, X_AXIS);
       
@@ -154,7 +154,7 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
 	}
       else
 	{
-	  Molecule s = musfont->find_by_name (Rest::glyph_name (me, 0, ""));
+	  Stencil s = musfont->find_by_name (Rest::glyph_name (me, 0, ""));
 
 	  /*
 	    ugh.
@@ -177,7 +177,7 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
 /*
   WIDTH can also be 0 to determine the minimum size of the object.
  */
-Molecule
+Stencil
 Multi_measure_rest::big_rest (Grob *me, Real width)
 {
   Real thick_thick =robust_scm2double (me->get_grob_property ("thick-thickness"), 1.0);
@@ -192,8 +192,8 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   
   Real blot = width ? (.8 * (y <? ythick)) : 0.0;
   
-  Molecule m =  Lookup::round_filled_box (b, blot);
-  Molecule yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5)* ythick, Interval (-ss, ss)), blot);
+  Stencil m =  Lookup::round_filled_box (b, blot);
+  Stencil yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5)* ythick, Interval (-ss, ss)), blot);
 
   m.add_at_edge (X_AXIS, RIGHT, yb, 0, 0);
   m.add_at_edge (X_AXIS, LEFT, yb, 0, 0);
@@ -206,7 +206,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
 /*
   Kirchenpause (?)
  */
-Molecule
+Stencil
 Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
 				 Real space)
 {
@@ -237,7 +237,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
 	      k = -1;
 	    }
 
-	  Molecule r (musfont->find_by_name ("rests-" + to_string (k)));
+	  Stencil r (musfont->find_by_name ("rests-" + to_string (k)));
 	  symbols_width += r.extent (X_AXIS).length ();
 	  mols = gh_cons (r.smobbed_copy (), mols);
 	}
@@ -260,7 +260,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
 	      l --;
 	    }
 
-	  Molecule r (musfont->find_by_name ("rests-" + to_string (k)));
+	  Stencil r (musfont->find_by_name ("rests-" + to_string (k)));
 	  if (k == 0)
 	    {
 	      Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -281,10 +281,10 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
       inner_padding = 1.0;
     }
   
-  Molecule mol; 
+  Stencil mol; 
   for (SCM  s = mols; gh_pair_p (s); s = gh_cdr(s))
     {
-      mol.add_at_edge (X_AXIS, LEFT, *unsmob_molecule (gh_car (s)), inner_padding, 0);
+      mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (gh_car (s)), inner_padding, 0);
     }
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (outer_padding_factor *  inner_padding, X_AXIS);
@@ -319,7 +319,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
   
   Item* combinations[4][2]={{l,r}, {lb,r}, {l,rb},{lb,rb}};
 
-  Real sym_width = symbol_molecule (me, 0.0).extent (X_AXIS).length ();
+  Real sym_width = symbol_stencil (me, 0.0).extent (X_AXIS).length ();
   
   for (int i=0; i < 4; i++)
     {

@@ -9,7 +9,7 @@
 
 #include "scaled-font-metric.hh"
 #include "string.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 
 
 Scaled_font_metric::Scaled_font_metric (Font_metric* m, Real magn)
@@ -31,13 +31,13 @@ Scaled_font_metric::make_scaled_font_metric (Font_metric*m, Real s)
   return sfm->self_scm ();
 }
 
-Molecule
+Stencil
 Scaled_font_metric::find_by_name (String s) const
 {
-  Molecule m = orig_->find_by_name (s);
+  Stencil m = orig_->find_by_name (s);
   Box b = m.extent_box ();
   b.scale (magnification_);
-  Molecule q (b,fontify_atom ((Font_metric*) this, m.get_expr ()));
+  Stencil q (b,fontify_atom ((Font_metric*) this, m.get_expr ()));
 
   return q ;
 }

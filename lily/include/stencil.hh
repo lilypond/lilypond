@@ -1,12 +1,12 @@
 /*
-  molecule.hh -- declare Molecule
+  stencil.hh -- declare Stencil
 
   source file of the GNU LilyPond music typesetter
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#ifndef MOLECULE_HH
-#define MOLECULE_HH
+#ifndef STENCIL_HH
+#define STENCIL_HH
 
 #include <stdlib.h>		// size_t
 #include "lily-proto.hh"
@@ -16,7 +16,7 @@
 #include "lily-guile.hh"
 #include "smobs.hh"
 
-/** a group of individually translated symbols. You can add molecules
+/** a group of individually translated symbols. You can add stencils
     to the top, to the right, etc.
 
     It is implemented as a "tree" of scheme expressions, as in
@@ -30,26 +30,26 @@
     desired output.  
 
 
-    Because of the way that Molecule is implemented, it is the most
-    efficient to add "fresh" molecules to what you're going to build.
+    Because of the way that Stencil is implemented, it is the most
+    efficient to add "fresh" stencils to what you're going to build.
     
     Dimension behavior:
 
-    Empty molecules have empty dimensions.  If add_at_edge is used to
-    init the molecule, we assume that
+    Empty stencils have empty dimensions.  If add_at_edge is used to
+    init the stencil, we assume that
     DIMENSIONS = (Interval (0,0),Interval (0,0)
 */
-class Molecule
+class Stencil
 {
-  friend SCM ly_molecule_set_extent_x (SCM, SCM, SCM);
+  friend SCM ly_stencil_set_extent_x (SCM, SCM, SCM);
   
   Box dim_;
   SCM expr_;
   
-  DECLARE_SIMPLE_SMOBS (Molecule,);  
+  DECLARE_SIMPLE_SMOBS (Stencil,);  
 public:
-  Molecule (Box, SCM s);
-  Molecule ();
+  Stencil (Box, SCM s);
+  Stencil ();
 
 
   SCM smobbed_copy () const;
@@ -58,9 +58,9 @@ public:
   /**
      Set dimensions to empty, or to (Interval (0,0),Interval (0,0) */
   void set_empty (bool);
-  void add_at_edge (Axis a, Direction d, const Molecule &m, Real padding,
+  void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding,
 		    Real minimum);
-  void add_molecule (Molecule const &m);
+  void add_stencil (Stencil const &m);
   void translate (Offset);
   void align_to (Axis a, Real x);
   void translate_axis (Real,Axis);
@@ -74,16 +74,16 @@ public:
   bool is_empty () const;
 
 
-  static SCM ly_get_molecule_extent (SCM mol, SCM axis);
-  static SCM ly_set_molecule_extent_x (SCM,SCM,SCM);
-  static SCM ly_molecule_combined_at_edge (SCM,SCM,SCM,SCM,SCM);
+  static SCM ly_get_stencil_extent (SCM mol, SCM axis);
+  static SCM ly_set_stencil_extent_x (SCM,SCM,SCM);
+  static SCM ly_stencil_combined_at_edge (SCM,SCM,SCM,SCM,SCM);
 };
 
 
-DECLARE_UNSMOB(Molecule,molecule);
+DECLARE_UNSMOB(Stencil,stencil);
 SCM fontify_atom (Font_metric const*, SCM atom);
 
-Molecule create_molecule (SCM print);
+Stencil create_stencil (SCM print);
 
 
 

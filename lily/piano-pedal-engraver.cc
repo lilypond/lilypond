@@ -340,7 +340,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 	p->bracket_->set_bound (RIGHT, cmc);
 
       /*
-	Set properties so that the molecule-creating function will
+	Set properties so that the stencil-creating function will
 	know whether the right edge should be flared ___/
        */
 
@@ -364,7 +364,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
       p->bracket_  = make_spanner ("PianoPedalBracket");
 
       /*
-	Set properties so that the molecule-creating function will
+	Set properties so that the stencil-creating function will
 	know whether the left edge should be flared \___
       */
 
@@ -376,7 +376,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 
 
       /* Set this property for 'mixed style' pedals,    Ped._______/\ ,  
-        so the molecule function will shorten the ____ line by the length of the Ped. text.
+        so the stencil function will shorten the ____ line by the length of the Ped. text.
       */
 
       if (mixed)

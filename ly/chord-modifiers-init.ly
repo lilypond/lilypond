@@ -1,4 +1,4 @@
-\version "2.1.19"
+\version "2.1.22"
 
 chordmodifiers = #default-chord-modifier-list
 

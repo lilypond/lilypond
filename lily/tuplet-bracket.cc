@@ -30,7 +30,7 @@
 #include "box.hh"
 #include "warn.hh"
 #include "font-interface.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 #include "text-item.hh"
 #include "tuplet-bracket.hh"
@@ -101,7 +101,7 @@ SCM
 Tuplet_bracket::print (SCM smob) 
 {
   Grob *me= unsmob_grob (smob);
-  Molecule  mol;
+  Stencil  mol;
   Link_array<Grob> columns=
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
 
@@ -173,14 +173,14 @@ Tuplet_bracket::print (SCM smob)
     {
       SCM properties = Font_interface::font_alist_chain (me);
       SCM snum = Text_item::interpret_markup (pap->self_scm (), properties, number);
-      Molecule num = *unsmob_molecule (snum);
+      Stencil num = *unsmob_stencil (snum);
       num.align_to (X_AXIS, CENTER);
       num.translate_axis (w/2, X_AXIS);
       num.align_to (Y_AXIS, CENTER);
 	
       num.translate_axis ((ry-ly)/2, Y_AXIS);
 
-      mol.add_molecule (num);
+      mol.add_stencil (num);
     }
 
 
@@ -218,11 +218,11 @@ Tuplet_bracket::print (SCM smob)
       }
       while (flip (&d) != LEFT);
       
-      Molecule brack = make_bracket (me, Y_AXIS,
+      Stencil brack = make_bracket (me, Y_AXIS,
 				     Offset (w, ry - ly), 
 				     height, gap,
 				     flare, shorten);
-      mol.add_molecule (brack);
+      mol.add_stencil (brack);
     }
   
   mol.translate_axis (ly, Y_AXIS);
@@ -236,7 +236,7 @@ Tuplet_bracket::print (SCM smob)
   TODO: this will fail for very short (shorter than the flare)
   brackets.
  */
-Molecule
+Stencil
 Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
 			      Axis protusion_axis,
 			      Offset dz,
@@ -277,12 +277,12 @@ Tuplet_bracket::make_bracket (Grob *me,	// for line properties.
     straight_corners[d][bracket_axis] += - d * flare[d];
   } while (flip (&d) != LEFT);
 
-  Molecule m;
+  Stencil m;
   do {
-    m.add_molecule (Line_interface::line (me, straight_corners[d],
+    m.add_stencil (Line_interface::line (me, straight_corners[d],
 						 gap_corners[d]));
     
-    m.add_molecule (Line_interface::line (me,  straight_corners[d],
+    m.add_stencil (Line_interface::line (me,  straight_corners[d],
 						 flare_corners[d]));
   } while (flip (&d) != LEFT);
 

@@ -10,7 +10,7 @@
 #include "item.hh"
 #include "mensural-ligature.hh"
 #include "font-interface.hh"
-#include "molecule.hh"
+#include "stencil.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
 #include "note-head.hh"
@@ -22,7 +22,7 @@
  *
  * TODO: move this function to class Lookup?
  */
-Molecule
+Stencil
 brew_flexa (Grob *me,
 	    Real interval,
 	    bool solid,
@@ -33,7 +33,7 @@ brew_flexa (Grob *me,
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real height = 0.6 * staff_space;
-  Molecule molecule = Molecule ();
+  Stencil stencil = Stencil ();
 
   if (add_cauda)
     {
@@ -57,9 +57,9 @@ brew_flexa (Grob *me,
 	-0.5*height - cauda_box_y.length();
 
       Box cauda_box (cauda_box_x, cauda_box_y);
-      Molecule cauda = Lookup::filled_box (cauda_box);
+      Stencil cauda = Lookup::filled_box (cauda_box);
       cauda.translate_axis (y_correction, Y_AXIS);
-      molecule.add_molecule (cauda);
+      stencil.add_stencil (cauda);
     }
 
   Real slope = (interval / 2.0 * staff_space) / width;
@@ -72,38 +72,38 @@ brew_flexa (Grob *me,
 
   if (solid)
     {
-      Molecule solid_head =
+      Stencil solid_head =
 	Lookup::beam (corrected_slope, width, height, 0.0);
-      molecule.add_molecule (solid_head);
+      stencil.add_stencil (solid_head);
     }
   else // outline
     {
-      Molecule left_edge =
+      Stencil left_edge =
 	Lookup::beam (corrected_slope, thickness, height, 0.0);
-      molecule.add_molecule(left_edge);
+      stencil.add_stencil(left_edge);
 
-      Molecule right_edge =
+      Stencil right_edge =
 	Lookup::beam (corrected_slope, thickness, height, 0.0);
       right_edge.translate_axis (width-thickness, X_AXIS);
       right_edge.translate_axis (corrected_slope * (width-thickness), Y_AXIS);
-      molecule.add_molecule(right_edge);
+      stencil.add_stencil(right_edge);
 
-      Molecule bottom_edge =
+      Stencil bottom_edge =
 	Lookup::beam (corrected_slope, width, thickness, 0.0);
       bottom_edge.translate_axis (-0.5*height, Y_AXIS);
-      molecule.add_molecule (bottom_edge);
+      stencil.add_stencil (bottom_edge);
 
-      Molecule top_edge =
+      Stencil top_edge =
 	Lookup::beam (corrected_slope, width, thickness, 0.0);
       top_edge.translate_axis (+0.5*height, Y_AXIS);
-      molecule.add_molecule (top_edge);
+      stencil.add_stencil (top_edge);
     }
-  molecule.translate_axis (ypos_correction, Y_AXIS);
-  return molecule;
+  stencil.translate_axis (ypos_correction, Y_AXIS);
+  return stencil;
 }
 
 void
-add_ledger_lines (Grob *me, Molecule *out, int pos, Real offs,
+add_ledger_lines (Grob *me, Stencil *out, int pos, Real offs,
 		  bool ledger_take_space)
 {
   int interspaces = Staff_symbol_referencer::line_count (me)-1;
@@ -115,16 +115,16 @@ add_ledger_lines (Grob *me, Molecule *out, int pos, Real offs,
 
       Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
 				     hd[RIGHT] + right_ledger_protusion);
-      Molecule ledger_lines =
+      Stencil ledger_lines =
 	Note_head::brew_ledger_lines (me, pos, interspaces,
 				      l_extents,0,
 				      ledger_take_space);
       ledger_lines.translate_axis (offs, Y_AXIS);
-      out->add_molecule (ledger_lines);
+      out->add_stencil (ledger_lines);
     }
 }
 
-Molecule
+Stencil
 internal_brew_primitive (Grob *me, bool ledger_take_space)
 {
   SCM primitive_scm = me->get_grob_property ("primitive");
@@ -132,10 +132,10 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
     {
       programming_error ("Mensural_ligature:"
 			 "undefined primitive -> ignoring grob");
-      return Molecule ();
+      return Stencil ();
     }
 
-  Molecule out;
+  Stencil out;
   int primitive = gh_scm2int (primitive_scm);
   int delta_pitch = 0;
   Real thickness = 0.0;
@@ -157,7 +157,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
   switch (primitive)
     {
       case MLP_NONE:
-	return Molecule();
+	return Stencil();
       case MLP_BB:
 	out = brew_flexa (me, delta_pitch, false,
 			  flexa_width, thickness, true, DOWN);
@@ -182,7 +182,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
       default:
 	programming_error (_f ("Mensural_ligature:"
 			       "unexpected case fall-through"));
-	return Molecule ();
+	return Stencil ();
     }
 
   SCM join_left_scm = me->get_grob_property ("join-left-amount");
@@ -198,8 +198,8 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
 	Interval (0, -join_left * 0.5 * staff_space);
       Box join_box (x_extent, y_extent);
 
-      Molecule join = Lookup::round_filled_box (join_box, blotdiameter);
-      out.add_molecule (join);
+      Stencil join = Lookup::round_filled_box (join_box, blotdiameter);
+      out.add_stencil (join);
     }
 
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));

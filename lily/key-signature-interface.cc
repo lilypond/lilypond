@@ -10,7 +10,7 @@
 
 #include "item.hh"
 
-#include "molecule.hh"
+#include "stencil.hh"
 #include "paper-def.hh"
 #include "font-interface.hh"
 #include "staff-symbol-referencer.hh"
@@ -114,7 +114,7 @@ Key_signature_interface::print (SCM smob)
     }
 
   SCM newas = me->get_grob_property ("new-accidentals");  
-  Molecule mol;
+  Stencil mol;
 
   SCM c0s = me->get_grob_property ("c0-position");
   int c0p = 0;
@@ -132,7 +132,7 @@ Key_signature_interface::print (SCM smob)
       int alteration = gh_scm2int (ly_cdar (s));
       String font_char =
 	Accidental_interface::get_fontcharname (style, alteration);
-      Molecule acc (fm->find_by_name ("accidentals-" + font_char));
+      Stencil acc (fm->find_by_name ("accidentals-" + font_char));
 
       if (acc.is_empty ())
 	{
@@ -162,7 +162,7 @@ Key_signature_interface::print (SCM smob)
 
       mol.add_at_edge (X_AXIS, LEFT, Lookup::blank (Box (x,y)), 0, 0);
 
-      Molecule natural;
+      Stencil natural;
       if (gh_pair_p (old))
 	natural=Font_interface::get_default_font (me)->
 	    find_by_name (String ("accidentals-") + style + String ("0"));
@@ -177,7 +177,7 @@ Key_signature_interface::print (SCM smob)
 	      int alteration = 0;
 	      int pos = alteration_pos (what, alteration, c0p);
 
-	      Molecule m = natural;
+	      Stencil m = natural;
               m.translate_axis (pos* inter, Y_AXIS);
 
 	      /*

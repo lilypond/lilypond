@@ -32,13 +32,13 @@
   "Put @var{args} in a horizontal line. The property @code{word-space} determines
 the space between each markup in @var{args}.
 "
-  (stack-molecule-line
+  (stack-stencil-line
    (cdr (chain-assoc 'word-space props))
    (map (lambda (m) (interpret-markup paper props m)) args)))
 
 (def-markup-command (combine paper props m1 m2) (markup? markup?)
   "Print two markups on top of each other."
-  (ly:molecule-add
+  (ly:stencil-add
    (interpret-markup paper props m1)
    (interpret-markup paper props m2)))
 
@@ -172,17 +172,17 @@ of the #'direction layout property."
 
 (def-markup-command (center paper props args) (markup-list?)
   (let* ((mols (map (lambda (x) (interpret-markup paper props x)) args))
-         (cmols (map (lambda (x) (ly:molecule-align-to! x X CENTER)) mols)))
+         (cmols (map (lambda (x) (ly:stencil-align-to! x X CENTER)) mols)))
     (stack-lines -1 0.0 (cdr (chain-assoc 'baseline-skip props)) mols)))
 
 (def-markup-command (right-align paper props arg) (markup?)
   (let* ((m (interpret-markup paper props arg)))
-    (ly:molecule-align-to! m X RIGHT)
+    (ly:stencil-align-to! m X RIGHT)
     m))
 
 (def-markup-command (left-align paper props arg) (markup?)
   (let* ((m (interpret-markup paper props arg)))
-    (ly:molecule-align-to! m X LEFT)
+    (ly:stencil-align-to! m X LEFT)
     m))
 
 (def-markup-command (halign paper props dir arg) (number? markup?)
@@ -191,7 +191,7 @@ right, values in between vary alignment accordingly."
 
   
   (let* ((m (interpret-markup paper props arg)))
-    (ly:molecule-align-to! m X dir)
+    (ly:stencil-align-to! m X dir)
     m))
 
 (def-markup-command (musicglyph paper props glyph-name) (string?)
@@ -237,7 +237,7 @@ positions it next to the staff cancels any shift made with
 and/or @code{extra-offset} properties. "
 
   
-  (ly:molecule-translate-axis (interpret-markup paper props arg)
+  (ly:stencil-translate-axis (interpret-markup paper props arg)
                               amount Y))
 
 (def-markup-command (fraction paper props arg1 arg2) (markup? markup?)
@@ -246,18 +246,18 @@ and/or @code{extra-offset} properties. "
 Syntax: \\fraction MARKUP1 MARKUP2."
   (let* ((m1 (interpret-markup paper props arg1))
          (m2 (interpret-markup paper props arg2)))
-    (ly:molecule-align-to! m1 X CENTER)
-    (ly:molecule-align-to! m2 X CENTER)    
-    (let* ((x1 (ly:molecule-get-extent m1 X))
-           (x2 (ly:molecule-get-extent m2 X))
+    (ly:stencil-align-to! m1 X CENTER)
+    (ly:stencil-align-to! m2 X CENTER)    
+    (let* ((x1 (ly:stencil-get-extent m1 X))
+           (x2 (ly:stencil-get-extent m2 X))
            (line (ly:round-filled-box (interval-union x1 x2) '(-0.05 . 0.05) 0.0))
            ;; should stack mols separately, to maintain LINE on baseline
            (stack (stack-lines -1 0.2 0.6 (list m1 line m2))))
-      (ly:molecule-align-to! stack Y CENTER)
-      (ly:molecule-align-to! stack X LEFT)
+      (ly:stencil-align-to! stack Y CENTER)
+      (ly:stencil-align-to! stack X LEFT)
       ;; should have EX dimension
       ;; empirical anyway
-      (ly:molecule-translate-axis stack 0.75 Y))))
+      (ly:stencil-translate-axis stack 0.75 Y))))
 
 
 ;; TODO: better syntax.
@@ -273,7 +273,7 @@ for DIR, you can obtain longer or shorter stems."
          (stemth 0.13)
          (stemy (* dir stemlen))
          (attachx (if (> dir 0)
-                      (- (cdr (ly:molecule-get-extent headgl X)) stemth)
+                      (- (cdr (ly:stencil-get-extent headgl X)) stemth)
                       0))
          (attachy (* dir 0.28))
          (stemgl (and (> log 0)
@@ -283,34 +283,34 @@ for DIR, you can obtain longer or shorter stems."
                              (max stemy attachy))
                        (/ stemth 3))))
          (dot (ly:find-glyph-by-name font "dots-dot"))
-         (dotwid (interval-length (ly:molecule-get-extent dot X)))
+         (dotwid (interval-length (ly:stencil-get-extent dot X)))
          (dots (and (> dot-count 0)
-                    (apply ly:molecule-add
+                    (apply ly:stencil-add
                            (map (lambda (x)
-                                  (ly:molecule-translate-axis
+                                  (ly:stencil-translate-axis
                                    dot  (* (+ 1 (* 2 x)) dotwid) X) )
                                 (iota dot-count 1)))))
          (flaggl (and (> log 2)
-                      (ly:molecule-translate
+                      (ly:stencil-translate
                        (ly:find-glyph-by-name font
                                               (string-append "flags-"
                                                              (if (> dir 0) "u" "d")
                                                              (number->string log)))
                        (cons (+ attachx (/ stemth 2)) stemy)))))
     (if flaggl
-        (set! stemgl (ly:molecule-add flaggl stemgl)))
-    (if (ly:molecule? stemgl)
-        (set! stemgl (ly:molecule-add stemgl headgl))
+        (set! stemgl (ly:stencil-add flaggl stemgl)))
+    (if (ly:stencil? stemgl)
+        (set! stemgl (ly:stencil-add stemgl headgl))
         (set! stemgl headgl))
-    (if (ly:molecule? dots)
+    (if (ly:stencil? dots)
         (set! stemgl
-              (ly:molecule-add
-               (ly:molecule-translate-axis dots
+              (ly:stencil-add
+               (ly:stencil-translate-axis dots
                                            (+ (if (and (> dir 0) (> log 2))
                                                   (* 1.5 dotwid)
                                                   0)
                                               ;; huh ? why not necessary?
-                                              ;;(cdr (ly:molecule-get-extent headgl X))
+                                              ;;(cdr (ly:stencil-get-extent headgl X))
                                               dotwid)
                                            X)
                stemgl)))
@@ -346,7 +346,7 @@ a shortened down stem."
 
 (def-markup-command (normal-size-super paper props arg) (markup?)
   "A superscript which does not use a smaller font."
-  (ly:molecule-translate-axis (interpret-markup
+  (ly:stencil-translate-axis (interpret-markup
                                paper
                                props arg)
                               (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
@@ -371,7 +371,7 @@ Raising and lowering texts can be done with @code{\\super} and
 
 "
   
-  (ly:molecule-translate-axis
+  (ly:stencil-translate-axis
    (interpret-markup
     paper
     (cons `((font-size . ,(- (chain-assoc-get 'font-size props 0) 3))) props)
@@ -390,12 +390,12 @@ vertically, for the same reason that @code{\\raise} cannot be used for
 that.
 
 . "
-  (ly:molecule-translate (interpret-markup  paper props arg)
+  (ly:stencil-translate (interpret-markup  paper props arg)
                          offset))
 
 (def-markup-command (sub paper props arg) (markup?)
   "Syntax: \\sub MARKUP."
-  (ly:molecule-translate-axis
+  (ly:stencil-translate-axis
    (interpret-markup
     paper
     (cons `((font-size . ,(- (chain-assoc-get 'font-size props 0) 3))) props)
@@ -404,7 +404,7 @@ that.
    Y))
 
 (def-markup-command (normal-size-sub paper props arg) (markup?)
-  (ly:molecule-translate-axis
+  (ly:stencil-translate-axis
    (interpret-markup paper props arg)
    (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
    Y))
@@ -413,13 +413,13 @@ that.
   "Horizontal brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup paper props arg)))
-    (bracketify-molecule m X th (* 2.5 th) th)))
+    (bracketify-stencil m X th (* 2.5 th) th)))
 
 (def-markup-command (bracket paper props arg) (markup?)
   "Vertical brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup paper props arg)))
-    (bracketify-molecule m Y th (* 2.5 th) th)))
+    (bracketify-stencil m Y th (* 2.5 th) th)))
 
 ;; todo: fix negative space
 (def-markup-command (hspace paper props amount) (number?)
@@ -431,8 +431,8 @@ will put extra space between A and B, on top of the space that is
 normally inserted before elements on a line.
 "
   (if (> amount 0)
-      (ly:make-molecule "" (cons 0 amount) '(-1 . 1) )
-      (ly:make-molecule "" (cons amount amount) '(-1 . 1))))
+      (ly:make-stencil "" (cons 0 amount) '(-1 . 1) )
+      (ly:make-stencil "" (cons amount amount) '(-1 . 1))))
 
 (def-markup-command (override paper props new-prop arg) (pair? markup?)
   "Add the first argument in to the property list.  Properties may be
@@ -468,7 +468,7 @@ any sort of property supported by @internalsref{font-interface} and
   (let ((th 0.1)
         (pad 0.2)
         (m (interpret-markup paper props arg)))
-    (box-molecule m th pad)))
+    (box-stencil m th pad)))
 
 (def-markup-command (strut paper props) ()
   
@@ -478,7 +478,7 @@ FIXME: is this working?
 "
   
   (let ((m (Text_item::interpret_markup paper props " ")))
-    (ly:molecule-set-extent! m X '(1000 . -1000))
+    (ly:stencil-set-extent! m X '(1000 . -1000))
     m))
 
 (define number->mark-letter-vector (make-vector 25 #\A))

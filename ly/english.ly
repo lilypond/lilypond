@@ -87,5 +87,5 @@ pitchnamesEnglish = #`(
 
 pitchnames = \pitchnamesEnglish
 
-\version "2.1.19"
+\version "2.1.22"
 

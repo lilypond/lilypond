@@ -8,7 +8,7 @@
 
 #include <math.h>
 
-#include "molecule.hh"
+#include "stencil.hh"
 #include "item.hh"
 #include "spanner.hh"
 #include "line-spanner.hh"
@@ -21,8 +21,8 @@
 #include "lookup.hh"
 #include "line-interface.hh"
 
-Molecule
-zigzag_molecule (Grob *me, 
+Stencil
+zigzag_stencil (Grob *me, 
 		 Offset from,
 		 Offset to)
 {
@@ -53,7 +53,7 @@ zigzag_molecule (Grob *me,
   b[X_AXIS].widen (thick/2);
   b[Y_AXIS].widen (thick/2);
      
-  return Molecule (b, list);
+  return Stencil (b, list);
 }
 
 MAKE_SCHEME_CALLBACK(Line_spanner, after_line_breaking, 1);
@@ -91,8 +91,8 @@ Line_spanner::after_line_breaking (SCM  g)
 }
 
 
-Molecule
-Line_spanner::line_molecule (Grob *me, 
+Stencil
+Line_spanner::line_stencil (Grob *me, 
 			     Offset from,
 			     Offset to)
 {
@@ -106,7 +106,7 @@ Line_spanner::line_molecule (Grob *me,
 	  || (type == ly_symbol2scm ("trill") && dz[Y_AXIS] != 0)))
     {
       return  (type == ly_symbol2scm ("zigzag"))
-	? zigzag_molecule (me, from, to)
+	? zigzag_stencil (me, from, to)
 	: Line_interface::line (me, from, to);
     }
   else if (gh_symbol_p (type)
@@ -120,8 +120,8 @@ Line_spanner::line_molecule (Grob *me,
       Font_metric *fm = select_font (me->get_paper (),
 						  gh_cons (style_alist,
 							   alist_chain));
-      Molecule m = fm->find_by_name ("scripts-trill-element");
-      Molecule mol;
+      Stencil m = fm->find_by_name ("scripts-trill-element");
+      Stencil mol;
 
       do
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0,0);
@@ -139,7 +139,7 @@ Line_spanner::line_molecule (Grob *me,
       mol.translate (from);
       return mol;
     }
-  return Molecule();
+  return Stencil();
 }
 
 /*
@@ -166,7 +166,7 @@ line_spanner_common_parent (Grob *me)
   Warning: this thing is a cross-staff object, so it should have empty Y-dimensions.
 
  (If not, you risk that this is called from the staff-alignment
-  routine, via molecule_extent. At this point, the staves aren't
+  routine, via stencil_extent. At this point, the staves aren't
   separated yet, so it doesn't work cross-staff.
 
 */
@@ -245,7 +245,7 @@ Line_spanner::print (SCM smob)
       dz = (dz.length () - 2*gap) *dir;
       
   
-      Molecule l (line_molecule (me, Offset(0, 0), dz));
+      Stencil l (line_stencil (me, Offset(0, 0), dz));
 
       l.translate (dir * gap +  p1
 		   - Offset (me->relative_coordinate (commonx, X_AXIS),
@@ -280,7 +280,7 @@ Line_spanner::print (SCM smob)
       ofxy = dxy * (off/dxy.length ());
       dxy -= 2*ofxy;
   
-      Molecule line = line_molecule (me, Offset (0,0),dxy);
+      Stencil line = line_stencil (me, Offset (0,0),dxy);
 
       line.translate_axis (bound[LEFT]->extent (bound[LEFT], X_AXIS).length ()/2, X_AXIS); 
       line.translate (ofxy - my_off + his_off);
