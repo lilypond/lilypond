@@ -69,7 +69,7 @@ somewhat familiar with using LilyPond.
 @subsection Notes
 
 
-A note is printed by specifying its pitch and then its duration.
+A note is printed by specifying its pitch and then its duration:
 @footnote{Notes constitute the most basic elements of LilyPond input,
 but they do not form valid input on their own without a @code{\score}
 block.  However, for the sake of brevity and simplicity we will
@@ -94,7 +94,7 @@ The most common syntax for pitch entry is used in @code{\chords} and
 by names.  The notes are specified by the letters @code{a} through
 @code{g}, while the octave is formed with notes ranging from @code{c}
 to @code{b}.  The pitch @code{c} is an octave below middle C and the
-letters span the octave above that C.
+letters span the octave above that C:
 
 @lilypond[fragment,verbatim]
 \clef bass
@@ -138,14 +138,14 @@ espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
 The optional octave specification takes the form of a series of
 single quote (`@code{'}') characters or a series of comma
 (`@code{,}') characters.  Each @code{'} raises the pitch by one
-octave; each @code{,} lowers the pitch by an octave.
+octave; each @code{,} lowers the pitch by an octave:
 
 @lilypond[fragment,verbatim,center]
   c' c'' es' g' as' gisis' ais'  
 @end lilypond
 
 
-There is also a verbose syntax for pitch specification.
+There is also a verbose syntax for pitch specification:
 
 @c TODO: junk this? 
 @cindex @code{\pitch}
@@ -158,7 +158,7 @@ where @var{scmpitch} is a Scheme object of the @code{Pitch} type.
 
 @refcommands
 
-Notes can be hidden and unhidden with the following commands.
+Notes can be hidden and unhidden with the following commands:
 
 @cindex @code{\hideNotes }
 @code{\hideNotes}, 
@@ -183,7 +183,7 @@ after the pitch.  A cautionary accidental
 @cindex cautionary accidental
 @cindex parenthesized accidental
 (an accidental within parentheses) can be obtained by adding the
-question mark `@code{?}' after the pitch.
+question mark `@code{?}' after the pitch:
 
 @lilypond[fragment,verbatim]
   cis' cis' cis'! cis'?
@@ -208,7 +208,7 @@ articulations, just like simple notes.
 
 
 
-Rests are entered like notes, with the note name @code{r}.
+Rests are entered like notes, with the note name @code{r}:
 
 @lilypond[singleline,verbatim]
 r1 r2 r4 r8
@@ -222,7 +222,7 @@ must be done  with multi measure rests. They are discussed in
 A rest's vertical position may be explicitly specified by entering a
 note with the @code{\rest} keyword appended. This makes manual
 formatting in polyphonic music easier.  Rest collision testing will
-leave these rests alone.
+leave these rests alone:
 
 @lilypond[singleline,verbatim]
 a'4\rest d'4\rest
@@ -248,7 +248,7 @@ a2 s4 a4 \skip 1 a4
 @end lilypond
 
 The @code{s} syntax is only available in Note mode and Chord mode.  In
-other situations, you should use the @code{\skip} command.
+other situations, you should use the @code{\skip} command:
 
 @lilypond[singleline,verbatim]
 \score {
@@ -280,7 +280,7 @@ In Note, Chord, and Lyrics mode, durations are designated by numbers
 and dots: durations are entered as their reciprocal values.  For example,
 a quarter note is entered using a @code{4} (since it is a 1/4 note), while
 a half note is entered using a @code{2} (since it is a 1/2 note).  For notes
-longer than a whole you must use variables.
+longer than a whole you must use variables:
 
 @c FIXME: what is an identifier?  I do not think it's been introduced yet.
 @c and if it has, I obviously skipped that part.     - Graham
@@ -329,7 +329,7 @@ You can alter the length of duration by a fraction @var{N/M}
 appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}). This
 will not affect the appearance of the notes or rests produced.
 In the following example, the first three notes take up exactly two
-beats.
+beats:
 @lilypond[fragment,relative 2,verbatim]
   \time 2/4
    a4*2/3 gis4*2/3 a4*2/3
@@ -337,7 +337,7 @@ beats.
 @end lilypond
 
 Durations can also be produced using the verbose syntax
-@code{\duration @var{Scheme object}}. 
+@code{\duration @var{Scheme object}}:
 @lilypond[verbatim,fragment]
  c'\duration #(ly:make-duration 4 1)
 @end lilypond
@@ -348,7 +348,7 @@ Durations can also be produced using the verbose syntax
 
 Dots are normally moved up to avoid staff lines, except in polyphonic
 situations. The following commands may be used to force a particular
-direction manually.
+direction manually:
 
 @cindex @code{\dotsUp }
 @code{\dotsUp}, 
@@ -380,7 +380,7 @@ is invisible.
 @cindex @code{\stemDown}
 @code{\stemDown}, 
 @cindex @code{\stemBoth}
-@code{\stemBoth}, 
+@code{\stemBoth}. 
 
 
 @node Ties
@@ -393,7 +393,7 @@ is invisible.
 A tie connects two adjacent note heads of the same pitch.  The tie in
 effect extends the length of a note.  Ties should not be confused with
 slurs, which indicate articulation, or phrasing slurs, which indicate
-musical phrasing.  A tie is entered using the tilde symbol `@code{~}'.
+musical phrasing.  A tie is entered using the tilde symbol `@code{~}':
 
 @lilypond[fragment,verbatim,center]
   e' ~ e' <<c' e' g'>> ~ <<c' e' g'>>
@@ -403,8 +403,8 @@ When a tie is applied to a chord, all note heads whose pitches match
 are connected.  When no note heads match, no ties will be created.
 
 In its meaning a tie is just a way of extending a note duration, similar
-to the augmentation dot: the following example are two ways of notating
-exactly the same concept.
+to the augmentation dot; in the following example there are two ways of 
+notating exactly the same concept:
 @c
 @lilypond[fragment, singleline,quote]
 \time 3/4 c'2. c'2 ~ c'4
@@ -424,7 +424,7 @@ note splitting (See @ref{Automatic note splitting}).
 @cindex @code{\tieDotted }
 @code{\tieDotted}, 
 @cindex @code{\tieSolid}
-@code{\tieSolid}, 
+@code{\tieSolid}.
 
 @seealso 
 
@@ -456,7 +456,7 @@ optimal.
 @cindex @code{\times}
 
 Tuplets are made out of a music expression by multiplying all durations
-with a fraction.
+with a fraction:
 
 @cindex @code{\times}
 @example
@@ -477,7 +477,7 @@ The property @code{tupletSpannerDuration} specifies how long each
 bracket should last.  With this, you can make lots of tuplets while
 typing @code{\times} only once, saving lots of typing. In the next
 example, there are two triplets shown, while @code{\times} was only
-used once.
+used once:
 
 @lilypond[fragment,  relative, singleline, verbatim]
 \property Voice.tupletSpannerDuration = #(ly:make-moment 1 4)
@@ -502,7 +502,7 @@ instead.
 @cindex @code{\tupletDown }
 @code{\tupletDown}, 
 @cindex @code{\tupletBoth}
-@code{\tupletBoth}, 
+@code{\tupletBoth}.
 
 @seealso
 
@@ -529,8 +529,8 @@ used in music aimed at beginners.
 }
 @end lilypond
 
-The @code{EasyNotation} variable overrides a @internalsref{Score}
-context.  You probably will want to print it with magnification or a
+The @code{EasyNotation} variable overrides a @internalsref{Score} context.  
+You probably will want to print it with magnification or a
 large font size to make it more readable.  To print with
 magnification, you must create a DVI file (with @file{ly2dvi}) and
 then enlarge it with something like @file{dvips -x 2000 file.dvi}.
