@@ -79,6 +79,7 @@ top-web:
 	find `find Documentation input mutopia *.png index.html -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www' | tar -czf $(outdir)/web.tar.gz  -T -
 
 #WWW: local-WWW
+WWW:
 
 web: local-web
 

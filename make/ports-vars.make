@@ -30,12 +30,16 @@ examples=
 #
 # Hairy hack to support name `score.ly' inside zipfile.
 # This will fail to download and build mutopia in one go,
-# either download first, or issue make mutopia twice.
+# either download first, or issue `make mutopia' twice.
+# How to really fix this?
 #
 mutopia-parts = $(patsubst %.ly,%,$(wildcard *-part.ly))
 mutopia-scores = $(patsubst %.ly,%,$(wildcard $(mutopia-name).ly score.ly))
 ifeq ($(mutopia-scores),)
+mutopia-scores = $(patsubst %.ly,%, $(shell grep -l '\\score' *.ly))
+ifeq ($(mutopia-scores),)
 mutopia-scores = $(mutopia-name)
 endif
-mutopia-examples = $(mutopia-scores) $(mutopia-parts)
+endif
+mutopia-examples = $(sort $(mutopia-scores) $(mutopia-parts))
 
