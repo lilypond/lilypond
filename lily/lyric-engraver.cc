@@ -43,14 +43,10 @@ Lyric_engraver::Lyric_engraver ()
 bool
 Lyric_engraver::try_music (Music*r)
 {
-  if (r->is_mus_type ("lyric-event"))
-    {
-      if (event_)
-	return false;
-      event_ =r;
-      return true;
-    }
-  return false;
+  if (event_)
+    return false;
+  event_ =r;
+  return true;
 }
 
 void
