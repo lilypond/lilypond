@@ -363,6 +363,7 @@ recommend font for this is bold and italic"
 (def-markup-command (column layout props args) (markup-list?)
   "Stack the markups in @var{args} vertically.  The property
 @code{baseline-skip} determines the space between each markup in @var{args}."
+  (display (chain-assoc-get 'baseline-skip props))(newline)
   (stack-lines
    -1 0.0 (chain-assoc-get 'baseline-skip props)
    (remove ly:stencil-empty?
@@ -685,17 +686,27 @@ any sort of property supported by @internalsref{font-interface} and
 "
   (interpret-markup layout (cons (list new-prop) props) arg))
 
-(def-markup-command (smaller layout props arg) (markup?)
-  "Decrease the font size relative to current setting"
-  (let* ((fs (chain-assoc-get 'font-size props 0))
-	 (entry (cons 'font-size (- fs 1))))
-    (interpret-markup layout (cons (list entry) props) arg)))
 
+(def-markup-command (fontsize layout props increment arg) (number? markup?)
+  "Add @var{increment} to the font-size. Adjust baseline skip accordingly."
+
+  (let* ((fs (chain-assoc-get 'font-size props 0))
+	 (bs (chain-assoc-get 'baseline-skip props 2)) 
+         (entries (list
+		   (cons 'baseline-skip (* bs (magstep increment)))
+		   (cons 'font-size (+ fs increment )))))
+
+    (interpret-markup layout (cons entries props) arg)))
+  
 (def-markup-command (bigger layout props arg) (markup?)
   "Increase the font size relative to current setting"
-  (let* ((fs (chain-assoc-get 'font-size props 0))
-         (entry (cons 'font-size (+ fs 1))))
-    (interpret-markup layout (cons (list entry) props) arg)))
+  (interpret-markup layout props
+   `(,fontsize-markup 1 ,arg)))
+
+(def-markup-command (smaller layout props arg) (markup?)
+  "Decrease the font size relative to current setting"
+  (interpret-markup layout props
+   `(,fontsize-markup -1 ,arg)))
 
 (def-markup-command larger (markup?) bigger-markup)
 
