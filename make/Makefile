@@ -37,11 +37,9 @@ include ./$(depth)/make/Rules.make
 default: $(RPMSPEC) $(LSMENTRY)
 
 
-rpmdocs=$(addprefix Documentation/out/, $(notdir $(shell  find $(depth)/Documentation/ -name '*.txt' ))) \
-	BUGS TODO NEWS DEDICATION ANNOUNCE README
-rpmmudocs=$(addprefix Documentation/, $(notdir $(shell ls $(depth)/Documentation/*.doc)))
+rpmdocs=BUGS TODO NEWS DEDICATION ANNOUNCE README
 rpmdvis=$(rpmmudocs:.doc=.dvi)
-rpmexamples= $(addprefix input/, $(notdir $(shell ls $(depth)/input/*.{ly,tex})))
+rpmexamples= $(addprefix input/, $(notdir $(shell ls $(depth)/input/*.ly)))
 
 
 date = $(shell date '+%d%b%y'|tr a-z A-Z)
