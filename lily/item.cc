@@ -31,15 +31,23 @@ Item::Item (Item const &s)
 }
 
 
-
 bool
-Item::breakable_b () const
+Item::breakable_b (Score_element*me) 
 {
-  if (original_l_ )
+  if (me->original_l_)
     return false;
+
+  if (!dynamic_cast<Item*>(me))
+    programming_error ("only items can be breakable.");
   
-  Item * i  =dynamic_cast<Item*> (parent_l (X_AXIS));
-  return (i) ?  i->breakable_b () : to_boolean (get_elt_property ("breakable"));
+  Item * i  =dynamic_cast<Item*> (me->parent_l (X_AXIS));
+  return (i) ?  Item::breakable_b (i) : to_boolean (me->get_elt_property ("breakable"));
+}
+
+Paper_column *
+Item::column_l () const
+{
+  return dynamic_cast<Item*> (parent_l (X_AXIS))->column_l ();
 }
 
 Line_of_score *
@@ -83,7 +91,7 @@ Item::discretionary_processing()
   if (broken_b ())
     return;
 
-  if (breakable_b ())
+  if (Item::breakable_b (this))
     copy_breakable_items();
 }
 
@@ -114,11 +122,6 @@ Item::find_prebroken_piece (Direction d) const
   return dynamic_cast<Item*> (broken_to_drul_[d]);
 }
 
-Paper_column *
-Item::column_l () const
-{
-  return dynamic_cast<Item*> (parent_l (X_AXIS))->column_l ();
-}
 
 Direction
 Item::break_status_dir () const

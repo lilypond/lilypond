@@ -10,6 +10,7 @@
 #include "spring.hh"
 #include "debug.hh"
 #include "item.hh"
+#include "spaceable-element.hh"
 #include "paper-column.hh"
 
 Spring::Spring ()
@@ -22,7 +23,9 @@ Spring::Spring ()
 void
 Spring::add_to_cols ()
 {
-  item_l_drul_[LEFT]->column_l ()->add_spring (item_l_drul_[RIGHT]->column_l (), distance_f_, strength_f_);
+  Spaceable_element::add_spring (item_l_drul_[LEFT]->column_l (),
+				 item_l_drul_[RIGHT]->column_l (),
+				 distance_f_, strength_f_);
 }
 
 

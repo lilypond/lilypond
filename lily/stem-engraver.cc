@@ -12,7 +12,7 @@
 #include "musical-request.hh"
 #include "misc.hh"
 #include "stem-tremolo.hh"
-
+#include "item.hh"
 #include "translator-group.hh"
 #include "engraver.hh"
 
@@ -34,7 +34,7 @@ protected:
   
 private:
   int default_tremolo_type_i_;
-  Stem *stem_p_;
+  Score_element  *stem_p_;
   Score_element *tremolo_p_;
   Rhythmic_req *rhythmic_req_l_;
   Tremolo_req* tremolo_req_l_;
@@ -77,7 +77,8 @@ Stem_engraver::acknowledge_element(Score_element_info i)
       int duration_log = r->duration_.durlog_i_;      
       if (!stem_p_) 
 	{
-	  stem_p_ = new Stem (get_property ("basicStemProperties"));
+	  stem_p_ = new Item (get_property ("basicStemProperties"));
+	  Stem::set_interface (stem_p_);
 	  Staff_symbol_referencer::set_interface(stem_p_);
 
 	  

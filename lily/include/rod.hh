@@ -13,13 +13,6 @@
 #include "direction.hh"
 #include "drul-array.hh"
 
-struct Column_rod
-{
-  Paper_column *other_l_;
-  Real distance_f_;
-
-  Column_rod ();
-};
 
 
 struct Rod

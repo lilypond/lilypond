@@ -44,7 +44,7 @@ public:
   void output_lines ();
 
   Link_array<Item> broken_col_range (Item const*, Item const*) const;
-  Link_array<Paper_column> column_l_arr () const;
+  Link_array<Score_element> column_l_arr () const;
   
   void add_column (Paper_column*);
   void typeset_element (Score_element*);

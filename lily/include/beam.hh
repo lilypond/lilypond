@@ -8,7 +8,7 @@
 #define BEAM_HH
 
 #include "lily-proto.hh"
-#include "spanner.hh"
+#include "lily-guile.hh"
 
 
 /** a beam connects multiple stems.
@@ -25,44 +25,41 @@
    damping -- amount of beam slope damping. (int)
    should beam slope be damped? 0: no, 1: yes, 100000: horizontal beams 
 */
-class Beam : public Spanner
+class Beam
 {
 public:
-
-
-  int visible_stem_count () const;
-  Item* first_visible_stem () const;
-  Item* last_visible_stem () const;
+  static int visible_stem_count (Score_element*);
+  static  Item* first_visible_stem (Score_element*);
+  static  Item* last_visible_stem (Score_element*);
+  static bool has_interface (Score_element*);
+  static void set_interface (Score_element*);  
   static Real rest_collision_callback (Score_element *,Axis);
   Beam (SCM);
-  void add_stem (Score_element*);
-  void set_grouping (Rhythmic_grouping def, Rhythmic_grouping current);
-  void set_beaming (Beaming_info_list *);
-  void set_stemlens ();
-  VIRTUAL_COPY_CONS(Score_element);
-
-  int get_multiplicity () const;
-
+  static void add_stem (Score_element*,Score_element*);
+  static void set_grouping (Score_element*,Rhythmic_grouping def, Rhythmic_grouping current);
+  static void set_beaming (Score_element*,Beaming_info_list *);
+  static void set_stemlens (Score_element*);
+  static int get_multiplicity (Score_element*me);
   static SCM brew_molecule (SCM);
   static SCM before_line_breaking (SCM);
   static SCM after_line_breaking (SCM);
+  static Molecule stem_beams (Score_element*,Item *here, Item *next, Item *prev);
 
-  Molecule stem_beams (Item *here, Item *next, Item *prev) const;
 private:
-  Direction get_default_dir () const;
-  void set_stem_directions ();
-  void auto_knees ();
-  bool auto_knee (String gap_str, bool interstaff_b);
-  void set_stem_shorten ();
-  void calc_default_position_and_height (Real* y, Real* dy) const;
-  bool suspect_slope_b (Real y, Real dy) const;
-  Real calc_slope_damping_f (Real dy) const;
-  Real calc_stem_y_f (Item* s, Real y, Real dy) const;
-  Real check_stem_length_f (Real y, Real dy) const;
-  void set_stem_length (Real y, Real dy);
-  Real quantise_dy_f (Real dy) const;
-  Real quantise_y_f (Real y, Real dy, int quant_dir);
-  int forced_stem_count () const;
+  static Direction get_default_dir (Score_element*);
+  static  void set_stem_directions (Score_element*);
+  static  void auto_knees (Score_element*);
+  static  bool auto_knee (Score_element*,String gap_str, bool interstaff_b);
+  static void set_stem_shorten (Score_element*);
+  static  void calc_default_position_and_height (Score_element*,Real* y, Real* dy);
+  static  bool suspect_slope_b (Score_element*, Real y, Real dy);
+  static  Real calc_slope_damping_f (Score_element*, Real dy);
+  static  Real calc_stem_y_f (Score_element*, Item* s, Real y, Real dy);
+  static  Real check_stem_length_f (Score_element*, Real y, Real dy);
+  static  void set_stem_length (Score_element*, Real y, Real dy);
+  static   Real quantise_dy_f (Score_element*, Real dy);
+  static  Real quantise_y_f (Score_element*, Real y, Real dy, int quant_dir);
+  static int forced_stem_count (Score_element*);
 };
 
 #endif // BEAM_HH

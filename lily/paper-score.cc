@@ -79,7 +79,7 @@ Paper_score::process ()
   /*
     Be sure to set breakability on first & last column.
    */
-  Link_array<Paper_column> pc (line_l_->column_l_arr ());
+  Link_array<Score_element> pc (line_l_->column_l_arr ());
   
   pc[0]->set_elt_property ("breakable", SCM_BOOL_T);
   pc.top ()->set_elt_property ("breakable", SCM_BOOL_T);

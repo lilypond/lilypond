@@ -7,10 +7,8 @@
 #ifndef STEM_HH
 #define STEM_HH
 
-#include "item.hh"
-#include "array.hh"
-#include "moment.hh"
-#include "molecule.hh"
+#include "lily-proto.hh"
+#include "lily-guile.hh"
 #include "stem-info.hh"
 
 /**the rule attached to the ball.
@@ -36,36 +34,29 @@
 
   /// how many abbrev beam don't reach stem?
   int beam_gap_i_;
-
-
   
   */
-class Stem : public Item
+class Stem 
 {
 public:
   static SCM brew_molecule (SCM);
 
   /// log of the duration. Eg. 4 -> 16th note -> 2 flags
   static  int flag_i (Score_element*) ;
-
   static int beam_count (Score_element*,Direction) ;
   static void set_beaming (Score_element*,int,  Direction d);
   /** 
       don't print flag when in beam.
       our beam, for aligning abbrev flags
   */
-  static Beam * beam_l (Score_element*);
+  static Score_element * beam_l (Score_element*);
   static Score_element * first_head (Score_element*) ;
   static Drul_array<Score_element*> extremal_heads (Score_element*);
-
   static Score_element * support_head (Score_element*) ;
-  Stem (SCM);
-
+  
   /// ensure that this Stem also encompasses the Notehead #n#
   static void add_head (Score_element*me, Score_element*n);
-
   static Stem_info calc_stem_info (Score_element *) ;
-
   static Real chord_start_f (Score_element *) ;
   static Direction get_direction (Score_element*) ;
   static int type_i (Score_element *) ;
@@ -73,13 +64,10 @@ public:
   static Direction get_default_dir(Score_element *) ;
   static int get_center_distance(Score_element *,Direction) ;
   static int heads_i (Score_element *) ;
-
   static bool invisible_b(Score_element *) ;
  
   /// heads that the stem encompasses (positions)
   static Interval head_positions(Score_element *) ;
-
-
   static Real get_default_stem_end_position (Score_element*me) ;
   static void position_noteheads(Score_element*);
   static Real stem_end_position (Score_element*) ;

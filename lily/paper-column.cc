@@ -10,62 +10,13 @@
 #include "paper-score.hh"
 #include "debug.hh"
 #include "axis-group-interface.hh"
+#include "spaceable-element.hh"
 
 void
-Paper_column::add_rod (Paper_column * p, Real d)
+Paper_column::do_break_processing ()
 {
-  Direction dir =  Direction (sign (rank_i(p)  -rank_i (this)));
-  
-  if (dir != RIGHT)
-    {
-      programming_error ("Must set minimum distance LTOR.");
-      return;
-    }
-  
-  for (int i=0; i < minimal_dists_.size (); i++)
-    {
-      Column_rod &rod = minimal_dists_[i];
-      if (rod.other_l_ == p)
-	{
-	  rod.distance_f_ = rod.distance_f_ >? d;
-	  return ;
-	}
-    }
-
-  Column_rod cr;
-  cr.distance_f_ = d;
-  cr.other_l_ = p;
-
-  minimal_dists_.push (cr);
-}
-
-void
-Paper_column::add_spring (Paper_column * p, Real d, Real s)
-{
-  Direction dir =  Direction (sign (rank_i(p)  -rank_i (this)));
-  
-  if (dir != RIGHT)
-    {
-      programming_error ("Must set springs LTOR");
-      return;
-    }
-  
-  for (int i=0; i < springs_.size (); i++)
-    {
-      Column_spring &spring = springs_[i];
-      if (spring.other_l_ == p)
-	{
-	  spring.distance_f_ = spring.distance_f_ >? d;
-	  return ;
-	}
-    }
-
-  Column_spring cr;
-  cr.distance_f_ = d;
-  cr.strength_f_ = s;  
-  cr.other_l_ = p;
-
-  springs_.push (cr);
+  Spaceable_element::remove_interface(this);
+  Item::do_break_processing ();
 }
 
 int
@@ -91,19 +42,20 @@ Paper_column::Paper_column (SCM l)
 {
   Axis_group_interface::set_interface (this);
   Axis_group_interface::set_axes (this, X_AXIS, X_AXIS);
+  Spaceable_element::set_interface (this);
   set_elt_property ("bounded-by-me", SCM_EOL);
   line_l_=0;
   rank_i_ = -1;
 }
 
 Moment
-Paper_column::when_mom () const
+Paper_column::when_mom (Score_element*me)
 {
-  SCM m = get_elt_property ("when");
+  SCM m = me->get_elt_property ("when");
   Moment s (0);
-  if (SMOB_IS_TYPE_B(Moment, m))
+  if (unsmob_moment (m))
     {
-      s = *SMOB_TO_TYPE (Moment,m);
+      return *unsmob_moment (m);
     }
   return s;
 }
@@ -113,17 +65,17 @@ Paper_column::musical_b () const
 {
   SCM m = get_elt_property ("shortest-starter-duration");
   Moment s (0);
-  if (SMOB_IS_TYPE_B(Moment, m))
+  if (unsmob_moment (m))
     {
-      s = *SMOB_TO_TYPE (Moment,m);
+      s = *unsmob_moment (m);
     }
   return s != Moment(0);
 }
 
 bool
-Paper_column::used_b ()const
+Paper_column::used_b (Score_element*me )
 {
-  return gh_pair_p (get_elt_property ("elements")) ||  breakable_b ()
-    || gh_pair_p (get_elt_property ("bounded-by-me"))
+  return gh_pair_p (me->get_elt_property ("elements")) ||  Item::breakable_b (me)
+    || gh_pair_p (me->get_elt_property ("bounded-by-me"))
     ;
 }

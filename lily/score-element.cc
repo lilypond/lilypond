@@ -265,10 +265,6 @@ Score_element::do_break_processing()
 {
 }
 
-void
-Score_element::do_space_processing ()
-{
-}
 
 void
 Score_element::do_add_processing()

@@ -12,14 +12,12 @@
 
 #include "spanner.hh"
 
-class Separating_group_spanner : public Spanner
+class Separating_group_spanner
 {
 public:
   static void add_spacing_unit (Score_element*me, Item*);
-  Separating_group_spanner(SCM);
-protected:
-  VIRTUAL_COPY_CONS(Score_element);
-  virtual Array<Rod> get_rods () const;
+  static void set_interface (Score_element*);
+  static SCM set_spacing_rods (SCM);
 };
 
 #endif /* SEPARATING_GROUP_SPANNER_HH */

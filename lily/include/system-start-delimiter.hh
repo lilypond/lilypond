@@ -10,25 +10,24 @@
 #ifndef SYSTEM_START_DELIMITER_HH
 #define SYSTEM_START_DELIMITER_HH
 
-#include "spanner.hh"
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
 /*
   Braces/brackets across staffs.
  */
-class System_start_delimiter : public Spanner
+class System_start_delimiter
 {
 public:
-  System_start_delimiter (SCM);
   static SCM brew_molecule (SCM);
   
-  VIRTUAL_COPY_CONS (Score_element);
-
+  static void set_interface (Score_element*me);
+  static bool has_interface (Score_element*);
   static SCM after_line_breaking (SCM);
   static void try_collapse (Score_element*);
-  
-  Molecule staff_bracket (Real) const;
-  Molecule staff_brace (Real) const;
-  Molecule simple_bar (Real) const;
+  static Molecule staff_bracket (Score_element*,Real) ;
+  static Molecule staff_brace (Score_element*,Real) ;
+  static Molecule simple_bar (Score_element*,Real) ;
 };
 
 #endif /* SYSTEM_START_DELIMITER_HH */

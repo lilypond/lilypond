@@ -12,12 +12,7 @@
 #include "lookup.hh"
 #include "side-position-interface.hh"
 #include "paper-def.hh"
-
-
-Script ::Script (SCM s)
-  : Item (s)
-{
-}
+#include "item.hh"
 
 Molecule
 Script::get_molecule(Score_element * me, Direction d)
@@ -41,8 +36,6 @@ Script::get_molecule(Score_element * me, Direction d)
   return Molecule ();
 }
 
-
-
 MAKE_SCHEME_CALLBACK(Script,after_line_breaking);
 SCM
 Script::after_line_breaking (SCM smob)
@@ -54,7 +47,6 @@ Script::after_line_breaking (SCM smob)
 
   return SCM_UNDEFINED;
 }
-
 
 MAKE_SCHEME_CALLBACK(Script,brew_molecule);
 
@@ -70,5 +62,14 @@ Script::brew_molecule (SCM smob)
   return get_molecule (me, dir).create_scheme();
 }
 
+bool
+Script::has_interface (Score_element*me)
+{
+  return me->has_interface ("script-interface");
+}
 
-
+void
+Script::set_interface (Score_element*me)
+{
+  return me->set_interface ("script-interface");
+}

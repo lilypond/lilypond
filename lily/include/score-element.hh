@@ -139,8 +139,6 @@ public:
 
   virtual void do_break_processing ();
   virtual Score_element *find_broken_piece (Line_of_score*) const;
-  /// generate rods & springs
-  virtual void do_space_processing ();
   virtual void discretionary_processing ();
   virtual void do_derived_mark ();
 

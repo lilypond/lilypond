@@ -10,12 +10,10 @@
 #include "musical-request.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
-
-
 #include "engraver.hh"
 
 class Script_engraver : public Engraver {
-  Link_array<Script> script_p_arr_;
+  Link_array<Score_element> script_p_arr_;
   Link_array<Articulation_req> script_req_l_arr_;
 
 public:
@@ -69,7 +67,8 @@ Script_engraver::do_process_music()
 	  continue;
 	}
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
-      Script *p =new Script (get_property ("basicScriptProperties"));
+      Score_element *p =new Item (get_property ("basicScriptProperties"));
+      Script::set_interface (p);
 
       p->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
       
@@ -157,8 +156,8 @@ Script_engraver::do_pre_move_processing()
 {
   for (int i=0; i < script_p_arr_.size(); i++) 
     {
-      Script * sc = script_p_arr_[i];
-      if (to_boolean (sc->remove_elt_property ("staff-support")))
+      Score_element * sc = script_p_arr_[i];
+      if (to_boolean (sc->get_elt_property ("staff-support")))
 	{
 	  Side_position::add_staff_support (sc);
 	}

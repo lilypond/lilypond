@@ -16,6 +16,7 @@
 #include "paper-score.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
+#include "item.hh"
 
 
 Item*

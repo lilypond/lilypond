@@ -14,8 +14,8 @@
 #include "dimensions.hh"
 #include "group-interface.hh"
 
-static Rod
-make_rod (Item *l, Item *r)
+static void
+do_rod (Item *l, Item *r)
 {
   Rod rod;
 
@@ -31,16 +31,16 @@ make_rod (Item *l, Item *r)
     rod.distance_f_ = li[RIGHT] - ri[LEFT];
 
   rod.columnize ();
-  return rod;
+  rod.add_to_cols ();
 }
   
-
-Array<Rod>
-Separating_group_spanner::get_rods () const
+MAKE_SCHEME_CALLBACK(Separating_group_spanner,set_spacing_rods);
+SCM
+Separating_group_spanner::set_spacing_rods (SCM smob)
 {
-  Array<Rod> a;
+  Score_element*me = unsmob_element (smob);
   
-  for (SCM s = get_elt_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
+  for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
     {
       /*
 	Order of elements is reversed!
@@ -60,29 +60,28 @@ Separating_group_spanner::get_rods () const
       Item *rb
 	= dynamic_cast<Item*>(r->find_prebroken_piece (LEFT));
       
-      a.push (make_rod(l,  r));
+      do_rod(l,  r);
       if (lb)
 	{
-	  Rod rod(make_rod (lb, r));
-	  a.push (rod);
+	  do_rod (lb, r);
 	}
       
       if (rb)
 	{
-	  a.push (make_rod (l, rb));
+	  do_rod (l, rb);
 	}
       
       if (lb && rb)
 	{
-	  Rod rod(make_rod (lb, rb));
-	  a.push (rod);
+	  do_rod (lb, rb);
+
 	}
     }
 
   /*
     We've done our job, so we get lost. 
    */
-  for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Item * it =dynamic_cast<Item*>(unsmob_element (gh_car (s)));
       if (it && it->broken_b ())
@@ -92,10 +91,8 @@ Separating_group_spanner::get_rods () const
 	}
       it->suicide ();
     }
-  
-  ((Separating_group_spanner *)this)->suicide ();
-  
-  return a;
+  me->suicide ();
+  return SCM_UNDEFINED ;
 }
 
 void
@@ -106,8 +103,8 @@ Separating_group_spanner::add_spacing_unit (Score_element* me ,Item*i)
 }
 
 
-Separating_group_spanner::Separating_group_spanner (SCM s)
-  : Spanner (s)  
+void
+Separating_group_spanner::set_interface (Score_element*me)
 {
-  set_elt_property ("elements", SCM_EOL);
+  me->set_elt_property ("elements", SCM_EOL);
 }

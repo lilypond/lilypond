@@ -16,6 +16,8 @@
 #include "bar.hh"
 #include "rest.hh"
 #include "engraver.hh"
+#include "item.hh"
+#include "spanner.hh"
 
 class Auto_beam_engraver : public Engraver
 {
@@ -34,14 +36,14 @@ protected:
 private:
   void begin_beam ();
   void consider_end_and_begin (Moment test_mom);
-  Beam* create_beam_p ();
+  Spanner* create_beam_p ();
   void end_beam ();
   void junk_beam ();
   bool same_grace_state_b (Score_element* e);
   void typeset_beam ();
 
   Moment shortest_mom_;
-  Beam *finished_beam_p_;
+  Spanner *finished_beam_p_;
   Link_array<Item>* stem_l_arr_p_;
   
   Moment last_add_mom_;
@@ -234,10 +236,11 @@ Auto_beam_engraver::begin_beam ()
   beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
 }
 
-Beam*
+Spanner*
 Auto_beam_engraver::create_beam_p ()
 {
-  Beam* beam_p = new Beam (get_property ("basicBeamProperties"));
+  Spanner* beam_p = new Spanner (get_property ("basicBeamProperties"));
+  Beam::set_interface (beam_p);
 
   for (int i = 0; i < stem_l_arr_p_->size (); i++)
     {
@@ -248,7 +251,7 @@ Auto_beam_engraver::create_beam_p ()
 	{
 	  return 0;
 	}
-      beam_p->add_stem ((*stem_l_arr_p_)[i]);
+      Beam::add_stem (beam_p,(*stem_l_arr_p_)[i]);
     }
   
   announce_element (Score_element_info (beam_p, 0));
@@ -281,7 +284,7 @@ Auto_beam_engraver::typeset_beam ()
   if (finished_beam_p_)
     {
       finished_grouping_p_->beamify ();
-      finished_beam_p_->set_beaming (finished_grouping_p_);
+      Beam::set_beaming (finished_beam_p_, finished_grouping_p_);
       typeset_element (finished_beam_p_);
       finished_beam_p_ = 0;
     
@@ -338,7 +341,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
   
   if (stem_l_arr_p_)
     {
-      if (Beam *b = dynamic_cast<Beam *> (info.elem_l_))
+      if (Beam::has_interface (info.elem_l_))
 	{
 	  end_beam ();
 	}
@@ -373,7 +376,7 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	  return;
 	}
 
-      if (!Stem::beam_l (stem_l))
+      if (Stem::beam_l (stem_l))
 	{
 	  if (stem_l_arr_p_)
 	    junk_beam ();

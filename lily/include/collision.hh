@@ -43,6 +43,6 @@ public:
   static SCM forced_shift (Score_element*);
   static Real force_shift_callback (Score_element *, Axis);
   static void do_shifts (Score_element*);
-  static void add_column (Score_element*me,Note_column*ncol_l);
+  static void add_column (Score_element*me,Score_element*ncol_l);
 };
 #endif // COLLISION_HH

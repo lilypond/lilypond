@@ -1,5 +1,18 @@
-1.3.68.hwn1
-===========
+* Fixed: long standing problem in optical-illusion code.
+
+* Fixed: stop beam if stem *has* a beam in auto-beam-engraver. 
+
+* Made interface of Multi_measure_rest, System_start_delimiter,
+Spacing_spanner, Separating_group_spanner, Beam, Slur and
+Rhythmic_head.
+
+* Use properties for minimum distances and spring parameters.  Move
+spacing related functions from Paper_column into Spaceable_element.
+
+* Removed most Paper_column typecasts.
+
+1.3.69
+======
 
 * Cleanup auto-beam-engraver: use properties for retrieving timing
 information.
@@ -31,8 +44,6 @@ callback for determining barsize.
 * Removed all GLUE_SCORE_ELEMENT callbacks. 
 
 * Added test for repeats to trip.ly
-
-* 
 
 1.3.68
 ======

@@ -25,7 +25,7 @@
 #include "group-interface.hh"
 #include "cross-staff.hh"
 #include "staff-symbol-referencer.hh"
-
+#include "spanner.hh"
 
 
 void
@@ -211,16 +211,6 @@ Stem::add_head (Score_element*me, Score_element *n)
     {
       n->set_elt_property ("rest", n->self_scm_);
     }
-}
-
-Stem::Stem (SCM s)
-  : Item (s)
-{
-  Score_element * me = this;
-  
-  me->set_elt_property ("heads", SCM_EOL);
-  Stem::set_interface (me);
-  me->add_offset_callback ( &Stem::off_callback, X_AXIS);
 }
 
 bool
@@ -516,11 +506,11 @@ Stem::off_callback (Score_element * me, Axis)
 
 
 
-Beam*
+Score_element*
 Stem::beam_l (Score_element*me)
 {
   SCM b=  me->get_elt_property ("beam");
-  return dynamic_cast<Beam*> (unsmob_element (b));
+  return unsmob_element (b);
 }
 
 
@@ -528,7 +518,7 @@ Stem::beam_l (Score_element*me)
 Stem_info
 Stem::calc_stem_info (Score_element*me) 
 {
-  Beam * beam = beam_l (me);
+  Score_element * beam = beam_l (me);
 
   Direction beam_dir = Directional_element_interface (beam).get ();
   if (!beam_dir)
@@ -540,9 +530,9 @@ Stem::calc_stem_info (Score_element*me)
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real half_space = staff_space / 2;
-  Real interbeam_f = me->paper_l ()->interbeam_f (beam->get_multiplicity ());
+  Real interbeam_f = me->paper_l ()->interbeam_f (Beam::get_multiplicity (beam));
   Real thick = gh_scm2double (beam->get_elt_property ("beam-thickness"));
-  int multiplicity = beam->get_multiplicity ();
+  int multiplicity = Beam::get_multiplicity (beam);
 
   Stem_info info; 
   info.idealy_f_ = chord_start_f (me);
@@ -626,7 +616,7 @@ Stem::calc_stem_info (Score_element*me)
   if (gh_number_p (s))
     info.idealy_f_ -= gh_scm2double (s);
 
-  Real interstaff_f = -beam_dir* calc_interstaff_dist (dynamic_cast<Item*> (me), beam);
+  Real interstaff_f = -beam_dir* calc_interstaff_dist (dynamic_cast<Item*> (me), dynamic_cast<Spanner*> (beam));
 
   info.idealy_f_ += interstaff_f;
   info.miny_f_ += interstaff_f;
@@ -642,7 +632,9 @@ Stem::has_interface (Score_element*m)
 }
 
 void
-Stem::set_interface (Score_element*m)
-{
-  return m->set_interface (ly_symbol2scm ("stem-interface"));
+Stem::set_interface (Score_element*me)
+{    
+  me->set_elt_property ("heads", SCM_EOL);
+  me->add_offset_callback ( &Stem::off_callback, X_AXIS);
+  me->set_interface (ly_symbol2scm ("stem-interface"));
 }

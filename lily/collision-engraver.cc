@@ -17,7 +17,7 @@
   a collision object.  */
 class Collision_engraver : public Engraver {
   Item * col_p_;
-  Link_array<Note_column> note_column_l_arr_;
+  Link_array<Score_element> note_column_l_arr_;
 
 protected:
   virtual void acknowledge_element (Score_element_info);
@@ -50,13 +50,13 @@ Collision_engraver::process_acknowledged ()
 void
 Collision_engraver::acknowledge_element (Score_element_info i)
 {
-  if (Note_column * c = dynamic_cast<Note_column *> (i.elem_l_))
+  if (Note_column::has_interface (i.elem_l_))
     {
       /*should check Y axis? */
-      if (c->rest_b () || c->parent_l(X_AXIS))
+      if (Note_column::rest_b (i.elem_l_) || i.elem_l_->parent_l(X_AXIS))
 	return ;
 
-      note_column_l_arr_.push (c);
+      note_column_l_arr_.push (i.elem_l_);
     }
 }
 
