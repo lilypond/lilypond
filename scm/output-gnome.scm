@@ -257,10 +257,21 @@ lilypond-bin -fgnome input/simple-song.ly
 (define (pango-font-size font)
   (let* ((designsize (ly:font-design-size font))
 	 (magnification (* (ly:font-magnification font)))
+	 
 	 ;;(ops (ly:paper-lookup paper 'outputscale))
 	 ;;(ops (* pixels-per-unit OUTPUT-SCALE))
 	 ;;(ops (* pixels-per-unit pixels-per-unit))
-	 (ops (* (/ 12 20) (* pixels-per-unit pixels-per-unit)))
+	 ;;(ops (* (/ 12 20) (* pixels-per-unit pixels-per-unit)))
+	 ;;(ops (* (/ 12 20) (* OUTPUT-SCALE pixels-per-unit)))
+
+	 ;; experimental sizing:
+	 ;; where does factor come from?
+	 ;;
+	 ;; 0.435 * (12 / 20) = 0.261
+	 ;; 2.8346456692913/ 0.261 = 10.86071137659501915708
+
+	 (ops (* 0.435 (/ 12 20) (* output-scale pixels-per-unit)))
+	 
 	 (scaling (* ops magnification designsize)))
     scaling))
 
@@ -276,7 +287,17 @@ lilypond-bin -fgnome input/simple-song.ly
    (cons
     (make <gnome-canvas-text>
       #:parent (root main-canvas)
-      #:x 0 #:y 0
+      
+      ;; experimental text placement corrections.
+      ;; UGHR?  What happened to tex offsets?  south-west?
+      ;; is pango doing something 'smart' wrt baseline ?
+      #:anchor 'south-west
+      #:x 0.003 #:y 0.123
+      
+      ;;
+      ;;#:anchor 'west
+      ;;#:x 0.015 #:y -3.71
+      
       #:font (pango-font-name font)
       #:size-points (pango-font-size font)
       #:size-set #t
@@ -286,8 +307,7 @@ lilypond-bin -fgnome input/simple-song.ly
       ;;#:scale-set #t
       
       #:fill-color "black"
-      #:text string
-      #:anchor 'west)
+      #:text string)
     text-items))
   (car text-items))
 
