@@ -23,7 +23,7 @@
    * organ staff...
 %}
 
-\version "1.0.20";
+\version "1.0.21";
 
 
 
@@ -203,13 +203,13 @@ breakmusic = \notes {
     \VoiceContext
     \name "VoiceThree";
     verticalDirection = "1";
-    hshift = "1";
+    horizontalNoteShift = "1";
     }
     \translator {
     \VoiceContext
     \name "VoiceFour";
     verticalDirection = "-1";
-    hshift = "1";
+    horizontalNoteShift = "1";
     }
    \translator { 
      \StaffContext 

@@ -26,15 +26,15 @@ Time_signature::do_brew_molecule_p () const
       if (time_sig_type_str_[0]=='1')
 	{
 	  Array<int> tmparr = args_;
-	  return new Molecule( lookup_l ()->time_signature (args_[0], 0));
+	  return new Molecule( lookup_l ()->time_signature (args_[0], 0, paper_l ()));
 	}
       else
 	{
-	  return new Molecule( lookup_l ()-> special_time_signature (time_sig_type_str_ ,args_[0], args_[1]));
+	  return new Molecule( lookup_l ()-> special_time_signature (time_sig_type_str_ ,args_[0], args_[1], paper_l ()));
 	}
     }
   else
-    return new Molecule(lookup_l ()->time_signature (args_[0], args_[1]));
+    return new Molecule(lookup_l ()->time_signature (args_[0], args_[1],paper_l ()));
 }
 
 

@@ -11,7 +11,6 @@
 #include "virtual-methods.hh"
 #include "directed-graph.hh"
 #include "graphical-element.hh"
-#include "protected-scm.hh"
 #include "lily-guile.hh"
 
 
@@ -37,7 +36,16 @@ Boolean (true iff defined)
 
 */
 class Score_element : public virtual Graphical_element {
-  Protected_scm element_property_alist_;
+
+  friend class Paper_score;
+  /**
+     properties specific for this element. Destructor will not call
+     scm_unprotect, so as to allow more flexible GC arrangements.  The
+     real alist is in (cdr element_property_alist_), to reduce the
+     need for more scm_protect calls.
+
+  */
+  SCM element_property_alist_;
   Link_array<Score_element> dependency_arr_;
   /**
      The lookup, determined by the font size. Cache this value.

@@ -43,7 +43,7 @@ Bar::get_bar_size () const
 Molecule*
 Bar::do_brew_molecule_p () const
 {    
-  Molecule *output = new Molecule (lookup_l ()->bar (type_str_, get_bar_size ()));
+  Molecule *output = new Molecule (lookup_l ()->bar (type_str_, get_bar_size (), paper_l ()));
   
   return output;
 }

@@ -23,143 +23,129 @@ Collision::add_column (Note_column* ncol_l)
   add_element (ncol_l);
   add_dependency (ncol_l);
 }
-/**
-  should derive of Array.
- */
-static
-int idx (int dir, bool h_shift_b)
-{
-  assert (abs (dir) == 1);
-  int j = dir > 0 ? 0 : 3;
-  if (h_shift_b)
-    j += dir;
-  return j;
-}
+
 
 /** This complicated routine moves note columns around horizontally to
   ensure that notes don't clash.
 
   This should be done better, probably.
 
-  This routine is dedicated to Stine Randmael :-)
-
+  TODO: forced hshift
+  
   */
 void
 Collision::do_pre_processing()
 {
-  if (clash_l_arr_.size() <= 1)
-    return;
-
-  /*
-    [stem up, stem up shifted, stem down shifted, stem down]
-  */ 
-  Array<Note_column*> clash_group_arr_a[4]; // TODO: use drul.
-
+  Drul_array<Link_array<Note_column> > clash_groups;
+  Drul_array<Array<int> > shifts;
+  
   for (int i=0; i < clash_l_arr_.size(); i++)
     {
-      Note_column* c_l = clash_l_arr_[i];
-      Direction d = c_l->dir ();
-      if (!d)
-	{
-	  warning (_ ("No stem direction set. Ignoring column in clash."));
-	  continue;
-	}
-
-      SCM shift = c_l->remove_elt_property (horizontal_shift_scm_sym);
-      bool shift_b  = (shift != SCM_BOOL_F);
-      clash_group_arr_a[idx (d, shift_b)].push (c_l);
+      clash_groups[clash_l_arr_[i]->dir ()].push (clash_l_arr_[i]);
     }
 
-
-  for (int j=0; j < 4; j++)
-    {
-      if (clash_group_arr_a[j].size() > 1)
-	{
-	  warning (_ ("Too many clashing notecolumns. Ignoring them."));
-	  return;
-	}
-    }
+  
   Direction d = UP;
   do
     {
-      if (!clash_group_arr_a[idx (d, false)].size())
+      Array<int> & shift (shifts[d]);
+      Link_array<Note_column> & clashes (clash_groups[d]);
+
+      clashes.sort (Note_column::shift_compare);
+
+      for (int i=0; i < clashes.size (); i++)
 	{
-	  clash_group_arr_a[idx (d,  false)] = clash_group_arr_a[idx (d, true)];
-	  clash_group_arr_a[idx (d, true)].clear();
+	  SCM sh
+	    = clashes[i]->remove_elt_property (horizontal_shift_scm_sym);
+
+	  if (sh == SCM_BOOL_F)
+	    shift.push (0);
+	  else
+	    shift.push (gh_scm2int (SCM_CDR (sh)));
 	}
-    }
-  while (flip (&d) != UP);
-
-
-  Interval_t<int> y_extent[4];
-  Note_column * col_l_a[4];
-  Real x_off [4];
-
-  for (int j =0 ; j < 4; j++)
-    {
-      if (clash_group_arr_a[j].size())
-	col_l_a[j] = clash_group_arr_a[j][0];
-      else
-	col_l_a[j] = 0;
-
-      if (col_l_a[j])
+      
+      for (int i=1; i < shift.size (); i++)
 	{
-	  y_extent[j] = col_l_a[j]->head_positions_interval();
-	}
-
-
-      x_off [j] = 0.0;
-    }
-
-  do
-    {
-      x_off[idx (d, true)] = d*0.5;
-    }
-  while (flip (&d) != UP);
-
-
-  // y_extent: smallest y-pos noteball interval containing all balls
-  // 4 (0..3) groups: stem up/down; shift on/off;
-  Interval_t<int> middle (y_extent[idx (-1,0)][BIGGER],
-			  y_extent[idx (1,0)][SMALLER]);
-  Interval_t<int> open_middle (y_extent[idx (-1,0)][BIGGER]+1, y_extent[idx (1,0)][SMALLER]-1);
-  do
-    {
-      if (!open_middle.contains_b (y_extent[idx (d,true)]))
-	x_off[idx (d, true)] = d *1.0 ;
-    } while ((d *= -1) != 1);
-
-
-  if (!middle.empty_b()
-      && middle.length() < 2 && col_l_a[idx (1,0)] && col_l_a[idx (-1,0)])
-    {
-      // reproduction of bugfix at 3am ?
-      Note_head * nu_l= col_l_a[idx (1,0)]->head_l_arr_[0];
-      Note_head * nd_l = col_l_a[idx (-1,0)]->head_l_arr_.top();
-      if (! (nu_l->balltype_i_ == nd_l->balltype_i_
-	     && nu_l->dots_i_ == nd_l->dots_i_  && middle.length() == 0))
-	{
-	  do
+	  if (shift[i-1] == shift[i])
 	    {
-	      x_off[idx (d, false)] -= d*0.5;
-	      x_off[idx (d, true)] -= d*0.5;
+	      warning (_ ("Too many clashing notecolumns. Ignoring them."));
+	      return;
 	    }
-	  while (flip (&d) != UP);
 	}
+    }
+  while ((flip (&d))!= UP);
+
+  Drul_array< Array < Slice > > extents;
+  Drul_array< Array < Real > > offsets;
+  d = UP;
+  do
+    {
+      for (int i=0; i < clash_groups[d].size (); i++)
+	{
+	  Slice s(clash_groups[d][i]->head_positions_interval ());
+	  s[LEFT] --;
+	  s[RIGHT]++;
+	  extents[d].push (s);
+	  offsets[d].push (d * 0.5 * i);
+	}
+    }
+  while ((flip (&d))!= UP);
+  
+  do
+    {
+      for (int i=1; i < clash_groups[d].size (); i++)
+	{
+	  Slice prev =extents[d][i-1];
+	  prev.intersect (extents[d][i]);
+	  if (prev.length ()> 0 ||
+	      (extents[-d].size () && d * (extents[d][i][-d] - extents[-d][0][d]) < 0))
+	    for (int j = i; j <  clash_groups[d].size (); j++)
+	      offsets[d][j] += d * 0.5;
+	}
+    }	
+  while ((flip (&d))!= UP);
+
+  /*
+    if the up and down version are close, and can not be merged, move
+    all of them again. */
+  if (extents[UP].size () && extents[DOWN].size ())
+    {
+      Note_column *cu_l =clash_groups[UP][0];
+      Note_column *cd_l =clash_groups[DOWN][0];
+      Note_head * nu_l= cu_l->head_l_arr_[0];
+      Note_head * nd_l = cd_l->head_l_arr_.top();
+      int downpos = 	cd_l->head_positions_interval ()[SMALLER];
+      int uppos = 	cu_l->head_positions_interval ()[BIGGER];      
+      
+      bool merge  =
+	downpos == uppos
+	&& nu_l->balltype_i_ == nd_l->balltype_i_
+	&& nu_l->dots_i_ == nd_l->dots_i_;
+
+      /*
+	notes are close, but can not be merged.  Shift
+       */
+      if (abs(uppos - downpos) < 2 && !merge)
+	  do
+	  {
+	    for (int i=0; i < clash_groups[d].size (); i++)
+	      {
+		offsets[d][i] -= d * 0.5;
+	      }
+	  }
+	  while ((flip (&d))!= UP);
     }
 
   Real wid_f = paper_l ()->note_width ();
-  for (int j=0; j < 4; j++)
+  do
     {
-      if (col_l_a[j])
+      for (int i=0; i < clash_groups[d].size (); i++)
 	{
-	  Offset o (x_off[j] * wid_f, 0);
-	  col_l_a[j]->translate (o);
+	  clash_groups[d][i]->translate_axis (offsets[d][i]*wid_f, X_AXIS);
 	}
     }
+  while (flip (&d) != UP);
 }
-
-
 
 
 void

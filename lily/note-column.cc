@@ -20,6 +20,17 @@ Note_column::rest_b () const
   return rest_l_arr_.size ();
 }
 
+int
+Note_column::shift_compare (Note_column *const &p1, Note_column*const&p2)
+{
+  SCM s1 = p1->get_elt_property (horizontal_shift_scm_sym);
+  SCM s2 = p2->get_elt_property (horizontal_shift_scm_sym);
+
+  int h1 = (s1 == SCM_BOOL_F) ? 0 : gh_scm2int (SCM_CDR(s1));
+  int h2 = (s2 == SCM_BOOL_F) ? 0 : gh_scm2int (SCM_CDR(s2));
+  return h1 - h2;
+}
+
 Note_column::Note_column()
 {
   set_axes (X_AXIS,X_AXIS);
@@ -32,18 +43,17 @@ Note_column::sort()
   head_l_arr_.sort (Note_head::compare);
 }
   
-Interval_t<int>
+Slice
 Note_column::head_positions_interval() const
 {
-  ((Note_column*)this)->sort();
-  Interval_t<int>  iv;
+  Slice  iv;
 
   iv.set_empty ();
-
-  if (head_l_arr_.size ())
-    iv = Interval_t<int>(head_l_arr_[0]->position_i_, 
-			 head_l_arr_.top()->position_i_);
-  
+  for (int i=0; i <head_l_arr_.size ();i ++)
+    {
+      int j = head_l_arr_[i]->position_i_;
+      iv.unite (Slice (j,j));
+    }
   return iv;
 }
 

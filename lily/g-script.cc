@@ -16,6 +16,7 @@
 #include "g-script.hh"
 #include "lookup.hh"
 #include "g-staff-side.hh"
+#include "paper-def.hh"
 
 G_script::G_script ()
 {
@@ -46,7 +47,7 @@ G_script::get_molecule(Direction d) const
     }
   else if (key == ly_symbol ("accordion"))
     {
-      return lookup_l ()->accordion (SCM_CDR(s));
+      return lookup_l ()->accordion (SCM_CDR(s), paper_l()->get_realvar(interline_scm_sym));
     }
 
   else assert (false);

@@ -11,6 +11,8 @@ n = { \slurnormal }
 d = { \slurdotted }
 comma = "\\sethuge\\ \\ ,"
 
+phrasingcomma = { }  % { \bar "empty"; \mark "'"; \nobreak }
+
 allemande_a = \context Staff \notes \relative c {
 	\context Voice=i
 	\stemup
@@ -55,12 +57,12 @@ allemande_a = \context Staff \notes \relative c {
 	\n a()f' g,()f e g'( a )bes |
 	% :-(
 	% bes( a g )f^\comma 
-	bes( a g )f^"\\sethuge{\\ \\ '}" 
+	bes( a g )f  \phrasingcomma
 	a()e f()d bes d(f)a d()a bes()g |
 	%21
 	a,(\n)g'(\n cis())d e()g, a()e f()d bes()d \d gis, f'(e)d |
 	% \n d( cis b )a^\comma c(a)fis d' c a( b )d 
-	\n d( cis b )a^"\\sethuge\\ \\ ," 
+	\n d( cis b )a \phrasingcomma %^"\\sethuge\\ \\ ," 
 	c(a)fis d' c a( b )d 
 	f!(d )gis, d' |
 	%23
@@ -104,4 +106,4 @@ allemande = \context Staff \notes<
 >
 
 
-\version "1.0.20";
+\version "1.0.21";

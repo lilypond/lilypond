@@ -30,8 +30,8 @@ slurdown = \notes {
 	\property Voice.slurVerticalDirection = \down
 }
 
-shifton = 	\property Voice.hshift = 1
-shiftoff = 	\property Voice.hshift = 0
+shifton = \property Voice.horizontalNoteShift = 1
+shiftoff = \property Voice.horizontalNoteShift = 0
 
 onevoice = { 	
 	\stemboth \shiftoff	
@@ -59,33 +59,6 @@ voicefour =
 	\shifton
 }
 
-onestaff = 
-	\translator Staff=one
-
-
-staffone = { 	
-	\translator Staff=one
-	\property Staff.verticalDirection = \center
-	\property Staff.hshift = 0
-}
-
-stafftwo = { 	
-	\translator Staff=two
-	\property Staff.verticalDirection = \center
-	\property Staff.hshift = 0
-}
-
-staffthree = { 	
-	\translator Staff=three
-	\property Staff.verticalDirection = \center
-	\property Staff.hshift = 0
-}
-
-stafffour = { 	
-	\translator Staff=four
-	\property Staff.verticalDirection = \center
-	\property Staff.hshift = 0
-}
 
 % ugh, cluttering global namespace...
 

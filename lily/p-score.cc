@@ -25,6 +25,7 @@
 
 Paper_score::Paper_score ()
 {
+  protected_scms_ = scm_protect_object (gh_cons (SCM_BOOL_T, SCM_EOL));
   paper_l_ =0;
   outputter_l_ =0;
   Line_of_score * line_p = new Line_of_score;
@@ -45,6 +46,8 @@ Paper_score::~Paper_score ()
     delete span_p_arr_[i];
   for (int i=elem_p_arr_.size (); --i >=0 ; )
     delete elem_p_arr_[i];
+
+  scm_unprotect_object (protected_scms_);
 }
 
 void
@@ -53,7 +56,11 @@ Paper_score::typeset_element (Score_element * elem_p)
   elem_p_arr_.push (elem_p);
   elem_p->pscore_l_ = this;
 
-
+  // take over protection.
+  SCM_CDR(protected_scms_) = gh_cons (elem_p->element_property_alist_,
+				      SCM_CDR (protected_scms_));
+  scm_unprotect_object (elem_p->element_property_alist_);
+  
   SCM p =  elem_p->remove_elt_property (break_helper_only_scm_sym);
   if (p != SCM_BOOL_F)
     break_helpers_arr_.push (elem_p);
@@ -137,44 +144,6 @@ Paper_score::calc_breaking ()
 
 
 
-/*
-  not clean.  Should update elem_p_arr_ and span_p_arr_.  That would
-  also repair the stats.
-
-  This may be done efficiently by first sorting the arrays.  */
-void
-delete_array_contents (Link_array<Score_element> &to_remove, Dictionary<int> &type_stats)
-{
-  for (int i=0; i < to_remove.size (); i++)
-    {
-      Score_element * e = to_remove[i];
-      String nm = e->name();
-      if (type_stats.elem_b (nm))
-	type_stats[nm] ++;
-      else
-	type_stats[nm] = 1;
-
-      if (dynamic_cast<Item*> (e))
-	type_stats["Item"] ++;
-      else if (dynamic_cast<Spanner*>(e))
-	type_stats["Spanner"] ++;
-      type_stats["Total"] ++;
-      /*
-       */
-      
- //      delete e; //TODO!
-    }
-
-  to_remove.clear ();
-  to_remove.tighten_maxsize ();
-}
-
-void
-Paper_score::schedule_for_delete (Score_element*e)
-{
-  to_delete_arr_.push (e);
-}
-
 void
 Paper_score::process ()
 {
@@ -194,8 +163,6 @@ Paper_score::process ()
   Array<Column_x_positions> breaking = calc_breaking ();
 
 
-  delete_array_contents (break_helpers_arr_, type_stats);
-  
   Paper_stream* paper_stream_p = paper_l_->paper_stream_p ();
   outputter_l_ = paper_l_->paper_outputter_p (paper_stream_p, header_l_, origin_str_);
 
@@ -226,8 +193,6 @@ Paper_score::process ()
 	*mlog << '(' << elem_p_arr_.size () + span_p_arr_.size () << ')';
       
       *mlog << ']' << flush;
-      
-      delete_array_contents (to_delete_arr_, type_stats);
      }
   
   // huh?

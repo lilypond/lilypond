@@ -244,6 +244,36 @@ Stem::do_pre_processing ()
       set_elt_property (transparent_scm_sym, SCM_BOOL_T);
     }
   set_empty (invisible_b ());
+  set_spacing_hints ();
+}
+
+
+
+/**
+   set stem directions for hinting the optical spacing correction.
+
+   Modifies DIR_LIST property of the Stem's Score_column
+
+   TODO: more advanced: supply height of noteheads as well, for more advanced spacing possibilities
+ */
+void
+Stem::set_spacing_hints () 
+{
+  if (!invisible_b ())
+    {
+      SCM scmdir  = gh_int2scm (dir_);
+      SCM dirlist = column_l ()->get_elt_property (dir_list_scm_sym);
+      if (dirlist == SCM_BOOL_F)
+	dirlist = SCM_EOL;
+      else
+	dirlist = SCM_CDR (dirlist);
+
+      if (scm_sloppy_memq (scmdir, dirlist) == SCM_EOL)
+	{
+	  dirlist = gh_cons (scmdir, dirlist);
+	  column_l ()->set_elt_property (dir_list_scm_sym, dirlist);
+	}
+    }
 }
 
 
@@ -280,8 +310,9 @@ Stem::do_brew_molecule_p () const
   
   if (!invisible_b ())
     {
-      Molecule ss =lookup_l ()->stem (stem_y[DOWN]*dy,
-				     stem_y[UP]*dy);
+      Real stem_width = paper_l ()->get_var ("stemthickness");
+       Molecule ss =lookup_l ()->filledbox (Box (Interval (-stem_width/2, stem_width/2),
+						 Interval (stem_y[DOWN]*dy, stem_y[UP]*dy)));
       mol_p->add_molecule (ss);
     }
 

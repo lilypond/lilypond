@@ -7,7 +7,7 @@
 % the thumb-script is used in cello music to indicate a note that should
 % be played with your thumb. 
 
-\version "1.0.20";
+\version "1.0.21";
 
 \score { \notes \relative c'' {
 		[<a8_\thumb a'8-3(> <)b_\thumb b'-3>

@@ -31,7 +31,7 @@ Span_bar::do_substitute_element_pointer (Score_element*o, Score_element*n)
 Interval
 Span_bar::do_width () const
 {
-  Molecule m = lookup_l ()->bar (type_str_, 40 PT);
+  Molecule m = lookup_l ()->bar (type_str_, 40 PT, paper_l ());
   
   return m.extent (X_AXIS);
 }
@@ -109,7 +109,7 @@ Span_bar::do_brew_molecule_p () const
   Molecule*output = new Molecule;
   if (!iv.empty_b())
     {
-      output->add_molecule (lookup_l ()->bar (type_str_, iv.length ()));
+      output->add_molecule (lookup_l ()->bar (type_str_, iv.length (), paper_l ()));
       output->translate_axis (iv.center (), Y_AXIS);
     }
   else

@@ -10,7 +10,7 @@
   copyright =   "Public Domain";
 }
 
-\version "1.0.20";
+\version "1.0.21";
 
 global = \notes {
 	\time 4/4;
@@ -31,7 +31,7 @@ hoyreOpp = \notes\relative c''  {
 	bes4 r16 [bes,16 bes. c32] [des8. des16] 
 	\context Staff < 
 		{ \stemup e4 }
-		{ \stemup \property Voice.hshift = 1 [des16 c32 bes c16. g32] }
+		{ \stemup \property Voice.horizontalNoteShift = 1 [des16 c32 bes c16. g32] }
 	>
 %4
 	f4 \stemboth r16 [f g. as32] \stemup d,4 r16 [d g. es32] |
@@ -40,7 +40,7 @@ hoyreOpp = \notes\relative c''  {
 	<[es8. c> <es16 c>]
 	\context Staff <
 		{ \stemup fis4 }
-		{ \stemup \property Voice.hshift = 1 [es16 d32 c d16. a32] }
+		{ \stemup \property Voice.horizontalNoteShift = 1 [es16 d32 c d16. a32] }
 	> g2
 }
 
@@ -80,7 +80,7 @@ venstreNed = \notes\relative c{
 	c4 r c r | r c c r | c r r c | c r r16 [c c. bes32] bes4 |
 	r16 [bes bes. as32] as4_"tr" g r16 [d' d. es32] |
 	\context Staff <
-		{ \stemdown \property Voice.hshift = 1 [f8. f16] [b,8. b16] g4 r | }
+		{ \stemdown \property Voice.horizontalNoteShift = 1 [f8. f16] [b,8. b16] g4 r | }
 		{ \stemdown s4 g}
 	>
 	r g g2	

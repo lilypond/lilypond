@@ -16,6 +16,8 @@
 #include "tuplet-spanner.hh"
 #include "stem.hh"
 #include "note-column.hh"
+#include "dimensions.hh"
+
 
 Tuplet_spanner::Tuplet_spanner ()
 {
@@ -53,7 +55,7 @@ Tuplet_spanner::do_brew_molecule_p () const
     Real ncw = column_arr_.top ()->extent (X_AXIS).length ();
     Real w = extent (X_AXIS).length () + ncw;
     Molecule num (lookup_l ()->text ("italic",
-				     number_str_));
+				     number_str_, paper_l ()));
     num.align_to (X_AXIS, CENTER);
     num.translate_axis (w/2, X_AXIS);
     Real interline = paper_l ()->get_realvar (interline_scm_sym);
@@ -63,16 +65,11 @@ Tuplet_spanner::do_brew_molecule_p () const
     num.translate_axis (dir_ * interline, Y_AXIS);
 	
     num.translate_axis (dy/2, Y_AXIS);
-
     
-    /*    if (beam_l_arr_.size () == 1 && !bracket_visibility)
-      {
-	num.translate_axis (dir_ * interline,  Y_AXIS);
-      }
-    */
+    Real thick = paper_l ()->get_realvar (tuplet_thick_scm_sym);
     if (bracket_visibility)      
       {
-	mol_p->add_molecule (lookup_l ()->plet (dy, w, dir_));
+	mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, interline, dir_));
       }
 
     if (number_visibility)

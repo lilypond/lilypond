@@ -21,7 +21,7 @@ menuetto_i_a = \context Staff \notes \relative c {
 	<a2\f e'> d8( e16 )f |
 	\slurdotted
 	e8( d cis )e a,()g |
-	a4 ~ d cis |
+	a4 () d cis |
 	g'8( f e )f d() c |
 	%13
 	bes2 c4 |
@@ -35,7 +35,7 @@ menuetto_i_a = \context Staff \notes \relative c {
 %	<bes,4 g' d'> <c, g' c> < d,8 bes'(> )a |
 	<d'4 g, bes,> <c g c,> bes8()a |
 	c8( bes a )bes g()bes |
-	d4 ~ cis d |
+	d4 () cis d |
 	g,8 f g e f4 |
 	g,8 g' <{e4.^\trill d8 } a4.> ~ |
 	<d2. a d,> |
@@ -57,7 +57,7 @@ menuetto_i_b = \context Staff \notes \relative c {
 	g8 \skip 8*5; |
 	f2 e4
 	d8 \skip 8*5; |
-	g4 ~ f e
+	g4 () f e
 	f8 \skip 8*5; |
 	\skip 2.*3; |
 	es8 \skip 8*3; d4 |
@@ -112,8 +112,8 @@ menuetto_i_b_voice_urg_urg = \notes<
 >
 
 menuetto_i = \context Staff \notes<
-	{ \$menuetto_i_a_voice_urg_urg }
-	{ \$menuetto_i_b_voice_urg_urg }
+	\repeat "semi" 2 { \$menuetto_i_a_voice_urg_urg }
+	\repeat "semi" 2 { \$menuetto_i_b_voice_urg_urg }
 >
 
 menuetto_ii = \context Staff\notes \relative c {
@@ -156,4 +156,4 @@ menuetto_ii = \context Staff\notes \relative c {
 	d2.
 }
 
-\version "1.0.20";
+\version "1.0.21";

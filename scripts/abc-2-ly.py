@@ -8,7 +8,7 @@
 # 
 
 program_name = 'abc-to-ly'
-version = '0.1'
+version = '@TOPLEVEL_VERSION@'
 import __main__
 import getopt
 import sys
@@ -22,6 +22,7 @@ global_voice_stuff = []
 default_len = 4
 global_key = [0] * 7			# UGH
 DIGITS='0123456789'
+HSPACE=' \t'
 
 def gcd (a, b):
 	while  a % b:
@@ -171,6 +172,30 @@ def compute_key (k):
 
 	return key_table
 
+tup_lookup = {
+	'3' : '2/3',
+	'4' : '4/3',
+	'6' : '4/6',
+	}
+
+
+def try_parse_tuplet_begin (str, state):
+	if str and str[0] in DIGITS:
+		dig = str[0]
+		str = str[1:]
+		state.parsing_tuplet = 1
+		
+		print '\\times %s {' % tup_lookup[dig]
+	return str
+
+def  try_parse_group_end (str, state):
+	if str and str[0] in HSPACE:
+		str = str[1:]
+		if state.parsing_tuplet:
+			state.parsing_tuplet = 0
+			print '}'
+	return str
+
 def try_parse_header_line (ln):
 	m = re.match ('^(.): *(.*)$', ln)
 
@@ -180,6 +205,8 @@ def try_parse_header_line (ln):
 		if g == 'T':
 			header['title'] =  a
 		if g == 'M':
+			if a == 'C':
+				a = '4/4'
 			global_voice_stuff.append ('\\time %s;' % a)
 		if g == 'K':
 			__main__.global_key  =compute_key (a)# ugh.
@@ -228,7 +255,7 @@ def octave_to_mudela_quotes (o):
 
 def parse_num (str):
 	durstr = ''
-	while str[0] in DIGITS:
+	while str and str[0] in DIGITS:
 		durstr = durstr + str[0]
 		str = str[1:]
 
@@ -252,6 +279,7 @@ class Parser_state:
 	def __init__ (self):
 		self.next_dots = 0
 		self.next_den = 1
+		self.parsing_tuplet = 0
 
 
 # WAT IS ABC EEN ONTZETTENDE PROGRAMMEERPOEP  !
@@ -259,7 +287,10 @@ def try_parse_note (str, parser_state):
 	mud = ''
 
 	slur_begin =0
-	if str[0] == '(':
+	if not str:
+		return str
+	
+	if  str[0] == '(':
 		slur_begin = 1
 		str = str[1:]
 
@@ -342,34 +373,75 @@ def junk_space (str):
 
 	return str
 
+
+def try_parse_guitar_chord (str):
+	if str and str[0] == '"':
+		str = str[1:]
+		gc = ''
+		while str and str[0] != '"':
+			gc = gc + str[0]
+			str = str[1:]
+			
+		if str:
+			str = str[1:]
+
+		print "guitar chord: %s\n" % gc
+		
+	return str
+
 def try_parse_escape (str):
-	if str [0] != '\\':
+	if not str or str [0] != '\\':
 		return str
 	
 	str = str[1:]
-	if str[0] == 'K':
-		compute_key ()
+	if str and str[0] == 'K':
+		key_table = compute_key ()
 
 	return str
 
 
 def try_parse_bar (str):
-	if str[0] == '|':
+	if str and str[0] == '|':
+		bs = ''
 		str = str[1:]
+		if str:
+			if  str[0] == ']':
+				bs = '|.'
+			if str[0] == '|':
+				bs = '||'
+
+		if bs:
+			print '\\bar "%s";' % bs
 	return str
 	
 
+def try_parse_chord_delims (str):
+	if str and str[0] == '[':
+		str = str[1:]
+		print '<'
 
+	if str and str[0] == ']':
+		str = str[1:]
+		print '>'
+
+	return str
+
+# Try nibbling characters off until the line doesn't change.
 def try_parse_body_line (ln, state):
 	prev_ln = ''
-	while ln and  ln != prev_ln:
+	while ln != prev_ln:
 		prev_ln = ln
+		ln = try_parse_chord_delims (ln)
 		ln = try_parse_note  (ln, state)
 		ln = try_parse_bar (ln)
-		ln = junk_space (ln)
 		ln = try_parse_escape (ln)
+		ln = try_parse_guitar_chord (ln)
+		ln = try_parse_tuplet_begin (ln, state)
+		ln = try_parse_group_end (ln, state)
+		ln = junk_space (ln)
+		
 	if ln:
-		print 'Huh %s' % ln
+		print 'Huh?  Don\'t understand `%s\'' % ln
 		
 
 
@@ -396,12 +468,14 @@ def parse_file (fn):
 
 
 def identify():
-	print '%s %s' % (program_name, version)
+	print '%s from LilyPond %s' % (program_name, version)
 
 def help ():
 	print r"""
 This is a disfunctional ABC to mudela convertor.  It only gulps input, and
-says huh when confused.  Does not do chords.  Go ahead and fix me.
+says huh when confused.  Go ahead and fix me.
+
+Usage: abc-2-ly INPUTFILE
 
 -h, --help   this help.
 """

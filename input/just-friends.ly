@@ -57,4 +57,4 @@ of a certain tune (Jazz, Real Book, for example), like
 	}
 }
 
-\version "1.0.20";
+\version "1.0.21";
