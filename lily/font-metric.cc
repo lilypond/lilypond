@@ -148,11 +148,33 @@ ly_find_glyph_by_name (SCM font, SCM name)
 }
 
 
+SCM
+ly_text_dimension (SCM font, SCM text)
+{
+  Box b;
+  
+  if (!unsmob_metrics (font) || !gh_string_p(text))
+    {
+      warning ("ly-find-glyph-by-name: invalid argument.");
+      Molecule m;
+      return m.smobbed_copy ();
+    }
+  else
+    {
+      b = unsmob_metrics (font)->text_dimension (ly_scm2string (text));
+    }
+  
+  return gh_cons (ly_interval2scm (b[X_AXIS]), ly_interval2scm(b[Y_AXIS]));
+}
+
+
 static void
 font_metric_init ()
 {
    scm_c_define_gsubr ("ly-find-glyph-by-name", 2 , 0, 0,
 		       (Scheme_function_unknown) ly_find_glyph_by_name);
+   scm_c_define_gsubr ("ly-text-dimension", 2 , 0, 0,
+		       (Scheme_function_unknown) ly_text_dimension);
 }
 
 ADD_SCM_INIT_FUNC (font_metric_init, font_metric_init);

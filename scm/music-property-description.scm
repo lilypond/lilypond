@@ -60,9 +60,16 @@ TODO: consider making type into symbol ")
 (music-property-description 'repeat-count  integer? "do a @code{\repeat} how ofen?")
 (music-property-description 'span-direction dir? "Does this start or stop a spanner?")
 (music-property-description 'symbol symbol? "Grob name to perform an override/revert on.")
-(music-property-description 'text string? "markup expression to be printed")
+(music-property-description 'text markup? "markup expression to be printed")
 ;; markup?
 (music-property-description 'tremolo-type integer? "")
 (music-property-description 'value scheme? "Assignment value for a
 translation property")
 (music-property-description 'what string? "What to change for auto-change. FIXME, naming")
+
+(music-property-description 'figure number? "number for figured bass")
+(music-property-description 'alteration number? "alteration for figured bass")
+(music-property-description 'bracket-start boolean? "start a bracket
+here. TODO: use span requests?")
+(music-property-description 'bracket-stop boolean? "stop a bracket here.")
+

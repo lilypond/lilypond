@@ -35,6 +35,9 @@ scaling)
 SCM
 Font_interface::font_alist_chain (Grob *me)
 {
+  /*
+    Ugh: why the defaults?
+   */
   SCM defaults = ly_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
 				    me->paper_l ()->style_sheet_));
 
@@ -75,6 +78,20 @@ ly_font_interface_get_default_font (SCM grob)
 
   return Font_interface::get_default_font (gr)->self_scm ();
 }
+
+SCM
+ly_font_interface_get_font (SCM grob, SCM alist)
+{
+  Grob * gr  = unsmob_grob (grob);
+  SCM_ASSERT_TYPE(gr, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  Font_metric*fm=
+    Font_interface::get_font (gr, gh_cons (alist,
+					   Font_interface::font_alist_chain (gr)));
+
+  return fm->self_scm();
+}
+
 
 
 Font_metric *
@@ -153,6 +170,8 @@ init_syms ()
 
   scm_c_define_gsubr ("ly-get-default-font", 1 , 0, 0,
 		      (Scheme_function_unknown) ly_font_interface_get_default_font);
+  scm_c_define_gsubr ("ly-get-font", 2, 0, 0,
+		      (Scheme_function_unknown) ly_font_interface_get_font);
 }
 
 

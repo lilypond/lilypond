@@ -1,7 +1,7 @@
 
 New features in 1.5
 
-* Many speedups
+* Many speedups, many slowdowns.
 
 * Figured bass support
 
@@ -10,3 +10,5 @@ New features in 1.5
 * Better spacing.
 
 * More ancient notation support.
+
+* Some entry optimizations

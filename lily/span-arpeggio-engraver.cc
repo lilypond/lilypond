@@ -91,7 +91,7 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 	    we can't kill the children, since we don't want to the
 	    previous note to bump into the span arpeggio; so we make
 	    it transparent.  */
-	  arpeggios_[i]->set_grob_property ("molecule-callback", SCM_BOOL_T);
+	  arpeggios_[i]->set_grob_property ("molecule-callback", SCM_EOL);
 	}
       
       typeset_grob (span_arpeggio_);

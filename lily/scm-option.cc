@@ -11,7 +11,7 @@
 #include "string.hh"
 #include "lily-guile.hh"
 #include "scm-option.hh"
-
+#include "warn.hh"
 
 /*
   This interface to option setting is meant for setting options are
@@ -74,7 +74,7 @@ possible options for SYMBOL are :
 ")<<endl;
       
       cout << "  help (any-symbol)"<<endl; 
-      cout << "  internal-type-checks #t"<<endl; 
+      cout << "  internal-type-checking (boolean)"<<endl; 
       cout << "  midi-debug (boolean)"<<endl; 
       cout << "  testing-level (int)"<<endl; 
 
@@ -88,7 +88,7 @@ possible options for SYMBOL are :
     {
      testing_level_global = gh_scm2int (val); 
     }
-  else if (var == ly_symbol2scm ("internal-type-checks"))
+  else if (var == ly_symbol2scm ("internal-type-checking"))
     {
      internal_type_checking_global_b = to_boolean (val); 
     }
@@ -105,8 +105,12 @@ possible options for SYMBOL are :
       */
 
       ;
-      
     }
+  else
+    {
+      warning (_("Unknown internal option!"));
+    }
+  
 
   return SCM_UNSPECIFIED;
 }

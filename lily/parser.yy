@@ -195,6 +195,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token DURATION
 %token EXTENDER
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
+%token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
 %token GLISSANDO
 %token GRACE 
 %token HEADER
@@ -244,11 +245,13 @@ yylex (YYSTYPE *s,  void * v_l)
 /* escaped */
 %token E_CHAR E_EXCLAMATION E_SMALLER E_BIGGER E_OPEN E_CLOSE E_TILDE
 %token E_BACKSLASH
-%token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET 
+%token CHORD_BASS CHORD_COLON CHORD_MINUS CHORD_CARET
+%token FIGURE_SPACE
+
 
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	bass_number bass_mod
-%type <scm> 	bass_figure figure_list figure_spec
+%type <scm> 	br_bass_figure bass_figure figure_list figure_spec
 %token <i>	DIGIT
 %token <scm>	NOTENAME_PITCH
 %token <scm>	TONICNAME_PITCH
@@ -1713,23 +1716,41 @@ bass_mod:
 	;
 
 bass_figure:
-	bass_number  {
-		Pitch p ;
-		p .notename_i_ = $1 - 1;
-		p.normalise();
-		
-		Note_req * nr = new Note_req;
-		$$ = nr->self_scm ();
-		nr->set_mus_property ("pitch", p.smobbed_copy ());
+	FIGURE_SPACE {
+		Bass_figure_req *bfr = new Bass_figure_req;
+		$$ = bfr->self_scm();
+		scm_gc_unprotect_object ($$);
+	}
+	| bass_number  {
+		Bass_figure_req *bfr = new Bass_figure_req;
+		$$ = bfr->self_scm();
+
+		bfr->set_mus_property ("figure", gh_int2scm ($1));
+
 		scm_gc_unprotect_object ($$);
 	}
 	| bass_figure bass_mod {
-		if ($2) { 
-			SCM sp = unsmob_music ($1)->get_mus_property ("pitch");
-			unsmob_pitch (sp)->alteration_i_ += $2;
+		Music *m = unsmob_music ($1);
+		if ($2) {
+			SCM salter =m->get_mus_property ("alteration");
+			int alter = gh_number_p( salter) ? gh_scm2int (salter) : 0;
+			m->set_mus_property ("alteration",
+				gh_int2scm (alter + $2));
 		} else {
-			unsmob_music ($1)->set_mus_property ("force-accidental", SCM_BOOL_T);
+			m->set_mus_property ("alteration", gh_int2scm (0));
 		}
+	}
+	;
+
+br_bass_figure:
+	'[' bass_figure {
+		unsmob_music ($2)->set_mus_property ("bracket-start", SCM_BOOL_T);
+	}
+	| bass_figure	{
+
+	}
+	| br_bass_figure ']' {
+		unsmob_music ($1)->set_mus_property ("bracket-stop", SCM_BOOL_T);
 	}
 	;
 
@@ -1737,7 +1758,7 @@ figure_list:
 	/**/		{
 		$$ = SCM_EOL;
 	}
-	| figure_list bass_figure {
+	| figure_list br_bass_figure {
 		$$ = gh_cons ($2, $1); 
 	}
 	;

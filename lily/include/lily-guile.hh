@@ -148,6 +148,7 @@ SCM ly_parse_scm (char const* s, int* n);
 SCM ly_quote_scm (SCM s);
 SCM ly_type (SCM);
 bool type_check_assignment (SCM val, SCM sym,  SCM type_symbol) ;
+String print_scm_val (SCM val);
 SCM ly_number2string (SCM s);
 
 SCM parse_symbol_list (char const *);

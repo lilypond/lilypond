@@ -92,7 +92,7 @@ Mark_req::do_equal_b (Request const * r) const
 			       get_mus_property ("label")) == SCM_BOOL_T;
 }
 
-
+ADD_MUSIC(Bass_figure_req);
 ADD_MUSIC (Articulation_req);
 ADD_MUSIC (Break_req);
 ADD_MUSIC (Breathing_sign_req);

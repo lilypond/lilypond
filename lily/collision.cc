@@ -108,7 +108,13 @@ check_meshing_chords (Grob*me,
 
   merge_possible = merge_possible &&
     Rhythmic_head::balltype_i (nu_l) == Rhythmic_head::balltype_i (nd_l);
-    
+
+
+  /*
+    don't merge whole notes (or longer, like breve, longa, maxima) 
+   */
+  merge_possible = merge_possible && (Rhythmic_head::balltype_i (nu_l) > 0);
+
   if (!to_boolean (me->get_grob_property ("merge-differently-dotted")))
     merge_possible = merge_possible && Rhythmic_head::dot_count (nu_l) == Rhythmic_head::dot_count (nd_l);
   
@@ -171,6 +177,7 @@ check_meshing_chords (Grob*me,
     shift_amount *= 0.4;
   else if (distant_half_collide || close_half_collide || full_collide)
     shift_amount *= 0.5;
+  
   /*
     we're meshing.
   */

@@ -432,3 +432,7 @@ function of type (beam multiplicity dy staff-line-thickness) -> real.  Default v
 (grob-property-description 'script-molecule pair? "index code for script.")
 
 (grob-property-description 'accidentals-grob ly-grob? "accidentals for this note.")
+
+(grob-property-description 'causes list? "list of cause objects.")
+(grob-property-description 'tremolo-flags number? "")
+(grob-property-description 'chord-tremolo boolean? "if set, this beam is a tremolo. TODO: use interface for this!")

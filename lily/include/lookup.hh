@@ -18,6 +18,7 @@
 
 struct Lookup
 {
+  static Molecule bracket (Axis a, Interval iv, Direction d, Real thick, Real protude);
   static Molecule accordion (SCM arg, Real interline_f, Font_metric*fm);
   static Molecule frame (Box b, Real thick);
   static Molecule slur (Bezier controls, Real cthick, Real thick) ;

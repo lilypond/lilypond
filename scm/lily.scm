@@ -147,6 +147,14 @@
 	    ))
 
 
+(define X 0)
+(define Y 1)
+(define LEFT -1)
+(define RIGHT 1)
+(define UP 1)
+(define DOWN -1)
+(define CENTER 0)
+
 (if (not standalone)
     (map ly-load
 					; load-from-path
@@ -154,6 +162,7 @@
 	   "pdf.scm"
 	   "pdftex.scm"
       	   "c++.scm"
+	   "bass-figure.scm"
 	   "grob-property-description.scm"
 	   "context-description.scm"
 	   "interface-description.scm"

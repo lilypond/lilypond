@@ -162,4 +162,10 @@ public:
   VIRTUAL_COPY_CONS (Music);
 };
 
+class Bass_figure_req:  public Rhythmic_req
+{
+public:
+  VIRTUAL_COPY_CONS(Music);
+};
+
 #endif // MUSICALREQUESTS_HH

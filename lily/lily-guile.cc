@@ -607,6 +607,15 @@ SCM my_gh_symbol2scm (const char* x)
   return gh_symbol2scm ((char*)x);
 }
 
+String
+print_scm_val (SCM val)
+{
+  String realval = ly_scm2string (ly_write2scm (val));
+  if (realval.length_i () > 200)
+    realval = realval.left_str (100) + "\n :\n :\n" + realval.right_str (100);
+  
+  return realval;	 
+}
 
 bool
 type_check_assignment (SCM sym, SCM val,  SCM type_symbol) 
@@ -647,14 +656,10 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 	  SCM typefunc = scm_primitive_eval (ly_symbol2scm ("type-name"));
 	  SCM type_name = gh_call1 (typefunc, type_p);
 
-	  String realval = ly_scm2string (ly_write2scm (val));
-	  if (realval.length_i () > 200)
-	    realval = realval.left_str (100) + "\n :\n :\n" + realval.right_str (100);
-	    
-	  
+	 
 	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",
 			ly_symbol2string (sym).ch_C (),
-			realval.ch_C (),
+			print_scm_val (val),
 			ly_scm2string (type_name).ch_C ()).ch_C (),
 		    errport);
 	  scm_puts ("\n", errport);		      

@@ -137,13 +137,13 @@ SCM
 Molecule::ly_set_molecule_extent_x (SCM mol, SCM axis, SCM np)
 {
   Molecule* m = unsmob_molecule (mol);
-  if (m && ly_axis_p (axis) && ly_number_pair_p (np))
-    {
-      Interval iv = ly_scm2interval (np);
-      m->dim_[Axis (gh_scm2int (axis))] = iv;
-    }
-  else
-    warning ("ly-set-molecule-extent!: invalid arguments");
+  SCM_ASSERT_TYPE (m, mol, SCM_ARG1, __FUNCTION__, "molecule");
+  SCM_ASSERT_TYPE (ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE (ly_number_pair_p (np), np, SCM_ARG3, __FUNCTION__, "number pair");
+
+  Interval iv = ly_scm2interval (np);
+  m->dim_[Axis (gh_scm2int (axis))] = iv;
+
   return SCM_UNDEFINED;
 }
 
@@ -164,24 +164,23 @@ Molecule::ly_get_molecule_extent (SCM mol, SCM axis)
 
 SCM
 Molecule::ly_molecule_combined_at_edge (SCM first, SCM axis, SCM direction,
-			   SCM second, SCM padding)
+					SCM second, SCM padding)
 
 {
   Molecule * m1 = unsmob_molecule (first);
   Molecule * m2 = unsmob_molecule (second);
   Molecule result;
-  
-  if (!m1 || !m2 || !isdir_b (direction) || !ly_axis_p (axis) || !gh_number_p (padding))
-    {
-      warning ("ly-combine-molecule-at-edge: invalid arguments");
-      Molecule r;
-      return  r.smobbed_copy ();
-    }
 
-  result = *m1;
 
-  result.add_at_edge (Axis (gh_scm2int (axis)), Direction (gh_scm2int (direction)),
-		      *m2, gh_scm2double (padding));
+  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE(isdir_b (direction), direction, SCM_ARG3, __FUNCTION__, "dir");
+  SCM_ASSERT_TYPE(gh_number_p(padding), padding, SCM_ARG4, __FUNCTION__, "number");
+
+  if (m1)
+    result = *m1;
+  if (m2)
+    result.add_at_edge (Axis (gh_scm2int (axis)), Direction (gh_scm2int (direction)),
+			*m2, gh_scm2double (padding));
 
   return result.smobbed_copy ();
 }
@@ -198,11 +197,43 @@ make_molecule (SCM expr, SCM xext, SCM yext)
   return m.smobbed_copy ();
 }
 
+SCM
+fontify_atom (Font_metric * met, SCM f)
+{
+  if (f == SCM_EOL)
+    return f;
+  else
+    return  scm_list_n (ly_symbol2scm ("fontify"),
+			ly_quote_scm (met->description_), f, SCM_UNDEFINED);
+}
+
+SCM
+ly_fontify_atom (SCM met, SCM f)
+{
+  SCM_ASSERT_TYPE(unsmob_metrics (met), met, SCM_ARG1, __FUNCTION__, "font metric");
+
+  return fontify_atom (unsmob_metrics (met), f);
+}
+
+SCM
+ly_align_to_x (SCM mol, SCM axis, SCM dir)
+{
+  SCM_ASSERT_TYPE(unsmob_molecule (mol), mol, SCM_ARG1, __FUNCTION__, "molecule");
+  SCM_ASSERT_TYPE(ly_axis_p(axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  SCM_ASSERT_TYPE(isdir_b (dir), dir, SCM_ARG3, __FUNCTION__, "dir");
+
+  unsmob_molecule (mol)->align_to ((Axis)gh_scm2int (axis), Direction (gh_scm2int (dir)));
+
+  return SCM_UNDEFINED;
+}
+
 
 static void
 molecule_init ()
 {
   scm_c_define_gsubr ("ly-make-molecule", 3, 0, 0, (Scheme_function_unknown) make_molecule);
+  scm_c_define_gsubr ("ly-fontify-atom", 2, 0, 0, (Scheme_function_unknown) ly_fontify_atom);
+  scm_c_define_gsubr ("ly-align-to!", 3, 0, 0, (Scheme_function_unknown) ly_align_to_x);    
   scm_c_define_gsubr ("ly-combine-molecule-at-edge", 5 , 0, 0, (Scheme_function_unknown) Molecule::ly_molecule_combined_at_edge);
   scm_c_define_gsubr ("ly-set-molecule-extent!", 3 , 0, 0, (Scheme_function_unknown) Molecule::ly_set_molecule_extent_x);
   scm_c_define_gsubr ("ly-get-molecule-extent", 2 , 0, 0, (Scheme_function_unknown) Molecule::ly_get_molecule_extent);
@@ -214,16 +245,6 @@ bool
 Molecule::empty_b () const
 {
   return expr_ == SCM_EOL;
-}
-
-SCM
-fontify_atom (Font_metric * met, SCM f)
-{
-  if (f == SCM_EOL)
-    return f;
-  else
-    return  scm_list_n (ly_symbol2scm ("fontify"),
-		     ly_quote_scm (met->description_), f, SCM_UNDEFINED);
 }
 
 SCM

@@ -8,14 +8,6 @@
 ; distances are given in stafflinethickness (thicknesses) and
 ; staffspace (distances)
 
-(define default-alteration-alist
-  '(
-    (0 . ((raise . 0.5) (music "accidentals-0")))
-    (-1 . ((raise . 0.5) (music "accidentals--1")))
-    (-2 . ((raise . 0.5) (music "accidentals--2")))
-    (1 . ((raise . 0.5) (music  "accidentals-1")))
-    (2 . ((raise . 0.5) (music "accidentals-2")))
-    ))
 
 
 ;;; WARNING: the meta field should be the last one.
@@ -80,10 +72,9 @@
 	))
 
 	(BassFigure . (
-		       (molecule-callback . ,Text_item::brew_molecule)
+		       (molecule-callback . ,brew-bass-figure)
 		       (Y-offset-callbacks . (,Side_position_interface::aligned_on_self))
 		       (direction . 0)
-		       (accidental-alist . ,default-alteration-alist)
 		       (font-family . number)
 		       (font-relative-size . -1)
 		       (meta . ,(grob-description text-interface font-interface ))
@@ -505,6 +496,7 @@
 		(padding . 0.29) 
 		(X-offset-callbacks . (,Side_position_interface::centered_on_parent))
 		(before-line-breaking-callback . ,Script::before_line_breaking)
+		(font-family . music)
 		(meta . ,(grob-description script-interface side-position-interface font-interface))
 	))
 	

@@ -815,27 +815,13 @@ SCM
 ly_set_grob_property (SCM elt, SCM sym, SCM val)
 {
   Grob * sc = unsmob_grob (elt);
-
-  if (!gh_symbol_p (sym))
-    {
-      error ("Not a symbol");
-      ly_display_scm (sym);
-      return SCM_UNSPECIFIED;
-    }
+  SCM_ASSERT_TYPE(sc, elt, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   if (!type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
-    return SCM_UNSPECIFIED;
+    error ("typecheck failed");
       
-  if (sc)
-    {
-      sc->internal_set_grob_property (sym, val);
-    }
-  else
-    {
-      error ("Not a score element");
-      ly_display_scm (elt);
-    }
-
+  sc->internal_set_grob_property (sym, val);
   return SCM_UNSPECIFIED;
 }
 
@@ -844,17 +830,10 @@ SCM
 ly_get_grob_property (SCM elt, SCM sym)
 {
   Grob * sc = unsmob_grob (elt);
-  
-  if (sc)
-    {
-      return sc->internal_get_grob_property (sym);
-    }
-  else
-    {
-      error ("Not a score element");
-      ly_display_scm (elt);
-    }
-  return SCM_UNSPECIFIED;
+  SCM_ASSERT_TYPE(sc, elt, SCM_ARG1, __FUNCTION__, "grob");
+  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
+
+  return sc->internal_get_grob_property (sym);
 }
 
 

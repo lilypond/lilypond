@@ -85,7 +85,8 @@ System_start_delimiter::after_line_breaking (SCM smob)
   Grob * me = unsmob_grob (smob);
   SCM   gl = me->get_grob_property ("glyph");
 
-  if (scm_ilength (me->get_grob_property ("elements")) <=  1 && gh_equal_p (gl,ly_str02scm ("bar-line")))
+  if (scm_ilength (me->get_grob_property ("elements")) <=  1
+      && gh_equal_p (gl,ly_str02scm ("bar-line")))
     {
       me->suicide ();
     }
@@ -101,9 +102,9 @@ System_start_delimiter::brew_molecule (SCM smob)
   Grob * me = unsmob_grob (smob);
 
   SCM s = me->get_grob_property ("glyph");
-  if (!gh_symbol_p (s))
+  if (!gh_string_p (s))
     return SCM_EOL;
-  
+  SCM gsym = scm_string_to_symbol (s) ;
   SCM c = me->get_grob_property ("collapse-height");
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -119,11 +120,12 @@ System_start_delimiter::brew_molecule (SCM smob)
     }
 
   Molecule m;
-  if (s == ly_symbol2scm ("bracket"))
+
+  if (gsym== ly_symbol2scm ("bracket"))
     m = staff_bracket (me,l);
-  else if (s == ly_symbol2scm ("brace"))
+  else if (gsym == ly_symbol2scm ("brace"))
     m =  staff_brace (me,l);
-  else if (s == ly_symbol2scm ("bar-line"))
+  else if (gsym == ly_symbol2scm ("bar-line"))
     m = simple_bar (me,l);
   
   m.translate_axis (ext.center (), Y_AXIS);
