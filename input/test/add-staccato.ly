@@ -1,4 +1,5 @@
 \version "1.7.18"  %% or actually: 1.7.1 ...
+% TODO: doesn't work with 1.7.19.  Check with more recent version.
 \header {
 
 texidoc= "Using make-music, you can add various stuff to notes. Here
