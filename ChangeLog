@@ -1,5 +1,9 @@
 2004-07-30  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* VERSION: 2.3.9 released.
+
+	* scripts/convert-ly.py (conv): remove \lyrics from \lyricsto.
+
 	* ly/gregorian-init.ly (neumeDemoPaper): remove duplication from
 	manual.
 
@@ -65,7 +69,6 @@
 2004-07-27  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* input/regression/{stanza-number,volta-multi-staff}.ly: fix docs.
-m
  
 2004-07-26  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
