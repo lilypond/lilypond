@@ -8,24 +8,24 @@ if the black note heads are from 8th or shorter notes.
 "
     
 }
-    \paper { raggedright= ##t }
+
+\paper { raggedright= ##t }
 
 
-\score { \notes \context Staff\relative c''<<
- {
-    c2 c8 c4.
-    
-    \property Staff.NoteCollision \override #'merge-differently-headed = ##t
-    c2
-    c8 c4.
-    c2
-}\\
- {
-    c8 c4.
-    c2
-    c8 c4.
-    c2
-    c4
-}
+\score {
+    \context Staff \notes \relative c'' <<
+	{
+	    c2 c8 c4.
+	    
+	    \property Staff.NoteCollision \override #'merge-differently-headed = ##t
+	    c2 c8 c4.
+	    c2
+	}\\
+	{
+	    c8 c4. c2
+	    
+	    c8 c4. c2
+	    c4
+	}
     >>
-	 }
+}

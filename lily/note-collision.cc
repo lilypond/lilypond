@@ -1,4 +1,3 @@
-
 /*
   collision.cc -- implement Collision
 
@@ -39,23 +38,62 @@ Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
 
 
 void
-check_meshing_chords (Grob*me,
+check_meshing_chords (Grob *me,
 		      Drul_array< Array < Real > > *offsets,
 		      Drul_array< Array < Slice > > const &extents,
 		      Drul_array<Link_array<Grob> > const &clash_groups)
 	
 {
   if (!extents[UP].size () || ! extents[DOWN].size ())
-    return ;
+    return;
   
-  
-  Grob *cu =clash_groups[UP][0];
-  Grob *cd =clash_groups[DOWN][0];
+  Grob *cu = clash_groups[UP][0];
+  Grob *cd = clash_groups[DOWN][0];
 
-  Grob * nu= Note_column::first_head (cu);
-  Grob * nd = Note_column::first_head (cd);
-      
-     
+  /* Every note column should have a stem, but avoid a crash. */
+  if (!Note_column::get_stem (cu) || !Note_column::get_stem (cd))
+    return;
+
+  Grob *nu = Note_column::first_head (cu);
+  Grob *nd = Note_column::first_head (cd);
+
+  Array<int> ups = Stem::note_head_positions (Note_column::get_stem (cu));
+  Array<int> dps = Stem::note_head_positions (Note_column::get_stem (cd));
+
+  /* Too far apart to collide.  */
+  if (ups[0] > dps.top () + 1)
+    return; 
+
+  // FIXME: what's this?
+  bool merge_possible = (ups[0] >= dps[0]) && (ups.top () >= dps.top ());
+
+  int upball_type = Note_head::get_balltype (nu);
+  int dnball_type = Note_head::get_balltype (nd);
+  
+  /* Do not merge whole notes (or longer, like breve, longa, maxima).  */
+  if (merge_possible && (upball_type <= 0 || dnball_type <= 0))
+    merge_possible = false;
+
+  if (merge_possible
+      && Rhythmic_head::dot_count (nu) != Rhythmic_head::dot_count (nd)
+      && !to_boolean (me->get_grob_property ("merge-differently-dotted")))
+    merge_possible = false;
+
+  /* Can only merge different heads if merge-differently-headed is
+     set. */
+  if (merge_possible
+      && upball_type != dnball_type
+      && !to_boolean (me->get_grob_property ("merge-differently-headed")))
+    merge_possible = false;
+
+  /* Can never merge quarter and half notes. */
+  if (merge_possible
+      && ((Rhythmic_head::duration_log (nu) == 1
+	   && Rhythmic_head::duration_log (nd) == 2)
+	  || (Rhythmic_head::duration_log (nu) == 2
+	     && Rhythmic_head::duration_log (nd) == 1)))
+    merge_possible = false;
+
 
   /*
     this case (distant half collide), 
@@ -76,71 +114,19 @@ check_meshing_chords (Grob*me,
     
    */
   
-  bool close_half_collide = false;
-  bool distant_half_collide = false;  
-  bool full_collide = false;  
-
-  /*
-    Let's not crash. 
-   */
-  if (!Note_column::get_stem (cu)
-      || !Note_column::get_stem (cd))
-    return ;
-  
-  
-  /*
-    TODO:
-
-    filter out the 'o's in this configuration, since they're no part
-    in the collision.
+  /* TODO: filter out the 'o's in this configuration, since they're no
+  part in the collision.
 
      |
     x|o
     x|o
     x
-
     
    */
-  Array<int> ups = Stem::note_head_positions (Note_column::get_stem (cu));
-  Array<int> dps = Stem::note_head_positions (Note_column::get_stem (cd));
-
-  /*
-    they're too far apart to collide. 
-    
-   */
-
-  if (ups[0] > dps.top () + 1)
-    return ; 
-
-  bool touch = (ups[0] - dps.top () >= 0);
   
-  bool merge_possible = (ups[0] >= dps[0]) && (ups.top () >= dps.top ());
-
-  /*
-    don't merge whole notes (or longer, like breve, longa, maxima) 
-   */
-
-  int upball_type = Note_head::get_balltype (nu);
-  int dnball_type = Note_head::get_balltype (nd);
-  
-  merge_possible = merge_possible && (upball_type > 0);
-
-  if (!to_boolean (me->get_grob_property ("merge-differently-dotted")))
-    merge_possible = merge_possible && Rhythmic_head::dot_count (nu) == Rhythmic_head::dot_count (nd);
-
-  
-  if (!to_boolean (me->get_grob_property ("merge-differently-headed")))
-    merge_possible = merge_possible &&
-      upball_type == dnball_type;
-  else
-    /*
-      Can't merge quarter and half notes.
-     */
-    merge_possible = merge_possible &&
-      !((Rhythmic_head::duration_log (nu) == 1
-	 && Rhythmic_head::duration_log (nd) == 2)
-	||(Rhythmic_head::duration_log (nu) == 2
-	   && Rhythmic_head::duration_log (nd) == 1));
+  bool close_half_collide = false;
+  bool distant_half_collide = false;  
+  bool full_collide = false;  
 
   int i = 0, j=0;
   while (i < ups.size () && j < dps.size ())
@@ -178,6 +164,7 @@ check_meshing_chords (Grob*me,
   
   Real shift_amount = 1;
 
+  bool touch = (ups[0] - dps.top () >= 0);
   if (touch)
     shift_amount *= -1;
 
@@ -189,21 +176,25 @@ check_meshing_chords (Grob*me,
        && full_collide))
     shift_amount = 1;
 
-  /*
-    TODO: these numbers are magic; should devise a set of grob props
-    to tune this behavior.  */
-  
   if (merge_possible)
     {
-      shift_amount *= 0.0;
-      Grob *wipe_ball = 0;
-      
-      if (upball_type  <  dnball_type)
-	wipe_ball = nd;
-      else if (upball_type > dnball_type)
-	wipe_ball = nu;
+      shift_amount = 0;
 
-      if (wipe_ball && wipe_ball->live ())
+      /* Wipe shortest head, or head with smallest amount of dots.
+	 Note: when merging different heads, dots on shortest
+	 disappear. */
+      
+      Grob *wipe_ball = nu;
+      
+      if (upball_type == dnball_type)
+	{
+	  if (Rhythmic_head::dot_count (nd) < Rhythmic_head::dot_count (nu))
+	    wipe_ball = nd;
+	}
+      else if (dnball_type > upball_type)
+	wipe_ball = nd;
+
+      if (wipe_ball->live ())
 	{
 	  wipe_ball->set_grob_property ("transparent", SCM_BOOL_T);
 	  wipe_ball->set_grob_property ("molecule", SCM_EOL);
@@ -211,13 +202,9 @@ check_meshing_chords (Grob*me,
 	  if (Grob *d = unsmob_grob (wipe_ball->get_grob_property ("dot")))
 	    d->suicide ();
 	}
-
-      if (wipe_ball == 0
-	  && unsmob_grob (nd->get_grob_property ("dot")))
-	{
-	  unsmob_grob (nd->get_grob_property ("dot"))->suicide ();
-	}
     }
+  /* TODO: these numbers are magic; should devise a set of grob props
+     to tune this behavior.  */
   else if (close_half_collide && !touch)
     shift_amount *= 0.52;
   else if (distant_half_collide && !touch)
@@ -225,9 +212,7 @@ check_meshing_chords (Grob*me,
   else if (distant_half_collide || close_half_collide || full_collide)
     shift_amount *= 0.5;
   
-  /*
-    we're meshing.
-  */
+  /* we're meshing.  */
   else if (Rhythmic_head::dot_count (nu) || Rhythmic_head::dot_count (nd))
     shift_amount *= 0.1;
   else
