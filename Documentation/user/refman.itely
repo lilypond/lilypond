@@ -4474,13 +4474,13 @@ LilyPond has limited support for figured bass:
 
 @lilypond[verbatim,fragment]
 <
+ \context Voice \notes { \clef bass dis4  c d ais}
  \context FiguredBass
    \figures {
-	<_! 3+ 5- >4
-	< [4 6] 8 >
+    < 6 >4 < 7 >8 < 6+ [_!] >
+    < 6 >4 <6 5 [3+] >
    }
- \context Voice { c4 g8 }
->
+ >
 @end lilypond
 
 The support for figured bass consists of two parts: there is an input
@@ -4526,6 +4526,9 @@ numbers, and then prints the numbers you entered. There is no
 conversion to pitches, and no realizations of the bass are played in
 the MIDI file.
 
+Internally, the code produces markup texts internally. You can use any
+of the markup text properties to override formatting. For example, the
+vertical spacing of the figures may be set with @code{baseline-skip}.
 
 @c . {Contemporary notation}
 @node Contemporary notation
