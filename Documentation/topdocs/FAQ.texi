@@ -27,11 +27,12 @@ FAQs}.  Also, please look in the searchable mailinglist archives:
 
 @itemize @bullet
 @item
-@uref{http://www.mail-archive.com/help-gnu-music@@gnu.org,help-gnu-music}
+@uref{http://www.mail-archive.com/lilypond-user@@gnu.org,lilypond-user}
 @item
-@uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org,bug-gnu-music}
+@uref{http://www.mail-archive.com/bug-lilypond@@gnu.org,bug-lilypond}
 @item
 @uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org,gnu-music-discuss}
+(this is the archive of the `old' mailing list.) 
 @end itemize
 
 If you are still at loss, send your questions to the @strong{mailing
