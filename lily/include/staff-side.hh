@@ -15,12 +15,14 @@
 /// A symbol which sits along  the staff
 class Staff_side  {
     Array<Staff_elem*> support_l_arr_;
-
-    Staff_symbol * staff_sym_l_;
+    int staff_size_i_;
     Staff_elem * elem_l_;
     Interval support_height()const;
+    Staff_symbol* staff_sym_l_;
+    void read_staff_sym();
 public:
-       /**
+    Real inter_f_;
+    /**
       Vertical dir of symbol relative to staff. -1 = below staff?
       */
     int dir_i_;
