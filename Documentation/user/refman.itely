@@ -1113,10 +1113,6 @@ property @code{auto-knee-gap}.
 Automatically kneed beams can not be used together with Hara Kiri
 staves.
 
-[TODO from bugs]
-
-The Automatic beamer does not put @strong{unfinished} beams on the
-last notes of a score.
 
 @menu
 * Setting automatic beam behavior ::  
@@ -1204,9 +1200,6 @@ first pair of asterisks. Beams are classified according to the shortest
 note they contain. For a beam ending rule that only applies to beams
 with 32nd notes (and no shorter notes), you would use @code{(end 1
 32 * *)}.
-
-@c not true
-@c Automatic beams can not be put on the last note in a score.
 
 If a score ends while an automatic beam has not been ended and is still
 accepting notes, this last beam will not be typeset at all.
@@ -1669,8 +1662,7 @@ Brackets are used in musical analysis to indicate structure in musical
 pieces. LilyPond supports a simple form of nested horizontal brackets.
 To use this, add the @internalsref{Horizontal_bracket_engraver} to
 @internalsref{Staff} context.  A bracket is started with
-@code{\groupOpen} and closed with @code{\groupClose}. This produces
-@internalsref{HorizontalBracket} objects.
+@code{\groupOpen} and closed with @code{\groupClose}. 
 
 @lilypond[singleline,verbatim]
 \score { \notes \relative c'' {  
@@ -1683,6 +1675,11 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 	    \StaffContext \consists "Horizontal_bracket_engraver"
 	}}}
 @end lilypond
+
+@seealso
+
+@internalsref{HorizontalBracket}, @internalsref{NoteGroupingEvent},
+@inputfileref{input/regression,note-group-bracket.ly}. 
 
 @refbugs
 

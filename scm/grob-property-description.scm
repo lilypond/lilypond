@@ -340,12 +340,8 @@ Grob at least this long.
 
 Also works as a scaling parameter for the length of hyphen. .")
 
-;; FIXME.
-(grob-property-description 'minimum-space ly:dimension? "minimum distance that the victim should move (after padding).
+(grob-property-description 'minimum-space ly:dimension? "minimum distance that the victim should move (after padding).")
 
-FIXME: also pair? (cons LEFT RIGHT)
-
-")
 (grob-property-description 'molecule-callback procedure? "Function
 taking grob as argument, returning a smobbed Molecule.
 
@@ -490,9 +486,11 @@ the outcome of the @code{break-visibility}. This grob property is a
 function taking a direction (-1, 0 or 1) as argument. It returns a
 cons of booleans, signifying whether this grob should be transparent
 and have no extent.")
+
 (grob-property-description 'virga boolean? "is this neume a virga?.")
 (grob-property-description 'when ly:moment? "when does this column happen?.")
-(grob-property-description 'word-space ly:dimension? "elongate left by this much (FIXME: cumbersome semantics).")
+(grob-property-description 'word-space ly:dimension? "elongate left (?) by this much (FIXME: cumbersome semantics).")
+
 (grob-property-description 'alignment number? "alignment of lyrics on notehead, -1 is LEFT, 0 is CENTRE, 1 is RIGHT .")
 (grob-property-description 'ignore-length-mismatch boolean? "if #t, stanzas with shorter lyrics can be moved away from their respective note-head by the lyric alignment code.")
 (grob-property-description 'begin-alignment number? "proportion of lyric length from beginning to align with note-head for left-aligned lyrics.")
