@@ -150,7 +150,8 @@ Rest_collision::do_shift (Grob *me)
 	ordered_rests[d].sort (Note_column::shift_compare);
       } while (flip (&d) != LEFT);
       
-      if (ordered_rests[UP].size () + ordered_rests[DOWN].size () < 2)
+      if (ordered_rests[UP].size () < 1
+	  || ordered_rests[DOWN].size () < 1)
 	return SCM_UNSPECIFIED;
 
       Grob *common = common_refpoint_of_array (ordered_rests[DOWN], me, Y_AXIS);
