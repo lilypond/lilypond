@@ -7366,7 +7366,7 @@ measured in (global) staff spaces.  @code{\raise} and @code{\super}
 raise objects in relation to their surrounding markups. They cannot be
 used to move a single text up or down, when it is above or below a
 note, since the mechanism that positions it next to the note cancels
-any vertical shift. For vertical positioning, use @code{padding}
+any vertical shift. For vertical positioning, use the @code{padding}
 and/or @code{extra-offset} properties.
 
 Other commands taking  single arguments include
