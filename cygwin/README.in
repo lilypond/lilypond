@@ -2,15 +2,8 @@ LilyPond
 ------------------------------------------
 LilyPond - The GNU music typesetter.
 
-To get started, visit:
-  http://www.lilypond.org/Documentation/windows/out-www/installing.html
-
-If you encounter any problems, visit:
-  http://www.lilypond.org/wiki?TroubleshootingWindows
-
-When it all works, head straight to the tutorial:
-  http://www.lilypond.org/Documentation/user/out-www/lilypond/Tutorial.html
-
+For more information, tutorial, documentation, packaging instructions, visit:
+  http://lilypond.org
 
 Runtime requirements:
   cygwin-1.5.2 or newer
