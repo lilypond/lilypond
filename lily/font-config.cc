@@ -26,10 +26,10 @@ init_fontconfig ()
   FcConfig *fcc = FcConfigGetCurrent ();
 
   Array<String> dirs;
-  dirs.push (prefix_directory + "/otf/");
+  dirs.push (prefix_directory + "/fonts/otf/");
   dirs.push (prefix_directory + "/mf/out/");
-  dirs.push (prefix_directory + "/type1/");
-  dirs.push (prefix_directory + "/cff/");
+  dirs.push (prefix_directory + "/fonts/type1/");
+  dirs.push (prefix_directory + "/fonts/cff/");
   
   for (int i = 0; i < dirs.size (); i++)
     {

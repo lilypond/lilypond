@@ -1,3 +1,16 @@
+2005-03-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/font-config.cc (init_fontconfig): add
+	fonts/{otf,type1,cff}  to path.
+
+	* lily/main.cc (setup_paths): add fonts/{otf,svg,tfm,cff} to path
+
+	* mf/GNUmakefile (Module): install all fonts under otf/
+
+	* scm/framework-ps.scm (Module): read fonts from fonts/extension,
+	replace /fonts/otf/ by /ps/ 
+
+	
 2005-03-09  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/paper-book.cc (classic_output): Reinstate header_0_ hack.
@@ -14,6 +27,9 @@
 	* scm/backend-library.scm (ly:system): Typo.
 
 2005-03-09  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/stepmake/executable-targets.make (installexe): don't
+	strip installed executables
 
 	* lily/font-select.cc (get_font_by_design_size): revert
 	pango_description_string as well.
