@@ -87,24 +87,20 @@ Paper_outputter::output_scheme (SCM scm)
   dump_string (scheme_to_string (scm));
 }
 
-LY_DEFINE (ly_paper_outputter_dump, "ly:paper-outputter-dump",
-	   2, 0, 0, (SCM outputter, SCM arg),
-	   "Dump ARG on OUTPUTTER\n.")
+void
+paper_outputter_dump (void *po, SCM x)
 {
-  Paper_outputter *po = unsmob_outputter (outputter);
-  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-  po->output_scheme (arg);
-  return SCM_UNSPECIFIED;
+  Paper_outputter *me = (Paper_outputter*) po;
+  me->output_scheme (x);
 }
 
 void
 Paper_outputter::output_stencil (Stencil stil)
 {
-  ly_interpret_stencil (stil.expr (),
-			ly_scheme_function ("ly:paper-outputter-dump"),
-			self_scm (),
-			ly_offset2scm (Offset (0, 0)));
+  interpret_stencil_expression (stil.expr (), paper_outputter_dump,
+                                (void*) this, Offset (0,0));
 }
+
 
 Paper_outputter *
 get_paper_outputter (String outname, String f) 
