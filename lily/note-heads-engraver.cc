@@ -99,7 +99,7 @@ Note_heads_engraver::process_music ()
 	  unsigned int delta = (pit->get_notename() - tonic.get_notename() + 7) % 7;
 	  
 	  SCM style = SCM_EOL;
-	  if (SCM_VECTOR_LENGTH (shape_vector) > delta
+	  if (scm_c_vector_length (shape_vector) > delta
 	      && scm_is_symbol (scm_vector_ref (shape_vector, scm_from_int (delta))))
 	    {
 	      style = scm_vector_ref (shape_vector, scm_from_int (delta));

@@ -1,3 +1,15 @@
+2005-01-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* lily/*.cc: Scheme deprecation of SCM_VECTOR_* 
+
+2005-01-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-markup-commands.scm (line): filter out empty stencils
+	from line command.
+
+	* lily/stencil-scheme.cc (LY_DEFINE): only allow finite real
+	amount.
+
 2005-01-27  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: added info about what

@@ -136,7 +136,8 @@ gsave /ecrm10 findfont
 determines the space between each markup in @var{args}."
   (stack-stencil-line
    (chain-assoc-get 'word-space props)
-   (map (lambda (m) (interpret-markup layout props m)) args)))
+   (remove ly:stencil-empty?
+	   (map (lambda (m) (interpret-markup layout props m)) args))))
 
 (def-markup-command (fromproperty layout props symbol) (symbol?)
   "Read the @var{symbol} from property settings, and produce a stencil
@@ -364,7 +365,7 @@ alignment accordingly."
 
 (def-markup-command (musicglyph layout props glyph-name) (string?)
   "This is converted to a musical symbol, e.g. @code{\\musicglyph
-#\"accidentals-0\"} will select the natural sign from the music font.
+#\"accidentals.0\"} will select the natural sign from the music font.
 See @usermanref{The Feta font} for  a complete listing of the possible glyphs."
   (ly:font-get-glyph
    (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))

@@ -265,6 +265,7 @@
    (setup paper)))
 
 (define-public (output-framework basename book scopes fields)
+  (display (gc-live-object-stats))
   (let* ((filename (format "~a.ps" basename))
 	 (outputter  (ly:make-paper-outputter filename
 					      (ly:output-backend)))

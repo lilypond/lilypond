@@ -6,6 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <math.h>
+
+#include <libc-extension.hh>	// isinf
+
 #include "font-metric.hh"
 #include "stencil.hh"
 #include "lookup.hh"
@@ -40,12 +44,17 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
 {
   Stencil *s = unsmob_stencil (stil);
   SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (scm_is_number (amount), amount, SCM_ARG2, __FUNCTION__, "number pair");
+  SCM_ASSERT_TYPE (scm_is_number (amount), amount, SCM_ARG2, __FUNCTION__, "number");
+
+  Real real_amount = scm_to_double (amount);
+  SCM_ASSERT_TYPE (!isinf (real_amount) && !isnan (real_amount),
+		   amount, SCM_ARG2, __FUNCTION__, "finite number");
+  
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
   SCM new_s = s->smobbed_copy ();
   Stencil *q = unsmob_stencil (new_s);
-  q->translate_axis (scm_to_double (amount), Axis (scm_to_int (axis)));
+  q->translate_axis (real_amount, Axis (scm_to_int (axis)));
   return new_s;
 
 }

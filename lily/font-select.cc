@@ -21,7 +21,7 @@ Font_metric *
 get_font_by_design_size (Output_def *layout, Real requested,
 			 SCM font_vector)
 {
-  int n = SCM_VECTOR_LENGTH (font_vector);
+  int n = scm_c_vector_length (font_vector);
   Real size = 1e6;
   Real last_size = -1e6;
   int i = 0;
@@ -29,7 +29,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
   String pango_description_string;
   for (; i < n; i++)
     {
-      SCM entry = SCM_VECTOR_REF (font_vector, i);
+      SCM entry = scm_c_vector_ref (font_vector, i);
       
       if (scm_promise_p (entry) == SCM_BOOL_T)
 	{
@@ -78,7 +78,7 @@ get_font_by_design_size (Output_def *layout, Real requested,
     }
   else
     {
-      fm = unsmob_metrics (scm_force (SCM_VECTOR_REF (font_vector, i)));
+      fm = unsmob_metrics (scm_force (scm_c_vector_ref (font_vector, i)));
     }
 
   return find_scaled_font (layout, fm, requested / size);
