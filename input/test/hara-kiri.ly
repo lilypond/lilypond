@@ -62,8 +62,6 @@ zoger = \type Staff = zoger \notes \relative c {
 	\skip 1*1;
 }
 
- \include "score-paper.ly";
-
 zagers = \type GrandStaff <
 	\zager
 	\zoger
@@ -83,7 +81,6 @@ zagers = \type GrandStaff <
 %uh?
 %		\translator { \OrchestralScoreContext }
 %		\translator { \OrchestralPartStaffContext }
-		}
 		linewidth = 40.0\mm;
 	}
 }

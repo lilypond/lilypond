@@ -75,6 +75,7 @@ strijkers = \type StaffGroup = strijkers_group <
 	>
 	\paper{
 		% Give hara-kiri something to do...
+		% URG fixme Score+HaraKiri!
 		linewidth = 130.0\mm;
 		\translator { \OrchestralScoreContext }
 	}
