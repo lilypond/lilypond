@@ -190,7 +190,7 @@ If, in addition, you want to generate PDF files of your scores and have
 installed mftrace, type
 @example 
 make pfa-fonts
-make MAKE_PFA_FILES=1 install
+make install-pfa-fonts
 texhash
 @end example 
 
@@ -200,9 +200,10 @@ your version, eg.
 
 @example
 wget http://ftp.us.debian.org/debian/pool/main/l/lilypond/lilypond_1.8.0-1_i386.deb
-ar x lilypond_1.8.0.-1_i386.deb
-tar -C / -zxf  data.tar.gz /usr/share/lilypond/1.8.0/fonts/type1/
-tar -C / -zxf  data.tar.gz /usr/share/lilypond/1.8.0/dvips/
+@c ar p lilypond_1.8.0-1_i386.deb data.tar.gz | tar -C / -zxf - '.*.pfa' '.*.map'
+ar x lilypond_1.8.0-1_i386.deb data.tar.gz
+tar -C / -zxf data.tar.gz /usr/share/lilypond/1.8.0/fonts/type1/
+tar -C / -zxf data.tar.gz /usr/share/lilypond/1.8.0/dvips/
 texhash
 @end example
 If you are installing LilyPond somewhere else, unpack the appropriate

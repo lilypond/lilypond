@@ -73,6 +73,9 @@ local-help:
   release     roll tarball and generate patch\n\
   rpm         build rpm (Red Hat) package\n\
   rpm-mdk     build rpm (Mandrake) packages\n\
+  pfa-fonts   build type1 fonts in mf/$(outdir)\n\
+  install-pfa-fonts install type1 fonts in $(local_lilypond_datadir)/fonts/\n\
+  po          make new translation Portable Object database\n\
   po          make new translation Portable Object database\n\
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\
