@@ -36,35 +36,80 @@ ps: $(PS_FILES)
 
 info: $(INFO_FILES)
 
+xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-internals.xml
+
 # There are two modes for info: with and without images.
 ifeq ($(out),www)
 
 # This builds all .info targets with images, in out-www.
 # Viewawble with a recent Emacs, doing: M-x info out-www/lilypond.info
 
-#info: $(INFO_FILES)
-    # Cancel the special, non-image info generation rule that skips images:
-    $(outdir)/%.info: $(outdir)/%.nexi
-local-install-info: install-info info
+# Cancel the special, non-image info generation rule that skips images:
+$(outdir)/%.info: $(outdir)/%.nexi
+
+local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 ## Can not have absolute symlinks because some binary packages build schemes
 ## install files in nonstandard root.  Best we can do is to notify the
 ## builder or packager.
-	@echo "***"
+	@echo
+	@echo "***************************************************************"
+	@echo "Please add or update the LilyPond direntries, do"
+	@echo
+	@echo "    install-info --info-dir=$(infodir) $(outdir)/lilypond.info"
+	@echo
 	@echo "For images in the INFO docs to work, do: "
-	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/$(TOPLEVEL_VERSION)/Documentation/user/out-www/*png .)"
+	@echo
+	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/Documentation/user/out-www/*png .)"
 	@echo "or add something like that to the postinstall script."
-	@echo "***"
+	@echo
 else
-	@echo "    (cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)"
+	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
+	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
+	(cd $(package_infodir) && ln -sf $(local_package_docdir)/Documentation/user/out-www/*png .)
 endif
 
 local-uninstall-WWW:
 	rm -f $(package_infodir)/*.png
+
 else
-    # Cancel the default info generation rule that generates images:
-    $(outdir)/%.info: # $(outdir)/%.texi
+
+# Cancel the default info generation rule that generates images:
+$(outdir)/%.info: # $(outdir)/%.texi
+
+local-install-info: info
+	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
+## Can not have absolute symlinks because some binary packages build schemes
+## install files in nonstandard root.  Best we can do is to notify the
+## builder or packager.
+	@echo
+	@echo "***************************************************************"
+	@echo "Please add or update the LilyPond direntries, do"
+	@echo
+	@echo "    install-info --info-dir=$(infodir) out/lilypond.info"
+	@echo
+	@echo "For images in the INFO docs to work, do"
+	@echo
+	@echo "    make out=www install-info "
+	@echo
+	@echo "and read the extra instructions."
+	@echo
+else
+	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
+	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
+	@echo
+	@echo "***************************************************************"
+	@echo "For images in the INFO docs to work, do"
+	@echo
+	@echo "    make out=www install-info "
+	@echo
+endif
+
+
 endif
 
 # All web targets, except info image symlinks and info docs are
@@ -82,6 +127,7 @@ extra-local-help:
   dvi         update dvi documents\n\
   info        update info pages\n\
   ps          update PostScript documents\n\
+  xml	      update Docbook xml documentation\n\
 "
 
 # Generic rule using % twice not possible?
@@ -89,21 +135,43 @@ extra-local-help:
 $(outdir)/lilypond.texi: $(outdir)/lilypond-internals.texi
 $(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
 
-
-$(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi 
+#
+# The split user manual
+#
+$(outdir)/lilypond/index.html: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --html $<
-	$(MAKEINFO) -I$(outdir) --output=$@ --html --no-split --no-headers $<
-	perl -i~ -pe 's!../lilypond-internals!lilypond-internals/!g' $(outdir)/lilypond.html
-	rm -f $(outdir)/lilypond/*.png $(outdir)/lilypond/*.ly 
-	-ln -f $(outdir)/*.png $(outdir)/*.ly $(outdir)/lilypond/
+	find $(outdir)/lilypond/ -name '*'.png -o -name '*'.ly | xargs rm -f
+# symbolic links to save space 
+	(cd $(outdir)/lilypond/ ; ln -sf ../*.png ../*.ly . )
 
-$(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
+#
+# One big page manual
+#
+$(outdir)/lilypond.html: $(outdir)/lilypond.texi
+	$(MAKEINFO) -I$(outdir) --output=$@ --html --no-split --no-headers $<
+
+#
+# The split internals reference
+#
+$(outdir)/lilypond-internals/index.html: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --html $<
-	$(MAKEINFO) -I$(outdir) --output=$@ --html --no-split --no-headers $<
 
-ifeq ($(SPLITTING_MAKEINFO),yes)
+#
+# One big page internals reference
+#
+$(outdir)/lilypond-internals.html: $(outdir)/lilypond-internals.texi
+	$(MAKEINFO) --output=$@ --html --no-split --no-headers $<
+
+
+$(outdir)/lilypond.xml: $(outdir)/lilypond.texi 
+	mkdir -p $(dir $@)
+	$(MAKEINFO) -I$(outdir) --output=$@ --docbook $<
+
+$(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internals.texi
+	mkdir -p $(dir $@)
+	$(MAKEINFO) --output=$(outdir)/lilypond-internals --docbook $<
 
 $(outdir)/lilypond.dvi: $(OUT_EPS_IMAGES) $(OUT_PNG_IMAGES)
 
@@ -113,21 +181,9 @@ $(outdir)/%.png: %.png
 $(outdir)/%.eps: %.png
 	convert $< $@
 
-DEEP_HTML_FILES = $(outdir)/lilypond/lilypond.html $(outdir)/lilypond-internals/lilypond-internals.html
-
-else
-
-# Links referred to by Documentation index
-LILYPOND_LINKS=Reference-Manual.html Tutorial.html Ly2dvi.html Midi2ly.html
-
-local-WWW: outimages deep-symlinks
-
-deep-symlinks:
-	mkdir -p $(outdir)/lilypond
-	cd $(outdir)/lilypond && $(foreach i, $(LILYPOND_LINKS),\
-		rm -f $(i) && ln -s lilypond.html $(i) &&) true
-
-endif
+DEEP_HTML_FILES =\
+ $(outdir)/lilypond/index.html\
+ $(outdir)/lilypond-internals/index.html
 
 # Symlinks to refer to external source documents from split and non-split HTML
 source-links = $(outdir)/source $(outdir)/lilypond/source # $(outdir)/music-glossary/source
@@ -145,7 +201,8 @@ $(outdir)/lilypond/source:
 #	@rm -f $(@)
 #	ln -sf ../../../../ $(@)
 
-local-WWW: $(HTML_FILES) $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(DEEP_HTML_FILES) $(source-links) info info-dir
+local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
+ $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(source-links) info info-dir
 
 local-WWW-clean: deep-WWW-clean
 
@@ -167,8 +224,8 @@ local-clean:
 $(builddir)/mf/$(outconfbase)/feta16list.ly:
 	$(MAKE) -C $(topdir)/mf
 
-$(outdir)/lilypond.texi: $(ITELY_FILES) macros.itexi 
-$(outdir)/lilypond.nexi: $(ITELY_FILES) macros.itexi 
+$(outdir)/lilypond.texi: $(ITELY_FILES) $(ITEXI_FILES) 
+$(outdir)/lilypond.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
 # Rules for the automatically generated documentation
 # When cross-compiling, we don't have lilypond, so we fake
@@ -203,5 +260,9 @@ endif
 local-clean: local-delete
 
 local-delete:
-	-rm -f $(outdir)/lily-1*
+	-for i in $$(seq 0 9); do \
+		for j in dvi eps eps.bbox eps.trans eps.trans.ps ps log png tex; do \
+			rm -f $(outdir)/lily-$$i*$$j; \
+		done; \
+	done
 	-rm -f $(outdir)/*
