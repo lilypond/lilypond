@@ -61,8 +61,9 @@ Polynomial::power(int exponent, const Polynomial & src)
   int e = exponent;
   Polynomial dest(1), base(src);
     
-  // classicint power. invariant: src^exponent = dest * src ^ e
-  // greetings go out to Lex Bijlsma & Jaap vd Woude
+  /*
+    classic int power. invariant: src^exponent = dest * src ^ e
+    greetings go out to Lex Bijlsma & Jaap vd Woude */
   while (e > 0)
     {
       if (e % 2)
@@ -83,13 +84,9 @@ static Real const FUDGE = 1e-8;
 void
 Polynomial::clean()
 {
-  int i;
-  for (i = 0; i <= degree (); i++)
-    {
-      if (abs(coefs_[i]) < FUDGE)
-	coefs_[i] = 0.0;
-    }
-
+/*
+  We only do relative comparisons. Absolute comparisons break down in
+  degenerate cases.  */
   while (degree () > 0 &&
 	 (fabs (coefs_.top ()) < FUDGE * fabs (coefs_.top (1)))
 	 || !coefs_.top ())
