@@ -335,9 +335,10 @@
     (if (access? ps-name W_OK)
 	(delete-file ps-name))
     (if (not (ly:get-option 'verbose))
-	(format (current-error-port)
-		(_ "Converting to `~a'...\n")
-		(string-append base ".dvi")))
+	(begin
+	  (format (current-error-port)
+		  (_ "Converting to `~a'...") (string-append base ".dvi"))
+	  (newline (current-error-port))))
     (ly:system cmd)))
 
 (define-public (convert-to-dvi book name)

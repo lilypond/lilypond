@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-29 14:04+0200\n"
+"POT-Creation-Date: 2005-03-30 10:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -180,30 +180,30 @@ msgstr ""
 msgid "Or save as UTF-8 in your editor"
 msgstr ""
 
-#: convert-ly.py:2462
+#: convert-ly.py:2476
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:2474
+#: convert-ly.py:2488
 #, python-format
 msgid "%s: error while converting"
 msgstr ""
 
-#: convert-ly.py:2477 score-engraver.cc:111
+#: convert-ly.py:2491 score-engraver.cc:111
 msgid "Aborting"
 msgstr ""
 
-#: convert-ly.py:2498
+#: convert-ly.py:2512
 #, python-format
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:2600
+#: convert-ly.py:2614
 #, python-format
 msgid "%s: cannot determine version for `%s'"
 msgstr ""
 
-#: convert-ly.py:2609
+#: convert-ly.py:2623
 #, python-format
 msgid "%s: skipping: `%s'"
 msgstr ""
@@ -1757,7 +1757,7 @@ msgstr ""
 msgid "`~a' failed (~a)"
 msgstr ""
 
-#: backend-library.scm:44 framework-tex.scm:366
+#: backend-library.scm:44 framework-tex.scm:340 framework-tex.scm:367
 #, lisp-format
 msgid "Converting to `~a'..."
 msgstr ""
@@ -1785,12 +1785,11 @@ msgstr ""
 msgid "See scm/lily.scm for supported clefs"
 msgstr ""
 
-#: framework-tex.scm:339
-#, lisp-format
-msgid "Converting to `~a'...n"
+#: define-markup-commands.scm:54
+msgid "No systems found in \\score markup.  Does it have a \\layout? block"
 msgstr ""
 
-#: framework-tex.scm:358
+#: framework-tex.scm:359
 #, lisp-format
 msgid "TeX file name must not contain whitespace: `~a'"
 msgstr ""
@@ -1805,7 +1804,7 @@ msgstr ""
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: lily.scm:316
+#: lily.scm:317
 msgid "error: failed files: "
 msgstr ""
 

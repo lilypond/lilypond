@@ -1,4 +1,4 @@
-;;;; new-markup.scm -- Implement a user extensible markup scheme.
+;;;; markup.scm -- Implement a user extensible markup scheme.
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
@@ -424,13 +424,12 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
       (make-line-markup (list-insert-separator markups sep))
       empty-markup))
 
-(define-public brew-new-markup-stencil Text_interface::print)
+;; unused?
+;;(define-public brew-markup-stencil Text_interface::print)
+
 (define-public interpret-markup Text_interface::interpret_markup)
 (define-public (prepend-alist-chain key val chain)
   (cons (acons key val (car chain)) (cdr chain)))
-
-
-
 
 (define-public (stack-stencil-line space stencils)
   "DOCME"

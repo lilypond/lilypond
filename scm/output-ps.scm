@@ -109,20 +109,14 @@
     (list arch_angle arch_width arch_height height arch_thick thick))
    " draw_bracket"))
 
+(define (circle radius thick)
+  (format
+   "~a ~a draw_circle" radius thick))
+
 (define (char font i)
   (string-append 
    (ps-font-command font) " setfont " 
    "(\\" (ly:inexact->string i 8) ") show"))
-
-;; save current color on stack and set new color
-(define (setcolor r g b)
-  (string-append "currentrgbcolor "
-  (ly:numbers->string (list r g b))
-  " setrgbcolor\n"))
-
-;; restore color from stack
-(define (resetcolor)
-  (string-append "setrgbcolor\n"))
 
 (define (dashed-line thick on off dx dy)
   (string-append 
@@ -145,11 +139,6 @@
    " "   
    (ly:number->string off)
    " ] 0 draw_dashed_slur"))
-
-(define (circle radius thick)
-  (format
-   "~a ~a draw_circle" radius thick))
-
 
 (define (dot x y radius)
   (string-append
@@ -182,10 +171,6 @@
 (define (filledbox breapth width depth height)
   (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
-
-
-(define (utf8-string pango-font-description string)
-  (ly:warn "utf8-string encountered in PS backend"))
 
 (define (glyph-string
 	 postscript-font-name
@@ -273,10 +258,20 @@
    (ly:numbers->string (list wid slope thick))
    " draw_repeat_slash"))
 
+;; restore color from stack
+(define (resetcolor)
+  (string-append "setrgbcolor\n"))
+
 (define (round-filled-box x y width height blotdiam)
   (string-append
    (ly:numbers->string
     (list x y width height blotdiam)) " draw_round_box"))
+
+;; save current color on stack and set new color
+(define (setcolor r g b)
+  (string-append "currentrgbcolor "
+  (ly:numbers->string (list r g b))
+  " setrgbcolor\n"))
 
 (define (text font s)
 ;  (ly:warn "TEXT backend-command encountered in Pango backend\nargs: ~a ~a" font str)
@@ -308,6 +303,9 @@
 	  (cdr x)
 	  (cdr y)
 	  url))
+
+(define (utf8-string pango-font-description string)
+  (ly:warn "utf8-string encountered in PS backend"))
 
 (define (white-dot x y radius)
   (string-append

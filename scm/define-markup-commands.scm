@@ -9,6 +9,8 @@
 ;;;  * each markup function should have a doc string with
 ;;     syntax, description and example. 
 
+(use-modules (ice-9 regex))
+
 (define-public empty-stencil (ly:make-stencil '() '(1 . -1) '(1 . -1)))
 (define-public point-stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
 
@@ -16,28 +18,32 @@
   "Stencil as markup"
   stil)
 
-(def-markup-command (circle layout props radius thickness)
+(def-markup-command (draw-circle layout props radius thickness)
   (number? number?)
   "A circle of radius @var{radius} and thickness @var{thickness}"
+  (make-circle-stencil radius thickness))
 
-  (ly:make-stencil
-   (list 'circle radius thickness)
-   (cons (- radius) radius)
-   (cons (- radius) radius)))
+(def-markup-command (circle layout props arg) (markup?)
+  "Draw a circle around @var{arg}.  Use @code{thickness},
+@code{circle-padding} and @code{font-size} properties to determine line
+thickness and padding around the markup."
+  (let* ((th (chain-assoc-get 'thickness props  0.1))
+	 (size (chain-assoc-get 'font-size props 0))
+	 (pad
+	  (* (magstep size)
+	     (chain-assoc-get 'circle-padding props 0.2)))
+	 (m (interpret-markup layout props arg)))
+    (circle-stencil m th pad)))
 
 (def-markup-command (with-url layout props url arg) (string? markup?)
   "Add a link to URL @var{url} around @var{arg}. This only works in
 the PDF backend."
-  (let*
-      ((stil (interpret-markup layout props arg))
-       (xextent (ly:stencil-extent stil X))
-       (yextent (ly:stencil-extent stil Y))
-       (old-expr (ly:stencil-expr stil))
-       (url-expr (list 'url-link url `(quote ,xextent) `(quote ,yextent))))
-    
-    (ly:stencil-add
-     (ly:make-stencil url-expr xextent yextent)
-     stil)))
+  (let* ((stil (interpret-markup layout props arg))
+	 (xextent (ly:stencil-extent stil X))
+	 (yextent (ly:stencil-extent stil Y))
+	 (old-expr (ly:stencil-expr stil))
+	 (url-expr (list 'url-link url `(quote ,xextent) `(quote ,yextent))))
+    (ly:stencil-add (ly:make-stencil url-expr xextent yextent) stil)))
 
 (def-markup-command (score layout props score) (ly:score?)
   "Inline an image of music."
@@ -45,12 +51,11 @@ the PDF backend."
 
     (if (= 0 (vector-length systems))
 	(begin
-	  (ly:warn "No systems found in \\score markup. Did you forget \\layout?")
+	  (ly:warn (_"No systems found in \\score markup.  Does it have a \\layout? block"))
 	  empty-markup)
 	(let* ((stencil (ly:paper-system-stencil (vector-ref systems 0)))) 
 	  
-	  (ly:stencil-aligned-to stencil Y CENTER)
-	  ))))
+	  (ly:stencil-aligned-to stencil Y CENTER)))))
 
 (def-markup-command (simple layout props str) (string?)
   "A simple text string; @code{\\markup @{ foo @}} is equivalent with
@@ -60,8 +65,7 @@ the PDF backend."
 (def-markup-command (encoded-simple layout props sym str) (symbol? string?)
   "A text string, encoded with encoding @var{sym}. See
 @usermanref{Text encoding} for more information."
-  (Text_interface::interpret_string layout
-				    props sym str))
+  (Text_interface::interpret_string layout props sym str))
 
 
 ;; TODO: use font recoding.
@@ -162,34 +166,34 @@ gsave /ecrm10 findfont
 	(stack-stencils-padding-list X RIGHT fill-space-normal line-stencils))))
 	
 (define (get-fill-space word-count line-width text-widths)
-	"Calculates the necessary paddings between each two adjacent texts.
+	"Calculate the necessary paddings between each two adjacent texts.
 	The lengths of all texts are stored in @var{text-widths}.
 	The normal formula for the padding between texts a and b is:
 	padding = line-width/(word-count - 1) - (length(a) + length(b))/2
 	The first and last padding have to be calculated specially using the
 	whole length of the first or last text.
-	Returns a list of paddings.
+	Return a list of paddings.
 "
 	(cond
-		;; special case first padding
-		((= (length text-widths) word-count)
-			(cons 
-				(- (- (/ line-width (1- word-count)) (car text-widths)) (/ (car (cdr text-widths)) 2))
-				(get-fill-space word-count line-width (cdr text-widths))))
-		;; special case last padding
-		((= (length text-widths) 2)
-			(list (- (/ line-width (1- word-count)) (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
-		(else
-			(cons 
-				(- (/ line-width (1- word-count)) (/ (+ (car text-widths) (car (cdr text-widths))) 2))
-				(get-fill-space word-count line-width (cdr text-widths))))))
+	 ;; special case first padding
+	 ((= (length text-widths) word-count)
+	  (cons 
+	   (- (- (/ line-width (1- word-count)) (car text-widths))
+	      (/ (car (cdr text-widths)) 2))
+	   (get-fill-space word-count line-width (cdr text-widths))))
+	 ;; special case last padding
+	 ((= (length text-widths) 2)
+	  (list (- (/ line-width (1- word-count))
+		   (+ (/ (car text-widths) 2) (car (cdr text-widths)))) 0))
+	 (else
+	  (cons 
+	   (- (/ line-width (1- word-count))
+	      (/ (+ (car text-widths) (car (cdr text-widths))) 2))
+	   (get-fill-space word-count line-width (cdr text-widths))))))
 
 (define (font-markup qualifier value)
   (lambda (layout props arg)
-    (interpret-markup layout
-		      (prepend-alist-chain qualifier value props)
-                      arg)))
-
+    (interpret-markup layout (prepend-alist-chain qualifier value props) arg)))
 
 (def-markup-command (line layout props args) (markup-list?)
   "Put @var{args} in a horizontal line.  The property @code{word-space}
@@ -232,7 +236,7 @@ determines the space between each markup in @var{args}."
                     arg))
 
 (def-markup-command (fontsize layout props mag arg) (number? markup?)
-  "This sets the relative font size, e.g.
+  "Set the relative font size, e.g.
 @example
 A \\fontsize #2 @{ B C @} D
 @end example
@@ -246,7 +250,7 @@ This will enlarge the B and the C by two steps.
    arg))
 
 (def-markup-command (magnify layout props sz arg) (number? markup?)
-  "This sets the font magnification for the its argument. In the following
+  "Set the font magnification for the its argument. In the following
 example, the middle A will be 10% larger:
 @example
 A \\magnify #1.1 @{ A @} A
@@ -398,8 +402,7 @@ of the @code{#'direction} layout property."
 (def-markup-command (vcenter layout props arg) (markup?)
   "Align @code{arg} to its Y center. "
   (let* ((mol (interpret-markup layout props arg)))
-    (ly:stencil-aligned-to mol Y CENTER)
-    ))
+    (ly:stencil-aligned-to mol Y CENTER)))
 
 (def-markup-command (hcenter layout props arg) (markup?)
   "Align @code{arg} to its X center. "
@@ -533,18 +536,17 @@ and/or @code{extra-offset} properties. "
     (if (ly:stencil? dots)
         (set! stem-glyph
               (ly:stencil-add
-               (ly:stencil-translate-axis dots
-					  (+ (if (and (> dir 0) (> log 2))
-						 (* 1.5 dotwid)
-						 0)
-					     ;; huh ? why not necessary?
-					     ;;(cdr (ly:stencil-extent head-glyph X))
-					     dotwid)
-					  X)
+               (ly:stencil-translate-axis
+		dots
+		(+ (if (and (> dir 0) (> log 2))
+		       (* 1.5 dotwid)
+		       0)
+		   ;; huh ? why not necessary?
+		   ;;(cdr (ly:stencil-extent head-glyph X))
+		   dotwid)
+		X)
                stem-glyph)))
     stem-glyph))
-
-(use-modules (ice-9 regex))
 
 (define-public log2 
   (let ((divisor (log 2)))
@@ -556,8 +558,8 @@ and/or @code{extra-offset} properties. "
     (if (and match (string=? duration-string (match:substring match 0)))
         (let ((len  (match:substring match 1))
               (dots (match:substring match 2)))
-          (list (cond ((string=? len "breve")  -1)
-                      ((string=? len "longa")  -2)
+          (list (cond ((string=? len "breve") -1)
+                      ((string=? len "longa") -2)
                       ((string=? len "maxima") -3)
                       (else (log2 (string->number len))))
                 (if dots (string-length dots) 0)))
@@ -573,11 +575,9 @@ a shortened down stem."
 
 (def-markup-command (normal-size-super layout props arg) (markup?)
   "Set @var{arg} in superscript with a normal font size."
-  (ly:stencil-translate-axis (interpret-markup
-			      layout
-			      props arg)
-			     (* 0.5  (chain-assoc-get 'baseline-skip props))
-			     Y))
+  (ly:stencil-translate-axis
+   (interpret-markup layout props arg)
+   (* 0.5 (chain-assoc-get 'baseline-skip props)) Y))
 
 (def-markup-command (super layout props arg) (markup?)
   "
@@ -629,14 +629,13 @@ that.
    (* -0.5 (chain-assoc-get 'baseline-skip props))
    Y))
 
-(def-markup-command (beam layout props width slope thickness) (number? number? number?)
+(def-markup-command (beam layout props width slope thickness)
+  (number? number? number?)
   "Create a beam with the specified parameters."
+  (let* ((y (* slope width))
+	 (yext (cons (min 0 y) (max 0 y)))
+	 (half (/ thickness 2)))
 
-  (let*
-      ((y (* slope width))
-       (yext (cons (min 0 y) (max 0 y)))
-       (half (/ thickness 2)))
-       
     (ly:make-stencil
      (list 'beam width
 	   slope
@@ -644,10 +643,7 @@ that.
 	   (ly:output-def-lookup layout 'blotdiameter))
      (cons 0 width)
      (cons (+ (- half) (car yext))
-	   (+ half (cdr yext))))
-
-    ))
-
+	   (+ half (cdr yext))))))
 
 (def-markup-command (normal-size-sub layout props arg) (markup?)
   "Set @var{arg} in subscript, in a normal font size."
@@ -723,9 +719,8 @@ any sort of property supported by @internalsref{font-interface} and
 thickness and padding around the markup."
   (let* ((th (chain-assoc-get 'thickness props  0.1))
 	 (size (chain-assoc-get 'font-size props 0))
-	 (pad
-	  (* (magstep size)
-	     (chain-assoc-get 'box-padding props 0.2)))
+	 (pad (* (magstep size)
+		 (chain-assoc-get 'box-padding props 0.2)))
 	 (m (interpret-markup layout props arg)))
     (box-stencil m th pad)))
 

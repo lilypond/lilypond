@@ -1,3 +1,17 @@
+2005-03-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/markup.scm:
+	* input/regression/markup-scheme.ly: 
+	* input/regression/markup-syntax.ly: Drop 'new-' from name.
+
+	* scm/stencil.scm (make-circle-stencil): New function.
+
+	* scm/define-markup-commands.scm (draw-circle): Use it.  New
+	name (was cicle).  Update callers.
+	(circle): New markup command, similar to box.
+
+	* scm/stencil.scm (circle-stencil): New function.
+
 2005-03-29  David Jedlinsky  <lilypond@ipnh.com>
 
 	* configure.in: Detect libutf8/wchar.h variant.

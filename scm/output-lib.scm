@@ -116,22 +116,14 @@
 	((symbol? arg) (string-append "\"" (symbol->string arg) "\""))))
 
 (define-public (print-circled-text-callback grob)
-  (let*
-      ((text (ly:grob-property grob 'text))
-       (layout (ly:grob-layout grob))
-       (defs (ly:output-def-lookup layout 'text-font-defaults))
-       (props (ly:grob-alist-chain grob defs))
-       (circle (Text_interface::interpret_markup layout props 
-						 (make-circle-markup
-						  0.8 0.1)))
-       (text-stencil
-	(Text_interface::interpret_markup layout props text)))
-
-    
-    (ly:stencil-add
-     (centered-stencil text-stencil)
-     circle)
-  ))
+  (let* ((text (ly:grob-property grob 'text))
+	 (layout (ly:grob-layout grob))
+	 (defs (ly:output-def-lookup layout 'text-font-defaults))
+	 (props (ly:grob-alist-chain grob defs))
+	 (circle (Text_interface::interpret_markup
+		  layout props (make-draw-circle-markup 0.8 0.1)))
+	 (text-stencil (Text_interface::interpret_markup layout props text)))
+    (ly:stencil-add (centered-stencil text-stencil) circle)))
 
 
 ;;(define (mm-to-pt x)

@@ -1837,19 +1837,13 @@ msgstr "Onbekend sleuteltype `~a'"
 msgid "See scm/lily.scm for supported clefs"
 msgstr ""
 
-# lisp-format
-#: framework-tex.scm:339
-#, fuzzy, lisp-format
-msgid "Converting to `~a'...n"
-msgstr "Converteren naar ~a..."
-
 #: framework-tex.scm:358
-#, fuzzy, lisp-format
+#, lisp-format
 msgid "TeX file name must not contain whitespace: `~a'"
-msgstr "bestandsnaam mag geen spaties bevatten: `%s'"
+msgstr "TeX bestandsnaam mag geen spaties bevatten: `~a'"
 
 #: lily-library.scm:346
-#, fuzzy, lisp-format
+#, lisp-format
 msgid "No \\version statement found.  Add~afor future compatibility."
 msgstr ""
 "Geen \\version uitdrukking gevonden.  Voeg~atoe voor toekomstige "
