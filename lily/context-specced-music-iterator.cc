@@ -31,8 +31,8 @@ Context_specced_music_iterator::construct_children ()
   
   Translator_group* a
     =report_to ()->find_create_translator (ct, c_id);
-  
-  set_translator (a);
+  if (a)
+    set_translator (a);
 
   Music_wrapper_iterator::construct_children();
 }
