@@ -1,3 +1,6 @@
+pl 15.jcn3
+	- try at scheme in Atom
+
 pl 15.jcn2
 	- autoconf on guile
 	- graphical-lisp-element + silly half hook-up with autuplet

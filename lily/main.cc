@@ -188,16 +188,18 @@ identify ()
   *mlog << get_version_str () << endl;
 }
 
+#if 0
 void
 guile_init ()
 {
    gh_eval_str ("(define (add-column p) (display \"adding column (in guile): \") (display p) (newline))");
 }
+#endif
 
 void
 main_prog (int argc, char **argv)
 {
-  guile_init ();
+  //guile_init ();
 
   // facilitate binary distributions
   char const *env_lily = getenv ("LILYPONDPREFIX");
