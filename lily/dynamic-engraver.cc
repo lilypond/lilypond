@@ -24,6 +24,7 @@
 #include "directional-element-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "translator-group.hh"
+#include "axis-group-interface.hh"
 
 
 /*
@@ -38,20 +39,20 @@ class Dynamic_line_spanner : public Spanner
 public:
   Dynamic_line_spanner ();
   VIRTUAL_COPY_CONS(Score_element);
-  void add_column (Item*);
-
-protected:
-  virtual void after_line_breaking ();
+  void add_column (Note_column*);
+  void add_element (Score_element*);
 };
 
 Dynamic_line_spanner::Dynamic_line_spanner ()
 {
   set_elt_property ("transparent", SCM_BOOL_T);
   side_position (this).set_axis (Y_AXIS);
+  axis_group (this).set_interface ();
+  axis_group (this).set_axes (X_AXIS, Y_AXIS);
 }
 
 void
-Dynamic_line_spanner::add_column (Item* n)
+Dynamic_line_spanner::add_column (Note_column* n)
 {
   if (!get_bound (LEFT))
     set_bound (LEFT, n);
@@ -61,29 +62,12 @@ Dynamic_line_spanner::add_column (Item* n)
   add_dependency (n);
 }
 
+
 void
-Dynamic_line_spanner::after_line_breaking ()
+Dynamic_line_spanner::add_element (Score_element* e)
 {
-#if 0
-
-  /*
-    We hebben hier een probleempje: er is een verschil tussen
-    dynamics zonder en met line-spanner.
-    Allen zijn gecentreerd (aligned-on-self), wat okee is, 
-    maar de losse hebben zelf een padding tov de staff.
-
-    Deze padding werkt niet op items die in line-spanner zitten:
-    de padding werkt op line-spanner zelf.
-    De line-spanner moet dus eigenlijk zoveel naar beneden of boven
-    als er items uitsteken, maar Hmm.
-   */
-#endif
-  Direction dir = directional_element (this).get ();
-  if (!dir)
-    dir = DOWN;
-  //Hmm. inf
-  //translate_axis (extent (Y_AXIS)[dir], Y_AXIS);
-  translate_axis (staff_symbol_referencer (this).staff_space () * dir, Y_AXIS);
+  e->set_parent (this, Y_AXIS);
+  axis_group (this).add_element (e); 
 }
 
 /**
@@ -205,7 +189,7 @@ Dynamic_engraver::do_process_music ()
   if (line_spanner_ && pending_element_arr_.size ())
     {
       for (int i = 0; i < pending_element_arr_.size (); i++)
-	pending_element_arr_[i]->set_parent (line_spanner_, Y_AXIS);
+	line_spanner_->add_element (pending_element_arr_[i]);
       pending_element_arr_.clear ();
     }
 
@@ -214,7 +198,7 @@ Dynamic_engraver::do_process_music ()
   else
     {
 
-#if 1
+#if 0
       /*
 	Maybe always creating a line-spanner for a (de)crescendo (see
 	below) is not a good idea:
@@ -224,6 +208,9 @@ Dynamic_engraver::do_process_music ()
 	the \p will be centred on the line-spanner, and thus clash
 	with the hairpin.  When axis-group code is in place, the \p
 	should move below the hairpin, which is probably better?
+
+	Urg, but line-spanner must always have at least same duration
+	as (de)crecsendo, b.o. line-breaking.
        */
       if (now_mom () > last_request_mom_)
 #else

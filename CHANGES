@@ -1,3 +1,11 @@
+1.3.36.jcn3
+===========
+
+* Fixed vertical dimensions of elements in dynamic line spanner by adding
+  axis-group to dynamic line spanner.
+
+* Bugfix: line-spanner lasts always full duration of (de)crescendi.
+
 1.3.36.jcn2
 ===========
 
