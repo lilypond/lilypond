@@ -24,6 +24,7 @@ be constructed in @code{LyricsVoice}.
 are now constructed at @code{Voice} level.
 
 @item  Harmonic notes can now be entered as
+
 @example
    <c' g''\harmonic>
 @end example
