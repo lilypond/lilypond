@@ -14,22 +14,19 @@
 \section{Introduction}
 
 This document describes the the GNU LilyPond input format, which is an
-effective language for defining music.  We call this language
-(rather arrogantly) The Musical Definition Language (Mudela 0.1).
-
-[If anybody comes up with a better name, we'd gladly take
-this. Gourlay already uses Musical Description Language, GSharp Score
-Definition Language. We're not being original here]
+effective language for defining music.  We call this language (rather
+arrogantly) The Musical Definition Language or Mudela, for
+short.\footnote{If anybody comes up with a better name, we'd gladly
+  take this. Gourlay already uses Musical Description Language,
+  G-Sharp Score Definition Language. We're not being original here}
 
 The first aim of Mudela is to define a piece of music, 
 being complete from both from a musical typesetting, 
 as from a musical performing point of view.
 
-
-The Musical Definition Language (Mudela) version 2, has a logical
-structure, making use of typing and naming (using identifiers), that
-allows for flexible input, and definition reuse. See MANIFESTO for
-reasons and design considerations.
+The Musical Definition Language (Mudela), has a logical structure,
+making use of identifiers, that allows for flexible input, and
+definition reuse. See MANIFESTO for reasons and design considerations.
 
 The below included for explanatory purposes only (i.e., for a complete
 and up-to-date definition, see \file{lily/parser.y} and
@@ -39,6 +36,8 @@ As a related note, you should take a look at the examples and the init
 files, as this document does not cover every aspect of mudela yet, and
 may be out of date.
 
+
+\section{Basic elements}
 
 \subsection{Files}
 
@@ -52,8 +51,14 @@ entering \verb+include+ at the start of a line:
 
 \subsection{Comments}
 
-Line comments are introduced by a \verb+%+. Block comments are delimited
-by \verb+%{+ and \verb+%}+. They do not nest.
+Line comments are introduced by a
+\verb+%+. 
+Block comments are delimited
+by 
+\verb+%{+ 
+and
+\verb+%}+. 
+They do not nest.
 
 \subsection{Versions}
 
@@ -75,7 +80,8 @@ alphabetic characters only.
 
 Identifiers in their normal form consist start with a backslash, a
 alpha character, followed by alpha-numerics. Identifiers can contain
-any characters (except whitespace, \verb+$+ and \verb+%+), if you use this
+any characters (except whitespace, 
+\verb+$+ and \verb+%+), if you use this
 construct:
 
 \begin{verbatim}
@@ -283,7 +289,7 @@ error for this reason.
   
 \subsection{Slurs and Ties}
 
-Ties connect the noteheads of adjecent notes. They are entered as follows:
+Ties connect the noteheads of adjacent notes. They are entered as follows:
 
 \begin[fragment]{mudela}
 a4 ~ a4
@@ -348,7 +354,6 @@ octave, you can prevent having to type \verb+'+ all the time by using the
 \verb+\octave+ command: These two lines have the same pitch.
 \begin{verbatim}
 c'' d'' e'' c d e c d e
-
 \octave c''; c d e ''c ''d ''e \octave c; c d e
 \end{verbatim}
 
@@ -370,55 +375,72 @@ duration entry are bound together using an underscore
 He_could4 not4
 \end{verbatim}
 
-\subsection{ Music direction}
+\section{Composition: forming bigger structures}
 
-Mudela reads left to right, but you can still stack voices and
-Voice\_elements which are produced in two directions: horizontal
-(voice like) and vertical (chord like)
+The previous examples tacitly assumed that a sequence of notes is
+printed in a left to right manner. This is not entirely correct, you
+will get the bigger picture in this section. 
 
-A note is a prime example of a Music-element is the note:
+In mathematics you can form expressions by combining expressions,
+which are ultimately some kind of atom or terminal symbol.  The same
+goes for mudela: there are some basic building blocks, and by
+combining those you create complex music.
+
+You can combine music in three ways:
+\begin{itemize}
+\item If you enclose a sequence of music-elements in braces ( \verb+{+
+    and \verb+}+ ), then you form another kind of music called (Voice) with those pieces.
+  The duration of the Voice is the sum of the durations of its elements
 \begin{verbatim}
-c4 
+{ c c g g a a g2 }      % twinkle twinkle
+{ { c c g g} { a a g2 } }
 \end{verbatim}
-
-If you enclose a sequence of Music-elements in braces ( { } ), then you form
-another kind of Music-element (Voice) with those pieces
+\item You can stack music by enclosing a sequence of music elements
+  with \verb+<+ and \verb+>+. This is called a Chord.  The duration of a Chord is
+  the union of the durations of its elements Example:
 \begin{verbatim}
-        { c c g g a a g2 }      % twinkle twinkle
-        { { c c g g} { a a g2 } }
-
-        horOne = \melodic { c c g g }
-        horTwo = \melodic { a a g2 }
-        twinkle = \melodic { \horOne \horTwo }
+<a4 {cis8 cis8} e'4>      % a-major chord
 \end{verbatim}
-        
-You can stack Music-elements by enclosing a sequence Music-elements of
-notes with < and >. Example:
-\begin{verbatim}
-<a cis e'>      % a-major chord
-\end{verbatim}
-You can also put vertical music inside horizontal music:
-\begin{verbatim}
-{ c <c e> <c e g> <c e g c'> }  % 4 increasing chords
-\end{verbatim}
-And vice versa
-\begin{verbatim}
-< \multi 2;
-          {c c g g a a g2}              
-  {r2  r2  c c g g a a g2} >    % a canon
-\end{verbatim}
-
-The duration of a chord equals the union of the durations of each of
-its elements.  The \verb+\multi 2+ is a construct which is explained
-below.
-
-You can also create a Music-element by transposing a Music-element:
+\item 
+  You can form music by transposing music:
 \begin{verbatim}
 \transpose  
                 d       % from c to the d that's one octave down
                 { e4 f4 }       % the horizontal music
-        
 \end{verbatim}
+\end{itemize}
+
+Of course you can also combine these three mechanisms.
+\begin{verbatim}
+{ c <c e> <c e g> <c e g \transpose d' dis > }  % 4 increasing chords
+\end{verbatim}
+
+The basic building block in Mudela is called Request. Examples of
+Requests are: Timing (such as Meter), Rhythmic, Melodic, Note (which is a combination of
+Rhythmic and Melodic), Musicscript (put an accent over a note or
+rest), etc.  For the actual up to date listing, you should consult the
+LilyPond source code: the Request types form a big class hierarchy.
+
+Normally you don't enter Requests directly, since that would be
+tedious.  Mudela has standard abbreviations for the most common
+combination of Requests. If you enter \verb+c4+, this is an
+abbreviation for:
+\begin{verbatim}
+Request_chord{
+  Note_req{
+    notename: 0 acc: 0 oct: -1
+    duration { 4}
+  }
+  Stem_req{
+    duration { 4}
+  }  
+}
+\end{verbatim}
+
+The \verb+Request_chord+ is a special kind of chord which only allows
+Requests as its elements.  The examples of the previous section were
+processed with \verb+{+ and \verb+}+ enclosing the input.
+
 
 \subsection{Voicegroups}
 
@@ -437,6 +459,8 @@ Putting different musical lines in to the same voicegroup effectively
 makes LilyPond try to form chords of all those lines. Putting
 different musical lines in to different voicegroups effectively makes
 LilyPond try to set those lines as independently as possible. 
+
+[adsolete. Has to be fixed in lily]
 
 You can set the voicegroup of a voice with the command \verb+\group+, e.g.,
 \begin{verbatim}        
@@ -460,6 +484,7 @@ You can set the voicegroup of a voice with the command \verb+\group+, e.g.,
                 \melodic { oboeII}
 }
 \end{verbatim}
+
 In this example, the two oboe voices share one staff and are initially
 in the voicegroup called "oboes". They will share beams, dynamics etc.
 After two quavers, oboeI "pushes" its group: a new voicegroup is
@@ -516,31 +541,11 @@ same syntax as grouping:
 \partial 16*3 4;
 \end{verbatim}
 
-Make the piece start with a partial measure [transl?]  lasting 1 3/4
-quaver.
+Make the piece start with a partial measure [english translation?]
+lasting 1 3/4 quaver.
 
 These commands are also "voice elements", and constitute simple mudela
 (consisting of stuff with duration 0).
-
-\section{STRUCTURE}
-
-In concrete, a piece of Mudela has the following structure:
-\begin{verbatim}
-% declare pieces of music:
-        melody = \music{ <simple mudela> }
-        accompany = \music{ <simple mudela> }
-
-        % instantiate (=create tex, midi output) the score:
-        \score{ 
-                \melodic <
-                        \multi 3;
-                        \melody 
-                          \accompany 
-                >
-                \midi{ <midi definitions> }
-                \paper{ <paper and layout definitions> }
-}
-\end{verbatim}
 
 \subsection{Examples}
 
@@ -548,7 +553,7 @@ Examples are included with the GNU LilyPond distribution. For the sake of
 maintenance no long examples are included in this document.
 
 
-\section{HISTORY}
+\section{History}
 
 This language has a number of roots. First and foremost, GNU LilyPond's
 predecessor mpp was the inspiration of simple Mudela.  Secondly, the
