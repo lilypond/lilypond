@@ -3,7 +3,7 @@
 #include "meter.hh"
 #include "paper.hh"
 #include "lookup.hh"
-
+NAME_METHOD(Meter);
 Meter::Meter(Array<Scalar>a)
     :args(a)
 {

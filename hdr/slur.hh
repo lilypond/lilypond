@@ -21,7 +21,6 @@ struct Slur : Directional_spanner {
     /****************/
     Offset center() const;
     Slur();
-    void print() const;    
     void do_post_processing();
     void do_pre_processing();
     void add(Notehead*);
@@ -30,7 +29,8 @@ struct Slur : Directional_spanner {
     Spanner* do_break_at( PCol*, PCol*) const;
     void process();
 private:
-Molecule*brew_molecule_p()const;
+    Molecule*brew_molecule_p()const;
+    const char * name() const;
 };
 
 #endif // SLUR_HH
