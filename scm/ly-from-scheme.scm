@@ -71,7 +71,10 @@ character."
                              (display (read-char port) out))  ;; pop the second $
                             ;; a #scheme expression
                             ((char=? c #\#)
-                             (format out "#~a" (remove-dollars! (read port))))
+                             (let ((expr (read port)))
+                               (format out "#~a" (if (eq? '$ expr)
+                                                     (create-binding! (read port))
+                                                     (remove-dollars! expr)))))
                             ;; other caracters
                             (else
                              (display c out))))))))
