@@ -370,7 +370,7 @@ You should use dvips and ghostscript to print the @code{dvi} output: the
 slurs and beams are PS @code{\special} commands.
 
 
-subsubsection My symbols are all messed up after I upgraded, I get the wrong symbols and dvi-checksum errors!
+@subsubsection My symbols are all messed up after I upgraded, I get the wrong symbols and dvi-checksum errors!
 
 We obviously mucked with the fonts in the upgrade.  Remove @emph{all}
 previous fonts, including the @file{.pk} and @file{.tfm} fonts in
