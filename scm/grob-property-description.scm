@@ -358,6 +358,10 @@ this column. 10000 or more means forbid linebreak, -10000 or less
 means force linebreak.  Other values influence linebreaking decisions
 as a real penalty.")
 
+(grob-property-description 'pitch-max pitch? "FIXME, JUNKME")
+(grob-property-description 'pitch-min pitch? "FIXME, JUNKME")
+
+
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")

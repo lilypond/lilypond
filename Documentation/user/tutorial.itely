@@ -188,9 +188,9 @@ s16_" "
 @c From these commands and notes, a piece of music can be formed.  A piece
 @c of music is made by enclosing it in ``@code{\notes @{ ... @}}''.
 @c     rephrased:
-With these commands you can now write a piece of music.  The next step
-is to enclose your music inside ``@code{\notes @{ .. @}}''.
-This lets LilyPond know that music (and not lyrics, for example) follows:
+When you enter these commands in a file, you must to enclose them in
+``@code{\notes @{ .. @}}''.  This lets LilyPond know that music (and
+not lyrics, for example) follows:
 
 @quotation
 @example
@@ -248,7 +248,7 @@ In the last section we explained what kind of things you could enter
 in a lilypond file.  In this section we explain how to run LilyPond 
 and how view or print the output.  If you have not used LilyPond
 before, want to test your setup of LilyPond, or want to run an example
-file yourself, read this section.  Most of the instructions that follow
+file yourself, read this section.   The instructions that follow
 are for running LilyPond on Unix-like systems.  Some additional
 instructions for running LilyPond on Windows are given at the end of
 this section.
@@ -276,7 +276,7 @@ things, such as adding titles, page breaking and other page layout,
 are done by a small wrapper program called
 @code{ly2dvi}. @code{ly2dvi} calls lilypond to render the music, and
 then adds the titling and page layout instructions.  To process
-@file{test.ly} with ly2dvi, proceed as follows:
+@file{test.ly} with @code{ly2dvi}, proceed as follows:
 
 @quotation
 @example
@@ -358,12 +358,13 @@ you use anything other than @code{dvips}.
 @unnumberedsubsec Windows users
 Windows users can start the terminal by clicking on the LilyPond or
 Cygwin icon.  You can use any text editor (such as NotePad, Emacs or
-Vim) to edit the LilyPond file.  If you install the Cygwin's XFree86
-X11 window system, tetex-x11 and ghostscript-x11 packages too, you can
-view the @code{dvi} output doing @code{xdvi test.dvi} as described
-above.  If you have installed a PostScript/PDF viewer, such as
-@code{GSView} from @uref{http://www.cs.wisc.edu/~ghost}, viewing the
-PS file can be done with:
+Vim) to edit the LilyPond file.  If you install the Cygwin's
+@code{XFree86} X11 window system, @code{tetex-x11} and
+@code{ghostscript-x11} packages too, you can view the @code{dvi}
+output doing @code{xdvi test.dvi} as described above.  If you have
+installed a PostScript/PDF viewer, such as @code{GSView} from
+@uref{http://www.cs.wisc.edu/~ghost}, viewing the PS file can be done
+with:
 @quotation
 @example
 @code{gsview32 test.ps}
@@ -448,8 +449,7 @@ s16_" "
 @section More basics 
 
 We continue with the introduction of the remaining musical constructs.
-Normal rests are entered just like notes, but use the name
-``@code{r}'':
+Normal rests are entered just like notes with the name ``@code{r}'':
 
 @quotation
 @example
@@ -567,7 +567,7 @@ conventions for ordering these items.
 
 The example also indicates that a piece of music written in a high
 register needs lots of quotes.  This makes the input less readable,
-and is therefore also a potential source of errors.
+and is also a potential source of errors.
 
 The solution is to use ``relative octave'' mode.  In practice, this is
 the most convenient way to copy existing music.  To use relative mode,
@@ -709,7 +709,7 @@ d ~ d
 s4 
 @end lilypond
 
-@item @code{'}
+@item @var{note}@code{'}
 @tab raise octave
 @tab
 @lilypond[fragment, relative 1]
@@ -720,7 +720,7 @@ s4
 a a'
 @end lilypond
 
-@item @code{,}
+@item @var{note}@code{,}
 @tab lower octave
 @tab
 @lilypond[fragment, relative 1]
@@ -789,7 +789,7 @@ demonstrated here:
 
 In this example, @code{staffA} and @code{staffB} are names that are
 given to the staves.  It doesn't matter what names you give, as long
-as each staff has a unique name.
+as each staff has a different name.
 
 @separate
 
@@ -837,8 +837,9 @@ c-\ff c-\mf
 @end quotation
 @separate
 
-Crescendi are started with the commands @code{\<}  and @code{\>}. The
-command @code{\!} finishes a crescendo on the following note.
+Crescendi and decrescendi are started with the commands @code{\<} and
+@code{\>}. The command @code{\!} finishes a crescendo on the following
+note.
 @quotation
 @lilypond[verbatim,relative 1]
 c2\<  \!c2-\ff  \>c2  \!c2
@@ -862,8 +863,8 @@ happens at the same time, like in chords, or (like in the two-staff
 example above) in a bunch of stacked staves.
 @end ignore
 
-You can combine beams and ties with chords.  Notice that
-beam and tie markings must be placed outside the chord markers:
+You can combine beams and ties with chords.  Beam and tie markings
+must be placed outside the chord markers:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
 r4 [<c8 e g> <c8 f a>] ~ <c8 f a>

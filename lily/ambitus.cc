@@ -248,4 +248,4 @@ Ambitus::brew_molecule (SCM smob)
 
 ADD_INTERFACE (Ambitus, "ambitus-interface",
   "An ambitus represents the pitch range of a voice.",
-  "c0-position note-head-style join-heads");
+  "c0-position pitch-min pitch-max accidentals note-head-style join-heads");

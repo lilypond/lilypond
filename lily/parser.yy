@@ -1065,12 +1065,19 @@ property_def:
 		csm-> set_mus_property ("context-type", $2);
 	}
 	| PROPERTY STRING '.' STRING SET embedded_scm '=' embedded_scm {
+		bool autobeam
+		  = gh_equal_p ($4, scm_makfrom0str ("autoBeamSettings"));
+		bool itc = internal_type_checking_global_b;
 		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
 			Push_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
 		t->set_mus_property ("pop-first", SCM_BOOL_T);
+		if (autobeam)
+			internal_type_checking_global_b = false;
 		t->set_mus_property ("grob-property", $6);
+		if (autobeam)
+			internal_type_checking_global_b = itc;
 		t->set_mus_property ("grob-value", $8);
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
 		csm->set_mus_property ("element", t->self_scm ());
@@ -1081,12 +1088,25 @@ property_def:
 		csm-> set_mus_property ("context-type", $2);
 	}
 	| PROPERTY STRING '.' STRING OVERRIDE embedded_scm '=' embedded_scm {
+		/*
+			UGH UGH UGH UGH.
+		*/
+		bool autobeam
+		  = gh_equal_p ($4, scm_makfrom0str ("autoBeamSettings"));
+		bool itc = internal_type_checking_global_b;
+
 		Music *t = new Music (SCM_EOL);
 		t->set_mus_property ("iterator-ctor",
 			Push_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
+
+		if (autobeam)
+			internal_type_checking_global_b = false;
 		t->set_mus_property ("grob-property", $6);
 		t->set_mus_property ("grob-value", $8);
+		if (autobeam)
+			internal_type_checking_global_b = itc;
+
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
 		csm->set_mus_property ("element", t->self_scm ());
 		scm_gc_unprotect_object (t->self_scm ());
@@ -1098,11 +1118,19 @@ property_def:
 	}
 	| PROPERTY STRING '.' STRING REVERT embedded_scm {
 		Music *t = new Music (SCM_EOL);
+		bool autobeam
+		  = gh_equal_p ($4, scm_makfrom0str ("autoBeamSettings"));
+		bool itc = internal_type_checking_global_b;
+
 		t->set_mus_property ("iterator-ctor",
 			Pop_property_iterator::constructor_cxx_function);
 		t->set_mus_property ("symbol", scm_string_to_symbol ($4));
+		if (autobeam)
+			internal_type_checking_global_b = false;
 		t->set_mus_property ("grob-property", $6);
-
+		if (autobeam)
+			internal_type_checking_global_b = itc;
+	
 		Context_specced_music *csm = new Context_specced_music (SCM_EOL);
 		csm->set_mus_property ("element", t->self_scm ());
 		scm_gc_unprotect_object (t->self_scm ());
