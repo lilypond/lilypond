@@ -4,8 +4,8 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "musicalrequest.hh"
-#include "commandrequest.hh"
+#include "musical-request.hh"
+#include "command-request.hh"
 #include "local-key-reg.hh"
 #include "local-key-item.hh"
 #include "complex-walker.hh"

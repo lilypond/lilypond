@@ -30,6 +30,10 @@ Atom::Atom(Symbol s)
 String
 Atom::TeXstring() const
 {
+    /* infinity checks. */
+    assert( abs(off.x) < 100 CM);
+    assert( abs(off.y) < 100 CM);
+    
     // whugh.. Hard coded...
     String s("\\placebox{%}{%}{%}");
     Array<String> a;

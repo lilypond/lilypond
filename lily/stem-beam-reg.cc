@@ -4,7 +4,7 @@
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "stem-beam-reg.hh"
 #include "beam.hh"
 #include "stem.hh"

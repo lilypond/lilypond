@@ -3,7 +3,7 @@
 #include "scalar.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "notehead.hh"
 #include "misc.hh"
 

@@ -8,7 +8,7 @@
 
 #include "proto.hh"
 #include "plist.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "voice-regs.hh"
 #include "voice-group-regs.hh"
 #include "register.hh"
@@ -16,7 +16,7 @@
 #include "stem-beam-reg.hh"
 #include "script-reg.hh"
 #include "complex-walker.hh"
-#include "commandrequest.hh"
+#include "command-request.hh"
 #include "debug.hh"
 #include "dynamic-reg.hh"
 

@@ -8,7 +8,7 @@
 
 #include "bar-reg.hh"
 #include "bar.hh"
-#include "commandrequest.hh"
+#include "command-request.hh"
 #include "score-column.hh"
 #include "time-description.hh"
 

@@ -6,7 +6,7 @@
 
 #include "proto.hh"
 #include "plist.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "complex-walker.hh"
 #include "slur-reg.hh"
 #include "slur.hh"

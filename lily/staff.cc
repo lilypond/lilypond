@@ -19,8 +19,8 @@
 #include "score-column.hh"
 #include "voice-element.hh"
 #include "debug.hh"
-#include "musicalrequest.hh"
-#include "commandrequest.hh" // todo
+#include "musical-request.hh"
+#include "command-request.hh" // todo
 #include "midi-stream.hh"
 #include "pqueue.hh"
 void

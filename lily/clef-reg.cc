@@ -10,7 +10,7 @@
 #include "clef-reg.hh"
 #include "clef-item.hh"
 #include "debug.hh"
-#include "commandrequest.hh"
+#include "command-request.hh"
 #include "time-description.hh"
 #include "staff-column.hh"
 

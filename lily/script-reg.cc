@@ -6,7 +6,7 @@
 
 #include "script-reg.hh"
 #include "script.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "complex-walker.hh"
 #include "stem.hh"
 

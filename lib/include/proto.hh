@@ -1,3 +1,4 @@
+
 /*
   proto.hh -- part of LilyPond
 
@@ -100,7 +101,6 @@ struct Command_req;
 struct Note_req;
 struct Notehead;
 struct Notehead_register;
-struct Notename_tab;
 struct Offset;
 struct Output;
 struct PCol;
@@ -135,6 +135,7 @@ struct Source;
 struct Source_file;
 struct Spacing_req ;
 struct Span_req;
+struct Span_dynamic_req;
 struct Spanner;
 struct Subtle_req;
 struct Staff;

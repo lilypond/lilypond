@@ -7,7 +7,7 @@
 */
 
 #include "voice.hh"
-#include "musicalrequest.hh"
+#include "musical-request.hh"
 #include "register.hh"
 #include "notehead.hh"
 #include "complex-walker.hh"
