@@ -1,13 +1,12 @@
 New features in 1.8 since 1.6
 =============================
 
-** There chord entry code has been completely rewritten. It is now
+** The chord entry code has been completely rewritten. It is now
 cleaner and more flexible.
 
-** A new syntax has been added for  text entry.
-
-This syntax is more friendly than the old mechanism, and it is
-implemented in a more robust and modular way.
+** A new syntax has been added for text entry.  This syntax is more
+friendly than the old mechanism, and it is implemented in a more
+robust and modular way.
 
 ** Deeper integration of the input language and Scheme. You can now use
 LilyPond identifiers in Scheme, and use Scheme expressions instead of
@@ -37,9 +36,8 @@ A beamed slurred pair of eighth notes can be entered as
 In version 2.0, postfix syntax will be the only syntax
 available, and the dashes will become optional.
 
-** User code may now be executed during interpreting.
-
-The syntax for this code is 
+** User code may now be executed during interpreting.  The syntax for
+this code is
 
 	\applycontext #SCHEME-FUNCTION
 
@@ -75,19 +73,18 @@ syntax for this is
 		..
 	NOTE-\stopGroup
 
-** Ottava brackets are now fully supported as a feature.
-The syntax is
+** Ottava brackets are now fully supported as a feature.  The syntax
+is
 
 	#(set-octavation 1)
 
-** Metronome markings are printed when a
-\tempo command is processed. 
+** Metronome markings are printed when a \tempo command is processed.
 
 ** Fingerings can be put on chords horizontally.
 
-** The appearance of various glyphs has been fine-tuned 
+** The appearance of various glyphs has been fine-tuned.
 
-** Different types of percent style repeats may now be nested
+** Different types of percent style repeats may now be nested.
 
 ** The emacs support has been extended.
 
