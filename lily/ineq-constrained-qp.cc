@@ -75,13 +75,14 @@ Ineq_constrained_qp::eval (Vector v)
 int
 min_elt_index(Vector v)
 {
-    Real m=INFTY; int idx=-1;
+    Real m=INFTY_f; 
+    int idx=-1;
     for (int i = 0; i < v.dim(); i++){
 	if (v(i) < m) {
 	    idx = i;
 	    m = v(i);
 	}
-	assert(v(i) <= INFTY);
+	assert(v(i) <= INFTY_f);
     }
     return idx;
 }
@@ -130,7 +131,7 @@ Ineq_constrained_qp::solve(Vector start) const
 	if (direction.norm() > EPS) {
 	    mtor << act.status() << '\n';
 	    
-	    Real minalf = INFTY;
+	    Real minalf = INFTY_f;
 
 	    Inactive_iter minidx(act);
 

@@ -70,13 +70,6 @@ mudela in TeX: mudela-book
 </a
 >
 
-=item *
-<a href=error.html
->
-errors
-</a
->
-
 
 =back
 
@@ -113,7 +106,7 @@ The GNU Music project
 </a
 >
 
-=item * 
+=item *
 <a href=ANNOUNCE.txt
 >
 The announce of 0.1

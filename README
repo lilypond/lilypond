@@ -5,6 +5,15 @@ GNU LilyPond which converts music definition files into visual or
 audio output: it can typeset formatted sheet music in TeX and 
 and (mechanical) perfomances to MIDI files.
 
+0.
+
+LilyPond is known to have a minor bug if  you use glibc; we will look into it
+Please download 0.1.1 when it's available.
+
+LilyPond exhibits a g++ bug on Solaris 2.5 (The stack frame gets corrupted by
+a constructor) if you compile with -O2. We don't know workarounds 
+
+
 1. VERSIONING
 
 if you have downloaded a
@@ -56,4 +65,21 @@ to us: hanwen@stack.nl, jan@digicash.com.
 	
 
 Have fun!
+
+6. DOZE
+
+If you have received this file as part of a DOS/Window32 distribution
+(lilypond-*.zip ), then it is advisable to also download the source
+package, since it contains the complete documentation
+
+	ftp://pcnov095.win.tue.nl/pub/lilypond/ (Europe)
+	ftp://alpha.gnu.ai.mit.edu/gnu/ (US)
+
+The website also contains the complete documentation
+
+	http://www.stack.nl/~hanwen/lilypond/index.html
+
+
+
+
 

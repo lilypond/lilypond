@@ -128,18 +128,14 @@ Music_iterator::static_get_iterator_p(Music *m,
     else if (m->is_type_b( Voice::static_name())) 
 	p =  new Voice_iterator(  (Voice*) m);
     
-     if ( m->is_type_b( Music_list::static_name())) {
-	Music_list* ml = (Music_list*) m;
-	if (ml -> type_str_ != "") {
-	    Translator * a =report_l->
-		find_get_translator_l(ml-> type_str_, ml->id_str_);
-
-		
+    if (m -> type_str_ != "") {
+	Translator * a =report_l->
+	    find_get_translator_l(m-> type_str_, m->id_str_);
 	    p->set_translator( a);
-	    
-	} 
-     } 
-     if (! p->report_to_l() )
+    } 
+
+
+    if (! p->report_to_l() )
 	 p ->set_translator(report_l);
     
     return p;
@@ -214,7 +210,7 @@ IMPLEMENT_IS_TYPE_B1(Chord_iterator,Music_iterator);
 Moment
 Chord_iterator::next_moment()const
 {
-    Moment next_ = INFTY;
+    Moment next_ = INFTY_f;
     for (PCursor<Music_iterator*> i(children_p_list_.top()); i.ok(); i++)
 	next_ = next_ <? i->next_moment() ;
     return next_;

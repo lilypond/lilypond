@@ -53,7 +53,7 @@ Break_algorithm::stupid_solution(Line_of_cols curline)const
     Line_spacer *sp =generate_spacing_problem(curline);
     Col_hpositions colhpos;
     colhpos.cols = curline;
-    colhpos.energy = INFTY;
+    colhpos.energy = INFTY_f;
     colhpos.ugh_b_ = true;
     colhpos.config = sp->default_solution();
     delete sp;

@@ -8,6 +8,7 @@
 
 
 #include <math.h>
+#include <limits.h>
 #include "spring-spacer.hh"
 #include "p-col.hh"
 #include "debug.hh"
@@ -95,8 +96,8 @@ Spring_spacer::position_loose_cols(Vector &sol_vec)const
     assert(sol_vec.dim());
     Array<bool> fix_b_arr;
     fix_b_arr.set_size(cols.size() + loose_col_arr_.size());
-    Real utter_right_f=-INFTY;
-    Real utter_left_f =INFTY;
+    Real utter_right_f=-INFTY_f;
+    Real utter_left_f =INFTY_f;
     for (int i=0; i < loose_col_arr_.size(); i++) {
 	fix_b_arr[loose_col_arr_[i].rank_i_] = false;
     }
@@ -444,7 +445,7 @@ Spring_spacer::calc_idealspacing()
 	    }
 	    if ( d_iter.ok() && now >= d_iter.when()) {
 		Durations_iter d2 = d_iter;
-		Moment shortest = INFTY;
+		Moment shortest = (Real)INT_MAX; //ugh INFTY;
 		while (d2.ok() && d2.when() <= now) {
 		    shortest = shortest <? d2.duration();
 		    d2.next();

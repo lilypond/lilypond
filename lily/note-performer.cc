@@ -47,7 +47,7 @@ Note_performer::process_requests()
 	return;
 
     // ugh, need to know channel (===track===staff) too
-    int channel_i = 0;
+    int channel_i = get_track_i();
     Moment mom = get_mom();
     if ( !off_mom_ ) { // start note
 	off_mom_ = mom + note_req_l_->duration();

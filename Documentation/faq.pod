@@ -155,13 +155,15 @@ important data-structures are to be found in:
 
 	- p-col.hh
 	- *request.hh
-	- register.hh
+	- engraver.hh
+	- performer.hh
+	- translator.hh
 	- score-elem.hh
-	- input-music.hh
-	- linespace.hh
+	- music.hh
+	- music-list.hh
+	- music-iterator.hh
 	- item.hh
 	- spanner.hh
-	- voice.hh
 
 
 Q: Why GPL?
@@ -173,7 +175,7 @@ the syntax to allow YYYY!
 
 A: If it is reasonable, I'll add XXXX to the TODO list. In general
 finding a cute syntax (such as YYYY) isn't very hard. The complicated
-issue how to adapt the internals to do XXXX. The parser is really  a
+issue how to adapt the internals to do XXXX. The parser is really a
 simple front end to the complicated internals. 
 
 Q: Why do I need g++ >= 2.7?
@@ -205,7 +207,7 @@ C<make $OSTYPE>. (I am not promising to maintain this platform, it is just
 that when having to use doze, i-m sometimes too lazy to reboot.)
 
 A.2: I haven't had time to find a GCC crosscompiler (I<with> g++ and
-libg++, mind you) to DOS/win (in rpm, please :).
+libg++, mind you) to DOS/win (in rpm, please :-)
 
 
 Q: I-m dozed enough to run the (sometimes bit stale) .exe-s you distribute. 

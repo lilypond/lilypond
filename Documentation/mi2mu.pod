@@ -107,10 +107,6 @@ Jan Nieuwenhuizen <jan@digicash.com>,  http://www.digicash.com/~jan.
 
 The GNU LilyPond music typesetter.
 
-=item mudela(5)
-
-On the LilyPond input format.
-
 =item mudela-man
 
 On the input format. This is a LilyPond-enhanced LaTeX document.

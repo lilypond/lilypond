@@ -16,11 +16,14 @@ Music::time_int() const
 {
     return MInterval(0,0);
 }
+
 void
 Music::print()const
 {
 #ifndef NPRINT
-    mtor << name() << "{" ;
+    mtor << name() << "{";
+    if  (type_str_!="" || id_str_!="")
+	mtor << "`" <<type_str_ << " = " << id_str_<<"\'";
     do_print();
     mtor << "}\n";
 #endif

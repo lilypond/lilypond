@@ -27,6 +27,16 @@
 class Music:public Input {
 public:
     Music_list * parent_music_l_;
+    
+    /** what kind of iterator needed to walk this music?  This doesn't
+      make sense for simple (ie non-list) music, but it does no harm
+      here. Yes, it did harm Music_list: you can forget to copy it.
+      
+      */
+    String type_str_;
+
+    /// what name (or look for this name)
+    String id_str_;    
 
     virtual MInterval time_int()const;
     virtual ~Music(){}

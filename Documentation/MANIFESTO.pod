@@ -19,7 +19,7 @@ TeX file.
 
 =item *
 
-We want to provide an easy-to-use interface for typesetting music in
+Providing an easy-to-use interface for typesetting music in
 its broadest sense. This interface should be intuitive from a musical
 point of view. By broadest sense we mean: it is designed for music
 printed left to right in staffs, using notes to designate rythm and
@@ -27,13 +27,13 @@ pitch.
 
 =item  *
 
-Generate high-quality output. Ideally it should be of a professional
+Generating high-quality output. Ideally it should be of a professional
 quality. We'd like to render Herbert Chlapiks words, "Fine music
 setting is not possible without a knowledgeable printer,"  untrue.
 
 =item *
 
-Make a system which is fully tweakable. It should be possible to
+Making a system which is fully tweakable. It should be possible to
 typeset a book on how not to typeset music.
 
 =back 

@@ -22,11 +22,6 @@ class Music_list : public Music {
 public:
     int multi_level_i_;
   
-    /// what kind of iterator needed to walk this music?
-    String type_str_;
-
-    /// what name (or look for this name)
-    String id_str_;    
     Music_list(Music_list const&);    
     Music_list();
     DECLARE_MY_RUNTIME_TYPEINFO;

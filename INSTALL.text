@@ -8,8 +8,19 @@ NNNNAAAAMMMMEEEE
        INSTALL - installing GNU LilyPond
 
 DDDDEEEESSSSCCCCRRRRIIIIPPPPTTTTIIIIOOOONNNN
-       This page documents installation  and compilation of GNU
+       This page documents installation and compilation of GNU
        LilyPond
+
+AAAABBBBSSSSTTTTRRRRAAAACCCCTTTT
+       You do something which looks remotely like
+
+               configure
+               make
+               make install
+               tar -C /usr/lib/texmf/fonts/source/ -zxf musixtex-T73.tgz 'mf/*'
+
+       The detailed instructions follow here.
+
 
 PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEEEESSSS
        For compilation you need.
@@ -19,8 +30,8 @@ PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEE
             Solaris.
 
             If you have the Cygnus WINDOWS32 port of the GNU
-            utils, it will even work in Windows NT/95, but don't
-            promise to support it.
+            utils, it will even work in Windows NT/95, but we
+            don't promise to support it.
 
        +o    GNU C++ v2.7 or better, with libg++ installed.
             Version 2.7.2 or better recommended.
@@ -46,6 +57,19 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
 
        ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
 
+
+
+
+
+1/Aug/97                  LilyPond 0.1.0                        1
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
        ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
 
        ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
@@ -55,26 +79,21 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
                 the Taupin version is ftp://hprib.lps.u-
                 psud.fr/pub/music_zips/musixtex.zip
 
+                Andreas Egler's version of MusixTeX, now called
+                OpusTeX, will also work. Andreas moved some
+                characters around in the fonts, so you have to
+                edit the definitions in tex/eglerdefs.tex (patch
+                appreciated)
+
 RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
        Although not strictly necessary, these are recommended to
        have.
 
-
-
-29/Jul/97                LilyPond 0.0.77                        1
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
-
-       +o         Perl.  Most scripts are written in Perl. The
+       +o         Perl.  Most scripts are written in Perl. Most
                  documentation was created with the perl's Plain
                  Old Documentation.
 
-       +o         (GNU) find
+       +o         GNU find
 
        +o         A fast computer (a full page of music typically
                  takes 1 minute on my 486/133, using the
@@ -90,7 +109,8 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
        This will install the following files:
 
                /usr/local/man/man1/mi2mu.1
-               /usr/local/man/man5/mudela.5
+               /usr/local/man/man1/convert-mudela.1
+               /usr/local/man/man1/mudela-book.1
                /usr/local/man/man1/lilypond.1
                /usr/local/lib/libflower.{so,a}
                /usr/local/bin/lilypond
@@ -100,10 +120,21 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
        The TeX include directory is detected dynamically, but it
        can be adjusted with --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----pppprrrreeeeffffiiiixxxx and --------eeeennnnaaaabbbblllleeee----tttteeeexxxx----
-       ddddiiiirrrr. The above assumes that you are root and have the gnu
-       development tools, and your make is gnu make.  If this is
+       ddddiiiirrrr. The above assumes that you are root and have the GNU
+       development tools, and your make is GNU make.  If this is
        not the case, you can adjust your environment variables to
        your taste:
+
+
+
+1/Aug/97                  LilyPond 0.1.0                        2
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
 
                export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR"
                configure
@@ -125,17 +156,6 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
                configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
 
-
-
-29/Jul/97                LilyPond 0.0.77                        2
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
-
        Since GNU LilyPond currently is beta, you are advised to
        also use
 
@@ -153,22 +173,35 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
                 option)
 
        --enable-optimise
-                Set maximum optimisation
+                Set maximum optimisation: compile with ----OOOO2222
 
        --enable-profiling
                 Compile with support for profiling
 
        --enable-tex-prefix
-                Set the directory where texmf lives
+                Set the directory where TeX and Metafont live
 
        --enable-tex-dir
-                Set then directory tex input is in (detected as a
+                Set then directory TeX input is in (detected as a
                 subdir of tex-prefix)
 
        --enable-mf-dir
                 Set then directory mf input is in (idem)
+                [obsolete]
 
                 All options are documented in the _c_o_n_f_i_g_u_r_e help
+
+
+
+1/Aug/97                  LilyPond 0.1.0                        3
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
                 The option --------eeeennnnaaaabbbblllleeee----ooooppppttttiiiimmmmiiiisssseeee is recommended for
                 Real Life usage.
 
@@ -190,18 +223,6 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
        Install the musixtex fonts in a directory which TeX and MF
        knows (if you are root, look for a directory which
-
-
-
-29/Jul/97                LilyPond 0.0.77                        3
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
-
        contains the directories with AMS and CM source (*.mf)
        files. Create a subdir lilypond or musixtex and copy the
        fonts into that). Do not forget to rehash TeX (if
@@ -227,23 +248,36 @@ EEEEXXXXAAAAMMMMPPPPLLLLEEEE
 
        This is what the output looks like over here:
 
-               hw:~/musix/spacer$ lilypond input/kortjakje.ly
-               GNU LilyPond 0.0.71 #20/FlowerLib 1.1.20 #0
-               Parsing ... [/home/hw/share/lilypond/init//symbol.ini  <..snip..>
-               ..      .ini]][input/kortjakje.ly]
-               Creating elements ...
+
+
+
+
+
+
+
+
+
+
+
+1/Aug/97                  LilyPond 0.1.0                        4
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
+               GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
+               Parsing ... [/home/hw/share/lilypond/init//
+                       <..etc..>
+                       init//performer.ly]]][input/kortjakje.ly]
+               Creating elements ...[8][16][24][25]
                Preprocessing elements...
-               Calculating column positions ... [3][8][13][17][21][25]
+               Calculating column positions ... [14][25]
                Postprocessing elements...
                TeX output to lelie.tex ...
-
-               hw:~/musix/spacer$ tex lelie
-               This is TeX, Version 3.14159 (C version 6.1)
-               (lelie.tex
-               Hyphenation patterns for english, dutch, german, loaded.
-               (/home/hw/lib/texmf/tex/lilypond/lilyponddefs.tex) [1] )
-               Output written on lelie.dvi (1 page, 8944 bytes).
-               Transcript written on lelie.log.
+               Creating MIDI elements ...MIDI output to lelie.midi ...
 
                hw:~/musix/spacer$ xdvi lelie&
                [1] 855
@@ -256,18 +290,6 @@ RRRREEEEDDDDHHHHAAAATTTT LLLLIIIINNNNUUUUXXXX
        file is in _m_a_k_e_/_o_u_t_/_l_i_l_y_p_o_n_d_._s_p_e_c. You should be able to
        create an rpm as a normal user. Be sure you have a
        ~/.rpmrc, and edit the RPM-dir in _V_a_r_i_a_b_l_e_s_._m_a_k_e. (If you
-
-
-
-29/Jul/97                LilyPond 0.0.77                        4
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
-
        create the RPM as a normal user the permissions will not
        be set correctly, unfortunately)
 
@@ -277,7 +299,8 @@ WWWWIIIINNNNDDDDOOOOZZZZEEEE
        you need the cygnus windows32 gnu port development stuff;
        have a look at http://www.cygnus.com/gnu-win32.
 
-       to make GNU LilyPond under, brr, aargh, well, simply type:
+       to make GNU LilyPond under, brr, aargh, shudder..
+       windows32, well, simply type:
 
                bash configure
                make windows32
@@ -302,29 +325,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-29/Jul/97                LilyPond 0.0.77                        5
+1/Aug/97                  LilyPond 0.1.0                        5
 
 

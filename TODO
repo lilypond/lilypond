@@ -1,7 +1,3 @@
-0.1:
-
-	* versioning stuff (cvt mudela, mudela, etc.)
-
 Features you cannot find in the doco as working, should be mentioned here.
 	
 This is an assorted collection of stuff that will be done, might be
@@ -10,21 +6,21 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
+	* versioning stuff (cvt mudela, mudela, etc.)
+
+	* get rid of gif files.
+
+	* set_midi_channel/staff() out of performer.
+
 	* dots into separate item.
 
 	* use String iso Text_def for lyrics.
 
 	* use position 0 for center of staff iso bottom.
 
-	* return status
+	* return status on exit
 
 	* lyrics in chords still fuck up.
-
-	* add to MIDI output:
-	- tempo change
-	- repeat
-	- slurs
-	- dynamics etc.
 
 	* rewire acknowledge_element() logic with a process_acknowledged()
 
@@ -42,11 +38,15 @@ grep for TODO and ugh/ugr
 
 	* decent TeX page layout
 
-	* enter script priority
-
-	* a hands on tutorial
+	* a tutorial
 
 PROJECTS
+
+	* add to MIDI output:
+	- tempo change
+	- repeat
+	- slurs
+	- dynamics etc.
 
 	* grace notes
 	- adapt for multiple font sizes.

@@ -57,7 +57,7 @@ Word_wrap::do_solve()const
 		    current = stupid_solution(current.cols);
 		    current.energy = - 1; // make sure we break out.
 		} else
-		    current.energy = INFTY;	// make sure we go back
+		    current.energy = INFTY_f;	// make sure we go back
 	    } else {
 		current = solve_line(current.cols);
 		current.print();

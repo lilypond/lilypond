@@ -1,4 +1,17 @@
 
+august 1
+
+VERSION 0.1.0
+	
+	- bf: output tempo to track 0 too
+	- bf: don't forget to copy id_str_, so moved  into Music
+
+pl 78.jcn1
+	- fix for multi-staff midi: wohltemperirt.ly, standchen.ly
+	- doze fixes
+	- bf: conflily, configure (text)
+*****
+july 31
 pl 78
 	- bf: Midi_instrument 
 	- added  enable/disable defaults to help.

@@ -4,7 +4,18 @@ INSTALL - installing GNU LilyPond
 
 =head1 DESCRIPTION
 
-This page documents installation  and compilation of GNU LilyPond
+This page documents installation and compilation of GNU LilyPond
+
+=head1 ABSTRACT
+
+You do something which looks remotely like
+
+	configure
+	make
+	make install
+	tar -C /usr/lib/texmf/fonts/source/ -zxf musixtex-T73.tgz 'mf/*'
+	
+The detailed instructions follow here.
 
 =head1 PREREQUISITES
 
@@ -18,7 +29,7 @@ A Unix system with GNU tools. GNU LilyPond is known to run on these
 unices: Linux, AIX, Digital Unix and Solaris.
 
 If you have the Cygnus WINDOWS32 port of the GNU utils, it will even
-work in Windows NT/95, but don't promise to support it.
+work in Windows NT/95, but we don't promise to support it.
 
 =item *
 
@@ -61,7 +72,7 @@ MusixTeX (T73 or better), which can be had from any CTAN site, e.g. at
 
 =item ftp://ftp.shsu.edu/tex-archive/macros/musixtex/taupin
 
-=item 	ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
+=item ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
 
 =item ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
 
@@ -71,6 +82,11 @@ You only need the contents of the F<mf/> subdirectory of the
 package. The primary site of the Taupin version is
 ftp://hprib.lps.u-psud.fr/pub/music_zips/musixtex.zip
 
+Andreas Egler's version of MusixTeX, now called OpusTeX, will also
+work. Andreas moved some characters around in the fonts, so you have
+to edit the definitions in tex/eglerdefs.tex (patch appreciated)
+
+
 =head1 RECOMMENDED
 
 Although not strictly necessary, these are recommended to have.
@@ -79,12 +95,12 @@ Although not strictly necessary, these are recommended to have.
 
 =item *
 
-Perl.  Most scripts are written in Perl. The documentation was created
+Perl.  Most scripts are written in Perl. Most  documentation was created
 with the perl's Plain Old Documentation.
 
 =item *
 
-(GNU) find
+GNU find
 
 =item *
 
@@ -105,7 +121,8 @@ to install GNU LilyPond, simply type:
 This will install the following files:
 
 	/usr/local/man/man1/mi2mu.1
-	/usr/local/man/man5/mudela.5
+	/usr/local/man/man1/convert-mudela.1
+	/usr/local/man/man1/mudela-book.1
 	/usr/local/man/man1/lilypond.1
 	/usr/local/lib/libflower.{so,a}
 	/usr/local/bin/lilypond
@@ -115,8 +132,8 @@ This will install the following files:
 
 The TeX include directory is detected dynamically, but it can be
 adjusted with B<--enable-tex-prefix> and B<--enable-tex-dir>. The
-above assumes that you are root and have the gnu development tools,
-and your make is gnu make.  If this is not the case, you can adjust
+above assumes that you are root and have the GNU development tools,
+and your make is GNU make.  If this is not the case, you can adjust
 your environment variables to your taste:
 
 	export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR" 
@@ -149,29 +166,29 @@ other options include:
 
 Make a shared library (gnu/linux, solaris (?) only ) 
 
-=item 	--enable-printing
+=item --enable-printing
 
 Enable debugging print routines (lilypond B<-d> option)
 
-=item 	--enable-optimise
+=item --enable-optimise
 
-Set maximum optimisation
+Set maximum optimisation: compile with B<-O2>
 
-=item 	--enable-profiling
+=item --enable-profiling
 
 Compile with support for profiling
 
-=item	--enable-tex-prefix
+=item --enable-tex-prefix
 
-Set the directory where texmf lives
+Set the directory where TeX and Metafont live
 
 =item --enable-tex-dir
 
-Set then directory tex input is in (detected as a subdir of tex-prefix)
+Set then directory TeX input is in (detected as a subdir of tex-prefix)
 
 =item --enable-mf-dir
 
-Set then directory mf input is in (idem)
+Set then directory mf input is in (idem) [obsolete]
 
 =back
 
@@ -208,8 +225,6 @@ files, I ran "texhash"
 
 =head1 CAVEATS
 
-
-
 =over 5
 
 =item *
@@ -229,23 +244,17 @@ This is what I type in my xterm:
 
 This is what the output looks like over here:
 
-	hw:~/musix/spacer$ lilypond input/kortjakje.ly
-	GNU LilyPond 0.0.71 #20/FlowerLib 1.1.20 #0
-	Parsing ... [/home/hw/share/lilypond/init//symbol.ini  <..snip..>
-	..	.ini]][input/kortjakje.ly]
-	Creating elements ...
+	GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
+	Parsing ... [/home/hw/share/lilypond/init//
+		<..etc..>
+		init//performer.ly]]][input/kortjakje.ly]
+	Creating elements ...[8][16][24][25]
 	Preprocessing elements... 
-	Calculating column positions ... [3][8][13][17][21][25]
+	Calculating column positions ... [14][25]
 	Postprocessing elements...
 	TeX output to lelie.tex ...
+	Creating MIDI elements ...MIDI output to lelie.midi ...
 
-	hw:~/musix/spacer$ tex lelie
-	This is TeX, Version 3.14159 (C version 6.1)
-	(lelie.tex
-	Hyphenation patterns for english, dutch, german, loaded.
-	(/home/hw/lib/texmf/tex/lilypond/lilyponddefs.tex) [1] )
-	Output written on lelie.dvi (1 page, 8944 bytes).
-	Transcript written on lelie.log.
 
 	hw:~/musix/spacer$ xdvi lelie&
 	[1] 855
@@ -269,7 +278,8 @@ Windows NT:
 you need the cygnus windows32 gnu port development stuff; have a look
 at http://www.cygnus.com/gnu-win32.
 
-to make GNU LilyPond under, brr, aargh, well, simply type:
+to make GNU LilyPond under, brr, aargh, shudder.. windows32, well,
+simply type:
 
 	bash configure
 	make windows32

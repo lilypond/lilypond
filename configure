@@ -1793,11 +1793,13 @@ END
 if test $warn_b = "yes" ; then
 cat <<EOF
     
-    *******************************
-    Warning: configure found errors. 
-    Please resolve these and rerun configure
-    before sending any bugreports.
-    *******************************
+    **************************************************
+    Warning: configure encountered warnings or errors.
+    Please try to resolve these, and rerun configure 
+    before sending a bugreport.
+    If you cannot resolve some warnings, the make 
+    process may still be succesful, but be warned.
+    **************************************************
     
 EOF
 fi
