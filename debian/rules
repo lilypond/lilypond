@@ -115,7 +115,7 @@ binary-arch: build install
 	cp -av lilypond-mode.el lilypond-font-lock.el lilypond-indent.el \
 		lilypond.words \
 		$(r)/usr/share/emacs/site-lisp/
-	dh_installdocs DEDICATION NEWS ROADMAP *.txt
+	dh_installdocs DEDICATION ROADMAP *.txt
 
 #	dh_installdocs DEDICATION NEWS ROADMAP *.txt \
 #		Documentation/pictures/out/*.png
