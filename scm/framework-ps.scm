@@ -180,7 +180,7 @@
 ~a
 %%EndResource
 "
-    file-name (ly:gulp-file file-name))))
+    file-name (cached-file-contents file-name))))
 
 (define (setup paper)
   (string-append
@@ -208,7 +208,7 @@
 	   (pfas (map
 		  (lambda (x)
 		    (let* ((bare-file-name (ly:find-file x))
-			   (cffname (string-append x ".cff"))
+			   (cffname (string-append x ".cff.ps"))
 			   (aname (string-append x ".pfa"))
 			   (bname (string-append x ".pfb"))
 			   (cff-file-name (ly:find-file cffname))
@@ -217,9 +217,9 @@
 		      (cond
 		       (bare-file-name (if (string-match "\\.pfb" bare-file-name)
 					   (ly:pfb->pfa bare-file-name)
-					   (ly:gulp-file bare-file-name)))
-		       (cff-file-name (ps-embed-cff (ly:gulp-file cff-file-name) x 0))
-		       (a-file-name (ps-embed-pfa (ly:gulp-file a-file-name) x 0))
+					   (cached-file-contents bare-file-name)))
+		       (cff-file-name  (cached-file-contents cff-file-name))
+		       (a-file-name (ps-embed-pfa (cached-file-contents a-file-name) x 0))
 		       (b-file-name (ps-embed-pfa (ly:pfb->pfa b-file-name) x 0))
 		       (else
 			(ly:warn "cannot find CFF/PFA/PFB font ~S" x)

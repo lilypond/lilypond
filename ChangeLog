@@ -1,5 +1,13 @@
 2005-01-31  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/file-cache.scm (cached-file-contents): add file. Read each
+	file only once.
+
+	* scm/font.scm (add-pango-fonts): change order. Medium weight is
+	now default.
+
+	* VERSION: release 2.5.10
+	
 	* mf/GNUmakefile (INSTALLATION_OUT_FILES4): install cff.ps files.
 
 	* make/ly-rules.make ($(outdir)/%.texi): detect new EOF marker.

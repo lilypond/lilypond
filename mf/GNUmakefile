@@ -1,6 +1,7 @@
 depth = ..
 
 STEPMAKE_TEMPLATES=metafont install install-out
+LOCAL_STEPMAKE_TEMPLATES=lilypond
 
 include $(depth)/make/stepmake.make 
 
@@ -89,7 +90,7 @@ ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) 
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
 
-INSTALLATION_OUT_SUFFIXES=1 2 3 45 6 7 8 9
+INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 7 8 9
 
 INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)

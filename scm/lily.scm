@@ -161,6 +161,7 @@ predicates. Print a message at LOCATION if any predicate failed."
 (for-each ly:load
 	  ;; load-from-path
 	  '("lily-library.scm"
+	    "file-cache.scm"
 	    "define-music-types.scm"
 	    "output-lib.scm"
 	    "c++.scm"
