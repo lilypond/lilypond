@@ -648,8 +648,8 @@ book_body:
 		$$->scores_.push (score);
 		scm_gc_unprotect_object (music->self_scm ());
 	}
-	| lilypond_header {
-		$$->header_ = $1;
+	| book_body lilypond_header {
+		$$->header_ = $2;
 	}
 	| book_body error {
 

@@ -12,24 +12,24 @@
 
 #include "array.hh"
 #include "dimensions.hh"
+#include "file-name.hh"
 #include "font-metric.hh"
 #include "input-smob.hh"
 #include "lily-guile.hh"
 #include "lily-version.hh"
 #include "ly-module.hh"
 #include "main.hh"
-#include "paper-book.hh"
 #include "output-def.hh"
-#include "paper-line.hh"
+#include "paper-book.hh"
 #include "paper-outputter.hh"
-#include "file-name.hh"
+#include "paper-system.hh"
 #include "scm-hash.hh"
 #include "stencil.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 
-// JUNKME
-extern SCM stencil2line (Stencil *stil, bool is_title = false);
+#include "ly-smobs.icc"
+
 
 Paper_outputter::Paper_outputter (String filename, String format)
 {
@@ -49,7 +49,6 @@ Paper_outputter::~Paper_outputter ()
 {
 }
 
-#include "ly-smobs.icc"
 
 IMPLEMENT_SMOBS (Paper_outputter);
 IMPLEMENT_DEFAULT_EQUAL_P (Paper_outputter);

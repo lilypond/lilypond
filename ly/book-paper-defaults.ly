@@ -36,17 +36,11 @@
 	(baseline-skip . 2)
 	(word-space . 0.6)))
 
-    % #(define page-breaking ly:ragged-page-breaks)
     #(define page-breaking ly:optimal-page-breaks)
     #(define page-music-height default-page-music-height )
     #(define page-make-stencil default-page-make-stencil )
-    
-    #(define page-to-stencil ly:page-header-lines-footer-stencil)
 
     #(define make-header plain-header)
     #(define make-footer plain-footer)
-    %%#(define make-footer empty-markup)
-    #(define make-tagline TAGLINE-or-tagline-from-header)
-    #(define make-copyright copyright-from-header)
    
 }

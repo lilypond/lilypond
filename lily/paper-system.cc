@@ -1,25 +1,25 @@
 /*
-  paper-line.cc -- implement Paper_line
+  paper-system.cc -- implement Paper_system
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "paper-line.hh"
+#include "paper-system.hh"
 #include "stencil.hh"
 #include "string.hh"
 #include "virtual-methods.hh"
 
 #include "ly-smobs.icc"
 
-IMPLEMENT_SMOBS (Paper_line);
-IMPLEMENT_TYPE_P (Paper_line, "ly:paper-line?");
-IMPLEMENT_DEFAULT_EQUAL_P (Paper_line);
+IMPLEMENT_SMOBS (Paper_system);
+IMPLEMENT_TYPE_P (Paper_system, "ly:paper-system?");
+IMPLEMENT_DEFAULT_EQUAL_P (Paper_system);
 
 
 
-Paper_line::Paper_line (Stencil s, bool is_title)
+Paper_system::Paper_system (Stencil s, bool is_title)
 {
   is_title_ = is_title;
   number_ = 0;
@@ -28,21 +28,21 @@ Paper_line::Paper_line (Stencil s, bool is_title)
   stencil_ = s;
 }
 
-Paper_line::~Paper_line ()
+Paper_system::~Paper_system ()
 {
 }
 
 SCM
-Paper_line::mark_smob (SCM smob)
+Paper_system::mark_smob (SCM smob)
 {
-  Paper_line *line = (Paper_line*) ly_cdr (smob);
+  Paper_system *line = (Paper_system*) ly_cdr (smob);
   return line-> stencil_.expr ();
 }
 
 int
-Paper_line::print_smob (SCM smob, SCM port, scm_print_state*)
+Paper_system::print_smob (SCM smob, SCM port, scm_print_state*)
 {
-  Paper_line *p = (Paper_line*) ly_cdr (smob);
+  Paper_system *p = (Paper_system*) ly_cdr (smob);
   scm_puts ("#<", port);
   scm_puts (classname (p), port);
   scm_puts (" ", port);
@@ -56,36 +56,36 @@ Paper_line::print_smob (SCM smob, SCM port, scm_print_state*)
 }
 
 bool
-Paper_line::is_title () const
+Paper_system::is_title () const
 {
   return is_title_;
 }
 
 Real
-Paper_line::penalty () const
+Paper_system::penalty () const
 {
   return penalty_;
 }
 
 Offset
-Paper_line::dim () const
+Paper_system::dim () const
 {
   return Offset (stencil_.extent (X_AXIS).length (),
 		 stencil_.extent (Y_AXIS).length ());
 }
 
 Stencil
-Paper_line::to_stencil () const
+Paper_system::to_stencil () const
 {
   return stencil_;
 }
 
-LY_DEFINE (ly_paper_line_height, "ly:paper-line-extent",
+LY_DEFINE (ly_paper_line_height, "ly:paper-system-extent",
 	   2, 0, 0, (SCM line, SCM axis),
 	   "Return the extent of @var{line}.")
 {
-  Paper_line *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  Paper_system *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
   Axis ax = (Axis)ly_scm2int (axis);
   return scm_make_real (pl->dim ()[ax]);
@@ -93,39 +93,39 @@ LY_DEFINE (ly_paper_line_height, "ly:paper-line-extent",
 
 
 
-LY_DEFINE (ly_paper_line_title_p, "ly:paper-line-title?",
+LY_DEFINE (ly_paper_line_title_p, "ly:paper-system-title?",
 	   1, 0, 0, (SCM line),
 	   "Is  @var{line} a title line?")
 {
-  Paper_line *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  Paper_system *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
   return SCM_BOOL (pl->is_title ());
 }
 
-LY_DEFINE (ly_paper_line_number, "ly:paper-line-number",
+LY_DEFINE (ly_paper_line_number, "ly:paper-system-number",
 	   1, 0, 0, (SCM line),
 	   "Return the number of @var{line}.")
 {
-  Paper_line *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  Paper_system *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
   return scm_int2num (pl->number_);
 }
 
-LY_DEFINE (ly_paper_line_break_score, "ly:paper-line-break-penalty",
+LY_DEFINE (ly_paper_line_break_score, "ly:paper-system-break-penalty",
 	   1, 0, 0, (SCM line),
 	   "Return the score for page break after @var{line}.")
 {
-  Paper_line *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  Paper_system *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
   return scm_int2num (int (pl->penalty ()));
 }
 
-LY_DEFINE (ly_paper_line_stencil, "ly:paper-line-stencil",
+LY_DEFINE (ly_paper_line_stencil, "ly:paper-system-stencil",
 	   1, 0, 0, (SCM line),
 	   "Return the height of @var{line}.")
 {
-  Paper_line *pl = unsmob_paper_line (line);
-  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-line");
+  Paper_system *pl = unsmob_paper_line (line);
+  SCM_ASSERT_TYPE (pl, line, SCM_ARG1, __FUNCTION__, "paper-system");
   return pl->to_stencil ().smobbed_copy ();
 }
 

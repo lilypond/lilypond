@@ -202,12 +202,12 @@
 	 (y 0.0)
 	 (scale (* 2.83464 (ly:output-def-lookup bookpaper 'outputscale)))
 	 (total-y
-	  (apply + (map (lambda (z) (ly:paper-line-extent z Y)) lines)))
+	  (apply + (map (lambda (z) (ly:paper-system-extent z Y)) lines)))
 	 (x-ext '(-8 . 0))
 	 (lineno 0))
 
     (define (dump-line outputter system)
-      (let ((stil (ly:paper-line-stencil system)))
+      (let ((stil (ly:paper-system-stencil system)))
 	
 	(ly:outputter-dump-string
 	 outputter
@@ -215,7 +215,7 @@
 	  " 0.0 "
 	  (ly:number->string y)
 	  " start-system {\n set-ps-scale-to-lily-scale\n"))
-	(set! y (+ y (ly:paper-line-extent system Y)))
+	(set! y (+ y (ly:paper-system-extent system Y)))
 	(ly:outputter-dump-stencil outputter stil)
 	(ly:outputter-dump-string
 	 outputter
@@ -235,7 +235,7 @@
     (for-each
      (lambda (ell)
        (set! x-ext (interval-union x-ext
-				   (cons 0.0 (ly:paper-line-extent ell X)))))
+				   (cons 0.0 (ly:paper-system-extent ell X)))))
      lines)
 
   (for-each

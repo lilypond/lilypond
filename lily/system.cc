@@ -23,7 +23,7 @@
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "paper-book.hh"
-#include "paper-line.hh"
+#include "paper-system.hh"
 
 System::System (SCM s)
   : Spanner (s)
@@ -375,9 +375,7 @@ System::get_line ()
 		       scm_cons (ly_symbol2scm ("combine-stencil"),
 				 exprs));
   
-  Paper_line *pl = new Paper_line (sys_stencil, false);
-
-
+  Paper_system *pl = new Paper_system (sys_stencil, false);
 
   Item * break_point =this->get_bound(LEFT);
   pl->penalty_ =

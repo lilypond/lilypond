@@ -456,6 +456,7 @@ L1 is copied, L2 not.
        "define-grobs.scm"
        "define-grob-interfaces.scm"
        "page-layout.scm"
+       "titling.scm"
        
        "paper.scm"
 

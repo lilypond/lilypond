@@ -11,7 +11,7 @@
 #include "paper-book.hh"
 #include "output-def.hh"
 #include "paper-outputter.hh"
-#include "paper-line.hh"
+#include "paper-system.hh"
 #include "paper-score.hh"
 #include "stencil.hh"
 #include "warn.hh"
@@ -120,10 +120,6 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   return lst; 
 }
 
-/*
-  TODO: there is too much code dup, and the interface is not
-  clear. FIXME.
- */
 void
 Paper_book::output (String outname)
 {
@@ -254,7 +250,7 @@ LY_DEFINE(ly_paper_book_book_paper, "ly:paper-book-book-paper",
 
 /*
 
-TODO: resurrect more complex user-tweaks for titling .
+TODO: resurrect more complex user-tweaks for titling? 
 
 */
 Stencil
@@ -329,7 +325,7 @@ Paper_book::lines ()
 
   if (!title.is_empty ())
     {
-      Paper_line *pl = new Paper_line (title, true);
+      Paper_system *pl = new Paper_system (title, true);
       
       lines_ = scm_cons (pl->self_scm (), lines_);
       scm_gc_unprotect_object (pl->self_scm ());
@@ -341,7 +337,7 @@ Paper_book::lines ()
       Stencil title = score_title (i);      
       if (!title.is_empty ())
 	{
-	  Paper_line *pl = new Paper_line (title, true);
+	  Paper_system *pl = new Paper_system (title, true);
 	  lines_ = scm_cons (pl->self_scm (), lines_);
 	  scm_gc_unprotect_object (pl->self_scm ());
   	}
@@ -358,10 +354,10 @@ Paper_book::lines ()
   lines_ = scm_reverse (lines_);
   
   int i = 0;
-  Paper_line * last = 0;
+  Paper_system * last = 0;
   for (SCM s = lines_; s != SCM_EOL; s = ly_cdr (s))
     {
-      Paper_line * p = unsmob_paper_line (ly_car (s));
+      Paper_system * p = unsmob_paper_line (ly_car (s));
       p->number_ = ++i;
 
       if (last && last->is_title ())
@@ -395,66 +391,6 @@ Paper_book::pages ()
 }
 
 
-
-
-#if 0
-
-static SCM
-c_ragged_page_breaks (SCM lines,
-		      Paper_book *book,
-		      Real text_height,
-		      Real first, Real last)
-{
-  int page_number = 0;
-
-  Real book_height =0.;
-  for (SCM s = lines ; ly_c_pair_p (s);  s = ly_cdr (s))
-    {
-      book_height += unsmob_paper_line (ly_car (s))->dim ()[Y_AXIS];
-    }
-
-  int page_count = int (book_height / text_height + 0.5); // ceil?
-  SCM breaks = SCM_EOL;
-  Real page_height = text_height + first;
-  Real h = 0;
-  int number = 0;
-  for (SCM s = lines; ly_c_pair_p (s); s = ly_cdr (s))
-    {
-      Paper_line *pl = unsmob_paper_line (ly_car (s));
-      if (!pl->is_title () && h < page_height)
-	number++;
-      h += pl->dim ()[Y_AXIS];
-      if (!pl->is_title () && h > page_height)
-	{
-	  breaks = ly_snoc (scm_int2num (number), breaks);
-	  page_number++;
-	  page_height = text_height + (page_number == page_count) * last;
-	  h = 0;
-	}
-      if (ly_cdr (s) == SCM_EOL)
-	breaks = ly_snoc (scm_int2num (pl->number_), breaks);
-    }
-
-  return scm_vector (breaks);
-}
-
-LY_DEFINE (ly_ragged_page_breaks, "ly:ragged-page-breaks",
-	   5, 0, 0, (SCM lines, SCM book, SCM text, SCM first, SCM last),
-	   "Return a vector with line numbers of page breaks.")
-{
-  Paper_book* b = unsmob_paper_book (book);
-
-  SCM_ASSERT_TYPE (scm_pair_p (lines), lines, SCM_ARG1, __FUNCTION__, "list");
-  SCM_ASSERT_TYPE (b, book, SCM_ARG2, __FUNCTION__, "Paper_book");
-  SCM_ASSERT_TYPE (ly_c_number_p (text), text, SCM_ARG3, __FUNCTION__, "number");
-  SCM_ASSERT_TYPE (ly_c_number_p (first), first, SCM_ARG4, __FUNCTION__, "number");
-  SCM_ASSERT_TYPE (ly_c_number_p (last), last, SCM_ARG5, __FUNCTION__, "number");
-
-  return c_ragged_page_breaks (lines, b,
-			       ly_scm2double (text),
-			       ly_scm2double (first), ly_scm2double (last));
-}
-#endif
 
 
 /****************************************************************/

@@ -4,6 +4,20 @@
 
 2004-06-13  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/include/paper-system.hh: move cc/hh file from paper-line.*
+
+	* lily/include/paper-line.hh: rename to Paper_system.
+
+	* lily/include/paper-book.hh: doc class.
+
+	* lily/paper-book.cc (c_ragged_page_breaks): remove functions. 
+
+	* scm/page-layout.scm (plain-footer): add tagline/copyright. 
+	(plain-header): add instrument-name.
+	(default-page-make-stencil): bugfixes.
+
+	* lily/parser.yy (book_body): allow \header anywhere in \book{}
+
 	* lily/paper-book.cc: remove copyright & tagline. Remove
 	interactions with Page
 

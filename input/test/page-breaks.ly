@@ -17,31 +17,32 @@
     piece = "Piece"
 }
 
+#(set-default-paper-size "a6")
+
 pattern =  { a b c d \break }
+\book {    
+    \score {
+	\context Staff \notes \relative c' {
+	    %% 16: ideally cramped
+	    %% 17: very bad without density
+				%	\repeat unfold 17 { a b c d \break }
 
-\score {
-    \context Staff \notes \relative c' {
-	%% 16: ideally cramped
-	%% 17: very bad without density
-%	\repeat unfold 17 { a b c d \break }
+	    \pattern
+	    \pattern
+				% \noPageBreak
+	    \pattern
+	    
+				% the following changes the location of the break.
+				% 
+				% \pageBreak
+	    
+	    \pattern
+	    \pattern
+	    \pattern
+	    \pattern
+	    \repeat unfold 10 \pattern
+	}
 
-	\pattern
-	\pattern
-	% \noPageBreak
-	\pattern
-	
-	% the following changes the location of the break.
-	% 
-	% \pageBreak
-	
-	\pattern
-	\pattern
-	\pattern
-	\pattern
-	\repeat unfold 10 \pattern
     }
-    \paper {
-	#(set-default-paper-size "a6")
-	#(define page-breaking ly:optimal-page-breaks)
-    }
+    
 }
