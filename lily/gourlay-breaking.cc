@@ -66,6 +66,10 @@ print_break_nodes (Array<Break_node> const & arr)
   This algorithms is adapted from the OSU Tech report on breaking lines.
 
   this function is longish, but not very complicated.
+
+  TODO: should rewrite. See the function in scm/page-layout.scm for
+  inspiration.
+  
  */
 Array<Column_x_positions>
 Gourlay_breaking::do_solve () const
@@ -107,7 +111,7 @@ Gourlay_breaking::do_solve () const
 
 	  Interval line_dims
 	    = line_dimensions_int (pscore_->paper_, optimal_paths[start_idx].line_);
-	  Simple_spacer * sp = generate_spacing_problem (line, line_dims);
+	  Simple_spacer_wrapper * sp = generate_spacing_problem (line, line_dims);
 	  bool last_line = break_idx == breaks.size ()-1;
 	  bool ragged = ragged_right
 	    || (last_line && ragged_last);

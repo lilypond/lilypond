@@ -54,19 +54,18 @@ Break_algorithm::find_breaks () const
 }
 
 
-Simple_spacer*
+Simple_spacer_wrapper*
 Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
 					   Interval line) const
 {
-  Simple_spacer * sp =  new Simple_spacer;
-
+  Simple_spacer_wrapper * spw =  new Simple_spacer_wrapper;
+  Simple_spacer * sp =  spw->spacer_;
+  
   /*
     this is hardcoded, but this shouldn't happen anyway.
     used to be get_dimension (ly_symbol2scm ("loose_column_distance"));        
    */
   sp->default_space_ = 1.0;
-
-
   sp->indent_ = line[LEFT];
 
   /*
@@ -79,10 +78,8 @@ Break_algorithm::generate_spacing_problem (Link_array<Grob> const &curline,
   else
     sp->line_len_ = line.length ();
   
-  sp->add_columns (curline);
-
-
-  return sp;
+  spw->add_columns (curline);
+  return spw;
 }
 
 Break_algorithm::Break_algorithm ()
