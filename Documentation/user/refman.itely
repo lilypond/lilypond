@@ -645,9 +645,12 @@ octave should be.  In the following example,
 @end example
 
 @noindent
-the @code{d} will generate a warning, because a @code{d''} is
-expected, but a @code{d'} is found.  In the output, the octave is
-corrected this and the following notes.
+@c take care with @code, adds confusing quotes.
+the d will generate a warning, because a d'' is expected, but a d' is
+found.  In the output, the octave is corrected this and the following
+notes.
+
+
 
 There is also a syntax that is separate from the notes.
 @example
