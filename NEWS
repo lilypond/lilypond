@@ -1,3 +1,32 @@
+1.1.4
+
+pl 3.tca1
+ 	- accordion symbols in mf/feta-accordion.mf and
+ 	  init/accordion-defs.ly.
+ 	- small changes to mudela-book and Documentation/man/mudela-book.yo
+ 	- mudela-book example file in Documentation/tex/mudela-book-doc.doc
+
+pl 3.jcn5
+        - bf: dashed-slur
+        - bf: LilyIdString
+        - more star fixes
+        - repeatbar fixes
+
+pl 3.jcn3
+ 	- mup-to-ly.py: version 0.0
+ 	- init/test/stars-and-stripes.ly (from star.mup)
+	- GrandStaffContext
+  
+pl 3.hwn1
+	- junked musical info from key-item
+	- tutorial fixes.
+
+pl 3.jcn2
+ 	- bf: font switch
+ 
+******
+1.1.3
+
 pl 2.jcn2
 
 pl 2.uu1

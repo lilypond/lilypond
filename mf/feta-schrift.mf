@@ -590,6 +590,7 @@ fet_beginchar("Flageolet", "flageolet", "flageolet")
 fet_endchar;
 
 input feta-slag;
+input feta-accordion;
 
 fet_endgroup("scripts");
 
