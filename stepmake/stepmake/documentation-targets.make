@@ -3,7 +3,6 @@ default:
 
 
 local-WWW: $(OUTHTML_FILES)
-	echo $^ > $(depth)/wwwlist
 
 local-web:
 	$(MAKE) CONFIGSUFFIX=www local-WWW
