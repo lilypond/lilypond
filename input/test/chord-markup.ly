@@ -14,8 +14,8 @@
 	    c
 
 	    %% broken for now
-	    c^\markup { \column < "" ";" "" >
-			\column <  "1"  { \bold "2" "3" } > }
+	    c^\markup { \column << "" ";" "" >>
+			\column <<  "1"  { \bold "2" "3" } >> }
 		}
 	\context ChordNames \chords {
 	    c:7+.9-^3.5

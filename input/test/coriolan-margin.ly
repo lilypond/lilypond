@@ -10,8 +10,12 @@
   piece = "\\hspace*{30mm}\\normalfont\\large Allegro con brio"
   composer = 	 "Ludwig van Beethoven (1770-1827)"
   enteredby = 	 "JCN"
+
+
+texidoc = "Demonstration of how to set up an orchestral score."  
 }
-#(define raisedflat '((raise . 0.4) (music (named "accidentals--1"))))
+
+raisedFlat = \markup { \raise #0.4 \smaller \smaller \musicglyph #"accidentals--1"  }
 
 flauti = \notes \relative c' {
   \property Staff.instrument	= #"2 Flauti"
@@ -32,8 +36,10 @@ oboi = \notes \relative c' {
 
 clarinetti = \notes \relative c' {
 %   \property Staff.instrument = #`("Clarinetti in B" ,text-flat)
-  \property Staff.instrument	= #`(lines "2 Clarinetti" (columns "(B" ,raisedflat ")"))
-  \property Staff.instr		= #`(lines "Cl." (columns "(B" ,raisedflat ")"))
+    \property Staff.instrument
+	= \markup { \column << "Clarinetti" { "in B" \raisedFlat } >> }
+    \property Staff.instr
+	= \markup { \smaller  { "Cl(B" \raisedFlat ")" } }
 
   c1 c
 }
@@ -45,21 +51,23 @@ fagotti = \notes \relative c' {
 }
 
 corni = \notes \relative c' {
-  \property Staff.instrument	= #`(lines "2 Corni" (columns "(E" ,raisedflat ")"))
-  \property Staff.instr		= #`(lines "Cor." (columns "(E" ,raisedflat ")"))
+    \property Staff.instrument
+	= \markup { \column << "Corni" { "in E" \raisedFlat } >> }
+    \property Staff.instr
+	= \markup { \smaller  { "Cor(E" \raisedFlat ")" } }
 
   c1 c
 }
 
 trombe = \notes \relative c' {
-  \property Staff.instrument	= #'(lines "2 Trombe" "(C)")
-  \property Staff.instr		= #'(lines "Tbe." "(C)")
+  \property Staff.instrument	= \markup \column << "2 Trombe" "(C)" >>
+  \property Staff.instr		= \markup \column <<  "Tbe." "(C)" >>
 
   c1 c
 }
 
 timpani = \notes \relative c' {
-  \property Staff.instrument	= #'(lines "Timpani" "(C-G)")
+  \property Staff.instrument	= \markup \column << "Timpani" "(C-G)" >>
   \property Staff.instr		= #"Timp."
 
   c1 c
@@ -85,8 +93,8 @@ viola = \notes \relative c' {
 }
 
 violoncello = \notes \relative c' {
-  \property Staff.instrument	= #'(lines "Violoncello" "e" "Contrabasso")
-  \property Staff.instr		= #'(lines "Vc." "Cb.")
+  \property Staff.instrument	= \markup \column << "Violoncello" "e" "Contrabasso" >>
+  \property Staff.instr		= \markup \column <<  "Vc." "Cb." >>
   c1 c
 }
 
