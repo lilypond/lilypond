@@ -1,5 +1,8 @@
 2005-03-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* ly/chord-modifiers-init.ly (whiteTriangleMarkup): use the greek
+	Delta, not the Symbol one. 
+
 	* mf/GNUmakefile ($(outdir)/lilypond.map): add -Regular to Aybabtu
 	for the .map file.
 
