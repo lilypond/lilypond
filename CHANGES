@@ -1,3 +1,18 @@
+pl 5.hwn1
+	- more .texi; yodl completely removed.
+	- rm'd several doc stuff: engraving.yo, gnu-page.yo, translated blurbs (leave it to translation project)
+	- sm: help2man-*make
+	- mcgrain bib entry.
+	- debian updates.
+	- gcc 2.95 const fixes. (hopefully)
+	- sm: rm'd Documentation/tex/ directory.  everything in stepmake/INSTALL.texi
+
+pl 5.jcn1
+	- lily.scm: don't use regex-substitute/global 
+	- website/doco fixes
+	- bf: package-diff.py
+
+
 pl 4.hwn1
 	- bf: repeats.
 	- bf: mmrests
