@@ -1,5 +1,9 @@
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/tuplets.ly (texidoc): rename file.
+
+	* po/fr.po: update
+
 	* buildscripts/lilypond-profile.sh: error message if script is not
 	sourced.
 

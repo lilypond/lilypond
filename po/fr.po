@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.7.26\n"
 "POT-Creation-Date: 2003-07-18 14:45+0200\n"
-"PO-Revision-Date: 2003-07-23 12:00-0500\n"
+"PO-Revision-Date: 2003-07-24 08:00-0500\n"
 "Last-Translator: Michel Robitaille <robitail@IRO.UMontreal.CA>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -127,7 +127,7 @@ msgstr "Exécution de %s..."
 #: lilylib.py:282
 #, python-format
 msgid "`%s' failed (%s)"
-msgstr ""
+msgstr "`%s' a échoué (%s)"
 
 #: lilylib.py:285 midi2ly.py:266 mup2ly.py:264
 msgid "(ignored)"
@@ -423,7 +423,7 @@ msgstr "Destruction du fichier de sortie"
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
 #: lilypond-book.py:120
 msgid "Process LilyPond snippets in hybrid html, LaTeX or texinfo document"
-msgstr ""
+msgstr "Traiter les fragments dans un document hybride en html, LaTeX ou texinfo"
 
 #. another bug in option parser: --output=foe is taken as an abbreviation
 #. for --output-format
@@ -541,7 +541,7 @@ msgstr "afficher la notice de garantie et du droit d'auteur"
 #. Redirect to stderr
 #: lilypond-book.py:230
 msgid "LaTeX failed."
-msgstr ""
+msgstr "Échec de LaTeX"
 
 #. URG see ly2dvi
 #. Convert numeric values, with or without specific dimension, to floats.
@@ -673,7 +673,7 @@ msgstr "aucun fichier spéficié sur la ligne de commande"
 #. #help_summary = _ ("Run LilyPond using LaTeX for titling")
 #: ly2dvi.py:121
 msgid "Run LilyPond, add titles, generate printable document"
-msgstr ""
+msgstr "Exéctuer LilyPond, ajouter les titres et générer les documents imprimables"
 
 #: ly2dvi.py:127 main.cc:115
 msgid "write Makefile dependencies for every input file"
@@ -681,7 +681,7 @@ msgstr "produire les dépendances pour Makefile concernant chaque fichier d'entré
 
 #: ly2dvi.py:129
 msgid "print even more output"
-msgstr ""
+msgstr "afficher encore plus de sortie"
 
 #: ly2dvi.py:130
 msgid "add DIR to LilyPond's search path"
@@ -735,7 +735,7 @@ msgstr "produire une image de ce premier système"
 
 #: ly2dvi.py:146
 msgid "make HTML file with links to all output"
-msgstr ""
+msgstr "générer les fichier HTML avec des liens sur toutes les sorties"
 
 #: ly2dvi.py:147
 msgid "KEY=VAL"
@@ -824,6 +824,8 @@ msgid ""
 "Trying create PDF, but no PFA fonts found.\n"
 "Using bitmap fonts instead. This will look bad."
 msgstr ""
+"Tentative de création du PDF mais aucune fonte PFA repérée.\n"
+"Utilisation des fontes bitmap à la place. L'apparence sera moins bonne."
 
 #. ugh. Different targets?
 #. Added as functionality to ly2dvi, because ly2dvi may well need to do this
@@ -875,7 +877,7 @@ msgstr "le nom de fichier ne peut contenir des espaces: « %s »"
 #.
 #: ly2dvi.py:845
 msgid "Running LilyPond failed. Rerun with --verbose for a trace."
-msgstr ""
+msgstr "Échec d'exécution de LilyPond. Réxécuter avec --verbose pour obtenir une trace."
 
 #. Our LilyPond pseudo filter always outputs to 'lelie'
 #. have subsequent stages and use 'lelie' output.
@@ -884,14 +886,14 @@ msgstr ""
 #. trying to run tex/latex by hand
 #: ly2dvi.py:886
 msgid "Failed to make PS file. Rerun with --verbose for a trace."
-msgstr ""
+msgstr "Échec de génération du fichier PS. Réexécuter avec --verbose pour obtenir une trace."
 
 #. unless: add --tex, or --latex?
 #. TODO: friendly message about TeX/LaTeX setup,
 #. trying to run tex/latex by hand
 #: ly2dvi.py:916
 msgid "Running LaTeX falied. Rerun with --verbose for a trace."
-msgstr ""
+msgstr "Échec de LaTeX. Réexécuter avec --verbose pour obtenir une trace."
 
 #. add DEP to targets?
 #: ly2dvi.py:926 input-file-results.cc:68
@@ -1213,7 +1215,7 @@ msgstr "Erreur de programmation: %s (Poursuite; croisons les doigts)\n"
 #: accidental.cc:202 key-signature-interface.cc:137
 #, c-format
 msgid "accidental `%s' not found"
-msgstr ""
+msgstr "accidentel `%s' non repéré"
 
 #: accidental-engraver.cc:171 new-accidental-engraver.cc:238
 #, c-format
@@ -1269,6 +1271,8 @@ msgid ""
 "A script for removing font-files is delivered with the source-code,\n"
 "in buildscripts/clean-fonts.sh"
 msgstr ""
+"Un script pour enlever les fichiers de fontes est livré avec le code source,\n"
+"dans buildscripts/clean-fonts.sh"
 
 #: all-font-metrics.cc:169
 #, c-format
@@ -1362,7 +1366,7 @@ msgstr "aucun de ceux-ci dans ma famille"
 #: chord-tremolo-engraver.cc:98
 #, c-format
 msgid "Chord tremolo with %d elements. Must have two elements."
-msgstr ""
+msgstr "Accord de tremolo avec %d éléments. Doit avoir 2 éléments."
 
 #: chord-tremolo-engraver.cc:157
 msgid "unterminated chord tremolo"
@@ -1375,7 +1379,7 @@ msgstr "aucun pour l'impression de tremolos"
 #: clef.cc:64
 #, c-format
 msgid "clef `%s' not found"
-msgstr ""
+msgstr "clé `%s' non repéré"
 
 #: cluster.cc:131
 #, c-format
@@ -1685,7 +1689,6 @@ msgid "GNU LilyPond -- The music typesetter"
 msgstr "GNU LilyPond -- Le logiciel de composition de musique"
 
 #: main.cc:206
-#, fuzzy
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -1706,13 +1709,13 @@ msgstr ""
 "tel que publié par la Free Software Foundation.\n"
 "\n"
 "    Ce logiciel est distribué dans l'espoir qu'il soit utile\n"
-"mais sans AUCUNE GARANTIE;  tant pour des raisons\n"
-"COMMERCIALES que pour RÉPONDRE À UN BESOIN PARTICULIER.. Consulter\n"
-"la license GNU General Public License for more details.\n"
+"mais sans AUCUNE GARANTIE;  sans aucune garantie implicites\n"
+"COMMERCIALES ou pour RÉPONDRE À UN BESOIN PARTICULIER.. Consulter\n"
+"la license GNU General Public License pour plus de détails.\n"
 "\n"
 "    Vous devriez avoir reçu une copie (consulter le fichier COPYING) de la\n"
 "license GNU General Public License accompagnant ce logiciel; si absente écrire à\n"
-"la Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
+"la Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,\n"
 "USA.\n"
 
 #: mensural-ligature.cc:153
@@ -1799,7 +1802,7 @@ msgstr "Accolades non pairées"
 #.
 #: new-fingering-engraver.cc:143
 msgid "music for the martians."
-msgstr ""
+msgstr "musique pour les martiens."
 
 #: new-tie-engraver.cc:166 tie-engraver.cc:217
 msgid "lonely tie"
@@ -1812,7 +1815,7 @@ msgstr "Trop de note-colonnes qui se heurtent. On les ignore."
 #: note-head.cc:127
 #, c-format
 msgid "note head `%s' not found"
-msgstr ""
+msgstr "tête de note `%s' non repérée"
 
 #: paper-def.cc:96
 #, c-format
@@ -2029,25 +2032,25 @@ msgstr "Taille bizarre de hampe de not; vérifier pour des faisceaux étroits"
 #: stem.cc:611
 #, c-format
 msgid "flag `%s' not found"
-msgstr ""
+msgstr "fanion `%s' non repéré"
 
 #: stem.cc:624
 #, c-format
 msgid "flag stroke `%s' not found"
-msgstr ""
+msgstr "force du fanion `%s' non repéré"
 
 #: stem-engraver.cc:96
 msgid "tremolo duration is too long"
-msgstr ""
+msgstr "durée du tremolo est trop longue"
 
 #: stem-engraver.cc:124
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
-msgstr "Ajout d'une note de tête à une hampe de not incompatible (type = %d)"
+msgstr "Ajout d'une note de tête à une hampe incompatible (type = %d)"
 
 #: stem-engraver.cc:125
 msgid "Don't you want polyphonic voices instead?"
-msgstr ""
+msgstr "Ne désirez-vous pas de voix polyphoniques à la place?"
 
 #: streams.cc:34
 #, c-format
@@ -2114,7 +2117,7 @@ msgstr "aucun pour l'impression d'un tuplet d'accolades de départ"
 #: time-signature.cc:87
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
-msgstr ""
+msgstr "symbole de la signature du temps `%s' non repéré; retour à un style numéroté"
 
 #.
 #. Todo: should make typecheck?
@@ -2124,7 +2127,7 @@ msgstr ""
 #: time-signature-engraver.cc:57
 #, c-format
 msgid "Found strange time signature %d/%d."
-msgstr ""
+msgstr "Repérage d'étranges signature de temps %d/%d."
 
 #: translator-ctors.cc:53
 #, c-format
@@ -2161,33 +2164,29 @@ msgid "can't find or create: `%s'"
 msgstr "ne peut toruver ou créer: « %s »"
 
 #: vaticana-ligature.cc:49
-#, fuzzy
 msgid "ascending vaticana style flexa"
-msgstr "porrectus ascendant de style vaticana"
+msgstr "vaticana ascendant de style flexa"
 
 #: vaticana-ligature.cc:219
-#, fuzzy
 msgid "Vaticana_ligature:thickness undefined; assuming 1.4"
-msgstr "Mensural_ligature: épaisseur indéfinie sur flexa %d; 1.4 est assumé"
+msgstr "Vaticana_ligature: épaisseur indéfinie; 1.4 est assumé"
 
 #: vaticana-ligature.cc:233
-#, fuzzy
 msgid "Vaticana_ligature:x-offset undefined; assuming 0.0"
-msgstr "Mensural_ligature: largeur de flexa indéfinie sur flexa %d; 2.0 est assumé"
+msgstr "Vaticana_ligature: décalage en X indéfinie; 0.0 est assumé"
 
 #: vaticana-ligature.cc:258
-#, fuzzy
 msgid "Vaticana_ligature: (delta_pitch == 0)"
-msgstr "Mensural_liguture: (joint_left == 0)"
+msgstr "Vaticana_liguture: (delta_pitch == 0)"
 
 #: vaticana-ligature.cc:271
 msgid "Vaticana_ligature:delta-pitch -> ignoring join"
-msgstr ""
+msgstr "Vaticana_ligature:delta-pitch -> joint ignoré"
 
 #: vaticana-ligature-engraver.cc:477
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr=%ul"
-msgstr ""
+msgstr "Vaticana_ligature_engraver: fixé `spacing-increment = %f': ptr=%ul"
 
 #: volta-engraver.cc:112
 msgid "No volta spanner to end"
@@ -2211,7 +2210,7 @@ msgstr "Plus d'alternatives que de répétitions. Rebuts dépasse la limite des alt
 
 #: parser.yy:861 parser.yy:868
 msgid "pplycontext takes function argument"
-msgstr ""
+msgstr "pplycontext nécessite un argument de fonction"
 
 #: parser.yy:877
 msgid "Second argument must be a symbol"
@@ -2223,7 +2222,7 @@ msgstr "Le premier argument doit être une procédure n'acceptant qu'un argument"
 
 #: parser.yy:1009
 msgid "pply takes function argument"
-msgstr ""
+msgstr "pply nécessite un argument de fonction"
 
 #: parser.yy:1501
 msgid "Expecting string as script definition"
