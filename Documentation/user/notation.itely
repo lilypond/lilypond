@@ -2120,7 +2120,7 @@ Metronome settings can be entered as follows
 In the MIDI output, they are interpreted as a tempo change.  In the
 paper output, a metronome marking is printed
 @cindex @code{\tempo}
-@lilypond[quote,fragment,verbatim]
+@lilypond[quote,verbatim,fragment]
   \tempo 8.=120 c''1
 @end lilypond
 
@@ -2727,27 +2727,37 @@ objects.  Vertical positioning of these symbols is handled by the
 @node Repeats
 @section Repeats
 
+Repetition is a central concept in music, and multiple notations exist
+for repetitions.
+
+@menu
+* Repeat types::
+* Repeat syntax::               
+* Repeats and MIDI::            
+* Manual repeat commands::      
+* Tremolo repeats::             
+* Tremolo subdivisions::        
+* Measure repeats::             
+@end menu
+
+@node Repeat types
+@subsection Repeat types
 
 @cindex repeats
 @cindex @code{\repeat}
-
-
-Repetition is a central concept in music, and multiple notations exist
-for repetitions.  In LilyPond, most of these notations can be captured
-in a uniform syntax.  One of the advantages is that repeats entered in
-this way can be rendered in MIDI accurately.
 
 The following types of repetition are supported
 
 @table @code
 @item unfold
-Repeated music is fully written (played) out.  Useful for MIDI
-output, and entering repetitive music.
+Repeated music is fully written (played) out.  This is useful when
+entering repetitious music.  This is the only kind of repeat that
+is included in MIDI output.
 
 @item volta
 Repeats are not written out, but alternative endings (volte) are
 printed, left to right with brackets.  This is the standard notation
-for repeats with alternatives.
+for repeats with alternatives.  These are not played in MIDI output by default.
 
 @ignore
 @item fold
@@ -2758,21 +2768,13 @@ used to typeset two lines of lyrics in songs with repeats, see
 
 @c tremolo, beamed
 @item tremolo
-Make tremolo beams.
+Make tremolo beams.  These are not played in MIDI output by default.
 
 @item percent
-Make beat or measure repeats.  These look like percent signs.
+Make beat or measure repeats.  These look like percent signs.  These are not played
+in MIDI output by default.
 
 @end table  
-
-@menu
-* Repeat syntax::               
-* Repeats and MIDI::            
-* Manual repeat commands::      
-* Tremolo repeats::             
-* Tremolo subdivisions::        
-* Measure repeats::             
-@end menu
 
 @node Repeat syntax
 @subsection Repeat syntax
@@ -2879,27 +2881,28 @@ example by setting @code{Score.measurePosition} or entering
 
 @cindex expanding repeats
 
-An advantage of the unified syntax for repeats, is that all repeats
-may be played out for the MIDI output.  This is achieved by
-applying the @code{\unfoldrepeats} music function.
+With a little bit of tweaking, all types of repeats can be present
+in the MIDI output.  This is achieved by applying the
+@code{\unfoldrepeats} music function.  This functions changes all
+repeats to unfold repeats.
 
-@lilypond[verbatim,raggedright]
-\new Staff
-  \unfoldrepeats {
-    \repeat tremolo 8 {c'32 e' }
-    \repeat percent 2 { c''8 d'' }
-    \repeat volta 2 {c'4 d' e' f'} 
-    \alternative {
-      { g' a' a' g' }
-      {f' e' d' c' }
-    }
-    \bar "|."
+@lilypond[verbatim,raggedright,fragment]
+\unfoldrepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'} 
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
   }
+}
+\bar "|."
 @end lilypond
 
 When creating a score file using @code{\unfoldrepeats} for midi, then
-it is necessary to make two @code{\score} blocks.  One for MIDI, with
-unfolded repeats, and one for notation, eg.
+it is necessary to make two @code{\score} blocks.  One for MIDI (with
+unfolded repeats) and one for notation (with volta, tremolo, and
+percent repeats).  For example,
 
 @example
   \score @{
@@ -2959,17 +2962,17 @@ Program reference: @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
 To place tremolo marks between notes, use @code{\repeat} with tremolo
 style
 @lilypond[quote,verbatim,raggedright]
-  \context Voice \relative c' {
-    \repeat "tremolo" 8 { c16 d16 }
-    \repeat "tremolo" 4 { c16 d16 }    
-    \repeat "tremolo" 2 { c16 d16 }
-  }
+\new Voice \relative c' {
+  \repeat "tremolo" 8 { c16 d16 }
+  \repeat "tremolo" 4 { c16 d16 }    
+  \repeat "tremolo" 2 { c16 d16 }
+}
 @end lilypond
 
 Tremolo marks can also be put on a single note.  In this case, the
 note should not be surrounded by braces.
 @lilypond[quote,verbatim,raggedright]
-\repeat "tremolo" 4 c'16
+  \repeat "tremolo" 4 c'16
 @end lilypond
 
 Similar output is obtained using the tremolo subdivision, described in
@@ -2999,10 +3002,11 @@ length is omitted, the last value (stored in @code{tremoloFlags}) is
 used
 
 @lilypond[quote,verbatim,fragment]
-c'2:8 c':32 | c': c': |
+  c'2:8 c':32 | c': c': |
 @end lilypond
 
 @c [TODO : stok is te kort bij 32en]
+@c   somebody want to translate that into English?  :)
 
 @refbugs
 
@@ -3026,9 +3030,9 @@ Patterns of one and two measures are replaced by percent-like signs,
 patterns that divide the measure length are replaced by slashes
 
 @lilypond[quote,verbatim,raggedright]
-\new Voice {
-  \repeat "percent" 4  { c'4 }
-  \repeat "percent" 2 { c'2 es'2 f'4 fis'4 g'4 c''4 }
+\new Voice \relative c' {
+  \repeat "percent" 4  { c4 }
+  \repeat "percent" 2 { c2 es2 f4 fis4 g4 c4 }
 }
 @end lilypond
 
