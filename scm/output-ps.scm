@@ -13,8 +13,6 @@
 ;;;;   * text setting, kerning.
 ;;;;   * document output-interface
 
-(debug-enable 'backtrace)
-
 (define-module (scm output-ps)
   #:re-export (quote)
 
