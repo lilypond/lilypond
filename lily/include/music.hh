@@ -27,6 +27,8 @@
 
   @see Music_sequence
 
+
+  TODO: make a equalp function for general music. 
   */
 class Music {
 public:

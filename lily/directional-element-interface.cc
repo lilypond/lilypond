@@ -10,25 +10,27 @@
 #include "directional-element-interface.hh"
 
 
-Directional_element_interface::Directional_element_interface (Score_element const *s)
+static SCM Directional_element_interface::direction_sym;
+
+static void
+init_functions ()
 {
-  elt_l_ =  (Score_element*)s;
+  Directional_element_interface::direction_sym = scm_permanent_object (ly_symbol2scm ("direction"));
 }
+ADD_SCM_INIT_FUNC(Directional, init_functions);
+
 
 bool
-Directional_element_interface::has_interface () const
+Directional_element_interface::has_interface (Score_element*me) 
 {
-  return isdir_b (elt_l_->get_elt_property ("direction"));
+  return isdir_b (me->get_elt_property (direction_sym));
 }
 
-
-  
-
 Direction
-Directional_element_interface::get () const
+Directional_element_interface::get (Score_element*me) 
 {
   // return dir_;
-  SCM d= elt_l_->get_elt_property ("direction");
+  SCM d= me->get_elt_property (direction_sym);
   if (!isdir_b(d))
     return CENTER;
       
@@ -36,7 +38,10 @@ Directional_element_interface::get () const
 }
 
 void
-Directional_element_interface::set (Direction d) 
+Directional_element_interface::set (Score_element*me, Direction d) 
 {
-  elt_l_->set_elt_property ("direction", gh_int2scm (d));
+  SCM sd = gh_int2scm (d);
+
+  if (me->get_elt_property (direction_sym) != sd)
+    me->set_elt_property (direction_sym, sd);
 }

@@ -14,15 +14,11 @@
 
 struct Directional_element_interface 
 {
-  
 public:
-  Score_element *elt_l_;
-  
-  Directional_element_interface (Score_element const *);
-  void set  (Direction d);
-  Direction get () const;
-  bool has_interface () const;
-  // bool set_interface ();
+  static SCM direction_sym ;
+  static void set  (Score_element*,Direction d);
+  static Direction get (Score_element*) ;
+  static bool has_interface (Score_element*) ;
 };
 
 

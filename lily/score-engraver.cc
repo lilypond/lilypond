@@ -148,7 +148,7 @@ Score_engraver::typeset_all()
 	    if (!s->get_bound (d))
 	      {
 		s->set_bound(d, command_column_l_);
-		::warning (_f ("unbound spanner `%s'", classname(s)));
+		::warning (_f ("unbound spanner `%s'", s->name().ch_C()));
 	      }
 	  } while (flip(&d) != LEFT);
 	}

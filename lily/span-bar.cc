@@ -43,10 +43,13 @@ MAKE_SCHEME_CALLBACK(Span_bar,before_line_breaking);
 SCM
 Span_bar::before_line_breaking (SCM smob)
 {
-  Bar::before_line_breaking (smob);
-  
   evaluate_empty (unsmob_element (smob));
+  evaluate_glyph (unsmob_element (smob));
 
+  /*
+    no need to call   Bar::before_line_breaking (), because the info
+    in ELEMENTS already has been procced by Bar::before_line_breaking().
+   */
   return SCM_UNSPECIFIED;
 }
 
@@ -77,31 +80,39 @@ Span_bar::evaluate_empty (Score_element*me)
     {
       me->suicide ();
     }
-  
-  SCM gl = me->get_elt_property ("glyph");
+}
+
+void
+Span_bar::evaluate_glyph (Score_element*me)
+{
+  SCM elts = me->get_elt_property ("elements");
+  Score_element * b = unsmob_element (gh_car (elts));
+  SCM glsym =ly_symbol2scm ("glyph");
+  SCM gl =b ->get_elt_property (glsym);
   if (!gh_string_p (gl))
     {
       me->suicide ();
       return ; 
     }
-  else {
-    String type_str = ly_scm2string (gl);
-    String orig = type_str;
-    if (type_str == "|:") 
-      {
-	type_str= ".|";
-      }
-    else if (type_str== ":|")
-      {
-	type_str= "|.";
-      }
-    else if (type_str== ":|:")
-      {
-	type_str= ".|.";
-      }
-    if (orig != type_str)
-      me->set_elt_property ("glyph", ly_str02scm (type_str.ch_C()));
-  }
+
+  String type = ly_scm2string (gl);
+  
+  if (type == "|:") 
+    {
+      type = ".|";
+    }
+  else if (type== ":|")
+    {
+      type = "|.";
+    }
+  else if (type== ":|:")
+    {
+      type = ".|.";
+    }
+
+  gl = ly_str02scm (type.ch_C());
+  if (scm_equal_p (me->get_elt_property (glsym), gl) != SCM_BOOL_T)
+    me->set_elt_property (glsym, gl);
 }
 
 Interval

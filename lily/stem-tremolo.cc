@@ -95,7 +95,7 @@ Stem_tremolo::brew_molecule (SCM smob)
       int beams_i = Stem::beam_count(stem, RIGHT) >? Stem::beam_count (stem, LEFT);
       mol.translate (Offset(stem->relative_coordinate (0, X_AXIS) - me->relative_coordinate (0, X_AXIS),
 			    Stem::stem_end_position (stem ) * ss / 2 - 
-			    Directional_element_interface (beam).get () * beams_i * interbeam_f));
+			    Directional_element_interface::get (beam) * beams_i * interbeam_f));
     }
   else
     {  

@@ -26,10 +26,8 @@ protected:
 
 class Mark_req : public Request {
 public:
-  SCM mark_label ();
-
-
   virtual bool do_equal_b (Request const*) const;
+  SCM mark_label ();
   VIRTUAL_COPY_CONS(Music);
 };
 
@@ -84,12 +82,9 @@ public:
   the latter should only happen at the start of a measure.  */
 class Bar_req  : public Request  {
 public:
-  String type_str_;
+
   Bar_req (String);
 protected:
-  virtual bool do_equal_b (Request const*) const;
-  virtual void do_print () const;
-
   VIRTUAL_COPY_CONS(Music);
 };
 

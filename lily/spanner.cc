@@ -41,8 +41,8 @@ Spanner::do_break_processing ()
 	  if (!parent->spanned_rank_iv ().contains_b (this->spanned_rank_iv ()))
 	    {
 	      programming_error (to_str ("Spanner `%s' is not fully contained in parent spanner `%s'.",
-					 classname (this),
-					 classname (parent)));
+					 name().ch_C(),
+					 parent->name ().ch_C ()));
 	    }
 	}
     }

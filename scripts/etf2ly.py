@@ -239,6 +239,8 @@ articulation_dict ={
 	12: '\\mordent',
 	8: '\\fermata',
 	4: '^',
+	1: '.',
+	3: '>',
 	18: '"arp"' , # arpeggio
 };
 
@@ -252,7 +254,7 @@ class Articulation:
 		try:
 			a = articulation_dict[self.type]
 		except KeyError:
-			sys.stderr.write ("\nUnknown articulation %d" % self.type)
+			sys.stderr.write ("\nUnknown articulation no. %d on note no. %d" % (self.type, self.notenumber))
 			a = '"art"'
 			
 		c.note_suffix = '-' + a + c.note_suffix

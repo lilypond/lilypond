@@ -170,9 +170,6 @@ additional conversion tools.
      The website will build without this utility, but you will not see
      our hypertextified bibliography.
 
-   * DOC++ (http://www.zib.de/Visual/software/doc++/index.html)     A
-     documentation system for C++ sources, which is used for the
-     LilyPond sources.
 
 Configuring and compiling
 =========================
@@ -187,17 +184,20 @@ Configuring and compiling
 
    This will install a number of files, something close to:
 
-     	/usr/local/man/man1/mi2mu.1
+     	/usr/local/man/man1/midi2ly.1
+     	/usr/local/man/man1/abc2ly.1
+     	/usr/local/man/man1/etf2ly.1
      	/usr/local/man/man1/convert-mudela.1
      	/usr/local/man/man1/mudela-book.1
      	/usr/local/man/man1/lilypond.1
      	/usr/local/bin/lilypond
-     	/usr/local/bin/mi2mu
+     	/usr/local/bin/midi2ly
      	/usr/local/bin/convert-mudela
      	/usr/local/bin/mudela-book
      	/usr/local/bin/abc2ly
+     	/usr/local/bin/etf2ly
      	/usr/local/share/lilypond/*
-     	/usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
+     	/usr/local/share/locale/{....}/LC_MESSAGES/lilypond.mo
 
    The above assumes that you are root and have the GNU development
 tools, and your make is GNU make.  If this is not the case, you can
@@ -300,10 +300,7 @@ Redhat linux
      	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 
    Precompiled i386 RedHat RPMS are available from
-ftp://freshmeat.net/pub/rpms/lilypond/
-(ftp://freshmeat.net/pub/rpms/lilypond/) and
-http://linux.umbc.edu/software/lilypond/rpms/
-(http://linux.umbc.edu/software/lilypond/rpms/).
+`ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/'.
 
    For compilation on a RedHat system you need these packages, in
 addition to the those needed for running:
@@ -343,10 +340,10 @@ your problems.
 
    If you find bugs, please send bug reports to <bug-gnu-music@gnu.org>.
 
-   Known bugs that are LilyPond's fault are listed in `TODO', or
-demonstrated in `input/bugs/'.
+   Bugs that are LilyPond's fault are listed in our TODO list on the
+web, or demonstrated in `input/bugs/'.
 
-   Known bugs that are not LilyPond's fault are documented here.
+   Bugs that are not LilyPond's fault are documented here.
 
 LinuxPPC Bugs:
 **************

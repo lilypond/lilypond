@@ -10,10 +10,8 @@
 #include "musical-request.hh"
 #include "warn.hh"
 #include "debug.hh"
-#include "molecule.hh"
-#include "paper-def.hh"
-#include "lookup.hh"
-#include "lookup.hh"
+#include "music-list.hh"
+#include "musical-request.hh"
 
 int
 compare (Chord* left, Chord* right)
@@ -515,4 +513,60 @@ Chord::rebuild_with_bass (Array<Musical_pitch>* pitch_arr_p, int bass_i)
       bass.octave_i_--;
   pitch_arr_p->insert (bass, 0);
 }
+
+
+// junk me
+Simultaneous_music *
+get_chord (Musical_pitch tonic,
+			   Array<Musical_pitch>* add_arr_p,
+			   Array<Musical_pitch>* sub_arr_p,
+			   Musical_pitch* inversion_p,
+			   Musical_pitch* bass_p,
+			   Duration d)
+{
+
+  /*
+    UARGAUGRAGRUAUGRUINAGRAUGIRNA
+
+    ugh
+   */
+  Chord chord = to_chord (tonic, add_arr_p, sub_arr_p, inversion_p, bass_p);
+  inversion_p = 0;
+  bass_p = 0;
+
+  Tonic_req* t = new Tonic_req;
+  t->pitch_ = tonic;
+  SCM l = gh_cons (t->self_scm (), SCM_EOL);
+
+  //urg
+  if (chord.inversion_b_
+      && Chord::find_notename_i (&chord.pitch_arr_, chord.inversion_pitch_) > 0)
+    {
+      Inversion_req* i = new Inversion_req;
+      i->pitch_ = chord.inversion_pitch_;
+      l = gh_cons (i->self_scm (), l);
+    }
+
+  if (chord.bass_b_)
+    {
+      Bass_req* b = new Bass_req;
+      b->pitch_ = chord.bass_pitch_;
+      l = gh_cons (b->self_scm (), l);      
+    }
+
+  Array<Musical_pitch> pitch_arr = chord.to_pitch_arr ();
+  for (int i = pitch_arr.size (); --i >= 0;)
+    {
+      Musical_pitch p = pitch_arr[i];
+      Note_req* n = new Note_req;
+      n->pitch_ = p;
+      n->duration_ = d;
+      l = gh_cons (n->self_scm (), l);
+    }
+
+  Simultaneous_music*v = new Request_chord (l);
+
+  return v;
+}
+
 

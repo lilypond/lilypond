@@ -59,10 +59,7 @@ Span_bar_engraver::acknowledge_element (Score_element_info i)
 	{
 	  spanbar_p_ = new Item (get_property ("basicSpanBarProperties"));
 	  Span_bar::set_interface (spanbar_p_);
-	  spanbar_p_->set_elt_property ("glyph", bar_l_arr_[0]->get_elt_property ("glyph"));
-	  spanbar_p_->set_elt_property ("visibility-lambda",
-					bar_l_arr_[0]->get_elt_property ("visibility-lambda"));	  
-					
+		
 	  spanbar_p_->set_parent (bar_l_arr_[0], Y_AXIS);
 	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
 
@@ -77,6 +74,12 @@ Span_bar_engraver::do_pre_move_processing()
     {
       for (int i=0; i < bar_l_arr_.size() ; i++)
 	Span_bar::add_bar( spanbar_p_,bar_l_arr_[i]);
+
+      SCM vissym =ly_symbol2scm ("visibility-lambda");
+      SCM vis = bar_l_arr_[0]->get_elt_property (vissym);	  
+      if (scm_equal_p (spanbar_p_->get_elt_property (vissym), vis) != SCM_BOOL_T)
+	spanbar_p_->set_elt_property (vissym, vis);
+
       typeset_element (spanbar_p_);
       spanbar_p_ =0;
     }

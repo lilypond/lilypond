@@ -43,6 +43,7 @@
 #include "auto-change-music.hh"
 #include "part-combine-music.hh"
 #include "output-property.hh"
+#include "chord.hh"
 
 bool
 is_duration_b (int t)
@@ -90,12 +91,11 @@ print_mudela_versions (ostream &os)
     Music *music;
     Score *score;
     Scope *scope;
-    Interval *interval;
+
     Musical_req* musreq;
     Music_output_def * outputdef;
     Musical_pitch * pitch;
     Midi_def* midi;
-    Moment *moment;
     Real real;
     Request * request;
 
@@ -1394,7 +1394,8 @@ simple_element:
 
 chord:
 	steno_tonic_pitch optional_notemode_duration chord_additions chord_subtractions chord_inversion chord_bass {
-                $$ = THIS->get_chord (*$1, $3, $4, $5, $6, *$2);
+                $$ = get_chord (*$1, $3, $4, $5, $6, *$2);
+		$$->set_spot (THIS->here_input ());
         };
 
 chord_additions: 

@@ -122,8 +122,8 @@ Slur::after_line_breaking (SCM smob)
 void
 Slur::set_extremities (Score_element*me)
 {
-  if (!Directional_element_interface (me).get ())
-    Directional_element_interface (me).set (get_default_dir (me));
+  if (!Directional_element_interface::get (me))
+    Directional_element_interface ::set (me,get_default_dir (me));
 
   Direction dir = LEFT;
   do 
@@ -234,12 +234,12 @@ Slur::get_attachment (Score_element*me,Direction dir,
 	  if (str == "head")
 	    {
 	      o = Offset (0, Stem::head_positions (stem)
-			  [Directional_element_interface (me).get ()] * hs);
+			  [Directional_element_interface::get (me)] * hs);
 	      /*
 		Default position is centered in X, on outer side of head Y
 	       */
 	      o += Offset (0.5 * n->extent (X_AXIS).length (),
-			   0.5 * ss * Directional_element_interface (me).get ());
+			   0.5 * ss * Directional_element_interface::get (me));
 	    }
 	  else if (str == "alongside-stem")
 	    {
@@ -249,7 +249,7 @@ Slur::get_attachment (Score_element*me,Direction dir,
 	       */
 	      o += Offset (n->extent (X_AXIS).length ()
 			   * (1 + Stem::get_direction (stem)),
-			   0.5 * ss * Directional_element_interface (me).get ());
+			   0.5 * ss * Directional_element_interface::get (me));
 	    }
 	  else if (str == "stem")
 	    {
@@ -287,7 +287,7 @@ Slur::get_attachment (Score_element*me,Direction dir,
   SCM l = scm_assoc
     (scm_listify (a,
 		  gh_int2scm (stem ? Stem::get_direction (stem) : 1 * dir),
-		  gh_int2scm (Directional_element_interface (me).get () * dir),
+		  gh_int2scm (Directional_element_interface::get (me) * dir),
 		  SCM_UNDEFINED),
      scm_eval2 (ly_symbol2scm ("slur-extremity-offset-alist"), SCM_EOL));
   
@@ -317,7 +317,7 @@ Slur::encompass_offset (Score_element*me,
   Offset o;
   Score_element* stem_l = unsmob_element (col->get_elt_property ("stem"));
   
-  Direction dir = Directional_element_interface (me).get ();
+  Direction dir = Directional_element_interface::get (me);
   
   if (!stem_l)
     {
@@ -326,7 +326,7 @@ Slur::encompass_offset (Score_element*me,
       o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);
       return o;  
     }
-  Direction stem_dir = Directional_element_interface (stem_l).get ();
+  Direction stem_dir = Directional_element_interface::get (stem_l);
   o[X_AXIS] = stem_l->relative_coordinate (0, X_AXIS);
 
   /*
@@ -467,7 +467,7 @@ Slur::brew_molecule (SCM smob)
   if (gh_number_p (d))
     a = me->lookup_l ()->dashed_slur (one, thick, thick * gh_scm2double (d));
   else
-    a = me->lookup_l ()->slur (one, Directional_element_interface (me).get () * thick, thick);
+    a = me->lookup_l ()->slur (one, Directional_element_interface::get (me) * thick, thick);
 
   return a.create_scheme();
 }
@@ -481,7 +481,7 @@ Slur::set_control_points (Score_element*me)
   Real r_0 = me->paper_l ()->get_var ("slur_ratio");
   
   Slur_bezier_bow bb (get_encompass_offset_arr (me),
-		      Directional_element_interface (me).get (),
+		      Directional_element_interface::get (me),
 		      h_inf, r_0);
 
   if (bb.fit_factor () > 1.0)
@@ -530,7 +530,7 @@ Slur::get_curve (Score_element*me)
   Bezier b;
   int i = 0;
 
-  if (!Directional_element_interface (me).get ()
+  if (!Directional_element_interface::get (me)
       || ! gh_symbol_p (index_cell (me->get_elt_property ("attachment"), LEFT)))
     set_extremities (me);
   
@@ -544,7 +544,7 @@ Slur::get_curve (Score_element*me)
     }
 
   Array<Offset> enc (get_encompass_offset_arr (me));
-  Direction dir = Directional_element_interface (me).get ();
+  Direction dir = Directional_element_interface::get (me);
   
   Real x1 = enc[0][X_AXIS];
   Real x2 = enc.top ()[X_AXIS];

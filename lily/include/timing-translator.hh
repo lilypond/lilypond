@@ -19,7 +19,6 @@ class Timing_translator : public virtual Translator
 {
 public:
   VIRTUAL_COPY_CONS(Translator);
-  Time_signature_change_req * time_signature_req_l () const;
   Timing_translator ();
   Link_array<Timing_req> timing_req_l_arr_;
 
@@ -31,10 +30,8 @@ protected:
   virtual void do_post_move_processing();
 
 public:
-
   Moment measure_position () const;
   Moment measure_length () const;  
   void set_time_signature (int, int);
-
 };
 #endif // TIMING_TRANSLATOR_HH

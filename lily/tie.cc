@@ -88,14 +88,14 @@ Tie::get_default_dir (Score_element*me)
 
   if (sl && sr)
     {
-      if (Directional_element_interface (sl).get () == UP
-	  && Directional_element_interface (sr).get () == UP)
+      if (Directional_element_interface::get (sl) == UP
+	  && Directional_element_interface::get (sr) == UP)
 	return DOWN;
     }
   else if (sl || sr)
     {
       Item *s = sl ? sl : sr;
-      return - Directional_element_interface (s). get ();
+      return - Directional_element_interface::get (s);
     }
 
   
@@ -119,8 +119,8 @@ Tie::get_control_points (SCM smob)
       return SCM_UNSPECIFIED;
     }
   
-  if (!Directional_element_interface (me).get ())
-    Directional_element_interface (me).set (Tie::get_default_dir (me));
+  if (!Directional_element_interface::get (me))
+    Directional_element_interface::set (me, Tie::get_default_dir (me));
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
@@ -163,7 +163,7 @@ Tie::get_control_points (SCM smob)
 	  - 2 * x_gap_f;
     }
   
-  Direction dir = Directional_element_interface (me).get();
+  Direction dir = Directional_element_interface::get(me);
   
   Real h_inf = me->paper_l ()->get_var ("tie_height_limit_factor") * staff_space;
   Real r_0 = me->paper_l ()->get_var ("tie_ratio");
@@ -290,7 +290,7 @@ Tie::brew_molecule (SCM smob)
       i++;
     }
   
-   Molecule a = me->lookup_l ()->slur (b, Directional_element_interface (me).get () * thick, thick);
+   Molecule a = me->lookup_l ()->slur (b, Directional_element_interface::get (me) * thick, thick);
    
    return a.create_scheme ();
 }

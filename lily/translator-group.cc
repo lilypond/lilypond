@@ -73,11 +73,6 @@ Translator_group::add_translator (SCM list, Translator *t)
   return list;
 }
 void
-Translator_group::add_simple_translator (Translator*t)
-{
-  simple_trans_list_ = add_translator (simple_trans_list_, t);
-}
-void
 Translator_group::add_group_translator (Translator *t)
 {
   trans_group_list_ = add_translator (trans_group_list_,t);
@@ -247,7 +242,10 @@ Translator_group::remove_translator_p (Translator*trans_l)
   return trans_l;
 }
 
-
+#if 0
+/*
+  should not use, instead: use properties to communicate between engravers.
+ */
 Translator*
 Translator_group::get_simple_translator (String type) const
 {
@@ -260,7 +258,7 @@ Translator_group::get_simple_translator (String type) const
     return daddy_trans_l_->get_simple_translator (type);
   return 0;
 }
-
+#endif 
 
 bool
 Translator_group::is_bottom_translator_b () const

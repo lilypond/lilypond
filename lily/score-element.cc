@@ -629,10 +629,12 @@ Score_element::common_refpoint (SCM elist, Axis a) const
   return common;
 }
 
-char const *
+String
 Score_element::name () const
 {
-  return classname (this);
+  SCM nm = get_elt_property ("name");
+  
+  return  nm == SCM_EOL ? classname (this) :ly_scm2string (nm) ;  
 }
 
 void
@@ -749,7 +751,7 @@ Score_element::print_smob (SCM s, SCM port, scm_print_state *)
   Score_element *sc = (Score_element *) gh_cdr (s);
      
   scm_puts ("#<Score_element ", port);
-  scm_puts ((char *)sc->name (), port);
+  scm_puts ((char *)sc->name ().ch_C(), port);
 
   /*
     don't try to print properties, that is too much hassle.

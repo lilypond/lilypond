@@ -22,6 +22,8 @@
 @node Miscellaneous, ,,top
 @section Miscellaneous
 
+[FIXME: rewrite FAQ, include general questions] 
+
 @subsubsection HELP! I'm stuck!
 
 Please read this document carefully.  If you are still at loss, send
@@ -160,7 +162,7 @@ symbols (notably lyrics and @code{^"text"} commands).
 
 Yes, see the @file{twinkle-pop} example.
 
-@subsubsection Do you support guitar chord diagrams?
+@subsubsection Do you support guitar fret diagrams?
 
 No. We ourselves don't play guitar, and don't know the fine points of
 this notation.  We would welcome anyone who could give this a try.
@@ -168,7 +170,6 @@ this notation.  We would welcome anyone who could give this a try.
 @subsubsection Do you support TAB notation?
 
 No. The same as for the previous question goes.
-
 
 @subsubsection Do you support multiple staff-sizes?
 
@@ -249,7 +250,7 @@ staff/lyricline
  
 @end example 
 
-@subsubsection How do I put more than one marking on a note.
+@subsubsection How do I put more than one marking on a note?
 
 You can stack them 
 @example 
@@ -276,7 +277,7 @@ This also works for crescendi, eg,
  
 @end example 
 
-@subsubsection How do I combine multiple pieces into one document
+@subsubsection How do I combine multiple pieces into one document?
 
 There are several solutions:
 
@@ -307,10 +308,6 @@ For the first two solutions, you will need to move @code{\header} info
 in each individual piece from toplevel into the @code{\paper} block.
 
 There are several examples in the @file{mutopia} directory.
-
-@subsubsection How do I get bar numbers?
-
-See @file{input/test/bar-scripts.ly}.
 
 @subsubsection How do I change the tagline 'Lily was here'?
 
@@ -384,22 +381,15 @@ participate.
 
 @subsubsection Is there a GUI frontend?  Should I start building one?
 
-LilyPond currently has no graphical interface.  We (LilyPond authors)
-don't feel the need to write a GUI, but several others do:
-
-Matthew Hiller has extended Midiscore and Koobase to handle mudela.
-Check out @uref{http://zoo.cs.yale.edu/~meh25/}.  He is now working on
-`Denemo', a GTK based notation program (which is still being developed).
-
-Federico Mena-Quintero and Elliot Lee of RedHat Advanced Development
-labs have plans to write a GNOME based Music notation program. However,
-there is no code, only plans.
+Matthew Hiller has extended Midiscore and Koobase to handle mudela, He
+is now working on @uref{http://denemo.sourceforge.net/,Denemo}, a GTK
+based notation program. This is the most advanced LilyPond front-end
+currently available.
 
 Chris Cannam is working a rewrite of Rosegarden.  The new design should
 be more modular, and could conceivably be used to output
 mudela. However, the not much seems to have happened the past year. See
 @uref{http://www.all-day-breakfast.com/rosegarden/development.html}.
-
 
 @subsubsection I want to implement XXXX!  How should I do this?
 
@@ -427,7 +417,7 @@ the file ~/.gdbinit.
 
 @example
 define printstr
-    print $arg0->strh_.data->data_byte_p_
+    print $arg0->ch_C()
 end
 
 define printscm
@@ -449,8 +439,8 @@ LilyPond uses a lot CPU time, and insane amounts of memory. The amount
 of memory it requires is proportional to the size of the score, in other
 words. For a moderately complex piano scores of 5 pages, the footprint
 can easily become 20 megs. (Our favorite test is the coriolan:
-approx. 100 megs for a 50 page  orchestral). If your system has not got
-enough memory, it can easily start swapping.
+approx. 100 megs for a 50 page orchestral score). If your system has not
+got enough memory, it can easily start swapping.
 
 A part of the memory is used as temporary storage, and is reclaimed
 through GUILE's garbage collection.  A way to trade in CPU time for
@@ -587,8 +577,8 @@ i.e. do something like:
 
 @end itemize
 
-Direct PS output is still experimental.  For creating nice looking ps 
-output, use TeX and @code{dvips}.
+Direct PS output is not used often, and therefore likely to exhibit
+bugs.  For creating nice looking ps output, use TeX and @code{dvips}.
 
   
 @subsubsection The beams and slurs are gone when using the XDvi magnifying glass!?
@@ -763,6 +753,21 @@ John Sankey:
 See @uref{http://www.geocities.com/Vienna/Studio/1714/harpsichord.html}
 for a summary of copyright relative to old music, also for the
 expert forum for such subsubsections.
+
+Benjy (benjy@@indiansprings.org)
+
+@quotation
+(In the UK, the typesetting of a piece of music goes out of copyright 25 year\s
+after it is published.  Maybe you can tell me what copyright law says in othe\r
+countries.)
+@end quotation
+
+The US has had several schemes over the last century meaning that
+anything published after January 1, 1923 and before 1964 requires that
+you put in some work to determine its status. However, anything
+published before 1923 is fair game in the US. See
+@uref{http://www.loc.gov/copyright/circs/circ22.html} for the whole
+twisted tale.
 
 
 @node Windows32,, ,top

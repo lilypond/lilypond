@@ -44,20 +44,6 @@ Timing_translator::do_try_music (Music*r)
     }
   return false;
 }
-
-/*ugh.
- */
-Time_signature_change_req*
-Timing_translator::time_signature_req_l() const
-{
-  Time_signature_change_req *m_l=0;
-  for (int i=0; !m_l && i < timing_req_l_arr_.size (); i++)
-    {
-      m_l=dynamic_cast<Time_signature_change_req*> (timing_req_l_arr_[i]);
-    }
-  return m_l;
-}
-
 void
 Timing_translator::do_process_music()
 {
@@ -127,6 +113,8 @@ Timing_translator::do_creation_processing()
   daddy_trans_l_->set_property ("measurePosition", m.make_scm ());
   daddy_trans_l_->set_property ("beatLength", Moment (1,4).make_scm ());
   daddy_trans_l_->set_property ("measureLength",  Moment (1).make_scm());
+  daddy_trans_l_->set_property ("timeSignatureFraction",
+				gh_cons (gh_int2scm (4), gh_int2scm (4)));
 }
 
 Moment
@@ -147,6 +135,8 @@ Timing_translator::set_time_signature (int l, int o)
   Moment len = Moment (l) * one_beat;
   daddy_trans_l_->set_property ("measureLength", len.make_scm ());
   daddy_trans_l_->set_property ("beatLength", one_beat.make_scm ());
+  daddy_trans_l_->set_property ("timeSignatureFraction",
+				gh_cons (gh_int2scm (l), gh_int2scm (o)));
 }
 
 Timing_translator::Timing_translator()

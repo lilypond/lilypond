@@ -136,10 +136,10 @@ Repeat_engraver::queue_events ()
 	happens at the begin of the alt. The :| bar event at the ending.
       */
 
-  for (SCM s = repeated_music_l_->alternatives ()->music_list ();
-       gh_pair_p (s);  s = gh_cdr (s))
-    {
-      Music *mus =unsmob_music (gh_car (s));
+      for (SCM s = repeated_music_l_->alternatives ()->music_list ();
+	   gh_pair_p (s);  s = gh_cdr (s))
+	{
+	  Music *mus =unsmob_music (gh_car (s));
 
 	  /*
 	    some idiot might typeset a repeat not starting on a
@@ -164,8 +164,8 @@ Repeat_engraver::queue_events ()
 	      becel.append (c);
 	      last_number = volta_number;
 	      volta_number ++;
-              SCM l (get_property ("voltaSpannerDuration"));
-              if (unsmob_moment(l))
+	      SCM l (get_property ("voltaSpannerDuration"));
+	      if (unsmob_moment(l))
 		{
 		  Moment vSD_mom = *unsmob_moment (l);
 		  if ( vSD_mom < mus->length_mom() ) // terminate volta early ?
@@ -185,11 +185,15 @@ Repeat_engraver::queue_events ()
 	}
     }
 
-  Cons<Bar_create_event> *&tail = create_barmoments_queue_
-    ? last_cons (create_barmoments_queue_)->next_
-    : create_barmoments_queue_;
+  /*
+    ugh, should merge :| and |: here.
+   */
+  Cons<Bar_create_event> * last = last_cons (create_barmoments_queue_);
+  Cons<Bar_create_event> **tail = last?  & last->next_
+    : & create_barmoments_queue_;
 
-  tail = becel.head_ ;
+  *tail = becel.head_ ;
+  
   becel.head_ = 0;
 }
 
@@ -203,12 +207,9 @@ Repeat_engraver::do_process_music ()
     }
   
   
-  Cons<Bar_create_event> * head =   create_barmoments_queue_;
+  Cons<Bar_create_event> * head = create_barmoments_queue_;
   if (!head)
     return;
-
-  Bar_engraver* bar_engraver_l = dynamic_cast <Bar_engraver*>
-    (daddy_grav_l ()->get_simple_translator ("Bar_engraver")); // UGH
 
   /*
     Do all the events that need to be done now.
@@ -217,41 +218,52 @@ Repeat_engraver::do_process_music ()
     {
       create_barmoments_queue_ = create_barmoments_queue_->next_;
       head->next_ =0;
-      if (bar_engraver_l)
+      String t = head->car_->type_;
+      if (head->car_->bar_b_)
 	{
-	  String t = head->car_->type_;
-	  if (head->car_->bar_b_)
+	  if (t == "stop" || t == ":|")
 	    {
-	      if (t == "stop" || t == ":|")
-		{
-		  end_volta_span_p_ = volta_span_p_;
-		  volta_span_p_ =0;
-		}
+	      end_volta_span_p_ = volta_span_p_;
+	      volta_span_p_ =0;
+	    }
 
-	      if (t != "stop")
-		bar_engraver_l->request_bar (t);
-	      else
-		bar_engraver_l->request_bar (""); 
-	    }
-	  else
+	  SCM whsym = ly_symbol2scm ("whichBar");
+	  Translator_group* where = daddy_trans_l_->where_defined (whsym);
+	  SCM which = where->get_property (whsym);
+
+	  /*
+	    Should use symbols for bar glyphs.
+	  */
+	  if (t == "stop" && which == SCM_UNDEFINED)
+	    which = ly_str02scm ("");
+	  else if (t != "stop")
 	    {
-	      assert (!volta_span_p_);
-	      volta_span_p_ = new Spanner (get_property ("basicVoltaSpannerProperties"));
-	      Volta_spanner::set_interface (volta_span_p_);
-	      announce_element (volta_span_p_,0);
-	      volta_span_p_->set_elt_property ("text",
-					       ly_str02scm (t.ch_C()));
-	      volta_span_p_->set_elt_property ("last-volta",
-					       gh_bool2scm (head->car_->last_b_));
-	      // voltaSpannerDuration stuff here.
-	      // other property stuff here.
+	      SCM l = ly_str02scm (":|");
+	      SCM r = ly_str02scm ("|:");		  
+		  
+	      if ( (t == "|:" && scm_equal_p (which, l) == SCM_BOOL_T)
+		   || (t == ":|" && scm_equal_p (which, r)== SCM_BOOL_T))
+		t = ":|:";
+
+	      if (t != "" || !gh_string_p (which))
+		which = ly_str02scm (t.ch_C());
 	    }
-	  
+	  where->set_property (whsym, which);
 	}
       else
 	{
-	  warning (_ ("No bar engraver found.  Ignoring repeats."));
+	  assert (!volta_span_p_);
+	  volta_span_p_ = new Spanner (get_property ("basicVoltaSpannerProperties"));
+	  Volta_spanner::set_interface (volta_span_p_);
+	  announce_element (volta_span_p_,0);
+	  volta_span_p_->set_elt_property ("text",
+					   ly_str02scm (t.ch_C()));
+	  volta_span_p_->set_elt_property ("last-volta",
+					   gh_bool2scm (head->car_->last_b_));
+	  // voltaSpannerDuration stuff here.
+	  // other property stuff here.
 	}
+	  
 
       delete head->car_;
       delete head;

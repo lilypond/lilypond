@@ -68,14 +68,14 @@ Tie_column::set_directions (Score_element*me)
     Pointer_group_interface__extract_elements (me, (Score_element*)0, "ties");
 
 
-  Direction d = Directional_element_interface (me).get ();
+  Direction d = Directional_element_interface::get (me);
 
   if (d)
     {
       for (int i = ties.size (); i--;)
 	{
 	  Score_element *  t = ties[i];
-	  Directional_element_interface (t).set (d);
+	  Directional_element_interface::set (t, d);
 	}
       return;
     }
@@ -83,18 +83,15 @@ Tie_column::set_directions (Score_element*me)
   if (ties.size () == 1)
     {
       Score_element *  t = ties[0];      
-      Directional_element_interface (t).set (Tie::get_default_dir (t));
+      Directional_element_interface::set (t,Tie::get_default_dir (t));
       return;
     }
   
   ties.sort (tie_compare);
-  Directional_element_interface tie0(ties[0]);
-  tie0.set (DOWN);
+  Directional_element_interface::set( ties[0], DOWN);
   ties.del (0);
   
-  Directional_element_interface tietop(ties.pop ());
-  tietop.set (UP);
-
+  Directional_element_interface ::set(ties.pop (), UP);
   for (int i=ties.size(); i--; )
     {
       Score_element *  t = ties[i];
@@ -102,7 +99,7 @@ Tie_column::set_directions (Score_element*me)
       Direction d = (Direction) sign (p);
       if (!d)
 	d = UP;
-      Directional_element_interface (t).set (d);
+      Directional_element_interface::set (t, d);
     }
   
 }

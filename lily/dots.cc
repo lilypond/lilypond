@@ -23,13 +23,13 @@ Dots::quantised_position_callback (Score_element * me, Axis a)
   SCM d= me->get_elt_property ("dot-count");
   if (gh_number_p (d) && gh_scm2int (d))
     {
-      if (!Directional_element_interface (me).get ())
-	Directional_element_interface (me).set (UP);
+      if (!Directional_element_interface::get (me))
+	Directional_element_interface::set (me, UP);
 
 
       int pos = int (Staff_symbol_referencer::position_f (me));
       if (!(pos % 2))
-	return Staff_symbol_referencer::staff_space (me) / 2.0 * Directional_element_interface (me).get ();
+	return Staff_symbol_referencer::staff_space (me) / 2.0 * Directional_element_interface::get (me);
     }
 
   return  0.0;

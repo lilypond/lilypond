@@ -10,7 +10,7 @@
 #include "command-request.hh"
 #include "engraver.hh"
 
-#include "timing-engraver.hh"
+
 #include "engraver-group-engraver.hh"
 
 
@@ -24,7 +24,7 @@ protected:
 public:
   VIRTUAL_COPY_CONS(Translator);
   Item * time_signature_p_;
-
+  SCM last_time_fraction_;
   Time_signature_engraver();
 };
 
@@ -32,39 +32,25 @@ public:
 Time_signature_engraver::Time_signature_engraver()
 { 
   time_signature_p_ =0;
+  last_time_fraction_ = SCM_EOL;
 }
 
 void
 Time_signature_engraver::do_process_music()
 {
   /*
-    UGH.
-    this should use properties.
-   */
-  Translator * result =
-    daddy_grav_l()->get_simple_translator ("Timing_engraver");	// ugh
-
-  if (!result)
+    not rigorously safe, since the value might get GC'd and
+    reallocated in the same spot */
+  SCM fr= get_property ("timeSignatureFraction");
+  if (last_time_fraction_ != fr)
     {
-      warning (_ ("lost in time:"));
-      warning (_f ("can't find: `%s'", " Timing_translator"));
-      return ;
-    }
-  
-  Timing_engraver * timing_grav_l= dynamic_cast<Timing_engraver *> (result);
-  
-  Time_signature_change_req *req = timing_grav_l->time_signature_req_l();
-  if (req)
-    {
+      last_time_fraction_ = fr; 
       time_signature_p_ = new Item (get_property ("basicTimeSignatureProperties"));
-      time_signature_p_->set_elt_property ("fraction",
-					   gh_cons (gh_int2scm (req->beats_i_),
-						    gh_int2scm (req->one_beat_i_))); 
+      time_signature_p_->set_elt_property ("fraction",fr);
     }
-
   
   if (time_signature_p_)
-    announce_element (time_signature_p_, req);
+    announce_element (time_signature_p_, 0);
 }
 
 void

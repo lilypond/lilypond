@@ -151,7 +151,7 @@ Chord_tremolo_engraver::acknowledge_element (Score_element_info info)
 	    It's amazing Mike:
 	    
 	      Stem:: type_i () ->first_head ()->get_direction () ->
-	              Directional_element_interface (me).set (d);
+	              Directional_element_interface::set (me, d);
 
 
 	      don't understand this comment.

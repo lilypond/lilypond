@@ -94,13 +94,13 @@ Stem::stem_end_position (Score_element*me)
 Direction
 Stem::get_direction (Score_element*me)
 {
-  Direction d = Directional_element_interface (me).get ();
+  Direction d = Directional_element_interface::get (me);
 
   if (!d)
     {
        d = get_default_dir (me);
        // urg, AAARGH!
-       Directional_element_interface (me).set (d);
+       Directional_element_interface::set (me, d);
     }
   return d ;
 }
@@ -289,7 +289,7 @@ Stem::get_default_stem_end_position (Score_element*me)
   if (!dir)
     {
       dir = get_default_dir (me);
-      Directional_element_interface (me).set (dir);
+      Directional_element_interface::set (me, dir);
     }
   
   /* 
@@ -522,7 +522,7 @@ Stem::calc_stem_info (Score_element*me)
 {
   Score_element * beam = beam_l (me);
 
-  Direction beam_dir = Directional_element_interface (beam).get ();
+  Direction beam_dir = Directional_element_interface::get (beam);
   if (!beam_dir)
     {
       programming_error ("Beam dir not set.");
@@ -565,7 +565,7 @@ Stem::calc_stem_info (Score_element*me)
 
   Real stem_length =  a[multiplicity <? (a.size () - 1)] * staff_space;
 
-  if (!beam_dir || (beam_dir == Directional_element_interface (me).get ()))
+  if (!beam_dir || (beam_dir == Directional_element_interface::get (me)))
     /* normal beamed stem */
     {
       if (multiplicity)

@@ -167,7 +167,7 @@ Dynamic_engraver::do_process_music ()
       text_p_ = new Item (get_property ("basicDynamicTextProperties"));
       text_p_->set_elt_property ("text", ly_str02scm (loud.ch_C ()));
       if (Direction d=text_req_l_->get_direction ())
-	Directional_element_interface (line_spanner_).set (d);
+	Directional_element_interface::set (line_spanner_, d);
 
       Axis_group_interface::add_element (line_spanner_, text_p_);
 
@@ -199,8 +199,7 @@ Dynamic_engraver::do_process_music ()
 	{
 	  accepted_spanreqs_drul_[START]->origin ()->warning
 	    (current_cresc_req_->span_dir_ == 1
-	     ?
-	     _ ("already have a crescendo")
+	     ? _ ("already have a crescendo")
 	     : _ ("already have a decrescendo"));
 	}
       else

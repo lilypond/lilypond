@@ -72,7 +72,7 @@ public:
     0 means ORPHAN,
    */
   char status_i_;
-  char const * name () const;
+  String name () const;
 
   /*
     IDEA: make this a global variable. This is the same for all

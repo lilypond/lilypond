@@ -43,11 +43,11 @@ Breathing_sign::offset_callback (Score_element * b, Axis a)
   Score_element * me = (Score_element*)b;
   
   Real space = Staff_symbol_referencer::staff_space (b);
-  Direction d = Directional_element_interface (b). get ();
+  Direction d = Directional_element_interface::get (b);
   if (!d)
     {
       d = UP;
-      Directional_element_interface (me).set (d);
+      Directional_element_interface::set (me, d);
     }
 
   return 2.0 * space * d;

@@ -31,6 +31,7 @@ protected:
 
 
 private:
+  void typeset_bar ();
   void create_bar ();
 
   Item * bar_p_;

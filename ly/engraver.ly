@@ -16,6 +16,7 @@ StaffContext=\translator {
 
 
 	\consists "Repeat_engraver";
+	\consists "Separating_line_group_engraver";	
 
 
 
@@ -424,7 +425,9 @@ ScoreContext = \translator {
 	% staffspace (distances)
 	%
 	basicBarProperties = #`(
+		(interfaces . (bar-interface staff-bar-interface))
 		(break-align-symbol . Staff_bar)
+		(glyph . "|")
 		(barsize-procedure . ,Bar::get_staff_bar_size)
 		(molecule-callback . ,Bar::brew_molecule)	   
 		(visibility-lambda . ,all-visible)
@@ -437,14 +440,14 @@ ScoreContext = \translator {
 		(thin-kern . 3.0)
 		(hair-thickness . 1.6)
 		(thick-thickness . 6.0)
-
-		(interfaces . (bar-interface staff-bar-interface))		
+		(name . "barline")
 	)
 
 	basicBarNumberProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
 		(breakable . #t)
 		(visibility-lambda . ,begin-of-line-visible)
+		(name . "barnumber")
 	)
 
 	basicBeamProperties = #`(
@@ -455,6 +458,7 @@ ScoreContext = \translator {
 		(default-neutral-direction . 1)
 		(interfaces . (beam-interface))
 		(damping . 1)
+		(name . "beam")		
 	)
 
 	basicBreakAlignProperties = #`(
@@ -462,54 +466,64 @@ ScoreContext = \translator {
 		(interfaces . (break-align-interface))
 		(stacking-dir . 1)
 		(axes 0)
+		(name . "break alignment")		
 	)
 	basicBreakAlignGroupProperties = #`(
 		(interfaces . (axis-group-interface))
 		(axes  . (0))
+		(name . "break alignment group")
 	)
 	basicBreathingSignProperties = #`(
+		(interfaces . (breathing-sign-interface))
 		(break-align-symbol . Breathing_sign)
 		(breakable . #t )
 		(molecule-callback . ,Breathing_sign::brew_molecule)
 		(visibility-lambda . ,begin-of-line-invisible)
-		(interfaces . (breathing-sign-interface))
+		(name . "breathing sign")
 	)
 	 basicClefItemProperties = #`(
+	   (interfaces .  (clef-interface))
    	   (molecule-callback . ,Score_element::brew_molecule)
 	   (before-line-breaking-callback . ,Clef::before_line_breaking)
 	   (breakable . #t)
 	   (break-align-symbol . Clef_item)
 	   (visibility-lambda . ,begin-of-line-visible)
-	   (interfaces .  (clef-interface))
+	   (name . "clef")
 	 )
 	basicChordNameProperties = #`(
 		(molecule-callback . ,Chord_name::brew_molecule)
 		(interfaces . (chord-name-interface))
-		(after-line-breaking-callback . ,Chord_name::after_line_breaking) 
+		(after-line-breaking-callback . ,Chord_name::after_line_breaking)
+		(name . "chord name")  
 	)
 	basicCollisionProperties = #`(
 		(axes 0 1)
 		(interfaces . (collision-interface))
+		(name . "note collision")
 	)
 	basicCrescendoProperties = #`(
 		(molecule-callback . ,Crescendo::brew_molecule)
 		(interfaces . (crescendo-interface dynamic-interface))
+		(name . "crescendo")
 	)
 	basicDotColumnProperties = #`(
 		(interfaces . (dot-column-interface axis-group-interface ))
 		(axes 0 )
+		(name . "dot column")
 	)
 	basicDotsProperties = #`(
+		(interfaces . (dot-interface))
 		(molecule-callback . ,Dots::brew_molecule)
 		(dot-count . 1)
-		(interfaces . (dot-interface))
+		(name . "augmentation dot")		
 	)
-	basicDynamicTextProperties = # `(
+	basicDynamicTextProperties = #`(
 		(style . "dynamic")
 		(interfaces . (dynamic-interface))
 		(molecule-callback . ,Text_item::brew_molecule)
 		(script-priority . 100)
 		(self-alignment-Y . 0)
+		(name . "dynamic text")
 	)
 	
 	basicDynamicLineSpannerProperties = #`(
@@ -517,25 +531,31 @@ ScoreContext = \translator {
 		(axes . ( 1))
 		(padding . 3)
 		(minimum-space . 6)
+		(name . "dynamic alignment")
 	)
+	
 	leftEdgeBasicProperties = #`(
 		(break-align-symbol . Left_edge_item)
 		(breakable . #t)
+		(name . "left edge")
 	)
 	basicGraceAlignItemProperties = #`(
 		(axes . (0))
 		(interfaces . (axis-group-interface align-interface))
 		(before-line-breaking-callback . ,Grace_align_item::before_line_breaking)
+		(name . "grace alignment")
 	)
 	basicHaraKiriVerticalGroupspannerProperties = #`(
 		(interfaces . (hara-kiri-interface))
 		(axes 1)
+		(name . "hara kiri")
 	)
 	basicHyphenSpannerProperties = #`(
 		(thickness . 1.0)
 		(height . 0.4)
 		(minimum-length .  0.5) 
 		(molecule-callback . ,Hyphen_spanner::brew_molecule)
+		(name . "hyphen")		
 	)
 	
 	basicInstrumentNameProperties = #`(
@@ -543,6 +563,7 @@ ScoreContext = \translator {
 		(molecule-callback . ,Text_item::brew_molecule)		
 		(break-align-symbol . Instrument_name)
 		(visibility-lambda . ,begin-of-line-visible)
+		(name . "instrument name")
 	)
 	basicKeyProperties = #`(
   	  (molecule-callback . ,Key_item::brew_molecule)
@@ -550,51 +571,61 @@ ScoreContext = \translator {
 	  (break-align-symbol . Key_item)
 	  (visibility-lambda . ,begin-of-line-visible)
 	  (breakable . #t)
+	  (name . "key signature")
 	  )	
 	basicLocalKeyProperties = #`(
 		(molecule-callback . ,Local_key_item::brew_molecule)
 		(left-padding . 0.2)
 		(right-padding . 0.4)
 		(interfaces . (accidentals-interface))
+		(name .  "accidentals")
 	)
 	basicLineOfScoreProperties = #`(
 		(axes . (0 1))
 		(interfaces . (axis-group-interface))
+		(name .  "godzilla")
 	)
 	basicLyricExtenderProperties = #`(
+		(interfaces . (lyric-extender-interface))
 		(molecule-callback . ,Lyric_extender::brew_molecule)
 		(right-trim-amount . 0.5)
-		(interfaces . (lyric-extender-interface))
+		(name . "extender line")
 	)
 	basicLyricTextProperties = #`(
+		(interfaces .  (lyric-syllable-interface text-item-interface))
 		(molecule-callback . ,Text_item::brew_molecule)
 		(self-alignment-X . 0)
 		(non-rhythmic . #t)
 		(word-space . 0.6)
-		(interfaces .  (lyric-syllable-interface text-item-interface))
+		(name . "lyric syllable") 
 	)
 	basicMarkProperties = #`(
+	  (interfaces . (mark-interface))
 	  (molecule-callback . ,Text_item::brew_molecule)	
 	  (breakable . #t)
-	  (interfaces . (mark-interface))
 	  (visibility-lambda . ,end-of-line-invisible)
 	  (padding . 4.0)
+	  (name . "rehearsal mark")
 	)
 	basicMultiMeasureRestProperties = #`(
 		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)		
 		(molecule-callback . ,Multi_measure_rest::brew_molecule)
 		(staff-position . 0)
+		(name . "multi-measure rest")
 	)
 	basicNoteColumnProperties = #`(
-		(axes 0 1)
 		(interfaces . (axis-group-interface note-column-interface))
+		(axes 0 1)
+		(name . "note column")
 	)
 	basicNoteHeadProperties = #`(
 		(interfaces . (note-head-interface rhythmic-head-interface))
 		(molecule-callback . ,Note_head::brew_molecule)
+		(name . "note head")
 	)
 	basicNoteNameProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
+		(name . "note name")
 	)
 	basicOctavateEightProperties  = #`(
 		(self-alignment-X . 0)
@@ -614,40 +645,48 @@ ScoreContext = \translator {
 		(after-line-breaking-callback . ,Rest::after_line_breaking)
 		(molecule-callback . ,Rest::brew_molecule)
 		(minimum-beam-collision-distance . 1.5)
+		(name . "rest")
 	)
 	
 	basicRestCollisionProperties = #`(
-		(minimum-distance . 0.75)
 		(interfaces . (rest-collision-interface))
+		(minimum-distance . 0.75)
+		(name . "rest collision")		
 	)
-	basicScriptProperties	 = #`(
+	basicScriptProperties = #`(
 		(molecule-callback . ,Script::brew_molecule)
 		(interfaces . (script-interface))
+		(name . "script")
 	)
 	basicScriptColumnProperties = #`(
 		(before-line-breaking-callback . ,Script_column::before_line_breaking)
+		(name . "script column")
 	)
 	basicSlurProperties = #`(
+		(interfaces . (slur-interface))
 		(molecule-callback . ,Slur::brew_molecule)
 		(thickness . 1.2)		
-		(spacing-procedure . ,Slur::set_spacing_rods)		e
+		(spacing-procedure . ,Slur::set_spacing_rods)		
 		(minimum-length . 1.5)
-		(after-line-breaking-callback . ,Slur::after_line_breaking) 
+		(after-line-breaking-callback . ,Slur::after_line_breaking)
+		(name . "slur")
 	)
 	basicSpacingSpannerProperties =#`(
 		(spacing-procedure . ,Spacing_spanner::set_springs)
 
 		;; assume that notes at least this long are present.
 		(maximum-duration-for-spacing . ,(make-moment 1 8))
+		(name . "spacing spanner")
 	)
 	basicSpanBarProperties = #`(
+		(interfaces . (bar-interface span-bar-interface))
 		(break-align-symbol . Staff_bar)
 		(barsize-procedure . ,Span_bar::get_bar_size) 
 		(molecule-callback . ,Bar::brew_molecule)
 		(visibility-lambda . ,begin-of-line-invisible)
 		(breakable . #t)
+		(glyph . "|")
 		(before-line-breaking-callback . ,Span_bar::before_line_breaking)
-
 		;; ugh duplication! 
 		
 		;;
@@ -657,19 +696,21 @@ ScoreContext = \translator {
 		(thin-kern . 3.0)
 		(hair-thickness . 1.6)
 		(thick-thickness . 6.0)
-		(interfaces . (bar-interface span-bar-interface))
+		(name . "cross staff bar-line")
 	)
 	basicStanzaNumberProperties = #`(
 		(breakable . #t)
 		(molecule-callback . ,Text_item::brew_molecule)		
 		(break-align-symbol . Clef_item)
 		(visibility-lambda . ,begin-of-line-visible)
+		(name . "stanza number")
 	)
 	staffSymbolBasicProperties = #`(
+		(interfaces . (staff-symbol-interface ))
 		(molecule-callback . ,Staff_symbol::brew_molecule)
 		(staff-space . 1.0)
 		(line-count . 5 )
-		(interfaces . (staff-symbol-interface ))
+		(name . "staff symbol")
 	)
 	basicSystemStartDelimiterProperties = #`(
 		(molecule-callback . ,System_start_delimiter::brew_molecule)
@@ -682,30 +723,35 @@ ScoreContext = \translator {
 		(arch-width . 1.5)
 		(bracket-thick . 0.25)
 		(bracket-width . 2.0)
+		(name . "system start bracket")
 	)
 	basicTextScriptProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
 		(no-spacing-rods . #t)
 		(interfaces . (text-script-interface text-item-interface))
-		(padding . 	3.0)		
+		(padding . 	3.0)
+		(name . "text script") 
 	)
 	basicTieProperties = #`(
+		(interfaces . (tie-interface))
 		(molecule-callback . ,Tie::brew_molecule)
 		(spacing-procedure . ,Tie::set_spacing_rods)
 		(thickness . 1.2)
 		(minimum-length  . 2.5)
-		(interfaces . (tie-interface))
+		(name . "tie")
 	)
 	basicTieColumnProperties = #`(
 		(after-line-breaking-callback . ,Tie_column::after_line_breaking)
 		(interfaces . (tie-column-interface))
+		(name . "tie column")		
 	)
 	basicTimeSignatureProperties = #`(
+		(interfaces . (time-signature-interface))
 		(molecule-callback . ,Time_signature::brew_molecule)
 		(break-align-symbol . Time_signature)
 		(visibility-lambda . ,all-visible)
 		(breakable . #t)
-		(interfaces . (time-signature-interface))
+		(name . "time signature")
 	)
 	basicTupletSpannerProperties = #`(
 		(number-gap . 2.0)   
@@ -720,50 +766,60 @@ ScoreContext = \translator {
 		(style . "italic")
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)
+		(name  . "sostenuto pedal")
 				
 	)
 	basicStemTremoloProperties = #`(
 	   	(molecule-callback . ,Stem_tremolo::brew_molecule)
 		(beam-width . 2.0) ; staff-space
 		(beam-thickness . 0.42) ; staff-space
+		(name . "stem tremolo")
 	)
 	basicStemProperties = #`(
+		(interfaces . (stem-interface))
 		(before-line-breaking-callback . ,Stem::before_line_breaking)
 		(molecule-callback . ,Stem::brew_molecule)
 
 		; if stem is on middle line, choose this direction.
 		(default-neutral-direction . 1)
-		(interfaces . (stem-interface))
+		(name . "stem")
 	)
    	basicSeparationItemProperties = #`(
 		(interfaces . (separation-item-interface))
+		(name . "separation item")
 	)
 	basicSeparatingGroupSpannerProperties = #`(
 		(interfaces . (separation-spanner-interface))
 		(spacing-procedure . ,Separating_group_spanner::set_spacing_rods)
+		(name . "separation spanner")
 	)
 	basicSustainPedalProperties = #`(
+		(interfaces . (sustain-pedal-interface))
 		(no-spacing-rods . #t)
 		(molecule-callback . ,Sustain_pedal::brew_molecule)
 		(self-alignment-X . 0)
-		(interfaces . (sustain-pedal-interface))
+		(name . "sustain pedal")		
 	)	
 	basicUnaChordaPdealProperties = #`(
 		(molecule-callback . ,Text_item::brew_molecule)
 		(style . "italic")
 		(no-spacing-rods . #t)
 		(self-alignment-X . 0)
+		(name . "una chorda pedal")
 	)
 	
 	basicVoltaSpannerProperties = #`(
 		(molecule-callback . ,Volta_spanner::brew_molecule)
-		(interfaces . (volta-spanner-interface))
+		(interfaces . (volta-spanner-interface side-position-interface))
+		(direction . 1)
 		(padding . 5)
 		(minimum-space . 25)
+		(name . "volta brace")
 	)	
 	basicVerticalAxisGroupProperties = #`(
 		(axes 1)
 		(interfaces . (axis-group-interface))
+		(name . "Y-axis group")
 	)
 };
 
