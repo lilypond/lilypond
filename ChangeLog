@@ -1,5 +1,9 @@
 2003-07-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/separation-item.cc: add padding property.
+
+	* input/test/*.ly: various fixes, remove solo-a2.ly
+
 	* scm/new-markup.scm (brew-new-markup-molecule): arg order
 	bugfix. Fixes old-style markup compatibility.
 
