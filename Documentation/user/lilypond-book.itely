@@ -317,9 +317,9 @@ use no indentation.
 
 For example
 @example
-  \begin[indent=5cm,raggedright]{lilypond}
+  \begin[indent=5cm,raggedright]@{lilypond@}
   ...
-  \end{lilypond}
+  \end@{lilypond@}
 @end example
 
 
