@@ -70,13 +70,13 @@ AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 # Until we found the real cause, advise no to use threads
 exe=`STEPMAKE_GET_EXECUTABLE($guile_config)`
 if test -n "$exe" -a -x "$exe"; then
-    AC_MSG_CHECKING(["for guile, ./configure'd --without-threads"])
+    AC_MSG_CHECKING(["for guile, ./configure\'d --without-threads"])
     link=`$guile_config link`
     if expr "$link" : '.*\(thread\)' >/dev/null 2>&1; then
- 	STEPMAKE_ADD_ENTRY(OPTIONAL, "[guile, ./configure'd --without-threads (using guile with threads may give nasty memory corruption errors on large scores).]")
-	AC_MSG_RESULT([no, watch out.])
+ 	STEPMAKE_ADD_ENTRY(OPTIONAL, ["guile, ./configure'd --without-threads (using guile with threads may give nasty memory corruption errors on large scores)."])
+	AC_MSG_RESULT(["no, watch out."])
     else
-	AC_MSG_RESULT([yes, good.])
+	AC_MSG_RESULT(["yes, good."])
     fi
 fi    
 
