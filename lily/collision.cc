@@ -10,7 +10,7 @@
 #include "note-column.hh"
 #include "note-head.hh"
 #include "paper-def.hh"
-#include "ly-symbols.hh"
+
 #include "tuple.hh"
 
 Collision::Collision()
@@ -80,12 +80,12 @@ Collision::automatic_shift ()
       for (int i=0; i < clashes.size (); i++)
 	{
 	  SCM sh
-	    = clashes[i]->remove_elt_property (horizontal_shift_scm_sym);
+	    = clashes[i]->remove_elt_property ("horizontal-shift");
 
-	  if (sh == SCM_BOOL_F)
-	    shift.push (0);
+	  if (gh_number_p (sh))
+	    shift.push (gh_scm2int (sh));
 	  else
-	    shift.push (gh_scm2int (SCM_CDR (sh)));
+	    shift.push (0);
 	}
       
       for (int i=1; i < shift.size (); i++)
@@ -178,12 +178,10 @@ Collision::forced_shift ()
   
   for (int i=0; i < clash_l_arr_.size (); i++)
     {
-      SCM force =  clash_l_arr_[i]->remove_elt_property (force_hshift_scm_sym);
-      if (force != SCM_BOOL_F)
+      SCM force =  clash_l_arr_[i]->remove_elt_property ("force-hshift");
+      if (force != SCM_UNDEFINED)
 	{
-	  force = SCM_CDR (force);
-	  tups. push (Shift_tup (clash_l_arr_[i],
-						 gh_scm2double (force)));
+	  tups. push (Shift_tup (clash_l_arr_[i], gh_scm2double (force)));
 	}
     }
   return tups;
@@ -200,3 +198,4 @@ Collision::do_substitute_element_pointer (Score_element*o_l,Score_element*n_l)
 
     }
 }
+

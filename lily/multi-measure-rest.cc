@@ -74,10 +74,10 @@ Multi_measure_rest::do_brew_molecule_p () const
   
   Molecule s;
   bool rest_symbol=true;
-  SCM alt_symbol_sym =get_elt_property (alt_symbol_scm_sym);
-  if (alt_symbol_sym != SCM_BOOL_F)
+  SCM alt_symbol_sym =get_elt_property ("alt-symbol");
+  if (alt_symbol_sym != SCM_UNDEFINED)
     {
-      s = lookup_l () -> afm_find (ly_scm2string (SCM_CDR(alt_symbol_sym)));
+      s = lookup_l () -> afm_find (ly_scm2string (alt_symbol_sym));
       rest_symbol = false;
     }
   else if (measures_i_ == 1 || measures_i_ == 2 || measures_i_ == 4) 
@@ -120,7 +120,7 @@ void
 Multi_measure_rest::do_post_processing ()
 {
   if (!column_arr_.size ())
-    set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+    set_elt_property ("transparent", SCM_BOOL_T);
 }
 
 
@@ -180,3 +180,4 @@ Multi_measure_rest::get_rods () const
   
   return a;
 }
+

@@ -156,7 +156,7 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 	return;
 
 
-      bool stem_grace = stem_l->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+      bool stem_grace = stem_l->get_elt_property ("grace") == SCM_BOOL_T;
 
       SCM wg =get_property ("weAreGraceContext",0);
       bool wgb= gh_boolean_p (wg) && gh_scm2bool (wg);
@@ -193,3 +193,4 @@ Beam_engraver::acknowledge_element (Score_element_info info)
 
 
 ADD_THIS_TRANSLATOR(Beam_engraver);
+

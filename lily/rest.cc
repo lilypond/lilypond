@@ -51,10 +51,10 @@ Rest::do_brew_molecule_p () const
 
   
   String style; 
-  SCM style_sym =get_elt_property (style_scm_sym);
-  if (balltype_i_ >= 2 && style_sym != SCM_BOOL_F)
+  SCM style_sym =get_elt_property ("style");
+  if (balltype_i_ >= 2 && style_sym != SCM_UNDEFINED)
     {
-      style = ly_scm2string (SCM_CDR(style_sym));
+      style = ly_scm2string (style_sym);
     }
   
   Molecule s(lookup_l ()->rest (balltype_i_, ledger_b, style));
@@ -62,5 +62,6 @@ Rest::do_brew_molecule_p () const
 
   return m;
 }
+
 
 

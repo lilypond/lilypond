@@ -44,7 +44,7 @@ Lyric_engraver::do_process_requests()
       text_p_->text_str_ = req_l_->text_str_;
       text_p_->text_str_ += " ";	// ugh.
 
-      text_p_->set_elt_property (non_rhythmic_scm_sym, SCM_BOOL_T);
+      text_p_->set_elt_property ("non-rhythmic", SCM_BOOL_T);
       
       announce_element (Score_element_info (text_p_, req_l_));
     }
@@ -65,4 +65,5 @@ Lyric_engraver::do_post_move_processing ()
 {
   req_l_ =0;
 }
+
 

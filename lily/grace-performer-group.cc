@@ -8,7 +8,7 @@
  */
 #include "grace-performer-group.hh"
 #include "lily-guile.hh"
-#include "ly-symbols.hh"
+
 #include "audio-element.hh"
 
 ADD_THIS_TRANSLATOR (Grace_performer_group);
@@ -51,7 +51,7 @@ Grace_performer_group::announce_element (Audio_element_info info)
   // do not propagate to top
   announce_to_top_.push (info);
 
-  //inf.elem_l_->set_elt_property (grace_scm_sym, SCM_BOOL_T);
+  //inf.elem_l_->set_elt_property ("grace", SCM_BOOL_T);
   info.elem_l_->grace_b_ = true;
 }
 
@@ -109,3 +109,4 @@ Grace_performer_group::do_try_music (Music *m)
 
   return hebbes_b;
 }
+

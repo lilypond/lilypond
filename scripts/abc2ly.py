@@ -39,6 +39,10 @@
 # ???
 
 
+
+#TODO:
+# UNDEF -> None
+ 
   
   
 program_name = 'abc2ly'

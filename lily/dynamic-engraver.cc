@@ -116,7 +116,7 @@ Dynamic_engraver::do_process_requests()
 	  text_p_->text_str_ =  loud; // ugh
 
 	  staff_side_p_ = new Staff_side_item;
-	  staff_side_p_->set_elt_property (script_priority_scm_sym,
+	  staff_side_p_->set_elt_property ("script-priority",
 					   gh_int2scm (100));
 					   
 	  staff_side_p_->set_victim (text_p_);
@@ -143,7 +143,7 @@ Dynamic_engraver::do_process_requests()
 	  prop = get_property ("dynamicPadding", 0);
 	  if (gh_number_p(prop))
 	    {
-	      staff_side_p_->set_elt_property (padding_scm_sym, prop);
+	      staff_side_p_->set_elt_property ("padding", prop);
 	    }
 	  announce_element (Score_element_info (text_p_, absd));
 	  announce_element (Score_element_info (staff_side_p_, absd));
@@ -182,7 +182,7 @@ Dynamic_engraver::do_process_requests()
 		  prop = get_property ("dynamicPadding", 0);
 		  if (gh_number_p(prop))
 		    {
-		      to_end_ss_span_p_->set_elt_property (padding_scm_sym,prop);
+		      to_end_ss_span_p_->set_elt_property ("padding",prop);
 		    }
 		}
 	    }
@@ -198,7 +198,7 @@ Dynamic_engraver::do_process_requests()
 	      new_sss_p->set_victim (new_cresc_p);
 	      new_sss_p->axis_ = Y_AXIS;
 	      // UGH.!
-	      // new_sss_p->set_elt_property (dangling_scm_sym, SCM_BOOL_T);
+	      // new_sss_p->set_elt_property ("dangling", SCM_BOOL_T);
 	      announce_element (Score_element_info (new_sss_p, span_l));
 	    }
 	}
@@ -293,3 +293,4 @@ Dynamic_engraver::acknowledge_element (Score_element_info i)
 	ss_span_p_->add_support (i.elem_l_);
     }
 }
+

@@ -12,9 +12,10 @@
 Real
 Staff_bar::get_bar_size () const
 {
-  SCM size_sym = get_elt_property (bar_size_scm_sym);
-  if (size_sym != SCM_BOOL_F)
-    return gh_scm2double (SCM_CDR(size_sym));
+  SCM size = get_elt_property ("bar-size");
+  if (gh_number_p (size))
+    return gh_scm2double (size);
   else
     return (lines_i () -1) * staff_line_leading_f ();
 }
+

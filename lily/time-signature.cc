@@ -15,17 +15,17 @@
 
 Time_signature::Time_signature ()
 {
-  set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+  set_elt_property ("breakable", SCM_BOOL_T);
 }
 
 Molecule*
 Time_signature::do_brew_molecule_p () const
 {
-  SCM st = get_elt_property (style_scm_sym);
+  SCM st = get_elt_property ("style");
   
-  if (st != SCM_BOOL_F)
+  if (st != SCM_UNDEFINED)
     {
-      String style (ly_scm2string (gh_cdr (st)));
+      String style (ly_scm2string (st));
       if (style[0]=='1')
 	{
 	  Array<int> tmparr = args_;
@@ -39,6 +39,7 @@ Time_signature::do_brew_molecule_p () const
   else
     return new Molecule(lookup_l ()->time_signature (args_[0], args_[1],paper_l ()));
 }
+
 
 
 

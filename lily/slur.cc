@@ -154,7 +154,7 @@ Slur::do_post_processing ()
      y = length >= 5ss : y next interline - d * 0.25 ss
    */
 
-  Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
+  Real interline_f = paper_l ()->get_var ("interline");
   Real internote_f = interline_f / 2;
 
   Real x_gap_f = paper_l ()->get_var ("slur_x_gap");
@@ -509,4 +509,5 @@ Slur::get_rods () const
   a.push (r);
   return a;
 }
+
 

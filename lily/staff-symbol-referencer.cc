@@ -49,7 +49,7 @@ Staff_symbol_referencer::staff_symbol_l () const
 Real
 Staff_symbol_referencer::staff_line_leading_f () const
 {
-  return (staff_sym_l_) ? staff_sym_l_->staff_line_leading_f_ : paper_l ()->get_realvar (interline_scm_sym);
+  return (staff_sym_l_) ? staff_sym_l_->staff_line_leading_f_ : paper_l ()->get_var ("interline");
 }
 
 Real
@@ -63,3 +63,4 @@ Staff_symbol_referencer::position_f () const
 
   return 2.0 * y / staff_line_leading_f ();
 }
+

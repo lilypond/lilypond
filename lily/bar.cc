@@ -17,7 +17,7 @@
 
 Bar::Bar ()
 {
-  set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+  set_elt_property ("breakable", SCM_BOOL_T);
   type_str_ = "|";
 }
 
@@ -76,7 +76,7 @@ Bar::do_pre_processing ()
 	  break;
 	}
     }
-  if (remove_elt_property (at_line_start_scm_sym) != SCM_BOOL_F	// UGR.
+  if (remove_elt_property ("at-line-start") == SCM_BOOL_T	// UGR.
       && (break_status_dir () == RIGHT) && (type_str_ == ""))
     {
       type_str_ = "|";
@@ -86,3 +86,4 @@ Bar::do_pre_processing ()
     set_empty (true, X_AXIS);
 }
   
+

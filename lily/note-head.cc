@@ -67,10 +67,10 @@ Note_head::do_brew_molecule_p() const
 
 
   String type; 
-  SCM style  =get_elt_property (style_scm_sym);
-  if (style != SCM_BOOL_F)
+  SCM style  =get_elt_property ("style");
+  if (style != SCM_UNDEFINED)
     {
-      type = ly_scm2string (SCM_CDR(style));
+      type = ly_scm2string (style);
     }
   
   Molecule*  out = new Molecule (lookup_l()->notehead (balltype_i_, type));
@@ -101,3 +101,4 @@ Note_head::do_brew_molecule_p() const
   out->dim_ = b;
   return out;
 }
+

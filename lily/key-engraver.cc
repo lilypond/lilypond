@@ -33,7 +33,7 @@ Key_engraver::create_key ()
   if (!item_p_) 
     {
       item_p_ = new Key_item;
-      item_p_->set_elt_property (break_priority_scm_sym, gh_int2scm(-1)); // ugh
+      item_p_->set_elt_property ("break-priority", gh_int2scm(-1)); // ugh
       item_p_->multi_octave_b_ = key_.multi_octave_b_;
       announce_element (Score_element_info (item_p_,keyreq_l_));
       
@@ -91,7 +91,7 @@ Key_engraver::acknowledge_element (Score_element_info info)
       create_key ();
       if (def)
 	{
-	  item_p_->set_elt_property (visibility_lambda_scm_sym,
+	  item_p_->set_elt_property ("visibility-lambda",
 				    ly_ch_C_eval_scm ("postbreak_only_visibility"));
 	}
     }
@@ -195,3 +195,4 @@ Key_engraver::do_post_move_processing ()
 }
 
 ADD_THIS_TRANSLATOR (Key_engraver);
+

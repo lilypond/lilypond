@@ -32,14 +32,14 @@ Stem_info::Stem_info (Stem*s, int mult)
   stem_l_ = s;
   x_ = stem_l_->hpos_f ();
   dir_ = stem_l_->dir_;
-  SCM bd = stem_l_->remove_elt_property (beam_dir_scm_sym);
+  SCM bd = stem_l_->remove_elt_property ("beam-dir");
   
-  beam_dir_ = gh_scm2int (SCM_CDR(bd));
+  beam_dir_ = gh_scm2int (bd);
 
   Paper_def* paper_l = stem_l_->paper_l ();
   Real internote_f = stem_l_->staff_line_leading_f ()/2;
   Real interbeam_f = paper_l->interbeam_f (mult_i_);
-  Real beam_f = paper_l->get_realvar (beam_thickness_scm_sym);;
+  Real beam_f = paper_l->get_var ("beam_thickness");;
          
 
   // strangely enough, dim(chord_start_f) == pt (and not internote!)
@@ -51,9 +51,9 @@ Stem_info::Stem_info (Stem*s, int mult)
   // for simplicity, we calculate as if dir == UP
   idealy_f_ *= beam_dir_;
 
-  bool grace_b = stem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F;
-  bool no_extend_b = stem_l_->get_elt_property (no_stem_extend_scm_sym) 
-    != SCM_BOOL_F;
+  bool grace_b = stem_l_->get_elt_property ("grace") != SCM_UNDEFINED;
+  bool no_extend_b = stem_l_->get_elt_property ("no-stem-extend") 
+    != SCM_UNDEFINED;
 
   int stem_max = (int)rint(paper_l->get_var ("stem_max"));
   String type_str = grace_b ? "grace_" : "";
@@ -122,4 +122,5 @@ Stem_info::Stem_info (Stem*s, int mult)
   miny_f_   += interstaff_f_ * beam_dir_;
   maxy_f_   += interstaff_f_ * beam_dir_;
 }
+
 

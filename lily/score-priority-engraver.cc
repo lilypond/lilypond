@@ -44,8 +44,8 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
       if (item_l->empty_b (X_AXIS) || item_l->parent_l (X_AXIS))
 	return;
 
-      SCM bp=item_l->remove_elt_property (breakable_scm_sym);
-      bool breakable = (bp != SCM_BOOL_F);
+      SCM bp=item_l->remove_elt_property ("breakable");
+      bool breakable = (bp != SCM_UNDEFINED);
       if (!breakable)
 	return ;
 
@@ -53,7 +53,7 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
       if (!halign_p_)
 	{
 	  halign_p_ = new Break_align_item;
-	  halign_p_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+	  halign_p_->set_elt_property ("breakable", SCM_BOOL_T);
 	  announce_element (Score_element_info (halign_p_,0));
 	}
 
@@ -62,3 +62,4 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
 }
 
 ADD_THIS_TRANSLATOR(Score_priority_engraver);
+

@@ -61,7 +61,7 @@ Bar_script_engraver::attach_script_to_item (Item *i)
 	How do we make sure that staff_side_p_ has a dependency from
 	someone else? We can't use I for that,  so we use some other element.
        */
-      // staff_side_p_->set_elt_property (dangling_scm_sym, SCM_BOOL_T)
+      // staff_side_p_->set_elt_property ("dangling", SCM_BOOL_T)
       get_staff_info ().command_pcol_l ()->add_dependency (staff_side_p_);
     }
 }
@@ -135,11 +135,11 @@ Bar_script_engraver::create_items (Request *rq)
   
   staff_side_p_ = new Staff_side_item;
   staff_side_p_->axis_ = axis_;
-  staff_side_p_->set_elt_property (breakable_scm_sym, SCM_BOOL_T); // ugh
+  staff_side_p_->set_elt_property ("breakable", SCM_BOOL_T); // ugh
 
   
   text_p_ = new Text_item;
-  text_p_->set_elt_property (breakable_scm_sym, SCM_BOOL_T); // ugh
+  text_p_->set_elt_property ("breakable", SCM_BOOL_T); // ugh
 
   SCM prop = get_property (type_ + "Direction", 0);
   if (isdir_b (prop))
@@ -156,20 +156,21 @@ Bar_script_engraver::create_items (Request *rq)
   SCM padding = get_property (type_ + "ScriptPadding", 0);
   if (gh_number_p(padding))
     {
-      staff_side_p_->set_elt_property (padding_scm_sym, padding);
+      staff_side_p_->set_elt_property ("padding", padding);
     }
   else
     {
       staff_side_p_
-	->set_elt_property (padding_scm_sym,
-			    gh_double2scm(paper_l ()->get_realvar (interline_scm_sym)));
+	->set_elt_property ("padding",
+			    gh_double2scm(paper_l ()->get_realvar (gh_symbol2scm("interline"))));
     }
   
-  staff_side_p_->set_elt_property (visibility_lambda_scm_sym,
+  staff_side_p_->set_elt_property ("visibility-lambda",
 				   visibility_lambda_);
-  text_p_->set_elt_property (visibility_lambda_scm_sym,
+  text_p_->set_elt_property ("visibility-lambda",
 			     visibility_lambda_);
   
   announce_element (Score_element_info (text_p_, rq));
   announce_element (Score_element_info (staff_side_p_, rq));
 }
+

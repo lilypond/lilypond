@@ -47,19 +47,19 @@ Stem_staff_side_item::get_default_direction () const
 void
 Stem_staff_side_item::do_pre_processing ()
 {
-  SCM p = remove_elt_property (padding_scm_sym);
+  SCM p = remove_elt_property ("padding");
   Real pad  = paper_l ()->get_var ("articulation_script_padding_default");
-  if (get_elt_property (no_staff_support_scm_sym) != SCM_BOOL_F)
+  if (get_elt_property ("no-staff-support") != SCM_UNDEFINED)
     pad =0.0; 
   
   Real il  = (stem_l_) ? stem_l_->staff_line_leading_f (): paper_l ()->get_var ("interline");
   
-  if (p != SCM_BOOL_F)
+  if (p != SCM_UNDEFINED)
     {
       pad =  gh_scm2double (p);
     }
   pad *=  il ;
-  set_elt_property (padding_scm_sym,
+  set_elt_property ("padding",
 		    gh_double2scm(pad));
 
   Staff_side_item::do_pre_processing ();
@@ -79,7 +79,7 @@ Stem_staff_side_item::do_post_processing ()
     should use general no_staff_line_collision elt property, and use
     the same elt prop also for positioning slurs, ties and dots.
   */
-  if (get_elt_property (no_staff_support_scm_sym) != SCM_BOOL_F)
+  if (get_elt_property ("no-staff-support") != SCM_UNDEFINED)
     {
       Graphical_element * c =common_refpoint (staff_symbol_l (), Y_AXIS);
       Real staff_coord = staff_symbol_l ()->relative_coordinate (c, Y_AXIS);
@@ -95,3 +95,4 @@ Stem_staff_side_item::do_post_processing ()
       translate_axis (desired_coord * dir_ *  staff_line_leading_f () / 2.0  - now_coord, Y_AXIS);
     }
 }
+

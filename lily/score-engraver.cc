@@ -33,7 +33,7 @@ Score_engraver::prepare (Moment w)
   Global_translator::prepare (w);
   set_columns (new Score_column (w),  new Score_column (w));
 
-  command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+  command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
   post_move_processing();
 }
 
@@ -57,7 +57,7 @@ Score_engraver::do_creation_processing ()
 
   scoreline_l_->set_bounds(LEFT, command_column_l_);
   
-  command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+  command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
 
   Engraver_group_engraver::do_creation_processing();
 }
@@ -68,7 +68,7 @@ Score_engraver::do_removal_processing()
 {
   Engraver_group_engraver::do_removal_processing();
   scoreline_l_->set_bounds(RIGHT,command_column_l_);
-  command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+  command_column_l_->set_elt_property ("breakable", SCM_BOOL_T);
 
   typeset_all ();
   set_columns (0,0);
@@ -122,15 +122,6 @@ Score_engraver::typeset_all()
       Score_element * elem_p = elem_p_arr_[i];
       elem_p->add_processing ();
 
-#if 0				// TODO!
-      /*
-	elem_p wants to be connected to the rest of the
-	dependency graph.
-       */
-      
-      if (elem_p->get_elt_property (dangling_scm_sym) != SCM_BOOL_F)
-	scoreline_l_->add_dependency (elem_p);
-#endif
       
       if (Spanner *s = dynamic_cast <Spanner *> (elem_p))
 	{
@@ -153,7 +144,7 @@ Score_engraver::typeset_all()
 
 	  if (!item_p->parent_l (X_AXIS))
 	    {
-	      bool br = (item_p->remove_elt_property (breakable_scm_sym) != SCM_BOOL_F);
+	      bool br = (item_p->remove_elt_property ("breakable") != SCM_UNDEFINED);
 	      if (br)
 		command_column_l_->add_element(item_p);
 	      else
@@ -169,7 +160,7 @@ Score_engraver::typeset_all()
 void
 Score_engraver::do_pre_move_processing()
 {
-  if (command_column_l_->get_elt_property (breakable_scm_sym) !=  SCM_BOOL_F)
+  if (command_column_l_->get_elt_property ("breakable") !=  SCM_UNDEFINED)
     {
       breaks_i_ ++;
       if (! (breaks_i_%8))
@@ -243,16 +234,16 @@ Score_engraver::do_try_music (Music*r)
 	  gotcha = true;
 
 
-	  SCM pen = command_column_l_->get_elt_property  (penalty_scm_sym);
-	  Real total_penalty = (pen == SCM_BOOL_F)
+	  SCM pen = command_column_l_->get_elt_property  ("penalty");
+	  Real total_penalty = (pen == SCM_UNDEFINED)
 	    ? 0.0
-	    : gh_scm2double (SCM_CDR(pen)); // ugh. Should typecheck.
+	    : gh_scm2double(pen); // ugh. Should typecheck.
 
 	  total_penalty += b->penalty_f_;
 	  if (b->penalty_f_ > 10000.0) //  ugh. arbitrary.
 	    forbid_breaks ();
 
-	  command_column_l_->set_elt_property (penalty_scm_sym,
+	  command_column_l_->set_elt_property ("penalty",
 					       gh_double2scm (total_penalty));
 	}
     }
@@ -265,7 +256,7 @@ Score_engraver::forbid_breaks ()
   /*
     result is junked.
    */
-  command_column_l_->remove_elt_property (breakable_scm_sym);
+  command_column_l_->remove_elt_property ("breakable");
 }
 
 ADD_THIS_TRANSLATOR(Score_engraver);
@@ -279,3 +270,4 @@ Score_engraver::do_add_processing ()
   pscore_p_ = new Paper_score;
   pscore_p_->paper_l_ = dynamic_cast<Paper_def*>(output_def_l_);
 }
+

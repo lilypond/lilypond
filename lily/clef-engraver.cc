@@ -129,7 +129,7 @@ Clef_engraver::acknowledge_element (Score_element_info info)
       bool def = !clef_p_;
       create_clef();
       if(def)
-	clef_p_->set_elt_property(visibility_lambda_scm_sym,
+	clef_p_->set_elt_property("visibility-lambda",
 				  ly_ch_C_eval_scm ("postbreak_only_visibility"));
     }
 
@@ -164,7 +164,7 @@ Clef_engraver::do_creation_processing()
   if (clef_type_str_.length_i ())
     { 
       create_clef();
-      clef_p_->set_elt_property (non_default_scm_sym, SCM_BOOL_T);
+      clef_p_->set_elt_property ("non-default", SCM_BOOL_T);
     }
 }
 
@@ -198,7 +198,7 @@ Clef_engraver::create_clef()
   clef_p_->y_position_i_ = clef_position_i_;
   if (octave_dir_)
     {
-      clef_p_->set_elt_property (octave_dir_scm_sym, gh_int2scm (octave_dir_));
+      clef_p_->set_elt_property ("octave-dir", gh_int2scm (octave_dir_));
     }
 }
 
@@ -248,3 +248,4 @@ Clef_engraver::do_removal_processing()
 
 
 ADD_THIS_TRANSLATOR(Clef_engraver);
+

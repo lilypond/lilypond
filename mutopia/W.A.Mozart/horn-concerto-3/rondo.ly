@@ -18,12 +18,12 @@ lipbreaker = \notes \relative c'
 	[c c c] [c c c]
 }
 
-rightsixteenth = { \property Voice.stemLeftBeamCount = "1"
-  \property Voice.stemRightBeamCount = "2" }
-leftsixteenth = { \property Voice.stemLeftBeamCount = "2"
-  \property Voice.stemRightBeamCount = "1" }
-bothsixteenth = { \property Voice.stemLeftBeamCount = "2"
-  \property Voice.stemRightBeamCount = "2" }
+rightsixteenth = { \property Voice.stemLeftBeamCount = 1
+  \property Voice.stemRightBeamCount = 2 }
+leftsixteenth = { \property Voice.stemLeftBeamCount = 2
+  \property Voice.stemRightBeamCount = 1 }
+bothsixteenth = { \property Voice.stemLeftBeamCount = 2
+  \property Voice.stemRightBeamCount = 2 }
 
 rondo = \notes 	\relative c'
 {
@@ -92,7 +92,7 @@ rondo = \notes 	\relative c'
 	R2.*3
 	r4 r8 r4 c8
 	a4. c
-	f ~ [f8. \rightsixteenth e16(  d )c]
+	f ~ [f8. \rightsixteenth e16(  \bothsixteenth d )c]
 	bes4 g8 e4 g8
 	c4. ~ c8 r r
 	R2.*3| 
@@ -153,7 +153,7 @@ rondo = \notes 	\relative c'
 	R2.*5
 	[c8\f c, c] [c c c]
 	c4 r8 c4 r8
-	c4 r8 r4 \bar "||.";		% B&H do another r8.
+	c4 r8 r4 \bar "|.";		% B&H do another r8.
 }
 
 

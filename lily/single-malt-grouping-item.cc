@@ -13,7 +13,7 @@
 
 Single_malt_grouping_item ::Single_malt_grouping_item()
 {
-  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+  set_elt_property ("transparent", SCM_BOOL_T);
 
   // this is weird! , but needed!
   set_empty (true, X_AXIS, Y_AXIS);
@@ -78,3 +78,4 @@ Single_malt_grouping_item::do_print () const
     }
 #endif
 }
+

@@ -60,14 +60,17 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
       SCM type_p   = gh_cadr (entry);
       SCM elt_prop_name = gh_caddr (entry);
 
-      if (e->get_elt_property (elt_prop_name) != SCM_BOOL_F)
+      /*
+	urg scm <-> symbol-string
+       */
+      if (e->get_elt_property (ly_scm2string (elt_prop_name)) != SCM_UNDEFINED)
 	continue;
       
       SCM val = get_property (prop_sym, 0);
       if (val != SCM_UNDEFINED
 	  && gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))
 	  == SCM_BOOL_T)
-	e->set_elt_property (elt_prop_name, val);
+	e->set_elt_property (ly_scm2string (elt_prop_name), val);
     }
 }
 

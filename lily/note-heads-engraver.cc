@@ -79,7 +79,7 @@ Note_heads_engraver::do_process_requests()
 	 
       if (gh_string_p (noteheadstyle))
 	{
-	  note_p->set_elt_property (style_scm_sym, noteheadstyle);
+	  note_p->set_elt_property ("style", noteheadstyle);
 	}
       
       Score_element_info itinf (note_p,note_req_l);
@@ -116,3 +116,4 @@ Note_heads_engraver::do_post_move_processing()
 
 
 ADD_THIS_TRANSLATOR(Note_heads_engraver);
+

@@ -68,7 +68,7 @@ Tie::do_post_processing()
 {
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
 
-  Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
+  Real interline_f = paper_l ()->get_var ("interline");
   Real internote_f = interline_f / 2;
   Real x_gap_f = paper_l ()->get_var ("tie_x_gap");
   Real y_gap_f = paper_l ()->get_var ("tie_y_gap");
@@ -99,8 +99,6 @@ Tie::do_post_processing()
       */
       if (head_l_drul_[d]
 	  /*
-	    && head_l_drul_[d]->remove_elt_property (extremal_scm_sym) != SCM_BOOL_F)
-	    ugh, ugh:
 
 	        a~a~a;
 
@@ -109,8 +107,8 @@ Tie::do_post_processing()
 	    Getting scared a bit by score-element's comment:
 	    // is this a good idea?
 	  */
-	  && (head_l_drul_[d]->get_elt_property (extremal_scm_sym)
-	      != SCM_BOOL_F))
+	  && (head_l_drul_[d]->get_elt_property ("extremal")
+	      != SCM_UNDEFINED))
 	{
 	if (d == LEFT)
 	    dx_f_drul_[d] += head_width_f;
@@ -196,3 +194,4 @@ Tie::get_rods () const
   a.push (r);
   return a;
 }
+

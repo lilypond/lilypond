@@ -51,9 +51,9 @@ Script_engraver::do_process_requests()
 	}
       Script *p =new Script;
       Stem_staff_side_item * ss =new Stem_staff_side_item;
-      list = SCM_CDR (list);
-	  
-      p->set_elt_property (molecule_scm_sym,
+
+      list = gh_cdr (list);
+      p->set_elt_property ("molecule",
 			   SCM_CAR(list));
 
       list = SCM_CDR(list);
@@ -80,7 +80,7 @@ Script_engraver::do_process_requests()
       SCM paddingprop = get_property ("articulationScriptPadding", 0);
       if (gh_number_p(paddingprop))
 	{
-	  ss->set_elt_property (padding_scm_sym, paddingprop);
+	  ss->set_elt_property ("padding", paddingprop);
 	}
 
       SCM axisprop = get_property ("scriptHorizontal",0);
@@ -88,12 +88,12 @@ Script_engraver::do_process_requests()
 	ss->axis_ = X_AXIS;
 
       if (follow_staff && !gh_boolean_p (axisprop) && gh_scm2bool (axisprop))
-	ss->set_elt_property (no_staff_support_scm_sym, SCM_BOOL_T);
+	ss->set_elt_property ("no-staff-support", SCM_BOOL_T);
 
       p->set_staff_side (ss);
-      ss->set_elt_property (script_priority_scm_sym, priority);
+      ss->set_elt_property ("script-priority", priority);
       if (gh_number_p (paddingprop))
-	ss->set_elt_property (padding_scm_sym, paddingprop);
+	ss->set_elt_property ("padding", paddingprop);
   
   
       script_p_arr_.push (p);
@@ -154,4 +154,5 @@ Script_engraver::do_post_move_processing()
 }
 
 ADD_THIS_TRANSLATOR(Script_engraver);
+
 

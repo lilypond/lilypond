@@ -100,7 +100,7 @@ Stem_engraver::do_pre_move_processing()
       if (gh_number_p(prop))
 	{
 	  stem_p_->dir_ = to_dir (prop);
-	  stem_p_->set_elt_property (dir_forced_scm_sym, SCM_BOOL_T);
+	  stem_p_->set_elt_property ("dir-forced", SCM_BOOL_T);
 	}
 
       Translator_group* which;
@@ -135,3 +135,4 @@ Stem_engraver::do_try_music (Music* r)
 
 
 ADD_THIS_TRANSLATOR(Stem_engraver);
+

@@ -17,7 +17,7 @@ Span_score_bar_engraver::get_span_bar_p () const
 {
   Span_bar*s =  new Span_bar;
   s->type_str_ = "scorebar";
-  s->set_elt_property (break_priority_scm_sym,
+  s->set_elt_property ("break-priority",
 		       gh_int2scm (-4));
 
   return s;
@@ -55,7 +55,7 @@ Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
   if (Span_bar * b = dynamic_cast<Span_bar *> (i.elem_l_))
     {
       if (b->type_str_ == "brace")
-	b->translate_axis ( -paper_l ()->get_realvar (interline_scm_sym),
+	b->translate_axis ( -paper_l ()->get_var ("interline"),
 			    X_AXIS); // ugh
     }
 }
@@ -63,4 +63,5 @@ Staff_group_bar_engraver::acknowledge_element (Score_element_info i)
 ADD_THIS_TRANSLATOR (Piano_bar_engraver);
 ADD_THIS_TRANSLATOR (Staff_group_bar_engraver);
 ADD_THIS_TRANSLATOR (Span_score_bar_engraver);
+
 

@@ -52,10 +52,10 @@ Spacing_engraver::do_removal_processing ()
 void
 Spacing_engraver::acknowledge_element (Score_element_info i)
 {
-  if (i.elem_l_->get_elt_property (grace_scm_sym) != SCM_BOOL_F)
+  if (i.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED)
     return;
 
-  if (i.elem_l_->get_elt_property (non_rhythmic_scm_sym) != SCM_BOOL_F)
+  if (i.elem_l_->get_elt_property ("non-rhythmic") != SCM_UNDEFINED)
     return;
   
   if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*>(i.req_l_))
@@ -111,4 +111,5 @@ Spacing_engraver::do_post_move_processing ()
 }
 
 ADD_THIS_TRANSLATOR(Spacing_engraver);
+
 

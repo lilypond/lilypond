@@ -60,13 +60,13 @@ Span_bar::evaluate_empty ()
 { 
   if (spanning_l_arr_.size () < 1) 
     {
-      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (true, X_AXIS, Y_AXIS);   
 
     }
   if (type_str_.empty_b ()) 
     {
-      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      set_elt_property ("transparent", SCM_BOOL_T);
       set_empty (true);
     }
   else if (type_str_ == "|:") 
@@ -127,3 +127,4 @@ Span_bar::Span_bar ()
 {
   type_str_ = "";
 }
+

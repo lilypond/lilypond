@@ -29,11 +29,11 @@ Bow::do_brew_molecule_p () const
 
   Molecule a;
 
-  SCM d =  get_elt_property (dashed_scm_sym);
-  if (d == SCM_BOOL_F)
+  SCM d =  get_elt_property ("dashed");
+  if (d == SCM_UNDEFINED)
     a = lookup_l ()->slur (c, thick);
   else
-    a = lookup_l ()->dashed_slur (c, thick, gh_scm2int (SCM_CDR(d)));
+    a = lookup_l ()->dashed_slur (c, thick, gh_scm2int (d));
 
   return new Molecule (a); 
 }
@@ -97,4 +97,5 @@ Bow::get_encompass_offset_arr () const
 		      
   return offset_arr;
 }
+
 

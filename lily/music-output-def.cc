@@ -39,6 +39,7 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 {
   scope_p_ = new Scope (*s.scope_p_);
   translator_p_dict_p_ = new Scope (*s.translator_p_dict_p_);
+  default_properties_ = s.default_properties_;
   
   for (Scope_iter i (*translator_p_dict_p_);  i.ok (); i++)
     {
@@ -102,10 +103,11 @@ Music_output_def::print () const
 String
 Music_output_def::get_default_output () const
 {
-  if (safe_global_b || !scope_p_->elem_b (output_scm_sym))
+  if (safe_global_b || !scope_p_->elem_b ("output"))
     return "";
-  Identifier * id = scope_p_->elem (output_scm_sym);
+  Identifier * id = scope_p_->elem ("output");
 
   String *p = id->access_content_String (false);
   return p ? *p : String ("");
 }
+

@@ -169,15 +169,15 @@ void
 Stem::set_default_stemlen ()
 {
   Real length_f = 0.;
-  SCM scm_len = get_elt_property(length_scm_sym);
-  if (scm_len != SCM_BOOL_F)
+  SCM scm_len = get_elt_property("length");
+  if (scm_len != SCM_UNDEFINED)
     {
-      length_f = gh_scm2double (SCM_CDR(scm_len));
+      length_f = gh_scm2double (scm_len);
     }
   else
     length_f = paper_l ()->get_var ("stem_length0");
 
-  bool grace_b = get_elt_property (grace_scm_sym) != SCM_BOOL_F;
+  bool grace_b = get_elt_property ("grace") != SCM_UNDEFINED;
   String type_str = grace_b ? "grace_" : "";
 
   Real shorten_f = paper_l ()->get_var (type_str + "forced_stem_shorten0");
@@ -201,7 +201,7 @@ Stem::set_default_stemlen ()
   set_stemend ((dir_ > 0) ? head_positions()[BIGGER] + length_f:
 	       head_positions()[SMALLER] - length_f);
 
-  bool no_extend_b = get_elt_property (no_stem_extend_scm_sym) != SCM_BOOL_F;
+  bool no_extend_b = get_elt_property ("no-stem-extend") != SCM_UNDEFINED;
   if (!grace_b && !no_extend_b && (dir_ * stem_end_f () < 0))
     set_stemend (0);
 }
@@ -225,9 +225,9 @@ Stem::set_noteheads ()
     head_l_arr_.reverse ();
 
   Note_head * beginhead =   head_l_arr_[0];
-  beginhead->set_elt_property (extremal_scm_sym, SCM_BOOL_T);
+  beginhead->set_elt_property ("extremal", SCM_BOOL_T);
   if  (beginhead !=   head_l_arr_.top ())
-    head_l_arr_.top ()->set_elt_property (extremal_scm_sym, SCM_BOOL_T);
+    head_l_arr_.top ()->set_elt_property ("extremal", SCM_BOOL_T);
   
   int parity=1;
   int lastpos = int (beginhead->position_f ());
@@ -256,7 +256,7 @@ Stem::do_pre_processing ()
 
   if (invisible_b ())
     {
-      set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+      set_elt_property ("transparent", SCM_BOOL_T);
     }
   set_empty (invisible_b (), X_AXIS, Y_AXIS);
   set_spacing_hints ();
@@ -278,16 +278,14 @@ Stem::set_spacing_hints ()
   if (!invisible_b ())
     {
       SCM scmdir  = gh_int2scm (dir_);
-      SCM dirlist = column_l ()->get_elt_property (dir_list_scm_sym);
-      if (dirlist == SCM_BOOL_F)
+      SCM dirlist = column_l ()->get_elt_property ("dir-list");
+      if (dirlist == SCM_UNDEFINED)
 	dirlist = SCM_EOL;
-      else
-	dirlist = SCM_CDR (dirlist);
 
       if (scm_sloppy_memq (scmdir, dirlist) == SCM_EOL)
 	{
 	  dirlist = gh_cons (scmdir, dirlist);
-	  column_l ()->set_elt_property (dir_list_scm_sym, dirlist);
+	  column_l ()->set_elt_property ("dir-list", dirlist);
 	}
     }
 }
@@ -296,10 +294,9 @@ Molecule
 Stem::flag () const
 {
   String style;
-  SCM st = get_elt_property (style_scm_sym);
-  if ( st != SCM_BOOL_F)
+  SCM st = get_elt_property ("style");
+  if ( st != SCM_UNDEFINED)
     {
-      st = SCM_CDR(st);
       style = ly_scm2string (st);
     }
 
@@ -402,3 +399,4 @@ Stem::do_substitute_element_pointer (Score_element*o,Score_element*n)
     }
   Staff_symbol_referencer::do_substitute_element_pointer (o,n);
 }
+

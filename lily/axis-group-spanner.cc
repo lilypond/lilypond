@@ -133,7 +133,7 @@ Axis_group_spanner::do_break_processing()
 		    v->add_element (broken_item, a1, a2);
 		  else
 		    {
-		      broken_item->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+		      broken_item->set_elt_property ("transparent", SCM_BOOL_T);
 		      broken_item->set_empty (true);
 		    }
 
@@ -169,3 +169,4 @@ Axis_group_spanner::do_width () const
 {
   return Spanner::do_width ();
 }
+
