@@ -365,9 +365,9 @@ is invisible.
 
 @refcommands
 
-@refcommand \stemUp
-@refcommand \stemDown
-@refcommand \stemBoth
+@refcommand stemUp
+@refcommand stemDown
+@refcommand stemBoth
 
 
 @node Ties

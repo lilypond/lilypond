@@ -1063,8 +1063,12 @@ Entering such parts is done by entering each voice as a sequence (with
 @code{@{ .. @}}), and combing those simultaneously, separating the
 voices with @code{\\}:
 
-@lilypond[verbatim,relative]
-  < { a4 g2 f4-~ f4 } \\
+@example
+  < @{ a4 g2 f4-~ f4 @} \\
+    @{ r4 g4 f2 f4 @} >
+@end example
+@lilypond[relative]
+\context Staff  < { a4 g2 f4-~ f4 } \\
     { r4 g4 f2 f4 } >
 @end lilypond
 The notation @code{< .. >} is a shorthand for @code{\simultaneous @{
@@ -1073,7 +1077,11 @@ The notation @code{< .. >} is a shorthand for @code{\simultaneous @{
 For polyphonic typesetting spacer rests can also be convenient: these
 are rests that do not print.  It is useful for filling up voices that
 temporarily do not play:
-@lilypond[verbatim,relative]
+@example
+  < @{ a4 g2 f4-~ f4 @} \\
+    @{ s4 g4 f2 f4 @} >
+@end example
+@lilypond[relative]
   < { a4 g2 f4-~ f4 } \\
     { s4 g4 f2 f4 } >
 @end lilypond
@@ -1102,7 +1110,8 @@ but now this entire expression must be interpreted as a
  \context PianoStaff < \context Staff @dots{} >
 @end example
 
-Here is a complete-fledged example:
+Here is a full-fledged example:
+
 @lilypond[relative 0,fragment]
 \context PianoStaff
  < \context Staff = up {

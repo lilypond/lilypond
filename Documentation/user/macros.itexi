@@ -154,6 +154,12 @@ internals document,  @internalsref{\NAME\}
 @end macro
 
 
+@c
+@c ARGGGHHHHH! I want
+@c @cindex @code{@backslash\WHAT\}
+@c how do I do that?
+@c   --hwn
+
 @macro refcommand{WHAT}
 @cindex @code{\WHAT\}
 @code{\WHAT\}
