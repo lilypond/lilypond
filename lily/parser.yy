@@ -186,9 +186,7 @@ yylex (YYSTYPE *s,  void * v)
 %token BREATHE
 %token CHORDMODIFIERS
 %token CHORDS
-%token CHAR_T
 %token CLEF
-%token CM_T
 %token CONSISTS
 %token DURATION
 %token SEQUENTIAL
@@ -202,14 +200,12 @@ yylex (YYSTYPE *s,  void * v)
 %token GRACE 
 %token HEADER
 %token HYPHEN
-%token IN_T
 %token INVALID
 %token KEY
 %token LYRICS
 %token MARK
 %token MULTI_MEASURE_REST
 %token MIDI
-%token MM_T
 %token PITCH
 %token DEFAULT
 %token NAME
@@ -220,7 +216,6 @@ yylex (YYSTYPE *s,  void * v)
 %token PARTIAL
 %token PROPERTY
 %token OVERRIDE SET REVERT 
-%token PT_T
 %token RELATIVE
 %token REMOVE
 %token REPEAT
@@ -2090,20 +2085,8 @@ bare_number:
 	| NUMBER_IDENTIFIER		{
 		$$ = $1;
 	}
-	| REAL CM_T	{
-		$$ = gh_double2scm (gh_scm2double ($1) CM );
-	}
-	| REAL PT_T	{
-		$$ = gh_double2scm (gh_scm2double ($1) PT);
-	}
-	| REAL IN_T	{
-		$$ = gh_double2scm (gh_scm2double ($1) INCH);
-	}
-	| REAL MM_T	{
-		$$ = gh_double2scm (gh_scm2double ($1) MM);
-	}
-	| REAL CHAR_T	{
-		$$ = gh_double2scm (gh_scm2double ($1) CHAR);
+	| REAL NUMBER_IDENTIFIER	{
+		$$ = gh_double2scm (gh_scm2double ($1) * gh_scm2double ($2));
 	}
 	;
 
