@@ -263,7 +263,7 @@ for opt in options:
 		texfile_nm = a
 	elif o == '--enc':
 		enc_nm = a
-	elif o == '--ly' or o == '-':
+	elif o == '--ly' or o == '-l':
 		lyfile_nm = a
 	elif o== '--help' or o == '-h':
 		help()
@@ -291,7 +291,7 @@ for filenm in files:
 	del g['DesignSize']
 	
 	write_afm_metric (afm, g, m)
-	
+
 	write_tex_defs (open (texfile_nm, 'w'), g, m)
 	enc_name = 'FetaEncoding'
 	if re.search ('parmesan', filenm) :
@@ -306,7 +306,7 @@ for filenm in files:
 			    [base + '.dvi', base + '.pfa', base + '.pfb',
 			     texfile_nm, afmfile_nm])
 	if lyfile_nm:
-		write_fontlist(open (lyfile_nm, 'w'), g, m)
+		write_fontlist (open (lyfile_nm, 'w'), g, m)
 
 
 

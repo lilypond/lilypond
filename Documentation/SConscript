@@ -1,0 +1,52 @@
+# -*-python-*-
+
+import glob
+import os
+
+here = os.getcwd ()
+reldir = str (Dir ('.').srcnode ())
+os.chdir (reldir)
+sources = glob.glob ('*.tely') + glob.glob ('user/*.tely')
+os.chdir (here)
+
+Import ('env')
+e = env.Copy ()
+outdir = os.path.join (env['build'], reldir, env['out'])
+
+# Too late
+e.Append (LILYPOND_BOOK_PATH = [os.path.join (env['srcdir'], reldir, 'user')])
+e['LILYPOND_BOOK_PATH'].append (os.path.join (env['srcdir'], reldir, 'user'))
+
+
+
+def verbose_opt (env, opt):
+	if env['verbose']:
+		return opt
+	return ''
+
+LILYPOND_BIN = env['LILYPOND_BIN']
+LILYPONDPREFIX = env['LILYPONDPREFIX']
+
+# $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(builddir)/lily/$(outconfbase)/lilypond-bin
+# 	cd $(outdir) && $(builddir)/lily/$(outconfbase)/lilypond-bin --verbose $(abs-srcdir)/ly/generate-documentation
+# 	rm -f $(outdir)/lilypond-internals.nexi
+# 	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
+
+e.Depends ('lilypond.texi', 'feta16list.ly')
+e.Depends ('lilypond.texi', 'parmesan16list.ly')
+e.Depends ('lilypond.texi', 'lilypond-internals.texi')
+			 
+e.Command ('lilypond-internals.texi', LILYPOND_BIN,
+	   ('(cd $$(dirname $TARGET) && \
+	   LILYPONDPREFIX=%(LILYPONDPREFIX)s %(LILYPOND_BIN)s ' \
+	    + verbose_opt (env, ' --verbose') \
+	    + ' ' + os.path.join (env['srcdir'], 'ly/generate-documentation')\
+	    + ')') % vars ())
+
+docs = e.Tely2pdf (sources)
+
+e.Alias ('doc', docs)
+
+#testing
+all_sources = ['SConscript',] + sources
+x = env.Tar (env['tarball'], all_sources)

@@ -52,6 +52,7 @@ env = Environment ()
 
 # put your favourite stuff in custom.py
 opts = Options ('custom.py', ARGUMENTS)
+#opts = Options (None, ARGUMENTS)
 opts.Add ('prefix', 'Install prefix', '/usr/')
 opts.Add ('out', 'Output directory', 'out-scons')
 opts.Add ('build', 'Build directory', '.')
@@ -241,6 +242,13 @@ if env['gui']:
 
 env = conf.Finish ()
 
+here = os.getcwd ()
+reldir = str (Dir ('.').srcnode ())
+os.chdir (reldir)
+srcdir = os.getcwd ()
+os.chdir (here)
+env['srcdir'] = srcdir
+
 build = env['build']
 out = env['out']
 ##reldir = str (Dir ('.').srcnode ())
@@ -300,10 +308,35 @@ if 'tar' in COMMAND_LINE_TARGETS:
 
 Export ('env')
 
+#ugr
+if build == '.':
+	absbuild = os.getcwd ()
+else:
+	absbuild = build
+
+# duh
+env['MAKEINFO'] = 'LANG= makeinfo'
+env['PYTHON'] = 'python'
+env['LILYPOND_BIN'] = os.path.join (absbuild, 'lily', out, 'lilypond-bin')
+env['LILYPONDPREFIX'] =	os.path.join (outdir, 'usr/share/lilypond')
+env['LILYPOND_BOOK'] = srcdir + '/scripts/lilypond-book.py'
+env['LILYPOND_BOOK_FLAGS'] = ''
+env['LILYPOND_BOOK_FORMAT'] = 'texi-html'
+env['LILYPOND_BOOK_PATH'] = ['.', '#/input', '#/input/regression',
+			     '#/input/test', '#/input/tutorial',
+			     os.path.join (absbuild, 'mf', out),
+			     '#/Documentation/user',
+			     os.path.join (absbuild, 'Documentation', out)]
+			     
+## TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
+env['TEXINFO_PAPERSIZE_OPTION'] = '-t@afourpaper'
+
+SConscript ('buildscripts/builder.py')
 
 #subdirs = ['mf',]
 #subdirs = ['flower', 'lily', 'parser', 'gui', 'main',]
-subdirs = ['flower', 'lily', 'mf', 'scm', 'ly']
+#subdirs = ['flower', 'lily', 'mf', 'scm', 'ly']
+subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation']
 for d in subdirs:
 	b = os.path.join (build, d, out)
 	# Support clean sourctree build (srcdir build)
@@ -319,6 +352,10 @@ readme_txt = ['AUTHORS.txt', 'README.txt', 'INSTALL.txt', 'NEWS.txt']
 # to be [re]moved after spit
 patch_files = ['emacsclient.patch', 'server.el.patch', 'darwin.patch']
 
+map (lambda x: env.Texi2txt (x, os.path.join ('Documentation/topdocs',
+					      os.path.splitext (x)[0])),
+     readme_txt)
+
 #testing
 env.Append (TARFLAGS = '-z --owner=0 --group=0')
 env.Append (GZIPFLAGS = '-9')
@@ -328,6 +365,7 @@ all_sources = ['SConstruct',] + subdirs \
 
 tar = env.Tar (env['tarball'], all_sources)
 
+# as a builder?
 def symlink_tree (prefix):
 	def mkdirs (dir):
 		def mkdir (dir):
@@ -340,7 +378,7 @@ def symlink_tree (prefix):
 				os.mkdir (dir)
 			os.chdir (dir)
 		map (mkdir, string.split (dir, os.sep))
-	srcdir = os.getcwd ()
+	#srcdir = os.getcwd ()
 	def symlink (src, dst):
 		dir = os.path.dirname (dst)
 		mkdirs (dir)
