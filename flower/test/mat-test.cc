@@ -47,7 +47,7 @@ matrix()
     Matrix hilbert(N,N), h2(hilbert);
     for (int i=0; i < N; i++) {
 	for (int j=0; j < N; j++) {
-	    hilbert(i,j) = 1/(i+j+1);
+	    hilbert(i,j) = 1/Real(i+j+1);
 	     h2 (i,j) = (abs(i-j) > 3) ?0 : hilbert(i,j);
 	}
     }
@@ -55,6 +55,10 @@ matrix()
     Choleski_decomposition ch(h2);
     cout << "red Hilbert  " <<  h2;
     cout << "choleski " << ch.L;
+    Matrix T =ch.L.transposed();
+    cout << "L^T " <<  T;
+    cout << "L * L^T" << ch.L * T;
+    cout << "H2^{-1} * H2" << h2 * ch.inverse();
 }
 
 ADD_TEST(matrix);
