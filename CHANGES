@@ -1,5 +1,30 @@
-1.3.77.jcn5
+* etf2ly.py: Finale to LilyPond conversion.
+
+1.3.78.jcn4
 ===========
+
+* Made simple fix to get part-combiner to recognise different rhythms
+
+* Unhardcoded part combiner and a2-engraver; introduced properties
+  splitInterval, soloADue, soloText, soloIIText, aDueText.
+
+* Fixed part combiner's too-late problem (Dankje!)
+
+* Fixed a2-devnull-engraver, a2-engraver.
+
+* Renamed part combiner music names to "one", "two".
+
+* Cleaned up decision making in part combiner, renamed to "solo"/"unison"
+
+1.3.77.mb1
+==========
+
+* Minor documentation updates
+
+* Mark_engraver: has been broken since .73, fixed!
+
+1.3.78
+======
 
 * Added a devnull engraver, that junks (notehead) requests of the second
   stem when combined parts are in unison (a2).
@@ -12,7 +37,6 @@
   arrive one request late.
 
 * First try at combining parts: part-combine*
-
 
 * fixed problem with HaraKiri
 
