@@ -29,7 +29,7 @@ public:
 protected:
   virtual void do_add_processing ();
   virtual void do_post_processing ();
-  virtual void set_default_dir();
+  virtual Direction get_default_dir() const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);
   virtual Array<Rod> get_rods () const;
 

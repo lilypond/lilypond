@@ -78,7 +78,7 @@ fet_beginchar("Ledger ending", "ledgerending", "ledgerending")
 set_char_box (5/2 ledgerlinethickness#, 5/2 ledgerlinethickness#,
   		ledgerlinethickness#/2,ledgerlinethickness#/2);
         pickup pencircle scaled ledgerlinethickness;
-	lft x1 = -b;
+	lft x1 = -b ;
 	rt x2 = w;
 	y1 =0; y2 =0;
 	draw z1 .. z2;

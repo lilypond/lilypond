@@ -23,7 +23,8 @@ public:
   Protected_scm (SCM);
   Protected_scm (Protected_scm const &);
   ~Protected_scm ();
-  Protected_scm &operator = (Protected_scm const &);
+  Protected_scm &operator = (SCM);
+  Protected_scm &operator =( Protected_scm const&);
   operator SCM () const;
   SCM to_SCM () const;
 };

@@ -100,6 +100,11 @@ to_str (bool b)
 {
   return String_convert::bool_str (b);
 }
+String
+to_str (long b)
+{
+  return String_convert::long_str (b);
+}
 
 String 
 to_str (char const* format, ... )

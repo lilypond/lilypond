@@ -1,16 +1,16 @@
 #include "directional-spanner.hh"
 
-void
-Directional_spanner::set_default_dir()
+Direction
+Directional_spanner::get_default_dir() const
 {
-  dir_ = DOWN;
+  return DOWN;
 }
 
 void
 Directional_spanner::do_pre_processing()
 {
   if (!dir_)
-    set_default_dir();
+    dir_ = get_default_dir();
 }
 
 Directional_spanner::Directional_spanner()

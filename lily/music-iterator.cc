@@ -18,8 +18,8 @@
 #include "change-translator.hh"
 #include "music-wrapper.hh"
 #include "music-wrapper-iterator.hh"
-#include "compressed-music-iterator.hh"
-#include "compressed-music.hh"
+#include "time-scaled-music-iterator.hh"
+#include "time-scaled-music.hh"
 #include "repeated-music.hh"
 #include "repeated-music-iterator.hh"
 
@@ -119,8 +119,8 @@ Music_iterator::static_get_iterator_p (Music const *m, Translator_group *report_
     p = new Property_iterator;
   else if (dynamic_cast<Change_translator  const *> (m))
     p = new Change_iterator;
-  else if (dynamic_cast<Compressed_music  const *> (m))
-    p = new Compressed_music_iterator;
+  else if (dynamic_cast<Time_scaled_music  const *> (m))
+    p = new Time_scaled_music_iterator;
   else if (dynamic_cast<Music_wrapper  const *> (m))
     p = new Music_wrapper_iterator;
   else if (dynamic_cast<Repeated_music const *> (m))

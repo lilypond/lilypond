@@ -35,9 +35,9 @@ Curve::largest_disturbing ()
   int j = 0;
   for (int i = 1; i < size (); i++)
     {
-      if ((*this)[i].y () > 0)
+      if ((*this)[i][Y_AXIS] > 0)
         {
-	  Real phi = (*this)[i].y () / (*this)[i].x ();
+	  Real phi = (*this)[i][Y_AXIS] / (*this)[i][X_AXIS];
 	  if (phi > alpha)
 	    {
 	      alpha = phi;
@@ -117,14 +117,14 @@ Bezier::y (Real x)
   // bounds func should be templatised to take array of offsets too?
   Array<Real> positions;
   for (int i = 0; i < curve_.size (); i++)
-    positions.push (curve_[i].x ());
+    positions.push (curve_[i][X_AXIS]);
 
   Slice slice = get_bounds_slice (positions, x);
   // ugh
-  Offset z1 = curve_[0 >? slice.max () - 1];
-  Offset z2 = curve_[1 >? slice.max ()];
-  Real multiplier = (x - z2.x ()) / (z1.x () - z2.x ());
-  Real y = z1.y () * multiplier + (1.0 - multiplier) * z2.y();
+  Offset z1 = curve_[0 >? slice[BIGGER] - 1];
+  Offset z2 = curve_[1 >? slice[BIGGER]];
+  Real multiplier = (x - z2[X_AXIS]) / (z1[X_AXIS] - z2[X_AXIS]);
+  Real y = z1[Y_AXIS] * multiplier + (1.0 - multiplier) * z2[Y_AXIS];
 
   return y;
 }
@@ -146,10 +146,10 @@ Bezier_bow::blow_fit ()
   // be careful not to take too big step
   Real f = 0.3;
   Real h1 = dy1 * f;
-  control_[1].y () += h1; 
-  control_[2].y () += h1; 
-  return_[1].y () += h1; 
-  return_[2].y () += h1; 
+  control_[1][Y_AXIS] += h1; 
+  control_[2][Y_AXIS] += h1; 
+  return_[1][Y_AXIS] += h1; 
+  return_[2][Y_AXIS] += h1; 
 
   calc_bezier ();
   Real dy2 = check_fit_f ();
@@ -192,17 +192,17 @@ Bezier_bow::blow_fit ()
   if (sign (h) != sign (h1))
     return;
 
-  control_[1].y () += -h1 +h; 
-  control_[2].y () += -h1 +h; 
-  return_[1].y () += -h1 +h;
-  return_[2].y () += -h1 +h; 
+  control_[1][Y_AXIS] += -h1 +h; 
+  control_[2][Y_AXIS] += -h1 +h; 
+  return_[1][Y_AXIS] += -h1 +h;
+  return_[2][Y_AXIS] += -h1 +h; 
 }
 
 void
 Bezier_bow::calc_bezier ()
 {
-  Real s = sqrt (control_[3].x () * control_[3].x () 
-    + control_[1].y () * control_[2].y ());
+  Real s = sqrt (control_[3][X_AXIS] * control_[3][X_AXIS] 
+    + control_[1][Y_AXIS] * control_[2][Y_AXIS]);
 #ifndef STANDALONE
   Real internote = paper_l_->get_realvar (interline_scm_sym)/2.0;
 #else
@@ -304,10 +304,10 @@ Bezier_bow::calc_clipping ()
   Real clip_angle = 100;
 #endif
 
-  Real b = control_[3].x () - control_[0].x ();
+  Real b = control_[3][X_AXIS] - control_[0][X_AXIS];
   Real clip_h = clip_ratio * b <? clip_height;
-  Real begin_h = control_[1].y () - control_[0].y ();
-  Real end_h = control_[2].y () - control_[3].y ();
+  Real begin_h = control_[1][Y_AXIS] - control_[0][Y_AXIS];
+  Real end_h = control_[2][Y_AXIS] - control_[3][Y_AXIS];
   Real begin_dy = 0 >? begin_h - clip_h;
   Real end_dy = 0 >? end_h - clip_h;
   
@@ -328,8 +328,8 @@ Bezier_bow::calc_clipping ()
     {
       Real dy = (begin_dy + end_dy) / 4;
       dy *= cos (alpha_);
-      encompass_[0].y () += dir_ * dy;
-      encompass_[encompass_.size () - 1].y () += dir_ * dy;
+      encompass_[0][Y_AXIS] += dir_ * dy;
+      encompass_[encompass_.size () - 1][Y_AXIS] += dir_ * dy;
     }
   else
     {
@@ -340,8 +340,8 @@ Bezier_bow::calc_clipping ()
       if (end_alpha >= max_alpha)
 	end_dy = 0 >? c * end_alpha / max_alpha * end_h;
 
-      encompass_[0].y () += dir_ * begin_dy;
-      encompass_[encompass_.size () - 1].y () += dir_ * end_dy;
+      encompass_[0][Y_AXIS] += dir_ * begin_dy;
+      encompass_[encompass_.size () - 1][Y_AXIS] += dir_ * end_dy;
 
       Offset delta = encompass_[encompass_.size () - 1] - encompass_[0];
       alpha_ = delta.arg ();
@@ -399,15 +399,15 @@ Bezier_bow::calc_return (Real begin_alpha, Real end_alpha)
 void
 Bezier_bow::calc_tangent_controls ()
 {
-  Offset ijk_p (control_[3].x () / 2, control_[1].y ());
-  BEZIER_BOW_DOUT << "ijk: " << ijk_p.x () << ", " << ijk_p.y () << endl;
+  Offset ijk_p (control_[3][X_AXIS] / 2, control_[1][Y_AXIS]);
+  BEZIER_BOW_DOUT << "ijk: " << ijk_p[X_AXIS] << ", " << ijk_p[Y_AXIS] << endl;
 
-  Real default_rc = ijk_p.y () / ijk_p.x ();
+  Real default_rc = ijk_p[Y_AXIS] / ijk_p[X_AXIS];
 
   int begin_disturb = encompass_.largest_disturbing ();
-  Offset begin_p = begin_disturb ? Offset (encompass_[begin_disturb].x (), 
-    encompass_[begin_disturb].y ()) : ijk_p;
-  Real begin_rc = begin_p.y () / begin_p.x ();
+  Offset begin_p = begin_disturb ? Offset (encompass_[begin_disturb][X_AXIS], 
+    encompass_[begin_disturb][Y_AXIS]) : ijk_p;
+  Real begin_rc = begin_p[Y_AXIS] / begin_p[X_AXIS];
   if (default_rc > begin_rc)
     {
       begin_p = ijk_p;
@@ -416,32 +416,32 @@ Bezier_bow::calc_tangent_controls ()
 
   Curve reversed;
   reversed.set_size (encompass_.size ());
-  Real b = control_[3].x ();
+  Real b = control_[3][X_AXIS];
   for (int i = 0; i < encompass_.size (); i++ )
     {
       //       b     1  0
       // r  =     -        *  c 
       //       0     0 -1   
-      reversed[i].x () = b - encompass_[encompass_.size () - i - 1].x ();
-      reversed[i].y () = encompass_[encompass_.size () - i - 1].y ();
+      reversed[i][X_AXIS] = b - encompass_[encompass_.size () - i - 1][X_AXIS];
+      reversed[i][Y_AXIS] = encompass_[encompass_.size () - i - 1][Y_AXIS];
     }
 
   int end_disturb = reversed.largest_disturbing ();
   end_disturb = end_disturb ? encompass_.size () - end_disturb - 1 : 0;
-  Offset end_p = end_disturb ? Offset (encompass_[end_disturb].x (), 
-    encompass_[end_disturb].y ()) : ijk_p;
-  Real end_rc = end_p.y () / (control_[3].x () - end_p.x ());
+  Offset end_p = end_disturb ? Offset (encompass_[end_disturb][X_AXIS], 
+    encompass_[end_disturb][Y_AXIS]) : ijk_p;
+  Real end_rc = end_p[Y_AXIS] / (control_[3][X_AXIS] - end_p[X_AXIS]);
   if (default_rc > end_rc)
     {
       end_p = ijk_p;
       end_rc = default_rc;
     }
-  BEZIER_BOW_DOUT << "begin " << begin_p.x () << ", " << begin_p.y () << endl;
-  BEZIER_BOW_DOUT << "end " << end_p.x () << ", " << end_p.y () << endl;
+  BEZIER_BOW_DOUT << "begin " << begin_p[X_AXIS] << ", " << begin_p[Y_AXIS] << endl;
+  BEZIER_BOW_DOUT << "end " << end_p[X_AXIS] << ", " << end_p[Y_AXIS] << endl;
 
-  Real height =control_[1].y (); 
+  Real height =control_[1][Y_AXIS]; 
   for (int i = 0; i < encompass_.size (); i++ )
-    height = height >? encompass_[i].y ();
+    height = height >? encompass_[i][Y_AXIS];
 
   // emperic computer science:
   //   * tangents somewhat steeper than minimal line
@@ -465,29 +465,29 @@ Bezier_bow::calc_tangent_controls ()
   Real epsilon = internote / 5;
 
   // if we have two disturbing points, have height line through those...
-  if (!((abs (begin_p.x () - end_p.x ()) < epsilon)
-    && (abs (begin_p.y () - end_p.y ()) < epsilon)))
-      theta = atan (end_p.y () - begin_p.y ()) / (end_p.x () - begin_p.x ());
+  if (!((abs (begin_p[X_AXIS] - end_p[X_AXIS]) < epsilon)
+    && (abs (begin_p[Y_AXIS] - end_p[Y_AXIS]) < epsilon)))
+      theta = atan (end_p[Y_AXIS] - begin_p[Y_AXIS]) / (end_p[X_AXIS] - begin_p[X_AXIS]);
 
   Real rc3 = tan (theta);
   // ugh: be less steep
   rc3 /= 2*rc_correct;
 
-  Real c2 = -rc2 * control_[3].x ();
-  Real c3 = begin_p.y () > end_p.y () ? begin_p.y () 
-    - rc3 * begin_p.x () : end_p.y () - rc3 * end_p.x ();
+  Real c2 = -rc2 * control_[3][X_AXIS];
+  Real c3 = begin_p[Y_AXIS] > end_p[Y_AXIS] ? begin_p[Y_AXIS] 
+    - rc3 * begin_p[X_AXIS] : end_p[Y_AXIS] - rc3 * end_p[X_AXIS];
 
   BEZIER_BOW_DOUT << "y1 = " << rc1 << " x + 0" << endl;
   BEZIER_BOW_DOUT << "y2 = " << rc2 << " x + " << c2 << endl;
   BEZIER_BOW_DOUT << "y3 = " << rc3 << " x + " << c3 << endl;
-  control_[1].x () = c3 / (rc1 - rc3);
-  control_[1].y () = rc1 * control_[1].x ();
-  control_[2].x () = (c3 - c2) / (rc2 - rc3);
-  BEZIER_BOW_DOUT << "c2.x () = " << control_[2].x () << endl;
+  control_[1][X_AXIS] = c3 / (rc1 - rc3);
+  control_[1][Y_AXIS] = rc1 * control_[1][X_AXIS];
+  control_[2][X_AXIS] = (c3 - c2) / (rc2 - rc3);
+  BEZIER_BOW_DOUT << "c2[X_AXIS] = " << control_[2][X_AXIS] << endl;
   BEZIER_BOW_DOUT << "(c3 - c2) = " << (c3 - c2) << endl;
   BEZIER_BOW_DOUT << "(rc2 - rc3) = " << (rc2 - rc3) << endl;
-  control_[2].y () = rc2 * control_[2].x () + c2;
-  BEZIER_BOW_DOUT << "c2.y ()" << control_[2].y () << endl;
+  control_[2][Y_AXIS] = rc2 * control_[2][X_AXIS] + c2;
+  BEZIER_BOW_DOUT << "c2[Y_AXIS]" << control_[2][Y_AXIS] << endl;
 
   calc_return (begin_alpha, end_alpha);
 }
@@ -496,9 +496,9 @@ bool
 Bezier_bow::check_fit_bo ()
 {
   for (int i = 1; i < encompass_.size () - 1; i++)
-    if ((encompass_[i].x () > encompass_[0].x ())
-      && (encompass_[i].x () < encompass_[encompass_.size () -1].x ()))
-      if (encompass_[i].y () > y (encompass_[i].x ()))
+    if ((encompass_[i][X_AXIS] > encompass_[0][X_AXIS])
+      && (encompass_[i][X_AXIS] < encompass_[encompass_.size () -1][X_AXIS]))
+      if (encompass_[i][Y_AXIS] > y (encompass_[i][X_AXIS]))
 	return false;
   return true;
 }
@@ -508,9 +508,9 @@ Bezier_bow::check_fit_f ()
 {
   Real dy = 0;
   for (int i = 1; i < encompass_.size () - 1; i++)
-    if ((encompass_[i].x () > encompass_[0].x ())
-      && (encompass_[i].x () < encompass_[encompass_.size () -1].x ()))
-      dy = dy >? (encompass_[i].y () - y (encompass_[i].x ()));
+    if ((encompass_[i][X_AXIS] > encompass_[0][X_AXIS])
+      && (encompass_[i][X_AXIS] < encompass_[encompass_.size () -1][X_AXIS]))
+      dy = dy >? (encompass_[i][Y_AXIS] - y (encompass_[i][X_AXIS]));
   return dy;
 }
 
@@ -591,8 +591,8 @@ Bezier_bow::calc_default (Real h)
   Real alpha = height_limit * 2.0 / pi;
   Real beta = pi * ratio / (2.0 * height_limit);
 
-  Offset delta (encompass_[encompass_.size () - 1].x () 
-    - encompass_[0].x (), 0);
+  Offset delta (encompass_[encompass_.size () - 1][X_AXIS] 
+    - encompass_[0][X_AXIS], 0);
   Real b = delta.length ();
   Real indent = alpha * atan (beta * b);
   Real height = indent + h;

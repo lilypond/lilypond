@@ -37,8 +37,6 @@ public:
   Link_array<Stem> stems_;
   /// the slope of the beam in posns / point (dimension)   
   Real slope_f_;
-  /// the slope as solved; not quantised or damped
-  Real solved_slope_f_;
 
   /// position of leftmost end of beam  
   Real left_y_;
@@ -64,8 +62,10 @@ public:
 protected:
   virtual Interval do_width () const;    
   Offset center () const;
-  void set_default_dir ();
+  Direction get_default_dir () const;
+  void set_direction (Direction);
   void set_steminfo ();
+  
   virtual void do_pre_processing ();
   virtual void do_post_processing ();
   virtual void do_substitute_element_pointer (Score_element*, Score_element*);

@@ -1,4 +1,4 @@
-% feta-eindelijk.mf -- implement rest symbols
+% feta-eindelijk.mf -- implement rest symbols -*-Fundamental-*-
 %
 % part of LilyPond's pretty-but-neat music font
 %
@@ -119,9 +119,20 @@ fet_beginchar("multi rest", "-4", "multirest");
 fet_endchar;
 
 fet_beginchar("Quarter rest","2","quartrest");
-	save alpha;
+%	draw_staff (-2, 2, 0.0);	
+	save alpha, yshift, height;
 	alpha:=-50;
+	yshift# = -1.25 interline#;
+	height# = 2.8125 interline#;
+	define_pixels (yshift, height);
+
+	
+	set_char_box(0, 27/25interline#,
+	  -yshift#,
+	  yshift# + height#);
+	
 	save ne,nw,se,sw; pair ne,nw,se,sw;
+	
 	se=dir alpha; nw=dir (alpha+180);
 	ne=dir (alpha+90); sw=dir (alpha-90);
 	penpos1(rthin,alpha+90);
@@ -140,18 +151,26 @@ fet_beginchar("Quarter rest","2","quartrest");
 %	z13=z2r+1/2rthin*ne;
 	z13=z2r+1/2rthin*ne+1/2rthin*nw;
 
-	y1l=7/2interline; x1l=1/3interline;
+	y1r = h;
+	x1l=1/3interline;
 	z2r=z1+interline*se;
 	z3=1/2[z2,z4];
-	x4=3/8interline; y4=2interline;
+	x4=3/8interline;
+	y4= 0;
 	z5=z4l+1.3interline*se;
-	x6l=x4l; y6l=y4r;
-	x7=2/5interline; y7=3/4interline;
+	x6l=x4l;
+	y6l=y4r;
+	x7=2/5interline;
+	y7= -d;
+	
 	fill z1l{se}..{se}z10..z3l..z11{se}..{se}z5l..z5r{nw}..{nw}z12..z3r..z13{nw}..{nw}z1r.. cycle;
 	fill z5r{nw}..tension1.4..z6l..tension1.4..{se}z7l..z7r{nw}..tension1.4..z6r..tension1.4..{se}z5l..cycle;
 	penlabels(1,2,3,4,5,6,7);
 	penlabels(10,11,12,13);
-	set_char_box(0, 27/25interline#, -3/4 interline#, 18/5interline#);
+	
+%	  3/4 interline# + yshift#,
+%	  18/5interline# + yshift#)
+
 	fet_endchar;
 
 def rest_crook(expr a, w) =
@@ -159,31 +178,55 @@ def rest_crook(expr a, w) =
 enddef;
 
 fet_beginchar("8th rest","3","eighthrest");
-	set_char_box(0, 4/3interline#,-interline#, 8/3interline#+7/4stafflinethickness#);
-	save x,y, ht;
-	ht = h + d;
-	x1=w-stem/6; y1=ht-flare/4;
+%	draw_staff (-2, 2, 0.0);
+	save yshift, ballcorrection;
+	ballcorrection = 0.005 interline;
+
+	yshift# := -1.0 interline#;
+	define_pixels(yshift);
+
+
+	set_char_box(0, 4/3interline#, -yshift#, yshift# +
+			5/3interline#+7/4stafflinethickness#);
+
+	%
+	% The curve is like a valley causing less space between
+	% the curve and the lower staff line. Correct for this.
+	% 
+	save x,y;
+
+	x1=w-stem/6;
+
+	y1 = yshift + 1.5 interline + flare/4 + ballcorrection; 
 	rest_crook (z1,w-stem/6);
 	z2-z1=whatever*dir70;
-	y2=stem/2;
+	y2= yshift + stem/2;
 	brush(z1,2/3stem,z2,stem);
-	% ugh
-	currentpicture:=currentpicture shifted (0,interline);
+
 	fet_endchar;
 
 fet_beginchar("16th rest","4","sixteenthrest");
-	save alpha,cw,h,w;
+%	draw_staff (-2, 2, 0.0);
+	save yshift, ballcorrection;
+	ballcorrection = 0.005 interline;
+
+	yshift# := - 2 interline#;
+	define_pixels(yshift);
+
+	save alpha,cw,h,w, height;
 	alpha=74;
 	cw#=7/6interline#;
-%	h#=5/3interline#+interline#+2stafflinethickness#;
-	h#=5/3interline#+interline#+7/4stafflinethickness#;
-	w#=cw#+(h#-3/2interline#)/tand(alpha);
-	set_char_box(0,w#,0,h#);
+	height# =  5/3interline#+interline#+7/4stafflinethickness#;
+	set_char_box(0, cw#+(height#-3/2interline#)/tand(alpha),
+		-yshift#, height# + yshift#);
+
 	define_pixels(cw);
 	save x,y;
-	x1=w-stem/6; y1=h-flare/4;
+	x1=w-stem/6;
+	y1 = yshift + 2.5 interline + flare/4 + ballcorrection;
+
 	z2-z1=whatever*dir alpha;
-	y2=stem/2;
+	y2= yshift + stem/2;
 	brush(z1,2/3stem,z2,stem);
 	rest_crook (z1,cw);
 	z3-z1=whatever*dir alpha;
@@ -193,17 +236,27 @@ fet_beginchar("16th rest","4","sixteenthrest");
 	fet_endchar;
 
 fet_beginchar("32th rest","5","thirtysecondrest");
-	save alpha,cw,h,w;
+%	draw_staff (-2, 2, 0.0);
+	save yshift, ballcorrection;
+	ballcorrection = 0.005 interline;
+
+	yshift# := -2 interline#;
+	define_pixels(yshift);
+
+	save alpha,cw,h;
 	alpha=76;
 	cw#=7/6interline#;
 	h#=5/3interline#+2interline#+7/4stafflinethickness#;
-	w#=cw#+(h#-3/2interline#)/tand(alpha);
-	set_char_box(0,w#,0,h#);
+
+	set_char_box(0,	cw#+(h#-3/2interline#)/tand(alpha),
+		-yshift#,yshift# +h#);
 	define_pixels(cw);
 	save x,y;
-	x1=w-stem/6; y1=h-flare/4;
+	x1=w-stem/6;
+	y1 = yshift + 3.5 interline + flare/4 + ballcorrection;
+
 	z2-z1=whatever*dir alpha;
-	y2=stem/2;
+	y2=stem/2 + yshift;
 	brush(z1,2/3stem,z2,stem);
 	rest_crook (z1,cw);
 	z3-z1=whatever*dir alpha;
@@ -215,17 +268,28 @@ fet_beginchar("32th rest","5","thirtysecondrest");
 	fet_endchar;
 
 fet_beginchar("64th rest","6","sixtyfourthrest");
+%	draw_staff (-2, 2, 0.0);
+	save yshift, ballcorrection;
+	ballcorrection = 0.005 interline;
+
+	yshift# := -3 interline#;
+	define_pixels(yshift);
+
 	save alpha,cw,h,w;
 	alpha=78;
 	cw#=7/6interline#;
 	h#=5/3interline#+3interline#+7/4stafflinethickness#;
 	w#=cw#+(h#-3/2interline#)/tand(alpha);
-	set_char_box(0,w#,0,h#);
+	set_char_box(0,w#,-yshift# ,yshift# + h#);
+
 	define_pixels(cw);
 	save x,y;
-	x1=w-stem/6; y1=h-flare/4;
+	x1=w-stem/6;
+
+	y1 = yshift + 4.5 interline + flare/4 + ballcorrection;
+
 	z2-z1=whatever*dir alpha;
-	y2=stem/2;
+	y2=stem/2 + yshift;
 	brush (z1,2/3stem,z2,stem);
 	rest_crook (z1,cw);
 	z3-z1=whatever*dir alpha;
@@ -237,22 +301,29 @@ fet_beginchar("64th rest","6","sixtyfourthrest");
 	z5-z1=whatever*dir alpha;
 	y5=y1-3interline;
 	rest_crook (z5,cw);
-	% ugh
-	currentpicture:=currentpicture shifted (0,-interline);
+
 	fet_endchar;
 
 fet_beginchar("128th rest","7","hundredtwentyeighthrest"); 
+%	draw_staff (-2, 2, 0.0);
+	save yshift, ballcorrection;
+	ballcorrection = 0.005 interline;
+
+	yshift# := -3 interline#;
+	define_pixels(yshift);
 	save alpha,cw,h,w;
 	alpha=78;
 	cw#=7/6interline#;
 	h#=5/3interline#+4interline#+7/4stafflinethickness#;
 	w#=cw#+(h#-3/2interline#)/tand(alpha);
-	set_char_box(0,w#,0,h#);
+	set_char_box(0,w#, -yshift#,yshift#  + h#);
 	define_pixels(cw);
 	save x,y;
-	x1=w-stem/6; y1=h-flare/4;
+	x1=w-stem/6;
+	y1 = yshift + 5.5 interline + flare/4 + ballcorrection;
+
 	z2-z1=whatever*dir alpha;
-	y2=stem/2;
+	y2=stem/2 + yshift;
 	brush (z1,2/3stem,z2,stem);
 	rest_crook (z1,cw);
 	z3-z1=whatever*dir alpha;
@@ -267,8 +338,7 @@ fet_beginchar("128th rest","7","hundredtwentyeighthrest");
 	z6-z1=whatever*dir alpha;
 	y6=y1-4interline;
 	rest_crook (z6,cw);
-	% ugh
-	currentpicture:=currentpicture shifted (0,-interline);
+	
 	fet_endchar;
 
 endgroup;

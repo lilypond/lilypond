@@ -17,15 +17,15 @@
 void
 Rest::do_add_processing ()
 {
-  if (balltype_i_ > 1)
-    position_i_ -= 4;
-  else if (balltype_i_ == 0)
+  if (balltype_i_ == 0)
     position_i_ += 2;
 
   Rhythmic_head::do_add_processing ();
-  if (dots_l_ && balltype_i_ > 1)
+  if (dots_l_ && balltype_i_ > 4)
     {
-      dots_l_->position_i_ = position_i_ + 4;
+      dots_l_->position_i_ = position_i_ + 3;
+      if (balltype_i_ == 7)
+	dots_l_->position_i_++;
     }
 }
 
@@ -37,8 +37,12 @@ Rest::Rest ()
 Molecule *
 Rest::do_brew_molecule_p () const
 {
-  bool streepjes_b = abs(position_i_) > lines_i () / 2 &&  
-    (balltype_i_ == 0 || balltype_i_ == 1);
+  bool ledger_b =false;
+
+  if (balltype_i_ == 0 || balltype_i_ == 1)
+    ledger_b = abs(position_i_  - (2* balltype_i_ - 1)) > lines_i (); 
+      
+
   
   String style; 
   SCM style_sym =get_elt_property (style_scm_sym);
@@ -47,7 +51,7 @@ Rest::do_brew_molecule_p () const
       style = ly_scm2string (SCM_CDR(style_sym));
     }
   
-  Molecule s(lookup_l ()->rest (balltype_i_, streepjes_b, style));
+  Molecule s(lookup_l ()->rest (balltype_i_, ledger_b, style));
   Molecule * m = new Molecule ( Molecule (s));
   m->translate_axis (position_i_ *  staff_line_leading_f ()/2.0, Y_AXIS);
   return m;

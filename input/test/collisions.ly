@@ -24,43 +24,11 @@ threevoice = \type Staff \notes <
 	\type Voice=iii { \stemdown c4 d e d c d es }
 >
 
-
-rests = \type Staff \notes <
-	\type Voice=i { \stemup | r8 r r r  r r r r [c' b a g] [f e d c] } 
-	\type Voice = ii { \stemdown [c8 d e f] [g a b c'] r r r r r r r r }
->
-
-restsII = \type Staff \notes {
-	\type Voice=i
-	< 
-		{ \stemup  g' f' e' d' c' b a g f e d c }
-		\type Voice = ii { \stemdown r  r  r  r  r  r r r r r r r }
-	>
-	<
-		{ \stemup  r r r r r r r r  r  r  r  r }
-		\type Voice = ii { \stemdown c d e f g a b c' d' e' f' g' }
-	>
-	r8 r4
-	<  r8 r8 >
-	<  r8 r8 r8 >
-	<  r8 r8 r8 r8 >
-	<  r r >
-	<  r r r >
-	\stemup
-	[c''8 r8 c''8 c''8]
-	[c8 r8 c8 c8]
-	\stemdown
-	[c8 r8 c8 c8]
-	[c''8 r8 c''8 c''8]
-}
-
 \score{
 	\notes \transpose c'' {  \twovoice  
 	\twovoicesteminvert 
 	\threevoice  
-	\rests 
-	% UGH ! bug!
-	\restsII 
+
 	}
 	
 

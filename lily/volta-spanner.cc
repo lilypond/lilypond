@@ -47,11 +47,8 @@ Volta_spanner::do_brew_molecule_p () const
      column_arr_[0]->extent (Y_AXIS) [UP];
   dy += 2 * h;
 
-  /*
-    UGH.  Must use extent  ()[dir_]
-   */
   for (int i = 0; i < note_column_arr_.size (); i++)
-    dy = dy >? note_column_arr_[i]->extent (Y_AXIS).max ();
+    dy = dy >? note_column_arr_[i]->extent (Y_AXIS)[BIGGER];
   dy -= h;
 
   Molecule two (lookup_l ()->text ("number", "2"));

@@ -42,7 +42,13 @@ Single_malt_grouping_item::my_width () const
 	  warning (_("Single_malt_grouping_item: I've been drinking too much (fixme)"));
 	  continue;		/*UGH UGH*/ 
 	}
-      w.unite  (il->extent (X_AXIS) + il->relative_coordinate (&pc->dim_cache_[X_AXIS], X_AXIS));
+
+      Interval iv (il->extent (X_AXIS));
+      if (!iv.empty_b ())
+	{
+	  Real off = il->relative_coordinate (&pc->dim_cache_[X_AXIS], X_AXIS);
+	  w.unite  (iv + off);
+	}
     }
 
   return w;
@@ -52,7 +58,8 @@ Single_malt_grouping_item::my_width () const
 
 
 void
-Single_malt_grouping_item::do_substitute_element_pointer (Score_element*o, Score_element*n)
+Single_malt_grouping_item::do_substitute_element_pointer (Score_element*o,
+							  Score_element*n)
 {
   if (dynamic_cast <Item *> (o))
     {

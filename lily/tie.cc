@@ -35,12 +35,12 @@ Tie::Tie()
 /*
   ugh: direction of the Tie is more complicated.  See [Ross] p136 and further
  */
-void
-Tie::set_default_dir()
+Direction
+Tie::get_default_dir() const
 {
   int m= (head_l_drul_[LEFT]->position_i_ 
 	  + head_l_drul_[RIGHT]->position_i_) /2;
-  dir_ =  (m < 0)? DOWN : UP;
+  return(m < 0)? DOWN : UP;
 }
 
 void

@@ -178,7 +178,8 @@ Spring_spacer::check_constraints (Vector v) const
   return true;
 }
 
-/** try to generate a solution which obeys the min distances and fixed positions
+/** try to generate a solution which obeys the min
+    distances and fixed positions
  */
 Vector
 Spring_spacer::try_initial_solution() const
@@ -477,9 +478,6 @@ Spring_spacer::connect (int i, int j, Real d, Real h)
   ideal_p_list_ = new Killing_cons<Idealspacing> (s, ideal_p_list_);
 }
 
-
-
-
 void
 Spring_spacer::prepare()
 {
@@ -501,8 +499,7 @@ Spring_spacer::constructor()
 /**
   get the shortest_playing running note at a time. */
 void
-Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
-				    Array<Moment> &context_shortest_arr)
+Spring_spacer::get_ruling_durations(Array<Moment> &context_shortest_arr)
 {
   for (int i=0; i < cols_.size(); i++)
     {
@@ -517,44 +514,22 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
   for (int i=0; i < cols_.size(); i++)
     {
       Score_column * sc = scol_l(i);
-      Moment now = scol_l (i)->when();
-      Moment shortest_playing;
-      shortest_playing.set_infinite (1);
 
-      if (!sc->musical_b ())
+      if (sc->breakable_b () || sc->break_status_dir ())
 	{
 	  for (int ji=i; ji >= start_context_i; ji--)
 	    context_shortest_arr[ji] = context_shortest;
 	  start_context_i = i;
 	  context_shortest.set_infinite (1);
 	}
-      if (sc->durations.size())
-	{
-	  context_shortest = context_shortest <? sc->durations[0];
-	}
-      
-      // ji was j, but triggered ICE
-      for (int ji=i+1; ji --;)
-	{
-	  if (scol_l(ji)->durations.size() &&
-	      now - scol_l(ji)->when() >= shortest_playing)
-	    break;
-
-	  for (int k =  scol_l (ji)->durations.size();
-	       k-- && scol_l(ji)->durations[k] + scol_l(ji)->when() > now;
-	       )
-	    {
-	      shortest_playing = shortest_playing <? scol_l(ji)->durations[k];
-	    }
-	}
-      shortest_playing_arr.push(shortest_playing);
+      else if (sc->musical_b ())
+	context_shortest = context_shortest <? sc->shortest_starter_mom_;
     }
 
 #ifndef NPRINT
-  DOUT << "shortest_playing/:[ ";
-  for (int i=0; i < shortest_playing_arr.size(); i++)
+  DOUT << "context shortest :[ ";
+  for (int i=0; i < context_shortest_arr.size(); i++)
     {
-      DOUT << shortest_playing_arr[i] << " ";
       DOUT << context_shortest_arr[i] << ", ";
     }
   DOUT << "]\n";
@@ -570,10 +545,9 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 
   TODO: This needs rethinking....... 
 
-  *  Spacing should take optical
-  effects into account
+  * Spacing should take optical effects into account
 
-  *  Should be decentralised
+  * Should be decentralised
   
   The algorithm is taken from :
 
@@ -585,9 +559,8 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 void
 Spring_spacer::calc_idealspacing()
 {
-  Array<Moment> shortest_playing_arr;
   Array<Moment> context_shortest_arr;
-  get_ruling_durations(shortest_playing_arr, context_shortest_arr);
+  get_ruling_durations(context_shortest_arr);
 
   Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
 
@@ -607,7 +580,7 @@ Spring_spacer::calc_idealspacing()
 	{
 	  Real symbol_distance =cols_[i].width_[RIGHT] + 2 PT;
 	  Real durational_distance = 0;
-	  Moment delta_t =  scol_l (i+1)->when() - scol_l (i)->when () ;
+	  Moment delta_t =  scol_l (i+1)->when_mom () - scol_l (i)->when_mom () ;
 
 	  /*
 	    ugh should use shortest_playing distance
@@ -632,21 +605,21 @@ Spring_spacer::calc_idealspacing()
     {
       if (scol_l (i)->musical_b())
 	{
-	  Moment shortest_playing_len = shortest_playing_arr[i];
+	  Moment shortest_playing_len = scol_l(i)->shortest_playing_mom_;
 	  Moment context_shortest = context_shortest_arr[i];
 	  if (! shortest_playing_len)
 	    {
 	      warning (_f ("can't find a ruling note at %s", 
-	        scol_l (i)->when().str ()));
+	        scol_l (i)->when_mom ().str ()));
 	      shortest_playing_len = 1;
 	    }
 	  if (! context_shortest)
 	    {
 	      warning (_f ("no minimum in measure at %s", 
-		      scol_l (i)->when().str ()));
+		      scol_l (i)->when_mom ().str ()));
 	      context_shortest = 1;
 	    }
-	  Moment delta_t = scol_l (i+1)->when() - scol_l (i)->when ();
+	  Moment delta_t = scol_l (i+1)->when_mom () - scol_l (i)->when_mom ();
 	  Real k=  paper_l()->arithmetic_constant(context_shortest);
 	  Real dist = paper_l()->length_mom_to_dist (shortest_playing_len, k);
 	  dist *= (double)(delta_t / shortest_playing_len);

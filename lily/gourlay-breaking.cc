@@ -82,9 +82,9 @@ Gourlay_breaking::do_solve () const
 	    continue;
 	    
 	  Line_of_cols line = all.slice (breaks[start_idx], breaks[break_idx]+1);
-
-	  line[0] = line[0]->postbreak_l ();
-	  line.top () = line.top ()->prebreak_l ();
+  
+	  line[0] = dynamic_cast<Paper_column*>(line[0]->find_prebroken_piece (RIGHT));
+	  line.top () =  dynamic_cast<Paper_column*>(line.top ()->find_prebroken_piece (LEFT));
 	    
 	  if (!feasible (line))
 	    break;

@@ -1,4 +1,4 @@
-% feta-klef.mf --  implement Clefs
+% feta-klef.mf --  implement Clefs -*-Fundamental-*-
 % 
 % part of LilyPond's pretty-but-neat music font
 %
@@ -19,12 +19,6 @@ def set_horizontal_spacing =
 	right_space# = reduced_il#;
 enddef;
 
-def draw_staff(expr first, last)=
-	pickup pencircle scaled stafflinethickness;
-	for i:= first step 1 until last:
-		draw (- interline, i* interline) .. (4 interline, i* interline);
-	endfor
-	enddef;
 
 % [Wanske] says the bulbs should be positioned about 1/4 right of the
 % "arrow"

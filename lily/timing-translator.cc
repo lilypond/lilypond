@@ -68,8 +68,10 @@ Timing_translator::do_process_requests()
 	  else
 	    {
 	      time_.set_time_signature (b_i, o_i);
+
 	      default_grouping_ =
-		Rhythmic_grouping (MInterval (0,Moment (b_i, o_i)), b_i);
+		Rhythmic_grouping (MInterval (0,Moment (b_i, o_i)),
+				   b_i == 1 ? 2 : b_i);
 	    }
 	}
       else if (Partial_measure_req *pm = dynamic_cast <Partial_measure_req *> (tr_l))

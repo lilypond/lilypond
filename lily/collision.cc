@@ -79,7 +79,7 @@ Collision::do_pre_processing()
 	  return;
 	}
     }
-  int d = 1;
+  Direction d = UP;
   do
     {
       if (!clash_group_arr_a[idx (d, false)].size())
@@ -88,7 +88,7 @@ Collision::do_pre_processing()
 	  clash_group_arr_a[idx (d, true)].clear();
 	}
     }
-  while ((d *= -1) != 1);
+  while (flip (&d) != UP);
 
 
   Interval_t<int> y_extent[4];
@@ -115,14 +115,14 @@ Collision::do_pre_processing()
     {
       x_off[idx (d, true)] = d*0.5;
     }
-  while ((d *= -1) != 1);
+  while (flip (&d) != UP);
 
 
   // y_extent: smallest y-pos noteball interval containing all balls
   // 4 (0..3) groups: stem up/down; shift on/off;
-  Interval_t<int> middle (y_extent[idx (-1,0)].max(),
-			  y_extent[idx (1,0)].min());
-  Interval_t<int> open_middle (y_extent[idx (-1,0)].max()+1, y_extent[idx (1,0)].min ()-1);
+  Interval_t<int> middle (y_extent[idx (-1,0)][BIGGER],
+			  y_extent[idx (1,0)][SMALLER]);
+  Interval_t<int> open_middle (y_extent[idx (-1,0)][BIGGER]+1, y_extent[idx (1,0)][SMALLER]-1);
   do
     {
       if (!open_middle.contains_b (y_extent[idx (d,true)]))
@@ -131,20 +131,22 @@ Collision::do_pre_processing()
 
 
   if (!middle.empty_b()
-      && middle.length() < 2 && col_l_a[idx (1,0)] && col_l_a[idx (-1,0)]) {
-    // reproduction of bugfix at 3am ?
-    Note_head * nu_l= col_l_a[idx (1,0)]->head_l_arr_[0];
-    Note_head * nd_l = col_l_a[idx (-1,0)]->head_l_arr_.top();
-    if (! (nu_l->balltype_i_ == nd_l->balltype_i_
-	   && nu_l->dots_i_ == nd_l->dots_i_  && middle.length() == 0))
-      {
-	x_off[idx (1,0)] -= 0.5;
-	x_off[idx (1,1)] -= 0.5;
-	x_off[idx (-1,1)] += 0.5;
-	x_off[idx (-1,0)] += 0.5;
-      }
-
-  }
+      && middle.length() < 2 && col_l_a[idx (1,0)] && col_l_a[idx (-1,0)])
+    {
+      // reproduction of bugfix at 3am ?
+      Note_head * nu_l= col_l_a[idx (1,0)]->head_l_arr_[0];
+      Note_head * nd_l = col_l_a[idx (-1,0)]->head_l_arr_.top();
+      if (! (nu_l->balltype_i_ == nd_l->balltype_i_
+	     && nu_l->dots_i_ == nd_l->dots_i_  && middle.length() == 0))
+	{
+	  do
+	    {
+	      x_off[idx (d, false)] -= d*0.5;
+	      x_off[idx (d, true)] -= d*0.5;
+	    }
+	  while (flip (&d) != UP);
+	}
+    }
 
   Real wid_f = paper_l ()->note_width ();
   for (int j=0; j < 4; j++)

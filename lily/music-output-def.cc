@@ -102,12 +102,9 @@ Music_output_def::print () const
 String
 Music_output_def::get_default_output () const
 {
-  static SCM output_sym;
-  if (!output_sym)
-    output_sym = scm_protect_object (output_scm_sym);
-  if (safe_global_b || !scope_p_->elem_b (output_sym))
+  if (safe_global_b || !scope_p_->elem_b (output_scm_sym))
     return "";
-  Identifier * id = scope_p_->elem (output_sym);
+  Identifier * id = scope_p_->elem (output_scm_sym);
 
   String *p = id->access_content_String (false);
   return p ? *p : String ("");

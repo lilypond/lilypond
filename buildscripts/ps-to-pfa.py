@@ -6,10 +6,11 @@
 # 
 # (c) 1998 Jan Nieuwenhuizen <janneke@gnu.org>
 
-name = 'ps-to-pfa'
-version = '0.2'
+#TODO.  This could be more efficient.
 
-outdir = 'out/'
+name = 'ps-to-pfa'
+version = '0.3'
+
 datadir = ''
 
 import os
@@ -17,8 +18,10 @@ import sys
 
 import getopt
 from string import *
-import regex
 import regsub
+
+# todo, port: see http://starship.skyport.net/crew/amk/regex/regex-to-re.html
+import re
 import time
 
 def program_id ():
@@ -33,13 +36,16 @@ def help ():
                       + "Options:\n"
                       + "  -d, --datadir=DIR      use DIR for ps header/footer\n"
                       + "  -h, --help             print this help\n"
+		      + "  -o, --output=FILE      set output file to FILE.\n"
                       % (program_name)
 		      )
     sys.exit (0)
 
+output_name = ''
+
 identify ()
 (options, files) = getopt.getopt (
-    sys.argv[1:], 'd:', ['help', 'package'])
+    sys.argv[1:], 'o:d:', ['help', 'package', 'output='])
 for opt in options:
     o = opt[0]
     a = opt[1]
@@ -47,6 +53,8 @@ for opt in options:
 	help ()
     elif o == '-d' or o == '--datadir':
 	datadir = a
+    elif o == '-o' or o =='--output':
+	output_name = a
     else:
 	print o
 	raise getopt.error
@@ -69,12 +77,17 @@ def gulp_file (f):
 	return s
 
 mf = files[0]
-# urg ?
-font = os.path.basename (os.path.splitext (mf)[0])
-sys.stderr.write ('Font: %s\n'% font)
+
+input_name = mf
+font_name = os.path.basename (os.path.splitext (mf)[0])
+if not output_name:
+    output_name  = font_name + '.pfa'
+
+
+sys.stderr.write ('Font: %s\n'% font_name)
 
 def header (f):
-	f.write ('%!PS-AdobeFont-3.0: ' + font + '\n')
+	f.write ('%!PS-AdobeFont-3.0: ' + font_name + '\n')
 	f.write ('%%%%Creator: %s-%s\n' % (name, version))
 	f.write ('\n')
 	f.write ('/setgray { 1 add } bind def\n'
@@ -91,7 +104,7 @@ def header (f):
 '%%/FontBBox [-30 -30 30 30] def\n'
 '\n'
 '/Encoding 256 array def                     %% Trivial encoding vector\n'
-'0 1 255 {Encoding exch /.notdef put} for\n' % (font))
+'0 1 255 {Encoding exch /.notdef put} for\n' % (font_name))
 
 def footer (f):
 	f.write ('\n'
@@ -120,7 +133,7 @@ def footer (f):
 'currentdict\n'
 'end                                         % of font dictionary\n')
 	f.write ('\n')
-	f.write ('/%s\n' % font)
+	f.write ('/%s\n' % font_name)
 	f.write (''
 'exch definefont pop                         % Define the font\n')
 
@@ -129,7 +142,7 @@ def characters (f):
 	# chars = os.listdir ()
 	# chars.sort ()
 	sys.stderr.write ('[')
-	pipe = os.popen ('/bin/ls -1 ' + font + '.[0-9] ' + font + '.[0-9][0-9] ' + font + '.[0-9][0-9][0-9] 2> /dev/null')
+	pipe = os.popen ('/bin/ls -1 ' + font_name + '.[0-9] ' + font_name + '.[0-9][0-9] ' + font_name + '.[0-9][0-9][0-9] 2> /dev/null')
 	chars = []
 	i = pipe.readline ()
 	while i:
@@ -146,8 +159,8 @@ def characters (f):
 		s = regsub.gsub ('^showpage\n', '', s)
 		s = regsub.gsub ('^', '    ', s)
 		n = atoi (regsub.gsub ('.*\.', '', i))
-		s = '\n  /%s-%d{\n%s} bind def\n' % (font, n, s)
-		encoding = encoding + 'Encoding %d /%s-%d put\n' % (n, font, n)
+		s = '\n  /%s-%d{\n%s} bind def\n' % (font_name, n, s)
+		encoding = encoding + 'Encoding %d /%s-%d put\n' % (n, font_name, n)
 		charprocs = charprocs + s
 	f.write (charprocs)
 	f.write ('\n')
@@ -156,12 +169,12 @@ def characters (f):
 	f.write ('\n')
 	sys.stderr.write (']')
 
-ps = outdir + font + '.pfa'
-ps_file = open (ps, 'w')
+
+ps_file = open (output_name, 'w')
 header (ps_file)
 characters (ps_file)
 footer (ps_file)
 sys.stderr.write ('\n')
 ps_file.close ()
-sys.stderr.write ('Wrote PostScript font: %s\n'% ps)
+sys.stderr.write ('Wrote PostScript font: %s\n'% output_name)
 

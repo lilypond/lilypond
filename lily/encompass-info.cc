@@ -34,13 +34,20 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir, Slur con
   
 
   Stem* stem_l = note->stem_l_;
+  if (!stem_l)
+    {
+      warning ("Slur over rest?");
+      o_[X_AXIS] = note->hpos_f ();
+      return; 
+    }
+  
   Real internote = stem_l-> staff_line_leading_f ()/2.;
 
   /* 
-    set o_.x () to middle of notehead or on the exact position of stem,
+    set o_[X_AXIS] to middle of notehead or on the exact position of stem,
     according to slur direction
    */
-  o_.x () = stem_l->hpos_f ();
+  o_[X_AXIS] = stem_l->hpos_f ();
 
   /*
      stem_l->dir == dir
@@ -52,19 +59,19 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir, Slur con
    */
 
   if (stem_l->dir_ != dir)
-    o_.x () -= 0.5 * notewidth * stem_l->dir_;
+    o_[X_AXIS] -= 0.5 * notewidth * stem_l->dir_;
 
-  o_.y () = stem_l->extent (Y_AXIS)[dir];
+  o_[Y_AXIS] = stem_l->extent (Y_AXIS)[dir];
   /*
    leave a gap: slur mustn't touch head/stem
    */
-  o_.y () += 2.5 * internote * dir;
+  o_[Y_AXIS] += 2.5 * internote * dir;
 
   if (stem_l->dir_ != dir)
-    o_.y () += 1.0 * internote * dir;
+    o_[Y_AXIS] += 1.0 * internote * dir;
 
 
-  Dimension_cache *common = note->common_group (slur_l, Y_AXIS);
+  Dimension_cache *common = stem_l->common_group (slur_l, Y_AXIS);
   Align_element * align = dynamic_cast<Align_element*> (common->element_l ());
   if (align && align->axis() == Y_AXIS)
     {
@@ -91,9 +98,9 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir, Slur con
       /*
 	our staff is lower -> interstaff_f_ *= -1
        */
-      // ? Is this OK?
+
       if (slur_prio < stem_prio)
 	interstaff_f_ *= -1;
-      o_.y () += interstaff_f_;
+      o_[Y_AXIS] += interstaff_f_;
     }
 }

@@ -5,5 +5,5 @@
 
 
 $(outdir)/%.latex: %.doc
-	$(PYTHON) $(depth)/scripts/mudela-book.py --outdir=$(outdir)/ --outname=$(notdir $(basename $@)) $<
+	$(PYTHON) $(depth)/scripts/mudela-book.py -I $(depth)/input/test/ --outdir=$(outdir)/ --dependencies --outname=$(notdir $(basename $@)) $<
 

@@ -1,17 +1,19 @@
 \score{
 	\type GrandStaff <
 	\type Staff=one \notes\relative c'{
-		\stemup c4( c \translator Staff=two c )c
+		\stemup c4( c \translator Staff=two c )c |
 		\translator Staff=one
-		\stemup c4( c \translator Staff=two c )c
-		\stemup c4( c \translator Staff=one c )c
+		\stemup c4( c \translator Staff=two c )c |
+		\stemup c4( c \translator Staff=one c )c |
 		\translator Staff=two
-		\stemup c4( c \translator Staff=one c )c
+		\stemup c4( c \translator Staff=one c )c |
 		\translator Staff=two
-		\stemup c4( \translator Staff=one c c )c
+		\stemup c4( \translator Staff=one c c )c |
 		r2
 		\translator Staff=two
-		\stemup c4( \translator Staff=one c \break c )c
+		\stemup c4( \translator Staff=one c
+		   \break
+		c )c
 		r2
 %		\stemdown c4( \translator Staff=two c c \translator Staff=one )c
 		\stemdown d4( \translator Staff=two c c \translator Staff=one )d

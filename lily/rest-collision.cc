@@ -5,7 +5,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-
+#include "beam.hh"
 #include "debug.hh"
 #include "rest-collision.hh"
 #include "note-column.hh"
@@ -13,6 +13,7 @@
 #include "note-head.hh"
 #include "collision.hh"
 #include "paper-def.hh"
+#include "rest.hh"
 
 void
 Rest_collision::add_column (Note_column *nc_l)
@@ -25,23 +26,15 @@ Rest_collision::add_column (Note_column *nc_l)
 }
 
 void
-Rest_collision::do_post_processing()
-{
-  /*
-    [TODO]
-    handle rest under beam (do_post: beams are calculated now)
-    what about combination of collisions and rest under beam
-   */
-}
-
-void
 Rest_collision::do_pre_processing()
 {
   /* 
      handle rest-rest and rest-note collisions
 
      [todo]
-     decide not to print rest if too crowded?
+     * decide not to print rest if too crowded?
+
+     * ignore rests under beams.
    */
 
   // no rests to collide
@@ -55,41 +48,70 @@ Rest_collision::do_pre_processing()
   // meisjes met meisjes
   if (!ncol_l_arr_.size()) 
     {
+      /*
+	UGH.  Should get dims from table.  Should have minimum dist.
+       */
       int dy = rest_l_arr_.size() > 2 ? 6 : 4;
 	
       rest_l_arr_[0]->translate_rests (rest_l_arr_[0]->dir () *dy);	
-      // top is last element...
-      rest_l_arr_.top()->translate_rests (rest_l_arr_.top ()->dir ()* dy);	
+      rest_l_arr_.top()->translate_rests (rest_l_arr_.top ()->dir ()* dy);
     }
   // meisjes met jongetjes
   else 
     {
-      // int dir_i = - ncol_l_arr_[0]->dir_;
-      Direction dir = rest_l_arr_[0]->dir ();
-	
-      // minimum move
-      int minpos = 4;
-	
-      // quart rest height
-      // UGH Should get dims from table!
-      int size_i = 6;
-	
+      if (rest_l_arr_.size () > 1)
+	{
+	  warning (_("Too many colliding rests."));
+	}
+      if (ncol_l_arr_.size () > 1)
+	{
+	  warning (_("Too many notes for rest collision."));
+	}
+      Note_column * rcol = rest_l_arr_[0];
 
+      // try to be opposite of noteheads. 
+      Direction dir = - ncol_l_arr_[0]->dir();
+
+      Interval restdim;
+      for (int i=0; i < rcol->rest_l_arr_.size(); i++)
+	restdim.unite (rcol->rest_l_arr_[i]->extent (Y_AXIS));
+
+      if (restdim.empty_b ())
+	return;
+      
       // staff ref'd?
-      Real internote_f = paper_l ()->get_realvar (interline_scm_sym)/2.0;
-      int sep_i = 3 + size_i / 2;
+      Real staff_space = rcol->rest_l_arr_[0]->staff_line_leading_f ();      
+      Real internote_f = staff_space/2;
+      Real minimum_dist = paper_l ()->get_var ("restcollision_minimum_dist")
+	* internote_f;
+      
+      /*
+	assumption: ref points are the same. 
+       */
+      Interval notedim;
       for (int i = 0; i < ncol_l_arr_.size(); i++) 
 	{
-	  // how to know whether to sort?
-	  ncol_l_arr_[i]->sort();
-	  for (int j = 0; j < ncol_l_arr_[i]->head_l_arr_.size(); j++)
-	    {
-	      int stem = (int)((ncol_l_arr_[i]->stem_l_->extent
-			       (Y_AXIS)[dir]) / internote_f);
-	      minpos = minpos >? (dir * stem + sep_i);
-	    }
+	  notedim.unite (ncol_l_arr_[i]->extent (Y_AXIS));
 	}
-      rest_l_arr_[0]->translate_rests (dir * minpos);	
+
+      Interval inter (notedim);
+      inter.intersect (restdim);
+
+      Real dist =
+	minimum_dist +  dir * (notedim[dir] - restdim[-dir]) >? 0;
+
+
+      int stafflines = rcol->rest_l_arr_[0]->lines_i ();
+
+      
+      // move discretely by half spaces.
+      int discrete_dist = int (ceil (dist / (0.5 *staff_space)));
+
+      // move by whole spaces inside the staff.
+      if (discrete_dist < stafflines+1)
+	discrete_dist = int (ceil (discrete_dist / 2.0)* 2.0);
+      
+      rcol->translate_rests (dir * discrete_dist);
     }
 }
 

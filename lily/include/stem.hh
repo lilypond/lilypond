@@ -84,7 +84,7 @@ public:
   Direction get_dir () const;
 
   int get_center_distance(Direction) const;
-  void set_default_dir();
+
   void set_default_stemlen();
   void set_default_extents();
   void set_noteheads();

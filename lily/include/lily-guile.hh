@@ -34,4 +34,12 @@ void read_lily_scm_file (String);
 void init_symbols ();
 #include "ly-symbols.hh"
 
+/*
+  DIY gc protection.
+ */
+SCM ly_protect_scm (SCM s);
+SCM ly_unprotect_scm (SCM s);
+void init_ly_protection ();
+
+
 #endif // LILY_GUILE_HH

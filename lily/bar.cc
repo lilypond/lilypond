@@ -24,7 +24,12 @@ void
 Bar::do_print () const
 {
 #ifndef NPRINT
-    //  DOUT << type_str_; "{[" confuse  indenter.
+  String s = type_str_;
+  if (s  == "{")
+    s = "brace";
+  if (s == "[")
+    s = "bracket";
+  DOUT << "type = " << s;
 #endif
 }
 
@@ -70,12 +75,16 @@ Bar::do_pre_processing ()
       if (bar_breaks[i][1] == type_str_)
 	{
 	  type_str_ = bar_breaks[i][break_status_dir ()+1];
-	  if (remove_elt_property (at_line_start_scm_sym)!= SCM_BOOL_F
-	      && (break_status_dir () == RIGHT) && (type_str_ == ""))
-	    {
-	      type_str_ = "|";
-	    }
+	  break;
 	}
     }
+  if (remove_elt_property (at_line_start_scm_sym)!= SCM_BOOL_F
+      && (break_status_dir () == RIGHT) && (type_str_ == ""))
+    {
+      type_str_ = "|";
+    }
+
+  if (type_str_ =="")
+    dim_cache_[X_AXIS].set_empty (true);
 }
   

@@ -118,7 +118,7 @@ Source_file::line_str (char const* pos_ch_C) const
 
   Slice line = line_slice (pos_ch_C);
   char const* data_ch_C = ch_C ();
-  return String ((Byte const*)data_ch_C + line.min (), line.length ());
+  return String ((Byte const*)data_ch_C + line[LEFT], line.length ());
 }
 
 int
@@ -128,7 +128,7 @@ Source_file::char_i (char const* pos_ch_C) const
     return 0;
 
   char const* data_ch_C = ch_C ();
-  return pos_ch_C - (line_slice (pos_ch_C).min () + data_ch_C);
+  return pos_ch_C - (line_slice (pos_ch_C)[SMALLER] + data_ch_C);
 }
 
 int

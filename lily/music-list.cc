@@ -26,7 +26,6 @@ Simultaneous_music::length_mom () const
 void
 Music_sequence::compress (Moment m)
 {
-  
   for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
     i->car_->compress (m);
 }

@@ -37,15 +37,14 @@ Stem_engraver::do_creation_processing ()
 void
 Stem_engraver::acknowledge_element(Score_element_info i)
 {
-  if (dynamic_cast<Rhythmic_head *> (i.elem_l_))
+  if (Rhythmic_head * h = dynamic_cast<Rhythmic_head *> (i.elem_l_))
     {
-      Rhythmic_head *h  = dynamic_cast<Rhythmic_head *> (i.elem_l_);
+      Rhythmic_req * r = dynamic_cast <Rhythmic_req *> (i.req_l_);
+      int duration_log = r->duration_.durlog_i_;      
       if (!stem_p_) 
 	{
-	  Rhythmic_req * r = dynamic_cast <Rhythmic_req *> (i.req_l_);
 	  stem_p_ = new Stem;
-	  int durlog_i = r->duration_.durlog_i_;
-	  stem_p_->flag_i_ = durlog_i;
+	  stem_p_->flag_i_ = duration_log;
 
 	  if (abbrev_req_l_)
 	    {
@@ -64,13 +63,19 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 		{
 		  abbrev_p_ = new Abbreviation;
 		  announce_element (Score_element_info (abbrev_p_, abbrev_req_l_));
-		  abbrev_p_->abbrev_flags_i_ =intlog2 (t) - (durlog_i>? 2);
+		  abbrev_p_->abbrev_flags_i_ =intlog2 (t) - (duration_log>? 2);
 		}
 	    }
 
 	  // must give the request, to preserve the rhythmic info.
 	  announce_element (Score_element_info (stem_p_, r));
 	}
+
+      if (stem_p_->flag_i_ != duration_log)
+	{
+	  r->warning (_f("Adding note head to incompatible stem (type = %d)", 1 <<  stem_p_->flag_i_));
+	}
+      
       stem_p_->add_head (h);
     }
 }

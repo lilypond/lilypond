@@ -22,6 +22,9 @@
 Stem_info::Stem_info ()
 {
 }
+/*
+  FIXME: y dims should not be in internote.
+ */
 
 Stem_info::Stem_info (Stem*s, int mult)
 {
@@ -30,6 +33,7 @@ Stem_info::Stem_info (Stem*s, int mult)
   x_ = stem_l_->hpos_f ();
   dir_ = stem_l_->dir_;
   SCM bd = stem_l_->remove_elt_property (beam_dir_scm_sym);
+  
   beam_dir_ = gh_scm2int (SCM_CDR(bd));
   interstaff_f_ = 0;
 
@@ -107,6 +111,7 @@ Stem_info::Stem_info (Stem*s, int mult)
 
   // interstaff beam
   Beam* beam_l = stem_l_->beam_l_;
+  
   Dimension_cache *common = stem_l_->common_group (beam_l, Y_AXIS);
   Align_element * align = dynamic_cast<Align_element*> (common->element_l ());
   if (align && align->axis() == Y_AXIS)

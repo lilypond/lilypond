@@ -24,7 +24,7 @@ Rest_collision_engraver::Rest_collision_engraver()
 void
 Rest_collision_engraver::process_acknowledged ()
 {
-  if (rest_collision_p_ ||   note_column_l_arr_.size () < 2)
+  if (rest_collision_p_ || note_column_l_arr_.size () < 2)
     return;
 
   rest_collision_p_ = new Rest_collision;

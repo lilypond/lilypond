@@ -81,7 +81,13 @@ Translator_group::set_element (String s, bool add)
     error ("Program has no such type");
 
   if (add)
-    consists_str_arr_.push (s);
+    {
+      for (int i=consists_str_arr_.size (); i--; )
+	if (consists_str_arr_[i] == s)
+	  warning (_f("Already contains a `%s\'", s));
+      
+      consists_str_arr_.push (s);
+    }
   else
     for (int i=consists_str_arr_.size (); i--; )
       if (consists_str_arr_[i] == s)

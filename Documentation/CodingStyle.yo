@@ -106,9 +106,9 @@ verb(
 nsubsect(MEMBERS)
 
 verb(
-	Class::member()
+	Class::member ()
 	Type Class::member_type_
-	Type Class::member_type()
+	Type Class::member_type ()
 )
 
 the code(type) is a Hungarian notation postfix for code(Type). See below
@@ -122,7 +122,7 @@ included.
 
 Don't laugh. It took us a whole evening/night to figure out one of
 these bugs, because we had a macro that looked like
-code(DECLARE_VIRTUAL_FUNCTIONS()). 
+code(DECLARE_VIRTUAL_FUNCTIONS ()). 
 
 nsubsect(BROKEN CODE)
 
@@ -148,7 +148,7 @@ verb(
 		Long class documentation.
 		(Hungarian postfix)
 
-		TODO Fix boring_member()
+		TODO Fix boring_member ()
 	*/
 	class Class {
 		/**
@@ -160,14 +160,14 @@ verb(
 
 
 		/**
-			short memo. long doco of member()
+			short memo. long doco of member ()
 			@param description of arguments
 			@return Rettype
 		*/
-		Rettype member(Argtype);
+		Rettype member (Argtype);
 
 		/// memo only
-		boring_member() {
+		boring_member () {
 			data_member_ = 121; // ugh
 		}
 	};
@@ -183,15 +183,15 @@ Standard methods:
 
 verb(
 	///check that *this satisfies its invariants, abort if not.
-	void OK() const
+	void OK () const
 
 	/// print *this (and substructures) to debugging log
-	void print() const
+	void print () const
 
 	/**
-	protected member. Usually invoked by non-virtual XXXX()
+	protected member. Usually invoked by non-virtual XXXX ()
 	*/
-	virtual do_XXXX()
+	virtual do_XXXX ()
 
 	/**add some data to *this.
 	Presence of these methods usually imply that it is not feasible to this

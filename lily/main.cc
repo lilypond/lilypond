@@ -251,6 +251,8 @@ main_prog (int argc, char **argv)
   /*
     need to do this first. Engravers use lily.scm contents.
    */
+  extern void ly_init_protection();
+  ly_init_protection();  
   init_symbols ();
   read_lily_scm_file ( "lily.scm");
   cout << endl;

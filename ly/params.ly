@@ -13,7 +13,7 @@ interline = \staffheight / 4.0;
 staffline = \interline / 10.0;
 
 beam_thickness = 0.52 * (\interline - \staffline);
-interbeam = (2.0 * \interline - \beam_thickness) / 2.0;
+interbeam = (2.0 * \interline + \staffline - \beam_thickness) / 2.0;
 interbeam4 = (3.0 * \interline - \beam_thickness) / 3.0;
 
 % stems and beams
@@ -135,6 +135,12 @@ extender_height = 0.8*\staffline;
 
 % Multi-measure rests
 mmrest_x_minimum = 2.0*\staffheight;
+
+% in internote.
+restcollision_minimum_dist = 3.0;
+restcollision_minimum_beamdist = 1.5;
+
+postBreakPadding = 1.0*\interline;
 
 \include "engraver.ly";
 

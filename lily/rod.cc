@@ -13,19 +13,6 @@
 #include "single-malt-grouping-item.hh"
 
 
-Rod::Rod (Single_malt_grouping_item *l, Single_malt_grouping_item *r)
-{
-  item_l_drul_[LEFT] =l;
-  item_l_drul_[RIGHT]=r;
-
-  Interval li (l->my_width ());
-  Interval ri (r->my_width ());
-  if (li.empty_b () || ri.empty_b ())
-    distance_f_ = 0;
-  else
-    distance_f_ = li[RIGHT] - ri[LEFT] + 1.5 PT; // ugh
-}
-	  
 Rod::Rod ()
 {
   distance_f_ = 0.0;
