@@ -6,7 +6,7 @@
 
 melodie = \music {
 	\clef\violin
-	c c | g g | a a | g g |
+	c4 c | g g | a a | g g |
 	f f | e e | d d8.( e16 | )c2 | % :|
 
 	g g | f f | e e | d d |
@@ -20,7 +20,7 @@ melodie = \music {
 
 begeleiding = \music {
 	\clef \bass
-	\octave{`}
+	\octave{-1}
 	c c' | e' c' | f' c' | e' c' | 
 	d' b | c' a | f g | c2 | 
 
