@@ -1683,7 +1683,7 @@ hornNotes = \notes \relative c @{
 
 Then, an individual part is made by putting the following in a file:
 @example
-\include "horn-music.ly"
+\include "horn-music.lyinc"
 \header @{
   instrument = "Horn in F"
 @}
@@ -1738,8 +1738,8 @@ The score is made by combining all of the music in a @code{\score}
 block, assuming that the other voice is in @code{bassoonNotes}, in the
 file @file{bassoon-music.ly}:
 @example
-\include "bassoon-music.ly"
-\include "horn-music.ly"
+\include "bassoon-music.lyinc"
+\include "horn-music.lyinc"
 
 \score @{
   \simultaneous @{

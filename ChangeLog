@@ -1,5 +1,10 @@
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	*  debian/rules: small corrections in the (Pedro K)
+
+	* Documentation/user/tutorial.itely (Tutorial): use lyinc in
+	examples.
+
 	* lily/auto-beam-engraver.cc (process_music): end/junk beam if
 	special (repeat) bar comes along.
 
