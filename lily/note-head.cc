@@ -16,6 +16,9 @@
 #include "molecule.hh"
 #include "musical-request.hh"
 #include "rhythmic-head.hh"
+#include "staff-symbol-referencer.hh"
+#include "lookup.hh"
+#include "paper-def.hh"
 
 /*
   Note_head contains the code for printing note heads.
@@ -54,87 +57,62 @@
 
 */
 
-#include "staff-symbol-referencer.hh"
-
-/*
-  build a ledger line for small pieces.
- */
 Molecule
-Note_head::ledger_line (Grob *me, Interval xwid) 
-{
-  Drul_array<Molecule> endings;
-  endings[LEFT] = Font_interface::get_default_font (me)->find_by_name ("noteheads-ledgerending");
-  Molecule *e = &endings[LEFT];
-  endings[RIGHT] = *e;
-  
-  Real thick = e->extent (Y_AXIS).length ();
-  Real len = e->extent (X_AXIS).length () - thick;
-
-  Molecule total;
-  Direction d = LEFT;
-  do {
-    endings[d].translate_axis (xwid[d] - endings[d].extent (X_AXIS)[d], X_AXIS);
-    total.add_molecule (endings[d]);    
-  } while ((flip (&d)) != LEFT);
-
-  Real xpos = xwid [LEFT] + len;
-
-  while (xpos + len + thick /2 <= xwid[RIGHT])
-    {
-      e->translate_axis (len, X_AXIS);
-      total.add_molecule (*e);
-      xpos += len;
-    }
-
-  return total;
-}
-
-
-Molecule
-Note_head::ledger_lines (Grob*me,
-			 bool take_space,
-			 int count, Direction dir, Interval idw)
+Note_head::brew_ledger_lines (Grob *me,
+                              int pos,
+                              int interspaces,
+                              Interval x_extent,
+                              bool take_space)
 {
   Real inter_f = Staff_symbol_referencer::staff_space (me)/2;
+  int lines_i = abs (pos) < interspaces
+    ? 0
+    : (abs (pos) - interspaces) / 2;
+  Molecule molecule = Molecule();
 
-  /*
-    idw ?
-
-    (who's that ?  :-)
-
-
-    --hwn 
-   */
-  Molecule ledger (ledger_line (me, idw));
-
-  if (!take_space)
-    ledger.set_empty (true);
-  
-  Real offs = (Staff_symbol_referencer::on_staffline (me))
-    ? 0.0
-    : -dir * inter_f;
-
-  Molecule legs;
-  for (int i=0; i < count; i++)
+  if (lines_i)
     {
-      Molecule s (ledger);
-      s.translate_axis (-dir * inter_f * i*2 + offs,
-			Y_AXIS);
-      legs.add_molecule (s);
+      Real ledgerlinethickness =
+	(me->paper_l ()->get_var ("ledgerlinethickness"));
+      Real blotdiameter = ledgerlinethickness;
+      //	(me->paper_l ()->get_var ("blotdiameter"));
+      Interval y_extent =
+	Interval (-0.5*(ledgerlinethickness - blotdiameter),
+		  +0.5*(ledgerlinethickness - blotdiameter));
+      Box ledger_line (x_extent, y_extent);
+
+      // FIXME: Currently need blotdiameter factor 2.0 to compensate
+      // for error somewhere else.  (Maybe draw_box confuses radius
+      // and diameter?)
+#if 1
+       Molecule proto_ledger_line =
+         Lookup::roundfilledbox (ledger_line, ledgerlinethickness );
+#else
+      Molecule proto_ledger_line = // if you like it the old way
+	Lookup::filledbox (ledger_line);
+#endif
+      
+      if (!take_space)
+        proto_ledger_line.set_empty (true);
+
+      Direction dir = (Direction)sign (pos);
+      Real offs = (Staff_symbol_referencer::on_staffline (me, pos))
+        ? 0.0
+        : -dir * inter_f;
+      for (int i = 0; i < lines_i; i++)
+        {
+          Molecule ledger_line (proto_ledger_line);
+          ledger_line.translate_axis (-dir * inter_f * i * 2 + offs, Y_AXIS);
+          molecule.add_molecule (ledger_line);
+        }
     }
 
-  return legs;
+  return molecule;
 }
 
 Molecule
 internal_brew_molecule (Grob *me,  bool ledger_take_space)
 {
-  int sz = Staff_symbol_referencer::line_count (me)-1;
-  int p = (int)  rint (Staff_symbol_referencer::position_f (me));
-  int streepjes_i = abs (p) < sz 
-    ? 0
-    : (abs (p) - sz) /2;
-
   SCM style  = me->get_grob_property ("style");
   if (!gh_symbol_p (style))
     {
@@ -153,9 +131,10 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
   String name = "noteheads-" + ly_scm2string (scm_primitive_eval (exp));
   Molecule out = Font_interface::get_default_font (me)->find_by_name (name);
 
-  if (streepjes_i) 
+  int interspaces = Staff_symbol_referencer::line_count (me)-1;
+  int pos = (int)rint (Staff_symbol_referencer::position_f (me));
+  if (abs (pos) - interspaces > 1)
     {
-      Direction dir = (Direction)sign (p);
       Interval hd = out.extent (X_AXIS);
       Real left_ledger_protusion = hd.length ()/4;
       Real right_ledger_protusion = left_ledger_protusion;
@@ -175,8 +154,9 @@ internal_brew_molecule (Grob *me,  bool ledger_take_space)
 
       Interval l_extents = Interval (hd[LEFT] - left_ledger_protusion,
 				     hd[RIGHT] + right_ledger_protusion);
-      out.add_molecule (Note_head::ledger_lines (me, ledger_take_space,
-						 streepjes_i, dir, l_extents));
+      out.add_molecule (Note_head::brew_ledger_lines (me, pos, interspaces,
+						      l_extents,
+						      ledger_take_space));
     }
   return out;
 }
@@ -237,23 +217,17 @@ Note_head::brew_ez_molecule (SCM smob)
 		       SCM_UNDEFINED);
   Box bx (Interval (0, 1.0), Interval (-0.5, 0.5));
   Molecule m (bx, at);
-  int p = (int)  rint (Staff_symbol_referencer::position_f (me));
 
-  int sz = Staff_symbol_referencer::line_count (me)-1;
-  int streepjes_i = abs (p) < sz 
-    ? 0
-    : (abs (p) - sz) /2;
-
- if (streepjes_i)
-   {
-      Direction dir = (Direction)sign (p);
+  int pos = (int)rint (Staff_symbol_referencer::position_f (me));
+  int interspaces = Staff_symbol_referencer::line_count (me)-1;
+  if (abs (pos) - interspaces > 1)
+    {
       Interval hd = m.extent (X_AXIS);
       Real hw = hd.length ()/4;
-      m.add_molecule (ledger_lines (me, false, streepjes_i, dir,
-				    Interval (hd[LEFT] - hw,
-						hd[RIGHT] + hw)));
+      Interval extent = Interval (hd[LEFT] - hw, hd[RIGHT] + hw);
+      m.add_molecule (brew_ledger_lines (me, pos, interspaces, extent, false));
     }
-  
+
   return m.smobbed_copy ();
 }
 
@@ -280,4 +254,3 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 ADD_INTERFACE (Note_head,"note-head-interface",
   "Note head",
   "accidentals-grob style stem-attachment-function");
-

@@ -97,13 +97,6 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
     for (char const **p = junk_interfaces; *p; p++)
       if (i.grob_l_->has_interface (ly_symbol2scm (*p)))
 	{
-#if 0
-	  /* Ugh: virtual mmrest::suicide () ? */
-	  if (i.grob_l_->has_interface (ly_symbol2scm ("multi-measure-rest-interface")))
-	    i.grob_l_->set_grob_property ("skip-timestep", SCM_BOOL_T);
-	  else
-	    ;
-#endif	  
 	  /* Ugh, we can suicide them, but they remain living */
 	  i.grob_l_->suicide ();
 	  return;

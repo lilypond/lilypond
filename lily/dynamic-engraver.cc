@@ -215,6 +215,8 @@ Dynamic_engraver::process_music ()
  (current_cresc_req_->get_span_dir () == 1
 	     ? _ ("already have a crescendo")
 	     : _ ("already have a decrescendo"));
+
+	  current_cresc_req_->origin ()->warning (_("Cresc started here"));
 	}
       else
 	{

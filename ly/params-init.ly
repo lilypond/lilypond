@@ -22,6 +22,9 @@ unit = "mm"
 staffspace = \staffheight / 4.0
 stafflinethickness = \staffspace / 10.0
 outputscale = \staffheight / 4.0
+ledgerlinethickness = 2.0 * \stafflinethickness
+
+
 
 % blotdiameter = 0.4 \pt
 blotdiameter = 0.04 \pt

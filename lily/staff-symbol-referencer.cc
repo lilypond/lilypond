@@ -53,10 +53,8 @@ Staff_symbol_referencer::staff_space (Grob*me)
   if (st)
     return Staff_symbol::staff_space (st);
 
-  
   return 1.0;
 }
-
 
 Real
 Staff_symbol_referencer::position_f (Grob*me) 

@@ -9,8 +9,8 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       0.0
-;; Last Modified: 14SEP2001
+;; Version:       1.5.47
+;; Last Modified: 26MAR2002
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -30,46 +30,49 @@
   (let* ((keywords '( ; need special order due to over[lapping] of words
 
 ;; all letters are lowercase
-"accepts" "accompany" "addlyrics" "aeolian" "alias" "alternative"
-"apply" "arpeggio" "autochange" "bar" "break" "breathe" "breve"
-"beamintervals" "broken" "blend" "bcincipit" "char" "ch" "cg"
-"chord\\(s\\|stest\\|chordmodifiers\\)?"
-"clef \\(bass\\|treble\\|violin\\|tenor\\)?"
-"clipping" "cm" "coda" "complex" "commandspanrequest" "consists\\(end\\)?"
-"context" "contrabasso" "decr" "default" "denies" "different" "dirs"
-"down\\(bow\\|prall\\)?" "dorian" "duration" "dynamicscript"
-"eccentric" "eg" "embeddedps" "endincipit" "elementdescriptions"
-"ex\\(treme\\)?" "fermata" "f+" "font" "flageolet" "fp" "fragment" "fz"
-"gliss\\(ando\\)?" "global" "gg" "gmsus" "grace" "gr\\(and\\)?staff"
-"header" "hsize" "in\\(clude\\|versions\\|visible\\)?" "ionian"
-"key\\(s\\(ignature\\)?\\)?" "lag" "lheel" "line\\(break\\|prall\\)"
-"locrian" "longa" "lower" "ltoe" "lydian" "lyrics"
-"maintainer" "mark" "maxima" "mel\\(isma\\|ody\\)?" "midi" "major"
-"minor" "mixolydian" "mordent" "monstrous" "multipart" "music"
-"musicalpitch" "m\\(p\\|f\\|m\\)?" "name" "newpage" "noise\\(beat\\)?"
+"accent" "accepts" "accompany" "\\(add\\)?lyrics" 
+"\\(aeol\\|dor\\|ion\\|locr\\|\\(mixo\\)?lyd\\|phryg\\)ian" 
+"alias" "\\(altern\\|rel\\)ative" "apply" "arpeggio" "autochange" "bar" "break"
+"breathe" "breve" "beamintervals" "broken" "blend" "\\(bc\\|end\\)incipit" 
+"ch\\(ar\\)?" "cg" "chord\\(s\\|stest\\|chordmodifiers\\)?"
+"clef[ \t]*\\(F\\|G\\|alto\\|baritone\\|bass\\|\\(mezzo\\)?soprano\\|treble\\|violin\\|tenor\\)?"
+"clipping" "cm" "coda" "complex" 
+"\\(command\\)?spanrequest" "consists\\(end\\)?"
+"context" "contrabasso" "\\(de\\)?cr" "default" "denies" "different" "dirs"
+"down\\(bow\\|prall\\)?" "duration" "\\(dynamic\\)?script"
+"eccentric" "eg" "embeddedps" "elementdescriptions"
+"ex\\(treme\\)?" "fermata" "f+" "figures" "font" "flageolet" "fp" "fragment" 
+"fz" "gliss\\(ando\\)?" "gg" "gmsus" "grace" "gr\\(and\\)?staff"
+"header" "\\(h\\|v\\)size" "in\\(clude\\|versions\\|visible\\)?" 
+"key\\(s\\(ignature\\)?\\)?" "lag" "\\(l\\|r\\)heel" "line\\(break\\|prall\\)"
+"longa" "lower" "\\(l\\|r\\)toe"
+"mark" "marcato" "maxima" "mel\\(isma\\|ody\\)?" "midi" "m\\(aj\\|in\\)or"
+"\\(up\\|down\\)?mordent" "monstrous" "multipart" "music"
+"\\(musical\\)?pitch" "m\\(p\\|f\\|m\\)?" "name" "newpage" "noise\\(beat\\)?"
 "normal\\(key\\|size\\)" "note\\(name\\)?s" "nt?"
-"one\\(staff\\)?" "open" "outputproperty" "over\\(ride\\)?"
-"paper" "partcombine" "partial" "penalty" "phrygian" "pitch" "p+"
-"property" "pt" "prall\\(mordent\\|prall\\|up\\)?" "quickmeasure"
-"relative" "remove" "repeat" "rever\\(t\\|seturn\\)" "rf" "rheel" "rhythm"
-"right" "rtoe" "scales?" "scheme" "score" "scpaper" "script" "scscore" "sd"
+"one\\(staff\\)?" "open" "\\(output\\)?property" "over\\(ride\\)?"
+"part\\(combine\\|ial\\)" "penalty" "p+" "pt" 
+"prall\\(down\\|mordent\\|prall\\|up\\)?" "quickmeasure" "rc\\(ed\\)?" "remove"
+"repeat[ \t]*\\(\\(un\\)?fold\\|percent\\|\\|tremolo\\|volta\\)?" "rest"
+"revert" "\\(reverse\\)?turn" "rf\\(z\\)?" "rhythm"
+"right" "scales?" "scheme" "\\(sc\\)?paper" "\\(sc\\)?score" "sd"
 "segno" "sequential" "set\\(tings\\)?" "sf\\(f\\|z\\)?" "shortlong"
-"simultaneous" "singlepart" "skip" "small" "smarttranspose" "spanrequest"
-"staccato" "staff\\(height\\|space\\)" "start" "stop\\(ped\\)?"
+"simultaneous" "singlepart" "skip" "small" "\\(smart\\)?transpose"
+"sp\\(p\\)?" "staccat\\(issim\\)?o" "staff\\(height\\|space\\)" "start" 
+"stop\\(ped\\)?"
 "st\\(paper\\|score\\)" "stuff" "stylesheet" "su" "tab" "tempo" "tenuto" 
 "textscript" "thenotes" "thrd" "threevoice" "thumb" "tilt\\(down\\|up\\)" 
-"timb" "times?" "timpani" "tiny" "toeters" "touch" "trans\\(lator\\|pose\\)" 
-"trill" "trombe" "turn" "type" "t\\(wo\\(voice\\(steminvert\\)?\\)?\\)?" 
+"timb" "times?" "tiny" "toeters" "touch" "translator" 
+"trill" "type" "t\\(wo\\(voice\\(steminvert\\)?\\)?\\)?" 
 "un\\(der\\|set\\)" "up\\(bow\\|per\\|prall\\)?" "version" 
-"viol\\(a\\|in\\(incipit\\)?\\|oncello\\)" "visible" "voicedefault" "vsize"
-"x" "zagers?" "z\\(eu\\|o\\)ger"
+"visible" "voicedefault" "x"
 
 		      ))
 
   (identifiers '( 
 
 ;; in principle, have one or more uppercase letters
-"\\(\\(BarNumbering\\|Choir\\|Grand\\|HaraKiri\\|OrchestralPart\\|Piano\\|Rhythmic\\)Staff\\|\\(Cue\\|Lyrics\\)?Voice\\|\\(Orchestral\\)?Score\\|ChordNames\\|Grace\\|Lyrics\\|StaffGroup\\|Thread\\)Context" ; *Context
+"\\(\\(BarNumbering\\|Choir\\|Grand\\|HaraKiri\\|OrchestralPart\\|Piano\\|Rhythmic\\)?Staff\\|\\(Cue\\|Lyrics\\)?Voice\\|\\(Orchestral\\)?Score\\|ChordNames\\|Grace\\|Lyrics\\|Staff\\(Group\\)?\\|Thread\\)Context" ; *Context
 "\\(script\\|dots\\|dynamic\\|slur\\|stem\\|sustain\\|sostenuto\\|unaCorda\\|treCorde\\|tie\\|tuplet\\)\\(Both\\|Down\\|Up\\)" ; *(Both/Down/Up)
 "\\(slur\\|tie\\)\\(Dotted\\|Solid\\)" ; *(Dotted/Solid)
 "\\(autoBeam\\|cadenza\\|impro\\|turn\\)\\(Off\\|On\\)" ; *(On/Off)
@@ -81,12 +84,13 @@
 "voice\\(One\\|Two\\|Three\\|Four\\|B\\|C\\|D\\|E\\)" ; voice*
 "paper\\(Eleven\\|Sixteen\\|Thirteen\\|TwentySix\\)" ; paper*
 "\\(lower\\|upper\\)\\(Octave\\|One\\)" ; (lower/upper)*
-"hairyChord"
-"\\(Piano\\|Rhythmic\\)\\(Staff\\)?"
+"hairyChord" "\\(Piano\\|Rhythmic\\)\\(Staff\\)?"
 "\\(clarinetti\\|fagotti\\|flauti\\|melodic\\|oboi\\|\\(quite\\|rather\\|somewhat\\)LongLyrics\\|violinoII?\\)?\\(Staff\\)?" ; *Staff
 "\\(archi\\|bassi\\|legni\\|ottoni\\|timpani\\|viole\\|violini\\)\\(Group\\)" ; *Group
 "melisma\\(End\\)?" "staff\\(One\\|Two\\)?" "rests\\(II\\)?" "specialKey"
 "noBreak" "paperTwentysix" "endHorizScript" "FontBody" "text(I)+"
+"\\(modern\\|forget\\)Accidentals" ; *Accidentals
+"noResetKey" "modern\\(Voice\\)?Cautionaries" "unaCorda" "treCorde"
 
                       ))
 
@@ -94,10 +98,12 @@
 
 ;; Other words which look nicer when colored
 "Accidentals" "autoBeamSettings" "BarLine" "Beam"
-"ChordName\\([s]?\\|s.[a-zA-Z]*\\)" "Grace\\(.[a-zA-Z]*\\)?"
-"\\(Grand\\|Piano\\)Staff" "Lyrics\\(.[a-zA-Z]*\\)?" "NoteHead" 
-"Score\\(.[a-zA-Z]*\\)" "Stem" "Staff\\(Symbol\\)?" "TextScript" 
-"TimeSignature" "Voice\\(.[a-zA-Z]*\\)?"
+"ChordName\\([s]?\\|s.[a-zA-Z]*\\)" "DynamicText"
+"FiguredBass" "Hairpin" "\\(Grand\\|Piano\\)Staff"
+"Slur" "Stem" "SpacingSpanner" "System\\(StartDelimiter\\)?"
+"\\(Grace\\|Lyrics\\|Note\\(Head\\|Names\\)\\|Score\\|\\(Rhythmic\\)?Staff\\(Symbol\\)?\\|Thread\\|Voice\\)\\(.[a-zA-Z]*\\)?" ; combine below, if possible
+"\\(Grace\\|Lyrics\\|Note\\(Head\\|Names\\)\\|Score\\|\\(Rhythmic\\)?Staff\\(Symbol\\)?\\|Thread\\|Voice\\)[ \t]*\\(.[ \t]*[a-zA-Z]*\\)?" 
+"TextScript" "TimeSignature" "VerticalAlignment"
 
 		      ))
 
@@ -111,8 +117,8 @@
 ;; font-lock- comment / string / keyword / builtin / function-name / 
 ;;            variable-name / type / constant / warning -face
 
-      '("\\([_^]?\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-constant-face)
-      '("\\(\\(#'\\)?[a-zA-Z][_a-zA-Z.\-]*[ \t]*=[ \t]*#\\)" 1 font-lock-variable-name-face)
+      '("\\([_^-]?\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-constant-face)
+      '("\\(\\(#'\\)?[a-zA-Z][_a-zA-Z.\-]*[ \t]*=[ \t]*#\\(#f\\|#t\\)\\)" 1 font-lock-variable-name-face)
       '("\\([a-zA-Z][_a-zA-Z.\-]*\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
       '("[ \t]*=[ \t]*\\([a-zA-Z][_a-zA-Z]*\\)" 1 font-lock-variable-name-face)
 
@@ -121,13 +127,13 @@
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
 ;; highlight note names; separate notes from (other than ')'-type) brackets
-      '("[ <\{[~()\t]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsr]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*\\(64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
+      '("[ <\{[~()\t]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsrR]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
 
 ;; highlight identifiers
-      (cons (concat "\\([_^]?\\(" iregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-function-name-face t))
+      (cons (concat "\\([_^-]?\\(" iregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-function-name-face t))
 
 ;; highlight keywords
-      (cons (concat "\\([_^]?\\(" kwregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-keyword-face t))
+      (cons (concat "\\([_^-]?\\(" kwregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-keyword-face t))
 
 ;; highlight bracketing constructs
       '("\\([][}{]\\)" 0 font-lock-warning-face t)

@@ -92,8 +92,6 @@ save breve_rest_y, breve_rest_x;
 
 breve_rest_y# =  staff_space#;
 breve_rest_x# = 3/5 staff_space#;
-multi_rest_x# = 4 staff_space#;
-multi_beam_height# = 1/3 staff_space#;
 
 define_pixels(breve_rest_y, breve_rest_x, multi_rest_x, multi_beam_height);
 
@@ -108,17 +106,6 @@ fet_beginchar("longa rest", "-2", "longarest");
 fet_endchar;
 
 tracingvariables := 1;
-
-fet_beginchar("multi rest", "-4", "multirest");
-       set_char_box(multi_rest_x#, multi_rest_x#,
-                    breve_rest_y#, breve_rest_y#);
-       draw_block ((- b, - multi_beam_height),
-	           (w, multi_beam_height));
-       draw_block ((- b,-breve_rest_y),
-		   (rthin - b, breve_rest_y));
-       draw_block ((w - rthin,-breve_rest_y),
-		   (w, breve_rest_y));
-fet_endchar;
 
 fet_beginchar("Quarter rest","2","quartrest");
 %	draw_staff (-2, 2, 0.0);	
