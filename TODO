@@ -6,9 +6,16 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr
 
-	* todo key-sig placement.
-	
-	* put errorlevel in Input
+	* LILYSOURCEDIR
+
+	* spurious "Junk beam" warnings
+
+	* standchen: warning: Excentric column (Meter dims?)
+
+
+	* optimal pagebreaking.
+
+	* put errorlevel in Input class
 
 	* AFM for font input?
 
@@ -63,6 +70,7 @@ PROJECTS
 
 	* Spring_spacer:
 	- write a faster Spring_spacer ( without matrices if possible )
+	- use straight QP to find minimal "fitting force"
 	- relate energybound to linelen unitspace fontsize etc.
 	- used fixed point fp
 

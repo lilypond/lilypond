@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 0.1.22
+Version: 0.1.23
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: pcnov095.win.tue.nl:/pub/lilypond/lilypond-0.1.22.tar.gz
+Source0: pcnov095.win.tue.nl:/pub/lilypond/lilypond-0.1.23.tar.gz
 Summary: A preprocessor to make TeX typeset music.
 URL: http://www.stack.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@stack.nl>
@@ -11,11 +11,13 @@ Icon: lelie_icon.gif
 Buildroot: /tmp/lilypond-install
 
 %description 
-LilyPond is the GNU Project music typesetter. This program converts
-music definition files into visual or auditive output: it can typeset
-formatted sheet music to a TeX file and and (mechanical) performances
-to MIDI files. Features include multiple staffs, meters, clefs, keys,
-lyrics, versatile input-language, cadenzas beams, slurs, triplets.
+LilyPond is the GNU Project music typesetter.  The program
+generates visual or auditive output from a music 
+definition file: it can typeset formatted sheet music 
+to a TeX file and play (mechanical) performances to a 
+MIDI file.  Features include multiple staffs, meters, 
+clefs, keys, lyrics, versatile input-language, 
+cadenzas, beams, slurs, triplets.
 
 %prep
 %setup

@@ -94,15 +94,10 @@ Rest_collision::do_pre_processing()
   // meisjes met jongetjes
   else 
     {
-#if 0 // breendet: rests go always under
-      // geen gemug, trug op je rug
-      int dir_i = -1;
-      rest_l_arr_[0]->translate_rests (dir_i * 3);	
-#else
       // int dir_i = - ncol_l_arr_[0]->dir_;
       int dir_i = rest_l_arr_[0]->dir_;
       // hope it's 4: if it works->doco
-      int midpos = 4;
+      int midpos = 0;
 	
       // minimum move
       int minpos = 4;
@@ -121,7 +116,6 @@ Rest_collision::do_pre_processing()
 	      (ncol_l_arr_[i]->head_l_arr_[j]->position_i_ -midpos) + sep_i;
 	}
       rest_l_arr_[0]->translate_rests (dir_i * minpos);	
-#endif
     }
 }
 

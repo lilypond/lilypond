@@ -27,7 +27,9 @@ IMPLEMENT_IS_TYPE_B1(Bar,Item);
 void
 Bar::do_print() const
 {
+#ifndef NPRINT
   DOUT << type_str_;
+#endif
 }
 
 Molecule*

@@ -49,9 +49,7 @@ fet_endchar;
 
 fet_beginchar("fermata down", "dfermata", "dfermata")
 	draw_fermata;
-	currentpicture:=currentpicture yscaled -1 ;
-	set_char_box(w#, w#, h#, 0);
-	
+	y_mirror_char;
 fet_endchar;
 
 
@@ -64,16 +62,17 @@ fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	save thickness, diminish;
 
 	thickness = 2 stafflinethickness;
+	pickup pencircle scaled thickness;
 
 	% prevent blobs at crossing lines
 	diminish = .75;
 
-	y1 + thickness/2 = h;
-	x1 = -b;
-	x2 = w;
+	top y1 = h;
+	lft x1 = -b;
+	rt x2 = w;
 	y2 = .25 thickness* diminish;
 
-	z4 = (w,0);
+	rt z4 = (w,0);
 	x3 =0;
 	z3 = whatever [z1, z4];
 
@@ -81,10 +80,14 @@ fet_beginchar("> accent", "sforzato", "sforzatoaccent")
 	penpos1(thickness, 90);
 	penpos3(thickness, 90);
 
-	penstroke z1e .. z3e .. z2e;
-	penstroke (z1e .. z3e .. z2e) yscaled -1;
+	draw z1 .. z3;
+	draw (z1 .. z3) yscaled -1;
+	draw z4;
+	penstroke z3e .. z2e;
+	penstroke (z3e .. z2e) yscaled -1;
 
 	penlabels(1,2,3);
+	labels(4);
 fet_endchar;
 
 fet_beginchar("staccato dot", "staccato", "staccato")
@@ -102,7 +105,7 @@ def draw_staccatissimo =
 	radius# = 2 stafflinethickness#;
 	define_pixels(radius, height);
 
-	draw_brush((0,0), blot_diameter, (0, height),2 radius);
+	draw_brush((0,0), stafflinethickness, (0, height),2 radius);
 	set_char_box(radius#,radius#, blot_diameter#/2, height# + radius#);
 enddef;
 
@@ -134,25 +137,24 @@ fet_endchar;
 
 
 def draw_marcato = 
-	save fatness, thinness;
+	save fat_factor, thinness;
 	set_char_box(interline#/2, interline#/2, 0, 1.1 interline#);
 
-	fatness = 3 stafflinethickness;
-	thinness = .8 stafflinethickness;
-	x2 - x1  + blot_diameter = fatness;
-	x2 + thinness/2 = w;
-	
-	y1 = y2;
-	y1 = thinness/2;
-	z2 - z3 = whatever * (charwd, -charht);
-	z1 - z4 = whatever * (charwd, -charht);
-	z3 - z4 = whatever * (charwd, charht);
-	y3 + thinness/2 = h;
-	draw_rounded_path(z1 -- z2 -- z3 -- z4 -- cycle, thinness);
+	fat_factor = .3;
+	thinness =  stafflinethickness;
 
 	pickup pencircle scaled thinness;
-	z3 - z5 = whatever* (z3 - z4);
+	rt x2 = w;
+	lft x5 = -b;
 	bot y5 = 0;
+	top y3 = h;
+	y1 = y2 = y5;
+
+	x3 =0;
+	z1 - z4 = whatever * (charwd, -charht);
+	z4 = fat_factor [z3, z5];
+
+	filldraw z1 -- z2 -- z3 -- z4 -- cycle;
 	draw z3 .. z5;
 enddef;
 
@@ -165,8 +167,8 @@ fet_endchar;
 %
 % The down marcato char (not very much used). 
 % Contrary to what some MF/TeX `gurus' believe
-% it is *point*-symmetric with the "up" version; (at least [Chlapik] 
-% agrees with us)
+% it is *point*-symmetric with the "up" version; (at least [Chlapik] and 
+% and [Wanske] agree with us)
 %
 fet_beginchar("marcato down", "dmarcato", "dmarcato")
 	draw_marcato;
@@ -269,7 +271,7 @@ fet_beginchar("Downbow", "downbow", "downbow")
 fet_endchar;
 
 %
-% Inspired by a computer-set version of auf dem Strom by Baerenreiter. 
+% Inspired by a computer-set version of Auf dem Strom by Baerenreiter. 
 %
 fet_beginchar("Turn","turn","turn")
 	save thin, thick, ball_diam, darkness;
@@ -369,6 +371,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	kerning# = .75 ex#;
 
 	define_pixels(ex, ascender_extra, ascender, kerning);
+
 	t_overshoot = 0.03 ex;
 	fatness = 12/40 ex;
 	t_fatness = 8/10 fatness;
@@ -376,7 +379,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	uitschieter = 21/40 ex;
 	hair_thick =  blot_diameter;
 	bulb_size = 0.47;
-	slant = .15;
+	slant = .2;
 
 	local_copy(transform)(currenttransform);
 	currenttransform := currenttransform slanted slant;

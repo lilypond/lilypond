@@ -295,7 +295,7 @@ sub docxx_update
     $ban =~ s!index.html!../index.html!g;
     print BANNER $ban;
     close BANNER;
-    my_system "BANNEROPT=\"-B /tmp/lilybanner.html\" $depth/bin/out/make-docxx";
+    my_system("BANNEROPT=\"-B /tmp/lilybanner.html\" $depth/bin/out/make-docxx");
 }
 
 sub do_tar
@@ -335,7 +335,7 @@ sub main
     chdir ("out");
     $ENV{"TEXINPUTS"} .= ":$depth/input/:";
     $ENV{"LILYINCLUDE"} = "$depth/input/";
-
+    $ENV{"LILYTOP"} = $depth;
 
     gen_html;
     copy_files;

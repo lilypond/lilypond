@@ -1,5 +1,5 @@
 % generated automatically by mf-to-table.py version 0.4
-% on Fri Oct 10 21:22:44 1997
+% on Tue Oct 14 23:57:04 1997
 % Do not edit
 % input from out/font-en-tja20.log
 % name=\symboltables {
@@ -8,18 +8,18 @@
         "1"	"\\halfrest"	-0.00\pt	7.50\pt	-0.00\pt	3.13\pt	
         "0o"	"\\outsidewholerest"	-3.13\pt	10.62\pt	1.88\pt	5.00\pt	
         "1o"	"\\outsidehalfrest"	-3.13\pt	10.62\pt	-0.00\pt	3.13\pt	
-        "2"	"\\quartrest"	-0.00\pt	5.00\pt	3.75\pt	17.50\pt	
+        "2"	"\\quartrest"	-0.00\pt	5.40\pt	3.75\pt	18.00\pt	
         "3"	"\\eighthrest"	-0.00\pt	6.67\pt	5.00\pt	14.33\pt	
-        "4"	"\\sixteenthrest"	-0.00\pt	6.67\pt	-0.00\pt	14.33\pt	
-        "5"	"\\thirtysecondrest"	-0.00\pt	6.67\pt	-0.00\pt	19.33\pt	
-        "6"	"\\sixtyfourthrest"	-0.00\pt	6.67\pt	-0.00\pt	24.33\pt	
-        "7"	"\\hundredtwentyeighthrest"	-0.00\pt	6.67\pt	-0.00\pt	29.33\pt	
+        "4"	"\\sixteenthrest"	-0.00\pt	7.79\pt	-0.00\pt	14.33\pt	
+        "5"	"\\thirtysecondrest"	-0.00\pt	8.78\pt	-0.00\pt	19.33\pt	
+        "6"	"\\sixtyfourthrest"	-0.00\pt	9.41\pt	-0.00\pt	24.33\pt	
+        "7"	"\\hundredtwentyeighthrest"	-0.00\pt	10.47\pt	-0.00\pt	29.33\pt	
         }
     "accidentals"	 = \table {
         "1"	"\\sharp"	-0.00\pt	5.50\pt	-7.50\pt	7.50\pt	
         "0"	"\\natural"	-0.00\pt	3.33\pt	-7.50\pt	7.50\pt	
-        "-1"	"\\flat"	-0.00\pt	3.75\pt	-2.50\pt	10.00\pt	
-        "-2"	"\\flatflat"	-0.00\pt	7.50\pt	-2.50\pt	10.00\pt	
+        "-1"	"\\flat"	-0.60\pt	4.00\pt	-2.50\pt	10.00\pt	
+        "-2"	"\\flatflat"	-0.60\pt	7.25\pt	-2.50\pt	10.00\pt	
         "2"	"\\sharpsharp"	-0.00\pt	5.00\pt	-2.50\pt	2.50\pt	
         }
     "dots"	 = \table {
@@ -34,7 +34,7 @@
         }
     "scripts"	 = \table {
         "ufermata"	"\\ufermata"	-6.63\pt	6.63\pt	-0.38\pt	7.25\pt	
-        "dfermata"	"\\dfermata"	-6.63\pt	6.63\pt	-7.25\pt	0.00\pt	
+        "dfermata"	"\\dfermata"	-6.63\pt	6.63\pt	-7.25\pt	0.38\pt	
         "sforzato"	"\\sforzatoaccent"	-4.50\pt	4.50\pt	-2.50\pt	2.50\pt	
         "staccato"	"\\staccato"	-0.75\pt	0.75\pt	-0.75\pt	0.75\pt	
         "ustaccatissimo"	"\\ustaccatissimo"	-1.00\pt	1.00\pt	-0.20\pt	5.00\pt	
@@ -52,7 +52,7 @@
         "pedaltoe"	"\\pedaltoe"	-2.50\pt	2.50\pt	-0.00\pt	7.50\pt	
         }
     "floogbars"	 = \table {
-        "3u"	"\\eighthflag"	-0.25\pt	5.13\pt	-15.91\pt	0.25\pt	
-        "3d"	"\\deighthflag"	-0.25\pt	5.13\pt	-0.25\pt	15.91\pt	
+        "3u"	"\\eighthflag"	-0.25\pt	5.23\pt	-15.91\pt	0.25\pt	
+        "3d"	"\\deighthflag"	-0.25\pt	5.23\pt	-0.25\pt	15.91\pt	
         }
     %  } % $name
