@@ -16,10 +16,12 @@ struct Clef_item : Item {
     bool change;
 
 
+    /****************/
+
     Clef_item();
     void read(Clef);
     void read(String);
-    void preprocess();
+    Molecule* brew_molecule()const;
 };
 
 #endif // CLEFITEM_HH
