@@ -35,6 +35,11 @@ this is to rewrite the program.
 
 -- Geoffrey James, "The Tao of Programming"
 
+
+=head2 LANGUAGES
+
+C++, /bin/sh and python are preferred.  Perl is not.
+
 =head2 FILES
 
 Definitions of classes that are only accessed via pointers
