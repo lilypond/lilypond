@@ -309,7 +309,7 @@ When music is printed, a lot of notation elements must be added to the
 input, which is often bare bones.  For example, compare the input and
 output of the following example:
 
-@lilypond[verbatim,relative=2]
+@lilypond[verbatim,relative=2,fragment]
   cis4 cis2. g4
 @end lilypond
 
@@ -393,7 +393,7 @@ A practical application of @code{\new} is a score with many
 staves. Each part that should be on its own staff, is preceded with 
 @code{\new Staff}.
 
-@lilypond[verbatim,relative=2,raggedright]
+@lilypond[verbatim,relative=2,raggedright,fragment]
   << \new Staff { c4 c }
      \new Staff { d4 d }
   >>
@@ -500,7 +500,7 @@ This is achieved by inserting the @code{\set} command in the music,
 @end quotation
 
 For example,
-@lilypond[verbatim,relative=2]
+@lilypond[verbatim,relative=2,fragment]
   R1*2 
   \set Score.skipBars = ##t
   R1*2
@@ -514,7 +514,7 @@ If the @var{context} argument is left out, then the current bottom-most
 context (typically @context{ChordNames}, @context{Voice}, or
 @context{Lyrics}) is used.  In this example,
 
-@lilypond[verbatim,relative=2]
+@lilypond[verbatim,relative=2,fragment]
   c8 c c c
   \set autoBeaming = ##f
   c8 c c c
@@ -555,7 +555,7 @@ context.
 Settings that should only apply to a single time-step can be entered
 easily with @code{\once}, for example in
 
-@lilypond[verbatim,relative=2]
+@lilypond[verbatim,relative=2,fragment]
   c4
   \once \set fontSize = #4.7
   c4
@@ -620,7 +620,7 @@ where the @dots{} should be the name of an engraver. Here is a simple
 example which removes @code{Time_signature_engraver} and
 @code{Clef_engraver} from a @code{Staff} context,
 
-@lilypond[relative=1, verbatim]
+@lilypond[relative=1, verbatim,fragment]
 << \new Staff {
     f2 g
   }
@@ -649,7 +649,7 @@ have a score where each staff has its own time signature.
 @cindex polymetric scores
 
 
-@lilypond[relative=1,raggedright,verbatim]
+@lilypond[relative=1,raggedright,verbatim,fragment]
 \new Score \with {
   \remove "Timing_engraver"
 } <<
@@ -702,7 +702,7 @@ unit). Since the command specifies @context{Staff} as context, it only
 applies to the current staff. Other staves will keep their normal
 appearance.  Here we see the command in action:
 
-@lilypond[verbatim,relative=2]
+@lilypond[verbatim,relative=2,fragment]
   c4
   \override Staff.Stem #'thickness = #4.0 
   c4
@@ -718,7 +718,7 @@ Analogous to @code{\set}, the @var{context} argument may be left out,
 causing it to default to @context{Voice}, and adding @code{\once} applies
 the change during one timestep only 
 
-@lilypond[verbatim,relative=2]
+@lilypond[fragment,verbatim,relative=2]
   c4
   \once \override Stem #'thickness = #4.0 
   c4
@@ -731,7 +731,7 @@ beams, the @code{\override} command must be executed at the moment when
 the object is created. In this example,
 
 
-@lilypond[verbatim,relative=2]
+@lilypond[fragment,verbatim,relative=2]
   \override Slur #'thickness = #3.0
   c8[( c
   \override Beam #'thickness = #0.6
@@ -1092,7 +1092,7 @@ the left, and 1.8 staff space downwards:
 
 @cindex setting object properties
 
-@lilypond[relative=1,verbatim]
+@lilypond[fragment,relative=1,verbatim]
 \stemUp
 f-5
 \once \override Fingering
@@ -1142,7 +1142,7 @@ symbols that are printed above or below notes. We only give an
 example; a more elaborate explanation is in @ref{Constructing a
 tweak}:
 
-@lilypond[relative=1,verbatim]
+@lilypond[fragment,relative=1,verbatim]
   c2\fermata
   \override Script #'padding = #3
   b2\fermata
@@ -1204,7 +1204,7 @@ and they are exactly matched to LilyPond version installed.
 Suppose we want to move the fingering indication in the fragment
 below:
 
-@lilypond[relative=2,verbatim]
+@lilypond[fragment,relative=2,verbatim]
 c-2
 \stemUp
 f
@@ -1372,7 +1372,7 @@ definition.
 
 Recall that we wanted to change the position of the @b{2} in 
 
-@lilypond[relative=2,verbatim]
+@lilypond[fragment,relative=2,verbatim]
 c-2
 \stemUp
 f

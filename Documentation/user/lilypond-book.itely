@@ -78,7 +78,7 @@ show two simple examples here.  First a complete block:
 @noindent
 produces
 
-@lilypond
+@lilypond[fragment]
   c' d' e' f' g'2 g'
 @end lilypond
 
@@ -91,7 +91,7 @@ Then the short version:
 @noindent
 produces
 
-@lilypond[staffsize=11]{ <c' e' g'> }
+@lilypond[fragment,staffsize=11]{ <c' e' g'> }
 
 When producing texinfo, lilypond-book also generates bitmaps of the
 music, so you can make a HTML document with embedded music.
@@ -135,7 +135,7 @@ We show some examples here:
 @noindent
 produces
 
-@lilypond[staffsize=26]
+@lilypond[fragment,staffsize=26]
   c' d' e' f' g'2 g'2
 @end lilypond
 
@@ -148,7 +148,7 @@ Then the short version:
 @noindent
 produces
 
-@lilypond[staffsize=11]{<c' e' g'>}
+@lilypond[fragment,staffsize=11]{<c' e' g'>}
 
 The linewidth of the music will be adjust by examining the commands in
 the document preamble, the part of the document before
@@ -224,7 +224,7 @@ music fragments:
 </lilypond>
 @end example
 
-@lilypond[relative=2]
+@lilypond[fragment,relative=2]
   \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4
 @end lilypond
 

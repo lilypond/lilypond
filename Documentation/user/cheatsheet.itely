@@ -16,7 +16,7 @@
 @item @code{1 2 8 16}
 @tab durations 
 @tab
-@lilypond[relative=2,notime]
+@lilypond[fragment,relative=2,notime]
 \set Staff.autoBeaming = ##f
 \set Staff.Clef = \turnOff
 c1 c2 c8 c16
@@ -25,7 +25,7 @@ c1 c2 c8 c16
 @item @code{c4. c4..}
 @tab augmentation dots
 @tab
-@lilypond[relative=2,notime]
+@lilypond[fragment,relative=2,notime]
 \set Staff.Clef = \turnOff
 c4. c4..  
 @end lilypond
@@ -33,21 +33,21 @@ c4. c4..
 @item @code{c d e f g a b }
 @tab scale 
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,relative=1,notime]
 c d e f g a b
 @end lilypond
 
 @item @code{fis bes}
 @tab alteration 
 @tab
-@lilypond[relative=1,notime]
+@lilypond[fragment,relative=1,notime]
 fis bes
 @end lilypond
 
 @item @code{\clef treble \clef bass }
 @tab clefs
 @tab
-@lilypond[notime]
+@lilypond[fragment,notime]
 \clef treble
 s4_" "
 \clef bass
