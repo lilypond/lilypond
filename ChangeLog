@@ -1,3 +1,8 @@
+2003-04-30  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely: tiny cleanups in ancient
+	clef and custos section
+
 2003-04-30  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/parser.yy (Simple_music): add \applyoutput, syntax
