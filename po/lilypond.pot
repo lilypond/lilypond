@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-03-15 19:34+0100\n"
+"POT-Creation-Date: 2000-03-21 11:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,7 +207,7 @@ msgstr ""
 msgid "unknown clef type"
 msgstr ""
 
-#: collision.cc:99
+#: collision.cc:102
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr ""
 
@@ -219,7 +219,7 @@ msgstr ""
 msgid "too small"
 msgstr ""
 
-#: cross-staff.cc:18
+#: cross-staff.cc:19
 msgid ""
 "minVerticalAlign != maxVerticalAlign: cross staff spanners may be broken"
 msgstr ""
@@ -236,19 +236,19 @@ msgstr ""
 msgid "NaN"
 msgstr ""
 
-#: dynamic-engraver.cc:244 span-dynamic-performer.cc:114
+#: dynamic-engraver.cc:285 span-dynamic-performer.cc:87
 msgid "can't find start of (de)crescendo"
 msgstr ""
 
-#: dynamic-engraver.cc:263
+#: dynamic-engraver.cc:304
 msgid "already have a crescendo"
 msgstr ""
 
-#: dynamic-engraver.cc:264
+#: dynamic-engraver.cc:305
 msgid "already have a decrescendo"
 msgstr ""
 
-#: dynamic-engraver.cc:339
+#: dynamic-engraver.cc:380
 msgid "unterminated (de)crescendo"
 msgstr ""
 
@@ -272,7 +272,7 @@ msgstr ""
 msgid "no Grace context available"
 msgstr ""
 
-#: grace-position-engraver.cc:91
+#: grace-position-engraver.cc:93
 msgid "Unattached grace notes.  Attaching to last musical column."
 msgstr ""
 
@@ -545,20 +545,20 @@ msgstr ""
 msgid "Braces don't match"
 msgstr ""
 
-#: paper-column.cc:48
+#: paper-column.cc:49
 msgid "Must set spring between differing columns"
 msgstr ""
 
-#: paper-def.cc:69
+#: paper-def.cc:70
 #, c-format
 msgid "unknown paper variable: `%s'"
 msgstr ""
 
-#: paper-def.cc:73
+#: paper-def.cc:74
 msgid "not a real variable"
 msgstr ""
 
-#: paper-def.cc:180
+#: paper-def.cc:184
 #, c-format
 msgid "paper output to %s..."
 msgstr ""
@@ -633,7 +633,7 @@ msgstr ""
 msgid "too many notes for rest collision"
 msgstr ""
 
-#: score-engraver.cc:139
+#: score-engraver.cc:141
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr ""
@@ -704,11 +704,7 @@ msgstr ""
 msgid "Slur over rest?"
 msgstr ""
 
-#: spanner.cc:34
-msgid "Left spanpoint is right spanpoint"
-msgstr ""
-
-#: spanner.cc:128
+#: spanner.cc:31 spanner.cc:164
 #, c-format
 msgid "Spanner `%s' has equal left and right spanpoints"
 msgstr ""

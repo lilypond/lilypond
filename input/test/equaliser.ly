@@ -1,77 +1,91 @@
+
 flauti = \notes \relative c' {
+  \property Staff.midiInstrument = #"flute"
   \property Staff.instrument	= #"2 Flauti"
   \property Staff.instr		= #"Fl."
-  \time 4/4;
-  c1 
-  \break c
-%  \break c
-%  \break c
-  \bar"|.";
+
+  c1 R1*10
 }
 
 oboi = \notes \relative c' {
+  \property Staff.midiInstrument = #"oboe"
   \property Staff.instrument	= #"2 Oboi"
   \property Staff.instr		= #"Ob."
-  c1 c
+
+  R1*1 c1 R1*9
 }
 
 clarinetti = \notes \relative c' {
+  \property Staff.midiInstrument = #"clarinet"
   \property Staff.instrument	= #"2 Clarinetti\n(B\\textflat)"
   \property Staff.instr		= #"Cl.\n(B\\textflat)"
 
-  c1 c
+  R1*2 c1 R1*8
 }
 
 fagotti = \notes \relative c' {
+  \property Staff.midiInstrument = #"bassoon"
   \property Staff.instrument	= #"2 Fagotti"
   \property Staff.instr		= #"Fg."
-  c1 c
+
+  R1*3 c1 R1*7
 }
 
 corni = \notes \relative c' {
+  \property Staff.midiInstrument = #"french horn"
   \property Staff.instrument	= #"2 Corni\n(E\\textflat)"
   \property Staff.instr		= #"Cor.\n(E\\textflat)"
 
-  c1 c
+  R1*4 c1 R1*6
 }
 
 trombe = \notes \relative c' {
+  \property Staff.midiInstrument = #"trumpet"
   \property Staff.instrument	= #"2 Trombe\n(C)"
   \property Staff.instr		= #"Tbe.\n(C)"
 
-  c1 c
+  R1*5 c1 R1*5
 }
 
 timpani = \notes \relative c' {
+  \property Staff.midiInstrument = #"timpani"
   \property Staff.instrument	= #"Timpani\n(C-G)"
   \property Staff.instr		= #"Timp."
 
-  c1 c
+  R1*6 c1 R1*4
 }
 
 violino1 = \notes \relative c' {
+  \property Staff.midiInstrument = #"violin"
   \property Staff.instrument	= #"Violino I"
   \property Staff.instr		= #"Vl. I"
-  c1 c
+
+  R1*7 c1 R1*3
 }
 
 violino2 = \notes \relative c' {
+  \property Staff.midiInstrument = #"violin"
   \property Staff.instrument	= #"Violino II"
   \property Staff.instr		= #"Vl. II"
-  c1 c
+ 
+  R1*8 c1 R1*2
 }
 
 viola = \notes \relative c' {
+  \property Staff.midiInstrument = #"viola"
   \property Staff.instrument	= #"Viola"
   \property Staff.instr		= #"Vla."
-  c1 c 
-  %c
+
+  R1*9 c1 R1*1
 }
 
 violoncello = \notes \relative c' {
+  \property Staff.midiInstrument = #"cello"
+  %\property Staff.midiInstrument = #"contrabass"
   \property Staff.instrument	= #"Violoncello\ne\nContrabasso"
   \property Staff.instr		= #"Vc.\nCb."
-  c1 c
+  
+  R1*10 c1
 }
 
 \include "paper16.ly"
@@ -122,16 +136,16 @@ violoncello = \notes \relative c' {
       \HaraKiriStaffContext
     }
     \translator {
-      \OrchestralScoreContext
-      timeSignatureStyle = #"C"
-      % 16 pt
-      instrumentScriptPadding = #55  %% urg, this is in pt
-      instrScriptPadding = #35
-      % 20pt
-      %instrumentScriptPadding = #60  %% urg, this is in pt
-      %instrScriptPadding = #40
+      \ScoreContext
+      %instrumentScriptPadding = #55  %% urg, this is in pt
+      %instrScriptPadding = #35
       marginScriptHorizontalAlignment = #1
+      %marginScriptPadding = #15
+      %marginScriptHorizontalAlignment = #0
     }
+  }
+  \midi {
+  	\tempo 1 = 60;
   }
 }
 

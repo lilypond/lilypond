@@ -8,12 +8,15 @@
 
 	\translator {
 		\VoiceContext
-		dynamicPadding = #3  % urg, in \pt
+		dynamicPadding = #2  % urg, in \pt
 		dynamicMinimumSpace = #6  % urg, in \pt
 	}
 	\translator {
 		\VoiceContext
 		\name "VoiceOne";
+
+		dynamicPadding = #2  % urg, in \pt
+		dynamicMinimumSpace = #6  % urg, in \pt
 
 		%%\consists "Line_number_engraver";
 		verticalDirection = #1
@@ -32,17 +35,17 @@
 	}
 	\translator { 
 		\HaraKiriStaffContext 
-      		instrumentScriptPadding = #55  %% urg, this is in pt
-      		instrScriptPadding = #35 %% urg, this is in pt
-		maximumRestCount = #1
 		\accepts "VoiceOne";
 		\accepts "VoiceTwo";
 	}
 	\translator { 
-		\ScoreContext 
-		%textEmptyDimension = ##t
-		textStyle = #"italic"
+		\OrchestralScoreContext 
+		%% URG: this changes dynamics too
+		%%textStyle = #"italic"
 		timeSignatureStyle = #"C"
+      		instrumentScriptPadding = #55  %% urg, this is in pt
+      		instrScriptPadding = #35 %% urg, this is in pt
+		marginScriptHorizontalAlignment = #1
+		maximumRestCount = #1
 	}
-	\translator { \OrchestralScoreContext }
 }

@@ -75,7 +75,7 @@ violino2 = \notes \relative c {
 	R1*5 |
 	\property Voice.crescendoText = "cresc."
 	\property Voice.crescendoSpanner = "dashed-line"
-	g'2.\p\<( a4 |
+	g'2.\p\<( as4 |
 	g f d ) bes |
 	bes'2.( c4 |
 	bes2 )as |
@@ -105,10 +105,10 @@ violino2 = \notes \relative c {
 	\property Voice.crescendoSpanner = "dashed-line"
 	bes2.\p\<( c4 |
 	bes a fis ) d |
-	\!d'\sf\>( as g )\!f |
+	\!d'\sf\>( as g )f |
 	%75
 	% nono, only looks like transpose
-	r8[c'\p(g)c]r[bes(g)bes] |
+	r8[\!c'\p(g)c]r[bes(g)bes] |
 	r[g(es)g]r[g(d)g] |
 	r[g(es)g]r[g(e)g]|r8 fis-.\pp fis4. fis8-. fis4~|
 	% urg, can't copy: \transpose g \violino-1(75,91)
@@ -266,8 +266,8 @@ violino2 = \notes \relative c {
 	r4 [fis8-.as-.][as()g] es'4\sf(|
 	% copied violino-1(176,201)
 	)d1\> ~ |
-	d4( b g \!)f
-	e2.\p( f4 |
+	d4( b g )f
+	\!e2.\p( f4 |
 	e d b ) g |
 
 	%180
@@ -304,10 +304,10 @@ violino2 = \notes \relative c {
 
 	%200
 	b'1 ~ |
-	\!b 
+	b 
 	% similar violino-1 only until 219
-	[c8\f\>g(c)g]r[bes(g)\!bes] |
-	r[as\p(f)as]r[g(es)g] |
+	[\!c8\f\>g(c)g]r[bes(g)bes] |
+	r[\!as\p(f)as]r[g(es)g] |
 	r[f(c)f]r[g(es)g] |
 
 	%205

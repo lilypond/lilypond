@@ -14,7 +14,8 @@
 #include "engraver.hh"
 
 /**
-   Put stuff in a Axis_group_spanner.  Use as last element of a context. 
+   Put stuff in a Spanner with an Axis_group_interface.
+   Use as last element of a context. 
  */
 class Axis_group_engraver : public Engraver
 {

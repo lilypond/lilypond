@@ -18,21 +18,42 @@
 #include "line-of-score.hh"
 #include "break-align-item.hh"
 
+
 void
-Spanner::do_break_processing()
+Spanner::do_break_processing ()
 {
   //break_into_pieces
+  Item * left = spanned_drul_[LEFT];
+  Item * right = spanned_drul_[RIGHT];
+  
+  if  (left == right)
+    {
+      warning (_f ("Spanner `%s' has equal left and right spanpoints",
+		   classname (this)));
+    }
+
+  /*
+    Check if our parent in X-direction spans equally wide
+    or wider than we do.
+   */
+  for (int a = X_AXIS; a < NO_AXES; a ++)
+    {
+      if (Spanner* parent = dynamic_cast<Spanner*> (parent_l ((Axis)a)))
+	{
+	  if (!parent->spanned_rank_iv ().contains_b (this->spanned_rank_iv ()))
+	    {
+	      programming_error (to_str ("Spanner `%s' is not fully contained in parent spanner `%s'.",
+					 classname (this),
+					 classname (parent)));
+	    }
+	}
+    }
   
   if (line_l () || broken_b ())
     return;
-  
-  Item * left = spanned_drul_[LEFT];
-  Item * right = spanned_drul_[RIGHT];
 
   if  (left == right)
     {
-      warning (_ ("Left spanpoint is right spanpoint"));
-
       /*
 	FIXME: this is broken.
        */
@@ -99,6 +120,21 @@ Spanner::set_my_columns()
   while (flip(&i) != LEFT);
 }       
 
+Interval_t<int>
+Spanner::spanned_rank_iv ()
+{
+  Interval_t<int> iv (0, 0);
+
+  if (spanned_drul_[LEFT])
+    {
+      iv[LEFT] = spanned_drul_[LEFT]->column_l ()->rank_i ();
+    }
+  if ( spanned_drul_[RIGHT])
+    {
+      iv[RIGHT] = spanned_drul_[RIGHT]->column_l ()->rank_i ();
+    }
+  return iv;
+}
 
 Item*
 Spanner::get_bound (Direction d) const
@@ -125,7 +161,8 @@ Spanner::set_bound(Direction d, Item*i)
   
   if (spanned_drul_[Direction(-d)] == spanned_drul_[d]
        && i)
-    warning (_f ("Spanner `%s' has equal left and right spanpoints", classname (this)));
+    warning (_f ("Spanner `%s' has equal left and right spanpoints",
+		 classname (this)));
 }
 
 

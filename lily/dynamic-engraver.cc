@@ -32,6 +32,8 @@
 
   * direction of text-dynamic-request if not equalt to direction
   of line-spanner
+
+  * FIXME: this has gotten a bit too hairy.
  */
 
 class Dynamic_line_spanner : public Spanner
@@ -87,7 +89,7 @@ class Dynamic_engraver : public Engraver
   Dynamic_line_spanner* finished_line_spanner_;
   Moment last_request_mom_;
 
-  Note_column* pending_column_;
+  Array<Note_column*> pending_column_arr_;
   Link_array<Score_element> pending_element_arr_;
   
   void  typeset_all ();
@@ -126,7 +128,6 @@ Dynamic_engraver::Dynamic_engraver ()
   finished_line_spanner_ = 0;
   span_start_req_l_ = 0;
   cresc_p_ =0;
-  pending_column_ = 0;
 
   text_req_l_ = 0;
   span_req_l_drul_[START] = 0;
@@ -139,12 +140,6 @@ Dynamic_engraver::do_post_move_processing ()
   text_req_l_ = 0;
   span_req_l_drul_[START] = 0;
   span_req_l_drul_[STOP] = 0;
-
-  /* ugr; we must attach the Dynamic_line_spanner to something
-     to be sure that the linebreaker will not be confused
-  */
-  // if (line_spanner_)
-  // line_spanner_->add_column (LEFT, get_staff_info ().command_pcol_l ());
 }
 
 bool
@@ -178,8 +173,9 @@ Dynamic_engraver::do_process_music ()
       && pending_element_arr_.size ())
     {
       line_spanner_ = new Dynamic_line_spanner;
-      assert (pending_column_);
-      line_spanner_->add_column (pending_column_);
+      for (int i = 0; i < pending_column_arr_.size (); i++)
+	line_spanner_->add_column (pending_column_arr_[i]);
+      pending_column_arr_.clear ();
       announce_element (Score_element_info
 			(line_spanner_,
 			 text_req_l_ ? text_req_l_ : span_req_l_drul_[START]));
@@ -193,13 +189,22 @@ Dynamic_engraver::do_process_music ()
       pending_element_arr_.clear ();
     }
 
+  /*
+    TODO: This should be optionised:
+      * break when group of dynamic requests ends
+      * break now  (only if no cresc. in progress)
+      * continue through piece */
   if (span_req_l_drul_[START] || span_req_l_drul_[STOP] || text_req_l_)
-    last_request_mom_ = now_mom ();
+    {
+      last_request_mom_ = now_mom ();
+    }
   else
     {
-
-#if 0
       /*
+	During a (de)crescendo, pending request will not be cleared,
+	and a line-spanner will always be created, as \< \! are already
+	two requests.
+
 	Maybe always creating a line-spanner for a (de)crescendo (see
 	below) is not a good idea:
 
@@ -212,15 +217,7 @@ Dynamic_engraver::do_process_music ()
 	Urg, but line-spanner must always have at least same duration
 	as (de)crecsendo, b.o. line-breaking.
        */
-      if (now_mom () > last_request_mom_)
-#else
-      /*
-	During a (de)crescendo, pending request will not be cleared,
-	and a line-spanner will always be created, as \< \! are already
-	two requests.
-       */
       if (now_mom () > last_request_mom_ && !span_start_req_l_)
-#endif	
 	{
 	  for (int i = 0; i < pending_element_arr_.size (); i++)
 	    {
@@ -250,8 +247,14 @@ Dynamic_engraver::do_process_music ()
 		e->set_elt_property ("minimum-space", s);
 	    }
 	  pending_element_arr_.clear ();
-	  finished_line_spanner_ = line_spanner_;
-	  line_spanner_ = 0;
+	  if (line_spanner_)
+	    {
+	      for (int i = 0; i < pending_column_arr_.size (); i++)
+		line_spanner_->add_column (pending_column_arr_[i]);
+	      pending_column_arr_.clear ();
+	      finished_line_spanner_ = line_spanner_;
+	      line_spanner_ = 0;
+	    }
 	}
     } 
 
@@ -284,7 +287,7 @@ Dynamic_engraver::do_process_music ()
       else
 	{
 	  assert (!finished_cresc_p_);
-	  cresc_p_->set_bound(RIGHT, get_staff_info ().musical_pcol_l ());
+	  cresc_p_->set_bound (RIGHT, get_staff_info ().musical_pcol_l ());
 	  finished_cresc_p_ = cresc_p_;
 	  cresc_p_ = 0;
 	  span_start_req_l_ = 0;
@@ -326,7 +329,7 @@ Dynamic_engraver::do_process_music ()
 					    + "Spanner", SCM_UNDEFINED);
 	    }
 
-	  cresc_p_->set_bound(LEFT, get_staff_info ().musical_pcol_l ());
+	  cresc_p_->set_bound (LEFT, get_staff_info ().musical_pcol_l ());
 
 
 	  /* 
@@ -400,13 +403,6 @@ Dynamic_engraver::typeset_all ()
       typeset_element (text_p_);
       text_p_ = 0;
     }
-
-  /*
-    TODO: This should be optionised:
-      * break when group of dynamic requests ends
-      * break now 
-      * continue through piece */
-  //  if (line_spanner_ && last_request_mom_ < now_mom ())
   if (finished_line_spanner_)
     {
       side_position (finished_line_spanner_).add_staff_support ();
@@ -427,7 +423,7 @@ Dynamic_engraver::acknowledge_element (Score_element_info i)
 	}
       else
 	{
-	  pending_column_ = n;
+	  pending_column_arr_.push (n);
 	}
     }
 }
