@@ -105,12 +105,12 @@ FOOBAR-MARKUP) if OMIT-ROOT is given and non-false.
 	   (text (if (null? texts) #f (if omit-root (car texts) texts))))
       (cons (if omit-root (cdr normalized) normalized) text)))
 
-  (define (is-req-chord? m)
+  (define (is-event-chord? m)
     (and
      (memq 'event-chord (ly:music-property m 'types))
      (not (equal? ZERO-MOMENT (ly:music-length m)))))
 
-  (let* ((elts (filter is-req-chord? (ly:music-property seq 'elements)))
+  (let* ((elts (filter is-event-chord? (ly:music-property seq 'elements)))
 	 (alist (map chord-to-exception-entry elts)))
     (filter (lambda (x) (cdr x)) alist)))
 
