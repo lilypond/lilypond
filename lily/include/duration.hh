@@ -46,8 +46,7 @@ private:
 
 #include "compare.hh"
 INSTANTIATE_COMPARE (Duration, Duration::compare);
-DECLARE_UNSMOB(Duration,duration);
-
+DECLARE_UNSMOB (Duration, duration);
 
 #endif // DURATION_HH
 

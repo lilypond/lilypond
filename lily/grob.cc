@@ -308,26 +308,32 @@ Grob::line_l () const
   return 0;
 }
 
-MAKE_SCHEME_CALLBACK (Grob, line_scm, 1);
-SCM
-Grob::line_scm (SCM smob)
+LY_DEFINE (get_line,
+	   "get-line",
+	   1, 0, 0, (SCM grob),
+	   "
+Return the Line Grob of @var{grob}.
+")
 {
-  Grob *me = unsmob_grob (smob); 
+  Grob *me = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
+  
   if (Grob *g = me->line_l ())
     return g->self_scm ();
-      
+    
   return SCM_EOL;
 }
 
-MAKE_SCHEME_CALLBACK (Grob, original_scm, 1);
-SCM
-Grob::original_scm (SCM smob)
+LY_DEFINE (get_original,
+	   "get-original",
+	   1, 0, 0, (SCM grob),
+	   "
+Return the original Grob of @var{grob}
+")
 {
-  Grob *me = unsmob_grob (smob);
-  if (me->original_l_)
-    return me->original_l_->self_scm ();
-      
-  return SCM_EOL;
+  Grob *me = unsmob_grob (grob);
+  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
+  return me->original_l_ ? me->original_l_->self_scm () : me->self_scm ();
 }
 
 void
@@ -798,6 +804,35 @@ Grob::internal_has_interface (SCM k)
 
   return scm_memq (k, ifs) != SCM_BOOL_F;
 }
+
+
+/** Return Array of Grobs in SCM list L */
+Link_array<Grob>
+ly_scm2grob_array (SCM l)
+{
+  Link_array<Grob> arr;
+
+  for (SCM s = l; gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM e = gh_car (s);
+      arr.push (unsmob_grob (e));
+    }
+
+  arr.reverse ();
+  return arr;
+}
+
+/** Return SCM list of Grob array A */
+SCM
+ly_grob_array2scm (Link_array<Grob> a)
+{
+  SCM s = SCM_EOL;
+  for (int i = a.size (); i; i--)
+    s = gh_cons (a[i-1]->self_scm (), s);
+
+  return s;
+}
+
 
 IMPLEMENT_TYPE_P (Grob, "ly-grob?");
 
