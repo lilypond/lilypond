@@ -35,6 +35,9 @@ Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
       alts->truncate (times);
       set_mus_property ("alternatives", alts->self_scm ());
     }
+
+  scm_unprotect_object (beg->self_scm ());
+  scm_unprotect_object (alts->self_scm ());  
 }
 
 Repeated_music::Repeated_music (Repeated_music const &s)

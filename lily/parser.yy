@@ -365,8 +365,6 @@ assignment:
 
 /*
  TODO: devise standard for protection in parser.
-		if (SCM_NIMP($4))
-			scm_unprotect_object ($4);
 
   The parser stack lives on the C-stack, which means that
 all objects can be unprotected as soon as they're here.
@@ -389,12 +387,15 @@ identifier_init:
 	}
 	| translator_spec_block {
 		$$ = $1->self_scm ();
+		scm_unprotect_object ($$);
 	}
 	| Music  {
 		$$ = $1->self_scm ();
+		scm_unprotect_object ($$);
 	}
 	| post_request {
 		$$ = $1->self_scm ();
+		scm_unprotect_object ($$);
 	}
 	| explicit_duration {
 		$$ = (new Duration_identifier ($1, DURATION_IDENTIFIER))->self_scm ();
@@ -502,7 +503,7 @@ score_body:
 
 		$$->set_spot (THIS->here_input ());
 		SCM m = $1->self_scm ();
-//		scm_unprotect_object (m);
+		scm_unprotect_object (m);
 		$$->music_ = m;
 	}
 	| SCORE_IDENTIFIER {
@@ -603,7 +604,7 @@ Music_list: /* empty */ {
 	| Music_list Music {
 		SCM s = $$;
 		SCM c = gh_cons ($2->self_scm (), SCM_EOL);
-//		scm_unprotect_object ($2->self_scm ()); /* UGH */
+		scm_unprotect_object ($2->self_scm ()); /* UGH */
 
 	
 		if (gh_pair_p (gh_cdr (s)))

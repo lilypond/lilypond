@@ -15,8 +15,10 @@ Part_combine_music::Part_combine_music (String what, Music * f, Music * s)
   what_str_ = what;
   set_mus_property ("one", f->self_scm ());
   set_mus_property ("two", s->self_scm ());  
-}
 
+  scm_unprotect_object (f->self_scm());
+  scm_unprotect_object (s->self_scm());  
+}
 
 void
 Part_combine_music::transpose (Musical_pitch p)
