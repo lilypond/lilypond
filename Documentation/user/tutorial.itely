@@ -767,7 +767,8 @@ c2~( c8 fis fis4 ~ fis2 g2)
 @cindex phrasing slurs
 Slurs to indicate phrasing can be entered with @code{\(} and
 @code{\)}, so you can have both legato slurs and phrasing slurs at the
-same time.
+same time.  You cannot have simultaneous slurs or simultaneous
+phrasing slurs.
 
 @lilypond[quote,fragment,relative=2,verbatim]
 a8(\( ais b c) cis2 b'2 a4 cis, c\)
