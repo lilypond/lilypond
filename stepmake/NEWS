@@ -1,3 +1,10 @@
+pl 49
+	- use yodl2ms and striproff for txt conversion
+	- bf: chmod fail
+
+pl 48
+	- bumped version for yodl after various (lily pl7) changes
+
 pl 47
 	- bf: patch in website after 'make release'
 	- windows ln -> cp
