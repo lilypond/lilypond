@@ -167,6 +167,7 @@ Ligature_bracket_engraver
 \\linebreak
 \\lineprall
 \\locrian
+\\longfermata
 \\lower
 \\lowerOctave
 \\lowerOne
@@ -334,6 +335,7 @@ Score
 \\shiftV
 \\shortlong
 \\showStaffSwitch
+\\signumcongruentiae
 \\simultaneous
 \\singlepart
 \\skip
@@ -456,8 +458,10 @@ unfold
 \\upperOctave
 \\upperOne
 \\upperVoice
+\\varcoda
 \\version
 VerticalAlignment
+\\verylongfermata
 violin
 \\visible
 Voice
