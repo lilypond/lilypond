@@ -71,6 +71,7 @@ endif
 ifdef alldeps
 	rm -f $(alldeps)
 endif
+	rm -f core
 ifdef SUBDIRS
 	set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
 endif
