@@ -1,6 +1,6 @@
 \version "1.7.18"
-\header
-{
+
+\header {
  title="Flower of Scotland"
  texidoc = "bagpipe music "
 }
@@ -20,19 +20,6 @@
   	TimeSignature \override #'break-visibility = #begin-of-line-visible
   }	
 }
-
-
-\notenames #'(
-	(g . ( 0 4 0 ))
-        (a . ( 0 5 0 ))
-        (b . ( 0 6 0 ))
-        (c . ( 1 0 0 ))
-        (d . ( 1 1 0 ))
-        (e . ( 1 2 0 ))
-        (f . ( 1 3 0 ))
-)
-
-
 
 taor =  \notes{ \grace {  g32-[ d g e]}}
 grip =  \notes{ \grace {  g32-[ b g ]}}

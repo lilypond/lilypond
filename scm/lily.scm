@@ -379,7 +379,7 @@ is the  first to satisfy CRIT
 
 (map ly:load
 					; load-from-path
-     '("music-types.scm"
+     '("define-music-types.scm"
        "output-lib.scm"
        "c++.scm"
        "chords-ignatzek.scm"
