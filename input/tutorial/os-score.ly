@@ -6,7 +6,7 @@
 #(define text-flat '((font-relative-size . -2) (music "accidentals--1")))
 
 \score {
-  \notes <
+  <
     \global
     \context StaffGroup = woodwind <
       \context Staff = flauti <
@@ -31,8 +31,8 @@
     \context StaffGroup = brass <
       \context Staff = trombe <
   	\property Staff.midiInstrument = #"trumpet"
-	\property Staff.instrument = #`(lines "2 Trombe" (rows "(C)"))
-	\property Staff.instr = #`(lines "Tbe." (rows "(C)"))
+	\property Staff.instrument = #`(lines "2 Trombe" "(C)")
+	\property Staff.instr = #`(lines "Tbe." "(C)")
         \Key
 	\context Voice=one \partcombine Voice
 	  \context Thread=one \tromboI

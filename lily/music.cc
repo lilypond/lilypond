@@ -184,10 +184,14 @@ Music::set_mus_property (SCM s, SCM v)
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
 
+#include "main.hh"
 void
 Music::set_spot (Input ip)
 {
-   set_mus_property ("origin", make_input (ip));
+  /* misuse midi-debug flag: don't store origin */
+  if (midi_debug_global_b)
+    return;
+  set_mus_property ("origin", make_input (ip));
 }
 
 

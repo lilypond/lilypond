@@ -235,9 +235,11 @@ Options to configure include:
 unreliable on some compiler/platform combinations (eg, DEC Alpha and PPC)
 @item @code{--enable-profiling}
     Compile with support for profiling.
-@item @code{--enable-config}
-    Output to a different configuration file.  Needed for multi-platform
-    builds
+@item @code{--enable-config=CONF}
+    Output to different configuration files.  Enables different binary
+    builds alongside eachother, eg, multi-configuration (debugging,
+    profiling), or multi-platform builds.  Use `make conf=CONF' to
+    build for a specific configuration.
 @end table
 
 All options are documented in the @file{configure} help
@@ -257,10 +259,11 @@ contain all files generated during compilation).
 
 @section Configuring for multiple platforms
 
-If you want to compile LilyPond with different configuration settings,
-then, you can use the @code{--enable-config} option.  Example: suppose I
-want to build with and   without profiling.  Then I'd use the
-following for the normal build, 
+If you want to build multiple versions of LilyPond with different
+configuration settings, you can use the @code{--enable-config=CONF}
+option.  You should use @samp{make conf=CONF} to generate the output in
+@file{out-CONF}.  Example: suppose I want to build with and without
+profiling.  Then I'd use the following for the normal build,
 
 @example 
 
@@ -275,9 +278,9 @@ and for the profiling version, I specify a different configuration.
 @example 
 
       ./configure --prefix=~ --enable-profiling --enable-config=prof --enable-optimise --disable-checking
-      make config=prof
-      make config=prof install
- 
+      make conf=prof
+      make conf=prof install
+
 @end example 
 
 

@@ -215,7 +215,7 @@ def setup_temp ():
 		temp_dir = tempfile.mktemp ('ly2dvi')
 		
 	try:
-		os.mkdir (temp_dir)
+		os.mkdir (temp_dir, 0777)
 	except OSError:
 		pass
 		
@@ -552,6 +552,7 @@ if files:
 	if track_dependencies_p:
 		generate_dependency_file (depfile, dest)
 
+	os.chdir (original_dir)
 	cleanup_temp ()
 
 	# most insteresting info last

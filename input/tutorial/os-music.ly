@@ -2,9 +2,10 @@
   title = "Zo, goed lieverd?";
   subtitle = "How's, this babe?";
   composer = "JCN";
+  opus = "1";
   piece = "Laid back";
 }
-global = \notes {
+global = {
   \time 2/4;
   \skip 2*4; \bar "|.";
 }
@@ -14,7 +15,6 @@ flautoI = \notes\relative c'' {
   bes as bes as bes as bes as
 }
 flautoII = \notes\relative c'' {
-%  d8 es d es R1 d4 ~ d
   as8 bes as bes R1 d4 ~ d
 }
 tromboI = \notes\relative c'' {

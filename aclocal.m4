@@ -328,7 +328,8 @@ AC_DEFUN(AC_STEPMAKE_INIT, [
 
     CONFIGSUFFIX=
     AC_ARG_ENABLE(config,
-    [  --enable-config=FILE    put configure settings in config-FILE.make],
+    [  --enable-config=CONF    put settings in config-CONF.make and config-CONF.h;
+                            do \`make conf=CONF' to get output in ./out-CONF],
     [CONFIGSUFFIX=-$enableval])
 
     CONFIGFILE=config$CONFIGSUFFIX
