@@ -921,7 +921,8 @@ DK: trinvis bev@ae{}gelse,
 S: stegvis r@"orelse,
 FI: asteittainen liike.
 
-Melody moving in the narrow steps of the scale.
+Progressing melodically by intervals of a second.  Opposite of @aref{disjunct movement}.
+
 
 @lilypond
 \key g \major \time 4/4
@@ -1179,7 +1180,7 @@ A scale consisting of 5@w{ }@aref{whole tone}s and
 2@w{ }@aref{semitone}s (S).  Scales played on the white keys
 of a piano keybord are diatonic.
 
-The church modes are used in gregorial chant and pre baroque early music but
+The church modes are used in gregorial chant and in pre baroque early music but
 also to some extent in newer jazz music.
 
 @lilypond[notime,linewidth=110\mm]
@@ -1370,8 +1371,8 @@ DK: springende bev@ae{}gelse,
 S: hoppande r@"orelse,
 FI: melodian hyppiv@"a liike.
 
-Melody moving in steps greater than those of the
-scale.  Opposite of @aref{conjunct movement}.
+Progressing melodically by intervals larger than a major second.  
+Opposite of @aref{conjunct movement}.
 
 @lilypond
 \key a \major
@@ -1784,7 +1785,7 @@ FI: sormitus.
 
 The methodical use of fingers in the playing of instruments.
 
-@aitem{flag,pennant}
+@aitemii{flag,pennant}
 ES: corchete,
 I: coda (uncinata), bandiera,
 F: crochet,
@@ -1951,7 +1952,7 @@ FI: glissando, liukuen.
 Letting the pitch slide fluently from one note to the other.
 
 @aitem{grace notes}
-SP: ?,
+ES: ?,
 I: abbellimenti,
 F: fioriture,
 D: Verzierungen, Vorschl@"age, Vorschlagsnoten,
@@ -2002,7 +2003,7 @@ FI: puolinuotti.
 @aref{note value}.
 
 @aitem{half rest}
-SP: ?,
+ES: ?,
 I: pausa di minima,
 F: demi-pause,
 UK: minim rest,
@@ -2403,7 +2404,7 @@ D: .,
 NL: liedtekst,
 DK: .,
 S: .,
-FI, sanoitus,
+FI, sanoitus.
 
 @aitem{major interval}
 ES: intervalo mayor,
@@ -4338,6 +4339,8 @@ Hugo Riemanns Musiklexicon, Berlin 1929.
 
 Polyglottes W@"orterbuch der musikalischen Terminologie, Kassel 1980
 Oxford Advanced Learner's Dictionary of Current English, Third Edition 1974.
+
+Webster's Revised Unabridged Dictionary, Springfield 1913.
 
 @end table
 
