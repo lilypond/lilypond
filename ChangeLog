@@ -1,5 +1,8 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (MIDI block): add note about
+	dotted tempos.
+
 	* scm/font.scm: remove old markup legacy
 
 	* GNUmakefile.in (web-clean): remake share/ after web-clean.
