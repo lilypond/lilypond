@@ -1,0 +1,12 @@
+To be added to the changelog when a new texinfo is available:
+
+  * Build-Depends: texinfo (>= 4.7-1) to avoid the old HTML tag mismatch
+    for @subsection (<h3>...</h4>) bug in makeinfo.  Thanks to Magnus Henoch
+    for the bug report.  (Closes: Bug#204202)
+
+ -- Anthony Fok <foka@debian.org>  Sun, 26 Oct 2003 12:21:35 +0800   
+
+
+  * Inefficient packaging of arch independent data in package lilypond
+   (Closes: Bug#233406)
+  * split font into another package? (Closes: Bug#87700)
