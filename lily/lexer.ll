@@ -188,17 +188,16 @@ HYPHEN		--
 		return INVALID;
 }
 <renameinput>\"[^"]*\"     {
-	String s (YYText ()+1);
+	String s (YYText () + 1);
 	s = s.left_string (s.index_last ('\"'));
 
 	yy_pop_state();
 	this->here_input().source_file_->name_ = s;
-	progress_indication ("\n");
-	progress_indication (_f ("input renamed to: `%s'", s.to_str0 ()));
+	progress_indication (_f ("Renaming input to: `%s'", s.to_str0 ()));
 	progress_indication ("\n");
 	scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     scm_makfrom0str (s.to_str0()));
+		     scm_makfrom0str (s.to_str0 ()));
 
 }
 <encoding>. 	{

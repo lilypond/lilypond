@@ -576,8 +576,10 @@ possibly turned off."
     
     (set! status (system silenced))
     (if (> status 0)
-	(format (current-error-port) (_ "Error invoking `~a'. Return value ~a")
-		silenced status))))
+	(begin
+	  (format (current-error-port)
+		  (_ "Error invoking `~a'. Return value ~a") silenced status)
+	  (newline (current-error-port))))))
 
 ;;
 ;; ugh  -   double check this. We are leaking
@@ -589,7 +591,9 @@ possibly turned off."
 			    (string-append "-sPAPERSIZE=" papersizename " ")
 			    ""))
 	 (cmd (string-append "ps2pdf " set-papersize name))
-	 (pdf-name (string-append (basename name ".ps") ".pdf" )))
+	 (pdf-name (string-append (basename name ".ps") ".pdf")))
+    (if (access? pdf-name W_OK)
+	(delete-file pdf-name))
     (format (current-error-port) (_ "Converting to `~a'...") pdf-name)
     (ly:system cmd)))
 

@@ -293,7 +293,10 @@
 				 " ")
 			     "  -u+ec-mftrace.map -u+lilypond.map -Ppdf "
 			     base)))
-
+    
+    (let ((ps-name (string-append base ".ps")))
+      (if (access? ps-name W_OK)
+	  (delete-file ps-name)))
     (if (not (ly:get-option 'verbose))
 	(begin
 	  (format (current-error-port) (_ "Converting to `~a.ps'...") base)
@@ -309,9 +312,11 @@
 	    'pre "" 'post)))
 	 (base (basename name ".tex"))
 	 (cmd (string-append
-	       "latex \\\\nonstopmode \\\\input " name
-	       )))
+	       "latex \\\\nonstopmode \\\\input " name)))
     (setenv "extra_mem_top" (number->string (max curr-extra-mem 1024000)))
+    (let ((dvi-name (string-append base ".dvi")))
+      (if (access? dvi-name W_OK)
+	  (delete-file dvi-name)))
     (if (not (ly:get-option 'verbose))
 	(begin
 	  (format (current-error-port) (_ "Converting to `~a.dvi'...") base)
