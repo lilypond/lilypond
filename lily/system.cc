@@ -102,7 +102,7 @@ uniquify_list (SCM l)
     }
 
   SCM_SETCDR(s, SCM_EOL);
-  delete arr;
+  delete[] arr;
   
   return l; 
 }

@@ -851,7 +851,6 @@
 	(X-extent-callback . ,Span_bar::width_callback)
 	(Y-extent-callback . ())
 	(breakable . #t)
-	(glyph . "|")
 	(before-line-breaking-callback . ,Span_bar::before_line_breaking)
 	;; ugh duplication! 
 

@@ -247,18 +247,18 @@ leftb = \notes \transpose c cis {
     \override PianoStaff.InstrumentName   #'font-shape = #'italic
     \override PianoStaff.InstrumentName   #'font-magnification = #3
     
-    \set PianoStaff.instrument = "2. "
+    \set PianoStaff.instrument = "  2."
     \context Staff = up {
       \override Staff.DynamicLineSpanner   #'direction = #-1
       \clef G <<\global \context Voice=upv \righta >>
     }
     \context Staff = mid {
-    \override Staff.InstrumentName   #'font-size = #0
-    \override Staff.InstrumentName   #'font-shape = #'upright
-    \override Staff.InstrumentName   #'font-magnification = #1
-    \override Staff.InstrumentName   #'extra-offset = #'(0 . 6)
+    \override Staff.InstrumentName #'font-size = #0
+    \override Staff.InstrumentName #'font-shape = #'upright
+    \override Staff.InstrumentName #'font-magnification = #1
+    \override Staff.InstrumentName #'extra-offset = #'(0 . 6)
    % \set Staff.instrument = "\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
-    \set Staff.instrument = \markup { \column < Rechte Hand >  }
+    \set Staff.instrument = \markup { \column < Rechte Hand >  \hspace #2 }
       \clef F <<\global \context Voice=midv \rightb>>
     }
       \context Staff = down {

@@ -485,7 +485,7 @@ the mark when there are no spanners active."
 		(soln (length solo-notes))
 		(siln (length silent-notes)))
 
-	     (display (list "trying " type " at "  (when now-state) solo-state silent-state  "\n"))
+;	     (display (list "trying " type " at "  (when now-state) solo-state silent-state  "\n"))
 	     (cond
 	      ((not (equal? (configuration now-state) 'apart))
 	       current-idx)
@@ -521,7 +521,7 @@ the mark when there are no spanners active."
 	    (n1 (length notes1))
 	    (n2 (length notes2)) )
 
-	  (display (list "analyzing step " ri "  moment " (when now-state) vs1 vs2  "\n"))
+;	  (display (list "analyzing step " ri "  moment " (when now-state) vs1 vs2  "\n"))
 
 	  
 	  (max				; we should always increase.
@@ -566,7 +566,7 @@ the mark when there are no spanners active."
    (analyse-a2 0)
 ;   (display result)
    (analyse-solo12 0)
-   (display result)
+;   (display result)
 
    (set! result (map
 		 (lambda (x) (cons (when x) (configuration x)))
