@@ -328,15 +328,15 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
   /*
     Only do this complicated thing for large lists. This has the added
     advantage that we won't screw up the ordering for elements in
-    alignments (which typically don't have more than 100 grobs.)
+    alignments (which typically don't have more than 10 grobs.)
    */
   
-  if (len < 100)
+  if (len < 300)
     return false;
 
 
   /*
-    TODO : should not reallocate every time? 
+    TODO : should not free it some time? 
    */
   static Substitution_entry * vec;
   static int vec_room;
