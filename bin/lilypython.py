@@ -39,8 +39,9 @@ def version_tuple(file):
 		mi = atoi(val)
 	    elif nm == 'TOPLEVEL_PATCH_LEVEL':
 		pa = atoi(val)
-	    elif nm == 'TOPLEVEL_MY_PATCH_LEVEL':
-		mp = val
+	    # why has convention changed?
+	    elif nm == 'TOPLEVEL_MY_PATCH_LEVEL' and nm != '':
+		mp = '.' + val
     return (mj,mi,pa,mp)
 
 def next_version(tup):

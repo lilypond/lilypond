@@ -1,3 +1,9 @@
+pl 26.jcn1
+	- bf: numerals
+	- sleur.ly
+	- embedded slur testing (mf is default)
+	- bf + patch: make-patch release.py / VERSION
+
 pl 26
 	- bf: \transpose
 	- feta: numerals 0 - 9, rewrote flags.

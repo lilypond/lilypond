@@ -13,6 +13,7 @@
 #include "dimen.hh"
 #include "debug.hh"
 #include "paper-def.hh"
+#include "string-convert.hh"
 
 
 static char
@@ -134,13 +135,56 @@ Lookup::half_slur (int dy, Real &dx, Direction dir, int xpart) const
 Atom
 Lookup::slur (int dy , Real &dx, Direction dir) const
 {
-
   assert (abs (dir) <= 1);
   if  (dx < 0)
     {
       warning (_("Negative slur/tie length: ") + print_dimen (dx));
       dx = 4.0 PT;
     }
+
+  Atom s;
+  s.dim_[X_AXIS] = Interval (0, dx);
+  s.dim_[Y_AXIS] = Interval (min (0, dy), max (0, dy));
+
+  // duh
+  // let's try the embedded stuff
+  bool embedded_b = true;
+  if (embedded_b)
+    {
+      // huh, factor 8?
+      Real fdy = dy*paper_l_->interline_f ();
+      Real fdx = dx;
+      String ps = "\\embeddedps{\n";
+      // ugh, how bout " /draw_slur { ... } def "
+      ps += "0 0 moveto\n";
+      ps += String_convert::int_str (fdx/2) + " " 
+      	+ String_convert::int_str (fdy/2) + " "
+        + String_convert::int_str (fdx) + " " 
+      	+ String_convert::int_str (fdy) + " curveto\n";
+      ps += "closepath\n";
+      ps += "fill\n";
+      ps += "}\n";
+
+      String mf = "\\embeddedmf{\n";
+      mf += "input feta-sleur;\n";
+      mf += "draw_slur((0,0),";
+      mf += "(" + String_convert::int_str (fdx) + "," 
+      	+ String_convert::int_str (fdy) + "),";
+      mf += String_convert::int_str (dir) + ");\n";
+      mf += "end.\n";
+      ps += "}\n";
+
+      s.tex_ = ps + mf;
+      s.translate_axis (dx/2, X_AXIS);
+      // huh, extra translate?
+
+      s.translate_axis (-1.5*paper_l_->note_width (), X_AXIS);
+      // mmm, does embedded slur always start at y = 0?
+//      s.translate_axis (-1.5*paper_l_->note_width (), Y_AXIS);
+
+      return s;
+    }
+
   Direction y_sign = (Direction) sign (dy);
 
   bool large = abs (dy) > 8;
@@ -175,10 +219,6 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
       WARN<<_("slur to steep: ") << dy << _(" shrinking (ugh)\n");
     }
 
-  Atom s;
-  s.dim_[X_AXIS] = Interval (0, dx);
-  s.dim_[Y_AXIS] = Interval (min (0, dy), max (0, dy));
-
   String f = String ("\\slurchar") + String (direction_char (y_sign));
 
   int idx=-1;
@@ -204,7 +244,6 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
   assert (idx < 256);
   f+=String ("{") + String (idx) + "}";
   s.tex_ = f;
-
 
   s.translate_axis (dx/2, X_AXIS);
   return s;

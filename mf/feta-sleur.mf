@@ -1,0 +1,33 @@
+% feta-sleur.mf
+
+mode_setup;
+thin:=.2pt;
+thick:=5thin;
+bow:=.2;
+
+def sign(expr a) =
+	((abs(a))/(a))
+	enddef;
+
+def draw_slur(expr a,b,d) =
+	beginchar(0,0,0,0) "Embedded mf";
+		% huh, factor 8?
+		z1=8a;
+		z3=8b;
+		save alpha; alpha=angle(z3-z1);
+		z2=(1/2[x1,x3],1/2[y1,y3])+d*bow*(x3-x1)*dir(alpha+90);
+	 	save beta; beta=d*sign(y3-y1)*1.5angle(z2-z1)-alpha;
+%		message "d: "&decimal d;
+%		message "dy: "& decimal sign(y3-y1);
+%		message "alpha: "&decimal alpha;
+%		message "beta: "&decimal beta;
+		penpos1(thin,alpha+beta+90);
+		penpos2(thick,alpha+90);
+		penpos3(thin,alpha-beta+90);
+		pickup pencircle;
+		fill z1l{dir(alpha+beta)}..z2l{dir(alpha)}..z3l{dir(alpha-beta)}
+			..z3r{dir(180+alpha-beta)}..z2r{dir(180+alpha)}..z1r{dir(180+alpha+beta)}
+			..cycle;
+		penlabels(1,2,3);
+		endchar;
+	enddef;

@@ -32,3 +32,49 @@
 	\nointerlineskip%
         \hbox to0.42\balkheight{\hss\fetanummer\char#2\hss}%
 	\vss}}
+
+\newcount\embedcount\embedcount=0
+\newwrite\checkexists
+\newwrite\embedfile
+
+\def\inputifexists#1{%
+	\openin\checkexists #1
+      	\ifeof\checkexists
+		 \closein\checkexists
+	   	 \relax
+	\else
+		\closein\checkexists
+		\input #1
+    	\fi
+}
+\def\embedcountid{feta-embed}
+\inputifexists{\embedcountid.aux}
+% let's not overwrite -- and be sure to create new
+\def\storeembedcount{%
+	\immediate\openout\embedfile=\embedcountid.aux
+	\immediate\write\embedfile{\embedcount=\the\embedcount}
+	\immediate\closeout\embedfile
+}
+\def\EndLilyPondOutput{
+	\storeembedcount
+	\csname bye\endcsname
+}
+\def\embeddedps#1{
+	\edef\embedid{feta-sleur-\number\embedcount}
+	\immediate\openout\embedfile=\embedid.eps
+	\advance\embedcount by 1
+	\immediate\write\embedfile{#1}
+	\immediate\closeout\embedfile
+	\special{psfile=\embedid.eps}
+}
+\def\embeddedmf#1{
+	\edef\embedid{feta-sleur-\number\embedcount}
+	\immediate\openout\embedfile=\embedid.mf
+	\global\advance\embedcount by 1
+	\immediate\write\embedfile{#1}
+	\immediate\closeout\embedfile
+        \font\expandafter\embedid\expandafter=\embedid
+	\hbox{\embedid\char0}
+}
+\def\embeddedps#1{}
+%\def\embeddedmf#1{}
