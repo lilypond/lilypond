@@ -353,4 +353,4 @@
 (define (stop-page last?)
   (if last?
       "\\vss\n}\n\\vfill\n"
-      "\\vss\n}\n\\vfill\\newpage\n"))
+      "\\vss\n}\n\\vfill\\lilypondpagebreak\n"))
