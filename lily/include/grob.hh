@@ -37,10 +37,12 @@ typedef void (Grob::*Grob_method_pointer) (void);
    Basic output object.
 */
 class Grob  {
-public:
+private:
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
-  
+
+  void substitute_mutable_properties(SCM,SCM);
+public:
   Grob *original_l_;
 
   /**
@@ -69,7 +71,7 @@ public:
    */
   SCM internal_get_grob_property (SCM) const;
   void internal_set_grob_property (SCM, SCM val);
-  
+  void add_to_list_property (SCM, SCM);
   void warning (String)const;
   void programming_error (String)const;
   
@@ -110,8 +112,10 @@ public:
 
   Molecule * get_molecule () const;
   SCM get_uncached_molecule () const;
-  
+
+  SCM get_property_alist_chain (SCM) const;
   void suicide ();
+  bool live () const;
   
   DECLARE_SCHEME_CALLBACK (preset_extent, (SCM smob, SCM axis));
   DECLARE_SCHEME_CALLBACK (point_dimension_callback, (SCM smob, SCM axis));
@@ -160,7 +164,7 @@ Grob*common_refpoint_of_list (SCM elt_list, Grob * , Axis a);
 Grob*common_refpoint_of_array (Link_array<Grob> const&, Grob * , Axis a);
 
 void set_break_subsititution (SCM criterion);
-SCM substitute_mutable_properties (SCM alist);
+SCM substitute_mutable_property_alist (SCM alist);
 
 
 #endif // STAFFELEM_HH

@@ -46,37 +46,3 @@
      )
    )
      
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  Prefatory matter: break align item.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Spacing constants 
-;;
-;; rules for this spacing are much more complicated than this. 
-;; See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147
-;;
-
-;; documentme: difference between extra-space and minimum-space-pair 
-
-;; (Measured in staff space)
-(define default-break-align-space-alist
- '(
-   ((none Instrument_name) . (extra-space 1.0))
-   ((none Left_edge_item) . (extra-space 0.0))
-   ((none Ambitus) . (extra-space 1.0))
-   ((none Clef_item) . (minimum-space-pair  1.0))
-   ((none Staff_bar) . (minimum-space-pair  0.0))
-   ((none Clef_item) . (minimum-space-pair  1.0))
-   ((none Key_item) . (minimum-space-pair  0.5))
-   ((none Time_signature) . (extra-space 0.0))
-   ((none Breathing_sign) . (minimum-space-pair  0.0))
-
-   
-
-
-
-
-   ((none begin-of-note) . (minimum-space-pair  1.5))
-
-   )
-)
-

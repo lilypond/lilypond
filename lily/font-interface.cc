@@ -41,11 +41,8 @@ Font_interface::font_alist_chain (Grob *me)
   SCM defaults = ly_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
 				    me->paper_l ()->style_sheet_));
 
-  SCM ch = scm_list_n (me->mutable_property_alist_,
-		    me->immutable_property_alist_,
-		    defaults,
-		    SCM_UNDEFINED);
-
+  SCM ch = me->get_property_alist_chain (defaults);
+  
   return ch;
 }
 

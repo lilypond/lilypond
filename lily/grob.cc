@@ -39,7 +39,8 @@ remove dynamic_cast<Spanner,Item> and put this code into respective
   subclass.
 */
 
-
+//#define HASHING_FOR_MUTABLE_PROPS
+#define HASH_SIZE 3
 #define INFINITY_MSG "Infinity or NaN encountered"
 
 Grob::Grob (SCM basicprops)
@@ -62,17 +63,22 @@ Grob::Grob (SCM basicprops)
   smobify_self ();
 
 
+#ifdef HASHING_FOR_MUTABLE_PROPS
+  mutable_property_alist_ = scm_c_make_hash_table (HASH_SIZE);
+#endif
+  
   SCM meta = get_grob_property ("meta");
   if (gh_pair_p (meta))
     {
       SCM ifs = scm_assoc (ly_symbol2scm ("interfaces"), meta);
 
       /*
-	do it directly to bypass interface checks.
+	Switch off interface checks for the moment.
        */
-      mutable_property_alist_ = gh_cons (gh_cons (ly_symbol2scm ("interfaces"),
-						  gh_cdr (ifs)),
-					 mutable_property_alist_);
+      bool itc = internal_type_checking_global_b;
+      internal_type_checking_global_b = false;
+      internal_set_grob_property (ly_symbol2scm ("interfaces"), gh_cdr(ifs));
+      internal_type_checking_global_b = itc;
     }
   
   /*
@@ -120,8 +126,9 @@ Grob::Grob (Grob const&s)
 {
   original_l_ = (Grob*) &s;
   immutable_property_alist_ = s.immutable_property_alist_;
-  mutable_property_alist_ = SCM_EOL;
 
+  mutable_property_alist_ = SCM_EOL;
+  
   /*
     No properties are copied. That is the job of handle_broken_dependencies.
    */
@@ -131,7 +138,9 @@ Grob::Grob (Grob const&s)
 
   smobify_self ();
 
-
+#ifdef HASHING_FOR_MUTABLE_PROPS
+  mutable_property_alist_ = scm_c_make_hash_table (HASH_SIZE);
+#endif
 }
 
 Grob::~Grob ()
@@ -142,58 +151,6 @@ Grob::~Grob ()
 }
 
 
-
-extern void check_interfaces_for_property (Grob const *me, SCM sym);
-
-void
-Grob::internal_set_grob_property (SCM s, SCM v)
-{
-#ifndef NDEBUG
-  if (internal_type_checking_global_b)
-    {
-      assert (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")));
-      check_interfaces_for_property(this, s);
-    }
-#endif
-
-  
-  mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
-}
-
-
-SCM
-Grob::internal_get_grob_property (SCM sym) const
-{
-  SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
-  if (s != SCM_BOOL_F)
-    return ly_cdr (s);
-
-  s = scm_sloppy_assq (sym, immutable_property_alist_);
-  
-#ifndef NDEBUG
-  if (internal_type_checking_global_b && gh_pair_p (s))
-    {
-      assert (type_check_assignment (sym, gh_cdr (s), ly_symbol2scm ("backend-type?")));
-      check_interfaces_for_property(this, sym);
-    }
-#endif
-
-  return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
-}
-
-/*
-  Remove the value associated with KEY, and return it. The result is
-  that a next call will yield SCM_EOL (and not the underlying
-  `basic' property.
-*/
-SCM
-Grob::remove_grob_property (const char* key)
-{
-  SCM val = get_grob_property (key);
-  if (val != SCM_EOL)
-    set_grob_property (key, SCM_EOL);
-  return val;
-}
 
 
 
@@ -272,7 +229,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 Molecule *
 Grob::get_molecule ()  const
 {
-  if (immutable_property_alist_ == SCM_EOL)
+  if (!live())
     {
       return 0;
       
@@ -381,25 +338,23 @@ Grob::handle_broken_dependencies ()
 	  Grob * sc = s->broken_into_l_arr_[i];
 	  System * l = sc->line_l ();
 
-	  set_break_subsititution (l ? l->self_scm () : SCM_UNDEFINED);
-	  sc->mutable_property_alist_ =
-	    substitute_mutable_properties (mutable_property_alist_);
-
+	  sc->substitute_mutable_properties (l ? l->self_scm () : SCM_UNDEFINED,
+				   mutable_property_alist_);
 	}
     }
 
 
   System *line = line_l ();
 
-  if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
+  if (live ()
+      && line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
     {
-      set_break_subsititution (line ? line->self_scm () : SCM_UNDEFINED);
-      mutable_property_alist_ = substitute_mutable_properties (mutable_property_alist_);
+      substitute_mutable_properties (line ? line->self_scm () : SCM_UNDEFINED,
+			       mutable_property_alist_);
     }
   else if (dynamic_cast <System*> (this))
     {
-      set_break_subsititution (SCM_UNDEFINED);
-      mutable_property_alist_ = substitute_mutable_properties (mutable_property_alist_);
+      substitute_mutable_properties (SCM_UNDEFINED, mutable_property_alist_);
     }
   else
     {
@@ -440,6 +395,16 @@ Grob::suicide ()
 void
 Grob::handle_prebroken_dependencies ()
 {
+  /*
+    Don't do this in the derived method, since we want to keep access to
+    mutable_property_alist_ centralized.
+   */
+  if (original_l_)
+    {
+      Item * it = dynamic_cast<Item*> (this);
+      substitute_mutable_properties (gh_int2scm (it->break_status_dir ()),
+			       original_l_->mutable_property_alist_);
+    }
 }
 
 Grob*
@@ -756,7 +721,6 @@ Grob::mark_smob (SCM ses)
 {
   Grob * s = (Grob*) SCM_CELL_WORD_1 (ses);
   scm_gc_mark (s->immutable_property_alist_);
-  scm_gc_mark (s->mutable_property_alist_);
 
   for (int a =0 ; a < 2; a++)
     {
@@ -776,7 +740,8 @@ Grob::mark_smob (SCM ses)
   if (s->original_l_)
     scm_gc_mark (s->original_l_->self_scm ());
 
-  return s->do_derived_mark ();
+  s->do_derived_mark ();  
+  return s->mutable_property_alist_;
 }
 
 int

@@ -228,6 +228,10 @@ of the associated space. The space definition is either (extra-space
 Special keys for the alist are 'first-note and 'next-note, signifyign
 the first note on a line, and the next note halfway a line.
 
+Rules for this spacing are much more complicated than this. 
+See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147
+
+
 ",
   "break-align-symbol break-alignment-done space-alist");
 

@@ -88,7 +88,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 	  && Hara_kiri_group_spanner::has_interface (elems[j]))
 	Hara_kiri_group_spanner::consider_suicide (elems[j]);
 
-      if (!ly_pair_p (elems[j]-> immutable_property_alist_))
+      if (!elems[j]-> live())
 	elems.del(j);
     }
 
@@ -110,7 +110,7 @@ Align_interface::align_to_fixed_distance (Grob *me , Axis a)
 
 /*
   Hairy function to put elements where they should be. Can be tweaked
-  from the outside by setting minimum-space-pair and extra-space in its
+  from the outside by setting extra-space in its
   children
 
   We assume that the children the refpoints of the children are still
@@ -154,24 +154,6 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
       if (!y.empty_b ())
 	{
 	  Grob *e =dynamic_cast<Grob*> (all_grobs[i]);
-
-	  // todo: fucks up if item both in Halign & Valign. 
-	  SCM min_dims = e->remove_grob_property ("minimum-space-pair");
-	  if (gh_pair_p (min_dims) &&
-	      gh_number_p (ly_car (min_dims))
-	      && gh_number_p (ly_cdr (min_dims)))
-	    {
-	      y.unite (ly_scm2interval (min_dims));
-	    }
-	  
-	  SCM extra_dims = e->remove_grob_property ("extra-space");
-	  if (gh_pair_p (extra_dims) &&
-	      gh_number_p (ly_car (extra_dims))
-	      && gh_number_p (ly_cdr (extra_dims)))
-	    {
-	      y[LEFT] += gh_scm2double (ly_car (extra_dims));
-	      y[RIGHT] += gh_scm2double (ly_cdr (extra_dims));
-	    }
 
 	  elems.push (e);
 	  dims.push (y);	  
@@ -290,6 +272,3 @@ struct Foobar
 {
   bool has_interface (Grob*);
 };
-ADD_INTERFACE (Foobar, "aligned-interface",
-  "read by align-interface",
-  "minimum-space-pair extra-space");

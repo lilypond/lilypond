@@ -175,7 +175,7 @@ Score_engraver::typeset_all ()
 		/* don't warn for empty/suicided spanners,
 		   it makes real warningsinvisible.
 		   maybe should be junked earlier? */
-		if (elem_p->immutable_property_alist_ == SCM_EOL)
+		if (!elem_p->live())
 		  ; // gdb hook
 		else
 		  elem_p->warning (_f ("unbound spanner `%s'", s->name ().ch_C ()));
@@ -299,8 +299,8 @@ Score_engraver::acknowledge_grob (Grob_info gi)
   if (Staff_spacing::has_interface (gi.grob_l_))
     {
       Pointer_group_interface::add_grob (command_column_l_,
-					    ly_symbol2scm ("spacing-wishes"),
-					    gi.grob_l_);
+					 ly_symbol2scm ("spacing-wishes"),
+					 gi.grob_l_);
     }
   if (Note_spacing::has_interface (gi.grob_l_))
     {

@@ -65,7 +65,6 @@ protected:
 
 
 void add_bound_item (Spanner*, Grob*);
-void extend_spanner_over_elements (Grob*  span);
 
 
 #endif

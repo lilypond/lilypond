@@ -119,7 +119,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 Item *
 Note_spacing::left_column (Grob *me)
 {
-  if (me->immutable_property_alist_ == SCM_EOL)
+  if (!me->live())
     return 0;
   
   return dynamic_cast<Item*> (me)->column_l ();
@@ -136,10 +136,7 @@ prune RIGHT-ITEMS.
 Item *
 Note_spacing::right_column (Grob*me)
 {
-  /*
-    ugh. should have generic is_live() method?
-   */
-  if (me->immutable_property_alist_ == SCM_EOL)
+  if (!me->live())
     return 0;
   
   SCM right = me->get_grob_property ("right-items");
