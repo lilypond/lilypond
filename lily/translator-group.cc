@@ -260,7 +260,6 @@ Translator_group::ancestor_l (int level)
 void
 Translator_group::terminate_translator (Translator*r_l)
 {
-  DEBUG_OUT << "Removing " << classname (r_l) << " at " << now_mom () << '\n';
   r_l->removal_processing();
   Translator * trans_p =remove_translator_p (r_l);
 
