@@ -206,7 +206,7 @@ C<Stem_beam_engraver> about the C<Notehead>, which will add the
 C<Notehead> to the C<Stem> it just created.
 
 To decide on merging, C<Complex_staff> has grouped several
-engravers. Please check init/engraver.ini.
+engravers. Please check F<init/engraver.ly>.
 
 
 =head1 ITEMS and SPANNERS

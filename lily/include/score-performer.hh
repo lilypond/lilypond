@@ -29,14 +29,17 @@ protected:
     virtual void process();
     virtual void set_score( Score* score_l );
     virtual void start();
-
+    virtual int get_tempo_i() const;
+    virtual void play_event(Midi_item*);
 private:
-    void header();
+    void header(Midi_stream&);
 
     Midi_def* midi_l_;
-    Midi_stream* midi_stream_p_;
+
     Moment prev_mom_;
     Moment now_mom_;
+
+    Link_array<Midi_item> midi_item_p_arr_;
 };
 
 #endif // SCORE_PERFORMER_HH
