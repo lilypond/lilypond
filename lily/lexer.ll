@@ -130,7 +130,7 @@ BLACK		[^ \n\t\f\r]
 RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
 MARKUPCOMMAND	\\({A}|[-_])+
-LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
+LYRICS		({AA}|{TEX})[^0-9 \t\n\f\r]*
 ESCAPED		[nt\\'"]
 EXTENDER	__
 HYPHEN		--
@@ -145,13 +145,13 @@ HYPHEN		--
   "%{"	{
 	yy_push_state (longcomment);
   }
-  %[^{\n].*\n	{
+  %[^{\n\r].*[\n\r]	{
   }
-  %[^{\n]	{ // backup rule
+  %[^{\n\r]	{ // backup rule
   }
-  %\n	{
+  %[\n\r]	{
   }
-  %[^{\n].*	{
+  %[^{\n\r].*	{
   }
   {WHITE}+ 	{
 
