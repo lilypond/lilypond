@@ -1,3 +1,8 @@
+2003-03-08  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/translator-property-description.scm: Add
+	bassFigureFormatFunction.  Replace some entries.
+
 2003-03-04  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/post-lilypond.sh: Add FHS-specified path for fonts to
