@@ -44,7 +44,7 @@ bool
 Key_change_req::do_equal_b (Request const * req) const
 {
   Key_change_req const * k = dynamic_cast<Key_change_req const*> (req);
-  return k && scm_equal_p (get_mus_property ("pitch-alist"), k->get_mus_property ("pitch-alist"));
+  return k  && scm_equal_p (get_mus_property ("pitch-alist"), k->get_mus_property ("pitch-alist")) == SCM_BOOL_T;
 }
 
 
@@ -95,5 +95,5 @@ Mark_req::do_equal_b (Request const * r) const
 {
   Mark_req const * other = dynamic_cast<Mark_req const*> (r);
   return other && scm_equal_p (other->get_mus_property ("mark-label"),
-			       get_mus_property ("mark-label"));
+			       get_mus_property ("mark-label")) == SCM_BOOL_T;
 }
