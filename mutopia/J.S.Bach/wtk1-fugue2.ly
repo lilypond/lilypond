@@ -25,7 +25,7 @@ global = \notes {
   \bar "|."; |
 }
   
-dux = \notes \relative c''{
+dux = \type Voice=two \notes \relative c''{
   \voicetwo
   \clef violin;
 
@@ -77,7 +77,7 @@ dux = \notes \relative c''{
 }
 
 
-comes = \notes \relative c''  {
+comes = \type Voice=one \notes \relative c''  {
   \voiceone
   R1 |
   R1 |
@@ -119,9 +119,8 @@ comes = \notes \relative c''  {
 }
 
 
-bassdux = \notes \relative c' {
+bassdux = \type Voice=three \notes \relative c' {
   \clef bass;
-
   R1 |
   R |
   R |
@@ -159,12 +158,9 @@ bassdux = \notes \relative c' {
   [f,16 g] as4 [g16 f] es4 r8 es' |
   [d c g' g,]
 %%30
-  %urg
-  %using only \type Staff or \voiceone/two don't work anymore?
-  %moreover, the ties are not fooled by this anymore
-  \type Staff <
-    {\voiceone c2 ~ | c1 ~ | c1 }
-    {\voicetwo c,2 ~ | c1 ~ | c1 }
+  \type Staff=bass <
+    {\voicethree c2 ~ | c1 ~ | c1 }
+    {\voicefour c,2 ~ | c1 ~ | c1 }
   >
 }
 

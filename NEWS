@@ -1,3 +1,8 @@
+pl 20.jcn2
+	- mutopia fixes; see preludes-1.ly for cross-staff beams and slurs
+	- bf: broken interstaff slur
+	- sm66: check for gmake
+
 pl 20.jcn1
 	- interstaff slurs v0: preludes-1.ly
 	- warnings for silly interbeam settings

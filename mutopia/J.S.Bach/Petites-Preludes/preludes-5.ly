@@ -87,7 +87,7 @@ one = \notes\relative c{
 	<
 		{
 			\voiceone 
-			f4-4\> ~ | \![f8 e] [e32-4 f e8. ~] [e8 d-3]
+			f4-4\> ~ | [\!f8 e] [e32-4 f e8. ~] [e8 d-3]
 		}
 		{ \voicetwo  <d4 a> r4 cis-2 }
 	> |
