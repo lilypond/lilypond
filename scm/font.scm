@@ -73,7 +73,9 @@
     ((0 medium italic roman 10) . "cmti10")
     ((-1 medium italic roman 8) . "cmti8")    
     ((-2 medium italic roman 7) . "cmti7")
-    ((-3 medium italic roman 7) . "cmti7")    
+    ((-3 medium italic roman 6) . "cmti6")    
+    ((-4 medium italic roman 5) . "cmti5")    
+    ((-5 medium italic roman 5) . "cmti5")    
 
     ;;; cmbx17 is sauter, not commonly available as Type1.
     ((4 bold upright roman 17) . "cmbx17") 
@@ -84,14 +86,21 @@
     ((0 bold upright roman 10) . "cmbx10")
     ((-1 bold upright roman 8) . "cmbx8")
     ((-2 bold upright roman 7) . "cmbx7")
-    
+    ((-3 bold upright roman 6) . "cmbx6")
+    ((-4 bold upright roman 5) . "cmbx5")
+    ((-5 bold upright roman 5) . "cmbx5")
+     
+     
     ((2 bold italic roman 12) . "cmbxti12")
     ((1 bold italic roman 12) . "cmbxti12")
     ((0 bold italic roman 10) . "cmbxti10")
 
     ((-1 bold italic roman 8) . "cmbxti8")
     ((-2 bold italic roman 7) . "cmbxti7")
-    
+    ((-3 bold italic roman 6) . "cmbxti6")
+    ((-4 bold italic roman 5) . "cmbxti5")
+    ((-5 bold italic roman 5) . "cmbxti5")
+     
     ((4 medium upright typewriter 17) . "cmtt17")
     ((3 medium upright typewriter 17) . "cmtt17")
     ((2 medium upright typewriter 12) . "cmtt12")
