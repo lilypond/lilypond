@@ -1,5 +1,13 @@
 2004-01-04  Han-Wen Nienhuys   <hanwen@cs.uu.nl>
 
+	* lily/beam-quanting.cc (quanting): add inspect-quants property:
+	this shows the demerits of a user-defined beam position pair.
+
+	* scm/define-grobs.scm (all-grob-descriptions): set
+	beamed-extreme-minimum-free-lengths to a different value.
+
+	* lily/scm-option.cc: add debug-beam scm-option
+
 	* mf/feta-bolletjes.mf (overdone_heads): fix stem attachments.
 
 2004-01-03  Han-Wen Nienhuys   <hanwen@cs.uu.nl>

@@ -12,6 +12,7 @@
 
 #include <math.h>
 
+#include "warn.hh"
 #include "grob.hh"
 #include "staff-symbol-referencer.hh"
 #include "beam.hh"
@@ -30,8 +31,8 @@ const int DAMPING_DIRECTIION_PENALTY = 800;
 const int MUSICAL_DIRECTION_FACTOR = 400;
 const int IDEAL_SLOPE_FACTOR = 10;
 
-#define DEBUG_QUANTING 1
-
+// #define DEBUG_QUANTING 1
+extern bool debug_beam_quanting_flag;
 
 static Real
 shrink_extra_weight (Real x, Real fac)
@@ -253,17 +254,44 @@ Beam::quanting (SCM smob)
 
   int best_idx = best_quant_score_idx (qscores);
 
+
+#if DEBUG_QUANTING
+  SCM inspect_quants = me->get_grob_property ("inspect-quants");
+  if (debug_beam_quanting_flag
+      && gh_pair_p (inspect_quants))
+    {
+      Real il = gh_scm2double (gh_car (inspect_quants));
+      Real ir = gh_scm2double (gh_cdr (inspect_quants));
+
+      int i = 0;
+
+      Real mindist = 1e6;
+      for (; i < qscores.size(); i ++)
+	{
+	  Real d =fabs (qscores[i].yl-il) + fabs (qscores[i].yr - ir);
+	  if (d < mindist)
+	    {
+	      best_idx = i;
+	      mindist= d;
+	    }
+	}
+      if (mindist > 1e5)
+	programming_error ("Could not find quant.");
+      else
+	qscores[best_idx].score_card_ += to_string ("i%d", best_idx);
+    }
+#endif
   
   me->set_grob_property ("positions",
 			 gh_cons (gh_double2scm (qscores[best_idx].yl),
-				  gh_double2scm (qscores[best_idx].yr))
-			 );
-
+				  gh_double2scm (qscores[best_idx].yr)));
 #if DEBUG_QUANTING
-  // debug quanting
-  me->set_grob_property ("quant-score",
-			 scm_makfrom0str (qscores[best_idx].score_card_.to_str0 ()));
-  me->set_grob_property ("best-idx", scm_int2num (best_idx));
+  if (debug_beam_quanting_flag)
+    {
+      // debug quanting
+      me->set_grob_property ("quant-score",
+			     scm_makfrom0str (qscores[best_idx].score_card_.to_str0 ()));
+    }
 #endif
 
   return SCM_UNSPECIFIED;

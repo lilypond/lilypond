@@ -119,8 +119,14 @@ Axis_group_engraver::add_element (Grob*e)
   Axis_group_interface::add_element (staffline_, e);
 }
 
-////////////////////////////////////////////////////////
-// maybenot such a good idea after all., to put classes in .cc
+/****************************************************************/
+
+/*
+  
+ maybenot such a good idea after all., to put class declarations in
+ .cc
+ 
+*/
 
 #include "hara-kiri-group-spanner.hh"
 #include "rhythmic-head.hh"
