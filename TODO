@@ -10,6 +10,7 @@ Grep for TODO and ugh/ugr/urg.
 
 .* BUGS
 . * indent = 0.0 with linewidth=-1.0
+. * music ending in grace notes.
 . * PostScript
 .  * header for PS enteredby = "bla <bla@bar.com>"
 .  * ps/lily.ps see comments.
@@ -17,8 +18,24 @@ Grep for TODO and ugh/ugr/urg.
 . * midi key.
 . * fix singleStaffBracket
 . * declare performers in \midi
+. * check EGCS version
 . * input/test/stem-spacing.ly: 12/4 touches first note
 . * timesig: sometimes bottom digit  too high
+. * [<c8. d> <c16 d> <c8. d> <c16 d> <c8. d> <c16 d>] 
+. * I'm using lilypond version 1.1.50 and have a problem with repeat/alternative.
+I tried this code
+
+ \time 4/4;
+ \repeat semi 2
+ {
+  \partial 4; f'8 g' | a'4 a'8 a'4 g'8 f'4 | f' d'8 c'( )c'2 |
+  f'4 f' 
+ }
+ \alternative
+ {
+  { [g'8 f'] g' a'( | )a'2 r4 }
+  { \partial 2; [g'8 f'] e' f'( | )f'2 r2 }
+ }
 . * fix MIDI
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
@@ -54,6 +71,8 @@ preMudelaExample[eps]{}, and change it in document body sometimes.
 
 .* Cleanups needed
 . * \$ and $ identifier syntax in examples.
+. * Key_engraver, Local_key_item
+. * Think of comprehensive solution for "if (grace_b == self_grace_b_)"
 . * Y dimension units: staffspace vs. Point
 . * Beam
 . * Stem
@@ -65,6 +84,7 @@ preMudelaExample[eps]{}, and change it in document body sometimes.
 . * parser
 
 .* TODO before 1.2
+. * Grace_slur_engraver.
 . * Morally pure LilyPond.
 .  * Remove non-free software links.
 .  * Remove meta article LilyPond.

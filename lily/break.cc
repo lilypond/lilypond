@@ -65,7 +65,7 @@ Break_algorithm::find_break_indices () const
   return retval;
 }
 
-///  return all breakable columns
+
 Line_of_cols
 Break_algorithm::find_breaks () const
 {

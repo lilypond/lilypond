@@ -26,10 +26,8 @@
 class File_path : private Array<String>
 {
 public:
-  /// locate a file in the search path
   String find (String nm) const;
 
-  /// add to end of path.
   Array<String>::push;
   String str ()const;
   void add (String str);

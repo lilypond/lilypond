@@ -1,68 +1,549 @@
-
-          AUTHORS - who did what on GNU LilyPond?
-
-Contents
-
-This  file  lists  authors  of  GNU  LilyPond, and what they
-wrote.  This list is alphabetically ordered.
-
-o    Tom Cato Amundsen <tomcato@xoommail.com>,  cembalo-par-
-     tita in mudela, accordion symbols, some mudela-book.py
-
-o    Mats            Bengtsson            <matsb@s3.kth.se>,
-     http://www.s3.kth.se/~matsb/  clef  stuff,  key  stuff,
-     swedish notenames, testing, general comments.
-
-o    Eric Bullinger <eric@aut.ee.ethz.ch>, accidental trans-
-     position.
-
-o    Jan  Arne  Fagertun  <Jan.A.Fagertun@energy.sintef.no>,
-     TeX titling and lytodvi.sh
-
-o    Anthony Fok <foka@debian.org>, debian package: debian/*
-
-o    Bjoern  Jacke  <bjoern.jacke@gmx.de>  german   glossary
-     stuff.
-
-o    Neil Jerram <nj104@cus.cam.ac.uk>.  parts of Documenta-
-     tion/Vocab*
-
-o    Donald    Ervin    Knuth,     http://www-cs-staff.stan-
-     ford.edu/~knuth/  mf/ital-*.mf  (these  were taken from
-     the CM fonts)
-
-o    Michael  Krause   <m.krause@tu-harburg.de>,   breathing
-     signs
-
-o    Werner  Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>, misc
-     bugfixes, some Beam and Stem code.
-
-o    David R. Linn <drl@vuse.vanderbilt.edu>,  Mailing  list
-     maintenance.
-
-o    Adrian  Mariano  <>  Reference  manual, tutorial fixes,
-     glossary.
-
-o    Han-Wen           Nienhuys           <hanwen@cs.uu.nl>,
-     http://www.cs.uu.nl/~hanwen/   Main  author  (initials:
-     HWN).
-
-o    Jan          Nieuwenhuizen           <janneke@gnu.org>,
-     http://www.xs4all.nl/~jantien/  Main  author (initials:
-     JCN).
-
-o    Alexandre  Oliva  <oliva@dcc.unicamp.br>,   http://sun-
-     site.unicamp.br/~oliva/ testing
-
-o    Franc,ois  Pinard  <pinard@iro.umontreal.ca>,  parts of
-     Documentation/Vocab*,   started    internationalization
-
-     stuff
-
-o    Jeffrey B. Reed <daboys@austin.rr.com>, Windows-NT sup-
-     port.
-
-o    Shay Rojanski Some mudela source.
-
-Your name could be here! If you want to  fix  something,  do
-it, and send us a patch!
+x T ascii
+x res 240 24 40
+x init
+p1
+x font 3 B
+f3
+s10
+V400
+H240
+tAUTHORS
+wh24
+t-
+wh24
+twho
+wh24
+tdid
+wh24
+twhat
+wh24
+ton
+wh24
+tGNU
+wh24
+tLilyPond?
+n40 0
+V520
+H0
+tContents
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p2
+x font 1 R
+f1
+s10
+V160
+H696
+t-2-
+h672
+n40 0
+V280
+H0
+tThis
+wh48
+tfile
+wh48
+tlists
+wh48
+tauthors
+wh48
+tof
+wh48
+tGNU
+wh48
+tLilyPond,
+wh24
+tand
+wh24
+twhat
+wh24
+tthey
+n40 0
+V320
+H0
+twrote.
+wh48
+tThis
+wh24
+tlist
+wh24
+tis
+wh24
+talphabetically
+wh24
+tordered.
+n40 0
+V440
+H0
+to
+h96
+tTom
+wh24
+tCato
+wh24
+tAmundsen
+wh24
+t<tomcato@xoommail.com>,
+wh48
+tcembalo-par
+Chy
+h24
+n40 0
+V480
+H120
+ttita
+wh24
+tin
+wh24
+tmudela,
+wh24
+taccordion
+wh24
+tsymbols,
+wh24
+tsome
+wh24
+tmudela-book.py
+n40 0
+V560
+H0
+to
+h96
+tMats
+wh288
+tBengtsson
+wh288
+t<matsb@s3.kth.se>,
+n40 0
+V600
+H120
+thttp://www.s3.kth.se/~matsb/
+wh24
+tlots
+wh48
+tof
+wh48
+ttesting,
+wh48
+tfixes,
+n40 0
+V640
+H120
+tgeneral
+wh24
+tcomments
+wh24
+tand
+wh24
+tcontributions.
+n40 0
+V720
+H0
+to
+h96
+tEric
+wh24
+tBullinger
+wh24
+t<eric@aut.ee.ethz.ch>,
+wh24
+taccidental
+wh24
+ttrans
+Chy
+h24
+n40 0
+V760
+H120
+tposition.
+n40 0
+V840
+H0
+to
+h96
+tJan
+wh48
+tArne
+wh48
+tFagertun
+wh48
+t<Jan.A.Fagertun@energy.sintef.no>,
+n40 0
+V880
+H120
+tTeX
+wh24
+ttitling
+wh24
+tand
+wh24
+tlytodvi.sh
+n40 0
+V960
+H0
+to
+h96
+tAnthony
+wh24
+tFok
+wh24
+t<foka@debian.org>,
+wh24
+tdebian
+wh24
+tpackage:
+wh24
+tdebian/*
+n40 0
+V1040
+H0
+to
+h96
+tBjoern
+wh48
+tJacke
+wh48
+t<bjoern.jacke@gmx.de>
+wh48
+tgerman
+wh72
+tglossary
+n40 0
+V1080
+H120
+tstuff.
+n40 0
+V1160
+H0
+to
+h96
+tNeil
+wh24
+tJerram
+wh24
+t<nj104@cus.cam.ac.uk>.
+wh48
+tparts
+wh24
+tof
+wh24
+tDocumenta
+Chy
+h24
+n40 0
+V1200
+H120
+ttion/Vocab*
+n40 0
+V1280
+H0
+to
+h96
+tDonald
+wh96
+tErvin
+wh96
+tKnuth,
+wh120
+thttp://www-cs-staff.stan
+Chy
+h24
+n40 0
+V1320
+H120
+tford.edu/~knuth/
+wh48
+tmf/ital-*.mf
+wh48
+t(these
+wh48
+twere
+wh24
+ttaken
+wh24
+tfrom
+n40 0
+V1360
+H120
+tthe
+wh24
+tCM
+wh24
+tfonts)
+n40 0
+V1440
+H0
+to
+h96
+tMichael
+wh48
+tKrause
+wh72
+t<m.krause@tu-harburg.de>,
+wh72
+tbreathing
+n40 0
+V1480
+H120
+tsigns
+n40 0
+V1560
+H0
+to
+h96
+tWerner
+wh48
+tLemberg
+wh24
+t<xlwy01@uxp1.hrz.uni-dortmund.de>,
+wh24
+tmisc
+n40 0
+V1600
+H120
+tbugfixes,
+wh24
+tsome
+wh24
+tBeam
+wh24
+tand
+wh24
+tStem
+wh24
+tcode.
+n40 0
+V1680
+H0
+to
+h96
+tDavid
+wh24
+tR.
+wh24
+tLinn
+wh24
+t<drl@vuse.vanderbilt.edu>,
+wh48
+tMailing
+wh48
+tlist
+n40 0
+V1720
+H120
+tmaintenance.
+n40 0
+V1800
+H0
+to
+h96
+tAdrian
+wh48
+tMariano
+wh48
+t<>
+wh48
+tReference
+wh48
+tmanual,
+wh24
+ttutorial
+wh24
+tfixes,
+n40 0
+V1840
+H120
+tglossary.
+n40 0
+V1920
+H0
+to
+h96
+tHan-Wen
+wh264
+tNienhuys
+wh264
+t<hanwen@cs.uu.nl>,
+n40 0
+V1960
+H120
+thttp://www.cs.uu.nl/~hanwen/
+wh72
+tMain
+wh48
+tauthor
+wh48
+t(initials:
+n40 0
+V2000
+H120
+tHWN).
+n40 0
+V2080
+H0
+to
+h96
+tJan
+wh240
+tNieuwenhuizen
+wh264
+t<janneke@gnu.org>,
+n40 0
+V2120
+H120
+thttp://www.xs4all.nl/~jantien/
+wh48
+tMain
+wh48
+tauthor
+wh24
+t(initials:
+n40 0
+V2160
+H120
+tJCN).
+n40 0
+V2240
+H0
+to
+h96
+tAlexandre
+wh48
+tOliva
+wh48
+t<oliva@dcc.unicamp.br>,
+wh72
+thttp://sun
+Chy
+h24
+n40 0
+V2280
+H120
+tsite.unicamp.br/~oliva/
+wh24
+ttesting
+n40 0
+V2360
+H0
+to
+h96
+tFranc,ois
+wh48
+tPinard
+wh48
+t<pinard@iro.umontreal.ca>,
+wh48
+tparts
+wh24
+tof
+n40 0
+V2400
+H120
+tDocumentation/Vocab*,
+wh72
+tstarted
+wh96
+tinternationalization
+n40 0
+V2560
+H1440
+n40 0
+V2640
+p3
+x font 1 R
+f1
+s10
+V160
+H696
+t-3-
+h672
+n40 0
+V280
+H120
+tstuff
+n40 0
+V360
+H0
+to
+h96
+tJeffrey
+wh24
+tB.
+wh24
+tReed
+wh24
+t<daboys@austin.rr.com>,
+wh24
+tWindows-NT
+wh24
+tsup
+Chy
+h24
+n40 0
+V400
+H120
+tport.
+n40 0
+V480
+H0
+to
+h96
+tShay
+wh24
+tRojanski
+wh24
+tSome
+wh24
+tmudela
+wh24
+tsource.
+n40 0
+V560
+H0
+tYour
+wh24
+tname
+wh24
+tcould
+wh24
+tbe
+wh24
+there!
+wh24
+tIf
+wh24
+tyou
+wh24
+twant
+wh24
+tto
+wh48
+tfix
+wh48
+tsomething,
+wh48
+tdo
+n40 0
+V600
+H0
+tit,
+wh24
+tand
+wh24
+tsend
+wh24
+tus
+wh24
+ta
+wh24
+tpatch!
+n40 0
+V2560
+H1440
+n40 0
+x trailer
+V2640
+x stop

@@ -13,8 +13,8 @@
 #include "debug.hh"
 
 /** don't copy anything: an element can only be in one
-  Graphical_axis_group at one time.  */
-Graphical_axis_group::Graphical_axis_group (Graphical_axis_group const&s)
+  Graphical_axis_group at one time. */
+Graphical_axis_group::Graphical_axis_group(Graphical_axis_group const&s)
 {
   axes_ = s.axes_;
   ordered_b_ = s.ordered_b_;

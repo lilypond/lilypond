@@ -30,6 +30,26 @@ Paper_outputter::Paper_outputter (Paper_stream *s)
 {
   outstream_l_ = s;
   output_header ();
+
+#ifdef __powerpc__
+  if (output_global_ch == String ("scm"))
+    {
+      int fd = 1;
+      ofstream * of = dynamic_cast<ofstream*> (outstream_l_->os);
+      if (of)
+	fd = of->rdbuf()->fd();
+      FILE *file = fdopen (fd, "a");
+      port_ = scm_standard_stream_to_port (file, "a", "");
+      scm_display (gh_str02scm (
+	"(primitive-load-path 'lily.scm)\n"
+	"(eval (tex-scm 'all-definitions))\n"
+	";(eval (ps-scm 'all-definitions))\n"
+	"(display (map (lambda (x) (string-append (eval x) \"%\\n\")) '(\n"
+	), port_);
+
+      scm_fflush (port_);
+    }
+#else
   if (output_global_ch == String ("scm"))
     *outstream_l_->os << ""
       "(primitive-load-path 'lily.scm)\n"
@@ -37,6 +57,7 @@ Paper_outputter::Paper_outputter (Paper_stream *s)
       ";(eval (ps-scm 'all-definitions))\n"
       "(display (map (lambda (x) (string-append (eval x) \"\\n\")) '(\n"
     ;
+#endif
 }
 
 Paper_outputter::~Paper_outputter ()
@@ -44,10 +65,18 @@ Paper_outputter::~Paper_outputter ()
   SCM scm = gh_list (ly_symbol ("end-output"), SCM_UNDEFINED);
   output_scheme (scm);
 
+#ifdef __powerpc__
   if (String (output_global_ch) == "scm")
     {
-      *outstream_l_->os << ")";
+      scm_display (gh_str02scm (")))\n"), port_);
+      scm_fflush (port_);
     }
+#else
+  if (String (output_global_ch) == "scm")
+    {
+      *outstream_l_->os << ")))";
+    }
+#endif
 }
 
 void
@@ -115,6 +144,9 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
     {
       Atom * i = ptr->car_;
 #endif
+#if 0
+    }
+#endif      
       Offset a_off = i->off_;
       a_off += o;
 
@@ -168,11 +200,20 @@ Paper_outputter::output_comment (String str)
 void
 Paper_outputter::output_scheme (SCM scm)
 {
+#ifdef __powerpc__
+  if (String (output_global_ch) == "scm")
+    {
+      scm_write (scm, port_);
+      scm_display (gh_str02scm ("\n"), port_);
+      scm_fflush (port_);
+    }
+#else
   if (String (output_global_ch) == "scm")
     {
       SCM result =  scm_eval (scm_listify (ly_symbol ("scm->string"), ly_quote_scm (scm), SCM_UNDEFINED));
     *outstream_l_->os << ly_scm2string (result)	<< endl;
     }
+#endif
   else
     {
       SCM result = scm_eval (scm);

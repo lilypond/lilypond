@@ -65,7 +65,7 @@ Note_column::dir () const
   else if (head_l_arr_.size ())
     return sign (head_positions_interval().center ());
 
-  assert (false);
+  programming_error ("Note column without heads and  stem!");
   return CENTER;
 }
 

@@ -22,7 +22,18 @@ template<class T> INLINE void
 arrcpy (T*dest, T*src, int count)
 {
   for (int i_shadows_local=0; i_shadows_local < count ; i_shadows_local++)
+#ifdef __powerpc__
+    {
+      /*
+	urg: wierd egcs-1.1.2 bug on ppc
+	bug report filed
+      */
+      *dest = *src;
+      dest++, src++;
+    }
+#else
     *dest++ = *src++;
+#endif
 }
 
 template<class T> INLINE void

@@ -290,6 +290,10 @@ verb(
 	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
 )
 
+Precompiled i386 eRedHat RPMS are available from
+lurl(http://linux.umbc.edu/software/lilypond/rpms/).
+
+
 
 sect(DEBIAN GNU/LINUX)
 

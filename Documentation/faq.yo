@@ -289,9 +289,8 @@ In any case email(Derek Wyatt)(wyatt@scar.utoronto.edu) is working on
 GTK based editor, but that effort practically died. (see
 lurl(http://harmonia.scar.utoronto.ca).
 
-Matthew Hiller is working on extending Midiscore to handle mudela.
-lurl(http://zoo.cs.yale.edu/~meh25/MISClily/MISClily-0.0.3.tar.gz)
-
+Matthew Hiller is working on extending Midiscore and Koobase to handle
+mudela.  Check out lurl(http://zoo.cs.yale.edu/~meh25/).
 
 There is also a GUI package RoseGarden that could be extended to
 output mudela.
@@ -337,24 +336,15 @@ Seriously, read, reread and reread internals and CodingStyle, and
 just start anywhere. 
 
 Anywhere? Well, most of the comment doco are in the header files, so
-your best bet would be code(less lily/include/*.hh). Some of the most
-important data-structures are to be found in:
-verb(
-	- *request.hh
-	- engraver.hh
-	- performer.hh
-	- translator.hh
-	- score-elem.hh
-	- music.hh
-	- music-list.hh
-	- music-iterator.hh
-	- item.hh
-	- spanner.hh
-)
+your best bet would be code(less lily/include/*.hh).
+
+You should also have a look using Javadoc like tools.  Try
+DOC++, lurl(http://www.imaginator.com/doc++)
+
 
 question(Why GPL?)
 
-Yes.
+No comment.
 
 
 COMMENT(look out: can't have line breaks in subsect() macro)

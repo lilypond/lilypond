@@ -13,7 +13,7 @@ c2. \p ( |
 ) g4 [g8. ( a16 ] ) g4 |
 c2. \p ( |
 ) g2 g4 |
-\tiny g8*1/2 \normalsize c2 \< ( *7/8 ~ [ \! c8 \> \! ) g ] |
+\grace g8 c2 \< ( ~ [ \! c8 \> \! ) g ] |
 g2 \p r4 |
 g \mf ( d' c~ |
 c ) b r |
@@ -23,7 +23,7 @@ r4 r c \p ( |
 g [g8. ( a16 ] ) g4 |
 R2. |
 r4 r [g8^""^"solo" \mf \< () \! e' ] |
-\tiny d8*1/2 \normalsize g2 \> ( *7/8 [ \! e8. c16 ] |
+\grace d8 g2 \> ( [ \! e8. c16 ] |
 ) g2 r4 |
 R2. |
 r4 r \times 2/3 {[e'8 \f ( g, ) g'] } |
@@ -32,7 +32,7 @@ r r \times 2/3 {[g8 \f ( e ) g] }
 d4 () g r |
 r r [d16 \f ( g, e' d ] |
 [g, d' e ) d ] g,4 r |
-r \tiny g8 \f *1/2 \normalsize d'2 \> ( *7/8|
+r \grace g8 \f d'2 \> (|
 [g,8. a16 g8. a16 \! g8. ) a16 ] |
 g4 r r |
 R2. |
@@ -251,7 +251,7 @@ corII=\notes\relative c'' {
 
 R2.*19 |
 r4 r [g8^"solo" \p (\< \! ) e'] |
-\tiny d8*1/2 \normalsize g2 \> ( *7/8 [e8. ) \! c16 ] |
+\grace d8 g2 \> ( [e8. ) \! c16 ] |
 g2 r 4 |
 r r \times 2/3 {[e'8 \p ( g, ) g' ]} |
 g4 \> () \! e r |

@@ -24,8 +24,6 @@
    @see
    man 3 snprintf
    */
-
-// hmm, this is shorter even than PATH_MAX
 static const int STRING_BUFFER_LEN=1024;
 
 String

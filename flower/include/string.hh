@@ -139,7 +139,6 @@ public:
   /// index of rightmost element of string  (???)
   int index_last_i (char const* string) const;
 
-  /// index of leftmost #c#
   int index_i (char c) const;
 
   /// index of leftmost occurance of STRING

@@ -156,9 +156,9 @@ Lookup::simple_bar (String type, Real h, Paper_def* paper_l) const
 Molecule
 Lookup::bar (String str, Real h, Paper_def *paper_l) const
 {
-  if (str == "[")
+  if (str == "bracket")
     return staff_bracket (h);
-  else if (str == "{")
+  else if (str == "brace")
     return staff_brace (h);
   
   Real kern = paper_l->get_var ("bar_kern");
@@ -307,13 +307,6 @@ Lookup::fill (Box b) const
   Molecule m;
   m.dim_ = b;
   return m;
-}
-
-Molecule
-Lookup::flag (int j, Direction d) const
-{
-  char c = (d == UP) ? 'u' : 'd';
-  return  afm_find (String ("flags-") + to_str (c) + to_str (j));
 }
 
 Molecule

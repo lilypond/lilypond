@@ -126,14 +126,19 @@ void
 Timing_translator::do_pre_move_processing()
 {
   timing_req_l_arr_.set_size (0);
-  Global_translator *global_l =
-    dynamic_cast<Global_translator*> (daddy_trans_l_->ancestor_l (100)); // ugh 100.
-
+  Translator *t = this;
+  Global_translator *global_l =0;
+  do
+    {
+      t = t->daddy_trans_l_ ;
+      global_l = dynamic_cast<Global_translator*> (t);
+    }
+  while (!global_l);
 
   /* allbars == ! skipbars */
   bool allbars = ! get_property ("skipBars", 0).to_bool ();
 
-  // urg: multi bar rests: should always must process whole of first bar?
+  // urg: multi bar rests: should always process whole of first bar?
   if (!time_.cadenza_b_ && allbars)
     global_l->add_moment_to_process (time_.next_bar_moment ());
 }

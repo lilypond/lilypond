@@ -1,4 +1,36 @@
+pl 51.uu2
+	- grace note flags, move Lookup::flag into Stem
+	- faq updates: doc++, Matt's page
+	- fixes for doc++.
+	- bartype string uses "brace" and "bracket" iso. "{" and "["
+	- some of assert()s  replaced by programming_error ()
 
+pl 51.mb1
+	- N.W.Gade: added real grace notes
+	- feta-banier.mf: added grace note flag
+
+pl 51.uu1
+	- use weAreGraceContext \property to determine self_grace_b_
+	- made more engravers grace aware.
+
+pl 50.jcn2
+	- filed egcs bug report for powerpc.
+	- removed unnecessary #ifdef powerpc 
+	- grace and other fixes for auto-beamer
+	- grace and other fixes for (beam-)stem-lengths
+	- input/test/bugs/hairy-grace.ly (urg)
+	- input/test/bugs/grace-accidents.ly (urg)
+	- input/test/bugs/grace-grace.ly (core)
+	- fixes: gnossienne-4.ly
+
+pl 50.hwn2
+	- Timing_translator: add proccing moments to nearest global translator,
+not to top global translator.
+	- cadenza.ly: grace notes.
+	- bf: auto staff switching
+
+************
+pl 51
 pl 50.hwn1
 	- grace notes:
 	  * Grace_iterator
@@ -1229,7 +1261,7 @@ pl5.jcn4
 pl5.jcn3
 	- website fixes
 
-pl5.jcn2
+opl5.jcn2
 	- extender-*, see input/test/extender.ly
 	- bf: half-beam length (urg)
 	- fixes: standchen, star
@@ -1459,7 +1491,7 @@ pl 17.jcn3
 	- tex output support
 	- all output through scheme
 	- option: f, output-format=X
-	- geile placebox 
+o	- geile placebox 
 	- mf/mfplain.ini
 
 pl 17.jcn2

@@ -27,7 +27,7 @@ Directed_graph_node::get_out_edge_arr() const
   return edge_out_l_arr_;
 }
 
-/**
+/*
   Should not copy deps automatically
  */
 Directed_graph_node::Directed_graph_node (Directed_graph_node const&)

@@ -19,21 +19,7 @@ StaffContext=\translator {
 	\consists "Rest_collision_engraver";
 	\consistsend "Axis_group_engraver";
 
-%{
-	Uncomment to get bar numbers on single staff systems:
-	
-	The Bar_number_engraver puts a number over a staff created
-	at the same level of hierarchy.  This why you have to add it
-	here separately if you want to have numbers on single staff
-	systems: The Bar_number_engraver in Score_engraver will only
-	put numbers on bars that are Score ("system") wide.  Such
-	bars are only created when the toplevel system has multiple
-	children-staffs.
 
-%}
-%{
-	\consists "Bar_number_engraver";
-%}
 
 %{
 	The Staff_margin_engraver puts the name of the instrument
@@ -93,7 +79,6 @@ VoiceContext = \translator {
 	\type "Engraver_group_engraver";
 	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;
-	beamAuto = "1";
 	\consists "Local_key_engraver";
 	
 	\consists "Breathing_sign_engraver";
@@ -101,6 +86,7 @@ VoiceContext = \translator {
 	\consists "Dot_column_engraver";
 	\consists "Stem_engraver";
 	\consists "Beam_engraver";
+	beamAuto = "1";
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
 %	\consists "Abbreviation_beam_engraver";
@@ -125,18 +111,25 @@ GraceContext=\translator {
 	\type "Grace_engraver_group";
 	\name "Grace";
 	\consists "Note_heads_engraver";
+	\consists "Local_key_engraver";
 	\consists "Stem_engraver";
 	\consists "Slur_engraver";
 	\consists "Timing_engraver";	%UGH.
 	\consists "Beam_engraver";
+	beamAuto = "1";
+	\consists "Auto_beam_engraver";
+	\include "auto-beam-settings.ly";
 	\consists "Align_note_column_engraver";
 	\consists "Font_size_engraver";
 	\consists "Rhythmic_column_engraver";
-	
+
+	stemStyle = "grace";
+	weAreGraceContext = "1";
 	fontSize = "-1";
 	stemLength = "6.0";
 	verticalDirection = "1";
 };
+
 \translator{\GraceContext}
 \translator {\VoiceContext}
 

@@ -124,6 +124,12 @@ Stem_engraver::do_pre_move_processing()
 	  stem_p_->set_elt_property (length_scm_sym, gh_double2scm (prop.to_f ()));
 	}
 
+      prop = get_property ("stemStyle", 0);
+      if (prop.to_bool ())
+	{
+	  stem_p_->set_elt_property (style_scm_sym, gh_str02scm (prop.ch_C()));
+	}
+      
       typeset_element(stem_p_);
       stem_p_ = 0;
     }

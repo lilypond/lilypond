@@ -21,6 +21,12 @@ Key_engraver::Key_engraver ()
   do_post_move_processing ();
 }
 
+bool
+Key_engraver::key_changed_b () const
+{
+  return keyreq_l_ ;
+}
+
 void
 Key_engraver::create_key ()
 {

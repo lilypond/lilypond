@@ -32,12 +32,12 @@ Grace_iterator::do_process_and_next (Moment m)
       delete child_iter_p_;
       child_iter_p_ = 0;
       t->finish ();
-      Music_iterator::do_process_and_next (m);
     }
   else
     {
       warning (_("No Grace context available!")); 
     }
+  Music_iterator::do_process_and_next (m);
 }
 
 Moment
