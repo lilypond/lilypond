@@ -31,6 +31,10 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     [  --enable-debugging      compile with debugging info.  Default: on],
     [debug_b=$enableval])
 
+    AC_ARG_ENABLE(optimising,
+    [  --enable-optimising      compile with optimising.  Default: on],
+    [optimise_b=$enableval])
+
     AC_ARG_ENABLE(profiling, 
     [  --enable-profiling      compile with gprof support.  Default: off],
     [profile_b=$enableval])

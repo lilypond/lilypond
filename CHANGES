@@ -1,3 +1,17 @@
+1.5.15.jcn1
+===========
+
+* Fixes for latest guile cvs.
+
+* Add --enable-optimising flag to configure (Huh?).
+
+* Only inline string utlis when optimising.
+
+* Compile fix.
+
+1.5.15
+======
+
 1.5.14.jcn6
 ===========
 
