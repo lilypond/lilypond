@@ -2,12 +2,6 @@
 @setfilename NEWS.info
 @settitle NEWS
 
-
-
-@node Top, , , 
-@top
-@unnumbered New features in 2.5 since 2.4
-
 @ifhtml
 @macro inputfileref{DIR,NAME}
 @uref{../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
@@ -28,7 +22,26 @@ See user manual, \NAME\
 
 
 
+@node Top, , , 
+@top
+@unnumbered New features in 2.5 since 2.4
+
+
 @itemize @bullet
+
+@item
+Markup texts can be appended to a @code{\score} block or toplevel
+music expression, for example,
+
+@lilypond[verbatim,relative=1,raggedright]
+\relative { c' d e }
+\markup { first text }
+\markup { second text }
+@end lilypond
+
+See @inputfileref{input/regression,score-text.ly}.
+
+
 @item
 @TeX{}'s @code{kpathsea} library is loaded dynamically, so installing
 LilyPond does not require installing @TeX{} anymore.

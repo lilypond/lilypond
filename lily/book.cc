@@ -107,6 +107,7 @@ Book::process (String outname, Output_def *default_def)
 	  Score_systems sc;
 	  sc.systems_ = systems;
 	  sc.header_ = scores_[i]->header_;
+	  sc.texts_ = scores_[i]->texts_;
 	  paper_book->score_systems_.push (sc);
 	}
     }
