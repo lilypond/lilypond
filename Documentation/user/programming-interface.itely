@@ -1,0 +1,510 @@
+@node Interfaces for programmers
+@appendix Interfaces for programmers
+
+
+
+@menu
+* Programmer interfaces for input ::  
+* Markup programmer interface::	 
+* Contexts for programmers::	
+@end menu
+
+@node Programmer interfaces for input 
+@appendixsec Programmer interfaces for input 
+
+@menu
+* Input variables and Scheme::	
+* Internal music representation::  
+* Manipulating music expressions::  
+@end menu
+
+@node Input variables and Scheme
+@appendixsubsec Input variables and Scheme
+
+
+The input format supports the notion of variable: in the following
+example, a music expression is assigned to a variable with the name
+@code{traLaLa}.
+@example
+  traLaLa = \notes @{ c'4 d'4 @}
+@end example
+
+@noindent
+
+There is also a form of scoping: in the following example, the
+@code{\paper} block also contains a @code{traLaLa} variable, which is
+independent of the outer @code{\traLaLa}.
+@example
+  traLaLa = \notes @{ c'4 d'4 @}
+  \paper @{ traLaLa = 1.0 @}
+@end example
+@c
+In effect, each input file is a scope, and all @code{\header},
+@code{\midi} and @code{\paper} blocks are scopes nested inside that
+toplevel scope.
+
+Both variables and scoping are implemented in the GUILE module system.
+An anonymous Scheme module is attached to each scope. An assignment of
+the form
+@example
+ traLaLa = \notes @{ c'4 d'4 @}
+@end example
+
+@noindent
+is internally converted to a Scheme definition
+@example
+ (define traLaLa @var{Scheme value of ``@code{\notes ... }''})
+@end example
+
+This means that input variables and Scheme variables may be freely
+mixed.  In the following example, a music fragment is stored in the
+variable @code{traLaLa}, and duplicated using Scheme. The result is
+imported in a @code{\score} by means of a second variable
+@code{twice}:
+@example
+  traLaLa = \notes @{ c'4 d'4 @}
+
+  #(define newLa (map ly:music-deep-copy
+    (list traLaLa traLaLa)))
+  #(define twice
+    (make-sequential-music newLa))
+
+  \score @{ \twice @}
+@end example
+
+In the above example, music expressions can be `exported' from the
+input to the Scheme interpreter. The opposite is also possible. By
+wrapping a Scheme value in the function @code{ly:export}, a Scheme
+value is interpreted as if it were entered in LilyPond syntax: instead
+of defining @code{\twice}, the example above could also have been
+written as
+@example
+  @dots{}
+  \score @{ #(ly:export (make-sequential-music newLa)) @}
+@end example
+
+
+@node Internal music representation
+@appendixsubsec Internal music representation
+
+When a music expression is parsed, it is converted into a set of
+Scheme music objects. The defining property of a music object is that
+it takes up time. Time is a rational number that measures the length
+of a piece of music, in whole notes.
+
+A music object has three kinds of types:
+@itemize @bullet
+@item
+  music name: Each music expression has a name, for example, a note
+leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
+a @internalsref{SimultaneousMusic}. A list of all expressions
+available is in the internals manual, under @internalsref{Music
+expressions}.
+
+@item
+  `type' or interface: Each music name has several `types' or interface,
+  for example, a note is an @code{event}, but it is also a @code{note-event},
+  a @code{rhythmic-event} and a @code{melodic-event}.
+
+  All classes of music are listed in the internals manual, under
+  @internalsref{Music classes}.
+@item
+C++ object: Each music object is represented by a C++ object. For technical
+reasons, different music objects may be represented by different C++
+object types. For example, a note is @code{Event} object, while
+@code{\grace} creates a @code{Grace_music} object.
+
+We expect that distinctions between different C++ types will disappear
+in the future.
+@end itemize
+
+The actual information of a music expression is stored in properties.
+For example, a @internalsref{NoteEvent} has @code{pitch} and
+@code{duration} properties that store the pitch and duration of that
+note.  A list of all properties available is in the internals manual,
+under @internalsref{Music properties}.
+
+A compound music expression is a music object that contains other
+music objects in its properties. A list of objects can be stored in
+the @code{elements} property of a music object, or a single `child'
+music object in the @code{element} object. For example,
+@internalsref{SequentialMusic} has its children in @code{elements},
+and @internalsref{GraceMusic} has its single argument in
+@code{element}. The body of a repeat is in @code{element} property of
+@internalsref{RepeatedMusic}, and the alternatives in @code{elements}.
+
+@node Manipulating music expressions
+@appendixsubsec Manipulating music expressions
+
+Music objects and their properties can be accessed and manipulated
+directly, through the @code{\apply} mechanism.
+The syntax for @code{\apply} is
+@example
+\apply #@var{func} @var{music}
+@end example
+
+@noindent
+This means that the scheme function @var{func} is called with
+@var{music} as its argument.  The return value of @var{func} is the
+result of the entire expression.  @var{func} may read and write music
+properties using the functions @code{ly:music-property} and
+@code{ly:music-set-property!}.
+
+An example is a function that reverses the order of elements in
+its argument:
+@lilypond[verbatim,raggedright]
+  #(define (rev-music-1 m)
+     (ly:music-set-property! m 'elements (reverse
+       (ly:music-property m 'elements)))
+     m)
+  \score { \notes \apply #rev-music-1 { c4 d4 } }
+@end lilypond
+
+The use of such a function is very limited. The effect of this
+function is void when applied to an argument which is does not have
+multiple children.  The following function application has no effect:
+
+@example
+  \apply #rev-music-1 \grace @{ c4 d4 @}
+@end example
+
+@noindent
+In this case, @code{\grace} is stored as @internalsref{GraceMusic}, which has no
+@code{elements}, only a single @code{element}. Every generally
+applicable function for @code{\apply} must -- like music expressions
+themselves -- be recursive.
+
+The following example is such a recursive function: It first extracts
+the @code{elements} of an expression, reverses them and puts them
+back. Then it recurses, both on @code{elements} and @code{element}
+children.
+@example
+#(define (reverse-music music)
+  (let* ((elements (ly:music-property music 'elements))
+         (child (ly:music-property music 'element))
+         (reversed (reverse elements)))
+
+    ; set children
+    (ly:music-set-property! music 'elements reversed)
+
+    ; recurse
+    (if (ly:music? child) (reverse-music child))
+    (map reverse-music reversed)
+
+    music))
+@end example
+
+A slightly more elaborate example is in
+@inputfileref{input/test,reverse-music.ly}.
+
+Some of the input syntax is also implemented as recursive music
+functions. For example, the syntax for polyphony
+@example
+  <<a \\ b>>
+@end example
+
+@noindent
+is actually  implemented as a recursive function that replaces the
+above by the internal equivalent of
+@example
+  << \context Voice = "1" @{ \voiceOne a @}
+    \context Voice = "2" @{ \voiceTwo b @} >>
+@end example
+
+Other applications of @code{\apply} are writing out repeats
+automatically (@inputfileref{input/test,unfold-all-repeats.ly}),
+saving keystrokes (@inputfileref{input/test,music-box.ly}) and
+exporting
+LilyPond input to other formats  (@inputfileref{input/test,to-xml.ly})
+
+@seealso
+
+@file{scm/music-functions.scm}, @file{scm/music-types.scm},
+@inputfileref{input/test,add-staccato.ly},
+@inputfileref{input/test,unfold-all-repeats.ly}, and
+@inputfileref{input/test,music-box.ly}.
+
+
+
+@node Markup programmer interface
+@appendixsec Markup programmer interface
+
+
+@menu
+* Markup construction in scheme::  
+* Markup command definition::	
+@end menu
+
+@node Markup construction in scheme
+@appendixsubsec Markup construction in scheme
+
+@cindex defining markup commands 
+
+The @code{markup} macro builds markup expressions in Scheme while
+providing a LilyPond-like syntax. For example,
+@example
+(markup #:column (#:line (#:bold #:italic "hello" #:raise 0.4 "world")
+                  #:bigger #:line ("foo" "bar" "baz")))
+@end example
+
+@noindent
+is equivalent to:
+@example
+\markup \column < @{ \bold \italic "hello" \raise #0.4 "world" @}
+                  \bigger @{ foo bar baz @} >
+@end example
+
+@noindent
+This example exposes the main translation rules between regular
+LilyPond markup syntax and scheme markup syntax, which are summed up
+is this table:
+@multitable @columnfractions .5 .5
+@item @b{LilyPond} @tab @b{Scheme}
+@item @code{\command} @tab @code{#:command}
+@item @code{\variable} @tab @code{variable}
+@item @code{@{ ... @}} @tab @code{#:line ( ... )}
+@item @code{\center-align < ... >} @tab @code{#:center ( ... )}
+@item @code{string} @tab @code{"string"}
+@item @code{#scheme-arg} @tab @code{scheme-arg}
+@end multitable
+
+Besides, the whole scheme language is accessible inside the
+@code{markup} macro: thus, one may use function calls inside
+@code{markup} in order to manipulate character strings for
+instance. This proves useful when defining new markup commands (see
+@ref{Markup command definition}).
+
+@refbugs
+
+One can not feed the @code{#:line} (resp @code{#:center},
+@code{#:column}) command with a variable or the result of a function
+call. Eg:
+@lisp
+(markup #:line (fun-that-returns-markups))
+@end lisp
+is illegal. One should use the @code{make-line-markup} (resp
+@code{make-center-markup}, @code{make-column-markup}) function
+instead:
+@lisp
+(markup (make-line-markup (fun-that-returns-markups)))
+@end lisp
+
+@node Markup command definition
+@appendixsubsec Markup command definition
+
+New markup commands can be defined thanks to the @code{def-markup-command} scheme macro.
+@lisp
+(def-markup-command (@var{command-name} @var{paper} @var{props} @var{arg1} @var{arg2} ...)
+            (@var{arg1-type?} @var{arg2-type?} ...)
+  ..command body..)
+
+    @var{argi}: i@var{th} command argument
+    @var{argi-type?}: a type predicate for the i@var{th} argument
+    @var{paper}: the `paper' definition
+    @var{props}: a list of alists, containing all active properties. 
+@end lisp
+
+As a simple example, we show how to add a @code{\smallcaps} command,
+which selects @TeX{}'s small caps font.  Normally, we could select the
+small caps font as follows:
+
+@verbatim
+  \markup { \override #'(font-shape . caps)  Text-in-caps }
+@end verbatim
+
+This selects the caps font by setting the @code{font-shape} property to
+@code{#'caps} for interpreting @code{Text-in-caps}.
+
+To make the above available as @code{\smallcaps} command, we have to
+define a function using @code{def-markup-command}. The command should
+take a single argument, of markup type. Therefore, the start of the
+definition should read
+@example
+  (def-markup-command (smallcaps paper props argument) (markup?)
+@end example
+
+@noindent
+
+What follows is the content of the command: we should interpret
+the @code{argument} as a markup, i.e.
+
+@example
+    (interpret-markup paper  @dots{} argument)
+@end example
+
+@noindent
+This interpretation should add @code{'(font-shape . caps)} to the active
+properties, so we substitute the the following for the @dots{} in the
+above example:
+
+@example
+ (cons (list '(font-shape . caps) ) props)
+@end example
+
+@noindent
+The variable @code{props} is a list of alists, and we prepend to it by
+consing a list with the extra setting.
+
+However, suppose that we are using a font that does not have a
+small-caps variant. In that case, we have to fake the small caps font,
+by setting a string in upcase, with the first letter a little larger:
+
+@example
+#(def-markup-command (smallcaps paper props str) (string?)
+   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
+   (interpret-markup paper props
+    (make-line-markup
+     (map (lambda (s)
+            (if (= (string-length s) 0)
+                s
+                (markup #:large (string-upcase (substring s 0 1))
+                        #:translate (cons -0.6 0)
+                        #:tiny (string-upcase (substring s 1)))))
+          (string-split str #\Space)))))
+@end example
+
+The @code{smallcaps} command first splits its string argument into
+tokens separated by spaces (@code{(string-split str #\Space)}); for
+each token, a markup is built with the first letter made large and
+upcased (@code{#:large (string-upcase (substring s 0 1))}), and a
+second markup built with the following letters made tiny and upcased
+(@code{#:tiny (string-upcase (substring s 1))}). As LilyPond
+introduces a space between markups on a line, the second markup is
+translated to the left (@code{#:translate (cons -0.6 0) ...}). Then,
+the markups built for each token are put in a line
+(@code{(make-line-markup ...)}). Finally, the resulting markup is
+passed to the @code{interpret-markup} function, with the @code{paper}
+and @code{props} arguments.
+
+Finally, suppose that we are typesetting a recitative in an opera, and
+we would like to define a command that will show character names in a
+custom manner. Names should be printed with small caps and translated a
+bit to the left and top.  We will define a @code{\character} command
+that takes into account the needed translation, and uses the newly
+defined @code{\smallcaps} command:
+
+@verbatim
+#(def-markup-command (character paper props name) (string?)
+   "Print the character name in small caps, translated to the left and
+   top. Syntax: \\character #\"name\""
+   (interpret-markup paper props 
+    (markup "" #:translate (cons -4 2) #:smallcaps name)))
+@end verbatim
+
+There is one complication that needs explanation: texts above and below
+the staff are moved vertically to be at a certain distance (the
+@code{padding} property) from the staff and the notes. To make sure
+that this mechanism does not annihilate the vertical effect of our
+@code{#:translate}, we add an empty string (@code{""}) before the
+translated text.  Now the @code{""} will be put above the notes, and the
+@code{name} is moved in relation to that empty string. The net effect is
+that the text is moved to the upper left.
+
+The final result is as follows:
+@verbatim
+\score {
+    \notes { \fatText
+        c''^\markup \character #"Cleopatra"
+        e'^\markup \character #"Giulio Cesare"
+    }
+}
+@end verbatim
+
+@lilypond[raggedright]
+#(def-markup-command (smallcaps paper props str) (string?)
+   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
+   (interpret-markup paper props
+    (make-line-markup
+     (map (lambda (s)
+            (if (= (string-length s) 0)
+                s
+                (markup #:large (string-upcase (substring s 0 1))
+                        #:translate (cons -0.6 0)
+                        #:tiny (string-upcase (substring s 1)))))
+          (string-split str #\Space)))))
+
+#(def-markup-command (character paper props name) (string?)
+   "Print the character name in small caps, translated to the left and
+   top. Syntax: \\character #\"name\""
+   (interpret-markup paper props 
+    (markup "" #:translate (cons -4 0) #:smallcaps name)))
+
+\score {
+    \notes { \fatText
+        c''^\markup \character #"Cleopatra"
+        e'^\markup \character #"Giulio Cesare"
+    }
+}
+@end lilypond
+
+
+
+@node Contexts for programmers
+@appendixsec Contexts for programmers
+
+
+@menu
+* Context evaluation::		
+* Applyoutput::			
+@end menu
+
+@node Context evaluation
+@appendixsubsec Context evaluation
+
+Contexts can be modified during interpretation with Scheme code. The
+syntax for this is
+@example
+  \applycontext @var{function}
+@end example
+
+@var{function} should be a Scheme function taking a single argument,
+being the context to apply it to. The following code will print the
+current bar number on the standard output during the compile:
+
+@example
+    \applycontext
+      #(lambda (x)
+         (format #t "\nWe were called in barnumber ~a.\n"
+          (ly:context-property x 'currentBarNumber)))
+@end example
+
+
+
+@node Applyoutput
+@appendixsubsec Applyoutput
+
+The most versatile way of tuning an object is @code{\applyoutput}. Its
+syntax is
+@example
+\applyoutput @var{proc}
+@end example
+
+@noindent
+where @var{proc} is a Scheme function, taking three arguments.
+
+When interpreted, the function @var{proc} is called for every layout
+object found in the context, with the following arguments:
+@itemize @bullet
+@item the layout object itself,
+@item the context where the layout object was created, and
+@item the context where @code{\applyoutput} is processed.
+@end itemize
+
+
+In addition, the cause of the layout object, i.e.  the music
+expression or object that was responsible for creating it, is in the
+object property @code{cause}.  For example, for a note head, this is a
+@internalsref{NoteHead} event, and for a @internalsref{Stem} object,
+this is a @internalsref{NoteHead} object.
+
+Here is a simple example of @code{\applyoutput}; it blanks note-heads on the
+center-line:
+@example
+(define (blanker grob grob-origin context)
+  (if (and (memq (ly:grob-property grob 'interfaces)
+                 note-head-interface)
+           (eq? (ly:grob-property grob 'staff-position) 0))
+
+           (ly:grob-set-property! grob 'transparent #t)))
+@end example
+

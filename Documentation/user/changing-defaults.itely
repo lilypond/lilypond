@@ -1,14 +1,65 @@
-@node Using LilyPond
-@chapter Using LilyPond
+@c -*-texinfo-*-
+@node Changing defaults
+@chapter Changing defaults
+
+TODO: reorganise.
 
 @menu
-* Setting variables::		
-* Fine tuning layout::		
-* Tuning output::		
-* Text markup::			
-* Global layout::		
-* Sound::			
+* Scheme integration::          
+* Setting variables::           
+* Fine tuning layout::          
+* Tuning output::               
+* Text markup::                 
+* Global layout::               
+* Interpretation context::      
+* Output details::              
 @end menu
+
+
+
+@node Scheme integration
+@section Scheme integration
+
+@cindex Scheme
+@cindex GUILE
+@cindex Scheme, in-line code
+@cindex accessing Scheme
+@cindex evaluating Scheme
+@cindex LISP
+
+LilyPond internally uses GUILE, a Scheme-interpreter, to represent
+data throughout the whole program, and glue together different program
+modules. For advanced usage, it is sometimes necessary to access and
+program the Scheme interpreter.
+
+Scheme is a full-blown programming language, from the LISP
+family. and a full discussion is outside the scope of this document.
+Interested readers are referred to the website
+@uref{http://www.schemers.org/} for more information on Scheme.
+
+The GUILE library for extension is documented at
+@uref{http://www.gnu.org/software/guile}.
+@ifinfo
+When it is installed, the following link should take you to its manual
+@ref{(guile.info)guile}
+@end ifinfo
+
+@menu
+* Inline Scheme::               
+@end menu
+
+@node Inline Scheme
+@subsection Inline Scheme
+
+Scheme expressions can be entered in the input file by entering a
+hash-sign (@code{#}).  The expression following the hash-sign is
+evaluated as Scheme. For example, the boolean value @var{true} is
+@code{#t} in Scheme, so for LilyPond @var{true} looks like @code{##t},
+and can be used in property assignments:
+@example
+  \set Staff.autoBeaming = ##f
+@end example
+
 
 @node Setting variables
 @section Setting variables
@@ -253,15 +304,10 @@ layout property name:
   #'layout-property-name
 @end example
 
-@seealso
-
-The introduction of the @ref{Technical manual} gives a more in-depth
-treatment of the difference between translation and layout.
 
 @menu
 * Tuning objects::              
 * Constructing a tweak::        
-* Applyoutput::                 
 * Font selection::              
 @end menu
 
@@ -526,44 +572,6 @@ Internals: the program reference also contains alphabetical lists of
 to tweak by browsing the internals document.
 
 
-@node Applyoutput
-@subsection Applyoutput
-
-The most versatile way of tuning an object is @code{\applyoutput}. Its
-syntax is
-@example
-\applyoutput @var{proc}
-@end example
-
-@noindent
-where @var{proc} is a Scheme function, taking three arguments.
-
-When interpreted, the function @var{proc} is called for every layout
-object found in the context, with the following arguments:
-@itemize @bullet
-@item the layout object itself,
-@item the context where the layout object was created, and
-@item the context where @code{\applyoutput} is processed.
-@end itemize
-
-
-In addition, the cause of the layout object, i.e.  the music
-expression or object that was responsible for creating it, is in the
-object property @code{cause}.  For example, for a note head, this is a
-@internalsref{NoteHead} event, and for a @internalsref{Stem} object,
-this is a @internalsref{NoteHead} object.
-
-Here is a simple example of @code{\applyoutput}; it blanks note-heads on the
-center-line:
-@example
-(define (blanker grob grob-origin context)
-  (if (and (memq (ly:grob-property grob 'interfaces)
-                 note-head-interface)
-           (eq? (ly:grob-property grob 'staff-position) 0))
-
-           (ly:grob-set-property! grob 'transparent #t)))
-@end example
-
 
 
 @node Font selection
@@ -777,217 +785,12 @@ for formatting.
 
 @menu
 * Overview of text markup commands::  
-* Markup construction in scheme::  
-* Markup command definition::   
 @end menu
 
 @node  Overview of text markup commands
 @subsection Overview of text markup commands
 
 @include markup-commands.tely
-
-@node Markup construction in scheme
-@subsection Markup construction in scheme
-
-@cindex defining markup commands 
-
-The @code{markup} macro builds markup expressions in Scheme while
-providing a LilyPond-like syntax. For example,
-@example
-(markup #:column (#:line (#:bold #:italic "hello" #:raise 0.4 "world")
-                  #:bigger #:line ("foo" "bar" "baz")))
-@end example
-
-@noindent
-is equivalent to:
-@example
-\markup \column < @{ \bold \italic "hello" \raise #0.4 "world" @}
-                  \bigger @{ foo bar baz @} >
-@end example
-
-@noindent
-This example exposes the main translation rules between regular
-LilyPond markup syntax and scheme markup syntax, which are summed up
-is this table:
-@multitable @columnfractions .5 .5
-@item @b{LilyPond} @tab @b{Scheme}
-@item @code{\command} @tab @code{#:command}
-@item @code{\variable} @tab @code{variable}
-@item @code{@{ ... @}} @tab @code{#:line ( ... )}
-@item @code{\center-align < ... >} @tab @code{#:center ( ... )}
-@item @code{string} @tab @code{"string"}
-@item @code{#scheme-arg} @tab @code{scheme-arg}
-@end multitable
-
-Besides, the whole scheme language is accessible inside the
-@code{markup} macro: thus, one may use function calls inside
-@code{markup} in order to manipulate character strings for
-instance. This proves useful when defining new markup commands (see
-@ref{Markup command definition}).
-
-@refbugs
-
-One can not feed the @code{#:line} (resp @code{#:center},
-@code{#:column}) command with a variable or the result of a function
-call. Eg:
-@lisp
-(markup #:line (fun-that-returns-markups))
-@end lisp
-is illegal. One should use the @code{make-line-markup} (resp
-@code{make-center-markup}, @code{make-column-markup}) function
-instead:
-@lisp
-(markup (make-line-markup (fun-that-returns-markups)))
-@end lisp
-
-@node Markup command definition
-@subsection Markup command definition
-
-New markup commands can be defined thanks to the @code{def-markup-command} scheme macro.
-@lisp
-(def-markup-command (@var{command-name} @var{paper} @var{props} @var{arg1} @var{arg2} ...)
-            (@var{arg1-type?} @var{arg2-type?} ...)
-  ..command body..)
-
-    @var{argi}: i@var{th} command argument
-    @var{argi-type?}: a type predicate for the i@var{th} argument
-    @var{paper}: the `paper' definition
-    @var{props}: a list of alists, containing all active properties. 
-@end lisp
-
-As a simple example, we show how to add a @code{\smallcaps} command,
-which selects @TeX{}'s small caps font.  Normally, we could select the
-small caps font as follows:
-
-@verbatim
-  \markup { \override #'(font-shape . caps)  Text-in-caps }
-@end verbatim
-
-This selects the caps font by setting the @code{font-shape} property to
-@code{#'caps} for interpreting @code{Text-in-caps}.
-
-To make the above available as @code{\smallcaps} command, we have to
-define a function using @code{def-markup-command}. The command should
-take a single argument, of markup type. Therefore, the start of the
-definition should read
-@example
-  (def-markup-command (smallcaps paper props argument) (markup?)
-@end example
-
-@noindent
-
-What follows is the content of the command: we should interpret
-the @code{argument} as a markup, i.e.
-
-@example
-    (interpret-markup paper  @dots{} argument)
-@end example
-
-@noindent
-This interpretation should add @code{'(font-shape . caps)} to the active
-properties, so we substitute the the following for the @dots{} in the
-above example:
-
-@example
- (cons (list '(font-shape . caps) ) props)
-@end example
-
-@noindent
-The variable @code{props} is a list of alists, and we prepend to it by
-consing a list with the extra setting.
-
-However, suppose that we are using a font that does not have a
-small-caps variant. In that case, we have to fake the small caps font,
-by setting a string in upcase, with the first letter a little larger:
-
-@example
-#(def-markup-command (smallcaps paper props str) (string?)
-   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
-   (interpret-markup paper props
-    (make-line-markup
-     (map (lambda (s)
-            (if (= (string-length s) 0)
-                s
-                (markup #:large (string-upcase (substring s 0 1))
-                        #:translate (cons -0.6 0)
-                        #:tiny (string-upcase (substring s 1)))))
-          (string-split str #\Space)))))
-@end example
-
-The @code{smallcaps} command first splits its string argument into
-tokens separated by spaces (@code{(string-split str #\Space)}); for
-each token, a markup is built with the first letter made large and
-upcased (@code{#:large (string-upcase (substring s 0 1))}), and a
-second markup built with the following letters made tiny and upcased
-(@code{#:tiny (string-upcase (substring s 1))}). As LilyPond
-introduces a space between markups on a line, the second markup is
-translated to the left (@code{#:translate (cons -0.6 0) ...}). Then,
-the markups built for each token are put in a line
-(@code{(make-line-markup ...)}). Finally, the resulting markup is
-passed to the @code{interpret-markup} function, with the @code{paper}
-and @code{props} arguments.
-
-Finally, suppose that we are typesetting a recitative in an opera, and
-we would like to define a command that will show character names in a
-custom manner. Names should be printed with small caps and translated a
-bit to the left and top.  We will define a @code{\character} command
-that takes into account the needed translation, and uses the newly
-defined @code{\smallcaps} command:
-
-@verbatim
-#(def-markup-command (character paper props name) (string?)
-   "Print the character name in small caps, translated to the left and
-   top. Syntax: \\character #\"name\""
-   (interpret-markup paper props 
-    (markup "" #:translate (cons -4 2) #:smallcaps name)))
-@end verbatim
-
-There is one complication that needs explanation: texts above and below
-the staff are moved vertically to be at a certain distance (the
-@code{padding} property) from the staff and the notes. To make sure
-that this mechanism does not annihilate the vertical effect of our
-@code{#:translate}, we add an empty string (@code{""}) before the
-translated text.  Now the @code{""} will be put above the notes, and the
-@code{name} is moved in relation to that empty string. The net effect is
-that the text is moved to the upper left.
-
-The final result is as follows:
-@verbatim
-\score {
-    \notes { \fatText
-        c''^\markup \character #"Cleopatra"
-        e'^\markup \character #"Giulio Cesare"
-    }
-}
-@end verbatim
-
-@lilypond[raggedright]
-#(def-markup-command (smallcaps paper props str) (string?)
-   "Print the string argument in small caps. Syntax: \\smallcaps #\"string\""
-   (interpret-markup paper props
-    (make-line-markup
-     (map (lambda (s)
-            (if (= (string-length s) 0)
-                s
-                (markup #:large (string-upcase (substring s 0 1))
-                        #:translate (cons -0.6 0)
-                        #:tiny (string-upcase (substring s 1)))))
-          (string-split str #\Space)))))
-
-#(def-markup-command (character paper props name) (string?)
-   "Print the character name in small caps, translated to the left and
-   top. Syntax: \\character #\"name\""
-   (interpret-markup paper props 
-    (markup "" #:translate (cons -4 0) #:smallcaps name)))
-
-\score {
-    \notes { \fatText
-        c''^\markup \character #"Cleopatra"
-        e'^\markup \character #"Giulio Cesare"
-    }
-}
-@end lilypond
-
 
 
 @node Global layout
@@ -1396,89 +1199,428 @@ LilyPond has no concept of page layout, which makes it difficult to
 reliably choose page breaks in longer pieces.
 
 
-
-
-@node Sound
-@section Sound
-@cindex Sound
-
-Entered music can also be converted to MIDI output.  The performance
-is good enough for proof-hearing the music for errors.
-
-Ties, dynamics and tempo changes are interpreted.  Dynamic marks,
-crescendi and decrescendi translate into MIDI volume levels.  Dynamic
-marks translate to a fixed fraction of the available MIDI volume
-range, crescendi and decrescendi make the volume vary linearly between
-their two extremities.  The fractions can be adjusted by
-@code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
-For each type of MIDI instrument, a volume range can be defined.  This
-gives a basic equalizer control, which can enhance the quality of
-the MIDI output remarkably.  The equalizer can be controlled by
-setting @code{instrumentEqualizer}.
-
-@refbugs
-
-Many musically interesting effects, such as swing, articulation,
-slurring, etc., are not translated to MIDI.
-
-Since slurs are not interpreted, @code{\lyricsto} and
-@code{\addlyrics} sections will be interpreted wrongly.
-
-The MIDI output allocates a channel for each Staff, and one for global
-settings.  Hence, the MIDI file should not have more than 15 staves
-(or 14 if you do not use drums).
-
+@node Interpretation context
+@section Interpretation context
 
 @menu
-* MIDI block::                  
-* MIDI instrument names::       
+* Creating contexts::           
+* Default contexts::            
+* Context properties::          
+* Defining contexts::           
+* Changing contexts locally::   
+* Engravers and performers::    
+* Defining new contexts::       
 @end menu
 
 
-@node MIDI block
-@subsection MIDI block
-@cindex MIDI block
-
-
-The MIDI block is analogous to the paper block, but it is somewhat
-simpler.  The @code{\midi} block can contain:
-@cindex MIDI block
-
+Interpretation contexts are objects that only exist during program
+run.  During the interpretation phase (when @code{interpreting music}
+is printed on the standard output), the music expression in a
+@code{\score} block is interpreted in time order, the same order in
+which we hear and play the music.  During this phase, the interpretation
+context holds the state for the current point within the music, for
+example:
 @itemize @bullet
-  @item a @code{\tempo} definition, and
-  @item context definitions.
+@item What notes are playing at this point?
+
+@item What symbols will be printed at this point?
+
+@item What is the current key signature, time signature, point within
+the measure, etc.?
 @end itemize
 
-Assignments in the @code{\midi} block are not allowed.
+Contexts are grouped hierarchically: A @internalsref{Voice} context is
+contained in a @internalsref{Staff} context (because a staff can contain
+multiple voices at any point), a @internalsref{Staff} context is contained in
+@internalsref{Score}, @internalsref{StaffGroup}, or
+@internalsref{ChoirStaff} context.
 
-A number followed by a period is interpreted as a real number, so
-for setting the tempo for dotted notes, an extra space should be
-inserted, for example:
+Contexts associated with sheet music output are called @emph{notation
+contexts}, those for sound output are called @emph{performance
+contexts}.  The default definitions of the standard notation and
+performance contexts can be found in @file{ly/engraver-init.ly} and
+@file{ly/performer-init.ly}, respectively.
+
+
+@node Creating contexts
+@subsection Creating contexts
+@cindex @code{\context}
+@cindex context selection
+
+Contexts for a music expression can be selected manually, using one of
+the following music expressions:
 
 @example
-  \midi @{ \tempo 4 . = 120 @} 
+\new @var{contexttype} @var{musicexpr}
+\context @var{contexttype} [= @var{contextname}] @var{musicexpr}
 @end example
 
+@noindent
+This means that @var{musicexpr} should be interpreted within a context
+of type @var{contexttype} (with name @var{contextname} if specified).
+If no such context exists, it will be created:
+
+@lilypond[verbatim,raggedright]
+\score {
+  \notes \relative c'' {
+    c4 <<d4 \context Staff = "another" e4>> f
+  }
+}
+@end lilypond
+
+@noindent
+In this example, the @code{c} and @code{d} are printed on the default
+staff.  For the @code{e}, a context @code{Staff} called @code{another}
+is specified; since that does not exist, a new context is created.
+Within @code{another}, a (default) Voice context is created for the
+@code{e4}.  A context is ended when when all music referring it has
+finished, so after the third quarter, @code{another} is removed.
+
+The @code{\new} construction creates a context with a
+generated, unique @var{contextname}. An expression with
+@code{\new} always leads to a new context. This is convenient
+for creating multiple staffs, multiple lyric lines, etc.
+
+When using automatic staff changes, automatic phrasing, etc., the
+context names have special meanings, so @code{\new} cannot be
+used.
+
+
+@node Default contexts
+@subsection Default contexts
+
+Every top level music is interpreted by the @code{Score} context; in
+other words, you may think of @code{\score} working like
+
+@example
+\score @{
+  \context Score @var{music}
+@}
+@end example
+
+Music expressions  inherit their context from the enclosing music
+expression. Hence, it is not necessary to explicitly specify
+@code{\context} for most expressions.  In
+the following example, only the sequential expression has an explicit
+context. The notes contained therein inherit the @code{goUp} context
+from the enclosing music expression.
+
+@lilypond[verbatim,raggedright]
+  \notes \context Voice = goUp { c'4 d' e' }
+@end lilypond
+
+
+Second, contexts are created automatically to be able to interpret the
+music expressions.  Consider the following example:
+
+@lilypond[verbatim,raggedright]
+  \score { \notes { c'4-( d' e'-) } }
+@end lilypond
+
+@noindent
+The sequential music is interpreted by the Score context initially,
+but when a note is encountered, contexts are setup to accept that
+note.  In this case, a @code{Voice}, and @code{Staff}
+context are created.  The rest of the sequential music is also
+interpreted with the same @code{Voice}, and
+@code{Staff} context, putting the notes on the same staff, in the same
+voice.
+
+@node Context properties
+@subsection Context properties
+
+Contexts have properties.  These properties are set from the @file{.ly}
+file using the following expression:
+@cindex context properties
+@cindex properties, context
+
+@example
+\set @var{contextname}.@var{propname} = @var{value}
+@end example
+
+@noindent
+Sets the @var{propname} property of the context @var{contextname} to
+the specified Scheme expression @var{value}.  Both @var{propname} and
+@var{contextname} are strings, which can often be written unquoted.
+
+@cindex inheriting
+Properties that are set in one context are inherited by all of the
+contained contexts.  This means that a property valid for the
+@internalsref{Voice} context can be set in the @internalsref{Score} context
+(for example) and thus take effect in all @internalsref{Voice} contexts.
+
+Properties can be unset using the following statement.
+@example
+\unset @var{contextname}.@var{propname} 
+@end example
+
+@cindex properties, unsetting
+@cindex @code{\unset}
+
+@noindent
+This removes the definition of @var{propname} in @var{contextname}.  If
+@var{propname} was not defined in @var{contextname} (but was inherited
+from a higher context), then this has no effect.
+
+If @var{contextname} is left out, then it defaults to the current
+``bottom'' context: this is a context like @internalsref{Voice} that
+cannot contain any other contexts.
+
+
+@node Defining contexts
+@subsection Defining contexts
 
 @cindex context definition
+@cindex translator definition
 
-Context definitions follow precisely the same syntax as within the
-\paper block.  Translation modules for sound are called performers.
-The contexts for MIDI output are defined in @file{ly/performer-init.ly}.
+The most common way to create a new context definition is by extending
+an existing one.  An existing context from the paper block is copied
+by referencing a context identifier:
 
+@example
+\paper @{
+  \translator @{
+    @var{context-identifier}
+  @}
+@}
+@end example
 
-@node MIDI instrument names
-@subsection MIDI instrument names
+@noindent
+Every predefined context has a standard identifier. For example, the
+@code{Staff} context can be referred to as @code{\StaffContext}.
 
-@cindex instrument names
-@cindex @code{Staff.midiInstrument}
+The context can then be modified by setting or changing properties,
+e.g.
+@example
+\translator @{
+  \StaffContext
+  Stem \set #'thickness = #2.0
+  defaultBarType = #"||"
+@}
+@end example
+These assignments happen before interpretation starts, so a property
+command will override any predefined settings.
 
-The MIDI instrument name is set by the @code{Staff.midiInstrument}
-property.  The instrument name should be chosen from the list in
-@ref{MIDI instruments}.
+@cindex engraver
 
 @refbugs
 
-If the selected string does not exactly match, then the default is
-used, which is the Grand Piano. 
+It is not possible to collect multiple property assignments in a
+variable, and apply to one @code{\translator} definition by
+referencing that variable.
+
+@node Changing contexts locally
+@subsection Changing contexts locally
+
+
+Extending an existing context can also be done locally. A piece of
+music can be interpreted in a changed context by using the following syntax
+
+@example
+  \with @{
+     @var{context modifications}
+  @}
+@end example
+
+These statements comes between @code{\new} or @code{\context} and the
+music to be interpreted. The @var{context modifications} property
+settings and @code{\remove}, @code{\consists} and @code{\consistsend}
+commands. The syntax is similar to the @code{\translator} block.
+
+The following example shows how a staff is created with bigger spaces,
+and without a @code{Clef_engraver}.
+
+@lilypond[relative=1,fragment,verbatim]
+<<
+  \new Staff { c4 es4 g2 }
+  \new Staff \with {
+        \override StaffSymbol #'staff-space = #(magstep 1.5)
+        fontSize = #1.5
+        \remove "Clef_engraver"
+  } {
+        c4 es4 g2
+  } >>
+@end lilypond
+
+@refbugs
+
+The command @code{\with} has no effect on contexts that already
+exist. 
+
+
+@node Engravers and performers
+@subsection  Engravers and performers
+
+
+Each context is composed of a number of building blocks, or plug-ins
+called engravers.  An engraver is a specialized C++ class that is
+compiled into the executable. Typically, an engraver is responsible
+for one function: the @code{Slur_engraver} creates only @code{Slur}
+objects, and the @code{Skip_event_swallow_translator} only swallows
+(silently gobbles) @code{SkipEvent}s.
+
+
+
+@cindex engraver
+@cindex plug-in
+
+An existing context definition can be changed by adding or removing an
+engraver. The syntax for these operations is
+@example
+\consists @var{engravername}
+\remove @var{engravername}
+@end example
+
+@cindex @code{\consists}
+@cindex @code{\remove}
+
+@noindent
+Here @var{engravername} is a string, the name of an engraver in the
+system. In the following example, the @code{Clef_engraver} is removed
+from the Staff context. The result is a staff without a clef, where
+the middle C is at its default position, the center line:
+
+@lilypond[verbatim,raggedright]
+\score {
+  \notes {
+    c'4 f'4
+  }
+  \paper {
+    \translator {
+      \StaffContext
+      \remove Clef_engraver
+    }
+  }
+}
+@end lilypond
+
+A list of all engravers is in the internal documentation,
+see @internalsref{Engravers}.
+
+@node Defining new contexts
+@subsection Defining new contexts
+
+
+It is also possible to define new contexts from scratch.  To do this,
+you must define give the new context a name.  In the following
+example, a very simple Staff context is created: one that will put
+note heads on a staff symbol.
+
+@example
+\translator @{
+  \type "Engraver_group_engraver"
+  \name "SimpleStaff"
+  \alias "Staff"
+  \consists "Staff_symbol_engraver"
+  \consists "Note_head_engraver"
+  \consistsend "Axis_group_engraver"
+@}
+@end example
+
+@noindent
+The argument of @code{\type} is the name for a special engraver that
+handles cooperation between simple engravers such as
+@code{Note_head_engraver} and @code{Staff_symbol_engraver}.  This
+should always be  @code{Engraver_group_engraver} (unless you are
+defining a Score context from scratch, in which case
+@code{Score_engraver}   must be used).
+
+The complete list of context  modifiers is the following:
+@itemize @bullet
+@item @code{\alias} @var{alternate-name}:
+This specifies a different name.  In the above example,
+@code{\set Staff.X = Y} will also work on @code{SimpleStaff}s.
+
+@item @code{\consistsend} @var{engravername}:
+Analogous to @code{\consists}, but makes sure that
+@var{engravername} is always added to the end of the list of
+engravers.
+
+Engravers that group context objects into axis groups or alignments
+need to be at the end of the list. @code{\consistsend} insures that
+engravers stay at the end even if a user adds or removes engravers.
+
+@item @code{\accepts} @var{contextname}:
+This context can contains @var{contextname} contexts.  The first
+@code{\accepts} is created as a default context when events (e.g. notes
+or rests) are encountered.
+
+@item @code{\denies}:
+The opposite of @code{\accepts}.
+
+@item @code{\name} @var{contextname}:
+This sets the type name of the context, e.g. @code{Staff},
+@code{Voice}.  If the name is not specified, the translator will not
+do anything.
+@end itemize
+
+@c EOF
+
+
+
+
+@node Output details
+@section Output details
+
+The default output format is La@TeX{}, which should be run
+through La@TeX{}.  Using the option @option{-f}
+(or @option{--format}) other output formats can be selected also, but
+currently none of them work reliably.
+
+At the beginning of the output file, various global parameters are
+defined.  Then the file @file{lilyponddefs.tex} is loaded to define
+the macros used in the code which follows.  @file{lilyponddefs.tex}
+includes various other files, partially depending on the global
+parameters.
+
+Now the music is output system by system (a `system' consists of all
+staves belonging together).  From @TeX{}'s point of view, a system is an
+@code{\hbox} which contains a lowered @code{\vbox} so that it is centered
+vertically on the baseline of the text.  Between systems,
+@code{\interscoreline} is inserted vertically to have stretchable space.
+The horizontal dimension of the @code{\hbox} is given by the
+@code{linewidth} parameter from LilyPond's @code{\paper} block.
+
+After the last system LilyPond emits a stronger variant of
+@code{\interscoreline} only if the macro
+@code{\lilypondpaperlastpagefill} is not defined (flushing the systems
+to the top of the page).  You can avoid that by setting the variable
+@code{lastpagefill} in LilyPond's @code{\paper} block.
+
+It is possible to fine-tune the vertical offset further by defining the
+macro @code{\lilypondscoreshift}:
+
+@example
+\def\lilypondscoreshift@{0.25\baselineskip@}
+@end example
+
+@noindent
+where @code{\baselineskip} is the distance from one text line to the next.
+
+Here an example how to embed a small LilyPond file @code{foo.ly} into
+running La@TeX{} text without using the @code{lilypond-book} script
+(@pxref{lilypond-book manual}):
+
+@example
+\documentclass@{article@}
+
+\def\lilypondpaperlastpagefill@{@}
+\lineskip 5pt
+\def\lilypondscoreshift@{0.25\baselineskip@}
+
+\begin@{document@}
+This is running text which includes an example music file
+\input@{foo.tex@}
+right here.
+\end@{document@}
+@end example
+
+The file @file{foo.tex} has been simply produced with
+
+@example
+  lilypond-bin foo.ly
+@end example
+
+The call to @code{\lineskip} assures that there is enough vertical space
+between the LilyPond box and the surrounding text lines.
 

@@ -28,55 +28,24 @@
 		     ))
 (map ly:load load-files)
 
-
-;;(define no-copies #t)  ; from 490 to 410K, but doesn't look nice yet
-;;
-;; Also, copies of interfaces use up lots more space, but that's
-;; functional because the default property values of the interfaces
-;; are described...
-(define no-copies #f)
-
-
-
-
-
-
-
-
-
-
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(dump-node (all-scheme-functions-doc)
-	   (open-output-file "scheme-functions.tely")
-	   2)
+(display
+ (slot-ref (all-scheme-functions-doc) 'text)
+ (open-output-file "scheme-functions.tely"))
 
 (display 
  (markup-doc-string)
+ (open-output-file "markup-commands.tely"))
 
- (open-output-file "markup-commands.tely")
- )
 
-(dump-node
- (make <texi-node>
-   #:name "Layout property overview"
-   #:desc "All user serviceable layout properties"
-   #:text (backend-properties-doc-string all-user-grob-properties))
+(display
+ (backend-properties-doc-string all-user-grob-properties)
+ (open-output-file "layout-properties.tely") )
 
- (open-output-file "layout-properties.tely")
- 2)
-
-(dump-node
- (make <texi-node>
-   #:name "Context property overview"
-   #:desc "All user serviceable context properties"
-   #:text (translation-properties-doc-string all-user-translation-properties))
- 
- (open-output-file "context-properties.tely")
- 2)
-
+(display
+ (translation-properties-doc-string all-user-translation-properties)
+ (open-output-file "context-properties.tely") )
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 

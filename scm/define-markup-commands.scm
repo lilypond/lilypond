@@ -263,7 +263,7 @@ letter 'A'."
 This  raises  @var{arg}, by the distance @var{amount}.
 A negative @var{amount} indicates lowering:
 @c
-@lilypond[verbatim,fragment,relative=1,quote]
+@lilypond[verbatim,fragment,relative=1]
  c1^\\markup { C \\small \\raise #1.0 \\bold { \"9/7+\" }}
 @end lilypond
 The argument to @code{\\raise} is the vertical displacement amount,

@@ -944,7 +944,7 @@ also the contrapunctal technique used in the @emph{fugue} which, since the
 music of the baroque era, has been one of the most popular polyphonic
 composition methods.
 
-@lilypond[staffsize=11,noquote]
+@lilypond[staffsize=11]
 \override Score.TimeSignature   #'style =\turnOff
 \notes\context PianoStaff <<
   \context Staff = SA \relative c' {

@@ -808,8 +808,8 @@ braces at the end of an expression. For example,
 @end example
 
 
-For more information on context see the Technical manual description
-in @ref{Interpretation context}.
+For more information on context see the description in
+@ref{Interpretation context}.
 
 
 
