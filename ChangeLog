@@ -1,3 +1,10 @@
+2003-01-11  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond.words: add one.
+
+	* lilypond-font-lock.el: add colour groups for horizontal, vertical 
+	and expressional note grouping. Fontify chord modes.
+
 2003-01-09  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/music-glossary.tely (Top): translate melisma.
