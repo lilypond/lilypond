@@ -17,11 +17,18 @@
 #include "stem.hh"
 #include "note-column.hh"
 #include "dimensions.hh"
+#include "group-interface.hh"
+
 
 
 Tuplet_spanner::Tuplet_spanner ()
 {
+  /*
+    -> GUILE
+   */
   parallel_beam_b_ = false;
+  set_elt_property ("beams", SCM_EOL);
+  set_elt_property ("columns", SCM_EOL);  
 }
 
 /*
@@ -55,77 +62,78 @@ Tuplet_spanner::do_brew_molecule_p () const
 			   (value == 2 && !parallel_beam_b_));
     }
   
-  if (column_arr_.size ()){
-    Real ncw = column_arr_.top ()->extent (X_AXIS).length ();
-    Real w = extent (X_AXIS).length () + ncw;
-    Molecule num (lookup_l ()->text ("italic",
-				     number_str_, paper_l ()));
-    num.align_to (X_AXIS, CENTER);
-    num.translate_axis (w/2, X_AXIS);
-    Real interline = paper_l ()->get_var ("interline");
-    Real dy = column_arr_.top ()->extent (Y_AXIS) [get_direction ()]
-      - column_arr_[0]->extent (Y_AXIS) [get_direction ()];
-    num.align_to (Y_AXIS, CENTER);
-    num.translate_axis (get_direction () * interline, Y_AXIS);
+  if (gh_pair_p (get_elt_property ("columns")))
+    {
+      Link_array<Note_column> column_arr=
+	Group_interface__extract_elements (this, (Note_column*)0, "columns");
 	
-    num.translate_axis (dy/2, Y_AXIS);
+      Real ncw = column_arr.top ()->extent(X_AXIS).length ();
+      Real w = spanner_length () + ncw;
+      Molecule num (lookup_l ()->text ("italic",
+				       number_str_, paper_l ()));
+      num.align_to (X_AXIS, CENTER);
+      num.translate_axis (w/2, X_AXIS);
+      Real interline = paper_l ()->get_var ("interline");
+      Real dy = column_arr.top ()->extent (Y_AXIS) [get_direction ()]
+	- column_arr[0]->extent (Y_AXIS) [get_direction ()];
+      num.align_to (Y_AXIS, CENTER);
+      num.translate_axis (get_direction () * interline, Y_AXIS);
+	
+      num.translate_axis (dy/2, Y_AXIS);
     
-    Real thick = paper_l ()->get_var ("tuplet_thick");
-    if (bracket_visibility)      
-      {
-	Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
+      Real thick = paper_l ()->get_var ("tuplet_thick");
+      if (bracket_visibility)      
+	{
+	  Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
 	
-	mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, interline, get_direction ()));
-      }
+	  mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, interline, get_direction ()));
+	}
 
-    if (number_visibility)
-      {
-	mol_p->add_molecule (num);
-      }
-    mol_p->translate_axis (get_direction () * interline, Y_AXIS);
-  }
+      if (number_visibility)
+	{
+	  mol_p->add_molecule (num);
+	}
+      mol_p->translate_axis (get_direction () * interline, Y_AXIS);
+    }
   return mol_p;
 }
   
 void
 Tuplet_spanner::do_add_processing ()
 {
-  if (column_arr_.size ())
+  if (gh_pair_p (get_elt_property ("columns")))
     {
-      set_bounds (LEFT, column_arr_[0]);
-      set_bounds (RIGHT, column_arr_.top ());  
+      Link_array<Note_column> column_arr=
+	Group_interface__extract_elements (this, (Note_column*)0, "columns");
+      
+      set_bounds (LEFT, column_arr[0]);
+      set_bounds (RIGHT, column_arr.top ());  
     }
 }
   
 void
 Tuplet_spanner::do_post_processing ()
 {
-  if (column_arr_.size())
-    translate_axis (column_arr_[0]->extent (Y_AXIS)[get_direction ()], Y_AXIS);
+  Link_array<Note_column> column_arr=
+    Group_interface__extract_elements (this, (Note_column*)0, "columns");
+      
 
-  if (beam_l_arr_.size () == 1)
+  if (column_arr.size())
+    translate_axis (column_arr[0]->extent (Y_AXIS)[get_direction ()], Y_AXIS);
+
+  
+  if (scm_ilength (get_elt_property ("beams")) == 1)
     {
-      Beam * beam_l = beam_l_arr_[0];
+      SCM bs = get_elt_property ("beams");
+      Score_element *b = unsmob_element (gh_car (bs));
+      Beam * beam_l = dynamic_cast<Beam*> (b);
       if (!broken_b () 
 	  && spanned_drul_[LEFT]->column_l () == beam_l->spanned_drul_[LEFT]->column_l ()
 	  && spanned_drul_[RIGHT]->column_l () == beam_l->spanned_drul_[RIGHT]->column_l ())
 	parallel_beam_b_ = true;
     }
-
-  //  if (column_arr_.size () == 1)
-  //    bracket_visibility_b_ = false;
 }
 
-void
-Tuplet_spanner::do_substitute_element_pointer (Score_element* o, Score_element* n)
-{
-  if (Note_column *onc = dynamic_cast <Note_column *> (o))
-    column_arr_.substitute (onc, dynamic_cast<Note_column*> (n));
-  else if (Beam * b = dynamic_cast<Beam* > (o))
-    {
-      beam_l_arr_.substitute (b,  dynamic_cast<Beam*> (n));
-    }
-}
 
 Direction
 Tuplet_spanner::get_default_dir () const
@@ -138,14 +146,17 @@ Tuplet_spanner::get_default_dir () const
       return d;
   }
 
-  for (int i=0; i < column_arr_.size (); i ++) 
+  for (SCM s = get_elt_property ("columns"); gh_pair_p (s); s = gh_cdr (s))
     {
-      if (column_arr_[i]->dir () < 0) 
+      Score_element * sc = unsmob_element (gh_car (s));
+      Note_column * nc = dynamic_cast<Note_column*> (sc);
+      if (nc->dir () < 0) 
 	{
 	  d = DOWN;
 	  break;
 	}
     }
+  
   return d;
 }
 
@@ -153,13 +164,16 @@ void
 Tuplet_spanner::add_beam (Beam *b)
 {
   add_dependency (b);
-  beam_l_arr_.push (b);
+  Group_interface gi (this, "beams");
+  gi.add_element (b);
 }
 
 void
 Tuplet_spanner::add_column (Note_column*n)
 {
-  column_arr_.push (n);
+  Group_interface gi (this, "columns");
+  gi.add_element (n);
+
   add_dependency (n);
 }
 
