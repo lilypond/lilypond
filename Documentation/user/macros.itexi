@@ -97,7 +97,10 @@
  @c should we do this? 
  @findex @code{\NAME\}
  @end macro
-
+ 
+ @macro usermanref{NAME}
+ @inforef{\NAME\,,lilypond}@c
+ @end macro
 
  @macro inputfileref{DIR,NAME}
  @uref{../../../../\DIR\/out-www/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
@@ -113,11 +116,9 @@
 @findex \NAME\@c
 @end macro
 
-
 @macro inputfileref{DIR,NAME}
 @file{\DIR\/\NAME\}
 @end macro
-
 
 @macro usermanref{NAME}
 @ref{\NAME\,,,lilypond/lilypond}@c
@@ -125,8 +126,8 @@
 
 @end ifinfo
 
-@iftex
 @c **** TEX ****
+@iftex
 
 @macro internalsref{NAME}@c
 @findex \NAME\ @c
@@ -137,12 +138,15 @@
 @file{\DIR\/@/\NAME\}@c
 @end macro
 
-
 @macro seeinternals{NAME}
 internals document, @internalsref{\NAME\}
 @end macro
-@end iftex
 
+@macro usermanref{NAME}
+user manual, @internalsref{\NAME\}
+@end macro
+
+@end iftex
 @c **** not TEX ****
 
 @ifnottex
@@ -151,11 +155,11 @@ internals document, @internalsref{\NAME\}
  @end macro
 @end ifnottex
 
-@ifnotinfo
+@ifnottex
  @macro usermanref{NAME}
  @ref{\NAME\}@c
  @end macro
-@end ifnotinfo
+@end ifnottex
 
 @macro refbugs
 @noindent
@@ -180,16 +184,24 @@ internals document, @internalsref{\NAME\}
 @findex \NAME\@c
 @end macro
 
-
-
-
-@c
-@c ARGGGHHHHH! I want
+@c I want
 @c @cindex @code{@backslash\WHAT\}
-@c how do I do that?
-@c   --hwn
+@c how do I do that?  --hwn
+
+@ignore
+
+Is this question still relevant?  With texinfo 4.7,
+escape the backslash, like so  --jcn
+
+@macro refcommand{WHAT}
+@cindex @code{\\\WHAT\}
+@code{\WHAT\},
+@end macro
+
+@end ignore
 
 @macro refcommand{WHAT}
 @findex \WHAT\
 @code{\WHAT\} 
 @end macro
+
