@@ -34,7 +34,6 @@ public:
 protected:
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 };
@@ -207,12 +206,6 @@ Script_engraver::stop_translation_timestep ()
 	Side_position_interface::add_staff_support (sc);
       typeset_grob (sc);
     }
-  scripts_.clear ();
-}
-
-void
-Script_engraver::start_translation_timestep ()
-{
   scripts_.clear ();
 }
 

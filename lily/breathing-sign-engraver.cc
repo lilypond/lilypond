@@ -30,7 +30,6 @@ protected:
   virtual bool try_music (Music *req);
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
 
 private:
   Music * breathing_sign_req_;
@@ -71,11 +70,6 @@ Breathing_sign_engraver::stop_translation_timestep ()
       typeset_grob (breathing_sign_);
       breathing_sign_ = 0;
     }
-}
-
-void
-Breathing_sign_engraver::start_translation_timestep ()
-{
   breathing_sign_req_ = 0;
 }
 

@@ -30,7 +30,6 @@ protected:
   virtual void acknowledge_audio_element (Audio_element_info);
   virtual void process_music ();
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
 
 private:
   Audio_dynamic* audio_;
@@ -161,13 +160,10 @@ Span_dynamic_performer::stop_translation_timestep ()
       play_element (audio_);
       audio_ = 0;
     }
-}
 
-void
-Span_dynamic_performer::start_translation_timestep ()
-{
   span_req_l_drul_[STOP] = 0;
   span_req_l_drul_[START] = 0;
+
 }
 
 bool

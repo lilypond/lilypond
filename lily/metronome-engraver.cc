@@ -69,6 +69,7 @@ Metronome_mark_engraver::stop_translation_timestep ()
       typeset_grob (text_);
       text_ =0;
     }
+  mark_req_ = 0;
 }
 
 
@@ -84,11 +85,6 @@ Metronome_mark_engraver::create_items (Music *rq)
   announce_grob(text_, rq->self_scm());
 }
 
-void
-Metronome_mark_engraver::start_translation_timestep ()
-{
-  mark_req_ = 0;
-}
 
 bool
 Metronome_mark_engraver::try_music (Music* r)

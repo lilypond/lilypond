@@ -36,7 +36,6 @@ protected:
   virtual void finalize ();
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
   virtual void process_acknowledged_grobs ();
 private:
 
@@ -121,11 +120,6 @@ Hyphen_engraver::stop_translation_timestep ()
       last_lyric_ = current_lyric_;
       current_lyric_ =0;
     }
-}
-
-void
-Hyphen_engraver::start_translation_timestep ()
-{
   req_ = 0;
 }
 

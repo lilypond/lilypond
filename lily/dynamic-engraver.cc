@@ -64,7 +64,6 @@ protected:
   virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
   virtual void process_music ();  
-  virtual void start_translation_timestep ();
 };
 
 
@@ -79,14 +78,6 @@ Dynamic_engraver::Dynamic_engraver ()
   current_cresc_ev_ = 0;
   cresc_ =0;
 
-  script_ev_ = 0;
-  accepted_spanreqs_drul_[START] = 0;
-  accepted_spanreqs_drul_[STOP] = 0;
-}
-
-void
-Dynamic_engraver::start_translation_timestep ()
-{
   script_ev_ = 0;
   accepted_spanreqs_drul_[START] = 0;
   accepted_spanreqs_drul_[STOP] = 0;
@@ -302,6 +293,10 @@ Dynamic_engraver::stop_translation_timestep ()
       line_spanner_ =0;
       typeset_all ();
     }
+
+  script_ev_ = 0;
+  accepted_spanreqs_drul_[START] = 0;
+  accepted_spanreqs_drul_[STOP] = 0;
 }
 
 void

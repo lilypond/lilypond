@@ -27,7 +27,6 @@ public:
 
 protected:
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
 private:
@@ -188,11 +187,6 @@ Clef_engraver::stop_translation_timestep ()
 
       octavate_ = 0;
     }
-}
-
-void
-Clef_engraver::start_translation_timestep ()
-{
 }
 
 

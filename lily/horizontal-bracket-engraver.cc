@@ -23,7 +23,6 @@ public:
   int push_count_;
 
   virtual  bool try_music(Music*);
-  virtual void start_translation_timestep ();
   virtual void stop_translation_timestep ();
   virtual  void process_music ();
   virtual  void acknowledge_grob (Grob_info);
@@ -43,12 +42,6 @@ Horizontal_bracket_engraver::Horizontal_bracket_engraver()
   push_count_ = 0;
 }
 
-void
-Horizontal_bracket_engraver::start_translation_timestep()
-{
-  pop_count_ = 0;
-  push_count_ = 0;
-}
 
 bool
 Horizontal_bracket_engraver::try_music (Music *m)
@@ -121,6 +114,8 @@ Horizontal_bracket_engraver::stop_translation_timestep ()
       if (bracket_stack_.size())
 	typeset_grob (bracket_stack_.pop());
     }
+  pop_count_ = 0;
+  push_count_ = 0;
 }
 
 

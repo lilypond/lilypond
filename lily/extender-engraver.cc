@@ -26,7 +26,6 @@ protected:
   virtual void finalize ();
   virtual bool try_music (Music*);
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
   virtual void process_music ();
 private:
 
@@ -116,13 +115,10 @@ Extender_engraver::stop_translation_timestep ()
   if (extender_)
     finished_extender_ = extender_;
   extender_ = 0;
-}
 
-void
-Extender_engraver::start_translation_timestep ()
-{
   ev_ = 0;
 }
+
 
 
 ENTER_DESCRIPTION(Extender_engraver,

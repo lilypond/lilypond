@@ -24,7 +24,6 @@ protected:
   virtual void stop_translation_timestep ();
   virtual bool try_music (Music *);
   virtual void process_music ();
-  virtual void start_translation_timestep ();
   
 public:
   TRANSLATOR_DECLARATIONS(Lyric_engraver);
@@ -75,11 +74,6 @@ Lyric_engraver::stop_translation_timestep ()
       typeset_grob (text_);
       text_ =0;
     }
-}
-
-void
-Lyric_engraver::start_translation_timestep ()
-{
   req_ =0;
 }
 

@@ -26,7 +26,6 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
 };
 
 
@@ -43,13 +42,7 @@ Script_column_engraver::stop_translation_timestep ()
       typeset_grob (scol_);
       scol_ =0;
     }
-}
-
-void
-Script_column_engraver::start_translation_timestep ()
-{
   scripts_.clear ();
-
 }
 
 void
