@@ -3,7 +3,6 @@
 breve = \duration { -1 0 }
 longa = \duration { -2 0 }
 
-\include "dynamic.ly"
 \include "nederlands.ly"		% dutch
 \include "chord-modifiers.ly"
 \include "script.ly"
@@ -28,8 +27,11 @@ left = -1
 right = 1
 up = 1
 down = -1
+start = -1
+stop = 1
+smaller = -1
+bigger = 1
 
-% zillie spellink?
 center=0
 
 break = { \penalty = 10000; }
@@ -37,6 +39,7 @@ nobreak = { \penalty = -10000; }
 
 major = 0
 minor = 3
+\include "dynamic.ly"
 
 \include "property.ly"
 
