@@ -105,13 +105,16 @@ public:
     T& last(int j=0) {
 	return (*this)[size-j-1];
     }
+    T last(int j=0) const {
+	return (*this)[size-j-1];
+    }
     void swap (int i,int j) {
 	T t((*this)[i]);
 	(*this)[i]=(*this)[j];
 	(*this)[j]=t;
     }
     bool empty() { return !size; }
-    void insert(T&k, int j) {
+    void insert(T k, int j) {
 	assert(j >=0 && j<= size);
 	set_size(size+1);
 	for (int i=size-1; i > j; i--)
