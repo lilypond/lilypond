@@ -7,7 +7,10 @@
 
 @html
 <p align=center>
-<img src="Documentation/pictures/out-www/lelie-logo.png" alt="[logo]">
+<a href="Documentation/pictures/out-www/lelie-logo.png">
+<img border=0 src="Documentation/pictures/out-www/lelie-logo.png"
+ alt="[picture of lily-cello-girl]">
+</a>
 @end html
 
 

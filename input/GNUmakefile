@@ -1,6 +1,6 @@
 depth = ..
 
-SUBDIRS=bugs test regression tutorial no-notation ascii-art
+SUBDIRS=bugs test regression tutorial no-notation ascii-art template
 
 # nereides is tweaked a lot, can't do (read webpage)
 examples=trip star-spangled-banner paddy twinkle #nereides

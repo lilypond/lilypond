@@ -298,6 +298,10 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
   for (SCM i = add; gh_pair_p (i); i = gh_cdr (i))
     {
       Pitch* p = unsmob_pitch (gh_car (i));
+      /* Ugr
+	This chord modifier stuff should really be fixed
+       Cmaj7 yields C 7/7-
+      */
       if (p->octave_i ()  == -100)
         {
           p->octave_i_ = 0;
@@ -322,7 +326,10 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
   if (highest_step < 5)
     tmp = ly_snoc (fifth, tmp);
   else if (dim_b)
-    add = lower_step (tonic, add, gh_int2scm (5));
+    {
+      add = lower_step (tonic, add, gh_int2scm (5));
+      add = lower_step (tonic, add, gh_int2scm (7));
+    }
 
   /* find missing thirds */
   SCM missing = missing_thirds (tmp);
@@ -392,7 +399,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
 	  n->set_mus_property ("duration", dur);
 	  n->set_mus_property ("inversion", SCM_BOOL_T);
 	  list = gh_cons (n->self_scm (), list);
-	  scm_unprotect_object (n->self_scm ());
+	  scm_gc_unprotect_object (n->self_scm ());
 	}
       else
 	warning (_f ("invalid inversion pitch: not part of chord: %s",
@@ -407,7 +414,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
       n->set_mus_property ("duration", dur);
       n->set_mus_property ("bass", SCM_BOOL_T);
       list = gh_cons (n->self_scm (), list);
-      scm_unprotect_object (n->self_scm ());
+      scm_gc_unprotect_object (n->self_scm ());
     }
   
   for (SCM i = pitches; gh_pair_p (i); i = gh_cdr (i))
@@ -416,7 +423,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
       n->set_mus_property ("pitch", gh_car (i));
       n->set_mus_property ("duration", dur);
       list = gh_cons (n->self_scm (), list);
-      scm_unprotect_object (n->self_scm ());
+      scm_gc_unprotect_object (n->self_scm ());
     }
 
   Simultaneous_music*v = new Request_chord (SCM_EOL);
