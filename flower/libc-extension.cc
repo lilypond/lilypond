@@ -164,6 +164,7 @@ extern "C" {
   FILE *
   fopencookie (void *cookie, char const *mode, cookie_io_functions_t fun)
   {
+    (void) mode;
     return funopen (cookie, fun.read, fun.write, fun.seek, fun.close);
   }
 

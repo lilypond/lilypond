@@ -53,6 +53,8 @@ extern "C" {
 #include <libio.h>
 #else
 
+#if ! HAVE_FUNOPEN
+
 #define cookie_io_functions_t le_cookie_io_functions_t 
   typedef struct
   {
@@ -62,6 +64,17 @@ extern "C" {
     int (*close) (void *);
   } cookie_io_functions_t;
 
+#else
+
+  typedef struct
+  {
+    int (*read) (void *, char *, int);
+    int (*write) (void *, char const *, int);
+    fpos_t (*seek) (void *, fpos_t, int);
+    int (*close) (void *);
+  } cookie_io_functions_t;
+
+#endif /* ! HAVE_FUNOPEN */
 #endif /* ! HAVE_LIBIO_H */
 
   FILE *fopencookie (void *cookie, char const *modes,
@@ -87,9 +100,7 @@ extern "C" {
 #define putc handle_cookie_io_putc
 
 #endif /* ALIAS_FILE_TO_FILECOOKIE */
-  
 #endif /* ! HAVE_FUNOPEN */
-
 #endif /* ! HAVE_FOPENCOOKIE */
 
 #ifdef __cplusplus
