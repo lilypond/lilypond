@@ -19,7 +19,7 @@
 
 LY_DEFINE (ly_format_output, "ly:format-output",
 	   2, 0, 0, (SCM context, SCM outname),
-	   "Given a Score context in its final state,"
+	   "Given a Global context in its final state, "
            "process it and return the (rendered) result.")
 {
   Global_context *g = dynamic_cast<Global_context*> (unsmob_context (context));

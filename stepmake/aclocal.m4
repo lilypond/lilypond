@@ -169,15 +169,10 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     CFLAGS=${CFLAGS-""}
     CXXFLAGS=${CXXFLAGS-$CFLAGS}
     LDFLAGS=${LDFLAGS-""}
-    checking_b=yes
     optimise_b=yes
     profile_b=no
     debug_b=yes
     pipe_b=yes
-
-    AC_ARG_ENABLE(checking,
-    [  --enable-checking       set runtime checks (assert calls).  Default: on],
-    [checking_b=$enableval] )
 
     AC_ARG_ENABLE(debugging,
     [  --enable-debugging      compile with debugging info.  Default: on],
@@ -195,13 +190,9 @@ AC_DEFUN(STEPMAKE_COMPILE, [
     [  --enable-pipe           compile with -pipe.  Default: on],
     [pipe_b=$enableval])
 
-    if test "$checking_b" = no; then
-	# ugh
+    if test "$optimise_b" = yes; then
 	AC_DEFINE(NDEBUG)
 	DEFINES="$DEFINES -DNDEBUG"
-    fi
-
-    if test "$optimise_b" = yes; then
 	OPTIMIZE="-O2 -finline-functions"
     fi
 

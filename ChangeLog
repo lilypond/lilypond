@@ -1,3 +1,13 @@
+2005-01-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* stepmake/aclocal.m4: do NDEBUG for optimizing builds.
+
+	* lily/include/beam.hh (DEBUG_QUANTING): performance: only switch
+	on BEAMQUANTING for non-NDEBUG builds.
+
+	* lily/stem.cc (head_count): performance: avoid String::String()
+	inside oft called function.
+
 2005-01-09  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/examles.itely: attempted fix for broken

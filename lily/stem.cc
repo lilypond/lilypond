@@ -141,7 +141,7 @@ Stem::support_head (Grob *me)
 int
 Stem::head_count (Grob *me)
 {
-  return Pointer_group_interface::count (me, "note-heads");
+  return Pointer_group_interface::count (me, ly_symbol2scm ("note-heads"));
 }
 
 /* The note head which forms one end of the stem.

@@ -28,7 +28,7 @@ Tie_column::add_tie (Grob*me,Grob *s)
       && Tie_column::has_interface (s->get_parent (Y_AXIS)))
     return ;
   
-  if (!  Pointer_group_interface::count (me, "ties"))
+  if (!Pointer_group_interface::count (me, ly_symbol2scm ("ties")))
     {
       dynamic_cast<Spanner*> (me)->set_bound (LEFT, Tie::head (s,LEFT));
       dynamic_cast<Spanner*> (me)->set_bound (RIGHT, Tie::head (s,RIGHT));
