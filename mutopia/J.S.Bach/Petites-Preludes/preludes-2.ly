@@ -1,8 +1,9 @@
 \header{
 filename =	 "preludes-2.ly";
-% blz 10
+%
+% page 10
 % 
-% Six Petits Pr eludes
+% Six Petits Preludes
 % Collection Johann Peter Kellner
 % ca 1703- 1707
 composer =	 "Johann Sebastian Bach (1685-1750)";

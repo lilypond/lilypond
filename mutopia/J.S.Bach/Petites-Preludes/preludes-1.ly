@@ -1,9 +1,8 @@
 \header{
 filename =	 "preludes-1.ly";
-% urg?
-%opus = "BWV 924";
-% piece = "1";
-% blz 1
+%
+% page 1
+%
 % Clavierb"uchlein f"ur W. Fr. Bach
 % Clav. W. Fr. Bach: 2-Praeambulum I
 % ca 1720

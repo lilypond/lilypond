@@ -7,8 +7,11 @@ define(t, r16 [$1$4 $2 $3] [$2 $1 $2 $6$1] r $1$7 r $5$1 |)
 
 \header{
 filename =	 "preludes-3.ly";
+%
+% page 16
+%
 % Pr"aludum in C Moll f"ur Laute
-% blz 16
+%
 % Six Petits Preludes`
 % Collection Johann Peter Kellner
 % ca 1703 - 1707
@@ -51,7 +54,7 @@ upper = \context Staff \notes \transpose c'' {
 %# 	t(c,fis,a,-"poco a poco cresc.")
 	s(c fis a)
 	s(d g bes)
-	s(d fis c`)
+	s(d fis c')
 
 	s(cis g bes)
 %#	s(c es a !-"dim.")
@@ -130,7 +133,7 @@ lower = \context Staff \notes{
 
 	d`4 r [bes`8 g`] |
 	d`4 r [es8 c] |
-	d`4 r [d8 a] |
+	d`4 r [d8 a`] |
 
 	g`4 r [es8 c] |
 	g`4 r [d8 b`] |
