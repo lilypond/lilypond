@@ -65,10 +65,9 @@
 	)
   )	
 
+; don't do this yet. Depends on whennn the staff is really announced
 (define generic-staff-symbol-properties
   (cons "Staff_symbol" (list
-			(list 'numberOfStaffLines number? 'line-count)
-			(list 'staffSpace number? 'staff-space)
 			)
 	)
   )
@@ -168,7 +167,7 @@
    generic-timesig-properties
    generic-clef-properties
    generic-collision-properties
-   generic-staff-symbol-properties
+;   generic-staff-symbol-properties
    generic-All-properties      
    )
   )
