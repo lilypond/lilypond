@@ -140,12 +140,12 @@ static void
 dir_info (FILE *out)
 {
   fputs ("\n", out);
-  fprintf (out, "lilypond_datadir: `%s'\n", LILYPOND_DATADIR);
-  fprintf (out, "local_lilypond_datadir: `%s'\n", LOCAL_LILYPOND_DATADIR);
-  fprintf (out, "localedir: `%s'\n", LOCALEDIR);
+  fprintf (out, "LILYPOND_DATADIR=\"%s\"\n", LILYPOND_DATADIR);
+  fprintf (out, "LOCAL_LILYPOND_DATADIR=\%s\"\n", LOCAL_LILYPOND_DATADIR);
+  fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
 
   char *lilypond_prefix = getenv ("LILYPONDPREFIX");
-  fprintf (out, "LILYPONDPREFIX: `%s'\n",
+  fprintf (out, "LILYPONDPREFIX=\"%s\"\n",
 	   (lilypond_prefix ? lilypond_prefix : ""));
 }
 

@@ -7,6 +7,7 @@ here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
 sources = glob.glob ('*.cc')
+includes = glob.glob ('include/*.hh')
 os.chdir (here)
 
 name = 'flower'
@@ -18,3 +19,7 @@ if env['static']:
 	e.Library (name, sources) 
 if not env['static'] or env['shared']:
 	e.SharedLibrary (name, sources)
+
+#testing
+all_sources = ['SConscript',] + sources + includes 
+x = env.Tar (env['tarball'], all_sources)

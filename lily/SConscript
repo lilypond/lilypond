@@ -7,12 +7,23 @@ here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
 sources = glob.glob ('*.cc') + ['parser.yy', 'lexer.ll']
+includes = glob.glob ('include/*.hh')
 os.chdir (here)
 
 name = 'lyparser'
 
 Import ('env')
 e = env.Copy ()
+
+#let's do this after the split
+#sources = filter (lambda x: x != 'pangofc-afm-decoder.cc', sources)
+#pango = env.Copy ()
+#if pango['gui']:
+#	pango.ParseConfig ('pkg-config --cflags --libs gtk+-2.0')
+#	pango.ParseConfig ('pkg-config --cflags --libs pango')
+#pango.Object ('foo-' + 'pangofc-afm-decoder.o', 'pangofc-afm-decoder.cc')
+#
+#e.Object ('pangofc-afm-decoder.o', 'foo-pangofc-afm-deocder.o')
 
 e.Append (YACCFLAGS = '-d')
 outdir = os.path.join (env['build'], reldir, env['out'])
@@ -22,16 +33,14 @@ e.Depends ('my-lily-lexer.o', 'parser.cc')
 e.Depends ('my-lily-parser.o', 'parser.cc')
 
 # some stuff here from lily-as-lib
-if not os.path.exists ('main.cc'):
-	if env['static']:
-		e.Library (name, sources) 
-	if not env['static'] or env['shared']:
-		e.SharedLibrary (name, sources)
-else:
-	#e.Append (LIBS = ['lygui', 'lyparser', 'lily', 'flower'])
-	e.Append (LIBS = ['flower'])
-	e.ParseConfig ('guile-config link')
-	name = 'lilypond-bin'
-	lily = e.Program (name, sources)
-	env.Install (env['bindir'], lily)
-	env.Alias ('install', env['bindir'])
+e.Append (LIBS = ['flower'])
+e.ParseConfig ('guile-config link')
+name = 'lilypond-bin'
+lily = e.Program (name, sources)
+env.Install (env['bindir'], lily)
+env.Alias ('install', env['bindir'])
+
+
+#testing
+all_sources = ['SConscript',] + sources + includes 
+x = env.Tar (env['tarball'], all_sources)

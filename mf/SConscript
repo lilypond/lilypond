@@ -8,6 +8,7 @@ import sys
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
+sources = glob.glob ('*.mf')
 #mf_sources = reduce (+,
 mf_sources = reduce (lambda x, y: x + y,
 		     map (glob.glob,
@@ -23,8 +24,6 @@ MFMODE = env['MFMODE']
 def add_log_enc_ly_tex_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	et = (map (lambda x: base + x, ['.log', '.enc', '.ly', '.tex']))
-	#es = (map (lambda x: base + '.mf', et))
-	#return (target + et, source + es)
 	return (target + et, source)
 
 outdir = os.path.join (env['build'], reldir, env['out'])
@@ -36,36 +35,6 @@ tfm = Builder (action = ('(cd ' + outdir + ' && ' \
 	       suffix = '.tfm',
 	       src_suffix = '.mf',
 	       emitter = add_log_enc_ly_tex_target)
-
-## How do do multiple targets?  Does emitter not take care of this?
-#log = Builder (action = ('(cd ' + outdir + ' && ' \
-#			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
-#			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
-#			 + ' input $$(basename $SOURCE);" ' \
-#			 + ' | grep -v "@\|>>")') % vars (),
-#	       suffix = '.log',
-#	       src_suffix = '.mf')
-#enc = Builder (action = ('(cd ' + outdir + ' && ' \
-#			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
-#			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
-#			 + ' input $$(basename $SOURCE);" ' \
-#			 + ' | grep -v "@\|>>")') % vars (),
-#	       suffix = '.enc',
-#	       src_suffix = '.mf')
-#ly = Builder (action = ('(cd ' + outdir + ' && ' \
-#			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
-#			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
-#			 + ' input $$(basename $SOURCE);" ' \
-#			 + ' | grep -v "@\|>>")') % vars (),
-#	       suffix = '.ly',
-#	       src_suffix = '.mf')
-#tex = Builder (action = ('(cd ' + outdir + ' && ' \
-#			 + 'MFINPUTS=.:' + str (Dir ('#/mf')) \
-#			 + ' mf "\\mode:=%(MFMODE)s; nonstopmode; ' \
-#			 + ' input $$(basename $SOURCE);" ' \
-#			 + ' | grep -v "@\|>>")') % vars (),
-#	       suffix = '.tex',
-#	       src_suffix = '.mf')
 
 afm = Builder (action = (sys.executable
 			 + ' buildscripts/mf-to-table.py ' \
@@ -84,9 +53,15 @@ def add_enc_src (target, source, env):
 
 def encoding_opt (target):
 	base = os.path.splitext (os.path.basename (str (target[0])))[0]
-	enc = os.path.join (outdir, base + '.enc')
-	if os.path.exists (enc):
+	##enc = os.path.join (outdir, base + '.enc')
+	enc = base + '.enc'
+	if os.path.exists (os.path.join (outdir, enc)):
 		return ' --encoding=' + enc
+	return ''
+
+def verbose_opt (env, opt):
+	if env['verbose']:
+		return opt
 	return ''
 
 # UGH, should fix --output option for mftrace
@@ -102,14 +77,18 @@ xpfa = Builder (action = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
 def run_mftrace (target, source, env):
 	TARGET = target[0]
 	SOURCE = source[0]
+	mf = os.path.basename (str (source[0]))
+	base = os.path.splitext (os.path.basename (str (target[0])))[0]
+	enc = base + '.enc'
+	mfdir = os.path.join (here, reldir)
 	outdir = os.path.join (env['build'], reldir, env['out'])
-	command = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
-		   + ' mftrace -I %(outdir)s --pfa' \
-		   + ' --simplify --keep-trying' \
-		   + ' $(basename %(SOURCE)s .mf) ' \
+	command = ('(cd %(outdir)s && '
+		   + ' MFINPUTS=.:%(outdir)s:' + mfdir\
+		   + ' mftrace --pfa --simplify --keep-trying' \
+		   + ' --include=%(outdir)s'\
+		   + verbose_opt (env, ' --verbose') \
 		   + encoding_opt (target) \
-			   + ' && mv $(basename %(TARGET)s) %(TARGET)s') \
-			   % vars ()
+		   + ' %(mf)s)') % vars ()
 	return os.system (command)
 
 pfa = Builder (action = run_mftrace,
@@ -119,20 +98,19 @@ pfa = Builder (action = run_mftrace,
 
 
 e = env.Copy (BUILDERS = {'Tfm' : tfm,
-#			  'Log' : log, 'Enc' : enc, 'Ly' : ly, 'Tex' : tex,
 			  'Afm' : afm, 'Pfa' : pfa},
 	      MFINPUTS = '#/mf')
 
 #mf_sources = ('feta16.mf',)
 #mf_sources = ('feta-braces-a.mf',)
-sources = map (lambda x: os.path.splitext (x)[0], mf_sources)
+font_stems = map (lambda x: os.path.splitext (x)[0], mf_sources)
 
-t = map (e.Tfm, sources)
-a = map (e.Afm, sources)
-p = map (e.Pfa, sources)
+t = map (e.Tfm, font_stems)
+a = map (e.Afm, font_stems)
+p = map (e.Pfa, font_stems)
 
-map (lambda x: e.Depends (x + '.pfa', x + '.enc'), sources)
-#map (lambda x: e.Depends (x + '.pfa', x + '.log'), sources)
+map (lambda x: e.Depends (x + '.pfa', x + '.enc'), font_stems)
+#map (lambda x: e.Depends (x + '.pfa', x + '.log'), font_stems)
 
 tfmdir = os.path.join (env['lilypondprefix'], 'fonts/tfm')
 afmdir = os.path.join (env['lilypondprefix'], 'afm')
@@ -145,4 +123,6 @@ env.Alias ('install', tfmdir)
 env.Alias ('install', afmdir)
 env.Alias ('install', pfadir)
 
-
+#testing
+all_sources = ['SConscript',] + sources
+x = env.Tar (env['tarball'], all_sources)
