@@ -74,7 +74,9 @@ Bezier::get_other_coordinate (Axis a,  Real x) const
     }
   
   Offset c = curve_point (ts[0]);
-  assert (fabs (c[a] - x) < 1e-8);
+
+  if (fabs (c[a] - x) > 1e-8)
+    programming_error ("Bezier intersection not correct?");
   
   return c[other];
 }
