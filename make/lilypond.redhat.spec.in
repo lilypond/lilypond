@@ -67,7 +67,6 @@ make -C Documentation/user omf
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
 
-strip lily/out/lilypond 
 make prefix="$RPM_BUILD_ROOT%{_prefix}" infodir="$RPM_BUILD_ROOT%{_infodir}" MAKE_PFA_FILES=1 mandir="$RPM_BUILD_ROOT%{_mandir}" install
 
 %if %{info}

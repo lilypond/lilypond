@@ -58,9 +58,6 @@ familiar with English terms for notation.
 you want to fine-tune output, you need the information in this
 document.
 
-@item
- @uref{../../input/template/out-www/collated-files.html, Templates}, for
-different music styles.  Add notes, and done!
 
 @item
  @uref{../../input/template/out-www/collated-files.html, Templates}, for
