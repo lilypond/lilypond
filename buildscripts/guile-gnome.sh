@@ -88,7 +88,7 @@ tla register-archive a.rottmann@gmx.at--2004-main \
     http://people.debian.org/~rotty/arch/a.rottmann@gmx.at/2004-main || true
 
 rm -rf g-wrap
-if false; then
+if true; then
     ## pull latest g-wrap from janneke -- this step is probably no longer
     ## necessary when you read this
     tla register-archive janneke@gnu.org--2004-gnome \
