@@ -1,5 +1,7 @@
 2002-08-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/include/lily-guile.hh (scm_int2num): guile 1.4 compatibility. 
+
 	* scm/grob-description.scm (all-grob-descriptions): set
 	X-offset-callbacks for TextScript
 
