@@ -58,10 +58,12 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
       \context Voice = corI <
 	\globalNoKey
 	\stemup \property Voice.dynamicDir = \up 
+	 \property Voice.articulationScriptVerticalDirection = \up 
 	\corI 
       >
       \context Voice = corII { 
 	\stemdown \property Voice.dynamicDir = \down 
+	 \property Voice.articulationScriptVerticalDirection = \down
 	\corII 
       }
     >
@@ -71,17 +73,19 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
       \context Voice = trpI <
 	\globalNoKey
 	\stemup \property Voice.dynamicDir = \up 
+	 \property Voice.articulationScriptVerticalDirection = \up 
 	\trpI
       >
       \context Voice = trpII { 
 	\stemdown \property Voice.dynamicDir = \down 
+	 \property Voice.articulationScriptVerticalDirection = \down
 	\trpII
       }
     >
   >
     \context StaffGroup = percussion <\context Voice = timpani <
       \property Staff.instrument = "Timp. \& Triang."
-      \property Staff.instr = "Tmp \& Trg"
+      \property Staff.instr = "Tmp\&{}Trg"
       \global
       \timpani
     >
@@ -123,12 +127,13 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 >
  \paper {
 %    \paper_sixteen;
-    linewidth = 185.\mm;
+    linewidth = 180.\mm;
     textheight = 260.\mm;
     \translator {
 	\OrchestralScoreContext
         minVerticalAlign = 2.5*\staffheight;
         barNumberScriptPadding = "12.0";
+        markScriptPadding = "20.0";
     }
     \translator { \StaffContext
 	\consists "Staff_margin_engraver";
@@ -137,12 +142,13 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
 	textStyle = "italic";
 	textScriptPadding = 5.0;
         textEmptyDimension = 1;
+	beamAuto = 0; % Beams inserted explicitly as in the original.
     }
   }
 }
 
 \score{
-  \context StaffGroup <
+  \context StaffGroup < \global
     \context Staff = oboe \oboe
     \context Staff = flauto \flauto
     \context Staff = clarinetsInBes {\notes \transpose bes <\clarI \clarII >}
@@ -157,6 +163,5 @@ copyright =	"Mats Bengtsson, 1999. Free circulation permitted and " +
     \context Staff = contrabass \cb
   >
   \midi {
-    \tempo 4=120;
   }
 }

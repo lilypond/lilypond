@@ -32,7 +32,7 @@ r r \times 2/3 {[g8 \f ( e ) g] }
 d4 () g r |
 r r [d16 \f ( g, e' d ] |
 [g, d' e ) d ] g,4 r |
-r \grace g8 \f d'2 \> (|
+r \grace g8 d'2 \f \> (|
 [g,8. a16 g8. a16 \! g8. ) a16 ] |
 g4 r r |
 R2. |
@@ -155,12 +155,12 @@ e r d4 ( |
 ) e8 r d4_"dim." ( |
 ) c8 r g4 |
 g8 r [g'8.^""^"solo" ( \< \! a16 ] |
-g4. \> \! ) e8 |
-c4 ( d |
+g4. \> \! e8 |
+c4 d |
 e d |
 ) c  [g'8. ( \< \! a16 ] |
-g4. \> \! ) e8 |
-c4 ( d |
+g4. \> \! e8 |
+c4 d |
 e d |
 ) c  [c8. ( d16 ] |
 ) c2 ( |
@@ -250,8 +250,8 @@ corII=\notes\relative c'' {
 \property Staff."midiInstrument" = "french horn"
 
 R2.*19 |
-r4 r [g8^"solo" \p (\< \! ) e'] |
-\grace d8 g2 \> ( [e8. ) \! c16 ] |
+r4 r [g8^"solo" \p (\< ) e'] |
+\grace d8 \! g2 \> ( [e8. ) \! c16 ] |
 g2 r 4 |
 r r \times 2/3 {[e'8 \p ( g, ) g' ]} |
 g4 \> () \! e r |
@@ -336,7 +336,7 @@ R2*13 |
 c,4. \f c8 ( |
 )c,4. r8 |
 R2*2 |
-c'4. \f c8 ( |
+c'4. c8 ( |
 )c,4. c''8 |
 c,4. c'8 |
 c,4. r8 |
@@ -427,7 +427,7 @@ d'4 r |
 R2 |
 d4 r |
 R2*2 |
-e8 r r4 |
+e8 \f r r4 |
 R2*19 |
 c4. \f r8 |
 c4. r8 |
@@ -599,8 +599,8 @@ c4. r8 |
 R2*8 |
 e4. \f r8 |
 e4. r8 |
-r4 g4 ( |
-) fis8 r g4 ( |
+r4 g4-> ( | % added >
+) fis8 r g4-> ( | % added >
 ) fis8 r d'4 ( |
 ) e8 r r4 |
 r g, ( |
@@ -718,7 +718,7 @@ R2*14 |
   [e8 e e g,,] | % In reality: e e e e | e
   g8 r r4 }
  {\voicetwo r2 | r |
-  r4_" Timp." r8 \clef bass; c, |
+  r4_" Timp." r8 \clef bass; c, \p |
   [c-. \< c-. c-. \! c-.] |
   c4.:8 \f r8 |
   R2 |
@@ -744,7 +744,7 @@ c,2:8 \< |
 R2*4 |
 c4 \f r |
 c4 r |
-c2:32 |
+c2:32 ~ | % Added tie
 c8 r r4 |
 c4 r |
 c4_"dim." r |

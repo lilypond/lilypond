@@ -1,10 +1,12 @@
 
 globalNoKey=\notes {
 \time 3/4;
+\tempo 4=100; % My own suggestion, M.B.
 \skip 2.*31;
 s4 s4^\fermata s8^\fermata \bar "||"; \break
 s8 
 \time 2/4;
+\tempo 4=130; % My own suggestion, M.B.
 \skip 2*224;
 s4 s4^\fermata
 \bar "|.";

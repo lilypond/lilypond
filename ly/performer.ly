@@ -13,6 +13,7 @@ StaffContext = \translator {
 
 	\consists "Key_performer";
 	\consists "Time_signature_performer";
+	\consists "Tempo_performer";
 };
 \translator { \StaffContext }
 
@@ -99,6 +100,7 @@ PianoStaffContext = \translator {
 	\accepts LyricVoice;
 	\name Lyrics;
 	\consists "Time_signature_performer";
+	\consists "Tempo_performer";
 }
 \translator {
 	\type Performer_group_performer;

@@ -1,5 +1,5 @@
 /*
-  time_signature-performer.cc -- implement Time_signature_performer
+  time-signature-performer.cc -- implement Time_signature_performer
 
   source file of the GNU LilyPond music typesetter
 

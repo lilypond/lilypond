@@ -70,6 +70,10 @@ Script_engraver::do_process_requests()
       else
 	  ss->dir_ = force_dir;
 
+      Scalar dir_prop (get_property ("articulationScriptVerticalDirection", 0));
+      if (dir_prop.isnum_b () && (int) dir_prop != CENTER)
+	ss->dir_ = (int) dir_prop;
+
       if (l->dir_)
 	ss->dir_ = l->dir_;
 

@@ -1,200 +1,5 @@
 \version "1.1.52";
 
-oboe=\notes\relative c'' {
-\clef "treble";
-\property Staff."midiInstrument" = "oboe"
-
-[c8. \f ( d16] ) c2_"dim." |
-[c8. ( d16] ) c2 |
-[c8. \p ( d16] c4. a8 |
-[f8. e16 ] f4. ) a8 |
-[c8. ( d16] c4. ) a8 |
-[a8. ( g16 ] ) f4 r |
-[c'8. \p ( d16] c4. a8 |
-[f8. e16 ] f4. ) a8 |
-[c8. ( d16] c4. ) a8 |
-[a8. ( g16 ] ) f4 r |
-R2.*4 |
-[c'8. ( d16] c4. a8 |
-[g8. a16 ] f4. ) a8 |
-[c8. ( d16] c4. ) a8 |
-[a8. ( g16 ] ) f4 r |
-R2.*13 |
-r4 r4 r8 r8 \time 2/4;
-R2*4 |
-d'8-. \pp r d-. r |
-d-. r d-. r |
-R2*2 |
-c8-. r c-. r |
-c8-. r c-. \p [c16 ( d]|
-) c8 r \< r [c16 ( \! d]|
-) c8 r r [c16 \f ( d]|
-) c8 r r f, ( |
-) f'4. f,8 ( |
-) f'4. a,8 ( |
-) a'4. r8 |
-dis,2 ( |
-) e4. r8 |
-dis2 ( |
-) e4. r8 |
-a r a r |
-a r d, r |
-g r r4 |
-R2*10 |
-r4 r8 [g16 \p ( a ] |
-[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
-[ ) f8-. e16 ( f ][ ) e8-. es16 ( f ] |
-[ ) es8 \f c16 ( d][es8 d16 c ] |
-) d4 r8 [g16 \p ( a ] |
-[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
-[ ) f8-. \< e16 ( f ][ ) e8-. \! es16 ( f ] |
-[ ) es8 \f c16 ( d][es8 d16 c ] |
-) d4 r8 bes! ( |
-) bes'4.-> bes,8 ( |
-) bes'4.-> a8 \p |
-[g-. \< f-. e-. \! d-. ] |
-[cis16 ( e d ) b] g8 bes! \f ( |
-) bes'4.-> bes,8 ( |
-) bes'4.-> a8 \p | % \p added
-[g-. \< f-. e-. \! d-. ] |
-g-. r r [g16 \p ( a] |
-[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
-[ ) f8-. e16 ( f ][ ) e8-. e16 ( f ] |
-[ ) e8-. es16 ( f ][  ) es8-. d16 ( e ] |
-[ ) d8-. c16 ( d ] ) c8 bes! \f ( |
-) bes'4. r8 |
-R2 |
-d,4. \fz r8 |
-d4. \fz r8 |
-e8 r g4-> ( |
-) e8 r g4-> ( |
-) e8 r es4 ( |
-) d8 r r g ( |
-) e!8 r g4-> ( |
-) e8 r g4-> ( |
-) e8 r es4 ( |
-) d8 r r g ( |
-) e!8_"dim." r g4 ( |
-) e8 r r4 |
-R2*2 |
-r8 [g,-.^""^"solo" \p a-. b-. ] |
-c r r4 |
-R2*10 |
-\grace d8 \fz f2 \> ( |
-\! b,4 [c8 b] |
-a2-> |
-) gis |
-a4 ( \p \< ) e' |
-e-. () \! e-. |
-e ( \> [ d8 \! c ] |
-) b2 \p |
-\grace e8 g4 ( \> dis |
-\! e ) b |
-\grace e8 g4 ( \> dis |
-\! e_"dim." ) b |
-\grace d!8 \fz f2 ( \> |
-b,4 [ \! c8 b] |
-a2 \p |
-) gis |
-\grace a8 d2( \> |
-\! b4 [ c8 b ] |
-a2 \p |
-) gis |
-R2*11 |
-r4 r8 [c16 \p ( d ] |
-) c8 r r [c16_"cresc." ( d ] |
-) c8 r r [c16 \f ( d ] |
-) c8 r r f, ( |
-) f'4. f,8 ( |
-) f'4. a,8 |
-[bes-. c-. d-. es-. ] |
-d4 r8 bes ( |
-) bes'4 r8 bes, ( | % slur added
-) bes'4 r8 d, ( |
-[ d' bes ) a ] d ( |
-) gis,2 ( |
-) a4 r8 d ( |
-) gis,2 ( |
-) a4 r8 d ( |
-) as r g r |
-f r f r |
-e r r4 |
-R2*10 |
-r4 r8 a |
-a-. [ gis-. gis-. \< g-.] |
-[g-. fis-. \! fis-. f-. ] |
-[f f16 ( \f g][as8 g16 f ] |
-) g8 [c16 ( d] ) c8 a \p | 
-[a-. gis-. gis-. \< g-.] |
-[g-. fis-. \! fis-. f-. ] |
-[f f16 ( \f g][as8 g16 f ] |
-) g8 [c16 ( d] ) c8 r |
-es,4.-> r8 |
-es4.-> r8 |
-r4 r8 d ( |
-) c4. r8 |
-es4.-> r8 |
-es4.-> r8 |
-r4 r8 d8 ( |
-) bes4 r8 a' \p |
-[a-. gis-. gis-. \< g-.] |
-[ \! g-. f-. f-. ] c |
-[c-. \< b-. b-. bes-. ] |
-[bes-. a-. \! a-. es' ( ] |
-) a4. \f r8 |
-r4 r8 bes, ( |
-) g'4. \fz c,8 ( |
-) g'4. \fz c,8 ( |
-) a' r c4-> ( |
-) a8 r c4-> ( |
-) a8 r as4 ( |
-) g8 r r c ( |
-) a! r c4 ( |
-) a8 r c4 ( |
-) a8 r as4 ( |
-) g8 r r c ( |
-) a! r c4_"dim." ( |
-) a8 r g4 ( |
-) f8 r r4 |
-R2*7 |
-\grace f8 \f a4 \> ( e |
-f \! b, |
-) c r |
-R2*7 |
-e8-. \p r d-. \< r |
-c-. r b-. \! r |
-bes!4. \f r8 |
-R2 |
-c8-. \p r b-. r |
-bes!-. r a-. r |
-c-. \p r b-. r |
-bes!-. r a-. bes \f ( |
-) bes'4. bes,8 ( |
-) bes'4. bes,8 ( |
-) bes'4. bes,8 ( |
-) bes'4. c,8 ( |
-) a'4 r8 f ( |
-bes4 ) a8 c, ( |
-) a'4 r8 f ( |
-bes4 ) a8 f ( |
-) b4. e,8 ( |
-) bes'!4. bes8 |
-[a-. bes-. a-. bes-. ] |
-[a-. bes-. a-. bes-. ] |
-a-. r c-. r |
-a-. r e-. r |
-f-. r a-. r |
-c r a r |
-f4 r8 c ( |
-) a'4 r8 c, ( |
-) f4 r8 c ( |
-) a'4 r8 c, ( |
-) f4 r |
-R2 |
-f4-. \fz r
-}
-
-
 flauto=\notes\relative c''' {
 \clef "treble";
 \property Staff."midiInstrument" = "flute"
@@ -236,11 +41,11 @@ R2*10 |
 r4 r8 e' \p |
 e [es-. es-.] d-. |
 d-. [cis-. cis-.] c-. |
-c [c16 ( d] [es8 d16 c] | % slur added
+c \f [c16 ( d] [es8 d16 c] | % slur and \f added
 ) d4 r8 e!-. \p |
 e-. [es-. es-.] d-. |
 d-. [cis-. cis-.] c |
-c-. [c16 ( d][es8 d16 c] |
+c-. \f [c16 ( d][es8 d16 c] | % \f added
 ) d4 r8 e,! ( |
 )e'4.-> e,8 ( |
 )e'4.-> a8 \p |
@@ -262,11 +67,11 @@ f-. [e-. \! e-.] bes \f ( |
 ) e8 r g4-> ( |
 ) e8 r es4-> ( |
 ) d8 r r g, ( |
-) e' r g4 ( |
+) e'! r g4 ( |
 ) e8 r g4 ( |
 ) e8 r es4-> ( |
 ) d8 r r g, ( |
-) e' r g4 ( |
+) e'! r g4 ( |
 ) e8 r d4 ( |
 ) e8 r r4 |
 R2*27 |
@@ -350,14 +155,14 @@ r4 r8 [c'16 \p ( d] |
 )bes8-. [a16 ( \! bes ] ) a8-. bes ( \f |
 ) bes,4. d8 ( |
 ) d'4. c8 ( |
-) c,4. e!8 ( |
+) c,4. e8 ( |
 ) e'4. c8 ( |
 ) a'4 r |
 [f8 ( d ) c ] c ( |
 ) a'4 r |
 [f8 ( d ) c ] f, ( |
-) f'4. e,8 |
-e'4. e8 |
+) f'4. e,8 ( |
+) e'4. e8 |
 [f-. e-. f-. e-.] |
 [f-. e-. f-. e-.] |
 f r e r |
@@ -374,6 +179,200 @@ f4 \fz r
 
 }
 
+oboe=\notes\relative c'' {
+\clef "treble";
+\property Staff."midiInstrument" = "oboe"
+
+[c8. \f ( d16] ) c2_"dim." |
+[c8. ( d16] ) c2 |
+[c8. \p ( d16] c4. a8 |
+[f8. e16 ] f4. ) a8 |
+[c8. ( d16] c4. ) a8 |
+[a8. ( g16 ] ) f4 r |
+[c'8. \p ( d16] c4. a8 |
+[f8. e16 ] f4. ) a8 |
+[c8. ( d16] c4. ) a8 |
+[a8. ( g16 ] ) f4 r |
+R2.*4 |
+[c'8. ( d16] c4. a8 |
+[g8. a16 ] f4. ) a8 |
+[c8. ( d16] c4. ) a8 |
+[a8. ( g16 ] ) f4 r |
+R2.*13 |
+r4 r4 r8 r8 \time 2/4;
+R2*4 |
+d'8-. \pp r d-. r |
+d-. r d-. r |
+R2*2 |
+c8-. r c-. r |
+c8-. r c-. \p [c16 ( d]|
+) c8 r \< r [c16 ( \! d]|
+) c8 r r [c16 \f ( d]|
+) c8 r r f, ( |
+) f'4. f,8 ( |
+) f'4. a,8 ( |
+) a'4. r8 |
+dis,2 ( |
+) e4. r8 |
+dis2 ( |
+) e4. r8 |
+a r a r |
+a r d, r |
+g r r4 |
+R2*10 |
+r4 r8 [g16 \p ( a ] |
+[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
+[ ) f8-. e16 ( f ][ ) e8-. es16 ( f ] |
+[ ) es8 \f c16 ( d][es8 d16 c ] |
+) d4 r8 [g16 \p ( a ] |
+[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
+[ ) f8-. \< e16 ( f ][ ) e8-. \! es16 ( f ] |
+[ ) es8 \f c16 ( d][es8 d16 c ] |
+) d4 r8 bes! ( |
+) bes'4.-> bes,8 ( |
+) bes'4.-> a8 \p |
+[g-. \< f-. e-. \! d-. ] |
+[cis16 ( e d ) b] g8 bes! \f ( |
+) bes'4.-> bes,8 ( |
+) bes'4.-> a8 \p | % \p added
+[g-. \< f-. e-. \! d-. ] |
+g-. r r [g16 \p ( a] |
+[ ) g8-. fis16 ( g ][ ) fis8-. f16 ( g ] |
+[ ) f8-. e16 ( f ][ ) e8-. e16 ( f ] |
+[ ) e8-. es16 ( f ][  ) es8-. d16 ( e ] |
+[ ) d8-. c16 ( d ] ) c8 bes! \f ( |
+) bes'4. r8 |
+R2 |
+d,4. \fz r8 |
+d4. \fz r8 |
+e8 r g4-> ( |
+) e8 r g4-> ( |
+) e8 r es4 ( |
+) d8 r r g ( |
+) e!8 r g4-> ( |
+) e8 r g4-> ( |
+) e8 r es4 ( |
+) d8 r r g ( |
+) e!8_"dim." r g4 ( |
+) e8 r r4 |
+R2*2 |
+r8 [g,-.^""^"solo" \p a-. b-. ] |
+c r r4 |
+R2*10 |
+\grace d8 f2 \fz \> ( |
+\! b,4 [c8 b] |
+a2-> |
+) gis |
+a4 ( \p \< ) e' |
+e-. () \! e-. |
+e ( \> [ d8 \! c ] |
+) b2 \p |
+\grace e8 g4 ( \> dis |
+\! e ) b |
+\grace e8 g4 ( \> dis |
+\! e_"dim." ) b |
+\grace d!8 f2 \fz ( \> |
+b,4 [ \! c8 b] |
+a2 \p |
+) gis |
+\grace a8 d2( \> |
+\! b4 [ c8 b ] |
+a2 \p |
+) gis |
+R2*11 |
+r4 r8 [c16 \p ( d ] |
+) c8 r r [c16_"cresc." ( d ] |
+) c8 r r [c16 \f ( d ] |
+) c8 r r f, ( |
+) f'4. f,8 ( |
+) f'4. a,8 |
+[bes-. c-. d-. es-. ] |
+d4 r8 bes ( |
+) bes'4 r8 bes, ( | % slur added
+) bes'4 r8 d, ( |
+[ d' bes ) a ] d ( |
+) gis,2 ( |
+) a4 r8 d ( |
+) gis,2 ( |
+) a4 r8 d ( |
+) as r g r |
+f r f r |
+e r r4 |
+R2*10 |
+r4 r8 a |
+a-. [ gis-. gis-. \< g-.] |
+[g-. fis-. \! fis-. f-. ] |
+[f f16 ( \f g][as8 g16 f ] |
+) g8 [c16 ( d] ) c8 a \p | 
+[a-. gis-. gis-. \< g-.] |
+[g-. fis-. \! fis-. f-. ] |
+[f f16 ( \f g][as8 g16 f ] |
+) g8 [c16 ( d] ) c8 r |
+es,4.-> r8 |
+es4.-> r8 |
+r4 r8 d ( |
+) c4. r8 |
+es4.-> r8 |
+es4.-> r8 |
+r4 r8 d8 ( |
+) bes4 r8 a' \p |
+[a-. gis-. gis-. \< g-.] |
+[ \! g-. f-. f-. ] c |
+[c-. \< b-. b-. bes-. ] |
+[bes-. a-. \! a-. es' ( ] |
+) a4. \f r8 |
+r4 r8 bes, ( |
+) g'4. \fz c,8 ( |
+) g'4. \fz c,8 ( |
+) a' r c4-> ( |
+) a8 r c4-> ( |
+) a8 r as4 ( |
+) g8 r r c ( |
+) a! r c4 ( |
+) a8 r c4 ( |
+) a8 r as4 ( |
+) g8 r r c ( |
+) a! r c4_"dim." ( |
+) a8 r g4 ( |
+) f8 r r4 |
+R2*7 |
+\grace f8 a4 \f \> ( e |
+f \! b, |
+) c r |
+R2*7 |
+e8-. \p r d-. \< r |
+c-. r b-. \! r |
+bes!4. \f r8 |
+R2 |
+c8-. \p r b-. r |
+bes!-. r a-. r |
+c-. r b-. r |
+bes!-. r a-. bes \f ( |
+) bes'4. bes,8 ( |
+) bes'4. bes,8 ( |
+) bes'4. bes,8 ( |
+) bes'4. c,8 ( |
+) a'4 r8 f ( |
+bes4 ) a8 c, ( |
+) a'4 r8 f ( |
+bes4 ) a8 f ( |
+) b4. e,8 ( |
+) bes'!4. bes8 |
+[a-. bes-. a-. bes-. ] |
+[a-. bes-. a-. bes-. ] |
+a-. r c-. r |
+a-. r e-. r |
+f-. r a-. r |
+c r a r |
+f4 r8 c ( |
+) a'4 r8 c, ( |
+) f4 r8 c ( |
+) a'4 r8 c, ( |
+) f4 r |
+R2 |
+f4-. \fz r
+}
+
 clarI=\notes\relative c'' {
 \key G;
 \clef "treble";
@@ -386,11 +385,11 @@ R2.*8 |
 [fis8. \> e16 ] \! d4 ) a |
 b2. \pp \< ( |
 \! ais4 ) b2 |
-a4 \p ( [g8. a16 ] g4 |
+a!4 \p ( [g8. a16 ] g4 |
 fis ) g8 r r4 |
 a4 ( [g8. a16 ] g4 |
-fis ) g8 r [d^""^"solo" \mf \< () \! b' ] |
-\grace a8 d2 ( \> [b8. \! g16] |
+fis ) g8 r [d^""^"solo" \mf \< () b' ] |
+\grace a8 \! d2 ( \> [b8. \! g16] |
 ) d2 r4 |
 R2. |
 r4 r \times 2/3 { [b'8^""^"solo" ( \ff d, ) d' ] } |
@@ -410,8 +409,8 @@ fis r g d'-. \p |
 [d e d b][g b d e] |
 [g8 e ) d ] g, ( |
 [g' e ) d ] b ( |
-[b' g ) fis] b |
-f2 ( |
+[b' g ) fis] b ( | % slur added
+) f2 ( |
 ) fis!4 r8 b ( |
 ) f2 ( |
 ) fis!4 r8 b |
@@ -437,7 +436,7 @@ d r b4 \f ( |
 [e-. dis-. dis-. d-. ] |
 d r b4 \f ( |
 ) cis8 [a'16-> ( b] ) a8 r |
-d,4. r8 |
+d,4.-> r8 | % added > 
 d4.-> r8 |
 R2*2 |
 d4. \f r8 |
@@ -466,10 +465,10 @@ cis4.-> fis8-. \p | % \p added
 ) fis8 r e4 \p ( |
 ) fis8 r r4 |
 R2*3 |
-fis,2 \pp ~ |
-fis ~ |
-fis ~ |
-fis4 r |
+fis,2 \pp \< ~ |
+\! fis ~ |
+fis \> ~ | % cresc. added
+\! fis4 r | % dim. added
 R2*4 |
 e'2 \fz \> ( |
 ) \! fis,4 r |
@@ -621,11 +620,11 @@ R2.*8 |
 [a8. ( \> g16 ] \! ) fis4 r |
 b2. \pp \< ( |
 \! ais4 ) b2 |
-a4 \p ( [g8. a16 ] g4 |
+a!4 \p ( [g8. a16 ] g4 |
 fis ) g8 r r4 |
 a4 ( [g8. a16 ] g4 |
-fis ) g8 r [d^""^"solo" \mf \< () \! b' ] |
-\grace a8 d2 ( \> [b8. \! g16] |
+fis ) g8 r [d^""^"solo" \mf \< () b' ] |
+\grace a8 \! d2 ( \> [b8. \! g16] |
 ) d2 r4 |
 R2. |
 r4 r \times 2/3 { [b'8 ( \f d, ) d' ] } |
@@ -684,7 +683,7 @@ r4 r8 g,8 ( |
 a8 r a4-> ~ |
 a8 r gis4 ( |
 [ ) g!8 g-. g-. g ( ] |
-) fis! r a4 ~ |
+) fis! r a4-> ~ | % added >
 a8 r a4-> ~ |
 a8 r gis4 ( |
 ) g!8 [g-. g-.] g ( |
@@ -695,8 +694,8 @@ a8 r a4 \p ~ |
 a8 r r4 |
 R2*3 |
 fis2 \pp \< ~ |
-fis ~ |
-\! fis \>~ |
+\! fis ~ |
+fis \>~ |
 \! fis4 r |
 R2*4 |
 g2 \f \> ( |
@@ -704,8 +703,8 @@ g2 \f \> ( |
 b2 \> ( |
 ) \! ais4 r |
 fis2 \pp \< ~ |
-fis ~ |
-\! fis \>~ |
+\! fis ~ |
+fis \>~ |
 \! fis4 r |
 R2*16 |
 f2 \pp ( |
@@ -788,8 +787,8 @@ r4 [g8. ( \f a16 ] |
 d ~ |
 d4. r8 |
 R2*6 |
-fis4. \fz \> \! g8 |
-[a-. b-. c-. ] r |
+fis4. \fz \> g8 |
+[ \! a-. b-. c-. ] r |
 R2*3 |
 r4 r8 e, \f ( |
 ) e'4. a,8 ( |
@@ -797,10 +796,10 @@ r4 r8 e, \f ( |
 ) a'4. fis,8 ( |
 ) d'4. c8 ( |
 ) b4 r8 g ( |
-e'4 [d8 ) c ] |
-b4 r8 g ( |
-e'4 () ) d8 g, |
-cis4. fis,8 ( |
+e'4 [ ) d8 c ( ] |
+) b4 r8 g ( |
+e'4 () ) d8 g, ( | % ending slur added
+) cis4. fis,8 ( |
 ) c'!4. c8 |
 [b-. c-. b-. c-. ] |
 [b-. c-. b-. c-. ] |
@@ -902,7 +901,7 @@ e2 \p \< ~ |
 \! e \> ~ |
 \! e \< ~ |
 \! e \> |
-\grace \! d'8 \fz ( ) f2 \> ( |
+\grace d'8 ( )  \! f2 \fz \> ( |
 ) \! e4. r8 |
 f,2 \> ( ( |
 [ ) \! e8 d c ) b ] | 
@@ -914,7 +913,7 @@ e2 \p ~
 e ~ |
 e ~ |
 e |
-\grace d'8 \fz ( ) f2 \> ( |
+\grace d'8 ( ) f2 \fz \> ( |
 ) \! e4. r8 |
 f,2 \p ( |
 ) e4 r |
@@ -967,7 +966,7 @@ r r8 c' |
 [c c c ] f ( |
 ) c4.-> f8 ( |
 ) c4.-> r8 |
-r4 r8 f8 ( |
+r4 r8 d8 ( |
 ) e!4. c8 \f ( |
 ) f4.-> c8 ( | % slur added
 ) f4.-> r8 |

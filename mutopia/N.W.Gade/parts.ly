@@ -32,6 +32,7 @@ my_paper = \paper {
     textScriptPadding = 5.0;
     textStyle = "italic";
     textEmptyDimension = 1;
+    beamAuto = 0; % Beams inserted explicitly as in the original.
   }
 }
 

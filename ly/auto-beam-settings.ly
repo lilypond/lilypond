@@ -54,7 +54,11 @@ time6_8beamAutoEnd_32 = "1/8";
 
 time9_8beamAutoEnd_8 = "3/8";
 time9_8beamAutoEnd_16 = "3/8";
-time6_8beamAutoEnd_32 = "1/8";
+time9_8beamAutoEnd_32 = "1/8";
+
+time12_8beamAutoEnd_8 = "3/8";
+time12_8beamAutoEnd_16 = "3/8";
+time12_8beamAutoEnd_32 = "1/8";
 
 %{
 

@@ -105,7 +105,7 @@
    (("Clef_item"  "Span_bar") . (minimum_space 3.7))
    (("Time_signature" "Span_bar") . (minimum_space 2.0))
    (("Key_item"  "Span_bar") . (minimum_space 2.5))
-   (("Staff_bar" "Time_signature") . (minimum_space 1.5)) ;double check this.
+   (("Staff_bar" "Time_signature") . (minimum_space 2.0)) ;double check this.
    (("Time_signature" "begin-of-note") . (extra_space 2.0)) ;double check this.
    (("Key_item" "begin-of-note") . (extra_space 2.5))
    (("Staff_bar" "begin-of-note") . (extra_space 1.0))
