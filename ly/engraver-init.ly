@@ -673,7 +673,7 @@ EasyNotation = \context {	% TODO: why \context override?
   \consists "Vaticana_ligature_engraver"
 
   % Set default head for notes outside of \[ \].
-  \override NoteHead #'style = #'vaticana-punctum
+  \override NoteHead #'style = #'vaticana.punctum
 
   % Put some space before and after divisiones.
   % FIXME: This does not seem to show any effect.
