@@ -2,6 +2,8 @@
   text-reg.cc -- implement Text_register
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+
+  Obsolete.
 */
 #include "note-column.hh"
 #include "musical-request.hh"

@@ -24,12 +24,20 @@ Text_def::width(Paper_def * p) const
     return i;
 }
 
+void
+Text_def::do_print() const
+{
+#ifndef NPRINT
+    mtor << "align " <<align_i_ << " `" << text_str_ << "'";
+#endif
+}
 
 Text_def::Text_def()
 {   
     align_i_ = 1;			// right
     style_str_ = "roman";
 }
+
 bool
 Text_def::do_equal_b(Text_def const &def)const
 {
@@ -49,5 +57,6 @@ Text_def::print() const
     mtor << "Text `" << text_str_ << "\', style " <<
 	style_str_ << "align " << align_i_ << '\n';
 }
+
 IMPLEMENT_STATIC_NAME(Text_def);
 IMPLEMENT_IS_TYPE_B1(Text_def,General_script_def);
