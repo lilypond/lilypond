@@ -39,7 +39,8 @@ Pango_font::Pango_font (PangoFT2FontMap *fontmap,
 
   
   /*
-    urgh. I don't understand this. Why isn't this 1/(scale * resolution)
+    urgh. I don't understand this. Why isn't this 1/(scale *
+    resolution * output_scale)
 
     --hwn
    */
@@ -176,7 +177,7 @@ Pango_font::text_stencil (String str) const
 		      exp);
     }
   
-#if 1
+#if 0
   if (!dest.extent_box ()[X_AXIS].is_empty ())
     {
       Stencil frame = Lookup::frame (dest.extent_box(), 0.1, 0.1);
