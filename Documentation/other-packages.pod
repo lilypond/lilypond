@@ -9,28 +9,29 @@ packages. Feel free to add info (and mail it to me).
 
 =head2 Free packages (with source)
 
-G Sharp, http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
+=item G Sharp, http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
 
 An alpha version notation editor for X. Source available on request.
 
-Rosegarden, http://www.math.bath.ac.uk/~masjpf/rose.html
+=item Rosegarden, http://www.math.bath.ac.uk/~masjpf/rose.html
 
 A Notation editor/Sequencer for X (win95 port underway). Outputs musictex.
 
-Common Notation, http://www-ccrma.stanford.edu/ccrma/Software/cmn/cmn.html
+=item Common Notation, http://www-ccrma.stanford.edu/ccrma/Software/cmn/cmn.html
 
-A versatile lisp package. Part of the Common Music system. Input is in Lisp. 
+A versatile lisp package. Part of the Common Music system. Input is in
+Lisp. It needs Adobe fonts
 
-Vivace, http://www.calband.berkeley.edu/~gmeeker/vivace
+=item Vivace, http://www.calband.berkeley.edu/~gmeeker/vivace
 
 A amateurish notation program for TclTk and X.
 
-MPP, http://www.stack.nl/~hanwen/mpp-english.html
+=item MPP, http://www.stack.nl/~hanwen/mpp-english.html
 
 A preprocessor to MusixTeX by Jan Nieuwenhuizen and Han-Wen Nienhuys.
 It is outdated by its successor, LilyPond.
 
-Music, http://www.cs.nott.ac.uk/Departement/Staff/ef/printing.html
+=item Music, http://www.cs.nott.ac.uk/Departement/Staff/ef/printing.html
 
 A TROFF preprocessor by Eric Foxley
 
@@ -39,32 +40,32 @@ MusE
 A-R Music Engraving, by A-R Editions, Inc. Professional engraving on
 Sun boxen.
 
-Mup, http://www.arkkra.com/
+=item Mup, http://www.arkkra.com/
 
 A program which creates PS from a script input. Although it comes with
 C source code, it is Shareware.
 
-PMX, http://www.gmd.de/Misc/Music/
+=item PMX, http://www.gmd.de/Misc/Music/
 
 A Preprocessor for MusiXTeX by Don Simons
 
-Musi*TeX, http://www.gmd.de/Misc/Music/
+=item Musi*TeX, http://www.gmd.de/Misc/Music/
 
 MusixTeX is a macro package for TeX to typeset polyphonic or
 instrumental music by Daniel Taupin, Ross Mitchell and Andreas
 Egler. It includes a font set with lots symbols
 
-ABC2MTeX, http://www.gmd.de/Misc/Music/
+=item ABC2MTeX, http://www.gmd.de/Misc/Music/
 
 A preprocessor to MusixTeX by Chris Walshaw for way of transcribing folk
 and traditional music. 
 
-SceX http://www.ncc.up.pt/~mig/SceX.html
+=item SceX http://www.ncc.up.pt/~mig/SceX.html
 
 A preprocessor to MusixTeX by Miguel Filgueiras. Source in prolog
 available on request. (?)
 
-MUTEX, http://www.gmd.de/Misc/Music/
+=item MUTEX, http://www.gmd.de/Misc/Music/
 
 A TeX macro package for typesetting single-staff music by Angelika
 Schofer & Andrea Steinbach. With some fonts
@@ -72,19 +73,19 @@ Schofer & Andrea Steinbach. With some fonts
 
 =head2 Free (zero cents)
 
-Calliope, http://www.cl.cam.ac.uk/users/wfc/
+=item Calliope, http://www.cl.cam.ac.uk/users/wfc/
 
-A NeXT package by William F Clocksin. Requires Adobe fonts.
+A NeXT package by William F. Clocksin. Requires Adobe fonts.
 
 =head2 Proprietary
 
-MusicEase, http://mesa.colorado.edu/~grader/musicez.html 
+=item MusicEase, http://mesa.colorado.edu/~grader/musicez.html 
 
 Described in Computer vol 29(6). Shareware
 
-LIME, http://datura.cerl.uiuc.edu/
+=item LIME, http://datura.cerl.uiuc.edu/
 
-Sibelius, http://www.acorn.co.uk/developers/sibelius
+=item Sibelius, http://www.acorn.co.uk/developers/sibelius
 
 Finale
 
@@ -92,7 +93,9 @@ Score
 
 Personal Composer
 
-Mozart, http://www.mozart.co.uk/
+
+
+=item Mozart, http://www.mozart.co.uk/
 
 A shareware windows package  
 
@@ -104,5 +107,5 @@ Musicator
 
 =head2 Unknown
 
-Berlioz, http://www.bsi.fr/~montel/
+=item Berlioz, http://www.bsi.fr/~montel/
 

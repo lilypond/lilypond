@@ -19,6 +19,8 @@ examples of what LilyPond can do: MIDI, PS, .gif and input.
 
 =head1 DOCUMENTATION
 
+=over 4
+
 
 =item *
 <a href=INSTALL.html

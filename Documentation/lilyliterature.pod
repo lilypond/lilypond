@@ -1,6 +1,6 @@
 =head1 NAME 
 
-Lily literature -- reading on music engraving/typesetting/etc.
+Lily Literature -- reading on music engraving/typesetting/etc.
 
 =head1 DESCRIPTION
 
@@ -10,7 +10,7 @@ note that don't have access to most material.
 [What I do know, I've commented inside brackets. They are just
 my personal comments, not to be taken too seriously]
 
-=head2 References
+=head2 Music engraving
 
 Wanske, Helene.  ``Musiknotation --- Von der Syntax des Notenstichs
 zum EDV-gesteuerten Notensatz'', Schott-Verlag, Mainz 1988.  ISBN
@@ -26,11 +26,6 @@ Maxwell Weaner and Walter Boelke, Standard Music Notation Practice,
 revised edition by Arnold Broido and Daniel Dorff. Music Publisher's
 Association of the United States Inc., 1993.
 
-W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
-``Document Manipulation and Typography'', J.C. van Vliet (ed) 1988.
-
-[This generalizes TeX's breaking algorithm to music]
-
 Ross, Ted. ``Teach yourself the art of music engraving and
 processing'' (3rd edition). Hansen House, Miami Beach, FL.
 
@@ -40,7 +35,7 @@ processing'' (3rd edition). Hansen House, Miami Beach, FL.
 	(305) 532-5461
 
 [This is about I<engraving> i.e. professional music typesetting, and
-includes some good spacing tables]
+includes some good spacing tables MB]
 
 Read, Gardner. ``Modern Rhythmic Notation.'' Indiana University Press, 1978.
 
@@ -48,9 +43,38 @@ Read, Gardner. ``Music Notation'' (2nd edition). Taplinger Publishing,
 New York.
 
 [This is as close to the ``standard'' reference work for music notation issues
-as one is likely to get.]
+as one is likely to get. MB]
 
 =head2 Related papers
+
+
+Byrd, Donald.  ``Music Notation by Computer''.  Diss. Indiana Univ.,
+1985.
+
+Byrd, Donaldn.  ``A System for Music Printing by Computer.''
+Computers and the Humanities, 8 (1974), 161-72.
+
+Smith, Leland.  ``Editing and Printing Music by Computer.''  Journal
+of Music Theory, 17 (1973), 292-309. 
+
+[If I remember correctly, this was concerned more with an input
+language than with the typography. SP.]
+
+Gomberg, David A.   ``A Computer-Oriented System for Music Printing.''  Diss.
+Washington Univ. 1975.
+
+Hewlett, Walter B. and Eleanor Selfridge-Field.  Directory of Computer
+Assisted Research in Musicology.  Menlo Park, CA: Center for Computer
+Assisted Research in the Humanities.  
+
+[Annual editions since 1985, many containing surveys of music
+typesetting technology. SP]
+
+
+W.A. Hegazy and J. S. Gourlay. Optimal line breaking in music. In
+``Document Manipulation and Typography'', J.C. van Vliet (ed) 1988.
+
+[This generalizes TeX's breaking algorithm to music]
 
 David A.  Gomberg; A Computer-oriented System for Music Printing.
 Computers and the Humanities, Vol.11, pp 63-80.
@@ -90,9 +114,9 @@ the ACM''. Vol. 29(5), 388--401, 1986.
 [This paper describes a vapourware music setting system and an input
 language to go with it. ]
 
-D. Blostein and L. Haken, The Lime Music Editor:  A Diagram Editor
+D. Blostein and L. Haken, The Lime Music Editor: A Diagram Editor
 Involving Complex Translations, Software Practice and Experience,
-Vol. 24, No. 3, March 1994, pp. 289-306. 
+Vol. 24, No. 3, March 1994, pp. 289-306.
 
 [A description of various conversions, decisions and issues relating
 to this interactive editor]
@@ -124,6 +148,12 @@ Gary M. Rader, ``Creating Printed Music Automatically''. Computer Vol
 "constraints" (which go unexplained) to automatically position various
 elements.]
 
+Stephen Dowland Page.  ``Computer Tools for Music Information
+Retrieval''.  Dissertation  Univ of Oxford, 1988.  
+
+[Don't ask Stephen for a copy. Write to the Bodleian Library, Oxford,
+or to the British Library, instead.]
+
 =head2  Further reading
 
 Chlapik, Herbert. ``Die Praxis des Notengraphikers''. Doblinger, 1987.
@@ -139,13 +169,10 @@ More on GNU Music: http://dept-info.labri.u-bordeaux.fr/~strandh/Gsharp
 
 Tablature: http://wabakimi.carleton.ca/~phacket2/guitar/tabfaq.html
 
-
-(of varying usefulness):
-
 Donato, Anthony. Preparing Music Manuscript. Englewood Cliffs:
 Prentice-Hall, 1963.
 
-Donemus. "Uitgeven van muziek". Donemus Amsterdam, 1900
+Donemus. ``Uitgeven van muziek''. Donemus Amsterdam, 1900
 
 Heussenstamm, George. The Norton Manual of Music Notation. New York:
 Norton, 1987.
@@ -170,10 +197,6 @@ Stone, Kurt. Music Notation in the Twentieth Century. New York: Norton, 1980.
 
 =head2 other stuff
 
-Andreas Mahling, J. Herczeg, M. Herczeg and S<H.-D.> B\"ocker, Beyond
-visualization: knowing and understanding. In P.~Gorny, M.~J. Tauber
-(eds.),  Visualization in Human-Computer Interaction, Lecture
-Notes in Computer Science, 439, 16--26, Springer-Verlag, 1990.
 
 Peter S. Langston, Unix music tools at Bellcore. 
 Software --- Practice and Experience, Vol. 20(S1), S1/47--S1/61, 1990.
@@ -206,3 +229,10 @@ System. LIACC, Universidade do Porto, 1996; submitted.
 
 Miguel Filgueiras, Some Music Typesetting Algorithms. LIACC,
 Universidade do Porto,  forthcoming.
+
+=head1 AUTHORS
+
+Refs contributed by Han-Wen Nienhuys, Miguel Filgueiras, Mark
+Basinski, Dorothea Blostein, Stephen Page, Jan Nieuwenhuizen.
+
+This should really be redone in BibTeX
