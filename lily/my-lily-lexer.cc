@@ -43,6 +43,7 @@ static Keyword_ent the_key_tab[]={
   {"time", TIME_T},
   {"midi", MIDI},
   {"mm", MM_T},
+  {"name", NAME},
   {"notenames", NOTENAMES},
   {"notes" , NOTES},
   {"output", OUTPUT},
@@ -108,7 +109,11 @@ My_lily_lexer::start_main_input ()
 void
 My_lily_lexer::set_identifier (String name_str, Identifier* i, bool unique_b)
 {
-  Identifier *old = lookup_identifier (name_str);
+  Identifier *old =0;
+  if (scope_l_arr_.top ()->elem_b (name_str))
+    old = scope_l_arr_.top ()->elem(name_str);
+ 
+   
   if  (old)
     {
 #if 0

@@ -12,7 +12,7 @@ else
 readme-top_FILES-txt:
 	$(foreach i, $(README_TOP_FILES), \
 	  cp $(depth)/$(i) $(outdir)/$(i).txt && ) true
-	
+
 readme-top_FILES-html:
 	$(foreach i, $(README_TOP_FILES), \
 	  $(SHELL) $(step-bindir)/text2html.sh $(outdir)/$(i).txt $(outdir)/$(i).html && \

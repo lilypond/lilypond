@@ -7,10 +7,10 @@
 */
 #include "staff-sym.hh"
 #include "lookup.hh"
+#include "dimensions.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "debug.hh"
-#include "dimension.hh"
 #include "item.hh"
 
 

@@ -16,7 +16,6 @@
 #include "span-bar.hh"
 #include "stem.hh"
 #include "time-description.hh"
-#include "dimension.hh"
 
 Bar_number_engraver::Bar_number_engraver()
 {

@@ -4,7 +4,7 @@ redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))
     whenhtml(sc(ARG1)))
 
 
-redef(mycode)(1)(tt(ARG1))
+redef(code)(1)(tt(ARG1))
 
 
 COMMENT( This document contains Mudela fragments.  You need at least
@@ -31,7 +31,7 @@ COMMENT(whenlatex(notableofcontents()))
 whentexinfo(notableofcontents())
 
 article(Mudela Reference Manual)
-      (Andrew Moriano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
+      (Adrian Moriano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
 
 COMMENT(
@@ -860,7 +860,7 @@ If var(bartype) is set to code("empty") then nothing is printed, but a
 line break is allowed at that spot.  Note that the printing of special bars
 has no effect on the MIDI output.
 
-dit(mycode(\cadenza) var(togglevalue)code(;)) Toggles the automatic generation
+dit(code(\cadenza) var(togglevalue)code(;)) Toggles the automatic generation
 of bar lines.  If var(togglevalue) is 0 then bar line generation is
 turne off.   If var(togglevalue) is  1  then a bar is  immediately
 printed and bar generation is turned  on.

@@ -7,7 +7,6 @@
 */
 
 #include "line-of-score.hh"
-#include "dimension.hh"
 #include "spanner.hh"
 #include "atom.hh"
 #include "paper-def.hh"

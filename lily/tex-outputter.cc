@@ -12,8 +12,6 @@
 #include "molecule.hh"
 #include "atom.hh"
 #include "array.hh"
-#include "dimension.hh"
-#include "tex.hh"
 #include "string-convert.hh"
 #include "debug.hh"
 

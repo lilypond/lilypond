@@ -10,7 +10,6 @@
 #include <fstream.h>
 #include <time.h>
 
-#include "tex.hh"
 #include "main.hh"
 #include "tex-stream.hh"
 #include "debug.hh"
@@ -19,6 +18,11 @@ Tex_stream::Tex_stream (String filename)
   : Paper_stream (filename)
 {
   header ();
+}
+
+Tex_stream::~Tex_stream ()
+{
+  *os << "\n\\EndLilyPondOutput";
 }
 
 void
@@ -39,10 +43,6 @@ Tex_stream::header ()
       time_t t (time (0));
       *os << ctime (&t) << "%\n";
     }
-}
-
-Tex_stream::~Tex_stream ()
-{
 }
 
 // print string. don't forget indent.

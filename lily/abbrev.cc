@@ -13,7 +13,6 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "stem.hh"
-#include "dimension.hh"
 
 Abbreviation::Abbreviation ()
 {

@@ -20,17 +20,22 @@ Ps_stream::Ps_stream (String filename)
   header ();
 }
 
+Ps_stream::~Ps_stream ()
+{
+  *os << "\nshowpage\n";
+}
+
 void
 Ps_stream::header ()
 {
-  *os << _ ("%%!PS Adobe\n");
+  *os << _ ("%!PS-Adobe-3.0\n");
   // urg, merge with Tex
-  *os << _ ("% Creator: ");
+  *os << _ ("%%Creator: ");
   if (no_timestamps_global_b)
     *os << "GNU LilyPond\n";
   else
     *os << get_version_str () << '\n';
-  *os << _ ("% Automatically generated");
+  *os << _ ("%%Automatically generated");
   if (no_timestamps_global_b)
     *os << ".\n";
   else
@@ -39,10 +44,6 @@ Ps_stream::header ()
       time_t t (time (0));
       *os << ctime (&t) << "%\n";
     }
-}
-
-Ps_stream::~Ps_stream ()
-{
 }
 
 // print string. don't forget indent.

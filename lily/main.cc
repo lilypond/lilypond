@@ -11,6 +11,7 @@
 #include <assert.h>
 #include <locale.h>
 #include "proto.hh"
+#include "dimensions.hh"
 #include "plist.hh"
 #include "getopt-long.hh"
 #include "misc.hh"
@@ -20,6 +21,8 @@
 #include "config.hh"
 #include "file-results.hh"
 #include "debug.hh"
+#include "ps-lookup.hh"
+#include "tex-lookup.hh"
 
 #if HAVE_GETTEXT
 #include <libintl.h>
@@ -30,11 +33,13 @@ bool version_ignore_global_b = false;
 bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
 bool find_quarts_global_b = false;
-bool ps_output_global_b = false;
 String default_outname_base_global =  "lelie";
 int default_count_global;
 File_path global_path;
 
+Ps_lookup ps_lookup;
+Tex_lookup tex_lookup;
+Lookup* global_lookup_l = &tex_lookup;
 
 bool experimental_features_global_b = false;
 bool dependency_global_b = false;
@@ -235,7 +240,7 @@ main (int argc, char **argv)
 	{
 	case 't':
 	  experimental_features_global_b = true;
-	  ps_output_global_b = true;
+	  global_lookup_l = &ps_lookup;
 	  break;
 	case 'o':
 	  outname_str = oparser.optional_argument_ch_C_;

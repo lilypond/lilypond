@@ -1,0 +1,488 @@
+
+
+
+
+
+
+
+
+
+      INSTALL - compiling and installing GNU LilyPond
+
+                         HWN & JCN
+
+
+Contents
+
+     1: ABSTRACT
+2: PREREQUISITES
+3: RUNNING
+4: RECOMMENDED
+5: WEBSITE
+6: CONFIGURING and COMPILING
+7: CONFIGURING FOR MULTIPLE PLATFORMS
+8: INSTALLING
+9: REDHAT LINUX
+10: DEBIAN GNU/LINUX
+11: WINDOWS NT/95
+12: AUTHORS
+
+
+1: ABSTRACT
+
+
+You do something which looks remotely like
+
+
+
+
+
+          configure    # Check out the buildscripts/set-lily.sh script
+          make
+          make install
+
+
+
+
+
+The   detailed   instructions   follow   here.   The  build-
+scripts/set-lily.sh script sets some  environment  variables
+and symlinks, which comes in handly when you have to compile
+LilyPond very often.  It is aimed  at  people  who  run  (or
+debug) LilyPond without installing.
+
+
+2: PREREQUISITES
+
+
+For compilation you need:
+
+
+o    A GNU system: GNU LilyPond is known to run on these GNU
+     systems: Linux (PPC, intel),  FreeBSD,  AIX,  NeXTStep,
+     IRIX, Digital Unix and Solaris.
+
+
+o    Lots  of  disk space: LilyPond takes between 50 and 100
+     mb to compile if you use debugging information.  If you
+     are  short  on disk-space run configure with --disable-
+     debugging.
+
+     Although we recommend to use Unix, LilyPond is known to
+     run on Windows NT/95/98 as well.  See Section 11.
+
+
+o    GNU  C++  version  2.7  or newer (2.8 and egcs are also
+     fine).
+
+o    Python  1.5  (Strictly  speaking,  you  shouldn't  need
+     Python for compiling and installing, but you'll need it
+     to regenerate the font tables, e.g.).
+
+
+3: RUNNING
+
+
+GNU LilyPond does use a lot of resources. For operation  you
+need the following:
+
+
+o    TeX
+
+o    A   PostScript   printer   and/or   viewer   (such   as
+     Ghostscript) is strongly recommended.  Xdvi  will  show
+     all  embedded  PostScript  too  if you have Ghostscript
+     installed.
+
+
+4: RECOMMENDED
+
+
+Although not strictly necessary, these  are  recommended  to
+have.
+
+
+o    GNU make.  Check out ftp://ftp.gnu.org or any mirror of
+     this site.
+
+
+o    Flex   (version   2.5.4   or   newer).     Check    out
+     ftp://ftp.gnu.org or any mirror of this site.
+
+o    Bison    (version    1.25   or   newer).    Check   out
+     ftp://ftp.gnu.org or any mirror of this site.
+
+
+o    Python   (version   1.5   or   newer).     Check    out
+     ftp://ftp.python.org or ftp://ftp.cwi.nl/pub/python.
+
+
+o    Yodl.   All  documentation  will  be in Yodl. (1.30.17)
+     ftp://pcnov095.win.tue.nl/pub/yodl
+     http://www.cs.uu.nl/~hanwen/yodl
+
+o    Texinfo. (version 3.12 or newer)
+
+
+o    GNU  find  Check out ftp://ftp.gnu.org or any mirror of
+     this site.
+
+
+o    The geometry package for LaTeX is needed to use ly2dvi.
+     Available           at          ftp://ftp.ctan.org/tex-
+     archive/macros/latex/contrib/supported/geometry  or  at
+     mirror site ftp://ftp.dante.de
+
+
+o    A fast computer (a full page of music typically takes 1
+     minute on my 486/133, using the --enable-checking  com-
+     pile. It's lot slower than most MusiXTeX preprocessors)
+
+
+5: WEBSITE
+
+
+If you want to auto-generate  Lily's  website,  you'll  need
+some additional conversion tools.
+
+
+o    xpmtoppm (from the Portable Bitmap Utilities) (For Red-
+     Hat Linux users: it  is  included  within  the  package
+     libgr-progs).
+
+o    Bib2html http://pertsserver.cs.uiuc.edu/~hull/bib2html.
+     Which, in turn depends on man2html for proper installa-
+     tion.    man2html   can   be  had  from  http://askdon-
+     ald.ask.uni-karlsruhe.de/hppd/hpux/Network-
+     ing/WWW/Man2html-1.05.
+
+     TeTeX users should not forget to rerun texhash.
+
+
+6: CONFIGURING and COMPILING
+
+
+to install GNU LilyPond, simply type:
+
+
+
+
+
+          configure  --enable-tex-dir=XXXX --enable-mf-dir=YYYY
+          make
+          make install
+
+
+
+
+
+This will install a number of files, something close to:
+
+
+          /usr/local/man/man1/mi2mu.1
+          /usr/local/man/man1/convert-mudela.1
+          /usr/local/man/man1/mudela-book.1
+          /usr/local/man/man1/lilypond.1
+          /usr/local/bin/lilypond
+          /usr/local/bin/mi2mu
+          /usr/local/share/lilypond/*
+          /usr/local/share/locale/{it,nl}/LC_MESSAGES/lilypond.mo
+          /usr/lib/texmf/texmf/tex/lilypond/*
+
+
+
+
+
+You should specify directories that are in 's and MetaFont's
+include  path  with  the  options   (--enable-tex-dir)   and
+--enable-mf-dir.   If you don't specify any directories, the
+include directory is detected dynamically, which is  unreli-
+able.   The above assumes that you are root and have the GNU
+development tools, and your make is GNU make.   If  this  is
+not  the  case, you can adjust your environment variables to
+your taste:
+
+
+
+
+
+
+          export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR"
+          configure
+
+
+
+
+
+CPPFLAGS are the preprocessor flags.
+
+The configure script is Cygnus configure, and it will accept
+--help.  If you are not root, you will probably have to make
+it with a different --prefix option.  Our favourite location
+is
+
+
+
+
+
+
+          configure --prefix=$HOME/usr
+
+
+In  this  case, you will have to set up MFINPUTS, and TEXIN-
+PUTS accordingly.
+
+If you want to install GNU LilyPond in /usr/local, and  your
+TeX has no default hooks for local stuff, you can do:
+
+
+
+
+
+
+          configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
+
+
+
+
+
+Since  GNU  LilyPond  currently  is beta, you are advised to
+also use
+
+
+
+
+
+
+          --enable-debugging
+          --enable-checking
+
+
+
+
+
+Other options include:
+
+
+--enable-shared
+     Make a shared library (gnu/linux, solaris  (?)  only  )
+     (TEMPORARILY OUT OF ORDER)
+
+
+--enable-printing
+     Enable debugging print routines (lilypond -D option)
+
+--enable-optimise
+     Set maximum optimisation: compile with -O2
+
+--enable-profiling
+     Compile with support for profiling.
+
+--enable-tex-prefix
+     Set the directory where TeX and Metafont live.
+
+--enable-tex-dir
+     Set  then  directory  TeX  input  is  in (detected as a
+
+
+     subdir of tex-prefix).  This should be a directory that
+     is  reachable both for tex and latex.  On my system the
+     best            choice             would             be
+     /usr/lib/texmf/texmf/tex/generic//.
+
+--enable-mf-dir
+     Set  the directory metafont input is in (idem).   On my
+     system     the      best      choice      would      be
+     /usr/lib/texmf/texmf/fonts/source/public/.
+
+--enable-config
+     Output  to  a different configuration file.  Needed for
+     multi-platform builds
+
+All options are documented in the configure help The  option
+--enable-optimise is recommended for Real Life usage.
+
+If you do
+
+
+
+
+
+
+          make all
+
+
+
+
+
+everything  will be compiled, but nothing will be installed.
+The resulting binaries can be found  in  the  subdirectories
+out/ (which contain all files generated during compilation).
+
+
+7: CONFIGURING FOR MULTIPLE PLATFORMS
+
+
+If you want to compile LilyPond with different configuration
+settings,  then,  you  can  use  the --enable-config option.
+Example: suppose I want to build with and   without  profil-
+ing.  Then I'd use the following for the normal build,
+
+
+
+
+
+
+           configure --prefix=~ --disable-optimise --enable-checking
+           make
+           make install
+
+
+and for the profiling version, I specify a different config-
+uration.
+
+
+
+
+
+
+           configure --prefix=~ --enable-profiling --enable-config=optprof --enable-optimise --disable-checking
+           make config=optprof
+           make config=optprof install
+
+
+
+
+
+
+8: INSTALLING
+
+
+If you have done a successful make, then a simple
+
+
+
+
+
+
+          make install
+
+
+
+
+
+should do the trick.
+
+If you are doing an upgrade, please remember to remove obso-
+lete  .pk  and  .tfm  files of the fonts.  A script has been
+provided to do the work for you, see bin/clean-fonts.sh.
+
+
+CAVEATS
+
+
+
+o    The -O2 option to gcc triggers a gcc bug on  DEC  Alpha
+     in  dstream.cc.  You should turn off this flag for this
+     file.
+
+
+EXAMPLE
+
+
+This is what I type in my xterm:
+
+
+          lilypond someinput.ly
+          tex someinput.tex
+          xdvi someinput&
+
+
+
+
+
+This is what the output looks like over here:
+
+
+
+
+
+
+          GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
+          Parsing ... [/home/hw/share/lilypond/init//
+               <..etc..>
+               init//performer.ly]]][input/kortjakje.ly]
+          Creating elements ...[8][16][24][25]
+          Preprocessing elements...
+          Calculating column positions ... [14][25]
+          Postprocessing elements...
+          TeX output to someinput.tex ...
+          Creating MIDI elements ...MIDI output to someinput.midi ...
+
+
+          hw:~/musix/spacer$ xdvi someinput&
+          [1] 855
+
+
+
+
+
+Check out the input files, some of them have comments Please
+refer to the man page for more information.
+
+
+9: REDHAT LINUX
+
+
+RedHat  Linux  users  can  compile an RPM. A spec file is in
+make/out/lilypond.spec.   You  should  install  a  gif  file
+called  lelie_icon.gif along with the sources.  You can gen-
+erate this gif file by typing
+
+
+
+
+
+
+          make gifs
+
+
+in the directory Documentation.
+
+You can make the rpm by issuing
+
+
+
+
+
+
+          make rpm
+
+
+
+
+
+
+10: DEBIAN GNU/LINUX
+
+
+A Debian package is  also  available;  contact  Anthony  Fok
+foka@debian.org <foka@debian.org>.  The build scripts are in
+the subdirectory debian/
+
+
+11: WINDOWS NT/95
+
+
+Separate instructions on building for W32 are avaible in the
+file README-W32.yo.
+
+
+12: AUTHORS
+
+
+Han-Wen Nienhuys <hanwen@cs.uu.nl>
+
+Jan Nieuwenhuizen <janneke@gnu.org>
+
+Have fun!

@@ -7,7 +7,7 @@
 */
 
 #include "break-align-item.hh"
-#include "dimension.hh"
+#include "dimensions.hh"
 
 void
 Break_align_item::do_pre_processing()

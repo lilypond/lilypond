@@ -1,5 +1,5 @@
 /*
-  (c) 1996,97 Han-Wen Nienhuys
+  (c) 1996--98 Han-Wen Nienhuys
 */
 
 #ifndef MOMENT_HH
@@ -7,6 +7,10 @@
 
 #include <limits.h>
 #include "rational.hh"
+
+class String;
+typedef Rational Moment;
+
 
 /**
   A really big time-moment.
@@ -18,12 +22,8 @@
 
   Can't we name this Saint_jut_mom (Sintjuttemis ?)  */
   
-const infinity_mom = INT_MAX;
 
-class String;
-typedef Rational Moment;
-
-
+const Moment infinity_mom = INT_MAX;
 
 #endif // 
 

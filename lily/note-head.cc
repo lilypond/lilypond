@@ -9,7 +9,6 @@
 #include "misc.hh"
 #include "dots.hh"
 #include "note-head.hh"
-#include "dimension.hh" 
 #include "debug.hh"
 #include "paper-def.hh"
 #include "lookup.hh"

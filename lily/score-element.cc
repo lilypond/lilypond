@@ -16,8 +16,6 @@
 #include "molecule.hh"
 #include "score-element.hh"
 #include "debug.hh"
-#include "tex.hh"
-#include "dimension.hh"
 #include "spanner.hh"
 #include "line-of-score.hh"
 #include "item.hh"

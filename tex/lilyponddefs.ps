@@ -1,0 +1,304 @@
+%!PS-Adobe-3.0: lilyponddefs
+
+% hmm
+/setgray { 1 add } bind def
+
+/xoffset 30 def
+/yoffset 700 def
+/staffrulethickness 1 def
+/staffheight 20 def
+
+% round cappings
+1 setlinecap
+
+/placebox
+{
+	/object exch def
+	gsave
+	exch translate
+	0 0 moveto
+	object
+	grestore
+} bind def
+
+/settext
+{
+	gsave
+	% urg
+	/Times-Roman findfont 12 scalefont setfont
+	show
+	grestore
+} bind def
+
+/vrule % width height depth
+{
+	gsave
+	3 -1 roll setlinewidth
+	neg 0 exch moveto
+	0 exch lineto stroke
+	grestore
+} bind def
+
+/draw_stem % kern width height depth
+{
+	gsave
+	4 -1 roll neg 0 translate
+	vrule
+	grestore
+} bind def
+
+/widthbar % height width
+{
+	gsave
+	setlinewidth
+	2 div dup neg 0 exch moveto
+	0 exch lineto stroke
+	2 div
+	grestore
+} bind def
+
+/thickbar % height
+{
+	stafflinethickness 2 mul widthbar
+} bind def
+
+/thinbar % height
+{
+	stafflinethickness 1.6 mul widthbar
+} bind def
+
+/maatstreep
+{
+	thinbar
+} bind def
+
+/finishbar
+{
+	thickbar
+} bind def
+
+/generalmeter
+{
+} bind def
+
+/pianobrace
+{
+	gsave
+	/feta-braces20 findfont 12 scalefont setfont%
+	show
+	grestore
+} bind def
+
+/repeatbar
+{
+} bind def
+
+/start_line
+{ 
+	gsave
+	xoffset yoffset translate
+} bind def
+
+/stop_line
+{ 
+	/object exch def
+	0 0 moveto pathbbox exch pop sub exch pop
+	object
+	grestore
+	yoffset add /yoffset exch def
+	% urg...
+	yoffset staffheight 8 mul sub /yoffset exch def
+} bind def
+
+/unknown {} bind def
+
+/turnOnExperimentalFeatures { } bind def
+
+/rulesym % thick length
+{
+	gsave
+	exch setlinewidth
+	0 lineto stroke
+	grestore
+} bind def
+
+/draw_beam
+{
+        2 div /beam_thick exch def
+        /beam_slope exch def
+        /beam_wd exch def
+        beam_slope beam_wd mul /beam_ht exch def
+        0 beam_thick neg moveto 
+        beam_wd beam_ht rlineto 
+        0 beam_thick 2 mul rlineto
+        0 beam_thick lineto
+        closepath fill
+} bind def
+%
+/draw_decresc
+        {
+                staffrulethickness setlinewidth
+                /cresc_cont exch def
+                /cresc_ht exch def
+                /cresc_wd exch def
+%
+                cresc_wd cresc_cont moveto
+                0 cresc_ht lineto
+                stroke
+                cresc_wd cresc_cont neg moveto
+                0 cresc_ht neg lineto
+                stroke
+        }
+        bind def
+        /draw_cresc
+        {
+                staffrulethickness setlinewidth
+                /cresc_cont exch def
+                /cresc_ht exch def
+                /cresc_wd exch def
+%
+                0 cresc_cont moveto
+                cresc_wd cresc_ht lineto
+                stroke
+                0 cresc_cont neg moveto
+                cresc_wd cresc_ht neg lineto
+                stroke
+        }
+        bind def
+ /lily_distance {
+        1 copy mul exch 1 copy mul add sqrt
+ } bind def
+staffrulethickness 1.2 mul /plet_t exch def
+/draw_plet
+{
+	plet_t setlinewidth
+	true setstrokeadjust
+	1 setlinecap
+	1 setlinejoin
+	/dir exch def
+	/plet_dy exch def
+	/plet_dx exch def
+	staffheight 2 div /plet_gapx exch def
+	plet_dy plet_dx div plet_gapx mul /plet_gapy exch def
+	staffheight 4 div dir mul /plet_h exch def
+%
+	0 0 moveto
+	0 plet_h lineto 
+	plet_dx plet_gapx sub 2 div 
+		plet_dy plet_gapy sub 2 div plet_h add lineto
+	plet_dx plet_gapx add 2 div 
+		plet_dy plet_gapy add 2 div plet_h add moveto
+	plet_dx plet_dy plet_h add lineto
+	plet_dx plet_dy lineto
+	stroke
+} bind def
+%
+/draw_slur
+{
+	staffrulethickness setlinewidth
+	moveto
+	curveto
+	lineto
+	curveto
+	gsave
+	fill
+	grestore
+	stroke
+} bind def
+%
+/draw_dashed_slur
+{
+	1 setlinecap
+	1 setlinejoin
+	setdash
+	setlinewidth
+	moveto
+	curveto
+	stroke
+} bind def
+%
+staffheight 4 div /interline exch def
+%
+/bracket_traject
+{
+  /traject_ds exch def
+  /traject_alpha exch def
+  traject_ds traject_alpha sin mul add
+  exch
+  traject_ds traject_alpha cos mul add
+  exch
+} bind def
+%
+% too fat for 20pt
+% interline 2 div /bracket_b exch def
+interline 3 div /bracket_b exch def
+interline 2 mul /bracket_w exch def
+staffrulethickness /stafflinethickness exch def
+stafflinethickness 2 mul /bracket_t exch def
+interline 1.5 mul /bracket_v exch def
+bracket_v /bracket_u exch def
+50 /bracket_alpha exch def
+%
+/half_bracket
+{
+%6
+	0 0
+%5a
+	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add
+	bracket_alpha bracket_v -0.15 mul bracket_traject
+%5b
+	1 bracket_h
+	0 bracket_v 0.5 mul bracket_traject
+%5c
+	0 bracket_h
+%4a
+	bracket_b bracket_h bracket_t sub
+	0 bracket_v 0.4 mul bracket_traject
+%4b
+	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add
+	bracket_alpha bracket_v -0.25 mul bracket_traject
+%4c
+	bracket_b bracket_v add bracket_h bracket_t sub bracket_u add
+%3
+	bracket_b bracket_h bracket_t sub
+%2
+	bracket_b 0
+%1
+	0 0
+} bind def
+%
+/draw_half_bracket {
+	moveto
+	lineto
+	lineto
+	curveto
+	curveto
+	lineto
+	gsave
+	fill
+	grestore
+} bind def
+%
+/draw_bracket
+{
+	2 div bracket_b add /bracket_h exch def
+	bracket_t setlinewidth
+	true setstrokeadjust
+	1 setlinecap
+	1 setlinejoin
+	half_bracket
+	20 copy
+	1 -1 scale
+	draw_half_bracket
+	stroke
+	1 -1 scale
+% ugh, ugh:
+	0.05 0 translate
+	draw_half_bracket
+	stroke
+} bind def
+
+stafflinethickness setlinewidth
+
+% see if we're there...
+% 10 setlinewidth 0 0 moveto 400 800 lineto stroke

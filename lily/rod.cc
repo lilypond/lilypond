@@ -9,8 +9,8 @@
 #include "rod.hh"
 #include "p-col.hh"
 #include "debug.hh"
+#include "dimensions.hh"
 #include "single-malt-grouping-item.hh"
-#include "dimension.hh"
 
 
 Rod::Rod (Single_malt_grouping_item *l, Single_malt_grouping_item *r)

@@ -153,7 +153,11 @@ Mudela_time_signature::str ()
   as
   \plet 2/3; c4 \plet 1/1;
  */
-bool const Mudela_note::simple_plet_b_s = true;
+/*
+  UGH: .hh says false, .cc says true.
+  FIXME.
+ */
+bool const Mudela_note::simple_plet_b_s;
 
 Mudela_note::Mudela_note (Mudela_column* mudela_column_l,
 			  int channel_i, int pitch_i, int dyn_i)

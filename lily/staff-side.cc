@@ -8,10 +8,10 @@
 
 #include "interval.hh"
 #include "paper-def.hh"
-#include "dimension.hh"
 #include "staff-side.hh"
 #include "staff-sym.hh"
 #include "debug.hh"
+#include "dimensions.hh"
 
 
 Staff_side::Staff_side()

@@ -7,9 +7,9 @@
 */
 
 #include "molecule.hh"
-#include "dimension.hh"
 #include "crescendo.hh"
 #include "lookup.hh"
+#include "dimensions.hh"
 #include "paper-def.hh"
 #include "debug.hh"
 #include "score-column.hh"

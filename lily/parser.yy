@@ -27,7 +27,7 @@
 #include "keyword.hh"
 #include "debug.hh"
 #include "parseconstruct.hh"
-#include "dimension.hh"
+#include "dimensions.hh"
 #include "identifier.hh"
 #include "command-request.hh"
 #include "musical-request.hh"
@@ -164,6 +164,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token MM_T
 %token MUSIC
 %token MUSICAL_PITCH
+%token NAME
 %token NOTENAMES
 %token NOTES
 %token OCTAVE
@@ -369,6 +370,8 @@ add_declaration:
 	    $4->set_spot (THIS->pop_spot ());
 	}
 	;
+
+
 simple_identifier_init: identifier_init
 	;
 identifier_init:
@@ -455,9 +458,9 @@ translator_spec_body:
 		delete $4;
 		$$->set_property (*$2, str);
 	}
-	| translator_spec_body STRING ';' {
-		$$->type_str_ = *$2;
-		delete $2;
+	| translator_spec_body NAME STRING ';' {
+		$$->type_str_ = *$3;
+		delete $3;
 	}
 	| translator_spec_body CONSISTS STRING ';' {
 		$$->access_Translator_group ()-> set_element (*$3, true);
@@ -561,8 +564,7 @@ paper_def_body:
 		$$ = p;
 	}
 	| paper_def_body int '=' symtables		{ // ugh, what a syntax
-		Lookup * l = ps_output_global_b ? new Ps_lookup (*$4)
-		  : new Tex_lookup (*$4);
+		Lookup * l = global_lookup_l->lookup_p (*$4);
 		$$->set_lookup ($2, l);
 	}
 	| paper_def_body STRING '=' simple_identifier_init ';' {
@@ -1261,7 +1263,6 @@ simple_element:
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error (_ ("have to be in Note mode for notes"));
 		$1->set_duration (*$2);
-		int durlog_i = $2->durlog_i_;
 		$$ = THIS->get_note_element ($1, $2);
 	}
 	| RESTNAME notemode_duration		{
@@ -1401,14 +1402,14 @@ symtable_body:
 	;
 
 symboldef:
-	STRING 	box		{
-		$$ = new Atom (*$1, *$2);
+	STRING unsigned box		{
+		$$ = global_lookup_l->atom_p (*$1, $2, *$3);
 		delete $1;
-		delete $2;
+		delete $3;
 	}
-	| STRING {
+	| STRING unsigned {
 		Box b (Interval (0,0), Interval (0,0));
-		$$ = new Atom (*$1, b);
+		$$ = global_lookup_l->atom_p (*$1, $2, b);
 		delete $1;
 	}
 	;

@@ -8,7 +8,6 @@
 */
 
 #include "proto.hh"
-#include "dimension.hh"
 #include "misc.hh"
 #include "debug.hh"
 #include "atom.hh"

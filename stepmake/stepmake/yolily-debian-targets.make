@@ -2,7 +2,6 @@
 
 default: $(OUTCONF_FILES)
 
-
 $(outdir)/%: %
 	rm -f $@
 	ln $< $@

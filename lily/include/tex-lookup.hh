@@ -21,13 +21,22 @@ public:
   virtual ~Tex_lookup();
 
   virtual Atom afm_find (String s) const;
+  virtual String character_str (int i) const;
   virtual Atom dashed_slur (Array<Offset> controls, Real thick, Real dash) const;
+  virtual Atom* atom_p (String, int, Box) const;
   Atom embed (Atom a) const;
   virtual Atom hairpin (Real width, bool decresc, bool continued) const;
+  virtual Lookup* lookup_p (Lookup const&) const;
+  virtual Lookup* lookup_p (Symtables const&) const;
+  virtual Paper_outputter* paper_outputter_p (Paper_stream*, Paper_def*, Header*, String) const;
+  virtual Paper_stream* paper_stream_p () const;
   virtual Atom plet (Real dy , Real dx, Direction dir) const;
+  virtual String print_dimen (Real) const;
   virtual Atom ps_beam (Real slope, Real width, Real thick) const;
   virtual Atom slur (Array<Offset> controls) const;
   virtual Atom stem (Real y1, Real y2) const;
+  virtual Atom text (String style, String text) const;
+  virtual String unknown_str () const;
   virtual Atom vbracket (Real &y) const;
 };
 

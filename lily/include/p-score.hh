@@ -21,12 +21,8 @@
     
     */
 
-class Paper_score : public Music_output {
-  Paper_outputter *open_paper_outputter (Paper_stream*);
-  Paper_outputter *open_ps_outputter (Ps_stream*);
-  Paper_outputter *open_tex_outputter (Tex_stream*);
-  Paper_stream *open_output_stream ();
-  
+class Paper_score : public Music_output
+{
 public:
   Paper_def *paper_l_;
 

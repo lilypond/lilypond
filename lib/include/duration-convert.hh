@@ -34,7 +34,7 @@ struct Duration_convert {
 	
   /* Urgh. statics.
    */
-  static bool const midi_as_plet_b_s = true;
+  static bool const midi_as_plet_b_s;
   static bool no_quantify_b_s;
   static bool no_double_dots_b_s;
   static bool no_triplets_b_s;

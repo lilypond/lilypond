@@ -75,7 +75,7 @@ public:
     virtual String str();
     
 //    int const c0_pitch_i_c_ = 60; // huh?
-    int const c0_pitch_i_c_ = 48;
+    static int const c0_pitch_i_c_ = 48;
 
     static bool const simple_plet_b_s = false;
     int channel_i_;

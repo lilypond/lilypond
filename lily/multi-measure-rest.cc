@@ -11,7 +11,6 @@
 #include "debug.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
-#include "dimension.hh"
 #include "rest.hh"
 #include "script.hh"
 #include "text-def.hh"

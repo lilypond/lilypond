@@ -12,13 +12,13 @@
 #include "spring-spacer.hh"
 #include "p-col.hh"
 #include "debug.hh"
+#include "dimensions.hh"
 #include "qlp.hh"
 #include "unionfind.hh"
 #include "idealspacing.hh"
 #include "pointer.tcc"
 #include "score-column.hh"
 #include "paper-def.hh"
-#include "dimension.hh"
 #include "colhpos.hh"
 
 Vector

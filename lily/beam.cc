@@ -21,7 +21,7 @@
 #include "p-col.hh"
 #include "array.hh"
 #include "proto.hh"
-#include "dimension.hh"
+#include "dimensions.hh"
 #include "beam.hh"
 #include "abbreviation-beam.hh"
 #include "misc.hh"

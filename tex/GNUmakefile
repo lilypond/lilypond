@@ -4,7 +4,8 @@ depth = ..
 
 
 TEX_FILES = $(wildcard *.tex)
-EXTRA_DIST_FILES =  $(TEX_FILES)
+
+EXTRA_DIST_FILES =  $(TEX_FILES) lilyponddefs.ps
 
 INSTALLATION_DIR=$(TEXDIR)/lilypond
 INSTALLATION_FILES=$(TEX_FILES)

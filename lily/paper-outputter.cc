@@ -12,11 +12,10 @@
 #include "molecule.hh"
 #include "atom.hh"
 #include "array.hh"
-#include "dimension.hh"
-// urg, silly name
-#include "tex.hh"
 #include "string-convert.hh"
 #include "debug.hh"
+#include "lookup.hh"
+#include "main.hh"
 
 Paper_outputter::Paper_outputter (Paper_stream *s)
 {
@@ -43,10 +42,10 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm, St
       Array<String> a;
       String r;
   
-      a.push (print_dimen (a_off.y()));
-      a.push (print_dimen (a_off.x()));
+      a.push (global_lookup_l->print_dimen (a_off.y()));
+      a.push (global_lookup_l->print_dimen (a_off.x()));
       a.push (i->str_);
-      r += substitute_args (s, a);
+      r += global_lookup_l->substitute_args (s, a);
       *outstream_l_ << r;
     }
 }

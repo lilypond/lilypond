@@ -6,7 +6,7 @@ if [ $# -ne 1 ]; then
 	exit 2
 fi
 
-font=$1
+font=`basename $1 .mf`
 mf=$font.mf
 afm=out/$font.afm
 PKTOPBM=pktopbm

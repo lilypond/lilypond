@@ -11,8 +11,6 @@
 #include "real.hh"
 #include "interval.tcc"
 
-template INTERVAL__INSTANTIATE (Real);
-
 Real
 Interval_t<Real>::infinity () 
 {
@@ -25,7 +23,6 @@ Interval_t<Real>::T_to_str (Real r)
   return to_str (r);
 }
 
-template INTERVAL__INSTANTIATE (int);
 
 int
 Interval_t<int>::infinity () 
@@ -38,4 +35,7 @@ Interval_t<int>::T_to_str (int i)
 {
   return to_str (i);
 }
+
+template INTERVAL__INSTANTIATE (int);
+template INTERVAL__INSTANTIATE (Real);
 
