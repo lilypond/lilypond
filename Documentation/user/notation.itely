@@ -3550,29 +3550,29 @@ noFlag = \once \override Stem  #'flag-style = #'no-flag
 The easiest way to add lyrics to a melody, is by appending
 
 
-@cindex \newlyrics
+@cindex \addlyrics
 @example
-  \newlyrics @{ @var{the lyrics} @} 
+  \addlyrics @{ @var{the lyrics} @} 
 @end example
 
 to a melody. Here is an example,
 
 @lilypond[raggedright,verbatim]
   \relative { \time 3/4 c2 e4 g2. }
-  \newlyrics { play the game } 
+  \addlyrics { play the game } 
 @end lilypond
 
 More stanzas can be added by adding more
-@code{\newlyrics} sections 
+@code{\addlyrics} sections 
 
 @lilypond[raggedright,verbatim]
   \relative { \time 3/4 c2 e4 g2. }
-  \newlyrics { play the game } 
-  \newlyrics { speel het spel } 
-  \newlyrics { joue le jeu } 
+  \addlyrics { play the game } 
+  \addlyrics { speel het spel } 
+  \addlyrics { joue le jeu } 
 @end lilypond
 
-The @code{\newlyrics} keyword has three functions: it interprets the
+The @code{\addlyrics} keyword has three functions: it interprets the
 following words as texts instead of notes, it sets up a context for
 printing texts (the @code{Lyrics} context), and it couples the melody
 with the lyrics, so the durations of both are aligned.
@@ -3878,7 +3878,7 @@ For example,
 
 @lilypond[verbatim,raggedright]
 \relative { c c g' }
-\newlyrics {
+\addlyrics {
   twin -- \skip 4
   kle
 }
@@ -3984,10 +3984,10 @@ Stanza numbers can be added by setting @code{stanza}, e.g.
 @lilypond[quote,verbatim,relative=2]
 \context Voice {
     \time 3/4 g2 e4 a2 f4 g2.
-} \newlyrics {
+} \addlyrics {
      \set stanza = "1. "
      Hi, my name is Bert.
-} \newlyrics {
+} \addlyrics {
      \set stanza = "2. "
      Oh, che -- ri, je t'aime
 }
@@ -4003,10 +4003,10 @@ the line, just like instrument names.  They are created by setting
 @lilypond[quote,verbatim,relative=2]
 \context Voice {
     \time 3/4 g2 e4 a2 f4 g2.
-} \newlyrics {
+} \addlyrics {
      \set vocalName = "Bert "
      Hi, my name is Bert.
-} \newlyrics {
+} \addlyrics {
      \set vocalName = "Ernie "
      Oh, che -- ri, je t'aime
 }

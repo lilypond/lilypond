@@ -27,6 +27,7 @@
 static Keyword_ent the_key_tab[] = {
   {"accepts", ACCEPTS},
   {"addquote", ADDQUOTE},
+  {"addlyrics", ADDLYRICS},
   {"alias", ALIAS},
   {"alternative", ALTERNATIVE},
   {"bar", BAR},
@@ -52,7 +53,6 @@ static Keyword_ent the_key_tab[] = {
   {"midi", MIDI},
   {"name", NAME},
   {"new", NEWCONTEXT},
-  {"newlyrics", NEWLYRICS},
   {"notes", NOTES},
   {"octave", OCTAVE},
   {"once", ONCE},

@@ -979,9 +979,8 @@ Consider the melody
 }
 @end lilypond
 
-@c FIXME: when/how/to what rename newlyrics?
 The lyrics can be set to these notes, combining both with the
-@code{\newlyrics} keyword
+@code{\addlyrics} keyword
 
 @lilypond[quote,verbatim,fragment,raggedright]
 <<
@@ -989,7 +988,7 @@ The lyrics can be set to these notes, combining both with the
     r4 c \times 2/3 { f g g }
     \times 2/3 { g4( a2) }
   }
-  \newlyrics { I want to break free }
+  \addlyrics { I want to break free }
 >>
 @end lilypond
 
@@ -1010,7 +1009,7 @@ line}.  It is entered as two underscores, i.e.,
     r4 c \times 2/3 { f g g }
     \times 2/3 { g4( a2) }
   }
-  \newlyrics { I want to break free __ }
+  \addlyrics { I want to break free __ }
 >>
 @end lilypond
 
@@ -1027,7 +1026,7 @@ Twin -- kle twin -- kle
      \time 2/4
      f4 f c' c
    }
-   \newlyrics { Twin -- kle twin -- kle }
+   \addlyrics { Twin -- kle twin -- kle }
 >>
 @end lilypond
 
@@ -1116,7 +1115,7 @@ a lead sheet, for example,
 <<
   \new ChordNames \chords @{ @emph{chords} @}
   @emph{the melody}
-  \newlyrics @{ @emph{the text} @}
+  \addlyrics @{ @emph{the text} @}
 >>
 @}
 @end example
@@ -1128,7 +1127,7 @@ a lead sheet, for example,
     r4 c' \times 2/3 { f g g }
     \times 2/3 { g4( a2) }
   }
- \newlyrics { I want to break free __ }
+ \addlyrics { I want to break free __ }
 >>
 @end lilypond
 

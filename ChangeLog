@@ -1,5 +1,8 @@
 2004-08-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/parser.yy (new_lyrics): \addlyrics -> \oldaddlyrics,
+	\newlyrics -> \addlyrics
+
 	* lily/text-spanner.cc (print): use it.
 
 	* lily/dynamic-text-spanner.cc (print): use it.
