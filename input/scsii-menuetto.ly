@@ -132,13 +132,9 @@ score {
 	paper {
 		symboltables { table_sixteen }
 		width 195mm
-%		unitspace 12mm % this should do, really
 		unitspace 9mm  % to get lily to use only three lines
 		geometric 1.4
 		output "scsii-menuetto.out"
-	}
-	staff {
-		midi music { ii_menuetto }
 	}
 	midi { 
 		tempo 4:120
