@@ -6,7 +6,7 @@
 
 
 ;; define factor of total volume per dynamic marking
-(define absolute-volume-alist '())
+(define-public absolute-volume-alist '())
 (set! absolute-volume-alist
       (append 
       '(
@@ -32,11 +32,11 @@
 	(cdr entry))))
 
 ;; define factors of total volume of minimum and maximum volume
-(define instrument-equalizer-alist '())
+(define-public instrument-equalizer-alist '())
 (set! instrument-equalizer-alist
       (append 
        '(
-	 ("flute" . (0 . 0.7))
+	 ("flute" . (0 . 0.07))
 	 ("oboe" . (0 . 0.7))
 	 ("clarinet" . (0 . 0.7))
 	 ("bassoon" . (0 . 0.6))
