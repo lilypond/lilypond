@@ -29,7 +29,6 @@ protected:
   virtual bool try_music (Music*);
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
   virtual void finalize ();
   virtual void process_music ();
 

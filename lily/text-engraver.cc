@@ -29,7 +29,6 @@ public:
 protected:
   virtual bool try_music (Music* m);
   virtual void stop_translation_timestep ();
-  virtual void start_translation_timestep ();
   virtual void process_acknowledged_grobs ();
   virtual void acknowledge_grob (Grob_info);
 };
@@ -137,7 +136,9 @@ Text_engraver::stop_translation_timestep ()
 }
 
 
-Text_engraver::Text_engraver(){}
+Text_engraver::Text_engraver ()
+{
+}
 
 ENTER_DESCRIPTION(Text_engraver,
 /* descr */       "Create text-scripts",

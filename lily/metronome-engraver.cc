@@ -31,7 +31,6 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   void create_items (Music*);
   virtual bool try_music (Music *req);
-  virtual void start_translation_timestep ();
   virtual void process_music ();
   
 private:
