@@ -352,4 +352,4 @@
 (define-public (tex-output-expression expr port)
   (display (eval expr this-module) port ))
 
-(define (make-title) "")
+(define (make-title port) "")
