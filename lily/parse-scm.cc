@@ -113,6 +113,9 @@ protected_ly_parse_scm (Parse_start *ps)
 
 bool  parse_protect_global  = true; 
 
+/*
+  Try parsing. If failure, then return SCM_UNDEFINED.
+ */
 SCM
 ly_parse_scm (char const* s, int *n, Input i)
 {

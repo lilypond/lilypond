@@ -1,3 +1,8 @@
+2002-11-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/parser.yy (tempo_event): use tempo-unit for \tempo
+	duration. This fixes \tempo taking time.
+
 2002-11-21  Mats Bengtsson  <mats.bengtsson@s3.kth.se>
 
 	* lily/volta-engraver.cc (process_acknowledged_grobs): 

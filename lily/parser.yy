@@ -655,7 +655,7 @@ music_output_def_body:
 			music.
 		*/
 		int m = gh_scm2int ( $2->get_mus_property ("metronome-count"));
-		Duration *d = unsmob_duration ($2->get_mus_property ("duration"));
+		Duration *d = unsmob_duration ($2->get_mus_property ("tempo-unit"));
 		Midi_def * md = dynamic_cast<Midi_def*> ($$);
 		if (md)
 			md->set_tempo (d->get_length (), m);
@@ -668,7 +668,7 @@ music_output_def_body:
 tempo_event:
 	TEMPO steno_duration '=' bare_unsigned	{
 		$$ = MY_MAKE_MUSIC("TempoEvent");
-		$$->set_mus_property ("duration", $2);
+		$$->set_mus_property ("tempo-unit", $2);
 		$$->set_mus_property ("metronome-count", gh_int2scm ( $4));
 	}
 	;

@@ -45,7 +45,7 @@ Tempo_performer::create_audio_elements ()
     {
 
       SCM met = tempo_req_->get_mus_property ("metronome-count");
-      Duration *d = unsmob_duration (tempo_req_->get_mus_property ("duration"));
+      Duration *d = unsmob_duration (tempo_req_->get_mus_property ("tempo-unit"));
       
       Rational r =  (d->get_length () / Moment (Rational (1, 4)) * Moment (gh_scm2int (met))).main_part_;
       
