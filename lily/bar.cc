@@ -18,7 +18,6 @@ Bar::Bar ()
 {
   set_elt_property (breakable_scm_sym, SCM_BOOL_T);
   type_str_ = "|";
-  at_line_start_b_ = false;
 }
 
 void
@@ -57,7 +56,7 @@ static char const *bar_breaks[][3] ={
   {":|", ":|", ""},
   {"||", "||", ""},
   {".|.", ".|.", ""},
-  {"", "scorebar", "|"},
+  {"", "scorebar", "scorepostbreak"},
   {"", "{", "{"},
   {"", "[", "["},  
   {0,0,0}
@@ -71,7 +70,8 @@ Bar::do_pre_processing ()
       if (bar_breaks[i][1] == type_str_)
 	{
 	  type_str_ = bar_breaks[i][break_status_dir ()+1];
-	  if (at_line_start_b_ && (break_status_dir () == RIGHT) && (type_str_ == ""))
+	  if (remove_elt_property (at_line_start_scm_sym)!= SCM_BOOL_F
+	      && (break_status_dir () == RIGHT) && (type_str_ == ""))
 	    {
 	      type_str_ = "|";
 	    }

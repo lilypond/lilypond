@@ -115,6 +115,7 @@ Ross. page 151
 bar_kern = 0.5 * \interline;
 bar_thinkern = 0.75 * \interline;
 barthick_thick = 0.5* \interline;
+barthick_score = 0.13333* \interline;
 barthick_thin = 0.1*\interline;
 Can't be, these are ugly!  Changed to old (TeX) values.
 
