@@ -76,7 +76,6 @@ $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-interna
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --html $<
 	$(MAKEINFO) -I $(outdir) --output=$@ --html --no-split --no-headers $<
-	-cp -f $(outdir)/*.{png,ly} $(outdir)/lilypond-internals
 
 ifeq ($(SPLITTING_MAKEINFO),yes)
 
