@@ -665,6 +665,39 @@ and/or crashes.
 @node Defining context defaults 
 @subsection Defining context defaults
 
+The adjustments of the previous chapters can also be entered separate
+from the music, in the @code{\paper} block,
+
+@example
+  \paper {
+     @dots{}
+     \context @{
+        \StaffContext
+
+        \set fontSize = #-2
+        \override Stem #'thickness
+        \remove "Time_signature_engraver"
+      @}
+   @}
+@end example
+
+This
+@example
+  \StaffContext
+@end example
+
+@noindent
+takes the existing definition @context{Staff}, and adds
+changes some settings,
+
+@example
+        \set fontSize = #-2
+        \override Stem #'thickness
+        \remove "Time_signature_engraver"
+@end example
+
+
+
 Context properties can be set as defaults, within the
 @code{\paper} block. For example, 
 

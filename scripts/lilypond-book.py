@@ -391,6 +391,23 @@ def to_eps (file):
 	ly.system ('dvips -Ppdf -u+lilypond.map -E -o %s.eps %s' \
 		   % (file, file))
 
+
+	# check if it really is EPS.
+	# Otherwise music glyphs disappear from 2nd and following pages.
+
+	# TODO: should run dvips -pp -E per page, then we get proper
+	# cropping as well.
+	
+	f = open ('%s.eps' % file)
+	for x in range(0,10) :
+		if re.search ("^%%Pages: ", f.readline ()):
+
+			# make non EPS.
+			ly.system ('dvips -Ppdf -u+lilypond.map -o %s.eps %s' \
+				   % (file, file))
+			break
+	
+
 def find_file (name):
 	for i in include_path:
 		full = os.path.join (i, name)
@@ -720,11 +737,11 @@ def run_filter (s):
 
 def is_derived_class (cl,  baseclass):
 	if cl == baseclass:
-		return True
+		return 0
 	for b in cl.__bases__:
 		if is_derived_class (b, baseclass):
-			return True
-	return False
+			return 1
+	return 0
 
 
 def process_snippets (cmd, snippets):

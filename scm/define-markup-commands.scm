@@ -240,6 +240,12 @@ of the @code{#'direction} layout property."
          (cmols (map (lambda (x) (ly:stencil-align-to! x X CENTER)) mols)))
     (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) mols)))
 
+(def-markup-command (vcenter paper props arg) (markup?)
+  "Align @code{arg} to its center. "
+  (let* ((mol (interpret-markup paper props arg)))
+    (ly:stencil-align-to! mol Y CENTER)
+    mol))
+
 (def-markup-command (right-align paper props arg) (markup?)
   (let* ((m (interpret-markup paper props arg)))
     (ly:stencil-align-to! m X RIGHT)

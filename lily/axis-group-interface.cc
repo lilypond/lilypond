@@ -122,4 +122,4 @@ Axis_group_interface::get_children (Grob*me)
 
 ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
   "An object that groups other layout objects.",
-  "axes");
+  "axes elements");

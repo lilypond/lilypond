@@ -260,12 +260,6 @@ markup.  Called with 2 arguments, event and context.")
 selects the highest string with a fret at least @var{minimumFret}")
      (minimumVerticalExtent ,number-pair? "minimum vertical extent, same
 format as @var{verticalExtent}")
-     (recordEventSequence ,procedure? "When
-@internalsref{Recording_group_engraver} is in this context, then upon
-termination of the context, this function is called with current
-context and a list of music objects.  The list of contains entries
-with start times, music objects and whether they are processed in this
-context.")
      (ottavation ,string? "If set, the text for an ottava spanner. Changing
 this creates a new text spanner. ")
      (pedalSustainStrings ,list? "List of string to print for
@@ -278,10 +272,18 @@ pedal.")
 sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
      (pedalUnaCordaStyle ,symbol? "see @code{pedalSustainStyle}.")
      (pedalSostenutoStyle ,symbol? "see @code{pedalSustainStyle}.")
+     (printKeyCancellation ,boolean? "Print restoration alterations before a key signature change. ")
      (printOctaveNames ,boolean? "Print octave marks for the NoteNames context.")
+     (recordEventSequence ,procedure? "When
+@internalsref{Recording_group_engraver} is in this context, then upon
+termination of the context, this function is called with current
+context and a list of music objects.  The list of contains entries
+with start times, music objects and whether they are processed in this
+context.")
+     
+
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
      (repeatCommands ,list? "This property is read to find any command of the form @code{(volta . @var{x})}, where @var{x} is a string or @code{#f}")
-
      (restNumberThreshold ,number?
 			  "If a multimeasure rest takes less
 than this number of measures, no number is printed. ")

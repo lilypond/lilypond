@@ -24,7 +24,7 @@
 % with empty ones.
 	
 	\consists "Font_size_engraver"
-
+	
 	\consists "Volta_engraver"
 	\consists "Separating_line_group_engraver"	
 	\consists "Dot_column_engraver"
@@ -47,7 +47,7 @@
 	extraVerticalExtent = ##f
 	verticalExtent = ##f 
 	localKeySignature = #'()
-
+	
 	% explicitly set instrument, so we don't get 
 	% weird effects when doing instrument names for
 	% piano staves
@@ -485,6 +485,7 @@ AncientRemoveEmptyStaffContext = \context {
     autoAccidentals = #'(Staff (same-octave . 0))
     autoCautionaries = #'()  
 
+    printKeyCancellation = ##t
     keyAccidentalOrder = #`(
 	(6 . ,FLAT) (2  . ,FLAT) (5 . ,FLAT ) (1  . ,FLAT) (4  . ,FLAT) (0  . ,FLAT) (3  . ,FLAT)
 	(3  . ,SHARP) (0 . ,SHARP) (4 . ,SHARP) (1 . ,SHARP) (5 . ,SHARP) (2 . ,SHARP) (6 . ,SHARP)
