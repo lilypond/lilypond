@@ -39,8 +39,6 @@ Midi_key::mudela_str( bool command_mode_bo )
 		str += String( (char)( ( key_i_ + 2 ) % 7 + 'A'  ) );
 	else // heu, -2: should be - 1 1/2: A -> fis
 		str += String( (char)( ( key_i_ + 2 - 2 ) % 7 + 'a'  ) );
-//	if ( !command_mode_bo )
-//	    str =  String( '\\' ) + str;
 	str = String( "%" ) + str + "\n"; // "\key\F" not supported yet...
 	return str;
 }
@@ -84,7 +82,7 @@ Midi_key::notename_str( int pitch_i )
  this switch can be used to write simple plets like 
      c4*2/3 
  as  
-     \plet{ 2/3 } c4 \plet{ 1/1 }
+     \plet 2/3; c4 \plet 1/1;
  */
 bool const Midi_note::simple_plet_b_s = true;
 
@@ -99,17 +97,20 @@ String
 Midi_note::mudela_str( bool command_mode_bo )
 {
 //	assert( !command_mode_bo );
+	if ( !dur_.type_i_ )
+		return "";
+
 	if ( simple_plet_b_s )
 		return name_str_ + Duration_convert::dur2_str( dur_ );
 
 	//ugh
 	String str;
 	if ( dur_.plet_b() )
-		str += String( "\\plet{ " )
+		str += String( "\\plet " )
 			+ String_convert::i2dec_str( dur_.plet_.iso_i_, 0, 0 )
 			+ "/"
 			+ String_convert::i2dec_str( dur_.plet_.type_i_, 0, 0 )
-			+ " } ";
+			+ "; ";
 
 	str += name_str_;
 
@@ -118,7 +119,7 @@ Midi_note::mudela_str( bool command_mode_bo )
 	str += Duration_convert::dur2_str( dur );
 
 	if ( dur_.plet_b() )
-		str += String( " \\plet{ 1/1 }" );
+		str += String( " \\plet 1/1;" );
 		
 	return str;
 }
@@ -213,11 +214,9 @@ Midi_time::num_i()
 String
 Midi_time::mudela_str( bool command_mode_bo )
 {
-	String str = "\\meter{ "
+	String str = "\\meter "
 		+ String( num_i_ ) + "/" + String( 1 << den_i_ ) 
-		+ " }";
-//	if ( !command_mode_bo )
-//	    str =  String( '\\' ) + str;
+		+ ";";
 	return str;
 }
 

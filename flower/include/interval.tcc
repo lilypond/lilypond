@@ -98,7 +98,7 @@ Interval_t<T>::str() const
 	return "[empty]";
     String s("[");
  
-    return s + left + "," + right +"]";
+    return s + String( left ) + String( "," ) + String( right ) + String( "]" );
 }
 
 template<class T>

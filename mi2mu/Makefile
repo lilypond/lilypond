@@ -40,8 +40,7 @@ VERSION_DEPENDENCY = $(mi2mu-version)
 
 # list of distribution files:
 #
-DISTFILES = Makefile .version $(ALL_SOURCES)
-
+EXTRA_DISTFILES = .version TODO
 #
 
 # list of custom libraries:

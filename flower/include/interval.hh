@@ -75,7 +75,7 @@ struct Interval_t {
     Interval_t<T> &operator *=(T r) {
 	left *= r;
 	right *= r;
-	if (r <0) {
+	if (r < T(0)) {
 	    T t = left;
 	    left = right;
 	    right = t;
