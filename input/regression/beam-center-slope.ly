@@ -1,5 +1,4 @@
 
-
 \version "2.1.26"
 \header{
 
@@ -22,7 +21,14 @@
 
 	 c''[ b]
 	 b[ c]
-	
+
+	 % baerenreiter test
+	 b,,[ c]
+	 c[ b]
+
+	 b''[ a]
+	 a[ b]
+
 	 c,,[ d]
 	 d[ c]
 	
@@ -37,6 +43,7 @@
     }
     \paper{
 	raggedright = ##t
+	indent = 0
     }
 }
 
