@@ -70,7 +70,6 @@
 ;; alist containing fontname -> fontcommand assoc (both strings)
 (define page-count 0)
 (define page-number 0)
-(define font-name-alist '())
 
 ;; /lilypondpaperoutputscale 1.75729901757299 def
 ;;/lily-output-units 2.83464  def  %% milimeter
@@ -166,7 +165,16 @@
    (ly:number->string (* 10 thick))
    " ] 0 draw_dashed_slur"))
 
-(define (define-fonts internal-external-name-mag-pairs)
+(define (font-command font)
+  (string-append
+   "magfont"
+   (string-encode-integer
+    (hashq (ly:font-name font) 1000000))
+   "m"
+   (string-encode-integer
+    (inexact->exact (round (* 1000 (ly:font-magnification font)))))))
+
+(define (define-fonts paper font-list)
 
   (define (fontname->designsize fontname)
     (let ((i (string-index fontname char-numeric?)))
@@ -175,7 +183,9 @@
   (define (define-font command fontname scaling)
     (string-append
      "/" command " { /" fontname " findfont "
+     ;; FIXME
      (ly:number->string scaling) " output-scale div scalefont } bind def\n"))
+     ;;(ly:number->string scaling) " scalefont } bind def\n"))
 
   (define (reencode-font raw encoding command)
     (string-append
@@ -197,31 +207,48 @@
        fontname 'pre "GNU-LilyPond-" 1 2 "-" 3 'post))
      (else fontname)))
 			 
-  ;;  (define (font-load-command name-mag command)
-  (define (font-load-command fonts)
-    (let* ((key-name-size (car lst))
-	   (value (cdr lst))
-	   (value-name-size (car value))
-	   (command (font-command font))
+  (define (font-load-command paper font)
+
+;; fontname "feta20"
+;; command "magfontGNMWomXVo"
+;; mangled "GNU-LilyPond-feta-20"
+;; designsize 0.569055118110236
+;; foo-design 20
+;; magnification 0.569055118110236
+;; ops 1.75729901757299
+;; scaling 20.0
+
+;; fontname "cmr8"
+;; command "magfontUIJQomTVo"
+;; mangled "cmr8.pfb"
+;; designsize 0.564574183197548
+;; foo-design 8
+;; magnification 0.564574183197548
+;; ops 1.75729901757299
+;; scaling 7.87450656184296
+    
+    (let* ((command (font-command font))
 	   (fontname (ly:font-name font))
 	   (mangled (possibly-mangle-fontname fontname))
 	   (encoding (assoc-get fontname font-encoding-alist))
 	   (designsize (ly:font-design-size font))
-	   (fontsize (cdr value-name-size))
-	   (scaling (* fontsize designsize)))
+	   (magnification (* (ly:font-magnification font)))
+	   (foo-design (fontname->designsize fontname))
+	   (ops (ly:paper-lookup paper 'outputscale))
+	   ;; FIXME this magic is about right ...
+	   (scaling (* ops ops magnification designsize foo-design)))
 
       (if
        #f
        (begin
 	 (newline)
-	 (format (current-error-port) "key-name-size ~S\n" key-name-size)
-	 (format (current-error-port) "value ~S\n" value)
-	 (format (current-error-port) "value-name-size ~S\n" value-name-size)
-	 (format (current-error-port) "command ~S\n" command)
-	 (format (current-error-port) "designsize ~S\n" designsize)
 	 (format (current-error-port) "fontname ~S\n" fontname)
+	 (format (current-error-port) "command ~S\n" command)
 	 (format (current-error-port) "mangled ~S\n" mangled)
-	 (format (current-error-port) "fontsize ~S\n" fontsize)
+	 (format (current-error-port) "designsize ~S\n" designsize)
+	 (format (current-error-port) "foo-design ~S\n" foo-design)
+	 (format (current-error-port) "magnification ~S\n" magnification)
+	 (format (current-error-port) "ops ~S\n" ops)
 	 (format (current-error-port) "scaling ~S\n" scaling)))
       
       (if encoding
@@ -232,18 +259,8 @@
 	     (reencode-font raw encoding command)))
 	  (define-font command mangled scaling))))
   
-  (define (ps-encoded-fontswitch name-mag-pair)
-    (let* ((key (car name-mag-pair))
-	   (value (cdr name-mag-pair))
-	   (fontname (car value))
-	   (scaling (cdr value)))
-      (cons key (cons value
-		      (string-append
-		       "lilyfont" fontname "-" (ly:number->string scaling))))))
-
-  (set! font-name-alist
-	(map ps-encoded-fontswitch internal-external-name-mag-pairs))
-  (apply string-append (map font-load-command font-name-alist)))
+  (apply string-append
+	 (map (lambda (x) (font-load-command paper x)) font-list)))
 
 (define (define-origin file line col) "")
 
@@ -276,19 +293,8 @@
   (string-append (ly:numbers->string (list breapth width depth height))
 		 " draw_box"))
 
-(define (fontify name-mag-pair exp)
-
-  (define (select-font name-mag-pair)
-    (let ((c (assoc name-mag-pair font-name-alist)))
-      
-      (if c
-	  (string-append (cddr c) " setfont ")
-	  (begin
-	    (ly:warn
-	     (format "Programming error: No such font: ~S" name-mag-pair))
-	    ""))))
-  
-  (string-append (select-font name-mag-pair) exp))
+(define (fontify font exp)
+  (string-append (font-command font) " setfont " exp))
 
 (define (header creator time-stamp page-count-)
   (set! page-count page-count-)
@@ -331,11 +337,13 @@
   (let ((prefix "lilypondpaper"))
     
     (define (scope-entry->string key var)
-      (let ((val (variable-ref var)))
-	(cond
-	 ((string? val) (ps-string-def prefix key val))
-	 ((number? val) (ps-number-def prefix key val))
-	 (else ""))))
+      (if (variable-bound? var)
+	  (let ((val (variable-ref var)))
+	    (cond
+	     ((string? val) (ps-string-def prefix key val))
+	     ((number? val) (ps-number-def prefix key val))
+	     (else "")))
+	  ""))
       
     (apply
      string-append
