@@ -5,6 +5,7 @@
 
 import string
 import re
+import sys
 
 outlines = []
 prekw = '\\\\'
@@ -91,7 +92,10 @@ for name in [
     F.close()
 
 # the output file
-out = open('lilypond.words', 'w')
+if sys.argv[1:] == []:
+  out = open('lilypond.words', 'w')
+else:
+  out = open(sys.argv[1], 'w')
 
 # the menu in lilypond-mode.el
 for line in [
