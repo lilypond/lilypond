@@ -15,7 +15,10 @@
 #include "parray.hh"
 
 static Link_array<Score> global_score_array;
-String default_out_fn = "lelie";
+String default_outname_suffix_global = "";
+String default_outname_base_global =  "lelie";
+int default_count_global;
+
 
 void
 do_scores()
@@ -26,6 +29,7 @@ do_scores()
       if (!is_p->header_p_)
 	is_p->header_p_ = new Header;
       
+                
       is_p->header_p_->lily_id_str_ = "Lily was here, " +
 	get_version_number_str();
       if (is_p->errorlevel_i_)
@@ -56,8 +60,3 @@ add_score (Score * s)
   global_score_array.push (s);
 }
 
-void
-set_default_output (String s)
-{
-  default_out_fn = s;
-}

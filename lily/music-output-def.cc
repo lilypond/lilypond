@@ -11,6 +11,12 @@
 #include "global-translator.hh"
 #include "dictionary-iter.hh"
 
+int
+Music_output_def::get_next_default_count () const
+{
+  return 0;
+}
+
 IMPLEMENT_IS_TYPE_B(Music_output_def);
 
 Music_output_def::Music_output_def ()
@@ -25,6 +31,7 @@ Music_output_def::~Music_output_def ()
 
 Music_output_def::Music_output_def (Music_output_def const &s)
 {
+  outfile_str_ = s.outfile_str_;
   for (Dictionary_iter<Translator*> i (s.translator_p_dict_); i.ok (); i++)
     assign_translator (i.key (), i.val ()->clone ());
 }
@@ -58,6 +65,7 @@ Music_output_def::assign_translator (String s, Translator*t)
 {
   t->type_str_ = s;
   t->output_def_l_ = this;
+  
   if (translator_p_dict_.elt_b (s))
     delete translator_p_dict_[s];
   translator_p_dict_[s] = t;
@@ -72,5 +80,6 @@ Music_output_def::print () const
       DOUT << i.key () << " = ";
       i.val ()->print ();
     }
+  DOUT << "output: " << outfile_str_;
 #endif
 }

@@ -20,6 +20,7 @@
   definitions for midi output. Rather empty
  */
 class Midi_def : public Music_output_def {
+  static int default_count_i_;
 public:
   VIRTUAL_COPY_CONS(Midi_def, Music_output_def);
   DECLARE_MY_RUNTIME_TYPEINFO;
@@ -34,6 +35,7 @@ public:
   int get_tempo_i (Moment moment);
   void print() const;
   void set_tempo (Moment moment, int count_per_minute_i);
+  virtual int get_next_default_count () const;
 };
 
 #endif // MIDI_DEF_HH

@@ -63,7 +63,7 @@ AC_ARG_ENABLE(tex-dir,
     [TEXDIR=auto] )
 
 AC_ARG_ENABLE(mf-dir,
-     [  mf-dir=DIR             set the directory to put LilyPond MetaFont files in. (obsolete)],
+     [  mf-dir=DIR             set the directory to put LilyPond MetaFont files in. ],
      [MFDIR=$enableval],
      [MFDIR=auto])
 

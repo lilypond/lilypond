@@ -372,7 +372,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 	slant = .2;
 
 	local_copy(transform)(currenttransform);
-	currenttransform := currenttransform slanted slant;
+	currenttransform := currenttransform slanted slant shifted (- interline, 0)  ;
 
 	y1 = ascender;
 	x1l = 0;
@@ -438,7 +438,7 @@ fet_beginchar("Trill (`tr')","trill","trill")
 		--- z9r{up} 
 		..  z8r{left} ..  z7r{z5-z7} -- cycle;
 	fill r_p;
-	set_char_box(0,2 interline#, 0,ascender#);
+	set_char_box(interline# , interline#, 0,ascender#);
 
 
 	penpos11(1/4 r_fatness, -20);

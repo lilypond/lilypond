@@ -134,50 +134,34 @@ Lookup::half_slur (int dy, Real &dx, Direction dir, int xpart) const
 }
 
 Atom
-Lookup::slur (int dy , Real &dx, Direction dir) const
+Lookup::ps_slur (Real dy , Real dx, Real dir) const
 {
-  assert (abs (dir) <= 1);
-  if  (dx < 0)
-    {
-      warning (_("Negative slur/tie length: ") + print_dimen (dx));
-      dx = 4.0 PT;
-    }
+  String ps = "\\embeddedps{\n";
+  
+  ps += String_convert::double_str (dx) + " " 
+    + String_convert::double_str (dy) + " "
+    + String_convert::double_str (dir) +
+    " draw_slur}";
+
+  String mf = "\\embeddedmf{\n";
+  mf += "input feta-sleur;\n";
+  mf += "draw_slur((0,0),";
+  mf += "(" + String_convert::double_str (dx) + "," 
+    + String_convert::double_str (dy) + "),";
+  mf += String_convert::double_str (dir) + ");\n";
+  mf += "end.\n";
+  mf += "}\n";
 
   Atom s;
-  s.dim_[X_AXIS] = Interval (0, dx);
-  s.dim_[Y_AXIS] = Interval (min (0, dy), max (0, dy));
+  s.tex_ = ps + mf;
+  return s;
+}
 
-  // duh
-  // let's try the embedded stuff
-  
-  /*  bool embedded_b = experimental_features_global_b;
-      // embedded stuff still sucks for slurs
-   */
-  bool embedded_b = false;
-  String embed;
-  if (embedded_b)
-    {
-      Real fdy = dy*paper_l_->internote_f ();
-      Real fdx = dx;
-      String ps = "\\embeddedps{\n";
-      // ugh, how bout " /draw_slur { ... } def "
-      ps += String_convert::double_str (fdx) + " " 
-      	+ String_convert::double_str (fdy) + " "
-	+ String_convert::double_str (dir) +
-	" draw_slur}";
-
-      String mf = "\\embeddedmf{\n";
-      mf += "input feta-sleur;\n";
-      mf += "draw_slur((0,0),";
-      mf += "(" + String_convert::double_str (fdx) + "," 
-      	+ String_convert::double_str (fdy) + "),";
-      mf += String_convert::double_str (dir) + ");\n";
-      mf += "end.\n";
-      mf += "}\n";
-
-      embed = ps + mf;
-    }
-
+Atom
+Lookup::tex_slur (int dy , Real &dx, Direction dir) const
+{
+  assert (abs (dir) <= 1);
+  Atom s;
   Direction y_sign = (Direction) sign (dy);
 
   bool large = abs (dy) > 8;
@@ -192,11 +176,6 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
   if (large)
     {
       s = big_slur (dy, dx, dir);
-      if (embedded_b)
-        {
-	  s.tex_ = "\\embeddedtex{\n" + s.tex_ + "\n}\n";
-	  s.tex_ += embed;
-        }
       return s;
     }
   Real orig_dx = dx;
@@ -243,12 +222,6 @@ Lookup::slur (int dy , Real &dx, Direction dir) const
   assert (idx < 256);
   f+=String ("{") + String (idx) + "}";
   s.tex_ = f;
-  if (embedded_b)
-    { 
-      s.tex_ = "\\embeddedtex{\n" + s.tex_ + "\n}\n";
-      s.tex_ += embed;
-    }
-
   s.translate_axis (dx/2, X_AXIS);
   return s;
 }
@@ -286,5 +259,32 @@ Lookup::big_slur (int dy , Real &dx, Direction dir) const
   Atom s;
   s.tex_ = mol.TeX_string();
   s.dim_ = mol.extent();
+  return s;
+}
+
+
+Atom
+Lookup::slur  (Real &dy_f , Real &dx, Direction dir) const
+{
+  if  (dx < 0)
+    {
+      warning (_("Negative slur/tie length: ") + print_dimen (dx));
+      dx = 4.0 PT;
+    }
+  Atom s;
+  
+  if (postscript_global_b)
+    s = ps_slur (dy_f, dx, dir);
+  else
+    {
+      Real nh =  paper_l_->internote_f ();
+      int dy_i = (int) rint(dy_f / nh);
+
+      s = tex_slur (dy_i, dx, dir);
+      dy_f = dy_i *  nh;
+    }
+  
+  s.dim_[X_AXIS] = Interval (0, dx);
+  s.dim_[Y_AXIS] = Interval (0 <? dy_f,  0 >? dy_f);
   return s;
 }

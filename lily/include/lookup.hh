@@ -32,7 +32,9 @@ struct Lookup {
   Atom beam_element (int,int,Real=0) const;
 
   /// round slope to closest TeXslope
-  Atom beam (Real&,Real) const;
+  Atom beam (Real&,Real, Real) const;
+  Atom ps_beam (Real, Real, Real)const;
+  Atom tex_beam (Real&, Real) const;
 
   Atom streepje (int type) const;
 
@@ -48,13 +50,15 @@ struct Lookup {
   Atom bar (String, Real height) const;
     
   Atom dots () const;
-  Atom slur (int dy, Real &dx, Direction dir) const;
+  Atom slur (Real &dy, Real &dx, Direction dir) const;
+  Atom tex_slur (int dy, Real &dx, Direction dir) const;
+  Atom ps_slur (Real dy, Real dx, Real dir) const;
   Atom half_slur (int dy, Real &dx, Direction dir, int xpart) const;
   Atom half_slur_middlepart (Real &dx, Direction dir) const;
   Atom big_slur (int dy, Real &dx, Direction dir) const;
   Atom text (String style, String text, int align = 1) const;
   Atom script (String idx) const;
-  Atom hairpin (Real & width, bool decresc) const;
+  Atom hairpin (Real & width, bool decresc, bool continued) const;
   Atom dynamic (String) const;
 };
 

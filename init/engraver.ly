@@ -81,8 +81,8 @@ Score = \translator {
 	\type Score_engraver;
 
 	\consists "Timing_engraver";
-	\consists "Bar_column_engraver";
-	\consists "Bar_number_engraver";
+	%\consists "Bar_column_engraver";
+	%\consists "Bar_number_engraver";
 
 	\consists "Span_score_bar_engraver";
 	\consists "Score_priority_engraver";

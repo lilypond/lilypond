@@ -71,7 +71,7 @@ Dstream::identify_as (String name)
 }
 
 bool
-Dstream::silence (String s)
+Dstream::silent_b (String s) const
 {
   if (!silent_assoc_p_->elt_b (s))
     return false;

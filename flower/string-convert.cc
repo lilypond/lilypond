@@ -31,8 +31,8 @@ String_convert::bin2hex_str (String bin_str)
   Byte const* byte_C = bin_str.byte_C();
   for (int i = 0; i < bin_str.length_i(); i++) 
     {
-	str += (char)nibble2hex_byte (*byte_C >> 4);
-	str += (char)nibble2hex_byte (*byte_C++);
+      str += (char)nibble2hex_byte (*byte_C >> 4);
+      str += (char)nibble2hex_byte (*byte_C++);
     }
   return str;
 }
@@ -51,8 +51,8 @@ String_convert::bin2_u (String bin_str)
   unsigned result_u = 0;
   for (int i = 0; i < bin_str.length_i(); i++) 
     {
-	result_u <<= 8;
-	result_u += (Byte)bin_str[ i ];
+      result_u <<= 8;
+      result_u += (Byte)bin_str[ i ];
     }
   return result_u;
 }
@@ -62,7 +62,7 @@ int
 String_convert::dec2_i (String dec_str)
 {
   if (!dec_str.length_i())
-  	return 0;
+    return 0;
 
   long l = 0;
   int conv = sscanf (dec_str.ch_C(), "%ld", &l);
@@ -76,7 +76,7 @@ String_convert::i64_str (I64 i64, char const* fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
-	     (fmt ? fmt : "%Ld"), i64);     // assume radix 10
+	    (fmt ? fmt : "%Ld"), i64);     // assume radix 10
   return String (buffer);
 
 }
@@ -85,7 +85,7 @@ double
 String_convert::dec2_f (String dec_str)
 {
   if (!dec_str.length_i())
-  	return 0;
+    return 0;
   double d = 0;
   int conv = sscanf (dec_str.ch_C(), "%lf", &d);
   assert (conv);
@@ -96,7 +96,7 @@ int
 String_convert::hex2bin_i (String hex_str, String& bin_str_r)
 {
   if (hex_str.length_i() % 2)
-      hex_str = "0" + hex_str;
+    hex_str = "0" + hex_str;
 
   bin_str_r = "";
   Byte const* byte_C= hex_str.byte_C();
@@ -106,7 +106,7 @@ String_convert::hex2bin_i (String hex_str, String& bin_str_r)
       int high_i = hex2nibble_i (*byte_C++);
       int low_i = hex2nibble_i (*byte_C++);
       if (high_i < 0 || low_i < 0)
-          return 1; // illegal char
+	return 1; // illegal char
       bin_str_r += String ((char)(high_i << 4 | low_i), 1 );
       i += 2;
     }
@@ -117,8 +117,8 @@ String
 String_convert::hex2bin_str (String hex_str)
 {
   String str;
-//  silly, asserts should alway be "on"!
-//    assert (!hex2bin_i (hex_str, str) );
+  //  silly, asserts should alway be "on"!
+  //    assert (!hex2bin_i (hex_str, str) );
   int error_i = hex2bin_i (hex_str, str);
   assert (!error_i);
   return str;
@@ -128,11 +128,11 @@ int
 String_convert::hex2nibble_i (Byte byte)
 {
   if (byte >= '0' && byte <= '9')
-      return byte - '0';
+    return byte - '0';
   if (byte >= 'A' && byte <= 'F')
-      return byte - 'A' + 10;
+    return byte - 'A' + 10;
   if (byte >= 'a' && byte <= 'f')
-      return byte - 'a' + 10;
+    return byte - 'a' + 10;
   return -1;
 }
 
@@ -142,7 +142,7 @@ String_convert::i2dec_str (int i, int length_i, char ch)
 {
   char fill_ch = ch;
   if (fill_ch)
-      fill_ch = '0';
+    fill_ch = '0';
 
   // ugh
   String dec_str (i);
@@ -158,13 +158,13 @@ String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
 {
   String str;
   if (!u)
-	str = "0";
+    str = "0";
 
 #if 1 // both go...
   while (u) 
     {
-	str = String ((char)((u % 16)["0123456789abcdef"] ) ) + str;
-	u /= 16;
+      str = String ((char)((u % 16)["0123456789abcdef"] ) ) + str;
+      u /= 16;
     }
 #else
   str += int_str (u, "%x");	// hmm. %lx vs. %x -> portability?
@@ -172,7 +172,7 @@ String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
 
   str = String (fill_ch, length_i - str.length_i()) + str;
   while ((str.length_i() > length_i) &&  (str[ 0 ] == 'f' ) )
-  	str = str.mid_str (2, INT_MAX);
+    str = str.cut (2, INT_MAX);
 
   return str;
 }
@@ -187,9 +187,9 @@ Byte
 String_convert::nibble2hex_byte (Byte byte)
 {
   if ((byte & 0x0f) <= 9 )
-	return (byte & 0x0f) + '0';
+    return (byte & 0x0f) + '0';
   else
-	return (byte & 0x0f) - 10 + 'a';
+    return (byte & 0x0f) - 10 + 'a';
 }
 /**
   Convert an integer to a string
@@ -202,7 +202,7 @@ String_convert::int_str (int i, char const* fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
-	     (fmt ? fmt : "%d"), i);     // assume radix 10
+	    (fmt ? fmt : "%d"), i);     // assume radix 10
   return String (buffer);
 }
 
@@ -245,12 +245,12 @@ String_convert::rational_str (Rational r)
   String s = n;
   if (r.denominator() != 1) 
     {
-	char * d = Itoa (r.denominator());
-	s +=  String ('/') + String (d);
-	//delete d;
+      char * d = Itoa (r.denominator());
+      s +=  String ('/') + String (d);
+      //delete d;
     }
-/*    delete n;
-  */
+  /*    delete n;
+   */
   return s;
 }
 

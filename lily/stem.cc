@@ -269,21 +269,22 @@ Stem::abbrev_mol () const
 {
   Real dy = paper ()->interbeam_f ();
   Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim_.x ().length ();
-  Real beamdy = paper ()->interline_f () / 2;
+  Real interline_f = paper ()->interline_f ();
+  Real beamdy = interline_f/2;
 
   int beams_i = 0;
   Real slope_f = paper ()->internote_f () / 4;
 
   if (beam_l_) {
     // huh?
-      slope_f = 2 * beam_l_->slope_f;
+      slope_f = 2 * beam_l_->slope_f_;
     // ugh, rather calc from Abbreviation_req
       beams_i = beams_right_i_ >? beams_left_i_;
   }
-  paper ()->lookup_l ()->beam (slope_f, 20 PT);
+  paper ()->lookup_l ()->beam (slope_f, 20 PT, 1 PT);
 
   Molecule beams;
-  Atom a (paper ()->lookup_l ()->beam (slope_f, w));
+  Atom a (paper ()->lookup_l ()->beam (slope_f, w, .48 * interline_f));
   a.translate (Offset(- w / 2, stem_end_f () - (w / 2 * slope_f)));
   
   // ugh

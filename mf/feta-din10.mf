@@ -112,12 +112,12 @@ flare#:=52/36pt#;    % diameter of bulbs or breadth of terminals
 mode_setup;
 font_setup;
 
-input autometric;
+input feta-autometric;
 fet_beginfont("feta-din", 10);
 
 num=-1;
 xbar:=u;
-input ital-f;
+input feta-ital-f;
 
 bar#:=17/36pt#;      % lowercase bar thickness
 slant:=.38;      % tilt ratio $(\Delta x/\Delta y)$
@@ -125,14 +125,14 @@ stem#:=58/36pt#;    % lowercase stem breadth
 font_setup;
 xbar:=.4u;
 
-input ital-f;
+input feta-ital-f;
 stem#:=54/36pt#;    % lowercase stem breadth
 hair#:=12/36pt#;    % lowercase hairline breadth
 vair#:=7/36pt#;    % vertical diameter of hairlines
 
 font_setup;
 
-input ital-p;
+input feta-ital-p;
 
 slant:=.28;      % tilt ratio $(\Delta x/\Delta y)$
 %stem#:=38/36pt#;    % lowercase stem breadth
@@ -162,10 +162,10 @@ x_height#:=135/36pt#;    % height of lowercase without ascenders
 
 font_setup;
 
-input ital-m;
-input ital-r;
-input ital-s;
-input ital-z;
+input feta-ital-m;
+input feta-ital-r;
+input feta-ital-s;
+input feta-ital-z;
 
 font_slant slant; font_x_height x_height#;
 

@@ -51,11 +51,17 @@ Col_hpositions::OK() const
 }
 
 void
-Col_hpositions::stupid_solution()
+Col_hpositions::set_stupid_solution(Vector v)
 {
   energy_f_ = infinity_f;
   ugh_b_ = true;
-  config = spacer_l_->default_solution();
+  config = v;
+}
+
+void
+Col_hpositions::stupid_solution()
+{
+  set_stupid_solution (spacer_l_->default_solution());
 }
 
 void

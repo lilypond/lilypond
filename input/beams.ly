@@ -38,7 +38,7 @@ TestedFeatures =	 "beams and beamflags";
 			r32
 		}
 	
-	{ \octave c'; 
+	{ \octave c';  
 			\meter 8/4;
 			\duration8;
 			\stemdown [a' 'a c e]
@@ -64,21 +64,28 @@ TestedFeatures =	 "beams and beamflags";
 			\duration 128;
 			\stemdown [d'' d'' d'' d'']
 			r32
+
 		} >
-		{
+		
+		{\duration "last";
 			% ugh, "duration mode"
-			\duration 8;
+			
 			[g8 g] [a a] [b b] [c' c']
-			\duration 16;
-			[g16 g g g] [a a a a] [b b b b] [c' c' c' c']
-			\meter 4/4;
-			\duration 32;
-			[g32 g g g g g g g] [a a a a a a a a] 
-			[b b b b b b b b] [c' c' c' c' c' c' c' c']
-			\duration 64;
-			\meter 2/4;
-			[g64 g g g g g g g g g g g g g g g]
-			[c' c' c' c' c' c' c' c' c' c' c' c' c' c' c' c']
+			
+			[g16 g ] [a a] [b b] [c' c']
+			[g32 g] [a a] [b b] [c' c']
+			
+			[g64 g ] [c' c' ]
+		}
+		{
+			\transpose d {
+			\octave c''';
+			| [g8 g] [a a] [b b] [c' c']
+			[g16 g ] [a a] [b b] [c' c']
+			[g32 g] [a a] [b b] [c' c']
+			[g64 g]
+			[c' c']
+			}
 		}
 	}
 	\paper{

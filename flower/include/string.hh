@@ -130,7 +130,7 @@ public:
 
 
   /// return a piece starting at index_i (first char = index_i 0), length n
-  String mid_str (int index_i, int n) const;
+  String cut (int index_i, int n) const;
 
   /// cut out a middle piece, return remainder
   String nomid_str (int index_i, int n) const;
@@ -141,10 +141,14 @@ public:
   /// index of rightmost c 
   int index_last_i (char c) const;
 
-  /// index of rightmost element of string 
+  /// index of rightmost element of string  (???)
   int index_last_i (char const* string) const;
 
+  /// index of leftmost #c#
   int index_i (char c) const;
+
+
+  /// index of leftmost occurance of STRING
   int index_i (String) const;
   int index_any_i (String) const;
 

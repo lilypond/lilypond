@@ -111,7 +111,7 @@ Source_file::error_str(char const* pos_ch_C) const
   String str = line_str.left_str(pos_ch_C - begin_ch_C)
     + String('\n')
     + String(' ', error_col_i)
-    + line_str.mid_str(pos_ch_C - begin_ch_C, INT_MAX); // String::mid should take 0 arg..
+    + line_str.cut(pos_ch_C - begin_ch_C, INT_MAX); // String::mid should take 0 arg..
   return str;
 }
 

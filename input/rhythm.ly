@@ -61,20 +61,21 @@ yanother =
 	Score = \translator {
 	\type Score_engraver;
 
-	\consists "Bar_align_engraver";
-	\consists "Clef_align_engraver";
-	\consists "Key_align_engraver";
-	\consists "Meter_align_engraver";
-	\consists "Score_horizontal_align_engraver";
-	\consists "Vertical_align_engraver";
+	%\consists "Timing_engraver";
+	%\consists "Bar_column_engraver";
+	%\consists "Bar_number_engraver";
+
 	\consists "Span_score_bar_engraver";
+	\consists "Score_priority_engraver";
+	\consists "Priority_horizontal_align_engraver";
+	\consists "Vertical_align_engraver";
 
 
 	\accepts "Staff_group";
 	\accepts "Staff";
 	\accepts "Lyrics";
 	\accepts "Grandstaff";
-	}
+}
 
 	%% add Timing_engraver to the staff
 	Staff = \translator {

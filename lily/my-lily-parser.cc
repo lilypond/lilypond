@@ -57,8 +57,8 @@ My_lily_parser::set_debug()
   String s = "";
   if (init_parse_b_)
     s = "Init";
-  set_yydebug (!monitor->silence (s+"Parser") && check_debug);
-  lexer_p_->set_debug (!monitor->silence (s+"Lexer") && check_debug);
+  set_yydebug (!monitor->silent_b (s+"Parser") && check_debug);
+  lexer_p_->set_debug (!monitor->silent_b (s+"Lexer") && check_debug);
 #endif
 }
 
@@ -70,7 +70,7 @@ My_lily_parser::print_declarations()
 
   if (init_parse_b_)
     s = "Init";
-  if (!monitor->silence (s+"Declarations") && check_debug)
+  if (!monitor->silent_b (s+"Declarations") && check_debug)
     {
       lexer_p_->print_declarations (init_parse_b_);
     }

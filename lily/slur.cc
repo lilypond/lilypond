@@ -100,13 +100,13 @@ Slur::do_post_processing()
       if  (extrema[d] != spanned_drul_[d]) 
 	{
 	  dx_f_drul_[d] = -d 
-	    *(spanned_drul_[d]->width ().length ()/nw_f -0.5);
+	    *(spanned_drul_[d]->width ().length () -0.5*nw_f);
 	}
       else if (extrema[d]->stem_l_ && !extrema[d]->stem_l_->transparent_b_) 
-	pos_i_drul_[d] = (int)rint (extrema[d]->stem_l_->height()[dir_]/inter_f);
+	dy_f_drul_[d] = (int)rint (extrema[d]->stem_l_->height()[dir_]);
       else 
-	pos_i_drul_[d] = (int)rint (extrema[d]->head_positions_interval()[dir_]);
-      pos_i_drul_[d] += dir_;
+	dy_f_drul_[d] = (int)rint (extrema[d]->head_positions_interval()[dir_])* inter_f;
+      dy_f_drul_[d] += dir_ * inter_f;
     }
   while ((d *= -1) != LEFT);
 }

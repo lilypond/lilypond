@@ -45,7 +45,7 @@ $(outdir)/%.gz: $(outdir)/%
 name-stem= $(notdir $(basename $<))
 $(outdir)/%.dvi: $(depth)/input/%.ly $(depth)/VERSION
 	(cd $(outdir); \
-	lilypond -I. -o  $(name-stem)  ../$< )
+	lilypond -I/  ../$< )
 	(cd $(outdir); \
 	if [ -f ../$(basename $< ).tex ]; \
 	then \
@@ -55,9 +55,11 @@ $(outdir)/%.dvi: $(depth)/input/%.ly $(depth)/VERSION
 	fi)
 
 
-# generate the pixmap at twice the size, then rescale (for antialiasing)
+
 $(outdir)/%.gif: $(outdir)/%.ps
-	gs  -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $< -c quit |pnmscale 0.5| ppmtogif > $@
+	sh $(depth)/bin/ps-to-gifs.sh $<
+	mv $(name-stem)-page*.gif $(outdir)/
+	touch $@
 
 $(outdir)/%.ly.txt: $(depth)/input/%.ly
 	ln -f $< $@

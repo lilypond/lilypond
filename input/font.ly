@@ -1,10 +1,10 @@
 \header{
-title= "The Feta font";
+title= "The Feta Font";
 subtitle = "proofsheet"; 
-enteredby =	 "jcn";
+enteredby =	 "jcn & hwn";
 copyright =	 "public domain";
-TestedFeatures =	 "This file tests the Feta music-font"
-	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
+description = "This file tests the Feta music font";
+% "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
 \version "0.1.7";

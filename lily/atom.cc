@@ -56,28 +56,39 @@ Atom::str() const
     + dim_.y ().str () + "))";
 }
 
-String
-Atom::TeX_string() const
-{
-  String tex_str = tex_;
-  Offset off = off_;
 
+bool
+Atom::check_infinity_b ()const
+{
+  bool ridiculous = false;
+#ifndef NDEBUG
+  
   /* infinity checks. */
   for (int a = X_AXIS; a < NO_AXES; a++)
     {
       Axis ax = (Axis)a;
-      if (abs (off[ax]) >= 100 CM)
+      if (abs (off_[ax]) >= 100 CM)
 	{
 	  warning (_("ridiculous dimension ") + axis_name_str (ax)  + ", "
-		   +print_dimen(off[ax]));
-	  off[ax] = 0.0;
-	  tex_str += "\errormark";
+		   +print_dimen(off_[ax]));
+	  ((Atom*)this)->off_[ax] = 0.0;
+	  ridiculous = true;
 	}
     }
-  // whugh.. Hard coded...
+#endif
+  return ridiculous;
+}
+String
+Atom::TeX_string() const
+{
+  String tex_str = tex_;
+  if (check_infinity_b ())
+    tex_str += "\errormark";
+  
+   // whugh.. Hard coded...
   String s ("\\placebox{");
-  s += print_dimen (off[Y_AXIS])+"}{";
-  s += print_dimen (off[X_AXIS]) + "}{";
+  s += print_dimen (off_[Y_AXIS])+"}{";
+  s += print_dimen (off_[X_AXIS]) + "}{";
   s += tex_str + "}";
   return s;
 }
@@ -86,10 +97,12 @@ void
 Atom::translate_axis (Real r, Axis a)
 {
   off_[a] += r;
+  check_infinity_b ();
 }
 
 void
 Atom::translate (Offset o)
 {
   off_ += o;
+  check_infinity_b ();
 }

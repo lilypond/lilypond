@@ -5,8 +5,12 @@
 #include "path.hh"
 #include "flower-debug.hh"
 
+#ifndef DIRSEP
+#define DIRSEP '/'
+#endif
+
 #ifndef PATHSEP
-#define PATHSEP '/'
+#define PATHSEP ':'
 #endif
 
 /**
@@ -15,39 +19,57 @@
 */
 void
 split_path (String path,
-	   String &drive, String &dirs, String &filebase, String &extension)
+	    String &drive, String &dirs, String &filebase, String &extension)
 {
   // peel off components, one by one.
   int di = path.index_i (':');
   if (di >= 0)
-	{
-	drive = path.left_str (di + 1);
-	path = path.right_str (path.len() - di -1);
-	  }
+    {
+      drive = path.left_str (di + 1);
+      path = path.right_str (path.len() - di -1);
+    }
   else
-	drive = "";
+    drive = "";
 
-  di = path.index_last_i (PATHSEP);
+  di = path.index_last_i (DIRSEP);
   if (di >=0)
-	{
-	dirs = path.left_str (di + 1);
-	path = path.right_str (path.len()-di -1);
-	  }
+    {
+      dirs = path.left_str (di + 1);
+      path = path.right_str (path.len()-di -1);
+    }
   else
-	dirs = "";
+    dirs = "";
 
   di = path.index_last_i ('.');
   if (di >= 0)
-	{
-	filebase = path.left_str (di);
-	extension =path.right_str (path.len()-di);
-	  }
+    {
+      filebase = path.left_str (di);
+      extension =path.right_str (path.len()-di);
+    }
   else
-	{
-	extension = "";
-	filebase = path;
-	  }
+    {
+      extension = "";
+      filebase = path;
+    }
 }
+
+void
+File_path::parse_path (String p)
+{
+  int l;
+  
+  while ( (l = p.length_i ()) )
+    {
+      int i = p.index_i(PATHSEP);
+      if (i <0) 
+	i = l;
+      add (p.left_str(i));
+      p = p.right_str (l- i - 1);
+    }
+}
+
+
+
 
 /** find a file.
   It will search in the current dir, in the construction-arg, and
@@ -59,25 +81,24 @@ File_path::find (String nm) const
 {
   fdebug << _("looking for ") << nm << ": ";
   if (!nm.length_i() || (nm == "-") )
-	return nm;
+    return nm;
   for (int i=0; i < size(); i++)
     {
+      String path  = elem(i);
+      if (path.length_i() )
+	path += "/";
 
-	 String path  = elem(i);
-	 if (path.length_i() )
-	     path += "/";
+      path += nm;
 
-	 path += nm;
-
-	 fdebug << path << "? ";
-	 FILE *f = fopen (path.ch_C(), "r"); // ugh!
-	 if (f)
-	   {
-	     fdebug << _("found\n");
-	     fclose (f);
-	     return path;
-	   }
-     }
+      fdebug << path << "? ";
+      FILE *f = fopen (path.ch_C(), "r"); // ugh!
+      if (f)
+	{
+	  fdebug << _("found\n");
+	  fclose (f);
+	  return path;
+	}
+    }
   fdebug << "\n";
   return "";
 }

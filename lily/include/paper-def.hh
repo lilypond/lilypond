@@ -35,7 +35,7 @@
 class Paper_def : public Music_output_def {
   Lookup *lookup_p_;
   Dictionary<Real> *real_vars_p_;
-
+  static int default_count_i_;
 protected:
   VIRTUAL_COPY_CONS(Paper_def,Music_output_def);
 public:    
@@ -83,6 +83,7 @@ public:
   Real geometric_spacing(Moment) const;
   Real arithmetic_constant(Moment minimal_mom) const;
   Real arithmetic_spacing( Moment mom,Real constant) const;
+  virtual int get_next_default_count () const;
   String TeX_output_settings_str () const;
 };
 

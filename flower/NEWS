@@ -1,3 +1,7 @@
+pl 33
+	- String naming
+	- unix style paths
+
 pl 32
 	- Assoc::clear
 	- bf: Assoc[PreviouslyUsedAndDeletedKey] = foo

@@ -29,6 +29,9 @@ CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSS
        +o Jan Arne Fagertun <Jan.A.Fagertun@energy.sintef.no>,
            TeX titling and lytodvi.sh
 
+       +o Shay Rojanski
+           Some mudela source.
+
        +o Werner Lemberg <xlwy01@uxp1.hrz.uni-dortmund.de>,
            misc bugfixes, some Beam and Stem code.
 
@@ -36,7 +39,7 @@ CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSS
            mf/ital-*.mf (these were taken from the CM fonts)
 
        +o Alexandre Oliva <oliva@dcc.unicamp.br>,
-           http://?.unicamp.br/
+           http://sunsite.unicamp.br/?
            testing
 
        +o Anthony Fok <foka@debian.org>,
@@ -48,9 +51,24 @@ CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSS
        +o  Neil Jerram <nj104@cus.cam.ac.uk>.
            Documentation/Vocab*
 
+       +o David R. Linn <drl@vuse.vanderbilt.edu>,
+           Mailing list maintenance.
+
        Your name could be here! If you want to help, then take a
        look at the SMALLISH PROJECTS section of in the file _T_O_D_O.
        Some do not involve coding C++
+
+
+
+
+5/Jan/98                 LilyPond 0.1.39                        1
+
+
+
+
+
+AUTHORS(1)            LilyPond documentation           AUTHORS(1)
+
 
        [And of course we sincerely thank J.S.Bach, F.Schubert, T.
        Merula and W.A.Mozart for their beautiful music]
@@ -61,6 +79,54 @@ CCCCOOOONNNNTTTTRRRRIIIIBBBBUUUUTTTTOOOORRRRSS
 
 
 
-25/Nov/97                LilyPond 0.1.38                        1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5/Jan/98                 LilyPond 0.1.39                        2
 
 

@@ -15,10 +15,11 @@
 
 
 /// a symbol which can be translated, and freely copied
-struct Atom {
+class Atom {
+  Offset off_;
+public:
   String tex_;
   Box dim_;
-  Offset off_;
 
   String str() const;		// for printing.
   Atom (String, Box);
@@ -29,5 +30,6 @@ struct Atom {
   Box extent() const;
   void print() const;
   String TeX_string() const;
+  bool check_infinity_b () const;
 };
 #endif

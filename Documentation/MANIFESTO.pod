@@ -47,9 +47,9 @@ Further considerations while doing the programming
 
 =item *
 
-GNU LilyPond uses MusiXTeX fonts and TeX for its output. This is not a key
-issue: in a future version, GNU LilyPond might bypass TeX, but at the moment
-TeX is convenient for producing output.
+GNU LilyPond uses TeX for its output. This is not a key issue: in a
+future version, GNU LilyPond might bypass TeX, but at the moment TeX
+is convenient for producing output.
 
 =item *
 

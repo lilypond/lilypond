@@ -50,11 +50,11 @@ Just as an aside, the LilyPond package includes the following music:
 J.S. Bach, Das Wohltemperierte Clavier I: C major Prelude & Fugue, C
 minor fugue.  Solo cello suites: suite II, menuetto (alto version).
 
-=item * 
+=item *
 
 F. Schubert, St\"andchen (Serenade) "Leise flehen meine Lieder"
 
-=item * 
+=item *
 
 Tarquinio Merula, La Gallina a 2 violini
 

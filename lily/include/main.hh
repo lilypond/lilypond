@@ -18,12 +18,13 @@ void set_default_output (String s);
 String find_file (String);
 String get_version_str();
 String get_version_number_str();
-extern Sources* source_l_g;
-extern bool only_midi;
+extern Sources* source_global_l;
+extern bool no_paper_global_b;
 extern int exit_status_i_;
 extern bool experimental_features_global_b;
 extern bool postscript_global_b;
 
-extern String default_out_fn;
-
+extern String default_outname_base_global;
+extern String default_outname_suffix_global;
+extern int default_count_global;
 #endif

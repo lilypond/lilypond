@@ -135,7 +135,7 @@ main (int argc_i, char* argv_sz_a[])
 	    int i = str.index_i (':');
 	    i = (i >=0 ? i : str.length_i ());
 	    key.accidentals_i_ = String_convert::dec2_i (str.left_str (i));
-	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.mid_str (i + 1,1));
+	    key.minor_i_ = (int)(bool)String_convert::dec2_i (str.cut (i + 1,1));
 	    break;
 	  }
 	case 'n':

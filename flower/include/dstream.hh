@@ -42,7 +42,7 @@ class Dstream
     Assoc<String, bool> *silent_assoc_p_;
 public:
     void clear_silence();
-    bool silence (String);
+    bool silent_b (String) const;
     
     /**
       if rcfile == 0, then do not read any rc file.

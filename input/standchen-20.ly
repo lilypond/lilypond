@@ -6,6 +6,7 @@ composer =	 "Franz Schubert (1797-1828)"
 	 "Text by Ludwig Rellstab (1799-1860)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
+description = "A schubert song in 20 pt";
 } 
 \version "0.1.7";
 

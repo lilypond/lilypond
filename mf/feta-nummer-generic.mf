@@ -3,7 +3,7 @@
 
 test:=0;
 
-input autometric;
+input feta-autometric;
 fet_beginfont("feta-nummer", size);
 mode_setup;
 

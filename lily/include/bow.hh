@@ -17,9 +17,9 @@
   */
 class Bow : public Directional_spanner {
 protected:
-  Drul_array<int> pos_i_drul_;
+  Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;
-    
+
   Molecule*brew_molecule_p() const;
 public:
   Bow();
