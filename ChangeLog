@@ -1,7 +1,12 @@
-2003-05-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+2003-05-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* lily/gourlay-breaking.cc (combine_demerits): add epsilon term to
-	force unique solution in zero-force case.
+	* lily/text-spanner.cc (brew_molecule): clean up function. This
+	fixes bugs with broken 8va spanners.
+
+	* lily/simple-spacer.cc (solve): also compute force for raggedright.
+	This prevents spurious line-breaks with raggedright
+	
+2003-05-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/key-performer.cc (create_audio_elements): always use major
 	key

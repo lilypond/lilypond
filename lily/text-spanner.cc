@@ -50,51 +50,42 @@ Text_spanner::brew_molecule (SCM smob)
   SCM itp= me->get_grob_property ("if-text-padding");
   if (gh_number_p (itp))
     padding = gh_scm2double (itp);
-  
-  Real broken_left =  spanner->get_broken_left_end_align ();
-  Real width = spanner->spanner_length ();
-  width -= broken_left;
 
+  Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
+  
+  Interval span_points;
   Drul_array<bool> broken;
-  Drul_array<Real> extra_off;
   Direction d = LEFT;
   do
     {
-      extra_off [d]=0;
       Item *b = spanner->get_bound (d);
       broken[d] = b->break_status_dir () != CENTER;
 
-      if (!broken [d])
+      if (broken[d])
 	{
-
-	  Interval e = b->extent (b, X_AXIS);
-	  Real r = 0.0;
-	  if (!e.empty_b ())
-	    r = e[-d] + padding;
-
-	  /* Text spanners such as ottava, should span from outer limits of
-	     noteheads, iso (de)cresc. spanners that span the inner space */
-	  if (me->get_grob_property ("enclose-bounds") != SCM_EOL)
-	    {
-	      width -= d * r;
-	    }
-	  else
-	    {
-	      width += d * r;
-	      extra_off[d] = r;
-	    }
+	if (d == LEFT)
+	  span_points[d] = spanner->get_broken_left_end_align ();
+	else
+	  span_points[d] = b->relative_coordinate (common, X_AXIS);
 	}
+      else
+	  {
+	    bool encl = to_boolean (me->get_grob_property ("enclose-bounds"));
+	    span_points[d] = b->extent (common, X_AXIS)[encl ? d : -d];
+	  }
     }
   while (flip (&d) != LEFT);
 
+
+#if 0
+  /*
+    FIXME. - this switch   sucks. --hwn
+   */
   // FIXME: ecs tells us -- only for (de)cresc. spanners
   width += gh_scm2double (me->get_grob_property ("width-correct"));
-  /* /Ugh */
-
-  // who is ecs? --hwn
+#endif
 
   SCM properties = Font_interface::font_alist_chain (me);
-
   SCM edge_text = me->get_grob_property ("edge-text");
   Drul_array<Molecule> edge;
   if (gh_pair_p (edge_text))
@@ -103,18 +94,17 @@ Text_spanner::brew_molecule (SCM smob)
       do
 	{
 	  /*  Don't repeat edge text for broken end */
-	  if (!broken[d])
-	    {
-	      SCM text = index_get_cell (edge_text, d);
-	      edge[d] = Text_item::text2molecule (me, text, properties);
-	      if (!edge[d].empty_b ())
-		edge[d].align_to (Y_AXIS, CENTER);
-	    }
+	  if (broken[d])
+	    continue;
+	  
+	  SCM text = index_get_cell (edge_text, d);
+	  edge[d] = Text_item::text2molecule (me, text, properties);
+	  if (!edge[d].empty_b ())
+	    edge[d].align_to (Y_AXIS, CENTER);
 	}
       while (flip (&d) != LEFT);
     }
-  width -= edge[LEFT].extent (X_AXIS).length ()
-    + edge[RIGHT].extent (X_AXIS).length ();
+
 
   Drul_array<Real> shorten;
   shorten[LEFT] = 0;
@@ -123,28 +113,16 @@ Text_spanner::brew_molecule (SCM smob)
   SCM s = me->get_grob_property ("shorten-pair");
   if (gh_pair_p (s))
     {
-      shorten[LEFT] = gh_scm2double (ly_car (s));
-      shorten[RIGHT] = gh_scm2double (ly_cdr (s));
+      span_points[LEFT] += gh_scm2double (ly_car (s));
+      span_points[RIGHT] -= gh_scm2double (ly_cdr (s));
     }
-
-  width -= shorten[LEFT] + shorten[RIGHT];
-  
-  if (width < 0)
-    {
-      me->warning (_ ("Text_spanner too small"));
-      width = 0;
-    }
-
-  /* ugh */
   
   Real thick = me->get_paper ()->get_var ("linethickness");  
   SCM st = me->get_grob_property ("thickness");
   if (gh_number_p (st))
     {
       thick *=  gh_scm2double (st);
-
     }
-  Molecule line = Line_spanner::line_molecule (me, thick, width, 0);
   
   Drul_array<Molecule> edge_line;
   s = me->get_grob_property ("edge-height");
@@ -155,9 +133,12 @@ Text_spanner::brew_molecule (SCM smob)
       int dir = to_dir (me->get_grob_property ("direction"));
       do
 	{
-	  Real dx = ( gh_pair_p (ew)  ? 
-		      gh_scm2double (index_get_cell (ew, d)) * d :  
-		      0 );
+	  if (broken[d])
+	    continue;
+	  
+	  Real dx = (gh_pair_p (ew)  ? 
+		     gh_scm2double (index_get_cell (ew, d)) * d :  
+		     0);
 	  Real dy = gh_scm2double (index_get_cell (s, d)) * - dir;
 	  if (dy)
 	    {
@@ -168,20 +149,25 @@ Text_spanner::brew_molecule (SCM smob)
     }
   
   Molecule m;
-  if (!edge[LEFT].empty_b ())
-    m = edge[LEFT];
+  do
+    {
+      Interval ext = edge[d].extent (X_AXIS);
 
-  if (!edge_line[LEFT].empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, edge_line[LEFT], 0,0);
-  if (!line.empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, line,
-		   edge_line[LEFT].empty_b () ? 0 : -thick/2, 0);
-  if (!edge_line[RIGHT].empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, edge_line[RIGHT], -thick/2, 0);
-  if (!edge[RIGHT].empty_b ())
-    m.add_at_edge (X_AXIS, RIGHT, edge[RIGHT], 0, 0);
-  m.translate_axis (broken_left + extra_off[LEFT] + shorten[LEFT], X_AXIS);
+      edge[d].translate_axis (span_points[d], X_AXIS);
+      m.add_molecule (edge[d]);
+      edge_line[d].translate_axis (span_points[d], X_AXIS);
+      m.add_molecule (edge_line[d]);
+      if (!ext.empty_b ())
+	span_points[d] += -d *  ext[-d];
+    }
+  while (flip (&d) != LEFT);
 
+  Molecule l =Line_spanner::line_molecule (me, thick,
+					   span_points.length (), 0);
+  l.translate_axis (span_points[LEFT], X_AXIS); 
+  m.add_molecule (l);
+
+  m.translate_axis (- me->relative_coordinate (common, X_AXIS), X_AXIS);
   return m.smobbed_copy ();
 }
 

@@ -1074,7 +1074,7 @@
 	(font-family . roman)
 	(enclose-bounds . #t)
 	(width-correct . 0.0)
-	(type . dotted-line)
+	(type . dashed-line)
 	(edge-height . (0 . 1.5))
 	(direction . 1)
 	(meta . ((interfaces . (text-spanner-interface side-position-interface font-interface spanner-interface))))		
