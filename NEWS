@@ -53,14 +53,16 @@ and
 
 * NOTATION
 
+
+
 ** Ancient notation ... ?? ...  (Jurgen?)
 
-** Completely rewritten text formatting support. It is implemented in a
+** Completely rewritten text formatting support, implemented in a
 completely modular way.
 
 ** Chord name formatting completely rewritten.
 
-** Texts on multimeasure rests can be set by the user.
+** Texts can be added to multimeasure rests
 
 ** Zigzagged glissandi
 
@@ -77,14 +79,15 @@ completely modular way.
 
 ** Nested horizontal brackets for music analysis.
 
-	NOTE-\groupOpen
+	NOTE-\startGroup
 		..
-	NOTE-\groupClose
+	NOTE-\stopGroup
 
 ** Gregorian ligatures.
 
-** Texts on multi-measure rests.
+** Ottava brackets. Syntax: #(set-octavation 1)
 
+** Metronome markings. 
 
 
 New features in 1.6 since 1.4

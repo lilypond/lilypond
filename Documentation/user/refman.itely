@@ -661,6 +661,7 @@ such as keys, clefs and time signatures.
 * Staff symbol::                
 * Key signature::               
 * Clef::                        
+* Ottava brackets::             
 * Time signature::              
 * Unmetered music::             
 * Bar lines::                   
@@ -803,6 +804,37 @@ The object for this symbol is @internalsref{Clef}.
 
 
 
+@node Ottava brackets
+@subsection Ottava brackets
+
+``Ottava'' brackets introduce an extra transposition of an octave for
+the staff. They are created by invoking the function
+@code{set-octavation}
+
+@cindex ottava
+@cindex 15ma
+@cindex octavation
+
+@lilypond[verbatim,fragment]
+\relative c''' {
+  a2 b
+  #(set-octavation 1)
+  a b 
+  #(set-octavation 0)
+  a b }
+@end lilypond
+
+Internally the @code{set-octavation} sets @code{ottavation} (eg. to
+@code{"8va"}) and @code{centralCPosition} properties.
+
+@seealso
+
+@internalsref{OttavaBracket}
+
+@refbugs
+
+@code{set-octavation} will get confused when clef changes happen
+during an octavation bracket.
 
 @node Time signature
 @subsection Time signature
@@ -1655,17 +1687,11 @@ start and ending note of the spanner.
 The string to be printed, as well as the style, is set through object
 properties.
 
-[TODO: 8va engraver.]
-
-An application is to fake octavation indications.
-
 @lilypond[fragment,relative,verbatim]
- \relative c' {  a''' b c a
-  \property Voice.TextSpanner \set #'type = #'dotted-line
-  \property Voice.TextSpanner \set #'edge-height = #'(0 . 1.5)
-  \property Voice.TextSpanner \set #'edge-text = #'("8va " . "")
-  \property Staff.centralCPosition = #-13
-  a-\startTextSpan b c a-\stopTextSpan }
+ \relative c' {  c1 
+  \property Voice.TextSpanner \set #'direction = #-1
+  \property Voice.TextSpanner \set #'edge-text = #'("rall " . "")
+  c2-\startTextSpan b c-\stopTextSpan a }
 @end lilypond
 
 

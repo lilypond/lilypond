@@ -133,7 +133,6 @@ set_music_properties (Music *p, SCM a)
 	}
 }
 
-
 SCM
 make_chord_step (int step, int alter)
 {
@@ -157,7 +156,15 @@ make_chord (SCM pitch, SCM dur, SCM modification_list)
 	return ch;
 }
 
-
+/*
+  Todo: actually also use apply iso. call too ... 
+*/
+bool
+ly_input_procedure_p (SCM x)
+{
+	return gh_procedure_p (x)
+		|| (gh_pair_p (x) && gh_procedure_p (gh_car (x)));
+}
 
 Music* 
 set_property_music (SCM sym, SCM value)
@@ -835,14 +842,14 @@ Simultaneous_music:
 Simple_music:
 	event_chord		{ $$ = $1; }
 	| APPLYOUTPUT embedded_scm {
-		if (!gh_procedure_p ($2))
+		if (!ly_input_procedure_p ($2))
 			THIS->parser_error (_ ("\applycontext takes function argument"));
 		$$ = MY_MAKE_MUSIC ("ApplyOutputEvent");
 		$$->set_mus_property ("procedure", $2);
 		$$->set_spot (THIS->here_input());
 	}
 	| APPLYCONTEXT embedded_scm {
-		if (!gh_procedure_p ($2))
+		if (!ly_input_procedure_p ($2))
 			THIS->parser_error (_ ("\applycontext takes function argument"));
 		$$ = MY_MAKE_MUSIC ("ApplyContext");
 		$$->set_mus_property ("procedure", $2);
@@ -983,6 +990,9 @@ Composite_music:
 		scm_gc_unprotect_object (p->self_scm ());
 	}
 	| APPLY embedded_scm Music  {
+		if (!ly_input_procedure_p ($2))
+			THIS->parser_error (_ ("\apply takes function argument"));
+		
 		SCM ret = gh_call1 ($2, $3->self_scm ());
 		Music *m = unsmob_music (ret);
 		if (!m) {

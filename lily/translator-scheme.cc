@@ -36,10 +36,42 @@ LY_DEFINE(ly_set_context_property,
   Translator_group* tr=   dynamic_cast<Translator_group*> (t);
 
   SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Context");
+  SCM_ASSERT_TYPE(gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+
   tr->internal_set_property (name, val);
 
   return SCM_UNSPECIFIED;
 }
+
+
+LY_DEFINE(ly_context_property_where_defined,
+	  "ly:context-property-where-defined", 2, 0, 0,
+	  (SCM context, SCM name),
+	  "Return the context above @var{context} where @var{name}  is defined.")
+{
+  Translator *t = unsmob_translator (context);
+  Translator_group* tr = dynamic_cast<Translator_group*> (t);
+  SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Context");
+  SCM_ASSERT_TYPE(gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+
+  return tr->where_defined (name)->self_scm();
+}
+
+LY_DEFINE(ly_unset_context_property,
+	  "ly:unset-context-property", 2, 0, 0,
+	  (SCM context, SCM name),
+	  "Unset value of property @var{name} in context @var{context}.")
+{
+  Translator *t = unsmob_translator (context);
+  Translator_group* tr = dynamic_cast<Translator_group*> (t);
+  SCM_ASSERT_TYPE(tr, context, SCM_ARG1, __FUNCTION__, "Context");
+  SCM_ASSERT_TYPE(gh_symbol_p (name), name, SCM_ARG2, __FUNCTION__, "symbol");
+
+  tr->unset_property (name);
+
+  return SCM_UNSPECIFIED;
+}
+
 
 
 LY_DEFINE(ly_context_parent,

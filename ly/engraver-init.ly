@@ -72,7 +72,6 @@ StaffContainerContext = \translator {
 InnerChoirStaffContext = \translator {
 	\type "Engraver_group_engraver"
 	\name InnerChoirStaff
-	%% alignmentReference = #0 FIXME
 	\consists "System_start_delimiter_engraver"
 	systemStartDelimiter = #'SystemStartBracket
 	localKeySignature = #'()
@@ -84,6 +83,7 @@ InnerChoirStaffContext = \translator {
 	\accepts "Lyrics"
 	\accepts "ChordNames"
 }
+
 ChoirStaffContext = \translator {
 	\InnerChoirStaffContext
 	\name ChoirStaff
@@ -103,8 +103,7 @@ RhythmicStaffContext=\translator{
 
 \description  "
     A context like @code{Staff} but for printing rhythms.  Pitches are
-    ignored; the notes are printed on one line.  It can contain
-    @code{Voice} contexts.
+    ignored; the notes are printed on one line.  
 "
 	minimumVerticalExtent = ##f
 	extraVerticalExtent = ##f
@@ -218,11 +217,10 @@ GrandStaffContext=\translator{
 	\type "Engraver_group_engraver"
 	\name GrandStaff
 	localKeySignature = #'()
-	\description "
-    Contains @code{Staff} or @code{RhythmicStaff} contexts.  It adds a
-    brace on the left side, grouping the staves together.  The bar
-    lines of the contained staves are connected vertically.  It can
-    contain @code{Staff} contexts."
+	
+	\description " A group of staffs, with a brace on the left
+    side, grouping the staves together.  The bar lines of the
+    contained staves are connected vertically.  "
 
 	\consists "Span_bar_engraver"
 	\consists "Span_arpeggio_engraver"
@@ -276,12 +274,12 @@ InnerStaffGroupContext= \translator {
 StaffGroupContext = \translator {
 	\InnerStaffGroupContext
 	\name StaffGroup
-	\description "
-    Contains @code{Staff} or @code{RhythmicStaff} contexts.  Adds a
-    bracket on the left side, grouping the staves together.  The bar
-    lines of the contained staves are connected vertically.  It can
-    contain @code{Staff}, @code{RhythmicStaff}, @code{GrandStaff}, or
-    @code{Lyrics} contexts.
+	
+	\description
+
+	" Groups staffs while adding a bracket on the left side,
+	grouping the staves together.  The bar lines of the contained
+	staves are connected vertically.
 "
 	
 	\accepts "InnerChoirStaff"
@@ -391,9 +389,7 @@ ScoreContext = \translator {
     other context can contain a @code{Score} context.  This context
     handles the administration of time signatures.  It also makes sure
     that items such as clefs, time signatures, and key-signatures are
-    aligned across staves.  It can contain @code{Lyrics},
-    @code{Staff}, @code{RhythmicStaff}, @code{GrandStaff},
-    @code{StaffGroup}, and @code{ChoirStaff} contexts.
+    aligned across staves.
 
     You cannot explicitly instantiate a Score context (since it is
     not contained in any other context).  It is instantiated

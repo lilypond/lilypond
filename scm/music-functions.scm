@@ -1,33 +1,3 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; tuplets.
-
-(define-public (denominator-tuplet-formatter mus)
-  (number->string (ly:get-mus-property mus 'denominator)))
-
-(define-public (fraction-tuplet-formatter mus)
-  (string-append (number->string (ly:get-mus-property mus 'numerator))
-		 ":"
-		 (number->string (ly:get-mus-property mus 'denominator))
-		 ))
-
-;; metronome marks
-(define-public (make-metronome-markup event context)
-  (let*
-      ((dur  (ly:get-mus-property event 'tempo-unit))
-       (count (ly:get-mus-property event 'metronome-count))
-       (note-mark     (make-note-markup (ly:duration-log dur)
-					(ly:duration-dot-count dur)
-					1)
-		      )
-       )
-
-    (make-line-markup
-     (list
-      note-mark
-      (make-simple-markup  "=")
-      (make-simple-markup (number->string count))
-      
-  ))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -107,6 +77,8 @@
   (music-map (lambda (x) (shift-one-duration-log x shift dot))
 	     music))
   
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; repeats.
@@ -245,7 +217,8 @@ i.e.  this is not an override"
     m
     ))
 
-
+;;;;;;;;;;;;;;;;
+;; mmrest
 (define-public (make-multi-measure-rest duration location)
   (let*
       (
@@ -321,6 +294,57 @@ a property set for MultiMeasureRestNumber."
     (ly:set-mus-property! m 'value val)
     m
   ))
+
+
+
+(define-public (make-ottava-set octavation)
+  (let*
+      (
+       (m (make-music-by-name 'ApplyContext))
+       )
+    
+  
+  (define (ottava-modify context)
+    "Either reset centralCPosition to the stored original,
+or remember old centralCPosition, add OCTAVATION to centralCPosition,
+and set OTTAVATION to `8va', or whatever appropriate.  
+"
+    (if (= octavation 0)
+	(let*
+	    ((where (ly:context-property-where-defined context 'centralCPosition))
+	     (oc0 (ly:get-context-property context 'originalCentralCPosition))
+
+	     )
+	  
+	  (ly:set-context-property context 'centralCPosition oc0)
+	  (ly:unset-context-property where 'originalCentralCPosition)
+	  (ly:unset-context-property where 'ottavation)
+	  )
+	
+	(let*
+	    ((where (ly:context-property-where-defined context 'centralCPosition))
+	     (c0 (ly:get-context-property context 'centralCPosition))
+	     (new-c0 (+ c0 (* -7 octavation)))
+	     (string (cdr
+		      (assoc octavation '((2 . "15ma")
+					  (1 . "8va")
+					  (0 . #f)
+					  (-1 . "8va bassa")
+					  (-2 . "15ma bassa")))))
+	     )
+
+	  (ly:set-context-property where 'centralCPosition new-c0)
+	  (ly:set-context-property where 'originalCentralCPosition c0)
+	  (ly:set-context-property where 'ottavation string)
+	  
+	  )))
+
+  (ly:set-mus-property! m 'procedure  ottava-modify)
+  m
+  ))
+
+(define-public (set-octavation ottavation)
+  (ly:export (make-ottava-set ottavation)))
 
 (define-public (make-time-signature-set num den . rest)
   " Set properties for time signature NUM/DEN.
