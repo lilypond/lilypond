@@ -10,7 +10,7 @@ $(outdir)/%.dvi: %.mf
 
 # This is not metafont, this is feta-specific
 $(outdir)/%.log: %.mf
-	$(METAFONT) $<
+	$(METAFONT) "\mode:=$(MFMODE); nonstopmode; input $<;"
 	mv $(@F) $@
 	rm $(basename $(@F)).*gf
 
