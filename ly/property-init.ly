@@ -219,7 +219,7 @@ forgetAccidentals = {
 
 %%
 %% DO NOT USE THIS. IT CAN LEAD TO CRASHES.
-turnOff = #'()
+turnOff = #(cons '() '())
 
 % For drawing vertical chord brackets with \arpeggio
 % This is a shorthand for the value of the molecule-callback property 

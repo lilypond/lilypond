@@ -43,8 +43,13 @@ Score_engraver::make_columns ()
    */
   if (!command_column_)
     {
-      set_columns (new Paper_column (get_property ("NonMusicalPaperColumn")),
-		   new Paper_column (get_property ("PaperColumn")));
+      SCM nmp
+	= updated_grob_properties (this,
+				   ly_symbol2scm ("NonMusicalPaperColumn"));
+      SCM pc = updated_grob_properties (this,
+					ly_symbol2scm ("PaperColumn"));
+      
+      set_columns (new Paper_column (nmp), new Paper_column (pc));
   
       command_column_->set_grob_property ("breakable", SCM_BOOL_T);
 
@@ -107,7 +112,7 @@ Score_engraver::initialize ()
   pscore_ = new Paper_score;
   pscore_->paper_ = dynamic_cast<Paper_def*> (get_output_def ());
 
-  SCM props = get_property ("System");
+  SCM props = updated_grob_properties (this, ly_symbol2scm ("System"));
 
   pscore_->typeset_line (new System (props));
   

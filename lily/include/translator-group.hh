@@ -47,13 +47,15 @@ public:
   SCM properties_as_alist () const;
   void unset_property (SCM var_sym);
   void internal_set_property (SCM var_sym, SCM value);  
+
   Translator_group *where_defined (SCM name_sym) const;
   String context_name () const;  
   Translator_group (Translator_group const &);
   Translator_group ();
+
+
   void add_fresh_group_translator (Translator *trans);
   void add_used_group_translator (Translator *trans);
-  
   bool is_bottom_context () const;
   bool is_removable () const;
   void terminate_translator (Translator*r);
@@ -83,5 +85,8 @@ public:
 bool melisma_busy (Translator* tr); // where to put this? --hwn
 void apply_property_operations (Translator_group*tg, SCM pre_init_ops);
 SCM names_to_translators (SCM namelist, Translator_group*tg);
+void execute_pushpop_property (Translator_group * trg,
+			       SCM prop, SCM eltprop, SCM val);
+SCM updated_grob_properties (Translator_group* tg, SCM sym);
 
 #endif // TRANSLATOR_GROUP_HH

@@ -23,8 +23,6 @@
 %	\consists "Repeat_engraver"
 	\consists "Volta_engraver"
 	\consists "Separating_line_group_engraver"	
-	SeparatingGroupSpanner \override #'spacing-procedure
-	  =  #Separating_group_spanner::set_spacing_rods_and_seqs
 	\consists "Dot_column_engraver"
 
 	% perhaps move to Voice context?
@@ -471,7 +469,7 @@ AncientRemoveEmptyStaffContext = \translator {
     
     explicitClefVisibility = #all-visible
     explicitKeySignatureVisibility = #all-visible
-    autoBeamSettings = #default-auto-beam-settings
+    autoBeamSettings = #(cons default-auto-beam-settings '())
     autoBeaming = ##t
     scriptDefinitions = #default-script-alist
 
