@@ -881,25 +881,36 @@ The clef can be set or changed with the @code{\clef} command:
 Supported clef-names include:
 @c Moved standard clefs to the top /MB
 @table @code
+@cindex treble clef
+@cindex violin clef
 @item treble, violin, G, G2
 G clef on 2nd line
 @item alto, C
+@cindex alto clef 
  C clef on 3rd line
 @item tenor
- C clef on 4th line
+@cindex tenor clef 
+ C clef on 4th line. 
 @item bass, F
+@cindex bass clef
  F clef on 4th line
 @item french
+@cindex french clef
  G clef on 1st line, so-called French violin clef
 @item soprano
+@cindex soprano clef
  C clef on 1st line
 @item mezzosoprano
+@cindex mezzosoprano clef
  C clef on 2nd line
 @item baritone
+@cindex baritone clef
  C clef on 5th line
 @item varbaritone
+@cindex varbaritone clef
  F clef on 3rd line
 @item subbass
+@cindex subbass clef
  F clef on 5th line
 @item percussion
  percussion clef
@@ -909,9 +920,12 @@ By adding @code{_8} or @code{^8} to the clef name, the clef is
 transposed one octave down or up, respectively. Argument @var{clefname} 
 must be enclosed in quotes when it contains underscores or digits. For
 example,
-@example
-	\clef "G_8"
-@end example
+
+
+@cindex choral tenor clef  
+@lilypond[verbatim,fragment,relative]
+	\clef "G_8" c4
+@end lilypond
 
 This command is equivalent to setting @code{clefGlyph},
 @code{clefPosition} (which controls the Y position of the clef),

@@ -21,12 +21,13 @@ finalis, the latter three looking similar to bar glyphs.
 \include "gregorian-init.ly"
 
 \score {
+
   {
     %
     % Modern notation:
     %
-    \context Staff {
-      \notes \relative c' {
+    \new Staff {
+      \notes \relative c'' {
 	\key es \major \time 3/4
 
 	% this bar contains no \breathe
