@@ -18,14 +18,14 @@ EXTRA_DIST_FILES= $(BIB_FILES) $(DOC_FILES) $(DATA_FILES) $(EL_FILES) $(YO_URG_F
 HTML_FILES = $(addprefix $(outdir)/, $(YO_FILES:.yo=.html))
 PS_FILES = $(DVI_FILES:.dvi=.ps)
 
-STEPMAKE_TEMPLATES=documentation
+STEPMAKE_TEMPLATES=tex documentation
 LOCALSTEPMAKE_TEMPLATES=lilypond mudela
 
 
 include $(depth)/make/stepmake.make 
 
 
-export BIBINPUTS:="$(topdir)/Documentation/tex//"#huh?
+export BIBINPUTS:="$(topdir)/Documentation/tex//"$(PATHSEP)$(BIBINPUTS)
 
 
 
@@ -54,8 +54,9 @@ local-WWW: $(HTML_FILES) $(OUTDOC_FILES:.doc=.ps.gz) $(OUTYO_FILES:.yo=.latex) $
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
 
+# ignore result since bib2html is nonstandard. Errors would halt the RPM build.j  
 $(outdir)/%.html: %.bib
-	bib2html $< $@
+	-bib2html $< $@
 
 # Yeah right: 
 # make -k out/mudela.dvi => cp -f out/vocabulary.tex out/mudela.dvi
