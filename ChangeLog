@@ -1,5 +1,7 @@
 2004-11-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* Documentation/user/macros.itexi: Add comment about \command.
+
 	* Documentation/user/lilypond.tely:
 	* Documentation/user/lilypond-book.itely: Fix names of lilypond
 	and lilypond-book nodes, so that `info lilypond' visits the manual
