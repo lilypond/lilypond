@@ -57,8 +57,7 @@ internal_print (Grob *me, String * font_char)
   String idx =
     prefix + ((stem_dir == UP) ? "u" : "d")  + ly_scm2string (scm_font_char);
   out = fm->find_by_name (idx);
-  if (out.is_empty ()
-      && stem_dir)
+  if (out.is_empty ())
     {
       idx = prefix + "s" + ly_scm2string (scm_font_char);
       out = fm->find_by_name (idx);

@@ -577,21 +577,26 @@ Syntax:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (cue-substitute quote-music)
+  "Must happen after quote-substitute."
+  
   (if (vector? (ly:music-property quote-music 'quoted-events))
       (let*
 	  ((dir (ly:music-property quote-music 'quoted-voice-direction))
-	   (main-voice (if (eq? 1 dir) 2 1))
-	   (cue-voice (if (eq? 1 dir) 1 2))
+	   (main-voice (if (eq? 1 dir) 1 0))
+	   (cue-voice (if (eq? 1 dir) 0 1))
 	   (main-music (ly:music-property quote-music 'element))
 	   (return-value quote-music)
 	   )
 	
 	(if (or (eq? 1 dir) (eq? -1 dir))
-
+	    
 	    ;; if we have stem dirs, change both quoted and main music
 	    ;; to have opposite stems.
 	    (begin
 	      (set! return-value
+
+		    ;; cannot context-spec Quote-music, since context
+		    ;; for the quotes is determined in the iterator.
 		    (make-sequential-music
 		     (list
 		      (context-spec-music (make-voice-props-set cue-voice) 'Voice "cue")
@@ -603,9 +608,10 @@ Syntax:
 		     (list
 		      (make-voice-props-set main-voice)
 		      main-music
-		      (make-voice-props-revert)))
-		    )
-	      (set! (ly:music-property quote-music 'element) main-music)))
+		      (make-voice-props-revert)
+		      )))
+	      (set! (ly:music-property quote-music 'element) main-music)
+	      ))
 
 	return-value)
       quote-music))
@@ -617,7 +623,7 @@ Syntax:
 			  (hash-ref quote-tab quoted-name #f)
 			  #f
 			  )))
-
+    
     (if (string? quoted-name)
 	(if  (vector? quoted-vector)
 	     (set! (ly:music-property music 'quoted-events) quoted-vector)
@@ -656,11 +662,12 @@ Syntax:
    (lambda (music parser) (voicify-music music))
    (lambda (x parser) (music-map glue-mm-rest-texts x))
    (lambda (x parser) (music-map music-check-error x))
-   (lambda (x parser) (music-map cue-substitute x))
    (lambda (music parser)
 
      (music-map (quote-substitute (ly:parser-lookup parser 'musicQuotes))  music))
    ;; switch-on-debugging
+   (lambda (x parser) (music-map cue-substitute x))
+   
    ))
 
 ;;;;;;;;;;;;;;;;;
