@@ -29,7 +29,7 @@ dit(lurl(http://www.zib.de/Visual/software/doc++/index.html))
 dit(lurl(http://www.xs4all.nl/~jantien/yodl/index.html))
     LilyPond documentation is in Yodl.  You'll need a recent
     development version from 
-    lurl(ftp://pcnov095.win.tue.nl/pub/yodl/development).
+    lurl(ftp://ftp.lilypond.org/pub/yodl/development).
 dit(lurl(http://www.iat.unc.edu/technology/music/music.html))
     An enormous collection of music related URLs
 dit(lurl(http://www.ram.org/ramblings/philosophy/fmp.html))

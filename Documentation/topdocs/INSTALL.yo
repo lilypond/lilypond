@@ -81,7 +81,7 @@ it()Python (version 1.5 or newer).  Check out
 lurl(ftp://ftp.python.org) or lurl(ftp://ftp.cwi.nl/pub/python).
 
 it()Yodl.  All documentation will be in Yodl. (1.30.17)
-lurl(ftp://pcnov095.win.tue.nl/pub/yodl)
+lurl(ftp://ftp.lilypond.org/pub/yodl)
     lurl(http://www.cs.uu.nl/~hanwen/yodl)
 it()Texinfo. (version 3.12 or newer)
 
