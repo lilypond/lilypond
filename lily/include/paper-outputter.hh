@@ -15,11 +15,18 @@
 #include "string.hh"
 #include "lily-guile.hh"
 
+#ifdef __powerpc__
+#include "protected-scm.hh"
+#endif
+
 /**
   Abstract interface for a Score_element to output itself.
  */
 class Paper_outputter
 {
+#ifdef __powerpc__
+  Protected_scm port_;
+#endif
 public:
   Paper_outputter (Paper_stream *);
   ~Paper_outputter ();
