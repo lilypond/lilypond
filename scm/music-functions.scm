@@ -29,16 +29,16 @@ encountered. This scales the music up by a factor 2^k."
 				 (cdr cp)))
 	  
 	      )
-	  (ly-set-mus-property music 'duration nd)
+	  (ly-set-mus-property! music 'duration nd)
 	))
 
     (if (pair? es)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'elements
          (map f es)))
 
     (if (music? e)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'element
          (f e)))
 
@@ -59,20 +59,20 @@ written by Rune Zedeler. "
 	  (if (equal? (ly-get-mus-property 'type music) 'tremolo)
 	      (shift-duration-log music (- (intlog2 (ly-get-mus-property 'repeat-count music))))
 	      )
-          (ly-set-mus-property
+          (ly-set-mus-property!
            music 'length Repeated_music::unfolded_music_length)
-	  (ly-set-mus-property
+	  (ly-set-mus-property!
 	   music 'start-moment-function Repeated_music::first_start)
-          (ly-set-mus-property
+          (ly-set-mus-property!
            music 'iterator-ctor Unfolded_repeat_iterator::constructor)))
 
     (if (pair? es)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'elements
          (map unfold-repeats es)))
 
     (if (music? e)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'element
          (unfold-repeats e)))
 
@@ -99,16 +99,16 @@ Fingering_engraver."
 	 )
 
     (if pitch
-	(map (lambda (x) (ly-set-mus-property x 'pitch pitch)) (find-scripts es))
+	(map (lambda (x) (ly-set-mus-property! x 'pitch pitch)) (find-scripts es))
 	)
 	
     (if (pair? es)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'elements
          (map pitchify-scripts es)))
 
     (if (music? e)
-        (ly-set-mus-property
+        (ly-set-mus-property!
          music 'element
          (pitchify-scripts e)))
 
@@ -126,11 +126,11 @@ this is not an override
 "
   
    (let* ((m (ly-make-music  "Music")))
-     (ly-set-mus-property m 'iterator-ctor Push_property_iterator::constructor)
-     (ly-set-mus-property m 'symbol grob)
-     (ly-set-mus-property m 'grob-property gprop)
-     (ly-set-mus-property m 'grob-value val)
-     (ly-set-mus-property m 'pop-first #t)
+     (ly-set-mus-property! m 'iterator-ctor Push_property_iterator::constructor)
+     (ly-set-mus-property! m 'symbol grob)
+     (ly-set-mus-property! m 'grob-property gprop)
+     (ly-set-mus-property! m 'grob-value val)
+     (ly-set-mus-property! m 'pop-first #t)
 		
      m
    
@@ -139,9 +139,9 @@ this is not an override
 (define (make-grob-property-revert grob gprop)
   "Revert the grob property GPROP for GROB."
    (let* ((m (ly-make-music  "Music")))
-     (ly-set-mus-property m 'iterator-ctor Pop_property_iterator::constructor)
-     (ly-set-mus-property m 'symbol grob)
-     (ly-set-mus-property m 'grob-property gprop)
+     (ly-set-mus-property! m 'iterator-ctor Pop_property_iterator::constructor)
+     (ly-set-mus-property! m 'symbol grob)
+     (ly-set-mus-property! m 'grob-property gprop)
 		
      m
    
@@ -172,22 +172,22 @@ this is not an override
   "Add \context CONTEXT = foo to M. "
   
   (let* ((cm (ly-make-music "Context_specced_music")))
-    (ly-set-mus-property cm 'element m)
-    (ly-set-mus-property cm 'context-type context)
+    (ly-set-mus-property! cm 'element m)
+    (ly-set-mus-property! cm 'context-type context)
     (if (and  (pair? rest) (string? (car rest)))
-	(ly-set-mus-property cm 'context-id (car rest))
+	(ly-set-mus-property! cm 'context-id (car rest))
     )
     cm
   ))
 
 (define (make-sequential-music elts)
   (let*  ((m (ly-make-music "Sequential_music")))
-    (ly-set-mus-property m 'elements elts)
+    (ly-set-mus-property! m 'elements elts)
     m
   ))
 (define (make-simultaneous-music elts)
   (let*  ((m (ly-make-music "Simultaneous_music")))
-    (ly-set-mus-property m 'elements elts)
+    (ly-set-mus-property! m 'elements elts)
     m
     ))
 (define (music-separator? m)
@@ -247,7 +247,7 @@ this is not an override
    (let* ((es (ly-get-mus-property ch 'elements)))
 
 
-     (ly-set-mus-property  ch 'elements
+     (ly-set-mus-property!  ch 'elements
        (voicify-list (split-list es music-separator?) 0))
      ch
    ))
@@ -264,9 +264,9 @@ this is not an override
 	(e (ly-get-mus-property m 'element))
 	)
      (if (pair? es)
-	 (ly-set-mus-property m 'elements (map voicify-music es)))
+	 (ly-set-mus-property! m 'elements (map voicify-music es)))
      (if (music? e)
-	 (ly-set-mus-property m 'element  (voicify-music e)))
+	 (ly-set-mus-property! m 'element  (voicify-music e)))
      (if
       (and (equal? (ly-music-name m) "Simultaneous_music")
 	   (reduce (lambda (x y ) (or x y)) 	(map music-separator? es)))

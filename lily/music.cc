@@ -227,7 +227,7 @@ LY_DEFINE(ly_get_mus_property,
 }
 
 LY_DEFINE(ly_set_mus_property,
-	  "ly-set-mus-property", 3, 0, 0,
+	  "ly-set-mus-property!", 3, 0, 0,
 	  (SCM mus, SCM sym, SCM val),
 	  "Set property @var{sym} in music expression @var{mus} to @var{val}.")
 {

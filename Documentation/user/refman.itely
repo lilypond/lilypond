@@ -2125,11 +2125,12 @@ style.
 @end lilypond
 
 Tremolo beams are @internalsref{Beam} grobs. Single stem tremolos are
-@internalsref{StemTremolo}.
+@internalsref{StemTremolo}. The single stem tremolo @emph{must} be
+entered without @code{@{} and @code{@}}.  
 
 @refbugs
 
-Tremolo beams confuse the spacing engine.
+Only powers of two and undotted notes are supported repeat counts.
 
 @node Tremolo subdivisions
 @subsection Tremolo subdivisions
