@@ -10,6 +10,8 @@
 
 	* po/fi.po: fixes.
 
+	* Documentation/topdocs/INSTALL.texi: update links.
+
 2003-07-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scripts/convert-ly.py (FatalConversionError.conv): rule for pedal-style  
