@@ -588,7 +588,9 @@ Beam::score_stem_lengths (Link_array<Grob>stems,
       Stem_info info = stem_infos[i];
       Direction d = info.dir_;
 
-      demerit_score += pen * ( 0 >? (info.dir_ *(info.shortest_y_ - current_y)));
+      demerit_score += pen
+	* ( 0 >? (info.dir_ * (info.shortest_y_ - current_y)));
+      
       demerit_score += STEM_LENGTH_DEMERIT_FACTOR
 	* shrink_extra_weight (d * current_y  - info.dir_ * info.ideal_y_);
     }
