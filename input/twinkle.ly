@@ -50,8 +50,6 @@ accompany = \notes \relative c {
 
 global = \notes {
 	\time 2/4;
-	\skip 2*24;
-	\bar ":|";
 }
 
 tekst = \lyrics{ 
@@ -155,13 +153,13 @@ $grand_staff = \type GrandStaff <
 >
 
 \score{
-	< 
+	\repeat 2 { < 
 		\$treble_staff
 		\$middle_lyrics
 		\$top_lyrics
 		\$grand_staff
 		\$bottom_lyrics
-	>
+	> }
 	\paper{
 		gourlay_maxmeasures = 14.0;
 	}

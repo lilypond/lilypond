@@ -9,7 +9,7 @@
 }
 
 %{
- Tested Features: cross staff beams and slurs
+ Tested Features: cross staff beams and slurs, grace notes, no bars
 %}
 
 \version "1.0.14";
@@ -24,45 +24,46 @@ global = \notes {
   \bar ".|";
 }
   
-upper = \type Voice=one \notes \relative c''{
+upper = \type Staff=treble \notes\relative c''{
   \clef violin;
   \stemup
+  \type Voice=one
   r2 r r 
-  r2 r r 
-  r4 [a'8--(\< a--] [a-- a-- c-- \!b--] [a--\> fis g \!e]
+  r2 r r
+  r4 [a'8--(\< a--] [a-- a-- c-- \!b--] [a--\> gis f \!e]
   % grace hack
-  [es8 { \type Voice=urgnobeam \tiny b8*1/16 ~ \normalsize } )c*15/16] r4 r2 r
+  < { [es8 )c] } \type Voice=x { \stemup s8*1/2 \tiny b8*1/2 ~ } > r4 r2 r
   r2 r r
-  r4 [a'8--(\< a--] [a-- a-- c-- \!b--] [a--\> fis g \!e]
-  [es8 { \type Voice=urgnobeam \tiny b8*1/16 ~ \normalsize } )c*15/16] r4 r2 r
+  r4 [a'8--(\< a--] [a-- a-- c-- \!b--] [a--\> gis f \!e]
+  < { [es8 )c] } \type Voice=x { \stemup s8*1/2 \tiny b8*1/2 ~ } > r4 r2 r
   r4 [g16( a bes a] [g a bes a g a bes a] [g a bes a g fis es fis] 
-  )d4 \tiny fis8*1/16 ~ \normalsize gis4*31/32 ~ gis8 r r4 r2
+  )d4 \tiny fis8*1/2 ~ \normalsize gis4*3/4 ~ gis8 r r4 r2
   r4 [g16( a bes a] [g a bes a g a bes a] [g a bes a g fis es fis] 
-  )d4 \tiny fis8*1/16 ~ \normalsize gis4*31/32 ~ gis8 r r4 r2
-  \tiny a8*1/16 ~ \normalsize f4*31/32 ~ f8 r r2 r
-  r2 r4 [a8( b][c d c b] \tiny b8*1/16 ~ \normalsize [e8*15/16 
-  { \type Voice=urgnobeam \tiny a,8*1/16 ~ \normalsize } )g8*15/16] r4 r2 r
+  )d4 \tiny fis8*1/2 ~ \normalsize gis4*3/4 ~ gis8 r r4 r2
+  \tiny a8*1/2 ~ \normalsize f4*3/4 ~ f8 r r2 r
+  r2 r4 [a8( b][c d c b] \tiny b8*1/2 ~ \normalsize 
+  < { [e8*1/2 )g,8] } \type Voice=x { \stemup s8*1/4 \tiny a8*1/2 ~ } > r4 r2 r
   r2 r4 [a8( b][c d c b] [a b c d][c b a b][c d c b]
-  \tiny b8*1/16 ~ \normalsize [e8*15/16 
-  { \type Voice=urgnobeam \tiny a,8*1/16 ~ \normalsize } )g8*15/16] r4 r2 r
-  a2( \tiny e'8*1/16 ~ \normalsize f4*31/32 ~ )f8 r r2
+  \tiny b8*1/2 ~ \normalsize 
+  < { [e8*1/2 )g,8] } \type Voice=x { \stemup s8*1/4 \tiny a8*1/2 ~ } > r4 r2 r
+  a2( \tiny e'8*1/2 ~ \normalsize f4*3/4 ~ )f8 r r2
   r2 r r
-  fis,4( \tiny dis8*1/16 \normalsize <)cis4*31/32 ais> r2 r
-  \tiny b'8*1/16 ~ \normalsize [a8*15/16 
-  { \type Voice=urgnobeam \tiny b8*1/16 ~ \normalsize } a8*15/16] r4 r2 r
-  r4 [a'8--(\< a--] [a-- a-- c-- \!b--] [a--\> fis g \!e]
-  [es8 { \type Voice=urgnobeam \tiny b8*1/16 ~ \normalsize } )c*15/16] r4 r2 r
-  d,4( \tiny fis8*1/16 ~ \normalsize gis4*31/32 ~ )gis8 r r4 r2
+  fis,4( \tiny dis8*1/2 \normalsize <)cis4*3/4 ais> r2 r
+  \tiny b'8*1/2 ~ \normalsize 
+  < { [a8*1/2 a8] } \type Voice=x { \stemup s8*1/4 \tiny b8*1/2 ~ } > r4 r2 r
+  r4 [a'8--(\< a--] [a-- a-- c-- \!b--] [a--\> gis f \!e]
+  < { [es8 )c] } \type Voice=x { \stemup s8*1/2 \tiny b8*1/2 ~ } > r4 r2 r
+  d,4( \tiny fis8*1/2 ~ \normalsize gis4*3/4 ~ )gis8 r r4 r2
   f4 ~ f8 r r2 r
   [f'8( g a b][a g f g][a b a g]
-  \tiny f8*1/16 ~ \normalsize [g8*15/16 
-  { \type Voice=urgnobeam \tiny d8*1/16 ~ \normalsize } )e8*15/16] r4 r2 r
+  \tiny f8*1/2 ~ \normalsize 
+  < { [g8*1/2 )e8] } \type Voice=x { \stemup s8*1/4 \tiny d8*1/2 ~ } > r4 r2 r
   [f8( g a b][a g f g][a b a g]
-  \tiny f8*1/16 ~ \normalsize [g8*15/16 
-  { \type Voice=urgnobeam \tiny d8*1/16 ~ \normalsize } )e8*15/16] r4 r2 r
-  a,2( \tiny e'8*1/16 ~ \normalsize f4*31/32 ~ )f8 r r2
+  \tiny f8*1/2 ~ \normalsize 
+  < { [g8*1/2 )e8] } \type Voice=x { \stemup s8*1/4 \tiny d8*1/2 ~ } > r4 r2 r
+  a,2( \tiny e'8*1/2 ~ \normalsize f4*3/4 ~ )f8 r r2
   r2 r r
-  fis,4( \tiny dis8*1/16 \normalsize <)cis4*31/32 ais> r2 r
+  fis,4( \tiny dis8*1/2 \normalsize <)cis4*3/4 ais> r2 r
   <e1 g b e> ~ <e g b e>
 }
 
@@ -135,32 +136,23 @@ lower = \type Voice=two \notes \relative c{
     textheight = 295.\mm;
 
     % no slur damping
-    slur_slope_damping = 10.0;
+    slur_slope_damping = 100.0;
 
-    %hmm
-%    \translator { \BarNumberingScoreContext }
-%    \translator { \BarNumberingStaffContext }
-%  \translator{ \OrchestralScoreContext }
     \translator{ \OrchestralScoreContext }
     \translator{ 
       \GrandStaffContext
       minVerticalAlign = 3.0*\staffheight;
       maxVerticalAlign = 3.0*\staffheight;
-      % don't display bars?
-      barAlways = 0.;
     }
     \translator{ 
       \StaffContext
-% hmm, i don't want bars
-% but i do want the staffs to be connected
-%      \remove "Bar_engraver";
+      % don't auto-generate bars: not a good idea: -> no breakpoints
+      % barAuto = "0";
+      % urg defaultBarType = "";
+      defaultBarType = "empty";
       \remove "Time_signature_engraver";
     }
   }
-%  \header{
-%	  opus = "BWV 847";
-%  }
-
   \midi {
     \tempo 4 = 54;
   }

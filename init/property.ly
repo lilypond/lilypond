@@ -49,6 +49,14 @@ beamquantisation	2	quantise avoide wedge2)	\beampostraditional
 keyoctaviation	0	Key signature only for specified octave	\specialkey
 keyoctaviation	1	Key signature for all octaves	\normalkey
 
+[Staff]
+barAlways		0	none
+barAlways		1	generate bar at every moment
+
+[Staff]
+barAuto			0	none
+barAuto			1	auto-generate bar every measure
+
 timeSignatureStyle	C	Use C and stroked C for 4/4,2/2
 timeSignatureStyle	old	Use old style mensuration marks
 timeSignatureStyle	1	Use single number

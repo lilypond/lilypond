@@ -1,3 +1,25 @@
+pl 22.jcn4
+	- bf's: repeat-engraver; \bar "|:", ":|" now deprecated for repeats
+	- bf: :|, |:
+	- property barAlways changed to boolean (0/1)
+	- added boolean property: barAuto
+
+pl 22.jcn3
+	- bf: mmrest
+
+pl 22.jcn2
+	- updated mi2mu
+	- bf: multi-measure-rest (input/test/m.ly)
+	- half fix for staff-margin-engraver
+
+pl 22.jcn1
+	- bf's: cross-staff slur
+	- bf: gnossienne-4
+pl 22.tca1
+ 	- buxfix, \mudela{ \times 2/3{ ...} } works now
+
+******
+  
 pl 22
 	- fixed "already have a Beam" error
 
