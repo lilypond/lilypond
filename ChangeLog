@@ -1,5 +1,9 @@
 2005-03-06  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* flower/libc-extension.cc:
+	* flower/include/libc-extension.hh: [Open]BSD simply cast
+	cookie/funopen declarations.
+
 	* stepmake/aclocal.m4: Check for libkpathsea.so.
 
 	* kpath-guile/kpath.c (ly_kpathsea_expand_variable): Use

@@ -53,7 +53,7 @@ extern "C" {
 #include <libio.h>
 #else
 
-#if ! HAVE_FUNOPEN
+#if 1 //! HAVE_FUNOPEN
 
 #define cookie_io_functions_t le_cookie_io_functions_t 
   typedef struct
