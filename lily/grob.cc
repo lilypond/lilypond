@@ -712,7 +712,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "context staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
 	       "meta layer before-line-breaking-callback "
 	       "after-line-breaking-callback extra-Y-extent minimum-X-extent "
-	       "minimum-Y-extent transparent "
+	       "minimum-Y-extent transparent tweak-count tweak-rank"
 	       );
 
 

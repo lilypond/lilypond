@@ -494,6 +494,8 @@ event types that should be duplicated for @code{\\quote} commands.")
      (instrumentSupport ,grob-list? "list of grobs to attach instrument name
 to.")
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
+     (tweakCount ,number? "Number of otherwise unique Contexts.")
+     (tweakRank ,number? "Identify otherwise unique Contexts.")
      )
    ))
 
