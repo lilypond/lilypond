@@ -7,31 +7,42 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
+**************
+I also found a few bugs:
 
-* check out PS points vs. LilyPond points (PS = 1/72 inch, LilyPond=1/72.27)
+* The examples in input/test/bar-scripts.ly and score-bar-scripts.ly
+  don't work. The problem seems to be that you can't define a 
+  a score identifier and then use it in the \score block.
 
 * Instrument names in the margin. Example: 
   input/test/hara-kiri.ly. The text should of course
   be to the left of the staff lines.
+**************
 
-* There is a bug in pl 22. Try /input/test/slurs.ly and 
-  you will find '#.#' instead of real numbers at some
-  places in the empedded ps code.
+	* check widths of TFM, something's wrong here. 
 
-* (Annoying but not a bug:) Slurs that are broken at line 
-  breaks often extend too far into the margin, both to the 
-  left and to the right. How do you adjust it?
+	* hang Item on Spanner
 
-* SkipBars=0 doesn't work. My score contains lots of 
-  multibar rests, which should be written out bar by bar
-  in the score (where the 'harakiri' mechanism doesn't
-  remove full staff lines that only contain rests).
-  In the parts, the multibar rests should be split
-  by the rehearsal marks I've included every here and 
-  there.
-  In short, I want the multibar rests to work as they
-  used to do before pl 20 but preferably with a nice
-  centered rest symbol. 
+	* junk Text_def, use G_text_item in stead.
+
+	* remove Interval dim_ from Dimension_cache and rename the struct.
+
+	* do --safe for PS output?
+
+	* staff_margin (with a partial measure.)
+
+	* fix "I've been drinking too much"
+
+	* add scripts to bars eg.  |^"bla" 
+
+	* fix Staff_margin_engraver.
+
+	* fix pletvisibility properties:
+	  - bracket on/off/no-bracket-when-beam
+	  - num on/off/no-num-when-beam
+
+	* fix: standchen.
+
 	* junk backlinks?
 
 	* junk text{sharp,flat,etc}
@@ -42,21 +53,6 @@ grep for TODO and ugh/ugr/urg
 
 	* decimal point in \paper {}
 
-	> I have changed Mark_engraver to use the G_... classes.
-	> My implementation has the following shortcomings at the
-	> moment.
-	> 
-	> - markScriptPadding is not supported, since G_staff_side_item does not
-	>   support padding.
-	> 
-	> - markBreakPriority is not supported. 
-	> 
-	> - Mostly, you want the marks aligned with the bar lines. I don't 
-	>   really understand how to implement that feature.
-	> 
-	> - You get lots of warnings about missing 'number' and 'Large'
-
-
 	*{  \voiceone <a'4.*2/3  d''4.*2/3 fis''4.*2/3>  [g''8 fis'' e''] d''4 |}
 	 and=20
 	 { \voicetwo  d'4 d'2.*2/3 } spacing
@@ -66,31 +62,21 @@ grep for TODO and ugh/ugr/urg
 	* sharp /flat on trills (in MIDI ??)
 
 	* scm-ify \property values.
-- The direction of textual scripts ('^' or '_') is ignored.
+
 	* move class Lookup {} into scm
 
-	* read tfms too.
-
-	* update mi2mu for lilypond 1.1
-
 BUGS:
+
 	* collisions/voices \voiceone \voicetwo are broken; see 
  	  input/praeludium-fuga-E.ly
  	  mutopia/J.S.Bach/wtk1-fugue2.ly
 
-	* fix: standchen.
+	* fix: text on rests: rediculous dims
 
-	* fix:  cello suites
-
-	* fix:  text on rests: rediculous dims
-
-	* fix extender
-
-	* fix fingering 'a-5': font direction broken *again*
-
-	* fix braces
-
-	* ly2dvi barfs on linewidth = -1.
+	* ly2dvi
+	  - barfs on linewidth = -1.
+	  - bottomnote for ly2dvi
+	  - deps for ly2dvi
 
 	* fix midi output:
 	   - default duration?  duration must be not entered
@@ -106,9 +92,6 @@ BUGS:
 
 	* fix height of / collisions with lyrics (chords), 
 	   see input/test/vertical-text.ly; input/test/repeat.ly
-
-	* repeat/volta:
-	  - one volta spanner per score
 
 	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
@@ -172,11 +155,11 @@ STUFF
 
 	* Align_element::padding  ?
 
-	* uniformise property names.
-
-	* ydirection <-> yDirection
-
-	* typo checks on property names?
+	* uniformise property names...
+	  - ydirection <-> yDirection
+	  - rather allow '_' in identifiers first (i.e. junk ^ and _),
+	    and do y_direction?
+	  - typo checks on property names?
 
 	* use streambufs and iostream
 	to provide IO handling for TeX stream, mudela stream, data-file.
@@ -204,8 +187,6 @@ STUFF
 	* percussion note heads
 
 	* mi2mu empty staffs.
-
-	* midi_instrument -> midiInstrument
 
 	* horizontal centering of dynamics 
 
@@ -256,7 +237,7 @@ ydirection and hshift preset
 	- NEWS: ... Musical_pitch (analogous to Duration and Rhythmic_req)
 	  think about, analogous to pitch: 
 	   * { a4 a16 } c <-- duration of c?
-	   * <a4 b8> c <-- duration of c?
+	   * < a4 b8 > c <-- duration of c?
 
 	* \tempo 4. = 90;
 
@@ -270,8 +251,6 @@ ydirection and hshift preset
 
 	* add a Duration_convert member to Duration_iter to set parameters.
 	Junk global duration settings. 
- 
-	* deps for ly2dvi
 
  	* minimum length second part broken tie
  
@@ -307,16 +286,13 @@ ydirection and hshift preset
 	* check for groff / troff/ nroff et
 
 	* more intelligent file searching
-	- make LilyPond RPM fully relocatable
 
-	* nicen examples:
-	- break-up heavily-nested score blocks
+	* make LilyPond RPM fully relocatable
 
 	* disable spaces in TeX stuff
 	
 	* handle ^C for tmp/file creation.
 
-	
 	* dots & rest collisions.
 
 	* documentation
@@ -346,51 +322,46 @@ ydirection and hshift preset
 
 	* integrate midi-elts from mi2mu and lily?
 
-	* score-bar-scripts
-	FMR: Free memory read:
-	  * This is occurring while in:
-		Bar_column::do_substitute_dependency(Score_element*,Score_element*) [bar
-	-column.cc:29]
-		Score_element::unlink() [score-elem.cc:383]
-		Paper_score::set_breaking(const Array<Column_x_positions>&) [p-score.cc:
-	150]
-		Paper_score::calc_breaking() [p-score.cc:189]
-		Paper_score::process() [p-score.cc:203]
-		Score::run_translator(Music_output_def*) [score.cc:117]
-	  * Reading 4 bytes from 0x65d3a0 in the heap.
-	  * Address 0x65d3a0 is 160 bytes into a freed  block at 0x65d300 of 208 bytes.
-	  * This block was allocated from:
-		malloc         [rtlib.o]
-		__builtin_new  [libgcc.a]
-		Span_score_bar::clone()const [span-score-bar.hh:20]
-		Item::copy_breakable_items() [item.cc:69]
-		Item::do_breakable_col_processing() [item.cc:89]
-		Score_element::calcalute_dependencies(int,int,void(Score_element::*)()*)
-	 [score-elem.cc:171]
-	  * There have been 22 frees since this block was freed from:
-		free           [rtlib.o]
-		__builtin_delete [libgcc.a]
-		Span_score_bar::~Span_score_bar() [span-score-bar.hh:18]
-		Paper_score::set_breaking(const Array<Column_x_positions>&) [p-score.cc:
-	156]
-		Paper_score::calc_breaking() [p-score.cc:189]
-		Paper_score::process() [p-score.cc:203]
-	Postprocessing elements... 
-	TeX output to score-bar-scripts.tex...
-
 
 3RD PARTY BUGS:
+****************
+/*
+ICE
+*/
+signature S {
+  int foo ();
+};
+
+signature V {
+  S * s();
+};
+
+
+V*v();
+f ()
+{
+  return v( )->foo ();
+}
+
+/*
+
+  egcs-1.1
+
+foo.cc: In function `int f()':
+foo.cc:6: label `b' used but not defined
+*/
+void
+f ()
+{
+  bool b;
+  if (b && && b)
+	 ;	
+}
+***************
 
 	* make GCC warn about ctor that leaves member vars  uninitialised.
 
-	* redhat (v?) graphical install bomb-out?
-
 	* GNU diff 2.7: diff -rN does not see a new directory with empty file
-
-	* GNU patch 2.1: <must find simple example> if patch chokes on a
-	  hunk, or on allegedly unsorted hunks in a diff, it may stop 
-	  without a trace of failure (create .rej file, print error or 
-	  dump core) and just ignore any further diffs.
 
 	* glibc 2.0:
 
@@ -398,8 +369,6 @@ ydirection and hshift preset
 	  assert (feof (f))
 
 3RD PARTY PROJECTS:
-
-	* GNU indent: handle C++
 
 	* GNU patch 
 	  - 'double-fix' mode: ignore identical fix, rather than suggest 
@@ -507,8 +476,6 @@ PROJECTS
 	- quiet/ignore-version options
 	- logfile output
 
-	* piano staff
-
 	* elaborate Staff_side baseclass:
 	- scripts
 	- text
@@ -518,7 +485,6 @@ PROJECTS
 	- speed up PS code.
 	- PS lines to .eps files
 	- write custom prolog
-
 
 	* Output an output format independent (ofi) typeset file; and 
 	  make ofi2 TeX, MusiXTex, Display PostScript, PostScript,
@@ -570,8 +536,6 @@ PROJECTS
 	- caching breakpoints
 	- saving them
 	- specify number of lines
-
-	* markers
 
 INPUTLANGUAGE
 
@@ -658,13 +622,6 @@ IDEAS
 	* create libmudela, or liblily_frontend
 
 	* move MIDI stuff (including Quantization) to a ANSI C libmidi library.
-
-	* use an embedded language: Python, Scheme
-	for:
-		- Score_elems
-		- Translators
-
-	* y -dims in internote? Staff-space? X-dimensions?
 
 	* Spacing_request for manually adjusting spacing
 
