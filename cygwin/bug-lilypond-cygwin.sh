@@ -80,6 +80,17 @@ echo TEXINPUTS="<$TEXINPUTS>"
 #set
 
 echo
+echo Registry settings
+echo =================
+regtool get /root/.ly/
+regtool get /root/LilyPond/
+regtool get /root/LilyPond/shell/open/command/
+regtool get /root/.pdf/
+pdfname=$(regtool get /root/.pdf/)
+regtool get /root/$pdfname/shell/open/command/
+regtool get /root/AcroExch.Document/shell/open/command/
+
+echo
 echo System information
 echo ==================
 uname -a
@@ -89,3 +100,5 @@ if false; then
     cat /var/log/setup.log
     # cat /var/log/setup.log.full
 fi
+
+
