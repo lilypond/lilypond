@@ -11,7 +11,6 @@ Keyitem::Keyitem(int c)
     c_position = c;
 }
 
-
 void
 Keyitem::read(svec<int> s)
 {
@@ -30,7 +29,8 @@ Keyitem::add(int p, int a)
 }
 
 void
-Keyitem::preprocess() {
+Keyitem::preprocess()
+{
     brew_molecole();
 }
 

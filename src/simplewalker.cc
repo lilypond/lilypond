@@ -16,25 +16,48 @@
 #include "slur.hh"
 #include "localkeyitem.hh"
 
+Rhythmic_grouping
+parse_grouping(svec<Scalar> a)
+{
+    Rhythmic_grouping ret;
+    Real one_beat =a[0];
+    a.del(0);
+    svec<int> r;
+    for (int i= 0 ; i < a.sz(); i++)
+	r.add(a[i]);
+    Real here =0.0;
+    for (int i=0; i < r.sz(); i++) {
+	ret.divisions.add(here);
+	Real last = here;
+	here += one_beat * r[i];
+	Rhythmic_grouping *child =new Rhythmic_grouping(Interval(last, here));
+	child->split(r[i]);
+	ret.children.add(child);	
+    }
+    ret.divisions.add(here);
+}
+
 void
 Simple_walker::do_INTERPRET_command(Command*com)
 {
-    if (com->args[0] == "BAR") {
+    svec<Scalar> args(com->args);
+    args.del(0);
+    if (com->args[0] == "GROUPING") {	
+	default_grouping = parse_grouping(args);
+    }else if (com->args[0] == "BAR") {
 	local_key_.reset(key_);
+	current_grouping = default_grouping;
     } else if (com->args[0] == "KEY") {
-	svec<Scalar>s(com->args);
-	s.del(0);
-	if (com->when) {
+	
+	if (col()->when()) {
 	    assert(!oldkey_undo);
-	    oldkey_undo = new svec<int>( key_.oldkey_undo(s));
+	    oldkey_undo = new svec<int>( key_.oldkey_undo(args));
 	}
 	
-	typesetkey = key_.read(s);
+	typesetkey = key_.read(args);
 	local_key_.reset(key_);	
     } else if (com->args[0] == "CLEF") {
-	svec<Scalar>s(com->args);
-	s.del(0);
-	clef_.read(s);
+	clef_.read(args);
     } else {
 	WARN << " ignoring INTERPRET command: " << com->args[0]<< '\n';
     }

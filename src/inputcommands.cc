@@ -13,7 +13,7 @@ void
 Commands_at::print() const
 {
 #ifndef NPRINT
-    mtor << "{ at "<<when<<'\n'; 
+    mtor << "Commands_at { at "<<when<<'\n'; 
     mtor << "meter " << whole_per_measure
 	 << " pos "<< bars << ":" << whole_in_measure <<'\n';
     for (PCursor<Input_command *> cc(*this); cc.ok(); cc++) 
@@ -47,7 +47,7 @@ Commands_at::Commands_at(Real dt, Commands_at* prev)
 }
 
 void
-Commands_at::add(Input_command *i )
+Commands_at::add(Input_command *i)
 {
     bottom().add(i);		
     if (i->args[0] == "METER") { // should check for other meterchanges here.
@@ -81,7 +81,6 @@ Commands_at::setpartial(Real p)
 }
 Real
 Commands_at::barleft()
- 
 {
     return  whole_per_measure-whole_in_measure;
 }
@@ -180,19 +179,19 @@ Input_commands::parse() const
     Staff_commands*nc = new Staff_commands;
 
     {   /* all pieces should start with a breakable. */
-	Command c(0.0);
+	Command c;//(0.0);
 	c.code = INTERPRET;
 	c.args.add("BAR");
 	c.args.add("empty");
-	nc->process_add(c);
+	nc->add(c,0.0);
     }
 
     for (PCursor<Commands_at*> i(*this); i.ok(); i++)
 	for (PCursor<Input_command *> cc(**i); cc.ok(); cc++) {
 	    if (cc->args.sz() &&  cc->args[0] !="") {
 		Command c = **cc;
-		c.when = i->when;
-		nc->process_add(c);
+//		c.when = i->when;
+		nc->add(c, i->when);
 	    }
 	}
     

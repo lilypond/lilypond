@@ -16,7 +16,7 @@ enum Commandcode {
 struct Command {
     Commandcode code;
 
-    Real when;
+//    Real when;
     /// analogous to argv[]
     svec<Scalar> args;
 
@@ -28,7 +28,7 @@ struct Command {
     /****************/
     
     Command();
-    Command(Real w);
+//    Command(Real w);
     bool isbreak()const;
     void print() const;
 };
