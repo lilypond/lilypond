@@ -6,7 +6,7 @@ GNU Music project - manifesto
 
 Random ranting about the GNU Music project
 
-=head GOAL
+=head1 GOAL
 
 Provide the users with free software for:
 

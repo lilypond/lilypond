@@ -1,3 +1,16 @@
+pl 66
+	- make_website --jpeg, --png and --gif
+	- win32 -> windows32
+	- bf: Score_elem::TeXstring assert fail
+	- bf: headswap with stemdown
+	- bf: broken tie
+	- bf: broken slur
+	- bf: accidental dims
+	- bf: measure bar width
+	
+
+******
+may 26
 pl 65
 	- bf pathfind /root/file
 	- massive Score_elem rewrite:
