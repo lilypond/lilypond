@@ -7,6 +7,7 @@
 #ifndef STAFFLINE_HH
 #define STAFFLINE_HH
 
+#include "proto.hh"
 #include "real.hh"
 #include "plist.hh"
 #include "varray.hh"

@@ -28,6 +28,7 @@ Melodic_staff::get_notehead(Note_req *rq, int bottom)
     Notehead *n =new Notehead((NO_LINES-1)*2);
     n->set_rhythmic(rq->rhythmic());
     n->position = rq->note()->height() + bottom;
+    n->defined_ch_c_l_m = rq->defined_ch_c_l_m;
     return n;
 }
 

@@ -9,6 +9,7 @@
 /// Hungarian postfix: req
 struct Request {
     Voice_element*elt_l_;
+    char const* defined_ch_c_l_m;
     
     /****************/
     Request();
@@ -18,7 +19,7 @@ struct Request {
     virtual const char * name() const { return "Request";}
     virtual Request* clone() const =0;
     void print()const ;
-
+    
     virtual Moment duration() const { return 0; }
 
     /*  accessors for children */
@@ -36,6 +37,9 @@ struct Request {
     virtual Melodic_req *melodic() { return 0; }
     virtual Mark_req * mark() { return 0; }
     virtual Staff_command_req* command() { return 0;}
+    virtual Terminate_voice_req *terminate() {return 0;}
+    virtual Group_change_req * groupchange() { return 0;}
+    virtual Group_feature_req * groupfeature() { return 0; }
 protected:
     virtual void do_print()const ;
 };
@@ -47,12 +51,27 @@ see lilygut page
 
 #define REQUESTMETHODS(T,accessor)	\
 virtual T * accessor() { return this;}\
-virtual const char* name()const { return #T; }\
+virtual const char* name() const { return #T; }\
 virtual Request *clone() const { return  new T(*this); } \
 virtual void do_print() const
 	
 struct Barcheck_req : Request {
     REQUESTMETHODS(Barcheck_req,barcheck);
+};
+
+struct Terminate_voice_req : Request {
+    REQUESTMETHODS(Terminate_voice_req,terminate);
+};
+
+struct Group_feature_req : Request {
+    int stemdir_i_;
+    Group_feature_req();
+    REQUESTMETHODS(Group_feature_req, groupfeature);
+};
+
+struct Group_change_req : Request {
+    String newgroup_str_;
+    REQUESTMETHODS(Group_change_req, groupchange);
 };
 
 /// a request with a duration
@@ -64,7 +83,7 @@ struct Rhythmic_req : virtual Request {
     static int compare(const Rhythmic_req &, const Rhythmic_req &);
     Moment duration() const;
     Rhythmic_req();
-        Rhythmic_req(int,int);
+    Rhythmic_req(int,int);
     REQUESTMETHODS(Rhythmic_req, rhythmic);
 };
 
@@ -77,6 +96,7 @@ struct Text_req : virtual Request {
     Text_req(int d, Text_def*);
     ~Text_req();
     Text_req(Text_req const&);
+    static int compare(const Text_req&,const Text_req&);
     REQUESTMETHODS(Text_req,text);
 };
 
@@ -125,6 +145,7 @@ Why a request? It might be a good idea to not typeset the rest, if the paper is 
 
 /// attach a stem to the noteball
 struct Stem_req : Rhythmic_req {
+    int dir_i_;
     Stem_req(int s, int dots);
     REQUESTMETHODS(Stem_req,stem);
 };
@@ -172,10 +193,11 @@ struct Slur_req : Span_req {
 
 ///Put a script above or below this ``note''    
 struct Script_req : Request {
-    int dir;
-    Script_def *scriptdef;
+    int dir_i_;
+    Script_def *scriptdef_p_;
 
     /****************/
+    static int compare(const Script_req &, const Script_req &);
     Script_req(int d, Script_def*);
     REQUESTMETHODS(Script_req,script);
     ~Script_req();
@@ -294,11 +316,6 @@ struct Spacing_req {
 
 struct Glissando_req : Span_req {
     
-};
-struct Stemdir_req : Request {
-    int which;
-};
-struct Group_change_req : Request {
 };
 #endif
 #endif

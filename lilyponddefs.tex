@@ -20,6 +20,7 @@
 
 %% musix defs
 \parindent=0pt
+\newdimen\smallspace
 \newdimen\interlinedist
         \newcount\n
         \newdimen\balkhoog
@@ -41,6 +42,7 @@
         \font\hslurhfont=xslhz20
         \font\musicfnt=musix20
         \font\italicfont=cmti10
+        \font\dynfont=cmbxti10 scaled \magstep1
         \balkhoog=20pt
         \notewidth=6pt
         \noteheight=5pt
@@ -60,6 +62,7 @@
         \font\hslurdfont=xslhd16
         \font\hslurhfont=xslhz20
         \font\musicfnt=musix16
+        \font\dynfont=cmbxti10
         \balkhoog=16pt
         \staffrulethickness=0.4pt
         \notewidth=5pt
@@ -68,6 +71,8 @@
 }
 
 \def\musixcalc{
+	\interlinedist=\fontdimen5\musicfnt
+	\smallspace=.3\interlinedist
         \interstaffrule=\balkhoog
         \advance\interstaffrule by-\staffrulethickness
         \divide\interstaffrule by 4
@@ -79,7 +84,19 @@
                \balkhalf=\balkhoog
  \rationalmultiply\balkhalf*1/2 
 }
-\def\dyn{\italicfont}
+% \def\dyn{\italicfont}
+\def\dyn{\dynfont}
+\def\dynf{f\kern-.1ex}
+\def\dynm{f\kern-.15ex}
+\def\dynp{p\kern-.15ex}
+\def\ppp{\dynfont\dynp\dynp p}
+\def\pp{\dynfont\dynp p}
+\def\p{\dynfont p}
+\def\mp{\dynfont\dynm p}
+\def\mf{\dynfont\dynm f}
+\def\f{\dynfont f}
+\def\ff{\dynfont\dynf f}
+\def\fff{\dynfont\dynf\dynf f}
 
 \def\slurcharh#1{{\slurhfont\char#1}}
 \def\slurcharu#1{{\slurufont\char#1}}
@@ -124,13 +141,26 @@
 \mdef\usixteenthflag{41}
 \mdef\uthirtysecondflag{42}
 
-\def\maatstreep{\vrule height\balkhoog}
-\def\finishbar{\vrule height\balkhoog  width 1pt}
 \maccentdef\repeatcolon{55}{2/1}
 \def\emptybar{}
-\def\repeatbar{\rightalign{\repeatcolon\kern 2pt\finishbar}}
-\def\startrepeat{\hbox{\finishbar\kern 2pt\repeatcolon}}
-\def\repeatbarstartrepeat{\hbox{\repeatbar\kern 1pt\startrepeat}}
+
+\def\thinbar{\vrule height\balkhoog}
+%? what-s wrong with rightalign?
+\def\thickbar{\vrule height\balkhoog width 2\smallspace}
+\def\maatstreep{\thinbar}
+% \def\finishbar{\rightalign{\thinbar\kern\smallspace\thickbar}}
+\def\finishbar{\hss\rightalign{\thinbar\kern\smallspace\thickbar}}
+% \def\repeatstopbar{\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
+\def\repeatstopbar{\hss\rightalign{\repeatcolon\hskip2\smallspace\thinbar\hskip\smallspace\thickbar}}
+% \def\repeatstopbar{\kern-3\smallspace\rightalign{\repeatcolon\kern2\smallspace\thinbar\kern\smallspace\thickbar}\kern3\smallspace}
+\def\repeatstartbar{\hbox{\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
+\def\repeatstopstart{\hbox{\repeatcolon\kern2\smallspace\thinbar\kern\smallspace\thickbar\kern\smallspace\thickbar\kern\smallspace\thinbar\kern2\smallspace\repeatcolon}}
+\def\doublebar{\hbox{\thinbar\hskip\smallspace\thinbar}}
+
+%compatability
+\def\repeatbar{\repeatstopbar}
+\def\startrepeat{\repeatstartbar}
+\def\repeatbarstartrepeat{\repeatstopstart}
 
 \def\generalmeter#1#2{\botalign{\vbox to\balkhalf{\vss \meterfont#1}%
         \nointerlineskip

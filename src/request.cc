@@ -9,12 +9,14 @@
 void
 Stem_req::do_print() const
 {
-    Rhythmic_req::do_print();    
+    Rhythmic_req::do_print();
+    mtor << "dir : " << dir_i_;
 }
 
 Stem_req::Stem_req(int s, int d)
     : Rhythmic_req(s,d)
 {
+    dir_i_ = 0;
 }
 
 /****************/
@@ -56,10 +58,12 @@ Span_req::do_print() const
 Request::Request()
 {
     elt_l_ = 0;
+    defined_ch_c_l_m = 0;
 }
 Request::Request(Request const&)
 {
     elt_l_ = 0;
+    defined_ch_c_l_m = 0;
 }
 /****************/
 Melodic_req::Melodic_req()
@@ -168,32 +172,64 @@ Span_req::Span_req()
     spantype = NOSPAN;
 }
 /****************/
+void
+Group_feature_req::do_print() const
+{
+    mtor << "stemdir " << stemdir_i_;
+}
+Group_feature_req::Group_feature_req()
+{
+    stemdir_i_ = 0;
+}
+void
+Group_change_req::do_print()const
+{
+    mtor << "id : " << newgroup_str_;
+}
+void
+Terminate_voice_req::do_print()const
+{
+}
+/****************/
 Script_req::Script_req(int d , Script_def*def)
 {
-    dir = d;
-    scriptdef = def;
+    dir_i_ = d;
+    scriptdef_p_ = def;
+}
+
+int
+Script_req::compare(const Script_req &d1, const Script_req &d2)
+{
+    return d1.dir_i_ == d2.dir_i_ &&
+	d1.scriptdef_p_->compare(*d2.scriptdef_p_);
 }
 
 Script_req::Script_req(Script_req const &s)
 {
-    dir = s.dir;
-    scriptdef = new Script_def(*s.scriptdef);
+    dir_i_ = s.dir_i_;
+    scriptdef_p_ = new Script_def(*s.scriptdef_p_);
 }
 
 void
 Script_req::do_print() const
 {
-    mtor << " dir " << dir ;
-    scriptdef->print();
+    mtor << " dir " << dir_i_ ;
+    scriptdef_p_->print();
 }
 
 
 Script_req::~Script_req()
 {
-    delete scriptdef;
+    delete scriptdef_p_;
 }
 /****************/
-
+int
+Text_req:: compare(const Text_req &r1, const Text_req &r2)
+{
+    bool b1 = (r1.dir_i_ == r2.dir_i_);
+    bool b2 = (r1.tdef_p_ ->compare(*r2.tdef_p_));
+    return b1 && b2;
+}
 Text_req::~Text_req()
 {
     delete tdef_p_;

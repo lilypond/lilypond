@@ -1,6 +1,7 @@
 #ifndef PSTAFF_HH
 #define PSTAFF_HH
 
+#include "proto.hh"
 #include "plist.hh"
 #include "item.hh"
 #include "symbol.hh"

@@ -1,13 +1,20 @@
 #include <iostream.h>
 #include <assert.h>
+#include "proto.hh"
+#include "plist.hh"
 #include "lgetopt.hh"
 #include "misc.hh"
 #include "string.hh"
 #include "main.hh"
 #include "path.hh"
 #include "config.hh"
+#include "sourcefile.hh"
+#include "source.hh"
 
-extern void parse_file(String s);
+Source source;
+Source* source_l = &source;
+
+extern void parse_file(String,String);
 
 
 void
@@ -17,6 +24,7 @@ long_option_init theopts[] = {
     0, "warranty", 'w',
     0, "help", 'h',
     0, "debug", 'd',
+    1, "init", 'i',
     1, "include", 'I',
     0,0,0
 };
@@ -29,6 +37,7 @@ help()
 	"--warranty, -w		show warranty & copyright\n"
 	"--output, -o		set default output\n"
 	"--debug, -d		enable debug output\n"
+	"--init, -i             set init file\n"
         "--include, -I		add to file search path.\n"
 	;
     
@@ -42,7 +51,7 @@ void notice()
 	"Copyright (C) 1996,97 by\n"
 	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
 	"Contributors\n"
-	"  Jan-Nieuwenhuizen <jan@digicash.com>\n"
+	"  Jan Nieuwenhuizen <jan@digicash.com>\n"
 	"  Mats Bengtsson <matsb@s3.kth.se>\n"
 	"\n"
 	"    This program is free software; you can redistribute it and/or\n"
@@ -77,6 +86,7 @@ main (int argc, char **argv)
 {    
     Getopt_long oparser(argc, argv,theopts);
     cout << get_version();
+    String init_str("symbol.ini");
     
     while (long_option_init * opt = oparser()) {
 	switch ( opt->shortname){
@@ -89,6 +99,9 @@ main (int argc, char **argv)
 	    break;
 	case 'I':
 	    path->push(oparser.optarg);
+	    break;
+	case 'i':
+	    init_str = oparser.optarg;
 	    break;
 	case 'h':
 	    help();
@@ -108,12 +121,12 @@ main (int argc, char **argv)
     while ( (arg= oparser.get_next_arg()) ) {
 	String f(arg);
 	destill_inname(f);
-	parse_file(f);
+	parse_file(init_str,f);
 	do_scores();
 	p++;
     }
     if (!p) {
-	parse_file("");	
+	parse_file(init_str, "");	
 	do_scores();
     }
 

@@ -8,6 +8,13 @@ Text_def::Text_def()
 {   
     align_i_ = 1;			// right
     style_str_ = "roman";
+    defined_ch_c_l_m = 0;
+}
+bool
+Text_def::compare(const Text_def&def)
+{
+    return align_i_ == def.align_i_ && text_str_ == def.text_str_
+	&& style_str_ == def.style_str_;
 }
 
 Atom

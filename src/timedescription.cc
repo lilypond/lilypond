@@ -4,9 +4,12 @@ String
 Time_description::str()const
 {
     String s( "Time_description { ");
-    s+=String( " cadenza: ") + cadenza_b_ + " at ";
+    if (cadenza_b_)
+	s+=String( " (cadenza) ");
+    s+= "at ";
     s+=when;
-    s+="\nmeter " + String(whole_per_measure/one_beat) +":" +(1/one_beat);
+    s+="\nmeter " + String(whole_per_measure/one_beat) +":" +
+	String(Rational(1/one_beat));
     s+= "\nposition "+String( bars) + ":"+ whole_in_measure +"\n}\n";
     return s;
 }
@@ -42,7 +45,7 @@ Time_description::set_cadenza(bool b)
 Time_description::Time_description(Moment dt, Time_description const *prev)
 {
     if (prev) {
-	assert(dt >= 0);
+	assert(dt >= Rational(0));
 	*this = *prev;
 	when +=  dt;
 	whole_in_measure += dt;
@@ -65,7 +68,7 @@ void
 Time_description::set_meter(int l, int o)
 {
     assert(o);
-    one_beat = 1/Moment(o);
+    one_beat = Rational(1)/Moment(o);
     whole_per_measure = Moment(l) * one_beat;
     if(whole_in_measure)
 	error_t("Meterchange should be at start of measure", *this);
@@ -76,7 +79,7 @@ Time_description::setpartial(Moment p)
 {
     if (when)
 	error_t ("Partial measure only allowed at beginning.", *this);
-    if (p<0||p > whole_per_measure)
+    if (p<Rational(0)||p > whole_per_measure)
 	error_t ("Partial measure has incorrect size", *this);
     whole_in_measure = whole_per_measure - p;
 }

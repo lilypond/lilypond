@@ -84,7 +84,7 @@ Rhythmic_grouping::intersect(MInterval t)
     
     for (int i=0; i < children.size(); i++) {
 	MInterval inter = intersection(t, children[i]->interval());
-	if (inter.empty() || inter.length() <= 0) {
+	if (inter.empty() || inter.length() <= Rational( 0 )) {
 	    delete children[i];
 	    children[i] =0;
 	} else {
@@ -151,10 +151,10 @@ Rhythmic_grouping::Rhythmic_grouping(MInterval t, int n)
 	interval_ = new MInterval(t);
 	return;
     }
-    Moment dt = t.length()/n;
+    Moment dt = t.length()/Rational(n);
     MInterval basic = MInterval(t.left, t.left+dt);
     for (int i= 0; i < n; i++)
-	children.push(new Rhythmic_grouping( dt*i + basic ));
+	children.push(new Rhythmic_grouping( dt*Rational(i) + basic ));
 }
 
 

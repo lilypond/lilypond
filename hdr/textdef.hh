@@ -14,10 +14,12 @@ struct Text_def  {
     int align_i_;
     String text_str_;
     String style_str_;
-
+    char const* defined_ch_c_l_m;
+  
 
     /*****************/
-    
+    virtual ~Text_def() {};
+    bool compare(const Text_def&);
     Text_def();
     virtual void print() const;
     virtual Atom create_atom(Paperdef*) const;

@@ -3,12 +3,10 @@
 #include "staffwalker.hh"
 #include "debug.hh"
 #include "staff.hh"
-//#include "command.hh"
 #include "lyricstaff.hh"
 #include "lyriccolumn.hh"
 #include "sccol.hh" 
 #include "pscore.hh"
-//#include "paper.hh"
 
 
 Lyric_column::Lyric_column(Score_column*s, Lyric_staff* lstaff_l)
@@ -25,7 +23,7 @@ Lyric_column::setup_requests()
 	    Request* req_l = j;
 	    if (req_l->barcheck()) {
 		if (tdescription_->whole_in_measure) {
-		    error("Barcheck failed, " + tdescription_->str());
+		    error( "Barcheck failed ", req_l->defined_ch_c_l_m );
 		}
 	    }
 	    if (req_l->lreq_l()) {

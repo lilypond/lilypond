@@ -2,6 +2,12 @@
 #include "voice.hh"
 #include "request.hh"
 
+void
+Voice::set_default_group(String s)
+{
+    elts.top()->set_default_group(s);
+}
+
 Voice::Voice(Voice const&src)
 {
     for (iter_top(src.elts, i); i.ok(); i++)
@@ -71,14 +77,26 @@ Voice_element::add(Request*r)
 Voice_element::Voice_element()
 {
     voice_l_ = 0;
-//    group = 0;
-    duration = 0.0;
+    duration = 0;
+    defined_ch_c_l_m = 0;
 }
 
 Voice_element::Voice_element(Voice_element const&src)
 {
+    defined_ch_c_l_m = src.defined_ch_c_l_m;
+		// are you sure? They can be modified after copying.
     voice_l_=0;
     for (iter_top(src.reqs, i); i.ok(); i++)
 	add(i->clone());
-//    group=src.group;
+
+}
+void
+Voice_element::set_default_group(String s)
+{
+    for (iter_top(reqs, i); i.ok(); i++)
+	if (i->groupchange())
+	    return ;
+    Group_change_req *greq = new Group_change_req;
+    greq->newgroup_str_ = s;
+    add(greq);
 }
