@@ -85,11 +85,13 @@ Score_engraver::prepare (Moment m)
 void
 Score_engraver::finish ()
 {
-  if ((breaks_%8))
+  if ((breaks_ % 8))
     progress_indication ("[" + to_string (breaks_) + "]");
 
   recurse_over_translators (context (), &Translator::finalize, UP);
 }
+
+#define MUSIC_FONT "bigcheese20"
 
 /*
   use start/finish?
@@ -97,9 +99,9 @@ Score_engraver::finish ()
 void
 Score_engraver::initialize ()
 {
-  Font_metric *fm = all_fonts_global->find_afm ("feta20");
+  Font_metric *fm = all_fonts_global->find_otf (MUSIC_FONT);
   if (!fm)
-    error (_f ("cannot find `%s'", "feta20.afm")
+    error (_f ("cannot find `%s'", MUSIC_FONT ".otf")
 	   + "\n"
 	   + _ ("Music font has not been installed properly.")
 	   + _ ("Aborting"));
