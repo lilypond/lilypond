@@ -9,24 +9,22 @@ lyrics do not collide with barlines.
 
 \score {
 	\context StaffGroup <<
-	 \context Staff {
+	 \context Staff=foo {
 	        b1 \bar "|:" b1 \bar ":|"
 	}
-	\lyricmode <<
-	 	\context LyricsWithBars {
+	 	\context LyricsWithBars \lyricmode {
 %		        thisContextHasBarEngraver1  added
-		        ThisContextCertainlyHasBarEngraverAddedButThereHasBeenSomethingFunnyBefore1.  Here.
+		        ThisContextCertainlyHasBarEngraverAddedButThereHasBeenSomethingFunnyBefore1.  HereThereWhere.
 		}
-		\context Lyrics {
+		\context Lyrics \lyricmode {
 		        this4 one has no BarEngraverAddedToContext1
 		}
-	>>
-	 \new Staff { b1 b1 }
+	 \context Staff=bar { b1 b1 }
 	>>
 	\layout {
 		raggedright = ##t
 		\context {
-			\Score
+			\StaffGroup
 			\accepts "LyricsWithBars"
 		}
 		\context {
