@@ -25,7 +25,6 @@ public:
   // bool set_interface ();
 };
 
-Directional_element_interface directional_element (Score_element const*);
 
 #endif /* DIRECTIONAL_ELEMENT_HH */
 

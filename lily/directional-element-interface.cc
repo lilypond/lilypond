@@ -40,9 +40,3 @@ Directional_element_interface::set (Direction d)
 {
   elt_l_->set_elt_property ("direction", gh_int2scm (d));
 }
-
-Directional_element_interface
-directional_element (Score_element const*s)
-{
-  return s;
-}
