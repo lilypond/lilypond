@@ -54,6 +54,10 @@
 
 	* cygwin/lily-wins.py (stat): remove old flag -p when calling lilypond.
 
+2004-12-02  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* VERSION: release 2.5.3
+	
 2004-11-29  Arno Waschk <arno@arnowaschk.de>
 
 	* mf/feta-schrift.mf: added <>-like articulation mark as "espressivo"
