@@ -7,7 +7,7 @@
 */
 
 #include "cpu-timer.hh"
-
+#include <unistd.h>
 // nextstep
 #ifndef CLOCKS_PER_SEC
 #ifdef CLK_TCK

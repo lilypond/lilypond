@@ -8,6 +8,10 @@
 
 #include <stdio.h>
 
+#ifndef SEEK_END
+#define SEEK_END 2
+#endif
+
 #include "simple-file-storage.hh"
 #include "varray.hh"
 #include "string.hh"

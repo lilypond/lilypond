@@ -73,7 +73,8 @@ class Targetdeps:
 
     def target_string(self):
 	# ugh.  Closures, anyone?
-	targets =  map (lambda x,y = self.basename: 'out/' + y + '.' + x, postfixes)
+#	targets =  map (lambda x,y = self.basename: 'out/' + y + '.' + x, postfixes)
+	targets =  map (lambda x,y = self.basename: y + '.' + x, postfixes)
 	depstring = reduce(lambda x,y: x + ' ' + y, self.depfiles) 
 	dependencies = map (lambda x, y=depstring: x + ': ' + y, targets)
 

@@ -54,3 +54,10 @@ front = \script { "front" 0 -1 1 0 0 }
 trill =\script { "trill" 0 0 1 0 
 	2000   % be above text. 
 }
+
+prall =\script { "prall" 0 0 1 0 0 }
+mordent =\script { "mordent" 0 0 1 0 0 }
+prallprall =\script { "prallprall" 0 0 1 0 0 }
+prallmordent =\script { "prallmordent" 0 0 1 0 0 }
+upprall =\script { "upprall" 0 0 1 0 0 }
+downprall =\script { "downprall" 0 0 1 0 0 }

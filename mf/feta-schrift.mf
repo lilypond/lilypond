@@ -544,4 +544,7 @@ fet_beginchar("Flageolet", "flageolet", "flageolet")
 	draw z1..z2..z3..z4..cycle;
 fet_endchar;
 
+input feta-slag;
+
 fet_endgroup("scripts");
+

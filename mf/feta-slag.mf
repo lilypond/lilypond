@@ -1,0 +1,132 @@
+% -*- Fundamental -*-  (emacs-20 mf mode mucks
+% feta-slag.mf --  implement trill symbols
+% 
+% source file of the Feta (defintively not an abbreviation for Font-En-Tja)
+% music font
+% 
+% (c) 1998 Jan Nieuwenhuizen <jan@digicash.com>
+% 
+
+% this file is included by feta-scripts.mf
+
+tfat := 0.3;
+twidth# := 0.5interline#;
+theight# := 0.55interline#;
+tthin# := stafflinethickness#;
+toverlap# := tfat*twidth#+tthin#;
+define_pixels(twidth,theight,tthin,toverlap);
+
+def draw_trillelement = 
+	save x, y;
+
+	pickup pencircle scaled tthin;
+	
+	lft x1 = -twidth;
+	x3 = -tfat*twidth;
+	top y3 = theight;
+
+	z3 - z1 = whatever * (0.5twidth, theight);
+	z2 = tfat[z3, z1];
+
+	path p;
+	p = z3 -- z2 -- z1 -- z2;
+	p := p -- (p scaled -1) -- cycle;
+	filldraw p;
+	labels(1,2,3);
+enddef;
+
+def draw_trill_two = 
+	draw_trillelement;
+	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
+	draw_trillelement;
+	currentpicture := currentpicture shifted (twidth-0.5toverlap, 0);
+enddef;
+
+def draw_trill_three = 
+	draw_trillelement;
+	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
+	draw_trillelement;
+	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
+	draw_trillelement;
+	currentpicture := currentpicture shifted (2twidth-toverlap, 0);
+enddef;
+
+def draw_trill_four = 
+	draw_trillelement;
+	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
+	draw_trillelement;
+	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
+	draw_trillelement;
+	currentpicture := currentpicture shifted (-2*twidth+toverlap, 0);
+	draw_trillelement;
+	currentpicture := currentpicture shifted (3twidth-1.5toverlap, 0);
+enddef;
+
+def draw_mordent(expr a) = 
+	pickup pencircle scaled tthin;
+	save x, y;
+	top y1 = 4/3theight;
+	x1 = x2 = a;
+	y2 = - y1;
+	draw z1 -- z2;
+enddef;
+
+fet_beginchar("trilelement", "trilelement", "trilelement")
+%	set_char_box(twidth#, twidth#, theight#, theight#);
+	set_char_box(twidth#, twidth#-toverlap#, theight#, theight#);
+	draw_trillelement;
+fet_endchar;
+
+fet_beginchar("prall", "prall", "prall")
+	trills := 2;
+	set_char_box(trills*twidth#-0.5toverlap#, trills*twidth#-0.5toverlap#, theight#, theight#);
+	draw_trill_two;
+fet_endchar;
+
+fet_beginchar("mordent", "mordent", "mordent")
+	trills := 2;
+	set_char_box(trills*twidth#-0.5toverlap#, trills*twidth#-0.5toverlap#, theight#, theight#);
+	draw_trill_two;
+	draw_mordent(0);
+fet_endchar;
+
+
+% in modern typesetting, i've seen these double symbols implemented 
+% as three trills rather than the actual double four [gerou and lusk].
+% it looks nicer and i don't think it introduces ambiguity.
+% would like to have more references -- jcn.
+
+fet_beginchar("prallprall", "prallprall", "prallprall")
+	trills := 3;
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
+	draw_trill_three;
+	draw_mordent(twidth);
+fet_endchar;
+
+fet_beginchar("prallmordent", "prallmordent", "prallmordent")
+	trills := 3;
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
+	draw_trill_three;
+	draw_mordent(twidth-toverlap);
+fet_endchar;
+
+input feta-sleur;
+
+fet_beginchar("upprall", "upprall", "upprall")
+%	trills := 4;
+	trills := 3;
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
+	draw_slur(-2twidth#,-2theight#,-1);
+	currentpicture := currentpicture shifted (-0.5w+1.5tthin,-tfat*theight);
+%	draw_trill_four;
+	draw_trill_three;
+fet_endchar;
+
+fet_beginchar("downprall", "downprall", "downprall")
+	trills := 3;
+	set_char_box(trills*twidth#-(trills-1)*0.5toverlap#, trills*twidth#-(trills-1)*0.5toverlap#, theight#, theight#);
+	draw_slur(-2twidth#,2theight#,1);
+	currentpicture := currentpicture shifted (-0.5w+1.5tthin,-tfat*theight);
+	draw_trill_three;
+fet_endchar;
+

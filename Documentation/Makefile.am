@@ -1,6 +1,4 @@
-# Automatically generated from ./lilypond-0.1.49/Documentation/Makefile.am.wild by bin/autowild
-# Do not edit
-# Documentation/Makefile.am.wild
+# Generated automatically by wild-perl 0.1# Documentation/Makefile.am.wild
 
 DOCFILES = introduction.doc mudela-course.doc mudela-man.doc
 PODFILES = AUTHORS.pod CodingStyle.pod INSTALL.pod MANIFESTO.pod PATCHES.pod convert-mudela.pod faq.pod gnu-music.pod index.pod internals.pod language.pod lilypond.pod links.pod literature.pod ly2dvi.pod mi2mu.pod mudela-book.pod mutopia.pod other-packages.pod
@@ -22,11 +20,17 @@ default: all $(TEXTFILES)
 
 outdir = .
 
-install-data: $(outdir)/lilypond.1
+install-data-hook: $(MAN1GROFF)
 	$(INSTALL) -d $(mandir)/man1
 	$(INSTALL) -m 644 $(MAN1GROFF) $(mandir)/man1
 
-uninstall-data:
+uninstall-hook:
 	(cd  $(mandir)/man1/; rm -f $(MAN1GROFF))
 
-include Rules.make
+html: $(HTMLFILES)
+
+clean-hook:
+	rm $(TEXTFILES) $(MAN1GROFF)
+
+$(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

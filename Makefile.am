@@ -1,13 +1,6 @@
-# Automatically generated from ./lilypond-0.1.49/Makefile.am.wild by bin/autowild
-# Do not edit
-########################################################
-# project  LilyPond -- the musical typesetter
+# Generated automatically by wild-perl 0.1
 # title	   top level makefile for LilyPond  
 # file	   Makefile.am.wild
-#
-# Copyright (c) 1997 by    
-#   	Jan Nieuwenhuizen <jan@digicash.com>
-#	Han-Wen Nienhuys <hanwen@stack.nl>
 
 SUBDIRS = bin flower lib lily mf mi2mu debian\
  	Documentation init input tex make mutopia
@@ -18,8 +11,6 @@ README_FILES = BUGS DEDICATION ANNOUNCE-0.1 ANNOUNCE \
  INSTALL AUTHORS PATCHES
 EXTRA_DIST = Makefile.am.wild .dstreamrc mudela-mode.el acinclude.m4 VERSION $(README_FILES) $(SCHRIFTEN)
 
-dist-hook:
-	bin/autowild
 
 INSTALL:
 	rm -f INSTALL
@@ -33,3 +24,7 @@ PATCHES:
 	rm -f PATCHES
 	ln `$(FIND) ./ -name PATCHES.txt -print | head -1` $@
 
+
+
+$(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
+	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

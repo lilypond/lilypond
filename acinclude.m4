@@ -37,7 +37,7 @@ AC_DEFUN(AC_TEX_PREFIX, [
     find_texprefix="$find_root_prefix/$find_texpostfix"
 
     # only assign if variablename not empty
-    if test x != "x$1"; then
+    if test x != "x[$]$1"; then
     	$1='${prefix}'/"$find_texpostfix"
     fi
     AC_MSG_RESULT($find_texprefix)

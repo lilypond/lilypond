@@ -63,7 +63,7 @@ usage \n\
 Patches do not contain automatically generated files, \n\
 i.e. you should rerun configure\n\n'
 
-pats = ['*.lsm', 'configure', '*.txt', 'lilypond.spec']
+pats = ['*.lsm', 'configure', '*.txt', 'lilypond.spec', 'Makefile.am', 'Makefile.in', 'lexer.cc', 'parser.cc']
 def remove_automatic(dirnames):
     files = []
     files = files + multiple_find(pats, dirnames)

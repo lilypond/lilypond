@@ -12,11 +12,12 @@ bin_PROGRAMS = mi2mu
 
 mi2mu_SOURCES = $(wildcard *.cc)
 
-mi2mu_LDADD = -llily -lflower
+# ugh -lfl bo lib/FlexLexer stuff
+mi2mu_LDADD = -llily -lflower -lfl
 
-mi2mu_LDFLAGS = -L../lib -L../flower
+mi2mu_LDFLAGS = -L$(LILYPOND_SOURCEDIR)/lib/.libs -L$(LILYPOND_SOURCEDIR)/flower/.libs
 
-INCLUDES = -Iinclude -I../lib/include -I../flower/include
+INCLUDES = -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include
 
 EXTRA_DIST = Makefile.am.wild VERSION TODO
 
