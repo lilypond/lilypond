@@ -17,83 +17,83 @@
 CL *						\
 unsmob_ ## name ( SCM s)			\
 {						\
-  if (SMOB_IS_TYPE_B(CL, s))			\
-    return SMOB_TO_TYPE(CL, s);			\
-  else						\
-    return 0;					\
-}\
-SCM smobify (CL *cl)\
-{\
-  SCM s;								\
-									\
-  SCM_NEWCELL(s);							\
-  SCM_SETCAR(s,CL::smob_tag_);						\
-  SCM me_s = SCM_PACK(cl);							\
-  SCM_SETCDR (s, me_s); \
-return s;\
-}\
+return  CL::unsmob (s);				\
+}
 
 
-/*
-  should include equal_p ? 
- */
-#define IMPLEMENT_SMOBS(CL)\
-long CL::smob_tag_;\
-void									\
-CL::init_smobs ()							\
-{									\
-  smob_tag_ = scm_make_smob_type_mfpe ( \
-     #CL, 0, CL::mark_smob, CL::free_smob, CL::print_smob, 0);\
-}\
-									\
-									 \
-void									 \
-CL::unsmobify_self ()							 \
-{									 \
-  SCM s = self_scm_;							 \
-  scm_unprotect_object (s);						 \
-  									 \
-  SCM_SETCAR (self_scm_, SCM_EOL); \
-  SCM_SETCDR (self_scm_, SCM_EOL); \
-  self_scm_ = SCM_EOL;							 \
-\
-  scm_done_malloc ( - sizeof (CL));\
-}									 \
-\
-SCM									\
-CL::smobify_self ()							\
-{									\
-  if (self_scm_ != SCM_EOL)						\
-    return self_scm_;							\
-									\
-  /*									\
-    This is local. We don't assign to self_scm_ directly, to assure	\
-    that S isn't GC-ed from under us.					\
-   */									\
-  SCM s = smobify (this); \
-  self_scm_ = s;							\
-  scm_protect_object (s);						\
-									\
-  scm_done_malloc(sizeof(CL));\
-  do_smobify_self();							\
-  return s;					\
-}						\
-scm_sizet					\
-CL::free_smob (SCM ses)				\
+#ifndef SCM_CELL_TYPE
+#define SCM_CELL_TYPE(X) SCM_CAR(X)
+#endif
+
+#ifndef SCM_CELL_WORD_1
+#define SCM_CELL_WORD_1(X) SCM_CDR(X)
+#endif
+
+
+#define IMPLEMENT_SIMPLE_SMOBS(CL)				\
+long CL::smob_tag_;						\
+void								\
+CL::init_smobs ()						\
+{								\
+  smob_tag_ = scm_make_smob_type_mfpe (				\
+     #CL, 0, CL::mark_smob, CL::free_smob, CL::print_smob, 0);	\
+}								\
+SCM CL::smobbed_self () const					\
+{								\
+  SCM s;							\
+  s = gh_cons (SCM_PACK(CL::smob_tag_), SCM_PACK(this));	\
+  scm_done_malloc(sizeof(CL));					\
+								\
+  return s;							\
+}								\
+CL *								\
+CL::unsmob (SCM s)						\
+{								\
+  if (SCM_NIMP(s) && SCM_CELL_TYPE(s) == smob_tag_)		\
+    return (CL*) SCM_CELL_WORD_1(s);				\
+  else								\
+    return 0;							\
+}								\
+scm_sizet							\
+CL::free_smob (SCM ses)						\
+{								\
+  CL * s = (CL*) SCM_CDR(ses);					\
+   delete s;							\
+  return sizeof (CL);						\
+}								\
+ADD_SCM_INIT_FUNC(CL, CL::init_smobs)
+
+#define IMPLEMENT_SMOBS(CL)							\
+IMPLEMENT_SIMPLE_SMOBS(CL)							\
+SCM										\
+CL::smobify_self ()								\
+{										\
+  /*										\
+    This is local. We don't assign to self_scm_ directly, to assure		\
+    that S isn't GC-ed from under us.						\
+										\
+    We don't use smobbed_self () to ensure that mark_smob () doesn't have to	\
+    deal half-initialized objects: scm_done_malloc( ) might trigger GC.		\
+    the warning in smobs.hh is just to be doubleplus goodly sure		\
+   */										\
+  SCM s;										\
+  SCM_NEWCELL(s);								\
+  SCM_SETCAR(s,CL::smob_tag_);							\
+  SCM_SETCDR (s, SCM_PACK(this));						\
+  self_scm_ = s;								\
+ scm_done_malloc(sizeof(CL));							\
+  scm_protect_object (s);							\
+  return s;									\
+}
+
+#define IMPLEMENT_DEFAULT_EQUAL_P(CL)		\
+SCM						\
+CL::equal_p (SCM a , SCM b)			\
 {						\
-  CL * s = (CL*) SCM_CDR(ses);			\
-  /* someone else did the deed already; this might be an automatic var.*/ \
-  if (s->self_scm_ != ses)\
-     return 0; \
-\
- /* no need to call scm_unprotect_object, since this call \
-    implies that the object is not protected. */ \
-  SCM_SETCAR (ses, SCM_EOL); \
-  delete s;\
-  return sizeof (CL);\
-} \
-ADD_SCM_INIT_FUNC(CL, CL::init_smobs)\
+  return a == b ? SCM_BOOL_T : SCM_BOOL_F;	\
+}
 
 
 #endif /* LY_SMOBS_ICC */
+
 
