@@ -2,7 +2,10 @@
    path.cc - manipulation of paths and filenames.
 */
 
+
 #include <stdio.h>
+#include <errno.h>
+#include <sys/stat.h>
 
 #include "config.h"
 #include "file-path.hh"
@@ -98,6 +101,17 @@ File_path::find (String nm) const
       path += nm;
 
       DEBUG_OUT << path << "? ";
+
+      /*
+	Check if directory. TODO: encapsulate for autoconf
+       */
+      struct stat sbuf;
+      if (stat (path.ch_C(), &sbuf) == ENOENT)
+	continue;
+      
+      if (!(sbuf.st_mode & __S_IFREG))
+	continue;
+
       FILE *f = fopen (path.ch_C(), "r"); // ugh!
       if (f)
 	{

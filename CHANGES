@@ -1,3 +1,32 @@
+1.3.89.jcn1
+===========
+
+* Changed lilypond to LilyPond in ly2dvi, Mudela to LilyPond source.
+
+* Website fixes: Changed \interline to \staffspace in manual, removed offending
+  braces from mudela-book.tely.
+
+* Fixed slur attachment correction bug.
+
+* Made some fixes to Coriolan.
+
+1.3.89.hwn1
+===========
+
+* Only open files, not directories 
+
+* bugfix: textNonEmpty.
+
+* Look ahead in auto-change iterator for rests. This means rests
+before the note leading to an automatic staff switch are switched as
+well (improves the looks of scarlatti-test).  Associated fixes and
+additions for  Music_iterator::skip () and friends.
+
+* Bugfix: only quantise staccato inside the staff. 
+
+* cleanups for beam and stem. Removed global GUILE namespace calls
+from Beam and Stem.
+
 1.3.89
 ======
 
