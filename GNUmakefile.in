@@ -35,15 +35,7 @@ doc:
 
 pfa-fonts:
 	$(MAKE) MAKE_PFA_FILES=1 -C mf
-ifeq (0,1)
-	# the font ball; used for 1.8.0
-	(cd $(builddir)/share/lilypond/fonts && \
-		tar czvf ../../../$(outbase)/type1.tar.gz type1/*.pfa type1/fonts.* type1/lilypond.* )
-else
-	# the new font ball; to be used for for 1.8.1
-	(cd $(builddir)/share/lilypond && \
-		tar czvf ../../$(outbase)/type1-$(TOPLEVEL_VERSION).tar.gz fonts/type1/*.pfa fonts/type1/fonts.* dvips/*.map )
-endif
+# don't make fontball - we have binary packages for that.
 
 web-install: 
 	-$(INSTALL) -m 755 -d $(webdir) 
@@ -87,7 +79,7 @@ ALL-TAGS:
 web-clean:
 	$(SHELL) $(buildscript-dir)/clean-fonts.sh
 	$(MAKE) out=www clean
-
+	$(MAKE) $(builddir)/share/lilypond-force
 
 
 default: $(config_h) builddir-setup

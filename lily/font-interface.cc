@@ -130,30 +130,16 @@ Font_interface::get_font (Grob *me, SCM chain)
   return fm;
 }
 
-SCM
-Font_interface::add_style (Grob* me, SCM style, SCM chain)
-{
-  assert (gh_symbol_p (style));
-      
-  SCM style_alist = me->get_paper ()->lookup_variable (ly_symbol2scm ("style-alist"));
-  SCM entry = scm_assoc (style, style_alist);
-  if (gh_pair_p (entry))
-    {
-      chain = gh_cons (ly_cdr (entry), chain);
-    }
-  return chain;
-}
-
 /*
-SCM routines:  
+SCM routines for looking up fonts.
 
-Interpreting music...
-MIDI output to wtk1-fugue2.midi...
-Track ... 
+wtk-fugue2, SCM:
 
 real	0m31.862s
 user	0m29.110s
 sys	0m0.260s
+
+wtk-fugue2, C++:
 
 real	0m26.964s
 user	0m24.850s

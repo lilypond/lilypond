@@ -53,7 +53,7 @@ for the reader.
 ;;
 
 (define-public (simple-markup grob props . rest)
-  (Text_item::text_to_molecule grob props (car rest)))
+  (Text_item::interpret_markup grob props (car rest)))
 
 (define-public (stack-molecule-line space molecules)
   (if (pair? molecules)
@@ -686,28 +686,11 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
   ))
 
 
-(define-public (brew-new-markup-molecule grob)
-  (let*
-      ((t (ly:get-grob-property grob 'text))
-       (chain (Font_interface::get_property_alist_chain grob)))
-    (if (markup? t)
-	(interpret-markup grob chain t)
-	(Text_item::text_to_molecule grob chain t)
-	)))
+(define-public brew-new-markup-molecule Text_item::brew_molecule)
 
 (define-public empty-markup (make-simple-markup ""))
 
-(define-public (interpret-markup grob props markup)
-  (if (string? markup)
-      (simple-markup grob props markup)
-      (let*
-	  (
-	   (func (car markup))
-	   (args (cdr markup))
-	   )
-	
-	(apply func (cons grob (cons props args)) )
-	)))
+(define-public interpret-markup Text_item::interpret_markup)
 
 
 ;;;;;;;;;;;;;;;;

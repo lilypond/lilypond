@@ -86,11 +86,9 @@ Text_spanner::brew_molecule (SCM smob)
 	  
 	  SCM text = index_get_cell (edge_text, d);
 
-	  /*
-	    TODO: use markup.
-	   */
+	  if (Text_item::markup_p (text)) 
+	    edge[d] = *unsmob_molecule (Text_item::interpret_markup (smob, properties, text));
 	  
-	  edge[d] = Text_item::interpret_new_markup (smob, properties, text);
 	  if (!edge[d].empty_b ())
 	    edge[d].align_to (Y_AXIS, CENTER);
 	}

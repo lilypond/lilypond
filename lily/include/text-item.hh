@@ -19,19 +19,14 @@ class Text_item
 {
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
-  DECLARE_SCHEME_CALLBACK (text_to_molecule, (SCM,SCM, SCM));
-  static Molecule text2molecule (Grob *me, SCM text, SCM properties);
-  static Molecule string2molecule (Grob *me, SCM text, SCM properties);
-  static Molecule markup_text2molecule (Grob *me, SCM markup_text, SCM properties);
+  DECLARE_SCHEME_CALLBACK (interpret_markup, (SCM,SCM, SCM));
   static bool has_interface (Grob*);
-  static Molecule interpret_new_markup (SCM grob, SCM achain, SCM markup);
-private:
-  static Molecule lookup_character (Grob *me, Font_metric*, SCM char_name);
-  static Molecule lookup_text (Grob *me, Font_metric*, SCM text);
+  static bool markup_p (SCM) ;
+
 };
 
-bool new_markup_p (SCM) ;
-SCM new_markup_brewer ();
+
+  
 
 
 #endif /* TEXT_ITEM */
