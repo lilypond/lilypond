@@ -1748,7 +1748,11 @@ def conv (str):
 	if re.search (r'\\partcombine', str):
 		sys.stderr.write ('Warning: \\partcombine has been changed. '
 				  +'Check conversion manually!')
-	
+
+		raise FatalConversionError()
+
+	# this rule doesn't really work,
+	# too lazy to figure out why.
 	str = re.sub (r'\\context\s+Voice\s*=\s*one\s*\\partcombine\s+Voice\s*\\context\s+Thread\s*=\s*one(.*)\s*'
 		      + r'\\context\s+Thread\s*=\s*two',
 		      '\\\\newpartcombine\n\\1\n', str)

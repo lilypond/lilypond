@@ -110,7 +110,6 @@ paperTwentysix = \paper {
 
 \paper { \paperTwenty }
 
-
 partCombineListener = \paper {
  \translator {
 	  \VoiceContext
