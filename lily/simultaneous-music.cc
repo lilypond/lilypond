@@ -43,7 +43,7 @@ Simultaneous_music::to_relative_octave (Pitch p)
 
   if (count && first != last)
     {
-      String str = _("Changing relative definition causes pitch change.");
+      String str = _("Changing relative definition may cause octave change.");
       str += "\nWas: " +  first.to_string ()
 	+ " -- now returning: " + last.to_string () + "\n";
       
