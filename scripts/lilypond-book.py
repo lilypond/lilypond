@@ -1015,9 +1015,9 @@ def fix_epswidth (chunks):
 	for c in chunks:
 		if c[0] == 'lilypond' and 'eps' in c[2]:
 			body = re.sub (r"""\\lilypondepswidth{(.*?)}""", find_eps_dims, c[1])
-			# why do we junk opts, todo, basename?
-			new_chunk = (('lilypond', body))
-		newchunks.append (c)
+			newchunks.append(('lilypond', body, c[2], c[3], c[4]))
+		else:
+			newchunks.append (c)
 	return newchunks
 
 
