@@ -22,7 +22,7 @@
 @author    
 
 
-Copyright @copyright{} 1999--2001 by the authors
+Copyright @copyright{} 1999--2002 by the authors
 
   Permission is granted to copy, distribute and/or modify this document
   under the terms of the GNU Free Documentation License, Version 1.1
@@ -74,17 +74,14 @@ this and other documentation.
 @menu
 * Preface::                        Preface.
 * Introduction::                   What, Why, How.
-* Tutorial::                       A tutorial introduction to LilyPond.
+* Tutorial::                       A tutorial introduction to
+LilyPond.
 * Reference Manual::               Reference Manual.
+* Advanced Topics::                      How it all works.
 * Invoking LilyPond::              Operation.
-* Titling LilyPond scores::        Generating nice output with titles
-                                     using ly2dvi.
-* Upgrading from older LilyPond versions::
-                                     Upgrading input files.
-* Importing other formats::        Converting to lilypond source format.
+* Converting from other formats::        Converting to lilypond source format.
 * Merging text and music with lilypond-book::
                                    The lilypond-book manual.
-* Internals::                      How it all works.
 * Literature::                     Additional reading material.
 * Index::                          Unified index.
 * Refman appendix::
@@ -103,7 +100,6 @@ this and other documentation.
 @mbinclude internals.itely
 @mbinclude invoking.itexi
 @mbinclude ly2dvi.itexi
-@mbinclude convert-ly.itexi
 @mbinclude lilypond-book.itely
 @mbinclude converters.itely
 @mbinclude literature.itely

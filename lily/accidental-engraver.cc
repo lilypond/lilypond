@@ -87,6 +87,15 @@ public:
 };
 
 
+static void set_property_on_children (Translator_group * trans, const char * sym, SCM val)
+{
+  trans->set_property (sym, val);
+  for (SCM p = trans -> trans_group_list_; gh_pair_p (p); p = ly_cdr(p)) {
+    Translator_group *trg =  dynamic_cast<Translator_group*> (unsmob_translator (ly_car (p)));
+    set_property_on_children(trg,sym,ly_deep_copy(val));
+  }
+}
+
 Accidental_engraver::Accidental_engraver ()
 {
   accidental_placement_ = 0;
@@ -104,7 +113,7 @@ Accidental_engraver::initialize ()
       trans_ -> set_property ("localKeySignature",  ly_deep_copy (last_keysig_));
       trans_ = trans_->daddy_trans_l_;
     }
-  daddy_trans_l_->set_children_property ("localKeySignature", last_keysig_);
+  set_property_on_children (daddy_trans_l_,"localKeySignature", last_keysig_);
 }
 
 /*
@@ -455,7 +464,7 @@ Accidental_engraver::process_music ()
 	  trans_ -> set_property ("localKeySignature",  ly_deep_copy (sig));
 	  trans_ = trans_->daddy_trans_l_;
 	}
-      daddy_trans_l_->set_children_property ("localKeySignature", sig);
+      set_property_on_children(daddy_trans_l_,"localKeySignature", sig);
 
       last_keysig_ = sig;
     }

@@ -13,7 +13,6 @@
 @end macro
 
 
-
 @c .{Reference Manual}
 
 @node Reference Manual
@@ -35,13 +34,13 @@ encouraged to study the tutorial first.
 * Staff notation::              
 * Polyphony::                   
 * Beaming::                     
+* Accidentals::                 
 * Expressive marks::            
 * Ornaments::                   
 * Repeats::                     
 * Rhythmic music::              
 * Piano music::                 
 * Tablatures::                  
-* Lyrics::                      
 * Chords::                      
 * Writing parts::               
 * Ancient notation ::           
@@ -49,9 +48,6 @@ encouraged to study the tutorial first.
 * Page layout::                 
 * Output formats::              
 * Sound::                       
-* Interpretation context::      
-* Syntactic details::           
-* Lexical details::             
 @end menu
 
 @c FIXME: Note entry vs Music entry at top level menu is confusing.
@@ -75,7 +71,6 @@ blocks and @code{\paper} declarations.
 * Ties::                        
 * Automatic note splitting ::   
 * Tuplets::                     
-* Defining pitch names::        
 * Easy Notation note heads ::   
 @end menu
 
@@ -88,7 +83,6 @@ A note is printed by specifying its pitch, and then its duration.
 @lilypond[fragment,verbatim]
   cis'4 d'8 e'16 c'16
 @end lilypond
-The grob for a note head is called @internalsref{NoteHead}.
 
 @c .  {Pitches}
 @node Pitches
@@ -157,10 +151,8 @@ octave; each @code{,} lowers the pitch by an octave.
 @node Chromatic alterations
 @subsection Chromatic alterations
 
-Normally Accidentals signify that the pitch of a note differs from the
-key signature. Normally, they are printed automatically depending, but
-you may force accidentals in the following  ways:
-A reminder accidental
+Normally, accidentals are printed automatically, but you may force
+accidentals in the following ways: A reminder accidental
 @cindex reminder accidental
 @cindex @code{?}
 can be forced by adding an exclamation mark @code{!} after the pitch.  A
@@ -170,10 +162,8 @@ cautionary accidental,
 i.e., an accidental within parentheses can be obtained by adding the
 question mark `@code{?}' after the pitch.
 
-Each accidental symbol is an @internalsref{Accidental} grob. The
-placement of accidentals is handled by
-@internalsref{AccidentalPlacement}.
-
+The automatic production of accidentals can be tuned in many
+ways. Refer to @ref{Accidentals} for more information.
 
 @c .  {Rests}
 @node  Rests
@@ -186,8 +176,8 @@ A rest is entered like a note, with note name `@code{r}':
 r1 r2 r4 r8
 @end lilypond
 
-The grob is @internalsref{Rest}. Whole bar rests centered in the bar are
-specified using @code{R}, see @ref{Multi measure rests}.
+Whole bar rests centered in the bar are specified using @code{R}, see
+@ref{Multi measure rests}. See also @seeinternals{Rest}.
 
 For polyphonic music, it can be convenient to specify the rest position
 directly. You can do that by entering a note, with the keyword
@@ -251,12 +241,6 @@ produce any output, not even transparent output.
 @cindex duration
 @cindex @code{\duration}
 
-The syntax for a verbose duration specification is
-@example
- \duration @var{scmduration}
-@end example
-Here, @var{scmduration} is a Scheme object of type @code{Duration}.
-
 
 In Note, Chord, and Lyrics mode, durations may be designated by numbers
 and dots: durations are entered as their reciprocal values.  For notes
@@ -307,7 +291,10 @@ You can alter the length of duration by a fraction @var{N/M} by
 appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}). This
 will not affect the appearance of the notes or rests produced.
 
-
+Durations can also be produced through GUILE extension mechanism. 
+@lilypond[verbatim,fragment]
+ c\duration #(make-duration 2 1)
+@end lilypond
 
 
 @node Ties
@@ -347,19 +334,20 @@ exactly the same concept.
 Ties should not be confused with slurs, which indicate articulation,
 and phrasing slurs, which indicate musical phrasing.
 
-The name of the tie grob is @internalsref{Tie}, and it is created in the
-@internalsref{Voice} context.
+See also  @seeinternals{Tie}.
+
 
 @refbugs
 
-At present, the tie is implemented as a separate thing, temporally
-located in between the notes. 
-Tieing only a subset of the note heads of a chord is not supported in a
-simple way.  It can be achieved by moving the tie-engraver into the Thread
-context and turning on and off ties per Thread.
+At present, the tie is represented as a separate event, temporally
+located in between the notes.  Tieing only a subset of the note heads
+of a chord is not supported in a simple way.  It can be achieved by
+moving the tie-engraver into the Thread context and turning on and off
+ties per Thread.
 
 @node Automatic note splitting 
 @subsection Automatic note splitting
+@c FIXME: This subsection doesn't belong in @ref{Note entry}.
 
 There is a facility for automatically converting long notes to  tied
 notes. This is done by replacing the @code{Note_heads_engraver} by the
@@ -378,9 +366,9 @@ notes. This is done by replacing the @code{Note_heads_engraver} by the
 @end lilypond
 
 This engraver splits all running notes at the bar line, and inserts
-ties. One of the uses of this is, is to debug complex scores: if the
-measures are not entirely filled, then the ties exactly show how much
-each measure is off.
+ties. One of its uses is to debug complex scores: if the measures are
+not entirely filled, then the ties exactly show how much each measure
+is off.
 
 @refbugs
 
@@ -427,52 +415,16 @@ denominator, but if you set it to the Scheme function
 @code{fraction-tuplet-formatter}, Lilypond will print @var{num}:@var{den}
 instead.
 
-@c todo: junk this?
-
-The typesetting of brackets and numbers is controlled by the properties
-@code{bracket-visibility} and @code{number-visibility}.  These
-properties can either be @code{#f}, @code{#t} or @code{'if-no-beam},
-meaning respectively off, on, and on if there is no beam. 
-
-@lilypond[fragment,  relative, singleline, verbatim]
-\property Voice.TupletBracket \set #'bracket-visibility = ##t
-\times 2/3{c'8 d e} \times 2/3{d4 e8} 
-\property Voice.TupletBracket \set #'bracket-visibility = #'if-no-beam
-\times 2/3{c d e} \times 2/3{d4 e8} 
-\property Voice.TupletBracket \set #'bracket-visibility = ##f
-\times 2/3{c d e} \times 2/3{d4 e8}
-\property Voice.TupletBracket \set #'number-visibility = ##f
-\times 2/3{c d e} \times 2/3{d4 e8}
-\property Voice.TupletBracket \set #'number-visibility = #'if-no-beam
-\times 2/3{c d e} \times 2/3{d4 e8}
-@end lilypond
 
 @cindex @code{tupletNumberFormatFunction}
 @cindex tuplet formatting 
 
-Tuplet brackets are printed as @internalsref{TupletBracket} grobs in
-the @internalsref{Voice} context.
+See also @seeinternals{TupletBracket}.
 
-@c .  {Defining pitch names}
-@node Defining pitch names
-@subsection Defining pitch names
+@refbugs
 
-@cindex defining pitch names
-@cindex pitch names, defining 
-
-Note names and chord modifiers can be customized for nationalities.  The
-syntax is as follows.
-
-@cindex @code{\pitchnames}
-@cindex @code{\chordmodifiers}
-@example
-   \pitchnames @var{scheme-alist}
-   \chordmodifiers @var{scheme-alist}
-@end example
-
-See @file{ly/nederlands.ly} and @file{ly/chord-modifiers-init.ly} for
-specific examples on how to do this.
-
+Nested tuplets are not formatted automatically. In this case, outer
+tuplet brackets should be moved automatically.
 
 @node Easy Notation note heads 
 @subsection Easy Notation note heads
@@ -492,17 +444,17 @@ Hal-Leonard Inc.  music publishers.
 }
 @end lilypond
 
-Note that @internalsref{EasyNotation} overrides a @internalsref{Score} context.  You
+Note that @code{EasyNotation} overrides a @internalsref{Score} context.  You
 probably will want to print it with magnification to make it more
-readable, see @ref{Output scaling}.
+readable.
 
 
 @cindex Xdvi
 @cindex ghostscript
 
-If you view the result with Xdvi, then staff lines will show through the
-letters.  Printing the postscript file obtained either by using dvips or
-the @code{-f ps} option of lilypond produces the correct result.
+If you view the result with Xdvi, then staff lines will show through
+the letters.  Printing the postscript file obtained with ly2dvi does
+produce the correct result.
 
 
 @node Easier music entry
@@ -591,7 +543,7 @@ additional @code{\relative} inside the @code{\transpose}.
 @cindex Bar check
 
 @cindex bar check
-@cindex @code{barCheckNoSynchronize}
+@cindex @code{barCheckSynchronize}
 @cindex @code{|}
 
 
@@ -615,8 +567,7 @@ durations. Incorrect durations often completely garble up the score,
 especially if it is polyphonic, so you should start correcting the score
 by scanning for failed bar checks and incorrect durations.  To speed up
 this process, you can use @code{skipTypesetting} (See @ref{Skipping
-corrected music})). Bar
-
+corrected music})). 
 
 @c .  {Point and click}
 @node Point and click
@@ -636,18 +587,16 @@ Xdvi} version 22.36 or newer.
   Note that most @TeX{} distributions ship with xdvik, which is a
   different and less well maintained program. To find out which xdvi you
   are running, try @code{xdvi --version} or @code{xdvi.bin --version}.
-@item emacs
+@item Emacs. Emacs is an extensible text-editor It is available from
+@uref{http://www.gnu.org/software/emacs/}. You need version 21 to use
+column location.
 @end itemize
 
-Xdvi must be configured to find the TeX fonts and music
+Xdvi must be configured to find the @TeX{} fonts and music
 fonts. Refer to the Xdvi documentation for more information.
 
-
 To use point-and-click, add one of these lines to the top of your .ly
-file. The first one is for line location only. The second one is more
-convenient, but requires patching @code{emacsclient} and
-@code{server.el}.
-
+file.
 @example
 #(set! point-and-click line-location)
 @end example
@@ -657,49 +606,33 @@ In the emacs startup file (usually @file{~/.emacs}), add the following
 (server-start)
 @end example
 
-Make sure that  the environment  variable @code{XEDITOR} is set
-to
+Make sure that the environment variable @code{XEDITOR} is set to
 @example
 emacsclient --no-wait +%l %f
 @end example
-The second one, that also specifies the column, only works if you have
-patched your emacsclient and server, and have compiled your @code{.ly}
-file using the @code{line-column-location} setting.
 
-When viewing, control-mousebutton 1 will take you to the originating
-spot in the @file{.ly} file. Control-mousebutton 2 will show all
+When viewing, Control-Mousebutton 1 will take you to the originating
+spot in the @file{.ly} file. Control-Mousebutton 2 will show all
 clickable boxes.
 
-If you want emacs to jump to the exact spot (and not just the line) on a
-click, you must enable column positioning. To do so, you need to patch
-emacsclient. Apply @file{emacsclient.patch} (included with the source
-package) to @file{emacsclient.c} and @file{server.el} from the emacs
-source code. Recompile and stick the recompiled emacsclient into a bin
-directory, and put @file{server.el} into a elisp directory
-(e.g. @file{~/usr/share/emacs/}). Add the following to your
-@file{.emacs} init file, before invoking server-start.
-
-@example
- (setq load-path (cons "~/usr/share/emacs" load-path))
-@end example
-
-Set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}
-
-At the top of the @code{ly} file, replace the @code{set!} line with the
-following line
+If you use Emacs version 21, then you can make emacs jump to the exact
+spot (and not just the line) on a click, you must enable column
+positioning.  At the top of the @code{ly} file, replace the
+@code{set!} line with the following line
 @example
 #(set! point-and-click line-column-location)
 @end example
+Set @code{XEDITOR} to @code{emacsclient --no-wait +%l:%c %f}.
 
-One final hint: if you correct large files with point-and-click, then
-start correcting at the end of the file. When you start at the top, and
-insert one line, all subsequent locations will be off by a line.
+If you correct large files with point-and-click, be sure to start
+correcting at the end of the file. When you start at the top, and
+insert one line, all following locations will be off by a line.
 
 
 @refbugs
 
 When you convert the @TeX{} file to PostScript using @code{dvips}, it
-will complain about not finding @code{src:X:Y} files. Those complaints
+will complain about not finding @code{src:X:Y} files. These complaints
 are harmless, and can be ignored.
 
 @node Skipping corrected music
@@ -724,6 +657,9 @@ c d b bes a g c2 }
 
 @node Staff notation
 @section Staff notation
+
+This section deals with music notation that occurs on staff level,
+such as keys, clefs and time signatures.
 
 @cindex Staff notation
 
@@ -822,23 +758,10 @@ name. For example,
 The grob for this symbol is @internalsref{Clef}. 
 
 
-The full syntax for this command is 
-@example
-  \clef @var{clefname}
-@end example
-where @var{clefname} is a string. This command is a shortcut for
-@example
-  \property Staff.clefGlyph = @var{glyph associated with clefname} 
-  \property Staff.clefPosition = @var{clef Y-position for clefname}
-  \property Staff.centralCPosition = @var{position for central C} 
-  \property Staff.clefOctavation = @var{extra transposition of clefname}
-@end example
-Upon any change in these properties lilypond creates a clef
-symbol. The mapping from @var{clefname} to the property values can be
-found in @file{scm/clef.scm}
-
-
-
+This command is equivalent to setting @code{clefGlyph},
+@code{clefPosition} (which controls the Y position of the clef),
+@code{centralCPosition} and @code{clefOctavation}. A clef is created
+when any of these properties are changed.
 
 
 @c .  {Time signature}
@@ -854,40 +777,22 @@ command.
  \time 2/4 c'2 \time 3/4 c'2. 
 @end lilypond
 
-The actual symbol that's printed can be customized with the style
-property.
-@lilypond[fragment, verbatim, singleline]
-\time 3/4 s2
-\property Staff.TimeSignature \override #'style = #'C
-\time 4/4 s2
-\property Staff.TimeSignature \override #'style = #'()
-\time 4/4 s2
-\property Staff.TimeSignature \override #'style = #'C
-\time 2/2 s2
-@end lilypond
+The actual symbol that's printed can be customized with the @code{style}
+property. Setting it to @code{#'()} uses fraction style for 4/4 and
+2/2 time.
+
 
 The grob for this symbol is @internalsref{TimeSignature}.  There are
 many more options for its layout. They are selected through the
 @code{style} grob property. See @file{input/test/time.ly} for more
 examples.
 
-
-The full syntax for this command is
-@example
-  \time @var{n}@code{/}@var{d} 
-@end example
-where @var{n} and @var{d} are integers. This command is internally
-translated, to the following:
-@example
-\property Score.timeSignatureFraction = #'(@var{n} . @var{d})
-\property Score.beatLength = #(make-moment 1 @var{d})
-\property Score.measureLength = #(make-moment @var{n} @var{d})
-@end example
-
-The property @code{timeSignatureFraction} determine where bar lines
-should be inserted, and how automatic beams should be generated.
-Changing the value of @code{timeSignatureFraction} also causes a
-fraction to be printed. 
+This command sets the property @code{timeSignatureFraction},
+@code{beatLength} and @code{measureLength}.  The property
+@code{timeSignatureFraction} determine where bar lines should be
+inserted, and how automatic beams should be generated.  Changing the
+value of @code{timeSignatureFraction} also causes a time signature
+symbol to be printed.
 
 @c .   {Partial}
 @subsection Partial
@@ -902,7 +807,7 @@ fraction to be printed.
 Partial measures, for example in upbeats, are entered using the
 @code{\partial} command:
 @lilypond[fragment,verbatim]
-\partial 4* 5/16  c'16 c8. f16 a'2. ~ a'8. a'16 | g'1
+\partial 4* 5/16  c'16 c4 f16 a'2. ~ a'8. a'16 | g'1
 @end lilypond
 
 The syntax for this command is 
@@ -922,21 +827,20 @@ indicating how much of the measure has passed at this point.
 @subsection Unmetered music
 
 Bar lines and bar numbers are calculated automatically. For unmetered
-music (e.g. cadenzas), this is not desirable. The property
-@code{Score.timing} can be used to switch off this automatic timing
+music (e.g. cadenzas), this is not desirable.  The commands
+@code{\cadenzaOn} and @code{\cadenzaOff} can be used to switch off the
+timing information:
 
 @lilypond[fragment,relative,singleline,verbatim]
 c'2.
-\property Score.timing = ##f
+\cadenzaOn
 c2
-\property Score.timing = ##t
+\cadenzaOff
 c4 c4 c4 
 @end lilypond
 
-The identifiers @code{\cadenzaOn} and @code{\cadenzaOff} can be used as
-shortcuts.
-
-
+The property @code{Score.timing} can be used to switch off this
+automatic timing
 
 @c .   {Bar lines}
 @node Bar lines
@@ -947,10 +851,9 @@ shortcuts.
 @cindex measure lines
 @cindex repeat bars
 
-Bar lines are inserted automatically by, but if you need a special
-types of barline, you can force one using the @code{\bar} command:
-@lilypond[fragment,verbatim]
-  c4 \bar "|:" c4
+Bar lines are inserted automatically, but if you need a special type
+of barline, you can force one using the @code{\bar} command:
+@lilypond[fragment,verbatim] c4 \bar "|:" c4
 @end lilypond
 
 The following bar types are available
@@ -984,21 +887,8 @@ top level, and they are connected between different staffs of a
 The grobs that are created at @internalsref{Staff} level. The name is
 @internalsref{BarLine}.
 
-The full syntax for this command is  
-@example
-  \bar @var{bartype}
-@end example
-where @var{bartype} is a string. This is a shortcut for doing
-@example
-  \property Score.whichBar = @var{bartype} 
-@end example
-
-
-@cindex Bar_line_engraver
-@cindex whichBar
-@cindex repeatCommands
-@cindex defaultBarType
-
+The command @code{\bar @var{bartype}} is a short cut for
+doing  @code{\property Score.whichBar = @var{bartype}}
 Whenever @code{whichBar} is set to a string, a bar line of that type is
 created.  @code{whichBar} is usually set automatically: at the start of
 a measure it is set to @code{defaultBarType}. The contents of
@@ -1008,32 +898,37 @@ a measure it is set to @code{defaultBarType}. The contents of
 @code{\bar  }.  These settings take precedence over the automatic
 @code{whichBar} settings. 
 
+
+@cindex Bar_line_engraver
+@cindex whichBar
+@cindex repeatCommands
+@cindex defaultBarType
+
+
+
 @c .   {Polyphony}
 @node Polyphony
 @section Polyphony
 @cindex polyphony
 
-Polyphonic parts, i.e. parts with more than one voice on a staff can be
-typeset with LilyPond.
-
-The easiest way to enter such fragments, is the Scheme function
-@code{voicify-music}. It will split chords using the separator
-@code{\\}, to make multiple voices.  You can use it for small,
-short-lived voices (make a chord of voices) or for single chords:
+The easiest way to enter such fragments with more than one voice on a
+staff is to split chords using the separator @code{\\}.  You can use
+it for small, short-lived voices (make a chord of voices) or for
+single chords:
 
 @lilypond[verbatim,fragment]
-\context Voice = VA \apply #voicify-music \relative c'' {
+\context Voice = VA \relative c'' {
  c4 < { f d e  } \\ { b c2 } > c4 < g' \\ b, \\  f \\ d >
 }
 @end lilypond
 
-The function @code{voicify-music} instantiates @internalsref{Voice}
-contexts, bearing the names @code{"1"}, @code{"2"}, etc.
+The separator causes @internalsref{Voice} contexts to be instantiated,
+bearing the names @code{"1"}, @code{"2"}, etc.
 
-To explicity typeset polyphonic music, instantiate a separate Voice
-context for each part, and use @code{\voiceOne}, up to
-@code{\voiceFour} to assign a stem directions and horizontal shift for
-each part.
+Sometimes, it is necessary to instantiate these contexts by hand: For
+Instantiate a separate Voice context for each part, and use
+@code{\voiceOne}, up to @code{\voiceFour} to assign a stem directions
+and horizontal shift for each part.
 @c
 
 @lilypond[singleline, verbatim]
@@ -1069,7 +964,7 @@ horizontal shifts and stem directions, as is shown  in the following example:
 Normally, note heads with a different number of dots are not merged, but
 if you set the grob property @code{merge-differently-dotted}, they are:
 @lilypond[verbatim,fragment,singleline]
-\apply #voicify-music < {
+\context Voice < {
      g'8 g'8 
      \property Staff.NoteCollision \override
         #'merge-differently-dotted = ##t
@@ -1081,7 +976,7 @@ if you set the grob property @code{merge-differently-dotted}, they are:
 Similarly, you can merge half note heads with eighth notes, by setting
 @code{merge-differently-headed}:
 @lilypond[fragment, relative=2,verbatim]
-\apply #voicify-music < {
+\context Voice < {
     c8 c4.
     \property Staff.NoteCollision
       \override #'merge-differently-headed = ##t
@@ -1091,16 +986,10 @@ Similarly, you can merge half note heads with eighth notes, by setting
 LilyPond also vertically shifts rests that are opposite of a stem. 
 
 @lilypond[singleline,fragment,verbatim]
-\context Voice \apply #voicify-music <
- { c''4  } \\  { r4 }
->
+\context Voice < c''4 \\  r4 >
 @end lilypond
 
-Note head collisions (horizontal shifting of note heads) are handled by
-the @internalsref{NoteCollision} grob. @internalsref{RestCollision}
-handles vertical shifting of rests.
-
-
+See also @internalsref{NoteCollision} and @internalsref{RestCollision}
 
 @refbugs
 
@@ -1123,8 +1012,7 @@ If you're not satisfied with the automatic beaming, you can enter the
 beams explicitly. If you have beaming patterns that differ from the
 defaults, you can also set the patterns for automatic beamer.
 
-The beam symbol is @internalsref{Beam} in @internalsref{Voice}
-context, both for automatically created and manual beams.
+See also @internalsref{Beam}.
 
 @c .    {Manual beams}
 @cindex Automatic beams
@@ -1151,7 +1039,7 @@ Normally, beaming patterns within a beam are determined automatically.
 When this mechanism fouls up, the properties
 @code{Voice.stemLeftBeamCount} and @code{Voice.stemRightBeamCount} can
 be used to control the beam subdivision on a stem.  If you set either
-property, it's value will be used only once, and then it is erased.
+property, its value will be used only once, and then it is erased.
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
@@ -1161,36 +1049,34 @@ property, it's value will be used only once, and then it is erased.
 @end lilypond
 @cindex @code{stemRightBeamCount}
 
-@ignore
-TODO: FIXME, we don't want this doc here.
 
- can be tweaked through
-grob-property @code{positions}. The value is a pair.
-specify vertical location of the left and right end point. Both are
-measured in half staff-spaces, and the middle staff line is the value
-of 0.
-
-@li lypond[fragment,relative,verbatim]
-  \property Voice.Beam \set #'position = #
-  \property Voice.Beam \set #'height = #0
-  [a'8 e' d c]
-@end lilyp ond
-
-Here's how you'd specify a weird looking beam that instead of being
-horizontal, falls two staff spaces:
+The property @code{subdivideBeams} can be set in order to subdivide
+all 16th or shorter beams at beat positions.  This accomplishes the
+same effect as twiddling with @code{stemLeftBeamCount} and
+@code{stemRightBeamCount}, but it take less typing.
 
 
-[FIXME]
-
-
-@li lypond[fragment,relative,verbatim]
-  \property Voice.Beam \set #'staff-position = #4
-  \property Voice.Beam \set #'height = #-4
-  [c8 c] 
+@example
+[c16 c c c c c c c]
+\property Voice.subdivideBeams = ##t
+[c16 c c c c c c c]
+[c32 c c c c c c c c c c c c c c c]
+\property Score.beatLength = #(make-moment 1 8)
+[c32 c c c c c c c c c c c c c c c]
+@end example
+@lilypond[]
+\score {
+    \notes \relative c' {
+        [c16 c c c c c c c]
+        \property Voice.subdivideBeams = ##t
+        [c16 c c c c c c c]
+        [c32 c c c c c c c c c c c c c c c]
+        \property Score.beatLength = #(make-moment 1 8)
+        [c32 c c c c c c c c c c c c c c c]
+    }
+}
 @end lilypond
-
-@end ignore
-
+@cindex subdivideBeams
 
 Kneed beams are inserted automatically, when a large gap between two
 adjacent beamed notes is detected. This behavior can be tuned through
@@ -1210,12 +1096,12 @@ the grob property @code{auto-knee-gap}.
 Auto knee beams can not be used together with hara kiri staffs.
 
 @menu
-* Beam typography::             
 * Setting automatic beam behavior ::  
 @end menu
 
-@node Beam typography
-@subsection Beam typography
+@ignore
+@no de Beam typography
+@sub section Beam typography
 
 One of the strong points of LilyPond is how beams are formatted. Beams
 are quantized, meaning that the left and right endpoints beams start
@@ -1229,7 +1115,7 @@ less than the slope of the notes themselves.
 Some beams should be horizontal. These are so-called concave beams. 
 
 [TODO: some pictures.]
-
+@end ignore
 
 @c .    {Automatic beams}
 @node Setting automatic beam behavior 
@@ -1325,6 +1211,232 @@ It is not possible to specify beaming parameters that act differently in
 different parts of a measure. This means that it is not possible to use
 automatic beaming in irregular meters such as @code{5/8}.
 
+@node Accidentals
+@section Accidentals
+@cindex Accidentals
+This section describes how to change the way that LilyPond automatically
+inserts accidentals before the running notes.
+
+@menu
+* Using the predefined accidental macros::  
+* Defining your own accidental typesettings::  
+@end menu
+
+@node Using the predefined accidental macros
+@subsection Using the predefined accidental macros
+The constructs for describing the accidental typesetting rules are
+quite hairy, so non-experts should stick to the macros defined in
+@file{ly/property-init.ly}.
+@cindex @file{property-init.ly}
+
+The normal way of using the macros is to enter the macro name right after the
+creation of the context in which the accidental typesetting described
+by the macro is to take effect. I.e. if you want to use
+piano-accidentals in a pianostaff then you issue
+@code{\pianoAccidentals} first thing after the creation of the piano
+staff:
+@example
+\score @{
+    \notes \relative c'' <
+        \context Staff = sa @{ cis4 d e2 @}
+        \context GrandStaff <
+            \pianoAccidentals
+            \context Staff = sb @{ cis4 d e2 @}
+            \context Staff = sc @{ es2 c @}
+        >
+        \context Staff = sd @{ es2 c @}
+    >
+@}
+@end example
+@lilypond[singleline]
+\score {
+    \notes \relative c'' <
+        \context Staff = sa { cis4 d e2 }
+        \context GrandStaff <
+            \pianoAccidentals
+            \context Staff = sb { cis4 d e2 }
+            \context Staff = sc { es2 c }
+        >
+        \context Staff = sd { es2 c }
+    >
+    \paper {
+        \translator {
+            \StaffContext
+            minimumVerticalExtent = #'(-4.0 . 4.0)
+        }
+    }
+}
+@end lilypond
+
+The macros are:
+@table @code
+@item \defaultAccidentals
+      @cindex @code{\defaultAccidentals}
+      This is the default typesetting behaviour. It should correspond
+      to 18th century common practice: Accidentals are
+      remembered to the end of the measure in which they occur and
+      only on their own octave.
+
+@item \voiceAccidentals
+      @cindex @code{\voiceAccidentals}
+      The normal behaviour is to remember the accidentals on
+      Staff-level.
+      This macro, however, typesets accidentals individually for each
+      voice.
+      Apart from that the rule is similar to
+      @code{\defaultAccidentals}.
+
+      Warning: This leads to some weird and often unwanted results
+      because accidentals from one voice DO NOT get cancelled in other
+      voices:
+@lilypond[singleline,relative,fragment,verbatim]
+    \context Staff <
+        \voiceAccidentals
+        \context Voice=va { \voiceOne es g }
+        \context Voice=vb { \voiceTwo c, e }
+    >
+@end lilypond
+      Hence you should only use @code{\voiceAccidentals}
+      if the voices are to be read solely by
+      individual musicians. if the staff should be readable also
+      by one musician/conductor then you should use
+      @code{\modernVoiceAccidentals} or @code{\modernVoiceCautionaries}
+      instead.
+
+@item \modernAccidentals
+      @cindex @code{\modernAccidentals}
+      This rule should correspond to the common practice in the 20th
+      century.
+      The rule is a bit more complex than @code{\defaultAccidentals}:
+      You get all the same accidentals, but temporary
+      accidentals also get cancelled in other octaves. Further more,
+      in the same octave, they also get cancelled in the following measure:
+@lilypond[singleline,fragment,verbatim]
+      \modernAccidentals
+      cis' c'' cis'2 | c'' c'
+@end lilypond
+
+@item \modernCautionaries
+      @cindex @code{\modernCautionaries}
+     This rule is similar to @code{\modernAccidentals}, but the
+     ``extra'' accidentals (the ones not typeset by
+     @code{\defaultAccidentals}) are typeset as cautionary accidentals
+     (i.e. in reduced size):
+@lilypond[singleline,fragment,verbatim]
+      \modernCautionaries
+      cis' c'' cis'2 | c'' c'
+@end lilypond
+
+@item \modernVoiceAccidentals
+      @cindex @code{\modernVoiceAccidentals}
+      Multivoice accidentals to be read both by musicians playing one voice
+      and musicians playing all voices.
+
+      Accidentals are typeset for each voice, but they ARE cancelled
+      across voices in the same @internalsref{Staff}.
+
+@item \modernVoiceCautionaries
+      @cindex @code{\modernVoiceCautionaries}
+      The same as @code{\modernVoiceAccidentals}, but with the
+      extra accidentals (the ones not typeset by
+      @code{\voiceAccidentals}) typeset as cautionaries.
+      Notice that even though all accidentals typeset by
+      @code{\defaultAccidentals} ARE typeset by this macro then some
+      of them are typeset as cautionaries.
+
+@item \pianoAccidentals
+      @cindex @code{\pianoAccidentals}
+      20th century practice for piano notation. Very similar to
+      @code{\modernAccidentals} but accidentals also get cancelled
+      across the staves in the same @internalsref{GrandStaff} or
+      @internalsref{PianoStaff}.
+
+@item \pianoCautionaries
+      @cindex @code{\pianoCautionaries}
+      As @code{\pianoAccidentals} but with the extra accidentals
+      typeset as cationaries.
+
+@item \noResetKey
+      @cindex @code{\noResetKey}
+      Same as @code{\defaultAccidentals} but with accidentals lasting
+      ``forever'' and not only until the next measure:
+@lilypond[singleline,fragment,verbatim,relative]
+      \noResetKey
+      c1 cis cis c
+@end lilypond
+
+@item \forgetAccidentals
+      @cindex @code{\forgetAccidentals}
+      This is sort of the opposite of @code{\noResetKey}: Accidentals
+      are not remembered at all - and hence all accidentals are
+      typeset relative to the key signature, regardless of what was
+      before in the music:
+@lilypond[singleline,fragment,verbatim,relative]
+      \forgetAccidentals
+      \key d\major c4 c cis cis d d dis dis
+@end lilypond
+@end table
+
+@node Defining your own accidental typesettings
+@subsection Defining your own accidental typesettings
+
+This section must be considered gurus-only, and hence it must be
+sufficient with a short description of the system and a reference to
+the internal documentation.
+
+The idea of the algorithm is to try several different rules and then
+use the rule that gives the highest number of accidentals.
+Each rule cosists of
+@table @asis
+@item Context:
+      In which context is the rule applied. I.e. if context is
+      @internalsref{Score} then all staves share accidentals, and if
+      context is @internalsref{Staff} then all voices in the same
+      staff share accidentals, but staves don't - like normally.
+@item Octavation:
+      Whether the accidental changes all octaves or only the current
+      octave.
+@item Lazyness:
+      Over how many barlines the accidental lasts.
+      If lazyness is @code{-1} then the accidental is forget
+      immidiately, and if lazyness is @code{#t} then the accidental
+      lasts forever.
+@end table
+
+As described in the internal documentation of
+@reng{Accidental_engraver}, the properties @code{autoAccidentals} and
+@code{autoCautionaries} contain lists of rule descriptions. Notice
+that the contexts must be listed from in to out - that is
+@internalsref{Thread} before @internalsref{Voice},
+@internalsref{Voice} before @internalsref{Staff}, etc. 
+see the macros in @file{ly/property-init.ly} for examples of how the
+properties are set.
+
+@refbugs
+
+Currently the simultaneous notes are considered to be entered in
+sequential mode. This means that in a chord the accidentals are
+typeset as if the notes in the chord happened one at a time - in the
+order in which they appear in the input file.
+
+Of course this is only a problem when you have simultainous notes
+which accidentals should depend on each other.
+Notice that the problem only occurs when using non-default accidentals
+- as the default accidentals only depend on other accidentals on the
+same staff and same pitch and hence cannot depend on other
+simultainous notes.
+
+This example shows two examples of the same music giving different
+accidentals depending on the order in which the notes occur in the
+input file:
+
+@lilypond[singleline,fragment,verbatim]
+\property Staff.autoAccidentals = #'( Staff (any-octave . 0) )
+cis'4 <c'' c'> r2 | cis'4 <c' c''> r2 | <cis' c''> r | <c'' cis'> r | 
+@end lilypond
+
+The only solution is to manually insert the problematic
+accidentals using @code{!} and @code{?}.
 
 @node Expressive marks
 @section Expressive marks
@@ -1348,8 +1460,7 @@ They are entered using parentheses:
   f'()g'()a' [a'8 b'(] a'4 g'2 )f'4
 @end lilypond
 
-The grob for this object is @internalsref{Slur}, generally in
-@internalsref{Voice} context.
+See also @seeinternals{Slur}.
 
 Slurs avoid crossing stems, and are generally attached to note heads.
 However, in some situations with beams, slurs may be attached to stem
@@ -1377,32 +1488,38 @@ stems might look better:
   d,32( d'4 )d8..
 @end lilypond
 
-
+@ignore
 Similarly, the curvature of a slur is adjusted to stay clear of note
 heads and stems.  When that would increase the curvature too much, the
-slur is reverted to its default shape.  The threshold for this decision
-is in @internalsref{Slur}'s grob-property @code{beautiful}.  It is loosely
-related to the enclosed area between the slur and the notes.  Usually,
-the default setting works well, but in some cases you may prefer a
-curved slur when LilyPond decides for a vertically moved one.  You can
-indicate this preference by increasing the @code{beautiful} value:
+slur is reverted to its default shape.  The threshold for this
+decision is in @internalsref{Slur}'s grob-property @code{beautiful}.
+It is loosely related to the enclosed area between the slur and the
+notes.  Usually, the default setting works well, but in some cases you
+may prefer a curved slur when LilyPond decides for a vertically moved
+one.  You can indicate this preference by increasing the
+@code{beautiful} value:
 
-@lilypond[verbatim,singleline,relative]
+@lilyp ond[verbatim,singleline,relative]
   \stemDown \slurUp
   c16( a' f' a a f a, )c,
   c( a' f' a a f d, )c
   \property Voice.Slur \override #'beautiful = #5.0
   c( a' f' a a f d, )c
 @end lilypond
+@end ignore
 
 @refbugs
 
 Producing nice slurs is a difficult problem, and LilyPond currently
 uses a simple, empiric method to produce slurs. In some cases, the
-results of this method don't look too good.  This is reflected by the
+results of this method are ugly.
+
+@ignore
+This is reflected by the
 @code{beautiful} property, which it is an arbitrary parameter in the
 slur formatter.  Useful values can only be determined by trial and
 error.
+@end ignore
 
 @cindex Adjusting slurs
 
@@ -1417,18 +1534,18 @@ indicate a musical sentence. It is started using @code{\(} and @code{\)}
 respectively.
 
 @lilypond[fragment,verbatim,center,relative]
-  \time 6/4 c' \( ( d ) e f ( e ) \) d
+  \time 6/4 c' \(  d () e f () e  \) d
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a normal
-slur. The grob associated with it is @internalsref{PhrasingSlur}, in
-@internalsref{Voice} context.
+slur. See also  @seeinternals{PhrasingSlur}.
+
 
 @node Breath marks
 @subsection Breath marks
 
-Breath marks are entered using @code{\breathe}.  The result is a
-@internalsref{BreathingSign} grob in @internalsref{Voice} context.
+Breath marks are entered using @code{\breathe}.  See also
+@seeinternals{BreathingSign}.
 
 @lilypond[fragment,relative]
 c'4 \breathe d4
@@ -1494,7 +1611,6 @@ An application---or rather, a hack---is to fake octavation indications.
 @menu
 * Articulations::               
 * Text scripts::                
-* Adding scripts::              
 * Grace notes::                 
 * Glissando ::                  
 * Dynamics::                    
@@ -1511,7 +1627,8 @@ An application---or rather, a hack---is to fake octavation indications.
 
 A variety of symbols can appear above and below notes to indicate
 different characteristics of the performance. They are added to a note
-by adding @code{-}@var{script}
+by adding a dash and the the character signifying the
+articulation. They are demonstrated here.
 @lilypond[singleline]
   \score {
     \notes \context Voice {
@@ -1588,7 +1705,7 @@ finger changes, use markup texts:
 @cindex superscript
 @cindex subscript
 
-Grobs for these objects are @internalsref{Script} and @internalsref{Fingering}.
+See also @seeinternals{Script} and @seeinternals{Fingering}.
 
 @refbugs
 
@@ -1630,24 +1747,6 @@ Text scripts are created in form of @internalsref{TextScript} grobs, in
 special symbols in text scripts.
 
 
-@node Adding scripts
-@subsection  Adding scripts
-
-TODO: should junk this subsect?
-
-You can add scripts by editing @file{scm/script.scm} and
-@file{ly/script-init.ly}. This file contains a table, listing script
-definitions and aliases. The following syntax accesses a script
-definition from the table:
-
-@example
-  \script @var{alias}
-@end example
-
-Usually the @code{\script} keyword is not used directly.  Various
-helpful identifier definitions appear in @file{script.ly}.
-
-
 @c .   {Grace notes}
 @node Grace notes
 @subsection Grace notes
@@ -1659,7 +1758,7 @@ helpful identifier definitions appear in @file{script.ly}.
 @cindex grace notes
 
 Grace notes are ornaments  are written out ornaments
-@lilypond[relative=2,fragment] 
+@lilypond[relative=2,verbatim,ifragment] 
   c4  \grace c16  c4 \grace { [c16 d16] } c4 
 @end lilypond
 
@@ -1673,23 +1772,27 @@ Every point in musical time consists of two rational numbers: one
 denotes the logical time, one denotes the grace timing. The above
 example is shown here with timing tuples.
 
-@lilypond[relative=2,fragment] 
-  c4^"(0,0)"  \grace c16^"(1/4,-1/16)"  c4^"(1/4,0)"  \grace {
-  [c16^"(2/4,-1/8)"  d16^"(2/4,-1/16)" ] } c4^"(2/4,0)"  
+@lilypond[]
+\score { \notes \relative c''{ 
+  c4^"(0,0)"  \grace c16_"(1/4,-1/16)"  c4^"(1/4,0)"  \grace {
+  [c16_"(2/4,-1/8)"  d16^"(2/4,-1/16)" ] } c4_"(2/4,0)"
+  }
+\paper {  linewidth = 8.\cm }
+}
 @end lilypond
 
 The advantage of this approach is that you can use almost any lilypond
 construction together with grace notes, for example slurs and clef
 changes may appear halfway in between grace notes:
 
-@lilypond[relative=2,fragment] 
+@lilypond[relative=2,verbatim,fragment] 
   c4  \grace { [ c16 c, \clef bass c, b(] }  )c4 
 @end lilypond
 
 The placement of these grace notes is synchronized between different
 staffs, using this grace timing.
 
-@lilypond[relative=2,fragment] 
+@lilypond[relative=2,verbatim,fragment] 
 \context Staff = SA { e4 \grace { c16 d e f } e4 }
 \context Staff = SB { c4 \grace { g8 b } c4 }
 @end lilypond
@@ -1714,33 +1817,21 @@ stem.
 }
 @end lilypond
 
-A grace note expression has duration 0; the next real note is assumed to
-be the main note. If you want the note to appear after the main note,
-set @code{Voice.graceAlignPosition} to @code{1}.
-
 @refbugs
-
 
 Grace note synchronization can also lead to surprises. Staff notation,
 such as key signatures, barlines, etc. are also synchronized. Take
 care when you mix staffs with grace notes and staffs without.
 
 @lilypond[relative=2,fragment]
-\context Staff = SA { e4 \bar "|:" \grace c16 d4 }
-\context Staff = SB { c4 \bar "|:"  d4 }
+< \context Staff = SA { e4 \bar "|:" \grace c16 d4 }
+  \context Staff = SB { c4 \bar "|:"  d4 } >
 @end lilypond
 
-Nesting @code{\grace} notes is not supported. The following may cause
-run-time errors:
-@c
-@example
-  @code{\grace @{ \grace c32 c16 @} c4}
-@end example
-Since the meaning of such a construct is unclear, we don't consider this
-a loss.  Similarly, juxtaposing two @code{\grace} sections is
-syntactically valid, but makes no sense and may cause runtime errors.
-Ending a staff or score with grace notes may also generate a run-time
-error, since there will be no main note to attach the grace notes to.
+Grace sections should only be used within sequential music
+expressions.  Nesting, juxtaposing, or ending sequential music with a
+grace section is not supported, and might produce crashes or other
+errors.
 
 @menu
 * Glissando ::                  
@@ -1756,8 +1847,8 @@ error, since there will be no main note to attach the grace notes to.
 
 @cindex @code{\glissando}
 
-A glissando line (grob @internalsref{Glissando}) can be requested by
-attaching a @code{\glissando} to a notte:
+A glissando line can be requested by attaching a @code{\glissando} to
+a note:
 
 @lilypond[fragment,relative,verbatim]
   c'-\glissando c'
@@ -1766,7 +1857,7 @@ attaching a @code{\glissando} to a notte:
 @refbugs
 
 Printing of an additional text (such as @emph{gliss.}) must be done
-manually.
+manually. See also @seeinternals{Glissando}.
 
 
 
@@ -1833,19 +1924,22 @@ want several marks during one note, you have to use spacer notes.
 You can also use a text saying @emph{cresc.} instead of hairpins. Here
 is an example how to do it:
 
+@lilypond[fragment,relative=2,verbatim]
+  c4 \cresc c4 \endcresc c4
+@end lilypond
+
+
 @cindex crescendo
 @cindex decrescendo
 
+You can also supply your own texts:
 @lilypond[fragment,relative,verbatim]
   \context Voice {
-    \property Voice.crescendoText = "cresc."
+    \property Voice.crescendoText = "cresc. poco"
     \property Voice.crescendoSpanner = #'dashed-line
     a'2\mf\< a a \!a 
   }
 @end lilypond
-
-For everyday use, we recommend the identifiers @code{\cresc},
-@code{endcresc}, @code{\dim} and @code{\enddim}.
 
 @cindex diminuendo
 
@@ -1873,12 +1967,12 @@ To specify repeats, use the @code{\repeat} keyword.  Since repeats
 should work differently when played or printed, there are a few
 different variants of repeats.
 
-@table @asis
+@table @code
 @item unfold
 Repeated music is fully written (played) out.  Useful for MIDI
 output, and entering repetitive music.
 
-@item volta  
+@item volta
 This is the normal notation: Repeats are not written out, but
 alternative endings (voltas) are printed, left to right.
 
@@ -1980,16 +2074,7 @@ are also not repeated.
 It is possible to nest @code{\repeat}s, although this probably is only
 meaningful for unfolded repeats.
 
-Folded repeats offer little more over simultaneous music.  However, it
-is to be expected that more functionality -- especially for the MIDI
-backend -- will be implemented at some point in the future.
-
-Volta repeats are printed over all staves in a score. You must turn them
-off explicitly, for example by doing
-@example
-  \property Staff.VoltaBracket = \turnOff
-@end example
-in all but the top staff.
+Folded repeats offer little more over simultaneous music.
 
 @node Manual repeat commands
 @subsection Manual repeat commands
@@ -2003,7 +2088,7 @@ command can be
 @table @code
 @item 'start-repeat
  Print a |: bar line
-@item 'stop-repeat
+@item 'end-repeat
  Print a :| bar line
 @item (volta . @var{text})
   Print a volta bracket saying @var{text}.
@@ -2044,9 +2129,7 @@ Tremolo beams are @internalsref{Beam} grobs. Single stem tremolos are
 
 @refbugs
 
-
-At present, the spacing between tremolo beams is not regular, since the
-spacing engine does not notice that not all notes are printed.
+Tremolo beams confuse the spacing engine.
 
 @node Tremolo subdivisions
 @subsection Tremolo subdivisions
@@ -2097,14 +2180,6 @@ with slashes, and repeating that measure with percents.
 @node Rhythmic music
 @section Rhythmic music
 
-
-@menu
-* Rhythmic staves::             
-@end menu
-
-@node Rhythmic staves
-@subsection Rhythmic staves
-
 Sometimes you might want to show only the rhythm of a melody.  This can
 be done with the rhythmic staff. All pitches of notes on such a staff
 are squashed, and the  staff itself  looks has  a single staff line:
@@ -2116,6 +2191,302 @@ are squashed, and the  staff itself  looks has  a single staff line:
   }
 @end lilypond
 
+@menu
+* Percussion staves::           
+@end menu
+
+@node Percussion staves
+@subsection Percussion staves
+@cindex percussion
+@cindex drums
+To typeset more than one piece of percussion to be played by the same
+musician one typically uses a multiline staff where each staff
+position refers to a specific piece of percussion.
+
+LilyPond is shipped with a bunch of scheme functions which allows you
+to do this fairly easily.
+
+The system is based on the general midi drum-pitches.
+In order to use the drum pitches you include
+@file{ly/drumpitch-init.ly}. This file defines the pitches from the scheme
+variable @code{drum-pitch-names} - which definition can be read in
+@file{scm/drums.scm}. You see that each piece of percussion has a full
+name and an abbreviated name - and you may freely select whether to
+refer to the full name or the abbreviation in your music definition.
+
+To typeset the music on a staff you apply the scheme function
+@code{drums->paper} to the percussion music. This function takes a
+list of percussion instrument names, notehead scripts and staff
+positions (that is: pitches relative to the C-clef) and uses this to
+transform the input music by moving the pitch, changing the notehead
+and (optionally) adding a script:
+@lilypond[singleline,verbatim]
+\include "drumpitch-init.ly"
+up = \notes { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
+down = \notes { bassdrum4 snare8 bd r bd sn4 }
+\score {
+    \apply #(drums->paper 'drums) \context Staff <
+        \clef percussion
+        \context Voice = up { \voiceOne \up }
+        \context Voice = down { \voiceTwo \down }
+    >
+}
+
+@end lilypond
+In the above example the music was transformed using the list @code{'drums}.
+Currently the following lists are defined in @file{scm/drums.scm}:
+@table @code
+@item 'drums
+To typeset a typical drum kit on a five line staff.
+@lilypond[]
+\include "drumpitch-init.ly"
+nam = \lyrics { cymc cyms cymr hh hhc hho hhho hhp cb hc
+    bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \notes  { cymc cyms cymr hh hhc hho hhho hhp cb hc
+    bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+    <
+        \apply #(drums->paper 'drums) \context Staff <
+            \clef percussion
+            \mus
+        >
+        \context Lyrics \nam 
+    >
+    \paper {
+        \translator {
+            \StaffContext
+            \remove Bar_engraver
+            \remove Time_signature_engraver
+            minimumVerticalExtent = #'(-4.0 . 5.0)
+        }
+        \translator {
+            \VoiceContext
+            \remove Stem_engraver
+        }
+   }   
+}
+@end lilypond
+Notice that the scheme supports six different toms.
+If you are using fewer toms then you simply select the toms that produce
+the desired result - i.e. to get toms on the three middle lines you
+use @code{tommh}, @code{tomml} and @code{tomfh}.
+
+Because the general midi contain no rimshots we use the sidestick for
+this purpose instead.
+@item 'timbales
+To typeset timbales on a two line staff.
+@lilypond[singleline]
+\include "drumpitch-init.ly"
+nam = \lyrics { timh ssh timl ssl cb }
+mus = \notes  { timh ssh timl ssl cb s16 }
+\score {
+    <
+        \apply #(drums->paper 'timbales) \context Staff <
+            \clef percussion
+            \mus
+        >
+        \context Lyrics \nam 
+    >
+    \paper {
+        \translator {
+            \StaffContext
+            \remove Bar_engraver
+            \remove Time_signature_engraver
+            StaffSymbol \override #'line-count = #2
+            StaffSymbol \override #'staff-space = #2
+            minimumVerticalExtent = #'(-3.0 . 4.0)
+        }
+        \translator {
+            \VoiceContext
+            \remove Stem_engraver
+        }
+
+    }   
+}
+@end lilypond
+@item 'congas
+To typeset congas on a two line staff.
+@lilypond[singleline]
+\include "drumpitch-init.ly"
+nam = \lyrics { cgh cgho cghm ssh cgl cglo cglm ssl }
+mus = \notes  { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
+\score {
+    <
+        \apply #(drums->paper 'congas) \context Staff <
+            \clef percussion
+            \mus
+        >
+        \context Lyrics \nam 
+    >
+    \paper {
+        \translator {
+            \StaffContext
+            \remove Bar_engraver
+            \remove Time_signature_engraver
+            StaffSymbol \override #'line-count = #2
+            StaffSymbol \override #'staff-space = #2
+            minimumVerticalExtent = #'(-3.0 . 4.0)
+        }
+        \translator {
+            \VoiceContext
+            \remove Stem_engraver
+        }
+    }   
+}
+@end lilypond
+@item 'bongos
+To typeset bongos on a two line staff.
+@lilypond[singleline]
+\include "drumpitch-init.ly"
+nam = \lyrics { boh boho bohm ssh bol bolo bolm ssl }
+mus = \notes  { boh boho bohm ssh bol bolo bolm ssl s16 }
+\score {
+    <
+        \apply #(drums->paper 'bongos) \context Staff <
+            \clef percussion
+            \mus
+        >
+        \context Lyrics \nam 
+    >
+    \paper {
+        \translator {
+            \StaffContext
+            \remove Bar_engraver
+            \remove Time_signature_engraver
+            StaffSymbol \override #'line-count = #2
+            StaffSymbol \override #'staff-space = #2
+            minimumVerticalExtent = #'(-3.0 . 4.0)
+        }
+        \translator {
+            \VoiceContext
+            \remove Stem_engraver
+        }
+    }   
+}
+@end lilypond
+@item 'percussion
+To typeset all kinds of simple percussion on one line staves.
+@lilypond[singleline]
+\include "drumpitch-init.ly"
+nam = \lyrics { tri trio trim gui guis guil cb cl tamb cab mar hc }
+mus = \notes  { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+\score {
+    <
+        \apply #(drums->paper 'percussion) \context Staff <
+            \clef percussion
+            \mus
+        >
+        \context Lyrics \nam 
+    >
+    \paper {
+        \translator {
+            \StaffContext
+            \remove Bar_engraver
+            \remove Time_signature_engraver
+            StaffSymbol \override #'line-count = #1
+            minimumVerticalExtent = #'(-2.0 . 3.0)
+        }
+        \translator {
+            \VoiceContext
+            \remove Stem_engraver
+        }
+    }   
+}
+@end lilypond
+@end table
+
+If you don't like any of the predefined lists you can define your own
+list at the top of your file:
+
+@lilypond[singleline, verbatim]
+#(define mydrums `(
+        (bassdrum     default   #f        ,(make-pitch -1 2 0))
+        (snare        default   #f        ,(make-pitch 0 1 0))
+        (hihat        cross     #f        ,(make-pitch 0 5 0))
+        (pedalhihat   xcircle   "stopped" ,(make-pitch 0 5 0))
+        (lowtom	      diamond   #f        ,(make-pitch -1 6 0))
+))
+\include "drumpitch-init.ly"
+up = \notes { hh8 hh hh hh hhp4 hhp }
+down = \notes { bd4 sn bd toml8 toml }
+\score {    
+    \apply #(drums->paper 'mydrums) \context Staff <
+        \clef percussion
+        \context Voice = up { \voiceOne \up }
+        \context Voice = down { \voiceTwo \down }
+    >
+}
+@end lilypond
+
+To use a modified existing list instead of building your own from
+scratch you can append your modifications to the start of the existing
+list:
+
+@example
+#(define mydrums (append `(
+   (bassdrum default #f ,(make-pitch -1 2 0))
+   (lowtom   diamond #f ,(make-pitch -1 6 0))
+) drums ))
+@end example
+
+@c FIXME: Too many levels of headers when using subsubsections.
+@c Perhaps junk subsection ``Percussion staves''
+@subsubsection Percussion staves with normal staves
+When you include @file{drumpitch-init.ly} then the default pitches
+are overridden so that you after the inclusion cannot use the common
+dutch pitch names anymore. Hence you might wan't to reinclude
+@file{nederlands.ly} after the drum-pattern-definitions:
+@lilypond[singleline,verbatim]
+\include "drumpitch-init.ly"
+up = \notes { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
+down = \notes { bassdrum4 snare8 bd r bd sn4 }
+\include "nederlands.ly"
+bass = \notes \transpose c, { a4. e8 r e g e }
+\score {
+    <
+        \apply #(drums->paper 'drums) \context Staff = drums <
+            \clef percussion
+            \context Voice = up { \voiceOne \up }
+            \context Voice = down { \voiceTwo \down }
+        >
+        \context Staff = bass { \clef "F_8" \bass }
+    >
+}
+@end lilypond
+
+@subsubsection Percussion midi output
+In order to produce correct midi output you need to produce two score
+blocks - one for the paper and one for the midi.
+To use the percussion channel you set the property @code{instrument}
+to @code{'drums}. Because the drum-pitches themself are similar to the
+general midi pitches all you have to do is to insert the voices with
+none of the scheme functions to get the correct midi output:
+
+@example
+\score @{    
+    \apply #(drums->paper 'mydrums) \context Staff <
+        \clef percussion
+        \context Voice = up @{ \voiceOne \up @}
+        \context Voice = down @{ \voiceTwo \down @}
+    >
+    \paper@{@}
+@}
+\score @{    
+    \context Staff <
+        \property Staff.instrument = #'drums
+        \up \down
+    >
+    \midi@{@}
+@}
+@end example
+
+@refbugs
+
+This scheme is to be considered a temporary implementation. Even
+though the scheme will probably keep on working then the future might
+bring some other way of typesetting drums, and probably
+there will be made no great efforts in keeping things downwards
+compatible.
 
 @c . {Piano music}
 @node Piano music
@@ -2145,16 +2516,11 @@ other pianistic peculiarities.
 Voices can switch automatically between the top and the bottom
 staff. The syntax for this is
 @example
-        \autochange @var{contexttype} \context @var{childcontexttype}
-     		@var{musicexp} 
-@end example
-@c
-This will switch the interpretation context of @var{musicexp} between
-a @var{contexttype} named @code{up} and @code{down}. Typically, you
-use @internalsref{Staff} for @var{contexttype}, and
-@internalsref{Voice} for @var{childcontexttype}. The autochanger
-switches on basis of pitch (central C is the turning point), and it
-looks ahead skipping over rests to switch rests in advance.
+        \autochange Staff \context Voice @{ @dots{}@var{music}@dots{} @}
+@end example        
+The autochanger switches on basis of pitch (central C is the turning
+point), and it looks ahead skipping over rests to switch rests in
+advance. Here is a practical example:
         
 @lilypond[verbatim,singleline]
 \score { \notes \context PianoStaff <
@@ -2166,8 +2532,7 @@ looks ahead skipping over rests to switch rests in advance.
        s1*2
 } > }
 @end lilypond
-
-Note how spacer rests are used to prevent the bottom staff from
+Spacer rests are used to prevent the bottom staff from
 terminating too soon.
 
 
@@ -2185,18 +2550,6 @@ The string @var{staffname} is the name of the staff. It switches the
 current voice from its current staff to the Staff called
 @var{staffname}. Typically @var{staffname} is @code{"up"} or
 @code{"down"}.
-
-The formal definition of this construct is obtuse, but for the sake of
-completeness we give it here.
-@cindex @code{\translator}
-@example
-  \translator @var{contexttype} = @var{name}
-@end example
-Formally, this construct is a music expression indicating
-that the context which is a direct child of the context of type
-@var{contexttype} should be shifted to a context of type
-@var{contexttype} and the specified name.
-
 
 @c .   {Pedals}
 @node Pedals
@@ -2255,8 +2608,10 @@ For fine-tuning of the appearance of a pedal bracket, the properties
 may be extended to the end of the note head.
 
 @lilypond[fragment,verbatim]
-\property Staff.PianoPedalBracket \override #'shorten-pair = #'(0 . -1.0)
-c''4 \sostenutoDown d''4 e''4 c'4 f'4 g'4 a'4 \sostenutoUp
+\property Staff.PianoPedalBracket \override
+   #'shorten-pair = #'(0 . -1.0)
+c''4 \sostenutoDown d''4 e''4 c'4
+f'4 g'4 a'4 \sostenutoUp
 @end lilypond
 
 
@@ -2298,9 +2653,9 @@ arpeggio, you should set the arpeggio grob property
 
 @lilypond[fragment,relative,verbatim]
   \context Voice {
-     \property Voice.Arpeggio \override #'arpeggio-direction = #1
+     \property Voice.Arpeggio \set #'arpeggio-direction = #1
      <c\arpeggio e g c>
-     \property Voice.Arpeggio \override #'arpeggio-direction = #-1
+     \property Voice.Arpeggio \set #'arpeggio-direction = #-1
      <c\arpeggio e g c>
   }
 @end lilypond
@@ -2324,8 +2679,8 @@ arpeggiate the chord. To draw these brackets, set the
 
 @refbugs
 
-It is not possible to mix connected arpeggios and unconnected arpeggios
-at the same time.
+It is not possible to mix connected arpeggios and unconnected
+arpeggios in one PianoStaff at the same time.
 
 
 
@@ -2360,6 +2715,11 @@ The associated grob is @internalsref{VoiceFollower}.
 @node Tablatures
 @section Tablatures
 
+Tablature notation is used music for plucked string instruments.  It
+notates pitches not by using note heads, but by indicating on which
+string and fret a note must be played.  LilyPond offers limited
+support for tablature, by abusing the fingering system.
+
 @menu
 * Tablatures basic::            
 * Non-guitar tablatures::       
@@ -2372,8 +2732,8 @@ The associated grob is @internalsref{VoiceFollower}.
 
 Tablature can be typeset with Lilypond by using the
 @internalsref{TabStaff} and @internalsref{TabVoice} contexts. As
-tablatures is a recent feature in Lilypond, most of the guitar special
-effects (hammer, pull, bend, ...) are not yet supported.
+tablature is a recent feature in Lilypond, most of the guitar special
+effects such as hammer, pull, bend are not yet supported.
 
 With the @internalsref{TabStaff}, the string number associated to a note
 is given though the fingering mechanism, e.g. @code{c4-3} for a C
@@ -2398,15 +2758,10 @@ tuning defaults to the standard guitar tuning (with 6 strings).
 
 There are many ways to customize Lilypond tablatures.
 
-First you can change the number of string, e.g.
-@code{StaffSymbol \override #'line-count  = #5} to have only 5 strings.
-Because of a kind of bug in Lilypond, you MUST create a new type of
-context if you want different tablatures with diiferent number of
-strings.
-
-Then you can change the strings tuning. String tuning is given as a
-Scheme list with one integer number for each string, the number being
-the string note pitch if not fretted (open note).
+First you can change the number of strings, by setting the number of
+lines in the @internalsref{TabStaff}.  You can change the strings
+tuning. A string tuning is given as a Scheme list with one integer
+number for each string, the number being the pitch of an open string.
 
 Finally, it is possible to change the Scheme function to format the
 tablature note text. The default is @var{fret-number-tablature-format},
@@ -2448,207 +2803,6 @@ the standard staff.
     >
   }
 @end lilypond
-
-
-
-@node Lyrics
-@section Lyrics
-
-
-@menu
-* Lyrics mode::                 
-* Printing lyrics::             
-* Automatic syllable durations::  
-* More stanzas::                
-@end menu
-
-@c .  {Lyrics mode}
-@node Lyrics mode
-@subsection Lyrics mode
-@cindex Lyrics mode
-
-To print lyrics, you must first make a music expression from the lyric
-text.  That music expression can be printed by selecting an appropriate
-context.
-
-@cindex lyric mode
-@cindex @code{\lyrics}
-
-You can enter lyrics in a special input mode of LilyPond. This mode is
-called Lyrics mode, and it is introduced by the keyword @code{\lyrics}.
-The purpose of this mode is that you can enter lyrics as plain text,
-punctuation and accents without any hassle.
-
-Syllables are entered like notes, with pitches replaced by text.  For
-example, @code{Twin- kle twin- kle} enters four syllables.  Note that
-the hyphen has no special meaning for lyrics, and does not introduce
-special symbols.
-
-Spaces can be introduced into a lyric either by using quotes:
-@code{"He could"4 not4} or by using an underscore without quotes:
-@code{He_could4 not4}.  All unquoted underscores are converted to
-spaces.
-
-The precise definition of this mode can be found in @ref{Lyrics mode
-definition}. 
-
-@c .  {Printing lyrics}
-@node Printing lyrics
-@subsection Printing lyrics
-@cindex lyrics
-
-Lyrics are printed by interpreting them in the @internalsref{Lyrics}  context.
-
-@c Maybe more pedagogical to avoid \addlyrics in this first example? /MB
-@c Add tied and beamed melismata too.
-@lilypond[verbatim,singleline]
-\addlyrics
-  \notes \relative c' {
-    \time 7/4
-    \property Staff.automaticMelismata = ##t
-    d'2 c4 b16 ( a g a b a b ) c a2
-    b2 c4 b8 ( a16 g ) a4 g2 }
-  \context Lyrics \lyrics { 
-    Join us now __ and
-    share the soft -- ware; }
-@end lilypond
-
-
-Notes and syllable durations are matched automatically. This is
-accomplished using @code{\addlyrics}, which is documented in
-@ref{Automatic syllable durations}. Setting @code{automaticMelismata} in
-the melody staff will cause tied, slurred or beamed notes to be
-interpreted as melismata.
-
-The Lyric syllables are @code{LyricsVoice.LyricSyllable} grobs.
-
-@cindex extender
-@cindex lyric extender
-@cindex melisma
-
-As you can see, extender lines are entered as @code{__}.  This will
-create an extender, a line that extends over the entire duration of the
-lyric.  This line will run all the way to the start of the next lyric,
-so you may want to shorten it by using a blank lyric (using @code{_}).
-The grob for this symbol is @code{LyricsVoice.LyricExtender}.
-
-
-@cindex hyphen
-
-If you want to have hyphens centered between syllables (rather than
-attached to the end of the first syllable) you can use the special
-`@code{-}@code{-}' lyric as a separate word between syllables.  This
-will result in a hyphen whose length varies depending on the space
-between syllables. It will be centered between the syllables.  The grob
-for this symbol is @code{LyricsVoice.LyricHyphen}.
-
-@cindex Lyric hyphen
-
-@node Automatic syllable durations
-@subsection Automatic syllable durations
-@cindex Automatic syllable durations
-
-@cindex automatic lyric durations
-@cindex @code{\addlyrics}
-
-If you have lyrics that are set to a melody, you can copy the rhythm
-of that melody into the lyrics using @code{\addlyrics}.  The syntax for
-this is
-@example
-  \addlyrics @var{musicexpr1 musicexpr2}
-@end example
-
-Both @var{musicexpr1} and @var{musicexpr2} are interpreted, but every
-music event (``every syllable'') in @var{musicexpr2} is interpreted only
-when there are events in @var{musicexpr1}.
-
-@cindex @code{automaticMelismata}
-
-If the property @code{automaticMelismata} is set in the
-context of @var{musicexpr1}, no lyrics will be put on slurred or tied
-notes.
-
-@lilypond[verbatim,fragment]
-\addlyrics
-\transpose c'' {
-  \property Voice.automaticMelismata = ##t
-  c8 () cis d8. e16 f2
-}
-\context Lyrics \lyrics {
- do4 re mi fa }
-@end lilypond
-
-If you want the lyric lines to be above the melody staff, or in some
-other, more complex configuration, then build that configuration first
-using simultaneous music, and use @code{\addlyrics} after that.
-
-@lilypond[verbatim, singleline]
-\notes <
-  \context Lyrics = LA { s1 }
-  \context Staff = SA { s1 }
-  \addlyrics
-        \context Staff = SA \relative c' { c4 e g g }
-        \context Lyrics  = LA \lyrics { geen ge -- don -- der } >
-@end lilypond
-
-For @code{\addlyrics} you should use a single rhythm melody, and single
-rhythm lyrics (a constant duration is the obvious choice).  If you do
-not, you can get undesired effects when using multiple stanzas:
-
-@lilypond[verbatim,fragment]
-\addlyrics
-\transpose c'' {
-  c8 () cis d8. e16 f2
-}
-\context Lyrics \lyrics
-< { do4 re fa sol }
-  { do8 re fa sol } >
-@end lilypond
-
-It is valid (but probably not very useful) to use notes instead of
-lyrics for @var{musicexpr2}.
-
-@node More stanzas
-@subsection More stanzas
-
-@cindex phrasing
-
-If you have multiple stanzas printed underneath each other, the vertical
-groups of syllables should be aligned around punctuation. LilyPond can
-do this if you tell it which lyric lines belong to which melody.
-
-To this end, give the Voice context an identity, and set the LyricsVoice
-to a name starting with that identity followed by a dash.
-In the following example, the Voice
-identity is @code{duet}, and the identities of the LyricsVoices are
-@code{duet-1} and @code{duet-2}.
-
-
-@lilypond[singleline,verbatim]
-\score {
-\addlyrics
-  \notes \relative c'' \context Voice = duet { \time 3/4
-     g2 e4 a2 f4 g2.  }
-  \lyrics \context Lyrics <
-  \context LyricsVoice = "duet-1" {
-    \property LyricsVoice . stanza = "Bert"
-    Hi, my name is bert.    }
-  \context LyricsVoice = "duet-2" {
-    \property LyricsVoice . stanza = "Ernie" 
-    Ooooo, ch\'e -- ri, je t'aime. }
-  >
-}
-@end lilypond
-
-You can add stanza numbers by setting @code{LyricsVoice.Stanza} (for the
-first system) and @code{LyricsVoice.stz} for the following
-systems. Notice how you must surround dots with spaces in @code{\lyrics}
-mode.
-
-
-
-
-@cindex stanza numbering
 
 
 @c . {Chords}
@@ -2952,9 +3106,9 @@ marks.
 @cindex measure numbers
 @cindex currentBarNumber
 
-  They are printed at the
-start of the line.  The number itself is a property that can be set by
-modifying the @code{currentBarNumber} property, i.e.
+Bar numbers are printed by default at the start of the line.  The
+number itself is a property that can be set by modifying the
+@code{currentBarNumber} property, i.e.
 @example
   \property Score.currentBarNumber = #217
 @end example
@@ -2962,13 +3116,11 @@ modifying the @code{currentBarNumber} property, i.e.
 If you want boxed bar numbers, see the example file
 @code{input/test/boxed-molecule.ly}.
 
-Bar numbers are @internalsref{BarNumber} grobs.
+See also @seeinternals{BarNumber}.
 
 @refbugs
 
-It is not possible to have bar numbers printed at regular intervals
-only.
-
+Printing bar numbers at regular intervals is not implemented.
 Barnumbers can collide with the StaffGroup, if there is one at the
 top. To solve this, You have to twiddle with the
 @internalsref{padding} property of @internalsref{BarNumber} if your
@@ -3308,7 +3460,7 @@ block:
 
 LilyPond supports a variety of clefs, many of them ancient. These can
 be selected from the @code{ancient} font family, by setting
-@code{Staff.clefGlyph}) to the following values
+@code{Staff.clefGlyph}) to one of the following values
 
 @table @code
 @item clefs-C
@@ -3368,7 +3520,7 @@ LilyPond has limited support for figured bass:
 <
  \context FiguredBass
    \figures {
-	<_! 3+ 5- _ 7! 9 >4
+	<_! 3+ 5- >4
 	< [4 6] 8 >
    }
  \context Voice { c4 g8 }
@@ -3382,35 +3534,35 @@ that takes care of making @internalsref{BassFigure} grobs.
 
 In figures input mode, a group of bass figures is delimited by
 @code{<} and @code{>}. The duration is entered after the @code{>}.
+@example
+	<4 6>
+@end example
 @lilypond[fragment]
 \context FiguredBass
 \figures { <4 6> }
 @end lilypond
-@example
-	<4 6>
-@end example
 
 Accidentals are added to the numbers if you alterate them by
 appending @code{-}, @code{!}  and @code{+}.
 
+@example
+  <4- 6+ 7!>
+@end example
 @lilypond[fragment]
   \context FiguredBass
 \figures { <4- 6+ 7!> }
 @end lilypond
-@example
-  <4- 6+ 7!>
-@end example
 
 Spaces or dashes may be inserted by using @code{_}. Brackets are
 introduced with @code{[} and @code{]}.
 
+@example
+	< [4 6] 8 [_ 12]>
+@end example
 @lilypond[fragment]
  \context FiguredBass
 \figures { < [4 6] 8 [_ 12]> }
 @end lilypond
-@example
-	< [4 6] 8 [_ 12]>
-@end example
 
 Although the support for figured bass may superficially resemble chord
 support, it works much simpler: in figured bass simply stores the
@@ -3444,8 +3596,6 @@ object, and set a grob property in that object.
 * Tuning per grob ::            
 * Font selection::              
 * Text markup::                 
-* Invisible grobs::             
-* Dirty tricks::                
 * Spacing::                     
 @end menu
 
@@ -3461,7 +3611,7 @@ context property.  By assigning to that property (using plain
 @code{\property}), you can change the resulting grobs.
 
 @lilypond[verbatim, fragment]
-c'4 \property Voice.Stem  = #'((meta . ((interfaces . ())))) c'4
+c'4 \property Voice.Stem  = #'()
 @end lilypond
 
 The @code{\property} assignment effectively empties the definition of
@@ -3661,9 +3811,10 @@ properties:
 @table @code
 @item font-family
  A symbol indicating the general class of the typeface.  Supported are
-@code{roman} (Computer Modern), @code{braces} (for piano staff braces),
-@code{music} (the standard music font), @code{dynamic} (font for dynamic
-signs) and @code{typewriter}
+@code{roman} (Computer Modern), @code{braces} (for piano staff
+braces), @code{music} (the standard music font), @code{ancient} (the
+ancient notation font) @code{dynamic} (font for dynamic signs) and
+@code{typewriter}
 
 @item font-shape
   A symbol indicating the shape of the font, there are typically several
@@ -3685,19 +3836,22 @@ A number indicating  the design size of the font.
 
 This is a feature of the Computer Modern Font: each point size has a
 slightly different design. Smaller design sizes are relatively wider,
-which enhances readability. Scalable type faces such TrueType and Adobe
-Type1 usually come as ``one design fits all sizes''.
+which enhances readability.
 
 @item font-name
   The name of the font, as a string, e.g. @code{"cmr12"}. This overrides
 all other font-qualifiers. 
+You may use this to use special fonts, which are not a part of the
+style sheet, or which have special encodings.
+
 @end table
 
 
 The font is selected by taking the first font that satisfies all
 qualifiers specified. You can override any of these fields through
 @code{\override} and @code{\revert}. The special value @code{*} matches
-any value for that qualifier.
+any value for that qualifier.  The value @code{*} is needed to
+override default settings which are always present. 
 
 @example
   \property Lyrics.LyricText \override #'font-series = #'bold
@@ -3716,22 +3870,16 @@ and @code{dynamic}.
 The style sheets and tables for selecting fonts are located in
 @file{scm/font.scm}. Refer to this file for more information.
 
-
-Setting @code{font-name} overrides all other qualifiers. The value for
-this property should be a string, the file name of the font. You may use
-this to use special fonts, which are not a part of the style sheet, or
-which have special encodings.
-
-The size of the font may be set with the grob property
-@code{font-magnification}.  It is the size of font, relative to its
-standard size. For example, @code{1.0} is normal size.
+The size of the font may be scaled with the grob property
+@code{font-magnification}.  For example, @code{2.0} blows up all
+letters by a factor 2 in both directions.
 
 @refbugs
 
 Relative size is not linked to any real size.
 
 There is no style sheet provided for other fonts besides the @TeX{}
-family.
+family, and the style sheet can not be modified easiyl.
 
 @cindex font selection
 @cindex font magnification
@@ -3778,7 +3926,7 @@ which are prepended to the property list.  The @var{key}-@var{value}
 pair is a grob property. A list of properties available is included in
 the generated documentation for @rint{Text_interface}.
 
-The following abbreviations are currently defined:
+The following abbreviations are defined:
 @table @code
 @item columns
  horizontal mode: set all text on one line (default)
@@ -3852,79 +4000,10 @@ marking:
 }
 @end lilypond
 
-@node Invisible grobs
-@subsection Invisible grobs
-@cindex invisible grobs
+@refbugs
 
-@ignore
-
-ben nog steeds niet kapot van de informatiedichtheid hier.
-
---hwn
-
-@end ignore
-
-You can imagine a number of situations where you would want to make
-certain grobs not show up in the output.  There may be aesthetic
-reasons, to make the output resemble an (old) manuscript as close as
-possible, or to make lessons or exercises for students.
-
-Grobs can be made invisible in a number of ways:
-
-Here's an example with blanked-out notes and stems:
-@lilypond[singleline,verbatim]
-blanknotes = {
-  \property Voice.NoteHead \override
-    #'transparent = ##t
-  \property Voice.Stem \override
-    #'transparent = ##t }
-  
-unblanknotes = {
-  \property Voice.NoteHead \revert #'transparent
-  \property Voice.Stem \revert #'transparent }
-
-\score {
-  \notes\relative c'' {
-    \time 6/4
-    a b c b \blanknotes c \unblanknotes d
-  }
-}
-@end lilypond
-This method makes the grobs invisible but they still take the normal space. 
-To remove all traces of the grob, you can redefine the function
-typesetting them:
-@lilypond[verbatim]
-\score {
-  \notes\relative c'' {
-    \key c \minor
-    \time 6/4
-    as bes c bes c d \break
-    \property Staff.KeySignature \override #'molecule-callback = #'()
-    as bes c bes c d 
-  }
-  \paper{linewidth=5.0\cm indent=0}
-}
-@end lilypond
-
-A very rigorous way of removing grobs from the whole score is to remove
-the engraver that creates them. For example,
-@lilypond[singleline,verbatim]
-\score {\notes { c'4 d'8 e'8 g2 }
-  \paper { \translator {
-     \VoiceContext
-     \remove Stem_engraver
-  } }
-}
-@end lilypond
-However, as you can see, this can lead to unexpected effects.
-
-@node Dirty tricks
-@subsection Dirty tricks
-@cindex embedded tex
-
-@lilypond[fragment,relative,verbatim]
-  a'^"3 $\\times$ \\`a deux"
-@end lilypond
+The syntax and semantics of markup texts are not clean, and both
+syntax and semantics are slated for a rewrite.
 
 @node Spacing
 @subsection Spacing
@@ -3950,7 +4029,10 @@ kneed stems.
 }
 @end lilypond
 
-
+The spacing algorithm is global: it searches the entire score for the
+shortest notes. Pieces that have major changes in duration density
+(eg. due to meter changes) will be printed in a uniform density, which
+is undesirable
 
 @c . {Page layout}
 @node Page layout
@@ -3968,7 +4050,6 @@ The part of LilyPond is documented here.
 * Paper size::                  
 * Line break::                  
 * Page break::                  
-* Output scaling::              
 @end menu
 
 @c .  {Paper block}
@@ -3990,20 +4071,6 @@ where each of the items is one of
 
   @item  A context definition.  See @ref{Interpretation context} for
        more information on context definitions.
-
-  @item  \stylesheet  declaration.  Its syntax is
-       @example
-        	\stylesheet @var{alist}
-       @end example
-
-        See @file{scm/font.scm} for details of @var{alist}.
-  @item an @code{\elementdescriptions} declaration.
-        @example
-                \elementdescriptions @var{alist}
-        @end example
-        See @file{scm/grob-description.scm} for details of
-@var{alist}. This command is not user-serviceable.
-
 @end itemize
 
 @c .  {Paper variables}
@@ -4061,7 +4128,7 @@ produces a single line.
 @end table
 
 You may enter these dimension using units (@code{cm}, @code{in},
-@code{mm}, @code{pt}), or relative to another dimension
+@code{mm}, @code{pt})
 @example
         linewidth = 20.0 * \staffspace
         indent  = 0.5 \cm
@@ -4131,39 +4198,22 @@ Line breaks are normally computed automatically. They are chosen such
 that it looks neither cramped nor loose, and that consecutive lines have
 similar density.
 
-Occasionally you might want to override the automatic breaks; you can do
-this by specifying @code{\break}. This will force a line break at this
-point. Do remember that line breaks can only occur at places where there
-are bar lines.  If you want to have a line break where there is no
-bar line, you can force an invisible bar line by entering @code{\bar
-""}. Similarly, @code{\noBreak} forbids a line break at a certain point.
+Occasionally you might want to override the automatic breaks; you can
+do this by specifying @code{\break}. This will force a line break at
+this point.  Line breaks can only occur at places where there are bar
+lines.  If you want to have a line break where there is no bar line,
+you can force an invisible bar line by entering @code{\bar
+""}. Similarly, @code{\noBreak} forbids a line break at a certain
+point.
 
 If you want linebreaks at regular intervals, you can use the following:
 @example
-
 <  \repeat 7 unfold @{ s1 * 4 \break  @}
    @emph{real music}
 > 
 @end  example
 This makes the following 28 measures (assuming 4/4 time) be broken every
 4 measures.
-
-
-@cindex @code{\penalty}
-
-The @code{\break} and @code{\noBreak} commands are defined in terms of
-the penalty command:
-@example
-  \penalty @var{int} 
-@end example
-
-This encourages or discourages LilyPond to make a line break at this
-point.
-
-@refbugs
-
-The scaling of the @code{\penalty} argument is not well-defined.  The
-command is rather kludgey, and slated for rewriting.
 
 @c .  {Page break}
 @node Page break
@@ -4173,35 +4223,12 @@ command is rather kludgey, and slated for rewriting.
 @cindex breaking pages
 
 Page breaks are normally computed by @TeX{}, so they are not under
-direct control of LilyPond.  However, you can insert a commands into the
-@file{.tex} output to instruct @TeX{} where to break pages, by inserting
-the command @code{\newpage}
-@cindex @code{\newpage}
+direct control of LilyPond.  However, you can insert a commands into
+the @file{.tex} output to instruct @TeX{} where to break pages. You
+can insert a @code{\newpage} from within lilypond. This is done by
+setting the @code{between-systems-strings} on the
+@internalsref{NonMusicalPaperColumn} where the system is broken.
 
-@example
-  \newpage
-@end example
-
-@c why do so difficult?
-@c maybe should explain contents of between-system.ly,
-@c but not now, we're talking about page breaks here.
-@c For more
-@c details, see the example file @file{input/test/between-systems.ly}
-
-
-@c .  {Output scaling}
-@node Output scaling
-@subsection Output scaling
-
-[TODO]
-
-@example
-dvips ...
-@end example
-
-@example
-pstops ...
-@end example
 
 
 @refbugs
@@ -4218,16 +4245,16 @@ meaning that you don't have access to continuously scaled fonts.
 LilyPond can output processed music in different output formats.  
 
 @menu
-* TeX output::                  
+* @TeX{} output::               
 * PostScript output::           
 * Scheme output::               
 * ASCIIScript output::          
 * Sketch output::               
 @end menu
 
-@node TeX output
-@subsection TeX output
-@cindex TeX output
+@node @TeX{} output
+@subsection @TeX{} output
+@cindex @TeX{} output
 
 LilyPond will use @TeX{} by default.  Even if you want to produce
 PostScript output for viewing or printing, you should normally have
@@ -4411,10 +4438,6 @@ instruments and ranges or change the default settings by overriding the
 Both loudness controls are combined to produce the final  MIDI volume. 
 
 
-@refbugs
-
-It is currently not possible to use the percussion channel (generally
-channel 10 of a MIDI file).
 
 @menu
 * MIDI block::                  
@@ -4465,913 +4488,4 @@ If the selected string does not exactly match, then LilyPond uses the
 default (Grand Piano). It is not possible to select an instrument by
 number.
 
-
-
-
-
-
-
-
-@c FIXME: Note entry vs Music entry at top level menu is confusing.
-@c . {Music entry}
-@node Interpretation context
-@section Interpretation context
-
-@menu
-* Creating contexts::           
-* Default contexts::            
-* Context properties::          
-* Engravers and performers::    
-* Changing context definitions::  
-* Defining new contexts::       
-@end menu
-
-
-Interpretation contexts are objects that only exist during a run of
-LilyPond.  During the interpretation phase of LilyPond (when it prints
-"interpreting music"), the music expression in a @code{\score} block is
-interpreted in time order. This is the same order that humans hear and
-play the music.
-
-During this interpretation, the interpretation context holds the
-state for the current point within the music. It contains information
-like
-
-@itemize @bullet
-  @item What notes are playing at this point?
-  @item What symbols will be printed at this point?
-  @item What is the current key signature, time signature, point within
-       the measure, etc.?
-@end itemize
-
-Contexts are grouped hierarchically: A @internalsref{Voice} context is
-contained in a @internalsref{Staff} context (because a staff can contain
-multiple voices at any point), a @internalsref{Staff} context is contained in
-@internalsref{Score}, @internalsref{StaffGroup}, or @internalsref{ChoirStaff} context.
-
-Contexts associated with sheet music output are called @emph{notation
-contexts}, those for sound output are called @emph{performance
-contexts}. The default definitions of the standard notation and
-performance contexts can be found in @file{ly/engraver-init.ly} and
-@file{ly/performer-init.ly}, respectively.
-
-@node Creating contexts
-@subsection Creating contexts
-
-@cindex @code{\context}
-@cindex context selection
-
-Contexts for a music expression can be selected manually, using the
-following music expression.
-
-@example
-  \context @var{contexttype} [= @var{contextname}] @var{musicexpr}
-@end example
-
-This instructs lilypond to interpret @var{musicexpr} within the context
- of type @var{contexttype} and with name @var{contextname}.  If this
-context does not exist, it will be created.  
-
-@lilypond[verbatim,singleline]
-\score {
-  \notes \relative c'' {
-    c4 <d4 \context Staff = "another" e4> f
-  }
-}
-
-@end lilypond
-
-In this example, the @code{c} and @code{d} are printed on the
-default staff.  For the @code{e}, a context Staff called
-@code{another} is specified; since that does not exist, a new
-context is created.  Within @code{another}, a (default) Voice context
-is created for the @code{e4}.  When all music referring to a
-context is finished, the context is ended as well.  So after the
-third quarter, @code{another} is removed.
-
-
-
-@node Default contexts
-@subsection Default contexts
-
-Most music expressions don't need an explicit @code{\context}
-declaration: they inherit the 
-notation context from their parent. Each note is a music expression, and
-as you can see in the following example, only the sequential music
-enclosing the three notes has an explicit context. 
-
-@lilypond[verbatim,singleline]
-\score { \notes \context Voice = goUp { c'4 d' e' } } 
-@end lilypond
-
-There are some quirks that you must keep in mind when dealing with
-defaults:
-
-First, every top level music is interpreted by the Score context, in other
-words, you may think of @code{\score} working like
-@example
-        \score @{
-                \context Score @var{music}
-        @}
-@end example
-
-Second, contexts are created automatically to be able to interpret the
-music expressions. Consider the following example.
-
-@lilypond[verbatim, singleline]
-\score { \context Score \notes { c'4 (  d' )e' } }
-@end lilypond
-
-The sequential music is interpreted by the Score context initially
-(notice that the @code{\context} specification is redundant), but when a
-note is encountered, contexts are setup to accept that note. In this
-case, a Thread, Voice and Staff are created. The rest of the sequential
-music is also interpreted with the same Thread, Voice and Staff context,
-putting the notes on the same staff, in the same voice.
-
-This is a convenient mechanism, but do not expect opening chords to work
-without @code{\context}. For every note, a separate staff is
-instantiated.
-
-@cindex explicit context
-@cindex starting with chords
-@cindex chords, starting with
-
-@lilypond[verbatim, singleline]
-\score { \notes <c'4 es'> } 
-@end lilypond
-
-Of course, if the chord is preceded by a normal note in sequential
-music, the chord will be interpreted by the Thread of the preceding
-note:
-@lilypond[verbatim,singleline]
-\score { \notes { c'4 <c'4 es'> }  }
-@end lilypond
-
-
-
-@node Context properties
-@subsection Context properties
-
-Notation contexts have properties. These properties are from
-the @file{.ly} file using the following  expression:
-@cindex @code{\property}
-@example
-  \property @var{contextname}.@var{propname} =  @var{value}
-@end example
-
-Sets the @var{propname} property of the context @var{contextname} to the
-specified Scheme expression @var{value}.  All @var{propname} and
-@var{contextname} are strings, which are typically unquoted.
-
-Properties that are set in one context are inherited by all of the
-contained contexts.  This means that a property valid for the
-@internalsref{Voice} context can be set in the @internalsref{Score} context (for
-example) and thus take effect in all @internalsref{Voice} contexts.
-
-Properties can be unset using the following expression:
-@example
-  \property @var{contextname}.@var{propname} \unset
-@end example
-
-@cindex properties, unsetting
-@cindex @code{\unset} 
-
-This removes the definition of @var{propname} in @var{contextname}. If
-@var{propname} was not defined in @var{contextname} (but was inherited
-from a higher context), then this has no effect.
-
-
-@refbugs
-
-The syntax of @code{\unset} is asymmetric: @code{\property \unset} is not
-the inverse of @code{\property \set}.
-
-@node Engravers and performers
-@subsection Engravers and performers
-
-[TODO]
-
-Basic building blocks of translation are called engravers; they are
-special C++ classes.
-
-
-
-@c .  {Context definitions}
-@node Changing context definitions
-@subsection Changing context definitions
-
-@cindex context definition
-@cindex translator definition
-
-The most common way to define a context is by extending an existing
-context.  You can change an existing context from the paper block, by
-first initializing a translator with an existing context identifier:
-@example
-\paper @{
-  \translator @{
-    @var{context-identifier}
-  @} @}
-@end example
-Then you can add and remove engravers using the following syntax:
-@example
- \remove @var{engravername}
- \consists @var{engravername}
-@end example
-
-
-Here @var{engravername} is a string, the name of an engraver in the
-system.
-
-
-@lilypond[verbatim,singleline]
-\score {  \notes {
-        c'4 c'4 }
-  \paper {
-    \translator  { \StaffContext
-        \remove Clef_engraver
-       } } }
-@end lilypond
-
-@cindex engraver
-
-You can also set properties in a translator definition. The syntax is as
-follows:
-@example
- @var{propname} = @var{value}
- @var{propname} \set  @var{grob-propname} = @var{pvalue}
- @var{propname} \override @var{grob-propname} =  @var{pvalue}
- @var{propname} \revert @var{grob-propname} 
-@end example
-@var{propname} is a string, @var{grob-propname} a symbol, @var{value}
-and @code{pvalue} are Scheme expressions. These type of property
-assignments happen before interpretation starts, so a @code{\property}
-command will override any predefined settings.
-
-
- To simplify editing translators, all standard contexts have standard
-identifiers called @var{name}@code{Context}, e.g. @code{StaffContext},
-@code{VoiceContext}, see @file{ly/engraver-init.ly}.
-
-@node Defining new contexts
-@subsection Defining new contexts
-
-If you want to build a context from scratch, you must also supply the
-following extra information:
-@itemize @bullet
-  @item  A name, specified by @code{\name @var{contextname}}.
-
-  @item A cooperation module. This is specified by   @code{\type
-@var{typename}}.
-@end itemize
-
-This is an example:
-@example
-\translator @code{
-  \type "Engraver_group_engraver"
-  \name "SimpleStaff"
-  \alias "Staff"
-  \consists "Staff_symbol_engraver"
-  \consists "Note_head_engraver"
-  \consistsend "Axis_group_engraver"
-}@
-@end example
-
-The argument of @code{\type} is the name for a special engraver that
-handles cooperation between simple engravers such as
-@code{Note_head_engraver} and @code{Staff_symbol_engraver}. Alternatives
-for this engraver are the following:
-@table @code
-@cindex @code{Engraver_group_engraver}
-  @item @code{Engraver_group_engraver}  
-    The standard cooperation engraver.
-
-@cindex @code{Score_engraver}
-
-  @item @code{Score_engraver}  
-    This is cooperation module that should be in the top level context,
-and only the top level context.
-
-@cindex @code{Grace_engraver_group}
-
-  @item @code{Grace_engraver_group}  
-    This is a special cooperation module (resembling
-    @code{Score_engraver}) that is used to create an embedded
-    `miniscore'.
-@end table 
-
-Other modifiers   are
-
-@itemize @bullet
-  @item @code{\alias} @var{alternate-name}
-    This specifies a different name. In the above example,
-@code{\property Staff.X = Y} will also work on @code{SimpleStaff}s
-
-  @item  @code{\consistsend} @var{engravername} 
-    Analogous to @code{\consists}, but makes sure that
-    @var{engravername} is always added to the end of the list of
-    engravers.
-
-    Some engraver types need to be at the end of the list; this
-    insures they stay there even if a user adds or removes engravers.
-End-users generally don't need this command.
-    
-  @item  @code{\accepts} @var{contextname}
-    Add @var{contextname} to the list of contexts this context can
-    contain in the context hierarchy. The first listed context is the
-    context to create by default.
-
-  @item @code{\denies}. The opposite of @code{\accepts}. Added for
-completeness, but is never used in practice.
- 
-  
-  @item  @code{\name} @var{contextname} 
-    This sets the type name of the context, e.g. @internalsref{Staff},
-    @internalsref{Voice}.  If the name is not specified, the translator won't do
-    anything. 
-@end itemize
-
-In the @code{\paper} block, it is also possible to define translator
-identifiers.  Like other block identifiers, the identifier can only
-be used as the very first item of a translator.  In order to define
-such an identifier outside of @code{\score}, you must do
-
-@quotation
-@example 
-\paper @{
-  foo = \translator @{ @dots{} @}
-@}
-\score @{
-  \notes @{
-    @dots{}
-  @}
-  \paper @{
-    \translator @{ \foo @dots{} @}
-  @}
-@} 
-@end example 
-
-@end quotation
-
-
-@cindex paper types, engravers, and pre-defined translators
-
-      
-
-
-
-
-@c . {Syntactic details}
-@node Syntactic details
-@section Syntactic details
-@cindex Syntactic details
-
-This section describes details that were too boring to be put elsewhere.
-
-@menu
-* Top level::                   
-* Identifiers::                 
-* Music expressions::           
-* Manipulating music expressions::  
-* Span requests::               
-* Assignments::                 
-* Lexical modes::               
-* Ambiguities::                 
-@end menu
-
-@c .  {Top level}
-@node Top level
-@subsection Top level
-@cindex Top level
-
-This section describes what you may enter at top level.
-
-
-@c .   {Score}
-@subsubsection Score
-@cindex Score
-
-@cindex score definition
-
-The output is generated combining a music expression with an output
-definition.  A score block has the following syntax:
-
-@example
-  \score @{ @var{musicexpr} @var{outputdefs} @}
-@end example
-
-@var{outputdefs} are zero or more output definitions.  If none is
-supplied, the default @code{\paper} block will be added.
-
-
-
-@c .   {Default output}
-@subsubsection Default output
-
-Default values for the @code{\paper} and @code{\midi} block are set by
-entering such a block at the top level.
-
-@c .   {Header}
-@subsubsection Header
-@cindex Header
-@cindex @code{\header}
-
-
-A header describes bibliographic information of the file's contents.  It
-can also appear in a @code{\score} block.  Tools like @code{ly2dvi} can
-use this information for generating titles.  Key values that are used by
-@code{ly2dvi} are: title, subtitle, composer, opus, poet, instrument,
-meter, arranger, piece and tagline.
-
-@cindex @code{ly2dvi}
-
-The syntax is
-@example
-  \header @{ @var{key1} = @var{val1}
-             @var{key2} = @var{val2} @dots{} @}
-@end example
-
-It is customary to put the @code{\header} at the top of the file.
-
-@subsubsection Default output
-
-A @code{\midi} or @code{\paper} block at top level sets the default
-paper block for all scores that lack an explicit paper block.
-
-@c .  {Identifiers}
-@node Identifiers
-@subsection Identifiers
-@cindex  Identifiers
-
-@ignore
- What has this section got to do with identifiers?
- It seems more appropriate in the introduction to Chapter 4,
- "Internals".
-
-   /MB
-@end ignore
-
-All of the information in a LilyPond input file, is internally
-represented as a Scheme value. In addition to normal Scheme data types
-(such as pair, number, boolean, etc.), LilyPond has a number of
-specialized data types,
-
-@itemize @bullet
-@item Input
-@item c++-function
-@item Music
-@item Identifier
-@item Translator_def
-@item Duration
-@item Pitch
-@item Score
-@item Music_output_def
-@item Moment (rational number)
-@end itemize
-
-LilyPond also includes some transient object types. Objects of these
-types are built during a LilyPond run, and do not `exist' per se within
-your input file. These objects are created as a result of your input
-file, so you can include commands in the input to manipulate them,
-during a lilypond run.
-
-@itemize @bullet
-@item Grob: short for Graphical object. 
-@item Molecule: device-independent page output object,
-including dimensions.  Produced by some Grob functions
-@item Translator: object that produces audio objects or Grobs. This is
-not yet user accessible.
-@item Font_metric: object representing a font.
-@end itemize
-
-
-@node Music expressions
-@subsection Music expressions
-
-@cindex music expressions
-
-Music in LilyPond is entered as a music expression.  Notes, rests, lyric
-syllables are music expressions, and you can combine music expressions
-to form new ones, for example by enclosing a list of expressions in
-@code{\sequential @{ @}} or @code{< >}.  In the following example, a
-compound expression is formed out of the quarter note @code{c} and a
-quarter note @code{d}:
-
-@example 
-\sequential @{ c4 d4 @} 
-@end example 
-
-@cindex Sequential music
-@cindex @code{\sequential}
-@cindex sequential music
-@cindex @code{<}
-@cindex @code{>}
-@cindex Simultaneous music
-@cindex @code{\simultaneous}
-
-The two basic compound  music expressions are simultaneous  and
-sequential music.
-
-@example
-  \sequential @code{@{} @var{musicexprlist} @code{@}}
-  \simultaneous @code{@{} @var{musicexprlist} @code{@}}
-@end example
-For both, there is a shorthand:
-@example
-  @code{@{} @var{musicexprlist} @code{@}}
-@end example
-for sequential and
-@example
-  @code{<} @var{musicexprlist} @code{>}
-@end example
-for simultaneous music.
-In principle, the way in which you nest sequential and simultaneous to
-produce music is not relevant.  In the following example, three chords
-are expressed in two different ways:
-
-@lilypond[fragment,verbatim,center]
-  \notes \context Voice {
-    <a c'> <b  d' > <c' e'>
-    < { a b  c' } { c' d' e' } >
-  }
-@end lilypond
-
-
-Other compound music expressions include
-@example
- \repeat @var{expr}
- \transpose @var{pitch} @var{expr}
- \apply @var{func} @var{expr}
- \context @var{type} = @var{id} @var{expr}
- \times @var{fraction} @var{expr}
-@end example
-
-
-@c . {Manipulating music expressions}
-@node Manipulating music expressions
-@subsection  Manipulating music expressions
-
-The @code{\apply} mechanism gives you access to the internal
-representation of music. You can write Scheme-functions that operate
-directly on it. The syntax is 
-@example
-        \apply #@var{func} @var{music}
-@end example
-This means that @var{func} is applied to @var{music}.  The function
-@var{func} should return a music expression.
-
-This example replaces the text string of a script. It also shows a dump
-of the music it processes, which is useful if you want to know more
-about how music is stored.
-
-@lilypond[verbatim,singleline]
-#(define (testfunc x)
-        (if (equal? (ly-get-mus-property x 'text) "foo")
-                (ly-set-mus-property x 'text "bar"))
-        ;; recurse
-        (ly-set-mus-property x 'elements
-          (map testfunc (ly-get-mus-property x 'elements)))
-        (display x)
-        x        
-)
-\score { \notes
-  \apply #testfunc { c'4_"foo" }
-} 
-@end lilypond
-
-For more information on what is possible, see the automatically
-generated documentation.
-
-
-Directly accessing internal representations is dangerous: the
-implementation is subject to changes, so you should avoid this feature
-if possible.
-
-A final example is a function that reverses a piece of music in time:
-
-@lilypond[verbatim,singleline]
-#(define (reverse-music music)
-  (let* ((elements (ly-get-mus-property music 'elements))
-         (reversed (reverse elements))
-         (span-dir (ly-get-mus-property music 'span-direction)))
-    (ly-set-mus-property music 'elements reversed)
-    (if (dir? span-dir)
-        (ly-set-mus-property music 'span-direction (- span-dir)))
-    (map reverse-music reversed)
-    music))
-
-music = \notes { c'4 d'4( e'4 f'4 }
-
-\score { \context Voice {
-    \music
-    \apply #reverse-music \music
-  }
-}
-@end lilypond
-
-More examples are given in the distributed example files in
-@code{input/test/}.
-
-@c .   {Span requests}
-@menu
-* Span requests::               
-@end menu
-
-@node Span requests
-@subsection Span requests
-@cindex Span requests
-
-Notational constructs that start and end on different notes can be
-entered using span requests. The syntax is as follows:
-
-
-@example
-  \spanrequest @var{startstop} @var{type}
-@end example
-
-
-@cindex @code{\start}
-@cindex @code{\stop}
-
-This defines a spanning request. The @var{startstop} parameter is either
--1 (@code{\start}) or 1 (@code{\stop}) and @var{type} is a string that
-describes what should be started.  Much of the syntactic sugar is a
-shorthand for @code{\spanrequest}, for example,
-
-@lilypond[fragment,verbatim,center]
-  c'4-\spanrequest \start "slur"
-  c'4-\spanrequest \stop "slur"
-@end lilypond
-
-Among the supported types are @code{crescendo}, @code{decrescendo},
-@code{beam}, @code{slur}. This is an internal command.  Users are
-encouraged to use the shorthands which are defined in the initialization
-file @file{spanners.ly}.
-
-
-@c .   {Assignments}
-@node Assignments
-@subsection Assignments
-@cindex Assignments
-
-Identifiers allow objects to be assigned to names during the parse
-stage.  To assign an identifier, you use @var{name}@code{=}@var{value}
-and to refer to an identifier, you precede its name with a backslash:
-`@code{\}@var{name}'.  @var{value} is any valid Scheme value or any of
-the input-types listed above.  Identifier assignments can appear at top
-level in the LilyPond file, but also in @code{\paper} blocks.
-
-An identifier can be created with any string for its name, but you will
-only be able to refer to identifiers whose names begin with a letter,
-being entirely alphabetical.  It is impossible to refer to an identifier
-whose name is the same as the name of a keyword.
-
-The right hand side of an identifier assignment is parsed completely
-before the assignment is done, so it is allowed to redefine an
-identifier in terms of its old value, e.g.
-
-@example
-foo = \foo * 2.0
-@end example
-
-When an identifier is referenced, the information it points to is
-copied.  For this reason, an identifier reference must always be the
-first item in a block.
-@example
-\paper  @{
-  foo = 1.0
-  \paperIdent % wrong and invalid
-@}
-
-\paper @{
-  \paperIdent % correct
-  foo = 1.0 @}
-@end example
-
-
-@c .  {Lexical modes}
-@node Lexical modes
-@subsection Lexical modes
-@cindex Lexical modes
-@cindex input mode
-@cindex mode, input 
-@cindex @code{\notes}
-@cindex @code{\chords}
-@cindex @code{\lyrics}
-
-To simplify entering notes, lyrics, and chords, LilyPond has three
-special input modes in addition to the default mode: note, lyrics and
-chords mode.  These input modes change the way that normal, unquoted
-words are interpreted: for example, the word @code{cis} may be
-interpreted as a C-sharp, as a lyric syllable `cis' or as a C-sharp
-major triad respectively.
-
-A mode switch is entered as a compound music expression
-@example
-@code{\notes} @var{musicexpr}
-@code{\chords} @var{musicexpr}
-@code{\lyrics} @var{musicexpr}.
-@end example
-
-In each of these cases, these expressions do not add anything to the
-meaning of their arguments.  They just instruct the parser in what mode
-to parse their arguments.  The modes are treated in more detail in
-@ref{Lyrics} and @ref{Chords}.
-
-Different input modes may be nested.
-
-@c .  {Ambiguities}
-@node Ambiguities
-@subsection Ambiguities
-@cindex ambiguities
-@cindex grammar
-
-
-The grammar contains a number of ambiguities. We hope to resolve them at
-some time.
-
-@itemize @bullet
-  @item  The assignment
-
-@example 
-foo = bar 
-@end example 
-         is interpreted as the string identifier assignment. However,
-it can also  be interpreted as making a string identifier @code{\foo}
-       containing @code{"bar"}, or a music identifier @code{\foo}
-       containing the syllable `bar'.  
-
-  @item  If you do a nested repeat like
-
-       @quotation
-
-@example 
-\repeat @dots{}
-\repeat @dots{}
-\alternative 
-@end example 
-
-       @end quotation
-
-       then it is ambiguous to which @code{\repeat} the
-       @code{\alternative} belongs.  This is the classic if-then-else
-       dilemma.  It may be solved by using braces.
-
-  @item The parser is not sophisticated enough to distinguish at the
-right time between
-        @code{c4*2 / 3 } and @code{c4*2 / g} (in chord mode).
-
-[checkme]
-
-@end itemize
-
-
-@c .  {Lexical details}
-@node Lexical details
-@section Lexical details
-
-Even more boring details, now on lexical side of the input parser.
-
-@menu
-* Comments::                    
-* Direct Scheme::               
-* Reals::                       
-* Strings::                     
-* Main input::                  
-* File inclusion::              
-* Version information::         
-@end menu
-
-
-@node Comments
-@subsection Comments
-
-@cindex comments
-@cindex block comment
-@cindex line comment
-
-@cindex @code{%}
-
-A one line comment is introduced by a @code{%} character. 
-Block comments are started by @code{%@{} and ended by @code{%@}}. 
-They cannot be nested.
-
-@node Direct Scheme
-@subsection Direct Scheme
-
-@cindex Scheme
-@cindex GUILE
-@cindex Scheme, in-line code
-
-
-LilyPond contains a Scheme interpreter (the GUILE library) for
-internal use. In some places, Scheme expressions also form valid syntax:
-wherever it is allowed,
-@example
-  #@var{scheme}
-@end example
-evaluates the specified Scheme code.  Example:
-@example
-  \property Staff.TestObject \override #'foobar =  #(+ 1 2)
-@end example
-@code{\override} expects two Scheme expressions, so there are two Scheme
-expressions. The first one is a symbol (@code{foobar}), the second one
-an integer (namely, 3).
-
-In-line scheme may be used at the top level. In this case the result is
-discarded.
-
-Scheme is a full-blown programming language, and a full discussion is
-outside the scope of this document. Interested readers are referred to
-the website @uref{http://www.schemers.org/} for more information on
-Scheme.
-
-
-@node Reals
-@subsection Reals
-@cindex real numbers
-
-Formed from an optional minus sign and a sequence of digits followed
-by a @emph{required} decimal point and an optional exponent such as
-@code{-1.2e3}.  Reals can be built up using the usual operations:
-`@code{+}', `@code{-}', `@code{*}', and
-`@code{/}', with parentheses for grouping.
-
-@cindex @code{\mm},
-@cindex @code{\in}
-@cindex @code{\cm}
-@cindex @code{\pt}
-@cindex dimensions
-
-A real constant can be followed by one of the dimension keywords:
-@code{\mm} @code{\pt}, @code{\in}, or @code{\cm}, for millimeters,
-points, inches and centimeters, respectively.  This converts the number
-a number that is the internal representation of that dimension.
-
-
-@node Strings
-@subsection Strings
-@cindex string
-@cindex concatenate
-
-Begins and ends with the @code{"} character.  To include a @code{"}
-character in a string write @code{\"}.  Various other backslash
-sequences have special interpretations as in the C language.  A string
-that contains no spaces can be written without the quotes.  Strings can
-be concatenated with the @code{+} operator.
-
-
-@node Main input
-@subsection Main input
-@cindex Main input
-
-@cindex @code{\maininput}
-
-The @code{\maininput} command is used in init files to signal that the
-user file must be read. This command cannot be used in a user file.
-
-@node File inclusion
-@subsection File inclusion
-@cindex @code{\include}
-@example
-  \include @var{filename}
-@end example
-
-Include @var{filename}.  The argument @var{filename} may be a quoted string (an
-unquoted string will not work here!) or a string identifier.  The full
-filename including the @file{.ly} extension must be given,
-
-
-@node Version information
-@subsection Version information 
-@cindex @code{\version}
-@example
-  \version @var{string} 
-@end example
-
-Specify the version of LilyPond that a file was written for.  The
-argument is a version string in quotes, for example @code{"1.2.0"}.
-This is used to detect invalid input, and to aid @code{convert-ly} a
-tool that automatically upgrades input files. See the chapter
-@ref{Upgrading from older LilyPond versions} for more information on
-@code{convert-ly}.
-
-@cindex convert-ly
-
-
-
-
-
-@c broken with  emacs-21
-@c {Local emac s  vars}
-@c Local varia bles:
-@c mode: texi nfo
-@c minor-mod e: font-lock
-@c minor-mo de: outline
-@c outline -layout: (-1 : 0)
-@c outlin e-use-mode-specific-leader: "@c \."
-@c outli ne-primary-bullet: "{"
-@c outli ne-stylish-prefixes: nil
-@c outli ne-override-protect: t
-@c End:
 

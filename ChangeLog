@@ -1,3 +1,26 @@
+2002-07-07  Han-Wen  <hanwen@cs.uu.nl>
+
+	* Documentation/user/tutorial.itely: doc carnage.
+
+2002-07-06  Rune Zedeler  <rune@zedeler.dk>
+
+	* Documentation/user/refman.itely: Documented accidentals
+	(incl. bugs), subdivideBeams and drum/percussion notation.
+
+	* lily/translator-group.cc, lily/include/translator-group.hh
+	(Translator_group::set_children_property): removed.
+
+	* lily/accidental-engraver.cc: don't use
+	Translator_group::set_children_property.
+
+	* lily/new-accidental-engraver.cc: Added. More correct
+	accidentals, but wrong spacing.
+
+	* lily/beam-enagraver.cc, lily/auto-beam-engraver.cc: Small
+	subdivideBeams-fixes.
+
+	* scm/drums.scm: Small changes/fixes in instruments and maps
+	
 2002-07-05  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lexer-gcc-3.1.sh: Fixes and more comments.

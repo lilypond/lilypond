@@ -137,16 +137,31 @@ $\\flat$
 @uref{../lilypond-internals/\NAME\.html,\NAME\}
 @cindex \NAME\
 @end macro
-@macro seeinternals{NAME}
-See @internalsref{\NAME\}
-@end macro
 @end ifhtml
-@ifnothtml
-@macro seeinternals{NAME}
+
+@ifinfo
+@macro internalsref{NAME}
+@inforef{\NAME\,,lilypond-internals}
+@cindex \NAME\
 @end macro
+@end ifinfo
+
+@iftex
 @macro internalsref{NAME}
 @cindex \NAME\
-\NAME\
+@code{\NAME\}
 @end macro
-@end ifnothtml
+@end iftex
 
+
+@iftex
+@macro seeinternals{NAME}
+internals document,  @internalsref{\NAME\}
+@end macro
+@end iftex
+
+@ifnottex
+@macro seeinternals{NAME}
+@internalsref{\NAME\}
+@end macro
+@end ifnottex

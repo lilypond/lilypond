@@ -1,5 +1,212 @@
+@c -*-texinfo-*-
+
 @node Introduction
 @chapter Introduction
+
+LilyPond is a program to print sheet music. If you have used such
+programs before, then the way to use this program might be surprising
+at first sight. To print music with lilypond, you have to enter
+musical codes in a file. Then you run LilyPond on the file, and the
+music is produced without any user intervention. For example,
+something like this:
+
+@lilypond[fragment,verbatim, relative 1, intertext="produces this"]
+\key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 
+@end lilypond
+
+We can very well imagine that encoding music using letters may appear
+strange, intimidating or even clumsy at first. Nevertheless, when you
+take the effort to learn the codes and the program you will find that
+it is not so difficult as it seems, entering music can be done
+quickly, and you never have to remember how you made the program do
+something complicated: it's all in the input code, and you only have
+read the file to see how it works. Moreover, when you use LilyPond,
+you are rewarded with very nicely looking output.
+
+This form of computing (produce the output in one go, without user
+intervention), is called @emph{batch} computing, and the program that
+is used is normally called a @emph{compiler}. In contrast, it is now
+fashionable to produce interactive programs that rely on a Graphical
+User Interface (GUI).
+
+When we started with developing LilyPond in a time that were studying
+at the university. Back then GUIs were not as ubiquitous as they are
+today, and we were immersed in the UNIX operating system, where it is
+very common to use compilers to achieve computing tasks, so our
+computerized music engraving experiment took on the form of a
+compiler.
+
+One other decision was also motivated by our academic background. In
+the scientific community it has always been a tradition to share
+knowledge, and to a lesser extent, to share the software you
+wrote. One of the most visible groups that stimulated this philosopy,
+was the Free Software Foundation, whose GNU project aimed to replace
+the closed and proprietary computing solutions with free (as in
+"Libre") variants. We jumped on that bandwagon, and that is the reason
+that you can still get LilyPond at no cost, and with no strings
+attached.
+
+When we started, we were interested in music notation, not as
+publishers or musicians, but as students and scientists. We wanted
+tried to figure to what extent formatting sheet music could be
+automated.  Making sheet music may seem trivial at first (``you print
+5 lines, and then put in the notes at different heights''),
+@emph{music engraving}, i.e. professional music typography, is in
+another ballpark.
+
+The term music engraving derives from the traditional process of music
+printing.  A few decades ago, sheet music was made by cutting and
+stamping the music mirrored into zinc or pewter plates. The plate
+would be inked, and the depressions caused by the cutting and stamping
+would hold ink thus forming an positive image. Stamping and cutting
+was completely done by hand, and making corrections was cumbersome, so
+engraving had to be correct in one go. As you can imagine this was a
+highly specialized skill, much more so than the traditional process of
+printing books.
+
+In fact, the traditional german craftmanship required six years of
+full-time training, before a student could call himself a master of
+the art. After that many more years of practical experience were
+needed to become an established music engraver.  Even today, in the
+era of high-speed computers, music requires lots of manual fine tuning
+before it acceptable to be published.
+
+The first step of making music prints is to have the symbols
+available.  Unfortunately, most of the knowledge about music engraving
+has not been laid down in an easily accessible form, so when we wanted
+to write a computer program to do create music typography, we
+encountered the first problem: there were no sets of musical symbols
+available: either they were not available freely, or they didn't look
+well to our subtle tastes. That was the reason for us to create a font
+of musical symbols, relying mostly on nice printouts of hand-engraved
+music.
+
+@lilypond
+#(define magfact 2.0)
+\score {  \notes { as'2 r4 }
+	  \paper {
+	      linewidth = -1. 
+	      \translator {
+		  \ScoreContext
+		  AccidentalPlacement \override #'right-padding = #3.0
+		  StaffSymbol \override #'transparent =   ##t
+		  Clef \override #'transparent = ##t
+		  TimeSignature \override #'transparent = ##t		  
+		  Accidental \override #'font-magnification = #magfact
+		  Rest \override #'font-magnification = #magfact
+		  NoteHead \override #'font-magnification = #magfact
+		  Stem \override #'transparent = ##t
+		  } } }
+@end lilypond
+
+In the figure above, a few notable glyphs are shown. For example, the
+half-notehead is not elliptic but slightly diamond shaped.  The stem
+of a flat symbol should be slightly brushed, i.e. becoming wider at
+the top. Fine endings, such as the one on the bottom of the quarter
+rest, should not end in sharp points, but rather in rounded shapes.
+The blackness of the font must be carefully tuned to the thickness of
+lines, beams and slurs to give a strong yet balanced overall
+impression.
+
+It was a good decision to design our own font. The experience helps
+develop a typographical taste, and it makes one appreciate subtle
+design details. Without that experience, we would not have realized
+how ugly the fonts were that we admired at first.
+
+Producing a strong and balanced look is the real challenge of music
+engraving. It is a recurring theme with many variations. One of these
+variations is choosing spacing. The distances between notes should
+reflect the durations between notes, but adhering with mathematical
+precision to the duration will lead to a poor result. Shown here is an
+example of a motive, printed four times. It is printed using both
+exact, mathematical spacing, and with some corrections. Can you spot
+which is which?
+
+@lilypond
+    \score { \notes {
+      \property Staff.NoteSpacing \set #'stem-spacing-correction
+        = #0.6
+      c'4 e''4 e'4 b'4 |
+      c'4 e''4 e'4 b'4 |
+      \property Staff.NoteSpacing \override #'stem-spacing-correction
+      = #0.0
+      \property Staff.StaffSpacing \override #'stem-spacing-correction
+      = #0.0
+      c'4 e''4 e'4 b'4 |
+      c'4 e''4 e'4 b'4 |            
+    }
+    \paper { linewidth = -1. } }
+@end lilypond
+
+The fragment that was printed uses only quarter notes: notes that are
+played in a constant regular rhythm. The spacing should reflect
+that. Unfortunately, the eye deceives us a little: the eye not only
+notices the distance between note heads, but also between consecutive
+stems. Depending on the different vertical positions, the notes of a
+upstem-downstem should be put farther apart, and the notes of a
+down-up combination should be put closer. The first two measures are
+printed with this correction, the last two measures without. The notes
+in the last two measures form downstem/upstems clumps of notes.
+
+Experts have the knowledge to make such adjustments themselves by
+hand. For a skilled engraver, a computer drawing program is sufficient
+to produce excellent music typography. However, laypeople don't have
+the knowledge to think of such details. For a musician, the interface
+of a program should be familiar. This is a place where there is a
+choice of two paradigms: most musicians are familiar with notation,
+and with music.  Most graphically oriented programs offer an interface
+that shows notation, and allow you to enter the music by placing notes
+on a staff. 
+
+
+Interactive programs always have to load and save their data from
+files on the disk.  In a program that deals with music notation, the
+notation always has to converted to some kind of representation of the
+music inside.
+
+[todo]
+
+
+When we view the problem of making beautiful sheet music for a given
+piece of music as a scientific puzzle, then we can only solve that
+puzzle if it is well-stated. Hence, when we design an input format, we
+want it to be neatly defined and have precise semantics. Such formats
+also have the advantage of being easier to write code for. 
+
+
+Many music encodings exist today but most of the encodings have not
+been tailored either for human use, or for processing it with a
+computer.  By its nature, LilyPond input has both features: it is
+concise, suitable for human input, and it can be processed
+automatically: it may be converted into MIDI or into print.
+
+
+However, one big problem with music, is that there are no standards
+for encoding music. Sure, you can record performances using MIDI, but
+that offers far too little information for adequate musicological
+purposes. With LilyPond we've taken a reverse approach: we have tried
+to come up with musical format that can cater virtually all music as
+long as it can be notated.
+
+LilyPond input focuses on musical concepts such as pitch, duration and
+music expressions.  Musical data is rhythmic, and implies an ordering
+of events. This ordering is used to create compound musical concepts:
+Large musical structures are built recursively from smaller
+expressions: a sequence of music expressions forms a new, longer and
+bigger music expression. In this sense, the input is recursive. It
+shares this property with very music encodings. The recursive nature
+will appeal to the more hackerish musician.
+
+
+
+
+@ignore
+
+
+
+Nowadays, we still don't know everything about music notation, and we
+are still trying to use
+
 
 LilyPond is a free program that produces high quality sheet music.
 
@@ -14,7 +221,7 @@ programs are
 @item Output is  configurable using Scheme
 @item Highly modular design
 @item Semantic input format
-@item Input can be generated, inspected and modified via builtin Scheme
+*@item Input can be generated, inspected and modified via builtin Scheme
  interpreter.
 @item Runs on both Unix and MS Windows
 @item Multiple output formats
@@ -37,6 +244,7 @@ new compositions.
 * Bug reports::			
 * Web site::			
 @end menu
+
 
 @node Why LilyPond
 @section Why LilyPond
@@ -61,163 +269,4 @@ Community that gave us so much, and if possible, give people the
 opportunity to publish sheet music with high quality layout.  In our
 utopic vision, some day LilyPond will help create more beautiful music.
 
-@node  The Feta Font
-@section The Feta Font
-
-
-Most of the rules concerning music symbols have not been explicitly
-laid down, so we have imitated the looks of symbols in beautiful hand
-engraved music. The starting point was to have a strong, bold look,
-with rounded symbol shapes, just like traditional engraving.
-
-@iftex
-  {\font\fet=feta20 at 100pt
-  \fet\fetaquartrest\hskip 1cm\fetahalfhead\hskip 1cm\fetaflat}
-@end iftex
-
-In the figure above, a few notable glyphs are shown. For example, in
-most music the half-notehead is not elliptic but diamond shaped.  The
-stem of a flat symbol should be slightly brushed, i.e. becoming wider
-at the top. Fine endings, such as the one on the bottom of the quarter
-rest, should not end in sharp points, but rather in rounded shapes.
-
-Finally, the blackness of the font is carefully tuned to give a strong
-and dark visual impression. Many computer music fonts are rather
-light, leading to anemic look when they are printed.
-
-Although such details are not directly visible to the untrained eye,
-careful attention to such details gives lilypond output a more
-balanced appearance.  We believe that the Feta font is among the most
-elegant music font designs available today.
-
-The Feta font was implemented in the font design system METAFONT. The
-source code includes numerous comments on the specific design
-considerations of each glyph. PostScript Type1 versions of the font
-are also available.
-
-@node Engraving
-@section Engraving
-
-
-Music engraving used to be a craft requiring many years of training.
-In the old days, sheet music was made by cutting and stamping the
-music mirrored into zinc or pewter plates. The plate would be inked,
-and the depressions caused by the cutting and stamping would hold ink
-thus forming an positive image.
-
-Of all craftmanships, engraving was the most difficult to learn trade;
-completing the basic training took as long as six years.
-Unfortunately, little of this knowledge comes to us as explicitly
-formulated rules.
-
-The only books that specifically deal with music typography are the
-books by Ross, Wanske and Hader @cite{hader48,ross,wanske}, and we
-have found that are often lacking in detail. Of course, in order to
-accurately computerize a process, one has to have a very detailed
-description of what must be done.
-
-@lilypond
-    \score { \notes {
-      c'4 e''4 e'4 b'4 |
-      \property Staff.NoteSpacing \override #'stem-spacing-correction
-      = #0.0
-      \property Staff.StaffSpacing \override #'stem-spacing-correction
-      = #0.0
-      c'4 e''4 e'4 b'4 |      
-    }
-    \paper { linewidth = -1. } }
-@end lilypond
-
-@node Semantic input format
-@section Semantic input format
-
-One the key points of LilyPond, is that the input is musical: what you
-put into the program are musical concepts, such as pitches, durations,
-voices, etc.  The program then interprets these concepts, and produces
-graphic output: glyphs, curves, offsets.  In this way the program
-tries to act like an engraver. 
-
-
-If you only want to print music, this might not interest you so much,
-except for the fact that it means you don't have to worry much about
-formatting details.
-
-
-Many music encodings exist today @cite{selfridge-field97:beyond-midi},
-but most of the encodings have not been tailored either for human use,
-or for processing it with a computer.  By its nature, LilyPond input
-has both features: it is concise, suitable for human input, and it can
-be processed automatically: it may be converted into MIDI or into print.
-
-
-However, one big problem with music, is that there are no standards
-for encoding music. Sure, you can record performances using MIDI, but
-that offers far too little information for adequate musicological
-purposes. With LilyPond we've taken a reverse approach: we have tried
-to come up with musical format that can cater virtually all music as
-long as it can be notated.
-
-LilyPond input focuses on musical concepts such as pitch, duration and
-music expressions.  Musical data is rhythmic, and implies an ordering
-of events. This ordering is used to create compound musical concepts:
-Large musical structures are built recursively from smaller
-expressions: a sequence of music expressions forms a new, longer and
-bigger music expression. In this sense, the input is recursive. It
-shares this property with very music encodings. The recursive nature
-will appeal to the more hackerish musician.
-
-
-@node A programming approach
-@section A programming approach
-
-blabla
-
-@node  About this manual
-@section About this manual
-
-blabla
-
-
-@node Bug reports
-@section Bug reports
-
-@cindex bugs
-@cindex reporting bugs
-
-
-Since there is no finder's fee which doubles every year, there is no
-need to wait for the prize money to grow. So send a bug report today!
-
-LilyPond development moves quickly, so if you have a problem, it is
-wise to check if it has been fixed in a newer release.  If you think
-you found a bug, please send in a bugreport.  When you send us a
-bugreport, we have to diagnose the problem and if possible, duplicate
-it.  To make this possible, it is important that you include the
-following information in your report:
-
-@itemize @bullet
-
-@item A sample input which causes the error.  Please have mercy on the
-developers, send a @emph{small} sample file.
-
-@item The version number of lilypond.
-
-@item A description of the platform you use (i.e., operating system,
-system libraries, whether you downloaded a binary release)
-
-@item If necessary, send a description of the bug itself.  If you
-include output a ly2dvi run, please use @code{--verbose} option of
-ly2dvi.
-
-@end itemize
-
-You can send the report to @email{bug-lilypond@@gnu.org}. This is a
-mailinglist, but you don't have to be subscribed to it to post.
-
-
-@node Web site
-@section Web site
-
-If you are reading this manual in print, it is possible that the
-website contains updates to the manual. You can find the lilypond
-website at @uref{http://www.lilypond.org/}.
+@end ignore
