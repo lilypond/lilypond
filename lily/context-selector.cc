@@ -15,8 +15,6 @@ Scheme_hash_table *Context_selector::contexts_ = 0;
 void
 Context_selector::register_context (Context *context)
 {
-  if (!contexts_)
-    contexts_ = new Scheme_hash_table ();
   int count = 0;
   if (Context *first = retrieve_context (identify_context (context, 0)))
     {
@@ -59,3 +57,12 @@ Context_selector::retrieve_context (SCM context_id)
 {
   return unsmob_context (contexts_->get (ly_to_symbol (context_id)));
 }
+
+void
+Context_selector::set_tweaks (SCM tweaks)
+{
+  (void) tweaks;
+  contexts_ = new Scheme_hash_table ();
+  //tweaks_ = tweaks;
+}
+

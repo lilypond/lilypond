@@ -8,6 +8,7 @@
 */
 
 #include "book.hh"
+#include "context-selector.hh"
 #include "grob-selector.hh"
 #include "file-name.hh"
 #include "file-path.hh"
@@ -112,12 +113,13 @@ Lily_parser::parse_file (String init, String name, String out_name)
       SCM tweaks = scm_eval_string (scm_makfrom0str (s.to_str0 ()));
       Grob_selector::set_tweaks (tweaks);
     }
+  Context_selector::set_tweaks (SCM_EOL);
 #endif  
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
      OUT_FILE (unless IN_FILE redefines output file name).  */
   do_yyparse ();
-  
+
   if (!define_spots_.is_empty ())
     {
       define_spots_.top ().warning (_ ("Braces don't match"));

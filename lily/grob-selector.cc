@@ -20,8 +20,6 @@ Protected_scm Grob_selector::tweaks_ = SCM_EOL;
 void
 Grob_selector::register_grob (Context *context, Grob *grob)
 {
-  if (!grobs_)
-    grobs_ = new Scheme_hash_table ();
   int count = 0;
   Moment m = context->now_mom ();
   if (Grob *first = retrieve_grob (identify_grob (context, m, grob, 0)))
@@ -75,6 +73,7 @@ Grob_selector::retrieve_grob (SCM grob_id)
 void
 Grob_selector::set_tweaks (SCM tweaks)
 {
+  grobs_ = new Scheme_hash_table ();
   tweaks_ = tweaks;
 }
 

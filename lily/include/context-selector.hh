@@ -26,6 +26,7 @@ public:
   static SCM identify_context (Context *context);
   static Context *retrieve_context (SCM context_id);
   static void store_context (SCM context_id, Context *context);
+  static void set_tweaks (SCM tweaks);
 };
 
 #endif /* CONTEXT_SELECTOR_HH */
