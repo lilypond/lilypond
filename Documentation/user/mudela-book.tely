@@ -191,7 +191,7 @@ be no empty lines between the normal text and the mudela
 environment. 
 
 You can also use @code{mudelafile} (on a separate line, FIXME), to
-include another file. Files with name ending with @code{.sly}
+include another file.
 
 @section Fontsize options You can use all lilypond fontsizes in
 mudela-book.  The default 16pt fontsize is probably to big to be

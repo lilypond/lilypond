@@ -2,7 +2,7 @@
 	<
 		  \context Staff \notes\relative c'{ 
 			  c d e f
-			  \repeat semi 2 { g a b c }
+			  \repeat "volta" 2 { g a b c }
 			  \alternative { { c b a g } { f e d c } }
 		  }
 		  \context Lyrics \lyrics {
