@@ -1,5 +1,8 @@
 2004-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/part-combiner.scm (determine-split-list): reinstate
+	playing+resting case. 
+
 	* Documentation/user/invoking.itely (Reporting bugs): rename.
 
 	* lily/lexer.ll (Lily_lexer): bump version req to 2.3.22.
