@@ -11,6 +11,10 @@
 #include "grob.hh"
 #include "warn.hh"
 
+/*
+  TODO: should junk this engraver.
+ */
+
 struct Grob_mom
 {
   Grob * grob_ ;
@@ -28,6 +32,7 @@ int compare  (Grob_mom const &a, Grob_mom const &b)
   return Moment::compare (a.end_, b.end_);
 }
 
+/****************/
 
 class Grob_pq_engraver: public Engraver
 {
@@ -59,7 +64,8 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 {
   Music  * m = gi.music_cause ();
 
-  if (m)
+  if (m
+      && !gi.grob_->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
     {
       Moment n = now_mom ();
       Moment l = m->get_length ();

@@ -79,7 +79,8 @@ Instrument_name_engraver::create_text ()
       
   if (text_->get_grob_property ("text") != txt)
     text_->set_grob_property ("text", txt);
-}
+  announce_grob (text_, SCM_EOL);
+  }
 
 void
 Instrument_name_engraver::acknowledge_grob (Grob_info i)
@@ -172,6 +173,7 @@ Vocal_name_engraver::create_text ()
       
   if (text_->get_grob_property ("text") != txt)
     text_->set_grob_property ("text", txt);
+  announce_grob (text_, SCM_EOL);
 }
 
 

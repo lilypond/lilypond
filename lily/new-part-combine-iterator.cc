@@ -216,8 +216,6 @@ New_pc_iterator::construct_children ()
 						      "one", props);
 
   one_.set_translator (one);
-  one->execute_pushpop_property (ly_symbol2scm ("Stem"),
-				 ly_symbol2scm ("direction"), gh_int2scm (1));
 
   set_translator (one);
   first_iter_ = unsmob_iterator (get_iterator (unsmob_music (gh_car (lst))));
@@ -226,13 +224,34 @@ New_pc_iterator::construct_children ()
   Translator_group *two = tr->find_create_translator (ly_symbol2scm ("Voice"),
 						      "two", props);
   two_.set_translator (two);
-  two_.report_to ()->execute_pushpop_property (ly_symbol2scm ("Stem"),
-				  ly_symbol2scm ("direction"), gh_int2scm (-1));
   set_translator (two);
   second_iter_ = unsmob_iterator (get_iterator (unsmob_music (gh_cadr (lst))));
 
 
   set_translator (tr);
+
+
+  char const * syms[] = {
+    "Stem",
+    "DynamicLineSpanner",
+    "Tie",
+    "Dots",
+    "Slur",
+    "TextScript",
+    "Script",
+    0
+  };
+  
+  for (char const**p = syms; *p; p++)
+    {
+      SCM sym = ly_symbol2scm (*p);
+      one->execute_pushpop_property (sym,
+				     ly_symbol2scm ("direction"), gh_int2scm (1));
+
+      two->execute_pushpop_property (sym,
+				     ly_symbol2scm ("direction"), gh_int2scm (-1));
+    }
+
 }
 
 void

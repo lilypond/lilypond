@@ -435,7 +435,7 @@
 	(meta . ((interfaces . (font-interface self-alignment-interface side-position-interface text-interface break-aligned-interface item-interface ))))
 	))
     
-    (InstrumentName
+    (VocalName
      . (
 	(breakable . #t)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_on_support_refpoints))
@@ -443,7 +443,7 @@
 	(space-alist . ((left-edge . (extra-space . 1.0))
 			))
 	(molecule-callback . ,Text_item::brew_molecule)		
-	(break-align-symbol . instrument-name)
+	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
 	(font-family . roman)
@@ -574,7 +574,7 @@
 	(thick-thickness . 6.6)
 	(hair-thickness . 2.0)
 	(padding . 1)
-	(meta . ((interfaces . (multi-measure-rest-interface rest-interface font-interface staff-symbol-referencer-interface))))
+	(meta . ((interfaces . (multi-measure-rest-interface multi-measure-interface rest-interface font-interface staff-symbol-referencer-interface))))
 	))
     
     (MultiMeasureRestNumber
@@ -588,7 +588,7 @@
 	(padding . 1.3)
 	(staff-padding . 1.3)
 	(font-family . number)
-	(meta . ((interfaces . (side-position-interface self-alignment-interface font-interface spanner-interface text-interface))))
+	(meta . ((interfaces . (side-position-interface multi-measure-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
     (MultiMeasureRestText
      . (
@@ -601,7 +601,7 @@
 	(padding . 1.5)
 	(staff-padding . 1.5)
 	(font-family . roman)
-	(meta . ((interfaces . (side-position-interface self-alignment-interface font-interface spanner-interface text-interface))))
+	(meta . ((interfaces . (side-position-interface multi-measure-interface self-alignment-interface font-interface spanner-interface text-interface))))
 	))
  (NoteCollision
      . (
