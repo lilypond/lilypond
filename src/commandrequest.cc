@@ -14,8 +14,15 @@
 void
 Cadenza_req::do_print()const
 {
-    mtor << on_b;
+    mtor << on_b_;
 }
+
+Cadenza_req::Cadenza_req(bool b)
+{
+    on_b_ =b;
+}
+/* *************** */
+
 
 int
 Bar_req::compare(const Bar_req &c1)const
@@ -39,12 +46,6 @@ Partial_measure_req::Partial_measure_req(Moment m)
     duration_ =m;
 }
 /* *************** */
-Cadenza_req::Cadenza_req(bool b)
-{
-    on_b =b;
-}
-/* *************** */
-
 Meter_change_req::Meter_change_req()
 {
     beats_i_ = 0;
@@ -61,7 +62,7 @@ void
 Timing_req::do_print()const{}
 
 void
-Nonmusical_req::do_print()const{}
+Command_req::do_print()const{}
 /* *************** */
 void
 Barcheck_req::do_print() const{}
