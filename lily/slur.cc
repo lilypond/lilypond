@@ -158,7 +158,9 @@ Slur::outside_slur_callback (SCM grob, SCM axis)
 		   curve.control_[3][X_AXIS]);
 
   Real x = xext.center ();
-  if (!bezext.contains (xext[RIGHT]))
+  if (bezext.contains (x))
+    ;
+  else if (!bezext.contains (xext[RIGHT]))
     x = xext[LEFT];
   else if (!bezext.contains (xext[LEFT]))
     x = xext[RIGHT];

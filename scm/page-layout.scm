@@ -330,7 +330,7 @@ is what have collected so far, and has ascending page numbers."
 		 (entry (list idx (1+ idx) distance)))
 	      entry)))
 	 (rods (map calc-rod (iota (1- no-systems))))
-	 (page-very-empty? (> space-left (/ page-height 3)))
+	 (page-very-empty? (> space-left (/ page-height 1.5)))
 	 (result (ly:solve-spring-rod-problem
 		  springs rods space
 		  (or page-very-empty? ragged?)))

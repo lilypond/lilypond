@@ -1,3 +1,8 @@
+2004-09-17  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* buildscripts/guile-gnome.sh (SLIB_PATH): add SLIB_PATH to
+	GUILE_LOAD_PATH
+
 2004-09-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* scm/output-gnome.scm: Small fixes.
@@ -22,6 +27,8 @@
 	* buildscripts/guile-gnome.sh: Add missing bit.
 
 2004-09-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* buildscripts/guile-gnome.sh (LD_LIBRARY_PATH): new script.
 
 	* lily/slur-scoring.cc (get_y_attachment_range): set end point
 	using  base_attachment.

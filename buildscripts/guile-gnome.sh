@@ -13,6 +13,7 @@ set -ex
 
 # Where user built stuff will be installed
 OPT=$HOME/usr/pkg
+SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
@@ -57,8 +58,8 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
 	echo "." > CVS/Repository
 	cvs -z3 checkout -P pango
     else
-        wget ftp://ftp.gtk.org/pub/gtk/v2.5/pango-1.5.2.tar.gz
-	tar -zf pango-1.5.2.tar.gz
+        wget -N ftp://ftp.gtk.org/pub/gtk/v2.5/pango-1.5.2.tar.gz
+	tar -xzf pango-1.5.2.tar.gz
 	ln -s pango-1.5.2 pango
     fi
     cd pango
@@ -81,7 +82,8 @@ fi
 
 PKG_CONFIG_PATH=$OPT/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 LD_LIBRARY_PATH=$OPT/g-wrap/lib:$LD_LIBRARY_PATH
-GUILE_LOAD_PATH=$OPT/g-wrap/share/guile/site:$GUILE_LOAD_PATH
+GUILE_LOAD_PATH=$OPT/g-wrap/share/guile/site:$GUILE_LOAD_PATH:$SLIB_PATH
+
 
 ## 4.  get g-wrap 2.0
 ## note that bleeding edge (2004-9-13) g-wrap breaks guile-gnome.
@@ -96,7 +98,7 @@ if ! pkg-config --exact-version=1.9.1 g-wrap-2.0-guile; then
         ## ughr:
 	mkdir -p g-wrap/libffi
     else
-	wget http://savannah.nongnu.org/download/g-wrap/g-wrap-1.9.1.tar.gz
+	wget -N http://savannah.nongnu.org/download/g-wrap/g-wrap-1.9.1.tar.gz
 	tar zxf g-wrap-1.9.1.tar.gz
 	ln -s g-wrap-1.9.1 g-wrap
     fi
@@ -123,7 +125,6 @@ fi
 PKG_CONFIG_PATH=$OPT/guile-gnome/lib/pkgconfig:$PKG_CONFIG_PATH
 LD_LIBRARY_PATH=$OPT/guile-gnome/lib:$LD_LIBRARY_PATH
 GUILE_LOAD_PATH=$OPT/guile-gnome/share/guile:$GUILE_LOAD_PATH
-
 ## 5.  get guile-gnome
 if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
     if [ -n "$BLOEDIGE_RAND" ]; then
@@ -165,7 +166,7 @@ if ! pkg-config --atleast-version=$GGVERSION guile-gnome-glib; then
 	fi
 	cd ..
     else
-	wget http://ambient.2y.net/wingo/tmp/guile-gnome-platform-$GGVERSION.tar.gz
+	wget -N http://ambient.2y.net/wingo/tmp/guile-gnome-platform-$GGVERSION.tar.gz
 	tar xzf guile-gnome-platform-$GGVERSION.tar.gz
 	ln -s guile-gnome-platform-$GGVERSION guile-gnome
 	cd guile-gnome
