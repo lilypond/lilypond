@@ -7,7 +7,7 @@ TestedFeatures = "This file tests silly line shapes";
 
 \include "paper20.ly"
 
-\version "0.1.14";
+\version "0.1.15";
 
 oden = \lyric{ 
 	O8 |

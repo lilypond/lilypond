@@ -14,7 +14,7 @@ copyright =	 "public domain";
 multiple \paper{}s in one \score 
 %}
 
-\version "0.1.14";
+\version "0.1.15";
 
 $vocal_verse1 = \melodic{
 	\octave c';

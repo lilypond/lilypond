@@ -9,7 +9,7 @@ copyright =	 "public domain";
 description = "A schubert song in 20 pt";
 } 
 
-\version "0.1.14";
+\version "0.1.15";
 
 % fool make-website
 % \include "standchen.ly";

@@ -244,3 +244,5 @@ LOOP=set -e; for i in $(SUBDIRS); do $(MAKE) -C $$i $@; done
 else
 LOOP=
 endif
+
+sed-version= sed 's!@TOPLEVEL_VERSION@!${TOPLEVEL_VERSION}!g'

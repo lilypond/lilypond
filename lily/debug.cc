@@ -72,7 +72,7 @@ bool check_debug=false;
 
 bool check_malloc_b = false;
 
-// #define MEMORY_PARANOID
+//#define MEMORY_PARANOID
 
 #ifdef MEMORY_PARANOID
 

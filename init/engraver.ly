@@ -32,6 +32,7 @@ Staff = \translator {
 %}
 	\consists "Separating_line_group_engraver";
 	\consists "Line_group_engraver";
+%	\consists "Hara_kiri_line_group_engraver";
 	  
 	\accepts "Voice";
 }
@@ -89,6 +90,7 @@ Staff_group = \translator {
 	\consists "Vertical_align_engraver";
 	\consists "Staff_group_bar_engraver";
 	\consists "Line_group_engraver";
+%	\consists "Hara_kiri_line_group_engraver";
 	\accepts "Staff";
 	\accepts "Rhythmic_staff";
 	\accepts "Grand_staff";

@@ -2,9 +2,10 @@
 
 \version "0.1.14";
 
-allegro = \melodic
+allegro =
+	\melodic
+	\relative c'
 {
-	\octave relative;
 
 	R1*18
 	r2 r4 g'4 |
@@ -130,8 +131,8 @@ allegro = \melodic
 	
 }
 
-romanze = \melodic {
-	\octave relative;
+romanze = \melodic \relative c' {
+
 	\key bes;
 	\meter 2/2;
 	c'4.() f8 a,4 a
@@ -196,8 +197,7 @@ romanze = \melodic {
 	 \bar "|.";
 }
 
-rondotheme = \melodic {
-	\octave relative;
+rondotheme = \melodic \relative c' {
 	[c'8 c c] [c c c]
 	c4( cis8 )d r g,
 	[d'8 d d] [d d d]
@@ -207,16 +207,25 @@ rondotheme = \melodic {
 	e4()d8 e4()f8
 	e4.()d8 r r |
 }
-rondo = \melodic {
+
+lipbreaker = \melodic \relative c'
+{
+ 	r8 [g'-. g-.] [c()e g,-.]
+	[c()e g,-.] [c()e g,-.]
+	[c c, c] [c c c]
+	[c c c] [c c c]
+}
+
+rondo = \melodic 	\relative c'
+{
 	\partial 8;
-	\octave relative;
 	g'8 |
 	\meter 6/8;
 	\grouping 8*3 8*3;
 	\rondotheme
 	
 	R2.*13 |
-	r8 r-\fermata d' [d e f]
+	r8 r-\fermata d [d e f]
 	[g ()e c-.] [d()e d]
 	c4 c8 [d e f]
 	[g()e c-.] [d()e d-.]
@@ -244,11 +253,7 @@ rondo = \melodic {
 	[d()g d-.] [d d d]
 	[d()g] r r4 r8
 	R2.*1
-	r8 [g,-. g-.] [c()e g,-.]
-
-	[c()e g,-.] [c()e g,-.]
-	[c c, c] [c c c]
-	[c c c] [c c c]
+	\lipbreaker
 	c4 r8 [c' d e]
 	d4()g8 [c, d e]
 	d4 r8 r4 r8
@@ -258,36 +263,105 @@ rondo = \melodic {
 	[d()g fis] [e d c]
 	[b () e d] [c b a]
 	% mark C
-	g4 r8 r4r r8
-	R2.
-	
-	
-	
-	
+	g4 r8 r4 r8
+	r2. |
+	%
+	r8 [g g] [g( )b b]
+	[b()d d-.] [d()g g-.]
+	g2.~
+	[g8 a g] [f e d]
+	\rondotheme
+	R2.*12
+	r4 r8 r4 c8
+	% mark D
+	c4 f8 c4 a8
+	a4.~a4 a8
+	bes4 c8 d4 bes8
+	g4. ~ g8 r r
+	R2.*3
+	r4 r8 r4 c8
+	a4. c
+	f ~ [f8. e16( d )c]
+	bes4 g8 e4 g8
+	c4. ~ c8 r r
+	R2.*3| 
+	r4 r8 r4 c8
+	b4()c8 b4()c8
+	bes4. ~ bes4 g8
+	a4 c8 [f () d b]
+	d4. () c8 r r
+	% mark E
+	R2.*9  |
+	\lipbreaker 
+	[c8 c' c] c4.~
+	[c8 c d] [e e fis] 
+	g4 r8 r4 r8
+	r2.
+	r8 [g g] [g g g] |
+	es4. ~ [es8 d c]
+	b4 r8 r4 r8
+	r2. |
+	r8 [g g] [g g g]
+	es4.\f~ [es8 d c]
+	b4. c4. d4. e4.
+	% mark F
+	f2.\f ~ |
+	f4 r8 r4 r8
+	r8 [g\> g] [g g g]
+	[fis  g gis] % Edition breitkopf says as (silly!)
+		 [a bes \! b]
+	 \rondotheme
+	R2.*7
+	% mark G
+	R2.*4
+	c,4.\mf c4 c8
+	c4. e4 c8
+	g'4. g4 g8
+	g4. g,4 g8
+	c4 r8 r4 r8
+	r4 r8 r4 g'8
+	[c ()e g,-.] 	[c ()e g,-.]
+	[c ()e g,-.] 	[c ()e g,-.]
+	% mark H
+	g'2._"cresc." bes,2.
+	a4. [b16 c d e f g]
+	a4. f4 d8
+	[c8\f g' e] [c g e]
+	[c e' c] [g e c]
+	g4 r8 [g''8 e c]
+	d2.(-\trill % \grace { c d }
+	)c4 r8 r4 r8
+	R2.*5
+	r8 r8-\fermata d8 [d\p e f]
+	[g ()e c] [d()e d]
+	[ c c c] [d e f]
+	[g()e c] [d()e d]
+	c4\f r8 r4 r8
+	R2.*5
+	[c8\f c, c] [c c c]
+	c4 r8 c4 r8
+	c4 r8 r4 r8
 }
-%{
 \score
 {
 	{ 	\property Score.SkipBars = 1
 		\allegro
 	}
 }
-%}
-%{
+
 \score
 {
 	{ 	\property Score.SkipBars = 1
 		\romanze
 	}
 }
-
-%}
 \score
 {
 	{ 	\property Score.SkipBars = 1
 		\rondo
 	}
 	\paper{
-	castingalgorithm =\Wordwrap;
+%	castingalgorithm =\Wordwrap;
 	}
+	\midi{}
 }

@@ -379,13 +379,11 @@ My_lily_lexer::scan_escaped_word (String str)
 		return id->token_code_i_;
 	}
 	if (YYSTATE != notes) {
-		Melodic_req * mel_l = lookup_melodic_req_l (str);
-		if (mel_l) {
-		    DOUT << "(notename)\n";
-		    yylval.melreq = mel_l;
-		    mel_l->set_spot (Input (source_file_l (), here_ch_C ()));
-		    return NOTENAME_IDENTIFIER;
-		}
+		if (notename_b (str))
+			{
+			yylval.pitch = new Musical_pitch (lookup_pitch (str));
+			return NOTENAME_PITCH;
+			}
 	}
 	if (check_debug)
 		print_declarations (true);
@@ -402,12 +400,11 @@ My_lily_lexer::scan_bare_word (String str)
 {
 	DOUT << "word: `" << str<< "'\n";	
 	if (YYSTATE == notes){
-		Melodic_req * mel_l = lookup_melodic_req_l (str);
-		if (mel_l) {
+		if (notename_b (str)) {
 		    DOUT << "(notename)\n";
-		    yylval.melreq = mel_l;
-		    mel_l->set_spot (Input (source_file_l (), here_ch_C ()));
-		    return NOTENAME_IDENTIFIER;
+		    yylval.pitch = new Musical_pitch (lookup_pitch (str));
+
+		    return NOTENAME_PITCH;
 		}
 	}
 

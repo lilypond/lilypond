@@ -64,7 +64,9 @@ Makefile: make/Toplevel.make.in
 	cat $< >> $@
 	chmod -w $@
 
-website: examples
+website:examples htmldoc
+
+htmldoc:
 	$(MAKE) CONFIGSUFFIX='www' local-WWW
 	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
 	rm -f `find . -name \*.html~ -print`
@@ -79,7 +81,7 @@ examples:
 local-WWW: index.html
 
 index.html: Documentation/$(outdir)/topweb.html NEWS
-	cp Documentation/$(outdir)/topweb.html $@
+	$(sed-version) < Documentation/$(outdir)/topweb.html > $@
 	add-html-footer --news=NEWS $@
 
 Documentation/$(outdir)/topweb.html: 

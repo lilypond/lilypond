@@ -8,13 +8,7 @@
 #define LOCALKEYITEM_HH
 #include "item.hh"
 #include "varray.hh"
-
-struct Local_acc {
-    int name_i_;
-    int accidental_i_;
-    int octave_i_;
-    static int compare (Local_acc&, Local_acc&);
-};
+#include "musical-pitch.hh"
 
 /**
   Accidentals which can be different for each octave.
@@ -30,7 +24,7 @@ struct Local_acc {
 class Local_key_item : public Item {
 public:
     DECLARE_MY_RUNTIME_TYPEINFO;
-    Array<Local_acc> accs;
+    Array<Musical_pitch> accs;
     Link_array<Item> support_items_;
     int c0_position;
 
@@ -38,8 +32,7 @@ public:
     
     Local_key_item (int c0position);
     void add_support (Item*);
-    void add (int oct, int pitch, int acc);
-    void add (Melodic_req*);
+    void add (Musical_pitch);
 protected:
     virtual void do_pre_processing();    
     virtual void do_substitute_dependency (Score_elem*,Score_elem*);

@@ -10,7 +10,6 @@
 #ifndef MY_LILY_PARSER_HH
 #define MY_LILY_PARSER_HH
 #include "lily-proto.hh"
-#include "duration.hh"
 #include "string.hh"
 #include "varray.hh"
 #include "lily-proto.hh"
@@ -31,28 +30,21 @@ class My_lily_parser {
   Chord* get_rest_element (String,Duration *);
   Chord* get_word_element (Text_def*, Duration*);
   Melodic_req* get_melodic_req (Melodic_req* melodic, int quotes);
-  void set_nearest (Melodic_req* melodic);
   String notename_str (Melodic_req* melodic);
-
   void set_last_duration (Duration const *);
-  void set_default_duration (Duration const *);
   void set_abbrev_beam (int type_i);
-  void set_duration_mode (String s);
-  void set_octave_mode (String s);
   friend int yyparse (void*);
 
 public:
   int abbrev_beam_type_i_;
   int default_octave_i_;
-  Melodic_req* last_melodic_;
   Duration default_duration_;
   Plet plet_;
   Header *default_header_p_;
     
   String textstyle_str_;
   bool first_b_;
-  bool last_duration_mode_b_ ;
-  bool relative_octave_mode_b_;
+
   Array<Request*> pre_reqs, post_reqs;
   int fatal_error_i_;
   Sources * source_l_;
@@ -61,7 +53,7 @@ public:
   My_lily_lexer * lexer_p_;
  
   Moment plet_mom();
-  void add_notename (String, Melodic_req* req_p);
+  void add_notename (String, Musical_pitch req_p);
   Input here_input() const;
   void remember_spot();
   Input pop_spot();

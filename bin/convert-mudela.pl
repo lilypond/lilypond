@@ -176,8 +176,15 @@ sub convert_0_1_10_to_0_1_14
     {
 	s/([ \n\t\[<>()\]])\'(\'*[a-zA-Z]+)/$1$2,/g;
     }
-
 }
+sub convert_0_1_14_to_0_1_15
+{
+# junked \duration last and \duration 4, 8, 16 etc.
+# junked \octave relative
+    print STDERR "Not smart enough to convert \\duration\n"    if (/\\duration/) ;
+    print STDERR "Not smart enough to convert \\octave relative\n"    if (/\\octave relative/) ;    
+}
+
 ###############################################################
 
 sub    last_conversion
@@ -229,6 +236,7 @@ my %minor_conversions = ("0.0.50" => \&no_conv,
 			 ,"0.1.9" => \&convert_0_1_8_to_0_1_9
 			 ,"0.1.10" => \&convert_0_1_9_to_0_1_10
 			 , "0.1.14" => \&convert_0_1_10_to_0_1_14
+			 , "0.1.15" => \&convert_0_1_14_to_0_1_15
 			 );
 
  

@@ -34,7 +34,7 @@
   (let* ((keywords '(
 		   "accepts" "break" "bar" "cadenza" "clear" "clef" "cm" "consists" "contains"
 		   "duration" "absdynamic" "in" "translator" "type" "lyric" "key"
-		   "maininput" "melodic" "melodic_request" "meter" "midi" "mm" "multi" "header"
+		   "maininput" "melodic" "musical_pitch" "meter" "midi" "mm" "multi" "header"
 		   "notenames" "octave" "output" "partial" "paper" "plet" "property" "pt" "shape"
 		   "include"
 		   "score" "script" "skip" "staff" "table" "spandynamic" "symboltables"

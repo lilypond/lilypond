@@ -70,7 +70,7 @@
 
 \chapter{A tutorial}
 
-\emph{\Large ***Under construction: april 98***}
+\emph{\Large ***Under construction: may 98***}
 
 \section{Introduction}
 
@@ -180,7 +180,17 @@ What is in your window should look like this:
 \end{mudela}
 \end{enumerate}
 
-[talk about ly2dvi]
+The above is quite a lot of work.  Moreover, the result is pretty
+crude: the page does include prettily printed titles, composer.  Jan
+Arne Fagertun wrote a tool to take the above tedious  steps out of
+your hands.  The tool is called ly2dvi, and it should be on your
+system if you run Unix.  If you use ly2dvi, then you can do
+\begin{verbatim}
+        ly2dvi silly.ly
+\end{verbatim}
+in stead of steps 2 and 3.  You feel the real win of ly2dvi when you
+add titling to the music.  This is something that we will discuss in [XXX]
+
 
 The remainder of this document is not about \TeX, and mostly not even
 about LilyPond.  What you entered into your text editor in step~1. and
@@ -221,7 +231,7 @@ music notation works.  If you are not familiar with the English terms
 for music notation, then you should consult XXXX [FIXME], it contains
 a glossary of musical terms.
 
-\section{Music copying versus music definition}
+\section{Music copying versus music definition versus music entry}
 
 If you have done music copying before, then using LilyPond may seem
 awkward to you in the beginning.  The purpose of LilyPond is informally
@@ -242,14 +252,24 @@ hand from a printed score, you don't have to know what the score
 means; you just copy the symbols.  With LilyPond such a thing is not
 possible: we expect you to enter the meaning of the score, not the
 score itself.  If put more concretely: you do not enter ``black
-notehead without flag, fourth staff line'', but ``a quarter note,
-pitch d$^2$''.  LilyPond will figure out from the musical info what
-kind of graphic presentation is needed.
+notehead without flag, fourth staff line, with dot'', but ``a dotted
+quarter note, pitch d$^2$''.  LilyPond will figure out from the
+musical info what kind of graphic presentation is needed.
 
 This has some drawbacks: most notably, it is difficult to enter sheet
 music that you cannot read.  On the other hand, any piece of music
 once entered can be played and transposed automatically.
 
+Finally, in some spots we will cheat a bit when it comes to musical
+definition.  Mudela has some entry modes that help you to make typing
+mudela pleasant.  For example, the verbose phrase ``a dotted quarter
+note, pitch d$^2$'' translates to the following longhand 
+\begin{verbatim}
+   \musical_pitch { 1 2 0 } \duration { 2 1}
+\end{verbatim}
+You can be conveniently abbreviate this to \verb+d''4.+, which is
+considerably shorter.  There are some features that also make the
+quotes and numbers in \verb+d''4.+ superfluous in some cases.
 
 \section{When you know the notes to print\ldots}
 
@@ -380,28 +400,32 @@ previous example can be reduced to
   <e' a' d''> <a g' cis''> <d'2 f' d''>
 \end{verbatim}
 
-[WARNING: relative octaves are still experimental!]
-
 The need for quotes can also be reduced: most of the pitch intervals
 in traditional music are small.  Therefore, it makes sense to leave
 out the quotes when the interval is small.  This is called the
 relative mode for octaves.  You can switch it on by entering
-\verb+\octave relative+.  From then on, the pitch of a note will be
-the closest to the last one, Thus, you can enter a scale without using
-octavation quotes:
+\verb+\relative+.  From then on, the pitch of a note will be the
+closest to the last one.  You have to specify the first pitch because
+the first note of a row obviously has no predecessor.  Thus, you can
+enter a scale without using octavation quotes, eg,
+
 \begin{mudela}[fragment,verbatim]
-    \octave relative;   
-    c d e f g a b c  
+    \relative c' { c d e f g a b c }
 \end{mudela}
 
-The twinkle twinkle example reduces to the following input.
+For chords, the relative mode works slightly differently.  In a
+sequence of chords, the first note of a chord gives the starting point
+for the next.  We can demonstrate this with our twinkle twinkle example
 \begin{verbatim}
-  \octave relative; 
-  c'4 c <c g'> <c, e g>
-  <c, e a> <b, d a'> <b,2 d g>
-  <a,4 d f> <bes, d f> <bes, c e> <g, c e>
-  <e, a d> <a,, g' cis'> <d,2 f d'>
+  \relative c' {
+  c4 c <c g'> <c e g>
+  <c e a> <b d a'> <b2 d g>
+  <a4 d f> <bes d f> <bes c e> <g c e>
+  <e a d> <a, g' cis'> <d2 f d'>
+  }
 \end{verbatim}
+
+
 
 \section{Finishing touch}
 

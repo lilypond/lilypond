@@ -19,7 +19,7 @@
    * organ staff...
 %}
 
-\version "0.1.14";
+\version "0.1.15";
 
 noShift = { \property Voice.hshift = 0 }
 Shift = { \property Voice.hshift = 1 }

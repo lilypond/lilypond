@@ -4,8 +4,14 @@ FAQ - GNU LilyPond FAQs
 
 =head1 DESCRIPTION
 
-Some questions that have been answered before. (note: relative paths
-are meant to be relative to the source directory)
+Q: HELP! I'm stuck!
+
+A: Please read this document carefully.  If you are still at loss,
+send your questions to the B<mailing list>, and not to authors
+directly.
+
+Note: relative paths are meant to be relative to the source directory
+
 
 =head2 Installing
 
@@ -142,7 +148,7 @@ formatting:
 
 Q: and where do the beams come into this picture?
 
-A: Beams are voicegroup-wide, and may be entered in any part of the
+A: Beams are voice-wide, and may be entered in any part of the
 voicegroup:
 
 	< { [a ~ e] } { c ~ g } >
@@ -289,7 +295,7 @@ or
 	diff -urN old-directory/ new-directory/ > patch 
 
 Alternatively, you can use F<bin/make-patch.py>.  Don't forget to put
-in your name and e-mail address.
+your name and e-mail address in the F<AUTHORS.pod> file.
 
 Q: How do I learn the C++ code?
 
@@ -325,7 +331,8 @@ please fix it?
 A: No.  We have evaluated the standard GNU combination for compiling
 programs (autoconf, automake, libtool) and found to be inadequate in
 several respects.  More detailed argumentation is included with
-LilyPond (see F<automake.urgh>)
+LilyPond (see F<Documentation/automake.urgh>)
+
 
 Q: Why do I need g++ >= 2.7?
 
@@ -333,7 +340,9 @@ A: By using g++, GNU LilyPond is portable to all platforms which support
 g++ (there are quite a few). Not having to support other compilers
 saves us a I<lot> of trouble. 
 
+
 =head2 Running
+
 
 Q: There are lots of warning messages for the printing, all
 beginning with: 
@@ -344,12 +353,14 @@ A: You should use dvips and ghostscript to print it: the slurs and
 beams are PS C<\special> commands
 
 
-Q: My symbols are all messed up after I upgraded, and I get
-dvi-checksum errors!
+Q: My symbols are all messed up after I upgraded, I get the wrong
+symbols and dvi-checksum errors!
 
-A: We mucked with the fonts in the upgrade.  Remove I<all> previous
-fonts, including the .pk and .tfm fonts in F</var/lib/texmf>.  A
-script automating this has been included, see F<bin/clean-fonts.sh>
+A: We obviously mucked with the fonts in the upgrade.  Remove I<all>
+previous fonts, including the F<.pk> and F<.tfm> fonts in
+F</var/lib/texmf>.  A script automating this has been included, see
+F<bin/clean-fonts.sh>
+
 
 Q: I don't get midi-output, even if I use B<-M>!
 
@@ -372,7 +383,7 @@ articulation, etc).
 
 A: The MIDI output was originally put in as a proof that MIDI could be
 done, and as a method of proof"reading" the input.  The MIDI support
-is by no means finished. 
+is by no means finished.  Patches appreciated.
 
 Q: I get 
 

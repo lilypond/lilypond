@@ -10,6 +10,7 @@
 #include "music.hh"
 #include "music-list.hh"
 #include "debug.hh"
+#include "musical-pitch.hh"
 
 MInterval
 Music::time_int() const
@@ -32,7 +33,7 @@ Music::print() const
 }
 
 void
-Music::transpose (Melodic_req const*)
+Music::transpose (Musical_pitch )
 {
   
 }
@@ -58,6 +59,10 @@ Music::Music()
   parent_music_l_ =0;
 }
 
-IMPLEMENT_IS_TYPE_B1(Change_reg,Music)
+Musical_pitch
+Music::to_relative_octave (Musical_pitch m)
+{
+  return m;
+}
 
      

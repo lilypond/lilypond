@@ -9,20 +9,16 @@
 #include "notename-table.hh"
 #include "pointer.tcc"
 #include "musical-request.hh"
+#include "assoc-iter.hh"
 
-template class P<Melodic_req>;
-
-void
-Notename_table::add (String s, Melodic_req *m_p)
+String
+Notename_table::get_name (Musical_pitch m) const
 {
-  elem (s).set_p (m_p);
-}
 
-Melodic_req*
-Notename_table::get_l (String s)
-{
-  if (! elt_b (s))
-	return 0;
-  return elem (s);
+  for (Assoc_iter<String, Musical_pitch> ai (*this); ai.ok (); ai++)
+    {
+      if (ai.val () == m)
+	return ai.key ();
+    }
+  return "r";			// rest. 
 }
-  

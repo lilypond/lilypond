@@ -1,5 +1,5 @@
 /*
-  local-key-item.cc -- implement Local_key_item, Local_acc
+  local-key-item.cc -- implement Local_key_item, Musical_pitch
 
   source file of the GNU LilyPond music typesetter
 
@@ -14,8 +14,6 @@
 #include "musical-request.hh"
 #include "note-head.hh"
 #include "misc.hh"
-
-
 
 Local_key_item::Local_key_item (int i)
 {
@@ -32,29 +30,19 @@ Local_key_item::add_support (Item*head_l)
 }
 
 void
-Local_key_item::add (Melodic_req*m_l)
+Local_key_item::add (Musical_pitch p)
 {
-  add (m_l->octave_i_, m_l->notename_i_, m_l->accidental_i_);
-}
-
-void
-Local_key_item::add (int o, int p , int a)
-{
-  Local_acc l;
-  l.octave_i_ = o;
-  l.name_i_ = p;
-  l.accidental_i_ = a;
   for (int i=0; i< accs.size(); i++)
-    if (!Local_acc::compare (l, accs[i]))
+    if (!Musical_pitch::compare (p, accs[i]))
       return;
   
-  accs.push (l);
+  accs.push (p);
 }
 
 void
 Local_key_item::do_pre_processing()
 {
-  accs.sort (Local_acc::compare);
+  accs.sort (Musical_pitch::compare);
 }
 
 Molecule*
@@ -79,7 +67,7 @@ Local_key_item::brew_molecule_p() const
 	  octave_mol_p= new Molecule;
 	}
       lastoct = accs[i].octave_i_;
-      Real dy = (accs[i].name_i_ + c0_position) * paper()->internote_f ();
+      Real dy = (accs[i].notename_i_ + c0_position) * paper()->internote_f ();
       Atom a (paper()->lookup_l ()->accidental (accs[i].accidental_i_));
 
       a.translate_axis (dy, Y_AXIS);
@@ -120,17 +108,6 @@ Local_key_item::brew_molecule_p() const
   
   return output;
 }
-
-int
-Local_acc::compare (Local_acc&a, Local_acc&b)
-{
-  if (a.octave_i_ - b.octave_i_)
-    return a.octave_i_ - b.octave_i_;
-  if (a.name_i_ - b.name_i_)
-    return a.name_i_ - b.name_i_;
-  
-  return a.accidental_i_ - b.accidental_i_;
-};
 
 IMPLEMENT_IS_TYPE_B1(Local_key_item,Item);
 

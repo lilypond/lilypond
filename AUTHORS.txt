@@ -61,7 +61,7 @@ CONTRIBUTORS
 
 
 
-6/Apr/98                 LilyPond 0.1.64                        1
+6/Apr/98                 LilyPond 0.1.65                        1
 
 
 
@@ -127,6 +127,6 @@ AUTHORS(1)            LilyPond documentation           AUTHORS(1)
 
 
 
-6/Apr/98                 LilyPond 0.1.64                        2
+6/Apr/98                 LilyPond 0.1.65                        2
 
 

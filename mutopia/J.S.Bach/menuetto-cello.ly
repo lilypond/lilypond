@@ -6,7 +6,7 @@ piece = "Menuetto I";
 source =	 "?";
 % opus =	 "BWV 1008 no. 5";
 opus =	 "";
-composer =	 "Johann Sebastian Bach(1685-1750)";
+composer =	 "Johann Sebastian Bach (1685-1750)";
 enteredby =	 "JCN";
 copyright =	 "public domain";
 }

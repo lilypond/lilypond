@@ -61,7 +61,7 @@ RECOMMENDED
 
 
 
-13/May/98                LilyPond 0.1.64                        1
+15/May/98                LilyPond 0.1.65                        1
 
 
 
@@ -84,7 +84,8 @@ WEBSITE
        If you want to auto-generate Lily's website, you'll need
        some additional conversion tools.
 
-       o    Xpmtoppm (from the libgr-progs package).
+       o    xpmtoppm (from the Portable Bitmap Utilities)
+            (included within the RedHat package libgr-progs).
 
        o    Bib2html
             (http://pertsserver.cs.uiuc.edu/~hull/bib2html.)
@@ -123,11 +124,10 @@ CONFIGURING and COMPILING
                export CPPFLAGS="-I /home/me/my_include -DWEIRD_FOOBAR"
                configure
 
-       CPPFLAGS are the preprocessor flags.
 
 
 
-13/May/98                LilyPond 0.1.64                        2
+15/May/98                LilyPond 0.1.65                        2
 
 
 
@@ -135,6 +135,8 @@ CONFIGURING and COMPILING
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+       CPPFLAGS are the preprocessor flags.
 
        the configure script is Cygnus configure, and it will
        accept --help. If you are not root, you will probably have
@@ -188,12 +190,10 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
        --enable-config
            Output to different configuration files.  Needed for
-           multi-platform builds
 
 
 
-
-13/May/98                LilyPond 0.1.64                        3
+15/May/98                LilyPond 0.1.65                        3
 
 
 
@@ -201,6 +201,8 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+           multi-platform builds
 
        All options are documented in the configure help The
        option --enable-optimise is recommended for Real Life
@@ -253,13 +255,11 @@ CAVEATS
        o    Perl5.003 and Perl5.004 use different syntax for
             pod2html.
 
-EXAMPLE
-       This is what I type in my xterm:
 
 
 
 
-13/May/98                LilyPond 0.1.64                        4
+15/May/98                LilyPond 0.1.65                        4
 
 
 
@@ -267,6 +267,9 @@ EXAMPLE
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+EXAMPLE
+       This is what I type in my xterm:
 
                lilypond someinput.ly
                tex someinput.tex
@@ -319,13 +322,10 @@ WINDOWS NT/95
                make
 
        Note If you rely on broken DOS/Windows tools such as
-       pkzip/WinZIP to unpack the distribution, make sure the
-       entire source tree is unpacked correctly, in particular
-       the empty out directories (flower/out, lib/out et. al.)
 
 
 
-13/May/98                LilyPond 0.1.64                        5
+15/May/98                LilyPond 0.1.65                        5
 
 
 
@@ -333,6 +333,10 @@ WINDOWS NT/95
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+       pkzip/WinZIP to unpack the distribution, make sure the
+       entire source tree is unpacked correctly, in particular
+       the empty out directories (flower/out, lib/out et. al.)
 
 AUTHORS
        Han-Wen Nienhuys <hanwen@cs.ruu.nl>
@@ -387,10 +391,6 @@ AUTHORS
 
 
 
-
-
-
-
-13/May/98                LilyPond 0.1.64                        6
+15/May/98                LilyPond 0.1.65                        6
 
 

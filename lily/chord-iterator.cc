@@ -40,6 +40,8 @@ Chord_iterator::construct_children()
 	delete mi;
     }
 }
+
+
 void
 Chord_iterator::do_print() const
 {

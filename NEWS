@@ -1,5 +1,22 @@
-*********
-pl 64
+pl 65
+	- fixes for template instantiation (AO)
+	- junked standchen-easy,
+	- mudela 0.1.15:  deprecate \duration, junked \octave relative
+	- small doco fixes
+	- moved data from Melodic_req into Musical_pitch (analogous to
+	Duration and Rhythmic_req)
+	- implemented \relative c' { .. } and associated Relative_octave_music
+	- junked \octave relative;
+
+pl 64.jcn2
+	- simple compile fixes
+	- bf: beam:stemlens:knee
+	- hara-kiri-*
+	- bf: ctags
+	- preludes-3.lym4
+	
+**********
+pl 64 (may 13)
 
 pl 63.jcn3
 	- beam stemlength stuff runtime
@@ -23,7 +40,9 @@ pl 63.jcn1
 	- bf's: make dist, docdeps
 	- bf's scsii
 
-pl 63
+************
+pl 63 (may 11)
+
 	- non_fatal_error () (should use!)
 	- Mozart Horn concerto 3, horn part
 	- bf: plet-spanner

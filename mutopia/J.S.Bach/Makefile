@@ -5,7 +5,7 @@
 depth = ../..
 #
 
-EXTRA_DISTFILES=
+EXTRA_DISTFILES=preludes-3.lym4
 
 # descent order into subdirectories:
 #

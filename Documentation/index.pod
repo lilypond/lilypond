@@ -147,13 +147,6 @@ The coding standards of the lilypond project.
 >
 
 =item *
-<a href=docxx/index.html
->
-The DOC++ documentation of the C++ sources. [temporarily disabled]
-</a
->
-
-=item *
 <a href=AUTHORS.html
 >
 AUTHORS

@@ -39,10 +39,12 @@
 #include "file-results.hh"
 #include "mudela-version.hh"
 #include "scope.hh"
+#include "relative-music.hh"
+
 
 // mmm
-Mudela_version oldest_version ("0.1.14");
-Mudela_version version ("0.1.14");
+Mudela_version oldest_version ("0.1.15");
+Mudela_version version ("0.1.15");
 
 
 // needed for bison.simple's malloc() and free()
@@ -77,7 +79,7 @@ Paper_def* current_paper = 0;
 
 %union {
     Array<Interval>* intarr;
-    Array<Melodic_req*> *melreqvec;/* should clean up naming */
+    Array<Musical_pitch> *pitch_arr;
     Array<String> * strvec;
     Array<int> *intvec;
     Box *box;
@@ -91,9 +93,10 @@ Paper_def* current_paper = 0;
     Header *header;
     Interval *interval;
     Lookup*lookup;
-    Melodic_req * melreq;
+
     Musical_req* musreq;
     Music_output_def * outputdef;
+    Musical_pitch * pitch;
     Midi_def* midi;
     Moment *moment;
     Note_req *notereq;
@@ -142,6 +145,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CLEAR
 %token CLEF
 %token CONTAINS
+%token RELATIVE
 %token CONSISTS
 %token ACCEPTS
 %token CM_T
@@ -154,9 +158,10 @@ yylex (YYSTYPE *s,  void * v_l)
 %token IN_T
 %token LYRIC
 %token KEY
+%token MUSICAL_PITCH
 %token MELODIC
 %token MIDI
-%token MELODIC_REQUEST
+
 %token METER
 %token MM_T
 %token MULTI
@@ -192,10 +197,10 @@ yylex (YYSTYPE *s,  void * v_l)
 
 %type <i>	dots
 %token <i>	DIGIT
-%token <melreq>	NOTENAME_IDENTIFIER
+%token <pitch>	NOTENAME_PITCH
 %token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
-%token <id>	MELODIC_REQUEST_IDENTIFIER
+
 %token <id>	MUSIC_IDENTIFIER
 %token <id>	VOICE_IDENTIFIER
 %token <id>	POST_REQUEST_IDENTIFIER
@@ -227,19 +232,20 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <i>	int unsigned
 %type <i>	script_dir
 %type <id>	identifier_init simple_identifier_init
-%type <duration> explicit_steno_duration notemode_duration
+%type <duration> steno_duration notemode_duration
 %type <duration> entered_notemode_duration explicit_duration
 %type <interval>	dinterval
 %type <intvec>	intastint_list
 %type <lookup>	symtables symtables_body
-%type <melreq>	melodic_request steno_melodic_req
-%type <notereq>	steno_note_req
-%type <melreqvec>	pitch_list
+
+%type <pitch>   explicit_musical_pitch steno_musical_pitch musical_pitch absolute_musical_pitch
+%type <notereq>	steno_notepitch
+%type <pitch_arr>	pitch_list
 %type <midi>	midi_block midi_body
 %type <moment>	duration_length
 
 %type <scalar>  scalar
-%type <music>	Music transposed_music
+%type <music>	Music transposed_music relative_music
 %type <music>	property_def translator_change
 %type <musiclist> Voice Voice_body
 %type <chord>	Chord Chord_body
@@ -307,8 +313,9 @@ notenames_body:
 	| notenames_body CLEAR	{
 		THIS->clear_notenames ();
 	}
-	| notenames_body STRING '=' melodic_request {
-		THIS->add_notename (*$2, $4);
+	| notenames_body STRING '=' explicit_musical_pitch {
+		THIS->add_notename (*$2, *$4);
+		delete $4;
 		delete $2;
 	}
 	;
@@ -382,10 +389,11 @@ identifier_init:
 	| post_request {
 		$$ = new Request_identifier ($1, POST_REQUEST_IDENTIFIER);
 	}
-	| melodic_request {
+/*	| melodic_request {
 		$$ = new Request_identifier ($1, MELODIC_REQUEST_IDENTIFIER);
 
 	}
+	*/
 	| explicit_duration {
 		$$ = new Duration_identifier ($1, DURATION_IDENTIFIER);
 	}
@@ -685,6 +693,15 @@ Music:
 		{ $$ = $3; THIS->lexer_p_->pop_state (); }
 	| property_def
 	| translator_change
+	| relative_music	{ $$ = $1; }
+	;
+
+relative_music:
+	RELATIVE absolute_musical_pitch Music
+	{
+		$$ = new Relative_octave_music ($3, *$2);
+		delete $2;
+	}
 	;
 
 translator_change:
@@ -740,9 +757,9 @@ Chord_body:
 	;
 
 transposed_music:
-	TRANSPOSE steno_melodic_req Music {
+	TRANSPOSE musical_pitch Music {
 		$$ = $3;
-		$$ -> transpose ($2);
+		$$ -> transpose (*$2);
 
 		delete $2;
 	}
@@ -830,7 +847,7 @@ verbose_command_req:
 	}
 	| KEY pitch_list 	{
 		Key_change_req *key_p= new Key_change_req;
-		key_p->melodic_p_arr_ = *$2;
+		key_p->pitch_arr_ = *$2;
 		$$ = key_p;
 		delete $2;
 	}
@@ -893,54 +910,51 @@ sub_quotes:
 		$$ = 1;
 	}
 	| sub_quotes ',' {
-		$$++ ;
+		$$ ++ ;
 	}
 	;
 
-/*
-	URG!!
+steno_musical_pitch:
+	NOTENAME_PITCH	{
+		$$ = $1;
+		$$->octave_i_ += THIS->default_octave_i_;
+	}
+	| NOTENAME_PITCH sup_quotes 	{
+		$$ = $1;
+		$$->octave_i_ += $2 +  THIS->default_octave_i_;
 
-	Whitespace mustn't be stripped.  So what?
-	Python is cool, and there even the amount *and* type of whitespace
-	is significant.  So this is not uncool per se, maybe context-free
-	just sucks for humans.
-	jcn
-*/
-steno_melodic_req:
-	NOTENAME_IDENTIFIER	{
-		Melodic_req* m =  $1->clone ()->musical ()->melodic ();
-		$$ = THIS->get_melodic_req (m, 0 + THIS->default_octave_i_);
 	}
-	| NOTENAME_IDENTIFIER sup_quotes 	{
-		Melodic_req* m =  $1->clone ()->musical ()->melodic ();
-		$$ = THIS->get_melodic_req (m, $2 + THIS->default_octave_i_);
-	}
-	| NOTENAME_IDENTIFIER sub_quotes	 {
-		Melodic_req* m =  $1->clone ()->musical ()->melodic ();
-		$$ = THIS->get_melodic_req (m, -$2 + THIS->default_octave_i_);
+	| NOTENAME_PITCH sub_quotes	 {
+		$$ = $1;
+		$$->octave_i_ += THIS->default_octave_i_ - $2 ;
 	}
 	;
 
-steno_note_req:
-	steno_melodic_req	{
-		$$ = new Note_req;
-		*(Melodic_req *) $$ = *$1;
-		delete $1;
-	}
-	| steno_note_req   '!' 		{
-		$$->forceacc_b_ = ! $$->forceacc_b_;
-	}
-	/* have to duration here. */
-	;
-
-melodic_request:
-	MELODIC_REQUEST '{' int int int '}'	{/* ugh */
-		$$ = new Melodic_req;
+explicit_musical_pitch:
+	MUSICAL_PITCH '{' int int int '}'	{/* ugh */
+		$$ = new Musical_pitch;
 		$$->octave_i_ = $3;
 		$$->notename_i_ = $4;
 		$$->accidental_i_ = $5;
 	}
 	;
+musical_pitch:
+	steno_musical_pitch
+	| explicit_musical_pitch
+	;
+
+steno_notepitch:
+	musical_pitch	{
+		$$ = new Note_req;
+		
+		$$->pitch_ = *$1;
+		delete $1;
+	}
+	| steno_notepitch  '!' 		{
+		$$->forceacc_b_ = ! $$->forceacc_b_;
+	}
+	;
+
 
 explicit_duration:
 	DURATION '{' int unsigned '}'	{
@@ -1164,39 +1178,15 @@ pre_requests:
 	}
 	;
 
+absolute_musical_pitch:
+	steno_musical_pitch	{
+		$$ = $1;
+		$$->octave_i_ -=  THIS->default_octave_i_;
+	}
+	;
 voice_command:
-	DURATION STRING {
-		THIS->set_duration_mode (*$2);
-		delete $2;
-	}
-	| DURATION entered_notemode_duration {
-		THIS->set_default_duration ($2);
-		delete $2;
-	}
-	| OCTAVE {
-		/*
-			This is weird, but default_octave_i_
-			is used in steno_note_req too
-
-			c' -> default_octave_i_ == 1
-		*/
-
-		/* why can't we have \oct 0 iso \oct{c'}*/
-		// because that's silly.
-
-		// for relative octaves, the octave setting is done 
-		// automatically by the parsing of steno_melodic_req!
-		if (!THIS->relative_octave_mode_b_)
-		  THIS->default_octave_i_ = 1; 
-	}
-	/* cont */
-	steno_melodic_req {
-		if (!THIS->relative_octave_mode_b_)
-		  THIS->default_octave_i_ = $3->octave_i_;
-		delete $3;
-	}
-	| OCTAVE STRING {
-		THIS->set_octave_mode (*$2);
+	OCTAVE absolute_musical_pitch 	{
+		THIS->default_octave_i_ = $2->octave_i_;
 		delete $2;
 	}
 	| TEXTSTYLE STRING 	{
@@ -1209,7 +1199,7 @@ duration_length:
 	{
 		$$ = new Moment (0,1);
 	}
-	| duration_length explicit_steno_duration		{
+	| duration_length steno_duration		{
 		*$$ += $2->length ();
 	}
 	;
@@ -1231,7 +1221,7 @@ entered_notemode_duration:
 		$$->set_plet (THIS->plet_.iso_i_, THIS->plet_.type_i_);
 		$$->dots_i_  = $1;
 	}
-	| explicit_steno_duration	{
+	| steno_duration	{
 		THIS->set_last_duration ($1);
 		$$ = $1;
 	}
@@ -1243,7 +1233,7 @@ notemode_duration:
 	}
 	;
 
-explicit_steno_duration:
+steno_duration:
 	unsigned		{
 		$$ = new Duration;
 		if (!Duration::duration_type_b ($1))
@@ -1256,13 +1246,13 @@ explicit_steno_duration:
 	| DURATION_IDENTIFIER	{
 		$$ = $1->duration ();
 	}
-	| explicit_steno_duration '.' 	{
+	| steno_duration '.' 	{
 		$$->dots_i_ ++;
 	}
-	| explicit_steno_duration '*' unsigned  {
+	| steno_duration '*' unsigned  {
 		$$->plet_.iso_i_ = $3;  /* ugh.  should do *= */
 	}
-	| explicit_steno_duration '/' unsigned {
+	| steno_duration '/' unsigned {
 		$$->plet_.type_i_ = $3; /* ugh. should do *= iso = */
 	}
 	;
@@ -1282,8 +1272,10 @@ abbrev_type:
 
 	;
 
+
+
 music_elt:
-	steno_note_req notemode_duration  {
+	steno_notepitch notemode_duration  {
 		if (!THIS->lexer_p_->note_state_b ())
 			THIS->parser_error ("have to be in Note mode for notes");
 		$1->set_duration (*$2);
@@ -1320,10 +1312,11 @@ lyrics_elt:
 	UTILITIES
  */
 pitch_list:			{
-		$$ = new Array<Melodic_req*>;
+		$$ = new Array<Musical_pitch>;
 	}
-	| pitch_list NOTENAME_IDENTIFIER	{
-		$$->push ($2->clone ()->musical ()->melodic ());
+	| pitch_list NOTENAME_PITCH	{
+		$$->push (*$2);
+		delete $2;
 	}
 	;
 

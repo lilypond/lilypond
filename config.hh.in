@@ -9,3 +9,6 @@
 
 /* define if you have snprintf */
 #define HAVE_SNPRINTF 0
+
+/* define if explicit instantiation is needed */
+#undef NEED_EXPLICIT_INSTANTIATION

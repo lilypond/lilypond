@@ -42,10 +42,11 @@ public:
   /// what name (or look for this name)
   String translator_id_str_;    
 
+  virtual Musical_pitch to_relative_octave (Musical_pitch);
   virtual MInterval time_int() const;
   virtual ~Music(){}
   void print() const;
-  virtual void transpose (Melodic_req const *);
+  virtual void transpose (Musical_pitch );
   virtual void translate (Moment dt);
   VIRTUAL_COPY_CONS(Music,Music);
   DECLARE_MY_RUNTIME_TYPEINFO;

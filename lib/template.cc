@@ -6,18 +6,14 @@
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
 */
 
+#include "config.hh"
 #include "source-file.hh"
 #include "plist.tcc"
 #include "pcursor.tcc"
 #include "cursor.tcc"
 #include "list.tcc"
 
-// #if!defined(__CYGWIN32__) && __GNUC_MINOR__ < 8 
-// it seems irix (-Dsgi ?)  and sunos (-Dsparc ?)
-
-// see comments in lily/template1.cc mi2mu/template9.cc
-
-#if (defined(__linux__) && (__GNUC_MINOR__ < 8))
+#ifdef NEED_EXPLICIT_INSTANTIATION
 LIST_INSTANTIATE (void *);
 #endif
 

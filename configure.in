@@ -60,6 +60,18 @@ debug_b=yes
 
 AC_LANG_CPLUSPLUS
 
+AC_CACHE_CHECK([whether explicit instantiation is needed],
+    lily_cv_need_explicit_instantiation,
+    AC_TRY_LINK([
+template <class T> struct foo { static int baz; };
+template <class T> int foo<T>::baz = 1;
+], [ return foo<int>::baz; ],
+	lily_cv_need_explicit_instantiation=no,
+	lily_cv_need_explicit_instantiation=yes))
+if test x"$lily_cv_need_explicit_instantiation"x = x"yes"x; then
+    AC_DEFINE(NEED_EXPLICIT_INSTANTIATION)
+fi
+
 AC_ARG_ENABLE(printing,
     [  enable-printing         turn on debug printing. Default: off],
     [printing_b=$enableval])

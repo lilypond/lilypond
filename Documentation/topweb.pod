@@ -15,8 +15,8 @@ This is not a Fanmail/Hype page. These pages were entirely created from
 the LilyPond package-sources. 
 
 Note: These pages are created from the latest B<development snapshots>
-of LilyPond.  You can look at the bottom if you want to know which
-version this was.
+of LilyPond, specifically, this page was made from LilyPond
+@TOPLEVEL_VERSION@.
 
 =head2 Mirrors
 
@@ -56,6 +56,8 @@ This is what the latest version brings:
 
 top_of_NEWS
 
+Go get it at ftp://pcnov095.win.tue.nl/pub/lilypond/development/lilypond-@TOPLEVEL_VERSION@.tar.gz
+
 =head2 Documentation: Introduction
 
 =over 4
@@ -66,6 +68,14 @@ top_of_NEWS
 All of the LilyPond documentation.
 </a
 >
+
+=item *
+<a href=docxx/index.html
+>
+The DOC++ documentation of the C++ sources. 
+</a
+>
+
 
 
 

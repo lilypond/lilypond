@@ -406,7 +406,7 @@ Midi_note::duration () const
 int
 Midi_note::pitch_i () const
 {
-  return audio_item_l_->req_l_->musical ()->melodic ()->pitch ();
+  return audio_item_l_->req_l_->musical ()->melodic ()->pitch_.semitone_pitch ();
 }
 
 String
@@ -437,7 +437,7 @@ Midi_note_off::Midi_note_off (Midi_note* midi_note_l)
 int
 Midi_note_off::pitch_i () const
 {
-  return audio_item_l_->req_l_->musical ()->melodic ()->pitch ();
+  return audio_item_l_->req_l_->musical ()->melodic ()->pitch_.semitone_pitch ();
 }
 
 String

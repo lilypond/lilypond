@@ -19,6 +19,17 @@ import sys
 import os
 import getopt
 import time
+lilypath =''
+try:
+    lilypath = os.environ['LILYPOND_SOURCEDIR'] + '/'
+except KeyError:
+    print 'Please set LILYPOND_SOURCEDIR to the toplevel source, eg LILYPOND_SOURCEDIR=/home/foobar/lilypond-1.2.3/'
+    sys.exit(1)
+
+lilypath = lilypath + '/bin/'
+sys.path.append(lilypath)
+
+from lilypython import *
 
 class My_options:
     def __init__(self):
@@ -28,8 +39,6 @@ class My_options:
 
 my_options = My_options()
 
-def mail():
-    return os.environ['MAILADDRESS']
 
 def name():
     return pwd.getpwuid(posix.getuid())[4]
@@ -61,7 +70,7 @@ def head_str(filename):
 
 
     headstr = '\n%s -- %s\n\nsource file of %s\n\n(c) %d %s <%s>\n' \
-	      %(filename, what, project_str(), time.localtime (time.time ())[0], name(), mail())
+	      %(filename, what, project_str(), time.localtime (time.time ())[0], name(), mailaddress())
     return headstr
 
 
