@@ -30,7 +30,6 @@ public:
   TRANSLATOR_DECLARATIONS(Note_heads_engraver);
 
 protected:
-  virtual void start_translation_timestep ();
   virtual bool try_music (Music *req) ;
   virtual void process_music ();
 
@@ -113,10 +112,6 @@ Note_heads_engraver::stop_translation_timestep ()
   note_reqs_.clear ();
 }
 
-void
-Note_heads_engraver::start_translation_timestep ()
-{
-}
 
 
 ENTER_DESCRIPTION(Note_heads_engraver,

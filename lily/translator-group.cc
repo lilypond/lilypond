@@ -267,7 +267,7 @@ static_each (SCM list, Method_pointer method)
 void
 Translator_group::each (Method_pointer method) 
 {
-  static_each (simple_trans_list_, method);
+  static_each (get_simple_trans_list (), method);
   static_each (trans_group_list_, method);
 }
 
@@ -404,7 +404,7 @@ Translator_group::initialize ()
 {
   SCM tab = scm_make_vector (gh_int2scm (19), SCM_BOOL_F);
   set_property ("acceptHashTable", tab);
-  each (&Translator::initialize);
+  static_each (trans_group_list_, &Translator::initialize);
 }
 
 void
@@ -413,9 +413,8 @@ Translator_group::finalize ()
   each (&Translator::finalize);
 }
 
-
-
-bool translator_accepts_any_of (Translator*tr, SCM ifaces)
+bool
+translator_accepts_any_of (Translator*tr, SCM ifaces)
 {
   SCM ack_ifs = scm_assoc (ly_symbol2scm ("events-accepted"),
 			   tr->translator_description());
@@ -455,7 +454,7 @@ Translator_group::try_music_on_nongroup_children (Music *m )
   SCM accept_list = scm_hashq_ref (tab, name, SCM_UNDEFINED);
   if (accept_list == SCM_BOOL_F)
     {
-      accept_list = find_accept_translators (simple_trans_list_,
+      accept_list = find_accept_translators (get_simple_trans_list (),
 					     m->get_mus_property ("types"));
       scm_hashq_set_x (tab, name, accept_list);
     }
@@ -507,4 +506,56 @@ apply_property_operations (Translator_group*tg, SCM pre_init_ops)
 	  tg->internal_set_property (ly_car (entry), ly_cadr (entry));
 	}
     }
+}
+
+SCM
+names_to_translators (SCM namelist, Translator_group*tg)
+{
+  SCM l = SCM_EOL;
+  for (SCM s = namelist; gh_pair_p (s) ; s = ly_cdr (s))
+    {
+      Translator * t = get_translator (ly_car (s));
+      if (!t)
+	warning (_f ("can't find: `%s'", s));
+      else
+	{
+	  Translator * tr = t->clone ();
+	  SCM str = tr->self_scm ();
+	  l = gh_cons (str, l);
+
+	  tr->daddy_trans_ = tg;
+	  tr->output_def_  = tg->output_def_;
+
+	  scm_gc_unprotect_object (str);
+	}
+    }
+  return l;
+}
+
+
+SCM
+Translator_group::get_simple_trans_list ()
+{
+  if (simple_trans_list_ != SCM_BOOL_F)
+    return simple_trans_list_;
+  
+  Translator_def * td = unsmob_translator_def (definition_);
+
+  /*
+    The following cannot work, since start_translation_timestep ()
+    triggers this code, and start_translation_timestep happens before
+    \property Voice.Voice =#'()
+    
+   */
+  SCM trans_names = internal_get_property (td->get_context_name ());
+  if (!gh_pair_p (trans_names))
+    {
+      trans_names = td->get_translator_names (SCM_EOL); 
+    }
+
+  simple_trans_list_ = names_to_translators (trans_names, this);
+
+  
+  static_each (simple_trans_list_, &Translator::initialize);
+  return simple_trans_list_;
 }

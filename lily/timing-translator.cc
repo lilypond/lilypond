@@ -52,6 +52,11 @@ Timing_translator::stop_translation_timestep ()
 void
 Timing_translator::initialize ()
 {
+
+  /*
+    move this to engraver-init.ly? 
+   */
+ 
   daddy_trans_->set_property ("timing" , SCM_BOOL_T);  
   daddy_trans_->set_property ("currentBarNumber" , gh_int2scm (1));
 

@@ -88,7 +88,6 @@ Score_engraver::finish ()
    
   check_removal ();
   finalize ();
-
 }
 
 /*

@@ -11,7 +11,7 @@
     (AbsoluteDynamicEvent
      . (
    (description . "Creates a dynamic mark.  Syntax: @var{note}@code{\\x},
-where x is one of \\@\\{\\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.\\@\\}")
+where x is one of \\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.")
 	(internal-class-name . "Event")
 	(types . (general-music event dynamic-event absolute-dynamic-event))
 	))

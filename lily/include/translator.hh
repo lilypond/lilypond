@@ -54,13 +54,25 @@ public:
   virtual Moment now_mom () const;  
 
   /*
-    ugh: bubbled up from Translator_group. 
+    ugh: bubbled up.
    */
-  SCM simple_trans_list_;
-  SCM trans_group_list_;
   SCM definition_;
   SCM properties_scm_;
+  SCM trans_group_list_;
+
+  virtual SCM get_simple_trans_list ();
+public:
   DECLARE_SMOBS (Translator, dummy);
+private:
+  /*
+    ugh: bubbled up from Translator_group. 
+   */
+
+protected:			// should be private.
+  SCM simple_trans_list_;
+
+  // ugr.
+  //   friend SCM Translator_group::get_simple_trans_list ();
 
 
 public:

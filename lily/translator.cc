@@ -23,7 +23,7 @@ Translator::~Translator ()
 void
 Translator::init ()
 {
-  simple_trans_list_ = SCM_EOL;
+  simple_trans_list_ = SCM_BOOL_F;
   trans_group_list_ = SCM_EOL;
   properties_scm_ = SCM_EOL;
   definition_ = SCM_EOL;
@@ -138,3 +138,8 @@ IMPLEMENT_SMOBS (Translator);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator);
 IMPLEMENT_TYPE_P(Translator,"ly:translator?");
 
+SCM
+Translator::get_simple_trans_list()
+{
+  return SCM_EOL;
+}

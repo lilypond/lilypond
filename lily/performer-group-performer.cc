@@ -35,7 +35,7 @@ Performer_group_performer::announce_element (Audio_element_info info)
 void
 Performer_group_performer::create_audio_elements ()
 {
-  for (SCM p = simple_trans_list_; gh_pair_p (p); p = ly_cdr (p))
+  for (SCM p = get_simple_trans_list (); gh_pair_p (p); p = ly_cdr (p))
     {
       Translator * t = unsmob_translator (ly_car (p));
       Performer * eng = dynamic_cast<Performer*> (t);
@@ -51,7 +51,7 @@ Performer_group_performer::acknowledge_audio_elements ()
     {
       Audio_element_info info = announce_infos_[j];
 
-      for (SCM p = simple_trans_list_; gh_pair_p (p); p = ly_cdr (p))
+      for (SCM p = get_simple_trans_list (); gh_pair_p (p); p = ly_cdr (p))
 	{
 	  Translator * t = unsmob_translator (ly_car (p));
 	  Performer * eng = dynamic_cast<Performer*> (t);

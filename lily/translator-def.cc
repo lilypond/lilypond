@@ -217,29 +217,6 @@ IMPLEMENT_SMOBS (Translator_def);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator_def);
 
 
-static SCM
-names_to_translators (SCM namelist, Translator_group*tg)
-{
-  SCM l = SCM_EOL;
-  for (SCM s = namelist; gh_pair_p (s) ; s = ly_cdr (s))
-    {
-      Translator * t = get_translator (ly_car (s));
-      if (!t)
-	warning (_f ("can't find: `%s'", s));
-      else
-	{
-	  Translator * tr = t->clone ();
-	  SCM str = tr->self_scm ();
-	  l = gh_cons (str, l);
-
-	  tr->daddy_trans_ = tg;
-	  tr->output_def_  = tg->output_def_;
-
-	  scm_gc_unprotect_object (str);
-	}
-    }
-  return l;
-}
 
 
 SCM
@@ -284,11 +261,9 @@ Translator_def::instantiate (Music_output_def* md, SCM ops)
   tg->output_def_ = md;
   tg->definition_ = self_scm ();
 
-  SCM trans_names = get_translator_names (ops); 
-  tg->simple_trans_list_ = names_to_translators (trans_names, tg);
-
   return tg;
 }
+
 
 SCM
 Translator_def::clone_scm () const

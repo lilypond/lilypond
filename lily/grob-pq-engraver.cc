@@ -117,7 +117,7 @@ Grob_pq_engraver::stop_translation_timestep ()
 void
 Grob_pq_engraver::start_translation_timestep ()
 {
- Moment now = now_mom();
+  Moment now = now_mom();
 
   SCM start_busy = get_property ("busyGrobs");
   SCM busy = start_busy;
