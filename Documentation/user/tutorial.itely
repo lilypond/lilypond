@@ -1903,7 +1903,10 @@ The purpose of this no-op is to protect it from being interpreted as
 relative notes.  Relative mode can not be used together with
 transposition, so @code{\relative} will leave the contents of
 @code{\hoomPah} alone.  We can use it without having to worry about
-getting the motive in a wrong octave.
+getting the motive in a wrong octave. Conversely, if you want to
+transpose a fragment of music entered with @code{\relative}, then you
+should make sure that @code{\transpose} comes before @code{\relative}.
+
 @separate
 @cindex staff switch, manual
 @cindex cross staff voice, manual

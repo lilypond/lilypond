@@ -221,7 +221,7 @@ Pitch::down_to (int notename)
 }
  
 LY_DEFINE(ly_pitch_transpose,
-	  "ly-transpose-pitch", 2, 0, 0,
+	  "ly:transpose-pitch", 2, 0, 0,
 	  (SCM p, SCM delta),
 	  "Transpose @var{p} by the amount @var{delta}, where @var{delta} is the
 pitch that central C is transposed to.
@@ -240,7 +240,7 @@ pitch that central C is transposed to.
 /****************************************************************/
 
 
-IMPLEMENT_TYPE_P (Pitch, "pitch?");
+IMPLEMENT_TYPE_P (Pitch, "ly:pitch?");
 
 SCM
 Pitch::mark_smob (SCM)
@@ -291,7 +291,7 @@ Pitch::less_p (SCM p1, SCM p2)
   should add optional args
  */
 
-LY_DEFINE(make_pitch, "make-pitch", 3, 0, 0, 
+LY_DEFINE(make_pitch, "ly:make-pitch", 3, 0, 0, 
 	  (SCM o, SCM n, SCM a),
 	  "
 @var{octave} is specified by an integer, zero for the octave containing
@@ -310,7 +310,7 @@ flats, or positive for sharps.
 }
 
 
-LY_DEFINE(pitch_octave, "pitch-octave", 1, 0, 0, 
+LY_DEFINE(pitch_octave, "ly:pitch-octave", 1, 0, 0, 
 	  (SCM pp),
 	  "extract the octave from pitch @var{p}.")
 {
@@ -321,7 +321,7 @@ LY_DEFINE(pitch_octave, "pitch-octave", 1, 0, 0,
   return gh_int2scm (q);
 }
 
-LY_DEFINE(pitch_alteration, "pitch-alteration", 1, 0, 0, 
+LY_DEFINE(pitch_alteration, "ly:pitch-alteration", 1, 0, 0, 
 	  (SCM pp),
 	  "extract the alteration from pitch  @var{p}.")
 {
@@ -332,7 +332,7 @@ LY_DEFINE(pitch_alteration, "pitch-alteration", 1, 0, 0,
   return gh_int2scm (q);
 }
 
-LY_DEFINE(pitch_notename, "pitch-notename", 1, 0, 0, 
+LY_DEFINE(pitch_notename, "ly:pitch-notename", 1, 0, 0, 
 	  (SCM pp),
 	  "extract the note name from pitch  @var{pp}.")
 {
@@ -343,7 +343,7 @@ LY_DEFINE(pitch_notename, "pitch-notename", 1, 0, 0,
   return gh_int2scm (q);
 }
 
-LY_DEFINE(pitch_semitones,  "pitch-semitones", 1, 0, 0, 
+LY_DEFINE(pitch_semitones,  "ly:pitch-semitones", 1, 0, 0, 
 	  (SCM pp),
 	  "calculate the number of semitones of @var{p} from central C.")
 {
@@ -362,7 +362,7 @@ LY_DEFINE(pitch_semitones,  "pitch-semitones", 1, 0, 0,
   return gh_int2scm (q);
 }
 
-LY_DEFINE(pitch_less, "pitch<?", 2,0,0, (SCM p1, SCM p2),
+LY_DEFINE(pitch_less, "ly:pitch<?", 2,0,0, (SCM p1, SCM p2),
 	  "Is @var{p1} lower than @var{p2}? This uses lexicographic ordening.")
 {
   return Pitch::less_p (ly_car (p1),  ly_car (p2));

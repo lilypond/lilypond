@@ -1,4 +1,4 @@
-\version "1.7.0"  %% or actually: 1.7.1 ...
+\version "1.7.3"  %% or actually: 1.7.1 ...
 \header {
 
  texidoc = "You can create music expressions from Scheme.  The
@@ -8,24 +8,24 @@
 
 #(define (make-note-req p d)
    (let* ((ml (make-music-by-name 'NoteEvent)))
-   (ly-set-mus-property! ml 'duration d)
-   (ly-set-mus-property! ml 'pitch p)
+   (ly:set-mus-property! ml 'duration d)
+   (ly:set-mus-property! ml 'pitch p)
    ml))
 
 #(define (make-note elts)
    (let* ((ml (make-music-by-name 'EventChord)))
-   (ly-set-mus-property! ml 'elements elts)
+   (ly:set-mus-property! ml 'elements elts)
    ml))
 
 #(define (seq-music-list elts)
    (let* ((ml (make-music-by-name 'SequentialMusic)))
-   (ly-set-mus-property! ml 'elements elts)
+   (ly:set-mus-property! ml 'elements elts)
    ml))
 
 
 fooMusic  = #(seq-music-list
-  (list (make-note (list (make-note-req (make-pitch 1 0 0) (make-duration 2 0))))
-     (make-note (list (make-note-req (make-pitch 1 1 0) (make-duration 2 0)))))
+  (list (make-note (list (make-note-req (ly:make-pitch 1 0 0) (ly:make-duration 2 0))))
+     (make-note (list (make-note-req (ly:make-pitch 1 1 0) (ly:make-duration 2 0)))))
      )
      
 \score { \fooMusic }

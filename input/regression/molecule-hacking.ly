@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 \header { texidoc=" You can write molecule callbacks in Scheme, thus
 providing custom glyphs for notation elements.  A simple example is
@@ -28,25 +28,25 @@ GROB.  The dimensions of the molecule is not affected.
 "
      
      (let* (
-	    (fn (ly-get-default-font grob))
-	    (pclose (ly-find-glyph-by-name fn "accidentals-rightparen"))
-	    (popen (ly-find-glyph-by-name fn "accidentals-leftparen"))
+	    (fn (ly:get-default-font grob))
+	    (pclose (ly:find-glyph-by-name fn "accidentals-rightparen"))
+	    (popen (ly:find-glyph-by-name fn "accidentals-leftparen"))
 	    (subject (callback grob))
 
 	    ; remember old size
-	    (subject-dim-x (ly-get-molecule-extent subject 0))
-	    (subject-dim-y (ly-get-molecule-extent subject 1))
+	    (subject-dim-x (ly:get-molecule-extent subject 0))
+	    (subject-dim-y (ly:get-molecule-extent subject 1))
 	)
 
         ; add parens
         (set! subject
-	     (ly-combine-molecule-at-edge 
-	      (ly-combine-molecule-at-edge subject 0 1 pclose 0.2)
+	     (ly:combine-molecule-at-edge 
+	      (ly:combine-molecule-at-edge subject 0 1 pclose 0.2)
 	      0 -1 popen  0.2))
 
 	; revert old size.
-       (ly-set-molecule-extent! subject 0 subject-dim-x)
-       (ly-set-molecule-extent! subject 1 subject-dim-y)
+       (ly:set-molecule-extent! subject 0 subject-dim-x)
+       (ly:set-molecule-extent! subject 1 subject-dim-y)
        subject
     )
      )

@@ -78,7 +78,7 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 }
 
 LY_DEFINE(ly_grob_pq_less_p, 
-	  "ly-grob-pq-less?", 2 , 0 ,0, (SCM a, SCM b), 
+	  "ly:grob-pq-less?", 2 , 0 ,0, (SCM a, SCM b), 
 	  "Compare 2 Grob PQ entries. Internal")
 {
   if ( Moment::compare (*unsmob_moment (gh_car (a)),

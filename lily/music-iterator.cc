@@ -179,7 +179,7 @@ Music_iterator::get_music () const
 
 /****************************************************************/
 
-IMPLEMENT_TYPE_P (Music_iterator, "ly-iterator?");
+IMPLEMENT_TYPE_P (Music_iterator, "ly:iterator?");
 IMPLEMENT_SMOBS(Music_iterator);
 IMPLEMENT_DEFAULT_EQUAL_P(Music_iterator);
 

@@ -1,11 +1,11 @@
-\version "1.5.68"
+\version "1.7.3"
 
 
 fragment = \notes {
   f'32 g a b b a g f
 
   \property Voice.autoBeamSettings
-    \set #'(end * * * *) = #(make-moment 1 4)
+    \set #'(end * * * *) = #(ly:make-moment 1 4)
   f32 g a b b a g f
 
   f32 g a

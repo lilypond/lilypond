@@ -30,55 +30,55 @@
 
 (define-public auto-beam-settings
    `(
-     ((end * * 3 2) . ,(make-moment 1 2))
-     ((end 1 16 3 2) . ,(make-moment 1 4))
-     ((end 1 32 3 2) . ,(make-moment 1 8))
+     ((end * * 3 2) . ,(ly:make-moment 1 2))
+     ((end 1 16 3 2) . ,(ly:make-moment 1 4))
+     ((end 1 32 3 2) . ,(ly:make-moment 1 8))
 
-     ((begin 1 8 3 4) . ,(make-moment 1 4))
+     ((begin 1 8 3 4) . ,(ly:make-moment 1 4))
 
-     ((end * * 3 4) . ,(make-moment 3 4))
-     ((begin 1 16 3 4) . ,(make-moment 1 16))
-     ((end 1 16 3 4) . ,(make-moment 1 4))
-     ;;((begin 1 32 3 4) . ,(make-moment 1 8))
-     ((end 1 32 3 4) . ,(make-moment 1 8))
+     ((end * * 3 4) . ,(ly:make-moment 3 4))
+     ((begin 1 16 3 4) . ,(ly:make-moment 1 16))
+     ((end 1 16 3 4) . ,(ly:make-moment 1 4))
+     ;;((begin 1 32 3 4) . ,(ly:make-moment 1 8))
+     ((end 1 32 3 4) . ,(ly:make-moment 1 8))
 
-     ((begin 1 16 3 8) . ,(make-moment 1 8))
-     ((end * * 3 8) . ,(make-moment 3 8))
+     ((begin 1 16 3 8) . ,(ly:make-moment 1 8))
+     ((end * * 3 8) . ,(ly:make-moment 3 8))
 
      ;; in common time:
      ;;   end beams each 1 2 note
      ;;   end beams with 32th notes each 1 8 note
      ;;   end beams with 1 8 triplets each 1 4 note
 
-     ((end * * 4 4) . ,(make-moment 1 2))
-     ((end 1 12 4 4) . ,(make-moment 1 4))
-     ((end 1 16 4 4) . ,(make-moment 1 4))
-     ((end 1 32 4 4) . ,(make-moment 1 8))
+     ((end * * 4 4) . ,(ly:make-moment 1 2))
+     ((end 1 12 4 4) . ,(ly:make-moment 1 4))
+     ((end 1 16 4 4) . ,(ly:make-moment 1 4))
+     ((end 1 32 4 4) . ,(ly:make-moment 1 8))
 
-     ((end * * 2 4) . ,(make-moment 1 4))
-     ((end 1 12 2 4) . ,(make-moment 1 4))
-     ((end 1 16 2 4) . ,(make-moment 1 4))
-     ((end 1 32 2 4) . ,(make-moment 1 8))
+     ((end * * 2 4) . ,(ly:make-moment 1 4))
+     ((end 1 12 2 4) . ,(ly:make-moment 1 4))
+     ((end 1 16 2 4) . ,(ly:make-moment 1 4))
+     ((end 1 32 2 4) . ,(ly:make-moment 1 8))
 
      ;; It seems that, because of a bug in the previous auto-beamer,
      ;; we had the effect of this setting x
-     ;; ((end * * 2 8) . ,(make-moment 2 8))
+     ;; ((end * * 2 8) . ,(ly:make-moment 2 8))
 
-     ((end * * 4 8) . ,(make-moment 1 4))
-     ((end 1 16 4 8) . ,(make-moment 1 4))
-     ((end 1 32 4 8) . ,(make-moment 1 8))
+     ((end * * 4 8) . ,(ly:make-moment 1 4))
+     ((end 1 16 4 8) . ,(ly:make-moment 1 4))
+     ((end 1 32 4 8) . ,(ly:make-moment 1 8))
 
-     ((end * * 4 16) . ,(make-moment 1 8))
+     ((end * * 4 16) . ,(ly:make-moment 1 8))
 
-     ((end * * 6 8) . ,(make-moment 3 8))
-     ((end 1 16 6 8) . ,(make-moment 3 8))
-     ((end 1 32 6 8) . ,(make-moment 1 8))
+     ((end * * 6 8) . ,(ly:make-moment 3 8))
+     ((end 1 16 6 8) . ,(ly:make-moment 3 8))
+     ((end 1 32 6 8) . ,(ly:make-moment 1 8))
 
-     ((end * * 9 8) . ,(make-moment 3 8))
-     ((end 1 16 9 8) . ,(make-moment 3 8))
-     ((end 1 32 9 8) . ,(make-moment 1 8))
+     ((end * * 9 8) . ,(ly:make-moment 3 8))
+     ((end 1 16 9 8) . ,(ly:make-moment 3 8))
+     ((end 1 32 9 8) . ,(ly:make-moment 1 8))
 
-     ((end * * 12 8) . ,(make-moment 3 8))
-     ((end 1 16 12 8) . ,(make-moment 3 8))
-     ((end 1 32 12 8) . ,(make-moment 1 8))
+     ((end * * 12 8) . ,(ly:make-moment 3 8))
+     ((end 1 16 12 8) . ,(ly:make-moment 3 8))
+     ((end 1 32 12 8) . ,(ly:make-moment 1 8))
      ))

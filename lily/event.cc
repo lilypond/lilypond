@@ -92,7 +92,7 @@ LY_DEFINE(music_duration_length, "music-duration-length", 1, 0,0,
 }
 
 
-LY_DEFINE(music_duration_compress, "music-duration-compress", 2, 0,0,
+LY_DEFINE(music_duration_compress, "ly:music-duration-compress", 2, 0,0,
 	  (SCM mus, SCM factor),
 	  "Extract the duration field from @var{mus}, and compress it.")
 {
@@ -113,7 +113,7 @@ LY_DEFINE(music_duration_compress, "music-duration-compress", 2, 0,0,
   This is hairy, since the scale in a key-change event may contain
   octaveless notes.
  */
-LY_DEFINE(transpose_key_alist,"transpose-key-alist",
+LY_DEFINE(transpose_key_alist, "ly:transpose-key-alist",
 	  2, 0,0, (SCM l, SCM pitch),
 	  "Make a new key alist of @var{l} transposed by pitch @var{pitch}")
 {

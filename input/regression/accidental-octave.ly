@@ -1,5 +1,5 @@
 
-\version "1.5.68"
+\version "1.7.3"
 
 \header {
 texidoc="
@@ -10,29 +10,29 @@ FIXME: Shorten and docu
 }
 
 #(define  (lo-octave p)
-  (let* ((a (pitch-alteration p))
-         (n (pitch-notename p)))
-    (make-pitch -1 n a)))
+  (let* ((a (ly:pitch-alteration p))
+         (n (ly:pitch-notename p)))
+    (ly:make-pitch -1 n a)))
 
 #(define (no-octaves music)
-  (let* ((es (ly-get-mus-property music 'elements))
-         (e (ly-get-mus-property music 'element))
-         (p (ly-get-mus-property music 'pitch)))
+  (let* ((es (ly:get-mus-property music 'elements))
+         (e (ly:get-mus-property music 'element))
+         (p (ly:get-mus-property music 'pitch)))
 
     (if (pair? es)
-        (ly-set-mus-property!
+        (ly:set-mus-property!
          music 'elements
          (map no-octaves es)))
 
-    (if (music? e)
-        (ly-set-mus-property!
+    (if (ly:music? e)
+        (ly:set-mus-property!
          music 'element
          (no-octaves e)))
 
-    (if (pitch? p)
+    (if (ly:pitch? p)
         (begin
           (set! p (lo-octave p))
-          (ly-set-mus-property! music 'pitch p)))
+          (ly:set-mus-property! music 'pitch p)))
 
 
     music))

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 
 \score
@@ -6,7 +6,7 @@
 \context Voice \notes \relative c'' {
 \time 2/4
 \times 2/3 { c8 c c c c c  }
-\property Voice . tupletSpannerDuration = #(make-moment 1 4)
+\property Voice . tupletSpannerDuration = #(ly:make-moment 1 4)
 \times 2/3 { c8 c c c c c  }
 
 }

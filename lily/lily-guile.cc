@@ -102,7 +102,7 @@ gulp_file_to_string (String fn)
   return result;
 }
 
-LY_DEFINE(ly_gulp_file, "ly-gulp-file", 1,0, 0,
+LY_DEFINE(ly_gulp_file, "ly:gulp-file", 1,0, 0,
 	  (SCM name),
 	  "Read the file named @var{name}, and return its contents in a string. The
 file is looked up using the lilypond search path.
@@ -151,7 +151,7 @@ index_set_cell (SCM s, Direction d, SCM v)
   return s;
 }
   
-LY_DEFINE(ly_warning,"ly-warn", 1, 0, 0,
+LY_DEFINE(ly_warning,"ly:warn", 1, 0, 0,
   (SCM str),"Scheme callable function to issue the warning @code{msg}.")
 {
   SCM_ASSERT_TYPE (gh_string_p (str), str, SCM_ARG1, __FUNCTION__, "string");
@@ -159,7 +159,7 @@ LY_DEFINE(ly_warning,"ly-warn", 1, 0, 0,
   return SCM_BOOL_T;
 }
 
-LY_DEFINE(ly_isdir,  "dir?", 1,0, 0,  (SCM s),
+LY_DEFINE(ly_isdir,  "ly:dir?", 1,0, 0,  (SCM s),
 	  "type predicate. A direction is a -1, 0 or 1, where -1 represents left or
 down and 1 represents right or up.
 ")
@@ -198,6 +198,7 @@ ly_init_ly_module (void *data)
 
   if (verbose_global_b)
     progress_indication ("\n");
+  
   scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
 }
 
@@ -308,7 +309,7 @@ ly_scm2offset (SCM s)
 }
 
    
-LY_DEFINE(ly_number2string,  "ly-number->string", 1, 0,0,
+LY_DEFINE(ly_number2string,  "ly:number->string", 1, 0,0,
 	  (SCM s),
 	  " converts @var{num} to a string without generating many decimals. It
 leaves a space at the end.
@@ -362,7 +363,7 @@ wave_sweep_goodbye (void *dummy1, void *dummy2, void *dummy3)
 
 
 #include "version.hh"
-LY_DEFINE(ly_version,  "ly-version", 0, 0, 0, (),
+LY_DEFINE(ly_version,  "ly:version", 0, 0, 0, (),
 	  "Return the current lilypond version as a list, e.g.
 @code{(1 3 127 uu1)}. 
 ")
@@ -372,13 +373,13 @@ LY_DEFINE(ly_version,  "ly-version", 0, 0, 0, (),
   return gh_eval_str ((char*)vs);
 }
 
-LY_DEFINE(ly_unit,  "ly-unit", 0, 0, 0, (),
+LY_DEFINE(ly_unit,  "ly:unit", 0, 0, 0, (),
 	  "Return the unit used for lengths as a string.")
 {
   return scm_makfrom0str (INTERNAL_UNIT);
 }
 
-LY_DEFINE(ly_verbose,  "ly-verbose", 0, 0, 0, (),
+LY_DEFINE(ly_verbose,  "ly:verbose", 0, 0, 0, (),
   "Return whether lilypond is being run in verbose mode.")
 {
   return gh_bool2scm (verbose_global_b);

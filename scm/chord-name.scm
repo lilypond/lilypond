@@ -331,8 +331,8 @@
      b+i-text)))
 
 (define (c++-pitch->scm p)
-  (if (pitch? p)
-      (list (pitch-octave p) (pitch-notename p) (pitch-alteration p))
+  (if (ly:pitch? p)
+      (list (ly:pitch-octave p) (ly:pitch-notename p) (ly:pitch-alteration p))
       #f))
 
 (define-public (chord::name-banter tonic exception-part unmatched-steps

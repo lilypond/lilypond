@@ -1,4 +1,4 @@
-\version "1.7.2"
+\version "1.7.3"
 %
 % TODO: what's this?
 %
@@ -65,7 +65,7 @@ accompany =  \notes \relative c{
 			Slur \override #'direction = #1
 
 			
-			autoBeamSettings \override #'(end * * * *)  = #(make-moment 1 2)
+			autoBeamSettings \override #'(end * * * *)  = #(ly:make-moment 1 2)
 		}
 	}
 	\midi {

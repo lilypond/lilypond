@@ -39,14 +39,14 @@ free_smob (SCM s)
   We don't use IMPLEMENT_TYPE_P, since the smobification part is
   implemented separately from the class.
  */
-LY_DEFINE(ly_input, "ly-input-location?", 1, 0, 0,
+LY_DEFINE(ly_input, "ly:input-location?", 1, 0, 0,
 	  (SCM x),
 	  "Return whether @var{x} is an input location")
 {
   return unsmob_input (x) ? SCM_BOOL_T : SCM_BOOL_F ;
 }
 
-LY_DEFINE(ly_input_message,  "ly-input-message", 2, 0, 0, (SCM sip, SCM msg),
+LY_DEFINE(ly_input_message,  "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
 	  "Print @var{msg} as a GNU compliant error message, pointing to the\n"
 	  "location in @var{sip}.\n"
 	  )

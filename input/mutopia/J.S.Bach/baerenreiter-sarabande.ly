@@ -1,6 +1,6 @@
-\version "1.5.72"
+\version "1.7.3"
 
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click! 'line-column)
 
 forcedBreak = \notes { }
 %%forcedBreak = \notes { \break }
@@ -10,9 +10,9 @@ forcedLastBreak = \notes { \break }
 %% We want this to perfectly match the Baerenreiter spacing.
 %% If we're not using 6 systems, there's definately a problem.
 #(define (assert-system-count smob n)
-  (let ((systems (length (get-broken-into
-			  (get-original
-			   (get-system smob))))))
+  (let ((systems (length (ly:get-broken-into
+			  (ly:get-original
+			   (ly:get-system smob))))))
     (if (not (equal? n systems))
 	(error
 	;;(warn

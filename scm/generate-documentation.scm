@@ -23,7 +23,7 @@
 		     "music-documentation-lib.scm"
 		     "backend-documentation-lib.scm"
 		     ))
-(map ly-load load-files)
+(map ly:load load-files)
 
 
 ;;(define no-copies #t)  ; from 490 to 410K, but doesn't look nice yet

@@ -111,9 +111,9 @@
 
 (define scale-to-unit
   (cond
-   ((equal? (ly-unit) "mm") (/ 72.0  25.4))
-   ((equal? (ly-unit) "pt") (/ 72.0  72.27))
-   (else (error "unknown unit" (ly-unit)))
+   ((equal? (ly:unit) "mm") (/ 72.0  25.4))
+   ((equal? (ly:unit) "pt") (/ 72.0  72.27))
+   (else (error "unknown unit" (ly:unit)))
    ))
 
 (define (mul-scale x) (* scale-to-unit output-scale x))
@@ -224,24 +224,24 @@
 (define (dashed-slur thick dash l)
   (string-append 
    (apply string-append (map number-pair->string l)) 
-   (ly-number->string thick) 
+   (ly:number->string thick) 
    " [ "
-   (ly-number->string dash)
+   (ly:number->string dash)
    " "
-   (ly-number->string (* 10 thick))	;UGH.  10 ?
+   (ly:number->string (* 10 thick))	;UGH.  10 ?
    " ] 0 draw_dashed_slur"))
 
 (define (dashed-line thick on off dx dy)
   (string-append 
-   (ly-number->string dx)
+   (ly:number->string dx)
    " "
-   (ly-number->string dy)
+   (ly:number->string dy)
    " "
-   (ly-number->string thick) 
+   (ly:number->string thick) 
    " [ "
-   (ly-number->string on)
+   (ly:number->string on)
    " "
-   (ly-number->string off)
+   (ly:number->string off)
    " ] 0 draw_dashed_line"))
 
 (define (repeat-slash wid slope thick)

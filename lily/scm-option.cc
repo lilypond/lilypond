@@ -38,7 +38,7 @@ int testing_level_global;
  */
 bool internal_type_checking_global_b;
 
-LY_DEFINE (ly_option_usage, "ly-option-usage", 0, 0, 0, (SCM),
+LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (SCM),
 		  "Print ly-set-option usage")
 {  
   printf ( _("lilypond -e EXPR means:").to_str0 ());
@@ -70,7 +70,7 @@ don't timestamp the output
 @item -t,--test
 Switch on any experimental features.  Not for general public use. */
 
-LY_DEFINE (ly_set_option, "ly-set-option", 2, 0, 0, (SCM var, SCM val),
+LY_DEFINE (ly_set_option, "ly:set-option", 2, 0, 0, (SCM var, SCM val),
 	    "Set a global option value.  Supported options include
 
 @table @code

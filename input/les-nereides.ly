@@ -1,4 +1,4 @@
-\version "1.7.2"
+\version "1.7.3"
 
 \header {
     composer =   "ARTHUR GRAY"
@@ -10,11 +10,11 @@
     description = "Nastiest piece of competition at http://www.orphee.com/comparison/study.html, see http://www.orphee.com/comparison/gray.pdf"
 }
 
-#(set-point-and-click! 'line-column)
+#(ly:set-point-and-click! 'line-column)
 #(set! point-and-click line-column-location)
 
 #(define (make-text-checker text)
-  (lambda (elt) (equal? text (ly-get-grob-property elt 'text))))
+  (lambda (elt) (equal? text (ly:get-grob-property elt 'text))))
 
 global =  \notes{
     \partial 2
@@ -85,7 +85,7 @@ treble =  \context Voice=treble \notes\relative c''{
 	    
     % currently, this can't be (small) italic, because in the paperblock
     % we set italic_magnifictation to get large italics.
-    cis''''4^"m.g."\arpeggio #(ly-export (make-span-event 'TextSpanEvent START)) (
+    cis''''4^"m.g."\arpeggio #(ly:export (make-span-event 'TextSpanEvent START)) (
 
     \property Voice.Stem \revert #'direction
 
@@ -93,7 +93,7 @@ treble =  \context Voice=treble \notes\relative c''{
         )cis8
 	\property Voice.Stem \revert #'direction
 	\property Voice.Stem \override #'direction = #0
-        [a16-5( fis dis #(ly-export (make-span-event 'TextSpanEvent STOP)) ]
+        [a16-5( fis dis #(ly:export (make-span-event 'TextSpanEvent STOP)) ]
 	\property Staff.centralCPosition = #-6
 	
 	[cis32 a-1 fis-4 dis] [cis a )fis-2]
@@ -313,7 +313,7 @@ lowerDynamics =  \context Dynamics=lower \notes{
 	\translator {
 	    \ScoreContext
 	    TimeSignature \override #'style = #'C
-	    %% SpacingSpanner \override #'maximum-duration-for-spacing = #(make-moment 1 4)
+	    %% SpacingSpanner \override #'maximum-duration-for-spacing = #(ly:make-moment 1 4)
 
 	    \remove Bar_number_engraver
         }

@@ -80,10 +80,10 @@
 	  (display (object-type (car name-mag-pair)))
 	  (display (object-type (caaar font-name-alist)))
 
-	  (ly-warn (string-append
+	  (ly:warn (string-append
 		    "Programming error: No such font known "
 		    (car name-mag-pair) " "
-		    (ly-number->string (cdr name-mag-pair))
+		    (ly:number->string (cdr name-mag-pair))
 		    ))
 	  
 	  "") ; issue no command	  
@@ -96,7 +96,7 @@
    " { /"
    (capitalize-font-name (car name-mag))
    " findfont "
-   "20 " (ly-number->string (cdr name-mag)) " mul "
+   "20 " (ly:number->string (cdr name-mag)) " mul "
    "output-scale div scalefont setfont } bind def "
    "\n"))
 
@@ -127,24 +127,24 @@
 (define (dashed-slur thick dash l)
   (string-append 
    (apply string-append (map number-pair->string l)) 
-   (ly-number->string thick) 
+   (ly:number->string thick) 
    " [ "
-   (ly-number->string dash)
+   (ly:number->string dash)
    " "
-   (ly-number->string (* 10 thick))	;UGH.  10 ?
+   (ly:number->string (* 10 thick))	;UGH.  10 ?
    " ] 0 draw_dashed_slur"))
 
 (define (dashed-line thick on off dx dy)
   (string-append 
-   (ly-number->string dx)
+   (ly:number->string dx)
    " "
-   (ly-number->string dy)
+   (ly:number->string dy)
    " "
-   (ly-number->string thick)
+   (ly:number->string thick)
    " [ "
-   (ly-number->string on)
+   (ly:number->string on)
    " "
-   (ly-number->string off)
+   (ly:number->string off)
    " ] 0 draw_dashed_line"))
 
 (define (draw-line thick x1 y1 x2 y2)
@@ -152,15 +152,15 @@
   (string-append 
   "	1 setlinecap
 	1 setlinejoin "
-  (ly-number->string thick)
+  (ly:number->string thick)
 	" setlinewidth "
-   (ly-number->string x1)
+   (ly:number->string x1)
    " "
-   (ly-number->string y1)
+   (ly:number->string y1)
    " moveto "
-   (ly-number->string x2)
+   (ly:number->string x2)
    " "
-   (ly-number->string y2)
+   (ly:number->string y2)
    " lineto stroke"
 
   ))
@@ -201,9 +201,9 @@
 (define (header-end)
   (string-append
    ;; URG: now we can't use scm output without Lily
-   (ly-gulp-file "lilyponddefs.ps")
+   (ly:gulp-file "lilyponddefs.ps")
    " {exch pop //systemdict /run get exec} "
-   (ly-gulp-file "music-drawing-routines.ps")
+   (ly:gulp-file "music-drawing-routines.ps")
    "{ exch pop //systemdict /run get exec } "
 
 ;; ps-testing wreaks havoc when used with lilypond-book.
@@ -233,20 +233,20 @@
 
 (define (placebox x y s) 
   (string-append 
-   (ly-number->string x) " " (ly-number->string y) " {" s "} place-box\n"))
+   (ly:number->string x) " " (ly:number->string y) " {" s "} place-box\n"))
 
 ;; two beziers
 (define (bezier-sandwich l thick)
   (string-append 
    (apply string-append (map number-pair->string l))
-   (ly-number->string thick)
+   (ly:number->string thick)
    " draw_bezier_sandwich "))
 
 ;; two beziers with round endings
 (define (bezier-bow l thick)
   (string-append 
    (apply string-append (map number-pair->string l))
-   (ly-number->string thick)
+   (ly:number->string thick)
    " draw_bezier_sandwich "
    (bezier-ending (list-ref l 3) (list-ref l 0) (list-ref l 5))
    (bezier-ending (list-ref l 7) (list-ref l 0) (list-ref l 5))))
@@ -268,7 +268,7 @@
 					; TODO: use HEIGHT argument
 
 (define (start-system width height)
-  (string-append "\n" (ly-number->string height)
+  (string-append "\n" (ly:number->string height)
 		 " start-system\n"
 		 "{\n"
 		 "set-ps-scale-to-lily-scale"))

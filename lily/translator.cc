@@ -135,7 +135,7 @@ Translator::mark_smob (SCM sm)
 }
 
 LY_DEFINE(ly_translator_name,
-	  "ly-translator-name", 1,0,0,  (SCM trans),
+	  "ly:translator-name", 1,0,0,  (SCM trans),
 	  "Return the type name of the translator @var{trans}.
 ")
 {
@@ -147,7 +147,7 @@ LY_DEFINE(ly_translator_name,
 }
 
 LY_DEFINE(ly_translator_description,
-	  "ly-translator-description",
+	  "ly:translator-description",
 	  1,0,0, (SCM me),
 	  "Return an alist of properties of  translator @var{me}.")
 {

@@ -8,11 +8,11 @@
 
 
 (define (engraver-makes-grob? name-symbol grav)
-  (memq name-symbol (assoc 'grobs-created (ly-translator-description grav)))
+  (memq name-symbol (assoc 'grobs-created (ly:translator-description grav)))
   )
 
 (define (engraver-accepts-music-type? name-symbol grav)
-  (memq name-symbol (assoc 'events-accepted (ly-translator-description grav)))
+  (memq name-symbol (assoc 'events-accepted (ly:translator-description grav)))
 
   )
 
@@ -26,12 +26,12 @@
 
 (define (engraver-doc-string engraver in-which-contexts)
   (let* (
-	 (propsr (cdr (assoc 'properties-read (ly-translator-description engraver))))
-	 (propsw (cdr (assoc 'properties-written (ly-translator-description engraver))))
-	 (accepted  (cdr (assoc 'events-accepted (ly-translator-description engraver)))) 
-	 (name (ly-translator-name engraver))
+	 (propsr (cdr (assoc 'properties-read (ly:translator-description engraver))))
+	 (propsw (cdr (assoc 'properties-written (ly:translator-description engraver))))
+	 (accepted  (cdr (assoc 'events-accepted (ly:translator-description engraver)))) 
+	 (name (ly:translator-name engraver))
 	 (name-sym (string->symbol name))
-	 (desc (cdr (assoc 'description (ly-translator-description engraver))))
+	 (desc (cdr (assoc 'description (ly:translator-description engraver))))
 	 (grobs (engraver-grobs engraver))
 	 )
 
@@ -101,7 +101,7 @@
 ;; First level Engraver description
 (define (engraver-doc grav)
   (make <texi-node>
-    #:name (ly-translator-name grav)
+    #:name (ly:translator-name grav)
     #:text (engraver-doc-string grav #t)
     ))
 
@@ -110,8 +110,8 @@
 (define name->engraver-table (make-vector 61 '()))
 (map
  (lambda (x)
-   (hash-set! name->engraver-table (ly-translator-name x) x))
- (ly-get-all-translators))
+   (hash-set! name->engraver-table (ly:translator-name x) x))
+ (ly:get-all-translators))
 
 (define (find-engraver-by-name name)
   (hash-ref name->engraver-table name #f))
@@ -224,7 +224,7 @@
 
     (if (eq? eg #f)
 	'()
-	(map symbol->string (cdr (assoc 'grobs-created (ly-translator-description eg))))
+	(map symbol->string (cdr (assoc 'grobs-created (ly:translator-description eg))))
  	)
   ))
 
@@ -263,11 +263,11 @@
     ))
 
 
-(define all-engravers-list  (ly-get-all-translators))
+(define all-engravers-list  (ly:get-all-translators))
 (set! all-engravers-list
       (sort all-engravers-list
-	    (lambda (a b) (string<? (ly-translator-name a)
-				    (ly-translator-name b)))))
+	    (lambda (a b) (string<? (ly:translator-name a)
+				    (ly:translator-name b)))))
 
 (define (all-engravers-doc)
   (make <texi-node>

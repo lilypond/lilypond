@@ -5,7 +5,7 @@
 
 %% 19 is broken --hwn.
 %\include "paper19.ly"
-\version "1.5.71"
+\version "1.7.3"
 
 \header {
   title = "Romanzen"
@@ -32,7 +32,7 @@ m = { ] \translator Staff = mid  \stemUp [ }
 d = { \translator Staff = down  \stemUp }
 
 global = \notes { \key fis \major \time 6/8
-  \property Score.beatLength = #(make-moment 3 8)
+  \property Score.beatLength = #(ly:make-moment 3 8)
   \repeat volta 2 { s2.*8 } s2.*26 \bar "|."
 }
 
@@ -263,7 +263,7 @@ leftb = \notes \transpose cis' {
     }
     \translator {
       \ScoreContext
-      SpacingSpanner \override #'common-shortest-duration = #(make-moment 1 8)
+      SpacingSpanner \override #'common-shortest-duration = #(ly:make-moment 1 8)
     }
     \translator {
       \PianoStaffContext

@@ -7,9 +7,8 @@
 
 ;;; Library functions
 
-(use-modules (ice-9 regex))
 
-;;(write standalone (current-error-port))
+(use-modules (ice-9 regex))
 
 
 ;;; General settings
@@ -56,9 +55,6 @@
 (define-public default-script-alist '())
 
 (define-public security-paranoia #f)
-(if (not (defined? 'standalone))
-    (define-public standalone (not (defined? 'ly-gulp-file))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Unassorted utility functions.
@@ -166,9 +162,12 @@ is the  first to satisfy CRIT
   (string-append str (make-string (max (- wid (string-length str)) 0) #\ ))
   )
 
-(define-public (ly-load x)
-  (let* ((fn (%search-load-path x)))
-    (if (ly-verbose)
+(define-public (ly:load x)
+  (let* (
+	 (fn (%search-load-path x))
+
+	 )
+    (if (ly:verbose)
 	(format (current-error-port) "[~A]" fn))
     (primitive-load fn)))
 
@@ -213,30 +212,29 @@ is the  first to satisfy CRIT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 
-(if (not standalone)
-    (map ly-load
+(map ly:load
 					; load-from-path
-	 '("music-types.scm"
-	   "output-lib.scm"
-      	   "c++.scm"
-	   "molecule.scm"
-	   "bass-figure.scm"
-	   "grob-property-description.scm"
-	   "context-description.scm"
-	   "interface-description.scm"
-	   "beam.scm"
-	   "clef.scm"
-	   "slur.scm"
-	   "font.scm"
-	   "music-functions.scm"
-	   "music-property-description.scm"
-	   "auto-beam.scm"
-	   "basic-properties.scm"
-	   "chord-name.scm"
-	   "grob-description.scm"
-	   "translator-property-description.scm"
-	   "script.scm"
-	   "drums.scm"
-	   "midi.scm"
-	   )))
+     '("music-types.scm"
+       "output-lib.scm"
+       "c++.scm"
+       "molecule.scm"
+       "bass-figure.scm"
+       "grob-property-description.scm"
+       "context-description.scm"
+       "interface-description.scm"
+       "beam.scm"
+       "clef.scm"
+       "slur.scm"
+       "font.scm"
+       "music-functions.scm"
+       "music-property-description.scm"
+       "auto-beam.scm"
+       "basic-properties.scm"
+       "chord-name.scm"
+       "grob-description.scm"
+       "translator-property-description.scm"
+       "script.scm"
+       "drums.scm"
+       "midi.scm"
+       ))
 

@@ -70,10 +70,10 @@
 	  (display (object-type (car name-mag-pair)))
 	  (display (object-type (caaar font-name-alist)))
 
-	  (ly-warn (string-append
+	  (ly:warn (string-append
 		    "Programming error: No such font known "
 		    (car name-mag-pair) " "
-		    (ly-number->string (cdr name-mag-pair))
+		    (ly:number->string (cdr name-mag-pair))
 		    ))
 	  "") ; issue no command
 	(string-append "\\" (cddr c)))
@@ -101,7 +101,7 @@
    "\\font\\" command "="
    (car name-mag)
    " scaled "
-   (ly-number->string (inexact->exact (* 1000  (cdr name-mag))))
+   (ly:number->string (inexact->exact (* 1000  (cdr name-mag))))
    "\n"))
 
 (define (ez-ball c l b)
@@ -181,17 +181,17 @@
   (string-append
    "\\def\\scaletounit{ "
    (number->string (cond
-		     ((equal? (ly-unit) "mm") (/ 72.0  25.4))
-		     ((equal? (ly-unit) "pt") (/ 72.0  72.27))
-		     (else (error "unknown unit" (ly-unit)))
+		     ((equal? (ly:unit) "mm") (/ 72.0  25.4))
+		     ((equal? (ly:unit) "pt") (/ 72.0  72.27))
+		     (else (error "unknown unit" (ly:unit)))
 		     ))
     " mul }%\n"
    "\\special{\\string! "
    
-   ;; URG: ly-gulp-file: now we can't use scm output without Lily
+   ;; URG: ly:gulp-file: now we can't use scm output without Lily
    (regexp-substitute/global
     #f "\n"
-    (ly-gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
+    (ly:gulp-file "music-drawing-routines.ps") 'pre " %\n" 'post)
    ;; (if (defined? 'ps-testing) "/testing true def%\n" "")
    "}%\n"
    "\\begingroup\n"
@@ -248,8 +248,8 @@
 
 (define (number->dim x)
   (string-append
-   ;;ugh ly-* in backend needs compatibility func for standalone output
-   (ly-number->string x) " \\outputscale "))
+   ;;ugh ly:* in backend needs compatibility func for standalone output
+   (ly:number->string x) " \\outputscale "))
 
 (define (placebox x y s) 
   (string-append 

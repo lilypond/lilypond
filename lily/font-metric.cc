@@ -134,7 +134,7 @@ Font_metric::print_smob (SCM s, SCM port, scm_print_state *)
 
 IMPLEMENT_SMOBS (Font_metric);
 IMPLEMENT_DEFAULT_EQUAL_P (Font_metric);
-IMPLEMENT_TYPE_P (Font_metric, "font-metric?");
+IMPLEMENT_TYPE_P (Font_metric, "ly:font-metric?");
 
 Molecule
 Font_metric::find_by_name (String) const
@@ -144,7 +144,7 @@ Font_metric::find_by_name (String) const
 }
 
 
-LY_DEFINE(ly_find_glyph_by_name, "ly-find-glyph-by-name", 2 , 0, 0,
+LY_DEFINE(ly_find_glyph_by_name, "ly:find-glyph-by-name", 2 , 0, 0,
 	  (SCM font, SCM name),
 	  "This function retrieves a Molecule for the glyph named @var{name} in
 @var{font}.  The font must be available as an AFM file.")
@@ -157,7 +157,7 @@ LY_DEFINE(ly_find_glyph_by_name, "ly-find-glyph-by-name", 2 , 0, 0,
 }
 
 
-LY_DEFINE(ly_text_dimension,"ly-text-dimension", 2 , 0, 0,
+LY_DEFINE(ly_text_dimension,"ly:text-dimension", 2 , 0, 0,
 	  (SCM font, SCM text),
 	  "Given the font metric in @var{font} and the string @var{text}, compute
 the extents of that text in that font. The return value is a pair of

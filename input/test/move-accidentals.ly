@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 \header {
 
 	 texidoc= "Positions of accidentals may be manually set. This
@@ -9,9 +9,9 @@ involves some scheme code."
   (lambda (elt)
    (and
       (not (eq? #f (memq 'accidental-interface
-                    (ly-get-grob-property elt 'interfaces))))
-      (eq? (ly-get-grob-property
-	    (ly-get-parent elt 1) 'staff-position) pos))))
+                    (ly:get-grob-property elt 'interfaces))))
+      (eq? (ly:get-grob-property
+	    (ly:get-parent elt 1) 'staff-position) pos))))
 
 \score {
   \context Voice \notes \relative c'' {

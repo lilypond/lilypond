@@ -112,7 +112,7 @@ node."
        (engravers (filter-list
 		   (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
        (namestr (symbol->string name))
-       (engraver-names (map ly-translator-name engravers))
+       (engraver-names (map ly:translator-name engravers))
        )
 
     (make <texi-node>
@@ -138,7 +138,7 @@ node."
    (lambda (key val prior)
      (cons (cons key val)  prior)
      )
-   '() (ly-all-grob-interfaces)))
+   '() (ly:all-grob-interfaces)))
 
 (set! interface-description-alist (sort interface-description-alist alist<?))
 
@@ -161,7 +161,7 @@ node."
 
 (define (lookup-interface name)
   (let*  (
-	  (entry  (hashq-ref (ly-all-grob-interfaces) name #f))
+	  (entry  (hashq-ref (ly:all-grob-interfaces) name #f))
 	  )
 
     (if (equal? entry #f)

@@ -5,7 +5,7 @@
 ;;;; (c) 1998--2002 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
-(define standalone (not (defined? 'ly-gulp-file)))
+(define standalone (not (defined? 'ly:gulp-file)))
 ;;(write standalone (current-error-port))
 
 (define (gulp-file name)
@@ -31,7 +31,7 @@
 		       (number->string x))
 		   " ")))
 
-(define ly-gulp-file scm-gulp-file)
-(define ly-number->string scm-number->string)
+(define ly:gulp-file scm-gulp-file)
+(define ly:number->string scm-number->string)
 
-(eval-string (ly-gulp-file "lily.scm"))
+(eval-string (ly:gulp-file "lily.scm"))

@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 \score{
 	\context PianoStaff <
@@ -68,7 +68,7 @@
 			soloIIText = #""
 			aDueText = #""
 			splitInterval = #'(1 . 0)
-			changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
+			changeMoment = #`(,(ly:make-moment 1 1) . ,(ly:make-moment 1 1))
 
 		}
 		\translator {

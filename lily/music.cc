@@ -168,7 +168,7 @@ Music::to_relative_octave (Pitch m)
 }
 
 
-IMPLEMENT_TYPE_P (Music, "music?");
+IMPLEMENT_TYPE_P (Music, "ly:music?");
 
 IMPLEMENT_SMOBS (Music);
 IMPLEMENT_DEFAULT_EQUAL_P (Music);
@@ -220,7 +220,7 @@ Music::~Music ()
 }
 
 LY_DEFINE(ly_get_mus_property,
-	  "ly-get-mus-property", 2, 0, 0,  (SCM mus, SCM sym),
+	  "ly:get-mus-property", 2, 0, 0,  (SCM mus, SCM sym),
 	  "Get the property @var{sym} of music expression @var{mus}.")
 {
   Music * sc = unsmob_music (mus);
@@ -231,7 +231,7 @@ LY_DEFINE(ly_get_mus_property,
 }
 
 LY_DEFINE(ly_set_mus_property,
-	  "ly-set-mus-property!", 3, 0, 0,
+	  "ly:set-mus-property!", 3, 0, 0,
 	  (SCM mus, SCM sym, SCM val),
 	  "Set property @var{sym} in music expression @var{mus} to @var{val}.")
 {
@@ -249,7 +249,7 @@ LY_DEFINE(ly_set_mus_property,
 }
 
 
-LY_DEFINE(ly_music_name, "ly-music-name", 1, 0, 0, 
+LY_DEFINE(ly_music_name, "ly:music-name", 1, 0, 0, 
   (SCM mus),
   "Return the name of @var{music}.")
 {
@@ -264,7 +264,7 @@ LY_DEFINE(ly_music_name, "ly-music-name", 1, 0, 0,
 
 // to do  property args 
 LY_DEFINE(ly_extended_make_music,
-	  "ly-make-bare-music", 2, 0, 0,  (SCM type, SCM props),
+	  "ly:make-bare-music", 2, 0, 0,  (SCM type, SCM props),
 	  "Make a music object/expression of type @var{type}, init with\n"
 "@var{props}. Warning: this interface will likely change in the near\n"
 "future.\n"
@@ -285,7 +285,7 @@ LY_DEFINE(ly_extended_make_music,
 
 // to do  property args 
 LY_DEFINE(ly_get_mutable_properties,
-	  "ly-get-mutable-properties", 1, 0, 0,  (SCM mus),
+	  "ly:get-mutable-properties", 1, 0, 0,  (SCM mus),
 "Return an alist signifying the mutable properties of @var{mus}.\n"
 "The immutable properties are not available; they should be initialized\n"
 "by the functions make-music-by-name function.\n"

@@ -1029,7 +1029,46 @@ if 1:
 
 	conversions.append (((1,7,2), conv, '\\spanrequest -> #(make-span-event .. ), \script -> #(make-articulation .. )'))
 
+if 1:
+	def conv(str):
+		str = re.sub (r'\(ly-', '(ly:', str)
 
+		changed = [
+			r'duration\?',
+			r'font-metric\?',
+			r'molecule\?',
+			r'moment\?',
+			r'music\?',
+			r'pitch\?',
+			'make-duration',
+			'music-duration-length',
+			'duration-log',
+			'duration-dotcount',
+			'intlog2',
+			'duration-factor',
+			'transpose-key-alist',
+			'get-system',
+			'get-broken-into',
+			'get-original',
+			'set-point-and-click!',
+			'make-moment',
+			'make-pitch',
+			'pitch-octave',
+			'pitch-alteration',
+			'pitch-notename',
+			'pitch-semitones',
+			r'pitch<\?',
+			r'dir\?',
+			'music-duration-compress',
+			]
+
+		origre = r'\b(%s)' % string.join (changed, '|')
+		
+		str = re.sub (origre, r'ly:\1',str)
+		return str
+	
+	conversions.append (((1,7,3), conv, 'ly- -> ly:'))
+	
 ################################
 #	END OF CONVERSIONS	
 ################################

@@ -1,11 +1,11 @@
-\version "1.5.68"
+\version "1.7.3"
 #(define (duration-check music)
   "Check all rest durations in MUSIC"
 
-  (let* ((name (ly-music-name music))
-	 (elts (ly-get-mus-property music 'elements))
-         (e (ly-get-mus-property music 'element))
-         (duration (ly-get-mus-property music 'duration)))
+  (let* ((name (ly:music-name music))
+	 (elts (ly:get-mus-property music 'elements))
+         (e (ly:get-mus-property music 'element))
+         (duration (ly:get-mus-property music 'duration)))
 
     (if (not (equal? '() duration))
 	(begin
@@ -26,7 +26,7 @@
     (if (pair? elts)
 	(map duration-check elts))
     
-    (if (music? e)
+    (if (ly:music? e)
 	  (duration-check e)))
 
   music)

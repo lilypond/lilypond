@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 %K000.ly LilyPond 1.2.16
 \header {
 title="John's Scarlatti quotes"
@@ -13,10 +13,10 @@ composer = "Domenico Scarlatti"
 \translator{\VoiceContext
   %% huh?
   %%beamAutoBegin=0
-  autoBeamSettings \override #'(end 1 8 * *) = #(make-moment 3 8)
-  autoBeamSettings \override #'(end 1 16 * *) = #(make-moment 3 8)
-  autoBeamSettings \override #'(end 1 24 * *) = #(make-moment 1 8)
-  autoBeamSettings \override #'(end 1 32 * *) = #(make-moment 1 8)
+  autoBeamSettings \override #'(end 1 8 * *) = #(ly:make-moment 3 8)
+  autoBeamSettings \override #'(end 1 16 * *) = #(ly:make-moment 3 8)
+  autoBeamSettings \override #'(end 1 24 * *) = #(ly:make-moment 1 8)
+  autoBeamSettings \override #'(end 1 32 * *) = #(ly:make-moment 1 8)
 }
 }
 

@@ -19,7 +19,7 @@
 	((eq? name 'font-shape) 2)
 	((eq? name 'font-family) 3)
 	((eq? name 'font-design-size) 4)
-	(else (ly-warning "unknown font field name"))
+	(else (ly:warning "unknown font field name"))
 	)
        ))
 

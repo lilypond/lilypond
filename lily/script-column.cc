@@ -24,7 +24,7 @@ Script_column::add_staff_sided (Grob *me, Item *i)
 }
 
 LY_DEFINE(grob_script_priority_less,
-	  "ly-grob-script-priority-less", 2, 0, 0, 
+	  "ly:grob-script-priority-less", 2, 0, 0, 
 	  (SCM a, SCM b),
 	  "Compare two grobs by script priority. For internal use.")
 {

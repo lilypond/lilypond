@@ -7,13 +7,13 @@
 ;;;;
 
 (define (attached-to-stem slur dir)
-  (let* ((note-columns (ly-get-grob-property slur 'note-columns))
+  (let* ((note-columns (ly:get-grob-property slur 'note-columns))
 	 (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-	 (stem (ly-get-grob-property col 'stem)))
+	 (stem (ly:get-grob-property col 'stem)))
     (and
-     (eq? col (ly-get-spanner-bound slur dir))
+     (eq? col (ly:get-spanner-bound slur dir))
      stem
-     (ly-get-grob-property stem 'heads))))
+     (ly:get-grob-property stem 'heads))))
 
 
 ;; Slur-extremity-rules is a list of rules.  Each rule is a pair 
@@ -37,7 +37,7 @@
 
    ;; urg: don't crash on a slur without note-columns
    (cons (lambda (slur dir)
-	   (< (length (ly-get-grob-property slur 'note-columns)) 1)) 'head)
+	   (< (length (ly:get-grob-property slur 'note-columns)) 1)) 'head)
 
    ;; (cons (lambda (slur dir) (begin (display "before loose-end") (newline))#f) #f)
    (cons (lambda (slur dir) (not (attached-to-stem slur dir)))  'loose-end)
@@ -46,12 +46,12 @@
 
    (cons (lambda (slur dir)
 	   ;; urg, code dup
-	   (let* ((note-columns (ly-get-grob-property slur 'note-columns))
+	   (let* ((note-columns (ly:get-grob-property slur 'note-columns))
 		  (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-		  (stem (ly-get-grob-property col 'stem)))
+		  (stem (ly:get-grob-property col 'stem)))
 	     (and stem
-		  (not (= (ly-get-grob-property slur 'direction) 
-			  (ly-get-grob-property stem 'direction))))))  'head)
+		  (not (= (ly:get-grob-property slur 'direction) 
+			  (ly:get-grob-property stem 'direction))))))  'head)
 
    ;; (cons (lambda (slur dir) (begin (display "before stem") (newline))#f) #f)
 
@@ -60,13 +60,13 @@
 	   (and (attached-to-stem slur dir)
 		;; and got beam
 		;; urg, code dup
-		(let* ((note-columns (ly-get-grob-property slur 'note-columns))
+		(let* ((note-columns (ly:get-grob-property slur 'note-columns))
 		       (col (if (= dir 1) (car note-columns) (car (reverse note-columns))))
-		       (stem (ly-get-grob-property col 'stem)))
+		       (stem (ly:get-grob-property col 'stem)))
 		  (and stem
-		       (ly-get-grob-property stem 'beam)
+		       (ly:get-grob-property stem 'beam)
 		       ;; and beam on same side as slur
-		       (let ((beaming (ly-get-grob-property stem 'beaming)))
+		       (let ((beaming (ly:get-grob-property stem 'beaming)))
 			 ;; (display "beaming (") (display dir) (display "): ") (write beaming) (newline)
 			 (if (pair? beaming)
 			     (>= (length (if (= dir -1) (cdr beaming) (car beaming)))

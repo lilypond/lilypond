@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 %
 % setup for Request->Element conversion. Guru-only
@@ -382,7 +382,7 @@ ScoreContext = \translator {
 	aDueText = #"a2"
 	soloADue = ##t
 	splitInterval = #'(0 . 1)
-	changeMoment = #`(,(make-moment 0 0) . ,(make-moment 1 512))
+	changeMoment = #`(,(ly:make-moment 0 0) . ,(ly:make-moment 1 512))
 	systemStartDelimiter =#'SystemStartBar
 
 

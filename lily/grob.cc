@@ -825,7 +825,7 @@ ly_grobs2scm (Link_array<Grob> a)
 }
 
 
-IMPLEMENT_TYPE_P (Grob, "ly-grob?");
+IMPLEMENT_TYPE_P (Grob, "ly:grob?");
 
 ADD_INTERFACE (Grob, "grob-interface",
   "In music notation, lots of symbols are related in some way.  You can

@@ -33,7 +33,7 @@
 #include "ly-modules.hh"
 
 
-LY_DEFINE(ly_set_point_and_click_x, "set-point-and-click!", 1, 0, 0,
+LY_DEFINE(ly_set_point_and_click_x, "ly:set-point-and-click!", 1, 0, 0,
 	  (SCM what),
 	  "Set the options for Point-and-click source specials output. The
 argument is a symbol.  Possible options are @code{none} (no source specials),

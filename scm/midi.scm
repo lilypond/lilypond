@@ -289,6 +289,6 @@ Note: MIDI cannot handle other tonalities than major/minor.
   ;; This charactersition is only true for a scale that starts at `c'.
   (if (not (equal? (car pitch-list) '(0 . 0)))
       (begin
-	(ly-warn "Attempt to determine tonality of transposed scale")
+	(ly:warn "Attempt to determine tonality of transposed scale")
 	#t)
   (eq? (cdr (list-ref pitch-list 4)) (cdr (list-ref pitch-list 6)))))

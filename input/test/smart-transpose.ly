@@ -1,4 +1,4 @@
-\version "1.5.68"
+\version "1.7.3"
 
 \header {
 texidoc="
@@ -20,9 +20,9 @@ how useful these enharmonic modifications are. Mats B.
 }
 
 #(define  (unhair-pitch p)
-  (let* ((o (pitch-octave p))
-         (a (pitch-alteration p))
-         (n (pitch-notename p)))
+  (let* ((o (ly:pitch-octave p))
+         (a (ly:pitch-alteration p))
+         (n (ly:pitch-notename p)))
 
     (cond
      ((and (> a 0) (or (eq? n 6) (eq? n 2)))
@@ -37,27 +37,27 @@ how useful these enharmonic modifications are. Mats B.
     (if (< n 0) (begin (set!  o (- o 1)) (set! n (+ n 7))))
     (if (> n 6) (begin (set!  o (+ o 1)) (set! n (- n 7))))
 
-    (make-pitch o n a)))
+    (ly:make-pitch o n a)))
 
 #(define (simplify music)
-  (let* ((es (ly-get-mus-property music 'elements))
-         (e (ly-get-mus-property music 'element))
-         (p (ly-get-mus-property music 'pitch)))
+  (let* ((es (ly:get-mus-property music 'elements))
+         (e (ly:get-mus-property music 'element))
+         (p (ly:get-mus-property music 'pitch)))
 
     (if (pair? es)
-        (ly-set-mus-property!
+        (ly:set-mus-property!
          music 'elements
          (map (lambda (x) (simplify x)) es)))
 
-    (if (music? e)
-        (ly-set-mus-property!
+    (if (ly:music? e)
+        (ly:set-mus-property!
          music 'element
          (simplify e)))
 
-    (if (pitch? p)
+    (if (ly:pitch? p)
         (begin
           (set! p (unhair-pitch p))
-          (ly-set-mus-property! music 'pitch p)))
+          (ly:set-mus-property! music 'pitch p)))
 
     music))
 
