@@ -97,7 +97,7 @@
   (lambda (grob) (box-stencil (callback grob) thickness padding)))
 
 (define-public (make-stencil-circler thickness padding callback)
-  "Return function that adds a box around the grob passed as argument."
+  "Return function that adds a circle around the grob passed as argument."
   (lambda (grob) (circle-stencil (callback grob) thickness padding)))
 
 (define-public (arg->string arg)
