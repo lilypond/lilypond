@@ -274,13 +274,50 @@ fet_beginchar("Quart diamondhead", "2diamond", "diamondhead")
 fet_endchar;
 
 
+save pent;
+pen_thick# = 2stafflinethickness#;
+define_pixels(pen_thick);
+
 
 begingroup;
+
+
+def def_triangle_old =
+        save triangle,kern; path triangle;
+        kern = 1/3(x2-x1);
+        z2 = z1 rotated 120;
+        z3 = z1 rotated 240;
+        z12 = caveness[.5[z1,z2],z3];
+        z23 = z12 rotated 120;
+        z31 = z12 rotated 240;
+        triangle = z1 .. z12 .. z2 ..
+                    z2 .. z23 .. z3 ..
+                    z3 .. z31 .. z1 ..
+                    cycle;
+        triangle := triangle shifted (-x1+pent/2-kern,0) xscaled xs;
+        pickup pencircle scaled pent xscaled xs;
+        hei = max(y1,-y2)+pent/2; 
+        %set_char_box(-kern*xs*fac, ((x3-x1)*fac+pent#)*xs,hei*fac,hei*fac);
+        set_char_box(0, ((x3-x1-kern)*fac+pent#)*xs,hei*fac,hei*fac);
+enddef;
+
+
 def def_triangle =
 	save triangle,kern; path triangle;
-	kern = 1/3(x2-x1);
+	save left_point, height, width;
+	pair exact_left_point;
+
+	exact_left_point := llap# * dir (90 + tilt);
+	height# = max (ypart exact_left_point,
+			-ypart  (exact_left_point rotated 120)) + pen_thick#/2;
+
+	kern# = 1/3 xpart (exact_left_point - (exact_left_point rotated 120));
+	width# = xpart (-exact_left_point + (exact_left_point rotated 240));
+	define_pixels (kern);	
+	z1 = (hround_pixels (xpart exact_left_point), vround_pixels  (ypart exact_left_point));
 	z2 = z1 rotated 120;
 	z3 = z1 rotated 240;
+
 	z12 = caveness[.5[z1,z2],z3];
 	z23 = z12 rotated 120;
 	z31 = z12 rotated 240;
@@ -288,21 +325,20 @@ def def_triangle =
 		    z2 .. z23 .. z3 ..
 		    z3 .. z31 .. z1 ..
 		    cycle;
-	triangle := triangle shifted (-x1+pent/2-kern,0) xscaled xs;
-	pickup pencircle scaled pent xscaled xs;
-	hei = max(y1,-y2)+pent/2; 
-	%set_char_box(-kern*xs*fac, ((x3-x1)*fac+pent#)*xs,hei*fac,hei*fac);
-	set_char_box(0, ((x3-x1-kern)*fac+pent#)*xs,hei*fac,hei*fac);
+	triangle := triangle shifted (-x1+pen_thick/2-kern,0) xscaled xs;
+	pickup pencircle scaled pen_thick xscaled xs;
+%	labels(1,2,12,23,31,3);
+	set_char_box(0, width# - kern#+ pen_thick#, height#, height#);
 enddef;
-save fac,pent;
-fac = noteheight#/noteheight;
-pent# = 2stafflinethickness#;
-define_pixels(pent);
-
 
 fet_beginchar("Whole trianglehead", "0triangle", "wholetrianglehead")
 	save hei,xs;
-	z1 = dir(130)*3/4noteheight;
+	save llap;
+	save tilt;
+
+	tilt = 40;
+	llap# = 3/4noteheight#;
+
 	xs = 1.5;
 	caveness:=0.1;
 	def_triangle;
@@ -311,7 +347,11 @@ fet_endchar;
 
 fet_beginchar("Half trianglehead", "1triangle", "halftrianglehead")
 	save hei,xs;
-	z1 = dir(130)*2/3noteheight;
+	save llap;
+	save tilt;
+
+	tilt = 40;
+	llap# = 2/3noteheight#;
 	xs = 1.2;
 	caveness:=0.1;
 	def_triangle;
@@ -320,7 +360,10 @@ fet_endchar;
 
 fet_beginchar("Quart trianglehead", "2triangle", "trianglehead")
 	save hei,xs;
-	z1 = dir(130)*2/3noteheight;
+	save llap;
+	save tilt;
+	tilt = 40;
+	llap# = 2/3noteheight#;
 	xs = 1.0;
 	caveness:=0.1;
 	def_triangle;
