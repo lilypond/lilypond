@@ -29,6 +29,9 @@ import time
 import glob
 import tempfile
 
+os.environ['LANG'] = ''		# Can't grep localized msgs
+
+
 
 class Input:
     """
@@ -922,7 +925,7 @@ def writeLilylog(file,contents):
 def getTeXFile(contents):
     texfiles=[]
     for line in string.split(contents,'\n'):
-        m = re.search('^Paper output to (.+)\.\.\.', line)
+        m = re.search('^paper output to (.+)\.\.\.', line)
         if m:
             texfiles.append(m.group(1))
 

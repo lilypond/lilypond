@@ -10,7 +10,7 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 
 .* TODO
 . * use Rhythmic_head::position_i () for all Staff_referenced 
-. * rerun profile
+. * sleur.ly. * rerun profile
 . * mmrests
 . * Break_req handling is silly (break_forbid () + \break fucks up.)
 . * script engraver
@@ -328,6 +328,24 @@ touching it.
             do_one_file(String,String) [scores.cc:124]
       Reading 4 bytes from 0xefffeca8 on the stack.
       Address 0xefffeca8 is 728 bytes below frame pointer in function 
+. *  Array<Axis [2] > axeses;
+
+  for (int i=0; i < loose_elems.size (); i++)
+    {
+      Score_element* elt = loose_elems[i];
+      /*
+	    with which axes do we have to meddle?
+      */
+      int j =0;
+      Axis as [2];
+      for (int a = X_AXIS; a < NO_AXES; ++a)
+	if (elt->parent_l (Axis (a)) == this)
+	  as[j++] = Axis (a);
+      if (j == 1)
+	as[j++] = as[0];
+
+      axeses.push (as);
+    }
 . * GNU diff 2.7: diff -rN does not see a new directory with empty file
 . * patch: don't touch timestamp if all patches fail.
 . * MetaPost: should not generate setgray for unfill
