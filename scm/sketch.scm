@@ -1,3 +1,4 @@
+
 ;;; sketch.scm -- implement Scheme output routines for Sketch
 ;;;
 ;;;  source file of the GNU LilyPond music typesetter
@@ -18,7 +19,6 @@
 ;;     elif symbol == 'char':
 ;;         out.write ('moveto( %f %f); char(%d)' % (x,y,rest))
 
-
 ;; (define (dispatch x y expr)
 ;;  (let ((keyword (car expr))) 
 ;;   (cond
@@ -30,13 +30,13 @@
 
 
 
-(define-module (scm sketch)
-  :export (sketch-output-expression)
-  :no-backtrace)
+(define-module (scm sketch) )
+;   :export (sketch-output-expression)
+;  :no-backtrace
 
 (define this-module (current-module))
 
-(define (sketch-output-expression expr port)
+(define-public (sketch-output-expression expr port)
   (display (dispatch expr) port))
 
 (use-modules
@@ -52,10 +52,10 @@
      ((eq? keyword 'placebox)
       (dispatch-x-y (cadr expr) (+ 150 (caddr expr)) (cadddr expr)))
      (else
-      (apply (eval keyword this-module) (cdr expr))))))
+      (apply (ly-eval keyword this-module) (cdr expr))))))
 
 (define (dispatch-x-y x y expr)
-  (apply (eval (car expr) this-module) (append (list x y) (cdr expr))))
+  (apply (ly-eval (car expr) this-module) (append (list x y) (cdr expr))))
 
 
 
@@ -117,7 +117,7 @@
 
 (define (fontify x y name-mag-pair exp)
   (string-append (select-font name-mag-pair)
-		 (apply (eval (car exp) this-module)
+		 (apply (ly-eval (car exp) this-module)
 			(append (list x y) (cdr exp)))))
 ;;		 (if (string? exp) exp "")))
 

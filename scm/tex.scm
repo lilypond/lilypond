@@ -125,12 +125,18 @@
   ""
   )
 
-(define (embedded-ps expr)
-  (let
-      ((os (open-output-string)))
-    (ps-output-expression expr os)
-    (string-append "\\embeddedps{" (get-output-string os) "}")
-  ))
+(if (or (equal? (minor-version) "4")
+	(equal? (minor-version) "3.4"))
+    (define (embedded-ps expr)
+      (let ((ps-string
+	     (with-output-to-string
+	       (lambda () (ps-output-expression expr)))))
+	(string-append "\\embeddedps{" ps-string "}")))
+    (define (embedded-ps expr)
+      (let
+	  ((os (open-output-string)))
+	(ps-output-expression expr os)
+	(string-append "\\embeddedps{" (get-output-string os) "}"))))
 
 (define (comment s)
   (string-append "% " s "\n"))

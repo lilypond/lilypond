@@ -1,3 +1,12 @@
+1.5.23
+======
+
+* Bugfix: be anal about slur dimensions.
+
+* Bugfix: insert extra margin around pixmaps.
+
+* lilypond-book: magnification option for EPS
+
 1.5.22.jcn1
 ===========
 
@@ -108,7 +117,7 @@ abc2ly fixes:
    - Hmm, then find that
 
      + Sketch accesses characters by name, ie, the
-      name characters have in default text fonts.  Luckily, textrace
+clefs      name characters have in default text fonts.  Luckily, textrace
       mangles the feta names too.  Sadly, textrace chooses different names
       for characters > 128.
 

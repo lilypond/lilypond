@@ -56,12 +56,16 @@ zager =  \context Staff = zager \notes \relative c'' {
 }
 
 zoger =  \context Staff = zoger \notes \relative c'' {
+	% Hmm
+        \property Staff.HaraKiriVerticalGroup \override
+	    #'items-worth-living = #'(#t #t)
+
+
 	\clef treble
 	\property Staff.instrument = #"Zoger"
 	\property Staff.instr = #"Zog."
 	c4^"zog" d e f 
 	\skip 1*2
-
 	\translator Staff=zager
 	\stemDown 
 	c2 g2
@@ -85,7 +89,7 @@ zagers =  \context GrandStaff <
 		>
 	>
 	\paper{
-		linewidth = 80.0\mm
+		linewidth = 100.0\mm
 		\translator { \HaraKiriStaffContext }
 %uh?
 		\translator { \OrchestralScoreContext }
