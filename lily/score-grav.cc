@@ -96,11 +96,8 @@ Score_engraver::announce_element(Score_elem_info info)
     info.origin_grav_l_arr_.push(this);
     if (info.elem_l_->name() == Bar::static_name()) {
 	get_staff_info().command_pcol_l()->set_breakable();
-    } else if ( info.elem_l_->is_type_b( Line_of_staff::static_name() ) &&
-		!scoreline_l_->contains_b( info.elem_l_) )
-	
-	scoreline_l_->add(info.elem_l_);
-    
+    } 
+        
     announce_info_arr_.push(info);
 }
 void
@@ -152,7 +149,7 @@ Score_engraver::typeset_all()
 
     for  (int i =0; i < nobreak_item_p_arr_.size(); i++) {
 	ps_l->typeset_item(nobreak_item_p_arr_[i], c, 0);
-	scoreline_l_->add(nobreak_item_p_arr_[i]);
+	scoreline_l_->add_dependency(nobreak_item_p_arr_[i]);
     }
     nobreak_item_p_arr_.set_size(0);
     
@@ -204,7 +201,7 @@ bool
 Score_engraver::do_try_request(Request*r)
 {
     bool gotcha = false;  
-    for (int i =0; !gotcha && i < nongroup_l_arr_.size() ; i++)
+    for ( int i =0; !gotcha && i < nongroup_l_arr_.size() ; i++)
 	gotcha = nongroup_l_arr_[i]->try_request(r);
   
     return gotcha;

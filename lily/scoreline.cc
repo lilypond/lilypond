@@ -70,18 +70,12 @@ Line_of_score::Line_of_score()
 
 
 IMPLEMENT_STATIC_NAME(Line_of_score);
-IMPLEMENT_IS_TYPE_B2(Line_of_score,Spanner,Vertical_align_elem);
+IMPLEMENT_IS_TYPE_B1(Line_of_score,Spanner);
 
 void
 Line_of_score::add(Score_elem*e)
 {
-    if (e->is_type_b( Line_of_staff::static_name()) 
-	    && ! Vertical_align_elem::contains_b( e) ) 
-	    
-	Vertical_align_elem::add(e);
-    else { 
-	add_dependency(e);
-    }
+    add_dependency(e);
 }
 
 bool
@@ -156,11 +150,4 @@ Interval
 Line_of_score::do_width()const
 { 
     return Spanner::do_width();
-}
-
-void
-Line_of_score::do_substitute_dependency(Score_elem*o,Score_elem*n)
-{
-    Spanner::do_substitute_dependency(o,n);
-    Vertical_align_elem::do_substitute_dependency(o,n);
 }
