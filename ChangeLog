@@ -8,6 +8,8 @@
 
 	* lilypond-mode.el: Allow Midi on buffer.
 	Use only '.ly'-extension, remove '.sly' and '.fly'.
+	Allow use of inactive regions. Invoke next Command on Master file, 
+	Buffer or Region, if C-cc, C-cb, or C-cr, accordingly, was pressed.
 
 2003-05-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
