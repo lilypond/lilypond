@@ -152,7 +152,7 @@ AC_DEFUN(AC_STEPMAKE_GXX, [
     then
 	    true
     else
-	    AC_STEPMAKE_WARN(can\'t find g++ 2.8 or egcs 1.1)
+	    AC_STEPMAKE_WARN(can\'t find g++ 2.8, 2.9 or egcs 1.1)
     fi
 ])
 
@@ -393,6 +393,34 @@ dnl    fi
     AC_STEPMAKE_DATADIR
 ])
 
+AC_DEFUN(AC_STEPMAKE_KPATHSEA, [
+
+    kpathsea_b=yes
+    AC_ARG_ENABLE(kpathsea,
+    [  enable-kpathsea         use kpathsea lib.  Default: on],
+    [kpathsea_b=$enableval])
+
+    if test $kpathsea_b = yes; then	
+	AC_HAVE_HEADERS(kpathsea/kpathsea.h)
+	AC_CHECK_LIB(kpathsea, kpse_find_file)
+	# urg: kpse_find_tfm is a #define, how to check for this?
+	# AC_CHECK_LIB(kpathsea, kpse_find_tfm)
+	# AC_CHECK_FUNCS(kpse_find_file kpse_find_tfm,, AC_STEPMAKE_WARN(Cannot find kpathsea functions.  You may have to create TFM files manually.))
+	AC_CHECK_FUNCS(kpse_find_file,, AC_STEPMAKE_WARN(Cannot find kpathsea functions.  You may have to create TFM files manually.) kpathsea_b=no)
+    fi
+    AC_MSG_CHECKING(whether to use kpathsea)
+    if test $kpathsea_b = yes; then
+        AC_MSG_RESULT(yes)
+	KPATHSEA=1
+    else
+        AC_MSG_RESULT(no)
+	KPATHSEA=0
+    fi
+
+    AC_SUBST(KPATHSEA)
+    AC_DEFINE_UNQUOTED(KPATHSEA, $KPATHSEA)
+])
+
 AC_DEFUN(AC_STEPMAKE_LEXYACC, [
     # ugh, automake: we want (and check for) bison
     AC_PROG_YACC
@@ -520,7 +548,7 @@ AC_DEFUN(AC_STEPMAKE_MSGFMT, [
 #why has this been dropped?
 AC_DEFUN(XXAC_STEPMAKE_TEXMF_DIRS, [
     AC_ARG_ENABLE(tex-prefix,
-    [  enable-tex-prefix=DIR   set the tex-directory to find TeX subdirectories. (default: PREFIX)],
+    [  enable-tex-prefix=DIR   set the tex-directory to find TeX subdirectories.  Default: PREFIX],
     [TEXPREFIX=$enableval],
     [TEXPREFIX=auto] )
     
@@ -554,7 +582,7 @@ AC_DEFUN(XXAC_STEPMAKE_TEXMF_DIRS, [
 
 AC_DEFUN(AC_STEPMAKE_TEXMF_DIRS, [
     AC_ARG_ENABLE(tfm-path,
-    [  enable-tfm-path=PATH   set path of tex directories where tfm files live, esp.: cmr10.tfm (default: use kpsewhich)],
+    [  enable-tfm-path=PATH    set path of tex directories where tfm files live, esp.: cmr10.tfm.  Default: use kpsewhich],
     [tfm_path=$enableval],
     [tfm_path=auto] )
 
@@ -699,7 +727,7 @@ AC_DEFUN(AC_TEX_PREFIX, [
     
     if test "x$find_texpostfix" = x; then
 	find_texpostfix='/lib/texmf/tex'
-	AC_STEPMAKE_WARN(Cannot determine the TeX-directory. Please use --enable-tex-prefix)
+	AC_STEPMAKE_WARN(Cannot determine the TeX-directory.  Please use --enable-tex-prefix)
     fi
 
     find_texprefix="$find_root_prefix/$find_texpostfix"
@@ -727,7 +755,7 @@ AC_DEFUN(AC_FIND_DIR_IN_PREFIX, [
 
     if test "x$find_dirdir" = x; then
        find_dirdir="/$3";
-       AC_STEPMAKE_WARN(Cannot determine $4 subdirectory. Please set from command-line)
+       AC_STEPMAKE_WARN(Cannot determine $4 subdirectory.  Please set from command-line)
 	true
     fi
     $2=$find_dirdir
