@@ -126,7 +126,8 @@ void fix_prefix_set (int *current_set, int min_set, int max_set, Grob *primitive
 void check_and_fix_all_prefixes (Array<Grob_info> primitives)
 {
   /* Check for illegal head modifier combinations */
-  for (int i = 0; i < primitives.size(); i++) {
+  for (int i = 0; i < primitives.size(); i++)
+    {
     Grob *primitive = primitives[i].grob_;
 
     /* compute head prefix set by inspecting primitive grob properties */

@@ -19,4 +19,4 @@ public:
 ADD_INTERFACE (Gregorian_ligature, "gregorian-ligature-interface",
 	       "A gregorian ligature",
 	       "virga stropha inclinatum auctum descendens ascendens "
-	       "pes-or-flexa semivocalis oriscus quilisma prefix-set deminutum");
+	       "pes-or-flexa semivocalis oriscus context-info quilisma prefix-set deminutum");
