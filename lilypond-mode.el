@@ -31,6 +31,9 @@
 (defvar LilyPond-mode-hook nil
   "*Hook called by `LilyPond-mode'.")
 
+(defvar LilyPond-region-file-prefix "emacs-lily"
+  "File prefix for commands on buffer or region.")
+
 ;; FIXME: find ``\score'' in buffers / make settable?
 (defun LilyPond-master-file ()
   ;; duh
@@ -303,7 +306,9 @@ in LilyPond-include-path."
 (defun LilyPond-string-current-midi ()
   "Check the midi file of the following midi-score in the current document."
   (interactive)
-  (let ((fnameprefix (substring (LilyPond-master-file) 0 -3)) ; suppose ".ly"
+  (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
+			 (substring (LilyPond-master-file) 0 -3); suppose ".ly"
+		       LilyPond-region-file-prefix))
 	(allcount (string-to-number (substring (count-midi-words) 0 -12)))
 	(count (string-to-number (substring (count-midi-words-backwards) 0 -12))))
     (concat  fnameprefix
@@ -316,7 +321,9 @@ in LilyPond-include-path."
 (defun LilyPond-string-all-midi ()
   "Return the midi files of the current document in ascending order."
   (interactive)
-  (let ((fnameprefix (substring (LilyPond-master-file) 0 -3))
+  (let ((fnameprefix (if (eq LilyPond-command-current 'LilyPond-command-master)
+			 (substring (LilyPond-master-file) 0 -3); suppose ".ly"
+		       LilyPond-region-file-prefix))
 	(allcount (string-to-number (substring (count-midi-words) 0 -12))))
     (concat (if (> allcount 0)  ; at least one midi-score
 		(concat fnameprefix ".midi "))
@@ -425,7 +432,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 
 (defun LilyPond-command-query (name)
   "Query the user for what LilyPond command to use."
-  (let* ((default (cond ((if (string-equal name "emacs-lily")
+  (let* ((default (cond ((if (string-equal name LilyPond-region-file-prefix)
 			     (LilyPond-check-files (concat name ".tex")
 						   (list name)
 						   LilyPond-file-extensions)
@@ -513,7 +520,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	;; (dir "/tmp/")
 	;; urg
 	(dir "./")
-	(base "emacs-lily")
+	(base LilyPond-region-file-prefix)
 	;; Hmm
 	(ext (if (string-match "^[\\]score" (buffer-substring begin end))
 		 ".ly"
