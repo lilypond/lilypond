@@ -25,5 +25,5 @@ foollilypondbook = "
 }
 
 \score{
-\context Lyrics \lyrics { "." }
+\context Lyrics \lyrics { " " }
 }

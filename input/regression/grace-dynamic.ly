@@ -5,5 +5,10 @@
 texidoc="Dynamics on grace notes are small and behave nicely (don't crash into to main note)."
 }
  
- \score { \notes \context Voice {\grace {c'_\f} d e f g}}
+\score {
+     \notes \relative c'  \context Voice {\grace {c_\f} d, c'  f g}
+     \paper { raggedright =  ##t } 
+
+}
+
 %% new-chords-done %%

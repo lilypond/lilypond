@@ -1,40 +1,54 @@
 #!@PYTHON@
 # vim: set noexpandtab:
-# TODO:
-# * junk --outdir for--output
-# * Figure out clean set of options.
-# *
-# * texinfo: add support for @pagesize
 
-# todo: dimension handling (all the x2y) is clumsy. (tca: Thats
-#       because the values are taken directly from texinfo.tex,
-#       geometry.sty and article.cls. Give me a hint, and I'll
-#       fix it.)
+"""
 
-#
-# TODO: magnification support should also work for texinfo -> html: eg. add as option to dvips.
-#
+  TODO:
+  * junk --outdir for--output
+  * Figure out clean set of options.
+  *
+  * texinfo: add support for @pagesize
 
-
-#
-# This is a slightly hairy program. The general approach is as follows 
-# The input string is chopped up in chunks, i.e. ,  a list of tuples
-#
-#   with the format  (TAG_STR, MAIN_STR, OPTIONS, TODO, BASE)
-#
-# This list is build step by step: first ignore and verbatim commands are handled,
-# delivering a list of chunks.
-# 
-# then all chunks containing lilypnod commands are chopped up
-#
-# when all chunks have their final form, all bodies from lilypond blocks are 
-# extracted, and if applicable, written do disk and run through lilypond.
-# 
+  todo: dimension handling (all the x2y) is clumsy. (tca: Thats
+        because the values are taken directly from texinfo.tex,
+        geometry.sty and article.cls. Give me a hint, and I'll
+        fix it.)
 
 
-# This is was the idea for handling of comments:
+  TODO: magnification support should also work for texinfo -> html: eg. add as option to dvips.
 
 
+
+  This is a slightly hairy program. The general approach is as follows 
+  The input string is chopped up in chunks, i.e. ,  a list of tuples
+
+    with the format  (TAG_STR, MAIN_STR, OPTIONS, TODO, BASE)
+
+  This list is built step by step: first ignore and verbatim commands
+  are handled, delivering a list of chunks.
+  
+  then all chunks containing lilypond commands are chopped up
+
+  when all chunks have their final form, all bodies from lilypond blocks are 
+  extracted, and if applicable, written do disk and run through lilypond.
+  
+
+tags supported
+
+  ignore
+  lilypond
+  input
+  verb
+  verbatim
+  multicols
+  numcols
+  
+
+
+
+"""
+
+#  This is was the idea for handling of comments:
 #	Multiline comments, @ignore .. @end ignore is scanned for
 #	in read_doc_file, and the chunks are marked as 'ignore', so
 #	lilypond-book will not touch them any more. The content of the
@@ -413,7 +427,8 @@ output_dict= {
 	'texi' : {
 
 
-		'output-filename' : r'''@ifnothtml
+		'output-filename' : r'''
+@ifnothtml
 @file{%s}:@*
 @end ifnothtml
 @ifhtml
@@ -892,7 +907,9 @@ def make_lilypond_file (m):
 	(content, nm) = find_file (m.group ('filename'))
 	options.append ("filename=%s" % nm)
 
+
 	return [('lilypond', content, options)]
+	
 
 def make_ly2dvi_block (m):
 	'''
@@ -1021,10 +1038,15 @@ def schedule_lilypond_block (chunk):
 	for the main file).  The .ly is written, and scheduled in
 	TODO.
 
-	Return: a chunk (TYPE_STR, MAIN_STR, OPTIONS, TODO, BASE)
+	Return: multiple chunks.
 
-	TODO has format [basename, extension, extension, ... ]
+	The chunk pertaining to the lilypond output
+	has the format (TYPE_STR, MAIN_STR, OPTIONS, TODO, BASE), 
+	where TODO has format [basename, extension, extension, ... ]
 	'''
+
+	return_chunks = []
+
 	(type, body, opts) = chunk
 	assert type == 'lilypond'
 	file_body = compose_full_body (body, opts)
@@ -1068,6 +1090,7 @@ def schedule_lilypond_block (chunk):
 		todo.append ('png')
 	newbody = ''
 
+	filename_chunk = None 
 	if 'printfilename' in opts:
 		for o in opts:
 			m= re.match ("filename=(.*)", o)
@@ -1078,14 +1101,14 @@ def schedule_lilypond_block (chunk):
 						  
 				## todo: include path, but strip 
 				## first part of the path.
-				newbody = newbody + template % (human_base, b,human_base)
+				filename_chunk = ('input',  template % (human_base, b,human_base))
 				break
 
 
 	if 'smallverbatim' in opts:
-		newbody = newbody + output_verbatim (body, 1)
+		newbody += output_verbatim (body, 1)
 	elif 'verbatim' in opts:
-		newbody = newbody + output_verbatim (body, 0)
+		newbody += output_verbatim (body, 0)
 
 	for o in opts:
 		m = re.search ('intertext="(.*?)"', o)
@@ -1115,7 +1138,13 @@ def schedule_lilypond_block (chunk):
 	else: # format == 'html'
 		s = 'output-html'
 	newbody = newbody + get_output (s) % {'fn': basename }
-	return ('lilypond', newbody, opts, todo, basename)
+
+	if filename_chunk:
+		return_chunks += [filename_chunk]
+	
+	return_chunks += [('lilypond', newbody, opts, todo, basename)]
+	
+	return return_chunks
 
 
 
@@ -1124,13 +1153,15 @@ def process_lilypond_blocks (chunks):#ugh rename
 	newchunks = []
 	# Count sections/chapters.
 	for c in chunks:
+		cs = []
 		if c[0] == 'lilypond':
-			c = schedule_lilypond_block (c)
+			cs = schedule_lilypond_block (c)
 		elif c[0] == 'numcols':
 			paperguru.m_num_cols = c[2]
 		elif c[0] == 'multicols':
 			paperguru.m_multicols = c[2]
-		newchunks.append (c)
+		newchunks += cs
+		
 	return newchunks
 
 def process_ly2dvi_blocks (chunks):
@@ -1400,9 +1431,7 @@ def do_file (input_filename):
 	chunks = chop_chunks (chunks, 'preamble-end', do_preamble_end)
 	chunks = chop_chunks (chunks, 'numcols', do_columns)
 	chunks = chop_chunks (chunks, 'multicols', do_multicols)
-	#print "-" * 50
-	#for c in chunks: print "c:", c;
-	#sys.exit ()
+	
 	scan_preamble (chunks)
 	chunks = process_lilypond_blocks (chunks)
 	chunks = process_ly2dvi_blocks (chunks)
