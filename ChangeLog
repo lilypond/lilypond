@@ -1,3 +1,7 @@
+2003-07-08  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/template/jazz-combo.ly (drumNotes): 1.7 fixes 
+
 2003-07-09  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* Documentation/user/refman.itely: spelling fix.

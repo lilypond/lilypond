@@ -1,4 +1,4 @@
-\version "1.6.6"
+\version "1.7.23"
 \header {
         title = "Song"
         subtitle = "(tune)"
@@ -22,7 +22,10 @@ nsl = {
          \property Voice.Stem \revert #'length }
 cr = \property Voice.NoteHead \override #'style = #'cross
 ncr = \property Voice.NoteHead \revert #'style
-jzchords = \property ChordNames.ChordName \override #'style = #'jazz
+
+%% insert chord name style stuff here.
+
+jzchords = { } 
 
 %%%%%%%%%%%% Keys'n'thangs %%%%%%%%%%%%%%%%%
 
@@ -34,12 +37,12 @@ Key = \notes \key c \major
 
 % ############ Horns ############
 % ------ Trumpet ------
-trpt = \notes \transpose d' \relative c'' {
+trpt = \notes \transpose c d \relative c'' {
 	\Key
         c1 c c
 }
 
-trpharmony = \chords \transpose d { \jzchords }
+trpharmony = \chords \transpose c' d { \jzchords }
 trumpet = {
         \global 
         \property Staff.instrument = #"Trumpet"
@@ -50,12 +53,12 @@ trumpet = {
 }
 
 % ------ Alto Saxophone ------
-alto = \notes \transpose a' \relative c' {
+alto = \notes \transpose c a \relative c' {
 	\Key
         c1 c c
 }
 
-altoharmony = \chords \transpose a { \jzchords }
+altoharmony = \chords \transpose c' a { \jzchords }
 altosax = {
         \global
         \property Staff.instrument = #"Alto Sax"
@@ -66,12 +69,12 @@ altosax = {
 }
 
 % ------ Baritone Saxophone ------
-bari = \notes \transpose a'' \relative c {
+bari = \notes \transpose c a' \relative c {
 	\Key
         c1 c \sl d4^"Solo" d d d \nsl
 }
 
-bariharmony = \chords \transpose a { \jzchords s1 s d2:maj e:m.7 }
+bariharmony = \chords \transpose c' a { \jzchords s1 s d2:maj e:m7 }
 barisax = {
         \global
         \property Staff.instrument = #"Bari Sax"
@@ -103,7 +106,7 @@ gtr = \notes \relative c'' {
 }
 
 gtrharmony = \chords { \jzchords
-        s1 c2:min.7+ d2:maj.9
+        s1 c2:min7+ d2:maj9
 }
 
 guitar = {
@@ -193,11 +196,11 @@ down = \notes {
         bd4 s bd s bd s bd s bd s bd s
 }
 
-drums = {
+drumNotes = \context Staff = drums {
 	\global
 	\property Staff.instrument = #"Drums"
 	\clef percussion
-	\context Staff <
+	<
 		\context Voice = first { \voiceOne \up }
 		\context Voice = second { \voiceTwo \down }
 	>
@@ -226,13 +229,13 @@ drums = {
                 
                 \context Staff = bass \bass
                 
-                \apply #(drums->paper 'drums) \context Staff = drums \drums
+                \apply #(drums->paper 'drums) \drumNotes
         >
 >
         \midi { \tempo 4 = 75 }
         \paper {
                 linewidth = 15.0 \cm
-                \translator { \HaraKiriStaffContext }
+                \translator { \RemoveEmptyStaffContext }
                 \translator {
                         \StaffContext
                         \consists Instrument_name_engraver
