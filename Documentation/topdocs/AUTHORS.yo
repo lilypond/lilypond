@@ -16,6 +16,8 @@ it()nemail(Jan Arne Fagertun)(Jan.A.Fagertun@energy.sintef.no),
     TeX titling and lytodvi.sh
 it()nemail(Anthony Fok)(foka@debian.org), 
     debian package: debian/*
+it()nemail(Bjoern Jacke)(bjoern.jacke@gmx.de)
+    german glossary stuff.
 it()nemail(Neil Jerram)(nj104@cus.cam.ac.uk). 
     parts of Documentation/Vocab*
 it()Donald Ervin Knuth,  lurl(http://www-cs-staff.stanford.edu/~knuth/)
