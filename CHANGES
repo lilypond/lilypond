@@ -1,3 +1,20 @@
+pl 5.hwn2
+	- Bach preludes: mutopification
+	- dots are Directional_element too; use \property dotDirection
+	- moved some stuff out of Lookup
+	- bf: dots
+	- font selection mechanics changed.
+
+pl 5.uu1
+	- bf: smob allocation (thanks David!)
+
+pl 5.hwn1
+	- junked \shape. Now use #'margin-shape 
+	- timing: one_beat -> \property beatLength
+	- bf convert-mudela
+
+************
+
 pl 4.uu1
 	- input/test/ \property fixes.
 	- gcc 2.95 fix
