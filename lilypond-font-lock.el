@@ -11,7 +11,7 @@
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
 ;; Version:       1.7.12
-;; Last Modified: 13DEC2003
+;; Last Modified: 26DEC2003
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -46,10 +46,10 @@
 ;; ... (v) the right and the left side of '='-marks.
 ;; ... (v) reserved words, e.g., FiguredBass.
 ;; ... (t) notes and rests
+;; "on top", ... (s) lyrics-mode
 ;; "on top", ... (w) horizontal grouping
 ;; "on top", ... (f) vertical grouping
 ;; "on top", ... (b) expressional grouping
-;; "on top", ... (s) lyrics-mode
 ;; "on top", ... (s) (multiline-)scheme; urgh. one should count the slurs
 ;; "on top", ... (s) strings
 ;; "on top", ... (c) (multiline-)comments
@@ -80,6 +80,11 @@
 ;; ... note or rest (with an accidental), e.g., b,? -- allows cis\longaX
       '("\\(^\\|[ <\{[/~(!)\t\\\|]\\)\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)" 2 font-lock-type-face)
 
+;; "on top", ... lyrics-mode: fontify everything between '<'...'>' or '{'...'}'
+;            URGH, does not know anything about inner brackets.
+;            Multiple lines may need refontifying (C-c f).
+      '("\\(\\\\lyrics[^{<]*\\)\\({[^}]*\\|<[^>]*\\)" 2 font-lock-string-face t)
+
 ;; "on top", ... horizontal grouping:
 ;;               - brackets '{[]}'
 ;;               - ties '~'
@@ -94,9 +99,6 @@
 ;;               - slurs ( ), \( \), [-^_][()]
 ;;               - hairpins \<, \>, \! 
       '("\\(\\\\[(<!>)]\\|[-^_]?[()]\\)" 0 font-lock-builtin-face t)
-
-;; "on top", ... lyrics-mode: fontify everything between '{' and '}'
-      '("\\(\\\\lyrics[^{]*{\\)\\([^}]*\\)" 2 font-lock-string-face t)
 
 ;; "on top", ... (multiline-)scheme: try find slurs up to 7th
       '("[_^-]?#\\(#[ft]\\|-?[0-9.]+\\|\"[^\"]*\"\\|['`]?[a-zA-Z-:]+\\|['`]?([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^)]*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*[^)]*)\\)" 0 font-lock-string-face t)
