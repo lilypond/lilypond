@@ -12,7 +12,7 @@ include ./$(depth)/make/Include.make
 # 
 TEXFILES = $(wildcard *.tex)
 MFFILES = $(wildcard *.mf)
-EXTRA_DISTFILES = $(MFFILES) $(TEXFILES) TODO
+EXTRA_DISTFILES = $(MFFILES) $(TEXFILES) TODO README
 #
 
 FONT_FILES = $(wildcard *[0-9].mf)
