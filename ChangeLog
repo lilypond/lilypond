@@ -1,3 +1,15 @@
+2004-03-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* scm/lily.scm (tex-output-expression): new function, eval within
+	drawing API. Guards against eval vulnerabilities.
+
+	* scm/output-tex.scm (tex-encoded-fontswitch): idem. 
+
+	* scm/output-ps.scm (scm): export lily drawing API.
+
+	* lily/include/lily-guile.hh (ly_scheme_function): new macro. Use
+	throughout.
+
 2004-03-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* ly/declarations-init.ly (paper): Define page-breaking.
@@ -41,7 +53,7 @@
 	accidentals for harmonic notes.
 
 	* lily/note-collision.cc (check_meshing_chords): don't merge heads
-	fo different style. (Thanks to Doug Linhardt).
+	of different style. (Thanks to Doug Linhardt).
 
 	* Documentation/user/changing-defaults.itely (Scheme tutorial):
 	new node.

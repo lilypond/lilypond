@@ -147,6 +147,17 @@ SCM ly_truncate_list (int k, SCM l );
 inline SCM ly_symbol2scm(char const* x) { return gh_symbol2scm((x)); }
 #endif 
 
+extern SCM global_lily_module;
+
+#define ly_scheme_function(x) ({static SCM cached; \
+ SCM value = cached;  /* We store this one locally, since G++ -O2 fucks up else */   \
+ if ( __builtin_constant_p ((x)))\
+ {  if (!cached)\
+     value = cached =  scm_gc_protect_object (scm_eval(gh_symbol2scm (x), global_lily_module));\
+ } else\
+  value = scm_eval(gh_symbol2scm (x), global_lily_module);\
+  value; })
+
 
 
 String ly_scm2string (SCM s);

@@ -91,11 +91,7 @@ get_font_by_mag_step (Paper_def* paper, Real requested_step,
 SCM
 properties_to_font_size_family (SCM fonts, SCM alist_chain)
 {
-  static SCM proc;
-  if (!proc )
-    proc = scm_c_eval_string ("lookup-font");
-
-  return scm_call_2 (proc, fonts, alist_chain);
+  return scm_call_2 (ly_scheme_function ("lookup-font"), fonts, alist_chain);
 }
 
 
