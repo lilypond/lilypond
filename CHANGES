@@ -1,3 +1,24 @@
+1.3.153.hwn1
+============
+
+* More brace bugfixes. 
+
+* Revert: simplified TFM and PK logic in ly_init_kpath (). Find feta
+fonts in datadir (eg /usr/share/) again, rely on environment in the
+other tools.
+
+* Add .pk font caching for ly2dvi. pk files resulting from running
+dvips are stored in outdir.
+
+1.3.153.jcn2
+============
+
+* Cleaned-up braces font selection code.
+
+* PO updates.
+
+* petite-ouverture-a-danser.ly bugfix, twinkle.ly bugfix
+
 1.3.153
 =======
 
