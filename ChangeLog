@@ -1,7 +1,7 @@
 2004-04-10  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* scm/output-ps.scm (define-fonts): Do not crash when encoding==#f
-	(ugh?).
+	* scm/output-ps.scm (define-fonts, font-command,
+	font-load-encoding): Handle ENCODING = #f.
 
 	* scm/output-tex.scm (output-scopes): Check if variable is bound.
 
