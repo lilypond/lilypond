@@ -26,13 +26,13 @@ Time_signature::brew_molecule_p () const
     {
       if (time_sig_type_str_[0]=='1')
 	{
-	  Array<Scalar> tmparr=args_;
-	  tmparr[1]=Scalar(0);
+	  Array<Real> tmparr = args_;
+	  tmparr[1]= 0;
 	  s = lookup_l ()->time_signature (tmparr);
 	}
       else
 	{
-	  s = lookup_l ()-> special_time_signature (time_sig_type_str_,args_);
+	  s = lookup_l ()-> special_time_signature (time_sig_type_str_ ,args_);
 	}
     }
   else

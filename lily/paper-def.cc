@@ -57,7 +57,7 @@ Paper_def::get_var (String s) const
 {
   if (!scope_p_->elem_b (s))
     error (_f ("unknown paper variable: `%s\'", s));
-  Real * p = scope_p_->elem (s)->access_Real (false);
+  Real * p = scope_p_->elem (s)->access_content_Real (false);
   if (!p)
     {
       error (_ ("not a real variable"));
@@ -247,10 +247,10 @@ output_header (Paper_outputter* p, Scope *head)
   
   for (Dictionary_iter<Identifier*> i (*head); i.ok (); i++)
     {
-      if (!i.val ()->access_String_identifier ())
+      if (!i.val ()->access_content_String (false))
 	continue;
       
-      String val = *i.val()->access_String_identifier ()->data_p_;
+      String val = *i.val()->access_content_String (false);
       output_def (p, i.key (), val);
     }
 }
@@ -260,7 +260,7 @@ Paper_def::output_settings (Paper_outputter* p) const
 {
   for (Dictionary_iter<Identifier*> i (*scope_p_); i.ok (); i++)
     output_def (p, String ("mudelapaper") + i.key (), i.val ()->str ());
-  p->output_string (*scope_p_->elem (String (output_global_ch) + "setting")->access_String ());
+  p->output_string (*scope_p_->elem (String (output_global_ch) + "setting")->access_content_String (false));
 }
 
 Paper_outputter*

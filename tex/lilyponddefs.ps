@@ -22,11 +22,29 @@
 	grestore
 } bind def
 
-/settext
+/settext % '(' text ')'
 {
 	gsave
 	% urg
 	/Times-Roman findfont 12 scalefont setfont
+	show
+	grestore
+} bind def
+
+/setfinger % '(' text ')'
+{
+	gsave
+	% urg
+	/feta-nummer5 findfont 12 scalefont setfont
+	show
+	grestore
+} bind def
+
+/setitalic % '(' text ')'
+{
+	gsave
+	% urg
+	/Times-Italic findfont 12 scalefont setfont
 	show
 	grestore
 } bind def
@@ -125,7 +143,7 @@
 	grestore
 } bind def
 
-/draw_beam
+/draw_beam % width slope thick
 {
         2 div /beam_thick exch def
         /beam_slope exch def
