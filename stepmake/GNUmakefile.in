@@ -38,7 +38,8 @@ include $(depth)/make/stepmake.make
 ifeq ($(PACKAGE),STEPMAKE)
 SUBDIRS = bin make stepmake 
 else
-SUBDIRS = stepmake
+## Use this if you want to install stepmake
+##SUBDIRS = stepmake
 endif
 #
 
