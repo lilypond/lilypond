@@ -103,10 +103,19 @@ parse_handler (void * data, SCM tag, SCM args)
   Do some magical incantations: if not, lily will exit on the first
   GUILE error, leaving no location trace. 
  */
+
+
+#if GUILE_MINOR_VERSION < 7
+  #define READ_ERROR "misc-error"
+  #else
+  #define READ_ERROR "read-error"
+#endif
+
 SCM
 protected_ly_parse_scm (Parse_start *ps)
 {
-  return scm_internal_catch (ly_symbol2scm ("misc-error"), &catch_protected_parse_body,
+  return scm_internal_catch (ly_symbol2scm (READ_ERROR),
+			     &catch_protected_parse_body,
 			     (void*)ps,
 			     &parse_handler, (void*)ps);
 
