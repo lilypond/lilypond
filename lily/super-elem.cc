@@ -10,19 +10,7 @@
 #include "scoreline.hh"
 #include "p-score.hh"
 #include "string.hh"
-
-String
-Super_elem::TeX_output_str() const
-{
-  String s;
-  for (int i=0; i < lines_arr_.size(); i++)
-    {
-      s += lines_arr_[i]->TeX_output_str();
-      if (i + 1<lines_arr_.size())
-	s += "\\interscoreline"; // TODO
-    }
-  return s;
-}
+#include "outputter.hh"
 
 void
 Super_elem::handle_broken_dependencies()
@@ -53,3 +41,69 @@ Super_elem::do_add_processing()
 }
 
 IMPLEMENT_IS_TYPE_B1(Super_elem,Score_elem);
+
+
+/**
+    for administration of what was done already
+    */
+enum Score_elem_status {
+  ORPHAN=0,			// not yet added to pstaff
+  VIRGIN,			// added to pstaff
+  PREBROKEN,
+  PRECALCING,
+  PRECALCED,		// calcs before spacing done
+  BROKEN,
+  POSTCALCING,		// busy calculating. This is used to trap cyclic deps.
+  POSTCALCED,		// after spacing calcs done
+  BREWING,
+  BREWED,
+  UNLINKING,
+  UNLINKED,
+};
+
+void
+Super_elem::pre_processing ()
+{
+  calcalute_dependencies (PRECALCING, PRECALCED, &Score_elem::do_pre_processing);
+}
+
+/* for break processing, use only one status, because copies have to
+  have correct status. (Previously,
+  Score_elem::handle_[pre]broken_dependencies assigned to status_i_
+  */
+void
+Super_elem::breakable_col_processing ()
+{
+  calcalute_dependencies (PREBROKEN, PREBROKEN, &Score_elem::do_breakable_col_processing);
+}
+
+void
+Super_elem::break_processing ()
+{
+  calcalute_dependencies (BROKEN, BROKEN, &Score_elem::do_break_processing);
+}
+void
+Super_elem::post_processing ()
+{
+  calcalute_dependencies (POSTCALCING, POSTCALCED, &Score_elem::do_post_processing);
+}
+
+void
+Super_elem::output_all () 
+{
+  for (int i=0; i < lines_arr_.size(); i++)
+    {
+      pscore_l_->outputter_l_->start_line ();
+      lines_arr_[i]->calcalute_dependencies (BREWING, BREWED, &Score_elem::do_brew_molecule);
+      pscore_l_->outputter_l_->stop_line ();
+    }
+}
+
+
+
+void
+Super_elem::unlink_all ()
+{
+  calcalute_dependencies (UNLINKING, UNLINKED, &Score_elem::junk_links);
+}
+
