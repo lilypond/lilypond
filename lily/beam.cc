@@ -125,8 +125,9 @@ Beam::do_post_processing ()
 void
 Beam::do_substitute_dependent (Score_element*o,Score_element*n)
 {
-  if (o->is_type_b (Stem::static_name ()))
-      stems_.substitute ((Stem*)dynamic_cast <Item *> (o),  n? (Stem*) dynamic_cast <Item *> (n):0);
+  if (Stem * os = dynamic_cast<Stem*> (o))
+    stems_.substitute (os,
+		       dynamic_cast<Stem *> (n));
 }
 
 Interval

@@ -40,7 +40,7 @@ Axis_group_item::do_breakable_col_processing()
 	{
 	  Item *new_l = 
 	    it_l->find_prebroken_piece (broken_to_drul_[j]->break_status_dir_);
-	  ((Axis_group_item*)broken_to_drul_[j])->add_element (new_l);
+	  (dynamic_cast<Axis_group_item*> (broken_to_drul_[j]))->add_element (new_l);
 	}
       while (flip(&j)!=LEFT);
     }

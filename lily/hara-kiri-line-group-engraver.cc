@@ -24,10 +24,11 @@ Hara_kiri_line_group_engraver::create_line_spanner ()
 void
 Hara_kiri_line_group_engraver::typeset_element(Score_element * e)
 {
-  if (e->is_type_b (Note_head::static_name ()))
-    ((Hara_kiri_vertical_group_spanner*)staffline_p_)->add_note 
-      ((Note_head*)dynamic_cast <Item *> (e));
-
+  if (Note_head *h = dynamic_cast<Note_head *> (e))
+    {
+      dynamic_cast<Hara_kiri_vertical_group_spanner*> (staffline_p_)
+	->add_note  (h);
+    }
   Line_group_engraver_group::typeset_element (e);
 }
 

@@ -17,8 +17,6 @@
 #include "music.hh"
 #include "direction.hh"
 
-#define DEFAULTACCESSOR(T)  virtual T *access_ ## T () { return 0; }
-
 
 /** An atom of musical information.  This is an abstract class for any
   piece of music that does not contain other Music.
@@ -35,17 +33,6 @@ public:
   DECLARE_MY_RUNTIME_TYPEINFO;
   VIRTUAL_COPY_CONS(Request,Music);
     
-  /*  accessors for children
-      maybe checkout RTTI
-  */
-
-  DEFAULTACCESSOR(Barcheck_req)
-  DEFAULTACCESSOR(Script_req)
-  DEFAULTACCESSOR(Span_req)
-  DEFAULTACCESSOR(Spacing_req)
-  DEFAULTACCESSOR(Musical_req)
-  DEFAULTACCESSOR(Command_req)
-    
   bool equal_b (Request*) const;
 protected:
   virtual bool do_equal_b (Request*) const;
@@ -54,7 +41,6 @@ protected:
 
 
 #define REQUESTMETHODS(T)	\
-virtual T * access_ ## T() { return this;}\
 DECLARE_MY_RUNTIME_TYPEINFO;\
 VIRTUAL_COPY_CONS(T, Request);\
 virtual void do_print() const

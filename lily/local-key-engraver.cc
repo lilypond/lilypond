@@ -40,7 +40,7 @@ Local_key_engraver::do_creation_processing ()
     }
   else
     {
-      key_C_ = &((Key_engraver*)dynamic_cast <Engraver *> (result))->key_;
+      key_C_ = &(dynamic_cast<Key_engraver *> (result))->key_;
       local_key_ = *key_C_;
     }
 }
@@ -96,23 +96,20 @@ Local_key_engraver::do_pre_move_processing()
 void
 Local_key_engraver::acknowledge_element (Score_element_info info)
 {    
-  Score_element * elem_l = info.elem_l_;
-  Item * item_l = dynamic_cast <Item *> (elem_l);
-
   Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
-
-  if (note_l &&  item_l && item_l->is_type_b (Note_head::static_name ()))
+  Note_head * note_head = dynamic_cast<Note_head *> (info.elem_l_);
+  
+  if (note_l && note_head)
     {
       mel_l_arr_.push (note_l);
-      support_l_arr_.push (item_l);
+      support_l_arr_.push (note_head);
     }
   else if (dynamic_cast <Key_change_req*> (info.req_l_))
     {
       local_key_ = *key_C_;
     }
-  else if (elem_l->is_type_b (Tie::static_name ())) 
+  else if (Tie * tie_l = dynamic_cast<Tie *> (info.elem_l_))
     {
-      Tie * tie_l = (Tie*)dynamic_cast <Spanner *> (elem_l);
       if (tie_l->same_pitch_b_)
 	tied_l_arr_.push (tie_l-> head_l_drul_[RIGHT]);
     }

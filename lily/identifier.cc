@@ -77,7 +77,7 @@ Identifier::do_print () const
 #define DEFAULT_PRINT(Class) \
 void \
 Class ## _identifier::do_print () const { \
-  Class *cl = ((Class ## _identifier *)this)->access_ ## Class(false);\
+  Class *cl = ((Class ## _identifier *)this)->access_content_ ## Class(false);\
   cl->print (); \
 }
 
@@ -143,14 +143,14 @@ DEFAULT_STR(String);
 
 #define DEFAULT_ACCESSOR(Class)\
 Class*\
-Class ## _identifier::access_ ## Class (bool copy_b) const {\
+Class ## _identifier::access_content_ ## Class (bool copy_b) const {\
   ((Class ## _identifier*)this)->accessed_b_ = true;\
   return copy_b ? new Class (*data_p_) : data_p_;\
 }
 
 #define VIRTUAL_ACCESSOR(Class)\
 Class*\
-Class ## _identifier::access_ ## Class (bool copy_b) const{\
+Class ## _identifier::access_content_ ## Class (bool copy_b) const{\
   ((Class ## _identifier*)this)->accessed_b_ = true;\
   return copy_b ? (Class*)data_p_->clone() : data_p_;\
 }
@@ -166,7 +166,7 @@ Class ## _identifier::access_ ## Class (bool copy_b) const{\
 Class ## _identifier::Class ## _identifier (Class ## _identifier const &s) \
   : Identifier (s)\
 {\
-   data_p_ = s.access_ ## Class (true);\
+   data_p_ = s.access_content_ ## Class (true);\
 } 
 
 

@@ -43,9 +43,9 @@ Hara_kiri_vertical_group_spanner::do_post_processing ()
 void
 Hara_kiri_vertical_group_spanner::do_substitute_dependency (Score_element*o, Score_element*n)
 {
-  if (o->is_type_b (Note_head::static_name ()))
-    head_l_arr_.substitute ((Note_head*)dynamic_cast <Item *> (o), 
-      (n)? (Note_head*)dynamic_cast <Item *> (n) : 0);
+  if (dynamic_cast<Note_head *> (o))
+    head_l_arr_.substitute (dynamic_cast<Note_head *> (o), 
+      (n)? dynamic_cast<Note_head *> (n) : 0);
 }
 
 

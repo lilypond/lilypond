@@ -44,7 +44,7 @@ Staff_margin_engraver::acknowledge_element (Score_element_info i)
 
   if (!it
       || script_p_ 
-      || !it->is_type_b (Bar::static_name())
+      || !(dynamic_cast<Bar *> (it))
       || (i.origin_grav_l_arr_.size() != 1))
     return;
 

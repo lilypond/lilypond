@@ -52,7 +52,7 @@ void
 Rhythmic_head::do_substitute_dependent (Score_element*o,Score_element*n)
 {
   if (o == dots_l_)
-    dots_l_ = n ? (Dots*)dynamic_cast <Item *> (n) :0;
+    dots_l_ = n ? dynamic_cast<Dots *> (n) :0;
 }
 
 IMPLEMENT_IS_TYPE_B1(Rhythmic_head, Item);

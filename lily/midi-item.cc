@@ -399,6 +399,7 @@ Midi_note::Midi_note (Audio_item* audio_item_l)
   : Midi_item (audio_item_l)
 {
   dynamic_byte_ = 0x7f;
+  assert (dynamic_cast<Audio_note*> (audio_item_l));
 }
 
 Moment

@@ -85,8 +85,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       if (!i->lambda_)
         {
 	  // urg
-	  i->lambda_ = 
-	    ly_append (ly_lambda_o (), 
+	  i->lambda_ = ly_append (ly_lambda_o (), 
 	    ly_list1 (ly_func_o ("empty")));
 	}
 

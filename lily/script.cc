@@ -27,7 +27,7 @@ Script::do_substitute_dependency (Score_element*o,Score_element*n)
   Staff_side::do_substitute_dependency (o,n);
   if (o == stem_l_)
     {
-      stem_l_ = n ? (Stem*)dynamic_cast <Item *> (n) : 0;
+      stem_l_ = dynamic_cast<Stem *> (n);
     }
 }
 

@@ -118,12 +118,6 @@ Spanner::do_break_processing()
     }
 }
 
-Spanner* 
-Spanner::access_Spanner ()
-{
-  return this;
-}
-
 Spanner::Spanner ()
 {
   unbroken_original_l_ =0;

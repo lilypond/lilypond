@@ -104,10 +104,9 @@ Score_engraver::do_announces()
 	  */
 	if (announce_info_arr_[i].req_l_) 
 	  {
-	    Musical_req *m =dynamic_cast <Musical_req *> ( announce_info_arr_[i].req_l_);
-	    if (m && dynamic_cast <Rhythmic_req *> (m)) 
+	    if (Rhythmic_req *rq = dynamic_cast <Rhythmic_req *> (announce_info_arr_[i].req_l_))
 	      {
-		musical_column_l_->add_duration (m->duration());
+		musical_column_l_->add_duration (rq->duration());
 	      }
 	  }
       Engraver_group_engraver::do_announces();
@@ -128,9 +127,8 @@ Score_engraver::typeset_all()
   for  (int i =0; i < elem_p_arr_.size(); i++) 
     {
       Score_element * elem_p = elem_p_arr_[i];
-      if (dynamic_cast <Spanner *> (elem_p)) 
+      if (Spanner *s = dynamic_cast <Spanner *> (elem_p))
 	{
-	  Spanner *s = dynamic_cast <Spanner *> (elem_p);
 	  pscore_p_->typeset_unbroken_spanner (s);
 
 	    /*
@@ -241,22 +239,21 @@ Score_engraver::do_try_request (Request*r)
 {
   bool gotcha = Engraver_group_engraver::do_try_request (r);  
 
-  if (gotcha || !dynamic_cast <Command_req *> (r))
-    return gotcha;
-
-  Command_req * c = dynamic_cast <Command_req *> (r);
-  if (dynamic_cast <Break_req *> (c))
+  if (!gotcha)
     {
-      Break_req* b = (Break_req*)dynamic_cast <Break_req *> (c);
-      if (b->penalty_i_ <= Break_req::DISALLOW)
-	break_penalty_i_ = b->penalty_i_;
-      else if (b->penalty_i_ >= Break_req::FORCE)
+      if (Break_req* b = dynamic_cast<Break_req *> (r))
 	{
-	  command_column_l_->break_penalty_i_ = b->penalty_i_;
-	  gotcha = true;
+	  if (b->penalty_i_ <= Break_req::DISALLOW)
+	    break_penalty_i_ = b->penalty_i_;
+	  else if (b->penalty_i_ >= Break_req::FORCE)
+	    {
+	      command_column_l_->break_penalty_i_ = b->penalty_i_;
+	      gotcha = true;
+	    }
 	}
     }
-  return gotcha;
+   return gotcha;
+
 }
 
 IMPLEMENT_IS_TYPE_B1(Score_engraver,Engraver_group_engraver);
@@ -266,7 +263,7 @@ void
 Score_engraver::do_add_processing ()
 {
   Translator_group::do_add_processing ();
-  assert (output_def_l_->is_type_b (Paper_def::static_name ()));
+  assert (dynamic_cast<Paper_def *> (output_def_l_));
   assert (!daddy_trans_l_);
   pscore_p_ = new Paper_score;
   pscore_p_->paper_l_ = (Paper_def*)output_def_l_;

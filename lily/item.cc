@@ -129,10 +129,10 @@ Item::handle_prebroken_dependencies()
 int
 Item::left_right_compare(Item const *l, Item const *r)
 {
-  while (!l->is_type_b (Paper_column::static_name ()))
-    l = dynamic_cast<Item*> (l->axis_group_l_a_[X_AXIS]);
-  while (!r->is_type_b (Paper_column::static_name ()))
-    r = dynamic_cast<Item*> (r->axis_group_l_a_[X_AXIS]);
+  while (!(dynamic_cast<Paper_column const *> (l)))
+    l = dynamic_cast<Item const*> (l->axis_group_l_a_[X_AXIS]);
+  while (!(dynamic_cast<Paper_column const *> (r)))
+    r = dynamic_cast<Item const*> (r->axis_group_l_a_[X_AXIS]);
 
   Paper_column *p1 = (Paper_column*)l;
   Paper_column* p2 = (Paper_column*)r;
@@ -190,8 +190,3 @@ Item::Item (Item const &s)
   break_priority_i_ = s.break_priority_i_;
 }
 
-Item *
-Item::access_Item ()
-{
-  return this; 
-}

@@ -84,7 +84,7 @@ date := $(shell date +%x)	#duplicated?
 #
 ARFLAGS = ru
 
-INCLUDES =  include $(outdir) $($(PACKAGE)_INCLUDES)
+INCLUDES =  include $(outdir) $($(PACKAGE)_INCLUDES) $(MODULE_INCLUDES)
 
 # urg: for windows ?
 # LOADLIBES = $(MODULE_LIBES) $($(PACKAGE)_LIBES) $(EXTRA_LIBES) -lstdc++

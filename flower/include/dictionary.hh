@@ -183,7 +183,7 @@ public:
       V retval;
       if (!elem_b (k))
 	return retval ;
-      retval ((Dictionary<V> *) this)->elem (k);
+      return ((Dictionary<V> *) this)->elem (k);
     }
 
   V remove (String s)

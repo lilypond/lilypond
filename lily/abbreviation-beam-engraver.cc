@@ -27,11 +27,7 @@ Abbreviation_beam_engraver::Abbreviation_beam_engraver ()
 bool
 Abbreviation_beam_engraver::do_try_request (Request*r)
 {
-  Musical_req* mus_l = dynamic_cast <Musical_req *> (r);
-  if (!mus_l)
-    return false;
-
-  Abbreviation_beam_req * b = dynamic_cast <Abbreviation_beam_req *> (mus_l);
+  Abbreviation_beam_req * b = dynamic_cast <Abbreviation_beam_req *> (r);
 
   if (!b)
     return false;
@@ -40,7 +36,7 @@ Abbreviation_beam_engraver::do_try_request (Request*r)
     return false;
 
   Direction d = (!abeam_p_) ? LEFT : RIGHT;
-  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (mus_l))
+  if (span_reqs_drul_[d] && !span_reqs_drul_[d]->equal_b (b))
     return false;
 
   span_reqs_drul_[d] = b;
@@ -82,10 +78,9 @@ Abbreviation_beam_engraver::do_removal_processing ()
 void
 Abbreviation_beam_engraver::acknowledge_element (Score_element_info i)
 {
-  if (!abeam_p_ || !i.elem_l_->is_type_b (Stem::static_name ()))
+  Stem* s = dynamic_cast<Stem *> (i.elem_l_);
+  if (!abeam_p_ || !s)
     return;
-
-  Stem* s = (Stem*)dynamic_cast <Item *> (i.elem_l_);
 
   int type_i = span_reqs_drul_[LEFT]->type_i_;
   s->flag_i_ = intlog2 (type_i) - 2;

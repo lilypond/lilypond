@@ -23,17 +23,12 @@ Request::do_print() const
 bool
 Request::equal_b (Request *r) const
 {
-  if (is_type_b (r->name()))
-    return r->do_equal_b ((Request*)this);
-  if (r->is_type_b (name()))
-    return do_equal_b (r);
-	 
-  return false;
+  return r->do_equal_b (this) || this->do_equal_b (r) ;
 }
 
 bool
 Request::do_equal_b (Request*) const
 {
-  return false;
+  return true;
 }
   

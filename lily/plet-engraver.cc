@@ -27,7 +27,9 @@ Plet_engraver::Plet_engraver ()
 void
 Plet_engraver::acknowledge_element (Score_element_info i)
 {
-  if (!i.elem_l_->is_type_b (Stem::static_name ()))
+
+  Stem * st = (dynamic_cast<Stem *> (i.elem_l_));
+  if (!st)
     return;
   if (!plet_spanner_p_)
     return;
@@ -35,10 +37,10 @@ Plet_engraver::acknowledge_element (Score_element_info i)
     return;
 
   if (!plet_spanner_p_->stem_l_drul_[LEFT])
-    plet_spanner_p_->set_stem (LEFT, (Stem*)dynamic_cast <Item *> (i.elem_l_));
+    plet_spanner_p_->set_stem (LEFT, st);
   else
     if (span_reqs_drul_[RIGHT] && !plet_spanner_p_->stem_l_drul_[RIGHT]) 
-      plet_spanner_p_->set_stem (RIGHT, (Stem*)dynamic_cast <Item *> (i.elem_l_));
+      plet_spanner_p_->set_stem (RIGHT, st);
 }
 
 bool

@@ -20,6 +20,7 @@
 #include "score-column.hh"
 #include "paper-def.hh"
 #include "colhpos.hh"
+#include "main.hh"
 
 Vector
 Spring_spacer::default_solution() const
@@ -324,10 +325,10 @@ Spring_spacer::Spring_spacer ()
 void
 Spring_spacer::solve (Column_x_positions*positions) const
 {
-
   DOUT << "Spring_spacer::solve ()...";
-  Vector solution_try;
 
+  Vector solution_try;
+    
   bool constraint_satisfaction = try_initial_solution_and_tell (solution_try); 
   if  (constraint_satisfaction)
     {
@@ -335,9 +336,9 @@ Spring_spacer::solve (Column_x_positions*positions) const
       make_matrices (lp.quad_,lp.lin_, lp.const_term_);
       make_constraints (lp);
       set_fixed_cols (lp);
-
+	
       Vector solution_vec (lp.solve (solution_try));
-
+	
       positions->satisfies_constraints_b_ = check_constraints (solution_vec);
       if (!positions->satisfies_constraints_b_)
 	{
@@ -352,6 +353,7 @@ Spring_spacer::solve (Column_x_positions*positions) const
     {
       positions->set_stupid_solution (solution_try);
     }
+
   DOUT << "Finished Spring_spacer::solve ()...";
 }
 

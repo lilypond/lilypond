@@ -31,7 +31,7 @@ Symtables::Symtables (Symtables const &s)
 
 Symtables::~Symtables()
 {
-  for (Dictionary_iter< Symtable*>  i (*this); i.ok(); i++)
+  for (Dictionary_iter<Symtable*>  i (*this); i.ok(); i++)
     {
       delete i.val();
     }
@@ -60,12 +60,12 @@ Symtables::operator()(String s)
     {
       error (_f ("Symtable `%s\' unknown", s));
       /* 
-	 We can 't return, because we'll dump core anyway.
+	 We can 't return, because we would dump core anyway.
        */
       return 0;
     }
   else
-    return Dictionary<Symtable*>::operator[](s);
+    return elem(s);
 }
 void
 Symtables::print() const

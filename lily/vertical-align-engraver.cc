@@ -48,7 +48,7 @@ void
 Vertical_align_engraver::acknowledge_element (Score_element_info i)
 {
   if (i.origin_grav_l_arr_.size() == 1 && 
-      i.elem_l_->is_type_b (Vertical_group_spanner::static_name()) &&
+      dynamic_cast<Vertical_group_spanner *> (i.elem_l_) &&
       !i.elem_l_->axis_group_l_a_[Y_AXIS]) 
     {
       assert (!valign_p_->contains_b (i.elem_l_));

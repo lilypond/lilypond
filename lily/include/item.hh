@@ -40,7 +40,6 @@ public:
   Item * find_prebroken_piece (Direction) const;
   Item * find_prebroken_piece (Line_of_score*) const;    
 
-  virtual Item *access_Item() ;
   Item();
   Real hpos_f() const;
   DECLARE_MY_RUNTIME_TYPEINFO;

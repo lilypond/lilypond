@@ -11,11 +11,12 @@
 #define TYPESWALLOW_GRAV_HH
 
 #include "translator.hh"
+
 /// eat a certain type of request
 class Type_swallow_translator : public virtual Translator
 {
 protected:
-  const char * type_;
+  const type_info * type_;
   bool do_try_request (Request*);
 public:
   DECLARE_MY_RUNTIME_TYPEINFO;
@@ -26,7 +27,7 @@ public:
 #define DECLARE_REQUEST_SWALLOWER(TYPE)  \
 struct TYPE ## _swallow_translator : public Type_swallow_translator {\
   TYPE ## _swallow_translator() { \
-    type_ = TYPE::static_name ();\
+    type_ = &typeid (TYPE);\
   }\
   DECLARE_MY_RUNTIME_TYPEINFO;\
   TRANSLATOR_CLONE(TYPE ## _swallow_translator);\

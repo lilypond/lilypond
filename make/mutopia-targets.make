@@ -12,4 +12,4 @@ convert-mudela: local-convert-mudela
 	$(LOOP)
 
 local-convert-mudela:
-	$(PYTHON) $(depth)/$(scripts)/convert-mudela.py -e *ly
+	$(PYTHON) $(depth)/scripts/convert-mudela.py -e *ly

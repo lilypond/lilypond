@@ -8,9 +8,8 @@
 # you do make dist 
 #
 
-# urg, ambiguous and thus error prone; hardcode all $(*scripts) to bin?
-buildscripts = $(depth)/bin
-scripts = $(depth)/bin
+buildscripts = $(depth)/buildscripts
+
 
 flower-dir = $(depth)/flower
 lib-dir = $(depth)/lib
@@ -22,7 +21,7 @@ include-flower = $(depth)/flower/include
 
 
 
-LILYPOND_INCLUDES = $(include-lib) $(depth)/lib/$(outdir) $(include-flower) $(depth)/flower/$(outdir) 
+LILYPOND_INCLUDES = -Istinho $(include-lib) $(depth)/lib/$(outdir) $(include-flower) $(depth)/flower/$(outdir) 
 
 
 # should use to create .spec ?

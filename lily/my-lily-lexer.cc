@@ -109,7 +109,7 @@ My_lily_lexer::start_main_input ()
 }
 
 void
-My_lily_lexer::set_identifier (String name_str, Identifier* i, bool unique_b)
+My_lily_lexer::set_identifier (String name_str, Identifier* i, bool )
 {
   Identifier *old =0;
   if (scope_l_arr_.top ()->elem_b (name_str))
@@ -140,7 +140,7 @@ My_lily_lexer::~My_lily_lexer()
 }
 
 void
-My_lily_lexer::print_declarations (bool init_b) const
+My_lily_lexer::print_declarations (bool ) const
 {
   for (int i=scope_l_arr_.size (); i--; )
     {

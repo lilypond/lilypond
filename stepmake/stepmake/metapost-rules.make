@@ -6,7 +6,7 @@ $(outdir)/%.pfa: %.mf
 # to the metapost mfplain guru, really does 200dpi, iso 600dpi (minimun)
 	-$(METAPOST) "&mfplain \mode=lowres; \mag=100.0; batchmode; input $<"
 #	-$(METAPOST) "&mfmp \mode=ljfour; \mag=100.0; batchmode; input $<"
-	$(PYTHON) $(depth)/$(buildscripts)/ps-to-pfa.py $<
+	$(PYTHON) $(depth)/buildscripts/ps-to-pfa.py $<
 	rm -f $(basename $(@F)).[0-9]*
 	rm -f $(basename $<).log $(basename $<).tfm
 

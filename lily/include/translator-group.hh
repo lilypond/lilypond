@@ -33,8 +33,6 @@ public:
   String id_str_;
 
 
-  
-  
   int iterator_count_;
 
   TRANSLATOR_CLONE(Translator_group);
@@ -72,7 +70,6 @@ public:
   Translator_group*get_default_interpreter();
 protected:
   virtual ~Translator_group ();
-  virtual Translator_group * access_Translator_group () { return this; }
   virtual void do_print () const;
   virtual void do_process_requests ();
   virtual void do_add_processing ();

@@ -28,10 +28,7 @@ Ties_engraver::do_post_move_processing()
 bool
 Ties_engraver::do_try_request (Request*req)
 {
-  if (! dynamic_cast <Musical_req *> (req))
-      return false;
-
-  if(Tie_req * r=  dynamic_cast <Tie_req *> (req))
+  if (Tie_req * r = dynamic_cast <Tie_req *> (req))
     {  
       req_l_ = r;
       return true;
@@ -45,9 +42,8 @@ Ties_engraver::acknowledge_element (Score_element_info i)
 {
   if (!req_l_ && ! end_req_l_)
     return;
-  if (i.elem_l_->is_type_b (Note_head::static_name ()))
+  if (Note_head * h = dynamic_cast <Note_head *> (i.elem_l_))
     {
-      Note_head * h = dynamic_cast <Note_head *> (i.elem_l_);
       Melodic_req *m = dynamic_cast <Melodic_req *> (i.req_l_);
       
       head_mel_tuple_arr_.push (Head_melodic_tuple (h, m));

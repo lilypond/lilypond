@@ -36,9 +36,9 @@ Stem_engraver::do_creation_processing ()
 void
 Stem_engraver::acknowledge_element(Score_element_info i)
 {
-  if (i.elem_l_->is_type_b (Rhythmic_head::static_name()))
+  if (dynamic_cast<Rhythmic_head *> (i.elem_l_))
     {
-      Rhythmic_head *h  = (Rhythmic_head*) dynamic_cast <Item *> (i.elem_l_);
+      Rhythmic_head *h  = dynamic_cast<Rhythmic_head *> (i.elem_l_);
       if (!stem_p_) 
 	{
 	  Rhythmic_req * r = dynamic_cast <Rhythmic_req *> (i.req_l_);

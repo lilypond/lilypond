@@ -14,8 +14,6 @@
 #include "debug.hh"
 #include "command-request.hh"
 #include "time-description.hh"
-
-
 #include "note-head.hh"
 #include "key-item.hh"
 #include "local-key-item.hh"
@@ -148,7 +146,7 @@ Clef_engraver::read_req (Clef_change_req*c_l)
 void
 Clef_engraver::acknowledge_element (Score_element_info info)
 {
-  if (info.elem_l_->is_type_b (Bar::static_name ()) 
+  if (dynamic_cast<Bar*>(info.elem_l_)
       && clef_type_str_.length_i())
     {
       create_clef();
@@ -158,24 +156,21 @@ Clef_engraver::acknowledge_element (Score_element_info info)
 
   /* ugh; should make Clef_referenced baseclass */
   Item * it_l =dynamic_cast <Item *> (info.elem_l_);
-if (it_l)
-  {
-  if (it_l->is_type_b (Note_head::static_name ()))
+  if (it_l)
     {
-      Note_head * h = (Note_head*)it_l;
-      h->position_i_ += c0_position_i_;
-    }
-  else if (it_l->is_type_b (Local_key_item::static_name ()))
-    {
-      Local_key_item *i = (Local_key_item*)it_l;
-      i->c0_position_i_ =c0_position_i_;
-    }
-  else if (it_l->is_type_b (Key_item::static_name ()))
-    {
-      Key_item *k = (Key_item*)it_l;
-      k-> set_c_position (c0_position_i_);
-    }
-  } 
+      if (Note_head * h = dynamic_cast<Note_head*>(it_l))
+	{
+	  h->position_i_ += c0_position_i_;
+	}
+      else if (Local_key_item *i = dynamic_cast<Local_key_item*> (it_l))
+	{
+	  i->c0_position_i_ =c0_position_i_;
+	}
+      else if (Key_item *k = dynamic_cast<Key_item*>(it_l))
+	{
+	  k-> set_c_position (c0_position_i_);
+	}
+    } 
 }
 
 void
@@ -195,13 +190,15 @@ Clef_engraver::do_creation_processing()
 bool
 Clef_engraver::do_try_request (Request * r_l)
 {
-  Command_req* creq_l= dynamic_cast <Command_req *> (r_l);
-  if (!creq_l || !dynamic_cast <Clef_change_req *> (creq_l))
+  if (Clef_change_req *cl = dynamic_cast <Clef_change_req *> (r_l))
+    {
+      clef_req_l_ = cl;
+      read_req (clef_req_l_);
+      return true;
+    }
+  else
     return false;
 
-  clef_req_l_ = dynamic_cast <Clef_change_req *> (creq_l);
-  read_req (clef_req_l_);
-  return true;
 }
 
 void

@@ -38,7 +38,6 @@ public:
   void set_bounds (Direction d, Item*);
 
   DECLARE_MY_RUNTIME_TYPEINFO;
-  virtual Spanner* access_Spanner ();
   Spanner ();
   Spanner (Spanner const &);
   bool broken_b () const;

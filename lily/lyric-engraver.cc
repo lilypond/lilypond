@@ -23,12 +23,12 @@ Lyric_engraver::Lyric_engraver()
 bool
 Lyric_engraver::do_try_request (Request*r)
 {
-  Musical_req * m =dynamic_cast <Musical_req *> (r);
-  if (!m || ! dynamic_cast <Lyric_req *> (m)) 
-    return false;
-  lreq_l_ = dynamic_cast <Lyric_req *> (m);
-
-  return true;
+  if (Lyric_req * lr = dynamic_cast <Lyric_req *> (r))
+    {
+      lreq_l_ = lr;
+      return true;
+    }
+  return false;
 }
 
 void

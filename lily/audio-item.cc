@@ -80,6 +80,7 @@ Audio_time_signature::midi_item_p()
 {
   return new Midi_time_signature (this);
 }
+
 IMPLEMENT_IS_TYPE_B1(Audio_time_signature, Audio_item);
 
 Audio_text::Audio_text (Audio_text::Type type, String text_str)
@@ -96,7 +97,6 @@ Audio_text::midi_item_p()
 }
 
 IMPLEMENT_IS_TYPE_B1(Audio_text, Audio_item);
-
 IMPLEMENT_IS_TYPE_B1(Audio_item, Audio_element);
 
 void

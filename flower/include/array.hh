@@ -66,12 +66,23 @@ public:
       {setsize_}
   */
   int size() const  
-    { return size_; }
+    {
+      return size_;
+    }
     
   /// POST: size() == 0
-    void clear() 
-    { size_ = 0; }
+  void clear() 
+    {
+      size_ = 0;
+    }
 
+  Array (T *tp, int n)
+    {
+      array_p_ = new T[n];
+      max_ =size_ = n;
+      arrcpy (array_p_, tp, n);      
+    }
+  
   Array() 
     { array_p_ = 0; max_ =0; size_ =0; }
 

@@ -6,7 +6,6 @@
   (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "atom.hh"
 #include "interval.hh"
 #include "string.hh"
@@ -66,6 +65,7 @@ Atom::extent () const
 }
 
 
+
 Atom::Atom ()
   : dim_ (Interval (0,0),Interval (0,0))
 {
@@ -76,15 +76,15 @@ Atom::Atom ()
     But Atom is used as a simple type *everywhere*,
     and we don't have virtual contructors.
    */
-  lambda_ = 0;
   str_ = "unknown\n";
+  origin_l_ = 0;
 }
 
 Atom::Atom (String s, Box b)
   :  dim_ (b)
 {
-  lambda_ = 0;
   str_ = s;
+  origin_l_ = 0;  
 }
 
 
@@ -100,8 +100,6 @@ Atom::offset () const
 {
   return off_;
 }
-
-
 
 void
 Atom::translate_axis (Real r, Axis a)

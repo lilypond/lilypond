@@ -130,7 +130,7 @@ Plet_spanner::do_post_processing ()
 void
 Plet_spanner::do_substitute_dependency (Score_element* o, Score_element* n)
 {
-  Stem* new_l = n ? (Stem*)dynamic_cast <Item *> (n) : 0;
+  Stem* new_l = n ? dynamic_cast<Stem *> (n) : 0;
   if (dynamic_cast <Item *> (o) == stem_l_drul_[LEFT])
     stem_l_drul_[LEFT] = new_l;
   else if (dynamic_cast <Item *> (o) == stem_l_drul_[RIGHT])

@@ -30,13 +30,10 @@ Dot_column_engraver::do_pre_move_processing ()
 void
 Dot_column_engraver::acknowledge_element (Score_element_info info)
 {
-  Item * i=dynamic_cast <Item *> (info.elem_l_);
-  
-  if (! (i && i->is_type_b (Rhythmic_head::static_name ())))
+  Rhythmic_head * h = dynamic_cast<Rhythmic_head*>(info.elem_l_);
+  if (!h)
       return;
 
-  Rhythmic_head * h = (Rhythmic_head*)i;
-  
   if (!h->dots_l_)
     return;
 

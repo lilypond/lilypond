@@ -358,7 +358,7 @@ notenames_body:
 		$$ = new Notename_table;
 	}
 	| NOTENAME_TABLE_IDENTIFIER	{
-		$$ = $1-> access_Notename_table(true);
+		$$ = $1-> access_content_Notename_table(true);
 	}
 	| notenames_body STRING '=' explicit_musical_pitch {
 		(*$$)[*$2] = *$4;
@@ -461,12 +461,12 @@ translator_spec:
 
 translator_spec_body:
 	TRANS_IDENTIFIER	{
-		$$ = $1->access_Translator (true);
+		$$ = $1->access_content_Translator (true);
 		$$-> set_spot (THIS->here_input ());
 	}
 	| TYPE STRING ';'	{
 		Translator* t = get_translator_l (*$2);
-		Translator_group * tg = t->access_Translator_group ();
+		Translator_group * tg = dynamic_cast<Translator_group*> (t);
 
 		if (!tg)
 			THIS->parser_error (_("Need a translator group for a context"));
@@ -478,14 +478,14 @@ translator_spec_body:
 	}
 	| translator_spec_body STRING '=' simple_identifier_init ';'	{ 
 		Identifier* id = $4;
-		String_identifier *s = id->access_String_identifier ();
-		Real_identifier *r= id->access_Real_identifier ();
-		int_identifier *i = id->access_int_identifier ();
+		String_identifier *s = dynamic_cast<String_identifier*> (id);
+		Real_identifier *r= dynamic_cast<Real_identifier*>(id);
+		int_identifier *i = dynamic_cast<int_identifier*> (id);
 	
 		String str;
-		if (s) str = *s->access_String (false); 
-		if (i) str = to_str (*i->access_int (false));
-		if (r) str = to_str (*r->access_Real (false));
+		if (s) str = *s->access_content_String (false); 
+		if (i) str = to_str (*i->access_content_int (false));
+		if (r) str = to_str (*r->access_content_Real (false));
 		if (!s && !i && !r)
 			THIS->parser_error (_("Wrong type for property value"));
 
@@ -497,15 +497,15 @@ translator_spec_body:
 		delete $3;
 	}
 	| translator_spec_body CONSISTS STRING ';' {
-		$$->access_Translator_group ()-> set_element (*$3, true);
+		dynamic_cast<Translator_group*> ($$)-> set_element (*$3, true);
 		delete $3;
 	}
 	| translator_spec_body ACCEPTS STRING ';' {
-		$$->access_Translator_group ()-> set_acceptor (*$3, true);
+		dynamic_cast<Translator_group*> ($$)-> set_acceptor (*$3, true);
 		delete $3;
 	}
 	| translator_spec_body REMOVE STRING ';' {
-		$$->access_Translator_group ()-> set_element (*$3, false);
+		dynamic_cast<Translator_group*> ($$)-> set_element (*$3, false);
 		delete $3;
 	}
 	;
@@ -533,7 +533,7 @@ score_body:		{
 		$$ = new Score;
 	}
 	| SCORE_IDENTIFIER {
-		$$ = $1->access_Score (true);
+		$$ = $1->access_content_Score (true);
 	}
 	| score_body mudela_header 	{
 		$$->header_p_ = $2;
@@ -593,7 +593,7 @@ paper_def_body:
 		$$ = p;
 	}
 	| PAPER_IDENTIFIER optional_semicolon	{
-		Paper_def *p = $1->access_Paper_def (true);
+		Paper_def *p = $1->access_content_Paper_def (true);
 		THIS->lexer_p_->scope_l_arr_.push (p->scope_p_);
 		$$ = p;
 	}
@@ -643,7 +643,7 @@ real_expression:
 	}
 	| dimension
 	| REAL_IDENTIFIER		{
-		$$= *$1->access_Real (false);
+		$$= *$1->access_content_Real (false);
 	}
 	| '-'  real_expression %prec UNARY_MINUS {
 		$$ = -$2;
@@ -687,7 +687,7 @@ midi_body: /* empty */ 		{
 		$$ = THIS->default_midi_p ();
 	}
 	| MIDI_IDENTIFIER	{
-		$$ = $1-> access_Midi_def (true);
+		$$ = $1-> access_content_Midi_def (true);
 	}
 	| midi_body translator_spec	{
 		$$-> assign_translator ($2);
@@ -738,7 +738,7 @@ Simultaneous_music: '<' Music_list '>'	{
 
 Simple_music:
 	request_chord		{ $$ = $1; }
-	| MUSIC_IDENTIFIER { $$ = $1->access_Music (true); }
+	| MUSIC_IDENTIFIER { $$ = $1->access_content_Music (true); }
 	| property_def
 	| translator_change
 	;
@@ -851,7 +851,7 @@ abbrev_command_req:
 		$$ = new Barcheck_req;
 	}
 	| COMMAND_IDENTIFIER	{
-		$$ = $1->access_Request (true);
+		$$ = $1->access_content_Request (true);
 	}
 /*
 	| '['		{
@@ -958,7 +958,7 @@ structured_post_request:
 
 post_request:
 	POST_REQUEST_IDENTIFIER	{
-		$$ = (Request*)$1->access_Request (true);
+		$$ = (Request*)$1->access_content_Request (true);
 	}
 	| dynamic_req {
 		$$ = $1;
@@ -1226,10 +1226,10 @@ script_abbreviation:
 	;
 
 mudela_script:
-	SCRIPT_IDENTIFIER		{ $$ = $1->access_General_script_def (true); }
+	SCRIPT_IDENTIFIER		{ $$ = $1->access_content_General_script_def (true); }
 	| script_definition		{ $$ = $1; }
 	| script_abbreviation		{
-		$$ = THIS->lexer_p_->lookup_identifier (*$1)->access_General_script_def (true);
+		$$ = THIS->lexer_p_->lookup_identifier (*$1)->access_content_General_script_def (true);
 		delete $1;
 	}
 	;
@@ -1299,7 +1299,7 @@ steno_duration:
 		     }
 	}
 	| DURATION_IDENTIFIER	{
-		$$ = $1->access_Duration (true);
+		$$ = $1->access_content_Duration (true);
 	}
 	| steno_duration '.' 	{
 		$$->dots_i_ ++;
@@ -1396,7 +1396,7 @@ int:
 		$$ = -$2;
 	}
 	| INT_IDENTIFIER	{
-		$$ = *$1->access_int (false);
+		$$ = *$1->access_content_int (false);
 	}
 	;
 
@@ -1406,7 +1406,7 @@ string:
 		$$ = $1;
 	}
 	| STRING_IDENTIFIER	{
-		$$ = $1->access_String (true);
+		$$ = $1->access_content_String (true);
 	}
 	| string '+' string {
 		*$$ += *$3;
@@ -1428,7 +1428,7 @@ symtables_body:
 		$$ = new Symtables;
 	}
 	| IDENTIFIER		{
-		$$ = $1->access_Symtables (true);
+		$$ = $1->access_content_Symtables (true);
 	}
 	| symtables_body FONT STRING 		{
 		$$->font_ = *$3;

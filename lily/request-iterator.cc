@@ -65,11 +65,14 @@ Request_chord_iterator::do_process_and_next (Moment mom)
     {
       for (PCursor<Music*> i (elt_l ()->music_p_list_p_->top ()); i.ok(); i++)
 	{
-	  assert (i->is_type_b (Request::static_name()));
-	  Request * req_l = (Request*)i.ptr();
-	  bool gotcha = report_to_l()->try_request (req_l);
-	  if (!gotcha)
-	    req_l->warning (_f ("junking request: `%s\'", req_l->name()));
+	  if (Request * req_l = dynamic_cast<Request*> (i.ptr()))
+	    {
+	      bool gotcha = report_to_l()->try_request (req_l);
+	      if (!gotcha)
+		req_l->warning (_f ("junking request: `%s\'", req_l->name()));
+	    }
+	  else
+	    i.ptr ()->warning (_f ("Huh? Not a Request: `%s\'", i.ptr()->name ()));
 	}
       first_b_ = false;
     }

@@ -78,6 +78,7 @@ public:
 	return sqrt (norm_sq());
     }
     operator Array<Real>() { return dat; }
+  Array<Real> const &to_array()const { return dat; }  
     void print() const;
     /// set to j-th element of unit-base
     void set_unit (int j) ;

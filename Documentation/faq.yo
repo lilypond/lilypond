@@ -381,7 +381,7 @@ wrong symbols and dvi-checksum errors!)
 We obviously mucked with the fonts in the upgrade.  Remove em(all)
 previous fonts, including the file(.pk) and file(.tfm) fonts in
 file(/var/lib/texmf).  A script automating this has been included, see
-file(bin/clean-fonts.sh).
+file(buildscripts/clean-fonts.sh).
 
 
 question(The beams and slurs are gone if use the XDvi magnifying glass!?)

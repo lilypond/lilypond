@@ -1,5 +1,5 @@
 # empty
 LDFLAGS = $(ILDFLAGS) $(USER_LDFLAGS) $(EXTRA_LDFLAGS) $(MODULE_LDFLAGS) $($(PACKAGE)_LDFLAGS)
 
-MODULE_LIBES=$(addsuffix /$(outdir)/library.a, $(MODULE_LIBS))
+MODULE_LIBES := $(addsuffix /$(outdir)/library.a, $(MODULE_LIBS)) $(MODULE_LIBES)
 LOADLIBES = $(MODULE_LIBES) $($(PACKAGE)_LIBES) $(EXTRA_LIBES)

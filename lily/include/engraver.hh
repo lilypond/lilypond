@@ -71,7 +71,6 @@ public:
   Engraver () {}
 
   DECLARE_MY_RUNTIME_TYPEINFO;
-  virtual Engraver * access_Engraver () { return this; }
 };
 
 

@@ -21,18 +21,6 @@ class Command_req  : public virtual Request  {
 public:
   REQUESTMETHODS(Command_req);
 
-    DEFAULTACCESSOR(Measure_grouping_req)
-    DEFAULTACCESSOR(Clef_change_req)
-    DEFAULTACCESSOR(Key_change_req)
-    DEFAULTACCESSOR(Partial_measure_req)
-    DEFAULTACCESSOR(Time_signature_change_req)
-    DEFAULTACCESSOR(Bar_req)
-    DEFAULTACCESSOR(Cadenza_req)
-    DEFAULTACCESSOR(Timing_req)
-    DEFAULTACCESSOR(Command_script_req)
-    DEFAULTACCESSOR(Break_req)
-    DEFAULTACCESSOR(Mark_req)
-  DEFAULTACCESSOR(Bracket_req)
 };
 
 
@@ -64,7 +52,6 @@ public:
 class Timing_req  : public Command_req  {
 public:
   REQUESTMETHODS(Timing_req);
-  DEFAULTACCESSOR(Tempo_req)
 };
 
 

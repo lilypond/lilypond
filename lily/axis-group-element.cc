@@ -76,12 +76,5 @@ Axis_group_element::Axis_group_element ()
   transparent_b_ = true;
 }
 
-Axis_group_element*
-Axis_group_element::access_Axis_group_element ()
-{
-  return this;
-}
-
-
 
 IMPLEMENT_IS_TYPE_B2(Axis_group_element, Score_element, Graphical_axis_group);
