@@ -343,7 +343,7 @@ possibly turned off."
 	 (footer "\n%%EndData
 %%EndResource
 %%EOF
-%%EndResource"))
+%%EndResource\n"))
 
     (string-append
      header

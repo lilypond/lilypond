@@ -1,5 +1,7 @@
 2005-02-21  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/lily-library.scm (ps-embed-cff): add \n after EndResource
+
 	* Documentation/topdocs/NEWS.tely (Top): oops.
 
 2005-02-21  Pedro Kroger  <kroeger@pedrokroeger.net>

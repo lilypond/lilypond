@@ -46,7 +46,7 @@
    (format
     "%%BeginResource: font ~a
 ~a
-%%EndResource"
+%%EndResource\n"
     font-name body)))
 
 
