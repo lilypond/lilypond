@@ -139,12 +139,13 @@ installextradoc:
 	$(foreach i, $(EXTRA_DOC_FILES),\
 		cp -r $(i) $(prefix)/doc/$(package) &&) true
 
-# force $(outdir) and dummy.dep into existence
-ifeq ($(strip $(wildcard $(outdir)/dummy.dep)),)
-unused-var:=$(shell mkdir -p $(outdir); touch $(outdir)/dummy.dep)
-endif
 
-include $(outdir)/dummy.dep $(wildcard $(outdir)/*.dep)
+include $(outdir)/dummy.dep $(wildcard $(outdir)/*.dep) # expect a warning here
+
+$(outdir)/dummy.dep:
+	@echo please ignore innocent warning about dummy.dep
+	-mkdir -p $(outdir)
+	touch $(outdir)/dummy.dep
 
 check: local-check
 	$(LOOP)
