@@ -1,18 +1,18 @@
 \header{
-filename	scales.ly
-enteredby	HWN
-copyright	public domain
+filename =	 "scales.ly";
+enteredby =	 "HWN";
+copyright =	 "public domain";
 }
+
 %{
  Tested Features: scripts, beams, transposition, 
-EndMudelaHeader
 %}
 
 %
 % scales with accents.
 %
 
-\version "0.1.6";
+\version "0.1.7";
 blah = 	\melodic {
 		\meter 6/8;	
 		\octave  'c ;
