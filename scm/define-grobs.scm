@@ -471,6 +471,7 @@
 	(height . 0.4)
 	(minimum-length .  0.5) 
 	(maximum-length .  100)
+	(spacing-procedure . ,Hyphen_spanner::set_spacing_rods)
 	(molecule-callback . ,Hyphen_spanner::brew_molecule)
 	(Y-extent-callback . ,Grob::point_dimension_callback)
 	(meta . ((interfaces . (lyric-hyphen-interface spanner-interface))))

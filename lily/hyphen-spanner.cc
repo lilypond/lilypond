@@ -19,8 +19,28 @@
 #include "spanner.hh"
 #include "item.hh"
 
-MAKE_SCHEME_CALLBACK (Hyphen_spanner,brew_molecule,1)
+MAKE_SCHEME_CALLBACK (Hyphen_spanner,set_spacing_rods,1);
+SCM
+Hyphen_spanner::set_spacing_rods (SCM smob)
+{
+  Grob*me = unsmob_grob (smob);
 
+  Rod rod;
+  Spanner*sp = dynamic_cast<Spanner*> (me);
+  Item * l = sp->get_bound (LEFT);
+  Item * r =  sp->get_bound (RIGHT);
+  rod.item_l_drul_[LEFT] = l;
+  rod.item_l_drul_[RIGHT] =r;
+  rod.distance_ =
+    gh_scm2double (me->get_grob_property ("minimum-length"))
+    + l->extent (l, X_AXIS)[RIGHT]
+    - r->extent (r, X_AXIS)[LEFT];
+
+  rod.add_to_cols ();
+  return SCM_UNSPECIFIED;
+}
+
+MAKE_SCHEME_CALLBACK (Hyphen_spanner,brew_molecule,1)
 SCM 
 Hyphen_spanner::brew_molecule (SCM smob)
 {
@@ -50,15 +70,23 @@ Hyphen_spanner::brew_molecule (SCM smob)
   Real h = gh_scm2double (sp->get_grob_property ("height"));
 
   // interval?
-  Real l = gh_scm2double (sp->get_grob_property ("minimum-length"));  
   Real x = gh_scm2double (sp->get_grob_property ("maximum-length"));
-  // The hyphen can exist in the word space of the left lyric ...
   SCM space =  sp->get_bound (LEFT)->get_grob_property ("word-space");
+
+  Real word_space  = 1.0;
   if (gh_number_p (space))
     {
-      bounds[LEFT] -=  gh_scm2double (space);
+      word_space = gh_scm2double (space);
     }
 
+  /*
+    We remove word space from the distance so it doesn't look like an extender.
+    
+   */
+  Real l = (gh_scm2double (sp->get_grob_property ("minimum-length"))
+    - word_space ) >? word_space;
+  
+  
   /*
     we should probably do something more intelligent when bounds is
     empty, but at least this doesn't crash.

@@ -1,5 +1,8 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/hyphen-spanner.cc (set_spacing_rods): new function: take
+	syllables widths into account for minimum-length.
+
 	* input/test/staff-container.ly: update file
 
 	* input/test/stem.ly: remove
