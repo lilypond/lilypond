@@ -35,10 +35,11 @@ Bow::do_brew_molecule_p () const
   Real dy = c[3].y () - c[0].y ();
   Molecule a;
 
-  if (!dash_i_)
+  SCM d =  get_elt_property (dashed_scm_sym);
+  if (d == SCM_BOOL_F)
     a = lookup_l ()->slur (c);
   else
-    a = lookup_l ()->dashed_slur (c, thick, dash_i_);
+    a = lookup_l ()->dashed_slur (c, thick, gh_scm2int (SCM_CDR(d)));
 
   if (check_debug && !monitor->silent_b ("Bow"))
     {
