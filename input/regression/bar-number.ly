@@ -12,19 +12,15 @@ be increased.
 
 }
 
-\score {
-   \relative c'' {
-      \partial 4 c4 
-      c1 c c
-      \set Score.currentBarNumber = #99999
-      \override Score.BarNumber  #'padding = #3
-      c1 c
-  }
-  \layout {
-    raggedright = ##t
-    \context {
-	\Score
-	\override BarNumber #'break-visibility = #all-visible
-    }
-  }
+\layout {
+  raggedright = ##t
+}
+
+\relative c'' {
+  \override Score.BarNumber #'break-visibility = #all-visible
+  \partial 4 c4 
+  c1 c c
+  \set Score.currentBarNumber = #99999
+  \override Score.BarNumber  #'padding = #3
+  c1 c
 }
