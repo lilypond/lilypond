@@ -42,7 +42,7 @@ public:
   Protected_scm pitchname_tab_stack_;
 
   Keyword_table * keytable_;
-  int errorlevel_;
+  int error_level_;
 
   My_lily_lexer (Sources*);
   ~My_lily_lexer ();

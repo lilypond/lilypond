@@ -293,7 +293,7 @@ HYPHEN		--
 	if (sval == SCM_UNDEFINED)
 	{
 		sval = SCM_UNSPECIFIED;
-		errorlevel_ = 1;
+		error_level_ = 1;
  	}
 
 	for (int i=0; i < n; i++)

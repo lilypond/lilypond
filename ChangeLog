@@ -1,5 +1,15 @@
 2004-04-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/my-lily-parser.cc (ly:parser-add-book-and-score): New function.
+
+	* lily/parser.yy (toplevel_expression): Use it.
+
+	* lily/include/my-lily-parser.hh: Smobbify.
+
+	* lily/my-lily-parser.cc (parse_string): New method.
+	
+	* lily/my-lily-parser.cc (ly:parse-string): New function.
+
 	* Documentation/user/lilypond.tely: Add comment and workaround for
 	gs-8.01 crash.  Fixes make web.
 

@@ -103,7 +103,7 @@ My_lily_lexer::My_lily_lexer (Sources *srcs)
   scopes_ = SCM_EOL;
   
   add_scope (ly_make_anonymous_module ());
-  errorlevel_ = 0; 
+  error_level_ = 0; 
 
   main_input_b_ = false;
 }
@@ -206,7 +206,7 @@ My_lily_lexer::LexerError (char const *s)
     progress_indication (_f ("error at EOF: %s", s) + String ("\n"));
   else
     {
-      errorlevel_ |= 1;
+      error_level_ |= 1;
       Input spot (get_source_file (), here_str0 ());
       spot.error (s);
     }
