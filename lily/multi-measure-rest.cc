@@ -175,19 +175,22 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
 Molecule
 Multi_measure_rest::big_rest (Grob *me, Real width)
 {
-  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
+  Real tthick = gh_scm2double (me->get_grob_property ("thick-thickness"));
+  Real hair_thick = gh_scm2double (me->get_grob_property ("hair-thickness"));
+
+
   Real ss = Staff_symbol_referencer::staff_space (me);
   
   Real slt = me->get_paper ()->get_var ("linethickness");
-  Real y = slt * thick/2 * ss;
-  Box b(Interval (0, width), Interval (-y, y));
-  Real ythick = slt * ss;
+  Real y = slt * tthick/2 * ss;
+  Real ythick = hair_thick * slt * ss;
+  Box b(Interval (0, width - 2 * ythick), Interval (-y, y));
   
   Molecule m =  Lookup::filledbox (b);
-  Molecule yb = Lookup::filledbox (Box (Interval (-ythick, ythick), Interval (-ss, ss)));
+  Molecule yb = Lookup::filledbox (Box (Interval (-0.5, 0.5)* ythick, Interval (-ss, ss)));
 
-  m.add_at_edge (X_AXIS, RIGHT, yb, -ythick);
-  m.add_at_edge (X_AXIS, LEFT, yb, -ythick);
+  m.add_at_edge (X_AXIS, RIGHT, yb, 0);
+  m.add_at_edge (X_AXIS, LEFT, yb, 0);
 
   m.align_to (X_AXIS, LEFT);
   
@@ -341,5 +344,5 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 
 ADD_INTERFACE (Multi_measure_rest,"multi-measure-rest-interface",
 	       "A rest that spans a whole number of measures.\n",
-	       "expand-limit measure-count thickness use-breve-rest");
+	       "expand-limit measure-count hair-thickness thick-thickness use-breve-rest");
 
