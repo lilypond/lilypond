@@ -8,12 +8,17 @@ outdir = Dir ('.').abspath
 e = env.Copy ()
 e.Append (YACCFLAGS = '-d')
 e.Append (CPPPATH = [outdir, '#/lily/include', '#/flower/include'])
-e.Depends ('lexer.cc', 'parser.cc')
 
-e.Depends ('my-lily-lexer.o', 'parser.cc')
-e.Depends ('my-lily-parser.o', 'parser.cc')
+#e.Depends ('lexer.cc', 'parser.cc')
+#e.Depends ('my-lily-lexer.o', 'parser.cc')
+#e.Depends ('my-lily-parser.o', 'parser.cc')
 
-map (e.Precious, ['parser.cc', 'lexer.cc', 'parser.hh'])
+e.SideEffect ('parser.hh', 'parser.cc')
+e.Depends ('lexer.cc', 'parser.hh')
+e.Depends ('my-lily-lexer.o', 'parser.hh')
+e.Depends ('my-lily-parser.o', 'parser.hh')
+
+# map (e.Precious, ['parser.cc', 'lexer.cc', 'parser.hh'])
 
 e.Append (LIBS = ['flower'])
 e.ParseConfig ('guile-config link')

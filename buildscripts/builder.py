@@ -64,8 +64,8 @@ a = ['rm -f $$(grep -LF "\lilypondend" ${TARGET.dir}/lily-*.tex 2>/dev/null);',
      --output=${TARGET.dir} --format=$LILYPOND_BOOK_FORMAT \
      $LILYPOND_BOOK_FLAGS \
      $SOURCE']
-TELY = Builder (action = a, suffix = '.texi', src_suffix = '.tely')
-env.Append (BUILDERS = {'TELY': TELY})
+TEXI = Builder (action = a, suffix = '.texi', src_suffix = '.tely')
+env.Append (BUILDERS = {'TEXI': TEXI})
 
 a = 'cd ${TARGET.dir} \
 && texi2dvi --batch $TEXINFO_PAPERSIZE_OPTION ${SOURCE.file}'
@@ -88,7 +88,8 @@ def add_ps_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.ps'], source)
 
-debug = 'echo "PATH=$$PATH";'
+#debug = 'echo "PATH=$$PATH";'
+debug = ''
 a = debug + 'LILYPONDPREFIX=$LILYPONDPREFIX \
 $PYTHON $LILYPOND_PY $__verbose \
 --include=${TARGET.dir} \
@@ -100,7 +101,7 @@ env.Append (BUILDERS = {'LilyPond': lilypond})
 #verbose = verbose_opt (env, ' --verbose')
 verbose = ''
 a = debug + 'LILYPONDPREFIX=$LILYPONDPREFIX $PYTHON $ABC2LY_PY \
---strict --output=${TARGET.base} $SOURCE'
+--strict --output=${TARGET} $SOURCE'
 ABC = Builder (action = a, suffix = '.ly', src_suffix = '.abc')
 env.Append (BUILDERS = {'ABC': ABC})
 
@@ -208,7 +209,7 @@ def at_copy (target, source, env):
     t = str (target[0])
     open (t, 'w').write (s)
     # wugh
-    if os.basename (os.dirname (str (target[0]))) == 'bin':
+    if os.path.basename (os.path.dirname (str (target[0]))) == 'bin':
 	    os.chmod (t, 0755)
 
 AT_COPY = Builder (action = at_copy)
