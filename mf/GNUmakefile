@@ -15,10 +15,15 @@ FET_FILES = $(filter-out $(TEST_FILES),$(wildcard feta[0-9]*.mf))
 FONT_FILES = $(filter-out $(TEST_FILES),$(wildcard feta*[0-9].mf))
 
 XPM_FONTS = feta20 feta-nummer10 feta-braces20
+#CM_AFM_FILES = cmr10
+
+$(outdir)/cmr10.afm:
+	-$(BASH) $(buildscripts)/tfmtoafm.sh `kpsewhich cmr10.tfm`
+	-mv $(@F) $@
 
 LOG_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.log))
 TEXTABLES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.tex))
-AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm))
+AFM_FILES = $(addprefix $(outdir)/, $(FET_FILES:.mf=.afm) $(AF_FILES:.af=.afm) $(addsuffix .afm, $(CM_AFM_FILES)))
 TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) 
 

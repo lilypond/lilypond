@@ -158,13 +158,13 @@ GraceContext=\translator {
 	Stem \push  #'stem-length = #6.0
 	Stem \push  #'direction = #1
 
-	NoteHead \push #'font-size = #-1
-	Stem \push #'font-size = #-1
+	NoteHead \push #'font-relative-size = #-1
+	Stem \push #'font-relative-size = #-1
 	Stem \push #'stem-shorten = #'(0)
-	Beam \push #'font-size = #-1
-	TextScript \push #'font-size = #-1
-	Slur \push #'font-size = #-1
-	Accidentals \push #'font-size = #-1
+	Beam \push #'font-relative-size = #-1
+	TextScript \push #'font-relative-size = #-1
+	Slur \push #'font-relative-size = #-1
+	Accidentals \push #'font-relative-size = #-1
 	Beam \push #'thickness = #0.3
 	Beam \push #'space-function = #(lambda (x) 0.5)
 

@@ -89,13 +89,14 @@
 	 ;jazz: the delta, see jazz-chords.ly
 	 ;;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . "math") "N"))
 	 ;; slashed o
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((raise . 0.5) ((kern . -0.5) ((font-size . "-3") "/"))) "7")) ; slashed o
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((raise . 0.5) ((kern . -0.5) ((font-relative-size . -3) "/"))) "7")) ; slashed o
 	 (((0 . 0) (2 . 0) (4 . 1) (6 . -1)) . ("aug7"))
-	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (rows "maj7" (music (named ("accidentals--1"))) "5"))
+	 (((0 . 0) (2 . 0) (4 . -1) (6 . 0)) . (rows "maj7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
+	 (((0 . 0) (2 . 0) (4 . -1) (6 . -1)) . (rows "7" ((font-relative-size . -2) ((raise . 0.2) (music (named "accidentals--1")))) "5"))
 	 (((0 . 0) (3 . 0) (4 . 0) (6 . -1)) . ("7sus4"))
 	 ;; Common ninth chords
 	 (((0 . 0) (2 . 0) (4 . 0) (5 . 0) (1 . 0)) . ("6/9")) ;; we don't want the '/no7'
-	 (((0 . 0) (2 . 0) (4 . 0) (5 . 0)) . ("maj6"))
+	 (((0 . 0) (2 . 0) (4 . 0) (5 . 0)) . ("6"))
 	 (((0 . 0) (2 . -1) (4 . 0) (5 . 0)) . ("m6"))
 	 (((0 . 0) (2 . 0) (4 . 0) (1 . 0)) . ("add9"))
 	 (((0 . 0) (2 . 0) (4 . 0) (6 . 0) (1 . 0)) . ("maj9"))
@@ -103,6 +104,29 @@
 	 (((0 . 0) (2 . -1) (4 . 0) (6 . -1) (1 . 0)) . ("m9"))
 
 	 )
+      chord::names-alist-american))
+
+;; Jazz chords, by Atte André Jensen
+;; Note: This uses the american list as a base
+
+(define chord::names-alist-jazz '())
+(set! chord::names-alist-jazz
+      (append 
+      '(
+         ; half diminished seventh chord = slashed o
+         (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (("o" (type . "super")) ("/" (size . -2) (offset . (-0.58 . 0.5))) ))
+         ; diminished seventh chord =  o
+         (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (("o" (type . "super"))))
+         ; major seventh chord = triangle
+         (((0 . 0) (2 . 0) (4 . 0) (6 . 0)) .  ((super ((font-family . "math") "N")) (size . -3)))
+         ; minor major seventh chord = m triangle
+         (((0 . 0) (2 . -1) (4 . 0) (6 . 0)) .  (("m") ((super ((font-family . math) "N")) (size . -3))))
+         ; augmented dominant = +7
+         (((0 . 0) (2 . 0) (4 . +1) (6 . -1)) . (super "+7"))
+
+;; Missing jazz chord definitions go here (note new syntax: see american for hints)
+
+	)
       chord::names-alist-american))
 
 ;;;;;;;;;;
@@ -121,11 +145,11 @@
 	       (list
 		(append '(named)
 			(list
-			  (append '((font-size . "-2"))
+			  (append '((font-relative-size . -2))
+				(list (append '((raise . 0.6))
 				  (list
 				   (string-append "accidentals-" 
-						  (number->string (caddr pitch)))))))))))))
-
+						  (number->string (caddr pitch)))))))))))))))
 
 (define (step->text pitch)
   (string-append
@@ -316,6 +340,12 @@
 ;; american chordnames use no "no",
 ;; but otherwise very similar to banter for now
 (define (chord::name-american tonic user-name pitches base-and-inversion)
+  (let ((additions (chord::additions pitches))
+	(subtractions #f))
+    (chord::inner-name-banter tonic user-name additions subtractions base-and-inversion)))
+
+;; Jazz style--basically similar to american with minor changes
+(define (chord::name-jazz tonic user-name pitches base-and-inversion)
   (let ((additions (chord::additions pitches))
 	(subtractions #f))
     (chord::inner-name-banter tonic user-name additions subtractions base-and-inversion)))

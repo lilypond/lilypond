@@ -16,8 +16,8 @@
 
 	 ;(((0 . 0) (2 . -1) (4 . -1) (6 . -2)) . (super "o7"))
 	 ;jazz: the delta, see jazz-chords.ly
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . "math") "N")))
-	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((raise . 0.5) ((kern . -0.5) ((font-size . "-3") "/"))) "7")) ; slashed o
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -2)) .  (super ((font-family . math) "N")))
+	 (((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (rows ((raise . 1) "o") ((raise . 0.5) ((kern . -0.5) ((font-relative-size . -3) "/"))) "7")) ; slashed o
 
 	 ;(((0 . 0) (2 . -1) (4 . -1) (6 . -1)) . (super "x7"))
 	 ; slashed o

@@ -230,7 +230,7 @@ Score_element::lookup_l () const
   if (!lookup_l_)
     {
       Score_element * urg = (Score_element*)this;
-      SCM sz = urg->remove_elt_property ("font-size");
+      SCM sz = urg->remove_elt_property ("font-relative-size");
       int i = (gh_number_p (sz))
 	? gh_scm2int  (sz)
 	: 0;

@@ -6,8 +6,8 @@
 rh=\property Thread.NoteHead \push #'style = #'default
 lh=\property Thread.NoteHead \push #'style = #'diamond
 
-n = \property Thread.NoteHead \pop #'font-size % = #'diamond %\property Thread.fontSize=#0  
-sm=\property Thread.NoteHead \push #'font-size = #-1 
+n = \property Thread.NoteHead \pop #'font-relative-size % = #'diamond %\property Thread.fontSize=#0  
+sm=\property Thread.NoteHead \push #'font-relative-size = #-1 
 
 % su=\property Voice.verticalDirection=#1  
 % sd=\property Voice.verticalDirection=#-1

@@ -60,7 +60,12 @@ Break_algorithm::generate_spacing_problem (Link_array<Score_element> curline, In
 {
   Simple_spacer * sp =  new Simple_spacer;
   Paper_def * d = pscore_l_->paper_l_;
-  sp->default_space_f_ = d->get_var ("loose_column_distance");
+  /*
+    this is hardcoded, but this shouldn't happen anyway.
+    used to be g et_var ("loose_column_distance");        
+   */
+  sp->default_space_f_ = 1.0;
+
 
   sp->indent_f_ = line[LEFT];
 
