@@ -9,6 +9,8 @@
 
 
 #include "tweak-registration.hh"
+#include "grob.hh"
+#include "object-key-undumper.hh"
 
 LY_DEFINE(ly_clear_tweak_registry, "ly:tweak-clear-registry",
 	  0,0,0,(),
