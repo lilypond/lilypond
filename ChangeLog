@@ -1,4 +1,8 @@
-2003-04-22  Juergen Reuter  <reuter@ipd.uka.de>
+2003-04-24  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* ChangeLog, Documentation/topdocs/AUTHORS.texi,
+	Documentation/user/lilypond.tely: fixed some typos; updated author
+	info
 
 	* Documentation/user/music-glossary.tely: bugfix: #'flag-style =
 	#"" -> #'flag-style = #'()
@@ -54,7 +58,7 @@
 
 	* lily/music.cc (LY_DEFINE): add function ly:music-deep-copy
 
-2003-04-22  Juergen Reuter  <reuter@ipd.uka.de>
+2003-04-23  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* Documentation/user/refman.itely: bugfix: fixed broken @ref{};
 	beautification: reformatted ancient clefs section; cleanup: small
