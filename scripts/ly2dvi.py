@@ -135,7 +135,8 @@ if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 
 
 original_dir = os.getcwd ()
-temp_dir = '%s.dir' % program_name
+temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+
 keep_temp_dir_p = 0
 verbose_p = 0
 
@@ -282,7 +283,7 @@ def setup_temp ():
 		os.mkdir (temp_dir, 0777)
 	except OSError:
 		pass
-	
+
 	return temp_dir
 
 
@@ -297,6 +298,8 @@ def system (cmd, ignore_error = 0):
         if ( os.name != 'posix' ):
 		cmd = re.sub (r'''\\''', r'''\\\\\\''', cmd)
 		cmd = "sh -c \'%s\'" % cmd
+
+		
 	if verbose_p:
 		progress (_ ("Invoking `%s\'") % cmd)
 	st = os.system (cmd)
@@ -728,8 +731,15 @@ if files and files[0] != '-':
 
 	files = map (lambda x: strip_extension (x, '.ly'), files)
 
+	(outdir, outbase) = ('','')
 	if not output_name:
-		output_name = os.path.basename (files[0])
+		outbase = os.path.basename (files[0])
+		outdir = abspath('.')
+	elif output_name[-1] == os.sep:
+		outdir = abspath (output_name)
+		outbase = os.path.basename (files[0])
+	else:
+		(outdir, outbase) = os.path.split (abspath (output_name))
 
 	for i in ('.dvi', '.latex', '.ly', '.ps', '.tex'):
 		output_name = strip_extension (output_name, i)
@@ -742,8 +752,6 @@ if files and files[0] != '-':
 		dep_prefix = 0
 
 	reldir = os.path.dirname (output_name)
-	
-	(outdir, outbase) = os.path.split (abspath (output_name))
 	if outdir != '.' and (track_dependencies_p or targets.keys ()):
 		mkdir_p (outdir, 0777)
 

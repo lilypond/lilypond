@@ -28,7 +28,10 @@ MFINPUTS="$datadir/mf:"${MFINPUTS:=":"}
 TEXINPUTS="$datadir/tex:$datadir/ps:"${TEXINPUTS:=":"}
 TFMFONTS="$datadir/tfm:"${TFMFONTS:=":"}
 
-export MFINPUTS TEXINPUTS TFMFONTS GS_LIB GS_FONTPATH
+# LILYPONDPREFIX="$datadir"
+# export LILYPONDPREFIX
+
+export MFINPUTS TEXINPUTS TFMFONTS GS_LIB GS_FONTPATH 
 
  	
 

@@ -103,7 +103,7 @@ make LDFLAGS=-s "CFLAGS=$RPM_OPT_FLAGS" all
 # even if documentation fails to build
 
 make -C Documentation  || true
-make web || true
+make web-doc top-web || true
 
 %install
 

@@ -174,9 +174,13 @@ def dump_slyrics (outf):
 	ks = voice_idx_dict.keys()
 	ks.sort ()
 	for k in ks:
+		if re.match('[1-9]', k):
+			m = alphabet[string.atoi(k)]
+		else:
+			m = k
 		for i in range (len(slyrics[voice_idx_dict[k]])):
 			l=alphabet[i]
-			outf.write ("\nwords%sV%s = \\lyrics  {" % (k, l))
+			outf.write ("\nwords%sV%s = \\lyrics  {" % (m, l))
 			outf.write ("\n" + slyrics [voice_idx_dict[k]][i])
 			outf.write ("\n}")
 
@@ -185,7 +189,11 @@ def dump_voices (outf):
 	ks = voice_idx_dict.keys()
 	ks.sort ()
 	for k in ks:
-		outf.write ("\nvoice%s = \\notes {" % k)
+		if re.match ('[1-9]', k):
+			m = alphabet[string.atoi(k)]
+		else:
+			m = k
+		outf.write ("\nvoice%s = \\notes {" % m)
 		dump_default_bar(outf)
 		if repeat_state[voice_idx_dict[k]]:
 			outf.write("\n\\repeat volta 2 {")
@@ -205,6 +213,10 @@ def dump_score (outf):
 	ks  = voice_idx_dict.keys ();
 	ks.sort ()
 	for k in  ks:
+		if re.match('[1-9]', k):
+			m = alphabet[string.atoi(k)]
+		else:
+			m = k
 		if k == 'default' and len (voice_idx_dict) > 1:
 			break
 		if len ( slyrics [voice_idx_dict[k]] ):
@@ -212,20 +224,24 @@ def dump_score (outf):
 		outf.write ("\n\t\\context Staff=\"%s\"\n\t{\n" %k ) 
 		if k != 'default':
 			outf.write ("\t    \\voicedefault\n")
-		outf.write ("\t    \\voice%s " % k)
+		outf.write ("\t    \\voice%s " % m)
 		outf.write ("\n\t}\n")
 		if len ( slyrics [voice_idx_dict[k]] ):
 			outf.write ("\n\t\\context Lyrics=\"%s\" \n\t<\t" % k)
+			if re.match('[1-9]',k):
+				m = alphabet[string.atoi(k)]
+			else:
+				m = k
 			for i in range (len(slyrics[voice_idx_dict[k]])):
 				l=alphabet[i]
-				outf.write("\n\t  { \\words%sV%s }" % ( k, l) )
+				outf.write("\n\t  { \\words%sV%s }" % ( m, l) )
 			outf.write ( "\n\t>\n" )
 	outf.write ("\n    >")
 	outf.write ("\n\t\\paper {\n")
 	if part_names:
 		outf.write ("\t    \\translator \n\t    {\n")
 		outf.write ("\t\t\\StaffContext\n")
-		outf.write ("\t\t\\consists Staff_margin_engraver\n")
+#		outf.write ("\t\t\\consists Staff_margin_engraver\n")
 		outf.write ("\t    }\n")
 	outf.write ("\t}\n\t\\midi {}\n}\n")
 

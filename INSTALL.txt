@@ -53,8 +53,8 @@ source code
 
    If you want to compile LilyPond from source, download here:
    * Download development releases from
-     `ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/' by FTP and
-     `http://ftp.cs.uu.nl/pub/GNU/LilyPond/development/', by HTTP.
+     `ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/' by FTP and
+     `http://ftp.cs.uu.nl/pub/GNU/LilyPond/', by HTTP.
 
    * `ftp://sca.uwaterloo.ca/pub/' by FTP (Canadian mirror)
 

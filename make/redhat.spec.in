@@ -38,14 +38,15 @@ The documentation of LilyPond, both in HTML and PostScript.
 # In fact, do not take out the spaces between % and { in the above comment,
 # because RPM will gladly do a substitution anyway.
 
-./configure --disable-checking --disable-debugging --enable-printing --prefix=%{_prefix} --disable-optimise --enable-shared
+./configure --disable-checking --prefix=%{_prefix} --enable-optimise
 
 make all
 
-# ok, now make sure that lilypond package will succeed,
-# even if documentation fails to build
-make -C Documentation  || true
-make web || true
+# make info
+make -C Documentation
+
+# make  html
+make web-doc top-web 
 
 %install
 
@@ -57,14 +58,14 @@ strip lily/out/lilypond midi2ly/out/midi2ly
 make prefix="$RPM_BUILD_ROOT%{_prefix}" install
 
 %if info=="yes"
-gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/* || true
+gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/*
 %endif
 
 mkdir -p $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
 install -m 644 lilypond-mode.el lilypond-font-lock.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/
 install -m 644 lilypond-init.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
 
-gzip -9fn $RPM_BUILD_ROOT%{_prefix}/man/man1/* || true
+gzip -9fn $RPM_BUILD_ROOT%{_prefix}/man/man1/*
 
 mkdir -p $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d
 cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/lilypond.sh
@@ -73,7 +74,7 @@ cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT%{_prefix}/../etc/profile.d/li
 
 # again, make sure that main package installs even if doco fails
 mkdir -p web/out
-tar -C web -xzf out/web.tar.gz || true
+tar -C web -xzf out/web.tar.gz 
 
 
 %post
@@ -82,14 +83,14 @@ touch /tmp/.lilypond-install
 rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp/.lilypond-install
 
 %if info=="yes"
-/sbin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
+/sbin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
 %endif
 
 %preun
 
 %if info=="yes"
 if [ $1 = 0 ]; then
-    /sbin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
+    /sbin/install-info --delete %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir 
 fi
 %endif
 

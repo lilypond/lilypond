@@ -35,8 +35,8 @@ site}.
 If you want to compile LilyPond from source, download here:
 @itemize @bullet
 @item Download development releases from
-@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/} by FTP and
-@uref{http://ftp.cs.uu.nl/pub/GNU/LilyPond/development/}, by HTTP.
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/} by FTP and
+@uref{http://ftp.cs.uu.nl/pub/GNU/LilyPond/}, by HTTP.
 @item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror)
 @item at @code{lilypond.org} 
 @uref{ftp://ftp.lilypond.org/pub/LilyPond/} by FTP and

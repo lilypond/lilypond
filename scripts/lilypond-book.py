@@ -562,10 +562,12 @@ def compose_full_body (body, opts):
 	optstring = re.sub ('\n', ' ', optstring)
 	body = r"""
 %% Generated automatically by: lilypond-book.py
-%% options are %s  %%ughUGH not original options
+%% options are %s  
 \include "paper%d.ly"
 \paper  { linewidth = %f \pt } 
 """ % (optstring, music_size, l) + body
+
+	# ughUGH not original options
 	return body
 
 def parse_options_string(s):

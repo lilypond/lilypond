@@ -15,27 +15,21 @@ the GNU Project.
 
 LilyPond uses a versioning scheme similar to the Linux kernel.  In a
 version "x.y.z", an even second number 'y' denotes a stable version.
-For development versions 'y' is odd.  So, in theory, version 1.2 is stable,
-which means that there are no glaring errors in it. In practice 1.2.x is also
-unmaintained.
+For development versions 'y' is odd.
 
-1.3.x is in healthy development: lots of problems turn up, but they're
-fixed quickly. Therefore we recommend you try 1.2.x, if you have any
-problem with it, upgrade to the latest 1.3.x release.
+Version 1.4 is the latest stable release.
 
-@section Requirements
 
-For the compilation and running of LilyPond you need some additional
-packages.  Please refer to the installation instructions in
-@file{INSTALL.txt}.
+@section Compilation
+
+For compiling and running LilyPond please refer to the installation
+instructions.  These instructions can be found when you unpack lilypond,
+as @file{lilypond-x.y.z/INSTALL.txt}.
+
 
 NOTE: If you downloaded a binary (.rpm or a W95/NT .zip file),
 you don't have to compile LilyPond.
 
-@section Installation
-
-For your convenience, a formatted copy of the INSTALL instructions are
-in the toplevel directory, as INSTALL.txt
 
 @section Documentation
 

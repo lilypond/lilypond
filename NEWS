@@ -5,8 +5,6 @@ New features in 1.4
 DESIGN
 
 
-cocentric
-
 * More pervasive GUILE integration resulting in improved design and
 implementation.  LilyPond is smaller, cleaner, more flexible, etc.
 

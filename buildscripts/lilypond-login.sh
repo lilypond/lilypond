@@ -10,8 +10,10 @@ set datadir="@datadir@"
 setenv GS_FONTPATH "$datadir/afm:@datadir@/pfa:$GS_FONTPATH"
 setenv GS_LIB "$datadir/ps:$GS_LIB"
 
-# bit silly. for ly2dvi, overrules compiled-in datadir...
 # setenv LILYPONDPREFIX "$datadir"
+
+# bit silly. for ly2dvi, overrules compiled-in datadir...
+# setenv LILYPONDPREFIX "@datadir@"
 
 # include an empty path component for the system wide includes.
 if ($?MFINPUTS) then

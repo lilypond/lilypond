@@ -25,6 +25,13 @@ release:
 	$(PYTHON) $(step-bindir)/release.py --outdir=$(topdir)/$(outdir) --package=$(topdir)
 
 # rpm: $(depth)/$(package-icon) dist
-rpm: dist
-	su -c 'rpm -tb $(depth)/$(outdir)/$(distname).tar.gz'
+rpm: 
+	@echo The \"rpm\" target is deprecated.
+	@echo Please select the .spec appropriate for your distribution and run
+	@echo
+	@echo "  rpm -bb SPEC-FILE"
+	@echo 
+	@echo different SPEC-FILEs may be found in $(depth)/make/out/
+
+#	su -c 'rpm -tb $(depth)/$(outdir)/$(distname).tar.gz'
 

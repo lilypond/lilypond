@@ -14,11 +14,11 @@
 
 Distribution: SuSE Linux 7.0 (i386)
 Name: lilypond
-Version: 1.3.154
+Version: 1.4.0
 Release: 2
 Copyright:    GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.3.154.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.4.0.tar.gz
 # music notation software for.. ?
 Summary: A program for printing sheet music.
 URL: http://www.lilypond.org/
@@ -103,7 +103,7 @@ make LDFLAGS=-s "CFLAGS=$RPM_OPT_FLAGS" all
 # even if documentation fails to build
 
 make -C Documentation  || true
-make web || true
+make web-doc top-web || true
 
 %install
 
