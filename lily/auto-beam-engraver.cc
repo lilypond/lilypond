@@ -126,18 +126,13 @@ Auto_beam_engraver::consider_end_and_begin ()
 	begin_mom = begin_mult.to_rat ();
     }
 
-  /* UGH
-     Rational != Float
-  */
-  Real f;
+  Rational r;
   if (end_mom)
-    f = fmod (time->whole_in_measure_, end_mom);
+    r = time->whole_in_measure_.mod_rat (end_mom);
   else
-    f = Moment (1);
+    r = Moment (1);
 
-  // enge floots
-  Real epsilon_f = Moment (1, 512);
-  if (beam_p_ && (abs (f) < epsilon_f))
+  if (beam_p_ && !r)
     end_beam ();
      
   /*
@@ -148,8 +143,8 @@ Auto_beam_engraver::consider_end_and_begin ()
     return;
 
   if (begin_mom)
-    f = fmod (time->whole_in_measure_, begin_mom);
-  if (!beam_p_ && (!begin_mom || (abs (f) < epsilon_f)))
+    r = time->whole_in_measure_.mod_rat (begin_mom);
+  if (!beam_p_ && (!begin_mom || !r))
     begin_beam ();
 }
 
@@ -158,6 +153,7 @@ void
 Auto_beam_engraver::begin_beam ()
 {
   DOUT << String ("starting autobeam at: ") + now_mom ().str () + "\n";
+  assert (!beam_p_);
   beam_p_ = new Beam;
   grouping_p_ = new Rhythmic_grouping;
 
@@ -329,6 +325,7 @@ void
 Auto_beam_engraver::junk_beam () 
 {
   assert (beam_p_);
+#if 0
   for (int i=0; i < beam_p_->stems_.size (); i++)
     {
       Stem* s = beam_p_->stems_[i];
@@ -337,6 +334,7 @@ Auto_beam_engraver::junk_beam ()
       s->mult_i_ = 0;
       s->beam_l_ = 0;
     }
+#endif
   
   beam_p_->unlink ();
   beam_p_ = 0;
