@@ -53,17 +53,40 @@ Axis_group_element::do_print() const
   Graphical_axis_group::do_print();
 }
 
-Axis_group_element::Axis_group_element(Axis a1, Axis a2)
-  : Graphical_axis_group (a1,a2)
+Axis_group_element::Axis_group_element()
 {
   set_elt_property (transparent_scm_sym, SCM_BOOL_T);
 }
 
-Axis_group_element::Axis_group_element ()
-  : Graphical_axis_group (X_AXIS, Y_AXIS)
+void
+Axis_group_element::set_axes (Axis a1, Axis a2)
 {
-  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+  Graphical_axis_group::set_axes (a1,a2);
+  dim_cache_[X_AXIS].set_empty ((a1 != X_AXIS && a2 != X_AXIS));
+  dim_cache_[Y_AXIS].set_empty ((a1 != Y_AXIS && a2 != Y_AXIS));
 }
 
 
+void
+Axis_group_element::do_substitute_element_pointer (Score_element*o,
+						   Score_element*n)
+{
+  int i;
+  while ((i = elem_l_arr_.find_i (o))>=0) 
+    if (n) 
+      elem_l_arr_[i] = n;
+    else
+      elem_l_arr_.del (i);
+}
 
+Interval
+Axis_group_element::do_height () const
+{
+  return Graphical_axis_group::extent (Y_AXIS);
+}
+
+Interval
+Axis_group_element::do_width () const
+{
+  return Graphical_axis_group::extent (X_AXIS);
+}
