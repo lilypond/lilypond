@@ -7,6 +7,7 @@
 */
 
 #include "proto.hh"
+#include "plist.hh"
 #include "list.tcc"
 #include "cursor.tcc"
 

@@ -1,6 +1,6 @@
 #include <fstream.h>
 #include <signal.h>
-#include <std/new.h>
+#include <new.h>
 #include <stdlib.h>
 #include "debug.hh"
 #include "dstream.hh"
