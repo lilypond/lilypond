@@ -1,7 +1,8 @@
 2004-11-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* configure.in: Bugfix: add REQUIRED parameter to STEPMAKE_TEXMF call
-	(carlyannehorse).  Also check for mf and mf-nowin.
+	* configure.in: Bugfix: add REQUIRED parameter to STEPMAKE_TEXMF
+	call (carlyannehorse).  Also check for mf and mf-nowin.  Add check
+	for ec-fonts-mtraced.
 
 	* GNUmakefile.in (builddir-exec): Add symlink tex/out.  Fixes
 	--srcdir build (Bertalan).

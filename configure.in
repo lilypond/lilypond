@@ -63,6 +63,15 @@ AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([gettext isinf memmem snprintf vsnprintf gettext])
 
+AC_MSG_CHECKING([for ec-fonts-mftraced])
+ecb10=`kpsewhich ecb10.pfa 2>/dev/null`
+if test -n "$ecb10"; then
+    AC_MSG_RESULT([$ecb10])
+else
+    AC_MSG_RESULT(no)
+    STEPMAKE_ADD_ENTRY(REQUIRED, 'package ec-fonts-mftraced')
+fi
+
 
 # This is developer only anyway, help pkgconfig a bit
 export PKG_CONFIG_PATH
