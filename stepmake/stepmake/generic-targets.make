@@ -88,12 +88,17 @@ local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
 html: $(HTML_FILES)
 
 TAGS:
-	-if [ "$(TAGS_FILES)" != "" ]; then \
-		etags $(ETAGS_FLAGS) $(TAGS_FILES) || \
-		ctags $(CTAGS_FLAGS) ".h.hh.tcc.icc" $(TAGS_FILES) $(ERROR_LOG); \
-	fi
-
 	$(LOOP)
+	$(MAKE) local-tags
+
+DEEPER_TAGS_FILES = $(shell find $(pwd) -mindepth 2 -name 'TAGS')
+local-tags:
+	-if [ -n "$(TAGS_HEADERS)$(TAGS_SOURCES)$(DEEPER_TAGS_FILES)" ]; then \
+		etags $(ETAGS_FLAGS) $(DEEPER_TAGS_FILES:%=--include=%) \
+			$(TAGS_SOURCES) $(TAGS_HEADERS) $(ERROR_LOG) ; \
+		ctags $(CTAGS_FLAGS) $(TAGS_SOURCES) $(TAGS_HEADERS) \
+			$(ERROR_LOG) ; \
+	fi
 
 $(outdir)/version.hh: $(depth)/VERSION $(config_make)
 	$(PYTHON) $(step-bindir)/make-version.py $< > $@

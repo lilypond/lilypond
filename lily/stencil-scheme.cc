@@ -9,8 +9,9 @@
 #include "font-metric.hh"
 #include "stencil.hh"
 
-LY_DEFINE (ly_stencil_set_extent_x,"ly:stencil-set-extent!", 3 , 0, 0, 
-	   (SCM stil, SCM axis, SCM np),
+
+LY_DEFINE (ly_stencil_set_extent_x,"ly:stencil-set-extent!",
+	   3, 0, 0, (SCM stil, SCM axis, SCM np),
 	   "Set the extent of @var{stil} "
 	   "(@var{extent} must be a pair of numbers) "
 	   "in @var{axis} direction (0 or 1 for x- and y-axis respectively).")
@@ -26,8 +27,8 @@ LY_DEFINE (ly_stencil_set_extent_x,"ly:stencil-set-extent!", 3 , 0, 0,
   return SCM_UNDEFINED;
 }
 
-LY_DEFINE (ly_translate_stencil_axis,"ly:stencil-translate-axis", 3, 0, 0, 
-	   (SCM stil, SCM amount, SCM axis),
+LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
+	   3, 0, 0, (SCM stil, SCM amount, SCM axis),
 	   "Return a @var{stil}, "
 	   "but translated by @var{amount} in @var{axis} direction.")
 {
@@ -42,8 +43,8 @@ LY_DEFINE (ly_translate_stencil_axis,"ly:stencil-translate-axis", 3, 0, 0,
   return q.smobbed_copy();
 }
 
-LY_DEFINE (ly_translate_stencil,"ly:stencil-translate", 2, 0, 0, 
-	   (SCM stil, SCM offset),
+LY_DEFINE (ly_translate_stencil,"ly:stencil-translate",
+	   2, 0, 0, (SCM stil, SCM offset),
 	   "Return a @var{stil}, "
 	   "but translated by @var{offset} (a pair of numbers).")
 {
@@ -51,14 +52,14 @@ LY_DEFINE (ly_translate_stencil,"ly:stencil-translate", 2, 0, 0,
   SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
   SCM_ASSERT_TYPE (is_number_pair (offset), offset, SCM_ARG2, __FUNCTION__, "number pair");
   Offset o = ly_scm2offset (offset);
-  
+
   Stencil q (*s);
   q.translate (o);
   return q.smobbed_copy();
 }
 
-LY_DEFINE (ly_stencil_get_expr,
-	   "ly:stencil-get-expr", 1 , 0, 0, (SCM stil),
+LY_DEFINE (ly_stencil_get_expr, "ly:stencil-get-expr",
+	   1 , 0, 0, (SCM stil),
 	   "Return the expression of @var{stil}.")
 {
   Stencil *s = unsmob_stencil (stil);
@@ -74,7 +75,7 @@ LY_DEFINE (ly_stencil_get_extent,
   Stencil *s = unsmob_stencil (stil);
   SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
- 
+
   return ly_interval2scm (s->extent (Axis (gh_scm2int (axis))));
 }
 
@@ -110,7 +111,7 @@ LY_DEFINE (ly_stencil_combined_at_edge,
       SCM_ASSERT_TYPE(gh_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
       m = gh_scm2double (minimum);
     }
-  
+
   if (s1)
     result = *s1;
   if (s2)
@@ -121,7 +122,7 @@ LY_DEFINE (ly_stencil_combined_at_edge,
 }
 
 /*  FIXME: support variable number of arguments.  */
-LY_DEFINE (ly_stencil_add , 
+LY_DEFINE (ly_stencil_add ,
 	   "ly:stencil-add", 0, 0, 1, (SCM args),
 	   "Combine stencils. Takes any number of arguments.")
 {
@@ -139,7 +140,7 @@ LY_DEFINE (ly_stencil_add ,
       result.add_stencil (*s);
       args = gh_cdr (args);
     }
-  
+
   return result.smobbed_copy ();
 }
 
@@ -154,7 +155,7 @@ LY_DEFINE (ly_make_stencil,
 	   "2: the vertical and horizontal extents of the object.\n\n")
 {
   SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
-  SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");  
+  SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");
 
   Box b (ly_scm2interval (xext), ly_scm2interval(yext));
   Stencil s (b, expr);
@@ -171,7 +172,7 @@ fontify_atom (Font_metric const *met, SCM f)
 			ly_quote_scm (met->description_), f, SCM_UNDEFINED);
 }
 
-LY_DEFINE (ly_fontify_atom,"ly:fontify-atom", 2, 0, 0, 
+LY_DEFINE (ly_fontify_atom,"ly:fontify-atom", 2, 0, 0,
 	   (SCM met, SCM f),
 	   "Add a font selection command for the font metric @var{met} "
 	   "to @var{f}.")
@@ -181,8 +182,8 @@ LY_DEFINE (ly_fontify_atom,"ly:fontify-atom", 2, 0, 0,
   return fontify_atom (unsmob_metrics (met), f);
 }
 
-LY_DEFINE (ly_align_to_x,"ly:stencil-align-to!", 3, 0, 0,
-	   (SCM stil, SCM axis, SCM dir),
+LY_DEFINE (ly_align_to_x, "ly:stencil-align-to!",
+	   3, 0, 0, (SCM stil, SCM axis, SCM dir),
 	   "Align @var{stil} using its own extents. "
 	   "@var{dir} is a number -1, 1 are left and right respectively. "
 	   "Other values are interpolated (so 0 means the center. ")
@@ -193,6 +194,5 @@ LY_DEFINE (ly_align_to_x,"ly:stencil-align-to!", 3, 0, 0,
 
   unsmob_stencil (stil)->align_to ((Axis)gh_scm2int (axis),
 				   gh_scm2double (dir));
-
   return SCM_UNDEFINED;
 }

@@ -19,7 +19,8 @@ include $(depth)/make/stepmake.make
 # USER_LDFLAGS += -static -lltdl -ldl
 #
 
-ETAGS_FLAGS += -r '/^LY_DEFINE *(\([^,]+\),/\1/'  -r '/^LY_DEFINE *([^,]+, *"\([^"]+\)"/\1/' 
+ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *(\([^,]+\)/\1/'
+ETAGS_FLAGS += --regex='{c++}/^LY_DEFINE *([^"]*"\([^"]+\)"/\1/'
 
 default:
 

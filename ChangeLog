@@ -1,3 +1,28 @@
+2004-03-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/stencil-scheme.cc: 
+	* lily/staff-symbol-referencer.cc: 
+	* lily/script-column.cc: 
+	* lily/pitch.cc: 
+	* lily/music.cc: 
+	* lily/grob-pq-engraver.cc: 
+	* lily/font-interface.cc: 
+	* lily/music-output-def.cc: 
+	* lily/duration.cc: 
+	* lily/grob-scheme.cc:
+	* lily/context-scheme.cc: Put scheme name on first line in
+	LY_DEFINE to help etags (multiline regexps are broken).  Stray
+	style cleanups.
+
+	* stepmake/stepmake/scm-vars.make: 
+	* stepmake/stepmake/c++-vars.make (TAGS_HEADERS, TAGS_SOURCES):
+	Rename and split TAGS_FILES.
+
+	* GNUmakefile.in (ALL-TAGS): Remove.
+	
+	* stepmake/stepmake/generic-targets.make (TAGS): Also include
+	deeper TAGS files.  Fixes regexp tags in TOP dir.
+
 2004-03-07  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* Documentation/user/changing-defaults.itely (Changing defaults):
