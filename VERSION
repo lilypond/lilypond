@@ -1,6 +1,10 @@
-PACKAGE_NAME=LilyPond
+foo:	
+	echo "This is HEAD.  Go away"
+	exit 1
+
+PACKAGE_NAME = LilyPond
 MAJOR_VERSION=1
-MINOR_VERSION=6
+MINOR_VERSION=7
 PATCH_LEVEL=0
 MY_PATCH_LEVEL=
 
