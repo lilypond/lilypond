@@ -1,5 +1,10 @@
 2004-04-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* mf/feta-nummer-code.mf: use ascii names for number glyphs.
+
+	* buildscripts/mf-to-table.py (parse_logfile): only prepend group-
+	if nonempty.
+
 	* lily/include/context.hh (class Context): make members protected.
 	(children_contexts): new accessor function.
 

@@ -70,9 +70,12 @@ def parse_logfile (fn):
 		if tags[0] == 'group':
 			group = tags[1]
 		elif tags[0] == 'char':
+			name = tags[9]
+			if group:
+				name = group + '-' + name
 			m = {
 				'description':  tags[1],
-				'name': group + '-' + tags[9],
+				'name': name, 
 				'tex': tags[10],
 				'code': string.atoi (tags[2]),
 				'breapth':string.atof (tags[3]),
