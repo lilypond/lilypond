@@ -26,12 +26,13 @@ ps: $(PS_FILES)
 # urg
 default:
 
-GENHTMLS = engraving colorado vocabulary computer-notation
+GENHTMLS = engraving colorado glossary computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
 
-$(outdir)/glossary.dvi: $(outdir)/vocabulary.tex 
-$(outdir)/glossary.html: $(OUTGENHTMLS)
+$(outdir)/glossary.dvi: $(outdir)/glossary-table.tex
+$(outdir)/glossary.html: $(outdir)/glossary-table.html
+
 
 local-WWW: $(HTML_FILES) $(OUTDOC_FILES:.doc=.ps.gz) $(OUTYO_FILES:.yo=.latex) $(OUTYO_FILES:.yo=.ps.gz) $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html)) $(datafiles)
 	$(PYTHON) $(step-bindir)/ls-latex.py --package=$(topdir) --title 'LaTeX documents about LilyPond' \
