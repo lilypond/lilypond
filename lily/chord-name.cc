@@ -21,86 +21,75 @@
  */
 
 /*
-  word is roman text or styled text:
+  word is roman text or property-styled text:
    "text"
-   ("style" . "text")
+   ("text" . property-alist)
  */
 
-/*
-  UGH. remove Dictionary< > and use Scheme_hash_table
- */
 Molecule
-Chord_name::ly_word2molecule (SCM word) const
+Chord_name::ly_word2molecule (SCM word, Real* x) const
 {
-  /*
-    junkme.
+  *x = 0;
 
-    Using the dict doesn't save code, since you have to compare
-    dict entries by hand later on anyway.
-    
-   */
-  Dictionary<SCM> option_dict;	
+  SCM options = SCM_EOL;
   if (gh_pair_p (word))
     {
-      SCM options = gh_cdr (word);
+      options = gh_cdr (word);
       word = gh_car (word);
-      while (gh_pair_p (options))
-        {
-	  SCM option = gh_car (options);
-	  if (gh_pair_p (option))
-	    {
-	      SCM key = gh_car (option);
-	      SCM val = gh_cdr (option);
-	      String k;
-	      if (gh_symbol_p (key))
-		k = ly_symbol2string (key);
-	      else if (gh_string_p (key))
-	        k = ly_scm2string (key);
-              else
-	        continue;
-              option_dict[k] = val;
-	    }
-	  options = gh_cdr (options);
-        }
     }
 
-  /*
-    UGH. Should read from font metric structure.
-  */
-  Real ex = lookup_l ()->text ("", "x", paper_l ()).extent(Y_AXIS).length ();
   if (gh_string_p (word))
     {
-      String w = ly_scm2string (word);
-      Molecule mol;
-      Offset offset;
+      /*
+	UGH. Should read from font metric structure.
+      */
+      Real ex = lookup_l ()->text ("", "x",
+				   paper_l ()).extent (Y_AXIS).length ();
+      Real em = lookup_l ()->text ("", "m",
+				   paper_l ()).extent (X_AXIS).length ();
 
-      int size = 0;
-      if (option_dict.elem_b ("size"))
-        size = gh_scm2int (option_dict["size"]);
+      String w = ly_scm2string (word);
 
       String style;
-      if (option_dict.elem_b ("style"))
-        style = ly_scm2string (option_dict["style"]);
+      SCM s = scm_assoc (ly_symbol2scm ("style"), options);
+      if (s != SCM_BOOL_F)
+	{
+	  style = ly_scm2string (gh_cdr (s));
+	}
 
-      if (option_dict.elem_b ("type")
-	  && ly_scm2string (option_dict["type"]) == "super")
+      Offset offset;
+      int size = 0;
+      /*
+	urg, `type'
+      */
+      s = scm_assoc (ly_symbol2scm ("type"), options);
+      if (s != SCM_BOOL_F && ly_scm2string (gh_cdr (s)) == "super")
 	{
 	  Real super_y = ex / 2;
-	  //super_y += -acc.extent (Y_AXIS)[MIN];
 	  offset = Offset (0, super_y);
 	  if (!size)
 	    size = -2;
 	}
-      if (option_dict.elem_b ("offset"))
+
+      s = scm_assoc (ly_symbol2scm ("size"), options);
+      if (s != SCM_BOOL_F)
+	{
+	  size = gh_scm2int (gh_cdr (s));
+	}
+
+      s = scm_assoc (ly_symbol2scm ("offset"), options);
+      if (s != SCM_BOOL_F)
 	{
 	  // hmm
-	  SCM s = option_dict["offset"];
-	  if (gh_pair_p (s))
-	    offset = Offset (gh_scm2double (gh_car (s)),
-			     gh_scm2double (gh_cdr (s))) * ex;
+	  SCM o = gh_cdr (s);
+	  if (gh_pair_p (o))
+	    offset = Offset (0, gh_scm2double (gh_cdr (o))) * ex;
+	  *x = gh_scm2double (gh_car (o)) * em;
 	}
-      if (option_dict.elem_b ("font") 
-	  && ly_scm2string (option_dict["font"]) == "feta")
+
+      Molecule mol;
+      s = scm_assoc (ly_symbol2scm ("font"), options);
+      if (s != SCM_BOOL_F && ly_scm2string (gh_cdr (s)) == "feta")
         mol = paper_l ()->lookup_l (size)->afm_find (w);
       else
 	mol = paper_l ()->lookup_l (size)->text (style, w, paper_l ());
@@ -124,16 +113,18 @@ Chord_name::ly_text2molecule (SCM text) const
     {
       while (gh_cdr (text) != SCM_EOL)
         {
-	  Molecule m = ly_word2molecule (gh_car (text));
+	  Real x;
+	  Molecule m = ly_word2molecule (gh_car (text), &x);
 	  if (!m.empty_b ())
-	    mol.add_at_edge (X_AXIS, RIGHT, m, 0);
+	    mol.add_at_edge (X_AXIS, RIGHT, m, x);
 	  text = gh_cdr (text);
 	}
       text = gh_car (text);
     }  
-  Molecule m = ly_word2molecule (text);
+  Real x;
+  Molecule m = ly_word2molecule (text, &x);
   if (!m.empty_b ())
-    mol.add_at_edge (X_AXIS, RIGHT, m, 0);
+    mol.add_at_edge (X_AXIS, RIGHT, m, x);
   return mol;
 }
 

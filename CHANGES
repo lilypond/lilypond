@@ -1,3 +1,12 @@
+1.3.57.jcn2
+===========
+
+* Cleaned-up scheme list to text conversion for Chord_name and 
+fixed horizontal kerning.
+
+* Added examples for american (slashed o) and jazz (black triangle),
+  see input/test/{american-chords.ly,jazz-chords.ly}
+
 1.3.57.jcn1
 ===========
 

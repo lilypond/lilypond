@@ -1,6 +1,7 @@
 #(set! chord::names-alist-american
       (append 
       '(
+	;; any changes here, see scm/chord-names.scm
 
 	)
       chord::names-alist-american))

@@ -16,6 +16,7 @@ paper_twenty = \paper {
 	font_number = 10.;
 	font_timesig = 10.;
 	font_mark = 12.;
+	font_msam = 9.;
 
 	% what about:
 	"font_number-1" = 8.;
