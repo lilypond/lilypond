@@ -349,7 +349,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 		Default position is on stem X, at stem end Y
 	       */
 	      Real stem_thickness =
-		gh_scm2double (stem->get_grob_property ("thickness"))
+		robust_scm2double (stem->get_grob_property ("thickness"), 1)
 		* stem->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 	      o += Offset (0.5 *
 			   x_extent * (1 + Stem::get_direction (stem))
@@ -450,7 +450,7 @@ Slur::encompass_offset (Grob*me,
   /*
    leave a gap: slur mustn't touch head/stem
    */
-  o[Y_AXIS] += dir * gh_scm2double (me->get_grob_property ("y-free")) *
+  o[Y_AXIS] += dir * robust_scm2double (me->get_grob_property ("y-free"), 0) *
     1.0;
   return o;
 }
@@ -548,7 +548,7 @@ Slur::brew_molecule (SCM smob)
       return SCM_EOL;
     }
 
-  Real base_thick = gh_scm2double (me->get_grob_property ("thickness"));
+  Real base_thick = robust_scm2double (me->get_grob_property ("thickness"), 1);
 
   Real thick = base_thick *
     me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
@@ -563,7 +563,7 @@ Slur::brew_molecule (SCM smob)
   Molecule a;
   SCM d =  me->get_grob_property ("dashed");
   if (gh_number_p (d))
-    a = Lookup::dashed_slur (one, thick, thick * gh_scm2double (d));
+    a = Lookup::dashed_slur (one, thick, thick * robust_scm2double (d, 0));
   else
     a = Lookup::slur (one, get_grob_direction (me) * base_thick * ss / 10.0,
 		      thick);
@@ -580,7 +580,7 @@ Slur::set_control_points (Grob*me)
   SCM h_inf_scm = me->get_grob_property ("height-limit");
   SCM r_0_scm = me->get_grob_property ("ratio");
 
-  Real r_0 = gh_scm2double (r_0_scm);
+  Real r_0 = robust_scm2double (r_0_scm, 1);
   Real h_inf = staff_space * gh_scm2double (h_inf_scm);
   
   Slur_bezier_bow bb (get_encompass_offsets (me),

@@ -19,13 +19,13 @@
 Molecule
 Percent_repeat_item_interface::brew_slash ( Grob *me)
 {
-  Real slope = gh_scm2double (me->get_grob_property ("slope"));
+  Real slope = robust_scm2double (me->get_grob_property ("slope"), 1);
   Real wid = 2.0 / slope;
 
   /*
     todo: check out if in staff-rule thickness normally.
    */
-  Real thick = gh_scm2double (me->get_grob_property ("thickness"));
+  Real thick = robust_scm2double (me->get_grob_property ("thickness"), 1);
   Molecule m = Lookup::repeat_slash (wid, slope, thick);
   m.translate_axis (-m.extent (Y_AXIS).center (), Y_AXIS);
   return m;

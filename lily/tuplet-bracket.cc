@@ -117,8 +117,8 @@ Tuplet_bracket::brew_molecule (SCM smob)
       after_line_breaking (smob);
   }
   
-  Real ly = gh_scm2double (me->get_grob_property ("left-position"));
-  Real ry = gh_scm2double (me->get_grob_property ("right-position"));  
+  Real ly = robust_scm2double (me->get_grob_property ("left-position"), 0);
+  Real ry = robust_scm2double (me->get_grob_property ("right-position"), 0);  
   
   bool equally_long = false;
   Grob * par_beam = parallel_beam (me, columns, &equally_long);

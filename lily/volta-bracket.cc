@@ -89,7 +89,7 @@ Volta_bracket_interface::brew_molecule (SCM smob)
     }
 
   Real w = dynamic_cast<Spanner*> (me)->spanner_length () - left - half_space;
-  Real h =  gh_scm2double (me->get_grob_property ("height"));
+  Real h =  robust_scm2double (me->get_grob_property ("height"), 1);
 
   Molecule start,end ;
   if (!no_vertical_start)

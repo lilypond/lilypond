@@ -34,10 +34,9 @@ zigzag_molecule (Grob *me,
   thick *= robust_scm2double (me->get_grob_property ("thickness"), 1.0); // todo: staff sym referencer? 
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  SCM ws = me->get_grob_property ("zigzag-width");
-  SCM ls = me->get_grob_property ("zigzag-length");
-  double w = (gh_number_p(ws) ? gh_scm2double(ws) : 1)*staff_space;
-  double l = (gh_number_p(ls) ? gh_scm2double(ls) : 1)*w;
+
+  double w = robust_scm2double (me->get_grob_property ("zigzag-width"), 1)*staff_space;
+  double l = robust_scm2double ( me->get_grob_property ("zigzag-length"), 1)* w;
   double h = l>w/2 ? sqrt(l*l-w*w/4) : 0;
   
   SCM list = scm_list_n (ly_symbol2scm ("zigzag-line"),
@@ -183,7 +182,7 @@ Line_spanner::brew_molecule (SCM smob)
 			    me->get_bound (RIGHT));
   
   
-  Real gap = gh_scm2double (me->get_grob_property ("gap"));
+  Real gap = robust_scm2double (me->get_grob_property ("gap"), 0.0);
 
   Offset ofxy (gap, 0); /*offset from start point to start of line*/
   Offset dxy ;

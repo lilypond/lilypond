@@ -32,12 +32,8 @@ brew_cluster_piece (Grob *me, Array<Offset> bottom_points, Array<Offset> top_poi
 {
   Real blotdiameter = Staff_symbol_referencer::staff_space (me)/2;
 
-  Real padding;
-  SCM padding_scm = me->get_grob_property ("padding");
-  if (gh_number_p (padding_scm))
-    padding = gh_scm2double (padding_scm);
-  else
-    padding = 0.0;
+  Real padding =robust_scm2double ( me->get_grob_property ("padding"), 0.0);
+
   Offset vpadding = Offset (0, padding);
   Offset hpadding = Offset (0.5 * blotdiameter, 0);
   Offset hvpadding = 0.5 * hpadding + vpadding;

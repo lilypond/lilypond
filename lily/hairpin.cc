@@ -100,7 +100,7 @@ Hairpin::brew_molecule (SCM smob)
     }
 
   bool continued = broken[Direction (-grow_dir)];
-  Real height = gh_scm2double (me->get_grob_property ("height"));
+  Real height = robust_scm2double (me->get_grob_property ("height"), 0.2);
 
   Real starth, endh;
   if (grow_dir < 0)

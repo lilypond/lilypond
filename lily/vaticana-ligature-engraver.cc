@@ -349,33 +349,9 @@ void
 Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 					     Array<Grob_info> primitives)
 {
-  Real flexa_width;
-  SCM flexa_width_scm = ligature->get_grob_property ("flexa-width");
-  if (flexa_width_scm != SCM_EOL)
-    {
-      flexa_width = gh_scm2double (flexa_width_scm);
-    }
-  else
-    {
-      ligature->programming_error ("Vaticana_ligature_engraver:"
-				   "flexa-width undefined; "
-				   "assuming 2.0 staff space");
-      flexa_width =
-	2.0 * Staff_symbol_referencer::staff_space (ligature);
-    }
+  Real flexa_width= robust_scm2double ( ligature->get_grob_property ("flexa-width"), 2);
 
-  Real thickness;
-  SCM thickness_scm = ligature->get_grob_property ("thickness");
-  if (thickness_scm != SCM_EOL)
-    {
-      thickness = gh_scm2double (thickness_scm);
-    }
-  else
-    {
-      ligature->programming_error ("Vaticana_ligature_engraver:"
-				   "thickness undefined; assuming 1.0");
-      thickness = 1.0;
-    }
+  Real thickness= robust_scm2double ( ligature->get_grob_property ("thickness"), 1);
 
   Item *prev_primitive = 0;
   int prev_prefix_set = 0;

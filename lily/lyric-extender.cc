@@ -54,14 +54,14 @@ Lyric_extender::brew_molecule (SCM smob)
    */
   SCM minlen =  me->get_grob_property ("minimum-length");
   Real right_point
-    = left_point + (gh_number_p (minlen) ? gh_scm2double (minlen) : 0.0);
+    = left_point + (robust_scm2double  (minlen,0));
 
   if (r->break_status_dir ())
     right_point = infinity_f;
   else
     right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
   
-  Real h = sl * gh_scm2double (me->get_grob_property ("thickness"));
+  Real h = sl * robust_scm2double (me->get_grob_property ("thickness"), 0);
   Real pad = 2* h;
   right_point = right_point <? (r->extent (common, X_AXIS)[LEFT] - pad);
 

@@ -153,8 +153,7 @@ select_font (Paper_def *paper, SCM chain)
     {
       SCM mag = ly_assoc_chain (ly_symbol2scm ("font-magnification"), chain);
   
-      Real rmag = gh_pair_p (mag) && gh_number_p (gh_cdr (mag))
-	? gh_scm2double (gh_cdr (mag)) : 1.0;
+      Real rmag = gh_pair_p (mag) ? robust_scm2double (gh_cdr (mag), 1.0) : 1;
   
       return paper->find_font (name, rmag);
     }

@@ -71,11 +71,8 @@ Beam::add_stem (Grob *me, Grob *s)
 Real
 Beam::get_thickness (Grob * me)
 {
-  SCM th = me->get_grob_property ("thickness");
-  if (gh_number_p (th))
-    return gh_scm2double (th)* Staff_symbol_referencer::staff_space (me);
-  else
-    return 0.0;
+  return robust_scm2double (me->get_grob_property ("thickness"), 0)
+    * Staff_symbol_referencer::staff_space (me);
 }
 
 /* Return the translation between 2 adjoining beams. */
@@ -339,10 +336,7 @@ Beam::brew_molecule (SCM grob)
   Real last_xposn = -1;
   Real last_stem_width = -1 ;
 
-  Real gap_length =0.0;
-  SCM scm_gap = me->get_grob_property ("gap");
-  if (gh_number_p (scm_gap))
-    gap_length = gh_scm2double (scm_gap);
+  Real gap_length =robust_scm2double ( me->get_grob_property ("gap"), 0.0);
   
   Molecule the_beam;
   Real lt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
@@ -353,7 +347,7 @@ Beam::brew_molecule (SCM grob)
       
       SCM this_beaming = st ? st->get_grob_property ("beaming") : SCM_EOL;
       Real xposn = st ? st->relative_coordinate (xcommon, X_AXIS) : 0.0;
-      Real stem_width = st ? gh_scm2double (st->get_grob_property ("thickness")) *lt : 0 ;
+      Real stem_width = st ? robust_scm2double (st->get_grob_property ("thickness"), 1.0) *lt : 0 ;
       Direction stem_dir = st ? to_dir (st->get_grob_property ("direction")) : CENTER;
       /*
 	We do the space left of ST, with lfliebertjes pointing to the
@@ -882,7 +876,7 @@ Beam::least_squares (SCM smob)
 	{
 	  /* FIXME. -> UP */
 	  Direction d = (Direction) (sign (chord.delta ()) * UP);
-	  pos[d] = gh_scm2double (me->get_grob_property ("thickness")) / 2;
+	  pos[d] = get_thickness (me) / 2;
 	  pos[-d] = - pos[d];
 	}
       else
@@ -1480,8 +1474,8 @@ Beam::rest_collision_callback (SCM element_smob, SCM axis)
   Grob *common_x = rest->common_refpoint (beam, Y_AXIS);
   Real rest_dim = rest->extent (common_x, Y_AXIS)[d] / staff_space * d;
 
-  Real minimum_distance = gh_scm2double
-    (rest->get_grob_property ("minimum-beam-collision-distance"));
+  Real minimum_distance = robust_scm2double
+    (rest->get_grob_property ("minimum-beam-collision-distance"), 1);
 
   Real distance = beam_y - rest_dim;
   Real shift = 0;

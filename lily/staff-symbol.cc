@@ -63,9 +63,7 @@ Staff_symbol::brew_molecule (SCM smob)
     }
 
   Real t = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
-  SCM my_thick = me->get_grob_property("thickness");
-  if (gh_number_p (my_thick))
-    t *= gh_scm2double (my_thick);
+  t *= robust_scm2double ( me->get_grob_property("thickness"), 1.0);
   
   int l = Staff_symbol::line_count (me);
   
@@ -102,12 +100,7 @@ Staff_symbol::line_count (Grob*me)
 Real
 Staff_symbol::staff_space (Grob*me)
 {
-  Real ss = 1.0;
-  
-  SCM s = me->get_grob_property ("staff-space");
-  if (gh_number_p (s))
-    ss *= gh_scm2double (s);
-  return ss;
+  return  robust_scm2double ( me->get_grob_property ("staff-space"), 1.0);
 }
 
 

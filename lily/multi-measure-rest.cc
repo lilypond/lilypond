@@ -180,8 +180,8 @@ Multi_measure_rest::symbol_molecule (Grob *me, Real space)
 Molecule
 Multi_measure_rest::big_rest (Grob *me, Real width)
 {
-  Real thick_thick = gh_scm2double (me->get_grob_property ("thick-thickness"));
-  Real hair_thick = gh_scm2double (me->get_grob_property ("hair-thickness"));
+  Real thick_thick =robust_scm2double (me->get_grob_property ("thick-thickness"), 1.0);
+  Real hair_thick = robust_scm2double (me->get_grob_property ("hair-thickness"), .1);
 
 
   Real ss = Staff_symbol_referencer::staff_space (me);
@@ -337,9 +337,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
       rod.distance_ = l->extent (l, X_AXIS)[BIGGER] - r->extent (r, X_AXIS)[SMALLER]
 	+ sym_width  + 2.0;			// 2.0 = magic!
   
-      Real minlen  =0.0;
-      SCM ml  =me->get_grob_property ("minimum-length");
-      if (gh_number_p (ml)) minlen = gh_scm2double (ml);
+      Real minlen  = robust_scm2double (me->get_grob_property ("minimum-length"), 0.0);
       rod.distance_ = max(rod.distance_,
 			  minlen);
       rod.add_to_cols ();

@@ -67,11 +67,7 @@ Separation_item::conditional_width (Grob * me, Grob * left)
 
   SCM pad = me->get_grob_property ("padding");
 
-  if (gh_number_p (pad))
-    {
-      w[RIGHT] += gh_scm2double (pad)/2;
-      w[LEFT] -= gh_scm2double (pad)/2;    
-    }
+  w.widen (robust_scm2double (pad, 0.0));
   return w;
 }
 
@@ -116,11 +112,7 @@ Separation_item::width (Grob *me)
 
   SCM pad = me->get_grob_property ("padding");
 
-  if (gh_number_p (pad))
-  {
-    w[RIGHT] += gh_scm2double (pad)/2;
-    w[LEFT] -= gh_scm2double (pad)/2;    
-  }
+  w.widen (robust_scm2double (pad, 0.0));
 
   me->set_grob_property ("X-extent", ly_interval2scm (w));
   

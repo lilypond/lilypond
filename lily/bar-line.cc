@@ -34,7 +34,7 @@ Bar_line::brew_molecule (SCM smob)
     {
       String str  =ly_scm2string (s);
       SCM siz = gh_call1 (barsiz_proc, me->self_scm ());
-      Real sz =  gh_scm2double (siz);
+      Real sz = robust_scm2double (siz, 0);
       if (sz < 0)
 	return SCM_EOL;
       
@@ -47,10 +47,10 @@ Bar_line::brew_molecule (SCM smob)
 Molecule
 Bar_line::compound_barline (Grob*me, String str, Real h)
 {
-  Real kern = gh_scm2double (me->get_grob_property ("kern"));
-  Real thinkern = gh_scm2double (me->get_grob_property ("thin-kern"));
-  Real hair = gh_scm2double (me->get_grob_property ("hair-thickness"));
-  Real fatline = gh_scm2double (me->get_grob_property ("thick-thickness"));
+  Real kern = robust_scm2double (me->get_grob_property ("kern"), 1);
+  Real thinkern = robust_scm2double (me->get_grob_property ("thin-kern"), 1);
+  Real hair = robust_scm2double (me->get_grob_property ("hair-thickness"), 1);
+  Real fatline = robust_scm2double (me->get_grob_property ("thick-thickness"), 1);
 
   Real staffline = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   Real staff_space = Staff_symbol_referencer::staff_space (me);

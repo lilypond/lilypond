@@ -47,12 +47,7 @@ Balloon_interface::brew_molecule (SCM smob)
   Box orig_extent = m->extent_box ();
   Box box_extent = orig_extent;
 
-  SCM widen = me->get_grob_property ("balloon-padding");
-  Real w = .1;
-  if (gh_number_p (widen))
-    {
-      w = gh_scm2double (widen);
-    }
+  Real w = robust_scm2double (me->get_grob_property ("balloon-padding"),  .1);
   box_extent.widen (w, w);
   
   

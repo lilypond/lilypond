@@ -31,6 +31,10 @@
   
 
 /*
+  UGH : this is full of C&P code. Consolidate!  --hwn
+*/
+
+/*
   Gregorian chant divisio minima.  (Actually, this was the original
   breathing sign by Michael. -- jr)
  */

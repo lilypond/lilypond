@@ -355,7 +355,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 
 	      if (st)
 		{
-		  Real thick = gh_scm2double (st->get_grob_property ("thickness"))
+		  Real thick = robust_scm2double (st->get_grob_property ("thickness"), 1)
 		    * st->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 
 		  note_head_width -= thick;
@@ -363,7 +363,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	    }
 
 	  correction = note_head_width* stem_dirs[LEFT];
-	  correction *= gh_scm2double (me->get_grob_property ("knee-spacing-correction"));
+	  correction *= robust_scm2double (me->get_grob_property ("knee-spacing-correction"), 0);
 	  *fixed += correction;
 	}
       else
@@ -383,7 +383,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	      correction = (correction/7) <? 1.0;
 	      correction *= stem_dirs[LEFT] ;
 	      correction *=
-		gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
+		robust_scm2double (me->get_grob_property ("stem-spacing-correction"), 0);
 	    }
 	  
 	  if (!bar_yextent.is_empty ())
@@ -423,7 +423,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	(head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
 
       Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP] ;
-      Real corr = gh_scm2double (me->get_grob_property ("stem-spacing-correction"));
+      Real corr = robust_scm2double (me->get_grob_property ("stem-spacing-correction"), 0);
       corr =  (delta <= 1) ? 0.0 : 0.25;
       
       correction=  -lowest * corr ;

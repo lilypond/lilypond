@@ -80,8 +80,8 @@ Stem_tremolo::raw_molecule (Grob *me)
     dydx = 0.25;
 
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real thick = gh_scm2double (me->get_grob_property ("beam-thickness"));
-  Real width = gh_scm2double (me->get_grob_property ("beam-width"));
+  Real thick = robust_scm2double (me->get_grob_property ("beam-thickness"),1);
+  Real width = robust_scm2double (me->get_grob_property ("beam-width"),1);
   Real blot = me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
 
   width *= ss;

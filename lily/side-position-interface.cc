@@ -106,11 +106,7 @@ Side_position_interface::general_side_position (Grob * me, Axis a, bool use_exte
   SCM minimum = me->get_grob_property ("minimum-space");
 
   Real total_off = dim.linear_combination (dir) - off;
-  SCM padding = me->get_grob_property ("padding");
-  if (gh_number_p (padding))
-    {
-      total_off += gh_scm2double (padding) * dir;
-    }
+  total_off += robust_scm2double ( me->get_grob_property ("padding"), 0);
 
   if (gh_number_p (minimum) 
       && dir
@@ -228,11 +224,7 @@ Side_position_interface::out_of_staff (SCM element_smob, SCM axis)
   if (!st)
     return gh_int2scm (0);
 
-  Real padding=0.0;
-  SCM spad = me->get_grob_property ("staff-padding");
-
-  if (gh_number_p (spad))
-    padding = gh_scm2double (spad);
+  Real padding= robust_scm2double ( me->get_grob_property ("staff-padding"), 0);
   
   Grob *common = me->common_refpoint (st, Y_AXIS);
   Direction d = Side_position_interface::get_direction (me);

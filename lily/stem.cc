@@ -318,15 +318,12 @@ Stem::get_default_stem_end_position (Grob*me)
       || (get_direction (me) != get_default_dir (me)))
     {
       
-      Real shorten = 0.0;
   
       SCM sshorten = me->get_grob_property ("stem-shorten");
       SCM scm_shorten = gh_pair_p (sshorten) ?
 	robust_list_ref ((duration_log (me) - 2) >? 0, sshorten): SCM_EOL;
-      if (gh_number_p (scm_shorten))
-	{
-	  shorten = 2* gh_scm2double (scm_shorten);
-	}
+      Real shorten = 2* robust_scm2double (scm_shorten,0);
+      
   
       /* On boundary: shorten only half */
       if (abs (head_positions (me)[get_direction (me)]) <= 1)
@@ -454,7 +451,7 @@ Stem::position_noteheads (Grob*me)
     heads.reverse ();
 
 
-  Real thick = gh_scm2double (me->get_grob_property ("thickness"))
+  Real thick = robust_scm2double (me->get_grob_property ("thickness"),1)
      * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
       
   Grob *hed = support_head (me);
@@ -745,7 +742,7 @@ Stem::brew_molecule (SCM smob)
 
   
   // URG
-  Real stem_width = gh_scm2double (me->get_grob_property ("thickness"))
+  Real stem_width = robust_scm2double (me->get_grob_property ("thickness"), 1)
     * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   Real blot = 
 	me->get_paper ()->get_realvar (ly_symbol2scm ("blotdiameter"));
@@ -808,7 +805,7 @@ Stem::off_callback (SCM element_smob, SCM)
       if (attach)
 	{
 	  Real rule_thick
-	    = gh_scm2double (me->get_grob_property ("thickness"))
+	    = robust_scm2double (me->get_grob_property ("thickness"), 1)
 	    * me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
 	  
 	  r += - d * rule_thick * 0.5;
@@ -854,7 +851,7 @@ Stem::calc_stem_info (Grob *me)
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Grob *beam = get_beam (me);
   Real beam_translation = Beam::get_beam_translation (beam);
-  Real beam_thickness = gh_scm2double (beam->get_grob_property ("thickness"));
+  Real beam_thickness = robust_scm2double (beam->get_grob_property ("thickness"), 1);
   int beam_count = Beam::get_direction_beam_count (beam, my_dir);
 
 
@@ -928,9 +925,7 @@ Stem::calc_stem_info (Grob *me)
     }
 
 
-  SCM shorten = beam->get_grob_property ("shorten");
-  if (gh_number_p (shorten))
-    ideal_y -= gh_scm2double (shorten);
+  ideal_y -= robust_scm2double (beam->get_grob_property ("shorten"), 0);
 
   Real minimum_free =
     gh_scm2double (robust_list_ref

@@ -724,8 +724,19 @@ robust_scm2double (SCM k, double x)
   return x;
 }
 
-Drul_array<Real>
+Interval
 robust_scm2interval (SCM k, Drul_array<Real> v)
+{
+  Interval i;
+  i[LEFT]= v[LEFT];
+  i[RIGHT]= v[RIGHT];
+  if (is_number_pair (k))
+    i = ly_scm2interval (k);
+  return i;
+}
+
+Drul_array<Real>
+robust_scm2drul (SCM k, Drul_array<Real> v)
 {
   if (is_number_pair (k))
     v = ly_scm2interval (k);
