@@ -33,26 +33,34 @@ Line_of_staff::TeXstring() const
 	iter_top(line_of_score_l_->cols,cc);
 	Real lastpos=cc->hpos;
 
+	
 	// all items in the current line & staff.
 	for (; cc.ok(); cc++) {
-	    Real delta=cc->hpos - lastpos;
-	    lastpos = cc->hpos;
-
-	    // moveover
-	    if (delta)
-		s +=String( "\\kern ") + print_dimen(delta);
+	    String chunk_str;
+	    
+	    Real delta  = cc->hpos - lastpos;
+	    
+	    
 	    if (cc->error_mark_b_) {
-		s += String("\\columnerrormark");
+		chunk_str += String("\\columnerrormark");
 	    }
 	    // now output the items.
 	    for (iter_top(cc->its,i); i.ok(); i++) {
 		if (i->pstaff_l_ == pstaff_l_)
-		    s += i->TeXstring();
+		    chunk_str += i->TeXstring();
 	    }
 	    // spanners.
 	    for (iter_top(cc->starters,i); i.ok(); i++)
 		if (i->pstaff_l_ == pstaff_l_)
-		    s += i->TeXstring();
+		    chunk_str += i->TeXstring();
+
+	    if (chunk_str!="") {
+		// moveover
+		if (delta)
+		    s +=String( "\\kern ") + print_dimen(delta);
+		s += chunk_str;
+		lastpos = cc->hpos;
+	    }
 	}
     }
     s+="\\hss}\\vss}";
