@@ -47,15 +47,15 @@ inline SCM scm_cadar (SCM x) { return SCM_CADAR (x); }
 #define scm_from_locale_stringn(s, n) scm_mem2string (s, n)
 #define scm_i_string_chars(x) SCM_STRING_CHARS (x)
 #define scm_i_string_length(x) SCM_STRING_LENGTH (x)
-inline bool ly_c_number_p (SCM x) { return SCM_NUMBERP (x); }
+inline int ly_c_number_p (SCM x) { return SCM_NUMBERP (x); }
 #define scm_is_number(x) (scm_number_p (x) == SCM_BOOL_T)
 inline int ly_scm2int (SCM x) { return scm_num2int (x, 0, "ly_scm2int"); }
 #define scm_to_int(x) (ly_scm2int (x))
-inline bool ly_c_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
+inline int ly_c_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
 #define scm_is_symbol(x) ly_c_symbol_p (x)
-inline bool ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
+inline int ly_c_boolean_p (SCM x) { return SCM_BOOLP (x); }
 #define scm_is_bool(x) ly_c_boolean_p(x)
-inline bool ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
+inline int ly_c_eq_p (SCM x, SCM y) { return SCM_EQ_P (x, y); }
 #define scm_is_eq(x, y) (SCM_EQ_P ((x), (y)))
 
 #define scm_c_string_length(x) SCM_STRING_LENGTH (x)
