@@ -37,23 +37,26 @@ remove dynamic_cast<Spanner,Item> and put this code into respective
   subclass.
 */
 
-Score_element::Score_element()
+
+
+Score_element::Score_element(SCM basicprops)
 {
-  // junkme.
-  used_b_ = false;
   set_extent_callback (molecule_extent, X_AXIS);
   set_extent_callback (molecule_extent, Y_AXIS);    
 
-  used_b_ = false;
   pscore_l_=0;
   lookup_l_ =0;
   status_i_ = 0;
   self_scm_ = SCM_EOL;
   original_l_ = 0;
-  element_property_alist_ = SCM_EOL;
-
+#ifndef READONLY_PROPS
+  basic_property_list_ = basicprops;
+#endif READONLY_PROPS
+  property_alist_ = basicprops;
+  pointer_alist_ = SCM_EOL;
+  
   smobify_self ();
-  set_elt_property ("dependencies", SCM_EOL);
+  set_elt_pointer ("dependencies", SCM_EOL);
   set_elt_property ("interfaces", SCM_EOL);
 }
 
@@ -62,10 +65,21 @@ Score_element::Score_element (Score_element const&s)
    : dim_cache_ (s.dim_cache_)
 {
   self_scm_ = SCM_EOL;
-  used_b_ = true;
   original_l_ =(Score_element*) &s;
-  element_property_alist_ = SCM_EOL; // onstack;
-
+  property_alist_ = s.property_alist_;
+#ifndef READONLY_PROPS
+  basic_property_list_ = s.basic_property_list_;
+  /*
+    TODO: should copy the private part of the list.
+   */
+  SCM y ;
+  for (SCM *sp = &s.property_alist_;  *sp != basic_property_list_; sp = &SCM_CDR(*sp))
+    {
+      *sp = gh_cons (      
+    }
+#endif
+  pointer_alist_ = SCM_EOL;
+  
   status_i_ = s.status_i_;
   lookup_l_ = s.lookup_l_;
   pscore_l_ = s.pscore_l_;
@@ -77,50 +91,76 @@ Score_element::~Score_element()
 {
 }
 
+
+SCM
+Score_element::get_elt_pointer (const char *nm) const
+{
+  SCM sym =  ly_symbol2scm (nm);
+  SCM s = scm_assq(sym, pointer_alist_);
+
+  return (s == SCM_BOOL_F) ? SCM_UNDEFINED : gh_cdr (s); 
+}
+
 // should also have one that takes SCM arg. 
 SCM
 Score_element::get_elt_property (String nm) const
 {
   SCM sym =  ly_symbol2scm (nm.ch_C());
-  SCM s = scm_assq(sym, element_property_alist_);
+  SCM s = scm_assq(sym, property_alist_);
 
   if (s != SCM_BOOL_F)
     return gh_cdr (s); 
-  
-  if (pscore_l_)
-    {
-      SCM sym2 = ly_symbol2scm ((name () + ("::" + nm)).ch_C());
-      SCM val;
-      
-      // should probably check for Type::sym as well.
-      Paper_def * p= pscore_l_->paper_l_;
-      if (p->default_properties_.try_retrieve (sym2, &val))
-	return val;
-      else if (p->default_properties_.try_retrieve (sym, &val))
-	return val;
-    }
-  
+
   return SCM_UNDEFINED;
 }
 
+/*
+  Remove the value associated with KEY, and return it. The result is
+  that a next call will yield SCM_UNDEFINED (and not the underlying
+  `basic' property.
+*/
 SCM
-Score_element::remove_elt_property (String key)
+Score_element::remove_elt_property (const char* key)
 {
-  SCM s = get_elt_property (key); 
-  SCM sym = ly_symbol2scm (key.ch_C());
-  element_property_alist_ =  scm_assq_remove_x (element_property_alist_, sym);
-  return s;
+  SCM val = get_elt_property (key);
+  if (val != SCM_UNDEFINED)
+    set_elt_property (key, SCM_UNDEFINED);
+  return val;
 }
 
-/*
-  UGH. assoc vs. assq
- */
 void
-Score_element::set_elt_property (String k, SCM v)
+Score_element::set_elt_property (String k, SCM val)
 {
-  SCM s = ly_symbol2scm (k.ch_C( ));
-  element_property_alist_ = scm_assoc_set_x (element_property_alist_, s, v);
+  SCM sym = ly_symbol2scm (k.ch_C ());
+#ifndef READONLY_PROPS
+  /*
+    destructive if found in my part of the list.
+   */
+  for (SCM s = property_alist_; s != basic_property_list_; s =gh_cdr (s))
+    {
+      if (gh_caar (s)== sym)
+	{
+	  gh_set_cdr_x (gh_car (s), val);
+	  return;
+	}
+    }
+/*
+    not found in private list. Override in private list.
+   */
+  
+#endif
+  
+  property_alist_ = gh_cons (gh_cons (sym, val), property_alist_);
 }
+
+
+void
+Score_element::set_elt_pointer (const char* k, SCM v)
+{
+  SCM s = ly_symbol2scm (k);
+  pointer_alist_ = scm_assq_set_x (pointer_alist_, s, v);
+}
+
 
 Interval
 Score_element::molecule_extent (Score_element const *s, Axis a )
@@ -200,7 +240,7 @@ Score_element::calculate_dependencies (int final, int busy,
   
   status_i_= busy;
 
-  for (SCM d=  get_elt_property ("dependencies"); gh_pair_p (d); d = gh_cdr (d))
+  for (SCM d=  get_elt_pointer ("dependencies"); gh_pair_p (d); d = gh_cdr (d))
     {
       unsmob_element (gh_car (d))
 	->calculate_dependencies (final, busy, funcptr);
@@ -284,7 +324,7 @@ Score_element::add_dependency (Score_element*e)
 {
   if (e)
     {
-      Group_interface gi (this, "dependencies");
+      Pointer_group_interface gi (this, "dependencies");
       gi.add_element (e);
     }
   else
@@ -385,8 +425,8 @@ Score_element::handle_broken_dependencies()
 	{
 	  Score_element * sc = s->broken_into_l_arr_[i];
 	  Line_of_score * l = sc->line_l ();
-	  s->broken_into_l_arr_[i]->element_property_alist_ =
-	    handle_broken_smobs (element_property_alist_,
+	  sc->pointer_alist_ =
+	    handle_broken_smobs (pointer_alist_,
 				 l ? l->self_scm_ : SCM_UNDEFINED);
 	}
     }
@@ -396,14 +436,14 @@ Score_element::handle_broken_dependencies()
 
   if (line && common_refpoint (line, X_AXIS) && common_refpoint (line, Y_AXIS))
     {
-      element_property_alist_
-	= handle_broken_smobs (element_property_alist_,
+      pointer_alist_
+	= handle_broken_smobs (pointer_alist_,
 			       line ? line->self_scm_ : SCM_UNDEFINED);
     }
   else if (dynamic_cast <Line_of_score*> (this))
     {
-      element_property_alist_ = handle_broken_smobs (element_property_alist_,
-						     SCM_UNDEFINED);
+      pointer_alist_ = handle_broken_smobs (pointer_alist_,
+					    SCM_UNDEFINED);
     }
   else
     {
@@ -427,7 +467,8 @@ Score_element::handle_broken_dependencies()
 void
 Score_element::suicide ()
 {
-  element_property_alist_ = SCM_EOL;
+  property_alist_ = SCM_EOL;
+  pointer_alist_ = SCM_EOL;
   set_extent_callback (0, Y_AXIS);
   set_extent_callback (0, X_AXIS);
 }
@@ -438,12 +479,6 @@ Score_element::handle_prebroken_dependencies()
 {
 }
 
-
-bool
-Score_element::linked_b() const
-{
-  return used_b_;
-}
 
 Score_element*
 Score_element::find_broken_piece (Line_of_score*) const
@@ -684,7 +719,8 @@ Score_element::mark_smob (SCM ses)
       programming_error ("SMOB marking gone awry");
       return SCM_EOL;
     }
-  return s->element_property_alist_;
+  scm_gc_mark (s->pointer_alist_);
+  return s->property_alist_;
 }
 
 int
@@ -728,7 +764,7 @@ Score_element::ly_set_elt_property (SCM elt, SCM sym, SCM val)
 
   if (sc)
     {
-      sc->element_property_alist_ = scm_assoc_set_x (sc->element_property_alist_, sym, val);
+      sc->property_alist_ = scm_assq_set_x (sc->property_alist_, sym, val);
     }
   else
     {
@@ -747,7 +783,7 @@ Score_element::ly_get_elt_property (SCM elt, SCM sym)
   
   if (sc)
     {
-      SCM s = scm_assq(sym, sc->element_property_alist_);
+      SCM s = scm_assq(sym, sc->property_alist_);
 
       if (s != SCM_BOOL_F)
 	return gh_cdr (s); 
