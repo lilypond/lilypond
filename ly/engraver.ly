@@ -565,9 +565,6 @@ ScoreContext = \translator {
 	  (interfaces . (mark-interface))
 	  (visibility-lambda . ,end-of-line-invisible)
 	)
-	basicMelismaProperties = #`(
-	        (interfaces . (melisma-interface))
-	)
 	basicMultiMeasureRestProperties = #`(
 		(spacing-procedure . ,Multi_measure_rest::set_spacing_rods)		
 		(molecule-callback . ,Multi_measure_rest::brew_molecule)
@@ -605,7 +602,8 @@ ScoreContext = \translator {
 	)
 	basicTextProperties = #`( )
 	basicRestProperties = #`(
-		(interfaces . (rest-interface rhythmic-head-interface))	
+		(interfaces . (rest-interface rhythmic-head-interface))
+		(after-line-breaking-callback . ,Rest::after_line_breaking)
 		(molecule-callback . ,Rest::brew_molecule)
 		(minimum-beam-collision-distance . 1.5)
 	)

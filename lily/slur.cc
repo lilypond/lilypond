@@ -157,7 +157,7 @@ SCM
 Slur::after_line_breaking (SCM smob)
 {
   Score_element *me = unsmob_element (smob);
-  if (!gh_scm2int(scm_length (me->get_elt_property ("note-columns"))))
+  if (!scm_ilength (me->get_elt_property ("note-columns")))
     {
       me->suicide ();
       return SCM_UNSPECIFIED;
@@ -382,7 +382,7 @@ SCM
 Slur::brew_molecule (SCM smob)
 {
   Score_element * me = unsmob_element (smob);
-  if (!gh_scm2int(scm_length (me->get_elt_property ("note-columns"))))
+  if (!scm_ilength (me->get_elt_property ("note-columns")))
     {
       me->suicide ();
       return SCM_EOL;

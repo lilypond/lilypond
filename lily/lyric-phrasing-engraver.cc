@@ -56,7 +56,7 @@ Lyric_phrasing_engraver::~Lyric_phrasing_engraver()
    */
 }
 
-Voice_alist_entry * 
+Syllable_group * 
 Lyric_phrasing_engraver::lookup_context_id(const String &context_id)
 {
   SCM key = ly_str02scm(context_id.ch_C());
@@ -77,8 +77,8 @@ Lyric_phrasing_engraver::lookup_context_id(const String &context_id)
     }
   }
   // ( ( alist_entry . old_entry ) . previous_entry )
-  SCM val = gh_cons(gh_cons(Voice_alist_entry::make_entry (), SCM_BOOL_F), 
-		    Voice_alist_entry::make_entry ()); 
+  SCM val = gh_cons(gh_cons(Syllable_group::make_entry (), SCM_BOOL_F), 
+		    Syllable_group::make_entry ()); 
 
   voice_alist_ = scm_acons(key, val, voice_alist_);
   return unsmob_voice_entry (gh_caar(val));
@@ -89,7 +89,7 @@ void
 Lyric_phrasing_engraver::record_notehead(const String &context_id, 
 					 Score_element * notehead)
 {
-  Voice_alist_entry * v = lookup_context_id(context_id);
+  Syllable_group * v = lookup_context_id(context_id);
   v->set_notehead(notehead);
   if(!any_notehead_l_)
     any_notehead_l_ = notehead;
@@ -98,7 +98,7 @@ Lyric_phrasing_engraver::record_notehead(const String &context_id,
 void 
 Lyric_phrasing_engraver::record_lyric(const String &context_id, Score_element * lyric)
 {
-  Voice_alist_entry * v = lookup_context_id(context_id);
+  Syllable_group * v = lookup_context_id(context_id);
   v->add_lyric(lyric);
 }
 
@@ -113,7 +113,7 @@ Lyric_phrasing_engraver::record_extender(const String &context_id, Score_element
       // ( key . ( (alist_entry . old_entry) . previous_entry) )
       SCM previous_scm = gh_cddr(s);
       if(previous_scm != SCM_EOL) {
-	Voice_alist_entry * v = unsmob_voice_entry(previous_scm);
+	Syllable_group * v = unsmob_voice_entry(previous_scm);
 	v->add_extender(extender);
       }
     }
@@ -123,7 +123,7 @@ Lyric_phrasing_engraver::record_extender(const String &context_id, Score_element
 void 
 Lyric_phrasing_engraver::record_melisma(const String &context_id)
 {
-  Voice_alist_entry * v = lookup_context_id(context_id);
+  Syllable_group * v = lookup_context_id(context_id);
   v->set_melisma();
 }
   
@@ -149,8 +149,14 @@ Lyric_phrasing_engraver::acknowledge_element(Score_element_info i)
     /* what's its Voice context name? */
     String voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "Voice");
     record_notehead(voice_context_id, h);
+
+    /* is it in a melisma ? */
+    if(to_boolean(i.origin_trans_l_->get_property("melismaEngraverBusy"))) {
+      record_melisma(voice_context_id);
+    }
     return;
   }
+
   /* now try for a lyric */
   if (h->has_interface (ly_symbol2scm ("lyric-syllable-interface"))) {
 
@@ -160,25 +166,20 @@ Lyric_phrasing_engraver::acknowledge_element(Score_element_info i)
     record_lyric(trim_suffix(lyric_voice_context_id), h);
     return;
   }
-  /* finally for a melisma */
-  if(h->has_interface (ly_symbol2scm ("melisma-interface"))) {
-    String voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "Voice");
-    record_melisma(voice_context_id);
-    return;
-  }
-    /* How about catching any extender items and then if we have a melisma, 
-       set the RIGHT item of the extender spanner to the melismatic note in 
-       the corresponding context (if any).
-       This has the effect of finishing the extender under the last note
-       of the melisma, instead of extending it to the next lyric.
 
-       Problem: the extender request is thrown at the same moment as the next lyric,
-       by which time we have already passed the last note of the melisma.
-       However, the Lyric_phrasing_engraver remembers the last note, so just 
-       attach it to that, provided it was melismatic. If it was not melismatic, 
-       then ignore it and let the Extender_engraver take care of it (i.e. finish at next
-       lyric).
-    */
+  /* Catch any extender items and then if we have a melisma, 
+     set the RIGHT item of the extender spanner to the melismatic note in 
+     the corresponding context (if any).
+     This has the effect of finishing the extender under the last note
+     of the melisma, instead of extending it to the next lyric.
+     
+     Problem: the extender request is thrown at the same moment as the next lyric,
+     by which time we have already passed the last note of the melisma.
+     However, the Lyric_phrasing_engraver remembers the last note, so just 
+     attach it to that, provided it was melismatic. If it was not melismatic, 
+     then ignore it and let the Extender_engraver take care of it (i.e. finish at next
+     lyric).
+  */
   if(h->has_interface (ly_symbol2scm ("lyric-extender-interface"))) {
     String voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "LyricVoice");
     record_extender(trim_suffix(voice_context_id), h);
@@ -224,7 +225,7 @@ void Lyric_phrasing_engraver::process_acknowledged ()
     SCM v_entry = gh_cdar(v);
     // ((current . oldflag) . previous)
     if(!to_boolean(gh_cdar(v_entry))) { // not an old entry left over from a prior note ...
-      Voice_alist_entry *entry = unsmob_voice_entry(gh_caar(v_entry));
+      Syllable_group *entry = unsmob_voice_entry(gh_caar(v_entry));
       if(! entry->set_lyric_align(punc.ch_C(), any_notehead_l_))
 	warning (_ ("lyrics found without any matching notehead"));
 
@@ -234,7 +235,7 @@ void Lyric_phrasing_engraver::process_acknowledged ()
 	  warning (_ ("Huh? Melismatic note found to have associated lyrics."));
 	SCM previous_scm = gh_cdr(v_entry);
 	if(previous_scm != SCM_EOL) {
-	  Voice_alist_entry *previous = unsmob_voice_entry(previous_scm);
+	  Syllable_group *previous = unsmob_voice_entry(previous_scm);
 	  if (previous->lyric_count())
 	    previous->adjust_melisma_align();
 	}
@@ -250,12 +251,12 @@ Lyric_phrasing_engraver::do_pre_move_processing ()
   for(SCM v=voice_alist_; gh_pair_p(v); v = gh_cdr(v)) {
     SCM entry_scm = gh_cdar(v);
     // ((alist_entry . entry_is_old) . previous_entry)
-    Voice_alist_entry * entry = unsmob_voice_entry(gh_caar(entry_scm));
+    Syllable_group * entry = unsmob_voice_entry(gh_caar(entry_scm));
 
     // set previous_entry, set entry_is_old, and resave it to alist_
     // but only change if this current was not old.
     if(! to_boolean(gh_cdar(entry_scm))) { 
-      Voice_alist_entry * previous_entry = unsmob_voice_entry(gh_cdr(entry_scm));
+      Syllable_group * previous_entry = unsmob_voice_entry(gh_cdr(entry_scm));
       previous_entry->copy(entry);
       entry_scm = gh_cons(gh_cons(gh_caar(entry_scm), SCM_BOOL_T), gh_cdr(entry_scm));
       voice_alist_ = scm_assoc_set_x(voice_alist_, gh_caar(v), entry_scm);
@@ -269,11 +270,11 @@ Lyric_phrasing_engraver::do_pre_move_processing ()
 
 /*=========================================================================================*/
 
-/** Voice_alist_entry is a class to be smobbed and entered as data in the association list
+/** Syllable_group is a class to be smobbed and entered as data in the association list
     member of the Lyric_phrasing_engraver class.
 */
 
-Voice_alist_entry::Voice_alist_entry()
+Syllable_group::Syllable_group()
 {
   first_in_phrase_b_=true;
   melisma_b_ = false;
@@ -281,17 +282,18 @@ Voice_alist_entry::Voice_alist_entry()
 }
 
 void 
-Voice_alist_entry::clear()
+Syllable_group::clear()
 {
   notehead_l_=0;
   lyric_list_.clear();
   longest_lyric_l_=0;
   shortest_lyric_l_=0;
   melisma_b_ = false;
+  group_translation_f_ = 0.0;
 }
   
 void
-Voice_alist_entry::copy( Voice_alist_entry *from)
+Syllable_group::copy( Syllable_group *from)
 {
   notehead_l_ = from->notehead_l_;
   lyric_list_ = from->lyric_list_;
@@ -300,16 +302,17 @@ Voice_alist_entry::copy( Voice_alist_entry *from)
   melisma_b_ = from->melisma_b_;
   alignment_i_ = from->alignment_i_;
   first_in_phrase_b_ = from->first_in_phrase_b_;
+  group_translation_f_ = from->group_translation_f_;
 }
 
 void 
-Voice_alist_entry::set_first_in_phrase(bool f) 
+Syllable_group::set_first_in_phrase(bool f) 
 { 
   first_in_phrase_b_ = f; 
 }
 
 void 
-Voice_alist_entry::set_notehead(Score_element * notehead)
+Syllable_group::set_notehead(Score_element * notehead)
 {
   if(!notehead_l_) {
     /* there should only be a single notehead, so silently ignore any extras */
@@ -318,7 +321,7 @@ Voice_alist_entry::set_notehead(Score_element * notehead)
 }
 
 void 
-Voice_alist_entry::add_lyric(Score_element * lyric)
+Syllable_group::add_lyric(Score_element * lyric)
 {
   lyric_list_.push(lyric);
   /* record longest and shortest lyrics */
@@ -333,7 +336,7 @@ Voice_alist_entry::add_lyric(Score_element * lyric)
 }
 
 void 
-Voice_alist_entry::add_extender(Score_element * extender)
+Syllable_group::add_extender(Score_element * extender)
 {
   if(notehead_l_ && melisma_b_) {
     dynamic_cast<Spanner*>(extender)->set_bound (RIGHT, notehead_l_);
@@ -350,14 +353,8 @@ Voice_alist_entry::add_extender(Score_element * extender)
   }
 }
 
-void 
-Voice_alist_entry::set_melisma()
-{
-  melisma_b_ = true;
-}
- 
 bool 
-Voice_alist_entry::set_lyric_align(const char *punc, Score_element *default_notehead_l)
+Syllable_group::set_lyric_align(const char *punc, Score_element *default_notehead_l)
 {
   if(lyric_list_.size()==0) {
     // No lyrics: nothing to do.
@@ -372,38 +369,37 @@ Voice_alist_entry::set_lyric_align(const char *punc, Score_element *default_note
   if(!notehead_l_) {
     notehead_l_ = default_notehead_l;
   }
-  Real translation = amount_to_translate();
+
+  group_translation_f_ = amount_to_translate();
+
+  // set the x alignment of each lyric
   for(int l = 0; l < lyric_list_.size(); l++) {
-    /** set the x alignment of each lyric
-     */
     lyric = lyric_list_[l];
     lyric->set_elt_property("self-alignment-X", gh_int2scm(alignment_i_));
-
     // centre on notehead ... if we have one. 
     if(notehead_l_) {
-      /* set the parent of each lyric to the notehead,
-	 set the offset callback of each lyric to centered_on_parent,
-      */
       lyric->set_parent(notehead_l_, X_AXIS);
       lyric->add_offset_callback (Side_position::centered_on_parent, X_AXIS);
-      /* reference is on the right of the notehead; move it left half way, then centralise */
-      lyric->translate_axis (translation-(notehead_l_->extent(X_AXIS)).center(), X_AXIS);
+      // reference is on the right of the notehead; move it left half way, and add translation
+      lyric->translate_axis (group_translation_f_-(notehead_l_->extent(X_AXIS)).center(), X_AXIS);
     }
   }
   return (notehead_l_);
 }
 
+/** determine the distance to translate lyrics to get correct alignment
+    Rules: If alignment is centre, translate = 0
+           Otherwise,
+	      If (length of longest lyric) < 2 * (length of shortest lyric),
+	         - centre longest lyric on notehead
+	      Otherwise
+	         - move so shortest lyric just reaches notehead centre
+*/
 Real 
-Voice_alist_entry::amount_to_translate()
+Syllable_group::amount_to_translate()
 {
   Real translate = 0.0;
   if(alignment_i_ != CENTER) {
-    // right or left align ... 
-    /* If length of longest lyric < 2 * length of shortest lyric,
-       - centre longest lyric on notehead
-       Otherwise
-       - move so shortest lyric just reaches notehead centre
-    */
     // FIXME: do we really know the lyric extent here? Some font sizing comes later?
     if((longest_lyric_l_->extent(X_AXIS)).length() <
        (shortest_lyric_l_->extent(X_AXIS)).length() * 2 )
@@ -421,14 +417,13 @@ Voice_alist_entry::amount_to_translate()
 	   otherwise alignment is centre.
 */
 int 
-Voice_alist_entry::appropriate_alignment(const char *punc)
+Syllable_group::appropriate_alignment(const char *punc)
 {
   if(first_in_phrase_b_)
     return LEFT;
 
   Score_element * lyric;
   bool end_phrase = true;
-  /* use a property to determine what constitutes punctuation */
 
   for(int l = 0; l < lyric_list_.size() && end_phrase; l++) {
     lyric = lyric_list_[l];
@@ -470,11 +465,11 @@ Voice_alist_entry::appropriate_alignment(const char *punc)
     back and fix the alignment when we DO know.
 */
 void
-Voice_alist_entry::adjust_melisma_align()
+Syllable_group::adjust_melisma_align()
 {
-  if(notehead_l_) {
-    // undo what we did before ...
-    Real translation = -amount_to_translate();
+  if(notehead_l_ && lyric_list_.size()) {
+    // override any previous offset adjustments
+    Real translation = -group_translation_f_;
     // melisma aligning:
     switch (alignment_i_) {
       //  case LEFT: // that's all
@@ -485,6 +480,8 @@ Voice_alist_entry::adjust_melisma_align()
       translation += (shortest_lyric_l_->extent(X_AXIS)).length();
       break;
     }
+    group_translation_f_ += translation;
+    printf(" now %f.\n",float(group_translation_f_));
     for(int l = 0; l < lyric_list_.size(); l++) {
       lyric_list_[l]->translate_axis (translation, X_AXIS);
     }
@@ -493,13 +490,13 @@ Voice_alist_entry::adjust_melisma_align()
 
 
 bool
-Voice_alist_entry::is_empty()
+Syllable_group::is_empty()
 {
   return lyric_list_.size()==0;
 }
 
 void
-Voice_alist_entry::next_lyric()
+Syllable_group::next_lyric()
 {
   first_in_phrase_b_ = (alignment_i_ == RIGHT);
   clear();
@@ -510,25 +507,25 @@ Voice_alist_entry::next_lyric()
 
 
 SCM
-Voice_alist_entry::mark_smob (SCM)
+Syllable_group::mark_smob (SCM)
 {
   return SCM_EOL;
 }
 
 int
-Voice_alist_entry::print_smob (SCM, SCM port, scm_print_state * )
+Syllable_group::print_smob (SCM, SCM port, scm_print_state * )
 {
-  scm_puts ("#<Voice_alist_entry>", port);
+  scm_puts ("#<Syllable_group>", port);
   return 1;
 }
 
-IMPLEMENT_UNSMOB(Voice_alist_entry, voice_entry);
-IMPLEMENT_SIMPLE_SMOBS(Voice_alist_entry);
-IMPLEMENT_DEFAULT_EQUAL_P(Voice_alist_entry);
+IMPLEMENT_UNSMOB(Syllable_group, voice_entry);
+IMPLEMENT_SIMPLE_SMOBS(Syllable_group);
+IMPLEMENT_DEFAULT_EQUAL_P(Syllable_group);
 
 SCM
-Voice_alist_entry::make_entry ()
+Syllable_group::make_entry ()
 {
-  Voice_alist_entry *vi = new Voice_alist_entry;
+  Syllable_group *vi = new Syllable_group;
   return vi->smobbed_self ();
 }
