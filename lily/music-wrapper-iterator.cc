@@ -50,6 +50,17 @@ Music_wrapper_iterator::do_process_and_next (Moment m)
   Music_iterator::do_process_and_next (m);
 }
 
+Music*
+Music_wrapper_iterator::get_music ()
+{
+  return child_iter_p_->get_music ();
+}
+
+bool
+Music_wrapper_iterator::next ()
+{
+  return child_iter_p_->next ();
+}
 
 Moment
 Music_wrapper_iterator::next_moment () const

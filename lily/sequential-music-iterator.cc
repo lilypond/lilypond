@@ -86,39 +86,68 @@ Sequential_music_iterator::~Sequential_music_iterator()
     }
 }
 
+Music*
+Sequential_music_iterator::get_music ()
+{
+  if (ok ())
+    return unsmob_music (gh_car (cursor_));
+      
+  return 0;
+}
+  
+bool
+Sequential_music_iterator::next ()
+{
+  if (ok ())
+    {
+      bool b = false;
+      if (iter_p_->ok ())
+	b = iter_p_->next ();
+      if (!b)
+	{
+	  set_sequential_music_translator ();
+	  leave_element ();
+	  if (gh_pair_p (cursor_))
+	    start_next_element ();
+	  b = ok ();
+	}
+      return b;
+    }
+  return false;
+}
+
+/*
+  This should use get_music () and next ()
+ */
 void
 Sequential_music_iterator::do_process_and_next (Moment until)
 {
-  if (!iter_p_)
-    return;
-
-  while (1) 
+  if (ok ())
     {
-      Moment local_until = until - here_mom_;
-      while (iter_p_->ok()) 
+      while (1) 
 	{
-	  Moment here = iter_p_->next_moment();
-	  if (here != local_until)
-	    goto loopexit;
-	    
-	  iter_p_->process_and_next (local_until);
-	}
-      
-      if (!iter_p_->ok()) 
-	{
-	  set_sequential_music_translator();
-	  leave_element();
+	  Moment local_until = until - here_mom_;
+	  while (iter_p_->ok ()) 
+	    {
+	      Moment here = iter_p_->next_moment ();
+	      if (here != local_until)
+		return Music_iterator::do_process_and_next (until);
+	      
+	      iter_p_->process_and_next (local_until);
+	    }
 	  
-	  if (gh_pair_p (cursor_))
-	    start_next_element();
-	  else 
-	    goto loopexit;
+	  if (!iter_p_->ok ()) 
+	    {
+	      set_sequential_music_translator ();
+	      leave_element ();
+	      
+	      if (gh_pair_p (cursor_))
+		start_next_element ();
+	      else 
+		return Music_iterator::do_process_and_next (until);
+	    }
 	}
     }
-
-loopexit:
-
-  Music_iterator::do_process_and_next (until);
 }
 
 Moment

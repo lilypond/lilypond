@@ -87,6 +87,9 @@ public:
   ///Are we finished with this piece of music?
   virtual bool ok() const;
 
+  virtual Music* get_music ();
+  virtual bool next ();
+
   virtual ~Music_iterator();
 
 

@@ -37,7 +37,7 @@
 #include "part-combine-music.hh"
 #include "part-combine-music-iterator.hh"
 #include "request.hh"
-#include "request-iterator.hh"
+#include "simple-music-iterator.hh"
 #include "output-property.hh"
 #include "chord-tremolo-iterator.hh"
 
@@ -118,9 +118,24 @@ Music_iterator::do_process_and_next (Moment)
 }
 
 bool
-Music_iterator::ok() const
+Music_iterator::ok () const
 {
   return first_b_;
+}
+
+Music*
+Music_iterator::get_music ()
+{
+  if (ok ())
+    return music_l_;
+  return 0;
+}
+
+bool
+Music_iterator::next ()
+{
+  first_b_ = false;
+  return ok ();
 }
 
 Music_iterator*

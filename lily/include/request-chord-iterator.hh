@@ -15,7 +15,8 @@
 /**
    Walk through a Request_chord
  */
-class Request_chord_iterator : public Music_iterator {
+class Request_chord_iterator : public Music_iterator
+{
   Request_chord * elt_l () const;
   /**
      cache elt_l ()->length_mom ().
@@ -26,12 +27,13 @@ class Request_chord_iterator : public Music_iterator {
 public:
   Request_chord_iterator ();
   
+  virtual bool next ();
+  virtual bool ok () const;
 
 protected:
   virtual void do_process_and_next (Moment);
   virtual Moment next_moment() const;
   virtual void construct_children();
-  virtual bool ok() const;
   virtual void do_print() const;
 };
 
