@@ -193,7 +193,7 @@ Paper_outputter::write_header_fields_to_file (SCM mod)
 	  SCM val = gh_assoc (ly_symbol2scm (key.to_str0 ()), fields);
 	  String s;
 	  /* Only write header field to file if it exists */
-	  if (gh_pair_p (val))
+	  if (gh_pair_p (val) && gh_string_p (ly_cdr (val)))
 	    {
 	      s = ly_scm2string (ly_cdr (val));
 	      /* Always write header field file, even if string is empty ... */

@@ -2098,25 +2098,25 @@ longer be computed.
 @node Grace notes
 @subsection Grace notes
 
+
+@c should have blurb about accaciatura / appogiatura
+
 @cindex @code{\grace}
 @cindex ornaments
 @cindex grace notes
 
-Grace notes are ornaments that are written out:
-
+Grace notes are ornaments that are written out, like accaciatura and
+appogiatura notes.
 @lilypond[relative=2,verbatim,fragment] c4 \grace c16 c4 \grace {
 [c16 d16] } c4
 @end lilypond
 
-In normal notation, grace notes take up no logical
-time in a measure. Such an idea is practical for normal notation, but
-is not strict enough to put it into a program. The model that LilyPond
-uses for grace notes internally is that all timing is done in two
-steps:
-
-Every point in musical time consists of two rational numbers: one
-denotes the logical time, one denotes the grace timing. The above
-example is shown here with timing tuples:
+From the point of view of typesetting, their characteristic is that
+grace notes take up take up no logical time in a measure.  Internally,
+timing for grace notes is done using a second time. Every point in
+musical time consists of two rational numbers: one denotes the logical
+time, one denotes the grace timing. The above example is shown here
+with timing tuples:
 
 @lilypond[]
 \score { \notes \relative c''{ 
@@ -2139,9 +2139,14 @@ every eighth grace note:
 
 
 Unbeamed eighth notes and shorter by default have a slash through the
-stem. This can be controlled with object property @code{stroke-style} of
-@internalsref{Stem}. For proper  matching of override and reverts of
-such properties, it is necessary to use a Scheme function.
+stem. These notes are called accaciaturas, and should generally be
+played as short as possible. An appogiatura takes a fixed fraction of
+the main note, is and denoted without a slash. 
+
+Such slashless notes are obtained by setting the object property
+@code{stroke-style} of the @internalsref{Stem} object. For proper
+matching of override and reverts of such properties, it is necessary
+to use a Scheme function.
 
 The following fragment overrides the default formatting Grace style stems:
 @example
@@ -7949,7 +7954,7 @@ are chosen whenever the page gets full.
 @cindex staff distance
 @cindex between staves, distance
 @cindex staffs per page
-
+@cindex space between staves
 
 The height of each system is determined automatically by LilyPond, to
 keep systems from bumping into each other, some minimum distances are
