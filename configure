@@ -2238,4 +2238,5 @@ test "$no_create" = yes || ${CONFIG_SHELL-/bin/sh} $CONFIG_STATUS || exit 1
 
 rm -f Makefile
 cp make/Toplevel.make.in ./Makefile
-chmod 555 Makefile
+chmod 444 Makefile
+

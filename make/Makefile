@@ -18,25 +18,23 @@ depth = ..
 NAME = make
 SUBDIRS = 
 
-# list of distribution files:
-
 # two outdir files are distributed, since they make sense to have without running 
 # configure and make.
 IN_FILES = $(wildcard *.in)
-EXTRA_DISTFILES = $(IN_FILES) $(outdir)/lilypond.spec $(outdir)/lilypond.lsm $(outdir)/lelievijver.lsm
+EXTRA_DISTFILES = $(IN_FILES)
+OUT_DISTFILES=$(outdir)/lilypond.spec $(outdir)/lilypond.lsm $(outdir)/lelievijver.lsm
 #
 
 # generic variables:
 #
 include ./$(depth)/make/Variables.make
 include ./$(depth)/make/Files.make 
-#
-
-# generic targets and rules:
-#
 include ./$(depth)/make/Targets.make
 include ./$(depth)/make/Rules.make
-#
+
+
+local-maintainerclean:
+	rm lilypond.spec $(wildcard *.lsm)
 
 spec: $(outdir)/lilypond.spec
 
@@ -58,4 +56,5 @@ $(outdir)/lilypond.spec: lilypond.spec.in $(depth)/VERSION
 
 $(outdir)/%.lsm: %.lsm.in $(depth)/VERSION
 	cat $< | $(sed-version) | $(sed-date) > $@
+
 
