@@ -22,7 +22,6 @@
 void
 Volta_spanner::set_interface (Score_element*me)
 {
-  me->set_elt_property ("bars", SCM_EOL);
   Side_position::set_axis (me, Y_AXIS);
   Directional_element_interface::set (me, UP);
 }

@@ -15,7 +15,14 @@
     (or should we be above staff?)
 
   todo: handle breaking elegantly.
+properties:
+
+  beams -- list of beam ptrs.
+
+  columns -- list of note-columns.
+
 */
+
 class Tuplet_spanner
 {
 public:

@@ -12,7 +12,15 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+/*
+  properties :
 
+  minimum-distances -- list of rods (ie. (OBJ . DIST) pairs)
+
+  ideal-distances -- (OBJ . (DIST . STRENGTH)) pairs
+  
+  dir-list -- list of stem directions.
+ */
 
 struct Spaceable_element
 {

@@ -78,7 +78,4 @@ Spaceable_element::remove_interface (Score_element*me)
 void
 Spaceable_element::set_interface (Score_element*me)
 {
-  me->set_elt_property ("minimum-distances", SCM_EOL);
-  me->set_elt_property ("ideal-distances", SCM_EOL);
-  me->set_elt_property ("dir-list",SCM_EOL) ;  
 }

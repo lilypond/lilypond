@@ -218,6 +218,5 @@ Rest_collision::set_interface (Score_element*me)
 {
   me->set_extent_callback (0, X_AXIS);
   me->set_extent_callback (0, Y_AXIS);
-  me->set_elt_property ("elements", SCM_EOL);
 }
 

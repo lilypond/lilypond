@@ -16,7 +16,6 @@
 void
 Hara_kiri_group_spanner::set_interface (Score_element*me)
 {
-  me->set_elt_property ("items-worth-living", SCM_EOL);
   me->add_offset_callback (force_hara_kiri_callback, Y_AXIS);
   me->set_interface (ly_symbol2scm ("hara-kiri-spanner-interface"));
   me->set_extent_callback (Hara_kiri_group_spanner::y_extent, Y_AXIS);
