@@ -1,6 +1,8 @@
 /*
   score-performer.cc -- implement Score_performer
 
+  source file of the GNU LilyPond music typesetter
+  
   (c) 1996, 1997 Jan Nieuwenhuizen <jan@digicash.com>
  */
 
@@ -8,6 +10,9 @@
 #include "score-performer.hh"
 #include "input-translator.hh"
 #include "midi-def.hh"
+#include "audio-item.hh"
+#include "audio-column.hh"
+#include "audio-score.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
 #include "string-convert.hh"
@@ -47,16 +52,16 @@ Score_performer::finish()
     Performer_group_performer::do_removal_processing();
 
 
-    Midi_stream output_stream( midi_l_->outfile_str_, midi_item_p_arr_.size() + 1, 384 );    
+    Midi_stream output_stream( midi_l_->outfile_str_, midi_item_l_arr_.size() + 1, 384 );    
     *mlog << "MIDI output to " << midi_l_->outfile_str_ << " ..." << endl;    
 
     header( output_stream);
-    int track_i = 1;
-    for (int i=0; i<  midi_item_p_arr_.size(); i++) {
-	Midi_item * it_p = midi_item_p_arr_[i];
+//    int track_i = 1;
+    for (int i=0; i<  midi_item_l_arr_.size(); i++) {
+	Midi_item * it_p = midi_item_l_arr_[i];
 	
-	if ( it_p->is_type_b( Midi_track::static_name()))
-	    ((Midi_track*)it_p )->number_i_ = track_i ++;
+//	if ( it_p->is_type_b( Midi_track::static_name()))
+//	    ((Midi_track*)it_p )->number_i_ = track_i ++;
 	output_stream<< *it_p;
     }
     *output_stream.os_p_ << flush;
@@ -64,9 +69,16 @@ Score_performer::finish()
 }
 
 void
-Score_performer::play_event(Midi_item*m)
+Score_performer::play( Audio_item* l )
 {
-    midi_item_p_arr_.push(m);
+    l->audio_column_l_ = audio_column_l_;
+    audio_column_l_->add( l );
+}
+
+void
+Score_performer::play( Midi_item* l )
+{
+    midi_item_l_arr_.push( l );
 }
 
 Moment
@@ -105,7 +117,7 @@ Score_performer::header(Midi_stream &output_stream)
 			  + String_convert::i2dec_str( 0, 0, '0' ) );
     midi_track.add( Moment( 0 ), &track_name );
 
-    Midi_tempo tempo ( get_tempo_i());
+    Midi_tempo tempo ( get_tempo_i() );
     midi_track.add( Moment(0), &tempo);
 
     output_stream  << midi_track;
@@ -115,6 +127,9 @@ void
 Score_performer::prepare( Moment m )
 {
     now_mom_ = m;
+    audio_column_l_ = new Audio_column( m );
+    
+    score_l_->audio_score_p_->add( audio_column_l_ );
 }
 
 void 

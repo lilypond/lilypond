@@ -41,6 +41,7 @@ public:
 
     virtual void do_removal_processing();
     void creation_processing();
+
 protected:
     virtual void do_creation_processing();
 
@@ -48,8 +49,8 @@ protected:
     virtual int get_tempo_i() const;
     virtual void do_print() const;
     virtual Moment get_mom() const;
-    virtual void play_event( Midi_item* l );
-
+    virtual void play( Audio_item* p );
+    virtual void play( Midi_item* l );
 };
 
 #include "global-performers.hh"

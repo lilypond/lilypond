@@ -1,5 +1,5 @@
 /*
-  global-translators.cc -- implement 
+  global-performers.cc -- implement 
 
   source file of the GNU LilyPond music typesetter
 

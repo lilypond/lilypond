@@ -108,7 +108,7 @@ Lily_stream::header()
     *os_p_ << midi_parser_l_g->filename_str_;
     *os_p_ << "\n\n";    
     // ugh
-    *os_p_ << "\\version \"0.0.61\";\n";
+    *os_p_ << "\\version \"0.1.0\";\n";
 }
 /*
   snapnie: dit kan toch automaties? Zie ook dstream.

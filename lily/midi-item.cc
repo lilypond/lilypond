@@ -1,39 +1,25 @@
 /*
-  midi-item.cc -- implement various midi items.
+  midi-item.cc -- implement Midi items.
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
-*/
+  (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+ */
 
-#include <limits.h>
 #include "proto.hh"
 #include "plist.hh"
-#include "p-col.hh"
 #include "debug.hh"
 #include "misc.hh"
 #include "string.hh"
 #include "string-convert.hh"
-#include "request.hh"
+#include "command-request.hh"
 #include "musical-request.hh"
-#include "music-list.hh"
 #include "midi-item.hh"
 #include "midi-stream.hh"
-
-
-IMPLEMENT_IS_TYPE_B(Midi_item);
-IMPLEMENT_IS_TYPE_B1(Midi_key,Midi_item);
-IMPLEMENT_IS_TYPE_B1(Midi_note, Midi_item);
-IMPLEMENT_IS_TYPE_B1(Midi_duration, Midi_item);
-IMPLEMENT_IS_TYPE_B1(Midi_chunk, Midi_item);
-IMPLEMENT_IS_TYPE_B1(Midi_header, Midi_chunk);
-IMPLEMENT_IS_TYPE_B1(Midi_instrument, Midi_item);
-IMPLEMENT_IS_TYPE_B1(Midi_tempo, Midi_item);
-IMPLEMENT_IS_TYPE_B1(Midi_text, Midi_item);
-IMPLEMENT_IS_TYPE_B1(Midi_time, Midi_item);
-IMPLEMENT_IS_TYPE_B1(Midi_track, Midi_chunk);
+#include "audio-item.hh"
 
 Midi_chunk::Midi_chunk()
+    : Midi_item( 0 )
 {
 }
 
@@ -64,6 +50,7 @@ Midi_chunk::str() const
 }
 
 Midi_duration::Midi_duration( Real seconds_f )
+    : Midi_item( 0 )
 {
     seconds_f_ = seconds_f;
 }
@@ -75,6 +62,7 @@ Midi_duration::str() const
 }
 
 Midi_header::Midi_header( int format_i, int tracks_i, int clocks_per_4_i )
+    : Midi_chunk()
 {
     String str;
 	
@@ -258,25 +246,42 @@ char const* const instrument_name_sz_a_[ ] = {
 }; 
 
 Midi_instrument::Midi_instrument( int channel_i, String instrument_str )
+    : Midi_item( 0 )
 {
+    instrument_str_ = instrument_str;
+    instrument_str_.to_lower();
     channel_i_ = channel_i;
-    instrument_str.to_lower();
-    for ( int i = 0; instrument_name_sz_a_[i]; i++ )
-	if ( instrument_str == String(instrument_name_sz_a_[ i ] )) { 
-	    program_byte_ = (Byte)i;
-	    break;
-	}
 }
                                       
 String
 Midi_instrument::str() const
 {
-    if ( program_byte_ ) {
+    // ugh, does not work...
+    return String( "" );
+    Byte program_byte = 0;
+    for ( int i = 0; instrument_name_sz_a_[i]; i++ )
+	if ( instrument_str_ == String(instrument_name_sz_a_[ i ] )) { 
+	    program_byte = (Byte)i;
+	    break;
+	}
+    if ( program_byte ) {
 	String str = String( (char)( 0xc0 + channel_i_ ) );
-	str += String( (char)program_byte_ );
+	str += String( (char)program_byte );
 	return str;
     }
     return String( "" );
+}
+
+Midi_item::Midi_item( Audio_item* audio_item_l )
+{
+    audio_item_l_ = audio_item_l;
+    channel_i_ = 0;
+}
+
+void
+Midi_item::output( Midi_stream* midi_stream_l ) const
+{
+    *midi_stream_l << str();
 }
 
 String
@@ -300,36 +305,36 @@ Midi_item::i2varint_str( int i )
     return str;
 }
 
-void 
-Midi_item::output_midi( Midi_stream& midi_stream_r ) const
+Midi_key::Midi_key( Audio_item* audio_item_l )
+    : Midi_item( audio_item_l )
 {
-    midi_stream_r << str();
-}
-
-Midi_key::Midi_key( int accidentals_i, int minor_i )
-{
-	accidentals_i_ = accidentals_i;
-	minor_i_ = minor_i;
 }
 
 String
 Midi_key::str() const
 {
+    Key_change_req* k = audio_item_l_->req_l_->command()->keychange();
+    int sharps_i = k->sharps_i();
+    int flats_i = k->flats_i();
+
+    // midi cannot handle non-conventional keys
+    if ( flats_i && sharps_i )
+	return "";
+    int accidentals_i = sharps_i - flats_i;
+
     String str = "ff5902";
-    str += String_convert::i2hex_str( accidentals_i_, 2, '0' );
-    str += String_convert::i2hex_str( minor_i_, 2, '0' );
+    str += String_convert::i2hex_str( accidentals_i, 2, '0' );
+    int minor_i = k->minor_b();
+    str += String_convert::i2hex_str( minor_i, 2, '0' );
     return String_convert::hex2bin_str( str );
 }
 
-Midi_note::Midi_note( Melodic_req* melreq_l, int channel_i, bool on_bo  )
+Midi_note::Midi_note( Audio_item* audio_item_l )
+    : Midi_item( audio_item_l )
 {
-    assert(melreq_l);
-    pitch_i_ = melreq_l->pitch() + c0_pitch_i_c_;   
-    channel_i_ = channel_i;
-    
-    on_b_ = on_bo;
-
+    // ugh
     dynamic_byte_ = 0x64;
+    on_b_ = ( (Audio_note*)audio_item_l_ )->on_b_;
     if ( on_b_ ) // poor man-s staff dynamics:
 	dynamic_byte_ -= 0x10 * channel_i_;
     else
@@ -339,10 +344,12 @@ Midi_note::Midi_note( Melodic_req* melreq_l, int channel_i, bool on_bo  )
 String
 Midi_note::str() const
 {
-    if ( pitch_i_ != INT_MAX ) {
+    Note_req* n = audio_item_l_->req_l_->musical()->melodic()->note();
+    int pitch_i = n->pitch() + c0_pitch_i_c_;
+    if ( pitch_i != INT_MAX ) {
 	Byte status_byte = ( on_b_ ? 0x90 : 0x80 ) + channel_i_;
 	String str = String( (char)status_byte );
-	str += (char)pitch_i_;
+	str += (char)pitch_i;
 	// poor man-s staff dynamics:
 	str += (char)dynamic_byte_;
 	return str;
@@ -350,7 +357,14 @@ Midi_note::str() const
     return String( "" );
 }
 
+Midi_tempo::Midi_tempo( Audio_item* audio_item_l )
+    : Midi_item( audio_item_l )
+{
+    per_minute_4_i_ = ( (Audio_tempo*)audio_item_l_ )->per_minute_4_i_;
+}
+
 Midi_tempo::Midi_tempo( int per_minute_4_i )
+    : Midi_item( 0 )
 {
     per_minute_4_i_ = per_minute_4_i;
 }
@@ -364,41 +378,53 @@ Midi_tempo::str() const
     return String_convert::hex2bin_str( str );
 }
 
-Midi_time::Midi_time( int num_i, int den_i, int clocks_per_1_i )
+Midi_meter::Midi_meter( Audio_item* audio_item_l )
+    : Midi_item( audio_item_l )
 {
-	num_i_ = num_i;
-	den_i_ = den_i;
-	clocks_per_1_i_ = clocks_per_1_i;
+    clocks_per_1_i_ = 18;
 }
 
 String
-Midi_time::str() const
+Midi_meter::str() const
 {
-	String str = "ff5804";
-	str += String_convert::i2hex_str( num_i_, 2, '0' );
-	str += String_convert::i2hex_str( intlog2( den_i_ ) , 2, '0' );
-	str += String_convert::i2hex_str( clocks_per_1_i_, 2, '0' );
-	str += String_convert::i2hex_str( 8, 2, '0' );
-	return String_convert::hex2bin_str( str );
+    Meter_change_req* m = audio_item_l_->req_l_->command()->meterchange();
+    int num_i = m->beats_i_;
+    int den_i = m->one_beat_i_;
+
+    String str = "ff5804";
+    str += String_convert::i2hex_str( num_i, 2, '0' );
+    str += String_convert::i2hex_str( intlog2( den_i ) , 2, '0' );
+    str += String_convert::i2hex_str( clocks_per_1_i_, 2, '0' );
+    str += String_convert::i2hex_str( 8, 2, '0' );
+    return String_convert::hex2bin_str( str );
+}
+
+Midi_text::Midi_text( Audio_item* audio_item_l )
+    : Midi_item( audio_item_l )
+{
+    text_str_ = ( (Audio_text*)audio_item_l_ )->text_str_;
+    type_ = (Type)( (Audio_text*)audio_item_l_ )->type_;
 }
 
 Midi_text::Midi_text( Midi_text::Type type, String text_str )
+    : Midi_item( 0 )
 {
-	type_ = type;
-	text_str_ = text_str;
+    text_str_ = text_str;
+    type_ = type;
 }
 
 String
 Midi_text::str() const
 {
-	String str = "ff" + String_convert::i2hex_str( type_, 2, '0' );
-	str = String_convert::hex2bin_str( str );
-	str += i2varint_str( text_str_.length_i() );
-	str += text_str_;
-	return str;
+    String str = "ff" + String_convert::i2hex_str( type_, 2, '0' );
+    str = String_convert::hex2bin_str( str );
+    str += i2varint_str( text_str_.length_i() );
+    str += text_str_;
+    return str;
 }
 
-Midi_track::Midi_track( )
+Midi_track::Midi_track()
+    : Midi_chunk()
 {
 //                4D 54 72 6B     MTrk
 //                00 00 00 3B     chunk length (59)

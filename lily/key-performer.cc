@@ -8,7 +8,7 @@
 
 #include "key-performer.hh"
 #include "command-request.hh"
-#include "midi-item.hh"
+#include "audio-item.hh"
 
 
 
@@ -36,16 +36,9 @@ Key_performer::do_print() const
 void
 Key_performer::process_requests()
 {
-    if ( key_req_l_ ) {
-	int sharps_i = key_req_l_->sharps_i();
-	int flats_i = key_req_l_->flats_i();
-	// midi cannot handle non-conventional keys
-	if ( !( flats_i && sharps_i ) ) {
-	    Midi_key k( sharps_i - flats_i, key_req_l_->minor_b() );
-	    play_event( &k );
-	}
-	key_req_l_ = 0;
-    }
+    if ( key_req_l_ )
+	play( new Audio_key( key_req_l_ ) );
+    key_req_l_ = 0;
 }
 
 bool

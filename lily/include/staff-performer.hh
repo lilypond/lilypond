@@ -21,7 +21,8 @@ public:
     String instrument_str();
 
 protected:
-    virtual void play_event( Midi_item* l );
+    virtual void play( Midi_item* l );
+    virtual void play( Audio_item* l );
     virtual void do_removal_processing();
     virtual void do_creation_processing();
     // <ugh>
@@ -34,7 +35,7 @@ private:
 
     Moment midi_mom_;
     Midi_track* midi_track_p_;
-
+    Pointer_list<Audio_item*> audio_item_p_list_;
     int track_i_;
 };
 

@@ -17,6 +17,7 @@
 #include "source-file.hh"
 #include "midi-output.hh"
 #include "midi-def.hh"
+#include "audio-score.hh"
 #include "p-col.hh"
 #include "music-iterator.hh"
 #include "music.hh"
@@ -27,6 +28,7 @@ extern String default_out_fn;
 Score::Score()
 {
     pscore_p_=0;
+    audio_score_p_ = 0;
     paper_p_ = 0;
     midi_p_ = 0;
     errorlevel_i_ = 0;
@@ -44,6 +46,7 @@ Score::~Score()
 {
     delete music_p_;
     delete pscore_p_;
+    delete audio_score_p_;
     delete paper_p_;
     delete midi_p_;
 }
@@ -89,6 +92,7 @@ Score::midi()
 	return;
     
     *mlog << "\nCreating MIDI elements ..." << flush;
+    audio_score_p_ = new Audio_score( midi_p_ );
     
     Global_translator* score_trans=  midi_p_->get_global_translator_p();
     run_translator( score_trans );

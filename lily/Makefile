@@ -12,18 +12,16 @@
 depth = ..
 #
 
+# identify module:
+#
 NAME = lilypond
+#
 
 # generic variables:
 #
 include Stable.make
 include ./$(depth)/make/Variables.make
 include VERSION
-#
-
-# identify module:
-#
-
 #
 
 # descent order into subdirectories:

@@ -13,16 +13,20 @@
 depth = ..
 #
 
+# identify module:
+#
+NAME = mi2mu
+MODULE_NAME = mi2mu
+#
+
 # generic variables:
 #
 include ./$(depth)/make/Variables.make
 include ./$(depth)/make/Files.make 
 #
 
-# identify module:
+# versioning
 #
-NAME = mi2mu
-MODULE_NAME = mi2mu
 include $(mi2mu-dir)/VERSION
 build = $(mi2mu-dir)/$(outdir)/.build
 #

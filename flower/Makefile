@@ -40,7 +40,7 @@ SUBDIRS = include test
 #
 SCRIPTS = 
 README_FILES = ONEWS NEWS README TODO
-EXTRA_DISTFILES= configure config.hh.in configure.in VERSION $(README_FILES) $(SCRIPTS) Flower-flags.make.in
+EXTRA_DISTFILES= configure config.hh.in configure.in aclocal.m4 VERSION $(README_FILES) $(SCRIPTS) Flower-flags.make.in
 #
 
 

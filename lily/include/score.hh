@@ -27,6 +27,7 @@ public:
     Midi_def *midi_p_;
     Music * music_p_;
     PScore *pscore_p_;
+    Audio_score* audio_score_p_;
 
     int errorlevel_i_;
     
@@ -34,6 +35,7 @@ public:
 
     /// construction
     Score();
+    Score(Score const&);
     ~Score();    
 
     /// do everything except outputting to file
@@ -50,11 +52,7 @@ public:
 
     void print() const;
 
-    Score(Score const&);
 private:
-
-
-
     void run_translator(Global_translator*);
     void midi_output();
     void paper_output();

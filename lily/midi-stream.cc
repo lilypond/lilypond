@@ -37,13 +37,18 @@ Midi_stream::operator <<( String str )
 	str = String_convert::bin2hex_str( str );
     
     *os_p_ << str;
+
+    if ( check_debug )
+        *os_p_ << "\n";
+
     return *this;
 }
 
 Midi_stream&
 Midi_stream::operator <<( Midi_item const& mitem_c_r )
 {
-    mitem_c_r.output_midi( *this );
+//    *this << mitem_c_r.str();
+    mitem_c_r.output( this );
     if ( check_debug )
         *os_p_ << "\n";
     return *this;

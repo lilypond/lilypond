@@ -1,3 +1,9 @@
+pl 0.1.1.jcn1
+	- Audio{column,score,item,...}, more generic audio
+	- bf: Makefiles
+	- added empty flower/aclocal.m4?
+	- bf: mi2mu mudela version
+
 pl 0.1.1
 	- {Horizontal, Vertical}_group.  A score_element may be in at most one. 
 	- This means Horizontal_group_item and Vertical_group_spanner need special support.
