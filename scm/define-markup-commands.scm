@@ -1,29 +1,32 @@
+;;;; define-markup-commands.scm -- markup commands
+;;;;
+;;;;  source file of the GNU LilyPond music typesetter
+;;;; 
+;;;; (c)  2000--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+;;;;                  Jan Nieuwenhuizen <janneke@gnu.org>
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup commands
-;; TODO:
-;; each markup function should have a doc string with
-;; syntax, description and example. 
-;;
+;;; TODO:
+;;;  * each markup function should have a doc string with
+;;     syntax, description and example. 
 
 
+(def-markup-command (word paper props str) (string?)
+  "A single word."
+  (interpret-markup paper props str))
+  
 (def-markup-command (simple paper props str) (string?)
   "A simple text-string; @code{\\markup @{ foo @}} is equivalent with
-@code{\\markup @{ \\simple #\"foo\" @}}.
-"
-  (interpret-markup paper props str))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; fonts
+@code{\\markup @{ \\simple #\"foo\" @}}."
+  (interpret-markup paper props
+		    (make-line-markup
+		     (map make-word-markup (string-tokenize str)))))
 
 (define (font-markup qualifier value)
   (lambda (paper props arg)
     (interpret-markup paper
 		      (prepend-alist-chain qualifier value props)
                       arg)))
-
-
 
 (define-public empty-markup
   (make-simple-markup ""))

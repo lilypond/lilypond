@@ -9,8 +9,8 @@
 ;;;;       input/test/title-markup.ly
 ;;;; 
 ;;;; TODO:
-;;;;   * UGR: SPACE character in CM* fonts
-;;;;   * text setting, kerning?
+;;;;   * special characters, encoding.
+;;;;   * text setting, kerning.
 ;;;;   * linewidth
 ;;;;   * font properties
 ;;;;   * construction/customisation of title markup
