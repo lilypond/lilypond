@@ -163,8 +163,8 @@ some punctuation. It doesn't have any letters.  "
 
 (def-markup-command (dynamic paper props arg) (markup?)
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
-@b{z}, @b{p}, and @b{r}.  When producing phrases, like ``più @b{f}'', the
-normal words (like ``più'') should be done in a different font.  The
+@b{z}, @b{p}, and @b{r}.  When producing phrases, like ``pi@`{u} @b{f}'', the
+normal words (like ``pi@`{u}'') should be done in a different font.  The
 recommend font for this is bold and italic"
   (interpret-markup
    paper (prepend-alist-chain 'font-encoding 'dynamic props) arg))
