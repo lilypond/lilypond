@@ -27,16 +27,12 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 	gftopk $< $@
 
 
-$(outdir)/%.pfb: 
-	pktrace  $(basename $(@F))
-	mv $(basename $(@F)).pfb $(outdir)
+$(outdir)/%.pfa: %.mf
+	pktrace --simplify --keep-trying $(basename $(@F))
+	mv $(basename $(@F)).pfa $(outdir)
 
-
-
-
-
-$(outdir)/%.pfb: 
-	pktrace  $(basename $(@F))
+$(outdir)/%.pfb: %.mf
+	pktrace --simplify --keep-trying  $(basename $(@F))
 	mv $(basename $(@F)).pfb $(outdir)
 
 #%.afm:

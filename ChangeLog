@@ -1,3 +1,39 @@
+2002-02-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/font.scm: remove font-name symbol.
+
+	* mf/GNUmakefile: use pktrace for making PFAs
+
+	* make/lilypond.redhat.spec.in: use pktrace when making specs
+
+	* lily/rest-collision.cc (do_shift): read direction field from
+	rest-column in case of note-rest collision. This should fix some
+	problems with rest collisions.
+
+2002-02-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/note-heads-engraver.cc (process_music): Removed easyPlay
+	property.
+
+	* lily/note-head.cc (brew_ez_molecule): Remove note-character
+	property. Read pitch directly from #'cause.
+
+	* mf/feta-puntje.mf: bugfix
+
+2002-02-19  Juergen Reuter <reuter@ipd.uka.de>
+	
+	* mf/*.mf: tried to fix ancient-font.ly. WARNING: Font changed.
+
+2002-02-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/windows/compiling.texi: Update.
+
+	* Documentation/index.texi: Add link to orphaned compiling for
+	windows page.
+
+	* Documentation/footer.html.in: Comment fix.
+
+	* stepmake/bin/add-html-footer.py: Python2.[12] re workarounds.
 
 2002-02-18  Han-Wen  <hanwen@cs.uu.nl>
 	
