@@ -178,6 +178,8 @@
   (cond ((nth 3 context)) ; inside string
 	((nth 4 context)) ; inside a comment
 	((eq (char-syntax (char-before (point))) ?\\)) ; found escape-char
+	((and (eq (char-syntax (char-before (- (point) 1))) ?\\)
+	      (memq (char-before (point)) '( ?\) ?\] )))) ; found escape-char
 	((memq (char-before (point)) '( ?\) ))
 	 (LilyPond-mode-set-syntax-table '( ?\( ?\) )))
 	((memq (char-before (point)) '( ?\] ))
