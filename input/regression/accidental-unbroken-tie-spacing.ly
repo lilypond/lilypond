@@ -3,7 +3,7 @@ texidoc = "Tied accidentaled notes (which cause reminder accidentals) don't wrea
 the spacing when unbroken."
 }
 
-\version "1.5.68"
+\version "1.7.6"
 \include "deutsch.ly"
 
 rechts = \notes \relative c' {
