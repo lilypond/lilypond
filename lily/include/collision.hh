@@ -33,5 +33,6 @@ public:
   DECLARE_SCHEME_CALLBACK (force_shift_callback, (SCM element, SCM axis));
   static void do_shifts (Grob*);
   static void add_column (Grob*me,Grob*ncol_l);
+  static bool has_interface(Grob*);
 };
 #endif // COLLISION_HH

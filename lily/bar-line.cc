@@ -164,11 +164,6 @@ Bar_line::before_line_breaking (SCM smob)
 }
   
 
-bool
-Bar_line::has_interface (Grob*m)
-{
-  return m && m->has_interface (ly_symbol2scm ("bar-line-interface"));
-}
 
 
 MAKE_SCHEME_CALLBACK (Bar_line,get_staff_bar_size,1);

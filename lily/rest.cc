@@ -115,11 +115,6 @@ Rest::extent_callback (SCM smob, SCM ax)
   return ly_interval2scm (unsmob_molecule (m)->extent (a));
 }
 
-bool
-Rest::has_interface (Grob*m)
-{
-  return m && m->has_interface (ly_symbol2scm ("rest-interface"));
-}
 
 
 ADD_INTERFACE (Rest,"rest-interface",

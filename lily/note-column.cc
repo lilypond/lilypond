@@ -126,11 +126,6 @@ Note_column::first_head (Grob*me)
   return st?  Stem::first_head (st): 0; 
 }
 
-bool
-Note_column::has_interface (Grob*me)
-{
-  return me && me->has_interface (ly_symbol2scm ("note-column-interface"));
-}
 
 /*
   Return the first Accidentals grob that we find in a note-head. 

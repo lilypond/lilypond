@@ -248,11 +248,6 @@ Span_bar::get_bar_size (SCM smob)
 }
 
 
-bool
-Span_bar::has_interface (Grob*m)
-{
-  return m && m->has_interface (ly_symbol2scm ("span-bar-interface"));
-}
 
 ADD_INTERFACE (Span_bar,"span-bar-interface",
   "A bar line that spans other barlines (typically used to get cross-staff barlines.",

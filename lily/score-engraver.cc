@@ -8,7 +8,7 @@
 
 #include "debug.hh"
 
-#include "line-of-score.hh"
+#include "system.hh"
 #include "item.hh"
 #include "score-engraver.hh"
 #include "paper-score.hh"

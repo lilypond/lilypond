@@ -78,12 +78,17 @@ Script::brew_molecule (SCM smob)
   return get_molecule (me, dir).smobbed_copy ();
 }
 
-bool
-Script::has_interface (Grob*me)
-{
-  return me->has_interface (ly_symbol2scm ("script-interface"));
-}
 
+
+struct Text_script
+{
+    static bool has_interface (Grob*);
+};
+
+struct Skript
+{
+    static bool has_interface (Grob*);
+};
 
 ADD_INTERFACE (Text_script,"text-script-interface",
   "Any text script",

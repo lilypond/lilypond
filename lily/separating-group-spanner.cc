@@ -135,11 +135,6 @@ Separating_group_spanner::add_spacing_unit (Grob* me ,Item*i)
 }
 
 
-bool
-Separating_group_spanner::has_interface (Grob*)
-{//todo
-  assert (false);
-}
 
 
 

@@ -14,7 +14,7 @@
 #include "paper-score.hh"
 #include "paper-def.hh"
 #include "simple-spacer.hh"
-#include "line-of-score.hh"
+#include "system.hh"
 
 /// How often to print operator pacification marks?
 const int HAPPY_DOTS_I = 3;

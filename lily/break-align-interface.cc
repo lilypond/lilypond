@@ -58,7 +58,7 @@ Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
   /*
     Force break alignment itself to be done first, in the case
    */
-  return Side_position_interface::aligned_on_self (element_smob, axis);  
+  return Self_alignment_interface::aligned_on_self (element_smob, axis);  
 }
 
 void
@@ -213,7 +213,6 @@ Break_align_interface::do_alignment (Grob *me)
       elems[i]->translate_axis (here, X_AXIS);
     }
 }
-
 
 
 ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",

@@ -476,16 +476,11 @@ Tuplet_bracket::add_column (Grob*me, Item*n)
 }
 
 
-bool
-Tuplet_bracket::has_interface (Grob*me)
-{
-  return me->has_interface (ly_symbol2scm ("tuplet-bracket-interface"));
-}
 
 
 
 
 ADD_INTERFACE (Tuplet_bracket,"tuplet-bracket-interface",
   "A bracket with a number in the middle, used for tuplets.",
-  "note-columns padding gap left-position right-position bracket-visibility number-visibility thickness direction");
+  "note-columns edge-width edge-height shorten-pair padding gap left-position right-position bracket-visibility number-visibility thickness direction");
 

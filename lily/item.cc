@@ -13,7 +13,7 @@
 #include "paper-column.hh"
 #include "spanner.hh"
 #include "lily-guile.hh"
-#include "line-of-score.hh"
+#include "system.hh"
 #include "group-interface.hh"
 
 Item::Item (SCM s)
@@ -195,6 +195,8 @@ unsmob_item (SCM s )
 {
   return dynamic_cast<Item*> (unsmob_grob (s));
 }
+
+
 
 ADD_INTERFACE(Item,
 	      "item-interface",

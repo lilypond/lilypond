@@ -10,7 +10,7 @@
 #include <math.h>
 #include <stdio.h>
 
-#include "line-of-score.hh"
+#include "system.hh"
 #include "paper-def.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
@@ -52,6 +52,7 @@ public:
   static void do_measure (Rational, Grob*me,Link_array<Grob> *cols);
   static void musical_column_spacing (Grob*,Item*,Item*, Real, Rational); 
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM ));
+  static bool has_interface (Grob*);
 };
 
 /*

@@ -120,7 +120,7 @@ Syllable_group::set_lyric_align (const char *punc, Grob *default_notehead_l)
     // centre on notehead ... if we have one. 
     if (notehead_l_) {
       lyric->set_parent (notehead_l_, X_AXIS);
-      lyric->add_offset_callback (Side_position_interface::centered_on_parent_proc, X_AXIS);
+      lyric->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       // reference is on the right of the notehead; move it left half way, and add translation
       lyric->translate_axis (group_translation_f_- (notehead_l_->extent (notehead_l_, X_AXIS)).center (), X_AXIS);
     }
@@ -286,7 +286,10 @@ Syllable_group::make_entry ()
   return vi->smobbed_self ();
 }
 
-
+struct Lyric_syllable
+{
+    static bool has_interface (Grob*);
+};
 ADD_INTERFACE (Lyric_syllable,"lyric-syllable-interface",
   "a single piece of lyrics",
   "word-space alignment ignore-length-mismatch begin-alignment end-alignment");

@@ -183,8 +183,8 @@ Fingering_engraver::make_script (Direction d, Music *r,Axis a,  int i)
   
   Side_position_interface::set_axis (fingering, a);
       
-  fingering->add_offset_callback (Side_position_interface::aligned_on_self_proc, other);
-  fingering->add_offset_callback (Side_position_interface::centered_on_parent_proc, other);
+  fingering->add_offset_callback (Self_alignment_interface::aligned_on_self_proc, other);
+  fingering->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, other);
   fingering->set_grob_property ("script-priority",
 				gh_int2scm (100 + d* i));
 

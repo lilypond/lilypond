@@ -84,11 +84,6 @@ Hara_kiri_group_spanner::add_element (Grob * me, Grob *e)
 
 
 
-bool
-Hara_kiri_group_spanner::has_interface (Grob*me)
-{
-  return me->has_interface (ly_symbol2scm ("hara-kiri-group-interface"));
-}
 
 void 
 Hara_kiri_group_spanner::add_interesting_item (Grob* me,Grob* n)

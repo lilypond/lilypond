@@ -95,11 +95,6 @@ Staff_symbol::staff_space (Grob*me)
   return ss;
 }
 
-bool
-Staff_symbol::has_interface (Grob*m)
-{
-  return m && m->has_interface (ly_symbol2scm ("staff-symbol-interface"));
-}
 
 
 

@@ -21,6 +21,7 @@ struct Font_interface
   static SCM add_style (Grob*, SCM style, SCM alist_chain);
   static bool wild_compare (SCM field_val, SCM val);
   DECLARE_SCHEME_CALLBACK (properties_to_font_name, (SCM,SCM));
+  static bool has_interface (Grob*);
 };
 
 #endif /* FONT_INTERFACE_HH */

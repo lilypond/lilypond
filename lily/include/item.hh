@@ -41,6 +41,7 @@ public:
   virtual System * line_l () const;
   virtual Paper_column * column_l () const;
   virtual void handle_prebroken_dependencies ();
+  static  bool has_interface (Grob*);
 protected:
   virtual void discretionary_processing ();
   void copy_breakable_items ();

@@ -15,6 +15,7 @@
 #include "side-position-interface.hh"
 #include "directional-element-interface.hh"
 #include "multi-measure-rest.hh"
+#include "tie.hh"
 
 class A2_engraver : public Engraver
 {
@@ -140,9 +141,7 @@ A2_engraver::acknowledge_grob (Grob_info i)
   if (!to_boolean (get_property ("noDirection"))
       && (Stem::has_interface (i.grob_l_)
 	  || Slur::has_interface (i.grob_l_)
-	  // || Tie::has_interface (i.grob_l_)
-	  || i.grob_l_->has_interface (ly_symbol2scm ("tie-interface"))
-	  
+	  || Tie::has_interface (i.grob_l_)
 	  /*
 	    Usually, dynamics are removed by *_devnull_engravers for the
 	    second voice.  On the one hand, we don't want all dynamics for
@@ -150,9 +149,9 @@ A2_engraver::acknowledge_grob (Grob_info i)
 	    hand, colliding of scripts may be worse.
 	    So, we don't set directions for these when we're playing solo.
 	  */
-	  || (i.grob_l_->has_interface (ly_symbol2scm ("dynamic-interface"))
+	  || (i.grob_l_->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
 	      && state_ != SOLO)
-	  || (i.grob_l_->has_interface (ly_symbol2scm ("text-interface"))
+	  || (i.grob_l_->internal_has_interface (ly_symbol2scm ("text-interface"))
 	      && state_ != SOLO)
 	  ))
     {

@@ -21,7 +21,7 @@
 #include "grob.hh"
 #include "debug.hh"
 #include "spanner.hh"
-#include "line-of-score.hh"
+#include "system.hh"
 #include "item.hh"
 #include "paper-column.hh"
 #include "molecule.hh"
@@ -931,7 +931,7 @@ init_functions ()
 }
 
 bool
-Grob::has_interface (SCM k)
+Grob::internal_has_interface (SCM k)
 {
   SCM ifs = get_grob_property ("interfaces");
 
@@ -946,6 +946,7 @@ ADD_INTERFACE (Grob, "grob-interface",
   "All grobs support this",
   "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause
 Y-extent-callback molecule-callback extra-offset
+spacing-procedure
 staff-symbol interfaces dependencies extra-extent-X causes meta
 layer before-line-breaking-callback after-line-breaking-callback extra-extent-Y minimum-extent-X minimum-extent-Y transparent");
 

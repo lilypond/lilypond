@@ -40,7 +40,7 @@ Text_spanner::brew_molecule (SCM smob)
   Grob *me= unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner*> (me);
 
-  if (spanner->has_interface (ly_symbol2scm ("piano-pedal-interface")) ) 
+  if (spanner->internal_has_interface (ly_symbol2scm ("piano-pedal-interface")) ) 
     {
       setup_pedal_bracket(spanner);
     }
@@ -245,7 +245,7 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
       height[LEFT] = 0;
       Grob * textbit = me->get_parent(Y_AXIS);
       extra_short = padding;
-      if (textbit->has_interface(ly_symbol2scm("text-interface"))) 
+      if (textbit->internal_has_interface(ly_symbol2scm("text-interface"))) 
 	// for plain text, e.g., Sost. Ped.
 	{
 	  SCM text  =  textbit->get_grob_property("text"); 
@@ -281,12 +281,13 @@ Text_spanner::setup_pedal_bracket(Spanner *me)
 }
 
 
-
+struct Pianopedal
+{
+    static bool has_interface (Grob*);
+};
 ADD_INTERFACE (Pianopedal,"piano-pedal-interface",
   "",
   "pedal-type edge-width edge-height shorten-pair text-start left-widen right-widen");
-
-
 
 ADD_INTERFACE (Text_spanner,"text-spanner-interface",
   "generic text spanner",

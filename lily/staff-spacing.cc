@@ -19,12 +19,6 @@
 #include "note-column.hh"
 #include "stem.hh"
 
-bool
-Staff_spacing::has_interface (Grob* g)
-{
-  return g && g->has_interface (ly_symbol2scm ("staff-spacing-interface"));
-}
-
 /*
   Insert some more space for the next note, in case it has a stem in
   the wrong direction

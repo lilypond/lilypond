@@ -50,11 +50,6 @@ Rhythmic_head::set_dots (Grob*me,Item *dot_l)
 
 
 
-bool
-Rhythmic_head::has_interface (Grob*me)
-{
-  return me &&  me->has_interface (ly_symbol2scm ("rhythmic-head-interface"));
-}
 
 
 ADD_INTERFACE (Rhythmic_head,"rhythmic-head-interface",

@@ -19,6 +19,7 @@
  */
 struct Time_signature
 {
+  static bool has_interface (Grob*);
   static Molecule special_time_signature (Grob*,String,int,int) ;
   static Molecule time_signature (Grob*,int, int);
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));

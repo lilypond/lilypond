@@ -6,7 +6,7 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   */
 
-#include "key-item.hh"
+
 #include "command-request.hh"
 #include "musical-request.hh"
 #include "item.hh"

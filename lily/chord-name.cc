@@ -12,7 +12,7 @@
 #include "font-interface.hh"
 #include "grob.hh"
 #include "paper-column.hh"
-#include "line-of-score.hh"
+#include "system.hh"
 #include "staff-symbol-referencer.hh"
 #include "text-item.hh"
 

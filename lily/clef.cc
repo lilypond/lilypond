@@ -46,11 +46,6 @@ Clef::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-bool
-Clef::has_interface (Grob* me)
-{
-  return me->has_interface (ly_symbol2scm ("clef-interface"));
-}
 
 
 

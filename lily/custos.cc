@@ -111,11 +111,6 @@ Custos::brew_molecule (SCM smob)
     return SCM_EOL;
 }
 
-bool
-Custos::has_interface (Grob*m)
-{
-  return m && m->has_interface (ly_symbol2scm ("custos-interface"));
-}
 
 ADD_INTERFACE (Custos, "custos-interface",
   "A custos is a staff context symbol that appears at the end of a

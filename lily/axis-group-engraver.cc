@@ -155,7 +155,7 @@ Hara_kiri_engraver::acknowledge_grob (Grob_info i)
 {
   Axis_group_engraver::acknowledge_grob (i);
   if (Rhythmic_head::has_interface (i.grob_l_)
-      || i.grob_l_->has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+      || i.grob_l_->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     {
       Hara_kiri_group_spanner::add_interesting_item (staffline_p_, i.grob_l_);
     }

@@ -17,11 +17,6 @@
 
 
 
-bool
-Tie_column::has_interface (Grob*me)
-{
-  return  me->has_interface (ly_symbol2scm ("tie-column-interface"));
-}
 
 
 /*

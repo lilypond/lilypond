@@ -18,6 +18,10 @@ void add_interface (const char * symbol,
 SCM ly_add_interface (SCM, SCM, SCM); 
 
 #define ADD_INTERFACE(cl,a,b,c) \
+bool cl::has_interface(Grob*me)\
+{\
+  return me->internal_has_interface (ly_symbol2scm (a));\
+}\
 void cl ## _init_ifaces() {\
   add_interface(a,b,c);\
 }\

@@ -23,6 +23,8 @@
 struct Key_signature_interface
 {
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
+
+  static bool has_interface (Grob*);
 };
 
 

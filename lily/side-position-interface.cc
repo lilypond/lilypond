@@ -145,43 +145,6 @@ Side_position_interface::aligned_on_support_refpoints (SCM smob, SCM axis)
 }
 
 
-/**
-  callback that centers the element on itself
-
-  Requires that self-alignment-{X,Y} be set.
- */
-MAKE_SCHEME_CALLBACK (Side_position_interface,aligned_on_self,2);
-SCM
-Side_position_interface::aligned_on_self (SCM element_smob, SCM axis)
-{
-  Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
-  String s ("self-alignment-");
-
-  s += (a == X_AXIS) ? "X" : "Y";
-
-  SCM align (me->get_grob_property (s.ch_C ()));
-  if (gh_number_p (align))
-    {
-      Interval ext (me->extent (me,a));
-
-      if (ext.empty_b ())
-	{
-	  programming_error ("I'm empty. Can't align on self");
-	  return gh_double2scm (0.0);
-	}
-      else
-	{
-	  return gh_double2scm (- ext.linear_combination (gh_scm2double (align)));
-	}
-    }
-  else if (unsmob_grob (align))
-    {
-      return gh_double2scm (- unsmob_grob (align)->relative_coordinate (me,  a));
-    }
-  return gh_double2scm (0.0);
-}
-
 
 
 Real
@@ -258,21 +221,6 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
   return gh_double2scm (o);
 }
 
-/*
-  Position centered on parent.
- */
-MAKE_SCHEME_CALLBACK (Side_position_interface,centered_on_parent,2);
-SCM
-Side_position_interface::centered_on_parent (SCM element_smob, SCM axis)
-{
-  Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) gh_scm2int (axis);
-  Grob *him = me->get_parent (a);
-
-  return gh_double2scm (him->extent (him,a).center ());  
-}
-
-
 void
 Side_position_interface::add_staff_support (Grob*me)
 {
@@ -321,11 +269,6 @@ Side_position_interface::set_padding (Grob*me, Real p)
   me->set_grob_property ("padding", gh_double2scm (p));
 }
 
-bool
-Side_position_interface::has_interface (Grob*me) 
-{
-  return me->has_interface (ly_symbol2scm ("side-position-interface"));
-}
 
 bool
 Side_position_interface::supported_b (Grob*me) 

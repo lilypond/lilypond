@@ -124,11 +124,6 @@ Axis_group_interface::get_children (Grob*me)
   return childs;
 }
 
-bool
-Axis_group_interface::has_interface (Grob*me)
-{
-  return me && me->has_interface (ly_symbol2scm ("axis-group-interface"));
-}
 
 
 ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
