@@ -115,7 +115,7 @@ spot which fragment is which?
    \stemDown b'4 e''4 a'4 e''4 | \bar "||"
    \override Staff.NoteSpacing #'stem-spacing-correction = #0.0
    \override Staff.StaffSpacing #'stem-spacing-correction = #0.0
-   \stemBoth c'4 e''4 e'4 b'4 |
+   \stemNeutral c'4 e''4 e'4 b'4 |
    \stemDown b'4 e''4 a'4 e''4 |
 }
 @end lilypond
