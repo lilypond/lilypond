@@ -4697,6 +4697,10 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 
 @c why not make identifiers in ly/engraver-init.ly? --hwn
 
+@c Because it's just used to typeset plain notes without
+@c a staff for demonstration purposes rather than something
+@c special of Gregorian chant notation. --jr
+
 @item
 @code{1. Punctum}
 @tab
@@ -4722,7 +4726,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -4764,7 +4768,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -4798,7 +4802,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -4835,7 +4839,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -4874,7 +4878,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -4908,7 +4912,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -4946,7 +4950,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -4985,7 +4989,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5023,7 +5027,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5057,7 +5061,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5094,7 +5098,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5132,7 +5136,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5166,7 +5170,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5203,7 +5207,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5237,7 +5241,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5275,7 +5279,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5309,7 +5313,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5347,7 +5351,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5381,7 +5385,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5419,7 +5423,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5453,7 +5457,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5487,7 +5491,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5524,7 +5528,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5558,7 +5562,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5592,7 +5596,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5629,7 +5633,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5663,7 +5667,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5697,7 +5701,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5734,7 +5738,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5768,7 +5772,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5802,7 +5806,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5839,7 +5843,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5873,7 +5877,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5907,7 +5911,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5944,7 +5948,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -5978,7 +5982,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
@@ -6016,7 +6020,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
             \StaffContext
             \remove "Clef_engraver"
             \remove "Key_engraver"
-            \remove "Staff_symbol_engraver"
+            StaffSymbol \set #'transparent = ##t
             \remove "Time_signature_engraver"
             \remove "Bar_engraver"
             minimumVerticalExtent = ##f
