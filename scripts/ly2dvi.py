@@ -296,12 +296,12 @@ def mkdir_p (dir, mode=0777):
 
 # if set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX 
-datadir = '@local_package_datadir@'
+datadir = '@local_lilypond_datadir@'
 
 if os.environ.has_key ('LILYPONDPREFIX') :
 	datadir = os.environ['LILYPONDPREFIX']
 else:
-	datadir = '@local_package_datadir@'
+	datadir = '@local_lilypond_datadir@'
 
 
 while datadir[-1] == os.sep:

@@ -9,7 +9,7 @@
 
 
 if [ -z "$LILYPONDPREFIX" ]; then
-    datadir=`echo "@datadir@" | sed 's!//!/!g'`
+    datadir=`echo "@local_lilypond_datadir@" | sed 's!//!/!g'`
 else
     if [ -d "$LILYPONDPREFIX/fonts" ]; then
 	datadir=$LILYPONDPREFIX
