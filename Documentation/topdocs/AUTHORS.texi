@@ -33,6 +33,8 @@ list is alphabetically ordered.
     @TeX{} titling and lytodvi.sh
 @item @email{foka@@debian.org, Anthony Fok}, 
     Debian package: debian/*
+@item  David Gonz@'alez
+  Spanish glossary translations.
 @item @email{jlhamm@@pacificnet.net, James Hammons},
     American chord names, gnu-windows testing
 @item @email{bjoern.jacke@@gmx.de, Bjoern Jacke}
@@ -78,7 +80,9 @@ list is alphabetically ordered.
 @item @email{reuter@@ipd.uka.de, Juergen Reuter}
         Ancient notation  support (custos, porrectus, mensural notation,
         ancient clefs, etc.)
-@item @email{august@@infran.ru, August S.Sigov}
+
+
+        @item @email{august@@infran.ru, August S.Sigov}
     Russian translation
 @item @email{rune@@zedeler.dk, Rune Zedeler}
     Drum notation, beaming and auto-accidental code. Font

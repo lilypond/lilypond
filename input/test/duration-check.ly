@@ -1,4 +1,14 @@
 \version "1.7.16"
+\header {
+
+    texidoc = "Check whether all @code{duration} properties can 
+be printed. This once helped track down an obscure memory corruption
+bug.  "
+
+}
+
+
+
 #(define (duration-check music)
   "Check all rest durations in MUSIC"
 

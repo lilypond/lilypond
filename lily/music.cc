@@ -65,7 +65,6 @@ Music::compress (Moment)
 {
 }
 
-
 Music::Music (Music const &m)
 {
   immutable_property_alist_ = m.immutable_property_alist_;
@@ -244,7 +243,9 @@ LY_DEFINE(ly_get_music_length,
 
 LY_DEFINE(ly_get_mus_property,
 	  "ly:get-mus-property", 2, 0, 0,  (SCM mus, SCM sym),
-	  "Get the property @var{sym} of music expression @var{mus}.")
+	  "Get the property @var{sym} of music expression @var{mus}.\n"
+	  "If @var{sym} is undefined, return @code{'()}.\n"
+	  )
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "music");
