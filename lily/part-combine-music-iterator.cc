@@ -130,12 +130,8 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
   /*
     TODO:
 
-    * fix rhythm check
-
-    * check setting/resetting of properties
-
-    Later (because currently, we only handle thread switching, really):
-
+    (check): can this all be handled now?
+    
     Maybe different modes exist?
 
     * Wind instruments (Flute I/II)
@@ -179,8 +175,12 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
   bool solo_b = (first_arr_l->empty () != second_arr_l->empty ());
 
   /*
-    Urg, this doesn't work at all.  Do we need to send out another inquisition?
+    Urg, this won't work at end of music.  Should interrogate rhythm.
    */
+  if (first_iter_p_->ok ())
+    first_next = first_iter_p_->next_moment ();
+  if (second_iter_p_->ok ())
+    second_next = second_iter_p_->next_moment ();
   bool unirhythm_b = (first_next == second_next) && !solo_b;
 
   Translator_group * fd = fir->find_create_translator_l (p->what_str_, "one");
