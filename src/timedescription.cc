@@ -68,7 +68,7 @@ Time_description::set_meter(int l, int o)
     one_beat = 1/Moment(o);
     whole_per_measure = Moment(l) * one_beat;
     if(whole_in_measure)
-	error_t("Meterchange should be at start of measure", when);
+	error_t("Meterchange should be at start of measure", *this);
 }
 
 void

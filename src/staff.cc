@@ -1,7 +1,7 @@
 #include "staff.hh"
 #include "score.hh"
 #include "voice.hh"
-#include "swalker.hh"
+#include "staffwalker.hh"
 #include "stcol.hh"
 #include "sccol.hh"
 #include "staffcommands.hh"
@@ -15,10 +15,25 @@ Staff::do_commands(PointerList<Input_command*> score_wide,
 		   PointerList<Input_command*> staff_wide)
 {
     Input_commands commands;
+
+    // bring in commands from voices.
+    for (iter_top(voices, i); i.ok(); i++) {
+	Moment here = i->start;
+	for (iter_top(i->elts, j); j.ok(); j++) {
+	    for (iter_top(j->reqs, k); k.ok(); k++) {
+		if (k->command()){
+		    commands.find_moment(here);
+		    commands.add(*k->command()->com_p_,
+				 score_l_->markers_assoc_);
+		}
+	    }
+	    here += j->duration;
+	}
+    }
     for (iter_top(score_wide,i); i.ok(); i++) 
 	commands.add(**i, score_l_->markers_assoc_);
     for (iter_top(staff_wide,i); i.ok(); i++) 
-	commands.add(**i,score_l_->markers_assoc_);
+	commands.add(**i, score_l_->markers_assoc_);
 
     commands.parse(this);
 }

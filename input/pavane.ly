@@ -33,8 +33,8 @@ staff {melodic
 	e4 fis4 () [fis e fis gis]	|
 	cis4 `b4()`b8 r8 r4^"tr\`es soutenu"	|
 
-	r4 r4	| %2/4 meter
-
+	\command { \meter 2 *4 } r4 r4	|
+	\command { \meter 4 *4 }
 	'cis4_"\dyn ppp" 'd4 () ['d 'cis 'd 'e] |
 	a4 gis2.	|
 	a4 b4()[b a b 'cis]	|
@@ -70,7 +70,9 @@ staff {melodic
 	| [f a 'c] \plet{1/1} 'e4-^ () ['e f-> a-> 'c->]	|
 	'e4._"sf" 'e8()'c4 r4 |
 	r1	|
-	r4 r4-\fermata	
+	\command { \meter 2 *4 } r4 r4-\fermata
+	\command { \meter 4 *4 }
+
 	\octave { ' }
 	|d2( [)d e cis `b]	|
 	`a4 [`b cis] [cis `b] `b4	|
@@ -104,13 +106,10 @@ score {
 	commands  {
 		meter 4 *4
 		skip 18:0
-		meter 2 *4
 		skip 1:0
-		meter 4 *4 
 		skip 20:0
 		bar "|:"
 		skip 9:0
-		meter 2* 4
 		skip 1:0
 		bar ":|"
 		meter 4* 4

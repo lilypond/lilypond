@@ -27,8 +27,8 @@ error(String s)
 void
 error_t(const String& s, const Moment& r)
 {
-    String t_mom = String(trunc(r)) +  (r - Moment(trunc(r)));
-    String e=s+ "(t = " +  t_mom + ")";
+    String t_mom = String(trunc(r)) + String(r - Moment(trunc(r)));
+    String e=s+ " (t = " +  t_mom + ")";
     error(e);
 }
 
@@ -36,6 +36,6 @@ error_t(const String& s, const Moment& r)
 void
 error_t(const String& s, Time_description const &t_tdes)
 {
-    String e=s+ "(at " + t_tdes.bars + ": " + t_tdes.whole_in_measure + ")\n";
+    String e=s+ " (at t=" + t_tdes.bars + ": " + t_tdes.whole_in_measure + ")\n";
     error(e);
 }

@@ -1,3 +1,6 @@
+pl 24:
+	- Lyrics
+	- Commands in music-mode (an input feature) (there you are, Mats)
 
 pl 23:
 	- TODO file inc'd
@@ -6,9 +9,10 @@ pl 23:
 	- error.pod,faq.pod
 	- Markers
 	- configure script
-	- scrapped VPATH
 	- inputfile name in output.
 Internal changes:
+	- scrapped VPATH
+	- Make dependencies per .o
 	- Split Input_* parsing steps to enable marking	
 Bugfixes:
 	- unconnected columns
