@@ -11,11 +11,15 @@
 
 	* lilypond-mode.el: Added "2Midi" command
 
+2002-04-06  Chris Jackson <chris@fluffhouse.org.uk>
+
+	* lilypond-indent.el: Support for blinking of matching parentheses
+	
+	* lilypond-font-lock.el: Fix fontification of closing > on its own line
+	
+	* pedal patches.
+
 2002-04-05  Han-Wen  <hanwen@cs.uu.nl>
-
-
-	* patches from Chris Jackson for pedals.
-
 
 	* mf/cmbase.mf: remove file. -- do without s and z signs for now.
 

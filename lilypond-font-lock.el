@@ -9,8 +9,8 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.5.47
-;; Last Modified: 26MAR2002
+;; Version:       1.5.50
+;; Last Modified: 6APR2002
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -137,12 +137,14 @@
 
 ;; highlight bracketing constructs
       '("\\([][}{]\\)" 0 font-lock-warning-face t)
-;; these regexps allow angle-brackets to be highlighted,
-;; but leave accented notes, e.g. a b c->, alone
+      ;; these regexps allow angle-brackets to be highlighted when and only when they delimit simultaneous music
+      ;; fontify open < but leave crescendos \< alone
       '("[^\\]\\(<\\)" 1 font-lock-warning-face t)
-      '("[_^-]\\s-*[-^]\\s-*\\(>\\)" 1 font-lock-warning-face t)
-      '("[^\\t\\n _^-]\\s-*\\(>\\)" 1 font-lock-warning-face t)
-
+      ;; fontify the close-brackets in <a b c--> (tenuto) and <a b c-^> (marcato)
+      '("[_^-]\\s-*[-^]\\s-*\\(>\\)" 1 font-lock-warning-face t) 
+      ;; but leave a b c-> (accent) alone, accounting for whitespace
+      '("\\([^\\t\\n _^-]\\|^\\)\\s-*\\(>\\)" 2 font-lock-warning-face t)
+      ;; ties ~, slurs (), hairpins \<,  \>, end-of-hairpin \!, 
       '("\\([(~)]\\|\\\\<\\|\\\\!\\|\\\\>\\)" 0 font-lock-builtin-face t)
 
 ;; highlight comments (again)
@@ -169,9 +171,9 @@
 	   (lambda (x) (modify-syntax-entry
 			(car x) (cdr x) LilyPond-mode-syntax-table)))
 	  '(( ?\( . "." ) ( ?\) . "." ) 
-	    ( ?\[ . "(]" ) ( ?\] . ")[" )
-	    ( ?\{  .  "(}2b" )
-	    ( ?\}  .  "){4b" )
+	    ( ?\[ . "(]" ) ( ?\] . ")[" ) ;; all the other paren characters are now handled by          
+	    ( ?\{  .  ".2b" )             ;; lily-specific indenting/matching code in lilypond-indent.el 
+	    ( ?\}  .  ".4b" )              
 	    ( ?\< . "." )( ?\> . ".") 
 	    ( ?\$ . "." ) ( ?\% . "." ) ( ?\& . "." )
 	    ( ?\* . "." ) ( ?\+ . "." )

@@ -7,9 +7,6 @@
   
   Chris Jackson <chris@fluffhouse.org.uk> - extended to support
   bracketed pedals.
-
-  TODO: support for __| |__ or __| Ped  instead of  ___/\__ for pedal up-down
-
 */
 
 #include "engraver.hh"
@@ -58,6 +55,7 @@ private:
 
   Spanner *previous_p_ [4]; // Record a stack of the current pedal spanners, so if more than one pedal
   int nspanners_i;          // occurs simultaneously then extra space can be added between them.
+  Drul_array<SCM> edge_width_drul_; // Left and right flare widths of a \___/, as specified by the grob property edge-width.
   void create_text_grobs (Pedal_info *p, SCM pedaltype);
   void create_bracket_grobs (Pedal_info *p, SCM pedaltype);
   void typeset_all();
@@ -291,10 +289,14 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 
       p->bracket_p_->set_bound (RIGHT, unsmob_grob(get_property ("currentMusicalColumn")));
 
-      // Set a property so that the molecule-creating function will know whether the right edge should be flared ___/
-      p->bracket_p_->set_grob_property("right-widen", gh_bool2scm((bool) p->req_l_drul_[START]) );
+      // Set properties so that the molecule-creating function will know whether the right edge should be flared ___/
+      SCM eleft = ly_car ( p->bracket_p_->get_grob_property("edge-width") );
+      SCM eright = ( (bool) p->req_l_drul_[START]  ?
+		     edge_width_drul_[RIGHT] : 
+		     gh_double2scm(0) );
+      p->bracket_p_->set_grob_property("edge-width", gh_cons ( eleft, eright ) );
       add_bound_item (p->line_spanner_, p->bracket_p_->get_bound (RIGHT));	  
-
+      
       p->finished_bracket_p_ = p->bracket_p_;
       p->bracket_p_ = 0;
       p->current_bracket_req_ = 0;
@@ -308,8 +310,14 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 
       p->bracket_p_  = new Spanner (get_property ("PianoPedalBracket"));
 
-      // Set a property so that the molecule-creating function will know whether the left edge should be flared \___
-      p->bracket_p_->set_grob_property("left-widen", gh_bool2scm((bool) p->req_l_drul_[STOP]) );
+      // Set properties so that the molecule-creating function will know whether the left edge should be flared \___
+      edge_width_drul_[LEFT] =  ly_car ( p->bracket_p_->get_grob_property("edge-width") );
+      edge_width_drul_[RIGHT] = ly_cdr ( p->bracket_p_->get_grob_property("edge-width") );
+      SCM eleft = ( (bool) p->req_l_drul_[STOP]  ? 
+		    edge_width_drul_[LEFT]  :
+		    gh_double2scm(0) );
+      SCM eright = gh_double2scm(0);
+      p->bracket_p_->set_grob_property("edge-width", gh_cons ( eleft, eright ) );
 
       // Set this property for 'mixed style' pedals,    Ped._______/\ ,  
       // so the molecule function will shorten the ____ line by the length of the Ped. text. 
@@ -319,7 +327,7 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, SCM pedaltype)
 				       gh_bool2scm(false));
       if (p->item_p_)
 	p->bracket_p_->set_parent (p->item_p_, Y_AXIS);
-      
+
       p->bracket_p_->set_bound (LEFT, unsmob_grob (get_property ("currentMusicalColumn")));
       Axis_group_interface::add_element (p->line_spanner_, p->bracket_p_);	      
 

@@ -54,11 +54,13 @@ Stem_engraver::acknowledge_grob (Grob_info i)
       if (Rhythmic_head::stem_l (h))
 	return;
 
-      /*
-	We take the duration-log of the head; this is because
-	auto-tieing does strange things with the rhythmics.
-       */
-      int duration_log  =gh_scm2int (h->get_grob_property ("duration-log"));
+      /* Reverted to the old method so chord tremolos work again. /MB 
+      */
+      int duration_log = 0;
+      Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (i.music_cause ()); 
+      if (rhythmic_req)
+	duration_log = unsmob_duration (rhythmic_req->get_mus_property ("duration"))-> duration_log (); 
+      
       if (!stem_p_) 
 	{
 	  stem_p_ = new Item (get_property ("Stem"));

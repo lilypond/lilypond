@@ -6,7 +6,6 @@
 
 Protected_scm all_ifaces;
 
-
 void add_interface (const char * symbol,
 		    const char * descr,
 		    const char * vars)

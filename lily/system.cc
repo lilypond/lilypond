@@ -546,4 +546,4 @@ grob has a Line_of_score as both X and Y reference point. The
 Paper_score contains one grob of this type. Control enters the
 Grob dependency calculation from this single Line_of_score
 object.",
-  "between-system-string spacing-procedure before-line-breaking-callback after-line-breaking-callback all-elements columns");
+  "between-system-string spacing-procedure all-elements columns");
