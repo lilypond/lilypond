@@ -21,7 +21,7 @@ MODULE_NAME = flower
 # edit .version only
 include ./$(depth)/flower/.version
 include ./$(depth)/.version
-build = ./$(depth)/flower/lib/.build
+build = ./$(depth)/flower/$(outdir)/.build
 #
 
 # generic variables:
@@ -36,9 +36,9 @@ SUBDIRS = lib test
 
 # list of distribution files:
 #
-SCRIPTS = # make_version make_patch genheader clearlily configure
+SCRIPTS = 
 README_FILES = NEWS README TODO
-DISTFILES= Makefile .version $(README_FILES) $(SCRIPTS)
+DISTFILES= configure config.hh.in configure.in Makefile .version $(README_FILES) $(SCRIPTS)
 #
 
 # generic targets and rules:
@@ -49,8 +49,5 @@ include ./$(depth)/make/Rules.make
 
 # version:
 #
-flower-version: $(flower-dir)/$(genout) $(flower-version)
-$(flower-version): ./$(depth)/flower/.version ./$(bindir)/make_fversion $(build)
-	./$(bindir)/make_fversion "$(MAJOR_VERSION)" "$(MINOR_VERSION)" "$(PATCH_LEVEL)" "$(MY_PATCH_LEVEL)" "$(BUILD)" "$(CXX) $(CXXVER)" > $@
-#
 
+localdist: configure

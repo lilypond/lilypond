@@ -20,7 +20,7 @@ MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
 PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
 # use to send patches, always empty for released version:
 MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-build = ./$(depth)/lily/.build
+build = ./$(depth)/lily/$(outdir)/.build
 #
 
 # generic variables:
@@ -31,7 +31,7 @@ include ./$(depth)/make/Variables.make
 
 # ugh
 # initdefault: $(CCDIR)/parser.cc $(CCDIR)/lexer.cc hdr/version.hh alldeps
-initdefault: check-flower-version $(lily-version) check-mi2mu-version dummydep
+initdefault: dummydep
 #	$(MAKE) -C ./$(depth)/lily $(outdir)/parser.cc
 
 # generic targets and rules:
