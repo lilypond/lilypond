@@ -1,0 +1,224 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename NEWS.info
+@settitle NEWS
+
+@node Top, , , 
+@top
+
+
+@chapter        New features in 1.8 since 1.6
+
+@itemize
+
+@item 
+The chord entry code has been completely rewritten. It is now
+cleaner and more flexible.
+
+@item 
+A new syntax has been added for text entry.  This syntax is more
+friendly than the old mechanism, and it is implemented in a more
+robust and modular way. For more information, refer to the section on
+"Text markup" in the notation manual.
+
+@item 
+The integration of the input language and Scheme has been made deeper:
+you can now use LilyPond identifiers in Scheme, and use Scheme
+expressions instead of LilyPond identifiers.
+
+@item 
+The internal representation of music has been cleaned up completely
+and converted to Scheme data structures.  The representation may be
+exported as XML.
+
+@item 
+A new uniform postfix syntax for articulation has been introduced.
+A beamed slurred pair of eighth notes can be entered as
+
+@example
+	c8-[-( d8-]-) 
+@end example
+
+In version 2.0, postfix syntax will be the only syntax
+available, and the dashes will become optional.
+
+This will simplify the language: all articulations can be entered as
+postfix, in any order.
+
+@item 
+A new syntax has been added for chords:
+
+
+@example
+	<< PITCHES >>
+@end example 
+
+It is not necessary to update files to this syntax, but it will be for
+using LilyPond version 2.0.  In version 2.0, this syntax will be
+changed to
+
+@example
+  < PITCHES >  for chords
+@end example
+
+and
+
+@example
+  \simultaneous @{ .. @} 
+@end example
+
+for simultaneous music.
+
+To convert your files from <PITCHES> to <<PITCHES>>, use the script
+included in buildscripts/convert-new-chords.py
+
+This change was introduced for the following reasons
+
+@itemize @bullet
+@item
+It solves the "start score with chord" problem, where you have to
+  state \context Voice explicitly when a chord was the start of a
+  Staff or Score.
+@item
+With the new syntax, it is possible to distinguish between
+  articulations (or fingerings) which are for a single chord note,
+  and which are for the entire chord. This allows for per-note
+  fingerings, and is more logical on the whole.
+@end itemize
+
+@item 
+User code may now be executed during interpreting.  The syntax for
+this code is
+
+@example
+	\applycontext #SCHEME-FUNCTION
+@end example
+
+@item 
+User code may now be executed on arbitrary grobs during interpreting.
+The syntax for this feature is
+
+@example
+	\applyoutput #SCHEME-FUNCTION
+@end example
+SCHEME-FUNCTION takes a single argument, and is called for every grob
+that is created in the current context.
+
+@item 
+New algorithms for chord-name formatting have been installed. They
+can be tuned and have ergonomic syntax for entering exceptions.
+
+@item 
+Texts may now be put on multimeasure rests, eg.
+
+@example
+	R1*20^\markup @{ "GP" @}
+@end example
+
+@item
+Ancient notation now prints ligatures in Gregorian square neumes
+notation, roughly following the typographical style of the Liber
+hymnarius of Solesmes, published in 1983.  Ligatures are still printed
+without the proper line breaking and horizontal spacing.
+
+@item 
+Glissandi can now be printed using the zigzag style.
+
+@item 
+LilyPond can now print clusters. The syntax is:
+
+@example
+	\apply #notes-to-clusters @{ NOTE NOTE .. @}
+@end example
+
+@item
+For irregular meters, beat grouping marks can be printed. The
+syntax for this is
+
+@example
+	#(set-time-signature 7 8 '(3 2 2))
+@end example
+
+
+@item 
+Nested horizontal brackets for music analysis can now be printed.
+
+@example
+	NOTE-\startGroup
+		..
+	NOTE-\stopGroup
+@end example
+
+
+@item  Ottava brackets are now fully supported as a feature.  The syntax
+is
+
+@example
+	#(set-octavation 1)
+@end example
+
+
+@item  Metronome markings are printed when a \tempo command is processed.
+
+
+
+@item Fingerings can be put on chords horizontally.
+
+
+
+@item  The appearance of various glyphs has been fine-tuned.
+
+
+
+@item  Different types of percent style repeats may now be nested.
+
+
+
+@item  The emacs support has been extended.
+
+
+@item 
+The manual has been completely revised and extended.
+
+@end itemize
+
+@chapter New features in 1.6 since 1.4
+
+
+
+Support for figured bass and tablature.
+
+Completely rewritten beam formatting: provides much better output
+now.
+
+Completely revised and improved music font.
+
+Completely rewritten MIDI import support.
+
+Completely rewritten grace note support. Practically speaking this
+means that grace notes can be slurred to normal normal notes.
+
+Improved accidental handling and formatting: styles for producing
+cautionaries may vary, and complex collisions between accidentals of a
+chord are handled much better.
+
+Better spacing: both globally and locally. This includes subtle
+details like optical stem spacing.
+
+More support for ancient notation: mensural ligatures, ambitus
+(pitch range) of voices, more shapes, etc.
+
+More support for piano notation: bracket pedals, directed arpeggios,
+arpeggio brackets.
+
+Easier music polyphonic music entry.
+
+More extensibility, many speedups and bugfixes
+
+The manual has been thoroughly revised.
+
+Development is now hosted at http://savannah.gnu.org, and sources
+can be downloaded through anonymous CVS.
+
+Support for windows: LilyPond is part of the cygwin distribution,
+which comes with a user-friendly installer.
+

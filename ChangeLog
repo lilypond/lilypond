@@ -1,3 +1,12 @@
+2003-07-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/topdocs/NEWS.texi (Top): rewrite NEWS in texinfo.
+
+	* python/lilylib.py (lilypond_version): 2.1 proof version check.
+
+	* lily/staff-symbol-referencer.cc (LY_DEFINE): lrint, the final
+	fix.
+	
 2003-07-25  Heikki Junes  <hjunes@cc.hut.fi>
 
         * Documentation/user/{ various }: bind text snippets with their
