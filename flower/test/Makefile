@@ -16,9 +16,9 @@ depth = ../..
 # identify module:
 #
 NAME =flower-test
-# include ./$(depth)/$(NAME)/.version
+# include ./$(depth)/$(NAME)/VERSION
 MODULE_NAME = flower
-include ./$(depth)/flower/.version
+include ./$(depth)/flower/VERSION
 
 #
 
@@ -48,8 +48,7 @@ EXECSTRINGTEST=$(EXECUTABLE)
 # don't do the exec, as this might fail if flowerlib isn't installed yet.
 default:  $(BUILDSTRINGTEST) 
 
-
-do-stringtest:
+test: $(EXECUTABLE)
 	$(EXECSTRINGTEST) > $(outdir)/result
 	cmp $(outdir)/result result
 
