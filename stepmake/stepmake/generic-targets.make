@@ -163,9 +163,23 @@ diff:
 release: 
 	$(PYTHON) $(step-bindir)/release.py --outdir=$(topdir)/$(outdir) --package=$(topdir)
 
+
+################ website.
+
 local-WWW:
 local-WWW-post:
 
 WWW: local-WWW
 	$(LOOP)
 	$(MAKE) local-WWW-post
+
+web:
+	$(MAKE) out=www WWW
+
+local-help: www-targets-help
+
+www-targets-help:
+	@echo -e "\
+  web         update website in out-www\n\
+  web-clean   clean out-www\n\
+"

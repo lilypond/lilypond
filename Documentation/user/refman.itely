@@ -159,14 +159,19 @@ Dots are normally moved up to avoid staff lines, except in polyphonic
 situations. The following commands may be used to force a particular
 direction manually.
 
-@refcommand dotsUp 
-@refcommand dotsDown 
-@refcommand dotsBoth
+@cindex @code{\dotsUp }
+@code{\dotsUp}, 
+@cindex @code{\dotsDown }
+@code{\dotsDown}, 
+@cindex @code{\dotsBoth}
+@code{\dotsBoth}, 
 
 Notes can be hidden and unhidden with the following commands.
 
-@refcommand hideNotes 
-@refcommand unHideNotes 
+@cindex @code{\hideNotes }
+@code{\hideNotes}, 
+@cindex @code{\unHideNotes }
+@code{\unHideNotes}, 
 
 
 @seealso
@@ -365,9 +370,12 @@ is invisible.
 
 @refcommands
 
-@refcommand stemUp
-@refcommand stemDown
-@refcommand stemBoth
+@cindex @code{\stemUp}
+@code{\stemUp}, 
+@cindex @code{\stemDown}
+@code{\stemDown}, 
+@cindex @code{\stemBoth}
+@code{\stemBoth}, 
 
 
 @node Ties
@@ -402,11 +410,16 @@ note splitting (See @ref{Automatic note splitting}).
 @refcommands
 
 
-@refcommand tieUp 
-@refcommand tieDown 
-@refcommand tieBoth 
-@refcommand tieDotted 
-@refcommand tieSolid
+@cindex @code{\tieUp }
+@code{\tieUp}, 
+@cindex @code{\tieDown }
+@code{\tieDown}, 
+@cindex @code{\tieBoth }
+@code{\tieBoth}, 
+@cindex @code{\tieDotted }
+@code{\tieDotted}, 
+@cindex @code{\tieSolid}
+@code{\tieSolid}, 
 
 @seealso 
 
@@ -478,9 +491,12 @@ instead.
 
 @refcommands
 
-@refcommand tupletUp  
-@refcommand tupletDown 
-@refcommand tupletBoth
+@cindex @code{\tupletUp  }
+@code{\tupletUp}, 
+@cindex @code{\tupletDown }
+@code{\tupletDown}, 
+@cindex @code{\tupletBoth}
+@code{\tupletBoth}, 
 
 @seealso
 
@@ -1005,8 +1021,10 @@ off.
 
 @refcommands
 
-@refcommand cadenzaOn 
-@refcommand cadenzaOff 
+@cindex @code{\cadenzaOn }
+@code{\cadenzaOn}, 
+@cindex @code{\cadenzaOff }
+@code{\cadenzaOff}, 
 
 @node Bar lines
 @subsection Bar lines
@@ -1062,7 +1080,7 @@ a measure it is set to @code{defaultBarType}. The contents of
 @code{repeatCommands} is used to override default measure bars.
 
 @code{whichBar} can also be set directly, using @code{\property} or
-@code{\bar  }.  These settings take precedence over the automatic
+@code{\bar}.  These settings take precedence over the automatic
 @code{whichBar} settings. 
 
 @cindex whichBar
@@ -1150,21 +1168,30 @@ LilyPond also vertically shifts rests that are opposite of a stem.
 
 
 
-@refcommand oneVoice 
-@refcommand voiceOne 
-@refcommand voiceTwo 
-@refcommand voiceThree 
-@refcommand voiceFour 
+@cindex @code{\oneVoice }
+@code{\oneVoice}, 
+@cindex @code{\voiceOne }
+@code{\voiceOne}, 
+@cindex @code{\voiceTwo }
+@code{\voiceTwo}, 
+@cindex @code{\voiceThree }
+@code{\voiceThree}, 
+@cindex @code{\voiceFour }
+@code{\voiceFour}, 
 
 The following commands specify in what chords of the current voice
 should be shifted: the outer voice has @code{\shiftOff}, and the inner
 voices have @code{\shiftOn}, @code{\shiftOnn}, etc.
 
 
-@refcommand shiftOn
-@refcommand shiftOnn  
-@refcommand shiftOnnn  
-@refcommand shiftOff  
+@cindex @code{\shiftOn}
+@code{\shiftOn}, 
+@cindex @code{\shiftOnn  }
+@code{\shiftOnn}, 
+@cindex @code{\shiftOnnn  }
+@code{\shiftOnnn}, 
+@cindex @code{\shiftOff  }
+@code{\shiftOff}, 
 
 
 
@@ -1374,8 +1401,10 @@ automatic beaming. This is done by setting @code{Voice.autoBeaming} to
 
 @refcommands
 
-@refcommand autoBeamOff 
-@refcommand autoBeamOn 
+@cindex @code{\autoBeamOff }
+@code{\autoBeamOff}, 
+@cindex @code{\autoBeamOn }
+@code{\autoBeamOn}, 
 
 
 @refbugs
@@ -1590,16 +1619,26 @@ voices in the same staff share accidentals, but staves do not.
 
 @refcommands
 
-@refcommand defaultAccidentals 
-@refcommand voiceAccidentals 
-@refcommand modernAccidentals 
-@refcommand modernCautionaries 
-@refcommand modernVoiceAccidentals 
-@refcommand modernVoiceCautionaries 
-@refcommand pianoAccidentals 
-@refcommand pianoCautionaries 
-@refcommand noResetKey 
-@refcommand forgetAccidentals 
+@cindex @code{\defaultAccidentals }
+@code{\defaultAccidentals}, 
+@cindex @code{\voiceAccidentals }
+@code{\voiceAccidentals}, 
+@cindex @code{\modernAccidentals }
+@code{\modernAccidentals}, 
+@cindex @code{\modernCautionaries }
+@code{\modernCautionaries}, 
+@cindex @code{\modernVoiceAccidentals }
+@code{\modernVoiceAccidentals}, 
+@cindex @code{\modernVoiceCautionaries }
+@code{\modernVoiceCautionaries}, 
+@cindex @code{\pianoAccidentals }
+@code{\pianoAccidentals}, 
+@cindex @code{\pianoCautionaries }
+@code{\pianoCautionaries}, 
+@cindex @code{\noResetKey }
+@code{\noResetKey}, 
+@cindex @code{\forgetAccidentals }
+@code{\forgetAccidentals}, 
 
 @seealso
 
@@ -1692,11 +1731,16 @@ stems might look better:
 @refcommands
 
 
-@refcommand slurUp   
-@refcommand slurDown 
-@refcommand slurBoth 
-@refcommand slurDotted 
-@refcommand slurSolid 
+@cindex @code{\slurUp   }
+@code{\slurUp}, 
+@cindex @code{\slurDown }
+@code{\slurDown}, 
+@cindex @code{\slurBoth }
+@code{\slurBoth}, 
+@cindex @code{\slurDotted }
+@code{\slurDotted}, 
+@cindex @code{\slurSolid }
+@code{\slurSolid}, 
 
 @seealso
 
@@ -1737,9 +1781,12 @@ will only affect normal slurs and not phrasing slurs.
 
 @refcommands
 
-@refcommand phrasingSlurUp   
-@refcommand phrasingSlurDown 
-@refcommand phrasingSlurBoth 
+@cindex @code{\phrasingSlurUp   }
+@code{\phrasingSlurUp}, 
+@cindex @code{\phrasingSlurDown }
+@code{\phrasingSlurDown}, 
+@cindex @code{\phrasingSlurBoth }
+@code{\phrasingSlurBoth}, 
 
 @seealso
 
@@ -1930,9 +1977,12 @@ using @code{^} and @code{_}.
 
 @refcommands
 
-@refcommand scriptUp  
-@refcommand scriptDown 
-@refcommand scriptBoth
+@cindex @code{\scriptUp  }
+@code{\scriptUp}, 
+@cindex @code{\scriptDown }
+@code{\scriptDown}, 
+@cindex @code{\scriptBoth}
+@code{\scriptBoth}, 
 
 @seealso
 
@@ -2278,9 +2328,12 @@ You can also supply your own texts:
 
 @refcommands
 
-@refcommand dynamicUp  
-@refcommand dynamicDown 
-@refcommand dynamicBoth 
+@cindex @code{\dynamicUp  }
+@code{\dynamicUp}, 
+@cindex @code{\dynamicDown }
+@code{\dynamicDown}, 
+@cindex @code{\dynamicBoth }
+@code{\dynamicBoth}, 
 
 @cindex direction, of dynamics
 
@@ -3066,8 +3119,10 @@ arpeggiate the chord. To draw these brackets, set the
 
 @refcommands
 
-@refcommand arpeggioBracket 
-@refcommand arpeggio
+@cindex @code{\arpeggioBracket }
+@code{\arpeggioBracket}, 
+@cindex @code{\arpeggio}
+@code{\arpeggio}, 
 
 @refbugs
 
@@ -3104,8 +3159,10 @@ The associated object is @internalsref{VoiceFollower}.
 
 @refcommands
 
-@refcommand showStaffSwitch 
-@refcommand hideStaffSwitch 
+@cindex @code{\showStaffSwitch }
+@code{\showStaffSwitch}, 
+@cindex @code{\hideStaffSwitch }
+@code{\hideStaffSwitch}, 
 
 
 @node Vocal music
@@ -3807,8 +3864,10 @@ chart}.  Turning on these styles is described in the input file
 
 @refcommands
 
-@refcommand germanChords 
-@refcommand semiGermanChords 
+@cindex @code{\germanChords }
+@code{\germanChords}, 
+@cindex @code{\semiGermanChords }
+@code{\semiGermanChords}, 
 
 
 
@@ -7034,7 +7093,7 @@ this is a @internalsref{NoteHead} object.
 @node Outputproperty
 @subsection Outputproperty
 
-@cindex \outputproperty
+@cindex @code{\outputproperty}
 
 Another way of tuning objects is the more arcane @code{\outputproperty}
 feature.  The syntax is as follows:
@@ -7153,9 +7212,12 @@ to override default setting, which are always present. For example:
 
 The following commands set @code{fontSize} for the current voice.
 
-@refcommand tiny  
-@refcommand small  
-@refcommand normalsize
+@cindex @code{\tiny}
+@code{\tiny}, 
+@cindex @code{\small}
+@code{\small}, 
+@cindex @code{\normalsize}
+@code{\normalsize}, 
 
 @refbugs
 
@@ -7205,11 +7267,11 @@ For clarity, you can also do this for single arguments, e.g.
 
 The following size commands set abolute sizes
 
-@cindex \teeny
-@cindex \tiny
-@cindex \small
-@cindex \large
-@cindex \huge
+@cindex @code{\teeny}
+@cindex @code{\tiny}
+@cindex @code{\small}
+@cindex @code{\large}
+@cindex @code{\huge}
 
 @table @code
 @item \teeny
@@ -7225,10 +7287,10 @@ with the commands @code{\larger} and @code{\smaller}.
 @cindex larger
 
 @cindex font style, for texts
-@cindex \bold
-@cindex \dynamic
-@cindex \number
-@cindex \italic
+@cindex @code{\bold}
+@cindex @code{\dynamic}
+@cindex @code{\number}
+@cindex @code{\italic}
 
 The following font change commands are defined:
 @table @code
@@ -7252,8 +7314,8 @@ Changes @code{font-series} to @code{bold}
 @cindex moving text
 @cindex translating text
 
-@cindex \sub
-@cindex \super
+@cindex @code{\sub}
+@cindex @code{\super}
 
 Raising and lowering texts can be done with @code{\super} and
 @code{\sub}.
@@ -7262,7 +7324,7 @@ Raising and lowering texts can be done with @code{\super} and
  c1^\markup { E "=" mc \super "2" }
 @end lilypond
 
-@cindex \raise
+@cindex @code{\raise}
 
 If you want to give an explicit amount for lowering or raising, use
 @code{\raise}.  This command takes a Scheme valued first argument, and
@@ -7282,7 +7344,7 @@ Other commands taking  single arguments include
 respectively.
 
 @item \musicglyph
-@cindex \musicglyph
+@cindex @code{\musicglyph}
   This is converted to a musical symbol, e.g. @code{\musicglyph
 #"accidentals-0"} will select the natural sign from the music font.
 See @ref{The Feta font} for  a complete listing of the possible glyphs.
@@ -7291,13 +7353,13 @@ This produces a single character, e.g. @code{\char #65} produces the
 letter 'A'.
 
 @item \note
-@cindex \note @var{log} @var{dots} @var{dir}
+@cindex @code{\note @var{log} @var{dots} @var{dir}}
 
 This produces a note with a stem pointing in @var{dir} direction, with
 duration log @var{log} and @var{dots} augmentation dots.
 
 @item \hspace #@var{amount}
-@cindex \hspace
+@cindex @code{\hspace}
 This produces a invisible object taking horizontal space.
 @example 
 \markup @{ A \hspace #2.0 B @} 
@@ -7306,7 +7368,7 @@ will put extra space between A and B, on top of the space that is
 normally inserted before elements on a line.
 
 @item \fontsize #@var{size}
-@cindex \fontsize
+@cindex @code{\fontsize}
 This sets the relative font size, eg.
 @example
 A \fontsize #2 @{ B C @} D
@@ -7323,7 +7385,7 @@ A \translate #(cons 2 -3) @{ B C @} D
 This moves `B C' 2 spaces to the right, and 3 down.
 
 @item \magnify  #@var{mag}
-@cindex \magnify
+@cindex @code{\magnify}
 This sets the font magnification for the its argument. In the following
 example, the middle A will be 10% larger.
 @example
@@ -7332,7 +7394,7 @@ A \magnify #1.1 @{ A @} A
 
 
 @item \override #(@var{key} . @var{value})
-@cindex \override
+@cindex @code{\override}
 This overrides a  formatting property for its argument. The argument
 should be a key/value pair, e.g.
 @example
@@ -7709,7 +7771,8 @@ Lilypond and @code{ly2dvi})
 
 @refcommands
 
-@refcommand newpage 
+@cindex @code{\newpage}
+@code{\newpage}, 
 
 
 @seealso
