@@ -5,6 +5,7 @@
 #include "varray.hh"
 #include "scalar.hh"
 
+/// what kind of command?
 enum Commandcode {
 	NOP,
 	INTERPRET,
@@ -13,24 +14,6 @@ enum Commandcode {
 };
 
 /// set a nonrythmical symbol
-struct Command {
-    Commandcode code;
-
-    /// analogous to argv[]
-    Array<Scalar> args;
-
-    ///
-    int priority;
-    /** in what order relative to other TYPESET commands (eg, bar
-       should precede meter). Highest priority first. */
-    
-    /****************/
-    
-    Command();
-//    Command(Moment w);
-    bool isbreak()const;
-    void print() const;
-};
 
 /**
     A nonrhythmical "thing" in a  staff is called a "command".
@@ -81,5 +64,22 @@ struct Command {
     
     */
 
+struct Command {
+    Commandcode code;
+
+    /// analogous to argv[]
+    Array<Scalar> args;
+
+
+    /** in what order relative to other TYPESET commands (eg, bar
+       should precede meter). Highest priority first. */
+    int priority;
+    
+    /* *************** */
+    
+    Command();
+    bool isbreak()const;
+    void print() const;
+};
 
 #endif
