@@ -2,7 +2,7 @@
 \version "1.9.8"
 
 \header{
-    texidoc="Beamed stems have standard lengths if possible."
+    texidoc="Beamed stems have standard lengths if possible. Quantization is switched off in this example."
     }
 
 \score{

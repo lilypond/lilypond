@@ -1,8 +1,33 @@
+2003-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/parser.yy (step_number): semitones for chord entry too.
+	(make_chord_step): more robust code, semitones. 
+
+	* input/regression/breathing-sign-ancient.ly (texidoc): new file.
+
+	* input/regression/breathing-sign.ly (texidoc): split ancient and
+	normal breathing signs.
+
+	* scm/define-grobs.scm (all-grob-descriptions): swap
+	beamed-extreme-minimum-free-lengths and
+	beamed-minimum-free-lengths; the 'extreme' case should allow
+	shorter stems. This fixes forced directions on beamed 32nd and
+	shorter notes.
+
+	* ly/engraver-init.ly (ScoreContext): keyAccidentalOrder is in
+	quartertones, not semitones.
+	(NoteNamesContext): swallow more event types
+
+
+	* Documentation/topdocs/NEWS.texi (Top): insert close brace.
+
+	* VERSION (PACKAGE_NAME): release 1.9.10
+
 2003-09-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/rhythmic-column-engraver.cc (process_acknowledged_grobs):
 	set note head as cause of note-column.  This gives a better error
-	message
+	message.
 
 2003-09-23  Jan Nieuwenhuizen  <janneke@gnu.org>
 

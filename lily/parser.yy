@@ -163,10 +163,11 @@ SCM
 make_chord_step (int step, int alter)
 {
 	if (step == 7)
-		alter--;
+		alter += FLAT;
 
-	/* ugh: fucks up above 13 */
-	Pitch m(step > 7 ? 1 : 0,(step - 1) % 7, alter);
+	while(step < 0)
+		step += 7;
+	Pitch m((step -1) / 7 , (step - 1) % 7, alter);
 	return m.smobbed_copy ();
 }
 
@@ -2150,10 +2151,10 @@ step_number:
 		$$ = make_chord_step ($1, 0);
         } 
 	| bare_unsigned '+' {
-		$$ = make_chord_step ($1, 1);
+		$$ = make_chord_step ($1, SHARP);
 	}
 	| bare_unsigned CHORD_MINUS {
-		$$ = make_chord_step ($1,-1);
+		$$ = make_chord_step ($1, FLAT);
 	}
         ;	
 
