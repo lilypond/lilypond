@@ -3,7 +3,7 @@
   texidoc = "grace notes in different voices/staves are synchronized."
 }
 
-\score  {\notes < \context Staff  { c2
+\score  {\notes\relative c'' < \context Staff  { c2
 	 \grace  c8
   c4 c4 }
 		\context Staff = SB { c2 \clef bass

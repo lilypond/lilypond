@@ -3,7 +3,7 @@
 texidoc = "Stripped version of trip.ly.  Staffs should be of correct length."
 }
 \score{
-  \context PianoStaff \notes <
+  \context PianoStaff \notes \relative c'' <
     \context Staff = treble {
        r1
        r1

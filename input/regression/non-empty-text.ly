@@ -8,7 +8,7 @@ TextScript.no-spacing-rods is used to control the horizontal size of text.
 }
 
 \score{
-    \notes{
+    \notes\relative c''{
 	%% \emptyText
 	%% short for \property Voice.TextScript \set #'no-spacing-rods = ##t
 	c2_"very wide and long text" c | \break

@@ -13,13 +13,13 @@ knowing it.  Consequently, they fall over  often.
 
 % FIXME including this file makes lily crash lateron -- breaks website build
 
-onestaff =  \context Staff = foo\notes  {
+onestaff =  \context Staff = foo\notes\relative c''  {
 	\property Staff.instr = instr
 	\property Staff.instrument = instrument \mark "B"
 	 c1 \mark "A" \break c2  c2 \break
 }
 
-grstaff =  \notes \context GrandStaff <
+grstaff =  \notes \relative c'' \context GrandStaff <
 	\context Staff = bar {
 
 	\property Staff.instr = instr

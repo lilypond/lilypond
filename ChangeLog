@@ -1,5 +1,9 @@
 2003-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/lilypond-book.py (do_file): put texidoc before image.
+
+	* input/regression/*.ly: fix snippet octaves 
+
 	* input/test/spanner-after-break-tweak.ly: import
 	broken-spanner-adjustment
 
