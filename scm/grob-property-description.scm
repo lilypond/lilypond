@@ -226,6 +226,31 @@ beaming style: stems stop at innermost beams.")
 (grob-property-description 'hair-thickness number? "thickness, measured in stafflinethickness.")
 (grob-property-description 'heads pair? "Pair of grob pointers, pointing to the two heads of the  tie.")
 (grob-property-description 'height number? "in staffspace.")
+(grob-property-description 'height-limit number? "Maximum slur height,
+  long slurs approach this height.
+
+  For small width w, the height should be proportional to w, for w ->
+  infinity, the height should rise to limit h_infinity asymptotically.
+
+  Hence we take F (x) such that
+@quotation
+@example  
+  F (0) = 0 , F' (0) = 1, and F (infinity) = 1
+@end example
+@end quotation
+  where
+@quotation
+@example  
+  h = height-limit * F (x * ratio / height-limit)
+@end example
+@end quotation
+  Currently, for F we use
+@quotation
+@example  
+  F (x) = 2/pi * atan (pi * x/2)
+@end example
+@end quotation
+")
 (grob-property-description 'horizontal-shift integer? "integer that identifies ranking of note-column for horizontal shifting. This is used by @ref{note-collision-interface}.")
 (grob-property-description 'ideal-distances list? "(OBJ . (DIST . STRENGTH)) pairs.")
 (grob-property-description 'interfaces list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
@@ -333,6 +358,7 @@ as a real penalty.")
 (grob-property-description 'pitches list? "list of musical-pitch.")
 (grob-property-description 'positions pair? "cons of staff positions (LEFT . RIGHT")
 (grob-property-description 'raise number? "height for text to be raised (a negative value lowers the text.")
+(grob-property-description 'ratio number? "Slur parameter.  See height-limit.")
 (grob-property-description 'right-padding number? "space right of accs.")
 (grob-property-description 'right-trim-amount number? "shortening of the lyric extender on the right.")
 (grob-property-description 'right-widen boolean? "Whether the right edge of a piano pedal bracket should be widened by the second element of edge-widen")
