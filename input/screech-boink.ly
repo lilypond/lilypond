@@ -51,6 +51,7 @@
 	   >>
 	}
     >>
+    \midi { \tempo 8 = 60 }
 
     \paper {
 	raggedright = ##t 
@@ -61,5 +62,4 @@
 	}
 	
     }
-    \midi { \tempo 8 = 60 }
 }

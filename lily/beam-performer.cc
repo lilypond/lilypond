@@ -28,6 +28,13 @@ private:
   bool beam_;
 };
 
+Beam_performer::Beam_performer ()
+{
+  beam_ = false;
+  start_ev_ = 0;
+  now_stop_ev_ = 0;
+}
+
 void 
 Beam_performer::process_music ()
 {
@@ -83,7 +90,3 @@ Beam_performer::try_music (Music *m)
 ENTER_DESCRIPTION (Beam_performer,"","",
 		  "beam-event","","","");
 
-Beam_performer::Beam_performer ()
-{
-  beam_ = false;
-}
