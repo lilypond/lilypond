@@ -11,7 +11,7 @@
   */
 
 #include <math.h>
-#include "symbol.hh"
+#include "atom.hh"
 #include "molecule.hh"
 #include "tex.hh"
 #include "symtable.hh"
@@ -19,19 +19,19 @@
 #include "debug.hh"
 #include "lookup.hh"
 
-Symbol
+Atom
 Lookup::beam_element (int sidx, int widx, Real slope) const
 {
-  Symbol bs=(*symtables_)("beamslopes")->lookup ("slope");
+  Atom bs=(*symtables_)("beamslopes")->lookup ("slope");
   
   Array<String> args;
   args.push (sidx);
   args.push (widx);
-  bs.tex = substitute_args (bs.tex,args);
+  bs.tex_ = substitute_args (bs.tex_,args);
   int w = 2 << widx;
   Real width = w PT;
-  bs.dim.x() = Interval (0,width);
-  bs.dim.y() = Interval (0,width*slope);
+  bs.dim_.x() = Interval (0,width);
+  bs.dim_.y() = Interval (0,width*slope);
   return bs;
 }
 
@@ -54,20 +54,20 @@ slope_index (Real &s)
     return -6 * i+ 186;
 }
 
-Symbol
+Atom
 Lookup::rule_symbol (Real height, Real width) const
 {
-  Symbol bs=(*symtables_)("beamslopes")->lookup ("horizontal");    
+  Atom bs=(*symtables_)("beamslopes")->lookup ("horizontal");    
   Array<String> args;
   args.push (print_dimen (height));
   args.push (print_dimen (width));
-  bs.tex = substitute_args (bs.tex,args);
-  bs.dim.x() = Interval (0,width);
-  bs.dim.y() = Interval (0,height);
+  bs.tex_ = substitute_args (bs.tex_,args);
+  bs.dim_.x() = Interval (0,width);
+  bs.dim_.y() = Interval (0,height);
   return bs;
 }
 
-Symbol
+Atom
 Lookup::beam (Real &slope, Real width) const
 {        
   int sidx = slope_index (slope);
@@ -105,10 +105,10 @@ Lookup::beam (Real &slope, Real width) const
   a.translate (Offset (last_x, (last_x) * slope));
   m.add (a);
   
-  Symbol ret;
-  ret.tex = m.TeX_string();
-  ret.dim.y() = Interval (0,width*slope);
-  ret.dim.x() = Interval (0,width);
+  Atom ret;
+  ret.tex_ = m.TeX_string();
+  ret.dim_.y() = Interval (0,width*slope);
+  ret.dim_.x() = Interval (0,width);
   
   return ret;
 }

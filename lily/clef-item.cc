@@ -59,7 +59,7 @@ Clef_item::brew_molecule_p() const
   String t = type_;
   if  (change_b_)
     t += "_change";
-  Symbol s = paper()->lookup_l ()->clef (t);
+  Atom s = paper()->lookup_l ()->clef (t);
   Molecule*output = new Molecule (Atom (s));
   output->translate (paper()->internote_f () * y_off, Y_AXIS);
   return output;

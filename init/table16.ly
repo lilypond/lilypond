@@ -75,7 +75,6 @@ table_sixteen=
 	"tenor_change"	"\caltoclef" 	0.0\pt	11.2\pt	0.0\pt	16.0\pt
      }
 
-     % dimens are ignored?
      "balls" = \table {
 	"-2"	"\longaball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt
 	"-1"	"\breveball"	0.0\pt	6.0\pt	-2.0\pt	2.0\pt

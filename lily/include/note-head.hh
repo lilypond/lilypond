@@ -34,6 +34,7 @@ public:
   Note_head ();
   static int compare (Note_head * const &a, Note_head *const &b) ;
 protected:
+  virtual Interval do_width () const;
   virtual void do_pre_processing();
   virtual Molecule* brew_molecule_p() const;
 };

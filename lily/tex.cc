@@ -8,7 +8,7 @@
 
 #include "dimen.hh"
 #include "tex.hh"
-#include "symbol.hh"
+#include "atom.hh"
 #include "varray.hh"
 
 String

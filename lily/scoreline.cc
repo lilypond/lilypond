@@ -9,7 +9,7 @@
 #include "scoreline.hh"
 #include "dimen.hh"
 #include "spanner.hh"
-#include "symbol.hh"
+#include "atom.hh"
 #include "paper-def.hh"
 #include "p-col.hh"
 #include "p-score.hh"

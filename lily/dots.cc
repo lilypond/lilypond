@@ -27,7 +27,7 @@ Dots::do_post_processing ()
 Molecule* 
 Dots::brew_molecule_p () const
 {
-  Symbol d = paper ()->lookup_l ()->dots (no_dots_i_);
+  Atom d = paper ()->lookup_l ()->dots (no_dots_i_);
   Molecule *out = new Molecule (Atom (d));
   Real inter_f = paper ()->internote_f ();
   out->translate (inter_f * position_i_, Y_AXIS);

@@ -18,7 +18,7 @@ Text_def::width (Paper_def * p) const
 {
   Atom a = get_atom (p,CENTER);
 
-  Real guess_width_f = text_str_.length_i() * a.sym_.dim.x ().length (); // ugh
+  Real guess_width_f = text_str_.length_i() * a.dim_.x ().length (); // ugh
   Interval i (0, guess_width_f);
   i += - (align_i_ + 1)* i.center();
   return i;

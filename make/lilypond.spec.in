@@ -28,7 +28,7 @@ strip lily/out/lilypond mi2mu/out/mi2mu
 make -C Documentation gifs
 make prefix="$RPM_BUILD_ROOT/usr" install
 %files
-%doc @TEXT_DOCS@ 
+%doc @TEXT_DOCS@
 %doc @EXAMPLE_LYS@ 
 %doc Documentation/out/lelie_logo.gif
 /usr/bin/convert-mudela

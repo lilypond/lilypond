@@ -18,10 +18,6 @@ Subject: Re: brevis?
 
 [snip]
 
-Here comes a sample score where I've tried to fiddle around with different
-spacing parameters to get a decent layout, but it still looks quite strange.
-For example is the second half of the bar more spread out than the first
-half in many cases. 
 Hopefully it could be useful input to future improvements. I've entered the
 music directly from the 1637 manuscript and intend to publish it public
 domain on for example ftp.gmd.de when finished. You could include it as an

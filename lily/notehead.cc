@@ -44,6 +44,15 @@ Note_head::compare (Note_head *const  &a, Note_head * const &b)
   return a->position_i_ - b->position_i_;
 }
 
+Interval
+Note_head::do_width () const
+{
+  Atom a =  paper ()->lookup_l()->ball (balltype_i_);
+  Interval i = a.dim_[X_AXIS];
+  i+= x_dir_ * i.length ();
+  return i;
+}
+
 Molecule*
 Note_head::brew_molecule_p() const 
 {
@@ -54,9 +63,9 @@ Note_head::brew_molecule_p() const
   // ugh
   bool streepjes_b = (position_i_<-1) || (position_i_ > staff_size_i_+1);
   
-  Symbol  s = p->lookup_l()->ball (balltype_i_);
+  Atom  s = p->lookup_l()->ball (balltype_i_);
   out = new Molecule (Atom (s));
-  out->translate (x_dir_ * s.dim.x().length (), X_AXIS);
+  out->translate (x_dir_ * s.dim_[X_AXIS].length (), X_AXIS);
 
   if (streepjes_b) 
     {
@@ -65,7 +74,7 @@ Note_head::brew_molecule_p() const
 	? -((-position_i_)/2)
 	: (position_i_-staff_size_i_)/2;
 	
-      Symbol str = p->lookup_l()->streepjes (s);
+      Atom str = p->lookup_l()->streepjes (s);
       Molecule sm;
       sm.add (Atom (str));
       if (position_i_ % 2)

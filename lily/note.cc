@@ -49,7 +49,7 @@ Request*
 get_script_req (int d , General_script_def*def)
 {
   Musical_script_req* script_req_p = new Musical_script_req;
-  script_req_p->dir_ =d;
+  script_req_p->dir_ =(Direction)d;
   script_req_p->scriptdef_p_=def;
   return script_req_p;
 }

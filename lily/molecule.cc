@@ -10,7 +10,7 @@
 #include "dimen.hh"
 #include "string.hh"
 #include "molecule.hh"
-#include "symbol.hh"
+#include "atom.hh"
 #include "debug.hh"
 #include "tex.hh"
 

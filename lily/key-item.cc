@@ -34,10 +34,10 @@ Key_item::read (Key_engraver const & key_grav_r)
   const Array<int> &idx_arr =key_grav_r.accidental_idx_arr_; 
   for (int i = 0 ; i< idx_arr.size(); i++) 
     {
-	int note = idx_arr[i];
-	int acc = ((Key &) key_grav_r.key_).oct (0).acc (note);
+      int note = idx_arr[i];
+      int acc = ((Key &) key_grav_r.key_).oct (0).acc (note);
 
-	add (note, acc);
+      add (note, acc);
     }
 }
 
@@ -54,8 +54,8 @@ Key_item::add (int p, int a)
 {
   if ((a<0 && p>FLAT_TOP_PITCH) ||
       (a>0 && p>SHARP_TOP_PITCH)) 
-        {
-    p -= 7; /* Typeset below c_position */
+    {
+      p -= 7; /* Typeset below c_position */
     }
   pitch.push (p);
   acc.push (a);
@@ -70,19 +70,18 @@ Key_item::brew_molecule_p() const
   
   for (int i =0; i < pitch.size(); i++) 
     {
-	Symbol s= paper()->lookup_l ()->accidental (acc[i]);
-	Atom a (s);
-	a.translate ((c_position + pitch[i]) * inter, Y_AXIS);
-	Molecule m (a);
-	output->add_at_edge (X_AXIS, RIGHT, m);	
+      Atom a =paper()->lookup_l ()->accidental (acc[i]);
+      a.translate ((c_position + pitch[i]) * inter, Y_AXIS);
+      Molecule m (a);
+      output->add_at_edge (X_AXIS, RIGHT, m);	
     }
   if (pitch.size()) 
     {
-	Molecule m (paper()->lookup_l ()->fill (Box (
-	Interval (0, paper()->note_width ()),
-	Interval (0,0))));
+      Molecule m (paper()->lookup_l ()->fill (Box (
+						   Interval (0, paper()->note_width ()),
+						   Interval (0,0))));
 
-	output->add_at_edge (X_AXIS, RIGHT, m);
+      output->add_at_edge (X_AXIS, RIGHT, m);
     }
   return output;
 }
@@ -94,7 +93,7 @@ Key_item::do_pre_processing()
 {
   if (default_b_) 
     {
-	transparent_b_ = (break_status_i() != 1);
-	set_empty (transparent_b_);
+      transparent_b_ = (break_status_i() != 1);
+      set_empty (transparent_b_);
     }
 }

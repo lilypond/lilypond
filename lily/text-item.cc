@@ -36,7 +36,7 @@ Text_item::do_pre_processing()
 Interval
 Text_item::symbol_height() const
 {
-  return tdef_p_->get_atom (paper(), dir_).sym_.dim.y ();
+  return tdef_p_->get_atom (paper(), dir_).dim_.y ();
 }
   
 Molecule*

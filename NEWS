@@ -1,9 +1,19 @@
+pl 15
+	- put top of NEWS file in the webpage
+	- breadth first search for engravers.
+	- bf: coriolan-alto.ly
+	- Stem / Notehead width now properly calced
+	- Atom and Symbol merged
+
 pl 14.jcn1
-	- lily's own music bolletjes (font-en-tja*.mf)
-	- {table,paper}* and taupindefs adaptions (when are we moving?)
+	- lily's own noteheads (balls/globes :)  (font-en-tja*.mf)
+	- {table,paper}* and taupindefs adaptations (when are we moving?)
 	- fp, sf, sfz dynamics
 	- font.ly
 	- bf: dist mudela-mode
+
+*******
+sep 15
 
 pl 14
 	- Simple but nifty mudela-mode.el for Emacs

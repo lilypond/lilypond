@@ -19,68 +19,60 @@ EndMudelaHeader
 
 \version "0.1.6";
 
-alto = \melodic{ 
-	
+alto1 = \melodic{
 	\meter 4/4; 
 	\key bes es as;
 		
 	\clef "alto";
 	% these are chords (i.e. non-divisi)
-	
-%30     
-	< 	
-		{ \octave  c ;
+	{ \octave  c ;
 			
-			[ c8 c-. ] c2.( | 
+	[ c8 c8-. ] c2.( | 
 %31
-			[ ) c8 c-. ] c2.( | 
+	[ ) c8 c8-. ] c2.( | 
 %32
-			[ ) c8 c-. ] c4. c-. c4( |
+	[ ) c8 c8-. ] c4. c8-. c4( |
 %33
-			[ ) c8 c-. ] c4. c-. c4 
-		\group "+bla";
-		 \stemup[ c16^"div." c16 c16 c16 ] c4 c2 
-		\group "-";
-	  	}
+	[ ) c8 c8-. ] c4. c8-. c4  |
+
+	%% divisi
+	\type Voice="altodivisi1" {\stemup c4:16 ^"div." c4: c2: }
+	\stemboth
+	}
 %30:2
-	  	{ 
-			\octave  'c ;
-			\textstyle "italic";
-			% this should be a \dynamic, rather than text
-	  		[ c c_"cresc. \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
-				- \ \ \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
-				- \ \ \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
-				- \ \ \ \ - \ \ \ \ -" ] c2.( |  
-			\textstyle "roman";
+}
+
+alto2 = \melodic{ 
+		\octave  'c ;
+		\textstyle "italic";
+		% this should be a \dynamic, rather than text
+		[ c8 c8_"cresc. \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \ 
+			- \ \ \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \ 
+			- \ \ \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \ 
+			- \ \ \ \ - \ \ \ \ -" ] c2.( |  
+		\textstyle "roman";
 %31:2
-			[ ) c8 c-. ] c2.( | 
+		[ ) c8 c-. ] c2.( | 
 %32:2
-			[ ) c8 c-. ] c4. c-. c4( | 
+		[ ) c8 c-. ] c4. c8-. c4( | 
 %33:2
-			[ ) c8 c-. ] c4. c-. c4 |
-			\octave c ;
+		[ ) c8 c-. ] c4. c8-. c4 |
+		\octave c ;
 
 %34		
-			\group "+b";
-	% these are two \voices (i.e. divisi)
-	% the c4 and c2, however are really 16th...
-	% we-ll say "simile" for now...
+		% these are two \voices (i.e. divisi)
+		% the c4 and c2, however are really 16th...
+			% we-ll say "simile" for now...
 	% 
-			\octave  'c ;
-			\textstyle "italic";
-			\stemdown
-			[ as16 \ff as16 as16 as16 ] as4_"simile" as2
-			\textstyle "roman";
-			\group "-";
-		}
-	>
-	
+		\octave  'c ;
+		\type Voice="altodivisi2" {
+		\stemdown
+		as4: as4: as2}
+		\stemboth
 }
 
 \score{
-	\staff{ melodicregs alto }
+	\type Voice < \alto1 \alto2 >
 	\paper{ 
-		\unitspace 14\mm
-		\geometric 1.4
 	}
 }

@@ -7,7 +7,7 @@
 */
 
 #include "span-score-bar.hh"
-#include "symbol.hh"
+#include "atom.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 
@@ -29,7 +29,7 @@ Span_score_bar::do_pre_processing()
 }
 
 
-Symbol
+Atom
 Piano_brace::get_bar_sym (Real dy) const
 {
   return paper()->lookup_l ()->vbrace (dy);

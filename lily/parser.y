@@ -82,7 +82,7 @@
     General_script_def * script;
     Scalar *scalar;
     String *string;
-    Symbol * symbol;
+    Atom * symbol;
     Symtable * symtable;
     Symtables * symtables;
     Text_def * textdef;
@@ -1180,13 +1180,13 @@ symtable_body:
 
 symboldef:
 	STRING 	box		{
-		$$ = new Symbol (*$1, *$2);
+		$$ = new Atom (*$1, *$2);
 		delete $1;
 		delete $2;
 	}
 	| STRING {
 		Box b (Interval (0,0), Interval (0,0));
-		$$ = new Symbol (*$1, b);
+		$$ = new Atom (*$1, b);
 		delete $1;
 	}
 	;

@@ -23,6 +23,12 @@ examples of what LilyPond can do: MIDI, PS, .gif and input.
 </a
 >
 
+=head2 NEWS! 
+
+This is what the latest version brings:
+
+top_of_NEWS
+
 =head2 Documentation: Introduction
 
 =over 4

@@ -37,7 +37,7 @@ Rest::brew_molecule_p () const
   int staff_size_i_ =8;
   bool streepjes_b = (position_i_<-1) || (position_i_ > staff_size_i_+1);
   
-  Symbol s(paper ()->lookup_l()->rest (balltype_i_, streepjes_b));
+  Atom s(paper ()->lookup_l()->rest (balltype_i_, streepjes_b));
   Molecule * m = new Molecule ( Atom (s));
   m->translate (position_i_ *  paper ()->internote_f (), Y_AXIS);
   return m;

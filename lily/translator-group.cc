@@ -80,31 +80,40 @@ Translator_group::find_existing_translator_l (String n, String id)
 Link_array<Translator_group>
 Translator_group::path_to_acceptable_translator (String type) const
 {
-  Link_array<Translator_group> retval; 
-
-  if (type_str_ == type)
-    {
-      retval.push (output_def_l ()->find_translator_l (type)->group_l ());
-    }
-  else for (int i=0; i < accepts_str_arr_.size (); i++)
+ Link_array<Translator_group> accepted_arr;
+  for (int i=0; i < accepts_str_arr_.size (); i++)
     {
       Translator *t = output_def_l ()->find_translator_l (accepts_str_arr_[i]);
       if (!t || !t->group_l ())
 	continue;
-      
-      Translator_group * g = t->group_l ();
+      accepted_arr.push (t->group_l());
+    }
+
+ 
+ for (int i=0; i < accepted_arr.size (); i++)
+    if (accepted_arr[i]->type_str_ == type)
+      {
+	Link_array<Translator_group> retval; 
+	retval.push (accepted_arr[i]);
+	return retval;
+      }
+ 
+  Link_array<Translator_group> best_result; 
+  int best_depth= INT_MAX;
+  for (int i=0; i < accepted_arr.size (); i++)
+    {
+      Translator_group * g = accepted_arr[i];
       
       Link_array<Translator_group> result
 	= g->path_to_acceptable_translator (type);
-      if (result.size ())
+      if (result.size () && result.size () < best_depth)
 	{
-	  retval.push (output_def_l ()->find_translator_l (type_str_)->group_l ());
-	  retval.concat (result);
-	  break;
+	  result.insert (g,0);
+	  best_result = result;
 	}
     }
 
-  return retval;
+  return best_result;
 }
 
 Translator_group*
@@ -116,17 +125,12 @@ Translator_group::find_create_translator_l (String n, String id)
   
   Link_array<Translator_group> path = path_to_acceptable_translator (n);
       
-  /* 
-	 if path.size () == 1, then 
-	 type_str_ == n, but not id == id_str_
-	 */
-  if (path.size () > 1)
+  if (path.size ())
     {
-      assert (path.size () > 1);
       Translator_group * current = this;
 
       // start at 1.  The first one (index 0) will be us.
-      for (int i=1; i < path.size (); i++) 
+      for (int i=0; i < path.size (); i++) 
 	{
 	  Translator_group * new_group = path[i]->clone ()->group_l ();
 	  current->add (new_group);

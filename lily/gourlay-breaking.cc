@@ -152,8 +152,6 @@ Gourlay_breaking::do_solve() const
 
   Array<Col_hpositions> lines;
 
-  Real max_energy_f = 0;
-  
   /* skip 0-th element, since it is a "dummy" elt*/
   for (int i = optimal_paths.size()-1; i> 0;) 
     {

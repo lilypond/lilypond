@@ -29,7 +29,7 @@ protected:
     
     virtual void do_substitute_dependency (Score_elem*,Score_elem*);
     virtual Molecule * brew_molecule_p() const;
-    virtual Symbol get_bar_sym (Real dy) const;
+    virtual Atom get_bar_sym (Real dy) const;
 };
 
 #endif // SPAN_BAR_HH
