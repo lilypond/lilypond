@@ -1,7 +1,8 @@
 2002-07-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/GNUmakefile: Remove regression-test stuff.
-	
+	(deep-WWW-clean): Remove wiki-dump.  Fixes web-clean target.
+
 	* Documentation/regression-test.tely: Remove.
 
 	* Documentation/user/refman.itely (Text scripts): Comment out ref
