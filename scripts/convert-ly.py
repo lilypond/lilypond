@@ -7,14 +7,6 @@
 # (c) 1998--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
-
-# TODO
-#   use -f and -t for -s output
-
-# NEWS
-# 0.2
-#  - rewrite in python
-
 import os
 import sys
 import __main__
