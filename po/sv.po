@@ -97,10 +97,10 @@ msgstr "Flaggor:"
 
 #: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
 #, c-format, python-format
-msgid "Report bugs to %s"
+msgid "Report bugs to %s."
 msgstr ""
-"Rapportera programfel till %s\n"
-"Rapportera fel i översättningen till <sv@li.org>"
+"Rapportera programfel till %s\n."
+"Rapportera fel i översättningen till <sv@li.org>."
 
 #: lilylib.py:228
 #, fuzzy, python-format

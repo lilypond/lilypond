@@ -98,8 +98,8 @@ msgstr "Optiot:"
 
 #: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
 #, c-format, python-format
-msgid "Report bugs to %s"
-msgstr "Raportoi virheet osoitteeseen %s"
+msgid "Report bugs to %s."
+msgstr "Raportoi virheet osoitteeseen %s."
 
 #: lilylib.py:228
 #, python-format

@@ -106,7 +106,7 @@ msgstr "Opties:"
 
 #: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
 #, c-format, python-format
-msgid "Report bugs to %s"
+msgid "Report bugs to %s."
 msgstr ""
 "Meld luizen in het programma aan %s;\n"
 "meld onjuistheden in de vertaling aan <janneke@gnu.org> of <hanwen@cs.uu.nl>"

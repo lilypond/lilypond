@@ -99,7 +99,7 @@ msgstr "Pøepínaèe:"
 
 #: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
 #, c-format, python-format
-msgid "Report bugs to %s"
+msgid "Report bugs to %s."
 msgstr ""
 "Chyby v programu oznamujte na adrese %s (pouze anglicky),\n"
 "pøipomínky k pøekladu zasílejte na <cs@li.org> (èesky)."

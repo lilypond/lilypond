@@ -97,8 +97,8 @@ msgstr "Опции:"
 
 #: lilylib.py:202 midi2ly.py:232 mup2ly.py:228 main.cc:172
 #, c-format, python-format
-msgid "Report bugs to %s"
-msgstr "Сообщайте об ошибках по %s"
+msgid "Report bugs to %s."
+msgstr "Сообщайте об ошибках по %s."
 
 #: lilylib.py:228
 #, fuzzy, python-format
@@ -2531,8 +2531,8 @@ msgstr ""
 #~ msgstr "Записываю файл зависимостей: `%s'..."
 
 #, fuzzy
-#~ msgid "Report bugs to bug-gnu-music@gnu.org"
-#~ msgstr "Сообщайте об ошибках по %s"
+#~ msgid "Report bugs to bug-gnu-music@gnu.org."
+#~ msgstr "Сообщайте об ошибках по %s."
 
 #, fuzzy
 #~ msgid "Usage: ly2dvi [OPTION]... FILE\n"

@@ -169,7 +169,7 @@ usage ()
   printf ("\n");
   printf ("\n");
 
-  printf (_f ("Report bugs to %s", "bug-lilypond@gnu.org").to_str0 ());
+  printf (_f ("Report bugs to %s.", "bug-lilypond@gnu.org").to_str0 ());
   printf ("\n");
 }
 
