@@ -254,53 +254,32 @@
   \special{header=music-drawing-routines.ps}
   \gdef\lilypondspecial{}}
 
-
-
-
-%% Put the argument into a box which has zero height and depth (the
-%% \vss forces the latter -- TeXbook, page 80).
-%%
-\gdef\topalign#1{
-  \vbox to 0pt{
-    \hbox{#1}
-    \vss}}
-
-%% Put the argument into a box which has zero width.
-%%
-\gdef\leftalign#1{
-  \hbox to 0pt{
-    #1
-    \hss}}
-
 %% The most used macro in LilyPond output.  Put #3 into a zero-width box
 %% which is moved to the right by #1 (scaled by \outputscale) and moved
-%% up by #2 (also scaled by \outputscale).  Note that negative values for
-%% #2 change the depth of the box defined by \leftalign, not the height.
+%% up by #2 (also scaled by \outputscale).
 %%
 \gdef\lyitem#1#2#3{
-  \raise#2\outputscale \leftalign{
-    \kern#1\outputscale
-    #3}}
+  \raise #2\outputscale \hbox to 0pt {
+    \kern #1\outputscale
+    #3
+    \hss}}
 
-%% All LilyPond music data is enclosed in this macro (as fifth argument).
-%% The data is first put into a box with zero height and depth which is
-%% then moved to the right by #1 and moved down by #2.  After this, it is
-%% put into a zero-width box, giving it a height #4 (and depth zero).
-%% Finally, the box is raised so that its true height is exactly the
-%% distance from one baseline to the next.
+%% All LilyPond music data is enclosed in this macro (as third argument).
+%% The data (which consists of boxes with zero width) gets an artificial
+%% width of #1 and a height of #2.  The resulting box is then centered
+%% vertically along the x-height of the current font.
 %%
-%% Parameters #1 to #4 are scaled by \outputscale.
+%% Parameters #1 and #2 are scaled by \outputscale.
 %%
-\gdef\lybox#1#2#3#4#5{
-  \lytempdim\baselineskip
-  \advance\lytempdim -#4\outputscale
-  \raise\lytempdim
-  \vbox to #4\outputscale{
-    \leftalign{
-      \kern #1\outputscale
-      \lower #2\outputscale \topalign{
-        #5}}
-    \vss}}
+\gdef\lybox#1#2#3{
+  \lytempdim #2\outputscale
+  \lytempdim -0.5\lytempdim
+  \advance\lytempdim 1ex
+  \leavevmode
+  \raise \lytempdim \hbox to #1\outputscale {
+    %% Convert depth of #3 into height only.
+    \vbox to #2\outputscale {\hbox{#3}\vss}
+    \hss}}
 
 %% Produce a black bar (width #2, depth #3, height #4) with a vertical
 %% offset #1.  Everything is scaled by \outputscale.

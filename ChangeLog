@@ -1,3 +1,17 @@
+2004-10-23  Werner Lemberg  <wl@gnu.org>
+
+	* scm/framework-tex.scm (dump-page): Add width to \lybox call.
+	Remove first two parameters of \lybox.
+	Don't emit \vbox around \lybox.
+	(dump-line): Add width to \lybox call.
+	Remove first two parameters of \lybox.
+
+	* tex/lilyponddefs.tex (\topalign, \leftalign): Removed.
+	(\lyitem): Updated.
+	(\lybox): Only take three parameters.
+	Create box which has zero depth, only height.
+	Center box vertically along the x-height of current font.
+
 2004-10-23  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scm/framework-tex.scm (convert-to-ps): add -E if filename
