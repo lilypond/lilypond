@@ -75,8 +75,8 @@ violino1 = \notes \relative c {
 	)f2. ges4\sf(|
 	%50
 	)f1\>~ |
-	f4 d( bes)\!as |
-	g2.\p( as4 |
+	f4 d( bes)as |
+	\!g2.\p( as4 |
 	g f d ) bes |
 	bes'2.( c4 |
 	
@@ -112,9 +112,9 @@ violino1 = \notes \relative c {
 	\property Voice.crescendoSpanner = "dashed-line"
 	bes2.\p\<( c4 |
 	bes a fis ) d |
-	\!d'\sf\>( as g )\!f |
+	\!d'\sf\>( as g )f |
 	%75
-	r8[es\p(c)es]r[d(bes)d] |
+	\!r8[es\p(c)es]r[d(bes)d] |
 	r[c(g)c]r[bes(g)bes] |
 	r[a(g)a]r[bes(g)bes]|
 	[fis-.\pp a-.] a4. a8-. a4~|
@@ -260,8 +260,8 @@ violino1 = \notes \relative c {
 	%175
 	)d2. es4\sf(|
 	)d1\> ~ |
-	d4( b g \!)f
-	e2.\p( f4 |
+	d4( b g )f
+	\!e2.\p( f4 |
 	e d b ) g |
 	%180
 	g'2.( a4 |
@@ -295,9 +295,9 @@ violino1 = \notes \relative c {
 	g\< fis dis ) b |
 	%200
 	b'1 ~ |
-	\!b 
-	[c8\f\>c,(g)c]r[c(bes)\!c] |
-	r[c\p(as)c]r[c(g)c] |
+	b 
+	[\!c8\f\>c,(g)c]r[c(bes)c] |
+	r[\!c\p(as)c]r[c(g)c] |
 	r[c(f,)c']r[c(g)c] |
 	%205
 	r[c(as)c]r[c(a)c] |

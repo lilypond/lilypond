@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2000-03-15 19:34+0100\n"
+"POT-Creation-Date: 2000-03-21 11:40+0100\n"
 "Content-Type: text/plain; charset=\n"
 "Date: 1998-05-26 11:26:28+0200\n"
 "From:  <janneke@gnu.org>\n"
@@ -205,7 +205,7 @@ msgstr "ongeldige inversie toon: geen onderdeel van accoord: %s"
 msgid "unknown clef type"
 msgstr "onbekend type sleutel"
 
-#: collision.cc:99
+#: collision.cc:102
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "Te veel botsende nootkolommen.  Negeer ze."
 
@@ -217,7 +217,7 @@ msgstr "crescendo"
 msgid "too small"
 msgstr "te klein"
 
-#: cross-staff.cc:18
+#: cross-staff.cc:19
 msgid ""
 "minVerticalAlign != maxVerticalAlign: cross staff spanners may be broken"
 msgstr ""
@@ -236,19 +236,19 @@ msgstr "kan geheugen controle niet zetten!"
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:244 span-dynamic-performer.cc:114
+#: dynamic-engraver.cc:285 span-dynamic-performer.cc:87
 msgid "can't find start of (de)crescendo"
 msgstr "kan start van (de)crescendo niet vinden"
 
-#: dynamic-engraver.cc:263
+#: dynamic-engraver.cc:304
 msgid "already have a crescendo"
 msgstr "heb al een crescendo"
 
-#: dynamic-engraver.cc:264
+#: dynamic-engraver.cc:305
 msgid "already have a decrescendo"
 msgstr "heb al een decrescendo"
 
-#: dynamic-engraver.cc:339
+#: dynamic-engraver.cc:380
 msgid "unterminated (de)crescendo"
 msgstr "onbeëindigd (de)crescendo"
 
@@ -273,7 +273,7 @@ msgstr "Geen doenbare regelafbreuk gevonden"
 msgid "no Grace context available"
 msgstr "geen Grace context voor handen"
 
-#: grace-position-engraver.cc:91
+#: grace-position-engraver.cc:93
 msgid "Unattached grace notes.  Attaching to last musical column."
 msgstr "Losse grace noten.  Maak ze vast aan vorige muziekale kolom."
 
@@ -335,6 +335,7 @@ msgstr "vals:"
 
 #: local-key-engraver.cc:83 time-signature-engraver.cc:29
 #: translator-group.cc:416 translator-group.cc:425
+#, c-format
 msgid "can't find: `%s'"
 msgstr "kan niet vinden: `%s'"
 
@@ -536,6 +537,7 @@ msgid "Interpretation context with empty type"
 msgstr "Vertolk context met leeg type"
 
 #: music-output-def.cc:84
+#, c-format
 msgid "can't find `%s' context"
 msgstr "kan `%s' context niet vinden"
 
@@ -567,20 +569,20 @@ msgstr "Ontleden..."
 msgid "Braces don't match"
 msgstr "Haakjes paren niet"
 
-#: paper-column.cc:48
+#: paper-column.cc:49
 msgid "Must set spring between differing columns"
 msgstr "Moet veertje zetten tussen verschillende kolommen"
 
-#: paper-def.cc:69
+#: paper-def.cc:70
 #, c-format
 msgid "unknown paper variable: `%s'"
 msgstr "onbekende papier veranderlijke: `%s'"
 
-#: paper-def.cc:73
+#: paper-def.cc:74
 msgid "not a real variable"
 msgstr "niet een reële veranderlijke"
 
-#: paper-def.cc:180
+#: paper-def.cc:184
 #, c-format
 msgid "paper output to %s..."
 msgstr "papier uitvoer naar %s..."
@@ -643,6 +645,7 @@ msgid "Huh?  Not a Request: `%s'"
 msgstr "Huh?  Geen Request: `%s'"
 
 #: request-iterator.cc:20
+#, c-format
 msgid "Junking music: `%s'"
 msgstr "Schroot muziek: `%s'"
 
@@ -654,7 +657,7 @@ msgstr "te veel botsende rusten"
 msgid "too many notes for rest collision"
 msgstr "te veel noten voor bosting met rusten"
 
-#: score-engraver.cc:139
+#: score-engraver.cc:141
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr "ongebonden spanner `%s'"
@@ -709,6 +712,7 @@ msgid "unterminated slur"
 msgstr "onbeëindigde bindingsboog"
 
 #: slur-engraver.cc:77
+#, c-format
 msgid "can't find both ends of %s"
 msgstr "kan niet beide uiteinden vinden van %s"
 
@@ -724,11 +728,7 @@ msgstr "Zet bindingsboog over rust.  Negeer."
 msgid "Slur over rest?"
 msgstr "Boogje over rust?"
 
-#: spanner.cc:34
-msgid "Left spanpoint is right spanpoint"
-msgstr "Linker spanpunt is rechter spanpunt"
-
-#: spanner.cc:128
+#: spanner.cc:31 spanner.cc:164
 #, c-format
 msgid "Spanner `%s' has equal left and right spanpoints"
 msgstr "Spanner `%s' heeft gelijke linker en rechter spanpunten"
@@ -754,6 +754,7 @@ msgstr ""
 "%s: TFM bestand heeft %u parameters, wat meer is dan de %u die ik aan kan"
 
 #: tfm.cc:70
+#, c-format
 msgid "can't find ascii character: `%d'"
 msgstr "kan teken niet vinden: `%s'"
 
@@ -801,10 +802,12 @@ msgid "Already contains: `%s'"
 msgstr "Bevat reeds: `%s'"
 
 #: translator-group.cc:210
+#, c-format
 msgid "can't find or create `%s' called `%s'"
 msgstr "kan niet vinden of scheppen `%s' genaamd `%s'"
 
 #: translator-group.cc:322
+#, c-format
 msgid "can't find or create: `%s'"
 msgstr "kan niet vinden of scheppen: `%s'"
 
@@ -1085,123 +1088,3 @@ msgstr "% Automatisch gegenereerd"
 #, c-format
 msgid "% from input file: "
 msgstr "% van invoerbestand: "
-
-#~ msgid "(search path: `%s'"
-#~ msgstr "(zoekpad: `%s')"
-
-#~ msgid "Can't find font: `%s'"
-#~ msgstr "Kan font niet vinden: `%s'"
-
-#~ msgid "(search path `%s')"
-#~ msgstr "(zoekpad: `%s')"
-
-#~ msgid "Debug output disabled.  Compiled with NPRINT."
-#~ msgstr "Ontluisberichten zijn uitgeschakeld.  Vertaald met NPRINT."
-
-#~ msgid "no beam to end"
-#~ msgstr "geen waardestreep te beëindigen"
-
-#~ msgid "unfinished beam"
-#~ msgstr "onbeëindigde waardestreep"
-
-#~ msgid "0 lines"
-#~ msgstr "0 regels"
-
-#~ msgid "1 line (of %.0f columns)"
-#~ msgstr "1 regel (van %.0f kolommen)"
-
-#~ msgid "%d lines (with an average of %.1f columns)"
-#~ msgstr "%d regels (van gemiddeld %.1f kolommen)"
-
-#~ msgid "approximated %s"
-#~ msgstr "geschat: %s"
-
-#~ msgid "calculated %s exactly"
-#~ msgstr "exact berekend: %s"
-
-#~ msgid "elapsed time %.2f seconds"
-#~ msgstr "duur: %.2f seconden"
-
-#~ msgid "no tremolo beam to end"
-#~ msgstr "geen tremolo waardestreep te beëindigen"
-
-#~ msgid "unfinished tremolo beam"
-#~ msgstr "onbeëindigde tremolo waardestreep"
-
-#~ msgid "Got a dynamic already.  Continuing dazed and confused."
-#~ msgstr "Heb al een dynamiek.  Ga verder, verstrooid en verward"
-
-#~ msgid "Too many crescendi here"
-#~ msgstr "Te veel cescendi hier"
-
-#~ msgid "Huh?  Empty Line_of_score?"
-#~ msgstr "Huh?  Lege Line_of_score?"
-
-#~ msgid "improbable offset for object type: `%s'"
-#~ msgstr "onwaarschijnlijke verschuiving voor object type: `%s'"
-
-#~ msgid "Can't solve this casting problem exactly; reverting to Word_wrap"
-#~ msgstr "Kan breekprobleem niet exact oplossen; verval naar Word_wrap"
-
-#~ msgid "%s elements"
-#~ msgstr "%s elementen"
-
-#~ msgid "Line ... "
-#~ msgstr "Regel ..."
-
-#~ msgid "degenerate constraints"
-#~ msgstr "voorwaarde is gedegenerederd"
-
-#~ msgid "spanner with negative length"
-#~ msgstr "spanner met negatieve lengte"
-
-#~ msgid "I'm too fat; call Oprah"
-#~ msgstr "Ben te dik; roep Catherine"
-
-#~ msgid "Solution doesn't satisfy constraints"
-#~ msgstr "Oplossing voldoet niet aan voorwaarden"
-
-#~ msgid "Improbable distance: %f point, setting to 10 mm"
-#~ msgstr "Onwaarschijnlijke afstand: %f punten, zet op 10 mm"
-
-#~ msgid "Negative distance, setting to 10 mm"
-#~ msgstr "Negatieve afstand, zet op 10 mm"
-
-#~ msgid "stem direction set already!"
-#~ msgstr "stokrichting is al gezet!"
-
-#~ msgid "unequal number of note heads for tie"
-#~ msgstr "ongelijk aantal notebolletjes voor overbinding"
-
-#~ msgid "cadenza"
-#~ msgstr "cadens"
-
-#~ msgid "Partial measure must be non-negative"
-#~ msgstr "Deelmaat moet niet-negatief zijn"
-
-#~ msgid "partial measure too large"
-#~ msgstr "deelmaat te groot"
-
-#~ msgid "time signature change not allowed here"
-#~ msgstr "maatwisseling is hier niet geoorloofd"
-
-#~ msgid "Ugh, this measure is too long, breakpoint: %d"
-#~ msgstr "Ugh, deze maat is te lang, breukpunt: %d"
-
-#~ msgid "Generating stupido solution"
-#~ msgstr "Genereer sullige oplossing"
-
-#~ msgid "I don't fit; put me on Montignac"
-#~ msgstr "Ik ben te dik; zet me op Montignac"
-
-#~ msgid "Need even number of args for shape array"
-#~ msgstr "Heb even aantal argumenten nodig voor shape array"
-
-#~ msgid "Can't abbreviate"
-#~ msgstr "Kan niet afkorten"
-
-#~ msgid "Can't abbreviate tuplet"
-#~ msgstr "Kan x-ool niet afkorten"
-
-#~ msgid "assume no tuplets"
-#~ msgstr "gebruik geen antimetrische figuren"

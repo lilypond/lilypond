@@ -18,26 +18,6 @@ StaffContext = \translator {
 };
 \translator { \StaffContext }
 
-%% urg, why (needs praeludium-*.ly) these?
-\translator
-{
-	\type "Performer_group_performer";
-	\consists "Note_performer";
-	 \name VoiceFour;
-}
-
-\translator
-{
-	\type "Performer_group_performer";
-	\consists "Note_performer";
-	\name VoiceThree;
-}
-\translator {
-	\type "Performer_group_performer";
-	\consists "Note_performer";
-	 \name VoiceOne;
-}
-
 VoiceContext = \translator {
 	\type "Performer_group_performer";
 	\name Voice;
