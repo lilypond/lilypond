@@ -244,7 +244,7 @@ Accidental_placement::position_accidentals (Grob * me)
 
   /*
     TODO: there is a bug in this code. If two accs are on the same
-    Y-position, they share an Ape, and will be pritned in overstrike.
+    Y-position, they share an Ape, and will be printed in overstrike.
    */
   Link_array<Accidental_placement_entry> apes;
   for (SCM s = accs; gh_pair_p (s); s =gh_cdr (s))
@@ -378,43 +378,27 @@ Accidental_placement::position_accidentals (Grob * me)
   if (gh_number_p (spad))
     padding = gh_scm2double (spad);
 
-
+  Array<Skyline_entry> left_skyline = head_ape->left_skyline_;
   /*
-    TODO:
-
-    There is a bug in this code: the left_skylines should be
-    accumulated, otherwise the b will collide with bb in
-
-      bb
-    b 
-      n 
-    
+    Add accs entries right-to-left.
    */
-  apes.push (head_ape);
-  for (int i= apes.size () -1 ; i-- > 0;)
+  for (int i= apes.size (); i-- > 0;)
     {
-      Accidental_placement_entry *ape = apes[i];
-      Real d = 0.0;
-      int j = i+1;
-      do {
-	d = - skyline_meshing_distance (ape->right_skyline_,
-					apes[j]->left_skyline_);
+      Real offset =
+	-skyline_meshing_distance (apes[i]->right_skyline_, left_skyline);
+      if (isinf (offset))
+	offset = (i < apes.size ()) ? apes[i+1]->offset_ : 0.0;
+      else
+	offset -= padding;
 
-	if (!isinf(d)
-	    || j + 1 == apes.size())
-	  break;
-	
-	j = j+ 1;
-      } while (1);
+      apes[i]->offset_ = offset;
 
-      if (isinf(d))
-	d = 0.0;
-      
-      d -= padding;
-      ape->offset_ += apes[j]->offset_ + d;
-    }
+      Array<Skyline_entry> new_left_skyline = apes[i]->left_skyline_;
+      heighten_skyline (&new_left_skyline, apes[i]->offset_);
+      merge_skyline (&new_left_skyline, left_skyline, LEFT);
+      left_skyline = new_left_skyline;
+    }      
 
-  apes.pop();
   for (int i = apes.size(); i--;)
     {
       Accidental_placement_entry* ape = apes[i];

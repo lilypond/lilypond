@@ -21,7 +21,7 @@ flats in a sixth should be staggered.  "
   <g! des'>
   <ges! es'!>
 }    
-    <cis d es fis gis ases bes ces d dis >4
+    <cis d es fis gis ases bes ces d e! >4
     <bes'! fis!>     
     <bes! cis!>
     <c! es ges beses>

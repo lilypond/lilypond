@@ -5,30 +5,21 @@
 
 
 \header{
-texidoc = "
-@section Introduction
+texidoc =
 
-This document presents a brief overview of LilyPond features.  When the
+#(string-append "@section Introduction
+
+This document presents a feature test for
+LilyPond " (lilypond-version) ".  When the
 text correspond with the shown notation, we consider LilyPond Officially
 BugFree (tm).  This document is intended for finding bugs, and
 documenting bugfixes.
 
 TODO: order of tests (file names!), test only one feature per test.
 Smaller and neater tests.
-
-
-"
+")
 
 }
 
-\score { \context Lyrics \notes {
-    \property Score.RehearsalMark \set #'self-alignment-X = #LEFT
+\score { \context Lyrics \lyrics { " " }}
 
-\mark #(ly:export    (string-append "(For LilyPond version "
-(lilypond-version) ")"))
-s2
- }
- \paper { indent = 0.0\pt
- raggedright   = ##t 
- }
-}

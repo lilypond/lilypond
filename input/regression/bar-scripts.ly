@@ -1,4 +1,3 @@
-#(ly:set-option 'old-relative)
 \version "1.9.8"
 \header{
 texidoc="
@@ -9,6 +8,7 @@ knowing it.  Consequently, they fall over  often.
 "
 }
 
+\paper { raggedright = ##t }
 
 onestaff =  \new Staff\notes\relative c''  {
 	\property Staff.instr = instr

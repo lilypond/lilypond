@@ -147,12 +147,3 @@ $(config_h): config.hh.in
 	@false
 
 
-# maybe move into private script?
-rsync-web:
-	cd out-www &&  mkdir web && tar  -xzf web.tar.gz -C web
-	cd out-www/web && \
-	chgrp -R lilypond . && \
-	chmod -R g+w .  && \
-	chmod 2775 `find -type d` . && \
-	rsync --delete --stats --progress -gorltvu -e ssh . x:/var/www/lilypond/doc/v$(MAJOR_VERSION).$(MINOR_VERSION)/
-	cd out-www && rm -rf web/

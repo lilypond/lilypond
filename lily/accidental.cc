@@ -85,6 +85,7 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
 	  boxes.push (bulb);
 	  boxes.push (stem);
 	}
+      
       /*
 	TODO: add support for natural, double flat.
        */

@@ -1,4 +1,20 @@
+2003-09-29  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/skyline.cc (merge_skyline): new function
+	(heighten_skyline): new function
+
+	* lily/accidental-placement.cc (position_accidentals) 
+	(position_accidentals): fix todo.
+
 2003-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* input/test/+.ly (texidoc): put version number inline.
+
+	* GNUmakefile.in: remove rsync-web target.
+	
+	* input/regression/bar-scripts.ly (onestaff): raggedright
+
+v/pri2003-09-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/*.cc: remove #if 0'd code in couple of places.
 

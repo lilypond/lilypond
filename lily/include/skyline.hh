@@ -21,11 +21,16 @@ struct Skyline_entry
 };
 
 
+
+void
+merge_skyline (Array<Skyline_entry> *a1, Array<Skyline_entry> const  & a2,
+	       Direction);
 void insert_extent_into_skyline (Array<Skyline_entry> *line, Box b, Axis line_axis,
 				 Direction d);
 Array<Skyline_entry>
 extents_to_skyline (Array<Box> const & extents, Axis a, Direction d);
 Array<Skyline_entry> empty_skyline (Direction d);
+void heighten_skyline (Array<Skyline_entry> *buildings, Real ground);
 Real
 skyline_meshing_distance (Array<Skyline_entry> const &buildings,
 			  Array<Skyline_entry> const &clouds);
