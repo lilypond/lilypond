@@ -159,8 +159,8 @@ snippet_res = {
 	'lilypond' : '(?m)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?{(?P<code>.*?)})',
 	'lilypond_block': r'''(?ms)^(?P<match>@lilypond(\[(?P<options>[^]]*)\])?\s(?P<code>.*?)@end lilypond)\s''',
 	'lilypond_file': '(?m)^(?P<match>@lilypondfile(\[(?P<options>[^]]*)\])?{(?P<filename>[^}]+)})',
-	'multiline_comment': r"(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end ignore)\s",
-	'singleline_comment': r"(?m)^.*(?P<match>(?P<code>@c([ \t][^\n]*|)\n))",
+	'multiline_comment': r'(?sm)^\s*(?!@c\s+)(?P<code>@ignore\s.*?@end\s+ignore)\s',
+	'singleline_comment': r'(?m)^.*(?P<match>(?P<code>@c([ \t][^\n]*|)\n))',
 
 # don't do this: fucks up with @code{@{}
 #	'verb': r'''(?P<code>@code{.*?})''',
@@ -596,7 +596,7 @@ def find_toplevel_snippets (s, types):
                                 m = res[type].search (s[index:endex])
 				if not m:
 					continue
-				
+
 				cl = Snippet
 				if snippet_type_to_class.has_key (type):
 					cl = snippet_type_to_class[type]
@@ -607,6 +607,17 @@ def find_toplevel_snippets (s, types):
                         if found[type] \
 			   and (not first or found[type][0] < found[first][0]):
                                 first = type
+
+				# FIXME.
+
+				# Limiting the search space is a cute
+				# idea, but this *requires* to search
+				# for possible containing blocks
+				# first, at least long as we do not
+				# search for the start of blocks, but
+				# always/directly for the entire
+				# @block ... @end block.
+				
                                 endex = found[first][0]
 
                 if not first:
@@ -616,6 +627,7 @@ def find_toplevel_snippets (s, types):
 		(start , snip) = found[first]
 		snippets.append (Substring (s, index, start))
 		snippets.append (snip)
+		found[first] = None
                 index = start + len (snip.match.group (0))
 
         return snippets
@@ -776,13 +788,14 @@ def do_file (input_filename):
 	ly.progress (_ ("Reading %s...") % input_fullname)
 	source = in_handle.read ()
 	ly.progress ('\n')
-	
+
+	# FIXME: containing blocks must be first, see find_toplevel_snippets
 	snippet_types = (
+		'multiline_comment',
+		'verbatim',
 		'lilypond_block',
 #		'verb',
-		'verbatim',
 		'singleline_comment',
-		'multiline_comment',
 		'lilypond_file',
 		'include',
 		'lilypond', )

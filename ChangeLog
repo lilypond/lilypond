@@ -1,3 +1,8 @@
+2004-02-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scripts/lilypond-book.py (do_file): Bugfix: change search order
+	of snippet types; fixes @ignore and @verbatim blocks.
+
 2004-02-26  Heikki Junes <hjunes@cc.hut.fi>
 
         * input/test/[a-b]*.ly: refresh descriptions -- avoid referring
