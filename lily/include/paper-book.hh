@@ -13,12 +13,12 @@
 #include "protected-scm.hh"
 #include "smobs.hh"
 
-struct Score_lines
+struct Score_systems
 {
-  SCM lines_;
+  SCM systems_;
   SCM header_;
 
-  Score_lines () ;
+  Score_systems () ;
   void gc_mark ();
 };
 
@@ -33,16 +33,16 @@ class Paper_book
 {
   DECLARE_SMOBS (Paper_book, );
 
-  SCM lines_;
+  SCM systems_;
   SCM pages_;
 public:
   SCM header_;
-  Array<Score_lines> score_lines_;
+  Array<Score_systems> score_systems_;
   Output_def *bookpaper_;
   
   Paper_book ();
 
-  SCM lines ();
+  SCM systems ();
   SCM pages ();
   Stencil book_title ();
   Stencil score_title (int);

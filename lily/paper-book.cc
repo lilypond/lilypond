@@ -21,7 +21,7 @@
 Paper_book::Paper_book ()
 {
   pages_ = SCM_BOOL_F;
-  lines_ = SCM_BOOL_F;
+  systems_ = SCM_BOOL_F;
   header_ = SCM_EOL;
   
   bookpaper_ = 0;
@@ -40,14 +40,14 @@ SCM
 Paper_book::mark_smob (SCM smob)
 {
   Paper_book *b = (Paper_book*) SCM_CELL_WORD_1 (smob);
-  for (int i = 0; i < b->score_lines_.size (); i++)
-    b->score_lines_[i].gc_mark ();
+  for (int i = 0; i < b->score_systems_.size (); i++)
+    b->score_systems_[i].gc_mark ();
 
   if (b->bookpaper_)
     scm_gc_mark (b->bookpaper_->self_scm ());
   scm_gc_mark (b->header_);
   scm_gc_mark (b->pages_);
-  return b->lines_;
+  return b->systems_;
 }
 
 int
@@ -148,7 +148,7 @@ Paper_book::post_processing (SCM module,
 void
 Paper_book::output (String outname)
 {
-  if (!score_lines_.size ())
+  if (!score_systems_.size ())
     return;
 
   /* Generate all stencils to trigger font loads.  */
@@ -210,15 +210,15 @@ void
 Paper_book::classic_output (String outname)
 {
   /* Generate all stencils to trigger font loads.  */
-  lines ();
+  systems ();
 
   // ugh code dup
   SCM scopes = SCM_EOL;
   if (ly_c_module_p (header_))
     scopes = scm_cons (header_, scopes);
 
-  if (ly_c_module_p (score_lines_[0].header_))
-    scopes = scm_cons (score_lines_[0].header_, scopes);
+  if (ly_c_module_p (score_systems_[0].header_))
+    scopes = scm_cons (score_systems_[0].header_, scopes);
   //end ugh
 
   Array<String> output_formats = split_string (output_format_global, ',');
@@ -267,11 +267,11 @@ LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
   return scopes;
 }
 
-LY_DEFINE (ly_paper_book_lines, "ly:paper-book-lines",
+LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
 	   1, 0, 0, (SCM pb),
-	   "Return lines in book PB.")
+	   "Return systems in book PB.")
 {
-  return unsmob_paper_book (pb)->lines ();
+  return unsmob_paper_book (pb)->systems ();
 }
 
 LY_DEFINE (ly_paper_book_book_paper, "ly:paper-book-book-paper",
@@ -320,8 +320,8 @@ Paper_book::score_title (int i)
   if (ly_c_module_p (header_))
     scopes = scm_cons (header_, scopes);
 
-  if (ly_c_module_p (score_lines_[i].header_))
-    scopes = scm_cons (score_lines_[i].header_, scopes);
+  if (ly_c_module_p (score_systems_[i].header_))
+    scopes = scm_cons (score_systems_[i].header_, scopes);
   //end ugh
 
   SCM tit = SCM_EOL;
@@ -340,58 +340,58 @@ Paper_book::score_title (int i)
 }
   
 SCM
-Paper_book::lines ()
+Paper_book::systems ()
 {
-  if (lines_ != SCM_BOOL_F)
-    return lines_;
+  if (systems_ != SCM_BOOL_F)
+    return systems_;
 
-  lines_ = SCM_EOL;
+  systems_ = SCM_EOL;
   Stencil title = book_title ();
 
   if (!title.is_empty ())
     {
-      Paper_system *pl = new Paper_system (title, true);
-      lines_ = scm_cons (pl->self_scm (), lines_);
-      scm_gc_unprotect_object (pl->self_scm ());
+      Paper_system *ps = new Paper_system (title, true);
+      systems_ = scm_cons (ps->self_scm (), systems_);
+      scm_gc_unprotect_object (ps->self_scm ());
     }
   
-  int score_count = score_lines_.size ();
+  int score_count = score_systems_.size ();
   for (int i = 0; i < score_count; i++)
     {
       Stencil title = score_title (i);      
       if (!title.is_empty ())
 	{
-	  Paper_system *pl = new Paper_system (title, true);
-	  lines_ = scm_cons (pl->self_scm (), lines_);
-	  scm_gc_unprotect_object (pl->self_scm ());
+	  Paper_system *ps = new Paper_system (title, true);
+	  systems_ = scm_cons (ps->self_scm (), systems_);
+	  scm_gc_unprotect_object (ps->self_scm ());
   	}
       
-      if (scm_vector_p (score_lines_[i].lines_) == SCM_BOOL_T)
+      if (scm_vector_p (score_systems_[i].systems_) == SCM_BOOL_T)
 	{
 	  // guh.	  
-	  SCM line_list = scm_vector_to_list (score_lines_[i].lines_);
+	  SCM system_list = scm_vector_to_list (score_systems_[i].systems_);
 
-	  line_list = scm_reverse (line_list);
-	  lines_ = scm_append (scm_list_2 (line_list, lines_));
+	  system_list = scm_reverse (system_list);
+	  systems_ = scm_append (scm_list_2 (system_list, systems_));
 	}
     }
   
-  lines_ = scm_reverse (lines_);
+  systems_ = scm_reverse (systems_);
   
   int i = 0;
   Paper_system *last = 0;
-  for (SCM s = lines_; s != SCM_EOL; s = ly_cdr (s))
+  for (SCM s = systems_; s != SCM_EOL; s = ly_cdr (s))
     {
-      Paper_system * p = unsmob_paper_line (ly_car (s));
-      p->number_ = ++i;
+      Paper_system *ps = unsmob_paper_system (ly_car (s));
+      ps->number_ = ++i;
 
       if (last && last->is_title ())
 	// ugh, hardcoded.	
-	p->penalty_ = 10000;
-      last = p;
+	ps->penalty_ = 10000;
+      last = ps;
     }
   
-  return lines_;
+  return systems_;
 }
 
 SCM
@@ -402,23 +402,23 @@ Paper_book::pages ()
 
   pages_ = SCM_EOL;
   SCM proc = bookpaper_->c_variable ("page-breaking");
-  pages_ = scm_apply_0 (proc, scm_list_2 (lines (), self_scm ()));
+  pages_ = scm_apply_0 (proc, scm_list_2 (systems (), self_scm ()));
   return pages_;
 }
 
 
 /****************************************************************/
 
-Score_lines::Score_lines ()
+Score_systems::Score_systems ()
 {
-  lines_ = SCM_EOL;
+  systems_ = SCM_EOL;
   header_ = SCM_EOL;
 }
 
 void
-Score_lines::gc_mark ()
+Score_systems::gc_mark ()
 {
-  scm_gc_mark (lines_);
+  scm_gc_mark (systems_);
   scm_gc_mark (header_);
 }
 

@@ -85,10 +85,10 @@ Book::process (String outname, Output_def *default_def)
 	 do titling?  */
       if (SCM_NFALSEP(scm_vector_p (systems)))
 	{
-	  Score_lines sc;
-	  sc.lines_ = systems;
+	  Score_systems sc;
+	  sc.systems_ = systems;
 	  sc.header_ = scores_[i]->header_;
-	  paper_book->score_lines_.push (sc);
+	  paper_book->score_systems_.push (sc);
 	}
     }
 

@@ -189,11 +189,11 @@ default_rendering (SCM music, SCM outdef,
 	  paper_book->header_ = header;
 	  paper_book->bookpaper_ = unsmob_output_def (scaled_bookdef);
 	  
-	  Score_lines sc;
-	  sc.lines_ = systems;
+	  Score_systems sc;
+	  sc.systems_ = systems;
 	  sc.header_ = header;
 
-	  paper_book->score_lines_.push (sc);
+	  paper_book->score_systems_.push (sc);
 	  
 	  paper_book->classic_output (ly_scm2string (outname));
 	  scm_gc_unprotect_object (paper_book->self_scm ());

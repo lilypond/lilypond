@@ -5,8 +5,8 @@
 
   (c) 2004  Jan Nieuwenhuizen <janneke@gnu.org>
 */
-#ifndef PAPER_LINE_HH
-#define PAPER_LINE_HH
+#ifndef PAPER_SYSTEM_HH
+#define PAPER_SYSTEM_HH
 
 #include "lily-proto.hh"
 #include "smobs.hh"
@@ -40,6 +40,6 @@ public:
   Real penalty () const;
 };
 
-DECLARE_UNSMOB (Paper_system, paper_line);
+DECLARE_UNSMOB (Paper_system, paper_system);
 
-#endif /* PAPER_LINE_HH */
+#endif /* PAPER_SYSTEM_HH */
