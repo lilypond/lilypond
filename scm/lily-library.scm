@@ -32,6 +32,9 @@
 (define-public (moment-min a b)
   (if (ly:moment<? a b) a b))
 
+(define-public (average x . lst)
+  (/ (+ x (apply + lst)) (1+ (length lst))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lily specific variables.
 

@@ -1914,6 +1914,22 @@ title of the next.
 Amount of space between consecutive titles (e.g., the title of the
 book and the title of a piece).
 
+@item systemSeparatorMarkup
+This contains a markup object, which will be inserted between
+systems. This is often used for orchestral scores.
+
+The markup command @code{\slashSeparator} is provided as a sensible
+default,  for example
+
+@lilypond[raggedright]
+\paper {
+  systemSeparatorMarkup = \slashSeparator
+}
+
+\relative { c1 \break c1 }
+@end lilypond
+
+
 @end table
 @end quotation
 

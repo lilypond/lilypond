@@ -1,3 +1,11 @@
+
+slashSeparator = \markup {
+    \hcenter
+    \vcenter \combine
+      \beam #2.0 #0.5 #0.48
+      \raise #0.7 \beam #2.0 #0.5 #0.48
+  }
+
 bookTitleMarkup = \markup {
 
   \column {

@@ -332,9 +332,15 @@ of the @code{#'direction} layout property."
     (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) cmols)))
 
 (def-markup-command (vcenter layout props arg) (markup?)
-  "Align @code{arg} to its center. "
+  "Align @code{arg} to its Y center. "
   (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-align-to! mol Y CENTER)
+    mol))
+
+(def-markup-command (hcenter layout props arg) (markup?)
+  "Align @code{arg} to its X center. "
+  (let* ((mol (interpret-markup layout props arg)))
+    (ly:stencil-align-to! mol X CENTER)
     mol))
 
 (def-markup-command (right-align layout props arg) (markup?)
@@ -561,6 +567,26 @@ that.
     arg)
    (* -0.5 (chain-assoc-get 'baseline-skip props))
    Y))
+
+(def-markup-command (beam layout props width slope thickness) (number? number? number?)
+  "Create a beam with the specified parameters."
+
+  (let*
+      ((y (* slope width))
+       (yext (cons (min 0 y) (max 0 y)))
+       (half (/ thickness 2)))
+       
+    (ly:make-stencil
+     (list 'beam width
+	   slope
+	   thickness
+	   (ly:output-def-lookup layout 'blotdiameter))
+     (cons 0 width)
+     (cons (+ (- half) (car yext))
+	   (+ half (cdr yext))))
+
+    ))
+
 
 (def-markup-command (normal-size-sub layout props arg) (markup?)
   "Set @var{arg} in subscript, in a normal font size."

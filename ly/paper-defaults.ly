@@ -49,7 +49,6 @@
     beforetitlespace = 10 \mm
     betweentitlespace = 2 \mm
 
-
     raggedbottom = ##f
 
     %%
@@ -57,7 +56,7 @@
     %%
     raggedlastbottom= ##t
 
-    %% ugh.  Should use /etc/papersize and set explicitely for
+    %% ugh.  Should use /etc/papersize and set explicitly for
     %% documentation.
     papersizename = "a4"
 

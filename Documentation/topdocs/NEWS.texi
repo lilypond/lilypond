@@ -9,6 +9,10 @@
 @itemize @bullet
 
 @item
+Separator slashes may be inserted between systems in a score. See
+@file{input/regression/system-separator.ly} for an example. 
+
+@item
 Locations of errors in the input are now calculated more precisely.
 
 @item
