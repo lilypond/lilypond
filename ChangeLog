@@ -2,6 +2,12 @@
 
 	* input/regression/note-head-style.ly: many fixes and updates
 
+	* Documentation/user/refman.itely: added small sections on ancient
+	accidentals, rests and flags; revised ancient note head section;
+	small wording/spelling fixes
+
+	* input/test/rests.ly: layout fixes
+
 2003-08-14  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* input/puer-fragment.ly: bugfix: central C position of do clef

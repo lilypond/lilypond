@@ -4370,7 +4370,10 @@ output:
 
 @menu
 * Ancient note heads::          
-* Ancient clefs ::              
+* Ancient accidentals::         
+* Ancient rests::               
+* Ancient clefs::               
+* Ancient flags::               
 * Custodes::                    
 * Divisiones::                  
 * Ligatures::                   
@@ -4381,19 +4384,148 @@ output:
 @node Ancient note heads
 @subsection Ancient note heads
 
+@cindex note heads
+
+For ancient notation, a note head style other than the @code{default}
+style may be chosen.  This is accomplished by setting the @code{style}
+property of the NoteHead object to the desired value (@code{baroque},
+@code{neo_mensural} or @code{mensural}).  The @code{baroque} style
+differs from the @code{default} style only in using a square shape for
+@code{\breve} note heads.  The @code{neo_mensural} style differs from
+the @code{baroque} style in that it uses rhomboidal heads for whole
+notes and all smaller durations.  Stems are centered on the note
+heads.  This style is in particular useful when transcribing mensural
+music, e.g. for the incipit.  The @code{mensural} style finally
+produces note heads that mimick the look of note heads in historic
+printings of the 16th century.
+
 To get a longa note head, you have to use mensural note heads. This
 is accomplished by setting the @code{style} property of the
 NoteHead object to @code{mensural}. There is also a note head style
 @code{baroque} which gives mensural note heads for @code{\longa} and
 @code{\breve} but standard note heads for shorter notes:
 
+The following example demonstrates the @code{neo_mensural} style:
+
 @lilypond[fragment,singleline,verbatim]
- \property Voice.NoteHead \set #'style = #'mensural
- a'\longa
+  \property Voice.NoteHead \set #'style = #'neo_mensural
+  a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
-@node Ancient clefs 
+When typesetting a piece in Gregorian Chant notation, a Gregorian
+ligature engraver will automatically select the proper note heads,
+such there is no need to explicitly set the note head style.  Still,
+the note head style can be set e.g. to @code{vaticana_punctum} to
+produce punctum neumes.  Similarly, a mensural ligature engraver is
+used to automatically assemble mensural ligatures.  See section
+@ref{Ligatures} for how ligature engravers work.
+
+@seealso
+
+@inputfileref{input/regression,note-head-style.ly} gives an overview
+over all available note head styles.
+
+@ref{Percussion staves} use note head styles of their own that are
+frequently used in contemporary music notation.
+
+@node Ancient accidentals
+@subsection Ancient accidentals
+
+@cindex accidentals
+
+Use the @code{style} property of grob @internalsref{Accidental} to
+select ancient accidentals.  Currently supported styles are
+@code{mensural}, @code{vaticana}, @code{hufnagel} and @code{medicaea}.
+
+@lilypond[singleline,26pt]
+\score {
+    \notes {
+        \fatText
+        s
+        ^\markup {
+            \column <<
+                "vaticana" 
+                { " " \musicglyph #"accidentals-vaticana-1"
+                  " " \musicglyph #"accidentals-vaticana0" }
+            >>
+	    \column <<
+                "medicaea"
+		{ " " \musicglyph #"accidentals-medicaea-1" }
+            >>
+	    \column <<
+                "hufnagel"
+		{ " " \musicglyph #"accidentals-hufnagel-1" }
+            >>
+            \column <<
+                "mensural"
+                { " " \musicglyph #"accidentals-mensural-1"
+                  " " \musicglyph #"accidentals-mensural1" }
+            >>
+        }
+    }
+    \paper {
+	raggedright = ##t 
+        interscoreline = 1
+        \translator {
+            \ScoreContext
+            \remove "Bar_number_engraver"
+        }
+        \translator{
+            \StaffContext
+            \remove "Clef_engraver"
+            \remove "Key_engraver"
+            \remove "Time_signature_engraver"
+            \remove "Staff_symbol_engraver"
+            minimumVerticalExtent = ##f
+        }
+    }
+}
+@end lilypond
+
+As shown, not all accidentals are supported by each style.  When
+trying to access an unsupported accidental, LilyPond will switch to a
+different style, as demonstrated in
+@inputfileref{input/test,ancient-accidentals.ly}.
+
+Similarly to local accidentals, the style of the key signature can be
+controlled by the @code{style} property of the
+@internalsref{KeySignature} grob.
+
+
+@node Ancient rests
+@subsection Ancient rests
+
+@cindex rests
+
+Use the @code{style} property of grob @internalsref{Rest} to select
+ancient accidentals.  Currently supported styles are @code{classical},
+@code{neo_mensural} and @code{mensural}.  @code{classical} differs
+from the @code{default} style only in that the quarter rest looks like
+a horizontally mirrored 8th rest.  The @code{neo_mensural} style suits
+well for e.g. the incipit of a transcribed mensural piece of music.
+The @code{mensural} style finally mimicks the appearance of rests as
+in historic prints of the 16th century.
+
+The following example demonstrates the @code{neo_mensural} style:
+
+@lilypond[fragment,singleline,verbatim]
+  \property Voice.Rest \set #'style = #'neo_mensural
+  r\longa r\breve r1 r2 r4 r8 r16
+@end lilypond
+
+There are no 32th and 64th rests specifically for the mensural or
+neo-mensural style.  Instead, the rests from the default style will be
+taken.  See @inputfileref{input/test,rests.ly} for a chart of all
+rests.
+
+There are no rests in Gregorian Chant notation; instead, it uses
+@ref{Divisiones}.
+
+
+@node Ancient clefs
 @subsection Ancient clefs
+
+@cindex clefs
 
 LilyPond supports a variety of clefs, many of them ancient.
 
@@ -4471,7 +4603,7 @@ petrucci style mensural G clef @tab
 @end lilypond
 
 @item
-@code{clefs-mensural_c'} @tab
+@code{clefs-mensural_c} @tab
 historic style mensural C clef @tab
 @code{mensural_c1}, @code{mensural_c2}, @code{mensural_c3},
 @code{mensural_c4} @tab
@@ -4604,6 +4736,46 @@ editions (other than those of Petrucci)''.
 Petrucci used C clefs with differently balanced left-side vertical
 beams, depending on which staffline it is printed.
 
+
+@node Ancient flags
+@subsection Ancient flags
+
+@cindex flags
+
+Use the @code{flag-style} property of grob @internalsref{Stem} to
+select ancient flags.  Besides the @code{default} flag style,
+currently only @code{mensural} style is supported:
+
+@lilypond[fragment,singleline,verbatim]
+  \property Voice.Stem \set #'flag-style = #'mensural
+  \property Voice.Stem \set #'thickness = #1.0
+  \property Voice.NoteHead \set #'style = #'mensural
+  \autoBeamOff
+  c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
+  c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
+@end lilypond
+
+Note that the innermost flare of each mensural flag always is
+vertically aligned with a staff line.  If you do not like this
+behaviour, you can set the @code{adjust-if-on-staffline} property of
+grob @internalsref{Stem} to @code{##f}.  Then, the vertical position
+of the end of each flare is different between notes on staff lines and
+notes between staff lines:
+
+@lilypond[fragment,singleline]
+  \property Voice.Stem \set #'flag-style = #'mensural
+  \property Voice.Stem \set #'thickness = #1.0
+  \property Voice.Stem \set #'adjust-if-on-staffline = ##f
+  \property Voice.NoteHead \set #'style = #'mensural
+  \autoBeamOff
+  c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
+  c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
+@end lilypond
+
+There is no particular flag style for neo-mensural notation.  Hence,
+when typesetting e.g. the incipit of a transcibed piece of mensural
+music, the default flag style should be used.  There are no flags in
+Gregorian Chant notation.
 
 @node Custodes
 @subsection Custodes
@@ -4777,24 +4949,25 @@ Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
 @c down the following paragraph by heart.
 
 In musical terminology, a ligature is a coherent graphical symbol that
-represents at least two different notes.  Ligatures originally appeared
+represents at least two distinct notes.  Ligatures originally appeared
 in the manuscripts of Gregorian chant notation roughly since the 9th
 century as an allusion to the accent symbols of greek lyric poetry to
-denote ascending or descending sequences of notes.  Both, the shape and
-the exact meaning of ligatures changed tremendously during the following
-centuries: In early notation, ligatures were used for monophonic tunes
-(Gregorian chant) and very soon denoted also the way of performance in
-the sense of articulation.  With upcoming multiphony, the need for a
-metric system arised, since multiple voices of a piece have to be
-synchronized some way.  New notation systems were invented that used
-the manifold shapes of ligatures to now denote rhythmical patterns
-(e.g. black mensural notation, mannered notation, ars nova).  With the
-invention of the metric system of the white mensural notation, the need
-for ligatures to denote such patterns disappeared.  Nevertheless,
-ligatures were still in use in the mensural system for a couple of
-decades until they finally disappeared during the late 16th / early 17th
-century.  Still, ligatures have survived in contemporary editions of
-Gregorian chant such as the Editio Vaticana from 1905/08.
+denote ascending or descending sequences of notes.  Both, the shape
+and the exact meaning of ligatures changed tremendously during the
+following centuries: In early notation, ligatures were used for
+monophonic tunes (Gregorian chant) and very soon denoted also the way
+of performance in the sense of articulation.  With upcoming
+multiphony, the need for a metric system arised, since multiple voices
+of a piece have to be synchronized some way.  New notation systems
+were invented that used the manifold shapes of ligatures to now denote
+rhythmical patterns (e.g. black mensural notation, mannered notation,
+ars nova).  With the invention of the metric system of the white
+mensural notation, the need for ligatures to denote such patterns
+disappeared.  Nevertheless, ligatures were still in use in the
+mensural system for a couple of decades until they finally disappeared
+during the late 16th / early 17th century.  Still, ligatures have
+survived in contemporary editions of Gregorian chant such as the
+Editio Vaticana from 1905/08.
 
 @syntax
 
