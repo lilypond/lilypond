@@ -72,7 +72,7 @@ files. The temporary directory is created in the current directory as @code{@cod
     Add @var{key}= @var{val} to the settings, overriding those specified
 in the files. Possible keys: @code{language}, @code{latexheaders},
 @code{latexpackages}, @code{latexoptions}, @code{papersize},
-@code{pagenumber}, @code{linewidth}, @code{orientation},
+@code{linewidth}, @code{orientation},
 @code{textheight}.
 @item -v,--version
 Show version information.
