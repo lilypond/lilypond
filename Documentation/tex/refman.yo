@@ -10,25 +10,23 @@ redef(code)(1)(tt(ARG1))
 
 COMMENT(
 
-questions:
-   long lyrics don't get any space at the end
-   lyrics and scripts collide
-   \key b; \time 4/4; looks bad---no space between key sig and clef
-   \portato still DOES NOT WORK!
-   \cadenza vs. barNonAuto ?
-   not enough space for \key b;
-   I noticed that ledger lines in the previewer looked like they had
-     a double line (of different lengths).  On printed output, I think
-     I can see a slight thickening of the ledger lines in the middle. 
-     Is this supposed to happen?   
+  BUGS:
+
+    Causes segfault:
+
+    \score{
+      \notes{  \context Voice {
+         \repeat fold 2 { a b c d } {}
+     }
+     }
+    }
+    
+
    restStyle=mensural doesn't seem to work (lots of characters not found
      for rests.fly)
-   what happened to the Staff.textalignment and Lyrics.textalignment 
-     properties? 
-
 
 TODO:
-   autobeamer
+   thread
    paper size?
    paper variables
    the explanation of how lyrics mode parses words seems ridiculous.  
@@ -37,28 +35,6 @@ TODO:
    accordion symbols
    interstaff beams (beam-interstaff.ly)
    interstaff slurs (see preludes-1.ly)
-
-   Current list of undocumented properties:
-
-	 "alignmentReference"  to do with minVerticalAlign, etc?
-	 "beamAuto"
-	 "beamAutoBegin"
-	 "beamAutoBegin" + type_str
-	 "beamAutoEnd"
-	 "beamAutoEnd" + type_str
-	 "createInitdefaultClef"
-	 "dynamicStyle"
-	 "postBreakPadding"
-	 "staffLineLeading"
-	 "stemLeftBeamCount"
-	 "stemRightBeamCount"
-	 time_str + "beamAutoBegin"
-	 time_str + "beamAutoBegin" + type_str
-	 time_str + "beamAutoEnd"
-	 time_str + "beamAutoEnd" + type_str
-	 type_ + "Direction"
-	 type_ + "HangOnClef"
-	 type_ + "ScriptPadding"
 )
 
 
@@ -81,7 +57,7 @@ latexlayoutcmds(
 
 whentexinfo(notableofcontents())
 
-article(Mudela 1.0.14 / LilyPond 1.1.40 Reference Manual)
+article(Mudela 1.0.21 / LilyPond 1.1.49 Reference Manual)
       (Adrian Mariano, Han-Wen Nienhuys and Jan Nieuwenhuizen)
       (nop()PIPETHROUGH(date "+%B %d, %Y")()()nop())
 
@@ -226,9 +202,11 @@ and code(< c e g >) represents a chord.  These items can be nested any
 way you like.  This simple example shows how three chords can be
 expressed in two different ways:
 mudela(fragment,verbatim,center)(
-\notes<{a b  c'}{c' d' e'}{e' f' g'}>
-\notes{<a c' e'><b  d' f'><c' e' g'>}
-)
+\notes{
+  c
+  <a c' e'> <b  d' f'> <c' e' g'>
+  <{a b  c'}{c' d' e'}{e' f' g'}>
+})
 
 )
 
@@ -244,23 +222,24 @@ identifier in terms of its old value: code(foo = \foo * 2.0).
 Identifier assignments must appear at the top level in the Mudela
 file.  Note that semicolons are forbidden after assignments appearing
 at the top level but they are obligatory after assignments appearing
-elsewhere.  
+elsewhere.  (Semicolons are also forbidden after code(\property) assignments.)
 
 An identifier can be created with any string for its name, but you
 will only be able to refer to identifiers whose names begin with a
 letter and are entirely alphanumeric.  It is also impossible to refer
 to an identifier whose name is the same as the name of a keyword.  The
 following words are keywords:
-verb(absdynamic     duration        mark           property   skip       
-accepts        font            midi           pt         spandynamic
-alternative    grouping        mm             relative   tempo      
-bar            header          musicalpitch   remove     time       
-cadenza        in              name           repeat     times      
-chordmodifiers include         notenames      scm        translator 
-chords         key             notes          scmfile    transpose  
-clef           keysignature    paper          score      type       
-cm             lyrics          partial        script     version    
-consists       maininput       penalty        shape)
+verb(accepts         duration      midi          relative      textscript 
+alternative     font          mm            remove        time       
+bar             grouping      musicalpitch  repeat        times      
+cadenza         header        name          scm           translator 
+chordmodifiers  in            notenames     scmfile       transpose  
+chords          include       notes         score         type       
+clef            key           paper         script        version
+cm              keysignature  partial       shape      
+consists        lyrics        penalty       skip       
+consistsend     maininput     property      spanrequest
+context         mark          pt            tempo)
 
 The right hand side of an identifier assignment is parsed completely
 when the assignment is made.  It therefore must have any context
@@ -493,7 +472,37 @@ mudela(fragment,verbatim,center)(
 R1*3 c'1 d'
 )
 
+
+subsect(Automatic Beam Generation)
+label(autobeam)
+
+By default, Lilypond will generate beams automatically.  This feature can be
+disabled by setting the code(Voice.beamAuto) property to 0.  It can be
+overridden for specific cases by specifying explicit beams as
+described in Section ref(manualbeam).  
+
+In order to decide how to generate beams, Lilypond uses a large number
+of Voice properties, whose default values appear in
+file(auto-beam-settings.ly).  In general, beams can begin anywhere,
+but their ending location is significant.  Beams can end on a beat, or
+at durations specified by the code(Voice.beamAutoEnd) property.  To
+end beams every quarter note, for example, you could use set
+code(Voice.beamAutoEnd) equal to code("1/4").  To end beams every
+three eighth notes you would set it to code("3/8").  The same syntax
+can be used to specify beam starting points using code(Voice.beamAutoBegin).
+
+To allow different settings for different time signatures, these
+property names can start with code(time)var(N)code(_)var(M) to
+restrict the definition to var(N)code(/)code(M) time.  So for example,
+to specify beams ending only for 6/8 time you would use the property
+code(Voice.time6_8beamAutoEnd).  To allow different endings for notes
+of different durations, the duration can be tacked onto the end of the
+property.  To specify beam endings for beams that contain 32nd notes,
+you would use code(Voice.beamAutoEnd_32).
+
+
 subsect(Note Spanners: Beams, Slurs and Ties)
+label(manualbeam)
 
 A beam is specified by surrounding the beamed notes with brackets
 code([) and code(]).  
@@ -543,6 +552,7 @@ mudela(fragment,verbatim,center)(
 \context Staff=two \notes{ \clef bass; s1}
 >
 )
+
 
 
 subsect(Note Ornaments)
@@ -596,13 +606,13 @@ mudela()(
         c''4-^_"c-\\^{ }"  s4 }
         \paper { linewidth = 12.\cm; }})
 
-Dynamic marks are specified by using an identifier after a note
-without a dash: code(c4 \ff).  Note that this syntax is inconsistent
-with the syntax for other types of ornaments.  The available dynamic
-marks are: code(\pppppp), code(\ppppp), code (\pppp), code(\ppp), code(\pp), 
-code(\p), code(\mp), code(\mf), code(\f), code(\ff), code(\fff),
-code(\ffff), code(\fffff), code(\ffffff), 
-code(\fp), code(sf), code(\sff), code(\sp), code(\spp), (\sfz) and code (\rfz).
+Dynamic marks are specified by using an identifier after a note without a dash:
+code(c4 \ff).  Note that this syntax is inconsistent with the syntax for other
+types of ornaments.  The available dynamic marks are: code(\pppppp),
+code(\ppppp), code(\pppp), code(\ppp), code(\pp), code(\p), code(\mp),
+code(\mf), code(\f), code(\ff), code(\fff), code(\ffff), code(\fffff),
+code(\ffffff), code(\fp), code(\sf), code(\sff), code(\sp), code(\spp),
+code(\sfz) and code(\rfz).
 
 A crescendo mark is started with code(\cr) and terminated with
 code(\rc).  A decrescendo mark is started with code(\decr) and
@@ -691,7 +701,7 @@ determine the first note of the next chord.  But other notes within the second
 chord are determined by looking at the immediately preceeding note.  
 
 mudela(fragment,verbatim,center)(
-\relative c' { <c e g> 
+\relative c' { c <c e g> 
     <c' e g> <c, e' g> }
 ) 
 
@@ -888,7 +898,8 @@ Because LilyPond knows the durations of all musical elements, the time
 signature enables LilyPond to draw bar lines automatically.  The time
 signature is specified with the code(\time) keyword: code(\time 3/4).
 If no time signature is given, LilyPond assumes 4/4.  The automatic
-generation of bar lines can toggled with the code(\cadenza) keyword,
+generation of bar lines can toggled with the code(\cadenza) keyword or the
+code(Staff.barNonAuto) property,
 and an incomplete measure at the start of the music can be created
 using the code(\partial) keyword: code(\partial 8*2;) creates a
 starting measure lasting two eighth notes.
@@ -976,27 +987,30 @@ END OF COMMENT  )
 
 sect(Repeats)
 
-
-OUTDATED. FIXME
-
 In order to specify repeats, use the code(\repeat) keyword.  By
 default, repeats are printed with repeat symbols.  
 mudela(fragment,verbatim,center)(
 c'1
-\repeat 2 { c'4 d' e' f' }
-\repeat 2 { f' e' d' c' })
+\repeat semi 2 { c'4 d' e' f' }
+\repeat semi 2 { f' e' d' c' })
 In order to specify alternate endings, use the code(\alternative)
 keyword.  
 mudela(fragment,verbatim,center)(
 c'1
-\repeat 2 {c'4 d' e' f'} 
+\repeat semi 2 {c'4 d' e' f'} 
+\alternative { {d'2 d'} {f' f} })
+The code(semi) specifies that normal repeats will be printed.  If
+code(fold) is used instead then the alternatives will be stacked:
+mudela(fragment,verbatim,center)(
+c'1
+\repeat fold 2 {c'4 d' e' f'} 
 \alternative { {d'2 d'} {f' f} })
 When the repeats involve partial measures, it will be necessary to use
 code(\partial) keywords in a somewhat unexpected way 
 to indicate some measure lengths.
 mudela(fragment,verbatim)(
 \context Staff { \relative c'{
-  \repeat 2 { \partial 4; e | c2 d2 | e2 f2 | }
+  \repeat semi 2 { \partial 4; e | c2 d2 | e2 f2 | }
   \alternative { { g4 g g } {\partial 1; a a a a | b1 } }
 }})
 Repeats can be unfolded by setting the property Staff.unfoldRepeats.
@@ -1008,7 +1022,7 @@ first alternative is assumed to be repeated enough to equal to
 specified number of repeats.  
 mudela(fragment,verbatim)(
 \context Staff { \relative c'{
-  \repeat 3 { \partial 4; e | c2 d2 | e2 f2 | }
+  \repeat semi 3 { \partial 4; e | c2 d2 | e2 f2 | }
   \alternative { { g4 g g } {\partial 1; e4 e e } 
                  {\partial 1; a a a a | b1 } }
 }})
@@ -1056,8 +1070,8 @@ has no effect on the MIDI output.
 
 dit(code(\cadenza) var(togglevalue)code(;)) Toggles the automatic generation
 of bar lines.  If var(togglevalue) is 0 then bar line generation is
-turne off.   If var(togglevalue) is  1  then a bar is  immediately
-printed and bar generation is turned  on.
+turned off.   If var(togglevalue) is  1  then a bar is  immediately
+printed and bar generation is turned on.
 
 dit(code(\clef) var(clefname)code(;)) Allowed only in music.  
 Sets the current clef.  The argument is
@@ -1105,6 +1119,16 @@ dit(code(\consists) var(string)code(;)) This keyword can appear only within a
 code(\translator) block.  It specifies that an engraver or performer named
 var(string) should be added to the translator.  See Section
 ref(translators).
+
+dit(code(\consistsend) var(string)code(;)) Unknown function.  
+
+dit(code(\context) var(contexttype) [code(=) var(contextname)]
+var(music) or code(\context) var(translatortype)code(;)) The first
+variant is used only within music to create an instance of a
+context.  The new context can optionally be given a name.  The
+specified var(music) is processed in the new context. The second
+variant appears within a code(\translator) block and specifies the
+type of translator being created.
 
 dit(code(\duration) code({) var(length) var(dotcount) code(})) Specify note
 duration.  The parameter var(length) is the negative logarithm (base
@@ -1202,7 +1226,7 @@ the music lasts only for the specified duration.  Use also to specify
 the duration of the first measure of the argument to
 code(\alternative).  
 
-dit(code(\penalty) code(=) var(int)code(;)) Allowed only in music.
+dit(code(\penalty) var(int)code(;)) Allowed only in music.
 Discourage or encourage line breaks.  See identifiers code(\break) and
 code(\nobreak) in Section ref(ident). 
 
@@ -1227,10 +1251,12 @@ dit(code(\remove) var(string)code(;)) Can appear only in a
 code(\translator) block.  Specifies that a performer or engraver named
 var(string) should be removed.  See Section ref(translators).  
 
-dit(code(\repeat) var(count) code({) var(music) code(}))
+dit(code(\repeat) var(style) var(count) code({) var(music) code(}))
 Repeats the specified
 music var(count) times.  Alternative endings can be specified by adding a
-code(\alternative) keyword after the code(\repeat).  
+code(\alternative) keyword after the code(\repeat).  The var(style)
+parameter should be either code(semi), for regular repeats,  or
+code(fold) for repeats displayed vertically. 
 
 dit(code(\scm) var(scheme)code(;)) Embeds specified Scheme code.  
 
@@ -1266,21 +1292,12 @@ var(duration).  A gap will be left for the skipped time with no notes
 printed.  It works in Note Mode or Lyrics Mode (but generates a
 mysterious error in lyrics).
 
-OBSOLETE
-
-dit(code(\spandynamic) code({) var(kind) var(toggle) code(})) Internal
-keyword for crescendo and decrescendo symbols.  The first parameter
-var(kind) is set to 1 for a crescendo and -1 for a decrescendo.  The
-second parameter is set to 1 to start the mark and 2 to stop it.
-Users should use the abbreviations which are defined in the
+dit(code(\spanrequest) var(startstop) var(type)).  Define a spanning request
+var(startstop) is either -1 (code(\start)) or 1 (code(\stop)). The var(type)
+parameter is a string that describes what should be started.  Supported types
+are "crescendo", "decrescendo", "beam", "slur".  This is an internal command.
+Users should use the abbreviations  which are defined in the
 initialization file file(dynamic.ly).
-
-FIXME:
-
-code(\spanrequest) var(startstop) var(type).  Define a
-spanning request var(startstop) is either -1 (start) or 1
-(stop). var(type) is a string that describes what should be started.
-Supported types are "crescendo", "decrescendo", "beam", "slur".
 
 dit(code(\tempo) var(duration) = var(perminute)code(;)) Used within
 code(\midi) or within music to specify the tempo.  For example, 
@@ -1288,6 +1305,9 @@ code(\midi) or within music to specify the tempo.  For example,
 per minute.  Note that if the music contains several tempo commands,
 only the last one is used to set the tempo for the entire MIDI output. 
 COMMENT(Is this true?)
+
+dit(code(\textscript) var(text) var(style)) Print the specified text as a
+script in the specified style.  
 
 dit(code(\time) var(numerator)code(/)var(denominator)code(;)) Change the time
 signature.  The default time signature is 4/4.  
@@ -1315,13 +1335,8 @@ and if it appears inside code(\relative), then any notes specified for
 transposition should be specified inside another code(\relative).  See Section
 ref(transpose).  
 
-dit(code(\context) var(contexttype) [code(=) var(contextname)]
-var(music) or code(\context) var(translatortype)code(;)) The first
-variant is used only within music to create an instance of a
-context.  The new context can optionally be given a name.  The
-specified var(music) is processed in the new context. The second
-variant appears within a code(\translator) block and specifies the
-type of translator being created.
+dit(code(\type) var(string)code(;)) Use inside code(\translator) to
+specify the type of the translator.  
 
 dit(code(\version) var(string)) Specify the version of Mudela that a
 file was written for.  The argument is the version number, for example
@@ -1423,16 +1438,28 @@ when using code(\property) in Lyrics mode.  Because of the way strings
 are parsed, either put quotes around the arguments to code(\property)
 or be sure to leave a space on both sides of the dot.
 
-GONE dit(code(textalignment)) Controls alignment of lyrics.  Set to code(\left)
-to align the left end of the lyric with the note; set to code(\right) to
-align the right end of the lyric with the note.  Set to code(\center) to
-align the center of the lyric with the note.  
 
 )
 
 subsubsubsect(Voice properties)
 
 description(  
+
+dit(code(stemLeftBeamCount)) Specify the number of beams to draw on
+the left side of the next note.  
+
+dit(code(stemRightBeamCount)) Specify the number of beams to draw on
+the right side of the next note.  
+
+dit(code(beamAuto)) If set to 1 then beams are generated
+automatically.  If set to zero then no beams will be automatically
+generated.  The default value is 1.  
+
+dit(code(beamAutoEnd)) Specifies when automatically generated beams
+can end.  See Section ref(autobeam).
+
+dit(code(beamAutoBegin)) Specifies when automatically generated beams
+can start.  See Section ref(autobeam). 
 
 dit(code(textEmptyDimension)) If set to 1 then text placed above or
 below the staff is assumed to have zero width.  
@@ -1477,7 +1504,7 @@ the number of half-steps to transpose by.
 dit(code(oldTieBehavior)) Set to 1 in order to get old tie behavior
 where ties would connect unequal pitches.  
 
-dit(code(ydirection)) Determines the direction of stems, subscripts,
+dit(code(verticalDirection)) Determines the direction of stems, subscripts,
 beams, slurs, and ties.  Set to code(\down) to force them down,
 code(\up) to force them up, or code(\free) to let LilyPond decide.
 This can be used to distinguish between voices on the same staff.  The
@@ -1485,12 +1512,12 @@ code(\stemdown), code(\stemup), and code(\stemboth) identifiers set
 this property.  See also the identifiers code(\voiceone),
 code(\voicetwo), code(\voicethree) and code(\voicefour).
 
-dit(code(slurydirection)) Set to code(\free) for free choice of slur
+dit(code(slurVerticalDirection)) Set to code(\free) for free choice of slur
 direction, set to code(\up) to force slurs up, set to code(\down) to
 force slurs down.  The shorthands code(\slurup), code(\slurdown), and
 code(\slurboth) are available.
 
-dit(code(tieydirection)) Set to code(\free) for free choice of tie
+dit(code(tieVerticalDirection)) Set to code(\free) for free choice of tie
 direction, set to code(\up) to force ties up, set to code(\down) to
 force ties down.  
 
@@ -1498,19 +1525,17 @@ dit(code(slurdash)) Set to 0 for normal slurs, 1 for dotted slurs, and
 a larger value for dashed slurs.  Identifiers code(\slurnormal) and
 code(\slurdotted) are predefined to set the first two settings.
 
-dit(code(hshift)) Set to 1 to enable LilyPond to shift notes
+dit(code(horizontalNoteShift)) Set to 1 to enable LilyPond to shift notes
 horizontally if they collide with other notes.  This is useful when
 typesetting many voices on one staff.  The identifier code(\shift) is
-defined to enable this.
+defined to enable this.  If there are several voices, every voice must
+have a distinct value of this property or no shifting will occur.
 
 dit(code(dynamicDir)) Determines location of dynamic marks.  Set to
 code(\up) to print marks above the staff; set to code(\down) to print
 marks below the staff.
 
-GONE dit(code(textalignment)) Controls alignment of superscripted and
-subscripted text.  Set to \left to align the left end of the text with
-the note; set to \right to align the right end of the text with the
-note.  Set to \center to align the center of the text with the note.
+dit(code(dynamicStyle)) Set the text style for dynamics.  
 
 dit(code(textStyle)) Set the text style for superscripts and
 subscripts.  See above for list of text styles.
@@ -1553,6 +1578,39 @@ subsubsubsect(Staff properties)
 
 description(
 
+dit(code(createInitdefaultClef)) Specify whether clefs are created on
+default?  (Doesn't seem to do anything.)
+
+dit(code(barNumberDirection)) Set to code(\up) or code(\down) to put
+bar numbers above or below the staff.  
+
+dit(code(barNumberHangOnClef)) Set to 1 to cause bar numbers to appear
+above or below the clef instead of on the bar line.
+
+dit(code(barNumberScriptPadding)) Sets extra space between the bar
+number and the bar it labels.
+
+dit(code(markHangOnClef)) Set to 1 to cause marks to appear by clefs
+instead of by bar lines.
+
+dit(code(marginDirection)) Set to code(\left) or code(\right) to
+specify location of marginal scripts.  
+
+dit(code(marginScriptPadding)) Specify extra space for marginal scripts.
+
+dit(code(forgetAccidentals)) Causes accidentals to be printed at every
+note instead of remembered for the duration of a measure.  
+
+dit(code(noResetKey)) Do not reset the key at the start of a measure.
+Accidentals will be printed only once and are in effect until
+overridden, possibly many measures later. 
+
+dit(code(staffLineLeading)) Specifies the distance (in points) between lines
+of the staff.  
+
+dit(code(postBreakPadding)) Extra space in points to be added after
+the clef, time signature and key signature on the staff.
+
 dit(code(barAtLineStart)) Set to 1 to produce a bar line after the
 clef at the start of each line (but not at the beginning of the
 music).  
@@ -1570,6 +1628,9 @@ than the music given in an code(\alternative).
 
 dit(code(barNonAuto)) If set to 1 then bar lines will not be printed
 automatically; they must be explicitly created with code(\bar) keywords.
+Unlike with the code(\cadenza) keyword, measures are still counted.  Bar
+generation will resume according to that count if this property is set to
+zero.  
 
 dit(code(defaultClef)) Determines the default clef.  See code(\clef)
 keyword.
@@ -1655,6 +1716,10 @@ smaller size.
 subsubsubsect(GrandStaff properties)
 
 description( 
+
+dit(code(alignmentReference)) Set to code(\center) for vertical
+alignment reference point to be in the center of the vertical group.
+Set to code(\up) to put the reference point at the top of the group. 
 
 dit(code(maxVerticalAlign)) Set the maximum vertical distance between
 staffs.
@@ -1766,25 +1831,25 @@ dit(code(\sf)) Print a subito-forte symbol on preceeding note.
 dit(code(\sff)) Print a subito-fortissimo symbol on preceeding note.
 dit(code(\sfz)) Print a sforzato symbol on preceeding note. 
 dit(code(\shiftoff)) Disable horizontal shifting of note heads that collide.  
-Sets the Voice.hshift property.
+Sets the Voice.horizontalNoteShift property.
 dit(code(\shifton)) Enable note heads that collide with other note heads
-to be shifted horiztonally.  Sets the Voice.hshift property.
+to be shifted horiztonally.  Sets the Voice.horizontalNoteShift property.
 dit(code(\slurboth)) Allow slurs to be above or below notes.  This
-sets the Voice.slurydirection property. 
+sets the Voice.slurVerticalDirection property. 
 dit(code(\slurdown)) Force slurs to be below notes. This sets the
-Voice.slurydirection property. 
+Voice.slurVerticalDirection property. 
 dit(code(\slurup)) Force slurs to be above notes.  This sets the
-Voice.slurydirection property.  
+Voice.slurVerticalDirection property.  
 dit(code(\sp)) Print a subito-piano symbol on preceeding note.
 dit(code(\spp)) Print a subito-forte symbol on preceeding note.
 dit(code(\specialkey)) Allow keys signatures do differ in different
 octaves.  This sets the Staff.keyoctaviation property.  
 dit(code(\stemboth)) Allow stems, beams, and slurs to point either
-direction.  This sets the Voice.ydirection property. 
+direction.  This sets the Voice.verticalDirection property. 
 dit(code(\stemdown)) Force stems, beams, and slurs to point down.
-This sets the Voice.ydirection property. 
+This sets the Voice.verticalDirection property. 
 dit(code(\stemup)) Force stems, beams and slurs to point up.  This
-sets the Voice.ydirection property. 
+sets the Voice.verticalDirection property. 
 dit(code(\traditional)) Used for setting the 
 Score.beamquantisation property.  Is equal to 2.  
 dit(code(\up)) Used for setting various direction properties.  Is
@@ -1879,6 +1944,7 @@ majority selection is used.  If set to 3.0, then mean selection is
 used based on the mean center distance.  If set to 4.0 then median
 selection is used, based on the median center distance.  
 dit(code(castingalgorithm)) 
+dit(code(crescendo_shorten))
 dit(code(forced_stem_shorten)) Stems that have been forced to go the
 unnatural direction are shortened by this amount.  Equal to
 dit(code(forced_stem_shorten0))
@@ -1926,7 +1992,7 @@ dit(code(tie_x_minimum))
 subsect(MIDI Instrument Names)
 label(midilist)
 
-The MIDI instrument name is set by the code(Staff."midiInstrument")
+The MIDI instrument name is set by the code(Staff.midiInstrument)
 property or, if that property is not set, the code(Staff.instrument)
 property.  The instrument name should be chosen from this list.  If
 string does not exactly match one from this list then LilyPond uses
