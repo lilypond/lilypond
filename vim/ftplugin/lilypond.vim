@@ -45,7 +45,7 @@ map <F12> :g!/%.*/normal 0i%<Return>
 map <S-F12> :g/%.*/normal 0x<Return>
 "
 " Completions in Insert/Replace-mode with <Ctrl-N>
-set dictionary-=~/.vim/lilypond.words.el dictionary+=~/.vim/lilypond.words.el
+set dictionary-=~/.vim/syntax/lilypond.words.el dictionary+=~/.vim/syntax/lilypond.words.el
 set complete-=k complete+=k
 " errorformat for lily (with columns) and gcc
 " (how to see multiple-line error messages?)
