@@ -19,6 +19,7 @@
 #include "tex.hh"
 #include "scalar.hh"
 #include "paper-def.hh"
+#include "main.hh"
 
 Lookup::Lookup()
 {
@@ -158,15 +159,32 @@ Lookup::streepje (int type) const
 Atom
 Lookup::hairpin (Real &wid, bool decresc) const
 {
-  int idx = int (rint (wid / 6 PT));
-  if (!idx) idx ++;
-  wid = idx*6 PT;
-  String idxstr = (decresc)? "decrescendosym" : "crescendosym";
-  Atom ret=(*symtables_p_)("param")->lookup (idxstr);
-
-  Array<String> a;
-  a.push (idx);
-  ret.tex_ = substitute_args (ret.tex_, a);
+  bool embedded_b = experimental_features_global_b;
+  String embed;
+  Atom ret;  
+  if (embedded_b)
+    {
+      Real height = 2 PT;
+      embed = "\\embeddedps{\n" ;
+      embed += String (wid) + " " 
+	+ String (height)
+	+ " draw_"  + String(decresc ? "de" : "") + "cresc}\n";
+      ret.tex_ = embed;
+    }
+  else
+    {
+      int idx = int (rint (wid / 6 PT));
+      if (!idx) idx ++;
+      wid = idx*6 PT;
+      String idxstr = (decresc)? "decrescendosym" : "crescendosym";
+      ret=(*symtables_p_)("param")->lookup (idxstr);
+      
+      Array<String> a;
+      a.push (idx);
+      ret.tex_ = substitute_args (ret.tex_, a);
+      
+    }
+  
   ret.dim_.x() = Interval (0,wid);
   return ret;
 }
