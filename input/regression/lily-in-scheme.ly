@@ -1,10 +1,22 @@
-\header {
-    texidoc = "LilyPond syntax can be used inside scheme to
-build music expressions, with the @code{#@{ ... #@}} syntax.
-Scheme forms can be introduced inside these blocks by escaping 
-them with a @code{$}, both in a LilyPond context (see the @code{music} variable) or in a Scheme 
-context (see the @code{$padding} and @code{$(* padding 2)} forms.)"
+\header { texidoc = "LilyPond syntax can be used inside scheme to
+    build music expressions, with the @code{#@{ ... #@}} syntax.
+    Scheme forms can be introduced inside these blocks by escaping
+    them with a @code{$}, both in a LilyPond context or in a Scheme
+    context.
+
+In this example, the @code{\withpaddingA}, @code{\withpaddingB} and
+@code{\withpaddingC} music functions set different kinds of padding on
+the @code{TextScript} grob.
+
+FIXME: this is broken.
+"
+    
 }
+
+
+\score{ c'4^"FIXME" }
+%{
+
 \version "2.3.4"
 \paper { raggedright = ##t }
 
@@ -37,3 +49,4 @@ withPaddingC = #(def-music-function (location padding music) (number? ly:music?)
           c'^"10"
       }
   }
+%}
