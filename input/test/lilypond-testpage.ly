@@ -3,7 +3,7 @@
 % MERGE with title.ly -gp
 
 %{
-  Test ly2dvi features.
+  Test lilypond features.
 %}
 
 \header {
@@ -17,7 +17,7 @@ metre = "metre"
 opus = "opus"
 piece = "piece"
 poet = "poet"
-texidoc = "This file tests ly2dvi titling. It should be processed with ly2dvi. "
+texidoc = "This file tests lilypond titling. It should be processed with lilypond. "
 
 %
 % todo: check whether title.ly does the same. --hwn
