@@ -388,7 +388,7 @@ EOF
 #
 endFile(){
 cat << EOF >> $LF
-\vfill\hfill{(\LilyIdString)}
+\vfill\hfill{\small\LilyIdString}
 \end{document}
 EOF
 #

@@ -228,6 +228,13 @@ Universidade do Porto, forthcoming.
 
 =head2 Engraving: further reading
 
+Tom Gerou and Linda Lusk.  ``Essential Dictionary of Music Notation''
+Alfred Publishing, Van Nuys CA, 1996.  ISBN 0-88284-768-6.
+
+[A concise, alphabetically ordered list of typesetting and music
+(notation) issues with a rather simplistic attitude but in most 
+cases "good-enough" answers JCN]
+
 Herbert Chlapik. ``Die Praxis des Notengraphikers''. Doblinger, 1987.
 ISBN 3-9000 035-96-2.
 
@@ -254,7 +261,7 @@ George Heussenstamm. The Norton Manual of Music Notation. New York:
 Norton, 1987.
 
 Erdhard Karkoshka. ``Notation in New Music. Trans. Ruth
-Koenig''. Praeger Publishers, New York, 1972.  Out of print.
+Koenig''. Praeger Publishers, New York, 1972.  (Out of print)
 
 C. Roemer, The Art of Music Copying. Roerick music co., Sherman Oaks
 (CA), 1973.
@@ -262,7 +269,8 @@ C. Roemer, The Art of Music Copying. Roerick music co., Sherman Oaks
 Glen Rosecrans. Music Notation Primer. New York: Passantino, 1979.
 
 Kurt Stone. Music Notation in the Twentieth Century. New York: Norton,
-1980.
+1980.  (Out of print)
+
 
 
 =head2 Other stuff
@@ -311,7 +319,7 @@ enigma,
 
 References and comments contributed by Han-Wen Nienhuys (HWN), Miguel
 Filgueiras, Mark Basinski (MB), Dorothea Blostein, Stephen Page (SP),
-Jan Nieuwenhuizen, Peter Kerr.
+Jan Nieuwenhuizen (JCN), Peter Kerr.
 
 This should really be redone in BibTeX
 
