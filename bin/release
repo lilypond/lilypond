@@ -32,12 +32,16 @@ heredir=`pwd`
 make dist; 
 setversion
 LILYVER=$NEWVER
-mv lilypond-$LILYVER.tar.gz ../releases
+
+tarball=lilypond-$LILYVER.tar.gz
+patch=patch-$LILYVER.gz
+    
+mv  $tarball ../releases
 
 cd ../test
 $heredir/bin/make_patch $LASTVER $NEWVER lilypond
 gzip -f9 patch-$NEWVER
-mv patch-$NEWVER.gz ../patches/
+mv $patch ../patches/
 
 RPMS=`find ~/rpms/ -name lilypond-$NEWVER'*'rpm`
 rm *.rpm {lilypond,patch}-*.gz
@@ -45,10 +49,14 @@ rm *.rpm {lilypond,patch}-*.gz
 if [ ! -z $RPMS ]; then
     ln $RPMS . 
 fi
-ln ../releases/lilypond-$NEWVER.tar.gz .
-ln ../patches/patch-$NEWVER.gz .    
+    
+ln ../releases/$tarball .
+ln ../patches/$patch .    
 
-RPMS=`echo *.rpm`
-tar cf updeet {lily,patch-}*.gz $RPMS
+
+if [ ! -z $RPMS ]; then
+    RPMS=lilypond-$LILYVER-1.i386.rpm lilypond-$LILYVER-1.src.rpm 
+fi    
+tar cf updeet $tarball $patch $RPMS
 tar tfv updeet
 
