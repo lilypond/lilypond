@@ -4,10 +4,18 @@
 ;;;; 
 ;;;; (c)  2002--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 
-;;;; http://www.w3.org/TR/SVG11/paths.html
+;;;; http://www.w3.org/TR/SVG11
 
+;;; FIXME
 
-;;; TODO: character selects by index from [custom] fonts
+;;; * sodipodi gets confuseed by dashes in font names.
+;;;
+;;;   removing feta-nummer*.pfa (LilyPond-feta-nummer),
+;;;   feta-braces*.pfa (LilyPond-feta-braces), feta-din*.pfa
+;;;   (LilyPond-feta-din) from font path shows feta fonts in sodipodi.
+;;;
+;;; * inkscape fails to map Feta fonts to private use area (PUA) E000
+;;;   (sodipodi is fine).
 
 (debug-enable 'backtrace)
 (define-module (scm output-svg))
@@ -94,35 +102,52 @@
    (tagify "text" expr (cons 'style (svg-font font))))
 ;;	   (cons 'unicode-range "U+EE00-EEFF"))))
 
-;;;;;;;;;;;;;;;;;;; share this utf8 stuff from output-gnome
-;;;;;;;;;;;;;;;;;;;
-(define (utf8 i)
-  (cond
-   ((< i #x80) (list (integer->char i)))
-   ((< i #x800) (map integer->char
-		     (list (+ #xc0 (quotient i #x40))
-			   (+ #x80 (modulo i #x40)))))
-   ((< i #x10000)
-    (let ((x (quotient i #x1000))
-	  (y (modulo i #x1000)))
-      (map integer->char
-	   (list (+ #xe0 x)
-		 (+ #x80 (quotient y #x40))
-		 (+ #x80 (modulo y #x40))))))
-   (else FIXME)))
-  
-(define (custom-utf8 i)
-  (if (< i 80)
-      (utf8 i)
-      (utf8 (+ #xee00 i))))
+(define (font-family font)
+  (let ((name (ly:font-name font)))
+    (if name
+	(regexp-substitute/global #f "^GNU-(.*)-[.0-9]*$" name 'pre 1 'post)
+	(begin
+	  (stderr "font-name: ~S\n" (ly:font-name font))
+	  ;; TODO s/filename/file-name/
+	  (stderr "font-filename: ~S\n" (ly:font-filename font))
+	  (stderr "font-size: ~S\n" (font-size font))
+	  "ecrm12"))))
 
-(define (string->utf8-string string)
-  (list->string
-   (apply append (map utf8 (map char->integer (string->list string))))))
+(define (font-size font)
+  (let* ((designsize (ly:font-design-size font))
+	 (magnification (* (ly:font-magnification font)))
+	 (ops 2)
+	 (scaling (* ops magnification designsize)))
+    (debugf "scaling:~S\n" scaling)
+    (debugf "magnification:~S\n" magnification)
+    (debugf "design:~S\n" designsize)
+    scaling))
 
-(define (char->utf8-string char)
-  (list->string (utf8 (char->integer char))))
-;;  (list->string (custom-utf8 (char->integer char))))
+(define (integer->entity i)
+  (format #f "&#x~x;" i))
+
+(define (char->entity font c)
+  (define font-name-base-alist
+    `(("LilyPond-feta" . ,(- #xe000 #x20))
+      ("LilyPond-feta-braces-a" . ,(- #xe000 #x40))
+      ("LilyPond-feta-braces-b" . ,(- #xe000 #x40))
+      ("LilyPond-feta-braces-c" . ,(- #xe000 #x40))
+      ("LilyPond-feta-braces-d" . ,(- #xe000 #x40))
+      ("LilyPond-feta-braces-d" . ,(- #xe000 #x40))
+      ("LilyPond-feta-braces-e" . ,(- #xe000 #x40))
+      ("LilyPond-feta-braces-f" . ,(- #xe000 #x40))
+      ("LilyPond-feta-braces-g" . ,(- #xe000 #x40))
+      ("LilyPond-feta-braces-h" . ,(- #xe000 #x40))
+      ("LilyPond-feta-braces-i" . ,(- #xe000 #x40))
+      ("LilyPond-parmesan" . ,(- #xe000 #x20))))
+
+  (integer->entity (+ (assoc-get (font-family font) font-name-base-alist 0)
+		      (char->integer c))))
+
+(define (string->entities font string)
+  (apply string-append
+	 (map (lambda (x) (char->entity font x)) (string->list string))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -171,8 +196,7 @@
 
 (define (char font i)
   (dispatch
-   `(fontify ,font ,(tagify "tspan" (char->utf8-string
-				     (integer->char i))))))
+   `(fontify ,font ,(tagify "tspan" (char->entity font (integer->char i))))))
 
 (define (comment s)
   (string-append "<!-- " s " !-->\n"))
@@ -212,31 +236,11 @@
 	  `(ry . ,(number->string (/ blot-diameter 2)))))
 
 (define (svg-font font)
-   (define (font-family)
-     (let ((name (ly:font-name font)))
-       (if name
-	   (regexp-substitute/global #f "^GNU-(.*)-[.0-9]*$" name 'pre 1 'post)
-	   (begin
-	     (stderr "font-name: ~S\n" (ly:font-name font))
-	     ;; TODO s/filename/file-name/
-	     (stderr "font-filename: ~S\n" (ly:font-filename font))
-	     (stderr "font-size: ~S\n" (font-size))
-	     "ecrm12"))))
-   
-   (define (font-size)
-    (let* ((designsize (ly:font-design-size font))
-	   (magnification (* (ly:font-magnification font)))
-	   (scaling (* magnification designsize)))
-      (debugf "scaling:~S\n" scaling)
-      (debugf "magnification:~S\n" magnification)
-      (debugf "design:~S\n" designsize)
-      scaling))
-
    (format #f "font-family:~a;font-size:~a;fill:black;text-anchor:start;"
-	   (font-family) (font-size)))
+	   (font-family font) (font-size font)))
 
 (define (text font string)
-  (dispatch `(fontify ,font ,(tagify "tspan" (string->utf8-string string)))))
+  (dispatch `(fontify ,font ,(tagify "tspan" (string->entities font string)))))
 
 ;; WTF is this in every backend?
 (define (horizontal-line x1 x2 th)

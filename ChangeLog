@@ -5,8 +5,12 @@
 
 2004-11-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scm/output-svg.scm: Font fixes.  Sodipodi now groks svg
+	including font, if LilyPond-feta font is only feta font in path.
+
 	* scm/output-gnome.scm (text): Revert to file name of font if font
 	has no name.  Fixes ec font selection.
+	(char): Bugfix: do not utf8 twice.  Fixes clefs.
 
 	* scm/framework-svg.scm:
 	* scm/output-svg.scm: New file.  TODO: figure out how to
