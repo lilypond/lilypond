@@ -18,6 +18,7 @@ XPM_FONTS = feta20
 ALL_GEN_FILES=$(LYTABLES) $(TEXTABLES) $(LOG_FILES) $(AFM_FILES)
 
 OUT_DIST_FILES += $(AFM_FILES)
+export MFINPUTS:=.:$(MFINPUTS)
 
 include $(depth)/make/stepmake.make 
 
