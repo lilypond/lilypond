@@ -8,20 +8,19 @@
 String
 Staff_elem::TeXstring() const
 {
-    assert(!calc_children);
     Molecule m(*output);
     m.translate(offset_);	// ugh?
     return m.TeXstring();
 }
 
 Staff_elem::Staff_elem(Staff_elem const&s)
-    :    dependencies(s.dependencies)
+    : dependants(s.dependants),
+      dependencies(s.dependencies)
 {
     status = s.status;
     assert(!s.output);
     output = 0;
     pstaff_l_ = s.pstaff_l_;
-    calc_children = false;
     offset_ = Offset(0,0);
 }
 
@@ -29,6 +28,7 @@ Staff_elem::~Staff_elem()
 {
    delete output;
 }
+
 void
 Staff_elem::translate(Offset O)
 {
@@ -87,7 +87,6 @@ NAME_METHOD(Staff_elem);
 
 Staff_elem::Staff_elem()
 {
-    calc_children = false;
     pstaff_l_=0;
     offset_ = Offset(0,0);
     output = 0;
@@ -107,9 +106,8 @@ Staff_elem::add_processing()
 {
     if (status >= VIRGIN)
 	return;
-
-    do_add_processing();
     status = VIRGIN;
+    do_add_processing();
 }
 
 void
@@ -117,23 +115,29 @@ Staff_elem::pre_processing()
 {
     if (status >= PRECALCED )
 	return;
+    assert(status != PRECALCING); // cyclic dependency
+    status = PRECALCING;
+
     for (int i=0; i < dependencies.size(); i++)
 	if (dependencies[i])
 	    dependencies[i]->pre_processing();
-    if (!calc_children)
-	do_pre_processing();
+
+    
+    do_pre_processing();
     status = PRECALCED;
 }
 void
 Staff_elem::post_processing()
 {
-    if (status > POSTCALCED)
+    if (status >= POSTCALCED)
 	return;
+    assert(status != POSTCALCING);// cyclic dependency
+    status=POSTCALCING;	
+
     for (int i=0; i < dependencies.size(); i++)
 	if (dependencies[i])
 	    dependencies[i]->post_processing();
-    if (!calc_children)
-	do_post_processing();
+    do_post_processing();
     status=POSTCALCED;
 }
 
@@ -142,12 +146,12 @@ Staff_elem::molecule_processing()
 {
     if (status >= OUTPUT)
 	return;
+    status = OUTPUT;		// do it only once.
     for (int i=0; i < dependencies.size(); i++)
 	if (dependencies[i])
 	    dependencies[i]->molecule_processing();
-    if (!calc_children)
-	output= brew_molecule_p();
-    status = OUTPUT;    
+
+    output= brew_molecule_p();
 }
 
 void
@@ -163,4 +167,31 @@ Staff_elem::do_pre_processing()
 void
 Staff_elem::do_add_processing()
 {
+}
+
+void
+Staff_elem::substitute_dependency(Staff_elem * old, Staff_elem * newdep)
+{
+    bool hebbes_b=false;
+    for (int i=0; i < dependencies.size(); i++) {
+	if (dependencies[i] == old){
+	    dependencies[i] = newdep;
+	    hebbes_b = true;
+	} else if (dependencies[i] == newdep) {
+	    hebbes_b = true;
+	}
+    }
+    if (!hebbes_b)
+	dependencies.push(newdep);
+}
+
+void
+Staff_elem::add_depedency(Staff_elem * p)
+{
+    for (int i=0; i < dependencies.size(); i ++)
+	if (dependencies[i] == p)
+	    return;
+    
+    dependencies.push(p);
+    p->dependants.push(p);
 }
