@@ -556,6 +556,10 @@ get_base_attachments (Spanner *me,
 	  bool same_beam =
 	    (extremes[d].stem_ && extremes[-d].stem_
 	     && Stem::get_beam (extremes[d].stem_) == Stem::get_beam (extremes[-d].stem_));
+
+	  /*
+	    fixme: X coord should also be set in this case.
+	   */
 	  if (stem
 	      && extremes[d].stem_dir_ == dir
 	      && Stem::get_beaming (stem, -d)
@@ -692,10 +696,10 @@ enumerate_attachments (Grob *me, Grob *common[],
 	      os[d][X_AXIS] = base_attachment[d][X_AXIS];
 	      if (extremes[d].stem_
 		  && !Stem::is_invisible (extremes[d].stem_)
-		  && extremes[d].stem_dir_ == dir
-		  && dir == -d)
+		  && extremes[d].stem_dir_ == dir)
 		{
-		  if (extremes[d].stem_extent_[Y_AXIS].contains (os[d][Y_AXIS]))
+		  if (dir == -d
+		      && extremes[d].stem_extent_[Y_AXIS].contains (os[d][Y_AXIS]))
 		    {
 		      os[d][X_AXIS] =  extremes[d].slur_head_extent_[-d]
 			- d * 0.3;
