@@ -8366,6 +8366,13 @@ simpler.  The @code{\midi} block can contain:
 
 Assignments in the @code{\midi} block are not allowed.
 
+A number followed by a period is interpreted as a real number, so
+for setting the tempo for dotted notes, an extra space should be
+inserted, for example:
+
+@example
+  \midi @{ \tempo 4 . = 120 @} 
+@end example
 
 
 @cindex context definition

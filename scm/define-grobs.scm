@@ -95,7 +95,7 @@
     
     (BarNumber
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(breakable . #t)
 	(break-visibility . ,begin-of-line-visible)
 	(padding . 1.0)
@@ -116,7 +116,7 @@
 
     (BassFigure
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . 1)
 	(font-family . number)
@@ -319,7 +319,7 @@
     (DynamicText
      . (
 	(Y-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_parent))
 	(self-alignment-X . 0)
@@ -364,7 +364,7 @@
 
     (Fingering
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(padding . 0.6)
 	;;		(direction . -1)
 	(self-alignment-X . 0)
@@ -424,7 +424,7 @@
 			))
 
 	(self-alignment-Y . 0)
-	(molecule-callback . ,brew-new-markup-molecule)		
+	(molecule-callback . ,Text_item::brew_molecule)		
 	(break-align-symbol . instrument-name)
 	(break-visibility . ,begin-of-line-visible)
 	(baseline-skip . 2)
@@ -486,7 +486,7 @@
 
     (LyricText
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent
 			       ,Self_alignment_interface::aligned_on_self))
 	(self-alignment-X . 0)
@@ -511,7 +511,7 @@
 
     (RehearsalMark
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(self-alignment-X . 0)
@@ -527,7 +527,7 @@
 	))
      (MetronomeMark
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))	
 	(direction . 1)
 	(breakable . #t)
@@ -563,7 +563,7 @@
     
     (MultiMeasureRestNumber
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -575,7 +575,7 @@
 	))
     (MultiMeasureRestText
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self
 			       ,Self_alignment_interface::centered_on_other_axis_parent))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
@@ -641,7 +641,7 @@
 
     (NoteName
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(font-family . roman)
 	(meta . ((interfaces . (note-name-interface text-interface font-interface item-interface ))))
 	))
@@ -653,7 +653,7 @@
 	(break-visibility . ,begin-of-line-visible)
 	(X-offset-callbacks . (,Self_alignment_interface::centered_on_parent ,Self_alignment_interface::aligned_on_self))
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(font-shape . italic)
 	(padding . 0.4)
 	(font-relative-size . -2)
@@ -849,7 +849,7 @@
     (StanzaNumber
      . (
 	(breakable . #t)
-	(molecule-callback . ,brew-new-markup-molecule)		
+	(molecule-callback . ,Text_item::brew_molecule)		
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
 	(font-family . roman)
@@ -884,7 +884,7 @@
 
     (SostenutoPedal
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(direction . 1)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(no-spacing-rods . #t)
@@ -1055,7 +1055,7 @@
 
     (TextScript
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(no-spacing-rods . #t)
 	(X-offset-callbacks . (,Self_alignment_interface::aligned_on_self))
 	(direction . -1)
@@ -1166,7 +1166,7 @@
 
     (UnaCordaPedal
      . (
-	(molecule-callback . ,brew-new-markup-molecule)
+	(molecule-callback . ,Text_item::brew_molecule)
 	(font-family . roman)
 	(font-shape . italic)
 	(no-spacing-rods . #t)

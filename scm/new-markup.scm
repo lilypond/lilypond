@@ -394,7 +394,7 @@ for the reader.
 "
 
   (let*
-      ((m (Text_item::text_to_molecule grob props " ")))
+      ((m (Text_item::interpret_markup grob props " ")))
 
     (ly:molecule-set-extent! m 0 '(1000 . -1000))
     m))
