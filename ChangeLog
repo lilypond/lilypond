@@ -1,5 +1,9 @@
 2004-03-10  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/score.cc (default_rendering): clean protection.
+
+	* lily/paper-book.cc (mark_smob): implement smob marking.
+
 	* scripts/lilypond.py (make_html_menu_file): remove --psgz option
 
 	* Documentation/user/*.itely: user manual edits. 

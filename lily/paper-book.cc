@@ -79,12 +79,14 @@ Page::text_height ()
   return h;
 }
 
+/****************************************************************/
 
-Paper_book *paper_book;
+
+Paper_book *paper_book;		// huh? global var? --hwn
 
 Paper_book::Paper_book ()
 {
-  protect_ = SCM_EOL;
+  smobify_self ();
 }
 
 void
@@ -248,21 +250,21 @@ Paper_book::classic_output (String outname)
 #include "ly-smobs.icc"
 
 IMPLEMENT_DEFAULT_EQUAL_P (Paper_book);
-IMPLEMENT_SIMPLE_SMOBS (Paper_book)
-IMPLEMENT_TYPE_P (Paper_book, "ly:paper_book?")
+IMPLEMENT_SMOBS (Paper_book)
+IMPLEMENT_TYPE_P (Paper_book, "ly:paper-book?")
 
 SCM
 Paper_book::mark_smob (SCM smob)
 {
-  Paper_book *b = (Paper_book*) SCM_CELL_WORD_1 (smob);
-
-#if 0 //TODO
-  scm_gc_mark (b->scores_);
-  scm_gc_mark (b->global_headers_);
-  scm_gc_mark (b->headers_);
-  scm_gc_mark (b->papers_);
-#endif
-
+  Paper_book *pb = (Paper_book*) SCM_CELL_WORD_1 (smob);
+  for (int i = 0; i < pb->headers_.size (); i++)
+    scm_gc_mark (pb->headers_[i]);
+  for (int i = 0; i < pb->global_headers_.size (); i++)
+    scm_gc_mark (pb->global_headers_[i]);
+  for (int i = 0; i < pb->papers_.size (); i++)
+    scm_gc_mark (pb->papers_[i]->self_scm ());
+  for (int i = 0; i < pb->scores_.size (); i++)
+    scm_gc_mark (pb->scores_[i]);
   return SCM_EOL;
 }
 
@@ -279,9 +281,7 @@ Paper_book::print_smob (SCM smob, SCM port, scm_print_state*)
   return 1;
 }
 
-SCM
-Paper_book::smobbed_copy () const
+Paper_book::~Paper_book ()
 {
-  Paper_book *b = new Paper_book (*this);
-  return b->smobbed_self ();
 }
+

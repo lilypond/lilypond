@@ -404,12 +404,6 @@ The back-end is not very strict in type-checking object properties.
 Cyclic references in Scheme values for properties can cause hangs
 and/or crashes.
 
-@menu
-* Constructing a tweak::        
-* Applyoutput::                 
-* Font selection::              
-* Text markup::                 
-@end menu
 
 @node Constructing a tweak
 @subsection Constructing a tweak
@@ -647,8 +641,7 @@ is a  symbol indicating the series of the font. There are typically several
 font series for each font family and shape. Choices are @code{medium}
 and @code{bold}. 
 
-@end table
-
+@end itemize
 
 Fonts selected in the way sketched above come from a predefined style
 sheet.
