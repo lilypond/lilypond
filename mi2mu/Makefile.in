@@ -10,6 +10,8 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
+# Automatically generated from ./mi2mu/Makefile.am.wild by autowild
+# Do not edit
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter
 # title	   makefile for mi2mu
@@ -66,7 +68,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
-AUTOHEADER = @AUTOHEADER@
+AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
@@ -101,6 +103,7 @@ TEXPREFIX = @TEXPREFIX@
 VERSION = @VERSION@
 YACC = @YACC@
 ZIP = @ZIP@
+absolute_builddir = @absolute_builddir@
 
 SUBDIRS = include
 
@@ -109,13 +112,14 @@ bin_PROGRAMS = mi2mu
 mi2mu_SOURCES = main.cc mi2mu-version.cc midi-parser.cc midi-score-parser.cc midi-track-parser.cc mudela-column.cc mudela-item.cc mudela-score.cc mudela-staff.cc mudela-stream.cc mudela-voice.cc template.cc version.cc
 
 # ugh -lfl bo lib/FlexLexer stuff
-mi2mu_LDADD = -llily -lflower -lfl
+#mi2mu_LDADD = -llily -lflower -lfl
 
-mi2mu_LDFLAGS = -L$(LILYPOND_SOURCEDIR)/lib/.libs -L$(LILYPOND_SOURCEDIR)/flower/.libs
+# mi2mu_LDFLAGS = -L$(absolute_builddir)/lib/.libs -L$(absolute_builddir)/flower/.libs
+mi2mu_LDADD = $(top_builddir)/lib/liblily.la $(top_builddir)/flower/libflower.la @LEXLIB@
 
 INCLUDES = -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include
 
-EXTRA_DIST = Makefile.am.wild VERSION TODO
+EXTRA_DIST = Makefile.am.wild GNUmakefile VERSION TODO
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../lib/config.hh
 CONFIG_CLEAN_FILES = 
@@ -129,7 +133,9 @@ mi2mu_OBJECTS =  main.o mi2mu-version.o midi-parser.o \
 midi-score-parser.o midi-track-parser.o mudela-column.o mudela-item.o \
 mudela-score.o mudela-staff.o mudela-stream.o mudela-voice.o template.o \
 version.o
-mi2mu_DEPENDENCIES = 
+mi2mu_DEPENDENCIES =  $(top_builddir)/lib/liblily.la \
+$(top_builddir)/flower/libflower.la
+mi2mu_LDFLAGS = 
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) --mode=compile $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
 CXXLINK = $(LIBTOOL) --mode=link $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@
@@ -582,6 +588,11 @@ distclean-generic clean-generic maintainer-clean-generic clean \
 mostlyclean distclean maintainer-clean
 
 
+# override default target for all-am: to get an extra dependency
+all-am: Makefile $(PROGRAMS) wild-check
+
+# dummy target for non-GNU makes; is overridden in GNUmakefile
+wild-check:
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
 	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@
 

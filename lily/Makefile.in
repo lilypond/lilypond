@@ -10,6 +10,8 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
+# Automatically generated from ./lily/Makefile.am.wild by autowild
+# Do not edit
 # Generated automatically by wild-perl 0.1
 # project  LilyPond -- the musical typesetter # title	   makefile for lilypond
 # file	   lily/Makefile.am.wild
@@ -66,7 +68,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 host_alias = @host_alias@
 host_triplet = @host@
-AUTOHEADER = @AUTOHEADER@
+AUTOGENERATE = @AUTOGENERATE@
 BISON = @BISON@
 CC = @CC@
 COMPILEINFO = @COMPILEINFO@
@@ -101,6 +103,7 @@ TEXPREFIX = @TEXPREFIX@
 VERSION = @VERSION@
 YACC = @YACC@
 ZIP = @ZIP@
+absolute_builddir = @absolute_builddir@
 
 SUBDIRS = include
 
@@ -112,13 +115,14 @@ bin_PROGRAMS = lilypond
 lilypond_SOURCES = abbrev.cc abbreviation-beam-engraver.cc abbreviation-beam.cc atom.cc audio-column.cc audio-element.cc audio-item.cc audio-staff.cc axis-group-administration.cc axis-group-element.cc axis-group-item.cc axis-group-spanner.cc axis.cc bar-column-grav.cc bar-column.cc bar-grav.cc bar-number-grav.cc bar.cc beam-grav.cc beam-swallow-trans.cc beam.cc bow.cc boxes.cc break-align-item.cc break.cc change-iterator.cc change-translator.cc chord-iterator.cc clef-grav.cc clef-item.cc col-info.cc colhpos.cc collision-grav.cc collision.cc command-request.cc crescendo.cc debug.cc dimen.cc directional-spanner.cc dot-column-grav.cc dot-column.cc dots.cc dynamic-grav.cc elem-group.cc engraver-group.cc engraver.cc general-script-def.cc global-translator.cc gourlay-breaking.cc graphical-element.cc grouping.cc head-grav.cc header.cc horizontal-align-item.cc horizontal-group-item.cc horizontal-vertical-group-item.cc idealspacing.cc identifier.cc ineq-constrained-qp.cc item.cc key-grav.cc key-item.cc key-performer.cc key.cc keyword.cc leastsquares.cc lexerinit.cc lily-version.cc line-group-grav.cc line-spacer.cc linear-programming.cc local-key-grav.cc local-key-item.cc lookup.cc lyric-grav.cc lyric-performer.cc main.cc meter-grav.cc meter-performer.cc meter.cc midi-def.cc midi-item.cc midi-stream.cc midi-walker.cc misc.cc molecule.cc music-iterator.cc music-list.cc music-output-def.cc music.cc musical-request.cc my-lily-lexer.cc my-lily-parser.cc note-column.cc note-head.cc note-performer.cc note.cc notename-table.cc offset.cc outputter.cc p-col.cc p-score.cc paper-def.cc performance.cc performer-group-performer.cc performer.cc pitch-squash-grav.cc plet-engraver.cc plet-spanner.cc plet-swallow-engraver.cc priority-halign-grav.cc property-iterator.cc ps-plet.cc qlp.cc qlpsolve.cc request-iterator.cc request.cc rest-collision-grav.cc rest-collision.cc rest-grav.cc rest.cc rhythmic-column-grav.cc rhythmic-head.cc score-bar.cc score-column.cc score-elem-info.cc score-elem.cc score-grav.cc score-performer.cc score-priority-grav.cc score.cc scoreline.cc scores.cc script-column.cc script-def.cc script-grav.cc script.cc slur-grav.cc slur.cc span-bar-grav.cc span-bar.cc span-score-bar-grav.cc span-score-bar.cc spanner.cc spring-spacer.cc staff-info.cc staff-performer.cc staff-side.cc staff-sym-grav.cc staff-sym.cc stem-grav.cc stem-info.cc stem.cc super-elem.cc swallow-grav.cc swallow-perf.cc symtable.cc template1.cc template2.cc template3.cc template4.cc template5.cc template6.cc template7.cc template8.cc tex-beam.cc tex-slur.cc tex-stream.cc tex.cc text-def.cc text-item.cc text-spanner.cc tie-grav.cc tie.cc time-description.cc timing-grav.cc timing-translator.cc translation-property.cc translator-ctors.cc translator-group.cc translator.cc type-swallow-trans.cc version.cc vertical-align-elem.cc vertical-align-grav.cc vertical-align-spanner.cc vertical-group-spanner.cc voice-iterator.cc warn.cc word-wrap.cc lexer.ll parser.yy
 noinst_HEADERS = parser.hh
 
-lilypond_LDADD = -llily -lflower @LEXLIB@
+#lilypond_LDADD = -llily -lflower @LEXLIB@
+lilypond_LDADD = $(top_builddir)/lib/liblily.la $(top_builddir)/flower/libflower.la @LEXLIB@
 
-lilypond_LDFLAGS = -L$(LILYPOND_SOURCEDIR)/lib/.libs -L$(LILYPOND_SOURCEDIR)/flower/.libs
+lilypond_LDFLAGS = -L$(absolute_builddir)/lib/.libs -L$(absolute_builddir)/flower/.libs
 
 INCLUDES =  -I$(srcdir)/include -I$(srcdir)/../lib/include -I$(srcdir)/../flower/include 
 
-EXTRA_DIST = Makefile.am.wild Stable.make VERSION
+EXTRA_DIST = Makefile.am.wild GNUmakefile Stable.make VERSION
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../lib/config.hh
 CONFIG_CLEAN_FILES = 
@@ -172,7 +176,8 @@ translator-ctors.o translator-group.o translator.o type-swallow-trans.o \
 version.o vertical-align-elem.o vertical-align-grav.o \
 vertical-align-spanner.o vertical-group-spanner.o voice-iterator.o \
 warn.o word-wrap.o lexer.o parser.o
-lilypond_DEPENDENCIES = 
+lilypond_DEPENDENCIES =  $(top_builddir)/lib/liblily.la \
+$(top_builddir)/flower/libflower.la
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LEXLIB = @LEXLIB@
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(CPPFLAGS) $(CXXFLAGS)
@@ -2388,14 +2393,15 @@ p-score.o: p-score.cc include/main.hh include/lily-proto.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
 	../flower/include/plist.icc ../flower/include/dictionary.hh \
 	../flower/include/assoc.hh include/scoreline.hh \
-	include/colhpos.hh include/p-score.hh include/music-output.hh \
-	include/tex-stream.hh include/p-col.hh \
+	include/colhpos.hh include/p-col.hh \
 	include/horizontal-group-item.hh include/elem-group.hh \
 	include/axis-group-element.hh \
 	include/axis-group-administration.hh include/axis-group-item.hh \
-	include/item.hh include/header.hh include/word-wrap.hh \
+	include/item.hh include/p-score.hh include/music-output.hh \
+	include/tex-stream.hh include/header.hh include/word-wrap.hh \
 	include/break.hh include/gourlay-breaking.hh \
-	include/outputter.hh
+	include/outputter.hh ../flower/include/plist.tcc \
+	../flower/include/pcursor.tcc
 paper-def.o: paper-def.cc ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -3803,13 +3809,13 @@ template2.o: template2.cc include/line-spacer.hh include/lily-proto.hh \
 	../lib/include/proto.hh ../flower/include/fproto.hh \
 	../flower/include/real.hh ../flower/include/varray.hh \
 	../flower/include/vector.hh ../flower/include/interval.hh \
-	../flower/include/compare.hh ../flower/include/plist.tcc \
-	../flower/include/plist.hh ../flower/include/list.hh \
-	../flower/include/list.icc ../flower/include/cursor.hh \
-	../flower/include/link.hh ../flower/include/link.icc \
-	../flower/include/pcursor.hh ../flower/include/cursor.icc \
+	../flower/include/compare.hh ../flower/include/pcursor.tcc \
+	../flower/include/pcursor.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
-	../flower/include/pcursor.tcc
+	../flower/include/plist.tcc
 template3.o: template3.cc include/atom.hh ../flower/include/string.hh \
 	../flower/include/arithmetic-operator.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
@@ -3823,9 +3829,33 @@ template3.o: template3.cc include/atom.hh ../flower/include/string.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/pcursor.hh ../flower/include/cursor.icc \
 	../flower/include/iterate.hh ../flower/include/plist.icc \
-	include/direction.hh ../flower/include/plist.tcc \
-	../flower/include/pcursor.tcc
-template4.o: template4.cc
+	include/direction.hh ../flower/include/pcursor.tcc \
+	../flower/include/plist.tcc
+template4.o: template4.cc ../lib/include/proto.hh \
+	../flower/include/fproto.hh ../flower/include/real.hh \
+	../flower/include/pcursor.hh ../flower/include/plist.hh \
+	../flower/include/list.hh ../flower/include/list.icc \
+	../flower/include/cursor.hh ../flower/include/link.hh \
+	../flower/include/link.icc ../flower/include/compare.hh \
+	../flower/include/cursor.icc ../flower/include/iterate.hh \
+	../flower/include/plist.icc include/audio-item.hh \
+	include/lily-proto.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
+	../flower/include/international.hh include/audio-element.hh \
+	../flower/include/virtual-methods.hh include/audio-staff.hh \
+	include/p-col.hh include/horizontal-group-item.hh \
+	include/elem-group.hh include/score-elem.hh \
+	../flower/include/parray.hh ../flower/include/varray.hh \
+	../flower/include/directed-graph.hh \
+	include/graphical-element.hh include/offset.hh include/axes.hh \
+	../flower/include/interval.hh include/axis-group-element.hh \
+	include/axis-group-administration.hh include/axis-group-item.hh \
+	include/item.hh include/boxes.hh include/drul-array.hh \
+	include/direction.hh include/p-score.hh include/colhpos.hh \
+	include/music-output.hh ../flower/include/cursor.tcc \
+	../flower/include/list.tcc ../flower/include/pcursor.tcc \
+	../flower/include/plist.tcc
 template5.o: template5.cc ../lib/include/proto.hh \
 	../flower/include/fproto.hh ../flower/include/real.hh \
 	../flower/include/string.hh \
@@ -3858,8 +3888,8 @@ template7.o: template7.cc ../lib/include/proto.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/compare.hh ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc ../flower/include/plist.tcc \
-	../flower/include/pcursor.tcc include/music-list.hh \
+	../flower/include/plist.icc ../flower/include/pcursor.tcc \
+	../flower/include/plist.tcc include/music-list.hh \
 	include/music.hh ../flower/include/virtual-methods.hh \
 	../lib/include/input.hh include/minterval.hh \
 	../flower/include/interval.hh ../lib/include/moment.hh \
@@ -3875,13 +3905,13 @@ template8.o: template8.cc ../lib/include/proto.hh \
 	../flower/include/link.hh ../flower/include/link.icc \
 	../flower/include/compare.hh ../flower/include/pcursor.hh \
 	../flower/include/cursor.icc ../flower/include/iterate.hh \
-	../flower/include/plist.icc include/audio-column.hh \
-	include/lily-proto.hh ../lib/include/moment.hh \
-	../flower/include/rational.hh \
-	../flower/include/arithmetic-operator.hh include/audio-item.hh \
-	../flower/include/string.hh ../flower/include/string-handle.hh \
+	../flower/include/plist.icc include/audio-item.hh \
+	include/lily-proto.hh ../flower/include/string.hh \
+	../flower/include/arithmetic-operator.hh \
+	../flower/include/string-handle.hh \
 	../flower/include/international.hh include/audio-element.hh \
-	../flower/include/virtual-methods.hh include/audio-staff.hh \
+	../flower/include/virtual-methods.hh include/audio-column.hh \
+	../lib/include/moment.hh ../flower/include/rational.hh \
 	include/midi-item.hh ../flower/include/pcursor.tcc \
 	../flower/include/plist.tcc
 tex-beam.o: tex-beam.cc include/atom.hh ../flower/include/string.hh \
@@ -4492,17 +4522,12 @@ parser.hh: parser.yy
 	$(BISON) -d $<
 	mv $<.tab.h $@
 	mv $<.tab.c $(shell basename $@ .hh).cc
-# .ll.cc:
-# ugh, stupid automake 
-# now set output root by hand...
-#	touch lex.yy.cc
 
-# .yy.cc:
-# 	$(BISON) $<
-# 	mv $(shell basename $@ .cc ).tab.c $@
-# 	$(FLEX) -Cfe -p -p -t $< > $@
-# # could be faster:
-# #	$(FLEX) -8 -Cf -t $< > $@
+# override default target for all-am: to get an extra dependency
+all-am: Makefile $(PROGRAMS) wild-check
+
+# dummy target for non-GNU makes; is overridden in GNUmakefile
+wild-check:
 
 $(srcdir)/Makefile.am: $(srcdir)/Makefile.am.wild
 	$(PERL) $(top_srcdir)/bin/wild-perl < $< > $@

@@ -10,7 +10,10 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
-# Generated automatically by wild-perl 0.1# flower/lib/include/Makefile.am.wild
+# Automatically generated from ./flower/include/Makefile.am.wild by autowild
+# Do not edit
+# Generated automatically by wild-perl 0.1
+# flower/lib/include/Makefile.am.wild
 
 
 SHELL = /bin/sh
