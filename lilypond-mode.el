@@ -20,7 +20,7 @@
 ;;; for installing instructions.
 
 ;;; TODO:
-;;;    * XEmacs, broken ?
+;;;    * XEmacs-menus, broken ?
 ;;;    * parenthesis matching
 
 (require 'easymenu)
@@ -679,7 +679,7 @@ command."
   (define-key LilyPond-mode-map ")" 'LilyPond-electric-close-paren) ; urgh
   (define-key LilyPond-mode-map ">" 'LilyPond-electric-close-paren) ; argh
   (define-key LilyPond-mode-map "}" 'LilyPond-electric-close-paren) ; ..rgh
-  (define-key LilyPond-mode-map [S-iso-lefttab] 'LilyPond-autocompletion)
+  (define-key LilyPond-mode-map [(shift iso-lefttab)] 'LilyPond-autocompletion)
   (define-key LilyPond-mode-map "\C-c\t" 'LilyPond-info-index-search)
   )
 
