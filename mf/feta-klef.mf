@@ -387,8 +387,8 @@ def draw_gclef (expr reduction) =
 	penpos6 (thinnib, angle (direction 1 of pat) + 90);
 
 	% two auxiliary points to simulate `draw' with `penstroke'
-	z10' = point 0.5 of pat;
-	penpos10' (thinnib, angle (direction 0.5 of pat) + 90);
+	z10' = point 0.3 of pat;
+	penpos10' (1.3 thinnib, angle (direction 0.3 of pat) + 50);
 
 	z11' = point 1.5 of pat;
 	penpos11' (thinnib, angle (direction 1.5 of pat) + 90);
