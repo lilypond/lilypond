@@ -41,6 +41,7 @@ instantiate_compare(Score_column&, Score_column::compare);
 
 /// the total music def of one movement
 struct Score {
+    String outfile;
     /// staffs_ and commands_ form the problem definition.
     PointerList<Staff *> staffs_;
     PointerList<Command*> commands_;
@@ -50,6 +51,8 @@ struct Score {
     PScore *pscore_;
 
     /****************************************************************/
+
+    Score();
     
     /// add #Idealspacings# to #pscore_#
     void calc_idealspacing();
@@ -66,6 +69,7 @@ struct Score {
     void do_pcols();
     void add(Command *);
     void add(Staff*);
+    void add_command_seq(svec<Command*> );
     void output(String fn);
     PCursor<Score_column*> create_cols(Mtime);
     void print() const;
