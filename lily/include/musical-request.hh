@@ -11,6 +11,7 @@
 #define MUSICALREQUESTS_HH
 
 #include "request.hh"
+#include "duration.hh"
 
 
 /**
@@ -38,14 +39,13 @@ struct Skip_req : Musical_req {
   This request is used only a base class.
  */
 struct Rhythmic_req : virtual Musical_req {
-    int balltype;
-    int dots;
-    Moment plet_factor;
+    Duration duration_;
+    
     /* *************** */
+    void set_duration(Duration);
     static int compare(const Rhythmic_req &, const Rhythmic_req &);
     virtual Moment duration() const;
     Rhythmic_req();
-    Rhythmic_req(int,int);
     REQUESTMETHODS(Rhythmic_req, rhythmic);
 };
 
@@ -133,7 +133,7 @@ public:
 struct Stem_req : Rhythmic_req {
     /// preferred direction for the stem
     int dir_i_;
-    Stem_req(int s, int dots);
+    Stem_req();
     REQUESTMETHODS(Stem_req,stem);
 };
 
