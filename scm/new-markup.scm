@@ -452,7 +452,6 @@ any sort of property supported by @ref{font-interface} and
   ))
 
 
-;; TODO: fix this .
 (define-public (strut-markup paper props . rest)
   "Syntax: \\strut
 
@@ -462,7 +461,7 @@ any sort of property supported by @ref{font-interface} and
   (let*
       ((m (Text_item::interpret_markup paper props " ")))
 
-    (ly:molecule-set-extent! m 0 '(1000 . -1000))
+    (ly:molecule-set-extent! m X '(1000 . -1000))
     m))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -470,43 +469,40 @@ any sort of property supported by @ref{font-interface} and
 
 (define (markup-signature-to-keyword sig)
   " (A B C) -> a0-b1-c2 "
-  
-  (let* ((count  0))
-    (string->symbol (string-join
-     
-     (map
-     (lambda (func)
-       (set! count (+ count 1))
-       (string-append
+  (if (equal? sig '())
+      'empty
+      (let* ((count  0))
+	(string->symbol (string-join
+			 
+			 (map
+			  (lambda (func)
+			    (set! count (+ count 1))
+			    (string-append
 
-	;; for reasons I don't get,
-	;; (case func ((markup?) .. )
-	;; doesn't work.
-	(cond 
-	  ((eq? func markup?) "markup")
-	  ((eq? func markup-list?) "markup-list")
-	  (else "scheme")
-	  )
-	(number->string (- count 1))
-	))
-     
-     sig)
-     "-"))
+			     ;; for reasons I don't get,
+			     ;; (case func ((markup?) .. )
+			     ;; doesn't work.
+			     (cond 
+			      ((eq? func markup?) "markup")
+			      ((eq? func markup-list?) "markup-list")
+			      (else "scheme")
+			      )
+			     (number->string (- count 1))
+			     ))
+			  
+			  sig)
+			 "-"))
 
-  ))
-
+	)))
 
 (define (markup-function? x)
-  (object-property x 'markup-signature)
-  )
+  (object-property x 'markup-signature) )
 
 (define (markup-list? arg)
   (define (markup-list-inner? l)
     (if (null? l)
 	#t
-	(and (markup? (car l)) (markup-list-inner? (cdr l)))
-    )
-  )
+	(and (markup? (car l)) (markup-list-inner? (cdr l))) ) )
   (and (list? arg) (markup-list-inner? arg)))
 
 (define (markup-argument-list? signature arguments)
@@ -637,6 +633,7 @@ any sort of property supported by @ref{font-interface} and
    (cons fontsize-markup (list number? markup?))
 
    (cons box-markup  (list markup?))
+   (cons strut-markup '())
    ))
 
 

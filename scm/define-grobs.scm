@@ -1085,6 +1085,7 @@
 	(text-repeat-if-broken . #t)
 	(shorten-pair . (0.0 . -0.6))
 	(staff-padding . 1.0)
+	(padding  . 1.0)
 	(enclose-bounds . #t)
 	(width-correct . 0.0)
 	(style . dashed-line)

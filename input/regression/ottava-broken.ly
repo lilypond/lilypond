@@ -16,9 +16,10 @@ line, and the horizontal line doesn't stick out."
   \notes\relative c''' \notes {
   a2 b
   #(set-octavation 1)
-  a2 b \break c a
+  a2 b \break c''1 \break
+  a
   #(set-octavation 0)
-  a b c a 
+  g,,2 b c a 
 }
 }
 

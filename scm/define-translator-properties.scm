@@ -116,7 +116,7 @@ true then reset measurePosition when finding a barcheck. Turn off when
 using barchecks in polyphonic music.")
 (translator-property-description 'barNumberVisibility procedure? "Procedure that takes an int and returns whether the corresponding bar number should be printed")
 (translator-property-description 'bassFigureFormatFunction procedure? "DOCME")
-(translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is set when automaticMelismata is set")
+(translator-property-description 'beamMelismaBusy boolean? "Signal if a beam is present.")
 (translator-property-description 'beatLength ly:moment? "The length of one beat in this time signature.")
 (translator-property-description 'beatGrouping list?
 				 "List of beatgroups. Eg. in 5/8 time #(list 2 3).")
@@ -315,8 +315,14 @@ the start of the music.
 whether a melisma is active. This can be used to signal melismas on
 top of those automatically detected. ")
 (translator-property-description 'melismaBusyProperties list?
-				 "List of  properties (symbols) to
-determine whether a melisma  is playing.")
+				 "List of properties (symbols) to
+determine whether a melisma is playing.  Setting this property will
+influence how lyrics are aligned to notes.  For example, if set to
+@code{#'(melismaBusy beamMelismaBusy)}, only manual melismata
+(i.e. setting @code{melismaBusy} to @code{#t}) and manual beams are
+considered. Possible values include @code{melismaBusy},
+@code{slurMelismaBusy}, @code{tieMelismaBusy}, and
+@code{beamMelismaBusy}")
 
 
 (translator-property-description 'metronomeMarkFormatter procedure?
@@ -390,7 +396,7 @@ r1 r1*3 R1*3  \\\\property Score.skipBars= ##t r1*3 R1*3
 				 "When true, all no typesetting is done at
 this moment, causing  the interpretation phase to go a lot faster. This can
 help with debugging large scores.")
-(translator-property-description 'slurMelismaBusy boolean? "Signal a slur if automaticMelismata is set.")
+(translator-property-description 'slurMelismaBusy boolean? "Signal if a slur is present.")
 (translator-property-description 'solo boolean? "set if solo is detected by the part combiner.")
 (translator-property-description 'soloADue boolean? "set Solo/A due texts in the part combiner?.")
 (translator-property-description 'soloIIText string? "text for begin of solo for voice ``two'' when part-combining.")
@@ -419,9 +425,11 @@ positions - by only drawing one beam over the beat.")
 				 "Function formatting a tab notehead; it takes
 a string number, a list of string tunings and Pitch object. It returns the text as a string.")
 
-(translator-property-description 'tieMelismaBusy boolean? "Signal ties when automaticMelismata is set.")
-(translator-property-description 'timeSignatureFraction number-pair? "
-pair of numbers,  signifying the time signature. For example #'(4 . 4) is a 4/4time signature.")
+(translator-property-description 'tieMelismaBusy boolean? "Signal whether a tie is present.")
+(translator-property-description 'timeSignatureFraction number-pair?
+"pair of numbers, signifying the time signature. For example #'(4 . 4)
+is a 4/4 time signature.")
+
 (translator-property-description 'timing boolean? " Keep administration of measure length, position, bar number, etc?
 Switch off for cadenzas.")
 (translator-property-description 'tonic ly:pitch?
