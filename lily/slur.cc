@@ -147,6 +147,8 @@ pos_correct (Real x, Real dx, Real dy)
 Real
 Slur::height_f () const
 {
+  return 0.0;
+  
   Real interline = paper ()->interline_f ();
   Real notewidth = paper ()->note_width ();
   Real internote = interline / 2;
