@@ -24,7 +24,7 @@ Sequential_music_iterator::Sequential_music_iterator (Sequential_music_iterator 
 {
   cursor_ = src.cursor_;
   here_mom_ = src.here_mom_;
-  iter_p_ = src.iter_p_;
+  iter_p_ = src.iter_p_->clone ();
 }
 
 Sequential_music_iterator::~Sequential_music_iterator()

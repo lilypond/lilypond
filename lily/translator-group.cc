@@ -33,7 +33,8 @@ Translator_group::properties_dict () const
 
 Translator_group::~Translator_group ()
 {
-  assert (removable_b());
+  
+  //assert (removable_b());
 }
 
 

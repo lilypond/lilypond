@@ -49,7 +49,7 @@ Music_iterator::Music_iterator ()
 Music_iterator::Music_iterator (Music_iterator const& src)
 {
   first_b_ = src.first_b_;
-  handle_ = src.handle_;
+  handle_ = *src.handle_.clone ();
   music_l_ = src.music_l_;
 }
 

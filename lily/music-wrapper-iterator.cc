@@ -19,7 +19,7 @@ Music_wrapper_iterator::Music_wrapper_iterator ()
 Music_wrapper_iterator::Music_wrapper_iterator (Music_wrapper_iterator const &src)
   : Music_iterator (src)
 {
-  child_iter_p_ = src.child_iter_p_;
+  child_iter_p_ = src.child_iter_p_->clone ();
 }
 
 Music_wrapper_iterator::~Music_wrapper_iterator ()

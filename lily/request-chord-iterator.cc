@@ -64,17 +64,22 @@ Request_chord_iterator::do_print() const
 bool
 Request_chord_iterator::next ()
 {
-  first_b_ = false;
-  //  last_b_ = true;
+  if (first_b_)
+    first_b_ = false;
+  else
+    last_b_ = true;
   return ok ();
 }
 
 void
 Request_chord_iterator::do_process_and_next (Moment mom)
 {
+#if 0
   // URG
-  //  if (ok ())
-  if (first_b_)
+  //if (first_b_)
+#else
+  if (ok ())
+#endif
     {
       for (SCM s = dynamic_cast<Music_sequence *> (get_music ())->music_list (); gh_pair_p (s);  s = gh_cdr (s))
 	{
@@ -92,8 +97,9 @@ Request_chord_iterator::do_process_and_next (Moment mom)
     }
 
   next ();
+#if 0
   // URG
   if (mom >= elt_length_mom_)
     last_b_ = true;
-
+#endif
 }
