@@ -252,6 +252,7 @@ Score::book_rendering (String outname,
 
   Object_key * key = new Lilypond_general_key (book_key, user_key_, 0);
   SCM scm_key = key->self_scm();
+  scm_gc_unprotect_object (scm_key);
   
   for (int i = 0; !i || i < outdef_count; i++)
     {

@@ -98,9 +98,9 @@ Context::Context (Object_key const* key)
   definition_ = SCM_EOL;
   
   smobify_self ();
-
   properties_scm_ = (new Scheme_hash_table)->self_scm ();
   scm_gc_unprotect_object (properties_scm_);
+  scm_gc_unprotect_object (key_->self_scm ());
 }
 
 
@@ -181,7 +181,6 @@ Context::create_context (Context_def * cdef,
   Object_key const *key = get_context_key (type, id);
   Context * new_group
     = cdef->instantiate (ops, key);
-  scm_gc_unprotect_object (key->self_scm ());
 	  
   new_group->id_string_ = id;
   add_context (new_group);

@@ -24,8 +24,6 @@ Global_context::Global_context (Output_def *o, Moment final, Object_key *key)
 				      Moment(0),
 				      "Global", "", 0))
 {
-  scm_gc_unprotect_object (key_->self_scm());
-  
   output_def_ = o;
   final_mom_ = final;
   definition_ = find_context_def (o, ly_symbol2scm ("Global"));
@@ -167,7 +165,6 @@ Global_context::run_iterator_on_me (Music_iterator * iter)
 	  Object_key const *key = get_context_key ("Score", "");
 	  Context *c = t->instantiate (SCM_EOL, key);
 	  add_context (c);
-	  scm_gc_unprotect_object (key->self_scm());
 
 	  Score_context *sc = dynamic_cast<Score_context*> (c);
 	  sc->prepare (w);

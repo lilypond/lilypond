@@ -248,12 +248,12 @@ predicates. Print a message at LOCATION if any predicate failed."
 	   (lambda (a b)
 	     (< (object-address (car a))
 		(object-address (car b))))))
-       (outfile    (open-file (string-append
+       (out-file-name (string-append
 	       "gcstat-" (number->string gc-protect-stat-count)
-	       ".scm"
-	       ) "w")))
+	       ".scm"))
+       (outfile    (open-file  out-file-name  "w")))
 
-    (display "DUMPING...\n")
+    (display "Dumping gc protected objs to ...\n")
     (display
      (filter
       (lambda (x) (not (symbol? x))) 
@@ -333,7 +333,7 @@ predicates. Print a message at LOCATION if any predicate failed."
     (for-each
      (lambda (f)
        (catch 'ly-file-failed (lambda () (ly:parse-file f)) handler)
-;;;       (dump-gc-protects)
+       (dump-gc-protects)
        )
      files)
 

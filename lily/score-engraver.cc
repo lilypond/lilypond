@@ -53,9 +53,6 @@ Score_engraver::make_columns ()
       set_columns (new Paper_column (nmp, key1), new Paper_column (pc, key2));
 
 
-      scm_gc_unprotect_object (key1->self_scm());
-      scm_gc_unprotect_object (key2->self_scm());      
-
       Grob_info i1;
       i1.grob_ = command_column_;
       i1.origin_trans_ = this;
@@ -125,7 +122,6 @@ Score_engraver::initialize ()
 
   Object_key const *sys_key = context()->get_grob_key ("System");
   pscore_->typeset_line (new System (props, sys_key));
-  scm_gc_unprotect_object (sys_key->self_scm ());
   
   make_columns ();
   system_ = pscore_->system_;

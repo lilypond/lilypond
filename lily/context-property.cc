@@ -203,7 +203,6 @@ make_item_from_properties (Engraver *tr, SCM x, SCM cause, const char * name)
 
   Object_key const*key = context->get_grob_key (name);
   Item *it = new Item (props, key);
-  scm_gc_unprotect_object (key->self_scm ());
 
   dynamic_cast<Engraver*>(tr)->announce_grob (it, cause);
 
