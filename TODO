@@ -10,10 +10,45 @@ Grep for TODO and ugh/ugr/urg.
 
 .* BUGS
 . * junk separate mudela versioning. 
+. * petite-ouverture time sig size. 
 . * PostScript
 .  * header for PS enteredby = "bla <bla@bar.com>"
 .  * ps/lily.ps see comments.
-. * down tuplet spanner.
+. * By the way, I'm not sure the translation of 'C, G, and F clef'
+> should include Alto, Violin, Bass <clef translated>.
+[..]
+
+I understand your point.  It should be changed.
+
+
+> 
+> The terms C-clef, G-clef, F-clef stand for the signs, being
+> mutated forms of a C, a G and an F.
+> 
+> The terms Violin Clef etc. stand for the signs being used in
+> special positions on the staff.
+> 
+> The G-clef-sign indicates g' on the line around which the
+> snake centers. It is a Violin Clef if it is centered around the
+> second line (from below), and a French Violin Clef if it is
+> centered around the lowest.
+> 
+> The C-clef indicates c' on the line that gets
+> 'pinched' by it. It is a Soprano, Mezzosoprano (English?), Alto, Tenor
+> and (don't remember exactly, maybe Baritone) Clef, depending on
+> the line (from highest to lowest).
+> 
+> The F-clef-sign indicates f on the line between
+> the two dots. If it's on the second line from above, it is called
+> Bass Clef. If it's on the middle line, it is called (maybe
+> Baritone) Clef too, because it indicates the same pitches as the
+> C-Clef on the highest line. So, you could write an Alto Clef by
+> putting the F-clef sign on the lowest line (but that's _very_
+> uncommon).
+> 
+> Sorry, this is written very messy because I'm in a hurry,
+> but I hope you understand what I want to say.
+> 
 . * didot / big point.
 . * devise standard for functioning of Vertical_align_element.
 . * midi key.

@@ -11,9 +11,6 @@
 #include "performer-group-performer.hh"
 #include "debug.hh"
 
-
-
-
 void 
 Performer::play (Audio_element* p) 
 { 
@@ -32,4 +29,22 @@ Performer::daddy_perf_l () const
   return (daddy_trans_l_) 
     ?dynamic_cast<Performer_group_performer *> (daddy_trans_l_)
     : 0;
+}
+
+void
+Performer::acknowledge_element (Audio_element_info)
+{
+}
+
+void
+Performer::process_acknowledged ()
+{
+}
+
+
+void
+Performer::announce_element (Audio_element_info i)
+{
+  i.origin_trans_l_arr_.push (this);
+  daddy_perf_l()->announce_element (i);
 }

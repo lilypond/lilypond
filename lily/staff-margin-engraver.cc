@@ -38,7 +38,7 @@ void
 Staff_margin_engraver::acknowledge_element (Score_element_info inf)
 {
   Item *i = cast_to_interesting_item (inf.elem_l_);
-  if (!i || inf.origin_grav_l_arr_.size() != 1)
+  if (!i || inf.origin_trans_l_arr_.size() != 1)
     return;
 
 

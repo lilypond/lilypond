@@ -19,11 +19,10 @@ Engraver::fill_staff_info (Staff_info&)
   
 }
 
-
 void
 Engraver::announce_element (Score_element_info i)
 {
-  i.origin_grav_l_arr_.push (this);
+  i.origin_trans_l_arr_.push (this);
   daddy_grav_l()->announce_element (i);
 }
 

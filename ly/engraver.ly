@@ -63,7 +63,7 @@ StaffContext=\translator {
 	alignmentReference = \center;	
 	\consists "Staff_group_bar_engraver";
 
-	\consistsend "Axis_group_engraver";
+
 	\accepts "Staff";
 	\accepts "RhythmicStaff";
 	\accepts "GrandStaff";

@@ -255,7 +255,7 @@ main_prog (int argc, char **argv)
    */
   extern void ly_init_protection();
   ly_init_protection();  
-  init_symbols ();
+  init_lily_guile ();
   read_lily_scm_file ( "lily.scm");
   cout << endl;
 

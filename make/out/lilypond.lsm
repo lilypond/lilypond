@@ -1,7 +1,7 @@
 Begin3
 Title: LilyPond
-Version: 1.1.45
-Entered-date: 28MAY99
+Version: 1.1.46
+Entered-date: 04JUN99
 Description: 
 LilyPond is the GNU Project music typesetter.  This program can print
 beautiful sheet music from a music definition file.  It can also play
@@ -14,8 +14,8 @@ Author: hanwen@cs.ruu.nl (Han-Wen Nienhuys)
 	janneke@gnu.org (Jan Nieuwenhuizen)
 Maintained-by: hanwen@stack.nl (Han-Wen Nienhuys)
 Primary-site: sunsite.unc.edu /pub/Linux/apps/sound/convert
-	770k lilypond-1.1.45.tar.gz 
+	770k lilypond-1.1.46.tar.gz 
 Original-site: ftp.cs.uu.nl /pub/GNU/LilyPond/development/
-	770k lilypond-1.1.45.tar.gz 
+	770k lilypond-1.1.46.tar.gz 
 Copying-policy: GPL
 End

@@ -50,7 +50,7 @@ Engraver_group_engraver::do_announces()
 	  for (int i=0; i < nongroups.size(); i++) 
 	    {	// Is this good enough?
 	      Engraver * eng = dynamic_cast<Engraver*> (nongroups[i]);
-	      if (eng && eng!= info.origin_grav_l_arr_[0])
+	      if (eng && eng!= info.origin_trans_l_arr_[0])
 		eng->acknowledge_element (info);
 	    }
 	}
@@ -83,10 +83,3 @@ Engraver_group_engraver::get_staff_info() const
 
 
 
-Engraver_group_engraver::~Engraver_group_engraver ()
-{
-}
-
-Engraver_group_engraver::Engraver_group_engraver ()
-{
-}

@@ -36,12 +36,14 @@ Tuplet_spanner::do_brew_molecule_p () const
     Molecule num (lookup_l ()->text ("italic",
 				     number_str_));
     num.align_to (X_AXIS, CENTER);
-    num.translate_axis (dir_ * paper_l ()->get_realvar (interline_scm_sym),  Y_AXIS);
-
+    Real interline = paper_l ()->get_realvar (interline_scm_sym);
+    
     if (beam_l_arr_.size () == 1 && !bracket_visibility_b_)
       {
 	Beam *beam_l = beam_l_arr_[0];
 	Directional_spanner* ds = dynamic_cast<Directional_spanner*>(beam_l);
+	
+	num.translate_axis (dir_ * interline,  Y_AXIS);
 	num.translate (ds->center ());
 	num.translate_axis (ncw, X_AXIS);
       }
@@ -51,7 +53,9 @@ Tuplet_spanner::do_brew_molecule_p () const
 	Real dy = column_arr_.top ()->extent (Y_AXIS) [dir_]
 	  - column_arr_[0]->extent (Y_AXIS) [dir_];
 	Real w = extent (X_AXIS).length () + ncw;
-	//	num.align_to (Y_AXIS, CENTER);
+	num.align_to (Y_AXIS, CENTER);
+	num.translate_axis (dir_ * interline, Y_AXIS);
+	
 	num.translate (Offset (w/2, dy/2));
 	mol_p->add_molecule (lookup_l ()->plet (dy, w, dir_));
       }
@@ -60,6 +64,7 @@ Tuplet_spanner::do_brew_molecule_p () const
       {
 	mol_p->add_molecule (num);
       }
+    mol_p->translate_axis (dir_ * interline, Y_AXIS);
   }
   return mol_p;
 }

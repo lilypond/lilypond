@@ -22,7 +22,8 @@ ADD_THIS_TRANSLATOR (Auto_beam_engraver);
 Auto_beam_engraver::Auto_beam_engraver ()
 {
   stem_l_arr_p_ = 0;
-  shortest_mom_ = 1;
+  //shortest_mom_ = 1;
+  shortest_mom_ = Moment (1, 8);
   finished_beam_p_ = 0;
   finished_grouping_p_ = 0;
   grouping_p_ = 0;
@@ -197,7 +198,8 @@ Auto_beam_engraver::end_beam ()
       delete stem_l_arr_p_;
       stem_l_arr_p_ = 0;
       grouping_p_ = 0;
-      shortest_mom_ = 1;
+      //shortest_mom_ = 1;
+      shortest_mom_ = Moment (1, 8);
     }
 }
  
@@ -329,7 +331,8 @@ Auto_beam_engraver::junk_beam ()
   stem_l_arr_p_ = 0;
   delete grouping_p_;
   grouping_p_ = 0;
-  shortest_mom_ = 1;
+  //shortest_mom_ = 1;
+  shortest_mom_ = Moment (1, 8);
 }
 
 void

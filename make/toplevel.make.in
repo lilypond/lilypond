@@ -36,8 +36,8 @@ examples:
 
 localinstall:
 	mkdir -p $(datadir)
+	rm -f $(datadir)/cmtfm 
 	$(LN_S) $(TEX_TFMDIR) $(datadir)/cmtfm
-
 
 local-WWW-clean:
 	$(depth)/buildscripts/out/clean-fonts

@@ -77,12 +77,12 @@
 
 
 	0 0 moveto
-	0 tuplet_h lineto 
+	0 tuplet_h dir mul lineto 
 	tuplet_dx tuplet_gapx sub 2 div 
-		tuplet_dy tuplet_gapy sub 2 div tuplet_h add lineto
+		tuplet_dy tuplet_gapy sub 2 div tuplet_h dir mul add lineto
 	tuplet_dx tuplet_gapx add 2 div 
-		tuplet_dy tuplet_gapy add 2 div tuplet_h add moveto
-	tuplet_dx tuplet_dy tuplet_h add lineto
+		tuplet_dy tuplet_gapy add 2 div tuplet_h dir mul add moveto
+	tuplet_dx tuplet_dy tuplet_h dir mul add lineto
 	tuplet_dx tuplet_dy lineto
 	stroke
 } bind def
