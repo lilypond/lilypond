@@ -6,6 +6,8 @@
 
 (define-module (scm framework-ps))
 
+;;; this is still too big a mess.
+
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
 	     (ice-9 format)
@@ -65,41 +67,6 @@
 ")))
 
 
-(define (load-fonts paper)
-  (let* ((fonts (ly:paper-fonts paper))
-	 (all-font-names
-	  (map
-	   (lambda (font)
-	     (if (string? (ly:font-file-name font))
-		 (list (ly:font-file-name font))
-		 (ly:font-sub-fonts font)))
-
-	   fonts))
-	 (font-names
-	  (uniq-list
-	   (sort (apply append all-font-names) string<?)))
-	 (pfas (map
-		(lambda (x)
-		  (let* ((bare-file-name (ly:find-file x))
-			 (cffname (string-append x ".cff"))
-			 (aname (string-append x ".pfa"))
-			 (bname (string-append x ".pfb"))
-			 (cff-file-name (ly:find-file cffname))
-			 (a-file-name (ly:kpathsea-find-file aname))
-			 (b-file-name (ly:kpathsea-find-file bname)))
-		    (cond
-		     (bare-file-name (if (string-match "\\.pfb" bare-file-name)
-					 (ly:pfb->pfa bare-file-name)
-					 (ly:gulp-file bare-file-name)))
-		     (cff-file-name (ps-embed-cff (ly:gulp-file cff-file-name) x 0))
-		     (a-file-name (ly:gulp-file a-file-name))
-		     (b-file-name (ly:pfb->pfa b-file-name))
-		     (else
-		      (ly:warn "cannot find CFF/PFA/PFB font ~S" x)
-		      ""))))
-		(filter string? font-names))))
-    
-    (string-join pfas "\n")))
 
 (define (define-fonts paper)
   
@@ -129,7 +96,7 @@
 
       
       ;; Bluesky pfbs have UPCASE names (sigh.)
-      ;;
+      ;; FIXME - don't support Bluesky? 
       (if (standard-tex-font? fontname)
 	  (set! fontname (string-upcase fontname)))
       
@@ -188,8 +155,19 @@
   (ly:outputter-dump-stencil outputter page)
   (ly:outputter-dump-string outputter "} stop-system \nshowpage\n"))
 
-(define (eps-header paper bbox)
-  (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
+(define (supplies-or-needs paper load-fonts?)
+  (let* ((fonts (ly:paper-fonts paper)))
+    (apply string-append
+	   (map (lambda (f)
+		  (format
+		   (if load-fonts?
+		    "%%DocumentSuppliedResources: font ~a\n"
+		    "%%DocumentNeededResources: font ~a\n")
+		   (ly:font-name f)))
+		fonts))))
+
+(define (eps-header paper bbox load-fonts?)
+    (string-append "%!PS-Adobe-2.0 EPSF-2.0\n"
 		 "%%Creator: creator time-stamp\n"
 		 "%%BoundingBox: "
 		 (string-join (map ly:number->string bbox) " ") "\n"
@@ -197,9 +175,10 @@
 		 (if (eq? (ly:output-def-lookup paper 'landscape) #t)
 		     "Landscape\n"
 		     "Portrait\n")
+		 (supplies-or-needs paper load-fonts?)
 		 "%%EndComments\n"))
 
-(define (page-header paper page-count)
+(define (page-header paper page-count load-fonts?)
   (string-append "%!PS-Adobe-3.0\n"
 		 "%%Creator: creator time-stamp\n"
 		 "%%Pages: " (number->string page-count) "\n"
@@ -209,18 +188,58 @@
 		     "Landscape\n"
 		     "Portrait\n")
 		 "%%DocumentPaperSizes: "
-		 (ly:output-def-lookup paper 'papersizename) "\n"))
+		 (ly:output-def-lookup paper 'papersizename) "\n"
+		 (supplies-or-needs paper load-fonts?)
+		 "%%EndComments\n"))
 
-(define (preamble paper)
+(define (preamble paper load-fonts?)
+  (define (load-fonts paper)
+    (let* ((fonts (ly:paper-fonts paper))
+	   (all-font-names
+	    (map
+	     (lambda (font)
+	       (if (string? (ly:font-file-name font))
+		   (list (ly:font-file-name font))
+		   (ly:font-sub-fonts font)))
+
+	     fonts))
+	   (font-names
+	    (uniq-list
+	     (sort (apply append all-font-names) string<?)))
+	   (pfas (map
+		  (lambda (x)
+		    (let* ((bare-file-name (ly:find-file x))
+			   (cffname (string-append x ".cff"))
+			   (aname (string-append x ".pfa"))
+			   (bname (string-append x ".pfb"))
+			   (cff-file-name (ly:find-file cffname))
+			   (a-file-name (ly:kpathsea-find-file aname))
+			   (b-file-name (ly:kpathsea-find-file bname)))
+		      (cond
+		       (bare-file-name (if (string-match "\\.pfb" bare-file-name)
+					   (ly:pfb->pfa bare-file-name)
+					   (ly:gulp-file bare-file-name)))
+		       (cff-file-name (ps-embed-cff (ly:gulp-file cff-file-name) x 0))
+		       (a-file-name (ly:gulp-file a-file-name))
+		       (b-file-name (ly:pfb->pfa b-file-name))
+		       (else
+			(ly:warn "cannot find CFF/PFA/PFB font ~S" x)
+			""))))
+		  (filter string? font-names))))
+      
+      (string-join pfas "\n")))
+	   
+  
+  
   (list
    (output-variables paper)
    (ly:gulp-file "music-drawing-routines.ps")
    (ly:gulp-file "lilyponddefs.ps")
-   (load-fonts paper)
+   (if load-fonts?
+       (load-fonts paper)
+       "")
+   
    (define-fonts paper)))
-
-
-  
 
 (define-public (output-framework basename book scopes fields )
   (let* ((filename (format "~a.ps" basename))
@@ -236,8 +255,8 @@
      (lambda (x)
        (ly:outputter-dump-string outputter x))
      (cons
-      (page-header paper page-count)
-      (preamble paper)))
+      (page-header paper page-count #t)
+      (preamble paper #t)))
     
     (for-each
      (lambda (page)
@@ -283,8 +302,9 @@
 		   (lambda (x)
 		     (inexact->exact
 		      (round (* x scale mm-to-bigpoint))))
-		   bbox))
-      (preamble paper)))
+		   bbox)
+		  #t)
+      (preamble paper #t)))
 
 
     (ly:outputter-dump-string outputter
@@ -302,26 +322,63 @@
 
 (define-public (output-classic-framework
 		basename book scopes fields)
-  (let* ((paper (ly:paper-book-paper book))
-	 (lines (ly:paper-book-systems book))
-	 (last-line (car (last-pair lines))))
-    (for-each
-     (lambda (x)
-       (ly:outputter-dump-string outputter x))
-     (list
-      ;;FIXME
-      (header paper (length lines) #f)
-      "\\def\\lilypondclassic{1}%\n"
-      (output-scopes scopes fields basename)
-      (define-fonts paper)
-      (header-end)))
+  (define paper (ly:paper-book-paper book))
+  (define (dump-line outputter line)
+    (let*
+	((dump-me (ly:paper-system-stencil line))
+	 (xext (ly:stencil-extent dump-me X))
+	 (yext (ly:stencil-extent dump-me Y))
+	 (scale  (ly:output-def-lookup paper 'outputscale))
+	 (bbox
+	  (map
+	   (lambda (x)
+	     (if (or (nan? x) (inf? x))
+		 0.0 x))
+	   (list (car xext) (car yext)
+		 (cdr xext) (cdr yext))))
+	 (header (eps-header paper
+			     (map
+			      (lambda (x)
+				(inexact->exact
+				 (round (* x scale mm-to-bigpoint))))
+			      bbox) #f)))
 
-    (for-each
-     (lambda (line) (dump-line outputter line (eq? line last-line))) lines)
-    (ly:outputter-dump-string outputter "\\lilypondend\n")
-    (ly:outputter-close outputter)
-    (postprocess-output book framework-ps-module filename (ly:output-formats)) 
-    ))
+      (for-each
+       (lambda (str) (ly:outputter-dump-string outputter str))
+       (cons
+	header
+	(preamble paper #f)))
+      
+      (ly:outputter-dump-string outputter
+				(string-append "start-system { "
+					       "set-ps-scale-to-lily-scale "
+					       "\n"))
+
+      (ly:outputter-dump-stencil outputter dump-me)
+      (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")
+      (ly:outputter-close outputter)))
+  
+  (define (dump-lines lines count)
+    (if (pair? lines)
+	(let*
+	    ((outputter  (ly:make-paper-outputter (format "~a-~a.eps" basename count)
+						  (ly:output-backend)))
+	     (line (car lines))
+	     (rest (cdr lines)))
+	  (dump-line outputter line)
+	  (dump-lines rest (1+ count))
+	  )))
+    
+  (let* ((lines (ly:paper-book-systems book))
+	 (tex-port (open-output-file (format "~a.tex" basename)))
+	 (last-line (car (last-pair lines))))
+
+    (dump-lines lines 1)
+    (for-each (lambda (c)
+		(display (format "\\includegraphics{~a-~a.eps}%\n"
+				 basename (1+ c)) tex-port))
+	      (iota (length lines))
+	      )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -25,7 +25,7 @@ public:
   Duration compressed (Rational) const;
   Rational get_length () const ;
   Rational factor () const { return factor_; }
-  int duration_log ()const;
+  int duration_log () const;
   int dot_count () const;
 
   static int compare (Duration const&, Duration const&);
@@ -34,7 +34,7 @@ public:
   DECLARE_SIMPLE_SMOBS (Duration,);
 
 private:
-    /// Logarithm of the base duration.
+  /// Logarithm of the base duration.
   int durlog_;
   int dots_;
 
