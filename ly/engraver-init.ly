@@ -375,7 +375,10 @@ RemoveEmptyStaffContext = \translator {
 	Beam \override #'auto-knee-gap = #'()
 }
 
-HaraKiriStaffContext = \translator { \RemoveEmptyStaffContext }
+HaraKiriStaffContext = \translator {
+	\RemoveEmptyStaffContext
+	\accepts "VaticanaVoice"
+}
 
 ScoreContext = \translator {
 	\type Score_engraver
@@ -415,16 +418,17 @@ ScoreContext = \translator {
 
 	\accepts "Staff"
 	\accepts "TabStaff"
+	\accepts "VaticanaStaff"
 	\accepts "StaffContainer"
 	\accepts "StaffGroup"
-	\accepts "RhythmicStaff"	
+	\accepts "RhythmicStaff"
 	\accepts "Lyrics"
 	\accepts "ChordNames"
 	\accepts "GrandStaff"
 	\accepts "ChoirStaff"
 	\accepts "PianoStaff"
 	\accepts "NoteNames"
-	\accepts "FiguredBass"	
+	\accepts "FiguredBass"
 
 	soloText = #"Solo"
 	soloIIText = #"Solo II"
@@ -589,4 +593,91 @@ TabStaffContext = \translator {
       clefGlyph = #"clefs-tab"
       clefPosition = #0
 }
-   
+
+% TODO: Gregorian Chant contexts should be moved to gregorian-init.ly,
+% but this does not work (is this a bug or intended behaviour?):
+%
+% If I try to do so, I get "error: unknown escaped string:
+% `\VaticanaStaffContext'" in params-init.ly.  If I also move
+% "\translator { \Vaticana*Context }" from params-init.ly to the end
+% of gregorian-init.ly, then I get "error: parse error, unexpected
+% TRANSLATOR: \translator { \VaticanaStaffContext }" in
+% gregorian-init.ly. --jr
+
+VaticanaVoiceContext = \translator {
+  \VoiceContext
+  \name "VaticanaVoice"
+  \alias "Voice"
+  \description "Same as @code{Voice} context, except that it is accommodated for tyepsetting Gregorian Chant in the notational style of Editio Vaticana."
+
+  % We can not remove Slur_engraver, since \addlyrics depends on it.
+  % Instead, we make the grob transparent.
+  % Unfortunately, this gives us a lot of warnings ("Degenerate bow:
+  % infinite steepness reqd"), since in ligatures, all note heads are in
+  % the same paper column such that the (transparent) slurs eventually may
+  % start and end in the same column.
+  Slur \override #'transparent = ##t
+
+  % We can not remove Stem_engraver, since slurs depend on stems.  If
+  % we try anyway, lily will crash in slur.scm:16:6: "Wrong type argument
+  % in position 1 (expecting grob): ()".
+  % As a workaround, we make the grob transparent.
+  Stem \set #'transparent = ##t
+
+  \remove "Ligature_bracket_engraver"
+  \consists "Vaticana_ligature_engraver"
+
+  % Set default head for notes outside of \[ \].
+  NoteHead \set #'style = #'vaticana_punctum
+
+  % Put some space before and after divisiones.
+  % FIXME: This does not seem to show any effect.
+  Script \set #'padding = #0.5
+
+  % There are no beams in Gregorian Chant notation.
+  autobeaming = ##f
+
+  % Prepare TextSpanner for \episem{Initium|Finis} use.
+  TextSpanner \set #'style = #'line
+  TextSpanner \set #'edge-height = #'(0 . 0)
+  TextSpanner \set #'padding = #0.5
+  TextSpanner \set #'edge-text = #'("" . "")
+}
+
+VaticanaStaffContext = \translator {
+  \StaffContext
+  \name "VaticanaStaff"
+  \alias "Staff"
+  \denies "Voice"
+  \accepts "VaticanaVoice"
+%  \description "Same as @code{Staff} context, except that it is accommodated for tyepsetting Gregorian Chant in the notational style of Editio Vaticana."
+
+  \remove "Time_signature_engraver"
+  \consists "Custos_engraver"
+
+  % We can not remove Bar_engraver, since clef and custos depend on it.
+  % Instead, we make the grob transparent.
+  BarLine \set #'transparent = ##t
+
+  StaffSymbol \set #'line-count = #4
+
+  % FIXME: unit on StaffSymbol's width should be \linewidth.
+  % StaffSymbol \set #'width = #60.0
+
+  % Choose vaticana do clef on 3rd line as default.
+  clefGlyph = #"clefs-vaticana_do"
+  centralCPosition = #1
+  clefPosition = #1
+  clefOctavation = #0
+
+  % Select vaticana style font.
+  KeySignature \set #'style = #'vaticana
+  Accidental \set #'style = #'vaticana
+  Custos \set #'style = #'vaticana
+  Custos \set #'neutral-position = #3
+  Custos \set #'neutral-direction = #-1
+  Custos \set #'adjust-if-on-staffline = ##t
+
+  % Score.timing = ##f
+  % Score.barAlways = ##t
+}

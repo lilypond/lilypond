@@ -50,6 +50,8 @@ interscoreline = 4. \mm
 \translator { \FiguredBassContext }
 \translator { \TabStaffContext }
 \translator { \TabVoiceContext }
+\translator { \VaticanaStaffContext }
+\translator { \VaticanaVoiceContext }
 
 
 %%

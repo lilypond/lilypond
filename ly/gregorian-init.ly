@@ -1,4 +1,4 @@
-\version "1.7.18"
+\version "1.8.0"
 
 %%%%%%%%
 %%%%%%%% shortcuts common for all styles of gregorian chant notation
@@ -87,6 +87,12 @@ finalis = {
   \breathe
 }
 
+%
+% declare articulation shortcuts
+%
+accentus = #(make-articulation "accentus")
+ictus = #(make-articulation "ictus")
+semicirculus = #(make-articulation "semicirculus")
+circulus = #(make-articulation "circulus")
 episemInitium = #(make-span-event 'TextSpanEvent START)
-
 episemFinis = #(make-span-event 'TextSpanEvent STOP)
