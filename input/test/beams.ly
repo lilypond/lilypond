@@ -67,7 +67,7 @@ TestedFeatures =	 "beams and beamflags";
 	>
 
 	\paper{
-		castingalgorithm = \Wordwrap;
+
 	}
 }
 

@@ -61,6 +61,6 @@ $melodic_staff = \context Staff = mel <
 		\$quite_long_lyrics_staff	
 	>
 	\paper{
-%		castingalgorithm = \Wordwrap;	
+
 	}
 }

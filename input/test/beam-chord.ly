@@ -12,7 +12,7 @@
 		[c <c e,>]
 	}
 	\paper{
-		castingalgorithm = \Wordwrap;
+
 		linewidth = 60.0\mm;
 	}
 }

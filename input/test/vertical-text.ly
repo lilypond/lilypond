@@ -11,7 +11,7 @@
 		} 
 	>
 	\paper{
-		castingalgorithm = \Wordwrap;
+
 	}
 }
 
