@@ -40,7 +40,7 @@
 "\\(command\\)?spanrequest" "consists\\(end\\)?"
 "context" "contrabasso" "\\(de\\)?cr" "default" "denies" "different" "dirs"
 "down\\(bow\\|prall\\)?" "duration" "\\(dynamic\\|text\\)?script"
-"eccentric" "eg" "embeddedps" "elementdescriptions"
+"eccentric" "eg" "embeddedps" "elementdescriptions" "\\(end\\)?cresc"
 "ex\\(treme\\)?" "fermata" "f+" "figures" "font" "flageolet" "fp" "fragment" 
 "s?fz" "gliss\\(ando\\)?" "gg" "gmsus" "grace" "gr\\(and\\)?staff"
 "header" "\\(h\\|v\\)size" "in\\(clude\\|versions\\|visible\\)?" 
@@ -126,8 +126,8 @@
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
 ;; highlight note names; separate notes from (other than ')'-type) brackets
-      '("\\([sR]\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[ ]*[*][0-9]+\\)"1 font-lock-type-face)
-      '("[ <\{[~()\t\\\|]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsrR]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*[?!]?\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
+      '("\\([sR]\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*[ \t]*[*][ \t]*[0-9]+\\)"1 font-lock-type-face)
+      '("[ <\{[~(!)\t\\\|]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsrR]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*[?!]?\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
 
 ;; highlight identifiers
       (cons (concat "\\([_^-]?\\(" iregex "\\)\\)+\\($\\|[] \t(~{}>\\\\_-()^]\\)") '(0 font-lock-function-name-face t))
@@ -147,11 +147,11 @@
       ;; ties ~, slurs \( () \), hairpins \<,  \>, end-of-hairpin \!, 
       '("\\(\\\\[(<!>)]\\|[(~)]\\)" 0 font-lock-builtin-face t)
 
-;; highlight scheme; Urgh. should count '(':s, then continue up to last ')'
-      '("[_^-]?#\\(#[ft]\\|['`](lines[^)]*))\\|['`][a-zA-Z-:]+\\|['`]?([^)]*)\\|-?[0-9.]+\\|\"[^\"]*\"\\)" 0 font-lock-string-face t)
+;; highlight scheme: handle slurs up to seventh level
+      '("[_^-]?#\\(#[ft]\\|-?[0-9.]+\\|\"[^\"]*\"\\|['`]?[a-zA-Z-:]+\\|['`]?([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^()]*\\(([^)]*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*)[^()]*\\)*[^)]*)\\)" 0 font-lock-string-face t)
 
-;; highlight strings
-      '("[_^-]?\"[^\"]*\"" 0 font-lock-string-face t)
+;; highlight strings: urgh. should hangle strings in strings, i.e., \\\"
+      '("\\([_^-]?\"[^\"]*\"\\)" 0 font-lock-string-face t)
 
 ;; highlight (block) comments; urgh. block comments should be updatable
       '("\\(%\\({[^%]*%\\(}\\|\\([^}][^%]*%\\)+}\\)\\|.*\\)\\)" 0 font-lock-comment-face t)
