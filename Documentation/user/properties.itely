@@ -214,7 +214,7 @@ Then you can set the force property to a suitable value before each note
 that really needs it (unisons and seconds), and reset it to 0.0 after
 the note.  
 
-  @item @code{horizontalNoteShift}@indexcode{horizontalNoteShift}  @property{integer}
+  @item @code{horizontalNoteShift}@indexcode{horizontalNoteShift}  @propertytype{integer}
     Enable LilyPond to shift notes horizontally if they collide with
     other notes.  This is useful when typesetting many voices on one
     staff.  The identifier @code{\shift}@keyindex{shift} is defined to
