@@ -9,7 +9,7 @@
 #ifndef PAPER_BOOK_HH
 #define PAPER_BOOK_HH
 
-// #define PAGE_LAYOUT 1
+//#define PAGE_LAYOUT 1
 
 #include "parray.hh"
 class Page;
