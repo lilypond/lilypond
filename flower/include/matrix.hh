@@ -2,7 +2,7 @@
 #define MATRIX_HH
 
 
-#include "vsmat.hh"
+#include "matrix-storage.hh"
 #include "vector.hh"
 
 /**  a Real matrix.  This is a class for a nonsquare block of #Real#s.  The
@@ -16,7 +16,7 @@
 
 
 class Matrix {
-    virtual_smat *dat;
+    Matrix_storage *dat;
     
 public:
     void OK() const { dat->OK(); }
