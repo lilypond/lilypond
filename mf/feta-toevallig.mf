@@ -1,3 +1,12 @@
+% 
+% feta-toevallig.mf --  implement Accidentals
+% 
+% source file of the Feta (Font-En-Tja) music font
+% 
+% (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+% 
+
+
 %
 % Accidentals from various sources, notably
 %
@@ -12,6 +21,11 @@
 
 fet_begingroup("accidentals");
 
+%
+% The beams of most sharps have horizontal endings (as if drawn with 
+% a square pen).  [Wanske] does not mention this, so we'll just ignore 
+% this fact
+%
 fet_beginchar("Sharp" , "1", "sharp");
 	set_char_box(0, 1.1 interline#, 1.5 interline#, 
 		1.5 interline#);

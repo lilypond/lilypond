@@ -1,5 +1,12 @@
-% bolletjes.mf
-% part of LilyPond's pretty-but-neat music font
+% 
+% feta-bolletjes.mf --  implement noteheads
+% 
+% source file of LilyPond's pretty-but-neat music font
+% 
+% (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+% & Han-Wen Nienhuys <hanwen@stack.nl>
+% 
+
 
 % most beautiful noteheads are pronounced, not circular, 
 % and not even symmetric.
