@@ -1,7 +1,6 @@
 #include "idealspacing.hh"
 #include "p-col.hh"
 #include "p-score.hh"
-#include "p-staff.hh"
 #include "debug.hh"
 
 void
@@ -10,7 +9,7 @@ Idealspacing::print() const
 #ifndef NPRINT
     mtor << "idealspacing {" ;
     mtor << "distance "<<space<< " strength " << hooke ;
-    mtor << "left " << left->rank() << " right " << right->rank() << "}\n";
+    mtor << "left " << left->rank_i() << " right " << right->rank_i() << "}\n";
 #endif
 }
 

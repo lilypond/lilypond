@@ -22,8 +22,8 @@
 
 class PCol { 
 public:
-    Link_list<Item const *> its;
-    Link_list<Spanner const *> stoppers, starters;
+    Link_list<Item *> its;
+    Link_list<Spanner *> stoppers, starters;
     
     /** prebreak is put before end of line.
     if broken here, then (*this) column is discarded, and prebreak
@@ -39,7 +39,7 @@ public:
     PCol *daddy_l_;
     
     /// if lines are broken then this column is in #line#
-    Line_of_score const *line_l_;
+    Line_of_score *line_l_;
 
     /** if lines are broken then this column x-coord #hpos# if not
       known, then hpos == -1.(ugh?)  */
@@ -52,7 +52,7 @@ public:
 
     /* *************** */
     /// which  one (left =0)
-    int rank() const;
+    int rank_i() const;
 
     /// does this column have items
     bool used_b() const;
