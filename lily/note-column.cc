@@ -35,8 +35,8 @@ Note_column::shift_compare (Grob *const &p1, Grob *const&p2)
   SCM s1 = p1->get_property ("horizontal-shift");
   SCM s2 = p2->get_property ("horizontal-shift");
 
-  int h1 = (ly_c_number_p (s1))?  ly_scm2int (s1) :0;
-  int h2 = (ly_c_number_p (s2)) ? ly_scm2int (s2):0;
+  int h1 = (ly_c_number_p (s1))?  scm_to_int (s1) :0;
+  int h2 = (ly_c_number_p (s2)) ? scm_to_int (s2):0;
   return h1 - h2;
 }
 

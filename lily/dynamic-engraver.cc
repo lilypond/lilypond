@@ -397,8 +397,8 @@ Dynamic_engraver::acknowledge_grob (Grob_info info)
 	DynamicText doesn't really have a script-priority field.
        */
       if (ly_c_number_p (p)
-	  && ly_scm2int (p)
-	  < ly_scm2int (script_->get_property ("script-priority")))
+	  && scm_to_int (p)
+	  < scm_to_int (script_->get_property ("script-priority")))
 	Side_position_interface::add_support (line_spanner_, info.grob_);
     }
   else if (Slur::has_interface (info.grob_))

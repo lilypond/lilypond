@@ -128,7 +128,7 @@ SCM
 Grob::stencil_extent (SCM element_smob, SCM scm_axis)
 {
   Grob *s = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (scm_axis);
+  Axis a = (Axis) scm_to_int (scm_axis);
 
   Stencil *m = s->get_stencil ();
   Interval e;
@@ -409,7 +409,7 @@ Grob::extent (Grob *refp, Axis a) const
   if (!ly_c_pair_p (d->dimension_))
     return ext;
 
-  ext = ly_scm2interval (d->dimension_);
+  ext = scm_to_interval (d->dimension_);
 
   SCM extra = get_property (a == X_AXIS
 			    ? "extra-X-extent"

@@ -240,7 +240,7 @@ bool
 Stem::is_invisible (Grob *me)
 {
   return !(head_count (me)
-	   && ly_scm2int (me->get_property ("duration-log")) >= 1);
+	   && scm_to_int (me->get_property ("duration-log")) >= 1);
 }
 
 Direction
@@ -380,7 +380,7 @@ int
 Stem::duration_log (Grob *me)
 {
   SCM s = me->get_property ("duration-log");
-  return (ly_c_number_p (s)) ? ly_scm2int (s) : 2;
+  return (ly_c_number_p (s)) ? scm_to_int (s) : 2;
 }
 
 void
@@ -495,7 +495,7 @@ MAKE_SCHEME_CALLBACK (Stem, height, 2);
 SCM
 Stem::height (SCM smob, SCM ax)
 {
-  Axis a = (Axis)ly_scm2int (ax);
+  Axis a = (Axis)scm_to_int (ax);
   Grob *me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
@@ -596,7 +596,7 @@ MAKE_SCHEME_CALLBACK (Stem,dim_callback,2);
 SCM
 Stem::dim_callback (SCM e, SCM ax)
 {
-  Axis a = (Axis) ly_scm2int (ax);
+  Axis a = (Axis) scm_to_int (ax);
   assert (a == X_AXIS);
   Grob *me = unsmob_grob (e);
 

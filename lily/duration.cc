@@ -166,7 +166,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
     {
       SCM_ASSERT_TYPE (scm_integer_p (dotcount) == SCM_BOOL_T,
 		       dotcount, SCM_ARG2, __FUNCTION__, "integer");
-      dots = ly_scm2int (dotcount);
+      dots = scm_to_int (dotcount);
     }
 
   bool compress = false;
@@ -186,9 +186,9 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
   else
     den = scm_int2num (1);
 
-  Duration p (ly_scm2int (length), dots);
+  Duration p (scm_to_int (length), dots);
   if (compress)
-    p = p.compressed (Rational (ly_scm2int (num), ly_scm2int (den)));
+    p = p.compressed (Rational (scm_to_int (num), scm_to_int (den)));
 
   return p.smobbed_copy ();
 }
@@ -214,7 +214,7 @@ LY_DEFINE (ly_intlog2, "ly:intlog2",
 	  "The 2-logarithm of 1/@var{d}.")
 {
   SCM_ASSERT_TYPE (ly_c_number_p (d), d, SCM_ARG1, __FUNCTION__, "integer");
-  int log = intlog2 (ly_scm2int (d));
+  int log = intlog2 (scm_to_int (d));
   return scm_int2num (log);
 }
 

@@ -90,7 +90,7 @@ Dynamic_performer::create_audio_elements ()
 
 	  if (is_number_pair (s))
 	    {
-	      Interval iv = ly_scm2interval (s);
+	      Interval iv = scm_to_interval (s);
 	      volume = iv[MIN] + iv.length () * volume;
 	    }
 	}

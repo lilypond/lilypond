@@ -34,7 +34,7 @@ MAKE_SCHEME_CALLBACK (Slur, height, 2);
 SCM
 Slur::height (SCM smob, SCM ax)
 {
-  Axis a = (Axis)ly_scm2int (ax);
+  Axis a = (Axis)scm_to_int (ax);
   Grob *me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
@@ -131,7 +131,7 @@ SCM
 Slur::outside_slur_callback (SCM grob, SCM axis)
 {
   Grob *script = unsmob_grob (grob);
-  Axis a = Axis (ly_scm2int (axis));
+  Axis a = Axis (scm_to_int (axis));
   assert (a == Y_AXIS);
 
   Grob *slur = unsmob_grob (script->get_property ("slur"));

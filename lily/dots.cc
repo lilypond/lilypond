@@ -40,7 +40,7 @@ Dots::print (SCM d)
       mol = Lookup::blank (Box (Interval (0,0),
 				Interval (0,0)));
   
-      for (int i = ly_scm2int (c); i--;)
+      for (int i = scm_to_int (c); i--;)
 	{
 	  d.translate_axis (2*dw,X_AXIS);
 	  mol.add_at_edge (X_AXIS, RIGHT, d, dw, 0);

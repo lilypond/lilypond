@@ -97,7 +97,7 @@ Note_head::extent (SCM smob, SCM axis)
 {
   Grob *me = unsmob_grob (smob);
 
-  return ly_interval2scm (head_extent (me, (Axis) ly_scm2int (axis)));
+  return ly_interval2scm (head_extent (me, (Axis) scm_to_int (axis)));
 }
 
 MAKE_SCHEME_CALLBACK (Note_head,brew_ez_stencil,1);
@@ -189,7 +189,7 @@ int
 Note_head::get_balltype (Grob*me) 
 {
   SCM s = me->get_property ("duration-log");
-  return ly_c_number_p (s) ? ly_scm2int (s) <? 2 : 0;
+  return ly_c_number_p (s) ? scm_to_int (s) <? 2 : 0;
 }
 
 ADD_INTERFACE (Note_head,"note-head-interface",

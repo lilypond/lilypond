@@ -105,7 +105,7 @@ Custos_engraver::process_acknowledged_grobs ()
 	  int p = pitches_[i].steps ();
 	  SCM c0 = get_property ("middleCPosition");
 	  if (ly_c_number_p (c0))
-	    p += ly_scm2int (c0);
+	    p += scm_to_int (c0);
 
 	  
 	  c->set_property ("staff-position",

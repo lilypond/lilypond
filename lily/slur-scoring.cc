@@ -489,7 +489,7 @@ set_end_points (Grob *me)
 		  ->lookup_variable (ly_symbol2scm ("debug-slur-quanting")))
       && ly_c_pair_p (inspect_quants))
     {
-      Drul_array<Real> ins = ly_scm2interval (inspect_quants);
+      Drul_array<Real> ins = scm_to_interval (inspect_quants);
       Real mindist = 1e6;
       for (int i = 0; i < scores.size (); i ++)
 	{
@@ -957,7 +957,7 @@ score_extra_encompass (Grob *me, Grob *common[],
 		  && scm_ilength (accs) == 1)
 		{
 		  /* End copy accidental.cc */
-		  switch (ly_scm2int (ly_car (accs)))
+		  switch (scm_to_int (ly_car (accs)))
 		    {
 		    case FLAT:
 		    case DOUBLE_FLAT:

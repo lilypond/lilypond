@@ -33,7 +33,7 @@ LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
   SCM p1 = i1->get_property ("script-priority");
   SCM p2 = i2->get_property ("script-priority");
 
-  return ly_scm2int (p1) < ly_scm2int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
+  return scm_to_int (p1) < scm_to_int (p2) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
 MAKE_SCHEME_CALLBACK (Script_column, before_line_breaking, 1);

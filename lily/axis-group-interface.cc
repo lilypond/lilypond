@@ -15,7 +15,7 @@ Axis_group_interface::add_element (Grob*me,Grob *e)
 {
   for (SCM ax = me->get_property ("axes"); ax != SCM_EOL ; ax = ly_cdr (ax))
     {
-      Axis a = (Axis) ly_scm2int (ly_car (ax));
+      Axis a = (Axis) scm_to_int (ly_car (ax));
       
       if (!e->get_parent (a))
 	e->set_parent (me, a);
@@ -54,7 +54,7 @@ SCM
 Axis_group_interface::group_extent_callback (SCM element_smob, SCM scm_axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (scm_axis);
+  Axis a = (Axis) scm_to_int (scm_axis);
 
   SCM elts = me->get_property ("elements");
   Grob * common = common_refpoint_of_list (elts, me, a);

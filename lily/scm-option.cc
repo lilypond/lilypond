@@ -111,7 +111,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   else if (var == ly_symbol2scm ("midi-debug"))
     midi_debug_global_b = to_boolean (val);
   else if (var == ly_symbol2scm ("testing-level"))
-    testing_level_global = ly_scm2int (val);
+    testing_level_global = scm_to_int (val);
   else if (var == ly_symbol2scm ("parse-protect" ))
     parse_protect_global = to_boolean (val);
   else if (var == ly_symbol2scm ("internal-type-checking"))

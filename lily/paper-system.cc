@@ -81,7 +81,7 @@ LY_DEFINE (ly_paper_system_height, "ly:paper-system-extent",
   Paper_system *ps = unsmob_paper_system (system);
   SCM_ASSERT_TYPE (ps, system, SCM_ARG1, __FUNCTION__, "paper-system");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  Axis ax = (Axis)ly_scm2int (axis);
+  Axis ax = (Axis)scm_to_int (axis);
   return ly_interval2scm (ps->to_stencil().extent (ax));
 }
 

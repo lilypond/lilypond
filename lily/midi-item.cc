@@ -148,7 +148,7 @@ Midi_instrument::to_string () const
   SCM program = scm_call_1 (proc, ly_symbol2scm (audio_->str_.to_str0 ()));
   found = (program != SCM_BOOL_F);
   if (found)
-    program_byte = ly_scm2int (program);
+    program_byte = scm_to_int (program);
   else
       warning (_f ("no such MIDI instrument: `%s'", audio_->str_.to_str0 ()));
 

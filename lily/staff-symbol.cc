@@ -98,7 +98,7 @@ Staff_symbol::line_count (Grob*me)
 {
   SCM c = me->get_property ("line-count");
   if (ly_c_number_p (c))
-    return ly_scm2int (c);
+    return scm_to_int (c);
   else
     return 0;
 }

@@ -36,7 +36,7 @@ MAKE_SCHEME_CALLBACK (Stem_tremolo, height, 2);
 SCM
 Stem_tremolo::height (SCM smob, SCM ax)
 {
-  Axis a = (Axis)ly_scm2int (ax);
+  Axis a = (Axis)scm_to_int (ax);
   Grob *me = unsmob_grob (smob);
   assert (a == Y_AXIS);
 
@@ -83,7 +83,7 @@ Stem_tremolo::raw_stencil (Grob *me)
   int tremolo_flags = 0;
   SCM s = me->get_property ("flag-count");
   if (ly_c_number_p (s))
-    tremolo_flags = ly_scm2int (s);
+    tremolo_flags = scm_to_int (s);
 
   if (!tremolo_flags)
     {

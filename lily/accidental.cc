@@ -69,7 +69,7 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
       && !parens
       && scm_ilength (accs) == 1)
     {
-      if (ly_scm2int (ly_car (accs)) == FLAT)
+      if (scm_to_int (ly_car (accs)) == FLAT)
 	{
 	  Box stem = b;
 	  Box bulb = b;
@@ -209,7 +209,7 @@ Accidental_interface::print (SCM smob)
   for (SCM s = me->get_property ("accidentals");
        ly_c_pair_p (s); s = ly_cdr (s))
     {
-      int alteration = ly_scm2int (ly_car (s));
+      int alteration = scm_to_int (ly_car (s));
       String font_char = get_fontcharname (style, alteration);
       Stencil acc (fm->find_by_name ("accidentals-" + font_char));
 

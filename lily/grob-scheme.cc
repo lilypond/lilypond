@@ -95,7 +95,7 @@ LY_DEFINE (ly_get_extent, "ly:grob-extent",
   SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
-  return ly_interval2scm ( sc->extent (ref, Axis (ly_scm2int (axis))));
+  return ly_interval2scm ( sc->extent (ref, Axis (scm_to_int (axis))));
 }
 
 LY_DEFINE (ly_grob_parent, "ly:grob-parent",
@@ -107,7 +107,7 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
   SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
   SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
 
-  Grob *par = sc->get_parent (Axis (ly_scm2int (axis)));
+  Grob *par = sc->get_parent (Axis (scm_to_int (axis)));
   return par ? par->self_scm () : SCM_EOL;
 }
 
@@ -190,7 +190,7 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
   SCM_ASSERT_TYPE (ly_c_number_p (d), d, SCM_ARG2, __FUNCTION__, "dimension");
   SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG3, __FUNCTION__, "axis");
 
-  me->translate_axis (ly_scm2double (d), Axis (ly_scm2int (a)));
+  me->translate_axis (ly_scm2double (d), Axis (scm_to_int (a)));
   return SCM_UNSPECIFIED;
 }
 

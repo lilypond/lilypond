@@ -130,7 +130,7 @@ Multi_measure_rest_engraver::process_music ()
 	}
       
       start_measure_
-	= ly_scm2int (get_property ("currentBarNumber"));
+	= scm_to_int (get_property ("currentBarNumber"));
     }
 
   bar_seen_ = scm_is_string (get_property ("whichBar"));
@@ -209,7 +209,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       last_rest_ = mmrest_;
       last_numbers_ = numbers_;
       
-      int cur = ly_scm2int (get_property ("currentBarNumber"));
+      int cur = scm_to_int (get_property ("currentBarNumber"));
       int num = cur - start_measure_;
 
       /*
@@ -234,7 +234,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	  SCM thres = get_property ("restNumberThreshold");
 	  int t = 1;
 	  if (ly_c_number_p (thres))
-	    t = ly_scm2int (thres);
+	    t = scm_to_int (thres);
       
 	  if (num <= t)
 	    last->suicide ();

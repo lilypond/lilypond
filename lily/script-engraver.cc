@@ -128,7 +128,7 @@ void make_script_from_event (Grob *p, bool * follow, Context *tg,
 	  /* Make sure they're in order of user input by adding index i.
 	     Don't use the direction in this priority. Smaller means closer
 	     to the head.  */
-	  int prio  = ly_scm2int (val) +  index;
+	  int prio  = scm_to_int (val) +  index;
 	  
 	 
 	  val = scm_int2num (prio);

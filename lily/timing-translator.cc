@@ -135,7 +135,7 @@ Timing_translator::start_translation_timestep ()
   int b = 0;
   if (ly_c_number_p (barn))
     {
-      b = ly_scm2int (barn);
+      b = scm_to_int (barn);
     }
 
   SCM cad = get_property ("timing");

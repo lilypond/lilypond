@@ -28,7 +28,7 @@ SCM
 Break_align_interface::alignment_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
 
   assert (a == X_AXIS);
   Grob *par = me->get_parent (a);
@@ -46,7 +46,7 @@ SCM
 Break_align_interface::self_align_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
   assert (a == X_AXIS);
   
   Item* item = dynamic_cast<Item*> (me);

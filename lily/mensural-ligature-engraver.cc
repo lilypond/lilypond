@@ -357,7 +357,7 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
   for (int i = 0; i < primitives.size (); i++)
     {
       Item *primitive = dynamic_cast<Item*> (primitives[i].grob_);
-      int output = ly_scm2int (primitive->get_property ("primitive"));
+      int output = scm_to_int (primitive->get_property ("primitive"));
       primitive->set_property ("thickness",
 				    scm_make_real (thickness));
       switch (output) {
@@ -423,7 +423,7 @@ Mensural_ligature_engraver::join_primitives (Array<Grob_info> primitives)
       if (i > 0)
         {
 	  Item *primitive = dynamic_cast<Item*> (info.grob_);
-	  int output = ly_scm2int (primitive->get_property ("primitive"));
+	  int output = scm_to_int (primitive->get_property ("primitive"));
 	  if (output & MLP_ANY)
 	    {
 	      int delta_pitch = (pitch.steps () - last_pitch.steps ());

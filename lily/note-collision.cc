@@ -26,7 +26,7 @@ SCM
 Note_collision_interface::force_shift_callback (SCM element_smob, SCM axis)
 {
   Grob *me = unsmob_grob (element_smob);
-  Axis a = (Axis) ly_scm2int (axis);
+  Axis a = (Axis) scm_to_int (axis);
   assert (a == X_AXIS);
   
    me = me->get_parent (a);
@@ -401,7 +401,7 @@ Note_collision_interface::automatic_shift (Grob *me,
 	    = clashes[i]->get_property ("horizontal-shift");
 
 	  if (ly_c_number_p (sh))
-	    shift.push (ly_scm2int (sh));
+	    shift.push (scm_to_int (sh));
 	  else
 	    shift.push (0);
 	}

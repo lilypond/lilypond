@@ -54,9 +54,9 @@ int
 alteration_pos  (SCM what, int alter, int c0p)
 {
   if (ly_c_pair_p (what))
-    return ly_scm2int (ly_car (what)) * 7 + ly_scm2int (ly_cdr (what)) + c0p;
+    return scm_to_int (ly_car (what)) * 7 + scm_to_int (ly_cdr (what)) + c0p;
 
-  int p = ly_scm2int (what);
+  int p = scm_to_int (what);
 
   // Find the c in the range -4 through 2
   int from_bottom_pos = c0p + 4;
@@ -117,7 +117,7 @@ Key_signature_interface::print (SCM smob)
   SCM c0s = me->get_property ("c0-position");
   int c0p = 0;
   if (ly_c_number_p (c0s))
-    c0p = ly_scm2int (c0s);
+    c0p = scm_to_int (c0s);
 
   /*
     SCM lists are stacks, so we work from right to left, ending with
@@ -127,7 +127,7 @@ Key_signature_interface::print (SCM smob)
   Font_metric *fm = Font_interface::get_default_font (me);
   for (SCM s = newas; ly_c_pair_p (s); s = ly_cdr (s))
     {
-      int alteration = ly_scm2int (ly_cdar (s));
+      int alteration = scm_to_int (ly_cdar (s));
       String font_char =
 	Accidental_interface::get_fontcharname (style, alteration);
       Stencil acc (fm->find_by_name ("accidentals-" + font_char));
