@@ -2,6 +2,12 @@
 
 
 # TODO: Rewrite this.  The control structure is too hairy.
+#
+
+# TODO:
+# Should use files in /tmp/ only.  This potentially messes with
+# usergenerated files in the CWD
+
 
 """
 =======================================================================
@@ -242,26 +248,31 @@ class TeXOutput:
         horizontalMarginArg =  ( (pagewidth - linewidth)/2 )   
         verticalMarginArg =  ( (pageheight - textheight)/2  )
 
-        top="""\
+        top= r"""
 %% Creator: %s
 %% Automatically generated from  %s, %s
 
-\\documentclass[%s]{article}
+\documentclass[%s]{article}
 
 %s 
-\\usepackage{geometry}
-\\usepackage[latin1]{inputenc} 
-%%\\usepackage[T1]{fontenc} 
+\usepackage{geometry}
+\usepackage[latin1]{inputenc} 
+%%\usepackage[T1]{fontenc} 
 %s 
-%%\\addtolength{\\oddsidemargin}{-1cm} 
-%%\\addtolength{\\topmargin}{-1cm} 
-%%\\setlength{\\textwidth}{%s} 
-%%\\setlength{\\textheight}{%s} 
-\\geometry{width=%spt, left=%spt, height=%spt, top=%spt, nohead} 
-\\input lilyponddefs 
-\\input titledefs 
-%s 
-\\begin{document}
+%%\addtolength{\oddsidemargin}{-1cm} 
+%%\addtolength{\topmargin}{-1cm} 
+%%\setlength{\textwidth}{%s} 
+%%\setlength{\textheight}{%s} 
+\geometry{width=%spt, left=%spt, height=%spt, top=%spt, nohead} 
+\input lilyponddefs 
+\input titledefs 
+%s
+\makeatletter
+\renewcommand{\@oddhead}{\hfil{\small\theheader\quad\textbf{\thepage}}}%%
+%% UGR.
+%%\renewcommand{\@evenhead}{eve!{\small\mudelainstrument{,}\quad\textbf{\thepage}}\hfil}%%
+\renewcommand{\@oddfoot}{{\thefooter}\hfil}%%
+\begin{document}
 """ % ( program_id(), Props.get('filename'), now, Props.get('papersize'),
         Props.get('language'), Props.get('pagenumber'), linewidth, textheight,
         linewidth, horizontalMarginArg, textheight, verticalMarginArg,
@@ -327,9 +338,12 @@ class TeXOutput:
         if Props.get('output') != '':
             outfile = os.path.join(Props.get('output'), outfile )
             
-        this.write("""\
-\\vfill\\hfill{\\mudelatagline}
-\\end{document}
+        this.write(r"""
+%% \vfill\hfill{\mudelatagline}
+\makeatletter
+\renewcommand{\@oddfoot}{\thefooter\hfill{\mudelatagline}}%
+\makeatother
+\end{document}
 """)
         this.__fd.close()
         if os.path.isfile(outfile):
@@ -1035,7 +1049,7 @@ def main():
 	    Props.setDependencies(1,'commandline')
         elif o == '--help' or o == '-h':
             help()
-	    return 0
+	    sys.exit (0)
         elif o == '--keeply2dvi' or o == '-k':
 	    Props.setKeeply2dvi(1,'commandline')
         elif o == '--language' or o == '-l':
