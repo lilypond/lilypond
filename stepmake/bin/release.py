@@ -51,7 +51,7 @@ if status:
 cur_ver = package.version
 
 
-pn = '%s-%s' %(package.name, version_tuple_to_str(cur_ver))
+pn = '%s-%s' % (package.name, version_tuple_to_str (cur_ver))
 tarball = pn + '.tar.gz'
 orig  = os.path.join (outdir, tarball)
 try:

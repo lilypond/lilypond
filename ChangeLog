@@ -1,3 +1,15 @@
+2002-02-11  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* mf/GNUmakefile (FET_FILES): 
+	(FONT_FILES): Include parmesan.
+
+	* stepmake/bin/packagepython.py (make_assign_re): Bugfix.  Use re
+	iso regex, regsub
+
+	* buildscripts/clean-fonts.sh (FILES): Clean parmesan too.
+
+	* Documentation/user/refman.itely (Paper size): Quote braces.
+
 2002-02-07  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* stepmake/aclocal.m4: fixed bison version check to be more

@@ -12,8 +12,10 @@ EXTRA_DIST_FILES += README feta.tex
 
 # don't try to make fonts from test files
 TEST_FILES = $(wildcard *test*.mf)
-FET_FILES = $(filter-out $(TEST_FILES),$(wildcard feta[0-9]*.mf))
-FONT_FILES = $(filter-out $(TEST_FILES),$(wildcard feta*[0-9].mf))
+FET_FILES = $(filter-out $(TEST_FILES),\
+  $(wildcard feta[0-9]*.mf) $(wildcard parmesan[0-9]*.mf))
+FONT_FILES = $(filter-out $(TEST_FILES),\
+$(wildcard feta*[0-9].mf) $(wildcard parmesan*[0-9].mf))
 
 XPM_FONTS = feta20 feta-nummer10 feta-braces20
 #CM_AFM_FILES = cmr10

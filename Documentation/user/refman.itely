@@ -3547,7 +3547,7 @@ specification, you must set the font as described above.  If you want
 the default font, then use the 20 point font.
 
 @example
-        \paper{papersize = "a4"}
+        \paper@{ papersize = "a4" @}
         \include "paper16.ly"
 @end example
 
