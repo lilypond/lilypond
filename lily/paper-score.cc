@@ -17,7 +17,6 @@
 #include "paper-column.hh"
 #include "scope.hh"
 #include "gourlay-breaking.hh"
-#include "paper-stream.hh"
 #include "paper-outputter.hh"
 #include "file-results.hh"
 #include "misc.hh"

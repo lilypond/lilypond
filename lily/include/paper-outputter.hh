@@ -27,8 +27,13 @@
 class Paper_outputter
 {
   bool verbatim_scheme_b_;
-  Paper_stream * stream_p_;
+
+  
 public:
+
+  SCM output_func_ ;
+  Protected_scm file_;
+  
   String basename_;
   Paper_outputter (String nm);
   ~Paper_outputter ();
@@ -47,7 +52,7 @@ public:
   void output_string (SCM s);
   void output_scheme (SCM scm);
 
-  static void write_header_field_to_file (String filename, String key, String value);
+  void write_header_field_to_file (String filename, SCM, SCM);
   void write_header_fields_to_file (Scope *);
 };
 

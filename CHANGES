@@ -1,3 +1,42 @@
+1.5.20.jcn1
+===========
+
+* Fixed direct PostScript output, and changed default fonts.
+
+* Bugfix: automaticMelismata in refman (huh, or should lily be changed?)
+
+* pktrace:
+
+      cp mf/out/feta20.* $HOME/usr/src/sketch-0.7.8/Resources/Fontmetrics
+      echo 'TeX-feta20,feta20,Roman,-gnu-feta20-medium-r-normal,adobe-fontspec\ific,feta20' >> $HOME/usr/src/sketch-0.7.8/Resources/Fontmetrics/std.sfd
+
+
+1.5.3.lec1
+==========
+abc2ly fixes:
+
+      fix to Q: support
+      partial fix for tuplet parsing
+      fix for blank first T: line
+      escape "'s in header lines
+      fix for dotted breve in whole note duration
+      M:none no longer attempts to insert "\time none"
+
+
+1.5.20.uu1
+==========
+
+* etf2ly robustness fixes
+ 
+* Rewrote outputting backend. Now uses GUILE modules.
+
+* Line breaking bugfix.
+
+* Bugfix: Unfolded_repeat_iterator::add_repeat_command().
+
+1.5.20
+======
+
 1.5.19.jcn3
 ===========
 
@@ -13,14 +52,13 @@
    - textrace:
       wget http://www.inf.bme.hu/~pts/textrace-latest.tar.gz
       tar xzf textrace-latest.tar.gz
-@@ -15,18 +17,23 @@
       (cd autotrace-0.27ap; ./configure; make)
       ./traceall.sh feta20 feta20.pfb $HOME/usr/src/lilypond/mf/out
 
-  - copy mf/out/feta20.* to sketch/Resources/Fontmetrics
+  - copy mf/out/feta20.* to sketch/Resources/Fontmetrics:
 
    - append to sketch/Resources/Fontmetrics/std.sfd:
-      echo 'TeX-feta20,feta20,Roman,-gnu-feta20-medium-r-normal,adobe-fontspec\ific,feta20' > $HOME/usr/src/sketch/sketch/Resources/Fontmetrics/std.sfd
+      echo 'TeX-feta20,feta20,Roman,-gnu-feta20-medium-r-normal,adobe-fontspecific,feta20' >> $HOME/usr/src/sketch/sketch/Resources/Fontmetrics/std.sfd
 
    - Hmm, then find that
 
