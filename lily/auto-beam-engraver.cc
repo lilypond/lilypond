@@ -165,7 +165,19 @@ Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
   
   Rational r;
   if (moment)
-    r = unsmob_moment (get_property ("measurePosition"))->mod_rat (moment);
+    {
+      /* Ugh? measurePosition can be negative, when \partial
+	 We may have to fix this elsewhere (timing translator)
+	r = unsmob_moment (get_property ("measurePosition"))->mod_rat (moment);
+      */
+      Moment pos = * unsmob_moment (get_property ("measurePosition"));
+      if (pos < Moment (0))
+	{
+	  Moment length = * unsmob_moment (get_property ("measureLength"));
+	  pos = length - pos;
+	}
+      r = pos.mod_rat (moment);
+    }
   else
     {
       if (dir == START)
