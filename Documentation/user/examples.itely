@@ -434,6 +434,8 @@ is within a @code{\transpose} section.
 @c   - maybe ask Amelie Zapf to clean it up, or whether I should just
 @c     make whatever changes I feel like.
 
+@c FIXME: produces a warning ; key change merge.
+
 @lilypond[verbatim,raggedright]
 
 \version "2.3.11"

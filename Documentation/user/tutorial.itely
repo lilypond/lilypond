@@ -209,17 +209,6 @@ see @ref{Time signature}.
 
 @c cheesy title to avoid clash with chapter name.
 
-@c FIXME: let's not be so casual about Emacs and VIM, but rather
-@c instruct (how) to use them; let advanced user figure-out what
-@c commands to type?
-
-@c
-@c We don't have enough space to explain either VIM
-@c or Emacs non-advanced users, and I fear that both editors will only
-@c confuse newbies.  I vote for keeping the material in footnotes.
-@c 
-@c --hwn 
-
 In the last section we explained what kind of things you could enter
 in a LilyPond file.  In this section we will explain what commands to
 run and how to view or print the output.  If you have not used
@@ -950,7 +939,7 @@ c4 c g' g a a g2
 @c  FIXME
 @c   This is good info, but I wouldn't call it a comment.  IMO it should
 @c   be moved somewhere else.  I don't know exactly where yet, but I'll
-@c   resolve it soon.  -GP
+@c   resolve it soon.  -gp
 
 @cindex versioning
 
