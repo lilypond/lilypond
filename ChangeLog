@@ -1,3 +1,7 @@
+2003-06-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/topdocs/index.tely (Top): typo
+
 2003-06-08  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* configure.in: Add unsupported check for g++ >= 3.3.

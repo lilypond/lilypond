@@ -53,7 +53,7 @@ LilyPond has a stable version and a development version.  This webpage
 is for the @b{stable} version.  This means that it won't change much,
 and it is essentially bug-free.  The development releases contain
 experimental and often buggy code, so you should use those if you need
-any special new features.  If you're still insterested, you may visit
+any special new features.  If you're still interested, you may visit
 the @uref{http://lilypond.org/development, latest development
 website}.
 
