@@ -47,6 +47,7 @@ bool no_layout_global_b = false;
    One of tex, ps, scm, as.
 */
 String output_backend_global = "ps";
+String output_format_global = "pdf";
 
 /* Current output name. */
 String output_name_global;
@@ -62,13 +63,9 @@ bool verbose_global_b = false;
 */
 String init_scheme_code_string = "(begin #t ";
 
-bool make_pdf = false;
-bool make_dvi = false;
-bool make_ps = false;
-bool make_png = false;
 bool make_preview = false;
 bool make_pages = true;
-bool make_tex = false;
+
 
 /*
  * Miscellaneous global stuff.
@@ -128,6 +125,7 @@ static Long_option_init options_static[] =
     /* Bug in option parser: --output =foe is taken as an abbreviation
        for --output-format.  */
     {_i ("EXT"), "backend", 'b', _i ("select back-end to use")},
+    {_i ("EXTs"), "format", 'f', _i ("list of formats to dump")},
     {0, "help", 'h',  _i ("print this help")},
     {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
     {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
@@ -251,44 +249,6 @@ prepend_load_path (String dir)
   scm_c_eval_string (s.to_str0 ());
 }
 
-static void
-determine_output_options ()
-{
-  bool found_gnome = (output_backend_global == "gnome");
-  bool found_svg = (output_backend_global == "svg");
-  bool found_tex = (output_backend_global == "tex");
-
-
-  if (make_pdf || make_png)
-    {
-      make_ps = true;
-    }
-  if (make_ps && found_tex)
-    {
-      make_dvi = true;
-    }
-  if (make_dvi && found_tex)
-    {
-      make_tex = true;
-    }
-  if (!found_gnome
-      && !found_svg
-      && !(make_dvi
-	   || make_tex
-	   || make_ps
-	   || make_png
-	   || make_pdf))
-    {
-      make_pdf = true;
-      make_ps = true;
-      if (found_tex)
-	{
-	  make_dvi = true;
-	  make_tex = true;
-	}
-    }
-}
-
 void init_global_tweak_registry ();
 
 static void
@@ -310,7 +270,6 @@ main_with_guile (void *, int, char **)
   call_constructors ();
   init_global_tweak_registry ();
   init_freetype ();
-  determine_output_options ();  
   all_fonts_global = new All_font_metrics (global_path.to_string ());
 
   init_scheme_code_string += ")";
@@ -409,15 +368,14 @@ parse_argv (int argc, char **argv)
 	  warranty ();
 	  exit (0);
 	  break;
-	case 'f':
-	  if (option_parser->optional_argument_str0_ == "help")
-	    {
-	      printf (_ ("This option is for developers only.").to_str0 ());
-	      printf (_ ("Read the sources for more information.").to_str0 ());
-	      exit (0);
-	    }
+	case 'b':
 	  output_backend_global = option_parser->optional_argument_str0_;
 	  break;
+
+	case 'f':
+	  output_format_global = option_parser->optional_argument_str0_;
+	  break;
+	  
 	case 'H':
 	  dump_header_fieldnames_global
 	    .push (option_parser->optional_argument_str0_);

@@ -43,6 +43,8 @@ extern bool make_dvi;
 extern bool make_ps;
 extern bool make_pdf;
 extern bool make_tex;
+extern String output_format_global;
+
 extern bool make_preview;
 extern bool make_pages;
 

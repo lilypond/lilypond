@@ -55,8 +55,11 @@ sequentially.  The function @code{ly:set-option} allows access to
 some internal variables.  Use @code{-e '(ly:option-usage)'} for more
 information.
 
-
 @item -f,--format=@var{format}
+which formats should be written. Choices are @code{svg}, @code{ps},
+@code{pdf}, @code{png}, @code{tex}, @code{dvi}.
+
+@item -b,--backend=@var{format}
 the output format to use for the back-end.  Choices are
 @table @code
 @item tex
