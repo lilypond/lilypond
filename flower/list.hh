@@ -11,9 +11,9 @@ template<class T> class Link;
 template<class T>
 class List
 {
+ public:
     List(List const&src);
 
- public:
     /// construct empty list                
     List();
     
