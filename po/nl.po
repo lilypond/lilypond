@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2000-05-30 21:06+0200\n"
+"POT-Creation-Date: 2000-06-09 02:01+0200\n"
 "Content-Type: text/plain; charset=\n"
 "Date: 1998-05-26 11:26:28+0200\n"
 "From:  <janneke@gnu.org>\n"
@@ -106,17 +106,17 @@ msgstr "kan font niet vinden: `%s'"
 msgid "Loading default font"
 msgstr "Laad verstek font"
 
-#: all-font-metrics.cc:123
+#: all-font-metrics.cc:122
 #, c-format
 msgid "can't find default font: `%s'"
 msgstr "kan verstekfont niet vinden: `%s'"
 
-#: all-font-metrics.cc:124 includable-lexer.cc:49 lookup.cc:57 scores.cc:109
+#: all-font-metrics.cc:123 includable-lexer.cc:49 lookup.cc:57 scores.cc:109
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(zoekpad: `%s')"
 
-#: all-font-metrics.cc:125
+#: all-font-metrics.cc:124
 msgid "Giving up"
 msgstr "Geef op"
 
@@ -156,6 +156,10 @@ msgstr "waardestreep heeft minder dan twee stokken"
 msgid "weird beam vertical offset"
 msgstr "rare verticale waardestreep verplaatsing"
 
+#: break-align-item.cc:87
+msgid "unknown spacing pair `%s', `%s'"
+msgstr "onbekend ruimte paar `%s', `%s'"
+
 #: change-iterator.cc:22
 #, c-format
 msgid "can't change `%s' to `%s'"
@@ -183,17 +187,17 @@ msgstr "onbeëindigd akkoordtremolo"
 msgid "no one to print a tremolos"
 msgstr "niemand om tremolos af te drukken"
 
-#: chord.cc:146
+#: chord.cc:151
 #, c-format
 msgid "invalid subtraction: not part of chord: %s"
 msgstr "ongeldige aftrek: maakt geen deel uit van accoord: %s"
 
-#: chord.cc:372
+#: chord.cc:375
 #, c-format
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "ongeldige inversie toon: geen onderdeel van accoord: %s"
 
-#: clef-engraver.cc:172
+#: clef-engraver.cc:166
 msgid "unknown clef type"
 msgstr "onbekend type sleutel"
 
@@ -297,24 +301,9 @@ msgstr "Geen toonsoort, ga uit van `C'"
 msgid "Don't know how handle empty keys"
 msgstr "Weet niet hoe lege toonsoorten te behandelen"
 
-#: key-engraver.cc:93 key-performer.cc:65
+#: key-engraver.cc:74 key-performer.cc:65
 msgid "FIXME: key change merge"
 msgstr "MAAKME: toonsoort sleutel samenvoeging"
-
-#: key.cc:56 key.cc:61
-#, c-format
-msgid "Don't have that many octaves (%s)"
-msgstr "Zoveel oktaven heb ik niet (%s)"
-
-#: key.cc:79
-#, c-format
-msgid "underdone accidentals (%s)"
-msgstr "onderdreven aantal kruizen/mollen (%s)"
-
-#: key.cc:84
-#, c-format
-msgid "overdone accidentals (%s)"
-msgstr "overdreven aantal kruizen/mollen (%s)"
 
 #: lily-guile.cc:123 lily-guile.cc:146
 #, c-format
@@ -326,12 +315,12 @@ msgstr "(zoekpad: `%s')"
 msgid "Element count %d."
 msgstr "Aantal elementen: %d."
 
-#: line-of-score.cc:228 paper-score.cc:70
+#: line-of-score.cc:207 paper-score.cc:70
 #, c-format
 msgid "Element count %d "
 msgstr "Aantal elementen: %d."
 
-#: line-of-score.cc:242
+#: line-of-score.cc:221
 msgid "Calculating column positions..."
 msgstr "Berekenen van kolomposities..."
 
@@ -621,6 +610,7 @@ msgstr "MIDI uitvoer naar %s..."
 
 #: piano-pedal-engraver.cc:158 piano-pedal-engraver.cc:170
 #: piano-pedal-performer.cc:87
+#, c-format
 msgid "can't find start of piano pedal: %s"
 msgstr "kan start van piano pedaal niet vinden: %s"
 
@@ -691,7 +681,7 @@ msgstr "Schijven van afhankelijkheden bestand: `%s'..."
 msgid "Score contains errors; will not process it"
 msgstr "Partituur bevat fouten; zal hem niet verwerken"
 
-#: script-engraver.cc:69
+#: script-engraver.cc:68
 #, c-format
 msgid "Don't know how to interpret articulation `%s'"
 msgstr "Weet niet hoe articulatie te vertolken `%s'"
@@ -726,7 +716,7 @@ msgstr "Zet bindingsboog over rust.  Negeer."
 msgid "Slur over rest?"
 msgstr "Boogje over rust?"
 
-#: spanner.cc:34 spanner.cc:173
+#: spanner.cc:35 spanner.cc:174
 #, c-format
 msgid "Spanner `%s' has equal left and right spanpoints"
 msgstr "Spanner `%s' heeft gelijke linker en rechter spanpunten"
@@ -1078,6 +1068,15 @@ msgstr "% Automatisch gegenereerd"
 #, c-format
 msgid "% from input file: "
 msgstr "% van invoerbestand: "
+
+#~ msgid "Don't have that many octaves (%s)"
+#~ msgstr "Zoveel oktaven heb ik niet (%s)"
+
+#~ msgid "underdone accidentals (%s)"
+#~ msgstr "onderdreven aantal kruizen/mollen (%s)"
+
+#~ msgid "overdone accidentals (%s)"
+#~ msgstr "overdreven aantal kruizen/mollen (%s)"
 
 #~ msgid "score does not have any columns"
 #~ msgstr "partituur heeft geen enkele kolom"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-05-30 21:06+0200\n"
+"POT-Creation-Date: 2000-06-09 02:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: August S.Sigov <august@infran.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -108,17 +108,17 @@ msgstr "не могу найти шрифт: `%s'"
 msgid "Loading default font"
 msgstr "Загружаю шрифт по умолчанию"
 
-#: all-font-metrics.cc:123
+#: all-font-metrics.cc:122
 #, c-format
 msgid "can't find default font: `%s'"
 msgstr "не могу найти шрифт по умолчанию: `%s'"
 
-#: all-font-metrics.cc:124 includable-lexer.cc:49 lookup.cc:57 scores.cc:109
+#: all-font-metrics.cc:123 includable-lexer.cc:49 lookup.cc:57 scores.cc:109
 #, c-format
 msgid "(search path: `%s')"
 msgstr "(путь поиска: `%s')"
 
-#: all-font-metrics.cc:125
+#: all-font-metrics.cc:124
 msgid "Giving up"
 msgstr "Сдаюсь"
 
@@ -158,6 +158,11 @@ msgstr "группировка менее двух штилей"
 msgid "weird beam vertical offset"
 msgstr "дикое вертикальное смещение группировки штилей"
 
+#: break-align-item.cc:87
+#, fuzzy, c-format
+msgid "unknown spacing pair `%s', `%s'"
+msgstr "неизвестная переменная бумаги: `%s'"
+
 #: change-iterator.cc:22
 #, c-format
 msgid "can't change `%s' to `%s'"
@@ -186,17 +191,17 @@ msgstr "незаконченное тремоло аккорда"
 msgid "no one to print a tremolos"
 msgstr "некому рисовать скобу повтора"
 
-#: chord.cc:146
+#: chord.cc:151
 #, c-format
 msgid "invalid subtraction: not part of chord: %s"
 msgstr "неверное вычитание: не часть аккорда: %s"
 
-#: chord.cc:372
+#: chord.cc:375
 #, c-format
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr ""
 
-#: clef-engraver.cc:172
+#: clef-engraver.cc:166
 msgid "unknown clef type"
 msgstr "неизвестный тип ключа"
 
@@ -297,24 +302,9 @@ msgstr "Нет названия ключа, подразумеваю `C'"
 msgid "Don't know how handle empty keys"
 msgstr "Не знаю, что делать с пустыми ключами"
 
-#: key-engraver.cc:93 key-performer.cc:65
+#: key-engraver.cc:74 key-performer.cc:65
 msgid "FIXME: key change merge"
 msgstr "ИСПРАВЬМЕНЯ: слияние смены ключа"
-
-#: key.cc:56 key.cc:61
-#, c-format
-msgid "Don't have that many octaves (%s)"
-msgstr "Нет такого количества октав (%s)"
-
-#: key.cc:79
-#, c-format
-msgid "underdone accidentals (%s)"
-msgstr ""
-
-#: key.cc:84
-#, c-format
-msgid "overdone accidentals (%s)"
-msgstr ""
 
 #: lily-guile.cc:123 lily-guile.cc:146
 #, c-format
@@ -326,12 +316,12 @@ msgstr "(путь загрузки: `%s')"
 msgid "Element count %d."
 msgstr ""
 
-#: line-of-score.cc:228 paper-score.cc:70
+#: line-of-score.cc:207 paper-score.cc:70
 #, c-format
 msgid "Element count %d "
 msgstr ""
 
-#: line-of-score.cc:242
+#: line-of-score.cc:221
 msgid "Calculating column positions..."
 msgstr "Вычисляю позиции столбцов"
 
@@ -678,7 +668,7 @@ msgstr "Записываю файл зависимостей: `%s'..."
 msgid "Score contains errors; will not process it"
 msgstr ""
 
-#: script-engraver.cc:69
+#: script-engraver.cc:68
 #, c-format
 msgid "Don't know how to interpret articulation `%s'"
 msgstr ""
@@ -713,7 +703,7 @@ msgstr "Лига над паузой. Игнорирую."
 msgid "Slur over rest?"
 msgstr "Лига над паузой?"
 
-#: spanner.cc:34 spanner.cc:173
+#: spanner.cc:35 spanner.cc:174
 #, c-format
 msgid "Spanner `%s' has equal left and right spanpoints"
 msgstr ""
@@ -1063,6 +1053,9 @@ msgstr "% Автоматически сгенерировано"
 #, c-format
 msgid "% from input file: "
 msgstr "% из входного файла: "
+
+#~ msgid "Don't have that many octaves (%s)"
+#~ msgstr "Нет такого количества октав (%s)"
 
 #~ msgid "score does not have any columns"
 #~ msgstr "фрагмент не содержит столбцов"

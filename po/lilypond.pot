@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-05-30 21:06+0200\n"
+"POT-Creation-Date: 2000-06-09 02:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,17 +108,17 @@ msgstr ""
 msgid "Loading default font"
 msgstr ""
 
-#: all-font-metrics.cc:123
+#: all-font-metrics.cc:122
 #, c-format
 msgid "can't find default font: `%s'"
 msgstr ""
 
-#: all-font-metrics.cc:124 includable-lexer.cc:49 lookup.cc:57 scores.cc:109
+#: all-font-metrics.cc:123 includable-lexer.cc:49 lookup.cc:57 scores.cc:109
 #, c-format
 msgid "(search path: `%s')"
 msgstr ""
 
-#: all-font-metrics.cc:125
+#: all-font-metrics.cc:124
 msgid "Giving up"
 msgstr ""
 
@@ -158,6 +158,11 @@ msgstr ""
 msgid "weird beam vertical offset"
 msgstr ""
 
+#: break-align-item.cc:87
+#, c-format
+msgid "unknown spacing pair `%s', `%s'"
+msgstr ""
+
 #: change-iterator.cc:22
 #, c-format
 msgid "can't change `%s' to `%s'"
@@ -185,17 +190,17 @@ msgstr ""
 msgid "no one to print a tremolos"
 msgstr ""
 
-#: chord.cc:146
+#: chord.cc:151
 #, c-format
 msgid "invalid subtraction: not part of chord: %s"
 msgstr ""
 
-#: chord.cc:372
+#: chord.cc:375
 #, c-format
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr ""
 
-#: clef-engraver.cc:172
+#: clef-engraver.cc:166
 msgid "unknown clef type"
 msgstr ""
 
@@ -295,23 +300,8 @@ msgstr ""
 msgid "Don't know how handle empty keys"
 msgstr ""
 
-#: key-engraver.cc:93 key-performer.cc:65
+#: key-engraver.cc:74 key-performer.cc:65
 msgid "FIXME: key change merge"
-msgstr ""
-
-#: key.cc:56 key.cc:61
-#, c-format
-msgid "Don't have that many octaves (%s)"
-msgstr ""
-
-#: key.cc:79
-#, c-format
-msgid "underdone accidentals (%s)"
-msgstr ""
-
-#: key.cc:84
-#, c-format
-msgid "overdone accidentals (%s)"
 msgstr ""
 
 #: lily-guile.cc:123 lily-guile.cc:146
@@ -324,12 +314,12 @@ msgstr ""
 msgid "Element count %d."
 msgstr ""
 
-#: line-of-score.cc:228 paper-score.cc:70
+#: line-of-score.cc:207 paper-score.cc:70
 #, c-format
 msgid "Element count %d "
 msgstr ""
 
-#: line-of-score.cc:242
+#: line-of-score.cc:221
 msgid "Calculating column positions..."
 msgstr ""
 
@@ -668,7 +658,7 @@ msgstr ""
 msgid "Score contains errors; will not process it"
 msgstr ""
 
-#: script-engraver.cc:69
+#: script-engraver.cc:68
 #, c-format
 msgid "Don't know how to interpret articulation `%s'"
 msgstr ""
@@ -703,7 +693,7 @@ msgstr ""
 msgid "Slur over rest?"
 msgstr ""
 
-#: spanner.cc:34 spanner.cc:173
+#: spanner.cc:35 spanner.cc:174
 #, c-format
 msgid "Spanner `%s' has equal left and right spanpoints"
 msgstr ""

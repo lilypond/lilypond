@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 1.2.17\n"
-"POT-Creation-Date: 1999-09-16 20:29+0200\n"
+"POT-Creation-Date: 2000-06-09 02:01+0200\n"
 "PO-Revision-Date: 2000-03-29 20:50+0900\n"
 "Last-Translator: Daisuke Yamashita <yamad@mb.infoweb.ne.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -17,187 +17,163 @@ msgstr ""
 msgid "EOF in a string"
 msgstr "文字列中に EOF があります"
 
-#: data-file.cc:116 input.cc:86 midi-parser.cc:100 warn.cc:21
+#: data-file.cc:116 input.cc:87 midi-parser.cc:100 warn.cc:22
 msgid "warning: "
 msgstr "警告: "
 
-#: dstream.cc:158
+#: dstream.cc:184
 msgid "not enough fields in Dstream init"
 msgstr "Dstream 初期化時のフィールドが不十分"
 
-#: flower-debug.cc:17
-msgid "Debug output disabled.  Compiled with NPRINT."
-msgstr "デバッグ出力が無効にされています。NPRINT つきでコンパイルされました。"
-
-#: getopt-long.cc:141
-#, c-format
-msgid "Option `%s' requires an argument"
+#: getopt-long.cc:143
+#, fuzzy, c-format
+msgid "option `%s' requires an argument"
 msgstr "オプション `%s' には引数が必要です"
 
-#: getopt-long.cc:145
-#, c-format
-msgid "Option `%s' doesn't allow an argument"
+#: getopt-long.cc:147
+#, fuzzy, c-format
+msgid "option `%s' doesn't allow an argument"
 msgstr "オプション `%s' は引数を許可しません"
 
-#: getopt-long.cc:149
+#: getopt-long.cc:151
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "認識できないオプション: `%s'"
 
-#: getopt-long.cc:156
+#: getopt-long.cc:158
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "オプション `%2$s' に対する無効な引数 `%1$s'"
 
-#: text-stream.cc:8
-msgid "<stdin>"
-msgstr "<stdin>"
-
-#: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:104
-#: paper-stream.cc:25 scores.cc:38 simple-file-storage.cc:44 text-stream.cc:21
-#, c-format
-msgid "Can't open file: `%s'"
-msgstr "ファイルを開けません: `%s'"
-
-#: input.cc:91 warn.cc:7 warn.cc:15
+#: input.cc:92 warn.cc:8 warn.cc:16
 msgid "error: "
 msgstr "エラー: "
 
-#: input.cc:97
-msgid "Non fatal error: "
+#: input.cc:98
+#, fuzzy
+msgid "non fatal error: "
 msgstr "続行可能なエラー: "
 
-#: input.cc:105 source-file.cc:63 source-file.cc:156
+#: input.cc:106 source-file.cc:62 source-file.cc:155
 msgid "position unknown"
 msgstr "位置が判りません"
 
 #: mapped-file-storage.cc:74
-msgid "Can't map file"
+#, fuzzy
+msgid "can't map file"
 msgstr "ファイルをマップできません"
+
+#: mapped-file-storage.cc:87 midi-stream.cc:77 mudela-stream.cc:111
+#: paper-stream.cc:25 scores.cc:38 simple-file-storage.cc:44 text-stream.cc:22
+#, fuzzy, c-format
+msgid "can't open file: `%s'"
+msgstr "ファイルを開けません: `%s'"
 
 #: simple-file-storage.cc:56
 #, c-format
 msgid "Huh?  Got %d, expected %d characters"
 msgstr "は？ %2$d 文字あるはずなのに %1$d 文字しかない"
 
-#: warn.cc:34
+#: text-stream.cc:9
+msgid "<stdin>"
+msgstr "<stdin>"
+
+#: warn.cc:35
 msgid "programming error: "
 msgstr "プログラム上のエラー: "
 
-#: warn.cc:34
+#: warn.cc:35
 msgid " (Continuing; cross thumbs)"
 msgstr " (続けます -- cross thumbs)"
 
-#: warn.cc:40
-msgid "programming warning: "
-msgstr "プログラム上の警告: "
-
-#: afm.cc:129
-#, c-format
-msgid "Can't find character called: `%s'"
-msgstr "呼び出された文字が見つかりません: `%s'"
-
-#: afm.cc:154
-#, c-format
-msgid "Can't find character number: %d"
+#: afm.cc:42
+#, fuzzy, c-format
+msgid "can't find character number: %d"
 msgstr "文字番号が見つかりません: %d"
 
-#: all-font-metrics.cc:69 lookup.cc:103
-#, c-format
-msgid "Can't find font: `%s'"
+#: afm.cc:57
+#, fuzzy, c-format
+msgid "can't find character called: `%s'"
+msgstr "呼び出された文字が見つかりません: `%s'"
+
+#: afm.cc:87
+msgid "Error parsing AFM file"
+msgstr ""
+
+#: all-font-metrics.cc:104 lookup.cc:56
+#, fuzzy, c-format
+msgid "can't find font: `%s'"
 msgstr "フォントが見つかりません: `%s'"
 
-#: all-font-metrics.cc:70
+#: all-font-metrics.cc:105
 msgid "Loading default font"
 msgstr "デフォルトフォントをロードします"
 
-#: all-font-metrics.cc:75
-#, c-format
-msgid "Can't find default font: `%s'"
+#: all-font-metrics.cc:122
+#, fuzzy, c-format
+msgid "can't find default font: `%s'"
 msgstr "デフォルトフォントが見つかりません: `%s'"
 
-#: all-font-metrics.cc:76
+#: all-font-metrics.cc:123 includable-lexer.cc:49 lookup.cc:57 scores.cc:109
 #, c-format
-msgid "(search path: `%s)'"
+msgid "(search path: `%s')"
 msgstr "(検索パス: `%s')"
 
-#: all-font-metrics.cc:77
+#: all-font-metrics.cc:124
 msgid "Giving up"
 msgstr "諦めました"
 
-#: beam-engraver.cc:42 beam-engraver.cc:58
-msgid "no beam to end"
-msgstr "末尾への鈎がありません"
+#: auto-change-iterator.cc:43 change-iterator.cc:60
+msgid "Can't switch translators, I'm there already"
+msgstr "トランスレータを切り替えられません。既にそうなっています"
 
-#: beam-engraver.cc:87
-msgid "Already have a Beam"
+#: beam-engraver.cc:40 beam-engraver.cc:56
+msgid "can't find start of beam"
+msgstr ""
+
+#: beam-engraver.cc:85
+#, fuzzy
+msgid "already have a beam"
 msgstr "既に鈎があります"
 
-#: beam-engraver.cc:149
-msgid "unfinished beam"
-msgstr "終了されていない鈎"
+#: beam-engraver.cc:141
+#, fuzzy
+msgid "unterminated beam"
+msgstr "終端のないハイフン"
 
-#: beam-engraver.cc:174
-msgid "Stem must have Rhythmic structure"
+#: beam-engraver.cc:169 chord-tremolo-engraver.cc:167
+#, fuzzy
+msgid "stem must have Rhythmic structure"
 msgstr "符尾はリズム構造を持たねばなりません"
 
-#: beam-engraver.cc:185
-msgid "Stem doesn't fit in beam"
+#: beam-engraver.cc:180
+#, fuzzy
+msgid "stem doesn't fit in beam"
 msgstr "符尾が鈎の中におさまりません"
 
-#: beam-engraver.cc:186
-msgid "Beam was started here"
+#: beam-engraver.cc:181
+#, fuzzy
+msgid "beam was started here"
 msgstr "鈎はここから開始されました"
 
-#: beam.cc:147
-msgid "beam with less than two stems"
+#: beam.cc:90
+#, fuzzy
+msgid "beam has less than two stems"
 msgstr "鈎が二つ未満の符尾とともに使われました"
 
-#: beam.cc:312
+#: beam.cc:483
 msgid "weird beam vertical offset"
 msgstr "垂直方向の位置としておかしな鈎"
 
-#: break-algorithm.cc:28
-msgid "0 lines"
-msgstr "0 行"
-
-#: break-algorithm.cc:30
-#, c-format
-msgid "1 line (of %.0f columns)"
-msgstr "1 行 (%.0f カラム)"
-
-#: break-algorithm.cc:32
-#, c-format
-msgid "%d lines (with an average of %.1f columns)"
-msgstr "%d 行 (平均 %.1f カラム)"
-
-#: break-algorithm.cc:155
-msgid "Score does not have any columns"
-msgstr "譜面にカラムがありません"
-
-#: break-algorithm.cc:172
-#, c-format
-msgid "approximated %s"
-msgstr "おおよそ %s"
-
-#: break-algorithm.cc:174
-#, c-format
-msgid "calculated %s exactly"
-msgstr "正確に計算された %s"
-
-#: break-algorithm.cc:175
-#, c-format
-msgid "elapsed time %.2f seconds"
-msgstr "%.2f 秒経過"
+#: break-align-item.cc:87
+#, fuzzy, c-format
+msgid "unknown spacing pair `%s', `%s'"
+msgstr "判らないトランスレータ: `%s'"
 
 #: change-iterator.cc:22
-#, c-format
-msgid "Can't change `%s' to `%s'"
+#, fuzzy, c-format
+msgid "can't change `%s' to `%s'"
 msgstr "`%s' から `%s' に変更できません"
-
-#: change-iterator.cc:57
-msgid "Can't switch translators, I'm there already"
-msgstr "トランスレータを切り替えられません。既にそうなっています"
 
 #.
 #. We could change the current translator's id, but that would make
@@ -205,93 +181,95 @@ msgstr "トランスレータを切り替えられません。既にそうなっています"
 #.
 #. last->translator_id_str_  = change_l ()->change_to_id_str_;
 #.
-#: change-iterator.cc:76
+#: change-iterator.cc:79
 msgid "I'm one myself"
 msgstr "トランスレータそのものです"
 
-#: change-iterator.cc:79
+#: change-iterator.cc:82
 msgid "none of these in my family"
 msgstr "ファミリの中にありません"
 
-#: chord-tremolo-engraver.cc:41 chord-tremolo-engraver.cc:58
-msgid "no tremolo beam to end"
-msgstr "末尾へのトレモロ記号がありません"
+#: chord-tremolo-engraver.cc:111
+#, fuzzy
+msgid "unterminated chord tremolo"
+msgstr "終端のないハイフン"
 
-#: chord-tremolo-engraver.cc:83
-msgid "Already have a tremolo beam"
-msgstr "すでにトレモロ記号があります"
+#: chord-tremolo-iterator.cc:41
+#, fuzzy
+msgid "no one to print a tremolos"
+msgstr "反復記号を表示するものがありません"
 
-#: chord-tremolo-engraver.cc:124
-msgid "unfinished tremolo beam"
-msgstr "終わっていないトレモロ記号"
-
-#: chord.cc:231
+#: chord.cc:151
 #, c-format
 msgid "invalid subtraction: not part of chord: %s"
 msgstr "無効な引き算: コードの一部ではありません: %s"
 
-#: chord.cc:245
+#: chord.cc:375
 #, c-format
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr "無効な転回ピッチ: コードの一部ではありません: %s"
 
-#: clef-engraver.cc:178
+#: clef-engraver.cc:166
 msgid "unknown clef type"
 msgstr "不明な音部記号(Clef)"
 
-#: collision.cc:95
+#: collision.cc:111
 msgid "Too many clashing notecolumns.  Ignoring them."
 msgstr "釣り合わない音符が多すぎます。それらを無視します。"
 
-#: crescendo.cc:42
+#: crescendo.cc:69
 msgid "crescendo"
 msgstr "クレッシェンド"
 
-#: crescendo.cc:42
+#: crescendo.cc:69
 msgid "too small"
 msgstr "小さすぎます"
 
-#: debug.cc:56
+#: cross-staff.cc:19
+#, fuzzy
+msgid ""
+"minVerticalAlign != maxVerticalAlign: cross staff spanners may be broken"
+msgstr ""
+"minVerticalAlign != maxVerticalAlign: 内部的な beams/slurs が壊れました"
+
+#: debug.cc:26
 msgid "floating point exception"
 msgstr "浮動小数点例外"
 
-#: debug.cc:139
-msgid "Can't set mem-checking!"
+#: debug.cc:50
+#, fuzzy
+msgid "can't set mem-checking!"
 msgstr "メモリチェックを設定できません"
 
 #: dimensions.cc:13
 msgid "NaN"
 msgstr "NaN"
 
-#: dynamic-engraver.cc:109
-msgid "Got a dynamic already.  Continuing dazed and confused."
-msgstr "既に動的になっています。混乱したまま続けます。"
-
-#: dynamic-engraver.cc:162
-msgid "Can't find (de)crescendo to end"
+#: dynamic-engraver.cc:281 span-dynamic-performer.cc:87
+#, fuzzy
+msgid "can't find start of (de)crescendo"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
-#: dynamic-engraver.cc:216
-msgid "Too many crescendi here"
-msgstr "ここのクレッシェンドが多すぎます"
+#: dynamic-engraver.cc:300
+#, fuzzy
+msgid "already have a crescendo"
+msgstr "既に鈎があります"
 
-#: dynamic-engraver.cc:254
-msgid "unended crescendo"
+#: dynamic-engraver.cc:301
+#, fuzzy
+msgid "already have a decrescendo"
+msgstr "既に鈎があります"
+
+#: dynamic-engraver.cc:381
+#, fuzzy
+msgid "unterminated (de)crescendo"
 msgstr "終了していないクレッシェンド"
 
-#: encompass-info.cc:32
-msgid "Slur over rest?"
-msgstr "スラーが休符をまたいでいる?"
-
-#: encompass-info.cc:67 stem-info.cc:140
-msgid "minVerticalAlign != maxVerticalAlign: interstaff beams/slurs may be broken"
-msgstr "minVerticalAlign != maxVerticalAlign: 内部的な beams/slurs が壊れました"
-
-#: extender-engraver.cc:62
+#: extender-engraver.cc:96
 msgid "unterminated extender"
 msgstr "終端のないエクステンダ"
 
-#: extender-engraver.cc:74
+#: extender-engraver.cc:108
 msgid "Nothing to connect extender to on the left.  Ignoring extender request."
 msgstr "エクステンダが左側につながりません。エクステンダ要求を無視します。"
 
@@ -299,50 +277,36 @@ msgstr "エクステンダが左側につながりません。エクステンダ要求を無視します。"
 msgid "no one to print a repeat brace"
 msgstr "反復記号を表示するものがありません"
 
+#: gourlay-breaking.cc:157
+msgid "No feasible line breaking found"
+msgstr ""
+
 #: grace-iterator.cc:43
 msgid "no Grace context available"
 msgstr "装飾コンテキストがありません"
 
-#: grace-position-engraver.cc:89
+#: grace-position-engraver.cc:93
 msgid "Unattached grace notes.  Attaching to last musical column."
 msgstr "装飾音符がつけられませんでした。直前のカラムにつけます"
 
-#: hyphen-engraver.cc:60
+#: hyphen-engraver.cc:59
 msgid "unterminated hyphen"
 msgstr "終端のないハイフン"
 
-#: hyphen-engraver.cc:72
+#: hyphen-engraver.cc:71
 msgid "Nothing to connect hyphen to on the left.  Ignoring hyphen request."
 msgstr "左側に繋げるハイフンがありません。ハイフンの要求を無視します"
 
-#: identifier.cc:46
+#: identifier.cc:44
 #, c-format
 msgid "wrong identifier type, expected: `%s'"
 msgstr "間違った識別子型、ここに来るべきものは: `%s'"
 
-#: includable-lexer.cc:47 lily-guile.cc:82 lily-guile.cc:105
+#: includable-lexer.cc:47 lily-guile.cc:121 lily-guile.cc:144
 #: midi-score-parser.cc:24 scores.cc:108 scores.cc:114
-#, c-format
-msgid "Can't find file: `%s'"
+#, fuzzy, c-format
+msgid "can't find file: `%s'"
 msgstr "ファイルが見つかりません: `%s'"
-
-#: includable-lexer.cc:49 lookup.cc:104 scores.cc:109
-#, c-format
-msgid "(search path: `%s')"
-msgstr "(検索パス: `%s')"
-
-#: ineq-constrained-qp.cc:169
-#, c-format
-msgid "Ineq_constrained_qp::solve (): Constraint off by %f"
-msgstr "Ineq_constrained_qp::solve (): 制限を %f で解除"
-
-#: ineq-constrained-qp.cc:233
-msgid "Didn't converge!"
-msgstr "収束しませんでした!"
-
-#: ineq-constrained-qp.cc:235
-msgid "too much degeneracy"
-msgstr "小さすぎます"
 
 #: key-def.cc:31
 msgid "No key name, assuming `C'"
@@ -352,54 +316,49 @@ msgstr "キー名がありません、`C' を試みます"
 msgid "Don't know how handle empty keys"
 msgstr "空のキーの扱い方が判りません"
 
-#: key-engraver.cc:70 key-performer.cc:65
+#: key-engraver.cc:74 key-performer.cc:65
 msgid "FIXME: key change merge"
 msgstr "FIXME: キー変更のマージ"
 
-#: key.cc:54 key.cc:59
-#, c-format
-msgid "Don't have that many octaves (%s)"
-msgstr "そんなに沢山のオクターブ (%s) を使わないでください"
-
-#: key.cc:77
-#, c-format
-msgid "underdone accidentals (%s)"
-msgstr "フラットが多すぎます (%s)"
-
-#: key.cc:82
-#, c-format
-msgid "overdone accidentals (%s)"
-msgstr "シャープが多すぎます (%s)"
-
-#: lily-guile.cc:84 lily-guile.cc:107
+#: lily-guile.cc:123 lily-guile.cc:146
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(読込パス: `%s')"
 
-#: line-of-score.cc:91
-msgid "Huh?  Empty Line_of_score?"
-msgstr "は? 譜面の行が空?"
+#: line-of-score.cc:90
+#, c-format
+msgid "Element count %d."
+msgstr ""
 
-#: local-key-engraver.cc:42
+#: line-of-score.cc:207 paper-score.cc:70
+#, c-format
+msgid "Element count %d "
+msgstr ""
+
+#: line-of-score.cc:221
+msgid "Calculating column positions..."
+msgstr "カラム位置を計算中..."
+
+#: local-key-engraver.cc:82
 msgid "out of tune:"
 msgstr "範囲外の調:"
 
-#: local-key-engraver.cc:43 time-signature-engraver.cc:29
-#: translator-group.cc:437 translator-group.cc:446
-#, c-format
-msgid "Can't find: `%s'"
+#: local-key-engraver.cc:83 time-signature-engraver.cc:29
+#: translator-group.cc:416 translator-group.cc:425
+#, fuzzy, c-format
+msgid "can't find: `%s'"
 msgstr "見つかりません: `%s'"
 
-#: lookup.cc:105
+#: lookup.cc:58
 msgid "Aborting"
 msgstr "終了します"
 
-#: lookup.cc:436
+#: lookup.cc:198
 #, c-format
 msgid "Non-matching braces in text `%s', adding braces"
 msgstr "テキスト `%s' 中に一致するブレースがありません。ブレースを追加します"
 
-#: main.cc:71 main.cc:91
+#: main.cc:71 main.cc:92
 msgid "enable debugging output"
 msgstr "デバッグ出力を有効"
 
@@ -408,10 +367,11 @@ msgid "EXT"
 msgstr "EXT"
 
 #: main.cc:72
-msgid "use output format EXT"
+#, fuzzy
+msgid "use output format EXT (scm, ps, tex or as)"
 msgstr "出力フォーマット EXT を使う"
 
-#: main.cc:73 main.cc:92
+#: main.cc:73 main.cc:93
 msgid "this help"
 msgstr "このヘルプ"
 
@@ -423,7 +383,7 @@ msgstr "DIR"
 msgid "add DIR to search path"
 msgstr "DIR を検索パスに追加"
 
-#: main.cc:75 main.cc:95
+#: main.cc:75 main.cc:96
 msgid "FILE"
 msgstr "FILE"
 
@@ -455,7 +415,7 @@ msgstr "関連する文法から全ての変更を表示"
 msgid "inhibit file output naming and exporting"
 msgstr "名前付けとエクスポートの出力ファイルを抑制する"
 
-#: main.cc:81 main.cc:99
+#: main.cc:81 main.cc:100
 msgid "don't timestamp the output"
 msgstr "出力にタイムスタンプをつけない"
 
@@ -467,37 +427,47 @@ msgstr "実験的な機能を有効にする"
 msgid "ignore mudela version"
 msgstr "mudela のバージョンを無視する"
 
-#: main.cc:84 main.cc:100
+#: main.cc:84 main.cc:101
 msgid "print version number"
 msgstr "バージョン番号を表示"
 
-#: main.cc:85 main.cc:102
+#: main.cc:85 main.cc:103
 msgid "show warranty and copyright"
 msgstr "保証と著作権について表示する"
 
-#: main.cc:92
+#: main.cc:100
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]..."
 msgstr "使い方: %s [オプション]... [ファイル]..."
 
-#: main.cc:94
+#: main.cc:102
 msgid "Typeset music and or play MIDI from FILE"
 msgstr "ファイルの楽曲を組版したり、MIDI 演奏したりする"
 
-#: main.cc:100 main.cc:115
+#: main.cc:106
+msgid ""
+"LilyPond is a music typesetter.  It produces beautiful sheet music\n"
+"using a high level description file as input.  LilyPond is part of \n"
+"the GNU Project.\n"
+msgstr ""
+"LilyPond は楽曲組版ソフトです。入力ファイルにはハイレベルな記述を使用でき、\n"
+"美しい譜面を作成することができます。LilyPond は GNU "
+"プロジェクトの一部です。\n"
+
+#: main.cc:112 main.cc:116
 msgid "Options:"
 msgstr "オプション:"
 
-#: main.cc:104
+#: main.cc:116
 msgid "This binary was compiled with the following options:"
 msgstr "このバイナリは以下のオプション付きでコンパイルされました"
 
-#: main.cc:119 main.cc:123
+#: main.cc:120 main.cc:135
 #, c-format
 msgid "Report bugs to %s"
 msgstr "バグレポートは %s へ"
 
-#: main.cc:52 main.cc:137
+#: main.cc:53 main.cc:143
 #, c-format
 msgid ""
 "This is free software.  It is covered by the GNU General Public License,\n"
@@ -513,17 +483,17 @@ msgstr ""
 "これを改変したり、複製を配布したりする事は歓迎されます。\n"
 "`--warranty' オプション付きで起動すると、より詳細な情報が得られます。\n"
 
-#: main.cc:59 main.cc:144 main.cc:156
+#: main.cc:60 main.cc:150 main.cc:162
 #, c-format
 msgid "Copyright (c) %s by"
 msgstr "Copyright (c) %s by"
 
 #. GNU GNU?
-#: main.cc:154
+#: main.cc:160
 msgid "GNU LilyPond -- The GNU Project music typesetter"
 msgstr "GNU LilyPond -- The GNU Project music typesetter"
 
-#: main.cc:68 main.cc:162
+#: main.cc:69 main.cc:168
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -554,33 +524,37 @@ msgstr ""
 "USA.\n"
 "\n"
 "-- 参考訳\n"
-" このプログラムは、フリーソフトウェアです。あなたは Free Software Foundation\n"
-"が公表した GNU 一般公有使用許諾のバージョン 2 の条項に基づいて、このプログラ\n"
+" このプログラムは、フリーソフトウェアです。あなたは Free Software "
+"Foundation\n"
+"が公表した GNU 一般公有使用許諾のバージョン 2 "
+"の条項に基づいて、このプログラ\n"
 "ムを再頒布または変更することができます。\n"
 "\n"
-"このプログラムは有用とは思いますが、頒布に当たっては、市場性及び特定目的適合\n"
-"性についての暗黙の保証も含めて、いかなる保証も行ないません。詳細については、\n"
+"このプログラムは有用とは思いますが、頒布に当たっては、市場性及び特定目的適合"
+"\n"
+"性についての暗黙の保証も含めて、いかなる保証も行ないません。詳細については、"
+"\n"
 "GNU 一般公有使用許諾書をお読み下さい。\n"
 "\n"
 "あなたは、このプログラムと一緒に GNU 一般公有使用許諾書を受け取っているはず\n"
 "です(COPYING ファイルを参照)。そうでない場合は、Free Software Foundation,\n"
 "Inc., 675 Mass Ave, Cambridge, MA 02139, USA に手紙を書いてください。\n"
 
-#: midi-item.cc:303
+#: midi-item.cc:311
 #, c-format
 msgid "no such instrument: `%s'"
 msgstr "その様な楽器はありません: `%s'"
 
-#: midi-item.cc:357
+#: midi-item.cc:365
 #, c-format
 msgid "unconventional key: flats: %d, sharps: %d"
 msgstr "慣習に合わないキーです: フラット: %d 個, シャープ %d 個"
 
-#: midi-item.cc:402
+#: midi-item.cc:410
 msgid "silly duration"
 msgstr "馬鹿げた音長"
 
-#: midi-item.cc:415
+#: midi-item.cc:423
 msgid "silly pitch"
 msgstr "馬鹿げたピッチ"
 
@@ -588,13 +562,13 @@ msgstr "馬鹿げたピッチ"
 msgid "Error syncing file (disk full?)"
 msgstr "ファイルの同調エラー (ディスクが一杯?)"
 
-#: music-output-def.cc:56
+#: music-output-def.cc:57
 msgid "Interpretation context with empty type"
 msgstr "空タイプの解釈コンテキスト"
 
-#: music-output-def.cc:83
-#, c-format
-msgid "Can't find `%s' context"
+#: music-output-def.cc:87
+#, fuzzy, c-format
+msgid "can't find `%s' context"
 msgstr "`%s' コンテキストが見つかりません"
 
 #: musical-request.cc:42
@@ -602,154 +576,134 @@ msgstr "`%s' コンテキストが見つかりません"
 msgid "Transposition by %s makes accidental larger than two"
 msgstr "%s の変調によって、二つを超える派生音が作られました"
 
-#: my-lily-lexer.cc:137
-#, c-format
-msgid "redeclaration of `\\%s'"
-msgstr "`\\%s' の再宣言"
-
-#: my-lily-lexer.cc:143
+#: my-lily-lexer.cc:129
 #, c-format
 msgid "Identifier name is a keyword: `%s'"
 msgstr "識別子名はキーワードです: `%s'"
 
-#: my-lily-lexer.cc:172
+#: my-lily-lexer.cc:148
 #, c-format
 msgid "error at EOF: %s"
 msgstr "EOF のところでエラー: %s"
 
-#: midi-score-parser.cc:94 my-lily-parser.cc:60
+#: midi-score-parser.cc:94 my-lily-parser.cc:56
 msgid "Parsing..."
 msgstr "構文解析中..."
 
-#: my-lily-parser.cc:69
+#: my-lily-parser.cc:64
 msgid "Braces don't match"
 msgstr "ブレースが一致しません"
 
-#: p-col.cc:48
-msgid "Must set spring between differing columns"
-msgstr "異なるカラムの間に spring をセットしなければなりません"
-
-#: paper-def.cc:95
+#: paper-def.cc:70
 #, c-format
 msgid "unknown paper variable: `%s'"
 msgstr "paper 変数の値が判りません: `%s'"
 
-#: paper-def.cc:99
+#: paper-def.cc:74
 msgid "not a real variable"
 msgstr "値が実数ではありません"
 
-#. for now; breaks -fscm output
-#: paper-def.cc:251
-msgid "Outputting Score, defined at: "
-msgstr "譜面を出力します。ここで定義: "
-
-#: paper-def.cc:280
+#: paper-def.cc:165
 #, c-format
 msgid "paper output to %s..."
 msgstr "%s へ paper 出力..."
 
-#: mudela-stream.cc:86 paper-outputter.cc:76 performance.cc:97
+#: mudela-stream.cc:93 paper-outputter.cc:92 performance.cc:95
 msgid ", at "
 msgstr ", at "
 
-#: paper-outputter.cc:130
-#, c-format
-msgid "improbable offset for object type: `%s'"
-msgstr "オブジェクト型にとってありそうにないオフセット: `%s'"
-
-#: paper-score.cc:131
-msgid "Can't solve this casting problem exactly; reverting to Word_wrap"
-msgstr "正確にキャストを解決できません -- Word_wrap に復帰します"
-
-#: paper-score.cc:156
+#: paper-score.cc:72
 msgid "Preprocessing elements..."
 msgstr "要素を前処理中..."
 
-#: paper-score.cc:160
-msgid "Calculating column positions..."
-msgstr "カラム位置を計算中..."
-
-#: paper-score.cc:179
-#, c-format
-msgid "%s elements"
-msgstr "%s 個の要素"
-
-#: paper-score.cc:182
-msgid "Line ... "
-msgstr "行 ..."
+#: paper-score.cc:97
+msgid "Outputting Score, defined at: "
+msgstr "譜面を出力します。ここで定義: "
 
 #: performance.cc:50
 msgid "Track ... "
 msgstr "トラック ..."
 
 #. perhaps multiple text events?
-#: performance.cc:77
+#: performance.cc:75
 msgid "Creator: "
 msgstr "作曲者: "
 
-#: performance.cc:92
+#: performance.cc:90
 msgid "Automatically generated"
 msgstr "自動生成された"
 
-#: performance.cc:106
+#: performance.cc:104
 #, c-format
 msgid "from musical definition: %s"
 msgstr "音楽的定義より: %s"
 
-#: performance.cc:174
+#: performance.cc:172
 #, c-format
 msgid "MIDI output to %s..."
 msgstr "%s への MIDI 出力"
 
-#: qlpsolve.cc:88 qlpsolve.cc:139
-msgid "degenerate constraints"
-msgstr "制限を緩和"
+#: piano-pedal-engraver.cc:158 piano-pedal-engraver.cc:170
+#: piano-pedal-performer.cc:87
+#, fuzzy, c-format
+msgid "can't find start of piano pedal: %s"
+msgstr "呼び出された文字が見つかりません: `%s'"
 
-#: repeat-engraver.cc:177
+#: property-engraver.cc:106
+#, fuzzy
+msgid "Wrong type for property"
+msgstr "属性値へのタイプが間違っています"
+
+#: repeat-engraver.cc:196
 msgid "No bar engraver found.  Ignoring repeats."
 msgstr "小節が見つかりません。反復を無視します。"
 
-#: request-chord-iterator.cc:73
+#: request-chord-iterator.cc:72
 #, c-format
 msgid "Junking request: `%s'"
 msgstr "要求を捨てます: `%s'"
 
-#: request-chord-iterator.cc:76
+#: request-chord-iterator.cc:75
 #, c-format
 msgid "Huh?  Not a Request: `%s'"
 msgstr "は? 要求ではない: `%s'"
 
-#: rest-collision.cc:64
+#: request-iterator.cc:20
+#, fuzzy, c-format
+msgid "Junking music: `%s'"
+msgstr "要求を捨てます: `%s'"
+
+#: rest-collision.cc:135
 msgid "too many colliding rests"
 msgstr "休符の衝突が多すぎます"
 
-#: rest-collision.cc:68
+#: rest-collision.cc:139
 msgid "too many notes for rest collision"
 msgstr "休符の衝突に対して音符が多すぎます"
 
-#: score-engraver.cc:149
+#: score-engraver.cc:139
 #, c-format
 msgid "unbound spanner `%s'"
 msgstr "閉じていないスパナ `%s'"
 
-#: score.cc:56
+#: score.cc:64
 msgid "no toplevel translator"
 msgstr "最上位のトランスレータがありません"
 
-#: score.cc:59
+#: score.cc:67
 msgid "Interpreting music..."
 msgstr "楽曲の解釈中..."
 
-#: score.cc:70
+#: score.cc:79
 msgid "Need music in a score"
 msgstr "楽譜には楽曲が必要です"
 
 #. should we? hampers debugging.
-#: score.cc:83
+#: score.cc:92
 msgid "Errors found/*, not processing score*/"
 msgstr "エラーを発見/*, 楽譜を処理しません*/"
 
-#: score.cc:88
+#: score.cc:97
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr "経過時間: %.2f 秒"
@@ -763,118 +717,77 @@ msgstr "依存関係ファイルの書き込み: `%s'..."
 msgid "Score contains errors; will not process it"
 msgstr "楽譜にエラーが含まれています -- 処理しません"
 
-#: script-engraver.cc:49
+#: script-engraver.cc:68
 #, c-format
 msgid "Don't know how to interpret articulation `%s'"
 msgstr "音節 `%s' の解釈方法が判りません"
 
-#: sequential-music-iterator.cc:82
+#: sequential-music-iterator.cc:83
 msgid "Must stop before this music ends"
 msgstr "この楽曲の終わりまでに止めなければなりません"
 
 #. this shouldn't happen, but let's continue anyway.
-#: single-malt-grouping-item.cc:43
+#: single-malt-grouping-item.cc:51
 msgid "Single_malt_grouping_item:  I've been drinking too much"
 msgstr "Single_malt_grouping_item:  飲みすぎちゃった"
 
-#: slur-engraver.cc:64
+#: slur-engraver.cc:82
 msgid "unterminated slur"
 msgstr "終端されていないスラー"
 
-#: slur-engraver.cc:80
-#, c-format
-msgid "Can't find both ends of %s"
+#: slur-engraver.cc:98
+#, fuzzy, c-format
+msgid "can't find both ends of %s"
 msgstr "%s の両端が見つかりません"
 
-#: slur-engraver.cc:80
+#: slur-engraver.cc:98
 msgid "slur"
 msgstr "スラー"
 
-#: slur.cc:38
+#: slur.cc:231
 msgid "Putting slur over rest.  Ignoring."
 msgstr "休符をまたいだスラーがあります。無視します。"
 
-#: spanner.cc:41
-msgid "Left spanpoint is right spanpoint"
-msgstr "範囲の左側が、右側にあります"
+#: slur.cc:312
+msgid "Slur over rest?"
+msgstr "スラーが休符をまたいでいる?"
 
-#: spanner.cc:111
+#: spanner.cc:35 spanner.cc:174
 #, c-format
 msgid "Spanner `%s' has equal left and right spanpoints"
 msgstr "範囲指定子 `%s' の左右の点が同じです"
 
-#: spanner.cc:143
-msgid "spanner with negative length"
-msgstr "範囲指定子が負の長さです"
-
-#: spring-spacer.cc:134
-msgid "I'm too fat; call Oprah"
-msgstr "太すぎます -- Oprah を呼んで"
-
-#: spring-spacer.cc:299
-msgid "Solution doesn't satisfy constraints"
-msgstr "その解決は制限を満たしません"
-
-#: spring-spacer.cc:400
-#, c-format
-msgid "Improbable distance: %f point, setting to 10 mm"
-msgstr "ありそうにない距離: %f ポイント, 10 mm に設定します"
-
-#: spring-spacer.cc:405
-msgid "Negative distance, setting to 10 mm"
-msgstr "負の値となる距離, 10 mm に設定します"
-
-#: stem-engraver.cc:80
+#: stem-engraver.cc:124
 #, c-format
 msgid "Adding note head to incompatible stem (type = %d)"
 msgstr "矛盾した符尾へ符頭を追加します (タイプ = %d)"
 
-#: stem.cc:26
-msgid "stem direction set already!"
-msgstr "符尾の方向は既にセットされています!"
-
-#: stem.cc:106
+#: stem.cc:118
 msgid "Weird stem size; check for narrow beams"
 msgstr "変な符尾のサイズ -- 細い鈎のチェックをして下さい"
 
-#: tfm-reader.cc:108
+#: tfm-reader.cc:115
 #, c-format
 msgid "TFM header of `%s' has only %u word(s)"
 msgstr "`%s' の TFM ヘッダに %u 語しかありません"
 
-#: tfm-reader.cc:146
+#: tfm-reader.cc:153
 #, c-format
 msgid "%s: TFM file has %u parameters, which is more than the %u I can handle"
 msgstr "%s: TFM ファイルは %u 個のパラメタがありますが、%u 以上は扱えません"
 
-#: tfm.cc:64
-#, c-format
-msgid "Can't find ascii character: `%d'"
+#: tfm.cc:70
+#, fuzzy, c-format
+msgid "can't find ascii character: `%d'"
 msgstr "ascii 文字が見つかりません: `%d'"
 
-#: tie-engraver.cc:91
-msgid "unequal number of note heads for tie"
-msgstr "タイに対応する符頭の数が均等ではありません"
-
-#: tie-engraver.cc:155 tie-performer.cc:106
+#: tie-engraver.cc:195 tie-performer.cc:109
 msgid "No ties were created!"
 msgstr "作られたタイがありません!"
 
-#: tie.cc:55
+#: tie.cc:80
 msgid "lonely tie"
 msgstr "一つだけのタイ"
-
-#: time-description.cc:17
-msgid "cadenza"
-msgstr "cadenza"
-
-#: time-description.cc:106
-msgid "Partial measure must be non-negative"
-msgstr "小節部は非負でなくてはなりません"
-
-#: time-description.cc:108
-msgid "partial measure too large"
-msgstr "小節部が大きすぎます"
 
 #: time-scaled-music-iterator.cc:25
 msgid "no one to print a tuplet start bracket"
@@ -884,219 +797,191 @@ msgstr "タプレット開始ブラケットを表示するものがありません"
 msgid "lost in time:"
 msgstr "拍子に迷いました:"
 
-#: timing-translator.cc:26
+#: timing-translator.cc:36
 msgid "conflicting timing request"
 msgstr "拍子の要求が競合します"
 
-#: timing-translator.cc:62
-msgid "time signature change not allowed here"
-msgstr "ここでは拍子記号を変更できません"
+#: timing-translator.cc:37
+msgid "This is the other timing request"
+msgstr ""
 
-#: timing-translator.cc:83
+#: timing-translator.cc:78
 #, c-format
 msgid "barcheck failed at: %s"
 msgstr "小節チェックが失敗: %s"
 
-#: translator-ctors.cc:39
+#: translator-ctors.cc:42
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr "判らないトランスレータ: `%s'"
 
-#: translator-group.cc:78 translator-group.cc:91
+#: translator-group.cc:81 translator-group.cc:94
 msgid "Program has no such type"
 msgstr "プログラムにはその様なタイプがありません"
 
-#: translator-group.cc:82 translator-group.cc:97
+#: translator-group.cc:85 translator-group.cc:100
 #, c-format
 msgid "Already contains: `%s'"
 msgstr "既に含んでいます: `%s'"
 
-#: translator-group.cc:207
-#, c-format
-msgid "Can't find or create `%s' called `%s'"
+#: translator-group.cc:210
+#, fuzzy, c-format
+msgid "can't find or create `%s' called `%s'"
 msgstr "`%2$s' に呼ばれた `%1$s' が見つからないか作れません"
 
-#: translator-group.cc:341
-#, c-format
-msgid "Can't find or create: `%s'"
+#: translator-group.cc:322
+#, fuzzy, c-format
+msgid "can't find or create: `%s'"
 msgstr "見つからないか作れません: `%s'"
-
-#: transposed-music.cc:31
-msgid "Will ignore \\relative for transposed music"
-msgstr "転調された楽曲は \\relative を無視します"
 
 #: unfolded-repeat-iterator.cc:145
 msgid "no one to print a volta bracket"
 msgstr "volta ブラケットを表示するものがありません"
 
-#: word-wrap.cc:75
-#, c-format
-msgid "Ugh, this measure is too long, breakpoint: %d"
-msgstr "うぐっ、この小節は長すぎます。きる場所: %d"
-
-#: word-wrap.cc:77
-msgid "Generating stupido solution"
-msgstr "馬鹿げた解決を生成中"
-
-#: word-wrap.cc:95
-msgid "I don't fit; put me on Montignac"
-msgstr "上手くはまりません -- Montignac のところに置いてください"
-
-#: parser.yy:55
+#: parser.yy:58
 #, c-format
 msgid "Oldest supported input version: %s"
 msgstr "一番古い入力可能バージョン: %s"
 
-#: parser.yy:313
-msgid "Can't evaluate Scheme in safe mode"
-msgstr "安全モードでは Scheme の評価をできません"
-
-#: parser.yy:433 parser.yy:441 parser.yy:465
+#: parser.yy:427
 msgid "Need a translator group for a context"
 msgstr "コンテキストにはトランスレータグループが必要です"
 
-#: parser.yy:459
+#: parser.yy:448
 msgid "Wrong type for property value"
 msgstr "属性値へのタイプが間違っています"
 
-#: parser.yy:515
-msgid "More than one music block"
-msgstr "複数の楽曲ブロック"
-
-#: parser.yy:575
-msgid "Need even number of args for shape array"
-msgstr "shape 配列への引数は偶数でなければなりません"
-
-#: parser.yy:723
+#: parser.yy:694
 msgid "More alternatives than repeats.  Junking excess alternatives."
 msgstr "繰り返しよりも選択肢が多い。超過分を捨てます。"
 
-#: parser.yy:946 parser.yy:1360 parser.yy:1380
+#: parser.yy:739
+msgid "Second argument must be a symbol"
+msgstr ""
+
+#: parser.yy:744
+msgid "First argument must be a procedure taking 1 argument"
+msgstr ""
+
+#: parser.yy:1069
+msgid "Can't specify direction for this request"
+msgstr "この要求に対する方向を指定することはできません"
+
+#: parser.yy:1170
+#, c-format
+msgid "Expecting %d arguments"
+msgstr ""
+
+#: parser.yy:1193 parser.yy:1201 parser.yy:1443
+msgid "Have to be in Lyric mode for lyrics"
+msgstr "歌詞は Lyric モード内に書いてください"
+
+#: parser.yy:1342 parser.yy:1362
 #, c-format
 msgid "not a duration: %d"
 msgstr "音長ではありません: %d"
 
-#: parser.yy:948 parser.yy:1382
-msgid "Can't abbreviate"
-msgstr "省略できません"
-
-#: parser.yy:1076
-msgid "Can't specify direction for this request"
-msgstr "この要求に対する方向を指定することはできません"
-
-#: parser.yy:1211 parser.yy:1219 parser.yy:1444
-msgid "Have to be in Lyric mode for lyrics"
-msgstr "歌詞は Lyric モード内に書いてください"
-
-#: parser.yy:1391
+#: parser.yy:1371
 msgid "Have to be in Note mode for notes"
 msgstr "音符は Note モード内に書いてください"
 
-#: parser.yy:1403
-msgid "Can't abbreviate tuplet"
-msgstr "タプレットを省略できません"
-
-#: parser.yy:1450
+#: parser.yy:1459
 msgid "Have to be in Chord mode for chords"
 msgstr "コードは Chord モード内に書いてください"
 
-#: lexer.ll:155
+#: lexer.ll:158
 msgid "EOF found inside a comment"
 msgstr "コメント内に EOF が見つかりました"
 
-#: lexer.ll:169
+#: lexer.ll:172
 msgid "\\maininput disallowed outside init files"
 msgstr "初期化ファイルの外では \\maininput を記述できません"
 
-#: lexer.ll:199
+#: lexer.ll:202
 #, c-format
 msgid "undefined identifier: `%s'"
 msgstr "未定義の識別子: `%s'"
 
 #. backup rule
-#: lexer.ll:204
+#: lexer.ll:207
 msgid "Missing end quote"
 msgstr "終了クオートがありません"
 
 #. backup rule
-#: lexer.ll:227 lexer.ll:231
+#: lexer.ll:229 lexer.ll:233
 msgid "white expected"
 msgstr "空白が必要です"
 
-#: lexer.ll:401
+#: lexer.ll:241
+msgid "Can't evaluate Scheme in safe mode"
+msgstr "安全モードでは Scheme の評価をできません"
+
+#: lexer.ll:436
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "無効な文字: `%c'"
 
-#: lexer.ll:457
+#: lexer.ll:494
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "未知のエスケープ文字列: `\\%s'"
 
-#: lexer.ll:543
+#: lexer.ll:580
 #, c-format
 msgid "incorrect mudela version: %s (%s, %s)"
 msgstr "間違った mudela バージョン: %s (%s, %s)"
 
-#: out/BLURB.hh:2
-msgid ""
-"LilyPond is a music typesetter.  It produces beautiful sheet music\n"
-"using a high level description file as input.  LilyPond is part of \n"
-"the GNU Project.\n"
-msgstr ""
-"LilyPond は楽曲組版ソフトです。入力ファイルにはハイレベルな記述を使用でき、\n"
-"美しい譜面を作成することができます。LilyPond は GNU プロジェクトの一部です。\n"
-
-#: main.cc:90
+#: main.cc:91
 msgid "write exact durations, e.g.: a4*385/384"
 msgstr "正確な音長を書いてください。例: a4*385/384"
 
-#: main.cc:93
+#: main.cc:94
 msgid "ACC[:MINOR]"
 msgstr "ACC[:MINOR]"
 
-#: main.cc:93
+#: main.cc:94
 msgid "set key: ACC +sharps/-flats; :1 minor"
 msgstr "調を設定: ACC +シャープ/-フラット :1 短調"
 
-#: main.cc:94
-msgid "assume no tuplets or double dots, smallest is 32"
+#: main.cc:95
+#, fuzzy
+msgid "don't output tuplets or double dots, smallest is 32"
 msgstr "符点や複符点をなくすよう試みます、最小は 32"
 
-#: main.cc:95
+#: main.cc:96
 msgid "set FILE as default output"
 msgstr "デフォルト出力として FILE を設定する"
 
-#: main.cc:96
-msgid "assume no tuplets"
-msgstr "符点を無くすよう試みます"
-
 #: main.cc:97
+msgid "don't output tuplets"
+msgstr ""
+
+#: main.cc:98
 msgid "be quiet"
 msgstr "静かにします"
 
-#: main.cc:98
+#: main.cc:99
 msgid "DUR"
 msgstr "DUR"
 
-#: main.cc:98
+#: main.cc:99
 msgid "set smallest duration"
 msgstr "音長を最小に設定します"
 
-#: main.cc:101
+#: main.cc:102
 msgid "be verbose"
 msgstr "詳細な情報を表示します"
 
-#: main.cc:103
+#: main.cc:104
 msgid "assume no double dotted notes"
 msgstr "複符点音符を無くすよう試みます"
 
-#: main.cc:110
+#: main.cc:111
 #, c-format
 msgid "Usage: %s [OPTION]... [FILE]"
 msgstr "使い方: %s [オプション]... [ファイル]"
 
-#: main.cc:112
+#: main.cc:113
 msgid "Translate MIDI-file to mudela"
 msgstr "MIDI ファイルを mudela に変換します"
 
@@ -1121,7 +1006,8 @@ msgid "invalid number of tracks"
 msgstr "無効なトラック数"
 
 #: midi-score-parser.cc:58
-msgid "Can't handle non-metrical time"
+#, fuzzy
+msgid "can't handle non-metrical time"
 msgstr "韻律にならない拍子は扱えません"
 
 #: midi-track-parser.cc:68
@@ -1192,11 +1078,11 @@ msgstr "カラムの長さを量ります..."
 msgid "Settling columns..."
 msgstr "カラムを決定します..."
 
-#: mudela-staff.cc:177
+#: mudela-staff.cc:178
 msgid "% MIDI copyright:"
 msgstr "% MIDI copyright:"
 
-#: mudela-staff.cc:178
+#: mudela-staff.cc:179
 msgid "% MIDI instrument:"
 msgstr "% MIDI instrument:"
 
@@ -1206,15 +1092,172 @@ msgid "lily indent level: %d"
 msgstr "lily indent level: %d"
 
 #. Maybe better not to translate these?
-#: mudela-stream.cc:76
+#: mudela-stream.cc:83
 msgid "% Creator: "
 msgstr "%s Creator: "
 
-#: mudela-stream.cc:81
+#: mudela-stream.cc:88
 msgid "% Automatically generated"
 msgstr "% Automatically generated"
 
-#: mudela-stream.cc:90
+#: mudela-stream.cc:97
 #, c-format
 msgid "% from input file: "
 msgstr "% from input file: "
+
+#~ msgid "Debug output disabled.  Compiled with NPRINT."
+#~ msgstr ""
+#~ "デバッグ出力が無効にされています。NPRINT つきでコンパイルされました。"
+
+#~ msgid "programming warning: "
+#~ msgstr "プログラム上の警告: "
+
+#~ msgid "(search path: `%s)'"
+#~ msgstr "(検索パス: `%s')"
+
+#~ msgid "no beam to end"
+#~ msgstr "末尾への鈎がありません"
+
+#~ msgid "unfinished beam"
+#~ msgstr "終了されていない鈎"
+
+#~ msgid "0 lines"
+#~ msgstr "0 行"
+
+#~ msgid "1 line (of %.0f columns)"
+#~ msgstr "1 行 (%.0f カラム)"
+
+#~ msgid "%d lines (with an average of %.1f columns)"
+#~ msgstr "%d 行 (平均 %.1f カラム)"
+
+#~ msgid "Score does not have any columns"
+#~ msgstr "譜面にカラムがありません"
+
+#~ msgid "approximated %s"
+#~ msgstr "おおよそ %s"
+
+#~ msgid "calculated %s exactly"
+#~ msgstr "正確に計算された %s"
+
+#~ msgid "elapsed time %.2f seconds"
+#~ msgstr "%.2f 秒経過"
+
+#~ msgid "no tremolo beam to end"
+#~ msgstr "末尾へのトレモロ記号がありません"
+
+#~ msgid "Already have a tremolo beam"
+#~ msgstr "すでにトレモロ記号があります"
+
+#~ msgid "unfinished tremolo beam"
+#~ msgstr "終わっていないトレモロ記号"
+
+#~ msgid "Got a dynamic already.  Continuing dazed and confused."
+#~ msgstr "既に動的になっています。混乱したまま続けます。"
+
+#~ msgid "Too many crescendi here"
+#~ msgstr "ここのクレッシェンドが多すぎます"
+
+#~ msgid "Ineq_constrained_qp::solve (): Constraint off by %f"
+#~ msgstr "Ineq_constrained_qp::solve (): 制限を %f で解除"
+
+#~ msgid "Didn't converge!"
+#~ msgstr "収束しませんでした!"
+
+#~ msgid "too much degeneracy"
+#~ msgstr "小さすぎます"
+
+#~ msgid "Don't have that many octaves (%s)"
+#~ msgstr "そんなに沢山のオクターブ (%s) を使わないでください"
+
+#~ msgid "underdone accidentals (%s)"
+#~ msgstr "フラットが多すぎます (%s)"
+
+#~ msgid "overdone accidentals (%s)"
+#~ msgstr "シャープが多すぎます (%s)"
+
+#~ msgid "Huh?  Empty Line_of_score?"
+#~ msgstr "は? 譜面の行が空?"
+
+#~ msgid "redeclaration of `\\%s'"
+#~ msgstr "`\\%s' の再宣言"
+
+#~ msgid "Must set spring between differing columns"
+#~ msgstr "異なるカラムの間に spring をセットしなければなりません"
+
+#~ msgid "improbable offset for object type: `%s'"
+#~ msgstr "オブジェクト型にとってありそうにないオフセット: `%s'"
+
+#~ msgid "Can't solve this casting problem exactly; reverting to Word_wrap"
+#~ msgstr "正確にキャストを解決できません -- Word_wrap に復帰します"
+
+#~ msgid "%s elements"
+#~ msgstr "%s 個の要素"
+
+#~ msgid "Line ... "
+#~ msgstr "行 ..."
+
+#~ msgid "degenerate constraints"
+#~ msgstr "制限を緩和"
+
+#~ msgid "Left spanpoint is right spanpoint"
+#~ msgstr "範囲の左側が、右側にあります"
+
+#~ msgid "spanner with negative length"
+#~ msgstr "範囲指定子が負の長さです"
+
+#~ msgid "I'm too fat; call Oprah"
+#~ msgstr "太すぎます -- Oprah を呼んで"
+
+#~ msgid "Solution doesn't satisfy constraints"
+#~ msgstr "その解決は制限を満たしません"
+
+#~ msgid "Improbable distance: %f point, setting to 10 mm"
+#~ msgstr "ありそうにない距離: %f ポイント, 10 mm に設定します"
+
+#~ msgid "Negative distance, setting to 10 mm"
+#~ msgstr "負の値となる距離, 10 mm に設定します"
+
+#~ msgid "stem direction set already!"
+#~ msgstr "符尾の方向は既にセットされています!"
+
+#~ msgid "unequal number of note heads for tie"
+#~ msgstr "タイに対応する符頭の数が均等ではありません"
+
+#~ msgid "cadenza"
+#~ msgstr "cadenza"
+
+#~ msgid "Partial measure must be non-negative"
+#~ msgstr "小節部は非負でなくてはなりません"
+
+#~ msgid "partial measure too large"
+#~ msgstr "小節部が大きすぎます"
+
+#~ msgid "time signature change not allowed here"
+#~ msgstr "ここでは拍子記号を変更できません"
+
+#~ msgid "Will ignore \\relative for transposed music"
+#~ msgstr "転調された楽曲は \\relative を無視します"
+
+#~ msgid "Ugh, this measure is too long, breakpoint: %d"
+#~ msgstr "うぐっ、この小節は長すぎます。きる場所: %d"
+
+#~ msgid "Generating stupido solution"
+#~ msgstr "馬鹿げた解決を生成中"
+
+#~ msgid "I don't fit; put me on Montignac"
+#~ msgstr "上手くはまりません -- Montignac のところに置いてください"
+
+#~ msgid "More than one music block"
+#~ msgstr "複数の楽曲ブロック"
+
+#~ msgid "Need even number of args for shape array"
+#~ msgstr "shape 配列への引数は偶数でなければなりません"
+
+#~ msgid "Can't abbreviate"
+#~ msgstr "省略できません"
+
+#~ msgid "Can't abbreviate tuplet"
+#~ msgstr "タプレットを省略できません"
+
+#~ msgid "assume no tuplets"
+#~ msgstr "符点を無くすよう試みます"

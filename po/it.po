@@ -5,7 +5,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2000-05-30 21:06+0200\n"
+"POT-Creation-Date: 2000-06-09 02:01+0200\n"
 "Content-Type: text/plain; charset=\n"
 "Date: 1998-05-30 00:17:12+0200\n"
 "From:  <jantien@xs4all.nl>\n"
@@ -109,17 +109,17 @@ msgstr "non trovo il file: `%s'"
 msgid "Loading default font"
 msgstr ""
 
-#: all-font-metrics.cc:123
+#: all-font-metrics.cc:122
 #, fuzzy, c-format
 msgid "can't find default font: `%s'"
 msgstr "non trovo il file: `%s'"
 
-#: all-font-metrics.cc:124 includable-lexer.cc:49 lookup.cc:57 scores.cc:109
+#: all-font-metrics.cc:123 includable-lexer.cc:49 lookup.cc:57 scores.cc:109
 #, fuzzy, c-format
 msgid "(search path: `%s')"
 msgstr "(Il path di caricamento è `%s'"
 
-#: all-font-metrics.cc:125
+#: all-font-metrics.cc:124
 msgid "Giving up"
 msgstr ""
 
@@ -163,6 +163,11 @@ msgstr "beam con meno di due gambi"
 msgid "weird beam vertical offset"
 msgstr ""
 
+#: break-align-item.cc:87
+#, fuzzy, c-format
+msgid "unknown spacing pair `%s', `%s'"
+msgstr "traduttore sconosciuto `%s'"
+
 #: change-iterator.cc:22
 #, c-format
 msgid "can't change `%s' to `%s'"
@@ -191,17 +196,17 @@ msgstr "beam non terminato"
 msgid "no one to print a tremolos"
 msgstr ""
 
-#: chord.cc:146
+#: chord.cc:151
 #, c-format
 msgid "invalid subtraction: not part of chord: %s"
 msgstr ""
 
-#: chord.cc:372
+#: chord.cc:375
 #, c-format
 msgid "invalid inversion pitch: not part of chord: %s"
 msgstr ""
 
-#: clef-engraver.cc:172
+#: clef-engraver.cc:166
 #, fuzzy
 msgid "unknown clef type"
 msgstr "tipo di chiave sconosciuto"
@@ -313,23 +318,8 @@ msgstr "Nessuna armatura di chiave: assumo Do'"
 msgid "Don't know how handle empty keys"
 msgstr "non so manipolare tasti vuoti"
 
-#: key-engraver.cc:93 key-performer.cc:65
+#: key-engraver.cc:74 key-performer.cc:65
 msgid "FIXME: key change merge"
-msgstr ""
-
-#: key.cc:56 key.cc:61
-#, c-format
-msgid "Don't have that many octaves (%s)"
-msgstr ""
-
-#: key.cc:79
-#, c-format
-msgid "underdone accidentals (%s)"
-msgstr ""
-
-#: key.cc:84
-#, c-format
-msgid "overdone accidentals (%s)"
 msgstr ""
 
 #: lily-guile.cc:123 lily-guile.cc:146
@@ -342,12 +332,12 @@ msgstr "(Il path di caricamento è `%s'"
 msgid "Element count %d."
 msgstr ""
 
-#: line-of-score.cc:228 paper-score.cc:70
+#: line-of-score.cc:207 paper-score.cc:70
 #, c-format
 msgid "Element count %d "
 msgstr ""
 
-#: line-of-score.cc:242
+#: line-of-score.cc:221
 msgid "Calculating column positions..."
 msgstr "Calcolo delle posizioni della colonne..."
 
@@ -731,7 +721,7 @@ msgstr "scrivo il file delle dipendenze: `%s'..."
 msgid "Score contains errors; will not process it"
 msgstr "lo spartito contiene errori; non lo elaborerò"
 
-#: script-engraver.cc:69
+#: script-engraver.cc:68
 #, c-format
 msgid "Don't know how to interpret articulation `%s'"
 msgstr ""
@@ -768,7 +758,7 @@ msgstr "Metto uno slur sulla pausa."
 msgid "Slur over rest?"
 msgstr "Metto uno slur sulla pausa."
 
-#: spanner.cc:34 spanner.cc:173
+#: spanner.cc:35 spanner.cc:174
 #, fuzzy, c-format
 msgid "Spanner `%s' has equal left and right spanpoints"
 msgstr "I punti di span sinistro e destro dello spanner `%s' coincidono"
