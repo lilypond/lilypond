@@ -1,3 +1,27 @@
+1.3.86.jcn2
+================
+
+* Made fixes to part-combine examples and Coriolan.
+
+* Bugfix: don't dump core on unterminated (de)crescendo.
+
+* Rolled next (M) also into get_music (M), similar to process (M), so that
+  sequential-music-iterator::get_music (M) returns something useful.
+
+* Bugfix: part-combiner still expected Music_sequence, where get_music ()
+  now returns plain list of events.
+
+1.3.86.hwn3
+===========
+
+* Fixed problem with disappearing crescendi across line break.
+
+* Bugfix: dynamic texts should not be set by text-engraver. 
+
+* Rewrote and cleaned up music-iterator.
+
+* etf2ly robustness fixes.
+
 1.3.85.hwn2
 ===========
 
