@@ -1,3 +1,8 @@
+2003-10-23  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* scm/midi.scm (instrument-names-alist),
+	Documentation/user/appendices.itely: Correct spelling of shakuhachi
+
 2003-10-14  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* input/test/temporary-stave.ly (texidoc): New example based on an

@@ -156,7 +156,7 @@
 	  ("recorder" . ,(- 75 1))
 	  ("pan flute" . ,(- 76 1))
 	  ("blown bottle" . ,(- 77 1))
-	  ("skakuhachi" . ,(- 78 1))
+	  ("shakuhachi" . ,(- 78 1))
 	  ("whistle" . ,(- 79 1))
 	  ("ocarina" . ,(- 80 1))
 
