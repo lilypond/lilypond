@@ -19,7 +19,6 @@
 #include "font-interface.hh"
 #include "output-def.hh"
 #include "modified-font-metric.hh"
-#include "ly-module.hh"
 
 
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 3)

@@ -12,7 +12,6 @@
 #include "file-path.hh"
 #include "global-context.hh"
 #include "interval.hh"
-#include "ly-module.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "scm-hash.hh"

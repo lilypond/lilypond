@@ -12,7 +12,6 @@
 #include "book.hh"
 #include "lilypond-key.hh"
 #include "lily-version.hh"
-#include "ly-module.hh"
 #include "main.hh"
 #include "lily-lexer.hh"
 #include "output-def.hh"

@@ -13,6 +13,7 @@
 
 #include "interval.hh"
 #include "guile-compatibility.hh"
+#include "ly-module.hh"
 
 #ifndef SMOB_FREE_RETURN_VAL
 #define SMOB_FREE_RETURN_VAL(CL) 0

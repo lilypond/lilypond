@@ -26,7 +26,6 @@ TODO:
 
 
 #include "book.hh"
-
 #include "context-def.hh"
 #include "dimensions.hh"
 #include "event.hh"
@@ -35,7 +34,6 @@ TODO:
 #include "input.hh"
 #include "lily-guile.hh"
 #include "lilypond-input-version.hh"
-#include "ly-module.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "music-list.hh"
