@@ -1,3 +1,9 @@
+2005-04-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* tex/lilyponddefs.tex: teTeX-3.0 fix.
+
+	* Fix website links.
+
 2005-03-27  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* configure.in: mftrace 1.1.
