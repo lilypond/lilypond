@@ -1,3 +1,7 @@
+2003-07-27  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* input/test/{ many }: search & fix some typos.
+
 2003-07-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/define-grobs.scm (all-grob-descriptions): decrease space

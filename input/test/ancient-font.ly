@@ -4,7 +4,7 @@
 \header {
 texidoc = "@cindex Ancient Font
 Here is a display of many (all?) symbols that are
-included in Lilypond's support of ancient notation.
+included in LilyPond's support of ancient notation.
 "
 }
 

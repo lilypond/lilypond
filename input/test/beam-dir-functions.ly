@@ -2,7 +2,7 @@
 \header {
   texidoc = "@cindex Beam Dir Functions
 
-There are several ways to calculate the direction of a beam.
+There are several ways to calculate the direction of a beam:
 @table @code
 @item majority
 number count of up or down notes
