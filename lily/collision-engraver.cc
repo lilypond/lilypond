@@ -25,7 +25,7 @@ protected:
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
 public:
-  TRANSLATOR_DECLARATIONS(Collision_engraver);
+  TRANSLATOR_DECLARATIONS (Collision_engraver);
 };
 
 
@@ -76,7 +76,7 @@ Collision_engraver::Collision_engraver ()
 
 
 
-ENTER_DESCRIPTION(Collision_engraver,
+ENTER_DESCRIPTION (Collision_engraver,
 /* descr */       "",
 /* creats*/       "NoteCollision",
 /* accepts */     "",

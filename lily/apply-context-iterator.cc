@@ -8,7 +8,7 @@
 class Apply_context_iterator : public Simple_music_iterator
 {
 public:
-  DECLARE_SCHEME_CALLBACK(constructor, ());
+  DECLARE_SCHEME_CALLBACK (constructor, ());
 protected:
   virtual void process (Moment);
 };
@@ -19,7 +19,7 @@ Apply_context_iterator::process (Moment m)
 {
   SCM proc = get_music ()->get_property ("procedure");
 
-  scm_call_1 (proc, get_outlet ()->self_scm());
+  scm_call_1 (proc, get_outlet ()->self_scm ());
   
   Simple_music_iterator::process (m);
 }

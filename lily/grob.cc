@@ -53,9 +53,9 @@ Grob::Grob (SCM basicprops)
   mutable_property_alist_ = SCM_EOL;
 
   /*
-    We do smobify_self() as the first step. Since the object lives on
+    We do smobify_self () as the first step. Since the object lives on
     the heap, none of its SCM variables are protected from GC. After
-    smobify_self(), they are.
+    smobify_self (), they are.
    */
   smobify_self ();
 
@@ -74,7 +74,7 @@ Grob::Grob (SCM basicprops)
        */
       bool itc = internal_type_checking_global_b;
       internal_type_checking_global_b = false;
-      internal_set_property (ly_symbol2scm ("interfaces"), gh_cdr(ifs));
+      internal_set_property (ly_symbol2scm ("interfaces"), gh_cdr (ifs));
       internal_type_checking_global_b = itc;
     }
   
@@ -204,7 +204,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
 Stencil *
 Grob::get_stencil ()  const
 {
-  if (!live())
+  if (!live ())
     {
       return 0;
     }
@@ -310,8 +310,8 @@ Grob::handle_broken_dependencies ()
 	because some Spanners have enormously long lists in their
 	properties.
        */
-      for (SCM s = mutable_property_alist_; gh_pair_p(s);
-	   s = gh_cdr(s))
+      for (SCM s = mutable_property_alist_; gh_pair_p (s);
+	   s = gh_cdr (s))
 	{
 	  sp->substitute_one_mutable_property (gh_caar (s),
 					      gh_cdar (s));
@@ -357,7 +357,7 @@ Grob::suicide ()
     return; 
 
 #if 0 // see below. 
-   String nm = name();
+   String nm = name ();
 #endif
   
   mutable_property_alist_ = SCM_EOL;
@@ -572,7 +572,7 @@ common_refpoint_of_list (SCM elist, Grob *common, Axis a)
 Grob *
 common_refpoint_of_array (Link_array<Grob> const &arr, Grob *common, Axis a) 
 {
-  for (int i = arr.size() ; i--; )
+  for (int i = arr.size () ; i--; )
     {
       Grob * s = arr[i];
       if (!s)
@@ -671,7 +671,7 @@ Grob::fixup_refpoint (SCM smob)
 void
 Grob::warning (String s)const
 {
-  SCM cause = self_scm();
+  SCM cause = self_scm ();
   while (Grob * g = unsmob_grob (cause))
     {
       cause = g->get_property ("cause");
@@ -679,7 +679,7 @@ Grob::warning (String s)const
 
   if (Music *m = unsmob_music (cause))
     {
-      m->origin()->warning (s);
+      m->origin ()->warning (s);
     }
   else
     ::warning (s);

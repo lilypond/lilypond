@@ -15,7 +15,7 @@
 
 class Beam_performer : public Performer {
 public:
-  TRANSLATOR_DECLARATIONS(Beam_performer);
+  TRANSLATOR_DECLARATIONS (Beam_performer);
   
 protected:
   virtual bool try_music (Music *ev) ;
@@ -84,10 +84,10 @@ Beam_performer::try_music (Music *m)
   return false;
 }
 
-ENTER_DESCRIPTION(Beam_performer,"","",
+ENTER_DESCRIPTION (Beam_performer,"","",
 		  "beam-event","","","");
 
-Beam_performer::Beam_performer()
+Beam_performer::Beam_performer ()
 {
   beam_ = false;
 }

@@ -63,7 +63,7 @@
 class Ambitus_engraver : public Engraver
 {
 public:
-TRANSLATOR_DECLARATIONS(Ambitus_engraver);
+TRANSLATOR_DECLARATIONS (Ambitus_engraver);
   virtual void process_music ();
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -186,12 +186,12 @@ Ambitus_engraver::finalize ()
 	   * most probably arises from an empty voice, such as shared
 	   * global timesig/clef definitions.
 	   */
-	  ambitus_->suicide();
+	  ambitus_->suicide ();
 	}
     }
 }
 
-ENTER_DESCRIPTION(Ambitus_engraver,
+ENTER_DESCRIPTION (Ambitus_engraver,
 /* descr */       "",
 /* creats*/       "Ambitus",
 /* accepts */ "",

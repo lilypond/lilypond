@@ -26,7 +26,7 @@
  */
 class Auto_beam_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS(Auto_beam_engraver);
+  TRANSLATOR_DECLARATIONS (Auto_beam_engraver);
 protected:
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
@@ -144,7 +144,7 @@ Auto_beam_engraver::try_music (Music*m)
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment test_mom)
 {
-  Moment now = now_mom();
+  Moment now = now_mom ();
   if (dir == START
       && now.grace_part_)
     {
@@ -284,7 +284,7 @@ Auto_beam_engraver::create_beam ()
       Beam::add_stem (beam, (*stems_)[i]);
     }
   
-  announce_grob(beam, SCM_EOL);
+  announce_grob (beam, SCM_EOL);
 
   return beam;
 }
@@ -304,7 +304,7 @@ Auto_beam_engraver::begin_beam ()
   
   beam_start_moment_ = now_mom ();
   beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
-  subdivide_beams_ = gh_scm2bool(get_property("subdivideBeams"));
+  subdivide_beams_ = gh_scm2bool (get_property ("subdivideBeams"));
   beat_length_ = *unsmob_moment (get_property ("beatLength"));
 }
 
@@ -349,7 +349,7 @@ Auto_beam_engraver::typeset_beam ()
 {
   if (finished_beam_)
     {
-      finished_grouping_->beamify(beat_length_, subdivide_beams_);
+      finished_grouping_->beamify (beat_length_, subdivide_beams_);
       Beam::set_beaming (finished_beam_, finished_grouping_);
       typeset_grob (finished_beam_);
       finished_beam_ = 0;

@@ -24,7 +24,7 @@
 class Custos_engraver : public Engraver
 {
 public:
-TRANSLATOR_DECLARATIONS(  Custos_engraver);
+  TRANSLATOR_DECLARATIONS (Custos_engraver);
   virtual void start_translation_timestep ();
   virtual void acknowledge_grob (Grob_info);
   virtual void process_acknowledged_grobs ();
@@ -73,7 +73,7 @@ Custos_engraver::acknowledge_grob (Grob_info info)
   Item *item = dynamic_cast <Item *> (info.grob_);
   if (item)
     {
-      Music * m = info.music_cause();
+      Music * m = info.music_cause ();
       if (Bar_line::has_interface (info.grob_))
 	custos_permitted = true;
       else if (Note_head::has_interface (info.grob_)
@@ -126,7 +126,7 @@ Custos_engraver::create_custos ()
 {
   Item* custos = make_item ("Custos");
   
-  announce_grob(custos, SCM_EOL);
+  announce_grob (custos, SCM_EOL);
   custodes_.push (custos);
   
   return custos;
@@ -145,7 +145,7 @@ Custos_engraver::finalize ()
 
 
 
-ENTER_DESCRIPTION(Custos_engraver,
+ENTER_DESCRIPTION (Custos_engraver,
 /* descr */       "",
 /* creats*/       "Custos",
 /* accepts */     "",

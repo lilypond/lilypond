@@ -72,7 +72,7 @@ Balloon_interface::print (SCM smob)
 
   for (int i = X_AXIS; i < NO_AXES; i++)
     {
-      Axis  a((Axis)i);
+      Axis  a ((Axis)i);
       z1[a] = box_extent [a].linear_combination (sign (off[a]));
       text_mol->align_to (a, -sign (off[a]));
     }

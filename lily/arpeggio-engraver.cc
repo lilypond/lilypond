@@ -19,7 +19,7 @@
 class Arpeggio_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Arpeggio_engraver); 
+  TRANSLATOR_DECLARATIONS (Arpeggio_engraver); 
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_music ();
@@ -82,7 +82,7 @@ Arpeggio_engraver::process_music ()
   if (arpeggio_req_)
     {
       arpeggio_ = make_item ("Arpeggio");
-      announce_grob(arpeggio_, arpeggio_req_->self_scm());
+      announce_grob (arpeggio_, arpeggio_req_->self_scm ());
     }
 }
 
@@ -100,7 +100,7 @@ Arpeggio_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Arpeggio_engraver,
+ENTER_DESCRIPTION (Arpeggio_engraver,
 /* descr */       "Generate an Arpeggio from a Arpeggio_req",
 /* creats*/       "Arpeggio",
 /* accepts */     "arpeggio-event",

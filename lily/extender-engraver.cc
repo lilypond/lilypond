@@ -21,7 +21,7 @@ class Extender_engraver : public Engraver
   Spanner* extender_;
   Spanner * pending_extender_;  
 public:
-  TRANSLATOR_DECLARATIONS(Extender_engraver);
+  TRANSLATOR_DECLARATIONS (Extender_engraver);
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -60,7 +60,7 @@ Extender_engraver::process_music ()
   if (ev_)
     {
       extender_ = make_spanner ("LyricExtender");
-      announce_grob (extender_, ev_->self_scm());
+      announce_grob (extender_, ev_->self_scm ());
     }
 }
 
@@ -160,7 +160,7 @@ Extender_engraver::finalize ()
 
 
 
-ENTER_DESCRIPTION(Extender_engraver,
+ENTER_DESCRIPTION (Extender_engraver,
 /* descr */       "Create lyric extenders",
 /* creats*/       "LyricExtender",
 /* accepts */     "extender-event",

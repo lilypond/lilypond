@@ -15,19 +15,19 @@
 
 Simultaneous_music_iterator::Simultaneous_music_iterator ()
 {
-  separate_contexts_b_ = false;
+  create_separate_contexts_ = false;
   children_list_ = SCM_EOL;
 }
 
 
 void
-Simultaneous_music_iterator::derived_mark()const
+Simultaneous_music_iterator::derived_mark () const
 {
   scm_gc_mark (children_list_);
 }
 
 void
-Simultaneous_music_iterator::derived_substitute(Context *f,Context *t)
+Simultaneous_music_iterator::derived_substitute (Context *f,Context *t)
 {
   for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
     unsmob_iterator (gh_car (s))-> substitute_outlet (f,t);
@@ -49,11 +49,11 @@ Simultaneous_music_iterator::construct_children ()
       SCM scm_iter = get_static_get_iterator (mus);
       Music_iterator * mi = unsmob_iterator (scm_iter);
 
-      /* if separate_contexts_b_ is set, create a new context with the
+      /* if create_separate_contexts_ is set, create a new context with the
 	 number number as name */
 
       SCM name = unsmob_context_def (get_outlet ()->definition_)->get_context_name ();
-      Context * t = (j && separate_contexts_b_)
+      Context * t = (j && create_separate_contexts_)
 	? get_outlet ()->find_create_context (name, to_string (j), SCM_EOL)
 	: get_outlet ();
 
@@ -77,7 +77,7 @@ void
 Simultaneous_music_iterator::process (Moment until)
 {
   SCM *proc = &children_list_; 
-  while(gh_pair_p (*proc))
+  while (gh_pair_p (*proc))
     {
       Music_iterator * i = unsmob_iterator (gh_car (*proc));
       if (i->run_always ()
@@ -154,6 +154,5 @@ Simultaneous_music_iterator::do_quit ()
   for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
     unsmob_iterator (gh_car (s))->quit();
 }
-
 
 IMPLEMENT_CTOR_CALLBACK (Simultaneous_music_iterator);

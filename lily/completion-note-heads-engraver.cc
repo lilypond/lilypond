@@ -26,7 +26,7 @@
   When we catch the note, we predict the end of the note. We keep the
   events living until we reach the predicted end-time.
 
-  Every time process_music() is called and there are note events, we
+  Every time process_music () is called and there are note events, we
   figure out how long the note to typeset should be. It should be no
   longer than what's specified, than what is left to do and it should
   not cross barlines.
@@ -54,7 +54,7 @@ class Completion_heads_engraver : public Engraver
   Duration find_nearest_duration (Rational length);
   
 public:
-  TRANSLATOR_DECLARATIONS(Completion_heads_engraver);
+  TRANSLATOR_DECLARATIONS (Completion_heads_engraver);
 
 protected:
   virtual void initialize ();
@@ -79,7 +79,7 @@ Completion_heads_engraver::try_music (Music *m)
 
       first_b_ = true;
       Moment musiclen = m->get_length ();
-      Moment now = now_mom();
+      Moment now = now_mom ();
 
       if (now_mom ().grace_part_)
 	{
@@ -122,7 +122,7 @@ Completion_heads_engraver::find_nearest_duration (Rational length)
 {
   int log_limit= 6;
 
-  Duration d(0,0);
+  Duration d (0,0);
 
   /*
     this could surely be done more efficient. Left to the reader as an
@@ -209,7 +209,7 @@ Completion_heads_engraver::process_music ()
       Item *note  = make_item ("NoteHead");
       
       Music * req =  note_reqs_[i];
-      if (scratch_note_reqs_.size())
+      if (scratch_note_reqs_.size ())
 	{
 	  req = scratch_note_reqs_[i];
 	  SCM pits = note_reqs_[i]->get_property ("pitch");
@@ -249,9 +249,9 @@ Completion_heads_engraver::process_music ()
       notes_.push (note);
     }
   
-  if (prev_notes_.size() == notes_.size ())
+  if (prev_notes_.size () == notes_.size ())
     {
-      for (int i= 0; i < notes_.size(); i++)
+      for (int i= 0; i < notes_.size (); i++)
 	{
 	  Grob * p = make_spanner ("Tie");
 	  Tie::set_interface (p); // cannot remove yet!
@@ -260,7 +260,7 @@ Completion_heads_engraver::process_music ()
 	  Tie::set_head (p, RIGHT, notes_[i]);
 	  
 	  ties_.push (p);
-	  announce_grob(p, SCM_EOL);
+	  announce_grob (p, SCM_EOL);
 	}
     }
 
@@ -270,7 +270,7 @@ Completion_heads_engraver::process_music ()
     don't do complicated arithmetic with grace notes.
    */
   if (orig
-      &&  now_mom().grace_part_ )
+      &&  now_mom ().grace_part_ )
     {
       left_to_do_ = Rational (0,0);
     }
@@ -281,13 +281,13 @@ Completion_heads_engraver::stop_translation_timestep ()
 {
   for (int i = ties_.size (); i--;)
     typeset_grob (ties_[i]); 
-  ties_.clear();
+  ties_.clear ();
   
   for (int i=0; i < notes_.size (); i++)
     {
       typeset_grob (notes_[i]);
     }
-  if (notes_.size())
+  if (notes_.size ())
     prev_notes_ = notes_;
   notes_.clear ();
   
@@ -297,12 +297,12 @@ Completion_heads_engraver::stop_translation_timestep ()
     }
   dots_.clear ();
 
-  for (int i = scratch_note_reqs_.size(); i--;)
+  for (int i = scratch_note_reqs_.size (); i--;)
     {
       scm_gc_unprotect_object (scratch_note_reqs_[i]->self_scm () );
     }
   
-  scratch_note_reqs_.clear();
+  scratch_note_reqs_.clear ();
 }
 
 void
@@ -316,11 +316,11 @@ Completion_heads_engraver::start_translation_timestep ()
     }
 }
 
-Completion_heads_engraver::Completion_heads_engraver()
+Completion_heads_engraver::Completion_heads_engraver ()
 {
 }
 
-ENTER_DESCRIPTION(Completion_heads_engraver,
+ENTER_DESCRIPTION (Completion_heads_engraver,
 /* descr */       "This engraver replaces "
 "@code{Note_heads_engraver}. It plays some trickery to "
 "break long notes and automatically tie them into the next measure.",

@@ -45,7 +45,7 @@ substitute_grob (Grob *sc)
 
       /* now: sc && sc->get_system () == line */
       if (!line)
-	return sc->self_scm();
+	return sc->self_scm ();
 
       /*
 	We don't return SCM_UNDEFINED for
@@ -65,7 +65,7 @@ substitute_grob (Grob *sc)
       return SCM_UNDEFINED;
     }
 
-  return sc->self_scm();
+  return sc->self_scm ();
 }
 
 
@@ -151,7 +151,7 @@ substitute_grob_list (SCM grob_list)
       if (n != SCM_UNDEFINED)
 	{
 	  *tail = gh_cons (n, SCM_EOL);
-	  tail = SCM_CDRLOC(*tail);
+	  tail = SCM_CDRLOC (*tail);
 	}
     }
 
@@ -166,8 +166,8 @@ substitute_grob_list (SCM grob_list)
         forall g in p (if grob-list):
 	  g := substitute (g)
 
-  for spanners since this is O(SYSTEMCOUNT * GROBCOUNT), and SYSTEMCOUNT =
-  O(GROBCOUNT), we have a quadratic algorithm. --for a single spanner
+  for spanners since this is O (SYSTEMCOUNT * GROBCOUNT), and SYSTEMCOUNT =
+  O (GROBCOUNT), we have a quadratic algorithm. --for a single spanner
 
   This is problematic: with large (long) scores, the costs can be
   significant; especially all-elements in System, can become huge. For
@@ -181,15 +181,15 @@ substitute_grob_list (SCM grob_list)
 
      put  grob list in array,
 
-     reorder array so spanners are separate -- O(grobcount)
+     reorder array so spanners are separate -- O (grobcount)
      
      find first and last indexes of grobs on a specific system
 
-     for items this is O(itemcount)
+     for items this is O (itemcount)
 
-     for spanners this is O(sum-of spanner-system-ranges)
+     for spanners this is O (sum-of spanner-system-ranges)
 
-     perform the substitution O(sum-of spanner-system-ranges)
+     perform the substitution O (sum-of spanner-system-ranges)
 
 
   The complexity is harder to determine, but should be subquadratic;
@@ -216,15 +216,15 @@ spanner_system_range (Spanner* sp)
 {
   Slice rv;
   
-  if (System*st = sp->get_system())
+  if (System*st = sp->get_system ())
     {
       rv = Slice (st->rank_, st->rank_);
     }
   else 
     {
-      if (sp->broken_intos_.size())
-	rv = Slice (sp->broken_intos_[0]->get_system()->rank_,
-		    sp->broken_intos_.top()->get_system()->rank_);
+      if (sp->broken_intos_.size ())
+	rv = Slice (sp->broken_intos_[0]->get_system ()->rank_,
+		    sp->broken_intos_.top ()->get_system ()->rank_);
     }
   return rv;
 }
@@ -232,7 +232,7 @@ spanner_system_range (Spanner* sp)
 Slice
 item_system_range (Item* it)
 {
-  if (System*st= it->get_system())
+  if (System*st= it->get_system ())
     return Slice (st->rank_, st->rank_);
 
   Slice sr;
@@ -240,10 +240,10 @@ item_system_range (Item* it)
   do
     {
       Item *bi = it->find_prebroken_piece (d);
-      if (bi && bi->get_system())
-	sr.add_point (bi->get_system()->rank_);
+      if (bi && bi->get_system ())
+	sr.add_point (bi->get_system ()->rank_);
     }
-  while (flip(&d)!=LEFT);
+  while (flip (&d)!=LEFT);
   
   return sr;
 }
@@ -256,7 +256,7 @@ grob_system_range (Grob *g)
  else if (Item* it = dynamic_cast<Item*> (g))
    return item_system_range (it);
  else
-   return Slice();
+   return Slice ();
 }
 
 
@@ -287,7 +287,7 @@ struct Substitution_entry
 	right_ = sr[RIGHT];
       }
   }
-  Substitution_entry()
+  Substitution_entry ()
   {
     grob_ =0;
     left_ = right_ = -2;
@@ -304,7 +304,7 @@ struct Substitution_entry
   static int
   spanner_compare (void const * a , void const * b)
   {
-    return ((Substitution_entry*)a)->length() -
+    return ((Substitution_entry*)a)->length () -
       ((Substitution_entry*)b)->length ();
   }
 };
@@ -354,7 +354,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
   int it_index = 0;
   for (SCM s = grob_list; gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * g = unsmob_grob (gh_car(s));
+      Grob * g = unsmob_grob (gh_car (s));
 
       Slice sr = grob_system_range (g);
       sr.intersect (system_range);
@@ -392,18 +392,18 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
    is a waste of time -- the staff-spanners screw up the
    ordering, since they go across the entire score.
  */
- for (int i = sp_indices.size(); i--;)
+ for (int i = sp_indices.size (); i--;)
    sp_indices[i]= Slice (sp_index, len-1);
 
  
   assert (it_index <= sp_index);
 
   assert (broken_intos_.size () == system_range.length () + 1); 
-  for (int i = 0; i < broken_intos_.size(); i++)
+  for (int i = 0; i < broken_intos_.size (); i++)
     {
       Grob * sc = broken_intos_[i];
       System * l = sc->get_system ();
-      set_break_subsititution (l ? l->self_scm(): SCM_UNDEFINED);
+      set_break_subsititution (l ? l->self_scm (): SCM_UNDEFINED);
 
       SCM newval = SCM_EOL;
       SCM * tail = &newval;
@@ -416,7 +416,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
 	      {
 		*tail = scm_cons (subs, SCM_EOL);
 		
-		tail = SCM_CDRLOC(*tail);
+		tail = SCM_CDRLOC (*tail);
 	      }
 
 	  }
@@ -425,7 +425,7 @@ Spanner::fast_fubstitute_grob_list (SCM sym,
      
       printf ("%d (%d), sp %d (%d)\n",
 	      it_indices [i].length (), it_index,
-	      sp_indices[i].length() , len -sp_index);
+	      sp_indices[i].length () , len -sp_index);
 	      
       {
 	SCM l1 =substitute_grob_list (grob_list);
@@ -458,7 +458,7 @@ SCM grob_list_p;
 
   we have a special function here: we want to invoke a special
   function for lists of grobs. These can be very long for large
-  orchestral scores (eg. 1M elements). do_break_substitution() can
+  orchestral scores (eg. 1M elements). do_break_substitution () can
   recurse many levels, taking lots of stack space.
 
   This becomes a problem if lily is linked against guile with
@@ -474,8 +474,8 @@ substitute_mutable_property_alist (SCM alist)
   SCM *tail = &l;
   for (SCM s = alist; gh_pair_p (s); s = gh_cdr (s))
     {
-      SCM sym = gh_caar(s);
-      SCM val = gh_cdar(s);
+      SCM sym = gh_caar (s);
+      SCM val = gh_cdar (s);
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
 
       if (type == grob_list_p)
@@ -517,7 +517,7 @@ Spanner::substitute_one_mutable_property (SCM sym,
 	  For the substitution of a single property, we tack the result onto
 	  mutable_property_alist_ ; mutable_property_alist_ is empty after
 	  Grob::Grob (Grob const&), except that System has all-elements set,
-	  as a side product of typeset_grob() on newly copied spanners.
+	  as a side product of typeset_grob () on newly copied spanners.
 
 	  Here we clear that list explicitly to free some memory and
 	  counter some of the confusion I encountered while debugging

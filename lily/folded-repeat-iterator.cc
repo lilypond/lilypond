@@ -26,10 +26,10 @@ Folded_repeat_iterator::ok () const
   return main_iter_ || alternative_iter_;
 }
 void
-Folded_repeat_iterator::do_quit()
+Folded_repeat_iterator::do_quit ()
 {
-  if (main_iter_)main_iter_->quit();
-  if (alternative_iter_)alternative_iter_->quit();
+  if (main_iter_)main_iter_->quit ();
+  if (alternative_iter_)alternative_iter_->quit ();
 }
 
 Moment
@@ -82,7 +82,7 @@ Folded_repeat_iterator::process (Moment m)
       alternative_iter_->process (m - main_length_mom_);
       if (!alternative_iter_->ok ())
 	{
-	  alternative_iter_->quit();
+	  alternative_iter_->quit ();
 	  alternative_iter_ =0;
 	}
     }
@@ -108,13 +108,13 @@ Folded_repeat_iterator::enter_alternative ()
 	ugh.
       */ 
       Simultaneous_music_iterator * s = new Simultaneous_music_iterator;
-      s->separate_contexts_b_ = true;
+      s->create_separate_contexts_ = true;
       s->init_translator (mus, get_outlet ());
       
       alternative_iter_ = s;
       alternative_iter_->construct_children ();
 
-      scm_gc_unprotect_object (s->self_scm());
+      scm_gc_unprotect_object (s->self_scm ());
     }
 }
 
@@ -131,12 +131,12 @@ Folded_repeat_iterator::try_music_in_children (Music * m) const
   return 0;
 }
 void
-Folded_repeat_iterator::derived_mark()const
+Folded_repeat_iterator::derived_mark ()const
 {
   if (main_iter_)
-    scm_gc_mark (main_iter_->self_scm());
+    scm_gc_mark (main_iter_->self_scm ());
   if (alternative_iter_)
-    scm_gc_mark (alternative_iter_->self_scm());
+    scm_gc_mark (alternative_iter_->self_scm ());
 }
 
 void

@@ -21,9 +21,9 @@ source file of the GNU LilyPond music typesetter
 #include "note-collision.hh"
 #include "accidental-interface.hh"
 
-MAKE_SCHEME_CALLBACK(Accidental_placement,alignment_callback, 2);
+MAKE_SCHEME_CALLBACK (Accidental_placement,alignment_callback, 2);
 SCM
-Accidental_placement::alignment_callback(SCM s, SCM )
+Accidental_placement::alignment_callback (SCM s, SCM )
 {
   Grob * me =unsmob_grob (s);
 
@@ -43,7 +43,7 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
 {
   a->set_parent (me, X_AXIS);
   a->add_offset_callback (alignment_callback_proc, X_AXIS);
-  SCM cause = a->get_parent (Y_AXIS)->get_property("cause");
+  SCM cause = a->get_parent (Y_AXIS)->get_property ("cause");
 
   Music *mcause =unsmob_music (cause); 
   if (!mcause)
@@ -115,9 +115,9 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
     which = & ra;
   
   Interval extent;
-  for (int i = 0; i < which->size(); i++)
+  for (int i = 0; i < which->size (); i++)
     {
-      extent.unite (which->elem(i)->extent (item_col, X_AXIS));
+      extent.unite (which->elem (i)->extent (item_col, X_AXIS));
     }
 
   if (!extent.is_empty ())
@@ -140,7 +140,7 @@ struct Accidental_placement_entry
   Link_array<Grob> grobs_;
   Real offset_; 
   int notename_;
-  Accidental_placement_entry()
+  Accidental_placement_entry ()
   {
     offset_ =0.0;
     notename_ = -1;
@@ -158,13 +158,13 @@ Real ape_priority (Accidental_placement_entry const * a)
 int ape_compare (Accidental_placement_entry *const &a,
 		 Accidental_placement_entry *const &b)
 {
-  return sign (ape_priority (a) - ape_priority(b));
+  return sign (ape_priority (a) - ape_priority (b));
 }
 
 int ape_rcompare (Accidental_placement_entry *const &a,
 		 Accidental_placement_entry *const &b)
 {
-  return -sign (ape_priority (a) - ape_priority(b));
+  return -sign (ape_priority (a) - ape_priority (b));
 }
 
 
@@ -186,15 +186,15 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
 
   asc.sort (&ape_compare);
 
-  apes->clear();
+  apes->clear ();
 
   int i =0;
   int parity = 1;
-  while (i < asc.size())
+  while (i < asc.size ())
     {
       Accidental_placement_entry * a = 0;      
       if (parity)
-	a = asc.pop();
+	a = asc.pop ();
       else
 	a = asc[i++];
 
@@ -202,7 +202,7 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
       parity = !parity;
     }
 
-  apes->reverse();
+  apes->reverse ();
 }
 
   
@@ -210,7 +210,7 @@ stagger_apes (Link_array<Accidental_placement_entry> *apes)
 /*
 
   This routine computes placements of accidentals. During
-  add_accidental(), accidentals are already grouped by note, so that
+  add_accidental (), accidentals are already grouped by note, so that
   octaves are placed above each other; they form columns. Then the
   columns are sorted: the biggest columns go closest to the note.
   Then the columns are spaced as closely as possible (using skyline
@@ -282,7 +282,7 @@ Accidental_placement::position_accidentals (Grob * me)
   for (int i= apes.size (); i--;)
     { 
       Accidental_placement_entry * ape = apes[i];
-      for (int j = ape->grobs_.size(); j--;)
+      for (int j = ape->grobs_.size (); j--;)
 	{
 	  Grob * a = ape->grobs_[j];
 
@@ -305,7 +305,7 @@ Accidental_placement::position_accidentals (Grob * me)
     This is a little kludgy: to get all notes, we look if there are
     collisions as well.
    */
-  for (int i = note_cols.size() ; i--;)
+  for (int i = note_cols.size () ; i--;)
     {
       Grob *c = note_cols[i]->get_parent (X_AXIS);
       if (Note_collision_interface::has_interface (c))
@@ -317,15 +317,15 @@ Accidental_placement::position_accidentals (Grob * me)
 	}
     }
   
-  for (int i = note_cols.size() ; i--;)
+  for (int i = note_cols.size () ; i--;)
     {
       heads.concat (Pointer_group_interface__extract_grobs (note_cols[i],
 							    (Grob*)0,
 							    "note-heads"));
       
     }
-  heads.default_sort();
-  heads.uniq();
+  heads.default_sort ();
+  heads.uniq ();
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
 
   
@@ -335,14 +335,14 @@ Accidental_placement::position_accidentals (Grob * me)
       ape->left_skyline_ = empty_skyline (LEFT);
       ape->right_skyline_ = empty_skyline (RIGHT);
    
-      for (int j = apes[i]->grobs_.size(); j--;)
+      for (int j = apes[i]->grobs_.size (); j--;)
 	{
 	  Grob * a = apes[i]->grobs_[j];
 
 	  Array<Box> boxes = Accidental_interface::accurate_boxes (a, common);
 	  
 	  ape->extents_.concat (boxes);
-	  for (int j  = boxes.size(); j--;)
+	  for (int j  = boxes.size (); j--;)
 	    {
 	      insert_extent_into_skyline (&ape->left_skyline_, boxes[j], Y_AXIS, LEFT);
 	      insert_extent_into_skyline (&ape->right_skyline_ , boxes[j], Y_AXIS, RIGHT);
@@ -352,11 +352,11 @@ Accidental_placement::position_accidentals (Grob * me)
 
 
   Interval total;
-  for (int i = apes.size(); i--;)
+  for (int i = apes.size (); i--;)
     {
       Interval y ;
       
-      for (int j = apes[i]->extents_.size(); j--;)
+      for (int j = apes[i]->extents_.size (); j--;)
 	{
 	  y.unite (apes[i]->extents_[j][Y_AXIS]);
 	}
@@ -370,9 +370,9 @@ Accidental_placement::position_accidentals (Grob * me)
   common[X_AXIS] = common_refpoint_of_array (heads, common[X_AXIS], X_AXIS);  
   Array<Skyline_entry> head_skyline (empty_skyline (LEFT));
   Array<Box> head_extents;
-  for (int i = heads.size(); i--;)
+  for (int i = heads.size (); i--;)
     {
-      Box b(heads[i]->extent (common[X_AXIS] , X_AXIS),
+      Box b (heads[i]->extent (common[X_AXIS] , X_AXIS),
 	    heads[i]->extent (common[Y_AXIS], Y_AXIS));
 
       insert_extent_into_skyline (&head_skyline, b , Y_AXIS, LEFT);
@@ -407,10 +407,10 @@ Accidental_placement::position_accidentals (Grob * me)
       left_skyline = new_left_skyline;
     }      
 
-  for (int i = apes.size(); i--;)
+  for (int i = apes.size (); i--;)
     {
       Accidental_placement_entry* ape = apes[i];
-      for (int j  = ape->grobs_.size(); j--;)
+      for (int j  = ape->grobs_.size (); j--;)
 	{
 	  ape->grobs_[j]->translate_axis (ape->offset_, X_AXIS);
 	}
@@ -420,29 +420,29 @@ Accidental_placement::position_accidentals (Grob * me)
   Interval left_extent, right_extent;
   Accidental_placement_entry *ape = apes[0];
 
-  for (int i = ape->extents_.size(); i--;)
+  for (int i = ape->extents_.size (); i--;)
     left_extent.unite (ape->offset_ +  ape->extents_[i][X_AXIS]);
 
-  ape = apes.top();
-  for (int i = ape->extents_.size(); i--;)
+  ape = apes.top ();
+  for (int i = ape->extents_.size (); i--;)
     right_extent.unite (ape->offset_  + ape->extents_[i][X_AXIS]);
 
   
   left_extent[LEFT] -= robust_scm2double (me->get_property ("left-padding"), 0);
 
   
-  Interval width(left_extent[LEFT], right_extent[RIGHT]);
+  Interval width (left_extent[LEFT], right_extent[RIGHT]);
 
   SCM scm_width = ly_interval2scm (width);
   me->set_extent (scm_width, X_AXIS);
   
-  for (int i = apes.size(); i--;)
+  for (int i = apes.size (); i--;)
     delete apes[i];
 
   return SCM_UNSPECIFIED;
 }
 
-ADD_INTERFACE(Accidental_placement,
+ADD_INTERFACE (Accidental_placement,
 	      "accidental-placement-interface",
 	      "Resolve accidental collisions.",
 	      "left-padding padding right-padding accidental-grobs positioning-done")

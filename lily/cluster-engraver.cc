@@ -17,7 +17,7 @@ class Cluster_spanner_engraver : public Engraver
 {
 
 protected:
-  TRANSLATOR_DECLARATIONS(Cluster_spanner_engraver);
+  TRANSLATOR_DECLARATIONS (Cluster_spanner_engraver);
   virtual bool try_music (Music *);
   virtual void process_music ();  
   virtual void acknowledge_grob (Grob_info);
@@ -78,7 +78,7 @@ Cluster_spanner_engraver::try_music (Music *m)
 void
 Cluster_spanner_engraver::process_music ()
 {
-  if (cluster_notes_.size())
+  if (cluster_notes_.size ())
     {
       SCM c0scm = get_property ("centralCPosition");
 
@@ -122,7 +122,7 @@ Cluster_spanner_engraver::stop_translation_timestep ()
 {
   typeset_grobs ();
 
-  cluster_notes_.clear();
+  cluster_notes_.clear ();
   
 }
 
@@ -136,7 +136,7 @@ Cluster_spanner_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
-ENTER_DESCRIPTION(Cluster_spanner_engraver,
+ENTER_DESCRIPTION (Cluster_spanner_engraver,
 /* descr */	"Engraves a cluster using Spanner notation ",
 /* creats*/	"ClusterSpanner ClusterSpannerBeacon",
 /* accepts */	"cluster-note-event",

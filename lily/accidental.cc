@@ -91,14 +91,14 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
        */
     }
 
-  if (!boxes.size())
+  if (!boxes.size ())
     boxes.push (b);
 
   Offset o (a->relative_coordinate (common[X_AXIS],  X_AXIS),
 	    a->relative_coordinate (common[Y_AXIS],  Y_AXIS));
-  for(int i = boxes.size(); i--;)
+  for (int i = boxes.size (); i--;)
     {
-      boxes[i].translate(o);
+      boxes[i].translate (o);
     }
   
   return boxes;
@@ -222,7 +222,7 @@ Accidental_interface::print (SCM smob)
   if (parens)
     mol = parenthesize (me, mol); 
 
-  return mol.smobbed_copy();
+  return mol.smobbed_copy ();
 }
 
 

@@ -72,8 +72,8 @@ Box::add_point (Offset o)
 Offset
 Box::center () const
 {
-  return Offset (interval_a_[X_AXIS].center(),
-		 interval_a_[Y_AXIS].center()); 
+  return Offset (interval_a_[X_AXIS].center (),
+		 interval_a_[Y_AXIS].center ()); 
 }
 void
 Box::widen (Real x, Real y)

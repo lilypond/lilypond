@@ -7,6 +7,11 @@
   
  */
 
+/*
+  TODO: should junk this class an replace by
+  a single list of context modifications?
+ */
+
 #include "lily-proto.hh"
 #include "context-def.hh"
 #include "translator-group.hh"
@@ -53,7 +58,7 @@ Context_def::Context_def ()
   context_name_ = SCM_EOL;
   description_ = SCM_EOL;
 
-  smobify_self();
+  smobify_self ();
 }
 
 Context_def::~Context_def ()
@@ -71,7 +76,7 @@ Context_def::Context_def (Context_def const & s)
   context_name_ = SCM_EOL;
   description_ = SCM_EOL;
   
-  smobify_self();
+  smobify_self ();
   description_ = s.description_;
 
   accept_mods_ = s.accept_mods_;
@@ -209,7 +214,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Music_output_def* odef) c
 	    this following line was added in 1.9.3, but hsould've been
 	    there all along... Let's hope it doesn't cause nightmares.
 	   */
-	  best_depth = result.size();
+	  best_depth = result.size ();
 	}
     }
 
@@ -287,7 +292,7 @@ Context_def::clone_scm () const
 {
   Context_def * t = new Context_def (*this);
 
-  SCM x = t->self_scm();
+  SCM x = t->self_scm ();
   scm_gc_unprotect_object (x);
   return x;
 }
@@ -297,7 +302,7 @@ Context_def::make_scm ()
 {
   Context_def* t = new Context_def;
 
-  SCM x  =t->self_scm();
+  SCM x  =t->self_scm ();
   scm_gc_unprotect_object (x);
   return x;
 }

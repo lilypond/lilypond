@@ -66,9 +66,9 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   Real dist = ( Staff_symbol_referencer::line_count (me) & 1 ? 1 :
 		(staff_space<2 ? 2 : .5) ) * staff_space;
   Stencil colon (dot);
-  colon.translate_axis(dist,Y_AXIS);
-  colon.add_stencil(dot);
-  colon.translate_axis(-dist/2,Y_AXIS);
+  colon.translate_axis (dist,Y_AXIS);
+  colon.add_stencil (dot);
+  colon.translate_axis (-dist/2,Y_AXIS);
 
   Stencil m;
   

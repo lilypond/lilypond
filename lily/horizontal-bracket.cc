@@ -30,7 +30,7 @@ struct Horizontal_bracket
 
 */
 
-MAKE_SCHEME_CALLBACK(Horizontal_bracket, print, 1);
+MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, 1);
 
 SCM
 Horizontal_bracket::print (SCM smob)
@@ -39,16 +39,16 @@ Horizontal_bracket::print (SCM smob)
   Spanner *sp = dynamic_cast<Spanner*> (me);
   Link_array<Grob> gs = Pointer_group_interface__extract_grobs (me,(Grob*)0, "columns");
 
-  if (!gs.size())
+  if (!gs.size ())
     {
-      me->suicide();
+      me->suicide ();
       return SCM_EOL;
     }
   Grob * cx = common_refpoint_of_array (gs, me, X_AXIS);
   cx = cx->common_refpoint (sp->get_bound (LEFT), X_AXIS);
   cx = cx->common_refpoint (sp->get_bound (RIGHT),X_AXIS);
 
-  Interval ext = gs.top()->extent (cx, X_AXIS);
+  Interval ext = gs.top ()->extent (cx, X_AXIS);
   ext.unite (gs[0]->extent (cx, X_AXIS));
 
   Direction d = get_grob_direction (me);
@@ -60,7 +60,7 @@ Horizontal_bracket::print (SCM smob)
   
   b.translate_axis ( - sp->get_bound (LEFT)->relative_coordinate (cx, X_AXIS), X_AXIS);
 
-  return b.smobbed_copy();  
+  return b.smobbed_copy ();  
 }
 
 ADD_INTERFACE (Horizontal_bracket,"horizontal-bracket-interface",

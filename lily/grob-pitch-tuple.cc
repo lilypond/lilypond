@@ -46,5 +46,5 @@ int
 Grob_pitch_tuple::time_compare (Grob_pitch_tuple const&h1,
 				   Grob_pitch_tuple const &h2)
 {
-  return Moment::compare(h1.end_,  h2.end_);
+  return Moment::compare (h1.end_,  h2.end_);
 }

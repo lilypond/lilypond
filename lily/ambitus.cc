@@ -56,8 +56,8 @@ number_accidentals (SCM key_signature, Pitch *pitch,
 		    bool ignore_octave_b, bool force_accidental)
 {
   int notename = pitch->get_notename ();
-  int octave = pitch->get_octave();
-  int alteration = pitch->get_alteration();
+  int octave = pitch->get_octave ();
+  int alteration = pitch->get_alteration ();
 
   if (force_accidental) // ignore key signature
     return 1;
@@ -105,7 +105,7 @@ add_accidentals (Item *me, Stencil *head, int num_acc,
 {
   if (!num_acc)
     return;
-  if (pitch->get_alteration())
+  if (pitch->get_alteration ())
     {
       Stencil accidental (Font_interface::get_default_font (me)->
 			   find_by_name (String ("accidentals-") +
@@ -157,7 +157,7 @@ Ambitus::print (SCM smob)
   Pitch *pitch_min = unsmob_pitch (me->get_property ("pitch-min"));
   if (!pitch_min)
     {
-      me->programming_error("Ambitus: pitch_min undefined; assuming 0");
+      me->programming_error ("Ambitus: pitch_min undefined; assuming 0");
       p_min = 0;
     }
   else
@@ -167,7 +167,7 @@ Ambitus::print (SCM smob)
   Pitch *pitch_max = unsmob_pitch (me->get_property ("pitch-max"));
   if (!pitch_max)
     {
-      me->programming_error("Ambitus: pitch_max undefined; assuming 0");
+      me->programming_error ("Ambitus: pitch_max undefined; assuming 0");
       p_max = 0;
     }
   else

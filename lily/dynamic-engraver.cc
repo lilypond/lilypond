@@ -56,7 +56,7 @@ class Dynamic_engraver : public Engraver
   
   void typeset_all ();
 
-TRANSLATOR_DECLARATIONS(Dynamic_engraver );
+TRANSLATOR_DECLARATIONS (Dynamic_engraver );
   
 protected:
   virtual void finalize ();
@@ -119,7 +119,7 @@ Dynamic_engraver::process_music ()
 	  Music * rq = accepted_spanreqs_drul_[START];
 	  if (script_ev_)
 	    rq =  script_ev_ ;
-	  announce_grob(line_spanner_, rq ? rq->self_scm(): SCM_EOL);
+	  announce_grob (line_spanner_, rq ? rq->self_scm (): SCM_EOL);
 	}
     }
   
@@ -150,7 +150,7 @@ Dynamic_engraver::process_music ()
 
       Axis_group_interface::add_element (line_spanner_, script_);
 
-      announce_grob(script_, script_ev_->self_scm());
+      announce_grob (script_, script_ev_->self_scm ());
     }
 
   Music *stop_ev = accepted_spanreqs_drul_ [STOP] ?
@@ -180,7 +180,7 @@ Dynamic_engraver::process_music ()
 	}
       else if (accepted_spanreqs_drul_[STOP] )
 	{
-	  accepted_spanreqs_drul_[STOP]->origin ()->warning(_ ("can't find start of (de)crescendo"));
+	  accepted_spanreqs_drul_[STOP]->origin ()->warning (_ ("can't find start of (de)crescendo"));
 	  stop_ev = 0;
 	}
       
@@ -262,7 +262,7 @@ Dynamic_engraver::process_music ()
 
 	  add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	  
-	  announce_grob(cresc_, accepted_spanreqs_drul_[START]->self_scm());
+	  announce_grob (cresc_, accepted_spanreqs_drul_[START]->self_scm ());
 	}
     }
 }
@@ -289,7 +289,7 @@ Dynamic_engraver::finalize ()
   typeset_all ();
   
   if (line_spanner_
-      && !line_spanner_->live())
+      && !line_spanner_->live ())
     line_spanner_ = 0;
   if (line_spanner_)
     {
@@ -298,7 +298,7 @@ Dynamic_engraver::finalize ()
     }
 
   if (cresc_
-      && !cresc_->live())
+      && !cresc_->live ())
     cresc_ = 0;
   if (cresc_)
     {
@@ -318,10 +318,10 @@ Dynamic_engraver::typeset_all ()
     Maybe just check at typeset_grob ()?
   */
   if (finished_cresc_
-      && !finished_cresc_->live())
+      && !finished_cresc_->live ())
     finished_cresc_ = 0;
   if (finished_line_spanner_
-      && !finished_line_spanner_->live())
+      && !finished_line_spanner_->live ())
     finished_line_spanner_ = 0;
 
   if (finished_cresc_)
@@ -391,7 +391,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
     {
       if (line_spanner_
 	  /* Don't refill killed spanner */
-	  && line_spanner_->live())
+	  && line_spanner_->live ())
 	{
 	  Side_position_interface::add_support (line_spanner_,i.grob_);
 	  add_bound_item (line_spanner_,dynamic_cast<Item*> (i.grob_));
@@ -422,7 +422,7 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 	}	  
     }
 }
-ENTER_DESCRIPTION(Dynamic_engraver,
+ENTER_DESCRIPTION (Dynamic_engraver,
 /* descr */       
 "This engraver creates hairpins, dynamic texts, and their vertical\n"
 "alignments.  The symbols are collected onto a DynamicLineSpanner grob\n"

@@ -20,20 +20,20 @@ class Bar_check_iterator : Simple_music_iterator
 {
 public:
   virtual void process (Moment);
-  Bar_check_iterator( );
-  DECLARE_SCHEME_CALLBACK(constructor, ());
+  Bar_check_iterator ( );
+  DECLARE_SCHEME_CALLBACK (constructor, ());
 };
 
-IMPLEMENT_CTOR_CALLBACK(Bar_check_iterator);
+IMPLEMENT_CTOR_CALLBACK (Bar_check_iterator);
 
-Bar_check_iterator::Bar_check_iterator()
+Bar_check_iterator::Bar_check_iterator ()
 {
 }
 
 void
 Bar_check_iterator::process (Moment m)
 {
-  Simple_music_iterator::process(m);
+  Simple_music_iterator::process (m);
   if (!m.to_bool ())
     {
       Context *tr = get_outlet ();
@@ -50,7 +50,7 @@ Bar_check_iterator::process (Moment m)
 	  bool warn =true;
 	  if (to_boolean (sync))
 	    {
-	      tr = tr->where_defined (ly_symbol2scm("measurePosition"));
+	      tr = tr->where_defined (ly_symbol2scm ("measurePosition"));
 	      Moment zero;
 	      tr->set_property ("measurePosition", zero.smobbed_copy ());
 	    }

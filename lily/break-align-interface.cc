@@ -91,24 +91,24 @@ Break_align_interface::do_alignment (Grob *me)
     idx++;
   
   Array<Real> offsets;
-  offsets.set_size (elems.size());
-  for (int i= 0; i < offsets.size();i ++)
+  offsets.set_size (elems.size ());
+  for (int i= 0; i < offsets.size ();i ++)
     offsets[i] = 0.0;
 
 
   Real extra_right_space = 0.0;
   int edge_idx = -1;
-  while (idx < elems.size())
+  while (idx < elems.size ())
     {
       int next_idx = idx+1;
-      while (next_idx < elems.size() &&
+      while (next_idx < elems.size () &&
 	     extents[next_idx].is_empty () )
 	next_idx++;
       
       Grob *l = elems[idx];
       Grob *r = 0;
 
-      if (next_idx < elems.size())
+      if (next_idx < elems.size ())
 	r = elems[next_idx];
 
       SCM alist = SCM_EOL;
@@ -124,11 +124,11 @@ Break_align_interface::do_alignment (Grob *me)
 
 	    if (edge_idx < 0
 		&& elt->get_property ("break-align-symbol")
-		== ly_symbol2scm( "left-edge"))
+		== ly_symbol2scm ( "left-edge"))
 	      edge_idx = idx;
 	    
 	    SCM l =elt->get_property ("space-alist");
-	    if (gh_pair_p(l))
+	    if (gh_pair_p (l))
 	      {
 		alist= l;
 		break;
@@ -145,12 +145,12 @@ Break_align_interface::do_alignment (Grob *me)
       for (SCM s = r ? r->get_property ("elements") : SCM_EOL;
 	   !gh_symbol_p (rsym) && gh_pair_p (s); s = gh_cdr (s))
 	{
-	  Grob * elt =unsmob_grob(gh_car (s));
+	  Grob * elt =unsmob_grob (gh_car (s));
 
 	  rsym = elt->get_property ("break-align-symbol");
 	}
 	
-      if (rsym  == ly_symbol2scm("left-edge"))
+      if (rsym  == ly_symbol2scm ("left-edge"))
 	edge_idx = next_idx;
 
       SCM entry = SCM_EOL;
@@ -161,14 +161,14 @@ Break_align_interface::do_alignment (Grob *me)
       if (!entry_found)
 	{
 	  String sym_string;
-	  if(gh_symbol_p (rsym))
+	  if (gh_symbol_p (rsym))
 	    sym_string = ly_symbol2string (rsym);
 
 	  String orig_string ;
 	  if (unsmob_grob (l->get_property ("cause")))
 	    orig_string = unsmob_grob (l->get_property ("cause"))->name ();
 	  
-	  programming_error (_f("No spacing entry from %s to `%s'",
+	  programming_error (_f ("No spacing entry from %s to `%s'",
 				orig_string.to_str0 (),
 				sym_string.to_str0 ()));
 	}
@@ -190,7 +190,7 @@ Break_align_interface::do_alignment (Grob *me)
 	    offsets[next_idx] = extents[idx][RIGHT] + distance
 	      - extents[next_idx][LEFT];
 	  /* should probably junk minimum-space */
-	  else if (type == ly_symbol2scm("minimum-space"))
+	  else if (type == ly_symbol2scm ("minimum-space"))
 	    offsets[next_idx] = extents[idx][RIGHT] >? distance;
 	}
       else
@@ -205,7 +205,7 @@ Break_align_interface::do_alignment (Grob *me)
   Interval total_extent;
 
   Real alignment_off =0.0;  
-  for (int i =0 ; i < offsets.size(); i++)
+  for (int i =0 ; i < offsets.size (); i++)
     {
       here += offsets[i];
       if (i == edge_idx)
@@ -222,7 +222,7 @@ Break_align_interface::do_alignment (Grob *me)
     alignment_off = -total_extent[LEFT];
 
   here = alignment_off;
-  for (int i =0 ; i < offsets.size(); i++)
+  for (int i =0 ; i < offsets.size (); i++)
     {
       here += offsets[i];
       elems[i]->translate_axis (here, X_AXIS);

@@ -80,7 +80,7 @@ Arpeggio::print (SCM smob)
   if (dir)
     {
       arrow = fm->find_by_name ("scripts-arpeggio-arrow-" + to_string (dir));
-      heads[dir] -= dir * arrow.extent (Y_AXIS).length();
+      heads[dir] -= dir * arrow.extent (Y_AXIS).length ();
     }
   
   for (Real  y= heads[LEFT] ; y < heads[RIGHT];
@@ -125,12 +125,12 @@ Arpeggio::brew_chord_bracket (SCM smob)
 
   Real lt =  me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
-  Real dy = heads.length() + sp;
+  Real dy = heads.length () + sp;
   Real x = 0.7;
 
   Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x, lt));
   mol.translate_axis (heads[LEFT] - sp/2.0, Y_AXIS);
-  return mol.smobbed_copy();
+  return mol.smobbed_copy ();
 }
 
 

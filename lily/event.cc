@@ -89,13 +89,13 @@ Event::Event ()
 {
 }
 
-ADD_MUSIC(Event);
-LY_DEFINE(ly_music_duration_length, "ly:music-duration-length", 1, 0,0,
+ADD_MUSIC (Event);
+LY_DEFINE (ly_music_duration_length, "ly:music-duration-length", 1, 0,0,
 	  (SCM mus),
 	  "Extract the duration field from @var{mus}, and return the length.")
 {
-  Music* m =   unsmob_music(mus);
-  SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__, "Music");
+  Music* m =   unsmob_music (mus);
+  SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__, "Music");
   
   Duration *d = unsmob_duration (m->get_property ("duration"));
 
@@ -106,24 +106,24 @@ LY_DEFINE(ly_music_duration_length, "ly:music-duration-length", 1, 0,0,
       l = d->get_length ();  
     }
   else
-    programming_error("Music has no duration");
-  return l.smobbed_copy();
+    programming_error ("Music has no duration");
+  return l.smobbed_copy ();
   
 }
 
 
-LY_DEFINE(ly_music_duration_compress, "ly:music-duration-compress", 2, 0,0,
+LY_DEFINE (ly_music_duration_compress, "ly:music-duration-compress", 2, 0,0,
 	  (SCM mus, SCM factor),
 	  "Extract the duration field from @var{mus}, and compress it.")
 {
-  Music* m =   unsmob_music(mus);
+  Music* m =   unsmob_music (mus);
   Moment * f = unsmob_moment (factor);
-  SCM_ASSERT_TYPE(m, mus, SCM_ARG1, __FUNCTION__, "Music");
-  SCM_ASSERT_TYPE(f, factor, SCM_ARG2, __FUNCTION__, "Moment");
+  SCM_ASSERT_TYPE (m, mus, SCM_ARG1, __FUNCTION__, "Music");
+  SCM_ASSERT_TYPE (f, factor, SCM_ARG2, __FUNCTION__, "Moment");
   
   Duration *d = unsmob_duration (m->get_property ("duration"));
   if (d)
-    m->set_property ("duration", d->compressed (f->main_part_).smobbed_copy());
+    m->set_property ("duration", d->compressed (f->main_part_).smobbed_copy ());
   return SCM_UNSPECIFIED;
 }
 
@@ -136,7 +136,7 @@ LY_DEFINE(ly_music_duration_compress, "ly:music-duration-compress", 2, 0,0,
 
   TODO: this should use ly:pitch. 
  */
-LY_DEFINE(ly_transpose_key_alist, "ly:transpose-key-alist",
+LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
 	  2, 0,0, (SCM l, SCM pitch),
 	  "Make a new key alist of @var{l} transposed by pitch @var{pitch}")
 {
@@ -167,7 +167,7 @@ LY_DEFINE(ly_transpose_key_alist, "ly:transpose-key-alist",
 	  orig = orig.transposed (*p);
 
 	  key =scm_int2num (orig.get_notename ());
-	  alter = scm_int2num (orig.get_alteration());
+	  alter = scm_int2num (orig.get_alteration ());
 	  newlist = gh_cons (gh_cons (key, alter), newlist);
 	}
     }
@@ -179,7 +179,7 @@ Key_change_ev::transpose (Pitch p)
 {
   SCM pa = get_property ("pitch-alist");
 
-  set_property ("pitch-alist", ly_transpose_key_alist (pa, p.smobbed_copy()));
+  set_property ("pitch-alist", ly_transpose_key_alist (pa, p.smobbed_copy ()));
   Pitch tonic = *unsmob_pitch (get_property ("tonic"));
   set_property ("tonic",
 		    tonic.smobbed_copy ());

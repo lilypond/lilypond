@@ -20,8 +20,7 @@ class Dot_column_engraver : public Engraver
   Grob * stem_;
   Link_array<Item> heads_;
 public:
-  TRANSLATOR_DECLARATIONS(
-  Dot_column_engraver );
+  TRANSLATOR_DECLARATIONS (Dot_column_engraver );
   
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -65,7 +64,7 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
       if (!dotcol_)
 	{
 	  dotcol_ = make_item ("DotColumn");
-	  announce_grob(dotcol_, SCM_EOL);
+	  announce_grob (dotcol_, SCM_EOL);
 	}
 
       Dot_column::add_head (dotcol_, info.grob_);
@@ -79,7 +78,7 @@ Dot_column_engraver::acknowledge_grob (Grob_info info)
 
 
 
-ENTER_DESCRIPTION(Dot_column_engraver,
+ENTER_DESCRIPTION (Dot_column_engraver,
 /* descr */       " Engraves dots on dotted notes shifted to the right of the note.\n"
 "If omitted, then dots appear on top of the notes.",
 /* creats*/       "DotColumn",

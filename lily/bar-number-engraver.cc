@@ -34,7 +34,7 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void process_music ();
   void create_items ();
-  TRANSLATOR_DECLARATIONS(Bar_number_engraver );
+  TRANSLATOR_DECLARATIONS (Bar_number_engraver );
 };
 
 
@@ -55,7 +55,7 @@ Bar_number_engraver::process_music ()
 	  SCM bn = get_property ("currentBarNumber");
 	  SCM proc = get_property ("barNumberVisibility");
 	  if (gh_number_p (bn) && gh_procedure_p (proc)
-	      && to_boolean(gh_call1(proc, bn)))
+	      && to_boolean (gh_call1(proc, bn)))
 	    {
 	      create_items ();
 	      // guh.
@@ -111,10 +111,10 @@ Bar_number_engraver::create_items ()
   text_ = make_item ("BarNumber");
   Side_position_interface::set_axis (text_,Y_AXIS);
 
-  announce_grob(text_, SCM_EOL);
+  announce_grob (text_, SCM_EOL);
 }
 
-ENTER_DESCRIPTION(Bar_number_engraver,
+ENTER_DESCRIPTION (Bar_number_engraver,
 /* descr */       "A bar number is created whenever measurePosition is zero. It is\n"
 "put on top of all staves, and appears only at  left side of the staff.",
 /* creats*/       "BarNumber",

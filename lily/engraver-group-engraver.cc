@@ -86,7 +86,7 @@ Engraver_group_engraver::do_announces ()
       engraver_each (get_simple_trans_list (),
 		     &Engraver::process_acknowledged_grobs);
 
-      if (!announce_infos_.size())
+      if (!announce_infos_.size ())
 	break;
 
       acknowledge_grobs ();
@@ -106,9 +106,9 @@ Engraver_group_engraver::initialize ()
   Translator_group::initialize ();
 }
 
-Engraver_group_engraver::Engraver_group_engraver() {}
+Engraver_group_engraver::Engraver_group_engraver () {}
 
-ENTER_DESCRIPTION(Engraver_group_engraver,
+ENTER_DESCRIPTION (Engraver_group_engraver,
 /* descr */       "A group of engravers taken together",
 /* creats*/       "",
 /* accepts */     "",
@@ -124,7 +124,7 @@ ENTER_DESCRIPTION(Engraver_group_engraver,
 bool
 engraver_valid (Translator*tr, SCM ifaces)
 {
-  SCM ack_ifs = scm_assoc (ly_symbol2scm ("interfaces-acked"), tr->translator_description());
+  SCM ack_ifs = scm_assoc (ly_symbol2scm ("interfaces-acked"), tr->translator_description ());
   ack_ifs = gh_cdr (ack_ifs);
   for (SCM s = ifaces; ly_pair_p (s); s = ly_cdr (s))
     if (scm_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)

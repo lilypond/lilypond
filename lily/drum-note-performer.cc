@@ -15,7 +15,7 @@
 
 class Drum_note_performer : public Performer {
 public:
-  TRANSLATOR_DECLARATIONS(Drum_note_performer);
+  TRANSLATOR_DECLARATIONS (Drum_note_performer);
   
 protected:
   virtual bool try_music (Music *ev) ;
@@ -109,10 +109,10 @@ Drum_note_performer::try_music (Music* ev)
   return false;
 }
 
-ENTER_DESCRIPTION(Drum_note_performer,
+ENTER_DESCRIPTION (Drum_note_performer,
 		  "Play drum notes.","",
 		  "note-event busy-playing-event","","","");
 
-Drum_note_performer::Drum_note_performer()
+Drum_note_performer::Drum_note_performer ()
 {
 }
