@@ -94,7 +94,7 @@
 
 (define (debugf string . rest)
   (if #f
-      (stderr (cons string rest))))
+      (apply stderr (cons string rest))))
       
 (define-class <gnome-outputter> ()
   (name #:init-value "untitled" #:init-keyword #:name #:accessor name)
@@ -375,32 +375,29 @@
 	    ;; http://www.gtk.org/tutorial/sec-textentries.html
 	    (let ((window (make <gtk-window>))
 		  (vbox (make <gtk-vbox>))
-		  (button (make <gtk-button> #:label "Ok")))
+		  (ok (make <gtk-button> #:label "Ok")))
 	      
 	      (add window vbox)
-	      (connect button 'clicked (lambda (b) (destroy window)))
+	      (connect ok 'clicked (lambda (b) (destroy window)))
 
 	      (for-each
 	       (lambda (x)
-		 (let ((button (make <gtk-button>
-				 #:xalign 0.0
-				 #:label
-				 (string-append
-				  (symbol->string (car x))
-				  ": "
-				  (format #f "~S" (cdr x))))))
-		   (set-size-request button 150 BUTTON-HEIGHT)
-		   (add vbox button)))
-	       (cons (list id) properties))
-	      (add vbox button)
+		 (let ((label (make <gtk-label>
+				;;#:label (symbol->string (car x))))
+				#:label (format #f "~S" (car x))))
+		       ;;(symbol->string (car x))))
+		       (entry (make <gtk-entry>
+				#:text (format #f "~S" (cdr x))))
+		       (hbox (make <gtk-hbox>)))
+		   (add hbox label)
+		   (add hbox entry)
+		   (set-size-request label 150 BUTTON-HEIGHT)
+		   (add vbox hbox)))
+	       (append properties basic-properties))
+	      (add vbox ok)
 	      
-	      ;; FIXME: how to do window placement?
-	      ;; - no effect:
-	      (move window x y)
 	      (show-all window)
-	      ;; - shows actual movement:
-	      (move window x y)
-	      )))))))
+	      (move window x y))))))))
     
     ((2button-press) (gobject-set-property item 'fill-color "green"))
     ((key-press)
