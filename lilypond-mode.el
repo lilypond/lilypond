@@ -106,7 +106,11 @@ in LilyPond-include-path."
 
 ;; do we still need this, now that we're using compile-internal?
 (defun LilyPond-save-buffer ()
-  (if (buffer-modified-p) (save-buffer)))
+  "Save buffer and set default command for compiling."
+  (interactive)
+  (if (buffer-modified-p)
+      (progn (save-buffer)
+	     (setq LilyPond-command-default "LilyPond"))))
 
 ;;; return (dir base ext)
 (defun split-file-name (name)
@@ -260,8 +264,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 						   LilyPond-file-extensions)
 			   (if (buffer-modified-p) 
 			       (if (y-or-n-p "Save buffer before next command? ")
-				   (progn (LilyPond-save-buffer)
-					  (setq LilyPond-command-default "LilyPond"))))
+				   (LilyPond-save-buffer)))
 			   ;;"LilyPond"
 			   LilyPond-command-default))
 			(t LilyPond-command-default)))
@@ -511,6 +514,7 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-v" 'LilyPond-command-view)
   (define-key LilyPond-mode-map "\C-c\C-p" 'LilyPond-command-viewps)
   (define-key LilyPond-mode-map "\C-c\C-m" 'LilyPond-command-next-midi)
+  (define-key LilyPond-mode-map "\C-x\C-s" 'LilyPond-save-buffer)
   (define-key LilyPond-mode-map "\C-cf" 'font-lock-fontify-buffer)
   (define-key LilyPond-mode-map "\C-ci" 'LilyPond-quick-note-insert)
   (define-key LilyPond-mode-map "\C-cn" 'LilyPond-insert-tag-notes)
