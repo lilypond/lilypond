@@ -66,14 +66,14 @@
 	 "  \\lilypondfontencoding{T1}"
 	 "  ")
      "\\lilypond" (tex-font-command font)
-     "}\n"
+     "}%\n"
      )))
 
 
 (define (define-fonts paper)
   (string-append
    ;; UGH. FIXME.   
-   "\\def\\lilypondpaperunit{mm}\n"
+   "\\def\\lilypondpaperunit{mm}%\n"
    (tex-number-def "lilypondpaper" 'outputscale
 		   (number->string (exact->inexact
 				    (ly:paper-outputscale paper))))
