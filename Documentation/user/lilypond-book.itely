@@ -168,7 +168,10 @@ smaller music font size (eg. 11 pt or 13 pt)
     the short version of the lilypond blocks:
 
     @code{ @@lilypond@{ CONTENTS @} } and @code{ \lilypond@{ CONTENTS @} }
-    
+
+@item smallverbatim
+      like @code{verbatim}, but in a smaller font.
+
 @item intertext="@var{text}"
     Used in conjunction with @code{verbatim} option: this puts
 @var{text} between the code and the music.

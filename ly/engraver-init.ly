@@ -106,7 +106,9 @@ RhythmicStaffContext=\translator{
 	VoltaBracket \override #'minimum-space =  #15  % urg, in \pt
 	VoltaBracket \override #'padding =  #5  % urg, in \pt
 	StaffSymbol \override #'line-count = #1	
-	Stem \override #'neutral-direction = #1 
+
+	Stem \override #'neutral-direction = #1
+	Beam \override #'neutral-direction = #1 	
 %	\consists "Repeat_engraver"
 	\consists "Dot_column_engraver"
 	\consists "Volta_engraver"

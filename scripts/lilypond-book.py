@@ -482,6 +482,10 @@ output_dict= {
 		  'output-verbatim': r'''<pre>
 %s
 </pre>''',
+  		  'output-small-verbatim': r'''<font size=-1><pre>
+%s
+</pre></font>''',
+
 		  ## Ugh we need to differentiate on origin:
 		  ## lilypond-block origin wants an extra <p>, but
 		  ## inline music doesn't.
@@ -508,6 +512,7 @@ output_dict= {
 ''',
 		'output-verbatim': r'''\begin{verbatim}%s\end{verbatim}%%
 ''',
+		'output-small-verbatim': r'''{\small\begin{verbatim}%s\end{verbatim}}%%''',
 		'output-default-post': "\\def\postLilypondExample{}\n",
 		'output-default-pre': "\\def\preLilypondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
@@ -533,6 +538,10 @@ output_dict= {
 @c generated: %(fn)s.png		  
 ''',
 		  'pagebreak': None,
+		  'output-small-verbatim': r'''@smallexample
+%s
+@end smallexample
+''',
 		  'output-verbatim': r'''@example
 %s
 @end example
@@ -566,14 +575,19 @@ output_dict= {
 	
 	}
 
-def output_verbatim (body):
+def output_verbatim (body, small):
 	if __main__.format == 'html':
 		body = re.sub ('&', '&amp;', body)
 		body = re.sub ('>', '&gt;', body)
 		body = re.sub ('<', '&lt;', body)
 	elif __main__.format == 'texi':
 		body = re.sub ('([@{}])', '@\\1', body)
-	return get_output ('output-verbatim') % body
+
+	if small:
+		key = 'output-small-verbatim'
+	else:
+		key = 'output-verbatim'
+	return get_output (key) % body
 
 
 #warning: this uses extended regular expressions. Tread with care.
@@ -1136,9 +1150,11 @@ def schedule_lilypond_block (chunk):
 				newbody = newbody + get_output ("output-filename") % m.group(1)
 				break
 		
-	
-	if 'verbatim' in opts:
-		newbody = output_verbatim (body)
+
+	if 'smallverbatim' in opts:
+		newbody = output_verbatim (body, 1)
+	elif 'verbatim' in opts:
+		newbody = output_verbatim (body, 0)
 
 	for o in opts:
 		m = re.search ('intertext="(.*?)"', o)

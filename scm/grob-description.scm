@@ -570,6 +570,8 @@
 	(Y-offset-callbacks . (,Side_position_interface::aligned_side))
 	(molecule-callback . ,Text_item::brew_molecule)
 	(font-shape . italic)
+	(padding . 0.4)
+	(font-relative-size . -2)
 	(font-family . roman)
 	(meta . ((interfaces . (text-interface self-alignment-interface side-position-interface font-interface item-interface ))))
 	))

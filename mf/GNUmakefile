@@ -56,7 +56,7 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 # making pfas takes a lot of CPU time. Let's skip it for now.
 #MAKE_PFA_FILES=1
 
-PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
+PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa)) $(outdir)/cmbxti8.pfa
 
 ifdef MAKE_PFA_FILES
 ALL_GEN_FILES += $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale
@@ -91,3 +91,7 @@ local-clean:
 
 pfa: $(PFA_FILES)  
 
+# needed for web documentation
+$(outdir)/cmbxti8.pfa:
+	$(PKTRACE)  -I $(outdir)/ --pfa --simplify --keep-trying cmbxti8
+	mv cmbxti8.pfa $(outdir)/

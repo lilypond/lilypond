@@ -230,8 +230,8 @@ Accidental_placement::position_accidentals (Grob * me)
   for (int i= apes.size (); i--;)
     {
       Accidental_placement_entry * ape = apes[i];
-      ape->left_skyline_ = empty_skyline ( LEFT);
-      ape->right_skyline_ = empty_skyline ( RIGHT);
+      ape->left_skyline_ = empty_skyline (LEFT);
+      ape->right_skyline_ = empty_skyline (RIGHT);
    
       for (int j = apes[i]->grobs_.size(); j--;)
 	{
@@ -286,7 +286,12 @@ Accidental_placement::position_accidentals (Grob * me)
   if (gh_number_p (rs))
     head_ape->offset_ -= gh_scm2double (rs);
 
-  Real padding = 0.1;
+  
+  Real padding = 0.2;
+  SCM spad = me->get_grob_property ("padding");
+  if (gh_number_p (spad))
+    padding = gh_scm2double (spad);
+  
   apes.push (head_ape);
   for (int i= apes.size () -1 ; i-- > 0;)
     {
@@ -351,4 +356,4 @@ Accidental_placement::position_accidentals (Grob * me)
 ADD_INTERFACE(Accidental_placement,
 	      "accidental-placement-interface",
 	      "Take care of complex accidental collisions.",
-	      "left-padding right-padding accidentals alignment-done")
+	      "left-padding padding right-padding accidentals alignment-done")
