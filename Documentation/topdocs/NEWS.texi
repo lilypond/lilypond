@@ -18,6 +18,18 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item  Translators and contexts have been split. The result of this
+internal cleanup is that @code{Score} no longer is the top context;
+@code{Score} is contained in the @code{Global} context. Consequently,
+it is possible to tweak @code{Score} as follows:
+
+@example
+  \context Score \with @{
+    @dots{}
+  @}
+@end example
+
+
 @item The program reference has been cleaned up and revised.
 
 @item The syntax for setting properties has been simplified:
