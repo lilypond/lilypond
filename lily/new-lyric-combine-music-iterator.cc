@@ -34,7 +34,7 @@ private:
   bool start_new_syllable () ;
   void find_voice ();
 
-  bool warned_;
+  bool music_found_;
   bool made_association_;
   Context * lyrics_context_;
   Context * music_context_;
@@ -50,7 +50,7 @@ static Music *melisma_playing_ev;
 
 New_lyric_combine_music_iterator::New_lyric_combine_music_iterator ()
 {
-  warned_ = false;
+  music_found_ = false;
   made_association_ = false;
   lyric_iter_ =0;
   music_context_ =0;
@@ -170,13 +170,7 @@ New_lyric_combine_music_iterator::find_voice ()
 
 	  String name = ly_scm2string (voice_name);
 	  Context *voice = find_context_below (t, ly_symbol2scm ("Voice"), name);
-	  if (!voice && !warned_)
-	    {
-	      warned_ = true;
-	      get_music ()->origin ()->warning (_f ("cannot find Voice: %s",
-						    name.to_str0 ()) + "\n");
-	    }
-	  else
+	  if (voice)
 	    music_context_ = voice;
 	    
 	}
@@ -217,12 +211,26 @@ New_lyric_combine_music_iterator::process (Moment )
     {
       Moment m= lyric_iter_->pending_moment ();
       lyric_iter_->process (m);
+
+      music_found_ = true; 
     }
 }
 
 void
 New_lyric_combine_music_iterator::do_quit ()
 {
+  if (!music_found_)
+    {
+      SCM voice_name = get_music ()->get_property ("associated-context");
+
+      String name;
+      if (ly_c_string_p (voice_name))
+	name = ly_scm2string (voice_name);
+
+      get_music ()->origin ()->warning (_f ("Haven't found Voice `%s'.",
+					    name.to_str0 ()) + "\n");
+    }
+
   if (lyric_iter_)
     lyric_iter_->quit ();
 }
