@@ -11,16 +11,8 @@
 if [ -z "$LILYPONDPREFIX" ]; then
     datadir=`echo "@local_lilypond_datadir@" | sed 's!//!/!g'`
 else
-    if [ -d "$LILYPONDPREFIX/fonts" ]; then
+    if [ -d "$LILYPONDPREFIX/share" ]; then
 	datadir=$LILYPONDPREFIX
-    else
-	eval `cat $LILYPONDPREFIX/VERSION`
-	FULLVERSION="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL"
-	if [ "" != "$MY_PATCH_LEVEL" ]; then
-	    FULLVERSION="$FULLVERSION.$MY_PATCH_LEVEL"
-	fi 
-	
-	datadir="$LILYPONDPREFIX/share/lilypond/$FULLVERSION"
     fi
     echo "Setting tree to $datadir"
 fi

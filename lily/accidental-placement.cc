@@ -56,7 +56,7 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
 
   int n = p->notename_i_;
 
-  SCM accs = me->get_grob_property ("accidentals");
+  SCM accs = me->get_grob_property ("accidental-grobs");
   SCM key = gh_int2scm (n);
   SCM entry = scm_assq (key, accs);
   if (entry == SCM_BOOL_F)
@@ -70,7 +70,7 @@ Accidental_placement::add_accidental (Grob* me, Grob* a)
 
   accs = scm_assq_set_x (accs,  key, entry);
 
-  me->set_grob_property ("accidentals", accs);
+  me->set_grob_property ("accidental-grobs", accs);
 }
 
 /*
@@ -81,7 +81,7 @@ Accidental_placement::split_accidentals (Grob * accs,
 					 Link_array<Grob> *break_reminder,
 					 Link_array<Grob> *real_acc)
 {
-  for (SCM acs =accs->get_grob_property ("accidentals"); gh_pair_p (acs);
+  for (SCM acs =accs->get_grob_property ("accidental-grobs"); gh_pair_p (acs);
        acs =gh_cdr (acs))
     for (SCM s = gh_cdar (acs); gh_pair_p (s); s = gh_cdr (s))
       {
@@ -241,7 +241,7 @@ Accidental_placement::position_accidentals (Grob * me)
   if (!me->live ())
     return SCM_UNSPECIFIED;
   
-  SCM accs = me->get_grob_property ("accidentals");
+  SCM accs = me->get_grob_property ("accidental-grobs");
 
   /*
     TODO: there is a bug in this code. If two accs are on the same
@@ -455,4 +455,4 @@ Accidental_placement::position_accidentals (Grob * me)
 ADD_INTERFACE(Accidental_placement,
 	      "accidental-placement-interface",
 	      "Take care of complex accidental collisions.",
-	      "left-padding padding right-padding accidentals alignment-done")
+	      "left-padding padding right-padding accidental-grobs alignment-done")

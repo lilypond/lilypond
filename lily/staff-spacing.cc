@@ -41,8 +41,13 @@ Staff_spacing::next_note_correction (Grob * me,
    */
   if (Grob * a = Note_column::accidentals (g))
     {
-      Interval v= Accidental_placement::get_relevant_accidental_extent
-	(a, col, me);
+      Interval v;
+      if (Accidental_placement::has_interface (a))
+	{
+	  v = Accidental_placement::get_relevant_accidental_extent(a, col, me);
+	}
+      else
+	v = a->extent (col, X_AXIS);
       
       max_corr = max_corr >? (- v[LEFT]);
     }

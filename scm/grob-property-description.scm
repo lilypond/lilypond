@@ -58,12 +58,9 @@ the grob to the nearest open space.
 ")
 (grob-property-description 'Y-extent-callback procedure? "see @code{X-extent-callback}.")
 (grob-property-description 'Y-offset-callbacks list? "see @code{X-offset-callbacks}.")
-(grob-property-description 'accidentals list? "Alist with (PITCH
-. OPTION-LIST) entries. OPTION-LIST can contain 'cautionary, 'natural
-and 'tie-break-reminder
 
-FIXME: outdated.
-")
+(grob-property-description 'accidental-grobs list? "Alis with (NOTENAME . GROBLIST) entries")
+(grob-property-description 'accidentals list? "List of alteration numbers.")
 (grob-property-description 'add-stem boolean? "Add stem to porrectus?.")
 (grob-property-description 'adjust-if-on-staffline boolean? "If this grob is on a staff line, adjust its appearance, so that it better fits into the staff.  E.g., if set true on stem grobs, flares of mensural flags will always be aligned with the staff lines, regardless if the associated note head is printed on a staff line or inbetween.")
 (grob-property-description 'after-line-breaking-callback procedure? "Procedure taking a grob as argument.
