@@ -1,0 +1,45 @@
+\version "2.5.14"
+
+\header {
+
+    texidoc = "Markup texts are set beneath a score."
+
+}
+
+\paper {
+    linewidth = #110
+}
+<<
+    \relative {
+	\clef bass
+	d,2 d c4 bes a2 \break
+	c2 c d4 f g2
+    }
+    \addlyrics {
+	My first Li -- ly song,
+	Not much can go wrong!
+    }
+>>
+    \markup {
+	%%TODO: make \verse markup.
+	\fill-line {
+	    \line {
+		"2. "
+		\column {
+		    \line { My next Li-ly verse }
+		    \line { Now it's getting worse! }
+		}
+	    }
+	}
+    }
+    \markup {
+	\fill-line {
+	    \line {
+		"3. "
+		\column {
+		    \line { My last Li-ly text }
+		    \line { See what will be next! }
+		}
+	    }
+	}
+    }

@@ -10,18 +10,18 @@
 
 #include <cstdio>
 
-#include "lilypond-key.hh"
-#include "lily-parser.hh"
 #include "book.hh"
 #include "cpu-timer.hh"
 #include "global-context.hh"
+#include "lily-parser.hh"
+#include "lilypond-key.hh"
 #include "ly-smobs.icc"
 #include "main.hh"
 #include "music-iterator.hh"
-#include "output-def.hh"
 #include "music.hh"
-#include "paper-book.hh"
 #include "output-def.hh"
+#include "output-def.hh"
+#include "paper-book.hh"
 #include "paper-score.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
@@ -30,8 +30,8 @@ Score::Score ()
   : Input ()
 {
   header_ = SCM_EOL;
-  texts_ = SCM_EOL;
   music_ = SCM_EOL;
+  texts_ = SCM_EOL;
   error_found_ = false;
   smobify_self ();
 }
@@ -49,15 +49,8 @@ Score::mark_smob (SCM s)
 {
   Score *sc = (Score*) SCM_CELL_WORD_1 (s);
 
-#if 0 
-  if (sc->key_)
-    scm_gc_mark (sc->key_->self_scm());
-#endif
-  
-  if (sc->header_)
-    scm_gc_mark (sc->header_);
-  if (sc->texts_)
-    scm_gc_mark (sc->texts_);
+  scm_gc_mark (sc->header_);
+  scm_gc_mark (sc->texts_);
   for (int i = sc->defs_.size (); i--;)
     scm_gc_mark (sc->defs_[i]->self_scm ());
   return sc->music_;
@@ -74,28 +67,24 @@ Score::print_smob (SCM , SCM p, scm_print_state*)
 Score::Score (Score const &s)
   : Input (s)
 {
+  header_ = SCM_EOL;
   music_ = SCM_EOL;
+  texts_ = SCM_EOL;
   error_found_ = s.error_found_;
-  
-  /* FIXME: SCM_EOL? */
-  header_ = 0;
-  texts_ = 0;
-
   smobify_self ();
 
   Music *m = unsmob_music (s.music_);
   music_ = m ? m->clone ()->self_scm () : SCM_EOL;
   scm_gc_unprotect_object (music_);
   
-  for (int i = 0; i < s.defs_.size (); i++)
+  for (int i = 0, n = s.defs_.size (); i < n; i++)
     defs_.push (s.defs_[i]->clone ());
 
   header_ = ly_make_anonymous_module (false);
   if (ly_c_module_p (s.header_))
     ly_module_copy (header_, s.header_);
 
-  if (s.texts_)
-    texts_ = s.texts_;
+  texts_ = s.texts_;
 }
 
 
