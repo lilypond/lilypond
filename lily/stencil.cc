@@ -10,7 +10,7 @@
 
 #include <math.h>
 
-#include <libc - extension.hh>	// isinf
+#include <libc-extension.hh>	// isinf
 
 #include "input-smob.hh"
 #include "font-metric.hh"

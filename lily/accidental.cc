@@ -131,128 +131,128 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
 
 
 /*
-       * Some styles do not provide all flavours of accidentals, e.g. there
-       * is currently no sharp accidental in vaticana style.  In these cases
-       * this function falls back to one of the other styles.
-       */
+ * Some styles do not provide all flavours of accidentals, e.g. there
+ * is currently no sharp accidental in vaticana style.  In these cases
+ * this function falls back to one of the other styles.
+ */
 
+/*
+  todo: this sort of stuff in Scheme. --hwn.
+*/
+String
+Accidental_interface::get_fontcharname (String style, int alteration)
+{
+  if (alteration == DOUBLE_FLAT
+      || alteration == DOUBLE_SHARP)
+    {
+      return to_string (alteration);
+    }
+
+  if (style == "hufnagel")
+    switch (alteration)
+      {
+      case FLAT: return "hufnagel-1";
+      case 0: return "vaticana0";
+      case SHARP: return "mensural1";
+      }
+  if (style == "medicaea")
+    switch (alteration)
+      {
+      case FLAT: return "medicaea-1";
+      case 0: return "vaticana0";
+      case SHARP: return "mensural1";
+      }
+  if (style == "vaticana")
+    switch (alteration)
+      {
+      case FLAT: return "vaticana-1";
+      case 0: return "vaticana0";
+      case SHARP: return "mensural1";
+      }
+  if (style == "mensural")
+    switch (alteration)
+      {
+      case FLAT: return "mensural-1";
+      case 0: return "vaticana0";
+      case SHARP: return "mensural1";
+      }
+
+  if (style == "neomensural")
+    style = ""; // currently same as default
+  if (style == "default")
+    style = "";
+  return style + to_string (alteration);
+}
+
+MAKE_SCHEME_CALLBACK (Accidental_interface, print, 1);
+SCM
+Accidental_interface::print (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  bool smaller = false;
+  bool parens = false;
+
+  bool caut = to_boolean (me->get_property ("cautionary"));
+  if (caut)
+    {
+      SCM cstyle = me->get_property ("cautionary-style");
+      parens = ly_c_equal_p (cstyle, ly_symbol2scm ("parentheses"));
+      smaller = ly_c_equal_p (cstyle, ly_symbol2scm ("smaller"));
+    }
+
+  SCM scm_style = me->get_property ("style");
+  String style;
+  if (scm_is_symbol (scm_style))
+    {
+      style = ly_symbol2string (scm_style);
+    }
+  else
+    {
       /*
-	todo: this sort of stuff in Scheme. --hwn.
+	preferably no name for the default style.
       */
-      String
-	Accidental_interface::get_fontcharname (String style, int alteration)
-      {
-	if (alteration == DOUBLE_FLAT
-	    || alteration == DOUBLE_SHARP)
-	  {
-	    return to_string (alteration);
-	  }
+      style = "";
+    }
 
-	if (style == "hufnagel")
-	  switch (alteration)
-	    {
-	    case FLAT: return "hufnagel-1";
-	    case 0: return "vaticana0";
-	    case SHARP: return "mensural1";
-	    }
-	if (style == "medicaea")
-	  switch (alteration)
-	    {
-	    case FLAT: return "medicaea-1";
-	    case 0: return "vaticana0";
-	    case SHARP: return "mensural1";
-	    }
-	if (style == "vaticana")
-	  switch (alteration)
-	    {
-	    case FLAT: return "vaticana-1";
-	    case 0: return "vaticana0";
-	    case SHARP: return "mensural1";
-	    }
-	if (style == "mensural")
-	  switch (alteration)
-	    {
-	    case FLAT: return "mensural-1";
-	    case 0: return "vaticana0";
-	    case SHARP: return "mensural1";
-	    }
+  Font_metric *fm = 0;
+  if (smaller)
+    {
+      SCM ac = Font_interface::music_font_alist_chain (me);
+      /*
+	TODO: should calc font-size by adding -2 to current font-size
+      */
+      ac = scm_cons (scm_list_1 (scm_cons
+				 (ly_symbol2scm ("font-size"),
+				  scm_int2num (-2))),
+		     ac);
+      fm = select_font (me->get_layout (), ac);
+    }
+  else
+    fm = Font_interface::get_default_font (me);
 
-	if (style == "neomensural")
-	  style = ""; // currently same as default
-	if (style == "default")
-	  style = "";
-	return style + to_string (alteration);
-      }
+  Stencil mol;
+  for (SCM s = me->get_property ("accidentals");
+       scm_is_pair (s); s = scm_cdr (s))
+    {
+      int alteration = scm_to_int (scm_car (s));
+      String font_char = get_fontcharname (style, alteration);
+      Stencil acc (fm->find_by_name ("accidentals." + font_char));
 
-      MAKE_SCHEME_CALLBACK (Accidental_interface, print, 1);
-      SCM
-	Accidental_interface::print (SCM smob)
-      {
-	Grob *me = unsmob_grob (smob);
-	bool smaller = false;
-	bool parens = false;
+      if (acc.is_empty ())
+	{
+	  me->warning (_f ("accidental `%s' not found", font_char));
+	}
+      else
+	{
+	  mol.add_at_edge (X_AXIS, RIGHT, acc, 0.1, 0);
+	}
+    }
 
-	bool caut = to_boolean (me->get_property ("cautionary"));
-	if (caut)
-	  {
-	    SCM cstyle = me->get_property ("cautionary-style");
-	    parens = ly_c_equal_p (cstyle, ly_symbol2scm ("parentheses"));
-	    smaller = ly_c_equal_p (cstyle, ly_symbol2scm ("smaller"));
-	  }
+  if (parens)
+    mol = parenthesize (me, mol);
 
-	SCM scm_style = me->get_property ("style");
-	String style;
-	if (scm_is_symbol (scm_style))
-	  {
-	    style = ly_symbol2string (scm_style);
-	  }
-	else
-	  {
-	    /*
-	      preferably no name for the default style.
-	    */
-	    style = "";
-	  }
-
-	Font_metric *fm = 0;
-	if (smaller)
-	  {
-	    SCM ac = Font_interface::music_font_alist_chain (me);
-	    /*
-	      TODO: should calc font-size by adding -2 to current font-size
-	    */
-	    ac = scm_cons (scm_list_1 (scm_cons
-				       (ly_symbol2scm ("font-size"),
-					scm_int2num (-2))),
-			   ac);
-	    fm = select_font (me->get_layout (), ac);
-	  }
-	else
-	  fm = Font_interface::get_default_font (me);
-
-	Stencil mol;
-	for (SCM s = me->get_property ("accidentals");
-	     scm_is_pair (s); s = scm_cdr (s))
-	  {
-	    int alteration = scm_to_int (scm_car (s));
-	    String font_char = get_fontcharname (style, alteration);
-	    Stencil acc (fm->find_by_name ("accidentals." + font_char));
-
-	    if (acc.is_empty ())
-	      {
-		me->warning (_f ("accidental `%s' not found", font_char));
-	      }
-	    else
-	      {
-		mol.add_at_edge (X_AXIS, RIGHT, acc, 0.1, 0);
-	      }
-	  }
-
-	if (parens)
-	  mol = parenthesize (me, mol);
-
-	return mol.smobbed_copy ();
-      }
+  return mol.smobbed_copy ();
+}
 
 /*
   TODO: should move inside-slur into item?

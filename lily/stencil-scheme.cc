@@ -8,7 +8,7 @@
 
 #include <math.h>
 
-#include <libc - extension.hh>	// isinf
+#include <libc-extension.hh>	// isinf
 
 #include "font-metric.hh"
 #include "stencil.hh"

@@ -147,7 +147,7 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
 	  Direction d = DOWN;
 	  do
 	    {
-	      if (!extents_right[d].is_empty () && !extents_right[d].is_empty ())
+	      if (!extents_left[d].is_empty () && !extents_right[d].is_empty ())
 		{
 		  Real l1 = extents_right[d].length () * min_length_fraction;
 		  Real l2 = extents_left[d].length () * min_length_fraction;

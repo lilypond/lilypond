@@ -10,7 +10,7 @@
 
 #include <math.h>
 
-#include <libc - extension.hh>
+#include <libc-extension.hh>
 
 #include "warn.hh"
 #include "paper-column.hh"
