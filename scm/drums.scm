@@ -1,5 +1,7 @@
-; drum-"hack". See input/tricks/drums.ly and ly/drumpitch.ly
-; 2001/03/25 Rune Zedeler <rune@zedeler.dk>
+;;;; drum-"hack". See input/tricks/drums.ly and ly/drumpitch.ly
+;;;; 2001/03/25 Rune Zedeler <rune@zedeler.dk>
+
+;;;; changed eval to ly-eval for guile 1.4/1.4.1 compatibility --jcn
 
 (define (seq-music-list elts)
    (let* ( (ml (ly-make-music "Sequential_music")) )
@@ -98,7 +100,7 @@
 	      (begin
 	       (display p) ;; UGH. FIXME. pitch->string ???
 	       (ly-warn " unknown drumpitch.")
-	       (cdar (eval kit))
+	       (cdar (ly-eval kit))
 	   ))
          ((eq? p (caddr (car pitches))) ((name->paper kit) (caar pitches)) )
 	 (else                          (p2p (cdr pitches) ) )
@@ -106,12 +108,12 @@
    )
  )
 (define ((name->paper kit) n)
-   (let n2p ((pitches (eval kit)))
+   (let n2p ((pitches (ly-eval kit)))
      (cond ((eq? pitches '())
 	      (begin
 	       (ly-warn (string-append "Kit `" (symbol->string kit) "' doesn't contain drum `" n
 				       "'\nSee lily/drumpitch.ly for supported drums."))
-	       (cdar (eval kit))
+	       (cdar (ly-eval kit))
 	     ))
            ((eq? n (caar pitches))  (cdar pitches) )
 	   (else                    (n2p (cdr pitches) ) )

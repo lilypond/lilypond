@@ -775,10 +775,10 @@ direction = Forced direction for all ties"
    ))
 
 
-(eval (cons
-       'begin
-       (map (lambda (x) (list 'define (car x) (list 'quote (cdr x))))
-	    all-interfaces)))
+(ly-eval (cons
+	  'begin
+	  (map (lambda (x) (list 'define (car x) (list 'quote (cdr x))))
+	       all-interfaces)))
 
 
 (define (interface-names) (map (lambda (x) (symbol->string (car x))) all-interfaces))
