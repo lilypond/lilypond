@@ -6,7 +6,7 @@
 \version "2.3.12"
 
 \paper { raggedright = ##t }
-{
+\relative {
     \set doubleSlurs = ##t
     <c e>4 ( <d f> <c e> <d f> )
 }

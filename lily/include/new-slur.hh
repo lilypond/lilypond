@@ -24,7 +24,6 @@ public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM,SCM));
 
-  static void set_interface (Grob *);
   static bool has_interface (Grob *);
   static Bezier get_curve (Grob*me);
 };

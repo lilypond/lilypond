@@ -1959,6 +1959,17 @@ parentheses, the direction is also set. For example,
 @lilypond[relative=2,verbatim,fragment]
    c4_( c)   c^( c)
 @end lilypond
+
+Some composers write two slurs when they want legato chords. This can
+be achieved in LilyPond, by setting @code{doubleSlurs},
+
+@lilypond[verbatim,raggedright]
+\relative {
+    \set doubleSlurs = ##t
+    <c e>4 ( <d f> <c e> <d f> )
+}
+@end lilypond  
+
  
 @refcommands
 
@@ -1978,9 +1989,6 @@ parentheses, the direction is also set. For example,
 
 Program reference: @seeinternals{Slur}, and @internalsref{SlurEvent}.
 
-
-
-@cindex Adjusting slurs
 
 @node Phrasing slurs
 @subsection Phrasing slurs

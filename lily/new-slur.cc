@@ -111,15 +111,6 @@ New_slur::get_curve (Grob*me)
   return b;
 }
 
-
-void
-New_slur::set_interface (Grob*me)
-{
-  /* Copy to mutable list. */
-  me->set_property ("attachment",
-		    ly_deep_copy (me->get_property ("attachment")));
-}
-
 void
 New_slur::add_column (Grob*me, Grob*n)
 {
