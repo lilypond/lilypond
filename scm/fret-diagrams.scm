@@ -5,6 +5,9 @@
 ;;;; (c) 2004 Carl D. Sorensen <c_sorensen@byu.edu>
 
 
+
+(define ly:paper-lookup ly:output-def-lookup) ; compat for 2.3, remove  when using 2.2
+
 (define (fret-parse-marking-list marking-list fret-count)
    (let* ((fret-range (list 1 fret-count))
           (barre-list '())
@@ -275,7 +278,7 @@
   Syntax: \\fret-diagram   marking-list
   For example,
   @verbatim
-   \\markup \\fret-diagram #\'((mute 6) (mute 5) (open 4) (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
+   \\markup \\fret-diagram #'((mute 6) (mute 5) (open 4) (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
   @end verbatim 
   will produce a standard D chord diagram without fingering indications.
     Possible elements in @var{marking-list}:
