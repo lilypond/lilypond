@@ -35,7 +35,7 @@ Moment::smobbed_copy () const
 int
 Moment::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Moment  *r = (Moment *) gh_cdr (s);
+  Moment  *r = (Moment *) ly_cdr (s);
      
   scm_puts ("#<Mom ", port);
   String str (r->str ());

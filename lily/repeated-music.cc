@@ -40,8 +40,8 @@ Repeated_music::to_relative_octave (Pitch p)
 
   Pitch last = p ; 
   if (alternatives ())
-    for (SCM s = alternatives ()->music_list (); gh_pair_p (s);  s = gh_cdr (s))
-      unsmob_music (gh_car (s))->to_relative_octave (p);
+    for (SCM s = alternatives ()->music_list (); gh_pair_p (s);  s = ly_cdr (s))
+      unsmob_music (ly_car (s))->to_relative_octave (p);
      
 
   return last;
@@ -82,10 +82,10 @@ Repeated_music::alternatives_length_mom (bool fold) const
   SCM p = alternatives ()->music_list ();
   while (gh_pair_p (p) && done < repeat_count ())
     {
-      m = m + unsmob_music (gh_car (p))->length_mom ();
+      m = m + unsmob_music (ly_car (p))->length_mom ();
       done ++;
       if (repeat_count () - done < alternatives ()->length_i ())
-	p = gh_cdr (p);
+	p = ly_cdr (p);
     }
   return m;
 }
@@ -104,8 +104,8 @@ Repeated_music::alternatives_volta_length_mom () const
   SCM p = alternatives ()->music_list ();
   while (gh_pair_p (p))
     {
-      m = m + unsmob_music (gh_car (p))->length_mom ();
-      p = gh_cdr (p);
+      m = m + unsmob_music (ly_car (p))->length_mom ();
+      p = ly_cdr (p);
     }
   return m;
 }

@@ -309,7 +309,7 @@ format_to_ext (String format)
 }
 
 void
-main_prog (int, char**)
+main_prog (void * closure, int, char**)
 {
   /*
     need to do this first. Engravers use lily.scm contents.
@@ -324,7 +324,7 @@ main_prog (int, char**)
   all_fonts_global_p = new All_font_metrics (global_path.str ());
 
   init_scheme_code_string += ")";
-  gh_eval_str ((char *)init_scheme_code_string.ch_C());
+  scm_c_eval_string ((char *)init_scheme_code_string.ch_C());
   
   int p=0;
   const char *arg  = oparser_p_static->get_next_arg ();
@@ -486,9 +486,9 @@ main (int argc, char **argv)
   identify (&cerr);
 
 #ifdef WINNT
-  gh_enter (argc, argv, main_prog);
+  scm_boot_guile (argc, argv, main_prog, 0);
 #else
-  gh_enter (argc, argv, (void (*) (int, char**))main_prog);
+  scm_boot_guile (argc, argv, (void (*) (void*, int, char**))main_prog, 0);
 #endif
 
   return 0;			// unreachable

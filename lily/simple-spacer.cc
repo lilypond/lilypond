@@ -180,7 +180,7 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
       SCM spring_params = SCM_EOL;
       for (SCM s = cols[i]->get_grob_property ("ideal-distances");
 	   !gh_pair_p (spring_params) && gh_pair_p (s);
-	   s = gh_cdr (s))
+	   s = ly_cdr (s))
 	{
 	  Grob *other = unsmob_grob (gh_caar (s));
 	  if (other != cols[i+1])
@@ -192,8 +192,8 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
       Spring_description desc;
       if (gh_pair_p (spring_params))
 	{
-	  desc.ideal_f_ = gh_scm2double (gh_car (spring_params));
-	  desc.hooke_f_ = gh_scm2double (gh_cdr (spring_params));
+	  desc.ideal_f_ = gh_scm2double (ly_car (spring_params));
+	  desc.hooke_f_ = gh_scm2double (ly_cdr (spring_params));
 	}
       else
 	{
@@ -221,7 +221,7 @@ Simple_spacer::add_columns (Link_array<Grob> cols)
   for (int i=0; i < cols.size () - 1; i++)
     {
       for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
-	   gh_pair_p (s); s = gh_cdr (s))
+	   gh_pair_p (s); s = ly_cdr (s))
 	{
 	  Grob * other = unsmob_grob (gh_caar (s));
 	  int oi = cols.find_i (other);

@@ -129,7 +129,7 @@ Break_align_interface::do_alignment (Grob *me)
       SCM extra_space;
       if (e != SCM_BOOL_F)
 	{
-	  extra_space = gh_cdr (e);
+	  extra_space = ly_cdr (e);
 	}
       else
 	{
@@ -139,7 +139,7 @@ Break_align_interface::do_alignment (Grob *me)
 	  extra_space = scm_list_n (ly_symbol2scm ("minimum-space"), gh_double2scm (0.0), SCM_UNDEFINED);
 	}
 
-      SCM symbol = gh_car (extra_space);
+      SCM symbol = ly_car (extra_space);
       Real spc = gh_scm2double (gh_cadr (extra_space));
 
       dists.push (spc);
@@ -149,14 +149,14 @@ Break_align_interface::do_alignment (Grob *me)
 
 
   // skip the first sym.
-  symbol_list  = gh_cdr (scm_reverse (symbol_list));
+  symbol_list  = ly_cdr (scm_reverse (symbol_list));
   for (int i=0; i <elems.size ()-1; i++)
     {
-      elems[i]->set_grob_property (gh_car (symbol_list),
+      elems[i]->set_grob_property (ly_car (symbol_list),
 				  scm_cons (gh_double2scm (0),
 					    gh_double2scm (dists[i+1])));
 
-      symbol_list = gh_cdr (symbol_list);
+      symbol_list = ly_cdr (symbol_list);
     }
 
 
@@ -198,12 +198,12 @@ Break_align_interface::do_alignment (Grob *me)
   
   Real stretch_distance =0.;
   
-  if (gh_car (symbol_list) == ly_symbol2scm ("extra-space"))
+  if (ly_car (symbol_list) == ly_symbol2scm ("extra-space"))
     {
       spring_len += dists.top ();
       stretch_distance = dists.top ();
     }
-  else if (gh_car (symbol_list) == ly_symbol2scm ("minimum-space"))
+  else if (ly_car (symbol_list) == ly_symbol2scm ("minimum-space"))
     {
       spring_len = spring_len >? dists.top ();
       stretch_distance = spring_len;

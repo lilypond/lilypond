@@ -28,8 +28,8 @@ Time_signature::brew_molecule (SCM smob)
   int d = 4;
   if (gh_pair_p (frac))
     {
-      n = gh_scm2int (gh_car (frac));
-      d = gh_scm2int (gh_cdr (frac));
+      n = gh_scm2int (ly_car (frac));
+      d = gh_scm2int (ly_cdr (frac));
     }
 
   

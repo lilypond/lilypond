@@ -180,8 +180,8 @@ Tie::get_control_points (SCM smob)
   SCM lim // groetjes aan de chirurgendochter.
     = scm_assq (ly_symbol2scm ("height-limit"),details);
   
-  Real h_inf = gh_scm2double (gh_cdr (lim)) *  staff_space;
-  Real r_0 = gh_scm2double (gh_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
+  Real h_inf = gh_scm2double (ly_cdr (lim)) *  staff_space;
+  Real r_0 = gh_scm2double (ly_cdr (scm_assq (ly_symbol2scm ("ratio"),details)));
 
   Bezier b  = slur_shape (width, h_inf, r_0);
   
@@ -299,9 +299,9 @@ Tie::brew_molecule (SCM smob)
 
   Bezier b;
   int i = 0;
-  for (SCM s= cp; s != SCM_EOL; s = gh_cdr (s))
+  for (SCM s= cp; s != SCM_EOL; s = ly_cdr (s))
     {
-      b.control_[i] = ly_scm2offset (gh_car (s));
+      b.control_[i] = ly_scm2offset (ly_car (s));
       i++;
     }
   

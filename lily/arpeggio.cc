@@ -29,9 +29,9 @@ Arpeggio::brew_molecule (SCM smob)
   Grob *me = unsmob_grob (smob);
   
   Grob * common = me;
-  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * stem =  unsmob_grob (gh_car (s));
+      Grob * stem =  unsmob_grob (ly_car (s));
       common =  common->common_refpoint (Staff_symbol_referencer::staff_symbol_l (stem),
 				 Y_AXIS);
     }
@@ -47,9 +47,9 @@ Arpeggio::brew_molecule (SCM smob)
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
       
-  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = me->get_grob_property ("stems"); gh_pair_p (s); s = ly_cdr (s))
     {
-      Grob * stem = unsmob_grob (gh_car (s));
+      Grob * stem = unsmob_grob (ly_car (s));
       Grob * ss = Staff_symbol_referencer::staff_symbol_l (stem);
       Interval iv =Stem::head_positions (stem);
       iv *= Staff_symbol::staff_space (ss)/2.0;

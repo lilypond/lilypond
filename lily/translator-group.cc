@@ -52,9 +52,9 @@ Translator_group::check_removal ()
   SCM next = SCM_EOL; 
   for (SCM p = trans_group_list_; gh_pair_p (p); p = next)
     {
-      next = gh_cdr (p);
+      next = ly_cdr (p);
 
-      Translator_group *trg =  dynamic_cast<Translator_group*> (unsmob_translator (gh_car (p)));
+      Translator_group *trg =  dynamic_cast<Translator_group*> (unsmob_translator (ly_car (p)));
 
       trg->check_removal ();
       if (trg->removable_b ())
@@ -98,9 +98,9 @@ Translator_group::find_existing_translator_l (String n, String id)
     return this;
 
   Translator_group* r = 0;
-  for (SCM p = trans_group_list_; !r && gh_pair_p (p); p = gh_cdr (p))
+  for (SCM p = trans_group_list_; !r && gh_pair_p (p); p = ly_cdr (p))
     {
-      Translator *  t = unsmob_translator (gh_car (p));
+      Translator *  t = unsmob_translator (ly_car (p));
       
       r = dynamic_cast<Translator_group*> (t)->find_existing_translator_l (n, id);
     }
@@ -153,9 +153,9 @@ Translator_group::try_music_on_nongroup_children (Music *m)
 {
   bool hebbes_b =false;
   
-  for (SCM p = simple_trans_list_; !hebbes_b && gh_pair_p (p); p = gh_cdr (p))
+  for (SCM p = simple_trans_list_; !hebbes_b && gh_pair_p (p); p = ly_cdr (p))
     {
-      hebbes_b = unsmob_translator (gh_car (p))->try_music (m);
+      hebbes_b = unsmob_translator (ly_car (p))->try_music (m);
     }
   return hebbes_b;
 }
@@ -244,8 +244,8 @@ Translator_group::get_default_interpreter ()
 static void
 static_each (SCM list, Method_pointer method)
 {
-  for (SCM p = list; gh_pair_p (p); p = gh_cdr (p))
- (unsmob_translator (gh_car (p))->*method) ();
+  for (SCM p = list; gh_pair_p (p); p = ly_cdr (p))
+ (unsmob_translator (ly_car (p))->*method) ();
   
 }
 
@@ -348,13 +348,13 @@ Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM va
 	  SCM newprops= SCM_EOL ;
 	  while (gh_pair_p (prev) && gh_caar (prev) != eltprop)
 	    {
-	      newprops = gh_cons (gh_car (prev), newprops);
-	      prev = gh_cdr (prev);
+	      newprops = gh_cons (ly_car (prev), newprops);
+	      prev = ly_cdr (prev);
 	    }
 	  
 	  if (gh_pair_p (prev))
 	    {
-	      newprops = scm_reverse_x (newprops, gh_cdr (prev));
+	      newprops = scm_reverse_x (newprops, ly_cdr (prev));
 	      set_property (prop, newprops);
 	    }
 	}

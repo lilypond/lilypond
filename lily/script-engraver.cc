@@ -69,21 +69,21 @@ Script_engraver::process_music ()
 	}
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
       Grob *p =new Item (get_property ("Script"));
-      art = gh_cdr (art);
-      p->set_grob_property ("molecule", gh_car (art));
+      art = ly_cdr (art);
+      p->set_grob_property ("molecule", ly_car (art));
 
-      art = gh_cdr (art);
-      bool follow_staff = gh_scm2bool (gh_car (art));
-      art = gh_cdr (art);
-      SCM relative_stem_dir = gh_car (art);
-      art = gh_cdr (art);
+      art = ly_cdr (art);
+      bool follow_staff = gh_scm2bool (ly_car (art));
+      art = ly_cdr (art);
+      SCM relative_stem_dir = ly_car (art);
+      art = ly_cdr (art);
 
       SCM force_dir = l->get_mus_property ("direction");
       if (isdir_b (force_dir) && !to_dir (force_dir))
-	force_dir = gh_car (art);
+	force_dir = ly_car (art);
       
-      art = gh_cdr (art);
-      SCM priority = gh_car (art);
+      art = ly_cdr (art);
+      SCM priority = ly_car (art);
 
       if (isdir_b (force_dir) && to_dir (force_dir))
 	p->set_grob_property ("direction", force_dir);

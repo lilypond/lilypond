@@ -65,21 +65,21 @@ Axis_group_engraver::finalize ()
   String type = daddy_grav_l ()->type_str_ ;
   SCM dims = get_property ("VerticalExtent");
   
-  if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
-      && gh_number_p (gh_cdr (dims)))
+  if (gh_pair_p (dims) && gh_number_p (ly_car (dims))
+      && gh_number_p (ly_cdr (dims)))
     {
       staffline_p_->set_extent_callback (Grob::preset_extent_proc, Y_AXIS);
       staffline_p_->set_grob_property ("extent-Y", dims);
     }
 
   dims = get_property ("MinimumVerticalExtent");
-  if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
-      && gh_number_p (gh_cdr (dims)))
+  if (gh_pair_p (dims) && gh_number_p (ly_car (dims))
+      && gh_number_p (ly_cdr (dims)))
     staffline_p_->set_grob_property ("minimum-extent-Y", dims);
 
   dims = get_property ("ExtraVerticalExtent");
-  if (gh_pair_p (dims) && gh_number_p (gh_car (dims))
-      && gh_number_p (gh_cdr (dims)))
+  if (gh_pair_p (dims) && gh_number_p (ly_car (dims))
+      && gh_number_p (ly_cdr (dims)))
     staffline_p_->set_grob_property ("extra-extent-Y", dims);
 
   Grob *  it = unsmob_grob (get_property ("currentCommandColumn"));

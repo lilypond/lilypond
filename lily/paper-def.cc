@@ -128,7 +128,7 @@ Paper_def::find_font (SCM fn, Real m)
   SCM met = scm_assoc (key, scaled_fonts_);
 
   if (gh_pair_p (met))
-    return unsmob_metrics (gh_cdr (met));
+    return unsmob_metrics (ly_cdr (met));
 
   SCM ssc;
   if (scope_p_->try_retrieve (ly_symbol2scm ("outputscale"), &ssc))
@@ -155,7 +155,7 @@ Paper_def::font_descriptions ()const
 
   
   SCM l = SCM_EOL;
-  for (SCM s = scaled_fonts_; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = scaled_fonts_; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM desc = gh_caar (s);
       SCM mdesc = unsmob_metrics (gh_cdar (s))->description_;

@@ -129,9 +129,13 @@ void
 Note_heads_engraver::start_translation_timestep ()
 {
   
-  /* TODO:make this settable?
+  /*
+    TODO: make this settable?
+
+    TODO: what if someone wants a line break in a grace note section??
    */
-  if (note_end_mom_ > now_mom ())
+  //  if (note_end_mom_ > now_mom ())  
+  if (note_end_mom_.main_part_ > now_mom ().main_part_)
     {
       Score_engraver * e = 0;
       Translator * t  =  daddy_grav_l ();

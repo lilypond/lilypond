@@ -78,8 +78,8 @@ Dot_column::do_shifts (SCM l)
   Link_array<Grob> dots;
   while (gh_pair_p (l))
     {
-      dots.push (unsmob_grob (gh_car (l)));
-      l = gh_cdr (l);
+      dots.push (unsmob_grob (ly_car (l)));
+      l = ly_cdr (l);
     }
   
   dots.sort (compare_position);

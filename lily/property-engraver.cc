@@ -60,10 +60,10 @@ Property_engraver::initialize ()
   prop_dict_ = new Scheme_hash_table;
 
   SCM plist = get_property (ly_symbol2scm ("Generic_property_list"));
-  for (; gh_pair_p (plist); plist = gh_cdr (plist))
+  for (; gh_pair_p (plist); plist = ly_cdr (plist))
     {
-      SCM elt_props = gh_car (plist);
-      prop_dict_->set (gh_car (elt_props), gh_cdr (elt_props));
+      SCM elt_props = ly_car (plist);
+      prop_dict_->set (ly_car (elt_props), ly_cdr (elt_props));
     }
 }
 
@@ -72,9 +72,9 @@ Property_engraver::acknowledge_grob (Grob_info i)
 {
  SCM ifs = i.elem_l_->get_grob_property ("interfaces");
   SCM props;
-  for (; gh_pair_p (ifs); ifs = gh_cdr (ifs))
+  for (; gh_pair_p (ifs); ifs = ly_cdr (ifs))
     {      
-      if (prop_dict_->try_retrieve (gh_car (ifs), &props))
+      if (prop_dict_->try_retrieve (ly_car (ifs), &props))
 	{
 	  apply_properties (props,i.elem_l_, i.origin_trans_l_->daddy_trans_l_);
 	}
@@ -90,7 +90,7 @@ Property_engraver::acknowledge_grob (Grob_info i)
 void
 Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 {
-  for (; gh_pair_p (p); p = gh_cdr (p))
+  for (; gh_pair_p (p); p = ly_cdr (p))
     {
       /*
 	Try each property in order; earlier descriptions take
@@ -98,8 +98,8 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 	they're already set.
       */
       
-      SCM entry = gh_car (p);
-      SCM prop_sym = gh_car (entry);
+      SCM entry = ly_car (p);
+      SCM prop_sym = ly_car (entry);
       SCM type_p   = gh_cadr (entry);
       SCM elt_prop_sym = gh_caddr (entry);
 
@@ -121,7 +121,7 @@ Property_engraver::apply_properties (SCM p, Grob *e, Translator_group*origin)
 	  warning (_f ("`%s' is deprecated.  Use\n \\property %s.%s \\override #'%s = #%s",
 		       ly_symbol2string (prop_sym).ch_C (),
 		       origin->type_str_.ch_C (),
-		       ly_scm2string (gh_cdr (name)).ch_C (),
+		       ly_scm2string (ly_cdr (name)).ch_C (),
 		       ly_symbol2string (elt_prop_sym).ch_C (),
 		       ly_scm2string (ly_write2scm (val)).ch_C ()));
 	}

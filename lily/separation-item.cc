@@ -34,9 +34,9 @@ Separation_item::my_width (Grob *me)
   Paper_column * pc = item->column_l ();
   Interval w;
   
-  for (SCM s =  me->get_grob_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s =  me->get_grob_property ("elements"); gh_pair_p (s); s = ly_cdr (s))
     {
-      SCM elt = gh_car (s);
+      SCM elt = ly_car (s);
       if (!unsmob_grob (elt))
 	continue;
 

@@ -110,7 +110,7 @@ Lyric_phrasing_engraver::lookup_context_id (const String &context_id)
       // (key . ((alist_entry . old_entry) . previous_entry))
       if (to_boolean (gh_cdadr (s))) { // it's an old entry ... make it a new one
 	SCM val = gh_cons (gh_cons (gh_caadr (s), SCM_BOOL_F), gh_cddr (s)); 
-	voice_alist_ = scm_assoc_set_x (voice_alist_, gh_car (s), val);
+	voice_alist_ = scm_assoc_set_x (voice_alist_, ly_car (s), val);
 	return unsmob_voice_entry (gh_caar (val));
       }
       else { // the entry is current ... return it.
@@ -265,7 +265,7 @@ void Lyric_phrasing_engraver::create_grobs ()
   SCM sp = get_property ("phrasingPunctuation");
   punc = gh_string_p (sp) ? ly_scm2string (sp) : ".,;:?!\""; 
   
-  for (SCM v=voice_alist_; gh_pair_p (v); v = gh_cdr (v)) {
+  for (SCM v=voice_alist_; gh_pair_p (v); v = ly_cdr (v)) {
     SCM v_entry = gh_cdar (v);
     // ((current . oldflag) . previous)
     if (!to_boolean (gh_cdar (v_entry))) { // not an old entry left over from a prior note ...
@@ -281,7 +281,7 @@ void Lyric_phrasing_engraver::create_grobs ()
       if (entry->get_melisma ()) {
 	if (entry->lyric_count ())
 	  warning (_ ("Huh? Melismatic note found to have associated lyrics."));
-	SCM previous_scm = gh_cdr (v_entry);
+	SCM previous_scm = ly_cdr (v_entry);
 	if (previous_scm != SCM_EOL) {
 	  Syllable_group *previous = unsmob_voice_entry (previous_scm);
 	  if (previous->lyric_count ())
@@ -296,7 +296,7 @@ void Lyric_phrasing_engraver::create_grobs ()
 void
 Lyric_phrasing_engraver::stop_translation_timestep ()
 {
-  for (SCM v=voice_alist_; gh_pair_p (v); v = gh_cdr (v)) {
+  for (SCM v=voice_alist_; gh_pair_p (v); v = ly_cdr (v)) {
     SCM entry_scm = gh_cdar (v);
     // ((alist_entry . entry_is_old) . previous_entry)
     Syllable_group * entry = unsmob_voice_entry (gh_caar (entry_scm));
@@ -304,9 +304,9 @@ Lyric_phrasing_engraver::stop_translation_timestep ()
     // set previous_entry, set entry_is_old, and resave it to alist_
     // but only change if this current was not old.
     if (! to_boolean (gh_cdar (entry_scm))) { 
-      Syllable_group * previous_entry = unsmob_voice_entry (gh_cdr (entry_scm));
+      Syllable_group * previous_entry = unsmob_voice_entry (ly_cdr (entry_scm));
       previous_entry->copy (entry);
-      entry_scm = gh_cons (gh_cons (gh_caar (entry_scm), SCM_BOOL_T), gh_cdr (entry_scm));
+      entry_scm = gh_cons (gh_cons (gh_caar (entry_scm), SCM_BOOL_T), ly_cdr (entry_scm));
       voice_alist_ = scm_assoc_set_x (voice_alist_, gh_caar (v), entry_scm);
     }
     entry->next_lyric ();

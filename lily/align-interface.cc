@@ -123,8 +123,8 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
   SCM thr = me->get_grob_property ("threshold");
   if (gh_pair_p (thr))
     {
-      threshold[SMALLER] = gh_scm2double (gh_car (thr));
-      threshold[BIGGER] = gh_scm2double (gh_cdr (thr));      
+      threshold[SMALLER] = gh_scm2double (ly_car (thr));
+      threshold[BIGGER] = gh_scm2double (ly_cdr (thr));      
     }
 
   
@@ -143,19 +143,19 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 	  // todo: fucks up if item both in Halign & Valign. 
 	  SCM min_dims = e->remove_grob_property ("minimum-space");
 	  if (gh_pair_p (min_dims) &&
-	      gh_number_p (gh_car (min_dims))
-	      && gh_number_p (gh_cdr (min_dims)))
+	      gh_number_p (ly_car (min_dims))
+	      && gh_number_p (ly_cdr (min_dims)))
 	    {
 	      y.unite (ly_scm2interval (min_dims));
 	    }
 	  
 	  SCM extra_dims = e->remove_grob_property ("extra-space");
 	  if (gh_pair_p (extra_dims) &&
-	      gh_number_p (gh_car (extra_dims))
-	      && gh_number_p (gh_cdr (extra_dims)))
+	      gh_number_p (ly_car (extra_dims))
+	      && gh_number_p (ly_cdr (extra_dims)))
 	    {
-	      y[LEFT] += gh_scm2double (gh_car (extra_dims));
-	      y[RIGHT] += gh_scm2double (gh_cdr (extra_dims));
+	      y[LEFT] += gh_scm2double (ly_car (extra_dims));
+	      y[RIGHT] += gh_scm2double (ly_cdr (extra_dims));
 	    }
 
 	  elems.push (e);
@@ -245,7 +245,7 @@ Align_interface::align_elements_to_extents (Grob * me, Axis a)
 Axis
 Align_interface::axis (Grob*me)
 {
-  return  Axis (gh_scm2int (gh_car (me->get_grob_property ("axes"))));
+  return  Axis (gh_scm2int (ly_car (me->get_grob_property ("axes"))));
 }
 
 
@@ -259,10 +259,10 @@ Align_interface::get_count (Grob*me,Grob*s)
   int c =0;
   while (gh_pair_p (e))
     {
-      if (gh_car (e) == s->self_scm ())
+      if (ly_car (e) == s->self_scm ())
 	break;
       c++;
-      e = gh_cdr (e);
+      e = ly_cdr (e);
     }
   return c;
 }

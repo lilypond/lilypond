@@ -24,7 +24,7 @@ ly_deep_mus_copy (SCM m)
     }
   else if (gh_pair_p (m))
     {
-      return gh_cons (ly_deep_mus_copy (gh_car (m)), ly_deep_mus_copy (gh_cdr (m)));
+      return gh_cons (ly_deep_mus_copy (ly_car (m)), ly_deep_mus_copy (ly_cdr (m)));
     }
   else
     return m;
@@ -99,7 +99,7 @@ Music::start_mom () const
 void
 print_alist (SCM a, SCM port)
 {
-  for (SCM s = a; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = a; gh_pair_p (s); s = ly_cdr (s))
     {
       scm_display (gh_caar (s), port);
       scm_puts (" = ", port); 
@@ -153,10 +153,10 @@ Music::get_mus_property (SCM sym) const
 {
   SCM s = scm_sloppy_assq (sym, mutable_property_alist_);
   if (s != SCM_BOOL_F)
-    return gh_cdr (s);
+    return ly_cdr (s);
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
-  return (s == SCM_BOOL_F) ? SCM_EOL : gh_cdr (s); 
+  return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
 }
 
 /*

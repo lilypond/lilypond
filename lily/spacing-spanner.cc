@@ -181,7 +181,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 	  Real left_distance = 0;
 	  if (gh_pair_p (hint))
 	    {
-	      left_distance = gh_scm2double (gh_cdr (hint)); 
+	      left_distance = gh_scm2double (ly_cdr (hint)); 
 	    }
 	   // 2nd condition should be (i+1 < col_count ()), ie. not the last column in score.  FIXME
 	  else if (!Paper_column::musical_b (lc) && i+1 < cols.size ()) 
@@ -218,7 +218,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 	  Real right_dist = 0.0;
 	  if (gh_pair_p (next_hint))
 	    {
-	      right_dist += - gh_scm2double (gh_car (next_hint));
+	      right_dist += - gh_scm2double (ly_car (next_hint));
 	    }
 	  else
 	    {
@@ -247,7 +247,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 	  
 	  if (gh_pair_p (next_stretch_hint))
 	    // see regtest spacing-tight
-	    stretch_dist += - gh_scm2double (gh_car (next_stretch_hint));
+	    stretch_dist += - gh_scm2double (ly_car (next_stretch_hint));
 	  else
 	    stretch_dist += right_dist;
 
@@ -524,8 +524,8 @@ Spacing_spanner::stem_dir_correction (Grob*me, Grob*l, Grob*r)
   if (scm_ilength (dl) != 1 || scm_ilength (dr) != 1)
     return 0.;
 
-  dl = gh_car (dl);
-  dr = gh_car (dr);
+  dl = ly_car (dl);
+  dr = ly_car (dr);
 
   assert (gh_number_p (dl) && gh_number_p (dr));
   int d1 = gh_scm2int (dl);

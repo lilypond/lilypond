@@ -154,11 +154,11 @@ Slur_bezier_bow::minimise_enclosed_area (Real beauty,
   if (fit_factor () > 1.0)
     blow_fit ();
   
-  Real pct_c0 = gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-c0"), bezier_props)));
-  Real pct_c3 = gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-c3"), bezier_props)));
-  Real pct_in_max =  gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-in-max"), bezier_props)));
-  Real pct_out_max = gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-out-max"), bezier_props)));
-  Real steps =  gh_scm2double (gh_cdr (scm_assoc (ly_symbol2scm ("bezier-area-steps"),bezier_props)));
+  Real pct_c0 = gh_scm2double (ly_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-c0"), bezier_props)));
+  Real pct_c3 = gh_scm2double (ly_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-c3"), bezier_props)));
+  Real pct_in_max =  gh_scm2double (ly_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-in-max"), bezier_props)));
+  Real pct_out_max = gh_scm2double (ly_cdr (scm_assoc (ly_symbol2scm ("bezier-pct-out-max"), bezier_props)));
+  Real steps =  gh_scm2double (ly_cdr (scm_assoc (ly_symbol2scm ("bezier-area-steps"),bezier_props)));
 
   for (int i=0; i < steps; i++)
     {

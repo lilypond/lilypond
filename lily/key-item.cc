@@ -37,7 +37,7 @@ int
 alteration_pos  (SCM what, int alter, int c0p)
 {
   if (gh_pair_p (what))
-    return gh_scm2int (gh_car (what)) * 7 + gh_scm2int (gh_cdr (what)) + c0p;
+    return gh_scm2int (ly_car (what)) * 7 + gh_scm2int (ly_cdr (what)) + c0p;
 
   int p = gh_scm2int (what);
 
@@ -101,7 +101,7 @@ Key_item::brew_molecule (SCM smob)
   */
   int c0p = gh_scm2int (me->get_grob_property ("c0-position"));
 
-  for (SCM s = newas; gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = newas; gh_pair_p (s); s = ly_cdr (s))
     {
       SCM what = gh_caar (s);
       int alter = gh_scm2int (gh_cdar (s));
@@ -133,11 +133,11 @@ Key_item::brew_molecule (SCM smob)
 	natural=Font_interface::get_default_font (me)->
 	    find_by_name (String ("accidentals-") + style + String ("0"));
       
-      for (; gh_pair_p (old); old = gh_cdr (old))
+      for (; gh_pair_p (old); old = ly_cdr (old))
         {
 	  SCM found = scm_assoc (gh_caar (old), newas);
 	  if (found == SCM_BOOL_F
-	      || gh_cdr (found) != gh_cdar (old))
+	      || ly_cdr (found) != gh_cdar (old))
 	    {
 	      SCM what = gh_caar (old);
 	      int alter = 0;

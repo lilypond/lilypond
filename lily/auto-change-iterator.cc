@@ -85,8 +85,8 @@ Auto_change_iterator::pending_pitch (Moment m) const
   while (1)
     {
       SCM muses = iter->get_music (m);
-      for (SCM s = muses; gh_pair_p (s); s=gh_cdr (s))
-	if (Note_req* nr = dynamic_cast<Note_req*> (unsmob_music (gh_car (s))))
+      for (SCM s = muses; gh_pair_p (s); s=ly_cdr (s))
+	if (Note_req* nr = dynamic_cast<Note_req*> (unsmob_music (ly_car (s))))
 	  {
 	    ps.push (*unsmob_pitch (nr->get_mus_property ("pitch")));
 	  }

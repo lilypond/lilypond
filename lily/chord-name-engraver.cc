@@ -52,10 +52,10 @@ Chord_name_engraver::Chord_name_engraver ()
 void
 Chord_name_engraver::add_note (Note_req* n)
 {
-  SCM pitches = gh_car (chord_);
-  SCM modifiers = gh_cdr (chord_);
-  SCM inversion = modifiers == SCM_EOL ? SCM_EOL : gh_car (modifiers);
-  SCM bass = modifiers == SCM_EOL ? SCM_EOL : gh_cdr (modifiers);
+  SCM pitches = ly_car (chord_);
+  SCM modifiers = ly_cdr (chord_);
+  SCM inversion = modifiers == SCM_EOL ? SCM_EOL : ly_car (modifiers);
+  SCM bass = modifiers == SCM_EOL ? SCM_EOL : ly_cdr (modifiers);
   
   if (n->get_mus_property ("inversion") == SCM_BOOL_T)
     inversion = n->get_mus_property ("pitch");
@@ -88,13 +88,13 @@ Chord_name_engraver::acknowledge_grob (Grob_info i)
 void
 Chord_name_engraver::create_grobs ()
 {
-  if (!chord_name_p_ && gh_car (chord_) != SCM_EOL)
+  if (!chord_name_p_ && ly_car (chord_) != SCM_EOL)
     {
       chord_name_p_ = new Item (get_property ("ChordName"));
       chord_name_p_->set_grob_property ("chord", chord_);
       announce_grob (chord_name_p_, 0);
       SCM s = get_property ("chordChanges");
-      if (to_boolean (s) && gh_car (last_chord_) != SCM_EOL
+      if (to_boolean (s) && ly_car (last_chord_) != SCM_EOL
 	  	  && gh_equal_p (chord_, last_chord_))
 	chord_name_p_->set_grob_property ("begin-of-line-visible", SCM_BOOL_T);
     }
@@ -109,7 +109,7 @@ Chord_name_engraver::stop_translation_timestep ()
     }
   chord_name_p_ = 0;
 
-  if (gh_car (chord_) != SCM_EOL)
+  if (ly_car (chord_) != SCM_EOL)
     last_chord_ = chord_;
   chord_ = gh_cons (SCM_EOL, gh_cons (SCM_EOL, SCM_EOL));
 }

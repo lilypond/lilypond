@@ -1,3 +1,17 @@
+1.5.11
+======
+
+* Allow breaks at measures starting with grace notes.
+
+* Bugfix: don't give up when there is one entirely unspaceable
+measure/line.
+
+* Some GH deprecation.
+
+* Midi module: add timestamps.
+
+* 
+
 1.5.11.jcn1
 ===========
 

@@ -10,7 +10,7 @@
 #ifndef PROTECTED_SCM_HH
 #define PROTECTED_SCM_HH
 
-#include <guile/gh.h>
+#include <libguile.h>
 
 /*
   Mix GUILE GC with C++ ctors and dtors. 

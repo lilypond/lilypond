@@ -95,7 +95,7 @@ Local_key_engraver::create_grobs ()
 	  SCM prev = scm_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), localsig);
 	  if (prev == SCM_BOOL_F)
 	    prev = scm_assoc (gh_int2scm (n), localsig);
-	  SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm (0) : gh_cdr (prev);
+	  SCM prev_acc = (prev == SCM_BOOL_F) ? gh_int2scm (0) : ly_cdr (prev);
 	  bool different = !gh_equal_p (prev_acc , gh_int2scm (a));
 	  int p = gh_number_p (prev_acc) ? gh_scm2int (prev_acc) : 0;
 

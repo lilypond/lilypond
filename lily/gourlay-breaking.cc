@@ -66,6 +66,8 @@ Gourlay_breaking::do_solve () const
   optimal_paths[0] = first_node; 
   int break_idx=1;
 
+  Real worst_force = 0.0;
+  
   for (; break_idx< breaks.size (); break_idx++) 
     {
       /*
@@ -94,13 +96,26 @@ Gourlay_breaking::do_solve () const
 	  sp->solve (&cp);
 	  delete sp;
 
-	  if (start_idx == break_idx - 1)
-	    backup_sol = cp;	// in case everything fucks up
-	  if (!cp.satisfies_constraints_b_)
-	    break;
+	  if (cp.force_f_ > worst_force)
+	    worst_force = cp.force_f_;
 
+	  /*
+	    We remember this solution as a "should always work
+	    solution", in case everything fucks up.  */
+	  if (start_idx == break_idx - 1)
+	    backup_sol = cp;
+	  if (!cp.satisfies_constraints_b_)
+	    {
+	      /*
+		If it doesn't satisfy constraints, we make this one
+		really unattractive.
+	      */
+	      cp.force_f_ += worst_force;
+	      cp.force_f_ *= 10;	
+	    }
 	  
 	  Real this_demerits;
+
 	  if (optimal_paths[start_idx].demerits_f_ >= infinity_f)
 	    this_demerits = infinity_f;
 	  else
@@ -113,6 +128,13 @@ Gourlay_breaking::do_solve () const
 	      minimal_sol = cp;
 	      minimal_demerits = this_demerits;
 	    }
+
+	  /*
+	    we couldn't satisfy the constraints, this won't get better
+	    if we add more columns, so we get on with the next one
+	  */
+	  if (!cp.satisfies_constraints_b_)
+	    break ; 
 	}
 
       int prev =break_idx - 1;
@@ -156,9 +178,14 @@ Gourlay_breaking::do_solve () const
   if (optimal_paths.top ().demerits_f_ >= infinity_f)
     warning (_ ("No feasible line breaking found"));
   
-  for (int i= final_breaks.size (); i--;) 
-    lines.push (optimal_paths[final_breaks[i]].line_config_);
-  
+  for (int i= final_breaks.size (); i--;)
+    {
+      Column_x_positions cp (optimal_paths[final_breaks[i]].line_config_);
+      
+      lines.push (cp);
+      if(!cp.satisfies_constraints_b_)
+	warning ("Could not find line breaking that satisfies constraints.");
+    }
   return lines;
 }
 
