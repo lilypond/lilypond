@@ -50,12 +50,14 @@ Text_item::Text_item(Text_req* treq_l)
 void
 Text_item::set_default_index()
 {
-    pos_i_  = get_position_i();
+    pos_i_  = get_position_i(tdef_p_->create_atom(paper()).extent().y );
 }
 
 void
-Text_item::do_pre_processing()
+Text_item::do_post_processing()
 {
+    if (!dir_i_)
+	dir_i_ = -1;
     set_default_index();
 }
 
