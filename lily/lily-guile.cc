@@ -102,10 +102,10 @@ gulp_file_to_string (String fn)
   return result;
 }
 
-LY_DEFINE (ly_gulp_file, "ly:gulp-file", 1,0, 0,
-	  (SCM name),
-	  "Read the file @var{name}, and return its contents in a string. The "
-" file is looked up using the search path.")
+LY_DEFINE (ly_gulp_file, "ly:gulp-file",
+	   1, 0, 0, (SCM name),
+	  "Read the file @var{name}, and return its contents in a string.  "
+	   "The file is looked up using the search path.")
 {
   return scm_makfrom0str (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
