@@ -6,12 +6,12 @@
   (c) 1996, 1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include <ctype.h>
 #include "debug.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
 #include "text-def.hh"
-#include <ctype.h>
 
 Direction
 Text_def::staff_dir () const
@@ -24,17 +24,7 @@ Text_def::staff_dir () const
 Real
 Text_def::guess_width_f(Atom& a) const
 {
-  // Count each TeX command as one character, ugh
-  int index, length=0;
-  int total_length=text_str_.length_i();
-  const char* str=text_str_.ch_C();
-  for (index=0;index<total_length;index++) {
-    length++;
-    if (str[index]=='\\')
-      for (index++;(index < total_length) && isalpha(str[index]);index++)
-	;
-  }
-  return length * a.dim_.x ().length (); // ugh
+  return a.dim_.x ().length ();
 }
 
 Interval
@@ -42,9 +32,8 @@ Text_def::width (Paper_def * p) const
 {
   Atom a = get_atom (p,CENTER);
 
-
-  Interval i (0, guess_width_f(a));
-  i += - (align_dir_ + 1)* i.center();
+  Interval i (0, guess_width_f (a));
+  i += - (align_dir_ + 1)* i.center ();
   return i;
 }
 
@@ -76,6 +65,8 @@ Text_def::get_atom (Paper_def *p, Direction) const
   Atom a= p->lookup_l(0)->text (style_str_, text_str_);
 
   a.translate_axis (-(align_dir_ + 1)* guess_width_f (a) / 2, X_AXIS);
+  // urg 1/1 is too much; see input/test/vertical-text.ly
+  a.translate_axis (a.dim_.y ().length () * 9 / 10, Y_AXIS);
   
   return a;
 }
