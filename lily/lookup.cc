@@ -241,19 +241,13 @@ Lookup::text (String style, String text, Paper_def *paper_l)
       font_mag = (int)paper_l->get_var ("magnification_" + style);
     }
 
-  /*
-    UGH.
-  */
-  SCM l = scm_eval (gh_list (ly_symbol2scm ("style-to-cmr"),
-			     ly_str02scm (style.ch_C()),
-			     SCM_UNDEFINED));
-  
+  SCM l = scm_assoc (ly_str02scm (style.ch_C()),
+		     scm_eval (ly_symbol2scm ("cmr-alist")));
+
   if (l != SCM_BOOL_F)
     {
       style = ly_scm2string (gh_cdr(l)) +to_str  ((int)font_h);
     }
-
-  
 
   Font_metric* metric_l = 0;
 

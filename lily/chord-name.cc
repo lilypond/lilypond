@@ -31,10 +31,10 @@ Chord_name::ly_word2molecule (SCM word, Real* x) const
 {
   *x = 0;
 
-  SCM options = SCM_EOL;
+  SCM options_alist = SCM_EOL;
   if (gh_pair_p (word))
     {
-      options = gh_cdr (word);
+      options_alist = gh_cdr (word);
       word = gh_car (word);
     }
 
@@ -51,7 +51,7 @@ Chord_name::ly_word2molecule (SCM word, Real* x) const
       String w = ly_scm2string (word);
 
       String style;
-      SCM s = scm_assoc (ly_symbol2scm ("style"), options);
+      SCM s = scm_assoc (ly_symbol2scm ("style"), options_alist);
       if (s != SCM_BOOL_F)
 	{
 	  style = ly_scm2string (gh_cdr (s));
@@ -62,7 +62,7 @@ Chord_name::ly_word2molecule (SCM word, Real* x) const
       /*
 	urg, `type'
       */
-      s = scm_assoc (ly_symbol2scm ("type"), options);
+      s = scm_assoc (ly_symbol2scm ("type"), options_alist);
       if (s != SCM_BOOL_F && ly_scm2string (gh_cdr (s)) == "super")
 	{
 	  Real super_y = ex / 2;
@@ -71,13 +71,13 @@ Chord_name::ly_word2molecule (SCM word, Real* x) const
 	    size = -2;
 	}
 
-      s = scm_assoc (ly_symbol2scm ("size"), options);
+      s = scm_assoc (ly_symbol2scm ("size"), options_alist);
       if (s != SCM_BOOL_F)
 	{
 	  size = gh_scm2int (gh_cdr (s));
 	}
 
-      s = scm_assoc (ly_symbol2scm ("offset"), options);
+      s = scm_assoc (ly_symbol2scm ("offset"), options_alist);
       if (s != SCM_BOOL_F)
 	{
 	  // hmm
@@ -88,7 +88,7 @@ Chord_name::ly_word2molecule (SCM word, Real* x) const
 	}
 
       Molecule mol;
-      s = scm_assoc (ly_symbol2scm ("font"), options);
+      s = scm_assoc (ly_symbol2scm ("font"), options_alist);
       if (s != SCM_BOOL_F && ly_scm2string (gh_cdr (s)) == "feta")
         mol = paper_l ()->lookup_l (size)->afm_find (w);
       else

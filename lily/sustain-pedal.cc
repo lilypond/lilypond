@@ -35,32 +35,23 @@ Sustain_pedal::do_brew_molecule () const
 
   for (int i = 0; i < text.length_i (); i++)
     {
-      String idx = String ("pedal-") + String (&text.byte_C ()[i], 1);
-      Molecule m = lookup_l ()->afm_find (idx);
-      if (m.empty_b ())
-	continue;
-      Real kern = 0;
-      if (i)
+      String idx ("pedal-");
+      if (text.cut_str (i, i + 2) == "Ped")
 	{
-	  SCM s = scm_eval (gh_list (ly_symbol2scm ("pedal-kerning"),
-				     ly_str02scm (String (&text.byte_C ()[i - 1], 1).ch_C ()),
-				     ly_str02scm (String (&text.byte_C ()[i], 1).ch_C ()),
-				     SCM_UNDEFINED));
-	  if (gh_number_p (s))
-	    {
-	      Staff_symbol_referencer_interface st (this);
-	      Real staff_space = st.staff_space ();
-	      kern = gh_scm2double (s) * staff_space;
-	    }
+	  idx += "Ped";
+	  i += 2;
 	}
-      mol.add_at_edge (X_AXIS, RIGHT, m, kern);
+      else
+	idx += String (&text.byte_C ()[i], 1);
+      Molecule m = lookup_l ()->afm_find (idx);
+      if (!m.empty_b ())
+	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
     }
     
   return mol;
 }
 
-
-
 Sustain_pedal ::Sustain_pedal(SCM s )
   : Item (s)
-{}
+{
+}
