@@ -46,8 +46,6 @@ verba = \context Lyrics = verba \lyrics {
 %   width = 12.0 \cm
 %   raggedright = ##t
 %   gourlay_maxmeasures = 30.
-%   arithmetic_basicspace = 3.8
-%   arithmetic_multiplier = 8.\pt
 %
     \translator {
       \VoiceContext

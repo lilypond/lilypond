@@ -1,3 +1,10 @@
+2003-05-22  Juergen Reuter  <reuter@ipd.uka.de>
+	* input/test/gregorian-scripts.ly, input/test/vaticana.ly: removed
+	obsolete "arithmetic_*"
+
+	* input/bugs/ligatures.ly: removed (will be put into a different
+	directory later)
+
 2003-05-22  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/aclocal.m4: Add tetex-devel as package suggestion for
