@@ -546,9 +546,15 @@ version 0.1.6.
 @end quotation
 @end itemize
 
-Another option is to enter the music using your favorite MIDI
-sequencer, and then import it using midi2ly. midi2ly is described in
-@ref{Invoking midi2ly}.
+Another option is to enter the music using your favorite
+sequencer/notation editor, and then export it as MIDI or MusicXML.
+You can then import it in lilypond by using either midi2ly or
+@cindex midi2ly
+xml2ly. midi2ly is described in @ref{Invoking midi2ly}. @code{xml2ly}
+@cindex xml2ly
+is a tool to convert from the MusicXML music representation format
+(@uref{http://www.musicxml.org}) to LilyPond format. @code{xml2ly} is
+described at @uref{http://www.nongnu.org/xml2ly/}.
 
 
 @c .  {Relative}
