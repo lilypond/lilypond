@@ -5,7 +5,7 @@ clusterSneeuwbal =\notes {
 		\property Voice.Beam \set #'transparent = ##t
 %		\property Staff.Accidental \set #'transparent = ##t
 		\property Voice.Cluster \set #'padding = #0.25
-		\property Voice.Cluster \set #'shape = #'ramp
+		\property Voice.Cluster \set #'style = #'ramp
 }
 \score {
 \notes \context PianoStaff <
