@@ -1,4 +1,19 @@
+2004-01-09  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/main.cc (main_prog): print summary of failed files.
+
+	* lily/axis-group-engraver.cc: move all spanner creation to
+	process_music (). Now staffs can be adjusted with \override too.
+	
+	* lily/chord-tremolo-engraver.cc (try_music): fix spurious warning. 
+
 2004-01-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* lily/translator-def.cc (get_translator_names): accept user
+	tweaks too. 
+
+	* mf/feta-bolletjes.mf (overdone_heads): oops, slashes are twice
+	as big as normal heads. 
 
 	* input/*ly: run convert-ly
 	

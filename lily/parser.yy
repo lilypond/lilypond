@@ -316,7 +316,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <i>	exclamations questions dots optional_rest
 %type <i>  	 bass_mod
 %type <scm> 	grace_head
-%type <scm> 	property_operation_list
+%type <scm> 	context_mod_list
 %type <scm>  	lyric_element
 %type <scm> 	bass_number br_bass_figure bass_figure figure_list figure_spec
 %token <i>	DIGIT
@@ -327,9 +327,7 @@ yylex (YYSTYPE *s,  void * v)
 %token <scm>    FRACTION
 %token <id>	IDENTIFIER
 %token <scm>	CHORDNAMES
-
-%token <scm> CHORD_MODIFIER
-
+%token <scm> 	CHORD_MODIFIER
 %token <scm>	SCORE_IDENTIFIER
 %token <scm>	MUSIC_OUTPUT_DEF_IDENTIFIER
 %token <scm>	NUMBER_IDENTIFIER
@@ -383,7 +381,7 @@ yylex (YYSTYPE *s,  void * v)
 %type <music>	relative_music re_rhythmed_music part_combined_music
 %type <music>	music_property_def context_change 
 %type <scm> Music_list
-%type <scm> property_operation context_mod translator_mod
+%type <scm> property_operation context_mod translator_mod optional_context_mod
 %type <outputdef>  music_output_def_body
 %type <music> shorthand_command_req
 %type <music>	post_event tagged_post_event
@@ -888,15 +886,20 @@ Simple_music:
 	;
 
 
+optional_context_mod:
+	/**/ { $$ = SCM_EOL; }
+	| WITH '{' context_mod_list '}'  { $$ = $3; }
+	;
+
 grace_head:
 	GRACE  { $$ = scm_makfrom0str ("Grace"); } 
 	| ACCIACCATURA { $$ = scm_makfrom0str ("Acciaccatura"); }
 	| APPOGGIATURA { $$ = scm_makfrom0str ("Appoggiatura"); }
 	;
 
-property_operation_list:
+context_mod_list:
 	/* */  { $$ = SCM_EOL; }
-	| property_operation_list property_operation  {
+	| context_mod_list context_mod  {
 		 $$ = gh_cons ($2, $1);
 	}
 	;
@@ -964,26 +967,18 @@ basic music objects too, since the meaning is different.
 		scm_gc_unprotect_object ($2->self_scm ());
 #endif
 	}
-	| CONTEXT string '=' string Music {
-		$$ = context_spec_music ($2, $4, $5, SCM_EOL);
+	| CONTEXT string '=' string optional_context_mod Music {
+		$$ = context_spec_music ($2, $4, $6, $5);
 
 	}
-	| CONTEXT STRING Music {
-		$$ = context_spec_music ($2, SCM_UNDEFINED, $3, SCM_EOL);
+	| CONTEXT STRING optional_context_mod Music {
+		$$ = context_spec_music ($2, SCM_UNDEFINED, $4, $3);
 	}
-	| NEWCONTEXT string Music {
+	| NEWCONTEXT string optional_context_mod Music {
 		$$ = context_spec_music ($2, get_next_unique_context (),
-					 $3, SCM_EOL);
+					 $4, $3);
 	}
-	| TRANSLATOR string '{' property_operation_list '}' Music  {
-		$$ = context_spec_music ($2, get_next_unique_context (),
-					 $6, $4);
-		
-	}
-	| TRANSLATOR string '=' string '{' property_operation_list '}' Music  {
-		$$ = context_spec_music ($2, $4, 
-					 $8, $6);
-	}
+
 	| TIMES {
 		THIS->push_spot ();
 	}

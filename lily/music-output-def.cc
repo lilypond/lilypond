@@ -102,7 +102,7 @@ Music_output_def::get_global_translator ()
   if (!t)
     error (_f ("can't find `%s' context", "Score"));
 
-  Translator_group * tg = t->instantiate (this);
+  Translator_group * tg = t->instantiate (this, SCM_EOL);
   
   tg->initialize ();
   

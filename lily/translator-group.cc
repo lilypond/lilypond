@@ -86,14 +86,15 @@ Translator_group::add_used_group_translator (Translator *t)
 
 
 void
-Translator_group::add_fresh_group_translator (Translator*t, SCM pre_init_ops)
+Translator_group::add_fresh_group_translator (Translator*t)
 {
   Translator_group*tg = dynamic_cast<Translator_group*> (t);
-  assert (tg);
 
   trans_group_list_ = add_translator (trans_group_list_,t); 
-  unsmob_translator_def (tg->definition_)->apply_default_property_operations (tg);
-  apply_property_operations (tg, pre_init_ops);
+  
+  Translator_def * td = unsmob_translator_def (tg->definition_);
+  td->apply_default_property_operations (tg);
+
   t->initialize ();
 }
 
@@ -139,16 +140,19 @@ Translator_group::find_create_translator (SCM n, String id, SCM operations)
       // start at 1.  The first one (index 0) will be us.
       for (int i=0; i < path.size (); i++)
 	{
-	  Translator_group * new_group = path[i]->instantiate (output_def_);
+	  SCM ops = (i == path.size () -1) ? operations : SCM_EOL;
 
-	  SCM ops = SCM_EOL; 
+	  Translator_group * new_group
+	    = path[i]->instantiate (output_def_, ops);
+
 	  if (i == path.size () -1)
 	    {
 	      new_group->id_string_ = id;
-	      ops = operations;
 	    }
 
-	  current->add_fresh_group_translator (new_group, ops);
+	  current->add_fresh_group_translator (new_group);
+	  apply_property_operations (new_group, ops);
+	  
 	  current = new_group;
 	}
 
@@ -236,8 +240,8 @@ Translator_group::get_default_interpreter ()
 	  warning (_f ("can't find or create: `%s'", ly_symbol2string (nm).to_str0 ()));
 	  t = unsmob_translator_def (this->definition_);
 	}
-      Translator_group *tg = t->instantiate (output_def_);
-      add_fresh_group_translator (tg, SCM_EOL);
+      Translator_group *tg = t->instantiate (output_def_, SCM_EOL);
+      add_fresh_group_translator (tg);
 
       if (!tg->is_bottom_translator_b ())
 	return tg->get_default_interpreter ();
@@ -473,6 +477,9 @@ Translator_group::context_name () const
   return ly_symbol2string (td->get_context_name ());
 }
 
+/*
+  PRE_INIT_OPS is in the order specified, and hence must be reversed.
+ */
 void
 apply_property_operations (Translator_group*tg, SCM pre_init_ops)
 {

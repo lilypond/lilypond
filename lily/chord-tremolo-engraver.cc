@@ -95,7 +95,7 @@ Chord_tremolo_engraver::try_music (Music * m)
 
       int elt_count = seq ? scm_ilength (seq-> music_list ()) : 1;
 
-      if (elt_count != 2)
+      if (seq && elt_count != 2)
 	{
 	  rp->origin ()->warning (_f ("Chord tremolo with %d elements. Must have two elements.", elt_count));
 	}

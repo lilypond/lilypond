@@ -53,7 +53,7 @@ protected:
   Spanner * sep_span_;
   
   virtual void acknowledge_grob (Grob_info);
-  virtual void initialize ();
+  virtual void process_music ();
   virtual void finalize ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();  
@@ -69,14 +69,17 @@ Separating_line_group_engraver::Separating_line_group_engraver ()
 }
 
 void
-Separating_line_group_engraver::initialize ()
+Separating_line_group_engraver::process_music ()
 {
-  sep_span_ = new Spanner (get_property ("SeparatingGroupSpanner"));
 
-  announce_grob(sep_span_, SCM_EOL);
-  sep_span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+  if (!sep_span_)
+    {
+      sep_span_ = new Spanner (get_property ("SeparatingGroupSpanner"));
+
+      announce_grob(sep_span_, SCM_EOL);
+      sep_span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+    }
 }
-
 void
 Separating_line_group_engraver::finalize ()
 {

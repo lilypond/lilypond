@@ -8,7 +8,6 @@
  */
 #include "protected-scm.hh"
 #include "lily-guile.hh"
-#include "main.hh"
 
 Protected_scm::Protected_scm ()
 {

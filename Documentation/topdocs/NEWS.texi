@@ -10,7 +10,15 @@
 Unreleased:
 
 @itemize
-@item  Features of spanner contexts, like Staff, can now be changed easily:
+
+@item The syntax for changing staffs has changed. The keyword
+@code{\change} should now be used, e.g.
+
+@example
+  \change Staff = up
+@end example 
+
+@item  Features of spanner contexts, like @code{Staff}, can now be changed easily:
 
 @example
   \new Staff \with @{
@@ -30,7 +38,8 @@ Version 2.1.7
 @itemize @bullet
 
 @item Multi measure rests are now truly centered between the
-clefs/barlines of the staff, independent of symbols on the other staffs.
+clefs/barlines of the staff, their position is independent of symbols
+on the other staffs.
 
 @item Collision resolution for dots in chords has been improved greatly. 
 
