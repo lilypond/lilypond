@@ -319,6 +319,15 @@ get_default_dir (Grob*me)
   return d;
 }
 
+Direction
+get_slur_dir (Grob *slur)
+{
+  Direction d = get_grob_direction (slur);
+  if (d == CENTER)
+    d = get_default_dir (slur);
+  return d;
+}
+
 MAKE_SCHEME_CALLBACK (New_slur, after_line_breaking,1);
 SCM
 New_slur::after_line_breaking (SCM smob)

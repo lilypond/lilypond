@@ -154,15 +154,13 @@ Slur_engraver::process_music ()
 	}
       else  if (d == START)
 	{
-	  // push a new slur onto stack.
-	  // (use temp. array to wait for all slur STOPs)
-	  Grob* slur = make_spanner ("Slur", slur_ev->self_scm ());
+	  /* push a new slur onto stack.
+	     (use temp. array to wait for all slur STOPs) */
+	  Grob *slur = make_spanner ("Slur", slur_ev->self_scm ());
 
 	  if (Direction updown = to_dir (slur_ev->get_property ("direction")))
-	    {
-	      slur->set_property ("direction", scm_int2num (updown));
-	    }
-	  
+	    slur->set_property ("direction", scm_int2num (updown));
+
 	  start_slurs.push (slur);
 	  events_.push (slur_ev);
 	}

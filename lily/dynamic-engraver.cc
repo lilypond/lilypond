@@ -5,20 +5,23 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include "warn.hh"
-#include "dimensions.hh"
-#include "hairpin.hh"
-#include "event.hh"
-#include "paper-column.hh"
-#include "note-column.hh"
-#include "item.hh"
-#include "side-position-interface.hh"
-#include "engraver.hh"
-#include "group-interface.hh"
-#include "directional-element-interface.hh"
-#include "context.hh"
+
 #include "axis-group-interface.hh"
+#include "context.hh"
+#include "dimensions.hh"
+#include "directional-element-interface.hh"
+#include "engraver.hh"
+#include "event.hh"
+#include "group-interface.hh"
+#include "hairpin.hh"
+#include "item.hh"
+#include "new-slur.hh"
+#include "note-column.hh"
+#include "paper-column.hh"
 #include "script-interface.hh"
+#include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh"
+#include "warn.hh"
 
 /*
   TODO:
@@ -39,8 +42,9 @@
  */
 class Dynamic_engraver : public Engraver
 {
-  Item * script_;
+  Item *script_;
   Spanner *line_spanner_;
+  Grob *slur_;
   Spanner *cresc_;
 
   Spanner *finished_line_spanner_;
@@ -72,6 +76,7 @@ protected:
 Dynamic_engraver::Dynamic_engraver ()
 {
   script_ = 0;
+  slur_ = 0;
   finished_cresc_ = 0;
   line_spanner_ = 0;
   finished_line_spanner_ = 0;
@@ -268,9 +273,11 @@ Dynamic_engraver::stop_translation_timestep ()
   typeset_all ();
   if (!current_cresc_ev_)
     {
+      
       finished_line_spanner_ = line_spanner_;
-      line_spanner_ =0;
+      line_spanner_ = 0;
       typeset_all ();
+      slur_ = 0;
     }
 
   script_ev_ = 0;
@@ -305,7 +312,17 @@ Dynamic_engraver::finalize ()
 
 void
 Dynamic_engraver::typeset_all ()
-{  
+{
+  if (finished_line_spanner_ && slur_
+      && get_slur_dir (slur_) == get_grob_direction (finished_line_spanner_))
+    {
+      Real ss = Staff_symbol_referencer::staff_space (finished_line_spanner_);
+      Real pad = robust_scm2double (finished_line_spanner_->get_property ("padding"), 0);
+      /* FIXME: 1ss padding hardcoded */
+      finished_line_spanner_->set_property ("padding",
+					    scm_make_real (pad + ss));
+    }
+
   if (finished_cresc_)
     {
       if (!finished_cresc_->get_bound (RIGHT))
@@ -313,7 +330,7 @@ Dynamic_engraver::typeset_all ()
 	  finished_cresc_->set_bound (RIGHT, script_
 				      ? script_
 				      : unsmob_grob (get_property ("currentMusicalColumn")));
-
+	  
 	  if (finished_line_spanner_)
 	    add_bound_item (finished_line_spanner_,
 			    finished_cresc_->get_bound (RIGHT));
@@ -361,8 +378,8 @@ void
 Dynamic_engraver::acknowledge_grob (Grob_info i)
 {
   if (!line_spanner_)
-    return ;
-  
+    return;
+
   if (Note_column::has_interface (i.grob_))
     {
       if (line_spanner_
@@ -379,7 +396,6 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 	  if (ly_c_pair_p (head))
 	    script_->set_parent (unsmob_grob (ly_car (head)),  X_AXIS);
 	}
-      
     }
   else if (Script_interface::has_interface (i.grob_) && script_)
     {
@@ -391,12 +407,12 @@ Dynamic_engraver::acknowledge_grob (Grob_info i)
 	DynamicText doesn't really have a script-priority field.
        */
       if (ly_c_number_p (p)
-	  && ly_scm2int (p) < ly_scm2int (script_->get_property ("script-priority")))
-	{
-	  Side_position_interface::add_support (line_spanner_, i.grob_);
-
-	}
+	  && ly_scm2int (p)
+	  < ly_scm2int (script_->get_property ("script-priority")))
+	Side_position_interface::add_support (line_spanner_, i.grob_);
     }
+  else if (New_slur::has_interface (i.grob_) && line_spanner_)
+    slur_ = i.grob_;
 }
 
 ENTER_DESCRIPTION (Dynamic_engraver,
@@ -408,6 +424,6 @@ ENTER_DESCRIPTION (Dynamic_engraver,
 		  
 /* creats*/       "DynamicLineSpanner DynamicText Hairpin TextSpanner",
 /* accepts */     "absolute-dynamic-event crescendo-event decrescendo-event",
-/* acks  */      "note-column-interface script-interface",
+/* acks  */      "note-column-interface script-interface new-slur-interface",
 /* reads */       "",
 /* write */       "");
