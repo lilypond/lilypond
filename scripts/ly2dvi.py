@@ -371,6 +371,9 @@ non_path_environment = {
 }
 
 def setup_environment ():
+	# $TEXMF is special, previous value is already taken care of
+	del os.environ['TEXMF']
+
 	for key in environment.keys ():
 		val = environment[key]
 		if os.environ.has_key (key):

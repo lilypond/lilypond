@@ -1,3 +1,9 @@
+2002-04-12  Heikki Junes <hjunes@cc.hut.fi>
+
+	* lilypond-font-lock.el: Handle slurs \( and \), numbers,
+	multi-measure rests like "R1 *4" and scheme (typically has '#' 
+	in the beginning). Small fixes. Add few reserved words.
+
 2002-04-12  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/topdocs/INSTALL.texi: Updates for MacOS X and
@@ -12,6 +18,11 @@
 	windows viewing commands, remove silly comment about Yap.
 
 2002-04-10  Mats Bengtsson  <matsb@s3.kth.se>
+	
+	* Documentation/topdocs/INSTALL.texi: Describe how to learn
+	configure to find kpathsea on for example Slackware 8.0.
+
+	* scripts/ly2dvi.py (non_path_environment): Set $TEXMF correctly.
 
         * scm/grob-description.scm (MultiMeasureRest): number-threshold=1
         by default: avoid "1" over single bar rests.

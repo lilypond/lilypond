@@ -362,7 +362,7 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{between-systems.ly}
 
-@lilypondfile{molecule-hacking.ly}
+@lilypondfile[printfilename]{molecule-hacking.ly}
 
 @bye
 

@@ -9,8 +9,8 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.5.50
-;; Last Modified: 6APR2002
+;; Version:       1.5.51
+;; Last Modified: 12APR2002
 ;; Keywords: lilypond languages music notation
 
 ;; This software is provided as-is, without express or implied
@@ -72,7 +72,7 @@
   (identifiers '( 
 
 ;; in principle, have one or more uppercase letters
-"\\(\\(BarNumbering\\|Choir\\|Grand\\|HaraKiri\\|OrchestralPart\\|Piano\\|Rhythmic\\)?Staff\\|\\(Cue\\|Lyrics\\)?Voice\\|\\(Orchestral\\)?Score\\|ChordNames\\|Grace\\|Lyrics\\|Staff\\(Group\\)?\\|Thread\\)Context" ; *Context
+"\\(\\(BarNumbering\\|\\(Inner\\)?Choir\\|Grand\\|HaraKiri\\|OrchestralPart\\|Piano\\|Rhythmic\\)?Staff\\|\\(Cue\\|Lyrics\\)?Voice\\|\\(Orchestral\\)?Score\\|ChordNames\\|FiguredBass\\|Grace\\|Lyrics\\|NoteNames\\|\\(Inner\\)?Staff\\(Group\\|Container\\)?\\|Thread\\)Context" ; *Context
 "\\(script\\|dots\\|dynamic\\|slur\\|stem\\|sustain\\|sostenuto\\|unaCorda\\|treCorde\\|tie\\|tuplet\\)\\(Both\\|Down\\|Up\\)" ; *(Both/Down/Up)
 "\\(slur\\|tie\\)\\(Dotted\\|Solid\\)" ; *(Dotted/Solid)
 "\\(autoBeam\\|cadenza\\|impro\\|turn\\)\\(Off\\|On\\)" ; *(On/Off)
@@ -98,8 +98,8 @@
 
 ;; Other words which look nicer when colored
 "Accidentals" "autoBeamSettings" "BarLine" "Beam"
-"ChordName\\([s]?\\|s.[a-zA-Z]*\\)" "DynamicText"
-"FiguredBass" "Hairpin" "\\(Grand\\|Piano\\)Staff"
+"ChordName\\([s]?\\|s.[a-zA-Z]*\\)" "Dots" "DynamicText"
+"FiguredBass" "Hairpin" "\\(\\(Inner\\)?Choir\\|Grand\\|Piano\\|Tab\\)Staff"
 "Slur" "Stem" "SpacingSpanner" "System\\(StartDelimiter\\)?"
 "\\(Grace\\|Lyrics\\|Note\\(Head\\|Names\\)\\|Score\\|\\(Rhythmic\\)?Staff\\(Symbol\\)?\\|Thread\\|Voice\\)\\(.[a-zA-Z]*\\)?" ; combine below, if possible
 "\\(Grace\\|Lyrics\\|Note\\(Head\\|Names\\)\\|Score\\|\\(Rhythmic\\)?Staff\\(Symbol\\)?\\|Thread\\|Voice\\)[ \t]*\\(.[ \t]*[a-zA-Z]*\\)?" 
@@ -118,22 +118,22 @@
 ;;            variable-name / type / constant / warning -face
 
       '("\\([_^-]?\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-constant-face)
-      '("\\(\\(#'\\)?[a-zA-Z][_a-zA-Z.\-]*[ \t]*=[ \t]*#\\(#f\\|#t\\)\\)" 1 font-lock-variable-name-face)
-      '("\\([a-zA-Z][_a-zA-Z.\-]*\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
-      '("[ \t]*=[ \t]*\\([a-zA-Z][_a-zA-Z]*\\)" 1 font-lock-variable-name-face)
+      '("\\([_a-zA-Z.0-9-]+\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
+      '("[ \t]*=[ \t]*\\([_a-zA-Z.0-9-]+\\)" 1 font-lock-variable-name-face)
 
 
 ;; other reserved words
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
 ;; highlight note names; separate notes from (other than ')'-type) brackets
-      '("[ <\{[~()\t]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsrR]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*[?!]?\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
+      '("\\([sR]\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[ ]*[*][0-9]+\\)"1 font-lock-type-face)
+      '("[ <\{[~()\t\\\|]\\(\\(\\(\\(do\\|re\\|mi\\|fa\\|sol\\|la\\|si\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-hsrR]\\(flat\\(flat\\)?\\|sharp\\(sharp\\)?\\|ff?\\|ss?\\|is\\(siss\\|s\\|is\\)?\\|es\\(sess\\|s\\|es\\)?\\)?\\)\\|\\(as\\(as\\|es\\)?\\)\\|\\(es\\(es\\)?\\)\\|\\(bb\\)\\)[,']*[?!]?\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\)?[.]*\\)" 1 font-lock-type-face)
 
 ;; highlight identifiers
-      (cons (concat "\\([_^-]?\\(" iregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-function-name-face t))
+      (cons (concat "\\([_^-]?\\(" iregex "\\)\\)+\\($\\|[] \t(~{}>\\\\_-()^]\\)") '(0 font-lock-function-name-face t))
 
 ;; highlight keywords
-      (cons (concat "\\([_^-]?\\(" kwregex "\\)\\)+\\($\\|[] \t(~{}>\\\\]\\)") '(0 font-lock-keyword-face t))
+      (cons (concat "\\([_^-]?\\(" kwregex "\\)\\)+\\($\\|[] \t(~{}>\\\\_-()^]\\)") '(0 font-lock-keyword-face t))
 
 ;; highlight bracketing constructs
       '("\\([][}{]\\)" 0 font-lock-warning-face t)
@@ -144,10 +144,16 @@
       '("[_^-]\\s-*[-^]\\s-*\\(>\\)" 1 font-lock-warning-face t) 
       ;; but leave a b c-> (accent) alone, accounting for whitespace
       '("\\([^\\t\\n _^-]\\|^\\)\\s-*\\(>\\)" 2 font-lock-warning-face t)
-      ;; ties ~, slurs (), hairpins \<,  \>, end-of-hairpin \!, 
-      '("\\([(~)]\\|\\\\<\\|\\\\!\\|\\\\>\\)" 0 font-lock-builtin-face t)
+      ;; ties ~, slurs \( () \), hairpins \<,  \>, end-of-hairpin \!, 
+      '("\\(\\\\[(<!>)]\\|[(~)]\\)" 0 font-lock-builtin-face t)
 
-;; highlight comments (again)
+;; highlight scheme; Urgh. should count '(':s, then continue up to last ')'
+      '("[_^-]?#\\(#[ft]\\|['`](lines[^)]*))\\|['`][a-zA-Z-:]+\\|['`]?([^)]*)\\|-?[0-9.]+\\|\"[^\"]*\"\\)" 0 font-lock-string-face t)
+
+;; (re)highlight strings
+      '("[_^-]?\"[^\"]*\"" 0 font-lock-string-face t)
+
+;; (re)highlight comments
       '("\\(%.*\\)" 0 font-lock-comment-face t)
 
       )
