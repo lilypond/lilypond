@@ -101,7 +101,7 @@ Metronome_mark_engraver::process_music ()
 
       SCM proc = get_property ("metronomeMarkFormatter");
       SCM result= scm_call_2 (proc, mark_ev_->self_scm (),
-			      get_parent_context ()->self_scm ()); 
+			      context ()->self_scm ()); 
       
       text_->set_property ("text", result);
     }

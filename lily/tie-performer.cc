@@ -57,7 +57,7 @@ void
 Tie_performer::process_music ()
 {
   if (event_)
-    get_parent_context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
+    context ()->set_property ("tieMelismaBusy", SCM_BOOL_T);
 }
 
 void
@@ -87,7 +87,7 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 void
 Tie_performer::start_translation_timestep ()
 {
-  get_parent_context ()->set_property ("tieMelismaBusy",
+  context ()->set_property ("tieMelismaBusy",
 			      ly_bool2scm (heads_to_tie_.size ()));
       
 }

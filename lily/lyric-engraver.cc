@@ -128,7 +128,7 @@ Lyric_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      Context * voice = get_voice_to_lyrics (get_parent_context ());
+      Context * voice = get_voice_to_lyrics (context ());
 
       if (voice)
 	{

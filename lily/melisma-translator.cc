@@ -36,7 +36,7 @@ Melisma_translator::try_music (Music *m)
 {
   if (m->is_mus_type ("melisma-playing-event"))
     {
-      return melisma_busy (get_parent_context ());
+      return melisma_busy (context ());
     }
   else if (m->is_mus_type ("melisma-span-event"))
     {
@@ -55,9 +55,9 @@ Melisma_translator::process_music ()
       SCM sd = event_->get_property ("span-direction");
       Direction d = to_dir (sd);
       if (d == START)
-	get_parent_context ()->set_property ("melismaBusy", SCM_BOOL_T);
+	context ()->set_property ("melismaBusy", SCM_BOOL_T);
       else
-	get_parent_context ()->unset_property (ly_symbol2scm ("melismaBusy"));
+	context ()->unset_property (ly_symbol2scm ("melismaBusy"));
     }
       
 }

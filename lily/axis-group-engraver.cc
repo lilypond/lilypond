@@ -69,7 +69,7 @@ Axis_group_engraver::finalize ()
   if (!staffline_)
     return ;
   
-  String type = get_parent_context ()->context_name ();
+  String type = context ()->context_name ();
   SCM dims = get_property ("verticalExtent");
   
   if (is_number_pair (dims))

@@ -101,7 +101,7 @@ void
 Engraver_group_engraver::initialize ()
 {
   SCM tab = scm_make_vector (scm_int2num (61), SCM_BOOL_F);
-  get_parent_context ()->set_property ("acknowledgeHashTable", tab);
+  context ()->set_property ("acknowledgeHashTable", tab);
 
   Translator_group::initialize ();
 }

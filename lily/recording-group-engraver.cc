@@ -81,7 +81,7 @@ Recording_group_engraver::finalize ()
   SCM proc = get_property ("recordEventSequence");
 
   if (ly_c_procedure_p (proc))
-    scm_call_2  (proc, get_parent_context ()->self_scm (), ly_cdr (accumulator_));
+    scm_call_2  (proc, context ()->self_scm (), ly_cdr (accumulator_));
 
   accumulator_ = SCM_EOL;
 }

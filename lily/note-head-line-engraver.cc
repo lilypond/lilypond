@@ -60,7 +60,7 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
       head_ = info.grob_;
       if (to_boolean (get_property ("followVoice")))
 	{
-	  Context * tr = get_parent_context ();
+	  Context * tr = context ();
 	  while (tr && !tr->is_alias (ly_symbol2scm ( "Staff")))
 	    tr = tr->get_parent_context () ;
 

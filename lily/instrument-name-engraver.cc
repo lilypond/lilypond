@@ -42,7 +42,7 @@ Instrument_name_engraver::Instrument_name_engraver ()
 void
 Instrument_name_engraver::initialize ()
 {
-  get_parent_context ()->set_property ("instrumentSupport", SCM_EOL); 
+  context ()->set_property ("instrumentSupport", SCM_EOL); 
 }
 
 void
@@ -111,7 +111,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
       SCM nl = scm_cons (i.grob_->self_scm (),
 			get_property ("instrumentSupport"));
 
-      get_parent_context ()->set_property ("instrumentSupport", nl);
+      context ()->set_property ("instrumentSupport", nl);
     }
 }
 

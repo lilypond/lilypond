@@ -91,14 +91,14 @@ Accidental_engraver::initialize ()
 {
   last_keysig_ = get_property ("keySignature");
 
-  Context * trans_ = get_parent_context ();
+  Context * trans_ = context ();
   while (trans_)
     {
       trans_ -> set_property ("localKeySignature",
 			      ly_deep_copy (last_keysig_));
       trans_ = trans_->get_parent_context ();
     }
-  set_property_on_children (get_parent_context (),"localKeySignature", last_keysig_);
+  set_property_on_children (context (),"localKeySignature", last_keysig_);
 }
 
 /*
@@ -447,7 +447,7 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 	  
 	  Accidental_entry entry ;
 	  entry.head_ = info.grob_;
-	  entry.origin_ = info.origin_trans_->get_parent_context ();
+	  entry.origin_ = info.origin_trans_->context ();
 	  entry.melodic_ = note;
 
 	  accidentals_.push (entry);
@@ -477,13 +477,13 @@ Accidental_engraver::process_music ()
   */
   if (last_keysig_ != sig)
     {
-      Context * trans_ = get_parent_context ();
+      Context * trans_ = context ();
       while (trans_)
 	{
 	  trans_ -> set_property ("localKeySignature",  ly_deep_copy (sig));
 	  trans_ = trans_->get_parent_context ();
 	}
-      set_property_on_children (get_parent_context (),"localKeySignature", sig);
+      set_property_on_children (context (),"localKeySignature", sig);
 
       last_keysig_ = sig;
     }
