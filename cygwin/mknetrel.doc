@@ -4,12 +4,7 @@
 # mknetrel.doc -- fixup doc
 #
 
-if [ "$ABI" = "1.3" ]; then
-    docprefix=$prefix
-else
-    docprefix=$prefix/share
-fi
-
+docprefix=$prefix/share
 docdir=$docprefix/doc
 
 cygdocdir=$docdir/Cygwin
@@ -17,9 +12,6 @@ infodir=$docprefix/info
 mandir=$docprefix/man
 packagedocdir=$docdir/$base-$ver
 
-if [ "$ABI" = "1.3" ]; then
-fixdoc () { :; }
-else
 fixdoc () {
     #
     cd $inst || exit 1
@@ -34,4 +26,3 @@ fixdoc () {
     done
     true
 }
-fi
