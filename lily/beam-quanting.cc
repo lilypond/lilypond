@@ -31,6 +31,7 @@ const int DAMPING_DIRECTION_PENALTY = 800;
 const int MUSICAL_DIRECTION_FACTOR = 400;
 const int IDEAL_SLOPE_FACTOR = 10;
 
+const Real ROUND_TO_ZERO_SLOPE = 0.05;
 const int ROUND_TO_ZERO_POINTS = 4;
 
 extern bool debug_beam_quanting_flag;
@@ -361,14 +362,16 @@ Beam::score_slopes_dy (Real yl, Real yr,
 		       bool xstaff)
 {
   Real dy = yr - yl;
-
   Real dem = 0.0;
 
   /*
     DAMPING_DIRECTION_PENALTY is a very harsh measure, while for
     complex beaming patterns, horizontal is often a good choice.
+
+    TODO: find a way to incorporate the complexity of the beam in this
+    penalty.
    */
-  if (sign (dy)
+  if (fabs (dy/dx) > ROUND_TO_ZERO_SLOPE
       && sign (dy_damp) != sign (dy))
     {
       dem += DAMPING_DIRECTION_PENALTY;
@@ -392,7 +395,7 @@ Beam::score_slopes_dy (Real yl, Real yr,
      almost zero slopes look like errors in horizontal beams. 
     */
    if (fabs (dy) > 1e-3
-       && (dy / dx < 0.05))
+       && fabs (dy / dx) < ROUND_TO_ZERO_SLOPE)
      dem += ROUND_TO_ZERO_POINTS;
    
    return dem;

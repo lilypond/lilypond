@@ -33,11 +33,13 @@ Lyric_extender::brew_molecule (SCM smob)
   Link_array<Grob> heads (Pointer_group_interface__extract_grobs (me, (Grob*)0,
 								  "heads"));
 
+  if (!heads.size ())
+    return SCM_EOL;
+
   common = common_refpoint_of_array (heads, common, X_AXIS);
   
   Real left_point = 0.0;
-  if (!heads.size()
-      || l->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
+  if (l->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     left_point = l->extent (common, X_AXIS)[RIGHT];
   else
     left_point = heads[0]->extent (common, X_AXIS)[LEFT];
@@ -57,18 +59,17 @@ Lyric_extender::brew_molecule (SCM smob)
   Real right_point
     = left_point + (gh_number_p (minlen) ? gh_scm2double (minlen) : 0.0);
 
-  if (heads.size ())
-    right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
+  right_point = right_point >? heads.top ()->extent (common, X_AXIS)[RIGHT];
 
   Real h = sl * gh_scm2double (me->get_grob_property ("thickness"));
-
-  right_point = right_point <? (r->extent (common, X_AXIS)[LEFT] - h);
+  Real pad = 2* h;
+  right_point = right_point <? (r->extent (common, X_AXIS)[LEFT] - pad);
 
   if (isinf (right_point))
     return SCM_EOL;
   
 
-  right_point += h;
+  right_point += pad;
 
   Real w = right_point - left_point;
 
