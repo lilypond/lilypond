@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header
 {
   texidoc = "The multimeasure rest is centered exactly between bar lines."
@@ -14,7 +14,7 @@
 
 	c'1 R1*20 c'1
     }
-    \paper { linewidth = -1.0 } 
+    \paper { raggedright = ##t} 
 }
 	 
 %% new-chords-done %%

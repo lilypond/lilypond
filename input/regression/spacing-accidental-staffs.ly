@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header { 
 texidoc = "Accidentals in different staffs don't effect the
@@ -14,7 +14,7 @@ spacing of the quarter notes here."
  }
    { \key d \major cis4 cis4 cis4 cis!4  } >
 
-   \paper { linewidth = -1. } 
+   \paper { raggedright = ##t} 
  }
 
 

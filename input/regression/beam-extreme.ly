@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
@@ -42,7 +42,7 @@ extreme = \notes\relative c'' {
   }
   \paper{
 %    raggedright = ##t
-    linewidth = -1
+    raggedright = ##t
   }
 }
 %% new-chords-done %%

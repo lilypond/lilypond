@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 texidoc="
@@ -15,7 +15,7 @@ effects.  In this example, space for opposite pointed stems is adjuste
 	
   }
   \paper {
-    linewidth=-1.0
+    raggedright = ##t
   }  
 }
 
@@ -26,7 +26,7 @@ effects.  In this example, space for opposite pointed stems is adjuste
 	
   }
   \paper {
-    linewidth=-1.0
+    raggedright = ##t
     \translator { \ScoreContext
     SpacingSpanner \override #'stem-spacing-correction = #0.0
   }  }

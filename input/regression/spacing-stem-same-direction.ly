@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 	texidoc = "For juxtaposed chords with the same direction, a
 slight optical correction is used. It is constant, and only works if
@@ -10,6 +10,6 @@ two chords have no common head-positions range."
 \time 12/4
 [f8 e f e] [f d f d] [f c f c] [f b, f' b,] [f' a, f' a,]
 }
-\paper { linewidth = -1. }
+\paper { raggedright = ##t}
 }
 %% new-chords-done %%

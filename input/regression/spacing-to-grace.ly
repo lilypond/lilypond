@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 
     texidoc ="space from a normal note /barline to a grace note is
@@ -16,6 +16,6 @@
 		  }  
 
     }
-    \paper { linewidth =  -1.0 }
+    \paper { raggedright = ##t}
     }
 %% new-chords-done %%

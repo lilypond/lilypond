@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
 
@@ -16,7 +16,7 @@ start counting after the anacrusis."
       c1 c
   }
   \paper {
-    linewidth = -1. \mm
+    raggedright = ##t
     \translator {
 	\ScoreContext
 	BarNumber \override #'break-visibility = #all-visible

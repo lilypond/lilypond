@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 texidoc="
@@ -17,7 +17,7 @@ a16 cis d a bes g fis4 g8
 a16 g a bes c d % ees8 d c
 }
 \paper{
-   linewidth=-1.
+   raggedright = ##t
 }
 }
 %% new-chords-done %%

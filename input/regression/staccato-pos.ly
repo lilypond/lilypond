@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 texidoc="
@@ -11,7 +11,7 @@ not be on staff lines.
 	e'4-. f-. d-. c-. b-. 
   }
   \paper {
-    linewidth=-1.0
+    raggedright = ##t
   }  
 }
 %% new-chords-done %%

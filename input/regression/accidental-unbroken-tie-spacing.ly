@@ -3,7 +3,7 @@ texidoc = "Tied accidentaled notes (which cause reminder accidentals) don't wrea
 the spacing when unbroken."
 }
 
-\version "1.7.6"
+\version "1.7.16"
 \include "deutsch.ly"
 
 rechts = \notes \relative c' {
@@ -23,7 +23,7 @@ Rechts = \context Staff \notes {
   \rechts
 
   \paper {
-    linewidth = -3.3 \cm
+    raggedright = ##t
   }
 }
 %% new-chords-done %%

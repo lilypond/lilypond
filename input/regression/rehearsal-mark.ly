@@ -3,7 +3,7 @@
 can be incremented automatically or manually.  "}
 
 
-\version "1.7.12"
+\version "1.7.16"
 
 
 global =  \notes {

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header  {
   texidoc = "grace notes in different voices/staves are synchronized."
 }
@@ -12,6 +12,6 @@
   ) c4 c4 }
 		\context Staff = SC { c2 c4 c4 \bar "|." }
 		>
-		\paper { linewidth = -1. }
+		\paper { raggedright = ##t}
  } 
 %% new-chords-done %%

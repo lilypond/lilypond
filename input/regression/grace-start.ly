@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 texidoc = "Pieces may begin with grace notes."
 }
@@ -8,6 +8,6 @@ texidoc = "Pieces may begin with grace notes."
  \grace { [a16 bes]  }  c1
  \bar "||"  % test if | and || are synced. 
   }
-  \paper { linewidth = -1. }
+  \paper { raggedright = ##t}
 }
 %% new-chords-done %%

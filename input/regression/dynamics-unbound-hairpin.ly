@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
 texidoc = "Crescendi may start off-notes. In that case, they should  not collapse into flat lines."
@@ -8,6 +8,6 @@ texidoc = "Crescendi may start off-notes. In that case, they should  not collaps
   < f''1 { s4 s4 \< \! s4 \> \! s4 } >
 }}
 
-\paper { linewidth = -1. }
+\paper { raggedright = ##t}
 }
 %% new-chords-done %%

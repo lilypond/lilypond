@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header
 {
     texidoc ="Slurs may be placed over rest. The slur will avoid colliding with
@@ -14,6 +14,6 @@ the rest
 		  
 
 	      }
-\paper { linewidth = -1. }
+\paper { raggedright = ##t}
     }
 %% new-chords-done %%

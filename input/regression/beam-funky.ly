@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     texidoc = "Knee beaming. (funky)"
 }
@@ -27,7 +27,7 @@
 	     g''' g,,,]	    }  }
 	     
 	 }
-\paper { linewidth = -1. } 
+\paper { raggedright = ##t} 
 
      }
 %% new-chords-done %%

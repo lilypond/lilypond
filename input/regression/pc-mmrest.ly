@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 texidoc="Multi measure rests of second voice should not disappear."
 }

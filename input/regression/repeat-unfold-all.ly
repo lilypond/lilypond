@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
     texidoc = "Repeats may be unfolded through the Scheme function @code{unfold-repeats}."
@@ -13,6 +13,6 @@ nots = \notes\relative c'   {
 \nots
 \apply #unfold-repeats \nots
 }
-\paper {linewidth=-1.} 
+\paper {raggedright = ##t} 
      }
 %% new-chords-done %%

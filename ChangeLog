@@ -1,3 +1,11 @@
+2003-04-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/refman.itely: updates.
+
+	* input/regression/collisions.ly (threevoice): cleanup.
+
+	* scripts/convert-ly.py:  linewidth = -1  -> raggedright = ##t.
+
 2003-04-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/*.itely: various updates.

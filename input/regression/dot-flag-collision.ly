@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
     texidoc = "Dots move to the right when a collision with the (up)flag happens"
 }
@@ -12,7 +12,7 @@
 	g''16.
 	a,4. a8 a8. a16. c,16. g16.
     }
-    \paper { linewidth = -1. }
+    \paper { raggedright = ##t}
 }
 
 %% new-chords-done %%

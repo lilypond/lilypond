@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 texidoc="
@@ -23,7 +23,7 @@ setting the @code{extra-offset} of a grob.
 	e
 }
 \paper{
-	linewidth=-1.0
+	raggedright = ##t
 }
 }
 %% new-chords-done %%

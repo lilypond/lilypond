@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 texidoc="
@@ -24,7 +24,7 @@ lyrics don't collide with barlines.
 	\notes \context Staff = SB { b1 b1 }
 	>
 	\paper {
-		linewidth = -1.0\cm
+		raggedright = ##t
 		\translator {
 			\LyricsContext
 			\accepts "LyricsVoiceWithBars"

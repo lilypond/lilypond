@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header  {
 texidoc = "arpeggio stays clear of accidentals and flipped note heads.
@@ -40,7 +40,7 @@ hairyChord = \context Staff \notes\relative c' <
         \hairyChord
 	}
     \paper {
-        linewidth = -1.
+        raggedright = ##t
 	\translator{
 	    \StaffContext
 	    connectArpeggios = ##t

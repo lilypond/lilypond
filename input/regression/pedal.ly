@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
 texidoc = "Piano pedal symbols merge stop and start.  The strings are configurable. 
 Text style, bracket style, and a mixture of both are supported.

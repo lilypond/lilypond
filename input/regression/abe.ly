@@ -1,7 +1,7 @@
 \header {
 texidoc="Automatic beamer behaves nicely."
 }
-\version "1.7.6"
+\version "1.7.16"
 
 \include "paper16.ly"
 \paper  { linewidth = 390.000000 \pt } 

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
 
 texidoc = "Concave beams should be horizontal. informally spoken,
@@ -74,7 +74,7 @@ beams this way."
     [\stemUp bes8  \stemDown d'8 bes8]  
   }
   \paper{
-    linewidth = -1.0
+    raggedright = ##t
   }
 }
 

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
 texidoc="
 Beams should always reach the middle staff line.  The second beam
@@ -22,7 +22,7 @@ Override with @code{noStemExtend}.
 	
   }
   \paper {
-    linewidth=-1.0
+    raggedright = ##t
   }  
   \midi { }
 }

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header{
 texidoc="
@@ -29,7 +29,7 @@ not set.  Main note scripts don't end up on the grace note.
 	%%\grace  { \property Grace.graceAlignPosition = \right c16} c4
 	c4 \grace  { c16 } c4
 }
-\paper {linewidth = -1.}
+\paper {raggedright = ##t}
 \midi{ }
 }
 %% new-chords-done %%

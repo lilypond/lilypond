@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
   texidoc="Lyric alignment
 
@@ -9,7 +9,7 @@
 "
 }
 
-%\paper { linewidth = -1. }
+%\paper { raggedright = ##t}
 \score {
 < \context Voice = "v" \notes  \relative c'' {
       \property Staff.automaticMelismata = ##t

@@ -1144,6 +1144,12 @@ if 1:
 	
 	conversions.append (((1,7,13), conv, "ly:XX-molecule-YY -> ly:molecule-XX-YY"))	
 
+if 1:
+	def conv(str):
+		str = re.sub (r"linewidth *= *-[0-9.]+ *(\\mm|\\cm|\\in|\\pt)?", 'raggedright = ##t', str )
+		return str
+	
+	conversions.append (((1,7,16), conv, "linewidth = -1 -> raggedright = ##t"))	
 	
 
 ################################

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
 texidoc="
 Hara kiri staves kill themselves if they are empty.  This example really

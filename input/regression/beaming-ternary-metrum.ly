@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 texidoc = "automatic beaming also works in ternary time sigs."
 }
@@ -8,6 +8,6 @@ texidoc = "automatic beaming also works in ternary time sigs."
 \time 6/8
 [c8. c16 c16 c16] 
 }
-\paper { linewidth = -1. }
+\paper { raggedright = ##t}
 }
 %% new-chords-done %%

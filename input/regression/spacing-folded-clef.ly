@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header {
 texidoc = "A clef can be folded below notes in a different staff, if
 this doesn't disrupt the flow of the notes."
@@ -9,6 +9,6 @@ this doesn't disrupt the flow of the notes."
 	\context Staff = SB { \clef bass c,2 \clef treble  c'2 }
 	>
 
-	\paper { linewidth = -1. }
+	\paper { raggedright = ##t}
 	}
 %% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 
 \header {
     texidoc = "Ledger lines are shortened when there are accidentals"
@@ -8,6 +8,6 @@
 {
  cis'4 cis'! cis' cis'
 }
-	 \paper { linewidth = -1. }
+	 \paper { raggedright = ##t}
 }
 %% new-chords-done %%

@@ -1,4 +1,4 @@
-\version "1.7.6"
+\version "1.7.16"
 \header{
   texidoc="Lyric phrasing
 
@@ -21,7 +21,7 @@
   are left-aligned, in this case the third x."
 }
 
-\paper { linewidth = -1. }
+\paper { raggedright = ##t}
 \score {
   \addlyrics
     \context Voice = "v" \notes  \relative c'' {
