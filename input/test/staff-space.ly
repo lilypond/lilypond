@@ -1,8 +1,9 @@
 \version "1.7.18"
-\header{
 
-    texidoc ="Setting staff space on a staff "
-    }
+\header{ texidoc ="@cindex Staff Space
+Setting staff space on a staff. "
+}
+
 \score { 
   \notes \relative c'' \context GrandStaff <
 	\context Staff = up { c4 c4  }
@@ -17,6 +18,7 @@
 \paper {  \translator  {
       \StaffContext
       StaffSymbol \set #'staff-space = #5.5
-      }}
+      }
+	raggedright=##t }
 }
 %% new-chords-done %%

@@ -4,6 +4,8 @@
 
 	* input/test/slur-mininum.ly: renamed to slur-minimum-length.ly.
 
+	* input/test/staff-line-leading.ly: renamed to  staff-space.ly.
+
 2003-06-20  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/slur.cc (get_boundary_notecolumn_y): change name from
