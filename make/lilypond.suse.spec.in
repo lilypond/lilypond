@@ -216,6 +216,8 @@ touch var/adm/SuSEconfig/run-texhash
 %doc lilypond-mode.el
 %doc lilypond-font-lock.el
 %doc lilypond-indent.el
+%doc lilypond-init.el
+%doc lilypond.words
 
 %config /etc/profile.d/*
 
