@@ -1,4 +1,5 @@
 \version "2.2.0"
+
 %{
    Experimental markup titles are available in direct PostScript output:
 
@@ -11,14 +12,17 @@ PostScript fonts: WIP.
   * Nonstandardised install directory / how to locate a ps font?
   * Nonstandardised filenames?
 
+
 For century schoolbook font:
 
   Debian:
     cp -pv /usr/share/fonts/type1/gsfonts/c*.{afm,pfb} mf/out
 
   Red Hat (untested):
-    cp -pv /usr/share/fonts/afms/adobe/c*.afm mf/out/
-    cp -pv /usr/share/fonts/default/ghostscript/c*.pfb mf/out
+
+    cp -pv /usr/share/fonts/afms/adobe/c*.{afm,pfb} mf/out/
+
+    cp -pv /usr/share/fonts/default/Type1/c*.{pfb,afm} mf/out
 
 %}
 
