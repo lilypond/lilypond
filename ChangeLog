@@ -1,5 +1,8 @@
 2003-08-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/document-markup.scm (markup-doc-node): sort markup function
+	list.
+
 	* lily/paper-outputter.cc (output_version): change "Lily was here"
 	into  "Engraved by LilyPond"
 

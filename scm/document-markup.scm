@@ -24,13 +24,16 @@
    
   )))
 
+(define (markup-function<? a b)
+  (string<? (symbol->string (procedure-name a)) (symbol->string (procedure-name b))))
 
 (define (markup-doc-node)
   (make <texi-node>
     #:name "Markup functions"
     #:desc "Definitions of the markup functions"
     #:text (apply string-append
-		  (map doc-markup-function markup-function-list) )
+		  (map doc-markup-function
+		       (sort markup-function-list markup-function<?) ))
     ))
 
 
