@@ -11,7 +11,7 @@ Text_def::Text_def()
     defined_ch_c_l_ = 0;
 }
 bool
-Text_def::compare(const Text_def&def)
+Text_def::compare(Text_def const &def)
 {
     return align_i_ == def.align_i_ && text_str_ == def.text_str_
 	&& style_str_ == def.style_str_;

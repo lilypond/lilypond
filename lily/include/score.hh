@@ -28,7 +28,7 @@ struct Score {
     IPointerList<Score_column*> cols_;
     PScore *pscore_p_;
 
-    const char *defined_ch_c_l_;
+    char const *defined_ch_c_l_;
     int errorlevel_i_;
     
     /* *************************************************************** */

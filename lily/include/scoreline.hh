@@ -26,7 +26,7 @@ Line_of_score {
     String TeXstring() const;
 
     // is #c# contained in #*this#?
-    bool element(const PCol *c);
+    bool element(PCol const *c);
 };
 
 #endif

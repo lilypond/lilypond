@@ -124,7 +124,7 @@ Stem_beam_register::pre_move_processing()
 	stem_p_ = 0;
     }
     if (beam_p_ && end_beam_b_) {
-	const Rhythmic_grouping * rg_c_l = get_staff_info().rhythmic_c_l_;
+	Rhythmic_grouping const * rg_c_l = get_staff_info().rhythmic_c_l_;
 	rg_c_l->extend(current_grouping->interval());
 	beam_p_->set_grouping(*rg_c_l, *current_grouping);
 	typeset_element(beam_p_);

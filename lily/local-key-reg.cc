@@ -30,12 +30,12 @@ Local_key_register::pre_move_processing()
 void
 Local_key_register::acknowledge_element(Staff_elem_info info)
 {    
-    if (info.req_l_->melodic()) {
-	Melodic_req * melodic_l_ = info.req_l_->melodic();
+    if (info.req_l_->note()) {
+	Note_req * note_l_ = info.req_l_->note();
 
-	if( melodic_l_->forceacc_b_ ||
-	    local_key_.oct(melodic_l_->octave_i_).acc(melodic_l_->notename_i_)
-	    != melodic_l_->accidental_i_) {
+	if( note_l_->forceacc_b_ ||
+	    local_key_.oct(note_l_->octave_i_).acc(note_l_->notename_i_)
+	    != note_l_->accidental_i_) {
 	    Item * support_l_ = info.elem_p_->item();
 	
 
@@ -43,10 +43,10 @@ Local_key_register::acknowledge_element(Staff_elem_info info)
 		key_item_p_ = new Local_key_item(*get_staff_info().c0_position_i_);
 	    }
 	    
-	    key_item_p_->add(melodic_l_);
+	    key_item_p_->add(note_l_);
 	    key_item_p_->add(support_l_);
-	    local_key_.oct(melodic_l_->octave_i_)
-		.set(melodic_l_->notename_i_, melodic_l_->accidental_i_);
+	    local_key_.oct(note_l_->octave_i_)
+		.set(note_l_->notename_i_, note_l_->accidental_i_);
 	}
     } else if (info.elem_p_->name()==Key_item::static_name()) { 
 	Key_register * key_reg_l =
@@ -59,7 +59,7 @@ Local_key_register::acknowledge_element(Staff_elem_info info)
 void
 Local_key_register::process_requests()
 {
-    const Time_description * time_c_l_ = get_staff_info().time_c_l_;
+    Time_description const * time_c_l_ = get_staff_info().time_c_l_;
     if (! time_c_l_->whole_in_measure_){
 	if (key_c_l_)  
 	    local_key_.reset(*key_c_l_);

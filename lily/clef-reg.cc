@@ -65,7 +65,7 @@ Clef_register::try_request(Request * r_l)
 void
 Clef_register::process_requests()
 {
-    const Time_description *time_l = get_staff_info().time_c_l_;
+    Time_description const *time_l = get_staff_info().time_c_l_;
     if (!clef_req_l_ && (!time_l->whole_in_measure_|| !time_l->when_)) {
 	clef_p_ = new Clef_item;
 	clef_p_->change = false;

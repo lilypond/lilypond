@@ -7,7 +7,7 @@ static const int build=
 #include ".build"
 ;
 
-const char * 
+char const * 
 lily_version_sz()
 {
     static char v[1024];

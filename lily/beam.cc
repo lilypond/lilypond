@@ -24,10 +24,10 @@ struct Stem_info {
 
     
     Stem_info(){}
-    Stem_info(const Stem*);
+    Stem_info(Stem const *);
 };
 
-Stem_info::Stem_info(const Stem*s)
+Stem_info::Stem_info(Stem const *s)
 {
     x = s->hindex();
     int dir = s->dir;

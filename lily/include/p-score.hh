@@ -67,7 +67,7 @@ struct PScore {
      /**
        @return argument as a cursor of the list
        */
-    PCursor<PCol *> find_col(const PCol *)const;
+    PCursor<PCol *> find_col(PCol const *)const;
 
     /* MAIN ROUTINES */
     void process();

@@ -8,22 +8,18 @@ depth = ..
 # identify module:
 #
 NAME = Documentation
-MAJOR_VERSION = $(TOPLEVEL_MAJOR_VERSION)
-MINOR_VERSION = $(TOPLEVEL_MINOR_VERSION)
-PATCH_LEVEL = $(TOPLEVEL_PATCH_LEVEL)
-# use to send patches, always empty for released version:
-MY_PATCH_LEVEL = $(TOPLEVEL_MY_PATCH_LEVEL)
-build = ./$(depth)/lily/$(outdir)/.build
+
 #
 
 # generic variables:
 #
 include ./$(depth)/make/Variables.make 
+include ./$(depth)/make/Version.make
+include ./$(depth)/make/Files.make 
 #
 
-# list of source files:
 #
-PODFILES = $(shell ls *.pod)
+
 OUTPODFILES = $(patsubst %,$(outdir)/%,$(PODFILES))
 TEXTFILES = $(OUTPODFILES:.pod=.text)
 GROFFFILES = $(OUTPODFILES:.pod=.1)
@@ -32,7 +28,7 @@ HTMLFILES = $(OUTPODFILES:.pod=.html)
 
 # list of distribution files:
 #
-DISTFILES = $(PODFILES) Makefile lelie_logo.gif
+EXTRA_DISTFILES = lelie_icon.gif lelie_logo.gif
 #
 
 default: do-doc

@@ -47,7 +47,7 @@ public:
     Real standard_height()const;
     Real note_width() const;
     void print() const;
-    const Lookup* lookup_l();	// TODO naming
+    Lookup const * lookup_l();	// TODO naming
     Real duration_to_dist(Moment);
 };
 

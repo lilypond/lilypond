@@ -7,7 +7,7 @@ Real
 parse_dimen(String dim)
 {
     int i=dim.length_i()-1;
-    const char *s = dim;
+    char const *s = dim;
     while  (i > 0 && (isspace(s[i]) || isalpha(s[i])) ){
 	i--;
     }

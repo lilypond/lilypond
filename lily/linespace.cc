@@ -10,7 +10,7 @@ const Real COLFUDGE=1e-3;
 
 
 bool
-Spacing_problem::contains(const PCol *w)
+Spacing_problem::contains(PCol const *w)
 {
     for (int i=0; i< cols.size(); i++)
 	if (cols[i].pcol_ == w)
@@ -19,7 +19,7 @@ Spacing_problem::contains(const PCol *w)
 }
 
 int 
-Spacing_problem::col_id(const PCol *w)const
+Spacing_problem::col_id(PCol const *w)const
 {
     for (int i=0; i< cols.size(); i++)
 	if (cols[i].pcol_ == w)
@@ -194,17 +194,17 @@ Spacing_problem::solve() const
     add one column to the problem.
 */    
 void
-Spacing_problem::add_column(const PCol *col, bool fixed, Real fixpos)
+Spacing_problem::add_column(PCol const *col, bool fixed, Real fixpos)
 {
     Colinfo c(col,(fixed)? &fixpos :  0);
     cols.push(c);
 }
 
 void
-Spacing_problem::add_ideal(const Idealspacing *i)
+Spacing_problem::add_ideal(Idealspacing const *i)
 {
-    const PCol *l =i->left;
-    const PCol *r= i->right;
+    PCol const *l =i->left;
+    PCol const *r= i->right;
     
     if (!contains(l) || !contains(r)) {
 	return;
@@ -213,7 +213,7 @@ Spacing_problem::add_ideal(const Idealspacing *i)
 }
 
 void
-Spacing_problem::print_ideal(const Idealspacing*id)const
+Spacing_problem::print_ideal(Idealspacing const *id)const
 {
 #ifndef NPRINT
     int l = col_id(id->left);
@@ -261,7 +261,7 @@ Colinfo::Colinfo(Colinfo const&c)
     width = c.width;
 }
 
-Colinfo::Colinfo(const PCol*col_p, const Real*fixed_r_p )
+Colinfo::Colinfo(PCol const *col_p, Real const *fixed_r_p )
 {
     fixpos = (fixed_r_p)? new Real(*fixed_r_p) : 0;
     pcol_ = col_p;

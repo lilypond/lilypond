@@ -18,7 +18,7 @@ Key_item::Key_item(int c)
 }
 
 void
-Key_item::read(const Key_register& key_reg_r)
+Key_item::read(Key_register const & key_reg_r)
 {
     const Array<int> &idx_arr =key_reg_r.accidental_idx_arr_; 
     for (int i = 0 ; i< idx_arr.size(); i++) {

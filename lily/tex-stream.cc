@@ -43,7 +43,7 @@ Tex_stream &
 Tex_stream::operator<<(String s)
 {
     
-    for (const char *cp = s; *cp; cp++) {
+    for (char const *cp = s; *cp; cp++) {
 	if (outputting_comment) {
 	    *os << *cp;
 	    if (*cp == '\n') {

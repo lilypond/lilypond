@@ -52,7 +52,7 @@ PCol::print() const
 }
 
 int
-PCol::compare(const PCol &c1, const PCol &c2)
+PCol::compare(PCol const &c1, PCol const &c2)
 {
     PScore*ps_l = c1.pscore_l_;
     PCursor<PCol*> ac(ps_l->find_col(&c1));

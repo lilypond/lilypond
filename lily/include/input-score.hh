@@ -19,7 +19,7 @@
 /// the total music def of one movement
 struct Input_score {
     /// defined where?    
-    const char* defined_ch_c_l_;
+    char const * defined_ch_c_l_;
     int errorlevel_i_;
     
     /// paper_, staffs_ and commands_ form the problem definition.
@@ -27,7 +27,6 @@ struct Input_score {
     Midi_def* midi_p_;
     IPointerList<Input_staff*> staffs_;
 
-    Input_music * score_wide_music_p_;
     
     /* *************************************************************** */
     Input_score();
@@ -40,7 +39,6 @@ struct Input_score {
     void set(Midi_def* midi_p);
     void print() const;
     Score*parse();
-    void set(Input_music*);
 };
 
 #endif

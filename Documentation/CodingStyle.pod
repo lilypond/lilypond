@@ -9,26 +9,29 @@ Please use these standards while doing programming for LilyPond
 Functions and methods do not return errorcodes, but use assert for
 checking status. 
 
-		A program should be light and agile, its subroutines
-	connected like a strings of pearls.  The spirit and intent of
-	the program should be retained throughout.  There should be
-	neither too little nor too much, neither needless loops nor
-	useless variables, neither lack of structure nor overwhelming
-	rigidity.
+=head2 Quote:
 
-		A program should follow the 'Law of Least
-	Astonishment'.  What is this law?  It is simply that the
-	program should always respond to the user in the way that
-	astonishes him least.
+A program should be light and agile, its subroutines
+connected like a strings of pearls.  The spirit and intent of
+the program should be retained throughout.  There should be
+neither too little nor too much, neither needless loops nor
+useless variables, neither lack of structure nor overwhelming
+rigidity.
 
-		A program, no matter how complex, should act as a
-	single unit.  The program should be directed by the logic
-	within rather than by outward appearances.
+A program should follow the 'Law of Least
+Astonishment'.  What is this law?  It is simply that the
+program should always respond to the user in the way that
+astonishes him least.
 
-		If the program fails in these requirements, it will be
-	in a state of disorder and confusion.  The only way to correct
-	this is to rewrite the program.
-		-- Geoffrey James, "The Tao of Programming"
+A program, no matter how complex, should act as a
+single unit.  The program should be directed by the logic
+within rather than by outward appearances.
+
+If the program fails in these requirements, it will be
+in a state of disorder and confusion.  The only way to correct
+this is to rewrite the program.
+
+-- Geoffrey James, "The Tao of Programming"
 
 =head2 INDENTATION
 
@@ -109,7 +112,7 @@ symbols. Staff is  the "brains" for PStaff
 NB: in PCursor (which is part of the library) P stands for PointerCursor
 
 
-=head2 MEMBERS(2)
+=head2 MEMBERS (2)
 
 Standard methods:
 
@@ -176,26 +179,33 @@ existed. I feel so stupid and ashamed!
 =over 5
 
 =item *
+
 more keystrokes (disk space!)
 
 =item *
+
 it looks silly C<get_slu_p()>
 
 =item *
+
 it looks like code from micro suckers
 
 =item *
+
 (which) might scare away some (otherwise good?)
 progammers, or make you a paria in the free
 software community
 
 =item *
+
 it has ambiguities
 
 =item *
+
 not very useful if not used consistently
 
 =item *
+
 usefullness in I<very large> 
 (but how many classes is very large?)
 remains an issue.
@@ -209,16 +219,20 @@ remains an issue.
 =over 5
 
 =item *
+
 learn about cut and paste / use emacs or vi
 or lean to type using ten fingers
 
 =item *
+
 Use emacs dabbrev-expand, with dabbrev-case-fold-search set to nil.
 
 =item *
+
 use no, or pick less silly, abbrvs.
 
 =item *
+
 use non-ambiguous postfixes C<identifier_name_type_modifier[_modifier]>
 =back
 
@@ -230,30 +244,41 @@ with the parts of the names separated by underscores.
 =over 5
 
 =item C<byte>
+
+
 unsigned char. (The postfix _by is ambiguous)
 
 =item C<b>
+
+
 bool
 
 =item C<bi>
+
 bit
 
 =item C<ch>
+
 char
 
 =item C<f>
+
 float
 
 =item C<i>
+
 signed integer
 
 =item C<str>
+
 string class
 
 =item C<sz>
+
 Zero terminated c string
 
 =item C<u>
+
 unsigned integer
 
 =back
@@ -275,21 +300,27 @@ These are precede the prefixes:
 =over 5
 
 =item C<a>
+
 array
 
 =item C<array>
+
 user built array.
 
 =item C<c>
-const
+
+const. Note that the proper order C<Type const> i.s.o. C<const Type>
 
 =item C<l>
+
 temporary pointer to object (link)
 
 =item C<p>
+
 pointer to newed object
 
 =item C<r>
+
 reference
 
 =back
@@ -297,24 +328,31 @@ reference
 =over 5
 
 =item C<loop_i>
+
 Variable loop: an integer
 
 =item C<u>
+
 Temporary variable: an unsigned integer
 
 =item C<test_ch>
+
 Variable test: a character
 
 =item C<first_name_str>
+
 Variable first_name: a String class object
 
 =item C<last_name_ch_a>
+
 Variable last_name: a C<char> array
 
 =item C<foo_i_p>
+
 Variable foo: an C<Int*> that you must delete
 
 =item C<bar_i_l>
+
 Variable bar: an C<Int*> that you must not delete
 
 =back
