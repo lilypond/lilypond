@@ -1,37 +1,14 @@
 %{ // -*-Fundamental-*-
 
-#include <fstream.h>
 #include <stdio.h>
-#include "glob.hh"
+
 #include "string.hh"
 #include "notename.hh"
 #include "lexer.hh"
-#include "keyword.hh"
 #include "vray.hh"
 #include "parser.hh"
 #include "debug.hh"
-#include "sstack.hh"
 
-struct Input_file {
-	istream*is;
-	int line;
-	String name;
-
-	Input_file(String);
-	~Input_file();
-};
-
-/// lexer with provisions for include files.
-struct My_flex_lexer : yyFlexLexer {
-    sstack<Input_file*> include_stack;
-    void new_input(String s);
-    bool  close_input();
-};
-
-My_flex_lexer *lexer=0;
-
-static int last_print;
-const int DOTPRINT=50; // every 50 lines dots
 %}
 
 %option c++
@@ -39,6 +16,7 @@ const int DOTPRINT=50; // every 50 lines dots
 %option nodefault
 %option yylineno
 %option debug
+%option yyclass="My_flex_lexer"
 %x notes
 %x incl
 %x quote
@@ -162,7 +140,7 @@ DOTS		\.+
 <<EOF>> {
 	mtor << "<<EOF>>";
 
-	if (! ((My_flex_lexer*) this)->close_input())
+	if (! close_input())
  	  yyterminate(); // can't move this, since it actually rets a YY_NULL
 }
 
@@ -217,102 +195,3 @@ DOTS		\.+
 
 %%
 
-int
-yylex() {
-	return lexer->yylex();
-}
-
-void
-yyerror(const char *s)
-{
-    String e;
-    if (lexer->include_stack.empty()) {
-	*mlog << "error at EOF" << s;
-    }else 
-	*mlog << lexer->include_stack.top()->name <<  ": " <<
-	 lexer->lineno() <<  ": error:" << s << '\n';
-  exit(1);
-}
-
-
-bool
-busy_parsing()
-{
-    return lexer;	
-}
-
-void
-kill_lexer()
-{
-	delete lexer;
-	lexer = 0;
-}
-
-void
-new_input(String s)
-{
-    if (!lexer) {
-       lexer = new My_flex_lexer;
-       lexer->set_debug( !monitor.silence("Lexer") && check_debug);
-   }		
-   lexer->new_input(s);
-}
-
-/****************/
-
-Input_file::Input_file(String s)
-{
-    name = s;
-    line = 1;
-    if (s=="")
-	is = &cin;
-    else
-	is = new ifstream( s ); //
-    
-   if ( ! *is) {
-	String e("cant open "  + s);
-	if (lexer)
-	      yyerror(e);
-	else
-	      error(e);
-   }
-   cout << "["<<s<<flush;
-}
-
-Input_file::~Input_file()
-{
-  if (is != &cin)
-      delete is;
-  cout << "]" << flush;  
-}
-/****************/
-
-// set the  new input to s, remember old file.
-void
-My_flex_lexer::new_input(String s)
-{    
-   if (!include_stack.empty())
-	include_stack.top()->line = lineno();
-
-   Input_file *newin = new Input_file(s);
-   include_stack.push(newin);
-   switch_streams(newin->is);
-   yylineno = 1;
-}
-
-// pop the inputstack.
-bool
-My_flex_lexer::close_input()
-{
-    Input_file *old = include_stack.pop();
-     bool ok = 	true;
-    if (include_stack.empty()) {
-	ok = false;
-    } else {
-	Input_file *i = include_stack.top();
-	switch_streams(i->is);
-	yylineno = i->line;	
-    }
-    delete old;
-    return ok;
-}
