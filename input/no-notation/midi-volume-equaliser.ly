@@ -1,14 +1,31 @@
 \version "1.7.19"
-\header { texidoc = "@cindex Midi Volume Equaliser
+\header {
+texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a notes, where groups stop one after
-another. U se this to tune equalizer settings. " }
+another. Use this to tune equalizer settings. "
+}
+
+\include "paper16-init.ly"
+
+%{
+
+Override, see scm/midi.scm:
+
+#(set! instrument-equalizer-alist
+      (append 
+       '(
+	 ("flute" . (0 . 0.7))
+        )
+      instrument-equalizer-alist))
+
+%}
 
 flauti = \notes \relative c' {
   \property Staff.midiInstrument = #"flute"
   \property Staff.instrument	= #"2 Flauti"
   \property Staff.instr		= #"Fl."
 
-  c1 R1*10
+  c1-\f R1*10
 }
 
 oboi = \notes \relative c' {
@@ -16,7 +33,7 @@ oboi = \notes \relative c' {
   \property Staff.instrument	= #"2 Oboi"
   \property Staff.instr		= #"Ob."
 
-  R1*1 c1 R1*9
+  R1*1 c1-\f R1*9
 }
 
 clarinetti = \notes \relative c' {
@@ -24,7 +41,7 @@ clarinetti = \notes \relative c' {
   \property Staff.instrument	= #"Clarinetti"
   \property Staff.instr		= #"Cl"
 
-  R1*2 c1 R1*8
+  R1*2 c1-\f R1*8
 }
 
 fagotti = \notes \relative c' {
@@ -33,7 +50,7 @@ fagotti = \notes \relative c' {
   \property Staff.instr		= #"Fg."
 
   \clef bass
-  R1*3 c1 R1*7
+  R1*3 c1-\f R1*7
 }
 
 corni = \notes \relative c' {
@@ -41,7 +58,7 @@ corni = \notes \relative c' {
   \property Staff.instrument	= #"Corni"
   \property Staff.instr		= #"Cor"
 
-  R1*4 c1 R1*6
+  R1*4 c1-\f R1*6
 }
 
 trombe = \notes \relative c' {
@@ -50,7 +67,7 @@ trombe = \notes \relative c' {
   \property Staff.instr		= #"Tp."
 
   \clef bass
-  R1*5 c1 R1*5
+  R1*5 c1-\f R1*5
 }
 
 timpani = \notes \relative c' {
@@ -58,7 +75,7 @@ timpani = \notes \relative c' {
   \property Staff.instrument	= #"Timpani"
   \property Staff.instr		= #"Timp."
 
-  R1*6 c1 R1*4
+  R1*6 c1-\f R1*4
 }
 
 violinoI = \notes \relative c' {
@@ -66,7 +83,7 @@ violinoI = \notes \relative c' {
   \property Staff.instrument	= #"Violino I "
   \property Staff.instr		= #"Vl. I "
 
-  R1*7 c1 R1*3
+  R1*7 c1-\f R1*3
 }
 
 violinoII = \notes \relative c' {
@@ -74,7 +91,7 @@ violinoII = \notes \relative c' {
   \property Staff.instrument	= #"Violino II "
   \property Staff.instr		= #"Vl. II "
  
-  R1*8 c1 R1*2
+  R1*8 c1-\f R1*2
 }
 
 viola = \notes \relative c' {
@@ -83,7 +100,7 @@ viola = \notes \relative c' {
   \property Staff.instr		= #"Vla."
 
   \clef alto
-  R1*9 c1 R1*1
+  R1*9 c1-\f R1*1
 }
 
 violoncello = \notes \relative c' {
@@ -93,7 +110,7 @@ violoncello = \notes \relative c' {
   \property Staff.instr		= #"Vc."
   
   \clef bass
-  R1*10 c1
+  R1*10 c1-\f
 }
 
 
