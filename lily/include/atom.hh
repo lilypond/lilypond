@@ -10,9 +10,8 @@
 #define ATOM_HH
 
 #include "lily-proto.hh"
-#include "box.hh"
+
 #include "lily-guile.hh"
 
-SCM fontify_atom (Font_metric*, SCM atom);
 
 #endif

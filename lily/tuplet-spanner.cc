@@ -6,7 +6,7 @@
   (c)  1997--2000 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "atom.hh"
+
 #include "beam.hh"
 #include "box.hh"
 #include "debug.hh"
