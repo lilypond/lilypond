@@ -171,6 +171,7 @@ usage ()
 
   printf (_f ("Report bugs to %s.", "bug-lilypond@gnu.org").to_str0 ());
   printf ("\n");
+  printf ("\n");
 }
 
 void
