@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "sarabande-urtext.ly";
 
-sarabande_viola_global = \melodic{
+sarabande_viola_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef alto;
@@ -29,11 +29,11 @@ sarabande_viola_global = \melodic{
 	\bar ":|";
 }
 
-sarabande_viola_scripts = \melodic{
+sarabande_viola_scripts = \notes{
 }
 
 sarabande_viola_staff = \type Staff <
-	\melodic \transpose c' \$sarabande
+	\notes \transpose c' \$sarabande
 	\$sarabande_viola_global
 	\$sarabande_viola_scripts
 >

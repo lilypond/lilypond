@@ -24,10 +24,10 @@
 % \lbheel \lbheel \lfheel \lftoe
 % \rbheel \rbtoe \rfheel \rftoe
 
-\version "1.0.2";
+\version "1.0.3";
 
 \score{
-		\melodic {
+		\notes {
 			\time 4/4;
 			\key D;
 			\clef bass;

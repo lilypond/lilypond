@@ -7,9 +7,9 @@ TestedFeatures =	 "multiple meters, beaming, unsynced bars, userdefd engravers";
 
 
 
-\version "1.0.2";
+\version "1.0.3";
 
-ritme = \melodic\transpose c'' {
+ritme = \notes\transpose c'' {
 	\partial 8;
 
 	\time  4/4;
@@ -37,13 +37,13 @@ ritme = \melodic\transpose c'' {
 	
 
 another = 
-	\melodic{ \time 4/4; 
+	\notes{ \time 4/4; 
 		c1.  c1. c4 c4 c4 c4  \time  4/4; c1 c1 c1
 	 }
 
 
 yanother = 
-	\melodic{ \time 4/4; 
+	\notes{ \time 4/4; 
 		c1 c1 c1 c4 c4 c4 c4  c1 c1 c1
 	 }
 

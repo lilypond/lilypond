@@ -115,7 +115,7 @@ def gen_list(inputs, subdir, filename):
 	    
 	list_item(ex + ex_ext + '.txt', 'The input')
 	for pageno in range(1,100):
-	    f  = ex + '-page%d.gif' % pageno
+	    f  = ex + '-page%d.png' % pageno
 	    if not file_exist_b (f):
 		break
 	    list_item(f, 'The output (picture, page %d)' % pageno)

@@ -7,9 +7,9 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-violino1 = \melodic \relative c {
+violino1 = \notes \relative c {
 	c'1\ff ~ | c | <f4-. c'-. as'-.> r r2 | R1 |
 	c1 ~ | c | <d4-. d'-. d'-.> r r2 | R1 |
 	c1 ~ | c | <es'4-. es'-.> r r2 | R1 |
@@ -276,7 +276,7 @@ $violino1_staff = \type Staff = violino1 <
 	\property Staff.midi_instrument = "violin"
 	\property Staff.instrument = "Violino I"
 	\property Staff.instr = "Vl. I"
-	\melodic< 
+	\notes< 
 		\global
 		\$violino1
 	>

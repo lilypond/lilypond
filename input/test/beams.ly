@@ -6,13 +6,13 @@ copyright =	 "PD";
 
 TestedFeatures =	 "beams and beamflags";
 }
-\version "1.0.2";
+\version "1.0.3";
 
 \score{
 	<
 %		\property Score.beamquantisation = \none
 		\type GrandStaff < 
-		\melodic\transpose c' { 
+		\notes\transpose c' { 
 
 			\time 8/4;
 			\stemup [c8 c'' a' f']
@@ -38,7 +38,7 @@ TestedFeatures =	 "beams and beamflags";
 		}
 	>
 	<	
-		\melodic { 
+		\notes { 
 \transpose c' {
 			\time 8/4;
 			\stemdown [a'8 a, c e]

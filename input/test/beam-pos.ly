@@ -1,5 +1,7 @@
+\version "1.0.3";
+
 \score{
-	\melodic\transpose c''{
+	\notes\transpose c''{
 		\property Score.beamquantisation = 3 % TEST
 
 		[c8 c] [c c] [c c] [c c]

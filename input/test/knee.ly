@@ -1,6 +1,6 @@
-\version "1.0.2";
+\version "1.0.3";
 \score{
-	\melodic\relative c'{
+	\notes\relative c'{
 		[c16 \stemdown c'' \stemboth c,, d]
 		\stemdown [d'' a \stemboth c,, g,]
 		\stemup [g c' \stemboth a'' d']

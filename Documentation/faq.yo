@@ -183,6 +183,12 @@ Yes and no.  At this time you can choose between 11, 13, 16, 19,
 (yet).  Look at file(standchen.ly) for an example.
 
 
+question(Do you support Gregorian chant notation?)
+
+No.  There is no reason why LilyPond can't be extended to do so, but
+we haven't done it yet (and there are currently no plans to do it).
+
+
 sect(How do I ....)
 
 question(How do I change the TeX layout?)

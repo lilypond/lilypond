@@ -7,7 +7,7 @@ done, or is an idea that I want to think about
 Most of the items are marked in the code as well, with full explanation. 
 grep for TODO and ugh/ugr/urg
 
-	* egcs-1.1a support
+	* egcs-1.1 support
 
 	* fix LOCALE settings, and \def\foo{2,000pt} output
 
@@ -28,6 +28,10 @@ grep for TODO and ugh/ugr/urg
 
 	* abbrev -> tremolo
 
+	* junking \skip req in lyrics
+
+	* \shape 1st dim skipped? 
+
 	* Language:
 	- general plet mechanism.
 
@@ -40,12 +44,13 @@ grep for TODO and ugh/ugr/urg
 	- \type -> \context ?
 	- \translator -> ?
 	- fix \partial 
-	- \melodic -> \notes
 	- \bla {} vs \bla ; 
 	- mix engraver hacking with music ?
 	- \once\property  KEY = VAL
 	- \addtranslator, \removetranslator
 	- junk ^ and _ for scripts
+	- junk _ for lyrics.
+	- abstract grammar.
 
 	* install TeX stuff into tex/generic directory.
 

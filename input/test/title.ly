@@ -10,10 +10,10 @@ source = 	"urtext";
 instrument=	"Instrument";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
 \score{
-	\melodic
+	\notes
 	  \relative c'{
 		c' d e f f e d c \break
 		c d e f f e d c
@@ -27,7 +27,7 @@ instrument=	"Instrument";
 
 
 \score{
-	\melodic
+	\notes
 	\relative c' {
 	    f' e d c c d e f \break
 	    f e d c c d e f

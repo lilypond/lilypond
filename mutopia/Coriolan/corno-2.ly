@@ -7,9 +7,9 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-corno2 = \melodic \relative c {
+corno2 = \notes \relative c {
 	R1 *2 | d''4-.\ff r r2 | R1 *3 | d4-. r r2 | R1 *3 |
 	c4-. r r2 | r1 | e,4-. r r2 | e4-. r r2 | R1 *5 |
 	%20

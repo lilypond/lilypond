@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "trombo-1.ly"
 \include "trombo-2.ly"
@@ -18,7 +18,7 @@ $trombe_staff = \type Staff = trombe <
 	\property Staff.midi_instrument = "trumpet"
 	\property Staff.instrument = "2 Trombe (C)"
 	\property Staff.instr = "Tbe."
-	\melodic \type Voice=trombe < 
+	\notes \type Voice=trombe < 
 %		\global
 		\time 4/4;
 		\$trombo1

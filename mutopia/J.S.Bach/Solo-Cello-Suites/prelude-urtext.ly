@@ -8,8 +8,8 @@ But merging melodic and scripts doen't work too well yet see viola_scripts .
 %}
 
 % urg, Thread is gone, try Voice
-% prelude_notes = \type Thread = prelude \melodic \relative c {
-prelude_notes = \type Voice = prelude \melodic \relative c {
+% prelude_notes = \type Thread = prelude \notes \relative c {
+prelude_notes = \type Voice = prelude \notes \relative c {
 	d8 f a4 ~ a16 f e d |
 	cis e g a bes4 ~ bes16 a g f |
 	e g bes cis e8. bes16 a16 g f e |
@@ -89,7 +89,7 @@ prelude_notes = \type Voice = prelude \melodic \relative c {
 	\voiceone <cis2. g> | <d f,> | <d e,> | <cis e,> | <d f,>
 }
 
-prelude_b = \melodic \relative c {
+prelude_b = \notes \relative c {
 	\voicetwo 
 	s2.*47
 	%48
@@ -101,15 +101,15 @@ prelude_b = \melodic \relative c {
 	a'2. a a a <a d,>
 }
 
-% pat1 = \melodic { [s8 s]s4[s16 s s s] }
-pat1 = \melodic { [s16 s s s]s4[s16 s s s] }
-pat2 = \melodic { [s16 s s s][s8.s16][s s s s] }
-pat3 = \melodic { [s16 s s s][s8 s s s] }
+% pat1 = \notes { [s8 s]s4[s16 s s s] }
+pat1 = \notes { [s16 s s s]s4[s16 s s s] }
+pat2 = \notes { [s16 s s s][s8.s16][s s s s] }
+pat3 = \notes { [s16 s s s][s8 s s s] }
 
 % of course, i just type pat1, and add the \ and the silly $ later
 % urg, Thread is gone, try Voice
-% prelude_beams = \type Thread = prelude \melodic{
-prelude_beams = \type Voice = prelude \melodic{
+% prelude_beams = \type Thread = prelude \notes{
+prelude_beams = \type Voice = prelude \notes{
 	\$pat1
 	\$pat1
 	\$pat2
@@ -183,23 +183,23 @@ prelude_beams = \type Voice = prelude \melodic{
 
 %{
 properties, urg!
-fig1 = \melodic{ s16( s s )s }
-fig2 = \melodic{ s16( s ) s s }
-fig3 = \melodic{ s16 s( s )s }
-fig4 = \melodic{ s16( s s s s s s )s }
-fig5 = \melodic{ s8.()s16 }
+fig1 = \notes{ s16( s s )s }
+fig2 = \notes{ s16( s ) s s }
+fig3 = \notes{ s16 s( s )s }
+fig4 = \notes{ s16( s s s s s s )s }
+fig5 = \notes{ s8.()s16 }
 %}
 
-fig1 = \melodic{ \slurnormal s16( s s )s }
-fig2 = \melodic{ \slurnormal s16( s ) s s }
-fig3 = \melodic{ s16 \slurnormal s( s )s }
-fig4 = \melodic{ \slurnormal s16( s s s s s s )s }
-fig5 = \melodic{ \slurnormal s8.()s16 }
+fig1 = \notes{ \slurnormal s16( s s )s }
+fig2 = \notes{ \slurnormal s16( s ) s s }
+fig3 = \notes{ s16 \slurnormal s( s )s }
+fig4 = \notes{ \slurnormal s16( s s s s s s )s }
+fig5 = \notes{ \slurnormal s8.()s16 }
 
 % of course, i just type fig1, and add the \ and the silly $ later
 % urg, Thread is gone, try Voice
-% prelude_slurs = \type Thread = prelude \melodic{
-prelude_slurs = \type Voice = prelude \melodic{
+% prelude_slurs = \type Thread = prelude \notes{
+prelude_slurs = \type Voice = prelude \notes{
 	s4 s4 \$fig3 |
 	\$fig1 s4 \$fig3 |
 	\$fig1 s4 \$fig3 |
@@ -273,16 +273,16 @@ prelude_slurs = \type Voice = prelude \melodic{
 	s4 \$fig3 s4 |
 }
 
-fig1 = \melodic{ \slurdotted s16( s s )s }
-fig2 = \melodic{ \slurdotted s16( s ) s s }
-fig3 = \melodic{ s16 \slurdotted s( s )s }
-fig4 = \melodic{ \slurdotted s16( s s s s s s )s }
-fig5 = \melodic{ \slurdotted s8.()s16 }
-fig6 = \melodic{ \slurdotted s16()s \slurdotted s()s }
+fig1 = \notes{ \slurdotted s16( s s )s }
+fig2 = \notes{ \slurdotted s16( s ) s s }
+fig3 = \notes{ s16 \slurdotted s( s )s }
+fig4 = \notes{ \slurdotted s16( s s s s s s )s }
+fig5 = \notes{ \slurdotted s8.()s16 }
+fig6 = \notes{ \slurdotted s16()s \slurdotted s()s }
 
 % urg, Thread is gone, try Voice
-% prelude_suggested_slurs = \type Thread = prelude \melodic{
-prelude_suggested_slurs = \type Voice = prelude \melodic{
+% prelude_suggested_slurs = \type Thread = prelude \notes{
+prelude_suggested_slurs = \type Voice = prelude \notes{
 	\slurdotted
 	s2. |
 	s2. |
@@ -351,14 +351,14 @@ prelude_suggested_slurs = \type Voice = prelude \melodic{
 	\$fig3 s2 |
 }
 
-prelude_a = \type Voice \melodic<
+prelude_a = \type Voice \notes<
 	\$prelude_notes
 	\$prelude_beams
 	\$prelude_slurs
 	\$prelude_suggested_slurs
 >
 
-prelude = \melodic<
+prelude = \notes<
 	\$prelude_a
 	\$prelude_b
 >

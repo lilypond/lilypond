@@ -21,10 +21,10 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
-\version "1.0.0";
+\version "1.0.3";
 
 
-one = \melodic  \transpose c`` {
+one = \notes  \transpose c`` {
 	\textstyle "italic";
 %#	s(^c@ ^es@ ^g@ ^\p(\<@ ^\!@ ^)\!@ ^\>@)
 	t(c,es,g,^\p(\<@,\!,^)\!@,\>)
@@ -86,7 +86,7 @@ one = \melodic  \transpose c`` {
 	\bar "|.";
 }
 
-two = \melodic{
+two = \notes{
 	\clef bass;
 	% c4 r [g8-.(\ped )es-.\*] |
 	c4 r [g8-.( )es-.] |
@@ -148,7 +148,7 @@ two = \melodic{
 	\bar "|.";
 }
 
-global  = \melodic{
+global  = \notes{
 	\meter 3/4;
 	\key es;
 }

@@ -1,5 +1,7 @@
+\version "1.0.3";
+
 \score{
-	\melodic{
+	\notes{
 		c( d e )c |
 		\slurdotted;
 		c( d e )c |

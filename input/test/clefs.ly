@@ -1,5 +1,7 @@
+\version "1.0.3";
+
 \score {
-       \melodic{ 
+       \notes{ 
          \clef "violin"; c'1^"{violin}" \bar "||";
          \clef "french";c'1^"{french}" \bar "||";
          \clef "soprano";c'1^"{soprano}" \bar "||";

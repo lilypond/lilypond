@@ -12,8 +12,8 @@ copyright =	 "public domain";
 % scales with accents.
 %
 
-\version "1.0.2";
-blah = 	\melodic {
+\version "1.0.3";
+blah = 	\notes {
 		\time 6/8;	
 \transpose c {
 		\clef "bass";
@@ -84,7 +84,7 @@ c1}
 
 
 \score{
-	\melodic {\blah}
+	\notes {\blah}
 	\paper{
 	 castingalgorithm = \Wordwrap;
 	}

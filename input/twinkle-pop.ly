@@ -12,9 +12,9 @@ copyright =	 "public domain";
 Tested Features		lyrics and chords
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
-melodie = \melodic\relative c {
+melodie = \notes\relative c {
         \clef"violin";
         \time 2/4 ;
 
@@ -39,7 +39,7 @@ text = \lyric{
 }
 
 \score {
-        <  \melodic \type Staff \melodie
+        <  \notes \type Staff \melodie
            \lyric   \type Lyrics \text
         >
         \paper {  }

@@ -10,14 +10,14 @@ copyright =	 "public domain";
 Tested Features: example file with comments
 
 %}
-\version "1.0.2";
+\version "1.0.3";
 
 
 % the % is a comment.
 
 
 % declare melody (which will be in *one* staff ) for the lead voice
-melodie = \melodic \relative c' {
+melodie = \notes \relative c' {
 	 			% switch Lilypond in note-mode
 	\clef"violin";
 	\time 2/4 ;
@@ -39,7 +39,7 @@ melodie = \melodic \relative c' {
 }
 
 				% more of this.
-begeleiding = \melodic \relative c { 
+begeleiding = \notes \relative c { 
 	\clef "bass";
 	\time 2/4 ;
 

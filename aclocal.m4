@@ -7,6 +7,7 @@ AC_DEFUN(AC_STEPMAKE_COMPILE, [
     # -O is necessary to get inlining
     OPTIMIZE=""
     CXXFLAGS=${CXXFLAGS:-""}
+    CFLAGS=${CFLAGS:-""}
     checking_b=yes
     optimise_b=no
     profile_b=no
@@ -265,8 +266,9 @@ dnl    fi
     AC_SUBST(LN_S)
     AC_SUBST(INSTALL)
     AC_DEFINE_UNQUOTED(DIRSEP, '${DIRSEP}')
-    AC_SUBST(PATHSEP)
     AC_DEFINE_UNQUOTED(PATHSEP, '${PATHSEP}')
+    AC_SUBST(PATHSEP)
+    AC_SUBST(DIRSEP)
   
    
     AC_STEPMAKE_DATADIR

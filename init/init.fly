@@ -1,12 +1,12 @@
 % Toplevel initialisation file. 
 	
-\version "1.0.1";
+\version "1.0.3";
 
 
 \include "declarations.ly"
 
 \score { 
-  \melodic\relative c {
+  \notes\relative c {
     \maininput
   }
   \paper { }  

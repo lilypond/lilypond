@@ -17,7 +17,6 @@ program_name = 'convert-mudela'
 version = '0.2'
 
 
-
 import os
 import sys
 import __main__
@@ -181,6 +180,17 @@ if 1:
 	
 	conversions.append ((1,0,2), conv, '\header { key = concat + with + operator }\n')
 
+if 1:
+	def conv(lines):
+		newlines =[]
+		for x in lines:
+			x =  regsub.gsub ('\\\\melodic', '\\\\notes',x)
+			newlines.append (x)
+		return newlines
+	
+	conversions.append ((1,0,3), conv, '\melodic -> \notes\n')
+
+
 ############################
 
 def get_conversions (from_version, to_version):
@@ -219,6 +229,7 @@ class UnknownVersion:
 	pass
 
 def do_one_file (infile_name):
+	sys.stderr.write ('Processing `%s\' ... '% infile_name)
 	outfile_name = ''
 	if __main__.edit:
 		outfile_name = infile_name + '.NEW'

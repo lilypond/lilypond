@@ -7,9 +7,9 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-viola2 = \melodic \relative c {
+viola2 = \notes \relative c {
 	% starts on (actualy, most part is on) same staff as viola1
 	%urg, parse error
 %urg	\translator Staff=viola1
@@ -36,7 +36,7 @@ $viola2_staff = \type Staff = violaii <
 	\property Staff.instrument = "Viola II"
 	\property Staff.instr = "Vla. II"
 	\clef "alto";
-	\melodic \type Voice=one< 
+	\notes \type Voice=one< 
 		\global
 		\$viola2
 	>

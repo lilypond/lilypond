@@ -16,11 +16,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "menuetto-urtext.ly";
 
-menuetto_i_cello_global = \melodic{
+menuetto_i_cello_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef bass;
@@ -33,7 +33,7 @@ menuetto_i_cello_global = \melodic{
 	\bar ":|";
 }
 
-menuetto_i_cello_scripts = \melodic{
+menuetto_i_cello_scripts = \notes{
 	s2.
 	s8^"~"^1_2_4 s8 s4 s^4
 	s4^0_1 s_4 s
@@ -66,7 +66,7 @@ menuetto_i_cello_staff = \type Staff <
 	\header{ piece = "Menuetto I"; }
 }
 
-menuetto_ii_cello_global = \melodic{
+menuetto_ii_cello_global = \notes{
 	\time 3/4;
 	\key D;
 	\clef bass;

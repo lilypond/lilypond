@@ -1,8 +1,8 @@
 	
-\version "1.0.2";
+\version "1.0.3";
 
 
-blah = 	\melodic{ \transpose c'' {
+blah = 	\notes{ \transpose c'' {
 
 	c,4 ->-.-\fermata-"text"
 	c ->-.-\fermata-"text"

@@ -13,18 +13,18 @@
  Tested Features: stem direction, multivoice, forced accidentals.
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "nederlands.ly"                 % for correct parsing of note names
 
-global = \melodic {
+global = \notes {
   \time 4/4;
   \keysignature bes es as;
   \skip 1*31;
   \bar "|."; |
 }
   
-dux = \melodic \relative c'' {
+dux = \notes \relative c'' {
   \clef violin;
 
   \stemdown
@@ -72,7 +72,7 @@ dux = \melodic \relative c'' {
 }
 
 
-comes = \melodic \relative c''  {
+comes = \notes \relative c''  {
   \stemup
 
   r1 |
@@ -115,7 +115,7 @@ comes = \melodic \relative c''  {
 }
 
 
-bassdux = \melodic \relative c' {
+bassdux = \notes \relative c' {
   \clef bass;
 
   r1 |

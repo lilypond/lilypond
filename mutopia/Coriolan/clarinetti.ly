@@ -9,7 +9,7 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "clarinetto-1.ly"
 \include "clarinetto-2.ly"
@@ -21,7 +21,7 @@ $clarinetti_staff = \type Staff = clarinetti <
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
 	%\property Staff.transposing = "bes"
 	\property Staff.transposing = -3
-	\melodic \type Voice=one < 
+	\notes \type Voice=one < 
 		\time 4/4;
 		\key F;
 		\$clarinetto1

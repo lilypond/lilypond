@@ -9,10 +9,10 @@ copyright =	 "public domain";
 }
 
 
-\version "1.0.2";
+\version "1.0.3";
 
 allegro =
-	\melodic
+	\notes
 	\relative c'
 {
 	\time 4/4;
@@ -147,7 +147,7 @@ allegro =
 	
 }
 
-romanze = \melodic \relative c' {
+romanze = \notes \relative c' {
 
 	\key F;
 	\time 2/2;
@@ -213,7 +213,7 @@ romanze = \melodic \relative c' {
 	 \bar "|.";
 }
 
-rondotheme = \melodic \relative c' {
+rondotheme = \notes \relative c' {
 	[c'8 c c] [c c c]
 	c4( cis8 )d r g,
 	[d'8 d d] [d d d]
@@ -224,7 +224,7 @@ rondotheme = \melodic \relative c' {
 	e4.()d8 r r |
 }
 
-lipbreaker = \melodic \relative c'
+lipbreaker = \notes \relative c'
 {
  	r8 [g'-. g-.] [c()e g,-.]
 	[c()e g,-.] [c()e g,-.]
@@ -232,7 +232,7 @@ lipbreaker = \melodic \relative c'
 	[c c c] [c c c]
 }
 
-rondo = \melodic 	\relative c'
+rondo = \notes 	\relative c'
 {
 	\partial 8;
 	g'8 |

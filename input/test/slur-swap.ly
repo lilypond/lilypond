@@ -1,6 +1,8 @@
+\version "1.0.3";
+
 % urg, the direction of the slur gets swapped!
 \score{
-	\melodic\relative c{
+	\notes\relative c{
 	\slurup
 	\stemup
 		[e'8( c' a b]

@@ -7,9 +7,9 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-oboe1 = \melodic \relative c'' {
+oboe1 = \notes \relative c'' {
 	R1 *2 | as'4-.\ff r r2 | R1 *3 | as4-. r r2 | R1 *3 |
 	a4-. r r2 | r1 | g4-. r r2 | g4-. r r2 | R1 *4 |
 	as2\p_"\ \ \ cresc." ( g |

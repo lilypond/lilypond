@@ -72,7 +72,7 @@ public:
   int size_i_;
   
   // ugh: no protection. Denk na, Vrij Veilig
-  void calcalute_dependencies (int final, int busy, Score_element_method_pointer funcptr);
+  void calculate_dependencies (int final, int busy, Score_element_method_pointer funcptr);
 
 protected:
   /**

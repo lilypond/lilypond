@@ -9,9 +9,9 @@ copyright =	 "public domain";
 
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-violoncello = \melodic \relative c {
+violoncello = \notes \relative c {
 	c1\ff ~ | c | f,4-. r r2 | r1 | c'1\ff ~ | c | f,4-. r r2 |
 	\property Staff.instr = "Vc. \& Cb."
 	r1 |
@@ -304,7 +304,7 @@ $violoncello_staff = \type Staff = violoncello <
 	\property Staff.instrument = "Violoncello"
 	\property Staff.instr = "Vc."
 	\clef "bass";
-	\melodic \type Voice=one< 
+	\notes \type Voice=one< 
 		\global
 		\$violoncello
 	>

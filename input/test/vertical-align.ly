@@ -1,6 +1,8 @@
 
+\version "1.0.3";
+
 \score {
-\melodic <
+\notes <
 	\type GrandStaff < {
 	   \property GrandStaff . maxVerticalAlign = "60."
 	   \property GrandStaff . minVerticalAlign = "35."

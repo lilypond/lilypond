@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "allemande-urtext.ly";
 
-allemande_viola_global = \melodic{
+allemande_viola_global = \notes{
 	\time 4/4;
 	\key f;
 	\partial 16;
@@ -32,11 +32,11 @@ allemande_viola_global = \melodic{
 	\bar ":|";
 }
 
-allemande_viola_scripts = \melodic{
+allemande_viola_scripts = \notes{
 }
 
 allemande_viola_staff = \type Staff <
-	\melodic \transpose c'' \$allemande
+	\notes \transpose c'' \$allemande
 	\$allemande_viola_global
 	\$allemande_viola_scripts
 >

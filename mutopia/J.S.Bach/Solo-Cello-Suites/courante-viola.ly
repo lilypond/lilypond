@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "courante-urtext.ly";
 
-courante_viola_global = \melodic{
+courante_viola_global = \notes{
 	\time 3/4;
 	\key f;
 	\partial 16;
@@ -32,11 +32,11 @@ courante_viola_global = \melodic{
 	\bar ":|";
 }
 
-courante_viola_scripts = \melodic{
+courante_viola_scripts = \notes{
 }
 
 courante_viola_staff = \type Staff <
-	\melodic \transpose c' \$courante
+	\notes \transpose c' \$courante
 	\$courante_viola_global
 	\$courante_viola_scripts
 >

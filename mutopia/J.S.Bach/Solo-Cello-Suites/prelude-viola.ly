@@ -15,11 +15,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "prelude-urtext.ly";
 
-prelude_viola_global = \melodic{
+prelude_viola_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef alto;
@@ -27,11 +27,11 @@ prelude_viola_global = \melodic{
 	\bar "|.";
 }
 
-prelude_viola_scripts = \melodic{
+prelude_viola_scripts = \notes{
 }
 
 prelude_viola_staff = \type Staff <
-	\melodic \transpose c' \$prelude
+	\notes \transpose c' \$prelude
 	\$prelude_viola_global
 	\$prelude_viola_scripts
 >

@@ -7,9 +7,9 @@ enteredby =	 "JCN";
 copyright =	 "public domain";
 }
 
-\version "1.0.2";
+\version "1.0.3";
 
-viola1 = \melodic \relative c {
+viola1 = \notes \relative c {
 	\type Voice=one
 	c'1\ff ~ | c | f,4-. r r2 | r1 |
 	% copied 3 bars from three back...
@@ -296,7 +296,7 @@ $viola1_staff = \type Staff = violai <
 	\property Staff.instrument = "Viola"
 	\property Staff.instr = "Vla."
 	\clef "alto";
-	\melodic \type Voice=one < 
+	\notes \type Voice=one < 
 		\global
 		\$viola1
 	>

@@ -17,11 +17,11 @@ copyright =	 "public domain";
  dotted slurs
 %}
 
-\version "1.0.2";
+\version "1.0.3";
 
 \include "menuetto-urtext.ly";
 
-menuetto_i_viola_global = \melodic{
+menuetto_i_viola_global = \notes{
 	\time 3/4;
 	\key f;
 	\clef alto;
@@ -37,7 +37,7 @@ menuetto_i_viola_global = \melodic{
 	\bar ":|";
 }
 
-menuetto_i_viola_scripts = \melodic{
+menuetto_i_viola_scripts = \notes{
 	s2.
 	s8^"~"^1_2_4 s8*5
 	s2.*5
@@ -53,7 +53,7 @@ menuetto_i_viola_scripts = \melodic{
 }
 
 menuetto_i_viola_staff = \type Staff <
-	\melodic \transpose c' \$menuetto_i
+	\notes \transpose c' \$menuetto_i
 	\$menuetto_i_viola_global
 %	\$menuetto_i_viola_scripts
 >
@@ -65,7 +65,7 @@ menuetto_i_viola_staff = \type Staff <
 	\header{ piece = "Menuetto I"; }
 }
 
-menuetto_ii_viola_global = \melodic{
+menuetto_ii_viola_global = \notes{
 	\time 3/4;
 	\key D;
 	\clef alto;
@@ -79,7 +79,7 @@ menuetto_ii_viola_global = \melodic{
 }
 
 menuetto_ii_viola_staff = \type Staff <
-	\melodic \transpose c' \$menuetto_ii
+	\notes \transpose c' \$menuetto_ii
 	\$menuetto_ii_viola_global
 %	\$menuetto_ii_viola_scripts
 >
