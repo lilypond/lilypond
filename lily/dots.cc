@@ -13,7 +13,8 @@
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 
-Dots::Dots ()
+Dots::Dots (SCM s)
+  : Item (s)
 {
   set_elt_property ("dot-count", gh_int2scm (0));
 }

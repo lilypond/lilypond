@@ -13,7 +13,8 @@
 #include "axis-group-interface.hh"
 
 
-Collision::Collision()
+Collision::Collision(SCM s )
+  : Item (s)
 {
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
@@ -73,7 +74,7 @@ Collision::automatic_shift ()
   Drul_array<Array<int> > shifts;
   SCM  tups = SCM_EOL;
 
-  SCM s = get_elt_property ("elements");
+  SCM s = get_elt_pointer ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
       SCM car = gh_car (s);
@@ -95,7 +96,7 @@ Collision::automatic_shift ()
       for (int i=0; i < clashes.size (); i++)
 	{
 	  SCM sh
-	    = clashes[i]->remove_elt_property ("horizontal-shift");
+	    = clashes[i]->get_elt_property ("horizontal-shift");
 
 	  if (gh_number_p (sh))
 	    shift.push (gh_scm2int (sh));
@@ -200,10 +201,10 @@ Collision::forced_shift ()
 {
   SCM tups = SCM_EOL;
   
-  SCM s = get_elt_property ("elements");
+  SCM s = get_elt_pointer ("elements");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
-      Score_element * se = unsmob_element ( gh_car (s));
+      Score_element * se = unsmob_element (gh_car (s));
 
       SCM force =  se->remove_elt_property ("force-hshift");
       if (gh_number_p (force))

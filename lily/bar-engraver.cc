@@ -28,9 +28,9 @@ Bar_engraver::create_bar ()
 {
   if (!bar_p_)
     {
-      bar_p_ = new Staff_bar;
-      bar_p_->set_elt_property ("break-align-symbol", ly_symbol2scm ("Staff_bar"));
+      bar_p_ = new Staff_bar (get_property ("basicBarlineProperties"));
 
+      
       // urg: "" != empty...
       /*
 	TODO: use symbol.

@@ -25,8 +25,8 @@ public:
   static int compare (Note_head * const &a, Note_head *const &b) ;
 
   Molecule ledger_line (Interval) const;
+  Note_head (SCM);
 protected:
-  
   virtual void before_line_breaking ();
   virtual Molecule do_brew_molecule() const;
 };

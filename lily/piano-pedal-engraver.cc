@@ -185,12 +185,12 @@ Piano_pedal_engraver::do_process_music ()
 	{
 	  if (p->name_ == String ("Sustain"))
 	    {
-	      p->item_p_ = new Sustain_pedal;
+	      p->item_p_ = new Sustain_pedal (SCM_EOL);
 	      p->item_p_->set_elt_property ("text", s);
 	    }
 	  else
 	    {
-	      p->item_p_ = new Text_item;
+	      p->item_p_ = new Text_item (SCM_EOL);
 	      p->item_p_->set_elt_property ("text", s);
 	      // guh
 	      p->item_p_->set_elt_property ("style", ly_str02scm ("italic"));
@@ -199,6 +199,7 @@ Piano_pedal_engraver::do_process_music ()
 	  Side_position_interface si (p->item_p_);
 	  si.set_axis (Y_AXIS);
 
+	  // todo: init with basic props.
 	  p->item_p_->set_elt_property ("no-spacing-rods"  , SCM_BOOL_T);
 	  p->item_p_->set_elt_property ("self-alignment-X", gh_int2scm (0));
 	  p->item_p_->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);

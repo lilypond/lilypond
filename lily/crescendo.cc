@@ -15,7 +15,8 @@
 #include "paper-column.hh"
 
 
-Crescendo::Crescendo ()
+Crescendo::Crescendo (SCM s)
+  : Spanner (s)
 {
   set_elt_property ("dynamic-drul", gh_cons (SCM_BOOL_F, SCM_BOOL_F));
 }

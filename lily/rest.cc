@@ -62,3 +62,8 @@ Rest::do_brew_molecule () const
 
 
 
+Rest::Rest (SCM s)
+  : Rhythmic_head (s)
+{
+}
+

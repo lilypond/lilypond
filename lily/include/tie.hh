@@ -19,7 +19,7 @@
 class Tie : public Spanner
 {
 public:
-  Tie ();
+  Tie (SCM);
   void set_head (Direction, Item*head_l);
   VIRTUAL_COPY_CONS(Score_element);
 

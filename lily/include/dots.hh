@@ -30,7 +30,7 @@ protected:
   virtual void after_line_breaking ();
 public:
   
-  Dots ();
+  Dots (SCM);
 };
 
 #endif // DOTS_HH

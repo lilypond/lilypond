@@ -21,7 +21,7 @@ class Breathing_sign : public Item
 {
 public:
   VIRTUAL_COPY_CONS(Score_element);
-  Breathing_sign ();
+  Breathing_sign (SCM s);
 protected:
   virtual void after_line_breaking ();
   virtual Molecule do_brew_molecule () const;

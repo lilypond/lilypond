@@ -19,15 +19,16 @@ Script_column::add_staff_sided (Item *i)
     return;
   
 
-  Group_interface gi (this, "scripts");
+  Pointer_group_interface gi (this, "scripts");
   gi.add_element (i);
   
   add_dependency (i);
 }
 
-Script_column::Script_column ()
+Script_column::Script_column (SCM s)
+  : Item (s)
 {
-  set_elt_property ("scripts", SCM_EOL);  
+  set_elt_pointer ("scripts", SCM_EOL);  
 }
 
 static int
@@ -45,7 +46,7 @@ Script_column::before_line_breaking ()
 {
   Drul_array<Link_array<Item> > arrs;
   Link_array<Item> staff_sided 
-    = Group_interface__extract_elements (this, (Item*)0, "scripts");
+    = Pointer_group_interface__extract_elements (this, (Item*)0, "scripts");
 				     
 				     
   for (int i=0; i < staff_sided.size (); i++)

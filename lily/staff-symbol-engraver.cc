@@ -1,5 +1,5 @@
 /*
-  staff-sym-reg.cc -- implement Staff_symbol_engraver
+  staff-symbol-engraver.cc -- implement Staff_symbol_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -46,8 +46,9 @@ Staff_symbol_engraver::Staff_symbol_engraver()
 void
 Staff_symbol_engraver::do_creation_processing()
 {
-  span_p_ = new Staff_symbol;
+  span_p_ = new Staff_symbol (get_property ("staffSymbolBasicProperties"));
   span_p_->set_bound(LEFT,get_staff_info().command_pcol_l ());
+
   announce_element (Score_element_info (span_p_, 0));
 }
 
@@ -70,7 +71,7 @@ Staff_symbol_engraver::do_removal_processing()
 void
 Staff_symbol_engraver::acknowledge_element (Score_element_info s)
 {
-  s.elem_l_->set_elt_property ("staff-symbol", span_p_->self_scm_);
+  s.elem_l_->set_elt_pointer ("staff-symbol", span_p_->self_scm_);
   s.elem_l_->add_dependency (span_p_); // UGH. UGH. UGH 
 }
 

@@ -20,7 +20,7 @@
 void
 Dot_column::add_dots (Dots *d)
 {
-  Group_interface gi (this, "dots");
+  Pointer_group_interface gi (this, "dots");
   gi.add_element (d);
 
   add_dependency (d);
@@ -48,9 +48,10 @@ Dot_column::compare (Dots * const &d1, Dots * const &d2)
 }
 
 
-Dot_column::Dot_column ()
+Dot_column::Dot_column (SCM s)
+  : Item (s)
 {
-  Group_interface gi (this, "dots");
+  Pointer_group_interface gi (this, "dots");
   gi.set_interface ();
   directional_element (this).set (RIGHT);
   
@@ -76,7 +77,7 @@ Dot_column::Dot_column ()
 void
 Dot_column::after_line_breaking ()
 {
-  Link_array<Dots> dots = Group_interface__extract_elements (this, (Dots*)0 , "dots"); 
+  Link_array<Dots> dots = Pointer_group_interface__extract_elements (this, (Dots*)0 , "dots"); 
   dots.sort (Dot_column::compare);
   
   if (dots.size () < 2)

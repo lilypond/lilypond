@@ -20,8 +20,9 @@
 #include "paper-def.hh"
 #include "extender-spanner.hh"
 
-Extender_spanner::Extender_spanner ()
-  : Spanner ()
+Extender_spanner::Extender_spanner (SCM s)
+  : Spanner (s)
+
 {
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
   set_extent_callback (Score_element::point_dimension_callback, Y_AXIS);

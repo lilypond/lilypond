@@ -21,7 +21,7 @@ class Bar_number_engraver : public Engraver
 {
 protected:
   Text_item* text_p_;
-  Protected_scm visibility_lambda_;
+
   Protected_scm staffs_;
 
 protected:
@@ -65,11 +65,6 @@ Bar_number_engraver::Bar_number_engraver ()
 void
 Bar_number_engraver::do_creation_processing ()
 {
-  String t = "barNumberVisibilityFunction";
-  SCM proc = get_property (t);
-
-  if (gh_procedure_p (proc))
-    visibility_lambda_ = proc;
 }
 
 
@@ -98,7 +93,7 @@ Bar_number_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
-      text_p_->set_elt_property ("side-support", staffs_);
+      text_p_->set_elt_pointer ("side-support-elements", staffs_);
       typeset_element (text_p_);
       text_p_ =0;
     }
@@ -110,9 +105,9 @@ Bar_number_engraver::create_items ()
 {
   if (text_p_)
     return;
-  
-  text_p_ = new Text_item;
-  text_p_->set_elt_property ("breakable", SCM_BOOL_T); // ugh
+
+  SCM b = get_property ("basicBarNumberProperties");
+  text_p_ = new Text_item (b);
   Side_position_interface staffside(text_p_);
   staffside.set_axis (Y_AXIS);
 
@@ -135,9 +130,6 @@ Bar_number_engraver::create_items ()
 			    gh_double2scm(paper_l ()->get_var ("interline")));
     }
 
-  if (gh_procedure_p (visibility_lambda_))
-      text_p_->set_elt_property ("visibility-lambda",
-				 visibility_lambda_);
 
   announce_element (Score_element_info (text_p_, 0));
 }

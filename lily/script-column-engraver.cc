@@ -73,7 +73,7 @@ Script_column_engraver::process_acknowledged ()
 {
   if (!scol_p_ && script_l_arr_.size () > 1)
     {
-      scol_p_ = new Script_column;
+      scol_p_ = new Script_column (SCM_EOL);
       announce_element (Score_element_info (scol_p_, 0));
     }
 

@@ -95,6 +95,7 @@ Paper_column::column_l () const
 }
 
 Paper_column::Paper_column (Moment w)
+  : Item (SCM_EOL)
 {
   SCM when = (new Moment (w))->smobify_self ();
   scm_unprotect_object (when);
@@ -131,3 +132,8 @@ Paper_column::musical_b () const
   return s != Moment(0);
 }
 
+bool
+Paper_column::used_b ()const
+{
+  return gh_pair_p (get_elt_pointer ("elements")) ||  breakable_b ();
+}

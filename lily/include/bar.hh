@@ -14,7 +14,7 @@
 class Bar:public Item {
 public:
   VIRTUAL_COPY_CONS(Score_element);
-  Bar();
+  Bar(SCM);
 
   Molecule compound_barline (String, Real height) const;
   Molecule simple_barline (Real wid, Real height) const;      

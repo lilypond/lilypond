@@ -31,7 +31,7 @@ class Single_malt_grouping_item : public Item
 {
   VIRTUAL_COPY_CONS(Score_element);
 public:
-  Single_malt_grouping_item ();
+  Single_malt_grouping_item (SCM);
   Interval my_width () const;
   void add_item (Item*);
 };

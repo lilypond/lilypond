@@ -45,9 +45,10 @@ Align_note_column_engraver::Align_note_column_engraver()
 void
 Align_note_column_engraver::do_creation_processing ()
 {
-  align_item_p_ = new Grace_align_item;
+  align_item_p_ = new Grace_align_item (SCM_EOL);
   Side_position_interface (align_item_p_).set_axis (X_AXIS);
-  Side_position_interface (align_item_p_).set_direction (LEFT);  
+  Side_position_interface (align_item_p_).set_direction (LEFT);
+  
   // needed  for setting font size.
   announce_element (Score_element_info (align_item_p_, 0));
 }

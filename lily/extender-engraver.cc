@@ -75,7 +75,7 @@ Extender_engraver::do_process_music ()
 	  return;
 	}
       
-      extender_spanner_p_ = new Extender_spanner;
+      extender_spanner_p_ = new Extender_spanner (SCM_EOL);
       extender_spanner_p_->set_textitem  (LEFT, last_lyric_l_);
       announce_element (Score_element_info (extender_spanner_p_, req_l_));
     }

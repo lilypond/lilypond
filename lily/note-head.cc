@@ -119,3 +119,9 @@ Note_head::do_brew_molecule() const
   return out;
 }
 
+
+Note_head::Note_head (SCM s)
+  : Rhythmic_head (s)
+{
+  
+}

@@ -60,5 +60,11 @@ Staff_symbol::line_count () const
 Real
 Staff_symbol::staff_space ()const
 {
-  return gh_scm2double (get_elt_property ("staff-space"));
+  return gh_scm2double (get_elt_property ("staff-space")) *
+    paper_l ()->get_var ("staffspace");
+}
+
+Staff_symbol::Staff_symbol( SCM s)
+  : Spanner (s)
+{
 }

@@ -21,9 +21,10 @@
 #include "all-font-metrics.hh"
 
 Line_of_score::Line_of_score()
+  : Spanner (SCM_EOL)
 {
-  set_elt_property ("columns", SCM_EOL);
-  set_elt_property ("all-elements", SCM_EOL);
+  set_elt_pointer ("columns", SCM_EOL);
+  set_elt_pointer ("all-elements", SCM_EOL);
 
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (Y_AXIS,X_AXIS);
@@ -32,7 +33,7 @@ Line_of_score::Line_of_score()
 int
 Line_of_score::element_count () const
 {
-  return scm_ilength ( get_elt_property ("all-elements"));
+  return scm_ilength ( get_elt_pointer ("all-elements"));
 }
 
 
@@ -43,14 +44,14 @@ void
 Line_of_score::typeset_element (Score_element * elem_p)
 {
   elem_p->pscore_l_ = pscore_l_;
-  Group_interface (this, "all-elements").add_element (elem_p);
+  Pointer_group_interface (this, "all-elements").add_element (elem_p);
   scm_unprotect_object (elem_p->self_scm_);
 }
 
 void
 Line_of_score::output_lines ()
 {
-  for (SCM s = get_elt_property ("all-elements");
+  for (SCM s = get_elt_pointer ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
       unsmob_element (gh_car (s))->do_break_processing ();
@@ -62,7 +63,7 @@ Line_of_score::output_lines ()
   for (int i=0; i < broken_into_l_arr_.size (); i++)
     {
       Score_element *se = broken_into_l_arr_[i];
-      SCM all = se->get_elt_property ("all-elements");
+      SCM all = se->get_elt_pointer ("all-elements");
       for (SCM s = all; gh_pair_p (s); s = gh_cdr (s))
 	{
 	  unsmob_element (gh_car (s))->fixup_refpoint ();
@@ -74,13 +75,13 @@ Line_of_score::output_lines ()
   /*
     needed for doing items.
    */
-  for (SCM s = get_elt_property ("all-elements");
+  for (SCM s = get_elt_pointer ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
       unsmob_element (gh_car (s))->fixup_refpoint ();
     }
   
-  for (SCM s = get_elt_property ("all-elements");
+  for (SCM s = get_elt_pointer ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
       unsmob_element (gh_car (s))->handle_broken_dependencies ();
@@ -167,12 +168,12 @@ Line_of_score::output_scheme (SCM s)
 void
 Line_of_score::add_column (Paper_column*p)
 {
-  SCM cs = get_elt_property ("columns");
+  SCM cs = get_elt_pointer ("columns");
   Score_element * prev =  gh_pair_p (cs) ? unsmob_element (gh_car (cs)) : 0;
   int rank = prev ? dynamic_cast<Paper_column*> (prev)->rank_i () + 1 : 0; 
 
   p->set_rank (rank);
-  set_elt_property ("columns",  gh_cons (p->self_scm_, cs));
+  set_elt_pointer ("columns",  gh_cons (p->self_scm_, cs));
 
   Axis_group_interface (this).add_element (p);
   typeset_element (p);
@@ -182,7 +183,7 @@ Link_array<Paper_column>
 Line_of_score::column_l_arr ()const
 {
   Link_array<Paper_column> acs
-    = Group_interface__extract_elements (this, (Paper_column*) 0, "columns");
+    = Pointer_group_interface__extract_elements (this, (Paper_column*) 0, "columns");
   bool bfound = false;
   for (int i= acs.size (); i -- ; )
     {
@@ -194,9 +195,7 @@ Line_of_score::column_l_arr ()const
 	seem empty. We need to retain breakable columns, in case
 	someone forced a breakpoint.
       */
-      if (!bfound
-	  || (acs[i]->get_elt_property ("elements") == SCM_EOL
-	      && !brb))
+      if (!bfound || !acs[i]->used_b ())
 	acs.del (i);
     }
   return acs;
@@ -223,32 +222,32 @@ fixup_refpoints (SCM s)
 void
 Line_of_score::pre_processing ()
 {
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_element (gh_car (s))->discretionary_processing ();
 
   progress_indication ( _f("Element count %d ",  element_count ()));
 
   
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_element (gh_car (s))->handle_prebroken_dependencies ();
   
-  fixup_refpoints (get_elt_property ("all-elements"));
+  fixup_refpoints (get_elt_pointer ("all-elements"));
   
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element* sc = unsmob_element (gh_car (s));
       sc->calculate_dependencies (PRECALCED, PRECALCING, &Score_element::before_line_breaking);
     }
   
   progress_indication ("\n" + _ ("Calculating column positions...") + " " );
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_element (gh_car (s))->do_space_processing ();
 }
 
 void
 Line_of_score::post_processing ()
 {
-  for (SCM s = get_elt_property ("all-elements");
+  for (SCM s = get_elt_pointer ("all-elements");
        gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element* sc = unsmob_element (gh_car (s));
@@ -272,7 +271,7 @@ Line_of_score::post_processing ()
     generate all molecules  to trigger all font loads.
 
     (ugh. This is not very memory efficient.)  */
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     unsmob_element (gh_car (s))->get_molecule ();
   
   /*
@@ -295,7 +294,7 @@ Line_of_score::post_processing ()
   /*
     all elements.
    */ 
-  for (SCM s = get_elt_property ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("all-elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * sc =  unsmob_element (gh_car (s));
       Molecule m = sc->get_molecule ();
@@ -323,7 +322,7 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
 
   l = l->column_l ();
   r = r->column_l ();
-  SCM s = get_elt_property ("columns");
+  SCM s = get_elt_pointer ("columns");
 
   while (gh_car (s) != r->self_scm_)
     s = gh_cdr  (s);

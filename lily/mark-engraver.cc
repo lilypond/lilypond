@@ -34,7 +34,6 @@ public:
   Mark_engraver ();
 protected:
   Text_item* text_p_;
-  Protected_scm visibility_lambda_;
   Protected_scm staffs_;
   
 protected:
@@ -63,13 +62,7 @@ Mark_engraver::Mark_engraver ()
 void
 Mark_engraver::do_creation_processing ()
 {
-  String t = "markVisibilityFunction";
-  SCM proc = get_property (t);
-
-  if (gh_procedure_p (proc))
-    visibility_lambda_ = proc;
 }
-
 
 
 void
@@ -95,7 +88,7 @@ Mark_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
-      text_p_->set_elt_property ("side-support" , staffs_);
+      text_p_->set_elt_pointer("side-support-elements" , staffs_);
       typeset_element (text_p_);
       text_p_ =0;
     }
@@ -107,13 +100,17 @@ Mark_engraver::create_items (Request *rq)
 {
   if (text_p_)
     return;
-  
-  text_p_ = new Text_item;
-  text_p_->set_elt_property ("breakable", SCM_BOOL_T); // ugh
+
+  SCM s = get_property ("basicMarkProperties");
+  text_p_ = new Text_item (s);
+
   Group_interface (text_p_, "interfaces").add_thing (ly_symbol2scm ("Mark"));
   Side_position_interface staffside(text_p_);
   staffside.set_axis (Y_AXIS);
 
+  /*
+    -> Generic props.
+   */
   SCM prop = get_property ("markDirection");
   if (!isdir_b (prop))
     {
@@ -133,9 +130,6 @@ Mark_engraver::create_items (Request *rq)
 			    gh_double2scm(paper_l ()->get_var ("interline")));
     }
 
-  if (gh_procedure_p (visibility_lambda_))
-      text_p_->set_elt_property ("visibility-lambda",
-				 visibility_lambda_);
   
   announce_element (Score_element_info (text_p_, rq));
 }

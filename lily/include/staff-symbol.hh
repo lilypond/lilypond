@@ -21,8 +21,11 @@ public:
   Real staff_space () const;
   int steps_i() const;
   int line_count () const;
+  Staff_symbol (SCM s);
+  
 protected:
   VIRTUAL_COPY_CONS(Score_element);
   virtual Molecule do_brew_molecule() const;
+
 };
 #endif // STAFFSYM_HH

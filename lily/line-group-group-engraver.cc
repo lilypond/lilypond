@@ -52,7 +52,7 @@ Line_group_engraver_group::do_creation_processing()
 void
 Line_group_engraver_group::create_line_spanner ()
 {
-  staffline_p_ = new Spanner ;
+  staffline_p_ = new Spanner (SCM_EOL);
   Axis_group_interface (staffline_p_).set_interface ();
   Axis_group_interface (staffline_p_).set_axes (Y_AXIS,Y_AXIS);
 }

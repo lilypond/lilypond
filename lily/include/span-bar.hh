@@ -25,7 +25,7 @@ class Span_bar : public Bar
 {
   Interval get_spanned_interval () const;
 public:
-  Span_bar();
+  Span_bar (SCM);
     
   VIRTUAL_COPY_CONS(Score_element);
   void add_bar (Score_element*);

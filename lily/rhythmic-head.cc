@@ -21,7 +21,7 @@
 Dots*
 Rhythmic_head::dots_l () const
 {
-  SCM s = get_elt_property ("dot");
+  SCM s = get_elt_pointer ("dot");
   return dynamic_cast<Dots*> (unsmob_element (s));
 }
 
@@ -36,7 +36,7 @@ Rhythmic_head::balltype_i () const
 Stem*
 Rhythmic_head::stem_l () const
 {
-  SCM s = get_elt_property ("stem");
+  SCM s = get_elt_pointer ("stem");
   return dynamic_cast<Stem*> (unsmob_element (s));
 }
 
@@ -62,8 +62,12 @@ Rhythmic_head::after_line_breaking ()
 void
 Rhythmic_head::add_dots (Dots *dot_l)
 {
-  set_elt_property ("dot", dot_l->self_scm_);
+  set_elt_pointer ("dot", dot_l->self_scm_);
   dot_l->add_dependency (this);  
 }
 
 
+Rhythmic_head::Rhythmic_head (SCM s)
+  : Item (s)
+{
+}

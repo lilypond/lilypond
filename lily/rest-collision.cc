@@ -24,7 +24,7 @@ void
 Rest_collision::add_column (Note_column *nc_l)
 {
   add_dependency (nc_l);
-  Group_interface gi (this);  
+  Pointer_group_interface gi (this);  
   if (nc_l->rest_b ())
     gi.name_ = "rests";
   else
@@ -51,7 +51,7 @@ rhythmic_head2mom (Rhythmic_head* r)
 static Rhythmic_head*
 col2rhythmic_head (Note_column* c)
 {
-  SCM s = c->get_elt_property ("rests");
+  SCM s = c->get_elt_pointer ("rests");
   assert (gh_pair_p (s));
   Score_element* e = unsmob_element (gh_car (s));
   return dynamic_cast<Rhythmic_head*> (e);
@@ -61,9 +61,9 @@ void
 Rest_collision::before_line_breaking ()
 {
   Link_array<Note_column> rest_l_arr =
-    Group_interface__extract_elements (this, (Note_column*) 0, "rests");
+    Pointer_group_interface__extract_elements (this, (Note_column*) 0, "rests");
   Link_array<Note_column> ncol_l_arr =
-    Group_interface__extract_elements (this, (Note_column*) 0, "notes");
+    Pointer_group_interface__extract_elements (this, (Note_column*) 0, "notes");
 				      
   
   /* 
@@ -188,11 +188,11 @@ Rest_collision::before_line_breaking ()
 }
 
 
-Rest_collision::Rest_collision()
+Rest_collision::Rest_collision(SCM s)
+  : Item (s)
 {
-  set_elt_property ("rests", SCM_EOL);
-  set_elt_property ("notes", SCM_EOL);
-  set_elt_property ("transparent", SCM_BOOL_T);
+  set_elt_pointer ("rests", SCM_EOL);
+  set_elt_pointer ("notes", SCM_EOL);
   set_extent_callback (0, X_AXIS);
   set_extent_callback (0, Y_AXIS);
 }

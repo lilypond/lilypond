@@ -35,11 +35,11 @@ Time_signature_engraver::do_process_music()
   Time_signature_change_req *req = timing_grav_l->time_signature_req_l();
   if (req)
     {
-      time_signature_p_ = new Time_signature;
+      time_signature_p_ = new Time_signature (get_property ("basicTimeSignatureProperties"));
+
       time_signature_p_->set_elt_property ("fraction",
 					   gh_cons (gh_int2scm (req->beats_i_),
 						    gh_int2scm (req->one_beat_i_))); 
-      time_signature_p_->set_elt_property ("break-align-symbol", ly_symbol2scm(  "Time_signature"));
     }
 
   

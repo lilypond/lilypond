@@ -13,7 +13,8 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 
-Grace_align_item::Grace_align_item ()
+Grace_align_item::Grace_align_item (SCM s)
+  : Item (s)
 {
   set_elt_property ("stacking-dir", gh_int2scm (RIGHT));
   Align_interface (this).set_interface();

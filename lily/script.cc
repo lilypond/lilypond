@@ -14,6 +14,10 @@
 #include "paper-def.hh"
 #include "dimension-cache.hh"
 
+Script ::Script (SCM s)
+  : Item (s)
+{
+}
 
 Molecule
 Script::get_molecule(Direction d) const

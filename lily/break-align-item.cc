@@ -36,7 +36,7 @@ Break_align_item::before_line_breaking ()
   Real interline= paper_l ()->get_var ("interline");	
   Link_array<Score_element> elems;
   Link_array<Score_element> all_elems
-    = Group_interface__extract_elements (this, (Score_element*)0,
+    = Pointer_group_interface__extract_elements (this, (Score_element*)0,
 					 "elements");
   
   for (int i=0; i < all_elems.size(); i++) 
@@ -157,7 +157,8 @@ Break_align_item::before_line_breaking ()
 				 
 }
 
-Break_align_item::Break_align_item ()
+Break_align_item::Break_align_item (SCM s)
+  : Item (s)
 {
   set_elt_property ("stacking-dir" , gh_int2scm (RIGHT));
 

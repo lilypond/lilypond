@@ -109,7 +109,7 @@ Multi_measure_rest_engraver::do_process_music ()
 
   if (busy_span_req_l_ && !mmrest_p_)
     {
-      mmrest_p_ = new Multi_measure_rest;
+      mmrest_p_ = new Multi_measure_rest (SCM_EOL);
       Staff_symbol_referencer_interface si (mmrest_p_);
       si.set_interface ();
 
@@ -127,7 +127,7 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
 
   if (mmrest_p_ && (now_mom () >= start_moment_) 
     && !mp
-    && (scm_ilength (mmrest_p_->get_elt_property ("columns")) >= 2))
+    && (scm_ilength (mmrest_p_->get_elt_pointer ("columns")) >= 2))
     {
       typeset_element (mmrest_p_);
       /*

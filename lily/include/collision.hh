@@ -45,6 +45,6 @@ protected:
 public:
     
   void add_column (Note_column*ncol_l);
-  Collision();
+  Collision(SCM);
 };
 #endif // COLLISION_HH

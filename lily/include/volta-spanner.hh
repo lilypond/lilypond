@@ -16,7 +16,7 @@
 class Volta_spanner : public Spanner
 {
 public:
-  Volta_spanner ();
+  Volta_spanner (SCM);
  
   void add_column (Note_column*);
   void add_bar (Bar*);

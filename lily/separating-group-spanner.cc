@@ -12,6 +12,7 @@
 #include "paper-column.hh"
 #include "paper-def.hh"
 #include "dimensions.hh"
+#include "group-interface.hh"
 
 static Rod
 make_rod (Single_malt_grouping_item *l, Single_malt_grouping_item *r)
@@ -39,7 +40,7 @@ Separating_group_spanner::get_rods () const
 {
   Array<Rod> a;
   
-  for (SCM s = get_elt_property ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("elements"); gh_pair_p (s) && gh_pair_p (gh_cdr (s)); s = gh_cdr (s))
     {
       /*
 	Order of elements is reversed!
@@ -81,7 +82,7 @@ Separating_group_spanner::get_rods () const
   /*
     We've done our job, so we get lost. 
    */
-  for (SCM s = get_elt_property ("elements"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("elements"); gh_pair_p (s); s = gh_cdr (s))
     {
       Item * it =dynamic_cast<Item*>(unsmob_element (gh_car (s)));
       if (it && it->broken_b ())
@@ -100,14 +101,13 @@ Separating_group_spanner::get_rods () const
 void
 Separating_group_spanner::add_spacing_unit (Single_malt_grouping_item*i)
 {
-  set_elt_property ("elements",
-		    gh_cons (i->self_scm_,
-			     get_elt_property ("elements")));
+  Pointer_group_interface (this, "elements").add_element (i);
   add_dependency (i);
 }
 
 
-Separating_group_spanner::Separating_group_spanner ()
+Separating_group_spanner::Separating_group_spanner (SCM s)
+  : Spanner (s)  
 {
-  set_elt_property ("elements", SCM_EOL);
+  set_elt_pointer ("elements", SCM_EOL);
 }

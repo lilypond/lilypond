@@ -29,6 +29,7 @@ protected:
   virtual void before_line_breaking ();
 public:
   VIRTUAL_COPY_CONS(Score_element);
+  Clef_item (SCM);
 };
 
 #endif // CLEFITEM_HH

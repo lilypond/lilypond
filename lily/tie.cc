@@ -24,15 +24,16 @@ void
 Tie::set_head (Direction d, Item * head_l)
 {
   assert (!head (d));
-  index_set_cell (get_elt_property ("heads"), d, head_l->self_scm_);
+  index_set_cell (get_elt_pointer ("heads"), d, head_l->self_scm_);
   
   set_bound (d, head_l);
   add_dependency (head_l);
 }
 
-Tie::Tie()
+Tie::Tie(SCM s)
+  : Spanner (s)
 {
-  set_elt_property ("heads", gh_cons (SCM_EOL, SCM_EOL));
+  set_elt_pointer ("heads", gh_cons (SCM_EOL, SCM_EOL));
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
 
@@ -41,7 +42,7 @@ Tie::Tie()
 Note_head* 
 Tie::head (Direction d) const
 {
-  SCM c = get_elt_property ("heads");
+  SCM c = get_elt_pointer ("heads");
   c = index_cell (c, d);
 
   return dynamic_cast<Note_head*> (unsmob_element (c));  
@@ -87,8 +88,8 @@ Tie::do_add_processing()
       new_head_drul[d] = head((Direction)-d);
   } while (flip(&d) != LEFT);
 
-  index_set_cell (get_elt_property ("heads"), LEFT, new_head_drul[LEFT]->self_scm_ );
-  index_set_cell (get_elt_property ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm_ );
+  index_set_cell (get_elt_pointer ("heads"), LEFT, new_head_drul[LEFT]->self_scm_ );
+  index_set_cell (get_elt_pointer ("heads"), RIGHT, new_head_drul[RIGHT]->self_scm_ );
 }
 
 void

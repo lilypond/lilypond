@@ -22,6 +22,7 @@ class Staff_bar : public Bar
 public:
   VIRTUAL_COPY_CONS(Score_element);
   virtual Real get_bar_size () const;
+  Staff_bar (SCM);
 };
 
 #endif /* STAFF_BAR_HH */

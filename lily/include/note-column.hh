@@ -35,7 +35,7 @@ public:
   void translate_rests(int dy);
   Note_head * first_head ()const;
   Interval rest_dim ()const ;
-  Note_column ();
+  Note_column (SCM);
   void set_stem (Stem*);
   void set_dotcol (Dot_column*);
   void add_head (Rhythmic_head*);

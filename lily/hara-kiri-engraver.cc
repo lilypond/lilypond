@@ -13,7 +13,7 @@
 Spanner*
 Hara_kiri_engraver::get_spanner_p () const
 {
-  return new Hara_kiri_group_spanner;
+  return new Hara_kiri_group_spanner (SCM_EOL);
 }
 
 void

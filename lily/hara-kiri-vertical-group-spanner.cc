@@ -13,24 +13,23 @@
 #include "debug.hh"
 #include "item.hh"
 
-Hara_kiri_group_spanner::Hara_kiri_group_spanner()
+Hara_kiri_group_spanner::Hara_kiri_group_spanner(SCM s)
+  : Spanner (s)
 {
-  set_elt_property ("items-worth-living", SCM_EOL);
+  set_elt_pointer ("items-worth-living", SCM_EOL);
 }
 
 void 
 Hara_kiri_group_spanner::add_interesting_item (Item* n)
 {
   add_dependency (n);
-  set_elt_property ("items-worth-living",
-		    gh_cons (n->self_scm_,
-			     get_elt_property ("items-worth-living")));
+  Pointer_group_interface (this, "items-worth-living").add_element (n);
 }
 
 void 
 Hara_kiri_group_spanner::after_line_breaking ()
 {
-  SCM worth = get_elt_property ("items-worth-living");
+  SCM worth = get_elt_pointer ("items-worth-living");
   if (gh_pair_p (worth))
     return;
 

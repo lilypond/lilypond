@@ -22,7 +22,7 @@
 bool
 Note_column::rest_b () const
 {
-  SCM r = get_elt_property ("rests");
+  SCM r = get_elt_pointer ("rests");
 
   return gh_pair_p (r);
 }
@@ -38,10 +38,11 @@ Note_column::shift_compare (Note_column *const &p1, Note_column*const&p2)
   return h1 - h2;
 }
 
-Note_column::Note_column()
+Note_column::Note_column( SCM s)
+  : Item (s)
 {
-  set_elt_property ("rests", SCM_EOL);
-  set_elt_property ("note-heads", SCM_EOL);  
+  set_elt_pointer ("rests", SCM_EOL);
+  set_elt_pointer ("note-heads", SCM_EOL);  
   Axis_group_interface (this).set_interface ();
   Axis_group_interface (this).set_axes (X_AXIS, Y_AXIS);
   Group_interface (this, "interfaces").add_thing (ly_symbol2scm ("Note_column"));
@@ -50,7 +51,7 @@ Note_column::Note_column()
 Stem *
 Note_column::stem_l () const
 {
-  SCM s = get_elt_property ("stem");
+  SCM s = get_elt_pointer ("stem");
   return dynamic_cast<Stem*> (unsmob_element (s));
 
 }
@@ -63,7 +64,7 @@ Note_column::head_positions_interval() const
 
   iv.set_empty ();
 
-  SCM h = get_elt_property ("note-heads");
+  SCM h = get_elt_pointer ("note-heads");
   for (; gh_pair_p (h); h = gh_cdr (h))
     {
       Score_element *se = unsmob_element (gh_car (h));
@@ -80,7 +81,7 @@ Note_column::dir () const
 {
   if (stem_l ())
     return stem_l ()->get_direction ();
-  else if (gh_pair_p (get_elt_property ("note-heads")))
+  else if (gh_pair_p (get_elt_pointer ("note-heads")))
     return (Direction)sign (head_positions_interval().center ());
 
   programming_error ("Note column without heads and stem!");
@@ -91,7 +92,7 @@ Note_column::dir () const
 void
 Note_column::set_stem (Stem * stem_l)
 {
-  set_elt_property ("stem", stem_l->self_scm_);
+  set_elt_pointer ("stem", stem_l->self_scm_);
 
   add_dependency (stem_l);
   Axis_group_interface (this).add_element (stem_l);
@@ -104,12 +105,12 @@ Note_column::add_head (Rhythmic_head *h)
 {
   if (Rest*r=dynamic_cast<Rest *> (h))
     {
-      Group_interface gi (this, "rests");
+      Pointer_group_interface gi (this, "rests");
       gi.add_element (h);
     }
   if (Note_head *nh=dynamic_cast<Note_head *> (h))
     {
-      Group_interface gi (this, "note-heads");
+      Pointer_group_interface gi (this, "note-heads");
       gi.add_element (nh);
     }
   Axis_group_interface (this).add_element (h);
@@ -121,7 +122,7 @@ Note_column::add_head (Rhythmic_head *h)
 void
 Note_column::translate_rests (int dy_i)
 {
-  SCM s = get_elt_property ("rests");
+  SCM s = get_elt_pointer ("rests");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * se = unsmob_element (gh_car (s));
@@ -181,7 +182,7 @@ Note_column::after_line_breaking ()
   Direction d = stem_l ()->get_direction ();
   Real beamy = (stem_l ()->relative_coordinate (0, X_AXIS) - x0) * dydx + beam_y;
 
-  s = get_elt_property ("rests");
+  s = get_elt_pointer ("rests");
   Score_element * se = unsmob_element (gh_car (s));
   Staff_symbol_referencer_interface si (se);
 
@@ -210,7 +211,7 @@ Interval
 Note_column::rest_dim () const
 {
   Interval restdim;
-  SCM s = get_elt_property ("rests");
+  SCM s = get_elt_pointer ("rests");
   for (; gh_pair_p (s); s = gh_cdr (s))
     {
       Score_element * sc = unsmob_element ( gh_car (s));

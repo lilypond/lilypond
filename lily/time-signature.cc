@@ -13,9 +13,10 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 
-Time_signature::Time_signature ()
+Time_signature::Time_signature (SCM s)
+  :  Item (s)
 {
-  set_elt_property ("breakable", SCM_BOOL_T);
+
 }
 
 // ugh.!

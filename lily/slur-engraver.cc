@@ -11,6 +11,27 @@
 #include "debug.hh"
 #include "note-column.hh"
 #include "translator-group.hh"
+#include "engraver.hh"
+
+class Slur_engraver :public Engraver {
+  Link_array<Span_req> requests_arr_;
+  Link_array<Span_req> new_slur_req_l_arr_;
+  Link_array<Slur> slur_l_stack_;
+  Link_array<Slur> end_slur_l_arr_;
+
+  void set_melisma (bool);
+protected:
+  virtual bool do_try_music (Music*);
+  virtual void do_process_music();
+  virtual void acknowledge_element (Score_element_info);
+  virtual void do_pre_move_processing();
+  virtual void do_post_move_processing();
+  virtual void do_removal_processing ();
+
+public:
+  VIRTUAL_COPY_CONS(Translator);
+  
+};
 
 bool
 Slur_engraver::do_try_music (Music *req_l)
@@ -85,7 +106,7 @@ Slur_engraver::do_process_music()
 	{
 	  // push a new slur onto stack.
 	  //(use temp. array to wait for all slur STOPs)
-	  Slur * s_p =new Slur;
+	  Slur * s_p =new Slur (SCM_EOL);
 	  
 	  requests_arr_.push (slur_req_l);
 	  start_slur_l_arr_.push (s_p);

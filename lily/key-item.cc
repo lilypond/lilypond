@@ -18,13 +18,10 @@
 const int FLAT_TOP_PITCH=2; /* fes,ges,as and bes typeset in lower octave */
 const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 
-Key_item::Key_item ()
+Key_item::Key_item (SCM s)
+  : Item (s)
 {
-  set_elt_property ("breakable", SCM_BOOL_T);
   set_elt_property ("c0-position", gh_int2scm (0));
-
-  set_elt_property ("old-accidentals", SCM_EOL);
-  set_elt_property ("new-accidentals", SCM_EOL);
 }
 
 void

@@ -13,9 +13,10 @@
 #include "directional-element-interface.hh"
 #include "note-head.hh"
 
-Tie_column::Tie_column ()
+Tie_column::Tie_column (SCM s)
+  : Spanner (s)
 {
-  set_elt_property ("ties", SCM_EOL);
+  set_elt_pointer ("ties", SCM_EOL);
   set_extent_callback (0, X_AXIS);
   set_extent_callback (0, Y_AXIS);  
   set_elt_property ("transparent", SCM_BOOL_T);
@@ -24,14 +25,14 @@ Tie_column::Tie_column ()
 void
 Tie_column::add_tie (Tie *s)
 {
-  Group_interface g (this, "ties");
+  Pointer_group_interface g (this, "ties");
   if (!g.count ())
     {
       set_bound (LEFT, s->head (LEFT));
       set_bound (RIGHT, s->head (RIGHT));
     }
   
-  group (this, "ties").add_element (s);
+  Pointer_group_interface (this, "ties").add_element (s);
   s->add_dependency (this);
 }
 
@@ -56,7 +57,7 @@ void
 Tie_column::set_directions ()
 {
   Link_array<Tie> s =
-    Group_interface__extract_elements (this, (Tie*)0, "ties");
+    Pointer_group_interface__extract_elements (this, (Tie*)0, "ties");
 
 
   Direction d = directional_element (this).get ();

@@ -39,13 +39,14 @@
 class Dynamic_line_spanner : public Spanner
 {
 public:
-  Dynamic_line_spanner ();
+  Dynamic_line_spanner (SCM);
   VIRTUAL_COPY_CONS(Score_element);
   void add_column (Note_column*);
   void add_element (Score_element*);
 };
 
-Dynamic_line_spanner::Dynamic_line_spanner ()
+Dynamic_line_spanner::Dynamic_line_spanner (SCM s)
+  : Spanner (s)
 {
   set_elt_property ("transparent", SCM_BOOL_T);
   Side_position_interface (this).set_axis (Y_AXIS);
@@ -114,7 +115,7 @@ ADD_THIS_TRANSLATOR (Dynamic_engraver);
 void
 Dynamic_engraver::announce_element (Score_element_info i)
 {
-  group (i.elem_l_, "interfaces").add_thing (ly_symbol2scm ("dynamic"));
+  Group_interface (i.elem_l_, "interfaces").add_thing (ly_symbol2scm ("dynamic"));
   
   Engraver::announce_element (i);
 }
@@ -172,7 +173,7 @@ Dynamic_engraver::do_process_music ()
       && !line_spanner_
       && pending_element_arr_.size ())
     {
-      line_spanner_ = new Dynamic_line_spanner;
+      line_spanner_ = new Dynamic_line_spanner (get_property ("basicDynamicLineSpannerProperties"));
       for (int i = 0; i < pending_column_arr_.size (); i++)
 	line_spanner_->add_column (pending_column_arr_[i]);
       pending_column_arr_.clear ();
@@ -262,16 +263,12 @@ Dynamic_engraver::do_process_music ()
     {
       String loud = text_req_l_->text_str_;
 
-      text_p_ = new Text_item;
-      text_p_->set_elt_property ("text",
-					  ly_str02scm (loud.ch_C ()));
-      text_p_->set_elt_property ("style", gh_str02scm ("dynamic"));
-      text_p_->set_elt_property ("script-priority",
-					  gh_int2scm (100));
+      text_p_ = new Text_item (get_property ("basicDynamicTextProperties"));
+      text_p_->set_elt_property ("text", ly_str02scm (loud.ch_C ()));
       if (Direction d=text_req_l_->get_direction ())
 	directional_element (text_p_).set (d);
       pending_element_arr_.push (text_p_);
-      text_p_->set_elt_property ("self-alignment-Y", gh_int2scm (0));
+
       text_p_->add_offset_callback (Side_position_interface::aligned_on_self,
 				    Y_AXIS);
       announce_element (Score_element_info (text_p_, text_req_l_));
@@ -307,7 +304,7 @@ Dynamic_engraver::do_process_music ()
       else
 	{
 	  span_start_req_l_ = span_req_l_drul_[START];
-	  cresc_p_  = new Crescendo;
+	  cresc_p_  = new Crescendo (SCM_EOL);
 	  cresc_p_->set_elt_property
 	    ("grow-direction",
 	     gh_int2scm ((span_req_l_drul_[START]->span_type_str_ == "crescendo")

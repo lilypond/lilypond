@@ -21,9 +21,9 @@
 #include "direction.hh"
 
 
-Breathing_sign::Breathing_sign ()
+Breathing_sign::Breathing_sign (SCM  s)
+  : Item (s)
 {
-  set_elt_property ("breakable", SCM_BOOL_T);
 }
 
 Molecule 

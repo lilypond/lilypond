@@ -132,7 +132,7 @@ Stem::type_i () const
 Score_element*
 Stem::support_head ()const
 {
-  SCM h = get_elt_property ("support-head");
+  SCM h = get_elt_pointer ("support-head");
   Score_element * nh = unsmob_element (h);
   if (nh)
     return nh;
@@ -142,7 +142,7 @@ Stem::support_head ()const
 	UGH.
        */
       
-      return unsmob_element (gh_car (get_elt_property ("heads")));
+      return unsmob_element (gh_car (get_elt_pointer ("heads")));
     }
   else
     return first_head ();
@@ -152,7 +152,7 @@ Stem::support_head ()const
 int
 Stem::heads_i ()const
 {
-  Group_interface gi (this, "heads");
+  Pointer_group_interface gi (this, "heads");
   return gi.count ();
 }
 
@@ -179,7 +179,7 @@ Stem::extremal_heads () const
   Drul_array<Note_head *> exthead;
   exthead[LEFT] = exthead[RIGHT] =0;
   
-  for (SCM s = get_elt_property ("heads"); gh_pair_p (s); s = gh_cdr (s))
+  for (SCM s = get_elt_pointer ("heads"); gh_pair_p (s); s = gh_cdr (s))
     {
       Note_head * n = dynamic_cast<Note_head*> (unsmob_element (gh_car (s)));
       Staff_symbol_referencer_interface si (n);
@@ -202,10 +202,10 @@ Stem::extremal_heads () const
 void
 Stem::add_head (Rhythmic_head *n)
 {
-  n->set_elt_property ("stem", this->self_scm_);
+  n->set_elt_pointer ("stem", this->self_scm_);
   n->add_dependency (this);
 
-  Group_interface gi (this);
+  Pointer_group_interface gi (this);
   if (Note_head *nh = dynamic_cast<Note_head *> (n))
     gi.name_ = "heads";
   else
@@ -214,10 +214,11 @@ Stem::add_head (Rhythmic_head *n)
   gi.add_element (n);
 }
 
-Stem::Stem ()
+Stem::Stem (SCM s)
+  : Item (s)
 {
-  set_elt_property ("heads", SCM_EOL);
-  set_elt_property ("rests", SCM_EOL);
+  set_elt_pointer ("heads", SCM_EOL);
+  set_elt_pointer ("rests", SCM_EOL);
 
   add_offset_callback ( &Stem::off_callback, X_AXIS);
 }
@@ -338,7 +339,7 @@ Stem::position_noteheads ()
     return;
   
   Link_array<Score_element> heads =
-    Group_interface__extract_elements (this, (Score_element*)0, "heads");
+    Pointer_group_interface__extract_elements (this, (Score_element*)0, "heads");
 
   heads.sort (compare_position);
   Direction dir =get_direction ();
@@ -443,7 +444,7 @@ Stem::dim_callback (Score_element const *se, Axis )
   Stem * s = dynamic_cast<Stem*> ((Score_element*)se);
   
   Interval r (0, 0);
-  if (unsmob_element (s->get_elt_property ("beam")) || abs (s->flag_i ()) <= 2)
+  if (unsmob_element (s->get_elt_pointer ("beam")) || abs (s->flag_i ()) <= 2)
     ;	// TODO!
   else
     {
@@ -517,7 +518,7 @@ Stem::off_callback (Score_element const* se, Axis)
 Beam*
 Stem::beam_l ()const
 {
-  SCM b=  get_elt_property ("beam");
+  SCM b=  get_elt_pointer ("beam");
   return dynamic_cast<Beam*> (unsmob_element (b));
 }
 

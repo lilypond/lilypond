@@ -38,10 +38,11 @@ System_start_delimiter::staff_bracket (Real height) const
   return mol;
 }
 
-System_start_delimiter::System_start_delimiter ()
+System_start_delimiter::System_start_delimiter (SCM s)
+  : Spanner (s)
 {
   set_extent_callback (0, Y_AXIS);
-  Group_interface (this).set_interface();
+  Pointer_group_interface (this).set_interface();
 }
 
 Molecule
@@ -56,7 +57,7 @@ System_start_delimiter::after_line_breaking ()
 {
   SCM   gl = get_elt_property ("glyph");
   
-  if (scm_ilength (get_elt_property ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
+  if (scm_ilength (get_elt_pointer ("elements")) <=  1 && gl == ly_symbol2scm ("bar-line"))
     {
       set_elt_property ("transparent", SCM_BOOL_T);
       set_extent_callback (0, X_AXIS);
