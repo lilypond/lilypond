@@ -480,7 +480,7 @@ in the slur.  The terminal code(CHAR(41)) apppears to the left of the first
 note in the slur.  This makes it possible to put a note in slurs from
 both sides:
 mudela(fragment,verbatim,center)(
-f'()g'()a' [a'8 b']( a'4 g' )f'
+f'()g'()a' [a'8 b'(] a'4 g' )f'
 )
 
 A tie connects two adjacent note heads.  When used with chords, it

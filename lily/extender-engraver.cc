@@ -10,7 +10,7 @@
 #include "extender-spanner.hh"
 #include "text-def.hh"
 #include "score-column.hh"
-#include "text-item.hh"
+#include "g-text-item.hh"
 
 ADD_THIS_TRANSLATOR (Extender_engraver);
 
@@ -23,7 +23,7 @@ Extender_engraver::Extender_engraver ()
 void
 Extender_engraver::acknowledge_element (Score_element_info i)
 {
-  Text_item* t = (dynamic_cast<Text_item*> (i.elem_l_));
+  G_text_item* t = dynamic_cast<G_text_item*> (i.elem_l_);
   if (!t)
     return;
   if (!extender_spanner_p_)
@@ -31,10 +31,10 @@ Extender_engraver::acknowledge_element (Score_element_info i)
   if (!span_reqs_drul_[LEFT])
     return;
 
-  if (!extender_spanner_p_->textitem_l_drul_[LEFT])
+  if (!extender_spanner_p_->item_l_drul_[LEFT])
     extender_spanner_p_->set_textitem (LEFT, t);
   else
-    if (span_reqs_drul_[RIGHT] && !extender_spanner_p_->textitem_l_drul_[RIGHT]) 
+    if (span_reqs_drul_[RIGHT] && !extender_spanner_p_->item_l_drul_[RIGHT]) 
       extender_spanner_p_->set_textitem (RIGHT, t);
 }
 

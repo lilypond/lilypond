@@ -20,7 +20,7 @@
 Extender_spanner::Extender_spanner ()
   : Directional_spanner ()
 {
-  textitem_l_drul_[LEFT] = textitem_l_drul_[RIGHT] = 0;
+  item_l_drul_[LEFT] = item_l_drul_[RIGHT] = 0;
   dy_f_drul_[LEFT] = dy_f_drul_[RIGHT] = 0.0;
   dx_f_drul_[LEFT] = dx_f_drul_[RIGHT] = 0.0;
 }
@@ -28,7 +28,7 @@ Extender_spanner::Extender_spanner ()
 Extender_spanner::Extender_spanner (Extender_spanner const& c)
   : Directional_spanner (c)
 {
-  textitem_l_drul_ = c.textitem_l_drul_;
+  item_l_drul_ = c.item_l_drul_;
   dy_f_drul_ = c.dy_f_drul_;
   dx_f_drul_ = c.dx_f_drul_;
 }
@@ -67,12 +67,12 @@ void
 Extender_spanner::do_add_processing ()
 {
   Direction d = LEFT;
-  Drul_array<Text_item *> new_textitem_drul = textitem_l_drul_;
+  Drul_array<Item *> new_textitem_drul = item_l_drul_;
   do {
-    if (!textitem_l_drul_[d])
-      new_textitem_drul[d] = textitem_l_drul_[(Direction)-d];
+    if (!item_l_drul_[d])
+      new_textitem_drul[d] = item_l_drul_[(Direction)-d];
   } while (flip(&d) != LEFT);
-  textitem_l_drul_ = new_textitem_drul;
+  item_l_drul_ = new_textitem_drul;
 }
 
 Interval
@@ -84,7 +84,7 @@ Extender_spanner::do_height () const
 void
 Extender_spanner::do_post_processing ()
 {
-  assert (textitem_l_drul_[LEFT] || textitem_l_drul_[RIGHT]);
+  assert (item_l_drul_[LEFT] || item_l_drul_[RIGHT]);
 
   // UGH
   Real nw_f = paper ()->note_width () * 0.8;
@@ -92,15 +92,13 @@ Extender_spanner::do_post_processing ()
   Direction d = LEFT;
   do
     {
-      Text_item* t = textitem_l_drul_[d] ? textitem_l_drul_[d] : textitem_l_drul_[(Direction)-d];
+      Item* t = item_l_drul_[d] ? item_l_drul_[d] : item_l_drul_[(Direction)-d];
 
       dy_f_drul_[d] += t->extent (Y_AXIS).length () / 2;
       if (d == LEFT)
         dx_f_drul_[d] += t->extent (X_AXIS).length ();
       else
 	dx_f_drul_[d] -= d * nw_f / 2;
-
-//      dx_f_drul_[d] -= d * nw_f / 4;
     }
   while (flip(&d) != LEFT);
 }
@@ -108,18 +106,18 @@ Extender_spanner::do_post_processing ()
 void
 Extender_spanner::do_substitute_dependency (Score_element* o, Score_element* n)
 {
-  Text_item* new_l = n ? dynamic_cast<Text_item *> (n) : 0;
-  if (dynamic_cast <Item *> (o) == textitem_l_drul_[LEFT])
-    textitem_l_drul_[LEFT] = new_l;
-  else if (dynamic_cast <Item *> (o) == textitem_l_drul_[RIGHT])
-    textitem_l_drul_[RIGHT] = new_l;
+  Item* new_l = n ? dynamic_cast<Item *> (n) : 0;
+  if (dynamic_cast <Item *> (o) == item_l_drul_[LEFT])
+    item_l_drul_[LEFT] = new_l;
+  else if (dynamic_cast <Item *> (o) == item_l_drul_[RIGHT])
+    item_l_drul_[RIGHT] = new_l;
 }
   
 void
-Extender_spanner::set_textitem (Direction d, Text_item* textitem_l)
+Extender_spanner::set_textitem (Direction d, Item* textitem_l)
 {
-  assert (!textitem_l_drul_[d]);
-  textitem_l_drul_[d] = textitem_l;
+  assert (!item_l_drul_[d]);
+  item_l_drul_[d] = textitem_l;
   set_bounds (d, textitem_l);
 
   add_dependency (textitem_l);

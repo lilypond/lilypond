@@ -2,7 +2,7 @@
 
 depth = ../..
 
-examples=standchen
+examples=
 LOCALSTEPMAKE_TEMPLATES=mutopia
 
 include $(depth)/make/stepmake.make

@@ -19,8 +19,8 @@ inline bool
 Atom::check_infinity_b ()const
 {
   bool ridiculous = false;
-#ifndef NDEBUG
   
+#ifndef NDEBUG
   /* infinity checks. */
   for (int a = X_AXIS; a < NO_AXES; a++)
     {

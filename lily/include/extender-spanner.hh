@@ -35,10 +35,9 @@ public:
   virtual ~Extender_spanner ();
 
   Offset center () const;  
-  void set_textitem (Direction, Text_item*);
+  void set_textitem (Direction, Item*);
 
-  Drul_array<Text_item *> textitem_l_drul_;
- 
+  Drul_array<Item *> item_l_drul_;	// should use teh spanpoints field of item.
 protected:
   virtual Molecule* do_brew_molecule_p () const;
   void do_add_processing ();
