@@ -1,0 +1,37 @@
+/*
+  multi_measure_rest-engraver.hh -- declare Multi_measure_rest_engraver
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 1998 Jan Nieuwenhuizen <jan@digicash.com>
+*/
+
+#ifndef MULTI_MEASURE_REST_ENGRAVER_HH
+#define MULTI_MEASURE_REST_ENGRAVER_HH
+
+#include "engraver.hh"
+#include "moment.hh"
+
+/**
+ */
+class Multi_measure_rest_engraver : public Engraver
+{
+public:
+  TRANSLATOR_CLONE(Multi_measure_rest_engraver);
+  DECLARE_MY_RUNTIME_TYPEINFO;
+  Multi_measure_rest_engraver ();
+
+protected:
+  virtual void do_removal_processing ();
+  virtual void do_process_requests ();
+  virtual bool do_try_request (Request*);
+  virtual void do_pre_move_processing ();
+  
+private:
+  bool part_b_;
+  Moment last_mom_;
+  Multi_measure_rest_req* multi_measure_req_l_;
+  Multi_measure_rest* mmrest_p_;
+};
+
+#endif // MULTI_MEASURE_REST_ENGRAVER_HH
