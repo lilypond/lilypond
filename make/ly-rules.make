@@ -7,11 +7,11 @@ $(outdir)/%.latex: %.doc
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
-	rm -f $$(grep -LF '\lilypondend' $(outdir)/lily-*.tex 2>/dev/null)
+	rm -f $$(grep -LF '% eof' $(outdir)/lily-*systems.tex 2>/dev/null)
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 
 $(outdir)/%.texi: $(outdir)/%.tely
-	rm -f $$(grep -LF '\lilypondend' $(outdir)/lily-*.tex 2>/dev/null)
+	rm -f $$(grep -LF '% eof' $(outdir)/lily-*systems.tex 2>/dev/null)
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 #
 # DON'T REMOVE SOURCE FILES, otherwise the .TEXI ALWAYS OUT OF DATE.

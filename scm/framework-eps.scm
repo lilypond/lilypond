@@ -56,8 +56,8 @@
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))
 
-    (display "@c eof" texi-system-port)
-    (display "% eof" tex-system-port)
+    (display "@c eof - 'eof' is a Makefile marker; don't remove. " texi-system-port)
+    (display "% eof - 'eof' is Makefile marker; don't remove. " tex-system-port)
     
     (dump-infinite-stack-EPS stencils))
     (postprocess-output book framework-eps-module
