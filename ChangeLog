@@ -1,3 +1,17 @@
+2003-06-19  Graham Percival  <gperlist@shaw.ca>
+
+	* input/test/ beam-damp.ly grace-end.ly lyric-extender.ly
+	lyric-hyphen.ly : moved to regression.
+
+	* input/test/ beam-stem-test.ly beamed-slur-endings.ly
+	diverse-spacing.ly duration-check.ly knee.ly lyrics.ly : deleted.
+
+	* input/test/instrument-name-mmrest.ly: moved to
+	../regression/multi-measure-rest-instr-name.ly
+
+	* input/test/knee-sym.ly: moved to
+	../regression/beam-knee-symmetry.ly.
+
 2003-06-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/mutopia/J.S.Bach/Petites-Preludes/*.ly (opus): update
