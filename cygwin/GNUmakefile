@@ -10,7 +10,7 @@ STEPMAKE_TEMPLATES = install install-out script
 include $(depth)/make/stepmake.make
 
 # For Cygwin builds only
-infeq ($(CYGWIN_BUILD),)
+ifneq ($(CYGWIN_BUILD),)
 
 include $(stepdir)/executable-targets.make
 
