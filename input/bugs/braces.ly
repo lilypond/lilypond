@@ -1,3 +1,6 @@
+% this bug apparently caused by dvips + mf rounding.
+
+
 \header {
 texidoc="Run this through ly2dvi to show differerent brace sizes"
 }

@@ -14,7 +14,8 @@
 #include "rational.hh"
 
 /**
-   Rationals with glue for Guilification;
+   Musical timing (Main-timing, grace-timing) with glue for
+   Guilification;
 */
 class Moment
 {
@@ -26,7 +27,8 @@ public:
 
   Moment (Rational m);
 
-
+  Moment operator - () const;
+  
   void operator += (Moment const &m);
   void operator -= (Moment const &m);  
 
@@ -34,7 +36,7 @@ public:
   void operator /= (Moment const &m);  
 
   Rational main_part_;
-  Rational grace_mom_;
+  Rational grace_part_;
 
   void set_infinite (int k);
   

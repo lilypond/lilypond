@@ -22,10 +22,10 @@ Grace_iterator::~Grace_iterator ()
 
 
 void
-Grace_iterator::process (Moment m )
+Grace_iterator::process (Moment m)
 {
   Moment main ;
-  main.main_part_ = m.grace_mom_;
+  main.main_part_ = music_length_.grace_part_ + m.grace_part_;
   Music_wrapper_iterator::process (main);
 }
 
@@ -43,7 +43,7 @@ Grace_iterator::pending_moment () const
   Moment cp =Music_wrapper_iterator::pending_moment();
 
   Moment pending;
-  pending.grace_mom_ = - music_length_.main_part_  + cp.main_part_;
+  pending.grace_part_ =  cp.main_part_- music_length_.grace_part_ ;
 
   return pending;
 }

@@ -139,8 +139,10 @@ Script_engraver::acknowledge_grob (Grob_info inf)
 	    }
 	  if (Side_position_interface::get_axis (e) == X_AXIS
 	      && !e->parent_l (Y_AXIS))
-	    e->set_parent (inf.elem_l_, Y_AXIS);
-	  
+	    {
+	      e->set_parent (inf.elem_l_, Y_AXIS);
+	      e->add_dependency (inf.elem_l_); // ??
+	    }
 	  Side_position_interface::add_support (e,inf.elem_l_);
 	}
     }  

@@ -174,16 +174,7 @@ def lily_notename (tuple2):
 	(n, a) = tuple2
 	nn = chr ((n+ 2)%7 + ord ('a'))
 
-	if a == -1:
-		nn = nn + 'es'
-	elif a == -2:
-		nn = nn + 'eses'
-	elif a == 1:
-		nn = nn + 'is'
-	elif a == 2:
-		nn = nn + 'isis'
-
-	return nn
+	return nn + {-2:'eses', -1:'es', 0:'', 1:'is', 2:'isis'}[a]
 
 
 class Tuplet:
@@ -729,6 +720,10 @@ Add None to LIST until it contains entry number NO.
 	return list
 
 def read_finale_value (str):
+	"""
+Pry off one value from STR. The value may be $hex, decimal, or "string".
+Return: (value, rest-of-STR)
+	"""
 	while str and str[0] in ' \t\n':
 		str = str[1:]
 

@@ -18,8 +18,11 @@ startGraceMusic = {
     \property Voice.Beam \override #'space-function = #grace-beam-space-function
     \property Voice.Beam \override #'thickness = #0.3
     
-    % must use staff. Accidentals should also be smaller. 
-    \property Staff.fontSize = #-2
+    % Can't use Staff.fontSize, since time sigs, keys sigs, etc. will
+    % be smaller as well.
+
+    \property Voice.fontSize = #-2
+    \property Staff.LocalKeyItem \override #'font-relative-size = #-2
 }
 
 stopGraceMusic = {
@@ -34,5 +37,9 @@ stopGraceMusic = {
     \property Voice.Stem \revert #'length
     \property Voice.Stem \revert #'direction    
     
-    \property Staff.fontSize \unset
+    % Can't use Staff.fontSize, since time sigs, keys sigs, etc. will
+    % be smaller as well.
+
+    \property Voice.fontSize \unset
+    \property Staff.LocalKeyItem \revert #'font-relative-size
 }

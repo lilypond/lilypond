@@ -242,7 +242,7 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	{
 	  Moment now = now_mom();
 
-	  if(bool (now.grace_mom_ ) != bool (beam_start_mom_.grace_mom_))
+	  if(bool (now.grace_part_ ) != bool (beam_start_mom_.grace_part_))
 	    return ;
 	  
 	  Item *stem_l = dynamic_cast<Item*> (info.elem_l_);

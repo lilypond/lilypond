@@ -21,7 +21,7 @@ Grace_music::length_mom () const
 {
   Moment l = Music_wrapper::length_mom ();
   Moment gl;
-  gl.grace_mom_ = l.main_part_ + l.grace_mom_ ;
+  gl.grace_part_ = l.main_part_ + l.grace_part_ ;
   return gl;
 }
 
@@ -29,7 +29,7 @@ Grace_music::length_mom () const
 Moment
 Grace_music::start_mom () const
 {
-  return Music::start_mom ();
+  return - length_mom ();
 }
 
 Grace_music::Grace_music ()

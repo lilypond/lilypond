@@ -399,7 +399,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
       /*
 	ignore grace notes.
        */
-      if (bool (beam_start_location_.grace_mom_) != bool (now_mom ().grace_mom_))
+      if (bool (beam_start_location_.grace_part_) != bool (now_mom ().grace_part_))
 	return ;
 	
       

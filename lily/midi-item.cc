@@ -98,7 +98,7 @@ String
 Midi_event::str () const
 {
   Rational rat_dt = (delta_mom_.main_part_ * Rational (384) +
-    delta_mom_.grace_mom_ * Rational (100))*Rational (4);
+    delta_mom_.grace_part_ * Rational (100))*Rational (4);
   int delta_i = int (rat_dt);
 
   String delta_str = Midi_item::i2varint_str (delta_i);

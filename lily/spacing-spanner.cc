@@ -72,7 +72,7 @@ find_runs (Grob*me, Link_array<Grob> cols)
     {
       Moment w =  Paper_column::when_mom (cols[i]);
       
-      if (!w.grace_mom_ && Paper_column::musical_b (cols[i]))
+      if (!w.grace_part_ && Paper_column::musical_b (cols[i]))
 	{
 	  filter_cols.push (cols[i]);
 	  col_moments.push (w);
@@ -125,7 +125,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols)
 	  /*
 	    ignore grace notes for shortest notes.
 	   */
-	  if (when && when->grace_mom_)
+	  if (when && when->grace_part_)
 	    continue;
 	  
 	  SCM  st = cols[i]->get_grob_property ("shortest-starter-duration");
@@ -469,7 +469,7 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
     ugh: 0.1 is an arbitrary distance.
    */
   dist *= (double) (delta_t.main_part_ / shortest_playing_len.main_part_)
-    + 0.1 * (double) (delta_t.grace_mom_ / shortest_playing_len.main_part_);
+    + 0.1 * (double) (delta_t.grace_part_ / shortest_playing_len.main_part_);
 
 
 
@@ -486,9 +486,9 @@ Spacing_spanner::note_spacing (Grob*me, Grob *lc, Grob *rc,
 
   if (lm && rm)
     {
-      if (lm->grace_mom_ && rm->grace_mom_)
+      if (lm->grace_part_ && rm->grace_part_)
 	dist *= 0.5;
-      else if (!rm->grace_mom_ && lm->grace_mom_)
+      else if (!rm->grace_part_ && lm->grace_part_)
 	dist *= 0.7;
     }
 
