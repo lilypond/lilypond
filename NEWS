@@ -14,7 +14,7 @@ New features in 1.5
 * Completely rewritten beam formatting: provides much better output
 now.
 
-* Improved grace notes.
+* Completely rewritten grace note support.
 
 * Improved accidental handling and formatting.
 
@@ -36,3 +36,4 @@ brackets.
 * Manual thoroughly revised.
 
 * Many bugfixes.
+
