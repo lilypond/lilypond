@@ -1,4 +1,5 @@
 \version "2.5.13"
+
 \header {
     composer = "ARTHUR GRAY"
     title = "LES NÉRÉIDES"
@@ -297,6 +298,6 @@ theScore = \score{
     
 %%% Local variables:
 %%% coding: utf-8
-%%% LilyPond-indent-level:4
+%%% LilyPond-indent-level:2
 %%% End:
 

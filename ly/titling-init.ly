@@ -10,7 +10,7 @@ slashSeparator = \markup {
 tagline = \markup {
   \with-url
 
-  % todo: lilypond.org/music-engraving
+  %% todo: lilypond.org/music-engraving
   #"http://lilypond.org/web/"
   \line {
     "Music engraving by LilyPond"
@@ -24,26 +24,27 @@ bookTitleMarkup = \markup {
   \override #'(baseline-skip . 3)
   \column {
     \fill-line { \fromproperty #'header:dedication }
-    \override #'(baseline-skip . 3.5)
-    \huge \bigger \bold
-      \column {
-	\fill-line {
-	  \bigger \fromproperty #'header:title
-	}
-	\fill-line {
-	  \bigger  \fromproperty #'header:subtitle
-	}
-	\fill-line {
-	  \fromproperty #'header:subsubtitle
-	}
+    \column {
+      \override #'(baseline-skip . 3.5)
+      \huge \bigger \bold
+      \fill-line {
+	\bigger \fromproperty #'header:title
       }
-    
-    \fill-line {
-      \fromproperty #'header:poet
-      \fromproperty #'header:instrument 
-      \column {
-	\fromproperty #'header:composer
-	\fromproperty #'header:arranger
+      \fill-line {
+	\large \smaller \bold
+	\bigger  \fromproperty #'header:subtitle
+      }
+      \fill-line {
+	\smaller \bold
+	\fromproperty #'header:subsubtitle
+      }
+      \fill-line {
+	\fromproperty #'header:poet
+	{ \large \bold \fromproperty #'header:instrument }
+	\column {
+	  \fromproperty #'header:composer
+	  \fromproperty #'header:arranger
+	}
       }
     }
   }
@@ -58,24 +59,24 @@ scoreTitleMarkup = \markup {
 
 #(define (first-page layout props arg)
   (if (= (chain-assoc-get 'page:page-number props -1) 1)
-    (interpret-markup layout props arg)
-    empty-stencil))
+   (interpret-markup layout props arg)
+   empty-stencil))
 
 #(define (last-page layout props arg)
   (if (chain-assoc-get 'page:last? props #f)
-    (interpret-markup layout props arg)
-    empty-stencil))
+   (interpret-markup layout props arg)
+   empty-stencil))
 
 #(define (not-first-page layout props arg)
   (if (not (= (chain-assoc-get 'page:page-number props -1) 1))
-    (interpret-markup layout props arg)
-    empty-stencil))
+   (interpret-markup layout props arg)
+   empty-stencil))
 
 #(define (not-single-page layout props arg)
   (if (not (and (= (chain-assoc-get 'page:page-number props -1) 1)
-	        (chain-assoc-get 'page:last? props -1)))
-    (interpret-markup layout props arg)
-    empty-stencil))
+	    (chain-assoc-get 'page:last? props -1)))
+   (interpret-markup layout props arg)
+   empty-stencil))
 
 oddHeaderMarkup = \markup
 \on-the-fly #not-single-page
