@@ -75,6 +75,10 @@
 (define (dot x y radius)
   (embedded-ps (list 'dot x y radius)))
 
+
+(define (embedded-ps string)
+  (embedded-ps (list 'embedded-ps string)))
+
 (define (white-dot x y radius)
   (embedded-ps (list 'white-dot x y radius)))
 

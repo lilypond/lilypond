@@ -5,6 +5,8 @@
 
 	* input/test/clef-end-of-line.ly: fold into manual.
 
+	* input/test/scales-greek.ly: remove.
+
 	* input/test/chords-without-melody.ly: fold into manual.
 
 	* input/test/cadenza-skip.ly: remove.

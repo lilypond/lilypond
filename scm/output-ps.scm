@@ -36,6 +36,7 @@
 	     placebox
 	     bezier-sandwich
 	     horizontal-line
+	     embedded-ps
 	     filledbox
 	     round-filled-box
 	     text
@@ -79,6 +80,7 @@
   (string-append "/" prefix (symbol->string key) " ("
 		 (escape-parentheses val)
 		 ") def\n"))
+
 
 (define (ps-number-def prefix key val)
   (let ((s (if (integer? val)
@@ -140,7 +142,8 @@
 
 ; todo: merge with tex-font-command?
 
-
+(define (embedded-ps string)
+  string)
 
 (define (dot x y radius)
   (string-append
