@@ -224,77 +224,34 @@ Paper_def::reset_default_count()
   default_count_i_ = 0;
 }
 
-//urg
 extern char const* lily_version_number_sz ();
-
-void
-output_def (Paper_outputter* p, String key, String val)
-{
-  SCM args_scm =
-    gh_cons (gh_str02scm (key.ch_l ()), gh_cons (gh_str02scm (val.ch_l ()), SCM_EOL));
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("lily-def"), args_scm)));
-  p->output_scheme (scm);
-}
-
-void
-output_header (Paper_outputter* p, Scope *head)
-{
-  if (!head)
-    return;
-
-  String id_str = "Lily was here";
-  if (no_timestamps_global_b)
-    id_str += ".";
-  else
-    id_str += String (", ") + lily_version_number_sz ();
-  output_def (p, "LilyIdString", id_str);
-  
-  for (Dictionary_iter<Identifier*> i (*head); i.ok (); i++)
-    {
-      if (!i.val ()->access_content_String (false))
-	continue;
-      
-      String val = *i.val()->access_content_String (false);
-      output_def (p, "mudela" + i.key (), val);
-    }
-}
-
-void
-Paper_def::output_settings (Paper_outputter* p) const
-{
-  for (Dictionary_iter<Identifier*> i (*scope_p_); i.ok (); i++)
-    output_def (p, String ("mudelapaper") + i.key (), i.val ()->str ());
-  p->output_string (*scope_p_->elem (String (output_global_ch) + "setting")->access_content_String (false));
-}
 
 Paper_outputter*
 Paper_def::paper_outputter_p (Paper_stream* os_p, Header* header_l, String origin_str) const
 {
   Paper_outputter* p = new Paper_outputter (os_p);
 
-  output_header (p, header_global_p);
-#if 0
   // for now; breaks -fscm output
   p->output_comment (_ ("outputting Score, defined at: "));
   p->output_comment (origin_str);
-#endif
 
-  output_header (p, header_l);
+  p->output_version();
+  if (header_global_p)
+    p->output_scope (header_global_p, "mudela");
+  if (header_l)
+    p->output_scope (header_l, "mudela");
+  if (scope_p_)
+    p->output_scope (scope_p_, "mudelapaper");
+  
+  if (output_global_ch == String("tex"))
+    {
+      *p->outstream_l_ << *scope_p_->elem ("texsetting")->access_content_String (false);
+    }
+  
 
-  output_settings (p);
-
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("experimental-on"), SCM_EOL)));
-
+  SCM scm = gh_list (ly_symbol ("experimental-on"), SCM_UNDEFINED);
   p->output_scheme (scm);
-
-  scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("header-end"), SCM_EOL)));
-
+  scm = gh_list (ly_symbol ("header-end"), SCM_UNDEFINED);
   p->output_scheme (scm);
 
   return p;
@@ -308,7 +265,8 @@ Paper_def::paper_stream_p () const
   if (outname != "-")
     outname += String (".") + output_global_ch;
   *mlog << _f ("Paper output to %s...", 
-	       outname == "-" ? String ("<stdout>") : outname ) << endl;
+	       outname == "-" ? String ("<stdout>") : outname) << endl;
+
   target_str_global_array.push (outname);
   return new Paper_stream (outname);
 }

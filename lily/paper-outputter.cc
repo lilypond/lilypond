@@ -9,6 +9,9 @@
 
 #include <time.h>
 #include <fstream.h>
+
+#include "dictionary-iter.hh"
+#include "virtual-methods.hh"
 #include "paper-outputter.hh"
 #include "paper-stream.hh"
 #include "molecule.hh"
@@ -18,6 +21,8 @@
 #include "debug.hh"
 #include "lookup.hh"
 #include "main.hh"
+#include "scope.hh"
+#include "identifier.hh"
 
 Paper_outputter::Paper_outputter (Paper_stream *s)
 {
@@ -27,16 +32,16 @@ Paper_outputter::Paper_outputter (Paper_stream *s)
 
 Paper_outputter::~Paper_outputter ()
 {
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("end-output"), SCM_EOL)));
-
+  SCM scm = gh_list (ly_symbol ("end-output"), SCM_UNDEFINED);
   output_scheme (scm);
 }
 
 void
 Paper_outputter::output_header ()
 {
+  String s = String ("(eval (") + output_global_ch + "-scm 'all-definitions))";
+  gh_eval_str (s.ch_C());
+  
   String creator;
   if (no_timestamps_global_b)
     creator = "GNU LilyPond\n";
@@ -54,8 +59,8 @@ Paper_outputter::output_header ()
     }
 
   SCM args_scm = 
-    gh_cons (gh_str02scm (creator.ch_l ()),
-    gh_cons (gh_str02scm (generate.ch_l ()), SCM_EOL));
+    gh_list (gh_str02scm (creator.ch_l ()),
+	     gh_str02scm (generate.ch_l ()), SCM_UNDEFINED);
 
 #ifndef NPRINT
   DOUT << "output_header\n";
@@ -65,10 +70,7 @@ Paper_outputter::output_header ()
     }
 #endif
 
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("header"), args_scm)));
-
+  SCM scm = gh_cons (ly_symbol ("header"), args_scm);
   output_scheme (scm);
 }
 
@@ -84,37 +86,23 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       a_off += o;
 
       if (!i->lambda_)
-        {
-	  // urg
-	  i->lambda_ = gh_append2 (ly_lambda_o (), 
-	    ly_list1 (ly_func_o ("empty")));
-	}
+	continue; 
 
+      if (check_debug)
+	{
+	  output_comment (classname (i.ptr ()->origin_l_));
+
+	}
+      
       switch_to_font (i->font_);
 
-#ifndef NPRINT
-      if (check_debug && !monitor->silent_b ("Guile"))
-	{
-	  DOUT << i->str_ << "\n";
-	  gh_display (i->lambda_); gh_newline ();
-	}
-#endif
+      SCM args_scm = gh_list (gh_double2scm (a_off.x ()),
+		 gh_double2scm (a_off.y ()), 
+		 i->lambda_.to_SCM (),
+		 SCM_UNDEFINED);
 
-      SCM args_scm = 
-	gh_cons (gh_double2scm (a_off.x ()), 
-	gh_cons (gh_double2scm (a_off.y ()), 
-	gh_cons (i->lambda_, SCM_EOL)));
 
-#ifndef NPRINT
-      if (check_debug && !monitor->silent_b ("Guile"))
-	{
-	  gh_display (args_scm); gh_newline ();
-	}
-#endif
-
-      SCM box_scm =
-	gh_append2 (ly_lambda_o (),
-	ly_list1 (gh_append2 (ly_func_o ("placebox"), args_scm)));
+      SCM box_scm = gh_cons (ly_symbol ("placebox"), args_scm);
 
       output_scheme (box_scm);
     }
@@ -123,8 +111,14 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 void
 Paper_outputter::output_comment (String str)
 {
-  // urg
-  *outstream_l_ << "% " << str << "\n";
+  if (String (output_global_ch) == "scm")
+    {
+      *outstream_l_ << "; " << str << '\n';
+    }
+  else
+    {
+      *outstream_l_ << "% " << str << "\n";
+    }
 }
 
 
@@ -136,41 +130,69 @@ Paper_outputter::output_scheme (SCM scm)
   if (String (output_global_ch) == "scm")
     {
       static SCM port = 0;
+
       // urg
       if (!port)
         {
 	  int fd = 1;
-	  ofstream * of = dynamic_cast <ofstream*> (outstream_l_->os);
+	  ofstream * of = dynamic_cast<ofstream*> (outstream_l_->os);
 	  if (of)
 	    fd = of->rdbuf()->fd();
 	  FILE *file = fdopen (fd, "a");
 	  port = scm_standard_stream_to_port (file, "a", "");
 	  scm_display (gh_str02scm ("(load 'lily.scm)\n"), port);
-	  scm_display (gh_str02scm ("(define (of) 'ps)\n"), port);
-	  scm_display (gh_str02scm ("(define (of) 'tex)\n"), port);
 	}
 
-      scm_display (gh_str02scm ("(display ((eval "), port);
+      scm_display (gh_str02scm ("("), port);
       scm_write (scm, port);
-      scm_display (gh_str02scm (") (of)))\n"), port);
-      scm_newline (port);
+      scm_display (gh_str02scm (")\n"),port);
       scm_fflush (port);
-
-      return;
     }
   else
     {
-      SCM str_scm = gh_call1 (ly_eval (scm), gh_eval_str (o.ch_l ()));
-      char* c = gh_scm2newstr (str_scm, NULL);
+      SCM result = scm_eval (scm);
+      char *c=gh_scm2newstr (result, NULL);
+
       *outstream_l_ << c;
       free (c);
     }
 }
+
 void
-Paper_outputter::output_string (String str)
+Paper_outputter::output_scope (Scope *scope, String prefix)
 {
-  // urg
-  *outstream_l_ << str;
+  for (Dictionary_iter<Identifier*> i (*scope); i.ok (); i++)
+    {
+      if (dynamic_cast<String_identifier*> (i.val ()))
+	{
+	  String val = *i.val()->access_content_String (false);
+
+	  output_String_def (prefix + i.key (), val);
+	}
+      else if(dynamic_cast<Real_identifier*> (i.val ()))
+	{
+	  Real val  = *i.val ()->access_content_Real (false);
+
+	  output_Real_def (prefix + i.key (), val);	  
+	}
+      else if (dynamic_cast<int_identifier*> (i.val ()))
+	{
+	  int val  = *i.val ()->access_content_int (false);	  
+	  
+	  output_int_def (prefix + i.key (), val);	  
+	}
+    }
+}
+
+void
+Paper_outputter::output_version ()
+{
+  String id_str = "Lily was here";
+  if (no_timestamps_global_b)
+    id_str += ".";
+  else
+    id_str += String (", ") + get_version_str ();
+  output_String_def ( "LilyIdString", id_str);
 }
 
 void
@@ -198,38 +220,65 @@ Paper_outputter::switch_to_font (String fontname)
 void
 Paper_outputter::start_line ()
 {
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-		gh_list (ly_func_o ("start-line"), SCM_UNDEFINED));;
+  SCM scm = gh_list (ly_symbol ("start-line"), SCM_UNDEFINED);
+  output_scheme (scm);
+}
+
+void
+Paper_outputter::output_font_def (int i, String str)
+{
+  SCM scm = gh_list (ly_symbol ("font-def"),
+		     gh_int2scm (i),
+		     gh_str02scm (str.ch_l ()),
+		     SCM_UNDEFINED);
 
   output_scheme (scm);
 }
 
-/*
-   26 fonts ought to be enough for anyone.
-*/
 void
-Paper_outputter::output_font_def (int i, String str)
+Paper_outputter::output_Real_def (String k, Real v)
 {
-  //urg, broken with guile-1.3
-  //return;
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("font-def"), 
-    gh_cons (gh_int2scm (i), gh_cons (gh_str02scm (str.ch_l ()), SCM_EOL)))));
-
+  
+  SCM scm = gh_list (ly_symbol ("lily-def"),
+		     gh_str02scm (k.ch_l ()),
+		     gh_str02scm (to_str(v).ch_l ()),
+		     SCM_UNDEFINED);
   output_scheme (scm);
+
+  gh_define (k.ch_l (), gh_double2scm (v));
+}
+
+void
+Paper_outputter::output_String_def (String k, String v)
+{
+  
+  SCM scm = gh_list (ly_symbol ("lily-def"),
+		     gh_str02scm (k.ch_l ()),
+		     gh_str02scm (v.ch_l ()),
+		     SCM_UNDEFINED);
+  output_scheme (scm);
+
+  gh_define (k.ch_l (), gh_str02scm (v.ch_l ()));
+}
+
+void
+Paper_outputter::output_int_def (String k, int v)
+{
+  SCM scm = gh_list (ly_symbol ("lily-def"),
+		     gh_str02scm (k.ch_l ()),
+		     gh_str02scm (to_str (v).ch_l ()),
+		     SCM_UNDEFINED);
+  output_scheme (scm);
+
+  gh_define (k.ch_l (), gh_int2scm (v));
 }
 
 void
 Paper_outputter::output_font_switch (int i)
 {
-  //urg, broken with guile-1.2, 1.3
-  //return;
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("font-switch"), 
-    gh_cons (gh_int2scm (i), SCM_EOL))));
+  SCM scm = gh_list (ly_symbol ("font-switch"),
+		     gh_int2scm (i),
+		     SCM_UNDEFINED);
 
   output_scheme (scm);
 }
@@ -237,10 +286,7 @@ Paper_outputter::output_font_switch (int i)
 void
 Paper_outputter::stop_line ()
 {
-  SCM scm =
-    gh_append2 (ly_lambda_o (),
-    ly_list1 (gh_append2 (ly_func_o ("stop-line"), SCM_EOL)));
-
+  SCM scm =    gh_list (ly_symbol ("stop-line"), SCM_UNDEFINED);
   output_scheme (scm);
 
   current_font_ = "";

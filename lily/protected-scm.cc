@@ -50,3 +50,9 @@ Protected_scm::operator SCM ()
 {
   return object_;
 }
+
+SCM 
+Protected_scm::to_SCM () const
+{
+  return object_;
+}

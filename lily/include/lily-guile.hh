@@ -10,25 +10,21 @@
 #define LILY_GUILE_HH
 
 #include "config.hh"
+#include  "string.hh"
 
 #include <guile/gh.h>
 #include <libguile.h>
 
+SCM ly_symbol (String name);
+
 SCM ly_append (SCM a, SCM b);
 SCM ly_eval (SCM a);
 SCM ly_func_o (char const* name);
-SCM ly_lambda_o ();
-SCM ly_list1 (SCM a);
-SCM ly_quote ();
 SCM ly_quote_scm (SCM s);
 
 
 #include "array.hh"
 #include "scalar.hh"
-
-SCM lambda_scm (String str, Array<int> args_arr);
-SCM lambda_scm (String str, Array<Real> args_arr);
-SCM lambda_scm (String str, Array<Scalar> args_arr);
 
 
 void read_lily_scm_file (String);

@@ -285,7 +285,6 @@ Stem::brew_molecule_p () const
   Molecule *mol_p =new Molecule;
   Drul_array<Real> stem_y = yextent_drul_;
   Real dy = paper ()->internote_f ();
-  
 
   Real head_wid = 0;
   if (head_l_arr_.size ())

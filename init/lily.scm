@@ -42,112 +42,218 @@
     (string-append (number->string (car c)) " ")
     (string-append (number->string (cadr c)) " ")))
 
+
+
+(define
+  (font i)
+  (string-append
+   "font"
+   (make-string 1 (integer->char (+ (char->integer #\A) i)))
+   ))
+
+
+
+(define (scm-scm action-name)
+  1)
+
+;;;;;;;;
+
+  (define (empty) 
+    "")
+
+  (define (empty1 a)
+    "")
+
+  (define (empty2 a b )
+    "")
+  
+
+(define emptybar empty1)
+(define setdynamic empty1)
+(define settext empty1)
+(define setnumber empty1)
+
+
 ;;;;;;;; TeX
-;(define (tex action)
 
-(define (beam-tex width slope thick)
-  (embedded-ps-tex ((ps-scm 'beam) width slope thick)))
+(define (tex-scm action-name)
 
-(define (bracket-tex h)
-  (embedded-ps-tex ((ps-scm 'bracket) h)))
+  (define (unknown) 
+    "%\n\\unknown%\n")
 
-(define (dashed-slur-tex thick dash l)
-  (embedded-ps-tex ((ps-scm 'dashed-slur)  thick dash l)))
+  (define (beam width slope thick)
+    (embedded-ps ((ps-scm 'beam) width slope thick)))
 
-(define (crescendo-tex w h cont)
-  (embedded-ps-tex ((ps-scm 'crescendo) w h cont)))
+  (define (bracket h)
+    (embedded-ps ((ps-scm 'bracket) h)))
 
-(define (decrescendo-tex w h cont)
-  (embedded-ps-tex ((ps-scm 'decrescendo) w h cont)))
+  (define (dashed-slur thick dash l)
+    (embedded-ps ((ps-scm 'dashed-slur)  thick dash l)))
 
-(define (embedded-ps-tex s)
-  (string-append "\\embeddedps{" s "}"))
+  (define (crescendo w h cont)
+    (embedded-ps ((ps-scm 'crescendo) w h cont)))
+
+  (define (decrescendo w h cont)
+    (embedded-ps ((ps-scm 'decrescendo) w h cont)))
+
+  (define (embedded-ps s)
+    (string-append "\\embeddedps{" s "}"))
 
 
-(define (end-output-tex) 
-  "\n\\EndLilyPondOutput")
+  (define (end-output) 
+    "\n\\EndLilyPondOutput")
+  
+  (define (experimental-on) "\\turnOnExperimentalFeatures")
 
-(define (empty-tex) 
-  "%\n\\empty%\n")
+  (define (extender o h)
+    ((invoke-output o "invoke-dim1") "extender" h))
 
-(define (experimental-on-tex) "\\turnOnExperimentalFeatures")
+  (define (font-switch i)
+    (string-append
+     "\\" (font i) "\n"))
 
-(define (extender o h)
-  ((invoke-output o "invoke-dim1") "extender" h))
+  (define (font-def i s)
+    (string-append
+     "\\font" (font-switch i) "=" s "\n"))
 
-(define (font-switch-tex i)
-  (string-append
-   "\\" (font i) "\n"))
+  (define (generalmeter num den)
+    (string-append 
+     "\\generalmeter{" (number->string (inexact->exact num)) "}{" (number->string (inexact->exact den)) "}"))
 
-(define (font-def-tex i s)
-  (string-append
-   "\\font" (font-switch-tex i) "=" s "\n"))
+  (define (header-end) "\\turnOnPostScript")
 
-(define (generalmeter-tex num den)
-  (string-append 
-   "\\generalmeter{" (number->string (inexact->exact num)) "}{" (number->string (inexact->exact den)) "}"))
+  (define (header creator generate) 
+    (string-append
+     "%created by: " creator generate "\n"))
 
-(define (header-end-tex) "\\turnOnPostScript")
+  (define (invoke-char s i)
+    (string-append 
+     "\n\\" s "{" (inexact->string i 10) "}" ))
+  (define (char i)
+    (string-append "\\show{" (inexact->string i 10) "}"))
+    
+  (define (invoke-dim1 s d)
+    (string-append
+     "\n\\" s "{" (number->dim d) "}"))
 
-(define (header-tex creator generate) 
-  (string-append
-   "%created by: " creator generate "\n"))
+  (define (lily-def key val)
+    (string-append
+     "\\def\\" key "{" val "}\n"))
 
-(define (invoke-char-tex s i)
-  (string-append 
-   "\n\\" s "{" (inexact->string i 10) "}" ))
+  (define (number->dim x)
+    (string-append 
+     (number->string (chop-decimal x)) "pt "))
 
-(define (invoke-dim1-tex s d)
-  (string-append
-   "\n\\" s "{" (number->dim-tex d) "}"))
+  (define (placebox x y s) 
+    (string-append 
+     "\\placebox{"
+     (number->dim y) "}{" (number->dim x) "}{" s "}"))
 
-(define (lily-def-tex key val)
-  (string-append
-   "\\def\\" key "{" val "}\n"))
+  (define (pianobrace y)
+    (define step 1.0)
+    (define minht mudelapaperstaffheight)
+    (define maxht (* 6 minht))
+    (string-append
+     "{\\bracefont " (char  (/  (- (max y (- maxht step)) minht)   step)) "}"))
+  
+  (define (rulesym h w) 
+    (string-append 
+     "\\vrule height " (number->dim (/ h 2))
+     " depth " (number->dim (/ h 2))
+     " width " (number->dim w)
+     )
+    )
 
-(define (number->dim-tex x)
-  (string-append 
-   (number->string (chop-decimal x)) "pt "))
+  (define (slur l)
+    (embedded-ps ((ps-scm 'slur) l)))
 
-(define (placebox-tex x y s) 
-  (string-append 
-   "\\placebox{"
-   (number->dim-tex y) "}{" (number->dim-tex x) "}{" s "}"))
+  (define (start-line) 
+    (string-append 
+     "\\hbox{%\n")
+    )
 
-(define (rulesym-tex h w) 
-  (string-append 
-   "\\vrule height " (number->dim-tex (/ h 2))
-   " depth " (number->dim-tex (/ h 2))
-   " width " (number->dim-tex w)
-   )
+  (define (stem kern width height depth) 
+    (string-append 
+     "\\kern" (number->dim kern)
+     "\\vrule width " (number->dim width)
+     "depth " (number->dim depth)
+     "height " (number->dim height) " "))
+
+  (define (stop-line) 
+    "}\\interscoreline")
+
+  (define (text f s)
+    (string-append "\\set" f "{" s "}"))
+
+  (define (tuplet dx dy dir)
+    (embedded-ps ((ps-scm 'tuplet) dx dy dir)))
+
+  (define (volta w last)
+    (embedded-ps ((ps-scm 'volta)  w last)))
+
+  (define (maatstreep h)
+    (string-append "\\maatstreep{" (number->dim h) "}"))
+  
+  (cond ((eq? action-name 'all-definitions)
+	 `(begin
+	   (define beam ,beam)
+	   (define tuplet ,tuplet)
+	   (define bracket ,bracket)
+	   (define crescendo ,crescendo)
+	   (define volta ,volta)
+	   (define slur ,slur)
+	   (define dashed-slur ,dashed-slur) 
+	   (define decrescendo ,decrescendo) 
+	   (define empty ,empty)
+	   (define end-output ,end-output)
+	   (define font-def ,font-def)
+	   (define font-switch ,font-switch)
+	   (define generalmeter ,generalmeter)
+	   (define header-end ,header-end)
+	   (define lily-def ,lily-def)
+	   (define header ,header) 
+	   (define invoke-char ,invoke-char) 
+	   (define invoke-dim1 ,invoke-dim1)
+	   (define placebox ,placebox)
+	   (define rulesym ,rulesym)
+	   (define start-line ,start-line)
+	   (define stem ,stem)
+	   (define stop-line ,stop-line)
+	   (define text ,text)
+	   (define experimental-on  ,experimental-on)
+	   (define char  ,char)
+	   (define maatstreep ,maatstreep)
+	   (define pianobrace ,pianobrace)
+	   ))
+
+	((eq? action-name 'experimental-on) experimental-on)
+	((eq? action-name 'beam) beam)
+	((eq? action-name 'tuplet) tuplet)
+	((eq? action-name 'bracket) bracket)
+	((eq? action-name 'crescendo) crescendo)
+	((eq? action-name 'volta) volta)
+	((eq? action-name 'slur) slur)
+	((eq? action-name 'dashed-slur) dashed-slur) 
+	((eq? action-name 'decrescendo) decrescendo) 
+	((eq? action-name 'empty) empty)
+	((eq? action-name 'end-output) end-output)
+	((eq? action-name 'font-def) font-def)
+	((eq? action-name 'font-switch) font-switch)
+	((eq? action-name 'generalmeter) generalmeter)
+	((eq? action-name 'header-end) header-end)
+	((eq? action-name 'lily-def) lily-def)
+	((eq? action-name 'header) header) 
+	((eq? action-name 'invoke-char) invoke-char) 
+	((eq? action-name 'invoke-dim1) invoke-dim1)
+	((eq? action-name 'placebox) placebox)
+	((eq? action-name 'rulesym) rulesym)
+	((eq? action-name 'start-line) start-line)
+	((eq? action-name 'stem) stem)
+	((eq? action-name 'stop-line) stop-line)
+	(else (error "unknown tag -- PS-TEX " action-name))
+	)
+
   )
-
-(define (slur-tex l)
-  (embedded-ps-tex ((ps-scm 'slur) l)))
-
-(define (start-line-tex) 
-  (string-append 
-   "\\hbox{%\n")
-  )
-
-(define (stem-tex kern width height depth) 
-  (string-append 
-   "\\kern" (number->dim-tex kern)
-   "\\vrule width " (number->dim-tex width)
-   "depth " (number->dim-tex depth)
-   "height " (number->dim-tex height) " "))
-
-(define (stop-line-tex) 
-  "}\\interscoreline")
-
-(define (text-tex f s)
-  (string-append "\\set" f "{" s "}"))
-
-(define (tuplet-tex dx dy dir)
-  (embedded-ps-tex ((ps-scm 'tuplet) dx dy dir)))
-
-(define (volta-tex w last)
-  (embedded-ps-tex ((ps-scm 'volta)  w last)))
 
 ;;;;;;;;;;;; PS
 (define (ps-scm action-name)
@@ -243,9 +349,6 @@
   (define (text f s)
     (string-append "(" s ") set" f " "))
 
-(define 
-  (unknown-tex) 
-  "%\n\\unknown%\n")
 
   (define (volta w last)
     (string-append 
@@ -257,10 +360,13 @@
      "draw_tuplet"))
 
 
+  (define (unknown) 
+    "\n unknown\n")
+
 
   ; dispatch on action-name
   (cond ((eq? action-name 'all-definitions)
-	`(eval
+	`(begin
 	  (define beam ,beam)
 	  (define tuplet ,tuplet)
 	  (define bracket ,bracket)
@@ -299,217 +405,4 @@
 )
 
 
-(define 
-  (unknown-ps) 
-  "\n unknown\n")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; output definitions
-
-(define 
-  (beam o width slope thick) 
-  ((invoke-output o "beam") width slope thick))
-
-(define 
-  (bracket o h)
-  ((invoke-output o "bracket") h))
-
-(define 
-  (char o n) 
-  ((invoke-output o "invoke-char") "show" n))
-
-(define 
-  (crescendo o w h cont)
-  ((invoke-output o "crescendo") w h cont))
-
-(define 
-  (dashed-slur o thick dash l) 
-  ((invoke-output o "dashed-slur") thick dash l))
-
-(define 
-  (decrescendo o w h cont)
-  ((invoke-output o "decrescendo") w h cont))
-
-(define 
-  (doublebar o h)
-  ((invoke-output o "invoke-dim1") "doublebar" h))
-
-(define 
-  (empty o) 
-  ((invoke-output o "empty")))
-
-(define 
-  (emptybar o h) (empty o))
-
-(define 
-  (end-output o) 
-  ((invoke-output o "end-output")))
-
-(define 
-  (experimental-on o) 
-  ((invoke-output o "experimental-on")))
-
-(define
-  (fatdoublebar o h)
-  ((invoke-output o "invoke-dim1") "fatdoublebar" h))
-
-(define
-  (finishbar o h)
-  ((invoke-output o "invoke-dim1") "finishbar" h))
-
-(define
-  (font i)
-  (string-append
-   "font"
-   (make-string 1 (integer->char (+ (char->integer #\A) i)))
-   ))
-
-(define 
-  (font-def o i s) 
-  ((invoke-output o "font-def") i s))
-
-(define 
-  (font-switch o i) 
-  ((invoke-output o "font-switch") i))
-
-(define 
-  (generalmeter o num den)
-   ((invoke-output o "generalmeter") num den))
-
-(define 
-  (header o creator generate) 
-  ((invoke-output o "header") creator generate))
-
-(define 
-  (header-end o) 
-  ((invoke-output o "header-end")))
-
-(define
-  (invoke-output o s)
-   (eval-string (string-append s "-" o)))
-
-(define
-  (lily-def o key val)
-  ((invoke-output o "lily-def") key val))
-
-(define 
-  (maatstreep o h) 
-  ((invoke-output o "invoke-dim1") "maatstreep" h))
-
-(define 
-  (pianobrace o i)
-  ((invoke-output o "invoke-char") "pianobrace" i))
-
-(define 
-  (placebox o x y b) 
-  ((invoke-output o "placebox") x y (b o)))
-
-(define
-  (repeatbar o h)
-  ((invoke-output o "invoke-dim1") "repeatbar" h))
-
-(define
-  (repeatbarstartrepeat o h)
-  ((invoke-output o "invoke-dim1") "repeatbarstartrepeat" h))
-
-(define 
-  (rulesym o x y) 
-  ((invoke-output o "rulesym") x y))
-
-(define 
-  (setbold o s) 
-  ((invoke-output o "text") "bold" s))
-
-(define
-  (setdynamic o s) (empty o))
-
-(define 
-  (setfinger o s) 
-  ((invoke-output o "text") "finger" s))
-
-(define 
-  (sethuge o s) 
-  ((invoke-output o "text") "huge" s))
-
-(define 
-  (setitalic o s) 
-  ((invoke-output o "text") "italic" s))
-
-(define 
-  (setlarge o s) 
-  ((invoke-output o "text") "large" s))
-
-(define 
-  (setLarge o s) 
-  ((invoke-output o "text") "Large" s))
-
-(define 
-  (setnumber o s) 
-  ((invoke-output o "text") "number" s))
-
-; urg, howto do all these sizes;
-; what about: fontjj fontj font fonti fontii
-(define 
-  (setnumber-1 o s) 
-  ((invoke-output o "text") "numberj" s))
-
-(define 
-  (settext o s) 
-  ((invoke-output o "text") "text" s))
-
-(define 
-  (settypewriter o s) 
-  ((invoke-output o "text") "typewriter" s))
-
-(define 
-  (slur o l) 
-  ((invoke-output o "slur") l))
-
-(define 
-  (tuplet o dx dy dir)
-  ((invoke-output o "tuplet") dx dy dir))
-
-(define 
-  (stem o kern width height depth) 
-  ((invoke-output o "stem") kern width height depth))
-
-
-
-(define 
-  (start-line o) 
-  ((invoke-output o "start-line")))
-
-(define
-  (startbar o h)
-  ((invoke-output o "invoke-dim1") "startbar" h))
-
-(define
-  (startrepeat o h)
-  ((invoke-output o "invoke-dim1") "startrepeat" h))
-
-(define 
-  (stem o kern width height depth) 
-  ((invoke-output o "stem") kern width height depth))
-
-(define 
-  (stop-line o) 
-  ((invoke-output o "stop-line")))
-
-(define
-  (stoprepeat o h)
-  ((invoke-output o "invoke-dim1") "stoprepeat" h))
-
-(define 
-  (tuplet-ps dx dy dir)
-  (string-append 
-   (numbers->string (list dx dy (inexact->exact dir)))
-   "draw_tuplet"))
-
-(define 
-  (unknown o) 
-  ((invoke-output o "unknown")))
-
-(define 
-  (volta o w last)
-  ((invoke-output o "volta") w last))
 

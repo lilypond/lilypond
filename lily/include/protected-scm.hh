@@ -25,6 +25,7 @@ public:
   ~Protected_scm ();
   Protected_scm &operator = (Protected_scm const &);
   operator SCM ();
+  SCM to_SCM () const;
 };
 
 #endif /* PROTECTED_SCM_HH */
