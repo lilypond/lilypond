@@ -22,8 +22,8 @@ Jan Nieuwenhuizen <jan@digicash.com>, http://www.digicash.com/~jan
 
 lily/midi-*, mi2mu/*, parts flower/string*.cc, make/*.make, */Makefile
 parts of Documentation/mudela.pod, lib/*source-file*, lib/duration.cc,
-lib/source, flower/*{list,cursor}*,  lily/rest-collision*, conflily,
-cygnus w32 stuff, lily/*perf*
+lib/source*, flower/*{list,cursor}*,  lily/rest-collision*, conflily,
+cygnus w32 stuff, lily/*perf*, some input files
 
 and corresponding header files.
 
@@ -51,8 +51,15 @@ Alexandre Oliva <oliva@dcc.unicamp.br>, testing
 
 Anthony Fok <foka@gpu.srv.ualberta.ca>, debian package: make/debian/*
 
+=item *
+
+Franc,ois Pinard <pinard@iro.umontreal.ca>, Neil Jerram
+<nj104@cus.cam.ac.uk>. Documentation/Vocab*
+
 =back
 
 Your name could be here! If you want to help, then take a look at the
 SMALLISH PROJECTS section of in the file F<TODO>. Some do not involve
 coding C++
+
+[And of course, J.S.Bach,  F.Schubert, T. Merula and W.A.Mozart]

@@ -19,8 +19,9 @@
 
 
 \section{Overview}
+
 Mudela is a language for specifying music. LilyPond is a
-program which converts such a specification into formatted  sheet
+program which converts such a specification into formatted sheet
 music, or MIDI output.
 
 Please note that some examples not only demonstrate features but also
@@ -100,12 +101,13 @@ etc.
 \end{mudela}
 
 
-LilyPond is designed to handle complicated stuff
-automatically. Expertise should be in the program, not in the user.
+LilyPond is designed to handle complicated stuff automatically.
+Expertise should be in the program, not in the user.
 
-The following example shows how multiple voice  on the same staff are
+The following example shows how multiple voices on the same staff are
 handled graciously (well, somewhat). If the noteheads of different
-voices collide, they are moved horizontally. The same goes for the rests. 
+voices collide, they are moved horizontally. Rests are moved
+vertically.
 
 \begin[verbatim]{mudela}
 two_voice = \melodic 
