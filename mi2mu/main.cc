@@ -11,50 +11,11 @@ Sources* source_l_g = &source;
 
 Verbose level_ver = NORMAL_ver;
 
-//ugh
-char const* defined_ch_C = 0;
-
 // ugh, another global
 String
 find_file( String str )
 {
     return str;
-}
-
-// ugh, copied from warn.cc, cannot use
-void
-message( String message_str, char const* context_ch_C )
-{
-    String str = "mi2mu: ";
-    Source_file* sourcefile_l = source_l_g->sourcefile_l( context_ch_C );
-    if ( sourcefile_l ) {
-	str += sourcefile_l->file_line_no_str(context_ch_C) + String(": ");
-    }
-    str += message_str;
-    if ( sourcefile_l ) {
-	str += ":\n";
-	str += sourcefile_l->error_str( context_ch_C );
-    }
-//    if ( busy_parsing() )
-    cerr << endl; // until we have fine output manager...
-    cerr << str << endl;
-}
-
-void
-warning( String message_str, char const* context_ch_C )
-{
-    message( "warning: " + message_str, context_ch_C );
-}
-
-void
-error( String message_str, char const* context_ch_C )
-{
-    message( message_str, context_ch_C );
-    // since when exits error again?
-    // i-d say: error: errorlevel |= 1; -> no output upon error
-    //          warning: recovery -> output (possibly wrong)
-    if ( midi_lexer_l_g )
-        midi_lexer_l_g->errorlevel_i_ |= 1;
 }
 
 void

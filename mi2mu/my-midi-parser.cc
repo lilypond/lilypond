@@ -142,7 +142,7 @@ My_midi_parser::set_division_4( int division_4_i )
 	division_1_i_ = division_4_i * 4;
 	Duration::division_1_i_s = division_1_i_;
 	if ( division_4_i < 0 )
-		warning( "seconds iso metrical time" , 0 );
+		warning( "seconds iso metrical time" );
 }
 
 void
