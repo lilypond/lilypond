@@ -23,7 +23,7 @@ public:
 
       -1 = raggedright, 0 = center, 1 = raggedleft
      */
-    int align_i_;
+    Direction align_i_;
 
     String text_str_;
     String style_str_;

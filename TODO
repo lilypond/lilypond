@@ -7,6 +7,10 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr
 
 0.2:
+	* handle ^C for tmp/file creation.
+
+	* PS for beams.
+
 	* add a screenshot to the website. :)
 
 	* fix stdin input
@@ -406,7 +410,6 @@ Mudela.
 	- rewire acknowledge_element() logic with a process_acknowledged()
 
 	* pushgroup/popgroup
-
 
 	* multi threading?
 	  - 1 thread per element/ 1 thread per line

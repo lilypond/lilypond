@@ -34,7 +34,7 @@ Text_def::do_print() const
 
 Text_def::Text_def()
 {   
-  align_i_ = 1;			// right
+  align_i_ = RIGHT;
   style_str_ = "roman";
 }
 
