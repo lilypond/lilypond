@@ -122,10 +122,21 @@ Bar::compound_barline (String str, Real h) const
     }
   else if (str == ":|:")
     {
-      m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
-      m.add_at_edge (X_AXIS, LEFT, colon, kern);      
-      m.add_at_edge (X_AXIS, RIGHT, thick, kern);
+//        m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
+//        m.add_at_edge (X_AXIS, LEFT, colon, kern);      
+//        m.add_at_edge (X_AXIS, RIGHT, thick, kern);
+//        m.add_at_edge (X_AXIS, RIGHT, colon, kern);      
+      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
       m.add_at_edge (X_AXIS, RIGHT, colon, kern);      
+      m.add_at_edge (X_AXIS, LEFT, thin, kern);
+      m.add_at_edge (X_AXIS, LEFT, colon, kern);      
+    }
+  else if (str == ";|;")
+    {
+      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+      m.add_at_edge (X_AXIS, LEFT, thin, kern);
     }
   else if (str == ".|.")
     {

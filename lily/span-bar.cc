@@ -41,9 +41,9 @@ Span_bar::width_callback (Dimension_cache const * c)
 void
 Span_bar::before_line_breaking ()
 {
-  Bar::before_line_breaking ();
-  
   evaluate_empty ();
+  
+  Bar::before_line_breaking ();
   
   //  set_empty (false, Y_AXIS); // a hack to make mark scripts work.
 }
@@ -94,13 +94,10 @@ Span_bar::evaluate_empty ()
     }
   else if (type_str== ":|:")
     {
-      type_str= ".|.";
+      type_str= ";|;";
     }
+    set_elt_property ("glyph", ly_str02scm (type_str.ch_C ()));
   }
-
-  /*
-    uhh. should do something with type_str ?!!
-   */
 }
 
 Interval

@@ -1,4 +1,16 @@
-1.3.41.jcn1
+--- ../lilypond-1.3.41/CHANGES	Thu Mar 30 04:05:01 2000
+++ b/CHANGES	Fri Mar 31 00:30:53 2000
+@@ -1,3 +1,10 @@
+1.3.41.mwd1
+===========
+
+* Fixed extra dots on repeat span-bars.
+
+* Changed the look of :|: repeat bars.
+
+ 1.3.40.jcn3
+ ===========
+ 1.3.41.jcn1
 ===========
 
 * More windows distribution changes: distribute minimal .zip too, and
