@@ -171,11 +171,12 @@ fet_endchar;
 %
 
 fet_beginchar("Thumb", "thumb", "thumb")
-        save thin, height, width, thick;
+        save thin, height, width, thick, depth;
         height# = 5/4 width#;
         height# = staff_space#;
-        set_char_box(width#/2, width#/2, height#/2, height#/2);
-	define_pixels (height,width)
+	depth# = 1.6 (height# / 2); 
+        set_char_box(width#/2, width#/2, depth#, height#/2);
+	define_pixels (height, width)
 
         thin = .6  linethickness + 0.06 staff_space;
 	2 thick + 0.5 (height - 2 thin) = width;
@@ -190,9 +191,12 @@ fet_beginchar("Thumb", "thumb", "thumb")
         addto currentpicture also currentpicture yscaled -1;
 
 	z3 = (0, -h);
-	z4 = (0, -1.5h);
+	save brush_thick;
+	y4 = - d + brush_thick / 2;
+	brush_thick = 0.9*thick;
+	x4 = 0;
 	penlabels(3,4);
-	draw_brush(z3,1.4*thin, z4,0.9*thick);
+	draw_brush(z3,1.4*thin, z4, brush_thick);
 fet_endchar;
 
 %
