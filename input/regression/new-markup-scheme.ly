@@ -50,7 +50,7 @@
               #:super "2"
               #:dynamic "sfzp"
               #:huge #:line ("A" #:smaller "A" #:smaller #:smaller "A" 
-                             #:smaller #:smaller #:smaller "A")xo
+                             #:smaller #:smaller #:smaller "A")
               #:sub "alike")
     }
     \paper { 

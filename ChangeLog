@@ -1,5 +1,7 @@
 2004-03-03  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* input/regression/new-markup-scheme.ly: Typo.
+
 	* scm/define-markup-commands.scm (fill-line): New markup.
 
 	* scm/output-ps.scm (ps-encoding): Add simplistic encoding.
