@@ -4,21 +4,25 @@
     \context PianoStaff <
         \context Staff=one \notes\relative c''{
 	    \context Thread
-            a
+%{	    
+            d,
 	    \translator Staff=two
-	    a,
+	    c
 
-% smaller = easier to debug.
-%{	a
+	    b
 	    \translator Staff=one
-	    a''
+	    a'
 %}
-		s2
+	    [c,8
+	    \translator Staff=two
+	    c]
+	    s2.
+
 	}
-	\context Staff=two { \clef bass; \skip 1; }
+	\context Staff=two { \clef bass; \skip 1*2; }
     >
     \paper{
-        linewidth = 70.\mm;
+        linewidth = 90.\mm;
 	\translator {
 	    \ScoreContext
 	    followThread = ##t

@@ -11,6 +11,7 @@
 #include "item.hh"
 #include "musical-request.hh"
 #include "spanner.hh"
+#include "stem.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
@@ -89,34 +90,45 @@ Note_head_line_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
+static Grob*
+beam_l (Grob *h)
+{
+  if (Grob *s = Rhythmic_head::stem_l (h))
+    return Stem::beam_l (s);
+  return 0;
+}
+
 void
 Note_head_line_engraver::create_grobs ()
 {
   if (!line_ && (follow_ || last_req_) && last_head_ && head_
       && (last_head_ != head_))
     {
-      /* type Glissando? */
-      if (follow_)
-	line_ = new Spanner (get_property ("FollowThread"));
-      else
-	line_ = new Spanner (get_property ("Glissando"));
-	
-      line_->set_bound (LEFT, last_head_);
-      line_->set_bound (RIGHT, head_);
+      /* Don't follow if there's a beam.
 
-      /*
-	Note, mustn't set y-parent of breakable symbol to simple item:
-	one of the two broken parts won't have an y-parent!
-	
-	line_->set_parent (head_, Y_AXIS);
-	line_->set_parent (last_head_, Y_AXIS);
-	
-      */
-      /* X parent is set by set_bound */
-      line_->set_parent (Staff_symbol_referencer::staff_symbol_l (last_head_),
-			 Y_AXIS);
-
-      announce_grob (line_, last_req_);
+	 Hmm, this doesn't work, as head_ does not yet have a beam.
+	 Should probably store follow_ in line_, and suicide at some
+	 later point */
+      if (!(follow_
+	    && beam_l (last_head_) && beam_l (last_head_) == beam_l (head_)))
+	{
+	  if (follow_)
+	    line_ = new Spanner (get_property ("FollowThread"));
+	  else
+	    line_ = new Spanner (get_property ("Glissando"));
+	  
+	  line_->set_bound (LEFT, last_head_);
+	  line_->set_bound (RIGHT, head_);
+	  
+	  /* Note, mustn't set y-parent of breakable symbol to simple item:
+	     one of the two broken parts won't have an y-parent! */
+	  /* X parent is set by set_bound */
+	  line_->set_parent (Staff_symbol_referencer::staff_symbol_l (last_head_),
+			     Y_AXIS);
+	  
+	  announce_grob (line_, last_req_);
+	}
+      
       last_req_ = 0;
       follow_ = false;
       last_head_ = 0;
