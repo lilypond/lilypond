@@ -94,13 +94,16 @@ the mailing lists.
 The reference manual.
 
 @item @uref{../user/out-www/lilypond/lilypond.html,lilypond} The complete
-user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript}). This
+user manual, (in @uref{../user/out-www/lilypond.ps.gz,PostScript} and
+@uref{../user/out-www/lilypond.pdf,PDF}). This
 manual contains among others the tutorial, the reference manual.
 
 @c glossary maybe for new users?
 @item @uref{../user/out-www/glossary.html,glossary} A glossary of musical
 terms, including translations.  (in
-@uref{../user/out-www/glossary.ps.gz,Postscript})  Read this if you're not
+@uref{../user/out-www/glossary.ps.gz,Postscript}
+and
+@uref{../user/out-www/glossary.pdf,PDF})  Read this if you're not
 familiar with English terms for notation.
 
 @item @uref{../user/out-www/lilypond-internals/lilypond-internals.html,lilypond-internals}
@@ -122,10 +125,17 @@ want to fine-tune output, you need the information in this document.
 @itemize @bullet
 @item @uref{../out-www/regression-test.html,Regression Test}
 A large document that tests all kinds of features (also as
-@uref{../out-www/regression-test.ps.gz,Postscript}).
+@uref{../out-www/regression-test.ps.gz,Postscript}
+and
+@uref{../out-www/regression-test.pdf,PDF}).
 @item @uref{../../input/bugs/out-www/bugs.html,Bugs}
-A document that shows bugs (also as
-@uref{../../input/bugs/out-www/bugs.ps.gz,Postscript}).
+A document that shows bugs
+
+
+@c  (also as
+@c @uref{../../input/bugs/out-www/bugs.ps.gz,Postscript}
+@c and @uref{../../input/bugs/out-www/bugs.pdf,PDF}).
+
 @item
 @uref{http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations,lilypond
 textual domain
