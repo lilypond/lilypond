@@ -7,6 +7,6 @@ include Generate.make
 alldeps: #$(ALLDEPS)
 	touch $(DEPDIR)/dummy.dep
 
-$(DEPDIR)/%.dep:  $(CCDIR)/%.cc
-	$(DODEP) $(CXX) -E  $(CXXFLAGS) $^ > /dev/null
+#$(DEPDIR)/%.dep:  $(CCDIR)/%.cc
+#	$(DODEP) $(CXX) -E  $(CXXFLAGS) $^ > /dev/null
 
