@@ -2733,6 +2733,16 @@ Internals: @internalsref{RepeatSlash}, @internalsref{PercentRepeat},
 @node Rhythmic music
 @section Rhythmic music
 
+
+@menu
+* Percussion staves::           
+* Percussion MIDI output::      
+@end menu
+
+
+@node Showing melody rhythms
+@subsection Showing melody rhythms
+
 Sometimes you might want to show only the rhythm of a melody.  This
 can be done with the rhythmic staff. All pitches of notes on such a
 staff are squashed, and the staff itself has a single line:
@@ -2750,11 +2760,6 @@ Internals: @internalsref{RhythmicStaff}.
 
 Examples: @inputfileref{input/regression,rhythmic-staff.ly}.
 
-
-@menu
-* Percussion staves::           
-* Percussion MIDI output::      
-@end menu
 
 @node Percussion staves
 @subsection Percussion staves
@@ -2943,52 +2948,15 @@ down = \drums { bd4 sn bd toml8 toml }
 
 Init files: @file{ly/drumpitch-init.ly}
 
+Internals: @internalsref{DrumStaff}, @internalsref{DrumVoice} 
+
 @refbugs
 
 Short polyphonic notation, @code{<< @dots{} \\ @dots{} >>}, does not
 work for @internalsref{DrumVoices}.
 
-
-
-@node Percussion MIDI output
-@subsection Percussion MIDI output
-
-@ignore
-
-In order to produce correct MIDI output you need to produce two score
-blocks---one for the paper and one for the MIDI output.  To use the
-percussion channel you set the property @code{instrument} to
-@code{'drums}. Because the drum-pitches themselves are similar to the
-general MIDI pitches all you have to do is to insert the voices with
-none of the scheme functions to get the correct MIDI output:
-
-@example
-\score @{    
-    \apply #(drums->paper 'mydrums) \context Staff <<
-        \clef percussion
-        @{ \up @}  \\
-        @{ \down @}
-    >>
-    \paper@{@}
-@}
-\score @{    
-    \context Staff <<
-        \property Staff.instrument = #'drums
-        \up \down
-    >>
-    \midi@{@}
-@}
-@end example
-
 Because general MIDI does not contain rimshots the sidestick is used
 for this purpose instead.
-
-
-@end ignore
-
-@refbugs
-
-MIDI output for drums is temporarily broken.
 
 @node Piano music
 @section Piano music
