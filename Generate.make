@@ -1,20 +1,19 @@
 # Generate.make ?
-# -> Rules.make: containing all compile/flex/bison/... rules (jcn)
 
 parsheadorig=$(CCDIR)/parser.tab.h
 parsheadnew=$(HEADERDIR)/parser.hh
 
 #
-# take some trouble to avoid overwriting the old y.tab.h
-# why? (jcn)
+# take some trouble to avoid overwriting the old y.tab.h,
+# because otherwise all dependants would be remade.
 $(CCDIR)/parser.cc: $(CCDIR)/parser.y
 	$(BISON) -d $<
+	mv $(CCDIR)/parser.tab.c $@
 	(if diff  $(parsheadorig) $(parsheadnew)>/dev/null; then \
 		echo Ignoring $(parsheadorig);  \
 	else \
 		mv $(parsheadorig) $(parsheadnew); \
 	fi )
-	mv $(CCDIR)/parser.tab.c $@
 
 $(parsheadnew): $(CCDIR)/parser.cc
 
