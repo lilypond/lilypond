@@ -7,6 +7,8 @@
 #include "types.h"
 #include "proto.h"
 
+#include "libc-extension.hh"
+
 #define CHUNKSIZE 65534
 
 #define NAMEOF(i) \

@@ -13,6 +13,8 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#include "libc-extension.hh"
+
 class Memory_out_stream
 {
   char *buffer_;
@@ -23,17 +25,16 @@ class Memory_out_stream
   static cookie_io_functions_t functions_;
   static const int block_size_;
 
-  static ssize_t reader (void*, char*,  size_t);
-  static ssize_t writer (void*, const char*,  size_t);
-  static int seeker (void*, off64_t *, int whence);
-  static int cleaner (void*);
-
-
 public:
-  ~Memory_out_stream ();
+  static ssize_t reader (void *, char *, size_t);
+  static ssize_t writer (void *, char const *, size_t);
+  static int seeker (void *, off64_t *, int);
+  static int cleaner (void *);
+
   Memory_out_stream ();
+  ~Memory_out_stream ();
   FILE *get_file () const;
-  char const *get_string() const;
+  char const *get_string () const;
   ssize_t get_length () const;
 };
 

@@ -58,21 +58,17 @@ STEPMAKE_KPATHSEA
 STEPMAKE_MAKEINFO(REQUIRED)
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
-# mftrace for generating pfa's, pfb's
 STEPMAKE_PROGS(MFTRACE, mftrace, REQUIRED, 1.1.1)
-
-# mftrace for generating pfa's, pfb's
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20041208)
 
-
-AC_CHECK_HEADERS([assert.h sys/stat.h])
+AC_CHECK_HEADERS([assert.h libio.h sys/stat.h])
 AC_LANG_PUSH(C++)
 AC_CHECK_HEADERS([sstream])
 AC_LANG_POP(C++)
 AC_HEADER_STAT
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
-AC_CHECK_FUNCS([gettext isinf memmem snprintf vsnprintf gettext])
+AC_CHECK_FUNCS([fopencookie funopen gettext isinf memmem snprintf vsnprintf])
 
 AC_MSG_CHECKING([for ec-fonts-mftraced])
 ecb10=`kpsewhich ecb10.pfa 2>/dev/null`

@@ -1,6 +1,20 @@
-2005-02-25  Jan Nieuwenhuizen  <janneke@gnu.org>
+2005-02-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* scripts/convert-ly.py: Uniformize, internalize.
+	* ttftool/util.c: 
+	* ttftool/ttfps.c: 
+	* ttftool/ps.c: #include libc-extension.hh
+
+	* flower/include/libc-extension.hh:
+	* flower/libc-extension.cc (fopencookie)[!HAVE_FOPENCOOKIE]: Add
+	wrapper using funopen.
+	(fopencookie, handle_cookie_io_fclose, handle_cookie_io_fprintf,
+	handle_cookie_io_fprintf): Add wrappers catching Memory_out_stream.
+
+	* config.hh.in:
+	* configure.in (AC_CHECK_FUNCS): Add fopencookie, funopen.
+	(AC_CHECK_HEADERS): Add libio.h
+
+	* scripts/convert-ly.py: Uniformize, internationalize.
 	(2.5.2): Remove fatal encoding rule.
 	(2.5.13): Handle latin1 encoding gracefully.
 
