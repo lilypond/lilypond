@@ -324,8 +324,8 @@ orchestral or choral score.
 @
 
 @mudela[13pt,eps] 
-%\context StaffGroup < 
-\context ChoirStaff < 
+\context StaffGroup < 
+% \context ChoirStaff < 
   \property StaffGroup.minVerticalAlign = 12
   \notes\relative c'' { \clef treble; g4 e c2 }
   \notes\relative c { \clef bass; c1 \bar "|."; } > 

@@ -64,19 +64,22 @@ Spanner::do_break_processing ()
       do
 	{
 	  Item* bound = left->find_broken_piece (d);
-	  Spanner * span_p = dynamic_cast<Spanner*>( clone ());
-	  span_p->set_bound (LEFT, bound);
-	  span_p->set_bound (RIGHT, bound);
+	  if (bound->line_l ())
+	    {
+	      Spanner * span_p = dynamic_cast<Spanner*>( clone ());
+	      span_p->set_bound (LEFT, bound);
+	      span_p->set_bound (RIGHT, bound);
 
-	  assert (span_p->line_l ()); 
-	  pscore_l_->typeset_element (span_p);
-	  broken_into_l_arr_.push (span_p);
+	      assert (span_p->line_l ()); 
+	      span_p->line_l ()->typeset_element (span_p);
+	      broken_into_l_arr_.push (span_p);
+	    }
 	}
       while ((flip(&d))!= LEFT);
     }
   else
     {
-      Link_array<Item> break_points = pscore_l_->broken_col_range (left,right);
+      Link_array<Item> break_points = pscore_l_->line_l_->broken_col_range (left,right);
 
       break_points.insert (left,0);
       break_points.push (right);
@@ -100,8 +103,12 @@ Spanner::do_break_processing ()
 	  Spanner *span_p = dynamic_cast<Spanner*>(clone ());
 	  span_p->set_bound(LEFT,bounds[LEFT]);
 	  span_p->set_bound(RIGHT,bounds[RIGHT]);
-      
-	  pscore_l_->typeset_element (span_p);
+
+
+	  assert (bounds[LEFT]->line_l () ==
+		  bounds[RIGHT]->line_l ());
+
+	  bounds[LEFT]->line_l ()->typeset_element (span_p);
 	  broken_into_l_arr_.push (span_p);
 	}
     }
