@@ -1,6 +1,7 @@
+#include <math.h>
+
 #include "lookup.hh"
 #include "molecule.hh"
-#include <math.h>
 #include "dimen.hh"
 #include "debug.hh"
 
@@ -31,7 +32,10 @@ Lookup::half_slur_middlepart(Real &dx, int dir)
 	error ("halfslur too large");
     int    widx = int(floor(dx / 4.0));
     dx = widx * 4.0;
-    widx --;	
+    if (widx) widx --;
+    else {
+	WARN <<  "slur too narrow\n";
+    }
 
     Symbol s;
     
@@ -62,13 +66,19 @@ Lookup::half_slur(int dy, Real &dx, int dir, int xpart)
 
     int widx;
     	 	
-    if (dx >= convert_dimen(96,"pt"))
+    if (dx >= convert_dimen(96,"pt")) {
+	WARN << "Slur half too wide.";
 	dx =  convert_dimen(96,"pt");
+    }
     
     widx = int(rint(dx/12.0));
     dx = widx*12.0;
-    widx --;
-
+    if (widx)
+	widx --;
+    else {
+	WARN <<  "slur too narrow\n";
+    }
+	
     Symbol s;
     s.dim.x = Interval(0,dx);
     s.dim.y = Interval(MIN(0,dy), MAX(0,dy));
@@ -116,7 +126,12 @@ Lookup::slur (int dy , Real &dx, int dir)
     
     int widx = int(floor(dx/4.0)); // slurs better too small..
     dx = 4.0 * widx;
-    widx--;
+    if (widx)
+	widx --;
+    else {
+	WARN <<  "slur too narrow\n";
+    }
+
     int hidx = dy;
     if (hidx <0)
 	hidx = -hidx;
