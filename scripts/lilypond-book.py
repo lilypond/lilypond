@@ -454,7 +454,7 @@ output = {
   \preLilyPondExample
 \fi
 \def\lilypondbook{}%%
-\input %(base)s.tex
+\input %(base)s-systems.tex
 \ifx\postLilyPondExample \undefined
   \relax
 \else
@@ -487,7 +487,13 @@ output = {
 @lilypond''',
 
 		OUTPUT: r'''@noindent
-@image{%(base)s,,,[image of music],%(ext)s}''',
+@iftex
+@include %(base)s-systems.texi
+@end iftex
+@ifnottex
+@image{%(base)s,,,[image of music],%(ext)s}
+@end ifnottex
+''',
 
 		PRINTFILENAME: '''@file{%(filename)s}
 	''',
@@ -734,33 +740,6 @@ def compose_ly (code, options, type):
 
 	return (PREAMBLE_LY + body) % vars ()
 
-# BARF
-# Use lilypond for latex (.lytex) books,
-# and lilypond --preview for html, texinfo books?
-def to_eps (file):
-	cmd = r'latex "\nonstopmode \input %s"' % file
-	# Ugh.  (La)TeX writes progress and error messages on stdout.
-	# Redirect to stderr.
-	cmd = '(( %s >&2 ) >&- )' % cmd
-	ly.system (cmd)
-	ly.system (
-	  'dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map -E -o %s.eps %s' \
-	    % (file, file))
-
-	# Check if it really is EPS.
-	# Otherwise music glyphs disappear from 2nd and following pages.
-
-	# TODO: Should run dvips -pp -E per page, then we get proper
-	#       cropping as well.
-
-	f = open ('%s.eps' % file)
-	for x in range (0, 10):
-		if re.search ('^%%Pages: ', f.readline ()):
-			# Make non-EPS.
-			ly.system (
-			  'dvips -Ppdf -u+ec-mftrace.map -u+lilypond.map -o %s.eps %s' \
-			    % (file, file))
-			break
 
 def find_file (name):
 	for i in include_path:
@@ -871,12 +850,13 @@ class Lilypond_snippet (Snippet):
 		base = self.basename ()
 
 		tex_file = '%s.tex' % base
+		eps_file = '%s.eps' % base
+		system_file = '%s-systems.tex' % base
 		ly_file = '%s.ly' % base
 		ok = os.path.exists (ly_file) \
-		     and os.path.exists (tex_file)\
-		     and os.stat (tex_file)[stat.ST_SIZE] \
-		     and open (tex_file).readlines ()[-1][1:-1] \
-		       == 'lilypondend'
+		     and os.path.exists (system_file)\
+		     and os.stat (system_file)[stat.ST_SIZE] \
+		     and re.match ('% eof', open (system_file).readlines ()[-1])
 
 		if ok and (use_hash_p \
 			   or self.ly () == open (ly_file).read ()):
@@ -1000,9 +980,10 @@ class Lilypond_snippet (Snippet):
 			if not QUOTE in self.options:
 				str = output[TEXINFO][NOQUOTE] % vars()
 
-		str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
-		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
-		str += ('@html\n' + self.output_html () + '\n@end html\n')
+		str += self.output_info ()
+#		str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
+#		str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
+#		str += ('@html\n' + self.output_html () + '\n@end html\n')
 
 		if QUOTE in self.options:
 			str = output[TEXINFO][QUOTE] % vars ()
@@ -1161,17 +1142,6 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 
 	if ly_names:
 		my_system (string.join ([cmd] + ly_names))
-
-	if format == HTML or format == TEXINFO:
-		for i in png_names:
-			if not os.path.exists (i + '.eps') \
-			   and os.path.exists (i + '.tex'):
-				to_eps (i)
-				ly.make_ps_images (i + '.eps',
-						   resolution = 110)
-
-#			elif os.path.exists (i + '.ps'):
-#				ly.make_ps_images (i + '.ps', resolution = 110)
 
 LATEX_DOCUMENT = r'''
 %(preamble)s
@@ -1443,8 +1413,12 @@ def do_options ():
 def main ():
 	files = do_options ()
 	global process_cmd
+
+	formats = "ps"
+	if format == TEXINFO:
+		formats += ",png" 
 	if process_cmd == '':
-		process_cmd = lilypond_binary
+		process_cmd = lilypond_binary + ' --formats=%s  --backend ps ' % formats
 
 	if process_cmd:
 		process_cmd += string.join ([(' -I %s' % p)

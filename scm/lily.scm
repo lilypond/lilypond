@@ -323,23 +323,32 @@ predicates. Print a message at LOCATION if any predicate failed."
 		  "--verbose "
 		  " ")
 	      name)))
+
     (ly:system cmd)))
 
 (define-public (postprocess-output paper-book module filename formats)
-  (for-each (lambda (f)
-	      ((eval (string->symbol (string-append "convert-to-" f))
-		     module)
-	       paper-book filename))
-	      
-	    formats))
+  (for-each
+   (lambda (f)
+     ((eval (string->symbol (string-append "convert-to-" f))
+	    module)
+      paper-book filename))
+   
+   formats))
 
 (define-public (completize-formats formats)
+  (define new-fmts '())
+
   (if (member "png" formats)
       (set! formats (cons "ps" formats)))
   (if (member "pdf" formats)
       (set! formats (cons "ps" formats)))
 
-  (uniq-list formats))
+  (for-each
+   (lambda (x)
+     (if (member x formats) (set! new-fmts (cons x new-fmts))))
+   '("tex" "dvi" "ps" "pdf" "png"))
+
+  new-fmts)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

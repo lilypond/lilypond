@@ -1,3 +1,14 @@
+2005-01-28  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/framework-ps.scm (output-classic-framework): dump a
+	-systems.texi too
+	(output-classic-framework): dump multiple systems on an "infinite"
+	page EPS including fonts. 
+
+	* scripts/lilypond-book.py (Lilypond_snippet.ly_is_outdated): use
+	.eps files for both texi and tex formats. Use PNG coming from
+	lilypond.
+	
 2005-01-28  Graham Percival  <gperlist@shaw.ca>
 
 	* Docuemntation/user/invoking.itely: fix info about -o=FILE.

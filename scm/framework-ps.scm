@@ -292,19 +292,19 @@
 	     (if (or (nan? x) (inf? x))
 		 0.0 x))
 	   (list (car xext) (car yext)
-		 (cdr xext) (cdr yext)))	       ))
+		 (cdr xext) (cdr yext))))
+	 (rounded-bbox
+	  (map
+	   (lambda (x)
+	     (inexact->exact
+	      (round (* x scale mm-to-bigpoint))))))
+	  )
 
     (for-each
      (lambda (x)
        (ly:outputter-dump-string outputter x))
      (cons
-      (eps-header paper
-		  (map
-		   (lambda (x)
-		     (inexact->exact
-		      (round (* x scale mm-to-bigpoint))))
-		   bbox)
-		  #t)
+      (eps-header paper rounded-bbox #t)
       (preamble paper #t)))
 
 
@@ -337,18 +337,57 @@
 		 0.0 x))
 	   (list (car xext) (car yext)
 		 (cdr xext) (cdr yext))))
-	 (header (eps-header paper
-			     (map
-			      (lambda (x)
-				(inexact->exact
-				 (round (* x scale mm-to-bigpoint))))
-			      bbox) #f)))
+	 (rounded-bbox
+	  (map
+	   (lambda (x)
+	     (inexact->exact
+	      (round (* x scale mm-to-bigpoint)))) bbox))
+	  
+	 (header (eps-header paper rounded-bbox #f)))
 
       (for-each
        (lambda (str) (ly:outputter-dump-string outputter str))
        (cons
 	header
 	(preamble paper #f)))
+
+      (ly:outputter-dump-string outputter
+				(string-append "start-system { "
+					       "set-ps-scale-to-lily-scale "
+					       "\n"))
+
+      (ly:outputter-dump-stencil outputter dump-me)
+      (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")
+      (ly:outputter-close outputter)))
+
+  (define (dump-infinite-page lines)
+    (let*
+	((outputter  (ly:make-paper-outputter (format "~a.eps" basename)
+					      (ly:output-backend)))
+	 (stencils (map ly:paper-system-stencil lines))
+	 (dump-me (stack-stencils Y DOWN 2.0 stencils))
+	 (xext (ly:stencil-extent dump-me X))
+	 (yext (ly:stencil-extent dump-me Y))
+	 (scale  (ly:output-def-lookup paper 'outputscale))
+	 (bbox
+	  (map
+	   (lambda (x)
+	     (if (or (nan? x) (inf? x))
+		 0.0 x))
+	   (list (car xext) (car yext)
+		 (cdr xext) (cdr yext))))
+	 (ps-bbox (map (lambda (x)
+				  (inexact->exact
+				   (round (* x scale mm-to-bigpoint))))
+				bbox))
+	 
+	 (header (eps-header paper ps-bbox #t)))
+
+      (for-each
+       (lambda (str) (ly:outputter-dump-string outputter str))
+       (cons
+	header
+	(preamble paper #t)))
 
       (ly:outputter-dump-string outputter
 				(string-append "start-system { "
@@ -372,14 +411,29 @@
 
   (let* ((lines (ly:paper-book-systems book))
 	 (tex-system-port (open-output-file (format "~a-systems.tex" basename)))
-g	 (last-line (car (last-pair lines))))
+	 (texi-system-port (open-output-file (format "~a-systems.texi" basename)))
+	 (last-line (car (last-pair lines)))
+	 (pages (ly:paper-book-pages book))
+	 )
 
     (dump-lines lines 1)
     (for-each (lambda (c)
-		(display (format "\\lilypondEpsGraphics{~a-~a.eps}%\n"
-				 basename (1+ c)) tex-system-port))
-	      (iota (length lines))
-	      )))
+		(display (format "\\includegraphics{~a-~a.eps}%\n"
+				 basename (1+ c)) tex-system-port)
+		(display (format "@image{~a-~a}%\n"
+				 basename (1+ c)) texi-system-port)
+
+		)
+	      (iota (length lines)))
+
+    (display "@c eof" texi-system-port)
+    (display "% eof" tex-system-port)
+
+    (dump-infinite-page lines))
+
+    (postprocess-output book framework-ps-module (format "~a.eps" basename) (ly:output-formats))
+  )
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
