@@ -15,7 +15,7 @@
 
 #include <string.h>
 #include <iostream.h>
-
+#include <Rational.h>
 
 #include "stringutil.hh"
 
@@ -29,7 +29,7 @@ public:
     /// init to ""
     String() {  }                  
     /** needed because other constructors are provided.*/
-
+    String(Rational);
     /// String s = "abc";
     String( const char* source ); 
     
@@ -86,10 +86,11 @@ public:
     String nomid(int pos, int n ) const;
 
     /// signed comparison,  analogous to strcmp;
-    int  compare( const char* s ) const;
-
+    static int compare(const String& s1,const  String& s2);
+	
     /// index of rightmost c 
     int lastPos( char c) const;
+
     /// index of rightmost element of string 
     int lastPos( const char* string ) const;
 
@@ -141,14 +142,25 @@ public:
   convert to const char *. 
 */
 
+#include "compare.hh"
+
+instantiate_compare(const String &, String::compare);
 
 // because const char* also has an operator ==, this is for safety:
-inline bool operator==(String s1, String s2){    return !(s1.compare(s2));}
-inline bool operator==(String s1, const char *s2){ return !(s1.compare(s2));}
-inline bool operator==(const char *s1, String s2){ return !(s2.compare(s1));}
-inline bool operator!=(String s1, const char *s2  ) {    return s1.compare(s2);}
-inline bool operator!=(const char *s1,String s2) {    return s2.compare(s1);}
-inline bool operator!=(String s1, String s2  ) {    return s1.compare(s2);}
+inline bool operator==(String s1, const char *s2){
+    return s1 == String(s2);
+}
+inline bool operator==(const char *s1, String s2)
+{
+    return String(s1)==s2;
+}
+inline bool operator!=(String s1, const char *s2  ) {
+    return s1!=String(s2);
+}
+inline bool operator!=(const char *s1,String s2) {
+    return String(s2) !=s1;
+}
+
 
 inline String
 operator  + (String s1, String  s2)
