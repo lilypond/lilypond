@@ -331,6 +331,9 @@ void
 Score_elem::do_substitute_dependency(Score_elem*,Score_elem*)
 {
 }
+void
+Score_elem::do_substitute_dependent(Score_elem*,Score_elem*)
+{}
 
 
 IMPLEMENT_STATIC_NAME(Score_elem);
@@ -362,6 +365,7 @@ void
 Score_elem::remove_dependency(Score_elem*e)
 {
     remove_edge_out(e);
+    e->do_substitute_dependent(this, 0);
     do_substitute_dependency(e, 0);
 }
 
@@ -387,6 +391,7 @@ Score_elem::handle_broken_dependencies()
 		Spanner * sp = elt->spanner();
 		Spanner * broken = sp->find_broken_piece(line);
 		do_substitute_dependency(sp, broken);
+
 		add_dependency(broken);
 	    } else if (elt->item() && elt->item()->pcol_l_->breakpoint_b()
 		       && elt->item()->break_status_i() == 0) {
