@@ -48,4 +48,5 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 %post
 
 texhash		# takes some time...
+rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm'`
 
