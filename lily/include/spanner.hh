@@ -33,7 +33,8 @@ class Spanner : public  Grob {
   Drul_array<Item*> spanned_drul_;
 
 public:
-  DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
+  DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
+  DECLARE_SCHEME_CALLBACK (get_broken_into, (SCM));
   
   Link_array<Spanner> broken_into_l_arr_;
 

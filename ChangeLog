@@ -1,3 +1,17 @@
+2002-07-23  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/mutopia/J.S.Bach/baerenreiter-sarabande.ly: Warn when not
+	using 6 systems, like the original.
+
+	* input/test/count-systems.ly: New file.
+
+	* lily/spanner.cc (get_broken_into):
+	* lily/grob.cc (original_scm, line_scm): New function.
+
+	* lily/include/grob.hh (ly_scm2grob_array): Moved from
+	group-interface.hh and renamed.
+	(ly_grob_array2scm): New function.
+
 2002-07-23  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/ambitus-engraver.cc: bugfix: create ambitus grob during

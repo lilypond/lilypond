@@ -308,6 +308,28 @@ Grob::line_l () const
   return 0;
 }
 
+MAKE_SCHEME_CALLBACK (Grob, line_scm, 1);
+SCM
+Grob::line_scm (SCM smob)
+{
+  Grob *me = unsmob_grob (smob); 
+  if (Grob *g = me->line_l ())
+    return g->self_scm ();
+      
+  return SCM_EOL;
+}
+
+MAKE_SCHEME_CALLBACK (Grob, original_scm, 1);
+SCM
+Grob::original_scm (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  if (me->original_l_)
+    return me->original_l_->self_scm ();
+      
+  return SCM_EOL;
+}
+
 void
 Grob::add_dependency (Grob*e)
 {

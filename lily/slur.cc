@@ -462,7 +462,7 @@ Slur::get_encompass_offset_arr (Grob *me)
   common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (LEFT), X_AXIS);
   
-  Link_array<Grob>  encompass_arr = list_to_grob_array (eltlist);
+  Link_array<Grob>  encompass_arr = ly_scm2grob_array (eltlist);
   Array<Offset> offset_arr;
 
   Offset origin (me->relative_coordinate (common[X_AXIS], X_AXIS),
