@@ -21,7 +21,10 @@ list is alphabetically ordered.
 
 @itemize @bullet
 @item @email{tca@@gnu.org, Tom Cato Amundsen},
-    cembalo-partita in lilypond, accordion symbols, some lilypond-book.py
+    cembalo-partita in lilypond, accordion symbols, some
+lilypond-book.py
+@item  @email{jiba@@tuxfamily.org,Jean-Baptiste Lamy }
+   Tablature support
 @item @email{matsb@@s3.kth.se, Mats Bengtsson},
     @uref{http://www.s3.kth.se/~matsb/}
     lots of testing, fixes, general comments and contributions.

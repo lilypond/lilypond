@@ -505,6 +505,17 @@
 	(meta . ((interfaces . (rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface))))
 	))
 
+    (TabNoteHead
+     . (
+	(font-family . roman)
+	(style . default)
+	(molecule-callback . ,tablature-molecule-callback)
+	(Y-offset-callbacks  . (,Staff_symbol_referencer::callback))
+	(stem-attachment-function . ,tablature-stem-attachment-function)
+  (string-tunings . (-8 -3 2 7 11 16))
+	(meta . ((interfaces . (rhythmic-head-interface font-interface note-head-interface staff-symbol-referencer-interface))))
+	))
+
     (Glissando
      . (
 	(type . line)
@@ -799,6 +810,7 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(adjust-if-on-staffline . #t)
 	(font-family . music)	   
+	(avoid-note-head . #f)
 	(meta . ((interfaces . (stem-interface  font-interface))))
 	))
 

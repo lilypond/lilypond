@@ -23,6 +23,7 @@ public:
   static void set_beaming (Grob*,int,  Direction d);
   static Grob * beam_l (Grob*);
   static Grob * first_head (Grob*) ;
+  static Grob * last_head  (Grob*) ;
   static Drul_array<Grob*> extremal_heads (Grob*);
   static Grob * support_head (Grob*) ;
   static void add_head (Grob*me, Grob*n);

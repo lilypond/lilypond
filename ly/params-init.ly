@@ -49,7 +49,8 @@ interscoreline = 4. \mm
 \translator { \LyricsVoiceContext }
 \translator { \StaffContainerContext }
 \translator { \FiguredBassContext }
-
+\translator { \TabStaffContext }
+\translator { \TabVoiceContext }
 
 
 

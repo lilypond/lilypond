@@ -348,9 +348,16 @@ LY_DEFINE(pitch_semitones,  "pitch-semitones", 1, 0, 0,
 	  "calculate the number of semitones of @var{p} from central C.")
 {
   Pitch *p = unsmob_pitch (pp);
-   SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
+  SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
  
-  int q = p->steps ();
+  int q = p->semitone_pitch ();
+  
+  // Was :
+  //
+  //int q = p->steps ();
+  //
+  // As the function is called "pitch_semitones", I assume it was a mistake !
+  // Jiba
 
   return gh_int2scm (q);
 }
