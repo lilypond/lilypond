@@ -1,0 +1,70 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename lily-wins.info
+@settitle LilyPond for Windows.
+
+@node Top
+@top
+
+@chapter Lily Wins on Windows
+
+
+@subsubsection ---FOR-IMMEDIATE-RELEASE---
+
+
+Until now, installing LilyPond on Windows was
+@uref{http://mail.gnu.org/pipermail/help-gnu-music/2001-April/000620.html,
+almost} a dull process that could easily be @uref{
+ftp://appel.lilypond.org/pub/gnu-windows/cygwin-1.1.7/bin/tar/lily-install-0.6-i686-cygwin.bin.tar.gz,
+automated} and scripted.
+
+That kind of scary automating is no longer necessary!  With the upcoming
+@uref{
+http://mail.gnu.org/pipermail/info-gnu-music/2001-April/000060.html,
+LilyPond-1.4} release, we have innovated agressively, by copying and
+@uref{
+http://appel.lilypond.org/lilypond/gnu-windows/cygwin-installer.patch,
+mutilating } @uref{http://sources.redhat.com/cygwin,Cygwin}'s
+@uref{http://sources.redhat.com/cygwin/setup.exe, Windows installer}.
+
+We proudly present our @emph{Gourmet install de luxe}: we offer at least
+@uref{babysit.html, 27 totally unnecessary clicks}, before you can
+actually run LilyPond.  This includes a nice and warm welcome click:
+@example
+GNU LilyPond Setup
+
+   Version x.y
+   (C) Red Hat and us
+
+       [N]ext->
+@end example
+and of course, the maybe even more hollow message that tells us there's
+nothing to be told, really:
+@example
+GNU LilyPond Setup
+
+   Installation completed.
+
+       [O]k
+@end example
+Yes, that's right.  Farewell nightly upgrades.  Even a click at the
+@emph{very end} is required, so that you actually feel very useful
+babysitting the whole process.  How about that, eh?
+
+No, it's no longer needed to @uref{http://www.gnu.org/software/wget,
+download}
+@uref{http://appel.lilypond.org/gnu-windows/tar/lilypond/lilypond-1.3.147-1.tar.gz,tarballs}
+or move @uref{http://www.gnu.org/software/guile, all sorts of files}
+@uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org/msg04380.html,
+around} after automagically @uref{http://www.winzip.com,unpacking} and
+@uref{http://mail.gnu.org/pipermail/gnu-music-discuss/2000-October/000517.html,
+flattening} the @uref{http://www.lilypond.org,LilyPond} tarball.
+
+
+No
+@uref{http://appel.lilypond.org/lilypond/gnu-windows/tar/lilypond/md5.sum,
+difficult checksums} or signatures.  Enjoy and feel the thrill when
+running @uref{http://appel.lilypond.org/lilypond/gnu-windows/setup.exe,
+untrusted binaries} with adminstrator rights, on your painfully
+firewalled intranet.
+
+@bye

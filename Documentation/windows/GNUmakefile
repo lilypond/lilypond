@@ -3,8 +3,11 @@ depth=../..
 
 EXTRA_DIST_FILES = LilyPond.ico $(wildcard *.sh *.patch)
 
-STEPMAKE_TEMPLATES=documentation
+STEPMAKE_TEMPLATES=documentation texinfo
 
 include $(depth)/make/stepmake.make 
 
-default:
+default: local-doc
+
+local-WWW:
+

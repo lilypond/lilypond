@@ -111,6 +111,8 @@ To view the @code{test.dvi} output, run Xdvi (you may omit the
 xdvi test
 @end example
 
+@c FIXME: should we say anything on xdvi-gs interaction?
+
 You should see the following in  a window next to some buttons.
 @lilypond
 \score {
@@ -134,13 +136,94 @@ GhostScript's website at @uref{http://www.ghostscript.com}.
 @cindex PostScript
 @cindex .ps
 
+
 @unnumberedsubsec Windows
 
-@strong{[TODO]}
 
-* setting of env vars (TFMFONTS,MFINPUTS,TEXINPUTS)
+On windows, you open a LilyPond shell, and then you invoke ly2dvi
+compile your lilypond source file, just like on Unix:
 
-* dvi viewer doesn't display postscript
+@example
+ly2dvi -P test
+@end example
+
+You will see the following on your screen:
+
+@c FIXME: leave this out, just refer to unix section?
+@c FIXME: commands run in dos shell: we can't redirect output
+@example
+GNU LilyPond 1.3.147
+Now processing: `C:\cygwin\home\tim\ly\test.ly'
+Parsing...
+Interpreting music...[1]
+Preprocessing elements...
+Calculating column positions... [2]
+paper output to test.tex...
+
+This is TeX, Version 3.14159 (MiKTeX 2)
+LaTeX2e <2000/06/01>
+Babel <v3.6Z> and hyphenation patterns for english, french, german, ngerman, du
+mylang, nohyphenation, loaded.
+
+(test.latex (C:\Program Files\MiKTeX\tex\latex\base\article.cls
+Document Class: article 2000/05/19 v1.4b Standard LaTeX document class
+(C:\Program Files\MiKTeX\tex\latex\base\size10.clo))
+(C:\cygwin\usr\lilypond-1.3.147\share\lilypond\tex\geometry.sty
+(C:\Program Files\MiKTeX\tex\latex\graphics\keyval.sty))
+(C:\Program Files\MiKTeX\tex\latex\base\inputenc.sty
+(C:\Program Files\MiKTeX\tex\latex\base\latin1.def))
+(C:\cygwin\usr\lilypond-1.3.147\share\lilypond\tex\titledefs.tex)
+No file test.aux.
+(test.tex
+(C:\cygwin\usr\lilypond-1.3.147\share\lilypond\tex\lilyponddefs.tex
+(C:\cygwin\usr\lilypond-1.3.147\share\lilypond\tex\lilypond-latex.tex
+LaTeX definitions)
+(C:\cygwin\usr\lilypond-1.3.147\share\lilypond\tex\feta20.tex)
+(C:\cygwin\usr\lilypond-1.3.147\share\lilypond\tex\lily-ps-defs.tex)
+[footer empty]
+(C:\cygwin\usr\lilypond-1.3.147\share\lilypond\tex\fetdefs.tex)))
+Overfull \hbox (15.0pt too wide) in paragraph at lines 22--26
+[] $[]$ 
+[1] (test.aux) )
+(see the transcript file for additional information)
+Output written on test.dvi (1 page, 4292 bytes).
+Transcript written on test.log.
+This is dvips(k) 5.86 Copyright 1999 Radical Eye Software (www.radicaleye.com)
+' TeX output 2001.04.12:0033' -> test.ps
+<texc.pro><special.pro>. [1]
+Running LilyPond...
+Analyzing test.tex...
+Running LaTeX...
+Running dvips...
+PS output to test.ps...
+DVI output to test.dvi...
+@end example
+
+To view the @code{test.dvi} output, run Yap
+
+@example
+yap test
+@end example
+
+You should see the following in a window
+@lilypond
+\score {
+  \notes { c'4 e' g' }
+} 
+@end lilypond
+
+@c FIXME: talk about newer Yap versions, proper gs installation?
+When you're satisfied with the result, you can print from within Yap
+(File/Print).  Note that Yap may not display embedded PostScript symbols
+such as beams and slurs.  Don't worry, they'll be printed anyway.
+
+You can also print the PostScript file directly from the
+command line using GSview:
+
+@example
+gsview32 /s test.ps
+@end example
+
 
 
 @node The first tune

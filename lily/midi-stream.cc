@@ -15,6 +15,7 @@
 #include "midi-item.hh"
 #include "midi-stream.hh"
 #include "debug.hh"
+#include "scm-option.hh"
 
 Midi_stream::Midi_stream (String filename)
 {

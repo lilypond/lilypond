@@ -1,0 +1,44 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename babysit.info
+@settitle Babysit Windows Install Wizard
+
+@node Top
+@top
+
+@chapter Babysit Windows Install Wizard
+
+@example
+www.lilypond.org
+  :Windows Unstable(1)
+  :setup.exe(2)
+Netscape 
+  Unknown file type
+    :Save file(3)
+Save as
+  :Drop-down(4) :Select Desktop(5)
+Save as
+  :Save(6)
+Save as 
+  C:\WINDOWS\Desktop\setup.exe already exist
+  Do you want to replace it? :Yes(7)
+Desktop
+  :setup.exe(8) :setup.exe(9)
+GNU LilyPond Setup
+  Setup.exe version 2.40 :Next(10)
+  :X(11) Install from internet :Next(12)
+  Local Package Directory
+    :Browse(13) :C:\tmp(14) :Ok(15) :Next(16)
+  Select install root directory
+    C:/cygwin :Next(17)
+  :X Direct internet connection(18) :Next(19)
+  Select Download Site
+    :http://appel.lilypond.org(20) :Next(21)
+  Select Packages to install (all) :Next(22)
+  :X Create Desktop() Icon
+  :X Add to Start Menu(23) :Next(24)
+  Installation Complete :Ok(25)
+Desktop
+  :GNU LilyPond(26):GNU LilyPond(27)
+@end example
+
+@bye

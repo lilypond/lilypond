@@ -415,7 +415,7 @@ if 1:
 	latest = find_latest (url)
 
 	if os.path.isdir ('%s/%s' % (build_root, latest)):
-		progress (_ ("latest is %s") % latest)
+		progress (_ ("latest is: %s") % latest)
 		progress (_ ("relax, %s is up to date" % package_name))
 		sys.exit (0)
 
