@@ -6,8 +6,10 @@
 
 #ifndef BEAM_HH
 #define BEAM_HH
+
 #include "lily-proto.hh"
 #include "directional-spanner.hh"
+#include "stem-info.hh"
 #include "plist.hh"
 
 /** a beam connects multiple stems.
@@ -59,7 +61,9 @@ protected:
 
   virtual void quantise_left_y (bool extend_b);
   virtual Molecule stem_beams (Stem *here, Stem *next, Stem *prev) const;
-  virtual void solve_slope ();
+  virtual void calculate_slope ();
+  virtual Real check_stemlengths_f (Array<Stem_info>& sinfo);
+  virtual void solve_slope (Array<Stem_info>& sinfo);
   virtual void quantise_dy ();
   virtual Molecule*do_brew_molecule_p () const;
 };

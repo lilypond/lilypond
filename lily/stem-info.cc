@@ -86,9 +86,15 @@ Stem_info::Stem_info (Stem const *s)
 	  miny_f_ += min_stem2_f;
 	}
 
-      // stems in unnatural (forced) direction are shortened
-      if (s->dir_ != s->get_default_dir ())
-	idealy_f_ -= shorten_f;
+      /*
+        stems in unnatural (forced) direction are shortened
+        central line is never 'forced'
+       */
+      if (((int)s->chord_start_f ()) && (s->dir_ != s->get_default_dir ()))
+ 	{
+	  idealy_f_ -= shorten_f;
+	  miny_f_ = miny_f_ <? idealy_f_ + internote_f;
+	}
 
       // lowest beam of (UP) beam must never be lower than second staffline
       miny_f_ = miny_f_ >? (- 2 * internote_f - beam_f
@@ -112,6 +118,7 @@ Stem_info::Stem_info (Stem const *s)
 	  maxy_f_ -= min_stem2_f;
 	}
     }
+
 
   idealy_f_ /= internote_f;
   miny_f_ /= internote_f;
