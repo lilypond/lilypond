@@ -1,6 +1,7 @@
 #include "line.hh"
 #include "dimen.hh"
 #include "symbol.hh"
+#include "paper.hh"
 #include "pcol.hh"
 #include "pscore.hh"
 
@@ -16,7 +17,7 @@ Line_of_staff::TeXstring() const
     // the staff itself: eg lines, accolades
     s += "\\hbox{";
     {
-	Symbol sym = pstaff_->get_stafsym(scor->score->linewidth);
+	Symbol sym = pstaff_->get_stafsym(scor->score->paper_->linewidth);
 	s+=sym.tex;
 	PCursor<const PCol *> cc(scor->cols);
 	Real lastpos=cc->hpos;
@@ -105,7 +106,7 @@ Line_of_staff::maxheight() const
 {
     Interval y;
     {
-	Symbol s = pstaff_->stafsym->eval(scor->score->linewidth);
+	Symbol s = pstaff_->stafsym->eval(scor->score->paper_->linewidth);
 	y = s.dim.y;
     }
     PCursor<const PCol *> cc(scor->cols);

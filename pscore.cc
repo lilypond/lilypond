@@ -1,5 +1,6 @@
 // utility functions for PScore
 #include "debug.hh"
+#include "paper.hh"
 #include "molecule.hh"
 #include "dimen.hh"
 #include "line.hh"
@@ -95,16 +96,16 @@ PScore::add(PCol *p)
     cols.bottom().add(p);
 }
 
-PScore::PScore()
+PScore::PScore( Paperdef*p)
 {
-    linewidth = convert_dimen(15,"cm");	// default
+    paper_ = p;
 }
 
 void
 PScore::output(Tex_stream &ts)
 {
     int l=1;
-    ts << "% linewidth " << print_dimen(linewidth )+"\n";
+
     for (PCursor<Line_of_score*> lic(lines); lic.ok(); lic++) {
 	ts << "% line of score no. " << l++ <<"\n";
 	ts << lic->TeXstring();
@@ -135,11 +136,13 @@ PScore::OK()const
 	ic->OK();
 #endif
 }
+
 void
 PScore::print() const
 {    
 #ifndef NPRINT
-    mtor << "PScore { width "<<print_dimen(linewidth);
+    mtor << "PScore { paper ";
+    paper_->print();
     mtor << "\ncolumns: ";
     for (PCursor<PCol*> cc(cols); cc.ok(); cc++)
 	cc->print();
