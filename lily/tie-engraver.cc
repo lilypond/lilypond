@@ -12,6 +12,7 @@
 #include "note-head.hh"
 #include "musical-request.hh"
 #include "tie.hh"
+#include "translator-group.hh"
 
 Tie_engraver::Tie_engraver()
 {
@@ -25,9 +26,24 @@ Tie_engraver::do_try_music (Music *m)
   if (Tie_req * c = dynamic_cast<Tie_req*> (m))
     {
       req_l_ = c;
+      if (get_property ("automaticMelismas",0).to_bool ())
+	{
+	  set_melisma (true);
+	}
       return true;
     }
   return false;
+}
+
+void
+Tie_engraver::set_melisma (bool m)
+{
+  Translator_group *where = daddy_trans_l_;
+  get_property ("tieMelismaBusy", &where);
+  if (!where)
+    where = daddy_trans_l_;
+    
+  daddy_trans_l_->set_property ("tieMelismaBusy", m ? "1" :"0");
 }
 
 void
@@ -172,7 +188,11 @@ Tie_engraver::do_pre_move_processing ()
 void
 Tie_engraver::do_post_move_processing ()
 {
-  req_l_ =0;
+  if (get_property ("automaticMelismas",0).to_bool ())
+    {
+      set_melisma (false);
+    }
+  req_l_ = 0;
   Moment now = now_mom ();
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();

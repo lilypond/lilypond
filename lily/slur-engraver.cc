@@ -29,12 +29,12 @@ Slur_engraver::do_try_music (Music *req_l)
 void
 Slur_engraver::set_melisma (bool m)
 {
-    Translator_group *where = daddy_trans_l_;
-    get_property ("melismaBusy", &where);
-    if (!where)
-      where = daddy_trans_l_;
+  Translator_group *where = daddy_trans_l_;
+  get_property ("slurMelismaBusy", &where);
+  if (!where)
+    where = daddy_trans_l_;
     
-    daddy_trans_l_->set_property ("melismaBusy", m ? "1" :"0");
+  daddy_trans_l_->set_property ("slurMelismaBusy", m ? "1" :"0");
 }
 
 void

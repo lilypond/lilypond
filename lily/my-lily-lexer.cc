@@ -22,6 +22,8 @@
 
 static Keyword_ent the_key_tab[]={
   {"spanrequest", SPANREQUEST},
+  {"simultaneous", SIMULTANEOUS},
+  {"sequential", SEQUENTIAL},
   {"accepts", ACCEPTS},
   {"alternative", ALTERNATIVE},
   {"bar", BAR},

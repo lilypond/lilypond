@@ -112,23 +112,34 @@ fugaII_right = \notes   \relative c''   {
     \context Voice = VA { \stemup [b8 fis8] b4 }
     \context Voice = VB {  \stemdown fis2 }
   >
-   %{ this chord is usually set like this:
-        |
-       x|| 
-        x||
-         x|
-      |x
-      |
-   %}
-   \context Staff <
-     { \stemup \shiftoff e4 }
-     { \stemup \shifton cis }
-     { \stemup \shifton ais }
-     { \stemdown fis }
-   > |
-  %16
-  \context Staff <
-    \context VoiceOne {  dis2 dis4 |
+
+  % Wadieuw
+  \context Staff \notes\relative c''<
+       \context Voice=one {
+	  \property Voice.horizontalNoteShift=0
+	  \property Voice.verticalDirection=1 
+	  e4 
+       }
+       \context Voice=two {
+	  \property Voice.verticalDirection=1 
+	  \property Voice.horizontalNoteShift=1
+	  cis
+       }
+       \context Voice=three {
+	  \property Voice.horizontalNoteShift=2
+	  \property Voice.verticalDirection=1 
+	  ais
+       }
+       \context Voice=four {
+	  \property Voice.verticalDirection=-1 
+	  \property Voice.horizontalNoteShift=-1
+	  fis
+       }
+  >
+
+    %16
+    \context Staff <
+      \context VoiceOne {  dis2 dis4 |
       cis2 cis4 |
       b4. [cis8 dis e] }
     \context VoiceThree {  \stemup \shifton [b8 fis] b2 ~ |

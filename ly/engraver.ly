@@ -86,7 +86,7 @@ VoiceContext = \translator {
 	\consists "Dynamic_engraver";   % must come before text_engraver.
 	\name Voice ;
 
-	\consists "Tie_engraver";
+%	\consists "Tie_engraver";
 	\consists "Breathing_sign_engraver";
  	\consists "Rest_engraver";
 	\consists "Dot_column_engraver";
@@ -95,7 +95,7 @@ VoiceContext = \translator {
 	beamAuto = "1";
 	\consists "Auto_beam_engraver";
 	\include "auto-beam-settings.ly";
-	\consists "Abbreviation_beam_engraver";
+	\consists "Chord_tremolo_engraver";
 %	\consists "Multi_measure_rest_engraver";
 
 	% ugh.  Order matters here.
@@ -107,6 +107,7 @@ VoiceContext = \translator {
 	\consists "Rhythmic_column_engraver";
 	\consists "Font_size_engraver";
 	\consists "Slur_engraver";
+	\consists "Tie_engraver";
 	\consists "Tuplet_engraver";
 	\consists "Grace_position_engraver";
 	\consists "Skip_req_swallow_translator";
