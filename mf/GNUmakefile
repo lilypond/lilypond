@@ -177,7 +177,7 @@ $(outdir)/lilypond.map: $(AFM_FILES)
 	for i in $(STAFF_SIZES); \
 		do echo "Emmentaler-$$i Emmentaler-$$i <emmentaler-$$i.cff.ps" ; done \
 	>> $@
-	echo "Aybabtu Aybabtu <aybabtu.cff.ps" >> $@
+	echo "Aybabtu-Regular Aybabtu-Regular <aybabtu.cff.ps" >> $@
 
 $(outdir)/Fontmap.lily: 
 	for i in $(FETA_FONTS); do echo "/$$i ($$i.pfa);" ; done > $@
