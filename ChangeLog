@@ -1,5 +1,15 @@
 2004-04-02  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/bar-check-redefine.ly (pipeSymbol): new file.
+
+	* lily/parser.yy (command_element): allow redefinition of |
+	meaning.
+
+	* lily/break-align-engraver.cc (acknowledge_grob): construct
+	LeftEdge where the first cause for alignment is coming from.
+	This makes \override Staff.LeftEdge work as expected.
+
+	
 	* lily/slur-performer.cc (Slur_performer): add inits
 
 	* lily/beam-performer.cc (Beam_performer): add inits

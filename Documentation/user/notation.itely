@@ -698,6 +698,18 @@ score by scanning for failed bar checks and incorrect durations.  To
 speed up this process, you can use @code{skipTypesetting}, described
 in the next section.
 
+It is also possible to redefine the meaning of @code{|}. This is done
+by assigning a music expression to @code{pipeSymbol},
+
+@lilypond
+pipeSymbol = \bar "||"
+
+\score {
+    \notes  { c'2 | c'2 | }
+}
+@end lilypond 
+
+
 @node Skipping corrected music
 @subsection Skipping corrected music
 

@@ -160,7 +160,7 @@ Break_align_interface::do_alignment (Grob *grob)
       /*
 	Find the first grob with a space-alist entry.
        */
-      for (SCM s= l->get_property ("elements");
+      for (SCM s = l->get_property ("elements");
 	   gh_pair_p (s) ; s = gh_cdr (s))
 	  {
 	    Grob *elt = unsmob_grob (gh_car (s));

@@ -4,6 +4,14 @@
 
 @node Top, , , 
 @top
+@unnumbered New features in 2.2 since 2.0
+
+@itemize @bullet
+
+@item The meaning of the @code{|} in the input can be redefined, by
+ assigning a music expression to @code{pipeSymbol}.
+ 
+@end itemize
 
 @unnumbered New features in 2.2 since 2.0
 
@@ -386,7 +394,7 @@ The placement of accidentals on chords and ledgered notes is improved.
 @end itemize
 
 
-@chapter New features in 2.0 since 1.8
+@unnumbered New features in 2.0 since 1.8
 
 @itemize
 

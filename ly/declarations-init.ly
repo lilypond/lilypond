@@ -31,6 +31,7 @@ break =#(make-event-chord (list (make-penalty-music -10001)))
 noBreak = #(make-event-chord (list (make-penalty-music 10001)))
 
 noBeam = #(make-music 'BeamForbidEvent) 
+pipeSymbol = #(make-music 'BarCheck)
 
 \include "scale-definitions-init.ly"
 

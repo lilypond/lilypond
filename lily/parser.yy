@@ -1409,8 +1409,13 @@ command_element:
 		$$->set_spot (THIS->here_input ());
 	}
 	| '|'      {
+		SCM pipe =THIS->lexer_->lookup_identifier ("pipeSymbol");
 
-		$$ = MY_MAKE_MUSIC ("BarCheck");
+		if (Music * m = unsmob_music (pipe))
+			$$ = m->clone ();
+		else
+			$$ = MY_MAKE_MUSIC ("BarCheck");
+
 		$$->set_spot (THIS->here_input ());
 	}
 	| TRANSPOSITION pitch {
