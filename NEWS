@@ -1,3 +1,88 @@
+pl 24, Hacking Apart Together (Jan 25)
+
+pl 23.jbr1
+        - scripts/ly2dvi.py: Windows 95 shell does not support redivrection 
+          of stderr.  We now distribute ash and use it when needed.
+        - stepmake/bin/package-zip32.sh: distribute ash, and guild ice-9/
+          directory.  We build and distribute manpages in html format instead
+          of text format.
+        - Documentation/ntweb: Updated doco and now distributing as a self
+          extracted binary with install script.
+
+pl 23.hwn4
+	- bugfixes
+	- changed All_font_metrics to do TFM as well.
+	- changed init/ to ly/
+
+pl 23.jcn8
+	- tfm reader; revamped code from fontutils-0.6
+
+pl 23.hwn3
+	- {Bar numbers|staff margin stuff|marks} fixed using
+Bar_script_engraver as base class
+	- bf: PS points != Lily \pt 
+	- junked Bar_column_engraver
+	- junked Text_item and some old files.
+
+
+pl 23.jcn7
+	- bf: piano-brace size (veels te simpel: kruis vingers tegen reject)
+	- crude autobeam stuff in mi2mu
+	- brevis, longa chords: c1*2,*4
+	- mutopia/E.Satie/petite-ouverture-a-danser.ly
+	- prop: voltaVisibility
+	- more cello-suite-ii fixes:
+	  * nice repeats
+	  * removed all beams ifo auto-beamer
+	- bf's: autobeam
+	- junked dur2real; beamAutoEndx now as rational string: "1/2" 
+
+pl 23.hwn2
+	- _8 clef 
+	- junked #args symtable def.
+	- junked Text_item.
+	- moved Bar assembling into LilyPond
+	- junked symtables reads
+	- Lookup cleanups
+	- junked Symtable from init/table*
+
+pl 23.hwn1
+	- revamped Scarlatti K3-L378
+	- some more doco
+	- use interning/SCM for Scopes
+	- hanging on now works for breakables too.
+
+pl 23.jcn6
+	- chord fixes; notemode chord syntax changed: @c@ @c-7@
+	- fixed cello-suite ii
+	- bf's: auto-beamer; but nasty bug remains: input/bug/auto-beam.ly
+	- bf: extender
+	- (bit ugly) fix for lyric-chords
+	- fixed repeats (dankjewel lieverd)
+	  * input/twinkle.ly
+	  * input/star*.ly
+
+pl 23.jcn3
+	- succussfully removed []s from wtk1-fugue2.ly
+	- bf + smarter autobeamer
+
+pl 23.jcn2
+	- mi2mu: d-minor: des->cis, g-minor ges->fis
+
+pl 23.mb1
+	- bf: Position and possible SIGSEGV in Mark_engraver
+	- Added padding support in G_staff_side_item
+	- bf: Correct direction of textual scripts. 
+	- bf, lookup.cc: Fewer warnings about missing text styles. 
+	     Same units used in all .afm files.
+
+pl 22.jcn5
+	- auto-beaming v0: input/test/auto-beam.ly
+
+
+
+***********
+
 pl 22.jcn4
 	- bf's: repeat-engraver; \bar "|:", ":|" now deprecated for repeats
 	- bf: :|, |:
