@@ -6,25 +6,40 @@
 %\def\postLilypondExample{}
 
 
-\usepackage{graphics}
-\def\postLilypondExample{}
-\def\preLilypondExample{}
 \begin{document}
 
-\preLilypondExample \input lily-464146743.tex \postLilypondExample
+\begin{lilypond}
+\score {
+ \notes\relative c' { c d e f g a b c }
+}
+\end{lilypond}
 
 
-
-\preLilypondExample \input lily-940223662.tex \postLilypondExample
-
+\begin[fragment]{lilypond}
+c d e
+\end{lilypond}
 
 
 % generate standard lilypond titles
 \input titledefs.tex
 \def\preLilypondExample{\def\mustmakelilypondtitle{}}
 
-\preLilypondExample \input lily-615430739.tex \postLilypondExample
-
+\begin{lilypond}
+\header {
+  title =	"Title"
+  subtitle =	"Subtitle"
+  subsubtitle =	"Subsubtitle"
+  opus =  "Opus 1"
+  piece = "Piece"
+  composer = 	 "Composer"
+  enteredby = 	 "JCN"
+  instrument = "instrument"
+}
+\paper { linewidth = -1. }
+\score {
+  \notes \relative c'' { a b c d }
+}
+\end{lilypond}
 
 \begin{enumerate}
 \item Vers one.  aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa 
