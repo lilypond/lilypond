@@ -2,6 +2,8 @@
 
 	* lily/slur-scoring.cc (struct Slur_score_state): new
 	struct. Collect scoring function arguments.
+	(struct Slur_score_state): add musical_dy_
+	(get_extra_encompass_infos): new function. Split off state computations.
 
 	* scm/part-combiner.scm (determine-split-list): remove playing1
 	and playing2.
