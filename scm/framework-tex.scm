@@ -316,6 +316,7 @@
 	 (papersizename (ly:output-def-lookup paper 'papersizename))
 	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
 	 (base (basename name ".tex"))
+	 (ps-name (format "~a.ps"  base ".ps"))
 	 (cmd (string-append "dvips "
 			     (if preview?
 				 "-E "
@@ -330,10 +331,10 @@
 			     (if (ly:kpathsea-find-file "ecrm10.pfa")
 				 "-u+ec-mftrace.map " "")
 			     "-u+lilypond.map -Ppdf " ""
+			     "-o" ps-name
 			     base)))
-    (let ((ps-name (string-append base ".ps")))
-      (if (access? ps-name W_OK)
-	  (delete-file ps-name)))
+    (if (access? ps-name W_OK)
+	(delete-file ps-name)))
     (if (not (ly:get-option 'verbose))
 	(begin
 	  (format (current-error-port) (_ "Converting to `~a'...")
