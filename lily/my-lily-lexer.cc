@@ -95,7 +95,7 @@ static Keyword_ent the_key_tab[] = {
 My_lily_lexer::My_lily_lexer ()
 {
   keytable_ = new Keyword_table (the_key_tab);
-
+  encoding_ = SCM_EOL;
   chordmodifier_tab_ = scm_make_vector (scm_int2num (1), SCM_EOL);
   pitchname_tab_stack_ = SCM_EOL; 
   
@@ -105,6 +105,12 @@ My_lily_lexer::My_lily_lexer ()
   errorlevel_ = 0; 
 
   main_input_b_ = false;
+}
+
+SCM
+My_lily_lexer::encoding () const
+{
+  return encoding_ ;
 }
 
 void
@@ -240,5 +246,5 @@ My_lily_lexer::prepare_for_next_token ()
 void
 My_lily_lexer::set_encoding (String s)
 {
-  encoding_ = s;
+  encoding_ = ly_symbol2scm (s.to_str0 ());
 }

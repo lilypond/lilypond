@@ -103,18 +103,18 @@ is_regular_identifier (SCM id)
 }
 
 SCM
-make_simple_markup (SCM a)
+make_simple_markup (SCM encoding, SCM a)
 {
 	SCM simple = ly_scheme_function ("simple-markup");
-	SCM markup = scm_list_2 (simple, a);
-#if 0
-	if (THIS->lexer_->encoding_ != "")
-		return scm_list_2
-			(scm_cons (ly_scheme_function ("encoding"),
-			 scm_makfrom0str (THIS->lexer_->encoding_.to_str0 ())),
-			markup);
-#endif
-return markup;
+	SCM markup = 
+	if (gh_symbol_p (encoding))
+	{
+		return scm_list_3 (ly_scheme_function ("encoded-simple-markup"),
+			   encoding, a);
+	} else
+		return scm_list_2 (simple, a);
+
+	return markup;
 }
 
 
@@ -1756,7 +1756,7 @@ gen_text_def:
 	}
 	| string {
 		Music *t = MY_MAKE_MUSIC ("TextScriptEvent");
-		t->set_property ("text", make_simple_markup ($1));
+		t->set_property ("text", make_simple_markup (THIS->lexer_->encoding (), $1));
 		t->set_spot (THIS->here_input ());
 		$$ = t;
 	
@@ -2286,7 +2286,7 @@ This should be done more dynamically if possible.
 */
 markup:
 	STRING {
-		$$ = make_simple_markup ($1);
+		$$ = make_simple_markup (THIS->lexer_->encoding (), $1);
 	}
 	| MARKUP_HEAD_EMPTY {
 		$$ = scm_list_1 ($1);
