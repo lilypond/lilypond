@@ -1,6 +1,6 @@
 depth = ..
 
-STEPMAKE_TEMPLATES=metafont metapost install install-out
+STEPMAKE_TEMPLATES=metafont install install-out
 LOCALSTEPMAKE_TEMPLATES=asciifont
 
 
@@ -12,8 +12,10 @@ EXTRA_DIST_FILES += README feta.tex
 
 # don't try to make fonts from test files
 TEST_FILES = $(wildcard *test*.mf)
-FET_FILES = $(filter-out $(TEST_FILES),$(wildcard feta[0-9]*.mf))
-FONT_FILES = $(filter-out $(TEST_FILES),$(wildcard feta*[0-9].mf))
+FET_FILES = $(filter-out $(TEST_FILES),\
+  $(wildcard feta[0-9]*.mf) $(wildcard parmesan[0-9]*.mf))
+FONT_FILES = $(filter-out $(TEST_FILES),\
+$(wildcard feta*[0-9].mf) $(wildcard parmesan*[0-9].mf))
 
 XPM_FONTS = feta20 feta-nummer10 feta-braces20
 #CM_AFM_FILES = cmr10
@@ -29,11 +31,10 @@ TFM_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.tfm))
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
 PFB_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfb))
 
-pfb: $(PFB_FILES) 
 
 # Make tfm files first, log files last, 
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(PFA_FILES) $(LOG_FILES)
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(AFM_FILES) $(TFM_FILES) $(LOG_FILES)
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 INSTALLATION_DIR=$(datadir)/mf/
@@ -57,7 +58,7 @@ INSTALLATION_OUT_FILES4=$(PFA_FILES)
 
 export MFINPUTS:=.:$(MFINPUTS)
 
-default: $(PFA_FILES) $(ALL_GEN_FILES)
+default: $(ALL_GEN_FILES)
 
 ##
 ## todo: this also depends on .tfm, FIXME.
@@ -65,7 +66,8 @@ $(outdir)/%.afm  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py --package=$(topdir) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep)  --afm $(outdir)/$(<F:.log=.afm) --tex $(outdir)/$(<F:.log=.tex) $<
 
 local-clean:
-	rm -f mfplain.mem mfplain.log mpout.log
+	rm -f mfplain.mem mfplain.log 
 	rm -f *.tfm *.log
 
 
+pfb: $(PFB_FILES) 
