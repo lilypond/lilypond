@@ -160,7 +160,7 @@
 	)
   (make-local-variable 'comment-end)
   (make-local-variable 'comment-start-skip)
-  (setf comment-start-skip "%{")
+  (setq comment-start-skip "%{")	;??
   (make-local-variable 'comment-column)
   (make-local-variable 'imenu-generic-expression)
   (setq imenu-generic-expression mu-imenu-generic-expression)
