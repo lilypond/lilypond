@@ -721,7 +721,7 @@ c d b bes a g c2 }
 Long notes can be converted automatically to tied notes.  This is done
 by replacing the @internalsref{Note_heads_engraver} by the
 @internalsref{Completion_heads_engraver}.
-In the following examples, notes crossing the barline are split and tied.
+In the following examples, notes crossing the bar line are split and tied.
 
 
 @lilypond[noindent,verbatim,relative=1]
@@ -795,7 +795,7 @@ Examples: @inputfileref{input/test,staff-lines.ly},
 @refbugs
 
 If a staff is ended halfway a piece, the staff symbol may not end
-exactly on the barline.
+exactly on the bar line.
 
 
 @node Key signature
@@ -838,7 +838,7 @@ This command sets the context property
 can be specified by setting this property directly.
 
 Accidentals and key signatures often confuse new users, because
-unaltered notes get natural signs depending on the keysignature.  The
+unaltered notes get natural signs depending on the key signature.  The
 tutorial explains why this is so in @ref{More about pitches}.
 
 @refbugs
@@ -950,7 +950,7 @@ the staff. They are created by invoking the function
 
 The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
 (for 15ma) as arguments.  Internally the function sets the properties
-@code{ottavation} (eg. to @code{"8va"}) and
+@code{ottavation} (e.g. to @code{"8va"}) and
 @code{centralCPosition}. For overriding the text of the bracket, set
 @code{ottavation} after invoking @code{set-octavation}, i.e.,
 
@@ -1089,18 +1089,19 @@ off.
 
 Bar lines delimit measures, but are also used to indicate repeats.
 Normally, they are inserted automatically.  Line breaks may only
-happen on barlines.
+happen on bar lines.
 
 @syntax
 
  Special types
-of barlines can be forced with the @code{\bar} command:
+of bar lines can be forced with the @code{\bar} command:
 @c
 @lilypond[relative=1,fragment,verbatim]
    c4 \bar "|:" c4
 @end lilypond
 
 The following bar types are available:
+
 @lilypond[fragment,relative,raggedright,verbatim]
 c4
 \bar "|" c
@@ -1114,11 +1115,12 @@ c4
 \bar "|." c
 \bar ":" c
 @end lilypond
-For allowing linebreaks, there is a special command,
+
+For allowing line breaks, there is a special command,
 @example
   \bar "empty"
 @end example 
-This will insert an invisible barline, and allow linebreaks at this
+This will insert an invisible bar line, and allow linebreaks at this
 point.
 
 In scores with many staves, a @code{\bar} command in one staff is
@@ -1167,7 +1169,7 @@ lines that span staves are @internalsref{SpanBar}s.
 @cindex bar lines at start of system
 @cindex start of system
 
-The barlines at the start of each system are
+The bar lines at the start of each system are
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
 @internalsref{SystemStartBracket}.  Only one of these types is created
 in every context, and that type is determined by the property
@@ -1507,7 +1509,7 @@ So, while it is possible to have different ending rules for eight
 beams and sixteenth beams, a beam that contains both eight and
 sixteenth notes will use the rules for the sixteenth beam.
 
-In the example below, the autobeamer makes eight beams and sixteenth
+In the example below, the auto beamer makes eight beams and sixteenth
 end at 3 eights; the third beam can only be corrected by specifying
 manual beaming.
 
@@ -1554,20 +1556,20 @@ supplied, @code{Staff} is the default.
 The following styles are supported:
 @table @code
 @item default
-      This is the default typesetting behaviour. It should correspond
+      This is the default typesetting behavior. It should correspond
       to 18th century common practice: Accidentals are
       remembered to the end of the measure in which they occur and
       only on their own octave.
 
 @item voice
 @c
-      The normal behaviour is to remember the accidentals on
+      The normal behavior is to remember the accidentals on
 Staff-level.  This variable, however, typesets accidentals
 individually for each voice.  Apart from that, the rule is similar to
 @code{code}.
 
       This leads to some weird and often unwanted results
-      because accidentals from one voice do not get cancelled in other
+      because accidentals from one voice do not get canceled in other
       voices:
 @lilypond[raggedright,relative,fragment,verbatim,quote]
     \context Staff <<
@@ -1588,8 +1590,8 @@ instead.
       This rule  corresponds to the common practice in the 20th
       century.
       This rule prints the same accidentals as @code{default},  but temporary
-      accidentals also are cancelled in other octaves. Furthermore,
-      in the same octave, they also get cancelled in the following
+      accidentals also are canceled in other octaves. Furthermore,
+      in the same octave, they also get canceled in the following
       measure:
 
 @lilypond[raggedright,fragment,verbatim]

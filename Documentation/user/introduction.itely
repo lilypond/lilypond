@@ -510,7 +510,7 @@ numbers and operators.
 
 In effect, the input format is a language, and the rules of that
 language can be specified succinctly with a so-called context-free
-grammar.  The grammar formally specificies what types of input form
+grammar.  The grammar formally specifies what types of input form
 valid `sentences'.  Reading such languages, and splitting them into
 grammatical structures is a problem with standard solutions.
 Moreover, rigid definitions make the format easier to understand: a
@@ -674,7 +674,7 @@ Program reference
 (available @uref{../lilypond-internals/lilypond-internals.html,here})
 @end ifhtml
 
-The program reference is a set of heavily crosslinked HTML pages,
+The program reference is a set of heavily cross linked HTML pages,
 which documents the nit-gritty details of each and every LilyPond
 class, object and function.  It is produced directly from the
 formatting definitions used.
@@ -696,7 +696,7 @@ have clickable links.
 
 After you have gone through the tutorial, you should be able to write
 input files. In practice, writing files from scratch turns out to be
-intimidating.  To give you a headstart, we have collected a number of
+intimidating.  To give you a head start, we have collected a number of
 often-used formats in example files.  These files can be used as a
 start: simply copy the template, and add notes in the appropriate
 places.
@@ -720,7 +720,7 @@ big HTML document, with pictures and explanatory texts included.
 
 This collection of files tests each notation and engraving feature of
 LilyPond in one file. The collection is primarily there to help us
-debug problems, but it can be instructive to see how we excercise the
+debug problems, but it can be instructive to see how we exercise the
 program. The format is like the tips and tricks document.
 
 @end itemize
@@ -748,7 +748,7 @@ usually found in the directory @file{/usr/share/lilypond/}.
 @cindex internal documentation
 @cindex Scheme
 @cindex extending lilypond
-@cindex bugreport
+@cindex bug report
 @cindex index
 
 Finally, this and all other manuals, are available online both as PDF
