@@ -1,3 +1,51 @@
+1.4.1.jcn4
+==========
+
+* Glossary fixes (Thanks Jean-Pierre Coulon).
+
+1.4.1.jcn3
+==========
+
+* Updated les-nereides.
+
+* Added \newpage command.
+
+* Doco fixes.
+
+* Debian make fix.
+
+* Fix for index, small doco fixes.
+
+* Bugfix: use roman font (instead of feta) for unacorda pedal.
+
+* Don't use cyclic symlinks for web doc.
+
+* Don't create `empty pngs' with touch, make symlinks instead.
+
+* Added extra header titling fields to ly2dvi too.
+
+1.4.1.mb2
+=========
+
+* documentation fixes
+
+* Add make rule to avoid problems building dvi documentation
+
+* Documentation fixes
+
+* Bugfix: tuplet-number-visibility
+
+1.4.1.hwn1
+==========
+
+* Do not lengthen the stem in case of a collision with the flag, but
+move dots to the right.
+
+* Debian patches (Thanks, Anthony!)
+
+1.4.1
+=====
+
 1.4.0.jcn7
 ==========
 

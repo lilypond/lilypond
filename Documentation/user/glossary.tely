@@ -10,7 +10,7 @@
 @ignore
  glossary by Christian Mondrup
 
- spanish by David González <dgonzal@quanta.net.py> 
+ spanish by David Gonz@'alez <dgonzal@quanta.net.py> 
 
 @end ignore
 
@@ -54,8 +54,10 @@ ES: acento, I: accento, F: accent, D: Akzent, NL: accent, DK: accent, S: accent,
 
 The stress of one tone over others.
 
+@c F: how to distinguish between accidental and key-sig alteration?
+
 @item accidental
-ES: alteración, I: alterazione, accidente, F: alt@'eration accidentelle, D: Vorzeichen,
+ES: alteraci@'on, I: alterazione, accidente, F: alt@'eration D: Vorzeichen,
 Versetzungszeichen, NL: voorteken, DK: l@o{}st fortegn, S: tillf@"alligt 
 f@"ortecken, N:
 
@@ -178,8 +180,8 @@ An appoggiatura may have more notes preceding the main note.
   \grace { [as16 ( bes] } < ) c4 as > 
   \grace { [as16 ( bes] } < ) c4 as > \bar "||"
   \grace { bes16 } as8_"performance" as16 bes as8 g |
-  < \context Voice = va { \stemUp as32 bes c8. as32 bes c8. }
-    \context Voice = vb { \stemDown as16 ~ as8. as16 ~ as8. } >
+  < \context Voice = va { \stemUp\tieUp as32 bes c8. as32 bes c8. }
+    \context Voice = vb { \stemDown\tieDown as16 ~ as8. as16 ~ as8. } >
   \bar "||"
 }
 @end lilypond
@@ -243,19 +245,20 @@ ES: , I: stanghetta, barra (di divisione), F: barre (de mesure), D: Taktstrich, 
 maatstreep, DK: taktstreg, S: taktstreck, N:
 
 @item bar
-ES: compás, @w{@ar{}@strong{measure}}
+ES: comp@'as, @w{@ar{}@strong{measure}}
 
 @item baritone
-ES: barítono, I: baritono, F: bariton, D: Bariton, NL: bariton, DK: baryton, S: baryton, N:
+ES: bar@'{@dotless{i}}tono, I: baritono, F: bariton, D: Bariton, NL: bariton, DK: baryton, S: baryton, N:
 baryton.
 
 The male voice intermediate between the @w{@ar{}@strong{bass}} and the
 @w{@ar{}@strong{tenor}}.
 
+@c  F: clef de troisi@`eme ligne dropped
+
 @item baritone clef
 ES:  clave de fa en tercera
-I: chiave di baritono, F: clef de ut cinqui@`eme ligne, clef de troisi@`eme
-ligne, D: Barytonschl@"ussel, NL: baritonsleutel, DK: barytonn@o{}gle, S:
+I: chiave di baritono, F: clef d' Ut cinqui@`eme ligne, clef de Fa troisi@`eme, D: Barytonschl@"ussel, NL: baritonsleutel, DK: barytonn@o{}gle, S:
 barytonklav, N: .
 
 C or F clef setting central C on the upper staff line. @w{@ar{}@strong{c clef}}
@@ -449,7 +452,7 @@ chords are denoted open chords
 @end lilypond
 
 @item chromatic scale
-ES: escala cromática, I: scala cromatica, F: gamme chromatique, D: Chromatische Tonleiter, NL:
+ES: escala crom@'atica, I: scala cromatica, F: gamme chromatique, D: Chromatische Tonleiter, NL:
 chromatische toonladder, DK: kromatisk skala, S: kromatisk skala, N: .
 
 A scale consisting of all 11 @w{@ar{}@strong{semitone}}s.
@@ -467,7 +470,7 @@ kromatik, N:
 
 Use of tones extraneous to a @w{@ar{}@strong{diatonic scale}} (minor, major).
 
-@item church mode; ecclesiastical mode ES: modo eclesiástico, I: modo
+@item church mode; ecclesiastical mode ES: modo eclesi@'astico, I: modo
 ecclesiastico, F: mode eccl@'esiastique, D: Kirchentonart, NL:
 kerktoonladder, DK: kirketoneart, S: kyrkotonart, N:
 
@@ -659,7 +662,7 @@ fallande intervall, N:
 An distance between a starting higher note and a lower ending note.
 
 @item diatonic scale
-ES: escala diatónica, I: scala diatonica, F: gamme diatonique, D: diatonische Tonleiter, NL:
+ES: escala diat@'onica, I: scala diatonica, F: gamme diatonique, D: diatonische Tonleiter, NL:
 diatonische toonladder, DK: diatonisk skala, S: diatonisk skala, N:
 
 A scale consisting of 5 @w{@ar{}@strong{whole tones}} and 2
@@ -827,7 +830,7 @@ harmonic minor scale type an augmented second (A) occurs between the 6th and
 @end lilypond
 
 @item diminished interval
-ES: intervalo disminuído, I: intervallo diminuito, F: intervalle diminu@'e, D: vermindertes Intervall,
+ES: intervalo disminu@'{@dotless{i}}do, I: intervallo diminuito, F: intervalle diminu@'e, D: vermindertes Intervall,
 NL: verminderd interval, DK: formindsket interval, S: f@"orminskat
 intervall, N: .
 
@@ -873,7 +876,7 @@ dominantnoneakkord, S: dominantnonackord, N: .
 @w{@ar{}@strong{chord}} @w{@ar{}@strong{functional harmony}}
 
 @item dominant seventh chord
-ES: acorde de séptima de dominante, I: accordo di settima di dominante, F: accord de septi@`eme dominante, D:
+ES: acorde de s@'eptima de dominante, I: accordo di settima di dominante, F: accord de septi@`eme dominante, D:
 Dominantseptakkord, NL: dominant septiem akkoord, DK: dominantseptimakkord, S:
 dominantseptimackord, N:
 
@@ -886,7 +889,7 @@ dominant, N: .
 The fifth @w{@ar{}@strong{scale degree}} @w{@ar{}@strong{functional harmony}}
 
 @item dorian mode
-ES: modo dórico, I: modo dorico, F: mode dorien, D: Dorischer Kirchenton, NL: dorische
+ES: modo d@'orico, I: modo dorico, F: mode dorien, D: Dorischer Kirchenton, NL: dorische
 toonladder, dorischer Kirchenton, DK: dorisk skala, S: dorisk tonart, N:
 
 @w{@ar{}@strong{diatonic scale}}
@@ -953,7 +956,7 @@ ES: dosillo, I: duina, F: duolet, D: Duole, NL: duool, DK: duol, S: duol, N: .
 @w{@ar{}@strong{note value}}
 
 @item duration
-ES: duración, I: durata, F: dur@'ee, D: Dauer, L@"ange, NL: duur, lengte, DK: varighed, S:
+ES: duraci@'on, I: durata, F: dur@'ee, D: Dauer, L@"ange, NL: duur, lengte, DK: varighed, S:
 tonl@"angd, N: .
 
 @w{@ar{}@strong{note value}}
@@ -988,7 +991,7 @@ The traditional process of music printing is done through cutting in a
 plate of metal. Now also the term for the art of music typesetting.
 
 @item enharmonic
-ES: enharmónico, I: enarmonico, F: enharmonique, D: enharmonisch, NL: enharmonisch, DK:
+ES: enharm@'onico, I: enarmonico, F: enharmonique, D: enharmonisch, NL: enharmonisch, DK:
 enharmonisk, S: enharmonisk, N: .
 
 Two notes, intervals, or scales are enharmonic if they have different names
@@ -1062,8 +1065,11 @@ octave lower (for example on double bass @w{@ar{}@strong{strings}}).
 }
 @end lilypond
 
+@c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
+
 @item fermata
-ES: Calderón, I: corona, F: pause, D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
+ES: Calder@'on, I: corona, F: F: point d'orgue, point d'arr@^et,
+D: Fermate, NL: fermate, DK: fermat, S: fermat, N: .
 
 Prolonged note or rest of indefinite duration.
 
@@ -1084,7 +1090,7 @@ kvint.
 ES: bajo cifrado, @w{@ar{}@strong{thorough bass}}
 
 @item fingering
-ES: digitación, I: diteggiatura, F: doigt@'e, D: Fingersatz, NL: vingerzetting, DK:
+ES: digitaci@'on, I: diteggiatura, F: doigt@'e, D: Fingersatz, NL: vingerzetting, DK:
 fingers@ae{}tning, S: fingers@"attning, N: .
 
 The methodical use of fingers in the playing of instruments.
@@ -1134,7 +1140,7 @@ ES: fuga, I: fuga, F: fugue, D: Fuge, NL: fuga, DK: fuga, S: fuga, N: .
 @w{@ar{}@strong{counterpoint}}
 
 @item functional harmony
-ES: armonía funcional, I: armonia funzionale, F: @'etude des functions, D: Funktionslehre, NL: , DK:
+ES: armon@'{@dotless{i}}a funcional, I: armonia funzionale, F: @'etude des functions, D: Funktionslehre, NL: , DK:
 funktionsanalyse, funktionsharmonik, S: funktionsl@"ara, N:
 
 A system of harmonic analysis. It is based on the idea that, in a given key,
@@ -1150,7 +1156,7 @@ of the base chords.
 \property Score.LyricText \set #'font-style = #'large
 \property Score.TextScript \set #'font-style = #'large
 \addlyrics
-\notes\relative c'' {
+\context Voice \notes\relative c'' {
   < g1 e c > < a f d > < b g e > 
   < c a f > < d b g > < e c a > < f d b > }
 \context Lyrics \lyrics { T Sp Dp S D Tp "D{\\kern-5pt}$\\mid$" }
@@ -1234,7 +1240,7 @@ rust, DK: halvnodespause, S: halvpaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item harmonic cadence
-ES: cadencia (armónica), I: cadenza (armonica), F: cadence harmonique, D: Schlusskadenz, NL:
+ES: cadencia (arm@'onica), I: cadenza (armonica), F: cadence harmonique, D: Schlusskadenz, NL:
 harmonische cadens, DK: harmonisk kadence, S: (harmonisk) kadens, N: .
 
 Sequence of chords that terminate a musical phrase or
@@ -1258,7 +1264,7 @@ section. @ar{}@w{}@strong{functional harmony}
 @end lilypond
 
 @item harmony
-ES: armonía	, I: armonia, F: harmonie, D: Harmonie, Zusammenklang, NL: harmonie, DK:
+ES: armon@'{@dotless{i}}a	, I: armonia, F: harmonie, D: Harmonie, Zusammenklang, NL: harmonie, DK:
 samklang, S: samklang, N:
 
 Tones sounding simultaneously. Two note harmonies fall into the cathegories
@@ -1271,7 +1277,7 @@ Consonances:
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Score.TextScript \set #'font-style = #'large
-\notes\relative c'' {
+\context Voice \notes\relative c'' {
   <g1_"unisone" g> s
   <g1_"third" b> s
   <g1_"fourth" c> s
@@ -1289,7 +1295,7 @@ Dissonances:
 @lilypond[13pt,eps] 
 \property Score.barNonAuto = ##t
 \property Score.TextScript \set #'font-style = #'large
-\notes\relative c'' {
+\context Voice  \notes\relative c'' {
   <g1_"second" a> s
   <g1_"seventh" f'> s 
   <g1_"ninth" a'> s s
@@ -1299,7 +1305,7 @@ Dissonances:
 Three note harmony @w{@ar{}@strong{chord}}
 
 @item homophony
-ES: homofonía, I: omofonia, F: homophonie, D: Homophonie, NL: homofonie, DK: homofoni, S:
+ES: homofon@'{@dotless{i}}a, I: omofonia, F: homophonie, D: Homophonie, NL: homofonie, DK: homofoni, S:
 homofoni, N: .
 
 Music in which one voice leads melodically followed by the other voices more
@@ -1322,7 +1328,7 @@ forms an octave.
 \property Score.LyricText \set #'font-style = #'large
 \property Score.TextScript \set #'font-style = #'large
 \addlyrics
-\context Staff \notes\relative c'' {
+\context Voice \notes\relative c'' {
   < g1 g > s
   < g^"minor" as > s
   < g^"major" a! > s
@@ -1435,7 +1441,7 @@ upwards) to the tonic scale degree.
 
 @item ledger line; leger line
 
-ES: líneas adicionales, I: tagli addizionali, F: ligne suppl@'ementaire, D: Hilfslinie, NL:
+ES: l@'{@dotless{i}}neas adicionales, I: tagli addizionali, F: ligne suppl@'ementaire, D: Hilfslinie, NL:
 hulplijntje, DK: hj@ae{}lpelinie, S: hj@"alplinje, N: .
 
 A ledger line is an extension of the staff.
@@ -1482,7 +1488,7 @@ le@-lie@-vij@-ver, DK: liliedam, S: liljedamm, N: .
 A pond with  lilies floating in it, also the name of a music typesetter.
 
 @item line
-ES: línea, I: linea, F: ligne, D: Linie, Notenlinie, NL: lijn, DK: nodelinie, S:
+ES: l@'{@dotless{i}}nea, I: linea, F: ligne, D: Linie, Notenlinie, NL: lijn, DK: nodelinie, S:
 notlinje, N: .
 
 @w{@ar{}@strong{staff}}
@@ -1529,7 +1535,7 @@ by 16 @w{@ar{}@strong{cent}}s. Due to the non-circular character of this
 tuning keyboard instruments for performance of pre-1650 music.
 
 @item measure, bar
-ES: compás, I: misura, battuta, F: mesure, D: Takt, NL: maat, DK: takt, S: takt, N: takt.
+ES: comp@'as, I: misura, battuta, F: mesure, D: Takt, NL: maat, DK: takt, S: takt, N: takt.
 
 A group of @w{@ar{}@strong{beat}}s (units of musical time) the first of which
 bears an accent. Such groups in numbers of two or more recur consistently
@@ -1550,7 +1556,7 @@ harmony}} @w{@ar{}@strong{relative key}}.
 @w{@ar{}@strong{cadenza}}
 
 @item meter, time
-ES: compás, I: tempo, metro, F: m@`etre, D: Taktart, Metrum, NL: maatsoort, DK: taktart,
+ES: comp@'as, I: tempo, metro, F: indication de m@'esure, D: Taktart, Metrum, NL: maatsoort, DK: taktart,
 S: taktart, N: .
 
 The basic scheme of @ar{}@w{}@strong{note value}s and @ar{}@w{}@strong{accent}s
@@ -1587,14 +1593,14 @@ one speaks of @emph{duple} (2/2, 2/4, 2/8), @emph{triple} (3/2, 3/4, 3/8) or
 @end lilypond
 
 @item metronome
-ES: metrónomo, I: metronomo, F: m@'etronome, D: Metronom, NL: metronoom, 
+ES: metr@'onomo, I: metronomo, F: m@'etronome, D: Metronom, NL: metronoom, 
 DK:@w{ }me@-tro@-nom, S:@w{ }me@-tro@-nom, N: metronom.
 
 Device indicating the exact tempo of a piece. @w{@ar{}@strong{metronomic
 indication}}
 
 @item metronomic indication
-ES: indicación metronómica, I: indicazione metronomica, F: indication m@'etronomique, D: Metronomangabe,
+ES: indicaci@'on metron@'omica, I: indicazione metronomica, F: indication m@'etronomique, D: Metronomangabe,
 NL: metronoom aanduiding, DK: metronomtal, S: metronomangivelse, N: .
 
 Exact tempo indication (in beats per minute).  Also denoted by
@@ -1642,7 +1648,7 @@ ES: modo, I: modo, F: mode, D: Modus, NL: modus, DK: skala, S: modus, skala, N: 
 @w{@ar{}@strong{church mode}} @w{@ar{}@strong{diatonic scale}}
 
 @item modulation
-ES: modulación, I: modulazione, F: modulation, D: Modulation, NL: modulatie, DK: modulation,
+ES: modulaci@'on, I: modulazione, F: modulation, D: Modulation, NL: modulatie, DK: modulation,
 S: modulering, N: .
 
 Moving from one @w{@ar{}@strong{key}} to another. For example the second
@@ -1879,7 +1885,7 @@ or voice. 2. in contrapuntal music @w{@ar{}@strong{counterpoint}} the single
 melodic line of the contrapuntal web.
 
 @item percussion
-ES: percusión, I: percussioni, F: percussion, D: Schlagzeug, NL: slagwerk, DK: slagt@o{}j, S:
+ES: percusi@'on, I: percussioni, F: percussion, D: Schlagzeug, NL: slagwerk, DK: slagt@o{}j, S:
 slagverk, N: .
 
 A family of musical instruments which are played on by striking or
@@ -1924,7 +1930,7 @@ pizzicato, S: pizzicato.
 Play by plucking the strings.
 
 @item polyphony
-ES: polifonía, I: polifonia, F: polyphonie, D: Polyphonie, NL: polyfonie, DK: polyfoni, S:
+ES: polifon@'{@dotless{i}}a, I: polifonia, F: polyphonie, D: Polyphonie, NL: polyfonie, DK: polyfoni, S:
 polyfoni, N: .
 
 Music written in a combination of several simultaneous voices (parts) of a
@@ -1941,7 +1947,7 @@ Very quick, i.e. quicker than @w{@ar{}@strong{allegro}}. @emph{prestissimo}
 denotes the highest possible degree of speed.
 
 @item Pythagorean comma
-ES: coma pitagórico, 
+ES: coma pitag@'orico, 
 I: comma pitagorico, F: comma pythagoricien, D: Pythagor@"aisches Komma, NL:
 komma van Pythagoras, DK: pythagor@ae{}isk komma, S: pytagoreiskt komma, N: .
 
@@ -1969,7 +1975,7 @@ kwart rust, DK:@w{ }fjerdedelspause, S: fj@"ardedelspaus, N: .
 @w{@ar{}@strong{note value}}
 
 @item quintuplet
-ES: quintillo, I: quintina, F: quintuplet, D: Quintole, NL: kwintool, DK: kvintol, S:
+ES: quintillo, I: quintina, F: quintolet, D: Quintole, NL: kwintool, DK: kvintol, S:
 kvintol, N: .
 
 @w{@ar{}@strong{note value}}
@@ -2002,7 +2008,7 @@ the same @w{@ar{}@strong{signature}}.
 @end lilypond
 
 @item repeat
-ES: barra de repetición, I: ritornello, F: barre de reprise, D: Wiederholung, NL: herhaling, DK:
+ES: barra de repetici@'on, I: ritornello, F: barre de reprise, D: Wiederholung, NL: herhaling, DK:
 gen@-ta@-gel@-se, S: repris, N: .
 
 @
@@ -2015,6 +2021,8 @@ gen@-ta@-gel@-se, S: repris, N: .
 }
 @end lilypond
 
+@c F: 'pause' if you mean a whole rest, 'silence' if you do not want to
+@c     specify the rest's value.
 @item rest
 ES: silencio, I: pausa, F: silence, D: Pause, NL: rust, DK: pause, S: paus, N: .
 
@@ -2108,7 +2116,7 @@ semitones. @w{@ar{}@strong{interval}} @w{@ar{}@strong{chromatic scale}}
 @end lilypond
 
 @item seventh
-ES: séptima, I: settima, F: septi@`eme, D: Septime, NL: septiem, DK: septim, S: septim, N: .
+ES: s@'eptima, I: settima, F: septi@`eme, D: Septime, NL: septiem, DK: septim, S: septim, N: .
 
 @w{@ar{}@strong{interval}}
 
@@ -2299,13 +2307,13 @@ superdominant, S: superdominant, N: .
 The sixth @w{@ar{}@strong{scale degree}} 
 
 @item supertonic
-ES: supertónica, I: sopratonica, F: sus-tonique, D: Supertonika, NL: supertonica, DK:
+ES: supert@'onica, I: sopratonica, F: sus-tonique, D: Supertonika, NL: supertonica, DK:
 supertonika, S: supertonika, N: .
 
 The second @w{@ar{}@strong{scale degree}}.
 
 @item symphony
-ES: sinfonía, I: sinfonia, F: symphonie, D: Sinfonie, NL: symfonie, DK: symfoni, S: symfoni,
+ES: sinfon@'{@dotless{i}}a, I: sinfonia, F: symphonie, D: Sinfonie, NL: symfonie, DK: symfoni, S: symfoni,
 N: .
 
 A symphony may be defined as a @w{@ar{}@strong{sonata}} for orchestra.
@@ -2356,7 +2364,7 @@ intervals. @w{@ar{}@strong{meantone temperament}} @w{@ar{}@strong{equal
 temperament}}
 
 @item tempo indication
-ES: indicación de tempo, I: indicazione di tempo, F: indication de temps, D: Zeitma@ss{},
+ES: indicaci@'on de tempo, I: indicazione di tempo, F: indication de temps, D: Zeitma@ss{},
 Tempobezeichnung, NL: tempo aanduiding, DK: tempobetegelse, S:
 tempobeteckning, N: .
 
@@ -2371,7 +2379,7 @@ ES: tenor, I: tenore, F: t@'enor, D: Tenor, NL: tenor, DK: tenor, S: tenor, N: .
 The highest voice of men (apart from @w{@ar{}@strong{counter tenor}})
  
 @item tenth
-ES: décima, I: decima, F: dixi@`eme, D: Dezime, NL: deciem, DK: decim, S: decima, N: .
+ES: d@'ecima, I: decima, F: dixi@`eme, D: Dezime, NL: deciem, DK: decim, S: decima, N: .
 
 @w{@ar{}@strong{note value}}
 
@@ -2437,7 +2445,7 @@ with figures designating the chief @w{@ar{}@strong{interval}}s and
 @end lilypond
 
 @item tie; bind
-ES: ligadura de prolongación, 
+ES: ligadura de prolongaci@'on, 
 I: legatura (di valore), F: liaison, D: Haltebogen, NL: overbinding, DK:
 bindebue, S: bindeb@aa{}ge, @"overbindning, N: .
 
@@ -2454,7 +2462,7 @@ uniting them into a single sound equal to the combined durations.
 
 @item time signature
 
-ES: cifra indicadora de compás, 
+ES: cifra indicadora de comp@'as, 
 I: segni di tempo, F: chiffrage (chiffres indicateurs), signe de valeur,  D:
 Taktangabe, Angabe der Taktart, NL: maatsoort, DK: taktangivelse, S:
 taktartssignatur, N: .
@@ -2474,7 +2482,7 @@ ES: tonica, I: tonica, F: tonique, D: Tonika, NL: tonica, DK: tonika, S: tonika,
 The first @w{@ar{}@strong{scale degree}}@w{@ar{}@strong{functional harmony}}
 
 @item transposition
-ES: transposición, I: trasposizione, F: transposition, D: Transposition, NL: transpositie, DK:
+ES: transposici@'on, I: trasposizione, F: transposition, D: Transposition, NL: transpositie, DK:
 transposition, S: transponering, N: .
 
 Shifting a melody up or down in pitch, while keeping the same relative pitches.
@@ -2523,7 +2531,7 @@ a @w{@ar{}@strong{chord}}, usually in the distance of a third
 @end lilypond
 
 @item triad
-ES: tríada, I: triade, F: triade, accord parfait, accord de trois sons, D: Dreiklang, NL:
+ES: tr@'{@dotless{i}}ada, I: triade, F: triade, accord parfait, accord de trois sons, D: Dreiklang, NL:
 drieklank, DK: treklang, S: treklang, N:
 
 @w{@ar{}@strong{chord}}
@@ -2536,7 +2544,7 @@ triller, DK:@w{ }trille, S:@w{ }drill, N:@w{ }.
 @w{@ar{}@strong{ornament}}
 
 @item triple meter
-ES: compás compuesto , I: tempo ternario, F: mesure ternaire, D: dreiteiliger Takt, NL: driedelige
+ES: comp@'as compuesto , I: tempo ternario, F: mesure ternaire, D: dreiteiliger Takt, NL: driedelige
 maatsoort, DK: tredelt takt, S: tretakt, N: .
 
 @w{@ar{}@strong{meter}}
@@ -2547,13 +2555,13 @@ ES: tresillo, I: terzina, F: triolet,  D: Triole, NL: triool, DK: triol, S: trio
 @w{@ar{}@strong{note value}}
 
 @item tritone
-ES: trítono, I: tritono, F: triton, D: Tritonus, NL: tritoon, DK: tritonus, S: tritonus, N:
+ES: tr@'{@dotless{i}}tono, I: tritono, F: triton, D: Tritonus, NL: tritoon, DK: tritonus, S: tritonus, N:
 .
 
 @w{@ar{}@strong{interval}}
 
 @item tuning fork
-ES: diapasón, I: diapason, corista, F: diapason, D: Stimmgabel, NL: stemvork, DK:
+ES: diapas@'on, I: diapason, corista, F: diapason, D: Stimmgabel, NL: stemvork, DK:
 stemmegaffel, S: st@"amgaffel, N: .
 
 A two-pronged piece of steel used to indicate absolute pitch. Tuning forks
@@ -2565,7 +2573,7 @@ I: gruppetto, F: grupetto, D: Doppelschlag, NL: dubbelslag, DK: dobbeltslag,
 S: dubbelslag, N: .
 
 @item unison
-ES: unísono, I: unisono, F: unisson, D: Unison, unisono, NL: unisono, DK: unison, S:
+ES: un@'{@dotless{i}}sono, I: unisono, F: unisson, D: Unison, unisono, NL: unisono, DK: unison, S:
 unison, N: .
 
 Playing of the same notes or the same melody by various instruments (voices)
@@ -2573,7 +2581,7 @@ or by the whole orchestra (choir), either at exactly the same pitch or in a
 different octave.
 
 @item upbeat
-ES: entrada anacrúsica, I: anacrusi, F: anacrouse, D: Auftakt, NL: opmaat, DK: optakt, S:
+ES: entrada anacr@'usica, I: anacrusi, F: anacrouse,  lev@'ee, D: Auftakt, NL: opmaat, DK: optakt, S:
 upptakt, N:
 
 Initial note(s) of a melody occurring before the first bar
@@ -2598,7 +2606,7 @@ ES: voz, I: voce, F: voix, D: Stimme, NL: stem, DK: stemme, S: st@"amma, N: ,
 of a polyphonic composition.
 
 @item weak beat
-ES: tiempo débil, I: tempo debole, arsi, F: temps faible, D: unbetonter Taktteil oder -schlag,
+ES: tiempo d@'ebil, I: tempo debole, arsi, F: temps faible, D: unbetonter Taktteil oder -schlag,
 NL: arsis, DK: ubetonet taktslag, S: obetonat taktslag, N: .
 
 @w{@ar{}@strong{beat}} @w{@ar{}@strong{measure}} @w{@ar{}@strong{rhythm}}
@@ -2624,7 +2632,7 @@ tones on the piano keyboard with exactly one key between them - including
 black and white keys - is a whole tone.
 
 @item woodwind
-ES: maderas, I: legni, F: le bois, D: Holzbl@"aser, NL: houtblazers, DK tr@ae{}bl@ae{}sere,
+ES: maderas, I: legni, F: les bois, D: Holzbl@"aser, NL: houtblazers, DK tr@ae{}bl@ae{}sere,
 S: tr@"abl@aa{}sare, N: .
 
 A family of blown wooden musical instruments. Today some of these instruments

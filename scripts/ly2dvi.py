@@ -16,7 +16,8 @@
 
 
 # Note: gettext work best if we use ' for docstrings and "
-# for gettextable strings
+#       for gettextable strings.
+#       --> DO NOT USE """ for docstrings.
 
 '''
 TODO:
@@ -77,9 +78,9 @@ except:
 		return s
 
 
-layout_fields = ['title', 'subtitle', 'subsubtitle', 'footer', 'head',
-	  'composer', 'arranger', 'instrument', 'opus', 'piece', 'metre',
-	  'meter', 'poet']
+layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
+	  'footer', 'head', 'composer', 'arranger', 'instrument',
+	  'opus', 'piece', 'metre', 'meter', 'poet', 'texttranslator']
 
 
 # init to empty; values here take precedence over values in the file
@@ -147,9 +148,9 @@ verbose_p = 0
 # feta16.{afm,mf,tex,tfm}, and only set env upon failure.
 #
 environment = {
-	'MFINPUTS' : ':' + datadir + '/mf',
-	'TEXINPUTS': ':' + datadir + '/tex:' + datadir + '/ps',
-	'TFMFONTS' : ':' + datadir + '/tfm',
+	'MFINPUTS' : datadir + '/mf' + ':',
+	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps' + ':',
+	'TFMFONTS' : datadir + '/tfm' + ':',
 	'GS_FONTPATH' : datadir + '/afm:' + datadir + '/pfa',
 	'GS_LIB' : datadir + '/ps',
 }
@@ -191,7 +192,7 @@ def warning (s):
 def error (s):
 
 
-	"""Report the error S.  Exit by raising an exception. Please
+	'''Report the error S.  Exit by raising an exception. Please
 	do not abuse by trying to catch this error. If you donn't want
 	a stack trace, write to the output directly.
 
@@ -199,7 +200,7 @@ def error (s):
 
 	None
 	
-	"""
+	'''
 	
 	progress (_ ("error: ") + s)
 	raise _ ("Exiting ... ")
