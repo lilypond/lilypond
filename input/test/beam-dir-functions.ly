@@ -1,6 +1,6 @@
 \version "1.5.68"
 \header {
-texidoc = "
+  texidoc = "
 
 There are several ways to calculate the direction of a beam.
 @table @code
@@ -21,19 +21,27 @@ your favourite algorithm isn't one of these, you can hook up your own.
 }
 
 \paper { linewidth = -1.}
-\score { \notes \relative c { 
-  [d''8 a]
-  \property Voice.Beam \set #'dir-function = #beam-dir-mean
-  [d a] 
-  \property Voice.Beam \set #'dir-function = #beam-dir-median
-  [d a]
-}}
-\score { \notes \relative c {
-  \time 3/8
-  [d''8 a a]
-  \property Voice.Beam \set #'dir-function = #beam-dir-mean
-  [d a a] 
-  \property Voice.Beam \set #'dir-function = #beam-dir-median
-  [d a a] 
-}}
+\score {
+  \notes\relative c'' {
+    \property Voice.Beam \set #'dir-function = #beam-dir-majority
+    [c8 g]
+    \property Voice.Beam \set #'dir-function = #beam-dir-mean
+    [c g] 
+    \property Voice.Beam \set #'dir-function = #beam-dir-median
+    [c g]
+    
+    \time 3/8
+    \property Voice.Beam \set #'dir-function = #beam-dir-majority
+    [c8 c g]
+    \property Voice.Beam \set #'dir-function = #beam-dir-mean
+    [c c g] 
+    \property Voice.Beam \set #'dir-function = #beam-dir-median
+    [c c g] 
+  }
+}
+
+%% Local variables:
+%% LilyPond-indent-level:2
+%% End:
+
 
