@@ -7,10 +7,10 @@ but was merged back into the lilypond package
 as of Mon, 16 Apr 2001 21:58:42 -0600
 
 It was downloaded from
-    ftp://ftp.lilypond.org/pub/LilyPond/
+    http://lilypond.org/download/v2.2/lilypond-2.2.2.tar.gz
 
 For more information about GNU LilyPond, please visit:
-    http://www.lilypond.org/
+    http://lilypond.org/
 
 Authors:
       Han-Wen Nienhuys <hanwen@cs.uu.nl>

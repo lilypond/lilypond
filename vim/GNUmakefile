@@ -20,19 +20,19 @@ include $(depth)/make/stepmake.make
 
 local-install:
 	mkdir -p $(vimdir)/compiler
-	$(INSTALL) lilypond-compiler.vim $(vimdir)/compiler/lilypond.vim
+	$(INSTALL) -m 644 lilypond-compiler.vim $(vimdir)/compiler/lilypond.vim
 
 	mkdir -p $(vimdir)/ftdetect
-	$(INSTALL) lilypond-ftdetect.vim $(vimdir)/ftdetect/lilypond.vim
+	$(INSTALL) -m 644 lilypond-ftdetect.vim $(vimdir)/ftdetect/lilypond.vim
 
 	mkdir -p $(vimdir)/ftplugin
-	$(INSTALL) lilypond-ftplugin.vim $(vimdir)/ftplugin/lilypond.vim
+	$(INSTALL) -m 644 lilypond-ftplugin.vim $(vimdir)/ftplugin/lilypond.vim
 
 	mkdir -p $(vimdir)/indent
-	$(INSTALL) lilypond-indent.vim $(vimdir)/indent/lilypond.vim
+	$(INSTALL) -m 644 lilypond-indent.vim $(vimdir)/indent/lilypond.vim
 
 	mkdir -p $(vimdir)/syntax
-	$(INSTALL) lilypond-syntax.vim $(vimdir)/syntax/lilypond.vim
+	$(INSTALL) -m 644 lilypond-syntax.vim $(vimdir)/syntax/lilypond.vim
 
 local-uninstall:
 	rm $(vimdir)/compiler/lilypond.vim
