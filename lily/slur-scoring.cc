@@ -34,7 +34,6 @@
 
   - this file is a big mess, clean it up
 
-
   - short-cut: try a smaller region first.
 
   - handle non-visible stems better.
@@ -86,6 +85,31 @@ struct Slur_score_parameters
   Real edge_slope_exponent_;
   Real head_slur_distance_max_ratio_;
   Real head_slur_distance_factor_;
+};
+
+
+
+struct Extra_collision_info
+{
+  Real idx_;
+  Box extents_;
+  Real penalty_;
+  Grob * grob_;
+
+  Extra_collision_info (Grob *g, Real idx, Interval x, Interval y, Real p)
+  {
+    idx_ = idx;
+    extents_[X_AXIS] = x;
+    extents_[Y_AXIS] = y;
+    penalty_ = p;
+    grob_ = g;
+  }
+  Extra_collision_info ()
+  {
+    idx_ = 0.0;
+    penalty_ = 0.;
+    grob_ = 0;
+  }
 };
 
 
@@ -168,27 +192,27 @@ Slur_score_state::~Slur_score_state ()
   delete scores_;
 }
 
-static void score_extra_encompass (Slur_score_state);
-static void score_slopes  (Slur_score_state);
-static void score_edges (Slur_score_state);
-static void score_encompass (Slur_score_state);
-static Bezier avoid_staff_line  (Slur_score_state,
+static void score_extra_encompass (Slur_score_state const&);
+static void score_slopes  (Slur_score_state const&);
+static void score_edges (Slur_score_state const&);
+static void score_encompass (Slur_score_state const&);
+static Bezier avoid_staff_line  (Slur_score_state const&,
 				Bezier bez);
-static Encompass_info get_encompass_info (Slur_score_state, Grob *col);
-static Bezier get_bezier (Slur_score_state,
+static Encompass_info get_encompass_info (Slur_score_state const&, Grob *col);
+static Bezier get_bezier (Slur_score_state const&,
 			  Drul_array<Offset>,
   			  Real r_0, Real h_inf);
 static Direction get_default_dir (Grob *me);
 
 static void set_end_points (Grob *);
-static Real broken_trend_y (Slur_score_state, Direction dir);
-static Drul_array<Bound_info> get_bound_info (Slur_score_state);
+static Real broken_trend_y (Slur_score_state const&, Direction dir);
+static Drul_array<Bound_info> get_bound_info (Slur_score_state const&);
 
-static void generate_curves (Slur_score_state);
-static Array<Slur_score> *enumerate_attachments (Slur_score_state,
+static void generate_curves (Slur_score_state const&);
+static Array<Slur_score> *enumerate_attachments (Slur_score_state const&,
 						Drul_array<Real> end_ys);
-static Drul_array<Offset> get_base_attachments(Slur_score_state);
-static Drul_array<Real> get_y_attachment_range(Slur_score_state);
+static Drul_array<Offset> get_base_attachments(Slur_score_state const&);
+static Drul_array<Real> get_y_attachment_range(Slur_score_state const&);
 
 
 Real
@@ -249,7 +273,7 @@ init_score_param (Grob *me,
 
 /* HDIR indicates which side (left or right) we are processing here.  */
 Real
-broken_trend_y (Slur_score_state state, Direction hdir)
+broken_trend_y (Slur_score_state const &state, Direction hdir)
 {
   /* A broken slur should maintain the same vertical trend
      the unbroken slur would have had.  */
@@ -300,7 +324,7 @@ broken_trend_y (Slur_score_state state, Direction hdir)
 }
 
 Encompass_info
-get_encompass_info (Slur_score_state state,
+get_encompass_info (Slur_score_state const &state,
 		    Grob *col)
 {
   Grob *stem = unsmob_grob (col->get_property ("stem"));
@@ -390,7 +414,7 @@ Slur::after_line_breaking (SCM smob)
 }
 
 Drul_array<Bound_info>
-get_bound_info (Slur_score_state state)
+get_bound_info (Slur_score_state const &state)
 {
   Drul_array<Bound_info> extremes;
 
@@ -559,7 +583,7 @@ set_end_points (Grob *me)
  */
 
 Drul_array<Real>
-get_y_attachment_range (Slur_score_state state)
+get_y_attachment_range (Slur_score_state const &state)
 {
   Drul_array<Real> end_ys;
   Direction d = LEFT;
@@ -598,7 +622,7 @@ spanner_less (Spanner *s1, Spanner* s2)
 
 
 Drul_array<Offset>
-get_base_attachments (Slur_score_state state)
+get_base_attachments (Slur_score_state const &state)
 {
   Drul_array<Offset> base_attachment;
   Direction d = RIGHT;
@@ -674,7 +698,7 @@ get_base_attachments (Slur_score_state state)
 }
 
 void
-generate_curves (Slur_score_state state)
+generate_curves (Slur_score_state const &state)
 {
   Real r_0 = robust_scm2double (state.slur_->get_property ("ratio"), 0.33);
   Real h_inf = state.staff_space_ *scm_to_double (state.slur_->get_property ("height-limit"));
@@ -691,7 +715,7 @@ generate_curves (Slur_score_state state)
 }
 
 Bezier
-avoid_staff_line (Slur_score_state state, 
+avoid_staff_line (Slur_score_state const &state, 
 		  Bezier bez)
 {
   Offset horiz (1,0);
@@ -733,7 +757,7 @@ avoid_staff_line (Slur_score_state state,
 }
 
 Array<Slur_score> *
-enumerate_attachments (Slur_score_state state, Drul_array<Real> end_ys)
+enumerate_attachments (Slur_score_state const &state, Drul_array<Real> end_ys)
 {
   /*ugh.   */
   Array<Slur_score> scores;
@@ -834,7 +858,7 @@ linear_interpolate (Real x, Real x1, Real x2,  Real y1, Real  y2)
 
 
 void
-score_encompass (Slur_score_state state)
+score_encompass (Slur_score_state const &state)
 {
   Array<Encompass_info> infos;
 
@@ -983,32 +1007,8 @@ score_encompass (Slur_score_state state)
  (*state.scores_)[i].score_ += demerit + variance_penalty;
     }
 }
-
-struct Extra_collision_info
-{
-  Real idx_;
-  Box extents_;
-  Real penalty_;
-  Grob * grob_;
-
-  Extra_collision_info (Grob *g, Real idx, Interval x, Interval y, Real p)
-  {
-    idx_ = idx;
-    extents_[X_AXIS] = x;
-    extents_[Y_AXIS] = y;
-    penalty_ = p;
-    grob_ = g;
-  }
-  Extra_collision_info ()
-  {
-    idx_ = 0.0;
-    penalty_ = 0.;
-    grob_ = 0;
-  }
-};
-
 void
-score_extra_encompass (Slur_score_state state)
+score_extra_encompass (Slur_score_state const &state)
 {
   Link_array<Grob> encompasses
     = Pointer_group_interface__extract_grobs (state.slur_, (Grob *)0,
@@ -1161,12 +1161,8 @@ score_extra_encompass (Slur_score_state state)
     }
 }
 
-/*
-  TODO: should make edge penalties dependent on the direction that the
-  slur-end is pointing.
- */
 void
-score_edges (Slur_score_state state)
+score_edges (Slur_score_state const &state)
 {
   for (int i = 0; i < state.scores_->size (); i++)
     {
@@ -1200,7 +1196,7 @@ score_edges (Slur_score_state state)
 }
 
 void
-score_slopes (Slur_score_state state)
+score_slopes (Slur_score_state const &state)
 {
 
   Drul_array<Real> ys;
@@ -1255,9 +1251,9 @@ score_slopes (Slur_score_state state)
 	  : state.parameters_.same_slope_penalty_;
 
 #if DEBUG_SLUR_QUANTING
- (*state.scores_)[i].score_card_ += to_string ("S%.2f", d);
+      (*state.scores_)[i].score_card_ += to_string ("S%.2f", d);
 #endif
- (*state.scores_)[i].score_ += demerit;
+      (*state.scores_)[i].score_ += demerit;
     }
 
 
@@ -1298,7 +1294,7 @@ fit_factor (Offset dz_unit, Offset dz_perp,
 	
 
 Bezier
-get_bezier (Slur_score_state state,
+get_bezier (Slur_score_state const &state,
 	    Drul_array<Offset> attachments,
 	    Real r_0, Real h_inf
 	    )
