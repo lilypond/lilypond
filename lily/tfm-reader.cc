@@ -103,6 +103,8 @@ Tex_font_metric_reader::read_header ()
   /* We don't care about the extensible table.  */
 
   if (header_length < 2)
+    /* Not using ngettext's plural feature here, as this message is
+       more of a programming error.  */
     error (_f ("TFM header of `%s' has only %u word (s)",
 	       input_.name_string ().to_str0 (), header_length));
 

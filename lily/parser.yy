@@ -124,7 +124,6 @@ set_music_properties (Music *p, SCM a)
 	((My_lily_parser *) my_lily_parser)
 
 #define yyerror THIS->parser_error
-#define ARRAY_SIZE(a,s)   if (a.size () != s) THIS->parser_error (_f ("Expecting %d arguments", s))
 
 %}
 
@@ -432,7 +431,7 @@ assignment:
 
 		if (! regular_identifier_b ($1))
 		{
-			ip.warning (_ ("Identifier should have  alphabetic characters only"));
+			ip.warning (_ ("Identifier should have alphabetic characters only"));
 		}
 
 	        THIS->lexer_->set_identifier ($1, $4);
@@ -798,10 +797,10 @@ Simple_music:
 		{
 			THIS->parser_error (_ ("Second argument must be a symbol")); 
 		}
-		/*hould check # args */
+		/* Should check # args */
 		if (!gh_procedure_p (pred))
 		{
-			THIS->parser_error (_ ("First argument must be a procedure taking 1 argument"));
+			THIS->parser_error (_ ("First argument must be a procedure taking one argument"));
 		}
 
 		Music *m = new Music (SCM_EOL);
