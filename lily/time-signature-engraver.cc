@@ -7,9 +7,11 @@
 */
 
 #include "time-signature.hh"
+#include "warn.hh"
 
 #include "engraver.hh"
 #include "engraver-group-engraver.hh"
+#include "misc.hh"
 
 /**
   generate time_signatures. 
@@ -40,8 +42,25 @@ Time_signature_engraver::process_music ()
     not rigorously safe, since the value might get GC'd and
     reallocated in the same spot */
   SCM fr= get_property ("timeSignatureFraction");
-  if (!time_signature_ && last_time_fraction_ != fr)
+  if (!time_signature_
+      && last_time_fraction_ != fr
+      && gh_pair_p (fr))
     {
+      int den = gh_scm2int (gh_cdr (fr));
+      if (den != (1 << intlog2 (den)))
+	{
+	  /*
+	    Todo: should make typecheck?
+
+	    OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+	   */
+	  warning (_f("Found strange time signature %d/%d.",
+		      den,
+		      gh_scm2int (gh_car (fr))
+		      ));
+	}
+  
+      
       last_time_fraction_ = fr; 
       time_signature_ = new Item (get_property ("TimeSignature"));
       time_signature_->set_grob_property ("fraction",fr);

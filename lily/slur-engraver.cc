@@ -18,7 +18,7 @@
 class Slur_engraver : public Engraver
 {
   Link_array<Music> events_;
-  Link_array<Music> new_slur_reqs_;
+  Link_array<Music> new_slur_evs_;
   Link_array<Grob> slur_stack_;
   Link_array<Grob> end_slurs_;
   Moment last_start_;
@@ -43,9 +43,9 @@ Slur_engraver::Slur_engraver ()
 }
 
 bool
-Slur_engraver::try_music (Music *req)
+Slur_engraver::try_music (Music *ev)
 {
-  if (req->is_mus_type ("abort-event"))
+  if (ev->is_mus_type ("abort-event"))
     {
       for (int i = 0; i < slur_stack_.size (); i++)
 	{
@@ -58,19 +58,19 @@ Slur_engraver::try_music (Music *req)
 	}
       end_slurs_.clear ();
       events_.clear ();
-      new_slur_reqs_.clear ();
+      new_slur_evs_.clear ();
     }
-  else if (req->is_mus_type ("slur-event"))
+  else if (ev->is_mus_type ("slur-event"))
     {
       /*
 	Let's not start more than one slur per moment.
       */
-      Direction d = to_dir (req->get_mus_property ("span-direction"));
+      Direction d = to_dir (ev->get_mus_property ("span-direction"));
       if (d == START)
 	{
 	  if (now_mom () > last_start_)
 	    {
-	      new_slur_reqs_.push (req);
+	      new_slur_evs_.push (ev);
 	      last_start_ = now_mom ();
 	    }
 
@@ -86,15 +86,15 @@ Slur_engraver::try_music (Music *req)
 	  /*
 	    Swallow other events.
 	  */
-	  for (int j = new_slur_reqs_.size(); j--;)
+	  for (int j = new_slur_evs_.size(); j--;)
 	    {
-	      Direction nd = to_dir (new_slur_reqs_[j]->get_mus_property ("span-direction"));
+	      Direction nd = to_dir (new_slur_evs_[j]->get_mus_property ("span-direction"));
 	      
 	      if (nd == STOP)
 		return true;
 	    }
 	      
-	  new_slur_reqs_.push (req);
+	  new_slur_evs_.push (ev);
 	  return true;
 	}
     }
@@ -146,17 +146,17 @@ void
 Slur_engraver::process_acknowledged_grobs ()
 {
   Link_array<Grob> start_slurs;
-  for (int i=0; i< new_slur_reqs_.size (); i++)
+  for (int i=0; i< new_slur_evs_.size (); i++)
     {
-      Music* slur_req = new_slur_reqs_[i];
+      Music* slur_ev = new_slur_evs_[i];
       // end slur: move the slur to other array
-      Direction d = to_dir (slur_req->get_mus_property ("span-direction"));
-   if (d== STOP)
+      Direction d = to_dir (slur_ev->get_mus_property ("span-direction"));
+      if (d== STOP)
 	{
 	  if (slur_stack_.empty ())
 	    /* How to shut up this warning, when Voice_devnull_engraver has
 	       eaten start event? */
-	    slur_req->origin ()->warning (_f ("can't find start of slur"));
+	    slur_ev->origin ()->warning (_f ("can't find start of slur"));
 	  else
 	    {
 	      Grob* slur = slur_stack_.pop ();
@@ -171,14 +171,21 @@ Slur_engraver::process_acknowledged_grobs ()
 	  // (use temp. array to wait for all slur STOPs)
 	  Grob* slur = new Spanner (get_property ("Slur"));
 	  Slur::set_interface (slur); // cannot remove yet!
+
+
+	  if (Direction updown = to_dir (slur_ev->get_mus_property ("direction")))
+	    {
+	      slur->set_grob_property ("direction", gh_int2scm (updown));
+	    }
+	  
 	  start_slurs.push (slur);
-	  events_.push (slur_req);
-	  announce_grob (slur, slur_req->self_scm ());
+	  events_.push (slur_ev);
+	  announce_grob (slur, slur_ev->self_scm ());
 	}
     }
   for (int i=0; i < start_slurs.size (); i++)
     slur_stack_.push (start_slurs[i]);
-  new_slur_reqs_.clear ();
+  new_slur_evs_.clear ();
 }
 
 void
@@ -194,7 +201,7 @@ Slur_engraver::stop_translation_timestep ()
 void
 Slur_engraver::start_translation_timestep ()
 {
-  new_slur_reqs_.clear ();
+  new_slur_evs_.clear ();
   SCM m = get_property ("automaticMelismata");
   if (to_boolean (m))
     {
@@ -205,7 +212,7 @@ Slur_engraver::start_translation_timestep ()
 
 
 ENTER_DESCRIPTION (Slur_engraver,
-/* descr */       "Build slurs from Slur_reqs",
+/* descr */       "Build slurs from Slur_evs",
 /* creats*/       "Slur",
 /* accepts */     "slur-event",
 /* acks  */      "note-column-interface",
