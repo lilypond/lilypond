@@ -85,7 +85,7 @@ binary-arch: build install
 	dh_testdir
 	dh_testroot
 	cp -av lilypond-mode.el $(r)/usr/share/emacs/site-lisp/
-	dh_installdocs DEDICATION TODO *.txt \
+	dh_installdocs DEDICATION NEWS ROADMAP TODO *.txt \
 		Documentation/pictures/out/*.png \
 		Documentation/out/*.txt \
 		Documentation/*/out/[a-z]*.dvi \
