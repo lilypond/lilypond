@@ -16,7 +16,7 @@ paper_eleven = \paper {
 	arithmetic_basicspace = 2.;
         arithmetic_multiplier = 4.8\pt;
 	
-	\symboltables { \table_eleven }
+	0=\symboltables { \table_eleven }
 	\include "params.ly";
 }
 
