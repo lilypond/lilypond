@@ -3777,7 +3777,7 @@ introduced with @code{[} and @code{]}. You can also include text
 strings and text markups, see @ref{Overview of text markup commands}.
 
 @example
-< [4 6] 8 [_! 12] > < 5 \markup{ + \number 6 } >
+< [4 6] 8 [_! 12] > < 5 \markup @{ + \number 6 @} >
 @end example
 @lilypond[quote,raggedright,fragment]
 \context FiguredBass
