@@ -241,10 +241,13 @@ def error_log (name):
 	return tempfile.mktemp ('%s.errorlog' % name)
 
 def read_pipe (cmd, mode = 'r'):
+	
+	
 	redirect = ''
 	error_log_file = ''
 	if __main__.verbose_p:
 		progress (_ ("Opening pipe `%s\'") % cmd)
+	else:
 		error_log_file = error_log (command_name (cmd))
 		redirect = ' 2>%s' % error_log_file
 		
@@ -259,9 +262,12 @@ def read_pipe (cmd, mode = 'r'):
 
 	if status:
 		error (_ ("`%s\' failed (%d)") % (cmd, exit_status))
+		
 		if not __main__.verbose_p:
-			error (_ ("The error log is as follows:"))
-			sys.stderr.write (open (error_log (command_name (cmd)).read ()))
+			contents = open (error_log_file).read ()
+			if contents:
+				error (_ ("The error log is as follows:"))
+				sys.stderr.write (contents)
 		exit (status)
 		
 	if __main__.verbose_p:
