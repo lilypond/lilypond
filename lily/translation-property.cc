@@ -9,12 +9,12 @@
 #include "translation-property.hh"
 #include "debug.hh"
 
-
-
 void
 Translation_property::do_print () const
 {
 #ifndef NPRINT
-  DEBUG_OUT << "." << var_str_ << " = " << value_;
+  DEBUG_OUT << "." << var_str_ << " = " ;
+  if (flower_dstream && !flower_dstream->silent_b ("Translation_property"))
+    ly_display_scm (value_);
 #endif
 }
