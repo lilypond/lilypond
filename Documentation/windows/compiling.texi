@@ -51,11 +51,13 @@ in the source package directory @file{Documentation/windows}.
 @item @var{guile-1.4-gnu-windows.patch}
 You may (Cygwin gets better every day) need this patch to compile GUILE.
 @item @var{cygwin-installer.patch}
-Apply this patch to the @file{cinstall} directory of
-@file{winsup-src/cinstall}, to get the LilyPond installer.
+Apply this patch to the @file{setup} directory of
+@file{cygwin-apps/setup}, to get the LilyPond installer.
 
 Compiling @file{setup.exe} has been complicated a bit with the
 introduction of the bzip2 feature.  Here's how I did it:
+@ignore
+old setup
 @quotation
 @example
     mkdir cygwin-20020218 && cd cygwin-20020218
@@ -74,12 +76,45 @@ introduction of the bzip2 feature.  Here's how I did it:
     cp -pv setup.exe $CYGWIN/dist/cygwin-1.3.6/new-setup.exe
     strip $CYGWIN/dist/cygwin-1.3.6/new-setup.exe
 @end example
-
-@ignore
-new setup:
-
-
 @end ignore
+@quotation
+@example
+    CYGWIN=$HOME/usr/src/cygwin/cygwin-1.3.10 # where your cygwin lives
+    cd $CYGWIN
+    wget ftp://ftp.sf.net/pub/sourceforge/mingw/gcc-2.95.3-20010828.tar.gz
+    wget ftp://ftp.sf.net/pub/sourceforge/mingw/w32api-1.4.tar.gz
+    mkdir -p usr/mingw
+    cd usr/mingw
+    tar xzf ../../gcc-2.95.3-20010828.tar.gz
+    tar xzf ../../w32api-1.4.tar.gz
+    cd ../..
+    rm -f linux-x-cygwin/usr/lib/mingw
+    ln -s ../../../usr/mingw/lib linux-x-cygwin/usr/lib/mingw
+    rm -f linux-x-cygwin/usr/include/mingw
+    ln -s ../../../usr/mingw/include linux-x-cygwin/usr/include/mingw
+    cp usr/lib/mingw/crt2.o linux-x-cygwin/usr/lib/mingw
+
+    cd $HOME/usr/src
+    export CVSROOT=:pserver:anoncvs@@anoncvs.cygnus.com:/cvs/cygwin-apps
+    touch $HOME/.cvspass
+    cvs login
+    cvs -z3 -r setup-200206 setup
+    cd setup
+    patch < $HOME/cvs/lilypond/Documentation/windows/cygwin-installer.patch
+    cp $HOME/cvs/lilypond/Documentation/windows/LilyPond.ico .
+    CPPFLAGS="-I$CYGWIN/usr/include/mingw \
+                -I$CYGWIN/usr/mingw/mingw32/include \
+		-I$CYGWIN/usr/mingw/include/g++-3" \
+		CFLAGS='-mno-cygwin' \
+		CXXFLAGS='-mno-cygwin' \
+		LDFLAGS="-L$CYGWIN/usr/lib/mingw \
+		-L$CYGWIN/usr/mingw/lib/gcc-lib/mingw32/2.95.3-6/" \
+ 	./configure  --host=i686-pc-mingw32 \
+	--disable-shared --enable-dependencies --enable-maintainer-mode 
+    make WINDRES="windres --include-dir $CYGWIN/usr/include/w32api"
+    cp -pv setup.exe $CYGWIN/dist/cygwin-1.3.10/new-setup.exe
+    strip $CYGWIN/dist/cygwin-1.3.10/new-setup.exe
+@end example
 @end quotation
 @item @var{--prefix=/usr/lilypond-x.y.x}
 The standard binary installation installs LilyPond into its own prefix.

@@ -1,3 +1,10 @@
+2002-06-14  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/user/refman.itely: Bugfix for tablature example.
+
+	* Documentation/windows/compiling.texi: Update for new and
+	improved setup.
+
 2002-06-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/spacing-spanner.cc (find_shortest): make 1/8 configurable:
