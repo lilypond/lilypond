@@ -1,0 +1,9 @@
+% feta-din14.mf
+% part of LilyPond's pretty-but-neat music font
+
+design_size:=14; % feta20 = 20pt
+
+input feta-din;
+
+end.
+
