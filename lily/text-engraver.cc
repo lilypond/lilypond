@@ -29,7 +29,8 @@ protected:
   virtual bool do_try_music (Music* m);
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
-  virtual void do_process_music ();
+  virtual void process_acknowledged ();
+  void deprecated_process_music ();
   virtual void acknowledge_element (Score_element_info);
 };
 
@@ -77,8 +78,16 @@ Text_engraver::acknowledge_element (Score_element_info inf)
 }
 
 void
-Text_engraver::do_process_music ()
+Text_engraver::process_acknowledged ()
 {
+  deprecated_process_music ();
+}
+
+void
+Text_engraver::deprecated_process_music ()
+{
+  if (texts_.size ())
+    return;
   for (int i=0; i < reqs_.size (); i++)
     {
       Text_script_req * r = reqs_[i];

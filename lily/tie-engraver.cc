@@ -62,7 +62,7 @@ protected:
   virtual void do_pre_move_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void process_acknowledged ();
   void typeset_tie (Score_element*);
 public:
@@ -118,8 +118,16 @@ Tie_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Tie_engraver::do_process_music ()
+Tie_engraver::deprecated_process_music ()
 {
+}
+
+void
+Tie_engraver::process_acknowledged ()
+{
+  if (tie_p_arr_.size ())
+    return;
+      
   if (req_l_)
     {
       Moment now = now_mom ();
@@ -128,11 +136,6 @@ Tie_engraver::do_process_music ()
 	     && past_notes_pq_.front ().end_ == now)
 	stopped_heads_.push (past_notes_pq_.get ());
     }
-}
-
-void
-Tie_engraver::process_acknowledged ()
-{
   if (req_l_)
     {
       now_heads_.sort (CHead_melodic_tuple::pitch_compare);

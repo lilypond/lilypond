@@ -29,7 +29,7 @@ public:
   
 protected:
   virtual bool do_try_music (Music *req_l);
-  virtual void do_process_music();
+  void deprecated_process_music();
 
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
@@ -58,9 +58,9 @@ Breathing_sign_engraver::do_try_music (Music*r_l)
 }
 
 void
-Breathing_sign_engraver::do_process_music()
+Breathing_sign_engraver::deprecated_process_music()
 {
-  if(breathing_sign_req_l_)
+  if(breathing_sign_req_l_ && ! breathing_sign_p_)
     {
       SCM b = get_property ("BreathingSign");
       breathing_sign_p_ = new Item (b);

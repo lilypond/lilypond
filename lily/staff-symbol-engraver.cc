@@ -62,8 +62,17 @@ Staff_symbol_engraver::do_removal_processing()
 void
 Staff_symbol_engraver::acknowledge_element (Score_element_info s)
 {
-  s.elem_l_->set_elt_property ("staff-symbol", span_p_->self_scm ());
-  s.elem_l_->add_dependency (span_p_); // UGH. UGH. UGH 
+  //////  assert (span_p_);
+  ////// ik weet 't zo onderhand echt niet meer
+  ///// if (!span_p_)
+  /////  do_creation_processing ();
+  if (!span_p_)
+    {
+      status_ = VIRGIN;
+      creation_processing ();
+    }
+    s.elem_l_->set_elt_property ("staff-symbol", span_p_->self_scm ());
+  s.elem_l_->add_dependency (span_p_); // UGH. UGH. UGH
 }
 
 

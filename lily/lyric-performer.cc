@@ -19,7 +19,7 @@ Lyric_performer::Lyric_performer ()
 
 
 void
-Lyric_performer::do_process_music ()
+Lyric_performer::deprecated_process_music ()
 {
   // FIXME: won't work with fancy lyrics
   if (lreq_arr_.size ()

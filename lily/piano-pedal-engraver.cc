@@ -33,10 +33,11 @@ public:
 protected:
   virtual void do_creation_processing ();
   virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
   virtual void acknowledge_element (Score_element_info);
+  virtual void process_acknowledged ();
 
 private:
   struct Pedal_info
@@ -91,7 +92,7 @@ Piano_pedal_engraver::~Piano_pedal_engraver()
 void
 Piano_pedal_engraver::acknowledge_element (Score_element_info info)
 {
-  for (Pedal_info*p = info_list_; p->name_; p ++)
+  for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
       if (p->item_p_)
 	{
@@ -130,10 +131,18 @@ Piano_pedal_engraver::do_try_music (Music *m)
 }
 
 void
-Piano_pedal_engraver::do_process_music ()
+Piano_pedal_engraver::process_acknowledged ()
 {
-  for (Pedal_info*p = info_list_; p->name_; p ++)
+  deprecated_process_music ();
+}
+
+void
+Piano_pedal_engraver::deprecated_process_music ()
+{
+  for (Pedal_info*p = info_list_; p && p->name_; p ++)
     {
+      if (p->item_p_)
+	continue;
       SCM s = SCM_EOL;
       if (p->req_l_drul_[STOP] && p->req_l_drul_[START])
 	{

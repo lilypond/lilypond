@@ -31,7 +31,7 @@ struct Local_key_engraver : Engraver {
   Item *key_item_p_;
 protected:
   VIRTUAL_COPY_CONS(Translator);
-  virtual void do_process_music();
+  void deprecated_process_music();
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
   virtual void do_creation_processing ();
@@ -74,6 +74,8 @@ Local_key_engraver::do_creation_processing ()
 void
 Local_key_engraver::process_acknowledged ()
 {
+  deprecated_process_music ();
+
   if (!key_item_p_ && mel_l_arr_.size()) 
     {
       SCM localsig = get_property ("localKeySignature");
@@ -237,7 +239,7 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
   ugh. repeated deep_copy generates lots of garbage.
  */
 void
-Local_key_engraver::do_process_music()
+Local_key_engraver::deprecated_process_music()
 {
   SCM smp = get_property ("measurePosition");
   Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);

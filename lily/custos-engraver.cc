@@ -26,7 +26,7 @@ public:
   Custos_engraver();
   virtual void do_post_move_processing();
   virtual void acknowledge_element(Score_element_info);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void process_acknowledged ();
   virtual void do_pre_move_processing ();
   virtual void do_removal_processing ();
@@ -71,7 +71,7 @@ Custos_engraver::do_post_move_processing ()
   TODO check if this works with forced bar lines?
  */
 void
-Custos_engraver::do_process_music ()
+Custos_engraver::deprecated_process_music ()
 {
   if (gh_string_p (get_property( "whichBar")))
     custos_permitted = true;
@@ -106,6 +106,8 @@ Custos_engraver::acknowledge_element (Score_element_info info)
 void
 Custos_engraver::process_acknowledged ()
 {
+  deprecated_process_music ();
+
   if (custos_permitted)
     {
       for (int i = pitches_.size (); i--;)

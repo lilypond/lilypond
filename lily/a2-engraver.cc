@@ -22,9 +22,10 @@ public:
   VIRTUAL_COPY_CONS (Translator);
   
 protected:
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void acknowledge_element (Score_element_info);
 
+  virtual void process_acknowledged ();
   virtual void do_pre_move_processing ();
 
 private:
@@ -40,8 +41,9 @@ A2_engraver::A2_engraver ()
   state_ = UNISILENCE;
 }
 
+
 void
-A2_engraver::do_process_music ()
+A2_engraver::deprecated_process_music ()
 {
   if (!to_boolean (get_property ("combineParts")))
     return ;
@@ -157,6 +159,12 @@ A2_engraver::acknowledge_element (Score_element_info i)
 	    }
 	}
     }
+}
+
+void
+A2_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
 }
 
 void 

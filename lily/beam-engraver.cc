@@ -42,9 +42,10 @@ protected:
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
   virtual void do_removal_processing ();
+  virtual void process_acknowledged ();
   virtual void acknowledge_element (Score_element_info);
   virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
 public:
   Beam_engraver ();
   VIRTUAL_COPY_CONS (Translator);
@@ -112,7 +113,7 @@ Beam_engraver::set_melisma (bool m)
 
 
 void
-Beam_engraver::do_process_music ()
+Beam_engraver::deprecated_process_music ()
 {
   if (reqs_drul_[STOP])
     {
@@ -166,6 +167,8 @@ Beam_engraver::do_process_music ()
  
       announce_element (beam_p_, reqs_drul_[START]);
     }
+  reqs_drul_[STOP] = 0;
+  reqs_drul_[START] = 0;
 }
 
 void
@@ -221,6 +224,13 @@ Beam_engraver::do_removal_processing ()
 #endif
     }
 }
+
+void
+Beam_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
 
 void
 Beam_engraver::acknowledge_element (Score_element_info info)

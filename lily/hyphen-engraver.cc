@@ -33,10 +33,11 @@ public:
 protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void do_removal_processing();
-  virtual void do_process_music();
+  void deprecated_process_music();
   virtual bool do_try_music (Music*);
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing ();
+  virtual void process_acknowledged ();
 private:
 
 };
@@ -93,9 +94,15 @@ Hyphen_engraver::do_removal_processing ()
 }
 
 void
-Hyphen_engraver::do_process_music ()
+Hyphen_engraver::process_acknowledged ()
 {
-  if (req_l_)
+  deprecated_process_music ();
+}
+
+void
+Hyphen_engraver::deprecated_process_music ()
+{
+  if (req_l_ &&! hyphen_p_)
     {
       if (!last_lyric_l_)
 	{

@@ -35,8 +35,9 @@ protected:
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual bool do_try_music (Music*r);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void do_post_move_processing ();
+  virtual void process_acknowledged ();
 };
 
 bool
@@ -63,7 +64,13 @@ Tuplet_engraver::do_try_music (Music *r)
 }
 
 void
-Tuplet_engraver::do_process_music ()
+Tuplet_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
+void
+Tuplet_engraver::deprecated_process_music ()
 {
   SCM v = get_property ("tupletInvisible");
   if (to_boolean (v))

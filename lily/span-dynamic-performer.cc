@@ -31,7 +31,7 @@ protected:
   virtual bool do_try_music (Music*);
   virtual void acknowledge_element (Audio_element_info);
   virtual void process_acknowledged ();
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
 
@@ -67,7 +67,7 @@ Span_dynamic_performer::acknowledge_element (Audio_element_info i)
 }
 
 void
-Span_dynamic_performer::do_process_music ()
+Span_dynamic_performer::deprecated_process_music ()
 {
   if (span_start_req_l_ || span_req_l_drul_[START])
     {
@@ -111,6 +111,7 @@ Span_dynamic_performer::do_process_music ()
 void
 Span_dynamic_performer::process_acknowledged ()
 {
+  deprecated_process_music ();
   if (span_req_l_drul_[STOP])
    { 
      finished_dynamic_tuple_arr_.top ().audio_l_->volume_ = last_volume_;
@@ -120,6 +121,9 @@ Span_dynamic_performer::process_acknowledged ()
     {
      dynamic_tuple_arr_[0].audio_l_->volume_ = last_volume_;
     }
+  span_start_req_l_ = 0;
+  span_req_l_drul_[START] = 0;
+  span_req_l_drul_[STOP] = 0;
 }
   
 void

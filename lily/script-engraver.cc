@@ -22,9 +22,10 @@ public:
   Script_engraver();
 protected:
   virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
+  virtual void process_acknowledged ();
   virtual void acknowledge_element (Score_element_info);
 };
 
@@ -51,7 +52,13 @@ Script_engraver::do_try_music (Music *r_l)
 }
 
 void
-Script_engraver::do_process_music()
+Script_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
+void
+Script_engraver::deprecated_process_music()
 {
   for (int i=0; i < script_req_l_arr_.size(); i++)
     {
@@ -112,6 +119,7 @@ Script_engraver::do_process_music()
       
       announce_element (p, l);
     }
+  script_req_l_arr_.clear ();
 }
 
 void

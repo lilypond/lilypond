@@ -70,6 +70,8 @@ Property_engraver::do_creation_processing ()
 void
 Property_engraver::acknowledge_element (Score_element_info i)
 {
+  /////////
+  return;
   SCM ifs = i.elem_l_->get_elt_property ("interfaces");
   SCM props;
   for (; gh_pair_p (ifs); ifs = gh_cdr (ifs))

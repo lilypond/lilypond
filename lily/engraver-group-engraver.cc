@@ -32,13 +32,19 @@ Engraver_group_engraver::do_announces()
       Translator * t = unsmob_translator (gh_car (p));
       dynamic_cast<Engraver_group_engraver*> (t)->do_announces ();
     }
-  
-  while (announce_info_arr_.size ())
+
+  // debug
+  int i = 0;
+  do
     {
+      i++;
       for (int j =0; j < announce_info_arr_.size(); j++)
 	{
 	  Score_element_info info = announce_info_arr_[j];
-	  
+
+	  if (i > 10)
+	    printf ("elt: %s\n",
+		    announce_info_arr_[j].elem_l_->name ().ch_C ());
 	  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
 	    {
 	      Translator * t = unsmob_translator (gh_car (p));
@@ -56,6 +62,7 @@ Engraver_group_engraver::do_announces()
 	    eng->process_acknowledged ();
 	}
     }
+  while (announce_info_arr_.size ());
 }
 
 

@@ -25,11 +25,12 @@ class Slur_engraver : public Engraver
 
 protected:
   virtual bool do_try_music (Music*);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
   virtual void do_removal_processing ();
+  virtual void process_acknowledged ();
 
 public:
   VIRTUAL_COPY_CONS (Translator);
@@ -87,6 +88,12 @@ Slur_engraver::do_try_music (Music *req_l)
 }
 
 void
+Slur_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
+void
 Slur_engraver::set_melisma (bool m)
 {
   daddy_trans_l_->set_property ("slurMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
@@ -130,7 +137,7 @@ Slur_engraver::do_removal_processing ()
 }
 
 void
-Slur_engraver::do_process_music ()
+Slur_engraver::deprecated_process_music ()
 {
   Link_array<Score_element> start_slur_l_arr;
   for (int i=0; i< new_slur_req_l_arr_.size (); i++)
@@ -171,6 +178,7 @@ Slur_engraver::do_process_music ()
     }
   for (int i=0; i < start_slur_l_arr.size (); i++)
     slur_l_stack_.push (start_slur_l_arr[i]);
+  new_slur_req_l_arr_.clear ();
 }
 
 void

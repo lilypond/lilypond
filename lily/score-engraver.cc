@@ -90,8 +90,8 @@ Score_engraver::do_removal_processing()
 void
 Score_engraver::process()
 {
-  process_music();
-  do_announces();
+  //process_music();
+  announces();
   pre_move_processing();
   check_removal();
 }
@@ -114,8 +114,9 @@ Score_engraver::announce_element (Score_element_info info)
 void
 Score_engraver::do_announces()
 {
-  while (announce_info_arr_.size()) 
+  //////  do
     Engraver_group_engraver::do_announces();
+    //////while (announce_info_arr_.size());
 }
 
 

@@ -57,8 +57,9 @@ protected:
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual bool do_try_music (Music *req_l);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void do_pre_move_processing ();
+  virtual void process_acknowledged ();
   virtual void do_post_move_processing ();
 };
 
@@ -121,7 +122,7 @@ Dynamic_engraver::do_try_music (Music * m)
 }
 
 void
-Dynamic_engraver::do_process_music ()
+Dynamic_engraver::deprecated_process_music ()
 {
   if (accepted_spanreqs_drul_[START] || accepted_spanreqs_drul_[STOP] || script_req_l_)
     
@@ -274,12 +275,21 @@ Dynamic_engraver::do_process_music ()
 	  announce_element (cresc_p_, accepted_spanreqs_drul_[START]);
 	}
     }
+  script_req_l_ = 0;
+  accepted_spanreqs_drul_[START] = 0;
+  accepted_spanreqs_drul_[STOP] = 0;
 }
 
 void
 Dynamic_engraver::do_pre_move_processing ()
 {
   typeset_all ();
+}
+
+void
+Dynamic_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
 }
 
 void

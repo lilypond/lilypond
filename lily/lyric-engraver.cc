@@ -37,7 +37,7 @@ Lyric_engraver::do_try_music (Music*r)
 }
 
 void
-Lyric_engraver::do_process_music()
+Lyric_engraver::deprecated_process_music()
 {
   if (req_l_)
     {
@@ -55,6 +55,7 @@ Lyric_engraver::do_process_music()
       text_p_->translate_axis (0.66, X_AXIS);
       
       announce_element (text_p_, req_l_);
+      req_l_ = 0;
     }
 }
 

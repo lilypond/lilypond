@@ -58,11 +58,12 @@ protected:
   
 protected:
   virtual void do_removal_processing();
-  virtual void do_process_music();
+  void deprecated_process_music();
   virtual bool do_try_music (Music*);
   virtual void acknowledge_element (Score_element_info);
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
+  virtual void process_acknowledged ();
 };
 
 Chord_tremolo_engraver::Chord_tremolo_engraver()
@@ -93,7 +94,13 @@ Chord_tremolo_engraver::do_try_music (Music * m)
 }
 
 void
-Chord_tremolo_engraver::do_process_music ()
+Chord_tremolo_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
+void
+Chord_tremolo_engraver::deprecated_process_music ()
 {
   if (repeat_ && !beam_p_)
     {

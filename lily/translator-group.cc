@@ -418,9 +418,16 @@ Translator_group::do_post_move_processing ()
 }
 
 void
-Translator_group::do_process_music ()
+Translator_group::deprecated_process_music ()
 {
+  assert (0);
   each (&Translator::process_music);
+}
+
+void
+Translator_group::do_announces ()
+{
+  each (&Translator::announces);
 }
 
 void

@@ -33,10 +33,11 @@ public:
   Direction octave_dir_;
 
 protected:
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void do_pre_move_processing ();
   virtual void do_creation_processing ();
   virtual void do_post_move_processing ();
+  virtual void process_acknowledged ();
   virtual void acknowledge_element (Score_element_info);
 
 private:
@@ -113,6 +114,7 @@ Clef_engraver::set_glyph ()
 void
 Clef_engraver::acknowledge_element (Score_element_info info)
 {
+  deprecated_process_music ();
   Item * item =dynamic_cast <Item *> (info.elem_l_);
   if (item)
     {
@@ -182,13 +184,20 @@ Clef_engraver::create_clef ()
 }
 
 void
-Clef_engraver::do_process_music ()
+Clef_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
+void
+Clef_engraver::deprecated_process_music ()
 {
   SCM glyph = get_property ("clefGlyph");
   SCM clefpos = get_property ("clefPosition");
   SCM octavation = get_property ("clefOctavation");
-  
-  if (scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
+
+  if (clefpos == SCM_EOL
+      || scm_equal_p (glyph, prev_glyph_) == SCM_BOOL_F
       || scm_equal_p (clefpos, prev_cpos_) == SCM_BOOL_F
       || scm_equal_p (octavation, prev_octavation_) == SCM_BOOL_F)    
     {

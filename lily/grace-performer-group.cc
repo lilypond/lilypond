@@ -71,8 +71,8 @@ void
 Grace_performer_group::process ()
 {
   calling_self_b_  = true;
-  process_music ();
-  do_announces();
+  //process_music ();
+  announces();
   pre_move_processing();
   check_removal();
   calling_self_b_ = false;

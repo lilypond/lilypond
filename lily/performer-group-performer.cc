@@ -9,6 +9,7 @@
 
 #include "performer-group-performer.hh"
 
+#include "audio-element.hh"
 #include "debug.hh"
 
 
@@ -33,12 +34,22 @@ Performer_group_performer::do_announces()
       dynamic_cast<Performer_group_performer*> (t)->do_announces ();
     }
   
-  while (announce_info_arr_.size ())
-    {
-      for (int j =0; j < announce_info_arr_.size(); j++)
-	{
-	  Audio_element_info info = announce_info_arr_[j];
-	  
+  // debug
+  int i = 0;
+  do
+  {
+    i++;
+    for (int j =0; j < announce_info_arr_.size(); j++)
+      {
+	Audio_element_info info = announce_info_arr_[j];
+
+	if (i > 10)
+	  {
+	    printf ("elt: %s\n",
+		    classname (announce_info_arr_[j].elem_l_));
+	    announce_info_arr_.clear ();
+	  }
+
 	  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
 	    {
 	      Translator * t = unsmob_translator (gh_car (p));
@@ -56,6 +67,7 @@ Performer_group_performer::do_announces()
 	    eng->process_acknowledged ();
 	}
     }
+  while (announce_info_arr_.size ());
 }
 
 

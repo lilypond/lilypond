@@ -38,9 +38,10 @@ protected:
   virtual void acknowledge_element (Score_element_info);
   void create_items(Request*);
   virtual bool do_try_music (Music *req_l);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void do_post_move_processing ();
   virtual void do_creation_processing ();
+  virtual void process_acknowledged ();
   
 private:
   Mark_req * mark_req_l_;
@@ -136,7 +137,13 @@ Mark_engraver::do_try_music (Music* r_l)
 }
 
 void
-Mark_engraver::do_process_music ()
+Mark_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
+void
+Mark_engraver::deprecated_process_music ()
 {
   if (mark_req_l_)
     {

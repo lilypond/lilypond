@@ -30,7 +30,9 @@ public:
 protected:
   virtual void do_post_move_processing ();
   virtual bool do_try_music (Music *req_l) ;
-  virtual void do_process_music();
+  virtual void process_acknowledged ();
+  virtual void acknowledge_element (Score_element_info) ;
+  void deprecated_process_music();
   virtual void do_pre_move_processing();
 };
 
@@ -73,7 +75,19 @@ Note_heads_engraver::do_try_music (Music *m)
 }
 
 void
-Note_heads_engraver::do_process_music()
+Note_heads_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
+void
+Note_heads_engraver::acknowledge_element (Score_element_info)
+{
+  //deprecated_process_music ();
+}
+
+void
+Note_heads_engraver::deprecated_process_music()
 {
   if (note_p_arr_.size ())
     return ;

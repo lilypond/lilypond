@@ -29,7 +29,7 @@ public:
   Repeat_acknowledge_engraver();
   
   virtual void do_post_move_processing ();
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void do_creation_processing ();
 };
 
@@ -55,7 +55,7 @@ Repeat_acknowledge_engraver::do_post_move_processing ()
 }
 
 void
-Repeat_acknowledge_engraver::do_process_music ()
+Repeat_acknowledge_engraver::deprecated_process_music ()
 {
   /*
     At the start of a piece, we don't print any repeat bars.

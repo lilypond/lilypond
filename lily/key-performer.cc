@@ -24,7 +24,7 @@ Key_performer::~Key_performer ()
 }
 
 void
-Key_performer::do_process_music ()
+Key_performer::deprecated_process_music ()
 {
   if (key_req_l_ &&
       gh_list_p (key_req_l_->get_mus_property ("pitch-alist")))

@@ -40,9 +40,10 @@ protected:
   virtual void do_creation_processing();
   virtual void do_removal_processing ();
   virtual bool do_try_music (Music *req_l);
-  virtual void do_process_music();
+  void deprecated_process_music();
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
+  virtual void process_acknowledged ();
   virtual void acknowledge_element (Score_element_info);
 };
 
@@ -128,7 +129,13 @@ Key_engraver::acknowledge_element (Score_element_info info)
 }
 
 void
-Key_engraver::do_process_music ()
+Key_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
+void
+Key_engraver::deprecated_process_music ()
 {
   if (keyreq_l_ || old_accs_ != get_property ("keySignature"))
     {

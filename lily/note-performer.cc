@@ -23,7 +23,7 @@ Note_performer::Note_performer ()
 
 
 void 
-Note_performer::do_process_music () 
+Note_performer::deprecated_process_music () 
 {
   if (note_req_l_arr_.size ())
     {

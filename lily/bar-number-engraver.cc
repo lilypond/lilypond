@@ -27,15 +27,16 @@ protected:
   virtual void do_pre_move_processing ();
   virtual void acknowledge_element (Score_element_info);
   virtual void do_creation_processing ();
+  virtual void process_acknowledged ();
   void create_items();
-  void do_process_music ();
+  void  deprecated_process_music ();
 public:
   VIRTUAL_COPY_CONS(Translator);
   Bar_number_engraver();
 };
 
 void
-Bar_number_engraver::do_process_music ()
+Bar_number_engraver::deprecated_process_music ()
 {
   // todo include (&&!time->cadenza_b_ )
   SCM bn = get_property("currentBarNumber");
@@ -52,6 +53,13 @@ Bar_number_engraver::do_process_music ()
 				 ly_str02scm (to_str (gh_scm2int (bn)).ch_C()));
     }
 }
+
+void
+Bar_number_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
+}
+
 
 ADD_THIS_TRANSLATOR(Bar_number_engraver);
 

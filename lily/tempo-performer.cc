@@ -24,7 +24,7 @@ Tempo_performer::~Tempo_performer ()
 
 
 void
-Tempo_performer::do_process_music ()
+Tempo_performer::deprecated_process_music ()
 {
   if (tempo_req_l_)
     {

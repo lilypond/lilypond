@@ -29,8 +29,9 @@ public:
 protected:
   virtual void do_creation_processing ();
   virtual void do_removal_processing ();
-  virtual void do_process_music();
+  void deprecated_process_music();
   virtual void do_pre_move_processing();
+  virtual void process_acknowledged ();
 
 private:
   void typeset_bar ();
@@ -73,16 +74,22 @@ Bar_engraver::do_removal_processing ()
 
 /*
   Bar_engraver should come *after* any engravers that expect bars to
-  modify whichBar in do_process_music () be typeset
+  modify whichBar in  deprecated_process_music () be typeset
 */
 void
-Bar_engraver::do_process_music()
+Bar_engraver::deprecated_process_music()
 {
   SCM b =get_property ("whichBar");
   if (gh_string_p (b))
     {
       create_bar ();
     }
+}
+
+void
+Bar_engraver::process_acknowledged ()
+{
+  deprecated_process_music ();
 }
 
 void

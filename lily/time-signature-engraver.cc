@@ -19,7 +19,7 @@
   */
 class Time_signature_engraver : public Engraver {
 protected:
-  virtual void do_process_music();
+  void deprecated_process_music();
   virtual void do_pre_move_processing();
 public:
   VIRTUAL_COPY_CONS(Translator);
@@ -36,7 +36,7 @@ Time_signature_engraver::Time_signature_engraver()
 }
 
 void
-Time_signature_engraver::do_process_music()
+Time_signature_engraver::deprecated_process_music()
 {
   /*
     not rigorously safe, since the value might get GC'd and

@@ -53,6 +53,7 @@ public:
   void add_processing ();
   void creation_processing ();
   void process_music();
+  void announces();
   void post_move_processing();
   void removal_processing();
   /**
@@ -98,7 +99,8 @@ protected:
   virtual bool do_try_music (Music *req_l);
   virtual void do_pre_move_processing();
   virtual void do_post_move_processing();
-  virtual void do_process_music () ;
+  void deprecated_process_music () ;
+  virtual void do_announces () ;
   virtual void do_creation_processing() ;
   virtual void do_removal_processing();
 };

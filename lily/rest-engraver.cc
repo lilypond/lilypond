@@ -22,7 +22,7 @@ protected:
   virtual bool do_try_music (Music *);
   virtual void do_pre_move_processing ();
   virtual void do_post_move_processing ();
-  virtual void do_process_music ();
+  void deprecated_process_music ();
 public:
   
   VIRTUAL_COPY_CONS(Translator);
@@ -62,7 +62,7 @@ Rest_engraver::do_pre_move_processing ()
 }
 
 void
-Rest_engraver::do_process_music ()
+Rest_engraver::deprecated_process_music ()
 {
   if (rest_req_l_ && !rest_p_) 
     {

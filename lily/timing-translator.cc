@@ -31,7 +31,7 @@ Timing_translator::do_try_music (Music*r)
 }
 
 void
-Timing_translator::do_process_music()
+Timing_translator::deprecated_process_music()
 {
   if (check_ && measure_position ())
     {

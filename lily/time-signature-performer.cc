@@ -21,7 +21,7 @@ public:
 
 protected:
 
-  virtual void do_process_music();
+  void deprecated_process_music();
   virtual void do_pre_move_processing ();
 
   SCM prev_fraction_;
@@ -43,7 +43,7 @@ Time_signature_performer::~Time_signature_performer ()
 
 
 void
-Time_signature_performer::do_process_music ()
+Time_signature_performer::deprecated_process_music ()
 {
   SCM fr = get_property ("timeSignatureFraction");
   if (gh_pair_p (fr)

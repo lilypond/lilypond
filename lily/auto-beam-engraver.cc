@@ -34,7 +34,7 @@ protected:
   virtual void do_post_move_processing ();
   virtual void do_removal_processing ();
   virtual void acknowledge_element (Score_element_info);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void process_acknowledged ();
 private:
   void begin_beam ();
@@ -77,7 +77,7 @@ Auto_beam_engraver::do_try_music (Music*)
 } 
 
 void
-Auto_beam_engraver::do_process_music ()
+Auto_beam_engraver::deprecated_process_music ()
 {
   consider_end_and_begin (shortest_mom_);
 }
@@ -417,6 +417,7 @@ Auto_beam_engraver::junk_beam ()
 void
 Auto_beam_engraver::process_acknowledged ()
 {
+  deprecated_process_music ();
   if (stem_l_arr_p_)
     {
       Moment now = now_mom ();

@@ -29,8 +29,9 @@ public:
 
 protected:
   virtual bool do_try_music (Music* req_l);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual void do_pre_move_processing ();
+  virtual void process_acknowledged ();
 
 private:
   Music* script_req_l_;
@@ -51,7 +52,7 @@ Dynamic_performer::~Dynamic_performer ()
 
 
 void
-Dynamic_performer::do_process_music ()
+Dynamic_performer::deprecated_process_music ()
 {
   if (script_req_l_)
     {
@@ -116,6 +117,12 @@ Dynamic_performer::do_process_music ()
       announce_element (info);
       script_req_l_ = 0;
     }
+}
+
+void
+Dynamic_performer::process_acknowledged ()
+{
+  deprecated_process_music ();
 }
 
 void

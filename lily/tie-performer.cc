@@ -47,7 +47,7 @@ Tie_performer::acknowledge_element (Audio_element_info i)
 }
 
 void
-Tie_performer::do_process_music ()
+Tie_performer::deprecated_process_music ()
 {
   if (req_l_)
     {
@@ -64,6 +64,7 @@ Tie_performer::do_process_music ()
 void
 Tie_performer::process_acknowledged ()
 {
+  deprecated_process_music ();
   if (req_l_)
     {
       now_notes_.sort (CNote_melodic_tuple::pitch_compare);

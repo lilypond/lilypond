@@ -28,7 +28,7 @@ public:
 protected:
   virtual void do_pre_move_processing ();
   virtual void acknowledge_element (Score_element_info i);
-  virtual void do_process_music ();
+  void deprecated_process_music ();
   virtual bool do_try_music (Music *);
 
 private:
@@ -78,7 +78,7 @@ Chord_name_engraver::do_try_music (Music* m)
 }
 
 /* Uh, if we do acknowledge_element, shouldn't we postpone
-   do_process_music until do_process_acknowlegded?
+  deprecated_process_music until do_process_acknowlegded?
 
    Sigh, I can *never* remember how this works, can't we
    possibly-please just number these functions:
@@ -87,7 +87,7 @@ Chord_name_engraver::do_try_music (Music* m)
      
      post_move1
      do_try_music2
-     do_process_music3 (or is it acknowledge_element3 ?)
+  deprecated_process_music3 (or is it acknowledge_element3 ?)
      acknowledge_element4
   
      do_pre_move9
@@ -103,7 +103,7 @@ Chord_name_engraver::acknowledge_element (Score_element_info i)
 }
 
 void
-Chord_name_engraver::do_process_music ()
+Chord_name_engraver::deprecated_process_music ()
 {
   if (!chord_name_p_ && gh_car (chord_) != SCM_EOL)
     {

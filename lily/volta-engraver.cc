@@ -29,8 +29,9 @@ protected:
   virtual void acknowledge_element (Score_element_info);
   virtual void do_removal_processing ();
   virtual void do_pre_move_processing ();
-  virtual void do_process_music ();
-
+  void deprecated_process_music ();
+  virtual void process_acknowledged ();
+  
   Moment started_mom_;
   Spanner * volta_span_p_;
   Spanner* end_volta_span_p_;
@@ -45,8 +46,16 @@ Volta_engraver::Volta_engraver ()
 }
 
 void
-Volta_engraver::do_process_music ()
+Volta_engraver::process_acknowledged ()
 {
+  deprecated_process_music ();
+}
+  
+void
+Volta_engraver::deprecated_process_music ()
+{
+  if (volta_span_p_)
+    return;
   SCM cs = get_property ("repeatCommands");
 
   SCM str = SCM_EOL; 

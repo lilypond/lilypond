@@ -127,17 +127,41 @@ Translator::try_music (Music * r)
   return do_try_music (r);
 }
 
+
 void
 Translator::process_music ()
 {
+  assert (0);
   if (status_ < PROCESSED_REQS)
     post_move_processing ();
   else if (status_ >= PROCESSED_REQS)
     return; 
   
   status_ = PROCESSED_REQS;
-  do_process_music ();
+  deprecated_process_music ();
 }
+
+//////////
+static int te_vroeg = 0;
+void
+Translator::announces ()
+{
+  #if 0
+  if (te_vroeg && te_vroeg < 2)
+    {
+      do_creation_processing ();
+      te_vroeg++;
+    }
+  #endif
+  if (status_ < PROCESSED_REQS)
+    post_move_processing ();
+  else if (status_ >= PROCESSED_REQS)
+    return;
+  
+  status_ = PROCESSED_REQS;
+  do_announces ();
+}
+
 
 void
 Translator::pre_move_processing ()
@@ -177,13 +201,20 @@ Translator::do_post_move_processing ()
 }
 
 void
-Translator::do_process_music ()
+Translator::deprecated_process_music ()
 {
 }
 
 void
+Translator::do_announces ()
+{
+}
+
+////////////
+void
 Translator::do_creation_processing ()
 {
+  te_vroeg++;
 }
 
 void
