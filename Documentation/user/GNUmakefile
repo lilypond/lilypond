@@ -129,8 +129,23 @@ deep-symlinks:
 
 endif
 
+# Symlinks to refer to external source documents from split and non-split HTML
+source-links = $(outdir)/source $(outdir)/lilypond/source # $(outdir)/music-glossary/source
 
-local-WWW: $(HTML_FILES) $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(DEEP_HTML_FILES) info info-dir
+$(outdir)/source:
+	@rm -f $(@)
+	ln -sf ../../../ $(@)
+
+$(outdir)/lilypond/source:
+	@rm -f $(@)
+	ln -sf ../../../../ $(@)
+
+# not available in 2.2 or 2.4 as split document
+#$(outdir)/music-glossary/source:
+#	@rm -f $(@)
+#	ln -sf ../../../../ $(@)
+
+local-WWW: $(HTML_FILES) $(datafiles) $(PDF_FILES) $(PS_GZ_FILES) $(DEEP_HTML_FILES) $(source-links) info info-dir
 
 local-WWW-clean: deep-WWW-clean
 

@@ -12,10 +12,17 @@ are available and explains how to lookup which knob to use for a
 certain effect.
 
 The controls available for tuning are described in a separate
-document, the @internalsref{Program reference} manual. This manual
+document, the
+@iftex
+Program reference
+@end iftex
+@ifnottex
+@ref{Top,Program reference,,lilypond-internals}.
+@end ifnottex
+manual. This manual
 lists all different variables, functions and options available in
 LilyPond. It is written as a HTML document, which is available
-@uref{http://lilypond.org/doc/Documentation/user/out-www/lilypond-internals/,on-line},
+@uref{http://lilypond.org/doc/v2.2/Documentation/user/out-www/lilypond-internals/,on-line},
 but is also included with the LilyPond documentation package.
 
 There are three areas where the default settings may be changed:
@@ -912,7 +919,7 @@ this manual. However, the program reference lists them all in the
 section @internalsref{Tunable-context-properties}, and most properties
 are demonstrated in one of the
 @ifhtml
-@uref{../../../../input/test/out-www/collated-files.html,tips-and-tricks}
+@uref{source/input/test/out-www/collated-files.html,tips-and-tricks}
 @end ifhtml
 @ifnothtml
 tips-and-tricks

@@ -67,16 +67,18 @@
 		  "(lilypond-internals.info)")
   "
 
+@c NOTE: This is documentation-generate.scm, not macros.itexi
+
 @ifhtml
 @macro usermanref{NAME}
-@uref{../lilypond/\\NAME\\.html,\\NAME\\}
+@ref{\\NAME\\,,,lilypond}
 @cindex \\NAME\\
 @end macro
 @end ifhtml
 
 @ifinfo
 @macro usermanref{NAME}
-@ref{\\NAME\\,,,lilypond/lilypond}
+@inforef{\\NAME\\,,,lilypond/lilypond}
 @cindex \\NAME\\
 @end macro
 @end ifinfo
@@ -89,7 +91,7 @@
 
 @ifhtml
 @macro glossaryref{NAME}
-@uref{../music-glossary/\\NAME\\.html,\\NAME\\}
+@uref{source/Documentation/out-www/music-glossary.html#\\NAME\\,\\NAME\\}
 @cindex \\NAME\\
 @end macro
 @end ifhtml
@@ -109,7 +111,7 @@
 @ifhtml
 
 @macro inputfileref{DIR,NAME}
-@uref{../../../../\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
+@uref{source/\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
 @end macro
 
 @end ifhtml

@@ -2732,7 +2732,7 @@ The complete list of drum names is in the init file
 
 @seealso
 
-Program reference: @internalsref{DrumNoteEvent}.
+Program reference: @internalsref{note-event}.
 
 @node Percussion staves
 @subsection Percussion staves
@@ -2761,7 +2761,7 @@ down = \drums { bassdrum4 snare8 bd r bd sn4 }
 
 The above example shows verbose polyphonic notation. The short
 polyphonic notation, described in @ref{Polyphony}, can also be used if
-the @internalsref{DrumVoices} are instantiated by hand first. For example, 
+the @internalsref{DrumVoice}s are instantiated by hand first. For example, 
 
 @lilypond[quote,fragment,verbatim] 
 \drums \new DrumStaff <<
