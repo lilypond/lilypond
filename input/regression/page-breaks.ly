@@ -19,34 +19,59 @@
   instrument = "Instrument"
   piece = "Piece"
   opus = "opus 0"
+
+  
 }
 
 \paper {
   raggedlastbottom = ##f
 
-  bookTitleMarkup = \markup \box \bookTitleMarkup
-  %%  oddHeaderMarkup = \markup \box {
-  oddHeaderMarkup = \markup \on-the-fly #not-first-page \box {
+  bookTitleMarkup = \markup {
+    \override #'(baseline-skip . -3)
     \column {
-      \override #'(baseline-skip . -1)
-      %%\fill-line { \teeny "---------------HEAD---------------" }
+      \box \fill-line { \teeny " " " " }
+      \bookTitleMarkup
+    }
+  }
+  oddHeaderMarkup = \markup \on-the-fly #not-first-page {
+    \override #'(baseline-skip . -3)
+    \column {
+      \box \fill-line { \teeny " " " " }
       \line { \oddHeaderMarkup }
     }
   }
-  evenHeaderMarkup = \markup \box {
+  evenHeaderMarkup = \markup {
+    \override #'(baseline-skip . -3)
     \column {
-      \override #'(baseline-skip . -1)
-      %%\fill-line { \teeny "---------------HEAD---------------" }
+      \box \fill-line { \teeny " " " " }
       \line { \evenHeaderMarkup }
     }
   }
-  oddFooterMarkup = \markup \box {
-    \override #'(baseline-skip . -1)
+  oddFooterMarkup = \markup {
+    \override #'(baseline-skip . -3)
     \column {
-      \line { \oddFooterMarkup }
-      \fill-line { \teeny "---------------FOOT---------------" }
+	\oddFooterMarkup
+	\box \fill-line { \teeny " " " " }
     }
   }
+  
+  tagline = \markup {
+    \column {
+      \fill-line {
+	" "
+	\line { "Music engraving by LilyPond" #(ly:export (lilypond-version)) }4
+	" "
+      }
+      \with-url
+      %% todo: lilypond.org/music-engraving
+      #"http://lilypond.org/web/"
+      \fill-line {
+	"www.lilypond.org"
+      }
+    }
+}
+
+
 }
 
 #(set-default-paper-size "a6" 'portrait)
@@ -54,7 +79,7 @@
 \book {    
   \score {
     \new Staff \relative c' {
-      %% 18: ideally cramped
+      %% 19: ideally cramped
       \repeat unfold 19 { a b c d \break }
     }
   }
