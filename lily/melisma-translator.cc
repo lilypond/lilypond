@@ -7,10 +7,6 @@
   
  */
 
-/*
-  duplicated in melisma-performer
- */
-
 #include "engraver.hh"
 #include "grob.hh"
 #include "context.hh"

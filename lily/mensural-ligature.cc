@@ -7,10 +7,10 @@
 		 Pal Benko <benkop@freestart.hu>
 */
 
-#include "mensural-ligature.hh"
 
 #include <math.h>
 
+#include "mensural-ligature.hh"
 #include "item.hh"
 #include "font-interface.hh"
 #include "lookup.hh"
