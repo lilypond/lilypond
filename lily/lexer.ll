@@ -333,7 +333,7 @@ HYPHEN		--
 		if (c == '{' &&  c == '}') // brace open is for not confusing dumb tools.
 			here_input ().warning (
 				"Brace found at end of lyric. Did you forget a space?");
-		yylval.scm = ly_ch_C_to_scm (YYText());
+		yylval.scm = ly_ch_C_to_scm (s.ch_C ());
 
 		DEBUG_OUT << "lyric : `" << s << "'\n";
 		return STRING;

@@ -6,7 +6,7 @@
 @top
 
 
-@unnumbered LilyPond -- The @uref{http://www.fsf.org/gnu/gnu-history.html,GNU Project} Music Typesetter
+@unnumbered LilyPond -- The GNU Project Music Typesetter
 
 
 @html
@@ -22,17 +22,16 @@ using a high level description file as input.  LilyPond is part of
 the GNU Project.
 
 
-@c @center
+
+@unnumberedsec Sheet music
+    
+
+
 @quotation
 @mudela[fragment]
 	\relative c'' { \key es; r8 [c16 b] [c8 g] [as c16 b] [c8 d] | g,4 }
 @end mudela 
 @end quotation
-@c @end center
-
-
-@unnumberedsec Sheet music
-    
 
 @itemize @bullet
 

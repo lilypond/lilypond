@@ -10,7 +10,7 @@
 
 #include "midi2ly-proto.hh"
 #include "string.hh"
-#include "scalar.hh"
+//#include "scalar.hh"
 
 /// Lily output
 class Mudela_stream {
@@ -18,7 +18,8 @@ public:
     Mudela_stream (String filename_str);
     ~Mudela_stream();
 
-    Mudela_stream& operator << (Scalar s);
+    Mudela_stream& operator << (char c);
+    Mudela_stream& operator << (String s);
     Mudela_stream& operator << (Mudela_item& mudela_item_r);
 
 private:

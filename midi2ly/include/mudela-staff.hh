@@ -33,7 +33,7 @@ public:
   int number_i_;
 
 private:
-  void output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Moment now_mom, int bar_i);
+  void output_mudela_begin_bar (Mudela_stream& mudela_stream_r, Rational now_mom, int bar_i);
 
   Cons_list<Mudela_voice> mudela_voice_p_list_;
   Cons_list<Mudela_item> mudela_item_p_list_;

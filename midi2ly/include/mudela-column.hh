@@ -8,20 +8,20 @@
 
 #include "proto.hh"
 #include "midi2ly-proto.hh"
-#include "moment.hh"
+#include "rational.hh"
 #include "cons.hh"
 
 /// (mudela_column)
 class Mudela_column 
 {
 public:
-    Mudela_column (Mudela_score* mudela_score_l, Moment mom);
+    Mudela_column (Mudela_score* mudela_score_l, Rational mom);
 
     void add_item (Mudela_item* mudela_item_l);
-    Moment at_mom ();
+    Rational at_mom ();
 
     Cons_list<Mudela_item> mudela_item_l_list_;
-    Moment at_mom_;
+    Rational at_mom_;
     Mudela_score* mudela_score_l_;
 };
 

@@ -20,8 +20,8 @@ public:
   void add_item (Mudela_item* mudela_item_p);
   void add_staff (Mudela_staff* mudela_staff_p);
 
-  Mudela_column* find_column_l (Moment mom);
-  Mudela_column* get_column_l (Moment mom);
+  Mudela_column* find_column_l (Rational mom);
+  Mudela_column* get_column_l (Rational mom);
 
   void output (String filename_str);
   void process ();

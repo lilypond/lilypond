@@ -9,7 +9,7 @@ EXTRA_DIST_FILES =
 
 include $(depth)/make/stepmake.make 
 
-default: do-doc
+default: local-doc
 
 local-WWW: copy-for-me
 

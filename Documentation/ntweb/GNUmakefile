@@ -9,7 +9,7 @@ EXTRA_DIST_FILES = $(PLAIN_FILES)
 
 include $(depth)/make/stepmake.make 
 
-default: do-doc dist-plain
+default: local-doc dist-plain
 
 $(outdir)/%.texi: %.texi
 	m4 -DTOPLEVEL_VERSION=$(TOPLEVEL_VERSION) < $< > $@ 

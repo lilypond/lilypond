@@ -21,16 +21,16 @@ Mudela_item::~Mudela_item ()
 {
 }
 
-Moment
+Rational
 Mudela_item::at_mom ()
 {
   return mudela_column_l_->at_mom ();
 }
 
-Moment
+Rational
 Mudela_item::duration_mom ()
 {
-  return Moment (0);
+  return Rational (0);
 }
 
 void
@@ -163,12 +163,12 @@ Mudela_time_signature::Mudela_time_signature (int num_i, int den_i, int clocks_4
   clocks_1_i_ = clocks_4_i * 4;
 }
 
-Moment
+Rational
 Mudela_time_signature::bar_mom ()
 {
   Duration d;
   d.durlog_i_ = den_i_;
-  return Moment (num_i_) * Duration_convert::dur2_mom (d);
+  return Rational (num_i_) * Duration_convert::dur2_mom (d);
 }
 
 int
@@ -227,11 +227,11 @@ Duration
 Mudela_note::duration ()
 {
   assert (end_column_l_);
-  Moment mom = end_column_l_->at_mom () - at_mom ();
+  Rational mom = end_column_l_->at_mom () - at_mom ();
   return Duration_convert::mom2_dur (mom);
 }
 
-Moment
+Rational
 Mudela_note::duration_mom ()
 {
   assert (end_column_l_);
@@ -281,7 +281,7 @@ Mudela_note::str ()
   return str + " ";
 }
 
-Mudela_skip::Mudela_skip (Mudela_column* mudela_column_l, Moment skip_mom)
+Mudela_skip::Mudela_skip (Mudela_column* mudela_column_l, Rational skip_mom)
   : Mudela_item (mudela_column_l)
 {
   mom_ = skip_mom;
@@ -293,7 +293,7 @@ Mudela_skip::duration ()
   return Duration_convert::mom2_dur (mom_);
 }
 
-Moment
+Rational
 Mudela_skip::duration_mom ()
 {
   return Duration_convert::dur2_mom (duration ());
@@ -319,14 +319,14 @@ Mudela_tempo::Mudela_tempo (int useconds_per_4_i)
   : Mudela_item (0)
 {
   useconds_per_4_i_ = useconds_per_4_i;
-  seconds_per_1_mom_ = Moment(useconds_per_4_i_ *4, 1e6);
+  seconds_per_1_mom_ = Rational(useconds_per_4_i_ *4, 1e6);
 }
 
 String
 Mudela_tempo::str ()
 {
   String str = "\\tempo 4=";
-  str += to_str (get_tempo_i (Moment (1, 4)));
+  str += to_str (get_tempo_i (Rational (1, 4)));
   str += ";\n";
   return str;
 }
@@ -338,10 +338,10 @@ Mudela_tempo::useconds_per_4_i ()
 }
 
 int
-Mudela_tempo::get_tempo_i (Moment moment)
+Mudela_tempo::get_tempo_i (Rational rational)
 {
-  Moment m1 = Moment (60) / moment;
-  Moment m2 = seconds_per_1_mom_;
+  Rational m1 = Rational (60) / rational;
+  Rational m2 = seconds_per_1_mom_;
   return m1 / m2;
 }
 

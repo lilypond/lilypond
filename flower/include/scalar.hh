@@ -12,6 +12,7 @@
 
 #include "string.hh"
 #include "real.hh"
+#include "protected-scm.hh"
 
 #error
 /// Perl -like scalar type.

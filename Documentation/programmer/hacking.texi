@@ -59,12 +59,17 @@ are only three translations so far.
 
 @unnumberedsubsec Hackers
 
-
 There are lots of possibilities of improving the program itself. There are
 both small projects and big ones. Most of them are listed in the TODO
 file.  A interesting and very big project is writing a GUI frontend to
 LilyPond.
 
+
+@unnumberedsubsec Website designers
+
+The current website for LilyPond is neat and simple, but it is not very
+pretty.  We would like to have a website with pretty pictures, one that
+looks appealing to new users.
 
 
 @chapter LilyPond internals

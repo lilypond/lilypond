@@ -12,7 +12,7 @@
 
 #include "proto.hh"
 #include "cons.hh"
-#include "moment.hh"
+#include "rational.hh"
 #include "midi2ly-proto.hh"
 #include "midi-parser.hh"
 
@@ -23,7 +23,7 @@ public:
   Midi_track_parser (Midi_parser_info* info_l, int i);
   ~Midi_track_parser ();
 
-  Moment at_mom ();
+  Rational at_mom ();
   Mudela_staff* parse (Mudela_column* col_l);
 
 private:
@@ -34,7 +34,7 @@ private:
   Mudela_item* parse_event (Mudela_column* col_l);
   void parse_header ();
 
-  Moment at_mom_;
+  Rational at_mom_;
   Byte running_byte_;
   Cons_list<Mudela_note> open_note_l_list_;
   Mudela_staff* mudela_staff_p_;

@@ -30,7 +30,7 @@ Mudela_stream::Mudela_stream (String filename_str)
   header();
 }
 
-Mudela_stream::~Mudela_stream()
+Mudela_stream::~Mudela_stream ()
 {
   delete os_p_;
   if  (indent_i_)
@@ -38,7 +38,14 @@ Mudela_stream::~Mudela_stream()
 }
 
 Mudela_stream&
-Mudela_stream::operator << (Scalar s)
+Mudela_stream::operator << (char c)
+{
+  *this << to_str (c);
+  return *this;
+}
+
+Mudela_stream&
+Mudela_stream::operator << (String s)
 {
   static String word_sep_str = "{} \t\n";
   while  (s.length_i())
