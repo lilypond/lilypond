@@ -25,6 +25,7 @@ extern "C" {
 #include "string.hh"
 #include "main.hh"
 #include "kpath.hh"
+#include "lily-version.hh"
 
 
 char *

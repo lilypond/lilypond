@@ -1,7 +1,5 @@
-1.5.4.jcn4
+1.5.4.jcn2
 ==========
-
-* New_spacing_spanner: revised spacing generation.
 
 * Spelling fixes, notably staffs->staves, except for ChangeLogs.
 
@@ -13,8 +11,23 @@
 
 * Website fixes, found bug in grace note stem lengths.
 
-1.5.4
-=====
+1.5.4.hwn1
+==========
+
+* Ancient font update [WARNING FONTS CHANGED!] (Juergen Reuter)
+
+* New_spacing_spanner: revised spacing generation.
+
+* Default neutral direction set to down. 
+
+* Junk hash table  from flowerlib
+
+* Bugfix: grace nesting error
+
+* Bugfix: don't try schedule next bar when were on a grace moment.
+
+* Bugfix: set measurePosition especially for music starting with
+grace.
 
 1.5.3.hwn1
 ==========

@@ -82,7 +82,7 @@ Paper_score::process ()
   /*
     Be sure to set breakability on first & last column.
    */
-  Link_array<Item> pc (line_l_->column_l_arr ());
+  Link_array<Grob> pc (line_l_->column_l_arr ());
   
   pc[0]->set_grob_property ("breakable", SCM_BOOL_T);
   pc.top ()->set_grob_property ("breakable", SCM_BOOL_T);

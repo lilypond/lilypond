@@ -38,7 +38,7 @@ Stanza_number_engraver::Stanza_number_engraver ()
 }
 
 void
-Stanza_number_engraver::acknowledge_grob (Grob_info )
+Stanza_number_engraver::acknowledge_grob (Grob_info i)
 {
   if (gh_string_p (get_property ("whichBar")))
     {

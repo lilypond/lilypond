@@ -39,7 +39,7 @@ New_spacing_spanner::set_interface (Grob*me)
   
  */
 void
-New_spacing_spanner::do_measure (Grob*me, Link_array<Item> const & cols) 
+New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols) 
 {
   Moment shortest;
   Moment mean_shortest;
@@ -112,8 +112,11 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Item> const & cols)
       Paper_column *rc = dynamic_cast<Paper_column*> (r);
 
 
-      cout << "params for cols " << Paper_column::rank_i (l) << " " << Paper_column::rank_i (r) << endl;
+#if 0
+cout << "params for cols " << Paper_column::rank_i (l) << " " << Paper_column::rank_i (r) << endl;
       cout << " musical: " << Paper_column::musical_b (l) << " " << Paper_column::musical_b (r) << endl;
+#endif
+      
       if (!Paper_column::musical_b (l))
 	{
 	  breakable_column_spacing (l, r);
@@ -236,8 +239,8 @@ New_spacing_spanner::breakable_column_spacing (Item* l, Item *r)
 
 void
 New_spacing_spanner::stretch_to_regularity (Grob *me,
-					Array<Spring> * springs,
-					Link_array<Item> const & cols)
+					    Array<Spring> * springs,
+					    Link_array<Grob> const & cols)
 {
   /*
     Find the starting column of the run. REGULAR-DISTANCE-TO points
@@ -470,7 +473,7 @@ SCM
 New_spacing_spanner::set_springs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Link_array<Item> all (me->pscore_l_->line_l_->column_l_arr ()) ;
+  Link_array<Grob> all (me->pscore_l_->line_l_->column_l_arr ()) ;
 
   int j = 0;
 
@@ -479,7 +482,7 @@ New_spacing_spanner::set_springs (SCM smob)
       Grob *sc = all[i];
       if (Item::breakable_b (sc))
         {
-	  Link_array<Item> measure (all.slice (j, i+1));	  
+	  Link_array<Grob> measure (all.slice (j, i+1));	  
           do_measure (me, measure);
 	  j = i;
         }

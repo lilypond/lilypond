@@ -13,7 +13,6 @@
 #include <math.h>
 #include <libc-extension.hh>	// isinf
 
-#include "string-convert.hh"
 #include "simple-spacer.hh"
 #include "paper-column.hh"
 #include "spring.hh"
@@ -166,66 +165,55 @@ Simple_spacer::my_solve_natural_len ()
 }
 
 void
-Simple_spacer::add_columns (Link_array<Item> cols)
+Simple_spacer::add_columns (Link_array<Grob> cols)
 {
-  for (int i =0; i < cols.size (); i++)
-    all_cols_.push ( dynamic_cast<Item*> (cols[i]));
-
-  Grob *next = 0;  
   for (int i=0; i < cols.size () - 1; i++)
     {
       SCM spring_params = SCM_UNDEFINED;
-
-      if (next && cols[i] != next)
-	continue;
-
       for (SCM s = cols[i]->get_grob_property ("ideal-distances");
-	   !gh_pair_p (spring_params) && gh_pair_p (s);
+	   spring_params == SCM_UNDEFINED && gh_pair_p (s);
 	   s = gh_cdr (s))
 	{
 	  Grob *other = unsmob_grob (gh_caar (s));
-	  int j = i+1;
-	  for (; j < cols.size (); j++)
-	    if (cols[j] == other)
-	      break;
-
-	  if(j == cols.size ())
+	  if (other != cols[i+1])
 	    continue;
 
-	  next = other;
 	  spring_params = gh_cdar (s);
 	}
 
       Spring_description desc;
-      desc.ideal_f_ = -1;
-      if (gh_pair_p(spring_params))
+      if (spring_params != SCM_UNDEFINED)
 	{
 	  desc.ideal_f_ = gh_scm2double (gh_car (spring_params));
 	  desc.hooke_f_ = gh_scm2double (gh_cdr (spring_params));
 	}
+      else
+	{
+	  programming_error (_f("No spring between column %d and next one",
+				Paper_column::rank_i (cols[i])
+				));
+	  desc.hooke_f_ = 1.0;
+	  desc.ideal_f_ = default_space_f_;
+	}
 
-      if (gh_pair_p (spring_params) && desc.sane_b ())
+      if (!desc.sane_b ())
 	{
-	  spaced_cols_.push (dynamic_cast<Item*> (cols[i]));
-	  desc.block_force_f_ = - desc.hooke_f_ * desc.ideal_f_; // block at distance 0
-	  springs_.push (desc);
+	  programming_error ("Insane spring found. Setting to unit spring.");
+	  desc.hooke_f_ = 1.0;
+	  desc.ideal_f_ = 1.0;
 	}
-      else if (gh_pair_p (spring_params) && !desc.sane_b ())
-	{
-	  programming_error (String_convert::form_str  ("insane springs at col %d", Paper_column::rank_i (cols[i])));
-	  // Generate rods for these cols. 
-	}
+      
+      desc.block_force_f_ = - desc.hooke_f_ * desc.ideal_f_; // block at distance 0
+      springs_.push (desc);
     }
-
-  spaced_cols_.push (all_cols_.top ());
   
-  for (int i=0; i < spaced_cols_.size () - 1; i++)
+  for (int i=0; i < cols.size () - 1; i++)
     {
-      for (SCM s = Spaceable_grob::get_minimum_distances (spaced_cols_[i]);
+      for (SCM s = Spaceable_grob::get_minimum_distances (cols[i]);
 	   gh_pair_p (s); s = gh_cdr (s))
 	{
-	  Item * other = dynamic_cast<Item*> (unsmob_grob (gh_caar (s)));
-	  int oi = spaced_cols_.find_i (other);
+	  Grob * other = unsmob_grob (gh_caar (s));
+	  int oi = cols.find_i (other);
 	  if (oi >= 0)
 	    {
 	      add_rod (i, oi, gh_scm2double (gh_cdar (s)));
@@ -254,60 +242,6 @@ Simple_spacer::solve (Column_x_positions *positions) const
     }
 
   positions->satisfies_constraints_b_ = (line_len_f_ < 0) || active_b ();
-  positions->cols_ = spaced_cols_;
-  do_wide_springs (positions);
-}
-
-/*
-  Do the columns whose springs didn't paricipate in the spacing process
- */
-void
-Simple_spacer::do_wide_springs ( Column_x_positions *positions_)const
-{
-  int i  = 0;
-
-
-  Array<Real> all_posns;
-  for (int j = 0; j < all_cols_.size () && i < spaced_cols_.size (); j++)
-    {
-      if (all_cols_[j] == spaced_cols_[i])
-	{
-	  all_posns.push (positions_->config_[i] );
-	  i++;
-	  continue;
-	}
-
-
-      SCM between = all_cols_[j]->get_grob_property ("between-cols");
-      if (!gh_pair_p (between))
-	{
-	  programming_error (String_convert::form_str ("loose column rank %d not beween spaced cols", Paper_column::rank_i (all_cols_[j] )));
-	  all_posns.push (positions_->config_[i]);
-	  continue;
-	}
-      
-      Item * prev = dynamic_cast<Item*>  (unsmob_grob (gh_car (between)));
-      Item *next = dynamic_cast<Item*> (unsmob_grob (gh_cdr (between)));
-      int ip = i;
-      int in = i;
-      for (; ip--; )
-	if(spaced_cols_[ip] == prev)
-	  break;
-
-      for (; in < spaced_cols_.size (); in++)
-	if(spaced_cols_[in] == next)
-	  break;
-
-      // TODO: compute iso. 0.5
-      if (ip >= 0 && in < positions_->config_.size ())
-	all_posns.push (0.5 * (positions_->config_[ip] + positions_->config_[in]));
-      else
-	all_posns.push (positions_->config_[i]);
-      
-    }
-
-  positions_->config_ = all_posns;
-  positions_->cols_ = all_cols_;
 }
 
 

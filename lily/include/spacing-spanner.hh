@@ -17,10 +17,9 @@ class Spacing_spanner
 {
 public:
   static void set_interface (Grob*);
-  static void do_measure (Grob*,Link_array<Item> const &) ;
-  static void stretch_to_regularity (Grob*, Array<Spring> *, Link_array<Item> const &);
+  static void do_measure (Grob*,Link_array<Grob> const &) ;
+  static void stretch_to_regularity (Grob*, Array<Spring> *, Link_array<Grob> const &);
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM ));
-
   static Real stem_dir_correction (Grob*,Grob*,Grob*)  ;
   static Real default_bar_spacing (Grob*,Grob*,Grob*,Moment)  ;
   static Real note_spacing (Grob*,Grob*,Grob*,Moment)  ;

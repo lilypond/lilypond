@@ -49,12 +49,14 @@ public:
   SCM smobbed_copy () const;
   String str () const;
   static int compare (Moment const&, Moment const&);
+  
 };
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, + );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, - );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, * );
 
+ostream & operator << ( ostream &,Moment const &);
 
 Moment * unsmob_moment (SCM);
 int compare (Moment const&,Moment const&);

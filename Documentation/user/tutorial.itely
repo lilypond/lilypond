@@ -1990,7 +1990,7 @@ these notes are indeed processed by precisely one context with
 defined above. 
 @separate
 @example 
-\grace { <e8 g> } < d4 f> <c2 e> 
+\grace @{ <e8 g> @} < d4 f> <c2 e> 
 @end example
 @cindex @code{\grace}
 @cindex ornaments
@@ -2088,7 +2088,7 @@ This ends the two-part section.
 @separate
 @example 
 \stemBoth
-\grace { <c,8( e> } <)b8. d8.-\trill> <c16 e> |  
+\grace @{ <c,8( e> @} <)b8. d8.-\trill> <c16 e> |  
 @end example
 @cindex trill
 @cindex stemBoth

@@ -26,7 +26,7 @@ public:
   void output_lines ();
 
   Link_array<Item> broken_col_range (Item const*, Item const*) const;
-  Link_array<Item> column_l_arr () const;
+  Link_array<Grob> column_l_arr () const;
   
   void add_column (Paper_column*);
   void typeset_grob (Grob*);

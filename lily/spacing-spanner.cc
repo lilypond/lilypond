@@ -104,7 +104,7 @@ find_runs (Grob*me, Link_array<Grob> cols)
   
  */
 void
-Spacing_spanner::do_measure (Grob*me, Link_array<Item> const & cols) 
+Spacing_spanner::do_measure (Grob*me, Link_array<Grob> const & cols) 
 {
   Moment shortest;
   Moment mean_shortest;
@@ -313,7 +313,7 @@ Spacing_spanner::do_measure (Grob*me, Link_array<Item> const & cols)
 void
 Spacing_spanner::stretch_to_regularity (Grob *me,
 					Array<Spring> * springs,
-					Link_array<Item> const & cols)
+					Link_array<Grob> const & cols)
 {
   /*
     Find the starting column of the run. REGULAR-DISTANCE-TO points
@@ -325,7 +325,7 @@ Spacing_spanner::stretch_to_regularity (Grob *me,
   for (int i = 0 ;  i <  cols.size () && !first_regular_spaced_col; i++)
     {
       SCM rdt = cols[i]->get_grob_property ("regular-distance-to");
-      if (cols.find_l (dynamic_cast<Item*> (unsmob_grob (rdt))))
+      if (cols.find_l (unsmob_grob (rdt)))
 	first_regular_spaced_col = unsmob_grob (rdt);
     }
   for (int i = springs->size ();  i-- ;)
@@ -553,16 +553,16 @@ SCM
 Spacing_spanner::set_springs (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Link_array<Item> all (me->pscore_l_->line_l_->column_l_arr ()) ;
+  Link_array<Grob> all (me->pscore_l_->line_l_->column_l_arr ()) ;
 
   int j = 0;
 
   for (int i = 1; i < all.size (); i++)
     {
-      Item *sc = all[i];
+      Grob *sc = all[i];
       if (Item::breakable_b (sc))
         {
-	  Link_array<Item> measure (all.slice (j, i+1));	  
+	  Link_array<Grob> measure (all.slice (j, i+1));	  
           do_measure (me, measure);
 	  j = i;
         }

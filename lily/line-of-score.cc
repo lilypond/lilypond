@@ -132,7 +132,7 @@ Line_of_score::break_into_pieces (Array<Column_x_positions> const &breaking)
       Line_of_score *line_l = dynamic_cast <Line_of_score*> (clone ());
       line_l->rank_i_ = i;
       //      line_l->set_immutable_grob_property ("rank", gh_int2scm (i));
-      Link_array<Item> c (breaking[i].cols_);
+      Link_array<Grob> c (breaking[i].cols_);
       pscore_l_->typeset_line (line_l);
       
       line_l->set_bound (LEFT,c[0]);
@@ -393,11 +393,11 @@ Line_of_score::broken_col_range (Item const*l, Item const*r) const
    Return all columns, but filter out any unused columns , since they might
    disrupt the spacing problem.
  */
-Link_array<Item>
+Link_array<Grob>
 Line_of_score::column_l_arr ()const
 {
-  Link_array<Item> acs
-    = Pointer_group_interface__extract_elements (this, (Item*) 0, "columns");
+  Link_array<Grob> acs
+    = Pointer_group_interface__extract_elements (this, (Grob*) 0, "columns");
   bool bfound = false;
   for (int i= acs.size (); i -- ;)
     {

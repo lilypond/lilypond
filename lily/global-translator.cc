@@ -85,7 +85,9 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
 {
   if (iter-> ok ())
     prev_mom_ = now_mom_ = iter->pending_moment ();
-  
+
+
+  bool first = true;
   while (iter->ok () || moments_left_i ())
     {
       Moment w;
@@ -96,6 +98,16 @@ Global_translator::run_iterator_on_me (Music_iterator * iter)
 	}
 
       w = sneaky_insert_extra_moment (w);
+
+      //      cout << "Proccing " << w << endl;
+
+      
+      if (first)
+	{
+	  first = false;
+	  set_property (ly_symbol2scm ("measurePosition"), w.smobbed_copy ());
+	}
+
       prepare (w);
       if (iter->ok ())
 	iter->process (w);
