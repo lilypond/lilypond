@@ -333,6 +333,7 @@ Slur_configuration::score_encompass (Slur_score_state const &state)
       variance_penalty = variance_penalty >? 0.0;
       variance_penalty *= state.parameters_.head_slur_distance_factor_;
     }
+
 #if DEBUG_SLUR_SCORING
   score_card_ += to_string ("C%.2f", demerit);
   score_card_ += to_string ("D%.2f", variance_penalty);
