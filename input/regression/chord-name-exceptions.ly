@@ -10,7 +10,7 @@ into @code{chordNameExceptions} takes a little manoeuvring. The
 following code transforms @code{chExceptionMusic} (which is a
 sequential music) into a list of exceptions.
 @example
-  (sequential-music-to-chord-exceptions chExceptionMusic)
+  (sequential-music-to-chord-exceptions chExceptionMusic \#t)
 @end example
 Then,
 @example
@@ -28,7 +28,7 @@ chExceptionMusic = \notes {
 
 % add to existing exceptions.
 chExceptions = #(append
-  (sequential-music-to-chord-exceptions chExceptionMusic)
+  (sequential-music-to-chord-exceptions chExceptionMusic #t)
   ignatzekExceptions)
 
 theMusic =    \chords {

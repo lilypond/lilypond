@@ -1,3 +1,8 @@
+2003-06-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* input/regression/chord-name-exceptions.ly: Add parameter for
+	ignatzekExceptions.  Quote hash in docstring.
+
 2003-06-06  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el (show-paren-function): define show-paren-function
