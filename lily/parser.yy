@@ -940,6 +940,7 @@ Composite_music:
 		  Music * chm = new Untransposable_music () ;
 		  chm->set_mus_property ("element", $3->self_scm ());
 		  $$ = chm;
+		  scm_gc_unprotect_object ($3->self_scm());
 
 		  THIS->lexer_p_->pop_state ();
 	}
@@ -949,6 +950,7 @@ Composite_music:
 		{
 		  Music * chm = new Un_relativable_music ;
 		  chm->set_mus_property ("element", $3->self_scm ());
+		  scm_gc_unprotect_object ($3->self_scm());
 		  $$ = chm;
 
 		  THIS->lexer_p_->pop_state ();
@@ -1126,6 +1128,8 @@ command_element:
 	command_req {
 		$$ = new Request_chord (SCM_EOL);
 		$$->set_mus_property ("elements", gh_cons ($1->self_scm (), SCM_EOL));
+  	  scm_gc_unprotect_object ($1->self_scm());
+
 		$$-> set_spot (THIS->here_input ());
 		$1-> set_spot (THIS->here_input ());
 	}
@@ -1137,6 +1141,7 @@ command_element:
 
 		$$ = new Request_chord (SCM_EOL);
 		$$->set_mus_property ("elements", gh_cons (l->self_scm (), SCM_EOL));
+  	  scm_gc_unprotect_object (l->self_scm());
 		$$->set_spot (THIS->here_input ());
 	}
 	| E_RIGHTSQUARE {
@@ -1148,6 +1153,8 @@ command_element:
 		$$ = new Request_chord (SCM_EOL);
 		$$->set_mus_property ("elements", gh_cons (l->self_scm (), SCM_EOL));
 		$$->set_spot (THIS->here_input ());
+	  scm_gc_unprotect_object (l->self_scm());
+
 	}
 	| E_BACKSLASH {
 		$$ = new Music (gh_list (gh_cons (ly_symbol2scm ("name"), ly_symbol2scm ("separator")), SCM_UNDEFINED));
@@ -1845,6 +1852,7 @@ simple_element:
 
 		Simultaneous_music*v = new Request_chord (SCM_EOL);
 		v->set_mus_property ("elements", scm_list_n (n->self_scm (), SCM_UNDEFINED));
+		scm_gc_unprotect_object (n->self_scm());
 
 		v->set_spot (i);
 		n->set_spot (i);

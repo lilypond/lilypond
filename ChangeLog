@@ -1,3 +1,8 @@
+2002-06-19  Han-Wen  <hanwen@cs.uu.nl>
+
+	* lily/parser.yy: various protection fixes. Less objects are now
+	overprotected.
+
 2002-06-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* stepmake/bin/release.py (prev_ver): Bugfix: assume new diff
