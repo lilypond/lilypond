@@ -28,6 +28,7 @@ struct Dimension_cache
      - else: empty
    */
   SCM dimension_;
+  SCM dimension_callback_;
 
   /**
     The offset wrt. to the center of #parent_#
