@@ -9,7 +9,7 @@ depend: Sources.make
 	$(CXX) -MM $(cc) > depend
 
 clean:
-	rm -f $(obs) $(staticlib)
+	rm -f $(obs) $(staticlib) fversion.hh
 
 realclean: clean
 	rm -f depend
