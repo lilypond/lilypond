@@ -265,6 +265,9 @@ top of those automatically detected. ")
 MIDI instrument to use ")
 (translator-property-description 'midiMinimumVolume number? "[DOCUMENT-ME]")
 (translator-property-description 'midiMaximumVolume number? "[DOCUMENT-ME]")
+(translator-property-description 'minimumFret number? "The tablature
+auto string-selecting mechanism selects the highest string with a fret
+not less than minimumFret")
 (translator-property-description 'autoBeaming boolean? "If set to true
 then beams are generated automatically.")
 (translator-property-description 'noDirection boolean? "Don't set directions by a2-engraver when part-combining.")
