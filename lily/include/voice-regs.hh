@@ -13,7 +13,7 @@
 #include "register-group.hh"
 
 class Voice_registers : public Register_group_register {
-
+    Input_register const *ireg_C_;
 public:
     Voice *voice_l_;
     /* *************** */
@@ -22,7 +22,7 @@ public:
     virtual bool acceptable_request_b(Request*);
     virtual void acknowledge_element(Staff_elem_info info);
     virtual bool try_request(Request*);
-    Voice_registers(Voice*);
+    Voice_registers(Voice*, Input_register const*);
     virtual void do_print() const;
 };
 
