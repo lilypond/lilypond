@@ -1,5 +1,12 @@
 2003-04-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/chord-name-major7.ly: new file
+
+	* scm/chord-entry.scm (construct-chord): bugfix: don't remove 11
+	if specced explicitly.
+
+	* input/regression/chord-name-entry-11.ly: new file.
+
 	* input/test/slur-beautiful.ly: new file.
 
 	* Documentation/user/refman.itely: updates.
