@@ -1,7 +1,10 @@
 % NOT FINISHED!!!!
 
 \include "deutsch.ly"
-\include "paper19.ly"
+
+
+%% 19 is broken --hwn.
+%\include "paper19.ly"
 \version "1.5.71"
 
 \header {

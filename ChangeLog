@@ -1,5 +1,7 @@
 2002-09-06  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.6.2 released  
+
 	* input/test/empty-staffs.ly: new file.
 
 	* Documentation/topdocs/INSTALL.texi: adds a bit of information
