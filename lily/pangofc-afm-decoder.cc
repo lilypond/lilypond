@@ -24,7 +24,7 @@
 */
 
 #include "config.h"
-#ifdef HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
+#if HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
 
 /* Need to access to PangoFcFont.full_pattern.  */
 #define PANGO_ENABLE_BACKEND

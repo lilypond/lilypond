@@ -27,7 +27,7 @@
 #define __PANGOFC_AFM_DECODER_H__
 
 #include "config.h"
-#ifdef HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
+#if HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC
 
 /* Note: in C and with explicit header for use outside of LilyPond.  */
 
