@@ -61,20 +61,6 @@ Chord_name_engraver::do_process_requests ()
 
    */
 
-  /*
-   Banter style chord names (almost).
-   TODO:
-     - don't print inclusive scale (i.e. no "9" in c 9/11)
-     - handle c7 / cmaj7
-     - use #,b iso -es -is on tonica
-     - switch on property, add american (?) chordNameStyle
-
-  Scalar chordNameStyle = get_property ("chordNameStyle");
-  if (chordNameStyle == "Banner")
-     chord = pitches_to_banner (pitch_arr_.size ());
-
-   */
-
   Scalar style = get_property ("textstyle");
   Scalar alignment = get_property ("textalignment");
   Text_def* text_p = new Text_def;
@@ -100,7 +86,7 @@ Chord_name_engraver::do_process_requests ()
     scale[i].transpose (tonic);
 
   //urg, should do translation in scheme.
-  char const *acc[] = {"\\textflat\\textflat", "\\textflat", "", "\\textsharp" , "\\textsharp\\textsharp"};
+  char const *acc[] = {"\\textflat\\textflat ", "\\textflat ", "", "\\textsharp " , "\\textsharp\\textsharp "};
   String tonic_str = tonic.str ();
   tonic_str = tonic_str.left_str (1).upper_str ()
     + acc[tonic.accidental_i_ + 2];

@@ -46,22 +46,12 @@
 #include "repeated-music.hh"
 
 // mmm
-Mudela_version oldest_version ("1.0.7");
+Mudela_version oldest_version ("1.0.10");
 Mudela_version version ("1.0.12");
 
 
 // needed for bison.simple's malloc() and free()
 #include <malloc.h>
-
-int const GUESS_PLET = 5;
-int guess_plet_a[GUESS_PLET] =
-{ 
-  1,
-  3,
-  2,
-  3,
-  4
-};
 
 struct Assignment {
 	String *name_p_;
@@ -136,7 +126,6 @@ Paper_def* current_paper = 0;
     char c;
     const char *consstr;
     int i;
-    int pair[2];
     int ii[10];
 }
 %{
@@ -162,7 +151,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token ACCEPTS
 %token ALTERNATIVE
 %token BAR
-%token BEAMPLET
 %token CADENZA
 %token CHORDMODIFIERS
 %token CHORDS
@@ -170,7 +158,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token CM_T
 %token CONSISTS
 %token DURATION
-%token END
 %token EXTENDER
 %token FONT
 %token GROUPING
@@ -179,21 +166,17 @@ yylex (YYSTYPE *s,  void * v_l)
 %token KEY
 %token KEYSIGNATURE
 %token LYRICS
-%token MAEBTELP
 %token MARK
 %token MEASURES
 %token MIDI
 %token MM_T
-%token MUSIC
 %token MUSICAL_PITCH
 %token NAME
 %token NOTENAMES
 %token NOTES
-%token OCTAVE
 %token PAPER
 %token PARTIAL
 %token PENALTY
-%token PLET
 %token PROPERTY
 %token PT_T
 %token RELATIVE
@@ -208,7 +191,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token SPANDYNAMIC
 %token SYMBOLTABLES
 %token TABLE
-%token TELP
 %token TEMPO
 %token TIME_T
 %token TIMES
@@ -239,7 +221,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <id>	SCORE_IDENTIFIER
 %token <id>	MIDI_IDENTIFIER
 %token <id>	PAPER_IDENTIFIER
-%token <id>	REQUEST_IDENTIFIER
 %token <real>	REAL
 %token <string>	DURATION RESTNAME
 %token <string>	STRING
@@ -251,9 +232,8 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <box>	box
 %type <i>	open_request_parens close_request_parens
 %type <i>	open_abbrev_parens
-%type <i>	open_plet_parens close_plet_parens
 %type <i>	sub_quotes sup_quotes
-%type <music>	simple_element  request_chord command_element Simple_music  Composite_music
+%type <music>	simple_element  request_chord command_element Simple_music  Composite_music 
 %type <music>	Alternative_music Repeated_music
 %type <i>	abbrev_type
 %type <i>	int unsigned
@@ -284,7 +264,6 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <real>	real_expression real dimension
 %type <request> abbrev_command_req
 %type <request>	post_request structured_post_request
-%type <pair>	plet_fraction
 %type <request> command_req verbose_command_req
 %type <request>	script_req  dynamic_req extender_req
 %type <string>	string
@@ -795,6 +774,9 @@ Simple_music:
 	| MUSIC_IDENTIFIER { $$ = $1->access_content_Music (true); }
 	| property_def
 	| translator_change
+	| Simple_music '*' unsigned '/' unsigned {  }
+	| Simple_music '*' unsigned		 {  }
+
 	;
 
 
@@ -815,7 +797,7 @@ Composite_music:
 		THIS->remember_spot ();
 	}
 	/* CONTINUED */ 
-		int '/' int Music 	
+		unsigned '/' unsigned Music 	
 
 	{
 		$$ = new Compressed_music ($3, $5, $6);
@@ -924,7 +906,10 @@ abbrev_command_req:
 	| COMMAND_IDENTIFIER	{
 		$$ = $1->access_content_Request (true);
 	}
-/*
+/* TODO */
+/*	| '~'	{
+		$$ = new Command_tie_req;
+	}
 	| '['		{
 		$$ = new Beam_req;
 		$$->spantype = Span_req::START;
@@ -1170,39 +1155,7 @@ dynamic_req:
 	}
 	;
 
-plet_fraction:
-	unsigned '/' unsigned {
-		$$[0] = $1;
-		$$[1] = $3;
-	}
-	|
-	'/' unsigned {
-		int num = $2 >? 1;
-		$$[0] = guess_plet_a[(num <? GUESS_PLET) - 1];
-		$$[1] = num;
-	}
-	;
 
-close_plet_parens:
-	']' plet_fraction {
-		$$ = MAEBTELP;
-		THIS->plet_.type_i_ = $2[1];
-		THIS->plet_.iso_i_ = $2[0];
-		THIS->default_duration_.plet_ = THIS->plet_;
-	}
-	| TELP {
-		$$ = TELP;
-		THIS->plet_.type_i_ = 1;
-		THIS->plet_.iso_i_ = 1;
-		THIS->default_duration_.plet_ = THIS->plet_;
-	}
-	| TELP plet_fraction {
-		$$ = TELP;
-		THIS->plet_.type_i_ = $2[1];
-		THIS->plet_.iso_i_ = $2[0];
-		THIS->default_duration_.plet_ = THIS->plet_;
-	}
-	;
 
 close_request_parens:
 	'~'	{
@@ -1220,7 +1173,6 @@ close_request_parens:
 	| E_BIGGER {
 		$$ = '>';
 	}
-	| close_plet_parens
 	;
 
 open_abbrev_parens:
@@ -1235,20 +1187,6 @@ open_abbrev_parens:
 	}
 	;
 
-open_plet_parens:
-	'[' plet_fraction {
-		$$ = BEAMPLET;
-		THIS->plet_.type_i_ = $2[1];
-		THIS->plet_.iso_i_ = $2[0];
-		THIS->default_duration_.plet_ = THIS->plet_;
-	}
-	| PLET plet_fraction {
-		$$ = PLET;
-		THIS->plet_.type_i_ = $2[1];
-		THIS->plet_.iso_i_ = $2[0];
-		THIS->default_duration_.plet_ = THIS->plet_;
-	}
-	;
 
 open_request_parens:
 	E_EXCLAMATION 	{
@@ -1261,7 +1199,6 @@ open_request_parens:
 		$$='[';
 	}
 	| open_abbrev_parens
-	| open_plet_parens
 	;
 
 
@@ -1383,6 +1320,12 @@ duration_length:
 	steno_duration {
 		$$ = $1;
 	}
+	| duration_length '*' unsigned {
+		$$->plet_.iso_i_ *= $3;
+	}
+	| duration_length '/' unsigned {
+		$$->plet_.type_i_ *= $3;
+	}
 	;
 
 dots:
@@ -1416,7 +1359,6 @@ steno_duration:
 			THIS->parser_error (_f ("not a duration: %d", $1));
 		else {
 			$$->durlog_i_ = Duration_convert::i2_type ($1);
-			$$->set_plet (THIS->plet_.iso_i_, THIS->plet_.type_i_);
 		     }
 	}
 	| DURATION_IDENTIFIER	{
@@ -1424,12 +1366,6 @@ steno_duration:
 	}
 	| steno_duration '.' 	{
 		$$->dots_i_ ++;
-	}
-	| steno_duration '*' unsigned  {
-		$$->plet_.iso_i_ *= $3;
-	}
-	| steno_duration '/' unsigned {
-		$$->plet_.type_i_ *= $3;
 	}
 	;
 
@@ -1476,40 +1412,48 @@ simple_element:
 		$$ = THIS->get_word_element (*$1, $2);
 		delete $1;
 	}
-	| '@' chord {
+	| chord {
 		if (!THIS->lexer_p_->chord_state_b ())
 			THIS->parser_error (_ ("have to be in Chord mode for chords"));
+		$$ = $1;
+	}
+	| '@' notemode_chord {
+		if (!THIS->lexer_p_->note_state_b ())
+			THIS->parser_error (_ ("have to be in Note mode for @chords"));
 		$$ = $2;
 	}
 	;
 
-
 chord:
-        notemode_duration steno_musical_pitch chord_additions chord_subtractions {
-                $$ = THIS->get_chord (*$2, $3, $4, *$1);
+	steno_tonic_pitch notemode_duration chord_additions chord_subtractions {
+                $$ = THIS->get_chord (*$1, $3, $4, *$2);
         };
 
-chord_additions:
+notemode_chord:
+	steno_musical_pitch notemode_duration chord_additions chord_subtractions {
+                $$ = THIS->get_chord (*$1, $3, $4, *$2);
+        };
+
+chord_additions: 
 	{
 		$$ = new Array<Musical_pitch>;
 	} 
-	| chord_additions chord_note {
-		$1->push (*$2);
+	| '-' {
+		$$ = new Array<Musical_pitch>;
+	} 
+	| chord_additions chord_addsub {
 		$$ = $1;
-	}
-	| chord_additions CHORDMODIFIER_PITCH {
-		/* 
-		  urg, this is kind of ugly.
-		  all but "sus" chord modifiers can be
-		  handled as chord_additions...
-		 */
-		$1->push (*$2);
-		$$ = $1;
+		$$->push (*$2);
 	}
 	;
 
+chord_addsub:
+	chord_note optional_dot
+	| CHORDMODIFIER_PITCH optional_dot
+	;
+
 chord_note:
-        UNSIGNED {
+	UNSIGNED {
 		$$ = new Musical_pitch;
 		$$->notename_i_ = ($1 - 1) % 7;
 		$$->octave_i_ = $1 > 7 ? 1 : 0;

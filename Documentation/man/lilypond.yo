@@ -53,9 +53,6 @@ dit(--include, -I=DIRECTORY)
     Add file(DIRECTORY) to the search path for input files.
 dit(--ignore-version, -V)
     Make incompatible mudela version non-fatal.
-dit(--find-fourths, -Q)
-    Warn about melodic intervals larger than a fourth.  Useful for 
-    converting absolute octave mode stuff to relative octaves.
 )
 
 manpagesection(FEATURES)

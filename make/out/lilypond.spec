@@ -1,9 +1,9 @@
 Name: lilypond
-Version: 1.1.13
+Version: 1.1.14
 Release: 1
 Copyright: GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.13.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.1.14.tar.gz
 Summary: A program for printing sheet music.
 URL: http://www.cs.uu.nl/~hanwen/lilypond
 Packager: Han-Wen Nienhuys <hanwen@cs.uu.nl>
@@ -17,8 +17,8 @@ LilyPond is the GNU Project music typesetter.  This program can print
 beautiful sheet music from a music definition file.  It can also play
 mechanical performances to a MIDI file.  Features include multiple
 staffs, meters, clefs, keys, lyrics, versatile input language, cadenzas,
-beams, slurs, triplets, formatting scores, part extraction.  It includes
-a nice font of musical symbols.
+beams, slurs, triplets, named chords, transposing, formatting scores, 
+part extraction.  It includes a nice font of musical symbols.
 
 %prep
 %setup

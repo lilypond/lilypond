@@ -7,6 +7,10 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr/urg
 
 BUGS:
+	* c4 \! \> c4
+
+	* resurrect tremolo beams.
+
 	* gallina barlines.
 
 	* fix height of / collisions with lyrics (chords), 
@@ -635,7 +639,7 @@ IDEAS
 	* versioning stuff (cvt mudela, mudela, etc.)
 
 	* Klavarskribo?
-
+5
 	* lyrics in chords still fuck up.
 
 	* Use hooks/dependency graphs for properties

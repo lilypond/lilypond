@@ -96,9 +96,23 @@ Musical_pitch::str () const
   if (accidental_i_)
     s += String (accname[accidental_i_ + 2]);
 
+  if (octave_i_ > 0)
+    {
+      int o = octave_i_ + 1;
+      while (o--)
+	s += to_str ('\'');
+    }
+  else if (octave_i_ <0)
+    {
+      int o = (-octave_i_) - 1;
+      while (o--)
+	s += to_str (',');
+    }
+#if 0  
   if (octave_i_)
     s  += String ((octave_i_> 0)? "^": "_") + to_str (octave_i_);
-
+#endif
+  
   return s;
 }
 
@@ -126,25 +140,7 @@ Musical_pitch::to_relative_octave (Musical_pitch p)
   else
     n = down_pitch;
   
-  if (find_quarts_global_b)
-    {
-      int d = this->semitone_pitch () - n.semitone_pitch ();
-      if (d)
-	{
-	  int i = 1 + (abs (d) - 1) / 12;
-	  String quote_str = d < 0 ? to_str (',', i) : to_str ('\'', i);
-	  Musical_pitch w = *this;
-	  w.octave_i_ = 0;
-	  String name_str = w.str ();
-	  name_str + quote_str;
-	  w.warning (_f ("Interval greater than quart, relative: %s", 
-	    name_str + quote_str));
-	  // don't actually do any relative stuff
-	  n = *this;
-	}
-    }
-  else
-    n.octave_i_ += oct_mod;
+  n.octave_i_ += oct_mod;
 
   *this = n;
   return *this;

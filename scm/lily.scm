@@ -70,24 +70,15 @@
 (define (empty2 a b )
   "")
 
-
 (define emptybar empty1)
-(define setdynamic empty1)
-(define startrepeat empty1)
-(define repeatbar empty1)
-(define finishbar empty1)
-(define extender empty1)
-(define startbar empty1)
-(define repeatbarstartrepeat empty1)
-(define fatdoublebar empty1)
-(define setfinger empty1)
-(define doublebar empty1)
 
 ;;; and these suck as well.
+(define (setdynamic s) (text "dynamic" (string-append "\\" s)))
 (define (settext s) (text "text" s))
 (define (settypewriter s) (text "typewriter" s))
 (define (setnumber s) (text "number" s))
 (define (setbold s) (text "bold" s))
+(define (setfinger s) (text "finger" s))
 (define (setitalic s) (text "italic" s))
 (define (setnumber-1 s) (text "numberj" s))
   
@@ -115,17 +106,28 @@
   (define (decrescendo w h cont)
     (embedded-ps ((ps-scm 'decrescendo) w h cont)))
 
+  (define 
+    (doublebar h)
+    (invoke-dim1  "doublebar" h))
+
   (define (embedded-ps s)
     (string-append "\\embeddedps{" s "}"))
-
 
   (define (end-output) 
     "\n\\EndLilyPondOutput")
   
   (define (experimental-on) "\\turnOnExperimentalFeatures")
 
-  (define (extender o h)
-    ((invoke-output o "invoke-dim1") "extender" h))
+  (define (extender h)
+    (invoke-dim1 "extender" h))
+
+  (define
+    (fatdoublebar h)
+    (invoke-dim1  "fatdoublebar" h))
+
+  (define
+    (finishbar h)
+    (invoke-dim1  "finishbar" h))
 
   (define (font-switch i)
     (string-append
@@ -155,7 +157,6 @@
     (string-append
      "\n\\" s "{" (number->dim d) "}"))
 
-
   ;;
   ;; need to do something to make this really safe.
   ;;
@@ -184,6 +185,14 @@
     (string-append
      "{\\bracefont " (char  (/  (- (min y (- maxht step)) minht)   step)) "}"))
   
+  (define
+    (repeatbar h)
+    (invoke-dim1  "repeatbar" h))
+
+  (define
+    (repeatbarstartrepeat h)
+    (invoke-dim1  "repeatbarstartrepeat" h))
+
   (define (rulesym h w) 
     (string-append 
      "\\vrule height " (number->dim (/ h 2))
@@ -194,6 +203,14 @@
 
   (define (slur l)
     (embedded-ps ((ps-scm 'slur) l)))
+
+  (define
+    (startbar h)
+    (invoke-dim1  "startbar" h))
+
+  (define
+    (startrepeat h)
+    (invoke-dim1  "startrepeat" h))
 
   (define (start-line) 
     (string-append 
@@ -210,6 +227,10 @@
   (define (stop-line) 
     "}\\interscoreline")
 
+  (define
+    (stoprepeat h)
+    (invoke-dim1 "stoprepeat" h))
+
   (define (text f s)
     (string-append "\\set" f "{" (output-tex-string s) "}"))
   
@@ -222,18 +243,22 @@
   (define (maatstreep h)
     (string-append "\\maatstreep{" (number->dim h) "}"))
   
+  ; urg: generate me
   (cond ((eq? action-name 'all-definitions)
 	 `(begin
 	    (define beam ,beam)
 	    (define tuplet ,tuplet)
 	    (define bracket ,bracket)
 	    (define crescendo ,crescendo)
-	    (define volta ,volta)
-	    (define slur ,slur)
 	    (define dashed-slur ,dashed-slur) 
+	    (define doublebar ,doublebar)
+	    (define emptybar ,emptybar)
 	    (define decrescendo ,decrescendo) 
 	    (define empty ,empty)
 	    (define end-output ,end-output)
+	    (define extender ,extender)
+	    (define fatdoublebar ,fatdoublebar)
+	    (define finishbar ,finishbar)
 	    (define font-def ,font-def)
 	    (define font-switch ,font-switch)
 	    (define generalmeter ,generalmeter)
@@ -243,7 +268,13 @@
 	    (define invoke-char ,invoke-char) 
 	    (define invoke-dim1 ,invoke-dim1)
 	    (define placebox ,placebox)
+	    (define repeatbar ,repeatbar)
+	    (define repeatbarstartrepeat ,repeatbarstartrepeat)
 	    (define rulesym ,rulesym)
+	    (define slur ,slur)
+	    (define startbar ,startbar)
+	    (define startrepeat ,startrepeat)
+	    (define stoprepeat ,stoprepeat)
 	    (define start-line ,start-line)
 	    (define stem ,stem)
 	    (define stop-line ,stop-line)
@@ -252,6 +283,7 @@
 	    (define char  ,char)
 	    (define maatstreep ,maatstreep)
 	    (define pianobrace ,pianobrace)
+	    (define volta ,volta)
 	    ))
 
 	((eq? action-name 'experimental-on) experimental-on)
@@ -259,12 +291,14 @@
 	((eq? action-name 'tuplet) tuplet)
 	((eq? action-name 'bracket) bracket)
 	((eq? action-name 'crescendo) crescendo)
-	((eq? action-name 'volta) volta)
-	((eq? action-name 'slur) slur)
 	((eq? action-name 'dashed-slur) dashed-slur) 
+	((eq? action-name 'doublebar) doublebar)
 	((eq? action-name 'decrescendo) decrescendo) 
 	((eq? action-name 'empty) empty)
 	((eq? action-name 'end-output) end-output)
+	((eq? action-name 'extender) extender)
+	((eq? action-name 'fatdoublebar) fatdoublebar)
+	((eq? action-name 'finishbar) finishbar)
 	((eq? action-name 'font-def) font-def)
 	((eq? action-name 'font-switch) font-switch)
 	((eq? action-name 'generalmeter) generalmeter)
@@ -274,13 +308,19 @@
 	((eq? action-name 'invoke-char) invoke-char) 
 	((eq? action-name 'invoke-dim1) invoke-dim1)
 	((eq? action-name 'placebox) placebox)
+	((eq? action-name 'repeatbar) repeatbar)
+	((eq? action-name 'repeatbarstartrepeat) repeatbarstartrepeat)
 	((eq? action-name 'rulesym) rulesym)
+	((eq? action-name 'slur) slur)
+	((eq? action-name 'startbar) startbar)
+	((eq? action-name 'startrepeat) startrepeat)
+	((eq? action-name 'stoprepeat) stoprepeat)
 	((eq? action-name 'start-line) start-line)
 	((eq? action-name 'stem) stem)
 	((eq? action-name 'stop-line) stop-line)
+	((eq? action-name 'volta) volta)
 	(else (error "unknown tag -- PS-TEX " action-name))
 	)
-
   )
 
 ;;;;;;;;;;;; PS
@@ -431,6 +471,7 @@
 	(else (error "unknown tag -- PS-SCM " action-name))
 	)
   )
+  
 
 
 

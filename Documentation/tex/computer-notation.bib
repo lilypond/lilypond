@@ -24,11 +24,21 @@
   year =	1986
 }
 
+% byrd
 @PhdThesis {byrd85,
   year =  {1985},
   title = {Music Notation by Computer},
   author = {Donald Byrd},
   school = {Indiana University},
+}
+
+@Article {byrd74,
+  year =  {1974},
+  title = {A System for Music Printing by Computer},
+  author = {Donald Byrd},
+  journal = {Computers and the Humanities},
+  volume ={8},
+  pages ={161-72},
 }
 
 @Article{byrd94,
@@ -43,22 +53,24 @@ pages = {17--20},
   note = {Byrd (author of Nightinggale) shows four problematic
 fragments of notation, and rants about notation programs that try to
 exhibit intelligent behaviour. HWN}
-
 }
 
 
 
-@Article{erickson75,
-  author = 	 {R. F. Erickson},
+@Article{ericson75,
+  author = 	 {R. F. Ericson},
   title = 	 {The DARMS Project: A status report},
   journal = 	 {Computing in the humanities},
   year = 	 1975,
   volume =	 9,
   number =	 6,
   pages =	 {291--298}
+
+  note = {Gourlay\cite{gourlay86} writes: A discussion of the design
+  and potential uses of the DARMS music-description language.}
 }
 
-c
+
 @Article{field-richards93,
   author = 	 {H.S. Field-Richards},
   title = 	 {Cadenza: A Music Description Language},
@@ -70,7 +82,6 @@ c
   note = {A description through examples of a music entry language.
 Apparently it has no formal semantics.  There is also no
 implementation of notation convertor. HWN}
-  
 }
 
 
@@ -156,28 +167,15 @@ note = {A no-science-here review of Encore. HWN}
 
 }
 
-@Article {byrd74,
-  year =  {1974},
-  title = {A System for Music Printing by Computer},
-  author = {Donald Byrd},
-  journal = {Computers and the Humanities},
-  volume ={8},
-  pages ={161-72},
-}
-
-
 @Book {smith73,
-  note = {If I remember correctly, this was concerned more with an input language than with the typography. SP},
   year =  {1973},
   title = {Editing and Printing Music by Computer},
   author = {Leland Smith},
   totalentry = {Journal of Music Theory},
   volume={17},
   pages ={292-309},
+  note = {Gourlay\cite{gourlay86} writes: A discussion of Smith's music-printing system}
 }
-
-
-
 
 
 @InProceedings{montel97,
@@ -189,12 +187,29 @@ note = {A no-science-here review of Encore. HWN}
   editors ={Genevois \& Orlarey}
 }
 
+
+% Gomberg
 @PhdThesis {gomber75,
   year =  {1975},
   title = {A Computer-Oriented System for Music Printing},
   author = {David A Gomberg},
   school = {Washington University},
 }
+
+@Book {gomberg,
+  title = {A Computer-oriented System for Music Printing},
+  author = {David A.  Gomberg},
+  journal  = CitH,
+  volume={11},
+  month = {march},
+  year = {1977},
+  pages = {63-80},
+  note = {Gourlay \cite{gourlay86} writes: "A discussion of the
+  problems of representing the conventions of musical notation in
+  computer algorithms."}
+
+}
+
 
 
 @Book {CASR,
@@ -205,14 +220,41 @@ note = {A no-science-here review of Encore. HWN}
 }
 
 
-@Book {gomberg,
-  title = {A Computer-oriented System for Music Printing},
-  author = {David A.  Gomberg},
-  journal  = CitH,
-  volume={11},
-  pages = {63-80},
+
+% LIME
+@Article {haken93,
+  note = {A description of Lime internals (which resemble older (before 0.0.68pre) LilyPond data structures somewhat) HWN},
+  year =  {1993},
+  title = {The Tilia Music Representation: Extensibility, Abstraction, and Notation Contexts for the Lime Music Editor},
+  author = {Lippold Haken and Dorothea Blostein},
+  journal = {Computer Music Journal},
+  volume= {17},
+  number={3},
+  pages = {43--58},
 }
 
+@InProceedings{haken95,
+  year =  {1995},
+  title = {A New Algorithm for Horizontal Spacing of Printed Music},
+  author = {Lippold Haken and Dorothea Blostein},
+  booktitle = {International Computer Music Conference},
+  address={Banff},
+  month={Sept},
+  pages = {118-119},
+  note = {This describes an algorithm which uses springs between adjacent columns. This algorithm is a "subclass" of the LilyPond algorithm. HWN},
+}
+
+@Article {blostein91,
+  note = {This paper provides a shallow overview of the algorithm used in LIME for spacing individual lines. HWN},
+  year =  {1991},
+  title = {Justification of Printed Music},
+  author = {Dorothea Blostein and Lippold Haken},
+  journal   = {Communications of the ACM},
+  volume= {J34},
+  number= {3},
+  month= {March},
+  pages = {88-99},
+}
 
 
 @Article{blostein94,
@@ -225,7 +267,8 @@ note = {A no-science-here review of Encore. HWN}
   number = 	 {3},
   month = 	 {march},
   pages = 	 {289--306},
-  note = {A description of various conversions, decisions and issues relating to this interactive editor HWN},
+  note = {A description of various conversions, 
+decisions and issues relating to this interactive editor HWN},
 }
 
 @InProceedings{bouzaiene98:_une,
@@ -257,6 +300,9 @@ year = 1997,
   organization = {International Computer Music Association}
 }
 
+%
+% MusiCopy
+%
 @TechReport {gourlay87-spacing,
   note = {Algorithm for generating spacing in one line of (polyphonic) music, tailored for use with MusiCopy. LilyPond uses a variant of it (as of pl 76) HWN},
   year =  {1987},
@@ -278,11 +324,9 @@ year = 1997,
 
 
 @TechReport {gourlay87-formatting,
-
 note = {This paper discusses the development of algorithms for the
 formatting of musical scores (from abstract). It also appeared at
 PROTEXT III, Ireland 1986},
-
   year =  {1987},
   title = {Computer Formatting of Music},
   author = {John S. Gourlay and A. Parrish
@@ -390,39 +434,6 @@ surprising that LilyPond is more mature.
   pages = {388--401},
 }
 
-@Article {haken93,
-  note = {A description of Lime internals (which resemble older (before 0.0.68pre) LilyPond data structures somewhat) HWN},
-  year =  {1993},
-  title = {The Tilia Music Representation: Extensibility, Abstraction, and Notation Contexts for the Lime Music Editor},
-  author = {Lippold Haken and Dorothea Blostein},
-  journal = {Computer Music Journal},
-  volume= {17},
-  number={3},
-  pages = {43--58},
-}
-
-@InProceedings{haken95,
-  year =  {1995},
-  title = {A New Algorithm for Horizontal Spacing of Printed Music},
-  author = {Lippold Haken and Dorothea Blostein},
-  booktitle = {International Computer Music Conference},
-  address={Banff},
-  month={Sept},
-  pages = {118-119},
-  note = {This describes an algorithm which uses springs between adjacent columns. This algorithm is a "subclass" of the LilyPond algorithm. HWN},
-}
-
-@Article {blostein91,
-  note = {This paper provides a shallow overview of the algorithm used in LIME for spacing individual lines. HWN},
-  year =  {1991},
-  title = {Justification of Printed Music},
-  author = {Dorothea Blostein and Lippold Haken},
-  journal   = {Communications of the ACM},
-  volume= {J34},
-  number= {3},
-  month= {March},
-  pages = {88-99},
-}
 
 
 @Article {rader96,
@@ -570,6 +581,20 @@ basically say: "You can embed a NIFF or MIDI file") HWN}
   year={1983}
 }
 
+
+
+@Article{Ornstein84,
+  author={Ornstein, Severo M. and John Turner Maxwell III},
+  title={Mockingbird: A Composer's Amanuensis},
+  journal= {Byte},
+  volume= 9,
+  month = {January},
+  year= { 1984},
+  note={A discussion of an interactive and graphical computer system for
+music composition}
+
+}
+
 @PhdThesis{mueller90:_inter_bearb_musik,
   author = 	 {Giovanni M\"uller},
   title = 	 {Interaktive Bearbeitung konventioneller Musiknotation},
@@ -586,6 +611,9 @@ chapters on engraving and notation are well structured and clear,
 though.}
 }
 
+
+%
+% three part study by John Gr/over
 @TechReport{grover89-symbols,
   author = 	 {John Gr\/over},
   title = 	 {A computer-oriented description of Music Notation.  Part I. The Symbol Inventory},

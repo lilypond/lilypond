@@ -57,6 +57,8 @@ struct Collision;
 struct Collision_engraver;
 struct Command_req;
 struct Command_script_req;
+struct Command_tie_engraver;
+struct Command_tie_req;
 struct Compressed_music;
 struct Compressed_music_iterator;
 struct Cresc_req;

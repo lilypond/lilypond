@@ -34,7 +34,6 @@ public:
   int default_abbrev_i_;
   Duration default_duration_;
   Extender_req* extender_req;
-  Plet plet_;
   Scope *default_header_p_;
     
   bool first_b_;
@@ -46,7 +45,6 @@ public:
   bool init_parse_b_;
   My_lily_lexer * lexer_p_;
  
-  Moment plet_mom();
   Input here_input() const;
   void remember_spot();
   Input pop_spot();

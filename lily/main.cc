@@ -35,11 +35,9 @@
 bool version_ignore_global_b = false;
 bool no_paper_global_b = false;
 bool no_timestamps_global_b = false;
-bool find_quarts_global_b = false;
+bool find_old_relative_b = false;
 
 char const* output_global_ch = "tex";
-// temporarily default to ps, because tex is even more broken
-//char const* output_global_ch = "ps";
 
 String default_outname_base_global =  "lelie";
 int default_count_global;
@@ -65,7 +63,7 @@ Long_option_init theopts[] = {
   {0, "no-paper", 'M'},
   {0, "dependencies", 'd'},
   {0, "no-timestamps", 'T'},
-  {0, "find-fourths", 'Q'},
+  {0, "find-old-relative", 'Q'},
   {0, "ignore-version", 'V'},
   {1, "output-format", 'f'},
   {0, "safe", 's'},
@@ -109,7 +107,7 @@ usage ()
     "  -o, --output=FILE      set FILE as default output base\n"
     );
   cout  << _ (
-    "  -Q, --find-fourths     show all intervals greater than a fourth\n"
+    "  -Q, --find-old-relative show all changes in relative syntax\n"
     );
   cout << _ (
     "  -s, --safe             inhibit file output naming and exporting TeX  macros\n");
@@ -270,7 +268,7 @@ main_prog (int argc, char **argv)
 	  output_global_ch = oparser.optional_argument_ch_C_;
 	  break;
 	case 'Q':
-	  find_quarts_global_b = true;
+	  find_old_relative_b= true;
 	  break;
 	case 'I':
 	  global_path.push (oparser.optional_argument_ch_C_);

@@ -56,3 +56,9 @@ Music_wrapper::to_relative_octave (Musical_pitch p)
 {
   return element_p_->to_relative_octave (p);
 }
+
+Music*
+Music_wrapper::element_l () const
+{
+  return element_p_;
+}

@@ -105,12 +105,6 @@ void
 My_lily_parser::set_last_duration (Duration const *d)
 {
   default_duration_ = *d;
-
-  /* 
-     forget plet part,
-     but keep sticky plet factor within plet brackets
-    */  
-  default_duration_.plet_ = plet_;
 }
 
 
@@ -293,13 +287,6 @@ My_lily_parser::get_note_element (Note_req *rq, Duration * duration_p)
 
   v->add_music (rq);
 
-  // too bad parser reads (default) duration via member access,
-  // this hack will do for now..
-  if (abbrev_beam_type_i_)
-    {
-      assert (!duration_p->plet_b ());
-      duration_p->set_plet (1, 2);
-    }
   rq->duration_ = *duration_p;
   rq->set_spot (here_input ());
   delete duration_p ;
@@ -319,13 +306,7 @@ My_lily_parser::get_parens_request (int t)
     case '~':
       reqs.push (new Tie_req);
       break;
-    case BEAMPLET:
-    case MAEBTELP:
-      {
-	Plet_req* p = new Plet_req;
-	p->plet_i_ = plet_.type_i_;
-	reqs.push (p);
-      }
+
       /* fall through */
     case '[':
     case ']':
@@ -351,14 +332,6 @@ My_lily_parser::get_parens_request (int t)
       reqs.push (new Span_dynamic_req);
       break;
 
-    case PLET:  
-    case TELP:
-      {
-	Plet_req* p = new Plet_req;
-	p->plet_i_ = plet_.type_i_;
-	reqs.push (p);
-      }
-      break;
     case ')':
     case '(':
       {
@@ -372,19 +345,13 @@ My_lily_parser::get_parens_request (int t)
 
   switch (t)
     {
-    case BEAMPLET:
-      dynamic_cast<Span_req*> (reqs.top ())->spantype = Span_req::START;
-      /* fall through */
     case '<':
     case '>':
     case '(':
     case '[':
-    case PLET:
-      dynamic_cast<Span_req*> (reqs.top ())->spantype = Span_req::START;
+      dynamic_cast<Span_req*> (reqs[0])->spantype = Span_req::START;
       break;
-    case MAEBTELP:
-      dynamic_cast<Span_req*> (reqs.top ())->spantype = Span_req::STOP;
-      /* fall through */
+      
     case '!':
     case ')':
     case ']':

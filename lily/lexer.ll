@@ -92,8 +92,6 @@ RESTNAME	[rs]
 NOTECOMMAND	\\{A}+
 LYRICS		({AA}|{TEX})[^0-9 \t\n\f]*
 ESCAPED		[nt\\'"]
-PLET		\\\[
-TELP		\\\]
 EXTENDER	[_][_]
 
 %%
@@ -292,9 +290,6 @@ EXTENDER	[_][_]
 	{NOTECOMMAND}	{
 		return scan_escaped_word (YYText () + 1);
 	}
-	{NOTECOMMAND}	{
-		return scan_escaped_word (YYText () + 1);
-	}
 	{UNSIGNED}		{
 		yylval.i = String_convert::dec2_i (String (YYText ()));
 		return UNSIGNED;
@@ -342,14 +337,6 @@ EXTENDER	[_][_]
 	char c = YYText ()[0];
 	DOUT << "misc char" <<c<<"\n";
 	return c;
-}
-
-<lyrics,notes>{PLET}	{
-	return yylval.i = PLET;
-}
-
-<lyrics,notes>{TELP}	{
-	return yylval.i = TELP;
 }
 
 <INITIAL,notes>.	{

@@ -1,10 +1,24 @@
+pl 14
+
+pl 13.hwn1
+ 	- tutorial fixes.
+ 	- junked find-quarts
+ 	- junked various plet goryness.
+ 	- preps for <c e> ~ <c e> syntax
+	- bib fixes 
+
+pl 12.jcn3
+	- bf's: standchen
+	- added repeat, chord stuff to website
+	- bf: dashed slur
+	- hacks for barlines, dynamics
+
 pl 12.jcn2
 	- bf: package-diff
 	- new chord syntax, again: TONIC [DURATION] ['-' MODIFIERS/ADDITIONS]
 	- shorthand prefix for note-mode: '@', no shorthand for notes in chord
            mode...
  
-pl 12.jcn1
 pl 11.jcn6
 	- bf: ly2dvi: better guess LILYPONDPREFIX: <bin>../share/lilypond
 	- chord-table; urg bugs:
@@ -18,6 +32,7 @@ pl 11.jcn5
 
 pl 11.jcn4
 
+**********
 pl 13
 	- mutopia stuff (thanks, Peter)
 	- bugfix : \maininput
