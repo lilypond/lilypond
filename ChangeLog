@@ -6,7 +6,8 @@
 
 2004-07-18  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
-	* make/ly-vars.make (EXTRA_DIST_FILES): 
+	* stepmake/generic-vars.make (EXTRA_DIST_FILES): dist SConscript
+	files.
 
 	* Documentation/user/notation.itely (Slurs): document ^ and _ for
 	slurs.
