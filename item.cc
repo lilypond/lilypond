@@ -54,3 +54,8 @@ Item::Item()
     output = 0;
     pstaff_ = 0;
 }
+void
+Item::print() const
+{
+    output->print();
+}

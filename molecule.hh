@@ -18,6 +18,7 @@ struct Atom {
     Box extent() const;
     Atom(Symbol s);
 
+  void print() const;
 
     String TeXstring() const;
 };
@@ -42,6 +43,7 @@ struct Molecule {
     String TeXstring() const;
 
     Molecule(const Molecule&s);
+    void print() const;
 private:
     void operator=(const Molecule&);
 };
