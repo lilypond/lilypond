@@ -100,6 +100,14 @@ for the reader.
     ))
 
 
+(define-public (finger-markup grob props . rest)
+  (interpret-markup grob
+		    (cons (list '(font-relative-size . -3)
+				'(font-family . number))
+				props)
+		    (car rest)))
+
+
 (define-public fontsize-markup (set-property-markup 'font-relative-size))
 (define-public magnify-markup (set-property-markup 'font-magnification))
 
@@ -109,6 +117,7 @@ for the reader.
   (font-markup 'font-family 'number))
 (define-public roman-markup
   (font-markup 'font-family 'roman))
+
 
 (define-public huge-markup
   (font-markup 'font-relative-size 2))
@@ -390,11 +399,13 @@ for the reader.
    
    (cons super-markup (list markup?))
    (cons normal-size-super-markup (list markup?))
-   
+
+   (cons finger-markup (list markup?))
    (cons bold-markup (list markup?))
    (cons italic-markup (list markup?))
    (cons roman-markup (list markup?))
    (cons number-markup (list markup?))
+   
    
    (cons column-markup (list markup-list?))
    (cons center-markup (list markup-list?))
