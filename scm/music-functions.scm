@@ -107,7 +107,9 @@ For instance,
 	  (args (map transform-arg (cdr mrkup))))
       `(,cmd ,@args)))
   ;; body:
-  `(markup ,@(inner-markup->make-markup markup-expression)))
+  (if (string? markup-expression)
+      markup-expression
+      `(markup ,@(inner-markup->make-markup markup-expression))))
 
 (define (music-expression? obj)
   (ly:music? obj))
@@ -116,7 +118,9 @@ For instance,
   "Return a string describing `obj', in particular music expression
 will be printed as: (make-music 'MusicType 'property ...)"
   
-  (cond (;; markup expression
+  (cond (;; string 
+	 (string? obj) (format #f "~s" obj))
+        (;; markup expression
 	 (markup? obj)
 	 (format #f "~a" (markup-expression->make-markup obj)))
 	(;; music expression
@@ -146,8 +150,6 @@ will be printed as: (make-music 'MusicType 'property ...)"
 		      (remove (lambda (prop)
 				(eqv? (car prop) 'origin))
 			      (ly:music-mutable-properties obj)))))
-	(;; string 
-	 (string? obj) (format #f "~s" obj))
 	(;; symbol
 	 (symbol? obj) (format #f "'~a" obj))
 	(;; note duration

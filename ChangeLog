@@ -1,3 +1,8 @@
+2005-04-06  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/music-functions.scm (music-pretty-string): fix bug with
+	string argument.
+
 2005-04-06  Jan Nieuwenhuizen  <jan.nieuwenhuizen@aspiratie.nl>
 
 	* stepmake/bin/add-html-footer.py (i18n): Bugfix.
