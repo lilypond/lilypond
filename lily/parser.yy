@@ -259,6 +259,7 @@ or
 %token DEFAULT
 %token DENIES
 %token DESCRIPTION
+%token EOI
 %token EXTENDER
 %token FIGURES FIGURE_OPEN FIGURE_CLOSE
 %token FIGURE_BRACKET_CLOSE FIGURE_BRACKET_OPEN
@@ -271,6 +272,7 @@ or
 %token INVALID
 %token KEY
 %token LYRICS
+%token LYRICS_STRING
 %token MARK
 %token MIDI
 %token MULTI_MEASURE_REST
@@ -356,16 +358,19 @@ or
 %type <scm> markup markup_line markup_list  markup_list_body full_markup
 
 %type <outputdef> output_def
-%type <scm> 	lilypond_header lilypond_header_body
+%type <scm>	lilypond_header lilypond_header_body
 %type <music>	open_event close_event
 %type <i>	sub_quotes sup_quotes
-%type <music>	simple_element  event_chord command_element Simple_music  Composite_music
+%type <music>	toplevel_music
+%type <music>	simple_element event_chord command_element
+%type <music>	Composite_music Simple_music
 %type <music>	Repeated_music
 %type <scm>     Alternative_music
 %type <i>	tremolo_type
 %type <i>	bare_int  bare_unsigned
 %type <i>	script_dir
 %type <scm>	identifier_init
+%type <scm>	simple_string
 
 %type <music> note_chord_element chord_body chord_body_element
 %type <scm>  chord_body_elements
@@ -409,6 +414,7 @@ prec levels in different prods */
 %%
 
 lilypond:	/* empty */
+	| lilypond EOI
 	| lilypond toplevel_expression {}
 	| lilypond assignment  { }
 	| lilypond error {
@@ -423,7 +429,37 @@ toplevel_expression:
 	lilypond_header {
 		THIS->header_ = $1;
 	}
+	| toplevel_music EOI {
+		Score *score = new Score;
+		SCM s = $1->self_scm ();
+
+		/* URG? */
+		SCM check_funcs
+			= ly_scheme_function ("toplevel-music-functions");
+		for (; ly_c_pair_p (check_funcs);
+		       check_funcs = ly_cdr (check_funcs))
+			s = scm_call_1 (ly_car (check_funcs), s);
+		score->music_ = s;
+
+		Book *book = new Book;
+		book->scores_.push (score);
+
+ 		scm_gc_unprotect_object (score->self_scm ());
+		
+		SCM header = THIS->header_;
+		Path outname = split_path (THIS->output_basename_);
+		int *c = &THIS->book_count_;
+		if (*c)
+ 			outname.base += "-" + to_string (*c);
+		(*c)++;
+ 		Music_output_def *dp = unsmob_music_output_def
+			(THIS->lexer_->lookup_identifier ("$defaultpaper"));
+ 		book->process (outname.to_string (),
+			dp ? dp->clone () : new Paper_def, header);
+ 		scm_gc_unprotect_object (book->self_scm ());
+	}
 	| add_quote {
+	
 	}
 	| book_block {
 		Book *book = $1;
@@ -440,8 +476,10 @@ toplevel_expression:
  		scm_gc_unprotect_object (book->self_scm ());
 	}
 	| score_block {
-		Score *sc = $1;
-		SCM head = is_module (sc->header_) ? sc->header_
+	  	/* TODO: implicit book, depending on --no-book/--no-page-layout
+		   option? */
+		Score *score = $1;
+		SCM head = is_module (score->header_) ? score->header_
 			: THIS->header_.to_SCM ();
 
 		Path p = split_path (THIS->output_basename_);
@@ -452,21 +490,21 @@ toplevel_expression:
 		(*c)++;
 		SCM outname = scm_makfrom0str (p.to_string ().to_str0());
 
-		for (int i = 0; i < sc->defs_.size (); i++)
-			default_rendering (sc->music_,
-					   sc->defs_[i]->self_scm (), head,
+		for (int i = 0; i < score->defs_.size (); i++)
+			default_rendering (score->music_,
+					   score->defs_[i]->self_scm (), head,
 					   outname);
 
-		if (sc->defs_.is_empty ())
+		if (score->defs_.is_empty ())
 		{
 		   Music_output_def *id = unsmob_music_output_def
 			(THIS->lexer_->lookup_identifier ("$defaultpaper"));
 		   id = id ? id->clone () : new Paper_def;
-		   default_rendering (sc->music_, id->self_scm (), head,
+		   default_rendering (score->music_, id->self_scm (), head,
  			outname);
  		   scm_gc_unprotect_object (id->self_scm ());
 		}
- 		scm_gc_unprotect_object (sc->self_scm ());
+ 		scm_gc_unprotect_object (score->self_scm ());
 	}
 	| output_def {
 		SCM id = SCM_EOL;
@@ -479,6 +517,43 @@ toplevel_expression:
 	}
 	;
 
+/* FIXME: Experimental kludge for automatic relative music
+          This will change or go away.  */
+language: '@'
+	| '@' STRING {
+		/* FIXME? */
+		THIS->lexer_->push_initial_state ();
+		THIS->lexer_->new_input (ly_scm2string ($2) + ".ly",
+					 THIS->lexer_->sources_);
+		THIS->lexer_->pop_state ();
+	}
+	;
+
+toplevel_music:
+	Composite_music {
+	}
+	/* FIXME: Experimental kludge for automatic relative music
+	          This will change or go away.
+		  
+		  How to introduce: [\notes]\relative 'c { } in an
+		  implicit or otherwise intuitive way? */
+	| language Music_list {
+	  	SCM lst = $2;
+		Music *m = MY_MAKE_MUSIC ("SequentialMusic");
+		m->set_property ("elements", ly_car (lst));
+		m->set_spot (THIS->here_input ());
+		
+		Pitch middle_c;
+		$$ = MY_MAKE_MUSIC ("RelativeOctaveMusic");
+		$$->set_property ("element", m->self_scm ());
+
+		Pitch last = m->to_relative_octave (middle_c);
+		if (lily_1_8_relative)
+			$$->set_property ("last-pitch", last.smobbed_copy ());
+
+		scm_gc_unprotect_object (m->self_scm ());
+	}
+	;
 
 embedded_scm:
 	SCM_T
@@ -677,7 +752,8 @@ score_body:
 output_def:
 	music_output_def_body '}' {
 		$$ = $1;
-		THIS-> lexer_-> remove_scope ();
+		THIS->lexer_->remove_scope ();
+		THIS->lexer_->pop_state ();
 	}
 	;
 
@@ -713,7 +789,7 @@ music_output_def_body:
 	music_output_def_head '{' {
 		$$ = $1;
 		$$->input_origin_. set_spot (THIS->here_input ());
-		
+		THIS->lexer_->push_initial_state ();
 	}
 	| music_output_def_head '{' MUSIC_OUTPUT_DEF_IDENTIFIER 	{
 		scm_gc_unprotect_object ($1->self_scm ());
@@ -722,6 +798,7 @@ music_output_def_body:
 		$$ = o;
 		THIS->lexer_->remove_scope ();
 		THIS->lexer_->add_scope (o->scope_);
+		THIS->lexer_->push_initial_state ();
 	}
 	| music_output_def_body assignment  {
 
@@ -997,7 +1074,7 @@ basic music objects too, since the meaning is different.
 		$$ = context_spec_music ($2, $4, $6, $5);
 
 	}
-	| CONTEXT STRING optional_context_mod Music {
+	| CONTEXT simple_string optional_context_mod Music {
 		$$ = context_spec_music ($2, SCM_UNDEFINED, $4, $3);
 	}
 	| NEWCONTEXT string optional_context_mod Music {
@@ -1122,10 +1199,9 @@ relative_music:
 		$$->set_property ("element", p->self_scm ());
 		scm_gc_unprotect_object (p->self_scm ());
 
-
-		Pitch retpitch = p->to_relative_octave (pit);
+		Pitch last = p->to_relative_octave (pit);
 		if (lily_1_8_relative)
-			$$->set_property ("last-pitch", retpitch.smobbed_copy ());
+			$$->set_property ("last-pitch", last.smobbed_copy ());
 	}
 	;
 
@@ -1157,20 +1233,26 @@ context_change:
 	}
 	;
 
+simple_string: STRING {
+	   }
+	| LYRICS_STRING {
+	}
+	;
+
 property_operation:
-	STRING '='  scalar {
+	STRING '=' scalar {
 		$$ = scm_list_3 (ly_symbol2scm ("assign"),
 			scm_string_to_symbol ($1), $3);
 	}
-	| UNSET STRING {
+	| UNSET simple_string {
 		$$ = scm_list_2 (ly_symbol2scm ("unset"),
 			scm_string_to_symbol ($2));
 	}
-	| OVERRIDE STRING embedded_scm '=' embedded_scm {
+	| OVERRIDE simple_string embedded_scm '=' embedded_scm {
 		$$ = scm_list_4 (ly_symbol2scm ("push"),
 			scm_string_to_symbol ($2), $3, $5);
 	}
-	| REVERT STRING embedded_scm {
+	| REVERT simple_string embedded_scm {
 		$$ = scm_list_3 (ly_symbol2scm ("pop"),
 			scm_string_to_symbol ($2), $3);
 	}
@@ -1198,11 +1280,13 @@ context_mod:
 	;
 
 context_prop_spec:
-	STRING  {
-		$$ = scm_list_2 (ly_symbol2scm ("Bottom"), scm_string_to_symbol ($1));
+	simple_string {
+		$$ = scm_list_2 (ly_symbol2scm ("Bottom"),
+			scm_string_to_symbol ($1));
 	}
-	| STRING '.' STRING {
-		$$ = scm_list_2 (scm_string_to_symbol ($1), scm_string_to_symbol ($3));
+	| simple_string '.' simple_string {
+		$$ = scm_list_2 (scm_string_to_symbol ($1),
+			scm_string_to_symbol ($3));
 	}
 	;
 
@@ -2122,8 +2206,11 @@ simple_element:
 	;
 
 lyric_element:
-	full_markup { $$ = $1; }
-	| STRING { $$ = $1; }
+	/* FIXME: lyric flavoured markup would be better */
+	full_markup {
+	}
+	| LYRICS_STRING {
+	}
 	;
 
 new_chord:
@@ -2438,8 +2525,8 @@ My_lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		*destination = unsmob_context_def (sid)->clone_scm ();
 		return CONTEXT_DEF_IDENTIFIER;
 	} else if (unsmob_score (sid)) {
-		Score *sc = new Score (*unsmob_score (sid));
-		*destination = sc->self_scm ();
+		Score *score = new Score (*unsmob_score (sid));
+		*destination = score->self_scm ();
 		return SCORE_IDENTIFIER;
 	} else if (Music *mus = unsmob_music (sid)) {
 		mus = mus->clone ();

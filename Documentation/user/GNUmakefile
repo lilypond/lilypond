@@ -188,5 +188,9 @@ endif
 local-clean: local-delete
 
 local-delete:
-	-rm -f $(outdir)/lily-1*
+	-for i in $$(seq 0 9); do \
+		for j in dvi eps eps.bbox eps.trans log png tex; do \
+			rm -f $(outdir)/lily-$$i*$$j; \
+		done; \
+	done
 	-rm -f $(outdir)/*

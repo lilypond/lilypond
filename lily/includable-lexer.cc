@@ -105,7 +105,8 @@ Includable_lexer::new_input (String name, String data, Sources* sources)
 }
 
 /** pop the inputstack.  conceptually this is a destructor, but it
-  does not destruct the Source_file that Includable_lexer::new_input creates.  */
+  does not destruct the Source_file that Includable_lexer::new_input
+  creates.  */
 bool
 Includable_lexer::close_input ()
 {
@@ -124,11 +125,8 @@ Includable_lexer::close_input ()
 #endif  
       return false;
     }
-  else
-    {
-      yy_switch_to_buffer (state_stack_.pop ());
-      return true;
-    }
+  yy_switch_to_buffer (state_stack_.pop ());
+  return true;
 }
 
 char const*
