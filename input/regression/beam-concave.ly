@@ -12,7 +12,6 @@ texidoc = "Concave beams should be horizontal. Informally spoken,
 }
 
 
-#(ly:set-option 'debug-beam #t)
 resetMeasure = \set Score.measurePosition = #(ly:make-moment 0 1)
 
 % examples from 
@@ -71,8 +70,8 @@ nonHorizBeams = \relative c'' {
    }
   \paper{
     raggedright = ##t
+    #(define debug-beam-quanting #t)
   }
 }
 
-#(ly:set-option 'debug-beam #f)
 
