@@ -73,7 +73,7 @@ Tuplet_spanner::member_brew_molecule () const
 
 
       Real staff_space = paper_l ()->get_var ("interline");
-      Direction dir = directional_element (this).get ();
+      Direction dir = Directional_element_interface (this).get ();
       Real dy = gh_scm2double (get_elt_property ("delta-y"));
       SCM number = get_elt_property ("text");
       if (gh_string_p (number) && number_visibility)
@@ -118,6 +118,7 @@ Tuplet_spanner::member_brew_molecule () const
 void
 Tuplet_spanner::do_add_processing ()
 {
+#if 0
   if (gh_pair_p (get_elt_pointer ("columns")))
     {
       Link_array<Note_column> column_arr=
@@ -126,6 +127,7 @@ Tuplet_spanner::do_add_processing ()
       set_bound (LEFT, column_arr[0]);
       set_bound (RIGHT, column_arr.top ());  
     }
+#endif
 }
 
 
@@ -142,7 +144,7 @@ Tuplet_spanner::calc_position_and_height (Real *offset, Real * dy) const
 
   Score_element * common = common_refpoint (get_elt_pointer ("columns"), Y_AXIS);
   
-  Direction d = directional_element (this).get ();
+  Direction d = Directional_element_interface (this).get ();
 
   /*
     Use outer non-rest columns to determine slope
@@ -197,7 +199,7 @@ Tuplet_spanner::calc_dy (Real * dy) const
     Pointer_group_interface__extract_elements (this, (Note_column*)0, "columns");
 
  
-  Direction d = directional_element (this).get ();
+  Direction d = Directional_element_interface (this).get ();
   *dy = column_arr.top ()->extent (Y_AXIS) [d]
     - column_arr[0]->extent (Y_AXIS) [d];
 }
@@ -215,11 +217,11 @@ Tuplet_spanner::member_after_line_breaking ()
       return SCM_UNDEFINED;
     }
 
-  Direction d = directional_element (this).get ();
+  Direction d = Directional_element_interface (this).get ();
   if (!d)
     {
       d = get_default_dir ();
-      directional_element (this).set (d);
+      Directional_element_interface (this).set (d);
 
     }
   Real dy, offset;
@@ -286,6 +288,8 @@ Tuplet_spanner::add_column (Note_column*n)
   gi.add_element (n);
 
   add_dependency (n);
+
+  add_bound_item (this, n);
 }
 
 

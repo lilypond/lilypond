@@ -143,6 +143,7 @@ Multi_measure_rest::member_brew_molecule () const
 void
 Multi_measure_rest::do_add_processing ()
 {
+#if 0
   if (gh_pair_p (get_elt_pointer ("columns")))
     {
       Link_array<Item> column_arr (Pointer_group_interface__extract_elements (this, (Item*)0, "columns"));
@@ -150,7 +151,7 @@ Multi_measure_rest::do_add_processing ()
       set_bound (LEFT, column_arr[0 >? column_arr.size () - 2]);
       set_bound (RIGHT, column_arr.top ());
     }
-
+#endif
   // set columns to SCM_EOL?
 }
   
@@ -174,6 +175,7 @@ Multi_measure_rest::add_column (Item* c)
   Pointer_group_interface gi (this, "columns");
   gi.add_element (c);
 
+  add_bound_item (this, c);
   
   add_dependency (c);
 }

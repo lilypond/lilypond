@@ -60,4 +60,9 @@ protected:
   virtual void do_break_processing ();
   virtual Line_of_score*line_l () const;
 };
+
+
+void add_bound_item (Spanner*, Item* n);
+
+
 #endif

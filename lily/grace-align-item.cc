@@ -41,8 +41,4 @@ Grace_align_item::member_before_line_breaking ()
 }
 
 
-void
-Grace_align_item::do_add_processing ()
-{
-}
 
