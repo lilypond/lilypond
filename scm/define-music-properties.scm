@@ -48,11 +48,8 @@ descend in the context tree.")
      (digit ,integer? "digit for fingering")
      (direction ,ly:dir? "Print this up or down?")
      (drum-type ,symbol? "Which percussion instrument to play this note on.")
-
      (tags ,list? "List of symbols that for denoting extra details,
 e.g. @code{\\tag #'part ...} could tag a piece of music as only being active in a part.")
-
-
      (text-type ,symbol? "Particular type of text script (e.g. finger, dynamic).")
      (tempo-unit ,ly:duration? "The unit for the metronome count.")
      (tonic ,ly:pitch? "Base of the scale")
@@ -91,10 +88,7 @@ For chord inversions, this is negative.")
      (quoted-context-type ,symbol? "The name of the context to direct quotes to, eg., @code{Voice}.")
      (quoted-context-id ,string? "The id of the context to direct quotes to, eg., @code{cue}.")
 
-     (type ,symbol? "The type of this music object. Determines iteration in some cases.")
-     (types ,list? "The types of this music
-object; determines by what engraver this music expression is
-processed.")
+     (to-relative-callback ,procedure? "How to transform a piece of music to relative pitches")
      (repeat-count  ,integer? "do a @code{\repeat} how ofen?")
      (span-direction ,ly:dir? "Does this start or stop a spanner?")
      (split-list ,list? "splitting moments for part combiner.")
@@ -103,8 +97,12 @@ starting grace notes.")
      (string-number ,integer? "The number of the string in a String_number_req")
      (symbol ,symbol? "Grob name to perform an override/revert on.")
      (text ,markup? "markup expression to be printed")
-     ;; markup?
+     (transpose-callback ,procedure? "How to transpose a piece of
+music")
      (tremolo-type ,integer? "")
+     (type ,symbol? "The type of this music object. Determines iteration in some cases.")
+     (types ,list? "The types of this music object; determines by what
+engraver this music expression is processed.")
      (value ,scheme? "Assignment value for a
 translation property")
      (what ,symbol? "What to change for auto-change. FIXME, naming")

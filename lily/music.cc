@@ -173,7 +173,7 @@ Music::compress (Moment factor)
   compress_music_list (get_property ("elements"), factor);
   Duration *d =  unsmob_duration (get_property ("duration"));
   if (d)
-    set_property ("duration", d ->compressed (m.main_part_).smobbed_copy ());
+    set_property ("duration", d ->compressed (factor.main_part_).smobbed_copy ());
 }
 
 void
