@@ -80,13 +80,12 @@ You need the following packages to compile LilyPond:
  @uref{http://gcc.gnu.org/,
 The GNU c++ compiler} (version 3.1 or newer).
 EGCS 1.1 may work, but is no longer supported.
-Check out
 
 @item @uref{http://www.python.org,Python} (version 2.1 or newer).
 
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.0 or newer).
 
-@item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer),  
+@item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
 
 @item  @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer). 
 
@@ -180,7 +179,7 @@ work.
 
 @section Building LilyPond
 
-To install GNU LilyPond, type:
+To install GNU LilyPond, type
 @example 
 	gunzip -c lilypond-x.y.z | tar xf -
 	cd lilypond-x.y.z
@@ -191,14 +190,14 @@ To install GNU LilyPond, type:
 @end example 
 
 If, in addition, you want to generate PDF files of your scores and have 
-installed mftrace, type:
+installed mftrace, type
 @example 
         make pfa-fonts
         make MAKE_PFA_FILES=1 install
         texhash
 @end example 
-(PFA versions of the fonts for the latest LilyPond version can also be
-obtained from the web site using:
+PFA versions of the fonts for the latest LilyPond version can also be
+obtained from the web site using
 @example 
         mkdir /tmp/newfonts
         cd /tmp/newfonts/
@@ -328,7 +327,7 @@ Gcc 3.0.4 is flaky;  upgrade GCC.
 @unnumberedsubsec Flex-2.5.4a and gcc-3.x
 
 Flex 2.5.4a does not produce g++-3.0 compliant C++ code.  To compile
-LilyPond with gcc-3.0 you may do:
+LilyPond with gcc-3.0 you may do
 
 @example
 	CC=gcc-3.0 CXX=g++-3.0 ./configure --enable-config=gcc-3.0
@@ -340,7 +339,7 @@ LilyPond with gcc-3.0 you may do:
 @unnumberedsubsec Flex-2.5.4a and gcc-3.1.x
 
 Flex 2.5.4a does not produce g++-3.1.1 compliant C++ code.  To compile
-LilyPond with gcc-3.1.1 you may do:
+LilyPond with gcc-3.1.1 you may do
 
 @example
 	CONF=gcc-3.1 ./lexer-gcc-3.1.sh
@@ -367,7 +366,7 @@ set include paths for kpathsea.
 Upgrade to flex-2.5.4a.
 
 @item The configuration of Gcc (egcs-2.91.60 19981201 (egcs-1.1.1
-release)) does not include @file{/usr/pkg} paths.  Configure using:
+release)) does not include @file{/usr/pkg} paths.  Configure it using:
 @example
 
 	CFLAGS='-I /usr/pkg/include' LDFLAGS='-L/usr/pkg/lib' ./configure

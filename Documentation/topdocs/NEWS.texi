@@ -57,13 +57,13 @@ using LilyPond version 2.0.  In version 2.0, this syntax will be
 changed to
 
 @example
-  < PITCHES >  for chords
+	< PITCHES >
 @end example
 
-and
+for chords, and
 
 @example
-  \simultaneous @{ .. @} 
+	\simultaneous @{ .. @} 
 @end example
 
 for simultaneous music.
@@ -110,7 +110,7 @@ New algorithms for chord-name formatting have been installed. They
 can be tuned and have ergonomic syntax for entering exceptions.
 
 @item 
-Texts may now be put on multimeasure rests, eg.
+Texts may now be put on multimeasure rests, e.g.
 
 @example
 	R1*20^\markup @{ "GP" @}
@@ -126,7 +126,7 @@ without the proper line breaking and horizontal spacing.
 Glissandi can now be printed using the zigzag style.
 
 @item 
-LilyPond can now print clusters. The syntax is:
+LilyPond can now print clusters. The syntax is
 
 @example
 	\apply #notes-to-clusters @{ NOTE NOTE .. @}
@@ -142,7 +142,7 @@ syntax for this is
 
 
 @item 
-Nested horizontal brackets for music analysis can now be printed.
+Nested horizontal brackets for music analysis can now be printed:
 
 @example
 	NOTE-\startGroup

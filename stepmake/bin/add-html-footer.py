@@ -43,7 +43,7 @@ built = r"""<hr>
 This page is for @PACKAGE_NAME@-@PACKAGE_VERSION@ (@BRANCH@). <br>
 </font>
 <address><font size="-1">
-Report errors to &lt;<a href="mailto:@MAILADDRESS@">@MAILADDRESS@</a>&gt;</font></address>"""
+Report errors to &lt;<a href="mailto:@MAILADDRESS@">@MAILADDRESS@</a>&gt;.</font></address>"""
 
 
 def gulp_file (f):
