@@ -1,5 +1,14 @@
 2004-10-10  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/page-layout.scm (ly:optimal-page-breaks): don't compute
+	force twice.
+
+	* lily/simple-spacer.cc (LY_DEFINE): if line too long in ragged
+	mode, return #f.	
+
+	* scm/page-layout.scm (ly:optimal-page-breaks): set force = 0.0
+	for last page if raggedlast. 
+
 	* lily/parser.yy (Prefix_composite_music): untransposable is for
 	FiguredBass, not ChordNames
 
