@@ -1343,7 +1343,7 @@ voices with @code{\\}:
 @lilypond[verbatim,relative=1]
   << { a4 g2 f4~ f4 } \\
      { r4 g4 f2  f4 } >>
-@end verbatim
+@end lilypond
 
 For polyphonic music typesetting, spacer rests can also be convenient: these
 are rests that do not print.  It is useful for filling up voices that

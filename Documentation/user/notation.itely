@@ -167,7 +167,7 @@ Notes can be hidden and unhidden with the following commands:
 
 @seealso
 
-Internals: @internalsref{NoteEvent}, and @internalsref{NoteHead}.
+Program reference: @internalsref{NoteEvent}, and @internalsref{NoteHead}.
 
 @node Chromatic alterations
 @subsection Chromatic alterations
@@ -239,7 +239,7 @@ a'4\rest d'4\rest
 
 @seealso
 
-Internals: @internalsref{RestEvent}, and @internalsref{Rest}.
+Program reference: @internalsref{RestEvent}, and @internalsref{Rest}.
 
 
 @c FIXME: naming.
@@ -283,7 +283,7 @@ The same fragment using @code{\skip} results in an empty page.
 
 @seealso
 
-Internals: @internalsref{SkipEvent}, @internalsref{SkipMusic}.
+Program reference: @internalsref{SkipEvent}, @internalsref{SkipMusic}.
 
 
 
@@ -369,7 +369,7 @@ direction manually:
 
 @seealso
 
-Internals: @internalsref{Dots}, and @internalsref{DotColumn}. 
+Program reference: @internalsref{Dots}, and @internalsref{DotColumn}. 
 
 @node Stems
 @subsection Stems
@@ -435,7 +435,7 @@ note splitting (see @ref{Automatic note splitting}).
 
 In this manual: @ref{Automatic note splitting}.
 
-Internals: @internalsref{TieEvent}, @internalsref{Tie}.
+Program reference: @internalsref{TieEvent}, @internalsref{Tie}.
 
 For tying only a subset of the note heads of a pair of chords, see
 @inputfileref{input/regression,tie-chord-partial.ly}.
@@ -509,7 +509,7 @@ instead.
 
 @seealso
 
-Internals: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
+Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
 
 Examples: @inputfileref{input/regression,tuplet-nest.ly}.
 
@@ -525,17 +525,14 @@ tuplet brackets should be moved manually, which is demonstrated in
 @section Easier music entry
 @cindex Music entry
 
-This section deals with tricks and features of the input language
-that were added solely to help entering music, finding and correcting
-mistakes.
+This section deals with tricks and features of the input language that
+were added solely to help entering music, finding and correcting
+mistakes.  There are also external tools that make debugging easier.
+See @ref{Point and click} for more information.
 
-There are also other tools make debugging easier, by linking the input file
-and the output shown on screen. See @ref{Point and click} for more
-information.
-
-It is also possible to use external programs, for example GUI
-interfaces, or MIDI transcription programs, to enter or edit
-music. Refer to the website for more information.
+It is also possible to enter and edit music using other programs.  For
+example, GUI interfaces, or MIDI sequencers. Refer to the LilyPond
+website for more information.
 
 
 @menu
@@ -567,10 +564,10 @@ piece off by one octave:
 
 The octave of notes that appear in @var{musicexpr} are calculated as
 follows: If no octave changing marks are used, the basic interval
-between this and the last note is always taken to be a fourth or less
-(; this distance is determined without regarding alterations: a
+between this and the last note is always taken to be a fourth or
+less. This distance is determined without regarding alterations; a
 @code{fisis} following a @code{ceses} will be put above the
-@code{ceses}).
+@code{ceses}.
 
 The octave changing marks @code{'} and @code{,} can be added to raise
 or lower the pitch by an extra octave.  Upon entering relative mode,
@@ -603,9 +600,7 @@ to determine the first note of the next chord:
 @cindex @code{\notes}
 
 The pitch after the @code{\relative} contains a note name.  To parse
-the pitch as a note name, you have to be in note mode, so there must
-be a surrounding @code{\notes} keyword (which is not
-shown here).
+the note name as a pitch, it must surrounded by @code{\notes}
 
 The relative conversion will not affect @code{\transpose},
 @code{\chords} or @code{\relative} sections in its argument.  If you
@@ -626,8 +621,8 @@ octave should be.  In the following example,
 @noindent
 @c take care with @code, adds confusing quotes.
 the d will generate a warning, because a d'' is expected, but a d' is
-found.  In the output, the octave is corrected this and the following
-notes.
+found.  In the output, the octave is corrected for this and the
+following notes.
 
 
 
@@ -675,11 +670,8 @@ be deleted without changing the meaning of the piece.
 Bar checks help detect errors in the durations.  A bar check is
 entered using the bar symbol, `@code{|}'.  Whenever it is encountered
 during interpretation, it should fall on a measure boundary.  If it
-does not, a warning is printed.  Depending on the value of
-@code{barCheckSynchronize}, the beginning of the measure will be
-relocated.
-
-In the next example, the second bar check will signal an error:
+does not, a warning is printed.  In the next example, the second bar
+check will signal an error:
 @example
   \time 3/4 c2 e4 | g2 | 
 @end example
@@ -752,7 +744,7 @@ represented exactly; the engraver will not insert tuplets.
 
 Examples: @inputfileref{input/regression,completion-heads.ly}.
 
-Internals: @internalsref{Completion_heads_engraver}.
+Program reference: @internalsref{Completion_heads_engraver}.
 
 
 @node Staff notation
@@ -792,7 +784,7 @@ staff symbol.
 
 @seealso
 
-Internals: @internalsref{StaffSymbol}.
+Program reference: @internalsref{StaffSymbol}.
 
 Examples: @inputfileref{input/test,staff-lines.ly},
 @inputfileref{input/test,staff-size.ly}.
@@ -842,8 +834,8 @@ This command sets the context property
 can be specified by setting this property directly.
 
 Accidentals and key signatures often confuse new users, because
-unaltered notes get natural signs depending on the key signature.  The
-tutorial explains why this is so in @ref{More about pitches}.
+unaltered notes get natural signs depending on the key signature. For
+more information,   see  @ref{More about pitches}.
 
 @refbugs
 
@@ -852,7 +844,7 @@ repeat bar lines. The cancellation is also printed after a line break.
 
 @seealso
 
-Internals: @internalsref{KeyChangeEvent}, and @internalsref{KeySignature}.
+Program reference: @internalsref{KeyChangeEvent}, and @internalsref{KeySignature}.
 
 @cindex @code{keySignature}
 
@@ -927,7 +919,7 @@ when any of these properties are changed.
 
 @seealso
 
-Internals: the object for this symbol is @internalsref{Clef}.
+Program reference: the object for this symbol is @internalsref{Clef}.
 
 
 
@@ -964,7 +956,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
 
 @seealso
 
-Internals: @internalsref{OttavaBracket}.
+Program reference: @internalsref{OttavaBracket}.
 
 Examples: @inputfileref{input/regression,ottava.ly},
 @inputfileref{input/regression,ottava-broken.ly}.
@@ -1029,12 +1021,12 @@ measure is subdivided in 2, 2, 2 and 3. This is passed to
 
 @seealso
 
-Internals: @internalsref{TimeSignature}, and @internalsref{Timing_engraver}.
+Program reference: @internalsref{TimeSignature}, and @internalsref{Timing_engraver}.
 
 
 @refbugs
 
-Automatic beaming does not use measure grouping specified with
+Automatic beaming does not use the measure grouping specified with
 @code{set-time-signature}.
 
 @node Partial measures
@@ -1135,17 +1127,14 @@ connected between different staves of a @internalsref{StaffGroup}:
 \new Staff { \clef bass c2 c2 } >>
 @end lilypond
 
-
-The command @code{\bar @var{bartype}} is a short cut for doing
-@code{\set Score.whichBar = @var{bartype}} Whenever
-@code{whichBar} is set to a string, a bar line of that type is
-created.  At the start of a measure it is set to
+A bar line is created whenever the @code{whichBar} property is set.
+At the start of a measure it is set to the contents of
 @code{defaultBarType}. The contents of @code{repeatCommands} are used
 to override default measure bars.
 
-Property @code{whichBar} can also be set directly, using @code{\set} 
-or @code{\bar}.  These settings take precedence over the automatic
-@code{whichBar} settings. 
+The command @code{\bar }@var{bartype} is a short cut for doing
+@code{\set Timing.whichBar = }@var{bartype}.  Whenever @code{whichBar}
+is set to a string, a bar line of that type is created.
 
 @cindex whichBar
 @cindex repeatCommands
@@ -1161,7 +1150,7 @@ You are encouraged to use @code{\repeat} for repetitions.  See
 In this manual: @ref{Repeats}.
 
 
-Internals: the bar line objects that are created at
+Program reference: the bar line objects that are created at
 @internalsref{Staff} level are called @internalsref{BarLine}, the bar
 lines that span staves are @internalsref{SpanBar}s.
 
@@ -1283,7 +1272,7 @@ voices have @code{\shiftOn}, @code{\shiftOnn}, etc.
 
 @seealso
 
-Internals: the objects responsible for resolving collisions are
+Program reference: the objects responsible for resolving collisions are
 @internalsref{NoteCollision} and @internalsref{RestCollision}.
 
 Examples: See also example files
@@ -1301,8 +1290,9 @@ are handled. When LilyPond cannot cope, the @code{force-hshift}
 property of the @internalsref{NoteColumn} object and pitched rests can
 be used to override typesetting decisions.
 
-When using @code{merge-differently-headed} with an upstem 8th or a shorter
-note, and a downstem half note, the 8th note gets the wrong offset.
+When using @code{merge-differently-headed} with an upstem eighth or a
+shorter note, and a downstem half note, the eighth note gets the wrong
+offset.
 
 There is no support for clusters where the same note occurs with
 different accidentals in the same chord. In this case, it is
@@ -1313,14 +1303,14 @@ notation (see @ref{Clusters}).
 @section Beaming
 
 Beams are used to group short notes into chunks that are aligned with
-the metrum. They are inserted automatically in most cases:
+the metrum. They are inserted automatically
 
 @lilypond[fragment,verbatim,relative=2]
 \time 2/4 c8 c c c \time 6/8 c c c c8. c16  c8
 @end lilypond
 
 When these automatic decisions are not good enough, beaming can be
-entered explicitly. It is also possible to define  beaming patterns
+entered explicitly. It is also possible to define beaming patterns
 that differ from the defaults.
 
 Individual notes may be marked with @code{\noBeam}, to prevent them
@@ -1333,7 +1323,7 @@ from being beamed:
 
 @seealso
 
-Internals: @internalsref{Beam}. 
+Program reference: @internalsref{Beam}. 
 
 
 @cindex Automatic beams
@@ -1362,10 +1352,10 @@ point are marked with @code{[} and @code{]}:
 @cindex @code{stemLeftBeamCount}
 
 Normally, beaming patterns within a beam are determined automatically.
-When this mechanism fouls up, the properties
-@code{stemLeftBeamCount} and @code{stemRightBeamCount} can
-be used to control the beam subdivision on a stem.  If either property
-is set, its value will be used only once, and then it is erased:
+If necessary, the properties @code{stemLeftBeamCount} and
+@code{stemRightBeamCount} can be used to override the defaults.  If
+either property is set, its value will be used only once, and then it
+is erased:
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
@@ -1378,9 +1368,7 @@ is set, its value will be used only once, and then it is erased:
 
 The property @code{subdivideBeams} can be set in order to subdivide
 all 16th or shorter beams at beat positions, as defined by the
-@code{beatLength} property.  This accomplishes the same effect as
-twiddling with @code{stemLeftBeamCount} and @code{stemRightBeamCount},
-but it take less typing:
+@code{beatLength} property.
 
 
 @lilypond[relative=1,verbatim,noindent]
@@ -1412,7 +1400,8 @@ behavior can be changed by setting @code{allowBeamBreak}.
 
 @cindex Frenched staves
 
-Automatically kneed beams cannot be used together with hidden staves.
+Automatically kneed cross-staff beams cannot be used together with
+hidden staves.
 
 
 
@@ -1434,26 +1423,28 @@ or at durations specified by the properties in
 @code{autoBeamSettings}. The defaults for @code{autoBeamSettings}
 are defined in @file{scm/auto-beam.scm}.
 
-The value of @code{autoBeamSettings} is changed with two functions:
+The value of @code{autoBeamSettings} is changed with two functions,
 @example
   #(override-auto-beam-setting
      '(@var{be} @var{p} @var{q} @var{n} @var{m}) @var{a} @var{b}
      [@var{context}])
   #(revert-auto-beam-setting '(@var{be} @var{p} @var{q} @var{n} @var{m}))
 @end example
-Here, @var{be} is the symbol @code{begin} or @code{end}. It determines
-whether the rule applies to begin or end-points.  The quantity
-@var{p}/@var{q} refers to the length of the beamed notes (and `@code{*
-*}' designates notes of any length), @var{n}/@var{M} refers to a time
-signature (wildcards `@code{* *}' may be entered to designate all time
-signatures), @var{a}/@var{b} is a duration.  By default, this command
-changes settings for the current voice. It is also possible to adjust
-settings at higher contexts, by adding a @var{context} argument.
+Here, @var{be} is the symbol @code{begin} or @code{end}, and
+@var{context} is an optional context (default: @code{'Voice}). It
+determines whether the rule applies to begin or end-points.  The
+quantity @var{p}/@var{q} refers to the length of the beamed notes (and
+`@code{* *}' designates notes of any length), @var{n}/@var{M} refers
+to a time signature (wildcards `@code{* *}' may be entered to
+designate all time signatures), @var{a}/@var{b} is a duration.  By
+default, this command changes settings for the current voice. It is
+also possible to adjust settings at higher contexts, by adding a
+@var{context} argument.
 
 For example, if automatic beams should end on every quarter note, use
 the following:
 @example
-   #(override-auto-beam-setting '(end * * * *) 1 4)
+   #(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
 @end example
 Since the duration of a quarter note is 1/4 of a whole note, it is
 entered as @code{(ly:make-moment 1 4)}.
@@ -1489,9 +1480,9 @@ accepting notes, this last beam will not be typeset at all.
 @cindex @code{autoBeaming}
 @cindex lyrics
 
-For melodies that have lyrics, you may want to switch off 
-automatic beaming. This is done by setting @code{autoBeaming} to
-@code{#f}. 
+If beams are used to indicate melismata in songs, then automatic
+beaming should be switched off. This is done by setting
+@code{autoBeaming} to @code{#f}.
 
 @refcommands
 
@@ -1549,7 +1540,7 @@ function. This function is called as follows:
 
 The function takes two arguments: a symbol that denotes the style (in
 the example, @code{modern}), and another symbol that denotes the
-context name (in this example, @code{Staff}). If no context name is
+context name (in this example, @code{Voice}). If no context name is
 supplied, @code{Staff} is the default.
 
 The following styles are supported:
@@ -1611,14 +1602,14 @@ instead.
 
       @cindex @code{modern-voice}
 @item modern-voice
-is used for multivoice accidentals to be read both by musicians
+This rule is used for multivoice accidentals to be read both by musicians
 playing one voice and musicians playing all voices.  Accidentals are
 typeset for each voice, but they @emph{are} canceled across voices in
 the same @internalsref{Staff}.
 
       @cindex @code{modern-voice-cautionary}
 @item modern-voice-cautionary
-is the same as @code{modern-voice}, but with the extra
+This rule is the same as @code{modern-voice}, but with the extra
 accidentals (the ones not typeset by @code{voice}) typeset
 as cautionaries.  Even though all accidentals typeset by
 @code{default} @emph{are} typeset by this variable then
@@ -1626,7 +1617,7 @@ some of them are typeset as cautionaries.
 
 @item piano
       @cindex @code{piano} accidentals
-      20th century practice for piano notation. Very similar to
+This rule reflects      20th century practice for piano notation. Very similar to
       @code{modern} but accidentals also get canceled
       across the staves in the same @internalsref{GrandStaff} or
       @internalsref{PianoStaff}.
@@ -1638,7 +1629,8 @@ some of them are typeset as cautionaries.
 
 @item no-reset
       @cindex @code{no-reset} accidental style
-      Same as @code{default} but with accidentals lasting
+      @c
+      This is the same as @code{default} but with accidentals lasting
       ``forever'' and not only until the next measure:
 @lilypond[raggedright,fragment,verbatim,relative]
       #(set-accidental-style 'no-reset)
@@ -1697,13 +1689,13 @@ voices in the same staff share accidentals, but staves do not.
 
 @seealso
 
-Internals: @internalsref{Accidental_engraver},
+Program reference: @internalsref{Accidental_engraver},
 @internalsref{Accidental}, and @internalsref{AccidentalPlacement}.
 
 
 @refbugs
 
-Currently the simultaneous notes are considered to be entered in
+ Simultaneous notes are considered to be entered in
 sequential mode. This means that in a chord the accidentals are
 typeset as if the notes in the chord happened once at a time - in the
 order in which they appear in the input file.
@@ -1770,15 +1762,15 @@ They are entered using parentheses:
 Slurs avoid crossing stems, and are generally attached to note heads.
 However, in some situations with beams, slurs may be attached to stem
 ends.  If you want to override this layout you can do this through the
-object property @code{attachment} of @internalsref{Slur} in
-@internalsref{Voice} context.  Its value is a pair of symbols, specifying
-the attachment type of the left and right end points:
+object property @code{attachment} of @internalsref{Slur}.  Its value
+is a pair of symbols, specifying the attachment type of the left and
+right end points:
 
 @lilypond[fragment,relative,verbatim]
   \slurUp
-  \override Stem   #'length = #5.5
+  \override Stem #'length = #5.5
   g'8(g g4)
-  \override Slur   #'attachment = #'(stem . stem)
+  \override Slur #'attachment = #'(stem . stem)
   g8( g g4)
 @end lilypond
 
@@ -1789,7 +1781,7 @@ stems might look better:
 @lilypond[fragment,relative,verbatim]
   \stemUp \slurUp
   d32( d'4 d8..)
-  \override Slur   #'attachment = #'(stem . stem)
+  \override Slur #'attachment = #'(stem . stem)
   d,32( d'4 d8..)
 @end lilypond
 
@@ -1809,12 +1801,12 @@ stems might look better:
 
 @seealso
 
-Internals: @seeinternals{Slur}, and @internalsref{SlurEvent}.
+Program reference: @seeinternals{Slur}, and @internalsref{SlurEvent}.
 
 
 @refbugs
 
-Producing nice slurs is a difficult problem, and LilyPond currently
+Producing nice slurs is a difficult problem, and LilyPond 
 uses a simple, empiric method to produce slurs. In some cases, its
 results are ugly.
 
@@ -1855,7 +1847,7 @@ will only affect normal slurs and not phrasing slurs.
 
 @seealso
 
-Internals: see also @internalsref{PhrasingSlur}, and
+Program reference: see also @internalsref{PhrasingSlur}, and
 @internalsref{PhrasingSlurEvent}.
 
 @refbugs
@@ -1873,12 +1865,12 @@ Breath marks are entered using @code{\breathe}:
 c'4 \breathe d4
 @end lilypond
 
-The glyph of the breath mark can be tweaked by overriding the
+The glyph of the breath mark can be tuned by overriding the
 @code{text} property of the @code{BreathingSign} layout object with
 any markup text.   For example,
 @lilypond[fragment,verbatim,relative]
 c'4
-\override BreathingSign   #'text
+\override BreathingSign #'text
  = #(make-musicglyph-markup "scripts-rvarcomma")
 \breathe
 d4
@@ -1886,7 +1878,7 @@ d4
 
 @seealso 
 
-Internals: @internalsref{BreathingSign},
+Program reference: @internalsref{BreathingSign},
 @internalsref{BreathingSignEvent}.
 
 Examples: @inputfileref{input/regression,breathing-sign.ly}.
@@ -1913,7 +1905,7 @@ paper output, a metronome marking is printed:
 
 @seealso
 
-Internals: @internalsref{MetronomeChangeEvent}.
+Program reference: @internalsref{MetronomeChangeEvent}.
   
 
 
@@ -1932,8 +1924,8 @@ properties:
 
 @lilypond[fragment,relative,verbatim]
  \relative c' {  c1 
-  \override TextSpanner   #'direction = #-1
-  \override TextSpanner   #'edge-text = #'("rall " . "")
+  \override TextSpanner #'direction = #-1
+  \override TextSpanner #'edge-text = #'("rall " . "")
   c2\startTextSpan b c\stopTextSpan a }
 @end lilypond
 
@@ -1973,7 +1965,7 @@ To use this, add the @internalsref{Horizontal_bracket_engraver} to
 
 @seealso
 
-Internals: @internalsref{HorizontalBracket},
+Program reference: @internalsref{HorizontalBracket},
 @internalsref{NoteGroupingEvent}.
 
 Examples: @inputfileref{input/regression,note-group-bracket.ly}. 
@@ -1994,7 +1986,7 @@ articulation. They are demonstrated here:
 
 @lilypondfile[]{script-abbreviations.ly}
 
-The meanings of these shorthands can be changed: see
+The meanings of these shorthands can be changed. See
 @file{ly/script-init.ly} for examples.
 
 
@@ -2059,7 +2051,7 @@ e.g.
 
 @seealso
 
-Internals: @internalsref{ScriptEvent}, and @internalsref{Script}.
+Program reference: @internalsref{ScriptEvent}, and @internalsref{Script}.
 
 @refbugs
 
@@ -2080,7 +2072,7 @@ For finger changes, use markup texts:
 @c
 @lilypond[verbatim,raggedright,fragment]
       c'4-1 c'4-2 c'4-3 c'4-4
-      c'^\markup { \fontsize #-3 \number "2-3" }
+      c'^\markup { \finger "2-3" }
 @end lilypond
 
 @cindex finger change
@@ -2092,8 +2084,7 @@ You can use the thumb-script to indicate that a note should be
 played with the thumb (e.g. in cello music):
 
 @lilypond[verbatim,raggedright,fragment]
-      <a' a''-3>8(_\thumb <b' b''-3>)_\thumb
-      <c'' c'''-3>(_\thumb <d'' d'''-3>)_\thumb
+      <a' a''-3>8_\thumb <b' b''-3>_\thumb
 @end lilypond
 
 Fingerings for chords can also be added to individual notes
@@ -2111,14 +2102,16 @@ to note heads:
 	<c-1 es-2 g-4 bes-5 > 4
 	\set fingeringOrientations = #'(up right down)
 	<c-1 es-2 g-4 bes-5 > 4
+	\set fingeringOrientations = #'(right)
+	<es-2>4
 @end lilypond
 
-By using single note chords,  fingering instructions can be put close
-to note heads in monophonic music.
+The last note demonstrates how fingering instructions can be put close
+to note heads in monophonic music, using this feature.
         
 @seealso
 
-Internals: @internalsref{FingerEvent}, and @internalsref{Fingering}.
+Program reference: @internalsref{FingerEvent}, and @internalsref{Fingering}.
 
 Examples: @inputfileref{input/regression,finger-chords.ly}.
 
@@ -2154,7 +2147,7 @@ longer be computed.
 
 In this manual: @ref{Text markup}.
 
-Internals: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
+Program reference: @internalsref{TextScriptEvent}, @internalsref{TextScript}.
 
 
 
@@ -2256,7 +2249,7 @@ for example,
 @lilypond[fragment,verbatim,relative=1]
 \new Voice {
     \acciaccatura {
-      \override Stem   #'direction = #-1
+      \override Stem #'direction = #-1
       f16->
       \revert Stem #'direction
     }
@@ -2290,7 +2283,7 @@ Another option is to change the variables @code{startGraceMusic},
 
 @seealso
 
-Internals: @internalsref{GraceMusic}.
+Program reference: @internalsref{GraceMusic}.
 
 @refbugs
 
@@ -2331,7 +2324,7 @@ a note:
 
 @seealso
 
-Internals: @internalsref{Glissando}, and @internalsref{GlissandoEvent}.
+Program reference: @internalsref{Glissando}, and @internalsref{GlissandoEvent}.
 
 
 @refbugs
@@ -2436,7 +2429,7 @@ You can also supply your own texts:
 
 @seealso
 
-Internals: @internalsref{CrescendoEvent}, @internalsref{DecrescendoEvent}, and
+Program reference: @internalsref{CrescendoEvent}, @internalsref{DecrescendoEvent}, and
 @internalsref{AbsoluteDynamicEvent}.
 
 Dynamics are objects of @internalsref{DynamicText} and
@@ -2609,7 +2602,7 @@ alphabetic characters. Or,
 
 @seealso
 
-Internals: @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
+Program reference: @internalsref{VoltaBracket}, @internalsref{RepeatedMusic},
 @internalsref{VoltaRepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}, and
 @internalsref{FoldedRepeatedMusic}.
@@ -2643,7 +2636,7 @@ A similar mechanism  is the tremolo subdivision, described in
 
 In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
-Internals: tremolo beams are @internalsref{Beam} objects. Single stem
+Program reference: tremolo beams are @internalsref{Beam} objects. Single stem
 tremolos are @internalsref{StemTremolo} objects.  The music expression is
 @internalsref{TremoloEvent}.
 
@@ -2696,7 +2689,7 @@ patterns that divide the measure length are replaced by slashes:
 
 @seealso
 
-Internals: @internalsref{RepeatSlash}, @internalsref{PercentRepeat},
+Program reference: @internalsref{RepeatSlash}, @internalsref{PercentRepeat},
 @internalsref{PercentRepeatedMusic}, and
 @internalsref{DoublePercentRepeat}.
 
@@ -2729,7 +2722,7 @@ staff are squashed, and the staff itself has a single line:
 
 @seealso
 
-Internals: @internalsref{RhythmicStaff}.
+Program reference: @internalsref{RhythmicStaff}.
 
 Examples: @inputfileref{input/regression,rhythmic-staff.ly}.
 
@@ -2755,7 +2748,7 @@ The complete list of drum names is in the init file
 
 @seealso
 
-Internals: @internalsref{DrumNoteEvent}.
+Program reference: @internalsref{DrumNoteEvent}.
 
 @node Percussion staves
 @subsection Percussion staves
@@ -2955,7 +2948,7 @@ down = \drums { bd4 sn bd toml8 toml }
 
 Init files: @file{ly/drumpitch-init.ly}.
 
-Internals: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
+Program reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 
 @refbugs
 
@@ -3044,7 +3037,7 @@ terminating too soon.
 
 In this manual: @ref{Manual staff switches}.
 
-Internals: @internalsref{AutoChangeMusic}.
+Program reference: @internalsref{AutoChangeMusic}.
 
 
 
@@ -3200,7 +3193,7 @@ arpeggiate the chord:
 
 @seealso
 
-Internals: @internalsref{ArpeggioEvent} music expressions lead to
+Program reference: @internalsref{ArpeggioEvent} music expressions lead to
 @internalsref{Arpeggio} objects.  Cross staff arpeggios are
 @internalsref{PianoStaff}.@internalsref{Arpeggio}.
 
@@ -3332,7 +3325,7 @@ next one. Such a line is called an extender line, and it is entered as
 
 @seealso
 
-Internals: @internalsref{LyricEvent}, @internalsref{HyphenEvent}, and
+Program reference: @internalsref{LyricEvent}, @internalsref{HyphenEvent}, and
 @internalsref{ExtenderEvent}.
 
 Examples: @inputfileref{input/test,lyric-hyphen-retain.ly}.
@@ -3443,7 +3436,7 @@ A complete example of a SATB score setup is in the file
 
 @seealso
 
-Internals: Music expressions: @internalsref{LyricCombineMusic},
+Program reference: Music expressions: @internalsref{LyricCombineMusic},
 Contexts: @internalsref{Lyrics}, @internalsref{Melisma_translator}.
 
 Examples: @inputfileref{input/template,satb.ly},
@@ -3533,7 +3526,7 @@ To make empty spaces in lyrics, use @code{\skip}.
 
 @seealso
 
-Internals: Layout objects @internalsref{LyricText} and
+Program reference: Layout objects @internalsref{LyricText} and
 @internalsref{VocalName}.  Music expressions:
 @internalsref{LyricEvent}.
 
@@ -3634,7 +3627,7 @@ example is in @inputfileref{input/test,ambitus-mixed.ly}.
 
 @seealso
 
-Internals: @internalsref{Ambitus}.
+Program reference: @internalsref{Ambitus}.
 
 Examples:  @inputfileref{input/regression,ambitus.ly},
 @inputfileref{input/test,ambitus-mixed.ly}.
@@ -3704,7 +3697,7 @@ frag = \notes {
 
 @seealso
 
-Internals: @internalsref{TabStaff}, @internalsref{TabVoice}, and
+Program reference: @internalsref{TabStaff}, @internalsref{TabVoice}, and
 @internalsref{StringNumberEvent}.
 
 @refbugs
@@ -4170,7 +4163,7 @@ that behavior:
 
 @seealso
 
-Internals: @internalsref{MarkEvent}, @internalsref{RehearsalMark}.
+Program reference: @internalsref{MarkEvent}, @internalsref{RehearsalMark}.
 
 Init files: @file{scm/translation-functions.scm} contains the
 definition of @code{format-mark-numbers} and
@@ -4204,7 +4197,7 @@ whose source is available as
 
 @seealso
 
-Internals: @internalsref{BarNumber}.
+Program reference: @internalsref{BarNumber}.
 
 Examples: @inputfileref{input/test,bar-number-every-five-reset.ly},
 and @inputfileref{input/test,bar-number-regular-interval.ly}.
@@ -4253,7 +4246,7 @@ names:
 
 @seealso
 
-Internals: @internalsref{InstrumentName}.
+Program reference: @internalsref{InstrumentName}.
 
 @refbugs
 
@@ -4312,7 +4305,7 @@ mus =\notes { \key d \major cis d fis g }
 
 @seealso
 
-Internals: @internalsref{TransposedMusic}, and
+Program reference: @internalsref{TransposedMusic}, and
 @internalsref{UntransposableMusic}.
 
 @refbugs
@@ -4409,7 +4402,7 @@ attach the text to a zero-length skip note, i.e.
 
 @seealso
 
-Internals: @internalsref{MultiMeasureRestEvent},
+Program reference: @internalsref{MultiMeasureRestEvent},
 @internalsref{MultiMeasureTextEvent},
 @internalsref{MultiMeasureRestMusicGroup}, and
 @internalsref{MultiMeasureRest}.
@@ -4497,7 +4490,7 @@ may set the property @var{soloADue} to false:
 
 @seealso
 
-Internals: @internalsref{PartCombineMusic},
+Program reference: @internalsref{PartCombineMusic},
 @internalsref{SoloOneEvent}, and
 @internalsref{SoloTwoEvent}, and
 @internalsref{UnisonoEvent}.
@@ -4681,7 +4674,7 @@ In this manual: @ref{Instrument transpositions}.
 Examples: @inputfileref{input/regression,quote.ly}
 @inputfileref{input/regression,quote-transposition.ly}
 
-Internals: @internalsref{QuoteMusic}.
+Program reference: @internalsref{QuoteMusic}.
 
 @node Ancient notation
 @section Ancient notation
@@ -4772,7 +4765,7 @@ printings of the 16th century.
 The following example demonstrates the @code{neo_mensural} style:
 
 @lilypond[fragment,raggedright,verbatim]
-  \override NoteHead   #'style = #'neo_mensural
+  \override NoteHead #'style = #'neo_mensural
   a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
@@ -4865,7 +4858,7 @@ In this manual: @ref{Pitches}, @ref{Chromatic alterations} and
 accidentals.  @ref{Key signature} gives a general introduction into
 the use of key signatures.
 
-Internals: @internalsref{KeySignature}.
+Program reference: @internalsref{KeySignature}.
 
 Examples: @inputfileref{input/test,ancient-accidentals.ly}.
 
@@ -4887,7 +4880,7 @@ in historic prints of the 16th century.
 The following example demonstrates the @code{neo_mensural} style:
 
 @lilypond[fragment,raggedright,verbatim]
-  \override Rest   #'style = #'neo_mensural
+  \override Rest #'style = #'neo_mensural
   r\longa r\breve r1 r2 r4 r8 r16
 @end lilypond
 
@@ -5114,7 +5107,7 @@ beams, depending on which staff line it is printed.
 In this manual: for the percussion clef, see @ref{Percussion staves}.
 For the @code{TAB} clef, see @ref{Tablatures}.
 
-Internals: for modern clefs, see @ref{Clef}.
+Program reference: for modern clefs, see @ref{Clef}.
 
 @refbugs
 
@@ -5134,9 +5127,9 @@ select ancient flags.  Besides the @code{default} flag style,
  only @code{mensural} style is supported:
 
 @lilypond[fragment,raggedright,verbatim]
-  \override Stem   #'flag-style = #'mensural
-  \override Stem   #'thickness = #1.0
-  \override NoteHead   #'style = #'mensural
+  \override Stem #'flag-style = #'mensural
+  \override Stem #'thickness = #1.0
+  \override NoteHead #'style = #'mensural
   \autoBeamOff
   c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
   c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
@@ -5150,10 +5143,10 @@ of the end of each flare is different between notes on staff lines and
 notes between staff lines:
 
 @lilypond[fragment,raggedright]
-  \override Stem   #'flag-style = #'mensural
-  \override Stem   #'thickness = #1.0
-  \override Stem   #'adjust-if-on-staffline = ##f
-  \override NoteHead   #'style = #'mensural
+  \override Stem #'flag-style = #'mensural
+  \override Stem #'thickness = #1.0
+  \override Stem #'adjust-if-on-staffline = ##f
+  \override NoteHead #'style = #'mensural
   \autoBeamOff
   c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
   c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
@@ -5238,7 +5231,7 @@ ancient and modern styles.
 
 @seealso
 
-Internals: @ref{Time signature} gives a general introduction into the use of time
+Program reference: @ref{Time signature} gives a general introduction into the use of time
 signatures.
 
 @refbugs
@@ -5390,7 +5383,7 @@ extensions and should not be used.
 
 @seealso
 
-Internals: @internalsref{Custos}.
+Program reference: @internalsref{Custos}.
 
 Examples: @inputfileref{input/regression,custos.ly}.
 
@@ -5441,7 +5434,7 @@ Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
 
 In this manual: @ref{Breath marks}.
 
-Internals: @internalsref{BreathingSign}, @internalsref{BreathingSignEvent}.
+Program reference: @internalsref{BreathingSign}, @internalsref{BreathingSignEvent}.
 
 Examples: @inputfileref{input/test,divisiones.ly}.
 
@@ -5542,7 +5535,7 @@ For example,
 @example
         \set Score.timing = ##f
         \set Score.defaultBarType = "empty"
-        \override NoteHead   #'style = #'neo_mensural
+        \override NoteHead #'style = #'neo_mensural
         \override Staff.TimeSignature   #'style = #'neo_mensural
         \clef "petrucci_g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
@@ -5554,7 +5547,7 @@ For example,
     \notes \transpose c c' {
         \set Score.timing = ##f
         \set Score.defaultBarType = "empty"
-        \override NoteHead   #'style = #'neo_mensural
+        \override NoteHead #'style = #'neo_mensural
         \override Staff.TimeSignature   #'style = #'neo_mensural
         \clef "petrucci_g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
@@ -5580,7 +5573,7 @@ to the following:
     \notes \transpose c c' {
         \set Score.timing = ##f
         \set Score.defaultBarType = "empty"
-        \override NoteHead   #'style = #'neo_mensural
+        \override NoteHead #'style = #'neo_mensural
         \override Staff.TimeSignature   #'style = #'neo_mensural
         \clef "petrucci_g"
         \[ g\longa c\breve a\breve f\breve d'\longa \]
@@ -7320,7 +7313,7 @@ vertical spacing of the figures may be set with @code{baseline-skip}.
 
 @seealso
 
-Internals: @internalsref{BassFigureEvent} music, @internalsref{BassFigure} object, 
+Program reference: @internalsref{BassFigureEvent} music, @internalsref{BassFigure} object, 
 and @internalsref{FiguredBass} context.
 
 @refbugs
@@ -7406,7 +7399,7 @@ ordinary notes and clusters.
 
 @seealso
 
-Internals: @internalsref{ClusterSpanner},
+Program reference: @internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
 @internalsref{Cluster_spanner_engraver}, and
 @internalsref{ClusterNoteEvent}.
@@ -7501,7 +7494,7 @@ the `balloon.'
 
 @seealso
 
-Internals: @internalsref{text-balloon-interface}.
+Program reference: @internalsref{text-balloon-interface}.
 
 Examples: @inputfileref{input/regression,balloon.ly}.
 

@@ -1104,6 +1104,7 @@
      . (
 	(print-function . ,Text_spanner::print)
 	(font-family . roman)
+	(font-shape . italic)
 	(style . dashed-line)
 	(staff-padding . 0.1)
 	

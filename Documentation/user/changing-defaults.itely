@@ -1565,7 +1565,7 @@ do anything.
 The default output format is La@TeX{}, which should be run
 through La@TeX{}.  Using the option @option{-f}
 (or @option{--format}) other output formats can be selected also, but
-currently none of them work reliably.
+ none of them work reliably.
 
 At the beginning of the output file, various global parameters are
 defined.  Then the file @file{lilyponddefs.tex} is loaded to define
