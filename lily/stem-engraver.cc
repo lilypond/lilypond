@@ -105,6 +105,10 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 						gh_int2scm (tremolo_flags));
 		}
 	    }
+
+	  /*
+	    We announce the cause of the head as cause of the stem.
+	    The stem needs a rhythmic structure to fit it into a beam.  */
 	  announce_grob (stem_p_, i.music_cause ());
 	}
 

@@ -205,10 +205,10 @@
 	(tuplet . ((font-family . roman) (font-shape . italic) (font-relative-size . -1)))
 
 	(timesig . ((font-family . number) ))
-	(timesig-symbol . ((font-family . music) (font-relative-size . 0)))
+	(timesig-symbol . ((font-family . music) ))
 	
-	(mmrest . ((font-family . number) (font-relative-size . 1)))
-	(mmrest-symbol . ((font-family . music) (font-relative-size . 0)))
+	(mmrest . ((font-family . number) ))
+	(mmrest-symbol . ((font-family . music) ))
 
 	(mark . ((font-family . number) (font-relative-size . 1)))
 	(script . ((font-family . roman) (font-relative-size . -1)))

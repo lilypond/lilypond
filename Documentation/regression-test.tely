@@ -165,6 +165,8 @@ Grace note do weird things with timing. Fragile.
 
 @lilypondfile[printfilename]{tie.ly}
 
+@lilypondfile[printfilename]{tie-busy-grobs.ly}
+
 @lilypondfile[printfilename]{tie-chord.ly}
 
 @lilypondfile[printfilename]{tie-accidental.ly}

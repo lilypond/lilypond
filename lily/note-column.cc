@@ -37,7 +37,6 @@ Note_column::shift_compare (Grob *const &p1, Grob *const&p2)
 void
 Note_column::set_interface (Grob* me)
 {
-  me->set_grob_property ("note-heads", SCM_EOL);  
   me->set_interface (ly_symbol2scm ("note-column-interface"));
   
   Axis_group_interface::set_interface (me);
@@ -139,4 +138,22 @@ bool
 Note_column::has_interface (Grob*me)
 {
   return me && me->has_interface (ly_symbol2scm ("note-column-interface"));
+}
+
+/*
+  Return the first Accidentals grob that we find in a note-head. 
+ */
+Grob* 
+Note_column::accidentals (Grob *me)
+{
+  SCM heads = me->get_grob_property ("note-heads");
+  for (;gh_pair_p (heads); heads =gh_cdr (heads))
+    {
+      Grob * h = unsmob_grob (gh_car (heads));
+      Grob *a = h ? unsmob_grob(h->get_grob_property ("accidentals")) : 0;
+      if (a)
+	return a;
+    }
+
+  return 0;
 }

@@ -247,7 +247,7 @@ static void
 static_each (SCM list, Method_pointer method)
 {
   for (SCM p = list; gh_pair_p (p); p = ly_cdr (p))
- (unsmob_translator (ly_car (p))->*method) ();
+    (unsmob_translator (ly_car (p))->*method) ();
   
 }
 

@@ -19,9 +19,6 @@ class Paper_column : public Item
 public:
   VIRTUAL_COPY_CONS (Grob);
 
-  /*
-    Not (yet) in scm, because of messy effects when a column commits suicide.
-   */
   int  rank_i_;
   virtual void do_break_processing ();
   virtual Paper_column *column_l () const;
@@ -30,9 +27,10 @@ public:
   /// if lines are broken then this column is in #line#
   Line_of_score *line_l_;
 
-  /// which  one (left =0)
   static int rank_i (Grob*);
 
+  DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM));
+  
   Paper_column (SCM);
   static bool musical_b (Grob *);
   static Moment when_mom (Grob*);

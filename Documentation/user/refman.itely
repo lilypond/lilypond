@@ -141,7 +141,7 @@ brevity we omit obligatory lint such as @code{\score} blocks and
 * Notes::                       
 * Pitches::                     
 * Rests::                       
-* Skips::
+* Skips::                       
 * Durations::                   
 * Ties::                        
 * Tuplets::                     
@@ -2512,8 +2512,20 @@ The grob is @internalsref{RehearsalMark} in @internalsref{Score} context. See
 @node Bar numbers
 @subsection Bar numbers
 
-Bar numbers (grob: @internalsref{BarNumber}) are printed at the start of the
-line. See @code{input/test/boxed-molecule.ly} for boxed bar numbers.
+
+@cindex bar numbers
+@cindex measure numbers
+@cindex currentBarNumber
+
+Bar numbers are @internalsref{BarNumber} grobs.  They are printed at the
+start of the line.  The number itself is a property that can be set by
+modifying the @code{currentBarNumber} property, i.e.
+@example
+  \property Score.currentBarNumber = #217
+@end example
+
+If you want boxed bar numbers, see the example file
+@code{input/test/boxed-molecule.ly}.
 
 @refbugs
 

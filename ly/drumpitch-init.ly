@@ -116,7 +116,7 @@
 #(define timbales `(
 	(losidestick	  cross		,#f	  ,(make-pitch -1 6 0))
 	(lotimbale	  default	,#f	  ,(make-pitch -1 6 0))
-	(cowbell	  triangle	,#f	  ,(make-pitch 0 0 0))
+	(cowbell	  triangle	,#f	  ,(make-pitch 0 2 0))
 	(hisidestick	  cross		,#f	  ,(make-pitch 0 1 0))
 	(hitimbale	  default	,#f	  ,(make-pitch 0 1 0))
  ))
@@ -137,18 +137,21 @@
 	(hibongo	  default	,#f	  ,(make-pitch 0 1 0))
  ))
 
-#(define guiro `(
-	(shortguiro	  default	"staccato",(make-pitch 0 0 0))
-	(longguiro	  default	"tenuto"  ,(make-pitch 0 0 0))
-	(guiro		  default	,#f	  ,(make-pitch 0 0 0))
- ))
 
-#(define triangle `(
+#(define percussion `(
 	(opentriangle	  cross		"open"	  ,(make-pitch 0 0 0))
 	(mutetriangle	  cross		"stopped" ,(make-pitch 0 0 0))
 	(triangle	  cross		,#f	  ,(make-pitch 0 0 0))
+	(shortguiro	  default	"staccato",(make-pitch 0 0 0))
+	(longguiro	  default	"tenuto"  ,(make-pitch 0 0 0))
+	(guiro		  default	,#f	  ,(make-pitch 0 0 0))
+	(cowbell	  triangle	,#f	  ,(make-pitch 0 0 0))
+	(claves		  default	,#f	  ,(make-pitch 0 0 0))
+	(tambourine	  default	,#f	  ,(make-pitch 0 0 0))
+	(cabasa		  cross		,#f	  ,(make-pitch 0 0 0))
+	(maracas	  default	,#f	  ,(make-pitch 0 0 0))
+	(handclap	  default	,#f	  ,(make-pitch 0 0 0))
  ))
-
 
 
 \pitchnames

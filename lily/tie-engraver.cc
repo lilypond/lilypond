@@ -8,39 +8,40 @@
  */
 
 #include "command-request.hh"
-#include "rhythmic-head.hh"
 #include "musical-request.hh"
 #include "tie.hh"
 #include "translator-group.hh"
 #include "spanner.hh"
 #include "tie-column.hh"
-#include "pqueue.hh"
 #include "engraver.hh"
 #include "item.hh"
 #include "grob-pitch-tuple.hh"
-
+#include "note-head.hh"
 
 /**
    Manufacture ties.  Acknowledge noteheads, and put them into a
    priority queue. If we have a Tie_req, connect the notes that finish
    just at this time, and note that start at this time.
 
-   TODO: junk the pq; the PQ is overkill if we assume that no
-   different durations occur in parallel.
-
    TODO: Remove the dependency on musical info. We should tie on the
    basis of position and duration-log of the heads (not of the reqs).
 
+
+   TODO: figure this out: currently, this engravers ties note heads
+   that have the same Y-position (and does not look at pitch). This
+   means that we will fuck up with a clef-change. How should
+   clef-changes during ties be handled, or should they not?
+
+   
 */
 class Tie_engraver : public Engraver
 {
-  PQueue<Grob_pitch_tuple> past_notes_pq_;
   Moment end_mom_;
   Moment next_end_mom_;
 
   Tie_req *req_l_;
-  Array<Grob_pitch_tuple> now_heads_;
-  Array<Grob_pitch_tuple> stopped_heads_;
+  Link_array<Grob> now_heads_;
+  Link_array<Grob> stopped_heads_;
   Link_array<Grob> tie_p_arr_;
 
   Spanner * tie_column_p_;
@@ -96,23 +97,26 @@ Tie_engraver::set_melisma (bool m)
 void
 Tie_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Rhythmic_head::has_interface (i.grob_l_))
+  if (Note_head::has_interface (i.grob_l_))
     {
-      Note_req * m = dynamic_cast<Note_req* > (i.music_cause ());
-      if (!m)
-	return;
-      now_heads_.push (Grob_pitch_tuple (i.grob_l_, m, now_mom () + m->length_mom ()));
+      now_heads_.push (i.grob_l_);
     }
 }
 
+int
+head_position_compare (Grob  *const&a,Grob  *const&b)
+{
+  return sign (gh_scm2double (a->get_grob_property ("staff-position"))
+	       - gh_scm2double (b->get_grob_property ("staff-position")));
+}
 
 void
 Tie_engraver::create_grobs ()
 {
   if (req_l_)
     {
-      now_heads_.sort (Grob_pitch_tuple::pitch_compare);
-      stopped_heads_.sort (Grob_pitch_tuple::pitch_compare);
+      now_heads_.sort (&head_position_compare);
+      stopped_heads_.sort (&head_position_compare);
 
       SCM head_list = SCM_EOL;
       
@@ -122,21 +126,19 @@ Tie_engraver::create_grobs ()
       while (i >= 0 && j >=0)
 	{
 	  int comp
-	    = Pitch::compare (now_heads_[i].pitch_,
-			      stopped_heads_[j].pitch_);
+	    = head_position_compare (now_heads_[i], stopped_heads_[j]);
 
 	  if (comp)
 	    {
- (comp < 0) ? j -- : i--;
+	      (comp < 0) ? j -- : i--;
 	      continue;
 	    }
 	  else
 	    {
-	      head_list  = gh_cons (gh_cons (stopped_heads_[j].head_l_->self_scm (),
-					     now_heads_[i].head_l_->self_scm ()),
+	      head_list  = gh_cons (gh_cons (stopped_heads_[j]->self_scm (),
+					     now_heads_[i]->self_scm ()),
 				    head_list);
 
-	      past_notes_pq_. insert (now_heads_[i]);
 	      now_heads_.del (i);
 	      stopped_heads_.del (j);
 	      i--;
@@ -192,10 +194,7 @@ void
 Tie_engraver::stop_translation_timestep ()
 {
   req_l_ = 0;
-  for (int i=0; i < now_heads_.size (); i++)
-    {
-      past_notes_pq_.insert (now_heads_[i]);
-    }
+
   now_heads_.clear ();
 
   /*
@@ -244,16 +243,24 @@ Tie_engraver::start_translation_timestep ()
       set_melisma (false);
     }
 
-  Moment now = now_mom ();
-  while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
-    past_notes_pq_.delmin ();
-
-
+  SCM grobs = get_property ("busyGrobs");
+  Moment now = now_mom();
   stopped_heads_.clear ();
-  while (past_notes_pq_.size ()
-	 && past_notes_pq_.front ().end_ == now)
-    stopped_heads_.push (past_notes_pq_.get ());
-
+  
+  for (; gh_pair_p (grobs); grobs = gh_cdr (grobs))
+    {
+      Grob * grob  = unsmob_grob (gh_cdar (grobs));
+      Moment end  =*unsmob_moment (gh_caar (grobs));
+      
+      /*
+	This is slightly ugh: we are now confunding the frontend
+	(iterators) and the backend (note heads) */
+      if (end > now)
+	break;
+      else if (end == now
+	       && Note_head::has_interface (grob))
+	stopped_heads_.push (grob);
+    }
 }
 
 

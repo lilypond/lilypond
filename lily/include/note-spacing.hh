@@ -15,7 +15,11 @@ source file of the GNU LilyPond music typesetter
 class Note_spacing
 {
 public:
-  static bool has_interface (Grob*);  
+  static bool has_interface (Grob*);
+
+  static Real get_spacing (Grob *me);
+
+  DECLARE_SCHEME_CALLBACK(before_line_breaking,(SCM));
 };
 
 #endif /* NOTE_SPACING_HH */

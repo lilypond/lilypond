@@ -29,6 +29,7 @@ public:
     JUNKME.
     */
 
+  static Grob * accidentals (Grob*me);
   static Direction dir (Grob*me);
   static Slice head_positions_interval (Grob* me);
   static Direction static_dir (Grob*);

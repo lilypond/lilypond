@@ -14,11 +14,11 @@
 
 Distribution: SuSE Linux 7.0 (i386)
 Name: lilypond
-Version: 1.5.26
+Version: 1.5.27
 Release: 2
 Copyright:    GPL
 Group: Applications/Publishing
-Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.5.26.tar.gz
+Source0: ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-1.5.27.tar.gz
 # music notation software for.. ?
 Summary: A program for printing sheet music.
 URL: http://www.lilypond.org/
@@ -118,7 +118,7 @@ cp tex/titledefs.tex scripts/share/lilypond/tex
 ## end of hack
 
 
-strip lily/out/lilypond midi2ly/out/midi2ly
+strip lily/out/lilypond 
 make prefix="$RPM_BUILD_ROOT%{_prefix}" install
 
 %{INSTALL_DIR} $RPM_BUILD_ROOT/usr/share/texmf/fonts/source/public/lilypond

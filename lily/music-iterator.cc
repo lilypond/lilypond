@@ -161,6 +161,12 @@ Music_iterator::get_iterator_p (Music *m) const
   return p;
 }
 
+/*
+  TODO: rename to prevent confusion between Translator::try_music and
+  Iterator::try_music
+  
+ */
+
 Music_iterator*
 Music_iterator::try_music (Music *m) const
 {

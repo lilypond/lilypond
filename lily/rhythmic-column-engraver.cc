@@ -58,15 +58,6 @@ Rhythmic_column_engraver::create_grobs ()
 	  note_column_ = new Item (get_property ("NoteColumn"));
 	  Note_column::set_interface (note_column_);
 	  announce_grob (note_column_, 0);
-
-	  spacing_ = new Item (get_property ("NoteSpacing"));
-	  spacing_->set_grob_property ("left-item", note_column_->self_scm ());
-	  announce_grob (spacing_, 0);
-
-	  if (last_spacing_)
-	    {
-	      last_spacing_->set_grob_property ("right-item" , note_column_->self_scm ());
-	    }
 	}
 
       for (int i=0; i < rhead_l_arr_.size (); i++)

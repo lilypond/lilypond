@@ -127,13 +127,16 @@ Line_of_score::output_lines ()
     }
 }
 
+
+
+
 /*
   Find the loose columns in POSNS, and drape them around the columns
   specified in BETWEEN-COLS.  */
 void
 set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
 {
-  for (int i = 0; i<posns->loose_cols_.size (); i++)
+  for (int i = 0; i < posns->loose_cols_.size (); i++)
     {
       int divide_over = 1;
       Item *loose = dynamic_cast<Item*> (posns->loose_cols_[i]);
@@ -145,24 +148,30 @@ set_loose_columns (Line_of_score* which, Column_x_positions const *posns)
       
       Item * left = 0;
       Item * right = 0;
-      while (1)
+      do
 	{
 	  SCM between = loose->get_grob_property ("between-cols");
 	  if (!gh_pair_p (between))
 	    break;
 
-	  if (!left)
+
+	  Item * l=dynamic_cast<Item*> (unsmob_grob (ly_car (between)));
+	  Item * r=dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
+
+	  if (!(l && r))
+	    break ;
+	  
+	  if (!left && l)
 	    {
-	      left = dynamic_cast<Item*> (unsmob_grob (ly_car (between)));
-	      left = left->column_l ();
+	      left = l->column_l ();
 	    }
-	  divide_over ++;	
-	  loose = dynamic_cast<Item*> (unsmob_grob (ly_cdr (between)));
-	  loose = loose->column_l ();
+
+	  divide_over ++;
+
+	  loose = right = r->column_l ();
 	}
-
-      right = loose;
-
+      while (1);
+      
       Real rx = right->relative_coordinate (right->get_parent (X_AXIS), X_AXIS);
       Real lx = left->relative_coordinate (left->get_parent (X_AXIS), X_AXIS);
 

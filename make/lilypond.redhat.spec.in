@@ -54,7 +54,7 @@ make web-doc top-web
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/tmp/lilypond-rpm-doc
 
-strip lily/out/lilypond midi2ly/out/midi2ly
+strip lily/out/lilypond 
 make prefix="$RPM_BUILD_ROOT%{_prefix}" install
 
 %if info=="yes"

@@ -24,7 +24,7 @@ class Note_heads_engraver : public Engraver
   
   Link_array<Item> dot_p_arr_;
   Link_array<Note_req> note_req_l_arr_;
-  Moment note_end_mom_;
+
 public:
   TRANSLATOR_DECLARATIONS(Note_heads_engraver);
 
@@ -47,14 +47,13 @@ Note_heads_engraver::try_music (Music *m)
   if (Note_req * n =dynamic_cast <Note_req *> (m))
     {
       note_req_l_arr_.push (n);
-      note_end_mom_  = note_end_mom_ >? now_mom () + m->length_mom ();
-      
       return true;
     }
   else if (dynamic_cast<Busy_playing_req*> (m))
     {
-      return now_mom () < note_end_mom_;
+      return note_req_l_arr_.size ();
     }
+  
   return false;
 }
 

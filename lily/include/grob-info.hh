@@ -30,7 +30,6 @@ struct Grob_info {
     GC errors if you don't use music or grobs as a cause.
   */
   SCM cause_;
-
 public:
   Music * music_cause ();
   Link_array<Translator> origin_trans_l_arr (Translator*) const;

@@ -25,11 +25,12 @@ protected:
   virtual Moment pending_moment () const;
   virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
-
+  
   virtual bool ok () const;
   virtual ~Lyric_combine_music_iterator ();
 
 private:
+  bool get_busy_status ()const ;
   Music_iterator * music_iter_p_;
   Music_iterator * lyric_iter_p_;
 };

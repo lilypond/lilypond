@@ -15,6 +15,27 @@
 #include "axis-group-interface.hh"
 #include "note-spacing.hh"
 
+
+struct Spacings
+{
+  Item * staff_spacing_;
+  Link_array<Item> note_spacings_;
+
+  Spacings ()
+  {
+    staff_spacing_ = 0;
+  }
+
+  bool empty( )const
+  {
+    return !staff_spacing_ && !note_spacings_.size (); 
+  }
+  void clear () {
+    staff_spacing_ = 0;
+    note_spacings_.clear();
+  }
+};
+
 class Separating_line_group_engraver : public Engraver
 {
 protected:
@@ -22,9 +43,8 @@ protected:
   Item * musical_malt_p_;
   Item * last_musical_malt_p_;
 
-  Item * last_note_spacing_;
-  Item * current_note_spacing_;
-  Item * staff_spacing_;
+  Spacings current_spacings_;
+  Spacings last_spacings_;
   
   Spanner * sep_span_p_;
   
@@ -32,16 +52,13 @@ protected:
   virtual void initialize ();
   virtual void finalize ();
   virtual void stop_translation_timestep ();
+  virtual void start_translation_timestep ();  
 public:
   TRANSLATOR_DECLARATIONS(Separating_line_group_engraver);
 };
 
 Separating_line_group_engraver::Separating_line_group_engraver ()
 {
-  last_note_spacing_ = 0;
-  current_note_spacing_ = 0;
-  staff_spacing_ =0;
-  
   sep_span_p_ = 0;
   break_malt_p_ = 0;
   musical_malt_p_ =0;
@@ -59,9 +76,21 @@ Separating_line_group_engraver::initialize ()
 void
 Separating_line_group_engraver::finalize ()
 {
-  sep_span_p_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+  SCM ccol = get_property ("currentCommandColumn");
+  sep_span_p_->set_bound (RIGHT, unsmob_grob (ccol));
   typeset_grob (sep_span_p_);
   sep_span_p_ =0;
+
+  for  (int i= 0 ; i < last_spacings_.note_spacings_.size(); i++)
+    {
+      last_spacings_.note_spacings_[i]->set_grob_property ("right-items", gh_cons (ccol, SCM_EOL));
+    }
+
+  if(last_spacings_.staff_spacing_
+     && last_spacings_.staff_spacing_->column_l () == unsmob_grob (ccol))
+    {
+      last_spacings_.staff_spacing_->suicide ();
+    }
 }
 
 void
@@ -77,7 +106,7 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 
   if (Note_spacing::has_interface (it)) 
     {
-      current_note_spacing_ =  it;
+      current_spacings_.note_spacings_.push (it);
       return ;
     }
   
@@ -95,17 +124,36 @@ Separating_line_group_engraver::acknowledge_grob (Grob_info i)
 
       if (p_ref_ == break_malt_p_)
 	{
-	  staff_spacing_ = new Item (get_property ("StaffSpacing"));
-	  staff_spacing_->set_grob_property ("left-item", break_malt_p_->self_scm ());
-	  announce_grob (staff_spacing_, 0);
+	  Item *it  = new Item (get_property ("StaffSpacing"));
+	  current_spacings_.staff_spacing_ = it;
+	  it->set_grob_property ("left-items", gh_cons (break_malt_p_->self_scm (), SCM_EOL));
+	  
+	  announce_grob (it, 0);
 
-	  if (last_note_spacing_)
-	    last_note_spacing_->set_grob_property ("right-item",
-						   break_malt_p_->self_scm ());
+	  if (int i = last_spacings_.note_spacings_.size ())
+	    {
+	      SCM break_malt = gh_cons (break_malt_p_->self_scm (), SCM_EOL);
+	      for (; i--;)
+		last_spacings_.note_spacings_[i]
+		  ->set_grob_property ("right-items",break_malt);
+				     
+	    }
+	  else if (last_spacings_.staff_spacing_)
+	    {
+	      
+	      last_spacings_.staff_spacing_->set_grob_property ("right-items",
+								gh_cons (break_malt_p_->self_scm(), SCM_EOL));
+	    }
 	}
     }
 
   Separation_item::add_item (p_ref_,it);
+}
+
+void
+Separating_line_group_engraver::start_translation_timestep ()
+{
+
 }
 
 void
@@ -119,23 +167,30 @@ Separating_line_group_engraver::stop_translation_timestep ()
       break_malt_p_ =0;
     }
 
-  if (staff_spacing_)
+  if (Item * sp = current_spacings_.staff_spacing_)
     {
+      /*
+	TODO: should really look at the left-items of following
+	note-spacing grobs.
+       */
       if (musical_malt_p_)
-	staff_spacing_->set_grob_property ("right-item", musical_malt_p_->self_scm());
+	sp->set_grob_property ("right-items", musical_malt_p_->self_scm());
 
-      typeset_grob (staff_spacing_);
-      staff_spacing_ = 0;
+      typeset_grob (sp);
     }
+
+  if (!current_spacings_.empty ())
+    {
+      last_spacings_ = current_spacings_;
+    }
+
+  current_spacings_.clear ();
   
   if (musical_malt_p_)
     {
       Separating_group_spanner::add_spacing_unit (sep_span_p_, musical_malt_p_);
       typeset_grob (musical_malt_p_);
     }
-
-  last_note_spacing_ = current_note_spacing_ ;
-  current_note_spacing_ =0 ;
   
   musical_malt_p_ =0;
 }
