@@ -84,6 +84,7 @@ class Lyric_combine_music;
 class Lyric_combine_music_iterator;
 class Lyric_engraver;
 class Lyric_performer;
+class Lyric_phrasing_engraver;
 class Lyric_req;
 class Mark_req;
 class Melisma_playing_req;
