@@ -1,3 +1,23 @@
+lilypond (1.3.150-1) unstable; urgency=low
+
+  * New upstream version.
+  * Renamed package from lilypond1.3 back to lilypond.
+    This also fixes a lot of bugs from the old lilypond-1.2.17 package.
+    lilypond1.3 is temporarily provided as a dummy transitional package.
+    Closes: Bug#67697, 84352, 48731, 72223, 85834.
+  * [debian/rules]:
+     - No longer blindly copy intermediate DVI files into
+       the deb package.  Thanks to Daniel Burrows for the reminder.
+       Closes: Bug#87852.
+     - Added "export MODE=ljfour" and "export BDPI=600" because I use
+       something different in my local /etc/texmf/mktex.cnf and that
+       broke the build.
+  * Fixed Build-Depends because pnmtopng has been merged into the netpbm
+    package.  Thanks to Adrian Bunk for the notice.  Closes: Bug#93961.
+  * [lily/kpath.cc]: Modified to better conform to web2c fontpath policy.
+
+ -- Anthony Fok <foka@debian.org>  Thu, 26 Apr 2001 03:25:50 -0600
+
 lilypond1.3 (1.3.132-1) unstable; urgency=medium
 
   * New upstream version.

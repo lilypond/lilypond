@@ -69,7 +69,9 @@ ly_init_kpath (char *av0)
     
   */
 #ifndef __CYGWIN__  /* mktextfm/mktexpk does not work on windows */
+#ifndef DEBIAN
   unsetenv ("TFMFONTS");
+#endif
 #endif
 
   /*
@@ -78,14 +80,20 @@ ly_init_kpath (char *av0)
   kpse_set_program_name (av0, NULL);
   kpse_maketex_option ("tfm", TRUE);
 
+#ifdef DEBIAN
+  String my_tfm = "$VARTEXFONTS/tfm/public/lilypond";
+#else
   String my_tfm = "$VARTEXFONTS/tfm/lilypond/";
   my_tfm += version_str () + "/";
+#endif
 
-  char * mypath = kpse_expand (my_tfm.ch_C ());
+  char * mypath = kpse_expand ((my_tfm + ":").ch_C ());
+#ifndef DEBIAN
   String prog = "mktextfm --destdir ";
   prog += mypath;
   
   kpse_format_info[kpse_tfm_format].program = strdup (prog.ch_C ());
+#endif
   kpse_format_info[kpse_tfm_format].client_path = mypath;
 #endif
 }

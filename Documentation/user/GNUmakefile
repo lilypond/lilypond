@@ -12,7 +12,7 @@ EXTRA_DIST_FILES= $(LATEX_FILES)    $(wildcard *.itexi *.itely)
 
 HTML_FILES = $(addprefix $(outdir)/, $(TELY_FILES:.tely=.html))
 
-PS_FILES = $(DVI_FILES:.dvi=.ps)  $(OUTDOC_FILES:.doc=.ps) $(OUTTEX_FILES:.tex=.ps)
+PS_FILES = $(DVI_FILES:.dvi=.ps)
 
 PS_GZ_FILES= $(addsuffix .gz, $(PS_FILES))
 
