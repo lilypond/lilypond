@@ -505,7 +505,7 @@ def make_ps_images (ps_name, resolution = 90, papersize = "a4"):
 			y = 1
 
 		cmd = r'''gs\
-		-g%(x)d%(y)d\
+		-g%(x)dx%(y)d\
 		-dGraphicsAlphaBits=4\
 		-dNOPAUSE\
 		-dTextAlphaBits=4\
