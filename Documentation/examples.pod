@@ -72,7 +72,8 @@ Features: auto beams, multiple parralel meters.
 
 =head2 F<scales.ly>
 
-Features: plets, accents, beam steepnesses.
+Features: plets, accents, beam steepnesses, dynamics, crescendi,
+\octave command.
 
 =head2 F<scsii-menuetto.ly>
 

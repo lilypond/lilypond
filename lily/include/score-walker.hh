@@ -24,6 +24,7 @@ class Score_walker : public PCursor<Score_column *>
     Array<Staff_walker *> walker_p_arr_;
     Array<Staff_walker *> disallow_break_walk_l_arr;
     int disallow_break_count_;
+    int breaks_i_;
     void reinit();
 public:
     bool break_allowed_b();
