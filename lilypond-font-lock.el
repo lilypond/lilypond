@@ -61,8 +61,8 @@
 ;; ... keywords (defined above, see kwregex)
       (cons (concat "\\(\\([_^-]?\\(" kwregex "\\)\\)+\\)\\($\\|[] \t(~{}>\\\\_()^*-]\\)") '(1 font-lock-keyword-face))
 
-;; ... keyword-type constructs, e.g., ^\abracadabra; not \breve (= a duration)
-      '("\\([_^-]?\\\\\\(longa[a-zA-Z]\\|long[^a]\\|lon[^g]\\|lo[^n]\\|l[^o]\\|[^lb]\\|b[^r]\\|br[^e]\\|bre[^v]\\|brev[^e]\\|breve[a-zA-Z]\\)[a-zA-Z]*\\)" 1 font-lock-constant-face)
+;; ... user defined identifiers \[a-zA-Z]+, but not \breve or \longa (durations)
+      '("\\([_^-]?\\\\\\([ac-km-zA-Z]\\|l[a-np-zA-Z]\\|b[a-qs-zA-Z]\\|lo[a-mo-zA-Z]\\|br[a-df-zA-Z]\\|lon[a-fh-zA-Z]\\|bre[a-uw-zA-Z]\\|long[b-zA-Z]\\|brev[a-df-zA-Z]\\|\\(longa\\|breve\\)[a-zA-Z]\\)[a-zA-Z]*\\)" 1 font-lock-constant-face)
 
 ;; ... the left side of '=' -mark
       '("\\([_a-zA-Z.0-9-]+\\)[ \t]*=[ \t]*" 1 font-lock-variable-name-face)
@@ -73,8 +73,10 @@
 ;; ... reserved words (defined above, see rwregex)
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
-;; ... notes and rests, accidentals and duration (multiplied), e.g., b,?16.*3/4
-      '("\\(^\\|[ <\{[~(!)\t\\\|]\\)\\(\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)\\([ \t]*\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\breve\\|\\\\longa\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)?\\)" 2 font-lock-type-face)
+;; ... note or rest with (an accidental and) a duration (multiplied), e.g., b,?16.*3/4
+      '("\\(^\\|[ <\{[~(!)\t\\\|]\\)\\(\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)\\([ \t]*\\(128\\|6?4\\|3?2\\|16?\\|8\\|\\\\\\(breve\\|longa\\)\\)[.]*\\([ \t]*[*][ \t]*[0-9]+\\(/[1-9][0-9]*\\)?\\)?\\)\\)" 2 font-lock-type-face)
+;; ... note or rest (with an accidental), e.g., b,? -- allows cis\longaX
+      '("\\(^\\|[ <\{[~(!)\t\\\|]\\)\\(\\(\\(bb\\|as[ae]s\\|eses\\|\\(do\\|re\\|[ms]i\\|[fl]a\\|sol\\)\\(bb?\\|dd?\\|ss?\\)?\\)\\|\\([a-h]\\(\\(flat\\)+\\|\\(sharp\\)+\\|is\\(siss\\|i?s\\)?\\|es\\(sess\\|e?s\\)?\\|ff?\\|ss?\\)?\\)\\)[,']*[?!]?\\|[srR]\\)" 2 font-lock-type-face)
 
 ;; "on top", ... '{[]}'-brackets
       '("\\([][}{]\\)" 0 font-lock-warning-face t)

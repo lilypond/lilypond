@@ -1,7 +1,9 @@
 2002-12-06  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond.vim:
-	* lilypond-font-lock.el: Put \longa as duration.
+	* lilypond-font-lock.el: Put \longa as duration. Accept only 
+	[a-zA-Z] for user defined identifiers. Separate note cases 
+	with and without a duration (allow cis\longaX).
 
 	* lilypond.words: Add words from Info.
 
