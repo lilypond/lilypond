@@ -1,3 +1,4 @@
+@c Note: -*-texinfo-*-
 @node Example templates
 @chapter Example templates
 
@@ -368,6 +369,233 @@ bassWords = \lyricmode {
          \Staff minimumVerticalExtent = #'(-3 . 3) 
       }
    }
+}
+
+@end lilypond
+
+@subsection Transcription of mensural music
+
+When transcribing mensural music, an incipit at the beginning of the
+piece is useful to indicate the original key and tempo.  While today
+musicians are used to bar lines in order to faster recognize rhythmic
+patterns, bar lines where not yet invented during the period of
+mensural music; in fact, the meter often changed after every few
+notes.  As a compromise, bar lines are often printed between the
+staves rather than on the staves.
+
+@lilypond[verbatim,raggedright]
+
+\version "2.3.16"
+
+global = {
+    % incipit
+    \once \override Score.SystemStartBracket #'transparent = ##t
+    \key f \major
+    \time 2/2
+    \once \override Staff.TimeSignature #'style = #'neomensural
+    \override Voice.NoteHead #'style = #'neomensural
+    \override Voice.Rest #'style = #'neomensural
+    \set Staff.printKeyCancellation = ##f
+    \cadenzaOn % turn off bar lines
+    \skip 1*10
+    \once \override Staff.BarLine #'transparent = ##f
+    \bar "||"
+    \skip 1*1 % need this extra \skip such that clef change comes
+              % after bar line
+    \bar ""
+
+    % main
+    \cadenzaOff % turn bar lines on again
+    \once \override Staff.Clef #'full-size-change = ##t
+    \set Staff.forceClef = ##t
+    \key g \major
+    \time 4/4
+    \override Voice.NoteHead #'style = #'default
+    \override Voice.Rest #'style = #'default
+
+    % FIXME: setting printKeyCancellation back to #t must not
+    % occur in the first bar after the incipit.  Dto. for forceClef.
+    % Therefore, we need an extra \skip.
+    \skip 1*1
+    \set Staff.printKeyCancellation = ##t
+    \set Staff.forceClef = ##f
+
+    \skip 1*5
+
+    % last bar contains a brevis (i.e. spans 2 bars);
+    % therefore do not draw this particular bar
+    \cadenzaOn
+    \skip 1*2
+    \cadenzaOff
+
+    % let finis bar go through all staves
+    \override Staff.BarLine #'transparent = ##f
+
+    % finis bar
+    \bar "|."
+}
+
+discantusNotes = {
+    \transpose c' c'' {
+	\set Staff.instrument = "Discantus  "
+
+	% incipit
+	\clef "neomensural-c1"
+	c'1. s2   % two bars
+	\skip 1*8 % eight bars
+	\skip 1*1 % one bar
+
+	% main
+	\clef "treble"
+	d'2. d'4 |
+	b e' d'2 |
+	c'4 e'4.( d'8 c' b |
+	a4) b a2 |
+	b4.( c'8 d'4) c'4 |
+	\once \override NoteHead #'transparent = ##t c'1 |
+	b\breve |
+    }
+}
+
+discantusLyrics = \lyricmode {
+    % incipit
+    IV-
+
+    % main
+    Ju -- bi -- |
+    la -- te De -- |
+    o, om --
+    nis ter -- |
+    ra, __ om- |
+    "..." |
+    -us. |
+}
+
+altusNotes = {
+    \transpose c' c'' {
+	\set Staff.instrument = "Altus  "
+
+	% incipit
+	\clef "neomensural-c3"
+	r1        % one bar
+	f1. s2    % two bars
+	\skip 1*7 % seven bars
+	\skip 1*1 % one bar
+
+	% main
+	\clef "treble"
+	r2 g2. e4 fis g | % two bars
+	a2 g4 e |
+	fis g4.( fis16 e fis4) |
+	g1 |
+	\once \override NoteHead #'transparent = ##t g1 |
+	g\breve |
+    }
+}
+
+altusLyrics = \lyricmode {
+    % incipit
+    IV-
+
+    % main
+    Ju -- bi -- la -- te | % two bars
+    De -- o, om -- |
+    nis ter -- ra, |
+    "..." |
+    -us. |
+}
+
+tenorNotes = {
+    \transpose c' c' {
+	\set Staff.instrument = "Tenor  "
+
+	% incipit
+	\clef "neomensural-c4"
+	r\longa   % four bars
+	r\breve   % two bars
+	r1        % one bar
+	c'1. s2   % two bars
+	\skip 1*1 % one bar
+	\skip 1*1 % one bar
+
+	% main
+	\clef "treble_8"
+	R1 |
+	R1 |
+	R1 |
+	r2 d'2. d'4 b e' | % two bars
+	\once \override NoteHead #'transparent = ##t e'1 |
+	d'\breve |
+    }
+}
+
+tenorLyrics = \lyricmode {
+    % incipit
+    IV-
+
+    % main
+    Ju -- bi -- la -- te | % two bars
+    "..." |
+    -us. |
+}
+
+bassusNotes = {
+    \transpose c' c' {
+	\set Staff.instrument = "Bassus  "
+
+	% incipit
+	\clef "bass"
+	r\maxima  % eight bars
+	f1. s2    % two bars
+	\skip 1*1 % one bar
+
+	% main
+	\clef "bass"
+	R1 |
+	R1 |
+	R1 |
+	R1 |
+	g2. e4 |
+	\once \override NoteHead #'transparent = ##t e1 |
+	g\breve |
+    }
+}
+
+bassusLyrics = \lyricmode {
+    % incipit
+    IV-
+
+    % main
+    Ju -- bi- |
+    "..." |
+    -us. |
+}
+
+\score {
+    \context StaffGroup = choirStaff <<
+	\context Voice = discantusNotes << \global \discantusNotes >>
+	\context Lyrics = discantusLyrics \lyricsto discantusNotes { \discantusLyrics }
+	\context Voice = altusNotes << \global \altusNotes >>
+	\context Lyrics = altusLyrics \lyricsto altusNotes { \altusLyrics }
+	\context Voice = tenorNotes << \global \tenorNotes >>
+	\context Lyrics = tenorLyrics \lyricsto tenorNotes { \tenorLyrics }
+	\context Voice = bassusNotes << \global \bassusNotes >>
+	\context Lyrics = bassusLyrics \lyricsto bassusNotes { \bassusLyrics }
+    >>
+    \paper {
+	\context {
+	    \Score
+	    \override BarLine #'transparent = ##t
+	    \remove "System_start_delimiter_engraver"
+	}
+	\context {
+	    \Voice
+	    \override Slur #'transparent = ##t
+	}
+    }
+    \midi {
+	\tempo 4 = 96
+    }
 }
 
 @end lilypond
