@@ -9,11 +9,15 @@
 ;;;;       input/test/title-markup.ly
 ;;;; 
 ;;;; TODO:
+;;;;   * move makeTitle (input/test/title-markup.ly) out of user space, but
+;;;;   * allow customisation of makeTitle markup.
+;;;;   * makePieceTitle markup
+;;;;   * page layout?
 ;;;;   * special characters, encoding.
+;;;;     + implement encoding switch (switches?  input/output??),
+;;;;     + move encoding definitions to ENCODING.ps files, or
+;;;;     + find out which program's PS(?) encoding code we can use?
 ;;;;   * text setting, kerning.
-;;;;   * font properties
-;;;;   * customisation of title markup, piece title markup?
-;;;;   * page layout
 ;;;;   * document output-interface
 
 (debug-enable 'backtrace)
@@ -352,42 +356,28 @@
 ;; FIXME: duplicated in other output backends
 ;; FIXME: silly interface name
 (define (output-scopes paper scopes fields basename)
-
-  ;; FIXME: customise/generate these
-  (let*
-      ((props
-	(list
-	 (append
-	  `((linewidth . ,(ly:paper-get-number paper 'linewidth))
-	    (font-family . roman))
-	  (ly:paper-lookup paper 'font-defaults))))
+  (let* ((props (list (append
+		       `((linewidth . ,(ly:paper-get-number paper 'linewidth))
+			 (font-family . roman))
+		       (ly:paper-lookup paper 'font-defaults))))
        (prefix "lilypond")
        (stencils '()))
 
+    ;; FIXME: duplicates output-paper's scope-entry->string, mostly
     (define (scope-entry->string key var)
       (let ((val (variable-ref var)))
-	
 	(if (memq key fields)
 	    (header-to-file basename key val))
-	
 	(cond
-	 ((eq? key 'font)
-	  BARF
-	  (format (current-error-port) "PROPS:~S\n" val)
-	  (set! props (cons val props))
-	  "")
-	 
 	 ;; define strings, for /make-lilypond-title to pick up
 	 ((string? val) (ps-string-def prefix key val))
-	 
-	 ;; generate stencil from markup
+	 ((number? val) (ps-number-def prefix key val))
 	 ((markup? val) (set! stencils
 			      (append
 			       stencils
 			       (list
 				(interpret-markup paper props val))))
 	  "")
-	 ((number? val) (ps-number-def prefix key val))
 	 (else ""))))
     
     (define (output-scope scope)
