@@ -73,12 +73,12 @@ Bar::compound_barline (Grob*me, String str, Real h)
     {
       return thin;
     }
-  else if (str == "|.")
+  else if (str == "|." || (h == 0 && str == ":|"))
     {
       m.add_at_edge (X_AXIS, LEFT, thick, 0);      
       m.add_at_edge (X_AXIS, LEFT, thin, kern);
     }
-  else if (str == ".|")
+  else if (str == ".|" || (h == 0 && str == "|:"))
     {
       m.add_at_edge (X_AXIS, RIGHT, thick, 0);
       m.add_at_edge (X_AXIS, RIGHT, thin, kern);

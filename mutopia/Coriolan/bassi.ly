@@ -7,8 +7,8 @@ bassiGroup =  \context PianoStaff = bassi_group \notes <
         \staffCombinePianoStaffProperties
 	\context Staff=oneBassi {
 		\property Staff.midiInstrument = #"cello"
-		\property Staff.instrument = #'((kern . 0.5)
-    		(lines "Violoncello" (rows "    e") (rows "Contrabasso")))
+		\property Staff.instrument = #'(lines
+    		  "Violoncello" "    e" "Contrabasso")
 
     		\property Staff.instr = #"Vc."
 		\clef "bass";

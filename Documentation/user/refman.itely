@@ -14,8 +14,6 @@
 
    Rhythm staff (clef, x-notehead)
 
-   markup text
-
    postscript, scheme output?
 
    (links to?) using/existance of ly2dvi, lilypond-book
@@ -1175,14 +1173,15 @@ name of the corresponding symbol appearing underneath.
 @subsubsection Text scripts
 @cindex Text scripts
 
-FIXME: markup
-
-In addition, it is possible to place arbitrary strings of text or
-@TeX{} above or below notes by using a string instead of an
-identifier: @code{c^"text"}.  Fingerings 
-can be placed by simply using digits.  All of these note ornaments
-appear in the printed output but have no effect on the MIDI rendering of
-the music.
+In addition, it is possible to place arbitrary strings of text or markup
+text (see @ref{Text markup}) above or below notes by using a string
+instead of an identifier: @code{c^"text"}.  It is possible to use @TeX{}
+commands, but this should be avoided because this makes it impossible
+for LilyPond to compute the exact length of the string, which may lead
+to collisions.  Also, @TeX{} commands won't work with direct postscript
+output.  Fingerings can be placed by simply using digits.  All of these
+note ornaments appear in the printed output but have no effect on the
+MIDI rendering of the music.
 
 @c .    {Fingerings}
 @unnumberedsubsubsec Fingerings
@@ -3783,11 +3782,13 @@ Don't move the finger 2, only text "m.d." ...
 
 
 @menu
-* Text markup::                 
+* Text markup::
 @end menu
 
 @node Text markup
 @subsection Text markup
+@cindex text markup
+@cindex markup text
 
 LilyPond has an internal mechanism to typeset texts: you can
 form text markup expressions by composing scheme expressions
@@ -3806,16 +3807,112 @@ in the following way:
 Formally, Scheme markup text is defined as follows:
 
 @example
-text: string | (markup sentence)
-sentence: text | sentence text
-markup: property | abbrev | style
+text: string | (head? text+)
+head: markup | (markup+)
+markup-item: property | abbrev | @var{fontstyle}
 property: (@var{key} . @var{value})
 abbrev: @code{rows lines roman music bold italic named super sub text}
-style: @var{fontstyle}
 @end example
 
-The @var{key}-@var{value} pair is a grob property. [Why is this
-useful?]  The following abbreviations are currently defined:
+The markup is broken down and converted into a list of grob properties,
+which are prepended to the grop's property list.  The
+@var{key}-@var{value} pair is a grob property.
+@ignore
+[Why is this useful?]
+
+?Snapnie: markup text is eerste item dat voldoet aan mijn gewelfdige,
+ideale idee van direct-en-eenmalig-per-item te zetten properties, ipv
+gehaspel via \property en hopen dat je property (enkel) in juiste item
+terecht gaat komen.  Heb je deze wel bewust meegemaakt:
+
+Sender: jan@appel.lilypond.org
+To: Han-Wen <hanwen@cs.uu.nl>   
+Subject: (elt) properties
+Organization: Jan at Appel
+From: janneke@gnu.org
+Date: 01 Nov 2000 10:39:10 +0100
+Message-ID: <m3og00av5t.fsf@appel.lilypond.org>
+User-Agent: Gnus/5.0807 (Gnus v5.8.7) Emacs/20.7
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Lines: 77
+Xref: appel.lilypond.org vers:1991
+
+Hi,
+
+Wat ik vooral mis, is een koele manier om een propertie eenmalig aan
+een element te hangen.  Hoop dat je zinvol over wilt meedenken; zie
+het monster van les-nereides.  Misschien dat we 't niet moeten doen
+voor 1.4 maar wachten tot properties nog wat verder
+uitgekristalliseerd zijn?
+
+Nu moet je
+
+   \property Voice.Stem \push #'length = #'6
+   a
+   \property Voice.Stem \pop #'length
+   b
+
+waarmee je in feite zeg tegen de stem-engraver: vanaf nu aan moet je
+alle stems 6 lang maken (maakt stem); onee, doe maar weer default
+lengte.
+
+Maar dat is eigenlijk niet wat je bedoelt, wat je zou willen is net
+zo'n directe interface als wat we nu hebben voor markup text, bv. iets
+van:
+
+   a+#'(Stem::length . 6) b
+
+Bij markup text kun je direct en eenmalig een reeks properties aan een
+enkel item toevoegen; iets wat je volgens mij vaak nodig hebt.
+
+Ik zat eerst te denken aan ``request properties'': properties
+toevoegen aan request, die dan worden doorgegeven aan alle items die
+door dat request worden gemaakt.
+
+Maar misschien zuigt dat wel te vreselijk en moeten we iets van
+``volatile'' properties maken.
+
+Btw,
+
+    \property Voice.Slur \push #'dash = #1
+    \property Voice.Slur \pop #'dash
+    a()b
+    \property Voice.Slur \push #'direction = #-1
+    \property Voice.Slur \pop #'direction
+    ()c
+
+of de kluts waar ik brr van word, eigenlijk ook alleen doenbaar is
+voor wat veelgebruikte properties:
+
+    slurDotted = \property Voice.Slur \push #'dash = #1
+    slurNoDots = \property Voice.Slur \pop #'dash
+    slurUp = \property Voice.Slur \push #'direction = #1
+    slurDown = \property Voice.Slur \push #'direction = #-1
+    slurBoth = \property Voice.Slur \pop #'direction
+
+    [..]
+
+    \slurDotted\slurDown
+    a()b
+    ()c
+    \slurNoDots\slurBoth
+
+zou toch graag meer iets in trant van, als je begrijpt wat ik bedoel
+
+    Slur+#'((dash . 1) (direction . 1))
+    b () c
+    Slur-#'(dash direction)
+
+ofwel
+
+    a(+#'((dash . 1) (direction . 1))
+    )b(+#'((dash . 1) (direction . 1))
+    )c
+@end ignore
+
+The following abbreviations are currently
+defined:
 
 @table @code
 @item rows
@@ -3844,10 +3941,10 @@ horizontal mode: set all text on one line (default)
 @var{fontstyle} may be any of @code{finger volta timesig mmrest mark
 script large Large dynamic}
 
-
+@ignore
 [kern, raise ??]
-
-[I still think that the semantics are weird, but well]
+Wat is daarmee, zijn toch gewoon grob properties van text-interface?
+@end ignore
 
 @c .{Local emacs vars}
 @c Local variables:

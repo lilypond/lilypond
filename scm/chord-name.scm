@@ -278,10 +278,10 @@
   (pitch->text pitch))
 
 (define (pitch->chord-name-text-banter pitch)
-  (pitch->text-banter))
+  (pitch->text-banter pitch))
 
 (define (pitch->note-name-text-banter pitch)
-  (pitch->text-banter))
+  (pitch->text-banter pitch))
 
 (define (step->text pitch)
   (string-append

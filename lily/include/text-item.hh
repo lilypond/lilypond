@@ -21,7 +21,7 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
   static Molecule text2molecule (Grob *me, SCM text, SCM properties);
   static Molecule string2molecule (Grob *me, SCM text, SCM properties);
-  static Molecule markup_sentence2molecule (Grob *me, SCM markup_sentence, SCM properties);
+  static Molecule markup_text2molecule (Grob *me, SCM markup_text, SCM properties);
 
 private:
   static Molecule lookup_character (Grob *me, Font_metric*, SCM char_name);

@@ -7,11 +7,10 @@
 corniStaff = \context Staff = corni <
 	\property Staff.midiInstrument = #"french horn"
 
-	\property Staff.instrument = #`((kern . 0.5)
-	(lines "2 Corni" (rows "(E" ,text-flat ")")))
+	\property Staff.instrument = #`(lines
+	  "2 Corni" (rows "(E" ,text-flat ")"))
 	
-	\property Staff.instr = #`((kern . 0.5)
-	(lines "Cor."  (rows "(E" ,text-flat ")")))
+	\property Staff.instr = #`(lines "Cor."  (rows "(E" ,text-flat ")"))
 
 	% urg: can't; only My_midi_lexer:<non-static> () parses pitch?
 	%\property Staff.transposing = "es"

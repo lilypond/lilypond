@@ -8,15 +8,15 @@ lyrics don't collide with barlines.
 \score {
 	\context StaffGroup <
 	\notes \context Staff {
-	        b1 b1 \bar "|.";
+	        b1 \bar "|:"; b1 \bar ":|";
 	}
 	\lyrics\context Lyrics <
 	 	\context LyricsVoiceWithBars {
-%		        thisContextHasSpanBarEngraver1  added
-		        ThisContextCertainlyHasSpanBarEngraverAddedButTheresSomethingFunny1.  Here.
+%		        thisContextHasBarEngraver1  added
+		        ThisContextCertainlyHasBarEngraverAddedButThereHasBeenSomethingFunnyBefore1.  Here.
 		}
 		\context LyricsVoice {
-		        this4 one has no SpanBarEngraverAddedToContext1
+		        this4 one has no BarEngraverAddedToContext1
 		}
 	>
 	\notes \context Staff = SB { b1 b1 }
@@ -25,11 +25,11 @@ lyrics don't collide with barlines.
 		linewidth = -1.0\cm;
 		\translator {
 			\LyricsContext
-			\consists "Span_bar_engraver";
 			\accepts "LyricsVoiceWithBars";
 		}
 		\translator {
 			\LyricsVoiceContext
+			\consists "Bar_engraver";
 			\name "LyricsVoiceWithBars";
 		}
 		\translator {

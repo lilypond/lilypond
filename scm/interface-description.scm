@@ -445,7 +445,7 @@ font-point-size font-relative-size)
   (lily-interface
    'text-interface
    "A scheme markup text"
-   '(text align lookup raise kern magnify)))
+   '(text align baseline-skip lookup raise kern magnify)))
 
 (define dot-column-interface
   (lily-interface

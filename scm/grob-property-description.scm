@@ -47,6 +47,7 @@ In the case of alignment grobs, this should contain only one number.")
 (grob-property-description 'bar-size number? "size of a bar line.")
 (grob-property-description 'bars list? "list of barline pointers.")
 (grob-property-description 'barsize-procedure procedure? "Procedure that computes the size of a bar line.")
+(grob-property-description 'baseline-skip number? "Baseline skip to use for multiple lines of text.")
 (grob-property-description 'bass list? " musical-pitch, optional.")
 (grob-property-description 'beam ly-grob? "pointer to the beam, if applicable.")
 (grob-property-description 'beam-space-function procedure? "function returning space given multiplicity.")
@@ -252,18 +253,13 @@ one end of the stem.")
 Scheme markup text.  It is defined as follows:
 
 @example
-
-TEXT : STRING | (MARKUP SENTENCE)
-SENTENCE: TEXT | SENTENCE TEXT
-MARKUP: PROPERTY | ABBREV
-PROPERTY: (key . value)
-ABBREV: rows lines roman music bold italic named super sub text, or any font-style
+text: string | (head? text+)
+head: markup | (markup+)
+markup-item: property | abbrev | @var{fontstyle}
+property: (@var{key} . @var{value})
+abbrev: @code{rows lines roman music bold italic named super sub text}
 
 @end example
-
-So, TEXT is either a string, or a list of which the CAR is a MARKUP.
-MARKUP is either a CONS: an grob property '(key . value) or a symbol:
-a predefined abbreviation for a list of grob properties.
 
 
 The following abbreviations are currently defined:

@@ -291,7 +291,9 @@ ChordNamesVoiceContext = \translator {
 	\consistsend "Axis_group_engraver";
 	\consists "Separating_line_group_engraver";
 	\consists "Chord_name_engraver";
+	\consists "Skip_req_swallow_translator";
 }
+
 ChordNamesContext = \translator {
 	\type "Engraver_group_engraver";
 	\name ChordNames;
