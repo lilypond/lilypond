@@ -868,7 +868,6 @@
 	(break-align-symbol . staff-bar)
 	(bar-size-procedure . ,Span_bar::get_bar_size) 
 	(print-function . ,Span_bar::print)
-	(break-visibility . ,begin-of-line-invisible)
 	(X-extent-callback . ,Span_bar::width_callback)
 	(Y-extent-callback . ())
 	(breakable . #t)

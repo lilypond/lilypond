@@ -72,7 +72,7 @@ public:
 static void
 set_property_on_children (Context * trans, const char * sym, SCM val)
 {
-  trans->set_property (sym, val);
+  trans->set_property (sym, ly_deep_copy (val));
   for (SCM p = trans->context_list_; gh_pair_p (p); p = ly_cdr (p))
     {
       Context *trg =  unsmob_context (ly_car (p));
@@ -384,7 +384,7 @@ Accidental_engraver::stop_translation_timestep ()
 	  /*
 	    huh? we set props all the way to the top? 
 	  */
-	  SCM localsig = origin->get_property ("localKeySignature");
+	  SCM localsig =  ly_deep_copy (origin->get_property ("localKeySignature"));
 	  bool change = false;
 	  if (accidentals_[i].tied_)
 	    {

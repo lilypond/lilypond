@@ -218,6 +218,7 @@ Chord_tremolo_engraver::stop_translation_timestep ()
     {
       typeset_grob (stem_tremolo_);
       stem_tremolo_ = 0;
+      repeat_ = 0;
     }
 }
 
