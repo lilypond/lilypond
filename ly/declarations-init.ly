@@ -114,7 +114,6 @@ paperTwentysix = \paper {
 partCombineListener = \paper {
  \translator {
 	  \VoiceContext
-	  \denies Thread
 	  \consists Note_heads_engraver
 	  \consists Rest_engraver
 	  \type "Recording_group_engraver"

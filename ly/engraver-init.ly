@@ -387,9 +387,6 @@ RemoveEmptyStaffContext= \translator {
     \StaffContext
     \remove "Axis_group_engraver"
     \consistsend "Hara_kiri_engraver"
-    \accepts "Voice"
-
-				% hara kiri & auto knee don't work together.
     Beam \override #'auto-knee-gap = #'()
 }
 

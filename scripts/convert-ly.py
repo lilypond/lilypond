@@ -1776,9 +1776,12 @@ conversions.append (((2,1,18), conv, """\\newpartcombine -> \\partcombine,
 
 
 def conv (str):
-	str = re.sub (r'\\include "drumpitch-init.ly','', str)
+	str = re.sub (r'\\include "drumpitch-init.ly"','', str)
 	str = re.sub (r'\\pitchnames ','pitchnames = ', str)
 	str = re.sub (r'\\chordmodifiers ','chordmodifiers = ', str)
+	str = re.sub (r'\bdrums\b\s*=','drumContents = ', str)
+	str = re.sub (r'\\drums\b','\\drumContents ', str)
+	
 
 	if re.search ('drums->paper', str):
 		sys.stderr.write ("\nDrum notation found. Check file manually!")

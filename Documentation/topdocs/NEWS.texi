@@ -17,6 +17,8 @@ Version 2.1.13
 @end ignore
 
 @itemize @bullet
+@item The @code{Lyrics} context has been removed. Lyrics should only
+be constructed in @code{LyricsVoice}.
 
 @item The @code{Thread} context has been removed. Note heads and rests
 are now constructed at @code{Voice} level.
