@@ -70,8 +70,7 @@ public:
   virtual void compress (Moment factor);
   VIRTUAL_COPY_CONS(Music);
 
-  Repeated_music (Music*, int , Music_sequence*);
-  Repeated_music (Repeated_music const&);
+  Repeated_music (SCM);
 };
 
 

@@ -24,27 +24,10 @@ Repeated_music::alternatives ()const
   return dynamic_cast<Music_sequence*>  (unsmob_music (get_mus_property ("alternatives")));
 }
 
-Repeated_music::Repeated_music(Music *beg, int times, Music_sequence * alts)
+Repeated_music::Repeated_music(SCM l)
+  : Music (l)
 {
-  if (beg)
-    {
-      set_mus_property ("body", beg->self_scm ());
-      scm_unprotect_object (beg->self_scm ());
-    }
-  set_mus_property ("repeat-count", gh_int2scm (times));
-
-  if (alts)
-    {
-      alts->truncate (times);
-      set_mus_property ("alternatives", alts->self_scm ());
-      scm_unprotect_object (alts->self_scm ());  
-    }
   set_mus_property ("type", ly_symbol2scm ("repeated-music"));
-}
-
-Repeated_music::Repeated_music (Repeated_music const &s)
-  : Music (s)
-{
 }
 
 

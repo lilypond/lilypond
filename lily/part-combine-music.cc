@@ -11,16 +11,9 @@
 #include "part-combine-music-iterator.hh"
 #include "pitch.hh"
 
-Part_combine_music::Part_combine_music (SCM  what, Music * f, Music * s)
+Part_combine_music::Part_combine_music (SCM l)
+  : Music (l)
 {
-  assert (gh_string_p (what));
-  set_mus_property ("what", what);
-  set_mus_property ("one", f->self_scm ());
-  set_mus_property ("two", s->self_scm ());  
-
-  scm_unprotect_object (f->self_scm());
-  scm_unprotect_object (s->self_scm());  
-
   set_mus_property ("iterator-ctor",
 		    Part_combine_music_iterator::constructor_cxx_function);
 }
