@@ -31,10 +31,11 @@ Pulk_voices::Pulk_voices(Link_list<Staff*> const& l)
 	last_ = last_ >? staff_last;
     }
     next_mom_ = voice_pq_.front().l_->start_;
-
+    time_arr_.set_size(staff_i);
 
     if (last_ != min_staff_last_mom)
 	warning("Not all staffs end simultaneously");
+
 }
 
 void
@@ -46,7 +47,11 @@ Pulk_voices::get_aligned_request(Request_column* col_l)
     }
 
     /* hairy. #i# is a cursor which points to Pulk_voice (which a
-       cursor, essentially) */
+       cursor, essentially) 
+       
+       
+       At the same time bookkeeping of measures is done.
+       */
     
     Moment new_next_mom = last_;
     iter(pulk_p_list_.top() , i);
@@ -55,18 +60,35 @@ Pulk_voices::get_aligned_request(Request_column* col_l)
 	assert (i->when() >= next_mom_);
 	if (i->when() == next_mom_) {
 	    col_l->add_reqs(i->staff_idx_, i->get_req_l_arr() );
+	    Time_description &t_r  = time_arr_[i->staff_idx_]; 
+	    col_l->update_time(i->staff_idx_, t_r);
+	    
+	    if (! t_r.cadenza_b_ && t_r.next_bar_moment() > next_mom_) {
+		mtor << "next bar at: " << t_r.next_bar_moment();
+		new_next_mom = new_next_mom <? t_r.next_bar_moment();
+	    }
 
 	    if (!i->ok()) {
 		i.del();
 		continue;
 	    }
 	}
+	assert( i->when()  > next_mom_);
+	/* no need to call i->next(), since this is done automatically */
 	new_next_mom = new_next_mom <? i->when();
-	i++; 
+
+	i++;
+
     }
     
     if (voice_pq_.size() )
 	new_next_mom = new_next_mom <? voice_pq_.front().l_->start_;
+
+    for (int j=0; j < time_arr_.size(); j++)
+	time_arr_[j].add( new_next_mom - next_mom_  );
+
+    if (pulk_p_list_.size())
+	assert( new_next_mom > next_mom_);
     next_mom_ = new_next_mom;
 }
 
@@ -77,8 +99,23 @@ Pulk_voices::ok() const
     return pulk_p_list_.size() || voice_pq_.size();
 }
 
-int compare(Voice_l const& v1, Voice_l const& v2)
+int
+compare(Voice_l const& v1, Voice_l const& v2)
 {
     return sign(v1.l_->start_ - v2.l_->start_);
 }
 	    
+Moment
+Pulk_voices::next_mom()const
+{
+    return next_mom_;
+}
+
+bool
+Pulk_voices::time_checks_failed_b()const
+{
+    bool b = false;
+    for (int i=0; !b && i < time_arr_.size(); i++)
+	b|=time_arr_[i].error_b_;
+    return b;
+}
