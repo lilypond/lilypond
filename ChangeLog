@@ -1,5 +1,8 @@
 2005-04-06  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/lily.scm (lilypond-main): use variable argument count for
+	exception handler.
+
 	* lily/font-config.cc (init_fontconfig): add operator pacification
 	message.
 
