@@ -402,19 +402,17 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 	 (level 0) 
 	 (mismatch) )
     ;; Test if a ligature \] or expressional slur \) was encountered
+    (if (not (equal this-command 'LilyPond-electric-close-paren))
+	(goto-char (setq oldpos (- oldpos 1))))
     (setq bracket-type (char-after (point)))
     (setq char-before-bracket-type nil)
     (if (memq bracket-type '(?] ?\)))
       (progn 
 	(setq np -1)
 	(while (eq (char-before (- (point) (setq np (+ np 1)))) ?\\)
-	  (setq char-before-bracket-type (if char-before-bracket-type nil ?\\)))))
-    (if (eq char-before-bracket-type ?\\)
-	(if (eq bracket-type ?])
-            (message "matching ligatures \\[ ... \\]")
-          (message "matching slurs \\( ... \\)")))
-    (if (eq char-before-bracket-type ?\\)
-	(setq bracket-type (string char-before-bracket-type bracket-type)))
+	  (setq char-before-bracket-type (if char-before-bracket-type nil ?\\)))
+        (if (eq char-before-bracket-type ?\\)
+	    (setq bracket-type (string char-before-bracket-type bracket-type)))))
     (save-restriction
       (if blink-matching-paren-distance
 	  (narrow-to-region (max (point-min)
@@ -433,7 +431,8 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 		  (LilyPond-matching-paren (char-after blinkpos)))))
     (if mismatch (progn (setq blinkpos nil)
 			(message "Mismatched parentheses")))
-    (if blinkpos
+    (if (and blinkpos
+	     (equal this-command 'LilyPond-electric-close-paren))
 	(if (pos-visible-in-window-p)
 	    (and blink-matching-paren-on-screen
 		 (sit-for blink-matching-delay))
@@ -470,7 +469,10 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 		    (buffer-substring blinkpos (1+ blinkpos)))
 		 ;; There is nothing to show except the char itself.
 		 (buffer-substring blinkpos (1+ blinkpos))))))))
-    (goto-char oldpos)))
+    (if (not (equal this-command 'LilyPond-electric-close-paren))
+	(goto-char (setq oldpos (+ oldpos 1)))
+      (goto-char oldpos))
+    blinkpos))
 
 
 (defun LilyPond-electric-close-paren ()
@@ -491,14 +493,18 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 ;; and show it until input arrives.
 (defun LilyPond-show-paren-function ()
   (if show-paren-mode
-      (let (pos dir mismatch face (oldpos (point)))
+      (let (pos (dir 0) mismatch face (oldpos (point)))
 	(cond ((memq (preceding-char) '(?\) ?\] ?} ?>))
 	       (setq dir -1))
 	      ((memq (following-char) '(?\( ?\[ ?{ ?<))
 	       (setq dir 1)))
 	;;
 	;; Find the other end of the sexp.
-	(when dir
+	;;
+	;; try first only one direction
+	(when (and (= dir -1)
+		   (not (LilyPond-inside-string-or-comment-p)))
+;	(when dir
 	  (save-excursion
 	    (save-restriction
 	      ;; Determine the range within which to look for a match.
@@ -513,7 +519,7 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 	      ;;; BRACKETS ARE NOT IN THE SYNTAX TABLE.
               ;;; HENCE BY REPLACING THE FOLLOWING IT WILL WORK.
 	      (condition-case ()
-		  (setq pos (scan-sexps (point) dir))
+		  (setq pos (LilyPond-blink-matching-open))
 		(error (setq pos t mismatch t)))
 	      ;; If found a "matching" paren, see if it is the right
 	      ;; kind of paren to match the one we started at.
@@ -594,5 +600,6 @@ builtin 'blink-matching-open' is not used. In syntax table, see
     (and show-paren-overlay-1
 	 (delete-overlay show-paren-overlay-1))))
 
-;; uncomment the following line to test show-paren-function
-;(defun show-paren-function () (LilyPond-show-paren-function))
+;; Comment the following line to disable show-paren-function
+;; Currently, works only in Emacs, should tune for XEmacs
+(defun show-paren-function () (LilyPond-show-paren-function))

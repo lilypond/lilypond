@@ -1,3 +1,9 @@
+2003-06-06  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* lilypond-indent.el (show-paren-function): define show-paren-function
+	as LilyPond-blink-matching-open and use it for closing parens.
+	Let LilyPond-blink-matching-open know whether a bracket was inserted.
+
 2003-06-05  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el (LilyPond-show-paren-function): introduce for
