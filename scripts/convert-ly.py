@@ -1071,7 +1071,17 @@ if 1:
 		return str
 	
 	conversions.append (((1,7,3), conv, 'ly- -> ly:'))
+
+if 1:
+	def conv(str):
+		str = re.sub (r'<<' '< <', str)
+		str = re.sub (r'>>' '> >', str)
+
+		return str
 	
+	conversions.append (((1,7,4), conv, '<< >> -> < <  > >'))
+
+
 ################################
 #	END OF CONVERSIONS	
 ################################

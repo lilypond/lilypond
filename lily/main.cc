@@ -288,7 +288,7 @@ distill_inname (String str)
   else
     {
       String orig_ext = p.ext;
-      char const *extensions[] = {"ly", "fly", "sly", "", 0};
+      char const *extensions[] = {"ly", "", 0};
       for (int i = 0; extensions[i]; i++)
 	{
 	  p.ext = orig_ext;
@@ -386,8 +386,6 @@ main_prog (void *, int, char **)
       String init;
       if (!init_name_global.empty_b ())
 	init = init_name_global;
-      else if (!inpath.ext.empty_b ())
-	init = "init." + inpath.ext;
       else
 	init = "init.ly";
 	
