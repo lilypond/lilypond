@@ -6,7 +6,10 @@ use Getopt::Long;
 my $lily_version;
 my $footstr;
 my $mw_id = "<!make_website!>";
-my $id_str = "make-website 0.2";
+my $id_str = "make-website 0.3";
+
+my $TAR="tar";
+my $MAKE="make";
 
 sub get_version
 {
@@ -72,7 +75,7 @@ sub my_system
 
 
 local $base="lilypond/";
-local @examples=("multi", "wohltemperirt" ,"standchen", "toccata-fuga-E", 
+local @examples=("twinkle", "multi", "wohltemperirt" ,"standchen", "toccata-fuga-E", 
 		 "scsii-menuetto", "collisions", "cadenza", "scales");
 
 # rhythm, scales, 
@@ -81,60 +84,18 @@ local @examples=("multi", "wohltemperirt" ,"standchen", "toccata-fuga-E",
 sub gen_html
 {
     print "generating HTML\n";
-    my_system "make -kC .. html";
-}
-
-sub ps_to_gif 
-{
-    my ($a)=@_;
- 
-    if (! -f "$a.ps" ) {
-	my_system("gunzip -c $a.ps.gz > $a.ps");
-    }
-    my_system "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $a.ps -c quit |pnmscale 0.5| ppmtogif > $a.gif";
-}
-
-
-sub ps_to_jpeg
-{ 
-    my ($a)=@_;
-    my $in = "$a.ps";
-    
-    my_system "gs -q -sDEVICE=ppmraw -sOutputFile=- -r200 -dNOPAUSE  $in -c quit |pnmscale 0.5| cjpeg -grayscale > $a.jpeg";
+    my_system "$MAKE -kC .. html";
 }
 
 sub gen_examples
 {
     print "generating examples: \n";
+    my @todo=();
     foreach $a (@examples) {
-	$texfile="lelie";
-	$tex = "tex $texfile";
-	if ($a eq "standchen" || $a eq "scsii-menuetto" ) {
-	    $tex = "latex $a";
-	    $texfile = "$a";
-	}
-	
-	if ( ! -f "$a.ly.txt" ) {
-	    my_system "ln $depth/input/$a.ly ./$a.ly.txt";
-	}
-	if (! -f "$a.dvi" ) {
-	    my_system "lilypond $a;",
-	    "$tex", "-mv $texfile.dvi $a.dvi";
-	}  
-	if ( ! -f "$a.ps.gz" && ! -f "$a.ps" ) {
-	    my_system "dvips -o $a.ps $a.dvi";
-	}
-
-	my_system "mv lelie.midi $a.midi; " if ( -f "lelie.midi" );
-
-	# generate the pixmap at twice the size, then rescale (for antialiasing)
-	if ( ! -f "$a.gif" ) {
-	    ps_to_gif($a);
-	}
-	if ( ! -f "$a.ps.gz" ) {
-	    my_system "gzip -f $a.ps";
-	}   
+	push @todo, "out/$a.ps.gz", "out/$a.gif", "out/$a.ly.txt";
     }
+    
+    my_system ("$MAKE -C .. " . join(' ', @todo));
 }
 
 my @texstuff = ("mudela-man", "mudela-course");
@@ -145,13 +106,15 @@ sub gen_manuals
     open HTMLLIST, ">tex_manuals.html";
     print HTMLLIST "<html><body><title>LilyPond manuals in TeX</title>\n" .
 	"<ul>\n";
+    my @todo=();
     foreach $a (@texstuff) {
-	my_system( "make -C $depth/Documentation out/$a.dvi");
-	my_system( "dvips $a", "gzip -9f $a.ps");
+	push @todo , "out/$a.ps.gz";
 	print HTMLLIST "<li><a href=$a.ps.gz>$a.ps.gz</a>";
     }
     print HTMLLIST "</ul>";
     close HTMLLIST;
+
+    my_system( "$MAKE -C .. " .  join(' ', @todo));
 }
 
 sub gen_list
@@ -233,12 +196,25 @@ sub edit_html
     }
 }
 
+sub copy_txt_file
+{
+    my ($f) = @_;
+    my $d = $f;
+    $d =~ s!^.*\/!!;
+    if (! $f =~ /.txt$/) {
+	$d = "$f.txt";
+    }
+    print $f, $d;
+}
+    
 sub copy_files
 {  
     print "copying files\n";
     print `ln -s $depth/out ./docxx` if ( ! -x "docxx" ) ;
     my_system "cp $depth/TODO ./TODO.txt",
+    "cp $depth/ANNOUNCE ./ANNOUNCE.txt",
     "cp $depth/NEWS ./NEWS.txt",
+    "cp $depth/DEDICATION ./DEDICATION.txt",
     "cp ../lelie*gif .";
 }
 
@@ -258,7 +234,7 @@ sub set_images
 
 sub docxx_update
 {
-    my_system "make -C $depth doc++";
+    my_system "$MAKE -C $depth doc++";
 }
 
 sub do_tar
@@ -266,8 +242,8 @@ sub do_tar
      print "tarring.\n";
      $files = join (' ', < *.html *.$image *.ps.gz *.txt *.midi docxx/*>);
      my_system
-	 "-tar vhcf website.tar $files;",
-	 "gzip -f9 website.tar;";
+	 "-$TAR zvhcf website.tar.gz $files;",
+#	 "gzip -f9 website.tar;";
 }
 
 sub identify

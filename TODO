@@ -12,6 +12,8 @@ grep for TODO and ugh/ugr
 
 	* dots into separate item.
 
+	* return status
+
 	* lyrics in chords still fuck up.
 
 	* add to MIDI output:
@@ -21,6 +23,8 @@ grep for TODO and ugh/ugr
 	- dynamics etc.
 
 	* rewire acknowledge_element() logic with a process_acknowledged()
+
+	* progress when creating MIDI elts.
 
 	* pushgroup/popgroup
 
