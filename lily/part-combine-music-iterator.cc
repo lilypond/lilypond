@@ -142,8 +142,7 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 							      to_id);
 
   fd->set_property ("first", SCM_BOOL_T);
-  if (!combined_b_)
-    sd->set_property ("second", SCM_BOOL_T);
+  sd->set_property ("second", SCM_BOOL_T);
 
   if (first_next <= m)
     first_iter_p_->process_and_next (m);
@@ -155,13 +154,24 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
 
   /*
     TODO:
-
-    * when combining two threads: check pitches, request stem directions
-
-    * a2-engraver to put texts a2/Solo/SoloII as appropriate.
-
-    * maybe the a2-engraver should set the stem directions, iso us?
     
+    * "a2" string is fine, but "Soli" strings are one request late,
+      second a2 requests are junked one requst late...
+    
+      The problem seems to be: we need to do_try_music for the
+      spanish_inquisition to work; but the properties that we set
+      need to be set *before* we do_try_music?
+      
+    * setting of stem directions by a2-engraver don't work
+      
+    * move much as possible code (changed?) to engravers: just notify
+      them of status: unison/solo.  Engravers should be able to find
+      out whether something changed and if so, what to do.
+
+    * who should reset the properties, it's a mess now?
+
+
+    Later (because currently,we only handle thread swiching, really):
 
     Maybe different modes exist?
 
@@ -188,22 +198,26 @@ Part_combine_music_iterator::do_process_and_next (Moment m)
     second_spanish_inquisition = new Pitch_interrogate_req;
   Music_iterator* sit = second_iter_p_->try_music (second_spanish_inquisition);
 
-  /*
-    Hmm.  In the case of a2, the second identical set of requests must
-    be junked: that's the whole point of detecting a2.  Howto/whereto
-    junk these requests?
-   */
-  if (changed_b
-      && (first_next == second_next)
+
+  // URG, moveme: just set properties
+  if (//changed_b
+      //&&
+      (first_next == second_next)
       && first_spanish_inquisition->pitch_arr_.size ()
       && (first_spanish_inquisition->pitch_arr_.size ()
 	  == second_spanish_inquisition->pitch_arr_.size ())
       && (first_spanish_inquisition->pitch_arr_[0] ==
 	  second_spanish_inquisition->pitch_arr_[0]))
     {
-      fd->set_property ("a2", SCM_BOOL_T);
-      sd->set_property ("a2", SCM_BOOL_T);
+      if (changed_b)
+	{
+	  fd->set_property ("a2", SCM_BOOL_T);
+	  sd->set_property ("a2", SCM_BOOL_T);
+	}
+      second_iter_p_->report_to_l ()->set_property ("a2", SCM_BOOL_T);
     }
+  else
+    second_iter_p_->report_to_l ()->set_property ("a2", SCM_BOOL_F);
   
   if (changed_b
       && first_spanish_inquisition->pitch_arr_.size ()
