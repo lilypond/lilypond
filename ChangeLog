@@ -1,3 +1,16 @@
+2005-03-12  Han-Wen Nienhuys  <hanwen@xs4all.nl>
+
+	* scm/define-grobs.scm (all-grob-descriptions): switch off
+	Hyphen_spanner::set_spacing_rods 
+
+	* lily/lyric-hyphen.cc (print): add padding between syllable and
+	hyphen.
+	(print): shorten hyphen in tight situations (determine using
+	minimum-length)
+
+	* scm/paper.scm (layout-set-staff-size): increase blotdiameter to
+	0.4pt.
+
 2005-03-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* ly/titling-init.ly (bookTitleMarkup): Refinements.

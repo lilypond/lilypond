@@ -47,7 +47,7 @@
     ;; !! synchronize with feta-params.mf
     (module-define! m 'linethickness lt)
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
-    (module-define! m 'blotdiameter (* 0.35 pt))
+    (module-define! m 'blotdiameter (* 0.4 pt))
     (module-define! m 'interscoreline (* 4 mm))))
 
 (define-safe-public (set-global-staff-size sz)

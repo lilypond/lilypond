@@ -8,10 +8,13 @@ end of the line.  Normally, lyrics are not typeset so tightly, but by
 tuning down @code{padding} of in @code{SeparationItem}, syllables are put 
 closer together, and as a result hyphens may disappear.
 
-In some languages (e.g. German and Hungarian),  hyphens should not
+In some languages (e.g. German and Hungarian), hyphens should not
 disappear, since spelling depends on hyphenation. For that purpose,
-hyphens can be forced to remain by overriding @code{minimum-length} of
-the @code{LyricHyphen} grob.
+hyphens can be forced to remain setting @code{spacing-procedure} to
+@code{Hyphen_spanner::set_spacing_rods} of the @code{LyricHyphen}
+grob.  The @code{minimum-length} property may be used to tune the
+amount
+
 "
 
 }

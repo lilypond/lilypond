@@ -73,7 +73,7 @@ fi;
 %        I don't think we do this anywhere -- jcn
 %
 
-blot_diameter# = .35 pt#;
+blot_diameter# = .40 pt#;
 if (blot_diameter# * hppp) < 1:
 	blot_diameter# := 1 / hppp;
 fi
