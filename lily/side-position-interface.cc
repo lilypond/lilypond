@@ -231,7 +231,6 @@ Side_position_interface::aligned_side (SCM element_smob, SCM axis)
       Grob *common = me->common_refpoint (st, Y_AXIS);
       
       Interval staff_size = st->extent (common, Y_AXIS);
-      Interval me_ext = me->extent (common, a);
       Real diff =  d*staff_size[d] + padding - d*(o + iv[-d]);
       o += (d*  (diff >? 0));
     }
@@ -245,8 +244,6 @@ Side_position_interface::set_axis (Grob*me, Axis a)
 {
   me->add_offset_callback (Side_position_interface::aligned_side_proc, a);
 }
-
-
 
 // ugh. doesn't catch all variants. 
 Axis

@@ -104,8 +104,8 @@ Drum_notes_engraver::process_music ()
 	  if (ly_c_string_p (script))
 	    {
 	      Item *p  = make_item ("Script", ev->self_scm ());
-	      SCM desc  = SCM_EOL;
-	      make_script_from_event (p, &desc,
+	      bool follow;
+	      make_script_from_event (p, &follow,
 				      context (), script,
 				      0);
 

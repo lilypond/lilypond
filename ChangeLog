@@ -1,5 +1,16 @@
 2004-08-24  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/regression/slur-script-inside.ly: new file.
+
+	* lily/new-slur.cc (outside_slur_callback): new function, to make
+	scripts avoid slurs 
+
+	* lily/slur-engraver.cc (finalize): 
+
+	* lily/script-interface.cc: add inside-slur property.
+
+	* lily/slur-engraver.cc (finalize): read inside-slur property.
+
 	* scm/lily.scm (postscript->png): use ~a iso. ~s 
 
 	* ly/property-init.ly (unHideNotes): hide accidentals at staff

@@ -24,12 +24,12 @@ struct Script_tuple
 {
   Music *event_;
   Grob *script_;
-  SCM description_;
+  bool follow_into_staff_;
   Script_tuple ()
   {
+    follow_into_staff_ = false;
     event_ = 0;
     script_ = 0;
-    description_ = SCM_EOL;
   }
 };
 
@@ -85,10 +85,12 @@ copy_property (Grob *g, SCM sym, SCM alist)
     }
 }
 
-/* Add the properties, one by one for each Script.  A little space
-   (memory? --jcn) could be saved by tacking the props onto the Script
-   grob (i.e. make ScriptStaccato , ScriptMarcato, etc. ).  */
-void make_script_from_event (Grob *p, SCM *descr, Context *tg,
+/* Add the properties, one by one for each Script.  A little memory
+   could be saved by tacking the props onto the Script grob (i.e. make
+   ScriptStaccato , ScriptMarcato, etc. ).
+
+*/
+void make_script_from_event (Grob *p, bool * follow, Context *tg,
 			     SCM art_type, int index)
 {
   SCM alist = tg->get_property ("scriptDefinitions");
@@ -104,24 +106,41 @@ void make_script_from_event (Grob *p, SCM *descr, Context *tg,
     }
 
   art = ly_cdr (art);
-  *descr = art;
 
-  copy_property (p, ly_symbol2scm ("script-stencil"), art);
-  copy_property (p, ly_symbol2scm ("direction"), art);
-  copy_property (p, ly_symbol2scm ("side-relative-direction"), art);
+  SCM follow_scm = scm_assoc (ly_symbol2scm ("follow-into-staff"),
+			      art);
 
-  int prio = 0;
-  SCM sprio = scm_assoc (ly_symbol2scm ("script-priority"), art);
-  if (ly_c_pair_p (sprio))
-    prio = ly_scm2int (ly_cdr (sprio));
+  *follow = ly_c_pair_p (follow_scm) && to_boolean (ly_cdr (follow_scm));
+  bool priority_found = false ; 
+    
+  for (SCM s = art ; ly_c_pair_p (s); s = ly_cdr (s))
+    {
+      SCM sym = ly_caar (s);
+      SCM val = ly_cdar (s);
 
-  /* Make sure they're in order of user input by adding index i.
-     Don't use the direction in this priority. Smaller means closer
-     to the head.  */
-  prio += index;
+      if (sym == ly_symbol2scm ("script-priority"))
+	{
+	  priority_found = true;
+	  /* Make sure they're in order of user input by adding index i.
+	     Don't use the direction in this priority. Smaller means closer
+	     to the head.  */
+	  int prio  = ly_scm2int (val) +  index;
+	  
+	 
+	  val = scm_int2num (prio);
+	}
+      if (p->internal_get_property (sym) == SCM_EOL)
+	p->internal_set_property (sym, val);
+    }
 
+  if (!priority_found)
+    {
+      p->set_property ("script-priority",
+		       scm_int2num (index));
+    }
+  
   Side_position_interface::set_axis (p, Y_AXIS);
-  p->set_property ("script-priority", scm_int2num (prio));
+
 }
 
 void
@@ -134,7 +153,7 @@ Script_engraver::process_music ()
 
       Grob *p = make_item ("Script", m->self_scm ());
 
-      make_script_from_event (p, &scripts_[i].description_, context (),
+      make_script_from_event (p, &scripts_[i].follow_into_staff_, context (),
 			      m->get_property ("articulation-type"),
 			      i);
 
@@ -206,17 +225,14 @@ Script_engraver::stop_translation_timestep ()
 {
   int script_count = scripts_.size ();
   for (int i = 0; i < script_count; i++)
-    if (Grob *sc = scripts_[i].script_)
+    if (scripts_[i].follow_into_staff_)
       {
-	SCM follow = scm_assoc (ly_symbol2scm ("follow-into-staff"),
-				scripts_[i].description_);
-	if (ly_c_pair_p (follow) && to_boolean (ly_cdr (follow)))
-	  {
-	    sc->add_offset_callback (Side_position_interface
-				     ::quantised_position_proc, Y_AXIS);
-	    sc->set_property ("staff-padding", SCM_EOL);
-	  }
+	Grob *sc = scripts_[i].script_;
+	sc->add_offset_callback (Side_position_interface
+				 ::quantised_position_proc, Y_AXIS);
+	sc->set_property ("staff-padding", SCM_EOL);
       }
+  
   scripts_.clear ();
 }
 
