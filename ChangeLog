@@ -1,5 +1,9 @@
 2005-02-05  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* lily/music-sequence.cc (simultaneous_relative_callback): do
+	what-if analysis on copy, not on original. Fixes old-relative
+	compatibility.
+
 	* scm/backend-library.scm (postscript->png): space before
 	--verbose.
 	
