@@ -1438,10 +1438,9 @@ whether the rule applies to begin or end-points.  The quantity
 @var{p}/@var{q} refers to the length of the beamed notes (and `@code{*
 *}' designates notes of any length), @var{n}/@var{M} refers to a time
 signature (wildcards `@code{* *}' may be entered to designate all time
-signatures), var{a}/var{b} is a duration. 
-By default, this command changes setting for the current voice. It is
-also possible to adjust settings at higher contexts, by adding a
-@var{context} argument.
+signatures), @var{a}/@var{b} is a duration.  By default, this command
+changes settings for the current voice. It is also possible to adjust
+settings at higher contexts, by adding a @var{context} argument.
 
 For example, if automatic beams should end on every quarter note, use
 the following:

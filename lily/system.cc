@@ -612,11 +612,7 @@ System::columns ()const
 
 
 ADD_INTERFACE (System,"system-interface",
-  "Super grob, parent of all: "
-"\n\n"
-"The columns of a score that form one line.  The toplevel grob.  Any "
-"grob has a Line_of_score as both X and Y reference point. The "
-"Paper_score contains one grob of this type. Control enters the "
-"Grob dependency calculation from this single Line_of_score "
-"object.",
-  "between-system-string all-elements columns");
+	       "This is the toplevel object: each object in a score "
+	       "ultimately has a System object as its X and Y parent. "
+	       ,
+	       "between-system-string all-elements columns");

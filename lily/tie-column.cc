@@ -203,6 +203,6 @@ Tie_column::after_line_breaking (SCM smob)
 
 
 ADD_INTERFACE (Tie_column,"tie-column-interface",
-  "that sets tie directions in a tied chord",
+  "Object that sets directions of multiple ties in a tied chord",
   "direction");
 

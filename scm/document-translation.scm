@@ -1,4 +1,3 @@
-
 ;;; engraver-doumentation-lib.scm -- Functions for engraver documentation
 ;;;
 ;;; source file of the GNU LilyPond music typesetter
@@ -30,7 +29,7 @@
 	 (propsw (cdr (assoc 'properties-written (ly:translator-description engraver))))
 	 (accepted  (cdr (assoc 'events-accepted (ly:translator-description engraver)))) 
 	 (name-sym  (ly:translator-name engraver))
-	 (name (symbol->string name-sym))
+	 (name-str (symbol->string name-sym))
 	 (desc (cdr (assoc 'description (ly:translator-description engraver))))
 	 (grobs (engraver-grobs engraver))
 	 )
@@ -54,7 +53,7 @@
 	 (string-append
 	  "Properties (read)"
 	  (description-list->texi
-	   (map (lambda (x) (document-property x 'translation #f)) propsr)))
+	   (map (lambda (x) (property->texi 'translation  x '())) propsr)))
 	 "")
      
      (if (null? propsw)
@@ -62,35 +61,41 @@
 	 (string-append
 	 "Properties (write)" 
 	  (description-list->texi
-	   (map (lambda (x) (document-property x 'translation #f)) propsw))))
+	   (map (lambda (x) (property->texi 'translation  x '())) propsw))))
      (if  (null? grobs)
 	  ""
 	  (string-append
 	   "This engraver creates the following grobs: \n "
-	   (human-listify (map ref-ify (uniq-list (sort  grobs string<? ))))
+	   (human-listify (map ref-ify (uniq-list (sort grobs string<? ))))
 	   ".")
 	  )
 
      "\n\n"
 
      (if in-which-contexts
-	 (let* ((paper-alist (My_lily_parser::paper_description))
-		(context-description-alist (map cdr paper-alist))
-		(contexts
-		 (apply append
-			(map (lambda (x)
-			       (let ((context (cdr (assoc 'context-name x)))
-				     (consists (append
-						(list (cdr (assoc 'group-type x)))
-						(cdr (assoc 'consists x))
-						)))
+	 (let*
+	     ((paper-alist (My_lily_parser::paper_description))
+	      (context-description-alist (map cdr paper-alist))
+	      (contexts
+	       (apply append
+		      (map
+		       (lambda (x)
+			 (let*
+			     ((context (cdr (assoc 'context-name x)))
+			      (consists (append
+					 (list
+					  (cdr (assoc 'group-type x)))
+					 (cdr (assoc 'consists x))
+					 ))
 
-				 (if (member name consists)
-				     (list context)
-				     '())))
-			     context-description-alist))))
+
+			      )
+			   (if (member name-sym consists)
+			       (list context)
+			       '())))
+		       context-description-alist))))
 	   (string-append
-	    name " is part of contexts: "
+	    name-str " is part of contexts: "
 	    (human-listify (map ref-ify (map symbol->string contexts)))))
 	 ""
 	 ))))
@@ -280,7 +285,7 @@
        (sortedsyms (map string->symbol ps))
        (propdescs
 	(map
-	 (lambda (x) (document-property x 'translation #f))
+	 (lambda (x) (property->texi 'translation  x '()))
 	 sortedsyms))
        (texi (description-list->texi propdescs)))
     texi

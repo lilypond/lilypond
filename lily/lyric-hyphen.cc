@@ -99,11 +99,14 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
   Spanner*sp = dynamic_cast<Spanner*> (me);
   r.distance_ =
     robust_scm2double (me->get_grob_property ("minimum-length"), 0);
+
   Direction d=LEFT;
-  do {
-    r.item_l_drul_[d] = sp->get_bound (d);
-    r.distance_ += r.item_l_drul_[d]->extent (r.item_l_drul_[d], X_AXIS)[-d];
-  } while (flip (&d) != LEFT);
+  do
+    {
+      r.item_l_drul_[d] = sp->get_bound (d);
+      r.distance_ += r.item_l_drul_[d]->extent (r.item_l_drul_[d], X_AXIS)[-d];
+    }
+  while (flip (&d) != LEFT);
 
   r.add_to_cols ();
   return SCM_UNSPECIFIED;

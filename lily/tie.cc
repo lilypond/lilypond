@@ -355,6 +355,6 @@ Tie::print (SCM smob)
 
 
 ADD_INTERFACE (Tie,"tie-interface",
-  "A tie connecting two noteheads.\n"
-"direction = Forced direction for all ties",
+	       "A tie connecting two noteheads.\n"
+	       ,
   "y-offset staffline-clearance control-points head-pair details thickness x-gap direction minimum-length");

@@ -560,6 +560,10 @@ Slur::print (SCM smob)
     return SCM_EOL;
 
   Stencil a;
+
+  /*
+    TODO: replace dashed with generic property.
+   */
   SCM d =  me->get_grob_property ("dashed");
   if (gh_number_p (d))
     a = Lookup::dashed_slur (one, thick, thick * robust_scm2double (d, 0));
@@ -693,5 +697,5 @@ Slur::get_curve (Grob*me)
 
 ADD_INTERFACE (Slur,"slur-interface",
   "A slur",
-  "attachment attachment-offset beautiful control-points dashed details de-uglify-parameters direction extremity-rules extremity-offset-alist height-limit ratio slope-limit thickness y-free");
+  "attachment attachment-offset beautiful control-points dashed details de-uglify-parameters direction extremity-rules extremity-offset-alist height-limit note-columns ratio slope-limit thickness y-free");
 

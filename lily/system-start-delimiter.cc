@@ -183,5 +183,8 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
 
 
 ADD_INTERFACE (System_start_delimiter,"system-start-delimiter-interface",
-  "#'style can be bar-line, bracket or brace",
-  "collapse-height thickness arch-height arch-angle arch-thick arch-width bracket-thick glyph");
+	       "The brace, bracket or bar in front of the system. "
+	       "It is implemented as a spanner"
+	       ,
+	       "collapse-height thickness "
+	       "arch-height arch-angle arch-thick arch-width bracket-thick glyph");

@@ -6,13 +6,13 @@ factor, objects generally become too thick or too large.
 "
 
 }
-\version "2.1.22"
+\version "2.1.23"
 
 \score {
   <<
     \new Staff \with {
       fontSize = #-4
-      StaffSymbol \set #'staff-space = #(magstep -4)
+      \override StaffSymbol #'staff-space = #(magstep -4)
     }
     \notes \relative c' {
 \override DynamicText  #'extra-offset = #'(0 . 3)

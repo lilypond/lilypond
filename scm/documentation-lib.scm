@@ -182,49 +182,38 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property  stuff.
 
-(define (property->texi where sym)
-  "Document SYM for WHERE (which can be translation, backend, music)"
+(define (property->texi where sym . rest)
+  "Document SYM for WHERE (which can be translation, backend, music),
+with init values from ALIST (1st optional argument)
+"
   (let* ((name (symbol->string sym))
+	 (alist (if (pair? rest) (car rest) '()))
 	 (type?-name (string->symbol
 		      (string-append (symbol->string where) "-type?")))
 	 (doc-name (string->symbol		    
 		    (string-append (symbol->string where) "-doc")))
 	 (type (object-property sym type?-name))
 	 (typename (type-name type))
-	 (desc (object-property sym doc-name)))
+	 (desc (object-property sym doc-name))
+	 (handle (assoc sym alist))
+	 )
 
     (if (eq? desc #f)
 	(error "No description for property ~S" sym))
 	
     (cons
      (string-append "@code{" name "} "
-		    "(" typename ")")
+		    "(" typename ")"
+		    (if handle
+			(string-append
+			 ":\n\n @code{"
+			 (scm->texi (cdr handle))
+			 "}\n\n")
+			"")
+				    
+
+		    )
      desc)
      
     ))
 
-(define (document-property-value sym alist)
-  "Extract value for SYM from ALIST, return as texi string"
-  (let* ((handle (assoc sym alist)))
-    (if (eq? handle #f)
-	"(unset)"
-	(scm->texi (cdr handle)))))
-
-(define (backend-property->texi sym)
-  (property->texi 'backend sym))
-
-(define (document-property sym where alist)
-  "Document SYM. If GROB-DESCRIPTION is not #f, it's an alist
-containing default values."
-  (let*
-      ((without (property->texi where sym))
-       (rv
-
-	(cons (car without)
-	      (if (eq? alist #f)
-		  (cdr without)
-		  (string-append
-		   (cdr without)
-		   "\nDefault value: "
-		   (document-property-value sym alist))))))
-    rv))

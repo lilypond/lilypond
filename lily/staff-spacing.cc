@@ -242,5 +242,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
 
 
 ADD_INTERFACE (Staff_spacing,"staff-spacing-interface",
-  "",
+	       "This object calculates spacing details from a "
+	       " breakable symbol (left) to another object. For example, it takes care "
+	       " of  optical spacing from  a bar lines to a note.",
   "stem-spacing-correction left-items right-items");

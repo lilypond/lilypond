@@ -1,14 +1,14 @@
 /*   
-translator-property.cc --  implement manipulation of
+   translator-property.cc --  implement manipulation of
 
    immutable Grob property lists. 
 
-source file of the GNU LilyPond music typesetter
+   source file of the GNU LilyPond music typesetter
 
-(c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
-
+   (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
  */
 
+#include "main.hh"
 #include "translator-group.hh"
 #include "warn.hh"
 #include "item.hh"
@@ -32,7 +32,7 @@ void
 execute_pushpop_property (Translator_group * trg,
 			  SCM prop, SCM eltprop, SCM val)
 {
-  if (gh_symbol_p (prop))
+  if (gh_symbol_p (prop) && gh_symbol_p (eltprop))
     {
       if (val != SCM_UNDEFINED)
 	{
@@ -100,6 +100,12 @@ execute_pushpop_property (Translator_group * trg,
 	  else
 	    trg->internal_set_property (prop, gh_cons (new_alist, daddy));
 	}
+    }
+  else
+    {
+      warning ("Need symbol arguments for \\override and \\revert");
+      if (internal_type_checking_global_b)
+	assert (false);
     }
 }
 

@@ -122,8 +122,11 @@ Staff_symbol::get_ledger_line_thickness (Grob * me)
 
 
 ADD_INTERFACE (Staff_symbol,"staff-symbol-interface",
-  "This spanner draws the lines of a staff.  The center (i.e. middle line "
-"or space) is position 0. The length of the symbol may be set by hand "
-"through the @code{width} property. ",
+	       "This spanner draws the lines of a staff. "
+	       "A staff symbol definines a vertical unit, the staff space "
+	       "Quantities that go by a half staff space are called positions "
+	       "The center (i.e. middle line "
+	       "or space) is position 0. The length of the symbol may be set by hand "
+	       "through the @code{width} property. ",
 	       
   "ledger-line-thickness width staff-space thickness line-count");

@@ -145,9 +145,9 @@ overriding Staff.defaultBarType will have no effect.
 decrescendi.  One of: @samp{hairpin}, @samp{line}, @samp{dashed-line},
 @samp{dotted-line}.  If unset, hairpin type is used.")
 
-     (explicitClefVisibility ,procedure? "visibility-lambda function for clef changes.")
+     (explicitClefVisibility ,procedure? "break-visibility function for clef changes.")
 
-     (explicitKeySignatureVisibility ,procedure? "visibility-lambda
+     (explicitKeySignatureVisibility ,procedure? "break-visibility
 function for explicit Key changes; \\override of #'break-visibility
 will set the visibility for normal (ie. at the start of the line) key
 signatures.")

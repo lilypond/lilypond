@@ -241,7 +241,8 @@ Span_bar::get_bar_size (SCM smob)
 
 
 ADD_INTERFACE (Span_bar,"span-bar-interface",
-  "A bar line that spans other barlines (typically used to get cross-staff barlines.",
-  "");
+  "A bar line that spanned between other barlines. This interface is "
+	       " used for  bar lines that connect different staves.",
+  "elements");
 
 
