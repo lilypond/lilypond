@@ -181,27 +181,24 @@ Piano_pedal_engraver::do_process_music ()
 	  s = get_property ("start" + String (p->name_ ));
 	}
 
-      if (s != SCM_UNDEFINED)
+      if (gh_string_p (s))
 	{
 	  if (p->name_ == String ("Sustain"))
 	    {
-	      p->item_p_ = new Sustain_pedal (SCM_EOL);
-	      p->item_p_->set_elt_property ("text", s);
+	      // fixme: Item should be sufficient.
+	      p->item_p_ = new Text_item (get_property ("basicSustainPedalProperties"));
 	    }
 	  else
 	    {
-	      p->item_p_ = new Text_item (SCM_EOL);
+	      p->item_p_ = new Text_item (get_property ("basicPedalProperties"));
+	    }
 	      p->item_p_->set_elt_property ("text", s);
 	      // guh
-	      p->item_p_->set_elt_property ("style", ly_str02scm ("italic"));
-	    }
 
 	  Side_position_interface si (p->item_p_);
 	  si.set_axis (Y_AXIS);
 
 	  // todo: init with basic props.
-	  p->item_p_->set_elt_property ("no-spacing-rods"  , SCM_BOOL_T);
-	  p->item_p_->set_elt_property ("self-alignment-X", gh_int2scm (0));
 	  p->item_p_->add_offset_callback (Side_position_interface::aligned_on_self, X_AXIS);
 	  p->item_p_->add_offset_callback (Side_position_interface::centered_on_parent, X_AXIS);
 	  announce_element (Score_element_info (p->item_p_,

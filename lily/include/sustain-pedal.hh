@@ -33,10 +33,10 @@ class Sustain_pedal : public Item
 public:
    static SCM scheme_molecule (SCM);
   
-VIRTUAL_COPY_CONS (Score_element);
+  VIRTUAL_COPY_CONS (Score_element);
   Sustain_pedal (SCM);
 protected:
-  virtual Molecule do_brew_molecule () const;
+  // Molecule do_brew_molecule () const;
   virtual void after_line_breaking ();
 };
 

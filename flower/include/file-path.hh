@@ -30,7 +30,8 @@ public:
 
   Array<String>::push;
   String str ()const;
-  void add (String str);
+  bool try_add (String str);
+  void add (String);
   void parse_path (String);
 };
 

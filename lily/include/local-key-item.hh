@@ -46,7 +46,7 @@ public:
   void add_pitch (Musical_pitch, bool cautionary, bool natural);
 protected:
   virtual void before_line_breaking ();
-  virtual Molecule do_brew_molecule() const;
+  Molecule do_brew_molecule() const;
 };
 
 #endif // LOCALKEYITEM_HH

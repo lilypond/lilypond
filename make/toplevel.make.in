@@ -51,10 +51,11 @@ examples:
 
 	tar --exclude='*.dvi' --exclude='*.tex' --exclude='*.ps' --exclude='*.ppm' -czf $(outdir)/examples.tar.gz *-examples.html  `find input mutopia -type d -name 'out-www' -print`
 
+
+my_tfm_path=$(TFM_PATH) /tmp /tmp  /tmp /tmp  /tmp /tmp 
 localinstall:
 	mkdir -p $(datadir)
-	rm -f $(datadir)/cmtfm 
-	$(LN_S) $(TEX_TFMDIR) $(datadir)/cmtfm
+	$(foreach i, 1 2 3 4 5, rm -f $(datadir)/tfm.$(i); $(LN_S) $(word $(i), $(my_tfm_path)) $(datadir)/tfm.$(i) ; )
 
 local-WWW-clean:
 	$(SHELL) $(depth)/buildscripts/clean-fonts.sh

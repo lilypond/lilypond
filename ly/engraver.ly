@@ -152,6 +152,7 @@ VoiceContext = \translator {
 	stopStartSustain = #"*Ped."
 	startUnaChorda = #"una chorda"
 	stopUnaChorda = #"tre chorde"
+
 	\consists "Piano_pedal_engraver";
 	\consists "Script_engraver";
 	\consists "Script_column_engraver";
@@ -490,6 +491,13 @@ ScoreContext = \translator {
 		(molecule-callback . ,Text_item::scheme_molecule)
 		(style . "italic")
 	)
+	basicPedalProperties = #`(
+		(molecule-callback . ,Text_item::scheme_molecule)
+		(style . "italic")
+		(no-spacing-rods . #t)
+		(self-alignment-X . 0)
+				
+	)
 	basicTextProperties = #`( )
 	basicRestProperties = #`( 
 		(molecule-callback . ,Rest::scheme_molecule)
@@ -504,7 +512,11 @@ ScoreContext = \translator {
 	basicSlurProperties = #`(
 		(molecule-callback . ,Slur::scheme_molecule)
 	)
-
+	basicSustainPedalProperties = #`(
+		(no-spacing-rods . #t)
+		(molecule-callback . ,Sustain_pedal::scheme_molecule)
+		(self-alignment-X . 0)
+	)	
 	basicSystemStartDelimiterProperties = #`(
 		(molecule-callback . ,System_start_delimiter::scheme_molecule)
 		(collapse-height . 1.0)

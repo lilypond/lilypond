@@ -33,7 +33,7 @@ public:
   
 
 protected:
-  virtual Molecule do_brew_molecule() const;
+  Molecule do_brew_molecule() const;
 };
 
 #endif // KEYITEM_HH

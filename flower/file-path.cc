@@ -110,10 +110,27 @@ File_path::find (String nm) const
   return "";
 }
 
+/**
+   Add an directory, return false if failed
+ */
+bool
+File_path::try_add (String s)
+{
+  if (s == "")
+    s =  ".";
+  FILE  * f = fopen (s.ch_C(), "r");
+  if (!f)
+    return false;
+  fclose (f);
+    
+  push (s);
+  return true;
+}
+
 void
 File_path::add (String s)
 {
-   push (s); 
+  push (s);
 }
 
 String

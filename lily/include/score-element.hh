@@ -184,7 +184,7 @@ protected:
   
   ///executed directly after the item is added to the Paper_score
   virtual void do_add_processing ();
-  virtual Molecule do_brew_molecule ()const;
+  Molecule do_brew_molecule ()const;
   
   static Interval dim_cache_callback (Dimension_cache const*);
   
@@ -245,14 +245,7 @@ public:
 
 Score_element * unsmob_element (SCM);
 
-#define MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(TYPE) 				\
-SCM								\
-TYPE::scheme_molecule (SCM smob)				\
-{								\
-  TYPE * b = dynamic_cast<TYPE*> (unsmob_element (smob));	\
-  return b ?  b->do_brew_molecule ().create_scheme () : SCM_EOL; \
-}								\
-								\
+#define MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(TYPE) 				\
 void								\
 TYPE ## __init_functions ()					\
 {								\
@@ -261,6 +254,16 @@ TYPE ## __init_functions ()					\
 }								\
 								\
 ADD_SCM_INIT_FUNC(TYPE ## _molecule, TYPE ## __init_functions);	\
+
+#define MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(TYPE) 				\
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(TYPE);\
+SCM								\
+TYPE::scheme_molecule (SCM smob)				\
+{								\
+  TYPE * b = dynamic_cast<TYPE*> (unsmob_element (smob));	\
+  return b ?  b->do_brew_molecule ().create_scheme () : SCM_EOL; \
+}								\
+								\
 
 
 

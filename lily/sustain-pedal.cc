@@ -16,6 +16,7 @@
 void
 Sustain_pedal::after_line_breaking ()
 {
+  return ;
   /*
     UGH. Should work automatically via offset callback. 
    */
@@ -24,31 +25,36 @@ Sustain_pedal::after_line_breaking ()
   i.set_direction (d);
 }
 
-Molecule
-Sustain_pedal::do_brew_molecule () const
+MAKE_SCHEME_SCORE_ELEMENT_NON_DEFAULT_CALLBACKS(Sustain_pedal);
+
+
+SCM
+Sustain_pedal::scheme_molecule (SCM smob) 
 {
+  Score_element * e = unsmob_element (smob);
+  
   Molecule mol;
-  SCM glyph = get_elt_property ("text");
-  if (glyph == SCM_UNDEFINED)
-    return mol;
+  SCM glyph = e->get_elt_property ("text");
+  if (!gh_string_p (glyph))
+    return mol.create_scheme();
   String text = ly_scm2string (glyph);
 
   for (int i = 0; i < text.length_i (); i++)
     {
       String idx ("pedal-");
-      if (text.cut_str (i, i + 2) == "Ped")
+      if (text.cut_str (i, 3) == "Ped")
 	{
 	  idx += "Ped";
 	  i += 2;
 	}
       else
 	idx += String (&text.byte_C ()[i], 1);
-      Molecule m = lookup_l ()->afm_find (idx);
+      Molecule m = e->lookup_l ()->afm_find (idx);
       if (!m.empty_b ())
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
     }
     
-  return mol;
+  return mol.create_scheme ();
 }
 
 Sustain_pedal ::Sustain_pedal(SCM s )

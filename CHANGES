@@ -1,3 +1,13 @@
+1.3.58.jcn2
+===========
+
+* Fixed pedal items (hw)
+
+* Changed configure option tex-tmfdir to tmf-path now accepting multiple
+  tfm directories.  Automated links to cmr and amstex tfm font directories.
+
+* Replaced one scm_assoc () u-turn slipped through jcn1
+
 1.3.58.jcn1
 ===========
 

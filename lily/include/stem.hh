@@ -93,7 +93,7 @@ protected:
 
   virtual void before_line_breaking();
   static Interval dim_callback (Score_element const*,Axis);
-  virtual Molecule do_brew_molecule() const;
+  Molecule do_brew_molecule() const;
 
   void set_spacing_hints () ;
 };
