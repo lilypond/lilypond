@@ -25,6 +25,7 @@ OTF_TABLES = $(addsuffix .otf-table, $(addprefix $(outdir)/feta, $(STAFF_SIZES))
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
 SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
+CFF_FILES = $(OTF_FILES:%.otf=%.cff) $(ALL_FONTS:%=$(outdir)/%.cff)
 
 
 $(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
@@ -56,7 +57,7 @@ foe:
 	echo $(TEXMF)
 	kpsewhich exbase.mf
 
-$(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
+$(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && fontforge -script $(notdir $<)) 
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) 
@@ -84,11 +85,12 @@ ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) 
 INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES=$(MF_FILES) $(AF_FILES)
 
-INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 7
+INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6 7 8 9
 
 INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
 INSTALLATION_OUT_FILES1=$(TEXTABLES)
 
+# must not be installed with .cff, pango/fontconfig does not like .cff fonts 
 INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/otf
 INSTALLATION_OUT_FILES2=$(OTF_FILES)
 
@@ -107,8 +109,12 @@ INSTALLATION_OUT_FILES6=$(outdir)/lilypond.map
 INSTALLATION_OUT_DIR7=$(local_lilypond_datadir)/ps/
 INSTALLATION_OUT_FILES7=$(ENC_FILES)
 
-INSTALLATION_OUT_DIR8=$(local_lilypond_datadir)/svg
-INSTALLATION_OUT_FILES8=$(OTF_FILES)
+# install in fonts/cff or ps/ directory?
+INSTALLATION_OUT_DIR8=$(local_lilypond_datadir)/cff
+INSTALLATION_OUT_FILES8=$(CFF_FILES)
+
+INSTALLATION_OUT_DIR9=$(local_lilypond_datadir)/svg
+INSTALLATION_OUT_FILES9=$(SVG_FILES)
 
 
 export MFINPUTS:=.:$(MFINPUTS)

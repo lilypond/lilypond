@@ -88,31 +88,24 @@ checking. "
 
   (ly:context-set-property! context context-prop
 			   (cons (cons setting value)
-				 (ly:context-property context context-prop)
-				 )
-			   )
-  )
+				 (ly:context-property context context-prop))))
 
 (define (revert-property-setting context setting)
   "Like the C++ code that executes \revert, but without type
 checking. "
-  
+
   (define (revert-assoc alist key)
     "Return ALIST, with KEY removed. ALIST is not modified, instead
 a fresh copy of the  list-head is made."
     (cond
      ((null? alist) '())
      ((equal? (caar alist) key) (cdr alist))
-     (else (cons (car alist) (revert-assoc alist key)))
-     ))
+     (else (cons (car alist) (revert-assoc alist key)))))
 
-  
-  
     (ly:context-set-property!
      context context-prop
      (revert-assoc (ly:context-property context context-prop)
-		   setting))
-  )
+		   setting)))
 
 (define-public (override-auto-beam-setting setting num den . rest)
   (ly:export
@@ -120,12 +113,22 @@ a fresh copy of the  list-head is made."
     (make-apply-context (lambda (c)
 			  (override-property-setting
 			   c 'autoBeamSettings
-			   setting (ly:make-moment num den))
-			  ))
+			   setting (ly:make-moment num den))))
     (if (and (pair? rest) (symbol? (car rest)))
 	(car rest)
-	'Voice)
-  )))
+	'Voice))))
+
+;; UGH -- fixme, docme
+(define-public (score-override-auto-beam-setting setting num den . rest)
+  (ly:export
+   (context-spec-music
+    (make-apply-context (lambda (c)
+			  (override-property-setting
+			   c 'autoBeamSettings
+			   setting (ly:make-moment num den))))
+    (if (and (pair? rest) (symbol? (car rest)))
+	(car rest)
+	'Score))))
 
 (define-public (revert-auto-beam-setting setting . rest)
   (ly:export
@@ -137,4 +140,3 @@ a fresh copy of the  list-head is made."
     (if (and (pair? rest) (symbol? (car rest)))
 	(car rest)
 	'Voice))))
-
