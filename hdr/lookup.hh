@@ -12,7 +12,7 @@ struct Lookup {
     /****************/
     Real internote();
     void parse (Text_db&t);
-    Parametric_symbol *linestaff(int n);
+    Symbol linestaff(int n, Real w);
 
     Symbol beam_element(int,int,Real=0);
     /// round slope to closest TeXslope
