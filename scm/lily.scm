@@ -61,6 +61,44 @@
       1
       (if (< x 0) -1 1)))
 
+(define (write-me n x)
+  (display n)
+  (write x)
+  (newline)
+  x)
+
+(define (empty? x)
+  (equal? x '()))
+
+(define (!= l r)
+  (not (= l r)))
+
+(define (filter-list pred? list)
+  "return that part of LIST for which PRED is true."
+  (if (null? list) '()
+      (let* ((rest  (filter-list pred? (cdr list))))
+	(if (pred?  (car list))
+	    (cons (car list)  rest)
+	    rest))))
+
+(define (uniqued-alist  alist acc)
+  (if (null? alist) acc
+      (if (assoc (caar alist) acc)
+	  (uniqued-alist (cdr alist) acc)
+	  (uniqued-alist (cdr alist) (cons (car alist) acc)))))
+
+(define (uniq-list list)
+  (if (null? list) '()
+      (if (null? (cdr list))
+	  list
+	  (if (equal? (car list) (cadr list))
+	      (uniq-list (cdr list))
+	      (cons (car list) (uniq-list (cdr list)))))))
+
+(define (alist<? x y)
+  (string<? (symbol->string (car x))
+	    (symbol->string (car y))))
+
 
 (map (lambda (x) (eval-string (ly-gulp-file x)))
      '("output-lib.scm"

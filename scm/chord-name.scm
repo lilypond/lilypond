@@ -14,25 +14,22 @@
    (ice-9 string-fun)
    )
 
+;; pitch = (octave notename accidental)
 ;;
-;; (octave notename accidental)
+;; note = (notename . accidental)
 ;;
+;; text = scm markup text -- see font.scm and input/test/markup.ly
 
-;;
-;; text: scm markup text -- see font.scm and input/test/markup.ly
-;;
 
 ;; TODO
 ;;
-;; * clean split of bass/banter/american stuff
-;; * text definition is rather ad-hoc
-;; * do without format module
-;; * finish and check american names
-;; * make notename (tonic) configurable from lilypond
-;; * fix append/cons stuff in inner-name-banter
-;; * doc strings.
+;; * fix FIXMEs
+;; * clean split/merge of bass/banter/american stuff
+;; * handy, documented hooks for user-override of:
+;;    - tonic (chord) name
+;;    - 
+;; * doc strings
 
-;;;;;;;;;
 (define chord::names-alist-banter '())
 (set! chord::names-alist-banter
       (append 
@@ -60,6 +57,7 @@
 ;;;;;;;;;;
 
 
+;; FIXME
 (define (accidental->text acc)
   (if (= acc 0)
       '()
@@ -77,9 +75,23 @@
       (cons sub (list accidental->text acc))))
 
 
+;; these look nice, but don't work together with current inner-name-jazz
+;; (inner-name-jazz is a bit broken: apply append etc)
+(define (xaccidental->textp acc pos)
+  (if (= acc 0)
+      '()
+       (list (list '(music (font-relative-size . -2))
+	     (list pos (string-append "accidentals-" (number->string acc))))))
+)
+
+(define (xaccidental->text acc) (accidental->textp acc 'rows))
+(define (xaccidental->text-super acc) (accidental->textp acc 'super))
+(define (xaccidental->text-sub acc) (accidental->textp acc 'sub))
+
 (define (pitch->note-name pitch)
   (cons (cadr pitch) (caddr pitch)))
 
+;; FIXME: see german-chords.ly
 (define (pitch->text pitch)
   (cons
    (make-string 1 (integer->char (+ (modulo (+ (cadr pitch) 2) 7) 65)))
@@ -127,6 +139,9 @@
      (vector-ref pitch::semitone-vec (modulo (cadr pitch) 7)) 
      (caddr pitch)))
 
+(define (pitch::< l r)
+  (< (pitch::semitone l) (pitch::semitone r)))
+  
 (define (pitch::transpose pitch delta)
   (let ((simple-octave (+ (car pitch) (car delta)))
 	(simple-notename (+ (cadr pitch) (cadr delta))))
@@ -150,21 +165,16 @@
 (define (pitch::note-pitch pitch)
   (+ (* (car pitch) 7) (cadr pitch)))
 
-
-(define (write-me n x)
-  (display n)
-  (write x)
-  (newline)
-  x)
-
-(define (empty? x)
-  (equal? x '()))
-  
 (define (chord::text? text)
   (not (or (not text) (empty? text) (unspecified? text))))
 
-;; recursively remove '() #f, and #<unspecified> from text
 (define (chord::text-cleanup dirty)
+  "
+   Recursively remove '() #f, and #<unspecified> from markup text tree.
+   This allows us to leave else parts of (if # #) off.
+   Otherwise, you'd have to do (if # # '()), and you'd have to
+   filter-out the '() anyway.
+  "
   (if (pair? dirty)
       (let ((r (car dirty)))
 	(if (chord::text? r)
@@ -174,7 +184,7 @@
       (if (chord::text? dirty)
 	  dirty
 	  '())))
-		
+
 (define (chord::text-append l . r)
   (if (not (chord::text? r))
       l
@@ -191,6 +201,7 @@
 
 (define chord::minor-major-vec (list->vector '(0 -1 -1 0 -1 -1 0)))
 
+;; FIXME: unLOOP
 ;; compute the relative-to-tonic pitch that goes with 'step'
 (define (chord::step-pitch tonic step)
   ;; urg, we only do this for thirds
@@ -204,34 +215,39 @@
 		;; -1 (step=1 -> vector=0) + 7 = 6
 		(modulo (+ i 6) 7)))))))))
 
-;; find the pitches that are not part of `normal' chord
-(define (chord::additions chord-pitches)
-  (let ((tonic (car chord-pitches)))
-    ;; walk the chord steps: 1, 3, 5
-    (let loop ((step 1) (pitches chord-pitches) (additions '()))
-      (if (pair? pitches)
-	(let* ((pitch (car pitches))
-	       (p-step (+ (- (pitch::note-pitch pitch)
-			     (pitch::note-pitch tonic))
-			  1)))
-	  ;; pitch is an addition if 
-	  (if (or 
-		;; it comes before this step or
-		(< p-step step)
-		;; its step is even or
-		(= (modulo p-step 2) 0)
-		;; has same step, but different accidental or
-		(and (= p-step step)
-		     (not (equal? pitch (chord::step-pitch tonic step))))
-		;; is the last of the chord and not one of base thirds
-		(and (> p-step  5)
-		     (= (length pitches) 1)))
-	    (loop step (cdr pitches) (cons pitch additions))
-	  (if (= p-step step)
-	    (loop step (cdr pitches) additions)
-	    (loop (+ step 2) pitches additions))))
-      (reverse additions)))))
+(define (chord::additions steps)
+  " Return:
+   * any even step (2, 4, 6)
+   * any uneven step that is chromatically altered,
+     (where 7-- == -1, 7- == 0, 7 == +1)
+   * highest step
 
+and you need also:
+
+   * TODO: any uneven step that's lower than an uneven step which is
+     chromatically altered
+  "
+  (let ((evens (filter-list (lambda (x) (!= 0 (modulo (cadr x) 2))) steps))
+	(altered-unevens
+	 (filter-list (lambda (x)
+			(let ((n (cadr x)) (a (caddr x)))
+			  (or (and (= 6 n) (!= -1 a))
+			      (and (!= 6 n)
+				   (= 0 (modulo n 2))
+				   (!= 0 a)))))
+		      steps))
+	(highest (let ((h (car (last-pair steps))))
+		   (if (and (not (empty? h))
+			    (or (> 4 (cadr h))
+				(!= 0 (caddr h))))
+		       (list (list h))
+		       '()))))
+    ;; Hmm, what if we have a step twice, can we ignore that?
+    (uniq-list (sort (apply append evens altered-unevens highest)
+		     pitch::<))))
+	
+     
+;; FIXME: unLOOP, see ::additions
 ;; find the pitches that are missing from `normal' chord
 (define (chord::subtractions chord-pitches)
   (let ((tonic (car chord-pitches)))
@@ -259,7 +275,6 @@
 	      (loop step (cdr pitches) subtractions)))))
 	(reverse subtractions)))))
 
-
 (define (chord::additions->text-banter additions subtractions)
   (if (pair? additions)
       (cons (apply append
@@ -269,8 +284,7 @@
 		     (if (or (pair? (cdr additions))
 			     (pair? subtractions))
 			 '(super "/")))))
-	    (chord::additions->text-banter (cdr additions) subtractions))
-      '()))
+	    (chord::additions->text-banter (cdr additions) subtractions))))
 
 (define (chord::subtractions->text-banter subtractions)	 
   (if (pair? subtractions)
@@ -281,9 +295,7 @@
 		     (cons 'super (step->text-banter (car subtractions)))
 		     (if (pair? (cdr subtractions))
 			 '(super "/")))))
-	    (chord::subtractions->text-banter (cdr subtractions)))
-	'()))
-
+	    (chord::subtractions->text-banter (cdr subtractions)))))
 
 (define (chord::bass-and-inversion->text-banter bass-and-inversion)
   (if (and (pair? bass-and-inversion)
@@ -293,30 +305,32 @@
 		    (pitch->note-name-text-banter
 		     (car bass-and-inversion))
 		    (pitch->note-name-text-banter
-		     (cdr bass-and-inversion)))
-	    '())
-      '()))
+		     (cdr bass-and-inversion))))))
 
+;; FIXME: merge this function with inner-name-jazz, -american
+;;        iso using chord::bass-and-inversion->text-banter,
+;;        call (chord::restyle 'chord::bass-and-inversion->text- style)
+;;        See: chord::exceptions-lookup
+;;        
 ;; Banter style
 ;; Combine tonic, exception-part of chord name,
 ;; additions, subtractions and bass or inversion into chord name
 (define (chord::inner-name-banter tonic exception-part additions subtractions
 				  bass-and-inversion steps)
-  ;; ugh
-  (apply
-   append
-   (chord::text-cleanup
-    (list '(rows)
-	  (pitch->chord-name-text-banter tonic steps)
-	  exception-part
-	  ;; why does list->string not work, format seems only hope...
-	  (if (and (string-match "super" (format "~s" exception-part))
-		   (or (pair? additions)
-		       (pair? subtractions)))
-	      '((super "/")))
-	 (chord::additions->text-banter additions subtractions)
-	 (chord::subtractions->text-banter subtractions)
-	 (chord::bass-and-inversion->text-banter bass-and-inversion)))))
+  (let ((tonic-text (pitch->chord-name-text-banter tonic steps))
+	(except-text exception-part)
+	(sep-text (if (and (string-match "super" (format "~s" exception-part))
+			    (or (pair? additions)
+				(pair? subtractions)))
+		       '((super "/"))))
+	(adds-text (chord::additions->text-banter additions subtractions))
+	(subs-text (chord::subtractions->text-banter subtractions))
+	(b+i-text (chord::bass-and-inversion->text-banter bass-and-inversion)))
+    (apply append
+	   (map chord::text-cleanup
+		(list
+		 '(rows) tonic-text except-text sep-text adds-text subs-text
+		 b+i-text)))))
 
 (define (chord::name-banter tonic exception-part unmatched-steps
 			    bass-and-inversion steps)
@@ -348,7 +362,8 @@
 (define (chord::exceptions-lookup-helper
 	 exceptions-alist try-steps unmatched-steps exception-part)
   (if (pair? try-steps)
-      ;; FIXME: junk '(0 . 0) from exceptions lists
+      ;; FIXME: junk '(0 . 0) from exceptions lists?
+      ;;        if so: how to handle first '((0 . 0) . #f) entry?
       ;;
       ;; FIXME: either format exceptions list as real pitches, ie,
       ;;        including octave '((0 2 -1) ..), or drop octave
@@ -701,6 +716,29 @@
 	  (chord::bass-and-inversion->text-banter bass-and-inversion)))))
 
 ;; Jazz style--basically similar to american with minor changes
+;;
+;; Consider Dm6.  When we get here:
+;;     tonic =  '(0 1 0) (note d=2)
+;;     steps =  '((0 0 0) '(0 2 -1) (0 4 0) (0 5 0))
+;;               steps are transposed for tonic c, octave 0,
+;;               so (car steps) is always (0 0 0)
+;;     except  = ("m")
+;;               assuming that the exceptions-alist has an entry
+;;               '(((0 . 0) (2 . -1)) . ("m"))
+;;               (and NOT the full chord, like std jazz list, ugh)
+;;     unmatch = '((0 0 0) (0 2 0) (0 4 0) (0 5 0))
+;;     subtract= '()
+;;
+;; You can look very easily what happens, if you add some write-me calls,
+;; and run lilypond on a simple file, eg, containing only the chord c:m6:
+;;
+;;   (let ((additions (write-me "adds: "
+;;                 (chord::additions (write-me "unmatched:"
+;;                 unmatched-steps))))
+;;
+;; If you set subtract #f, the chord::inner-name-jazz does not see any
+;; subtractions, ever, so they don't turn up in the chord name.
+;;
 (define (chord::name-jazz tonic exception-part unmatched-steps
 			  bass-and-inversion steps)
   (let ((additions (chord::additions unmatched-steps))
@@ -711,9 +749,10 @@
 	     bass-and-inversion steps)))
 
 ;; wip (set! chord::names-alist-jazz
-(define amy-chord::names-alist-jazz
+(define chord::names-alist-jazz
       (append
       '(
         (((0 . 0) (2 . -1)) . ("m"))
 	)
-      chord::names-alist-american))
+      '()))
+      ;;chord::names-alist-american))
