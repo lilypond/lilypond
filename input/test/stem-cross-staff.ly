@@ -1,3 +1,5 @@
+\version "1.7.7"
+
 \header {
     texidoc = "Cross staff stems
 

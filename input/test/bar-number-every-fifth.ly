@@ -1,12 +1,11 @@
-
 \header
 {
-
     texidoc = "Bar numbers can also be printed at regular intervals."
 }
+\version "1.7.7"
 
 \score {
-    \context Staff \notes \transpose c'' {
+    \context Staff \notes \transpose  c c' {
 	\property Score.BarNumber \override #'break-visibility = #end-of-line-invisible
 	\property Score.barNumberVisibility = #(every-nth-bar-number-visible 5)
 	\property Score.BarNumber \override #'molecule-callback =

@@ -16,8 +16,6 @@ export TEXMF:={$(LILYPONDPREFIX),$(shell kpsexpand \$$TEXMF)}
 export MFINPUTS:=
 export TEXINPUTS:=
 export TFMFONTS:=
-
-
 export extra_mem_top=1000000
 export extra_mem_bottom=1000000
 export pool_size=500000

@@ -1,3 +1,4 @@
+\version "1.7.7"
 \header{
     texidoc = "Additional tricks for dynamics.  Pi`u forte dynamic script"
 }
@@ -14,4 +15,6 @@ piuf = #'(columns (italic "pi\\`u") " " (dynamic "f"))
 	
 	c2\< \! c2
 	}
-    }%% new-chords-done %%
+    }
+
+%% new-chords-done %%

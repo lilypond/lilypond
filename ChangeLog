@@ -1,5 +1,7 @@
 2002-11-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/*.ly: add \version everywhere.
+	
 	* input/*.ly: update syntax to 1.7 + new-chords.
 
 	* Documentation/user/*.tely: new chord syntax.
