@@ -29,7 +29,7 @@ instrument = "Piano"
 
   copyright = "Public Domain"
   maintainer = "Jan Nieuwenhuizen"
-  maintainer_email = "janneke@gnu.org"
+  maintainerEmail = "janneke@gnu.org"
   lastupdated =	 "2001/Mar/26"
   mutopiapublicdomain = "\\parbox{\hsize}{\\thefooter\\quad\\small
     \\\\This music is part of the Mutopia project,
@@ -431,7 +431,18 @@ grandStaff =  \context PianoStaff <
 		\grandStaff
 	>
 	\paper { 
-		\translator { \HaraKiriStaffContext }
+		\translator {
+			\HaraKiriStaffContext
+			%VerticalExtent = #'(0 . 0)
+			%MinimumVerticalExtent = #'(0 . 0)
+			%StaffMinimumVerticalExtent = #'(0 . 0)
+		}
+		\translator {
+			\LyricsContext
+			VerticalExtent = #'(1.2 . 1.2)
+			MinimumVerticalExtent = #'(0 . 0)
+			StaffMinimumVerticalExtent = #'(1.2 . 1.2)
+		}
 	}
 	\midi{
 		\tempo 4 = 54

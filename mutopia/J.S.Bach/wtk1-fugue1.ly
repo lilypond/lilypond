@@ -12,8 +12,8 @@ enteredby = 	 "Shay Rojansky"
   style = "baroque"
   copyright =    "\\\\This music is part of the Mutopia project, http://sca.uwaterloo.ca/Mutopia/\\\\It has been typeset and placed in the public domain by Han-Wen Nienhuys.\\\\Unrestricted modification and redistribution is permitted and encouraged - copy this music and share it!"
   maintainer = "hanwen@cs.uu.nl"
-  lastupdated = "1999/Oct/14"
-  
+  lastupdated = "2001/April/6"
+  footer = "Mutopia-2001/4/6-4"
 }
 
 %{
@@ -21,12 +21,13 @@ TODO: use autobeaming.
 %}
 \version "1.3.146"
 
+% #(set! point-and-click line-column-location)
 
 tenor = 
 	\context Voice  = tenor  \notes \relative c' {
 	\clef "violin"
 
-	\stemDown
+	\voiceTwo
 	r8 [c8 d e] [f8. g32 f] [e8 a] |
 	[d, g] ~ [g16 a g f] [e f e d] [c d c b ] |
 	[a 8 fis'] g4 ~ [g8 fis16 e] [f8 d] |
@@ -42,20 +43,19 @@ tenor =
 	[e fis] [g8.   a32 g] [fis8 b e, a] ~ |
 	[a16 b a gis] [fis8 f!] [e d] ~ [d16 e fis gis] |
 	[a gis a b] [gis fis gis a] b8 r8 r4 |
-	r8 [c,8 d e] \stemUp [f8.  g32 f] [e8 a] |
+	r8 [c,8 d e]  [f8.  g32 f] [e8 a] |
 %% 15
-	[d, g] ~ [g16 a g f] e8 \stemDown [e fis g] ~ |
+	[d, g] ~ [g16 a g f] e8 [e fis g] ~ |
 	[g8 fis] [gis8 a] ~ [a g! a b] |
-	\stemBoth
 	[c8.    d32 c ] [b8 e ] [a, d ] ~ [d 16 e  d  c ] |
 	[b8 g'  cis,  d ] [e  cis  d  e  ] |
-	\stemDown a,8 r8 r e [fis g] \stemBoth [a8.  b32 a] |
+	 a,8 r8 r e [fis g] [a8.  b32 a] |
 %% 20
-	[g8 c  fis, b] ~ [b16 c  b a] \stemDown [g fis e d] \stemBoth |
-	e4 \stemDown d ~ [d16 a' g f!] [e g f! a] |
+	[g8 c  fis, b] ~ [b16 c  b a]  [g fis e d]  |
+	e4 d ~ [d16 a' g f!] [e g f! a] |
 	g4 ~ [g16 a bes8] c 4 [d 8 g,] |
-	\stemBoth g4. f8 ~ [f e] d4 |
-	\stemDown e8 a4 g8 ~ [g8 f g a] |
+	 g4. f8 ~ [f e] d4 |
+	 e8 a4 g8 ~ [g8 f g a] |
 %% 25
 	[bes8.  c32 b] [a8 d ] [g, c ] ~ [c 16 d  c  bes] |
 	[a bes a g] [f g f e] d4 ~ [d8. g16] |
@@ -66,7 +66,7 @@ tenor =
 soprane = 
 	\context Voice = sop \notes \relative c' {
 
-	\stemUp
+	\voiceOne
 	r1 |
 	r2 r8 [g'8 a b] |
 	[c8.  d32 c ] [b8 e ] [a, d ] ~ [d 16 e  d  c ] |
@@ -106,10 +106,8 @@ alt =
 	\clef "bass"
 
 	
-	\stemUp
-	r1 |
-	r |
-	r |
+	\voiceOne
+	R1*3 |
 	r8 [g'8 a b] [c8.  d32 c ] [b8 e ] |
 %% 5
 	[a, d ] ~ [d 16 e  d  c ] [b8 c  ~ c  bes8] |
@@ -124,7 +122,7 @@ alt =
 	[fis, b] ~ [b16 c  b a] gis8 a4 gis8 |
 	a4 r8 g8 [a b] c8. [d32 c ] |
 %% 15
-	[b8 e  a, d (]  [ ) d'  g,] d 4 |
+	[b8 e  a, d ] ~ [ d  g,] d'4 |
 	[c 8 a] e' 4 d 8 r8 r4 |
 	r8 [a8 b cis ] [d8.  e32 d ] [c !8 f ] |
 	[b,8 e ] ~ [e 16 f  e  d ] cis 8 r8 r4 |
@@ -145,12 +143,8 @@ bass = \context Voice = bassvoice
 	\notes \relative c {
 	\clef "bass"
 
-
-	\stemDown
-	r1 |
-	r |
-	r |
-	r |
+	\voiceTwo
+	R1*4 |
 %% 5
 	r2 r8 [c8 d e] |
 	[f8.  g32 f] [e8 a] [d, g] ~ [g16 a g f] |
@@ -165,8 +159,8 @@ bass = \context Voice = bassvoice
 	a, 4 r4 r2 |
 %% 15
 	r8 [g 8 a  b ] [c8.  d32 c] [b 8 e] |
-	[a, 8 d] ~ [d16 e d c] [b 8 bes  a  g'' ] |
-	[a,, 8 fis' g e] d4 [e8 f!] |
+	[a, 8 d] ~ [d16 e d c] [b 8 bes  a  g ] |
+	[a 8 fis' g e] d4 [e8 f!] |
 	[g8.  a32 g] [f8 bes] [e, a] ~ [a16 bes a g] |
 	[f e f d] [g8 a] d,2 ~ |
 %% 20
@@ -190,10 +184,10 @@ bass = \context Voice = bassvoice
 			\soprane
 			\tenor
 		> \bar "|." }
-		\context Staff = two { <
+		\context Staff = two <
 			\alt
 			\bass
-		> \bar "|." }
+		>
 	> 
 
 	\paper{

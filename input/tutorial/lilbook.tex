@@ -1,0 +1,44 @@
+\documentclass[a4paper]{article}
+\begin{document}
+
+In a lilypond-book document, you can freely mix music and text. For
+example:
+\begin{lilypond}
+  \score { \notes \relative c' {
+     c2 g'2 \times 2/3 { f8 e d } c'2 g4
+  } }
+\end{lilypond}
+Notice that the music line length matches the margin settings of the
+document.
+
+If you have no \verb+\score+ block in the fragment,
+\texttt{lilypond-book} will supply one:
+
+\begin{lilypond}
+  c'4
+\end{lilypond}
+
+In the example you see here, a number of things happened: a
+\verb+\score+ block was added, and the line width was set to natural
+length. You can specify many more options using  \LaTeX style options
+in brackets:
+
+\begin[verbatim,11pt,singleline,
+  fragment,relative,intertext="hi there!"]{lilypond}
+  c'4 f bes es
+\end{lilypond}
+
+\texttt{verbatim} also shows the lilypond code, \texttt{11pt} selects
+the default music size, \texttt{fragment} adds a score block,
+\texttt{relative} uses relative mode for the fragment, and
+\texttt{intertext} specifies what to print between the
+\texttt{verbatim} code and the music.
+
+If you include large examples into the text, it may be more convenient
+to put the example in a separate file:
+
+\lilypondfile[printfilename]{sammartini.ly}
+
+The \texttt{printfilename} option adds the file name to the output.
+
+\end{document}

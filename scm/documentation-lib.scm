@@ -6,27 +6,6 @@
 ;;; (c) 2000--2001 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 ;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
-(define (uniqued-alist  alist acc)
-  (if (null? alist) acc
-      (if (assoc (caar alist) acc)
-	  (uniqued-alist (cdr alist) acc)
-	  (uniqued-alist (cdr alist) (cons (car alist) acc)
-  ))))
-
-(define (uniq-list list)
-  (if (null? list) '()
-      (if (null? (cdr list))
-	  list
-	  (if (equal? (car list) (cadr list))
-	      (uniq-list (cdr list))
-	      (cons (car list) (uniq-list (cdr list)))
-  
-  ))))
-
-(define (alist<? x y)
-  (string<? (symbol->string (car x))
-	    (symbol->string (car y))))
-
 (define (processing name)
   (display (string-append "\nProcessing " name " ... ") (current-error-port)))
 

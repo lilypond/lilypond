@@ -147,7 +147,6 @@ lower =  \context Staff \notes \relative c{
     >
 
   \paper {
-    gourlay_maxmeasures = 5.
     textheight = 295.\mm
     \translator{ \OrchestralScoreContext }
     \translator{

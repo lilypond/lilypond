@@ -62,7 +62,7 @@ cd %n-%v &&
 ./configure --prefix=$HOME/usr && make all web
 ) >> %n-%v/log.txt 2>&1 &&
 rm -f %n &&
-ln -s %n%-%v %n
+ln -s %n-%v %n
 '''
 
 
@@ -447,8 +447,9 @@ if 1:
 
 	progress (_ ("building %s...") % latest)
 	os.chdir (build_root)
-	if build (latest) and previous and remove_previous_p:
-		system ('rm -rf %s' % os.path.join (build_root, previous))
+	if build (latest):
+		if previous and remove_previous_p:
+			system ('rm -rf %s' % os.path.join (build_root, previous))
 	else:
 		if notify:
 			system ('(date; uname -a) | mail -s "%s failed" %s' % (program_name, notify))

@@ -20,6 +20,11 @@ Midi2ly translates a MIDI input file to a LilyPond source file. MIDI
 (Music Instrument Digital Interface) is a standard for digital
 instruments: it specifies cabling, a serial protocol and a file format.
 
+The MIDI file format is a de facto standard format for exporting music
+from other programs, so this capability may come in useful when you want
+to import files from a program that has no converter for its native
+format.
+
 It is possible to record a MIDI file using a digital keyboard, and then
 convert it to @file{.ly}. However, human players can not rhythmically
 exact enough to make a MIDI to .ly conversion trivial.  midi2ly tries to
@@ -30,10 +35,6 @@ lot of time.
 
 Hackers who know about signal processing are invited to write  a more
 robust midi2ly.
-
-MIDI is also a de facto standard format for exporting music from other
-programs, so this capability may come in useful when you want to import
-files from a program that has no converter for its native format.
 
 @subsection Invoking midi2ly
 
@@ -157,7 +158,7 @@ Report bugs to @email{bug-gnu-music@@gnu.org}.
 @section pmx2ly
 
 PMX is a Musixtex preprocessor written by Don Simons, see
-@uref{http://www.gmd.de/Misc/Music/musixtex/software/pmx/}.
+@uref{http://icking-music-archive.sunsite.dk/Misc/Music/musixtex/software/pmx/}.
 
 Report bugs to @email{bug-gnu-music@@gnu.org}.
 
@@ -188,13 +189,13 @@ Written by @email{Han-Wen Nienhuys,hanwen@@cs.uu.nl}.
 @node musedata2ly
 @section musedata2ly
 
- Musedata (@uref{http://www.musedata.org/}) is an electronic library of
+Musedata (@uref{http://www.musedata.org/}) is an electronic library of
 classical music scores, currently comprising about 800 composition
 dating from 1700 to 1825.  The music is encoded in so-called Musedata
 format
 (@uref{http://www.ccarh.org/publications/books/beyondmidi/online/musedata}).
 musedata2ly converts a set of musedata files to one .ly file, and will
-include a \header field if a .ref file is supplied
+include a @code{\header} field if a @file{.ref} file is supplied
 
 @subsection Invoking musedata2ly
 

@@ -82,6 +82,7 @@ extra_init = {
 	'language' : [],
 	'latexheaders' : [],
 	'latexpackages' :  ['geometry'],
+	'latexoptions' : [],
 	'papersize' : [],
 	'pagenumber' : [1],
 	'textheight' : [], 
@@ -428,16 +429,19 @@ def global_latex_definition (tfiles, extra):
 	s = ""
 	s = s + '% generation tag\n'
 
-	paper = ''
+	options = ''
 
 	if extra['papersize']:
 		try:
-			paper = '[%s]' % ly_paper_to_latexpaper[extra['papersize'][0]]
+			options = '%s' % ly_paper_to_latexpaper[extra['papersize'][0]]
 		except:
 			warning (_ ("invalid value: %s") % `extra['papersize'][0]`)
 			pass
+
+	if extra['latexoptions']:
+		options = options + ',' + extra['latexoptions'][-1]
 	
-	s = s + '\\documentclass%s{article}\n' % paper
+	s = s + '\\documentclass[%s]{article}\n' % options
 
 	if extra['language']:
 		s = s + r'\usepackage[%s]{babel}\n' % extra['language'][-1]
@@ -463,17 +467,23 @@ def global_latex_definition (tfiles, extra):
 		linewidth = 597
 	else:
 		linewidth = extra['linewidth'][0]
-	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=0pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
+	s = s + '\geometry{width=%spt%s,headheight=2mm,headsep=12pt,footskip=2mm,%s}\n' % (linewidth, textheight, orientation)
 
+	if extra['latexoptions']:
+		s = s + '\geometry{twosideshift=4mm}\n'
+		
 	s = s + r'''
 \usepackage[latin1]{inputenc}
 \input{titledefs}
 \makeatletter
 \renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%
+\renewcommand{\@evenfoot}{\parbox{\textwidth}{\mbox{}\thefooter}}%
 '''
 	
 	if extra['pagenumber'] and extra['pagenumber'][-1] and extra['pagenumber'][-1] != 'no':
 		s = s + r'''
+\renewcommand{\@evenhead}{\parbox{\textwidth}%
+    {\mbox{}\textbf{\thepage}\hfill\small\theheader}}
 \renewcommand{\@oddhead}{\parbox{\textwidth}%
     {\mbox{}\small\theheader\hfill\textbf{\thepage}}}
 '''
@@ -490,9 +500,11 @@ def global_latex_definition (tfiles, extra):
 		first = 0
 
 	s = s + r'''
-\makeatletter
-\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
-\makeatother
+% I don't see why we want to clobber the footer here
+\vfill\hfill\parbox{\textwidth}{\mbox{}\makelilypondtagline}
+%\makeatletter
+%\renewcommand{\@oddfoot}{\parbox{\textwidth}{\mbox{}\makelilypondtagline}}%
+%\makeatother
 '''
 	s = s + '\\end{document}'
 

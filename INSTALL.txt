@@ -35,7 +35,7 @@ Build requirements
 
    This document describes how to build LilyPond on Unix platforms.  It
 is also known to run and compile on Windows NT/95/98 as well.  More
-information on this topic can be found at Jan's windows page
+information on this topic can be found at the LilyPond on Windows page
 (http://appel.lilypond.org/lilypond/gnu-windows/).
 
    You need the following packages to compile Lilypond.
@@ -60,9 +60,12 @@ information on this topic can be found at Jan's windows page
 
    * TeX.
 
-     If you want LilyPond to use kpathsea support (recommended), make
-     sure you have tetex 1.0 or newer (1.0.6 is known to work).  You
-     may need to install a tetex-devel or tetex-dev package too.
+     TeX is used as an output backend.
+
+     Also, TeX's libkpathsea is used to find the fonts (.mf, .afm,
+     .tfm).  Make sure you have tetex 1.0 or newer (1.0.6 is known to
+     work).  You may need to install a tetex-devel or tetex-dev package
+     too.
 
    * Texinfo (version 4.0 or newer).  The documentation of lily is
      written in texinfo.  Check out the texinfo FTP directory
@@ -83,7 +86,16 @@ information on this topic can be found at Jan's windows page
      `PFA_FILES='.
 
    * kpathsea, a library for searching (TeX) files.  `kpathsea' is
-     usually included with your installation of TeX.
+     usually included with your installation of TeX.  You may need to
+     install a tetex-devel or tetex-dev package too.
+
+     In the very unlikely case that kpathsea is not available for your
+     platform (ie, you're not running GNU/Linux, Windows, or any recent
+     UNIX), you can compile LilyPond without kpathsea support.  In that
+     case, you'll probably have to indicate where TeX's tfm files live.
+     Invoke configure something like:
+
+          ./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
 
 
 Running requirements

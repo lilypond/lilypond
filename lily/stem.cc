@@ -235,7 +235,7 @@ Stem::get_default_dir (Grob*me)
   if (sign (dd - du))
     return Direction (sign (dd -du));
 
-  return to_dir (me->get_grob_property ("default-neutral-direction"));
+  return to_dir (me->get_grob_property ("neutral-direction"));
 }
 
 Real
@@ -476,12 +476,9 @@ Stem::brew_molecule (SCM smob)
   stem_y.unite (Interval (y2,y1));
 
   Real dy = Staff_symbol_referencer::staff_space (me)/2.0;
-  Real head_wid = 0;
     
   if (Grob *hed = support_head (me))
     {
-      Real slope =0.0;
-      
       Interval head_height = hed->extent (hed,Y_AXIS);
       Real y_attach = Note_head::stem_attachment_coordinate ( hed, Y_AXIS);
 

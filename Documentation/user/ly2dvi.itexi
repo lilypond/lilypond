@@ -40,7 +40,7 @@ files. The temporary directory is created in the current directory as @code{ly2d
     Also generate PostScript output.
 @item -s,--set=@var{KEY}=@var{VAL}
     Add @var{key}= @var{val} to the settings, overriding those specified
-in the files. Possible keys: language, latexheaders, latexpackages,
+in the files. Possible keys: language, latexheaders, latexpackages, latexoptions,
 papersize, pagenumber, linewidth, orientation, textheight.
 @item -v,--version
 Show version information 
@@ -75,6 +75,9 @@ generate titling:
     Name of the instrument, centered below the arranger
 @item piece
     Name of the piece, leftflushed below the instrument
+@item tagline
+    Line to print at the bottom of last page.  Default: ``Lily was here,
+@var{version-number}''.
 @end table
 
 
@@ -101,6 +104,9 @@ included.  Default: unset.
 so you can add multiple packages using multiple @code{-s=latexpackages} options.
        Normally read from the @code{\header} block. Default value:
 @code{geometry}.
+
+@item latexoptions
+    Specify additional options for the La@TeX{} @code{\documentclass}. You can put any valid value here. This was designed to allow ly2dvi to produce output for double-sided paper, with balanced margins and pagenumbers on alternating sides. To achieve this specify @code{twoside}
 
 @item orientation
     Set orientation. Choices are @code{portrait} or @code{landscape}. Is

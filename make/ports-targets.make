@@ -32,6 +32,10 @@ sync: local-sync
 
 generate-GNUmakefiles: $(dirs-after:%=%/GNUmakefile)
 
+truncate = $(filter-out %/GNUmakefile , $(wildcard */*))
+trunc:
+	rm -fr $(truncate)
+
 # too time-consuming?
 # local-dist: local-ly-clean
 
@@ -42,5 +46,6 @@ local-ports-help:
   download    download .lys from $(MUTOPIA_MIRROR)\n\
   ly-clean    move all .lys to $(outdir)\n\
   sync        generate missing parts of tree\n\
+  trunc       truncate tree\n\
 "\
 

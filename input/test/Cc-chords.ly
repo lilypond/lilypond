@@ -1,8 +1,6 @@
 \header {
-  texidoc="Jazz chord names, but with lower case names for minor chords"
+  texidoc="Jazz chord names, but with lower case names for minor chords";
 }
-
-\version "1.3.146"
 
 #(assoc-set! chord::names-alist-jazz
   '((0 . 0) (2 . -1)) '(""))

@@ -16,15 +16,19 @@ detect the old version number.
 
 
 @table @code
-@item --assume-old
+@item -a,--assume-old
     If version number cannot be determined, apply all conversions.
-@item --edit
+@item -e,--edit
     Do an inline edit of the input file. override @code{--output}
-@item --from=@var{FROM_PATCHLEVEL}
+@item -f,--from=@var{FROM_PATCHLEVEL}
     Set the level to convert from. If this is not set, convert-ly will
     guess this, on the basis of @code{\version} strings in the file
-@item --output
+@item -o,--output
     The output file to write.  
+@item -n,--no-version
+    Normally, convert-ly adds a @code{\version} indicator 
+to the output. Specifying this option suppresses this.  
+
 @item --show-rules
     shows all known conversions, and exit
 @item --to=@var{TO_PATCHLEVEL}
@@ -36,7 +40,8 @@ Not all language changes are handled. Multiple output options won't
 work.
 
 @code{convert-ly} is written in @uref{http://www.python.org,Python}. It
-was written by @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}.
+was written by @email{hanwen@@cs.uu.nl, Han-Wen Nienhuys}. Report bugs
+to @code{bug-gnu-music@@gnu.org}
 
 
 

@@ -1,12 +1,12 @@
 \version "1.3.146"
 
 
-"dash-hat" = "marcato"
-"dash-plus" = "stopped"
-"dash-dash" = "tenuto"
-"dash-bar" = "staccatissimo"
-"dash-larger" = "accent"
-"dash-dot" = "staccato"
+dashHat= "marcato"
+dashPlus= "stopped"
+dashDash= "tenuto"
+dashBar= "staccatissimo"
+dashLarger= "accent"
+dashDot= "staccato"
 
 
 thumb = \script "thumb"

@@ -11,6 +11,11 @@
 @node Lyrics mode definition
 @section Lyrics mode definition
 
+The definition of lyrics mode is ludicrous, and this will remain so
+until the authors of LilyPond acquire a deeper understanding of
+character encoding, or someone else steps up to fix this.
+
+
 A word in Lyrics mode begins with: an alphabetic character, @code{_},
 @code{?}, @code{!}, @code{:}, @code{'}, the control characters @code{^A}
 through @code{^F}, @code{^Q} through @code{^W}, @code{^Y}, @code{^^},
@@ -143,15 +148,12 @@ scheme = \chords {
 @end lilypond
 @end quotation
 
-
-[barnumbers look silly, fixme.]
+@c [barnumbers look silly, fixme.]
 
 
 
 @node MIDI instruments
 @section MIDI instruments
-
-[todo: make nicely formatted table]
 
 @example 
 "acoustic grand"            "contrabass"           "lead 7 (fifths)"

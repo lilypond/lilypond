@@ -7,28 +7,28 @@ rced = \spanrequest \stop "decrescendo"
 
 cresc = \notes {
   \commandspanrequest \start "crescendo" 
-  \property Voice.crescendoText = "cresc."
-  \property Voice.crescendoSpanner = "dashed-line"
+  \property Voice.crescendoText = #"cresc."
+  \property Voice.crescendoSpanner = #'dashed-line
 }
 
 % ah, this is handy: maybe drop resetting of properties in
 % dynamic-engraver ?
 endcresc = \notes {
   \commandspanrequest \stop "crescendo" 
-  \property Voice.crescendoText = ##f
-  \property Voice.crescendoSpanner = ##f
+  \property Voice.crescendoText \unset
+  \property Voice.crescendoSpanner \unset
 }
 
 dim = \notes {
   \commandspanrequest \start "decrescendo" 
-  \property Voice.decrescendoText = "dim."
-  \property Voice.decrescendoSpanner = "dashed-line"
+  \property Voice.decrescendoText = #"dim."
+  \property Voice.decrescendoSpanner = #'dashed-line
 }
 
 enddim = \notes {
   \commandspanrequest \stop "decrescendo" 
-  \property Voice.decrescendoText = ##f
-  \property Voice.decrescendoSpanner = ##f
+   \property Voice.decrescendoText \unset
+ \property Voice.decrescendoSpanner \unset
 }
 
 %{

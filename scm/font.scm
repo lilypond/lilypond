@@ -24,20 +24,6 @@
 	)
        ))
   
-(define (filter-list pred? list)
-  "return that part of LIST for which PRED is true."
-  (if (null? list) '()
-      (let* (
-	     (rest  (filter-list pred? (cdr list)))
-	     )
-	(if (pred?  (car list))
-	    (cons (car list)  rest)
-	    rest
-	    )
-	)
-      )
-  )
-
 ;;;;;;;;; TODO TODO . (should not use filtering?)
 ;; this is bad, since we generate garbage every font-lookup.
 ;; otoh, if the qualifiers is narrow enough , we don't generate much garbage.
