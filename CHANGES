@@ -1,3 +1,65 @@
+1.3.130.hwn2
+============
+
+* Documentation: notation contexts.
+
+* 2001 (c) search-replace patch.
+
+* Center rehearsal marks by default.
+
+* Fixing collapsed dynamics with part-combine
+
+* \property tupletNumberFormatFunction selects formatting function for
+tuplet brackets.
+
+1.3.130.jcn5
+============
+
+* Added some handy targets to example makefile: make/ly.make.
+
+* Bugfix: file-path.cc; absolute directories start with directory separator.
+
+* Makefile template using dependencies: make/ly.make.  Needs some
+simple examples.
+
+* Depencies fixes for lilypond, ly2dvi (still kludged) and lilypond-book.
+
+* nl.po update.
+
+* Bugfixes and cleanups of mainly main.cc.
+
+* Enabled changing default tex output extension to ".lytex".
+
+* Bugfix: use init file extension .ly for extensionless input.
+
+* Ignore outname = ; settings in output blocks.
+
+* Revised input and output naming, now it's possible to include a
+directory in the output name.  This should fix some input/init name
+related bugs.
+
+* Fixed dependencies for outdir in lilypond-book and ly2dvi.
+
+* Uniformised tags to read: Generated automatically by: <program>.
+
+* Install make/* and stepmake/stepmake/* to enable making use of
+stepmake templates.
+
+* Added example mutopia makefile: make/ly.make.
+
+* Lilypond-book now writes lily-<HASH>.ly files.
+
+* Bugfix: don't display repeat colons for zero height bar lines; fixes
+repeat barlines in lyrics.
+
+* Fixed markup definition and implementation, added baseline-skip
+property; this makes multi-line markup text a lot easier.
+
+* Bugfix: chordChanges works with other rhythm of accompaniment, and
+silly chord name typo fixes.
+
+1.3.130
+=======
 
 1.3.129.jcn2
 ============

@@ -1,3 +1,5 @@
+dnl WARNING WARNING WARNING WARNING
+dnl do not edit! this is aclocal.m4, generated from stepmake/aclocal.m4
 dnl aclocal.m4   -*-shell-script-*-
 dnl StepMake subroutines for configure.in
 
@@ -373,6 +375,7 @@ dnl    fi
 	ZIP="zip -r -9" #
 	program_suffix=.exe
 	# urg
+	# ROOTSEP=':'
         # DIRSEP='\\'
  	# PATHSEP=';'
 	#
@@ -395,10 +398,12 @@ dnl    fi
 	# this way, you may have buildscripts/out/lilypond-profile 
 	# 'automatically' sourced from /usr/etc/profile.d/ too.
 	#
+ 	ROOTSEP=':'
         DIRSEP='/'
  	PATHSEP=':'
 	INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
     else
+	ROOTSEP='/'
 	DIRSEP='/'
 	PATHSEP=':'
 	LN=ln

@@ -1109,6 +1109,7 @@ fi
 	ZIP="zip -r -9" #
 	program_suffix=.exe
 	# urg
+	# ROOTSEP=':'
         # DIRSEP='\\'
  	# PATHSEP=';'
 	#
@@ -1131,10 +1132,12 @@ fi
 	# this way, you may have buildscripts/out/lilypond-profile 
 	# 'automatically' sourced from /usr/etc/profile.d/ too.
 	#
+ 	ROOTSEP=':'
         DIRSEP='/'
  	PATHSEP=':'
 	INSTALL="\$(SHELL) \$(stepdir)/../bin/install-dot-exe.sh -c"
     else
+	ROOTSEP='/'
 	DIRSEP='/'
 	PATHSEP=':'
 	LN=ln
@@ -1214,7 +1217,7 @@ fi
 
 
     echo $ac_n "checking language""... $ac_c" 1>&6
-echo "configure:1218: checking language" >&5    
+echo "configure:1221: checking language" >&5    
     case "$language" in
       En* | en* | Am* | am* | US* | us*)
 	    lang=English;;
@@ -1249,7 +1252,7 @@ do
 # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
 echo $ac_n "checking for $ac_word""... $ac_c" 1>&6
-echo "configure:1253: checking for $ac_word" >&5
+echo "configure:1256: checking for $ac_word" >&5
 if eval "test \"`echo '$''{'ac_cv_prog_MAKEINFO'+set}'`\" = set"; then
   echo $ac_n "(cached) $ac_c" 1>&6
 else

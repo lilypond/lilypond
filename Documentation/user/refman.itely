@@ -14,8 +14,6 @@
 
    Rhythm staff (clef, x-notehead)
 
-   markup text
-
    postscript, scheme output?
 
    (links to?) using/existance of ly2dvi, lilypond-book
@@ -602,7 +600,9 @@ major key, e.g., @code{\minor} is defined as 3.  The standard mode names
 @code{\ionian}, @code{\locrian}, @code{\aeolian}, @code{\mixolydian},
 @code{\lydian}, @code{\phrygian}, and @code{\dorian} are also defined.
 
-This command sets @code{Staff.keySignature}. 
+This command sets @code{Staff.keySignature}.
+
+
 
 @cindex @code{keySignature}
 
@@ -1175,14 +1175,15 @@ name of the corresponding symbol appearing underneath.
 @subsubsection Text scripts
 @cindex Text scripts
 
-FIXME: markup
-
-In addition, it is possible to place arbitrary strings of text or
-@TeX{} above or below notes by using a string instead of an
-identifier: @code{c^"text"}.  Fingerings 
-can be placed by simply using digits.  All of these note ornaments
-appear in the printed output but have no effect on the MIDI rendering of
-the music.
+In addition, it is possible to place arbitrary strings of text or markup
+text (see @ref{Text markup}) above or below notes by using a string
+instead of an identifier: @code{c^"text"}.  It is possible to use @TeX{}
+commands, but this should be avoided because this makes it impossible
+for LilyPond to compute the exact length of the string, which may lead
+to collisions.  Also, @TeX{} commands won't work with direct postscript
+output.  Fingerings can be placed by simply using digits.  All of these
+note ornaments appear in the printed output but have no effect on the
+MIDI rendering of the music.
 
 @c .    {Fingerings}
 @unnumberedsubsubsec Fingerings
@@ -2802,25 +2803,159 @@ relative within transposed music, you must place an additional
 @section Engravers
 @cindex engravers
 @menu
-* Selecting contexts::          
-* Context definitions::         
 * Notation Contexts::           
+* Creating contexts::           
+* Default contexts::            
+* Context properties::          
+* Context definitions::         
 @end menu
 
 @c .  {Music expressions}
-@node Selecting contexts
-@subsection Selecting contexts
+
+
+
+@c .  {Notation Contexts}
+@node Notation Contexts
+@subsection Notation Contexts
+
+@cindex notation contexts
+
+Notation contexts are objects that only exist during a run of LilyPond.
+During the interpretation phase of LilyPond (when lily prints
+"interpreting music"), music a @code{\score} block is interpreted in
+time order, i.e. in much the same order that humans read, play, and
+write music.
+
+During this reading, the notation context is holds the state
+for the current point within the music. It contains information like
+
+@itemize @bullet
+  @item What notes are playing at this point?
+  @item What symbols will be printed at this point?
+  @item What is the current key signature, time signature, point within
+       the measure, etc.?
+@end itemize
+
+Contexts are grouped hierarchically: A @code{Voice} context is
+contained in a @code{Staff} context (because a staff can contain
+multiple voices at any point), a @code{Staff} context is contained in
+a @code{Score}, @code{StaffGroup}, or @code{ChoirStaff} context (because
+these can all contain multiple staffs).
+
+
+Contexts associated with sheet music output are called @emph{notation
+contexts}, those for sound output are called performance contexts.
+
+
+@node Creating contexts
+@subsection Creating contexts
 
 @cindex @code{\context}
 @cindex context selection
+
+Contexts for a music expression can be selected manually, using the
+following music expression.
 
 @example
   \context @var{contexttype} [= @var{contextname}] @var{musicexpr}
 @end example
 
-Interpret @var{musicexpr} within a context of type @var{contexttype}. 
-If the context does not exist, it will be created.  The new context
-can optionally be given a name.  
+This instructs lilypond to interpret @var{musicexpr} within the context
+ of type @var{contexttype} and with name @var{contextname}.  If this
+context does not exist, it will be created.  
+
+@quotation
+
+@lilypond[verbatim]
+\score {
+  \notes \relative c'' {
+    c4 <d4 \context Staff = "another" e4> f
+  }
+}
+
+@end lilypond
+@end quotation
+
+In this example, the @code{c} and @code{d} are printed on the
+default staff.  For the @code{e}, a context Staff called
+@code{another} is specified; since that does not exist, a new
+context is created.  Within @code{another}, a (default) Voice context
+is created for the @code{e4}.  When all music referring to a
+context is finished, the context is ended as well.  So after the
+third quarter, @code{another} is removed.
+
+
+
+@node Default contexts
+@subsection Default contexts
+
+Most music expressions don't need @code{\context}: they inherit the
+notation context from their parent. Each note is a music expression, and
+as you can see in the following example, only the sequential music
+enclosing the three notes has an explicit context. 
+
+@lilypond[verbatim]
+\score { \notes \context Voice = goUp { c'4 d' e' } } 
+@end lilypond
+
+There are some quirks that you must keep in mind when dealing with
+defaults:
+
+Every top-level music is interpreted by the Score context, in other
+words, you may think of @code{\score} working like
+@example
+        \score @{
+                \context Score @var{music}
+        @}
+@end example
+
+Sequential music follows the contexts of its "children".  Take this example
+@lilypond
+\score { \context Score \notes { c'4 (  d' )e' } }
+@end lilypond
+
+The sequential music is interpreted by the Score context initially
+(notice that the @code{\context} specification is redundant), but when a
+note is encountered, contexts are setup to accept that note. In this
+case, a Thread, Voice and Staff are created. The rest of the sequential
+music is also interpreted with the same Thread, Voice and Staff context,
+putting the notes on the same staff, in the same voice.
+
+This is a convenient mechanism, but do not expect opening chords to work
+without @code{\context}. For every note, a separate staff
+@lilypond
+\score { \notes <c'4 es'> } 
+@end lilypond
+
+Of course, if the chord is preceded by a normal note in sequential
+music, the chord will be interpreted by the Thread of the preceding
+note:
+@lilypond
+\score { \notes { c'4 <c'4 es'> }  }
+@end lilypond
+
+
+
+@node Context properties
+@subsection Context properties
+
+Notation contexts can be modified from within the @file{.ly} file. The
+following music expression does that job:
+
+@cindex @code{\property}
+@example
+  \property @var{contextname}.@var{propname} =  @var{value}
+@end example
+
+Sets the @var{propname} property of the context @var{contextname} to the
+specified Scheme expression @var{value}.  All @var{propname} and
+@var{contextname} are strings, which are typically unquoted.
+
+Properties that are set in one context are inherited by all of the
+contained contexts.  This means that a property valid for the
+@code{Voice} context can be set in the @code{Score} context (for
+example) and thus take effect in all @code{Voice} contexts.
+
 
 
 
@@ -2830,8 +2965,8 @@ can optionally be given a name.
 
 @cindex context definition
 @cindex translator definition
-@cindex engraver hacking
 
+[todo: ]
 
 A notation contexts is defined by the following information
 
@@ -2998,143 +3133,7 @@ translator:
       
 
 
-@c .  {Notation Contexts}
-@node Notation Contexts
-@subsection Notation Contexts
-
-@cindex notation contexts
-
-Notation contexts are objects that only exist during a run of
-LilyPond.  During the interpretation phase of LilyPond, the Music
-expression contained in a @code{\score} block is interpreted in time
-order.  This is the order in which humans read, play, and write
-music.
-
-A context is an object that holds the reading state of the
-expression; it contains information like
-
-@itemize @bullet
-  @item What notes are playing at this point?
-  @item What symbols will be printed at this point?
-  @item In what style will they printed?
-  @item What is the current key signature, time signature, point within
-       the measure, etc.?
-@end itemize
-
-Contexts are grouped hierarchically: A @code{Voice} context is
-contained in a @code{Staff} context (because a staff can contain
-multiple voices at any point), a @code{Staff} context is contained in
-a @code{Score}, @code{StaffGroup}, or @code{ChoirStaff} context (because
-these can all contain multiple staffs).
-
-Contexts associated with sheet music output are called @emph{notation
-contexts}, those for sound output are called performance contexts.
-
-Contexts are created either manually or automatically.  Initially, the
-top level music expression is interpreted by the top level context (the
-@code{Score} context).  When a atomic music expression (i.e. a note, a
-rest, etc.), a nested set of contexts is created that can process these
-atomic expressions, as in this example:
-
-@example
-\score @{ \notes @{ c4 @} @} 
-@end example 
-
-The sequential music, `@code{@{ c4 @}}' is interpreted by @code{Score}
-context. When the note @code{c4} itself is interpreted, a set of
-contexts is needed that will accept notes.  The default for this is a
-@code{Voice} context, contained in a @code{Staff} context.  Creation of
-these contexts results in the staff being printed.
-
-@cindex context
-
-You can also create contexts manually, and you probably have to do so
-if you want to typeset complicated multiple part material.  If a
-`@code{\context} @var{name} @var{musicexpr}' expression is encountered
-during the interpretation phase, the @var{musicexpr} argument will be
-interpreted with a context of type @var{name}.  If you specify a name,
-the specific context with that name is searched.
-
-[type vs id]
-
-If a context of the specified type and name can not be found, a new
-one is created.  For example,
-
-@quotation
-
-@lilypond[verbatim]
-\score {
-  \notes \relative c'' {
-    c4 <d4 \context Staff = "another" e4> f
-  }
-}
-
-@end lilypond
-@end quotation
-
-In this example, the @code{c} and @code{d} are printed on the
-default staff.  For the @code{e}, a context Staff called
-@code{another} is specified; since that does not exist, a new
-context is created.  Within @code{another}, a (default) Voice context
-is created for the @code{e4}.  When all music referring to a
-context is finished, the context is ended as well.  So after the
-third quarter, @code{another} is removed.
-
-Almost all music expressions inherit their interpretation context
-from their parent.  In other words, suppose that the syntax for a
-music expression is
-
-@example
-
-  \keyword @var{musicexpr1} @var{musicexpr2} @dots{}
-@end example
-
-When the interpretation of this music expression starts, the context
-for @var{musicexpr1}, @var{musicexpr2}, etc. is that of the total
-expression.
-
-Lastly, you may wonder, why this:
-
-@quotation
-
-@example 
-\score @{
-  \notes \relative c'' @{
-    c4 d4 e4
-  @}
-@} 
-@end example 
-
-@end quotation
-
-doesn't result in this:
-
-@lilypond[]
-
-  \score {
-    \notes \relative c'' {
-      <c4> <d4> <e4>
-    }
-  }
-
-@end lilypond
-
-For the @code{c4}, a default @code{Staff} (with a contained
-@code{Voice}) context is created.  After the @code{c4} ends, no
-music refers to this default staff, so it would be ended, with the
-result shown.  To prevent this inconvenient behavior, the context to
-which the sequential music refers is adjusted during the
-interpretation.  So after the @code{c4} ends, the context of the
-sequential music is also the default @code{Voice} context. 
-The @code{d4} gets interpreted in the same context
-as @code{c4}.
-
-Properties that are set in one context are inherited by all of the
-contained contexts.  This means that a property valid for the
-@code{Voice} context can be set in the @code{Score} context (for
-example) and thus take effect in all @code{Voice} contexts.
-
-Properties can be preset within the @code{\translator} block
+        Properties can be preset within the @code{\translator} block
 corresponding to the appropriate context.  In this case, the syntax
 is
 
@@ -3150,6 +3149,7 @@ are read by the LilyPond modules where interpretation contexts are
 built of.  These modules are called @emph{translators}.  Translators for
 notation are called @emph{engravers}, and translators for sound are
 called @emph{performers}.
+
 
 
 
@@ -3725,18 +3725,9 @@ Translation?
 @cindex properties
 @unnumberedsubsec Translation property
 
+
 [todo: add \set/\override/\revert]
 
-
-@cindex @code{\property}
-@example
-  \property @var{contextname}.@var{propname} =  @var{value}
-@end example
-
-Sets the @var{propname} property of the context @var{contextname} to
-the specified @var{value}.  All three arguments are strings. 
-Depending on the context, it may be necessary to quote the strings or
-to leave space on both sides of the dot.
 
 
 @cindex output properties
@@ -3788,6 +3779,8 @@ Don't move the finger 2, only text "m.d." ...
 
 @node Text markup
 @subsection Text markup
+@cindex text markup
+@cindex markup text
 
 LilyPond has an internal mechanism to typeset texts: you can
 form text markup expressions by composing scheme expressions
@@ -3806,16 +3799,112 @@ in the following way:
 Formally, Scheme markup text is defined as follows:
 
 @example
-text: string | (markup sentence)
-sentence: text | sentence text
-markup: property | abbrev | style
+text: string | (head? text+)
+head: markup | (markup+)
+markup-item: property | abbrev | @var{fontstyle}
 property: (@var{key} . @var{value})
 abbrev: @code{rows lines roman music bold italic named super sub text}
-style: @var{fontstyle}
 @end example
 
-The @var{key}-@var{value} pair is a grob property. [Why is this
-useful?]  The following abbreviations are currently defined:
+The markup is broken down and converted into a list of grob properties,
+which are prepended to the grop's property list.  The
+@var{key}-@var{value} pair is a grob property.
+@ignore
+[Why is this useful?]
+
+?Snapnie: markup text is eerste item dat voldoet aan mijn gewelfdige,
+ideale idee van direct-en-eenmalig-per-item te zetten properties, ipv
+gehaspel via \property en hopen dat je property (enkel) in juiste item
+terecht gaat komen.  Heb je deze wel bewust meegemaakt:
+
+Sender: jan@appel.lilypond.org
+To: Han-Wen <hanwen@cs.uu.nl>   
+Subject: (elt) properties
+Organization: Jan at Appel
+From: janneke@gnu.org
+Date: 01 Nov 2000 10:39:10 +0100
+Message-ID: <m3og00av5t.fsf@appel.lilypond.org>
+User-Agent: Gnus/5.0807 (Gnus v5.8.7) Emacs/20.7
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Lines: 77
+Xref: appel.lilypond.org vers:1991
+
+Hi,
+
+Wat ik vooral mis, is een koele manier om een propertie eenmalig aan
+een element te hangen.  Hoop dat je zinvol over wilt meedenken; zie
+het monster van les-nereides.  Misschien dat we 't niet moeten doen
+voor 1.4 maar wachten tot properties nog wat verder
+uitgekristalliseerd zijn?
+
+Nu moet je
+
+   \property Voice.Stem \push #'length = #'6
+   a
+   \property Voice.Stem \pop #'length
+   b
+
+waarmee je in feite zeg tegen de stem-engraver: vanaf nu aan moet je
+alle stems 6 lang maken (maakt stem); onee, doe maar weer default
+lengte.
+
+Maar dat is eigenlijk niet wat je bedoelt, wat je zou willen is net
+zo'n directe interface als wat we nu hebben voor markup text, bv. iets
+van:
+
+   a+#'(Stem::length . 6) b
+
+Bij markup text kun je direct en eenmalig een reeks properties aan een
+enkel item toevoegen; iets wat je volgens mij vaak nodig hebt.
+
+Ik zat eerst te denken aan ``request properties'': properties
+toevoegen aan request, die dan worden doorgegeven aan alle items die
+door dat request worden gemaakt.
+
+Maar misschien zuigt dat wel te vreselijk en moeten we iets van
+``volatile'' properties maken.
+
+Btw,
+
+    \property Voice.Slur \push #'dash = #1
+    \property Voice.Slur \pop #'dash
+    a()b
+    \property Voice.Slur \push #'direction = #-1
+    \property Voice.Slur \pop #'direction
+    ()c
+
+of de kluts waar ik brr van word, eigenlijk ook alleen doenbaar is
+voor wat veelgebruikte properties:
+
+    slurDotted = \property Voice.Slur \push #'dash = #1
+    slurNoDots = \property Voice.Slur \pop #'dash
+    slurUp = \property Voice.Slur \push #'direction = #1
+    slurDown = \property Voice.Slur \push #'direction = #-1
+    slurBoth = \property Voice.Slur \pop #'direction
+
+    [..]
+
+    \slurDotted\slurDown
+    a()b
+    ()c
+    \slurNoDots\slurBoth
+
+zou toch graag meer iets in trant van, als je begrijpt wat ik bedoel
+
+    Slur+#'((dash . 1) (direction . 1))
+    b () c
+    Slur-#'(dash direction)
+
+ofwel
+
+    a(+#'((dash . 1) (direction . 1))
+    )b(+#'((dash . 1) (direction . 1))
+    )c
+@end ignore
+
+The following abbreviations are currently
+defined:
 
 @table @code
 @item rows
@@ -3844,10 +3933,10 @@ horizontal mode: set all text on one line (default)
 @var{fontstyle} may be any of @code{finger volta timesig mmrest mark
 script large Large dynamic}
 
-
+@ignore
 [kern, raise ??]
-
-[I still think that the semantics are weird, but well]
+Wat is daarmee, zijn toch gewoon grob properties van text-interface?
+@end ignore
 
 @c .{Local emacs vars}
 @c Local variables:
