@@ -1,3 +1,7 @@
+2003-07-21  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-sodipodi.scm (svg-header): Fix typo.
+
 2003-07-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* python/lilylib.py (error_log): use mktemp iso.  temp_dir. This

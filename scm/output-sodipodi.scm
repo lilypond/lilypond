@@ -172,7 +172,7 @@
    sodipodi:docname='/tmp/x'>
   <defs
      id='defs3' />
-  <podi:namedview
+  <sodipodi:namedview
      id='base' />
   <g transform='translate(10,10) scale (1.0)'>
   ")
