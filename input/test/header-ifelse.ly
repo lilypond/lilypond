@@ -1,7 +1,7 @@
 % #(define pieceTagLine "Copyright 2002 (C) Mutopia")
 
 #(define (my-ly-version)
-  (let ((version (ly-version)))
+  (let ((version (ly:version)))
     (list (car version) (cadr version) (caddr version))))
 
 #(if (not (defined? 'pieceTagLine))

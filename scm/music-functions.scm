@@ -356,7 +356,7 @@ this is not an override
      ))
 
 (define-public (empty-music)
-  (ly:id (make-music-by-name 'Music))
+  (ly:export (make-music-by-name 'Music))
   )
 ;;;
 

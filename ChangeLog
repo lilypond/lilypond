@@ -1,5 +1,9 @@
 2002-10-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* po/cs.po: added czech translation, courtesy Tomas Kopecek.
+
+	* input/test/*.ly: various fixes.
+
 	* lily/music.cc (name): bugfix
 
 	* lily/piano-pedal-engraver.cc (try_music): fix pedals.
