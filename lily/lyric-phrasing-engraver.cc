@@ -39,9 +39,24 @@ ADD_THIS_TRANSLATOR (Lyric_phrasing_engraver);
  */
 
 /*
-  We find start and end of phrases, and align lyrics accordingly.
-  Also, lyrics at start of melismata should be left aligned.
+  We find start and end of phrases, and align lyrics of multiple stanzas
+  accordingly.
 
+  Also, lyrics at start of melismata should be left aligned.
+  (is that only lyrics that are followed by `__'?  Because
+  that seems to be the case now -- jcn)
+
+
+	   |        |        |     |      |
+	  x|       x|       x|    x|     x|
+
+     1:  Start  sentence  melisma      end.
+     2:  x         x         x_____       x
+
+  Only lyrics that are followed by '__' while there's a melisma,
+  are left-aligned, in this case the third x.
+
+  
   Alignment and melismata
 
   I've taken [a different] approach:

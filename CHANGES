@@ -1,3 +1,8 @@
+1.3.143.jcn3
+============
+
+* LilyPond-mode: show what's going on (font building) in *view* buffer.
+
 1.3.143.jcn2
 ============
 

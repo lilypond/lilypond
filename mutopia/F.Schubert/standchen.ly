@@ -1,4 +1,6 @@
 
+#(set! point-and-click line-column-location)
+
 instrument = "Piano"
 
 \header {
@@ -98,7 +100,7 @@ vocalThrough =  \notes\relative c{
 }
 
 lyricVerseOne =  \lyrics{
-	Lei- se fleh- en mei- ne Lie- der 
+	Lei- se fleh- en mei- ne Lie- der
 	Durch die Nacht zu dir; 
 	In den stil- len Hain her- nie- der
 	Lieb- chen, komm zu mir! 
@@ -345,17 +347,17 @@ global =  \notes{
 	\bar "|.";
 }
 
-allLyrics =  \lyrics {
+allLyrics = \lyrics {
 	\lyricVerseOne
 	\lyricVerseTwo
 	\lyricThrough
 }
 
-lyricStaff =  \context Lyrics = lyric<
+lyricStaff = \context Lyrics {
 	\allLyrics
->
+}
 		
-vocals =  \notes{
+vocals = \context Voice {
 	\clef treble;
  	% certainly no auto-beaming for vocals
  	\property Voice.noAutoBeaming = ##t
@@ -389,7 +391,6 @@ trebleStaff =  \context Staff = treble<
 	\global
 	\treble
 >
-
 bass =  {
 	\clef bass;
 	\bassIntro 
@@ -425,8 +426,6 @@ grandStaff =  \context PianoStaff <
 %}
 
 		\addlyrics
-			%\context Staff=vocal \vocalStaff
-			%\context Lyrics=lyric \lyricStaff 
 			\vocalStaff
 			\lyricStaff 
 		\grandStaff

@@ -175,7 +175,10 @@ Syllable_group::appropriate_alignment (const char *punc)
       lastchar = lyric_str[lyric_str.length_i ()-1];
       /* If it doesn't end in punctuation then it ain't an end of phrase */
       if (! strchr (punc, lastchar)) {
-	/* Special case: trailing space. Here examine the previous character and reverse the
+	/*
+	  FIXME: Document this.
+	  
+	  Special case: trailing space. Here examine the previous character and reverse the
 	   sense of the test (i.e. trailing space makes a break without punctuation, or 
 	   suppresses a break with punctuation).
 	   This behaviour can be suppressed by including a space in the 

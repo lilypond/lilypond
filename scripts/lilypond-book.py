@@ -50,6 +50,7 @@ if program_version == '@' + 'TOPLEVEL_VERSION' + '@':
 # setups.  Maybe we should check if kpsewhich can find
 # feta16.{afm,mf,tex,tfm}, and only set env upon failure.
 #
+datadir = '@datadir@'
 environment = {
 	'MFINPUTS' : datadir + '/mf:',
 	'TEXINPUTS': datadir + '/tex:' + datadir + '/ps:.:',

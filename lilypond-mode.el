@@ -295,6 +295,14 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	   file))
       string)))
 
+(defun LilyPond-shell-process (name buffer command)
+  (let ((old (current-buffer)))
+    (switch-to-buffer-other-window buffer)
+    (goto-char (point-max))
+    (start-process-shell-command name buffer command)
+    (switch-to-buffer-other-window old)))
+  
+
 (defun LilyPond-command (name file)
   "Run command NAME on the file you get by calling FILE.
 
@@ -316,8 +324,8 @@ command."
 			;; Don't open new xdvi window, but force redisplay
 			;; We could make this an option.
 			(signal-process (process-id process-xdvi) 'SIGUSR1)
-		      (start-process-shell-command name buffer-xdvi command)))
-		  (start-process-shell-command name buffer-xdvi command)))
+		      (LilyPond-shell-process name buffer-xdvi command)))
+		  (LilyPond-shell-process name buffer-xdvi command)))
 	    (progn
 	      (setq LilyPond-command-default name)
 	      (LilyPond-compile-file command name)))))))

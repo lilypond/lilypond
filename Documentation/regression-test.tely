@@ -158,6 +158,8 @@ and documenting bugfixes.
 
 @lilypondfile[printfilename]{lyrics-multi-stanza.ly}
 
+@lilypondfile[printfilename]{lyric-phrasing.ly}
+
 
 
 @section Multiple notes
