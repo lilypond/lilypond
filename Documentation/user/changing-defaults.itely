@@ -864,7 +864,7 @@ which is sometimes when reusing existing context definitions. }
 
 @verbatim
   \context {
-    \StaffContext
+    \Staff
     \accepts ImproVoice    
   }
 @end verbatim 
@@ -878,7 +878,7 @@ Putting both into a @code{\paper} block, like
       @dots{}
     @}
   \context @{
-    \StaffContext
+    \Staff
     \accepts "ImproVoice"
   @}
 @}
@@ -1752,7 +1752,7 @@ override this, use a @code{\context} block as follows:
 @example
   \paper @{
     \context @{
-      \PianoStaffContext
+      \PianoStaff
       \override VerticalAlignment #'forced-distance = #9
     @}
     @dots{}
@@ -1854,7 +1854,7 @@ from the @code{\paper} block, since the @internalsref{SpacingSpanner} is
 created before any property commands are interpreted.
 @example
 \paper @{ \context  @{
-  \ScoreContext
+  \Score
   \override SpacingSpanner #'spacing-increment = #3.0
 @} @}
 @end example

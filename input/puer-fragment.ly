@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header {
     title	= "Puer natus est nobis (excerptum)"
     subtitle	= "Antiphona ad introitum VII"
@@ -93,7 +93,7 @@ verba = \context Lyrics = "verba" \lyrics {
     raggedright = ##t
     packed = ##t
     \context {
-      \ScoreContext
+      \Score
       \remove Bar_number_engraver
 %     \override SpacingSpanner #'spacing-increment = #0.5
       timing = ##f

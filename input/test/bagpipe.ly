@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 
 \header {
     texidoc = "@cindex Bagpipe Music
@@ -10,7 +10,7 @@ Here's an example of bagpipe music.
     linewidth = 14.0 \cm
     indent = 0.0 \cm
     \context {
-	\StaffContext
+	\Staff
 	\override TimeSignature #'style = #'C
 	\override TimeSignature #'break-visibility = #begin-of-line-visible
     }	

@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.2"
 \header {
     
 texidoc = "The notation problem, creating a certain symbol,
@@ -129,27 +129,27 @@ MyVoiceContext = \context {
 \score {
   \topVoice
   \paper {
-      \context { \MyStaffContext }
-      \context { \MyVoiceContext }
+      \context { \MyStaff }
+      \context { \MyVoice }
       }
 }
 
 
 MyStaffContext = \context {
-    \MyStaffContext
+    \MyStaff
     \consists "Staff_symbol_engraver"
 }
 
 \score {
   \topVoice
   \paper {
-      \context { \MyStaffContext }
-      \context { \MyVoiceContext }
+      \context { \MyStaff }
+      \context { \MyVoice }
             }
 }
 
 MyStaffContext = \context {
-    \MyStaffContext
+    \MyStaff
       \consists "Clef_engraver"
     \remove "Pitch_squash_engraver"
 }
@@ -157,39 +157,39 @@ MyStaffContext = \context {
 \score {
   \topVoice
   \paper {
-      \context { \MyStaffContext }
-      \context { \MyVoiceContext }
+      \context { \MyStaff }
+      \context { \MyVoice }
             }
 }
 
 MyVoiceContext = \context {
-    \MyVoiceContext
+    \MyVoice
     \consists "Stem_engraver"
     }
 
 \score {
   \topVoice
   \paper {
-      \context { \MyStaffContext }
-      \context { \MyVoiceContext }
+      \context { \MyStaff }
+      \context { \MyVoice }
             }
 }
 
 MyVoiceContext = \context {
-    \MyVoiceContext
+    \MyVoice
     	\consists "Beam_engraver"
 }
 
 \score {
   \topVoice
   \paper {
-      \context { \MyStaffContext }
-      \context { \MyVoiceContext }
+      \context { \MyStaff }
+      \context { \MyVoice }
             }
 }
 
 MyVoiceContext= \context {
-    \MyVoiceContext
+    \MyVoice
     \consists "Phrasing_slur_engraver"
     \consists "Slur_engraver"
     \consists "Script_engraver"
@@ -199,13 +199,13 @@ MyVoiceContext= \context {
 \score {
   \topVoice
   \paper {
-      \context { \MyStaffContext }
-      \context { \MyVoiceContext }
+      \context { \MyStaff }
+      \context { \MyVoice }
             }
 }
 
 MyStaffContext = \context {
-    \MyStaffContext
+    \MyStaff
  \consists "Bar_engraver"
     \consists "Time_signature_engraver"
       
@@ -214,20 +214,20 @@ MyStaffContext = \context {
 \score {
   \topVoice
   \paper {
-      \context { \MyStaffContext }
-      \context { \MyVoiceContext }
+      \context { \MyStaff }
+      \context { \MyVoice }
             }
 }
 
 MyStaffContext = \context
- { \MyStaffContext
+ { \MyStaff
  \consists "Accidental_engraver"    
      \consists "Key_engraver"
 }
 \score {
   \topVoice
   \paper {
-      \context { \MyStaffContext }
-      \context { \MyVoiceContext }
+      \context { \MyStaff }
+      \context { \MyVoice }
             }
 }

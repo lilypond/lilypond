@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header  {
     texidoc = "@cindex Chord Names German
 The english naming of chords (default) can be changed to german 
@@ -27,6 +27,6 @@ scm = \chords {
     \context Voice {  \scm } >>
 \paper {
     raggedright = ##t 
-    \context {\ChordNamesContext \consists Instrument_name_engraver }}
+    \context {\ChordNames \consists Instrument_name_engraver }}
 
 }

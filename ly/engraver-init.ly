@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 
 \context {
     \name Global
@@ -62,7 +62,7 @@
 }
 
 \context {
-    \StaffContext
+    \Staff
     \type "Engraver_group_engraver"
     \name DrumStaff
     \alias Staff
@@ -100,7 +100,7 @@
 }
 
 \context {
-	\InnerChoirStaffContext
+	\InnerChoirStaff
 	\name ChoirStaff
 	
 	\accepts "InnerChoirStaff"
@@ -212,7 +212,7 @@
 }
 
 \context {
-    \VoiceContext
+    \Voice
     \name DrumVoice
     \alias Voice
 
@@ -256,7 +256,7 @@
 }
 
 \context{
-    \GrandStaffContext
+    \GrandStaff
     \name "PianoStaff"
     \alias "GrandStaff"
 
@@ -296,7 +296,7 @@
 }
 
 \context {
-    \InnerStaffGroupContext
+    \InnerStaffGroup
     \name StaffGroup
     
     \description
@@ -371,7 +371,7 @@ printing of a single line of lyrics.  "
 
 
 RemoveEmptyStaffContext= \context {
-    \StaffContext
+    \Staff
     \remove "Axis_group_engraver"
     \consistsend "Hara_kiri_engraver"
     \override Beam #'auto-knee-gap = #'()
@@ -560,11 +560,11 @@ AncientRemoveEmptyStaffContext = \context {
 }
 
 OrchestralScoreContext = \context {
-	\ScoreContext
+	\Score
 }
 
-EasyNotation = \context {
-	\ScoreContext
+EasyNotation = \context {	% TODO: why \context override? 
+	\Score
 	\override NoteHead #'print-function = #Note_head::brew_ez_stencil
 	\override NoteHead #'Y-extent-callback = #'()
 	\override NoteHead #'X-extent-callback = #'()
@@ -596,7 +596,7 @@ EasyNotation = \context {
     }
 
 \context {
-      \VoiceContext
+      \Voice
       \name "TabVoice"
       \consists "Tab_note_heads_engraver"
       \remove "Note_heads_engraver"
@@ -618,7 +618,7 @@ EasyNotation = \context {
 }
 
 \context {
-      \StaffContext
+      \Staff
       \alias "Staff"
       \name "TabStaff"
       \denies "Voice"
@@ -648,14 +648,14 @@ EasyNotation = \context {
 % but this does not work (is this a bug or intended behaviour?):
 %
 % If I try to do so, I get "error: unknown escaped string:
-% `\VaticanaStaffContext'" in params-init.ly.  If I also move
+% `\VaticanaStaff'" in params-init.ly.  If I also move
 % "\context { \Vaticana*Context }" from params-init.ly to the end
 % of gregorian-init.ly, then I get "error: parse error, unexpected
-% TRANSLATOR: \context { \VaticanaStaffContext }" in
+% TRANSLATOR: \context { \VaticanaStaff }" in
 % gregorian-init.ly. --jr
 
 \context {
-  \VoiceContext
+  \Voice
   \name "VaticanaVoice"
   \alias "Voice"
   \description "Same as @code{Voice} context, except that it is accommodated for tyepsetting Gregorian Chant in the notational style of Editio Vaticana."
@@ -684,7 +684,7 @@ EasyNotation = \context {
 }
 
 \context {
-  \StaffContext
+  \Staff
   \name "VaticanaStaff"
   \alias "Staff"
   \denies "Voice"
@@ -723,7 +723,7 @@ EasyNotation = \context {
 }
 
 \context {
-  \VoiceContext
+  \Voice
   \name "GregorianTranscriptionVoice"
   \alias "Voice"
 
@@ -748,7 +748,7 @@ EasyNotation = \context {
   \override TextSpanner #'edge-text = #'("" . "")
 }
  \context {
-  \StaffContext
+  \Staff
   \name "GregorianTranscriptionStaff"
   \alias "Staff"
   \denies "Voice"

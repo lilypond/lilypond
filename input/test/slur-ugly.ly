@@ -1,5 +1,5 @@
 
-\version "2.2.0"
+\version "2.3.2"
 
 \header { texidoc="@cindex Slur Ugly
 Strange slurs can be produced by setting properties by hand. "
@@ -22,13 +22,13 @@ baseWalk = \notes \relative c {
   \paper {
     raggedright = ##t
     \context {
-      \VoiceContext
+      \Voice
       \override Slur #'beautiful = #5.0
       \override Slur #'direction = #1
       \override Stem #'direction = #-1
     }
     \context {
-      \PianoStaffContext
+      \PianoStaff
       \override VerticalAlignment #'threshold = #'(5 . 5)
     }
   }

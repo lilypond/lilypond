@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.2.0"
+\version "2.3.2"
 
 \header{
 
@@ -26,7 +26,7 @@ The engraver does no time-keeping, so it involves some trickery to get
     \paper{
         linewidth = 50.\mm indent = 0
 	\context{
-	       \StaffContext
+	       \Staff
 	       % makes for handier debugging
 	       % \remove Clef_engraver
 	}

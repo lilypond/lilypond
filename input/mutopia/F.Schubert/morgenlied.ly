@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.2.0"
+\version "2.3.2"
 manuscriptBreak = { \break }
 
 
@@ -166,21 +166,21 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
 
     \paper {
 	\context {
-	    \LyricsContext
+	    \Lyrics
 	    minimumVerticalExtent = #'(-1.0 . 0)
 	}
 	\context {
-	    \ScoreContext
+	    \Score
 	    \override Beam #'thickness = #0.55
 	    \override SpacingSpanner #'spacing-increment = #1.0
 	    \override Slur #'height-limit = #1.5
 	}
 	\context {
-	    \PianoStaffContext
+	    \PianoStaff
 	    \override VerticalAlignment #'forced-distance = #10
 	}
 	\context {
-	    \StaffContext
+	    \Staff
 	    minimumVerticalExtent = #'(-3. . 6)
 	}
 	inputencoding = #"latin1"

@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header {
 
     texidoc =
@@ -42,7 +42,7 @@ global = \notes { s1*3 \bar "|." }
     >>
     \paper { 
 	\context {
-	    \VoiceContext
+	    \Voice
 	    \consists Pitch_squash_engraver
 	}
 	raggedright = ##t

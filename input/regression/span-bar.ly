@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header {
   texidoc = "Span bars are drawn only between staff bar lines. By setting 
 bar lines to transparent, they are shown only between systems.
@@ -28,7 +28,7 @@ between systems.
   >>
   \paper {
     \context {
-      \StaffContext
+      \Staff
     }
     raggedright =##t 
   }

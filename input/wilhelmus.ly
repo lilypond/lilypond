@@ -1,4 +1,4 @@
-\version "2.3.1"
+\version "2.3.2"
 
 \header {
   texidoc = "Wilhelmus van Nassouwe"
@@ -146,7 +146,7 @@ oneHalfNoteTime = \markup {
   raggedright = ##t
 
   \context {
-    \ScoreContext
+    \Score
     %% defaults
     %% (shortest-duration-space . 2.0)
     %% (spacing-increment . 1.2)

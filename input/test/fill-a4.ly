@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 %possible rename to paper-fill-a4.ly -gp
 % candidate for reg -gp
 % Han says no, but keeping this comment temporarily so that I don't
@@ -37,7 +37,7 @@ This should fill a4 paper. "
 		papersize = "a4"
 		linewidth = 15.0\mm
 		\context {
-			\StaffContext
+			\Staff
 			minimumVerticalExtent = #(cons 0 0)
 		}
 	}

@@ -4,7 +4,7 @@ longgrace = \override Stem  #'stroke-style = #'()
 endlonggrace = \revert Stem #'stroke-style
 ritenuto = \markup { \italic  "rit." }
 
-\version "2.2.0"
+\version "2.3.2"
   
 cresc = \notes {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
@@ -31,7 +31,7 @@ stopGraceMusic= \sequential {
 
 \paper{
     \context {
-        \ScoreContext
+        \Score
         skipBars = ##t
         midiInstrument = #"french horn"
         %% try to mimic Breitkopf
@@ -47,7 +47,7 @@ stopGraceMusic= \sequential {
         \override Slur #'beautiful = #0.3
     }
     \context {
-        \StaffContext
+        \Staff
         minimumVerticalExtent = #'(-4.5 . 4.5)
     }
     % #(define fonts my-sheet)

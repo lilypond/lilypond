@@ -1,4 +1,4 @@
-\version "2.2.0"
+\version "2.3.2"
 \header {
 texidoc = "Jazz chord names can also be printed without notes."
 }
@@ -13,7 +13,7 @@ texidoc = "Jazz chord names can also be printed without notes."
 	}
 	\paper{
 		\context{
-			\ChordNamesContext
+			\ChordNames
 
 			\override BarLine #'bar-size = #4
 

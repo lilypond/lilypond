@@ -44,7 +44,7 @@
 %}
 
 
-\version "2.2.0"
+\version "2.3.2"
 
 
 
@@ -216,7 +216,7 @@ bassdux = \context Voice=three \notes \relative c' {
 
     \paper {
         linewidth = 18.0 \cm
-	\context { \ScoreContext
+	\context { \Score
 	\override SpacingSpanner #'spacing-increment = #1.0
 	\override SpacingSpanner #'shortest-duration-space = #1.9	
 	}
