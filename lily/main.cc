@@ -24,6 +24,8 @@
 #include "file-results.hh"
 #include "debug.hh"
 #include "lily-guile.hh"
+#include "paper-def.hh"
+#include "midi-def.hh"
 
 #if HAVE_GETTEXT
 #include <libintl.h>
@@ -222,19 +224,15 @@ setup_paths ()
   if (env_sz)
     global_path.parse_path (env_sz);
 
-  if (!prefix_directory.empty_b())
-    {
-      global_path.add (prefix_directory + "/share/lilypond/ly/");
-      global_path.add (prefix_directory + "/share/lilypond/afm/");
-    }
-  else
-    {
-      global_path.add (String (DIR_DATADIR) + "/ly/");
-      global_path.add (String (DIR_DATADIR) + "/afm/");  
-    }
+
+  char *suffixes[] = {"ly", "afm", "scm", 0};
+  for (char **s = suffixes; *s; s++){
+      if (!prefix_directory.empty_b())
+	  global_path.add (prefix_directory + String (*s));
+      else
+	  global_path.add (String (DIR_DATADIR) + String(*s));
+  }
 }
-
-
 
 void
 main_prog (int argc, char **argv)
@@ -312,6 +310,11 @@ main_prog (int argc, char **argv)
   const char *arg ;
   while ((arg= oparser.get_next_arg ()))
     {
+      if (outname_str == "")
+	{
+	  Midi_def::reset_default_count ();
+	  Paper_def::reset_default_count ();
+	}
       String f (arg);
       String i;
       f = distill_inname_str (f, i);
@@ -350,13 +353,8 @@ main_prog (int argc, char **argv)
 int
 main (int argc, char **argv)
 {
-#ifdef HAVE_LIBGUILE
   gh_enter (argc, argv, (void(*)())main_prog);
-  return exit_status_i_;
-#else
-  main_prog (argc, argv);
-  return exit_status_i_;
-#endif
+  return 0;			// unreachable
 }
 
 /**
