@@ -220,7 +220,7 @@
 	 )
 
     (if location
-	(format "~a ~a ~a ~a (lily-edit.sh ~a ~a ~a) mark_file_line\n"
+	(format "~a ~a ~a ~a (~a:~a:~a) mark_file_line\n"
 		(+ (car offset) (car x-ext))
 		(+ (cdr offset) (car y-ext))
 		(+ (car offset) (cdr x-ext))
