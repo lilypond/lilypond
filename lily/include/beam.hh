@@ -1,20 +1,21 @@
 /*
-  beam.hh -- part of LilyPond
+  beam.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
 
 #ifndef BEAM_HH
 #define BEAM_HH
-#include "proto.hh"
+#include "lily-proto.hh"
 #include "directional-spanner.hh"
 #include "plist.hh"
 
 /** a beam connects multiple stems Beam adjusts the stems its owns to
   make sure that they reach the beam and that point in the correct
   direction */
-struct Beam:  public Directional_spanner {
-    Link_list<Stem*> stems;
+class Beam:  public Directional_spanner {
+public:
+    Link_array<Stem> stems;
     /// the slope of the beam in posns / point (dimension)   
     Real slope;
 
@@ -23,23 +24,24 @@ struct Beam:  public Directional_spanner {
    
 
     /* *************** */
-NAME_MEMBERS(Beam);
-    
-    virtual Interval do_width()const;    
-    Offset center() const;
-    Spanner *do_break_at(PCol *,  PCol *) const;
+    NAME_MEMBERS(Beam);
     Beam();
     void add(Stem*);
     
 
-    void set_default_dir();
-    void do_pre_processing();
-    void do_post_processing();
-
-    void do_print() const;
     void set_grouping(Rhythmic_grouping def, Rhythmic_grouping current);
     void set_stemlens();
-    ~Beam();
+    SPANNER_CLONE(Beam)
+protected:
+    virtual Interval do_width()const;    
+    virtual Offset center() const;
+    virtual void do_break_at(PCol *,  PCol *);
+    virtual void set_default_dir();
+    virtual void do_pre_processing();
+    virtual void do_post_processing();
+    virtual void do_substitute_dependency(Score_elem*, Score_elem*);
+
+    virtual void do_print() const;
 
 private:
     Molecule stem_beams(Stem *here, Stem *next, Stem *prev)const;
