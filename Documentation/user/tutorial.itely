@@ -901,7 +901,7 @@ ignored.  The following fragment shows possible uses for comments
 %@}
 @end example
 
-@c  TODO   post-3.0 reorg
+@c  TODO   post-2.4 reorg
 @c   This is good info, but I wouldn't call it a comment.  IMO it should
 @c   be moved somewhere else.
 
@@ -909,10 +909,10 @@ ignored.  The following fragment shows possible uses for comments
 
 There is a special statement that is a kind of comment.  The @code{\version}
 statement marks for which version of LilyPond the file was written.
-To mark a file for version 3.0.0, use
+To mark a file for version 2.4.0, use
 
 @example
-  \version "3.0.0"
+  \version "2.4.0"
 @end example
 
 @noindent

@@ -6,6 +6,8 @@
 	* Documentation/user/changing-defaults.itely: clarify paper size commands,
 	add missing subsubtitle entry to Creating titles.
 
+	* Documentation/user/tutorial.itely: change 3.0 references to 2.4.
+
 2004-10-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* scripts/convert-ly.py (conv): fixed \context Foo = mixedCaps
