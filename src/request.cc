@@ -19,7 +19,7 @@ Stem_req::Stem_req(int s, int d)
     dir_i_ = 0;
 }
 
-/****************/
+/* *************** */
 void
 Barcheck_req::do_print() const    
 {
@@ -28,7 +28,7 @@ Barcheck_req::do_print() const
 #endif
 }
 
-/****************/
+/* *************** */
 
 void
 Request::print() const
@@ -65,7 +65,7 @@ Request::Request(Request const&src)
     elt_l_ = 0;
     defined_ch_c_l_m = src.defined_ch_c_l_m;
 }
-/****************/
+/* *************** */
 Spacing_req::Spacing_req()
 {
     next = 0;
@@ -82,7 +82,7 @@ Blank_req::do_print()const
 {
     Spacing_req::do_print();
 }
-/****************/
+/* *************** */
 Melodic_req::Melodic_req()
 {
     notename = 0;
@@ -103,11 +103,11 @@ Melodic_req::height() const
     return  notename + octave*7;
 }
 
-/****************/
+/* *************** */
 int
 Rhythmic_req::compare(const Rhythmic_req &r1, const Rhythmic_req &r2)
 {
-    return r1.duration() - r2.duration();
+    return sign(r1.duration() - r2.duration());
 }
 Rhythmic_req::Rhythmic_req(int b, int d)
 {
@@ -139,7 +139,7 @@ Moment
 Rhythmic_req::duration() const {    
     return wholes(balltype,dots)*plet_factor;
 }
-/****************/
+/* *************** */
 
 Lyric_req::Lyric_req(Text_def* def_p)
     :Text_req(0, def_p)
@@ -154,30 +154,30 @@ Lyric_req::do_print() const
     Rhythmic_req::do_print();
     Text_req::do_print();
 }
-/****************/
+/* *************** */
 void
 Note_req::do_print() const
 {
     Melodic_req::do_print();
     Rhythmic_req::do_print();
 }
-/****************/
+/* *************** */
 void
 Rest_req::do_print() const
 {
         Rhythmic_req::do_print();
 }
 
-/****************/
+/* *************** */
 Beam_req::Beam_req()
 {
     nplet = 0;
 }
 
 void Beam_req::do_print()const{}
-/****************/
+/* *************** */
 void Slur_req::do_print()const{}
-/****************/
+/* *************** */
 int
 Span_req:: compare(const Span_req &r1, const Span_req &r2)
 {
@@ -188,7 +188,7 @@ Span_req::Span_req()
 {
     spantype = NOSPAN;
 }
-/****************/
+/* *************** */
 void
 Group_feature_req::do_print() const
 {
@@ -207,7 +207,7 @@ void
 Terminate_voice_req::do_print()const
 {
 }
-/****************/
+/* *************** */
 Script_req::Script_req(int d , Script_def*def)
 {
     dir_i_ = d;
@@ -222,6 +222,7 @@ Script_req::compare(const Script_req &d1, const Script_req &d2)
 }
 
 Script_req::Script_req(Script_req const &s)
+    : Request( s )
 {
     dir_i_ = s.dir_i_;
     scriptdef_p_ = new Script_def(*s.scriptdef_p_);
@@ -239,7 +240,7 @@ Script_req::~Script_req()
 {
     delete scriptdef_p_;
 }
-/****************/
+/* *************** */
 int
 Text_req:: compare(const Text_req &r1, const Text_req &r2)
 {
@@ -274,7 +275,7 @@ Text_req::do_print() const
 
 
 
-/****************/
+/* *************** */
 
 Mark_req::Mark_req(String s)
 {
@@ -288,7 +289,7 @@ Mark_req::do_print()const
     mtor<< " `" << mark_str_ << "\'\n";
 #endif
 }
-/****************/
+/* *************** */
 Staff_command_req::Staff_command_req(Input_command * p)
 {
     com_p_ = p;
