@@ -1,3 +1,6 @@
+pl 82
+	- allow srcdir builds
+
 pl 81
 	- Yodl-free (tm)
 	- bf: package-zet: too many symlinks

@@ -27,16 +27,47 @@ interbeam4 = (3.0 * \staffspace - \beam_thickness) / 3.0;
 %{
 The space taken by a note is determined by the formula 
 
-arithmetic_multiplier * ( c + log2 (time) ))
+   SPACE = arithmetic_multiplier * ( C + log2 (TIME) ))
 
-where code(time) is the amount of time a note occupies.  The value
-of code(c) is chosen such that the smallest space within a measure is
-arithmetic_basicspace.  The smallest space is the one following the
-shortest note in the measure.  Typically arithmetic_basicspace is set
-to the width of a quarter note head.
+where TIME is the amount of time a note occupies.  The value of C is
+chosen such that the smallest space within a measure is
+arithmetic_basicspace:
+
+  C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) 
+
+The smallest space is the one following the shortest note in the
+measure, or the space following a hypothetical 1/8 note.  Typically
+arithmetic_basicspace is set to a value so that the shortest note
+takes about two noteheads of space (ie, is followed by a notehead of
+space):
+
+   2*quartwidth = arithmetic_multiplier * ( C + log2 (SHORTEST) ))
+
+   { using: C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) }
+   { assuming: SHORTEST <= 1/8 }
+
+               = arithmetic_multiplier *
+	       ( arithmetic_basicspace - log2 (SHORTEST) + log2 (SHORTEST) )
+
+               = arithmetic_multiplier * arithmetic_basicspace
+
+   { choose: arithmetic_multiplier = 1.0*quartwidth (why?)}
+
+               = quartwidth * arithmetic_basicspace
+
+   =>	       
+
+   arithmetic_basicspace = 2/1 = 2
+
+If you want to space your music wider, use something like:
+
+   arithmetic_basicspace = 4.;
+
 %}
-arithmetic_basicspace = 2.;
+% We use 0.9*\quartwidth, because 1.0 seems to wide.
+% We don't adjust arithmetic_basicspace accordingly (why not?)
 arithmetic_multiplier = 0.9 * \quartwidth ;
+arithmetic_basicspace = 2.0;
 
 
 #'Stem_tremolo::beam-width = 1.5 * \quartwidth ; 

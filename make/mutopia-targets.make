@@ -7,7 +7,7 @@ local-WWW: $(ly_examples) $(fly_examples) $(ps_examples) $(png_examples)
 #	$(footify) $(outdir)/index.html
 
 local-web:
-	$(MAKE) CONFIGSUFFIX=www local-WWW
+	$(MAKE) conf=www local-WWW
 
 convert-mudela: local-convert-mudela
 	$(LOOP)

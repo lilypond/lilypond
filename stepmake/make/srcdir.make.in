@@ -1,0 +1,43 @@
+# -*-Makefile-*-
+# specific srcdir makefile for StepMake
+
+depth=..
+
+# Don't try to outsmart us, you puny computer!
+ifeq (0,${MAKELEVEL})
+  MAKE:=$(MAKE) --no-builtin-rules
+endif
+
+# Use alternate configurations alongside eachother:
+#
+#     ./configure --enable-configsuffix=debug
+#     make conf=debug
+#
+# uses config-debug.make and config-debug.h; output goes to out-debug.
+#
+ifdef conf
+  CONFIGSUFFIX=-$(conf)
+endif
+
+# Use same configuration, but different output directory:
+#
+#     make out=WWW
+#
+# uses config.make and config.h; output goes to out-WWW.
+#
+ifdef out
+  outbase=out-$(out)
+else
+  outbase=out$(CONFIGSUFFIX)
+endif
+
+config = config$(CONFIGSUFFIX).make
+
+include $(config)
+
+SRCDIR=$(MAKE) -C $(srcdir) builddir=$(builddir) $@
+
+default: all
+
+%:
+	$(SRCDIR)

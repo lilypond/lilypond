@@ -84,7 +84,8 @@ date := $(shell date +%x)	#duplicated?
 #
 ARFLAGS = ru
 
-INCLUDES =  $(depth) include $(outdir) $($(PACKAGE)_INCLUDES) $(MODULE_INCLUDES)
+#INCLUDES =  $(depth)/$(builddir) include $(outdir) $($(PACKAGE)_INCLUDES) $(MODULE_INCLUDES)
+INCLUDES = include $(outdir) $($(PACKAGE)_INCLUDES) $(MODULE_INCLUDES)
 
 # urg: for windows ?
 # LOADLIBES = $(MODULE_LIBES) $($(PACKAGE)_LIBES) $(EXTRA_LIBES) -lstdc++

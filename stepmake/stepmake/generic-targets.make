@@ -3,9 +3,7 @@
 
 .PHONY : all clean config default dist doc doc++  exe help html lib TAGS\
 	 po
-# VPATH=$(outdir)/		#ugh?
-# target all:
-#
+
 all:	 default
 	$(LOOP)
 
@@ -127,6 +125,9 @@ $(outdir)/VERSION: $(depth)/VERSION
 $(outdir)/version.hh: $(outdir)/VERSION
 	$(PYTHON) $(step-bindir)/make-version.py $< > $@
 
+$(outdir)/config.h: $(config_h)
+	cp $< $@
+
 # should this be in Rules?
 configure: configure.in aclocal.m4
 	autoconf 
@@ -166,7 +167,7 @@ include $(stepdir)/package.make
 include $(outdir)/dummy.dep $(DEP_FILES)
 
 $(outdir)/dummy.dep:
-	-mkdir $(outdir)
+	-mkdir -p $(outdir)
 	touch $(outdir)/dummy.dep
 
 

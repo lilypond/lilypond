@@ -9,7 +9,7 @@ depth = .
 # descent order into subdirectories:
 #
 SUBDIRS = scripts buildscripts  flower lily mf midi2ly po debian \
-	Documentation ly input tex make mutopia intl stepmake\
+	Documentation ly input tex make mutopia intl $(builddir)/stepmake\
 	ps  scm
 #
 
@@ -34,16 +34,16 @@ fonts:
 
 
 htmldoc: 
-	$(MAKE) CONFIGSUFFIX='www' local-WWW
-	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
+	$(MAKE) out='www' local-WWW
+	$(MAKE) out='www' -C Documentation WWW
 	rm -f `find . -name \*.html~ -print`
 	$(footify-all-command)
 	find `find Documentation -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www'  > wwwlist
 	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` `ls *.png $(ERRORLOG)`  index.html
 
 examples:
-	$(MAKE) CONFIGSUFFIX='www' -C input WWW
-	$(MAKE) CONFIGSUFFIX='www' -C mutopia WWW
+	$(MAKE) out='www' -C input WWW
+	$(MAKE) out='www' -C mutopia WWW
 	$(footify-all-command)
 	$(PYTHON) $(buildscripts)/mutopia-index.py -o short-examples.html input/
 	$(PYTHON) $(buildscripts)/mutopia-index.py -o long-examples.html mutopia/
