@@ -1,7 +1,7 @@
 2002-11-16  Heikki Junes <hjunes@cc.hut.fi>
 
 	* Documentation/topdocs/INSTALL.texi: instructions for an user how
-	to install Emacs-mode.
+	to install Emacs-mode. Instructions how to use vim-mode.
 
 2002-11-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 

@@ -340,6 +340,15 @@ If you have the latest LilyPond-1.4.x Debian package, LilyPond-mode is
 automatically loaded, you not even need to modify your @code{~/.emacs}
 file.
 
+@section Vim mode
+
+A Vim mode for entering music and running LilyPond is included with 
+the source archive. Append the content of @file{vimrc} to @file{~/.vimrc}
+to get shortcuts. Add files @file{lilypond.vim} and @file{lilypond.words} 
+to @file{~/.vim/} to get syntax-highlighting and auto-completion,
+correspondingly.
+
+
 @section Compiling for distributions 
 
 @subsection Red Hat Linux
