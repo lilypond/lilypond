@@ -1,7 +1,7 @@
 # bin/Makefile
 
 depth = ..
-SEXECUTABLES=convert-mudela mudela-book ly2dvi ly2dvi32
+SEXECUTABLES=convert-mudela mudela-book ly2dvi 
 STEPMAKE_TEMPLATES=script
 
 
