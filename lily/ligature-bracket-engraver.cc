@@ -11,6 +11,12 @@
 #include "tuplet-bracket.hh"
 #include "spanner.hh"
 
+/*
+ * This engraver marks ligatures of any kind by just printing a
+ * horizontal square bracket on top of each ligature.  See class
+ * Ligature_engraver for more information on the interaction between
+ * this class and its superclass.
+ */
 class Ligature_bracket_engraver : public Ligature_engraver
 {
 protected:

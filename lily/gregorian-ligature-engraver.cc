@@ -15,22 +15,19 @@
 #include "paper-column.hh"
 
 /*
- * TODO: This class shares some code with Mensural_ligature_engraver.
- * Maybe we should create a common super class "Rod_ligature_engraver"
- * and derive all shared code from it.
+ * This abstract class is the common superclass for all ligature
+ * engravers for Gregorian chant notation.  It cares for the musical
+ * handling of the neumes, such as checking for valid combinations of
+ * neumes and providing context information.  Notational aspects such
+ * as the glyphs to use or calculating the total width of a ligature,
+ * are left to the concrete subclass.  Currently, there is only a
+ * single subclass, Vaticana_ligature_engraver.  Other ligature
+ * engravers for Gregorian chant will be added in the future, such as
+ * Medicaea_ligature_engraver or Hufnagel_ligature_engraver.
  */
-
 Gregorian_ligature_engraver::Gregorian_ligature_engraver ()
 {
   pes_or_flexa_req_ = 0;
-}
-
-void
-Gregorian_ligature_engraver::transform_heads (Spanner *, Array<Grob_info>)
-{
-  programming_error ("Gregorian_ligature_engraver::transform_heads (): "
-		     "this is an abstract method that should not be called, "
-		     "but overridden by a subclass");
 }
 
 bool
@@ -43,43 +40,6 @@ Gregorian_ligature_engraver::try_music (Music *m)
     }
   else
     return Ligature_engraver::try_music (m);
-}
-
-/*
- * TODO: move this function to class Item?
- */
-void
-Gregorian_ligature_engraver::get_set_column (Item *item, Paper_column *column)
-{
-  Item *parent = dynamic_cast<Item*> (item->get_parent (X_AXIS));
-  if (!parent)
-    {
-      programming_error ("failed tweaking paper column in ligature");
-      return;
-    }
-
-  String name = parent->name ();
-  if (!String::compare (name, "PaperColumn"))
-    {
-      // Change column not only for targeted item (NoteColumn), but
-      // also for all associated grobs (NoteSpacing, SeparationItem).
-      Grob *sl = Staff_symbol_referencer::get_staff_symbol (item);
-      for (SCM tail = parent->get_grob_property ("elements");
-	   gh_pair_p (tail);
-	   tail = ly_cdr (tail))
-	{
-	  Item *sibling = unsmob_item (ly_car (tail));
-	  if ((sibling) &&
-	      (Staff_symbol_referencer::get_staff_symbol (sibling) == sl))
-	    {
-	      sibling->set_parent (column, X_AXIS);
-	    }
-	}
-    }
-  else
-    {
-      get_set_column (parent, column);
-    }
 }
 
 void fix_prefix (char *name, int mask,
@@ -284,21 +244,24 @@ provide_context_info (Array<Grob_info> primitives)
 }
 
 void
-Gregorian_ligature_engraver::typeset_ligature (Spanner *ligature,
-					       Array<Grob_info> primitives)
+Gregorian_ligature_engraver::transform_heads (Spanner *, Array<Grob_info>)
+{
+  programming_error ("Gregorian_ligature_engraver::transform_heads (): "
+		     "this is an abstract method that should not be called, "
+		     "but overridden by a subclass");
+}
+
+void
+Gregorian_ligature_engraver::build_ligature (Spanner *ligature,
+					     Array<Grob_info> primitives)
 {
   // apply style-independent checking and transformation
   check_and_fix_all_prefixes (primitives);
   provide_context_info (primitives);
 
-  // apply style-specific transformation (including line-up)
+  // apply style-specific transformation (including line-up); to be
+  // implemented by subclass
   transform_heads (ligature, primitives);
-
-  // typeset
-  for (int i = 0; i < primitives.size (); i++)
-    {
-      typeset_grob (primitives[i].grob_);
-    }
 }
 
 void

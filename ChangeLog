@@ -1,3 +1,18 @@
+2003-05-11  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* lily/coherent-ligature-engraver.cc,
+	lily/gregorian-ligature-engraver.cc,
+	lily/ligature-bracket-engraver.cc, lily/ligature-engraver.cc,
+	lily/mensural-ligature-engraver.cc,
+	lily/vaticana-ligature-engraver.cc,
+	lily/include/gregorian-ligature-engraver.hh: updated for new
+	Coherent_ligature_engraver; added comments that describe the basic
+	design ideas of the ligature implementation
+
+	* lily/coherent-ligature-engraver.cc,
+	lily/include/coherent-ligature-engraver.hh: new file: shared code
+	between mensural ligatures and Gregorian chant notation ligatures
+
 2003-05-11  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: XEmacs fixes: include two definitions for the
