@@ -622,6 +622,13 @@ explicit_duration:
                 get_default_duration($$);
                 $$[1] = $1;
 	}
+	| INT '*' INT '/' INT {
+		// ugh, must use Duration
+		set_plet( $3, $5 );
+		$$[ 0 ] = $1;
+		$$[ 1 ] = 0;
+		set_plet( 1, 1 );
+	}
 	;
 
 default_duration:
