@@ -1,3 +1,12 @@
+1.3.111.jcn2
+============
+
+* Note_head_line_engraver now also listenes to \property
+"followThread": Automagically connect note-heads when thread switches
+staff.
+
+* Fixed american-chords example (except for o/, that waits for kerning fix).
+
 1.3.111.jcn1
 ============
 

@@ -12,7 +12,7 @@
 %
 
 chord = \notes\transpose c''\chords{
-\property ChordNames.ChordNames \override #'style = #"jazz"
+\property ChordNames.ChordName \override #'style = #'jazz
 % major chords
 c
 c:6		% 6 = major triad with added sixth

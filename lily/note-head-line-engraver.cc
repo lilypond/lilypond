@@ -14,6 +14,7 @@
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "translator-group.hh"
 #include "protected-scm.hh"
 
 /**
@@ -37,6 +38,8 @@ private:
   Spanner* line_; 
   Request* req_;
   Protected_scm heads_;
+  Translator* last_staff_;
+  Grob* last_head_;
 };
 
 Note_head_line_engraver::Note_head_line_engraver ()
@@ -44,6 +47,8 @@ Note_head_line_engraver::Note_head_line_engraver ()
   line_ = 0;
   req_ = 0;
   heads_ = SCM_EOL;
+  last_head_ = 0;
+  last_staff_ = 0;
 }
 
 bool
@@ -63,11 +68,22 @@ Note_head_line_engraver::try_music (Music* m)
 void
 Note_head_line_engraver::acknowledge_grob (Grob_info info)
 {
-  if (req_)
+  if (Rhythmic_head::has_interface (info.elem_l_))
     {
-      if (Rhythmic_head::has_interface (info.elem_l_))
+      if (req_)
+	heads_ = gh_cons (info.elem_l_->self_scm (), heads_);
+      else if (to_boolean (get_property ("followThread")))
 	{
-	  heads_ = gh_cons (info.elem_l_->self_scm (), heads_);
+    	  Translator* staff = daddy_trans_l_ && daddy_trans_l_->daddy_trans_l_
+	    ? daddy_trans_l_->daddy_trans_l_->daddy_trans_l_ : 0;
+	  if (staff != last_staff_)
+	    {
+	      if (last_head_)
+		heads_ = gh_list (info.elem_l_->self_scm (),
+				  last_head_->self_scm (), SCM_UNDEFINED);
+	      last_staff_ = staff;
+	    }
+	  last_head_ = info.elem_l_;
 	}
     }
 }
