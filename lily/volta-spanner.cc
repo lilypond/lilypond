@@ -98,7 +98,7 @@ Volta_spanner::do_brew_molecule_p () const
     dy = dy >? note_column_arr[i]->extent (Y_AXIS)[BIGGER];
   dy -= h;
 
-  Molecule two (lookup_l ()->text ("number", "2", paper_l ()));
+  Molecule two (lookup_l ()->text ("volta", "2", paper_l ()));
   Real gap = two.dim_.x ().length () / 2;
   Offset off (num.dim_.x ().length () + gap, 
 	      h / half_staff_space - gap);

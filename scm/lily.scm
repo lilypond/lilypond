@@ -787,7 +787,6 @@
 
   (define (volta h w thick vert-start vert-end)
 	  ;; urg
-	  (set! h 1)
 	  (string-append
 	   (func "set-line-char" "|")
 	   (func "rmove-to" 0 -4)

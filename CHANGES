@@ -1,3 +1,10 @@
+1.3.26.jcn2
+===========
+
+* Bugfix: font used in volta-spanner calculation.
+
+* Added simple selection list to webpage, inspired by sawmill.
+
 1.3.26.jcn1
 ===========
 

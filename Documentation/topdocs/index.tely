@@ -5,13 +5,31 @@
 @node Top, , , (dir)
 @top
 
-
-@unnumberedsec LilyPond -- The GNU Project Music Typesetter
-
+@html
+<p align=center>
+[
+    <a href="#download">Download</a>
+    |
+    <a href="Documentation/out-www/faq.html">FAQ</a>
+    |
+    <a href="Documentation/out-www/index.html">Documentation</a>
+    |
+    <a href="#music">Music archives</a>
+    |
+    <a href="#mailing-lists">Mailing lists</a>
+    |
+    <a href="Documentation/programmer/out-www/regression-test.html">
+    Regression test</a>
+    |
+    <a href="Documentation/out-www/CHANGES.txt">News</a>
+]
+@end html
 
 @html
-<img src="Documentation/pictures/out-www/lelie-logo.png">
+<p align=center>
+<img src="Documentation/pictures/out-www/lelie-logo.png" alt="[logo]">
 @end html
+@unnumberedsec LilyPond -- The GNU Project Music Typesetter
 
 @c something breaks on 3.12 f
 
@@ -65,6 +83,10 @@ If want more information, you can browse the
 For the latest and greatest features, check out the
 @uref{Documentation/out-www/CHANGES.txt, Change Log}.
 
+
+@html
+<a name="music">
+@end html
 @unnumberedsec Sheet music
 
 
@@ -83,6 +105,9 @@ putting @uref{http://www4.smart.net/~jcovey/scores/,guitar music} on the
 net. The @uref{http://sca.uwaterloo.ca/Mutopia/,Mutopia project} is a
 large archive of public domain sheet music under construction.
 
+@html
+<a name="download">
+@end html
 @unnumberedsec Download
 
 If you want to compile LilyPond from source, download here:
@@ -109,6 +134,10 @@ binary RPMs:  @uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/}
 @item Windows NT: @uref{http://home.austin.rr.com/jbr/jeff/lilypond/}
 @end itemize
 
+
+@html
+<a name="mailing-lists">
+@end html
 @unnumberedsec Mailing list
 
 If you have questions, do write to the mailing lists!
@@ -158,5 +187,24 @@ of the LilyPond package.  The version of this webpage is printed at the
 bottom. If you want to volunteer for making more beautiful webpages,
 then please mail us!
 
+@html
+<p align=center>
+[
+    <a href="#download">Download</a>
+    |
+    <a href="Documentation/out-www/faq.html">FAQ</a>
+    |
+    <a href="Documentation/out-www/index.html">Documentation</a>
+    |
+    <a href="#music">Music archives</a>
+    |
+    <a href="#mailing-lists">Mailing lists</a>
+    |
+    <a href="Documentation/programmer/out-www/regression-test.html">
+    Regression test</a>
+    |
+    <a href="Documentation/out-www/CHANGES.txt">News</a>
+]
+@end html
 
 @bye
