@@ -70,7 +70,7 @@ Long_option_init theopts[] = {
   {1, "include", 'I'},
   {0, "no-paper", 'M'},
   {0, "dependencies", 'd'},
-  {0, "no-timestamps", 'T'},
+  {0, "no-timestamps", 'T'},	// why do we have this option?
   {0, "find-old-relative", 'Q'},
   {0, "ignore-version", 'V'},
   {1, "output-format", 'f'},
@@ -251,6 +251,7 @@ main_prog (int argc, char **argv)
   /*
     need to do this first. Engravers use lily.scm contents.
    */
+  init_symbols ();
   read_lily_scm_file ( "lily.scm");
   cout << endl;
 

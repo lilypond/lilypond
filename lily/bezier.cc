@@ -157,7 +157,7 @@ Bezier_bow::blow_fit ()
     return;
 
 #ifndef STANDALONE
-  Real internote_f = paper_l_->internote_f ();
+  Real internote_f = paper_l_->get_realvar (interline_scm_sym)/2.0;
 #else
   Real internote_f = STAFFHEIGHT / 8;
 #endif
@@ -204,7 +204,7 @@ Bezier_bow::calc_bezier ()
   Real s = sqrt (control_[3].x () * control_[3].x () 
     + control_[1].y () * control_[2].y ());
 #ifndef STANDALONE
-  Real internote = paper_l_->internote_f ();
+  Real internote = paper_l_->get_realvar (interline_scm_sym)/2.0;
 #else
   Real internote = STAFFHEIGHT / 8;
 #endif
@@ -446,7 +446,7 @@ Bezier_bow::calc_tangent_controls ()
   // emperic computer science:
   //   * tangents somewhat steeper than minimal line
 #ifndef STANDALONE
-  Real internote = paper_l_->internote_f ();
+  Real internote = paper_l_->get_realvar (interline_scm_sym)/2.0;
   Real rc_correct = paper_l_->get_var ("slur_rc_factor");
 #else
   Real internote = STAFFHEIGHT / 8;

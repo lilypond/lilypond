@@ -20,12 +20,16 @@
 #include "note-column.hh"
 #include "paper-def.hh"
 
+
 ADD_THIS_TRANSLATOR (Repeat_engraver);
 
 Repeat_engraver::Repeat_engraver ()
 {
 }
 
+/*
+  urg. Way too complicated. needs redesign.
+ */
 bool
 Repeat_engraver::do_try_music (Music* m)
 {
@@ -41,9 +45,9 @@ Repeat_engraver::do_try_music (Music* m)
       Moment alt_mom = now_mom () + repeat_length_mom;
       if (repeat_length_mom)
 	{
-	  for (PCursor<Music*> i (alt->music_p_list_p_->top ()); i.ok () && (i != alt->music_p_list_p_->bottom ()); i++)
+	  for (Cons<Music> *i (alt->music_p_list_p_->head_); i && i->next_; i = i->next_)
 	    {
-	      stop_mom += i->length_mom ();
+	      stop_mom += i->car_->length_mom ();
 	      if (dynamic_cast<Simultaneous_music *> (alt))
 		break;
 	    }
@@ -66,23 +70,24 @@ Repeat_engraver::do_try_music (Music* m)
       Scalar prop = get_property ("voltaSpannerDuration", 0);
       if (prop.length_i ())
 	span_mom = prop.to_rat ();
-      int alt_i = r->repeats_i_ + 1 - alt->music_p_list_p_->size () >? 1;
-      for (PCursor<Music*> i (alt->music_p_list_p_->top ()); i.ok (); i++)
+
+      int alt_i = r->repeats_i_ + 1 - cons_list_size_i (alt->music_p_list_p_->head_ ) >? 1;
+      for (Cons<Music> *i = alt->music_p_list_p_->head_; i ; i = i->next_)
         {
-	  alternative_music_arr_.push (i.ptr ());
+	  alternative_music_arr_.push (i->car_);
 	  alternative_start_mom_arr_.push (alt_mom);
 	  if (span_mom)
 	    alternative_stop_mom_arr_.push (alt_mom + span_mom);
 	  else
-	    alternative_stop_mom_arr_.push (alt_mom + i->length_mom ());
+	    alternative_stop_mom_arr_.push (alt_mom + i->car_->length_mom ());
 	  String str;
-	  if ((alt_i != 1) && (alt_i != r->repeats_i_) && (i == alt->music_p_list_p_->top ()))
+	  if ((alt_i != 1) && (alt_i != r->repeats_i_) && (i == alt->music_p_list_p_->head_))
 	    str = "1.-";
 	  str += to_str (alt_i) + ".";
 	  alt_i++;
 	  alternative_str_arr_.push (str);
 	  if (!dynamic_cast<Simultaneous_music *> (alt))
-	    alt_mom += i->length_mom ();
+	    alt_mom += i->car_->length_mom ();
 	}
       return true;
     }

@@ -22,6 +22,14 @@ It does em(not) work with windows 3.x; you need Windows-NT (95/98?).  This
 is not a recommendation, however.  We recommend you use Unix, in
 particular, use GNU/Linux.  For further information see file(README-W32).
 
+question(Where is guile-config)
+
+RedHat RPMS don't include guile-config.  You need guile-config as it
+was produced during the RPM build run.  Build the RPM from source
+(file(.src.rpm)), and use the guile-config that is in
+file(/usr/src/redhat/BUILD/guile-1.3/guile-config/).
+
+
 question(I get all kinds of errors while  compiling file(parser.cc))
 
 LilyPond uses features of bison version 1.25. Please confirm that

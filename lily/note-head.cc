@@ -19,8 +19,6 @@
 Note_head::Note_head ()
 {
   x_dir_ = CENTER;
-  staff_size_i_= 8;		// UGH
-  steps_i_ = 0;
   position_i_ = 0;
   extremal_i_ = 0;
 }
@@ -34,9 +32,6 @@ Note_head::do_pre_processing ()
   if (dots_l_)			// move into Rhythmic_head?
     dots_l_->position_i_ = position_i_;
 }
-
-
-
 
 int
 Note_head::compare (Note_head *const  &a, Note_head * const &b)
@@ -57,13 +52,13 @@ Molecule*
 Note_head::do_brew_molecule_p() const 
 {
   Molecule*out = 0;
-  Paper_def *p = paper();
-  Real inter_f = p->internote_f ();
-
+  Paper_def *p = paper_l ();
+  Real inter_f = staff_line_leading_f ()/2;
+  int sz = lines_i ()-1;
   // ugh
-  int streepjes_i = abs (position_i_) < staff_size_i_/2 
+  int streepjes_i = abs (position_i_) < sz 
     ? 0
-    : (abs(position_i_) - staff_size_i_/2) /2;
+    : (abs(position_i_) - sz) /2;
   
   Molecule head; 
 

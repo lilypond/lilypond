@@ -12,7 +12,6 @@
 
 #include "array.hh"
 #include "lily-proto.hh"
-#include "plist.hh"
 #include "string.hh"
 #include "input.hh"
 #include "lily-proto.hh"

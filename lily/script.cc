@@ -44,7 +44,6 @@ Script::Script ()
   axis_ = Y_AXIS;
   specs_p_ = 0;
   stem_l_ = 0;
-  postbreak_only_b_ = true;
   dir_ =  CENTER;
 }
 
@@ -73,19 +72,13 @@ Script::set_default_dir ()
 Interval
 Script::do_width () const
 {
-  return specs_p_->get_molecule (paper (), dir_).extent ().x ();
+  return specs_p_->get_molecule (paper_l (), dir_).extent ().x ();
 }
 
 void
 Script::do_pre_processing ()
 {
   Staff_side::do_pre_processing ();
-  if (breakable_b_ && postbreak_only_b_ && (break_status_dir () != RIGHT))
-    {
-      transparent_b_ = true;
-      set_empty (true);
-    }
-  
   if (axis_ == Y_AXIS && !dir_)
     set_default_dir ();
 }
@@ -93,7 +86,7 @@ Script::do_pre_processing ()
 Interval
 Script::symbol_height () const
 {
-  return specs_p_->get_molecule (paper (), dir_).extent ().y ();
+  return specs_p_->get_molecule (paper_l (), dir_).extent ().y ();
 }
 
 
@@ -102,14 +95,14 @@ Script::do_brew_molecule_p () const
 {
   Real dx =0.;
 
-  Molecule*mol_p = new Molecule (specs_p_->get_molecule (paper (), dir_));
+  Molecule*mol_p = new Molecule (specs_p_->get_molecule (paper_l (), dir_));
   /*
     ugh, staccato dots are not centred between stafflines (how?)?
   */
   Real correct =0.0;
   if (axis_ == Y_AXIS){
-    dx =  paper ()->note_width ()/2;
-    correct = - (Real)dir_ * 2.0 * paper ()->rule_thickness ();
+    dx =  paper_l ()->note_width ()/2;
+    correct = - (Real)dir_ * 2.0 * paper_l ()->rule_thickness ();
     mol_p->translate_axis (dx, X_AXIS);	// FIXME! ugh
   }
   
@@ -137,6 +130,5 @@ Script::Script (Script const&s)
 {
   specs_p_ = s.specs_p_ ? s.specs_p_->clone (): 0;
   stem_l_ =s.stem_l_;
-  postbreak_only_b_ = s.postbreak_only_b_;
 }
   

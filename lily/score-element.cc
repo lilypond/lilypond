@@ -23,32 +23,39 @@
 #include "misc.hh"
 #include "paper-outputter.hh"
 
+Interval
+Score_element::dim_cache_callback (Dimension_cache*c)
+{
+  Score_element *  e =dynamic_cast<Score_element*>( c->element_l());
+  if(&e->dim_cache_[X_AXIS] == c)
+    return e->do_width ();
+  else
+    return e->do_height ();
+}
+
 Score_element::Score_element()
 {
   output_p_ =0;
-  break_helper_only_b_ = false;
-  transparent_b_ = false;
+  dim_cache_[X_AXIS].set_callback (dim_cache_callback);
+  dim_cache_[Y_AXIS].set_callback (dim_cache_callback); 
+  used_b_ = false;
   pscore_l_=0;
+  lookup_l_ =0;
   status_i_ = 0;
+  original_l_ = 0;
   element_property_alist_ = SCM_EOL;
 }
 
 Score_element::Score_element (Score_element const&s)
-  :   Graphical_element (s)
+  : Graphical_element (s)
 {
-  /* called from derived ctor, so most info points to the same deps
-     as (Directed_graph_node&)s. Nobody points to us, so don't copy
-     dependents.      
-   */
-  
-
-  // deep copy ?
-  element_property_alist_ = s.element_property_alist_;
+  used_b_ = true;
+  original_l_ =(Score_element*) &s;
+  element_property_alist_ = scm_list_copy (s.element_property_alist_);
   dependency_arr_ = s.dependency_arr_;
   output_p_ =0;
-  break_helper_only_b_ = s.break_helper_only_b_;
-  transparent_b_ = s.transparent_b_;
   status_i_ = s.status_i_;
+  lookup_l_ = s.lookup_l_;
   pscore_l_ = s.pscore_l_;
 }
 
@@ -74,10 +81,24 @@ Score_element::dependency_size () const
 
 
 SCM
-Score_element::get_elt_property (SCM s)
+Score_element::get_elt_property (SCM sym) const
 {
-  return scm_assq(s, element_property_alist_);
+  SCM s =  scm_assq(sym, element_property_alist_);
+  // is this a good idea?
+  if (s == SCM_BOOL_F && pscore_l_)
+    s = pscore_l_->paper_l_->get_scm_var (sym);
+
+  return s;
 }
+
+SCM
+Score_element::remove_elt_property (SCM key)
+{
+  SCM s = get_elt_property (key); 
+  element_property_alist_ =  scm_assq_remove_x (element_property_alist_, key);
+  return s;
+}
+
 void
 Score_element::set_elt_property (SCM s, SCM v)
 {
@@ -131,20 +152,27 @@ Score_element::print() const
 
 
 Paper_def*
-Score_element::paper()  const
+Score_element::paper_l ()  const
 {
-  return pscore_l_->paper_l_;
+ return pscore_l_->paper_l_;
 }
 
 
 Lookup const *
 Score_element::lookup_l () const
 {
-  SCM sz = scm_assq (ly_symbol ("fontsize"), element_property_alist_);
-  if (sz != SCM_BOOL_F)
-    return pscore_l_->paper_l_->lookup_l (gh_scm2int (SCM_CDR (sz)));
-  else
-    return pscore_l_->paper_l_->lookup_l (0);
+  if (!lookup_l_)
+    {
+      Score_element * me = (Score_element*)this;
+      SCM sz = me->remove_elt_property (fontsize_scm_sym);
+      int i = (sz != SCM_BOOL_F)
+	? gh_scm2int (SCM_CDR (sz))
+	: 0;
+
+
+      me->lookup_l_ =  pscore_l_->paper_l_->lookup_l (i);
+    }
+  return lookup_l_;
 }
 
 void
@@ -170,8 +198,8 @@ Score_element::calculate_dependencies (int final, int busy,
   assert (status_i_!= busy);
   status_i_= busy;
 
-  for (int i=0; i < dependency_size(); i++)
-    dependency (i)->calculate_dependencies (final, busy, funcptr);
+  for (int i=0; i < dependency_arr_.size(); i++)
+    dependency_arr_[i]->calculate_dependencies (final, busy, funcptr);
 
   Link_array<Score_element> extra (get_extra_dependencies());
   for (int i=0; i < extra.size(); i++)
@@ -186,8 +214,9 @@ Score_element::calculate_dependencies (int final, int busy,
 void
 Score_element::output_processing () 
 {
-  if (transparent_b_)
+  if (get_elt_property (transparent_scm_sym) != SCM_BOOL_F)
     return;
+
   if (output_p_)
     delete output_p_;
   
@@ -196,6 +225,7 @@ Score_element::output_processing ()
 					    absolute_offset (),
 					    classname(this));
 }
+
 
 /*
   
@@ -275,7 +305,10 @@ void
 Score_element::add_dependency (Score_element*e)
 {
   if (e)
-    dependency_arr_.push (e);
+    {
+      dependency_arr_.push (e);
+      e->used_b_ = true;
+    }
   else
     warning("Null dependency added");
       
@@ -305,7 +338,8 @@ Score_element::handle_broken_dependencies()
 	      Spanner * broken = sp->find_broken_piece (line);
 	      substitute_dependency (sp, broken);
 
-	      add_dependency (broken);
+	      if (broken)
+		add_dependency (broken);
 	    }
 	  else if (Item *original = dynamic_cast <Item *> (elt))
 	    {
@@ -341,16 +375,20 @@ Score_element::handle_broken_dependencies()
 void
 Score_element::handle_prebroken_dependencies()
 {
+  /*  dynamic_cast<Item*> (this) && 
+  if (!break_status_dir ())
+    return;
+  */
   Link_array<Score_element> old_arr, new_arr;
   
   for (int i=0; i < dependency_size(); i++) 
     {
       Score_element * elt = dependency (i);
       Item *it_l = dynamic_cast <Item *> (elt);
-      if (it_l && it_l->breakable_b_)
+      if (it_l && it_l->broken_original_b ())
 	if (Item *me = dynamic_cast<Item*> (this) )
 	  {
-	    Score_element *new_l = it_l->find_prebroken_piece (me->break_status_dir_);
+	    Score_element *new_l = it_l->find_prebroken_piece (me->break_status_dir ());
 	    if (new_l != elt) 
 	      {
 		new_arr.push (new_l);
@@ -359,10 +397,11 @@ Score_element::handle_prebroken_dependencies()
 	  }
 	else 
 	  {
-	    new_arr.push (it_l->broken_to_drul_[LEFT]);
-	    old_arr.push (0);
-	    old_arr.push (0);		
-	    new_arr.push (it_l->broken_to_drul_[RIGHT]);		
+	    Direction d = LEFT;
+	    do {
+	      old_arr.push (0);
+	      new_arr.push (it_l->find_prebroken_piece (d));
+	    } while (flip(&d)!= LEFT);
 	  }
     }
   
@@ -388,9 +427,9 @@ Score_element::get_extra_dependencies() const
 bool
 Score_element::linked_b() const
 {
-  return get_extra_dependencies().size() || 
-    dependency_size();
+  return used_b_;
 }
+
 void
 Score_element::do_print () const
 {

@@ -15,27 +15,22 @@
 
 Item::Item ()
 {
-  unbroken_original_l_ =0;
-  break_priority_i_ = 0;
-  breakable_b_ = false;
-  break_status_dir_ = CENTER;
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;
 }
 
 bool
 Item::breakable_b () const
 {
-  return !unbroken_original_l_ 
-    && dynamic_cast<Item*> (parent_l (X_AXIS))->breakable_b ();
+  if (original_l_ )
+    return false;
+  
+  Item * i  =dynamic_cast<Item*> (parent_l (X_AXIS));
+  return (i) ?  i->breakable_b () : get_elt_property( breakable_scm_sym) != SCM_BOOL_F;
 }
 
 void
 Item::do_print() const
 {
-#ifndef NPRINT
-  DOUT << "breakable_b_: " << breakable_b_ << 
-    " break_status_dir_: " << break_status_dir_;
-#endif
 }
 
 
@@ -54,11 +49,6 @@ Item::line_l() const
   return dynamic_cast<Score_element *> (g)-> line_l ();
 }
 
-Direction
-Item::break_status_dir() const
-{
-  return break_status_dir_;
-}
 
 void
 Item::copy_breakable_items()
@@ -73,8 +63,6 @@ Item::copy_breakable_items()
     {
       Score_element * dolly = clone();
       Item * item_p = dynamic_cast<Item*>(dolly);
-      item_p->unbroken_original_l_ = this;
-      item_p->break_status_dir_ =  i;
       pscore_l_->typeset_element (item_p);
       new_copies[i] =item_p;
     }
@@ -93,10 +81,10 @@ Item::copy_breakable_items()
 void
 Item::try_visibility_lambda ()
 {
-  SCM vis = get_elt_property (ly_symbol ("visibility_lambda"));
+  SCM vis = remove_elt_property (visibility_lambda_scm_sym);
   if (vis != SCM_BOOL_F)
     {
-      SCM args = scm_listify (gh_int2scm (break_status_dir_), SCM_UNDEFINED);
+      SCM args = scm_listify (gh_int2scm (break_status_dir ()), SCM_UNDEFINED);
       SCM result = gh_apply ( SCM_CDR(vis), args);
       int trans = gh_scm2bool (gh_car (result));
       int empty = gh_scm2bool (gh_cdr (result));
@@ -104,7 +92,7 @@ Item::try_visibility_lambda ()
       if (empty)
 	set_empty (true);
       if (trans)
-	transparent_b_ = true;
+	set_elt_property (transparent_scm_sym, SCM_BOOL_T);
     }
 }
 
@@ -153,8 +141,14 @@ Item::find_prebroken_piece (Direction d) const
 void
 Item::handle_prebroken_dependencies()
 {
-  if (breakable_b_)
+  if (original_l_)
     Score_element::handle_prebroken_dependencies();
+}
+
+bool
+Item::broken_original_b () const
+{
+  return broken_to_drul_[LEFT] || broken_to_drul_[RIGHT];
 }
 
 int
@@ -165,15 +159,6 @@ Item::left_right_compare(Item const *l, Item const *r)
   return p1->rank_i () - p2->rank_i ();
 }
 
-
-bool
-Item::linked_b() const
-{
-  return Score_element::linked_b() || attached_span_l_arr_.size();
-}
-
-
-
 Paper_column *
 Item::column_l () const
 {
@@ -183,12 +168,7 @@ Item::column_l () const
 Item::Item (Item const &s)
   : Score_element (s)
 {
-  unbroken_original_l_ = 0;
-  /* do not copy attached_span_l_arr_ */
-  breakable_b_ = s.breakable_b_;
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] =0;
-  break_status_dir_ = s.break_status_dir_;
-  break_priority_i_ = s.break_priority_i_;
 }
 
 
@@ -204,11 +184,25 @@ Item::handle_prebroken_dependents ()
       Direction d = LEFT;
       do
 	{
-	  broken_to_drul_[d]->dim_cache_[X_AXIS].parent_l_ =
-	    &parent->broken_to_drul_[d]->dim_cache_[X_AXIS];
-	  parent->broken_to_drul_[d]->add_dependency (broken_to_drul_[d]);
+	  Item * broken_self = find_prebroken_piece (d);
+	  Item * broken_parent = parent->find_prebroken_piece (d);
+
+	  broken_self->dim_cache_[X_AXIS].parent_l_ =
+	    &broken_parent->dim_cache_[X_AXIS];
 	}
       while ((flip (&d))!=LEFT);
     }
 }
 
+Direction
+Item::break_status_dir () const
+{
+  if (original_l_)
+    {
+      Item * i = dynamic_cast<Item*> (original_l_);
+
+      return (i->broken_to_drul_[LEFT] == this) ? LEFT : RIGHT;
+    }
+  else
+    return CENTER;
+}

@@ -53,12 +53,13 @@ Base_span_bar_engraver::acknowledge_element (Score_element_info i)
 	  spanbar_p_ = get_span_bar_p();
 	  String visnam =  String(name()) + "_visibility";
 	  
-	  spanbar_p_->set_elt_property (ly_symbol ("visibility_lambda"),
+	  spanbar_p_->set_elt_property (visibility_lambda_scm_sym,
 					gh_eval_str (visnam.ch_C()));
 
 	  if (use_priority_b_)
 	    {
-	      spanbar_p_->break_priority_i_ = break_priority_i_;
+	      spanbar_p_->set_elt_property (break_priority_scm_sym,
+					    gh_int2scm (break_priority_i_));
 	    }
 	  else
 	    {

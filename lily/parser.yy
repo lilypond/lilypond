@@ -444,7 +444,9 @@ identifier_init:
 
 translator_spec_block:
 	TRANSLATOR '{' translator_spec_body '}'
-		{ $$ = $3; }
+		{
+		$$ = $3;
+	}
 	;
 
 translator_spec_body:
@@ -1282,8 +1284,8 @@ mudela_script:
 
 script_dir:
 	'_'	{ $$ = DOWN; }
-	| '^'	{ $$ = CENTER; }
-	| '-'	{ $$ = UP; }
+	| '^'	{ $$ = UP; }
+	| '-'	{ $$ = CENTER; }
 	;
 
 pre_requests:

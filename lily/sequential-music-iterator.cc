@@ -20,7 +20,7 @@ Sequential_music_iterator::do_print() const
 
 Sequential_music_iterator::Sequential_music_iterator ()
 {
-  cursor_p_ = 0;
+  cursor_ = 0;
   here_mom_ = 0;
   iter_p_ =0;
 }
@@ -28,9 +28,9 @@ Sequential_music_iterator::Sequential_music_iterator ()
 void
 Sequential_music_iterator::construct_children()
 {
-  cursor_p_ = new PCursor<Music*> (dynamic_cast<Sequential_music const*> (music_l_)->music_p_list_p_->top ());
+  cursor_ = dynamic_cast<Sequential_music const*> (music_l_)->music_p_list_p_->head_;
   
-  while (cursor_p_->ok()) 
+  while (cursor_)
     {
       start_next_element();
       if (!iter_p_->ok()) 
@@ -50,16 +50,16 @@ Sequential_music_iterator::leave_element()
 {
   delete iter_p_;
   iter_p_ =0;
-  Moment elt_time = cursor_p_->ptr()->length_mom ();
+  Moment elt_time = cursor_->car_->length_mom ();
   here_mom_ += elt_time;
-  cursor_p_->next();
+  cursor_ =cursor_->next_;
 }
 
 void
 Sequential_music_iterator::start_next_element()
 {
   assert (!iter_p_);
-  iter_p_ = get_iterator_p ( cursor_p_->ptr());
+  iter_p_ = get_iterator_p (cursor_->car_);
 }
 
 void
@@ -71,7 +71,6 @@ Sequential_music_iterator::set_Sequential_music_translator()
 
 Sequential_music_iterator::~Sequential_music_iterator()
 {
-  delete cursor_p_;
   assert (! iter_p_);
 }
 
@@ -97,7 +96,7 @@ Sequential_music_iterator::do_process_and_next (Moment until)
 	{
 	  leave_element();
 	  
-	  if (cursor_p_->ok()) 
+	  if (cursor_)
 	    {
 	      start_next_element();
 	      set_Sequential_music_translator();

@@ -114,11 +114,11 @@ Bar_script_engraver::create_items (Request *rq)
   
   staff_side_p_ = new G_staff_side_item;
   staff_side_p_->axis_ = axis_;
-  staff_side_p_->breakable_b_ = true; // ugh
+  staff_side_p_->set_elt_property (breakable_scm_sym, SCM_BOOL_T); // ugh
 
   
   text_p_ = new G_text_item;
-  text_p_->breakable_b_ = true; // ugh
+  text_p_->set_elt_property (breakable_scm_sym, SCM_BOOL_T); // ugh
 
   Scalar prop = get_property (type_ + "Direction", 0);
   if (prop.isnum_b ())
@@ -139,9 +139,9 @@ Bar_script_engraver::create_items (Request *rq)
     }
 
   
-  staff_side_p_->set_elt_property (ly_symbol ("visibility_lambda"),
+  staff_side_p_->set_elt_property (visibility_lambda_scm_sym,
 				   visibility_lambda_);
-  text_p_->set_elt_property (ly_symbol ("visibility_lambda"),
+  text_p_->set_elt_property (visibility_lambda_scm_sym,
 			     visibility_lambda_);
   
   announce_element (Score_element_info (text_p_, rq));

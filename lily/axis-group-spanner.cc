@@ -26,7 +26,7 @@ Axis_group_spanner::do_break_processing_if_unbroken()
 	{
 	  Item * item_l = dynamic_cast<Item*> (elems[i]);
 	  if  (item_l
-	       && item_l->breakable_b_ 
+	       && item_l->breakable_b ()
 	       && item_l->break_status_dir() == 0) 
 	    {
 	      // last two checks are paranoia
@@ -83,25 +83,25 @@ Axis_group_spanner::do_break_processing()
 		    my_broken_l->add_element (broken_span_l);
 		}
 	    }
-	  else if (it && it->breakable_b_ && it->break_status_dir () == 0) 
+	  else if (it && it->broken_original_b ())
 	    {
 	      // broken items
 	      Direction  j=LEFT;
 	      do 
 		{
-		  Item * my_item = it->broken_to_drul_[j];
-		  Line_of_score * item_line_l = my_item->line_l() ;
+		  Item * broken_item = it->find_prebroken_piece (j);
+		  Line_of_score * item_line_l = broken_item->line_l() ;
 		  if (! item_line_l) 
 		    continue;
 		    
 		  Axis_group_spanner * v
 		    = dynamic_cast<Axis_group_spanner*>(find_broken_piece (item_line_l));
 		  if (v)
-		    v->add_element (my_item);
+		    v->add_element (broken_item);
 		  else
 		    {
-		      my_item->transparent_b_ = true;
-		      my_item->set_empty (true);
+		      broken_item->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+		      broken_item->set_empty (true);
 		    }
 
 		}

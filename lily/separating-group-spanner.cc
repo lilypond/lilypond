@@ -30,7 +30,7 @@ Separating_group_spanner::get_rods () const
       if (lb)
 	{
 	  Rod rod(lb, r);
-	  rod.distance_f_ += paper ()->interline_f () *1.5;
+	  rod.distance_f_ += padding_f_;
 	  a.push (rod);
 	}
       
@@ -38,10 +38,11 @@ Separating_group_spanner::get_rods () const
 	{
 	  a.push (Rod (l, rb));
 	}
+      
       if (lb && rb)
 	{
 	  Rod rod(lb, rb);
-	  rod.distance_f_ += paper ()->interline_f () *1.5;
+	  rod.distance_f_ += padding_f_;
 	  a.push (rod);
 	}
     }
@@ -68,5 +69,6 @@ Separating_group_spanner::do_substitute_element_pointer (Score_element*o, Score_
 
 Separating_group_spanner::Separating_group_spanner()
 {
-  break_helper_only_b_ = true;
+  set_elt_property (break_helper_only_scm_sym, SCM_BOOL_T);
+  padding_f_ =0.0;
 }

@@ -26,16 +26,16 @@ Music_sequence::Music_sequence(Music_list *mlist_p)
 void
 Music_sequence::transpose (Musical_pitch rq)
 {
-  for (iter (music_p_list_p_->top(),i); i.ok (); i++)
-    i->transpose (rq);    
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
+    i->car_->transpose (rq);    
 }
 
 void
 Music_sequence::do_print() const
 {
 #ifndef NPRINT
-  for (iter (music_p_list_p_->top(),i); i.ok (); i++)
-    i->print();
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)  
+    i->car_->print();
 #endif 
 }
 

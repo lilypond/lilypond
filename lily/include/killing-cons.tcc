@@ -40,6 +40,5 @@ clone_killing_cons_list (Cons_list<T> & dest, Cons<T> *src)
     }
 }
 
-
 #endif /* KILLING_CONS_TCC */
 

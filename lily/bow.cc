@@ -30,7 +30,7 @@ Bow::Bow ()
 Molecule*
 Bow::do_brew_molecule_p () const
 {
-  Real thick = paper ()->get_var ("slur_thickness");
+  Real thick = paper_l ()->get_var ("slur_thickness");
   Array<Offset> c = get_controls ();
   Real dy = c[3].y () - c[0].y ();
   Molecule a;
@@ -93,7 +93,7 @@ Bow::do_height () const
 Array<Offset>
 Bow::get_controls () const
 {
-  Bezier_bow b (paper ());
+  Bezier_bow b (paper_l ());
   b.set (get_encompass_offset_arr (), dir_);
   b.calc ();
   Array<Offset> controls;

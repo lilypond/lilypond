@@ -23,7 +23,8 @@ public:
   
 protected:
   virtual ~Staff_symbol_engraver();
-  virtual void fill_staff_info (Staff_info&);
+
+  virtual void acknowledge_element (Score_element_info);
   virtual void do_removal_processing();
   virtual void do_creation_processing();
 	

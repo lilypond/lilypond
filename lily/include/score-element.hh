@@ -12,6 +12,7 @@
 #include "directed-graph.hh"
 #include "graphical-element.hh"
 #include "protected-scm.hh"
+#include "lily-guile.hh"
 
 
 typedef void (Score_element::*Score_element_method_pointer) (void);
@@ -23,24 +24,52 @@ typedef void (Score_element::*Score_element_method_pointer) (void);
   which are implemented in the Directed_graph_node class: all elements
   form an acyclic graph.
 
-  (elem) */
+  (elem)
+
+
+Element Properties:
+
+Boolean (true iff defined)
+
+ break_helper_only -- if defined try to junk this after calcing breakpoints.
+
+ transparent -- do not calc. output
+
+*/
 class Score_element : public virtual Graphical_element {
   Protected_scm element_property_alist_;
   Link_array<Score_element> dependency_arr_;
-  
+  Lookup * lookup_l_;
 public:
-  /// delete after linebreak calculation.
-  bool break_helper_only_b_;
-  Paper_score *pscore_l_;    
+  Score_element *original_l_;
+
+  /**
+    Administration: Where are we?. This is mainly used by Super_element and
+    Score_element::calcalute_dependencies ()
+
+    0 means ORPHAN,
+    -1 means deleted
+    
+   */
+  int status_i_;
+
+  Paper_score *pscore_l_;
   Molecule * output_p_;
   Score_element ();
   Score_element (Score_element const&);
   virtual void print () const;
 
-  SCM get_elt_property (SCM sym);
+  /*
+    properties
+   */
+  SCM get_elt_property (SCM sym) const;
   void set_elt_property (SCM sym, SCM val);
-  
-  Paper_def *paper () const;
+  SCM remove_elt_property (SCM key);
+
+  /*
+    related classes.
+   */
+  Paper_def *paper_l () const;
   Lookup const *lookup_l () const;
 
   virtual ~Score_element ();
@@ -52,27 +81,12 @@ public:
     add a dependency. It may be the 0 pointer, in which case, it is ignored.
     */
   void add_dependency (Score_element*);    
-
   virtual Line_of_score * line_l () const;
-  virtual bool linked_b () const;
+  bool linked_b () const;
   VIRTUAL_COPY_CONS(Score_element);
  
-  /// do not print anything black
-  bool transparent_b_;
-
   // ugh: no protection. Denk na, Vrij Veilig
   void calculate_dependencies (int final, int busy, Score_element_method_pointer funcptr);
-
-public:
-  /**
-    Administration: Where are we?. This is mainly used by Super_element and
-    Score_element::calcalute_dependencies ()
-
-    0 means ORPHAN,
-    -1 means deleted
-    
-   */
-  int status_i_;
 
 protected:
   Score_element* dependency (int) const;
@@ -104,6 +118,8 @@ protected:
   virtual void handle_prebroken_dependencies ();
   virtual void handle_prebroken_dependents ();
   virtual Link_array<Score_element> get_extra_dependencies () const;
+
+  static Interval dim_cache_callback (Dimension_cache*);
 };
 
 

@@ -22,7 +22,7 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
 Key_item::Key_item ()
 {
   multi_octave_b_ = false;
-  breakable_b_ =true;
+  set_elt_property (breakable_scm_sym, SCM_BOOL_T);
   default_b_ = false;
   set_c_position (0);
 }
@@ -81,10 +81,10 @@ Molecule*
 Key_item::do_brew_molecule_p() const
 {
   Molecule*output = new Molecule;
-  Real inter = paper()->internote_f ();
+  Real inter = staff_line_leading_f ()/2.0;
   
   int j;
-  if ((break_status_dir_ == LEFT || break_status_dir_ == CENTER)
+  if ((break_status_dir () == LEFT || break_status_dir () == CENTER)
       || old_pitch_arr_.size ())
     {
       for (int i =0; i < old_pitch_arr_.size(); i++) 
@@ -123,7 +123,7 @@ Key_item::do_brew_molecule_p() const
   if (pitch_arr_.size()) 
     {
       Molecule m (lookup_l ()->fill (Box (
-					  Interval (0, paper()->note_width ()),
+					  Interval (0, paper_l ()->note_width ()),
 					  Interval (0,0))));
       
       output->add_at_edge (X_AXIS, RIGHT, m,0 );
@@ -138,7 +138,10 @@ Key_item::do_pre_processing()
 {
   if (default_b_) 
     {
-      transparent_b_ = (break_status_dir() != RIGHT);
-      set_empty (transparent_b_);
+      bool transparent = (break_status_dir() != RIGHT);
+      set_empty (transparent);
+
+      if (transparent)
+	set_elt_property (transparent_scm_sym, SCM_BOOL_T);
     }
 }

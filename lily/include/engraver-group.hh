@@ -12,7 +12,6 @@
 
 #include "lily-proto.hh"
 #include "parray.hh"
-#include "plist.hh"
 #include "score-element-info.hh"
 #include "engraver.hh"
 #include "translator-group.hh"
@@ -31,8 +30,6 @@ public:
   VIRTUAL_COPY_CONS(Translator);
   Engraver_group_engraver();
   ~Engraver_group_engraver();
-    
-  
     
   virtual Staff_info get_staff_info() const;
   virtual void do_announces();

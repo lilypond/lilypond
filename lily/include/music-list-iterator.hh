@@ -11,8 +11,7 @@
 #define MUSIC_LIST_ITERATOR_HH
 
 #include "music-iterator.hh"
-#include "pcursor.hh"
-#include "plist.hh"
+
 
 class Music_list_iterator : public Music_iterator
 {

@@ -53,8 +53,8 @@ void
 Score_engraver::do_creation_processing()
 {
   scoreline_l_ = pscore_p_->line_l_;
-  scoreline_l_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
-  command_column_l_->breakable_b_ = true;
+  scoreline_l_->set_bounds(LEFT,command_column_l_);
+  command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
   Engraver_group_engraver::do_creation_processing();
 }
 
@@ -62,8 +62,8 @@ void
 Score_engraver::do_removal_processing()
 {
   Engraver_group_engraver::do_removal_processing();
-  scoreline_l_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
-  command_column_l_->breakable_b_ = true;
+  scoreline_l_->set_bounds(RIGHT,command_column_l_);
+  command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
 
   typeset_all ();
   set_columns (0,0);
@@ -150,7 +150,8 @@ Score_engraver::typeset_all()
 	  pscore_p_->typeset_element (item_p);
 	  if (!item_p->parent_l (X_AXIS))
 	    {
-	      if (item_p->breakable_b_) 
+	      bool br = (item_p->remove_elt_property (breakable_scm_sym) != SCM_BOOL_F);
+	      if (br)
 		command_column_l_->add_element(item_p);
 	      else
 		musical_column_l_->add_element(item_p);
@@ -166,7 +167,7 @@ Score_engraver::do_pre_move_processing()
 {
   if (break_penalty_i_ > Break_req::DISALLOW)
     {
-      get_staff_info().command_pcol_l ()-> breakable_b_ = true;
+      command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
       breaks_i_ ++;
       if (! (breaks_i_%8))
 	*mlog << "[" << breaks_i_ << "]" << flush;

@@ -1,0 +1,10 @@
+< \type Staff = VA {
+	\property Staff.staffLineLeading = "4" \property Staff.fontsize = "-2"
+	\property Voice . dynamicDir = \up \stemdown
+\key gis;
+	c8 d [e f g a] b c \ff
+  }
+
+\type Staff = VB {  \property Voice . dynamicDir = \down c,,4 \ff} 
+
+>

@@ -516,20 +516,21 @@ Spring_spacer::get_ruling_durations(Array<Moment> &shortest_playing_arr,
 
   for (int i=0; i < cols_.size(); i++)
     {
+      Score_column * sc = scol_l(i);
       Moment now = scol_l (i)->when();
       Moment shortest_playing;
       shortest_playing.set_infinite (1);
 
-      if (scol_l (i)->breakable_b_)
+      if (!sc->musical_b ())
 	{
 	  for (int ji=i; ji >= start_context_i; ji--)
 	    context_shortest_arr[ji] = context_shortest;
 	  start_context_i = i;
 	  context_shortest.set_infinite (1);
 	}
-      if (scol_l (i)->durations.size())
+      if (sc->durations.size())
 	{
-	  context_shortest = context_shortest <? scol_l(i)->durations[0];
+	  context_shortest = context_shortest <? sc->durations[0];
 	}
       
       // ji was j, but triggered ICE
@@ -588,8 +589,7 @@ Spring_spacer::calc_idealspacing()
   Array<Moment> context_shortest_arr;
   get_ruling_durations(shortest_playing_arr, context_shortest_arr);
 
-  Real interline_f = paper_l ()->interline_f ();
-
+  Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
 
   Array<Real> ideal_arr;
   Array<Real> hooke_arr;
@@ -682,7 +682,7 @@ Spring_spacer::calc_idealspacing()
 	  /* 
 	     first musical column of bar
 	  */
-	  if (i && scol_l (i - 1)->breakable_b_)
+	  if (i && !scol_l (i - 1)->musical_b ())
 	    {
 	      // one interline minimum at start of bar
 
@@ -696,7 +696,7 @@ Spring_spacer::calc_idealspacing()
 	  /* 
 	     last musical column of bar
 	  */
-	  if (i + 1 < cols_.size () && scol_l(i+1)->breakable_b_)
+	  if (i + 1 < cols_.size () && !scol_l(i+1)->musical_b ())
 	    {
 	      // two interline minimum ok for last column?
 	      dist = dist >? 2 * interline_f;

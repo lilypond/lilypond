@@ -425,11 +425,7 @@ Midi_note::str () const
   String str = to_str ((char)status_byte);
   str += to_str ((char) (pitch_i () + c0_pitch_i_c_));
 
-#if 0
-  // poor man's staff dynamics:
-  str += to_str ((char) (dynamic_byte_ - 0x10 * channel_i_));
-#endif
-  
+  str += to_str ((char)dynamic_byte_);
   return str;
 }
 

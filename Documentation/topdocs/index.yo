@@ -83,8 +83,8 @@ description(
 dit(lurl(http://sca.uwaterloo.ca/lilypond/))
     Eric Praetzel was kind enough to provide a mirror of both the website
     and the ftp site.
-dit(lurl(ftp://ftp.lilypond.org/pub/lilypond/))
-	A mirror of the FTP site.  Updated at 12:00 MET daily. 
+dit(lurl(ftp://ftp.lilypond.org/pub/LilyPond/))
+	A mirror of the FTP site.  Updated at 0:00 MET daily. 
 )
 
 nsect(NEWS)

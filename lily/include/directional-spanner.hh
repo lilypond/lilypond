@@ -9,19 +9,22 @@
 
 #include "spanner.hh"
 
-/// a spanner which can be pointing "up" or "down"
+/** a spanner which can be pointing "up" or "down".
+
+    JUNKME?
+ */
 class Directional_spanner : public Spanner{
 public:
     
-    /// -1 below heads, +1 above heads.
-    Direction dir_;
-    Directional_spanner();
+  /// -1 below heads, +1 above heads.
+  Direction dir_;
+  Directional_spanner();
     
-    /// offset of "center" relative to left-column/0-pos of staff
-    virtual Offset center() const;
-    virtual void set_default_dir();
+  /// offset of "center" relative to left-column/0-pos of staff
+  virtual Offset center() const;
+  virtual void set_default_dir();
 protected:
-    virtual void do_pre_processing();
+  virtual void do_pre_processing();
 };
 
 #endif // DIRECTIONALSPANNER_HH

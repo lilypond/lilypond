@@ -13,7 +13,6 @@
 #include "string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
-#include "plist.hh"
 #include "dictionary.hh"
 
 /**

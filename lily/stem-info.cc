@@ -16,7 +16,7 @@
 #include "lookup.hh"
 #include "stem-info.hh"
 #include "beam.hh"
-#include "staff-sym.hh"
+#include "staff-symbol.hh"
 
 Stem_info::Stem_info ()
 {
@@ -31,8 +31,8 @@ Stem_info::Stem_info (Stem*s)
   mult_i_ = stem_l_->mult_i_;
   interstaff_f_ = 0;
 
-  Paper_def* paper_l = stem_l_->paper ();
-  Real internote_f = paper_l->internote_f ();
+  Paper_def* paper_l = stem_l_->paper_l ();
+  Real internote_f = stem_l_->staff_line_leading_f ()/2;
   Real interbeam_f = paper_l->interbeam_f (mult_i_);
   Real beam_f = paper_l->beam_thickness_f ();
          
@@ -106,16 +106,8 @@ Stem_info::Stem_info (Stem*s)
   // interstaff beam
   Beam* beam_l_ = stem_l_->beam_l_;
   if (beam_l_->sinfo_.size ()
-      && stem_l_->staff_sym_l_ != beam_l_->sinfo_[0].stem_l_->staff_sym_l_)
+      && stem_l_->staff_symbol_l () != beam_l_->sinfo_[0].stem_l_->staff_symbol_l ())
     {
-#if 0 // this is nonsense..., don't issue warning
-      if (stem_l_->staff_sym_l_->dim_cache_[Y_AXIS].valid_b ())
-	{
-	  interstaff_f_ = stem_l_->staff_sym_l_->absolute_coordinate (Y_AXIS)
-	    - beam_l_->sinfo_[0].stem_l_->staff_sym_l_->absolute_coordinate (Y_AXIS) / internote_f;
-	}
-      else
-#endif
 	{
 	  //	  warning (_ ("invalid dimension cache: guessing staff position"));
 	  if (beam_l_->vertical_align_drul_[MIN] != 

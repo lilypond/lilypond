@@ -153,10 +153,12 @@ Paper_score::remove_break_helpers ()
 {
   Link_array<Score_element> to_remove;
   Link_array<Score_element> keep;
+  SCM help_sym = break_helper_only_scm_sym;
   for (int i=0; i < elem_p_arr_.size (); i++)
     {
       Score_element*e = elem_p_arr_[i];
-      if (e->break_helper_only_b_)
+      SCM p =  e->get_elt_property (help_sym);
+      if (p != SCM_BOOL_F)
 	to_remove.push (e);
       else
 	keep.push (e);
@@ -168,7 +170,8 @@ Paper_score::remove_break_helpers ()
     {
       Spanner *s = span_p_arr_[i];
       Score_element *e = s;
-      if (e->break_helper_only_b_)
+      SCM p =  e->get_elt_property (break_helper_only_scm_sym);
+      if (p != SCM_BOOL_F)
 	to_remove.push (e);
       else
 	keeps.push (s);
@@ -305,7 +308,7 @@ Paper_score::broken_col_range (Item const*l, Item const*r) const
   while (start < stop)
     {
       Paper_column *c = col_l_arr_[start];
-      if (c->breakable_b_ && !c->line_l_)
+      if (c->breakable_b () && !c->line_l_)
 	ret.push (c);
       start++;
     }

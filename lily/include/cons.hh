@@ -62,7 +62,8 @@ class Cons_list
 public:
   Cons<T> * head_;
   Cons<T> ** tail_;
-  Cons_list () { head_ =0; tail_ = &head_; }
+  Cons_list () { init_list (); }
+  void init_list () {head_ =0; tail_ = &head_; }
   void append (Cons<T> *c)
     {
       assert (!c->next_);
@@ -91,6 +92,19 @@ void  copy_killing_cons_list (Cons_list<T>&, Cons<T> *src);
 template<class T>
 void
 clone_killing_cons_list (Cons_list<T>&, Cons<T> *src);
+
+template<class T> int cons_list_size_i (Cons<T> *l)
+{
+  int i=0;
+  while  (l)
+    {
+      l = l->next_;
+	i++;
+    }
+  return i;
+}
+
+
 
 
 #endif /* CONS_HH */

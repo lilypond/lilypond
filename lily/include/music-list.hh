@@ -11,10 +11,10 @@
 #define Music_sequence_HH
 
 #include "music.hh"
-#include "plist.hh"
+#include "cons.hh"
 
 
-class Music_list : public Pointer_list<Music*>
+class Music_list : public Cons_list<Music> 
 {
 public:
   Musical_pitch do_relative_octave (Musical_pitch, bool); 

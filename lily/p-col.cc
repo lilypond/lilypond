@@ -59,9 +59,9 @@ Paper_column::do_print() const
       DOUT << "post: ";
       postbreak_l()->print();
     } 
-  if (break_status_dir_)
+  if (break_status_dir ())
     {
-      DOUT << '\n' << ((break_status_dir_ == LEFT) ? "prebreak" : "postbreak");
+      DOUT << '\n' << ((break_status_dir () == LEFT) ? "prebreak" : "postbreak");
       DOUT << '\n';
     }
 
@@ -87,14 +87,15 @@ Paper_column::compare (Paper_column const &c1, Paper_column const &c2)
 Paper_column*
 Paper_column::prebreak_l() const
 {
-  return dynamic_cast<Paper_column*>(broken_to_drul_[LEFT]);
+  return dynamic_cast<Paper_column*>(find_prebroken_piece (LEFT));
 }
 
 Paper_column*
 Paper_column::postbreak_l() const
 {
-  return dynamic_cast<Paper_column*>( broken_to_drul_[RIGHT]);
+  return dynamic_cast<Paper_column*>( find_prebroken_piece (RIGHT));
 }
+
 bool
 Paper_column::breakpoint_b() const
 {
@@ -103,8 +104,6 @@ Paper_column::breakpoint_b() const
 
 Paper_column::Paper_column()
 {
-  used_b_ = false;
-  error_mark_b_ = false;
   line_l_=0;
   rank_i_ = -1;
 }
@@ -115,11 +114,6 @@ Paper_column::line_l() const
   return line_l_;
 }
 
-bool
-Paper_column::used_b() const
-{
-  return linked_b();
-}
 
 
 
@@ -135,10 +129,4 @@ Paper_column::preprocess ()
 {
   minimal_dists_arr_drul_[LEFT].sort (Column_rod::compare);
   minimal_dists_arr_drul_[RIGHT].sort (Column_rod::compare);  
-}
-
-bool
-Paper_column::breakable_b () const
-{
-  return breakable_b_;
 }

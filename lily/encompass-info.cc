@@ -13,7 +13,7 @@
 #include "paper-def.hh"
 #include "encompass-info.hh"
 #include "slur.hh"
-#include "staff-sym.hh"
+#include "staff-symbol.hh"
 #include "note-head.hh"
 #include "debug.hh"
 
@@ -22,17 +22,19 @@ Encompass_info::Encompass_info ()
   assert (0);
 }
 
-Encompass_info::Encompass_info (Note_column const* note, Direction dir)
+Encompass_info::Encompass_info (Note_column const* note, Direction dir, Slur const* slur_l)
 {
   interstaff_f_ = 0;
   
-  Paper_def* paper = note->paper ();
-  Real interline = paper->interline_f ();
+  Paper_def* paper = note->paper_l ();
+  
   // UGH
   Real notewidth = paper->note_width () * 0.8;
-  Real internote = interline / 2;
+  
 
   Stem* stem_l = note->stem_l_;
+  Real internote = stem_l-> staff_line_leading_f ()/2.;
+
   /* 
     set o_.x () to middle of notehead or on the exact position of stem,
     according to slur direction
@@ -60,33 +62,21 @@ Encompass_info::Encompass_info (Note_column const* note, Direction dir)
   if (stem_l->dir_ != dir)
     o_.y () += 1.0 * internote * dir;
 
-  Slur* slur_l = stem_l->slur_l_;
   if (slur_l->encompass_arr_.size ()
-      && stem_l->staff_sym_l_ != slur_l->encompass_arr_[0]->stem_l_->staff_sym_l_)
+      && stem_l->staff_symbol_l () != slur_l->encompass_arr_[0]->stem_l_->staff_symbol_l ())
     {
-#if 0 // this is nonsense..., don't issue warning
-      if (stem_l->staff_sym_l_->dim_cache_[Y_AXIS].valid_b ())
-	{
-	  interstaff_f_ = stem_l->staff_sym_l_->absolute_coordinate (Y_AXIS)
-	    - slur_l->encompass_arr_[0]->stem_l_->staff_sym_l_->absolute_coordinate (Y_AXIS);
-	}
-      else
-#endif
-	{
-	  //  warning (_ ("invalid dimension cache: guessing staff position"));
-	  if (slur_l->vertical_align_drul_[MIN] != 
-	      slur_l->vertical_align_drul_[MAX])
-	    warning (_ ("minVerticalAlign != maxVerticalAlign: interstaff slurs may be broken"));
-	  interstaff_f_ = slur_l->vertical_align_drul_[MIN];
-	  /* urg, guess staff order */
-	  int d = note->head_l_arr_.top ()->steps_i_
-	    - slur_l->encompass_arr_[0]->head_l_arr_[0]->steps_i_;
-	  if (abs (d > 3))
-	    interstaff_f_ *= sign (d);
-	  else if (stem_l->chord_start_f () >
-		   slur_l->encompass_arr_[0]->stem_l_->chord_start_f ())
-	    interstaff_f_ *= -1;
-	}
+      if (slur_l->vertical_align_drul_[MIN] != 
+	  slur_l->vertical_align_drul_[MAX])
+	warning (_ ("minVerticalAlign != maxVerticalAlign: interstaff slurs may be broken"));
+      interstaff_f_ = slur_l->vertical_align_drul_[MIN];
+      /* urg, guess staff order */
+      int d = note->head_l_arr_.top ()->position_i_
+	- slur_l->encompass_arr_[0]->head_l_arr_[0]->position_i_;
+      if (abs (d > 3))
+	interstaff_f_ *= sign (d);
+      else if (stem_l->chord_start_f () >
+	       slur_l->encompass_arr_[0]->stem_l_->chord_start_f ())
+	interstaff_f_ *= -1;
       o_.y () += interstaff_f_;
     }
 }

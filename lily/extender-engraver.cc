@@ -63,7 +63,7 @@ Extender_engraver::do_removal_processing ()
   if (extender_spanner_p_)
     {
       req_l_->warning (_ ("unterminated extender"));
-      extender_spanner_p_->set_bounds(RIGHT, get_staff_info ().command_l ());
+      extender_spanner_p_->set_bounds(RIGHT, get_staff_info ().command_pcol_l ());
     }
 }
 

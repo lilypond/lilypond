@@ -29,15 +29,13 @@ private:
   void set_default_dir();
 public:
   General_script_def *specs_p_;
-  bool postbreak_only_b_;
-    
+
   static int compare (Script  *const&, Script *const&) ;
   Script();
   ~Script ();
   Script (Script const&);
    
   void set_stem (Stem*);
-  
 };
 
 

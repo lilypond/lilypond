@@ -41,18 +41,6 @@ Paper_outputter::~Paper_outputter ()
 void
 Paper_outputter::output_header ()
 {
-#if 0
-  int gobble = 10000;
-  {// alloc big chunk of memory.
-    SCM beg = SCM_EOL;
-    String bigstr = String_convert::char_str (' ', 50);
-    for (int i = gobble; i--; )
-      {
-	beg = gh_cons (gh_str02scm (bigstr.ch_C()), beg);
-      }
-  }
-#endif
-  
   if (safe_global_b)
     {
       ly_set_scm ("security-paranoia", SCM_BOOL_T);
@@ -90,7 +78,7 @@ Paper_outputter::output_header ()
     }
 #endif
 
-  SCM scm = gh_cons (ly_symbol ("header"), args_scm);
+  SCM scm = gh_cons (header_scm_sym, args_scm);
   output_scheme (scm);
 }
 
@@ -131,7 +119,7 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
 	}
 
       SCM box_scm
-	= gh_list (ly_symbol ("placebox"),
+	= gh_list (placebox_scm_sym,
 		   gh_double2scm (a_off.x ()),
 		   gh_double2scm (a_off.y ()),
 		   SCM(i->func_),
@@ -223,7 +211,9 @@ Paper_outputter::output_version ()
     id_str += ".";
   else
     id_str += String (", ") + version_str ();
-  output_String_def ( "LilyIdString", id_str);
+
+  output_String_def ( "mudelatagline", id_str);
+  output_String_def ( "LilyPondVersion", version_str ());
 }
 
 void

@@ -10,20 +10,16 @@
 #include "graphical-axis-group.hh"
 #include "debug.hh"
 
-bool
-Graphical_element::empty_b () const
-{
-  return dim_cache_[X_AXIS].empty_b () && dim_cache_[Y_AXIS].empty_b ();
-}
-
 Graphical_element::Graphical_element ()
 {
+  used_b_ = false;
   init ();
 }
 
 Graphical_element::Graphical_element (Graphical_element const &s)
   : dim_cache_ (s.dim_cache_)
 {
+  used_b_ = true;
   init ();
 } 
 
@@ -89,10 +85,6 @@ Graphical_element::extent (Axis a) const
   if (d->empty_b ())
     return Interval ();
   
-  if (!d->valid_b ())
-    ((Dimension_cache*)d)->set_dim  ((a == X_AXIS)? do_width(): do_height ());
-  
-
   return d->get_dim ();
 }
 

@@ -47,13 +47,11 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 	  int durlog_i = r->duration_.durlog_i_;
 	  stem_p_->flag_i_ = durlog_i;
 
-	  stem_p_->staff_sym_l_ = get_staff_info ().staff_sym_l_;
-	  
 	  if (abbrev_req_l_)
 	    {
 	      /*
 		suggests typing of:
-		   c8:16 c: c: c:
+		c8:16 c: c: c:
 	        hmm, which isn't so bad?
 	      */
 	      int t = abbrev_req_l_->type_i_;
@@ -110,7 +108,6 @@ Stem_engraver::do_pre_move_processing()
 	  stem_p_->beams_i_drul_[RIGHT] = prop;
 	  ((Translator_group*)which)->set_property ("stemRightBeamCount", "");
 	}
-
 
       typeset_element(stem_p_);
       stem_p_ = 0;

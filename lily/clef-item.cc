@@ -18,7 +18,7 @@
 void
 Clef_item::do_pre_processing()
 {
-  dim_cache_[Y_AXIS].translate (paper()->internote_f () * y_position_i_);
+  dim_cache_[Y_AXIS].translate (y_position_i_ * staff_line_leading_f () / 2.0);
   change_b_ = (break_status_dir() != RIGHT);
 }
 
@@ -27,7 +27,7 @@ Clef_item::do_pre_processing()
 */
 Clef_item::Clef_item()
 {
-  breakable_b_ =true;
+  set_elt_property (breakable_scm_sym, SCM_BOOL_T);
   default_b_ = false;
   change_b_ = true;
   octave_dir_ = CENTER;
@@ -38,7 +38,7 @@ Clef_item::Clef_item()
 void
 Clef_item::do_add_processing ()
 {
-  if (!break_status_dir_)	// broken stuff takes care of their own texts
+  if (!break_status_dir ())	// broken stuff takes care of their own texts
     {
       SCM defvis = gh_eval_str ("(lambda (d) (if (= d 1) '(#f . #f) '(#t . #t)))");
       G_text_item *g =0;
@@ -59,11 +59,11 @@ Clef_item::do_add_processing ()
       
       if (default_b_)
 	{
-	  set_elt_property (ly_symbol ("visibility_lambda"),
+	  set_elt_property (visibility_lambda_scm_sym,
 			    defvis);
 
 	  if (g)
-	    g->set_elt_property (ly_symbol ("visibility_lambda"),
+	    g->set_elt_property (visibility_lambda_scm_sym,
 				 defvis);
 	}
     }

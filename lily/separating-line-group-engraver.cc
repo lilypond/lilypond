@@ -11,6 +11,7 @@
 #include "separating-group-spanner.hh"
 #include "single-malt-grouping-item.hh"
 #include "p-col.hh"
+#include "paper-def.hh"
 
 Separating_line_group_engraver::Separating_line_group_engraver ()
 {
@@ -30,6 +31,16 @@ Separating_line_group_engraver::do_creation_processing ()
 void
 Separating_line_group_engraver::do_removal_processing ()
 {
+  Scalar sz (get_property ("postBreakPadding", 0));
+  if (!sz.empty_b () && sz.isnum_b ())
+    {
+      sep_span_p_->padding_f_ = Real(sz);
+    }
+  else
+    {
+      sep_span_p_->padding_f_ = 1.5 * paper_l ()->get_realvar (interline_scm_sym);
+    }
+
   sep_span_p_->set_bounds (RIGHT, get_staff_info ().command_pcol_l ());
   typeset_element (sep_span_p_);
   sep_span_p_ =0;
@@ -41,13 +52,15 @@ Separating_line_group_engraver::acknowledge_element (Score_element_info i)
   Item * it = dynamic_cast <Item *> (i.elem_l_);
   if (it && !it->parent_l (X_AXIS))
     {
-      Single_malt_grouping_item *&p_ref_ (it->breakable_b_
-					  ? break_malt_p_ : nobreak_malt_p_);
+      bool ib =it->breakable_b ();
+      Single_malt_grouping_item *&p_ref_ (ib ? break_malt_p_
+					  : nobreak_malt_p_);
 
       if (!p_ref_)
 	{
 	  p_ref_ = new Single_malt_grouping_item;
-	  p_ref_->breakable_b_ = it->breakable_b_;
+	  if (ib)
+	    p_ref_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
 	  announce_element (Score_element_info (p_ref_, 0));
 	}
       p_ref_->add_item (it);

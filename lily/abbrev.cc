@@ -30,13 +30,15 @@ Abbreviation::do_print () const
 Molecule*
 Abbreviation::do_brew_molecule_p () const
 {
-  Real interbeam_f = paper ()->interbeam_f (stem_l_->mult_i_);
+  Real interbeam_f = paper_l ()->interbeam_f (stem_l_->mult_i_);
   Real w = 1.5 * lookup_l ()->ball (2).dim_.x ().length ();
-  Real internote_f = paper ()->internote_f ();
-  Real beam_f = paper ()->beam_thickness_f ();
+  Real space = stem_l_->staff_line_leading_f ();
+  Real internote_f = space/2;
+  
+  Real beam_f = paper_l ()->beam_thickness_f ();
 
   int beams_i = 0;
-  Real slope_f = internote_f / 4 / internote_f;
+  Real slope_f = internote_f / 4 / internote_f;	// HUH?
 
   if (stem_l_ && stem_l_->beam_l_) {
     slope_f = stem_l_->beam_l_->slope_f_;
@@ -66,7 +68,6 @@ Abbreviation::do_brew_molecule_p () const
 	    stem_l_->beam_l_->dir_ * beams_i * interbeam_f));
 	}
       else
-#if 1
 	{  
 	  /*
 	    Beams should intersect one beamthickness below staff end
@@ -76,45 +77,14 @@ Abbreviation::do_brew_molecule_p () const
 	  dy += stem_l_->stem_end_f ();
 	  dy *= internote_f;
 // urg: can't: stem should be stetched first
-//	  dy -= paper ()->beam_thickness_f () * stem_l_->dir_;
+//	  dy -= paper_l ()->beam_thickness_f () * stem_l_->dir_;
 	  beams->translate (Offset(stem_l_->hpos_f () - hpos_f (), dy));
 	}
-#else
-	{
-	  /* 
-	     urg: this is wrong, even if coded correctly
 
-	     Try to be in the middle of the open part of the stem and
-	     between on the staff.
-
-	     (urgh)
-	  */
-	  Direction sd  = stem_l_->dir_;
-	  // watch out: chord_start_f is (the only one) not in dim(internote)
-	  Interval empty_stem (stem_l_->chord_start_f () / internote_f * sd
-	    + interline_f, (stem_l_->stem_end_f ()* sd));
-	  empty_stem *= sd;
-	  
-	  Interval instaff = empty_stem;
-	  /*
-	    huh? i don't understand, hw
-	    what about:
-	    .fly= \stemup d'''2:16
-	    instaff.intersect (Interval (-4,4));
-	    */
-	  // hmm, let's try
-	  if (stem_l_->get_default_dir () == stem_l_->dir_)
-	    instaff.intersect (Interval (-4,4));
-
-	  if (instaff.empty_b ())
-	    instaff = empty_stem;
-
-	  instaff.print (); 
-	  instaff *= internote_f;
-	  beams->translate (Offset(stem_l_->hpos_f () - hpos_f (),
-			      instaff.center ()));
-	}
-#endif
+      /*
+	there used to be half a page of code that was long commented out.
+	Removed in 1.1.35
+       */
     }
   
   return beams;

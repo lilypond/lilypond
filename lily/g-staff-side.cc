@@ -8,12 +8,13 @@
  */
 
 #include "g-staff-side.hh"
+#include "staff-symbol.hh"
 
 G_staff_side_item::G_staff_side_item ()
 {
   dir_ = CENTER;
   to_position_l_ = 0;
-  transparent_b_ = true;
+  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
   padding_f_ = 0;
   axis_ = Y_AXIS;
 }
@@ -55,6 +56,7 @@ G_staff_side_item::add_support (Score_element*e)
 void
 G_staff_side_item::do_substitute_element_pointer (Score_element*o, Score_element*n)
 {
+  Staff_symbol_referencer::do_substitute_element_pointer (o,n);
   if (o == to_position_l_)
     to_position_l_ = n;
   else
@@ -96,3 +98,12 @@ G_staff_side_item::do_post_processing ()
     position_self ();
 }
 
+
+void
+G_staff_side_item::do_add_processing ()
+{
+  if (axis_ == Y_AXIS && staff_symbol_l ())
+    {
+      add_support (staff_symbol_l ());
+    }
+}

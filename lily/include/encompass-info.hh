@@ -17,7 +17,7 @@
 struct Encompass_info
 {
   Encompass_info ();
-  Encompass_info (Note_column const*, Direction);
+  Encompass_info (Note_column const*, Direction, Slur const *);
 
   Offset o_;
   Real interstaff_f_;

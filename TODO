@@ -9,11 +9,16 @@ Most of the items are marked in the code as well
 Grep for TODO and ugh/ugr/urg.  
 
 .* BUGS
+. * AFM for BlueSky AFM files.
+. * staff size for post/prebreaks
 . * .ly files
 .  * input/star-spangled-banner
 .  * mutopia/J.S.Bach/wtk1-fugue2.ly
 .  * input/test/grace
 .  * fix: text on rests: ridiculous dims
+. * \score { \notes { c8 c8 c8 c c c }
+\paper { \translator { \VoiceContext \remove "Auto_beam_engraver";}}
+}
 . * m=\notes\relative c'''{
   \time 2/4;
 
@@ -41,18 +46,15 @@ Grep for TODO and ugh/ugr/urg.
     }
   }
 }
-. * - Look at input/test/span-bars.ly. The staff lines extend too far
-  to the left on the note systems including the GrandStaff.
 . * midi key.
 . *P.P.S. It can be cool in mudela-book to distinguish in pre,postMudelaExample,
 whether MudelaExample is epsed or not: ( if this fragment is floating eps, than 1,
 otherwise 2). say preMudelaExample[eps]{}, and change it in document body sometimes.
 
 . * tetex: mfplain.mem
-. * fix midi output:
-.  * default duration?  d
-     duration must be not entered explicitely on first note.
 . * fix singleStaffBracket
+. * declare performers in \midi
+. * fix MIDI
 . * \shape 1st dim skipped? 
 . * turn slope-damping on/off
 . * tremolo stuff
@@ -72,35 +74,9 @@ present, they're not properly distinguished) but no distinct way to
 specify the third.  Should there be?
 
 .* TODO before 1.2
+. * break priority setting from SCM.
 . * Gade score
 .  * remove [] in favour of auto-beamer
-.  * In the score, the staff lines extend too far to the left. 
-  This is also illustrated in the second score of span-bars.ly
-  as I've pointed out earlier.
-.  *m=\notes\relative c''{
-  \property Staff.instr = "Instr   "
-    \key f;
-    f4 \p \< g a bes | 
-    c d e \f \! f |
-    f e d c |
-    bes \mf a g f \pp
-  }
-
-n=\notes\relative c'{
-  \property Staff.instr = "Instr   "
-    \key f;
-    f4 \mp g a \< bes | 
-    c d e \ff \! f |
-    f e d c |
-    bes \mp a g f \ppp
-  }
-
-\score{
-  \type StaffGroup <
-    \type Staff = a <{\stemup \property Voice.dynamicDir = \down \m}
-                     {\stemdown \property Voice.dynamicDir = \up \n}>
-  >
-}
 .  * The minimum distance between different staffs works only within 
   StaffGroups, not between StaffGroups. The Gade Score looks quite
   strange on the pages where the Timpani and/or Brass sections don't
@@ -109,18 +85,7 @@ n=\notes\relative c'{
        \OrchestralScoreContext
         minVerticalAlign = 2.5*\staffheight;
     }
-
- I sent a copy of the score to the conductor and his reaction was
-  that it would be easy to fix some "spacing problems" with Finale,
-  if we could convert the score to Finale. I'm not sure what he
-  meant, since we just have had mail conversations so far. Maybe
-  it's the staff distances I mentioned above.
-
-.  * For the trumpet and horn parts, I wrote two parts on the same
-  staff line in the score. I haven't managed to get different
-  directions of the dynamics for the two parts. 
-  Voice.dynamicDir seems to set the direction for the full staff.
-. *  hangOnClef with non-breakable clefs.
+. * hangOnClef with non-breakable clefs.
 . * Aha, the problem is the new TeX code generation for changing fonts.
 > (The explanation below is mostly intended for Han-Wen and Jan)
 > Before, the font was changed with macros declared separately for 
@@ -138,35 +103,27 @@ n=\notes\relative c'{
 > argument that's clearly irrelevant in our application. Yet we
 > see the problem for August.
 . * Check gcc 2.8.1 compatibility
-. * Document source code.
-. * limit memory usage; the full coriolan takes up too much resources.
-.  * Sort items after breaking in order of linenumber.  Then be more
-     eficient with finding 
-.  * Do Mark & sweep GC for Score_elems
-. * make "in-between" engraver (Tie, Extender)
-. * textWidthFatness property
+. * Abstraction for engravers:
+.  * make "in-between" engraver (Tie, Extender)
+.  * make wide_spanner_engraver (line_group_spanne,r staff_symbol)
+. * remove Interval dim_ from Dimension_cache and rename the struct.
+.  * merge align_element  and axis_element_group.
+. * do scaled fonts generally 
 . * The Lilypond accidental symbols are available through the TeX macros, 
 \textflat, \textsharp and \textnatural defined in the init file
 lilyponddefs.tex. All the symbols are defined in the files fetaXX.tex
 where XX corresponds to the size. I don't know where (or even if) they
 are installed but they are generated in the mf/out/ directory during the
 compilation.
-. * compulsory hshift
-. * 1. Can Lily be told where to start numbering?
-. * do scaled fonts.
-. * profile atom smobs
 . * make dependencies () a virtual function.
 . * fix Repeated_music design
 . * one big ly2dvi input that includes *all* tests.
-. * Don't use boolean properties (0,1), instead check existence
-of property.
 . * store req -> element, element -> element causes for warnings
 . * junk Text_def, use G_text_item in stead.
 . * junk Script_def
+. * include examples in RPM.
 . * fix partial measures in meaningful way.
-. * fix AFM for BlueSky AFM files.
 . * working notehead style.
-. * remove links to non-free SW.
 . * add scripts to bars eg.  |^"bla" 
 . * relative mode for mi2mu
 . * uniformise recent feta contributions.
@@ -176,8 +133,7 @@ of property.
 .  * --prefix option?
 .  * -I option per filetype?
 .  * kpathsea?
-. * todo doc left/rightbeamcount
-. * doc Single_malt_grouping_item
+
 . * ly2dvi/lilypond logfile.
 . * How can I specify a chord whose duration is longer than a whole note?
  \type ChordNames { \chord{ A1*2-min } }
@@ -191,48 +147,8 @@ length?
 
 
 
-Use of semicolons is still rather confusing.  They are obligatory
-after some types of assignments and illegal after others.  
-
-  \property foo=bar               illegal
-  foo = 3 at top level            illegal
-  foo = 3 inside \paper           obligatory               
-  foo = \notes{ ...} top level    illegal
-  foo = \translator{ } in \paper  obligatory
-
-As far as I can tell, the sole accomplishment of this syntactic
-irregularity is to keep the user as confused as possible.  
-
-
-I was trying to get interstaff beams to work and did this:
-
-\score{
-\type GrandStaff <
-\type Staff=one \notes\relative c'{
-  \stemup
-  [c8 c \translator Staff=two \stemup c c]
-  \translator Staff=one
-  \stemdown 
-  [ b8 \translator Staff=two a8]
-  \translator Staff=one 
-  c4 
-  }
-\type Staff=two \notes{ \clef bass; s1 }
->
-\paper{
-		\translator{
-			\GrandStaffContext
-			minVerticalAlign = 3.0*\staffheight;
-			maxVerticalAlign = 3.0*\staffheight;
-		}
-  linewidth = -1.;
-}
-}
-
-The beams are at the right angle, but they aren't in the right place.
 . * fractional chord durs.
 . * hang Item on Spanner
-. * remove Interval dim_ from Dimension_cache and rename the struct.
 . * do --safe for PS output?
 . * convert-mudela --output
 . * Staff_margin (with a partial measure.)
@@ -250,24 +166,16 @@ The beams are at the right angle, but they aren't in the right place.
 . * sharp /flat on trills (in MIDI ??)
 . * scm-ify \property values.
 . * move class Lookup {} into scm
-. * collisions/voices \voiceone \voicetwo are broken; see 
 . * msgfmt -o check?
 . * \breathmark TeX macro 
-. * catch GUILE errors?
 . * add new glyphs to font.ly
 . * formatting of input stuff. 
 . * \notes{ a \< b \cr } vs \notes{ a \< b \! }
-. * if possible, it might be nice for a warning to appear if someone does
-	\translator with no name and without assigning it to an
-	identifier.  
 . * space after bars?
 . * 'hinterfleisch' before bar (e.g. wtk1-fugue2)?
-. * \type Voice \times 2/3 { [c8 c16 c16 c16 c16] }
-. * repeat bars: need distance after ":|" and before "|:"
 . * Summary of minor spelling irregularities:
 .  *  capitalization/use of underscores in property names
 .  * fix SkipBars  -> skipBars
-
 . * broken scripts:
 	lbheel = \script { "bheel" 0 0 -1  0 0 }
 	rbheel = \script { "bheel" 0 0 1 0 0 }
@@ -281,9 +189,9 @@ The beams are at the right angle, but they aren't in the right place.
 	portato= \script { "portato" 0 -1 0 1 0 }
 . * ly2dvi
 .  * bottomnote for ly2dvi
-.  * cf'able ly2dvi  tagline.
 .  * deps for ly2dvi
 .* STUFF
+. * compulsory hshift
 . * arrows on slurs.
 . * Align_element::padding  ?
 . * uniformise property names...
@@ -297,27 +205,15 @@ The beams are at the right angle, but they aren't in the right place.
 . * strip EXEs before installing
 . * zip target for binary windows dist (JBR)
 . * junking \skip req in lyrics
-. * Language:
-.  * \type -> \context ?
-.  * \translator -> ?
-.  * fix \partial 
-.  * \bla {} vs \bla ; 
-.  * mix engraver hacking with music ?
-.  * \once\property  KEY = VAL
-.  * \addtranslator, \removetranslator
-.  * junk ^ and _ for scripts
-.  * junk _ for lyrics.
-.  * abstract grammar.
 . * percussion note heads
 . * mi2mu empty staffs.
 . * horizontal centering of dynamics 
-. * gzip RH manpage
-. * stable make/config stuff
 . * $DEPENDENCIES_OUTPUT support
 . * Xdvi zooming ?! Try to understand GS garbage collection.
-		gs: Error: /undefined in draw_beam
-		gs: Operand stack:
+gs: Error: /undefined in draw_beam
+gs: Operand stack:
 . * fix vertical alignment and stafflines
+. * declaring Performers
 . * GrandStaff needs more work -- I want a single word
 	`harpsichord' to the left of the grandstaff, not one on each
 	stave.  (Organ staff -- with separate pedal -- but common
@@ -326,8 +222,6 @@ The beams are at the right angle, but they aren't in the right place.
 	through, so the \property Voice.Instrument would be a stop,
 	and \property GrandStaff.instrument would be PipeOrgan...)
 . * revise the Score_priority_align_engraver concept.  It sucks. 
-. * make new VoiceOne, VoiceTwo, VoiceThree contexts with
-ydirection and hshift preset
 . * *.yo: fix pod manpage layout legacy
 . * text-items clash with stems/beams
 . * --include, -I option for ly2dvi (pass on to lily)
@@ -336,8 +230,7 @@ ydirection and hshift preset
 	<{\voiceone cis4. cis8 cis4 | cis4 cis cis | r1 }
 	 {\voicetwo cis,4 r r | r2. | r1 }> |
 	}
-. * try to use template<Type> iso MACRO(Type)
-.  * Musical_pitch (analogous to Duration and Rhythmic_req)
+. * Musical_pitch (analogous to Duration and Rhythmic_req)
 	  think about, analogous to pitch: 
 	   * { a4 a16 } c <-- duration of c?
 	   * < a4 b8 > c <-- duration of c?
@@ -348,7 +241,6 @@ ydirection and hshift preset
 . * split error/warning in error/warning/non_fatal_error
 . * add a Duration_convert member to Duration_iter to set parameters.
 	Junk global duration settings. 
-. * minimum length second part broken tie
 . * en-,discouraged linebreaking: 
 .  * handle DISALLOW < penalty > FORCE
 .  * discourage breaking of slurs
@@ -357,7 +249,7 @@ ydirection and hshift preset
 . * <\voiceone c4. \voicetwo c4>
 . * add full cello suites to web site (kom op, Maarten!)
 . * Rethink Time_description
-	  * \cadenza , \meter, \grouping should all be \properties
+\cadenza , \meter, \grouping should all be \properties
 . * rename
 .  * measure -> bar
 .  * abbrev -> tremolo
@@ -369,27 +261,52 @@ ydirection and hshift preset
 . * move paper vars into engraver properties
 . * check for groff / troff/ nroff et
 . * more intelligent file searching
-. * make LilyPond RPM fully relocatable
 . * disable spaces in TeX stuff
 . * handle ^C for tmp/file creation.
+. * make LilyPond RPM fully relocatable
 . * dots & rest collisions.
 . * documentation
+.  * remove links to non-free SW.
+.  * internal documentation
+.  * a general paper. 
+.  * \properties
+.   * left/rightbeamcount
+.   * various other new properties.
 .  * introduction?
 .  * info?
 .  * LaTeX?
 .  * more manpages?
-. * versioning for Feta
 . * the warning about the negative slur/tie length appears twice
-	which is irritating.
-. * The `3' in the meter key is a one or two pixels too thin (at 600dpi)
-	in the middle:
-. * the bracket is ugly (wings are too parabolic, should be more circular)
+which is irritating.
 . * better hshift (dots, distance, head dependent)
 . * clefs (AG): The "8" should appear closer to the actual clef,
 touching it.
 . * put errorlevel in Input class
 . * junk nesting slurs
 . * integrate midi-elts from mi2mu and lily?
+
+.* FONT
+. * the bracket is ugly (wings are too parabolic, should be more circular)
+. * versioning for Feta
+. * The `3' in the meter key is a one or two pixels too thin (at 600dpi)
+	in the middle:
+. * design macro for penstroke with rounded endings
+. * timesig C: fat yet less curved.  Check out relations. 
+. * design decent macro for bulbed endings
+. * printer dependencies.
+. * y-refpoint for rests should be the 4th staffline (gclef: b')
+. * clean-up eight+ rests
+. * versioning	
+. * lo-res fixes.
+. * work out sizes of character fonts.
+. * more symbols
+.  * piano pedals: Ped/*
+.  * maxima notehead
+.  * coda signs: Segno, O+
+.  * glissando, arpeggio
+.  * lengthened trill
+. * 128th flags
+. * include important spacing dims in fetalog 
 .* 3RD PARTY BUGS
 . * GNU diff 2.7: diff -rN does not see a new directory with empty file
 . * check out GCC signatures?
@@ -426,7 +343,6 @@ touching it.
 .  *  fontlock: \melodic \melodic
 
 . * use properties for:
-.  * Staff_sym size
 .  * default tempo.
 .  * cadenza mode? 
 
@@ -481,6 +397,72 @@ touching it.
 .  * slurs
 .  * accents
 .  * dynamics
+
+> Would it be hard to add support for proper dynamics in MIDI output?  I
+> would really like to have this feature...
+
+To answer this, I have to give a little background.  Please say so if
+I am being obtuse.
+
+Both audio and notation elements are created decentrally, when
+LilyPond says "Interpreting music ... [8][16] etc."  After all
+elements are created, they are processed again to calculate all
+parameters.  After that is done, they are dumped onto the output (the
+MIDI stream or the TeX file).
+
+The audio and notation elements are created by objects called
+performer and engraver respectively.  They work by taking a chunk of
+input (a so-called request), and using the request to create an audio
+or notation element.
+
+After some processing, the engraver sends the created elements to
+its enclosing notation/performance context.
+
+In the case of notation, engravers can also modify existing elements
+created by sibling engravers.  Eg. the beam-engraver will modify stems
+when it creates a beam over a couple of stems.  This is done in
+Engraver::do_acknowledge_element () and
+Engraver::do_process_acknowledged ().
+
+In the case of audio, there are no mechanisms to modify existing audio
+elements. After the audio elements are created, they are sent directly
+to the enclosing context (an instance of Performer_group_performer),
+through the method Performer::play ()
+
+Concretely spoken, for dynamics you have to write a performer
+(Dynamics_performer), that will take the input requests. If I
+understand correctly, every MIDI note played must have its dynamic
+strength set separately.  That means the the Dynamics_performer must
+set the strength of every Audio_note it finds.  This means that one
+has to modify existing Audio items.  The best way of doing this is
+with a broadcast/acknowledge process.
+
+So the best way of handling this, is
+
+* supporting dynamic settings in Audio_note
+
+* mimicking the broadcast/acknowledge mechanism of the Engravers in
+  the Performers
+
+* using that mechanism to write a Dynamics_performer that will modify
+  any notes it finds to set appropriate strengths.
+
+You could also kludge this by deriving from Performer_group_performer
+a performer that also sets dynamics within notes, but that is not the
+elegant way to do it.
+
+I'd say that the work involved is not hard, but you have to be fluent
+with C++ and need some insight into the working of Notation Contexts
+and friends.  I guess I could do it in a day or so, but if you are not
+so fluent with the inner workings of LilyPond, it could take you some
+more time (A few more days?).
+
+Please note, that I am *not* going to code this myself: my days are
+valuable, and I think I have more interesting things to do than fixing
+the MIDI output (I don't even have a soundcard).  But I *do* want to help
+you or other people with implementing this, so if you need help, don't
+hesitate to ask.
+
 .  * account for rhythmic position in measure
 .  * etc.
 
@@ -552,7 +534,18 @@ touching it.
 .  * specify number of lines
 
 .* INPUTLANGUAGE
-
+. * Language:
+.  * \type -> \context ?
+.  * \translator -> ?
+.  * fix \partial 
+.  * \bla {} vs \bla ; 
+.  * mix engraver hacking with music ?
+.  * \once\property  KEY = VAL
+.  * \addtranslator, \removetranslator
+.  * junk ^ and _ for scripts
+.  * junk _ for lyrics.
+.  * abstract grammar.
+. * Figure out semicolons.
 . * c4 4 4 4 for c4 c4 c4 c4?
 . * <c f a>4 ?
 . * Viola mode?
@@ -608,8 +601,6 @@ touching it.
 
 . * Text_crescendo
 
-. * clean solution for staffsize in items.
-
 . * revise calcideal
 
 .* IDEAS
@@ -625,19 +616,6 @@ touching it.
 .* SMOBS
 Han-Wen Nienhuys <hanwen@cs.uu.nl> writes:
 
-> mcmanus@IDT.NET writes:
-> > > I want different C++ objects (with scheme embedded) to be linked by
-> > > C++ pointers.  I want to access these other objects from the Scheme
-> > > code, and I want access to these pointers from C++.
-> > 
-> > You can do this with a  combination of smob's and primitive functions,
-> > though it may not be  be exactly what you wanted.   You would have one
-> > smob  for each class in  your application, and then  you would write a
-> > primitive function that would return the objects  that are linked to a
-> > base object.
-> 
-> And the smob and the C++ class are interlinked?  Like
-> 
 > 	class Foo_class {
 > 		Foo_smob *smob_ptr_;
 > 	}

@@ -11,8 +11,9 @@
 #define MULTI_MEASURE_REST_HH
 
 #include "spanner.hh"
+#include "staff-symbol-referencer.hh"
 
-class Multi_measure_rest : public Spanner
+class Multi_measure_rest : public Spanner, public Staff_symbol_referencer
 {
 public:
   Multi_measure_rest ();

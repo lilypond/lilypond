@@ -15,7 +15,7 @@
 
 Time_signature::Time_signature ()
 {
-  breakable_b_ = true;
+  set_elt_property (breakable_scm_sym, SCM_BOOL_T);
 }
 
 Molecule*

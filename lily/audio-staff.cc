@@ -15,8 +15,9 @@
 void
 Audio_staff::add_audio_item (Audio_item* l)
 {
-  audio_item_l_list_.bottom().add (l);
+  audio_item_l_arr_.push (l);
 }
+
 
 void
 Audio_staff::output (Midi_stream& midi_stream_r, int track_i)

@@ -23,9 +23,6 @@ public:
   /// position of top line (5 linestaff: 8)
   int position_i_;
 
-  /// pitch in steps
-  int steps_i_;
-    
   /// -1 = lowest, 0 = inside, 1 = top
   int extremal_i_;
     
@@ -35,7 +32,6 @@ public:
     
   Note_head ();
   static int compare (Note_head * const &a, Note_head *const &b) ;
-
 protected:
   virtual Interval do_width () const;
   virtual void do_pre_processing();

@@ -11,13 +11,14 @@
 #include "request.hh"
 #include "musical-request.hh"
 #include "main.hh"
+#include "killing-cons.tcc"
 
 Moment
 Simultaneous_music::length_mom () const
 {
   Moment dur = 0;
-  for (iter (music_p_list_p_->top(), i); i.ok (); i++)
-    dur = dur >? i->length_mom ();
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
+    dur = dur >? i->car_->length_mom ();
 
   return dur;
 }
@@ -25,8 +26,9 @@ Simultaneous_music::length_mom () const
 void
 Music_sequence::compress (Moment m)
 {
-  for (PCursor<Music*>  i(music_p_list_p_->top()); i.ok (); i++)
-    i->compress (m);
+  
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
+    i->car_->compress (m);
 }
 
 Simultaneous_music::Simultaneous_music(Music_list *p)
@@ -44,9 +46,9 @@ Moment
 Sequential_music::length_mom () const
 {
   Moment last=0;
-  for (iter (music_p_list_p_->top(), i); i.ok (); i++) 
+  for (Cons<Music> *i = music_p_list_p_->head_; i;  i = i->next_)
     {
-      last += i->length_mom ();
+      last += i->car_->length_mom ();
     }
   return  last;
 }
@@ -74,30 +76,13 @@ Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
 {
   Musical_pitch retval;
   int count=0;
-  for (PCursor<Music*> i (top ()); i.ok (); i++)
+  for (Cons<Music> *i = head_; i ; i = i->next_)
     {
-      last = i->to_relative_octave (last);
+      last = i->car_->to_relative_octave (last);
       if (!count ++ )
 	retval = last;
     }
 
-  // hmmm
-#if 0  
-  if (!ret_first && find_old_relative_b)
-    {
-      PCursor<Music*> b (bottom ());
-
-      if (b.ok ())
-	{
-	  String w = _("\\relative mode changed here, old value: ");
-	  w +=  last.str ();
-
-	  b->warning (w);
-	  retval = last;
-	}
-    }
-  
-#endif
   if (!ret_first)
     retval = last;
   
@@ -106,11 +91,12 @@ Music_list::do_relative_octave (Musical_pitch last, bool ret_first)
 
 
 Music_list::Music_list (Music_list const &s)
-  : Pointer_list<Music*> ()
+  : Cons_list<Music> (s)
 {
-  for (PCursor<Music*> i(s.top()); i.ok (); i++)
-    add_music (i->clone());
+  init_list ();
+  clone_killing_cons_list (*this, s.head_);
 }
+
 
 void
 Music_list::add_music (Music*m_p)
@@ -118,12 +104,8 @@ Music_list::add_music (Music*m_p)
   if (!m_p)
     return;
 
-  bottom().add (m_p);
+  append (new Killing_cons<Music> (m_p, 0));
 }
-
-
-
-
 
 Request_chord::Request_chord()
   : Simultaneous_music (new Music_list)
@@ -134,9 +116,9 @@ Request_chord::Request_chord()
 Musical_pitch
 Request_chord::to_relative_octave (Musical_pitch last)
 {
-  for (iter (music_p_list_p_->top(),i); i.ok (); i++)
+  for (Cons<Music> *i = music_p_list_p_->head_; i ; i = i->next_)
     {
-      if (Melodic_req *m= dynamic_cast <Melodic_req *> (i.ptr ()))
+      if (Melodic_req *m= dynamic_cast <Melodic_req *> (i->car_))
 	{
 	  Musical_pitch &pit = m->pitch_;
 	  pit.to_relative_octave (last);
@@ -148,6 +130,5 @@ Request_chord::to_relative_octave (Musical_pitch last)
 
 
 Music_list::Music_list ()
-  : Pointer_list<Music*> ()
 {
 }

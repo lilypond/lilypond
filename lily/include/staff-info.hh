@@ -12,20 +12,17 @@
 
 #include "lily-proto.hh"
 
-/// struct to pass staff info along a Engraver hierarchy.
+/** struct to pass staff info along a Engraver hierarchy.
+
+    JUNKME.
+ */
 struct Staff_info {
-    Staff_symbol*staff_sym_l_;
-    
     Time_description const *time_C_;
     Rhythmic_grouping const *rhythmic_C_;
     Score_column *musical_l_;
     Score_column *command_l_;
 
-    Score * score_l_;
-    Score *score_l();
     Paper_column * command_pcol_l();
-    Score_column* musical_l();
-    Score_column *command_l();
     Paper_column * musical_pcol_l();
     Staff_info();
 };

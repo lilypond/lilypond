@@ -27,9 +27,10 @@ compare (Midi_note_event const& left, Midi_note_event const& right)
 }
 
 Midi_walker::Midi_walker (Audio_staff* audio_staff_l, Midi_track* track_l)
-  : PCursor<Audio_item*>(audio_staff_l->audio_item_l_list_)
 {
   track_l_ = track_l;
+  index_= 0;
+  item_l_arr_l_ = &audio_staff_l->audio_item_l_arr_;
   last_mom_ = 0;
 }
 
@@ -45,7 +46,8 @@ Midi_walker::~Midi_walker()
 void 
 Midi_walker::do_start_note (Midi_note* note_p)
 {
-  Moment stop_mom = note_p->length_mom () + ptr ()->audio_column_l_->at_mom ();
+  Audio_item* ptr = (*item_l_arr_l_)[index_];
+  Moment stop_mom = note_p->length_mom () + ptr->audio_column_l_->at_mom ();
   for (int i=0; i < stop_note_queue.size(); i++) 
     {
       if (stop_note_queue[i].val->pitch_i() == note_p->pitch_i ()) 
@@ -65,7 +67,7 @@ Midi_walker::do_start_note (Midi_note* note_p)
   e.key = stop_mom;
   stop_note_queue.insert (e);
   
-  output_event (ptr()->audio_column_l_->at_mom (), note_p);
+  output_event (ptr->audio_column_l_->at_mom (), note_p);
 }
 
 /**
@@ -104,9 +106,10 @@ Midi_walker::output_event (Moment now_mom, Midi_item* l)
 void
 Midi_walker::process()
 {
-  do_stop_notes (ptr()->audio_column_l_->at_mom ());
+  Audio_item* ptr = (*item_l_arr_l_)[index_];
+  do_stop_notes (ptr->audio_column_l_->at_mom ());
 
-  Midi_item* p = ptr()->midi_item_p ();
+  Midi_item* p = ptr->midi_item_p ();
   if (!p)
     return;
   p->channel_i_ = track_l_->number_i_;
@@ -114,6 +117,16 @@ Midi_walker::process()
   if (Midi_note *mi = dynamic_cast<Midi_note*>(p))
     do_start_note (mi);
   else
-    output_event (ptr()->audio_column_l_->at_mom (), p);
+    output_event (ptr->audio_column_l_->at_mom (), p);
 }
-
+bool
+Midi_walker::ok () const
+{
+  return index_ <item_l_arr_l_->size ();
+}
+void
+Midi_walker::operator ++(int)
+{
+  assert (ok());
+  index_++;
+}

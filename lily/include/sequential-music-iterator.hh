@@ -31,7 +31,7 @@ protected:
 
 private:
   Moment here_mom_;
-  PCursor<Music*> *cursor_p_;
+  Cons<Music> *cursor_;
   Music_iterator * iter_p_;
 
   /*

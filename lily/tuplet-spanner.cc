@@ -39,7 +39,7 @@ Tuplet_spanner::do_brew_molecule_p () const
 
   if (column_arr_.size ()){
     Real ncw = column_arr_.top ()->extent (X_AXIS).length ();
-    Molecule num (tdef_p_->get_molecule (paper (), CENTER));
+    Molecule num (tdef_p_->get_molecule (paper_l (), CENTER));
 
     if (beam_l_ && !bracket_visibility_b_)
       {

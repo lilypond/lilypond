@@ -20,11 +20,9 @@ class Staff_symbol : public Spanner
 public:
   /// this many lines.
   int no_lines_i_;
-  Real interline_f_;
-
+  Real staff_line_leading_f_;
   
   Staff_symbol ();
-  Real inter_note_f() const;
   int steps_i() const;
 protected:
   VIRTUAL_COPY_CONS(Score_element);

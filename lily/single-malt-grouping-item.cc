@@ -13,8 +13,10 @@
 
 Single_malt_grouping_item ::Single_malt_grouping_item()
 {
-  break_helper_only_b_ = true;
-  transparent_b_ = true;
+  set_elt_property (break_helper_only_scm_sym, SCM_BOOL_T);
+  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
+
+  // this is weird! , but needed!
   set_empty (true);
 }
 

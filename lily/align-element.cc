@@ -9,7 +9,7 @@
 #include "align-element.hh"
 #include "interval.hh"
 #include "direction.hh"
-
+#include "debug.hh"
 
 struct Align_element_content {
   Score_element * elem_l_;
@@ -17,14 +17,14 @@ struct Align_element_content {
   
   static int compare (Align_element_content const &h1, 
 		      Align_element_content const &h2) 
-  {
-    return h1.priority_i_ - h2.priority_i_;
-  }
+    {
+      return h1.priority_i_ - h2.priority_i_;
+    }
   Align_element_content (Score_element *elem_l, int p) 
-  {
-    priority_i_ = p;
-    elem_l_ = elem_l;
-  }
+    {
+      priority_i_ = p;
+      elem_l_ = elem_l;
+    }
   Align_element_content () {
     elem_l_ = 0;
     priority_i_ = 0;
@@ -51,7 +51,7 @@ Align_element::add_element_priority (Score_element *el, int p)
 
 void
 Align_element::do_substitute_element_pointer (Score_element*o,
-					 Score_element*n)
+					      Score_element*n)
 {
   int i;
   while ((i = elem_l_arr_.find_i (o))>=0) 
@@ -66,14 +66,6 @@ Align_element::do_substitute_element_pointer (Score_element*o,
     }
 }
 
-/**
-  Align elements top to bottom. 
-  The first element has its top at y = 0.0 afterwards
-
-  TODO configurable, like Horizontal_align_item
-
-  TODO should parametrise in direction and coordinate.
- */
 void
 Align_element::do_post_processing()
 {
@@ -124,8 +116,6 @@ Align_element::do_side_processing ()
 	center_f = where_f;
 
       where_f += stacking_dir_ * dy;
-
-            
       elem_l_arr_[i]->translate_axis (where_f, axis_);
     }
 
@@ -140,7 +130,7 @@ Align_element::do_side_processing ()
 Align_element::Align_element()
 {
   threshold_interval_ = Interval (0, Interval::infinity ());
-  transparent_b_ = true;
+  set_elt_property (transparent_scm_sym, SCM_BOOL_T);
   set_empty (true);
   stacking_dir_ = DOWN;
   align_dir_ = LEFT;
@@ -154,9 +144,6 @@ Align_element::contains_b (Score_element const *e) const
 {
   return elem_l_arr_.find_l (e);
 }
-
-
-
 
 void
 Align_element::sort_elements ()
@@ -179,9 +166,20 @@ Align_element::sort_elements ()
 void
 Align_element::do_print () const
 {
-#if 0
+#ifndef NPRINT
   DOUT << "contains: ";
-  for (int i=0 ;  i < item_l_arr_.size(); i++) 
-    DOUT << classname (item_l_arr_[i]) << ", ";
+  for (int i=0 ;  i < elem_l_arr_.size(); i++) 
+    DOUT << classname (elem_l_arr_[i]) << ", ";
 #endif
+}
+
+Score_element*
+Align_element::get_elt_by_priority (int p) const
+{
+  for (int i=0; i < priority_i_arr_.size (); i++)
+    {
+      if (priority_i_arr_[i] == p)
+	return elem_l_arr_[i];
+    }
+  return 0;
 }

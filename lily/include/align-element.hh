@@ -16,9 +16,9 @@
 #include "axes.hh"
 
 /**
-  Order elements top to bottom.
+  Order elements top to bottom/left to right/right to left etc..
 
-  TODO: merge with Horizontal_align_item
+  TODO: implement padding.
  */
 class Align_element : virtual public Score_element {
   Link_array<Score_element> elem_l_arr_;
@@ -47,7 +47,8 @@ public:
   void add_element (Score_element*);
   void add_element_priority (Score_element*, int);
   bool contains_b (Score_element const*) const;
-  
+
+  Score_element *get_elt_by_priority (int) const;
 protected:
   virtual void do_print() const;
   virtual void do_substitute_element_pointer (Score_element*,Score_element*);

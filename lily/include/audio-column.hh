@@ -8,10 +8,9 @@
 #define AUDIO_COLUMN_HH
 
 #include "proto.hh"
-#include "plist.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
-#include "pcursor.hh"
+#include "parray.hh"
 #include "audio-element.hh"
 
 /**
@@ -26,7 +25,7 @@ public:
     Moment at_mom() const;
     void print() const;
 
-    Link_list<Audio_item *> audio_item_l_list_;
+    Link_array<Audio_item> audio_item_l_arr_;
     Performance * performance_l_;
 
 private:

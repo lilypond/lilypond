@@ -41,12 +41,13 @@ Volta_spanner::do_brew_molecule_p () const
   if (!visible_b_)
     return mol_p;
 
-  Real internote_f = paper ()->internote_f ();
+  Real internote_f = paper_l ()->get_realvar (interline_scm_sym)/2.0;
+
   Real dx = internote_f;
   Real w = extent (X_AXIS).length () - dx;
   Molecule volta (lookup_l ()->volta (w, last_b_));
   Real h = volta.dim_.y ().length ();
-  Molecule num (number_p_->get_molecule (paper (), LEFT));
+  Molecule num (number_p_->get_molecule (paper_l (), LEFT));
   Real dy = column_arr_.top ()->extent (Y_AXIS) [UP] > 
      column_arr_[0]->extent (Y_AXIS) [UP];
   dy += 2 * h;
@@ -61,7 +62,7 @@ Volta_spanner::do_brew_molecule_p () const
   Text_def two_text;
   two_text.text_str_ = "2";
   two_text.style_str_ = number_p_->style_str_;
-  Molecule two (two_text.get_molecule (paper (), LEFT));
+  Molecule two (two_text.get_molecule (paper_l (), LEFT));
   Real gap = two.dim_.x ().length () / 2;
   Offset off (num.dim_.x ().length () + gap, 
 	      h / internote_f - gap);

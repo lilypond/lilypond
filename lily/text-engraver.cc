@@ -13,7 +13,7 @@
 #include "text-def.hh"
 #include "note-head.hh"
 #include "stem.hh"
-#include "staff-sym.hh"
+#include "staff-symbol.hh"
 
 class Text_engraver : public Engraver
 {
@@ -80,6 +80,7 @@ Text_engraver::do_process_requests ()
 
       G_text_item *text = new G_text_item;
       G_staff_side_item *ss = new G_staff_side_item;
+
       ss->set_victim (text);
       ss->dir_ = r->dir_;
       Scalar p (get_property ("textstyle", 0)); // textStyle?
@@ -93,6 +94,12 @@ Text_engraver::do_process_requests ()
 	  ss->padding_f_ = Real(padding);
 	}
 
+      Scalar empty = get_property ("textEmptyDimension", 0);
+      if (empty.to_bool ())
+	{
+	  text->dim_cache_[X_AXIS].set_empty (true);
+	}
+      
       announce_element (Score_element_info (text, r));
       announce_element (Score_element_info (ss, r));
 
@@ -104,14 +111,8 @@ Text_engraver::do_process_requests ()
 void
 Text_engraver::do_pre_move_processing ()
 {
-  Staff_symbol* s_l = get_staff_info().staff_sym_l_;
   for (int i=0; i < texts_.size (); i++)
     {
-      if (s_l != 0)
-	{
-	  positionings_[i]->add_support (s_l);
-	}
-
       typeset_element (texts_[i]);
       typeset_element (positionings_[i]);
     }

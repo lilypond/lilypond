@@ -65,8 +65,8 @@ Tie::do_post_processing()
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
 
   // URG
-  Real notewidth = paper ()->note_width () * 0.8;
-  Real interline_f = paper ()->interline_f ();
+  Real notewidth = paper_l ()->note_width () * 0.8;
+  Real interline_f = paper_l ()->get_realvar (interline_scm_sym);
 
   /* 
    [OSU]: slur and tie placement
@@ -79,7 +79,7 @@ Tie::do_post_processing()
      --> height <= 5 length ?? we use <= 3 length, now...
    */
 
-  Real gap_f = paper ()->get_var ("slur_x_gap");
+  Real gap_f = paper_l ()->get_var ("slur_x_gap");
 
   Direction d = LEFT;
   do
@@ -130,7 +130,7 @@ Tie::do_post_processing()
     Avoid too steep ties
       * slur from notehead to stemend: c''()b''
    */
-  Real damp_f = paper ()->get_var ("tie_slope_damping");
+  Real damp_f = paper_l ()->get_var ("tie_slope_damping");
   Offset d_off = Offset (dx_f_drul_[RIGHT] - dx_f_drul_[LEFT],
     dy_f_drul_[RIGHT] - dy_f_drul_[LEFT]);
   d_off.x () += extent (X_AXIS).length ();
@@ -151,15 +151,6 @@ Tie::do_substitute_element_pointer (Score_element*o, Score_element*n)
     head_l_drul_[RIGHT] = new_l;
 }
 
-#if 0
-Interval
-Tie::do_width () const
-{
-  Real min_f = 
-  Interval width_int = Bow::do_width ();
-  return width_int.length () < min_f ? Interval (0, min_f) : width_int;
-}
-#endif
 
 Array<Rod>
 Tie::get_rods () const
@@ -167,7 +158,7 @@ Tie::get_rods () const
   Array<Rod> a;
   Rod r;
   r.item_l_drul_ = spanned_drul_;
-  r.distance_f_ = paper ()->get_var ("tie_x_minimum");
+  r.distance_f_ = paper_l ()->get_var ("tie_x_minimum");
   a.push (r);
   return a;
 }

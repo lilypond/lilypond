@@ -23,10 +23,11 @@ protected:
 public:
   /** The relative position of the "voice" containing this
     chord. Normally this would be the same as the stem direction,
-    but rests do not have stems.  
+    but rests do not have stems.
+
+    JUNKME.v
     */
   Direction dir_;
-  bool h_shift_b_;
   Stem* stem_l_;
 
 

@@ -23,12 +23,6 @@
 #include "paper-stream.hh"
 
 
-#define SCMVAR(s)  { static SCM sym; \
-	if (!sym)\
-		sym = scm_protect_object (ly_symbol (#s));\
-	return get_realvar (sym); }
-
-
 Paper_def::Paper_def ()
 {
   lookup_p_tab_p_ = new Hash_table<int, Lookup*>;
@@ -58,6 +52,34 @@ Paper_def::Paper_def (Paper_def const&s)
       l->paper_l_ = this;
       set_lookup (ai.key(), l);
     }
+}
+
+SCM
+Paper_def::get_scm_var (SCM s) const
+{
+  if (!scope_p_->elem_b (s))
+    return SCM_BOOL_F;
+
+  Identifier * id = scope_p_->elem (s);
+  
+  SCM z;
+  SCM_NEWCELL (z);
+  SCM_SETCAR(z, s);
+
+  SCM val;
+  
+  if (dynamic_cast<Real_identifier*> (id))
+    {
+      Real r = *id->access_content_Real (false);
+      val = gh_double2scm (r);
+    }
+  else
+    {
+      return SCM_BOOL_F;
+    }
+  
+  SCM_SETCDR(z,val);
+  return z;
 }
 
 Real
@@ -99,13 +121,13 @@ Paper_def::line_dimensions_int (int n) const
 Real
 Paper_def::beam_thickness_f () const
 {
-SCMVAR(beam_thickness);
+  return get_realvar (beam_thickness_scm_sym);
 }
 
 Real
 Paper_def::linewidth_f () const
 {
-SCMVAR(linewidth);
+  return get_realvar (linewidth_scm_sym);
 }
 
 Real
@@ -149,49 +171,37 @@ Paper_def::set_lookup (int i, Lookup*l)
 
 
 Real
-Paper_def::interline_f () const
-{
-  SCMVAR(interline)
-}
-
-Real
 Paper_def::rule_thickness () const
 {
-  SCMVAR(rulethickness);
+  return get_realvar (rulethickness_scm_sym);
 }
 
 Real
 Paper_def::staffline_f () const
 {
-  SCMVAR(rulethickness)
-}
+  return get_realvar (rulethickness_scm_sym);
+    }
 
 Real
 Paper_def::staffheight_f () const
 {
-  SCMVAR(staffheight)
-}
+  return get_realvar (staffheight_scm_sym);
+    }
 
 Real
 Paper_def::interbeam_f (int multiplicity_i) const
 {
   if (multiplicity_i <= 3)
-    SCMVAR(interbeam)
-  else
-    SCMVAR(interbeam4)
-}
-
-Real
-Paper_def::internote_f () const
-{
-  return interline_f () /2.0 ;
-}
+    return get_realvar (interbeam_scm_sym);
+      else
+	return get_realvar (interbeam4_scm_sym);
+      }
 
 Real
 Paper_def::note_width () const
 {
-SCMVAR(notewidth)
-}
+  return get_realvar (notewidth_scm_sym);
+    }
 
 void
 Paper_def::print () const
@@ -248,12 +258,6 @@ Paper_def::paper_outputter_p (Paper_stream* os_p, Header* header_l, String origi
   if (scope_p_)
     p->output_scope (scope_p_, "mudelapaper");
   
-#if 0
-  if (output_global_ch == String("tex"))
-    {
-      *p->outstream_l_ << *scope_p_->elem ("texsetting")->access_content_String (false);
-    }
-#endif
 
   *p->outstream_l_  << *scope_p_->elem (String (output_global_ch) + "setting")->access_content_String (false);
 

@@ -13,14 +13,9 @@
 #include "p-col.hh"
 #include "p-score.hh"
 
-
 Line_of_score::Line_of_score()
 {
-  error_mark_b_ = 0;
 }
-
-
-
 
 void
 Line_of_score::add_element (Score_element*e)
@@ -40,12 +35,9 @@ Line_of_score*
 Line_of_score::set_breaking (Array<Column_x_positions> const &breaking, int j) const
 {
   const Link_array<Paper_column> &curline (breaking[j].cols);
-  const Link_array<Paper_column> &errors (breaking[j].error_col_l_arr_);
+
   const Array<Real> &config (breaking[j].config);
 	
-  for (int i=0; i < errors.size(); i++)
-    errors[i]->error_mark_b_ = true;
-
   Line_of_score *line_l=0;
 	
   if (breaking.size() >1) 

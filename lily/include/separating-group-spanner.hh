@@ -17,6 +17,10 @@ class Separating_group_spanner : public Spanner
 {
   Link_array<Single_malt_grouping_item> spacing_unit_l_arr_;
 public:
+  /**
+     extra space to add after  postbreak. (FIXME).
+   */
+  Real padding_f_ ;
   Separating_group_spanner ();
   void add_spacing_unit (Single_malt_grouping_item*);
 protected:

@@ -65,7 +65,9 @@ Collision::do_pre_processing()
 	}
       int d = (c_l->dir_);
 
-      clash_group_arr_a[idx (d, c_l->h_shift_b_)].push (c_l);
+      SCM shift = c_l->remove_elt_property (horizontal_shift_scm_sym);
+      bool shift_b  = (shift != SCM_BOOL_F);
+      clash_group_arr_a[idx (d, shift_b)].push (c_l);
     }
 
 
@@ -92,7 +94,6 @@ Collision::do_pre_processing()
   Interval_t<int> y_extent[4];
   Note_column * col_l_a[4];
   Real x_off [4];
-  int y_off[4];
 
   for (int j =0 ; j < 4; j++)
     {
@@ -108,7 +109,6 @@ Collision::do_pre_processing()
 
 
       x_off [j] = 0.0;
-      y_off[j] = 0;
     }
 
   do
@@ -144,8 +144,8 @@ Collision::do_pre_processing()
       }
 
   }
-  Real inter_f = paper()->internote_f ();
-  Real wid_f = paper()->note_width ();
+
+  Real wid_f = paper_l ()->note_width ();
   for (int j=0; j < 4; j++)
     {
       if (col_l_a[j])
@@ -154,7 +154,7 @@ Collision::do_pre_processing()
 
 	     (shaddup)
 	     */
-	  Offset o (x_off[j] * wid_f, y_off[j] * inter_f);
+	  Offset o (x_off[j] * wid_f, 0);
 	  col_l_a[j]->translate (o);
 	  //	  ((Score_element*)col_l_a[j])->translate (o);
 	}

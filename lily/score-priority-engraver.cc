@@ -16,30 +16,61 @@
 
 Score_priority_engraver::Score_priority_engraver()
 {
-  align_p_tab_.hash_func_ = int_hash;
+  halign_p_ = 0;
 }
 
 void
 Score_priority_engraver::do_pre_move_processing()
 {
-  for (Hash_table_iter<int, Horizontal_group_item*> i(align_p_tab_);
-       i.ok() ; i++)
+  for (int i=0; i < column_p_arr_.size ();i++)
+    typeset_element (column_p_arr_[i]);
+  column_p_arr_.clear ();
+
+  if (halign_p_)
     {
-      if (i.val ())
-	{
-	  typeset_element (i.val ());
-	  i.val_ref () = 0;
-	}
+      typeset_element (halign_p_);
+      halign_p_ =0;
     }
-  align_p_tab_.clear ();
+  
+}
+
+void
+Score_priority_engraver::add_horizontal_group (Item* it, int priority)
+{
+  if (!halign_p_)
+    {
+      halign_p_ = new Break_align_item;
+      halign_p_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
+      announce_element (Score_element_info (halign_p_,0));
+    }
+
+  if (priority == 0)
+    halign_p_->center_l_ = it;
+
+  halign_p_->add_item (it, priority);
+
+  column_p_arr_.push (it);
 }
 
 void
 Score_priority_engraver::acknowledge_element (Score_element_info inf)
 {
-  Item * item_l = dynamic_cast <Item *> (inf.elem_l_);
-  if (item_l && item_l->breakable_b_ && !item_l->empty_b ())
+  if (Item * item_l = dynamic_cast <Item *> (inf.elem_l_))
     {
+      Dimension_cache * c = &item_l->dim_cache_[X_AXIS];
+      if (c->empty_b () || c->parent_l_)
+	return;
+
+      SCM pr = item_l->remove_elt_property (break_priority_scm_sym); 
+
+      if (pr == SCM_BOOL_F)
+	return;
+
+      bool breakable = (item_l->remove_elt_property (breakable_scm_sym) != SCM_BOOL_F);
+      if (!breakable)
+	return ;
+      
+      int priority = SCM_CDR (pr);
       /*
 	Don't try to eat up our (probable) parent.
       */
@@ -48,38 +79,25 @@ Score_priority_engraver::acknowledge_element (Score_element_info inf)
 	return; 
 
       
-      int priority =item_l->break_priority_i_;
-      Horizontal_group_item * hg =0;
-      if (!align_p_tab_.elem_b(priority))
+      Score_element * column_l = 0;
+      if (halign_p_)
+	column_l = halign_p_->get_elt_by_priority (priority);
+      Horizontal_group_item * hg;
+      if (column_l)
+	{
+	  hg = dynamic_cast<Horizontal_group_item*> (column_l);
+	}
+      else
 	{
 	  hg = new Horizontal_group_item;
 	  announce_element (Score_element_info (hg,0));
-	  align_p_tab_[priority] = hg;
-	  hg->break_priority_i_ = priority;
-	  hg->breakable_b_ = true;
+	  add_horizontal_group (hg, priority);
+	  hg->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
 	}
-      else
-	hg = align_p_tab_[priority];
       
-      Score_element * unbound_elem = inf.elem_l_;
 
-      /*
-	ugh
-       */
-      while (unbound_elem->parent_l (X_AXIS))
-	{
-	  /* We might have added inf.elem_l_ earlier because we added one
-	     of its children.  We don't want to add ourselves to ourself
-	  */
-	  Graphical_element * e = unbound_elem->parent_l (X_AXIS);
-	  if (e == hg)
-	    return;
-	  unbound_elem = dynamic_cast<Score_element*> (e);
-	}
-
-      hg->add_element (unbound_elem);
+      hg->add_element (item_l);
     }
 }
-
 
 ADD_THIS_TRANSLATOR(Score_priority_engraver);

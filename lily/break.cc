@@ -55,7 +55,7 @@ Break_algorithm::find_break_indices () const
   Array<int> retval;
 
   for (int i=0; i < all.size (); i++)
-    if (all[i]->breakable_b_)
+    if (all[i]->breakable_b ())
       retval.push (i);
 
   if (linelength <=0)
@@ -73,7 +73,7 @@ Break_algorithm::find_breaks () const
   Line_of_cols retval;
 
   for (int i=0; i < all.size (); i++)
-    if (all[i]->breakable_b_)
+    if (all[i]->breakable_b ())
       retval.push (all[i]);
 
 
@@ -152,15 +152,6 @@ Break_algorithm::problem_OK () const
 void
 Break_algorithm::OK () const
 {
-#ifndef NDEBUG
-  #if 0
-    iter_top (pscore_l_->col_p_list_,start);
-  PCursor<Paper_column *> end (pscore_l_->col_p_list_.bottom ());
-
-  assert (start->breakable_b_);
-  assert (end->breakable_b_);
-  #endif
-#endif
 }
 
 Array<Column_x_positions>

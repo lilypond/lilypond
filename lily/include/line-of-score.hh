@@ -12,13 +12,10 @@
 #include "super-element.hh"
 
 /// the columns of a score that form one line.
-class Line_of_score : public Spanner , public Super_element
+class Line_of_score : public Spanner, public Super_element
 {
 public:
   Link_array<Paper_column> cols_;
-  bool error_mark_b_;
-
-  
   Line_of_score();
     
   void add_element (Score_element *);
@@ -31,8 +28,6 @@ public:
 
 protected:
   virtual Link_array<Score_element> get_extra_dependencies () const;
-
-
   virtual Interval do_width() const;
   virtual void do_print() const;
   VIRTUAL_COPY_CONS(Score_element);

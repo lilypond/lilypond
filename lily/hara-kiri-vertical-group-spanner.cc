@@ -32,7 +32,7 @@ Hara_kiri_vertical_group_spanner::do_post_processing ()
   Link_array<Score_element> childs = get_children ();
   for (int i = 0; i < childs.size (); i++)
     {
-      childs[i]->transparent_b_ = true;
+      childs[i]->set_elt_property (transparent_scm_sym, SCM_BOOL_T);
       childs[i]->set_empty (true);
     }
   set_empty (true);

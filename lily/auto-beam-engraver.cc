@@ -326,7 +326,9 @@ Auto_beam_engraver::acknowledge_element (Score_element_info info)
 	      consider_end_and_begin ();
 	    }
 	  grouping_p_->add_child (start, rhythmic_req->length_mom ());
-	  stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
+
+	  //stem_l->flag_i_ = rhythmic_req->duration_.durlog_i_;
+	  
 	  stem_l_arr_p_->push (stem_l);
 	  Moment now = now_mom ();
 	  last_add_mom_ = now;
@@ -339,8 +341,9 @@ void
 Auto_beam_engraver::junk_beam () 
 {
   assert (stem_l_arr_p_);
-  for (int i = 0; i < stem_l_arr_p_->size (); i++)
-    (*stem_l_arr_p_)[i]->flag_i_ = 0;
+  /*  for (int i = 0; i < stem_l_arr_p_->size (); i++)
+      (*stem_l_arr_p_)[i]->flag_i_ = 0;*/
+  
   delete stem_l_arr_p_;
   stem_l_arr_p_ = 0;
   delete grouping_p_;

@@ -7,16 +7,11 @@
 */
 
 #include "staff-sym-engraver.hh"
-#include "staff-sym.hh"
+#include "staff-symbol.hh"
 #include "score.hh"
 #include "p-col.hh"
-
-
-void
-Staff_symbol_engraver::fill_staff_info (Staff_info&i)
-{
-  i.staff_sym_l_ = span_p_;
-}
+#include "staff-symbol-referencer.hh"
+#include "paper-def.hh"
 
 Staff_symbol_engraver::~Staff_symbol_engraver()
 {
@@ -45,12 +40,28 @@ Staff_symbol_engraver::do_removal_processing()
       span_p_->no_lines_i_ = l;
     }
 
+  Scalar sz (get_property ("staffLineLeading", 0));
+  if (!sz.empty_b () && sz.isnum_b ())
+    {
+      span_p_->staff_line_leading_f_ = Real(sz);
+    }
+  else
+    {
+      span_p_->staff_line_leading_f_ = paper_l ()->get_realvar (interline_scm_sym);
+    }
   span_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (span_p_);
   span_p_ =0;
 }
 
-
+void
+Staff_symbol_engraver::acknowledge_element (Score_element_info s)
+{
+  if (Staff_symbol_referencer * st = dynamic_cast<Staff_symbol_referencer*> (s.elem_l_))
+    {
+      st->set_staff_symbol (span_p_);      
+    }
+}
 
 
 ADD_THIS_TRANSLATOR(Staff_symbol_engraver);
