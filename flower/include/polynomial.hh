@@ -2,7 +2,7 @@
 /*
  * poly.h -- routines for manipulation of polynomials in one var
  *
- * (c) 1993, 1996,1999 Han-Wen Nienhuys
+ * (c)  1993--2003 Han-Wen Nienhuys
  */
 
 #ifndef POLY_H

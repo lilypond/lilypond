@@ -2,7 +2,7 @@
 /*
   fflower-proto.hh -- typenames in flowerlib
 
-  (c) 1996 Han-Wen Nienhuys
+  (c)  1996--2003 Han-Wen Nienhuys
 */
 
 #ifndef FPROTO_HH

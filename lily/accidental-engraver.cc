@@ -2,7 +2,7 @@
   accidental-engraver.cc -- implement accidental_engraver
 
   (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  Modified 2001-2002 by Rune Zedeler <rz@daimi.au.dk>
+  Modified 2001--2002 by Rune Zedeler <rz@daimi.au.dk>
 */
 
 #include "event.hh"

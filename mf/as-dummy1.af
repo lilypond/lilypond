@@ -2,7 +2,7 @@
 
 	Comment part of LilyPond's [ascii music font]
 
-	Comment (c) 2000 Jan Nieuwenhuizen <janneke@gnu.org>
+	Comment (c)  2000--2003 Jan Nieuwenhuizen <janneke@gnu.org>
 
 	Comment Lines that start with TAB or FF make up the .afm
 	Comment TABs are comments

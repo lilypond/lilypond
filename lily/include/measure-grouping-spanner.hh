@@ -3,7 +3,7 @@ measure-grouping-spanner.hh -- declare
 
 source file of the GNU LilyPond music typesetter
 
-(c) 2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+(c)  2002--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
 

@@ -3,7 +3,7 @@
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 2000--2002 Juergen Reuter <reuter@ipd.uka.de>
+% (c)  2000--2003 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 save black_notehead_width;
@@ -32,10 +32,10 @@ dir_down = -1;
 %
 
 % parameterized hufnagel custos
-def custos_hufnagel(expr verbose_name, internal_name, mudela_name,
+def custos_hufnagel(expr verbose_name, internal_name, ly_name,
 		    direction, staffline_adjustment) =
 
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 
 		save b_h, a_w;
 		a_b := 1.54; % b_h * a_b / a_w = wd / ht
@@ -110,10 +110,10 @@ custos_hufnagel("Reverse Custos Hufnagel", "hufnagel-d2", "hufnagel_d2",
 %
 %
 
-def custos_medicaea(expr verbose_name, internal_name, mudela_name,
+def custos_medicaea(expr verbose_name, internal_name, ly_name,
 		    direction, staffline_adjustment) =
 
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 
 		save b_h, a_w;
 		a_b := 1.54; % b_h * a_b / a_w = wd / ht
@@ -184,10 +184,10 @@ custos_medicaea("Reverse Custos Med.", "medicaea-d2", "medicaea_d2",
 %
 %
 
-def custos_vaticana(expr verbose_name, internal_name, mudela_name,
+def custos_vaticana(expr verbose_name, internal_name, ly_name,
 		    direction, staffline_adjustment) =
 
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 
 		save b_h, a_w;
 		a_b := 1.54; % b_h * a_b / a_w = wd / ht
@@ -259,10 +259,10 @@ custos_vaticana("Reverse Custos Ed. Vat.", "vaticana-d2", "vaticana_d2",
 %
 %
 
-def custos_mensural(expr verbose_name, internal_name, mudela_name,
+def custos_mensural(expr verbose_name, internal_name, ly_name,
 		    direction, staffline_adjustment) =
 
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 
 		save b_h,a_w;
 		a_b:=1.54; % b_h * a_b / a_w = wd / ht

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
   
-  (c) 2002 Juergen Reuter <reuter@ipd.uka.de>
+  (c)  2002--2003 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #ifndef MENSURAL_LIGATURE_HH

@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c) 1996, 1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c)  1996--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 

@@ -4,7 +4,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1998--2002  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# (c)  1998--2003  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -133,7 +133,7 @@ def identify ():
 def warranty ():
 	identify ()
 	sys.stdout.write ('\n')
-	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001--2002'))
+	sys.stdout.write (_ ('Copyright (c) %s by' % ' 2001--2003'))
 	sys.stdout.write ('\n')
 	sys.stdout.write ('  Han-Wen Nienhuys')
 	sys.stdout.write ('  Jan Nieuwenhuizen')

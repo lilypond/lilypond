@@ -1,7 +1,7 @@
 //
 //  source.hh -- part of LilyPond
 //
-//  copyright 1997 Jan Nieuwenhuizen <janneke@gnu.org>
+//  (c)  1997--2003 Jan Nieuwenhuizen <janneke@gnu.org>
 
 #ifndef SOURCE_HH
 #define SOURCE_HH

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  2000 Glen Prideaux <glenprideaux@iname.com>
+  (c)  2000--2003 Glen Prideaux <glenprideaux@iname.com>
 */
 
 

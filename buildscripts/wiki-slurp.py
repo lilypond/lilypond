@@ -43,7 +43,7 @@ This is free software.  It is covered by the GNU General Public License,
 and you are welcome to change it and/or distribute copies of it under
 certain conditions.  Invoke as `midi2ly --warranty' for more information.
 
-Copyright (c) 2000-2002 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
+Copyright (c)  2000--2003 by Han-Wen Nienhuys <hanwen@cs.uu.nl>
 """ % program_version
 
 (options, files) = getopt.getopt (sys.argv[1:], 'vd:hm', ['help','mangle','version', 'outdir='])

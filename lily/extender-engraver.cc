@@ -3,9 +3,9 @@
 
   source file of the GNU LilyPond music typesetter
   
-  (c) 1999-2002 Glen Prideaux <glenprideaux@iname.com>,
-  Han-Wen Nienhuys, Jan Nieuwenhuizen.
-  
+  (c)  1999--2003 Glen Prideaux <glenprideaux@iname.com>,
+                  Han-Wen Nienhuys <hanwen@cs.uu.nl>,
+                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "flower-proto.hh"

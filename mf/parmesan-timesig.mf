@@ -3,9 +3,9 @@
 % 
 % source file of LilyPond's pretty-but-neat music font
 % 
-% (c) 1998--2002 Mats Bengtsson <matsb@s3.kth.se>,
+% (c)  1998--2003 Mats Bengtsson <matsb@s3.kth.se>,
 %		 Christian Mondrup <scancm@biobase.dk>
-% (c) 2002, 2003 Juergen Reuter <reuter@ipd.uka.de>
+% (c)  2002--2003 Juergen Reuter <reuter@ipd.uka.de>
 % 
 
 fet_begingroup ("timesig")
@@ -56,10 +56,10 @@ def draw_nail (expr bottom_left, top_right) =
 
 enddef;
 
-def mens_timesig (expr verbose_name, internal_name, mudela_name,
+def mens_timesig (expr verbose_name, internal_name, ly_name,
 			full_circle, reverse_circle, slashed, dotted) =
 
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 		if slashed:
 			set_char_box(.5 (Cdiameter# + Cthickness#),
 				     .5 (Cdiameter# + Cthickness#),
@@ -149,10 +149,10 @@ neo_Cdiameter# := 3/2 staff_space#;
 neo_Cthickness# := 2 stafflinethickness#;
 define_pixels(neo_Cdiameter, neo_Cthickness);
 
-def neo_mens_timesig (expr verbose_name, internal_name, mudela_name,
+def neo_mens_timesig (expr verbose_name, internal_name, ly_name,
 			full_circle, reverse_circle, slashed, dotted) =
 
-	fet_beginchar(verbose_name, internal_name, mudela_name)
+	fet_beginchar(verbose_name, internal_name, ly_name)
 		if slashed:
 			set_char_box(.5 (neo_Cdiameter# + neo_Cthickness#),
 				     .5 (neo_Cdiameter# + neo_Cthickness#),

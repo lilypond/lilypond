@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
- (C) 2000 Juergen Reuter <reuter@ipd.uka.de>
+  (c)  2000--2003 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #ifndef AMBITUS_HH
