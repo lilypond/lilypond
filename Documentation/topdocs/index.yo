@@ -19,28 +19,7 @@ center(mudela(fragment)(
 ))
 
 
-nsect()
 
-Hmm, this is what it said yesterday too.  I just want to know
-url(What's new)(DOEXPAND(docdir)/DOEXPAND(outdir)/NEWS.html) today and
-then url(Download)(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/)
-LilyPond.
-nl()
-
-nsubsect(Webmaster's Disclaimer)
-
-These pages were entirely created from the LilyPond package-sources.
-Sorry for poor look they have: we want to be hacking at LilyPond, and
-not at the webpages.  If you want to volunteer for making shazzy
-webpages, then please mail us!
-
-Note: These pages are created from the latest bf(development snapshots)
-of LilyPond, specifically, this page was made from LilyPond
-@TOPLEVEL_VERSION@.tar.gz
-
-Note: the pages may have been created from an unreleased development
-version.  Please have patience, all changes will appear in the
-official version.
 
 
 nsect(Free Software)
@@ -78,17 +57,8 @@ nsect(Sites)
 
 itemize(
 it()lurl(http://www.cs.uu.nl/people/hanwen/lilypond/) Han-Wen's site
-it()lurl(http://www.xs4all.nl/~jantien/lilypond/) Jan's site
+it()lurl(http://sca.uwaterloo.ca/lilypond/) Eric's mirror
 it()lurl(http://home.austin.rr.com/jbr/jeff/lilypond/) Jeff's Windows NT Distribution site
-)
-
-nsubsect(Mirrors)
-description(
-dit(lurl(http://sca.uwaterloo.ca/lilypond/))
-    Eric Praetzel was kind enough to provide a mirror of both the website
-    and the ftp site.
-dit(lurl(ftp://ftp.lilypond.org/pub/LilyPond/))
-	A mirror of the FTP site.  Updated at 0:00 MET daily. 
 )
 
 nsect(NEWS)
@@ -98,14 +68,38 @@ verb(
 top_of_NEWS
 )
 
+nsect(Download)
+
 beginbold()
 Go get it at
 itemize(
 it()lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/)
 endbold()
+it() lurl(http://sca.uwaterloo.ca/lilypond/)
+    Eric Praetzel was kind enough to provide a mirror of both the website
+    and the ftp site.
+it() lurl(ftp://ftp.lilypond.org/pub/LilyPond/)
+	A mirror of the FTP site.  Updated at 0:00 MET daily. 
 it()lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/) RedHat binary
 it()lurl(ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex) Debian binary
 it()lurl(http://home.austin.rr.com/jbr/jeff/lilypond/) Windows NT binary
+it()lurl(http://linux.umbc.edu/software/lilypond/rpms/) i386 RPM.
+it()lurl(ftp://freshmeat.net/pub/rpms/lilypond/) i386 RPM.
 )
+
+nsubsect(Webmaster's Disclaimer)
+
+These pages were entirely created from the LilyPond package-sources.
+Sorry for poor look they have: we want to be hacking at LilyPond, and
+not at the webpages.  If you want to volunteer for making shazzy
+webpages, then please mail us!
+
+Note: These pages are created from the latest bf(development snapshots)
+of LilyPond, specifically, this page was made from LilyPond
+@TOPLEVEL_VERSION@.tar.gz
+
+Note: the pages may have been created from an unreleased development
+version.  Please have patience, all changes will appear in the
+official version.
 
 @COUNTER_REF@
