@@ -180,7 +180,7 @@ For printing the LaTeX document, you will need to use dvips. For
 producing PostScript with scalable fonts, add the following options to
 the dvips command line:
 @example
- -Ppdf -u +lilypond.map
+ -Ppdf -u+lilypond.map -u+ec-mftrace.map
 @end example 
 
 @noindent
