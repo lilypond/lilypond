@@ -1,3 +1,9 @@
+2003-04-22  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* Documentation/user/refman.itely: bugfix: fixed broken @ref{};
+	beautification: reformatted ancient clefs section; cleanup: small
+	wording fixes
+
 2003-04-22  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond.words: added words for chant notation, sorted
