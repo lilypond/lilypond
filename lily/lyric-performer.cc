@@ -9,7 +9,7 @@
 #include "lyric-performer.hh"
 #include "text-def.hh"
 #include "musical-request.hh"
-#include "midi-item.hh"
+#include "audio-item.hh"
 
 
 
@@ -36,11 +36,8 @@ Lyric_performer::do_print() const
 void
 Lyric_performer::process_requests()
 {
-    if ( lreq_arr_.size() ) {
-	Midi_text t( Midi_text::LYRIC, lreq_arr_[ 0 ]->tdef_p_->text_str_ );
-	play_event( &t );
-    }
-
+    if ( lreq_arr_.size() )
+	play( new Audio_text( Audio_text::LYRIC, lreq_arr_[ 0 ]->tdef_p_->text_str_ ) );
     lreq_arr_.clear();
 }
 

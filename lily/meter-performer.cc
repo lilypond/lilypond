@@ -8,7 +8,7 @@
 
 #include "meter-performer.hh"
 #include "command-request.hh"
-#include "midi-item.hh"
+#include "audio-item.hh"
 
 IMPLEMENT_IS_TYPE_B1(Meter_performer,Performer);
 ADD_THIS_PERFORMER(Meter_performer);
@@ -34,11 +34,9 @@ Meter_performer::do_print() const
 void
 Meter_performer::process_requests()
 {
-    if ( meter_req_l_ ) {
-	Midi_time m( meter_req_l_->beats_i_, meter_req_l_->one_beat_i_, 18 );
-	play_event( &m );
-	meter_req_l_ = 0;
-    }
+    if ( meter_req_l_ )
+	play( new Audio_meter( meter_req_l_ ) );
+    meter_req_l_ = 0;
 }
 
 bool
