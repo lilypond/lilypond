@@ -96,7 +96,7 @@
 
   (define (header-end)
     (string-append
-     "\\special{! "
+     "\\special{\\string! "
 
      ;; URG: ly-gulp-file: now we can't use scm output without Lily
      (if use-regex
@@ -182,7 +182,7 @@
 
   (define (define-origin file line col)
     (if (procedure? point-and-click)
-	(string-append "\\special{src:"
+	(string-append "\\special{src\\string:"
 		       (point-and-click line col file)
 		       "}" )
 	"")
