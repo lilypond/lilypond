@@ -1,7 +1,7 @@
 /*
   note-column.hh -- declare Note_column
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -15,14 +15,16 @@
 /** a struct for treating a group of noteheads (noteheads, stem
   (chord) and scripts ) as a single entity.  */
 class Note_column : public Script_column {
-    void do_pre_processing();
+protected:
+    virtual void do_pre_processing();
+    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
 public:
         /// link to the stem. For setting default direction
     Stem * stem_l_;
 
     bool h_shift_b_;
     
-    Array<Notehead*> head_l_arr_;
+    Link_array<Note_head> head_l_arr_;
     Interval_t<int> head_positions_interval()const;
 
     /** The relative position of the "voice" containing this
@@ -33,7 +35,7 @@ public:
         
     NAME_MEMBERS(Note_column);
     Note_column();
-    void add(Notehead *);
+    void add(Note_head *);
     void add(Stem *);
     void sort();
     void add(Script* s) { Script_column::add(s);}
