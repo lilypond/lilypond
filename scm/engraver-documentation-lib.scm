@@ -42,9 +42,9 @@
      (if  (null? objs)
 	  ""
 	  (string-append
-	   "This engraver creates \n "
-	   (human-listify (map reffy (map grob-name objs)))
-	   " grobs.")
+	   "This engraver creates the following grobs: \n "
+	   (human-listify (map ref-ify  objs))
+	   ".")
 	  )
 
      "\n\n"
@@ -66,7 +66,7 @@
 			 context-description-alist))))
        (string-append
 	name " is part of contexts: "
-	(human-listify (map reffy (map context-name contexts))))))))
+	(human-listify (map ref-ify (map context-name contexts))))))))
 
 
 ;; First level Engraver description
@@ -103,22 +103,53 @@
 		  (cdr (assoc 'consists context-desc))
 		  (cdr (assoc 'end-consists  context-desc))
 		  ))
+       (grobs  (context-grobs context-desc))
+       (grob-refs (map (lambda (x) (ref-ify x)) grobs))
        )
     
     (string-append 
      desc
+     "\n\nThis context creates the following grobs: \n\n"
+     (apply string-append (map (lambda (x) (string-append " " x "  ")) grob-refs))
+     "."
      
      (if (null? accepts)
 	 "This context is a `bottom' context; it can not contain other contexts."
 	 (string-append
+	  "\n\nContext "
 	  name " can contain \n"
-	  (human-listify (map reffy (map context-name accepts)))))
+	  (human-listify (map ref-ify (map context-name accepts)))))
      
      "\n\nThis context is built from the following engravers: "
      (if no-copies
-	 (human-listify (map reffy (map engraver-name consists)))
+	 (human-listify (map ref-ify (map engraver-name consists)))
 	 (apply string-append 
 		(map document-engraver-by-name consists))))))
+
+(define (engraver-grobs  name)
+  (let* (
+	 (eg (assoc (string->symbol name) engraver-description-alist))
+      )
+
+    (if (eq? eg #f)
+	'()
+	(map symbol->string (caddr (cdr eg)))
+ 	)
+  ))
+
+(define (context-grobs context-desc)
+  (let* (
+	 (consists (append
+		    (list (cdr (assoc 'group-type context-desc)))
+		    (cdr (assoc 'consists context-desc))
+		    (cdr (assoc 'end-consists  context-desc))
+		    ))
+	 (grobs  (apply append
+		  (map engraver-grobs consists))
+	 )
+	 )
+    grobs
+    ))
 
 
 ;; First level Context description

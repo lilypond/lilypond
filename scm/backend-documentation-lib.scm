@@ -19,21 +19,25 @@
 
     (cons (string-append "@code{" name "} "
 		       "(" typename ")"
-		       ":" )
+		       ": "
+
+; index gets too messy
+;		       "@vindex " name "\n"
+
+
+		       )
 	  desc)))
 
-(define (document-grob-property sym grob-description only-doc-if-set)
+(define (document-grob-property sym grob-description )
   (let* ((handle (assoc sym grob-description))
 	 (defval (if (eq? handle #f)
-		     ""
+		     "(unset)"
 		   (scm->texi (cdr handle))))
 	 (propdoc (backend-property->texi sym)))
 	 
-    (if (and only-doc-if-set  (eq? handle #f))
-	'("" . "")
-	(cons (car propdoc) (string-append (cdr propdoc)
+    (cons (car propdoc) (string-append (cdr propdoc)
 					   "\nDefault value: "
-					   defval)))))
+					   defval))))
 
 (define (document-interface where interface grob-description)
   (let* ((level (if (eq? where 'grob) 3 2))
@@ -42,7 +46,7 @@
 	 (props (caddr interface))
 	 (docfunc (lambda (x)
 		    (document-grob-property
-		     x grob-description (eq? where 'grob))))
+		     x grob-description )))
 	 (docs (map docfunc props)))
 
     (string-append
@@ -93,7 +97,7 @@
 			 engraver-description-alist))))
        (string-append
 	name " grobs are created by: "
-	(human-listify (map reffy
+	(human-listify (map ref-ify
 			    (map engraver-name
 				 (map symbol->string engravers))))))
 
