@@ -164,7 +164,8 @@ Script_engraver::acknowledge_grob (Grob_info info)
 	  Side_position_interface::add_support (e, info.grob_);
 	}
     }
-  else if (Rhythmic_head::has_interface (info.grob_))
+  else if (Rhythmic_head::has_interface (info.grob_)
+	   && info.music_cause ())
     {
       for (int i = 0; i < script_count; i++)
 	{
