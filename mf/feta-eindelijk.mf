@@ -188,76 +188,85 @@ enddef;
 % it is closed, or even a flare.
 % 
 
-def normalize (expr p) =
-	(p / length (p))
-enddef ;
+
+def draw_rest_bulb(expr ycenter, ycut, pat, stretch) =
+begingroup;
+	save x,y,pt;
+	z1l = point 0 of pat;
+	z2l = point 1 of pat;
+	z2r = point 3 of pat;
+	z1r = point 4 of pat;
+	z1 = 0.5[z1l,z1r];
+	z2 = 0.5[z2l,z2r];
+	y10 = ycenter;
+	z10 = whatever[z2, z1] + left*bulb_diam*stretch;
+
+
+	z3 = z10+bulb_diam/2.15*dir(-72) ;
+
+
+	x4 = x10+bulb_diam*.62 ;
+	y4 := ceiling (y10 - 2 stafflinethickness + crook_thin);
+
+	z5 = z10 + up*bulb_diam/2 + right*stafflinethickness/3;
+	
+
+	z7 = 0.5 [z4, z5] + (0.45 stafflinethickness,0.4 stafflinethickness);
+	x8 = x10-0.4bulb_diam;
+	y8 = y10 + 0.25 stafflinethickness;
+
+	z6 = whatever [z1l, z2l];
+	z6 = z3+whatever * dir(12);
+
+	(pt,whatever) = pat intersectiontimes ((0,ycut)--(w,ycut));
+
+	fill point pt of pat {-direction pt of pat} .. tension 2
+		.. z4{left} .. tension 0.9 .. z7
+		.. z5{left} .. z8 .. z3{right}
+		.. {curl 0.2} z6 {right} .. tension 10 .. {left} point pt of pat -- cycle;
+
+	labels(3, 4, 5, 6, 7, 8, 9, 10);
+
+endgroup;
+enddef;
 
 def draw_eighth_rest =
 	save width, bulb_diam, thin, thick;
 	save ycenter, crook_thick, crook_thin;
-	save crook_dir, lower_brush;
+	save crook_dir, lower_brush, pat;
 	pair crook_dir;
-
+	path pat;
 
 	width# := 1.0 staff_space#;
 	bulb_diam# := 0.64 staff_space#;
-	thin# := 1.1 stafflinethickness#;
+	thin# := 1.2 stafflinethickness#;
 	thick# :=  2.2 stafflinethickness#;
 	crook_thick# := 1.8 stafflinethickness#;
 	crook_thin := 1.3 stafflinethickness;
 
-	lower_brush = 1.5 stafflinethickness;
-	ycenter := 0.5 staff_space;
+	lower_brush := 1.5 stafflinethickness;
 
 	define_pixels (width, bulb_diam, thin, thick, crook_thick);
 	set_char_box (0, width#,
 		1.0 staff_space# + 0.5 stafflinethickness#, 0.5 staff_space# + bulb_diam#/2);
 
 	penpos1 (thick, 0);
-	penpos2 (thin, 0);
+	penpos2 (thin, 10);
 
-	y1 = ycenter + - 1.5 staff_space ;
-%	y9 = y5 -  lower_brush;
-	y2 = y5 -  lower_brush;
-       
+	y1 = - staff_space ;
+	y2 = h -  lower_brush;
 	x2r = width;
-
-
-	x2r - x1 = 0.5 staff_space;
-
-	x3 = x1l - 0.045 staff_space ;
-
-
-	x4 = 1.02 bulb_diam ;
-	y4 := ceiling (ycenter - 2 stafflinethickness + crook_thin);
-
-	x5 = 0.5 bulb_diam - 0.25 stafflinethickness;
-	y5 = ycenter +bulb_diam/2;
+	z2 = z1 + whatever*dir(75);
+       	z9 = z2 + 0.5 stafflinethickness * dir (angle(z2 - z1)- 10);
+	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
+	fill pat;
 	
-	z9 = z2 + 0.46 stafflinethickness * dir (angle(z2 - z1)- 10);
 
-%	z7 = %(bulb_diam/2,ycenter) + 0.23 staff_space * dir ( 35);
-	z7 = 0.5 [z4, z5] + (0.45 stafflinethickness,0.4 stafflinethickness);
-	x8 = 0;
-	y8 = ycenter + 0.25 stafflinethickness;
-
-	z6 = whatever [z1l, z2l];
-	z6 = whatever [z2l, z4] + crook_thick * (crook_dir rotated -90);
-	crook_dir = normalize(z2l - z4);
-
-	y3 := ycenter +floor (- 0.45 bulb_diam);
-
-
+	draw_rest_bulb(0.5 staff_space , y2r , pat , 1.0);
 	penlabels (1, 2);
-	labels(3, 4, 5, 6, 7, 8, 9);
+	labels(9);
 
-	fill z2r -- z2l -- simple_serif (z1l, z1r, 40) -- cycle;
-	fill z2r{z2r-z1r} .. z9 .. z2l{dir(232)} .. tension 2
-		.. z4{left} .. tension 0.9 .. z7 %{dir(90 + 25)} 
-		.. z5{left} .. z8 .. z3{right}
-		.. {curl 0.2}z6 -- cycle;
-
-%	draw_staff (-2,2,0.0);
+	% draw_staff (-2,2,0.0);
 
 	enddef;
 
@@ -270,141 +279,170 @@ fet_beginchar("Classical quarter rest","2classical","clasquartrest");
 	currentpicture := currentpicture xscaled -1 shifted (w,0);
 	fet_endchar;
 
-
 fet_beginchar("16th rest","4","sixteenthrest");
-%	draw_staff (-2, 2, 0.0);
-	save yshift, ballcorrection;
-	ballcorrection = 0.005 staff_space;
+	save width, bulb_diam, thin, thick;
+	save ycenter, crook_thick, crook_thin;
+	save crook_dir, lower_brush, pat;
+	pair crook_dir;
+	path pat;
 
-	yshift# := - 2 staff_space#;
-	define_pixels(yshift);
+	width# := 1.25 staff_space#;
+	bulb_diam# := 0.64 staff_space#;
+	thin# := 1.2 stafflinethickness#;
+	thick# :=  2.2 stafflinethickness#;
+	crook_thick# := 1.8 stafflinethickness#;
+	crook_thin := 1.3 stafflinethickness;
 
-	save alpha,cw,h,w, height;
-	alpha=74;
-	cw#=7/6staff_space#;
-	height# =  5/3staff_space#+staff_space#+7/4stafflinethickness#;
-	set_char_box(0, cw#+(height#-3/2staff_space#)/tand(alpha),
-		-yshift#, height# + yshift#);
+	lower_brush := 2.5 stafflinethickness;
 
-	define_pixels(cw);
-	save x,y;
-	x1=w-stem/6;
-	y1 = yshift + 2.5 staff_space + flare/4 + ballcorrection;
+	define_pixels (width, bulb_diam, thin, thick, crook_thick);
+	set_char_box (0, width#,
+		2.0 staff_space# + 0.5 stafflinethickness#, 0.5 staff_space# + bulb_diam#/2);
 
-	z2-z1=whatever*dir alpha;
-	y2= yshift + stem/2;
-	brush(z1,2/3stem,z2,stem);
-	rest_crook (z1,cw);
-	z3-z1=whatever*dir alpha;
-	y3=y1-staff_space;
-	rest_crook (z3,cw);
-	penlabels(1,2);
+	penpos1 (thick, 0);
+	penpos2 (thin, 10);
+
+	y1 = -2 staff_space ;
+	y2 = h -  lower_brush;
+	x2r = width;
+	z2 = z1 + whatever*dir(75.5);
+       	z9 = z2 + 0.5 stafflinethickness * dir (angle(z2 - z1)- 10);
+	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
+	fill pat;
+	
+
+	draw_rest_bulb(0.5 staff_space , y2r , pat , 0.98);
+	draw_rest_bulb(-0.5 staff_space , (-0.5+0.12)*staff_space , pat , 1.02);
+	penlabels (1, 2);
+	labels(9);
+
+	% draw_staff (-2,2,0.0);
 	fet_endchar;
 
 fet_beginchar("32th rest","5","thirtysecondrest");
-%	draw_staff (-2, 2, 0.0);
-	save yshift, ballcorrection;
-	ballcorrection = 0.005 staff_space;
+	save width, bulb_diam, thin, thick;
+	save ycenter, crook_thick, crook_thin;
+	save crook_dir, lower_brush, pat;
+	pair crook_dir;
+	path pat;
 
-	yshift# := -2 staff_space#;
-	define_pixels(yshift);
+	width# := 1.5 staff_space#;
+	bulb_diam# := 0.64 staff_space#;
+	thin# := 1.2 stafflinethickness#;
+	thick# :=  2.2 stafflinethickness#;
+	crook_thick# := 1.8 stafflinethickness#;
+	crook_thin := 1.3 stafflinethickness;
 
-	save alpha,cw,h;
-	alpha=76;
-	cw#=7/6staff_space#;
-	h#=5/3staff_space#+2staff_space#+7/4stafflinethickness#;
+	lower_brush := 2.5 stafflinethickness;
 
-	set_char_box(0,	cw#+(h#-3/2staff_space#)/tand(alpha),
-		-yshift#,yshift# +h#);
-	define_pixels(cw);
-	save x,y;
-	x1=w-stem/6;
-	y1 = yshift + 3.5 staff_space + flare/4 + ballcorrection;
+	define_pixels (width, bulb_diam, thin, thick, crook_thick);
+	set_char_box (0, width#,
+		2.0 staff_space# + 0.5 stafflinethickness#, 1.5 staff_space# + bulb_diam#/2);
 
-	z2-z1=whatever*dir alpha;
-	y2=stem/2 + yshift;
-	brush(z1,2/3stem,z2,stem);
-	rest_crook (z1,cw);
-	z3-z1=whatever*dir alpha;
-	y3=y1-staff_space;
-	rest_crook (z3,cw);
-	z4-z1=whatever*dir alpha;
-	y4=y1-2staff_space;
-	rest_crook (z4,cw);
+	penpos1 (thick, 0);
+	penpos2 (thin, 10);
+
+	y1 = -2 staff_space ;
+	y2 = h -  lower_brush;
+	x2r = width;
+	z2 = z1 + whatever*dir(76);
+       	z9 = z2 + 0.5 stafflinethickness * dir (angle(z2 - z1)- 10);
+	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
+	fill pat;
+	
+
+	draw_rest_bulb(1.5 staff_space , y2r , pat , 0.96);
+	draw_rest_bulb(0.5 staff_space , (0.5+0.12)*staff_space , pat , 1.00);
+	draw_rest_bulb(-0.5 staff_space , (-0.5+0.13)*staff_space , pat , 1.04);
+	penlabels (1, 2);
+	labels(9);
+
+	% draw_staff (-2,2,0.0);
 	fet_endchar;
 
 fet_beginchar("64th rest","6","sixtyfourthrest");
-%	draw_staff (-2, 2, 0.0);
-	save yshift, ballcorrection;
-	ballcorrection = 0.005 staff_space;
+	save width, bulb_diam, thin, thick;
+	save ycenter, crook_thick, crook_thin;
+	save crook_dir, lower_brush, pat;
+	pair crook_dir;
+	path pat;
 
-	yshift# := -3 staff_space#;
-	define_pixels(yshift);
+	width# := 1.75 staff_space#;
+	bulb_diam# := 0.64 staff_space#;
+	thin# := 1.2 stafflinethickness#;
+	thick# :=  2.2 stafflinethickness#;
+	crook_thick# := 1.8 stafflinethickness#;
+	crook_thin := 1.3 stafflinethickness;
 
-	save alpha,cw,h,w;
-	alpha=78;
-	cw#=7/6staff_space#;
-	h#=5/3staff_space#+3staff_space#+7/4stafflinethickness#;
-	w#=cw#+(h#-3/2staff_space#)/tand(alpha);
-	set_char_box(0,w#,-yshift# ,yshift# + h#);
+	lower_brush := 2.5 stafflinethickness;
 
-	define_pixels(cw);
-	save x,y;
-	x1=w-stem/6;
+	define_pixels (width, bulb_diam, thin, thick, crook_thick);
+	set_char_box (0, width#,
+		3.0 staff_space# + 0.5 stafflinethickness#, 1.5 staff_space# + bulb_diam#/2);
 
-	y1 = yshift + 4.5 staff_space + flare/4 + ballcorrection;
+	penpos1 (thick, 0);
+	penpos2 (thin, 10);
 
-	z2-z1=whatever*dir alpha;
-	y2=stem/2 + yshift;
-	brush (z1,2/3stem,z2,stem);
-	rest_crook (z1,cw);
-	z3-z1=whatever*dir alpha;
-	y3=y1-staff_space;
-	rest_crook (z3,cw);
-	z4-z1=whatever*dir alpha;
-	y4=y1-2staff_space;
-	rest_crook (z4,cw);
-	z5-z1=whatever*dir alpha;
-	y5=y1-3staff_space;
-	rest_crook (z5,cw);
+	y1 = -3 staff_space ;
+	y2 = h -  lower_brush;
+	x2r = width;
+	z2 = z1 + whatever*dir(76.5);
+       	z9 = z2 + 0.5 stafflinethickness * dir (angle(z2 - z1)- 10);
+	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
+	fill pat;
+	
 
+	draw_rest_bulb(1.5 staff_space , y2r , pat , 0.94);
+	draw_rest_bulb(0.5 staff_space , (0.5+0.12)*staff_space , pat , 0.98);
+	draw_rest_bulb(-0.5 staff_space , (-0.5+0.13)*staff_space , pat , 1.02);
+	draw_rest_bulb(-1.5 staff_space , (-1.5+0.14)*staff_space , pat , 1.06);
+	penlabels (1, 2);
+	labels(9);
+
+	% draw_staff (-2,2,0.0);
 	fet_endchar;
 
-fet_beginchar("128th rest","7","hundredtwentyeighthrest"); 
-%	draw_staff (-2, 2, 0.0);
-	save yshift, ballcorrection;
-	ballcorrection = 0.005 staff_space;
+fet_beginchar("128th rest","7","hundredtwentyeighthrest");
+	save width, bulb_diam, thin, thick;
+	save ycenter, crook_thick, crook_thin;
+	save crook_dir, lower_brush, pat;
+	pair crook_dir;
+	path pat;
 
-	yshift# := -3 staff_space#;
-	define_pixels(yshift);
-	save alpha,cw,h,w;
-	alpha=78;
-	cw#=7/6staff_space#;
-	h#=5/3staff_space#+4staff_space#+7/4stafflinethickness#;
-	w#=cw#+(h#-3/2staff_space#)/tand(alpha);
-	set_char_box(0,w#, -yshift#,yshift#  + h#);
-	define_pixels(cw);
-	save x,y;
-	x1=w-stem/6;
-	y1 = yshift + 5.5 staff_space + flare/4 + ballcorrection;
+	width# := 2.0 staff_space#;
+	bulb_diam# := 0.64 staff_space#;
+	thin# := 1.2 stafflinethickness#;
+	thick# :=  2.2 stafflinethickness#;
+	crook_thick# := 1.8 stafflinethickness#;
+	crook_thin := 1.3 stafflinethickness;
 
-	z2-z1=whatever*dir alpha;
-	y2=stem/2 + yshift;
-	brush (z1,2/3stem,z2,stem);
-	rest_crook (z1,cw);
-	z3-z1=whatever*dir alpha;
-	y3=y1-staff_space;
-	rest_crook (z3,cw);
-	z4-z1=whatever*dir alpha;
-	y4=y1-2staff_space;
-	rest_crook (z4,cw);
-	z5-z1=whatever*dir alpha;
-	y5=y1-3staff_space;
-	rest_crook (z5,cw);
-	z6-z1=whatever*dir alpha;
-	y6=y1-4staff_space;
-	rest_crook (z6,cw);
+	lower_brush := 2.5 stafflinethickness;
+
+	define_pixels (width, bulb_diam, thin, thick, crook_thick);
+	set_char_box (0, width#,
+		3.0 staff_space# + 0.5 stafflinethickness#, 2.5 staff_space# + bulb_diam#/2);
+
+	penpos1 (thick, 0);
+	penpos2 (thin, 10);
+
+	y1 = -3 staff_space ;
+	y2 = h -  lower_brush;
+	x2r = width;
+	z2 = z1 + whatever*dir(77);
+       	z9 = z2 + 0.5 stafflinethickness * dir (angle(z2 - z1)- 10);
+	pat = z1l --- z2l .. z9 .. z2r --- simple_serif (z1r, z1l, -40) .. cycle;
+	fill pat;
 	
+
+	draw_rest_bulb(2.5 staff_space , y2r , pat , 0.92);
+	draw_rest_bulb(1.5 staff_space , (1.5+0.12)*staff_space , pat , 0.96);
+	draw_rest_bulb(0.5 staff_space , (0.5+0.13)*staff_space , pat , 1.0);
+	draw_rest_bulb(-0.5 staff_space , (-0.5+0.14)*staff_space , pat , 1.04);
+	draw_rest_bulb(-1.5 staff_space , (-1.5+0.15)*staff_space , pat , 1.08);
+	penlabels (1, 2);
+	labels(9);
+
+	% draw_staff (-2,2,0.0);
 	fet_endchar;
 
 
