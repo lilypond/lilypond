@@ -12,8 +12,6 @@
 #include "grob.hh"
 #include "warn.hh"
 
-Protected_scm all_ifaces;
-
 void add_interface (const char * symbol,
 		    const char * descr,
 		    const char * vars)
@@ -25,30 +23,6 @@ void add_interface (const char * symbol,
   ly_add_interface (s,d,l);
 }
 
-
-LY_DEFINE (ly_add_interface, "ly:add-interface", 3,0,0, (SCM a, SCM b, SCM c),
-	  "Add an interface description.")
-{
-  SCM_ASSERT_TYPE (scm_is_symbol (a), a, SCM_ARG1, __FUNCTION__, "symbol");
-  SCM_ASSERT_TYPE (scm_is_string (b), b, SCM_ARG2, __FUNCTION__, "string");  
-  SCM_ASSERT_TYPE (ly_c_list_p (c), c, SCM_ARG3, __FUNCTION__, "list of syms");    
-  if (!ly_c_vector_p (all_ifaces))
-    all_ifaces = scm_make_vector (scm_int2num (40), SCM_EOL);
-
-  SCM entry = scm_list_n (a, b, c, SCM_UNDEFINED);
-
-  scm_hashq_set_x (all_ifaces, a, entry);
-
-  return SCM_UNSPECIFIED;
-}
-
-
-LY_DEFINE (ly_all_grob_interfaces, "ly:all-grob-interfaces",
-	  0,0,0, (),
-	  "Get a hash table with all interface descriptions.")
-{
-  return all_ifaces;
-}
 
 
 void
@@ -64,6 +38,7 @@ check_interfaces_for_property (Grob const *me, SCM sym)
     }
   SCM ifs = me->get_property ("interfaces");
 
+  SCM all_ifaces = ly_all_grob_interfaces ();
   bool found = false;
   for (; !found && scm_is_pair (ifs); ifs = scm_cdr (ifs))
     {

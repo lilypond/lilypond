@@ -12,11 +12,7 @@
 
 #include <libguile.h> /* SCM */
 
-void add_interface (const char * symbol,
-		    const char * descr,
-		    const char * vars);
 
-SCM ly_add_interface (SCM, SCM, SCM); 
 
 #define ADD_INTERFACE(cl,a,b,c) \
 bool cl::has_interface(Grob*me)\
@@ -28,6 +24,14 @@ void cl ## _init_ifaces() {\
 }\
 ADD_SCM_INIT_FUNC(cl ## ifaces, cl ## _init_ifaces);\
 
+
+
+void add_interface (const char * symbol,
+		    const char * descr,
+		    const char * vars);
+
+SCM ly_add_interface (SCM, SCM, SCM); 
+SCM ly_all_grob_interfaces();
 
 #endif /* INTERFACE_HH */
 
