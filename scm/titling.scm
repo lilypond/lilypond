@@ -53,7 +53,7 @@ page:last?, page:page-number-string and page:page-number
 	       (props (append
 		       (list pgnum-alist)
 		       prefixed-alists
-		       layout-extract-page-properties layout))))
+		       (layout-extract-page-properties layout))))
 
 	  (interpret-markup layout props potential-markup))
 
@@ -88,7 +88,7 @@ PROPS argument will include variables set in SCOPES (prefixed with
 		      alist))
 	       alists))
 	 (props (append prefixed-alist
-			layout-extract-page-properties layout)))
+			(layout-extract-page-properties layout)))
 
 	 (markup (ly:output-def-lookup layout what)))
 
