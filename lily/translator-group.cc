@@ -11,7 +11,6 @@
 #include "translator.hh"
 #include "debug.hh"
 #include "moment.hh"
-#include "dictionary-iter.hh"
 
 #include "killing-cons.tcc"
 
@@ -57,7 +56,7 @@ void
 Translator_group::add_translator (Translator *trans_p)
 {
   trans_p_list_.append (new Killing_cons<Translator> (trans_p,0));
-  
+
   trans_p->daddy_trans_l_ = this;
   trans_p->output_def_l_ = output_def_l_;
   trans_p->add_processing ();
@@ -140,12 +139,12 @@ Translator_group::find_existing_translator_l (String n, String id)
 }
 
 Link_array<Translator_group>
-Translator_group::path_to_acceptable_translator (String type) const
+Translator_group::path_to_acceptable_translator (String type, Music_output_def* odef) const
 {
  Link_array<Translator_group> accepted_arr;
   for (int i=0; i < accepts_str_arr_.size (); i++)
     {
-      Translator *t = output_def_l ()->find_translator_l (accepts_str_arr_[i]);
+      Translator *t = odef->find_translator_l (accepts_str_arr_[i]);
       if (!t || !dynamic_cast <Translator_group *> (t))
 	continue;
       accepted_arr.push (dynamic_cast <Translator_group *> (t));
@@ -167,7 +166,7 @@ Translator_group::path_to_acceptable_translator (String type) const
       Translator_group * g = accepted_arr[i];
 
       Link_array<Translator_group> result
-	= g->path_to_acceptable_translator (type);
+	= g->path_to_acceptable_translator (type, odef);
       if (result.size () && result.size () < best_depth)
 	{
 	  result.insert (g,0);
@@ -185,7 +184,8 @@ Translator_group::find_create_translator_l (String n, String id)
   if (existing)
     return existing;
 
-  Link_array<Translator_group> path = path_to_acceptable_translator (n);
+  Link_array<Translator_group> path
+    = path_to_acceptable_translator (n, output_def_l ());
 
   if (path.size ())
     {
@@ -195,6 +195,7 @@ Translator_group::find_create_translator_l (String n, String id)
       for (int i=0; i < path.size (); i++)
 	{
 	  Translator_group * new_group = dynamic_cast<Translator_group*>(path[i]->clone ());
+
 	  current->add_translator (new_group);
 	  current = new_group;
 	}
