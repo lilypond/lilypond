@@ -298,12 +298,9 @@ ChordNamesContext = \translator {
 	\type "Engraver_group_engraver"
 	\name ChordNames
 
-
-
-
 	\consists "Output_property_engraver"	
 	\consists "Separating_line_group_engraver"
-	\consists "Chord_name_engraver"
+	\consists "New_chord_name_engraver"
 	\consists "Skip_req_swallow_translator"
 	\consistsend "Axis_group_engraver"
 	minimumVerticalExtent = ##f
@@ -445,6 +442,8 @@ ScoreContext = \translator {
 	  custos
 	)
 	barCheckSynchronize = ##t
+	chordNameFunction = #chord->markup-banter
+	chordNameExceptions = #chord::names-alist-banter
 
 	\grobdescriptions #all-grob-descriptions
 }
@@ -519,5 +518,7 @@ TabStaffContext = \translator {
       \remove Key_engraver
       stringTunings   = #guitar-tunings
       tablatureFormat = #fret-number-tablature-format
+
+
 }
    

@@ -605,7 +605,6 @@ functions set spanner positions.")
 (grob-property-description 'delta-pitch number? "DOCME")
 (grob-property-description 'head-width number? "DOCME")
 (grob-property-description 'primitive number? "DOCME")
-(grob-property-description 'chord-name-function procedure? "DOCME")
 (grob-property-description 'minimum-beam-collision-distance number?
 "Minimum distance to beam for a rest collision.")
 

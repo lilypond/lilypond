@@ -1,6 +1,18 @@
-2002-12-30  Jan Nieuwenhuizen  <janneke@gnu.org>
+2003-01-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
-	* test.
+	* scripts/convert-ly.py	(FatalConversionError.conv): add style
+	covnersion rule. 
+
+	* scm/chord-name.scm (set-chord-name-style): new function.
+	(new-chord-name-brew-molecule): revise to interpret markup only
+	(new-chord->markup): cleanuppish rewrite. To be called from the
+	new engraver.
+
+	* lily/new-chord-name-engraver.cc: new engraver: call Chord ->
+	Markup earlier, during interpreting.
+
+	* input/test/{banter,jazz,american}-chords.ly (scheme): update
+	style settings. Rename to chord-names-*.ly
 
 2002-12-30  Juergen Reuter  <reuter@ipd.uka.de>
 
