@@ -2,8 +2,8 @@
 
 \version "1.3.146"
 
-stemUp = \property Voice.Stem \override #'direction = #1
-stemDown = \property Voice.Stem \override #'direction = #-1 
+stemUp = \property Voice.Stem \set #'direction = #1
+stemDown = \property Voice.Stem \set #'direction = #-1 
 stemBoth= \property Voice.Stem \revert #'direction
 
 slurUp   = \property Voice.Slur \override #'direction = #1
