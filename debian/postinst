@@ -237,4 +237,4 @@ run_texhash();
 check_specialmap();
 
 print " $pkg_name configuration completed.\n";
-print " Please read /usr/doc/$package/README.debian to get started.\n";
+print " Please read /usr/doc/$package/README.Debian to get started.\n";
