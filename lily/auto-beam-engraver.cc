@@ -321,7 +321,7 @@ Auto_beam_engraver::begin_beam ()
   
   beam_start_moment_ = now_mom ();
   beam_start_location_ =
-    robust_scm2moment (unsmob_moment (get_property ("measurePosition"), Moment(0));
+    robust_scm2moment (get_property ("measurePosition"), Moment(0));
   subdivide_beams_ = ly_scm2bool (get_property ("subdivideBeams"));
   beat_length_ = robust_scm2moment (get_property ("beatLength"), Moment(1,4));
 }
