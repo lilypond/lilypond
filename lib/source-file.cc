@@ -19,7 +19,7 @@
 #include "plist.hh"
 
 
-#include "debug.hh"
+#include "warn.hh"
 #include "windhoos-suck-suck-suck-thank-you-cygnus.hh"
 
 #include "source-file.hh"
