@@ -20,7 +20,8 @@ Simple_music_iterator::Simple_music_iterator ()
 Simple_music_iterator::Simple_music_iterator (Simple_music_iterator const &src)
   : Music_iterator (src)
 {
-  last_processed_mom_ = -1;
+  last_processed_mom_ = src.last_processed_mom_;
+  length_mom_ = src.length_mom_;
 }
 
 void

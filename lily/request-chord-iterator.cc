@@ -45,10 +45,12 @@ Request_chord_iterator::elt_l () const
   return (Request_chord*) music_l_;
 }
 
-
 SCM
-Request_chord_iterator::get_music (Moment)const
+Request_chord_iterator::get_music (Moment m) const
 {
+  Request_chord_iterator* urg = (Request_chord_iterator*)this;
+  urg->last_processed_mom_ = m;
+  urg->last_processed_mom_.set_infinite (1);
   SCM s = SCM_EOL;
   if (music_l_)
     {
@@ -58,6 +60,7 @@ Request_chord_iterator::get_music (Moment)const
 	{
 	  s = gh_cons (gh_car (m) , s);
 	}
+      urg->music_l_ = 0;
     }
   return s;
 }

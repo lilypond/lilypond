@@ -92,37 +92,43 @@ Sequential_music_iterator::set_sequential_music_translator()
 SCM
 Sequential_music_iterator::get_music (Moment until)const
 {
-#if 0
+#if 1
   /*
      FIXME: get_music () is const, so we must operate on a copy of child-iter.
+
+     hmm, part-combiner does work on a copy; why copy again?
+     Also, simply `working on a copy' doesn't work: if request-chord's
+     get_music doesn't do next (), we'll stay in this loop forever?
   */
   
+  Sequential_music_iterator* urg = (Sequential_music_iterator*)this;
   SCM s = SCM_EOL;
   while (1) 
       {
 	Moment local_until = until - here_mom_;
-	while (iter_p_->ok ()) 
+	while (urg->iter_p_->ok ()) 
 	  {
 	    Moment here = iter_p_->pending_moment ();
 	    if (here != local_until)
 	      return s;
 	    
-	    s = gh_append2 (iter_p_->get_music (local_until), s);
+	    s = gh_append2 (urg->iter_p_->get_music (local_until), s);
 	  }
 	  
-	  if (!iter_p_->ok ()) 
+	  if (!urg->iter_p_->ok ()) 
 	    {
-	      //	      leave_element ();
+	      urg->leave_element ();
 	      
-	      if (gh_pair_p (cursor_))
-		start_next_element ();
+	      if (gh_pair_p (urg->cursor_))
+		urg->start_next_element ();
 	      else
 		return s;
 	    }
 	}
   return s;
-#endif
+#else
   return SCM_EOL;
+#endif
 }
 
 void
