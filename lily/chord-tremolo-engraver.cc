@@ -86,11 +86,33 @@ Chord_tremolo_engraver::try_music (Music * m)
       repeat_ = rp;
       start_mom_ = now_mom ();
       stop_mom_ = start_mom_ + l;
-      sequential_body_b_ = dynamic_cast<Sequential_music*> (rp->body ());
 
+      Sequential_music * seq = dynamic_cast<Sequential_music*> (rp->body ());
+      sequential_body_b_ = seq;
+
+      int elt_count = seq ? scm_ilength (seq-> music_list ()) : 1;
+
+      if (elt_count != 2)
+	{
+	  rp->origin ()->warning (_f ("Chord tremolo with %d elements. Must have two elements.", elt_count));
+	}
+
+      if (elt_count <= 0)
+	elt_count = 1;
+	  
       Rational total_dur = l.main_part_;
-      Rational note_dur = (total_dur / Rational (repeat_->repeat_count ()));
-       flags_ = intlog2 ((total_dur / note_dur).num ());
+      Rational note_dur = total_dur / Rational (elt_count * repeat_->repeat_count ());
+
+      if (total_dur < Rational (1,4))
+	{
+	  /*
+	    This would require beams between flagged (8th) notes.
+	  */
+	  rp->origin ()->warning ("Chord tremolo is too short to denote properly.");
+	}
+      
+      Rational written_note_dur = total_dur / Rational (elt_count);
+      flags_ = intlog2 (note_dur.den ()) -2 ;
       
       return true;
     }
@@ -116,14 +138,12 @@ Chord_tremolo_engraver::process_music ()
 	}
       else if (!sequential_body_b_ && !stem_tremolo_)
 	{
-
 	  if (flags_)
 	    {
 	      stem_tremolo_ = new Item (get_property ("StemTremolo"));
 	      announce_grob(stem_tremolo_, repeat_->self_scm());
 	      stem_tremolo_->set_grob_property ("flag-count",
 						scm_int2num (flags_));
-
 	    }
 	}
     }
