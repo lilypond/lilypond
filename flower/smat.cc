@@ -157,7 +157,7 @@ Full_storage::row(int n) const
 {
     Array<Real> r;
     for (int j = 0; j < w; j++)
-	r.add(els[n][j]);
+	r.push(els[n][j]);
     return r;
 }
 
@@ -167,7 +167,7 @@ Full_storage::column(int n) const
     
     Array<Real> r;
     for (int i = 0; i<h; i++)
-	r.add(els[i][n]);
+	r.push(els[i][n]);
     return r;
 }
 

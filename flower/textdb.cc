@@ -32,7 +32,7 @@ Text_db::get_record()
 	
 	while ((s = get_word()) != "")
 	    {
-	    fields.add(s);	
+	    fields.push(s);	
 	    gobble_white();
 	    }
 	     

@@ -43,7 +43,7 @@ struct Assoc {
 	Assoc_ent_<K,V> ae;
 	ae.free = false;
 	ae.key = key;
-	arr.add(ae);
+	arr.push(ae);
 	return arr.size() -1;
     }
 public:
