@@ -1,3 +1,9 @@
+pl 5.jcn1
+	- lily.scm: don't use regex-substitute/global 
+	- try at tutorial explain environment/macro
+	- website/doco fixes
+	- bf: package-diff.py
+
 pl 4.hwn1
 	- bf: repeats.
 	- bf: mmrests

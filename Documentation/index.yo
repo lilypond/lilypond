@@ -1,16 +1,11 @@
 DEFINEMACRO(tops)(0)(../topdocs/DOEXPAND(outdir))
 DEFINEMACRO(pics)(0)(../pictures/DOEXPAND(outdir))
 
-nsect(NAME)
-
-The Documentation of LilyPond -- the GNU Project music typesetter
-
-nsect(DESCRIPTION)
+nsectLilyPond Documentation)
 
 Note: These pages are created from the latest bf(development snapshots)
 of LilyPond.  You can look at the bottom if you want to know which
 version this was.
-
 
 nsubsect(Documentation: Introduction)
 
@@ -34,6 +29,7 @@ it()url(The lilypond
 nsubsect(Documentation: manuals)
 
 
+COMMENT(Reference manual/regtest stuffed away too deep)
 itemize(
 it()url(User documentation)(../tex/DOEXPAND(outdir)/index.html)
 it()url(Hacker documentation)(../metadoc/DOEXPAND(outdir)/index.html)

@@ -3,8 +3,8 @@
 % 2 setlanguagelevel %  hmm. auto_resize_dicts doesn't help either. 
 % round cappings
 1 setlinecap
-
-
+%
+%
 /draw_beam % width slope thick
 {
         2 div /beam_thick exch def
@@ -17,14 +17,14 @@
         0 beam_thick lineto
         closepath fill
 } bind def
-
+%
 /draw_decrescendo %  width height cons thick
 {
 	setlinewidth
 	/cresc_cont exch def
 	/cresc_ht exch def
 	/cresc_wd exch def
-
+%
 	cresc_wd cresc_cont moveto
 	0 cresc_ht lineto
 	stroke
@@ -32,14 +32,14 @@
 	0 cresc_ht neg lineto
 	stroke
 } bind def
-
+%
 /draw_crescendo % width height cons thick
 {
 	setlinewidth
 	/cresc_cont exch def
 	/cresc_ht exch def
 	/cresc_wd exch def
-
+%
 	0 cresc_cont moveto
 	cresc_wd cresc_ht lineto
 	stroke
@@ -47,12 +47,12 @@
 	cresc_wd cresc_ht neg lineto
 	stroke
 } bind def
-
+%
 /lily_distance 
 {
 	1 copy mul exch 1 copy mul add sqrt
 } bind def
-
+%
 /draw_tuplet % height gap dx dy thick dir
 {
 % urg: the only Level-2 PS, check effect in print
@@ -66,8 +66,8 @@
 	/tuplet_gapx exch def
 	/tuplet_h exch def
 	tuplet_dy tuplet_dx div tuplet_gapx mul /tuplet_gapy exch def
-
-
+%
+%
 	0 0 moveto
 	0 tuplet_h dir mul lineto 
 	tuplet_dx tuplet_gapx sub 2 div 
@@ -78,7 +78,7 @@
 	tuplet_dx tuplet_dy lineto
 	stroke
 } bind def
-
+%
 /draw_volta % h w thick vert_start vert_end
 {
 	/vert_end exch def
@@ -101,7 +101,7 @@
 	} if
 	stroke
 } bind def
-
+%
 % this is for drawing slurs.
 /draw_bezier_sandwich  % thickness 
 {
@@ -115,7 +115,7 @@
 	grestore
 	stroke
 } bind def
-
+%
 /draw_dashed_slur
 {
 	1 setlinecap
@@ -127,9 +127,9 @@
 	curveto
 	stroke
 } bind def
-
-
-
+%
+%
+%
 /bracket_traject
 {
   /traject_ds exch def
@@ -139,9 +139,9 @@
   traject_ds traject_alpha cos mul add
   exch
 } bind def
-
-
-
+%
+%
+%
 /half_bracket
 {
 %6
@@ -169,7 +169,7 @@
 %1
 	0 0
 } bind def
-
+%
 /draw_half_bracket {
 	moveto
 	lineto
@@ -181,7 +181,7 @@
 	fill
 	grestore
 } bind def
-
+%
 /draw_bracket % height
 {
 	2 div bracket_b add /bracket_h exch def
@@ -201,4 +201,4 @@
 	draw_half_bracket
 	stroke
 } bind def
-
+%

@@ -1,6 +1,6 @@
 # Texinfo_rules.make
 
-.SUFFIXES: .html .texinfo
+.SUFFIXES: .html .info .texi .texinfo
 
 $(outdir)/%.info: $(outdir)/%.texi
 	makeinfo --output=$@ $<

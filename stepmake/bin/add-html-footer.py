@@ -1,7 +1,7 @@
 #!@PYTHON@
 
 """
-Print a nice footer.  add the top of the NEWS file (up to the ********)
+Print a nice footer.  add the top of the ChangeLog file (up to the ********)
 """
 
 program_name = 'add-html-footer'
@@ -15,27 +15,38 @@ import getopt
 import __main__
 
 fullname = "unknown"
-news_file = ''
+changelog_file = ''
 
 index_file=''
 banner_file = ''
-news_file=''
-news =''
+changelog_file=''
+changes =''
 footer = '\n<hr>Please take me <a href=%s>back to the index</a>\n\
 of %s<!%s%s>\n'
 builtstr = '\n<hr><font size=-1>\n\
 This page was built from %s-%s by\
 <address><br>%s &lt<a href=mailto:%s>%s</a>&gt, at %s.</address><p></font>' 
 
-(options, files) = getopt.getopt(sys.argv[1:], 'hp:', ['help', 'news=', 'index=', 'package=']) 
+(options, files) = getopt.getopt(sys.argv[1:], 'c:hp:', ['changelog=', 'help', 'news=', 'index=', 'package=']) 
 
-def gulp_file (fn):
-	f = open (fn)
-	return f.read ()
+def gulp_file(f):
+	try:
+		i = open(f)
+		i.seek (0, 2)
+		n = i.tell ()
+		i.seek (0,0)
+	except:
+		sys.stderr.write ("can't open file: %s\n" % f)
+		return ''
+	s = i.read (n)
+	if len (s) <= 0:
+		sys.stderr.write ("gulped emty file: %s\n" % f)
+	i.close ()
+	return s
 
 def help ():
     sys.stdout.write (r"""Usage: add-html-footer [OPTION]... HTML-FILE
-Add a nice footer, add the top of the NEWS file (up to the ********)
+Add a nice footer, add the top of the ChangLog file (up to the ********)
 Options:
   -h, --help             print this help
   -p, --package          package name (ugh. Junkme.)
@@ -45,8 +56,8 @@ Options:
 for opt in options:
     o = opt[0]
     a = opt[1]
-    if o == '--news':
-	news_file = a
+    if o == '--news' or o == '--changelog' or o == '-c':
+	changelog_file = a
     elif o == '--index':
 	index_file = a
     elif o == '-h' or o == '--help':
@@ -91,10 +102,10 @@ banner = footstr (index_file)
 banner_id = '<! banner_id >'
 
 
-if news_file:
-    news = gulp_file (news_file)
-    i = regex.search ('^\*\*', news)
-    news = news[:i]
+if changelog_file:
+    changes = gulp_file (changelog_file)
+    i = regex.search ('^\*\*', changes)
+    changes = changes[:i]
     
 def check_tag (tag, sub, s, bottom):
     tag = string.lower (tag)
@@ -111,8 +122,8 @@ def check_tag (tag, sub, s, bottom):
 for f in files:
     s = gulp_file (f)
 
-    if news_file:
-	s = regsub.sub ('top_of_NEWS', '<XMP>\n'+ news  + '\n</XMP>\n', s)
+    if changelog_file:
+	s = regsub.sub ('top_of_ChangeLog', '<XMP>\n'+ changes  + '\n</XMP>\n', s)
 
     s = check_tag ('<body', '', s, 0)
     if regex.search ('<BODY', s) == -1:

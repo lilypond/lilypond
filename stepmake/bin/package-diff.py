@@ -9,9 +9,20 @@ import string
 import getopt
 import pipes
 
-def gulp_file (fn):
-	f = open (fn)
-	return f.read ()
+def gulp_file(f):
+	try:
+		i = open(f)
+		i.seek (0, 2)
+		n = i.tell ()
+		i.seek (0,0)
+	except:
+		sys.stderr.write ("can't open file: %s\n" % f)
+		return ''
+	s = i.read (n)
+	if len (s) <= 0:
+		sys.stderr.write ("gulped emty file: %s\n" % f)
+	i.close ()
+	return s
 
 def program_id ():
 	return name + ' ' + version;

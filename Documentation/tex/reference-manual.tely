@@ -2,6 +2,13 @@
 @setfilename reference-manual.info
 @settitle LilyPond 1-2-0 Reference Manual
 
+@c ls-latex
+@ignore
+@author Adrian Mariano, Han-Wen Nienhuys and Jan Nieuwenhuizen
+@title LilyPond Regression test
+@end ignore
+
+
 @ifinfo
 
 This is the reference documentation to LilyPond.  It is not a tutorial.

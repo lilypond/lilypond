@@ -1,6 +1,8 @@
 #!@PYTHON@
 
-# name isn't really appropriate now ...
+# FIXME: 
+#  name isn't really appropriate now ...
+#  see mudela-book: cater for different formats in uniform way
 
 name = 'ls-latex'
 version = '0.1'
@@ -9,9 +11,20 @@ import sys
 import os
 import string
 
-def gulp_file (fn):
-	f = open (fn)
-	return f.read ()
+def gulp_file(f):
+	try:
+		i = open(f)
+		i.seek (0, 2)
+		n = i.tell ()
+		i.seek (0,0)
+	except:
+		sys.stderr.write ("can't open file: %s\n" % f)
+		return ''
+	s = i.read (n)
+	if len (s) <= 0:
+		sys.stderr.write ("gulped emty file: %s\n" % f)
+	i.close ()
+	return s
 
 import __main__
 import glob
@@ -33,8 +46,8 @@ def read_latex_header (fn):
     i = regex.search( '\\\\begin{document}', s)
 
     if i < 0:
-	sys.stderr.write( 'Huh? empty file?')
-	s = '\\author{(unknown)}\\title{(unknown)}'
+	sys.stderr.write ("ls-latex: no \\begin{document} in %s\n" % fn)
+	s = "\\author{(unknown)}\\title{(file: %s)}" % fn
 	
     s = s[:i]
     s = regsub.gsub('%.*$', '', s)
@@ -44,15 +57,15 @@ def read_latex_header (fn):
     header.filename= fn;
 
     if latex_author_re.search (s) == -1 :
-	sys.stderr.write( 'huh? No author?')
+	sys.stderr.write ("ls-latex: can't find author in %s\n" % fn)
 	header.author = 'unknown'
     else:
         header.author = latex_author_re.group (1)
     if latex_title_re.search (s) == -1:
-	sys.stderr.write( 'huh?  No title?')
-	header.title = 'unknown'
+	sys.stderr.write ("ls-latex: can't find title in %s\n" % fn)
+	header.title = "(file: %s)" % fn
     else:
-	    header.title = latex_title_re.group (1)
+	header.title = latex_title_re.group (1)
     header.outfile = fn
     header.outfile = regsub.gsub ('\.latex$', '.ps.gz', header.outfile)
     header.outfile = regsub.gsub ('\.tex$', '.ps.gz', header.outfile)
@@ -98,16 +111,28 @@ def read_pod_header (fn):
     header.outfile = regsub.gsub ('\.pod$', '.html', fn)
     return  header
 
+texinfo_author_re = regex.compile(r'^@author  *\(.*\) *$')
+texinfo_title_re = regex.compile(r'^@title  *\(.*\) *$')
+
 def read_texinfo_header (fn):
     header = Latex_head ()
     s = gulp_file (fn)
+    if texinfo_author_re.search (s) == -1 :
+	sys.stderr.write ("ls-latex: can't find author in %s\n" % fn)
+	header.author = 'unknown'
+    else:
+        header.author = texinfo_author_re.group (1)
+    if texinfo_title_re.search (s) == -1:
+	sys.stderr.write ("ls-latex: can't find title in %s\n" % fn)
+	header.title = "(file: %s)" % fn
     i = regex.search( '@node ', s)
     s = s[i+5:]
     i = regex.search( ',', s)
     if i < 0:
 	sys.stderr.write ('gulped file: ' + fn + '\n')
 	raise 'huh?'
-    header.title = s[:i]
+    if not header.title:
+	header.title = s[:i]
     header.filename = fn
     header.outfile = regsub.gsub ('\.texinfo$', '.html', fn)
     header.format = 'HTML'
@@ -116,13 +141,22 @@ def read_texinfo_header (fn):
 def read_tely_header (fn):
     header = Latex_head ()
     s = gulp_file (fn)
+    if texinfo_author_re.search (s) == -1 :
+	sys.stderr.write ("ls-latex: can't find author in %s\n" % fn)
+	header.author = 'unknown'
+    else:
+        header.author = texinfo_author_re.group (1)
+    if texinfo_title_re.search (s) == -1:
+	sys.stderr.write ("ls-latex: can't find title in %s\n" % fn)
+	header.title = "(file: %s)" % fn
     i = regex.search( '@settitle', s)
     s = s[i+10:]
     i = regex.search( '\n', s)
     if i < 0:
 	sys.stderr.write ('gulped file: ' + fn + '\n')
 	raise 'huh?'
-    header.title = s[:i]
+    if not header.title:
+	header.title = s[:i]
     header.filename = fn
     header.outfile = regsub.gsub ('\.tely', '.html', fn)
     header.format = 'HTML'
