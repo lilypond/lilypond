@@ -274,9 +274,7 @@ New_slur::set_end_points (Grob *me)
       // c&p
       Grob *stem = Note_column::get_stem (extremes[d]);
       Grob * h = Stem::extremal_heads (stem)[dir];
-     
       Real y;
-
       if (stem
 	&& get_grob_direction (stem) == dir
 	&& Stem::get_beam (stem))
@@ -291,14 +289,17 @@ New_slur::set_end_points (Grob *me)
       y += dir * 0.5 * staff_space;
 
       Grob * staff = Staff_symbol_referencer::get_staff_symbol (h);
-      Real pos = 2.0 * (y - staff->relative_coordinate (common[Y_AXIS], Y_AXIS)) / Staff_symbol::staff_space (staff);
+      Real pos = 2.0 * (y - staff->relative_coordinate (common[Y_AXIS], Y_AXIS))
+	/ Staff_symbol::staff_space (staff);
 
       
-	    /*
-	      start off staffline.
-	    */
+      /*
+	start off staffline.
+      */
       if (fabs (pos - round (pos)) < 0.2
-	  && Staff_symbol_referencer::on_staffline (h, (int) rint (pos)))
+	  && Staff_symbol_referencer::on_staffline (h, (int) rint (pos))
+	  && Staff_symbol_referencer::line_count (h) -1 >= rint (pos)
+	  )
 	    y += staff_space * dir / 10 ;	  
 
       
