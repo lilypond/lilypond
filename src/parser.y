@@ -20,8 +20,9 @@
 
 Array<Request*> pre_reqs, post_reqs;
 sstack<String> define_spots;
-extern bool want_beam;
 Paperdef*default_paper();
+char const* defined_ch_c_l;
+char const* req_defined_ch_c_l;
 
 %}
 
@@ -61,10 +62,10 @@ Paperdef*default_paper();
     Text_def * textdef;
 }
 
-%token VOICE STAFF SCORE TITLE  BAR NOTENAME OUTPUT
+%token VOICE STAFF SCORE TITLE  BAR  OUTPUT MULTIVOICE
 %token CM IN PT MM PAPER WIDTH METER UNITSPACE SKIP COMMANDS COMMAND
 %token GEOMETRIC START_T DURATIONCOMMAND OCTAVECOMMAND
-%token KEY CLEF MULTI TABLE CHORD VOICES
+%token KEY CLEF  TABLE  VOICES STEM
 %token PARTIAL MUSIC GROUPING CADENZA
 %token END SYMBOLTABLES TEXID TABLE NOTENAMES SCRIPT TEXTSTYLE PLET
 %token MARK GOTO
@@ -72,25 +73,26 @@ Paperdef*default_paper();
 %token <id>  IDENTIFIER
 %token <string> PITCHMOD DURATION RESTNAME
 %token <ii> NOTENAME 
-%token <real> REAL
+%token <real> REAL 
 %token <string> STRING
 
 %token <i> DOTS INT
 %type <consstr> unit
-%type <intvec> pitch_list
+%type <intvec> pitch_list 
 %type <c> open_request_parens close_request_parens
 %type <id> declaration
 %type <string> declarable_identifier
 %type <paper> paper_block paper_body
-%type <real> dim
-%type <ii> duration
+%type <real> dim real
+%type <ii>  default_duration explicit_duration notemode_duration mudela_duration
+%type <ii> notename
 %type <moment> duration_length
 %type <el> voice_elt full_element lyrics_elt
 %type <command> score_command staff_command position_command
 %type <score> score_block score_body
 %type <staff> staff_block staff_init staff_body
 %type <i> int
-%type <intvec> int_list
+%type <intvec> int_list intastint_list
 %type <commandvec> score_commands_block score_commands_body
 %type <commandvec> staff_commands_block staff_commands_body
 %type <request> post_request pre_request 
@@ -115,8 +117,8 @@ Paperdef*default_paper();
 %%
 
 mudela:	/* empty */
-	| mudela score_block { 
-		add_score($2);
+	| mudela score_block {
+		add_score($2);		
 	}
 	| mudela add_declaration { }
 	| mudela mudela_command  {}
@@ -164,6 +166,13 @@ declaration:
 		$$ = new Notetab_id(*$1, $3);
 		delete $1;
 	}
+	| declarable_identifier '=' real	{
+		$$ = new Real_id(*$1, new Real($3));
+		delete $1;
+	}
+	| declarable_identifier error '}' {
+		warning( "parse error", lexer->here_ch_c_l() );
+	}
 	;
 
 notename_tab:
@@ -192,10 +201,16 @@ score_block: SCORE
 		$$->define_spot_str_ = define_spots.pop();
 		if (!$$->paper_)
 			$$->paper_ = default_paper();
+
+		/* handle error levels. */
+		$$->errorlevel_i_ = lexer->errorlevel_i_;
+		lexer->errorlevel_i_ = 0;
 	}
 	;
 
-score_body:		{ $$ = new Input_score; }
+score_body:		{ 
+		$$ = new Input_score; 
+	}
 	| score_body staff_block	{ $$->add($2); }
 	| score_body score_commands_block 	{
 		$$->add(*$2);
@@ -208,6 +223,9 @@ score_body:		{ $$ = new Input_score; }
 */
 score_commands_block:
 	COMMANDS '{' score_commands_body '}' { $$ =$3;}
+	| COMMANDS '{' error '}' {
+		warning( "parse error", lexer->here_ch_c_l() );
+	}
 	;
 
 score_commands_body:			{ $$ = new Array<Input_command*>; }
@@ -244,15 +262,6 @@ staff_command:
 	}
 	;
 
-duration_length:	
-	duration		{
-		$$ = new Moment(wholes($1[0], $1[1]));
-	}
-	|int '*' duration	{
-		$$ = new Moment($1 * wholes($3[0], $3[1]));
-	}
-	;
-
 position_command:
 	SKIP int ':' duration_length		{
 		$$ = get_skip_command($2, *$4);
@@ -261,6 +270,14 @@ position_command:
 	| GOTO STRING	{
 		$$ = get_goto_command(*$2);
 		delete $2;
+	}
+	;
+
+
+intastint_list:
+	/* */	{ $$ =new Array<int>; }
+	| intastint_list int '*' int	{
+		$$->push($2); $$->push($4);
 	}
 	;
 
@@ -276,7 +293,7 @@ score_command:
 		$$ = get_partial_command(*$2);
 		delete $2;
 	}
-	| GROUPING int_list		{
+	| GROUPING intastint_list		{
 		$$ = get_grouping_command(*$2);
 		delete $2;
 	}
@@ -307,6 +324,9 @@ paper_body:
 	| paper_body symtables		{ $$->set($2); }
 	| paper_body UNITSPACE dim	{ $$->whole_width = $3; }
 	| paper_body GEOMETRIC REAL	{ $$->geometric_ = $3; }
+	| paper_body error {
+		warning( "parse error", lexer->here_ch_c_l() );
+	}
 	;
 
 /*
@@ -333,11 +353,15 @@ staff_init:
 staff_body:
 	staff_init
 	| staff_body music	{
+		$2->set_default_group( "staff_music" + String($$->music_.size()));
 		$$->add($2);
 	}
 	| staff_body staff_commands_block {
 		$$->add(*$2);
 		delete $2;
+	}
+	| staff_body error {
+		warning( "parse error", lexer->here_ch_c_l() );
 	}
 	;
 
@@ -352,11 +376,12 @@ music:
 music_voice:  MUSIC '{' music_voice_body '}'	{ $$ = $3; }
 	;
 
-music_voice_body:			{
+music_voice_body:
+	/* */ 	{
 		$$ = new Music_voice;
 	}
 	| music_voice_body IDENTIFIER {
-		$$->concatenate($2->mvoice());
+		$$->concatenate($2->mvoice(true));
 	}
 	| music_voice_body full_element {
 		$$->add_elt($2);
@@ -366,22 +391,32 @@ music_voice_body:			{
 	| music_voice_body music	{
 		$$->add($2);
 	}
+	| music_voice_body error {
+		warning( "parse error", lexer->here_ch_c_l() );
+	}
 	;
 
 music_chord:  '{' music_chord_body '}'	{ $$ = $2; }
 	;
 
-music_chord_body:		{
-		$$ = new Music_general_chord;
+music_chord_body:
+	/* */	{
+		$$ = new Voice_group_chord;
+	}
+	| MULTIVOICE {
+		$$ = new Multi_voice_chord;
 	}
 	| music_chord_body IDENTIFIER {
-		$$->concatenate($2->mchord());
+		$$->concatenate($2->mchord(true));
 	}
 	| music_chord_body music {
 		$$ -> add($2);
 	}
 	| music_chord_body full_element {
 		$$ ->add_elt($2);
+	}
+	| music_chord_body error {
+		warning( "parse error", lexer->here_ch_c_l() );
 	}
 	;
 
@@ -402,7 +437,15 @@ full_element:	pre_requests voice_elt post_requests {
 	| COMMAND '{' staff_command '}'	{ $$=get_command_element($3); }
 	| COMMAND '{' score_command '}'	{ $$=get_command_element($3); }
 	| '|'				{ $$ = get_barcheck_element(); }
+	| STEM '{' int '}'		{
+		$$ = get_stemdir_element($3);
+	}
 	| lyrics_elt
+/*
++ 	| pre_requests voice_elt post_requests error '|' { 
++ 		warning( "parse error", lexer->here_ch_c_l() );
++ 	}
++ */
 	;
 		
 post_requests:
@@ -415,19 +458,34 @@ post_requests:
 	;
 
 post_request:
-	close_request_parens		{ $$ = get_request($1); }
+	close_request_parens	{ 
+		$$ = get_request($1); 
+		req_defined_ch_c_l = lexer->here_ch_c_l();
+	}
 	| script_req
 	| textscript_req
 	;
 
 close_request_parens:
-	'('	{ $$='('; }
-	|']'	{ $$=']'; }
+	'('	{ 
+		$$='(';
+		req_defined_ch_c_l = lexer->here_ch_c_l();
+	}
+	| ']'	{ 
+		$$ = ']';
+		req_defined_ch_c_l = lexer->here_ch_c_l();
+	}
 	;
-
+  
 open_request_parens:
-	')'	{ $$=')'; }
-	|'['	{ $$='['; }
+	')'	{ 
+		$$=')';
+		req_defined_ch_c_l = lexer->here_ch_c_l();
+	}
+	| '['	{
+		$$='[';
+		req_defined_ch_c_l = lexer->here_ch_c_l();
+	}
 	;
 
 script_definition:
@@ -446,7 +504,11 @@ textscript_req:
 	;
 
 mudela_text:
-	STRING			{ $$ = get_text(*$1); delete $1; }
+	STRING			{ 
+		$$ = get_text(*$1); 
+		delete $1;
+		defined_ch_c_l = lexer->here_ch_c_l();
+	}
 	;
 
 script_req:
@@ -464,7 +526,8 @@ mudela_script:
 	| '>'		{ $$ = get_scriptdef('>'); }
 	| '.' 		{ $$ = get_scriptdef('.'); }
 	| DOTS 		{
-		if ($1>1) error("too many staccato reqs");
+		if ( $1 > 1 ) 
+		    warning( "too many staccato dots", lexer->here_ch_c_l() );
 		$$ = get_scriptdef('.');
 	}
 	;
@@ -482,16 +545,21 @@ pre_requests:
 	;
 
 pre_request: 
-	open_request_parens		{ $$ = get_request($1); }
+	open_request_parens	{ 
+		$$ = get_request($1); 
+		defined_ch_c_l = lexer->here_ch_c_l();
+	}
 	;
-
-
 
 voice_command:
 	PLET	'{' INT '/' INT '}'		{
 		set_plet($3,$5);
 	}
-	| DURATIONCOMMAND '{' duration '}'	{
+	| DURATIONCOMMAND '{' STRING '}'	{
+		set_duration_mode(*$3);
+		delete $3;
+	}
+	| DURATIONCOMMAND '{' notemode_duration '}'	{
 		set_default_duration($3);
 	}
 	| OCTAVECOMMAND '{' pitchmod '}'	{
@@ -504,15 +572,40 @@ voice_command:
 	}
 	;
 
-duration:		{
-		get_default_duration($$);
+duration_length:	
+	mudela_duration		{
+		$$ = new Moment(wholes($1[0], $1[1]));
 	}
-	| int		{
-		get_default_duration($$);
+	|int '*' mudela_duration	{
+		$$ = new Moment(Rational($1) * wholes($3[0], $3[1]));
+	}
+	;
+
+notemode_duration:
+	explicit_duration
+	| default_duration
+	;
+
+mudela_duration:
+	int		{
 		$$[0] = $1;
 		$$[1] = 0;
 	}
 	| int DOTS 	{
+		$$[0] = $1;
+		$$[1] = $2;
+	}
+	;
+
+
+explicit_duration:
+	INT		{
+		last_duration($1);
+		$$[0] = $1;
+		$$[1] = 0;
+	}
+	| INT DOTS 	{
+		last_duration($1);
 		$$[0] = $1;
 		$$[1] = $2;
 	}
@@ -522,16 +615,32 @@ duration:		{
 	}
 	;
 
-pitchmod:		{ $$ = new String; }
-	|PITCHMOD	
+default_duration:
+	{
+		get_default_duration($$);
+	}
+	;
+
+pitchmod:		{ 
+		$$ = new String; 
+		defined_ch_c_l = lexer->here_ch_c_l();
+	}
+	| PITCHMOD	{ 
+		$$ = $1;
+		defined_ch_c_l = lexer->here_ch_c_l();
+	}
+	;
+
+notename:
+	NOTENAME
 	;
 
 voice_elt:
-	pitchmod NOTENAME duration 			{
+	pitchmod notename notemode_duration 			{
 		$$ = get_note_element(*$1, $2, $3);
 		delete $1;
 	}
-	| RESTNAME duration		{
+	| RESTNAME notemode_duration		{
 		$$ = get_rest_element(*$1, $2);
 		delete $1;
 
@@ -539,7 +648,7 @@ voice_elt:
 	;
 
 lyrics_elt:
-	mudela_text duration 			{
+	mudela_text notemode_duration 			{
 		$$ = get_word_element($1, $2);
 	};
 
@@ -556,16 +665,27 @@ pitch_list:			{
 	;
 
 int:
-	REAL			{
+	real			{
 		$$ = int($1);
 		if ( distance($1,Real(int($$)) ) > 1e-8)
-			error("expecting integer number");
+			error( "integer expected", lexer->here_ch_c_l() );
 	}
-	| INT
 	;
 
-int_list:
-	/* */ 		{
+real:
+	INT			{
+		$$ = Real($1);
+	}
+	| REAL		{
+		$$ = $1;
+	}
+	| IDENTIFIER		{
+		$$ = * $1->real(0);		
+	}
+	;
+	
+
+int_list:		{
 		$$ = new Array<int>;
 	}
 	| int_list int		{
@@ -573,8 +693,9 @@ int_list:
 	}
 	;
 
+
 dim:
-	REAL unit	{ $$ = convert_dimen($1,$2); }
+	real unit	{ $$ = convert_dimen($1,$2); }
 	;
 
 
@@ -650,7 +771,7 @@ dinterval: dim	dim		{
 %%
 
 void
-parse_file(String s)
+parse_file(String init, String s)
 {
    *mlog << "Parsing ... ";
    lexer = new My_flex_lexer;
@@ -660,7 +781,7 @@ parse_file(String s)
    lexer->set_debug( !monitor.silence("InitLexer") && check_debug);
 #endif
 
-   lexer->new_input("symbol.ini");
+   lexer->new_input(init);
    yyparse();
 
 #ifdef YYDEBUG

@@ -28,6 +28,16 @@ add_score(Input_score * s)
     score_array_global.push(s);
 }
 
+#if 0
+Input_score*
+current_iscore_l()
+{
+    if ( score_array_global.size() )
+	return score_array_global.last(); // UGH
+    else
+    	return 0;
+}
+#endif
 
 void
 set_default_output(String s)

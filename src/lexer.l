@@ -8,6 +8,8 @@
 #include "varray.hh"
 #include "parser.hh"
 #include "debug.hh"
+#include "inputscore.hh"
+#include "main.hh"
 
 %}
 
@@ -44,7 +46,8 @@ OPTSIGN		!?
 PITCHMOD	['`]*{OPTSIGN}
 RESTNAME	r|s|p
 NOTECOMMAND	\\{WORD}
-NOTENAME	{ALPHAWORD}
+NOTENAME	[a-z]+
+UNOTENAME	[A-Z][a-z]*
 DOTS		\.+
 LYRICS		{TEX}+
 COMMENT		[%#].*\n
@@ -65,16 +68,14 @@ COMMENT		[%#].*\n
 	mtor << "rest:"<< yylval.string;
 	return RESTNAME;
 }
+<notes>{UNOTENAME}	{
+	int *p=yylval.ii;
+	return ret_notename(p, YYText(), -1);
+}
 
 <notes>{NOTENAME}	{
 	int *p=yylval.ii;
-	lookup_notename(p[0], p[1], YYText());
-	mtor << "notename: "<< YYText()<<eol;
-	if (p[0] < 0) {
-		String e("notename does not exist: ");
-		error(e + YYText());
-	}
-	return NOTENAME;
+	return ret_notename(p, YYText(), 0);
 }
 
 <notes>{NOTECOMMAND}	{
@@ -269,8 +270,9 @@ include           {
 	//ignore
 }
 .		{
-	error("lexer error: illegal character '"+String(YYText()[0])+
-	  "' encountered");
+//	error( "lexer error: illegal character '"+String(YYText()[0])+ "' encountered");
+	error( String( "illegal character: " ) + String( YYText()[0] ) + ": ",
+		here_ch_c_l() );
 	return YYText()[0];
 }
 
