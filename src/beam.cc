@@ -34,7 +34,7 @@ Stem_info::Stem_info(const Stem*s)
     idealy  = max(dir*s->top, dir*s->bot);
     miny = max(dir*s->minnote, dir*s-> maxnote);
     assert(miny <= idealy);
-    no_beams = s->flag;
+
 }
 
 /****************/
@@ -43,10 +43,6 @@ Offset
 Beam::center()const
 {
     assert(status >= POSTCALCED);
-    if (calc_children){		// URGGGG!!!
-	Beam*me_p = (Beam*)this;
-	me_p->do_post_processing();
-    }
 
     Real w=(paper()->note_width() + width().length())/2.0;
     return Offset(w, (left_pos + w* slope)*paper()->interline());
@@ -64,7 +60,7 @@ void
 Beam::add(Stem*s)
 {
     stems.bottom().add(s);
-    s->dependencies.push(this);
+    s->add_depedency(this);
     s->print_flag = false;
 }
 
@@ -177,7 +173,9 @@ Beam::set_grouping(Rhythmic_grouping def, Rhythmic_grouping cur)
 Spanner *
 Beam::do_break_at( PCol *, PCol *) const
 {
-    return new Beam(*this);
+    Beam *beam_p= new Beam(*this);
+    
+    return beam_p;
 }
 
 void

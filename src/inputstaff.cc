@@ -23,6 +23,7 @@ Input_staff::add(Array<Input_command*> &s)
 Input_staff::Input_staff(String s)
 {
     type= s;
+    defined_ch_c_l_ = 0;
 }
 
 void
@@ -48,7 +49,7 @@ Input_staff::parse(Score*score_l)
 	error("Unknown staff-type `" + type +"\'");
     
     p->score_l_ = score_l;
-    p->define_spot_str_ = define_spot_str_;
+    p->define_spot_str_ = "";	// todo
     
     for (iter_top(music_,i); i.ok(); i++) {
 	Voice_list vl = i->convert();
@@ -67,11 +68,12 @@ Input_staff::parse(Score*score_l)
 
 Input_staff::Input_staff(Input_staff const&s)
 {
+    
     for (iter_top(s.commands_,i); i.ok(); i++)
 	commands_.bottom().add(new Input_command(**i));
     for (iter_top(s.music_,i); i.ok(); i++)
 	add(i->clone());
-    define_spot_str_ = s.define_spot_str_;
+    defined_ch_c_l_ = s.defined_ch_c_l_;
     type = s.type;
 }
 
