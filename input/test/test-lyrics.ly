@@ -40,8 +40,8 @@ $quite_long_lyrics_staff = \type Lyrics = quite <
 	\$quite_long
 >
 
-melody = \melodic{
-	\octave c'; 
+melody = \melodic
+\transpose c'{
 	c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4
 	c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4  c4 e4 g4 e4
 }
