@@ -29,7 +29,22 @@ Beam_engraver::do_try_music (Music *m)
 {
   if (Beam_req * c = dynamic_cast<Beam_req*>(m))
     {
-      reqs_drul_[c->spantype_] = c;
+      Direction d =c->spantype_;
+
+      /*
+	Perhaps not print warnings ?
+       */
+      if (d == START && beam_p_)
+	{
+	  m->warning ("Already have a Beam");
+	  return false;
+	}
+      if (d == STOP && !beam_p_)
+	{
+	  m->warning ("No Beam to end");
+	  return false;
+	}
+      reqs_drul_[d ] = c;
       return true;
     }
   return false;
@@ -63,19 +78,15 @@ Beam_engraver::do_process_requests ()
       if (prop.isnum_b ()) 
 	beam_p_->quantisation_ = (Beam::Quantisation)(int)prop;
  
-      // silly try at interstaff beam
       // must set minVerticalAlign == maxVerticalAlign to get sane results
       // see input/test/beam-interstaff.ly
       prop = get_property ("minVerticalAlign", 0);
       if (prop.isnum_b ())
-	beam_p_->vertical_align_f_ = prop;
+	beam_p_->vertical_align_drul_[MIN] = prop;
 
       prop = get_property ("maxVerticalAlign", 0);
       if (prop.isnum_b ())
-	{
-	  beam_p_->vertical_align_f_ += (Real)prop;
-	  beam_p_->vertical_align_f_ /= (Real)2;
-	}
+	beam_p_->vertical_align_drul_[MAX] = prop;
 
       announce_element (Score_element_info (beam_p_, reqs_drul_[START]));
     }
@@ -115,9 +126,13 @@ void
 Beam_engraver::do_removal_processing ()
 {
   typeset_beam ();
-  finished_beam_p_ = beam_p_;
-  finished_grouping_p_ = grouping_p_;
-  typeset_beam ();
+  if (beam_p_)
+    {
+      warning ("Unfinished beam");
+      finished_beam_p_ = beam_p_;
+      finished_grouping_p_ = grouping_p_;
+      typeset_beam ();
+    }
 }
 
 void
