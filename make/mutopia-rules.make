@@ -20,14 +20,14 @@ $(outdir)/%.ly: %.abc
 	$(PYTHON) $(ABC2LY) --strict -o $@ $< 
 
 $(outdir)/%.dvi: $(outdir)/%.ly
-	$(PYTHON) $(LY2DVI) --output=$@ --dependencies $<  
+	$(PYTHON) $(LY2DVI) --output=$@ $<  
 
 # don't junk intermediate .dvi files.  They're easier to view than
 # .ps or .png
 .PRECIOUS: $(outdir)/%.dvi
 
 $(outdir)/%.dvi: %.ly
-	$(PYTHON) $(LY2DVI) --output=$@ --dependencies $< 
+	$(PYTHON) $(LY2DVI) --output=$@ $< 
 
 
 $(outdir)/%.pdf: $(outdir)/%.dvi
@@ -35,6 +35,6 @@ $(outdir)/%.pdf: $(outdir)/%.dvi
 	ps2pdf -sPAPERSIZE=$(DVIPS_PAPERSIZE) $@.pdfps $@
 
 $(outdir)-$(PAPERSIZE)/%.dvi: %.ly
-	$(PYTHON) $(LY2DVI) --output=$@ --dependencies --set=papersize=$(PAPERSIZE) $< 
+	$(PYTHON) $(LY2DVI) --output=$@ --set=papersize=$(PAPERSIZE) $< 
 
 

@@ -146,7 +146,7 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
     <c g e c>8 <c e g> <c e g>     <c e g> <c e g> <c e g> |
     <c e g> r r <c, c,>8 r r\fermata \clef treble
     }
-
+\book {
 \score {
 
     << \time 6/8
@@ -188,4 +188,5 @@ pianoLH = \notes \relative c'' \repeat volta 2 {
     \midi {
 	\tempo 4 = 70
 	}
+}
 }

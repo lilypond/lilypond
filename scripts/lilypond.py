@@ -105,8 +105,6 @@ copyright = ('Han-Wen Nienhuys <hanwen@cs.uu.nl',
 	     'Jan Nieuwenhuizen <janneke@gnu.org')
 
 option_definitions = [
-	('', 'd', 'dependencies',
-	 _ ("write Makefile dependencies for every input file")),
 	('', 'h', 'help', _ ("print this help")),
 	('', '', 'debug', _ ("print even more output")),
 	(_ ("FILE"), 'f', 'find-pfa', _ ("find pfa fonts used in FILE")),
@@ -180,7 +178,6 @@ output_name = ''
 # Output formats that lilypond should create
 targets = ['DVI', 'LATEX', 'MIDI', 'TEX', 'PDF', 'PS']
 
-track_dependencies_p = 0
 dependency_files = []
 
 #what a name.
@@ -227,10 +224,6 @@ def run_lilypond (files, dep_prefix):
 		opts = opts + ' -f pdftex'		
 	if safe_mode_p:
 		opts = opts + ' --safe-mode'
-	if track_dependencies_p:
-		opts = opts + " --dependencies"
-		if dep_prefix:
-			opts = opts + ' --dep-prefix=%s' % dep_prefix
 
 	fs = string.join (map (escape_shell, files))
 
@@ -677,8 +670,6 @@ for opt in options:
 	elif o == '--set' or o == '-S':
 		ss = string.split (a, '=')
 		set_setting (extra_init, ss[0], ss[1])
-	elif o == '--dependencies' or o == '-d':
-		track_dependencies_p = 1
 	elif o == '--verbose' or o == '-V':
 		verbose_p = 1
 	elif o == '--version' or o == '-v':
@@ -771,7 +762,7 @@ if 1:
 		dep_prefix = 0
 
 	reldir = os.path.dirname (output_name)
-	if outdir != '.' and (track_dependencies_p or targets):
+	if outdir != '.' and targets:
 		ly.mkdir_p (outdir, 0777)
 
 	tmpdir = ly.setup_temp ()
@@ -879,15 +870,6 @@ if 1:
 		ly.make_ps_images (outbase + '.ps' ,
 				   resolution = preview_resolution
 				   )
-
-	# add DEP to targets?
-	if track_dependencies_p:
-		depfile = os.path.join (outdir, outbase + '.dep')
-		generate_dependency_file (depfile, depfile)
-		if os.path.isfile (depfile):
-			ly.progress (_ ("dependencies output to `%s'...") %
-				     depfile)
-			ly.progress ('\n')
 
 	if pseudo_filter_p:
 		main_target = 0
