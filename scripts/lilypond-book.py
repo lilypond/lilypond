@@ -28,7 +28,6 @@ import __main__
 import glob
 import stat
 import string
-import stat
 ################################################################
 # Users of python modules should include this snippet
 # and customize variables below.
