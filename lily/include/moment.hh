@@ -60,6 +60,7 @@ DECLARE_UNSMOB(Moment,moment);
 int compare (Moment const&,Moment const&);
 INSTANTIATE_COMPARE (Moment const&, Moment::compare);
 
+Moment robust_scm2moment (SCM, Moment);
 
 #ifdef STREAM_SUPPORT
 std::ostream & operator << (std::ostream &, Moment const &);

@@ -124,6 +124,7 @@ Slur_score_parameters::fill (Grob *me)
   edge_slope_exponent_
     = get_detail (details, ly_symbol2scm ("edge-slope-exponent"));
 }
+
 Real
 broken_trend_y (Slur_score_state const &state, Direction hdir)
 {
