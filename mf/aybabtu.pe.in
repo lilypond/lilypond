@@ -54,19 +54,7 @@ MergeFonts("feta-braces-g.scale.pfa");
 MergeFonts("feta-braces-h.scale.pfa");
 MergeFonts("feta-braces-i.scale.pfa");
 
-
-
-SetFontNames("aybabtu", "aybabtu", "aybabtu", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
-
-MergeFonts("feta-braces-a.pfa");
-MergeFonts("feta-braces-b.pfa");
-MergeFonts("feta-braces-c.pfa");
-MergeFonts("feta-braces-d.pfa");
-MergeFonts("feta-braces-e.pfa");
-MergeFonts("feta-braces-f.pfa");
-MergeFonts("feta-braces-g.pfa");
-MergeFonts("feta-braces-h.pfa");
-MergeFonts("feta-braces-i.pfa");
+SetFontNames("aybabtu-Regular", "aybabtu", "aybabtu Regular", "Regular", "GNU GPL", "@TOPLEVEL_VERSION@");
 
 i = 0;
 while (i < CharCnt())
@@ -91,6 +79,8 @@ endloop
 LoadTableFromFile("LILF", "aybabtu.subfonts")
 LoadTableFromFile("LILC", "aybabtu.otf-table")
 LoadTableFromFile("LILY", "aybabtu.otf-gtable")
+
+MergeFonts ("feta-alphabet20.pfa");
 
 Generate("aybabtu.otf");
 Generate("aybabtu.cff");
