@@ -18,10 +18,12 @@ SHELL = /bin/bash
 build: build-stamp
 build-stamp:
 	dh_testdir
+
 	./configure --disable-checking --disable-debugging \
 		--enable-printing --prefix=/usr --enable-optimise \
 		--enable-shared
 	$(MAKE) all
+
 	touch build-stamp
 
 clean:
@@ -29,6 +31,12 @@ clean:
 	dh_testroot
 	rm -f build-stamp
 	-$(MAKE) distclean
+	-$(MAKE) local-distclean
+
+	# Remove the following line once the *.make files are fixed
+	rm -f bin/*.pyc
+	rm -f debian/preinst
+
 	dh_clean
 
 # Build architecture-independent files here.
@@ -38,23 +46,29 @@ binary-indep: build
 binary-arch: build
 	dh_testdir
 	dh_testroot
-	dh_installdirs usr/lib/texmf/doc usr/lib/emacs/site-lisp
+	dh_clean -k
+
+	dh_installdirs usr/lib/texmf/doc \
+		usr/lib/emacs/site-lisp \
+		usr/doc/$(package)/examples
 	ln -fs ../../../doc/lilypond debian/tmp/usr/lib/texmf/doc/lilypond
 	$(MAKE) prefix=`pwd`/debian/tmp/usr install
 	cp -av mudela-mode.el debian/tmp/usr/lib/emacs/site-lisp
-	dh_installdocs ANNOUNCE ANNOUNCE-0.1 README NEWS ONEWS DEDICATION \
+	dh_installdocs ANNOUNCEMENT ANNOUNCE-0.1 README.txt NEWS ONEWS DEDICATION \
 		BUGS TODO \
-		Documentation/*.{doc,xpm} Documentation/out/*.txt
-#		Documentation/*.doc Documentation/out/*.{txt,gif}
-	dh_installexamples input/{*.ly,TODO}
-	cp -aPv `find mutopia \( -name '*.ly' -o -name '*.tex' -o -name 'TODO' \)` \
+		Documentation/pictures/*.xpm \
+		Documentation/out/*.txt \
+		Documentation/tex/*.doc \
+		Documentation/tex/*.bib
+#	dh_installexamples input
+	cp -aP `find input mutopia \( -name '*.ly' -o -name '*.tex' -o -name 'TODO' \)` \
 		debian/tmp/usr/doc/lilypond/examples
 #	dh_installmenu
 #	dh_installcron
 #	dh_installmanpages
 #	dh_undocumented
 	dh_installchangelogs
-	dh_strip
+#	dh_strip
 	dh_compress
 	dh_fixperms
 	dh_suidregister
@@ -62,7 +76,6 @@ binary-arch: build
 	dh_shlibdeps
 	dh_gencontrol
 #	dh_makeshlibs
-	dh_du
 	dh_md5sums
 	dh_builddeb
 
