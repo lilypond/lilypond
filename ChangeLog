@@ -1,3 +1,20 @@
+2003-05-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/key-performer.cc (create_audio_elements): always use major
+	key
+
+	* Documentation/user/internals.itely: updates
+
+	* input/regression/beam-break.ly: new file.
+
+	* lily/beam.cc (brew_molecule): handle broken beams (i.e. print
+	beams if starting or terminating stems have 'beaming set.)
+
+	* lily/beam-engraver.cc (process_music): add forbidBeamBreak
+	property.
+
+	* lily/parser.yy (verbose_command_req): add comment about scales.
+
 2003-05-25  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: adjust regexps in bracket-matching.

@@ -36,14 +36,13 @@ Short Introduction to LaTeX} provides a introction to using La@TeX{}.
 
 
 @menu
-* Integrating Texinfo and music::
-* Integrating La@TeX{} and music::
-* Integrating HTML and music::
-* Music fragment options::
-* Invoking lilypond-book::
+* Integrating Texinfo and music::  
+* Integrating La@TeX{} and music::  
+* Integrating HTML and music::  
+* Music fragment options::      
+* Invoking lilypond-book::      
 @end menu
 
-TODO: explain how to use lilypond fonts in text.
 
 
 @cindex texinfo

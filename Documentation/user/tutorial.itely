@@ -21,8 +21,9 @@
 * A lead sheet::                
 * Listening to output::         
 * More movements ::             Joining separate pieces of music
+* Single staff polyphony  ::    
+* Piano music::                 
 * Organising larger pieces::    
-* A piano excerpt::             Piano music
 * Fine tuning a piece::         
 * An orchestral score::         Conductor's score and individual parts
 * Integrating text and music::  Integrating text and music
@@ -908,18 +909,28 @@ before the chords thus entered:
 A complete list of modifiers, and other options for layout are in the
 reference manual section @ref{Chords}.
 
- 
-TODO: template example with chord names, lyrics and staff.
+@cindex lead sheet 
+When put together,  chord names, lyrics and a melody form
+a lead sheet, for example:
+@lilypond[singleline,verbatim]
+\score  {
+  < 
+   \context ChordNames \chords { r8 c2:sus4 f } 
+   \addlyrics
+    \notes \relative c' {
+     \partial 8
+     c8
+     \times 2/3 { f g g } \times 2/3 { g4-( a2-) } }
+   \context Lyrics  \lyrics { I want to break free __ }
+  >
+ \paper{ }
+}
+@end lilypond
 
 
 @node Listening to output
 @section Listening to output
- 
-@example 
 
-        \midi  @{ \tempo 4=72@}
- 
-@end example 
 MIDI (Musical Instrument Digital Interface) is a standard for
 connecting and recording digital instruments.  A MIDI file is like a
 tape recording of a MIDI instrument. The @code{\midi} block makes the
@@ -928,12 +939,18 @@ It is great for checking the music: octaves that are off, or
 accidentals that were mistyped, stand out very much when listening to
 the musical transcription.
 
-@code{\midi} is similar to @code{\paper @{ @}}, since it also
-specifies an output method.  You can specify the tempo using the
-@code{\tempo} command, in this case the tempo of quarter notes is set
-to 72 beats per minute.
+@code{\midi} can be used in similarly to @code{\paper @{ @}}, for
+example
+@example 
+\score @{
+    @var{..music..}
+    \midi  @{ \tempo 4=72@}
+    \paper  @{ @}
+@}
+@end example 
 
-
+Here, the tempo is specified using the @code{\tempo} command.  In this
+case the tempo of quarter notes is set to 72 beats per minute.
 
 
 @node More movements 
@@ -1046,6 +1063,35 @@ For example, the Opus number is put at the right, and the "piece" string
 will be at the left.
 
 
+@node Single staff polyphony  
+@section Single staff polyphony
+
+When different melodic lines are combined on a single staff, these are
+printed as polyphonic voices: each voice has its own stems, slurs
+and beams, and the top voice has the stems up, while the bottom voice
+has stems down.
+
+Entering such parts is done by entering each voice as a sequence (with
+@code{@{ .. @}}), and combing those simultaneously, separating the
+voices with @code{\\}:
+
+@lilypond[verbatim,relative]
+  < { a4 g2 f4-~ f4 } \\
+    { r4 g4 f2 f4 } >
+@end lilypond
+ 
+More features of polyphonic typesetting are in the notation manual,
+@ref{Polyphony}.
+
+@node Piano staffs
+@section Piano staffs
+
+@cindex staff switch, manual
+@cindex cross staff voice, manual
+@cindex @code{\translator}
+
+
+
 
 @node Organising larger pieces
 @section Organising larger pieces
@@ -1059,56 +1105,12 @@ TODO: discuss identifiers, p&c, .
 Lilypond and its language are still under development, and
 occasionally details of the syntax are changed.  The @code{version}
 fragment indicates which LilyPond version the input file was written
-for.  When you compile this file, the version number will be checked
-and you will get a warning when the file is too old.  This version
+for.  When you compile this file, the version number will be
+checked. When the file is too old, a warning is issued.  The version
 number is also used by the @code{convert-ly} program (See
-@ref{Invoking convert-ly}), which can used to update the file to the
-latest lily version.
+@ref{Invoking convert-ly}), which updates the file to the latest
+version automatically.
 
-
-@node A piano excerpt
-@section A piano excerpt
-
-Our eighth subject is a piece of piano music.  The fragment in the
-input file is a piano reduction of the G major Sinfonia by Giovanni
-Battista Sammartini, composed around 1740.  It's in the source
-package under the name @inputfileref{input/tutorial,sammartini.ly}.
-
-@lilypondfile[smallverbatim]{sammartini.ly}
-
-As you can see, this example features multiple voices on one staff.  To
-make room for those voices, their notes should be stemmed in opposite
-directions.
-
-
-
-@separate
-@example 
-viola = \notes \relative c'  \context Voice = viola @{ 
-@end example 
-In this example you see multiple parts on a staff.  Each part is
-associated with one notation context.  This notation context handles
-stems and dynamics (among other things).  The type name of this
-context is @code{Voice}.  For each part we have to make sure that
-there is precisely one @code{Voice} context, so we give it a unique
-name (`@code{viola}').
-
-@separate
-
-@cindex arpeggio
-
-
-
-
-
-@separate
-@example 
-        g'8. b,16 
-@end example 
-Relative octaves work a little differently with chords.  The starting
-point for the note following a chord is the first note of the chord.  So
-the @code{g} gets an octave up quote: it is a fifth above the starting
-note of the previous chord (the central C).
 
 @separate
 @example 
@@ -1117,23 +1119,7 @@ s1 s2. r4
 @code{s} is a spacer rest.  It does not print anything, but it does have
 the duration of a rest. It is useful for filling up voices that
 temporarily do not play. In this case, the viola does not come until one
-and a half measure later.
-
-@separate
-@example 
-oboes = \notes \relative c'' \context Voice = oboe @{ 
-@end example 
-Now comes a part for two oboes.  They play homophonically, so we
-print the notes as one voice that makes chords. Again, we insure that
-these notes are indeed processed by precisely one context with
-@code{\context}.
-@separate
-@example 
-  s4  g8. b,16 c8 r <<e' g>>8. <<f a>>16
-@end example
-
-The oboes should have stems up to keep them from interfering with
-the staff-jumping bass figure.  To do that, we use @code{\voiceOne}.
+and a half measure later. 
 
 @separate
 @example 
@@ -1160,44 +1146,6 @@ ending on the following chord.
 The piece of music to be `tripletted' is sequential music containing
 three chords.
 
-@separate
-@example 
-< 
-@end example 
-At this point, the homophonic music splits into two rhythmically
-different parts.  We cannot use a sequence of chords to enter this, so
-we make a "chord of sequences" to do it.  We start with the upper
-voice, which continues with upward stems:
-@separate
-@example 
- @{ \times 2/3 @{ a8 g c @} c2 @} 
-@end example
-
-@separate
-@example
-\\
-@end example
-Entering multiple voices is demonstrated here. Separate the
-components of the voice (single notes or entire sequences) with
-@code{\\} in a simultaneous music expression. The @code{\\} separators
-split first voice, second voice, third voice, and so on.
-
-As far as relative mode is concerned, the previous note is the
-@code{c'''2} of the upper voice, so we have to go an octave down for
-the @code{f}.
-@separate
-@example 
-
-  f,8 e e2
-@} > 
-@end example 
-This ends the two-part section.
-@separate
-@example 
-\grace <<c, e>>8-( <<b d>>8.-\trill <<c e>>16 |  
-@end example
-@cindex trill
-@cindex stemBoth
 
 The bass has a little hoom-pah melody to demonstrate parts switching
 between staves.  Since it is repetitive, we use repeats:
@@ -1209,72 +1157,6 @@ hoomPah  =  \repeat unfold 8
 The unfolded repeat prints the notes in its argument as if they were
 written out in full eight times.
 @separate
-
-@cindex staff switch, manual
-@cindex cross staff voice, manual
-@cindex @code{\translator}
-
-@example
-\translator Staff = down
-\stemUp
-c8
-\translator Staff = up
-\stemDown
-c'8 @}
-@end example
-Voices can switch between staves.  Here you see two staff switching
-commands.  The first one moves to the lower staff, the second one to
-the lower one.  If you set the stem directions explicitly
-(using the identifiers @code{\stemUp} and @code{\stemDown}, the notes
-can be beamed together (despite jumping between staffs).
-
-@separate
-@example 
-bassvoices = \notes \relative c' @{
-c4 g8. b,16
-\autochange Staff \hoomPah \context Voice
-@end example
-
-@separate
-@example
-        \translator Staff = down
-@end example
-@cindex staff switch
-@cindex cross staff voice
-We want the remaining part of this melody on the lower staff, so we do a
-manual staff switch here.
-
-
-
-
-@separate
-@example 
-\context PianoStaff 
-@end example 
- A special context is needed to get cross staff beaming right.  This
-context is called @code{PianoStaff}.
-@separate
-@example 
-\context Staff = bottom < \time 2/2 \clef bass 
-@end example 
-The bottom staff must have a different clef.
-@separate
-@example 
-indent = 0.0 
-@end example 
-To make some more room on the line, the first (in this case the only)
-line is not indented.  The line still looks very cramped, but that is due
-to the page layout of this document.
-
-
-@ignore
-[TODO:
-
-* font-size
-
-* Simple part combining in a Hymn
-@end ignore
-
 
 @node Fine tuning a piece
 @section  Fine tuning a piece
@@ -2157,4 +2039,3 @@ to put the example in a separate file:
 
 The @code{printfilename} option adds the file name to the output.
 
-[TODO: include excercises? ]

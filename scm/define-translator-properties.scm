@@ -251,6 +251,9 @@ another non-natural.
 				 "Used to set the relative size of all grobs
 in a context. This is done using the @code{Font_size_engraver}.")
 
+(translator-property-description 'forbidBeamBreak boolean?
+				 "If false, allow line breaks during beams.")
+
 (translator-property-description 'forceClef boolean? "Show clef symbol, even if it hasn't changed. Only active for the first clef after the property is set, not for the full staff.")
 (translator-property-description 'graceAccidentalSpace number? "amount space to alot for an accidental")
 (translator-property-description 'graceAlignPosition ly:dir? "put the grace note before or after the main note?")

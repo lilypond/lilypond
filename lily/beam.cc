@@ -340,116 +340,120 @@ Beam::brew_molecule (SCM grob)
   Molecule the_beam;
   Real lt = me->get_paper ()->get_var ("linethickness");
   
-  for (int i = 0; i< stems.size(); i++)
+  for (int i = 0; i<= stems.size(); i++)
     {
-      Grob * st =stems[i];
+      Grob * st = (i < stems.size()) ? stems[i] : 0;
       
-      SCM this_beaming = st->get_grob_property ("beaming");
-      Real xposn = st->relative_coordinate (xcommon, X_AXIS);
-      Real stem_width = gh_scm2double (st->get_grob_property ("thickness")) *lt;
+      SCM this_beaming = st ? st->get_grob_property ("beaming") : SCM_EOL;
+      Real xposn = st ? st->relative_coordinate (xcommon, X_AXIS) : 0.0;
+      Real stem_width = st ? gh_scm2double (st->get_grob_property ("thickness")) *lt : 0 ;
 
       /*
 	We do the space left of ST, with lfliebertjes pointing to the
 	right from the left stem, and rfliebertjes pointing left from
 	right stem.
        */
-      if (i > 0)
+      SCM left = (i>0) ? gh_cdr (last_beaming) : SCM_EOL;
+      SCM right = st ? gh_car (this_beaming) : SCM_EOL;
+
+      Array<int> fullbeams;
+      Array<int> lfliebertjes;
+      Array<int> rfliebertjes;	  
+
+      for (SCM s = left;
+	   gh_pair_p (s); s =gh_cdr (s))
 	{
-	  SCM left = gh_cdr (last_beaming);
-	  SCM right = gh_car (this_beaming);
-
-	  Array<int> fullbeams;
-	  Array<int> lfliebertjes;
-	  Array<int> rfliebertjes;	  
-
-	  for (SCM s = left;
-	       gh_pair_p (s); s =gh_cdr (s))
+	  int b = gh_scm2int (gh_car (s));
+	  if (scm_memq (gh_car(s), right) != SCM_BOOL_F)
 	    {
-	      int b = gh_scm2int (gh_car (s));
-	      if (scm_memq (gh_car(s), right) != SCM_BOOL_F)
-		{
-		  fullbeams.push (b);
-		}
-	      else
-		{
-		  lfliebertjes.push (b); 
-		}
+	      fullbeams.push (b);
 	    }
-	  for (SCM s = right;
-	       gh_pair_p (s); s =gh_cdr (s))
+	  else
 	    {
-	      int b = gh_scm2int (gh_car (s));
-	      if (scm_memq (gh_car(s), left) == SCM_BOOL_F)
-		{
-		  rfliebertjes.push (b);
-		}
+	      lfliebertjes.push (b); 
 	    }
+	}
+      for (SCM s = right;
+	   gh_pair_p (s); s =gh_cdr (s))
+	{
+	  int b = gh_scm2int (gh_car (s));
+	  if (scm_memq (gh_car(s), left) == SCM_BOOL_F)
+	    {
+	      rfliebertjes.push (b);
+	    }
+	}
 
+      /*
+	how much to stick out for beams across linebreaks
+       */
+      Real break_overshoot = 3.0;
+      Real w = (i>0 && st)? xposn - last_xposn : break_overshoot;
+      Real stem_offset = 0.0;
+      Real width_corr = 0.0;
+      if (i == 1)
+	{
+	  stem_offset -= last_width/2;
+	  width_corr += last_width/2;
+	}
 	  
-	  Real w = xposn - last_xposn;
-	  Real stem_offset = 0.0;
-	  Real width_corr = 0.0;
-	  if (i == 1)
-	    {
-	      stem_offset -= last_width/2;
-	      width_corr += last_width/2;
-	    }
+      if (i == stems.size() -1)
+	{
+	  width_corr += stem_width/2;
+	}
+
+      if (gh_number_p (gap))
+	{
+	  Real g = gh_scm2double (gap);
+	  stem_offset += g;
+	  width_corr -= 2*g; 
+	}
 	  
-	  if (i == stems.size() -1)
-	    {
-	      width_corr += stem_width/2;
-	    }
+      Molecule whole = Lookup::beam (dydx, w + width_corr, thick);
+      for (int j = fullbeams.size(); j--;)
+	{
+	  Molecule b (whole);
+	  b.translate_axis (last_xposn -  x0 + stem_offset, X_AXIS);
+	  b.translate_axis (dydx * (last_xposn - x0) + bdy * fullbeams[j], Y_AXIS);
+	  the_beam.add_molecule (b);	      
+	}
 
-	  if (gh_number_p (gap))
-	    {
-	      Real g = gh_scm2double (gap);
-	      stem_offset += g;
-	      width_corr -= 2*g; 
-	    }
-	  
-	  Molecule whole = Lookup::beam (dydx, w + width_corr, thick);
-	  for (int j = fullbeams.size(); j--;)
-	    {
-	      Molecule b (whole);
-	      b.translate_axis (last_xposn -  x0 + stem_offset, X_AXIS);
-	      b.translate_axis (dydx * (last_xposn - x0) + bdy * fullbeams[j], Y_AXIS);
-	      the_beam.add_molecule (b);	      
-	    }
+      if (lfliebertjes.size() || rfliebertjes.size())
+	{
+	  Real nw_f;
 
-	  if (lfliebertjes.size() || rfliebertjes.size())
+	  if (st)
 	    {
-	      Real nw_f;
-
 	      int t = Stem::duration_log (st); 
 
 	      SCM proc = me->get_grob_property ("flag-width-function");
 	      SCM result = gh_call1 (proc, scm_int2num (t));
 	      nw_f = gh_scm2double (result);
-		
-	      
-	      /* Half beam should be one note-width,
-		 but let's make sure two half-beams never touch */
-	      
-	      Real w = xposn - last_xposn;
-	      w = w/2 <? nw_f;
-
-	      Molecule half = Lookup::beam (dydx, w, thick);
-	      for (int j = lfliebertjes.size(); j--;)
-		{
-		  Molecule b (half);
-		  b.translate_axis (last_xposn -  x0, X_AXIS);
-		  b.translate_axis (dydx * (last_xposn-x0) + bdy * lfliebertjes[j], Y_AXIS);
-		  the_beam.add_molecule (b);	      
-		}
-	      for (int j = rfliebertjes.size(); j--;)
-		{
-		  Molecule b (half);
-		  b.translate_axis (xposn -  x0 - w , X_AXIS);
-		  b.translate_axis (dydx * (xposn-x0 -w) + bdy * rfliebertjes[j], Y_AXIS);
-		  the_beam.add_molecule (b);	      
-		}
 	    }
-      	}
+	  else
+	    nw_f = break_overshoot;
+	      
+	  /* Half beam should be one note-width,
+	     but let's make sure two half-beams never touch */
+	  Real w = (i>0 && st) ? (xposn - last_xposn) : break_overshoot;
+	  w = w/2 <? nw_f;
+
+	  Molecule half = Lookup::beam (dydx, w, thick);
+	  for (int j = lfliebertjes.size(); j--;)
+	    {
+	      Molecule b (half);
+	      b.translate_axis (last_xposn -  x0, X_AXIS);
+	      b.translate_axis (dydx * (last_xposn-x0) + bdy * lfliebertjes[j], Y_AXIS);
+	      the_beam.add_molecule (b);	      
+	    }
+	  for (int j = rfliebertjes.size(); j--;)
+	    {
+	      Molecule b (half);
+	      b.translate_axis (xposn -  x0 - w , X_AXIS);
+	      b.translate_axis (dydx * (xposn-x0 -w) + bdy * rfliebertjes[j], Y_AXIS);
+	      the_beam.add_molecule (b);	      
+	    }
+	}
+
 
       last_xposn = xposn;
       last_width = stem_width;
