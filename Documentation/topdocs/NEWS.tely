@@ -9,6 +9,26 @@
 @itemize @bullet
 
 @item
+With the new @code{tieWaitForNote} property, arpeggios may be written
+out using ties, for example,
+
+@lilypond[fragment,verbatim,relative=1,raggedright]
+\set tieWaitForNote = ##t
+\grace { c16[~ e~ g]~ } <c, e g>4   
+@end lilypond
+
+Thanks to Steve Doonan for funding development of this feature.
+
+@item
+Individual objects may be assigned colors, for example,
+
+@lilypond[fragment,relative=1,verbatim,raggedright] 
+	\override Beam #'color = #cyan
+	\override NoteHead #'color = #darkyellow
+	c4
+@end lilypond 
+
+@item
 The PostScript backend is now used by default. This backend requires
 less machinery to run, and gives more consistent results.
 
@@ -16,8 +36,11 @@ Due bugs in GhostScript's PDF handling, it is recommended to upgrade
 to GhostScript 8.x.
 
 @item
-Separator slashes may be inserted between systems in a score. See
-@file{input/regression/system-separator.ly} for an example. 
+Separator slashes may be inserted between systems in a score. For an
+example,   see
+@file{input/regression/system-separator.ly}:
+
+@lilypondfile{system-separator.ly}
 
 @item
 Locations of errors in the input are now calculated more precisely.
@@ -39,6 +62,9 @@ or using the classic font selection mechanism
 \override TextScript #'font-family = #'roman
 \override TextScript #'font-series = #'bold
 @end example
+
+Any Type1 and TrueType font recognized by FontConfig is available in
+LilyPond as well.
 
 @noindent
 Input strings encoded in UTF-8 are then rendered through Pango.
