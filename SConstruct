@@ -3,6 +3,9 @@
 '''
 Experimental scons (www.scons.org) building:
 
+scons TARGET builds from source directory ./TARGET (not recursive)
+
+
 Usage:
     scons
     scons lily            # build lily
@@ -10,7 +13,7 @@ Usage:
     LILYPONDPREFIX=out-scons/usr/share/lilypond lily/out-scons/lilypond-bin
     scons doc             # build web doc
 
-    scons fonts           # build all font stuff (split this? )
+?    scons fonts           # build all font stuff (split this? )
 
     scons config          # reconfigure
 
@@ -56,8 +59,13 @@ import os
 import sys
 import string
 
+# SConscripts are only needed in directories where something needs
+# to be done, building or installing
+# TODO: Documentation/*, input/*/*, vim, po
+# rename Documentation/* to ./doc?
 subdirs = ['flower', 'lily', 'mf', 'scm', 'ly', 'Documentation',
-	   'Documentation/user', 'input']
+	   'Documentation/user', 'input', 'scripts', 'elisp',
+	   'buildscripts', 'cygwin', 'debian']
 
 usage = r'''Usage:
 scons [KEY=VALUE].. [TARGET]..
@@ -131,7 +139,6 @@ env['sharedir_package_version'] = os.path.join (env['sharedir_package'],
 						 env['version'])
 env['lilypondprefix'] = os.path.join (env['sharedir_package_version'])
 
-
 if env['debugging']:
 	env.Append (CFLAGS = '-g')
 	env.Append (CXXFLAGS = '-g')
@@ -146,21 +153,18 @@ if env['warnings']:
 	env.Append (CXXFLAGS = '-W')
 	env.Append (CXXFLAGS = '-Wall')
 	env.Append (CXXFLAGS = '-Wconversion')
+if env['verbose']:
+	env['__verbose'] = '--verbose'
 
-
-
-##Import ('env')
-here = os.getcwd ()
-reldir = str (Dir ('.').srcnode ())
-os.chdir (reldir)
-srcdir = os.getcwd ()
-os.chdir (here)
-##outdir = os.path.join (env['build'], reldir, env['out'])
-outdir = os.path.join (env['build'], env['out'])
-
-env['srcdir'] = srcdir
 build = env['build']
 out = env['out']
+
+outdir = Dir ('.').path
+abs_srcdir = Dir ('.').srcnode ().abspath
+srcdir = abs_srcdir
+abs_outdir = Dir ('.').abspath
+
+env['srcdir'] = srcdir
 
 
 def list_sort (lst):
@@ -341,9 +345,6 @@ def configure (env):
 if 1 or not os.path.exists (config_h) or 'config' in COMMAND_LINE_TARGETS:
 	env = configure (env)
 
-env.Append (LIBPATH = ['#/flower/' + out,], CPPPATH = [outdir, '#',])
-
-Export ('env')
 
 #ugr
 if build == '.':
@@ -352,11 +353,15 @@ else:
 	absbuild = build
 env['absbuild'] = absbuild
 
-# duh
+env.Append (LIBPATH = [os.path.join (absbuild, 'flower', out),],
+	    CPPPATH = [outdir, '#',])
+
+Export ('env')
+
 env['MAKEINFO'] = 'LANG= makeinfo'
 env['PYTHON'] = 'python'
 env['LILYPOND_BIN'] = os.path.join (absbuild, 'lily', out, 'lilypond-bin')
-env['LILYPONDPREFIX'] =	os.path.join (outdir, 'usr/share/lilypond')
+env['LILYPONDPREFIX'] =	os.path.join (absbuild, out, 'usr/share/lilypond')
 env['LILYPOND_BOOK'] = srcdir + '/scripts/lilypond-book.py'
 env['ABC2LY_PY'] = srcdir + '/scripts/abc2ly.py'
 env['MF_TO_TABLE_PY'] = srcdir + '/buildscripts/mf-to-table.py'
@@ -381,13 +386,13 @@ env['TEXINFO_PAPERSIZE_OPTION'] = '-t @afourpaper'
 SConscript ('buildscripts/builder.py')
 
 for d in subdirs:
-	b = os.path.join (build, d, out)
-	# Support clean sourcetree build (--srcdir build)
-	# and ./out build.
-	if (build and build != '.') \
-	   or (out and out != '.'):
-		env.BuildDir (b, d, duplicate=0)
-	SConscript (os.path.join (b, 'SConscript'))
+	if os.path.exists (os.path.join (d, 'SConscript')):
+		b = os.path.join (build, d, out)
+		# Support clean sourcetree build (--srcdir build)
+		# and ./out build.
+		if (build and build != '.') or (out and out != '.'):
+			env.BuildDir (b, d, duplicate=0)
+       		SConscript (os.path.join (b, 'SConscript'))
 
 # as a builder?
 def symlink_tree (prefix):

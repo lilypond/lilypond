@@ -2,18 +2,13 @@
 
 import glob
 import os
-import re
 import string
 
 Import ('env')
 
-def verbose_opt (env, opt):
-	if env['verbose']:
-		return opt
-	return ''
-
+# junkme
 srcdir = env['srcdir']
-build = env['build']
+
 def join_path (path, infix=os.pathsep, prefix = ''):
 	def dir (x):
 		if x and x[0] == '#':
@@ -21,25 +16,14 @@ def join_path (path, infix=os.pathsep, prefix = ''):
 		return x
 	return string.join (map (lambda x: prefix + dir (x), path), infix)
 
-verbose = verbose_opt (env, ' --verbose')
-MAKEINFO_INCLUDES = join_path (env['MAKEINFO_PATH'], '', ' -I')
-MAKEINFO = env['MAKEINFO']
-a = ('%(MAKEINFO)s%(verbose)s %(MAKEINFO_INCLUDES)s'\
-     ' --no-split --no-headers --output=$TARGET $SOURCE') % vars ()
+env['MAKEINFO_INCLUDES'] = join_path (env['MAKEINFO_PATH'], '', ' -I')
+a = '$MAKEINFO $__verbose $MAKEINFO_INCLUDES --no-split --no-headers \
+--output=$TARGET $SOURCE'
 texi2txt = Builder (action = a, suffix = '.txt', src_suffix = '.texi')
 env.Append (BUILDERS = {'Texi2txt': texi2txt})
 
-
-PYTHON = env['PYTHON']
-ABC2LY_PY = env['ABC2LY_PY']
-LILYPOND_PY = env['LILYPOND_PY']
-LILYPOND_BIN = env['LILYPOND_BIN']
-LILYPOND_BOOK = env['LILYPOND_BOOK']
-LILYPOND_BOOK_FLAGS = env['LILYPOND_BOOK_FLAGS']
-LILYPOND_BOOK_FORMAT = env['LILYPOND_BOOK_FORMAT']
-LILYPOND_BOOK_INCLUDES = join_path (env['LILYPOND_BOOK_PATH'], '',
-				    ' --include=')
-LILYPONDPREFIX = env['LILYPONDPREFIX']
+env['LILYPOND_BOOK_INCLUDES'] = join_path (env['LILYPOND_BOOK_PATH'], '',
+					   ' --include=')
 
 # UGHR, lilypond.py uses lilypond-bin from PATH
 #env.Append (ENV = {'PATH' : os.environ['PATH']})
@@ -48,7 +32,7 @@ env.PrependENVPath ('PATH',
 
 if os.environ.has_key ('TEXMF'):
 	env.Append (ENV = {'TEXMF' : os.environ['TEXMF']})
-env.Append (ENV = {'TEXMF' : '{' + LILYPONDPREFIX + ',' \
+env.Append (ENV = {'TEXMF' : '{' + env['LILYPONDPREFIX'] + ',' \
 		   + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}' })
 
 if os.environ.has_key ('LD_LIBRARY_PATH'):
@@ -63,33 +47,27 @@ env.Append (PYTHONPATH = [os.path.join (env['absbuild'], env['out'],
 env.Append (ENV = { 'PYTHONPATH' : string.join (env['PYTHONPATH'],
 						os.pathsep) } )
 
-verbose = verbose_opt (env, ' --verbose')
-a = (r'''rm -f $$(grep -LF '\lilypondend' ${TARGET.dir}/lily-*.tex 2>/dev/null); ''' \
-     + 'LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
-     + '%(PYTHON)s %(LILYPOND_BOOK)s%(verbose)s'\
-     + ' --include=${TARGET.dir} %(LILYPOND_BOOK_INCLUDES)s'\
-     + r""" --process='%(LILYPOND_BIN)s %(LILYPOND_BOOK_INCLUDES)s'"""\
-     + ' --output=${TARGET.dir} --format=%(LILYPOND_BOOK_FORMAT)s\
-     %(LILYPOND_BOOK_FLAGS)s\
-     $SOURCE') % vars ()
+a = ['rm -f $$(grep -LF "\lilypondend" ${TARGET.dir}/lily-*.tex 2>/dev/null);',
+     'LILYPONDPREFIX=$LILYPONDPREFIX \
+     $PYTHON $LILYPOND_BOOK $__verbose \
+     --include=${TARGET.dir} $LILYPOND_BOOK_INCLUDES \
+     --process="$LILYPOND_BIN $LILYPOND_BOOK_INCLUDES" \
+     --output=${TARGET.dir} --format=$LILYPOND_BOOK_FORMAT \
+     $LILYPOND_BOOK_FLAGS \
+     $SOURCE']
 tely2texi = Builder (action = a, suffix = '.texi', src_suffix = '.tely')
 env.Append (BUILDERS = {'Tely2texi': tely2texi})
 
-TEXINFO_PAPERSIZE_OPTION = env['TEXINFO_PAPERSIZE_OPTION']
-a = '(cd ${TARGET.dir} &&\
- texi2dvi --batch %(TEXINFO_PAPERSIZE_OPTION)s ${SOURCE.file})' % vars ()
+a = 'cd ${TARGET.dir} \
+&& texi2dvi --batch $TEXINFO_PAPERSIZE_OPTION ${SOURCE.file}'
 texi2dvi = Builder (action = a, suffix = '.dvi', src_suffix = '.texi')
 env.Append (BUILDERS = {'Texi2dvi': texi2dvi})
 
 env.Append (DVIPSFLAGS = '-Ppdf -u+lilypond.map -u+ec-mftrace.map')
 
-DVIPS_PAPERSIZE = 'a4'
-DVIPSFLAGS = env['DVIPSFLAGS']
-a = ('set -x; dvips %(DVIPSFLAGS)s' \
-     + ' -o ${TARGET}.pdfps'\
-     + ' -t %(DVIPS_PAPERSIZE)s $SOURCE &&'\
-     + ' ps2pdf -sPAPERSIZE=%(DVIPS_PAPERSIZE)s ${TARGET}.pdfps $TARGET') \
-     % vars ()
+env ['DVIPS_PAPERSIZE'] = 'a4'
+a = ['dvips $DVIPSFLAGS -o ${TARGET}.pdfps -t $DVIPS_PAPERSIZE $SOURCE',
+     'ps2pdf -sPAPERSIZE=$DVIPS_PAPERSIZE ${TARGET}.pdfps $TARGET']
 dvi2pdf = Builder (action = a, suffix = '.pdf', src_suffix = '.dvi')
 env.Append (BUILDERS = {'Dvi2pdf': dvi2pdf})
 
@@ -101,29 +79,21 @@ def add_ps_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.ps'], source)
 
-#a = ('echo "PATH=$$PATH"; echo "TEXMF=$$TEXMF"; which lilypond-bin;'\
-a = (' LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
-     + '%(PYTHON)s %(LILYPOND_PY)s%(verbose)s'\
-     + ' --include=${TARGET.dir}'\
-     + ' --output=${TARGET.base}'\
-     + ' $SOURCE') % vars ()
+a = ' LILYPONDPREFIX=$LILYPONDPREFIX \
+$PYTHON $LILYPOND_PY $__verbose \
+--include=${TARGET.dir} \
+--output=${TARGET.base}  $SOURCE'
 lilypond = Builder (action = a, suffix = '.pdf', src_suffix = '.ly')
 ##		    emitter = add_ps_target)
 env.Append (BUILDERS = {'LilyPond': lilypond})
 
 #verbose = verbose_opt (env, ' --verbose')
 verbose = ''
-a = ('LILYPONDPREFIX=%(LILYPONDPREFIX)s '\
-     + '%(PYTHON)s %(ABC2LY_PY)s%(verbose)s'\
-#     + ' --include=${TARGET.dir}'\
-     + ' --strict'\
-     + ' --output=${TARGET.base}'\
-     + ' $SOURCE') % vars ()
+a = 'LILYPONDPREFIX=$LILYPONDPREFIX $PYTHON $ABC2LY_PY \
+--strict --output=${TARGET.base} $SOURCE'
 abc2ly = Builder (action = a, suffix = '.ly', src_suffix = '.abc')
 env.Append (BUILDERS = {'Abc2ly': abc2ly})
 
-
-MFMODE = env['MFMODE']
 def add_log_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.log'], source)
@@ -138,27 +108,22 @@ def add_suffixes (target, source, env, target_suffixes, src_suffixes):
 	return (target + map (lambda x: base + x, target_suffixes),
 		source + map (lambda x: base + x, src_suffixes))
 
-scrdir = env['srcdir']
-a = ('(cd ${TARGET.dir} &&'\
-     + ' MFINPUTS=.:${SOURCE.dir}:%(srcdir)s/${SOURCE.dir}'\
-     + ' mf "\\mode:=%(MFMODE)s; nonstopmode;'\
-     + ' input ${SOURCE.filebase};" ' \
-     + ' | grep -v "@\|>>")') % vars ()
+a = 'cd ${TARGET.dir} && \
+MFINPUTS=.:${SOURCE.dir}:$srcdir/${SOURCE.dir} \
+mf "\\mode:=$MFMODE; nonstopmode; input ${SOURCE.filebase};" \
+| grep -v "@\|>>"'
 tfm = Builder (action = a, suffix = '.tfm', src_suffix = '.mf',
 #	       emitter = lambda t, s, e: add_suffixes (t, s, e, ['.log'], []))
 	       emitter = add_log_target)
 env.Append (BUILDERS = {'TFM': tfm})
 
-MF_TO_TABLE_PY = env['MF_TO_TABLE_PY']
-#verbose = verbose_opt (env, ' --verbose')
-verbose = ''
-a = ('%(PYTHON)s %(MF_TO_TABLE_PY)s%(verbose)s'\
-     + ' --outdir=${TARGET.dir}'\
-     + ' --afm=${TARGET.base}.afm' \
-     + ' --enc=${TARGET.base}.enc' \
-     + ' --tex=${TARGET.base}.tex' \
-     + ' --ly=${TARGET.base}list.ly'\
-     + ' ${TARGET.base}.log') % vars ()
+a = '$PYTHON $MF_TO_TABLE_PY \
+--outdir=${TARGET.dir} \
+--afm=${TARGET.base}.afm \
+--enc=${TARGET.base}.enc \
+--tex=${TARGET.base}.tex \
+--ly=${TARGET.base}list.ly \
+${TARGET.base}.log'
 afm = Builder (action = a, suffix = '.afm', src_suffix = '.log',
 	       emitter = add_enc_ly_tex_target)
 env.Append (BUILDERS = {'AFM': afm})
@@ -168,15 +133,12 @@ def add_enc_src (target, source, env):
 	return (target, source + [base + '.enc'])
 
 # UGH, should fix --output option for mftrace
-verbose = verbose_opt (env, ' --verbose')
-a = ('(cd ${TARGET.dir} && '
-     + ' if test -e ${SOURCE.filebase}.enc; then encoding="--encoding=${SOURCE.filebase}.enc"; fi;' \
-#     + ' MFINPUTS=.:${TARGET.dir}:${SOURCE.dir}'\
-# ugrh
-     + ' MFINPUTS=%(srcdir)s/mf}:.:'\
-     + ' mftrace --pfa --simplify --keep-trying $$encoding%(verbose)s'\
-     + ' --include=${TARGET.dir}'\
-     + ' ${SOURCE.file})') % vars ()
+a = 'cd ${TARGET.dir} && \
+if test -e ${SOURCE.filebase}.enc; then encoding="--encoding=${SOURCE.filebase}.enc"; fi; \
+MFINPUTS=$srcdir/mf:.: \
+mftrace --pfa --simplify --keep-trying $$encoding $__verbose \
+--include=${TARGET.dir} \
+${SOURCE.file}'
 
 pfa = Builder (action = a,
 	       suffix = '.pfa',
@@ -184,13 +146,8 @@ pfa = Builder (action = a,
 	       emitter = add_enc_src)
 env.Append (BUILDERS = {'PFA': pfa})
 
-# FIXME
-#verbose = verbose_opt (env, ' --verbose')
-verbose = ''
-DIFF_PY = os.path.join (srcdir, 'stepmake/bin/package-diff.py')
-verbose = ''
-a = ('%(PYTHON)s %(DIFF_PY)s%(verbose)s'\
-     + ' --outdir=${TARGET.dir}') % vars ()
+env['DIFF_PY'] = os.path.join (srcdir, 'stepmake/bin/package-diff.py')
+a = '$PYTHON $DIFF_PY $__verbose --outdir=${TARGET.dir}'
 patch = Builder (action = a, suffix = '.diff', src_suffix = '.tar.gz')
 env.Append (BUILDERS = {'PATCH': patch})
 
@@ -201,3 +158,50 @@ def src_glob (env, s):
 	os.chdir (here)
 	return result
 env['src_glob'] = src_glob
+
+atvars = [
+'BASH',
+'DATE',
+'sharedstatedir',
+'GUILE',
+'bindir',
+'date',
+'datadir',
+'lilypond_datadir',
+'lilypond_libdir',
+'local_lilypond_datadir',
+'local_lilypond_libdir',
+'localedir',
+'PACKAGE',
+'package',
+'PATHSEP',
+'PERL',
+'prefix',
+'program_prefix',
+'program_suffix',
+'PYTHON',
+'SHELL',
+'TOPLEVEL_VERSION',
+'step-bindir',
+]
+
+#compat
+env['lilypond_datadir'] = env['sharedir_package']
+env['local_lilypond_datadir'] = env['sharedir_package_version']
+env['TOPLEVEL_VERSION'] = env['version']
+env['SHELL'] = '/bin/sh'
+env['BASH'] = '/bin/bash'
+
+def at (target, source, env):
+    s = open (str (source[0])).read ()
+    for i in atvars:
+	    if env.has_key (i):
+		    s = string.replace (s, '@%s@'% i, env[i])
+    t = str (target[0])
+    open (t, 'w').write (s)
+    # ugh
+    os.chmod (t, 0755)
+
+at = Builder (action = at)
+env.Append (BUILDERS = {'AT': at})
+
