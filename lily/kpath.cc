@@ -42,6 +42,7 @@ extern "C" {
 #include "main.hh"
 #include "source-file.hh"
 #include "warn.hh"
+#include "kpath-private.hh"
 
 String
 kpathsea_find_afm (char const *name)
@@ -85,7 +86,7 @@ kpathsea_find_tfm (char const *name)
 #if KPATHSEA
 /* FIXME: this should be part of kpathsea */
 
-static kpse_file_format_type
+kpse_file_format_type
 kpathsea_find_format (String name)
 {
   for (int i = 0; i < kpse_last_format; i++)
@@ -142,53 +143,6 @@ kpathsea_gulp_file_to_string (String name)
 }
 
 
-LY_DEFINE (ly_find_file, "ly:find-file",
-	   1, 0, 0, (SCM name),
-	   "Return the absolute file name of @var{name},"
-	   "or @code{#f} if not found.")
-{
-  SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
-
-  String nm = ly_scm2string (name);
-  String file_name = global_path.find (nm);
-  if (file_name.is_empty ())
-    return SCM_BOOL_F;
-  
-  return scm_makfrom0str (file_name.to_str0 ());
-}
-
-LY_DEFINE (ly_kpathsea_find_file, "ly:kpathsea-find-file",
-	   1, 0, 0, (SCM name),
-	   "Return the absolute file name of @var{name},"
-	   "or @code{#f} if not found.")
-{
-  SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
-
-  String nm = ly_scm2string (name);
-  String file_name = global_path.find (nm);
-  if (file_name.is_empty ())
-    {
-      if (char *p = kpse_find_file (nm.to_str0 (), kpathsea_find_format (nm),
-				    true))
-	return scm_makfrom0str (p);
-      return SCM_BOOL_F;
-    }
-  return scm_makfrom0str (file_name.to_str0 ());
-}
-
-LY_DEFINE (ly_kpathsea_expand_variable, "ly:kpathsea-expand-variable",
-	   1, 0, 0, (SCM var),
-	   "Return the expanded version  @var{var}.")
-{
-  SCM_ASSERT_TYPE (scm_is_string (var), var, SCM_ARG1, __FUNCTION__, "string");
-
-  String nm = ly_scm2string (var);
-  char *result =  kpse_var_expand (nm.to_str0 ());
-  SCM ret =  scm_makfrom0str (result);
-  delete[] result;
-
-  return ret;
-}
 
 void
 initialize_kpathsea (char *av0)
