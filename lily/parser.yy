@@ -106,7 +106,7 @@ SCM
 make_simple_markup (SCM encoding, SCM a)
 {
 	SCM simple = ly_scheme_function ("simple-markup");
-	if (gh_symbol_p (encoding))
+	if (is_symbol (encoding))
 	{
 		return scm_list_3 (ly_scheme_function ("encoded-simple-markup"),
 			   encoding, a);
