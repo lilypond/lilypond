@@ -1,3 +1,42 @@
+2002-10-14  Werner Lemberg  <wl@gnu.org>
+
+	Further improve TeX output.  The produced files are about 40%
+	smaller.  `lilyponddefs.tex' is now read only once.
+
+	* tex/lilyponddefs.tex: Remove footer stuff.
+	(\ifundefined): Renamed to...
+	(\lilypondundefined): This.  Use LaTeX's definition to
+	make it nestable and make it global.
+	(\lilypondstart, \lilypondend): New macro to initialize LilyPond
+	output.
+	(\lilypondspecial): New macro to read `music-drawing-routines.ps'.
+	(\fetasixteen, \fetafont, \fetachar, \botalign, \leftalign): Make
+	them global.
+	(\placebox): Renamed to...
+	(\lyitem): This.
+	Make it global and call \outputscale by itself.
+	(\lybox, \lyvrule): New macros to reduce input data.
+	(\lilypondfirst, \lilypondsecond, \lilypondloop, \lilyponditerate):
+	New auxiliary macros.
+	(\SkipLilydefs, \EndLilyPondOutput): Removed.
+	* tex/lily-pdf-defs.tex, tex/lily-ps-defs.tex (\lilySpace): Renamed
+	to...
+	(\lilypondspace): This and made it global.
+	(\turnOnPostScript): Renamed to...
+	(\lilypondpostscript): This and made it global.
+	(\turnOnExperimentalFeatures): Renamed to...
+	(\lilypondexperimentalfeatures): This and made it global.
+	* tex/lily-ps-defs.tex (\PSsetTeXdimen): Renamed to...
+	(\lilypondsetdimen): This and made it global.
+	* tex/lilypond-latex.tex, tex/lilypond-plaintex.tex: Removed.
+	* tex/GNUmakefile (TEX_FILES): Add `music-drawing-routines.ps'
+	(all, $(outdir)/music-drawing-routines.ps): New rules.
+	* buildscripts/mf-to-table.py (write_tex_defs): Use \gdef.
+	* scm/pdftex.scm, scm/tex.scm (end-output, header-end, placebox,
+	start-system, stop-system, stop-last-system, filledbox): Updated to
+	use the changed macros from lilyponddefs.tex.
+	* scripts/lilypond-book.ly (output_dict) <latex, texi>: Ditto.
+
 2002-10-07  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Documentation/windows/installing.texi: Update.

@@ -4,7 +4,6 @@
 # * junk --outdir for --output
 # * Figure out clean set of options.
 # *
-# * EndLilyPondOutput is def'd as vfil. Causes large white gaps.
 # * texinfo: add support for @pagesize
 
 # todo: dimension handling (all the x2y) is clumsy. (tca: Thats
@@ -462,16 +461,12 @@ output_dict= {
 %s@end example
 ''',
 		# do some tweaking: @ is needed in some ps stuff.
-		# override EndLilyPondOutput, since @tex is done
-		# in a sandbox, you can't do \input lilyponddefs at the
-		# top of the document.
 		#
 		# ugh, the <p> below breaks inline images...
 		'output-texi-noquote': r'''@tex
 \catcode`\@=12
 \parindent 0pt
-\input lilyponddefs
-\def\EndLilyPondOutput{}
+\def\lilypondbook{}
 \input %(fn)s.tex
 \catcode`\@=0
 @end tex
@@ -484,8 +479,7 @@ output_dict= {
 		'output-texi-quoted': r'''@quotation
 @tex
 \catcode`\@=12
-\input lilyponddefs
-\def\EndLilyPondOutput{}
+\def\lilypondbook{}
 \input %(fn)s.tex
 \catcode`\@=0
 @end tex
