@@ -17,6 +17,8 @@ struct Scalar : public String {
     Scalar(char c) : String(c) {}
     Scalar(const char *c) : String(c) {}    
     Scalar(String s ):String(s) {}
+    Scalar(Rational );
+    operator Rational();
     Scalar() {}
     bool isnum();
     operator Real();
