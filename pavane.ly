@@ -49,6 +49,7 @@ score {
 		horn
 	}
 	paper {
+		symboltables { table_sixteen}
 		unitspace 1.5 cm
 		geometric 1.4
 	}
