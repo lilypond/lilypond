@@ -31,7 +31,7 @@
 
 (defconst mudela-font-lock-keywords
   (let* ((keywords '(
-		   "accepts" "bar" "cadenza" "clear" "clef" "cm" "consists" "contains"
+		   "accepts" "break" "bar" "cadenza" "clear" "clef" "cm" "consists" "contains"
 		   "duration" "absdynamic" "in" "translator" "type" "lyric" "key"
 		   "melodic" "melodic_request" "meter" "midi" "mm" "multi" "header"
 		   "notenames" "octave" "output" "partial" "paper" "plet" "property" "pt" "shape"
@@ -190,9 +190,9 @@
   (let ((comment-start mu-block-comment-prefix))
     (comment-region beg end arg)))
 
-(defconst mu-version "0.0"
+(defconst mu-version "0.0.1"
   "`mudela-mode' version number.")
-(defconst mu-help-address "hanwen@stack.nl"
+(defconst mu-help-address "hanwen@cs.ruu.nl"
   "Address accepting submission of bug reports.")
 
 (defun mu-version ()

@@ -12,6 +12,7 @@
 
 Score_column::Score_column (Moment w)
 {
+  forced_break_b_ = false;
   when_ = w;
   musical_b_ = false;
 }
@@ -20,7 +21,10 @@ void
 Score_column::do_print() const
 {
 #ifndef NPRINT
-  DOUT << "mus "<< musical_b_ <<" at " <<  when_<<'\n';
+  DOUT << "mus "<< musical_b_ <<" at " <<  when_<< '\n';
+  if (forced_break_b_)
+    DOUT << "Break forced";
+      
   DOUT << "durations: [";
   for (int i=0; i < durations.size(); i++)
     DOUT << durations[i] << " ";

@@ -1,3 +1,23 @@
+pl 49
+	- parser assert changed to warning
+	- fix stdin reading
+	- small jcn fix
+	- changed unbound Spanner from assert to warning
+	- forced breakpoints
+	- add a nowildcard: stmt to wild-perl
+
+pl 48.jcn5
+	- ugh: double parser/lexer: 
+	  be sure to rm lily/parser.cc lily/lexer.cc or bin/clien 
+	  before re-running autowild!
+	- V.RSION 
+	- bin/clien bin/meek
+	- bf's: flower/VERSION, flower/config.hh, lily/lexer/VURSION
+	  lib/config.hh bin/convent-mudela
+	- lost of automake fixes
+	- automake
+
+******
 pl 48
 	- Pitch_squash_engraver makes Rhythmic_staff possible.
 	- some fixes to buildscripts for sgi irix

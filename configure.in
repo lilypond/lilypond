@@ -3,19 +3,40 @@ dnl  Process this file with autoconf to produce a configure script.
 
 AC_INIT(flower/choleski.cc)
 
+. ./VERSION
+FULL_VERSION=$MAJOR_VERSION.$MINOR_VERSION.$PATCH_LEVEL
+if test x$MY_PATCH_LEVEL != x; then
+	FULL_VERSION=$FULL_VERSION.$MY_PATCH_LEVEL
+fi
+AM_INIT_AUTOMAKE(lilypond, $FULL_VERSION)
+
+AC_PROG_CC
+AC_PROG_CXX
+AC_PROG_RANLIB
+
+# ugh, automake: we want (and check for) bison
+AC_PROG_YACC
+
+# ugh, automake: we want (and check for) flex
+AC_PROG_LEX
+
+AC_DECL_YYTEXT
+# ugh, ugh
+ac_cv_prog_lex_root=lex.yy
+
+missing_dir=`cd $ac_aux_dir && pwd`
+
+AM_MISSING_PROG(ACLOCAL, aclocal, $missing_dir)
+AM_MISSING_PROG(AUTOCONF, autoconf, $missing_dir)
+AM_MISSING_PROG(AUTOMAKE, automake, $missing_dir)
+AM_MISSING_PROG(AUTOHEADER, autoheader, $missing_dir)
+AM_MISSING_PROG(MAKEINFO, makeinfo, $missing_dir)
 
 if test x$srcdir != x.; then
   echo Please look in the INSTALL instructions for
   echo directions for multi-architecture building
     
   AC_LILY_WARN(This package does not support --srcdir!)
-fi
-
-# if given here, these vars are initted at the checking point.
-if test x$host = xNONE; then
-    OUTDIR_NAME=${OUTDIR_NAME-"out"}
-else
-    OUTDIR_NAME=${OUTDIR_NAME-"out-$host"}
 fi
 
 printing_b=no
@@ -67,11 +88,6 @@ AC_ARG_ENABLE(mf-dir,
      [MFDIR=$enableval],
      [MFDIR=auto])
 
-AC_ARG_ENABLE(out-dir,
-    [  enable-out-dir                 set the directory for machine generated files. Default out or out-HOST],
-    [OUTDIR_NAME=$enableval]
-    [])
-
 if test $profile_b = yes; then
     EXTRA_LIBES="-pg"
     DEFINES="$DEFINES -pg"
@@ -121,7 +137,6 @@ dnl should check out -print
 AC_CHECK_SEARCH_RESULT($FIND, \`find\'. Please use --enable-tex-dir)
 
     
-AC_SUBST(OUTDIR_NAME)
 AC_SUBST(CXXFLAGS)
 AC_SUBST(CPPFLAGS)
 AC_SUBST(CXX)
@@ -147,7 +162,8 @@ AC_CHECK_PROGS(FLEX, flex, error)
 AC_CHECK_PROGS(MAKE, make, error)
 AC_PATH_PROG(PERL, perl, error)
 AC_PATH_PROG(PYTHON, python, error)
-AC_CHECK_PROGS(PODMAN, pod2man, error)
+AC_CHECK_PROGS(POD2HTML, pod2html, error)
+AC_CHECK_PROGS(POD2MAN, pod2man, error)
 
 
 if test "x$TEXPREFIX" = xauto ; then
@@ -156,19 +172,19 @@ else
  find_texprefix=$TEXPREFIX
 fi
 
-if test "x$MFDIR" = xauto; then
-    AC_MF_SUBDIR(MFDIR)
-fi
+# if test "x$MFDIR" = xauto; then
+#     AC_MF_SUBDIR(MFDIR)
+# fi
     
 if test "x$TEXDIR" = xauto ; then
     AC_TEX_SUBDIR(TEXDIR)
 fi
 
 
-AC_JUNK_ARGS( [if test "x$MFDIR" = xauto; then
-     AC_MF_SUBDIR(MFDIR)
- fi]
-)
+# AC_JUNK_ARGS( [if test "x$MFDIR" = xauto; then
+#      AC_MF_SUBDIR(MFDIR)
+#  fi]
+# )
 
 AC_CHECK_SEARCH_RESULT($MAKE, GNU make,  You should install GNU make)
 AC_CHECK_SEARCH_RESULT($BISON, bison,  Please install Bison, 1.25 or better)
@@ -193,56 +209,30 @@ if test $BISON != "error"; then
     fi	
 fi
 
-if $CXX --version | grep '2\.7' > /dev/null
+
+# ugh autoconf
+changequote(<<, >>)dnl
+if $CXX --version | grep '2\.[78]' > /dev/null
+changequote([, ])dnl
 then
 	true
 else
-	AC_LILY_WARN(can't find g++ 2.7)
+	AC_LILY_WARN(can't find g++ 2.7 or 2.8)
 fi
 
 AC_CHECK_HEADER(FlexLexer.h, true,
 	AC_LILY_WARN(can't find flex header. Please install Flex headers correctly))
 
-for a in `find . -type d -and -not -name 'out*' -print`; do
-    if test ! -d  $a/$OUTDIR_NAME; then
-	mkdir $a/$OUTDIR_NAME
-    fi
-done
-
 AC_CONFIG_SUBDIRS(flower)
 
+AC_DEFINE_UNQUOTED(TOPLEVEL_VERSION, "${FULL_VERSION}")
+
+touch lib/stamp-h.in
+AM_CONFIG_HEADER(lib/config.hh:lib/config.hh.in)
+echo \#define TOPLEVEL_VERSION \"$FULL_VERSION\" >> lib/config.hh
     
-AC_OUTPUT(make/$OUTDIR_NAME/Configure_variables.make:make/Configure_variables.make.in
-    Makefile:make/Toplevel.make.in)
+AC_OUTPUT(bin/Makefile lib/include/Makefile lib/Makefile lily/include/Makefile lily/Makefile mf/Makefile mi2mu/include/Makefile mi2mu/Makefile debian/Makefile Documentation/Makefile init/Makefile input/Makefile tex/Makefile make/Makefile mutopia/J.S.Bach/Makefile mutopia/Makefile Makefile bin/add-URLs bin/clean-diaper bin/clean-embeds bin/clean-fonts bin/conflily bin/convert-mudela bin/cvm bin/find-typenames bin/foo bin/genheader bin/ly2dvi bin/make-docxx bin/make-examples bin/make-patch bin/make-version bin/make-website bin/mf-deps bin/mf-to-table bin/mudela-book bin/ps-to-gifs bin/release bin/show-latest)
 
-touch make/$OUTDIR_NAME/Site.make
+# ugh
+chmod 755 bin/add-URLs bin/clean-diaper bin/clean-embeds bin/clean-fonts bin/conflily bin/convert-mudela bin/cvm bin/find-typenames bin/foo bin/genheader bin/ly2dvi bin/make-docxx bin/make-examples bin/make-patch bin/make-version bin/make-website bin/mf-deps bin/mf-to-table bin/mudela-book bin/ps-to-gifs bin/release bin/show-latest
 
-cat << END
-For making everything, do:
-
-    make		# GNU make
-
-or if you used --outdir=blabla
-
-    make OUTDIR_NAME=blabla
-    
-If you want to make site-wide extensions to the makefiles, please use
-
-    make/$OUTDIR_NAME/Site.make
-    
-END
-
-if test x$warn_b = "xyes" ; then
-cat <<EOF
-    
-    **************************************************
-    Warning: configure encountered warnings or errors.
-    Please try to resolve these, and rerun configure 
-    before sending a bugreport.
-    If you cannot resolve some warnings, the make 
-    process may still be succesful, but be warned.
-    **************************************************
-    
-EOF
-fi
-        
