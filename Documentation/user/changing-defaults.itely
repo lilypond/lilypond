@@ -2202,13 +2202,13 @@ The default layout responds to the following settings in the
  The width of the page
 @item vsize
  The height of the page
-@item topmargin (top-margin)
+@item topmargin
  Margin between header and top of the page
-@item bottommargin (bottom-margin)
+@item bottommargin
  Margin between footer and bottom of the page
-@item headsep (head-sep)
+@item headsep
  Distance between top-most music system and the page header
-@item footsep (foot-sep)
+@item footsep
  Distance between bottom-most music system and the page footer
 @item raggedbottom
  If set to true, systems will not be spread across the page.  
@@ -2225,9 +2225,11 @@ The default layout responds to the following settings in the
         @}
 @end example
 
-You can also define these values in scheme. Please note that the scheme
-expressions may have a dash, like @code{foot-sep}, but not LilyPond
-expressions, like @code{footsep}. 
+You can also define these values in scheme. Please note that if you
+define @code{topmargin}, @code{bottommargin}, @code{headsep}, and
+@code{footsep} in scheme you have to insert a dash so they become
+@code{top-margin}, @code{bottom-margin}, @code{head-sep}, and
+@code{foot-sep}.
 
 @example
         \bookpaper@{
