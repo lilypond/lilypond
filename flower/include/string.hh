@@ -43,7 +43,7 @@ class ostream;
   indexing (index_i, index_any_i, last_index_i)
 
 \item
-  cutting (left_str, right_str, mid_str)
+  cutting (left_string, right_string, mid_string)
 
 \item
   concat (+=, +)
@@ -72,16 +72,16 @@ public:
 
   /// String s = "abc";
   String (char const* source); 
-  String (Byte const* byte_C, int length_i); 
+  String (Byte const* byte, int length_i); 
     
   ///  return "new"-ed copy of contents
-  Byte* copy_byte_p () const;
-  char* copy_ch_p () const;
+  Byte* get_copy_byte () const;
+  char* get_copy_str0 () const;
 
-  char const* ch_C () const;
-  Byte const* byte_C () const;
-  char* ch_l ();
-  Byte* byte_l ();
+  char const* to_str0 () const;
+  Byte const* to_bytes () const;
+  char* get_str0 ();
+  Byte* get_bytes ();
 
   String &operator = (String const & source);
 
@@ -101,42 +101,42 @@ public:
   char operator [] (int n) const;
 
   /// return n leftmost chars
-  String left_str (int n) const;
+  String left_string (int n) const;
 
   /// return n rightmost chars
-  String right_str (int n) const;
+  String right_string (int n) const;
 
   /// return uppercase of *this
-  String upper_str () const;
+  String upper_string () const;
 
   /// return lowercase of *this
-  String lower_str () const;
+  String lower_string () const;
 
   /// return the "esrever" of *this
-  String reversed_str () const;
+  String reversed_string () const;
 
-  /// return a piece starting at index_i (first char = index_i 0), length n
-  String cut_str (int index_i, int n) const;
+  /// return a piece starting at index (first char = index_i 0), length n
+  String cut_string (int index_i, int n) const;
 
   /// cut out a middle piece, return remainder
-  String nomid_str (int index_i, int n) const;
+  String nomid_string (int index_i, int n) const;
 
   /// signed comparison,  analogous to memcmp;
-  static int compare_i (String const & s1,const  String& s2);
+  static int compare (String const & s1,const  String& s2);
 	
   /// index of rightmost c 
-  int index_last_i (char c) const;
+  int index_last (char c) const;
 
   /// index of rightmost element of string (???)
-  int index_last_i (char const* string) const;
+  int index_last (char const* string) const;
 
-  int index_i (char c) const;
+  int index (char c) const;
 
   /// index of leftmost occurance of STRING
-  int index_i (String) const;
+  int index (String) const;
 
 
-  int index_any_i (String) const;
+  int index_any (String) const;
 
   void to_upper ();
   void to_lower ();
@@ -147,13 +147,13 @@ public:
 #endif
   
   /// the length of the string
-  int length_i () const;
+  int length () const;
 
   /// convert to an integer
-  int value_i () const;
+  int to_int () const;
 
   /// convert to a double
-  double value_f () const;
+  double to_double () const;
 };
 
 /*
@@ -168,14 +168,14 @@ public:
  */
 
 /// for completeness (=handy)
-inline String to_str (String s) { return s; }
+inline String to_string (String s) { return s; }
 /// "cccc"
-String to_str (char c, int n = 1);
-String to_str (int i, char const* format = 0);
-String to_str (double f , char const* format = 0);
-String to_str (long  b);
-String to_str (bool b);
-String to_str (char const* format, ... );
+String to_string (char c, int n = 1);
+String to_string (int i, char const* format = 0);
+String to_string (double f , char const* format = 0);
+String to_string (long  b);
+String to_string (bool b);
+String to_string (char const* format, ... );
 
 /*
   technically incorrect, but lets keep it here: this is a
@@ -186,7 +186,7 @@ String to_str (char const* format, ... );
 
 
 #include "compare.hh"
-INSTANTIATE_COMPARE (String const &, String::compare_i);
+INSTANTIATE_COMPARE (String const &, String::compare);
 
 #ifdef STRING_UTILS_INLINED
 #ifndef INLINE

@@ -37,7 +37,7 @@ Separation_item::conditional_width (Grob * me, Grob * left)
   Interval w = width (me);
   
   Item *item = dynamic_cast<Item*> (me);
-  Paper_column * pc = item->column_l ();
+  Paper_column * pc = item->get_column ();
   
   
   for (SCM s =  me->get_grob_property ("conditional-elements"); gh_pair_p (s); s = ly_cdr (s))
@@ -47,7 +47,7 @@ Separation_item::conditional_width (Grob * me, Grob * left)
 	continue;
       
       Item *il = unsmob_item (elt);
-      if (pc != il->column_l ())
+      if (pc != il->get_column ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
 	  programming_error (_ ("Separation_item:  I've been drinking too much"));
@@ -85,7 +85,7 @@ Separation_item::width (Grob *me)
     }
 
   Item *item = dynamic_cast<Item*> (me);
-  Paper_column * pc = item->column_l ();
+  Paper_column * pc = item->get_column ();
   Interval w;
   
   for (SCM s =  me->get_grob_property ("elements"); gh_pair_p (s); s = ly_cdr (s))
@@ -95,7 +95,7 @@ Separation_item::width (Grob *me)
 	continue;
 
       Item *il = unsmob_item (elt);
-      if (pc != il->column_l ())
+      if (pc != il->get_column ())
 	{
 	  /* this shouldn't happen, but let's continue anyway. */
 	  programming_error (_ ("Separation_item:  I've been drinking too much"));

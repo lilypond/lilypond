@@ -34,10 +34,10 @@
 
 class Completion_heads_engraver : public Engraver
 {
-  Link_array<Item> note_p_arr_;
+  Link_array<Item> notes_;
   
-  Link_array<Item> dot_p_arr_;
-  Link_array<Music> note_req_l_arr_;
+  Link_array<Item> dots_;
+  Link_array<Music> note_reqs_;
   Link_array<Music> scratch_note_reqs_;
 
   Moment note_end_mom_;
@@ -53,7 +53,7 @@ public:
 protected:
   virtual void initialize ();
   virtual void start_translation_timestep ();
-  virtual bool try_music (Music *req_l) ;
+  virtual bool try_music (Music *req) ;
   virtual void process_music ();
   virtual void stop_translation_timestep ();
 };
@@ -69,7 +69,7 @@ Completion_heads_engraver::try_music (Music *m)
 {
   if (Note_req * n =dynamic_cast <Note_req *> (m))
     {
-      note_req_l_arr_.push (n);
+      note_reqs_.push (n);
 
       first_b_ = true;
       Moment musiclen = m->length_mom ();
@@ -85,7 +85,7 @@ Completion_heads_engraver::try_music (Music *m)
     }
   else if (dynamic_cast<Busy_playing_req*> (m))
     {
-      return note_req_l_arr_.size ();
+      return note_reqs_.size ();
     }
   
   return false;
@@ -157,7 +157,7 @@ Completion_heads_engraver::process_music ()
     }
   else
     {
-      orig = unsmob_duration (note_req_l_arr_[0]->get_mus_property ("duration"));
+      orig = unsmob_duration (note_reqs_[0]->get_mus_property ("duration"));
       note_dur = *orig;
     }
 
@@ -179,36 +179,36 @@ Completion_heads_engraver::process_music ()
   if (orig && note_dur.length_mom() != orig->length_mom())
     {
       if (!scratch_note_reqs_.size ())
-	for (int i = 0; i < note_req_l_arr_.size (); i++)
+	for (int i = 0; i < note_reqs_.size (); i++)
 	  {
-	    Music * m = note_req_l_arr_[i]->clone ();
+	    Music * m = note_reqs_[i]->clone ();
 	    scratch_note_reqs_.push (m);
 	  }
     }
 
   
   for (int i = 0;
-       left_to_do_ && i < note_req_l_arr_.size (); i++)
+       left_to_do_ && i < note_reqs_.size (); i++)
     {
-      Item *note_p  = new Item (get_property ("NoteHead"));
+      Item *note  = new Item (get_property ("NoteHead"));
       
-      Music * req =  note_req_l_arr_[i];
+      Music * req =  note_reqs_[i];
       if (scratch_note_reqs_.size())
 	{
 	  req = scratch_note_reqs_[i];
-	  SCM pits = note_req_l_arr_[i]->get_mus_property ("pitch");
+	  SCM pits = note_reqs_[i]->get_mus_property ("pitch");
 	  req->set_mus_property ("pitch",pits);
 	}
       
       req->set_mus_property ("duration", note_dur.smobbed_copy ());
-      note_p->set_grob_property ("duration-log",
+      note->set_grob_property ("duration-log",
 				 gh_int2scm (note_dur.duration_log ()));
       
       int dots= note_dur.dot_count ();
       if (dots)
 	{
 	  Item * d = new Item (get_property ("Dots"));
-	  Rhythmic_head::set_dots (note_p, d);
+	  Rhythmic_head::set_dots (note, d);
 
 	  /*
 	   measly attempt to save an eeny-weenie bit of memory.
@@ -216,9 +216,9 @@ Completion_heads_engraver::process_music ()
 	  if (dots != gh_scm2int (d->get_grob_property ("dot-count")))
 	    d->set_grob_property ("dot-count", gh_int2scm (dots));
 
-	  d->set_parent (note_p, Y_AXIS);
+	  d->set_parent (note, Y_AXIS);
 	  announce_grob (d, SCM_EOL);
-	  dot_p_arr_.push (d);
+	  dots_.push (d);
 	}
 
       Pitch *pit =unsmob_pitch (req->get_mus_property ("pitch"));
@@ -228,9 +228,9 @@ Completion_heads_engraver::process_music ()
       if (gh_number_p (c0))
 	pos += gh_scm2int (c0);
 
-      note_p->set_grob_property ("staff-position",   gh_int2scm (pos));
-      announce_grob (note_p,req->self_scm ());
-      note_p_arr_.push (note_p);
+      note->set_grob_property ("staff-position",   gh_int2scm (pos));
+      announce_grob (note,req->self_scm ());
+      notes_.push (note);
     }
 
   left_to_do_ -= note_dur.length_mom ();
@@ -250,17 +250,17 @@ Completion_heads_engraver::process_music ()
 void
 Completion_heads_engraver::stop_translation_timestep ()
 {
-  for (int i=0; i < note_p_arr_.size (); i++)
+  for (int i=0; i < notes_.size (); i++)
     {
-      typeset_grob (note_p_arr_[i]);
+      typeset_grob (notes_[i]);
     }
-  note_p_arr_.clear ();
+  notes_.clear ();
   
-  for (int i=0; i < dot_p_arr_.size (); i++)
+  for (int i=0; i < dots_.size (); i++)
     {
-      typeset_grob (dot_p_arr_[i]);
+      typeset_grob (dots_[i]);
     }
-  dot_p_arr_.clear ();
+  dots_.clear ();
 
   for (int i = scratch_note_reqs_.size(); i--;)
     {
@@ -278,7 +278,7 @@ Completion_heads_engraver::start_translation_timestep ()
   Moment now = now_mom ();
   if (note_end_mom_.main_part_ <= now.main_part_)
     {
-      note_req_l_arr_.clear ();
+      note_reqs_.clear ();
     }
 
   if (left_to_do_)
@@ -286,7 +286,7 @@ Completion_heads_engraver::start_translation_timestep ()
       if (!tie_req)
 	tie_req = new Tie_req;
       
-      bool succ = daddy_trans_l_->try_music (tie_req);
+      bool succ = daddy_trans_->try_music (tie_req);
       if (!succ)
 	{
 	  programming_error ("Completion_heads_engraver: no-one to make tie.");

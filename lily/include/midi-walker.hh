@@ -26,7 +26,7 @@ int compare (Midi_note_event const& left, Midi_note_event const& right);
 class Midi_walker
 {
 public:
-  Midi_walker (Audio_staff* audio_staff_l, Midi_track* midi_track_l);
+  Midi_walker (Audio_staff* audio_staff, Midi_track* midi_track);
   ~Midi_walker ();
 
   void process ();
@@ -34,14 +34,14 @@ public:
   bool ok () const;
 
 private:
-  void do_start_note (Midi_note* note_p);
+  void do_start_note (Midi_note* note);
   void do_stop_notes (Moment now_mom);
   void output_event (Moment now_mom, Midi_item* l);
   
-  Midi_track* track_l_;
-  Audio_staff* staff_l_;
+  Midi_track* track_;
+  Audio_staff* staff_;
   int index_;
-  Link_array<Audio_item> * item_l_arr_l_;
+  Link_array<Audio_item> * items_;
   PQueue<Midi_note_event> stop_note_queue;
   Moment last_mom_;
 };

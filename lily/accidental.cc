@@ -32,7 +32,7 @@ Accidental_interface::after_line_breaking (SCM smob)
   Grob *me  = unsmob_grob (smob);
   Grob *tie = unsmob_grob (me->get_grob_property ("tie"));
 
-  if (tie && !tie->original_l_)
+  if (tie && !tie->original_)
     {
       me->suicide ();
     }
@@ -148,7 +148,7 @@ Accidental_interface::brew_molecule (SCM smob)
       
       Molecule acc (fm->find_by_name (String ("accidentals-") +
 				      style +
-				      to_str (gh_scm2int(entry))));
+				      to_string (gh_scm2int(entry))));
       
       mol.add_at_edge (X_AXIS,  RIGHT, acc, 0.1);
     }

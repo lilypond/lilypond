@@ -80,14 +80,14 @@ public:
   /**
     The translation unit that we this iterator is reporting  to now.
    */
-  Translator_group* report_to_l () const;
+  Translator_group* report_to () const;
 
   void set_translator (Translator_group*);
   
   /** Get an iterator matching the type of MUS, and use TRANS to find
     an accompanying translation unit
    */
-  static Music_iterator* static_get_iterator_p (Music * mus);
+  static Music_iterator* get_static_get_iterator (Music * mus);
   void init_translator (Music  *, Translator_group *); 
 
   virtual Moment pending_moment () const;
@@ -106,14 +106,14 @@ public:
   /**
     Get an iterator for MUS, inheriting the translation unit from THIS.
    */
-  Music_iterator* get_iterator_p (Music *) const;
+  Music_iterator* get_iterator (Music *) const;
 
   virtual Music_iterator* try_music_in_children (Music *) const;
 
-  Music * music_l () const;
+  Music * get_music () const;
 private:
   Interpretation_context_handle handle_;
-  Music  * music_l_;
+  Music  * music_;
 };
 
 

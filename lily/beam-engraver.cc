@@ -24,12 +24,12 @@ class Beam_engraver : public Engraver
 protected:  
   Drul_array<Span_req*> reqs_drul_;
   
-  Spanner *finished_beam_p_;
-  Spanner *beam_p_;
+  Spanner *finished_beam_;
+  Spanner *beam_;
   Span_req * prev_start_req_;
 
-  Beaming_info_list * beam_info_p_;
-  Beaming_info_list * finished_beam_info_p_;  
+  Beaming_info_list * beam_info_;
+  Beaming_info_list * finished_beam_info_;  
 
   /// location  within measure where beam started.
   Moment beam_start_location_;
@@ -84,10 +84,10 @@ Beam_engraver::valid_end_moment()
 
 Beam_engraver::Beam_engraver ()
 {
-  beam_p_ = 0;
-  finished_beam_p_ =0;
-  finished_beam_info_p_=0;
-  beam_info_p_ =0;
+  beam_ = 0;
+  finished_beam_ =0;
+  finished_beam_info_=0;
+  beam_info_ =0;
   reqs_drul_[LEFT] = reqs_drul_[RIGHT] =0;
   prev_start_req_ =0;
   
@@ -103,9 +103,9 @@ Beam_engraver::try_music (Music *m)
 	{
 	  reqs_drul_[START] = 0;
 	  reqs_drul_[STOP] = 0;
-	  if (beam_p_)
-	    beam_p_->suicide ();
-	  beam_p_ = 0;
+	  if (beam_)
+	    beam_->suicide ();
+	  beam_ = 0;
 	}
       else if (scm_equal_p (c->get_mus_property ("span-type"),
 			    ly_str02scm ("beam")) == SCM_BOOL_T)
@@ -139,7 +139,7 @@ Beam_engraver::try_music (Music *m)
 void
 Beam_engraver::set_melisma (bool m)
 {
-  daddy_trans_l_->set_property ("beamMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
+  daddy_trans_->set_property ("beamMelismaBusy", m ? SCM_BOOL_T :SCM_BOOL_F);
 }
 
 void
@@ -148,39 +148,39 @@ Beam_engraver::process_music ()
   if (reqs_drul_[STOP])
     {
       prev_start_req_ =0;
-      finished_beam_p_ = beam_p_;
-      finished_beam_info_p_ = beam_info_p_;
+      finished_beam_ = beam_;
+      finished_beam_info_ = beam_info_;
 
-      beam_info_p_ =0;
-      beam_p_ = 0;
+      beam_info_ =0;
+      beam_ = 0;
     }
 
 
-  if (beam_p_)
+  if (beam_)
     {
       top_engraver ()->forbid_breaks ();
     }
   if (reqs_drul_[START])
     {
-      if (beam_p_)
+      if (beam_)
 	{
 	  reqs_drul_[START]->origin ()->warning (_ ("already have a beam"));
 	  return;
 	}
 
       prev_start_req_ = reqs_drul_[START];
-      beam_p_ = new Spanner (get_property ("Beam"));
+      beam_ = new Spanner (get_property ("Beam"));
       SCM smp = get_property ("measurePosition");
       Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
       
-      beam_info_p_ = new Beaming_info_list;
+      beam_info_ = new Beaming_info_list;
       
       /* urg, must copy to Auto_beam_engraver too */
  
-      announce_grob(beam_p_, reqs_drul_[START]->self_scm());
+      announce_grob(beam_, reqs_drul_[START]->self_scm());
     }
 
 }
@@ -189,14 +189,14 @@ Beam_engraver::process_music ()
 void
 Beam_engraver::typeset_beam ()
 {
-  if (finished_beam_p_)
+  if (finished_beam_)
     {
-      finished_beam_info_p_->beamify(beat_length_, subdivide_beams_);
-      Beam::set_beaming (finished_beam_p_, finished_beam_info_p_);
-      typeset_grob (finished_beam_p_);
-      delete finished_beam_info_p_;
-      finished_beam_info_p_ =0;
-      finished_beam_p_ = 0;
+      finished_beam_info_->beamify(beat_length_, subdivide_beams_);
+      Beam::set_beaming (finished_beam_, finished_beam_info_);
+      typeset_grob (finished_beam_);
+      delete finished_beam_info_;
+      finished_beam_info_ =0;
+      finished_beam_ = 0;
     }
 }
 
@@ -206,7 +206,7 @@ Beam_engraver::start_translation_timestep ()
   reqs_drul_ [START] =0;
   reqs_drul_[STOP] = 0;
   
-  if (beam_p_)
+  if (beam_)
     {
       SCM m = get_property ("automaticMelismata");
       SCM b = get_property ("autoBeaming");
@@ -229,36 +229,36 @@ void
 Beam_engraver::finalize ()
 {
   typeset_beam ();
-  if (beam_p_)
+  if (beam_)
     {
       prev_start_req_->origin ()->warning (_ ("unterminated beam"));
 
       /*
 	we don't typeset it, (we used to, but it was commented
 	out. Reason unknown) */
-      beam_p_->suicide ();
-      delete beam_info_p_;
+      beam_->suicide ();
+      delete beam_info_;
     }
 }
 
 void
 Beam_engraver::acknowledge_grob (Grob_info info)
 {
-  if (beam_p_)
+  if (beam_)
     {
-      if (Rest::has_interface (info.grob_l_))
+      if (Rest::has_interface (info.grob_))
 	{
-	  info.grob_l_->add_offset_callback (Beam::rest_collision_callback_proc, Y_AXIS);
+	  info.grob_->add_offset_callback (Beam::rest_collision_callback_proc, Y_AXIS);
 	}
-      else if (Stem::has_interface (info.grob_l_))
+      else if (Stem::has_interface (info.grob_))
 	{
 	  Moment now = now_mom();
 
 	  if (!valid_start_moment ())
 	    return ;
 	  
-	  Item *stem_l = dynamic_cast<Item*> (info.grob_l_);
-	  if (Stem::beam_l (stem_l))
+	  Item *stem = dynamic_cast<Item*> (info.grob_);
+	  if (Stem::get_beam (stem))
 	    return;
 
 	  Rhythmic_req *rhythmic_req = dynamic_cast <Rhythmic_req *> (info.music_cause ());
@@ -287,12 +287,12 @@ Beam_engraver::acknowledge_grob (Grob_info info)
 	      */
 	    }
 
-	  stem_l->set_grob_property ("duration-log",
+	  stem->set_grob_property ("duration-log",
 				    gh_int2scm (durlog));
 	  Moment stem_location = now - beam_start_mom_ + beam_start_location_;
-	  beam_info_p_->add_stem (stem_location,
+	  beam_info_->add_stem (stem_location,
  (durlog- 2) >? 0);
-	  Beam::add_stem (beam_p_, stem_l);
+	  Beam::add_stem (beam_, stem);
 	}
     }
 }
@@ -336,7 +336,7 @@ Grace_beam_engraver::valid_start_moment()
 bool
 Grace_beam_engraver::valid_end_moment ()
 {
-  return beam_p_ && last_stem_added_at_.grace_part_ != Rational(0);
+  return beam_ && last_stem_added_at_.grace_part_ != Rational(0);
 }
 
 

@@ -28,7 +28,7 @@ protected:
   virtual Music_iterator *try_music_in_children (Music *) const;
 
 private:
-  Music_iterator * child_iter_p_;
+  Music_iterator * child_iter_;
   Moment finish_mom_;
 };
 

@@ -74,7 +74,7 @@ Span_bar::brew_molecule (SCM smobbed_me)
   if (!gh_string_p (glyph))
     return SCM_EOL;
   
-  String glyph_str = ly_scm2string (glyph);
+  String glyph_string = ly_scm2string (glyph);
 
   // compose span_bar_mol
   Molecule span_bar_mol;
@@ -101,7 +101,7 @@ Span_bar::brew_molecule (SCM smobbed_me)
 	  else
 	    {
 	      Molecule interbar
-		= Bar_line::compound_barline (staff_bar, glyph_str, l.length());
+		= Bar_line::compound_barline (staff_bar, glyph_string, l.length());
 	      interbar.translate_axis (l.center (), Y_AXIS);
 	      span_bar_mol.add_molecule (interbar);
 	    }
@@ -218,7 +218,7 @@ Span_bar::evaluate_glyph (Grob*me)
       type = ".|.";
     }
 
-  gl = ly_str02scm (type.ch_C ());
+  gl = ly_str02scm (type.to_str0 ());
   if (scm_equal_p (me->internal_get_grob_property (glyph_symbol), gl) != SCM_BOOL_T)
     me->internal_set_grob_property (glyph_symbol, gl);
 }

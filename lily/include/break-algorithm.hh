@@ -24,8 +24,8 @@
   */
 class Break_algorithm {
 protected:
-  Paper_score *pscore_l_;
-  Real linewidth_f_;
+  Paper_score *pscore_;
+  Real linewidth_;
 
   /// search all pcols which are breakable.
   Link_array<Grob> find_breaks () const;

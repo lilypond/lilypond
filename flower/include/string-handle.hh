@@ -39,24 +39,24 @@ public:
   ~String_handle ();
   String_handle (String_handle const & src);
 
-  Byte const* byte_C () const;
-  char const* ch_C () const;
-  Byte* byte_l ();
-  char* ch_l ();    
+  Byte const* to_bytes () const;
+  char const* to_str0 () const;
+  Byte* get_bytes ();
+  char* get_str0 ();    
   bool is_binary_bo () const;
   void operator = (String_handle const &src);
   void operator += (char const *s);
   Byte operator[] (int j) const;
 
   /** Access elements. WARNING: NOT SAFE
-      don't use this for loops. Use byte_C ()
+      don't use this for loops. Use to_bytes ()
   */
   Byte &operator[] (int j);
-  void append (Byte const* byte_C, int length_i);
-  void set (Byte const* byte_C, int length_i);
+  void append (Byte const* byte, int length_i);
+  void set (Byte const* byte, int length_i);
   void operator = (char const *p);
   void trunc (int j);
-  int length_i () const;
+  int length () const;
 };
 
 #ifdef STRING_UTILS_INLINED

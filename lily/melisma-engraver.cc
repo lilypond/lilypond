@@ -39,11 +39,11 @@ Melisma_engraver::try_music (Music *m)
 	  || (to_boolean (tie))
 	  || (to_boolean (beam))) {
 
-	daddy_trans_l_->set_property ("melismaEngraverBusy",SCM_BOOL_T);
+	daddy_trans_->set_property ("melismaEngraverBusy",SCM_BOOL_T);
 	return true;
       }
     }
-  daddy_trans_l_->set_property ("melismaEngraverBusy",SCM_BOOL_F);
+  daddy_trans_->set_property ("melismaEngraverBusy",SCM_BOOL_F);
   return false;
 }
 Melisma_engraver::Melisma_engraver()

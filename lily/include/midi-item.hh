@@ -25,13 +25,13 @@ public:
   virtual ~Midi_item ();
 
   /// factory
-  static Midi_item* midi_p (Audio_item* a);
+  static Midi_item* get_midi (Audio_item* a);
 
-  static String i2varint_str (int i);
+  static String i2varint_string (int i);
 
-  virtual String str () const = 0;
+  virtual String string () const = 0;
 
-  int channel_i_;
+  int channel_;
 };
 
 /**
@@ -40,11 +40,11 @@ public:
 class Midi_event
 {
 public:
-  Midi_event (Moment delta_mom, Midi_item* midi_l);
+  Midi_event (Moment delta_mom, Midi_item* midi);
 
   Moment delta_mom_;
-  Midi_item* midi_p_;
-  String str () const;
+  Midi_item* midi_;
+  String string () const;
 };
 
 /**
@@ -53,14 +53,14 @@ public:
 class Midi_chunk : public Midi_item
 {
 public:
-  void set (String header_str, String data_str, String footer_str);
-  virtual String str () const;
-  virtual String data_str () const;
+  void set (String header_string, String data_string, String footer_string);
+  virtual String string () const;
+  virtual String data_string () const;
 
 private:
-  String data_str_;
-  String footer_str_;
-  String header_str_;
+  String data_string_;
+  String footer_string_;
+  String header_string_;
 };
 
 class Midi_duration : public Midi_item
@@ -68,8 +68,8 @@ class Midi_duration : public Midi_item
 public:
   Midi_duration (Real seconds_f);
 
-  virtual String str () const;
-  Real seconds_f_;
+  virtual String string () const;
+  Real seconds_;
 };
 
 class Midi_header : public Midi_chunk
@@ -86,9 +86,9 @@ class Midi_instrument : public Midi_item
 public:
   Midi_instrument (Audio_instrument*);
 
-  virtual String str () const;
+  virtual String string () const;
 
-  Audio_instrument* audio_l_;
+  Audio_instrument* audio_;
 };
                                       
 
@@ -97,9 +97,9 @@ class Midi_key : public Midi_item
 public:
   Midi_key (Audio_key*);
 	
-  virtual String str () const;
+  virtual String string () const;
 
-  Audio_key* audio_l_;
+  Audio_key* audio_;
 };
 
 class Midi_time_signature : public Midi_item
@@ -107,10 +107,10 @@ class Midi_time_signature : public Midi_item
 public:
   Midi_time_signature (Audio_time_signature*);
   
-  virtual String str () const;
+  virtual String string () const;
 
-  Audio_time_signature* audio_l_;
-  int clocks_per_1_i_;
+  Audio_time_signature* audio_;
+  int clocks_per_1_;
 };
 
 /**
@@ -122,12 +122,12 @@ public:
   Midi_note (Audio_note*);
 
   Moment length_mom () const;
-  int pitch_i () const;
-  virtual String str () const;
+  int get_pitch () const;
+  virtual String string () const;
 
-  Audio_note* audio_l_;
+  Audio_note* audio_;
 
-  static int const c0_pitch_i_c_ = 60;
+  static int const c0_pitch_i_ = 60;
   Byte dynamic_byte_;
 };
 
@@ -139,9 +139,9 @@ class Midi_note_off : public Midi_note
 public:
   Midi_note_off (Midi_note*); 
 
-  virtual String str () const;
+  virtual String string () const;
 
-  Midi_note* on_l_;
+  Midi_note* on_;
   Byte aftertouch_byte_;
 };
 
@@ -155,9 +155,9 @@ public:
 
   Midi_text (Audio_text*);
     
-  virtual String str () const;
+  virtual String string () const;
 
-  Audio_text* audio_l_;
+  Audio_text* audio_;
 };
 
 class Midi_dynamic : public Midi_item
@@ -165,9 +165,9 @@ class Midi_dynamic : public Midi_item
 public:
   Midi_dynamic (Audio_dynamic*);
   
-  virtual String str () const;
+  virtual String string () const;
 
-  Audio_dynamic* audio_l_;
+  Audio_dynamic* audio_;
 };
 
 class Midi_piano_pedal : public Midi_item
@@ -175,9 +175,9 @@ class Midi_piano_pedal : public Midi_item
 public:
   Midi_piano_pedal (Audio_piano_pedal*);
   
-  virtual String str () const;
+  virtual String string () const;
 
-  Audio_piano_pedal* audio_l_;
+  Audio_piano_pedal* audio_;
 };
 
 class Midi_tempo : public Midi_item
@@ -185,15 +185,15 @@ class Midi_tempo : public Midi_item
 public:
   Midi_tempo (Audio_tempo*);
   
-  virtual String str () const;
+  virtual String string () const;
 
-  Audio_tempo* audio_l_;
+  Audio_tempo* audio_;
 };
 
 class Midi_track : public Midi_chunk
 {
 public:
-  int number_i_;
+  int number_;
 
   /*
     Compensate for starting grace notes.
@@ -202,8 +202,8 @@ public:
   
   Midi_track ();
 
-  void add (Moment delta_time_mom, Midi_item* midi_l);
-  virtual String data_str () const;
+  void add (Moment delta_time_mom, Midi_item* midi);
+  virtual String data_string () const;
 };
 
 #endif // MIDI_ITEM_HH

@@ -33,7 +33,7 @@ _f (char const* format, ...)
 {
   va_list args;
   va_start (args, format);
-  String str = String_convert::vform_str (gettext (format), args);
+  String str = String_convert::vform_string (gettext (format), args);
   va_end (args);
   return str;
 }
@@ -41,6 +41,6 @@ _f (char const* format, ...)
 String 
 _f (char const* format, String s, String s2, String s3)
 {
-  return String_convert::form_str (gettext (format), s.ch_C (), s2.ch_C (), 
-    s3.ch_C ());
+  return String_convert::form_string (gettext (format), s.to_str0 (), s2.to_str0 (), 
+    s3.to_str0 ());
 }

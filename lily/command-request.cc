@@ -32,10 +32,10 @@ Key_change_req::transpose (Pitch p)
 
 	  orig.transpose (p);
 
-	  SCM key = gh_cons (gh_int2scm (orig.octave_i ()),
-			     gh_int2scm (orig.notename_i_));
+	  SCM key = gh_cons (gh_int2scm (orig.get_octave ()),
+			     gh_int2scm (orig.notename_));
 
-	  newlist = gh_cons (gh_cons (key, gh_int2scm (orig.alteration_i_)),
+	  newlist = gh_cons (gh_cons (key, gh_int2scm (orig.alteration_)),
 			     newlist);
 	}
       else if (gh_number_p (key))
@@ -43,8 +43,8 @@ Key_change_req::transpose (Pitch p)
 	  Pitch orig (0, gh_scm2int (key), gh_scm2int (alter));
 	  orig.transpose (p);
 
-	  key =gh_int2scm (orig.notename_i_);
-	  alter = gh_int2scm (orig.alteration_i_);
+	  key =gh_int2scm (orig.notename_);
+	  alter = gh_int2scm (orig.alteration_);
 	  newlist = gh_cons (gh_cons (key, alter), newlist);
 	}
     }

@@ -38,14 +38,14 @@ public:
   ~Includable_lexer ();
 
   /// store dependencies for Makefile stuff.
-  Array<String> filename_str_arr_;
+  Array<String> filename_strings_;
 
-  Source_file* source_file_l () const;
+  Source_file* get_source_file () const;
   void new_input (String s, Sources*);
   void new_input (String name, String data, Sources*);
 
   void add_lexed_char (int);
-  char const * here_ch_C () const;
+  char const * here_str0 () const;
 };
 
 

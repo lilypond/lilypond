@@ -24,8 +24,8 @@ protected:
   virtual void try_stop_ligature ();
   virtual Spanner *create_ligature_spanner ();
 
-  Spanner *finished_ligature_p_;
-  Spanner *ligature_p_;
+  Spanner *finished_ligature_;
+  Spanner *ligature_;
   SCM brew_ligature_primitive_proc;
 
 public:

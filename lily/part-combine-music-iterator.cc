@@ -16,23 +16,23 @@
 
 Part_combine_music_iterator::Part_combine_music_iterator ()
 {
-  first_iter_p_ = 0;
-  second_iter_p_ = 0;
+  first_iter_ = 0;
+  second_iter_ = 0;
   first_until_ = 0;
   second_until_ = 0;
 }
 
 Part_combine_music_iterator::~Part_combine_music_iterator ()
 {
-  delete second_iter_p_;
-  delete first_iter_p_;
+  delete second_iter_;
+  delete first_iter_;
 }
 
 Part_combine_music_iterator::Part_combine_music_iterator (Part_combine_music_iterator const &src)
   : Music_iterator (src)
 {
-  second_iter_p_ = src.second_iter_p_ ? src.second_iter_p_->clone () : 0;
-  first_iter_p_ = src.first_iter_p_ ? src.first_iter_p_->clone () : 0;
+  second_iter_ = src.second_iter_ ? src.second_iter_->clone () : 0;
+  first_iter_ = src.first_iter_ ? src.first_iter_->clone () : 0;
 
   first_until_ = src.first_until_;
   second_until_ = src.second_until_;
@@ -45,34 +45,34 @@ Part_combine_music_iterator::pending_moment () const
 {
   Moment p;
   p.set_infinite (1);
-  if (first_iter_p_->ok ())
-    p = p <? first_iter_p_->pending_moment ();
+  if (first_iter_->ok ())
+    p = p <? first_iter_->pending_moment ();
 
-  if (second_iter_p_->ok ())
-    p = p <? second_iter_p_->pending_moment ();
+  if (second_iter_->ok ())
+    p = p <? second_iter_->pending_moment ();
   return p;
 }
 
 bool
 Part_combine_music_iterator::ok () const
 {
-  return first_iter_p_->ok () || second_iter_p_->ok ();
+  return first_iter_->ok () || second_iter_->ok ();
 }
 
 void
 Part_combine_music_iterator::construct_children ()
 {
-  Part_combine_music const * m = dynamic_cast<Part_combine_music const*> (music_l ());
+  Part_combine_music const * m = dynamic_cast<Part_combine_music const*> (get_music ());
   
-  first_iter_p_ = get_iterator_p (m->first_l ());
-  second_iter_p_ = get_iterator_p (m->second_l ());
+  first_iter_ = get_iterator (m->get_first ());
+  second_iter_ = get_iterator (m->get_second ());
 }
 
 void
 Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
 					String to_id)
 {
-  Translator_group * current = it->report_to_l ();
+  Translator_group * current = it->report_to ();
   Translator_group * last = 0;
 
   /*
@@ -85,13 +85,13 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
      
      If \translator Staff = bass, then look for Staff = *
    */
-  while (current && current->type_str_ != to_type)
+  while (current && current->type_string_ != to_type)
     {
       last = current;
-      current = current->daddy_trans_l_;
+      current = current->daddy_trans_;
     }
 
-  if (current && current->id_str_ == to_id)
+  if (current && current->id_string_ == to_id)
     {
       String msg;
       msg += _ ("Can't switch translators, I'm there already");
@@ -101,8 +101,8 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
     if (last)
       {
 	Translator_group * dest = 
-	  it->report_to_l ()->find_create_translator_l (to_type, to_id);
-	current->remove_translator_p (last);
+	  it->report_to ()->find_create_translator (to_type, to_id);
+	current->remove_translator (last);
 	dest->add_used_group_translator (last);
       }
     else
@@ -111,12 +111,12 @@ Part_combine_music_iterator::change_to (Music_iterator *it, String to_type,
 	  We could change the current translator's id, but that would make 
 	  errors hard to catch
 	  
-	   last->translator_id_str_  = change_l ()->change_to_id_str_;
+	   last->translator_id_string_  = get_change ()->change_to_id_string_;
 	*/
-	error (_f ("I'm one myself: `%s'", to_type.ch_C ()));
+	error (_f ("I'm one myself: `%s'", to_type.to_str0 ()));
       }
   else
-    error (_f ("none of these in my family: `%s'", to_id.ch_C ()));
+    error (_f ("none of these in my family: `%s'", to_id.to_str0 ()));
 }
 
 
@@ -148,12 +148,12 @@ int
 Part_combine_music_iterator::get_state (Moment)
 {
   int state = UNKNOWN;
-  Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (music_l ());
+  Part_combine_music const *p = dynamic_cast<Part_combine_music const* > (get_music ());
 
   String w = ly_scm2string (p->get_mus_property ("what"));
     
   
-  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (w, "one" + suffix_);
+  Translator_group *first_translator = first_iter_->report_to ()->find_create_translator (w, "one" + suffix_);
 
   SCM s = first_translator->get_property ("changeMoment");
   if (!gh_pair_p (s))
@@ -177,8 +177,8 @@ Part_combine_music_iterator::get_state (Moment)
       Moment diff_until = diff_mom + now;
 
       bool first = true;
-      Music_iterator *first_iter = first_iter_p_->clone ();
-      Music_iterator *second_iter = second_iter_p_->clone ();
+      Music_iterator *first_iter = first_iter_->clone ();
+      Music_iterator *second_iter = second_iter_->clone ();
 
       Moment last_pending (-1);
       Moment pending = now;
@@ -337,8 +337,8 @@ Part_combine_music_iterator::process (Moment m)
    */
  
   if (suffix_.empty_b ())
-    suffix_ = first_iter_p_->report_to_l ()
-      ->daddy_trans_l_->id_str_.cut_str (3, INT_MAX);
+    suffix_ = first_iter_->report_to ()
+      ->daddy_trans_->id_string_.cut_string (3, INT_MAX);
 
   int state = get_state (m);
   if (state)
@@ -347,11 +347,11 @@ Part_combine_music_iterator::process (Moment m)
     state = state_;
   
   Part_combine_music const *p =
-    dynamic_cast<Part_combine_music const* > (music_l ());
+    dynamic_cast<Part_combine_music const* > (get_music ());
 
 
-  bool previously_combined_b = first_iter_p_->report_to_l ()->daddy_trans_l_
-    == second_iter_p_->report_to_l ()->daddy_trans_l_;
+  bool previously_combined_b = first_iter_->report_to ()->daddy_trans_
+    == second_iter_->report_to ()->daddy_trans_;
 
   bool combine_b = previously_combined_b;
 
@@ -374,16 +374,16 @@ Part_combine_music_iterator::process (Moment m)
   
   if (combine_b && combine_b != previously_combined_b)
     {
-      if (second_iter_p_ && second_iter_p_->ok ())
-	second_iter_p_->try_music (abort_req);
+      if (second_iter_ && second_iter_->ok ())
+	second_iter_->try_music (abort_req);
      }
   String w = ly_scm2string (p->get_mus_property ("what"));
   if (combine_b != previously_combined_b)
-    change_to (second_iter_p_, w, (combine_b ? "one" : "two")
+    change_to (second_iter_, w, (combine_b ? "one" : "two")
 	       + suffix_);
   
-  Translator_group *first_translator = first_iter_p_->report_to_l ()->find_create_translator_l (w, "one" + suffix_);
-  Translator_group *second_translator = second_iter_p_->report_to_l ()->find_create_translator_l (w, "two" + suffix_);
+  Translator_group *first_translator = first_iter_->report_to ()->find_create_translator (w, "one" + suffix_);
+  Translator_group *second_translator = second_iter_->report_to ()->find_create_translator (w, "two" + suffix_);
   
 
   /* Hmm */
@@ -419,21 +419,21 @@ Part_combine_music_iterator::process (Moment m)
   first_translator->set_property ("othersolo", b2);
   second_translator->set_property ("othersolo", b1);
 
-  if (first_iter_p_->ok ())
-    first_iter_p_->process (m);
+  if (first_iter_->ok ())
+    first_iter_->process (m);
   
-  if (second_iter_p_->ok ())
-    second_iter_p_->process (m);
+  if (second_iter_->ok ())
+    second_iter_->process (m);
 }
 
 Music_iterator*
 Part_combine_music_iterator::try_music_in_children (Music *m) const
 {
-  Music_iterator * i =  first_iter_p_->try_music (m);
+  Music_iterator * i =  first_iter_->try_music (m);
   if (i)
     return i;
   else
-    return second_iter_p_->try_music (m);
+    return second_iter_->try_music (m);
 }
 
 
@@ -441,10 +441,10 @@ SCM
 Part_combine_music_iterator::get_pending_events (Moment m)const
 {
   SCM s = SCM_EOL;
-  if (first_iter_p_)
-    s = gh_append2 (s,first_iter_p_->get_pending_events (m));
-  if (second_iter_p_)
-    s = gh_append2 (second_iter_p_->get_pending_events (m),s);
+  if (first_iter_)
+    s = gh_append2 (s,first_iter_->get_pending_events (m));
+  if (second_iter_)
+    s = gh_append2 (second_iter_->get_pending_events (m),s);
   return s;
 }
 

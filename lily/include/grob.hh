@@ -43,7 +43,7 @@ private:
 
   void substitute_mutable_properties(SCM,SCM);
 public:
-  Grob *original_l_;
+  Grob *original_;
 
   /**
     Administration: Where are we?. This is mainly used by Super_element and
@@ -51,7 +51,7 @@ public:
 
     0 means ORPHAN,
    */
-  char status_c_;
+  char status_;
 
 
   /*
@@ -59,7 +59,7 @@ public:
     elements, I think it is safe to assume that we will not have
     scores being formatted multithreadedly.
    */
-  Paper_score *pscore_l_;
+  Paper_score *pscore_;
   Dimension_cache dim_cache_[NO_AXES];
 
   Grob (SCM basic_props);
@@ -82,7 +82,7 @@ public:
   /*
     related classes.
    */
-  Paper_def *paper_l () const;
+  Paper_def *get_paper () const;
 
   /**
     add a dependency. It may be the 0 pointer, in which case, it is ignored.
@@ -96,7 +96,7 @@ public:
  
   /**
      Recursively track all dependencies of this Grob.  The
-     status_c_ field is used as a mark-field.  It is marked with
+     status_ field is used as a mark-field.  It is marked with
      #busy# during execution of this function, and marked with #final#
      when finished.
 
@@ -152,7 +152,7 @@ public:
   
   void set_parent (Grob* e, Axis);
   
-  Grob *get_parent (Axis a) const {   return  dim_cache_[a].parent_l_; }
+  Grob *get_parent (Axis a) const {   return  dim_cache_[a].parent_; }
   DECLARE_SCHEME_CALLBACK (fixup_refpoint, (SCM));
 };
 
@@ -166,8 +166,8 @@ Grob*common_refpoint_of_array (Link_array<Grob> const&, Grob * , Axis a);
 void set_break_subsititution (SCM criterion);
 SCM substitute_mutable_property_alist (SCM alist);
 
-Link_array<Grob> ly_scm2grob_array (SCM l);
-SCM ly_grob_array2scm (Link_array<Grob> a);
+Link_array<Grob> ly_scm2grobs (SCM l);
+SCM ly_grobs2scm (Link_array<Grob> a);
 
 #endif // STAFFELEM_HH
 

@@ -20,14 +20,14 @@
 void
 Simple_file_storage::load_stdin ()
 {
-  len_i_ = 0;
+  len_ = 0;
 
   int c;
-  Array<char> ch_arr;
+  Array<char> chs;
   while ((c = fgetc (stdin)) != EOF)
-    ch_arr.push (c);
-  len_i_ = ch_arr.size ();
-  data_p_ = ch_arr.remove_array_p ();
+    chs.push (c);
+  len_ = chs.size ();
+  data_ = chs.remove_array ();
 }
 
 void
@@ -37,7 +37,7 @@ Simple_file_storage::load_file (String s)
     let's hope that "b" opens anything binary, and does not apply
     CR/LF translation
     */
-  FILE * f =  fopen (s.ch_C (), "rb");
+  FILE * f =  fopen (s.to_str0 (), "rb");
 
   if (!f)
     {
@@ -46,14 +46,14 @@ Simple_file_storage::load_file (String s)
     }
 
   int ret = fseek (f, 0, SEEK_END);
-  len_i_ = ftell (f);
+  len_ = ftell (f);
   rewind (f);
-  data_p_ = new char[len_i_+1];
-  data_p_[len_i_] = 0;
-  ret = fread (data_p_, sizeof (char), len_i_, f);
+  data_ = new char[len_+1];
+  data_[len_] = 0;
+  ret = fread (data_, sizeof (char), len_, f);
 
-  if (ret!=len_i_)
-    warning (_f ("Huh?  Got %d, expected %d characters", ret, len_i_));
+  if (ret!=len_)
+    warning (_f ("Huh?  Got %d, expected %d characters", ret, len_));
 
   fclose (f);
 }
@@ -71,8 +71,8 @@ Simple_file_storage::load_file (String s)
 
 Simple_file_storage::Simple_file_storage (String s)
 {
-  data_p_ = 0;
-  len_i_ = 0;
+  data_ = 0;
+  len_ = 0;
 
   if ((s == "-"))
     load_stdin ();
@@ -81,19 +81,19 @@ Simple_file_storage::Simple_file_storage (String s)
 }
 
 char const*
-Simple_file_storage::ch_C () const
+Simple_file_storage::to_str0 () const
 {
-  return data_p_;
+  return data_;
 }
 
 int
-Simple_file_storage::length_i () const
+Simple_file_storage::length () const
 {
-  return len_i_;
+  return len_;
 }
 
 
 Simple_file_storage::~Simple_file_storage ()
 {
-  delete []data_p_;
+  delete []data_;
 }

@@ -25,25 +25,25 @@ Syllable_group::Syllable_group ()
 void 
 Syllable_group::clear ()
 {
-  notehead_l_=0;
+  notehead_=0;
   lyric_list_.clear ();
-  longest_lyric_l_=0;
-  shortest_lyric_l_=0;
+  longest_lyric_=0;
+  shortest_lyric_=0;
   melisma_b_ = false;
-  group_translation_f_ = 0.0;
+  group_translation_ = 0.0;
 }
   
 void
 Syllable_group::copy (Syllable_group *from)
 {
-  notehead_l_ = from->notehead_l_;
+  notehead_ = from->notehead_;
   lyric_list_ = from->lyric_list_;
-  longest_lyric_l_ = from->longest_lyric_l_;
-  shortest_lyric_l_ = from->shortest_lyric_l_;
+  longest_lyric_ = from->longest_lyric_;
+  shortest_lyric_ = from->shortest_lyric_;
   melisma_b_ = from->melisma_b_;
-  alignment_i_ = from->alignment_i_;
+  alignment_ = from->alignment_;
   first_in_phrase_b_ = from->first_in_phrase_b_;
-  group_translation_f_ = from->group_translation_f_;
+  group_translation_ = from->group_translation_;
 }
 
 void 
@@ -55,9 +55,9 @@ Syllable_group::set_first_in_phrase (bool f)
 void 
 Syllable_group::set_notehead (Grob * notehead)
 {
-  if (!notehead_l_) {
+  if (!notehead_) {
     /* there should only be a single notehead, so silently ignore any extras */
-    notehead_l_=notehead;
+    notehead_=notehead;
   }
 }
 
@@ -66,21 +66,21 @@ Syllable_group::add_lyric (Grob * lyric)
 {
   lyric_list_.push (lyric);
   /* record longest and shortest lyrics */
-  if (longest_lyric_l_) {
-    if (lyric->extent (lyric,X_AXIS).length () > (longest_lyric_l_->extent (longest_lyric_l_, X_AXIS)).length ())
-      longest_lyric_l_ = lyric;
-    if (lyric->extent (lyric, X_AXIS).length () < (shortest_lyric_l_->extent (shortest_lyric_l_, X_AXIS)).length ())
-      shortest_lyric_l_ = lyric;
+  if (longest_lyric_) {
+    if (lyric->extent (lyric,X_AXIS).length () > (longest_lyric_->extent (longest_lyric_, X_AXIS)).length ())
+      longest_lyric_ = lyric;
+    if (lyric->extent (lyric, X_AXIS).length () < (shortest_lyric_->extent (shortest_lyric_, X_AXIS)).length ())
+      shortest_lyric_ = lyric;
   }
   else
-    longest_lyric_l_ = shortest_lyric_l_ = lyric;
+    longest_lyric_ = shortest_lyric_ = lyric;
 }
 
 void 
 Syllable_group::add_extender (Grob * extender)
 {
-  if (notehead_l_ && melisma_b_) {
-    dynamic_cast<Spanner*> (extender)->set_bound (RIGHT, notehead_l_);
+  if (notehead_ && melisma_b_) {
+    dynamic_cast<Spanner*> (extender)->set_bound (RIGHT, notehead_);
     // should the extender finish at the right of the last note of the melisma, or the left?
     // Comments in lyric-extender.hh say left, but right looks better to me. GP.
 
@@ -90,12 +90,12 @@ Syllable_group::add_extender (Grob * extender)
     // Right:
     Real ss = 1.0;
     extender->set_grob_property ("right-trim-amount", 
-			       gh_double2scm (-notehead_l_->extent (notehead_l_, X_AXIS).length ()/ss));
+			       gh_double2scm (-notehead_->extent (notehead_, X_AXIS).length ()/ss));
   }
 }
 
 bool 
-Syllable_group::set_lyric_align (const char *punc, Grob *default_notehead_l)
+Syllable_group::set_lyric_align (const char *punc, Grob *default_notehead)
 {
   if (lyric_list_.size ()==0) {
     // No lyrics: nothing to do.
@@ -103,29 +103,29 @@ Syllable_group::set_lyric_align (const char *punc, Grob *default_notehead_l)
   }
 
   Grob * lyric;
-  alignment_i_ = appropriate_alignment (punc);
+  alignment_ = appropriate_alignment (punc);
   
   // If there was no notehead in the matching voice context, use the first 
   // notehead caught from any voice context (any port in a storm).
-  if (!notehead_l_) {
-    notehead_l_ = default_notehead_l;
+  if (!notehead_) {
+    notehead_ = default_notehead;
   }
 
-  group_translation_f_ = amount_to_translate ();
+  group_translation_ = amount_to_translate ();
 
   // set the x alignment of each lyric
   for (int l = 0; l < lyric_list_.size (); l++) {
     lyric = lyric_list_[l];
-    lyric->set_grob_property ("self-alignment-X", gh_int2scm (alignment_i_));
+    lyric->set_grob_property ("self-alignment-X", gh_int2scm (alignment_));
     // centre on notehead ... if we have one. 
-    if (notehead_l_) {
-      lyric->set_parent (notehead_l_, X_AXIS);
+    if (notehead_) {
+      lyric->set_parent (notehead_, X_AXIS);
       lyric->add_offset_callback (Self_alignment_interface::centered_on_parent_proc, X_AXIS);
       // reference is on the right of the notehead; move it left half way, and add translation
-      lyric->translate_axis (group_translation_f_- (notehead_l_->extent (notehead_l_, X_AXIS)).center (), X_AXIS);
+      lyric->translate_axis (group_translation_- (notehead_->extent (notehead_, X_AXIS)).center (), X_AXIS);
     }
   }
-  return (notehead_l_);
+  return (notehead_);
 }
 
 /** determine the distance to translate lyrics to get correct alignment
@@ -140,22 +140,22 @@ Real
 Syllable_group::amount_to_translate ()
 {
   Real translate = 0.0;
-  if (alignment_i_ != CENTER) {
-    switch (alignment_i_) {
+  if (alignment_ != CENTER) {
+    switch (alignment_) {
       // FIXME: do we really know the lyric extent here? Some font sizing comes later?
     case LEFT: 
-      translate =  longest_lyric_l_->extent (longest_lyric_l_, X_AXIS).length () / gh_scm2double (longest_lyric_l_->get_grob_property("begin-alignment"));
+      translate =  longest_lyric_->extent (longest_lyric_, X_AXIS).length () / gh_scm2double (longest_lyric_->get_grob_property("begin-alignment"));
       break;
     case RIGHT: 
-      translate =   longest_lyric_l_->extent (longest_lyric_l_, X_AXIS).length () / gh_scm2double (longest_lyric_l_->get_grob_property("end-alignment"));
+      translate =   longest_lyric_->extent (longest_lyric_, X_AXIS).length () / gh_scm2double (longest_lyric_->get_grob_property("end-alignment"));
       break;
     }
-    if (!gh_scm2bool(longest_lyric_l_->get_grob_property("ignore-length-mismatch"))) {
-      Real l = shortest_lyric_l_->extent (shortest_lyric_l_, X_AXIS).length ();
+    if (!gh_scm2bool(longest_lyric_->get_grob_property("ignore-length-mismatch"))) {
+      Real l = shortest_lyric_->extent (shortest_lyric_, X_AXIS).length ();
       translate = l <? translate;
     }
     
-    translate *= alignment_i_ ;
+    translate *= alignment_ ;
   }
   return translate;
 }
@@ -171,7 +171,7 @@ int
 Syllable_group::appropriate_alignment (const char *punc)
 {
 
-  SCM s=this->longest_lyric_l_->get_grob_property ("alignment");
+  SCM s=this->longest_lyric_->get_grob_property ("alignment");
     if (s!=SCM_EOL) {
       return gh_scm2int (s);
     }
@@ -185,10 +185,10 @@ Syllable_group::appropriate_alignment (const char *punc)
   for (int l = 0; l < lyric_list_.size () && end_phrase; l++) {
     lyric = lyric_list_[l];
     SCM lyric_scm = lyric->get_grob_property ("text");
-    String lyric_str = gh_string_p (lyric_scm)?ly_scm2string (lyric_scm):"";
+    String lyric_string = gh_string_p (lyric_scm)?ly_scm2string (lyric_scm):"";
     char lastchar;
-    if (lyric_str.length_i ()>0) {
-      lastchar = lyric_str[lyric_str.length_i ()-1];
+    if (lyric_string.length ()>0) {
+      lastchar = lyric_string[lyric_string.length ()-1];
       /* If it doesn't end in punctuation then it ain't an end of phrase */
       if (! strchr (punc, lastchar)) {
 	/*
@@ -204,8 +204,8 @@ Syllable_group::appropriate_alignment (const char *punc)
 	   FIXME: The extra space throws alignment out a bit.
 	*/
 	if (lastchar == ' ') {
-	  if (lyric_str.length_i ()>1) {
-	    lastchar = lyric_str[lyric_str.length_i ()-2];
+	  if (lyric_string.length ()>1) {
+	    lastchar = lyric_string[lyric_string.length ()-2];
 	    if (strchr (punc, lastchar))
 	      end_phrase=false;
 	  }
@@ -227,20 +227,20 @@ Syllable_group::appropriate_alignment (const char *punc)
 void
 Syllable_group::adjust_melisma_align ()
 {
-  if (notehead_l_ && lyric_list_.size ()) {
+  if (notehead_ && lyric_list_.size ()) {
     // override any previous offset adjustments
-    Real translation = -group_translation_f_;
+    Real translation = -group_translation_;
     // melisma aligning:
-    switch (alignment_i_) {
+    switch (alignment_) {
       //  case LEFT: // that's all
     case CENTER: // move right so smallest lyric is left-aligned on notehead
-      translation += (shortest_lyric_l_->extent (shortest_lyric_l_, X_AXIS)).length ()/2;
+      translation += (shortest_lyric_->extent (shortest_lyric_, X_AXIS)).length ()/2;
       break;
     case RIGHT: // move right so smallest lyric is left-aligned on notehead
-      translation += (shortest_lyric_l_->extent (shortest_lyric_l_, X_AXIS)).length ();
+      translation += (shortest_lyric_->extent (shortest_lyric_, X_AXIS)).length ();
       break;
     }
-    group_translation_f_ += translation;
+    group_translation_ += translation;
     for (int l = 0; l < lyric_list_.size (); l++) {
       lyric_list_[l]->translate_axis (translation, X_AXIS);
     }
@@ -257,7 +257,7 @@ Syllable_group::is_empty ()
 void
 Syllable_group::next_lyric ()
 {
-  first_in_phrase_b_ = (alignment_i_ == RIGHT);
+  first_in_phrase_b_ = (alignment_ == RIGHT);
   clear ();
 }
 

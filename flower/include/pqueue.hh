@@ -34,20 +34,20 @@ int compare (PQueue_ent<K,T> const &e1 , PQueue_ent<K,T> const &e2) {
  */
 template<class T>
 class PQueue {
-    Array<T> heap_arr_;
+    Array<T> heap_array_;
     T &elt (int i) {
-	return heap_arr_[i-1];
+	return heap_array_[i-1];
     }
     T const&elt (int i) const {
-	return heap_arr_[i-1];
+	return heap_array_[i-1];
     }
 public:
     /** acces an heap element.  Careful with this, as changing the
       priority might fuck up the invariants
 
       @param 1 <= i < size () */
-    T& operator[] (int i) { return heap_arr_[i]; }
-    T operator[] (int i) const { return heap_arr_[i]; }
+    T& operator[] (int i) { return heap_array_[i]; }
+    T operator[] (int i) const { return heap_array_[i]; }
     void OK () const
     {
 #ifndef NDEBUG
@@ -56,10 +56,10 @@ public:
 #endif
     }
     T front () const { return elt (1); }
-    int size () const { return heap_arr_.size (); }
+    int size () const { return heap_array_.size (); }
     void insert (T v) {
-	heap_arr_.push (v);
-	int i = heap_arr_.size ();
+	heap_array_.push (v);
+	int i = heap_array_.size ();
 	int j = i / 2 ;
 	while (j) {
 	    if (compare (elt (j), v) > 0) {
@@ -80,7 +80,7 @@ public:
     }
     void delmin () {
 	assert (size ());
-	T last = heap_arr_.top ();
+	T last = heap_array_.top ();
 	
 	int mini=2;
 	int lasti=1;
@@ -95,7 +95,7 @@ public:
 	    mini *= 2;
 	}
 	elt (lasti) = last;
-	heap_arr_.pop ();
+	heap_array_.pop ();
 	OK ();
     }
     T get () { 

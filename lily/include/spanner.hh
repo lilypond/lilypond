@@ -35,7 +35,7 @@ class Spanner : public  Grob {
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   
-  Link_array<Spanner> broken_into_l_arr_;
+  Link_array<Spanner> broken_intos_;
 
   // todo: move to somewhere else.
   Real get_broken_left_end_align () const;

@@ -30,7 +30,7 @@ public:
 };
 
 /*
-    int metronome_i_;
+    int metronome_;
  */
 class Tempo_req : public Request
 {

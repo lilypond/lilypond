@@ -24,7 +24,7 @@ public:
   virtual void do_announces ();
   virtual void announce_element (Audio_element_info);
 protected:
-  Array<Audio_element_info> announce_info_arr_;
+  Array<Audio_element_info> announce_infos_;
   void create_audio_elements ();
 
 private:

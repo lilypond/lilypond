@@ -37,13 +37,13 @@
 Mapped_file_storage::Mapped_file_storage (String s)
 {
   data_caddr_ = 0;
-  fildes_i_ = 0;
+  fildes_ = 0;
   size_off_ = 0;
   open (s);
 }
 
 char const*
-Mapped_file_storage::ch_C () const
+Mapped_file_storage::to_str0 () const
 {
   return (char const*)data_caddr_;
 }
@@ -51,7 +51,7 @@ Mapped_file_storage::ch_C () const
 void
 Mapped_file_storage::map ()
 {
-  if (fildes_i_ == -1)
+  if (fildes_ == -1)
     return;
   
 #ifdef __NeXT__
@@ -60,7 +60,7 @@ Mapped_file_storage::map ()
      vm_offset_t address;
      kern_return_t r;
  
-     r = map_fd (fildes_i_, (vm_offset_t) 0, &address, TRUE, size_off_);
+     r = map_fd (fildes_, (vm_offset_t) 0, &address, TRUE, size_off_);
      if (r != KERN_SUCCESS)
        warning (String ("map_fd: ") + mach_error_string (r));
      else
@@ -68,7 +68,7 @@ Mapped_file_storage::map ()
    }
 #else
 
-  data_caddr_ = (caddr_t)mmap ((void*)0, size_off_, PROT_READ, MAP_SHARED, fildes_i_, 0);
+  data_caddr_ = (caddr_t)mmap ((void*)0, size_off_, PROT_READ, MAP_SHARED, fildes_, 0);
 
   if ((int)data_caddr_ == -1)
     warning (_ ("can't map file") + ": " + strerror (errno));
@@ -78,19 +78,19 @@ Mapped_file_storage::map ()
 
 
 void
-Mapped_file_storage::open (String name_str)
+Mapped_file_storage::open (String name_string)
 {
-  fildes_i_ = ::open (name_str.ch_C (), O_RDONLY);
+  fildes_ = ::open (name_string.to_str0 (), O_RDONLY);
 
-  if (fildes_i_ == -1)
+  if (fildes_ == -1)
     {
-      warning (_f ("can't open file: `%s'", name_str)
+      warning (_f ("can't open file: `%s'", name_string)
 	+ ": " + strerror (errno));
       return;
     }
 
   struct stat file_stat;
-  fstat (fildes_i_, &file_stat);
+  fstat (fildes_, &file_stat);
   size_off_ = file_stat.st_size;
   map ();
 }
@@ -120,15 +120,15 @@ void
 Mapped_file_storage::close ()
 {
   unmap ();
-  if (fildes_i_)
+  if (fildes_)
     {
-      ::close (fildes_i_);
-      fildes_i_ = 0;
+      ::close (fildes_);
+      fildes_ = 0;
     }
 }
 
 int
-Mapped_file_storage::length_i () const
+Mapped_file_storage::length () const
 {
   return size_off_;
 }

@@ -20,15 +20,15 @@ public:
   VIRTUAL_COPY_CONS (Grob);
 
   static bool has_interface (Grob*);
-  int  rank_i_;
+  int  rank_;
   virtual void do_break_processing ();
-  virtual Paper_column *column_l () const;
+  virtual Paper_column *get_column () const;
   virtual System *get_system () const;
   
   /// if lines are broken then this column is in #line#
   System *system_;
 
-  static int rank_i (Grob*);
+  static int get_rank (Grob*);
 
   DECLARE_SCHEME_CALLBACK(brew_molecule, (SCM));
   DECLARE_SCHEME_CALLBACK(before_line_breaking, (SCM));

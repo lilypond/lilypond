@@ -17,14 +17,14 @@
  */
 class Simple_file_storage  : public File_storage
 {
-  char * data_p_;
-  int len_i_;
+  char * data_;
+  int len_;
 
   void load_stdin ();
   void load_file (String);
 public:
-  virtual char const*ch_C () const;
-  virtual int length_i () const;
+  virtual char const*to_str0 () const;
+  virtual int length () const;
   virtual ~Simple_file_storage ();
   Simple_file_storage (String);
 };

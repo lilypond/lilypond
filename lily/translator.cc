@@ -27,21 +27,21 @@ Translator::init ()
   trans_group_list_ = SCM_EOL;
   properties_scm_ = SCM_EOL;
   definition_ = SCM_EOL;
-  daddy_trans_l_ =0;
+  daddy_trans_ =0;
 }
 
 Translator::Translator ()
 {
   init ();
-  output_def_l_ = 0;
+  output_def_ = 0;
   smobify_self ();
 }
 
 Translator::Translator (Translator const &s)
 {
   init ();
-  output_def_l_ = s.output_def_l_;
-  type_str_ = s.type_str_;
+  output_def_ = s.output_def_;
+  type_string_ = s.type_string_;
 
   smobify_self ();
 }
@@ -49,7 +49,7 @@ Translator::Translator (Translator const &s)
 bool
 Translator::is_alias_b (String s) const
 {
-  bool b  = s == type_str_;
+  bool b  = s == type_string_;
 
   for (SCM a = unsmob_translator_def (definition_)->type_aliases_;
        !b && gh_pair_p (a); a = ly_cdr (a))
@@ -68,7 +68,7 @@ Translator::try_music (Music *)
 Moment
 Translator::now_mom () const
 {
-  return daddy_trans_l_->now_mom ();
+  return daddy_trans_->now_mom ();
 }
 
 void
@@ -83,15 +83,15 @@ Translator::do_announces ()
 }
 
 Music_output_def *
-Translator::output_def_l () const
+Translator::get_output_def () const
 {
-  return output_def_l_;
+  return output_def_;
 }
 
 SCM
 Translator::internal_get_property (SCM sym) const
 {
-  return daddy_trans_l_->internal_get_property (sym);
+  return daddy_trans_->internal_get_property (sym);
 }
 
 void

@@ -31,7 +31,7 @@ free_smob (SCM)
   return 0;
 }
 
-LY_DEFINE(cxx_function_type_p, "c++-function?", 1, 0, 0, (SCM x),
+LY_DEFINE(cxx_function_type, "c++-function?", 1, 0, 0, (SCM x),
 	  "Is this an encapsulated C++ function ?")
 {
   return (SCM_CELL_TYPE (x)) == callback_tag ? SCM_BOOL_T : SCM_BOOL_F; 

@@ -71,14 +71,14 @@ TRANSLATOR_DECLARATIONS(Ambitus_engraver);
 
 private:
   void create_ambitus ();
-  Item *ambitus_p_;
+  Item *ambitus_;
   int/*bool*/ is_typeset;
   Pitch pitch_min, pitch_max;
 };
 
 Ambitus_engraver::Ambitus_engraver ()
 {
-  ambitus_p_ = 0;
+  ambitus_ = 0;
   is_typeset = 0;
 
   /*
@@ -98,7 +98,7 @@ Ambitus_engraver::process_music ()
    * Otherwise, if a voice begins with a rest, the ambitus grob will
    * be placed after the rest.
    */
-  if (!ambitus_p_) {
+  if (!ambitus_) {
     create_ambitus ();
   }
 }
@@ -106,7 +106,7 @@ Ambitus_engraver::process_music ()
 void
 Ambitus_engraver::stop_translation_timestep ()
 {
-  if (ambitus_p_ && !is_typeset)
+  if (ambitus_ && !is_typeset)
     {
       /*
        * Evaluate centralCPosition not until now, since otherwise we
@@ -115,15 +115,15 @@ Ambitus_engraver::stop_translation_timestep ()
        * assumed to be 0.
        */
       SCM c0 = get_property ("centralCPosition");
-      ambitus_p_->set_grob_property ("centralCPosition", c0);
+      ambitus_->set_grob_property ("centralCPosition", c0);
 
       /*
        * Similar for keySignature.
        */
       SCM key_signature = get_property ("keySignature");
-      ambitus_p_->set_grob_property ("keySignature", key_signature);
+      ambitus_->set_grob_property ("keySignature", key_signature);
 
-      typeset_grob (ambitus_p_);
+      typeset_grob (ambitus_);
       is_typeset = 1;
     }
 }
@@ -131,10 +131,10 @@ Ambitus_engraver::stop_translation_timestep ()
 void
 Ambitus_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *item = dynamic_cast <Item *>(info.grob_l_);
+  Item *item = dynamic_cast <Item *>(info.grob_);
   if (item)
     {
-      if (Note_head::has_interface (info.grob_l_))
+      if (Note_head::has_interface (info.grob_))
 	{
 	  Note_req *nr = dynamic_cast<Note_req*> (info.music_cause ());
 	  if (nr)
@@ -163,20 +163,20 @@ void
 Ambitus_engraver::create_ambitus ()
 {
   SCM basicProperties = get_property ("Ambitus");
-  ambitus_p_ = new Item (basicProperties); is_typeset = 0;
-  announce_grob (ambitus_p_, SCM_EOL);
+  ambitus_ = new Item (basicProperties); is_typeset = 0;
+  announce_grob (ambitus_, SCM_EOL);
 }
 
 void
 Ambitus_engraver::finalize ()
 {
-  if (ambitus_p_)
+  if (ambitus_)
     {
       if (Pitch::compare (pitch_min, pitch_max) <= 0)
 	{
-	  ambitus_p_->set_grob_property ("pitch-min",
+	  ambitus_->set_grob_property ("pitch-min",
 					 pitch_min.smobbed_copy ());
-	  ambitus_p_->set_grob_property ("pitch-max",
+	  ambitus_->set_grob_property ("pitch-max",
 					 pitch_max.smobbed_copy ());
 	}
       else // have not seen any pitch, so forget about the ambitus
@@ -187,9 +187,9 @@ Ambitus_engraver::finalize ()
 	   * global timesig/clef definitions.
 	   */
 #if 0
-	  ambitus_p_->warning("empty ambitus range [ignored]");
+	  ambitus_->warning("empty ambitus range [ignored]");
 #endif
-	  ambitus_p_->suicide();
+	  ambitus_->suicide();
 	}
     }
 }

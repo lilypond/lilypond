@@ -96,13 +96,13 @@ Slur::de_uglyfy (Grob*me, Slur_bezier_bow* bb, Real default_height)
 Direction
 Slur::get_default_dir (Grob*me) 
 {
-  Link_array<Grob> encompass_arr =
+  Link_array<Grob> encompasses =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
   
   Direction d = DOWN;
-  for (int i=0; i < encompass_arr.size (); i ++) 
+  for (int i=0; i < encompasses.size (); i ++) 
     {
-      if (Note_column::dir (encompass_arr[i]) < 0) 
+      if (Note_column::dir (encompasses[i]) < 0) 
 	{
 	  d = UP;
 	  break;
@@ -138,7 +138,7 @@ Slur::check_slope (Grob *me)
   SCM s = me->get_grob_property ("slope-limit");
   if (gh_number_p (s))
     {
-      Array<Offset> encompass = get_encompass_offset_arr (me);
+      Array<Offset> encompass = get_encompass_offsets (me);
       Drul_array<Offset> attachment;
       attachment[LEFT] = encompass[0];
       attachment[RIGHT] = encompass.top ();
@@ -262,15 +262,15 @@ Slur::broken_trend_offset (Grob *me, Direction dir)
     the unbroken slur would have had.
   */
   Offset o;
-  if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_l_))
+  if (Spanner *mother =  dynamic_cast<Spanner*> (me->original_))
     {
-      for (int i = dir == LEFT ? 0 : mother->broken_into_l_arr_.size () - 1;
-	   dir == LEFT ? i < mother->broken_into_l_arr_.size () : i > 0;
+      for (int i = dir == LEFT ? 0 : mother->broken_intos_.size () - 1;
+	   dir == LEFT ? i < mother->broken_intos_.size () : i > 0;
 	   dir == LEFT ? i++ : i--)
 	{
-	  if (mother->broken_into_l_arr_[i - dir] == me)
+	  if (mother->broken_intos_[i - dir] == me)
 	    {
-	      Grob *neighbour = mother->broken_into_l_arr_[i];
+	      Grob *neighbour = mother->broken_intos_[i];
 	      if (dir == RIGHT)
 		neighbour->set_grob_property ("direction",
 					     me->get_grob_property ("direction"));
@@ -315,7 +315,7 @@ Slur::get_attachment (Grob *me, Direction dir,
   if (Note_column::has_interface (sp->get_bound (dir)))
     {
       Grob * n =sp->get_bound (dir);
-      if ((stem = Note_column::stem_l (n)))
+      if ((stem = Note_column::get_stem (n)))
 	{
 	  Real x_extent;
 	  if (Grob *head = Note_column::first_head (n))
@@ -352,7 +352,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 	       */
 	      Real stem_thickness =
 		gh_scm2double (stem->get_grob_property ("thickness"))
-		* stem->paper_l ()->get_var ("linethickness");
+		* stem->get_paper ()->get_var ("linethickness");
 	      o += Offset (0.5 *
 			   x_extent * (1 + Stem::get_direction (stem))
 			   - ((dir + 1)/2) * stem_thickness
@@ -415,19 +415,19 @@ Slur::encompass_offset (Grob*me,
 			Grob **common) 
 {
   Offset o;
-  Grob* stem_l = unsmob_grob (col->get_grob_property ("stem"));
+  Grob* stem = unsmob_grob (col->get_grob_property ("stem"));
   
   Direction dir = Directional_element_interface::get (me);
   
-  if (!stem_l)
+  if (!stem)
     {
       me->warning (_ ("Slur over rest?"));
       o[X_AXIS] = col->relative_coordinate (common[X_AXIS], X_AXIS);
       o[Y_AXIS] = col->relative_coordinate (common[Y_AXIS], Y_AXIS);
       return o;  
     }
-  Direction stem_dir = Directional_element_interface::get (stem_l);
-  o[X_AXIS] = stem_l->relative_coordinate (0, X_AXIS);
+  Direction stem_dir = Directional_element_interface::get (stem);
+  o[X_AXIS] = stem->relative_coordinate (0, X_AXIS);
 
   /*
     Simply set x to middle of notehead
@@ -440,9 +440,9 @@ Slur::encompass_offset (Grob*me,
   o[X_AXIS] -= 0.5 * stem_dir * x_extent;
 
   if ((stem_dir == dir)
-      && !stem_l->extent (stem_l, Y_AXIS).empty_b ())
+      && !stem->extent (stem, Y_AXIS).empty_b ())
     {
-      o[Y_AXIS] = stem_l->extent (common[Y_AXIS], Y_AXIS)[dir];
+      o[Y_AXIS] = stem->extent (common[Y_AXIS], Y_AXIS)[dir];
     }
   else
     {
@@ -458,7 +458,7 @@ Slur::encompass_offset (Grob*me,
 }
 
 Array<Offset>
-Slur::get_encompass_offset_arr (Grob *me)
+Slur::get_encompass_offsets (Grob *me)
 {
   Spanner*sp = dynamic_cast<Spanner*> (me);
   SCM eltlist = me->get_grob_property ("note-columns");
@@ -469,53 +469,53 @@ Slur::get_encompass_offset_arr (Grob *me)
   common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
   common[X_AXIS] = common[X_AXIS]->common_refpoint (sp->get_bound (LEFT), X_AXIS);
   
-  Link_array<Grob>  encompass_arr = ly_scm2grob_array (eltlist);
-  Array<Offset> offset_arr;
+  Link_array<Grob>  encompasses = ly_scm2grobs (eltlist);
+  Array<Offset> offsets;
 
   Offset origin (me->relative_coordinate (common[X_AXIS], X_AXIS),
 		 me->relative_coordinate (common[Y_AXIS], Y_AXIS)); 
 
   int first = 1;
-  int last = encompass_arr.size () - 2;
+  int last = encompasses.size () - 2;
 
-  offset_arr.push (get_attachment (me, LEFT, common));
+  offsets.push (get_attachment (me, LEFT, common));
 
   /*
     left is broken edge
   */
-  if (encompass_arr[0] != sp->get_bound (LEFT))
+  if (encompasses[0] != sp->get_bound (LEFT))
     {
       first--;
 
       // ?
-      offset_arr[0][Y_AXIS] -=
-	encompass_arr[0]->relative_coordinate (common[Y_AXIS], Y_AXIS) 
+      offsets[0][Y_AXIS] -=
+	encompasses[0]->relative_coordinate (common[Y_AXIS], Y_AXIS) 
 	- me->relative_coordinate (common[Y_AXIS], Y_AXIS); 
     }
 
   /*
     right is broken edge
   */
-  if (encompass_arr.top () != sp->get_bound (RIGHT))
+  if (encompasses.top () != sp->get_bound (RIGHT))
     {
       last++;
     }
 
   for (int i = first; i <= last; i++)
     {
-      Offset o (encompass_offset (me, encompass_arr[i], common));
-      offset_arr.push (o - origin);
+      Offset o (encompass_offset (me, encompasses[i], common));
+      offsets.push (o - origin);
     }
 
-  offset_arr.push (Offset (sp->spanner_length (), 0) + get_attachment (me, RIGHT,common));
+  offsets.push (Offset (sp->spanner_length (), 0) + get_attachment (me, RIGHT,common));
 
-  if (encompass_arr[0] != sp->get_bound (LEFT))
+  if (encompasses[0] != sp->get_bound (LEFT))
     {
-      offset_arr.top ()[Y_AXIS] -= encompass_arr.top ()->relative_coordinate (common[Y_AXIS], Y_AXIS) 
+      offsets.top ()[Y_AXIS] -= encompasses.top ()->relative_coordinate (common[Y_AXIS], Y_AXIS) 
 	- me->relative_coordinate (common[Y_AXIS], Y_AXIS);
     }
 
-  return offset_arr;
+  return offsets;
 }
 
 
@@ -550,7 +550,7 @@ Slur::brew_molecule (SCM smob)
       return SCM_EOL;
     }
 
-  Real thick = me->paper_l ()->get_var ("linethickness") *
+  Real thick = me->get_paper ()->get_var ("linethickness") *
     gh_scm2double (me->get_grob_property ("thickness"));
   Bezier one = get_curve (me);
 
@@ -580,7 +580,7 @@ Slur::set_control_points (Grob*me)
   Real r_0 = gh_scm2double (ly_cdr (r_0_scm));
   Real h_inf = staff_space * gh_scm2double (ly_cdr (h_inf_scm));
   
-  Slur_bezier_bow bb (get_encompass_offset_arr (me),
+  Slur_bezier_bow bb (get_encompass_offsets (me),
 		      Directional_element_interface::get (me),
 		      h_inf, r_0);
 
@@ -607,7 +607,7 @@ Slur::set_control_points (Grob*me)
 
       
       Real beautiful = length * default_height * sb;
-      Real area = bb.enclosed_area_f ();
+      Real area = bb.get_enclosed_area ();
       
       /*
 	Slurs that fit beautifully are not ugly
@@ -666,7 +666,7 @@ Slur::get_curve (Grob*me)
       i++;
     }
 
-  Array<Offset> enc (get_encompass_offset_arr (me));
+  Array<Offset> enc (get_encompass_offsets (me));
   Direction dir = Directional_element_interface::get (me);
   
   Real x1 = enc[0][X_AXIS];

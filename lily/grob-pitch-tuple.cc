@@ -21,13 +21,13 @@ int compare (Grob_pitch_tuple const &a, Grob_pitch_tuple const &b)
 
 Grob_pitch_tuple::Grob_pitch_tuple ()
 {
-  head_l_ =0;
+  head_ =0;
   end_ = 0;
 }
 
 Grob_pitch_tuple::Grob_pitch_tuple (Grob *h, Melodic_req*m, Moment mom)
 {
-  head_l_ = h;
+  head_ = h;
   pitch_ = *unsmob_pitch (m->get_mus_property ("pitch"));
   end_ = mom;
 }

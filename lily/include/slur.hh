@@ -18,7 +18,7 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
   static void set_interface (Grob*);
   static bool  has_interface (Grob*);
-  static Array<Offset> get_encompass_offset_arr (Grob *me);
+  static Array<Offset> get_encompass_offsets (Grob *me);
   static Bezier get_curve (Grob *me);
   static Direction get_default_dir (Grob *me);
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));

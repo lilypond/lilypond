@@ -63,9 +63,9 @@ Staff_symbol::brew_molecule (SCM smob)
       width = 0;
     }
 
-  Real t = me->paper_l ()->get_var ("linethickness");
+  Real t = me->get_paper ()->get_var ("linethickness");
   SCM my_thick = me->get_grob_property("thickness");
-  if (gh_number_p(my_thick))
+  if (gh_number_p (my_thick))
     t *= gh_scm2double (my_thick);
   
   int l = Staff_symbol::line_count (me);
@@ -86,7 +86,7 @@ Staff_symbol::brew_molecule (SCM smob)
 }
 
 int
-Staff_symbol::steps_i (Grob*me) 
+Staff_symbol::get_steps (Grob*me) 
 {
   return line_count (me) * 2;
 }

@@ -19,13 +19,13 @@ void
 Timing_translator::stop_translation_timestep ()
 {
   Translator *t = this;
-  Global_translator *global_l =0;
+  Global_translator *global =0;
   do
     {
-      t = t->daddy_trans_l_ ;
-      global_l = dynamic_cast<Global_translator*> (t);
+      t = t->daddy_trans_ ;
+      global = dynamic_cast<Global_translator*> (t);
     }
-  while (!global_l);
+  while (!global);
 
   /* allbars == ! skipbars */
   SCM sb = get_property ("skipBars");
@@ -45,21 +45,21 @@ Timing_translator::stop_translation_timestep ()
 	    moment.  A waste of cpu?
 	   */
 	  && !now.grace_part_)
-	global_l->add_moment_to_process (now + barleft);
+	global->add_moment_to_process (now + barleft);
     }
 }
 
 void
 Timing_translator::initialize ()
 {
-  daddy_trans_l_->set_property ("timing" , SCM_BOOL_T);  
-  daddy_trans_l_->set_property ("currentBarNumber" , gh_int2scm (1));
+  daddy_trans_->set_property ("timing" , SCM_BOOL_T);  
+  daddy_trans_->set_property ("currentBarNumber" , gh_int2scm (1));
 
-  daddy_trans_l_->set_property ("timeSignatureFraction",
+  daddy_trans_->set_property ("timeSignatureFraction",
 				gh_cons (gh_int2scm (4), gh_int2scm (4)));
-  daddy_trans_l_->set_property ("measurePosition", Moment (Rational (0)).smobbed_copy ());
-  daddy_trans_l_->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
-  daddy_trans_l_->set_property ("beatLength", Moment (Rational (1,4)).smobbed_copy ());
+  daddy_trans_->set_property ("measurePosition", Moment (Rational (0)).smobbed_copy ());
+  daddy_trans_->set_property ("measureLength", Moment (Rational (1)).smobbed_copy ());
+  daddy_trans_->set_property ("beatLength", Moment (Rational (1,4)).smobbed_copy ());
 }
 
 Rational
@@ -97,16 +97,16 @@ void
 Timing_translator::start_translation_timestep ()
 {
   Translator *t = this;
-  Global_translator *global_l =0;
+  Global_translator *global =0;
   do
     {
-      t = t->daddy_trans_l_ ;
-      global_l = dynamic_cast<Global_translator*> (t);
+      t = t->daddy_trans_ ;
+      global = dynamic_cast<Global_translator*> (t);
     }
-  while (!global_l);
+  while (!global);
 
-  Moment now = global_l->now_mom_;
-  Moment dt = now  - global_l -> prev_mom_;
+  Moment now = global->now_mom_;
+  Moment dt = now  - global -> prev_mom_;
   if (dt < Moment (0))
     {
       programming_error ("Moving backwards in time");
@@ -126,7 +126,7 @@ Timing_translator::start_translation_timestep ()
   else
     {
       measposp = now;
-      daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy ());
+      daddy_trans_->set_property ("measurePosition", measposp.smobbed_copy ());
     }
   
   measposp += dt;
@@ -148,8 +148,8 @@ Timing_translator::start_translation_timestep ()
       b ++;
     }
 
-  daddy_trans_l_->set_property ("currentBarNumber", gh_int2scm (b));
-  daddy_trans_l_->set_property ("measurePosition", measposp.smobbed_copy ());
+  daddy_trans_->set_property ("currentBarNumber", gh_int2scm (b));
+  daddy_trans_->set_property ("measurePosition", measposp.smobbed_copy ());
 }
 
 ENTER_DESCRIPTION (Timing_translator, "","","","","" );

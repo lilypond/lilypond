@@ -154,10 +154,10 @@ Music::transpose (Pitch delta)
   Pitch np = *p;
   np.transpose (delta);
   
-  if (abs (np.alteration_i_) > 2)
+  if (abs (np.alteration_) > 2)
     {
 	warning (_f ("Transposition by %s makes accidental larger than two",
-	  delta.str ()));
+	  delta.string ()));
     }
 
   set_mus_property ("pitch", np.smobbed_copy ());
@@ -221,7 +221,7 @@ LY_DEFINE(ly_get_mus_property,
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "music");
-  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
+  SCM_ASSERT_TYPE(gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   return sc->internal_get_mus_property (sym);
 }
@@ -233,7 +233,7 @@ LY_DEFINE(ly_set_mus_property,
 {
   Music * sc = unsmob_music (mus);
   SCM_ASSERT_TYPE(sc, mus, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE(gh_symbol_p(sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
+  SCM_ASSERT_TYPE(gh_symbol_p (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");  
 
   bool ok = type_check_assignment (sym, val, ly_symbol2scm ("music-type?"));
   if (ok)
@@ -258,7 +258,7 @@ Music is the data type that music expressions are stored in. The data
 type does not yet offer many manipulations.
 ")
 {
-  SCM_ASSERT_TYPE(gh_string_p(type), type, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE(gh_string_p (type), type, SCM_ARG1, __FUNCTION__, "string");
   
   SCM s = make_music (ly_scm2string (type))->self_scm ();
   scm_gc_unprotect_object (s);

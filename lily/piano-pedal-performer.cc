@@ -19,7 +19,7 @@ class Piano_pedal_performer : public Performer
   struct Pedal_info
   {
     char const *name_;
-    Span_req* start_req_l_;
+    Span_req* start_req_;
     Drul_array<Span_req*> req_l_drul_;
   };
 
@@ -35,7 +35,7 @@ protected:
   virtual void start_translation_timestep ();
 
 private:
-  Link_array<Audio_piano_pedal> audio_p_arr_;
+  Link_array<Audio_piano_pedal> audios_;
   Pedal_info * info_alist_;
 };
 
@@ -62,7 +62,7 @@ Piano_pedal_performer::initialize ()
       p->name_ = *np;
       p->req_l_drul_[START] = 0;
       p->req_l_drul_[STOP] = 0;
-      p->start_req_l_ = 0;
+      p->start_req_ = 0;
 
       p++;
     }
@@ -77,27 +77,27 @@ Piano_pedal_performer::create_audio_elements ()
     {
       if (p->req_l_drul_[STOP])
 	{
-	  if (!p->start_req_l_)
+	  if (!p->start_req_)
 	    {
 	      p->req_l_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", String (p->name_)));
 	    }
 	  else
 	    {
 	      Audio_piano_pedal* a = new Audio_piano_pedal;
-	      a->type_str_ = String (p->name_);
+	      a->type_string_ = String (p->name_);
 	      a->dir_ = STOP;
-	      audio_p_arr_.push (a);
+	      audios_.push (a);
 	    }
-	  p->start_req_l_ = 0;
+	  p->start_req_ = 0;
 	}
 
       if (p->req_l_drul_[START])
 	{
-	  p->start_req_l_ = p->req_l_drul_[START];
+	  p->start_req_ = p->req_l_drul_[START];
 	  Audio_piano_pedal* a = new Audio_piano_pedal;
-	  a->type_str_ = String (p->name_);
+	  a->type_string_ = String (p->name_);
 	  a->dir_ = START;
-	  audio_p_arr_.push (a);
+	  audios_.push (a);
 	}
       p->req_l_drul_[START] = 0;
       p->req_l_drul_[STOP] = 0;
@@ -107,9 +107,9 @@ Piano_pedal_performer::create_audio_elements ()
 void
 Piano_pedal_performer::stop_translation_timestep ()
 {
-  for (int i=0; i< audio_p_arr_.size (); i++)
-    play_element (audio_p_arr_[i]);
-  audio_p_arr_.clear ();
+  for (int i=0; i< audios_.size (); i++)
+    play_element (audios_[i]);
+  audios_.clear ();
 }
 
 void

@@ -57,7 +57,7 @@ Cons<T> *remove_cons (Cons<T> **pp)
   return knip;
 }
 
-template<class T> int cons_list_size_i (Cons<T> *l)
+template<class T> int cons_list_size (Cons<T> *l)
 {
   int i=0;
   while (l)
@@ -155,9 +155,9 @@ public:
     {
       junk ();
     }
-  int size_i ()
+  int size ()
     {
-      return cons_list_size_i (head_);
+      return cons_list_size (head_);
     }
 };
 

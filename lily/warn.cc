@@ -13,7 +13,7 @@
 void
 progress_indication (String s)
 {
- fputs (s.ch_C(), stderr);
+ fputs (s.to_str0 (), stderr);
  fflush (stderr);
 }
 

@@ -15,16 +15,16 @@
 
 Pitch::Pitch (int o, int n, int a)
 {
-  notename_i_ = n;
-  alteration_i_ = a;
-  octave_i_ = o;
+  notename_ = n;
+  alteration_ = a;
+  octave_ = o;
 
   if (n < 0 || n >= 7 ||
       a < -2 || a > 2)
     {
       String s = _ ("Pitch arguments out of range");
-      s += ": alteration = " + to_str (a);
-      s += ", notename = " + to_str (n);
+      s += ": alteration = " + to_string (a);
+      s += ", notename = " + to_string (n);
       warning (s);
     }
   normalise ();
@@ -32,17 +32,17 @@ Pitch::Pitch (int o, int n, int a)
 
 Pitch::Pitch ()
 {
-  notename_i_ = 0;
-  alteration_i_ = 0;
-  octave_i_ = 0;
+  notename_ = 0;
+  alteration_ = 0;
+  octave_ = 0;
 }
 
 int
 Pitch::compare (Pitch const &m1, Pitch const &m2)
 {
-  int o=  m1.octave_i_ - m2.octave_i_;
-  int n = m1.notename_i_ - m2.notename_i_;
-  int a = m1.alteration_i_ - m2.alteration_i_;
+  int o=  m1.octave_ - m2.octave_;
+  int n = m1.notename_ - m2.notename_;
+  int a = m1.alteration_ - m2.alteration_;
 
   if (o)
 	return o;
@@ -56,7 +56,7 @@ Pitch::compare (Pitch const &m1, Pitch const &m2)
 int
 Pitch::steps () const
 {
-  return  notename_i_ + octave_i_*7;
+  return  notename_ + octave_*7;
 }
 
 /*
@@ -70,57 +70,57 @@ static Byte pitch_byte_a[  ] = { 0, 2, 4, 5, 7, 9, 11 };
 int
 Pitch::semitone_pitch () const
 {
-  int o = octave_i_;
-  int n = notename_i_;
+  int o = octave_;
+  int n = notename_;
   while (n < 0)
     {
       n += 7;
       o --;
     }
-  return (o + n / 7) * 12 + pitch_byte_a[n % 7] + alteration_i_;
+  return (o + n / 7) * 12 + pitch_byte_a[n % 7] + alteration_;
 }
 
 void
 Pitch::normalise ()
 {
   int pitch = semitone_pitch ();
-  while (notename_i_ >= 7)
+  while (notename_ >= 7)
     {
-      notename_i_ -= 7;
-      octave_i_++;
-      alteration_i_ -= semitone_pitch () - pitch;
+      notename_ -= 7;
+      octave_++;
+      alteration_ -= semitone_pitch () - pitch;
     }
-  while (notename_i_ < 0)
+  while (notename_ < 0)
     {
-      notename_i_ += 7;
-      octave_i_--;
-      alteration_i_ -= semitone_pitch () - pitch;
+      notename_ += 7;
+      octave_--;
+      alteration_ -= semitone_pitch () - pitch;
     }
-  while (alteration_i_ >= 3)
+  while (alteration_ >= 3)
     {
-      if (notename_i_ == 6)
+      if (notename_ == 6)
 	{
-	  notename_i_ = 0;
-	  octave_i_++;
+	  notename_ = 0;
+	  octave_++;
 	}
       else
-	notename_i_++;
+	notename_++;
 
-      alteration_i_ = 0;
-      alteration_i_ -= semitone_pitch () - pitch;
+      alteration_ = 0;
+      alteration_ -= semitone_pitch () - pitch;
     }
-  while (alteration_i_ <= -3)
+  while (alteration_ <= -3)
     {
-      if (notename_i_ == 0)
+      if (notename_ == 0)
 	{
-	  notename_i_ = 6;
-	  octave_i_--;
+	  notename_ = 6;
+	  octave_--;
 	}
       else
-	notename_i_--;
+	notename_--;
 
-      alteration_i_ = 0;
-      alteration_i_ -= semitone_pitch () - pitch;
+      alteration_ = 0;
+      alteration_ -= semitone_pitch () - pitch;
     }
 }
 
@@ -130,12 +130,12 @@ Pitch::transpose (Pitch delta)
 {
   int old_semi = semitone_pitch ();
   int delta_semi = delta.semitone_pitch ();
-  octave_i_ += delta.octave_i_;
-  notename_i_ += delta.notename_i_;
+  octave_ += delta.octave_;
+  notename_ += delta.notename_;
 
   int new_semi = semitone_pitch ();
   int delta_acc = new_semi - old_semi - delta_semi;
-  alteration_i_ -= delta_acc;
+  alteration_ -= delta_acc;
 
   normalise ();
 }
@@ -147,24 +147,24 @@ Pitch::transpose (Pitch delta)
 char const *accname[] = {"eses", "es", "", "is" , "isis"};
 
 String
-Pitch::str () const
+Pitch::string () const
 {
-  int n = (notename_i_ + 2) % 7;
-  String s = to_str (char (n + 'a'));
-  if (alteration_i_)
-    s += String (accname[alteration_i_ + 2]);
+  int n = (notename_ + 2) % 7;
+  String s = to_string (char (n + 'a'));
+  if (alteration_)
+    s += String (accname[alteration_ + 2]);
 
-  if (octave_i_ >= 0)
+  if (octave_ >= 0)
     {
-      int o = octave_i_ + 1;
+      int o = octave_ + 1;
       while (o--)
 	s += "'";
     }
-  else if (octave_i_ < 0)
+  else if (octave_ < 0)
     {
-      int o = (-octave_i_) - 1;
+      int o = (-octave_) - 1;
       while (o--)
-	s += to_str (',');
+	s += to_string (',');
     }
 
   return s;
@@ -177,16 +177,16 @@ Pitch::str () const
 Pitch
 Pitch::to_relative_octave (Pitch p)
 {
-  int oct_mod = octave_i_  + 1;	// account for c' = octave 1 iso. 0 4
+  int oct_mod = octave_  + 1;	// account for c' = octave 1 iso. 0 4
   Pitch up_pitch (p);
   Pitch down_pitch (p);
 
-  up_pitch.alteration_i_ = alteration_i_;
-  down_pitch.alteration_i_ = alteration_i_;
+  up_pitch.alteration_ = alteration_;
+  down_pitch.alteration_ = alteration_;
   
   Pitch n = *this;
-  up_pitch.up_to (notename_i_);
-  down_pitch.down_to (notename_i_);
+  up_pitch.up_to (notename_);
+  down_pitch.down_to (notename_);
 
   int h = p.steps ();
   if (abs (up_pitch.steps () - h) < abs (down_pitch.steps () - h))
@@ -194,7 +194,7 @@ Pitch::to_relative_octave (Pitch p)
   else
     n = down_pitch;
   
-  n.octave_i_ += oct_mod;
+  n.octave_ += oct_mod;
 
   *this = n;
   return *this;
@@ -203,21 +203,21 @@ Pitch::to_relative_octave (Pitch p)
 void
 Pitch::up_to (int notename)
 {
-  if (notename_i_  > notename)
+  if (notename_  > notename)
     {
-      octave_i_ ++;
+      octave_ ++;
     }
-  notename_i_  = notename;
+  notename_  = notename;
 }
 
 void
 Pitch::down_to (int notename)
 {
-  if (notename_i_ < notename)
+  if (notename_ < notename)
     {
-      octave_i_ --;
+      octave_ --;
     }
-  notename_i_ = notename;
+  notename_ = notename;
 }
  
 LY_DEFINE(ly_pitch_transpose,
@@ -255,7 +255,7 @@ Pitch::print_smob (SCM s, SCM port, scm_print_state *)
   Pitch  *r = (Pitch *) ly_cdr (s);
      
   scm_puts ("#<Pitch ", port);
-  scm_display (ly_str02scm (r->str ().ch_C ()), port);
+  scm_display (ly_str02scm (r->string ().to_str0 ()), port);
   scm_puts (" >", port);
   
   return 1;
@@ -267,9 +267,9 @@ Pitch::equal_p (SCM a , SCM b)
   Pitch  *p = (Pitch *) ly_cdr (a);
   Pitch  *q = (Pitch *) ly_cdr (b);  
 
-  bool eq = p->notename_i_ == q->notename_i_
-    && p->octave_i_ == q->octave_i_
-    && p->alteration_i_ == q->alteration_i_;
+  bool eq = p->notename_ == q->notename_
+    && p->octave_ == q->octave_
+    && p->alteration_ == q->alteration_;
 
   return eq ? SCM_BOOL_T : SCM_BOOL_F;
 }
@@ -301,9 +301,9 @@ flats, or positive for sharps.
 
 ")
 {
-  SCM_ASSERT_TYPE(gh_number_p(o), o, SCM_ARG1, __FUNCTION__, "number");
-  SCM_ASSERT_TYPE(gh_number_p(n), n, SCM_ARG2, __FUNCTION__, "number");
-  SCM_ASSERT_TYPE(gh_number_p(a), a, SCM_ARG3, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE(gh_number_p (o), o, SCM_ARG1, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE(gh_number_p (n), n, SCM_ARG2, __FUNCTION__, "number");
+  SCM_ASSERT_TYPE(gh_number_p (a), a, SCM_ARG3, __FUNCTION__, "number");
 
   Pitch p (gh_scm2int (o), gh_scm2int (n), gh_scm2int (a));
   return p.smobbed_copy ();
@@ -316,7 +316,7 @@ LY_DEFINE(pitch_octave, "pitch-octave", 1, 0, 0,
 {
   Pitch *p = unsmob_pitch (pp);
    SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
-  int q = p->octave_i ();
+  int q = p->get_octave ();
 
   return gh_int2scm (q);
 }
@@ -327,7 +327,7 @@ LY_DEFINE(pitch_alteration, "pitch-alteration", 1, 0, 0,
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
-  int     q = p->alteration_i ();
+  int     q = p->get_alteration ();
 
   return gh_int2scm (q);
 }
@@ -338,7 +338,7 @@ LY_DEFINE(pitch_notename, "pitch-notename", 1, 0, 0,
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE(p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
-  int q  = p->notename_i ();
+  int q  = p->get_notename ();
 
   return gh_int2scm (q);
 }
@@ -376,20 +376,20 @@ Pitch::smobbed_copy ()const
 }
 
 int
-Pitch::octave_i ()const
+Pitch::get_octave ()const
 {
-  return octave_i_;
+  return octave_;
 }
 
 int
-Pitch::notename_i () const
+Pitch::get_notename () const
 {
-  return notename_i_;
+  return notename_;
 }
 
 int
-Pitch::alteration_i () const
+Pitch::get_alteration () const
 {
-  return alteration_i_;
+  return alteration_;
 }
 

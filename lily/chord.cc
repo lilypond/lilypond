@@ -81,8 +81,8 @@ Chord::member_notename (SCM p, SCM pitches)
 	    Urg, eindelijk gevonden: () != #f, kan maar niet aan wennen.
 	    Anders kon iets korter...
 	   */
-	  if (unsmob_pitch (p)->notename_i_
-	      == unsmob_pitch (ly_car (i))->notename_i_)
+	  if (unsmob_pitch (p)->notename_
+	      == unsmob_pitch (ly_car (i))->notename_)
 	    {
 	      member = ly_car (i);
 	      break;
@@ -104,10 +104,10 @@ Chord::member_pitch (SCM p, SCM pitches)
     {
       for (SCM i = pitches; gh_pair_p (i); i = ly_cdr (i))
 	{
-	  if (unsmob_pitch (p)->notename_i_
-	      == unsmob_pitch (ly_car (i))->notename_i_
-	      && unsmob_pitch (p)->alteration_i_
-	      == unsmob_pitch (ly_car (i))->alteration_i_)
+	  if (unsmob_pitch (p)->notename_
+	      == unsmob_pitch (ly_car (i))->notename_
+	      && unsmob_pitch (p)->alteration_
+	      == unsmob_pitch (ly_car (i))->alteration_)
 	    {
 	      member = ly_car (i);
 	      break;
@@ -123,10 +123,10 @@ SCM
 Chord::step_scm (SCM tonic, SCM p)
 {
   /* De Pitch intervaas is nog beetje sleutelgat? */
-  int i = unsmob_pitch (p)->notename_i_
-    - unsmob_pitch (tonic)->notename_i_
-    + (unsmob_pitch (p)->octave_i_
-       - unsmob_pitch (tonic)->octave_i_) * 7;
+  int i = unsmob_pitch (p)->notename_
+    - unsmob_pitch (tonic)->notename_
+    + (unsmob_pitch (p)->octave_
+       - unsmob_pitch (tonic)->octave_) * 7;
   while (i < 0)
     i += 7;
   i++;
@@ -165,10 +165,10 @@ Chord::missing_thirds (SCM pitches)
       SCM p = ly_car (i);
       int step = gh_scm2int (step_scm (tonic, p));
       
-      if (unsmob_pitch (last)->notename_i_ == unsmob_pitch (p)->notename_i_)
+      if (unsmob_pitch (last)->notename_ == unsmob_pitch (p)->notename_)
 	{
-	  int third = (unsmob_pitch (last)->notename_i_
-		       - unsmob_pitch (tonic)-> notename_i_ + 7) % 7;
+	  int third = (unsmob_pitch (last)->notename_
+		       - unsmob_pitch (tonic)-> notename_ + 7) % 7;
 	  last = ly_pitch_transpose (last, scm_vector_ref (thirds, gh_int2scm (third)));
 	}
       
@@ -177,8 +177,8 @@ Chord::missing_thirds (SCM pitches)
 	  while (step > gh_scm2int (step_scm (tonic, last)))
 	    {
 	      missing = gh_cons (last, missing);
-	      int third = (unsmob_pitch (last)->notename_i_
-			   - unsmob_pitch (tonic)->notename_i_ + 7) % 7;
+	      int third = (unsmob_pitch (last)->notename_
+			   - unsmob_pitch (tonic)->notename_ + 7) % 7;
 	      last = ly_pitch_transpose (last, scm_vector_ref (thirds,
 						      gh_int2scm (third)));
 	    }
@@ -239,9 +239,9 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
 	This chord modifier stuff should really be fixed
        Cmaj7 yields C 7/7-
       */
-      if (p->octave_i ()  == -100)
+      if (p->get_octave ()  == -100)
         {
-          p->octave_i_ = 0;
+          p->octave_ = 0;
 	  dim_b = true;
 	}
     }
@@ -311,7 +311,7 @@ Chord::tonic_add_sub_to_pitches (SCM tonic, SCM add, SCM sub)
   
   for (SCM i = sub; gh_pair_p (i); i = ly_cdr (i))
     warning (_f ("invalid subtraction: not part of chord: %s",
-		 unsmob_pitch (ly_car (i))->str ()));
+		 unsmob_pitch (ly_car (i))->string ()));
 
   return pitches;
 }
@@ -340,7 +340,7 @@ Chord::get_chord (SCM tonic, SCM add, SCM sub, SCM inversion, SCM bass, SCM dur)
 	}
       else
 	warning (_f ("invalid inversion pitch: not part of chord: %s",
-		     unsmob_pitch (inversion)->str ()));
+		     unsmob_pitch (inversion)->string ()));
     }
 
   /* Bass is easy, just add if requested */

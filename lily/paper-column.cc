@@ -50,9 +50,9 @@ Paper_column::do_break_processing ()
 
 
 int
-Paper_column::rank_i (Grob*me) 
+Paper_column::get_rank (Grob*me) 
 {
-  return dynamic_cast<Paper_column*> (me)->rank_i_;
+  return dynamic_cast<Paper_column*> (me)->rank_;
 }
 
 System*
@@ -62,7 +62,7 @@ Paper_column::get_system () const
 }
 
 Paper_column*
-Paper_column::column_l () const
+Paper_column::get_column () const
 {
   return (Paper_column*) (this);
 }
@@ -71,7 +71,7 @@ Paper_column::Paper_column (SCM l)
   : Item (l)		// guh.?
 {
   system_=0;
-  rank_i_ = -1;
+  rank_ = -1;
 }
 
 Moment
@@ -118,10 +118,10 @@ Paper_column::brew_molecule (SCM p)
 {
   Grob *me = unsmob_grob (p);
 
-  String r = to_str (Paper_column::rank_i (me));
+  String r = to_string (Paper_column::get_rank (me));
   SCM properties = Font_interface::font_alist_chain (me);
   
-  Molecule t = Text_item::text2molecule (me, ly_str02scm (r.ch_C()),
+  Molecule t = Text_item::text2molecule (me, ly_str02scm (r.to_str0 ()),
 					 properties);
   t.align_to (X_AXIS, CENTER);
   t.align_to (Y_AXIS, DOWN);

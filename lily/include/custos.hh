@@ -17,7 +17,7 @@ struct Custos
   static bool has_interface (Grob*);
 
 private:
-  static void add_streepjes (Grob* me, int pos, int interspaces, Molecule* custos_p_);
+  static void add_streepjes (Grob* me, int pos, int interspaces, Molecule* custos_);
   static Molecule create_ledger_line (Interval x_extent, Grob *me) ;
 
 };

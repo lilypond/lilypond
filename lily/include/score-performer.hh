@@ -20,7 +20,7 @@ class Score_performer:
 public:
   TRANSLATOR_DECLARATIONS(Score_performer);
   ~Score_performer ();
-  Performance *performance_p_;
+  Performance *performance_;
 
 protected:
   virtual void finish ();
@@ -29,14 +29,14 @@ protected:
   virtual void start ();
   virtual void initialize ();
   virtual void announce_element (Audio_element_info);
-  virtual int get_tempo_i () const;
+  virtual int get_tempo () const;
   virtual void play_element (Audio_element* p);
-  virtual Music_output *get_output_p ();
+  virtual Music_output *get_output ();
 
 private:
   void header (Midi_stream&);
 
-  Audio_column* audio_column_l_;
+  Audio_column* audio_column_;
 };
 
 #endif // SCORE_PERFORMER_HH

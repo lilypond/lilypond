@@ -23,8 +23,8 @@ struct Scaled_font_metric : public Font_metric
   virtual int count () const;
 protected:
   virtual   Box get_char (int)const;
-  Font_metric *orig_l_;
-  Real magnification_f_;
+  Font_metric *orig_;
+  Real magnification_;
   
   Scaled_font_metric (Font_metric*,Real);
 };

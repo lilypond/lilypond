@@ -22,7 +22,7 @@ represents a system (i.e. a line of music).
 class System : public Spanner
 {
 public:
-  int rank_i_;
+  int rank_;
   void post_processing (bool);
 
   System (SCM);
@@ -35,7 +35,7 @@ public:
   static bool has_interface (Grob*);
   
   Link_array<Item> broken_col_range (Item const*, Item const*) const;
-  Link_array<Grob> column_l_arr () const;
+  Link_array<Grob> columns () const;
   
   void add_column (Paper_column*);
   void typeset_grob (Grob*);

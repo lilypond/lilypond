@@ -20,11 +20,11 @@
 class Score: public Input {
 public:
   /// paper_, staves_ and commands_ form the problem definition.
-  Link_array<Music_output_def> def_p_arr_;
+  Link_array<Music_output_def> defs_;
   SCM music_;
-  Scheme_hash_table * header_p_;
+  Scheme_hash_table * header_;
 
-  int errorlevel_i_;
+  int errorlevel_;
     
   /// construction
   Score ();
@@ -32,7 +32,7 @@ public:
 
 
   void process ();
-  void add_output (Music_output_def *def_p);
+  void add_output (Music_output_def *def);
   DECLARE_SMOBS (Score,foo);
 private:
   void run_translator (Music_output_def*);

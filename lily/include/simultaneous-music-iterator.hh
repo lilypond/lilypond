@@ -24,7 +24,7 @@ public:
   
   /// make a new context for every child.
   bool separate_contexts_b_;
-  int cursor_i_;
+  int cursor_;
 
   virtual void construct_children ();
   virtual Moment pending_moment () const;

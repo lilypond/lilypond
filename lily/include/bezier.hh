@@ -46,9 +46,9 @@ public:
   Offset control_[4];
 };
 
-void scale (Array<Offset>* arr_p, Real xscale, Real yscale);
-void rotate (Array<Offset>* arr_p, Real phi);
-void translate (Array<Offset>* arr_p, Offset o);
+void scale (Array<Offset>* array, Real xscale, Real yscale);
+void rotate (Array<Offset>* array, Real phi);
+void translate (Array<Offset>* array, Offset o);
 
 #endif // BEZIER_HH
 

@@ -25,8 +25,8 @@
   */
 class Span_bar_engraver : public Engraver
 {
-  Item * spanbar_p_;
-  Link_array<Item> bar_l_arr_;
+  Item * spanbar_;
+  Link_array<Item> bars_;
 
 public:
   TRANSLATOR_DECLARATIONS(Span_bar_engraver);
@@ -39,7 +39,7 @@ protected:
 
 Span_bar_engraver::Span_bar_engraver ()
 {
-  spanbar_p_ =0;
+  spanbar_ =0;
 }
 
 
@@ -47,40 +47,40 @@ Span_bar_engraver::Span_bar_engraver ()
 void
 Span_bar_engraver::acknowledge_grob (Grob_info i)
 {
-  int depth = i.origin_trans_l_arr (this).size ();
+  int depth = i.origin_transes (this).size ();
   if (depth > 1
-      && Bar_line::has_interface (i.grob_l_))
+      && Bar_line::has_interface (i.grob_))
     {
-      Item * it = dynamic_cast<Item*> (i.grob_l_);
-      bar_l_arr_.push (it);
+      Item * it = dynamic_cast<Item*> (i.grob_);
+      bars_.push (it);
 
-      if (bar_l_arr_.size () >= 2 && !spanbar_p_) 
+      if (bars_.size () >= 2 && !spanbar_) 
 	{
-	  spanbar_p_ = new Item (get_property ("SpanBar"));
+	  spanbar_ = new Item (get_property ("SpanBar"));
 
-	  spanbar_p_->set_parent (bar_l_arr_[0], X_AXIS);
+	  spanbar_->set_parent (bars_[0], X_AXIS);
 
-	  announce_grob (spanbar_p_, SCM_EOL);
+	  announce_grob (spanbar_, SCM_EOL);
 	}
     }
 }
 void
 Span_bar_engraver::stop_translation_timestep ()
 {
-  if (spanbar_p_) 
+  if (spanbar_) 
     {
-      for (int i=0; i < bar_l_arr_.size () ; i++)
-	Span_bar::add_bar (spanbar_p_,bar_l_arr_[i]);
+      for (int i=0; i < bars_.size () ; i++)
+	Span_bar::add_bar (spanbar_,bars_[i]);
 
       SCM vissym =ly_symbol2scm ("break-visibility");
-      SCM vis = bar_l_arr_[0]->internal_get_grob_property (vissym);	  
-      if (scm_equal_p (spanbar_p_->internal_get_grob_property (vissym), vis) != SCM_BOOL_T)
-	spanbar_p_->internal_set_grob_property (vissym, vis);
+      SCM vis = bars_[0]->internal_get_grob_property (vissym);	  
+      if (scm_equal_p (spanbar_->internal_get_grob_property (vissym), vis) != SCM_BOOL_T)
+	spanbar_->internal_set_grob_property (vissym, vis);
 
-      typeset_grob (spanbar_p_);
-      spanbar_p_ =0;
+      typeset_grob (spanbar_);
+      spanbar_ =0;
     }
-  bar_l_arr_.set_size (0);
+  bars_.set_size (0);
 }
 
 

@@ -20,14 +20,14 @@
   definitions for midi output. Rather empty
  */
 class Midi_def : public Music_output_def {
-  static int score_count_i_;
+  static int score_count_;
 
 public:
   VIRTUAL_COPY_CONS (Music_output_def);
 
   Midi_def ();
 
-  int get_tempo_i (Moment moment);
+  int get_tempo (Moment moment);
   void set_tempo (Moment moment, int count_per_minute_i);
   virtual int get_next_score_count () const;
   static void reset_score_count ();

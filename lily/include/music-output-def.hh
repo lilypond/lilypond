@@ -34,11 +34,11 @@ public:
   Music_output_def ();
   virtual int get_next_score_count () const;
 
-  Global_translator *get_global_translator_p ();
-  Translator_group *get_group_translator_p (String type) const;
+  Global_translator *get_global_translator ();
+  Translator_group *get_group_translator (String type) const;
   void assign_translator (SCM transdef);
-  SCM find_translator_l (SCM name) const;
-  String outname_str () ;
+  SCM find_translator (SCM name) const;
+  String outname_string () ;
   
   DECLARE_SMOBS (Music_output_def,);
 };

@@ -72,7 +72,7 @@ Adobe_font_metric::find_char_metric (String nm, bool warn) const
     {
       if (warn)
 	{
-	  warning (_f ("can't find character called: `%s'", nm.ch_C ()));
+	  warning (_f ("can't find character called: `%s'", nm.to_str0 ()));
 	}
       return 0;
     }
@@ -101,7 +101,7 @@ Adobe_font_metric::get_char (int code) const
 SCM
 read_afm_file (String nm)
 {
-  FILE *f = fopen (nm.ch_C () , "r");
+  FILE *f = fopen (nm.to_str0 () , "r");
   char s[2048];
   char *check_key = "TfmCheckSum"; 
   fgets (s, sizeof (s), f);
@@ -122,7 +122,7 @@ read_afm_file (String nm)
 
   if (ok)
     {
-      error (_f ("Error parsing AFM file: `%s'", nm.ch_C ()));
+      error (_f ("Error parsing AFM file: `%s'", nm.to_str0 ()));
       exit (2);
     }
   fclose (f);

@@ -14,7 +14,7 @@
 
 Rod::Rod ()
 {
-  distance_f_ = 0.0;
+  distance_ = 0.0;
   item_l_drul_[LEFT] = item_l_drul_[RIGHT] =0;
 }
 
@@ -25,8 +25,8 @@ Rod::columnize ()
 {
   Direction d = LEFT;
   do {
-    Paper_column * pc = item_l_drul_[d]->column_l ();
-    distance_f_ += - d * item_l_drul_[d]->relative_coordinate (pc, X_AXIS);
+    Paper_column * pc = item_l_drul_[d]->get_column ();
+    distance_ += - d * item_l_drul_[d]->relative_coordinate (pc, X_AXIS);
     item_l_drul_[d] = pc;
   } while ((flip (&d))!=LEFT);
 
@@ -39,6 +39,6 @@ Rod::add_to_cols ()
   if (item_l_drul_[LEFT] != item_l_drul_[RIGHT])
     Spaceable_grob::add_rod (item_l_drul_[LEFT],
 				item_l_drul_[RIGHT],
-				distance_f_);
+				distance_);
 }
 

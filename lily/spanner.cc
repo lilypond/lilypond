@@ -32,8 +32,8 @@ Return broken-into list for @var{spanner}.
   SCM_ASSERT_TYPE (me, spanner, SCM_ARG1, __FUNCTION__, "spanner");
 
   SCM s = SCM_EOL;
-  for (int i = me->broken_into_l_arr_.size (); i; i--)
-    s = gh_cons (me->broken_into_l_arr_[i-1]->self_scm (), s);
+  for (int i = me->broken_intos_.size (); i; i--)
+    s = gh_cons (me->broken_intos_[i-1]->self_scm (), s);
   return s;
 }
 
@@ -57,9 +57,9 @@ Spanner::do_break_processing ()
 	{
 	  if (!parent->spanned_rank_iv ().contains_b (this->spanned_rank_iv ()))
 	    {
-	      programming_error (to_str ("Spanner `%s' is not fully contained in parent spanner `%s'.",
-					 name ().ch_C (),
-					 parent->name ().ch_C ()));
+	      programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner `%s'.",
+					 name ().to_str0 (),
+					 parent->name ().to_str0 ()));
 	    }
 	}
     }
@@ -80,20 +80,20 @@ Spanner::do_break_processing ()
 	    programming_error ("no broken bound");
 	  else if (bound->get_system ())
 	    {
-	      Spanner * span_p = dynamic_cast<Spanner*> (clone ());
-	      span_p->set_bound (LEFT, bound);
-	      span_p->set_bound (RIGHT, bound);
+	      Spanner * span = dynamic_cast<Spanner*> (clone ());
+	      span->set_bound (LEFT, bound);
+	      span->set_bound (RIGHT, bound);
 
-	      assert (span_p->get_system ()); 
-	      span_p->get_system ()->typeset_grob (span_p);
-	      broken_into_l_arr_.push (span_p);
+	      assert (span->get_system ()); 
+	      span->get_system ()->typeset_grob (span);
+	      broken_intos_.push (span);
 	    }
 	}
       while ((flip (&d))!= LEFT);
     }
   else
     {
-      Link_array<Item> break_points = pscore_l_->system_->broken_col_range (left,right);
+      Link_array<Item> break_points = pscore_->system_->broken_col_range (left,right);
 
       break_points.insert (left,0);
       break_points.push (right);
@@ -117,9 +117,9 @@ Spanner::do_break_processing ()
 	      continue; 
 	    }
 
-	  Spanner *span_p = dynamic_cast<Spanner*> (clone ());
-	  span_p->set_bound (LEFT,bounds[LEFT]);
-	  span_p->set_bound (RIGHT,bounds[RIGHT]);
+	  Spanner *span = dynamic_cast<Spanner*> (clone ());
+	  span->set_bound (LEFT,bounds[LEFT]);
+	  span->set_bound (RIGHT,bounds[RIGHT]);
 
 	  if (!bounds[LEFT]->get_system () 
 	    
@@ -127,16 +127,16 @@ Spanner::do_break_processing ()
 	      || bounds[LEFT]->get_system () != bounds[RIGHT]->get_system ())
 	    {
 	      programming_error ("bounds of spanner are invalid");
-	      span_p->suicide ();
+	      span->suicide ();
 	    }
 	  else
 	    {
-	      bounds[LEFT]->get_system ()->typeset_grob (span_p);
-	      broken_into_l_arr_.push (span_p);
+	      bounds[LEFT]->get_system ()->typeset_grob (span);
+	      broken_intos_.push (span);
 	    }
 	}
     }
-  broken_into_l_arr_.sort (Spanner::compare);
+  broken_intos_.sort (Spanner::compare);
 }
 
 void
@@ -158,11 +158,11 @@ Spanner::spanned_rank_iv ()
 
   if (spanned_drul_[LEFT])
     {
-      iv[LEFT] = Paper_column::rank_i (spanned_drul_[LEFT]->column_l ());
+      iv[LEFT] = Paper_column::get_rank (spanned_drul_[LEFT]->get_column ());
     }
   if (spanned_drul_[RIGHT])
     {
-      iv[RIGHT] = Paper_column::rank_i (spanned_drul_[RIGHT]->column_l ());
+      iv[RIGHT] = Paper_column::get_rank (spanned_drul_[RIGHT]->get_column ());
     }
   return iv;
 }
@@ -253,25 +253,25 @@ Spanner::get_system () const
 Grob*
 Spanner::find_broken_piece (System*l) const
 {
-  int idx = binsearch_link_array (broken_into_l_arr_, (Spanner*)l, Spanner::compare);
+  int idx = binsearch_links (broken_intos_, (Spanner*)l, Spanner::compare);
   
   if (idx < 0)
     return 0;
   else
-    return broken_into_l_arr_ [idx];
+    return broken_intos_ [idx];
 }
 
 
 int
 Spanner::compare (Spanner * const &p1, Spanner * const &p2)
 {
-  return  p1->get_system ()->rank_i_ - p2->get_system ()->rank_i_;
+  return  p1->get_system ()->rank_ - p2->get_system ()->rank_;
 }
 
 bool
 Spanner::broken_b () const
 {
-  return broken_into_l_arr_.size ();
+  return broken_intos_.size ();
 }
 
 
@@ -284,7 +284,7 @@ Spanner::broken_b () const
 Real
 Spanner::get_broken_left_end_align () const
 {
-  Paper_column *sc = dynamic_cast<Paper_column*> (spanned_drul_[LEFT]->column_l ());
+  Paper_column *sc = dynamic_cast<Paper_column*> (spanned_drul_[LEFT]->get_column ());
 
   // Relevant only if left span point is first column in line
   if (sc != NULL &&
@@ -307,7 +307,7 @@ Spanner::do_derived_mark ()
 {
   /*
     We'd be fucked if this is called before spanned_drul_[] is inited.  */
-  if (status_c_ == ORPHAN)
+  if (status_ == ORPHAN)
     return SCM_EOL;
   
   Direction d = LEFT;
@@ -316,8 +316,8 @@ Spanner::do_derived_mark ()
       scm_gc_mark (spanned_drul_[d]->self_scm ());
   while (flip (&d) != LEFT);
 
-  for (int i= broken_into_l_arr_.size () ; i--;)
-    scm_gc_mark (broken_into_l_arr_[i]->self_scm ());
+  for (int i= broken_intos_.size () ; i--;)
+    scm_gc_mark (broken_intos_[i]->self_scm ());
 
   return SCM_EOL;
 }
@@ -349,7 +349,7 @@ Spanner::set_spacing_rods (SCM smob)
   Spanner*sp = dynamic_cast<Spanner*> (me);
   r.item_l_drul_[LEFT] = sp->get_bound (LEFT);
   r.item_l_drul_[RIGHT] = sp->get_bound (RIGHT);
-  r.distance_f_ =
+  r.distance_ =
     gh_scm2double (me->get_grob_property ("minimum-length"))
     * 1.0;
 

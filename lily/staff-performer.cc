@@ -23,8 +23,8 @@ public:
   TRANSLATOR_DECLARATIONS(Staff_performer);
   ~Staff_performer ();
 
-  String new_instrument_str ();
-  String instrument_str_;
+  String new_instrument_string ();
+  String instrument_string_;
 
 protected:
   virtual void play_element (Audio_element* p);
@@ -34,22 +34,22 @@ protected:
   virtual void stop_translation_timestep ();
 
 private:
-  Audio_staff* audio_staff_p_;
-  Audio_instrument* instrument_p_;
-  Audio_text* instrument_name_p_;
-  Audio_text* name_p_;
-  Audio_tempo* tempo_p_;
+  Audio_staff* audio_staff_;
+  Audio_instrument* instrument_;
+  Audio_text* instrument_name_;
+  Audio_text* name_;
+  Audio_tempo* tempo_;
 };
 
 ENTER_DESCRIPTION (Staff_performer, "","","","","" );
 
 Staff_performer::Staff_performer ()
 {
-  audio_staff_p_ = 0;
-  instrument_p_ = 0;
-  instrument_name_p_ = 0;
-  name_p_ = 0;
-  tempo_p_ = 0;
+  audio_staff_ = 0;
+  instrument_ = 0;
+  instrument_name_ = 0;
+  name_ = 0;
+  tempo_ = 0;
 }
 
 Staff_performer::~Staff_performer ()
@@ -59,14 +59,14 @@ Staff_performer::~Staff_performer ()
 void
 Staff_performer::initialize ()
 {
-  audio_staff_p_ = new Audio_staff;
-  announce_element (Audio_element_info (audio_staff_p_, 0));
+  audio_staff_ = new Audio_staff;
+  announce_element (Audio_element_info (audio_staff_, 0));
 
-  name_p_ = new Audio_text (Audio_text::TRACK_NAME, id_str_);
-  announce_element (Audio_element_info (name_p_, 0));
+  name_ = new Audio_text (Audio_text::TRACK_NAME, id_string_);
+  announce_element (Audio_element_info (name_, 0));
 
-  tempo_p_ = new Audio_tempo (get_tempo_i ());
-  announce_element (Audio_element_info (tempo_p_, 0));
+  tempo_ = new Audio_tempo (get_tempo ());
+  announce_element (Audio_element_info (tempo_, 0));
 
   Performer_group_performer::initialize ();
 }
@@ -74,13 +74,13 @@ Staff_performer::initialize ()
 void
 Staff_performer::create_audio_elements ()
 {
-  String str = new_instrument_str ();
-  if (str.length_i ())
+  String str = new_instrument_string ();
+  if (str.length ())
     {
-      instrument_name_p_ = new Audio_text (Audio_text::INSTRUMENT_NAME, str);
-      announce_element (Audio_element_info (instrument_name_p_, 0));
-      instrument_p_ = new Audio_instrument (str);
-      announce_element (Audio_element_info (instrument_p_, 0));
+      instrument_name_ = new Audio_text (Audio_text::INSTRUMENT_NAME, str);
+      announce_element (Audio_element_info (instrument_name_, 0));
+      instrument_ = new Audio_instrument (str);
+      announce_element (Audio_element_info (instrument_, 0));
     }
   Performer_group_performer::create_audio_elements ();
 }
@@ -89,27 +89,27 @@ void
 Staff_performer::stop_translation_timestep ()
 {
   SCM proc = scm_primitive_eval (ly_symbol2scm ("percussion-p")); 
-  SCM drums_p = gh_call1 (proc, ly_symbol2scm (instrument_str_.ch_C()));
-  audio_staff_p_->channel_i_ = (drums_p == SCM_BOOL_T ? 9 : -1 );
-  if (name_p_)
+  SCM drums = gh_call1 (proc, ly_symbol2scm (instrument_string_.to_str0 ()));
+  audio_staff_->channel_ = (drums == SCM_BOOL_T ? 9 : -1 );
+  if (name_)
     {
-      play_element (name_p_);
-      name_p_ = 0;
+      play_element (name_);
+      name_ = 0;
     }
-  if (tempo_p_)
+  if (tempo_)
     {
-      play_element (tempo_p_);
-      tempo_p_ = 0;
+      play_element (tempo_);
+      tempo_ = 0;
     }
-  if (instrument_name_p_)
+  if (instrument_name_)
     {
-      play_element (instrument_name_p_);
-      instrument_name_p_ = 0;
+      play_element (instrument_name_);
+      instrument_name_ = 0;
     }
-  if (instrument_p_)
+  if (instrument_)
     {
-      play_element (instrument_p_);
-      instrument_p_ = 0;
+      play_element (instrument_);
+      instrument_ = 0;
     }
   Performer_group_performer::stop_translation_timestep ();
 }
@@ -118,12 +118,12 @@ void
 Staff_performer::finalize ()
 {
   Performer_group_performer::finalize ();
-  Performer::play_element (audio_staff_p_);
-  audio_staff_p_ = 0;
+  Performer::play_element (audio_staff_);
+  audio_staff_ = 0;
 }
 
 String 
-Staff_performer::new_instrument_str () 
+Staff_performer::new_instrument_string () 
 { 
   // mustn't ask Score for instrument: it will return piano!
   SCM minstr = get_property ("midiInstrument");
@@ -132,12 +132,12 @@ Staff_performer::new_instrument_str ()
     minstr = get_property ("instrument");
 
   if (!gh_string_p (minstr)
-      || ly_scm2string (minstr) == instrument_str_)
+      || ly_scm2string (minstr) == instrument_string_)
     return "";
 
-  instrument_str_ = ly_scm2string (minstr);
+  instrument_string_ = ly_scm2string (minstr);
 
-  return instrument_str_;
+  return instrument_string_;
 }
 
 void 
@@ -145,7 +145,7 @@ Staff_performer::play_element (Audio_element* p)
 {
   if (Audio_item *ai = dynamic_cast<Audio_item *> (p)) 
     {
-      audio_staff_p_->add_audio_item (ai);
+      audio_staff_->add_audio_item (ai);
     }
   Performer::play_element (p);
 }

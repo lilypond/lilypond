@@ -36,7 +36,7 @@ fixup_refpoints (SCM s)
 System::System (SCM s)
   : Spanner (s)
 {
-  rank_i_ = 0;
+  rank_ = 0;
 }
 
 int
@@ -46,11 +46,11 @@ System::element_count () const
 }
 
 void
-System::typeset_grob (Grob * elem_p)
+System::typeset_grob (Grob * elem)
 {
-  elem_p->pscore_l_ = pscore_l_;
-  Pointer_group_interface::add_grob (this, ly_symbol2scm ("all-elements"),elem_p);
-  scm_gc_unprotect_object (elem_p->self_scm ());
+  elem->pscore_ = pscore_;
+  Pointer_group_interface::add_grob (this, ly_symbol2scm ("all-elements"),elem);
+  scm_gc_unprotect_object (elem->self_scm ());
 }
 
 void
@@ -81,9 +81,9 @@ System::output_lines ()
     fixups must be done in broken line_of_scores, because new elements
     are put over there.  */
   int count = 0;
-  for (int i=0; i < broken_into_l_arr_.size (); i++)
+  for (int i=0; i < broken_intos_.size (); i++)
     {
-      Grob *se = broken_into_l_arr_[i];
+      Grob *se = broken_intos_[i];
       SCM all = se->get_grob_property ("all-elements");
       for (SCM s = all; gh_pair_p (s); s = ly_cdr (s))
 	{
@@ -109,21 +109,21 @@ System::output_lines ()
     progress_indication (_f ("Element count %d.",  count + element_count ()));
 
   
-  for (int i=0; i < broken_into_l_arr_.size (); i++)
+  for (int i=0; i < broken_intos_.size (); i++)
     {
-      System *system = dynamic_cast<System*> (broken_into_l_arr_[i]);
+      System *system = dynamic_cast<System*> (broken_intos_[i]);
 
       if (verbose_global_b)
 	progress_indication ("[");
-      system->post_processing (i+1 == broken_into_l_arr_.size ());
+      system->post_processing (i+1 == broken_intos_.size ());
 
       if (verbose_global_b)
 	{
-	  progress_indication (to_str (i));
+	  progress_indication (to_string (i));
 	  progress_indication ("]");
 	}
 
-      if (i < broken_into_l_arr_.size () - 1)
+      if (i < broken_intos_.size () - 1)
 	{
 	  SCM lastcol =  ly_car (system->get_grob_property ("columns"));
 	  Grob*  e = unsmob_grob (lastcol);
@@ -132,7 +132,7 @@ System::output_lines ()
 	  SCM inter = e->internal_get_grob_property (between);
 	  if (gh_string_p (inter))
 	    {
-	      pscore_l_->outputter_l_
+	      pscore_->outputter_
 		->output_scheme (scm_list_n (between, 
 					     inter, SCM_UNDEFINED));	      
 	    }
@@ -176,12 +176,12 @@ set_loose_columns (System* which, Column_x_positions const *posns)
 	  
 	  if (!left && l)
 	    {
-	      left = l->column_l ();
+	      left = l->get_column ();
 	    }
 
 	  divide_over ++;
 
-	  loose = right = r->column_l ();
+	  loose = right = r->get_column ();
 	}
       while (1);
       
@@ -258,10 +258,10 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
   for (int i=0; i < breaking.size (); i++)
     {
       System *system = dynamic_cast <System*> (clone ());
-      system->rank_i_ = i;
+      system->rank_ = i;
       //      system->set_immutable_grob_property ("rank", gh_int2scm (i));
       Link_array<Grob> c (breaking[i].cols_);
-      pscore_l_->typeset_line (system);
+      pscore_->typeset_line (system);
       
       system->set_bound (LEFT,c[0]);
       system->set_bound (RIGHT,c.top ());
@@ -271,7 +271,7 @@ System::break_into_pieces (Array<Column_x_positions> const &breaking)
 	  dynamic_cast<Paper_column*> (c[j])->system_ = system;
 	}
       set_loose_columns (system, &breaking[i]);
-      broken_into_l_arr_.push (system);
+      broken_intos_.push (system);
     }
 }
 
@@ -291,8 +291,8 @@ System::output_molecule (SCM expr, Offset o)
 	  Input * ip = unsmob_input (head);
       
 
-	  pscore_l_->outputter_l_->output_scheme (scm_list_n (ly_symbol2scm ("define-origin"),
-							   ly_str02scm (ip->file_str ().ch_C ()),
+	  pscore_->outputter_->output_scheme (scm_list_n (ly_symbol2scm ("define-origin"),
+							   ly_str02scm (ip->file_string ().to_str0 ()),
 							   gh_int2scm (ip->line_number ()),
 							   gh_int2scm (ip->column_number ()),
 							   SCM_UNDEFINED));
@@ -300,7 +300,7 @@ System::output_molecule (SCM expr, Offset o)
 	}
       else  if (head ==  ly_symbol2scm ("no-origin"))
 	{
-	  pscore_l_->outputter_l_->output_scheme (scm_list_n (head, SCM_UNDEFINED));
+	  pscore_->outputter_->output_scheme (scm_list_n (head, SCM_UNDEFINED));
 	  expr = ly_cadr (expr);
 	}
       else if (head == ly_symbol2scm ("translate-molecule"))
@@ -315,7 +315,7 @@ System::output_molecule (SCM expr, Offset o)
 	}
       else
 	{
-	  pscore_l_->outputter_l_->
+	  pscore_->outputter_->
 	    output_scheme (scm_list_n (ly_symbol2scm ("placebox"),
 				    gh_double2scm (o[X_AXIS]),
 				    gh_double2scm (o[Y_AXIS]),
@@ -330,7 +330,7 @@ System::output_molecule (SCM expr, Offset o)
 void
 System::output_scheme (SCM s)
 {
-  pscore_l_->outputter_l_->output_scheme (s);
+  pscore_->outputter_->output_scheme (s);
 }
 
 void
@@ -340,7 +340,7 @@ System::add_column (Paper_column*p)
   SCM cs = me->get_grob_property ("columns");
   Grob * prev =  gh_pair_p (cs) ? unsmob_grob (ly_car (cs)) : 0;
 
-  p->rank_i_ = prev ? Paper_column::rank_i (prev) + 1 : 0; 
+  p->rank_ = prev ? Paper_column::get_rank (prev) + 1 : 0; 
 
   me->set_grob_property ("columns",  gh_cons (p->self_scm (), cs));
 
@@ -419,7 +419,7 @@ System::post_processing (bool last_line)
   /*
     font defs;
    */
-  SCM font_names = ly_quote_scm (paper_l ()->font_descriptions ());  
+  SCM font_names = ly_quote_scm (get_paper ()->font_descriptions ());  
   output_scheme (scm_list_n (ly_symbol2scm ("define-fonts"),
 			     font_names,
 			     SCM_UNDEFINED));
@@ -485,8 +485,8 @@ System::broken_col_range (Item const*l, Item const*r) const
 {
   Link_array<Item> ret;
 
-  l = l->column_l ();
-  r = r->column_l ();
+  l = l->get_column ();
+  r = r->get_column ();
   SCM s = get_grob_property ("columns");
 
   while (gh_pair_p (s) && ly_car (s) != r->self_scm ())
@@ -513,7 +513,7 @@ System::broken_col_range (Item const*l, Item const*r) const
    disrupt the spacing problem.
  */
 Link_array<Grob>
-System::column_l_arr ()const
+System::columns ()const
 {
   Link_array<Grob> acs
     = Pointer_group_interface__extract_grobs (this, (Grob*) 0, "columns");

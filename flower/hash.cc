@@ -32,7 +32,7 @@ prime_list (int idx)
 unsigned int
 string_hash (String s)
 {
-  const char* str = s.ch_C ();
+  const char* str = s.to_str0 ();
   unsigned int result = 0;
   while (1) {
     char c = *str++;

@@ -19,16 +19,16 @@
 class Music_output 
 {
 public:
-  Scheme_hash_table * header_l_;
-  String default_out_str_;
-  String origin_str_;
-  int errorlevel_i_;
+  Scheme_hash_table * header_;
+  String default_out_string_;
+  String origin_string_;
+  int errorlevel_;
 
   virtual void process () {} 
   virtual ~Music_output (){}
   Music_output () 
   {
-    errorlevel_i_ = 0;
+    errorlevel_ = 0;
   }
        
 };

@@ -15,14 +15,14 @@
 Audio_column::Audio_column (Moment at_mom)
 {
   at_mom_ = at_mom;
-  performance_l_ = 0;
+  performance_ = 0;
 }
 
 void
 Audio_column::add_audio_item (Audio_item* l)
 {
-  audio_item_l_arr_.push (l);
-  l->audio_column_l_ = this; 
+  audio_items_.push (l);
+  l->audio_column_ = this; 
 }
 
 Moment

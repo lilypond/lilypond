@@ -31,11 +31,11 @@
 #include "lily-version.hh"
 #include "scm-hash.hh"
 
-Sources* source_global_l = 0;
-Array<String> inclusion_global_array;
-Array<String> target_str_global_array;
-Link_array<Score> score_global_array;
-Scheme_hash_table * global_header_p;
+Sources* source_global = 0;
+Array<String> inclusion_globals;
+Array<String> target_string_globals;
+Link_array<Score> score_globals;
+Scheme_hash_table * global_header;
 
 
 void write_dependency_file (String fn, Array<String> targets,
@@ -43,13 +43,13 @@ void write_dependency_file (String fn, Array<String> targets,
 {
   const int WRAPWIDTH = 65;
 
-  progress_indication (_f ("dependencies output to `%s'...", fn.ch_C ()));
+  progress_indication (_f ("dependencies output to `%s'...", fn.to_str0 ()));
   progress_indication ("\n");
-  FILE * f = fopen  (fn.ch_C (), "w");
+  FILE * f = fopen  (fn.to_str0 (), "w");
   if (!f)
     warning (_f ("can't open file: `%s'", fn));
 
-  fprintf (f, "# Generated automatically by: %s\n", gnu_lilypond_version_str ().ch_C());
+  fprintf (f, "# Generated automatically by: %s\n", gnu_lilypond_version_string ().to_str0 ());
   
   String out;
   for (int i=0; i < targets.size (); i ++)
@@ -58,25 +58,25 @@ void write_dependency_file (String fn, Array<String> targets,
 
   for (int i=0; i < deps.size (); i ++)
     {
-      if (out.length_i () > WRAPWIDTH)
+      if (out.length () > WRAPWIDTH)
 	{
-	  fprintf (f, "%s\\\n", out.ch_C());
+	  fprintf (f, "%s\\\n", out.to_str0 ());
 	  out = "  ";
 	}
       String dep = deps[i];
       if (!dependency_prefix_global.empty_b ())
 	{
 #if 0//thinko?
-	  if (stat (dep.ch_C (), &stat_buf) == -1 && errno == ENOENT)
+	  if (stat (dep.to_str0 (), &stat_buf) == -1 && errno == ENOENT)
 	    ; //make emacs happy
 #else
-	  if (dep.index_i ('/') < 0)
+	  if (dep.index ('/') < 0)
 #endif
 	    dep = dependency_prefix_global + dep;
 	}
       out  += " " +  dep;
     }
-  fprintf (f, "%s\n",  out.ch_C());
+  fprintf (f, "%s\n",  out.to_str0 ());
 }
 
 void
@@ -86,9 +86,9 @@ do_deps ()
     {
       Path p = split_path (output_name_global);
       p.ext = "dep";
-      write_dependency_file (p.str (),
-			     target_str_global_array,
-			     inclusion_global_array);
+      write_dependency_file (p.string (),
+			     target_string_globals,
+			     inclusion_globals);
     }
 }
 
@@ -96,20 +96,20 @@ do_deps ()
 void
 do_scores ()
 {
-  if (!global_header_p)
-    global_header_p = new Scheme_hash_table;
-  for (int i=0; i < score_global_array.size (); i++)
+  if (!global_header)
+    global_header = new Scheme_hash_table;
+  for (int i=0; i < score_globals.size (); i++)
     {
-      Score* is_p = score_global_array[i];
+      Score* is = score_globals[i];
 
-      if (is_p->errorlevel_i_)
+      if (is->errorlevel_)
 	{
-	  is_p->warning (_ ("Score contains errors; will not process it"));
+	  is->warning (_ ("Score contains errors; will not process it"));
 	  exit_status_global |= 1;
 	}
       else
 	{
-	  is_p->process ();
+	  is->process ();
 	}
     }
   do_deps ();
@@ -118,43 +118,43 @@ do_scores ()
 void
 clear_scores ()
 {
-  for (int i=0; i < score_global_array.size (); i++)
-    scm_gc_unprotect_object (score_global_array[i]->self_scm ());
-  score_global_array.clear ();
+  for (int i=0; i < score_globals.size (); i++)
+    scm_gc_unprotect_object (score_globals[i]->self_scm ());
+  score_globals.clear ();
   
-  inclusion_global_array.clear ();
-  if (global_header_p)
-    scm_gc_unprotect_object (global_header_p ->self_scm ());
-  global_header_p =0; 
+  inclusion_globals.clear ();
+  if (global_header)
+    scm_gc_unprotect_object (global_header ->self_scm ());
+  global_header =0; 
 }
 
 
 void
-do_one_file (String init_str, String file_str)
+do_one_file (String init_string, String file_string)
 {
-  if (init_str.length_i () && global_path.find (init_str).empty_b ())
+  if (init_string.length () && global_path.find (init_string).empty_b ())
     {
-      warning (_f ("can't find file: `%s'", init_str));
-      warning (_f ("(search path: `%s')", global_path.str ().ch_C ()));
+      warning (_f ("can't find file: `%s'", init_string));
+      warning (_f ("(search path: `%s')", global_path.string ().to_str0 ()));
       return;
     }
-  if ((file_str != "-") && global_path.find (file_str).empty_b ())
+  if ((file_string != "-") && global_path.find (file_string).empty_b ())
     {
-      warning (_f ("can't find file: `%s'", file_str));
+      warning (_f ("can't find file: `%s'", file_string));
       return;
     }
 
   Sources sources;
-  source_global_l = &sources;
-  source_global_l->set_path (&global_path);
+  source_global = &sources;
+  source_global->set_path (&global_path);
   {
-    My_lily_parser parser (source_global_l);
+    My_lily_parser parser (source_global);
     parser.set_version_check (false);
-    progress_indication (_f ("Now processing: `%s'", file_str.ch_C ()));
+    progress_indication (_f ("Now processing: `%s'", file_string.to_str0 ()));
     progress_indication ("\n");
-    parser.parse_file (init_str, file_str);
+    parser.parse_file (init_string, file_string);
 
-    if (parser.error_level_i_)
+    if (parser.error_level_)
       {
 	exit_status_global  = 1;
       }
@@ -162,6 +162,6 @@ do_one_file (String init_str, String file_str)
       do_scores ();
     clear_scores ();
   }
-  source_global_l = 0;
+  source_global = 0;
 }
 

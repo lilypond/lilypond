@@ -16,7 +16,7 @@
 #include "scaled-font-metric.hh"
 #include "main.hh"
 #include "scm-hash.hh"
-#include "file-results.hh" // urg? header_global_p
+#include "file-results.hh" // urg? header_global
 #include "paper-outputter.hh"
 
 /*
@@ -42,13 +42,13 @@ Paper_def::Paper_def (Paper_def const&src)
 Real
 Paper_def::get_var (String s) const
 {
-  return get_realvar (ly_symbol2scm (s.ch_C ()));
+  return get_realvar (ly_symbol2scm (s.to_str0 ()));
 }
 
 SCM
 Paper_def::get_scmvar (String s) const
 {
-  return variable_tab_->get (ly_symbol2scm (s.ch_C ()));
+  return variable_tab_->get (ly_symbol2scm (s.to_str0 ()));
 }
 
 
@@ -100,33 +100,33 @@ Paper_def::line_dimensions_int (int n) const
 
 
 
-int Paper_def::score_count_i_ = 0;
+int Paper_def::score_count_ = 0;
 
 int
 Paper_def::get_next_score_count () const
 {
-  return score_count_i_ ++;
+  return score_count_ ++;
 }
 
 void
 Paper_def::reset_score_count ()
 {
-  score_count_i_ = 0;
+  score_count_ = 0;
 }
 
 
 Paper_outputter*
-Paper_def::paper_outputter_p () 
+Paper_def::get_paper_outputter () 
 {
-  String outname = outname_str (); 
+  String outname = outname_string (); 
   progress_indication (_f ("paper output to `%s'...",
 			   outname == "-" ? String ("<stdout>") : outname));
 
-  target_str_global_array.push (outname);
+  target_string_globals.push (outname);
   Paper_outputter * po = new Paper_outputter (outname);
   Path p = split_path (outname);
   p.ext = "";
-  po->basename_ = p.str ();
+  po->basename_ = p.string ();
   return po;
 }
 
@@ -149,7 +149,7 @@ Paper_def::find_font (SCM fn, Real m)
       m /= gh_scm2double (ssc);
     }
   
-  Font_metric*  f = all_fonts_global_p->find_font (ly_scm2string (fn));
+  Font_metric*  f = all_fonts_global->find_font (ly_scm2string (fn));
   SCM val = Scaled_font_metric::make_scaled_font_metric (f, m);
   scaled_fonts_ = scm_acons (key, val, scaled_fonts_);
 

@@ -34,7 +34,7 @@ TRANSLATOR_DECLARATIONS(  Custos_engraver);
 private:
   Item * create_custos ();
   bool custos_permitted;
-  Link_array<Grob> custos_arr_;
+  Link_array<Grob> custodes_;
   Array<Pitch> pitches_;
 };
 
@@ -55,11 +55,11 @@ Custos_engraver::stop_translation_timestep ()
 void
 Custos_engraver::start_translation_timestep ()
 {
-  for (int i = custos_arr_.size (); i--;)
+  for (int i = custodes_.size (); i--;)
     {
-      typeset_grob (custos_arr_[i]);
+      typeset_grob (custodes_[i]);
     }
-  custos_arr_.clear ();
+  custodes_.clear ();
   pitches_.clear ();
 
   custos_permitted = false;
@@ -69,12 +69,12 @@ Custos_engraver::start_translation_timestep ()
 void
 Custos_engraver::acknowledge_grob (Grob_info info)
 {
-  Item *item = dynamic_cast <Item *> (info.grob_l_);
+  Item *item = dynamic_cast <Item *> (info.grob_);
   if (item)
     {
-      if (Bar_line::has_interface (info.grob_l_))
+      if (Bar_line::has_interface (info.grob_))
 	custos_permitted = true;
-      else if (Note_head::has_interface (info.grob_l_))
+      else if (Note_head::has_interface (info.grob_))
 	{
 
 	  /*
@@ -126,7 +126,7 @@ Custos_engraver::create_custos ()
   Item* custos = new Item (basicProperties);
   
   announce_grob(custos, SCM_EOL);
-  custos_arr_.push (custos);
+  custodes_.push (custos);
   
   return custos;
 }
@@ -134,12 +134,12 @@ Custos_engraver::create_custos ()
 void
 Custos_engraver::finalize ()
 {
-  for (int i = custos_arr_.size (); i--;)
+  for (int i = custodes_.size (); i--;)
     {
-      custos_arr_[i]->suicide ();
-      typeset_grob (custos_arr_[i]);
+      custodes_[i]->suicide ();
+      typeset_grob (custodes_[i]);
     }
-  custos_arr_.clear ();
+  custodes_.clear ();
 }
 
 

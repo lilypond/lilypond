@@ -36,8 +36,8 @@ class Translator
 {
   void init ();
 public:
-  Music_output_def * output_def_l_;
-  String type_str_;
+  Music_output_def * output_def_;
+  String type_string_;
   
   bool is_alias_b (String) const;
     
@@ -45,12 +45,12 @@ public:
   Translator (Translator const &);
 
   
-  Translator_group * daddy_trans_l_ ;
+  Translator_group * daddy_trans_ ;
   void removal_processing ();
   /**
     ask daddy for a feature
     */
-  Music_output_def *output_def_l () const;
+  Music_output_def *get_output_def () const;
 
   SCM internal_get_property (SCM symbol) const;
   
@@ -77,7 +77,7 @@ public:
     true: request swallowed. Don't try to put the request elsewhere.
 
     */
-  virtual bool try_music (Music *req_l);
+  virtual bool try_music (Music *req);
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
   virtual void do_announces () ;
@@ -95,7 +95,7 @@ static void  _ ## T ## _adder () {\
       T *t = new T;\
       T::static_description_ = t->static_translator_description ();\
       scm_permanent_object (T::static_description_);\
-      t->type_str_ = classname (t);\
+      t->type_string_ = classname (t);\
       add_translator (t);\
 }\
 SCM T::translator_description() const\
@@ -136,9 +136,9 @@ classname::static_translator_description () const \
 
 
 
-extern Dictionary<Translator*> *global_translator_dict_p;
-void add_translator (Translator*trans_p);
+extern Dictionary<Translator*> *global_translator_dict;
+void add_translator (Translator*trans);
 
-Translator*get_translator_l (String s);
+Translator*get_translator (String s);
 DECLARE_UNSMOB(Translator,translator);
 #endif // TRANSLATOR_HH

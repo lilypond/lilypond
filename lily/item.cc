@@ -36,7 +36,7 @@ Item::Item (Item const &s)
 bool
 Item::breakable_b (Grob*me) 
 {
-  if (me->original_l_)
+  if (me->original_)
     return false;
 
   if (!dynamic_cast<Item*> (me))
@@ -47,10 +47,10 @@ Item::breakable_b (Grob*me)
 }
 
 Paper_column *
-Item::column_l () const
+Item::get_column () const
 {
   Item *parent = dynamic_cast<Item*> (get_parent (X_AXIS));
-  return parent ? parent->column_l () : 0;
+  return parent ? parent->get_column () : 0;
 }
 
 System *
@@ -69,9 +69,9 @@ Item::copy_breakable_items ()
   do 
     {
       Grob * dolly = clone ();
-      Item * item_p = dynamic_cast<Item*> (dolly);
-      pscore_l_->system_->typeset_grob (item_p);
-      new_copies[i] =item_p;
+      Item * item = dynamic_cast<Item*> (dolly);
+      pscore_->system_->typeset_grob (item);
+      new_copies[i] =item;
     }
   while (flip (&i) != LEFT);
   broken_to_drul_= new_copies;
@@ -129,9 +129,9 @@ Item::find_prebroken_piece (Direction d) const
 Direction
 Item::break_status_dir () const
 {
-  if (original_l_)
+  if (original_)
     {
-      Item * i = dynamic_cast<Item*> (original_l_);
+      Item * i = dynamic_cast<Item*> (original_);
 
       return (i->broken_to_drul_[LEFT] == this) ? LEFT : RIGHT;
     }

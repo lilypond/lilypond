@@ -58,8 +58,8 @@ protected:
 
   Item * beat_slash_;
   Item * double_percent_;
-  Spanner * perc_p_;
-  Spanner * finished_perc_p_;
+  Spanner * perc_;
+  Spanner * finished_perc_;
   Item * stem_tremolo_;
 protected:
   virtual void finalize ();
@@ -71,7 +71,7 @@ protected:
 
 Percent_repeat_engraver::Percent_repeat_engraver ()
 {
-  perc_p_  = finished_perc_p_ = 0;
+  perc_  = finished_perc_ = 0;
   repeat_ =0;
   stem_tremolo_ = 0;
 
@@ -120,17 +120,17 @@ Percent_repeat_engraver::try_music (Music * m)
       repeat_ = rp;
 
       
-      Global_translator *global_l =0;
+      Global_translator *global =0;
       Translator *t = this;
       do
 	{
-	  t = t->daddy_trans_l_ ;
-	  global_l = dynamic_cast<Global_translator*> (t);
+	  t = t->daddy_trans_ ;
+	  global = dynamic_cast<Global_translator*> (t);
 	}
-      while (!global_l);
+      while (!global);
 
       for (int i = 0; i < count; i++)  
-	global_l->add_moment_to_process (now + Moment (1+i) * body_length_);
+	global->add_moment_to_process (now + Moment (1+i) * body_length_);
   
       return true;
     }
@@ -150,12 +150,12 @@ Percent_repeat_engraver::process_music ()
 	}
       else if (repeat_sign_type_ == MEASURE)
 	{
-	  finished_perc_p_ = perc_p_;
+	  finished_perc_ = perc_;
 	  typeset_perc ();
-	  perc_p_ = new Spanner (get_property ("PercentRepeat"));
+	  perc_ = new Spanner (get_property ("PercentRepeat"));
 	  SCM col =get_property ("currentCommandColumn");
-	  perc_p_->set_bound (LEFT, unsmob_grob (col));
-	  announce_grob(perc_p_, repeat_->self_scm());
+	  perc_->set_bound (LEFT, unsmob_grob (col));
+	  announce_grob(perc_, repeat_->self_scm());
 	}
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
 	
@@ -177,22 +177,22 @@ void
 Percent_repeat_engraver::finalize ()
 {
   typeset_perc ();
-  if (perc_p_)
+  if (perc_)
     {
       repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
-      perc_p_->suicide ();
+      perc_->suicide ();
     }
 }
 
 void
 Percent_repeat_engraver::typeset_perc ()
 {
-  if (finished_perc_p_)
+  if (finished_perc_)
     {
       SCM col =get_property ("currentCommandColumn");
-      finished_perc_p_->set_bound (RIGHT, unsmob_grob (col));
-      typeset_grob (finished_perc_p_);
-      finished_perc_p_ = 0;
+      finished_perc_->set_bound (RIGHT, unsmob_grob (col));
+      typeset_grob (finished_perc_);
+      finished_perc_ = 0;
     }
 
   if (beat_slash_)
@@ -216,13 +216,13 @@ Percent_repeat_engraver::start_translation_timestep ()
 {
   if (stop_mom_ == now_mom ())
     {
-      if (perc_p_)
+      if (perc_)
 	{
-	  finished_perc_p_ = perc_p_;
+	  finished_perc_ = perc_;
 	  typeset_perc ();
 	}
       repeat_ = 0;
-      perc_p_ = 0;
+      perc_ = 0;
       repeat_sign_type_ = UNKNOWN;
     }
 }

@@ -55,7 +55,7 @@ Simple_music_iterator::skip (Moment m)
     uncommented because setting MUSIC_L_ = 0 causes core dumps with
     grace notes.  */
   
-  //  music_l_ = 0;
+  //  music_ = 0;
   
   last_processed_mom_ = m;
 }

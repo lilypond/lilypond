@@ -22,7 +22,7 @@ public:
   
   Duration ();
   Duration (int, int);
-  String str () const;
+  String string () const;
 
   Duration compressed (Rational) const;
   Rational length_mom () const ;
@@ -38,8 +38,8 @@ public:
 
 private:
     /// Logarithm of the base duration.
-  int durlog_i_;
-  int dots_i_;
+  int durlog_;
+  int dots_;
 
   Rational factor_;
 };

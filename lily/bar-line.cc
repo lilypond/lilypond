@@ -53,7 +53,7 @@ Bar_line::compound_barline (Grob*me, String str, Real h)
   Real hair = gh_scm2double (me->get_grob_property ("hair-thickness"));
   Real fatline = gh_scm2double (me->get_grob_property ("thick-thickness"));
 
-  Real staffline = me->paper_l ()->get_var ("linethickness");
+  Real staffline = me->get_paper ()->get_var ("linethickness");
   Real staff_space = Staff_symbol_referencer::staff_space (me);
 
   kern *= staffline;
@@ -175,7 +175,7 @@ Bar_line::get_staff_bar_size (SCM smob)
   SCM size = me->get_grob_property ("bar-size");
   if (gh_number_p (size))
     return gh_double2scm (gh_scm2double (size)*ss);
-  else if (Staff_symbol_referencer::staff_symbol_l (me))
+  else if (Staff_symbol_referencer::get_staff_symbol (me))
     {
       /*
 	If there is no staff-symbol, we get -1 from the next

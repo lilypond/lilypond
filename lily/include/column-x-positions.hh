@@ -17,7 +17,7 @@ struct Column_x_positions
   Link_array<Grob> loose_cols_;
   
   Array<Real> config_;
-  Real force_f_;
+  Real force_;
   bool satisfies_constraints_b_;
 
   Column_x_positions ();

@@ -18,9 +18,9 @@ Interval_t<Real>::infinity ()
 }
 
 String
-Interval_t<Real>::T_to_str (Real r)
+Interval_t<Real>::T_to_string (Real r)
 {
-  return to_str (r);
+  return to_string (r);
 }
 
 
@@ -31,9 +31,9 @@ Interval_t<int>::infinity ()
 }
 
 String
-Interval_t<int>::T_to_str (int i)
+Interval_t<int>::T_to_string (int i)
 {
-  return to_str (i);
+  return to_string (i);
 }
 
 template INTERVAL__INSTANTIATE (int);

@@ -11,7 +11,7 @@
 #include "lily-version.hh"
 
 String
-version_str ()
+version_string ()
 {
   String str = MAJOR_VERSION "." MINOR_VERSION "."  PATCH_LEVEL;
   String mpl ("." MY_PATCH_LEVEL);
@@ -21,16 +21,16 @@ version_str ()
 }
 
 String 
-gnu_lilypond_str ()
+gnu_lilypond_string ()
 {
   String str = "GNU LilyPond";
   return str;
 }
 
 String 
-gnu_lilypond_version_str ()
+gnu_lilypond_version_string ()
 {
-  String str = gnu_lilypond_str () + " " + version_str ();
+  String str = gnu_lilypond_string () + " " + version_string ();
   return str;
 }
 

@@ -27,7 +27,7 @@ struct Adobe_font_metric : Font_metric
   AFM_CharMetricInfo const *find_char_metric (String name, bool warn=true) const;
   AFM_CharMetricInfo const *find_ascii_metric (int, bool warn=true) const;  
 
-  String str () const;
+  String string () const;
   ~Adobe_font_metric ();
   static SCM make_afm (AFM_Font_info*, unsigned);
 

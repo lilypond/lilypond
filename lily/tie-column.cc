@@ -41,7 +41,7 @@ int
 tie_compare (Grob* const & s1,
 	     Grob* const & s2)
 {
-  return sign (Tie::position_f (s1) - Tie::position_f (s2));
+  return sign (Tie::get_position (s1) - Tie::get_position (s2));
 }
 
 /*
@@ -94,7 +94,7 @@ Tie_column::set_directions (Grob*me)
   for (int i=ties.size (); i--;)
     {
       Grob *  t = ties[i];
-      Real p = Tie::position_f (t);
+      Real p = Tie::get_position (t);
       Direction d = (Direction) sign (p);
       if (!d)
 	d = UP;

@@ -40,9 +40,9 @@ Grace_fixup *get_grace_fixups (SCM cursor);
 
 
   if (gh_pair_p (cursor_))
-    iter_p_->music_l_ == unsmob_music (ly_car (cursor_))
+    iter_->music_ == unsmob_music (ly_car (cursor_))
   else
-    iter_p_ == 0;
+    iter_ == 0;
 
   The length of musiclist from start to up to cursor_ (cursor_ not
   including), is summed
@@ -54,7 +54,7 @@ Sequential_iterator::Sequential_iterator ()
 {
   here_mom_ = Moment (0);
   grace_fixups_ = 0;
-  iter_p_ =0;
+  iter_ =0;
 }
 
 SCM 
@@ -70,15 +70,15 @@ Sequential_iterator::Sequential_iterator (Sequential_iterator const &src)
   cursor_ = src.cursor_;
   list_ = src.cursor_;
   here_mom_ = src.here_mom_;
-  if (src.iter_p_)
-    iter_p_ = src.iter_p_->clone ();
+  if (src.iter_)
+    iter_ = src.iter_->clone ();
   else
-    iter_p_ = 0;
+    iter_ = 0;
 }
 
 Sequential_iterator::~Sequential_iterator ()
 {
-  delete iter_p_;
+  delete iter_;
 }
 
 
@@ -143,19 +143,19 @@ Sequential_iterator::construct_children ()
   list_ = get_music_list ();
   cursor_ = list_; 
 
-  iter_p_ = gh_pair_p (cursor_) ?  get_iterator_p (unsmob_music (ly_car (cursor_))) : 0;
-  while (iter_p_ && !iter_p_->ok ())
+  iter_ = gh_pair_p (cursor_) ?  get_iterator (unsmob_music (ly_car (cursor_))) : 0;
+  while (iter_ && !iter_->ok ())
     {
       next_element (true);
     }
 
-  here_mom_ = music_l ()->start_mom ();
+  here_mom_ = get_music ()->start_mom ();
   grace_fixups_ = get_grace_fixups (cursor_);
 
   /*
-    iter_p_->ok () is tautology, but what the heck.
+    iter_->ok () is tautology, but what the heck.
    */
-  if (iter_p_ && iter_p_->ok ()) 
+  if (iter_ && iter_->ok ()) 
     descend_to_child ();
 }
 
@@ -167,7 +167,7 @@ Sequential_iterator::construct_children ()
 void
 Sequential_iterator::next_element (bool side_effect)
 {
-  Moment len =iter_p_->music_length_mom () - iter_p_->music_start_mom ();
+  Moment len =iter_->music_length_mom () - iter_->music_start_mom ();
   assert (!grace_fixups_  || grace_fixups_->start_ >= here_mom_);
   
   if (len.main_part_ && grace_fixups_ &&
@@ -196,13 +196,13 @@ Sequential_iterator::next_element (bool side_effect)
       here_mom_ += len;
     }
   
-  delete iter_p_;
+  delete iter_;
   cursor_ = ly_cdr (cursor_);
 
   if (gh_pair_p (cursor_))
-    iter_p_ = get_iterator_p (unsmob_music (ly_car (cursor_)));
+    iter_ = get_iterator (unsmob_music (ly_car (cursor_)));
   else
-    iter_p_ = 0;
+    iter_ = 0;
 }
 
 /*
@@ -242,7 +242,7 @@ Sequential_iterator::get_pending_events (Moment until)const
     dynamic_cast<Sequential_iterator*> (clone ());
   while (me->ok ())
     {
-      SCM nm = me->iter_p_->get_pending_events (until - me->here_mom_);
+      SCM nm = me->iter_->get_pending_events (until - me->here_mom_);
       s = gh_append2 (nm, s);
       
       Moment m = 0;
@@ -282,12 +282,12 @@ Sequential_iterator::skip (Moment until)
 	  /*
 	    do the stuff/note/rest preceding a grace.
 	   */
-	  iter_p_->skip (iter_p_->music_length_mom ());
+	  iter_->skip (iter_->music_length_mom ());
 	}
-      else if (iter_p_->music_length_mom () >= until - here_mom_)
-	iter_p_->skip (until - here_mom_ + iter_p_->music_start_mom ());
+      else if (iter_->music_length_mom () >= until - here_mom_)
+	iter_->skip (until - here_mom_ + iter_->music_start_mom ());
 
-      if (iter_p_->ok ())
+      if (iter_->ok ())
 	return ; 
 
       next_element (false);
@@ -297,7 +297,7 @@ Sequential_iterator::skip (Moment until)
 void
 Sequential_iterator::process (Moment until)
 {
-  while (iter_p_)
+  while (iter_)
     {
       if (grace_fixups_ &&
 	  grace_fixups_->start_ == here_mom_
@@ -307,10 +307,10 @@ Sequential_iterator::process (Moment until)
 	  /*
 	    do the stuff/note/rest preceding a grace.
 	   */
-	  iter_p_->process (iter_p_->music_length_mom ());
+	  iter_->process (iter_->music_length_mom ());
 	}
       else
-	iter_p_->process (until - here_mom_ + iter_p_->music_start_mom ());
+	iter_->process (until - here_mom_ + iter_->music_start_mom ());
 
       /*
 	if the iter is still OK, there must be events left that have
@@ -318,7 +318,7 @@ Sequential_iterator::process (Moment until)
 	  TIME > LEFT
 	  
       */
-      if (iter_p_->ok ())
+      if (iter_->ok ())
 	return ;
 
       descend_to_child ();
@@ -329,13 +329,13 @@ Sequential_iterator::process (Moment until)
 Moment
 Sequential_iterator::pending_moment () const
 {
-  Moment cp = iter_p_->pending_moment ();
+  Moment cp = iter_->pending_moment ();
 
   /*
     Fix-up a grace note halfway in the music.
   */
   if (grace_fixups_ && here_mom_ == grace_fixups_->start_
-      && grace_fixups_->length_ + iter_p_->music_start_mom () == cp)
+      && grace_fixups_->length_ + iter_->music_start_mom () == cp)
     {
       return here_mom_ + grace_fixups_->length_ + Moment (0, grace_fixups_->grace_start_);
     }
@@ -343,20 +343,20 @@ Sequential_iterator::pending_moment () const
   /*
     Fix-up a grace note at  the start of the music.
   */
-  return cp + here_mom_ - iter_p_->music_start_mom ();
+  return cp + here_mom_ - iter_->music_start_mom ();
 }
 
 
 bool
 Sequential_iterator::ok () const
 {
-  return iter_p_;
+  return iter_;
 }
 
 Music_iterator*
 Sequential_iterator::try_music_in_children (Music *m) const
 { 
-  return iter_p_ ? iter_p_->try_music (m) : 0;
+  return iter_ ? iter_->try_music (m) : 0;
 }
 
 IMPLEMENT_CTOR_CALLBACK (Sequential_iterator);

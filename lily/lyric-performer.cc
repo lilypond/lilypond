@@ -17,13 +17,13 @@ public:
   TRANSLATOR_DECLARATIONS(Lyric_performer);
 protected:
 
-  virtual bool try_music (Music* req_l);
+  virtual bool try_music (Music* req);
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
 
 private:
-  Link_array<Lyric_req> lreq_arr_;
-  Audio_text* audio_p_;
+  Link_array<Lyric_req> lreqs_;
+  Audio_text* audio_;
 };
 
 
@@ -31,7 +31,7 @@ private:
 
 Lyric_performer::Lyric_performer ()
 {
-  audio_p_ = 0;
+  audio_ = 0;
 }
 
 
@@ -39,35 +39,35 @@ void
 Lyric_performer::create_audio_elements ()
 {
   // FIXME: won't work with fancy lyrics
-  if (lreq_arr_.size ()
-      && gh_string_p (lreq_arr_[0]->get_mus_property ("text"))
-      && ly_scm2string (lreq_arr_[0]->get_mus_property ("text")).length_i ())
+  if (lreqs_.size ()
+      && gh_string_p (lreqs_[0]->get_mus_property ("text"))
+      && ly_scm2string (lreqs_[0]->get_mus_property ("text")).length ())
     {
-      audio_p_ = new Audio_text (Audio_text::LYRIC,
-				 ly_scm2string (lreq_arr_[0]->get_mus_property ("text")));
-      Audio_element_info info (audio_p_, lreq_arr_[0]);
+      audio_ = new Audio_text (Audio_text::LYRIC,
+				 ly_scm2string (lreqs_[0]->get_mus_property ("text")));
+      Audio_element_info info (audio_, lreqs_[0]);
       announce_element (info);
     }
-  lreq_arr_.clear ();
+  lreqs_.clear ();
 }
 
 void
 Lyric_performer::stop_translation_timestep ()
 {
-  if (audio_p_)
+  if (audio_)
     {
-      play_element (audio_p_);
-      audio_p_ = 0;
+      play_element (audio_);
+      audio_ = 0;
     }
-  lreq_arr_.clear ();
+  lreqs_.clear ();
 }
 
 bool
-Lyric_performer::try_music (Music* req_l)
+Lyric_performer::try_music (Music* req)
 {
-  if (Lyric_req *lr = dynamic_cast <Lyric_req *> (req_l))
+  if (Lyric_req *lr = dynamic_cast <Lyric_req *> (req))
     {
-      lreq_arr_.push (lr);
+      lreqs_.push (lr);
       return true;
     }
   return false;

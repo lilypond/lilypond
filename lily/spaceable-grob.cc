@@ -82,8 +82,8 @@ Spaceable_grob::add_spring (Grob*me, Grob * p, Real d, Real strength, bool expan
 #endif
   
   Spring_smob spring;
-  spring.strength_f_ = strength;
-  spring.distance_f_ = d;
+  spring.strength_ = strength;
+  spring.distance_ = d;
   spring.expand_only_b_ = expand_only;
   spring.other_ = p;
   

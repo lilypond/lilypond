@@ -12,7 +12,7 @@
 struct Hyphen_spanner 
 {
 public:
-  Spanner* elt_l_;
+  Spanner* elt_;
   Hyphen_spanner (Spanner*);
   void set_textitem (Direction, Grob*);
   bool has_interface (Grob*);

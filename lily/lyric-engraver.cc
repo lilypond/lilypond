@@ -29,8 +29,8 @@ protected:
 public:
   TRANSLATOR_DECLARATIONS(Lyric_engraver);
 private:
-  Lyric_req * req_l_;
-  Item* text_p_;
+  Lyric_req * req_;
+  Item* text_;
 };
 
 
@@ -38,8 +38,8 @@ private:
 
 Lyric_engraver::Lyric_engraver ()
 {
-  text_p_ =0;
-  req_l_ =0;
+  text_ =0;
+  req_ =0;
 }
 
 bool
@@ -47,9 +47,9 @@ Lyric_engraver::try_music (Music*r)
 {
   if (Lyric_req* l = dynamic_cast <Lyric_req *> (r))
     {
-      if (req_l_)
+      if (req_)
 	return false;
-      req_l_ =l;
+      req_ =l;
       return true;
     }
   return false;
@@ -58,11 +58,11 @@ Lyric_engraver::try_music (Music*r)
 void
 Lyric_engraver::process_acknowledged_grobs ()
 {
-  if (req_l_)
+  if (req_)
     {
-      text_p_=  new Item (get_property ("LyricText"));
+      text_=  new Item (get_property ("LyricText"));
       
-      text_p_->set_grob_property ("text", req_l_->get_mus_property ("text"));
+      text_->set_grob_property ("text", req_->get_mus_property ("text"));
 
       /*
 	We can't reach the notehead where we're centered from here. So
@@ -71,27 +71,27 @@ Lyric_engraver::process_acknowledged_grobs ()
  (UGH UGH, pulled amount of space out of thin air)
       */
       
-      text_p_->translate_axis (0.66, X_AXIS);
+      text_->translate_axis (0.66, X_AXIS);
       
-      announce_grob(text_p_, req_l_->self_scm());
-      req_l_ = 0;
+      announce_grob(text_, req_->self_scm());
+      req_ = 0;
     }
 }
 
 void
 Lyric_engraver::stop_translation_timestep ()
 {
-  if (text_p_)
+  if (text_)
     {
-      typeset_grob (text_p_);
-      text_p_ =0;
+      typeset_grob (text_);
+      text_ =0;
     }
 }
 
 void
 Lyric_engraver::start_translation_timestep ()
 {
-  req_l_ =0;
+  req_ =0;
 }
 
 

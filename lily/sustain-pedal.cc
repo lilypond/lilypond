@@ -46,16 +46,16 @@ Sustain_pedal::brew_molecule (SCM smob)
     return mol.smobbed_copy ();
   String text = ly_scm2string (glyph);
 
-  for (int i = 0; i < text.length_i (); i++)
+  for (int i = 0; i < text.length (); i++)
     {
       String idx ("pedal-");
-      if (text.cut_str (i, 3) == "Ped")
+      if (text.cut_string (i, 3) == "Ped")
 	{
 	  idx += "Ped";
 	  i += 2;
 	}
       else
-	idx += String (&text.byte_C ()[i], 1);
+	idx += String (&text.to_bytes ()[i], 1);
       Molecule m = Font_interface::get_default_font (e)->find_by_name (idx);
       if (!m.empty_b ())
 	mol.add_at_edge (X_AXIS, RIGHT, m, 0);

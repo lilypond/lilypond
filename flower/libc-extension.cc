@@ -17,25 +17,25 @@
   urg: why soo wierd?
  */
 char* 
-strnlwr (char* start_l ,int n)
+strnlwr (char* start ,int n)
 {
-  char * p = start_l + n;
-  while (--p >= start_l) 
+  char * p = start + n;
+  while (--p >= start) 
     {
       *p = tolower (*p);    /* a macro on some compilers */
     }
-  return start_l;
+  return start;
 }
 
 char* 
-strnupr (char* start_l, int n)
+strnupr (char* start, int n)
 {
-  char * p = start_l + n;
-  while (--p >= start_l) 
+  char * p = start + n;
+  while (--p >= start) 
     {
       *p = toupper (*p);    /* a macro on some compilers */
     }
-  return start_l;
+  return start;
 }
 
 
@@ -58,10 +58,10 @@ _memmem (Byte const *haystack, int haystack_len,
      is the spice of life */
   while (haystack < end_haystack) 
     {
-      Byte const *subneedle_l = needle;
-      Byte const *subhaystack_l = haystack;
-      while (subneedle_l < end_needle) 
-        if (*subneedle_l++ != *subhaystack_l++)
+      Byte const *subneedle = needle;
+      Byte const *subhaystack = haystack;
+      while (subneedle < end_needle) 
+        if (*subneedle++ != *subhaystack++)
 	  goto next;
 	
       // completed the needle. Gotcha.
@@ -76,9 +76,9 @@ void *
 memmem (void const *haystack, int haystack_len,
 	void const *needle,int needle_len)
 {
-  Byte const* haystack_byte_c_l = (Byte const*)haystack;
-  Byte const* needle_byte_c_l = (Byte const*)needle;
-  return _memmem (haystack_byte_c_l, haystack_len, needle_byte_c_l, needle_len);
+  Byte const* haystack_byte_c = (Byte const*)haystack;
+  Byte const* needle_byte_c = (Byte const*)needle;
+  return _memmem (haystack_byte_c, haystack_len, needle_byte_c, needle_len);
 }
 
 #endif
@@ -106,18 +106,18 @@ my_swap (T &t1, T &t2, T &tmp)
 }
 
 Byte*
-strrev (Byte* byte_l, int length_i)
+strrev (Byte* byte, int length_i)
 {
   Byte tmp_byte;
   
-  Byte* left_l = byte_l;
-  Byte* right_l = byte_l + length_i;
+  Byte* left = byte;
+  Byte* right = byte + length_i;
 
-  while (right_l > left_l) 
+  while (right > left) 
     {
-      my_swap (*right_l-- , *left_l++ , tmp_byte);
+      my_swap (*right-- , *left++ , tmp_byte);
     }
-  return byte_l;
+  return byte;
 }
 
 #if ! HAVE_SNPRINTF

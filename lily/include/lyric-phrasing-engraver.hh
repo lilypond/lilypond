@@ -86,20 +86,20 @@ private:
   
   */
   Protected_scm voice_alist_;
-  Grob * any_notehead_l_;
+  Grob * any_notehead_;
 };
 
 
 class Syllable_group
 {
   bool first_in_phrase_b_;
-  Grob * notehead_l_;
+  Grob * notehead_;
   Link_array<Grob> lyric_list_;
-  Grob * longest_lyric_l_;
-  Grob * shortest_lyric_l_;
-  int alignment_i_;
+  Grob * longest_lyric_;
+  Grob * shortest_lyric_;
+  int alignment_;
   bool melisma_b_;
-  Real group_translation_f_;
+  Real group_translation_;
 public:
   static SCM make_entry ();
   void set_first_in_phrase (bool f);
@@ -111,7 +111,7 @@ public:
   int lyric_count () { return lyric_list_.size (); }
   void clear ();
   bool is_empty ();
-  bool set_lyric_align (const char *punc, Grob *default_notehead_l);
+  bool set_lyric_align (const char *punc, Grob *default_notehead);
   void adjust_melisma_align ();
   int appropriate_alignment (const char *punc);
   Real amount_to_translate ();

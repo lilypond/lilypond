@@ -45,7 +45,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
     }
   while (flip (&d) != LEFT);
   
-  Real lt = sp->paper_l ()->get_var ("linethickness");
+  Real lt = sp->get_paper ()->get_var ("linethickness");
   Real th = gh_scm2double (sp->get_grob_property ("thickness")) * lt ;
   Real h = gh_scm2double (sp->get_grob_property ("height"));
 
@@ -80,7 +80,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
          the offset for stuff */
       /* This test for being on the first column has been shamelessly
          ripped from spanner.cc */
-      Paper_column *sc = dynamic_cast<Paper_column*> (sp->get_bound (LEFT)->column_l ());
+      Paper_column *sc = dynamic_cast<Paper_column*> (sp->get_bound (LEFT)->get_column ());
       if (sc != NULL &&
 	  sc->break_status_dir () == RIGHT)
 	{
@@ -105,13 +105,13 @@ Hyphen_spanner::brew_molecule (SCM smob)
 void
 Hyphen_spanner::set_textitem (Direction d, Grob* b)
 {
-  elt_l_->set_bound (d, b);
-  elt_l_->add_dependency (b);
+  elt_->set_bound (d, b);
+  elt_->add_dependency (b);
 }
 
 Hyphen_spanner::Hyphen_spanner (Spanner*s)
 {
-  elt_l_ = s;
+  elt_ = s;
 }
 
 

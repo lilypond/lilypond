@@ -48,7 +48,7 @@ Rest::glyph_name (Grob * me, int balltype, String style)
   if (balltype == 0 || balltype == 1)
     {
       Real rad = Staff_symbol_referencer::staff_radius (me) * 2.0;
-      Real pos = Staff_symbol_referencer::position_f (me);
+      Real pos = Staff_symbol_referencer::get_position (me);
 
       /*
 	Figure out when the rest is far enough outside the staff. This
@@ -61,7 +61,7 @@ Rest::glyph_name (Grob * me, int balltype, String style)
 			      (pos  <= -rad -2 || pos > rad));
     }
 
-  return ("rests-") + to_str (balltype)
+  return ("rests-") + to_string (balltype)
     + (ledger_b ? "o" : "") + style;
 }
 

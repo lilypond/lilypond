@@ -35,9 +35,9 @@ public:
   void minimise_enclosed_area (Real beauty, SCM props);
   Real fit_factor () const;
   void blow_fit ();
-  Real enclosed_area_f () const;
+  Real get_enclosed_area () const;
 private:
-  Array<Real> area_x_gradients_array (Real area);
+  Array<Real> area_x_gradientses (Real area);
 };
  
 #endif /* SLUR_BEZIER_BOW_HH */

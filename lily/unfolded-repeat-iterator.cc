@@ -28,10 +28,10 @@ Unfolded_repeat_iterator::get_music_list () const
   SCM l = SCM_EOL;
   SCM *tail = &l;
   
-  SCM body = music_l ()->get_mus_property ("element");
-  SCM alts = music_l ()->get_mus_property ("elements");
+  SCM body = get_music ()->get_mus_property ("element");
+  SCM alts = get_music ()->get_mus_property ("elements");
   int alt_count = scm_ilength (alts);
-  int rep_count = gh_scm2int (music_l ()->get_mus_property ("repeat-count"));
+  int rep_count = gh_scm2int (get_music ()->get_mus_property ("repeat-count"));
 
   for (int i = 0; i < rep_count; i++)
     {
@@ -81,8 +81,8 @@ Volta_repeat_iterator::Volta_repeat_iterator()
 SCM
 Volta_repeat_iterator::get_music_list()const
 {
-  return gh_cons (music_l ()->get_mus_property ("element"),
-		  music_l ()->get_mus_property ("elements"));
+  return gh_cons (get_music ()->get_mus_property ("element"),
+		  get_music ()->get_mus_property ("elements"));
 }
 
 void
@@ -90,10 +90,10 @@ Volta_repeat_iterator::construct_children ()
 {
   Sequential_iterator::construct_children();
   
-  SCM alts = music_l ()->get_mus_property ("elements");
+  SCM alts = get_music ()->get_mus_property ("elements");
 
   alt_count_ = scm_ilength (alts);
-  rep_count_ = gh_scm2int (music_l ()->get_mus_property ("repeat-count"));
+  rep_count_ = gh_scm2int (get_music ()->get_mus_property ("repeat-count"));
   done_count_ = 0;
 }
 
@@ -105,9 +105,9 @@ void
 Volta_repeat_iterator::add_repeat_command (SCM what)
 {
   SCM reps = ly_symbol2scm ("repeatCommands");
-  SCM current_reps = report_to_l ()->internal_get_property (reps);
+  SCM current_reps = report_to ()->internal_get_property (reps);
 
-  Translator_group * where = report_to_l ()->where_defined (reps);
+  Translator_group * where = report_to ()->where_defined (reps);
   if (where
       && current_reps == SCM_EOL || gh_pair_p (current_reps))
     {
@@ -128,7 +128,7 @@ Volta_repeat_iterator::next_element (bool side_effect)
     {    
       if (alt_count_)
 	{
-	  String repstr = to_str (rep_count_ - alt_count_ + done_count_) + ".";
+	  String repstr = to_string (rep_count_ - alt_count_ + done_count_) + ".";
 	  if (done_count_ > 1)
 	    {
 	      add_repeat_command (scm_list_n (ly_symbol2scm ("volta"), SCM_BOOL_F, SCM_UNDEFINED));
@@ -141,12 +141,12 @@ Volta_repeat_iterator::next_element (bool side_effect)
       
 	  if (done_count_ == 1 && alt_count_ < rep_count_)
 	    {
-	      repstr = "1.--" + to_str (rep_count_ - alt_count_ + done_count_) + ".";
+	      repstr = "1.--" + to_string (rep_count_ - alt_count_ + done_count_) + ".";
 	    }
 
 	  if (done_count_ <= alt_count_)
 	    add_repeat_command (scm_list_n (ly_symbol2scm ("volta"),
-					    ly_str02scm (repstr.ch_C ()), SCM_UNDEFINED));
+					    ly_str02scm (repstr.to_str0 ()), SCM_UNDEFINED));
 	}
       else
 	{

@@ -14,10 +14,10 @@
 
 class Phrasing_slur_engraver : public Engraver
 {
-  Link_array<Span_req> requests_arr_;
-  Link_array<Span_req> new_phrasing_slur_req_l_arr_;
+  Link_array<Span_req> requestses_;
+  Link_array<Span_req> new_phrasing_slur_reqs_;
   Link_array<Grob> phrasing_slur_l_stack_;
-  Link_array<Grob> end_phrasing_slur_l_arr_;
+  Link_array<Grob> end_phrasing_slurs_;
   Moment last_start_;
 
 protected:
@@ -39,9 +39,9 @@ Phrasing_slur_engraver::Phrasing_slur_engraver ()
 }
 
 bool
-Phrasing_slur_engraver::try_music (Music *req_l)
+Phrasing_slur_engraver::try_music (Music *req)
 {
-  if (Span_req *sl = dynamic_cast <Span_req *> (req_l))
+  if (Span_req *sl = dynamic_cast <Span_req *> (req))
     {
       String t =  ly_scm2string (sl->get_mus_property ("span-type"));
       if (t == "abort")
@@ -51,13 +51,13 @@ Phrasing_slur_engraver::try_music (Music *req_l)
 	      phrasing_slur_l_stack_[i]->suicide ();
 	    }
 	  phrasing_slur_l_stack_.clear ();
-	  for (int i = 0; i < end_phrasing_slur_l_arr_.size (); i++)
+	  for (int i = 0; i < end_phrasing_slurs_.size (); i++)
 	    {
-	      end_phrasing_slur_l_arr_[i]->suicide ();
+	      end_phrasing_slurs_[i]->suicide ();
 	    }
-	  end_phrasing_slur_l_arr_.clear ();
-	  requests_arr_.clear ();
-	  new_phrasing_slur_req_l_arr_.clear ();
+	  end_phrasing_slurs_.clear ();
+	  requestses_.clear ();
+	  new_phrasing_slur_reqs_.clear ();
 	}
       else if (t == "phrasing-slur")
 	{
@@ -68,14 +68,14 @@ Phrasing_slur_engraver::try_music (Music *req_l)
 	    {
 	      if (now_mom () > last_start_)
 	        {
-	          new_phrasing_slur_req_l_arr_.push (sl);
+	          new_phrasing_slur_reqs_.push (sl);
 		  last_start_ = now_mom ();
 	          return true;
 		}
 	    }
 	  else
 	    {
-	      new_phrasing_slur_req_l_arr_.push (sl);
+	      new_phrasing_slur_reqs_.push (sl);
 	      return true;
 	    }
 	}
@@ -86,13 +86,13 @@ Phrasing_slur_engraver::try_music (Music *req_l)
 void
 Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Note_column::has_interface (info.grob_l_))
+  if (Note_column::has_interface (info.grob_))
     {
-      Grob *e =info.grob_l_;
+      Grob *e =info.grob_;
       for (int i = 0; i < phrasing_slur_l_stack_.size (); i++)
 	Slur::add_column (phrasing_slur_l_stack_[i], e);
-      for (int i = 0; i < end_phrasing_slur_l_arr_.size (); i++)
-	Slur::add_column (end_phrasing_slur_l_arr_[i], e);
+      for (int i = 0; i < end_phrasing_slurs_.size (); i++)
+	Slur::add_column (end_phrasing_slurs_[i], e);
     }
 }
 
@@ -112,61 +112,61 @@ Phrasing_slur_engraver::finalize ()
     }
   phrasing_slur_l_stack_.clear ();
 
-    for (int i=0; i < requests_arr_.size (); i++)
+    for (int i=0; i < requestses_.size (); i++)
       {
-	requests_arr_[i]->origin ()->warning (_ ("unterminated phrasing slur"));
+	requestses_[i]->origin ()->warning (_ ("unterminated phrasing slur"));
       }
 }
 
 void
 Phrasing_slur_engraver::process_acknowledged_grobs ()
 {
-  Link_array<Grob> start_phrasing_slur_l_arr;
-  for (int i=0; i< new_phrasing_slur_req_l_arr_.size (); i++)
+  Link_array<Grob> start_phrasing_slurs;
+  for (int i=0; i< new_phrasing_slur_reqs_.size (); i++)
     {
-      Span_req* phrasing_slur_req_l = new_phrasing_slur_req_l_arr_[i];
+      Span_req* phrasing_slur_req = new_phrasing_slur_reqs_[i];
       // end phrasing slur: move the phrasing slur to other array
-      if (phrasing_slur_req_l->get_span_dir () == STOP)
+      if (phrasing_slur_req->get_span_dir () == STOP)
 	{
 	  if (phrasing_slur_l_stack_.empty ())
-	    phrasing_slur_req_l->origin ()->warning (_f ("can't find start of phrasing slur"));
+	    phrasing_slur_req->origin ()->warning (_f ("can't find start of phrasing slur"));
 	  else
 	    {
 	      Grob* phrasing_slur = phrasing_slur_l_stack_.pop ();
-	      end_phrasing_slur_l_arr_.push (phrasing_slur);
-	      requests_arr_.pop ();
+	      end_phrasing_slurs_.push (phrasing_slur);
+	      requestses_.pop ();
 	    }
 	}
-      else  if (phrasing_slur_req_l->get_span_dir () == START)
+      else  if (phrasing_slur_req->get_span_dir () == START)
 	{
 	  // push a new phrasing_slur onto stack.
 	  // (use temp. array to wait for all phrasing_slur STOPs)
 	  Grob* phrasing_slur = new Spanner (get_property ("PhrasingSlur"));
 	  Slur::set_interface (phrasing_slur); // can't remove.
-	  start_phrasing_slur_l_arr.push (phrasing_slur);
-	  requests_arr_.push (phrasing_slur_req_l);
-	  announce_grob(phrasing_slur, phrasing_slur_req_l->self_scm());
+	  start_phrasing_slurs.push (phrasing_slur);
+	  requestses_.push (phrasing_slur_req);
+	  announce_grob(phrasing_slur, phrasing_slur_req->self_scm());
 	}
     }
-  for (int i=0; i < start_phrasing_slur_l_arr.size (); i++)
-    phrasing_slur_l_stack_.push (start_phrasing_slur_l_arr[i]);
-  new_phrasing_slur_req_l_arr_.clear ();
+  for (int i=0; i < start_phrasing_slurs.size (); i++)
+    phrasing_slur_l_stack_.push (start_phrasing_slurs[i]);
+  new_phrasing_slur_reqs_.clear ();
 }
 
 void
 Phrasing_slur_engraver::stop_translation_timestep ()
 {
-  for (int i = 0; i < end_phrasing_slur_l_arr_.size (); i++)
+  for (int i = 0; i < end_phrasing_slurs_.size (); i++)
     {
-      typeset_grob (end_phrasing_slur_l_arr_[i]);
+      typeset_grob (end_phrasing_slurs_[i]);
     }
-  end_phrasing_slur_l_arr_.clear ();
+  end_phrasing_slurs_.clear ();
 }
 
 void
 Phrasing_slur_engraver::start_translation_timestep ()
 {
-  new_phrasing_slur_req_l_arr_.clear ();
+  new_phrasing_slur_reqs_.clear ();
 }
 
 

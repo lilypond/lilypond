@@ -52,7 +52,7 @@ protected:
 public:    
   SCM font_descriptions ()const;
   virtual ~Paper_def ();
-  static int score_count_i_;
+  static int score_count_;
   
   /*
     JUNKME
@@ -70,7 +70,7 @@ public:
   virtual int get_next_score_count () const;
   static void reset_score_count ();
   void output_settings (Paper_outputter*) const;
-  Paper_outputter* paper_outputter_p () ;
+  Paper_outputter* get_paper_outputter () ;
 
   Font_metric * find_font (SCM name, Real mag);
   

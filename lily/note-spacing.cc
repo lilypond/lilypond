@@ -49,7 +49,7 @@ Note_spacing::get_spacing (Grob *me, Item* right_col,
 	  if (!it)
 	    continue; 
 
-	  Item *it_col = it->column_l ();
+	  Item *it_col = it->get_column ();
 	  if (d == RIGHT && right_col != it_col)
 	    continue;
 	  
@@ -127,7 +127,7 @@ Note_spacing::left_column (Grob *me)
   if (!me->live())
     return 0;
   
-  return dynamic_cast<Item*> (me)->column_l ();
+  return dynamic_cast<Item*> (me)->get_column ();
 }
 
 /*
@@ -152,8 +152,8 @@ Note_spacing::right_column (Grob*me)
     {
       Item * ri = unsmob_item (gh_car (s));
 
-      Item * col = ri->column_l ();
-      int rank = Paper_column::rank_i (col);
+      Item * col = ri->get_column ();
+      int rank = Paper_column::get_rank (col);
 
       if (rank < min_rank)
 	{
@@ -171,7 +171,7 @@ Note_spacing::right_column (Grob*me)
       SCM newright  = SCM_EOL;
       for (SCM s = right ; gh_pair_p (s) ; s =gh_cdr (s))
 	{
-	  if (unsmob_item (gh_car (s))->column_l () == mincol)
+	  if (unsmob_item (gh_car (s))->get_column () == mincol)
 	    newright = gh_cons (gh_car (s), newright);
 	}
 
@@ -181,7 +181,7 @@ Note_spacing::right_column (Grob*me)
   if (!mincol)
     {
       /*
-      int r = Paper_column::rank_i (dynamic_cast<Item*>(me)->column_l ());
+      int r = Paper_column::get_rank (dynamic_cast<Item*>(me)->get_column ());
       programming_error (_f("Spacing wish column %d has no right item.", r));
       */
 
@@ -231,13 +231,13 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	  if (d == RIGHT)
 	    acc_right = acc_right || Note_column::accidentals (it);
 	  
-	  Grob *stem = Note_column::stem_l (it);
+	  Grob *stem = Note_column::get_stem (it);
 
 	  if (!stem)
 	    {
 	      if (d == RIGHT && Separation_item::has_interface (it))
 		{
-		  if (it->column_l () != rcolumn)
+		  if (it->get_column () != rcolumn)
 		    {
 		      it = it->find_prebroken_piece (rcolumn->break_status_dir ());
 		    }
@@ -258,7 +258,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	      return ;
 	    }
 
-	  beams_drul[d] = Stem::beam_l (stem);
+	  beams_drul[d] = Stem::get_beam (stem);
 	    
 	  
 	  Direction sd = Stem::get_direction (stem);
@@ -273,7 +273,7 @@ Note_spacing::stem_dir_correction (Grob*me, Item * rcolumn,
 	    hanging from the note.
 	   */
 	  if (d == LEFT
-	      && Stem::duration_log (stem) > 2  && !Stem::beam_l (stem))
+	      && Stem::duration_log (stem) > 2  && !Stem::get_beam (stem))
 	    {
 
 	      return;

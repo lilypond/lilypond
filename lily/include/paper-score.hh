@@ -25,9 +25,9 @@ class Paper_score : public Music_output
 {
   SCM main_smob_;
 public:
-  Paper_def *paper_l_;
+  Paper_def *paper_;
 
-  Paper_outputter *outputter_l_;  
+  Paper_outputter *outputter_;  
   System *system_;
   
   Paper_score ();

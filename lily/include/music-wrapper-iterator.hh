@@ -37,7 +37,7 @@ protected:
   virtual void process (Moment);
   virtual Music_iterator *try_music_in_children (Music *) const;
 
-  Music_iterator *child_iter_p_;
+  Music_iterator *child_iter_;
 };
 
 #endif /* MUSIC_WRAPPER_ITERATOR_HH */

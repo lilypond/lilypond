@@ -111,7 +111,7 @@ Molecule
 Text_item::markup_text2molecule (Grob *me, SCM markup_text,
 				 SCM alist_chain)
 {
-  SCM sheet = me->paper_l ()->style_sheet_;
+  SCM sheet = me->get_paper ()->style_sheet_;
   SCM f = ly_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));
   
   SCM markup = ly_car (markup_text);

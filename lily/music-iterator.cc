@@ -24,7 +24,7 @@ Music_iterator::Music_iterator ()
 Music_iterator::Music_iterator (Music_iterator const& src)
 {
   handle_ = *src.handle_.clone ();
-  music_l_ = src.music_l_;
+  music_ = src.music_;
   music_length_ = src.music_length_;
   start_mom_ = src.start_mom_;
 }
@@ -37,9 +37,9 @@ Music_iterator::~Music_iterator ()
 
 
 Translator_group* 
-Music_iterator::report_to_l () const
+Music_iterator::report_to () const
 {
-  return handle_.report_to_l ();
+  return handle_.report_to ();
 }
 
 
@@ -83,7 +83,7 @@ Music_iterator::get_pending_events (Moment)const
 }
 
 Music_iterator*
-Music_iterator::static_get_iterator_p (Music *m)
+Music_iterator::get_static_get_iterator (Music *m)
 {
   Music_iterator * p =0;
 
@@ -101,7 +101,7 @@ Music_iterator::static_get_iterator_p (Music *m)
       p = new Simple_music_iterator ;
     }
 
-  p->music_l_ = m;
+  p->music_ = m;
   assert (m);
   p->music_length_ = m->length_mom ();
   p->start_mom_ = m->start_mom ();
@@ -123,9 +123,9 @@ Music_iterator::music_start_mom ()const
 }
 
 void
-Music_iterator::init_translator (Music *m, Translator_group *report_l)
+Music_iterator::init_translator (Music *m, Translator_group *report)
 {
-  music_l_ = m;
+  music_ = m;
   assert (m);
   if (Context_specced_music * csm =dynamic_cast<Context_specced_music *> (m))
     {
@@ -140,22 +140,22 @@ Music_iterator::init_translator (Music *m, Translator_group *report_l)
 	c_id = ly_scm2string (ci);
       
       Translator_group* a
-	=report_l->find_create_translator_l (c_type, c_id);
+	=report->find_create_translator (c_type, c_id);
 
       set_translator (a);
       
     }
 
-  if (! report_to_l ())
-    set_translator (report_l);
+  if (! report_to ())
+    set_translator (report);
 }
 
 
 Music_iterator*
-Music_iterator::get_iterator_p (Music *m) const
+Music_iterator::get_iterator (Music *m) const
 {
-  Music_iterator*p = static_get_iterator_p (m);
-  p->init_translator (m, report_to_l ());
+  Music_iterator*p = get_static_get_iterator (m);
+  p->init_translator (m, report_to ());
   
   p->construct_children ();
   return p;
@@ -170,7 +170,7 @@ Music_iterator::get_iterator_p (Music *m) const
 Music_iterator*
 Music_iterator::try_music (Music *m) const
 {
-  bool b = report_to_l ()->try_music ((Music*)m); // ugh
+  bool b = report_to ()->try_music ((Music*)m); // ugh
   Music_iterator * it = b ? (Music_iterator*) this : 0;	// ugh
   if (!it)
     it = try_music_in_children (m);
@@ -186,7 +186,7 @@ Music_iterator::try_music_in_children (Music *) const
 IMPLEMENT_CTOR_CALLBACK (Music_iterator);
 
 Music *
-Music_iterator::music_l () const
+Music_iterator::get_music () const
 {
-  return music_l_;
+  return music_;
 }

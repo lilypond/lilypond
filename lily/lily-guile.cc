@@ -159,7 +159,7 @@ gulp_file_to_string (String fn)
     {
       String e = _f ("can't find file: `%s'", fn);
       e += " ";
-      e += _f ("(load path: `%s')", global_path.str ());
+      e += _f ("(load path: `%s')", global_path.string ());
       error (e);
     }
   else if (verbose_global_b)
@@ -167,7 +167,7 @@ gulp_file_to_string (String fn)
 
 
   Simple_file_storage f (s);
-  String result (f.ch_C ());
+  String result (f.to_str0 ());
   if (verbose_global_b)
     progress_indication ("]");
   return result;
@@ -180,7 +180,7 @@ file is looked up using the lilypond search path.
 
 ")
 {
-  return ly_str02scm (gulp_file_to_string (ly_scm2string (name)).ch_C ());
+  return ly_str02scm (gulp_file_to_string (ly_scm2string (name)).to_str0 ());
 }
 
 
@@ -194,7 +194,7 @@ file is looked up using the lilypond search path.
 void
 read_lily_scm_file (String fn)
 {
-  gh_eval_str ((char *) gulp_file_to_string (fn).ch_C ());
+  gh_eval_str ((char *) gulp_file_to_string (fn).to_str0 ());
 }
 
 extern "C" {
@@ -243,7 +243,7 @@ LY_DEFINE(ly_warning,"ly-warn", 1, 0, 0,
   return SCM_BOOL_T;
 }
 
-LY_DEFINE(ly_isdir_p,  "dir?", 1,0, 0,  (SCM s),
+LY_DEFINE(ly_isdir,  "dir?", 1,0, 0,  (SCM s),
 	  "type predicate. A direction is a -1, 0 or 1, where -1 represents left or
 down and 1 represents right or up.
 ")
@@ -652,8 +652,8 @@ String
 print_scm_val (SCM val)
 {
   String realval = ly_scm2string (ly_write2scm (val));
-  if (realval.length_i () > 200)
-    realval = realval.left_str (100) + "\n :\n :\n" + realval.right_str (100);
+  if (realval.length () > 200)
+    realval = realval.left_string (100) + "\n :\n :\n" + realval.right_string (100);
   
   return realval;	 
 }
@@ -673,35 +673,35 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
     return ok;
 
   
-  SCM type_p = SCM_EOL;
+  SCM type = SCM_EOL;
 
   if (gh_symbol_p (sym))
-    type_p = scm_object_property (sym, type_symbol);
+    type = scm_object_property (sym, type_symbol);
 
-  if (type_p != SCM_EOL && !gh_procedure_p (type_p))
+  if (type != SCM_EOL && !gh_procedure_p (type))
       {
 	warning (_f ("Can't find property type-check for `%s' (%s).  Perhaps you made a typing error? Doing assignment anyway.",
-		     ly_symbol2string (sym).ch_C (),
-		     ly_symbol2string (type_symbol).ch_C ()
+		     ly_symbol2string (sym).to_str0 (),
+		     ly_symbol2string (type_symbol).to_str0 ()
 
 		     ));
       }
   else
     {
       if (val != SCM_EOL
-	  && gh_procedure_p (type_p)
-	  && gh_call1 (type_p, val) == SCM_BOOL_F)
+	  && gh_procedure_p (type)
+	  && gh_call1 (type, val) == SCM_BOOL_F)
 	{
 	  SCM errport = scm_current_error_port ();
 	  ok = false;
 	  SCM typefunc = scm_primitive_eval (ly_symbol2scm ("type-name"));
-	  SCM type_name = gh_call1 (typefunc, type_p);
+	  SCM type_name = gh_call1 (typefunc, type);
 
 	 
 	  scm_puts (_f ("Type check for `%s' failed; value `%s' must be of type `%s'",
-			ly_symbol2string (sym).ch_C (),
+			ly_symbol2string (sym).to_str0 (),
 			print_scm_val (val),
-			ly_scm2string (type_name).ch_C ()).ch_C (),
+			ly_scm2string (type_name).to_str0 ()).to_str0 (),
 		    errport);
 	  scm_puts ("\n", errport);		      
 	}

@@ -45,7 +45,7 @@ Voice_devnull_engraver::try_music (Music *m)
 
   if (gh_equal_p (s, ly_symbol2scm ("always"))
       || (s == SCM_EOL
-	  && daddy_trans_l_->id_str_.left_str (3) == "two"
+	  && daddy_trans_->id_string_.left_string (3) == "two"
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))
     {
@@ -95,14 +95,14 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 	  soloADue requirement */
   if (s == ly_symbol2scm ("always")
       || (s == SCM_EOL
-	  && daddy_trans_l_->id_str_.left_str (3) == "two"
+	  && daddy_trans_->id_string_.left_string (3) == "two"
 	  && (to_boolean (get_property ("unison"))
 	      || to_boolean (get_property ("unisilence")))))
 #else
     if (s == ly_symbol2scm ("always")
 	|| (s == SCM_EOL
 	    && to_boolean (get_property ("soloADue"))
-	    && ((daddy_trans_l_->id_str_.left_str (3) == "two"
+	    && ((daddy_trans_->id_string_.left_string (3) == "two"
 		 && (to_boolean (get_property ("unison"))
 		     || to_boolean (get_property ("unisilence"))))
 		
@@ -111,9 +111,9 @@ Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 #endif
     
     for (char const **p = junk_interfaces; *p; p++)
-      if (i.grob_l_->internal_has_interface (ly_symbol2scm (*p)))
+      if (i.grob_->internal_has_interface (ly_symbol2scm (*p)))
 	{
-	  i.grob_l_->suicide ();
+	  i.grob_->suicide ();
 	  return;
 	}
 }

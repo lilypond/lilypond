@@ -83,7 +83,7 @@ variables. Usage:
   (set-lily-option SYMBOL VAL)
 
 possible options for SYMBOL are :
-").ch_C()<< std::endl;
+").to_str0 ()<< std::endl;
       
       std::cout << "  help (any-symbol)"<< std::endl; 
       std::cout << "  internal-type-checking (boolean)"<< std::endl; 

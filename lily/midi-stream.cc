@@ -19,47 +19,47 @@
 
 Midi_stream::Midi_stream (String filename)
 {
-  filename_str_ = filename;
-  os_p_ = open_file_stream (filename, std::ios::out|std::ios::binary);
+  filename_string_ = filename;
+  os_ = open_file_stream (filename, std::ios::out|std::ios::binary);
 }
 
 Midi_stream::~Midi_stream ()
 {
-  close_file_stream (os_p_);
+  close_file_stream (os_);
 }
 
 Midi_stream&
 Midi_stream::operator << (String str)
 {
-  Byte * b = str.byte_l();
-  for (int sz = str.length_i (); sz--;)
-    *os_p_ << *b ++;
+  Byte * b = str.get_bytes ();
+  for (int sz = str.length (); sz--;)
+    *os_ << *b ++;
   return *this;
 }
 
 Midi_stream&
 Midi_stream::operator << (Midi_item const& midi_c_r)
 {
-  String str = midi_c_r.str ();
+  String str = midi_c_r.string ();
 
 
   if (midi_debug_global_b)
     {
-     str = String_convert::bin2hex_str (str) + "\n";
+     str = String_convert::bin2hex (str) + "\n";
     // ugh, should have separate debugging output with Midi*::print routines
-    int i = str.index_i ("0a");
+    int i = str.index ("0a");
     while (i >= 0)
       {
         str[i] = '\n';
         str[i + 1] = '\t';
-    	i = str.index_i ("0a");
+    	i = str.index ("0a");
       }
     }
   else
     {
-      Byte * b = str.byte_l();
-      for (int sz = str.length_i (); sz--;)
-	*os_p_ << *b++;
+      Byte * b = str.get_bytes ();
+      for (int sz = str.length (); sz--;)
+	*os_ << *b++;
     }
   
   return *this;
@@ -69,7 +69,7 @@ Midi_stream&
 Midi_stream::operator << (int i)
 {
   // output binary string ourselves
-  *this << Midi_item::i2varint_str (i);
+  *this << Midi_item::i2varint_string (i);
   return *this;
 }
 

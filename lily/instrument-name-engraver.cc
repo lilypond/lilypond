@@ -42,7 +42,7 @@ Instrument_name_engraver::Instrument_name_engraver ()
 void
 Instrument_name_engraver::initialize ()
 {
-  daddy_trans_l_->set_property ("instrumentSupport", SCM_EOL); 
+  daddy_trans_->set_property ("instrumentSupport", SCM_EOL); 
 }
 
 void
@@ -77,7 +77,7 @@ Instrument_name_engraver::create_text (SCM txt)
 void
 Instrument_name_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Bar_line::has_interface (i.grob_l_))
+  if (Bar_line::has_interface (i.grob_))
     {
       SCM s = get_property ("instrument");
   
@@ -85,14 +85,14 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
 	s = get_property ("instr");
 
       /*
-	FIXME: use markup_p () to check type.
+	FIXME: use get_markup () to check type.
       */
       if (gh_string_p (s) || gh_pair_p (s))
 	create_text (s);
     }
 
-  if (dynamic_cast<Spanner*> (i.grob_l_)
-      && i.grob_l_->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
+  if (dynamic_cast<Spanner*> (i.grob_)
+      && i.grob_->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
     return;
 
   /*
@@ -106,15 +106,15 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
     without staffs as well.
 
   */
-  if (dynamic_cast<Spanner*> (i.grob_l_)
-      && ((Axis_group_interface::has_interface (i.grob_l_)
-	   && Axis_group_interface::axis_b (i.grob_l_, Y_AXIS)))
-      && !Align_interface::has_interface (i.grob_l_))
+  if (dynamic_cast<Spanner*> (i.grob_)
+      && ((Axis_group_interface::has_interface (i.grob_)
+	   && Axis_group_interface::axis_b (i.grob_, Y_AXIS)))
+      && !Align_interface::has_interface (i.grob_))
     {
-      SCM nl = gh_cons (i.grob_l_->self_scm (),
+      SCM nl = gh_cons (i.grob_->self_scm (),
 			get_property ("instrumentSupport"));
 
-      daddy_trans_l_->set_property ("instrumentSupport", nl);
+      daddy_trans_->set_property ("instrumentSupport", nl);
     }
 }
 

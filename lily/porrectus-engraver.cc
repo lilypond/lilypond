@@ -46,7 +46,7 @@ public:
   TRANSLATOR_DECLARATIONS(Porrectus_engraver);
   
 protected:
-  virtual bool try_music (Music *req_l);
+  virtual bool try_music (Music *req);
   virtual void process_music ();
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
@@ -55,23 +55,23 @@ protected:
 
 private:
   PQueue<Grob_pitch_tuple> past_notes_pq_;
-  Porrectus_req *porrectus_req_l_;
+  Porrectus_req *porrectus_req_;
   Array<Grob_pitch_tuple> left_heads_;
   Array<Grob_pitch_tuple> right_heads_;
-  Link_array<Grob> porrectus_p_arr_;
+  Link_array<Grob> porrectuses_;
 };
 
 Porrectus_engraver::Porrectus_engraver ()
 {
-  porrectus_req_l_ = 0;
+  porrectus_req_ = 0;
 }
 
 bool
 Porrectus_engraver::try_music (Music *m)
 {
-  if (Porrectus_req *req_l_ = dynamic_cast <Porrectus_req *> (m))
+  if (Porrectus_req *req_ = dynamic_cast <Porrectus_req *> (m))
     {
-      porrectus_req_l_ = req_l_;
+      porrectus_req_ = req_;
       return true;
     }
   else
@@ -81,30 +81,30 @@ Porrectus_engraver::try_music (Music *m)
 void
 Porrectus_engraver::process_music ()
 {
-  if (porrectus_req_l_)
+  if (porrectus_req_)
     {
       top_engraver ()->forbid_breaks ();
     }
 }
 
 void
-Porrectus_engraver::acknowledge_grob (Grob_info info_l_)
+Porrectus_engraver::acknowledge_grob (Grob_info info_)
 {
-  if (Rhythmic_head::has_interface (info_l_.grob_l_))
+  if (Rhythmic_head::has_interface (info_.grob_))
     {
-      Note_req *note_req_l_ = dynamic_cast <Note_req *> (info_l_.music_cause ());
-      if (!note_req_l_)
+      Note_req *note_req_ = dynamic_cast <Note_req *> (info_.music_cause ());
+      if (!note_req_)
 	return;
-      right_heads_.push (Grob_pitch_tuple (info_l_.grob_l_, note_req_l_,
+      right_heads_.push (Grob_pitch_tuple (info_.grob_, note_req_,
 					      now_mom () +
-					      note_req_l_->length_mom ()));
+					      note_req_->length_mom ()));
     }
 }
 
 void
 Porrectus_engraver::process_acknowledged_grobs ()
 {
-  if (porrectus_req_l_)
+  if (porrectus_req_)
     {
       left_heads_.sort (Grob_pitch_tuple::pitch_compare);
       right_heads_.sort (Grob_pitch_tuple::pitch_compare);
@@ -113,16 +113,16 @@ Porrectus_engraver::process_acknowledged_grobs ()
 
       while ((i >= 0) && (j >= 0))
 	{
-	  Item *left_head = dynamic_cast<Item*> (left_heads_[i].head_l_);
-	  Item *right_head = dynamic_cast<Item*> (right_heads_[j].head_l_);
+	  Item *left_head = dynamic_cast<Item*> (left_heads_[i].head_);
+	  Item *right_head = dynamic_cast<Item*> (right_heads_[j].head_);
 	  left_head->set_grob_property("transparent", gh_bool2scm(true));
 	  right_head->set_grob_property("transparent", gh_bool2scm(true));
 
-	  Grob *porrectus_p_ = new Item (get_property ("Porrectus"));
-	  Porrectus::set_left_head(porrectus_p_, left_head);
-	  Porrectus::set_right_head(porrectus_p_, right_head);
-	  porrectus_p_arr_.push (porrectus_p_);
-	  announce_grob(porrectus_p_, porrectus_req_l_->self_scm());
+	  Grob *porrectus_ = new Item (get_property ("Porrectus"));
+	  Porrectus::set_left_head(porrectus_, left_head);
+	  Porrectus::set_right_head(porrectus_, right_head);
+	  porrectuses_.push (porrectus_);
+	  announce_grob(porrectus_, porrectus_req_->self_scm());
 
 	  past_notes_pq_. insert (right_heads_[i]);
 	  left_heads_.del (i);
@@ -142,17 +142,17 @@ Porrectus_engraver::stop_translation_timestep ()
     }
   right_heads_.clear ();
 
-  for (int i = 0; i < porrectus_p_arr_.size (); i++)
+  for (int i = 0; i < porrectuses_.size (); i++)
     {
-      typeset_grob (porrectus_p_arr_[i]);
+      typeset_grob (porrectuses_[i]);
     }
-  porrectus_p_arr_.clear ();
+  porrectuses_.clear ();
 }
 
 void
 Porrectus_engraver::start_translation_timestep ()
 {
-  porrectus_req_l_ = 0;
+  porrectus_req_ = 0;
   Moment now = now_mom ();
   while (past_notes_pq_.size () && past_notes_pq_.front ().end_ < now)
     past_notes_pq_.delmin ();

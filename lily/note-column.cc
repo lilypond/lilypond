@@ -36,7 +36,7 @@ Note_column::shift_compare (Grob *const &p1, Grob *const&p2)
 }
 
 Item *
-Note_column::stem_l (Grob*me) 
+Note_column::get_stem (Grob*me) 
 {
   SCM s = me->get_grob_property ("stem");
   return  unsmob_item (s);
@@ -54,7 +54,7 @@ Note_column::head_positions_interval (Grob *me)
     {
       Grob *se = unsmob_grob (ly_car (h));
       
-      int j = int (Staff_symbol_referencer::position_f (se));
+      int j = int (Staff_symbol_referencer::get_position (se));
       iv.unite (Slice (j,j));
     }
   return iv;
@@ -75,11 +75,11 @@ Note_column::dir (Grob*  me)
 
 
 void
-Note_column::set_stem (Grob*me,Grob * stem_l)
+Note_column::set_stem (Grob*me,Grob * stem)
 {
-  me->set_grob_property ("stem", stem_l->self_scm ());
-  me->add_dependency (stem_l);
-  Axis_group_interface::add_element (me, stem_l);
+  me->set_grob_property ("stem", stem->self_scm ());
+  me->add_dependency (stem);
+  Axis_group_interface::add_element (me, stem);
 }
 
 void
@@ -123,7 +123,7 @@ Note_column::set_dotcol (Grob*me,Grob *d)
 Grob*
 Note_column::first_head (Grob*me) 
 {
-  Grob * st = stem_l (me);
+  Grob * st = get_stem (me);
   return st?  Stem::first_head (st): 0; 
 }
 

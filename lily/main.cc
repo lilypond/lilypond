@@ -79,7 +79,7 @@ String init_scheme_code_string = "(begin #t ";
  */
 
 
-All_font_metrics *all_fonts_global_p;
+All_font_metrics *all_fonts_global;
 int exit_status_global;
 File_path global_path;
 
@@ -133,7 +133,7 @@ static Long_option_init options_static[] = {
 void
 identify (FILE *out)
 {
-  fputs (gnu_lilypond_version_str ().ch_C (), out);
+  fputs (gnu_lilypond_version_string ().to_str0 (), out);
 }
 
 void
@@ -154,25 +154,25 @@ usage ()
 {
   std::cout << "\n";
   /* No version number or newline here. It confuses help2man.  */
-  std::cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond").ch_C ();
+  std::cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond").to_str0 ();
   std::cout << "\n\n";
-  std::cout << _ ("Typeset music and or play MIDI from FILE").ch_C ();
+  std::cout << _ ("Typeset music and or play MIDI from FILE").to_str0 ();
   std::cout << "\n\n";
   std::cout << 
 _ (
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
-).ch_C ();
+).to_str0 ();
 
   std::cout << '\n';
-  std::cout << _ ("Options:").ch_C ();
+  std::cout << _ ("Options:").to_str0 ();
   std::cout << '\n';
-  std::cout << Long_option_init::table_str (options_static).ch_C ();
+  std::cout << Long_option_init::table_string (options_static).to_str0 ();
   std::cout << '\n';
   std::cout << std::endl;
 
-  std::cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org").ch_C () << std::endl;
+  std::cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org").to_str0 () << std::endl;
 }
 
 void
@@ -184,10 +184,10 @@ version ()
   "This is free software.  It is covered by the GNU General Public License,\n"
   "and you are welcome to change it and/or distribute copies of it under\n"
   "certain conditions.  Invoke as `%s --warranty' for more information.\n",
-    "lilypond").ch_C ();
+    "lilypond").to_str0 ();
   std::cout << std::endl;
 
-  std::cout << _f ("Copyright (c) %s by", "1996--2002").ch_C ();
+  std::cout << _f ("Copyright (c) %s by", "1996--2002").to_str0 ();
   std::cout << '\n';
   std::cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
   std::cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
@@ -197,9 +197,9 @@ void
 notice ()
 {
   std::cout << '\n';
-  std::cout << _ ("GNU LilyPond -- The music typesetter").ch_C ();
+  std::cout << _ ("GNU LilyPond -- The music typesetter").to_str0 ();
   std::cout << '\n';
-  std::cout << _f ("Copyright (c) %s by", "1996--2002").ch_C ();
+  std::cout << _f ("Copyright (c) %s by", "1996--2002").to_str0 ();
   std::cout << '\n';
   std::cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
   std::cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
@@ -217,7 +217,7 @@ notice ()
 	     "    You should have received a copy (refer to the file COPYING) of the\n"
 	     "GNU General Public License along with this program; if not, write to\n"
 	     "the Free Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139,\n"
-	     "USA.\n").ch_C ();
+	     "USA.\n").to_str0 ();
 }
 
 
@@ -246,11 +246,11 @@ setup_paths ()
   if (!String (prefix_directory[0]).empty_b ())
     {
       lily_locale_dir = String (prefix_directory[0]) + "/share/locale";
-      bindtextdomain (name.ch_C (), lily_locale_dir.ch_C ());
+      bindtextdomain (name.to_str0 (), lily_locale_dir.to_str0 ());
     }
   else
-    bindtextdomain (name.ch_C (), LOCALEDIR);
-  textdomain (name.ch_C ());
+    bindtextdomain (name.to_str0 (), LOCALEDIR);
+  textdomain (name.to_str0 ());
 #endif
 
   global_path.add ("");
@@ -264,13 +264,13 @@ setup_paths ()
 	 / sizeof (*prefix_directory); i++)
     for (char **s = suffixes; *s; s++)
       {
-	String p = prefix_directory[i] + to_str ('/') + String (*s);
+	String p = prefix_directory[i] + to_string ('/') + String (*s);
 	global_path.add (p);
 	
 #if !KPATHSEA
 	/* Urg: GNU make's $ (word) index starts at 1 */
 	int i  = 1;
-	while (global_path.try_add (p + to_str (".") + to_str (i)))
+	while (global_path.try_add (p + to_string (".") + to_string (i)))
 	  i++;
 #endif
       }
@@ -298,11 +298,11 @@ distill_inname (String str)
 	  if (*extensions[i] && !p.ext.empty_b ())
 	    p.ext += ".";
 	  p.ext += extensions[i];
-	  if (!global_path.find (p.str ()).empty_b ())
+	  if (!global_path.find (p.string ()).empty_b ())
 	      break;
 	}
       /* Reshuffle extension */
-      p = split_path (p.str ());
+      p = split_path (p.string ());
     }
   return p;
 }
@@ -322,7 +322,7 @@ prepend_load_path (String dir)
   String s = "(set! %load-path (cons \""
     + dir
     + "\" %load-path))";
-  scm_c_eval_string (s.ch_C ());
+  scm_c_eval_string (s.to_str0 ());
 }
 
 void
@@ -347,10 +347,10 @@ main_prog (void *, int, char **)
   std::cout << std::endl;
 
   call_constructors ();
-  all_fonts_global_p = new All_font_metrics (global_path.str ());
+  all_fonts_global = new All_font_metrics (global_path.string ());
 
   init_scheme_code_string += ")";
-  gh_eval_str ((char *)init_scheme_code_string.ch_C ());
+  gh_eval_str ((char *)init_scheme_code_string.to_str0 ());
   
   int p=0;
   const char *arg  = oparser_p_static->get_next_arg ();
@@ -372,7 +372,7 @@ main_prog (void *, int, char **)
 
       /* By default, use base name of input file for output file name */
       Path outpath = inpath;
-      if (inpath.str () != "-")
+      if (inpath.string () != "-")
 	outpath.ext = format_to_ext (output_format_global);
 
       /* By default, write output to cwd; do not copy directory part
@@ -393,8 +393,8 @@ main_prog (void *, int, char **)
 	
       /* Burp: output name communication goes through _global */
       String save_output_name_global = output_name_global;
-      output_name_global = outpath.str ();
-      do_one_file (init, inpath.str ());
+      output_name_global = outpath.string ();
+      do_one_file (init, inpath.string ());
       output_name_global = save_output_name_global;
       
       p++;
@@ -409,7 +409,7 @@ static int
 sane_putenv (char const* key, char const* value, bool overwrite)
 {
   if (overwrite || !getenv (key))
-    return putenv ((char*)((String (key) + "=" + value).ch_C ()));
+    return putenv ((char*)((String (key) + "=" + value).to_str0 ()));
   return -1;
 }
 
@@ -438,7 +438,7 @@ main (int argc, char **argv)
   oparser_p_static = new Getopt_long (argc, argv, options_static);
   while (Long_option_init const * opt = (*oparser_p_static) ())
     {
-      switch (opt->shortname_ch_)
+      switch (opt->shortname_char_)
 	{
 	case 'v':
 	  version ();
@@ -446,16 +446,16 @@ main (int argc, char **argv)
 	  break;
 	case 'o':
 	  {
-	    String s = oparser_p_static->optional_argument_ch_C_;
+	    String s = oparser_p_static->optional_argument_str0_;
 	    Path p = split_path (s);
 	    if (s != "-" && p.ext.empty_b ())
 	      p.ext = format_to_ext (output_format_global);
-	    output_name_global = p.str ();
+	    output_name_global = p.string ();
 	  }
 	  break;
 	case 'e':
 	  init_scheme_code_string +=
-	    oparser_p_static->optional_argument_ch_C_;
+	    oparser_p_static->optional_argument_str0_;
 	  break;
 	case 'w':
 	  notice ();
@@ -469,19 +469,19 @@ main (int argc, char **argv)
 		"This option is for developers only.\n";
 	      exit (0);
 	    }
-	  output_format_global = oparser_p_static->optional_argument_ch_C_;
+	  output_format_global = oparser_p_static->optional_argument_str0_;
 	  break;
 	case 'P':
-	    dependency_prefix_global = oparser_p_static->optional_argument_ch_C_;
+	    dependency_prefix_global = oparser_p_static->optional_argument_str0_;
 	  break;
 	case 'H':
-	  dump_header_fieldnames_global.push (oparser_p_static->optional_argument_ch_C_);
+	  dump_header_fieldnames_global.push (oparser_p_static->optional_argument_str0_);
 	  break;
 	case 'I':
-	  global_path.push (oparser_p_static->optional_argument_ch_C_);
+	  global_path.push (oparser_p_static->optional_argument_str0_);
 	  break;
 	case 'i':
-	  init_name_global = oparser_p_static->optional_argument_ch_C_;
+	  init_name_global = oparser_p_static->optional_argument_str0_;
 	  break;
 	case 'h':
 	  help_b = true;

@@ -17,11 +17,11 @@
 class Tie
 {
 public:
-  static void set_head (Grob*,Direction, Item*head_l);
+  static void set_head (Grob*,Direction, Item*head);
   static void set_interface (Grob*);
   static bool has_interface (Grob*);
   static Grob * head (Grob*,Direction) ;
-  static Real position_f (Grob*) ;
+  static Real get_position (Grob*) ;
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM ));
   static Direction get_default_dir (Grob*) ;
   static SCM get_control_points (SCM);

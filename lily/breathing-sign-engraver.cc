@@ -27,28 +27,28 @@ public:
   TRANSLATOR_DECLARATIONS(Breathing_sign_engraver);
   
 protected:
-  virtual bool try_music (Music *req_l);
+  virtual bool try_music (Music *req);
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
   virtual void start_translation_timestep ();
 
 private:
-  Breathing_sign_req * breathing_sign_req_l_;
-  Grob * breathing_sign_p_;
+  Breathing_sign_req * breathing_sign_req_;
+  Grob * breathing_sign_;
 };
 
 Breathing_sign_engraver::Breathing_sign_engraver ()
 {
-  breathing_sign_p_ = 0;
-  breathing_sign_req_l_ = 0;
+  breathing_sign_ = 0;
+  breathing_sign_req_ = 0;
 }
 
 bool
-Breathing_sign_engraver::try_music (Music*r_l)
+Breathing_sign_engraver::try_music (Music*r)
 {
-  if (Breathing_sign_req  * b= dynamic_cast <Breathing_sign_req *> (r_l))
+  if (Breathing_sign_req  * b= dynamic_cast <Breathing_sign_req *> (r))
     {
-      breathing_sign_req_l_ = b;
+      breathing_sign_req_ = b;
       return true;
     }
  
@@ -58,30 +58,30 @@ Breathing_sign_engraver::try_music (Music*r_l)
 void
 Breathing_sign_engraver::process_acknowledged_grobs ()
 {
-  if (breathing_sign_req_l_ && ! breathing_sign_p_)
+  if (breathing_sign_req_ && ! breathing_sign_)
     {
       SCM b = get_property ("BreathingSign");
-      breathing_sign_p_ = new Item (b);
+      breathing_sign_ = new Item (b);
 
-      announce_grob(breathing_sign_p_, breathing_sign_req_l_->self_scm());
-      breathing_sign_req_l_ = 0;
+      announce_grob(breathing_sign_, breathing_sign_req_->self_scm());
+      breathing_sign_req_ = 0;
     }
 }
 
 void 
 Breathing_sign_engraver::stop_translation_timestep ()
 {
-  if (breathing_sign_p_)
+  if (breathing_sign_)
     {
-      typeset_grob (breathing_sign_p_);
-      breathing_sign_p_ = 0;
+      typeset_grob (breathing_sign_);
+      breathing_sign_ = 0;
     }
 }
 
 void
 Breathing_sign_engraver::start_translation_timestep ()
 {
-  breathing_sign_req_l_ = 0;
+  breathing_sign_req_ = 0;
 }
 
 

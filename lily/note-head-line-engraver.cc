@@ -75,16 +75,16 @@ Note_head_line_engraver::try_music (Music* m)
 void
 Note_head_line_engraver::acknowledge_grob (Grob_info info)
 {
-  if (Rhythmic_head::has_interface (info.grob_l_))
+  if (Rhythmic_head::has_interface (info.grob_))
     {
-      head_ = info.grob_l_;
+      head_ = info.grob_;
       if (to_boolean (get_property ("followVoice")))
 	{
-	  Translator_group  * tr = daddy_trans_l_;
-	  while (tr && tr->type_str_ != "Staff")
-	    tr = tr->daddy_trans_l_ ;
+	  Translator_group  * tr = daddy_trans_;
+	  while (tr && tr->type_string_ != "Staff")
+	    tr = tr->daddy_trans_ ;
 
-	  if (tr && tr->type_str_ == "Staff" && tr != last_staff_)
+	  if (tr && tr->type_string_ == "Staff" && tr != last_staff_)
 	    {
 	      if (last_head_)
 		follow_ = true;
@@ -117,7 +117,7 @@ Note_head_line_engraver::process_acknowledged_grobs ()
 	  /* Note, mustn't set y-parent of breakable symbol to simple item:
 	     one of the two broken parts won't have an y-parent! */
 	  /* X parent is set by set_bound */
-      line_->set_parent (Staff_symbol_referencer::staff_symbol_l (last_head_),
+      line_->set_parent (Staff_symbol_referencer::get_staff_symbol (last_head_),
 			 Y_AXIS);
 	  
       SCM c = last_req_? last_req_->self_scm () : SCM_EOL;

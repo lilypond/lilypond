@@ -27,7 +27,7 @@ public:
   DECLARE_SCHEME_CALLBACK (brew_ez_molecule, (SCM ));
   static bool has_interface (Grob*);
   static Real stem_attachment_coordinate (Grob *, Axis a);
-  static int balltype_i (Grob*) ;  
+  static int get_balltype (Grob*) ;  
 };
 #endif // NOTEHEAD_HH
 

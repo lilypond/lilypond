@@ -13,7 +13,7 @@
 #include "string.hh"
 
 void programming_error (String s);
-void warning (String message_str);
-void error (String message_str);
+void warning (String message_string);
+void error (String message_string);
 void non_fatal_error (String);
 #endif // WARN_HH

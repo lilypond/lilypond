@@ -46,9 +46,9 @@ Grob::Grob (SCM basicprops)
     fixme: default should be no callback.
    */
 
-  pscore_l_=0;
-  status_c_ = 0;
-  original_l_ = 0;
+  pscore_=0;
+  status_ = 0;
+  original_ = 0;
   immutable_property_alist_ =  basicprops;
   mutable_property_alist_ = SCM_EOL;
 
@@ -121,7 +121,7 @@ Grob::Grob (SCM basicprops)
 Grob::Grob (Grob const&s)
    : dim_cache_ (s.dim_cache_)
 {
-  original_l_ = (Grob*) &s;
+  original_ = (Grob*) &s;
   immutable_property_alist_ = s.immutable_property_alist_;
 
   mutable_property_alist_ = SCM_EOL;
@@ -130,8 +130,8 @@ Grob::Grob (Grob const&s)
     No properties are copied. That is the job of handle_broken_dependencies.
    */
   
-  status_c_ = s.status_c_;
-  pscore_l_ = s.pscore_l_;
+  status_ = s.status_;
+  pscore_ = s.pscore_;
 
   smobify_self ();
 
@@ -189,24 +189,24 @@ Grob::preset_extent (SCM element_smob, SCM scm_axis)
 
 
 Paper_def*
-Grob::paper_l ()  const
+Grob::get_paper ()  const
 {
- return pscore_l_ ? pscore_l_->paper_l_ : 0;
+ return pscore_ ? pscore_->paper_ : 0;
 }
 
 void
 Grob::calculate_dependencies (int final, int busy, SCM funcname)
 {
-  if (status_c_ >= final)
+  if (status_ >= final)
     return;
 
-  if (status_c_== busy)
+  if (status_== busy)
     {
       programming_error ("Element is busy, come back later");
       return;
     }
   
-  status_c_= busy;
+  status_= busy;
 
   for (SCM d = get_grob_property ("dependencies"); gh_pair_p (d);
        d = ly_cdr (d))
@@ -220,7 +220,7 @@ Grob::calculate_dependencies (int final, int busy, SCM funcname)
   if (gh_procedure_p (proc))
     gh_call1 (proc, this->self_scm ());
  
-  status_c_= final;
+  status_= final;
 }
 
 Molecule *
@@ -333,7 +333,7 @@ Return the original Grob of @var{grob}
 {
   Grob *me = unsmob_grob (grob);
   SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
-  return me->original_l_ ? me->original_l_->self_scm () : me->self_scm ();
+  return me->original_ ? me->original_->self_scm () : me->self_scm ();
 }
 
 void
@@ -353,14 +353,14 @@ void
 Grob::handle_broken_dependencies ()
 {
   Spanner * s= dynamic_cast<Spanner*> (this);
-  if (original_l_ && s)
+  if (original_ && s)
     return;
 
   if (s)
     {
-      for (int i = 0;  i< s->broken_into_l_arr_ .size (); i++)
+      for (int i = 0;  i< s->broken_intos_ .size (); i++)
 	{
-	  Grob * sc = s->broken_into_l_arr_[i];
+	  Grob * sc = s->broken_intos_[i];
 	  System * l = sc->get_system ();
 
 	  sc->substitute_mutable_properties (l ? l->self_scm () : SCM_UNDEFINED,
@@ -424,11 +424,11 @@ Grob::handle_prebroken_dependencies ()
     Don't do this in the derived method, since we want to keep access to
     mutable_property_alist_ centralized.
    */
-  if (original_l_)
+  if (original_)
     {
       Item * it = dynamic_cast<Item*> (this);
       substitute_mutable_properties (gh_int2scm (it->break_status_dir ()),
-			       original_l_->mutable_property_alist_);
+			       original_->mutable_property_alist_);
     }
 }
 
@@ -470,10 +470,10 @@ Grob::relative_coordinate (Grob const*refp, Axis a) const
     not ask for the absolute coordinate (ie. REFP == nil.)
     
    */
-  if (refp == dim_cache_[a].parent_l_)
+  if (refp == dim_cache_[a].parent_)
     return get_offset (a);
   else
-    return get_offset (a) + dim_cache_[a].parent_l_->relative_coordinate (refp, a);
+    return get_offset (a) + dim_cache_[a].parent_->relative_coordinate (refp, a);
 }
 
 
@@ -579,8 +579,8 @@ Grob::common_refpoint (Grob const* s, Axis a) const
     I don't like the quadratic aspect of this code, but I see no other
     way. The largest chain of parents might be 10 high or so, so
     it shouldn't be a real issue. */
-  for (Grob const *c = this; c; c = c->dim_cache_[a].parent_l_)
-    for (Grob const * d = s; d; d = d->dim_cache_[a].parent_l_)
+  for (Grob const *c = this; c; c = c->dim_cache_[a].parent_)
+    for (Grob const * d = s; d; d = d->dim_cache_[a].parent_)
       if (d == c)
 	return (Grob*)d;
 
@@ -666,7 +666,7 @@ Grob::set_extent (SCM dc, Axis a)
 void
 Grob::set_parent (Grob *g, Axis a)
 {
-  dim_cache_[a].parent_l_ = g;
+  dim_cache_[a].parent_ = g;
 }
 
 MAKE_SCHEME_CALLBACK (Grob,fixup_refpoint,1);
@@ -762,8 +762,8 @@ Grob::mark_smob (SCM ses)
        */
     }
   
-  if (s->original_l_)
-    scm_gc_mark (s->original_l_->self_scm ());
+  if (s->original_)
+    scm_gc_mark (s->original_->self_scm ());
 
   s->do_derived_mark ();  
   return s->mutable_property_alist_;
@@ -775,7 +775,7 @@ Grob::print_smob (SCM s, SCM port, scm_print_state *)
   Grob *sc = (Grob *) ly_cdr (s);
      
   scm_puts ("#<Grob ", port);
-  scm_puts ((char *)sc->name ().ch_C (), port);
+  scm_puts ((char *)sc->name ().to_str0 (), port);
 
   /*
     don't try to print properties, that is too much hassle.
@@ -808,7 +808,7 @@ Grob::internal_has_interface (SCM k)
 
 /** Return Array of Grobs in SCM list L */
 Link_array<Grob>
-ly_scm2grob_array (SCM l)
+ly_scm2grobs (SCM l)
 {
   Link_array<Grob> arr;
 
@@ -824,7 +824,7 @@ ly_scm2grob_array (SCM l)
 
 /** Return SCM list of Grob array A */
 SCM
-ly_grob_array2scm (Link_array<Grob> a)
+ly_grobs2scm (Link_array<Grob> a)
 {
   SCM s = SCM_EOL;
   for (int i = a.size (); i; i--)

@@ -22,34 +22,34 @@ Lyric_combine_music::Lyric_combine_music (SCM l)
 void
 Lyric_combine_music::transpose (Pitch p)
 {
-  music_l ()->transpose (p);
-  lyrics_l () ->transpose (p);
+  get_music ()->transpose (p);
+  get_lyrics () ->transpose (p);
 }
 
 
 Moment
 Lyric_combine_music::length_mom () const
 {
-  return music_l ()->length_mom ();
+  return get_music ()->length_mom ();
 }
 
 Pitch
 Lyric_combine_music::to_relative_octave (Pitch p)
 {
-  p = music_l ()->to_relative_octave (p);
-  return lyrics_l () ->to_relative_octave (p);
+  p = get_music ()->to_relative_octave (p);
+  return get_lyrics () ->to_relative_octave (p);
 }
 
 void
 Lyric_combine_music::compress (Moment m)
 {
-  music_l ()->compress (m);
+  get_music ()->compress (m);
 }
 
 
 
 Music*
-Lyric_combine_music::music_l () const
+Lyric_combine_music::get_music () const
 {
   SCM l = get_mus_property ("elements");
   if (!gh_pair_p (l))
@@ -59,7 +59,7 @@ Lyric_combine_music::music_l () const
 
 
 Music*
-Lyric_combine_music::lyrics_l () const
+Lyric_combine_music::get_lyrics () const
 {
   SCM l = get_mus_property ("elements");
   if (!gh_pair_p (l))

@@ -16,8 +16,8 @@
   collect Note_column, and as soon as there are 2 or more, put them in
   a collision object.  */
 class Collision_engraver : public Engraver {
-  Item * col_p_;
-  Link_array<Grob> note_column_l_arr_;
+  Item * col_;
+  Link_array<Grob> note_columns_;
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -31,45 +31,45 @@ public:
 void
 Collision_engraver::process_acknowledged_grobs ()
 {
-  if (col_p_ || note_column_l_arr_.size () < 2)
+  if (col_ || note_columns_.size () < 2)
     return ;
-  if (!col_p_) 
+  if (!col_) 
     {
-      col_p_ = new Item (get_property ("NoteCollision"));
-      announce_grob (col_p_, SCM_EOL);
+      col_ = new Item (get_property ("NoteCollision"));
+      announce_grob (col_, SCM_EOL);
     }
   
-  for (int i=0; i< note_column_l_arr_.size (); i++)
-    Note_collision_interface::add_column (col_p_,note_column_l_arr_[i]);
+  for (int i=0; i< note_columns_.size (); i++)
+    Note_collision_interface::add_column (col_,note_columns_[i]);
 }
 
 void
 Collision_engraver::acknowledge_grob (Grob_info i)
 {
-  if (Note_column::has_interface (i.grob_l_))
+  if (Note_column::has_interface (i.grob_))
     {
       /*should check Y axis? */
-      if (Note_column::rest_b (i.grob_l_) || i.grob_l_->get_parent (X_AXIS))
+      if (Note_column::rest_b (i.grob_) || i.grob_->get_parent (X_AXIS))
 	return ;
 
-      note_column_l_arr_.push (i.grob_l_);
+      note_columns_.push (i.grob_);
     }
 }
 
 void
 Collision_engraver::stop_translation_timestep ()
 {
-  if (col_p_) 
+  if (col_) 
     {
-      typeset_grob (col_p_);
-      col_p_ =0;
+      typeset_grob (col_);
+      col_ =0;
     }
-  note_column_l_arr_.clear ();
+  note_columns_.clear ();
 }
 
 Collision_engraver::Collision_engraver ()
 {
-  col_p_ =0;
+  col_ =0;
 }
 
 

@@ -28,60 +28,60 @@
 static const int STRING_BUFFER_LEN=1024;
 
 String
-String_convert::bool_str (bool b)
+String_convert::bool_string (bool b)
 {
   return String (b ? "true" : "false");
 }
 
 String
-String_convert::bin2hex_str (String bin_str)
+String_convert::bin2hex (String bin_string)
 {
   String str;
-  Byte const* byte_C = bin_str.byte_C ();
-  for (int i = 0; i < bin_str.length_i (); i++) 
+  Byte const* byte = bin_string.to_bytes ();
+  for (int i = 0; i < bin_string.length (); i++) 
     {
-      str += to_str ((char)nibble2hex_byte (*byte_C >> 4));
-      str += to_str ((char)nibble2hex_byte (*byte_C++));
+      str += to_string ((char)nibble2hex_byte (*byte >> 4));
+      str += to_string ((char)nibble2hex_byte (*byte++));
     }
   return str;
 }
 
 int
-String_convert::bin2_i (String bin_str)
+String_convert::bin2int (String bin_string)
 {
-  return bin2_u (bin_str);
+  return bin2unsigned (bin_string);
 }
 
 unsigned
-String_convert::bin2_u (String bin_str)
+String_convert::bin2unsigned (String bin_string)
 {
-  assert (bin_str.length_i () <= (int)sizeof (unsigned));
+  assert (bin_string.length () <= (int)sizeof (unsigned));
 
   unsigned result_u = 0;
-  for (int i = 0; i < bin_str.length_i (); i++) 
+  for (int i = 0; i < bin_string.length (); i++) 
     {
       result_u <<= 8;
-      result_u += (Byte)bin_str[ i ];
+      result_u += (Byte)bin_string[ i ];
     }
   return result_u;
 }
 
 // breendet imp from String
 int
-String_convert::dec2_i (String dec_str)
+String_convert::dec2int (String dec_string)
 {
-  if (!dec_str.length_i ())
+  if (!dec_string.length ())
     return 0;
 
   long l = 0;
-  int conv = sscanf (dec_str.ch_C (), "%ld", &l);
+  int conv = sscanf (dec_string.to_str0 (), "%ld", &l);
   assert (conv);
 
   return (int)l;
 }
 
 String
-String_convert::i64_str (I64 i64, char const* fmt)
+String_convert::i64_string (I64 i64, char const* fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
@@ -91,50 +91,50 @@ String_convert::i64_str (I64 i64, char const* fmt)
 }
 // breendet imp from String
 double
-String_convert::dec2_f (String dec_str)
+String_convert::dec2double (String dec_string)
 {
-  if (!dec_str.length_i ())
+  if (!dec_string.length ())
     return 0;
   double d = 0;
-  int conv = sscanf (dec_str.ch_C (), "%lf", &d);
+  int conv = sscanf (dec_string.to_str0 (), "%lf", &d);
   assert (conv);
   return d;
 }
 
 int
-String_convert::hex2bin_i (String hex_str, String& bin_str_r)
+String_convert::hex2bin (String hex_string, String& bin_string_r)
 {
-  if (hex_str.length_i () % 2)
-    hex_str = "0" + hex_str;
+  if (hex_string.length () % 2)
+    hex_string = "0" + hex_string;
 
-  bin_str_r = "";
-  Byte const* byte_C= hex_str.byte_C ();
+  bin_string_r = "";
+  Byte const* byte= hex_string.to_bytes ();
   int i = 0;
-  while (i < hex_str.length_i ()) 
+  while (i < hex_string.length ()) 
     {
-      int high_i = hex2nibble_i (*byte_C++);
-      int low_i = hex2nibble_i (*byte_C++);
+      int high_i = hex2nibble (*byte++);
+      int low_i = hex2nibble (*byte++);
       if (high_i < 0 || low_i < 0)
 	return 1; // illegal char
-      bin_str_r += to_str ((char) (high_i << 4 | low_i), 1 );
+      bin_string_r += to_string ((char) (high_i << 4 | low_i), 1 );
       i += 2;
     }
   return 0;
 }
 
 String 
-String_convert::hex2bin_str (String hex_str)
+String_convert::hex2bin (String hex_string)
 {
   String str;
   //  silly, asserts should alway be "on"!
-  //    assert (!hex2bin_i (hex_str, str) );
-  int error_i = hex2bin_i (hex_str, str);
+  //    assert (!hex2bin (hex_string, str) );
+  int error_i = hex2bin (hex_string, str);
   assert (!error_i);
   return str;
 }
 
 int 
-String_convert::hex2nibble_i (Byte byte)
+String_convert::hex2nibble (Byte byte)
 {
   if (byte >= '0' && byte <= '9')
     return byte - '0';
@@ -145,25 +145,25 @@ String_convert::hex2nibble_i (Byte byte)
   return -1;
 }
 
-// stupido.  Should use int_str ()
+// stupido.  Should use int_string ()
 String 
-String_convert::i2dec_str (int i, int length_i, char ch)
+String_convert::int2dec (int i, int length_i, char ch)
 {
-  char fill_ch = ch;
-  if (fill_ch)
-    fill_ch = '0';
+  char fill_char = ch;
+  if (fill_char)
+    fill_char = '0';
 
   // ugh
-  String dec_str = to_str (i);
+  String dec_string = to_string (i);
   
   // ugh
-  return to_str (fill_ch, length_i - dec_str.length_i ()) + dec_str;
+  return to_string (fill_char, length_i - dec_string.length ()) + dec_string;
 }
 
 
-// stupido.  Should use int_str ()
+// stupido.  Should use int_string ()
 String 
-String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
+String_convert::unsigned2hex (unsigned u, int length_i, char fill_char)
 {
   String str;
   if (!u)
@@ -172,24 +172,24 @@ String_convert::u2hex_str (unsigned u, int length_i, char fill_ch)
 #if 1 // both go...
   while (u) 
     {
-      str = to_str ((char) ((u % 16)["0123456789abcdef"] ) ) + str;
+      str = to_string ((char) ((u % 16)["0123456789abcdef"] ) ) + str;
       u /= 16;
     }
 #else
-  str += int_str (u, "%x");	// hmm. %lx vs. %x -> portability?
+  str += int_string (u, "%x");	// hmm. %lx vs. %x -> portability?
 #endif
 
-  str = to_str (fill_ch, length_i - str.length_i ()) + str;
-  while ((str.length_i () > length_i) && (str[ 0 ] == 'f' ) )
-    str = str.cut_str (2, INT_MAX);
+  str = to_string (fill_char, length_i - str.length ()) + str;
+  while ((str.length () > length_i) && (str[ 0 ] == 'f' ) )
+    str = str.cut_string (2, INT_MAX);
 
   return str;
 }
 
 String 
-String_convert::i2hex_str (int i, int length_i, char fill_ch)
+String_convert::int2hex (int i, int length_i, char fill_char)
 {
-  return u2hex_str ((unsigned)i, length_i, fill_ch);
+  return unsigned2hex ((unsigned)i, length_i, fill_char);
 }
 
 Byte
@@ -207,7 +207,7 @@ String_convert::nibble2hex_byte (Byte byte)
   #fmt# is a printf style format, default assumes "%d" as format. 
   */
 String
-String_convert::int_str (int i, char const* fmt)
+String_convert::int_string (int i, char const* fmt)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN,
@@ -216,7 +216,7 @@ String_convert::int_str (int i, char const* fmt)
 }
 
 String
-String_convert::form_str (char const* format, ...)
+String_convert::form_string (char const* format, ...)
 {
   va_list args;
   va_start (args, format);
@@ -227,7 +227,7 @@ String_convert::form_str (char const* format, ...)
 }
 
 String 
-String_convert::vform_str (char const* format, va_list args)
+String_convert::vform_string (char const* format, va_list args)
 {
   char buffer[STRING_BUFFER_LEN];
   vsnprintf (buffer, STRING_BUFFER_LEN, format, args);
@@ -240,7 +240,7 @@ String_convert::vform_str (char const* format, va_list args)
   @param #fmt# is a printf style format, default assumes "%lf" as format
  */
 String
-String_convert::double_str (double f, char const* fmt)
+String_convert::double_string (double f, char const* fmt)
 {
   char buf[STRING_BUFFER_LEN]; 
 
@@ -255,24 +255,24 @@ Make a string from a single character.
   #n# is a repetition count, default value is 1
  */
 String
-String_convert::char_str (char c, int n)
+String_convert::char_string (char c, int n)
 {
   n = n >= 0 ? n : 0;
-  char* ch_p = new char[ n ];
-  memset (ch_p, c, n);
-  String s ((Byte*)ch_p, n);
-  delete[] ch_p;
+  char* ch = new char[ n ];
+  memset (ch, c, n);
+  String s ((Byte*)ch, n);
+  delete[] ch;
   return s;
 }
 
 String
-String_convert::rational_str (Rational r)
+String_convert::rational_string (Rational r)
 {
-	return r.str ();
+	return r.string ();
 }
 
 String
-String_convert::pointer_str (void const *l)
+String_convert::pointer_string (void const *l)
 {
   char buffer[STRING_BUFFER_LEN];
   snprintf (buffer, STRING_BUFFER_LEN, "%p", l);     // assume radix 10
@@ -286,30 +286,30 @@ String_convert::pointer_str (void const *l)
   #n# is the number of nonzero digits
  */
 String
-String_convert::precision_str (double x, int n)
+String_convert::precision_string (double x, int n)
 {
-  String format = "%." + to_str (0 >? n - 1) + "e";
-  String str = double_str (abs (x), format.ch_C ());
+  String format = "%." + to_string (0 >? n - 1) + "e";
+  String str = double_string (abs (x), format.to_str0 ());
 
-  int exp = str.right_str (3).value_i ();
-  str = str.left_str (str.length_i () - 4);
+  int exp = str.right_string (3).to_int ();
+  str = str.left_string (str.length () - 4);
 
-  while (str[str.length_i () - 1] == '0')
-    str = str.left_str (str.length_i () - 1);
-  if (str[str.length_i () - 1] == '.')
-    str = str.left_str (str.length_i () - 1);
+  while (str[str.length () - 1] == '0')
+    str = str.left_string (str.length () - 1);
+  if (str[str.length () - 1] == '.')
+    str = str.left_string (str.length () - 1);
 
   if (exp == 0)
     return (sign (x) > 0 ? str : "-" + str);
 
-  str = str.left_str (1) + str.cut_str (2, INT_MAX);
+  str = str.left_string (1) + str.cut_string (2, INT_MAX);
   int dot = 1 + exp;
   if (dot <= 0)
-    str = "0." + to_str ('0', -dot) + str;
-  else if (dot >= str.length_i ())
-    str += to_str ('0', dot - str.length_i ());
-  else if (( dot > 0) && (dot < str.length_i ()))
-    str = str.left_str (dot) + "." + str.cut_str (dot, INT_MAX);
+    str = "0." + to_string ('0', -dot) + str;
+  else if (dot >= str.length ())
+    str += to_string ('0', dot - str.length ());
+  else if (( dot > 0) && (dot < str.length ()))
+    str = str.left_string (dot) + "." + str.cut_string (dot, INT_MAX);
   else
     assert (0);
 
@@ -317,27 +317,27 @@ String_convert::precision_str (double x, int n)
 }
 
 Array<String>
-String_convert::split_arr (String str, char c)
+String_convert::split (String str, char c)
 {
   Array<String> a;
-  int i = str.index_i (c);
+  int i = str.index (c);
   while (i >=0)
     {
-      String s = str.left_str (i);
+      String s = str.left_string (i);
       a.push (s);
       while (str[++i] == c)
 	;
-      str = str.cut_str (i, INT_MAX);
-      i = str.index_i (c);
+      str = str.cut_string (i, INT_MAX);
+      i = str.index (c);
     }
-  if (str.length_i ())
+  if (str.length ())
     a.push (str);
   return a;
 }
 
 
 String
-String_convert::long_str (long l)
+String_convert::long_string (long l)
 {
   char s[STRING_BUFFER_LEN];
   sprintf (s,"%ld", l);
@@ -347,5 +347,5 @@ String_convert::long_str (long l)
 String
 String_convert::pad_to (String s, int n)
 {
-  return s + to_str (' ' , (n - s.length_i ()) >? 0);
+  return s + to_string (' ' , (n - s.length ()) >? 0);
 }

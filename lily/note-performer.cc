@@ -21,22 +21,22 @@ public:
   TRANSLATOR_DECLARATIONS(Note_performer);
   
 protected:
-  virtual bool try_music (Music *req_l) ;
+  virtual bool try_music (Music *req) ;
 
   virtual void stop_translation_timestep ();
   virtual void create_audio_elements ();
-  Global_translator* global_translator_l ();
+  Global_translator* get_global_translator ();
 
 private:
-  Array<Note_req*> note_req_l_arr_;
-  Array<Audio_note*> note_p_arr_;
-  Array<Audio_note*> delayed_p_arr_;
+  Array<Note_req*> note_reqs_;
+  Array<Audio_note*> notes_;
+  Array<Audio_note*> delayeds_;
 };
 
 void 
 Note_performer::create_audio_elements ()
 {
-  if (note_req_l_arr_.size ())
+  if (note_reqs_.size ())
     {
       int transposing_i = 0;
       //urg
@@ -44,32 +44,32 @@ Note_performer::create_audio_elements ()
       if (gh_number_p (prop)) 
 	transposing_i = gh_scm2int (prop);
 
-      while (note_req_l_arr_.size ())
+      while (note_reqs_.size ())
 	{
-	  Note_req* n = note_req_l_arr_.pop ();
+	  Note_req* n = note_reqs_.pop ();
 	  Pitch pit =  * unsmob_pitch (n->get_mus_property ("pitch"));
 	  Audio_note* p = new Audio_note (pit,  n->length_mom (), transposing_i);
 	  Audio_element_info info (p, n);
 	  announce_element (info);
-	  note_p_arr_.push (p);
+	  notes_.push (p);
 	}
-      note_req_l_arr_.clear ();
+      note_reqs_.clear ();
     }
 }
 
 Global_translator*
-Note_performer::global_translator_l ()
+Note_performer::get_global_translator ()
 {
   Translator *t = this;
-  Global_translator *global_l =0;
+  Global_translator *global =0;
   do
     {
-      t = t->daddy_trans_l_ ;
-      global_l = dynamic_cast<Global_translator*> (t);
+      t = t->daddy_trans_ ;
+      global = dynamic_cast<Global_translator*> (t);
     }
-  while (!global_l);
+  while (!global);
 
-  return global_l;
+  return global;
 }
 
 
@@ -79,47 +79,47 @@ Note_performer::stop_translation_timestep ()
 
   // why don't grace notes show up here?
   // --> grace notes effectively do not get delayed
-  Global_translator* global_l = global_translator_l ();
-  for (int i=0; i < note_p_arr_.size (); i++)
+  Global_translator* global = get_global_translator ();
+  for (int i=0; i < notes_.size (); i++)
     {
-      Audio_note* n = note_p_arr_[i];
+      Audio_note* n = notes_[i];
       Moment m= n->delayed_until_mom_;
       if (m.to_bool ())
 	{
-	  global_l->add_moment_to_process (m);
-	  delayed_p_arr_.push (n);
-	  note_p_arr_[i] = 0;
-	  note_p_arr_.del (i);
+	  global->add_moment_to_process (m);
+	  delayeds_.push (n);
+	  notes_[i] = 0;
+	  notes_.del (i);
 	  i--;
 	}
     }
 
   Moment now = now_mom ();
-  for (int i=0; i < note_p_arr_.size (); i++)
+  for (int i=0; i < notes_.size (); i++)
     {
-      play_element (note_p_arr_[i]);
+      play_element (notes_[i]);
     }
-  note_p_arr_.clear ();
-  note_req_l_arr_.clear ();
-  for (int i=0; i < delayed_p_arr_.size (); i++)
+  notes_.clear ();
+  note_reqs_.clear ();
+  for (int i=0; i < delayeds_.size (); i++)
     {
-      Audio_note* n = delayed_p_arr_[i];
+      Audio_note* n = delayeds_[i];
       if (n->delayed_until_mom_ <= now)
 	{
 	  play_element (n);
-	  delayed_p_arr_[i] = 0;
-	  delayed_p_arr_.del (i);
+	  delayeds_[i] = 0;
+	  delayeds_.del (i);
 	  i--;
 	}
     }
 }
  
 bool
-Note_performer::try_music (Music* req_l)
+Note_performer::try_music (Music* req)
 {
-  if (Note_req *nr = dynamic_cast <Note_req *> (req_l))
+  if (Note_req *nr = dynamic_cast <Note_req *> (req))
     {
-      note_req_l_arr_.push (nr);
+      note_reqs_.push (nr);
       return true;
     }
   return false;

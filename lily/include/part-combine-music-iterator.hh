@@ -34,8 +34,8 @@ private:
   void change_to (Music_iterator*, String, String);
   int get_state (Moment m);
 
-  Music_iterator * first_iter_p_;
-  Music_iterator * second_iter_p_;
+  Music_iterator * first_iter_;
+  Music_iterator * second_iter_;
   Moment first_until_;
   Moment second_until_;
   int state_;

@@ -18,7 +18,7 @@
 class Type_swallow_translator : public virtual Translator
 {
 protected:
-  String swallow_str_;
+  String swallow_string_;
   bool try_music (Music*);
 public:  
   VIRTUAL_COPY_CONS (Translator);
@@ -29,7 +29,7 @@ struct TYPE ## _swallow_translator : public Type_swallow_translator {	\
   TRANSLATOR_DECLARATIONS (TYPE ## _swallow_translator);  \
 };									\
   TYPE ## _swallow_translator :: TYPE ## _swallow_translator() {\
-      swallow_str_ =  #TYPE;						\
+      swallow_string_ =  #TYPE;						\
   }									\
 ENTER_DESCRIPTION(TYPE ## _swallow_translator,				\
 		  "Swallow requests of " #TYPE " type.",		\

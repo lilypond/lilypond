@@ -15,22 +15,22 @@
 #include "file-results.hh"
 #include "scm-hash.hh"
 
-My_lily_parser::My_lily_parser (Sources * source_l)
+My_lily_parser::My_lily_parser (Sources * source)
 {
-  source_l_ = source_l;
-  lexer_p_ = 0;
+  source_ = source;
+  lexer_ = 0;
   default_duration_ = Duration (2,0);
-  error_level_i_ = 0;
+  error_level_ = 0;
   last_beam_start_ = SCM_EOL;
 
-  default_header_p_ =0;
+  default_header_ =0;
 }
 
 My_lily_parser::~My_lily_parser ()
 {
-  delete lexer_p_;
-  if (default_header_p_)
-    scm_gc_unprotect_object (default_header_p_->self_scm());
+  delete lexer_;
+  if (default_header_)
+    scm_gc_unprotect_object (default_header_->self_scm());
 }
 
 void
@@ -41,46 +41,46 @@ My_lily_parser::set_version_check (bool)
 void
 My_lily_parser::parse_file (String init, String s)
 {
-  lexer_p_ = new My_lily_lexer;
+  lexer_ = new My_lily_lexer;
 
-  lexer_p_->main_input_str_ = s;
+  lexer_->main_input_string_ = s;
 
   progress_indication (_ ("Parsing..."));
 
   set_yydebug (0);
-  lexer_p_->new_input (init, source_l_);
+  lexer_->new_input (init, source_);
   do_yyparse ();
 
   progress_indication ("\n");
   
-  if (!define_spot_array_.empty ())
+  if (!define_spots_.empty ())
     {
-      define_spot_array_.top ().warning (_ ("Braces don't match"));
-      error_level_i_ = 1;
+      define_spots_.top ().warning (_ ("Braces don't match"));
+      error_level_ = 1;
     }
 
-  inclusion_global_array = lexer_p_->filename_str_arr_;
+  inclusion_globals = lexer_->filename_strings_;
 
-  error_level_i_ = error_level_i_ | lexer_p_->errorlevel_i_; // ugh naming.
+  error_level_ = error_level_ | lexer_->errorlevel_; // ugh naming.
 }
 
 void
 My_lily_parser::push_spot ()
 {
-  define_spot_array_.push (here_input ());
+  define_spots_.push (here_input ());
 }
 
 char const *
-My_lily_parser::here_ch_C () const
+My_lily_parser::here_str0 () const
 {
-  return lexer_p_->here_ch_C ();
+  return lexer_->here_str0 ();
 }
 
 void
 My_lily_parser::parser_error (String s)
 {
   here_input ().error (s);
-  error_level_i_ = 1;
+  error_level_ = 1;
   exit_status_global = 1;
 }
 
@@ -89,13 +89,13 @@ My_lily_parser::parser_error (String s)
 Input
 My_lily_parser::pop_spot ()
 {
-  return define_spot_array_.pop ();
+  return define_spots_.pop ();
 }
 
 Input
 My_lily_parser::here_input () const
 {
-  return  lexer_p_->here_input ();
+  return  lexer_->here_input ();
 }
 
 // move me?
@@ -111,7 +111,7 @@ My_lily_parser::paper_description ()
 {
   My_lily_parser * me = current_parser;
 
-  Music_output_def *id = unsmob_music_output_def (me->lexer_p_->lookup_identifier ("$defaultpaper"));
+  Music_output_def *id = unsmob_music_output_def (me->lexer_->lookup_identifier ("$defaultpaper"));
   Paper_def *p = dynamic_cast<Paper_def*> (id->clone ());
 
   SCM al = p->translator_tab_->to_alist ();

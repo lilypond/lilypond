@@ -25,42 +25,42 @@ class Source_file
 public:
   /** Ugh! filename gets changed! The path to the opened file may
     change, since it might be searched in multiple directories.  */
-  Source_file (String filename_str_r );
+  Source_file (String filename_string_r );
 
-  Source_file (String name_str, String data_str);
+  Source_file (String name_string, String data_string);
   virtual ~Source_file ();
 
-  char const* ch_C () const;
-  virtual String error_str (char const* pos_ch_C ) const;
-  std::istream * istream_l ();
-  bool in_b (char const* pos_ch_C ) const;
-  int length_i () const;
-  virtual int line_i (char const* pos_ch_C ) const;
-  String name_str () const;
-  String file_line_column_str (char const* ch_C ) const;
+  char const* to_str0 () const;
+  virtual String error_string (char const* pos_str0 ) const;
+  std::istream * get_istream ();
+  bool in_b (char const* pos_str0 ) const;
+  int length () const;
+  virtual int get_line (char const* pos_str0 ) const;
+  String name_string () const;
+  String file_line_column_string (char const* str0 ) const;
 
   // return start + n
-  char const* seek_ch_C (int n);
+  char const* seek_str0 (int n);
   // return here + n bytes
-  char const* forward_ch_C (int n);
-  char const* pos_ch_C () { return pos_ch_C_; }
-  String get_str (int n);
-  void set_pos (char const * pos_ch_C);
+  char const* forward_str0 (int n);
+  char const* pos_str0 () { return pos_str0_; }
+  String get_string (int n);
+  void set_pos (char const * pos_str0);
 public:
-  Slice line_slice (char const* pos_ch_C) const;
-  String line_str (char const* pos_ch_C) const;
-  int column_i (char const* pos_ch_C) const;
-  int char_i (char const* pos_ch_C) const;
+  Slice line_slice (char const* pos_str0) const;
+  String line_string (char const* pos_str0) const;
+  int get_column (char const* pos_str0) const;
+  int get_char (char const* pos_str0) const;
 
   /*
     DOCUMENT-ME
    */
-  char const* pos_ch_C_;
+  char const* pos_str0_;
 
 private:
-  String name_str_;
-  std::istream* istream_p_;
-  File_storage * storage_p_;
+  String name_string_;
+  std::istream* istream_;
+  File_storage * storage_;
 };
 
 #endif // SOURCE_FILE_HH //

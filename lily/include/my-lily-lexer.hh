@@ -29,8 +29,8 @@ void set_lexer ();
 class My_lily_lexer : public Includable_lexer 
 {
 public:
-  String main_input_str_;
-  void * lexval_l;
+  String main_input_string_;
+  void * lexval;
   Scheme_hash_table * toplevel_variable_tab_;
   bool main_input_b_;
 
@@ -40,9 +40,9 @@ public:
   Protected_scm chordmodifier_tab_;
   Protected_scm pitchname_tab_;
   
-  Link_array<Scheme_hash_table> scope_l_arr_;
-  Keyword_table * keytable_p_;
-  int errorlevel_i_;
+  Link_array<Scheme_hash_table> scopes_;
+  Keyword_table * keytable_;
+  int errorlevel_;
 
   My_lily_lexer ();
   ~My_lily_lexer ();
@@ -59,7 +59,7 @@ public:
   void push_lyric_state ();
   void pop_state ();
   void LexerError (char const *);
-  void set_identifier (SCM name_str, SCM);
+  void set_identifier (SCM name_string, SCM);
   bool note_state_b () const;
   bool chord_state_b () const;
   bool lyric_state_b () const;

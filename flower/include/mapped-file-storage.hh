@@ -22,8 +22,8 @@ class Mapped_file_storage:public File_storage
 public:
   Mapped_file_storage (String);    
 protected:
-  virtual char const* ch_C () const;
-  virtual int length_i () const;
+  virtual char const* to_str0 () const;
+  virtual int length () const;
   virtual ~Mapped_file_storage ();
 private:
   void open (String name);
@@ -31,7 +31,7 @@ private:
 
   void map ();
   void unmap ();
-  int fildes_i_;
+  int fildes_;
   off_t size_off_;
   caddr_t data_caddr_;
 };

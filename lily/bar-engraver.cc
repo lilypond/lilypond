@@ -23,7 +23,7 @@ class Bar_engraver : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS(  Bar_engraver );
-  void request_bar (String type_str);
+  void request_bar (String type_string);
     
 protected:
   virtual void finalize ();
@@ -34,25 +34,25 @@ private:
   void typeset_bar ();
   void create_bar ();
 
-  Item * bar_p_;
+  Item * bar_;
 };
 
 Bar_engraver::Bar_engraver ()
 {
-  bar_p_ =0;
+  bar_ =0;
 }
 
 void
 Bar_engraver::create_bar ()
 {
-  if (!bar_p_)
+  if (!bar_)
     {
-      bar_p_ = new Item (get_property ("BarLine"));
+      bar_ = new Item (get_property ("BarLine"));
       SCM gl = get_property ("whichBar");
-      if (scm_equal_p (gl, bar_p_->get_grob_property ("glyph")) != SCM_BOOL_T)
-	  bar_p_->set_grob_property ("glyph", gl);
+      if (scm_equal_p (gl, bar_->get_grob_property ("glyph")) != SCM_BOOL_T)
+	  bar_->set_grob_property ("glyph", gl);
       
-      announce_grob(bar_p_, SCM_EOL);
+      announce_grob(bar_, SCM_EOL);
     }
 }
 
@@ -77,7 +77,7 @@ Bar_engraver::finalize ()
 void
 Bar_engraver::process_acknowledged_grobs ()
 {
-  if (!bar_p_ && gh_string_p (get_property ("whichBar")))
+  if (!bar_ && gh_string_p (get_property ("whichBar")))
     {
       create_bar ();
     }
@@ -86,10 +86,10 @@ Bar_engraver::process_acknowledged_grobs ()
 void
 Bar_engraver::typeset_bar ()
 {
-  if (bar_p_) 
+  if (bar_) 
     {
-      typeset_grob (bar_p_);
-      bar_p_ =0;
+      typeset_grob (bar_);
+      bar_ =0;
     }
 }
 
@@ -99,7 +99,7 @@ Bar_engraver::typeset_bar ()
 void 
 Bar_engraver::stop_translation_timestep ()
 {
-  if (!bar_p_)
+  if (!bar_)
     {
       top_engraver ()->forbid_breaks ();	// guh. Use properties!
     }

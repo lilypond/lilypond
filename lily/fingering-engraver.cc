@@ -54,21 +54,21 @@ void
 Fingering_engraver::acknowledge_grob (Grob_info inf)
 {
   
-  if (Stem::has_interface (inf.grob_l_))
+  if (Stem::has_interface (inf.grob_))
     {
       for (int i=0; i < fingerings_.size (); i++)
 	{
-	  Side_position_interface::add_support (fingerings_[i],inf.grob_l_);
+	  Side_position_interface::add_support (fingerings_[i],inf.grob_);
 	}
     }
-  else if (Rhythmic_head::has_interface (inf.grob_l_))
+  else if (Rhythmic_head::has_interface (inf.grob_))
     {
       Music * mc =inf.music_cause ();
       Pitch * mp = mc? unsmob_pitch (mc->get_mus_property ("pitch")) :0;
       for (int i=0; i < fingerings_.size (); i++)
 	{
 	  Grob*t = fingerings_[i];
-	  Side_position_interface::add_support (t,inf.grob_l_);
+	  Side_position_interface::add_support (t,inf.grob_);
 	  Pitch *fp = unsmob_pitch (t->get_grob_property ("pitch"));
 	  if (fp)
 	    {
@@ -78,13 +78,13 @@ Fingering_engraver::acknowledge_grob (Grob_info inf)
 	      if (*fp == *mp)
 		{
 		  Axis other = other_axis (Side_position_interface::get_axis (t));
-		  t->set_parent (inf.grob_l_, other);
+		  t->set_parent (inf.grob_, other);
 		}
 	    }
 	  else
 	    {
 	      if (!t->get_parent (X_AXIS))
-		t->set_parent (inf.grob_l_, X_AXIS);
+		t->set_parent (inf.grob_, X_AXIS);
 	    }
 	}
     }

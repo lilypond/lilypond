@@ -12,35 +12,35 @@
 
 Music_wrapper_iterator::Music_wrapper_iterator ()
 {
-  child_iter_p_ =0;
+  child_iter_ =0;
 }
 
 Music_wrapper_iterator::Music_wrapper_iterator (Music_wrapper_iterator const &src)
   : Music_iterator (src)
 {
-  if (src.child_iter_p_)
-    child_iter_p_ = src.child_iter_p_->clone ();
+  if (src.child_iter_)
+    child_iter_ = src.child_iter_->clone ();
   else
-    child_iter_p_ = 0;
+    child_iter_ = 0;
 }
 
 Music_wrapper_iterator::~Music_wrapper_iterator ()
 {
-  delete child_iter_p_;
+  delete child_iter_;
 }
 
 
 void
 Music_wrapper_iterator::construct_children ()
 {
-  child_iter_p_ =
-    get_iterator_p (dynamic_cast<Music_wrapper const*> (music_l ())->element ());
+  child_iter_ =
+    get_iterator (dynamic_cast<Music_wrapper const*> (get_music ())->element ());
 }
 
 bool
 Music_wrapper_iterator::ok () const
 {
-  return child_iter_p_ && child_iter_p_->ok ();
+  return child_iter_ && child_iter_->ok ();
 }
 void
 Music_wrapper_iterator::skip (Moment m)
@@ -54,31 +54,31 @@ Music_wrapper_iterator::skip (Moment m)
     iter->process ()
 
   */
-  child_iter_p_->skip (m);
+  child_iter_->skip (m);
 }
 
 void
 Music_wrapper_iterator::process (Moment m)
 {
-  child_iter_p_->process (m);
+  child_iter_->process (m);
 }
 
 SCM
 Music_wrapper_iterator::get_pending_events (Moment m)const
 {
-  return child_iter_p_->get_pending_events (m);
+  return child_iter_->get_pending_events (m);
 }
 
 Moment
 Music_wrapper_iterator::pending_moment () const
 {
-  return child_iter_p_->pending_moment ();
+  return child_iter_->pending_moment ();
 }
 
 Music_iterator*
 Music_wrapper_iterator::try_music_in_children (Music *m) const
 {
-  return child_iter_p_->try_music (m);
+  return child_iter_->try_music (m);
 }
 
 IMPLEMENT_CTOR_CALLBACK (Music_wrapper_iterator);

@@ -33,7 +33,7 @@ struct Dimension_cache
   SCM dimension_;
 
   /**
-    The offset wrt. to the center of #parent_l_#
+    The offset wrt. to the center of #parent_#
    */
 
   Real offset_;
@@ -44,7 +44,7 @@ struct Dimension_cache
   /**
      What to call to find extent.  Nil means empty. 
    */
-  Grob * parent_l_;
+  Grob * parent_;
 
   Dimension_cache (Dimension_cache const&);
   Dimension_cache ();

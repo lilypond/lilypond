@@ -11,7 +11,7 @@
 class Binary_source_file : public Source_file
 {
 public:
-  Binary_source_file (String& filename_str );
+  Binary_source_file (String& filename_string );
   virtual ~Binary_source_file ();
 
   U8 get_U8 (); 
@@ -20,8 +20,8 @@ public:
   Byte get_Byte () {return get_U8 (); }
   int get_int () { return get_U32 (); }
   
-  virtual String error_str (char const* pos_ch_C ) const;
-  virtual int line_i (char const* pos_ch_C ) const;
+  virtual String error_string (char const* pos_str0 ) const;
+  virtual int get_line (char const* pos_str0 ) const;
 };
 
 #endif // BINARY_SOURCE_FILE_HH

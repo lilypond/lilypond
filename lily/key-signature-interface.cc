@@ -131,7 +131,7 @@ Key_signature_interface::brew_molecule (SCM smob)
       int pos = alteration_pos (what, alter, c0p);
       
       Molecule m = Font_interface::get_default_font (me)->
-	  find_by_name (String ("accidentals-") + style + to_str (alter));
+	  find_by_name (String ("accidentals-") + style + to_string (alter));
       m.translate_axis (pos * inter, Y_AXIS);
       mol.add_at_edge (X_AXIS, LEFT, m, 0);
     }

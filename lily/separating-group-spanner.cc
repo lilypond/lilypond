@@ -43,7 +43,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 	      rod.item_l_drul_[LEFT] = lb;
 	      rod.item_l_drul_[RIGHT] = r;
 
-	      rod.distance_f_ = li[RIGHT] - ri[LEFT];
+	      rod.distance_ = li[RIGHT] - ri[LEFT];
 	      rod.add_to_cols ();
 	    }
 	}
@@ -57,7 +57,7 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
 	  rod.item_l_drul_[LEFT] =l;
 	  rod.item_l_drul_[RIGHT]=r;
 
-	  rod.distance_f_ = li[RIGHT] - ri[LEFT];
+	  rod.distance_ = li[RIGHT] - ri[LEFT];
 	
 	  rod.add_to_cols ();
 	  break;

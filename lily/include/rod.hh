@@ -17,7 +17,7 @@
 struct Rod
 {
   Drul_array <Item*> item_l_drul_;
-  Real distance_f_;
+  Real distance_;
 
   /**
     translate the rod so as to refer to Paper_columns  

@@ -17,10 +17,10 @@
   Data container for broadcasts 
   */
 struct Audio_element_info {
-  Audio_element * elem_l_;
-  Music *req_l_;
-  Translator *  origin_trans_l_;
-  Link_array<Translator> origin_trans_l_arr (Translator*) const;  
+  Audio_element * elem_;
+  Music *req_;
+  Translator *  origin_trans_;
+  Link_array<Translator> origin_transes (Translator*) const;  
 
   Audio_element_info (Audio_element*, Music*);
   Audio_element_info ();

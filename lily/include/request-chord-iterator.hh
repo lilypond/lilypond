@@ -17,11 +17,11 @@
  */
 class Request_chord_iterator : public Simple_music_iterator
 {
-  Request_chord * elt_l () const;
+  Request_chord * get_elt () const;
   /**
      Find a bottom notation context to deliver requests to.
    */
-  virtual Translator_group* get_req_translator_l ();
+  virtual Translator_group* get_req_translator ();
 
 
   /*

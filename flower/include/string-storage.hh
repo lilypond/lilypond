@@ -22,8 +22,8 @@ public:
   String_storage (String s) : String (s) { }
 
 protected:    
-  virtual char const* ch_C () const { return String::ch_C (); }
-  virtual int length_i () const { return String::length_i (); }
+  virtual char const* to_str0 () const { return String::to_str0 (); }
+  virtual int length () const { return String::length (); }
 };
 
 #endif /* STRING_STORAGE_HH */

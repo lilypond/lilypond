@@ -30,28 +30,28 @@ binomial_coefficient (Real over , int under)
 }
 
 void
-scale (Array<Offset>* arr_p, Real x , Real y)
+scale (Array<Offset>* array, Real x , Real y)
 {
-  for (int i = 0; i < arr_p->size (); i++)
+  for (int i = 0; i < array->size (); i++)
     {
-      (*arr_p)[i][X_AXIS] = x* (*arr_p)[i][X_AXIS];
-      (*arr_p)[i][Y_AXIS] = y* (*arr_p)[i][Y_AXIS];
+      (*array)[i][X_AXIS] = x* (*array)[i][X_AXIS];
+      (*array)[i][Y_AXIS] = y* (*array)[i][Y_AXIS];
     }
 }
 
 void
-rotate (Array<Offset>* arr_p, Real phi)
+rotate (Array<Offset>* array, Real phi)
 {
   Offset rot (complex_exp (Offset (0, phi)));
-  for (int i = 0; i < arr_p->size (); i++)
-    (*arr_p)[i] = complex_multiply (rot, (*arr_p)[i]);
+  for (int i = 0; i < array->size (); i++)
+    (*array)[i] = complex_multiply (rot, (*array)[i]);
 }
 
 void
-translate (Array<Offset>* arr_p, Offset o)
+translate (Array<Offset>* array, Offset o)
 {
-  for (int i = 0; i < arr_p->size (); i++)
-    (*arr_p)[i] += o;
+  for (int i = 0; i < array->size (); i++)
+    (*array)[i] += o;
 }
 
 /*

@@ -17,15 +17,15 @@
 /*
   UGH. Dictionary is deprecated
  */
-Dictionary<Translator*> *global_translator_dict_p=0;
+Dictionary<Translator*> *global_translator_dict=0;
 
 LY_DEFINE(ly_get_all_translators,"ly-get-all-translators", 0, 0, 0,  (),
 	  "Return an list of a all translator objects that may be instantiated
 during a lilypond run.")
 {
   SCM l = SCM_EOL;
-  for (std::map<String,Translator*>::const_iterator (ci (global_translator_dict_p->begin()));
-       ci != global_translator_dict_p->end (); ci++)
+  for (std::map<String,Translator*>::const_iterator (ci (global_translator_dict->begin()));
+       ci != global_translator_dict->end (); ci++)
     {
       l = scm_cons ((*ci).second->self_scm (), l);
     }
@@ -35,18 +35,18 @@ during a lilypond run.")
 void
 add_translator (Translator *t)
 {
-  if (!global_translator_dict_p)
-    global_translator_dict_p = new Dictionary<Translator*>;
+  if (!global_translator_dict)
+    global_translator_dict = new Dictionary<Translator*>;
 
- (*global_translator_dict_p)[classname (t)] = t;
+ (*global_translator_dict)[classname (t)] = t;
 }
 
 Translator*
-get_translator_l (String s)
+get_translator (String s)
 {
-  if (global_translator_dict_p->elem_b (s))
+  if (global_translator_dict->elem_b (s))
     {
-	Translator* t = (*global_translator_dict_p)[s];
+	Translator* t = (*global_translator_dict)[s];
 	return t;
     }
 

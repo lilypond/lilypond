@@ -43,7 +43,7 @@ Dot_column::side_position (SCM element_smob, SCM axis)
 
   Grob * stem = unsmob_grob (me->get_grob_property ("stem"));
   if (stem
-      && !Stem::beam_l (stem)
+      && !Stem::get_beam (stem)
       && Stem::duration_log (stem) > 2
       && !Stem::invisible_b (stem)
       )
@@ -95,7 +95,7 @@ Dot_column::do_shifts (SCM l)
   int conflicts = 0;
   for (int i=0; i < dots.size (); i++)
     {
-      Real p = Staff_symbol_referencer::position_f (dots[i]);
+      Real p = Staff_symbol_referencer::get_position (dots[i]);
       for (int j=0; j < taken_posns.size (); j++)
 	{
 	  if (taken_posns[j] == (int) p)

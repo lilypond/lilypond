@@ -63,7 +63,7 @@ Beam::add_stem (Grob *me, Grob *s)
   
   s->add_dependency (me);
 
-  assert (!Stem::beam_l (s));
+  assert (!Stem::get_beam (s));
   s->set_grob_property ("beam", me->self_scm ());
 
   add_bound_item (dynamic_cast<Spanner*> (me), dynamic_cast<Item*> (s));
@@ -104,7 +104,7 @@ Beam::space_function (SCM smob, SCM beam_count)
   Grob *me = unsmob_grob (smob);
   
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real line = me->paper_l ()->get_var ("linethickness");
+  Real line = me->get_paper ()->get_var ("linethickness");
   Real thickness = gh_scm2double (me->get_grob_property ("thickness"))
     * staff_space;
   
@@ -279,7 +279,7 @@ Beam::brew_molecule (SCM grob)
 
   SCM gap = me->get_grob_property ("gap");
   Molecule the_beam;
-  Real lt = me->paper_l ()->get_var ("linethickness");
+  Real lt = me->get_paper ()->get_var ("linethickness");
   for (int i = 0; i< stems.size(); i++)
     {
       Grob * st =stems[i];
@@ -408,16 +408,16 @@ Beam::brew_molecule (SCM grob)
       String str;
       if (1)
 	{
-	  str += to_str (gh_scm2int (me->get_grob_property ("best-idx")));
+	  str += to_string (gh_scm2int (me->get_grob_property ("best-idx")));
 	  str += ":";
 	}
-      str += to_str (gh_scm2double (me->get_grob_property ("quant-score")),
+      str += to_string (gh_scm2double (me->get_grob_property ("quant-score")),
 		     "%.2f");
 
       SCM properties = Font_interface::font_alist_chain (me);
 
       
-      Molecule tm = Text_item::text2molecule (me, ly_str02scm (str.ch_C ()), properties);
+      Molecule tm = Text_item::text2molecule (me, ly_str02scm (str.to_str0 ()), properties);
       the_beam.add_at_edge (Y_AXIS, UP, tm, 5.0);
     }
 #endif
@@ -486,7 +486,10 @@ Beam::set_stem_directions (Grob *me, Direction d)
       Grob *s = stems[i];
       /* For knees, non-forced stems should probably have their
 	 natural direction. In any case, when knee, beam direction is
-	 foe. */
+	 foe.
+	 
+	 TODO: for x staff knees, set direction pointing to 'the other' staff, rather than natural.
+      */
       if (knee_b(me))
 	Stem::get_direction (s); // this actually sets it, if necessary
       else
