@@ -9,11 +9,14 @@
 
 #include "lily-guile.hh"
 #include "engraver.hh"
-#include "protected-scm.hh"
 #include "dictionary.hh"
 #include "score-element.hh"
 #include "scm-hash.hh"
 
+/*
+  JUNKME: should use pushproperty everywhere.
+  
+ */
 class Property_engraver : public Engraver
 {
   /*
@@ -99,12 +102,12 @@ Property_engraver::apply_properties (SCM p, Score_element *e)
       SCM type_p   = gh_cadr (entry);
       SCM elt_prop_sym = gh_caddr (entry);
 
-      SCM preset = e->get_elt_property (elt_prop_sym); // scm_assq(elt_prop_sym, e->property_alist_);
-      if (preset != SCM_EOL)
+      SCM preset = scm_assq(elt_prop_sym, e->mutable_property_alist_);
+      if (preset != SCM_BOOL_F)
 	continue;
   
       SCM val = get_property (prop_sym);
-     
+
       if (val == SCM_UNDEFINED)
 	;			// Not defined in context.
       else if (gh_apply (type_p, scm_listify (val, SCM_UNDEFINED))

@@ -15,6 +15,8 @@ TODO:
 
 * tremolo
 
+* lyrics.
+
 %}
 
 \version "1.3.59";

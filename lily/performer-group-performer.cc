@@ -22,48 +22,44 @@ Performer_group_performer::announce_element (Audio_element_info info)
   Performer::announce_element (info);
 }
 
+
+
 void
 Performer_group_performer::do_announces()
 {
-   for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+  for (SCM p = trans_group_list_; gh_pair_p (p); p =gh_cdr ( p))
     {
-      if (Performer_group_performer *trg =  dynamic_cast <Performer_group_performer *> (p->car_))
-	trg->do_announces ();
+      Translator * t = unsmob_translator (gh_car (p));
+      dynamic_cast<Performer_group_performer*> (t)->do_announces ();
     }
-
   
-
-
   while (announce_info_arr_.size ())
     {
       for (int j =0; j < announce_info_arr_.size(); j++)
 	{
 	  Audio_element_info info = announce_info_arr_[j];
-	  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+	  
+	  for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr (p))
 	    {
-	      if (!dynamic_cast <Performer_group_performer *> (p->car_))
-		{
-		  Performer * eng = dynamic_cast<Performer*> (p->car_);
-		  // urg, huh? core dump?
-		  //if (eng && eng!= info.origin_trans_l_arr ()[0])
-		  if (eng && info.origin_trans_l_arr (this).size ()
-		      && eng!= info.origin_trans_l_arr (this)[0])
-		    eng->acknowledge_element (info);
-		}
+	      Translator * t = unsmob_translator (gh_car (p));
+	      Performer * eng = dynamic_cast<Performer*> (t);
+	      if (eng && eng!= info.origin_trans_l_)
+		eng->acknowledge_element (info);
 	    }
-	  announce_info_arr_.clear ();
-      
-      
-	  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
-	    {
-	      if (!dynamic_cast <Performer_group_performer *> (p->car_))
-		{
-		  Performer * eng = dynamic_cast<Performer*> (p->car_);
-		  if (eng)
-		    eng->process_acknowledged ();
-		}
-	    }
+	}
+      announce_info_arr_.clear ();
+      for (SCM p = simple_trans_list_; gh_pair_p (p); p = gh_cdr ( p))
+	{
+	  Translator * t = unsmob_translator (gh_car (p));
+	  Performer * eng = dynamic_cast<Performer*> (t);
+	  if (eng)
+	    eng->process_acknowledged ();
 	}
     }
 }
+
+
+
+
+
 

@@ -39,6 +39,7 @@ public:
 class Push_translation_property : public Music
 {
 public:
+  VIRTUAL_COPY_CONS(Music);
 };
 
 /**
@@ -51,7 +52,12 @@ public:
 class Pop_translation_property : public Music
 {
 public:
+  VIRTUAL_COPY_CONS(Music);
 };
+
+
+void apply_push_property (Translator_group*trans, SCM syms, SCM eprop, SCM val);
+void apply_pop_property (Translator_group*trans, SCM syms, SCM eprop);
 
 
 #endif // PROPERTY_HH

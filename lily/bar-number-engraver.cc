@@ -15,18 +15,18 @@
 #include "item.hh"
 #include "moment.hh"
 #include "engraver.hh"
-#include "protected-scm.hh"
+#include "translator-group.hh"
+
 
 class Bar_number_engraver : public Engraver
 {
 protected:
   Item* text_p_;
 
-  Protected_scm staffs_;
-
 protected:
   virtual void do_pre_move_processing ();
   virtual void acknowledge_element (Score_element_info);
+  virtual void do_creation_processing ();
   void create_items();
   void do_process_music ();
 public:
@@ -58,9 +58,16 @@ ADD_THIS_TRANSLATOR(Bar_number_engraver);
 Bar_number_engraver::Bar_number_engraver ()
 {
   text_p_ =0;
-  staffs_ = SCM_EOL;
 }
 
+void
+Bar_number_engraver::do_creation_processing ()
+{
+  /*
+    ugh: need to share code with mark_engraver
+   */
+  daddy_trans_l_->set_property ("staffsFound", SCM_EOL); 
+}
 
 
 					       
@@ -70,7 +77,10 @@ Bar_number_engraver::acknowledge_element (Score_element_info inf)
   Score_element * s = inf.elem_l_;
   if (Staff_symbol::has_interface (s))
     {
-      staffs_ = gh_cons (inf.elem_l_->self_scm (), staffs_);
+      SCM sts = get_property ("staffsFound");
+      SCM thisstaff = inf.elem_l_->self_scm ();
+      if (scm_memq (thisstaff, sts) == SCM_BOOL_F)
+	daddy_trans_l_->set_property ("staffsFound", gh_cons (thisstaff, sts));
     }
   else if (text_p_
 	   && dynamic_cast<Item*> (s)
@@ -88,7 +98,7 @@ Bar_number_engraver::do_pre_move_processing ()
 {
   if (text_p_)
     {
-      text_p_->set_elt_property ("side-support-elements", staffs_);
+      text_p_->set_elt_property ("side-support-elements", get_property ("staffsFound"));
       typeset_element (text_p_);
       text_p_ =0;
     }

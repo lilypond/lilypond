@@ -198,14 +198,14 @@ yylex (YYSTYPE *s,  void * v_l)
 %token <pitch>	CHORDMODIFIER_PITCH
 %token <id>	DURATION_IDENTIFIER
 %token <id>	IDENTIFIER
-%token <id>	TRANS_IDENTIFIER
+
 
 %token <id>	SCORE_IDENTIFIER
 %token <id>	MUSIC_OUTPUT_DEF_IDENTIFIER
 
 %token <scm>	NUMBER_IDENTIFIER
 %token <scm>	REQUEST_IDENTIFIER
-%token <scm>	MUSIC_IDENTIFIER
+%token <scm>	MUSIC_IDENTIFIER TRANSLATOR_IDENTIFIER
 %token <scm>	STRING_IDENTIFIER SCM_IDENTIFIER 
 %token <scm>	DURATION RESTNAME
 %token <scm>	STRING 
@@ -388,7 +388,7 @@ identifier_init:
 		$$ = (new Music_output_def_identifier ($1, MUSIC_OUTPUT_DEF_IDENTIFIER))->self_scm();
 	}
 	| translator_spec_block {
-		$$ = (new Translator_group_identifier ($1, TRANS_IDENTIFIER))->self_scm();
+		$$ = $1->self_scm ();
 	}
 	| Music  {
 		$$ = $1->self_scm ();
@@ -418,8 +418,10 @@ translator_spec_block:
 	;
 
 translator_spec_body:
-	TRANS_IDENTIFIER	{
-		$$ = $1->access_content_Translator_group (true);
+	TRANSLATOR_IDENTIFIER	{
+		SCM trs = $1;
+		Translator*tr = unsmob_translator (trs);
+		$$ = dynamic_cast<Translator_group*> (tr->clone ());
 		$$-> set_spot (THIS->here_input ());
 	}
 	| TYPE STRING semicolon	{
@@ -449,23 +451,31 @@ translator_spec_body:
 		
 		tg->set_property (ly_scm2string ($2), v);
 	}
+	| translator_spec_body PUSHPROPERTY
+				embedded_scm embedded_scm embedded_scm {
+		Translator_group_initializer::add_push_property ($$, $3, $4, $5);
+	}
+	| translator_spec_body POPPROPERTY
+		embedded_scm embedded_scm  {
+		Translator_group_initializer::add_pop_property ($$, $3, $4);
+	}
 	| translator_spec_body NAME STRING semicolon {
 		$$->type_str_ = ly_scm2string ($3);
 	}
 	| translator_spec_body CONSISTS STRING semicolon {
-		dynamic_cast<Translator_group*> ($$)-> set_element (ly_scm2string ($3), true);
+		Translator_group_initializer::add_element ($$, $3);
 	}
 	| translator_spec_body CONSISTSEND STRING semicolon {
-		dynamic_cast<Translator_group*> ($$)-> set_element (ly_scm2string ($3), true);
+		Translator_group_initializer::add_last_element ($$, $3);
 	}
 	| translator_spec_body ACCEPTS STRING semicolon {
-		dynamic_cast<Translator_group*> ($$)-> set_acceptor (ly_scm2string ($3), true);
+		Translator_group_initializer::set_acceptor ($$, $3,true);
 	}
 	| translator_spec_body DENIES STRING semicolon {
-		dynamic_cast<Translator_group*> ($$)-> set_acceptor (ly_scm2string ($3), false);
+		Translator_group_initializer::set_acceptor ($$, $3,false);
 	}
 	| translator_spec_body REMOVE STRING semicolon {
-		dynamic_cast<Translator_group*> ($$)-> set_element (ly_scm2string ($3), false);
+		Translator_group_initializer::remove_element ($$, $3);
 	}
 	;
 

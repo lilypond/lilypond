@@ -1049,12 +1049,15 @@ def help ():
 	print r"""
 Convert ABC to Mudela.
 
-Usage: abc2ly [OPTION]... ABC-FILE
+Usage: abc2ly [OPTIONS]... ABC-FILE
 
 Options:
   -h, --help          this help
   -o, --output=FILE   set output filename to FILE
   -v, --version       version information
+
+This program converts ABC music files (see
+http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) To LilyPond input.
 """
 
 def print_version ():

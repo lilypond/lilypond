@@ -14,46 +14,58 @@
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "translator.hh"
-#include "cons.hh"
 #include "parray.hh"
-
+#include "smobs.hh"
 
 // egcs
 typedef void (Translator::*Method_pointer)(void);
-typedef void (Translator::*Const_method_pointer)(void) const; 
+
 class Scheme_hash_table;
+
+/*
+  should make a struct out of this, and move SCM list stuff in here.
+ */
+struct Translator_group_initializer {
+  static SCM modify_definition (SCM, SCM, bool);
+
+  static void set_acceptor (Translator*,SCM accepts, bool add);
+  static void add_element (Translator*,SCM name);
+  static void remove_element (Translator*,SCM name);
+  static void add_last_element (Translator*,SCM name);
+  static void apply_pushpop_property (Translator*trans, SCM syms, SCM eprop, SCM val);
+  static void add_push_property (Translator*, SCM,SCM,SCM);
+  static void add_pop_property (Translator*, SCM,SCM);  
+  
+};
+
 /** Make some kind of Elements from Requests. Elements are made by
   hierarchically grouped Translators
   */
 class Translator_group : public virtual Translator {
-  Array<String> consists_str_arr_;
-  Array<String> accepts_str_arr_;
-  Array<String> consists_end_str_arr_;
-  Scheme_hash_table *properties_dict_;
 
+  Scheme_hash_table *properties_dict () const;
   int iterator_count_;
+
+
   friend class Interpretation_context_handle;
-
 protected:
-  Cons_list<Translator> trans_p_list_;
-
+  ~Translator_group ();
 public:
+  SCM add_translator (SCM, Translator*);
+  void execute_single_pushpop_property (SCM prop, SCM sym, SCM val);
   SCM get_property (SCM name_sym) const;
   void set_property (String var_name, SCM value);
   void set_property (SCM var_sym, SCM value);  
   Translator_group *where_defined (SCM name_sym) const;
 
   String id_str_;
-  void add_last_element (String s);
 
   VIRTUAL_COPY_CONS(Translator);
-  
-  void set_acceptor (String accepts, bool add);
-  void set_element (String elt, bool add);  
-  
   Translator_group(Translator_group const &);
   Translator_group();
-  void add_translator (Translator *trans_p);
+  void add_simple_translator (Translator *trans_p);
+  void add_group_translator (Translator *trans_p);
+
   
   /// Score_register = 0, Staff_registers = 1, etc)
   Translator_group* ancestor_l (int l=1);
@@ -63,14 +75,12 @@ public:
   void terminate_translator (Translator*r_l);
   Translator *remove_translator_p (Translator*trans_l);
   void check_removal ();
-
   Translator *get_simple_translator (String) const;
   Translator_group *find_existing_translator_l (String n, String id);
   Translator_group *find_create_translator_l (String n, String id);
   Link_array<Translator_group> path_to_acceptable_translator (String alias, Music_output_def*) const;
 
   Translator_group*get_default_interpreter();
-  virtual ~Translator_group ();
   
 protected:
   bool try_music_on_nongroup_children (Music *m);
@@ -84,7 +94,7 @@ protected:
   virtual void do_creation_processing();
   virtual void do_removal_processing();
   virtual void each (Method_pointer);
-  virtual void each (Const_method_pointer) const;
+
 };
 
 #endif // TRANSLATOR_GROUP_HH

@@ -11,12 +11,12 @@
   JUNKTHIS!
  */
 #include <assert.h>
+
 #include "music-output-def.hh"
 #include "score.hh"
 #include "identifier.hh"
 #include "my-lily-lexer.hh"
 #include "debug.hh"
-#include "translator-group.hh"
 #include "ly-smobs.icc"
 
 
@@ -81,8 +81,6 @@ Class ## _identifier::do_print () const { \
 }
 
 
-
-DEFAULT_PRINT(Translator_group);
 DEFAULT_PRINT(Score);
 DEFAULT_PRINT(Music_output_def);
 
@@ -93,8 +91,6 @@ Class ## _identifier::do_str () const { \
   return String (#Class); \
 }
 
-
-DUMMY_STR(Translator_group);
 DUMMY_STR(Score);
 DUMMY_STR(Music_output_def);
 DUMMY_STR(Duration);
@@ -151,10 +147,8 @@ Class ## _identifier::Class ## _identifier (Class ## _identifier const &s) \
 
 
 IMPLEMENT_ID_CLASS(Duration);
-IMPLEMENT_ID_CLASS(Translator_group);
 IMPLEMENT_ID_CLASS(Score);
 IMPLEMENT_ID_CLASS(Music_output_def);
-VIRTUAL_ACCESSOR(Translator_group);
 VIRTUAL_ACCESSOR(Music_output_def);
 DEFAULT_ACCESSOR(Duration);
 DEFAULT_ACCESSOR(Score);

@@ -50,15 +50,17 @@ Music_output_def::assign_translator (Translator_group*tp)
     {
       tp->warning (_("Interpretation context with empty type"));
     }
- 
-  translator_p_dict_p_->set (s, new Translator_group_identifier (tp, 0));
+
+  SCM tr = tp->self_scm ();
+  scm_unprotect_object (tr);
+  translator_p_dict_p_->set (s, tr);
 }
 
 Translator*
 Music_output_def::find_translator_l (String name) const
 {
   if (translator_p_dict_p_->elem_b (name))
-    return translator_p_dict_p_->elem (name)->access_content_Translator_group (false);
+    return unsmob_translator (translator_p_dict_p_->scm_elem (name));
 
   map<String, Translator*>::const_iterator ki
     =global_translator_dict_p->find (name);
@@ -77,6 +79,7 @@ Music_output_def::get_global_translator_p ()
   if (!t)
     error (_f ("can't find `%s' context", "Score"));
   t = t->clone ();
+
   t->output_def_l_ = this;
   Global_translator *g = dynamic_cast <Global_translator *> (t);
   t->add_processing ();

@@ -90,7 +90,7 @@ Bar_engraver::do_removal_processing ()
 void
 Bar_engraver::do_process_music()
 {  
-  Translator * t = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
+  Translator * t = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");	// UGH.!
 
   Timing_engraver * te = dynamic_cast<Timing_engraver*>(t);
   String which = (te) ? te->which_bar () : "";

@@ -19,7 +19,7 @@
 struct Audio_element_info {
   Audio_element * elem_l_;
   Music *req_l_;
-  Link_array<Translator> origin_trans_l_arr_;
+  Translator *  origin_trans_l_;
   Link_array<Translator> origin_trans_l_arr (Translator*) const;  
 
   Audio_element_info (Audio_element*, Music*);

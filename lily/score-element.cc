@@ -189,10 +189,13 @@ Score_element::paper_l ()  const
 Lookup const *
 Score_element::lookup_l () const
 {
+  /*
+    URG junkthis, caching is clumsy.
+   */
   if (!lookup_l_)
     {
       Score_element * urg = (Score_element*)this;
-      SCM sz = urg->remove_elt_property ("fontsize");
+      SCM sz = urg->remove_elt_property ("font-size");
       int i = (gh_number_p (sz))
 	? gh_scm2int  (sz)
 	: 0;

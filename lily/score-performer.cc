@@ -47,7 +47,7 @@ void
 Score_performer::announce_element (Audio_element_info info)
 {
   announce_info_arr_.push (info);
-  info.origin_trans_l_arr_.push (this);
+
 
   /*
     huh?

@@ -28,20 +28,11 @@ void
 Push_property_iterator::do_process_and_next (Moment m)
 {
   SCM syms = music_l_->get_mus_property ("symbols");
-  SCM  eprop = music_l_->get_mus_property ("element-property");
+  SCM eprop = music_l_->get_mus_property ("element-property");
   SCM val = music_l_->get_mus_property ("element-value");
 
-  for (SCM s = syms; gh_pair_p (s); s = gh_cdr (s))
-    {
-      SCM sym = gh_car (s);
-      if (gh_symbol_p(sym))
-      {
-	SCM prev = report_to_l ()->get_property (sym);
-
-	prev = gh_cons (gh_cons (eprop, val), prev);
-	report_to_l ()->set_property (gh_car (s), prev);
-      }
-    }
+  Translator_group_initializer::apply_pushpop_property (report_to_l (), syms,eprop, val);
+  
   Music_iterator::do_process_and_next (m);
 }
 
@@ -50,23 +41,7 @@ Pop_property_iterator::do_process_and_next (Moment m)
 {
   SCM syms = music_l_->get_mus_property ("symbols");
   SCM eprop = music_l_->get_mus_property ("element-property");
-  for (SCM s = syms; gh_pair_p (s); s = gh_cdr (s)) 
-    {
-    SCM sym = gh_car (s);
-    if (gh_symbol_p(sym))
-      {
-	SCM prev = report_to_l ()->get_property (sym);
-
-	SCM newprops= SCM_EOL ;
-	while (gh_pair_p (prev) && gh_caar (prev) != eprop)
-	  {
-	    newprops = gh_cons (gh_car (prev), newprops);
-	    prev = gh_cdr (prev);
-	  }
-
-	newprops = scm_reverse_x (newprops, gh_cdr (prev));
-	report_to_l ()->set_property (sym, newprops);
-      }
-    }
+  Translator_group_initializer::apply_pushpop_property (report_to_l (), syms, eprop, SCM_UNDEFINED);
+  
   Music_iterator::do_process_and_next (m);
 }

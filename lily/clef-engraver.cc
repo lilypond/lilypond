@@ -11,6 +11,7 @@
 
 #include <ctype.h>
 
+#include "translator-group.hh"
 #include "key-item.hh"
 #include "local-key-item.hh"
 #include "bar.hh"
@@ -18,14 +19,14 @@
 #include "staff-symbol-referencer.hh"
 #include "debug.hh"
 #include "command-request.hh"
-#include "array.hh"
 #include "engraver.hh"
 #include "direction.hh"
 #include "side-position-interface.hh"
 #include "item.hh"
 
 /// where is c-0 in the staff?
-class Clef_engraver : public  Engraver {
+class Clef_engraver : public  Engraver
+{
   Item * clef_p_;
   Item * octavate_p_;
   Clef_change_req * clef_req_l_;
@@ -50,15 +51,11 @@ public:
   Clef_engraver();
 
   bool  first_b_;
-  
-  Protected_scm current_settings_;
 };
 
 
 Clef_engraver::Clef_engraver()
 {
-  current_settings_ = SCM_EOL;
-
   first_b_ = true;
   clef_glyph_ = SCM_EOL;
   clef_p_ = 0;
@@ -108,13 +105,14 @@ Clef_engraver::set_type (String s)
 
   c0_position_i_ -= (int) octave_dir_ * 7;
 
-  SCM basic = get_property ("basicClefItemProperties");
-  current_settings_ = gh_cons (gh_cons (ly_symbol2scm ("glyph"), clef_glyph_), basic);
-  current_settings_ =
-    gh_cons (gh_cons (ly_symbol2scm ("c0-position"),
-		      gh_int2scm (c0_position_i_)),
-	     current_settings_);
-  
+  SCM basic = ly_symbol2scm ("basicClefItemProperties");
+  SCM c0 = ly_symbol2scm ("c0-position");
+  SCM gl = ly_symbol2scm ("glyph");
+  daddy_trans_l_->execute_single_pushpop_property (basic, gl, SCM_UNDEFINED);
+  daddy_trans_l_->execute_single_pushpop_property (basic, c0, SCM_UNDEFINED);  
+  daddy_trans_l_->execute_single_pushpop_property (basic, gl, clef_glyph_);
+  daddy_trans_l_->execute_single_pushpop_property (basic, c0, gh_int2scm (c0_position_i_));
+
   return true;
 }
 
@@ -178,7 +176,7 @@ Clef_engraver::create_clef()
 {
   if (!clef_p_)
     {
-      Item *c= new Item ( current_settings_);
+      Item *c= new Item (get_property ("basicClefItemProperties"));
       announce_element (c, clef_req_l_);
 
       Staff_symbol_referencer::set_interface (c);

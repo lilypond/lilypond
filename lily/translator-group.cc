@@ -17,111 +17,78 @@
 Translator_group::Translator_group (Translator_group const&s)
   : Translator(s)
 {
-  consists_str_arr_ = s.consists_str_arr_;
-  consists_end_str_arr_ = s.consists_end_str_arr_;
-  accepts_str_arr_ = s.accepts_str_arr_;
   iterator_count_ =0;
-  properties_dict_ = new Scheme_hash_table (*s.properties_dict_);
+  
+  Scheme_hash_table * tab =  new Scheme_hash_table (*s.properties_dict ());
+  properties_scm_ = tab->self_scm ();
+  scm_unprotect_object (tab->self_scm( ));
+}
+
+Scheme_hash_table*
+Translator_group::properties_dict () const
+{
+  return Scheme_hash_table::unsmob (properties_scm_);
 }
 
 Translator_group::~Translator_group ()
 {
   assert (removable_b());
-  trans_p_list_.junk ();
-  scm_unprotect_object (properties_dict_->self_scm ());
 }
 
 
 Translator_group::Translator_group()
 {
   iterator_count_  = 0;
-  properties_dict_ = new Scheme_hash_table ;
+  Scheme_hash_table *tab = new Scheme_hash_table ;
+  properties_scm_ = tab->self_scm ();
+
+  scm_unprotect_object (tab->self_scm ());
 }
 
 void
 Translator_group::check_removal()
 {
-  Cons<Translator> *next =0;
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = next)
+  SCM next = SCM_EOL; 
+  for (SCM p = trans_group_list_; gh_pair_p (p); p = next)
     {
-      next = p->next_;
-      if (Translator_group *trg =  dynamic_cast <Translator_group *> (p->car_))
-	{
-	  trg->check_removal ();
-	  if (trg->removable_b())
-	    terminate_translator (trg);
-	}
+      next = gh_cdr (p);
+
+      Translator_group *trg =  dynamic_cast<Translator_group*> (unsmob_translator (gh_car (p)));
+
+      trg->check_removal ();
+      if (trg->removable_b())
+	terminate_translator (trg);
     }
 }
 
-void
-Translator_group::add_translator (Translator *trans_p)
-{
-  trans_p_list_.append (new Killing_cons<Translator> (trans_p,0));
 
-  trans_p->daddy_trans_l_ = this;
-  trans_p->output_def_l_ = output_def_l_;
-  trans_p->add_processing ();
+SCM
+Translator_group::add_translator (SCM list, Translator *t)
+{
+  list = gh_append2 (list, gh_cons (t->self_scm (), SCM_EOL));
+  t->daddy_trans_l_ = this;
+  t->output_def_l_ = output_def_l_;
+  t->add_processing ();
+
+  return list;
+}
+void
+Translator_group::add_simple_translator (Translator*t)
+{
+  simple_trans_list_ = add_translator (simple_trans_list_, t);
+}
+void
+Translator_group::add_group_translator (Translator *t)
+{
+  trans_group_list_ = add_translator (trans_group_list_,t);
 }
 
-void
-Translator_group::set_acceptor (String accepts, bool add)
-{
-  if (add)
-    accepts_str_arr_.push (accepts);
-  else
-    for (int i=accepts_str_arr_.size (); i--; )
-      if (accepts_str_arr_[i] == accepts)
-	accepts_str_arr_.del (i);
-}
 
-void
-Translator_group::add_last_element (String s)
-{
-  if (!get_translator_l (s))
-    error (_ ("Program has no such type"));
 
-  for (int i=consists_end_str_arr_.size (); i--; )
-    if (consists_end_str_arr_[i] == s)
-      warning (_f ("Already contains: `%s'", s));
-      
-  consists_end_str_arr_.push (s);
-}
-
-void
-Translator_group::set_element (String s, bool add)
-{
-  if (!get_translator_l (s))
-    error (_ ("Program has no such type"));
-
-  if (add)
-    {
-      for (int i=consists_str_arr_.size (); i--; )
-	if (consists_str_arr_[i] == s)
-	  warning (_f("Already contains: `%s'", s));
-      
-      consists_str_arr_.push (s);
-    }
-  else
-    {
-      for (int i=consists_str_arr_.size (); i--; )
-	if (consists_str_arr_[i] == s)
-	  consists_str_arr_.del (i);
-      for (int i=consists_end_str_arr_.size (); i--; )
-	if (consists_end_str_arr_[i] == s)
-	  consists_end_str_arr_.del (i);
-    }
-}
 bool
 Translator_group::removable_b() const
 {
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
-    {
-      if (dynamic_cast <Translator_group *> (p->car_))
-	return false;
-    }
-
-  return !iterator_count_;
+  return trans_group_list_ == SCM_EOL && ! iterator_count_;
 }
 
 Translator_group *
@@ -131,10 +98,11 @@ Translator_group::find_existing_translator_l (String n, String id)
     return this;
 
   Translator_group* r = 0;
-  for (Cons<Translator> *p = trans_p_list_.head_; !r && p; p = p->next_)
+  for (SCM p = trans_group_list_; !r && gh_pair_p (p); p = gh_cdr (p))
     {
-      if (Translator_group *trg =  dynamic_cast <Translator_group *> (p->car_))
-	r = trg->find_existing_translator_l (n, id);
+      Translator *  t = unsmob_translator (gh_car (p));
+      
+      r = dynamic_cast<Translator_group*> (t)->find_existing_translator_l (n, id);
     }
 
   return r;
@@ -143,10 +111,11 @@ Translator_group::find_existing_translator_l (String n, String id)
 Link_array<Translator_group>
 Translator_group::path_to_acceptable_translator (String type, Music_output_def* odef) const
 {
- Link_array<Translator_group> accepted_arr;
-  for (int i=0; i < accepts_str_arr_.size (); i++)
+  Link_array<Translator_group> accepted_arr;
+  for (SCM s = accepts_name_list_; gh_pair_p (s); s = gh_cdr (s))
     {
-      Translator *t = odef->find_translator_l (accepts_str_arr_[i]);
+      
+      Translator *t = odef->find_translator_l (ly_scm2string (gh_car (s)));
       if (!t || !dynamic_cast <Translator_group *> (t))
 	continue;
       accepted_arr.push (dynamic_cast <Translator_group *> (t));
@@ -198,7 +167,7 @@ Translator_group::find_create_translator_l (String n, String id)
 	{
 	  Translator_group * new_group = dynamic_cast<Translator_group*>(path[i]->clone ());
 
-	  current->add_translator (new_group);
+	  current->add_group_translator (new_group);
 	  current = new_group;
 	}
       current->id_str_ = id;
@@ -221,12 +190,10 @@ Translator_group::try_music_on_nongroup_children (Music *m)
 {
   bool hebbes_b =false;
 
-  for (Cons<Translator> *p = trans_p_list_.head_; !hebbes_b && p; p = p->next_)
+  
+  for (SCM p = simple_trans_list_; !hebbes_b && gh_pair_p (p); p = gh_cdr (p))
     {
-      if (!dynamic_cast <Translator_group *> (p->car_))
-	{
-	  hebbes_b = p->car_->try_music (m);
-	}
+      hebbes_b = unsmob_translator (gh_car (p))->try_music (m);
     }
   return hebbes_b;
 }
@@ -256,17 +223,14 @@ Translator_group::ancestor_l (int level)
   return daddy_trans_l_->ancestor_l (level-1);
 }
 
-
-
-
-
 void
 Translator_group::terminate_translator (Translator*r_l)
 {
   r_l->removal_processing();
   Translator * trans_p =remove_translator_p (r_l);
-
-  delete trans_p;
+  /*
+    forget trans_p, GC does the rest.
+   */
 }
 
 
@@ -277,28 +241,20 @@ Translator *
 Translator_group::remove_translator_p (Translator*trans_l)
 {
   assert (trans_l);
-  
-  for (Cons<Translator> **pp = &trans_p_list_.head_; *pp; pp = &(*pp)->next_)
-    if ((*pp)->car_ == trans_l)
-      {
-	Cons<Translator> *r = trans_p_list_.remove_cons (pp);
-	r->car_ =0;
-	trans_l->daddy_trans_l_ =0;
-	delete r;
-	return trans_l;
-      }
 
-  return 0;
+  trans_group_list_ = scm_delq_x (trans_l->self_scm (), trans_group_list_);
+  trans_l->daddy_trans_l_ = 0;
+  return trans_l;
 }
 
 
 Translator*
 Translator_group::get_simple_translator (String type) const
 {
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
+  for (SCM p = simple_trans_list_;  gh_pair_p (p); p =gh_cdr (p))
     {
-      if (classname (p->car_) == type)
-	return p->car_;
+      if (classname (unsmob_translator (gh_car (p))) == type)
+	return unsmob_translator (gh_car (p));
     }
   if (daddy_trans_l_)
     return daddy_trans_l_->get_simple_translator (type);
@@ -309,7 +265,7 @@ Translator_group::get_simple_translator (String type) const
 bool
 Translator_group::is_bottom_translator_b () const
 {
-  return !accepts_str_arr_.size ();
+  return accepts_name_list_ == SCM_EOL;
 }
 
 
@@ -317,16 +273,17 @@ Translator_group::is_bottom_translator_b () const
 Translator_group*
 Translator_group::get_default_interpreter()
 {
-  if (accepts_str_arr_.size())
+  if (gh_pair_p (accepts_name_list_))
     {
-      Translator*t = output_def_l ()->find_translator_l (accepts_str_arr_[0]);
+      String str = ly_scm2string (gh_car (accepts_name_list_));
+      Translator*t = output_def_l ()->find_translator_l (str);
       if (!t)
 	{
-	  warning (_f ("can't find or create: `%s'", accepts_str_arr_[0]));
+	  warning (_f ("can't find or create: `%s'", str));
 	  t = this;
 	}
       Translator_group * g= dynamic_cast <Translator_group*>(t->clone ());
-      add_translator (g);
+      add_group_translator (g);
 
       if (!g->is_bottom_translator_b ())
 	return g->get_default_interpreter ();
@@ -336,48 +293,166 @@ Translator_group::get_default_interpreter()
   return this;
 }
 
-void
-Translator_group::each (Method_pointer method)
+static void
+static_each (SCM list, Method_pointer method)
 {
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
-    (p->car_->*method) ();
+  for (SCM p = list; gh_pair_p (p); p = gh_cdr(p))
+    (unsmob_translator (gh_car (p))->*method) ();
+  
 }
 
-
 void
-Translator_group::each (Const_method_pointer method) const
+Translator_group::each (Method_pointer method) 
 {
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
-    (p->car_->*method) ();
+  static_each (simple_trans_list_, method);
+  static_each (trans_group_list_, method);
 }
 
 void
 Translator_group::do_print() const
 {
 #ifndef NPRINT
-  if (!flower_dstream)
-    return ;
-
-  gh_display (properties_dict_->self_scm ());
-  if (status == ORPHAN)
-    {
-      DEBUG_OUT << "consists of: ";
-      for (int i=0; i < consists_str_arr_.size (); i++)
-	DEBUG_OUT << consists_str_arr_[i] << ", ";
-      DEBUG_OUT << "\naccepts: ";
-      for (int i=0; i < accepts_str_arr_.size (); i++)
-	DEBUG_OUT << accepts_str_arr_[i] << ", ";
-    }
-  else
-    {
-      if (id_str_.length_i ())
-	DEBUG_OUT << "ID: " << id_str_ ;
-      DEBUG_OUT << " iterators: " << iterator_count_<< '\n';
-    }
-  each (&Translator::print);
 #endif
 }
 
+static SCM
+trans_list (SCM namelist, Music_output_def *mdef)
+{
+  SCM l = SCM_EOL;
+  for (SCM s = namelist; gh_pair_p (s) ; s = gh_cdr (s))
+    {
+      Translator * t = mdef->find_translator_l (ly_scm2string (gh_car (s)));
+      if (!t)
+	warning (_f ("can't find: `%s'", s));
+      else
+	{
+	  Translator * tr = t->clone ();
+	  SCM str = tr->self_scm ();
+	  l = gh_cons (str, l);
+	  scm_unprotect_object (str);
+	}
+    }
+  return l; 
+}
+
+
+void
+Translator_group::do_add_processing ()
+{
+  assert (simple_trans_list_== SCM_EOL);
+
+  SCM correct_order = scm_reverse (property_pushes_); // pity of the mem.
+  for (SCM s = correct_order; gh_pair_p (s); s = gh_cdr (s))
+    {
+      SCM entry = gh_car (s);
+      SCM val = gh_cddr (entry);
+      val = gh_pair_p (val) ? gh_car (val) : SCM_UNDEFINED;
+      
+      Translator_group_initializer::apply_pushpop_property (this, gh_car (entry),
+							    gh_cadr (entry),
+							    val);
+    }
+
+  SCM l1 = trans_list (consists_name_list_, output_def_l ());
+  SCM l2 =trans_list (end_consists_name_list_, output_def_l ());
+  l1 = scm_reverse_x (l1, l2);
+  
+  simple_trans_list_ = l1;
+  for (SCM s = l1; gh_pair_p (s) ; s = gh_cdr (s))
+    {
+      Translator * t = unsmob_translator (gh_car (s));
+
+      t->daddy_trans_l_ = this;
+      t->output_def_l_ = output_def_l_;
+      t->add_processing ();
+    }
+
+  
+}
+
+/*
+  PROPERTIES
+ */
+Translator_group*
+Translator_group::where_defined (SCM sym) const
+{
+  if (properties_dict ()->elem_b (sym))
+    {
+      return (Translator_group*)this;
+    }
+
+  return (daddy_trans_l_) ? daddy_trans_l_->where_defined (sym) : 0;
+}
+
+SCM
+Translator_group::get_property (SCM sym) const
+{
+  if (properties_dict ()->elem_b (sym))
+    {
+      return properties_dict ()->get (sym);
+    }
+
+  if (daddy_trans_l_)
+    return daddy_trans_l_->get_property (sym);
+  
+  return SCM_UNDEFINED;
+}
+
+void
+Translator_group::set_property (String id, SCM val)
+{
+  set_property (ly_symbol2scm (id.ch_C()), val);
+}
+
+void
+Translator_group::set_property (SCM sym, SCM val)
+{
+  properties_dict ()->set (sym, val);
+}
+
+/*
+  Push or pop (depending on value of VAL) a single entry (ELTPROP . VAL)
+  entry from a translator property list by name of PROP
+*/
+void
+Translator_group::execute_single_pushpop_property (SCM prop, SCM eltprop, SCM val)
+{
+  if (gh_symbol_p(prop))
+    {
+      if (val != SCM_UNDEFINED)
+	{
+	  SCM prev = get_property (prop);
+
+	  prev = gh_cons (gh_cons (eltprop, val), prev);
+	  set_property (prop, prev);
+	}
+      else
+	{
+	  SCM prev = get_property (prop);
+
+	  SCM newprops= SCM_EOL ;
+	  while (gh_pair_p (prev) && gh_caar (prev) != eltprop)
+	    {
+	      newprops = gh_cons (gh_car (prev), newprops);
+	      prev = gh_cdr (prev);
+	    }
+	  
+	  if (gh_pair_p (prev))
+	    {
+	      newprops = scm_reverse_x (newprops, gh_cdr (prev));
+	      set_property (prop, newprops);
+	    }
+	}
+    }
+}
+
+
+
+
+
+/*
+  STUBS
+*/
 void
 Translator_group::do_pre_move_processing ()
 {
@@ -407,65 +482,3 @@ Translator_group::do_removal_processing ()
 {
   each (&Translator::removal_processing);
 }
-
-void
-Translator_group::do_add_processing ()
-{
-   for (int i=0; i < consists_str_arr_.size(); i++)
-    {
-      String s = consists_str_arr_[i];
-      Translator * t = output_def_l ()->find_translator_l (s);
-      if (!t)
-	warning (_f ("can't find: `%s'", s));
-      else
-	add_translator (t->clone ());
-    }
-   for (int i=0; i-- < consists_end_str_arr_.size (); i++)
-     {
-       String s = consists_end_str_arr_[i];
-       Translator * t = output_def_l ()->find_translator_l (s);
-       if (!t)
-	 warning (_f ("can't find: `%s'", s));
-       else
-	 add_translator (t->clone ());
-    }
-}
-
-Translator_group*
-Translator_group::where_defined (SCM sym) const
-{
-  if (properties_dict_->elem_b (sym))
-    {
-      return (Translator_group*)this;
-    }
-
-  return (daddy_trans_l_) ? daddy_trans_l_->where_defined (sym) : 0;
-}
-
-SCM
-Translator_group::get_property (SCM sym) const
-{
-  if (properties_dict_->elem_b (sym))
-    {
-      return properties_dict_->get (sym);
-    }
-
-  if (daddy_trans_l_)
-    return daddy_trans_l_->get_property (sym);
-  
-  return SCM_UNDEFINED;
-}
-
-void
-Translator_group::set_property (String id, SCM val)
-{
-  set_property (ly_symbol2scm (id.ch_C()), val);
-}
-
-void
-Translator_group::set_property (SCM sym, SCM val)
-{
-  properties_dict_->set (sym, val);
-}
-
-

@@ -49,10 +49,6 @@ Incorrect (\popproperty costs memory):
 	\popproperty #'(  ... ) #'symbolA 
 	\popproperty #'(  ... ) #'symbolB 
 
-
-
-
-
 the syntax isn't likely to stay, so it is advisable to
 use identifiers, eg.
 
@@ -64,15 +60,21 @@ use identifiers, eg.
 
 \score { \notes
 \relative c' {
-	c4(
+	c4-.(
 	\context Voice \pushproperty #'(basicDotsProperties basicStemProperties
 	basicNoteColumnProperties basicScriptProperties basicTextProperties) #'direction #-1
-	) c4 (
-	) c4 (	
-	\context Voice \pushproperty #'(basicSlurProperties) #'direction #-1
-	) c4 ( \context Voice  \popproperty #'(basicDotsProperties basicStemProperties
+	) c4-. (
+	) c4-. (	
+	\context Voice \pushproperty #'basicSlurProperties #'direction #-1
+	) c4-. ( \context Voice  \popproperty #'(basicDotsProperties basicStemProperties
 		basicScriptProperties basicTextProperties) #'direction
 
-	 ) c4  () c4 
+	 ) c4-.  () c4-. 
+}
+
+\paper {
+\translator { \VoiceContext
+	\pushproperty #'basicNoteHeadProperties #'font-size #-2
+}
 }
 }

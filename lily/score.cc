@@ -95,7 +95,8 @@ Score::run_translator (Music_output_def *odef_l)
     }
 
   Music_output * output = trans_p->get_output_p();
-  delete trans_p;
+  scm_unprotect_object (trans_p->self_scm ());
+  
   if(verbose_global_b)
     progress_indication (_f ("elapsed time: %.2f seconds",  timer.read ()));
 
