@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
   texidoc = "@cindex Beam Dir Functions
 
@@ -25,19 +25,19 @@ your favourite algorithm isn't one of these, you can hook up your own.
 \score {
   \notes\relative c'' {\time 3/4
     \property Voice.Beam \set #'dir-function = #beam-dir-majority
-      c8-[ g]
+      c8[ g]
     \property Voice.Beam \set #'dir-function = #beam-dir-mean
-      c-[ g] 
+      c[ g] 
     \property Voice.Beam \set #'dir-function = #beam-dir-median
-      c-[ g]
+      c[ g]
     
     \time 3/8
     \property Voice.Beam \set #'dir-function = #beam-dir-majority
-      c8-[ c g]
+      c8[ c g]
     \property Voice.Beam \set #'dir-function = #beam-dir-mean
-      c-[ c g] 
+      c[ c g] 
     \property Voice.Beam \set #'dir-function = #beam-dir-median
-      c-[ c g] 
+      c[ c g] 
   }
 \paper{raggedright = ##t}
 }

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header{
 texidoc="
@@ -10,10 +10,10 @@ with beams.
 \score{
 	\notes \relative c''{
 	        \property Voice.Slur \set #'direction = #1
-	        a8-( a a4-)
-		a4-( a8 a-)
-	        a8 a(a4-)
-		a4-( a8-) a
+	        a8( a a4)
+		a4( a8 a)
+	        a8 a(a4)
+		a4( a8) a
 	}
 	\paper{ 
 		indent = 0.0

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header{
 
@@ -11,17 +11,17 @@ lengths are between 2 and 1.5."
 
 \score{
 	\notes\relative c' { 
-		 c8-[ c]  a''-[ a]
-		 a,-[ a]  c-[ c]
-		 d,8-[ d]  g'-[ g]
-		 g,-[ g]  d'-[ d]
-		 c,16-[ c]  a''-[ a]
-		 a,-[ a ]  c-[ c]
+		 c8[ c]  a''[ a]
+		 a,[ a]  c[ c]
+		 d,8[ d]  g'[ g]
+		 g,[ g]  d'[ d]
+		 c,16[ c]  a''[ a]
+		 a,[ a ]  c[ c]
 		\break
-		 c,32-[  c]  a''-[ a]
-		 f,-[ f]  e'-[ e]
-		 c,64-[ c]  a''-[ a]
-		 f,-[ f]  e'-[ e]
+		 c,32[  c]  a''[ a]
+		 f,[ f]  e'[ e]
+		 c,64[ c]  a''[ a]
+		 f,[ f]  e'[ e]
 		\break
 	}
 }

@@ -1,4 +1,4 @@
-\version "1.9.0"
+\version "1.9.1"
 
 \header { texidoc="@cindex Trill
 Show trill line type. "
@@ -18,7 +18,7 @@ Show trill line type. "
     \property Voice.TextSpanner \set #'style = #'trill
     \property Voice.TextSpanner \set #'edge-height = #'(0 . 0)
     \property Voice.TextSpanner \set #'edge-text
-     = #(cons (make-musicglyph-markup "scripts-trill")  "")
+     = #(cons (make-musicglyph@\markup "scripts-trill")  "")
     a#(ly:export (make-span-event 'TextSpanEvent START)) b c a #(ly:export (make-span-event 'TextSpanEvent STOP))
   }
 	\paper { raggedright = ##t} 

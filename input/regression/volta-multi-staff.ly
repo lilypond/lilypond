@@ -4,7 +4,7 @@
     texidoc = "By setting @code{voltaOnThisStaff}, repeats can be put on more staffs in a score."
 
 }
-\version "1.9.0"
+\version "1.9.1"
 
 
 vmus = \notes { \repeat volta 2 c1 \alternative { d e } } 

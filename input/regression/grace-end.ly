@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 
     texidoc="@cindex Grace End
@@ -11,7 +11,7 @@
 \score { 
   \context Voice \notes\relative c' {
     
-	c4 \grace {  d16-[ d16] }
+	c4 \grace {  d16[ d16] }
 	
   }
 	\paper {

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header {texidoc = "Dynamic letters are kerned, and their weight
 matches that of the hairpin signs.  The dynamic scripts should be
@@ -9,13 +9,13 @@ closer to the note head (staccato, accent) are reckoned with.
 
 \score {
     
-\notes\relative c'' { c1-\ff
-		      e,-.-> -\f
+\notes\relative c'' { c1\ff
+		      e,-.-> \f
 		      e \rfz		      
-		      c' -\mf
-		      c -\mp \> 
-		      c-\!-\ppppp \< 
-		      c-\sfp-\!
+		      c' \mf
+		      c \mp \> 
+		      c\!\ppppp \< 
+		      c\sfp\!
 		      
 }
 }

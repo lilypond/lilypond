@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header {
   texidoc ="Classical song format: one staff with melody and lyrics,

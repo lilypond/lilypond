@@ -9,7 +9,7 @@ texidoc = "The flags of 8th notes take some space, but not
 
 \score { \notes \relative c'' \context Staff {
     \property Voice.autoBeaming = ##f
-    a8-[ a8 a8 a8]
+    a8[ a8 a8 a8]
     a8 a8 a8 a8
 }
 \paper {
@@ -17,5 +17,5 @@ raggedright = ##t
     }
      }
 
-\version "1.9.0"
+\version "1.9.1"
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header {
 
@@ -20,12 +20,12 @@ brackets for analysis start and end.
 \score {
     \notes\relative c''
     {
-	c4-\startGroup-\startGroup-\startGroup
-	c4-\stopGroup
-	c4-\startGroup
-	c4-\stopGroup-\stopGroup
-	c4-\startGroup
-	c4-\stopGroup-\stopGroup
+	c4\startGroup\startGroup\startGroup
+	c4\stopGroup
+	c4\startGroup
+	c4\stopGroup\stopGroup
+	c4\startGroup
+	c4\stopGroup\stopGroup
     }
 
     \paper {

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
   texidoc="
 Seconds are tricky.  We used to have problems with seconds being too
@@ -10,9 +10,9 @@ seconds, you'll spot something fishy very quickly.
 \score{
     \notes\relative c''{
 	\stemUp
-	 b8-[ c]
-	 b16-[ c]
-	 a'-[ b]
+	 b8[ c]
+	 b16[ c]
+	 a'[ b]
     }
     \paper{
 	raggedright = ##t

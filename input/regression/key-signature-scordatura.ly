@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header { texidoc = "Key signatures can be set per pitch
 individually. This can be done by setting @code{Staff.keySignature}

@@ -11,7 +11,7 @@ dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "1.9.0"
+\version "1.9.1"
 
 #(define (notes-to-skip m)
 "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.
@@ -30,7 +30,7 @@ Scripts and dynamics are maintained.
 
     \paper { raggedright= ##t }
 
-foobar = \notes \transpose c c' { c4-\>-^ c4-^ c4-\!-^ c4-^  } 
+foobar = \notes \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  } 
 
 \score {
   \notes \relative c''  \context Voice {

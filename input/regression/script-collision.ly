@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header {
 
@@ -10,7 +10,7 @@
 \score  {
 \notes \relative c'' {
   c4
-  <<c d c'>>-\marcato
+  <<c d c'>>\marcato
   < \context Voice = VA { \voiceOne c4^^ }
     \context Voice = VB { \voiceTwo d4_^} >
     }

@@ -1,4 +1,4 @@
-\version "1.9.0"
+\version "1.9.1"
 % params-as-init.ly
 % generic paper parameters
 

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header{ texidoc ="@cindex Staff Space
 Setting staff space on a staff. "
@@ -11,9 +11,9 @@ Setting staff space on a staff. "
 	\context Staff = down {
 	    c4
 
-	    <<c d f g>>8-[
+	    <<c d f g>>8[
 	   e]
-	   f-[ c']
+	   f[ c']
 	 }
 >
 \paper {  \translator  {

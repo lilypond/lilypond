@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header {
   texidoc="@cindex Trills
@@ -41,14 +41,14 @@ endHorizScript = {
     \context GrandStaff <
       \context Staff=upper \notes\relative c'' {
 	\time 1/4
-	c4-\prall
+	c4\prall
 	\time 3/8
 	c4.^\lineprall
-	c4.-\downprall
-	c4.-\upprall
+	c4.\downprall
+	c4.\upprall
 	\time 5/8
-	c4-\turn c4.-\upprall
-	d4-\turn b4.-\downprall
+	c4\turn c4.\upprall
+	d4\turn b4.\downprall
 	\time 3/4
 	b4 c^\turn d 
 	\time 1/4
@@ -68,9 +68,9 @@ endHorizScript = {
 %}
 	\endHorizScript
         \time  2/2 \slurDown
-	<{c2}{s4 \invisible d1*1/4 ( \visible }>  e2-)
-	<{a,2}{s4 \invisible b1*1/4 ( \visible }>  d2-)
-	<{a2}{s4 \invisible b1*1/4 ( \visible }>  d2-)
+	<{c2}{s4 \invisible d1*1/4 ( \visible }>  e2)
+	<{a,2}{s4 \invisible b1*1/4 ( \visible }>  d2)
+	<{a2}{s4 \invisible b1*1/4 ( \visible }>  d2)
 	\time 3/4
 	d2^\prallup e4
       }
@@ -107,12 +107,12 @@ endHorizScript = {
       }
       \context Staff=lower \notes\relative c'' {
         % autobeamer has som problems here
-	d32-[  \repeat unfold 3 { c d } c-]
-	d8 ~  d32-[\repeat unfold 3 { d32 c  } c-]
+	d32[  \repeat unfold 3 { c d } c]
+	d8 ~  d32[\repeat unfold 3 { d32 c  } c]
 	d32 c b c \repeat unfold 4 { d32 c }
 	b32 c d c \repeat unfold 4 { d32 c }
-	c32-[-( b a16 b  c-)-]
-	b32-[ \repeat unfold 5 { c d32 } c-]
+	c32[( b a16 b  c)]
+	b32[ \repeat unfold 5 { c d32 } c]
       }
     >
   >

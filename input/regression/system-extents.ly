@@ -1,4 +1,4 @@
-\version "1.9.0"
+\version "1.9.1"
 \header {
 
     texidoc = "LilyPond correctly determines the size of every
@@ -9,7 +9,7 @@
 \score { \notes
 \context Voice
 { \property Staff.minimumVerticalExtent \unset
-    \slurDown c4 ( g4  c''4-)
+    \slurDown c4 ( g4  c''4)
 
 }
 

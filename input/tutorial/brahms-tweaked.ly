@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \score {
     \notes\context PianoStaff <
     \context Staff = up
@@ -9,18 +9,18 @@
 
 	    \once \property Voice.Fingering
 	      \override #'extra-offset = #'(-0.3 . -1.8) 
-           fis4-3_\p-(-~
+           fis4-3_\p(~
    
 
-            fis16 a-)^" "^\markup { \finger "5" } } \\
+            fis16 a)^" "^\markup { \finger "5" } } \\
         {
             \dynamicUp
             \property Voice.DynamicLineSpanner
 	      \override #'padding = #5.0
             \tieUp
-            fis16-(-\> d b-\! \translator Staff = down
+            fis16(\> d b\! \translator Staff = down
 	    \stemUp
-	    \clef treble g-~ <<g e>>8-) } \\
+	    \clef treble g~ <<g e>>8) } \\
         { s16
 	  \once \property Voice.Stem \set #'transparent = ##t
           d'

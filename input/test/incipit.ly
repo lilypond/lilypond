@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header { texidoc = "@cindex Incipit
 This shows how to make an ``incipit'' to indicate scordatora 
 tuning of a violin part, using the clefStyle property.
@@ -33,7 +33,7 @@ violin =  \notes\relative c''{
   \clef treble
 
   a4. b8 c4 fis |
-V  gis~ gis8 fis16^\trill (e-) b8 c
+V  gis~ gis8 fis16^\trill (e) b8 c
   <{ a d}\\ { es,4}>|
 }
 

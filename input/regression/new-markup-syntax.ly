@@ -2,13 +2,13 @@
 texidoc = "New markup syntax."
 }
 
-\version "1.9.0"
+\version "1.9.1"
 
 
 \score {
   \notes
    {
-    f'-\markup {
+    f'\markup {
 		foo
 		\raise #0.2 \hbracket \bold bar
 		\override #'(baseline-skip . 4)

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
 texidoc="The partcombiner should not combine two small slurs into a big one."
 }
@@ -10,12 +10,12 @@ texidoc="The partcombiner should not combine two small slurs into a big one."
 		\context Voice=two\skip 1
 		\context Voice=one \partcombine Voice
 			\context Thread=one \notes\relative c'' {
-				c4( c b  a-) 
-				a( b c  d-)
+				c4( c b  a) 
+				a( b c  d)
 			}
 			\context Thread=two \notes\relative c'' {
-				a4( c b  a-)
-				a( b c  a-)
+				a4( c b  a)
+				a( b c  a)
 				
 			}
 	>

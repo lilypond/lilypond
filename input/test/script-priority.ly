@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header { texidoc = "@cindex Script Priority
 Relative placements of different script types can be controlled

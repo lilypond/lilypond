@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
     
     texidoc = "Knee beaming, complex configurations.  According to
@@ -15,15 +15,15 @@ beam. This is in disagreement with the current algorithm."
 	     \property Voice.Beam \set #'auto-knee-gap = #7
 	     \property Voice.subdivideBeams = ##t	     
 	     \time 8/8
-	      c,16-[  g'''16  
+	      c,16[  g'''16  
 	     c,,,16  g'''16 
 	     c,,,16  g'''16 	     	     
 	     c,,,16  g'''16 ]
 
-	      c,,,16-[ c c c
+	      c,,,16[ c c c
 	      b'''   b b b]
 
-	     \transpose c' a, { \relative b'' {  g,16-[  g'''16  
+	     \transpose c' a, { \relative b'' {  g,16[  g'''16  
 	     g,,,16  g'''16 
 	     g,,,16  g'''16 	     	     
 	     g,,,16  g'''16

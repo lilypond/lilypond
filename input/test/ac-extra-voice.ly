@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 %% I don't know what this example is supposed to do.  delete it?
 %% It shows how to use the autochange feature together with an extra
@@ -19,12 +19,12 @@ global = \notes{
 melody = \notes\relative c''{
     r2 r r 
     r2 r r
-    r4 a'8-- \< a-- a-- a-- c-- b-\!-- a--\> gis f e-\!
+    r4 a'8-- \< a-- a-- a-- c-- b\!-- a-\> gis f e\!
     es8 \grace b c r4 r2 r
 }
 
 basloopje = \notes\relative c{
-    d,8( a' d f a d f d a f d a-)
+    d,8( a' d f a d f d a f d a)
 }
 
 accompany = \repeat unfold 4 \notes \relative c \basloopje

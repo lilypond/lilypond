@@ -1,7 +1,7 @@
 % paper19-init.ly
 
 
-\version "1.9.0"
+\version "1.9.1"
 
 paperNineteen = \paper {
 	staffheight = 19.0\pt

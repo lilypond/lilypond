@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
     texidoc = "Beams (simple)."
 }
@@ -9,9 +9,9 @@
 \score { \notes
 \relative c'
 	 {
-	 c16-[ c8.]
-	 c8.-[ c16]
-	 c8-[ c16 c16 c8]
-	 c8-[ c16 e16 g8]
+	 c16[ c8.]
+	 c8.[ c16]
+	 c8[ c16 c16 c8]
+	 c8[ c16 e16 g8]
 
     }}

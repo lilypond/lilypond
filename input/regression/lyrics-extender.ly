@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
     texidoc =
 
@@ -11,7 +11,7 @@ Also shown: a trick to get an extender at the end of the staff.
 
 sopran = \notes \relative c'' {
 \time 3/4 a2.( | \break
- g2-) < g4 { s8 s8 } > |
+ g2) < g4 { s8 s8 } > |
 }
 
 text = \lyrics {

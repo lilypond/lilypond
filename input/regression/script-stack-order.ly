@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
     texidoc = "Scripts can be stacked. The order is determined by a
 priority field, but when objects have the same priority, the input

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 texidoc ="
   Template that puts dynamics on a separate line, so it is neatly
@@ -17,11 +17,11 @@ lower = \notes\relative c {
 
 dynamics = \notes {
   s2\fff\> s4
-  s-\!-\pp
+  s\!\pp
 }
 
 pedal = \notes {
- s2-\sustainDown s2-\sustainUp
+ s2\sustainDown s2\sustainUp
 }
 
 \score {

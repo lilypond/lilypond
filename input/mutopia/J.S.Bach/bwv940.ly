@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 %{
  Header for Petites Preludes.
@@ -47,7 +47,7 @@ one =   \notes\relative c{
 	r4 d''2 cis4 |
 	\stemBoth
 	d16 a' g f  e f cis d 
-	e8.-\mordent f16  d8.-\prall cis16 |
+	e8.\mordent f16  d8.\prall cis16 |
 	\stemUp\tieUp
 	cis4 ~ cis16 a d8 ~ d4 a |
 	%5
@@ -64,7 +64,7 @@ one =   \notes\relative c{
 
 two =   \notes\relative c{
 	r16 d'' c bes  a bes f g 
-	a8.-\mordent bes16  g8.-\prall f16 |
+	a8.\mordent bes16  g8.\prall f16 |
 	\stemDown
 	f2 e2 |
 	\translator Staff=lower \stemUp
@@ -73,7 +73,7 @@ two =   \notes\relative c{
 	r16 b' a g  f8. f16 e2 ~ |
 	%5
 	e2 ~ e4 ~ e16 e f! d |
-	s4 e4_\mordent-~ e4 d4 ~ |
+	s4 e4_\mordent~ e4 d4 ~ |
 	d4. cis16 d cis4 d ~ |
 	d8 r r16 e f d r16 e f d r d e cis |
 	r16 e d c!  bes! d8. s4 r16 bes' a g |
@@ -86,12 +86,12 @@ three = \notes\relative c{
 	f2 e |
 	\stemBoth
 	d16 d' c bes  a bes f g 
-	a8.-\mordent bes16 
-	g8.-\prall f16 |
+	a8.\mordent bes16 
+	g8.\prall f16 |
 	f2 g4 gis |
 	a2 ~ a16 a g f  e f c d |
 	%5
-	e8.-\mordent f16  d8.-\prall c16 \stemBoth c4. d8 |
+	e8.\mordent f16  d8.\prall c16 \stemBoth c4. d8 |
 	\stemDown	\tieDown
 
 	e4 ~ e16 f e d  cis a b cis  d e f d |

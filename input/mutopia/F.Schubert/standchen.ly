@@ -42,7 +42,7 @@ instrument = "Piano"
  footer = "Mutopia-2001/04/27-xx"
 } 
 
-\version "1.9.0"
+\version "1.9.1"
 
 dynamicUp = \property Voice.DynamicLineSpanner \override #'direction = #1
 dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
@@ -51,30 +51,30 @@ dynamicRevert = \property Voice.DynamicLineSpanner \revert #'direction
 
 vocalVerse =  \notes\relative c''{
 	\dynamicUp
-	\times 2/3 {  g8-[(  as-)] g } c4. g8 |
-	\times 2/3 {  f8-[(  g-)] f } c'4 f,8 r |
-	g4.-> f8 \times 2/3 {  f-[(  es-)] d } |
+	\times 2/3 {  g8[(  as)] g } c4. g8 |
+	\times 2/3 {  f8[(  g)] f } c'4 f,8 r |
+	g4.-> f8 \times 2/3 {  f[(  es)] d } |
 	es2 r4 |
 	R2. |
 	R2. |
-	\times 2/3 {  g8-[(  as-)] g } es'4. g,8 |
-	\times 2/3 {  f8-[(  g-)] f } d'4. c8 |
-	bes4. as8 \times 2/3 {  as-[(  g-)] f } |
+	\times 2/3 {  g8[(  as)] g } es'4. g,8 |
+	\times 2/3 {  f8[(  g)] f } d'4. c8 |
+	bes4. as8 \times 2/3 {  as[(  g)] f } |
 	g2 r4 |
 	R2. |
 	R2. |
 	g8. b16 es4. d8 |
 	c8. g16 es4. c8 |
-	\grace {  as'32-[( bes ] } \times 2/3 {  as8-[-)(  g-)] as } c4. as8 |
+	\grace {  as'32[( bes ] } \times 2/3 {  as8[)(  g)] as } c4. as8 |
 	g2. |
-	\grace {  f32-[( g ] } \times 2/3 {  f8-[-)(  e-)] f } as4. f8 |
+	\grace {  f32[( g ] } \times 2/3 {  f8[)(  e)] f } as4. f8 |
   
 	es!2. |
 	g8. b16 es4. d8 |
 	c8. g16 e4. c8 |
- 	\grace {  a'32-[( b ] } \times 2/3 {  a!8-[-)(  gis-)] a } c4. a8 |
+ 	\grace {  a'32[( b ] } \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
 	g!2. |
-	\times 2/3 {  d'8-[-\f(  cis-)] d } f4. b,8 |
+	\times 2/3 {  d'8[\f(  cis)] d } f4. b,8 |
 	c!2. |
 }
 
@@ -84,13 +84,13 @@ vocalThrough =  \notes\relative c{
 	c4 b r |
 	g4. b8 d8. c16 |
 	b2 r4 |
-	e4. d8 \times 2/3 {  d-[(  c-)] b } |
+	e4. d8 \times 2/3 {  d[(  c)] b } |
 	a8. b16 c4-> a8 r |
 	R2. |
 	R2. |
-	\grace {  a32-[( b ] } \times 2/3 {  a!8-[-)(  gis-)] a } c4. a8 |
+	\grace {  a32[( b ] } \times 2/3 {  a!8[)(  gis)] a } c4. a8 |
 	g!2. |
-	\times 2/3 {  d'8-[-\f(  cis-)] d } f4. b,8 |
+	\times 2/3 {  d'8[\f(  cis)] d } f4. b,8 |
 	c!2. ~ |
 	% bug: slur on other staff fools lily into extending melisma
 	c4 r c |
@@ -140,7 +140,7 @@ lyricThrough =  \lyrics{
 }
 
 trebleIntro =  \notes\relative c{
-	r8^"\bf M\\\"a\\ss ig"-\pp <<g' c>>-. <<c es>>-. <<g c>>-. <<c es>>-. <<g c>>-. |
+	r8^"\bf M\\\"a\\ss ig"\pp <<g' c>>-. <<c es>>-. <<g c>>-. <<c es>>-. <<g c>>-. |
 	r8 <<as c>>-. <<c es>>-. <<as c>>-. <<c es>>-. <<as c>>-. |
 	r8 <<as c>>-. <<c d>>-. <<as c>>-. <<c d>>-. <<as c>>-. |
 	r8 <<g b>>-. <<b d>>-. <<g b>>-. <<b d>>-. <<g b>>-. |
@@ -152,8 +152,8 @@ trebleVerseOne =  \notes\relative c{
 	r8 <<f c'>> <<c' d>> <<f, c'>> <<c' d>> <<f, c'>> |
 	r8 <<f g b>> <<g b d>> <<f g b>> <<g b d>> <<f g b>> |
 	r8 <<es g c>> <<g c es>> <<es g c>> <<g c es>> <<es g c>> |
-	<<g'' b,>>4.-( <<f d>>8-)
-	\times 2/3 { <<f d>>-(-[ <<es c>> <<d b>>-)-] }
+	<<g'' b,>>4.( <<f d>>8)
+	\times 2/3 { <<f d>>([ <<es c>> <<d b>>)] }
 
 	%10
 	<<c es>>2. |
@@ -161,46 +161,46 @@ trebleVerseOne =  \notes\relative c{
 	r8 <<f c'>> <<c' d>> <<f, c'>> <<c' d>> <<f, c'>> |
 	r8 <<f as bes>> <<as bes d>> <<f as bes>> <<as bes d>> <<f as bes>> |
 	r8
-	<<es g bes>>-[
+	<<es g bes>>[
 	<<g bes es>>
 	<<es g bes>>
-	<<g bes es>>-]
-	<<es' c'>>-(
-	<<d bes'>>4.-(-)
-	<<f as>>8-)
+	<<g bes es>>]
+	<<es' c'>>(
+	<<d bes'>>4.()
+	<<f as>>8)
 	
-	\times 2/3 { <<f as>>-(-[ <<es g>> <<d f>>-)-] }
+	\times 2/3 { <<f as>>([ <<es g>> <<d f>>)] }
 	%16
 	<<es g>>2. |
 	r8 <<f, g>> <<g b>> <<f g>> <<g b>> <<f g>> |
 	r8 <<es g>> <<g c>> <<es g>> <<g c>> <<es g>> |
-	r8-\pp <<es as c>> <<as c es>> <<es as c>> <<as c es>> <<es as c>> |
+	r8\pp <<es as c>> <<as c es>> <<es as c>> <<as c es>> <<es as c>> |
 	%20
 	r8 <<es g bes>> <<g bes es>> <<es g bes>> <<g bes es>> <<es g bes>> |
 	\property Voice.Slur \override #'attachment = #'(stem . stem)
-	\grace {  as'32-[( bes ] }
-	\times 2/3 {  as8-[-)( g as] } c4.->  as8-) |
+	\grace {  as'32[( bes ] }
+	\times 2/3 {  as8[)( g as] } c4.->  as8) |
 	\property Voice.Slur \revert #'attachment
 	g2. |
 	r8 <<f, g>> <<g b>> <<f g>> <<g b>> <<f g>> |
 	r8 <<e g>> <<g c>> <<e g>> <<g c>> <<e g>> |
 	r8 <<f a c>> <<a c f>> <<f a c>> <<a c f>> <<f a c>> |
 	r8 <<e g c>> <<g c e>> <<e g c>> <<g c e>> <<e g c>> |
-	\times 2/3  { <<f' f'>>-\f-( <<e e'>> <<f f'>> }
-	<<a a'>>4.-> <<f f'>>8-)  |
+	\times 2/3  { <<f' f'>>\f( <<e e'>> <<f f'>> }
+	<<a a'>>4.-> <<f f'>>8)  |
 }
 
 trebleEentje =  \notes \relative c' \context Voice {
 	\stemBoth
 	<<e e'>>2 r4 |
-	<<f as!>>2-\(-\mf <<as c>>8.-(-> <<f as>>16-)-\) |
+	<<f as!>>2\(\mf <<as c>>8.(-> <<f as>>16)\) |
 	% urg: slurs with staccati are ugly
-	<<e g>>4. <<e g>>8-.-( <<e g>>-. <<e g>>-)-. |
-	<<f g>>4. <<b, g'>>8-.-( <<d g>>-. <<f g>>-)-. |
-	<<e g>>2 <<e g>>4-\pp |
-	<<f a>>2-\( <<a c>>8.-( <<f a>>16-)-\) |
-	<<e g>>4.-\( <<e g>>8-(-. <<e g>>-. <<e g>>-)-\)-. |
-	<<f g>>4. <<b, g'>>8-(-. <<d g>>-. <<f g>>-)-. |
+	<<e g>>4. <<e g>>8-.( <<e g>>-. <<e g>>)-. |
+	<<f g>>4. <<b, g'>>8-.( <<d g>>-. <<f g>>)-. |
+	<<e g>>2 <<e g>>4\pp |
+	<<f a>>2\( <<a c>>8.( <<f a>>16)\) |
+	<<e g>>4.\( <<e g>>8(-. <<e g>>-. <<e g>>)\)-. |
+	<<f g>>4. <<b, g'>>8(-. <<d g>>-. <<f g>>)-. |
 	%60
 	<<e g>>2 r4 |
 }
@@ -210,18 +210,18 @@ trebleThrough =  \notes \relative c'{
 	<<e e'>>2. |
 	%61
 	R2. |
-	<<g, g'>>8.[\< <<g g'>>16 <<b b'>>8. <<b b'>>16-\>-\! <<d d'>>8. <<d d'>>16] |
+	<<g, g'>>8.[\< <<g g'>>16 <<b b'>>8. <<b b'>>16\>\! <<d d'>>8. <<d d'>>16] |
 
 	%% score has double slur on chord.
-	<<c c'>>4-( <<b c'>>-) r-\!
+	<<c c'>>4( <<b c'>>) r\!
 
 	<<g g'>>4. <<b b'>>8 <<d' d, >>8.->[ c16] |
 	%65
-        <<d, e b'>>2.-~-(-\f
-	<<c e a>>2-)  r4
+        <<d, e b'>>2.~(\f
+	<<c e a>>2)  r4
 	< 
-	{ 	a'8. b16 c4^> ( a8-) r |
-		a8. b16 c4^> ( a8-) r |
+	{ 	a'8. b16 c4^> ( a8) r |
+		a8. b16 c4^> ( a8) r |
 	}\\{ 
 		<<d, f>>4 <<d f>>2 |
 		<<c! es>>4 <<c es>>2 |
@@ -231,9 +231,9 @@ trebleThrough =  \notes \relative c'{
 	r8 <<f, a c>> <<a c f>> <<f a c>> <<a c f>> <<f a c>> |
 	%70
 	r8 <<e g c>> <<g c e>> <<e g c>> <<g c e>> <<e g c>> |
-	\times 2/3 {  <<f' f'>>8-( <<e e'>> <<f f'>> }
+	\times 2/3 {  <<f' f'>>8( <<e e'>> <<f f'>> }
 
-	<<a a'>>4.-> <<f f'>>8-)
+	<<a a'>>4.-> <<f f'>>8)
 	<<e e'>>2. |
 	<<es! es'! >>2. |
 	\property Voice . TextScript \override #'font-shape = #'italic
@@ -242,12 +242,12 @@ trebleThrough =  \notes \relative c'{
 
 	%75
 	<<b b'>>2. |
-	<<c c'>>2 <<e g>>4-\pp |
+	<<c c'>>2 <<e g>>4\pp |
 
 	% four copied from begin eentje
-	<<f as!>>2-( <<as c>>8.-> <<f as>>16-) |
-	<<e g>>4. <<e g>>8-(-. <<e g>>-. <<e g>>-)-. |
-	<<f g>>4. <<b, g'>>8-(-. <<d g>>-. <<f g>>-)-. |
+	<<f as!>>2( <<as c>>8.-> <<f as>>16) |
+	<<e g>>4. <<e g>>8(-. <<e g>>-. <<e g>>)-. |
+	<<f g>>4. <<b, g'>>8(-. <<d g>>-. <<f g>>)-. |
 	%80
 
 	\property Voice . TextScript \override #'font-shape = #'italic
@@ -255,7 +255,7 @@ trebleThrough =  \notes \relative c'{
 	\property Voice . TextScript \revert #'font-shape
 
 	<<g, e' g>>2. |
-	<<g e' g>>2.-\fermata |
+	<<g e' g>>2.\fermata |
 }
 
 bassIntro =  \notes\relative c{
@@ -320,16 +320,16 @@ bassThrough =  \notes\relative c{
 	<<g, g'>>8 <<g' d'>>[ <<d' f>> <<g, d'>> <<as b d >>-> <<b d f>>] |
 	<<g, g'>>8 <<g' d'>>[ <<d' f>> <<g, d'>> <<gis b d >>-> <<b d f>>] |
 	%65
-	<<gis, gis'>>8 <<d'' e>>[-\> <<e b'>> <<d e>> <<e b'>> <<d e>> -\!] |
+	<<gis, gis'>>8 <<d'' e>>[\> <<e b'>> <<d e>> <<e b'>> <<d e>> \!] |
 	<<a, a'>>8 <<c' e>>[ <<e a>> <<c e>> <<e a>> <<c e>>] |
 	<<a, a'>>8 <<a' d f>>[ <<d f a>> <<a d f>> <<d f a>> <<a d f>>] |
 	<<a, a'>>8 <<a' c e>>[ <<c e a>> <<a c e>> <<c e a>> <<a c e>>] |
 	% 4 bars copied from end verse1
-	<<f, f'>>2-\p r4 |
+	<<f, f'>>2\p r4 |
 	%70
 	<<c' c'>>2 r4 |
 	<<g g'>>8 <<d'' g>>[ <<g b>> <<d g>> <<g b>> <<d g>>] |
-	c,8\> <<c' e g>>[ << e g c>> -\! <<c e g>> <<e g c>> <<c e g>>] |
+	c,8\> <<c' e g>>[ << e g c>> \! <<c e g>> <<e g c>> <<c e g>>] |
 
 	<<c, c'>>8 <<c' es! g>>[ <<es g c>> <<c es g>> <<es g c>> <<c es g>>] |
 	<<f,, f'>>8 <<d'' f>>[ <<f as!>> <<d f>> <<f as>> <<d f>>] |
@@ -457,7 +457,7 @@ grandStaff =  \context PianoStaff <
 		%   linewidth = 190.\mm
 		% to get this on 3 pages of a4.
 		
-		% Mandatory Mutopia settings yield 4 pages :-(
+		% Mandatory Mutopia settings yield 4 pages :(
 		textheight = 270.0\mm
 		linewidth = 180.0\mm
 

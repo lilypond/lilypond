@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
     
 texidoc="
@@ -21,7 +21,7 @@ direction as the bracket. The endings can be adjusted with
 \score{
 	\notes \context Voice \relative c'' {
 		 \times 2/3 { a8 b c }
-		 \times 2/3 { r8  b-[ f] }
+		 \times 2/3 { r8  b[ f] }
 		 \property Voice.TupletBracket \set #'bracket-flare = #'(0.5 . 0.5)
 		 \times 2/3 { r8 b r8 }
 		 c4 |

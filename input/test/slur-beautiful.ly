@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 % TODO bit too wordy; edit a bit to cut stuff.  -gp
 \header { texidoc ="@cindex Slur Beautiful
 Similarly, the curvature of a slur is adjusted to stay clear of note
@@ -15,10 +15,10 @@ one.  You can indicate this preference by increasing the
 
 \score { \notes {\relative c' {
   \stemDown \slurUp
-  c16-( a' f' a a f a, c,-)
-  c-( a' f' a a f d, c-)
+  c16( a' f' a a f a, c,)
+  c( a' f' a a f d, c)
   \property Voice.Slur \override #'beautiful = #5.0
-  c-( a' f' a a f d, c-)
+  c( a' f' a a f d, c)
 }}
 \paper { raggedright = ##t }
 }

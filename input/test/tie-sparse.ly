@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header { texidoc = "@cindex Tie Sparse
 Setting sparseTies causes only one tie to be

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header {
 
@@ -14,7 +14,7 @@
     \property Voice.Beam \override #'auto-knee-gap = ##f
     \property Voice.Beam \override #'positions = #'(-10 . 10)
        \stemUp
-   c16-[ c'' a f]
+   c16[ c'' a f]
 
    }
   }

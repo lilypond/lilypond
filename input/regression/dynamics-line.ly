@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
 texidoc=" Dynamics appear below or above the staff.  If multiple
 dynamics are linked with (de)crescendi, they should be on the same
@@ -12,14 +12,14 @@ line. Isolated dynamics may be forced up or down.
 \score{
 \notes\relative c''{
 a1^\sfz
-a1-\fff\> c,,-\!-\pp a'' a-\p
+a1\fff\> c,,\!\pp a'' a\p
 
 % We need this to test if we get two Dynamic line spanners
 a
 
 % because do_removal_processing ()
 % doesn't seem to post_process elements
-d-\f
+d\f
 
 a
 

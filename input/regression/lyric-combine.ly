@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header{
 texidoc= "Lyrics can be set to a melody automatically.  Excess lyrics will be
@@ -20,7 +20,7 @@ to work."
 m = \notes  \relative c'' {
 	\property Staff.automaticMelismata = ##t
 	\autoBeamOff
-	g8-( a-)  r8 \times 2/3 { g'8-( f e-) } r8 \grace {  d16-[ c b] } e4
+	g8( a)  r8 \times 2/3 { g'8( f e) } r8 \grace {  d16[ c b] } e4
 	\emptyText
 	d8.^"melisma" 	\melisma c16
 	\melismaEnd

@@ -1,11 +1,11 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header{
 texidoc = "Broken crescendi should be open on one side."
 }
 
 \score { \notes \relative c'' { 
-    c1 \< \break c1-\!  \> \break c1-\!
+    c1 \< \break c1\!  \> \break c1\!
   }
   \paper {
     linewidth = 4.\cm

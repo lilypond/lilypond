@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 \header {
 
 texidoc = "With the new chord syntax it's possible to associate
@@ -24,7 +24,7 @@ easier to process."
 	\property Voice.fingerHorizontalDirection = #LEFT
 	<< c-1  es-3 g-5 >> 4
 	\property Voice.fingerHorizontalDirection = #RIGHT
-	<< c-1  e-2 g-3 b-5 >> 4-\arpeggio
+	<< c-1  e-2 g-3 b-5 >> 4\arpeggio
 	\property Voice.fingerHorizontalDirection = #LEFT
 	<< c_1  e-2 g-3 b^5 >> 4
 	

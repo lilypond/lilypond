@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header{
 texidoc="
@@ -24,7 +24,7 @@ thenotes = \notes \relative cis' {
   g2 gis ~ |
   gis g4 gis |
   g2 gis( |
-  g!-) gis4 gis |
+  g!) gis4 gis |
   \break
   \key a \major
   gis2 gis ~ |
@@ -44,7 +44,7 @@ thenotes = \notes \relative cis' {
   % should get an accidental but it looks a bit silly and redundant.
   % See last g.
   
-  g!-) gis4 gis ~ | \break
+  g!) gis4 gis ~ | \break
   gis2  gis ~ | gis g ~\break
   g2 g
 }

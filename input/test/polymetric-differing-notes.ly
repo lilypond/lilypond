@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.0"
+\version "1.9.1"
 
 \header{ texidoc="
 
@@ -55,15 +55,15 @@ what happens on the inside: a 3/4 time signature is combined with a
 	    \time 3/4
 	    \property Staff.timeSignatureFraction= #'(9 . 8)
 	    \apply #display-music \apply #(scale-music-function '(2 . 3))
-	      \repeat unfold 6 { c8-[ c c-] }
+	      \repeat unfold 6 { c8[ c c] }
 	}
 	
     	\context Staff= DS {
 	    \time 3/4
 	    \property Staff.timeSignatureFraction= #'(10 . 8)
 	    \apply #display-music \apply #(scale-music-function '(3 . 5))
-	      { \repeat unfold 2 { c8-[ c c-] }
-		\repeat unfold 2 { c8-[  c-] }
+	      { \repeat unfold 2 { c8[ c c] }
+		\repeat unfold 2 { c8[  c] }
 		|  c4. c4. \times 2/3 { c8 c c } c4  }
 	}
 	>

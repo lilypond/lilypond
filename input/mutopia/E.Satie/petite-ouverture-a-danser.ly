@@ -8,7 +8,7 @@
   copyright =   "Public Domain"
 }
 
-\version "1.9.0"
+\version "1.9.1"
 
 \include "nederlands.ly"
 
@@ -37,27 +37,27 @@ i =  \context Staff \notes\relative c''{
   \context Voice=i
   \voiceOne
 
-  c8.( es16 bes4 ~ |  bes8-) r c8.( bes16 | des4 c8. bes16 | c4 ~  c8-) r |
-  c4( f,8. as16 | bes4 ~  bes8-) r | f8.( es16 f4 | es  f-) |
-  g8.( es16 f4 ~ |  f-) f8 r
+  c8.( es16 bes4 ~ |  bes8) r c8.( bes16 | des4 c8. bes16 | c4 ~  c8) r |
+  c4( f,8. as16 | bes4 ~  bes8) r | f8.( es16 f4 | es  f) |
+  g8.( es16 f4 ~ |  f) f8 r
 
   % Au mouvement
-  f4 ( g | a2 ~ |  a-) | a4-- a-> ~ | a8 r b!8.( a16 |  b4-) c-- ~ |
-  c8 r b8.( d16 | a4 ~  a8-) r | d4( cis | c! b8. d16 | a4 ~  a8-) r
+  f4 ( g | a2 ~ |  a) | a4-- a-> ~ | a8 r b!8.( a16 |  b4) c-- ~ |
+  c8 r b8.( d16 | a4 ~  a8) r | d4( cis | c! b8. d16 | a4 ~  a8) r
 
-  a8.( g16 a4 ~  a8-) r |
+  a8.( g16 a4 ~  a8) r |
 
-  a4-> ~ a8 r | g8.( a16  fis4-) | e8.( d16 e4 | fis ~  fis8-) r
+  a4-> ~ a8 r | g8.( a16  fis4) | e8.( d16 e4 | fis ~  fis8) r
 
-  d4( d-- ~  d8-) r e4( f!2 ~ |
+  d4( d-- ~  d8) r e4( f!2 ~ |
 
-  f4 ~  f8-) r | es4( g | as bes ~ |  bes-) c( |  b!2-) | c4( d |  bes2-) | c4~ c8 r |
+  f4 ~  f8) r | es4( g | as bes ~ |  bes) c( |  b!2) | c4( d |  bes2) | c4~ c8 r |
   
   % copy from begin: 1-10
-  c8.( es16 bes4 ~ |  bes8-) r c8.( bes16 | des4 c8. bes16 | c4 ~  c8-) r |
-  c4( f,8. as16 | bes4 ~  bes8-) r | f8.( es16 f4 | es  f-) |
-%  g8.( es16 f4 ~ |  f-) f8 r ?
-  g8.( es16 f4 ~ |  f-) ~ f8 r
+  c8.( es16 bes4 ~ |  bes8) r c8.( bes16 | des4 c8. bes16 | c4 ~  c8) r |
+  c4( f,8. as16 | bes4 ~  bes8) r | f8.( es16 f4 | es  f) |
+%  g8.( es16 f4 ~ |  f) f8 r ?
+  g8.( es16 f4 ~ |  f) ~ f8 r
   
 }
 
