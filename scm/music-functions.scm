@@ -87,7 +87,7 @@ First it recurses over the children, then the function is applied to MUSIC.
 (define (markup-expression->make-markup markup-expression)
   "Transform `markup-expression' into an equivalent, hopefuly readable, scheme expression.
 For instance, 
-  \markup \bold \italic hello
+  \\markup \\bold \\italic hello
 ==>
   (markup #:line (#:bold (#:italic (#:simple \"hello\"))))"
   (define (proc->command-keyword proc)
@@ -109,15 +109,15 @@ For instance,
   ;; body:
   `(markup ,@(inner-markup->make-markup markup-expression)))
 
+(define (music-expression? obj)
+  (ly:music? obj))
+
 (define*-public (music-pretty-string obj #:optional (depth 0))
   "Return a string describing `obj', in particular music expression
 will be printed as: (make-music 'MusicType 'property ...)"
-  (define (markup-expression? obj)
-    (and (list? obj) (markup-function? (car obj))))
-  (define (music-expression? obj)
-    (ly:music? obj))
+  
   (cond (;; markup expression
-	 (markup-expression? obj)
+	 (markup? obj)
 	 (format #f "~a" (markup-expression->make-markup obj)))
 	(;; music expression
 	 (music-expression? obj)
@@ -128,7 +128,7 @@ will be printed as: (make-music 'MusicType 'property ...)"
 				(+ 2 (* 13 depth))
 				(car prop)
 				(cond (;; property is a markup expression
-				       (markup-expression? (cdr prop))
+				       (markup? (cdr prop))
 				       (music-pretty-string (cdr prop) (1+ depth)))
 				      (;; property is a list
 				       (list? (cdr prop))
