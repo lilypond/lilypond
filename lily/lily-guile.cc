@@ -25,6 +25,28 @@
 #include "pitch.hh"
 #include "dimensions.hh"
 
+#ifdef PARANOID
+#include <libguile/gc.h>
+#undef gh_pair_p
+bool
+ly_pair_p (SCM x)
+{
+#if 0
+  assert (!SCM_CONSP (x) || (*(scm_t_bits*) SCM2PTR (SCM_CAR (x))) != scm_tc_free_cell);
+  assert (!SCM_CONSP (x) || (*(scm_t_bits*) SCM2PTR (SCM_CDR (x))) != scm_tc_free_cell);
+#elif GUILE_MINOR_VERSION < 5
+  assert (!SCM_CONSP (x) || !SCM_FREEP (SCM_CAR (x)));
+  assert (!SCM_CONSP (x) || !SCM_FREEP (SCM_CDR (x)));
+#else
+  assert (!SCM_CONSP (x) || !SCM_FREE_CELL_P (SCM_CAR (x)));
+  assert (!SCM_CONSP (x) || !SCM_FREE_CELL_P (SCM_CDR (x)));
+#endif  
+  //return SCM_NFALSEP (scm_pair_p (x));
+  return gh_pair_p (x); 
+}
+#define gh_pair_p ly_pair_p
+#endif
+
 SCM
 ly_last (SCM list)
 {

@@ -193,7 +193,7 @@ AC_DEFUN(STEPMAKE_COMPILE, [
 ])
 
 AC_DEFUN(STEPMAKE_CXX, [
-    AC_LANG([C++])
+    AC_LANG_CPLUSPLUS
     AC_PROG_CXX
     STEPMAKE_OPTIONAL_REQUIRED(CXX, c++, $1)
 
@@ -248,8 +248,7 @@ AC_DEFUN(STEPMAKE_END, [
     AC_SUBST(OPTIONAL)
     AC_SUBST(REQUIRED)
     
-    AC_CONFIG_FILES([$CONFIGFILE.make:config.make.in])
-AC_OUTPUT
+    AC_OUTPUT($CONFIGFILE.make:config.make.in)
 
     
     if test -n "$OPTIONAL"; then
@@ -292,7 +291,7 @@ AC_DEFUN(STEPMAKE_FLEX, [
     # AC_PROG_LEX
     # urg: automake 1.3: hope this doesn't break 1.2 ac_cv_pro_lex_root hack...
 
-    # AC_PROG_LEX()
+    # AC_DECL_YYTEXT
     # ugh, ugh
     ac_cv_prog_lex_root=lex.yy
     STEPMAKE_PROGS(FLEX, flex, $1)
@@ -300,7 +299,7 @@ AC_DEFUN(STEPMAKE_FLEX, [
 
 
 AC_DEFUN(STEPMAKE_FLEXLEXER, [
-    AC_CHECK_HEADERS([FlexLexer.h],[true],[false])
+    AC_HAVE_HEADERS(FlexLexer.h, true, false)
     if test $? -ne 0; then
 	warn='FlexLexer.h (flex package)'
 	STEPMAKE_ADD_ENTRY($1, $warn)
@@ -619,9 +618,9 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     [kpathsea_b=$with_kpathsea])
 
     if test "$kpathsea_b" != "no"; then	
-	AC_CHECK_HEADERS([kpathsea/kpathsea.h])
+	AC_HAVE_HEADERS(kpathsea/kpathsea.h)
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
-	AC_CHECK_FUNCS(kpse_find_file,, AC_MSG_ERROR([Cannot find kpathsea functions.  You should install kpathsea; see INSTALL.txt.  Rerun ./configure --without-kpathsea only if kpathsea is not available for your platform.]))
+	AC_CHECK_FUNCS(kpse_find_file,, AC_ERROR(Cannot find kpathsea functions.  You should install kpathsea; see INSTALL.txt.  Rerun ./configure --without-kpathsea only if kpathsea is not available for your platform.))
     fi
     AC_MSG_CHECKING(whether to use kpathsea)
     if test "$kpathsea_b" != no; then
@@ -771,7 +770,7 @@ AC_DEFUN(STEPMAKE_PERL, [
 
 
 AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
-    AC_CHECK_HEADERS([python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h],[PYTHON_HEADER=yes])
+    AC_HAVE_HEADERS(python2.2/Python.h python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h, PYTHON_HEADER=yes)
     if test -z "$PYTHON_HEADER"; then
 	warn='python.h (python-devel, python-dev or libpython-dev package)'
 	STEPMAKE_ADD_ENTRY($1, $warn)

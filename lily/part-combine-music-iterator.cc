@@ -132,7 +132,14 @@ get_music_info (Moment m, Music_iterator* iter, SCM *pitches, SCM *durations)
 	  if (Melodic_req *r = dynamic_cast<Melodic_req *> (m))
 	    *pitches = gh_cons (r->get_mus_property ("pitch"), *pitches);
 	  if (Rhythmic_req *r = dynamic_cast<Rhythmic_req *> (m))
-	    *durations = gh_cons (r->get_mus_property ("duration"), *durations);
+	    {
+	      SCM d = r->get_mus_property ("duration");
+	      if (d == SCM_EOL)
+		r->origin ()->warning ("Rhythmic_req has no duration\n");
+		else
+		  // *durations = gh_cons (r->get_mus_property ("duration"), *durations);
+		  *durations = gh_cons (d, *durations);
+	    }
 	}
     }
 }
@@ -202,25 +209,25 @@ Part_combine_music_iterator::get_state (Moment)
 	  if (first_pitches != SCM_EOL && second_pitches != SCM_EOL)
 	    {
 	      scm_sort_list_x (first_pitches,
-			       scm_primitive_eval (ly_str02scm ("Pitch::less_p")));
+			       scm_primitive_eval (ly_symbol2scm ("Pitch::less_p")));
 	      scm_sort_list_x (second_pitches,
-			       scm_primitive_eval (ly_str02scm ("Pitch::less_p")));
+			       scm_primitive_eval (ly_symbol2scm ("Pitch::less_p")));
 
 	      interval = gh_int2scm (unsmob_pitch (ly_car (first_pitches))->steps ()
 				     - unsmob_pitch (ly_car (scm_last_pair (second_pitches)))->steps ());
 	    }
-	  
+
 	  if (first_durations != SCM_EOL)
 	    {
 	      scm_sort_list_x (first_durations,
-			       scm_primitive_eval (ly_str02scm ("Duration::less_p")));
+			       scm_primitive_eval (ly_symbol2scm ("Duration::less_p")));
 	      first_mom += unsmob_duration (ly_car (first_durations))->length_mom ();
 	    }
 	  
 	  if (second_durations != SCM_EOL)
 	    {
 	      scm_sort_list_x (second_durations,
-			       scm_primitive_eval (ly_str02scm ("Duration::less_p")));
+			       scm_primitive_eval (ly_symbol2scm ("Duration::less_p")));
 	      second_mom += unsmob_duration (ly_car (second_durations))->length_mom ();
 	    }
 	  

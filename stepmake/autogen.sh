@@ -3,23 +3,23 @@
 
 srcdir=`dirname $0`
 
-# Be paranoid: check for autoconf >= 2.50
+# Be paranoid: check for autoconf == 2.13
 # Some setups have both autoconf 2.13 and 2.50 available through
 # a wrapper script: /usr/bin/autoconf.
-# This wrapper may correctly autoselect autoconf 2.50, but it
+# This wrapper may incorrectly autoselect autoconf 2.50, but it
 # advertises itself as autoconf 2.13.
 # If you have such a setup, invoke this script as:
-#   autoconf=autoconf ./autogen.sh
-for i in in autoconf autoconf2.50 false; do
+#   autoconf=autoconf2.13 ./autogen.sh
+for i in autoconf autoconf2.13 false; do
   version=`$i --version 2>/dev/null | head -1 | awk '{print $NF}' | awk -F. '{print $1 * 100 + $2}'`
-  if test "0$version" -ge 250; then
+  if test "0$version" -eq 213; then
     autoconf=$i
     break
   fi
 done
 
 if test -z "$autoconf"; then
-    echo "ERROR: Please install autoconf 2.50 or newer"
+    echo "ERROR: Please install autoconf 2.13"
     exit 1
 fi
 

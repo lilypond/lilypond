@@ -23,6 +23,7 @@
 #include "config.h"
 #include "drul-array.hh"
 
+
 /* Guile 1.3.4 compatibility */
 #if GUILE_MINOR_VERSION < 4
 
@@ -67,7 +68,6 @@
 #define SCM_SYMBOL_CHARS SCM_CHARS
 #define SCM_SYMBOL_LENGTH SCM_LENGTH
 #endif
-
 
 
 #include "direction.hh"
@@ -168,7 +168,12 @@ inline SCM ly_assoc_front_x(SCM alist, SCM key, SCM val)
 {
   return scm_acons(key, val, scm_assoc_remove_x (alist, key));
 }
+#ifdef PARANOID
+#define gh_pair_p ly_pair_p
+bool ly_pair_p (SCM x);
+#else
 inline bool ly_pair_p (SCM x) { return SCM_NFALSEP (scm_pair_p (x)); }
+#endif
 inline bool ly_symbol_p (SCM x) { return SCM_SYMBOLP (x); }
 inline bool ly_number_p (SCM x) { return SCM_NUMBERP (x); }
 inline bool ly_procedure_p (SCM x) { return SCM_NFALSEP (scm_procedure_p(x)); }

@@ -20,7 +20,7 @@ export TFMFONTS:=
 
 export extra_mem_top=1000000
 export extra_mem_bottom=1000000
-export pool_size=250000
+export pool_size=500000
 
 
 ifdef DEB_BUILD
