@@ -60,7 +60,6 @@ Accidental_interface::accurate_boxes (Grob *a,Grob**common)
     {
       SCM cstyle = a->get_property ("cautionary-style");
       parens = ly_c_equal_p (cstyle, ly_symbol2scm ("parentheses"));
-
     }
 
   SCM accs = a->get_property ("accidentals");

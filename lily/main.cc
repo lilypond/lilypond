@@ -119,7 +119,7 @@ static Getopt_long *option_parser = 0;
 static Long_option_init options_static[] =
   {
     {_i ("EXPR"), "evaluate", 'e',
-     _i ("set options, use -e '(ly-option-usage)' for help")},
+     _i ("set options, use -e '(ly:option-usage)' for help")},
     /* Bug in option parser: --output=foe is taken as an abbreviation
        for --output-format.  */
     {_i ("EXT"), "format", 'f', _i ("use output format EXT")},
