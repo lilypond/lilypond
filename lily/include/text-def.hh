@@ -28,10 +28,9 @@ public:
     String text_str_;
     String style_str_;
     
-    /* *************** */
     virtual void do_print() const;
     virtual ~Text_def() {};
-    bool do_equal_b(const Text_def&)const;
+    virtual bool do_equal_b(const General_script_def*)const;
     Text_def();
     virtual void print() const;
     Interval width(Paper_def*) const;

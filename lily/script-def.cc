@@ -44,13 +44,13 @@ Script_def::do_print() const
 }
 
 bool
-Script_def::do_equal_b(General_script_def const &g)const 
+Script_def::do_equal_b(General_script_def const *g)const 
 {
-    Script_def const & c = (Script_def const&) g;
-    return (symidx_str_ == c.symidx_str_ &&
-	     rel_stem_dir_i_ == c.rel_stem_dir_i_&&
-	     staff_dir_i_ == c.staff_dir_i_&&
-	     invertsym_b_ == c.invertsym_b_);
+    Script_def const * c = (Script_def const*) g;
+    return (symidx_str_ == c->symidx_str_ &&
+	     rel_stem_dir_i_ == c->rel_stem_dir_i_&&
+	     staff_dir_i_ == c->staff_dir_i_&&
+	     invertsym_b_ == c->invertsym_b_);
 }
 
 int
