@@ -135,20 +135,20 @@ the input itself, line by line.
 
 verb(% lines preceded by a percent are comments.)COMMENT(
 
-)The percent sign, `code(%)', introduces a line comment.  If you want
+)The percent sign, `code(%)', introduces a line comment.  If you want to
 make larger comments, you can use block comments. These are delimited
-by `code(%{)' and `code(%})'
+by `code(%{)' and `code(%})'COMMENT(
 
-verb(\input "paper16.ly")
+)verb(\input "paper16.ly")COMMENT(
 
-By default, LilyPond will use definitions for a staff of 20
+)By default, LilyPond will use definitions for a staff of 20
 nop(point)footnote(A point is the standard measure of length for
 printing.  One point is 1/72.27 inch.)
 
 high.  If you want smaller output (e.g., 16 point), you have to import
 the settings for that size.  You can do this by including a file.
 code(\include "file") is replaced by the contents of code(file).
-LilyPond will inspect the standard search to look for the requested 
+LilyPond will inspect the standard search path to look for the requested 
 file.COMMENT(
 
 )verb(\score {
@@ -191,10 +191,9 @@ COMMENT(
 notes that are to be played and printed after each other.  This is in
 contrast with simultaneous music: notes that are to be played like a
 chord.  You should be careful not to confuse this brace with the one
-coming after code(\score).
+coming after code(\score).COMMENT(
 
-
-verb(
+)verb(
         \time 3/4;		% set the time signature.
 ) COMMENT(
 
@@ -230,7 +229,7 @@ designates the duration of the note (it is a quarter note). COMMENT(
 )These are notes with pitch code(a') and code(b').  Because their
 duration is the same as the code(g), there is no need to enter the
 duration (It is not illegal to enter it anyway.  You would then enter
-code(a8 b8)) COMMENT(
+code(a4 b4)) COMMENT(
 
 )verb(
           d4 g, g |
@@ -238,7 +237,7 @@ code(a8 b8)) COMMENT(
 
 ) Three more notes:  The code(|) is a ``barcheck''.  When processing the
 music, LilyPond will check  that barchecks are found at the start of
-a bar.  This can help you track down notes you forgot to enter. 
+a measure.  This can help you track down notes you forgot to enter. 
 verb(
         e'4 c8 d e fis
 ) COMMENT(
@@ -252,11 +251,11 @@ verb(
         c4 d8( )c b a( )b4 c8 b a g |
 ) COMMENT(
 
-) The next line shows something new: In mudela, one enters a slur by
-marking the beginning and ending note of the slur with an opening and
+) The next line shows how to make a slur:
+the beginning and ending note of the slur is marked with an opening and
 closing parenthesis respectively.  In the line shown above this is
 done for two slurs.  Note that parentheses (slur markers) are between
-the notes.  As you can see, parentheses do not have to nest.
+the notes.  COMMENT(As you can see, parentheses do not have to nest.)
 verb(
         a4 b8 a g fis g2.  |
 ) COMMENT(
@@ -277,13 +276,13 @@ verb(
 needed: the first C sharp will be printed with an accidental, the
 second one without.  COMMENT(
 
-)verb( a8-. b-. cis-. d-. e-. fis-. % try some super and subscripts.)COMMENT(
+)verb( a8-. b-. cis-. d-. e-. fis-. )COMMENT(
 
-)There is more to music than  pitches and rhythms.  An important
-aspect is articulation.  You can enter articulation signs either in an
-abbreviated form, by a dash and the the character for the
-articulation to use,  e.g. code(-.) for staccato as shown above.
-COMMENT(
+)There is more to music than pitches and rhythms.  An important aspect
+is articulation.  You can enter articulation signs either in a verbose
+in abbreviated for.  Here we demonstrate the abbreviated form: it is
+formed by a dash and the the character for the articulation to use,
+e.g. code(-.) for staccato as shown above.  COMMENT(
 
 )verb(
         fis a,  r8 cis8
@@ -311,21 +310,20 @@ verb(
 This ends the sequential music.
 
 verb(\paper {
-            linewidth = 10.0\cm;
+            linewidth = 14.0\cm;
 })
 This specifies a conversion from music to notation output.  Most of
 the details of this conversions (font sizes, dimensions, etc.) have
 been taken care of, but  to fit the output  in this document, it has
-to be smaller.  We do this by setting the line width to 10 centimeter
+to be smaller.  We do this by setting the line width to 10 centimeters
 (approximately 4 inches).
+COMMENT(
 
-verb(
+)verb(
         }
 )COMMENT(
 
 )The last brace ends the code(\score) block.
-
-
 
 There are a couple of things to note here.  The input format tries to
 capture the meaning of em(music), and not notation.  Therefore the
@@ -802,12 +800,6 @@ but within the language, they are "Music": they are grammatically
 equivalent to notes, so they can appear in the same places as notes.
 
 sect(Notation context)
-
-COMMENT(This section is about translation contexts, a topic of LilyPond that
-is  advanced.  You don't have to understand this to use
-LilyPond to print simple music.  If you don't want to typeset fancy
-polyphonic music or tweak the LilyPond notation engine, you can skip
-the next two sections.)
 
 In bind(Section)ref(tutorial:more-staffs) it was explained that there
 are more ways to notate a simple chord: as a single voice on a single
@@ -1596,11 +1588,10 @@ switch = \context Voice = voiceA \notes { s4 \translator Staff = staffB s4
 )
 
 If you want to switch staffs you are in the middle of a slur or a
-beam, you should take special precautions.  In the paper block,
-you must tell how far the staffs will be apart:
+beam, the staffs should have a fixed distance.  You do this by using the PianoStaff context.
 mudela(verbatim,center)(
 \score{
-  \context GrandStaff <
+  \context PianoStaff <
     \context Staff=one \notes{ s2 }
     \context Staff=two \notes\relative c{
       \time 4/8;
@@ -1612,18 +1603,9 @@ mudela(verbatim,center)(
   >
   \paper {
     linewidth=-1.0;
-    % slur damping gets confused
-    slur_slope_damping = 100.0;
-    \translator{
-      % we're using a grand staff
-      \GrandStaffContext  
-      minVerticalAlign = 3.0*\staffheight;
-      maxVerticalAlign = 3.0*\staffheight;
-    }
   }
 }
 )
-as LilyPond cannot determine the interstaff distance.
 
 sect(Tuplets)
 
@@ -1695,3 +1677,6 @@ COMMENT(
     }
 )
 
+sect(Grace notes)
+
+sect(\rhythm)
