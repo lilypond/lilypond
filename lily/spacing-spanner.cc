@@ -121,7 +121,7 @@ loose_column (Grob *l, Grob *c, Grob *r)
     some cases (two isolated, consecutive clef changes) won't be
     nicely folded, but hey, then don't do that.
   */
-  if(!  ((Paper_column::is_musical (l_neighbor) || Item::is_breakable (l_neighbor))
+  if (!  ((Paper_column::is_musical (l_neighbor) || Item::is_breakable (l_neighbor))
 	 && (Paper_column::is_musical (r_neighbor) || Item::is_breakable (r_neighbor))) )
     {
       return false;
@@ -167,13 +167,13 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
   Real increment = robust_scm2double (me->get_property ("spacing-increment"), 1.2);
   for (int i=0; i < cols->size ();  i++)
     {
-      if (Item::is_breakable (cols->elem(i)) || Paper_column::is_musical (cols->elem (i)))
+      if (Item::is_breakable (cols->elem (i)) || Paper_column::is_musical (cols->elem (i)))
 	{
-	  newcols.push (cols->elem(i));
+	  newcols.push (cols->elem (i));
 	  continue;
 	}
 
-      Grob *c = cols->elem(i);
+      Grob *c = cols->elem (i);
       if (loose_column (cols->elem (i-1), c, cols->elem (i+1)))
 	{
 	  SCM lns = c->get_property ("left-neighbors");
@@ -197,7 +197,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 	  next_door[LEFT] =cols->elem (i - 1);
 	  next_door[RIGHT] =cols->elem (i + 1);	  
 	  Direction d = LEFT;
-	  Drul_array<Real> dists(0,0);
+	  Drul_array<Real> dists (0,0);
 
 	  do
 	    {
@@ -246,7 +246,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 
 	  Rod r;
 	  r.distance_ = dists[LEFT] + dists[RIGHT];
-	  r.item_l_drul_[LEFT] = dynamic_cast<Item*> (cols->elem(i-1));
+	  r.item_l_drul_[LEFT] = dynamic_cast<Item*> (cols->elem (i-1));
 	  r.item_l_drul_[RIGHT] = dynamic_cast<Item*> (cols->elem (i+1));
 
 	  r.add_to_cols ();
@@ -266,7 +266,7 @@ Spacing_spanner::prune_loose_columns (Grob*me,Link_array<Grob> *cols, Rational s
 void
 Spacing_spanner::set_explicit_neighbor_columns (Link_array<Grob> cols)
 {
-  for (int i=0; i < cols.size(); i++)
+  for (int i=0; i < cols.size (); i++)
     {
       SCM right_neighbors = SCM_EOL;
       int min_rank = 100000;	// inf.
@@ -350,13 +350,13 @@ Spacing_spanner::set_implicit_neighbor_columns (Link_array<Grob> cols)
       SCM ln = cols[i] ->get_property ("left-neighbors");
       if (!gh_pair_p (ln) && i ) 
 	{
-	  cols[i]->set_property ("left-neighbors", gh_cons (cols[i-1]->self_scm(), SCM_EOL));
+	  cols[i]->set_property ("left-neighbors", gh_cons (cols[i-1]->self_scm (), SCM_EOL));
 	}
 
       SCM rn = cols[i] ->get_property ("right-neighbors");
       if (!gh_pair_p (rn) && i < cols.size () - 1) 
 	{
-	  cols[i]->set_property ("right-neighbors", gh_cons (cols[i + 1]->self_scm(), SCM_EOL));
+	  cols[i]->set_property ("right-neighbors", gh_cons (cols[i + 1]->self_scm (), SCM_EOL));
 	}
     }
 }
@@ -383,7 +383,7 @@ Spacing_spanner::set_springs (SCM smob)
       global_shortest = find_shortest (me, all);
       if (verbose_global_b)
 	{
-	  progress_indication (_f("Global shortest duration is %s\n", global_shortest.to_string ())); 
+	  progress_indication (_f ("Global shortest duration is %s\n", global_shortest.to_string ())); 
 	}
     }
   prune_loose_columns (me, &all, global_shortest);
@@ -442,14 +442,14 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 	  
 	  SCM  st = cols[i]->get_property ("shortest-starter-duration");
 	  Moment this_shortest = *unsmob_moment (st);
-	  assert (this_shortest.to_bool());
+	  assert (this_shortest.to_bool ());
 	  shortest_in_measure = shortest_in_measure <? this_shortest.main_part_;
 	}
       else if (!shortest_in_measure.is_infinity ()
 	       && Item::is_breakable (cols[i]))
 	{
 	  int j = 0;
-	  for (; j < durations.size(); j++)
+	  for (; j < durations.size (); j++)
 	    {
 	      if (durations[j] > shortest_in_measure)
 		{
@@ -464,19 +464,19 @@ Spacing_spanner::find_shortest (Grob *me, Link_array<Grob> const &cols)
 		}
 	    }
 
-	  if (durations.size() == j)
+	  if (durations.size () == j)
 	    {
 	      durations.push (shortest_in_measure);
 	      counts.push (1);
 	    }
 
-	  shortest_in_measure.set_infinite(1); 
+	  shortest_in_measure.set_infinite (1); 
 	}
     }
 
   int max_idx = -1;
   int max_count = 0;
-  for (int i =durations.size(); i--;)
+  for (int i =durations.size (); i--;)
     {
       if (counts[i] >= max_count)
 	{
@@ -670,7 +670,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob * me, Item*l, Item*r,
 {
   *fixed = 0.0;
   Direction d = LEFT;
-  Drul_array<Item*> cols(l,r);
+  Drul_array<Item*> cols (l,r);
   
   do
     {

@@ -844,6 +844,35 @@ FI: avain, nuottiavain.
 
 @aref{C clef}, @aref{F clef}, @aref{G clef}.
 
+@aitem{cluster}
+
+A @emph{cluster} is a range of simultaneously sounding pitches that
+may change over time.  The set of available pitches to apply usually
+depends on the acoustic source.  Thus, in piano music, a cluster
+typically consists of a continuous range of the semitones as provided
+by the piano's fixed set of a chromatic scale.  In choral music, each
+singer of the choir typically may sing an arbitrary pitch within the
+cluster's range that is not bound to any diatonic, chromatic or other
+scale.  In electronic music, a cluster (theoretically) may even cover
+a continuous range of pitches, thus resulting in colored noise, such
+as pink noise.
+
+Clusters can be denoted in the context of ordinary staff notation by
+engraving simple geometrical shapes that replace ordinary notation of
+notes.  Ordinary notes as musical events specify starting time and
+duration of pitches; however, the duration of a note is expressed by
+the shape of the note head rather than by the horizontal graphical
+extent of the note symbol.  In contrast, the shape of a cluster
+geometrically describes the development of a range of pitches
+(vertical extent) over time (horizontal extent).  Still, the
+geometrical shape of a cluster covers the area in which any single
+pitch contained in the cluster would be notated as an ordinary note.
+
+@lilypond[relative=1,verbatim]
+    \apply #notes-to-clusters {  <c e > <b f'> <b g'> <c g> <f e>  }
+@end lilypond
+
+
 @aitem{comma}
 I: comma,
 F: comma,

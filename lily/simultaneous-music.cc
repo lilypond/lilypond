@@ -25,7 +25,7 @@ Simultaneous_music::start_mom () const
   return Music_sequence::minimum_start (get_property ("elements"));
 }
 
-Simultaneous_music::Simultaneous_music()
+Simultaneous_music::Simultaneous_music ()
 {
 
 }
@@ -36,7 +36,7 @@ Simultaneous_music::to_relative_octave (Pitch p)
   if (lily_1_8_relative)
     lily_1_8_compatibility_used = true;
   
-  return music_list_to_relative (music_list(), p, lily_1_8_relative);
+  return music_list_to_relative (music_list (), p, lily_1_8_relative);
 }
 
 ADD_MUSIC (Simultaneous_music);
@@ -47,4 +47,4 @@ Event_chord::to_relative_octave (Pitch p)
   return music_list_to_relative (music_list (), p, true);
 }
 
-ADD_MUSIC(Event_chord);
+ADD_MUSIC (Event_chord);

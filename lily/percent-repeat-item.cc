@@ -57,7 +57,7 @@ Percent_repeat_item_interface::x_percent (Grob *me, int count,
   return m;
 }
 
-MAKE_SCHEME_CALLBACK(Percent_repeat_item_interface,double_percent,1);
+MAKE_SCHEME_CALLBACK (Percent_repeat_item_interface,double_percent,1);
 SCM
 Percent_repeat_item_interface::double_percent (SCM grob)
 {
@@ -67,7 +67,7 @@ Percent_repeat_item_interface::double_percent (SCM grob)
   return m.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK(Percent_repeat_item_interface,beat_slash,1);
+MAKE_SCHEME_CALLBACK (Percent_repeat_item_interface,beat_slash,1);
 SCM
 Percent_repeat_item_interface::beat_slash (SCM grob)
 {

@@ -21,7 +21,7 @@ class Instrument_name_engraver : public Engraver
 {
   
 public:
-  TRANSLATOR_DECLARATIONS(Instrument_name_engraver);
+  TRANSLATOR_DECLARATIONS (Instrument_name_engraver);
 
 protected:
   Grob *text_;
@@ -87,7 +87,7 @@ Instrument_name_engraver::acknowledge_grob (Grob_info i)
 {
   if (Bar_line::has_interface (i.grob_))
     {
-      create_text();
+      create_text ();
     }
 
   if (dynamic_cast<Spanner*> (i.grob_)
@@ -123,10 +123,10 @@ Instrument_name_engraver::process_music ()
     a name to be attached to lyrics or chords. 
    */
   if (gh_string_p (get_property ("whichBar")))
-    create_text();
+    create_text ();
 }
 
-ENTER_DESCRIPTION(Instrument_name_engraver,
+ENTER_DESCRIPTION (Instrument_name_engraver,
 /* descr */       " Prints the name of the instrument (specified by "
 " @code{Staff.instrument} and @code{Staff.instr}) "
 "at the left of the staff. ",
@@ -142,7 +142,7 @@ ENTER_DESCRIPTION(Instrument_name_engraver,
 class Vocal_name_engraver : public Instrument_name_engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Vocal_name_engraver);
+  TRANSLATOR_DECLARATIONS (Vocal_name_engraver);
   virtual void create_text ();
 };
 
@@ -178,7 +178,7 @@ Vocal_name_engraver::create_text ()
 
 
 
-ENTER_DESCRIPTION(Vocal_name_engraver,
+ENTER_DESCRIPTION (Vocal_name_engraver,
 /* descr */       " Prints the name of the a lyric voice (specified by "
 " @code{Staff.vocalName} and @code{Staff.vocNam}) "
 "at the left of the staff. ",

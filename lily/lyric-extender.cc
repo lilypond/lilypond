@@ -71,7 +71,7 @@ Lyric_extender::print (SCM smob)
 
   Spanner *orig = dynamic_cast<Spanner*> (me->original_);
   bool last_line = orig
-    && (me->get_break_index () == orig->broken_intos_.size() - 2)
+    && (me->get_break_index () == orig->broken_intos_.size () - 2)
     && !Lyric_extender::is_visible (orig->broken_intos_.top ());
     
 

@@ -87,7 +87,7 @@ Multi_measure_rest::print (SCM smob)
     }
   while ((flip (&d)) != LEFT);
 
-  Real space = sp_iv.length();
+  Real space = sp_iv.length ();
 
   Real rx  = sp->get_bound (LEFT)->relative_coordinate (0, X_AXIS);
   /*
@@ -123,7 +123,7 @@ Multi_measure_rest::symbol_stencil (Grob *me, Real space)
       measures = gh_scm2int (m);
     }
   if (measures <= 0)
-    return Stencil();
+    return Stencil ();
   
 
   SCM limit = me->get_property ("expand-limit");
@@ -188,7 +188,7 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Real slt = me->get_paper ()->get_realvar (ly_symbol2scm ("linethickness"));
   Real y = slt * thick_thick/2 * ss;
   Real ythick = hair_thick * slt * ss;
-  Box b(Interval (0,  0 >? (width - 2 * ythick)), Interval (-y, y));
+  Box b (Interval (0,  0 >? (width - 2 * ythick)), Interval (-y, y));
   
   Real blot = width ? (.8 * (y <? ythick)) : 0.0;
   
@@ -282,7 +282,7 @@ Multi_measure_rest::church_rest (Grob*me, Font_metric *musfont, int measures,
     }
   
   Stencil mol; 
-  for (SCM  s = mols; gh_pair_p (s); s = gh_cdr(s))
+  for (SCM  s = mols; gh_pair_p (s); s = gh_cdr (s))
     {
       mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (gh_car (s)), inner_padding, 0);
     }
@@ -338,7 +338,7 @@ Multi_measure_rest::set_spacing_rods (SCM smob)
 	+ sym_width  + 2.0;			// 2.0 = magic!
   
       Real minlen  = robust_scm2double (me->get_property ("minimum-length"), 0.0);
-      rod.distance_ = max(rod.distance_,
+      rod.distance_ = max (rod.distance_,
 			  minlen);
       rod.add_to_cols ();
     }

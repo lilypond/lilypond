@@ -46,7 +46,7 @@ bool
 translator_accepts_any_of (Translator*tr, SCM ifaces)
 {
   SCM ack_ifs = scm_assoc (ly_symbol2scm ("events-accepted"),
-			   tr->translator_description());
+			   tr->translator_description ());
   ack_ifs = gh_cdr (ack_ifs);
   for (SCM s = ifaces; ly_pair_p (s); s = ly_cdr (s))
     if (scm_memq (ly_car (s), ack_ifs) != SCM_BOOL_F)

@@ -130,7 +130,7 @@ Midi_walker::output_event (Moment now_mom, Midi_item* l)
     this is not correct, but at least it doesn't crash when you
     start with graces
    */
-  if (delta_t < Moment(0))
+  if (delta_t < Moment (0))
     {
       delta_t = Moment (0);
     }

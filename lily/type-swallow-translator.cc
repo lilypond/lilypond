@@ -15,7 +15,7 @@ protected:
   virtual bool try_music (Music*) { return true; }
 
 public:  
-  TRANSLATOR_DECLARATIONS(Skip_event_swallow_translator);
+  TRANSLATOR_DECLARATIONS (Skip_event_swallow_translator);
 };
 
 
@@ -25,13 +25,13 @@ protected:
   virtual bool try_music (Music*) { return true; }
 
 public:  
-  TRANSLATOR_DECLARATIONS(Rest_swallow_translator);
+  TRANSLATOR_DECLARATIONS (Rest_swallow_translator);
 };
 
 
-Skip_event_swallow_translator::Skip_event_swallow_translator(){}
+Skip_event_swallow_translator::Skip_event_swallow_translator (){}
 
-ENTER_DESCRIPTION(Skip_event_swallow_translator,
+ENTER_DESCRIPTION (Skip_event_swallow_translator,
 		  "Swallow \\skip.",
 		  "",
 		  "skip-event",
@@ -40,9 +40,9 @@ ENTER_DESCRIPTION(Skip_event_swallow_translator,
 		  "");
 
 
-Rest_swallow_translator::Rest_swallow_translator(){}
+Rest_swallow_translator::Rest_swallow_translator (){}
 
-ENTER_DESCRIPTION(Rest_swallow_translator,
+ENTER_DESCRIPTION (Rest_swallow_translator,
 		  "Swallow rest",
 		  "",
 		  "rest-event",
@@ -58,12 +58,12 @@ protected:
   virtual bool try_music (Music*) { return true; }
 
 public:  
-  TRANSLATOR_DECLARATIONS(Note_swallow_translator);
+  TRANSLATOR_DECLARATIONS (Note_swallow_translator);
 };
 
-Note_swallow_translator::Note_swallow_translator(){}
+Note_swallow_translator::Note_swallow_translator (){}
 
-ENTER_DESCRIPTION(Note_swallow_translator,
+ENTER_DESCRIPTION (Note_swallow_translator,
 		  "Swallow notes",
 		  "",
 		  "note-event",

@@ -24,7 +24,7 @@
 class Volta_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Volta_engraver);
+  TRANSLATOR_DECLARATIONS (Volta_engraver);
 protected:
 
   virtual void acknowledge_grob (Grob_info);
@@ -200,7 +200,7 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 	staff_ = SCM_UNDEFINED;
 
       if (staff_ != SCM_UNDEFINED)
-	staff_ = i.grob_->self_scm();
+	staff_ = i.grob_->self_scm ();
     }
 }
 
@@ -228,10 +228,10 @@ Volta_engraver::stop_translation_timestep ()
 	THIS IS A KLUDGE.
 
 	we need to do this here, because STAFF_ is not initialized yet
-	in the 1st call of process_music()
+	in the 1st call of process_music ()
       */
       
-      volta_span_->suicide( );
+      volta_span_->suicide ( );
       volta_span_ = 0;
     }
   
@@ -246,7 +246,7 @@ Volta_engraver::stop_translation_timestep ()
   TODO: should attach volta to paper-column if no bar is found.
  */
 
-ENTER_DESCRIPTION(Volta_engraver,
+ENTER_DESCRIPTION (Volta_engraver,
 /* descr */       "Make volta brackets",
 /* creats*/       "VoltaBracket",
 /* accepts */     "",

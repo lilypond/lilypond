@@ -19,7 +19,7 @@
 
 class Slur_performer : public Performer {
 public:
-  TRANSLATOR_DECLARATIONS(Slur_performer);
+  TRANSLATOR_DECLARATIONS (Slur_performer);
   
 protected:
   virtual bool try_music (Music *ev) ;
@@ -86,10 +86,10 @@ Slur_performer::try_music (Music *m)
   return false;
 }
 
-ENTER_DESCRIPTION(Slur_performer,"","",
+ENTER_DESCRIPTION (Slur_performer,"","",
 		  "slur-event","","","");
 
-Slur_performer::Slur_performer()
+Slur_performer::Slur_performer ()
 {
   slur_ = false;
 }

@@ -29,7 +29,7 @@ Simultaneous_music_iterator::derived_mark () const
 void
 Simultaneous_music_iterator::derived_substitute (Context *f,Context *t)
 {
-  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr (s))
     unsmob_iterator (gh_car (s))-> substitute_outlet (f,t);
 }
 
@@ -92,7 +92,7 @@ Simultaneous_music_iterator::process (Moment until)
 	}
       else
 	{
-	  proc = SCM_CDRLOC(*proc);
+	  proc = SCM_CDRLOC (*proc);
 	}
     }
 }
@@ -103,7 +103,7 @@ Simultaneous_music_iterator::pending_moment () const
   Moment next;
   next.set_infinite (1);
   
-  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr (s))
     {
       Music_iterator * it = unsmob_iterator (gh_car (s));
       next = next <? it->pending_moment ();
@@ -116,7 +116,7 @@ bool
 Simultaneous_music_iterator::ok () const
 {
   bool run_always_ok = false; 
-  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr (s))
     {
       Music_iterator * it = unsmob_iterator (gh_car (s));
       if (!it->run_always ())
@@ -130,7 +130,7 @@ Simultaneous_music_iterator::ok () const
 bool
 Simultaneous_music_iterator::run_always () const
 {
-  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr (s))
     {
       Music_iterator * it = unsmob_iterator (gh_car (s));
       if (it->run_always ())
@@ -143,7 +143,7 @@ Music_iterator*
 Simultaneous_music_iterator::try_music_in_children (Music *m) const
 {
   Music_iterator * b=0;
-  for (SCM s = children_list_; !b && gh_pair_p (s); s = gh_cdr(s))
+  for (SCM s = children_list_; !b && gh_pair_p (s); s = gh_cdr (s))
     b =unsmob_iterator (gh_car (s))->try_music (m);
   return b;
 }
@@ -151,8 +151,8 @@ Simultaneous_music_iterator::try_music_in_children (Music *m) const
 void
 Simultaneous_music_iterator::do_quit ()
 {
-  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr(s))
-    unsmob_iterator (gh_car (s))->quit();
+  for (SCM s = children_list_; gh_pair_p (s); s = gh_cdr (s))
+    unsmob_iterator (gh_car (s))->quit ();
 }
 
 IMPLEMENT_CTOR_CALLBACK (Simultaneous_music_iterator);

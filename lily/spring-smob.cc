@@ -11,7 +11,7 @@
 #include "warn.hh"
 #include "ly-smobs.icc"
 
-Spring_smob::Spring_smob()
+Spring_smob::Spring_smob ()
 {
   distance_ =0.;
   strength_ =1.0;
@@ -20,7 +20,7 @@ Spring_smob::Spring_smob()
 }
 
 
-IMPLEMENT_SIMPLE_SMOBS(Spring_smob);
+IMPLEMENT_SIMPLE_SMOBS (Spring_smob);
 
 SCM
 Spring_smob::mark_smob (SCM) { return SCM_UNSPECIFIED; }
@@ -29,7 +29,7 @@ int
 Spring_smob::print_smob (SCM s, SCM p, scm_print_state *)
 {
   Spring_smob *ss = unsmob_spring (s);
-  scm_puts (_f("#<spring smob d= %f>", ss->distance_).to_str0 (), p);
+  scm_puts (_f ("#<spring smob d= %f>", ss->distance_).to_str0 (), p);
   return 1;
 }
 

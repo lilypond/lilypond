@@ -83,7 +83,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 0, (SCM sip, SCM msg),
 	  "Print @var{msg} as a GNU compliant error message, pointing to the"
 	   "location in @var{sip}.\n")
 {
-  Input *ip = unsmob_input(sip);
+  Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
   SCM_ASSERT_TYPE (gh_string_p (msg), msg, SCM_ARG2, __FUNCTION__, "string");
 

@@ -25,7 +25,7 @@ protected:
   virtual void process_music ();
 
 public:
-  TRANSLATOR_DECLARATIONS(Rest_engraver);
+  TRANSLATOR_DECLARATIONS (Rest_engraver);
 };
 
 
@@ -100,7 +100,7 @@ Rest_engraver::process_music ()
 	  rest_->set_property ("staff-position", gh_int2scm (pos));
 	}
       
-      announce_grob(rest_, rest_req_->self_scm());
+      announce_grob (rest_, rest_req_->self_scm ());
     }
 }
 
@@ -115,7 +115,7 @@ Rest_engraver::try_music (Music *m)
   return false;
 }
 
-ENTER_DESCRIPTION(Rest_engraver,
+ENTER_DESCRIPTION (Rest_engraver,
 /* descr */       "",
 /* creats*/       "Rest Dots",
 /* accepts */     "rest-event",

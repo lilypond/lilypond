@@ -238,7 +238,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 
       String msg = _ ("Need 3 strings for piano pedals. No pedal made. ");
       if (m)
-	m->origin()->warning (msg);
+	m->origin ()->warning (msg);
       else
 	warning (msg);
       
@@ -272,7 +272,7 @@ Piano_pedal_engraver::create_text_grobs (Pedal_info *p, bool mixed)
 	    {
 	      s = ly_caddr (strings);
 	      if (previous_.size ())
-		previous_.pop();
+		previous_.pop ();
 	    }
 	  p->start_ev_ = 0;
 	}
@@ -329,8 +329,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
     {
       if (!p->event_drul_[START])
 	{
-	  if (previous_.size())
-	    previous_.pop();
+	  if (previous_.size ())
+	    previous_.pop ();
 	}
       
       assert (!p->finished_bracket_); 
@@ -421,8 +421,8 @@ Piano_pedal_engraver::create_bracket_grobs (Pedal_info *p, bool mixed)
 
 	    // position new pedal spanner below the current one
 	  */
-	  if (previous_.size()) 
-	    Side_position_interface::add_support (p->line_spanner_, previous_.top());
+	  if (previous_.size ()) 
+	    Side_position_interface::add_support (p->line_spanner_, previous_.top ());
 
 	  previous_.push (p->line_spanner_);	
 	}
@@ -441,7 +441,7 @@ Piano_pedal_engraver::finalize ()
 	suicide?
        */
       if (p->line_spanner_
-	  && !p->line_spanner_->live())
+	  && !p->line_spanner_->live ())
 	p->line_spanner_ = 0;
       
       if (p->line_spanner_)
@@ -450,7 +450,7 @@ Piano_pedal_engraver::finalize ()
 	  typeset_all ();
 	}
       if (p->bracket_
-	  && !p->bracket_->live())
+	  && !p->bracket_->live ())
 	p->bracket_ = 0;
       
       if (p->bracket_)
@@ -498,7 +498,7 @@ Piano_pedal_engraver::typeset_all ()
 	  && !p->finished_line_spanner_->live ())
 	p->finished_line_spanner_ = 0;
       if (p->finished_bracket_
-	  && !p->finished_bracket_->live())
+	  && !p->finished_bracket_->live ())
 	p->finished_bracket_ = 0;
 
 

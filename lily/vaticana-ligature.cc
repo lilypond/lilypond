@@ -100,14 +100,14 @@ vaticana_brew_flexa (Grob *me,
    */
   Real left_height =
     right_height +
-    min (0.12 * abs(interval), 0.3) * staff_space;
+    min (0.12 * abs (interval), 0.3) * staff_space;
 
   /*
    * Compensate optical illusion regarding vertical position of left
    * and right endings due to curved shape.
    */
-  Real ypos_correction = -0.1*staff_space * sign(interval);
-  Real interval_correction = 0.2*staff_space * sign(interval);
+  Real ypos_correction = -0.1*staff_space * sign (interval);
+  Real interval_correction = 0.2*staff_space * sign (interval);
   Real corrected_interval = interval*staff_space + interval_correction;
 
   /*
@@ -139,13 +139,13 @@ vaticana_brew_flexa (Grob *me,
       inner_top_curve.translate (Offset (0.0, -line_thickness));
       Stencil top_edge =
 	Lookup::bezier_sandwich (top_curve, inner_top_curve);
-      stencil.add_stencil(top_edge);
+      stencil.add_stencil (top_edge);
 
       Bezier inner_bottom_curve = bottom_curve;
       inner_bottom_curve.translate (Offset (0.0, +line_thickness));
       Stencil bottom_edge =
 	Lookup::bezier_sandwich (bottom_curve, inner_bottom_curve);
-      stencil.add_stencil(bottom_edge);
+      stencil.add_stencil (bottom_edge);
 
       /*
        * TODO: Use horizontal slope with proper slope value rather
@@ -158,14 +158,14 @@ vaticana_brew_flexa (Grob *me,
       Box left_edge_box (Interval (0, line_thickness),
 			 Interval (-0.5*left_height, +0.5*left_height));
       Stencil left_edge = Lookup::filled_box (left_edge_box);
-      stencil.add_stencil(left_edge);
+      stencil.add_stencil (left_edge);
 
       Box right_edge_box (Interval (-line_thickness, 0),
 			  Interval (-0.5*right_height, +0.5*right_height));
       Stencil right_edge = Lookup::filled_box (right_edge_box);
       right_edge.translate_axis (width, X_AXIS);
       right_edge.translate_axis (corrected_interval / 2.0, Y_AXIS);
-      stencil.add_stencil(right_edge);
+      stencil.add_stencil (right_edge);
     }
   stencil.translate_axis (ypos_correction, Y_AXIS);
   return stencil;
@@ -302,11 +302,11 @@ vaticana_brew_primitive (Grob *me, bool ledger_take_space)
       out.add_stencil (join);
     }
 
-  vaticana_add_ledger_lines(me, &out, pos, 0, ledger_take_space);
+  vaticana_add_ledger_lines (me, &out, pos, 0, ledger_take_space);
   if (!String::compare (glyph_name, "flexa"))
     {
       pos += flexa_height;
-      vaticana_add_ledger_lines(me, &out, pos, 0.5*flexa_height,
+      vaticana_add_ledger_lines (me, &out, pos, 0.5*flexa_height,
 				ledger_take_space);
     }
 

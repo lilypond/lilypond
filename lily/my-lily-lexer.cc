@@ -103,7 +103,7 @@ My_lily_lexer::My_lily_lexer ()
   
   scopes_ = SCM_EOL;
   
-  add_scope(ly_make_anonymous_module());
+  add_scope (ly_make_anonymous_module ());
   errorlevel_ =0; 
 
   main_input_b_ = false;
@@ -124,7 +124,7 @@ My_lily_lexer::add_scope (SCM module)
 						 gh_car (s), SCM_UNDEFINED),
 			     SCM_UNDEFINED);
       
-      scm_primitive_eval(expr);
+      scm_primitive_eval (expr);
     }
   
   scopes_ = scm_cons (module, scopes_);
@@ -155,7 +155,7 @@ My_lily_lexer::lookup_identifier (String s)
     {
       SCM var = ly_module_lookup (gh_car (s), sym);
       if (var != SCM_BOOL_F)
-	return scm_variable_ref(var);
+	return scm_variable_ref (var);
     }
 
   return SCM_UNDEFINED;
@@ -241,5 +241,5 @@ My_lily_lexer::here_input () const
 void
 My_lily_lexer::prepare_for_next_token ()
 {
-  last_input_ = here_input();
+  last_input_ = here_input ();
 }

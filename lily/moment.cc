@@ -57,10 +57,10 @@ LY_DEFINE (make_moment,"ly:make-moment", 2,0,0, (SCM n, SCM d),
 	   "notes, @var{g} is zero.\n"
 	   )
 {
-  SCM_ASSERT_TYPE(SCM_INUMP (n), n, SCM_ARG1, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE(SCM_INUMP (d), d, SCM_ARG2, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (SCM_INUMP (n), n, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (SCM_INUMP (d), d, SCM_ARG2, __FUNCTION__, "integer");
 
-  return Moment (Rational (gh_scm2int (n), gh_scm2int (d))).smobbed_copy();
+  return Moment (Rational (gh_scm2int (n), gh_scm2int (d))).smobbed_copy ();
 }
 
 LY_DEFINE (add_moment,"ly:add-moment", 2,0,0, (SCM a, SCM b),
@@ -72,7 +72,7 @@ LY_DEFINE (add_moment,"ly:add-moment", 2,0,0, (SCM a, SCM b),
   SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
   SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
 
-  return (*ma + *mb).smobbed_copy();
+  return (*ma + *mb).smobbed_copy ();
 }
 
 
@@ -85,7 +85,7 @@ LY_DEFINE (mul_moment,"ly:mul-moment", 2,0,0, (SCM a, SCM b),
   SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
   SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
 
-  return (*ma *  *mb).smobbed_copy();
+  return (*ma *  *mb).smobbed_copy ();
 }
 
 
@@ -99,7 +99,7 @@ LY_DEFINE (div_moment,"ly:div-moment", 2,0,0, (SCM a, SCM b),
   SCM_ASSERT_TYPE (ma, a, SCM_ARG1, __FUNCTION__, "moment");
   SCM_ASSERT_TYPE (mb, b, SCM_ARG2, __FUNCTION__, "moment");
 
-  return (*ma /  *mb).smobbed_copy();
+  return (*ma /  *mb).smobbed_copy ();
 }
 
 LY_DEFINE (ly_moment_less_p,"ly:moment<?", 2,0,0, (SCM a, SCM b),
@@ -149,8 +149,8 @@ Moment::Moment ()
 
 Moment::Moment (int m)
 {
-  main_part_ = Rational(m);
-  grace_part_  = Rational( 0);
+  main_part_ = Rational (m);
+  grace_part_  = Rational ( 0);
 }
 
 Moment::Moment (Rational m, Rational g)

@@ -37,7 +37,7 @@ protected:
   virtual void process_acknowledged_grobs ();
 
 public:
-  TRANSLATOR_DECLARATIONS(Phrasing_slur_engraver);
+  TRANSLATOR_DECLARATIONS (Phrasing_slur_engraver);
   
 };
 
@@ -143,7 +143,7 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 
 	  start_phrasing_slurs.push (phrasing_slur);
 	  eventses_.push (phrasing_slur_ev);
-	  announce_grob(phrasing_slur, phrasing_slur_ev->self_scm());
+	  announce_grob (phrasing_slur, phrasing_slur_ev->self_scm ());
 	}
     }
   for (int i=0; i < start_phrasing_slurs.size (); i++)
@@ -169,7 +169,7 @@ Phrasing_slur_engraver::start_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Phrasing_slur_engraver,
+ENTER_DESCRIPTION (Phrasing_slur_engraver,
 /* descr */       "Print phrasing slurs. Similar to @ref{Slur_engraver}",
 /* creats*/       "PhrasingSlur",
 /* accepts */     "phrasing-slur-event",

@@ -14,7 +14,7 @@
 class Note_name_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Note_name_engraver);
+  TRANSLATOR_DECLARATIONS (Note_name_engraver);
 
   Link_array<Music> events_;
   Link_array<Item> texts_;
@@ -53,7 +53,7 @@ Note_name_engraver::process_music ()
     {
       Item * t = make_item ("NoteName");
       t->set_property ("text", scm_makfrom0str (s.to_str0 ()));
-      announce_grob (t, events_[0]->self_scm());
+      announce_grob (t, events_[0]->self_scm ());
       texts_.push (t);
     }
 }
@@ -70,11 +70,11 @@ Note_name_engraver::stop_translation_timestep ()
 }
 
 
-Note_name_engraver::Note_name_engraver()
+Note_name_engraver::Note_name_engraver ()
 {
 }
 
-ENTER_DESCRIPTION(Note_name_engraver,
+ENTER_DESCRIPTION (Note_name_engraver,
 /* descr */       "",
 /* creats*/       "NoteName",
 /* accepts */     "note-event",

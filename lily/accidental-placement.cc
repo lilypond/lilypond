@@ -381,12 +381,11 @@ Accidental_placement::position_accidentals (Grob * me)
   head_ape-> left_skyline_ = head_skyline;
   head_ape->offset_ = 0.0;
 
-  head_ape->offset_ -= robust_scm2double ( me->get_property ("right-padding"), 0);
-
-  
   Real padding = robust_scm2double (me->get_property ("padding"),0.2);
 
   Array<Skyline_entry> left_skyline = head_ape->left_skyline_;
+  heighten_skyline (&left_skyline,
+		    -robust_scm2double (me->get_property ("right-padding"), 0));
   /*
     Add accs entries right-to-left.
    */

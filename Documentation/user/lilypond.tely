@@ -42,11 +42,13 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 HINTS FOR STYLE
 
+* Try not to use punctuation between introductocing sentence and
+display material (verbatim, music, example code).
+
 * don't refer to LilyPond in the text. The reader knows what the
 manual is about
 
 * if you do, capitalization is LilyPond.
-
 
 * don't explicitly refer to the reader/user.  There is no one else
 besides the reader and the writer.

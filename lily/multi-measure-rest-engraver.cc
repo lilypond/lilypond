@@ -22,7 +22,7 @@
 class Multi_measure_rest_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Multi_measure_rest_engraver);
+  TRANSLATOR_DECLARATIONS (Multi_measure_rest_engraver);
 
 protected:
   virtual bool try_music (Music*);
@@ -82,9 +82,9 @@ Multi_measure_rest_engraver::process_music ()
     {
       mmrest_ = make_spanner ("MultiMeasureRest");
 
-      if (text_events_.size())
+      if (text_events_.size ())
 	{
-	  for (int i = 0; i < text_events_.size(); i++)
+	  for (int i = 0; i < text_events_.size (); i++)
 	    {
 	      Spanner *sp
 		= make_spanner ("MultiMeasureRestText");
@@ -97,7 +97,7 @@ Multi_measure_rest_engraver::process_music ()
 		sp->set_property ("direction",dir);
 	      
 	      numbers_.push (sp);
-	      announce_grob (sp, e->self_scm());
+	      announce_grob (sp, e->self_scm ());
 	    }
 
 	  /*
@@ -106,7 +106,7 @@ Multi_measure_rest_engraver::process_music ()
 	  Direction d = DOWN; 
 	  do {
 	    Grob *last =0;
-	    for (int i=0; i <numbers_.size(); i++)
+	    for (int i=0; i <numbers_.size (); i++)
 	      {
 		if (gh_int2scm (d) == numbers_[i]->get_property ("direction"))
 		  {
@@ -122,16 +122,16 @@ Multi_measure_rest_engraver::process_music ()
 	  Spanner *sp
 	    = make_spanner ("MultiMeasureRestNumber");
 	  numbers_.push (sp);
-	  announce_grob (sp, rest_ev_->self_scm());
+	  announce_grob (sp, rest_ev_->self_scm ());
 	}
 
-      for (int i =0 ; i < numbers_.size(); i++)
+      for (int i =0 ; i < numbers_.size (); i++)
 	{
 	  Side_position_interface::add_support (numbers_[i], mmrest_);
 	  numbers_[i]->set_parent (mmrest_, Y_AXIS);
 	}
       
-      announce_grob (mmrest_, rest_ev_->self_scm());
+      announce_grob (mmrest_, rest_ev_->self_scm ());
       start_measure_
 	= gh_scm2int (get_property ("currentBarNumber"));
     }
@@ -148,7 +148,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
   
   if (bar_seen_)
     {
-      Grob *cmc = unsmob_grob (get_property("breakableSeparationItem"));
+      Grob *cmc = unsmob_grob (get_property ("breakableSeparationItem"));
       if (!cmc)
 	cmc = unsmob_grob (get_property ("currentCommandColumn"));
       
@@ -157,14 +157,14 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       if (mmrest_)
 	{
 	  add_bound_item (mmrest_, it);
-	  for (int i = 0; i < numbers_.size(); i++)
+	  for (int i = 0; i < numbers_.size (); i++)
 	    add_bound_item (numbers_[i], it);
 	}
       
       if (last_rest_)
 	{
 	  add_bound_item (last_rest_,it);
-	  for (int i = 0; i < last_numbers_.size(); i++)
+	  for (int i = 0; i < last_numbers_.size (); i++)
 	    add_bound_item (last_numbers_[i], it);
 	}      
     }
@@ -177,7 +177,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
       && mmrest_->get_bound (LEFT) && mmrest_->get_bound (RIGHT))
     {
       typeset_grob (mmrest_);
-      for (int i = 0 ; i < numbers_.size(); i++)
+      for (int i = 0 ; i < numbers_.size (); i++)
 	{
 	  typeset_grob (numbers_[i]);
 	}
@@ -202,7 +202,7 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
 	    }
 	}
       last_rest_ = 0;
-      last_numbers_.clear();
+      last_numbers_.clear ();
     }
 
   text_events_.clear ();
@@ -248,7 +248,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
       mmrest_ = 0;
       numbers_.clear ();
       
-      Grob * last = last_numbers_.size() ? last_numbers_[0] : 0;
+      Grob * last = last_numbers_.size () ? last_numbers_[0] : 0;
       if (last && last->get_property ("text") == SCM_EOL)
 	{
 	  SCM thres = get_property ("restNumberThreshold");
@@ -257,7 +257,7 @@ Multi_measure_rest_engraver::start_translation_timestep ()
 	    t = gh_scm2int (thres);
       
 	  if (num <= t)
-	    last->suicide();
+	    last->suicide ();
 	  else 
 	    {
 	      SCM text
@@ -290,7 +290,7 @@ Multi_measure_rest_engraver::finalize ()
 
 }
 
-ENTER_DESCRIPTION(Multi_measure_rest_engraver,
+ENTER_DESCRIPTION (Multi_measure_rest_engraver,
 /* descr */
 		  "Engraves multi-measure rests that are produced with @code{R}.  Reads "
 "measurePosition and currentBarNumber to determine what number to print "

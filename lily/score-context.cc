@@ -32,7 +32,7 @@ Score_context::one_time_step ()
 {
   Translator*  t = unsmob_translator (implementation_);
   Score_translator * s = dynamic_cast<Score_translator *> (t);
-  s->one_time_step();
+  s->one_time_step ();
 }
 
 

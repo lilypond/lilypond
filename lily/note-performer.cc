@@ -18,7 +18,7 @@ Convert evs to audio notes.
 */
 class Note_performer : public Performer {
 public:
-  TRANSLATOR_DECLARATIONS(Note_performer);
+  TRANSLATOR_DECLARATIONS (Note_performer);
   
 protected:
   virtual bool try_music (Music *ev) ;
@@ -115,9 +115,9 @@ Note_performer::try_music (Music* ev)
   return false;
 }
 
-ENTER_DESCRIPTION(Note_performer,"","",
+ENTER_DESCRIPTION (Note_performer,"","",
 		  "note-event busy-playing-event","","","");
 
-Note_performer::Note_performer()
+Note_performer::Note_performer ()
 {
 }

@@ -108,7 +108,7 @@ Paper_column::is_used (Grob*me)
   Print a vertical line and  the rank number, to aid debugging.  
  */
 
-MAKE_SCHEME_CALLBACK(Paper_column,print,1);
+MAKE_SCHEME_CALLBACK (Paper_column,print,1);
 SCM
 Paper_column::print (SCM p)
 {
@@ -138,7 +138,7 @@ Paper_column::print (SCM p)
 
   THIS IS BROKEN KLUDGE. WE SHOULD INVENT SOMETHING BETTER. 
  */
-MAKE_SCHEME_CALLBACK(Paper_column,before_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Paper_column,before_line_breaking,1);
 SCM
 Paper_column::before_line_breaking (SCM grob)
 {

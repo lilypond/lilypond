@@ -17,7 +17,7 @@ SCM
 internal_ly_parse_scm (Parse_start * ps, bool safe)
 {
   Source_file* sf =ps->start_location_.source_file_;
-  SCM port = sf->get_port();
+  SCM port = sf->get_port ();
 
   int off = ps->start_location_.defined_str0_ - sf->to_str0();
   
@@ -76,7 +76,7 @@ parse_handler (void * data, SCM tag, SCM args)
   ps->start_location_.error (_("GUILE signaled an error for the expression beginning here"));
 
   if (scm_ilength (args) > 2)
-    scm_display_error_message (gh_cadr (args), gh_caddr(args), scm_current_error_port());
+    scm_display_error_message (gh_cadr (args), gh_caddr (args), scm_current_error_port ());
 
   /*
     The following is a kludge; we should probably search for

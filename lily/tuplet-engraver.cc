@@ -20,7 +20,7 @@
 class Tuplet_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Tuplet_engraver);
+  TRANSLATOR_DECLARATIONS (Tuplet_engraver);
 
 protected:
   Link_array<Music> time_scaled_musics_;
@@ -85,7 +85,7 @@ Tuplet_engraver::process_acknowledged_grobs ()
 	  glep->set_property ("text", t);
 	}
       
-      announce_grob(glep, time_scaled_musics_ [i]->self_scm());
+      announce_grob (glep, time_scaled_musics_ [i]->self_scm ());
     }
 }
 
@@ -150,9 +150,9 @@ Tuplet_engraver::finalize ()
 
 
 
-Tuplet_engraver::Tuplet_engraver(){}
+Tuplet_engraver::Tuplet_engraver (){}
 
-ENTER_DESCRIPTION(Tuplet_engraver,
+ENTER_DESCRIPTION (Tuplet_engraver,
 /* descr */       "Catch Time_scaled_music and generate appropriate bracket  ",
 /* creats*/       "TupletBracket",
 /* accepts */     "time-scaled-music",

@@ -24,7 +24,7 @@
  */
 class Stem_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS(Stem_engraver);
+  TRANSLATOR_DECLARATIONS (Stem_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
@@ -94,14 +94,14 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 		- (duration_log > 2 ? duration_log - 2 : 0);
 	      if (tremolo_flags <= 0)
 		{
-		  tremolo_ev_->origin()->warning (_("tremolo duration is too long"));
+		  tremolo_ev_->origin ()->warning (_("tremolo duration is too long"));
 		  tremolo_flags = 0;
 		}
 
 	      if (tremolo_flags)
 		{
 		  tremolo_ = make_item ("StemTremolo");
-		  announce_grob(tremolo_, tremolo_ev_->self_scm());
+		  announce_grob (tremolo_, tremolo_ev_->self_scm ());
 
 		  /*
 		    The number of tremolo flags is the number of flags of
@@ -118,7 +118,7 @@ Stem_engraver::acknowledge_grob (Grob_info i)
 	  /*
 	    We announce the cause of the head as cause of the stem.
 	    The stem needs a rhythmic structure to fit it into a beam.  */
-	  announce_grob(stem_, i.music_cause ()->self_scm());
+	  announce_grob (stem_, i.music_cause ()->self_scm ());
 	}
 
       if (Stem::duration_log (stem_) != duration_log)
@@ -176,7 +176,7 @@ Stem_engraver::try_music (Music* r)
   return false;
 }
 
-ENTER_DESCRIPTION(Stem_engraver,
+ENTER_DESCRIPTION (Stem_engraver,
 /* descr */       "Create stems and single-stem tremolos.  It also works together with "
 "the beam engraver for overriding beaming.",
 /* creats*/       "Stem StemTremolo",

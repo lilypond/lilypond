@@ -20,10 +20,10 @@ Percent_repeat_iterator::Percent_repeat_iterator ()
 }
 
 void
-Percent_repeat_iterator::do_quit()
+Percent_repeat_iterator::do_quit ()
 {
   if (child_iter_)
-    child_iter_->quit();
+    child_iter_->quit ();
 }
 
 bool
@@ -58,7 +58,7 @@ Percent_repeat_iterator::process (Moment m)
 
   if (finish_mom_ <= m )
     {
-      child_iter_->quit(); 
+      child_iter_->quit (); 
       child_iter_ = 0;
     }
 }
@@ -79,14 +79,14 @@ Percent_repeat_iterator::try_music_in_children (Music *m) const
 }
 
 void
-Percent_repeat_iterator::derived_mark()const
+Percent_repeat_iterator::derived_mark ()const
 {
   if (child_iter_)
-    scm_gc_mark (child_iter_->self_scm());
+    scm_gc_mark (child_iter_->self_scm ());
 }
 
 void
-Percent_repeat_iterator::derived_substitute(Context *f,Context *t )
+Percent_repeat_iterator::derived_substitute (Context *f,Context *t )
 {
   if (child_iter_)
     child_iter_->substitute_outlet (f,t);

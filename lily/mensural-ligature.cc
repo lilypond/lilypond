@@ -54,7 +54,7 @@ brew_flexa (Grob *me,
       Real y_correction =
 	(cauda_direction == UP) ?
 	+0.5*height :
-	-0.5*height - cauda_box_y.length();
+	-0.5*height - cauda_box_y.length ();
 
       Box cauda_box (cauda_box_x, cauda_box_y);
       Stencil cauda = Lookup::filled_box (cauda_box);
@@ -66,8 +66,8 @@ brew_flexa (Grob *me,
 
   // Compensate optical illusion regarding vertical position of left
   // and right endings due to slope.
-  Real ypos_correction = -0.1*staff_space * sign(slope);
-  Real slope_correction = 0.2*staff_space * sign(slope);
+  Real ypos_correction = -0.1*staff_space * sign (slope);
+  Real slope_correction = 0.2*staff_space * sign (slope);
   Real corrected_slope = slope + slope_correction/width;
 
   if (solid)
@@ -80,13 +80,13 @@ brew_flexa (Grob *me,
     {
       Stencil left_edge =
 	Lookup::beam (corrected_slope, thickness, height, 0.0);
-      stencil.add_stencil(left_edge);
+      stencil.add_stencil (left_edge);
 
       Stencil right_edge =
 	Lookup::beam (corrected_slope, thickness, height, 0.0);
       right_edge.translate_axis (width-thickness, X_AXIS);
       right_edge.translate_axis (corrected_slope * (width-thickness), Y_AXIS);
-      stencil.add_stencil(right_edge);
+      stencil.add_stencil (right_edge);
 
       Stencil bottom_edge =
 	Lookup::beam (corrected_slope, width, thickness, 0.0);
@@ -157,7 +157,7 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
   switch (primitive)
     {
       case MLP_NONE:
-	return Stencil();
+	return Stencil ();
       case MLP_BB:
 	out = brew_flexa (me, delta_pitch, false,
 			  flexa_width, thickness, true, DOWN);
@@ -203,11 +203,11 @@ internal_brew_primitive (Grob *me, bool ledger_take_space)
     }
 
   int pos = (int)rint (Staff_symbol_referencer::get_position (me));
-  add_ledger_lines(me, &out, pos, 0, ledger_take_space);
+  add_ledger_lines (me, &out, pos, 0, ledger_take_space);
   if (primitive & MLP_FLEXA)
     {
       pos += delta_pitch;
-      add_ledger_lines(me, &out, pos, 0.5*delta_pitch, ledger_take_space);
+      add_ledger_lines (me, &out, pos, 0.5*delta_pitch, ledger_take_space);
     }
 
   return out;

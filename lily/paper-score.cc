@@ -42,7 +42,7 @@ Paper_score::typeset_line (System *l)
   main_smob_ = gh_cons (l->self_scm (), main_smob_);
   l->pscore_ = this;
 
-  scm_gc_unprotect_object (l->self_scm());
+  scm_gc_unprotect_object (l->self_scm ());
 }
 
 

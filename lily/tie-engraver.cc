@@ -48,7 +48,7 @@ protected:
   virtual void process_music ();
   void typeset_tie (Grob*);
 public:
-  TRANSLATOR_DECLARATIONS(Tie_engraver);
+  TRANSLATOR_DECLARATIONS (Tie_engraver);
 };
 
 
@@ -106,14 +106,14 @@ Tie_engraver::acknowledge_grob (Grob_info i)
 	      Tie::set_head (p, RIGHT, h);
 	  
 	      ties_.push (p);
-	      announce_grob(p, last_event_->self_scm());
+	      announce_grob (p, last_event_->self_scm ());
 	    }
 	}
 
       if (ties_.size () && ! tie_column_)
 	{
 	  tie_column_ = make_spanner ("TieColumn");
-	  announce_grob(tie_column_, SCM_EOL);
+	  announce_grob (tie_column_, SCM_EOL);
 	}
 
       if (tie_column_)
@@ -141,7 +141,7 @@ Tie_engraver::stop_translation_timestep ()
 	  typeset_tie (ties_[i]);
 	}
 
-      ties_.clear();
+      ties_.clear ();
       last_event_ = 0;
       if (tie_column_)
 	{
@@ -181,7 +181,7 @@ Tie_engraver::typeset_tie (Grob *her)
 }
 
 
-ENTER_DESCRIPTION(Tie_engraver,
+ENTER_DESCRIPTION (Tie_engraver,
 /* descr */       "Generate ties between noteheads of equal pitch.",
 /* creats*/       "Tie TieColumn",
 /* accepts */     "tie-event",

@@ -33,7 +33,7 @@ class Key_engraver : public Engraver
   Item * item_;
 
 public:
-  TRANSLATOR_DECLARATIONS(Key_engraver);
+  TRANSLATOR_DECLARATIONS (Key_engraver);
 
 protected:
   virtual void initialize ();
@@ -73,7 +73,7 @@ Key_engraver::create_key (bool def)
       item_->set_property ("old-accidentals", get_property ("lastKeySignature"));
       item_->set_property ("new-accidentals", get_property ("keySignature"));
 
-      announce_grob(item_, key_ev_ ? key_ev_->self_scm() : SCM_EOL);
+      announce_grob (item_, key_ev_ ? key_ev_->self_scm () : SCM_EOL);
     }
 
   if (!def)
@@ -188,13 +188,13 @@ Key_engraver::initialize ()
   daddy_context_->set_property ("keySignature", SCM_EOL);
   daddy_context_->set_property ("lastKeySignature", SCM_EOL);
 
-  Pitch p(0,0,0);
+  Pitch p (0,0,0);
   daddy_context_->set_property ("tonic", p.smobbed_copy ());
 
 }
 
 
-ENTER_DESCRIPTION(Key_engraver,
+ENTER_DESCRIPTION (Key_engraver,
 /* descr */       "",
 /* creats*/       "KeySignature",
 /* accepts */     "key-change-event",

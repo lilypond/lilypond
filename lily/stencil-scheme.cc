@@ -40,7 +40,7 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
   Stencil q (*s);
   q.translate_axis (gh_scm2double (amount), Axis (gh_scm2int (axis)));
 
-  return q.smobbed_copy();
+  return q.smobbed_copy ();
 }
 
 LY_DEFINE (ly_translate_stencil,"ly:stencil-translate",
@@ -55,7 +55,7 @@ LY_DEFINE (ly_translate_stencil,"ly:stencil-translate",
 
   Stencil q (*s);
   q.translate (o);
-  return q.smobbed_copy();
+  return q.smobbed_copy ();
 }
 
 LY_DEFINE (ly_stencil_get_expr, "ly:stencil-get-expr",
@@ -102,13 +102,13 @@ LY_DEFINE (ly_stencil_combined_at_edge,
   Real p = 0.0;
   if (padding != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE(gh_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
+      SCM_ASSERT_TYPE (gh_number_p (padding), padding, SCM_ARG5, __FUNCTION__, "number");
       p = gh_scm2double (padding);
     }
   Real m = 0.0;
   if (minimum != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE(gh_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
+      SCM_ASSERT_TYPE (gh_number_p (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
       m = gh_scm2double (minimum);
     }
 
@@ -157,7 +157,7 @@ LY_DEFINE (ly_make_stencil,
   SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");
 
-  Box b (ly_scm2interval (xext), ly_scm2interval(yext));
+  Box b (ly_scm2interval (xext), ly_scm2interval (yext));
   Stencil s (b, expr);
   return s.smobbed_copy ();
 }
@@ -177,7 +177,7 @@ LY_DEFINE (ly_fontify_atom,"ly:fontify-atom", 2, 0, 0,
 	   "Add a font selection command for the font metric @var{met} "
 	   "to @var{f}.")
 {
-  SCM_ASSERT_TYPE(unsmob_metrics (met), met, SCM_ARG1, __FUNCTION__, "font metric");
+  SCM_ASSERT_TYPE (unsmob_metrics (met), met, SCM_ARG1, __FUNCTION__, "font metric");
 
   return fontify_atom (unsmob_metrics (met), f);
 }

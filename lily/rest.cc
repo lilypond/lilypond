@@ -24,7 +24,7 @@ Rest::after_line_breaking (SCM smob)
   int bt = gh_scm2int (me->get_property ("duration-log"));
   int lc = Staff_symbol_referencer::line_count (me);
   Real ss = Staff_symbol_referencer::staff_space (me);
-  if(lc % 2)
+  if (lc % 2)
     {
       if (bt == 0 && lc > 1)
 	{
@@ -140,7 +140,7 @@ Rest::brew_internal_stencil (SCM smob)
       me->warning (_f ("rest `%s' not found, ", font_char.to_str0 ()));
     }
 
-  return out.smobbed_copy();
+  return out.smobbed_copy ();
 }
 
 SCM 
@@ -170,7 +170,7 @@ Rest::polyphonic_offset_callback (SCM smob, SCM)
 
   Direction d = get_grob_direction (me);
   Real off = 2* d ;
-  if(off)
+  if (off)
     off *= Staff_symbol_referencer::staff_space (me);
   return gh_double2scm (off);
 }

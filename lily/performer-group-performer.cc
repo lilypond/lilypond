@@ -13,7 +13,7 @@
 #include "warn.hh"
 
 
-ENTER_DESCRIPTION(Performer_group_performer,
+ENTER_DESCRIPTION (Performer_group_performer,
 /* descr */       "",
 /* creats*/       "",
 /* accepts */     "",
@@ -67,7 +67,7 @@ Performer_group_performer::do_announces ()
     }
 }
 
-Performer_group_performer::Performer_group_performer()
+Performer_group_performer::Performer_group_performer ()
 {
 }
 

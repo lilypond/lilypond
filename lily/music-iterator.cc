@@ -90,7 +90,7 @@ Music_iterator::get_static_get_iterator (Music *m)
       else
 	p = new Simple_music_iterator;
 
-      iter = p->self_scm();
+      iter = p->self_scm ();
       scm_gc_unprotect_object (iter);
     }
 
@@ -180,8 +180,8 @@ Music_iterator::get_music () const
 /****************************************************************/
 
 IMPLEMENT_TYPE_P (Music_iterator, "ly:iterator?");
-IMPLEMENT_SMOBS(Music_iterator);
-IMPLEMENT_DEFAULT_EQUAL_P(Music_iterator);
+IMPLEMENT_SMOBS (Music_iterator);
+IMPLEMENT_DEFAULT_EQUAL_P (Music_iterator);
 
 SCM
 Music_iterator::mark_smob (SCM smob)
@@ -194,9 +194,9 @@ Music_iterator::mark_smob (SCM smob)
     only, we _must_ mark them.
    */
   if (mus->get_outlet ())
-    scm_gc_mark (mus->get_outlet ()->self_scm());
+    scm_gc_mark (mus->get_outlet ()->self_scm ());
   if (mus->music_)
-    scm_gc_mark (mus->music_->self_scm());
+    scm_gc_mark (mus->music_->self_scm ());
   
 
   return SCM_EOL;
@@ -214,7 +214,7 @@ Music_iterator::print_smob (SCM sm , SCM port, scm_print_state*)
 }
 
 void
-Music_iterator::derived_mark()const
+Music_iterator::derived_mark ()const
 {
 }
 
@@ -226,7 +226,7 @@ Music_iterator::quit ()
 }
 
 void
-Music_iterator::do_quit()
+Music_iterator::do_quit ()
 {
 }
 

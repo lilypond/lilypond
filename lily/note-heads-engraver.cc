@@ -22,7 +22,7 @@ class Note_heads_engraver : public Engraver
   Link_array<Music> note_reqs_;
 
 public:
-  TRANSLATOR_DECLARATIONS(Note_heads_engraver);
+  TRANSLATOR_DECLARATIONS (Note_heads_engraver);
 
 protected:
   virtual bool try_music (Music *req) ;
@@ -31,7 +31,7 @@ protected:
   virtual void stop_translation_timestep ();
 };
 
-Note_heads_engraver::Note_heads_engraver()
+Note_heads_engraver::Note_heads_engraver ()
 {
 }
 
@@ -86,7 +86,7 @@ Note_heads_engraver::process_music ()
 	pos += gh_scm2int (c0);
 
       note->set_property ("staff-position",   gh_int2scm (pos));
-      announce_grob (note,req->self_scm());
+      announce_grob (note,req->self_scm ());
       notes_.push (note);
     }
 }
@@ -110,7 +110,7 @@ Note_heads_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Note_heads_engraver,
+ENTER_DESCRIPTION (Note_heads_engraver,
 /* descr */       "Generate noteheads.",
 /* creats*/       "NoteHead Dots",
 /* accepts */     "note-event busy-playing-event",

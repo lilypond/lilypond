@@ -19,7 +19,7 @@ class Part_combine_iterator : public Music_iterator
 public:
   Part_combine_iterator ();
 
-  DECLARE_SCHEME_CALLBACK(constructor, ()); 
+  DECLARE_SCHEME_CALLBACK (constructor, ()); 
 protected:
   virtual void derived_substitute (Context *f, Context *t) ;
   virtual void derived_mark () const;
@@ -27,7 +27,7 @@ protected:
 
   virtual void construct_children ();
   virtual Moment pending_moment () const;
-  virtual void do_quit(); 
+  virtual void do_quit (); 
   virtual void process (Moment);
 
   virtual Music_iterator *try_music_in_children (Music *) const;
@@ -82,9 +82,9 @@ void
 Part_combine_iterator::derived_mark () const
 {
   if (first_iter_)
-    scm_gc_mark (first_iter_->self_scm());
+    scm_gc_mark (first_iter_->self_scm ());
   if (second_iter_)
-    scm_gc_mark(second_iter_->self_scm());
+    scm_gc_mark (second_iter_->self_scm ());
 }
 
 void
@@ -101,9 +101,9 @@ void
 Part_combine_iterator::do_quit ()
 {
   if (first_iter_)
-    first_iter_->quit();
+    first_iter_->quit ();
   if (second_iter_)
-    second_iter_->quit();
+    second_iter_->quit ();
 
   null_.set_translator (0);
   one_ .set_translator (0);
@@ -141,7 +141,7 @@ Part_combine_iterator::chords_together ()
       playing_state_ = TOGETHER;
       state_ = TOGETHER;
 
-      substitute_both (shared_.get_outlet (), shared_.get_outlet());
+      substitute_both (shared_.get_outlet (), shared_.get_outlet ());
     }
 }
 

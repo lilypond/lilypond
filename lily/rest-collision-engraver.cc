@@ -21,7 +21,7 @@ protected:
   virtual void process_acknowledged_grobs ();
   virtual void stop_translation_timestep ();
 public:
-  TRANSLATOR_DECLARATIONS(Rest_collision_engraver);  
+  TRANSLATOR_DECLARATIONS (Rest_collision_engraver);  
 };
 
 Rest_collision_engraver::Rest_collision_engraver ()
@@ -42,7 +42,7 @@ Rest_collision_engraver::process_acknowledged_grobs ()
 
   rest_collision_ = make_item ("RestCollision");
 
-  announce_grob(rest_collision_, SCM_EOL);
+  announce_grob (rest_collision_, SCM_EOL);
   for (int i=0; i < note_columns_.size (); i++)
     Rest_collision::add_column (rest_collision_,note_columns_[i]);
 }
@@ -70,7 +70,7 @@ Rest_collision_engraver::stop_translation_timestep ()
   rest_count_ = 0;
 }
 
-ENTER_DESCRIPTION(Rest_collision_engraver,
+ENTER_DESCRIPTION (Rest_collision_engraver,
 /* descr */       "Handles collisions of rests.",
 /* creats*/       "RestCollision",
 /* accepts */     "",

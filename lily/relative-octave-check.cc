@@ -16,7 +16,7 @@ Relative_octave_check::to_relative_octave (Pitch p)
     {
       Pitch no_octave (-1,
 		       check_p->get_notename (),
-		       check_p->get_alteration());
+		       check_p->get_alteration ());
 
       Pitch result = no_octave.to_relative_octave (p);
 
@@ -35,4 +35,4 @@ Relative_octave_check::to_relative_octave (Pitch p)
 		 p.get_notename (), p.get_alteration ());
 }
 
-ADD_MUSIC(Relative_octave_check);
+ADD_MUSIC (Relative_octave_check);

@@ -19,7 +19,7 @@
 
 class Part_combine_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS(Part_combine_engraver);
+  TRANSLATOR_DECLARATIONS (Part_combine_engraver);
 
 protected:
   virtual void acknowledge_grob (Grob_info);
@@ -99,7 +99,7 @@ Part_combine_engraver::stop_translation_timestep ()
   event_ = 0;
 }
 
-ENTER_DESCRIPTION(Part_combine_engraver,
+ENTER_DESCRIPTION (Part_combine_engraver,
 /* descr */       "Part combine engraver for orchestral scores:		"
 		  "Print markings a2, Solo, Solo II, and unisono ",
 /* creats*/       "CombineTextScript",

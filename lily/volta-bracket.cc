@@ -53,18 +53,18 @@ Volta_bracket_interface::print (SCM smob)
   bool no_vertical_end = orig_span && !broken_last_bracket;
   SCM s = me->get_property ("bars");
   Grob * endbar =   unsmob_grob (ly_car (s));
-  SCM glyph = endbar->get_property("glyph");
+  SCM glyph = endbar->get_property ("glyph");
   
   String str;
   if (gh_string_p (glyph))
-    str = ly_scm2string(glyph);
+    str = ly_scm2string (glyph);
   else
     return SCM_EOL;
   
   const char* cs = str.to_str0 ();
   no_vertical_end |=
-    (strcmp(cs,":|")!=0 && strcmp(cs,"|:")!=0 && strcmp(cs,"|.")!=0
-     && strcmp(cs,":|:")!=0 && strcmp(cs,".|")!=0);
+    (strcmp (cs,":|")!=0 && strcmp (cs,"|:")!=0 && strcmp (cs,"|.")!=0
+     && strcmp (cs,":|:")!=0 && strcmp (cs,".|")!=0);
 
   Paper_def * paper =me->get_paper ();
   Real half_space = 0.5;

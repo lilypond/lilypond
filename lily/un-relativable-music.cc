@@ -20,5 +20,5 @@ Un_relativable_music::to_relative_octave (Pitch p)
   return p;
 }
 
-ADD_MUSIC(Un_relativable_music);
+ADD_MUSIC (Un_relativable_music);
 

@@ -13,7 +13,7 @@
 class Tempo_performer : public Performer
 {
 public:
-  TRANSLATOR_DECLARATIONS(Tempo_performer);
+  TRANSLATOR_DECLARATIONS (Tempo_performer);
   ~Tempo_performer ();
 
 protected:

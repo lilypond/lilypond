@@ -27,7 +27,7 @@ class Tab_note_heads_engraver : public Engraver
   Link_array<Music> note_events_;
   Link_array<Music> tabstring_events_;
 public:
-  TRANSLATOR_DECLARATIONS(Tab_note_heads_engraver);
+  TRANSLATOR_DECLARATIONS (Tab_note_heads_engraver);
 
 protected:
   virtual bool try_music (Music *event) ;
@@ -37,7 +37,7 @@ protected:
 };
 
 
-Tab_note_heads_engraver::Tab_note_heads_engraver()
+Tab_note_heads_engraver::Tab_note_heads_engraver ()
 {
 }
 
@@ -70,8 +70,8 @@ Tab_note_heads_engraver::process_music ()
   for (int i=0; i < note_events_.size (); i++)
     {
       SCM stringTunings = get_property ("stringTunings");
-      int number_of_strings = ((int) gh_length(stringTunings));
-      bool high_string_one = to_boolean(get_property ("highStringOne"));
+      int number_of_strings = ((int) gh_length (stringTunings));
+      bool high_string_one = to_boolean (get_property ("highStringOne"));
 
       Item * note  = make_item ("TabNoteHead");
       
@@ -92,7 +92,7 @@ Tab_note_heads_engraver::process_music ()
       if (!tabstring_event  && j < tabstring_events_.size ())
 	{
 	  tabstring_event = tabstring_events_[j];
-	  if (j +1 <  tabstring_events_.size())
+	  if (j +1 <  tabstring_events_.size ())
 	    j++;
 	}
 
@@ -100,7 +100,7 @@ Tab_note_heads_engraver::process_music ()
       bool string_found;
       if (tabstring_event)
 	{
-	  tab_string = gh_scm2int(tabstring_event->get_property ("string-number"));
+	  tab_string = gh_scm2int (tabstring_event->get_property ("string-number"));
 	  string_found = true;
 	}
       else
@@ -131,13 +131,13 @@ Tab_note_heads_engraver::process_music ()
       SCM scm_pitch = event->get_property ("pitch");
       SCM proc      = get_property ("tablatureFormat");
       SCM min_fret_scm = get_property ("minimumFret");
-      int min_fret = gh_number_p(min_fret_scm) ? gh_scm2int(min_fret_scm) : 0;
+      int min_fret = gh_number_p (min_fret_scm) ? gh_scm2int (min_fret_scm) : 0;
 
-      while(!string_found)
+      while (!string_found)
 	{
-	  int fret = unsmob_pitch(scm_pitch)->semitone_pitch()
-	    - gh_scm2int(gh_list_ref(stringTunings,gh_int2scm(tab_string-1)));
-	  if(fret<min_fret)
+	  int fret = unsmob_pitch (scm_pitch)->semitone_pitch ()
+	    - gh_scm2int (gh_list_ref (stringTunings,gh_int2scm (tab_string-1)));
+	  if (fret<min_fret)
 	    tab_string += high_string_one ? 1 : -1;
 	  else
 	    string_found = true;
@@ -146,13 +146,13 @@ Tab_note_heads_engraver::process_music ()
       SCM text = gh_call3 (proc, gh_int2scm (tab_string), stringTunings, scm_pitch);
 
       int pos = 2 * tab_string - number_of_strings - 1; // No tab-note between the string !!!
-      if(to_boolean(get_property("stringOneTopmost")))
+      if (to_boolean (get_property ("stringOneTopmost")))
 	pos = -pos;
       
       note->set_property ("text", text);      
       
       note->set_property ("staff-position", gh_int2scm (pos));
-      announce_grob (note, event->self_scm());
+      announce_grob (note, event->self_scm ());
       notes_.push (note);
     }
 }
@@ -177,7 +177,7 @@ Tab_note_heads_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION(Tab_note_heads_engraver,
+ENTER_DESCRIPTION (Tab_note_heads_engraver,
 /* descr */       "Generate one or more tablature noteheads from Music of type NoteEvent.",
 /* creats*/       "TabNoteHead Dots",
 /* accepts */     "note-event string-number-event busy-playing-event",

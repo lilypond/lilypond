@@ -25,7 +25,7 @@ protected:
   virtual void typeset_ligature (Spanner *ligature, Array<Grob_info>);
 
 public:
-  TRANSLATOR_DECLARATIONS(Ligature_bracket_engraver);
+  TRANSLATOR_DECLARATIONS (Ligature_bracket_engraver);
 
 private:
   void typeset_ligature_bracket ();
@@ -62,7 +62,7 @@ Ligature_bracket_engraver::acknowledge_grob (Grob_info info)
     }
 }
 
-ENTER_DESCRIPTION(Ligature_bracket_engraver,
+ENTER_DESCRIPTION (Ligature_bracket_engraver,
 /* descr */       "Handles Ligature_events by engraving Ligature brackets.",
 /* creats*/       "TupletBracket",
 /* accepts */     "ligature-event",

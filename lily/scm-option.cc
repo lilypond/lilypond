@@ -118,7 +118,7 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
     }
   else if (var == ly_symbol2scm ("parse-protect" ))
     {
-      parse_protect_global = to_boolean(val);
+      parse_protect_global = to_boolean (val);
     }
   else if (var == ly_symbol2scm ("internal-type-checking"))
     {

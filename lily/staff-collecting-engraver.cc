@@ -15,7 +15,7 @@ source file of the GNU LilyPond music typesetter
 class Staff_collecting_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Staff_collecting_engraver);
+  TRANSLATOR_DECLARATIONS (Staff_collecting_engraver);
   virtual void acknowledge_grob (Grob_info);
 };
 
@@ -37,7 +37,7 @@ Staff_collecting_engraver::acknowledge_grob (Grob_info gi)
 }
 
 
-ENTER_DESCRIPTION(Staff_collecting_engraver,
+ENTER_DESCRIPTION (Staff_collecting_engraver,
 /* descr */       "Maintain the stavesFound variable",
 
 /* creats*/       "",

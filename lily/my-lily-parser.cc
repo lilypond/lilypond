@@ -30,7 +30,7 @@ My_lily_parser::~My_lily_parser ()
 {
   delete lexer_;
   if (default_header_)
-    scm_gc_unprotect_object (default_header_->self_scm());
+    scm_gc_unprotect_object (default_header_->self_scm ());
 }
 
 /* Process one .ly file, or book.  */
@@ -97,7 +97,7 @@ My_lily_parser::here_input () const
 {
   /*
     Parsing looks ahead , so we really want the previous location of the
-    lexer, not lexer_->here_input().
+    lexer, not lexer_->here_input ().
    */
   /*
     Actually, that gets very icky when there are white space, because

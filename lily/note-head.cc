@@ -75,7 +75,7 @@ Note_head::brew_ledger_lines (Grob *me,
   int line_count = (abs (pos) < interspaces)
     ? 0
     : (abs (pos) - interspaces) / 2;
-  Stencil stencil = Stencil();
+  Stencil stencil = Stencil ();
 
 
   if (line_count)
@@ -148,7 +148,7 @@ internal_print (Grob *me, bool with_ledgers)
       ledger_size.widen ( ledger_size.length ()/4);
 
       Real left_shorten =0.0;
-      if (Grob * g = unsmob_grob(me->get_property ("accidental-grob")))
+      if (Grob * g = unsmob_grob (me->get_property ("accidental-grob")))
 	{
 	  /*
 	    make a little room for accidentals.
@@ -159,8 +159,10 @@ internal_print (Grob *me, bool with_ledgers)
 
 	  Grob *common = g->common_refpoint (me, X_AXIS);
 	  Real d =
-	    (me->extent (common, X_AXIS)[LEFT]
-	     +g->extent (common, X_AXIS)[RIGHT]) /2;
+	    linear_combination (Drul_array<Real> (me->extent (common, X_AXIS)[LEFT],
+						  g->extent (common, X_AXIS)[RIGHT]),
+				
+				0.5);
 
 	  left_shorten =  (-ledger_size[LEFT] + d) >?  0 ;
 
@@ -220,7 +222,7 @@ Note_head::head_extent (Grob *me, Axis a)
 
 /*
   This is necessary to prevent a cyclic dependency: the appearance of
-  the ledgers depends on positioning, so the Grob::get_stencil() can
+  the ledgers depends on positioning, so the Grob::get_stencil () can
   not be used for determining the note head extent.
   
  */ 
@@ -300,7 +302,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
 	  Offset wxwy = fm->get_indexed_wxwy (k);
 	  Interval v = b[a];
 	  if (!v.is_empty ())
-	    return 2 * (wxwy[a] - v.center()) / v.length ();
+	    return 2 * (wxwy[a] - v.center ()) / v.length ();
 	}
     }
   
@@ -311,7 +313,7 @@ Note_head::stem_attachment_coordinate (Grob *me, Axis a)
   if (!gh_procedure_p (v))
     return 0.0;
   
-  SCM result = scm_call_2 (v, me->self_scm(), gh_int2scm (a));
+  SCM result = scm_call_2 (v, me->self_scm (), gh_int2scm (a));
   if (!gh_pair_p (result))
     return 0.0;
 

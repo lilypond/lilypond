@@ -212,7 +212,7 @@ Simple_spacer::my_solve_natural_len ()
 void
 Simple_spacer::add_columns (Link_array<Grob> const &icols)
 {
-  Link_array<Grob> cols(icols);
+  Link_array<Grob> cols (icols);
   
   for (int i =  cols.size (); i--;)
     if (gh_pair_p (cols[i]->get_property ("between-cols")))
@@ -245,7 +245,7 @@ Simple_spacer::add_columns (Link_array<Grob> const &icols)
 	}
       else
 	{
-	  programming_error (_f("No spring between column %d and next one",
+	  programming_error (_f ("No spring between column %d and next one",
 				Paper_column::get_rank (cols[i])
 				));
 	  desc.hooke_ = 1.0;
@@ -368,7 +368,7 @@ Simple_spacer::solve (Column_x_positions *positions, bool ragged)
   int sz =  positions->cols_.size ();
   for (int i = sz; i--; )
     {
-      SCM p = positions->cols_[i]->get_property( "penalty");
+      SCM p = positions->cols_[i]->get_property ( "penalty");
       if (gh_number_p (p))
 	{
 	  if (gh_scm2double (p) < -9999)

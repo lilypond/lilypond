@@ -1,5 +1,13 @@
 2004-03-08  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/accidental-placement.cc (position_accidentals): bugfix in
+	offset, this fixes right-padding of AccidentalPlacement.
+
+	* lily/[h-z]*.cc:  () formatting.
+
+	* Documentation/user/tutorial.itely (An orchestral part): more
+	fixes for the tutorial.
+
 	* scm/translation-functions.scm (fraction-tuplet-formatter):
 	reverse fraction.
 

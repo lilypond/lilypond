@@ -46,7 +46,7 @@ class Spacing_engraver : public Engraver
   Moment now_;
   Spanner * spacing_;
   
-  TRANSLATOR_DECLARATIONS(Spacing_engraver);
+  TRANSLATOR_DECLARATIONS (Spacing_engraver);
 protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void start_translation_timestep ();
@@ -80,7 +80,7 @@ Spacing_engraver::process_music ()
     {
       spacing_ = make_spanner ("SpacingSpanner");
       spacing_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));  
-      announce_grob(spacing_, SCM_EOL);
+      announce_grob (spacing_, SCM_EOL);
     }
 }
 
@@ -180,7 +180,7 @@ Spacing_engraver::start_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Spacing_engraver,
+ENTER_DESCRIPTION (Spacing_engraver,
 /* descr */       "make a SpacingSpanner and do bookkeeping of shortest starting and playing notes  ",
 /* creats*/       "SpacingSpanner",
 /* accepts */     "",

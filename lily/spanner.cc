@@ -119,7 +119,7 @@ Spanner::do_break_processing ()
 	}
     }
   broken_intos_.sort (Spanner::compare);
-  for (int i= broken_intos_.size();i--;)
+  for (int i= broken_intos_.size ();i--;)
     broken_intos_[i]->break_index_ = i;
 }
 
@@ -365,7 +365,7 @@ unsmob_spanner (SCM s )
   return dynamic_cast<Spanner*> (unsmob_grob (s));
 }
 
-ADD_INTERFACE(Spanner,
+ADD_INTERFACE (Spanner,
 	      "spanner-interface",
 "Some objects are horizontally spanned between objects. For\n"
 "example, slur, beam, tie, etc. These grobs form a subtype called\n"

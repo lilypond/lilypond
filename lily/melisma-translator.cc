@@ -22,7 +22,7 @@
 class Melisma_translator : public Translator
 {
 public:
-  TRANSLATOR_DECLARATIONS(Melisma_translator);
+  TRANSLATOR_DECLARATIONS (Melisma_translator);
 protected:
   virtual bool try_music (Music *);
   virtual void process_music ();
@@ -68,12 +68,12 @@ Melisma_translator::start_translation_timestep ()
   event_ = 0;
 }
   
-Melisma_translator::Melisma_translator()
+Melisma_translator::Melisma_translator ()
 {
   event_ = 0;
 }
 
-ENTER_DESCRIPTION(Melisma_translator,
+ENTER_DESCRIPTION (Melisma_translator,
 /* descr */       "This translator collects melisma information about ties, beams, and user settings (@code{melismaBusy}, and signals it to the @code{\addlyrics} code.  ",
 /* creats*/       "",
 /* accepts */     "melisma-playing-event melisma-span-event",

@@ -22,7 +22,7 @@
 class Metronome_mark_engraver : public Engraver
 {
 public:
-  TRANSLATOR_DECLARATIONS(Metronome_mark_engraver);
+  TRANSLATOR_DECLARATIONS (Metronome_mark_engraver);
 protected:
   Item *text_;
   Grob *bar_line_;
@@ -81,7 +81,7 @@ Metronome_mark_engraver::create_items (Music *rq)
 
   text_ = make_item ("MetronomeMark");
 
-  announce_grob(text_, rq->self_scm());
+  announce_grob (text_, rq->self_scm ());
 }
 
 
@@ -101,13 +101,13 @@ Metronome_mark_engraver::process_music ()
 
       SCM proc = get_property ("metronomeMarkFormatter");
       SCM result= scm_call_2 (proc, mark_ev_->self_scm (),
-			      daddy_context_->self_scm()); 
+			      daddy_context_->self_scm ()); 
       
       text_->set_property ("text", result);
     }
 }
 
-ENTER_DESCRIPTION(Metronome_mark_engraver,
+ENTER_DESCRIPTION (Metronome_mark_engraver,
 /* descr */       "Engrave metro nome marking. This delegates the real work to the function in the metronomeMarkFormatter property",
 /* creats*/       "MetronomeMark",
 /* accepts */     "metronome-change-event",

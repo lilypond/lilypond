@@ -25,7 +25,7 @@ protected:
   virtual void stop_translation_timestep ();
   virtual void process_music ();
 public:
-  TRANSLATOR_DECLARATIONS(Time_signature_engraver);
+  TRANSLATOR_DECLARATIONS (Time_signature_engraver);
 };
 
 
@@ -54,7 +54,7 @@ Time_signature_engraver::process_music ()
 
 	    OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 	   */
-	  warning (_f("Found strange time signature %d/%d.",
+	  warning (_f ("Found strange time signature %d/%d.",
 		      den,
 		      gh_scm2int (gh_car (fr))
 		      ));
@@ -66,7 +66,7 @@ Time_signature_engraver::process_music ()
       time_signature_->set_property ("fraction",fr);
 
       if (time_signature_)
-	announce_grob(time_signature_, SCM_EOL);
+	announce_grob (time_signature_, SCM_EOL);
     }
 }
 
@@ -81,7 +81,7 @@ Time_signature_engraver::stop_translation_timestep ()
 }
  
 
-ENTER_DESCRIPTION(Time_signature_engraver,
+ENTER_DESCRIPTION (Time_signature_engraver,
 /* descr */       "Create a TimeSignature whenever @code{timeSignatureFraction} changes",
 /* creats*/       "TimeSignature",
 /* accepts */     "",

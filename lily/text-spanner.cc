@@ -42,7 +42,7 @@ Text_spanner::print (SCM smob)
   /* Ugh, must be same as Hairpin::print.  */
 
   Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
-  Paper_def * paper = me->get_paper();
+  Paper_def * paper = me->get_paper ();
 
   SCM flare = me->get_property ("bracket-flare");
   SCM shorten = me->get_property ("shorten-pair");
@@ -116,7 +116,7 @@ Text_spanner::print (SCM smob)
 
 	  Real dy = - dir * edge_height[d] ;
 	  if (dy)
-	    edge_line[d] = Line_spanner::line_stencil (me, Offset(0,0), Offset (dx, dy));
+	    edge_line[d] = Line_spanner::line_stencil (me, Offset (0,0), Offset (dx, dy));
 	}
       while (flip (&d) != LEFT);
     }
@@ -135,7 +135,7 @@ Text_spanner::print (SCM smob)
   while (flip (&d) != LEFT);
   do
     {
-      if (d* span_points[d] > d * edge[-d].extent(X_AXIS)[d])
+      if (d* span_points[d] > d * edge[-d].extent (X_AXIS)[d])
 	{
 	  edge_line[d].translate_axis (span_points[d], X_AXIS);
 	  m.add_stencil (edge_line[d]);

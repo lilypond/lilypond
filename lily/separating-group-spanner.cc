@@ -28,9 +28,9 @@ Separating_group_spanner::find_rods (Item * r, SCM next, Real padding)
     return; 
 
 
-  for(; gh_pair_p (next); next = ly_cdr (next))
+  for (; gh_pair_p (next); next = ly_cdr (next))
     {
-      Item *l = dynamic_cast<Item*> (unsmob_grob (ly_car( next)));
+      Item *l = dynamic_cast<Item*> (unsmob_grob (ly_car ( next)));
       Item *lb = l->find_prebroken_piece (RIGHT);
 
       if (lb)

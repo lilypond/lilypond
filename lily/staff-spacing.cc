@@ -44,7 +44,7 @@ Staff_spacing::next_note_correction (Grob * me,
       Interval v;
       if (Accidental_placement::has_interface (a))
 	{
-	  v = Accidental_placement::get_relevant_accidental_extent(a, col, me);
+	  v = Accidental_placement::get_relevant_accidental_extent (a, col, me);
 	}
       else
 	v = a->extent (col, X_AXIS);
@@ -96,7 +96,7 @@ Interval
 Staff_spacing::bar_y_positions (Grob *bar_grob)
 {
   Interval bar_size;
-  bar_size.set_empty();
+  bar_size.set_empty ();
   if (Bar_line::has_interface (bar_grob))
     {
       SCM glyph = bar_grob->get_property ("glyph");
@@ -104,7 +104,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
       String glyph_string = gh_string_p (glyph) ? ly_scm2string (glyph) : "";
       if (glyph_string.left_string (1) == "|" || glyph_string.left_string (1) == ".")
 	{
-	  SCM sz = Bar_line::get_staff_bar_size (bar_grob->self_scm());
+	  SCM sz = Bar_line::get_staff_bar_size (bar_grob->self_scm ());
 	  bar_size = Interval (-1,1);
 	  bar_size *= robust_scm2double (sz, 1)
 	    / Staff_symbol_referencer::staff_space (bar_grob);
@@ -152,9 +152,9 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
   Item * me_item  = dynamic_cast<Item*> (me);
     
   for (SCM s = me->get_property ("left-items");
-       gh_pair_p (s); s = gh_cdr(s))
+       gh_pair_p (s); s = gh_cdr (s))
     {
-      Grob * cand = unsmob_grob(gh_car (s));
+      Grob * cand = unsmob_grob (gh_car (s));
       if (cand && Separation_item::has_interface (cand))
 	separation_item = cand ;
     }
@@ -227,11 +227,11 @@ Staff_spacing::get_spacing_params (Grob *me, Real * space, Real * fixed)
       *fixed += distance / 2; 
       *space =  *fixed + distance/2;
     }
-  else if (type == ly_symbol2scm("minimum-space"))
+  else if (type == ly_symbol2scm ("minimum-space"))
     {
       *space = last_ext[LEFT] + (last_ext.length () >? distance);
     }
-  else if (type == ly_symbol2scm("minimum-fixed-space"))
+  else if (type == ly_symbol2scm ("minimum-fixed-space"))
     {
       *space = last_ext[LEFT] + (last_ext.length () >? distance);
       *fixed = *space;

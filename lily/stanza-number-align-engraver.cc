@@ -21,7 +21,7 @@ source file of the GNU LilyPond music typesetter
 class Stanza_number_align_engraver : public Engraver
 {
 public:  
-  TRANSLATOR_DECLARATIONS(Stanza_number_align_engraver);
+  TRANSLATOR_DECLARATIONS (Stanza_number_align_engraver);
 
 protected:  
   Link_array<Grob> lyrics_;
@@ -49,7 +49,7 @@ Stanza_number_align_engraver::acknowledge_grob (Grob_info gi)
 void
 Stanza_number_align_engraver::stop_translation_timestep ()
 {
-  for (int i= lyrics_.size(); i--;)
+  for (int i= lyrics_.size (); i--;)
     for (int j = stanza_numbers_.size (); j--;)
       Side_position_interface::add_support (stanza_numbers_[j], lyrics_[i]);
   
@@ -58,7 +58,7 @@ Stanza_number_align_engraver::stop_translation_timestep ()
 }
 
 
-ENTER_DESCRIPTION(Stanza_number_align_engraver,
+ENTER_DESCRIPTION (Stanza_number_align_engraver,
 		  "This engraver ensures that stanza numbers are neatly aligned. ",
 		  "",
 		  "",

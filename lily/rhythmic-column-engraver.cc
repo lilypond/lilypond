@@ -55,7 +55,7 @@ class Rhythmic_column_engraver :public Engraver
   Grob * last_spacing_;
   Grob * spacing_;
   
-  TRANSLATOR_DECLARATIONS(Rhythmic_column_engraver);
+  TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 protected:
 
   virtual void acknowledge_grob (Grob_info);
@@ -84,7 +84,7 @@ Rhythmic_column_engraver::process_acknowledged_grobs ()
       if (!note_column_)
 	{
 	  note_column_ = make_item ("NoteColumn");
-	  announce_grob(note_column_, rheads_[0]->self_scm ());
+	  announce_grob (note_column_, rheads_[0]->self_scm ());
 
 	  spacing_ = make_item ("NoteSpacing");
 	  spacing_->set_property ("left-items", gh_cons (note_column_->self_scm (), SCM_EOL));
@@ -170,7 +170,7 @@ Rhythmic_column_engraver::stop_translation_timestep ()
 
 
 
-ENTER_DESCRIPTION(Rhythmic_column_engraver,
+ENTER_DESCRIPTION (Rhythmic_column_engraver,
 /* descr */       "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
 /* creats*/       "NoteColumn NoteSpacing",
 /* accepts */     "",

@@ -51,7 +51,7 @@ Stem_tremolo::height (SCM smob, SCM ax)
   if (Stencil *m = unsmob_stencil (mol))
     return ly_interval2scm (m->extent (a));
   else
-    return ly_interval2scm (Interval());
+    return ly_interval2scm (Interval ());
 }
 
 
@@ -99,7 +99,7 @@ Stem_tremolo::raw_stencil (Grob *me)
     {
       programming_error ("No tremolo flags?");
 
-      me->suicide();
+      me->suicide ();
       return Stencil ();
     }
 

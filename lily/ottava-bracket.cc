@@ -49,7 +49,7 @@ Ottava_bracket::print (SCM smob)
   Interval span_points;
   
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Paper_def * paper = me->get_paper();
+  Paper_def * paper = me->get_paper ();
 
   
   Drul_array<bool> broken;

@@ -18,7 +18,7 @@
 
 
 
-ENTER_DESCRIPTION(Score_performer,
+ENTER_DESCRIPTION (Score_performer,
 /* descr */       "",
 /* creats*/       "",
 /* accepts */     "",

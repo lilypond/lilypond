@@ -13,7 +13,7 @@
 
 class Pitch_squash_engraver : public Engraver {
 public:
-  TRANSLATOR_DECLARATIONS(Pitch_squash_engraver);
+  TRANSLATOR_DECLARATIONS (Pitch_squash_engraver);
   virtual void acknowledge_grob (Grob_info);
 };
 
@@ -31,11 +31,11 @@ Pitch_squash_engraver::acknowledge_grob (Grob_info i)
 
 
 
-Pitch_squash_engraver::Pitch_squash_engraver()
+Pitch_squash_engraver::Pitch_squash_engraver ()
 {
 }
 
-ENTER_DESCRIPTION(Pitch_squash_engraver,
+ENTER_DESCRIPTION (Pitch_squash_engraver,
 /* descr */       
 		  "Set the vertical position of noteheads to "
 		  "@code{squashedPosition}, if that "

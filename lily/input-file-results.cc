@@ -41,7 +41,7 @@ bool store_locations_global_b;
 /*
   no ! suffix since it doesn't modify 1st argument.
  */
-LY_DEFINE(ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
+LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click", 1, 0, 0,
 	  (SCM what),
 	  "Set the options for Point-and-click source specials output. The\n"
 "argument is a symbol.  Possible options are @code{none} (no source specials),\n"
@@ -123,7 +123,7 @@ Input_file_results::~Input_file_results ()
 
   global_input_file =0;
 
-  ly_clear_anonymous_modules();
+  ly_clear_anonymous_modules ();
 }
 
 
