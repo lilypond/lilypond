@@ -4,8 +4,8 @@
 \score {
 \notes <
 	\context GrandStaff < {
-	   \property GrandStaff . maxVerticalAlign = #60.0
-	   \property GrandStaff . minVerticalAlign = #35.0
+	   \property GrandStaff . maxVerticalAlign = #12.0
+	   \property GrandStaff . minVerticalAlign = #7.0
 
 	   c'1 \break  c'''''1 
 	}
