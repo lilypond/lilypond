@@ -30,6 +30,8 @@ working with lyric sections)
 break =#(make-event-chord (list (make-penalty-music -10001)))
 noBreak = #(make-event-chord (list (make-penalty-music 10001)))
 
+noBeam = #(make-music-by-name 'BeamForbidEvent) 
+
 \include "scale-definitions-init.ly"
 
 melisma = #(make-span-event 'ManualMelismaEvent START)

@@ -18,6 +18,15 @@ Version 2.1.13
 
 @itemize @bullet
 
+@item Notes can  be excluded from auto-beaming, by  marking them with
+@code{\noBeam}:
+@example
+  c8 c \noBeam c c 
+@end example
+
+@noindent
+will print two separate eighth notes, and two beamed notes.
+
 @item  Translators and contexts have been split. The result of this
 internal cleanup is that @code{Score} no longer is the top context;
 @code{Score} is contained in the @code{Global} context. Consequently,

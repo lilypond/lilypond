@@ -160,6 +160,12 @@ c8-[ c c-] c8")
 	(internal-class-name . "Event")
 	(types . (general-music fingering-event event))
 	))
+    (BeamForbidEvent
+     . (
+	(description . "Specify that a note may not auto-beamed ")
+	(internal-class-name . "Event")
+	(types . (general-music event beam-forbid-event))
+	))
     (GlissandoEvent
      . (
 	(description .  "Start  a glissando on this note.")
