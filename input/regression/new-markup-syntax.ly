@@ -17,6 +17,10 @@ texidoc = "New markup syntax."
 			\lookup #"noteheads-0"
 			\char #53
 		}
+
+		\combine "X" "+"   
+		\combine "o" "/"
+		"$\\emptyset$"
 		\italic Norsk
 		\dynamic sfzp
 	}	

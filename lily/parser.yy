@@ -1648,7 +1648,11 @@ gen_text_def:
 		$$ = t;	
 	}
 	| string {
- 		$$ = make_simple_markup ($1);
+		Music *t = MY_MAKE_MUSIC("TextScriptEvent");
+		t->set_mus_property ("text", make_simple_markup ($1));
+		t->set_spot (THIS->here_input ());
+		$$ = t;
+	
 	}
 	| DIGIT {
 		Music * t = MY_MAKE_MUSIC("FingerEvent");
@@ -2169,7 +2173,10 @@ questions:
 
 
 full_markup:
-	MARKUP 
+	MARKUP_IDENTIFIER {
+		$$ = $1;
+ 	}
+	| MARKUP 
 		{ THIS->lexer_->push_markup_state (); }
 	markup
 		{ $$ = $3;
@@ -2183,6 +2190,9 @@ markup:
 	}
 	| MARKUP_HEAD_MARKUP0 markup {
 		$$ = scm_list_n ($1, $2, SCM_UNDEFINED);
+	}
+	| MARKUP_HEAD_MARKUP0_MARKUP1 markup markup {
+		$$ = scm_list_n ($1, $2, $3, SCM_UNDEFINED);
 	}
 	| MARKUP_HEAD_SCM0_MARKUP1 SCM_T markup {
 		$$  = scm_list_n ($1, $2, $3, SCM_UNDEFINED); 

@@ -2,9 +2,26 @@
   (Text_item::text_to_molecule grob props (car rest))
   )
 
+(define-public (stack-molecule-line space molecules)
+  (if (pair? molecules)
+      (if (pair? (cdr molecules))
+	  (let* (
+		 (tail (stack-molecule-line  space (cdr molecules)))
+		 (head (car molecules))
+		 (xoff (+ space (cdr (ly:get-molecule-extent head X))))
+		 )
+	    
+	    (ly:add-molecule
+	     head
+	     (ly:molecule-translate-axis tail xoff X))
+	  )
+	  (car molecules))
+      '())
+  )
+
 (define-public (line-markup grob props . rest)
-  (stack-molecules
-   X 1 1.0 
+  (stack-molecule-line
+   (cdr (chain-assoc 'word-space props))
    (map (lambda (x) (interpret-markup grob props x)) (car rest)))
   )
 
@@ -14,7 +31,11 @@
       ))
 
 (define-public (combine-markup grob props . rest)
-   (combine-molecule-list (map (lambda (x) (interpret-markup grob props x)) (car rest))))
+  (ly:add-molecule
+   (interpret-markup grob props (car rest))
+   (interpret-markup grob props (cadr rest))))
+  
+;   (combine-molecule-list (map (lambda (x) (interpret-markup grob props x)) (car rest))))
 
 (define (font-markup qualifier value)
   (lambda (grob props . rest)
@@ -22,15 +43,35 @@
   
   ))
 
-(define-public (magnify-markup grob props . rest  )
-  (interpret-markup grob
-		    (cons (cons `(font-magnification . ,(car rest))
-				(car props)) (cdr props))
-		    (cadr rest))
-  )
+
+(define-public (set-property-markup qualifier)
+  (lambda (grob props . rest  )
+    (interpret-markup grob
+		      (cons (cons `(,qualifier . ,(car rest))
+				  (car props)) (cdr props))
+		      (cadr rest))
+    ))
+
+
+(define-public fontsize-markup (set-property-markup 'font-relative-size))
+(define-public magnify-markup (set-property-markup 'font-magnification))
 
 (define-public bold-markup
   (font-markup 'font-series 'bold))
+(define-public number-markup
+  (font-markup 'font-family 'number))
+
+
+(define-public huge-markup
+  (font-markup 'font-relative-size 2))
+(define-public large-markup
+  (font-markup 'font-relative-size 1))
+(define-public small-markup
+  (font-markup 'font-relative-size -1))
+(define-public tiny-markup
+  (font-markup 'font-relative-size -2))
+(define-public teeny-markup
+  (font-markup 'font-relative-size -3))
 (define-public dynamic-markup
   (font-markup 'font-family 'dynamic))
 (define-public italic-markup
@@ -44,7 +85,7 @@
    (map (lambda (x) (interpret-markup grob props x)) (car rest)))
   )
 
-(define-public (music-markup grob props . rest)
+(define-public (musicglyph-markup grob props . rest)
   (ly:find-glyph-by-name
    (ly:get-font grob (cons '((font-family . music)) props))
    (car rest))
@@ -58,18 +99,46 @@
   )
 
 (define-public (char-markup grob props . rest)
+  "Syntax: \\char NUMBER. "
   (ly:get-glyph  (ly:get-font grob props) (car rest))
 		 
   )
 (define-public (raise-markup grob props  . rest)
+  "Syntax: \\raise AMOUNT MARKUP. "
   (ly:molecule-translate-axis (interpret-markup grob props (cadr rest))
 			      (car rest) Y)
   )
 
-;; this is too simplistic: doesn't do backup for negative dimensions.
-(define (hspace-markup grob props . rest)
-  (ly:make-molecule "" (cons 0 (car rest)) '(-1 . 1) )
+(define-public (super-markup grob props  . rest)
+  "Syntax: \\super MARKUP. "
+  (ly:molecule-translate-axis (interpret-markup grob props (car rest))
+			      (* 0.5 (cdr (chain-assoc 'baseline-skip props)))
+			      Y)
   )
+
+(define-public (translate-markup grob props . rest)
+  "Syntax: \\translate OFFSET MARKUP. "
+  (ly:molecule-translate (interpret-markup  grob props (cadr rest))
+			 (car rest))
+
+  )
+
+(define-public (sub-markup grob props  . rest)
+  "Syntax: \\sub MARKUP."
+  (ly:molecule-translate-axis (interpret-markup grob props (car rest))
+			      (* -0.5 (cdr (chain-assoc 'baseline-skip props)))
+			      Y)
+  )
+
+;; todo: fix negative space
+(define (hspace-markup grob props . rest)
+  "Syntax: \\hspace NUMBER."
+  (let*
+      ((amount (car rest)))
+    (if (> amount 0)
+	(ly:make-molecule "" (cons 0 amount) '(-1 . 1) )
+	(ly:make-molecule "" (cons amount amount) '(-1 . 1)))
+  ))
 
 (define-public (override-markup grob props . rest)
   "Tack the 1st args in REST onto PROPS."
@@ -79,21 +148,36 @@
 (map (lambda (x)
        (set-object-property! (car x) 'markup-signature (cdr x))
        )
-     (list (cons bold-markup 'markup0)
-	   (cons column-markup 'markup-list0)
-	   (cons line-markup  'markup-list0)
-	   (cons combine-markup 'markup0-markup1)
-	   (cons simple-markup 'markup0)
-	   (cons music-markup 'scm0)
-	   (cons override-markup 'scm0-markup1)
-	   (cons lookup-markup 'scm0)
-	   (cons raise-markup 'scm0-markup1)
-	   (cons italic-markup 'markup0)
-	   (cons dynamic-markup 'markup0)
-	   (cons char-markup 'scm0)
-	   (cons hspace-markup 'scm0)
-	   (cons magnify-markup 'scm0-markup1)
-	   ))
+     (list
+      (cons bold-markup 'markup0)
+      (cons teeny-markup 'markup0)
+      (cons tiny-markup 'markup0)
+      (cons small-markup 'markup0)
+      (cons italic-markup 'markup0)
+      (cons dynamic-markup 'markup0)
+      (cons large-markup 'markup0) 
+      (cons huge-markup 'markup0) 
+      (cons sub-markup 'markup0)
+      (cons super-markup 'markup0)
+      (cons number-markup 'markup0)
+
+      (cons column-markup 'markup-list0)
+      (cons line-markup  'markup-list0)
+
+      (cons combine-markup 'markup0-markup1)
+
+      (cons simple-markup 'markup0)
+      (cons musicglyph-markup 'scm0)
+      (cons translate-markup 'scm0-markup1)
+      (cons override-markup 'scm0-markup1)
+      (cons lookup-markup 'scm0)
+      (cons raise-markup 'scm0-markup1)
+      (cons char-markup 'scm0)
+      (cons hspace-markup 'scm0)
+      (cons magnify-markup 'scm0-markup1)
+      (cons fontsize-markup 'scm0-markup1)
+      (cons translate-markup 'scm0-markup1)
+      ))
 
 
 (define markup-module (current-module))
