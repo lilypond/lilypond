@@ -27,7 +27,7 @@
  */
 
 static SCM
-line_atom (Grob* me, Real thick, Real dx, Real dy)
+line_atom (Grob *me, Real thick, Real dx, Real dy)
 {
   SCM type = me->get_grob_property ("type");
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -64,7 +64,7 @@ line_atom (Grob* me, Real thick, Real dx, Real dy)
 }
 
 static SCM
-zigzag_atom (Grob* me, Real thick, Real dx, Real dy)
+zigzag_atom (Grob *me, Real thick, Real dx, Real dy)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   SCM ws = me->get_grob_property ("zigzag-width");
@@ -121,7 +121,7 @@ Line_spanner::after_line_breaking (SCM  g)
 
 
 Molecule
-Line_spanner::line_molecule (Grob* me, Real thick, Real dx, Real dy)
+Line_spanner::line_molecule (Grob *me, Real thick, Real dx, Real dy)
 {
   Molecule mol;
   SCM type = me->get_grob_property ("type");
@@ -244,11 +244,11 @@ Line_spanner::brew_molecule (SCM smob)
       */
       
       int k = broken_spanner_index (me);
-      Spanner * parent_sp = dynamic_cast<Spanner*> (me->original_);
-      Spanner * next_sp  = parent_sp->broken_intos_ [k+1];
-      Item * next_bound = next_sp->get_bound (RIGHT);
+      Spanner *parent_sp = dynamic_cast<Spanner*> (me->original_);
+      Spanner *next_sp  = parent_sp->broken_intos_ [k+1];
+      Item *next_bound = next_sp->get_bound (RIGHT);
 
-      if (next_bound->break_status_dir())
+      if (next_bound->break_status_dir ())
 	{
 	  programming_error ("no note heads for the line spanner on next line?"
 			     " Confused.");
@@ -259,10 +259,10 @@ Line_spanner::brew_molecule (SCM smob)
       Grob *commonx = bound[LEFT]->common_refpoint (bound[RIGHT], X_AXIS);
       commonx = me->common_refpoint (commonx, X_AXIS);
       
-      Grob * next_common_y = line_spanner_common_parent (next_bound);
-      Grob * this_common_y = line_spanner_common_parent (bound[LEFT]);
+      Grob *next_common_y = line_spanner_common_parent (next_bound);
+      Grob *this_common_y = line_spanner_common_parent (bound[LEFT]);
 
-      Grob * all_common_y = me->common_refpoint (this_common_y, Y_AXIS);
+      Grob *all_common_y = me->common_refpoint (this_common_y, Y_AXIS);
       
       Interval next_ext  = next_bound->extent (next_common_y, Y_AXIS);
       Interval this_ext  = bound[LEFT]->extent (this_common_y, Y_AXIS);
