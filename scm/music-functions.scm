@@ -75,7 +75,7 @@
   (display ": { ")  
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element)))
-    (display (ly:mutable-music-properties music))
+    (display (ly:music-mutable-properties music))
     (if (pair? es)
 	(begin (display "\nElements: {\n")
 	       (map display-music es)

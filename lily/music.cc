@@ -346,7 +346,7 @@ LY_DEFINE (ly_music_transpose, "ly:music-transpose",
   TODO: should take moment factor?
  */
 LY_DEFINE (ly_music_compress, "ly:music-compress",
-	  3, 0, 0, (SCM m, SCM factor),
+	  2, 0, 0, (SCM m, SCM factor),
 	  "Compress music object @var{m} by moment @var{factor}."
 	   )
 {
