@@ -106,7 +106,7 @@ Tuplet_spanner::do_brew_molecule () const
 	  mol.add_molecule (Molecule (b, at));
 	}
 
-      mol.translate_axis (dir * staff_space, Y_AXIS);
+      //mol.translate_axis (dir * staff_space, Y_AXIS);
     }
   return mol;
 }
