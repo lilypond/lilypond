@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 \header {
 
 texidoc = "In combination with a beam, the bracket of the tuplet

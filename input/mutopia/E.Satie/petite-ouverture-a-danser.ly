@@ -7,7 +7,7 @@
   copyright = "Public Domain"
 }
 
-\version "2.3.22"
+\version "2.4.0"
 
 \include "nederlands.ly"
 
@@ -33,7 +33,7 @@ global =  {
 }
   
 i = \context Staff \relative c''{
-  \context Voice=i
+  \context Voice = "i"
   \voiceOne
 
   c8.( es16 bes4 ~ |  bes8) r c8.( bes16 | des4 c8. bes16 | c4 ~  c8) r |
@@ -61,7 +61,7 @@ i = \context Staff \relative c''{
 }
 
 ii = \context Staff \relative c'{
-  \context Voice=ii
+  \context Voice = "ii"
   \voiceTwo
 
   r8 <es as> r <des f> | r <es g> r <es as> | r <f as> r <f as> |
@@ -99,7 +99,7 @@ ii = \context Staff \relative c'{
 }
 
 lower = \context Staff  \relative c{
-  \context Voice=iii
+  \context Voice = "iii"
 
   <as as'>4 <es es'> | r <as as'> | <des, des'> <f f'> | <c c'> r |
   <as as'> <des des'> | <bes bes'> r | <des des'> <bes bes'> |
@@ -138,13 +138,13 @@ lower = \context Staff  \relative c{
 
 \score {
     \context PianoStaff <<
-	\context Staff = treble << 
+	\context Staff = "treble" << 
 	    \global 
 	    \clef violin
 	    \i
 	    \ii
 	>>
-	\context Staff = bass <<
+	\context Staff = "bass" <<
 	    \global
 	    \clef bass
 	    \lower

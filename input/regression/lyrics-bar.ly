@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 
 \header{
 texidoc="
@@ -12,7 +12,7 @@ lyrics do not collide with barlines.
 }
 
 <<
-    \context Staff=foo \with
+    \context Staff = "foo" \with
     {
 %	\remove "Bar_engraver"	
 	}
@@ -28,7 +28,7 @@ lyrics do not collide with barlines.
     \lyrics {
 	no Bar_Engraver_Bar_Engraver_Bar_Engraver 
     }
-    \context Staff=bar \with {
+    \context Staff = "bar" \with {
 %		\remove "Bar_engraver"	
     } { b1 b1 }
 >>

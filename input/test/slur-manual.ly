@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 \header {
 
 
@@ -13,11 +13,11 @@
 \score {
      \new PianoStaff
     <<
-	\context Staff = up {
+	\context Staff = "up" {
 	    \clef bass
 	    s1 * 4
 	} 
-	\context Staff = down \relative c <<
+	\context Staff = "down" \relative c <<
 	    s1*4
 	    {
 	    \clef bass

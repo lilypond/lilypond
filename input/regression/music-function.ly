@@ -7,7 +7,7 @@ demonstrate a @code{\myBar} function, which works similar to
 @code{\bar}, but is implemented completely in Scheme."
 
 }
-\version "2.3.22"
+\version "2.4.0"
 
 #(define myBar
   (ly:make-music-function

@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -9,7 +9,7 @@ included in LilyPond's support of ancient notation.
 }
 
 
-upperStaff = \context GregorianStaff = upperStaff <<
+upperStaff = \context GregorianStaff = "upperStaff" <<
   \context GregorianVoice <<
     \set Score.timing = ##f
 %   \set Score.forceAccidental = ##t %%%%%%%% FIXME: what happened to this property?
@@ -112,7 +112,7 @@ upperStaff = \context GregorianStaff = upperStaff <<
   >>
 >>
 
-lowerStaff = \context MensuralStaff = lowerStaff <<
+lowerStaff = \context MensuralStaff = "lowerStaff" <<
   \context MensuralVoice <<
     
     % this is broken until further notice -- see refman

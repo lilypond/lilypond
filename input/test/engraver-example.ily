@@ -1,5 +1,5 @@
 %% texidoc = "Include file for engraver example."
-\version "2.3.22"
+\version "2.4.0"
 topVoice =  \relative c' {
   \key d\major
   es8([ g] a[ fis])

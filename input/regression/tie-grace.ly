@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 \header {
     texidoc = "Tieing a grace to the to a following grace or main note works."
 }

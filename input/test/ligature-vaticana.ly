@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 
 \header { texidoc	= "@cindex Ancient Vaticana
 Vaticana ligature uses four staff lines, special clef, and

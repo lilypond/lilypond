@@ -8,7 +8,7 @@
     For different configurations, the scripts can be moved manually."
     }
 
-\version "2.3.22"
+\version "2.4.0"
 \layout {
     raggedright = ##t
 }

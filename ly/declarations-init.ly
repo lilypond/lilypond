@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 
 %% < 1.8 compatibility switch
 #(ly:set-option 'old-relative)

@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 \header {
     
     texidoc ="Broken engraving of a bar at the end of a line does not upset 

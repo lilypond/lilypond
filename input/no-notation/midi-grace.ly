@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.22"
+\version "2.4.0"
 \header{ texidoc = "Tests MIDI output with grace notes. " }
 
 \score { 

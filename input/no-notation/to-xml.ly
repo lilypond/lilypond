@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 
 fooBar =  { << c''4 \\ g'4 >> }
 

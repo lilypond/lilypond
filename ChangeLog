@@ -1,5 +1,9 @@
 2004-10-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scripts/convert-ly.py (conv): fixed \context Foo = mixedCaps
+	case.
+	(conv): add dummy 2.4.0 conversion rule.
+
 	* Documentation/user/lilypond.tely: add @finalout.
 
 	* lily/slur-scoring.cc (enumerate_attachments): use stem_extent_

@@ -2,7 +2,7 @@
     texidoc = "Use \\score block as markup command."
 }
 
-\version "2.3.22"
+\version "2.4.0"
 
 tuning = \markup {
     \score {

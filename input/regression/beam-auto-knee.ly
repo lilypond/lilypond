@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 
 \header{ texidoc="A knee is made automatically when a horizontal
 beam fits in a gap between note heads that is larger than a predefined

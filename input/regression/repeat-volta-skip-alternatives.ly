@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 \header {
 
     texidoc = "When too few alternatives are present, the first

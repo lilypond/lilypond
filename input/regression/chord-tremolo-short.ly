@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 \header {
   texidoc = "
   Tremolo repeats can be constructed for short tremolos (total duration smaller than 1/4) too. Only some of the beams are connected to the stems. 

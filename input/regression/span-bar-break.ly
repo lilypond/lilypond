@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 
 \header {
 
@@ -9,11 +9,11 @@ barline is drawn between the staves, but the @code{:|} is not."
 
 \score {
  \new PianoStaff <<
-    \context Staff = up {
+    \context Staff = "up" {
 	\bar "|:" r1
 	\bar ":|" \break r1
     }
-    \context Staff=down { r r }
+    \context Staff = "down" { r r }
   >>
   \layout{ raggedright = ##t }
 }
