@@ -235,7 +235,7 @@ def setup_temp ():
 
 def command_name (cmd):
 
-	# deal with "((latex ) >& 1 ) .." too 
+	# deal with "((latex ) >& 1 ) .." too
 	cmd = re.match ("([\(\)]*)([^ ]*)", cmd).group(2)
 	return os.path.split (cmd)[1]
 

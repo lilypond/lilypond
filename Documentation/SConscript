@@ -6,7 +6,8 @@ import os
 here = os.getcwd ()
 reldir = str (Dir ('.').srcnode ())
 os.chdir (reldir)
-sources = glob.glob ('*.tely') + glob.glob ('user/*.tely')
+###sources = glob.glob ('*.tely') + glob.glob ('user/*.tely')
+sources = ['user/lilypond.tely', 'user/music-glossary.tely']
 os.chdir (here)
 
 Import ('env')
@@ -29,9 +30,13 @@ LILYPONDPREFIX = env['LILYPONDPREFIX']
 
 
 mfbuild = os.path.join (env['absbuild'], 'mf', env['out'])
+lilybuild = os.path.join (env['absbuild'], 'lily', env['out'])
+userbuild = os.path.join (env['absbuild'], 'Documentation/user', env['out'])
 e.Depends ('user/lilypond.texi', os.path.join (mfbuild, 'feta16list.ly'))
 e.Depends ('user/lilypond.texi', os.path.join (mfbuild, 'parmesan16list.ly'))
+##e.Depends ('lilypond.texi', os.path.join (userbuild, 'music-glossary.texi'))
 e.Depends ('lilypond.texi', 'lilypond-internals.texi')
+e.Depends ('lilypond.texi', os.path.join (lilybuild, 'lilypond-bin'))
 
 e.Command ('lilypond-internals.texi', LILYPOND_BIN,
 	   ('(cd $$(dirname $TARGET) && \
@@ -40,9 +45,16 @@ e.Command ('lilypond-internals.texi', LILYPOND_BIN,
 	    + ' ' + os.path.join (env['srcdir'], 'ly/generate-documentation')\
 	    + ')') % vars ())
 
-docs = e.Tely2pdf (sources)
+doc_stems = map (lambda x: os.path.splitext (x)[0], sources)
+texis = map (e.Tely2texi, doc_stems)
+dvis = map (e.Texi2dvi, doc_stems)
+pss = map (e.PostScript, doc_stems)
+pdfs = map (e.Dvi2pdf, doc_stems)
 
-e.Alias ('doc', docs)
+e.Alias ('doc', texis)
+e.Alias ('doc', dvis)
+e.Alias ('doc', pss)
+e.Alias ('doc', pdfs)
 
 #testing
 all_sources = ['SConscript',] + sources
