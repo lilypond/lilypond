@@ -11,6 +11,8 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 .* TODO
 . * use Rhythmic_head::position_i () for all Staff_referenced 
 . * .po -> .pot.
+. *  why need to run -C mf twice?
+. * junk BLURB files.
 . * setting indent to 0 with \shape fails
 . * ly2dvi : don't repeat opus if same.
 . * breaks before mmrests are favored.
@@ -20,11 +22,9 @@ Grep -i for TODO, FIXME and ugh/ugr/urg.
 . * rerun profile
 . * fix or replace feta-accordion.mf
 . * fix configure with CFLAGS or LDFLAGS, try:
-+    CFLAGS=-g LDFLAGS='-Wl,--warn-common' ./configure
-+ configure will use them while testing the compiler, but they don't
-+ appear in config.make
-
-. * Break_req handling is silly (break_forbid () + \break fucks up.)
+   CFLAGS=-g LDFLAGS='-Wl,--warn-common' ./configure
+configure will use them while testing the compiler, but they don't
+appear in config.make
 . * script engraver
 . * Chords:
 .  * Bass/inversion pitch when not part of Chord
@@ -490,19 +490,7 @@ hesitate to ask.
 . * SGML input
 
 . * Documentation
-.  * remove links to non-free SW.
 .  * internal documentation
-.  * a general paper. 
-.  * \properties
-.   * left/rightbeamcount
-.   * various other new properties.
-.  * introduction?
-.  * info?
-.  * LaTeX?
-.  * more manpages?
-.  * Doc (C) stuff of sheet music
-.  * a better format?  SGML?  TeX?  Info?
-.  * a better tutorial
 
 . * more spanners (smallish)
 .  * Glissando
@@ -515,7 +503,6 @@ hesitate to ask.
 
 . * lines:
 .  * Ledger lines, should be separate item: Ledger_lines
-.  * set different line sizes / thicknesses
 .  * beam stem showthrough, inter beam sizes (french vs german style)
 
 . * Collisions
@@ -524,7 +511,7 @@ hesitate to ask.
 
 . * Keys:
 .  * merge key{item} & localkey{item}?
-.  * spacing, national styles?
+.  * spacing
 
 . * Support for TAB
 .  * redo Notehead to allow digits as heads
@@ -533,7 +520,6 @@ hesitate to ask.
 . * should adjust stemlength for flag number.
 
 . * breaking:
-.  * caching breakpoints
 .  * saving them
 .  * specify number of lines
 
@@ -543,10 +529,8 @@ hesitate to ask.
 .  * \translator -> ?
 .  * fix \partial 
 .  * \bla {} vs \bla ; 
-.  * mix engraver hacking with music ?
 .  * \once\property  KEY = VAL
 .  * input property
-.  * abstract grammar.
 . * Figure out semicolons.
 . * <c f a>4 ?
 . * Viola mode?
@@ -563,8 +547,6 @@ hesitate to ask.
 
 
 .* SMALLISH PROJECTS
-
-. * fix confusing naming in Engraver vs Engraver_group_engraver (context)
 
 . * A range for context errors (eg. mark both { and }. )
 

@@ -94,7 +94,11 @@ usage ()
   cout << _ ("Typeset music and or play MIDI from FILE");
   cout << "\n\n";
   cout << 
-#include "BLURB.hh"
+_(
+"LilyPond is a music typesetter.  It produces beautiful sheet music\n"
+"using a high level description file as input.  LilyPond is part of \n"
+"the GNU Project.\n"
+);
 
   cout << '\n';
   cout << _ ("Options:");
