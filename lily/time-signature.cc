@@ -1,5 +1,5 @@
 /*   
-  time-signature.cc --  implement Time_signature
+  time-signature.cc -- implement Time_signature
   
   source file of the GNU LilyPond music typesetter
   
@@ -16,8 +16,16 @@
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
 
+
+/*
+  TODO:
+
+  this file should go ; The formatting can completely be done with
+  markups.
+  
+ */
+
 MAKE_SCHEME_CALLBACK (Time_signature, brew_molecule, 1);
-/* TODO: make different functions for special and normal timesigs. */
 SCM
 Time_signature::brew_molecule (SCM smob) 
 {

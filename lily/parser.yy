@@ -1620,7 +1620,7 @@ configurable, i.e.
 	}
 	| open_event {
 		$$ = $1;
-		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction", gh_int2scm (STOP))
+		dynamic_cast<Music *> ($$)->set_mus_property ("span-direction", gh_int2scm (STOP));
 	}
 	| EVENT_IDENTIFIER	{
 		$$ = unsmob_music ($1);
@@ -1961,7 +1961,7 @@ bass_number:
 	| UNSIGNED {
 		$$ = scm_number_to_string (gh_int2scm ($1), gh_int2scm (10));
 	}
-	| STRING { $$ =  $1 }
+	| STRING { $$ =  $1; }
 	;
 
 bass_mod:
@@ -2132,7 +2132,7 @@ simple_element:
 	;
 
 lyric_element:
-	full_markup { $$ = $1 }
+	full_markup { $$ = $1; }
 	| STRING {  $$ = $1 ; }
 	;
 
