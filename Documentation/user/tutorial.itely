@@ -1837,6 +1837,14 @@ $ latex lilbook.latex
 $ xdvi lilbook 
 @end example
 
+To convert the file into a nice PDF document, run the following
+commands:
+@example
+$ dvips -Ppdf -u +lilypond lilbook
+$ ps2pdf lilbook.ps
+@end example
+
+
 Running lilypond-book and running latex creates a lot of temporary
 files, and you would not want those to clutter up your working
 directory.  The @code{outdir} option to lilypond-book creates the
