@@ -8,9 +8,6 @@
 # you do make dist 
 #
 
-
-# using src-depth iso depth is only necessary for broken rules that do
-#     cd $(outdir) && foo $(depth) ...
 buildscript-dir = $(src-depth)/buildscripts
 script-dir = $(src-depth)/scripts
 input-dir = $(src-depth)/input

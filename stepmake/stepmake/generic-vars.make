@@ -11,13 +11,11 @@ topdir := $(abs-srcdir)
 endif
 pwd := $(shell pwd)
 
-# $(depth) is deprecated, for most cases you'll want $(src-depth)
-#
-# Well, on second thought.
-# It can do no harm, but using src-depth iso depth is only necessary
-# for broken rules that do
-#    cd $(outdir) && foo  $(depth) ...
-src-depth = $(depth)/$(srcdir)
+ifeq ($(srcdir),.)
+src-depth = $(depth)
+else
+src-depth = $(srcdir)
+endif
 
 # derived names
 ifeq ($(distdir),)
@@ -25,11 +23,6 @@ ifeq ($(distdir),)
   DIST_NAME = $(package)-$(TOPLEVEL_VERSION)
 endif
 distname = $(package)-$(TOPLEVEL_VERSION)
-
-# obsolete?
-#makeout = $(depth)/make/$(outdir)
-#docout = $(depth)/Documentation/$(outdir)
-#binout = $(depth)/bin/$(outdir)
 
 doc-dir = $(src-depth)/Documentation
 po-dir = $(src-depth)/po

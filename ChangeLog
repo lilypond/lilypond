@@ -1,5 +1,11 @@
 2002-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* stepmake/stepmake/compile-vars.make: 
+	* stepmake/stepmake/executable-rules.make: 
+	* stepmake/stepmake/python-module-rules.make:
+	* stepmake/stepmake/shared-library-rules.make: Use ALL_LDFLAGS, to
+	guard agains user override of LDFLAGS.
+
 	* Documentation/user/refman.itely: Compile fix for \mark #'(music ...).
 
 	* Documentation/user/internals.itely: Use ly-set-mus-property!.
