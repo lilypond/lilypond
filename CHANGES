@@ -1,3 +1,45 @@
+1.5.14.jcn6
+===========
+
+* Some more random hacking at midi2ly.py.
+
+* Slightly better doco for r, s and \skip, with examples.
+
+* Bugfixes: add-html-footer.py and @MAILADDRESS@.
+
+* Some website related fixes (thanks Tiggr).
+ 
+* Ugly hack in add-html-footer for disabling tutorial and refman links
+in sidebar.
+
+* Guile > 1.4 compilation fixes.
+
+* Website bugfix: mailto: (thanks David Boersma).
+
+1.5.14.hwn1
+===========
+
+* Rename: Local_key_engraver to Accidental_engraver
+
+* Add documentation for accidentals grob property.
+
+* Don't make double accidentals even if two of the same notes are
+specified. (Thanks Rune)
+
+* Search all staff-bars for non-empty barline to determine type. This
+fixes span-bars with the lowest staff hara-kiried. (Thanks Rune)
+
+
+1.5.14.rz1
+==========
+
+* Less buggy beam-split
+
+* Added subdivideBeams, subdividing beams on beats
+
+1.5.14
+======
+
 1.5.13.hwn2
 ===========
 
