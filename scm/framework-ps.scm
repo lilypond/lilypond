@@ -213,7 +213,7 @@
 
 (define-public (output-preview-framework outputter book scopes fields basename)
   (let* ((bookpaper (ly:paper-book-book-paper book))
-	 (systems (ly:paper-book-lines book))
+	 (systems (ly:paper-book-systems book))
 	 (scale  (ly:output-def-lookup bookpaper 'outputscale ))
 	 (titles (take-while ly:paper-system-title? systems))
 	 (non-title (find (lambda (x)
