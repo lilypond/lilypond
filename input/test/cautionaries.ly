@@ -1,7 +1,7 @@
 \version "2.1.26"
 \header{
 	texidoc="@cindex Cautionary Accidentals
-Cautinary accidnetals are displayed in slurs by default. They can be 
+Cautinary accidentals are displayed in slurs by default. They can be 
 shown also with accidentals of smaller size.
 " }
 \score { \notes \context Staff \transpose c c'' {
