@@ -1,4 +1,4 @@
-;;;; new-markup.scm -- 
+;;;; new-markup.scm -- Implement a user extensible markup scheme.
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
