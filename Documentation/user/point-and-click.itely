@@ -20,13 +20,14 @@ The most obvious choice is Xdvi@footnote{KDVI also provides src
 specials, but does not use the kpathsea library, so it cannot find
 LilyPond font and PostScript library files.}, version 22.36 or newer.
 It is available from
-@uref{ftp://ftp.math.berkeley.edu/pub/Software/TeX/xdvi.tar.gz,ftp.math.berkeley.edu}.
+@uref{ftp://@/ftp@/.math@/.berkeley@/.edu/@/pub/@/Software/@/TeX/@/xdvi@/.tar@/.gz,
+ftp@/.math@/.berkeley@/.edu}.
 
    Most @TeX{} distributions ship with xdvik, which is always a few
 versions behind the official Xdvi. To find out which Xdvi you are
 running, try @code{xdvi -version} or @code{xdvi.bin -version}.
 
-@item an editor with a client/server interface (or a lightweight GUI
+@item an editor with a client/@/server interface (or a lightweight GUI
 editor):
 
 
@@ -34,8 +35,8 @@ editor):
 
 @itemize @bullet
 @item Emacs. Emacs is an extensible text-editor.  It is available from
-@uref{http://www.gnu.org/software/emacs/}.  You need version 21 to use
-column location.
+@uref{http://@/www@/.gnu@/.org/@/software/@/emacs/}.  You need version 21
+to use column location.
 
 @c move this elsewhere?
 
@@ -50,12 +51,12 @@ column location.
 @cindex XEmacs
 
 @item NEdit.  NEdit runs under Windows, and Unix.
-  It is available from @uref{http://www.nedit.org}.
+It is available from @uref{http://@/www@/.nedit@/.org}.
 
 @cindex NEdit
 
 @item GVim.  GVim is a GUI variant of VIM, the popular VI
-clone.  It is available from @uref{http://www.vim.org}.
+clone.  It is available from @uref{http://@/www@/.vim@/.org}.
 
 @cindex GVim
 @cindex Vim
@@ -91,7 +92,7 @@ insert one line, all following locations will be off by a line.
 
 @cindex Emacs
 For using point-and-click with Emacs,  add the following
-In your Emacs startup file (usually @file{~/.emacs}):
+In your Emacs startup file (usually @file{~/@/.emacs}):
 @example
 (server-start)
 @end example

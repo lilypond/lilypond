@@ -85,7 +85,7 @@ names.  The notes are specified by the letters @code{a} through
 to @code{b}.  The pitch @code{c} is an octave below middle C and the
 letters span the octave above that C
 
-@lilypond[fragment,verbatim,noindent]
+@lilypond[quote,fragment,verbatim]
 \clef bass
 a,4 b, c d e f g a b c' d' e' \clef treble f' g' a' b' c''
 @end lilypond
@@ -320,7 +320,7 @@ r\longa r\breve
 r1 r2 r4 r8 r16 r32 r64 r64 
 @end example 
 
-@lilypond[quote,noindent]
+@lilypond[quote]
 \score {
  \relative c'' {
     a\breve*1/2  \autoBeamOff
@@ -348,9 +348,7 @@ If the duration is omitted then it is set to the previously entered
 duration.  The default for the first note is a quarter note.
 
 @lilypond[quote,raggedright,verbatim,fragment]
-{
-a a a2 a a4 a a1 a
-} 
+{ a a a2 a a4 a a1 a } 
 @end lilypond
 
 
@@ -607,11 +605,14 @@ larger: a single error puts the rest of the piece off by one octave
 
 @cindex @code{\relative}
 @example
-  \relative @var{startpitch} @var{musicexpr}
+\relative @var{startpitch} @var{musicexpr}
 @end example
+
+@noindent
 or
+
 @example
-  \relative @var{musicexpr}
+\relative @var{musicexpr}
 @end example
  
 The octave of notes that appear in @var{musicexpr} are calculated as
@@ -1001,7 +1002,7 @@ This command is equivalent to setting @code{clefGlyph},
 when any of these properties are changed.  The following example shows
 possibilities when setting properties manually.
 
-@lilypond[raggedright,verbatim]
+@lilypond[quote,raggedright,verbatim]
 {
   \set Staff.clefGlyph = #"clefs-F"
   \set Staff.clefPosition = #2
@@ -1626,7 +1627,7 @@ all 16th or shorter beams at beat positions, as defined by the
 @code{beatLength} property.
 
 
-@lilypond[fragment,quote,relative=2,verbatim,noindent]
+@lilypond[fragment,quote,relative=2,verbatim]
 c16[ c c c c c c c]
 \set subdivideBeams = ##t
 c16[ c c c c c c c]
@@ -1683,7 +1684,7 @@ In normal time signatures, automatic beams can start on any note but can
 only end in a few positions within the measure: beams can end on a beat,
 or at durations specified by the properties in
 @code{autoBeamSettings}.  The defaults for @code{autoBeamSettings}
-are defined in @file{scm/@/auto@/-beam.scm}.
+are defined in @file{scm/@/auto@/-beam@/.scm}.
 
 The value of @code{autoBeamSettings} is changed with two functions,
 @example
@@ -3150,7 +3151,7 @@ The following variables have been predefined
 @item drums-style
 This is the default.  It typesets a typical drum kit on a five-line staff
 
-@lilypond[quote,raggedright,noindent]
+@lilypond[quote,raggedright]
 nam = \lyricmode { cymc cyms cymr hh hhc hho hhho hhp cb hc
     bd sn ss tomh tommh tomml toml tomfh tomfl }
 mus = \drummode  { cymc cyms cymr hh | hhc hho hhho hhp | \break cb hc
@@ -4342,7 +4343,7 @@ e16 fis gis a b4
 \set TabStaff.minimumFret = #8
 e16 fis gis a b4
 @end example
-@lilypond[quote,noindent,raggedright]
+@lilypond[quote,raggedright]
 frag =  {
   \key e \major
   e16 fis gis a b4
@@ -4662,7 +4663,7 @@ Then,
  ignatzekExceptions)
 @end example
 adds the new exceptions to the default ones, which are defined in
-@file{ly/chord-modifier-init.ly}.
+@file{ly/@/chord@/-modifier@/-init@/.ly}.
 
 For an example of tuning this property, see also
 @inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly}.
@@ -4741,8 +4742,8 @@ Examples: @inputfileref{input/@/regression,chord@/-name@/-major7@/.ly},
 @inputfileref{input/@/test,chords@/-without@/-melody@/.ly}.
 
 
-Init files: @file{scm/@/chords@/-ignatzek.scm}, and
-@file{scm/@/chord@/-entry.scm}.
+Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
+@file{scm/@/chord@/-entry@/.scm}.
 
 
 @refbugs
@@ -5000,7 +5001,7 @@ few measures, it is set to function that produces a boxed number.
 }
 @end lilypond
 
-The file @file{scm/@/translation@/-functions.scm} contains the definitions
+The file @file{scm/@/translation@/-functions@/.scm} contains the definitions
 of @code{format-mark-numbers} (the default format) and
 @code{format-mark-letters}.  These can be used as inspiration for other
 formatting functions.
@@ -5040,7 +5041,7 @@ behavior
 
 Program reference: @internalsref{MarkEvent}, @internalsref{RehearsalMark}.
 
-Init files: @file{scm/@/translation@/-functions.scm} contains the
+Init files: @file{scm/@/translation@/-functions@/.scm} contains the
 definition of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for other
 formatting functions.
@@ -5085,7 +5086,8 @@ Bar numbers can be manually changed by setting the
 
 Program reference: @internalsref{BarNumber}.
 
-Examples: @inputfileref{input/@/test,bar@/-number@/-every@/-five@/-reset@/.ly},
+Examples:
+@inputfileref{input/@/test,bar@/-number@/-every@/-five@/-reset@/.ly},
 and @inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}.
 
 @refbugs
@@ -6305,7 +6307,7 @@ In addition to the standard articulation signs described in section
 provided.  These are specifically designed for use with notation in
 Editio Vaticana style.
 
-@lilypond[quote,raggedright,verbatim,noindent]
+@lilypond[quote,raggedright,verbatim]
 \include "gregorian-init.ly"
 \score {
   \context VaticanaVoice {
@@ -7514,7 +7516,7 @@ initialize all relevant context properties and grob properties to
 proper values, so you can immediately go ahead entering the chant, as
 the following excerpt demonstrates
 
-@lilypond[quote,raggedright,verbatim,noindent]
+@lilypond[quote,raggedright,verbatim]
 \include "gregorian-init.ly"
 \score {
   <<
@@ -7549,7 +7551,7 @@ style.  These contexts initialize all relevant context properties and
 grob properties to proper values, so you can immediately go ahead
 entering the chant, as the following excerpt demonstrates
 
-@lilypond[quote,raggedright,verbatim,noindent]
+@lilypond[quote,raggedright,verbatim]
 \score {
   <<
     \context MensuralVoice = "discantus" \transpose c c' {

@@ -1,5 +1,14 @@
 2004-11-01  Werner Lemberg  <wl@gnu.org>
 
+	* buildscripts/mf-to-table.py (write_fontlist): Improve formatting
+	of output.
+	Set `per_line' to 2; replace hard-coded value with it.
+
+	* Documentation/user/*: Many fixes to improve appearance of
+	printed manual.
+
+2004-11-01  Werner Lemberg  <wl@gnu.org>
+
 	* Documentation/user/changing-defaults.itely,
 	Documentation/user/notation.ly,
 	Documentation/user/programming-interface.itely: Use @/.
