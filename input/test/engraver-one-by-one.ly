@@ -24,7 +24,7 @@ Staff context.
     }
 \layout { raggedright = ##t }
 
-\include "engraver-example.lyinc"
+\include "engraver-example.ily"
 
 
 %

@@ -13,7 +13,7 @@ context. "
 
 }
 
-\include "engraver-example.lyinc"
+\include "engraver-example.ily"
 
 \score {
 \context Staff << \topVoice \\ \botVoice >>
