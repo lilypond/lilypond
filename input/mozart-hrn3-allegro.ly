@@ -1,5 +1,5 @@
 \version "1.5.49"
-%\include  "mozart-hrn3-defs.ly"
+\include  "mozart-hrn3-defs.ly"
 
 allegro =
 	\notes
@@ -17,7 +17,7 @@ allegro =
 	r8 [g' g g] [g g e c]
 	g'4 g, r2
 	R1*18
-	r2 r4 g'4^"Solo" |
+	r2 r4^"Solo" g'4 |
 	\mark "A"
 	e'4. () c8 [f (d c )b ]
 	[b()c] g4 r8 [g c e]
