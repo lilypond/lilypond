@@ -5,3 +5,15 @@ To generate the pretty-printed docs, do this:
 	make doc
 
 in the top-level dir
+
+
+======================
+
+NOTE:
+
+LilyPond is a long way from finished and polished. I do appreciate
+criticism, comments, bugreports, patches, etc. Please send e-mail to
+
+	hanwen@stack.urc.tue.nl
+
+Have fun!
