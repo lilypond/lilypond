@@ -30,7 +30,9 @@ import glob
 # If set, LILYPONDPREFIX must take prevalence
 # if datadir is not set, we're doing a build and LILYPONDPREFIX
 
-import getopt, os, sys
+import getopt
+import os
+import sys
 datadir = '@local_lilypond_datadir@'
 if not os.path.isdir (datadir):
 	datadir = '@lilypond_datadir@'
@@ -237,7 +239,7 @@ def command_name (cmd):
 
 	# deal with "((latex ) >& 1 ) .." too
 	cmd = re.match ("([\(\)]*)([^ ]*)", cmd).group(2)
-	return os.basename (cmd)
+	return os.path.basename (cmd)
 
 def error_log (name):
 	name = re.sub('[^a-z]','x', name)

@@ -1295,6 +1295,11 @@ context_mod:
 
 context_prop_spec:
 	simple_string {
+		if (!is_regular_identifier ($1))
+		{
+			THIS->here_input ().error (_("Grob name should be alphanumeric"));
+		}
+
 		$$ = scm_list_2 (ly_symbol2scm ("Bottom"),
 			scm_string_to_symbol ($1));
 	}
