@@ -29,7 +29,7 @@ protected:
 public:
     
     /* *************** */
-    NAME_MEMBERS(Staff_registers);
+    NAME_MEMBERS();
     void change_group(Group_change_req * greq_l,
 		      Voice_registers *voice_regs_l,
 		      Voice_group_registers * old_group);

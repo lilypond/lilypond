@@ -26,7 +26,7 @@ protected:
     virtual void handle_broken_dependencies();
 
     virtual void do_add_processing();
-    NAME_MEMBERS(Super_elem);
+    NAME_MEMBERS();
 };
 
 #endif // SUPER_ELEM_HH

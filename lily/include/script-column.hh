@@ -24,7 +24,7 @@ protected:
 public:
     Link_array<Script> script_l_arr_;
     Link_array<Item> support_l_arr_;
-    NAME_MEMBERS(Script_column);
+    NAME_MEMBERS();
    
     void add(Script *);
     void add_support(Item*);

@@ -34,7 +34,7 @@ protected:
     virtual void set_feature(Feature);
 public:
     Tie_register();
-    NAME_MEMBERS(Tie_register);
+    NAME_MEMBERS();
 };
 
 #endif // TIE_REG_HH

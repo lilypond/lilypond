@@ -27,7 +27,8 @@ protected:
     virtual void pre_move_processing();
     virtual void post_move_processing();
 public:
-    NAME_MEMBERS(Slur_register);
+    Slur_reg();
+    NAME_MEMBERS();
 };
 
 #endif // SLURREG_HH

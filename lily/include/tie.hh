@@ -28,7 +28,7 @@ public:
     void set_head(int, Note_head*head_l);
 
     Tie();
-    NAME_MEMBERS(Tie);
+    NAME_MEMBERS();
     SPANNER_CLONE(Tie)
 };
 #endif // TIE_HH

@@ -36,7 +36,7 @@ public:
     Array<Voice_registers*> voice_reg_l_arr_;
     /* *************** */
     
-    NAME_MEMBERS(Voice_group_registers);
+    NAME_MEMBERS();
     static bool static_acceptable_request_b(Request*);
     virtual void add(Request_register*);
     Voice_group_registers(String id, Input_register const *);

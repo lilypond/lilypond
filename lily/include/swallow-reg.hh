@@ -21,6 +21,6 @@ protected:
     bool acceptable_request_b(Request*) const;
     bool try_request(Request*) ;
 public:
-    NAME_MEMBERS(Swallow_register);
+    NAME_MEMBERS();
 };
 #endif // SWALLOW_REG_HH

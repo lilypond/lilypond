@@ -19,7 +19,7 @@ class Rest_collision : public Item {
 public:
     void add(Rest_column*);
     void add(Collision*);
-    NAME_MEMBERS(Rest_collision);
+    NAME_MEMBERS();
 protected:
     virtual void do_post_processing();
     virtual void do_substitute_dependency(Score_elem*,Score_elem*);

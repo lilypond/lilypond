@@ -25,7 +25,7 @@ class Stem_beam_register : public Request_register {
     int default_dir_i_;
 public:
     /* *************** */
-    NAME_MEMBERS(Stem_beam_register);
+    NAME_MEMBERS();
     Stem_beam_register();
 
 protected:

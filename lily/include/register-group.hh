@@ -33,7 +33,7 @@ public:
      */
     virtual void terminate_register(Request_register * reg_l);
     
-   NAME_MEMBERS(Register_group_register);
+   NAME_MEMBERS();
     
     /**
       Remove #reg_l# from the list, and return it.

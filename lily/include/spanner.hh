@@ -38,7 +38,7 @@ public:
     PCol *left_col_l_, *right_col_l_;
     
     /* *************** */
-    NAME_MEMBERS(Spanner);
+    NAME_MEMBERS();
     virtual Spanner* spanner() { return this; }    
     Spanner();
     bool broken_b() const;

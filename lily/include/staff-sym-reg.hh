@@ -20,7 +20,7 @@ class Staff_sym_register : public Request_register {
     Moment last_mom_;
 public:
     Staff_sym_register();
-    NAME_MEMBERS(Staff_sym_register);
+    NAME_MEMBERS();
 protected:
     virtual void process_requests();
     ~Staff_sym_register();

@@ -20,7 +20,7 @@ public:
     virtual String TeX_string() const;    
     
     /* *************** */
-    NAME_MEMBERS(Line_of_score);
+    NAME_MEMBERS();
     Line_of_score();
     
     void add_line(Spanner_elem_group *);

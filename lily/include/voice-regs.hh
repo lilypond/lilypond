@@ -20,7 +20,7 @@ public:
     /* *************** */
 
     Voice_registers(Voice*, Input_register const*);
-    NAME_MEMBERS(Voice_registers);
+    NAME_MEMBERS();
 
 protected:
     virtual void pre_move_processing();
