@@ -111,13 +111,10 @@ rightb =  \transpose c cis' {
  c_3 g,_2 es, g, h,_4 g, d, g, c g,8 f,16 |
  c g, es, g, es c_3 as, c^2 d^3 c h, c |
  e des b,\< des g e_3 ces_4 d_2 f^3 d cis d |
- \override PhrasingSlur   #'extra-offset = #'(0 . 3)
- \override PhrasingSlur   #'beautiful = #42
+ \once \override PhrasingSlur   #'extra-offset = #'(0 . 3)
  g\( fes des fes b g_3 es_1\! ges_2 a^3 ges f_1 ges_2 |
  r ges_2 b des_1 ges b,_2 des ges,^1 b, \d des,^1 \stemDown \transpose c' c { b,[_1 as,] |
  g,8  b,16[ g, e, cis,]  d,\)_4 \< f, h, d_3 f_2  r16\! }
- \revert PhrasingSlur #'extra-offset
- \revert PhrasingSlur #'beautiful
 
  \change Staff=mid
  \relative c { \stemDown \slurDown
