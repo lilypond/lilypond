@@ -10,11 +10,13 @@ $(outdir)/%.latex: %.doc
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
 	if [ -f $@ ]; then chmod a+w $@; fi
+	rm -f $$(grep -LF '\lilypondend' out/lily-*.tex)
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 	chmod -w $@
 
 $(outdir)/%.texi: $(outdir)/%.tely
 	if [ -f $@ ]; then chmod a+w $@; fi
+	rm -f $$(grep -LF '\lilypondend' out/lily-*.tex)
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) --verbose $(LILYPOND_BOOK_FLAGS) $<
 #
 # DON'T REMOVE SOURCE FILES, otherwise the .TEXI ALWAYS OUT OF DATE.

@@ -1,5 +1,8 @@
 2004-02-24  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* make/ly-rules.make: Remove any broken lily-*.tex files before
+	lilypond-book run.
+
 	* stepmake/stepmake/c++-vars.make (EXTRA_CXXFLAGS): Remove -pipe
 	comment.
 
