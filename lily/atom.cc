@@ -57,7 +57,7 @@ Atom::TeX_string() const
   Offset off = off_;
 
   /* infinity checks. */
-  for (int a =X_AXIS; a < NO_AXES; a++)
+  for (int a = X_AXIS; a < NO_AXES; a++)
     {
       Axis ax = (Axis)a;
       if (abs (off[ax]) >= 100 CM)
@@ -74,4 +74,16 @@ Atom::TeX_string() const
   s += print_dimen (off[X_AXIS]) + "}{";
   s += tex_str + "}";
   return s;
+}
+
+void
+Atom::translate (Real r, Axis a)
+{
+  off_[a] += r; 
+}
+
+void
+Atom::translate (Offset o)
+{
+  off_ += o;
 }
