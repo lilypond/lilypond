@@ -101,47 +101,56 @@ violoncello =  \relative c' {
 }
 
 
-#(set-global-staff-size 16)
-\score {
-  << 
-    \context StaffGroup ="legni" << 
-      \context Staff ="flauti" \flauti
-      \context Staff ="oboi" \oboi
-      \context Staff ="clarinetti" \clarinetti 
-      \context Staff ="fagotti" \fagotti 
-    >>
-    \context StaffGroup ="ottoni" <<
-      \context Staff ="corni" \corni
-      \context Staff ="trombe" \trombe
-    >>
-    \context StaffGroup ="timpani" <<
-      \context Staff ="timpani" \timpani
-     { 
-       \skip 1 
-       % Hmm: this forces a staff-bracket, that's good!
-       % However, I can't find where is decided on staff-bracket yes/no
-     }
-    >>
-    \context StaffGroup ="archi" <<
-      \context GrandStaff ="violini" <<
-        \context Staff ="violinoI" \violinoI
-        \context Staff ="violinoII" \violinoII
-      >>
-      \context Staff ="viola" \viola
-      \context Staff ="violoncello" \violoncello
-    >>
-  >>
-  \paper {
-      indent=100.0\mm
-      linewidth=150.0\mm
-      \context {
-	  \RemoveEmptyStaffContext
-      }
-      \context {
-	  \Score
-	  \override TimeSignature #'style = #'C
-      }
-  }
+% ugf, must be here?
+\bookpaper {
+    indent=10.0\mm
+    linewidth=150.0\mm
 }
 
-
+#(set-global-staff-size 16)
+\book {
+    \score {
+      << 
+	\context StaffGroup ="legni" << 
+	  \context Staff ="flauti" \flauti
+	  \context Staff ="oboi" \oboi
+	  \context Staff ="clarinetti" \clarinetti 
+	  \context Staff ="fagotti" \fagotti 
+	>>
+	\context StaffGroup ="ottoni" <<
+	  \context Staff ="corni" \corni
+	  \context Staff ="trombe" \trombe
+	>>
+	\context StaffGroup ="timpani" <<
+	  \context Staff ="timpani" \timpani
+	 { 
+	   \skip 1 
+	   % Hmm: this forces a staff-bracket, that's good!
+	   % However, I can't find where is decided on staff-bracket yes/no
+	 }
+	>>
+	\context StaffGroup ="archi" <<
+	  \context GrandStaff ="violini" <<
+	    \context Staff ="violinoI" \violinoI
+	    \context Staff ="violinoII" \violinoII
+	  >>
+	  \context Staff ="viola" \viola
+	  \context Staff ="violoncello" \violoncello
+	>>
+      >>
+      \paper {
+	  \context {
+	      \RemoveEmptyStaffContext
+	  }
+	  \context {
+	      \Score
+	      \override TimeSignature #'style = #'C
+	  }
+      }
+    }
+    % this is ignored?
+    \bookpaper {
+	indent=10.0\mm
+	linewidth=150.0\mm
+    }
+}

@@ -14,14 +14,17 @@ set -ex
 # Where user built stuff will be installed
 OPT=$HOME/usr/pkg
 ## when using GUILE CVS, make a slib/require like so:
-## cd ~/usr/pkg/guile/share/guile/1.7 && ln -s /usr/share/guile/1.6/slib .
-## cd && guile -c "(use-modules (ice-9 slib)) (require 'new-catalog)"
-## otherwise, this may fix it...
+cat > /dev/null <<EOF
+cd ~/usr/pkg/guile/share/guile/1.7 && ln -s /usr/share/guile/1.6/slib .
+cd && guile -c "(use-modules (ice-9 slib)) (require 'new-catalog)"
+EOF
+# otherwise, this may fix it...
 SLIB_PATH=`locate slib/require.scm | head -1 | sed -s 's/require.scm//g'`
 
 # What extra modules to pull (eg: EXTRA="libgnomecanvas libwnck")
 EXTRA=${EXTRA-libgnomecanvas}
 GGVERSION=2.5.995
+GWRAPVERSION=1.9.3rc1
 
 export AUTOMAKE=automake-1.8
 export ACLOCAL=aclocal-1.8
@@ -42,7 +45,7 @@ fi
 
 # test: the name of our download and build directory
 rm -rf test
-mkdir test
+mkdir -p test
 cd test
 
 ## 1.  install gnome-devel
@@ -77,7 +80,7 @@ if ! pkg-config --atleast-version=1.5.1 pango; then
 fi
 
 ## 3. Currently (2004-9-15) GUILE CVS works somewhat
-##    There's a guile/g-wrap problem with integer parameters
+##    But there's a guile/g-wrap problem with integer parameters
 unset GUILE_LOAD_PATH
 PATH=/usr/bin:$PATH
 
@@ -104,9 +107,10 @@ if ! pkg-config --exact-version=1.9.1 g-wrap-2.0-guile; then
         ## ughr:
 	mkdir -p g-wrap/libffi
     else
-	wget -N http://savannah.nongnu.org/download/g-wrap/g-wrap-1.9.1.tar.gz
-	tar zxf g-wrap-1.9.1.tar.gz
-	ln -s g-wrap-1.9.1 g-wrap
+	#wget -N http://savannah.nongnu.org/download/g-wrap/g-wrap-$GWRAPVERSION.tar.gz
+	wget -N http://stud3.tuwien.ac.at/~e9926584/tmp/g-wrap-$GWRAPVERSION.tar.gz
+	tar xzf g-wrap-$GWRAPVERSION.tar.gz
+	ln -s g-wrap-$GWRAPVERSION g-wrap
     fi
     cd g-wrap
     

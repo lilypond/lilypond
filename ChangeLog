@@ -1,5 +1,10 @@
 2004-09-27  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* stepmake/stepmake/texinfo-rules.make: 
+	* Documentation/GNUmakefile: --srcdir build fixes.
+
+	* input/test/coriolan-margin.ly: Put papersize settings in \bookpaper.
+
 	* Documentation/user/latex-lilypond-example.latex:
 	* Documentation/user/latex-example.latex: Fix compile errors.
 	Still buggy, need more love.

@@ -93,8 +93,8 @@ $(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
 
 $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi 
 	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(builddir)/Documentation/texinfo.css --html $<
-	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(builddir)/Documentation/texinfo.css --html --no-split --no-headers $<
+	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(abs-srcdir)/Documentation/texinfo.css --html $<
+	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(abs-srcdir)/Documentation/texinfo.css --html --no-split --no-headers $<
 	perl -i~ -pe 's!../lilypond-internals!lilypond-internals/!g' $(outdir)/lilypond.html
 	rm -f $(outdir)/lilypond/*.png $(outdir)/lilypond/*.ly
 # symbolic links to save space 
@@ -102,8 +102,8 @@ $(outdir)/lilypond/lilypond.html: $(outdir)/lilypond.texi
 
 $(outdir)/lilypond-internals/lilypond-internals.html: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
-	$(MAKEINFO) --output=$(outdir)/lilypond-internals --css-include=$(builddir)/Documentation/texinfo.css --html $<
-	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(builddir)/Documentation/texinfo.css --html --no-split --no-headers $<
+	$(MAKEINFO) --output=$(outdir)/lilypond-internals --css-include=$(abs-srcdir)/Documentation/texinfo.css --html $<
+	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(abs-srcdir)/Documentation/texinfo.css --html --no-split --no-headers $<
 
 ifeq ($(SPLITTING_MAKEINFO),yes)
 
