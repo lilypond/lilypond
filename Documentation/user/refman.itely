@@ -1939,9 +1939,9 @@ special symbols in text scripts.
 @cindex ornaments
 @cindex grace notes
 
-Grace notes are ornaments  are written out ornaments
-@lilypond[relative=2,verbatim,ifragment] 
-  c4  \grace c16  c4 \grace { [c16 d16] } c4 
+Grace notes are ornaments that are written out
+@lilypond[relative=2,verbatim,ifragment] c4 \grace c16 c4 \grace {
+[c16 d16] } c4
 @end lilypond
 
 In normal notation, grace notes are supposed to take up no logical

@@ -1,5 +1,7 @@
 2002-09-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/poly-metric.ly: new file.
+
 	* scripts/lilypond-book.py (output_verbatim): python 2.2 workaround.
 
 	* scm/documentation-lib.scm (scm->string): print procedure name in
