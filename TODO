@@ -69,7 +69,7 @@ PROJECTS
 	* Unicode support?
 	- 16 bit Strings
 	- -u switch
-		- detect of 16/8 bit files
+	- detect of 16/8 bit files
 	- examples to go with it.
 
 	* Spring_spacer:
@@ -79,9 +79,11 @@ PROJECTS
 	- used fixed point fp
 
 	* \header
-	- write perl script for handling it into databases
+	- write perl/python script for handling it into databases
 	- write TeX macros to generate titles
 	- adapt make-website to use \header info.
+	- output header info to MIDI too.
+
 
 	* Makefile stuff:
 	- Use Automake

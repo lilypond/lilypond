@@ -126,6 +126,27 @@ specify
 
 	a()a()a
 
+Q: how do I place lyrics under _each_ of the staves in a score, as in
+choral mus$ I can work out how to put lyrics for each line all under
+the top line, or at the bottom but not between!
+        
+A: You change the order lyrics and staves.  You have to name all
+staves (lyric and melodic), otherwise they will end up in the same
+staff/lyricline
+
+	
+	\score {
+		< \melodic \type Staff = "treble" \trebleMelody
+		  \lyric   \type Lyrics = "tlyrics" \trebtext
+		  \type Staff = "bass" \melodic \bassMelody	   
+		  \lyric   \type Lyrics = "blyrics" \basstext	 
+		>
+		\paper {  }
+	}
+
+
+
+
 Q: I want to insert some TeX commands
 
 A: You shouldn't: it's against LilyPond philosophy to have typesetting

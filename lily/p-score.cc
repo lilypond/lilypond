@@ -206,8 +206,9 @@ Paper_score::tex_output ()
     {
       tex_out << header_l_->TeX_string();
     }
+  tex_out << paper_l_->TeX_output_settings_str ();
+  
 
-  tex_out << "\n "<<  paper_l_->lookup_l ()->texsetting << "%(Tex id)\n";
   if (experimental_features_global_b)
     tex_out << "\\turnOnExperimentalFeatures%\n";
   super_elem_l_->output_all ();

@@ -37,9 +37,15 @@ do_scores()
 	{
 	  is_p->process();
 	}
-      delete is_p;
-      is_p =0;
+    }
+}
 
+void
+clear_scores ()
+{
+  for (int i=0; i < global_score_array.size(); i++)
+    {
+      delete global_score_array[i];
     }
   global_score_array.clear();
 }

@@ -1,3 +1,13 @@
+pl 33
+	- added abbrev.ly to font.ly; rm'd abbrev.ly
+	- don't process scores on parse errors.
+	- bf: kortjakje.ly
+	- bf: invisible stems in beams (abbrev.ly)
+	- lytodvi script (JAF)
+	- output Paper_def settings to TeX file. (eg: linewidth)
+
+*********
+nov 19
 pl 32
 	- change type checks (ughugh) to derivation checks (ugh)
 	- this fixes clef bug.
