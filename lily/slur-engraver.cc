@@ -5,7 +5,7 @@
 */
 
 #include "event.hh"
-#include "slur.hh"
+#include "new-slur.hh"
 #include "warn.hh"
 #include "note-column.hh"
 #include "context.hh"
@@ -94,13 +94,20 @@ Slur_engraver::set_melisma (bool m)
 void
 Slur_engraver::acknowledge_grob (Grob_info info)
 {
+  Grob *e =info.grob_;
   if (Note_column::has_interface (info.grob_))
     {
-      Grob *e =info.grob_;
       for (int i = 0; i < slur_stack_.size (); i++)
-	Slur::add_column (slur_stack_[i], e);
+	New_slur::add_column (slur_stack_[i], e);
       for (int i = 0; i < end_slurs_.size (); i++)
-	Slur::add_column (end_slurs_[i], e);
+	New_slur::add_column (end_slurs_[i], e);
+    }
+  else
+    {
+      for (int i = 0; i < slur_stack_.size (); i++)
+	New_slur::add_extra_encompass (end_slurs_[i], e);
+      for (int i = 0; i < end_slurs_.size (); i++)
+	New_slur::add_extra_encompass (end_slurs_[i], e);
     }
 }
 
@@ -150,8 +157,6 @@ Slur_engraver::process_music ()
 	  // push a new slur onto stack.
 	  // (use temp. array to wait for all slur STOPs)
 	  Grob* slur = make_spanner ("Slur", slur_ev->self_scm ());
-	  Slur::set_interface (slur); // cannot remove yet!
-
 
 	  if (Direction updown = to_dir (slur_ev->get_property ("direction")))
 	    {
@@ -183,6 +188,6 @@ ENTER_DESCRIPTION (Slur_engraver,
 /* descr */       "Build slurs from Slur_evs",
 /* creats*/       "Slur",
 /* accepts */     "slur-event",
-/* acks  */      "note-column-interface",
+/* acks  */      "note-column-interface accidental-interface script-interface",
 /* reads */       "slurMelismaBusy",
 /* write */       "");

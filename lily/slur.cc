@@ -1,5 +1,5 @@
 /*
-  slur.cc -- implement Slur
+  slur.cc -- implement Old_slur
 
   source file of the GNU LilyPond music typesetter
 
@@ -39,7 +39,7 @@
 
 
 void
-Slur::set_interface (Grob*me)
+Old_slur::set_interface (Grob*me)
 {
   /* Copy to mutable list. */
   me->set_property ("attachment",
@@ -47,7 +47,7 @@ Slur::set_interface (Grob*me)
 }
 
 void
-Slur::add_column (Grob*me, Grob*n)
+Old_slur::add_column (Grob*me, Grob*n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
   me->add_dependency (n);
@@ -56,7 +56,7 @@ Slur::add_column (Grob*me, Grob*n)
 }
 
 void
-Slur::de_uglify (Grob*me, Slur_bezier_bow* bb, Real default_height)
+Old_slur::de_uglify (Grob*me, Slur_bezier_bow* bb, Real default_height)
 {
   Real length = bb->curve_.control_[3][X_AXIS] ; 
   Real ff = bb->fit_factor ();
@@ -91,7 +91,7 @@ Slur::de_uglify (Grob*me, Slur_bezier_bow* bb, Real default_height)
 
 
 Direction
-Slur::get_default_dir (Grob*me) 
+Old_slur::get_default_dir (Grob*me) 
 {
   Link_array<Grob> encompasses =
     Pointer_group_interface__extract_grobs (me, (Grob*)0, "note-columns");
@@ -109,9 +109,9 @@ Slur::get_default_dir (Grob*me)
 }
 
 
-MAKE_SCHEME_CALLBACK (Slur, after_line_breaking,1);
+MAKE_SCHEME_CALLBACK (Old_slur, after_line_breaking,1);
 SCM
-Slur::after_line_breaking (SCM smob)
+Old_slur::after_line_breaking (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   if (!scm_ilength (me->get_property ("note-columns")))
@@ -127,7 +127,7 @@ Slur::after_line_breaking (SCM smob)
 
 
 void
-Slur::check_slope (Grob *me)
+Old_slur::check_slope (Grob *me)
 {
   /*
     Avoid too steep slurs.
@@ -174,7 +174,7 @@ Slur::check_slope (Grob *me)
   Set 'attachment grob property, and return it.
 */
 SCM
-Slur::set_extremities (Grob *me)
+Old_slur::set_extremities (Grob *me)
 {
   if (!get_grob_direction (me))
     set_grob_direction (me, get_default_dir (me));
@@ -214,7 +214,7 @@ Slur::set_extremities (Grob *me)
 
 
 Real
-Slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
+Old_slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
 {
   SCM cols = me->get_property ("note-columns");
 
@@ -248,7 +248,7 @@ Slur::get_boundary_notecolumn_y (Grob *me, Direction dir)
 }
 
 Offset
-Slur::broken_trend_offset (Grob *me, Direction dir)
+Old_slur::broken_trend_offset (Grob *me, Direction dir)
 {
   /*
     A broken slur should maintain the same vertical trend
@@ -284,7 +284,7 @@ UGH: this routine delivers offsets which are *not* relative to COMMON.
 UGH,  we should take COMMON-Y as argument.
 */ 
 Offset
-Slur::get_attachment (Grob *me, Direction dir,
+Old_slur::get_attachment (Grob *me, Direction dir,
 		      Grob **common) 
 {
   SCM s = me->get_property ("attachment");
@@ -406,7 +406,7 @@ Slur::get_attachment (Grob *me, Direction dir,
 }
 
 Offset
-Slur::encompass_offset (Grob*me,
+Old_slur::encompass_offset (Grob*me,
 			Grob* col,
 			Grob **common) 
 {
@@ -454,7 +454,7 @@ Slur::encompass_offset (Grob*me,
 }
 
 Array<Offset>
-Slur::get_encompass_offsets (Grob *me)
+Old_slur::get_encompass_offsets (Grob *me)
 {
   Spanner*sp = dynamic_cast<Spanner*> (me);
   SCM eltlist = me->get_property ("note-columns");
@@ -520,9 +520,9 @@ Slur::get_encompass_offsets (Grob *me)
 /*
   ugh ?
  */
-MAKE_SCHEME_CALLBACK (Slur, height, 2);
+MAKE_SCHEME_CALLBACK (Old_slur, height, 2);
 SCM
-Slur::height (SCM smob, SCM ax)
+Old_slur::height (SCM smob, SCM ax)
 {
   Axis a = (Axis)ly_scm2int (ax);
   Grob * me = unsmob_grob (smob);
@@ -538,9 +538,9 @@ Slur::height (SCM smob, SCM ax)
 /*
   Ugh should have dash-length + dash-period
  */
-MAKE_SCHEME_CALLBACK (Slur, print,1);
+MAKE_SCHEME_CALLBACK (Old_slur, print,1);
 SCM
-Slur::print (SCM smob)
+Old_slur::print (SCM smob)
 {
   Grob * me = unsmob_grob (smob);
   if (!scm_ilength (me->get_property ("note-columns")))
@@ -575,7 +575,7 @@ Slur::print (SCM smob)
 }
 
 void
-Slur::set_control_points (Grob*me)
+Old_slur::set_control_points (Grob*me)
 {
   Real staff_space = Staff_symbol_referencer::staff_space ((Grob*)me);
 
@@ -644,7 +644,7 @@ Slur::set_control_points (Grob*me)
 }
   
 Bezier
-Slur::get_curve (Grob*me) 
+Old_slur::get_curve (Grob*me) 
 {
   Bezier b;
   int i = 0;
@@ -695,7 +695,7 @@ Slur::get_curve (Grob*me)
 
 
 
-ADD_INTERFACE (Slur,"slur-interface",
+ADD_INTERFACE (Old_slur,"slur-interface",
   "A slur",
   "attachment attachment-offset beautiful control-points dashed details de-uglify-parameters direction extremity-function extremity-offset-alist height-limit note-columns ratio slope-limit thickness y-free quant-score");
 

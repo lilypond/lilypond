@@ -157,7 +157,7 @@ allegro =
   \revert Stem #'stroke-style }
   e8[)( d16  c)]
 
-	<< d1\trill (
+	<< d1\trill _(
 	  { s2 \grace {
   \override Stem   #'stroke-style = #"grace"
     c16[ d] 

@@ -5,7 +5,7 @@
 */
 
 #include "event.hh"
-#include "slur.hh"
+#include "new-slur.hh"
 #include "warn.hh"
 #include "note-column.hh"
 #include "context.hh"
@@ -82,9 +82,9 @@ Phrasing_slur_engraver::acknowledge_grob (Grob_info info)
     {
       Grob *e =info.grob_;
       for (int i = 0; i < phrasing_slurs_.size (); i++)
-	Slur::add_column (phrasing_slurs_[i], e);
+	New_slur::add_column (phrasing_slurs_[i], e);
       for (int i = 0; i < end_phrasing_slurs_.size (); i++)
-	Slur::add_column (end_phrasing_slurs_[i], e);
+	New_slur::add_column (end_phrasing_slurs_[i], e);
     }
 }
 
@@ -133,8 +133,6 @@ Phrasing_slur_engraver::process_acknowledged_grobs ()
 	  // push a new phrasing_slur onto stack.
 	  // (use temp. array to wait for all phrasing_slur STOPs)
 	  Grob* phrasing_slur = make_spanner ("PhrasingSlur", phrasing_slur_ev->self_scm ());
-	  Slur::set_interface (phrasing_slur); // can't remove.
-
 
 	  if (Direction updown = to_dir (phrasing_slur_ev->get_property ("direction")))
 	    {

@@ -11,7 +11,7 @@
 #include "lily-proto.hh"
 #include "rod.hh"
 
-class Slur
+class Old_slur
 {
 public:
   static void add_column (Grob *me, Grob *col);
