@@ -1,3 +1,8 @@
+2003-02-17  Heikki Junes <hjunes@cc.hut.fi>
+
+	* Documentation/user/refman.itely:
+	* Documentation/user/music-glossary.tely: fix. 
+
 2003-02-16  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/chord-entry.scm (construct-chord): move chord construction
