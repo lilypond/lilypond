@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -14,20 +14,23 @@
 
 class Span_bar : public virtual Bar
 {
-    Link_array<Score_elem> spanning_l_arr_;
+    Link_array<Score_element> spanning_l_arr_;
 
 public:
     Span_bar();
     DECLARE_MY_RUNTIME_TYPEINFO;
-    SCORE_ELEM_CLONE(Span_bar);
-    void add (Bar*);
-    void set (Vertical_align_element *);
+    SCORE_ELEMENT_CLONE(Span_bar);
+    virtual Span_bar* access_Span_bar ();
+    void add_bar (Bar*);
+    void set_align (Align_element *);
 
 protected:
+    void evaluate_empty ();
     virtual Interval do_width() const;
     virtual void do_pre_processing();
+    virtual void do_post_processing();
     
-    virtual void do_substitute_dependency (Score_elem*,Score_elem*);
+    virtual void do_substitute_dependency (Score_element*,Score_element*);
     virtual Molecule * brew_molecule_p() const;
     virtual Atom get_bar_sym (Real dy) const;
 };
