@@ -14,9 +14,9 @@ packages. Feel free to add info (and mail it to me).
 An alpha version notation editor for X in Scheme. Source available on
 request.
 
-=item Rosegarden, http://www.math.bath.ac.uk/~masjpf/rose.html
+=item Rosegarden, http://www.bath.ac.uk/~masjpf/rose.html
 
-A Notation editor/Sequencer for X (win95 port underway). Outputs musictex.
+A Notation editor/Sequencer for X (windows95 port underway). Outputs musictex.
 
 =item Common Notation,
 http://www-ccrma.stanford.edu/CCRMA/Software/cmn/cmn.html
@@ -91,7 +91,7 @@ Described in Computer vol 29(6). Shareware
 
 Notation editor for W95 and Mac
 
-=item Sibelius, http://www.acorn.co.uk/developers/sibelius
+=item Sibelius, http://www.acorn.co.uk/developers/sibelius/Home
 
 Notation/engraving on Acorn machines. 
 
