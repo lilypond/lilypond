@@ -29,7 +29,6 @@
 	     char
 	     dashed-line
 	     zigzag-line
-	     symmetric-x-triangle
 	     ez-ball
 	     comment
 	     repeat-slash
@@ -217,10 +216,6 @@
    (ly:numbers->string (list breapth width depth height))
    " draw_box" ))
 
-(define (symmetric-x-triangle thick w h)
-  (string-append
-   (ly:numbers->string (list h w thick))
-   " draw_symmetric_x_triangle"))
 
 (define (text font s)
   (let*

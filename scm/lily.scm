@@ -134,7 +134,6 @@ predicates. Print a message at LOCATION if any predicate failed."
     polygon
     repeat-slash
     round-filled-box
-    symmetric-x-triangle
     text
     tuplet
     white-dot

@@ -28,6 +28,7 @@ protected:
   virtual void derived_mark () const;
   virtual int get_type () const;
   virtual int do_compare (Object_key const * other) const;
+
 public:
   int compare (Object_key const *other) const;
 };
@@ -45,10 +46,12 @@ class Copied_key : public Object_key
 private:
   Object_key const * original_;
   int copy_count_;
+
 protected:
   virtual void derived_mark () const;
   virtual int get_type () const;
   virtual int do_compare (Object_key const * other) const;
+
 public:
   Copied_key (Object_key const*, int); 
 };
