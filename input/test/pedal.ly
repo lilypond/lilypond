@@ -4,6 +4,8 @@ c4\sustaindown d e f\sustainup g\sustaindown b c
 c, [d16 \sustainup \sustaindown c  c c] [e e \sustainup \sustaindown e e ] f4 \sustainup g\sustaindown b c
 \property Staff.stopStartSustain = #"-P"
 \property Staff.startSustain = #"P"
+\property Staff.sustainPedalPadding = #10
+
 c,\sustainup\sustaindown d e f \sustainup g\sustaindown b c
 }
 \paper{
