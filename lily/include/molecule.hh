@@ -48,5 +48,6 @@ public:
   Molecule (const Molecule&s);
   void print() const;
   void operator=(const Molecule&);  
+  bool empty_b() const;
 };
 #endif

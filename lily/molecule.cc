@@ -149,3 +149,9 @@ Molecule::add_at_edge (Axis a, Direction d, Molecule const &m, Real padding)
   toadd.translate_axis (offset + d * padding, a);
   add_molecule (toadd);
 }
+
+bool
+Molecule::empty_b() const
+{
+  return atom_list_ == MOL_EOL;
+}

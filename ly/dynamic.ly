@@ -20,6 +20,7 @@ fp = \absdynamic { "fp" }
 sf = \absdynamic { "sf" }
 sff = \absdynamic { "sff" }
 sfz = \absdynamic { "sfz" }
+fz = \absdynamic { "fz" }
 sp = \absdynamic { "sp" }
 spp = \absdynamic { "spp" }
 rfz = \absdynamic { "rfz" }
