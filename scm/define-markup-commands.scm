@@ -360,10 +360,13 @@ recommend font for this is bold and italic"
   "Draw a double flat symbol."
   (interpret-markup layout props (markup #:musicglyph "accidentals.M4")))
 
+
+;;
+;; TODO: should extract baseline-skip from each argument somehow..
+;; 
 (def-markup-command (column layout props args) (markup-list?)
   "Stack the markups in @var{args} vertically.  The property
 @code{baseline-skip} determines the space between each markup in @var{args}."
-  (display (chain-assoc-get 'baseline-skip props))(newline)
   (stack-lines
    -1 0.0 (chain-assoc-get 'baseline-skip props)
    (remove ly:stencil-empty?
