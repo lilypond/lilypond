@@ -1,5 +1,7 @@
 2003-03-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/multi-measure-rest-text.ly: new file.
+
 	* scm/music-functions.scm (glue-mm-rest-texts): automatically
 	convert MMREST-TEXT to MultiMeasureRestNumber settings.
 
