@@ -4,15 +4,17 @@
 
 
 
-void warning(String s)
+void
+warning(String s)
 {
     WARN << s;
 }
 
 
-void error(String s)
+void
+error(String s)
 {
-    cerr << "\n" << s << "\nexiting..\n";
+    cerr << "\nerror: " << s << "\n";
     exit(1);
 }
 
