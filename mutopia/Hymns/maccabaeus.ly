@@ -7,7 +7,7 @@ title = "Maccabaeus";
 metre = "10 11. 11 11. and refrain";
 }
 
-\version "1.3.42";
+\version "1.3.59";
 
 sop=\notes \relative c'' {
 	b2 gis4. a8  |b2 e,2 |
@@ -78,7 +78,7 @@ bass=\notes \relative c {
 global = \notes {
 	\time 2/2;
 	\property Staff.timeSignatureStyle = "C"
-	\key e;
+	\key e \major;
 }
 
 $upper_staff = \context Staff = upper {

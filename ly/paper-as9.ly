@@ -1,6 +1,6 @@
 % paper-as9.ly
 
-\version "1.3.42";
+\version "1.3.59";
 
 paper_as_nine = \paper {
 	staffheight = 9.\char;

@@ -42,7 +42,7 @@ Old versions of LilyPond include this prelude with dynamics and fingerings.
 
 
 
-\version "1.3.42";
+\version "1.3.59";
 upper = \context Staff \notes\relative c{
 	\context Voice=i
 	\property Voice . textStyle = "italic"

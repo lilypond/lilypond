@@ -31,7 +31,7 @@
   
 }
 
-\version "1.3.42";
+\version "1.3.59";
 
 
 
@@ -124,7 +124,7 @@ four = \context Staff \notes\relative c{
 
 global = \notes{
 	\time 4/4;
-	\key f;
+	\key f \major;
 }
 
 \score{

@@ -21,7 +21,7 @@
 % It would be nice to squeeze this onto two pages, but I am not sure
 % if it would work with US paper.
 
-\version "1.3.42";
+\version "1.3.59";
 
   
 dux = \context Voice=two \notes \relative c''{
@@ -165,6 +165,7 @@ bassdux = \context Voice=three \notes \relative c' {
     \notes \context PianoStaff < 
 	\context Staff = treble <
 	    \key c \minor;
+%	\key es \major;
 	    \dux
 	    { \comes \bar "|."; }
 	      \time 4/4;

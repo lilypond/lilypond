@@ -45,7 +45,7 @@ of the famous menuet in J. S. Bach's @emph{Klavierbuechlein}.
     \notes                        
     \relative c'' \sequential{                
             \time 3/4;                
-            \key g;
+            \key g \major;
 
         \repeat "volta" 2 {
             d4 g,8 a b c d4 g, g |
@@ -168,7 +168,7 @@ sign is printed.  This command is also used to generate bar lines in
 the right spots.
 @example 
 
-        \key g;
+        \key g \major;
  
 @end example 
   This command changes the current key to G-major.  Although this

@@ -1,13 +1,13 @@
 
 
 
-\version "1.3.42";
+\version "1.3.59";
 
 \include "menuetto-urtext.ly";
 
 menuetto_i_viola_global = \notes{
 	\time 3/4;
-	\key f;
+	\key f \major;
 	\clef alto;
 	\repeat "volta" 2 {
 		\skip 2.*8;
@@ -64,7 +64,7 @@ menuetto_i_viola_staff = \context Staff <
 
 menuetto_ii_viola_global = \notes{
 	\time 3/4;
-	\key d;
+	\key d \major;
 	\clef alto;
 	\repeat "volta" 2 {
 		\skip 2.*8;

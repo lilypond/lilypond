@@ -15,7 +15,8 @@
 
 /**
    Rationals with glue for Guilification;
- */
+
+   FIXME: remove self_scm_ and then remove this class */
 struct Moment : public Rational
 {
   Moment () { self_scm_ = SCM_EOL; }
@@ -27,7 +28,7 @@ struct Moment : public Rational
   DECLARE_SMOBS;
 };
 
-
+SCM smobify (Moment*);
 Moment * unsmob_moment (SCM);
 
 IMPLEMENT_ARITHMETIC_OPERATOR (Moment, / );

@@ -6,7 +6,7 @@
    /Mats B
 %}
 
-\version "1.3.42";
+\version "1.3.59";
 
 incipit = \notes\relative c'{
   <b1 fis' b d>
@@ -27,7 +27,7 @@ violin = \notes\relative c''{
 }
 
 BC  = \notes\relative c{
-  \key d;
+  \key d \major;
   \time 2/2;
   \clef "bass";
 

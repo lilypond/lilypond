@@ -10,11 +10,11 @@
   copyright =   "Public Domain";
 }
 
-\version "1.3.42";
+\version "1.3.59";
 
 global = \notes {
 	\time 4/4;
-	\key es;
+	\key es \major;
 	\skip 1*7;
 	\bar "||";
 	\skip 1*22;

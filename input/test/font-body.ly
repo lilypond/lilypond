@@ -1,4 +1,4 @@
-\version "1.3.42";
+\version "1.3.59";
 
 FontBody=	\notes\transpose c''{ 
 		\bar "|:";
@@ -28,19 +28,19 @@ FontBody=	\notes\transpose c''{
 		e32 _| g'32^| g''32-\ltoe g''32-\lheel
 		e64-\rtoe g'64-\rheel c4... |
 \context Voice = mensural \relative c'' {
-\property Voice . noteHeadStyle = "mensural"
+\property Voice . noteHeadStyle = #'mensural
 \property Voice. stemCentered = ##t
 c\maxima*1/8
 c\longa*1/4 c\breve*1/2 c1 c2 c4 c8 
 }
-			\property Voice . noteHeadStyle = "harmonic"
+			\property Voice . noteHeadStyle = #'harmonic
 
 		\transpose c'{
 			\time 4/4;
 			\property Voice . textStyle =  "finger"
-			\property Voice . noteHeadStyle = "diamond"
+			\property Voice . noteHeadStyle = #'diamond
 			c1^"1" d2^"2" e4^"3"
-			\property Voice . noteHeadStyle = "cross"
+			\property Voice . noteHeadStyle = #'cross
 						 f4^"4"
 						  g4^"5"
 			\property Voice . noteHeadStyle = ""

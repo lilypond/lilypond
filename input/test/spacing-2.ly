@@ -18,9 +18,9 @@ source = "Petits Preludes et Fugues.  Urtext. Editions Henry Lemoine, Paris.";
 			e4 dis4 e2 }
 		\context Voice = VB { \property Voice.verticalDirection= -1
 			[cis8 a] [fis b] gis2 }
-		{\key e; }
+		{\key e \major; }
 		>
-	\context Staff = SB { \clef "bass"; \key e;
+	\context Staff = SB { \clef "bass"; \key e \major;
 		[a,,16 e dis e] [b'8 b,] [e16 e, gis b] e4
 	} 
 > 
@@ -33,4 +33,4 @@ source = "Petits Preludes et Fugues.  Urtext. Editions Henry Lemoine, Paris.";
 }
 }
 
-\version "1.3.42"; 
+\version "1.3.59"; 

@@ -22,13 +22,13 @@
    * organ staff...
 %}
 
-\version "1.3.42";
+\version "1.3.59";
 
 
 
 praeludium_commands = \notes {
   \time 4/4;
-   \key e;
+   \key e \major;
 }
 
 praeludium_right =  \notes {
@@ -99,7 +99,7 @@ praeludium_pedal = \notes \relative c{
 
 fugaII_commands = \notes{
   \time3/4;
-  \key e;              % E-major
+  \key e \major;              % E-major
 }
 
 fugaII_right = \notes   \relative c''   {

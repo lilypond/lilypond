@@ -31,7 +31,7 @@
   
 }
 
-\version "1.3.42";
+\version "1.3.59";
 
 upper = \context Staff \notes\relative c
 	\context Voice=i {
@@ -201,7 +201,7 @@ lower = \context Staff \notes\relative c{
 
 global = \notes{
 	\time 3/4;
-	\key f;
+	\key f \major;
 }
 
 \score{

@@ -1,13 +1,13 @@
 
 
 
-\version "1.3.42";
+\version "1.3.59";
 
 \include "gigue-urtext.ly";
 
 gigue_cello_global = \notes{
 	\time 3/8;
-	\key f;
+	\key f \major;
 	\clef bass;
 	\repeat "volta" 2 {
 		\partial 8;

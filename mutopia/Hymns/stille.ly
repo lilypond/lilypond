@@ -8,7 +8,7 @@
 }
 
 
-\version "1.3.42";
+\version "1.3.59";
 
 %{
 	Note:  there are other verses, but the three here seem to be
@@ -18,7 +18,7 @@
 
 global=\notes {
       \time 6/4;
-      \key bes;
+      \key bes \major;
       \skip 1.*12;
       \bar "|.";
 }

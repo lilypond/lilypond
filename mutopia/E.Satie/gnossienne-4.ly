@@ -11,7 +11,7 @@
  Tested Features: cross staff auto beams and slurs, grace notes, no bars
 %}
 
-\version "1.3.42";
+\version "1.3.59";
 
 global = \notes {
 	\key a \minor;

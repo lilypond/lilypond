@@ -45,7 +45,7 @@ note, some have dotted half notes.
 
 
 %}
-\version "1.3.42";
+\version "1.3.59";
 
 
 upper =  \notes \transpose c'' {
@@ -162,7 +162,7 @@ lower =  \notes{
 
 global  = \notes{
 	\time 3/4;
-	\key es;
+	\key es \major;
 }
 
 \score{

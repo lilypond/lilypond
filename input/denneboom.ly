@@ -7,7 +7,7 @@ copyright =	 "public domain";
 
 \include "paper20.ly"
 
-\version "1.3.42";
+\version "1.3.59";
 
 oden = \lyrics{ 
 	O |

@@ -45,7 +45,7 @@ Voice engraver by uncommenting the lines in the paper
 definition below. --MB
 %} 
 
-\version "1.3.42";
+\version "1.3.59";
 
 global = \notes {
   \property StaffGroup.timeSignatureStyle = "old"
@@ -231,45 +231,45 @@ bc=\context Staff = bc <
 
 
   \repeat "volta"  2 {  
-  G2 d^"4 3" | G1 |
-  g2 c4 G | d1^"3 4 3" |
-  G1 | g2 c4 G |
-  d1^"3 4 3" | G |
-  g2 c4 d | G1^"3 4 3" |
-  c1 | c2 F4 c | 
-  G1^"3 4 3" | c |
-  c2 F4 c | G1^"3 4 3" |
-  c2 G | g G |
-  c4 G d2^"3 4 3" | G g |
+  g,2 d^"4 3" | g,1 |
+  g2 c4 g, | d1^"3 4 3" |
+  g,1 | g2 c4 g, |
+  d1^"3 4 3" | g, |
+  g2 c4 d | g,1^"3 4 3" |
+  c1 | c2 f,4 c | 
+  g,1^"3 4 3" | c |
+  c2 f,4 c | g,1^"3 4 3" |
+  c2 g, | g g, |
+  c4 g, d2^"3 4 3" | g, g |
   fis g | d1^"3 4 3" |
-  G2 B | d1^"3 4 3" |
-  G^"3 4 3" | c4 B c2 |
-  G1^"3 4 3" | c4 B c g |
-  c B c G | d1^"3 4 3" |
-  G1 |
+  g,2 b, | d1^"3 4 3" |
+  g,^"3 4 3" | c4 b, c2 |
+  g,1^"3 4 3" | c4 b, c g |
+  c b, c g, | d1^"3 4 3" |
+  g,1 |
   }
 
   \repeat "volta" 2 {
   g1. | c |
   f | d^"\\textsharp" |
   g | c |
-  A | d^"\\textsharp" |
-  G | c |
+  a, | d^"\\textsharp" |
+  g, | c |
   d^"\\textsharp" | e |
-  f | g1 B2 |
+  f | g1 b,2 |
   d1.^"3 4 3" |
-  G1 |
+  g,1 |
   }
 
   \repeat "volta"  2 {
-  g2 fis | g G |
+  g2 fis | g g, |
   g1^"3 4 3" | c |
-  G^"3 4 3" | c2 G |
-  d1^"3 4 3" | G^"3 4 3" |
-  c2 G | d1^"\\textsharp" ( |
+  g,^"3 4 3" | c2 g, |
+  d1^"3 4 3" | g,^"3 4 3" |
+  c2 g, | d1^"\\textsharp" ( |
   ) d^"3 4 3" | 
   \cadenzaOn
-  G\breve 
+  g,\breve 
   }
 }>
 

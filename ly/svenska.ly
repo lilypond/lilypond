@@ -40,4 +40,4 @@
 	(hiss . ( -1 6 1 ))
 	(hississ . ( -1 6 2 ))
 )
-\version "1.3.42";
+\version "1.3.59";

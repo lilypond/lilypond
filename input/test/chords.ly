@@ -1,4 +1,4 @@
-\version "1.3.42";
+\version "1.3.59";
 
 %{
 Would this be acceptable/good enough/convenient for entry?
@@ -37,21 +37,21 @@ keys = \notes{
                 s1 s1 s1
                 s1 s1
                 s1
-                \key g; s1
-                \key d; s1 
-                \key a; s1 
-                \key e; s1 
-                \key b; s1 
-                \key fis; s1
-                \key c; s1 
-                \key f; s1 
-                \key bes; s1
-                \key es; s1
-                \key as; s1
-                \key des; s1
-                \key ges; s1
-                \key c; s1*2
-                \key c; s1*6
+                \key g \major; s1
+                \key d \major; s1 
+                \key a \major; s1 
+                \key e \major; s1 
+                \key b \major; s1 
+                \key fis \major; s1
+                \key c \major; s1 
+                \key f \major; s1 
+                \key bes \major; s1
+                \key es \major; s1
+                \key as \major; s1
+                \key des \major; s1
+                \key ges \major; s1
+                \key c \major; s1*2
+                \key c \major; s1*6
 	}
 
 \score{

@@ -1,4 +1,8 @@
-  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% UGH UGH UGH UGHUGH FIXME
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -> duplication!
+
+
 breve = \duration { -1 0 }
 longa = \duration { -2 0 }
 maxima = \duration { -3 0 }
@@ -24,17 +28,8 @@ center=0
 
 break =  \penalty  -1000000; 
 nobreak =  \penalty 1000000; 
+\include "scales.ly"
 
-major = 0
-minor = 3
-
-ionian = 0
-locrian = 1
-aeolian = 3
-mixolydian = 5
-lydian = 7
-phrygian = 8
-dorian = 10
 
 melisma = \property Staff.melismaBusy = ##t
 melismaEnd = \property Staff.melismaBusy = ##f

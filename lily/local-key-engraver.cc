@@ -3,12 +3,10 @@
 
   (c)  1997--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-// clean up!
 
 #include "musical-request.hh"
 #include "command-request.hh"
 #include "local-key-item.hh"
-#include "debug.hh"
 #include "key-item.hh"
 #include "tie.hh"
 #include "note-head.hh"
@@ -18,8 +16,6 @@
 #include "staff-symbol-referencer.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
-
-#include "parray.hh"
 
 
 /**
@@ -40,32 +36,32 @@ protected:
   virtual void do_removal_processing ();
 public:
 
-  SCM last_accs_;
+  // todo -> property
+  SCM last_keysig_;
   Key_engraver *key_grav_l_;
-  Array<Note_req* > mel_l_arr_;
-  Array<Item*> support_l_arr_;
-  Link_array<Item  > forced_l_arr_;
-  Link_array<Item > tied_l_arr_;
+  
+  Link_array<Note_req> mel_l_arr_;
+  Link_array<Item> support_l_arr_;
+  Link_array<Item> forced_l_arr_;
+  Link_array<Item> tied_l_arr_;
   Local_key_engraver();
-  bool self_grace_b_;
+
   Grace_align_item * grace_align_l_;
 };
-
-
 
 Local_key_engraver::Local_key_engraver()
 {
   key_grav_l_ = 0;
   key_item_p_ =0;
   grace_align_l_ =0;
-  last_accs_ = SCM_EOL;
+  last_keysig_ = SCM_EOL;
 }
-
 
 void
 Local_key_engraver::do_creation_processing ()
 {
-  last_accs_ = get_property ("keySignature");
+  last_keysig_ = get_property ("keySignature");
+  daddy_trans_l_->set_property ("localKeySignature",  last_keysig_);  
 }
 
 void
@@ -144,6 +140,11 @@ Local_key_engraver::process_acknowledged ()
 	    }
         }
     }
+
+  /*
+    UGH ! 
+   */
+  
   if (key_item_p_ && grace_align_l_)
     {
       Side_position_interface (grace_align_l_).add_support (key_item_p_);
@@ -193,8 +194,6 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
   Note_req * note_l =  dynamic_cast <Note_req *> (info.req_l_);
   Note_head * note_head = dynamic_cast<Note_head *> (info.elem_l_);
 
-
-  
   if (he_gr != selfgr)
     return;
   
@@ -212,7 +211,6 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
 void
 Local_key_engraver::do_process_music()
 {
-
   SCM smp = get_property ("measurePosition");
   Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
@@ -222,7 +220,7 @@ Local_key_engraver::do_process_music()
       if (!to_boolean (get_property ("noResetKey")))
 	daddy_trans_l_->set_property ("localKeySignature",  sig);
     }
-  else if (last_accs_ != sig) 
+  else if (last_keysig_ != sig) 
     {
       daddy_trans_l_->set_property ("localKeySignature",  sig);
     }
