@@ -93,7 +93,7 @@ Scheme_hash_table::try_retrieve (SCM k, SCM *v)
 }
 
 bool
-Scheme_hash_table::elem_b (SCM k) const
+Scheme_hash_table::contains (SCM k) const
 {
   return ly_pair_p (scm_hashq_get_handle (hash_tab_, k));
 }

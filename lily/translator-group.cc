@@ -264,7 +264,7 @@ Translator_group::each (Method_pointer method)
 Translator_group*
 Translator_group::where_defined (SCM sym) const
 {
-  if (properties_dict ()->elem_b (sym))
+  if (properties_dict ()->contains (sym))
     {
       return (Translator_group*)this;
     }

@@ -41,7 +41,7 @@ class Scheme_hash_table
 {  
 public:
   bool try_retrieve (SCM key, SCM *val);
-  bool elem_b (SCM key) const;
+  bool contains (SCM key) const;
 
   /**
      WARNING: putting something in assumes responsibility for cleaning

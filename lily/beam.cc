@@ -1004,7 +1004,7 @@ Beam::shift_region_to_valid (SCM grob)
     {
       warning (_("Not sure that we can find a nice beam slope (no viable initial configuration found)."));
     }
-  else if (!feasible_left_point.elem_b(y))
+  else if (!feasible_left_point.contains (y))
     {
       if (isinf (feasible_left_point[DOWN]))
 	y = feasible_left_point[UP] - REGION_SIZE;
