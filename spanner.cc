@@ -14,6 +14,7 @@ Spanner::TeXstring() const
     return strets->eval(w).tex;
 }
 
+// todo.
 Spanner *
 Spanner::broken_at(const PCol *c1, const PCol *c2) const
 {
