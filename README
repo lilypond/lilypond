@@ -6,7 +6,11 @@ This is a beta version of LilyPond (a music typesetter). This release is
 preliminary, please do not distribute. Please send your helpful comments and
 patches to me, 
 
-  hanwen@stack.urc.tue.nl
+	hanwen@stack.urc.tue.nl
+
+LilyPond is updated very frequently, the latest version is always available at:
+
+	ftp://pcnov095.win.tue.nl/pub/lilypond
 
 PREREQUISITES
 
@@ -18,6 +22,14 @@ COMPILING
 You will need GNU C++ v2.7 or better and GNU make.  If you actually
 want to use this, you'd better use the "speedy" compilation flags in
 the Makefile.
+Do:
+
+	tar zxf flower-1.11.9.tar.gz
+	mv flower-1.11.9 flower
+	cd flower; make; cd ..
+	tar zxf lilypond-1.2.13.tar.gz
+	cd lilypond-1.2.13
+	make
 
 why G++ >= 2.7? LilyPond & flower lib uses builtin bool and typeof.
 
@@ -32,20 +44,22 @@ what I type in my xterm:
 
 This is what the output looks like over here.
 
-hw:~/musix/spacer$ lilypond maartje.ly
-LilyPond version 0.0.6 compiled on Nov  2 1996 at 01:25:29
-Parsing ... [maartje.ly]
+hw:~/musix/spacer$ lilypond kortjakje.ly
+LilyPond version 0.0.9 compiled on Nov  7 1996 at 23:38:21
+Parsing ... [kortjakje.ly]
+Processing ... Calculating ... 
 output to lelie.uit...
+
 hw:~/musix/spacer$ tex test
 This is TeX, Version 3.14159 (C version 6.1)
 (test.tex
 Hyphenation patterns for english, dutch, loaded.
 (lilyponddefs.tex) (lelie.uit) [1] )
-Output written on test.dvi (1 page, 1964 bytes).
+Output written on test.dvi (1 page, 3076 bytes).
 Transcript written on test.log.
+
 hw:~/musix/spacer$ xdvi test&
-[1] 3130
-hw:~/musix/spacer$ 
+[1] 1667
 
 
 PROBLEMS
@@ -59,7 +73,8 @@ HOW DOES IT WORK
 * Use The Source, Luke. If you don't know C++, you can try editing
 .dstreamrc for copious debugging output.
 
-* see also the subdir Documentation
+* also the subdir Documentation/ it contains some in depth matter
+on LilyPond algorithms
 
 * The source is commented in the DOC++ style.
 Check out doc++ at
