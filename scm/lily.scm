@@ -311,7 +311,6 @@ L1 is copied, L2 not.
 ;;  output
 (use-modules (scm output-tex)
 	     (scm output-ps)
-	     (scm output-ascii-script)
 	     (scm output-sketch)
 	     (scm output-sodipodi)
 	     (scm output-pdftex)
