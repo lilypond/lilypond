@@ -15,7 +15,7 @@
 struct Input_staff {
     
     /// defined where?    
-    String define_spot_str_;
+    const char * defined_ch_c_l_;
     String type;
     IPointerList<Input_command*> commands_;
     IPointerList<Input_music*> music_;
