@@ -32,11 +32,18 @@
 
 2002-04-06  Chris Jackson <chris@fluffhouse.org.uk>
 
+2002-04-06  Chris Jackson <chris@fluffhouse.org.uk>
+
+	* lily/tuplet-bracket.cc, scm/grob-description.scm: New
+	edge-width, edge-height and shorten-pair properties for tuplet
+	brackets.
+
 	* lilypond-indent.el: Support for blinking of matching parentheses
 	
 	* lilypond-font-lock.el: Fix fontification of closing > on its own line
 	
-	* pedal patches.
+	* lily/piano-pedal-engraver.cc, lily/text-spanner.cc: Fixes and
+	cleanups of piano pedal brackets.
 
 2002-04-05  Han-Wen  <hanwen@cs.uu.nl>
 
