@@ -1159,7 +1159,6 @@ completely.  This template defines a large number of small segments
 TODO - replace Bagpipe template with Andrew McNabb's work?
 
 @lilypond[verbatim]
-
 taor = { \grace { g32[ d' g e'] } }
 grip = { \grace { g32[ b g ]    } }
 thrd = { \grace { g32[ d' c']   } }
@@ -1219,7 +1218,6 @@ gcdg = { \grace { g'32[ c' d']  } }
     d'4.) \gdcg d'4.
 
 }
-
 @end lilypond
 
 

@@ -559,13 +559,13 @@ User manual: @ref{Changing context properties on the fly} for the
 
 Program reference: @internalsref{TupletBracket}, and @internalsref{TimeScaledMusic}.
 
-Examples: @inputfileref{input/regression,tuplet-nest.ly}.
+Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 
 @refbugs
 
 Nested tuplets are not formatted automatically.  In this case, outer
 tuplet brackets should be moved manually, which is demonstrated in
-@inputfileref{input/regression,tuplet-nest.ly}.
+@inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 
 
 
@@ -823,7 +823,7 @@ not insert tuplets.
 
 @seealso
 
-Examples: @inputfileref{input/regression,completion-heads.ly}.
+Examples: @inputfileref{input/@/regression,completion@/-heads@/.ly}.
 
 @noindent
 
@@ -871,8 +871,8 @@ staff symbol.
 
 Program reference: @internalsref{StaffSymbol}.
 
-Examples: @inputfileref{input/test,staff-lines.ly},
-@inputfileref{input/test,staff-size.ly}.
+Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
+@inputfileref{input/@/test,staff@/-size@/.ly}.
 
 @refbugs
 
@@ -1066,8 +1066,8 @@ The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
 
 Program reference: @internalsref{OttavaBracket}.
 
-Examples: @inputfileref{input/regression,ottava.ly},
-@inputfileref{input/regression,ottava-broken.ly}.
+Examples: @inputfileref{input/@/regression,ottava@/.ly},
+@inputfileref{input/@/regression,ottava@/-broken@/.ly}.
 
 @refbugs
 
@@ -1304,7 +1304,7 @@ Program reference: @internalsref{BarLine} (created at
 
 
 
-Examples: @inputfileref{input/test,bar-lines.ly},
+Examples: @inputfileref{input/@/test,bar@/-lines@/.ly},
 
 
 @node Time administration
@@ -1683,7 +1683,7 @@ In normal time signatures, automatic beams can start on any note but can
 only end in a few positions within the measure: beams can end on a beat,
 or at durations specified by the properties in
 @code{autoBeamSettings}.  The defaults for @code{autoBeamSettings}
-are defined in @file{scm/auto-beam.scm}.
+are defined in @file{scm/@/auto@/-beam.scm}.
 
 The value of @code{autoBeamSettings} is changed with two functions,
 @example
@@ -2099,7 +2099,7 @@ any markup text.  For example,
 Program reference: @internalsref{BreathingSign},
 @internalsref{BreathingSignEvent}.
 
-Examples: @inputfileref{input/regression,breathing-sign.ly}.
+Examples: @inputfileref{input/@/regression,breathing@/-sign@/.ly}.
 
 
 @node Metronome marks
@@ -2193,7 +2193,7 @@ properties
 Internals @internalsref{TextSpanEvent},
 @internalsref{TextSpanner}.
 
-Examples: @inputfileref{input/regression,text-spanner.ly}.
+Examples: @inputfileref{input/@/regression,text@/-spanner@/.ly}.
 
 
 @node Analysis brackets
@@ -2228,7 +2228,7 @@ to @internalsref{Staff} context.  A bracket is started with
 Program reference: @internalsref{HorizontalBracket},
 @internalsref{NoteGroupingEvent}.
 
-Examples: @inputfileref{input/regression,note-group-bracket.ly}. 
+Examples: @inputfileref{input/@/regression,note@/-group@/-bracket@/.ly}. 
 
 
 @node Articulations
@@ -2247,7 +2247,7 @@ articulation.  They are demonstrated here
 @lilypondfile[quote,raggedright]{script-abbreviations.ly}
 
 The meanings of these shorthands can be changed.  See
-@file{ly/script-init.ly} for examples.
+@file{ly/@/script@/-init@/.ly} for examples.
 
 
 The script is automatically placed, but the direction can be forced as
@@ -2420,7 +2420,7 @@ very close to note heads in monophonic music,
 
 Program reference: @internalsref{FingerEvent}, and @internalsref{Fingering}.
 
-Examples: @inputfileref{input/regression,finger-chords.ly}.
+Examples: @inputfileref{input/@/regression,finger@/-chords@/.ly}.
 
 
 
@@ -2555,7 +2555,7 @@ Another option is to change the variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
 @code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic},
 @code{stopAppoggiaturaMusic}.  More information is in the file
-@file{ly/grace-init.ly}.
+@file{ly/@/grace@/-init@/.ly}.
 
 
 @seealso
@@ -2607,7 +2607,7 @@ c\glissando c'
 
 Program reference: @internalsref{Glissando}, and @internalsref{GlissandoEvent}.
 
-Example files: @file{input/regression/glissando.ly}.
+Example files: @file{input/@/regression/@/glissando@/.ly}.
 
  
 
@@ -2758,7 +2758,7 @@ for repeats with alternatives.  These are not played in MIDI output by default.
 @item fold
 Alternative endings are written stacked.  This has limited use but may be
 used to typeset two lines of lyrics in songs with repeats, see
-@inputfileref{input,star-spangled-banner.ly}.
+@inputfileref{input,star-spangled-banner@/.ly}.
 @end ignore
 
 @c tremolo, beamed
@@ -2840,8 +2840,8 @@ Examples:
 
 Brackets for the repeat are normally only printed over the topmost
 staff.  This can be adjusted by setting the @code{voltaOnThisStaff}
-property @inputfileref{input/regression,volta-multi-staff.ly},
-@inputfileref{input/regression,volta-chord-names.ly}
+property @inputfileref{input/@/regression,volta@/-multi@/-staff@/.ly},
+@inputfileref{input/@/regression,volta@/-chord@/-names@/.ly}
 
 
 @refbugs
@@ -2881,7 +2881,7 @@ in the MIDI output.  This is achieved by applying the
 @code{\unfoldrepeats} music function.  This functions changes all
 repeats to unfold repeats.
 
-@lilypond[verbatim,raggedright,fragment]
+@lilypond[verbatim,fragment,linewidth]
 \unfoldrepeats {
   \repeat tremolo 8 {c'32 e' }
   \repeat percent 2 { c''8 d'' }
@@ -2981,8 +2981,8 @@ Program reference: tremolo beams are @internalsref{Beam} objects.  Single stem
 tremolos are @internalsref{StemTremolo} objects.  The music expression is
 @internalsref{TremoloEvent}.
 
-Example files: @inputfileref{input/regression,chord-tremolo.ly},
-@inputfileref{input/regression,stem-tremolo.ly}.
+Example files: @inputfileref{input/@/regression,chord@/-tremolo@/.ly},
+@inputfileref{input/@/regression,stem@/-tremolo@/.ly}.
 
 @node Tremolo subdivisions
 @subsection Tremolo subdivisions
@@ -3070,7 +3070,7 @@ staff are squashed, and the staff itself has a single line
 
 Program reference: @internalsref{RhythmicStaff}.
 
-Examples: @inputfileref{input/regression,rhythmic-staff.ly}.
+Examples: @inputfileref{input/@/regression,rhythmic@/-staff@/.ly}.
 
 
 @node Entering percussion
@@ -3092,7 +3092,7 @@ in input files
 @end lilypond
 
 The complete list of drum names is in the init file
-@file{ly/drumpitch-init.ly}.
+@file{ly/@/drumpitch@/-init@/.ly}.
 @c TODO: properly document this.
 
 @seealso
@@ -3296,7 +3296,7 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 @seealso
 
-Init files: @file{ly/drumpitch-init.ly}.
+Init files: @file{ly/@/drumpitch@/-init@/.ly}.
 
 Program reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 
@@ -3337,7 +3337,7 @@ Dynamics are not centered, but workarounds do exist.  See the
 The distance between the two staves is the same for all systems in the
 score.  It is possible to override this per system, but it does require
 an arcane command incantation.  See
-@inputfileref{input/test,piano-staff-distance.ly}.
+@inputfileref{input/@/test,piano@/-staff@/-distance@/.ly}.
 
 
 @node Automatic staff changes
@@ -3828,7 +3828,7 @@ Program reference: @internalsref{HyphenEvent},
 @internalsref{ExtenderEvent}, @internalsref{LyricHyphen}, and
 @internalsref{LyricExtender}
 
-Examples: @inputfileref{input/test,lyric-hyphen-retain.ly}.
+Examples: @inputfileref{input/@/test,lyric@/-hyphen@/-retain@/.ly}.
 
 
 
@@ -3979,10 +3979,10 @@ Program reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}, @internalsref{Melisma_translator}.
 
 Examples: @ref{Small ensembles},
-@inputfileref{input/regression,lyric-combine-new.ly},
+@inputfileref{input/@/regression,lyric@/-combine@/-new@/.ly},
 @c TODO: make separate section for melismata 
-@inputfileref{input/test,lyrics-melisma-variants.ly}.
-@inputfileref{input/test,lyrics-melisma-faster.ly}.
+@inputfileref{input/@/test,lyrics@/-melisma@/-variants@/.ly}.
+@inputfileref{input/@/test,lyrics@/-melisma@/-faster@/.ly}.
  
 @refbugs
 
@@ -4263,7 +4263,7 @@ Program reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}.
 
-Examples:  @inputfileref{input/regression,ambitus.ly}.
+Examples:  @inputfileref{input/@/regression,ambitus@/.ly}.
 
 @refbugs
 
@@ -4665,7 +4665,7 @@ adds the new exceptions to the default ones, which are defined in
 @file{ly/chord-modifier-init.ly}.
 
 For an example of tuning this property, see also
-@inputfileref{input/regression,chord-name-exceptions.ly}.
+@inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly}.
 @cindex exceptions, chord names.
 
 
@@ -4674,7 +4674,7 @@ For an example of tuning this property, see also
 This property contains the markup object used for the 7th step, when
 it is major.  Predefined options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.  See
-@inputfileref{input/regression,chord-name-major7.ly} for an example.
+@inputfileref{input/@/regression,chord@/-name@/-major7@/.ly} for an example.
 
 @cindex @code{chordNameSeparator}
 @item chordNameSeparator
@@ -4716,7 +4716,7 @@ There are also two other chord name schemes implemented: an alternate
 Jazz chord notation, and a systematic scheme called Banter chords.  The
 alternate jazz notation is also shown on the chart in @ref{Chord name
 chart}.  Turning on these styles is described in the input file
-@inputfileref{input/test,chord-names-jazz.ly}.
+@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
 
 @cindex Banter
 @cindex jazz chords
@@ -4735,13 +4735,14 @@ chart}.  Turning on these styles is described in the input file
 
 @seealso
 
-Examples: @inputfileref{input/regression,chord-name-major7.ly},
-@inputfileref{input/regression,chord-name-exceptions.ly},
-@inputfileref{input/test,chord-names-jazz.ly},
-@inputfileref{input/test,chords-without-melody.ly}.
+Examples: @inputfileref{input/@/regression,chord@/-name@/-major7@/.ly},
+@inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly},
+@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly},
+@inputfileref{input/@/test,chords@/-without@/-melody@/.ly}.
 
 
-Init files: @file{scm/chords-ignatzek.scm}, and @file{scm/chord-entry.scm}.
+Init files: @file{scm/@/chords@/-ignatzek.scm}, and
+@file{scm/@/chord@/-entry.scm}.
 
 
 @refbugs
@@ -4764,6 +4765,7 @@ following example
 @lilypond[verbatim, raggedright, quote]
 \context Voice {
   d' ^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
+  d' d' d'
   fis' ^\markup \override #'(size . 0.75) {
     \override #'(finger-code . below-string) {
       \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
@@ -4772,6 +4774,7 @@ following example
                                (place-fret 1 2 1))
     }
   }
+  fis' fis' fis'
   c' ^\markup  \override #'(dot-radius . 0.35) {
     \override #'(finger-code . in-dot) {
       \override #'(dot-color . white) {
@@ -4779,6 +4782,7 @@ following example
       }
     }
   }
+  c' c' c'
 }
 @end lilypond
 
@@ -4795,7 +4799,7 @@ Details about the property interface to fret diagrams are found at
 
 @seealso
 
-Examples: @inputfileref{input/test,fret-diagram.ly}
+Examples: @inputfileref{input/@/test,fret@/-diagram@/.ly}
 
 
 @node Improvisation
@@ -4996,7 +5000,7 @@ few measures, it is set to function that produces a boxed number.
 }
 @end lilypond
 
-The file @file{scm/translation-functions.scm} contains the definitions
+The file @file{scm/@/translation@/-functions.scm} contains the definitions
 of @code{format-mark-numbers} (the default format) and
 @code{format-mark-letters}.  These can be used as inspiration for other
 formatting functions.
@@ -5036,14 +5040,14 @@ behavior
 
 Program reference: @internalsref{MarkEvent}, @internalsref{RehearsalMark}.
 
-Init files: @file{scm/translation-functions.scm} contains the
+Init files: @file{scm/@/translation@/-functions.scm} contains the
 definition of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for other
 formatting functions.
 
-Examples: @inputfileref{input/regression,rehearsal-mark-letter.ly},
+Examples: @inputfileref{input/@/regression,rehearsal@/-mark@/-letter@/.ly},
 
-@inputfileref{input/regression,rehearsal-mark-number.ly}.
+@inputfileref{input/@/regression,rehearsal@/-mark@/-number@/.ly}.
 
 
 @node Bar numbers
@@ -5061,7 +5065,7 @@ is normally updated automatically for every measure.
 Bar numbers can be typeset at regular intervals instead of at the
 beginning of each line.  This is illustrated in the following example,
 whose source is available as
-@inputfileref{input/test,bar-number-regular-interval.ly}
+@inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}
 
 @lilypondfile[raggedright,quote]{bar-number-regular-interval.ly}
 
@@ -5081,8 +5085,8 @@ Bar numbers can be manually changed by setting the
 
 Program reference: @internalsref{BarNumber}.
 
-Examples: @inputfileref{input/test,bar-number-every-five-reset.ly},
-and @inputfileref{input/test,bar-number-regular-interval.ly}.
+Examples: @inputfileref{input/@/test,bar@/-number@/-every@/-five@/-reset@/.ly},
+and @inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}.
 
 @refbugs
 
@@ -5481,7 +5485,7 @@ removed from the first system too, set @code{remove-first} to false in
 
 Another application is making ossia sections, i.e. alternative
 melodies on a separate piece of staff, with help of a Frenched
-staff.  See @inputfileref{input/test,ossia.ly} for an example.
+staff.  See @inputfileref{input/@/test,ossia@/.ly} for an example.
 
 
 @node Different editions from one source
@@ -5544,7 +5548,7 @@ of symbols, for example,
 
 @seealso
 
-Examples: @inputfileref{input/regression,tag-filter.ly}.
+Examples: @inputfileref{input/@/regression,tag@/-filter@/.ly}.
 
 @refbugs
 
@@ -5620,7 +5624,8 @@ rests of the cued voice end up in the @code{\quote}.
 Setting
 
 @example
-  \set Staff.quotedEventTypes = #'(note-event articulation-event dynamic-event)  
+\set Staff.quotedEventTypes =
+       #'(note-event articulation-event dynamic-event)  
 @end example
 
 @noindent
@@ -5639,8 +5644,8 @@ Quoting grace notes is broken and can even cause LilyPond to crash.
 
 In this manual: @ref{Instrument transpositions}.
 
-Examples: @inputfileref{input/regression,quote.ly}
-@inputfileref{input/regression,quote-transposition.ly}
+Examples: @inputfileref{input/@/regression,quote@/.ly}
+@inputfileref{input/@/regression,quote@/-transposition@/.ly}
 
 Program reference: @internalsref{QuoteMusic}.
 
@@ -5841,7 +5846,7 @@ engravers work.
 
 @seealso
 
-Examples: @inputfileref{input/regression,note-head-style.ly} gives an
+Examples: @inputfileref{input/@/regression,note@/-head@/-style@/.ly} gives an
 overview over all available note head styles.
 
 
@@ -5897,7 +5902,7 @@ select ancient accidentals.   Supported styles are
 As shown, not all accidentals are supported by each style.  When
 trying to access an unsupported accidental, LilyPond will switch to a
 different style, as demonstrated in
-@inputfileref{input/test,ancient-accidentals.ly}.
+@inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
 
 Similarly to local accidentals, the style of the key signature can be
 controlled by the @code{style} property of the
@@ -5912,7 +5917,7 @@ the use of key signatures.
 
 Program reference: @internalsref{KeySignature}.
 
-Examples: @inputfileref{input/test,ancient-accidentals.ly}.
+Examples: @inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
 
 @node Ancient rests
 @subsection Ancient rests
@@ -5939,7 +5944,7 @@ The following example demonstrates the @code{neomensural} style
 
 There are no 32th and 64th rests specifically for the mensural or
 neo-mensural style.  Instead, the rests from the default style will be
-taken.  See @inputfileref{input/test,rests.ly} for a chart of all
+taken.  See @inputfileref{input/@/test,rests@/.ly} for a chart of all
 rests.
 
 There are no rests in Gregorian Chant notation; instead, it uses
@@ -5967,128 +5972,153 @@ arbitrary line, as described in @ref{Clef}.  The note printed to the
 right side of each clef in the example column denotes the @code{c'}
 with respect to that clef.
 
-@multitable @columnfractions   .4 .4 .2
-
+@multitable @columnfractions .4 .4 .2
 @item
-@b{Description} @tab
-@b{Supported Clefs} @tab
+@b{Description}
+@tab
+@b{Supported Clefs}
+@tab
 @b{Example}
 
 @item
-modern style mensural C clef @tab
-@code{neomensural-c1}, @code{neomensural-c2},
-@code{neomensural-c3}, @code{neomensural-c4} @tab
-@lilypond[fragment,raggedright,quote,relative=1,notime]
+modern style mensural C clef
+@tab
+@code{neomensural-c1}, @code{neomensural-c2},@*
+@code{neomensural-c3}, @code{neomensural-c4}
+@tab
+@lilypond[fragment,relative=1,notime]
   \clef "neomensural-c2" c
 @end lilypond
 
 @item
 petrucci style mensural C clefs, for use on different staff lines
-(the examples shows the 2nd staff line C clef).
-
+(the examples shows the 2nd staff line C clef)
 @tab
-@code{petrucci-c1}
-@code{petrucci-c2}
-@code{petrucci-c3}
-@code{petrucci-c4}
+@code{petrucci-c1}, @code{petrucci-c2},@*
+@code{petrucci-c3}, @code{petrucci-c4},@*
 @code{petrucci-c5}
-
 @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+@lilypond[fragment,relative=1,notime]
   \clef "petrucci-c2" c
 @end lilypond
 
 @item
-petrucci style mensural F clef @tab
-@code{petrucci-f} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+petrucci style mensural F clef
+@tab
+@code{petrucci-f}
+@tab
+@lilypond[fragment,relative=1,notime]
   \clef "petrucci-f" c
 @end lilypond
 
 @item
-petrucci style mensural G clef @tab
-@code{petrucci-g} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+petrucci style mensural G clef
+@tab
+@code{petrucci-g}
+@tab
+@lilypond[fragment,relative=1,notime]
   \clef "petrucci-g" c
 @end lilypond
 
 @item
-historic style mensural C clef @tab
-@code{mensural-c1}, @code{mensural-c2}, @code{mensural-c3},
-@code{mensural-c4} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+historic style mensural C clef
+@tab
+@code{mensural-c1}, @code{mensural-c2},@*
+@code{mensural-c3}, @code{mensural-c4}
+@tab
+@lilypond[fragment,relative=1,notime]
   \clef "mensural-c2" c
 @end lilypond
 
 @item
-historic style mensural F clef @tab
-@code{mensural-f} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+historic style mensural F clef
+@tab
+@code{mensural-f}
+@tab
+@lilypond[fragment,relative=1,notime]
   \clef "mensural-f" c
 @end lilypond
 
 @item
-historic style mensural G clef @tab
-@code{mensural-g} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+historic style mensural G clef
+@tab
+@code{mensural-g}
+@tab
+@lilypond[fragment,relative=1,notime]
   \clef "mensural-g" c
 @end lilypond
 
 @item
-Editio Vaticana style do clef @tab
-@code{vaticana-do1}, @code{vaticana-do2}, @code{vaticana-do3} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+Editio Vaticana style do clef
+@tab
+@code{vaticana-do1}, @code{vaticana-do2},@*
+@code{vaticana-do3}
+@tab
+@lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol   #'line-count = #4
   \clef "vaticana-do2" c
 @end lilypond
 
 @item
-Editio Vaticana style fa clef @tab
-@code{vaticana-fa1}, @code{vaticana-fa2} @tab
-@lilypond[quote,relative=1,notime,indent=0.0\mm,fragment]
+Editio Vaticana style fa clef
+@tab
+@code{vaticana-fa1}, @code{vaticana-fa2}
+@tab
+@lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol   #'line-count = #4
   \clef "vaticana-fa2" c
 @end lilypond
 
 @item
-Editio Medicaea style do clef @tab
-@code{medicaea-do1}, @code{medicaea-do2}, @code{medicaea-do3} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+Editio Medicaea style do clef
+@tab
+@code{medicaea-do1}, @code{medicaea-do2},@*
+@code{medicaea-do3}
+@tab
+@lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol   #'line-count = #4
   \clef "medicaea-do2" c
 @end lilypond
 
 @item
-Editio Medicaea style fa clef @tab
-@code{medicaea-fa1}, @code{medicaea-fa2} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+Editio Medicaea style fa clef
+@tab
+@code{medicaea-fa1}, @code{medicaea-fa2}
+@tab
+@lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol   #'line-count = #4
   \clef "medicaea-fa2" c
 @end lilypond
 
 @item
-historic style hufnagel do clef @tab
-@code{hufnagel-do1}, @code{hufnagel-do2}, @code{hufnagel-do3} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+historic style hufnagel do clef
+@tab
+@code{hufnagel-do1}, @code{hufnagel-do2},@*
+@code{hufnagel-do3}
+@tab
+@lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol   #'line-count = #4
   \clef "hufnagel-do2" c
 @end lilypond
 
 @item
-historic style hufnagel fa clef @tab
-@code{hufnagel-fa1}, @code{hufnagel-fa2} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+historic style hufnagel fa clef
+@tab
+@code{hufnagel-fa1}, @code{hufnagel-fa2}
+@tab
+@lilypond[fragment,relative=1,notime]
   \override Staff.StaffSymbol   #'line-count = #4
   \clef "hufnagel-fa2" c
 @end lilypond
 
 @item
-historic style hufnagel combined do/fa clef @tab
-@code{hufnagel-do-fa} @tab
-@lilypond[fragment,quote,relative=1,notime,indent=0.0\mm]
+historic style hufnagel combined do/fa clef
+@tab
+@code{hufnagel-do-fa}
+@tab
+@lilypond[fragment,relative=1,notime]
   \clef "hufnagel-do-fa" c
 @end lilypond
-
 @end multitable
 
 
@@ -6373,7 +6403,7 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel} and
 
 Program reference: @internalsref{Custos}.
 
-Examples: @inputfileref{input/regression,custos.ly}.
+Examples: @inputfileref{input/@/regression,custos@/.ly}.
 
 
 @node Divisiones
@@ -6393,12 +6423,12 @@ only marks the end of a chant, but is also frequently used within a
 single antiphonal/responsorial chant to mark the end of each section.
 
 
-To use divisiones, include the file @code{gregorian-init.ly}.  It
+To use divisiones, include the file @file{gregorian@/-init@/.ly}.  It
 contains definitions that you can apply by just inserting
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima},
 and @code{\finalis} at proper places in the input.  Some editions use
 @emph{virgula} or @emph{caesura} instead of divisio minima.
-Therefore, @code{gregorian-init.ly} also defines @code{\virgula} and
+Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 @code{\caesura}
 
 @lilypondfile[quote,raggedright]{divisiones.ly}
@@ -6424,7 +6454,7 @@ In this manual: @ref{Breath marks}.
 
 Program reference: @internalsref{BreathingSign}, @internalsref{BreathingSignEvent}.
 
-Examples: @inputfileref{input/test,divisiones.ly}.
+Examples: @inputfileref{input/@/test,divisiones@/.ly}.
 
 @node Ligatures
 @subsection Ligatures
@@ -6584,10 +6614,19 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @multitable @columnfractions .4 .2 .2 .2
 
 @item
-@b{Neuma aut@*Neumarum Elementa} @tab
-@b{Figurae@*Rectae} @tab
-@b{Figurae@*Liquescentes Auctae} @tab
-@b{Figurae@*Liquescentes Deminutae}
+@b{Neuma aut@*
+Neumarum Elementa}
+@tab
+@b{Figurae@*
+Rectae}
+@tab
+@b{Figurae@*
+Liquescentes@*
+Auctae}
+@tab
+@b{Figurae@*
+Liquescentes@*
+Deminutae}
 
 @c TODO: \layout block is identical in all of the below examples.
 @c Therefore, it should somehow be included rather than duplicated all
@@ -6602,7 +6641,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{1. Punctum}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.5\cm]
+@lilypond[staffsize=26,linewidth=1.5\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6617,7 +6656,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=2.5\cm]
+@lilypond[staffsize=26,linewidth=2.5\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6636,7 +6675,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6650,7 +6689,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{2. Virga}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6666,7 +6705,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{3. Apostropha vel Stropha}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6677,7 +6716,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6692,7 +6731,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{4. Oriscus}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6708,7 +6747,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{5. Clivis vel Flexa}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6719,7 +6758,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=2.0\cm]
+@lilypond[staffsize=26,linewidth=2.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6734,7 +6773,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6748,7 +6787,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{6. Podatus vel Pes}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6759,7 +6798,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=2.0\cm]
+@lilypond[staffsize=26,linewidth=2.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6774,7 +6813,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6788,7 +6827,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{7. Pes Quassus}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6799,7 +6838,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6814,7 +6853,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{8. Quilisma Pes}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6825,7 +6864,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6840,7 +6879,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{9. Podatus Initio Debilis}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6851,7 +6890,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6866,7 +6905,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{10. Torculus}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6877,7 +6916,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6888,7 +6927,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6902,7 +6941,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{11. Torculus Initio Debilis}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6913,7 +6952,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6924,7 +6963,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6938,7 +6977,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{12. Porrectus}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6949,7 +6988,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6960,7 +6999,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6974,7 +7013,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{13. Climacus}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6986,7 +7025,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 }
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -6997,7 +7036,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7011,7 +7050,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{14. Scandicus}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7022,7 +7061,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7033,7 +7072,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7047,7 +7086,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{15. Salicus}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7058,7 +7097,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7073,7 +7112,7 @@ volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
 @item
 @code{16. Trigonus}
 @tab
-@lilypond[quote,noindent,staffsize=26,linewidth=1.0\cm]
+@lilypond[staffsize=26,linewidth=1.0\cm]
 \include "gregorian-init.ly"
 \score {
   \transpose c c' {
@@ -7110,223 +7149,321 @@ above table it refers.  The second column gives the name of the
 ligature.  The third column shows the code fragment that produces this
 ligature, using @code{g}, @code{a} and @code{b} as example pitches.
 
-@multitable @columnfractions .1 .4 .5
-
+@multitable @columnfractions .02 .31 .67
 @item
-@b{#} @tab
-@b{Name} @tab
+@b{#}
+@tab
+@b{Name}
+@tab
 @b{Input Language}
 
 @item
-a @tab
-Punctum @tab
+a
+@tab
+Punctum
+@tab
 @code{\[ b \]}
 
 @item
-b @tab
-Punctum Inclinatum @tab
+b
+@tab
+Punctum Inclinatum
+@tab
 @code{\[ \inclinatum b \]}
 
 @item
-c @tab
-Punctum Auctum Ascendens @tab
+c
+@tab
+Punctum Auctum@*
+Ascendens
+@tab
 @code{\[ \auctum \ascendens b \]}
 
 @item
-d @tab
-Punctum Auctum Descendens @tab
+d
+@tab
+Punctum Auctum@*
+Descendens
+@tab
 @code{\[ \auctum \descendens b \]}
 
 @item
-e @tab
-Punctum Inclinatum Auctum @tab
+e
+@tab
+Punctum Inclinatum@*
+Auctum
+@tab
 @code{\[ \inclinatum \auctum b \]}
 
 @item
-f @tab
-Punctum Inclinatum Parvum @tab
+f
+@tab
+Punctum Inclinatum@*
+Parvum @tab
 @code{\[ \inclinatum \deminutum b \]}
 
 @item
-g @tab
-Virga @tab
+g
+@tab
+Virga
+@tab
 @code{\[ \virga b \]}
 
 @item
-h @tab
-Stropha @tab
+h
+@tab
+Stropha
+@tab
 @code{\[ \stropha b \]}
 
 @item
-i @tab
-Stropha Aucta @tab
+i
+@tab
+Stropha Aucta
+@tab
 @code{\[ \stropha \auctum b \]}
 
 @item
-j @tab
-Oriscus @tab
+j
+@tab
+Oriscus
+@tab
 @code{\[ \oriscus b \]}
 
 @item
-k @tab
-Clivis vel Flexa @tab
+k
+@tab
+Clivis vel Flexa
+@tab
 @code{\[ b \flexa g \]}
 
 @item
-l @tab
-Clivis Aucta Descendens @tab
+l
+@tab
+Clivis Aucta@*
+Descendens
+@tab
 @code{\[ b \flexa \auctum \descendens g \]}
 
 @item
-m @tab
-Clivis Aucta Ascendens @tab
+m
+@tab
+Clivis Aucta@*
+Ascendens
+@tab
 @code{\[ b \flexa \auctum \ascendens g \]}
 
 @item
-n @tab
-Cephalicus @tab
+n
+@tab
+Cephalicus
+@tab
 @code{\[ b \flexa \deminutum g \]}
 
 @item
-o @tab
-Podatus vel Pes @tab
+o
+@tab
+Podatus vel Pes
+@tab
 @code{\[ g \pes b \]}
 
 @item
-p @tab
-Pes Auctus Descendens @tab
+p
+@tab
+Pes Auctus@*
+Descendens
+@tab
 @code{\[ g \pes \auctum \descendens b \]}
 
 @item
-q @tab
-Pes Auctus Ascendens @tab
+q
+@tab
+Pes Auctus@*
+Ascendens
+@tab
 @code{\[ g \pes \auctum \ascendens b \]}
 
 @item
-r @tab
-Epiphonus @tab
+r
+@tab
+Epiphonus
+@tab
 @code{\[ g \pes \deminutum b \]}
 
 @item
-s @tab
-Pes Quassus @tab
+s
+@tab
+Pes Quassus
+@tab
 @code{\[ \oriscus g \pes \virga b \]}
 
 @item
-t @tab
-Pes Quassus Auctus Descendens @tab
+t
+@tab
+Pes Quassus@*
+Auctus Descendens @tab
 @code{\[ \oriscus g \pes \auctum \descendens b \]}
 
 @item
-u @tab
-Quilisma Pes @tab
+u
+@tab
+Quilisma Pes
+@tab
 @code{\[ \quilisma g \pes b \]}
 
 @item
-v @tab
-Quilisma Pes Auctus Descendens @tab
+v
+@tab
+Quilisma Pes@*
+Auctus Descendens
+@tab
 @code{\[ \quilisma g \pes \auctum \descendens b \]}
 
 @item
-w @tab
-Pes Initio Debilis @tab
+w
+@tab
+Pes Initio Debilis
+@tab
 @code{\[ \deminutum g \pes b \]}
 
 @item
-x @tab
-Pes Auctus Descendens Initio Debilis @tab
+x
+@tab
+Pes Auctus Descendens@*
+Initio Debilis
+@tab
 @code{\[ \deminutum g \pes \auctum \descendens b \]}
 
 @item
-y @tab
-Torculus @tab
+y
+@tab
+Torculus
+@tab
 @code{\[ a \pes b \flexa g \]}
 
 @item
-z @tab
-Torculus Auctus Descendens @tab
+z
+@tab
+Torculus Auctus@*
+Descendens
+@tab
 @code{\[ a \pes b \flexa \auctum \descendens g \]}
 
 @item
-A @tab
-Torculus Deminutus @tab
+A
+@tab
+Torculus Deminutus
+@tab
 @code{\[ a \pes b \flexa \deminutum g \]}
 
 @item
-B @tab
-Torculus Initio Debilis @tab
+B
+@tab
+Torculus Initio Debilis
+@tab
 @code{\[ \deminutum a \pes b \flexa g \]}
 
 @item
-C @tab
-Torculus Auctus Descendens Initio Debilis @tab
+C
+@tab
+Torculus Auctus@*
+Descendens Initio Debilis
+@tab
 @code{\[ \deminutum a \pes b \flexa \auctum \descendens g \]}
 
 @item
-D @tab
-Torculus Deminutus Initio Debilis @tab
+D
+@tab
+Torculus Deminutus@*
+Initio Debilis
+@tab
 @code{\[ \deminutum a \pes b \flexa \deminutum g \]}
 
 @item
-E @tab
-Porrectus @tab
+E
+@tab
+Porrectus
+@tab
 @code{\[ a \flexa g \pes b \]}
 
 @item
-F @tab
-Porrectus Auctus Descendens @tab
+F
+@tab
+Porrectus Auctus@*
+Descendens
+@tab
 @code{\[ a \flexa g \pes \auctum \descendens b \]}
 
 @item
-G @tab
-Porrectus Deminutus @tab
+G
+@tab
+Porrectus Deminutus
+@tab
 @code{\[ a \flexa g \pes \deminutum b \]}
 
 @item
-H @tab
-Climacus @tab
+H
+@tab
+Climacus
+@tab
 @code{\[ \virga b \inclinatum a \inclinatum g \]}
 
 @item
-I @tab
-Climacus Auctus @tab
+I
+@tab
+Climacus Auctus
+@tab
 @code{\[ \virga b \inclinatum a \inclinatum \auctum g \]}
 
 @item
-J @tab
-Climacus Deminutus @tab
+J
+@tab
+Climacus Deminutus
+@tab
 @code{\[ \virga b \inclinatum a \inclinatum \deminutum g \]}
 
 @item
-K @tab
-Scandicus @tab
+K
+@tab
+Scandicus
+@tab
 @code{\[ g \pes a \virga b \]}
 
 @item
-L @tab
-Scandicus Auctus Descendens @tab
+L
+@tab
+Scandicus Auctus@*
+Descendens
+@tab
 @code{\[ g \pes a \pes \auctum \descendens b \]}
 
 @item
-M @tab
-Scandicus Deminutus @tab
+M
+@tab
+Scandicus Deminutus
+@tab
 @code{\[ g \pes a \pes \deminutum b \]}
 
 @item
-N @tab
-Salicus @tab
+N
+@tab
+Salicus
+@tab
 @code{\[ g \oriscus a \pes \virga b \]}
 
 @item
-O @tab
-Salicus Auctus Descendens @tab
+O
+@tab
+Salicus Auctus Descendens
+@tab
 @code{\[ g \oriscus a \pes \auctum \descendens b \]}
 
 @item
-P @tab
-Trigonus @tab
+P
+@tab
+Trigonus
+@tab
 @code{\[ \stropha b \stropha b \stropha a \]}
-
 @end multitable
 
 @refcommands
@@ -7674,7 +7811,7 @@ chords, e.g.
 @end lilypond
 
 The following example (from
-@inputfileref{input/regression,cluster.ly}) shows what the result
+@inputfileref{input/@/regression,cluster@/.ly}) shows what the result
 looks like
 
 @lilypondfile[raggedright,quote]{cluster.ly}
@@ -7690,7 +7827,7 @@ Program reference: @internalsref{ClusterSpanner},
 @internalsref{Cluster_spanner_engraver}, and
 @internalsref{ClusterNoteEvent}.
 
-Examples: @inputfileref{input/regression,cluster.ly}.
+Examples: @inputfileref{input/@/regression,cluster@/.ly}.
 
 @refbugs
 
@@ -7808,7 +7945,7 @@ the object.  In the above example, the text ``heads or tails?'' ends
 
 Program reference: @internalsref{text-balloon-interface}.
 
-Examples: @inputfileref{input/regression,balloon.ly}.
+Examples: @inputfileref{input/@/regression,balloon@/.ly}.
 
 
 
