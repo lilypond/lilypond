@@ -11,7 +11,7 @@ copyright		public domain
 Tested Features: example file with comments
 
 %}
-\version "0.1.5";
+\version "0.1.6";
 
 
 % the % is a comment.
