@@ -24,7 +24,7 @@
        (engraver-accepts-music-types? (cdr types) grav)))
   )
 
-(define (engraver-doc-string engraver)
+(define (engraver-doc-string engraver in-which-contexts)
   (let* (
 	 (propsr (cdr (assoc 'properties-read (ly-translator-description engraver))))
 	 (propsw (cdr (assoc 'properties-written (ly-translator-description engraver))))
@@ -73,24 +73,27 @@
 
      "\n\n"
 
-     (let* ((paper-alist (My_lily_parser::paper_description))
-	    (context-description-alist (map cdr paper-alist))
-	    (contexts
-	     (apply append
-		    (map (lambda (x)
-			   (let ((context (cdr (assoc 'type-name x)))
-				 (consists (append
-					    (list (cdr (assoc 'group-type x)))
-					    (cdr (assoc 'consists x))
-					    (cdr (assoc 'end-consists x)))))
+     (if in-which-contexts
+	 (let* ((paper-alist (My_lily_parser::paper_description))
+		(context-description-alist (map cdr paper-alist))
+		(contexts
+		 (apply append
+			(map (lambda (x)
+			       (let ((context (cdr (assoc 'type-name x)))
+				     (consists (append
+						(list (cdr (assoc 'group-type x)))
+						(cdr (assoc 'consists x))
+						(cdr (assoc 'end-consists x)))))
 
-			     (if (member name consists)
-				 (list context)
-				 '())))
-			 context-description-alist))))
-       (string-append
-	name " is part of contexts: "
-	(human-listify (map ref-ify (map context-name contexts))))))))
+				 (if (member name consists)
+				     (list context)
+				     '())))
+			     context-description-alist))))
+	   (string-append
+	    name " is part of contexts: "
+	    (human-listify (map ref-ify (map context-name contexts)))))
+	 ""
+	 ))))
 
 
 
@@ -99,7 +102,7 @@
 (define (engraver-doc grav)
   (make <texi-node>
     #:name (ly-translator-name grav)
-    #:text (engraver-doc-string grav)
+    #:text (engraver-doc-string grav #t)
     ))
 
 ;; Second level, part of Context description
@@ -119,10 +122,10 @@
        (eg (find-engraver-by-name name ))
        )
 
-    (if (eq? eg #f)
-	(string-append "Engraver " name ", not documented.\n")
-	(engraver-doc-string eg)
- 	)
+    (cons name 
+	  (engraver-doc-string eg #f)
+	
+     )
     ))
 
 (define (document-property-operation op)
@@ -207,9 +210,9 @@
 	    (human-listify (map ref-ify (map context-name accepts)))))
        
        "\n\nThis context is built from the following engravers: "
-       (apply string-append 
-	      (map document-engraver-by-name consists)))
-       )))
+       (description-list->texi
+	      (map document-engraver-by-name consists))
+       ))))
 
 (define (engraver-grobs  grav)
   (let* (
