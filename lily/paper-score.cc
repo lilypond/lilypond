@@ -225,6 +225,11 @@ Paper_score::fixup_refpoints ()
 	{
 	  Score_element * se = unsmob_element (e);
 	  se->fixup_refpoint ();
+
+	  if (!dynamic_cast<Line_of_score*> (se) && !se->parent_l (Y_AXIS))
+	    {
+	      programming_error ("No parent!");
+	    }
 	}
     }
 }
