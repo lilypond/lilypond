@@ -64,7 +64,6 @@ public:
   Engraver () {}
 
   DECLARE_MY_RUNTIME_TYPEINFO;
-  void print() const;
   virtual Engraver * engraver_l () { return this; }
 };
 
