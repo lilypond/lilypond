@@ -15,6 +15,8 @@
 
 	* input/test/lines.ly: deleted file; duplicate of embedded-postscript.ly
 
+	* input/test/mmrest-collision: moved to regression.
+
 2003-06-28  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/chord-name.scm (note-name->markup): don't superscript root
