@@ -1,0 +1,9 @@
+% this used to work:
+% <{\voiceone e}
+% {\voicetwo c}>
+
+% now we need:
+\type Staff
+<{\voiceone e}
+{\voicetwo c}>
+
