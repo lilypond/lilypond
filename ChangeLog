@@ -1,3 +1,10 @@
+2003-11-05  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+	* mf/GNUmakefile (SAUTER_FONTS): Added cmss14, 
+	cmbxti6, cmcsc8, cmss14, cmtt5 and cmtt7.
+	Removed cmbx5, cmbx6 (which are included in teTeX)
+	and cmbxti14 which is not used in fonts.scm.
+
 2003-11-04  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lily/midi-item.cc: fine tune quarter tones.
