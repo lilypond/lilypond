@@ -5,7 +5,7 @@
 @node Top, , , 
 @top
 
-@chapter New features in 1.9 since 1.8
+@chapter New features in 2.0 since 1.8
 
 @itemize
 

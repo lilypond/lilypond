@@ -811,10 +811,8 @@ if 1:
 
 	for i in files[:] + [output_name]:
 		b = os.path.basename (i)
-		print b
 		if string.find (b, ' ') >= 0:
-			ly.error (_ ("filename should not contain spaces: `%s'") %
-			       i)
+			ly.error (_ ("filename should not contain spaces: `%s'") % b)
 			ly.exit (1)
 			
 	if os.path.dirname (output_name) != '.':
