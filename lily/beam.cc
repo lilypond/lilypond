@@ -18,6 +18,7 @@
 #include "proto.hh"
 #include "dimen.hh"
 #include "beam.hh"
+#include "abbreviation-beam.hh"
 #include "misc.hh"
 #include "debug.hh"
 #include "symbol.hh"
@@ -46,9 +47,9 @@ Beam::add (Stem*s)
   s->beam_l_ = this;
 
   if (!spanned_drul_[LEFT])
-    set_bounds(LEFT,s);
+    set_bounds (LEFT,s);
   else
-    set_bounds(RIGHT,s);
+    set_bounds (RIGHT,s);
 }
 
 Molecule*
@@ -261,7 +262,7 @@ Beam::set_grouping (Rhythmic_grouping def, Rhythmic_grouping cur)
       {
 	Stem *s = stems[j];
 
-	int f = intlog2(abs (s->flag_i_))-2;
+	int f = s->flag_i_ - 2;
 	assert (f>0);
 	flags.push (f);
       }
@@ -302,7 +303,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
     {
       int lhalfs= lhalfs = here->beams_left_i_ - prev->beams_right_i_ ;
       int lwholebeams= here->beams_left_i_ <? prev->beams_right_i_ ;
-      Real w = (here->hpos_f() - prev->hpos_f ())/4;
+      Real w = (here->hpos_f () - prev->hpos_f ())/4;
       Symbol dummy;
       Atom a (dummy);
       if (lhalfs)		// generates warnings if not
@@ -323,12 +324,28 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 
       Real w = next->hpos_f() - here->hpos_f ();
       Atom a = paper()->lookup_l ()->beam (sl, w + stemdx);
-	
+
       int j = 0;
+      Real gap_f = 0;
+      if (here->beam_gap_i_)
+	{
+	  int nogap = rwholebeams - here->beam_gap_i_;
+	  for (; j  < nogap; j++) 
+	    {
+	      Atom b (a);
+	      b.translate (-dir_ * dy * j, Y_AXIS);
+	      rightbeams.add (b); 
+	    }
+	  // TODO: notehead widths differ for different types
+	  gap_f = paper()->note_width () / 2;
+	  w -= 2 * gap_f;
+	  a = paper()->lookup_l ()->beam (sl, w + stemdx);
+	}
+
       for (; j  < rwholebeams; j++) 
 	{
 	  Atom b (a);
-	  b.translate (-dir_ * dy * j, Y_AXIS);
+	  b.translate (Offset (gap_f, -dir_ * dy * j));
 	  rightbeams.add (b); 
 	}
 
