@@ -111,7 +111,7 @@ binary-arch: DH_OPTIONS=-a
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-	cp -av lilypond-mode.el lilypond-font-lock.el \
+	cp -av lilypond-mode.el lilypond-font-lock.el lilypond-indent.el \
 		$(r)/usr/share/emacs/site-lisp/
 	dh_installdocs DEDICATION NEWS ROADMAP *.txt
 

@@ -64,7 +64,7 @@ gzip -9fn $RPM_BUILD_ROOT%{_prefix}/info/*
 %endif
 
 mkdir -p $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
-install -m 644 lilypond-mode.el lilypond-font-lock.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/
+install -m 644 lilypond-mode.el lilypond-font-lock.el lilypond-indent.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/
 install -m 644 lilypond-init.el $RPM_BUILD_ROOT/usr/share/emacs/site-lisp/site-start.d
 
 gzip -9fn $RPM_BUILD_ROOT%{_prefix}/man/man1/*
@@ -142,6 +142,7 @@ chkfontpath --remove=/usr/share/lilypond/pfa/
 %{_prefix}/../etc/profile.d/lilypond.*
 
 %files documentation
+
 %doc web/
 %doc input/
 %doc mutopia/ 
