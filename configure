@@ -12,7 +12,7 @@ function setversion() {
 
 MAKE=${MAKE:-make}
 PREFIX=${PREFIX:-.}
-NEEDFLOWERVER=1.1.1
+NEEDFLOWERVER=1.1.2
 
 echo using PREFIX=$PREFIX
 echo I need Flower version $NEEDFLOWERVER
