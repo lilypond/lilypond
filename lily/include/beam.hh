@@ -41,7 +41,8 @@ public:
   static Real score_slopes_dy (Grob*, Real,Real,Real,Real, bool);
   static Real score_stem_lengths (Link_array<Grob>,
 				  Array<Stem_info>,
-				  Array<Real>, Array<Real>, 
+				  Array<Real>, Array<Real>,
+				  Real, Real,
 				  bool,Grob*,Real , Real);
   static Real score_forbidden_quants (Grob*, Real, Real,
 				      Real, Real, Real, Real,
@@ -53,10 +54,16 @@ private:
   static void set_stem_directions (Grob*, Direction );
   static void consider_auto_knees (Grob*, Direction d);
   static void set_stem_shorten (Grob*);
-  static Real calc_stem_y (Grob*, Grob* s, Grob*c, Interval pos, bool french);
+  static Real calc_stem_y (Grob*, Grob* s, Grob**c,
+			   Real, Real,
+			   Interval pos, bool french);
   static void set_stem_lengths (Grob*);
   static int forced_stem_count (Grob*);
 };
+
+const int REGION_SIZE = 2;
+#define DEBUG_QUANTING 0
+
 
 #endif /* BEAM_HH */
 

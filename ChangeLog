@@ -1,5 +1,12 @@
 2002-07-15  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/beam-quanting.cc (score_forbidden_quants): split beam
+	quanting functionality.
+	(quanting): argh. Forgot how linear interpolation works. Bugfix.
+	
+
+	* Documentation/index.texi (Top): add whole-big-page documentation.
+
 	* lily/side-position-interface.cc (general_side_position):
 	Subtract parent offset iso. adding it. (Huh? How could this have
 	worked?)

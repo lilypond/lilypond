@@ -14,7 +14,9 @@
             \dynamicUp
             \property Voice.DynamicLineSpanner \override #'padding = #5.0
             \tieUp
-            fis16( \> d \! b \translator Staff = down \clef treble g ~ < g8 )e> } \\
+            fis16( \> d \! b \translator Staff = down
+	    \stemUp
+	    \clef treble g ~ < g8 )e> } \\
         { s16
           \property Voice.Stem \set #'transparent = ##t
           d'
