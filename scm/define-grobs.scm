@@ -588,7 +588,7 @@
 	(before-line-breaking-callback . ,Tuplet_bracket::before_line_breaking)
 	(after-line-breaking-callback . ,Tuplet_bracket::after_line_breaking)
 	(print-function . ,Tuplet_bracket::print)
-	(meta .  ((interfaces . (tuplet-bracket-interface spanner-interface))))
+	(meta .  ((interfaces . (tuplet-bracket-interface line-interface spanner-interface))))
 	))
 
     (LyricHyphen
