@@ -3331,8 +3331,8 @@ handle this cross-staffing behavior.  In this section we discuss the
 
 @refbugs
 
-Dynamics are not centered, but workarounds do exist.  See
-@inputfileref{input/template,piano-dynamics.ly}.
+Dynamics are not centered, but workarounds do exist.  See the
+``piano centered dynamics'' template in @ref{Piano templates}.
 
 @cindex cross staff stem
 @cindex stem, cross staff
@@ -5149,6 +5149,18 @@ durations.  This can be done with augmentation dots or fractions
 
 An @code{R} spanning a single measure is printed as either a whole rest
 or a breve, centered in the measure regardless of the time signature.
+
+If there are only a few measures of rest, LilyPond prints ``church rests''
+(a series of rectangles) in the staff.  To replace that with a simple
+rest, use @code{MultiMeasureRest.expand-limit}.
+
+@lilypond[quote,fragment,verbatim]
+  \set Score.skipBars = ##t
+  R1*2 | R1*5 | R1*9
+  \override MultiMeasureRest #'expand-limit = 1
+  R1*2 | R1*5 | R1*9
+@end lilypond
+
 
 @cindex text on multi-measure rest
 @cindex script on multi-measure rest
