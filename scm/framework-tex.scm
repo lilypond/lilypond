@@ -172,8 +172,8 @@
   (ly:outputter-dump-string
    putter
    (if last?
-       "}\\vss\n}\n\\vfill\n"
-       "}\\vss\n}\n\\vfill\\lilypondpagebreak\n")))
+       "}\\vss\n}\n\\vss\n"
+       "}\\vss\n}\n\\vss\\lilypondpagebreak\n")))
 
 (define-public (output-framework outputter book scopes fields basename )
   (let* ((bookpaper (ly:paper-book-book-paper book))
