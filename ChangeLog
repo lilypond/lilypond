@@ -1,3 +1,12 @@
+2003-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/script-engraver.cc (make_script_from_event): don't crash on
+	non-string articulation-type.
+
+	* lily/new-fingering-engraver.cc (add_script): don't crash on
+	0 scripts 
+	(acknowledge_grob): warn about text script events.
+
 2003-09-24  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* buildscript/lilypond.words: fix path for drums.scm.

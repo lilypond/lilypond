@@ -79,6 +79,10 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 	    {
 	      add_fingering (inf.grob_ , m, note_ev);
 	    }
+	  else if (m->is_mus_type ("text-script-event"))
+	    {
+	      m->origin ()->warning ("Can not add text scripts to individual note heads");
+	    }
 	  else if (m->is_mus_type ("script-event"))
 	    {
 	      add_script (inf.grob_, m, note_ev);
@@ -94,7 +98,7 @@ New_fingering_engraver::acknowledge_grob (Grob_info inf)
 }
 
 extern Grob *make_script_from_event (SCM * descr, Translator_group*tg, Music * event,
-			      int index);
+				     int index);
 void
 New_fingering_engraver::add_script (Grob * head,
 				    Music * event,
@@ -102,15 +106,18 @@ New_fingering_engraver::add_script (Grob * head,
 {
   Finger_tuple ft ;
 
-  ft.script_ =make_script_from_event (&ft.description_, daddy_trans_, event, 0);
-
-  articulations_.push (ft);
-  announce_grob (ft.script_, event->self_scm ());
+  Grob * g=  make_script_from_event (&ft.description_, daddy_trans_, event, 0);
+  if (g)
+    {
+      ft.script_ =g ;
+      
+      articulations_.push (ft);
+      announce_grob (g, event->self_scm ());
   
  
-  ft.script_->set_parent (head, X_AXIS);
-}
-				    
+      ft.script_->set_parent (head, X_AXIS);
+    }
+}				    
 				    
 
 void
