@@ -20,11 +20,7 @@
 Midi_stream::Midi_stream (String filename)
 {
   filename_str_ = filename;
-#if __GCC__ > 2
-  os_p_ = open_file_stream (filename, ios::out|ios::bin);
-#else
-  os_p_ = open_file_stream (filename, ios::out|ios::binary);
-#endif
+  os_p_ = open_file_stream (filename, std::ios::out|std::ios::binary);
 }
 
 Midi_stream::~Midi_stream ()

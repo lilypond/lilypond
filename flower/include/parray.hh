@@ -195,8 +195,7 @@ typecast_array (Link_array<V> const &a, T * /* dummy */ )
 
 
 template<class T> inline void
-Link_array<T>::sort (int (*compare) (T *const&,T *const&),
-		int lower = -1, int upper = -1) 
+Link_array<T>::sort (int (*compare)(T *const&,T *const&), int lower, int upper)
 {
   if (lower < 0) 
     {

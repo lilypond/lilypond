@@ -1,3 +1,39 @@
+2002-07-05  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lily/include/stream.hh:
+	* lily/include/moment.hh:
+	* lily/include/midi-stream.hh:
+	* lily/streams.cc:
+	* lily/scm-option.cc:
+	* lily/parser.yy:
+	* lily/my-lily-lexer.cc:
+	* lily/moment.cc:
+	* lily/midi-stream.cc:
+	* lily/main.cc:
+	* lily/lexer.ll:
+	* lily/includable-lexer.cc:
+	* flower/include/source-file.hh:
+	* flower/include/parray.hh:
+	* flower/include/dictionary.hh:
+	* flower/include/array.icc:
+	* flower/string.cc: 
+	* flower/source-file.cc:
+	* flower/getopt-long.cc: gcc-3.1 fixes.
+
+	* stepmake/stepmake/generic-targets.make: Add comment about warning.
+
+	* lexer-gcc-3.0.patch: Add comment, and a fix for installations
+	that have an unpatched flex and gcc-3.1.x.
+
+	* Documentation/topdocs/INSTALL.texi: Add comments and
+	instructions on gcc-3.1.x.
+
+	* lexer-gcc-3.1.sh: New file.
+
+	* aclocal.m4: regenerate.
+	
+	* stepmake/aclocal.m4: Version compare fix.
+
 2002-07-05  Han-Wen  <hanwen@cs.uu.nl>
 
 	* ly/engraver-init.ly (RhythmicStaffContext): stems up by default.

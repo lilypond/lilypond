@@ -24,7 +24,8 @@ this.
 */
 
 #include <ctype.h>
-#include <iostream.h>
+
+//#include <iostream>
 
 #include "translator-def.hh"
 #include "lily-guile.hh"

@@ -8,10 +8,11 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <iostream.h>
 #include <assert.h>
 #include <locale.h>
 #include <stdio.h>
+
+#include <iostream>
 
 #include "config.h"
 
@@ -137,23 +138,23 @@ usage ()
   /*
     No version number or newline here. It confuses help2man
    */
-  cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond").ch_C();
-  cout << "\n\n";
-  cout << _ ("Typeset music and or play MIDI from FILE").ch_C();
-  cout << "\n\n";
-  cout << 
+  std::cout << _f ("Usage: %s [OPTION]... FILE...", "lilypond").ch_C();
+  std::cout << "\n\n";
+  std::cout << _ ("Typeset music and or play MIDI from FILE").ch_C();
+  std::cout << "\n\n";
+  std::cout << 
 _ (
 "LilyPond is a music typesetter.  It produces beautiful sheet music\n"
 "using a high level description file as input.  LilyPond is part of \n"
 "the GNU Project.\n"
 ).ch_C();
 
-  cout << '\n';
-  cout << _ ("Options:").ch_C();
-  cout << '\n';
-  cout << Long_option_init::table_str (options_static).ch_C();
-  cout << '\n';
-  cout << _ ("This binary was compiled with the following options:") .ch_C()
+  std::cout << '\n';
+  std::cout << _ ("Options:").ch_C();
+  std::cout << '\n';
+  std::cout << Long_option_init::table_str (options_static).ch_C();
+  std::cout << '\n';
+  std::cout << _ ("This binary was compiled with the following options:") .ch_C()
     << " " <<
 #ifdef NDEBUG
     "NDEBUG "
@@ -164,41 +165,41 @@ _ (
     "\n";
 
 
-  cout << endl;
+  std::cout << std::endl;
 
-  cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org").ch_C() << endl;
+  std::cout << _f ("Report bugs to %s", "bug-lilypond@gnu.org").ch_C() << std::endl;
 }
 
 void
 version ()
 {
   identify (stdout);
-  cout << '\n';
-  cout << _f (""
+  std::cout << '\n';
+  std::cout << _f (""
   "This is free software.  It is covered by the GNU General Public License,\n"
   "and you are welcome to change it and/or distribute copies of it under\n"
   "certain conditions.  Invoke as `%s --warranty' for more information.\n",
     "lilypond").ch_C();
-  cout << endl;
+  std::cout << std::endl;
 
-  cout << _f ("Copyright (c) %s by", "1996--2002").ch_C();
-  cout << '\n';
-  cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
-  cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
+  std::cout << _f ("Copyright (c) %s by", "1996--2002").ch_C();
+  std::cout << '\n';
+  std::cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
+  std::cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
 }
 
 void
 notice ()
 {
-  cout << '\n';
-  cout << _ ("GNU LilyPond -- The music typesetter").ch_C();
-  cout << '\n';
-  cout << _f ("Copyright (c) %s by", "1996--2002").ch_C();
-  cout << '\n';
-  cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
-  cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
-  cout << '\n';
-  cout << _ (
+  std::cout << '\n';
+  std::cout << _ ("GNU LilyPond -- The music typesetter").ch_C();
+  std::cout << '\n';
+  std::cout << _f ("Copyright (c) %s by", "1996--2002").ch_C();
+  std::cout << '\n';
+  std::cout << "  Han-Wen Nienhuys <hanwen@cs.uu.nl>\n";
+  std::cout << "  Jan Nieuwenhuizen <janneke@gnu.org>\n";
+  std::cout << '\n';
+  std::cout << _ (
 	     "    This program is free software; you can redistribute it and/or\n"
 	     "modify it under the terms of the GNU General Public License version 2\n"
 	     "as published by the Free Software Foundation.\n"
@@ -323,7 +324,7 @@ main_prog (void * , int, char**)
    */
 
   init_lily_guile (prefix_directory);
-  cout << endl;
+  std::cout << std::endl;
 
   call_constructors ();
   all_fonts_global_p = new All_font_metrics (global_path.str ());

@@ -7,7 +7,7 @@
   
  */
 
-#include <iostream.h>
+#include <iostream>
 
 #include "string.hh"
 #include "lily-guile.hh"
@@ -72,7 +72,7 @@ This function is useful to call from the command line: @code{lilypond -e
    */
   if (var == ly_symbol2scm ("help"))
     {
-      cout << _("lilypond -e EXPR means
+      std::cout << _("lilypond -e EXPR means
 
 evalute EXPR as Scheme after init.scm has been read.  In particular,
 the function set-lily-option allows for access to some internal
@@ -81,12 +81,12 @@ variables. Usage:
   (set-lily-option SYMBOL VAL)
 
 possible options for SYMBOL are :
-").ch_C()<<endl;
+").ch_C()<< std::endl;
       
-      cout << "  help (any-symbol)"<<endl; 
-      cout << "  internal-type-checking (boolean)"<<endl; 
-      cout << "  midi-debug (boolean)"<<endl; 
-      cout << "  testing-level (int)"<<endl; 
+      std::cout << "  help (any-symbol)"<< std::endl; 
+      std::cout << "  internal-type-checking (boolean)"<< std::endl; 
+      std::cout << "  midi-debug (boolean)"<< std::endl; 
+      std::cout << "  testing-level (int)"<< std::endl; 
 
       exit (0);
     }

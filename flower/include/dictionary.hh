@@ -47,7 +47,7 @@ public:
     }
   bool elem_b (String s)
   {
-    std::map<String,V>::const_iterator ki (find (s));
+    typename std::map<String,V>::const_iterator ki (find (s));
     return ki != end ();
   }
   

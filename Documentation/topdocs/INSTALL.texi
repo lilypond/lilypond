@@ -137,7 +137,9 @@ EGCS 1.1 may work, but is no longer supported.
 Check out @uref{ftp://ftp.gnu.org/gnu/gcc/, the gcc site}.
 
 WARNING: if you choose to upgrade to GCC 3.x, enquire if your
-distribution supports g++ 3.x and flex.
+distribution supports g++ 3.x and flex.  At the time of writing (Fri
+Jul 5 2002), @strong{no} distribution that we know of ships a flex
+that generates gcc-3.1.x compliant C++ code.
 
 @item Python (version 1.5 or newer).
 Check out @uref{http://www.python.org, the python website}.
@@ -156,8 +158,8 @@ Check out @uref{http://www.gnu.org/software/flex/,the Flex webpage}.
 
 WARNING: plain Flex 2.5.4(a) generates invalid C++ code.  GCC 3.x
 chokes on this.  If you wish to use GCC 3.x, make sure that your
-distribution supports g++ 3.x and flex.  For a workaround, see
-lexer-gcc-3.0 below.
+distribution supports g++ 3.x and flex.  For workarounds, see
+lexer-gcc-3.0.patch and lexer-gcc-3.1.sh in the source directory.
 
 @item Bison (version 1.25 or newer).
 Check out @uref{http://www.gnu.org/software/bison/,the bison  webpage}
@@ -621,7 +623,7 @@ send bug reports to @email{bug-lilypond@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
 
-@unnumberedsubsec FLex-2.5.4a and gcc-3.0
+@unnumberedsubsec Flex-2.5.4a and gcc-3.x
 
 Flex 2.5.4a does not produce g++-3.0 compliant C++ code.  To compile
 LilyPond with gcc-3.0 you may do:
@@ -634,6 +636,22 @@ LilyPond with gcc-3.0 you may do:
 @end example
 
 Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
+
+@unnumberedsubsec Flex-2.5.4a and gcc-3.1.x
+
+Flex 2.5.4a does not produce g++-3.1.1 compliant C++ code.  To compile
+LilyPond with gcc-3.1.1 you may do:
+
+@example
+        CONF=gcc-3.1 ./lexer-gcc-3.1.sh
+        CPPFLAGS=$(pwd)/lily/out-gcc-3.1 CC=gcc-3.1 CXX=g++-3.1 \
+            ./configure --enable-config=gcc-3.1
+        CONF=gcc-3.1 ./lexer-gcc-3.1.sh
+        make conf=gcc-3.1
+@end example
+
+Note that this is @strong{not} fixed in Debian/unstable for flex <=
+2.5.4a-26.
 
 @unnumberedsubsec Linux-2.4.0, Guile-1.4 --with-threads
 

@@ -6,8 +6,9 @@
   (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <strstream.h>
 #include <ctype.h>
+
+#include <sstream>
 
 #include "lily-proto.hh"
 #include "scm-hash.hh"

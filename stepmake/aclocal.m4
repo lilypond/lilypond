@@ -38,7 +38,7 @@ AC_DEFUN(STEPMAKE_NUMERIC_VERSION, [
       if ([$]3) {three = [$]3}
       else {three = 0}
     }
-    {printf "%s%s%s\n", [$]1*100, [$]2*10, three}'
+    {printf "%d\n", [$]1*1000000 + [$]2*1000 + three}'
 ])
 
 
