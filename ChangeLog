@@ -1,5 +1,9 @@
 2003-01-12  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/gregorian-ligature.cc: new file
+
+	* lily/*: the Great 2003 search & replace.
+
 	* Documentation/user/refman.itely (Manual repeat commands): add
 	note about font selection.
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (C) 2002 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2003 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #include "staff-symbol-referencer.hh"
@@ -146,6 +146,9 @@ Ambitus::brew_molecule (SCM smob)
       return SCM_EOL;
     }
 
+  /*
+    FIXME: Use positions. 
+   */
   int p_min, p_max;
   Pitch *pitch_min = unsmob_pitch (me->get_grob_property ("pitch-min"));
   if (!pitch_min)

@@ -1,8 +1,8 @@
 /*
   new-accidental-engraver.cc -- implement new_accidental_engraver
 
-  (c)  1997--2002 Han-Wen Nienhuys <hanwen@cs.uu.nl>
-  Modified 2001--2002 by Rune Zedeler <rz@daimi.au.dk>
+  (c)  1997--2003 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  Modified 2001--2003 by Rune Zedeler <rz@daimi.au.dk>
 
   This is an experimental file - producing correct accidentals but
   unfortunately ruining the spacing. -rz

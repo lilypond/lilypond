@@ -1,7 +1,7 @@
 /*
   porrectus.cc -- implement Porrectus
 
-  Copyright (c) 2001--2002  Juergen Reuter
+  Copyright (c) 2001--2003  Juergen Reuter
 
   written for the GNU LilyPond music typesetter
 
