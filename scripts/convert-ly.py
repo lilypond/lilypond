@@ -1581,7 +1581,7 @@ def conv (str):
 		raise FatalConversionError()
 	return str
 
-conversions.append (((1,9,8), conv, """dash-length -> dash-fraction""")
+conversions.append (((1,9,8), conv, """dash-length -> dash-fraction"""))
 
 ################################
 #	END OF CONVERSIONS	

@@ -1,4 +1,4 @@
-\version "1.9.7"
+\version "1.9.8"
 % a3-init.ly
 
 hsize = 296.9 \mm

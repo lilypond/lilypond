@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \header {
     
 texidoc = "There is limited support for mensural notation: note head

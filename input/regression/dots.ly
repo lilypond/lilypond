@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.4"
+\version "1.9.8"
 \header{
 texidoc="
 Noteheads can have dots, and rests can too.  Augmentation dots should

@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \include "deutsch.ly"
 % possible rename to scheme- something.  -gp
 % TODO: ask if it needs to have so many empty bars in the middle.  -gp
@@ -62,7 +62,7 @@ using Scheme functions to avoid typing work. " }
 
 
 
-\version "1.9.4"
+\version "1.9.8"
 
 pat = \notes \transpose c c' \repeat unfold 2 {
   << { \context Staff=up {r8 e16 f g e f g } }

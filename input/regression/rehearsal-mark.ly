@@ -4,7 +4,7 @@
 can be incremented automatically or manually.  "}
 
 
-\version "1.9.4"
+\version "1.9.8"
 
 
 global =  \notes {

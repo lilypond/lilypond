@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 
 \header { texidoc = "@cindex Tie Sparse
 Setting sparseTies causes only one tie to be

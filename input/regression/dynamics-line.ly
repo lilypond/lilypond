@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 \header{
 texidoc=" Dynamics appear below or above the staff.  If multiple
 dynamics are linked with (de)crescendi, they should be on the same

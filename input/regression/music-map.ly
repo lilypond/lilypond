@@ -11,7 +11,7 @@ dynamics are left over. These are put onto the 2nd measure."
 
 }
 
-\version "1.9.4"
+\version "1.9.8"
 
 #(define (notes-to-skip m)
 "Convert all stuff with duration (notes, lyrics, bass figures, etc.) to skips.

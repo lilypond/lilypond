@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.4"
+\version "1.9.8"
 % pretty much a duplicate of extra-staff.ly. candidate for merge or delete. -gp
 
 \header { texidoc = "@cindex Ossia

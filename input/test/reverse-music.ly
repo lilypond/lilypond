@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 % possible rename to scheme-something.
 \header { texidoc="@cindex Scheme Reverse Music
 Simple customised music apply. "

@@ -1,5 +1,5 @@
 
-\version "1.9.6"
+\version "1.9.8"
 \header {
     
 texidoc = "The notation problem, @emph{what} symbols to create,

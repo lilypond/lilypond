@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 %If you specify two different key sigs at one point, a
 %warning is printed.
 

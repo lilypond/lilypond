@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.7"
 % TODO: check about other ottava functions.
 
 \header { texidoc = "@cindex Ottava Spanner

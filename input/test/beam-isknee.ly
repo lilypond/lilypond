@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 \header{
 	texidoc="@cindex Beam Isknee
 LilyPond can beam across a Piano Staff.

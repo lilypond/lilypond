@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 % candidate for regression.  -gp
 \header {
   texidoc="MIDI and midi2ly test file.  Diff between this and midi2ly.py should be minimal."

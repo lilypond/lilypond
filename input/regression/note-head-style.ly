@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \header{
 texidoc="
 Note head shapes are settable.  The stem endings should be adjusted

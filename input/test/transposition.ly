@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.6"
 
 \header{ texidoc = "@cindex Transposition
 Transposition test file."

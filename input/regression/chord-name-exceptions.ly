@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \header { texidoc = "The property @code{chordNameExceptions} can used
     to store a list of special notations for specific chords.
 

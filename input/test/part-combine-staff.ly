@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 \header { texidoc = "@cindex Part Combine Staff
 You can combine parts on two staffs, as well as two voices. "
 }

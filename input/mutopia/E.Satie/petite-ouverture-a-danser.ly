@@ -8,7 +8,7 @@
   copyright =   "Public Domain"
 }
 
-\version "1.9.4"
+\version "1.9.8"
 
 \include "nederlands.ly"
 

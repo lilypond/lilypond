@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 \header {
 
     texidoc = "LilyPond correctly determines the size of every

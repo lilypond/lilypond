@@ -1,4 +1,4 @@
-\version "1.9.7"
+\version "1.9.8"
 %{
  common dutch names for notes. es means flat, is means sharp
 %}

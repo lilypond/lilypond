@@ -1,4 +1,4 @@
-\version "1.9.4"
+\version "1.9.8"
 % TODO: check to see if this example can be simplified using \small
 % or \tiny.
 \header { texidoc = "@cindex Cue Notes

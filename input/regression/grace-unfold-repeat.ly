@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "1.9.4"
+\version "1.9.8"
 \header {
     texidoc = "Grace notes and unfolded repeats.
 Line breaks may happen before  grace  notes.

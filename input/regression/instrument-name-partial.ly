@@ -1,5 +1,5 @@
 
-\version "1.9.4"
+\version "1.9.8"
 \header {
     texidoc = "Instrument names are also printed on  partial starting measures."
 }
