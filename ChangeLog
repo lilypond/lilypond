@@ -1,3 +1,9 @@
+2004-04-04  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* mf/feta-beugel.mf: set design to 10 (constant).
+
+	* mf/feta-braces-a.mf: rename to stress that it's not design size.
+
 2004-04-04  Werner Lemberg  <wl@gnu.org>
 
 	* Documentation/user/tutorial.itely: Revised (continued).
