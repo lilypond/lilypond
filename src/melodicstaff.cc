@@ -38,7 +38,7 @@ Item *
 Melodic_staff::get_TYPESET_item(Command*com)
 {
     if (com->args[0] == "KEY") {
-	return new Keyitem(NO_LINES);	// urgh.
+	return new Keyitem(NO_LINES);	// urgh. depends on clef.
     } else
 	return Simple_staff::get_TYPESET_item(com);
 }

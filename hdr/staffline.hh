@@ -15,8 +15,8 @@
 
 /// one broken line of staff.
 struct Line_of_staff {
-    IPointerList<Spanner *> brokenspans;    
-    Line_of_score const * scor;
+
+    Line_of_score  * line_of_score_;
     const PStaff *pstaff_;
 
     /****************/
@@ -24,6 +24,7 @@ struct Line_of_staff {
     String TeXstring() const;
     Line_of_staff(Line_of_score*, PStaff *);
     Interval height() const;
+
 };
 
 #endif

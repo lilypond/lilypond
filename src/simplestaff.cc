@@ -49,6 +49,9 @@ Simple_column::process_requests()
 	    if (rq->beam()) {
 		beam_ = rq->beam();
 	    }
+	    if (rq->slur()) {
+		slurs.add(rq->slur());
+	    }
 	}
 }
 

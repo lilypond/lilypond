@@ -93,7 +93,7 @@ Beam::solve_slope()
     slope *= dir;
     
     {
-	Real inter =paper()->interline()/2;
+	Real inter =paper()->internote();
 	Real unitslope = slope*inter;
 
 	// set beamslope, for setting stems correctly
@@ -164,7 +164,8 @@ Beam::width() const
 void
 Beam::brew_molecule()
 {
-    Real inter=paper()->interline()/2;
+    assert(left->line == right->line);
+    Real inter=paper()->internote();
     Real sl = slope*inter;
     Real w =  width().length() + paper()->rule_thickness();
     Symbol s = paper()->lookup_->beam(sl,w);

@@ -22,15 +22,15 @@ struct Simple_staff;
 struct Simple_column : Staff_column {
 
     svec<Rhythmic_req *> notes;
+    svec<Slur_req *> slurs;
     Stem_req *stem_;
     Beam_req *beam_;
     Simple_staff* staff_;
 
     
     /****************/
-
+    Slur_req  * find_slur(Voice *);
     void typeset_item(Item *, int=1);
-
     void typeset_item_directional(Item *, int dir, int=1);
 
     Molecule *create_command_mol(Command *com);

@@ -12,6 +12,7 @@
 #include "keyitem.hh"
 #include "clefitem.hh"
 #include "keyitem.hh"
+#include "slur.hh"
 #include "localkeyitem.hh"
 
 void
@@ -91,26 +92,30 @@ Simple_walker::do_local_key(Note_req*n)
 }
 
 void
-Simple_walker::do_notes()
+Simple_walker::do_note(Rhythmic_req*rq)
 {
     Simple_column*c = col();
     Simple_staff *s = staff();
-    for (int i = 0; i <  c->notes.sz(); i ++)  {
-	Rhythmic_req*rq = c->notes[i];
-	if (rq->note()) {
-	    Note_req * req = rq->note() ;
-	    Notehead*n = s->get_notehead(req, clef_.c0_pos);
-	    stem_->add(n);
-	    noteheads.add(n);
-
-	    if (wantkey)
-		do_local_key(req);
-	}
+    
+    if (rq->note()) {
+	Note_req * req = rq->note() ;
+	const Voice *v = req->elt->voice_;
 	
-	if (rq->rest()) {
-	    c->typeset_item( s->get_rest(rq->rest()) );
+	Notehead*n = s->get_notehead(req, clef_.c0_pos);
+	stem_->add(n);
+	noteheads.add(n);
+	int sidx =find_slur(v);
+	if (sidx >= 0) {
+	    pending_slurs[sidx]->add(n);
 	}
-    }     
+
+	if (wantkey)
+	    do_local_key(req);
+    }
+	
+    if (rq->rest()) {
+	c->typeset_item( s->get_rest(rq->rest()) );
+    }      
 }
 
 void
@@ -123,13 +128,25 @@ Simple_walker::process_requests()
 	    error("Too many beams");
 	beam_ = new Beam;
     }
+    for (int i=0; i < c->slurs.sz(); i++) {
+	Slur_req*sl = c->slurs[i];
+	
+	if (sl->spantype == Span_req::START) {
+	    if  (find_slur(sl->elt->voice_ )>=0)
+		error("Too many slurs in voice");
+	    pending_slur_reqs.add(sl);
+	    pending_slurs.add(new Slur);
+	}
+    }
     
     if (c->stem_) {
 	stem_ = s->get_stem(c->stem_->stem());
     }
     
-    do_notes();
-
+    for (int i = 0; i <  c->notes.sz(); i ++)  {
+	do_note(c->notes[i]);
+    }
+    
     if (beam_) {
 	beam_->add(stem_);
     }
@@ -147,7 +164,7 @@ Simple_walker::process_requests()
 	c->typeset_item(noteheads[i]);
     }
     noteheads.set_size(0);
-
+ 
     if (local_key_item_) {
 	c->typeset_item_directional(local_key_item_, -1);
 	local_key_item_ = 0;	
@@ -155,6 +172,21 @@ Simple_walker::process_requests()
     if (stem_) {
 	stem_ = 0;
     }
+    for (int i=0; i < c->slurs.sz(); i++) {
+	Slur_req*sl = c->slurs[i];
+
+	if (sl->spantype == Span_req::STOP) {
+	    int idx = find_slur(sl->elt->voice_);
+	    if (idx < 0)
+		error("can't find slur to end");
+	    
+	    pscore_->typeset_spanner(pending_slurs[idx],
+				     s->theline);
+	    pending_slurs.del(idx);
+	    pending_slur_reqs.del(idx);
+	}	
+    }
+    
 }
 
 Simple_walker::Simple_walker(Simple_staff*s)
@@ -191,3 +223,15 @@ Simple_walker::reset()
     processed_clef =false;    
     processed_key = false;
 }
+
+int
+Simple_walker::find_slur(const Voice *v)
+{
+    for (int i=0; i < pending_slur_reqs.sz(); i++) {
+	if (pending_slur_reqs[i]->elt->voice_ == v)
+	    return i;
+    }
+    return -1;
+}
+
+    

@@ -11,11 +11,6 @@ struct PCol {
     PointerList<const Item*> its;
     PointerList<const Spanner*> stoppers, starters;
     
-    /// Can this be broken? true eg. for bars. 
-    bool breakable()const;
-
-    /// does this column have items, does it have spacings attached?
-    bool used;
 
     /// prebreak is put before end of line.
     PCol *prebreak;
@@ -28,20 +23,28 @@ struct PCol {
     PCol *postbreak;
     /**  \See{prebreak}
     */
+    
     PCol *daddy;
-    /*
-    if this column is pre or postbreak, then this field points to the parent.
-    */
+    /** if this column is pre or postbreak, then this field points to
+     the parent.  */
+    
     /// if lines are broken then this column is in #line#
     const Line_of_score *line;
 
     /// if lines are broken then this column x-coord #hpos#
     Real hpos;
 
-    
-    /****************************************************************/
+    PScore * pscore_;
 
+    /****************/
+
+    /// does this column have items, does it have spacings attached?
+    bool used() const;
+    
     void add(Item *i);
+
+    /// Can this be broken? true eg. for bars. 
+    bool breakable()const;
     
     Interval width() const;
     ~PCol();

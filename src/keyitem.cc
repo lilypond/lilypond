@@ -43,7 +43,7 @@ Keyitem::brew_molecole()
     for (int i =0; i < pitch.sz(); i++) {
 	Symbol s= paper()->lookup_->accidental(acc[i]);
 	Atom a(s);
-	a.translate(Offset(0,c_position + pitch[i] * inter));
+	a.translate(Offset(0,(c_position + pitch[i]) * inter));
 	Molecule m(a);
 	output->add_right(m);	
     }    

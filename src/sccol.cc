@@ -10,7 +10,7 @@ Score_column::Score_column(Real w)
 
 bool
 Score_column::used() {
-    return pcol_->used;
+    return pcol_->used();
 }
 
 void

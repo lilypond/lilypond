@@ -1,16 +1,8 @@
 #include "boxes.hh"
 #include "const.hh"
+#include "vray.hh"
 
-void
-Interval::set_empty() {
-    min = INFTY;
-    max = -INFTY;
-}
-Real
-Interval::length() const {
-    return max-min;
-}
-Box::Box(svec<Real> s)
+Box::Box(svec<Real> &s)
 {
     assert(s.sz() == 4);
     x.min = s[0];

@@ -8,6 +8,7 @@
 #define INTERVAL_HH
 
 #include <assert.h> 
+#include "fproto.hh"
 #include "real.hh"
 
 
@@ -29,15 +30,12 @@ struct Interval {
 	    return 0.0;
 		
     }
-    void unite(Interval h) {
-	if (h.min<min)
-	    min = h.min;
-	if (h.max>max)
-	    max = h.max;
-    }
+    void unite(Interval h) ;
+    void intersect(Interval h);
+
     Real length() const;
     void set_empty() ;
-    bool empty() { return min > max; }
+    bool empty() const { return min > max; }
     Interval() {
 	set_empty();
     }
@@ -50,8 +48,12 @@ struct Interval {
 	max +=r;
 	return *this;
     }
+
+    operator String() const;
 };
 
+
+Interval intersection(Interval, Interval const&);
 
 #endif // INTERVAL_HH
 

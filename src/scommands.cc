@@ -42,7 +42,7 @@ Score_commands::last_insertion(Real w)
 	Command*c = new Command(w);
 	c->priority = -10000;
 	pc.add(c);
-	pc ++;
+	pc++;
     }
         
     return pc;
@@ -120,9 +120,9 @@ void
 Score_commands::insert_between(Command victim, PCursor<Command*> firstc,
 			       PCursor<Command*> last)
 {
-    assert(last->when==firstc->when);
     PCursor<Command*> c(firstc+1);
-    assert(last.ok());
+    assert(last->when==firstc->when&&firstc < last&&last.ok());
+    
     while (c < last) { 
 	if (c->priority <= victim.priority) {
 	    c.insert(new Command(victim));

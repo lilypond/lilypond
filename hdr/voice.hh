@@ -33,7 +33,7 @@ struct Voicegroup {
 struct Voice_element {
     Real duration;
     const Voicegroup *group;
-    const Voice *voice;
+    const Voice *voice_;
     IPointerList<Request*> reqs;
 
    PointerList<const Item *> granted_items;

@@ -7,9 +7,8 @@
 #include "stcol.hh"
 #include "spanner.hh"
 
-#include "list.cc"
 #include "plist.cc"
-#include "cursor.cc"
+
 
 IPL_instantiate(Score_column);
 IPL_instantiate(Staff_column);

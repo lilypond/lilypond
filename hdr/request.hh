@@ -19,6 +19,7 @@ struct Request {
     virtual Rest_req *rest() {return 0;}
     virtual Span_req *span() {return 0;}
     virtual Beam_req *beam() { return 0 ; }
+    virtual Slur_req *slur() { return 0 ; }
     virtual  Rhythmic_req*rhythmic() { return 0;}
     virtual Real duration() const { return 0.0; }
     virtual Request* clone() const =0;
@@ -154,6 +155,7 @@ struct Beam_req : Span_req {
 /// a slur
 struct Slur_req : Span_req {
     virtual Request*clone()const;
+    virtual Slur_req*slur() { return this; }
 };
 
 

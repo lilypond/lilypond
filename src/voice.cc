@@ -15,14 +15,14 @@ Voice::Voice()
 void
 Voice::add(Voice_element*v)
 {
+    v->voice_ = this;
     elts.bottom().add(v);
 }
 
 void
 Voice::print() const
 {
-        #ifndef NPRINT
-
+#ifndef NPRINT
     mtor << "start: "<< start<<eol;
     for (PCursor<Voice_element*> vec(elts); vec.ok(); vec++)
 	vec->print();
@@ -63,7 +63,7 @@ Voice_element::add(Request*r)
 
 Voice_element::Voice_element()
 {
-    voice = 0;
+    voice_ = 0;
     group = 0;
     duration = 0.0;
 }
@@ -71,7 +71,7 @@ Voice_element::Voice_element()
 Voice_element::Voice_element(Voice_element const&src)
 {
     duration=src.duration;
-    voice=src.voice;
+    voice_=src.voice_;
     IPointerList__copy(Request*, reqs, src.reqs, clone());
     group=src.group;
     assert(!granted_items.size() && !granted_spanners.size());

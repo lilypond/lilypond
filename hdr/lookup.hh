@@ -5,16 +5,14 @@
 #define LOOKUPSYMS_HH
 
 #include "symbol.hh"
-
+#include "fproto.hh"
 struct Lookup {
     Symtables *symtables_;
     
     /****************/
-
+    Real internote();
     void parse (Text_db&t);
     Parametric_symbol *linestaff(int n);
-    Parametric_symbol *meter(String);
-    Parametric_symbol *stem();
 
     Symbol beam_element(int,int,Real=0);
     /// round slope to closest TeXslope
@@ -26,6 +24,8 @@ struct Lookup {
       pos == -3: below staff
       */
 
+    Symbol meter(svec<String>);
+    Symbol stem(Real y1_pos, Real y2_pos);
     Symbol rule_symbol(Real height, Real width);
     Symbol accidental(int);
     Symbol ball(int);
@@ -34,6 +34,13 @@ struct Lookup {
     Symbol clef(String);
     Symbol bar(String);
     Symbol dots(int);
+    Symbol slur(int dy, Real &dx, int dir);
+    Symbol half_slur(int dy, Real &dx, int dir, int xpart);
+    Symbol half_slur_middlepart(Real &dx, int dir);
+    Symbol big_slur(int dy, Real &dx, int dir);
+    
+
+
     Lookup();
     ~Lookup();
 };

@@ -5,14 +5,25 @@
 #include <assert.h>
 
 template<class T>
-Cursor<T> 
-Cursor<T>::operator ++( int )    
+ void
+Cursor<T>::backspace()
 {
-    Cursor<T> r = *this;
-    assert( pointer_ );
-    pointer_ = pointer_->next();
-    return r;
+    Cursor<T> c(*this);
+    c--;        
+    list_.remove( *this );
 }
+
+template<class T>
+ void
+Cursor<T>::del()
+{
+    Cursor<T> c(*this);
+    c++;
+    list_.remove( *this );    
+    *this = c;
+}
+
+
 template<class T>
 Cursor<T> 
 Cursor<T>::operator -=( int j )    
@@ -28,16 +39,6 @@ Cursor<T>::operator +=( int j )
     while (j++)
 	(*this)++;
     return *this;
-}
-
-template<class T>
-Cursor<T>
-Cursor<T>::operator --( int )
-{
-    Cursor<T> r = *this;
-    assert( pointer_ );
-    pointer_ = pointer_->previous();
-    return r;
 }
 
 template<class T>

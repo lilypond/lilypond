@@ -75,7 +75,7 @@ Score::clean_cols()
 	sc->clean_cols();
     
     for (PCursor<Score_column*> c(cols_); c.ok(); ) {
-	if (!c->pcol_->used) {
+	if (!c->pcol_->used()) {
 	    mtor << "removing : ";
 	    c->print();
 	    c.del();

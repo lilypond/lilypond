@@ -7,6 +7,7 @@
 #ifndef LOCALKEYITEM_HH
 #define LOCALKEYITEM_HH
 #include "item.hh"
+#include "vray.hh"
 
 struct Local_acc {
     int name , acc, octave;

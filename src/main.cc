@@ -27,7 +27,7 @@ void notice()
     cout <<
 	"LilyPond, a music typesetter.\n"
 	"Copyright (C) 1996 by\n"
-	"  Han-Wen Nienhuys <hanwen@stack.urc.tue.nl>\n"
+	"  Han-Wen Nienhuys <hanwen@stack.nl>\n"
 	"\n"
 	"    This program is free software; you can redistribute it and/or\n"
 	"modify it under the terms of the GNU General Public License version 2\n"

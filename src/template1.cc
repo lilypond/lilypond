@@ -8,9 +8,9 @@
 #include "scoreline.hh" 
 #include "staffline.hh"
 
-#include "list.cc"
+
 #include "plist.cc"
-#include "cursor.cc"
+
 
 #define IPLC_instantiate(a) IPL_instantiate(a); PL_instantiate(const a)
 

@@ -14,7 +14,7 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	notehead.hh leastsquares.hh beam.hh rest.hh\
 	swalker.hh bar.hh meter.hh accidental.hh\
 	key.hh keyitem.hh localkeyitem.hh simplewalker.hh\
-	clef.hh clefitem.hh
+	clef.hh clefitem.hh slur.hh
 
 mycc=   qlp.cc qlpsolve.cc \
 	break.cc linespace.cc molecule.cc staffline.cc\
@@ -32,6 +32,6 @@ mycc=   qlp.cc qlpsolve.cc \
 	texbeam.cc rest.cc swalker.cc scoreline.cc\
 	simplewalker.cc bar.cc meter.cc accidental.cc\
 	key.cc keyitem.cc localkeyitem.cc\
-	clef.cc clefitem.cc\
-	template1.cc template2.cc template3.cc\
+	clef.cc clefitem.cc texslur.cc slur.cc\
+	template1.cc template2.cc template3.cc template4.cc\
 	version.cc

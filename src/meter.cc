@@ -9,12 +9,11 @@ Meter::Meter(svec<String> a)
     :args(a)
 {
 }
+
 void
 Meter::preprocess()
-{    
-    Parametric_symbol *p = paper()->lookup_->meter("general");
-    Symbol s = p->eval(args);
-    delete p;
+{
+    Symbol s = paper()->lookup_->meter(args);
     output = new Molecule(Atom(s));
 }
 

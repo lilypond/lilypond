@@ -17,11 +17,11 @@ Line_of_score {
 
     // need to store height of each staff.
     IPointerList<Line_of_staff*> staffs;
-    const PScore * score;	// needed to generate staffs
+    PScore * pscore_;	// needed to generate staffs
 
     /****************/
     
-    Line_of_score(svec<const PCol *> sv, const PScore *);
+    Line_of_score(svec<const PCol *> sv,  PScore *);
 
     String TeXstring() const;
 
@@ -30,3 +30,4 @@ Line_of_score {
 };
 
 #endif
+

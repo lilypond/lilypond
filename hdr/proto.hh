@@ -96,6 +96,6 @@ struct Keyitem;
 struct Local_key_item;
 struct Clef;
 struct Clef_item;
-
+struct Slur;
 #endif // PROTO_HH
 

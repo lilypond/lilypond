@@ -21,7 +21,7 @@ Score::do_connect(PCol *c1, PCol *c2, Real d)
 void
 Score::connect_nonmus(PCol* c1, PCol *c2, Real d)
 {
-    if (c2->used && c1->used) {
+    if (c2->used() && c1->used()) {
 	do_connect(c1,c2,d);
 
 	// alert! this is broken!

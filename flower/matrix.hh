@@ -35,7 +35,7 @@ public:
     void unit() { set_diag(1.0); }
 
     void operator+=(const Matrix&m);
-        void operator-=(const Matrix&m);    
+    void operator-=(const Matrix&m);    
     void operator*=(Real a);
     void operator/=(Real a) { (*this) *= 1/a; }
     
@@ -74,10 +74,10 @@ public:
     void operator=(const Matrix&m);
 
     /// access an element
-    Real operator()(int i,int j) const;
+    Real operator()(int i,int j) const { return dat->elem(i,j); }
 
     /// access an element
-    Real &operator()(int i, int j);
+    Real &operator()(int i, int j) { return dat->elem(i,j); }
 
     /// Matrix multiply with vec (from right)
     Vector operator *(const Vector &v) const;

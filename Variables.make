@@ -18,7 +18,7 @@ EXTRACXXFLAGS=-pipe -Wall -W  -pedantic
 # version info
 MAJVER=0
 MINVER=0
-PATCHLEVEL=10
+PATCHLEVEL=11
 VERSION=$(MAJVER).$(MINVER).$(PATCHLEVEL)
 
 # directories

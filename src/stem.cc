@@ -31,6 +31,7 @@ Stem::Stem(int c)
 void
 Stem::set_stemend(Real se)
 {
+    assert(!output);
     // todo: margins
     assert((dir > 0 && se >= maxnote) || (se <= minnote && dir <0));
     
@@ -126,13 +127,10 @@ Stem::brew_molecole()
     assert(!output);
     
     Paperdef *p =paper();
-    Parametric_symbol *stem = p->lookup_->stem();
-    
-    Real dy = p->interline()/2;
-    String y1 =print_dimen( dy * bot);
-    String y2 = print_dimen(dy * top);
-    Symbol ss =stem->eval(y1,y2);
-    delete stem;
+
+    Real dy = p->internote();
+    Symbol ss =p->lookup_->stem(bot*dy,top*dy);
+
     
     output = new Molecule(Atom(ss));
 
