@@ -598,6 +598,7 @@ clone.  It is available from @uref{http://www.vim.org}.
 @item NEdit.  NEdit is a somewhat Windows like editor, that has recently
 become Free Software.  It is available from @uref{http://www.nedit.org}.
 @end itemize
+@end itemize
 
 Xdvi must be configured to find the @TeX{} fonts and music
 fonts. Refer to the Xdvi documentation for more information.
@@ -613,7 +614,7 @@ When viewing, Control-Mousebutton 1 will take you to the originating
 spot in the @file{.ly} file.  Control-Mousebutton 2 will show all
 clickable boxes.
 
-@subsubsec Emacs
+@subsubsection Emacs
 @cindex Emacs
 In your emacs startup file (usually @file{~/.emacs}), add the following
 @example
@@ -624,7 +625,7 @@ Make sure that the environment variable @code{XEDITOR} is set to
 @example
 emacsclient --no-wait +%l %f
 @end example
-@cindex XEDITOR
+@cindex @var{XEDITOR}
 
 If you use Emacs version 21, you can make emacs jump to the exact spot
 (and not just the line) on a click.  To use this feature, you must
@@ -641,12 +642,12 @@ If you correct large files with point-and-click, be sure to start
 correcting at the end of the file. When you start at the top, and
 insert one line, all following locations will be off by a line.
 
-@subsubsec GVim
+@subsubsection GVim
 @cindex GVIM
 Set @var{XEDITOR} to @code{gvim +%l %f}, or
 use this argument with xdvi's @code{-editor} option.
 
-@subsubsec NEdit
+@subsubsection NEdit
 @cindex NEdit
 Set @var{XEDITOR} to @code{nc -noask +%l %f}, or
 use this argument with xdvi's @code{-editor} option.
