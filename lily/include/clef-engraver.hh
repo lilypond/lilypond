@@ -10,7 +10,6 @@
 #ifndef CLEF_GRAV_HH
 #define CLEF_GRAV_HH
 
-#include "scalar.hh"
 #include "array.hh"
 #include "engraver.hh"
 #include "direction.hh"
