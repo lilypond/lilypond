@@ -1,5 +1,7 @@
 2004-03-13  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* lily/paper-book.cc (output): Bugfix: no output if no \paper.
+
 	* scm/lily.scm (get-output-module): New function.
 	(output-alist): Remove ,ps-output-expression.
 
