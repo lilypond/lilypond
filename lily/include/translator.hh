@@ -68,15 +68,12 @@ public:
   /*
     ugh: bubbled up from Translator_group. 
    */
-  SCM consists_name_list_;
-  SCM end_consists_name_list_;
-  SCM accepts_name_list_;
   SCM simple_trans_list_;
   SCM trans_group_list_;
+  SCM definition_;
+  
   SCM properties_scm_;
-  SCM property_pushes_;
   DECLARE_SMOBS(Translator, dummy);
-
 public:
   /*
     UGH. Clean this up.

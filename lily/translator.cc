@@ -31,10 +31,7 @@ Translator::init ()
   simple_trans_list_ = SCM_EOL;
   trans_group_list_ = SCM_EOL;
   properties_scm_ = SCM_EOL;
-  accepts_name_list_ = SCM_EOL;   
-  consists_name_list_ = SCM_EOL;
-  end_consists_name_list_ = SCM_EOL;
-  property_pushes_ = SCM_EOL;
+  definition_ = SCM_EOL;
   daddy_trans_l_ =0;
 }
 
@@ -50,12 +47,6 @@ Translator::Translator (Translator const &s)
   : Input (s)
 {
   init ();
-  
-  consists_name_list_ = scm_list_copy (s.consists_name_list_);
-  end_consists_name_list_ = scm_list_copy (s.end_consists_name_list_);
-  accepts_name_list_ = scm_list_copy (s.accepts_name_list_);
-  property_pushes_ = scm_list_copy (s.property_pushes_);
-  
   output_def_l_ = s.output_def_l_;
   type_str_ = s.type_str_;
 
@@ -233,12 +224,11 @@ SCM
 Translator::mark_smob (SCM sm)
 {
   Translator * me = (Translator*) SCM_CELL_WORD_1(sm);
-  scm_gc_mark (me->consists_name_list_);
-  scm_gc_mark (me->accepts_name_list_);
-  scm_gc_mark (me->end_consists_name_list_);
   scm_gc_mark (me->simple_trans_list_);
   scm_gc_mark (me->trans_group_list_);
-  scm_gc_mark (me->property_pushes_);
+  scm_gc_mark (me->definition_);  
+  scm_gc_mark (me->properties_scm_);  
+
   return me->properties_scm_;
 }
 

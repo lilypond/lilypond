@@ -13,6 +13,7 @@
 #include "moment.hh"
 #include "scm-hash.hh"
 #include "killing-cons.tcc"
+#include "translator-def.hh"
 
 Translator_group::Translator_group (Translator_group const&s)
   : Translator(s)
@@ -103,45 +104,8 @@ Translator_group::find_existing_translator_l (String n, String id)
   return r;
 }
 
-Link_array<Translator_group>
-Translator_group::path_to_acceptable_translator (String type, Music_output_def* odef) const
-{
-  Link_array<Translator_group> accepted_arr;
-  for (SCM s = accepts_name_list_; gh_pair_p (s); s = gh_cdr (s))
-    {
-      
-      Translator *t = odef->find_translator_l (ly_scm2string (gh_car (s)));
-      if (!t || !dynamic_cast <Translator_group *> (t))
-	continue;
-      accepted_arr.push (dynamic_cast <Translator_group *> (t));
-    }
 
 
- for (int i=0; i < accepted_arr.size (); i++)
-    if (accepted_arr[i]->type_str_ == type)
-      {
-	Link_array<Translator_group> retval;
-	retval.push (accepted_arr[i]);
-	return retval;
-      }
-
-  Link_array<Translator_group> best_result;
-  int best_depth= INT_MAX;
-  for (int i=0; i < accepted_arr.size (); i++)
-    {
-      Translator_group * g = accepted_arr[i];
-
-      Link_array<Translator_group> result
-	= g->path_to_acceptable_translator (type, odef);
-      if (result.size () && result.size () < best_depth)
-	{
-	  result.insert (g,0);
-	  best_result = result;
-	}
-    }
-
-  return best_result;
-}
 
 Translator_group*
 Translator_group::find_create_translator_l (String n, String id)
@@ -150,8 +114,8 @@ Translator_group::find_create_translator_l (String n, String id)
   if (existing)
     return existing;
 
-  Link_array<Translator_group> path
-    = path_to_acceptable_translator (n, output_def_l ());
+  Link_array<Translator_def> path
+    = unsmob_translator_def (definition_)->path_to_acceptable_translator (gh_str02scm (n.ch_C()), output_def_l ());
 
   if (path.size ())
     {
@@ -160,7 +124,7 @@ Translator_group::find_create_translator_l (String n, String id)
       // start at 1.  The first one (index 0) will be us.
       for (int i=0; i < path.size (); i++)
 	{
-	  Translator_group * new_group = dynamic_cast<Translator_group*>(path[i]->clone ());
+	  Translator_group * new_group = path[i]->instantiate (output_def_l_);
 
 	  current->add_group_translator (new_group);
 	  current = new_group;
@@ -222,10 +186,10 @@ void
 Translator_group::terminate_translator (Translator*r_l)
 {
   r_l->removal_processing();
-  Translator * trans_p =remove_translator_p (r_l);
   /*
-    forget trans_p, GC does the rest.
+    Return value ignored. GC does the rest.
    */
+  remove_translator_p (r_l);
 }
 
 
@@ -263,30 +227,30 @@ Translator_group::get_simple_translator (String type) const
 bool
 Translator_group::is_bottom_translator_b () const
 {
-  return accepts_name_list_ == SCM_EOL;
+  return unsmob_translator_def (definition_)->accepts_name_list_ == SCM_EOL;
 }
-
-
 
 Translator_group*
 Translator_group::get_default_interpreter()
 {
-  if (gh_pair_p (accepts_name_list_))
+  if (!is_bottom_translator_b ())
     {
-      String str = ly_scm2string (gh_car (accepts_name_list_));
-      Translator*t = output_def_l ()->find_translator_l (str);
+      SCM nm = unsmob_translator_def (definition_)->accepts_name_list_;
+      SCM st = output_def_l ()->find_translator_l (gh_car (nm));
+
+      Translator_def *t = unsmob_translator_def (st);
       if (!t)
 	{
-	  warning (_f ("can't find or create: `%s'", str));
-	  t = this;
+	  warning (_f ("can't find or create: `%s'", ly_scm2string (nm).ch_C()));
+	  t = unsmob_translator_def (this->definition_);
 	}
-      Translator_group * g= dynamic_cast <Translator_group*>(t->clone ());
-      add_group_translator (g);
+      Translator_group *tg = t->instantiate (output_def_l_);
+      add_group_translator (tg);
 
-      if (!g->is_bottom_translator_b ())
-	return g->get_default_interpreter ();
+      if (!tg->is_bottom_translator_b ())
+	return tg->get_default_interpreter ();
       else
-	return g;
+	return tg;
     }
   return this;
 }
@@ -313,59 +277,14 @@ Translator_group::do_print() const
 #endif
 }
 
-static SCM
-trans_list (SCM namelist, Music_output_def *mdef)
-{
-  SCM l = SCM_EOL;
-  for (SCM s = namelist; gh_pair_p (s) ; s = gh_cdr (s))
-    {
-      Translator * t = mdef->find_translator_l (ly_scm2string (gh_car (s)));
-      if (!t)
-	warning (_f ("can't find: `%s'", s));
-      else
-	{
-	  Translator * tr = t->clone ();
-	  SCM str = tr->self_scm ();
-	  l = gh_cons (str, l);
-	  scm_unprotect_object (str);
-	}
-    }
-  return l; 
-}
-
-
 void
 Translator_group::do_add_processing ()
 {
-  assert (simple_trans_list_== SCM_EOL);
-
-  SCM correct_order = scm_reverse (property_pushes_); // pity of the mem.
-  for (SCM s = correct_order; gh_pair_p (s); s = gh_cdr (s))
-    {
-      SCM entry = gh_car (s);
-      SCM val = gh_cddr (entry);
-      val = gh_pair_p (val) ? gh_car (val) : SCM_UNDEFINED;
-      
-      Translator_group_initializer::apply_pushpop_property (this, gh_car (entry),
-							    gh_cadr (entry),
-							    val);
-    }
-
-  SCM l1 = trans_list (consists_name_list_, output_def_l ());
-  SCM l2 =trans_list (end_consists_name_list_, output_def_l ());
-  l1 = scm_reverse_x (l1, l2);
-  
-  simple_trans_list_ = l1;
-  for (SCM s = l1; gh_pair_p (s) ; s = gh_cdr (s))
+  for (SCM s = simple_trans_list_; gh_pair_p (s) ; s = gh_cdr (s))
     {
       Translator * t = unsmob_translator (gh_car (s));
-
-      t->daddy_trans_l_ = this;
-      t->output_def_l_ = output_def_l_;
       t->add_processing ();
     }
-
-  
 }
 
 /*

@@ -10,6 +10,7 @@
 */
 
 #include <iostream.h>
+#include "translator-def.hh"
 #include "lily-guile.hh"
 #include "translation-property.hh"
 #include "lookup.hh"
@@ -26,7 +27,6 @@
 #include "musical-request.hh"
 #include "my-lily-parser.hh"
 #include "context-specced-music.hh"
-#include "translator-group.hh"
 #include "score.hh"
 #include "music-list.hh"
 #include "change-translator.hh"
@@ -106,7 +106,6 @@ of the parse stack onto the heap. */
     SCM scm;
 
     Tempo_req *tempo;
-    Translator_group* trans;
     int i;
 }
 %{
@@ -166,6 +165,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token PENALTY
 %token PROPERTY
 %token PUSHPROPERTY POPPROPERTY
+%token PUSH POP 
 %token PT_T
 %token RELATIVE
 %token REMOVE
@@ -253,7 +253,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %type <scm>	string bare_number number_expression
 %type <score>	score_block score_body
 
-%type <trans>	translator_spec_block translator_spec_body
+%type <scm>	translator_spec_block translator_spec_body
 %type <tempo> 	tempo_request
 %type <scm> notenames_body notenames_block chordmodifiers_block
 %type <scm>	script_abbreviation
@@ -386,8 +386,7 @@ identifier_init:
 		$$ = (new Music_output_def_identifier ($1, MUSIC_OUTPUT_DEF_IDENTIFIER))->self_scm();
 	}
 	| translator_spec_block {
-		$$ = $1->self_scm ();
-		scm_unprotect_object ($$);
+		$$ = $1;
 	}
 	| Music  {
 		$$ = $1->self_scm ();
@@ -420,25 +419,25 @@ translator_spec_block:
 
 translator_spec_body:
 	TRANSLATOR_IDENTIFIER	{
-		SCM trs = $1;
-		Translator*tr = unsmob_translator (trs);
-		$$ = dynamic_cast<Translator_group*> (tr->clone ());
-		$$-> set_spot (THIS->here_input ());
+		$$ = unsmob_translator_def ($1)->clone_scm ();
+		unsmob_translator_def ($$)-> set_spot (THIS->here_input ());
 	}
 	| TYPE STRING semicolon	{
-		Translator* t = get_translator_l (ly_scm2string ($2));
-		Translator_group * tg = dynamic_cast<Translator_group*> (t);
-
-		if (!tg)
-			THIS->parser_error (_("Need a translator group for a context"));
-		
-		tg = dynamic_cast<Translator_group*> (t->clone ());
-		tg->set_spot (THIS->here_input ());
-		$$ = tg;
+		$$ = Translator_def::make_scm ();
+		Translator_def*td =  unsmob_translator_def ($$);
+		td->translator_group_type_ = $2;
+		td->set_spot (THIS->here_input ());
 	}
 	| translator_spec_body STRING '=' embedded_scm			{
-		Translator_group* tg = $$;
-		tg->set_property (ly_scm2string ($2), $4);
+		unsmob_translator_def ($$)->add_property_assign ($2, $4);
+	}
+	| translator_spec_body STRING PUSH embedded_scm '=' embedded_scm {
+		unsmob_translator_def ($$)
+			->add_push_property (scm_string_to_symbol ($2), $4, $6);
+	}
+	| translator_spec_body STRING POP embedded_scm  {
+	  unsmob_translator_def($$)->add_pop_property (
+		scm_string_to_symbol ($2), $4);
 	}
 	| translator_spec_body STRING '=' identifier_init semicolon	{ 
 		SCM v = gh_int2scm (0);
@@ -448,35 +447,25 @@ translator_spec_body:
 			THIS->parser_error (_("Wrong type for property value"));
 
 		/* ugh*/
-		Translator_group* tg = dynamic_cast<Translator_group*> ($$);
-		
-		tg->set_property (ly_scm2string ($2), v);
-	}
-	| translator_spec_body PUSHPROPERTY
-				embedded_scm embedded_scm embedded_scm {
-		Translator_group_initializer::add_push_property ($$, $3, $4, $5);
-	}
-	| translator_spec_body POPPROPERTY
-		embedded_scm embedded_scm  {
-		Translator_group_initializer::add_pop_property ($$, $3, $4);
+		unsmob_translator_def($$)->add_property_assign ($2, v);
 	}
 	| translator_spec_body NAME STRING semicolon {
-		$$->type_str_ = ly_scm2string ($3);
+		unsmob_translator_def ($$)->type_name_ = $3;
 	}
 	| translator_spec_body CONSISTS STRING semicolon {
-		Translator_group_initializer::add_element ($$, $3);
+		unsmob_translator_def ($$)->add_element ($3);
 	}
 	| translator_spec_body CONSISTSEND STRING semicolon {
-		Translator_group_initializer::add_last_element ($$, $3);
+		unsmob_translator_def ($$)->add_last_element ( $3);
 	}
 	| translator_spec_body ACCEPTS STRING semicolon {
-		Translator_group_initializer::set_acceptor ($$, $3,true);
+		unsmob_translator_def ($$)->set_acceptor ($3,true);
 	}
 	| translator_spec_body DENIES STRING semicolon {
-		Translator_group_initializer::set_acceptor ($$, $3,false);
+		unsmob_translator_def ($$)->set_acceptor ($3,false);
 	}
 	| translator_spec_body REMOVE STRING semicolon {
-		Translator_group_initializer::remove_element ($$, $3);
+		unsmob_translator_def ($$)->remove_element ($3);
 	}
 	;
 
@@ -569,7 +558,7 @@ music_output_def_body:
 
 	}
 	| music_output_def_body translator_spec_block	{
-		$$-> assign_translator ($2);
+		$$->assign_translator ($2);
 	}
 	| music_output_def_body tempo_request semicolon {
 		/*
@@ -693,17 +682,18 @@ Simple_music:
 	}
 	| MUSIC_IDENTIFIER { $$ = unsmob_music ($1)->clone (); }
 	| property_def
-	| PUSHPROPERTY embedded_scm embedded_scm embedded_scm {
+/*	| PUSHPROPERTY embedded_scm embedded_scm embedded_scm {
 		$$ = new Push_translation_property;
 		$$->set_mus_property ("symbols", $2);
 		$$->set_mus_property ("element-property", $3);
 		$$->set_mus_property ("element-value", $4);
 	}
-	| POPPROPERTY  embedded_scm embedded_scm {
+	| POPPROPERTY embedded_scm embedded_scm {
 		$$ = new Pop_translation_property;
 		$$->set_mus_property ("symbols", $2);
 		$$->set_mus_property ("element-property", $3);
 	}
+*/
 	| translator_change
 	| Simple_music '*' bare_unsigned '/' bare_unsigned 	{
 		$$ = $1;
@@ -833,6 +823,23 @@ property_def:
 		$$->set_spot (THIS->here_input ());
 
 		csm-> translator_type_str_ = ly_scm2string ($2);
+	}
+	| PROPERTY STRING '.' STRING PUSH embedded_scm '=' embedded_scm {
+		Push_translation_property *t = new Push_translation_property;
+
+		t->set_mus_property ("symbols", scm_string_to_symbol ($4));
+		t->set_mus_property ("element-property", $6);
+		t->set_mus_property ("element-value", $8);
+		Context_specced_music *csm = new Context_specced_music (t);
+		$$ = csm;
+		$$->set_spot (THIS->here_input ());
+
+		csm-> translator_type_str_ = ly_scm2string ($2);
+	}
+	| PROPERTY STRING POP embedded_scm {
+		$$ = new Pop_translation_property;
+		$$->set_mus_property ("symbols", scm_string_to_symbol ($2));
+		$$->set_mus_property ("element-property", $4);
 	}
 	;
 

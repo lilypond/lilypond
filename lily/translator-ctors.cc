@@ -33,7 +33,6 @@ get_translator_l (String s)
 {
   if (global_translator_dict_p->elem_b (s))
     {
-//      return (*global_translator_dict_p)[s];
 	Translator* t = (*global_translator_dict_p)[s];
 	return t;
     }

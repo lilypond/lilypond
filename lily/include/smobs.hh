@@ -119,6 +119,7 @@ private:
 	DECLARE_SIMPLE_SMOBS(CL,dammy) \
 protected:\
 	virtual ~CL();\
+	SCM unprotected_smobify_self ();\
 private: \
 	SCM smobify_self ();					\
 	SCM self_scm_; \

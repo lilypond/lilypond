@@ -6,11 +6,6 @@ StaffContext = \translator {
 	\name Staff;
 	\accepts Voice;
 
-	\accepts VoiceOne;		% ugh.
-	\accepts VoiceTwo;
-	\accepts VoiceThree;
-	\accepts VoiceFour;
-
 	\consists "Key_performer";
 	\consists "Time_signature_performer";
 	\consists "Tempo_performer";

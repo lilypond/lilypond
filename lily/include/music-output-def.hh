@@ -12,6 +12,7 @@
 
 #include "string.hh"
 #include "lily-proto.hh"
+#include "lily-guile.hh"
 #include "virtual-methods.hh"
 
 /**
@@ -33,8 +34,8 @@ public:
   Global_translator *get_global_translator_p ();
   Translator_group *get_group_translator_p (String type) const;
   String get_default_output () const;
-  void assign_translator (Translator_group*);
-  Translator * find_translator_l (String) const;
+  void assign_translator (SCM transdef);
+  SCM find_translator_l (SCM name) const;
 };
 
 #endif // Music_output_DEF_HH

@@ -22,21 +22,6 @@ typedef void (Translator::*Method_pointer)(void);
 
 class Scheme_hash_table;
 
-/*
-  should make a struct out of this, and move SCM list stuff in here.
- */
-struct Translator_group_initializer {
-  static SCM modify_definition (SCM, SCM, bool);
-
-  static void set_acceptor (Translator*,SCM accepts, bool add);
-  static void add_element (Translator*,SCM name);
-  static void remove_element (Translator*,SCM name);
-  static void add_last_element (Translator*,SCM name);
-  static void apply_pushpop_property (Translator*trans, SCM syms, SCM eprop, SCM val);
-  static void add_push_property (Translator*, SCM,SCM,SCM);
-  static void add_pop_property (Translator*, SCM,SCM);  
-  
-};
 
 /** Make some kind of Elements from Requests. Elements are made by
   hierarchically grouped Translators

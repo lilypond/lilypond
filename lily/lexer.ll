@@ -39,7 +39,8 @@
 #include "identifier.hh"
 #include "version.hh"
 #include "mudela-version.hh"
-#include "translator-group.hh"
+#include "translator-def.hh"
+
 void strip_trailing_white (String&);
 void strip_leading_white (String&);
 
@@ -477,7 +478,7 @@ My_lily_lexer::scan_escaped_word (String str)
 	} else if (gh_number_p (sid)) {
 		yylval.scm = sid;
 		return NUMBER_IDENTIFIER;
-	} else if (Translator* tr = unsmob_translator (sid)) {
+	} else if (Translator_def* tr = unsmob_translator_def (sid)) {
 		yylval.scm = sid;
 		return TRANSLATOR_IDENTIFIER;
 	} else if (Music * mus =unsmob_music (sid)) {

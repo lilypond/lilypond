@@ -11,7 +11,7 @@
 #include "debug.hh"
 #include "music-output-def.hh"
 #include "global-translator.hh"
-
+#include "translator-def.hh"
 #include "identifier.hh"
 #include "main.hh"
 #include "lily-guile.hh"
@@ -43,48 +43,38 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 }
 
 void
-Music_output_def::assign_translator (Translator_group*tp)
+Music_output_def::assign_translator (SCM transdef)
 {
-  String s =tp->type_str_;
-  if (s.empty_b ())
-    {
-      tp->warning (_("Interpretation context with empty type"));
-    }
+  Translator_def *tp = unsmob_translator_def (transdef);
+  assert (tp);
 
-  SCM tr = tp->self_scm ();
-  scm_unprotect_object (tr);
-  translator_p_dict_p_->set (s, tr);
+  String s = ly_scm2string (tp->type_name_);
+  translator_p_dict_p_->set (s, transdef);
 }
 
-Translator*
-Music_output_def::find_translator_l (String name) const
+SCM
+Music_output_def::find_translator_l (SCM name) const
 {
-  if (translator_p_dict_p_->elem_b (name))
-    return unsmob_translator (translator_p_dict_p_->scm_elem (name));
+  String s = ly_scm2string (name);
+  if (translator_p_dict_p_->elem_b (s))
+    return translator_p_dict_p_->scm_elem (s);
 
-  map<String, Translator*>::const_iterator ki
-    =global_translator_dict_p->find (name);
-
-  if (ki != global_translator_dict_p->end ())
-    return (*ki).second ;
-
-  return 0;
+  return SCM_EOL;
 }
 
 
 Global_translator *
 Music_output_def::get_global_translator_p () 
 {
-  Translator * t = find_translator_l ("Score");
+  Translator_def * t = unsmob_translator_def (find_translator_l (gh_str02scm ("Score")));
   if (!t)
     error (_f ("can't find `%s' context", "Score"));
-  t = t->clone ();
 
-  t->output_def_l_ = this;
-  Global_translator *g = dynamic_cast <Global_translator *> (t);
-  t->add_processing ();
+  Translator_group * tg = t->instantiate (this);
   
-  return g;
+  tg->add_processing ();
+  
+  return dynamic_cast <Global_translator *> (tg);
 }
 
 void
@@ -98,8 +88,6 @@ Music_output_def::get_default_output () const
   if (safe_global_b || !scope_p_->elem_b ("output"))
     return "";
   SCM s =  scope_p_->scm_elem ("output");
-
-  
   
   return gh_string_p (s) ? ly_scm2string (s) : String ("");
 }
