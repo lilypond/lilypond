@@ -208,7 +208,7 @@ Translator_def::path_to_acceptable_translator (SCM type_str, Music_output_def* o
 
   return best_result;
 }
-IMPLEMENT_UNSMOB (Translator_def,translator_def);
+
 IMPLEMENT_SMOBS (Translator_def);
 IMPLEMENT_DEFAULT_EQUAL_P (Translator_def);
 

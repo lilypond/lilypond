@@ -271,16 +271,6 @@ Rational::operator -= (Rational r)
   return (*this += r);
 }
 
-/*
-  be paranoid about overiding libg++ stuff
- */
-Rational &
-Rational::operator = (Rational const &r)
-{
-  copy (r);
-  return *this;
-}
-
 String
 Rational::str () const
 {

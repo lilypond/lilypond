@@ -66,7 +66,7 @@ Music_output_def::Music_output_def (Music_output_def const &s)
 
 
 IMPLEMENT_SMOBS (Music_output_def);
-IMPLEMENT_UNSMOB (Music_output_def,music_output_def);
+
 IMPLEMENT_DEFAULT_EQUAL_P (Music_output_def);
 
 SCM

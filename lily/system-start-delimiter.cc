@@ -143,11 +143,11 @@ System_start_delimiter::staff_brace (Grob*me, Real y)
 	     name.  This is better than using find_font directly,
 	     esp. because that triggers mktextfm for non-existent
 	     fonts. */
-	  SCM alist = scm_list_n (gh_cons (ly_symbol2scm ("font-family"),
-					ly_symbol2scm ("braces")),
-			       gh_cons (ly_symbol2scm ("font-relative-size"),
-					gh_int2scm (i)),
-			       SCM_UNDEFINED);
+	  SCM br = ly_symbol2scm ("braces");
+	  SCM fam = gh_cons (ly_symbol2scm ("font-family"), br);
+	  SCM sz = gh_cons (ly_symbol2scm ("font-relative-size"), gh_int2scm (i));
+
+	  SCM alist = scm_list_n (fam, sz, SCM_UNDEFINED);
 	  fm = Font_interface::get_font (me, scm_list_n (alist, SCM_UNDEFINED));
 	  /* Hmm, if lookup fails, we get cmr10 anyway */
 	  if (ly_scm2string (ly_car (fm->description_)) == "cmr10")

@@ -782,8 +782,60 @@ fet_beginchar("Trill-element","trill-element","trill-element");
 	currentpicture := currentpicture shifted (height/2, width/2);
 	fet_endchar;
 
+
+
+%
+% Arpeggio arrow by Chris Jackson <chris@fluffhouse.org.uk>
+%
+
+def draw_arpeggio_arrow =
+        save thinness, height, width, overshoot, se, sw, ne, nw, alpha;
+	pair ne, nw, se, sw;
+        height# = staff_space#;
+        width# = 0.8height#;
+        overshoot# = 0.25 staff_space#;
+        define_pixels (height,overshoot,width);
+	set_char_box(0, width#, 0, height#);
+        alpha := -40;
+	nw = dir (alpha+180);
+        sw = dir (alpha-90); se = dir alpha;
+
+        penpos1(rthin,     alpha+90);
+	penpos2(5/4 rthick, alpha);
+        penpos3(5/4 rthick,     0);
+
+        z1 = (width/2, height) - overshoot*se; % numbering is consistent with the arpeggio symbol
+        z2 = 2[z4,(width/2,height/2)];
+        z3 = (0.5 width, 0.5 height);
+        z4 = (0.25 staff_space, rthin);
+	z6 = z2l + 1/2rthin*sw;
+        z9 = (width/2, height) + overshoot*se;
+        fill z1l {se}..{se} z6 .. z3l .. z3r.. z9{nw} ..{nw} z1r.. cycle;
+
+	bot z10 = ( 0.5w,  0   );
+	lft z11 = (-0.3w,  0.8h);
+	rt z12  = ( 1.3w,  0.8h);
+	pickup pencircle scaled 0.5 rthin;
+	filldraw z3 -- z12 {dir -130} ..  {dir -110} z10 {dir 110} ..  {dir 130} z11 -- cycle;
+enddef;
+
+fet_beginchar("Arpeggio arrow down", "arpeggio-arrow--1", "arpeggioarrowdown");
+	draw_arpeggio_arrow;
+fet_endchar;
+
+
+fet_beginchar("Arpeggio arrow up", "arpeggio-arrow-1", "arpeggioarrowup");
+        draw_arpeggio_arrow;
+        currentpicture := currentpicture scaled -1 shifted (0.8staff_space, staff_space);
+fet_endchar;
+
+
+
+
 % Hmm
 input feta-slag;
+
+
 
 fet_endgroup("scripts");
 

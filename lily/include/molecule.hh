@@ -86,7 +86,7 @@ public:
 };
 
 
-Molecule *unsmob_molecule (SCM);
+DECLARE_UNSMOB(Molecule,molecule);
 SCM fontify_atom (Font_metric*, SCM atom);
 
 Molecule create_molecule (SCM brew_molecule);

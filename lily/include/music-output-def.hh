@@ -46,5 +46,5 @@ public:
   DECLARE_SMOBS (Music_output_def,);
 };
 
-Music_output_def* unsmob_music_output_def (SCM);
+DECLARE_UNSMOB(Music_output_def,music_output_def);
 #endif // Music_output_DEF_HH

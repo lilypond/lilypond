@@ -374,7 +374,7 @@ padding -- horizontal padding. This is useful if a crescendo is set next to a te
 (lily-interface
  'arpeggio-interface
  "Functions and settings for drawing an arpeggio symbol (a wavy line left to noteheads."
- '(stems))
+ '(stems arpeggio-direction))
 
 
 

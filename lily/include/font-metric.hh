@@ -34,7 +34,7 @@ protected:
   Font_metric ();
 };
 
-Font_metric * unsmob_metrics (SCM s);
+DECLARE_UNSMOB(Font_metric, metrics);
 
 #endif /* FONT_METRIC_HH */
 

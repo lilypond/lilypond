@@ -259,7 +259,7 @@ Syllable_group::print_smob (SCM, SCM port, scm_print_state *)
   return 1;
 }
 
-IMPLEMENT_UNSMOB (Syllable_group, voice_entry);
+
 IMPLEMENT_SIMPLE_SMOBS (Syllable_group);
 IMPLEMENT_DEFAULT_EQUAL_P (Syllable_group);
 

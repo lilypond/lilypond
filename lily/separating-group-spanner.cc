@@ -71,6 +71,15 @@ Separating_group_spanner::find_rods (Item * r, SCM next)
     }
 }
 
+MAKE_SCHEME_CALLBACK (Separating_group_spanner,set_spacing_rods_and_seqs,1);
+SCM
+Separating_group_spanner::set_spacing_rods_and_seqs (SCM smob)
+{
+  set_spacing_rods (smob);
+  find_musical_sequences (unsmob_grob (smob));
+  return SCM_UNSPECIFIED;
+}
+
 MAKE_SCHEME_CALLBACK (Separating_group_spanner,set_spacing_rods,1);
 SCM
 Separating_group_spanner::set_spacing_rods (SCM smob)
@@ -96,6 +105,7 @@ Separating_group_spanner::set_spacing_rods (SCM smob)
 	find_rods (rb, ly_cdr (s));
     }
   find_musical_sequences (me);
+
 #if 0
   /*
     TODO; restore this.
@@ -162,14 +172,33 @@ Separating_group_spanner::find_musical_sequences (Grob *me)
 		  && lrank - rank == 1
 		  && llmus && !lmus && mus)
 		{
+		  /*
+		    these columns are adjacent, so set spacing-sequence in
+		    IT.
+		    
+		     Q     Q+1    Q+2   (rank)
+		    Note  Clef   Note
+
+		    IT    LAST   LLAST  
+		    
+		   */
 		  SCM seq = col->get_grob_property ("spacing-sequence");
 		  col->set_grob_property ("spacing-sequence",
 					  gh_cons (gh_cons (it->self_scm (), last->self_scm ()), seq));
+
+		  /*
+		    lcol can not be a loose column, so we make sure
+		    that is and will not be marked as such.
+		  */
+		  lcol->set_grob_property ("between-cols" ,  SCM_BOOL_F);
 		}
 	      else if (!lmus)
 		{
 		  SCM between = lcol->get_grob_property ("between-cols");
 
+		  if (between == SCM_BOOL_F)
+		    continue;
+		  
 		  if (!gh_pair_p (between))
 		    {
 		      between = gh_cons (it->self_scm (), llast->self_scm ());

@@ -7,7 +7,6 @@
   
  */
 
-#include "new-spacing-spanner.hh"
 #include "paper-column.hh"
 #include "dimensions.hh"
 #include "paper-def.hh"
@@ -16,13 +15,52 @@
 #include "line-of-score.hh"
 #include "misc.hh"
 #include "separation-item.hh"
+#include "spanner.hh"
+#include "spring.hh"
 
+class New_spacing_spanner
+{
+public:
+  static void set_interface (Grob*);
+  static void do_measure (Grob*,Link_array<Grob> *) ;
+  static void stretch_to_regularity (Grob*, Array<Spring> *, Link_array<Grob> const &);
+  static void breakable_column_spacing (Item* l, Item *r);
+  DECLARE_SCHEME_CALLBACK (set_springs, (SCM ));
+  static Real stem_dir_correction (Grob*,Grob*,Grob*)  ;
+  static Real default_bar_spacing (Grob*,Grob*,Grob*,Moment)  ;
+  static Real note_spacing (Grob*,Grob*,Grob*,Moment)  ;
+  static Real get_duration_space (Grob*,Moment dur, Moment shortest) ;
+  static void prune_loose_colunms (Link_array<Grob>*);
+};
 
 void
 New_spacing_spanner::set_interface (Grob*me)
 {
   me->set_extent_callback (SCM_EOL, X_AXIS);
   me->set_extent_callback (SCM_EOL, Y_AXIS) ; 
+}
+
+/*
+  Remove all columns that are not tightly
+  fitting part of the spacing problem.
+ */
+void
+New_spacing_spanner::prune_loose_colunms (Link_array<Grob> *cols)
+{
+  for (int i = cols->size(); i--;)
+    {
+      SCM between = cols->elem(i)->get_grob_property ("between-cols");
+      if (!gh_pair_p (between))
+	continue;
+
+      Item * l = dynamic_cast<Item*> (unsmob_grob (gh_car (between)));
+      Item * r = dynamic_cast<Item*> (unsmob_grob (gh_cdr (between)));      
+      if (l->column_l () != cols->elem (i-1)
+	  || r->column_l () != cols->elem (i +1))
+	{
+	  cols->del (i);
+	}
+    }
 }
 
 /*
@@ -49,12 +87,7 @@ New_spacing_spanner::do_measure (Grob*me, Link_array<Grob> *cols)
   Moment base_shortest_duration = *unsmob_moment (me->get_grob_property ("maximum-duration-for-spacing"));
   shortest_in_measure.set_infinite (1);
 
-  for (int i = cols->size(); i--;)
-    {
-      if (gh_pair_p (cols->elem(i)->get_grob_property ("between-cols")))
-	cols->del (i);
-    }
-  
+  prune_loose_colunms (cols);
 
   for (int i =0 ; i < cols->size (); i++)  
     {

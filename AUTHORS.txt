@@ -82,5 +82,6 @@ list is alphabetically ordered.
 
    * August S.Sigov <august@infran.ru>     Russian translation
 
-   * Rune Zedeler <rune@zedeler.dk>     Drum notation
+   * Rune Zedeler <rune@zedeler.dk>     Drum notation, beaming and
+     accidental fixes
 

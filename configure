@@ -3497,7 +3497,7 @@ else
 fi
 
 
-for ac_hdr in python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h
+for ac_hdr in python2.1/Python.h python2.0/Python.h python2/Python.h python/Python.h python1.5/Python.h Python.h
 do
 ac_safe=`echo "$ac_hdr" | sed 'y%./+-%__p_%'`
 echo $ac_n "checking for $ac_hdr""... $ac_c" 1>&6

@@ -240,7 +240,7 @@ pitch_transpose (SCM p, SCM delta)
 
 
 IMPLEMENT_TYPE_P (Pitch, "pitch?");
-IMPLEMENT_UNSMOB (Pitch, pitch);
+
 SCM
 Pitch::mark_smob (SCM)
 {

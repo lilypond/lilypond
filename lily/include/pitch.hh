@@ -72,7 +72,7 @@ public:
 
 };
 
-Pitch* unsmob_pitch (SCM);
+DECLARE_UNSMOB(Pitch,pitch);
 
 #include "compare.hh"
 INSTANTIATE_COMPARE (Pitch, Pitch::compare);

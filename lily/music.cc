@@ -135,7 +135,7 @@ Music::transpose (Pitch)
 }
 
 IMPLEMENT_TYPE_P (Music, "music?");
-IMPLEMENT_UNSMOB (Music,music);
+
 IMPLEMENT_SMOBS (Music);
 IMPLEMENT_DEFAULT_EQUAL_P (Music);
 

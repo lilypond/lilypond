@@ -45,6 +45,8 @@ This procedure is called (using dependency resolution) after line breaking. Retu
 (grob-property-description 'arch-width number? "width of the hook of a system brace.")
 (grob-property-description 'arithmetic-basicspace number? "see @ref{spacing-spanner-interface}.")
 (grob-property-description 'arithmetic-multiplier number? "see @ref{spacing-spanner-interface}.")
+(grob-property-description 'arpeggio-direction dir? "If set, put an
+arrow on the arpeggio squiggly line.")
 (grob-property-description 'attachment pair? "cons of symbols, '(LEFT-TYPE . RIGHT-TYPE), where both types may be alongside-stem, stem, head or loose-end.")
 
 (grob-property-description 'stem-attachment-function procedure? "Where

@@ -45,7 +45,7 @@ private:
 
 #include "compare.hh"
 INSTANTIATE_COMPARE (Duration, Duration::compare);
-Duration*unsmob_duration (SCM);
+DECLARE_UNSMOB(Duration,duration);
 // int compare (Array<Duration>*, Array<Duration>*);
 
 #endif // DURATION_HH

@@ -21,6 +21,7 @@ public:
   static bool has_interface (Grob*);
   static void find_musical_sequences (Grob*);
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
+  DECLARE_SCHEME_CALLBACK (set_spacing_rods_and_seqs, (SCM ));
 };
 
 #endif /* SEPARATING_GROUP_SPANNER_HH */

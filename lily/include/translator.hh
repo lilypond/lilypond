@@ -142,5 +142,5 @@ extern Dictionary<Translator*> *global_translator_dict_p;
 void add_translator (Translator*trans_p);
 
 Translator*get_translator_l (String s);
-Translator *unsmob_translator (SCM);
+DECLARE_UNSMOB(Translator,translator);
 #endif // TRANSLATOR_HH
