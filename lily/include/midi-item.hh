@@ -121,7 +121,7 @@ class Midi_note : public Midi_item
 public:
   Midi_note (Audio_note*);
 
-  Moment length_mom () const;
+  Moment get_length () const;
   int get_pitch () const;
   virtual String string () const;
 

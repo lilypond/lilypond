@@ -417,7 +417,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 	return ;
 	
       
-      Moment dur = unsmob_duration (m->get_mus_property ("duration"))->length_mom ();
+      Moment dur = unsmob_duration (m->get_mus_property ("duration"))->get_length ();
       /* FIXME:
 
 	This comment has been here since long:
@@ -453,7 +453,7 @@ Auto_beam_engraver::acknowledge_grob (Grob_info info)
 			     durlog - 2);
       stems_->push (stem);
       last_add_mom_ = now;
-      extend_mom_ = (extend_mom_ >? now) + m->length_mom ();
+      extend_mom_ = (extend_mom_ >? now) + m->get_length ();
     }
 }
 

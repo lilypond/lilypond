@@ -22,7 +22,7 @@
 int
 Duration::compare (Duration const &left, Duration const &right)
 {
-  return Rational::compare (left.length_mom (), right.length_mom ());
+  return Rational::compare (left.get_length (), right.get_length ());
 }
 
 Duration::Duration ()
@@ -48,7 +48,7 @@ Duration::compressed (Rational m) const
 }
 
 Rational
-Duration::length_mom () const
+Duration::get_length () const
 {
   Rational mom (1 << abs (durlog_));
 

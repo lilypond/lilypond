@@ -88,7 +88,18 @@
   )
 )
 
-(define-public (clef-name-to-properties cl)
+(define-public (make-clef-set cl)
+  "Generate the clef setting commands for a clef with name CL."
+  (define (make-prop-set props)
+    (let*
+	(
+	 (m     (make-music-by-name 'PropertySet))
+	 )
+
+      (map (lambda (x) (ly-set-mus-property! m (car x) (cdr x))) props)
+      m
+    ))
+    
   (let ((e '())
 	(c0 0)
 	(oct 0)
@@ -106,29 +117,39 @@
 
 
     (set! e  (assoc cl supported-clefs))
-
+    
     (if (pair? e)
-	`(((symbol . clefGlyph)
-	   (iterator-ctor . ,Property_iterator::constructor)
-	   (value . ,(cadr e))
-	   )
+	(let* 
+	    (
+	     (musics (map make-prop-set  
 	  
-	  ((symbol . centralCPosition)
-	   (iterator-ctor . ,Property_iterator::constructor)
-	   (value . ,(+ oct (caddr e) (cdr  (assoc  (cadr e) c0-pitch-alist))))
-	   )
-	  ((symbol . clefPosition)
-	   (iterator-ctor . ,Property_iterator::constructor)
-	   (value . ,(caddr e))
-	   )
-	  ((symbol . clefOctavation)
-		 (iterator-ctor . ,Property_iterator::constructor)
-		 (value . ,(- oct))
-	       )
+			  `(((symbol . clefGlyph)
+			     (value . ,(cadr e))
+			     )
+			    ((symbol . centralCPosition)
+			     (value . ,(+ oct (caddr e) (cdr  (assoc  (cadr e) c0-pitch-alist))))
+			     )
+			    ((symbol . clefPosition)
+			     (value . ,(caddr e))
+			     )
+			    ((symbol . clefOctavation)
+			     (value . ,(- oct))
+			     )
+			    )))
+	     (seq (make-music-by-name 'SequentialMusic))
+	     (csp (make-music-by-name 'ContextSpeccedMusic))
+	     )
+
+	  (ly-set-mus-property! seq 'elements musics)
+	  (ly-set-mus-property! csp 'element seq)
+	  (ly-set-mus-property! csp 'context-type "Staff")
+
+	  csp
 	  )
 	(begin
-	  (ly-warn (string-append "Unknown clef type `" cl "'\nSee scm/lily.scm for supported clefs"))
-	  '())
+	  (ly-warn (format "Unknown clef type `~a'
+See scm/lily.scm for supported clefs"))
+	  (make-music-by-name 'Music)
+	  
+	)
     )))
-
-

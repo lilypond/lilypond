@@ -55,7 +55,7 @@ void
 Midi_walker::do_start_note (Midi_note* note)
 {
   Audio_item* ptr = (*items_)[index_];
-  Moment stop_mom = note->length_mom () + ptr->audio_column_->at_mom ();
+  Moment stop_mom = note->get_length () + ptr->audio_column_->at_mom ();
 
   bool play_start = true;
   for (int i=0; i < stop_note_queue.size (); i++) 
@@ -151,7 +151,7 @@ Midi_walker::process ()
       //midi->channel_ = track_->number_;
       if (Midi_note* note = dynamic_cast<Midi_note*> (midi))
 	{
-	  if (note->length_mom ().to_bool ())
+	  if (note->get_length ().to_bool ())
 	    do_start_note (note);
 	}
       else

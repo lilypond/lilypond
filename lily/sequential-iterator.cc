@@ -97,7 +97,7 @@ get_grace_fixups (SCM cursor)
     {
       Music * mus = unsmob_music (ly_car (cursor));
       Moment s = mus->start_mom ();
-      Moment l =mus->length_mom () - s;
+      Moment l =mus->get_length () - s;
 
       if (s.grace_part_)
 	{
@@ -176,7 +176,7 @@ Sequential_iterator::construct_children ()
 void
 Sequential_iterator::next_element (bool side_effect)
 {
-  Moment len =iter_->music_length_mom () - iter_->music_start_mom ();
+  Moment len =iter_->music_get_length () - iter_->music_start_mom ();
   assert (!grace_fixups_  || grace_fixups_->start_ >= here_mom_);
   
   if (len.main_part_ && grace_fixups_ &&
@@ -258,7 +258,7 @@ Sequential_iterator::get_pending_events (Moment until)const
       for (SCM i = nm; gh_pair_p (i); i = ly_cdr (i))
 	{
 	  Music *mus=unsmob_music (ly_car (i));
-	  m = m >? (mus->length_mom () - mus->start_mom ());
+	  m = m >? (mus->get_length () - mus->start_mom ());
 	}
       if (m > Moment (0))
 	break ;
@@ -289,9 +289,9 @@ Sequential_iterator::skip (Moment until)
 	  /*
 	    do the stuff/note/rest preceding a grace.
 	   */
-	  iter_->skip (iter_->music_length_mom ());
+	  iter_->skip (iter_->music_get_length ());
 	}
-      else if (iter_->music_length_mom () >= until - here_mom_)
+      else if (iter_->music_get_length () >= until - here_mom_)
 	iter_->skip (until - here_mom_ + iter_->music_start_mom ());
 
       if (iter_->ok ())
@@ -314,7 +314,7 @@ Sequential_iterator::process (Moment until)
 	  /*
 	    do the stuff/note/rest preceding a grace.
 	   */
-	  iter_->process (iter_->music_length_mom ());
+	  iter_->process (iter_->music_get_length ());
 	}
       else
 	iter_->process (until - here_mom_ + iter_->music_start_mom ());

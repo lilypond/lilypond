@@ -82,7 +82,7 @@ Chord_tremolo_engraver::try_music (Music * m)
       && rp->get_mus_property ("iterator-ctor") == Chord_tremolo_iterator::constructor_proc
       && !repeat_) 
     {
-      Moment l = rp->length_mom ();
+      Moment l = rp->get_length ();
       repeat_ = rp;
       start_mom_ = now_mom ();
       stop_mom_ = start_mom_ + l;

@@ -49,7 +49,7 @@ public:
   virtual Pitch to_relative_octave (Pitch);
 
   /// The duration of this piece of music
-  virtual Moment length_mom () const;
+  virtual Moment get_length () const;
   virtual Moment start_mom () const;
   void print () const;
   /// Transpose, with the interval central C to #p#

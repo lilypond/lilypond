@@ -21,7 +21,7 @@ class Simultaneous_music : public Music_sequence
 public:
   VIRTUAL_COPY_CONS (Music);
   virtual Pitch to_relative_octave (Pitch);
-  virtual Moment length_mom () const;
+  virtual Moment get_length () const;
   virtual Moment start_mom () const;
   Simultaneous_music ();
 };
@@ -46,7 +46,7 @@ class Sequential_music : public Music_sequence
 {
 public:
   VIRTUAL_COPY_CONS (Music);
-  virtual Moment length_mom () const;
+  virtual Moment get_length () const;
   virtual Moment start_mom () const;
   
   Sequential_music ();

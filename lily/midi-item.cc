@@ -228,7 +228,7 @@ Midi_note::Midi_note (Audio_note* a)
 }
 
 Moment
-Midi_note::length_mom () const
+Midi_note::get_length () const
 {
   Moment m = audio_->length_mom_;
 #if 0

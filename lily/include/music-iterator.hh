@@ -67,7 +67,7 @@ protected:
 public:
   VIRTUAL_COPY_CONS (Music_iterator);
   
-  Moment music_length_mom () const;
+  Moment music_get_length () const;
   Moment music_start_mom () const;
   Music_iterator ();
   Music_iterator (Music_iterator const&);

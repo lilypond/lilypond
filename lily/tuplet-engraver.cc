@@ -48,7 +48,7 @@ Tuplet_engraver::try_music (Music *c)
       if (el && !el->is_mus_type ("request-chord"))
 	{
 	  time_scaled_musics_.push (c);
-	  Rational m = now_mom ().main_part_ + c->length_mom ().main_part_;
+	  Rational m = now_mom ().main_part_ + c->get_length ().main_part_;
 	  stop_moments_.push (m);
 
 	  SCM s = get_property ("tupletSpannerDuration");

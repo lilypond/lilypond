@@ -27,9 +27,9 @@ Music_wrapper::Music_wrapper ()
 }
 
 Moment
-Music_wrapper::length_mom () const
+Music_wrapper::get_length () const
 {
-  return element ()->length_mom ();
+  return element ()->get_length ();
 }
 
 Pitch

@@ -26,7 +26,7 @@ Simple_music_iterator::Simple_music_iterator (Simple_music_iterator const &src)
 bool
 Simple_music_iterator::ok ()const
 {
-  return last_processed_mom_ < music_length_mom ();
+  return last_processed_mom_ < music_get_length ();
 }
 
 /*
@@ -43,7 +43,7 @@ Simple_music_iterator::pending_moment ()const
   if (last_processed_mom_ < Moment (0))
     return Moment (0);
   else
-    return music_length_mom ();
+    return music_get_length ();
 }
 
 void

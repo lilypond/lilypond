@@ -13,7 +13,7 @@
 
   
 Moment
-Request::length_mom () const
+Request::get_length () const
 {
   Duration *d = unsmob_duration (get_mus_property ("duration"));
   if (!d)
@@ -21,7 +21,7 @@ Request::length_mom () const
       Moment m ;
       return m;
     }
-  return d->length_mom ();
+  return d->get_length ();
 }
 
 void
@@ -85,7 +85,7 @@ LY_DEFINE(music_duration_length, "music-duration-length", 1, 0,0,
   
   if (d)
     {
-      l = d->length_mom ();  
+      l = d->get_length ();  
     }
   else
     programming_error("Music has no duration");

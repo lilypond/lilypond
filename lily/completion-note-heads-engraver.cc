@@ -73,7 +73,7 @@ Completion_heads_engraver::try_music (Music *m)
       note_reqs_.push (m);
 
       first_b_ = true;
-      Moment musiclen = m->length_mom ();
+      Moment musiclen = m->get_length ();
       Moment now = now_mom();
 
       if (now_mom ().grace_part_)
@@ -122,7 +122,7 @@ Completion_heads_engraver::find_nearest_duration (Rational length)
   /*
     this could surely be done more efficient. Left to the reader as an
     excercise.  */
-  while (d.length_mom () > length && d.duration_log () < log_limit)
+  while (d.get_length () > length && d.duration_log () < log_limit)
     {
       if (d.dot_count ())
 	{
@@ -141,7 +141,7 @@ Completion_heads_engraver::find_nearest_duration (Rational length)
       d = Duration (d.duration_log (), 0);
 
       // scale up.
-      d = d.compressed (length / d.length_mom ());
+      d = d.compressed (length / d.get_length ());
     }
   
   return d;
@@ -171,22 +171,22 @@ Completion_heads_engraver::process_music ()
       note_dur = *orig;
     }
   Moment nb = next_barline_moment ();
-  if (nb < note_dur.length_mom ())
+  if (nb < note_dur.get_length ())
     {
       note_dur = find_nearest_duration (nb.main_part_);
 
       Moment next = now;
-      next.main_part_ += note_dur.length_mom ();
+      next.main_part_ += note_dur.get_length ();
       top_engraver ()->add_moment_to_process (next);
       do_nothing_until_ = next.main_part_;
     }
 
   if (orig)
     {
-      left_to_do_ = orig->length_mom ();
+      left_to_do_ = orig->get_length ();
     }
 
-  if (orig && note_dur.length_mom() != orig->length_mom())
+  if (orig && note_dur.get_length () != orig->get_length ())
     {
       if (!scratch_note_reqs_.size ())
 	for (int i = 0; i < note_reqs_.size (); i++)
@@ -243,7 +243,7 @@ Completion_heads_engraver::process_music ()
       notes_.push (note);
     }
 
-  left_to_do_ -= note_dur.length_mom ();
+  left_to_do_ -= note_dur.get_length ();
 
 
   /*
