@@ -1011,17 +1011,20 @@ Beam::calc_stem_y (Grob *me, Grob* s, Interval pos, bool correct)
   Real interbeam = get_interbeam (me);
 
   // ugh -> use commonx
-  Real x0 = first_visible_stem (me)->relative_coordinate (0, X_AXIS);
+  Grob * fvs = first_visible_stem (me);
+  Grob *lvs = last_visible_stem (me);
+    
+  Real x0 = fvs ? fvs->relative_coordinate (0, X_AXIS) : 0.0;
+  Real dx = fvs ? lvs->relative_coordinate (0, X_AXIS) - x0 : 0.0;
   Real r = s->relative_coordinate (0, X_AXIS) - x0;
-  Real dx = last_visible_stem (me)->relative_coordinate (0, X_AXIS) - x0;
   Real dy = pos.delta ();
   Real stem_y = (dy && dx
 		 ? r / dx
 		 * dy
 		 : 0) + pos[LEFT];
 
-  Direction first_dir = Directional_element_interface::get (first_visible_stem (me));
   Direction my_dir = Directional_element_interface::get (s);
+  Direction first_dir = fvs? Directional_element_interface::get (fvs) : my_dir;
 
   if (correct && my_dir != first_dir)
     {
@@ -1332,8 +1335,6 @@ Beam::brew_molecule (SCM smob)
   Real dydx = dy && dx ? dy/dx : 0;
 
 
-  Direction firstdir = Directional_element_interface::get ( Beam::first_visible_stem (me) );
-  
   for (int i=0; i < stems.size (); i++)
     {
       Item *item = stems[i];
@@ -1346,7 +1347,7 @@ Beam::brew_molecule (SCM smob)
       Real x = item->relative_coordinate (0, X_AXIS) - x0;
       sb.translate (Offset (x, x * dydx + pos[LEFT]));
 
-      Direction sd = Stem::get_direction (item);      
+
       mol.add_molecule (sb);
     }
   

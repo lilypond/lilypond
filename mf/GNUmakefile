@@ -59,7 +59,7 @@ INSTALLATION_OUT_FILES3=$(TFM_FILES)
 PFA_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.pfa))
 
 ifdef MAKE_PFA_FILES
-ALL_GEN_FILES += $(PFA_FILES) $(outdir)/lilypond.map
+ALL_GEN_FILES += $(PFA_FILES) $(outdir)/lilypond.map $(outdir)/fonts.scale
 INSTALLATION_OUT_DIR4=$(datadir)/fonts/type1
 INSTALLATION_OUT_FILES4=$(PFA_FILES) $(outdir)/fonts.scale
 
@@ -88,5 +88,5 @@ local-clean:
 	rm -f mfplain.mem mfplain.log 
 	rm -f *.tfm *.log
 
-pfa: $(PFA_FILES) 
+pfa: $(PFA_FILES)  
 
