@@ -196,3 +196,18 @@ LY_DEFINE (ly_bookpaper_outputscale, "ly:bookpaper-outputscale",
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "bookpaper");
   return scm_make_real (b->output_scale_);
 }
+
+
+SCM
+Book_paper_def::lookup_variable (SCM sym) const
+{
+  SCM var = ly_module_lookup (scope_, sym);
+
+  return scm_variable_ref (var);
+}
+
+SCM
+Book_paper_def::c_variable (String s) const
+{
+  return lookup_variable (ly_symbol2scm (s.to_str0 ()));
+}
