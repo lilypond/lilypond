@@ -286,24 +286,31 @@ New_fingering_engraver::stop_translation_timestep ()
 {
   if (fingerings_.size ())
     {
+      for (int i = 0;  i < fingerings_.size(); i++)
+	if (stem_ && to_boolean (fingerings_[i].script_->get_property ("add-stem-support")))
+	  Side_position_interface::add_support (fingerings_[i].script_, stem_);
       position_scripts ();
       fingerings_.clear ();
     }
   
   for (int i =  articulations_.size (); i--;)
     {
-      Grob *sc = articulations_[i].script_;
+      Grob *script = articulations_[i].script_;
    
       for (int j = heads_.size () ; j--;)
-	Side_position_interface::add_support (sc, heads_[j]);
+	Side_position_interface::add_support (script, heads_[j]);
 
-      if (stem_ && to_dir (sc->get_property ("side-relative-direction")))
-	sc->set_property ("direction-source", stem_->self_scm ());
+      if (stem_ && to_dir (script->get_property ("side-relative-direction")))
+	script->set_property ("direction-source", stem_->self_scm ());
+
+
+      if (stem_ && to_boolean (script->get_property ("add-stem-support")))
+	Side_position_interface::add_support (script, stem_);
       
       if (articulations_[i].follow_into_staff_)
 	{
-	  sc->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
-	  sc->set_property ("staff-padding" , SCM_EOL);
+	  script->add_offset_callback (Side_position_interface::quantised_position_proc, Y_AXIS);
+	  script->set_property ("staff-padding" , SCM_EOL);
 	}
     }
 

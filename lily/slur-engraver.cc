@@ -163,6 +163,6 @@ ENTER_DESCRIPTION (Slur_engraver,
   /* descr */       "Build slurs grobs from slur events",
   /* creats*/       "Slur",
   /* accepts */     "slur-event",
-  /* acks  */      "note-column-interface accidental-interface fingering-interface script-interface tie-interface",
+  /* acks  */      "note-column-interface accidental-interface fingering-interface script-interface tie-interface text-script-interface",
   /* reads */       "slurMelismaBusy doubleSlurs",
   /* write */       "");

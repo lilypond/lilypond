@@ -63,11 +63,9 @@ treble = \new Voice \relative c''{
     cis''''4^\markup { \small \italic "m.g." }\arpeggio~
     \grace {
         cis8
-	\slurBoth % Tweak
+	\override Stem #'direction = #CENTER
 	
-	\override Stem  #'direction = #0
-	 
-	a16[-5( fis dis]
+	a16[-5_( fis dis]
 	#(set-octavation 0)
 	
 	cis32[ a-1 fis-4 dis]   cis[ a  fis)-2]
@@ -86,7 +84,7 @@ treble = \new Voice \relative c''{
     \override Fingering  #'direction = #1
     
     % Manual fix for collision with slur
-    \override Fingering  #'extra-offset = #'(0 . 1) %tweak
+    \override Fingering  #'inside-slur = ##f
     <gis gis,> <fis fis,> e)-1-4-5 r
 
     | %6
@@ -102,7 +100,6 @@ trebleTwo = \new Voice \relative c''{
     \slurDown
     % \fingerDown
     \override Fingering  #'direction = #-1
-    \override Fingering  #'extra-offset = #'(0 . 1.2)
     s2
     | %1
     s1*2
@@ -112,11 +109,11 @@ trebleTwo = \new Voice \relative c''{
     <e, gis, e d!>2
     | %5
     s8 cis4. d4
-    %%<cis e,>8[( <b-3 d,-1>
-    <cis e,>8[( <b d,>-3-1
+    \override Fingering #'add-stem-support = ##t
+    \override Fingering #'padding = #0.1
+    <cis e,>8[( <d,_3 b'_1>
     | %6
-    %%<a-2 cis,-1>)] cis4. d4 
-    <a cis,>)]-2-1 cis4. d4 
+    <cis_1 a'_2>)] cis'4. d4 
     <cis e,>8[( <b d,>
     | %7
     <a cis,>)]
@@ -126,11 +123,7 @@ bass = \new Voice \relative c{
     \partial 2
     \key a \major
     
-    % Allow ugly (highly blown-up) slurs
-    \override Slur  #'beautiful = #5.0 %tweak
-    \override Slur  #'attachment-offset = #'((0 . 3) . (0 . -4))  %tweak
     \slurDown
-    
     \dynamicUp
 
     r8. e,16(\f_2 <a a,>8[ <b b,>]
@@ -140,17 +133,11 @@ bass = \new Voice \relative c{
     <cis cis,>4\sustainDown
     \change Staff=treble
     \stemDown
-    \override Slur  #'attachment = #'(stem . stem) %tweak
     <a'' eis cis>4)\arpeggio
     
-    \revert Slur #'attachment %tweak
     \change Staff=bass
     \stemBoth
     
-    \revert Slur #'y-free %tweak
-    \override Slur  #'y-free = #0.1 %tweak
-    \revert Slur #'attachment-offset %tweak
-    \override Slur  #'attachment-offset = #'((0 . 3) . (0 . 8)) %tweak
     r8. cis,,16(\sustainUp <fis fis,>8 <gis gis,>
     
     | %3
@@ -167,8 +154,6 @@ bass = \new Voice \relative c{
     r2
     
     | %4
-    \revert Slur #'beautiful %tweak
-    \revert Slur #'attachment-offset %tweak
     \stemDown
     <b,, b,>4
     \clef treble

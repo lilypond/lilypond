@@ -169,9 +169,10 @@ This is handled by the function defined in
 @code{toplevel-book-handler}.  By changing these variables, different
 results can be obtained.
 
-This required a small change in the syntax. Mode changing commands,
-such as @code{\chords} and @code{\figures} now be directly followed by
-delimeters. The following example demonstrates the new behavior,
+@item Mode changing commands,
+such as @code{\chords} and @code{\figures} must now be directly
+followed by delimiters. The following example demonstrates the new
+behavior,
 
 @verbatim
   \figures \context Figures { .. } % wrong
@@ -179,11 +180,11 @@ delimeters. The following example demonstrates the new behavior,
 @end verbatim 
 
 
-@item Start pitch for @code{relative} music is optional for music lists.
+@item The starting pitch for @code{relative} music is optional for music lists.
 The default value is middle C.
 
 @c update-me?  formal definition of newaddlyrics, once it works
-@item Combining lyrics with music can be done with @code{\newlyrics}
+@item Combining lyrics with music can be done with @code{\addlyrics}
 
 @example
     \relative @{
@@ -198,7 +199,7 @@ The default value is middle C.
     @}
 @end example
 
-Syntactically, @code{\newlyrics} acts like an infix operator.
+Syntactically, @code{\addlyrics} acts like an infix operator.  
 
 @item The parser is encapsulated in a Scheme function
 @code{ly:parse-file}, so the following fragment processes two files
@@ -229,10 +230,10 @@ entity. For example, two scores are combined in one book with
 @}
 @end example
 
-Titling and page breaks are handled by LilyPond.  For automatic page
-breaking, two algorithms are available, the classic ragged pages (the
-default), and optimal page breaking.  
-Page  breaks may be inserted manually with
+
+@item
+Titling and page breaks are handled by LilyPond.  Page breaks may be
+inserted manually with
 @example
   \pageBreak
 @end example
