@@ -26,9 +26,9 @@ EOC
 patch=$mknetrel_root/patch
 if iscygwin; then
     true
-else    
-    uploads=$here/uploads/$base && mkdir -p $uploads
-    [ "$ABI" = "1.5" ] && uploads=$here/uploads-development/$base && mkdir -p $uploads
+else 
+    uploads=$here/uploads/$base && mkdir -p $uploads/
+    [ "$ABI" = "1.5" ] && uploads=$here/uploads-development/$base && mkdir -p $uploads/
     tarstem=$uploads/$package
 fi
 
@@ -144,8 +144,6 @@ doc_name () {
 lib_split () {
     mkdir -p ./$prefix/bin || exit 1
     mv $inst/$prefix/bin/*.dll ./$prefix/bin
-    mkdir -p ./$prefix/lib || exit 1
-    mv $inst/$prefix/lib/*.la ./$prefix/lib
     mkdir -p ./$prefix/share || exit 1
     mv $inst/$prefix/share/$base ./$prefix/share
     true
@@ -156,6 +154,8 @@ devel_split () {
     mv $inst/$prefix/include ./$prefix/include
     mkdir -p ./$prefix/lib || exit 1
     mv $inst/$prefix/lib/*.a ./$prefix/lib
+    mkdir -p ./$prefix/lib || exit 1
+    mv $inst/$prefix/lib/*.la ./$prefix/lib
     mkdir -p ./$prefix/share || exit 1
     mv $inst/$prefix/share/aclocal ./$prefix/share
     true
@@ -257,28 +257,35 @@ preconfig () { # aka libtool_woes ()
 
     cd $build || exit 1
 
-    GUILE=1.6.0
+    GUILE=1.6.4
     cat > guile-config <<EOF
-#!/bin/sh
 [ "\$1" == "--version" ] && echo "guile-config - Guile version $GUILE"
 [ "\$1" == "compile" ] && echo "-I$cygwin_prefix/include"
 [ "\$1" == "link" ] && echo "-L$cygwin_prefix/lib -lguile"
 exit 0
 EOF
-
     chmod 755 guile-config
     PATH=$(pwd):$PATH
 
     ##opt='-O2 -g' LDFLAGS='"$cygwin_prefix/bin/libpython2.2.dll"
-    rm -f config.cache  
+    rm -f config.cache
 }
 
 postconfig () {
     # Configure for build, for generating doc
     rm -f config.cache
+    export HOST_CC=gcc
+    export HOST_CXX=g++
+    if [ "$ABI" != "1.5" ]; then
+	HOST_CC=gcc-2.95
+	HOST_CXX=g++-2.95
+	(cd $src && ln -s GNUmakefile.in GNUmakefile)
+    fi
     (PATH="$old_path" \
-	PATH="$HOME/usr/pkg/guile-1.6.0/bin:$PATH" \
+	PATH="$HOME/usr/pkg/guile-1.6/bin:$PATH" \
 	CFLAGS="-O2 -g" \
+	CC=$HOST_CC \
+	CXX=$HOST_CXX \
 	$src/configure --prefix=/usr --enable-config=for-build)
 }
 
