@@ -9,14 +9,21 @@
 ;;;
 ;;; status: hello-world
 ;;;
-;;; This first working version needs rotty's g-wrap--tng
-;;; and janneke's guile-gnome patches, instructions below.
+;;; This first working version needs rotty's g-wrap--tng.
+;;; (janneke's guile-gnome patches now in main archive).
 ;;;
 ;;; Try it:
 ;;;     lilypond-bin -fgnome input/simple-song.ly
 ;;;
 
-;;; TODO: pango+feta font (wait for pango 1.6?)
+;;; TODO:
+;;;  * pango+feta font (see archives gtk-i18n-list@gnome.org and
+;;;    lilypond-devel)
+;;;    - wait for/help with pango 1.6
+;;;    - convert feta to OpenType (CFF) or TrueType (fontforge?)
+;;;    - hack feta20: use latin1 encoding for gnome backend
+;;;  * implement missing stencil functions
+;;;  * implement missing commands (next, prev? page)
 
 ;;; Note: this install information is volatile
 ;;;       you'll probably want to pull all from
@@ -52,15 +59,6 @@ tla guile-gnome-devel@gnu.org--2004/dists--dev guile-gnome
 cd guile-gnome
 tla build-config -r configs/gnu.org/dev
 cd src
-## ugh: get janneke's stuff -- should make build-config, I guess?
-tla register-archive janneke@gnu.org--2004-gnome http://lilypond.org/~janneke/{arch}/2004-gnome || true
-rm -rf defs
-rm -rf gtk
-rm -rf libgnomecanvas
-tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 libgnomecanvas
-tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 defs
-tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 gtk
-tla get janneke@gnu.org--2004-gnome/libgnomecanvas--janneke--0 libgnomecanvas
 
 AUTOMAKE=automake-1.8 AUTOCONF=autoconf2.50 sh autogen.sh --noconfigure
 mkdir ../=build
@@ -184,6 +182,15 @@ lilypond-bin -fgnome input/simple-song.ly
     ((2button-press) (gobject-set-property item 'fill-color "red")))
   #t)
     
+(define (key-press-event item event . data)
+  (let ((keyval (gdk-event-key:keyval event))
+	(mods (gdk-event-key:modifiers event)))
+    (if (and (or (eq? keyval gdk:q)
+		 (eq? keyval gdk:w))
+	     (equal? mods '(control-mask modifier-mask)))
+	(gtk-main-quit))
+    #f))
+    
 ;;; Global vars
 (define main-window #f)
 (define canvas-root #f)
@@ -249,6 +256,8 @@ lilypond-bin -fgnome input/simple-song.ly
     ;; papersize
     (set-size-request canvas canvas-width canvas-height)
     (set-scroll-region canvas 0 0 2000 4000)
+    
+    (gtype-instance-signal-connect window 'key-press-event key-press-event)
     
     (show-all window)
     (set! canvas-root (root canvas))
