@@ -1,3 +1,7 @@
+2003-09-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* mf/GNUmakefile ($(outdir)/$(redhat-package)): use passive ftp.
+
 2003-09-25  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* cygwin/bug-lilypond-cygwin.sh: Add tests for registry
@@ -13,6 +17,8 @@
 	make omf directory, add uninstall targets.
 
 2003-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/tie-performer.cc (initialize): init  prev_event
 
 	* make/lilypond.redhat.spec.in: move site-start back to /usr/share.
 

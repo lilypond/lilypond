@@ -93,7 +93,7 @@ endif
 debian-mirror=http://ftp.us.debian.org
 debian-package =lilypond_$(TOPLEVEL_VERSION)-1_i386.deb
 $(outdir)/$(debian-package):
-	wget -P $(outdir) $(debian-mirror)/debian/pool/main/l/lilypond/$(debian-package)
+	wget --passive-ftp -P $(outdir) $(debian-mirror)/debian/pool/main/l/lilypond/$(debian-package)
 
 get-deb-pfa: $(outdir)/$(debian-package)
 	rm -rf $(outdir)/./usr
@@ -105,7 +105,7 @@ get-deb-pfa: $(outdir)/$(debian-package)
 
 redhat-package=lilypond-$(TOPLEVEL_VERSION)-1.i386.rpm
 $(outdir)/$(redhat-package):
-	wget -P $(outdir) ftp://ftp.lilypond.org/pub/LilyPond/binaries/RedHat-9/$(redhat-package)
+	wget  --passive-ftp -P $(outdir) ftp://ftp.lilypond.org/pub/LilyPond/binaries/RedHat-9/$(redhat-package)
 
 get-rpm-pfa: $(outdir)/$(redhat-package)
 	cd $(outdir) ; rpm2cpio $(redhat-package) | cpio -uid '*.pfa'
