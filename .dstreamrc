@@ -15,7 +15,7 @@ Idealspacing		0
 # yydebug
 InitParser		1
 Parser			1
-InitDeclarations	1
+InitDeclarations	0
 Declarations		1
 # FlexLexer debug
 InitLexer		1

@@ -1,4 +1,22 @@
+july 2
+pl 72pre
+	- paper{} syntax: var = 1.0\pt;, with an Assoc array
+	- sketch of MIDI Performer classes.
+	- bf: memleak in parser
+	- naming: Acceptor -> Translator
+	- input: bf collisions.ly, scales.ly
+	- bf: [r8 c8]
+	- naming: Register -> Engraver
+	- force \\ on identifiers
+	- doco updates
+	- musixtex T73 fonts
+
+pl 70.mb
+	- bf: find syntax in Variables.make
+*****
+july 1
 pl 71pre
+	- nested \melodic and \lyric constructs
 	- init id's, Input_register aliases.
 	- bf: notehead x-swap 
 	- bf: auto-keys.
@@ -14,6 +32,8 @@ pl 71pre
 
 ******
 june 30
+
+
 pl 70pre
 	- bf: text Script
 	- bf: Script::dir_i_ checks.
@@ -190,7 +210,7 @@ pl 63
 	- accumulate \kern in TeX output.
 	- bf: try to prevent long lines; TeX breaks on them.
 	- naming: Pointer->Link, IPointer->Pointer
-	- undocced  fix (MB)
+	- bf: \plet didn't work (MB)
 	- GMP manifesto.
 
 pl 61.jcn4

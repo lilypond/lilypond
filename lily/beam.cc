@@ -1,7 +1,7 @@
 /*
   beam.cc -- implement Beam
 
-  source file of the GNU GNU LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 
@@ -69,7 +69,6 @@ Stem_info::Stem_info(Stem const *s)
     // huh? why do i need the / 2
 //    Real interbeam_f = s->paper()->interbeam_f();
     Real interbeam_f = s->paper()->interbeam_f() / 2;
-    Real interline_f = s->paper()->interline_f();
            
     /* well eh, huh?
     idealy_f_  = dir_i_ * s->stem_start_f() + beams_i_ * interbeam_f; 
@@ -169,14 +168,23 @@ Beam::solve_slope()
 	Stem_info info(i);
 	sinfo.push(info);
     }
-    Real leftx = sinfo[0].x;
-    Least_squares l;
-    for (int i=0; i < sinfo.size(); i++) {
-	sinfo[i].x -= leftx;
-	l.input.push(Offset(sinfo[i].x, sinfo[i].idealy_f_));
-    }
+    if (! sinfo.size() )
+	slope = left_pos = 0;
+    else if (sinfo.size() == 1) {
+	slope = 0;
+	left_pos = sinfo[0].idealy_f_;
+    } else {
+	
+	Real leftx = sinfo[0].x;
+	Least_squares l;
+	for (int i=0; i < sinfo.size(); i++) {
+	    sinfo[i].x -= leftx;
+	    l.input.push(Offset(sinfo[i].x, sinfo[i].idealy_f_));
+	}
 
-    l.minimise(slope, left_pos);
+	l.minimise(slope, left_pos);
+    }
+    
     Real dy = 0.0;
     for (int i=0; i < sinfo.size(); i++) {
 	Real y = sinfo[i].x * slope + left_pos;
@@ -189,7 +197,12 @@ Beam::solve_slope()
     left_pos *= dir_i_;    
 
     slope *= dir_i_;
-    slope = 0.6 * tanh(slope);  // damping
+
+    /*
+      This neat trick is by Werner Lemberg, damped = tanh(slope) corresponds
+      with some tables in [Wanske]
+     */
+    slope = 0.6 * tanh(slope);  
 
 				// ugh
     Real sl = slope*paper()->internote_f();

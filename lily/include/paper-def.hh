@@ -10,6 +10,7 @@
 #ifndef PAPER_DEF_HH
 #define PAPER_DEF_HH
 #include "lily-proto.hh"
+
 #include "real.hh"
 #include "string.hh"
 #include "moment.hh"
@@ -27,25 +28,24 @@
   
   add support for multiple fontsizes 
   split into "Input_paper_def" and Paper_def
+
   add support for other len->wid conversions.
- 
+
+  Input_engraver should be in here.
  */
 class Paper_def {
     Lookup *lookup_p_;
+    Assoc<String, Real> *real_vars_p_;
+
 public:    
-    String outfile;
-
-    Real linewidth;
-
-    /// how much space does a whole note take (ideally?)
-    Real whole_width;
-
-    /// ideal = geometric_ ^ log2(duration)
-    Real geometric_;
+    String outfile_str_;
+    
     
     /* *************** */
+    void set_var(String, Real);
+    Real get_var (String)const;
     void reinit();
-    Paper_def(Lookup*);
+    Paper_def();
     void set(Lookup*);
     ~Paper_def();
     Paper_def(Paper_def const&);
@@ -60,17 +60,19 @@ public:
 
     /// thickness of the standard line 
     Real rule_thickness()const;
-
+    Real whole_width()const;
+    Real linewidth_f()const;
     /// height of the staff
     Real standard_height()const;
 
     /// width of a quaver ball
     Real note_width() const;
     void print() const;
+
     Lookup const * lookup_l();	// TODO naming
 
     /** convert a duration to an idealspacing
-      influence using the geometric_ and whole_width parameters.
+      influence using the geometric_ and  parameters.
       */
     Real duration_to_dist(Moment);
 };

@@ -1,7 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
 
-#define MUDELA_VERSION "0.0.60"
+#define MUDELA_VERSION "0.0.61"
 
 #include "script-def.hh"
 #include "symtable.hh"
@@ -20,7 +20,7 @@
 #include "musical-request.hh"
 #include "my-lily-parser.hh"
 #include "text-def.hh"
-#include "input-register.hh"
+#include "input-engraver.hh"
 #include "score.hh"
 #include "music-list.hh"
 
@@ -47,7 +47,7 @@
     Chord * chord;
     Duration *duration;
     Identifier *id;    
-    Input_register * iregs;
+    Input_engraver * iregs;
     Music *music;
     Music_list *musiclist;
     Score *score;
@@ -106,7 +106,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token GEOMETRIC
 %token GROUPING
 %token GROUP
-%token REQUESTREGISTER
+%token REQUESTENGRAVER
 %token HSHIFT
 %token IN_T
 %token ID
@@ -161,6 +161,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %token <id>	REAL_IDENTIFIER
 %token <id>	INT_IDENTIFIER
 %token <id>	SCORE_IDENTIFIER
+%token <id>	PAPER_IDENTIFIER
 %token <id>	REQUEST_IDENTIFIER
 %token <real>	REAL 
 %token <string>	DURATION RESTNAME
@@ -202,7 +203,7 @@ yylex(YYSTYPE *s,  void * v_l)
 %type <id>	old_identifier
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
-%type <iregs>	input_register_spec input_register_spec_body
+%type <iregs>	input_engraver_spec input_engraver_spec_body
 
 %left PRIORITY
 
@@ -216,7 +217,7 @@ mudela:	/* empty */
 	| mudela error
 	| mudela check_version { } 
 	| mudela add_notenames { }
-	| mudela input_register_spec { add_global_input_register($2); }
+	| mudela input_engraver_spec { add_global_input_engraver($2); }
 	;
 
 check_version:
@@ -284,6 +285,10 @@ declaration:
 		$$ = new Score_id(*$1, $3, SCORE_IDENTIFIER);
 		delete $1;
 	}
+	| declarable_identifier '=' paper_block {
+		$$ = new Paper_def_id(*$1, $3, PAPER_IDENTIFIER);
+		delete $1;
+	}
 	| declarable_identifier '=' script_definition {
 		$$ = new Script_id(*$1, $3, SCRIPT_IDENTIFIER);
 		delete $1;
@@ -313,26 +318,26 @@ declaration:
 
 
 
-input_register_spec:
-	REQUESTREGISTER '{' input_register_spec_body '}'
+input_engraver_spec:
+	REQUESTENGRAVER '{' input_engraver_spec_body '}'
 		{ $$ = $3; }
 	;
 
-input_register_spec_body:
+input_engraver_spec_body:
 	STRING	{ 
-		$$ = new Input_register; 
+		$$ = new Input_engraver; 
 		$$->name_str_ =*$1;
 		delete $1;
 	}
-	| input_register_spec_body ALIAS STRING ';' {
+	| input_engraver_spec_body ALIAS STRING ';' {
 		$$-> alias_str_arr_.push(*$3);
 		delete $3;
 	}
-	| input_register_spec_body CONSISTS STRING ';'	{
+	| input_engraver_spec_body CONSISTS STRING ';'	{
 		$$-> consists_str_arr_.push(*$3);
 		delete $3;
 	}
-	| input_register_spec_body CONTAINS input_register_spec {
+	| input_engraver_spec_body CONTAINS input_engraver_spec {
 		$$->add($3);
 	}
 	;
@@ -392,15 +397,17 @@ paper_block:
 paper_body:
 	/* empty */		 	{
 		$$ = THIS->default_paper();
-
 	}
-	| paper_body WIDTH dim ';'		{ $$->linewidth = $3;}
-	| paper_body OUTPUT STRING ';'	{ $$->outfile = *$3;
+	| paper_body OUTPUT STRING ';'	{ $$->outfile_str_ = *$3;
 		delete $3;
 	}
 	| paper_body symtables		{ $$->set($2); }
-	| paper_body UNITSPACE dim ';'	{ $$->whole_width = $3; }
-	| paper_body GEOMETRIC REAL ';'	{ $$->geometric_ = $3; }
+	| paper_body STRING '=' dim ';'		{ 
+		$$->set_var(*$2, $4);
+	}
+	| paper_body STRING '=' REAL ';' {
+		$$->set_var(*$2, $4);
+	}
 	| paper_body error {
 
 	}
@@ -539,7 +546,7 @@ command_elt:
 	| GROUP STRING ';' { // ugh ugh ugh
 		Change_reg *chr_p = new Change_reg;
 		$$ = chr_p;
-		chr_p-> type_str_ = "Voice_group_registers"; //ugh
+		chr_p-> type_str_ = "Voice_group_engravers"; //ugh
 		chr_p-> id_str_ = *$2;
 		delete $2;
 	}
@@ -976,7 +983,7 @@ symtables_body:
 		$$ = new Lookup;
 	}
 	| IDENTIFIER		{
-		$$ = new Lookup(*$1->lookup(true));
+		$$ = $1->lookup(true);
 	}
 	| symtables_body TEXID STRING 		{
 		$$->texsetting = *$3;
@@ -1045,7 +1052,7 @@ My_lily_parser::do_yyparse()
 Paper_def*
 My_lily_parser::default_paper()
 {
-    return new Paper_def(
-	lexer_p_->lookup_identifier("default_table")->lookup(true));
+	Identifier *id = lexer_p_->lookup_identifier( "default_paper" );
+	return id ? id->paperdef(true) : new Paper_def ;
 }
 

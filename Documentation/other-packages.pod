@@ -17,26 +17,22 @@ Rosegarden, http://www.math.bath.ac.uk/~masjpf/rose.html
 
 A Notation editor/Sequencer for X (win95 port underway). Outputs musictex.
 
-Common Notation, ftp://ccrma-ftp.stanford.edu/pub/Lisp
+Common Notation, http://www-ccrma.stanford.edu/ccrma/Software/cmn/cmn.html
 
 A versatile lisp package. Part of the Common Music system. Input is in Lisp. 
 
-Vivace, http://
+Vivace, http://www.calband.berkeley.edu/~gmeeker/vivace
 
-A amateurish notation program for TclTk and X
+A amateurish notation program for TclTk and X.
 
 MPP, http://www.stack.nl/~hanwen/mpp-english.html
 
 A preprocessor to MusixTeX by Jan Nieuwenhuizen and Han-Wen Nienhuys.
 It is outdated by its successor, LilyPond.
 
-Music, http://
+Music, http://www.cs.nott.ac.uk/Departement/Staff/ef/printing.html
 
 A TROFF preprocessor by Eric Foxley
-
-MusicEase, ftp://ftp.secret.com/ad-ftp
-
-Described in Computer vol 29(6)
 
 MusE
 
@@ -46,7 +42,7 @@ Sun boxen.
 Mup, http://www.arkkra.com/
 
 A program which creates PS from a script input. Although it comes with
-C source code, it is Shareware ($ 29).
+C source code, it is Shareware.
 
 PMX, http://www.gmd.de/Misc/Music/
 
@@ -63,7 +59,7 @@ ABC2MTeX, http://www.gmd.de/Misc/Music/
 A preprocessor to MusixTeX by Chris Walshaw for way of transcribing folk
 and traditional music. 
 
-SceX
+SceX http://www.ncc.up.pt/~mig/SceX.html
 
 A preprocessor to MusixTeX by Miguel Filgueiras. Source in prolog
 available on request. (?)
@@ -78,9 +74,13 @@ Schofer & Andrea Steinbach. With some fonts
 
 Calliope, http://www.cl.cam.ac.uk/users/wfc/
 
-A NeXT package by William F Clocksin. Requires Adobe fonts
+A NeXT package by William F Clocksin. Requires Adobe fonts.
 
 =head2 Proprietary
+
+MusicEase, http://mesa.colorado.edu/~grader/musicez.html 
+
+Described in Computer vol 29(6). Shareware
 
 LIME, http://datura.cerl.uiuc.edu/
 
@@ -92,9 +92,9 @@ Score
 
 Personal Composer
 
-Mozart,
+Mozart, http://www.mozart.co.uk/
 
-A shareware windows package, 
+A shareware windows package  
 
 Capella
 

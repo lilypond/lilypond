@@ -1,4 +1,9 @@
 version 1.1:
+
+pl 21:
+pl 20.mb
+	- bf: Warning about NPRINT only if debugging requested.
+
 pl 20
 	- List::junk_links()
 pl 19

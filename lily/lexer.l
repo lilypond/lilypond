@@ -336,6 +336,7 @@ My_lily_lexer::scan_escaped_word(String str)
 		yylval.id = id;
 		return id->token_code_i_;
 	}
+	LexerError( "Unknown escaped string: `" + str + "'");	
 	mtor << "(string)";
 	String *sp = new String( str);
 	yylval.string=sp;
@@ -354,15 +355,18 @@ My_lily_lexer::scan_bare_word(String str)
 		    return NOTENAME_ID;
 		}
 	}
+#if 0
 	if (YYSTATE != notes) {
 		// ugr. Should do this in note mode?
-		Identifier * id = lookup_identifier(str);
+	//		Identifier * id = lookup_identifier(str);
 		if (id) {
 			mtor << "(identifier)\n";
 			yylval.id = id;
 			return id->token_code_i_;
 		}
 	}
+#endif
+
 	yylval.string=new String( str );
 	return STRING;
 }

@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %  this is xgreggen.mf (c)
 %
-%  Version T.63 [October 96]
+%  Version T.67 [January 97]
 %
 
 nhw#:=1.2*nhh#;
@@ -38,7 +38,7 @@ orisuangle:=40; orisruangle:=180+orisuangle;
 
 diamwidth:=.96 gregwidth; greg_min_diam:=gregwidth-diamwidth;
 diamheight:=1.33 gregwidth;
-deminutae:=0.6; gregwidth_dem:=gregwidth*deminutae;
+deminutae:=0.66; gregwidth_dem:=gregwidth*deminutae;
 aucta_fact:=0.33gregwidth;
 shave:=.3gregwidth;
 

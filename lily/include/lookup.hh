@@ -15,13 +15,12 @@
 
 /// intuitive interface to symbol table
 struct Lookup {
+    Paper_def * paper_l_;
     Symtables *symtables_;
     String texsetting;
     /* *************** */
     void add(String, Symtable*);
     void print()const;
-    Real internote_f()const;
-    Real interbeam_f()const;
 
     Symbol linestaff(int n, Real w)const;
     Symbol fill(Box b)const;

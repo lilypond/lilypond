@@ -25,7 +25,7 @@ struct Key_item : Item {
 
     Key_item(int cposition);
     void add(int pitch, int acc);
-    void read(const Key_register&);
+    void read(const Key_engraver&);
     void set_c_position(int);
     virtual void do_pre_processing();
     Molecule* brew_molecule_p()const;

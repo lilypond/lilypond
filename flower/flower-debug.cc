@@ -13,7 +13,8 @@ Dstream *flower_dstream  = &default_flower_stream;
 void set_flower_debug(Dstream&ds, bool b)
 {
 #ifdef NPRINT
-    cout << "Debug printout disabled, see the installation guide." << endl;
+    if (b)
+	cout << "Debug printout disabled, see the installation guide." << endl;
 #endif
     flower_check_debug = b;
     flower_dstream = &ds;

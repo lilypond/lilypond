@@ -188,7 +188,7 @@ DOCDIR=$(depth)/$(outdir)
 
 # .hh should be first. Don't know why
 # take some trouble to vauto ignore sources and obsolete stuff.
-progdocs=$(shell find ./ -name '*.hh' |egrep -v 'obsolete/|out/') $(shell find -name '*.cc'|egrep -v 'out/|obsolete/')
+progdocs=$(shell $(FIND) ./ -name '*.hh' |egrep -v 'obsolete/|out/') $(shell $(FIND) ./ -name '*.cc'|egrep -v 'out/|obsolete/')
 
 
 pod2html=pod2html

@@ -13,6 +13,7 @@ libdir = @libdir@
 prefix = @prefix@
 TEXPREFIX = @TEXPREFIX@
 TEXDIR = @TEXDIR@
+TAR= @TAR@
 MFDIR = @MFDIR@
 mandir  =  @mandir@
 exec_prefix = @exec_prefix@

@@ -30,7 +30,7 @@ public:
     NAME_MEMBERS();
     SCORE_ELEM_CLONE(Clef_item);
     Clef_item();
-    void read(Clef_register const&);
+    void read(Clef_engraver const&);
     void read(String);
 };
 

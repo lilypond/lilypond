@@ -7,6 +7,8 @@
 */
 
 #include <math.h>
+#include "string.hh"
+#include "assoc.hh"
 #include "misc.hh"
 #include "paper-def.hh"
 #include "debug.hh"
@@ -14,6 +16,25 @@
 #include "dimen.hh"
 
 
+void
+Paper_def::set_var(String s, Real r)
+{
+   real_vars_p_->elem(s) = r;
+}
+
+Real
+Paper_def::get_var(String s)const
+{
+    if(! real_vars_p_->elt_b(s))
+	error ( "unknown paper variable `"  + s+"'");
+    return real_vars_p_->elem(s);
+}
+
+Real
+Paper_def::linewidth_f() const
+{
+    return get_var("linewidth");
+}
 
 Real
 Paper_def::duration_to_dist(Moment d)
@@ -21,35 +42,29 @@ Paper_def::duration_to_dist(Moment d)
     if (!d)
 	return 0;
     
-    return whole_width * pow(geometric_, log_2(d));
+    return get_var("unitspace")  * pow(get_var("geometric"), log_2(d));
 }
 
-Real
-Paper_def::rule_thickness()const
-{
-    return 0.4 PT;
-}
 
-Paper_def::Paper_def(Lookup *l)
+Paper_def::Paper_def()
 {
-    lookup_p_ = l;
-    linewidth = 15 *CM_TO_PT;		// in cm for now
-    whole_width = 8 * note_width();
-    geometric_ = sqrt(2);
-    outfile = "lelie.tex";
+    lookup_p_ = 0;
+    real_vars_p_ = new Assoc<String,Real>;
+    outfile_str_ = "lelie.tex";
 }
 
 Paper_def::~Paper_def()
 {
+    delete real_vars_p_;
     delete lookup_p_;
 }
+
 Paper_def::Paper_def(Paper_def const&s)
 {
-    lookup_p_ = new Lookup(*s.lookup_p_);
-    geometric_ = s.geometric_;
-    whole_width = s.whole_width;
-    outfile = s.outfile;
-    linewidth = s.linewidth;
+    lookup_p_ = s.lookup_p_? new Lookup(*s.lookup_p_) : 0;
+    lookup_p_->paper_l_ = this;
+    real_vars_p_ = new Assoc<String,Real> (*s.real_vars_p_);
+    outfile_str_ = s.outfile_str_;
 }
 
 void
@@ -58,42 +73,45 @@ Paper_def::set(Lookup*l)
     assert(l != lookup_p_);
     delete lookup_p_;
     lookup_p_ = l;
+    lookup_p_->paper_l_ = this;
 }
 
 Real
 Paper_def::interline_f() const
 {
-    return lookup_p_->ball(4).dim.y.length();
+    return get_var("interline");
+}
+
+
+Real
+Paper_def::rule_thickness()const
+{
+    return get_var("rule_thickness");
 }
 
 Real
 Paper_def::interbeam_f() const
 {
-    return lookup_p_->interbeam_f();
+    return get_var("interbeam");
 }
 Real
 Paper_def::internote_f() const
 {
-    return lookup_p_->internote_f();
+    return interline_f() / 2; 
 }
+
 Real
 Paper_def::note_width()const
 {
-    return lookup_p_->ball(4).dim.x.length( );
-}
-Real
-Paper_def::standard_height() const
-{
-    return 20 PT;
+    return get_var("notewidth");
 }
 
 void
 Paper_def::print() const
 {
 #ifndef NPRINT
-    mtor << "Paper {width: " << print_dimen(linewidth);
-    mtor << "whole: " << print_dimen(whole_width);
-    mtor << "out: " <<outfile;
+    mtor << "Paper {";
+    mtor << "out: " <<outfile_str_;
     lookup_p_->print();
     mtor << "}\n";
 #endif
@@ -101,5 +119,6 @@ Paper_def::print() const
 Lookup const *
 Paper_def::lookup_l()
 {
+    assert( lookup_p_ );
     return lookup_p_;
 }

@@ -20,7 +20,7 @@ EndMudelaHeader
 %}
 
 
-\version "0.0.60";
+\version "0.0.61";
 
 toccata_commands = \melodic{
 	\meter 4/4;

@@ -36,8 +36,9 @@ to
 
 Requests are processed and used to create elements (like balls, stems,
 slurs etc). This is done by a hierarchy of "brokers" (called
-Register), which swallow requests, broadcast them and couple different
-elements.
+Translators: the ones for paper output are Engravers, for MIDI
+Performers), which swallow requests, broadcast them and couple
+different elements.
 
 In this step data-structures for the next steps are created and filled
 with data: PScore, PCol.
@@ -158,7 +159,7 @@ from the start of its note.
 Voice group is a (time-dependent) collection of voices which share
 some characteristics (slurs, stems) at some time.
 
-=head1 Request_register
+=head1 Request_engraver
 
 In the previous section the idea of Request has been explained, but
 this only solves one half of the problem. The other half is
@@ -176,18 +177,18 @@ should be merged. The slurs OTOH are specific for each voice, so they
 should not be shared.
 
 The judge in this "allocation" problem is Staff (actually, it's child
-C<Complex_staff>). It uses the C<Request_register> to do most of the
+C<Complex_staff>). It uses the C<Request_engraver> to do most of the
 work.  For each request C<Complex_staff> queries so-called
-C<Request_register>s if they want to accept a request eg, the
-C<Notehead_register> will accept C<Note_req>s, and turn down
-C<Slur_req>s. If C<Complex_staff> cannot find a register that wants
+C<Request_engraver>s if they want to accept a request eg, the
+C<Notehead_engraver> will accept C<Note_req>s, and turn down
+C<Slur_req>s. If C<Complex_staff> cannot find a engraver that wants
 the request, it is junked (with a warning message).
 
-After all requests have been either assigned, or junked, the Register
+After all requests have been either assigned, or junked, the Engraver
 will process the requests (which usually means creating an C<Item> or
-C<Spanner>). If a C<Request_register> creates something, it tells
+C<Spanner>). If a C<Request_engraver> creates something, it tells
 C<Complex_staff>. If all requests have been processed, then each
-Register is notified of any created Staff_element.
+Engraver is notified of any created Staff_element.
 
 =head2 example:
 
@@ -198,15 +199,15 @@ produces:
 	note_request (duration 1/4)
 	stem_request (duration 1/4)
 
-note_request will be taken by a C<Notehead_register>, stem_request
-will be taken by a C<Stem_beam_register>. C<Notehead_register> creates
-a C<Notehead>, C<Stem_beam_register> creates a C<Stem>. Both announce
-this to the Staff. Staff will tell C<Stem_beam_register> about the
+note_request will be taken by a C<Notehead_engraver>, stem_request
+will be taken by a C<Stem_beam_engraver>. C<Notehead_engraver> creates
+a C<Notehead>, C<Stem_beam_engraver> creates a C<Stem>. Both announce
+this to the Staff. Staff will tell C<Stem_beam_engraver> about the
 C<Notehead>, which will add the C<Notehead> to the C<Stem> it just
 created.
 
 To decide on merging, C<Complex_staff> has grouped several
-registers. There are a few groups:
+engravers. There are a few groups:
 
 =over 4
 
@@ -214,26 +215,26 @@ registers. There are a few groups:
 
 Staff wide, contains
 
-	Local_key_register
-	Bar_register
-	Key_register
-	Meter_register
-	Clef_register
+	Local_key_engraver
+	Bar_engraver
+	Key_engraver
+	Meter_engraver
+	Clef_engraver
 
 =item *
 
 Voice group, contains
 
-	Stem_beam_register
-	Script_register
-	Text_register
+	Stem_beam_engraver
+	Script_engraver
+	Text_engraver
 
 =item *
 
 Voice, contains
 	
-	Slur_register
-	Notehead_register
+	Slur_engraver
+	Notehead_engraver
 
 =back
 

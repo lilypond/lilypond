@@ -58,13 +58,10 @@ public:
     /// find a column.
     PCursor<Score_column *> find_col(Moment,bool);
     
-    /// when does the last *musical* element finish?
-    Moment last() const;
-
     Score(Score const&);
 
 private:
-    void run_acceptor(Global_acceptor*);
+    void run_translator(Global_translator*);
     void paper_output();
     /// do midi stuff
     void midi();
