@@ -14,8 +14,10 @@
 #include "scoreline.hh"
 #include "p-score.hh"
 #include "tex-stream.hh"
-#include "word-wrap.hh"
 #include "p-col.hh"
+
+#include "word-wrap.hh"
+#include "gourlay-breaking.hh"
 
 PScore::PScore(Paper_def*p)
 {
@@ -130,6 +132,8 @@ void
 PScore::print() const
 {    
 #ifndef NPRINT
+    if ( !check_debug)
+	return ;
     mtor << "PScore { ";
     paper_l_->print();
     mtor << "\n elements: ";
@@ -203,9 +207,27 @@ PScore::set_breaking(Array<Col_hpositions> const &breaking)
 void
 PScore::calc_breaking()
 {
-    Word_wrap w(*this);
+    Break_algorithm *algorithm_p;
+    Array<Col_hpositions> sol;
+    bool try_wrap = ! paper_l_->get_var( "castingalgorithm");
 
-    set_breaking(w.solve());
+    if (!try_wrap) {
+	algorithm_p = new Gourlay_breaking ;
+	algorithm_p->set_pscore(this);
+	sol = algorithm_p->solve();
+	delete algorithm_p;
+	if ( ! sol.size()) { 
+	    error ( "Can not solve this casting problem exactly; revert to Word_wrap");
+	    try_wrap = true;
+	} 
+    }
+    if  (try_wrap) {
+	algorithm_p = new Word_wrap;    
+	algorithm_p->set_pscore(this);
+	sol = algorithm_p->solve();
+	delete algorithm_p;
+    }
+    set_breaking(sol);
 }
 
 void
