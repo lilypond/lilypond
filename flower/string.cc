@@ -25,7 +25,7 @@ void* mymemmove( void* dest, void const* src, size_t n );
 Byte*
 String::copy_byte_p() const
 {
-    Byte const* src = strh_.byte_c_l();
+    Byte const* src = strh_.byte_C();
     Byte* dest = new Byte[strh_.length_i() + 1];
     memcpy( dest, src, strh_.length_i() + 1 );
     return dest;    
@@ -34,7 +34,7 @@ void
 String::print_on(ostream& os) const
 {
     if (!strh_.is_binary_bo())
-        os << ch_c_l();
+        os << ch_C();
     else
 	for ( int i = 0; i < length_i(); i++ )
 	    os << (Byte)(*this)[ i ];
@@ -94,7 +94,7 @@ String::String( Byte const* byte_l, int length_i )
 void
 String::append(String s)
 {
-    strh_.append( s.byte_c_l(), s.length_i() );
+    strh_.append( s.byte_C(), s.length_i() );
 }
 void
 String::operator +=(String s)
@@ -116,15 +116,15 @@ String::length_i() const
 }
 
 Byte const*
-String::byte_c_l() const
+String::byte_C() const
 {
-    return strh_.byte_c_l();
+    return strh_.byte_C();
 }
 
 char const*
-String::ch_c_l() const
+String::ch_C() const
 {
-    return strh_.ch_c_l();
+    return strh_.ch_C();
 }
 
 Byte*
@@ -145,8 +145,8 @@ String::ch_l()
 int
 String::compare_i(String const& s1, String const& s2 ) 
 {
-    Byte const* p1 = s1.byte_c_l();
-    Byte const* p2 = s2.byte_c_l();
+    Byte const* p1 = s1.byte_C();
+    Byte const* p2 = s2.byte_C();
     if ( p1 == p2 )
 	return 0;
 
@@ -164,7 +164,7 @@ String::index_last_i( char const c ) const
     if ( !length_i() ) 
 	return -1;
 
-    char const* me = strh_.ch_c_l();
+    char const* me = strh_.ch_C();
     char const* p = memrchr(me, length_i(), c );
     if ( p )
 	return p - me;
@@ -202,7 +202,7 @@ String::index_last_i( char const* string ) const // UGK!
 int
 String::index_i(char c ) const
 {
-    char const* me = strh_.ch_c_l();
+    char const* me = strh_.ch_C();
     char const* p = (char const *) memchr( me,c,  length_i());
     if ( p )
 	return p - me;
@@ -218,9 +218,9 @@ String::index_i(char c ) const
 int
 String::index_i( String searchfor ) const
 {
-    char const* me = strh_.ch_c_l();
+    char const* me = strh_.ch_C();
     char const* p = (char const *) memmem(
-	me, length_i(), searchfor.ch_c_l(), searchfor.length_i());
+	me, length_i(), searchfor.ch_C(), searchfor.length_i());
     
     if ( p )
 	return p - me;
@@ -240,7 +240,7 @@ String::index_any_i( String set ) const
     if ( !n )
 	return -1;
 
-    void const * me_l = (void const *) strh_.ch_c_l();
+    void const * me_l = (void const *) strh_.ch_C();
     for (int i=0; i  < set.length_i(); i++) {
 	char * found=(char*) memchr(me_l, set[i], n  );
 	if (found) {
@@ -274,7 +274,7 @@ String::right_str( int n ) const
     if ( n < 1)
         return "";
     
-    return String( strh_.byte_c_l() + length_i() - n, n ); 
+    return String( strh_.byte_C() + length_i() - n, n ); 
 }
 
 
@@ -310,7 +310,7 @@ String::mid_str( int index_i, int n ) const
     if ( ( n > length_i() ) ||  ( index_i + n > length_i() ) )
 	n = length_i() - index_i;
 
-    return String( byte_c_l() + index_i, n );
+    return String( byte_C() + index_i, n );
 }
 
 String

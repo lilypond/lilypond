@@ -12,11 +12,13 @@ struct Rest : Item {
 
     int dots;
     int balltype;
-
+    
+    /// rests can be translated up and down.
+    int pos_i_;
     /* *************** */
 
 
-    Rest(int dur,int dots);
+    Rest(Duration);
     void do_print()const;
 NAME_MEMBERS(Rest);
     Molecule* brew_molecule_p()const;

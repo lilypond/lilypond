@@ -66,7 +66,7 @@ public:
 
     /// String s = "abc";
     String( char const* source ); 
-    String( Byte const* byte_c_l, int length_i ); 
+    String( Byte const* byte_C, int length_i ); 
     
     /// "ccccc"
     String( char c, int n = 1 );
@@ -79,13 +79,13 @@ public:
     ///  return a "new"-ed copy of contents
     Byte* copy_byte_p() const; //  return a "new"-ed copy of contents
 
-    char const* ch_c_l() const;
-    Byte const* byte_c_l() const;
+    char const* ch_C() const;
+    Byte const* byte_C() const;
     char* ch_l();
     Byte* byte_l();
 
-    /// deprecated; use ch_c_l()
-    operator char const* () const { return ch_c_l(); }
+    /// deprecated; use ch_C()
+    operator char const* () const { return ch_C(); }
     
     String &operator =( String const & source );
 

@@ -38,8 +38,8 @@ public:
     ~String_handle();
     String_handle(String_handle const & src);
 
-    Byte const* byte_c_l() const;
-    char const* ch_c_l() const;
+    Byte const* byte_C() const;
+    char const* ch_C() const;
     Byte* byte_l();
     char* ch_l();    
     bool is_binary_bo()const;
@@ -48,11 +48,11 @@ public:
     Byte operator[](int j) const;
 
     /** Access elements. WARNING: NOT SAFE
-       don't use this for loops. Use byte_c_l()
+       don't use this for loops. Use byte_C()
        */
     Byte &operator[](int j);
-    void append( Byte const* byte_c_l, int length_i );
-    void set( Byte const* byte_c_l, int length_i );
+    void append( Byte const* byte_C, int length_i );
+    void set( Byte const* byte_C, int length_i );
     void operator = (char const *p);
     void trunc(int j);
     int length_i() const;
