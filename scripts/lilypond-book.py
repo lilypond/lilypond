@@ -54,7 +54,7 @@
 #	The the rest of the rexeces are searched for. They don't have to test
 #	if they are on a commented out line.
 
-
+import glob
 import stat
 import string
 
@@ -1179,7 +1179,7 @@ linking to the menu.
 			}
 
 		menu = ''
-		page_files = ly.read_pipe ('ls --color=no -1 %s-page*.png' % base)
+		page_files = glob.glob ('%s-page*.png' % base)
 
 		for p in string.split (page_files, '\n'):
 			p = p.strip()

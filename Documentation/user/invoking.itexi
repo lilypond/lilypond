@@ -277,6 +277,12 @@ through @code{ps2pdf} producing a PDF file.
 @code{\usepackage[latin1]@{inputenc@}} if you use any other
 non-anglosaxian characters.
 
+@item --png
+    Also generate pictures of each page, in PNG format. 
+@item --psgz
+    Gzip the postscript files
+@item --html
+    Make a .HTML file with links to all output files.
 @item --preview
     Also generate a picture of the first system of the score.
 
