@@ -76,8 +76,9 @@ newpage = \notes
 {
   \break
   % urg, only works for TeX output
-  \context Score \outputproperty #(make-type-checker 'paper-column-interface)
-    #'between-system-string = #"\\newpage"
+  \context Score \applyoutput
+  #(outputproperty-compatibility (make-type-checker 'paper-column-interface)
+    'between-system-string "\\newpage")
 }
 
 % dynamic ly:dir?  text script, articulation script ly:dir?	
@@ -100,10 +101,10 @@ normalsize = {
 
 
 % End the incipit and print a ``normal line start''.
-endincipit = \notes{
+endincipit = \notes \context Staff {
     \partial 16 s16  % Hack to handle e.g. \bar ".|" \endincipit
-    \context Staff \outputproperty #(make-type-checker 'clef-interface) #'full-size-change = ##t
-    \context Staff \outputproperty #(make-type-checker 'clef-interface) #'non-default = ##t
+    \once \property Staff.Clef \set #'full-size-change = ##t
+    \once \property Staff.Clef \set #'non-default = ##t
     \bar ""
 }
 

@@ -127,27 +127,12 @@ Lyric_combine_music_iterator::get_busy_status () const
 bool
 Lyric_combine_music_iterator::melisma_busy ()
 {
-#if 0
-  
-  Translator_group * trg = music_iter_->report_to();
-  bool melisma_busy= to_boolean (trg->get_property ("melismaBusy"));
-
-  melisma_busy = melisma_busy ||  to_boolean (trg->get_property ("slurMelismaBusy"));
-  melisma_busy = melisma_busy ||  to_boolean (trg->get_property ("tieMelismaBusy"));
-  melisma_busy = melisma_busy ||  to_boolean (trg->get_property ("beamMelismaBusy"));
-  return melisma_busy;
-
-#else
-
   /*
-    The above code is nicer since it doesn't rely on a special
-    engraver to signal the melisma status. Unfortunately,
-    music_iter_->report_to() might not be the context that sets the
-    melisma properties, but rather a parent context.
+    We can not read the property, since music_iter_->report_to() might
+    not be the context that sets the melisma properties, but rather a
+    parent context.
    */
   return music_iter_->try_music (melisma_playing_req);
-#endif
-  
 }
 
 void

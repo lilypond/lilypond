@@ -61,7 +61,6 @@ static Keyword_ent the_key_tab[]={
   {"notes", NOTES},
   {"octave", OCTAVE},
   {"once", ONCE},
-  {"outputproperty", OUTPUTPROPERTY},
   {"override", OVERRIDE},
   {"paper", PAPER},
   {"partcombine", PARTCOMBINE},

@@ -31,7 +31,8 @@ Melisma_engraver::try_music (Music *m)
 
   for (; gh_pair_p (melisma_properties);
        melisma_properties = gh_cdr (melisma_properties))
-      busy = busy || to_boolean (get_property (gh_car (melisma_properties)));
+
+    busy = busy || to_boolean (internal_get_property (gh_car (melisma_properties)));
 
   /*
     for the phrasing engraver we also need this.

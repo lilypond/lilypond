@@ -1,5 +1,10 @@
 2003-09-18  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* lily/tie-engraver.cc (start_translation_timestep): move melisma
+	stuff in accordance with new timing of tie-events.
+
+	* lily/my-lily-lexer.cc: remove \outputproperty
+
 	* lily/melisma-engraver.cc (try_music): use melismaBusyProperties.
 
 	* scm/define-translator-properties.scm (melismaBusyProperties):
