@@ -109,6 +109,9 @@
 
 2003-02-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/refman.itely (Tuning groups of objects):
+	remove documentation for \turnOff. 
+
 	* lily/percent-repeat-engraver.cc (try_music): add correct
 	processing moments for double-measure percents as well.
 

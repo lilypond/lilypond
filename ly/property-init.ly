@@ -230,6 +230,8 @@ forgetAccidentals = {
 % To remove a Volta bracket or some other graphical object,
 % set it to turnOff. Example: \property Staff.VoltaBracket = \turnOff
 
+%%
+%% DO NOT USE THIS. IT CAN LEAD TO CRASHES.
 turnOff = #'()
 
 % For drawing vertical chord brackets with \arpeggio

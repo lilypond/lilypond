@@ -150,7 +150,6 @@ Percent_repeat_engraver::process_music ()
 	  announce_grob(perc_, repeat_->self_scm());
 	}
       else if (repeat_sign_type_ == DOUBLE_MEASURE)
-	
 	{
 	  double_percent_ = new Item (get_property ("DoublePercentRepeat"));
 	  announce_grob(double_percent_, repeat_->self_scm());

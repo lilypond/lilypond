@@ -2150,7 +2150,7 @@ a collision with the slur.  This could be achieved with
 works.  We insert an empty text between the 5 and the note. The empty
 text pushes the fingering instruction away:
 @example
-  a-)^" "^\markup { \finger "5" } 
+  a-)^" "^\markup @{ \finger "5" @} 
 @end example
 
 A fingering instruction, which would be entered as @code{^5}, is put
