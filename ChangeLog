@@ -1,6 +1,7 @@
 2004-07-21  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* SConstruct: Use only code files for TAGS.
+	* SConstruct: Use only code files for TAGS.  Change GO_FAST_BUTTON
+	to command line option: fast=1 (default on).
 
 	* SConstruct[GO_FAST_BUTTON]: implement tips from Andreas Roach.
 	This brings SCons run-time on up-to-date tree down from 48s with

@@ -129,6 +129,8 @@ opts.AddOptions (
 	BoolOption ('verbose', 'run commands with verbose flag',
 		    0),
 	BoolOption ('checksums', 'use checksums instead of timestamps',
+		    0),
+	BoolOption ('fast', 'use timestamps, implicit cache, prune CPPPATH',
 		    1),
 	)
 
@@ -164,11 +166,6 @@ env = Environment (
 	TOPLEVEL_VERSION = version,
 	)
 
-# Hardcoded usability switch (Anthony Roach).
-# See http://www.scons.org/cgi-bin/wiki/GoFastButton
-# First do: scons realclean .
-GO_FAST_BUTTON = 1
-
 # Add all config_vars to opts, so that they will be read and saved
 # together with the other configure options.
 map (lambda x: opts.AddOptions ((x,)), config_vars)
@@ -177,11 +174,13 @@ Help (usage + opts.GenerateHelpText (env))
 
 opts.Update (env)
 
-if GO_FAST_BUTTON:
+if env['fast']:
+	# Usability switch (Anthony Roach).
+	# See http://www.scons.org/cgi-bin/wiki/GoFastButton
+	# First do: scons realclean .
 	env['checksums'] = 0
 	SetOption ('max_drift', 1)
-	# SetOption ('implicit_deps_unchanged', 1)
-	print "If scons feels slow, use --implicit-deps-unchanged"
+	SetOption ('implicit_cache', 1)
 elif env['checksums']:
 	# Always use checksums (makes more sense than timestamps).
 	SetOption ('max_drift', 0)
@@ -326,7 +325,7 @@ def configure (target, source, env):
 
 	command = r"""python -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'""" #"
 	PYTHON_INCLUDE = os.popen (command).read ()
-	if GO_FAST_BUTTON:
+	if env['fast']:
 		env.Append (CCFLAGS = ['-I%s ' % PYTHON_INCLUDE])
 	else:
 		env.Append (CPPPATH = PYTHON_INCLUDE)
@@ -364,7 +363,7 @@ def configure (target, source, env):
 	if conf.CheckLib ('kpathsea', 'kpse_find_tfm'):
 		conf.env['DEFINES']['HAVE_KPSE_FIND_TFM'] = '1'
 
-	if GO_FAST_BUTTON:
+	if env['fast']:
 		cpppath = []
 		if env.has_key ('CPPPATH'):
 			cpppath = env['CPPPATH']
@@ -383,7 +382,7 @@ def configure (target, source, env):
 			conf.env['DEFINES']['HAVE_PANGO_CVS'] = '1'
 			conf.env['DEFINES']['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
 
-	if GO_FAST_BUTTON:
+	if env['fast']:
 		# Using CCFLAGS = -I<system-dir> rather than CPPPATH = [
 		# <system-dir>] speeds up SCons
 		env['CCFLAGS'] += map (lambda x: '-I' + x,
@@ -724,7 +723,7 @@ def flatten (tree, lst):
 				lst.append (i)
 	return lst
 
-if GO_FAST_BUTTON\
+if env['fast']\
    and 'all' not in COMMAND_LINE_TARGETS\
    and 'doc' not in COMMAND_LINE_TARGETS\
    and 'web' not in COMMAND_LINE_TARGETS\
