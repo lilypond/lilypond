@@ -43,7 +43,6 @@ Script::Script()
     specs_l_ = 0;
     inside_staff_b_ = false;
     stem_l_ = 0;
-    pos_i_ = 0;
     dir_i_ =  0;
 }
 
@@ -64,11 +63,6 @@ Script::set_default_dir()
     assert(dir_i_);
 }
 
-void
-Script::set_default_index()
-{
-    pos_i_ = get_position_i(specs_l_->get_atom(paper(), dir_i_).extent().y);
-}
 
 Interval
 Script::do_width() const
@@ -84,10 +78,10 @@ Script::do_pre_processing()
     inside_staff_b_ = specs_l_->inside_b();
 }
 
-void
-Script::do_post_processing()
+Interval
+Script::symbol_height()const
 {
-    set_default_index();
+    return specs_l_->get_atom(paper(), dir_i_).extent().y;
 }
 
 Molecule*

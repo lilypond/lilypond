@@ -19,19 +19,11 @@ Text_item::Text_item(General_script_def*tdef_l, int d)
     dir_i_ = d;
     fat_b_ = false;
     tdef_p_ = tdef_l->clone();
-    pos_i_ =0;
 }
 
 Text_item::~Text_item()
 {
     delete tdef_p_;
-}
-
-void
-Text_item::set_default_index()
-{
-    pos_i_  = get_position_i(
-	tdef_p_->get_atom(paper(), dir_i_).extent().y );
 }
 
 void
@@ -41,12 +33,11 @@ Text_item::do_pre_processing()
 	dir_i_ = -1;
 }
 
-void
-Text_item::do_post_processing()
+Interval
+Text_item::symbol_height()const
 {
-    set_default_index();
+    return tdef_p_->get_atom(paper(), dir_i_).sym_.dim.y;
 }
-
     
 Molecule*
 Text_item::brew_molecule_p() const
