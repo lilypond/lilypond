@@ -1,19 +1,8 @@
---- ../lilypond-1.3.77.jcn4/CHANGES	Sun Aug 13 23:23:46 2000
-++ b/CHANGES	Mon Aug 14 00:44:16 2000
-@@ -1,3 +1,9 @@
 1.3.77.jcn5
 ===========
 
 * Added a devnull engraver, that junks (notehead) requests of the second
   stem when combined parts are in unison (a2).
-
- 1.3.77.jcn4
- ===========
- --- ../lilypond-1.3.77.jcn3/CHANGES	Sun Aug 13 20:05:00 2000
-++ b/CHANGES	Sun Aug 13 23:23:46 2000
-@@ -1,3 +1,14 @@
-1.3.77.jcn4
-===========
 
 * Part-combine iterator identifies Soli and A2 parts in threads by 
   looking at rhythm and pitches.  It switches Voice context automagically,
@@ -22,37 +11,14 @@
 * Simple A2_engraver (`a due) prints `a2/Solo/Solo II.  Soli seem to
   arrive one request late.
 
-
- 1.3.77.jcn3
- ===========
- --- ../lilypond-1.3.77.jcn2/CHANGES	Sun Aug 13 15:50:59 2000
-++ b/CHANGES	Sun Aug 13 20:05:00 2000
-@@ -1,3 +1,9 @@
-1.3.77.jcn3
-===========
-
 * First try at combining parts: part-combine*
 
 
- * fixed problem with HaraKiri
- 
- * fixed problem with dynamicDirection--- ../lilypond-1.3.77.jcn1/CHANGES	Wed Aug  9 23:30:23 2000
-++ b/CHANGES	Sun Aug 13 15:50:59 2000
-@@ -1,3 +1,10 @@
 * fixed problem with HaraKiri
 
 * fixed problem with dynamicDirection
 
 * fixed problem with nonEmptyText 
-
-
- 1.3.77.jcn1
- ===========
- --- ../lilypond-1.3.77/CHANGES	Tue Aug  8 16:14:36 2000
-++ b/CHANGES	Wed Aug  9 23:30:23 2000
-@@ -1,3 +1,15 @@
-1.3.77.jcn1
-===========
 
 * `Fixed' chord notation, as per request of David Arnold, ie, 
    Added a chord-name-mode, that only displays chord names
@@ -63,14 +29,7 @@
 
 * Reverted duration-iter change in midi2ly, moved printing of options.
 
- 1.3.77
- ======
- 1.3.77.mb1
-==========
-
-* Minor documentation updates
-
-* Mark_engraver: has been broken since .73, fixed!
+* warning bugfix in lexer.ll (Mats Bengtsson)
 
 1.3.77
 ======
@@ -111,14 +70,14 @@
 1.3.76
 ======
 
-* Lyric_phrasing_engraver now adjusts for melisma.  (Glenn Prideaux).
+* Lyric_phrasing_engraver now adjusts for melisma.  (Glen Prideaux).
 
 * Mudela-book fix for Windows95 (Mark Hindley)
 
 * Debian update (Anthony Fok)
 
 * Added beam melisma for when automaticMelismata and noAutoBeaming are both
-  #t (primarily for hymns).  Courtesy Glenn Prideaux.
+  #t (primarily for hymns).  Courtesy Glen Prideaux.
 
 * Bugfix: .pfa dependency on $(outdir)/mfplain.mem
 
