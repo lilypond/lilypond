@@ -7,11 +7,19 @@
 # If run by hand or from you .profile, run as follows
 #   . /PATH/TO/lilypond-profile
 
-echo $0
-# workaround for ZSH posix $0-problem
-[ -n "$ZSH_NAME" ] && setopt nofunctionargzero
 
-if [ `basename "$0"` = "lilypond-profile" ] ; then
+
+# workaround for ZSH posix $0-problem
+
+# for zsh: start removing here
+if [ -n "$ZSH_NAME" ] ; then
+    echo "You are running this script under zsh. Edit this script by hand. "
+    echo 
+    echo "(failed to source lilypond-profile)"
+    return 2
+fi
+
+if [ `basename "$0"` = "lilypond-profile" ] ; then 
     cat >/dev/stderr <<EOF
     
 Error: This script cannot be run in a subshell; it MUST be sourced.
@@ -19,7 +27,7 @@ Error: This script cannot be run in a subshell; it MUST be sourced.
 
 EXAMPLE 1: One time use 
 
-	Do
+	* Do
 
 	    . $0
 
@@ -48,17 +56,11 @@ EXAMPLE 3: Install for all users.
 
 	* Logout
 
-
-
 EOF
 
-
-## If the message above is printed erroneously,
-## the following commands  kills the current terminal/shell.
-## hence the ZSH  test above.
-
-    exit 2 
+    return 2
 else
+#  for zsh: till here
 
 	if [ -z "$LILYPONDPREFIX" ]; then
 	    datadir=`echo "@local_lilypond_datadir@" | sed 's!//!/!g'`
@@ -82,7 +84,7 @@ else
 	## GS_FONTPATH=`kpsewhich -expand-path=\\$T1FONTS`:${GS_FONTPATH:=""}
 	## export GS_FONTPATH
 
-fi
+fi # remove for zsh
  	
 
 
