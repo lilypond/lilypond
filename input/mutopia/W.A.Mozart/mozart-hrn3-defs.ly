@@ -1,6 +1,6 @@
 
 
-% #(ly:set-point-and-click! 'line-column)
+% #(ly:set-point-and-click 'line-column)
 
 longgrace = \property Voice.Stem \override #'stroke-style = #'()
 endlonggrace = \property Voice.Stem \revert #'stroke-style

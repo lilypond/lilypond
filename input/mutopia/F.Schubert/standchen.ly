@@ -1,5 +1,5 @@
 
-#(ly:set-point-and-click! 'line-column)
+% #(ly:set-point-and-click 'line-column)
 
 instrument = "Piano"
 
