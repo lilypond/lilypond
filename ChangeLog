@@ -1,5 +1,9 @@
 2004-02-16  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* lily/context-scheme.cc: new file.
+
+	* lily/score-translator.cc (get_output): new file.
+
 	* lily/include/grob-info.hh: origin_contexts() now does not
 	include the originating engraver
 
