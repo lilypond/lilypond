@@ -10,20 +10,15 @@ struct Score {
     /// paper_, staffs_ and commands_ form the problem definition.
     Paperdef *paper_;
     IPointerList<Staff*> staffs_;
-
-    svec<Command*> input_commands_;
     
     /// "runtime" fields for setting up spacing    
     IPointerList<Score_column*> cols_;
     PScore *pscore_;
 
     /****************************************************************/
-    void add(svec<Command*> &s);
- 
+
     /// construction
-    void add_staff(Staff *st);
-    void set(Paperdef*);
-    Score();
+    Score(Paperdef*);
     ~Score();    
     void add(Staff*);        
 
