@@ -4,6 +4,10 @@
 
 	* Documentation/user/refman.itely: added thumb info to Fingering.
 
+	* input/test/ follow-break.ly multi-slope.ly note-shift.ly
+	notemode-chords.ly orchestalpart.ly rhythmic-staff.ly
+	vertical-align.ly : deleted files.
+
 2003-06-21  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/align-interface.cc (find_fixed_alignment_parent): new function.
