@@ -615,7 +615,7 @@ stem. Internally used to distribute beam shortening over stems. ")
 than a whole rest.")
      
 
-
+     (spaceable-staves ,grob-list? "Objects to be spaced during page layout.")
 
      ;; ancient notation
 

@@ -21,8 +21,7 @@
        \\
        {r8  <as es> r <f des> r }
     >>
-    s4
-
+    \new Voice { \voiceOne b='8[ c16( d])  }
     g='8[( a b b! ]  c4  bes) 
     bes='8( f' des bes) as4( bes)
     r8 d( f e d c b a)

@@ -852,7 +852,7 @@
 	(Y-extent-callback . ,Hara_kiri_group_spanner::y_extent)
 	(remove-first . #t)
 	(axes . (1))
-	(meta . ((interfaces . (axis-group-interface hara-kiri-group-interface item-interface  spanner-interface))))
+	(meta . ((interfaces . (axis-group-interface vertically-spaceable-interface hara-kiri-group-interface item-interface  spanner-interface))))
 	))
 
     (RepeatSlash
@@ -1345,7 +1345,7 @@
 	(Y-extent-callback . ,Axis_group_interface::group_extent_callback)	
 	(X-extent-callback . ,Axis_group_interface::group_extent_callback)
 	
-	(meta . ((interfaces . (axis-group-interface spanner-interface))))
+	(meta . ((interfaces . (axis-group-interface vertically-spaceable-interface spanner-interface))))
 	))
    )
  )

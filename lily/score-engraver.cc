@@ -291,6 +291,22 @@ Score_engraver::acknowledge_grob (Grob_info gi)
 					 ly_symbol2scm ("spacing-wishes"),
 					 gi.grob_);
     }
+
+  if (Axis_group_interface::has_interface (gi.grob_)
+      && gi.grob_->internal_has_interface (ly_symbol2scm ("vertically-spaceable-interface")))
+    {
+      SCM spaceable = get_property ("verticallySpacedContexts");
+      Context *orig = gi.origin_contexts (this)[0];
+      
+      if (scm_memq (ly_symbol2scm (orig->context_name ().to_str0()),
+		    spaceable) != SCM_BOOL_F)
+	{
+	  Pointer_group_interface::add_grob (system_,
+					     ly_symbol2scm ("spaceable-staves"),
+					     gi.grob_);
+	}
+    }
+  
 }
 
 
@@ -307,6 +323,6 @@ ENTER_DESCRIPTION (Score_engraver,
 ,
 /* creats*/       "System PaperColumn NonMusicalPaperColumn", 
 /* accepts */     "break-event",
-/* acks  */       "note-spacing-interface staff-spacing-interface",
-/* reads */       "currentMusicalColumn currentCommandColumn",
+/* acks  */       "note-spacing-interface staff-spacing-interface axis-group-interface",
+/* reads */       "currentMusicalColumn currentCommandColumn verticallySpacedContexts",
 /* write */       "");

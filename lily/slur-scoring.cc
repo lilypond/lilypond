@@ -319,6 +319,9 @@ Slur_score_state::fill (Grob *me)
   is_broken_ = (!extremes_[LEFT].note_column_
 		|| !extremes_[RIGHT].note_column_); 
 
+  has_same_beam_ =
+    (extremes_[LEFT].stem_ && extremes_[RIGHT].stem_
+     && Stem::get_beam (extremes_[LEFT].stem_) == Stem::get_beam (extremes_[RIGHT].stem_));
   
   base_attachments_ = get_base_attachments ();
 
@@ -347,9 +350,6 @@ Slur_score_state::fill (Grob *me)
     = (extremes_[LEFT].stem_ && Stem::get_beam (extremes_[LEFT].stem_))
     || (extremes_[RIGHT].stem_ && Stem::get_beam (extremes_[RIGHT].stem_));
 
-  has_same_beam_ =
-    (extremes_[LEFT].stem_ && extremes_[RIGHT].stem_
-     && Stem::get_beam (extremes_[LEFT].stem_) == Stem::get_beam (extremes_[RIGHT].stem_));
 
   
   set_next_direction ();
