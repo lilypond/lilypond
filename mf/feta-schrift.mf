@@ -1445,10 +1445,10 @@ input feta-slag;
 
 fet_beginchar ("Caesura", "caesura");
 	save slant, space_between, clearance;
-	save alpha, p;
+	save alpha, pat;
 	save botthick, topthick;
 	save krom;
-	path p;
+	path pat;
 
 	botthick = 1.5 linethickness;
 	topthick = 2.5 linethickness;
@@ -1485,15 +1485,15 @@ fet_beginchar ("Caesura", "caesura");
 
 	penlabels (1, 2, 3, 4);
 
-	p := z3r{(z1r - z1l)}
-	     .. z4r{z2r-z2l}
-	     .. z2r{z4l-z4r}
-	     .. z4l{z2l-z2r}
-	     .. z3l{z1l-z1r}
-	     .. z1l{z3r-z3l}
-	     .. cycle;
-	fill p;
-	fill p shifted (space_between, 0);
+	pat := z3r{(z1r - z1l)}
+	       .. z4r{z2r-z2l}
+	       .. z2r{z4l-z4r}
+	       .. z4l{z2l-z2r}
+	       .. z3l{z1l-z1r}
+	       .. z1l{z3r-z3l}
+	       .. cycle;
+	fill pat;
+	fill pat shifted (space_between, 0);
 fet_endchar;
 
 

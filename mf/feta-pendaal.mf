@@ -31,7 +31,7 @@ define_pixels (pedalh, pedalbh);
 
 fet_beginchar ("Pedal asterisk", "*");
 	save bulb, p, radius, thin, inner_r;
-	path p;
+	path pat;
 
 	set_char_box (0, 7/9 pedalh#, 0, pedalh#);
 
@@ -61,24 +61,24 @@ fet_beginchar ("Pedal asterisk", "*");
 
 	penlabels (0, 1, 2, 3, 4);
 
-	p := z3r{up}
-	     .. z1l{up}
-	     .. z2l{down}
-	     .. z3l{down}
-	     .. z4l{dir (180 + 360/16)};
+	pat := z3r{up}
+	       .. z1l{up}
+	       .. z2l{down}
+	       .. z3l{down}
+	       .. z4l{dir (180 + 360/16)};
 	for i = 1 upto 7:
-		p := p
-		     .. ((z3r{up}
-			 .. z1l{up}
-			 .. z2l{down}
-			 .. z3l{down}
-			 .. z4l{dir (180 + 360/16)}) rotatedaround (z0,
-								    360/8 i));
+		pat := pat
+		       .. ((z3r{up}
+			   .. z1l{up}
+			   .. z2l{down}
+			   .. z3l{down}
+			   .. z4l{dir (180 + 360/16)})
+				rotatedaround (z0, 360/8 i));
 	endfor;
 
-	p := p
-	     .. cycle;
-	fill p;
+	pat := pat
+	       .. cycle;
+	fill pat;
 
 	pickup pencircle scaled (7/8 inner_r);
 

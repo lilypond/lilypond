@@ -72,23 +72,23 @@ def draw_c_clef (expr reduction) =
 	save t;
 	t = 0.833;
 
-	save p;
-	path p;
+	save pat;
+	path pat;
 
-	p = z5l{curl 1}
-	    .. z4l{up}
-	    .. z4r{down}
-	    .. z3r{right}
-	    ..tension t.. z2r{up}
-	    ..tension t.. flare_path (top z1l, 180, 90,
-				      hair, hfloor (norm - 1/2 hair), -1)
-	    ..tension t.. z2l{down}
-	    .. z3l{left}
-	    .. z6
-	    .. z5r{down};
+	pat = z5l{curl 1}
+	      .. z4l{up}
+	      .. z4r{down}
+	      .. z3r{right}
+	      ..tension t.. z2r{up}
+	      ..tension t.. flare_path (top z1l, 180, 90,
+					hair, hfloor (norm - 1/2 hair), -1)
+	      ..tension t.. z2l{down}
+	      .. z3l{left}
+	      .. z6
+	      .. z5r{down};
 
-	filldraw p shifted (0, feta_shift)
-		 -- reverse p yscaled -1 shifted (0, -feta_eps)
+	filldraw pat shifted (0, feta_shift)
+		 -- reverse pat yscaled -1 shifted (0, -feta_eps)
 		 -- cycle;
 
 	penlabels (1, 2, 3, 4, 5, 6);
@@ -125,10 +125,10 @@ def new_bulb (expr start_point, start_angle,
 	      big_radius, bulb_radius, flare,
 	      direction, turning_dir) =
 begingroup;
-	save p, before, after;
+	save pat, before, after;
 	save center;
 	save u, v;
-	path p, before, after;
+	path pat, before, after;
 	pair center;
 
 	clearxy;
@@ -151,16 +151,16 @@ begingroup;
 		 .. end_point{dir (end_angle)};
 	(u, v) = before intersectiontimes after;
 
-	p := start_point{dir (start_angle)}
-	     .. outer_tangent_point{dir (-turning_dir * 90)}
-	     ..tension 0.97.. subpath (0, u) of before
-	     .. subpath (v, infinity) of after;
+	pat := start_point{dir (start_angle)}
+	       .. outer_tangent_point{dir (-turning_dir * 90)}
+	       ..tension 0.97.. subpath (0, u) of before
+	       .. subpath (v, infinity) of after;
 
 	if direction = 0:
-		p := reverse p'
+		pat := reverse pat;
 	fi
 
-p
+pat
 endgroup
 enddef;
 
@@ -295,8 +295,8 @@ def draw_gclef (expr reduction) =
 	save breapth_factor, inner_thick_end, thinness, thickness, thinnib;
 	save start_angle, inner_start_angle, thinness;
 	save upward_swoosh_angle, bot_angle;
-	save p;
-	path p;
+	save pat;
+	path pat;
 	pair downstroke_dir, center;
 
 	reduced_ss# = staff_space# * reduction;
@@ -393,17 +393,17 @@ def draw_gclef (expr reduction) =
 	     -- z1l
 	     ..tension 0.85.. cycle;
 
-	p := z10{down}
-	     .. z6
-	     .. z11{dir (start_angle)};
+	pat := z10{down}
+	       .. z6
+	       .. z11{dir (start_angle)};
 
-	penpos6 (thinnib, angle (direction 1 of p) + 90);
+	penpos6 (thinnib, angle (direction 1 of pat) + 90);
 
 	% two auxiliary points to simulate `draw' with `penstroke'
-	z10' = point 0.5 of p;
-	penpos10' (thinnib, angle (direction 0.5 of p) + 90);
-	z11' = point 1.5 of p;
-	penpos11' (thinnib, angle (direction 1.5 of p) + 90);
+	z10' = point 0.5 of pat;
+	penpos10' (thinnib, angle (direction 0.5 of pat) + 90);
+	z11' = point 1.5 of pat;
+	penpos11' (thinnib, angle (direction 1.5 of pat) + 90);
 
 	penstroke z9e
 		  .. z10e{down}
@@ -527,9 +527,9 @@ enddef;
 	
 def draw_tab_A (expr pos, siz, slant) =
 begingroup;
-	save vx, vy, p;
+	save vx, vy, pat;
 	pair vx, vy;
-	path p;
+	path pat;
 
 	clearxy;
 
@@ -554,12 +554,12 @@ begingroup;
 	penpos8 (.75 penh, -70);
 	z8r = (xpart (pos + siz), y7r + .075 ypart (siz));
 
-	p := z2
-	     .. z3
-	     .. z4;
+	pat := z2
+	       .. z3
+	       .. z4;
 
-	penpos10 (penh, angle (direction 1.2 of p) - 180);
-	z10 = point 1.2 of p;
+	penpos10 (penh, angle (direction 1.2 of pat) - 180);
+	z10 = point 1.2 of pat;
 	penpos11 (.9 penh, -90);
 	z11 = .4 [z10, z6] - 0.05 vy;
 	penpos12 (.75 penh, -75);
