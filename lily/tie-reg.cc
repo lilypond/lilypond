@@ -71,19 +71,19 @@ Tie_register::process_requests()
 }
 
 void
-Tie_register::acknowledge_element(Staff_elem_info i)
+Tie_register::acknowledge_element(Score_elem_info i)
 {
     if (i.elem_l_->name() == Notehead::static_name()) {
 	if (tie_p_) {
-	    tie_p_->set_head(-1, (Notehead*)i.elem_l_);
+	    tie_p_->set_head(-1, (Notehead*)i.elem_l_->item());
 	    melodic_req_l_ = i.req_l_->musical()->melodic();
 	}
 
 	if (end_tie_p_) {
-	    end_tie_p_->set_head(1, (Notehead*)i.elem_l_);
+	    end_tie_p_->set_head(1, (Notehead*)i.elem_l_->item());
 	    if (!Melodic_req::compare ( *end_melodic_req_l_, *melodic_req_l_))
 		end_tie_p_->same_pitch_b_ = true;
-	    announce_element(Staff_elem_info(end_tie_p_,end_req_l_));
+	    announce_element(Score_elem_info(end_tie_p_,end_req_l_));
 	}
     }
 }
