@@ -59,6 +59,7 @@ MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),) --no-afm
 $(outdir)/%.cff.ps $(outdir)/PFA%.pfa $(outdir)/%.cff $(outdir)/%.otf $(outdir)/%.svg: $(outdir)/%.pe
 	(cd $(outdir) && $(FONTFORGE) -script $(notdir $<))
 	$(PYTHON) $(buildscript-dir)/ps-embed-cff.py $(basename $<).cff `cat $(basename $<).fontname` $(basename $<).cff.ps
+	-rm $(outdir)/*.scale.pfa
 
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp $(if $(findstring brace,$<),,$(subst feta,parmesan,$<)) 
@@ -174,7 +175,7 @@ $(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdi
 fontdir: $(addprefix $(outdir)/, lilypond.map lilypond.sfd private-fonts fonts.scale fonts.dir Fontmap.lily)
 
 
-$(outdir)/lilypond.map: $(AFM_FILES)
+$(outdir)/lilypond.map:
 	for i in $(FETA_FONTS); do echo $$i $$i '<'$$i.pfa; done > $@
 	for i in $(STAFF_SIZES); \
 		do echo "Emmentaler-$$i Emmentaler-$$i <emmentaler-$$i.cff.ps" ; done \

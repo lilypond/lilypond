@@ -28,12 +28,22 @@ init_fontconfig ()
   FcConfig *fcc = FcConfigGetCurrent ();
 
   Array<String> dirs;
-  dirs.push (prefix_directory + "/mf/out/");
-  
-  dirs.push (prefix_directory + "/fonts/otf/");
-  dirs.push (prefix_directory + "/fonts/type1/");
-  dirs.push (prefix_directory + "/fonts/cff/");
 
+
+  struct stat statbuf; 
+  String builddir = prefix_directory + "/mf/out/";
+  if (stat (builddir.to_str0 (), &statbuf) != 0)
+    {
+      dirs.push (builddir.to_str0 ());
+    }
+  else
+    {
+      dirs.push (prefix_directory + "/fonts/otf/");
+      dirs.push (prefix_directory + "/fonts/type1/");
+      dirs.push (prefix_directory + "/fonts/cff/");
+      dirs.push (prefix_directory + "/fonts/svg/");
+  }
+  
   for (int i = 0; i < dirs.size (); i++)
     {
       String dir = dirs[i];
