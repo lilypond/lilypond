@@ -8,19 +8,12 @@
   keyplacement by Mats Bengtsson
 */
 
-#include "group-interface.hh" 
+#include "item.hh"
 #include "key-item.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
-
-Key_item::Key_item (SCM s)
-  : Item (s)
-{
-  set_elt_property ("c0-position", gh_int2scm (0));
-}
-
 
 /*
   FIXME: too much hardcoding here.
@@ -34,18 +27,18 @@ const int SHARP_TOP_PITCH=4; /*  ais and bis typeset in lower octave */
   the thinking to other parties.
  */
 int
-Key_item::calculate_position(SCM pair) const
+Key_item::calculate_position(Score_element *ki, SCM pair) 
 {
   int p = gh_scm2int (gh_car (pair));
   int a = gh_scm2int (gh_cdr (pair));  
-  
-  if (to_boolean (get_elt_property ("multi-octave")))
+  int c0p = gh_scm2int (ki->get_elt_property ("c0-position"));
+  if (to_boolean (ki->get_elt_property ("multi-octave")))
     {
-      return p + gh_scm2int (get_elt_property ("c0-position"));
+      return p + c0p;
     }
   else {
     // Find the c in the range -4 through 2
-    int from_bottom_pos = gh_scm2int (get_elt_property ("c0-position")) + 4;
+    int from_bottom_pos = c0p + 4;
     from_bottom_pos = from_bottom_pos%7;
     from_bottom_pos = (from_bottom_pos + 7)%7; // Precaution to get positive.
     int c0 = from_bottom_pos - 4;
@@ -78,17 +71,18 @@ Key_item::calculate_position(SCM pair) const
   TODO
   - space the `natural' signs wider
  */
-GLUE_SCORE_ELEMENT(Key_item,brew_molecule);
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Key_item,brew_molecule);
 SCM
-Key_item::member_brew_molecule () const
+Key_item::brew_molecule (SCM smob)
 {
-  Molecule mol;
+  Score_element*me =unsmob_element (smob);
 
-  Staff_symbol_referencer_interface si (this);
+
+  Staff_symbol_referencer_interface si (me);
   Real inter = si.staff_space ()/2.0;
   
-  SCM newas = get_elt_property ("new-accidentals");  
-
+  SCM newas = me->get_elt_property ("new-accidentals");  
+  Molecule mol;
   /*
     SCM lists are stacks, so we work from right to left, ending with
     the cancellation signature.
@@ -96,14 +90,15 @@ Key_item::member_brew_molecule () const
   for (SCM s = newas; gh_pair_p (s); s = gh_cdr (s))
     {
       int a = gh_scm2int (gh_cdar (s));
-      Molecule m = lookup_l ()->afm_find ("accidentals-" + to_str (a));
-      m.translate_axis (calculate_position(gh_car (s)) * inter, Y_AXIS);
+      Molecule m = me->lookup_l ()->afm_find ("accidentals-" + to_str (a));
+      m.translate_axis (calculate_position(me, gh_car (s)) * inter, Y_AXIS);
       mol.add_at_edge (X_AXIS, LEFT, m, 0);
     }
-  
-  if (break_status_dir () != RIGHT)
+
+  Item *it = dynamic_cast<Item*> (me) ;
+  if (it->break_status_dir () != RIGHT)
     {
-      SCM old = get_elt_property ("old-accidentals");
+      SCM old = me->get_elt_property ("old-accidentals");
       /*
 	Add half a space between  cancellation and key sig.
 
@@ -112,7 +107,7 @@ Key_item::member_brew_molecule () const
       Interval x(0, inter);
       Interval y(0,0);
 
-      mol.add_at_edge (X_AXIS, LEFT, lookup_l()->blank (Box(x,y)),0);
+      mol.add_at_edge (X_AXIS, LEFT, me->lookup_l()->blank (Box(x,y)),0);
       
       for (; gh_pair_p (old); old = gh_cdr (old))
         {
@@ -127,9 +122,9 @@ Key_item::member_brew_molecule () const
 		
 	  if (found == SCM_EOL || gh_cdr (found) != gh_cdar (old))
 	    {
-              Molecule m =lookup_l ()->afm_find ("accidentals-0");
+              Molecule m =me->lookup_l ()->afm_find ("accidentals-0");
 
-              m.translate_axis (calculate_position(gh_car(old)) * inter, Y_AXIS);
+              m.translate_axis (calculate_position (me, gh_car (old)) * inter, Y_AXIS);
               mol.add_at_edge (X_AXIS, LEFT, m,0);	
             }
         }

@@ -21,12 +21,6 @@
 #include "direction.hh"
 
 
-Breathing_sign::Breathing_sign (SCM  s)
-  : Item (s)
-{
-}
-
-
 
 MAKE_SCHEME_SCORE_ELEMENT_CALLBACK(Breathing_sign,brew_molecule);
 
@@ -45,20 +39,25 @@ Breathing_sign::brew_molecule (SCM smob)
   return sc->lookup_l()->filledbox(b).create_scheme ();
 }
 
-GLUE_SCORE_ELEMENT(Breathing_sign,after_line_breaking);
-SCM
-Breathing_sign::member_after_line_breaking ()
+Real
+Breathing_sign::offset_callback (Score_element * b, Axis a)
 {
-  Real space = Staff_symbol_referencer_interface (this).staff_space();
-  Direction d = Directional_element_interface (this). get ();
+  Score_element * me = (Score_element*)b;
+  
+  Real space = Staff_symbol_referencer_interface (b).staff_space();
+  Direction d = Directional_element_interface (b). get ();
   if (!d)
     {
       d = UP;
-      Directional_element_interface (this).set (d);
+      Directional_element_interface (me).set (d);
     }
 
-  translate_axis(2.0 * space * d, Y_AXIS);
-
-  return SCM_UNDEFINED;
+  return 2.0 * space * d;
 }
 
+void
+Breathing_sign::set_interface (Score_element *b)
+{
+  Staff_symbol_referencer_interface::set_interface  (b);
+  b->add_offset_callback (Breathing_sign::offset_callback,Y_AXIS); 
+}

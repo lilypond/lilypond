@@ -20,7 +20,7 @@
 #include "duration.hh"
 
 Real
-Rest_collision::force_shift_callback (Score_element const*them, Axis a)
+Rest_collision::force_shift_callback (Score_element *them, Axis a)
 {
   assert (a == Y_AXIS);
 

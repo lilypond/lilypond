@@ -88,12 +88,12 @@ public:
   void position_noteheads();
 
   Real stem_end_position () const;
-  static Real off_callback (Score_element const*, Axis);
+  static Real off_callback (Score_element *, Axis);
   Molecule flag () const;
 
   SCM member_before_line_breaking ();
   static SCM before_line_breaking (SCM);
-  static Interval dim_callback (Score_element const*,Axis);
+  static Interval dim_callback (Score_element *,Axis);
   SCM member_brew_molecule() const;
 
   void set_spacing_hints () ;

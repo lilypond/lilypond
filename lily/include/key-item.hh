@@ -7,9 +7,8 @@
 #ifndef KEYITEM_HH
 #define KEYITEM_HH
 
-#include "item.hh"
-#include "array.hh"
-
+#include "lily-guile.hh"
+#include "lily-proto.hh"
 
 /**
   A group of  accidentals.
@@ -22,18 +21,11 @@
 
   new-accidentals -- list of (pitch, accidental) pairs
  */
-class Key_item :public  Item
+struct Key_item
 {
-  int calculate_position(SCM pair) const;
-
-public:
-  VIRTUAL_COPY_CONS(Score_element);
-  Key_item (SCM);
+  static int calculate_position(Score_element*,SCM pair) ;
+  void set_interface (Score_element*);
   static SCM brew_molecule (SCM);
-  
-
-
-  SCM member_brew_molecule() const;
 };
 
 #endif // KEYITEM_HH

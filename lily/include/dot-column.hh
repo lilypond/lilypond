@@ -10,21 +10,18 @@
 #ifndef DOT_COLUMN_HH
 #define DOT_COLUMN_HH
 
-#include "item.hh"
-
+#include "lily-guile.hh"
 
 /**
   Group dots.  This is needed because, the dots have to be aligned per voice
  */
-class Dot_column : public Item
+class Dot_column		// interface
 {
-  static int compare (Score_element * const&,Score_element * const&);
 public:
-  VIRTUAL_COPY_CONS (Score_element);
-  void add_head (Rhythmic_head*);
-  Dot_column (SCM);
-  
-  static Real force_shift_callback (Score_element const* , Axis);
+  static int compare (Score_element * const&,Score_element * const&);
+  static void add_head (Score_element * dotcol, Score_element* rh );
+  static void set_interface (Score_element*);
+  static Real force_shift_callback (Score_element * , Axis);
   static SCM do_shifts (SCM dotlist);
 };
 #endif // DOT_COLUMN_HH

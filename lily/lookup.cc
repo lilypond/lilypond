@@ -220,7 +220,7 @@ sanitise_PS_string (String t)
 }
 
 /**
-TODO: move into Text_item
+TODO: move into Text_item. UGH: paper_l argument shoudl be junked.
 */
 Molecule
 Lookup::text (String style, String text, Paper_def *paper_l) 

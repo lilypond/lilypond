@@ -36,7 +36,7 @@ protected:
 
 private:
   Breathing_sign_req * breathing_sign_req_l_;
-  Breathing_sign * breathing_sign_p_;
+  Score_element * breathing_sign_p_;
 };
 
 Breathing_sign_engraver::Breathing_sign_engraver()
@@ -63,9 +63,9 @@ Breathing_sign_engraver::do_process_music()
   if(breathing_sign_req_l_)
     {
       SCM b = get_property ("basicBreathingSignProperties");
-      breathing_sign_p_ = new Breathing_sign (b);
-      Staff_symbol_referencer_interface st (breathing_sign_p_);
-      st.set_interface ();
+      breathing_sign_p_ = new Item (b);
+
+      Breathing_sign::set_interface (breathing_sign_p_);
 
       announce_element (Score_element_info (breathing_sign_p_, breathing_sign_req_l_));
     }

@@ -22,7 +22,7 @@ public:
   Rest_collision(Score_element*);
   void set_interface ();
 
-  static Real force_shift_callback (Score_element const*, Axis);
+  static Real force_shift_callback (Score_element *, Axis);
   static SCM do_shift (Score_element*,SCM);
 };
 #endif // REST_COLLISION_HH

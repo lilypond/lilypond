@@ -10,7 +10,7 @@
 #include "paper-column.hh"
 #include "debug.hh"
 #include "dimensions.hh"
-#include "single-malt-grouping-item.hh"
+#include "separation-item.hh"
 
 
 Rod::Rod ()

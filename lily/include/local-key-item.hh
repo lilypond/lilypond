@@ -6,6 +6,8 @@
 
 #ifndef LOCALKEYITEM_HH
 #define LOCALKEYITEM_HH
+
+
 #include "item.hh"
 #include "array.hh"
 #include "musical-pitch.hh"

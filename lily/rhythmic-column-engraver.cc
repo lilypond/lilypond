@@ -21,7 +21,7 @@ class Rhythmic_column_engraver :public Engraver
   Link_array<Slur> grace_slur_endings_;
   Stem * stem_l_;
   Note_column *ncol_p_;
-  Dot_column *dotcol_l_;
+  Score_element *dotcol_l_;
 
 protected:
   VIRTUAL_COPY_CONS(Translator);
@@ -67,7 +67,7 @@ Rhythmic_column_engraver::process_acknowledged ()
   if (ncol_p_)
     {
       if (dotcol_l_
-	  && !dotcol_l_->parent_l(X_AXIS))
+	  && !dotcol_l_->parent_l (X_AXIS))
 	{
 	  ncol_p_->set_dotcol (dotcol_l_);
 	}
@@ -108,9 +108,10 @@ Rhythmic_column_engraver::acknowledge_element (Score_element_info i)
     {
       rhead_l_arr_.push (r);
     }
-  else if (Dot_column*d =dynamic_cast<Dot_column *> (item))
+  else if (item
+	   && to_boolean (item->get_elt_property ("dot-column-interface")))
     {
-      dotcol_l_ = d;
+      dotcol_l_ = item;
     }
   else if (Slur *s = dynamic_cast<Slur*> (i.elem_l_))
     {

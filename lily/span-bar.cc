@@ -26,7 +26,7 @@ Span_bar::add_bar (Score_element*b)
 
 
 Interval
-Span_bar::width_callback (Score_element const *se, Axis )
+Span_bar::width_callback (Score_element *se, Axis )
 {
   Span_bar*  s= dynamic_cast<Span_bar*> ((Score_element*)se);
   String gl = ly_scm2string (s->get_elt_property ("glyph"));
@@ -101,7 +101,7 @@ Span_bar::evaluate_empty ()
 Interval
 Span_bar::get_spanned_interval () const
 {
-  return Axis_group_interface::group_extent_callback (this, Y_AXIS);  
+  return Axis_group_interface::group_extent_callback ((Span_bar*)this, Y_AXIS);  
 }
 
 

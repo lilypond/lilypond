@@ -138,14 +138,14 @@ Score_element::set_elt_pointer (const char* k, SCM v)
 
 
 Interval
-Score_element::molecule_extent (Score_element const *s, Axis a )
+Score_element::molecule_extent (Score_element *s, Axis a)
 {
   Molecule m = s->get_molecule ();
   return m.extent(a);
 }
 
 Interval
-Score_element::preset_extent (Score_element const *s , Axis a )
+Score_element::preset_extent (Score_element  *s , Axis a)
 {
   SCM ext = s->get_elt_property ((a == X_AXIS)
 				 ? "extent-X"
@@ -508,7 +508,7 @@ Score_element::get_offset (Axis a) const
 
 
 Interval
-Score_element::point_dimension_callback (Score_element const* , Axis)
+Score_element::point_dimension_callback (Score_element* , Axis)
 {
   return Interval (0,0);
 }
@@ -529,7 +529,7 @@ Score_element::extent (Axis a) const
     }
   else if (!d->valid_b_)
     {
-      d->dim_= (*d->extent_callback_l_ ) (this, a);
+      d->dim_= (*d->extent_callback_l_ ) ((Score_element*)this, a);
       d->valid_b_ = true;
     }
 

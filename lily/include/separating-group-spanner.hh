@@ -15,7 +15,7 @@
 class Separating_group_spanner : public Spanner
 {
 public:
-  void add_spacing_unit (Single_malt_grouping_item*);
+  void add_spacing_unit (Item*);
   Separating_group_spanner(SCM);
 protected:
   VIRTUAL_COPY_CONS(Score_element);

@@ -59,7 +59,7 @@ Side_position_interface::get_direction () const
  */
 
 Real
-Side_position_interface::side_position (Score_element const *cme, Axis axis)
+Side_position_interface::side_position (Score_element *cme, Axis axis)
 {
   Score_element* me = (Score_element*)cme;
   Score_element *common = me->parent_l (axis);
@@ -114,7 +114,7 @@ Side_position_interface::side_position (Score_element const *cme, Axis axis)
   callback that centers the element on itself
  */
 Real
-Side_position_interface::aligned_on_self (Score_element const*elm, Axis ax)
+Side_position_interface::aligned_on_self (Score_element *elm, Axis ax)
 {
   String s ("self-alignment-");
 
@@ -156,14 +156,14 @@ directed_round (Real f, Direction d)
   Callback that quantises in staff-spaces, rounding in the direction
   of the elements "direction" elt property. */
 Real
-Side_position_interface::quantised_position (Score_element const *me, Axis a)
+Side_position_interface::quantised_position (Score_element *me, Axis a)
 {
   Side_position_interface s(me);
   Direction d = s.get_direction ();
-  Staff_symbol_referencer_interface si (me);
 
-  if (si.has_interface_b ())
+  if (Staff_symbol_referencer_interface::has_interface_b (me))
     {
+      Staff_symbol_referencer_interface si (me);
       Real p = si.position_f ();
       Real rp = directed_round (p, d);
 
@@ -183,7 +183,7 @@ Side_position_interface::quantised_position (Score_element const *me, Axis a)
   Position next to support, taking into account my own dimensions and padding.
  */
 Real
-Side_position_interface::aligned_side (Score_element const*me, Axis ax)
+Side_position_interface::aligned_side (Score_element *me, Axis ax)
 {
   Side_position_interface s(me);
   Direction d = s.get_direction ();
@@ -206,7 +206,7 @@ Side_position_interface::aligned_side (Score_element const*me, Axis ax)
   Position centered on parent.
  */
 Real
-Side_position_interface::centered_on_parent (Score_element const* me, Axis a)
+Side_position_interface::centered_on_parent (Score_element * me, Axis a)
 {
   Score_element *him = me->parent_l (a);
 

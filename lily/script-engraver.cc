@@ -71,6 +71,8 @@ Script_engraver::do_process_music()
 	}
       // todo -> use result of articulation-to-scriptdef directly as basic prop list.
       Script *p =new Script (get_property ("basicScriptProperties"));
+
+      p->add_offset_callback (Side_position_interface::centered_on_parent, X_AXIS);
       Side_position_interface stafy (p);
       
       

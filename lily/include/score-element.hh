@@ -14,8 +14,8 @@
 #include "smobs.hh"
 #include "dimension-cache.hh"
 
-typedef Interval (*Extent_callback)(Score_element const *,Axis);
-typedef Real (*Offset_callback)(Score_element const *,Axis);
+typedef Interval (*Extent_callback)(Score_element *,Axis);
+typedef Real (*Offset_callback)(Score_element *,Axis);
 
 #define READONLY_PROPS		// FIXME.
 
@@ -167,9 +167,9 @@ public:
   Molecule get_molecule () const;
   void suicide ();
   
-  static Interval preset_extent (Score_element const*,Axis);
-  static Interval point_dimension_callback (Score_element const*,Axis );
-  static Interval molecule_extent (Score_element const*,Axis);
+  static Interval preset_extent (Score_element *,Axis);
+  static Interval point_dimension_callback (Score_element *,Axis );
+  static Interval molecule_extent (Score_element *,Axis);
 
 protected:
   /**

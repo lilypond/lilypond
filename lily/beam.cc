@@ -857,7 +857,7 @@ Beam::last_visible_stem () const
     rest -> stem -> beam -> interpolate_y_position ()
 */
 Real
-Beam::rest_collision_callback (Score_element const *rest, Axis a )
+Beam::rest_collision_callback (Score_element *rest, Axis a )
 {
   assert (a == Y_AXIS);
 
