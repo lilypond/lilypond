@@ -10,6 +10,7 @@
 
 #include "interval.tcc"
 
+template<>
 Rational
 Interval_t<Rational>::infinity ()
 {
@@ -18,6 +19,7 @@ Interval_t<Rational>::infinity ()
   return infty;
 }
 
+template<>
 String
 Interval_t<Rational>::T_to_string (Rational a)
 {
