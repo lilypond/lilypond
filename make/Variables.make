@@ -43,7 +43,7 @@ make-dir = ./$(depth)/make
 include-lib = ./$(depth)/lib/include
 include-flower = ./$(depth)/flower/include
 #
-rpm-sources = /usr/src/redhat/SOURCES
+rpm-sources = ${HOME}/rpms/SOURCES
 #
 
 # user settings:

@@ -1,11 +1,24 @@
+******
+pl 52
+	- Buildroot RPM
+	- tex-prefix and tex-dir sep'd (here you are jan)
+ 	- convert-mudela framework
+	- Collision_register, Collision
+	- \hshift 1; input
+	- Features changed
+pl 50.jcn1
+	- LILYINCLUDE dir searched before DIR_DATADIR(?)
+	- lily reads from stdin again (but does not now when to stop)
+******
 pl 51
 	- transposition bugfix + doco
 	- LilyPond -> GNU LilyPond
 	- bugfixes for Staff_side and Note_column*
-	- wohltemperirt: 12 more bars
+	- wohltemperirt: complete
 
 ******
 april 11
+
 pl 50
 	- merge rest / notehead.
 	- Staff_side as a base class for most "staff-side" symbols.
