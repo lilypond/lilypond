@@ -36,19 +36,19 @@ local-install:
 
 local-uninstall:
 	rm $(vimdir)/compiler/lilypond.vim
-	rmdir -p $(vimdir)/compiler 
+	-rmdir -p $(vimdir)/compiler 
 
 	rm $(vimdir)/ftdetect/lilypond.vim
-	rmdir -p $(vimdir)/ftdetect 
+	-rmdir -p $(vimdir)/ftdetect 
 
 	rm $(vimdir)/ftplugin/lilypond.vim
-	rmdir -p $(vimdir)/ftplugin 
+	-rmdir -p $(vimdir)/ftplugin 
 
 	rm $(vimdir)/indent/lilypond.vim
-	rmdir -p $(vimdir)/indent 
+	-rmdir -p $(vimdir)/indent 
 
 	rm $(vimdir)/syntax/lilypond.vim
-	rmdir -p $(vimdir)/syntax
+	-rmdir -p $(vimdir)/syntax
 
 $(LILYPOND_WORDS): 
 	cd $(topdir) && $(PYTHON) buildscripts/lilypond-words.py --words --vim --dir=$(builddir)/vim/$(outconfbase)
