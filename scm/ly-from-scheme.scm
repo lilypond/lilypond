@@ -72,7 +72,7 @@ character."
                             ;; a #scheme expression
                             ((char=? c #\#)
                              (let ((expr (read port)))
-                               (format out "#~a" (if (eq? '$ expr)
+                               (format out "#~s" (if (eq? '$ expr)
                                                      (create-binding! (read port))
                                                      (remove-dollars! expr)))))
                             ;; other caracters
