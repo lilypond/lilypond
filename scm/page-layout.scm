@@ -108,10 +108,10 @@
   "Printable area for music and titles; matches default-page-make-stencil." 
   (let*
       ((h (- (ly:output-def-lookup paper 'vsize)
-	     (ly:output-def-lookup paper 'top-margin)
-	     (ly:output-def-lookup paper 'bottom-margin)))
-       (head (page-headfoot paper scopes number 'make-header 'head-sep UP last?))
-       (foot (page-headfoot paper scopes number 'make-footer 'foot-sep DOWN last?)))
+	     (ly:output-def-lookup paper 'topmargin)
+	     (ly:output-def-lookup paper 'bottommargin)))
+       (head (page-headfoot paper scopes number 'make-header 'headsep UP last?))
+       (foot (page-headfoot paper scopes number 'make-footer 'footsep DOWN last?)))
     (- h (if (ly:stencil? head)
 	     (interval-length (ly:stencil-extent head Y))
 	     0)
@@ -124,19 +124,19 @@
 (define-public (default-page-make-stencil lines paper scopes number last? )
   "Construct a stencil representing the page from LINES.  "
   (let*
-     ((top-margin  (ly:output-def-lookup paper 'top-margin))
+     ((topmargin  (ly:output-def-lookup paper 'topmargin))
       
       ;; TODO: naming vsize/hsize not analogous to TeX.
       
-      (hsize (ly:output-def-lookup paper 'hsize))
-      (left-margin (/ (- hsize
-			 (ly:output-def-lookup paper 'linewidth)) 2))
+      (leftmargin (ly:output-def-lookup paper 'leftmargin))
+      (rightmargin (ly:output-def-lookup paper 'rightmargin))
       (vsize (ly:output-def-lookup paper 'vsize))
+      (hsize (ly:output-def-lookup paper 'hsize))
       (bottom-edge (- vsize
-		      (ly:output-def-lookup paper 'bottom-margin)))
+		      (ly:output-def-lookup paper 'bottommargin)))
 		     
-      (head (page-headfoot paper scopes number 'make-header 'head-sep UP last?))
-      (foot (page-headfoot paper scopes number 'make-footer 'foot-sep DOWN last?))
+      (head (page-headfoot paper scopes number 'make-header 'headsep UP last?))
+      (foot (page-headfoot paper scopes number 'make-footer 'footsep DOWN last?))
       (line-stencils (map ly:paper-system-stencil lines))
       (height-proc (ly:output-def-lookup paper 'page-music-height))
       (music-height (height-proc paper scopes number last?))
@@ -157,8 +157,8 @@
 		   (/ spc-left (length stretchable-lines))))
 
       (page-stencil (ly:make-stencil '()
-		    (cons left-margin hsize)
-		    (cons (- top-margin) 0)))
+		    (cons leftmargin hsize)
+		    (cons (- topmargin) 0)))
       (was-title #t))
 
     (set! page-stencil (ly:stencil-combine-at-edge
@@ -187,7 +187,7 @@
 		      (+ (- bottom-edge) (- (car (ly:stencil-extent foot Y)))))
 		))))
 
-    (ly:stencil-translate page-stencil (cons left-margin 0))
+    (ly:stencil-translate page-stencil (cons leftmargin 0))
   ))
   
 

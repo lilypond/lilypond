@@ -28,7 +28,7 @@
 		    '(pt mm cm in staffheight staff-space
 			 linewidth indent hsize vsize
 			 staffspace linethickness ledgerlinethickness
-			 blotdiameter interscoreline))
+			 blotdiameter interscoreline leftmargin rightmargin))
     ))
 
 (define-public (set-global-staff-size sz)
@@ -72,10 +72,12 @@
     (module-define! m 'indent (/ w 14))
 
     ;; page layout - what to do with (printer specific!) margin settings?
-    (module-define! m 'top-margin (* 5 mm))
-    (module-define! m 'bottom-margin (* 6 mm))
-    (module-define! m 'head-sep (* 4 mm))
-    (module-define! m 'foot-sep (* 4 mm))))
+    (module-define! m 'topmargin (* 5 mm))
+    (module-define! m 'bottommargin (* 6 mm))
+    (module-define! m 'headsep (* 4 mm))
+    (module-define! m 'footsep (* 4 mm))
+    (module-define! m 'leftmargin (* 10 mm))
+    (module-define! m 'rightmargin (* 10 mm))))
 
 (define (internal-set-paper-size module name)
   (let* ((entry (assoc name paper-alist))

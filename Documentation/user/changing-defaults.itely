@@ -2206,6 +2206,10 @@ The default layout responds to the following settings in the
  Margin between header and top of the page
 @item bottommargin
  Margin between footer and bottom of the page
+@item leftmargin
+ Margin between the left side of the page and the beginning  of the music.
+@item linewidth
+ The length of the paper line.
 @item headsep
  Distance between top-most music system and the page header
 @item footsep
@@ -2225,23 +2229,23 @@ The default layout responds to the following settings in the
         @}
 @end example
 
-You can also define these values in scheme. Please note that if you
-define @code{topmargin}, @code{bottommargin}, @code{headsep}, and
-@code{footsep} in scheme you have to insert a dash so they become
-@code{top-margin}, @code{bottom-margin}, @code{head-sep}, and
-@code{foot-sep}.
+You can also define these values in scheme. In that case @code{mm},
+@code{in}, @code{pt} and @code{cm} are variables defined in
+@file{book-paper-defaults.ly} with values in millimeters. That's why the
+value has to be multiplied in the example above.
 
 @example
         \bookpaper@{
-        #(define bottom-margin (* 2 cm)) 
+        #(define bottommargin (* 2 cm)) 
         @}
 @end example
 
-@c is this explanations really necessary?
-In that case @code{mm}, @code{in}, @code{pt} and @code{cm} are variables
-defined in @file{book-paper-defaults.ly} with values in
-millimeters. That's why the value has to be multiplied in the example
-above.
+
+@refbugs
+
+The option rightmargin is defined but doesn't set the right margin
+yet. The value for the right margin has to be defined adjusting the
+values of the leftmargin and linewidth.
 
 The default page header puts the page number and the @code{instrument}
 field from the @code{\header} block on a line.
