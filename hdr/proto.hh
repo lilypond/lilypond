@@ -92,4 +92,8 @@ struct Input_command;
 struct Notename_tab;
 struct Input_file;
 struct Keyword_table;
+struct Rhythmic_grouping;
+struct Staff_commands_at ;
+struct Commands_at ;
+struct Moment;
 #endif // PROTO_HH

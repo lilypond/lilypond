@@ -11,21 +11,15 @@
 #include "proto.hh"
 #include "plist.hh"
 #include "real.hh"
+#include "moment.hh"
 
 struct Commands_at : public IPointerList<Input_command*> {
-    Real when;
-
-    /// current measure info
-    Real whole_per_measure;
-
-    /// where am i 
-    Real whole_in_measure;
+    Moment moment_;
     
-    /// idem
-    
-    int bars;
-
     /****************/
+
+    Real when();
+    void     parse(Staff_commands_at*);
     void print() const;
     Real barleft();
     void add(Input_command*);
