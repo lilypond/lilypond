@@ -16,6 +16,8 @@
 	* Documentation/user/music-glossary.tely: fix: change ä to @"a.
 
 	* lilypond-font-lock.el: match unending string at eof.
+
+	* make/lilypond.mandrake.spec.in: refreshed packed file list.
 	
 2003-06-10  Graham Percival  <gperlist@shaw.ca>
 

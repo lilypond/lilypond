@@ -13,8 +13,8 @@ Group:		Applications/Publishing
 URL:		http://www.lilypond.org/
 Source0:	ftp.cs.uu.nl:/pub/GNU/LilyPond/development/lilypond-%{version}.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-buildroot
-BuildRequires:	t1utils bison texinfo
-Requires:	tetex tetex-latex chkfontpath XFree86 info-install
+BuildRequires:	t1utils bison flex mftrace texinfo
+Requires:	tetex tetex-latex python chkfontpath info-install XFree86
 
 %description
 LilyPond is a music typesetter.  It produces beautiful sheet music using a
@@ -59,6 +59,7 @@ make -C Documentation
 
 # make  html
 make web-doc top-web 
+make -C Documentation/user omf
 
 %install
 
@@ -148,6 +149,12 @@ chkfontpath --add=%{_datadir}/lilypond/%{version}/fonts/type1/
 rm -f %{_datadir}/lilypond/%{version}/fonts/type1/fonts.dir
 chkfontpath --remove=%{_datadir}/lilypond/%{version}/fonts/type1/
 
+%post documentation
+scrollkeeper-update
+
+%postun documentation
+scrollkeeper-update
+
 %postun
 %{clean_menus}
 
@@ -171,16 +178,20 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir/*
 %_mandir/*
 %_menudir/*
-%_miconsdir/*
 %_iconsdir/*
-%_liconsdir/*
+
+%{_libdir}/lilypond/
 
 %files documentation
 %defattr(-, root, root)
 
-%doc web/
+%{_docdir}/lilypond-@TOPLEVEL_VERSION@/*
+%{_datadir}/omf/lilypond/@TOPLEVEL_VERSION@/*
 
 %changelog
+* Thu Jun 12 2003 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.20-1mdk
+- refreshed dependencies and file list.
+
 * Fri Dec 01 2002 Heikki Johannes Junes <hjunes@cc.hut.fi> 1.7.9-1mdk
 - set menu-items to lilypond-info and lilypond-documentation.
 
