@@ -1,4 +1,22 @@
+pl 45 (may 28)
 
+	- german vocab.
+
+
+pl 43.hwn2
+ 	- split G_staff_side_item into G_staff_side_element and G_staff_side_item.
+ 	- junked old Staff_side
+ 	- Crescendo also uses G_staff_side_element
+ 	- crescendo_shorten paper var.
+ 	- create horizontal groups for break_aligment inside Break_align_item.
+ 	- more abc-2-ly fudging
+ 
+pl 44.mb1
+	- bf, property.ly: change fontsize->fontSize
+	- N.W.Gade: removed old tie behaviour
+	- bf, ly2dvi: expand .sly extensions
+
+*********
 pl 44
 pl 43.jcn2
  	- bf: repeat :| placement + core dump
