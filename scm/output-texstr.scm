@@ -25,12 +25,12 @@
   (if (string? what)
       what
       ""))
-
 (define-public (text font str)
   (call-with-output-string
    (lambda (port)
      (display (format "\\lilygetmetrics{~a~a}{~a}{1.0}{~a}\n"
-		    (hash str 10000000)
+		      
+		      (hash str TEX_STRING_HASHLIMIT)
 		    (ly:font-file-name font)
 		    (ly:font-file-name font)
 		    str) port)

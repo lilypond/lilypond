@@ -15,7 +15,39 @@
 #include "warn.hh"
 #include "dimensions.hh"
 
+static SCM tex_dimension_hash_tab;
 static Tex_font_char_metric dummy_static_char_metric;
+
+
+	  
+Box
+lookup_tex_text_dimension (Font_metric *font,
+			   SCM text)
+{
+  Box b;
+
+  SCM limit = ly_scheme_function ("TEX_STRING_HASHLIMIT");
+  String key_str = font->font_name ();
+  int hash_code = scm_to_int (scm_hash (text, limit));
+  key_str += to_string (hash_code);
+  
+  SCM val = scm_hash_ref (tex_dimension_hash_tab,
+			  scm_makfrom0str (key_str.to_str0 ()),
+			  SCM_BOOL_F);
+
+  if (scm_is_pair (val))
+    {
+      b[X_AXIS][LEFT] = 0.0;
+      b[X_AXIS][RIGHT] = scm_to_double (scm_car (val));
+      val = scm_cdr (val);
+      b[Y_AXIS][UP] = scm_to_double (scm_car (val));
+      val = scm_cdr (val);
+      b[Y_AXIS][RIGHT] = scm_to_double (scm_car (val)); 
+    }
+  
+  return b; 
+}
+
 
 Tex_font_char_metric::Tex_font_char_metric ()
 {
@@ -99,7 +131,6 @@ Tex_font_metric::make_tfm (String file_name)
   tfm->header_ = reader.header_;
   tfm->char_metrics_ = reader.char_metrics_;
   tfm->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
-
   tfm->encoding_table_
     = scm_call_1 (ly_scheme_function ("get-coding-table"),
 		  scm_makfrom0str (tfm->coding_scheme ().to_str0 ()));
@@ -137,4 +168,33 @@ Tex_font_metric::name_to_index (String s) const
     }
   else
     return -1;  
+}
+
+
+LY_DEFINE(ly_load_text_dimensions, "ly:load-text-dimensions",
+	  1, 0, 0,
+	  (SCM dimension_alist),
+	  "Load dimensions from TeX in a (KEY . (W H D)) format alist")
+{
+  if (!tex_dimension_hash_tab)
+    {
+      tex_dimension_hash_tab =
+	scm_gc_protect_object (scm_make_hash_table (scm_from_int (113)));
+    }
+
+  for (SCM s = dimension_alist;
+       scm_is_pair (s);
+       s = scm_cdr (s))
+    {
+      SCM key = scm_caar (s);
+      SCM val = scm_cdar (s);
+      
+      if (scm_hash_ref (tex_dimension_hash_tab, key, SCM_BOOL_F)
+	  == SCM_BOOL_F)
+	{
+	  scm_hash_set_x (tex_dimension_hash_tab, key, val);
+	}
+    }
+
+  return SCM_UNSPECIFIED;
 }
