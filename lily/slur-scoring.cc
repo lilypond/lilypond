@@ -614,7 +614,6 @@ Slur_score_state::generate_curves () const
 Link_array<Slur_configuration>
 Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
 {
-  /*ugh.   */
   Link_array<Slur_configuration> scores;
 
   Drul_array<Offset> os;
