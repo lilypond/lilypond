@@ -79,7 +79,10 @@ For chord inversions, this is negative.")
 			    "Do these operations for instantiating the context.")
 (music-property-description 'predicate procedure? "the predicate of a \\outputproperty")
 (music-property-description 'type symbol? "The type of this music object. Determines iteration in some cases.")
-(music-property-description 'types list? "The types of this music object. Determines iteration in some cases.")
+(music-property-description 'types list? "The types of this music
+object; determines by what engraver this music expression is
+processed.")
+
 (music-property-description 'repeat-count  integer? "do a @code{\repeat} how ofen?")
 (music-property-description 'span-direction ly:dir? "Does this start or stop a spanner?")
 (music-property-description 'split-list list? "splitting moments for part combiner.")
@@ -94,6 +97,9 @@ starting grace notes.")
 (music-property-description 'value scheme? "Assignment value for a
 translation property")
 (music-property-description 'what symbol? "What to change for auto-change. FIXME, naming")
+(music-property-description 'part-combine-status symbol?
+			    "Change to what kind of state? Options are
+solo1, solo2 and unisono")
 
 (music-property-description 'figure string? "a `figure' (which may be
 a string) for figured bass")

@@ -173,6 +173,7 @@
 	\consists "Percent_repeat_engraver"
 	\consists "Slash_repeat_engraver"
 	\consists "Melisma_engraver"
+	\consists "Part_combine_engraver"
 
 %{
  Must come before text_engraver, but after note_column engraver.

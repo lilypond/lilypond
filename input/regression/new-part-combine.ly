@@ -10,10 +10,6 @@ Apart for:
 "
     }
 
-theMusic = \context Staff \notes { c4 d8-. }
-
-
-
 vone = \notes \relative a' { g2 g    g  g4 g f' c c( c) c c  c ~ c
 			     c2. c4   c
 			 }
