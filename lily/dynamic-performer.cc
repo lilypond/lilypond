@@ -33,7 +33,7 @@ protected:
   virtual void do_pre_move_processing ();
 
 private:
-  Dynamic_script_req* script_req_l_;
+  Music* script_req_l_;
   Audio_dynamic* audio_p_;
 };
 
@@ -133,9 +133,10 @@ Dynamic_performer::do_try_music (Music* r)
 {
   if (!script_req_l_)
     {
-      if(Dynamic_script_req* d = dynamic_cast <Dynamic_script_req*> (r))
+      if( dynamic_cast <Text_script_req*> (r)
+	  && r->get_mus_property ("text-type") == ly_symbol2scm ("dynamic"))
 	{
-	  script_req_l_ = d;
+	  script_req_l_ = r;
 	  return true;
 	}
     }

@@ -72,11 +72,6 @@ protected:
   virtual bool do_equal_b (Request const*) const;
 };
 
-class Dynamic_script_req : public Script_req
-{
-protected:
-  VIRTUAL_COPY_CONS (Music);
-};
 
 /// request which has some kind of pitch
 struct Melodic_req :virtual Request

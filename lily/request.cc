@@ -28,3 +28,19 @@ Request::Request ()
 {
   set_mus_property ("type", ly_symbol2scm ("request"));
 }
+
+void
+Script_req::set_direction (Direction d)
+{
+  set_mus_property ("direction", gh_int2scm (d));
+}
+
+Direction
+Script_req::get_direction () const
+{
+  SCM d = get_mus_property ("direction");
+
+  return (isdir_b (d)) ?  to_dir (d) : CENTER;
+}
+
+
