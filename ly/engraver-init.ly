@@ -423,7 +423,7 @@ ScoreContext = \translator {
 	  time-signature
 	  custos
 	)
-
+	barCheckSynchronize = ##t
 
 	\grobdescriptions #all-grob-descriptions
 }

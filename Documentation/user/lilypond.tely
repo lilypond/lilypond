@@ -77,15 +77,16 @@ this and other documentation.
 * Tutorial::                       A tutorial introduction to LilyPond.
 * Reference Manual::               Reference Manual.
 * Invoking LilyPond::              Operation.
-* Bug reports::                    Where to report bugs.
-* ly2dvi::                         Generating nice output with titles.
-* convert-ly::                     Upgrading input files.
-* Conversion tools::               Converting to lilypond source format.
-* lilypond-book::                  Interleaving text with music.
+* Titling LilyPond scores::        Generating nice output with titles
+                                     using ly2dvi.
+* Upgrading from older LilyPond versions::
+                                     Upgrading input files.
+* Importing other formats::        Converting to lilypond source format.
+* Merging text and music with lilypond-book::
+                                   The lilypond-book manual.
 * Internals::                      How it all works.
-* Literature::                     Additional reading
+* Literature::                     Additional reading material.
 * Index::                          Unified index.
-* Function Index::                 Function index.
 * Refman appendix::
 * GNU Free Documentation License::     FDL.
 @end menu
@@ -101,7 +102,6 @@ this and other documentation.
 @mbinclude refman.itely
 @mbinclude internals.itely
 @mbinclude invoking.itexi
-@mbinclude bugs.itexi
 @mbinclude ly2dvi.itexi
 @mbinclude convert-ly.itexi
 @mbinclude lilypond-book.itely
@@ -114,11 +114,6 @@ this and other documentation.
 @unnumbered Index
 
 @printindex cp
-
-@node Function Index
-@unnumbered Function Index
-
-@printindex fn
 
 @mbinclude appendices.itely
 @mbinclude fdl.itexi

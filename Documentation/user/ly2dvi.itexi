@@ -1,22 +1,20 @@
 @c -*-texinfo-*-
 
-@node ly2dvi
-@chapter ly2dvi
+@node Titling LilyPond scores
+@chapter Titling LilyPond scores
 
-@file{ly2dvi} is a Python script that creates a nicely titled output file
-from an input file for La@TeX{}. It can create a DVI or PS file. It
-works by running LilyPond on the input files, creating a La@TeX{}
-wrapper around the output, and running La@TeX{} (and optionally
-@code{dvips}).
+Nicely titled output is created through a separate program:
+@file{ly2dvi} is a script that uses LilyPond and La@TeX{} to create a
+nicely titled piece of sheet music, in DVI format or PostScript.
 
 @unnumberedsubsec Invoking ly2dvi
 
 @c ly2dvi needs at least one FILE, can't act as filter yet
 @example
-        ly2dvi [@var{OPTION}]@dots{} @var{FILE}@dots{}
+        ly2dvi [@var{option}]@dots{} @var{file}@dots{}
 @end example
 
-@unnumberedsec Options
+Ly2dvi supports the following options:
 
 @table @code
 @item -k,--keep
@@ -26,20 +24,20 @@ files. The temporary directory is created in the current directory as @code{ly2d
     Write makefile dependencies for every input file.
 @item -h,--help
     Print usage help.
-@item -I,--include=@var{DIR}
-    Add @var{DIR} to LilyPond's include path.
+@item -I,--include=@var{dir}
+    Add @var{dir} to LilyPond's include path.
 @item -m,--no-paper
     Produce MIDI output only.
 @item --no-lily
     Do not run LilyPond; useful for debugging ly2dvi.
-@item -o,--output=@var{FILE}
-    Generate output to @var{FILE}.  The extension of @var{FILE} is ignored.
+@item -o,--output=@var{file}
+    Generate output to @var{file}.  The extension of @var{file} is ignored.
 @item -P,--postscript
     Also generate PostScript output, using dvips.
 @item --preview
     Also generate a picture of the first system of the score.
-@item -s,--set=@var{KEY}=@var{VAL}
-    Add @var{KEY}= @var{VAL} to the settings, overriding those specified
+@item -s,--set=@var{key}=@var{val}
+    Add @var{key}= @var{val} to the settings, overriding those specified
 in the files. Possible keys: @code{language}, @code{latexheaders},
 @code{latexpackages}, @code{latexoptions}, @code{papersize},
 @code{pagenumber}, @code{linewidth}, @code{orientation},
@@ -157,18 +155,4 @@ the @code{\paper} block.
 @item LANG
 selects the language for the warning messages of Ly2dvi and LilyPond.
 @end table
-
-@unnumberedsubsec  Bugs
-
-Cannot generate @TeX{} or @code{PostScript} only.  Send bugreports to to
-@email{bug-lilypond@@gnu.org}.
-
-@unnumberedsubsec  Authors
-
-@email{hanwen@@cs.uu.nl,Han-Wen Nienhuys}.
-
-Earlier incarnations of ly2dvi were written by
-@email{daboys@@austin.rr.com, Jeffrey B. Reed} (Python version), and
-@email{Jan.A.Fagertun@@energy.sintef.no, Jan Arne Fagertun} (Bourne
-shell version)
 

@@ -13,6 +13,12 @@ for fn in ls:
     name = re.sub ('\.pf[ab]', '',fn)    
     name = re.sub ('-', ' ',name)
 
-    print '%s -misc-%s-regular-r-normal--0-0-0-0-p-0-adobe-fontspecific' % (fn, name)
+    m = re.search ("([0-9]+)$", name)
+    designsize = 'normal'
+    if m:
+        designsize =  m.group (1)
+        name = re.sub ("([0-9]+)$", "", name)
+        
+    print '%s -lilypond-%s-regular-r-%s--0-0-0-0-p-0-adobe-fontspecific' % (fn, name, designsize)
     
     

@@ -198,5 +198,12 @@ unsmob_item (SCM s )
 
 ADD_INTERFACE(Item,
 	      "item-interface",
-	      "",
+	      "
+
+Grobs can also be distinguished in their role in the horizontal spacing.
+Many grobs define constraints on the spacing by their sizes. For
+example, note heads, clefs, stems, and all other symbols with a fixed
+shape.  These grobs form a subtype called @code{Item}.
+
+",
 	      "no-spacing-rods break-visibility breakable")

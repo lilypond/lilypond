@@ -220,7 +220,38 @@ LY_DEFINE(ly_add_molecule ,
 
 LY_DEFINE(ly_make_molecule,
 	  "ly-make-molecule", 3, 0, 0,  (SCM expr, SCM xext, SCM yext),
-	  "")
+	  "
+The objective of any typesetting system is to put ink on paper in the
+right places. For LilyPond, this final stage is left to the @TeX{} and
+the printer subsystem. For lily, the last stage in processing a score is
+outputting a description of what to put where.  This description roughly
+looks like
+@example
+        PUT glyph AT (x,y)
+        PUT glyph AT (x,y)
+        PUT glyph AT (x,y) 
+@end example
+you merely have to look at the tex output of lily to see this.
+Internally these instructions are encoded in Molecules.@footnote{At some
+point LilyPond also contained Atom-objects, but they have been replaced
+by Scheme expressions, making the name outdated.}  A molecule is
+what-to-print-where information that also contains dimension information
+(how large is this glyph?).
+
+Conceptually, Molecules can be constructed from Scheme code, by
+translating a Molecule and by combining two molecules. In BNF
+notation:
+
+@example
+Molecule  :: COMBINE Molecule Molecule
+           | TRANSLATE Offset Molecule
+           | GLYPH-DESCRIPTION
+           ;
+@end example
+
+If you are interested in seeing how this information is stored, you
+can run with the @code{-f scm} option. The scheme expressions are then
+dumped in the output file.")
 {
   SCM_ASSERT_TYPE (ly_number_pair_p (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
   SCM_ASSERT_TYPE (ly_number_pair_p (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");  

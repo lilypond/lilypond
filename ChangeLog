@@ -1,3 +1,20 @@
+2002-07-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/bar-check-iterator.cc (process): change
+	barbarCheckNoSynchronize to barCheckSynchronize
+
+	* Documentation/user/bugs.itexi: move to introduction, remove.
+
+	* Documentation/user/*.itexi: general carnage/cleanage.
+	
+	* Documentation/user/internals.itely: split most of file into
+	internal documentation (.scm and .cc)
+
+	* buildscripts/make-font-dir.py: put designsize in to X font
+	sWidth field
+
+	* make/lilypond.redhat.spec.in: postinstall bugfix
+
 2002-07-02  Juergen Reuter  <reuter@ipd.uka.de>
 
 	* lily/ambitus-engraver.cc, lily/ambitus.cc: Various bugfixes:

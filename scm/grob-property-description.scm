@@ -23,8 +23,39 @@
 
 ;; put this in an alist?
 
-(grob-property-description 'X-extent-callback procedure? "procedure taking an grob and axis argument, returning a number-pair. The return value is the extent of the grob.")
-(grob-property-description 'X-offset-callbacks list? "list of functions, each taking an grob and axis argument. The function determine the position relative to this grob's parent. The last one in the list is called first.")
+(grob-property-description 'X-extent-callback procedure? "procedure taking an grob and axis argument, returning a number-pair. The return value is the extent of the grob.
+
+The size of a grob are determined through callbacks, settable with
+grob properties @code{X-extent-callback} and @code{Y-extent-callback}.
+There can be only one extent-callback for each axis. No callback
+(Scheme value @code{#f}) means: `empty in this direction'. If you fill
+in a pair of numbers, that pair hard-codes the extent in that
+coordinate.
+")
+(grob-property-description 'X-offset-callbacks list? "list of functions, each taking an grob and axis argument. The function determine the position relative to this grob's parent. The last one in the list is called first.
+
+Offsets of grobs are relative to a parent reference point. Most
+positions are not known when an object is created, so these are
+calculated as needed. This is done by adding a callback for a specific
+direction.
+
+Offset callbacks can be stacked, i.e.
+
+@example
+        \property .... \override #'Y-offset-callbacks = #(list
+                callback1 callback2 callback3)
+
+@end example
+
+The callbacks will be executed in the order @code{callback3 callback2
+callback1}. This is used for quantized positioning: the staccato dot is
+above or below a note head, and it must not be on a staff-line.  To
+achieve this, the staccato dot has two callbacks: one that positions the
+grob above or below the note head, and one that rounds the Y-position of
+the grob to the nearest open space.
+
+
+")
 (grob-property-description 'Y-extent-callback procedure? "see @code{X-extent-callback}.")
 (grob-property-description 'Y-offset-callbacks list? "see @code{X-offset-callbacks}.")
 (grob-property-description 'accidentals list? "Alist with (PITCH
@@ -235,7 +266,13 @@ noteheads in collisions, even if they have a different number of
 dots. This normal notation for some types of polyphonic music. The
 value of this setting is used by @ref{note-collision-interface} .")
 
-(grob-property-description 'meta list? "Alist of meta information of this grob.")
+(grob-property-description 'meta list? "Alist of meta information of this grob.
+
+The alist contains the following entries: name, interfaces.
+
+
+
+")
 (grob-property-description 'minimum-distance number? "minimum distance between notes and rests.")
 (grob-property-description 'minimum-distances list? "list of rods (ie. (OBJ . DIST) pairs).")
 (grob-property-description 'minimum-extent-X number-pair? "minimum size in X dimension, measured in staff space.")
@@ -256,7 +293,15 @@ FIXME: also pair? (cons LEFT RIGHT)
 ? (cons LEFT RIGHT)
 
 ")
-(grob-property-description 'molecule-callback procedure? "Function taking grob as argument, returning a Scheme encoded Molecule.")
+(grob-property-description 'molecule-callback procedure? "Function
+taking grob as argument, returning a smobbed Molecule.
+
+All visible, i.e. non-transparent, grobs have a callback to create a
+Molecule. The callback should be a Scheme function taking one argument
+(the grob) and returning a Molecule.  Most molecule callbacks are
+written in C++, but you can also write them in Scheme. An example is
+provided in @code{input/regression/molecule-hacking.ly}.
+")
 
 (grob-property-description 'molecule molecule? "Cached output of the molecule-callback.")
 
@@ -417,7 +462,25 @@ one of: line, dashed-line, trill or dotted-line.
 
 [FIXME: type is too generic for this doc, move doco to intefrace] 
 ")
-(grob-property-description 'break-visibility procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).")
+
+(grob-property-description 'break-visibility procedure? "a function that takes the break direction and returns a  cons of booleans containing (TRANSPARENT . EMPTY).
+
+
+Some items need special treatment for line breaking. For example, a
+clef is normally only printed at the start of a line (i.e. after a line
+break).  To model this, `breakable' items (clef, key signature, bar lines,
+etc.) are copied twice. Then we have three versions of each breakable
+item: one version if there is no line break, one version that is printed
+before the line break (at the end of a system), one version that is
+printed after the line break.
+
+Whether these versions are visible and take up space, is determined by
+the outcome of the @code{break-visibility}. This grob property is a
+function taking a direction (-1, 0 or 1) as argument. It returns a cons
+of booleans, signifying whether this grob should be transparent and have
+no extent.
+
+")
 (grob-property-description 'when moment? "when does this column happen?.")
 (grob-property-description 'word-space number? "elongate left by this much (FIXME: cumbersome semantics).")
 (grob-property-description 'alignment number? "alignment of lyrics on notehead, -1 is LEFT, 0 is CENTRE, 1 is RIGHT .")

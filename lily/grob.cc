@@ -818,10 +818,36 @@ Grob::internal_has_interface (SCM k)
 IMPLEMENT_TYPE_P (Grob, "ly-grob?");
 
 ADD_INTERFACE (Grob, "grob-interface",
-  "All grobs support this",
+  "In music notation, lots of symbols are related in some way.  You can
+think of music notation as a graph where nodes are formed by the
+symbols, and the arcs by their relations. A grob is a node in that
+graph.  The directed edges in the graph are formed by references to
+other grobs (i.e. pointers).  This big graph of grobs specifies the
+notation problem. The solution of this problem is a description of the
+printout in closed form, i.e. a list of values.  These values are
+Molecules.
+
+All grobs have an X and Y-position on the page.  These X and Y positions
+are stored in a relative format, so they can easily be combined by
+stacking them, hanging one grob to the side of another, and coupling
+them into a grouping-grob.
+
+Each grob has a reference point (a.k.a.  parent): the position of a grob
+is stored relative to that reference point. For example the X-reference
+point of a staccato dot usually is the note head that it applies
+to. When the note head is moved, the staccato dot moves along
+automatically.
+
+A grob is often associated with a symbol, but some grobs do not print
+any symbols. They take care of grouping objects. For example, there is a
+separate grob that stacks staves vertically. The @ref{NoteCollision}
+is also an abstract grob: it only moves around chords, but doesn't print
+anything.
+",
   "X-offset-callbacks Y-offset-callbacks X-extent-callback molecule cause
 Y-extent-callback molecule-callback extra-offset
 spacing-procedure
 staff-symbol interfaces dependencies extra-extent-X causes meta
 layer before-line-breaking-callback after-line-breaking-callback extra-extent-Y minimum-extent-X minimum-extent-Y transparent");
+
 

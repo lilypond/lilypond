@@ -418,5 +418,11 @@ unsmob_spanner (SCM s )
 
 ADD_INTERFACE(Spanner,
 	      "spanner-interface",
-	      "",
+	      "
+Other grobs have a shape that depends on the horizontal spacing. For
+example, slur, beam, tie, etc. These grobs form a subtype called
+@code{Spanner}. All spanners have two span-points (these must be
+@code{Item}s), one on the left and one on the right. The left bound is
+also the X-reference point of the spanner.
+",
 	      "minimum-length");
