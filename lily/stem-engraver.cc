@@ -13,6 +13,7 @@
 #include "duration-convert.hh"
 #include "misc.hh"
 #include "abbrev.hh"
+#include "staff-info.hh"
 
 Stem_engraver::Stem_engraver()
 {
@@ -45,6 +46,7 @@ Stem_engraver::acknowledge_element(Score_element_info i)
 	  int durlog_i = r->duration_.durlog_i_;
 	  stem_p_->flag_i_ = durlog_i;
 
+	  stem_p_->staff_sym_l_ = get_staff_info ().staff_sym_l_;
 	  
 	  if (abbrev_req_l_)
 	    {

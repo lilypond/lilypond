@@ -1,0 +1,31 @@
+\score{
+	\type GrandStaff <
+	\type Staff=one \notes\relative c'{
+		\stemup [c8 c \translator Staff=two \stemup c c]
+		r2
+		\translator Staff=one
+		\stemdown [c8 c \translator Staff=two \stemup c c]
+		r2
+		\stemdown [c8 c \translator Staff=one \stemdown c c]
+		r2
+		\translator Staff=two
+		\stemup [c8 c \translator Staff=one \stemdown c c]
+		r2
+	}
+	\type Staff=two \notes\relative c'{
+		\clef bass;
+		s1
+		s1
+		s1
+		s1
+	}
+	>
+	\paper{
+		\translator{
+			\GrandStaffContext
+			minVerticalAlign = 2.5*\staffheight;
+			maxVerticalAlign = 2.5*\staffheight;
+		}
+		linewidth=-1.;
+	}
+}

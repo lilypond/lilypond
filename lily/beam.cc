@@ -77,6 +77,10 @@ Beam::do_brew_molecule_p () const
   mol_p->translate_axis (x0 
     - spanned_drul_[LEFT]->absolute_coordinate (X_AXIS), X_AXIS);
 
+  // correct if last note (and therefore reference point of beam)
+  // is on different staff
+  mol_p->translate_axis (- sinfo_.top ().interstaff_f_ * internote_f, Y_AXIS);
+
   return mol_p;
 }
 
@@ -229,13 +233,20 @@ Beam::check_stemlengths_f (bool set_b)
   for (int i=0; i < sinfo_.size (); i++)
     {
       Real y = sinfo_[i].x_ * slope_f_ + left_y_;
+
       // correct for knee
       if (dir_ != sinfo_[i].dir_)
-	y -= dir_ * (beam_f / 2
-		      + (sinfo_[i].mult_i_ - 1) * interbeam_f) / internote_f;
+	{
+	  y -= dir_ * (beam_f / 2
+		       + (sinfo_[i].mult_i_ - 1) * interbeam_f) / internote_f;
+	  if (!i && sinfo_[i].stem_l_->staff_sym_l_ !=
+	      sinfo_.top ().stem_l_->staff_sym_l_)
+	    y += dir_ * (multiple_i_ - (sinfo_[i].stem_l_->flag_i_ - 2) >? 0)
+	      * interbeam_f / internote_f;
+	}
 
       if (set_b)
-	sinfo_[i].stem_l_->set_stemend (y);
+	sinfo_[i].stem_l_->set_stemend (y - sinfo_[i].interstaff_f_);
 	
       y *= dir_;
       if (y > sinfo_[i].maxy_f_)

@@ -76,7 +76,10 @@ public:
 
   /// direction of the beam
   Direction beam_dir_;
-    
+
+  /// what staff am i on?
+  Staff_symbol* staff_sym_l_;    
+
   Stem ();
     
   /// ensure that this Stem also encompasses the Notehead #n#

@@ -63,6 +63,20 @@ Beam_engraver::do_process_requests ()
       if (prop.isnum_b ()) 
 	beam_p_->quantisation_ = (Beam::Quantisation)(int)prop;
  
+      // silly try at interstaff beam
+      // must set minVerticalAlign == maxVerticalAlign to get sane results
+      // see input/test/beam-interstaff.ly
+      prop = get_property ("minVerticalAlign", 0);
+      if (prop.isnum_b ())
+	beam_p_->vertical_align_f_ = prop;
+
+      prop = get_property ("maxVerticalAlign", 0);
+      if (prop.isnum_b ())
+	{
+	  beam_p_->vertical_align_f_ += (Real)prop;
+	  beam_p_->vertical_align_f_ /= (Real)2;
+	}
+
       announce_element (Score_element_info (beam_p_, reqs_drul_[START]));
     }
 }

@@ -20,6 +20,7 @@ struct Stem_info {
   Real miny_f_;
   Real maxy_f_;
   int mult_i_;
+  Real interstaff_f_;
   Stem* stem_l_;
 
   Stem_info ();

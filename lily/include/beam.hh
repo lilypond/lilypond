@@ -40,6 +40,9 @@ public:
   /// maximum number of beams (for opening-up of beam-spacing)
   int multiple_i_;
 
+  /// vertical align distance between staffs
+  Real vertical_align_f_;
+
   Array<Stem_info> sinfo_;
   
   Beam();

@@ -15,6 +15,7 @@
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "stem-info.hh"
+#include "beam.hh"
 
 Stem_info::Stem_info ()
 {
@@ -27,6 +28,7 @@ Stem_info::Stem_info (Stem*s)
   dir_ = stem_l_->dir_;
   beam_dir_ = stem_l_->beam_dir_;
   mult_i_ = stem_l_->mult_i_;
+  interstaff_f_ = 0;
 
   Paper_def* paper_l = stem_l_->paper ();
   Real internote_f = paper_l->internote_f ();
@@ -77,6 +79,8 @@ Stem_info::Stem_info (Stem*s)
     /* knee */
     {
       idealy_f_ -= beam_f;
+      // idealy_f_ -= (mult_i_ - 1) * interbeam_f;
+      // idealy_f_ += (mult_i_ - stem_l_->flag_i_ >? 0) * interbeam_f;
       maxy_f_ = idealy_f_;
       miny_f_ = -INT_MAX;
 
@@ -97,5 +101,21 @@ Stem_info::Stem_info (Stem*s)
 
   idealy_f_ = maxy_f_ <? idealy_f_;
   idealy_f_ = miny_f_ >? idealy_f_;
+
+  // interstaff beam
+  Beam* beam_l_ = stem_l_->beam_l_;
+  if (beam_l_->sinfo_.size ()
+      && stem_l_->staff_sym_l_ != beam_l_->sinfo_[0].stem_l_->staff_sym_l_)
+    {
+      // hmm, perhaps silly now to have vertical_align in Beam
+      interstaff_f_ = beam_l_->vertical_align_f_ / internote_f;
+      // urg, guess staff order:
+      // if our stem ends higher, our staff is probably lower...
+      if (idealy_f_ * beam_dir_ > beam_l_->sinfo_[0].idealy_f_ * beam_dir_)
+	interstaff_f_ *= -1;
+      idealy_f_ += interstaff_f_ * beam_dir_;
+      miny_f_ += interstaff_f_ * beam_dir_;
+      maxy_f_ += interstaff_f_ * beam_dir_;
+    }
 }
 
