@@ -195,7 +195,7 @@ New_lyric_combine_music_iterator::find_voice ()
 	  String name = ly_scm2string (voice_name);
 	  Translator_group *voice = find_context_below (t, "Voice", name);
 	  if (!voice)
-	    get_music ()->origin ()->warning (_f ("Cannot find Voice: %s\n",
+	    get_music ()->origin ()->warning (_f ("cannot find Voice: %s\n",
 						  name.to_str0 ())); 
 	  else
 	    music_context_ = voice;
@@ -223,9 +223,14 @@ New_lyric_combine_music_iterator::process (Moment )
   
   if (!music_context_->daddy_trans_)
     {
-      music_context_ = 0;
+      /*
+	The melody has died.
+	We die too.
+       */
       if (lyrics_context_)
 	lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
+      lyric_iter_ = 0;
+      music_context_ = 0;
     }
   
   if (music_context_

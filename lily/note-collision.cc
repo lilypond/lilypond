@@ -160,6 +160,9 @@ check_meshing_chords (Grob *me,
       }
   }
 
+  full_collide = full_collide || (close_half_collide
+				  && distant_half_collide);
+  
   Drul_array<Real> center_note_shifts;
   center_note_shifts[LEFT] = 0.0;
   center_note_shifts[RIGHT] = 0.0;
@@ -167,16 +170,19 @@ check_meshing_chords (Grob *me,
   
   Real shift_amount = 1;
 
-  bool touch = (ups[0] - dps.top () >= 0);
+  bool touch = (ups[0] >= dps.top ());
   if (touch)
     shift_amount *= -1;
 
   /* For full collisions, the right hand head may obscure dots, so
      make sure the dotted heads go to the right.  */
-  if (Rhythmic_head::dot_count (nu) > Rhythmic_head::dot_count (nd)
-      && full_collide)
-    shift_amount = 1;
-
+  bool stem_to_stem = false;
+  if (full_collide)
+    if (Rhythmic_head::dot_count (nu) > Rhythmic_head::dot_count (nd))
+      shift_amount = 1;
+    else if (Rhythmic_head::dot_count (nu) < Rhythmic_head::dot_count (nd))
+      stem_to_stem = true;
+  
   if (merge_possible)
     {
       shift_amount = 0;
@@ -206,6 +212,8 @@ check_meshing_chords (Grob *me,
     }
   /* TODO: these numbers are magic; should devise a set of grob props
      to tune this behavior.  */
+  else if (stem_to_stem)
+    shift_amount *= -0.65; 
   else if (close_half_collide && !touch)
     shift_amount *= 0.52;
   else if (distant_half_collide && !touch)

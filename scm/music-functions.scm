@@ -518,7 +518,7 @@ Rest can contain a list of beat groupings
 		(make-simultaneous-music (car lst))))
 
 	      'Voice  (number->string number))
-	      (voicify-list (cdr lst) (+ number 1))
+	      (voicify-list (cdr lst) (1+ number))
        ))
    )
 
@@ -549,7 +549,7 @@ Rest can contain a list of beat groupings
      (if
       (and (equal? (ly:music-name m) "Simultaneous_music")
 	   (reduce (lambda (x y ) (or x y)) #f (map music-separator? es)))
-      (voicify-chord m)
+      (set! m  (context-spec-music (voicify-chord m)  'Staff))
       )
 
      m

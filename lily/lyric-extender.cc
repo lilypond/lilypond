@@ -18,7 +18,6 @@
 #include "note-head.hh"
 #include "group-interface.hh"
 
-
 bool
 Lyric_extender::is_visible (Grob *gr)
 {
@@ -82,8 +81,10 @@ Lyric_extender::brew_molecule (SCM smob)
   Real h = sl * robust_scm2double (me->get_grob_property ("thickness"), 0);
   Real pad = 2* h;
 
-  if (!r->break_status_dir ())
+  if (r->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface")))
     right_point = right_point <? (r->extent (common, X_AXIS)[LEFT] - pad);
+  else if (Note_head::has_interface (r))
+    ; 
   else if (!last_line)
     {
       /*
