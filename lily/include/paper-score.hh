@@ -20,7 +20,7 @@
 class Paper_score : public Music_output
 {
 public:
-  Paper_def *paper_;
+  Output_def *paper_;
   System *system_;
 
   Paper_score ();

@@ -178,17 +178,26 @@ My_lily_lexer::start_main_input ()
 void
 My_lily_lexer::set_identifier (SCM name, SCM s)
 {
-  assert (ly_c_string_p (name));
+  SCM sym = name;
+  if (ly_c_string_p (name))
+    sym =  scm_string_to_symbol (name);
   
-  if (lookup_keyword (ly_scm2string (name)) >= 0)
+  if (ly_c_symbol_p (sym))
     {
-      warning (_f ("Identifier name is a keyword: `%s'", SCM_STRING_CHARS (name)));
+      if (lookup_keyword (ly_symbol2string (sym)) >= 0)
+	{
+	  warning (_f ("Identifier name is a keyword: `%s'", SCM_SYMBOL_CHARS (sym)));
+	}
+
+      SCM mod = ly_car (scopes_);
+
+      scm_module_define (mod, sym, s);
     }
-
-  SCM sym = scm_string_to_symbol (name);
-  SCM mod = ly_car (scopes_);
-
-  scm_module_define (mod, sym, s);
+  
+  else
+    {
+      programming_error ("Identifier is not a symbol.");
+    }
 }
 
 My_lily_lexer::~My_lily_lexer ()

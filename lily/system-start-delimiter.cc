@@ -10,7 +10,7 @@
 
 #include "axis-group-interface.hh"
 #include "system-start-delimiter.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "stencil.hh"
 #include "font-interface.hh"
 #include "all-font-metrics.hh"

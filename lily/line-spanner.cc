@@ -12,7 +12,7 @@
 #include "item.hh"
 #include "spanner.hh"
 #include "line-spanner.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
 #include "font-interface.hh"

@@ -10,7 +10,7 @@
 #include "main.hh"
 #include "page.hh"
 #include "paper-book.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-outputter.hh"
 #include "paper-line.hh"
 #include "paper-score.hh"
@@ -90,10 +90,11 @@ Paper_book::output (String outname)
   /* Generate all stencils to trigger font loads.  */
   SCM pages = this->pages ();
 
-  Paper_def *paper = score_lines_[0].paper_;
-  Paper_outputter *out = paper->get_paper_outputter (outname);
+  Output_def *paper = score_lines_[0].paper_;
+  Paper_outputter *out = get_paper_outputter (outname);
   int page_count = scm_ilength (pages);
-  out->output_header (paper->bookpaper_, scopes (0), page_count, false);
+
+  out->output_header (paper->parent_, scopes (0), page_count, false);
 
   for (SCM s = pages; s != SCM_EOL; s = ly_cdr (s))
     {
@@ -144,9 +145,13 @@ void
 Paper_book::classic_output (String outname)
 {
   int count = score_lines_.size ();
-  Paper_def * p = score_lines_.top ().paper_;
-  Paper_outputter *out = p->get_paper_outputter (outname);
-  out->output_header (p->bookpaper_, scopes (count - 1), 0, true);
+  Paper_outputter *out = get_paper_outputter (outname);
+
+  Output_def * p = score_lines_.top ().paper_;
+  while (p && p->parent_)
+    p = p->parent_;
+  
+  out->output_header (p, scopes (count - 1), 0, true);
 
   SCM top_lines = score_lines_.top ().lines_;
   Paper_line *first = unsmob_paper_line (scm_vector_ref (top_lines,
@@ -195,7 +200,7 @@ Paper_book::init ()
 	}
     }
 
-  Paper_def *paper = score_lines_[0].paper_;
+  Output_def *paper = score_lines_[0].paper_;
   SCM scopes = this->scopes (0);
 
   SCM make_tagline = paper->c_variable ("make-tagline");
@@ -238,7 +243,7 @@ Paper_book::pages ()
 {
   init ();
   Page::page_count_ = 0;
-  Paper_def *paper = score_lines_[0].paper_;
+  Output_def *paper = score_lines_[0].paper_;
   Page *page = new Page (paper, 1);
 
   Real text_height = page->text_height ();

@@ -32,8 +32,8 @@ class Paper_outputter
   String filename_;
   
   void output_expr (SCM expr, Offset o);
-  void output_metadata (Book_paper_def*, SCM);
-  void output_music_output_def (Music_output_def* odef);
+  void output_metadata (Output_def *, SCM);
+  void output_music_output_def (Output_def* odef);
 
 public:
   Paper_outputter (String nm);
@@ -42,9 +42,11 @@ public:
   void dump_scheme (SCM);
   void output_scheme (SCM scm);
   void output_stencil (Stencil);
-  void output_header (Book_paper_def*, SCM, int, bool);
+  void output_header (Output_def*, SCM, int, bool);
   void output_line (SCM, Offset*, bool);
   void output_page (Page*, bool);
 };
+
+Paper_outputter* get_paper_outputter (String);
 
 #endif /* PAPER_OUTPUTTER_HH */

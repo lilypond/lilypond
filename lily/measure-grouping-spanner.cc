@@ -7,7 +7,7 @@
 
  */
 
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "spanner.hh"
 #include "measure-grouping-spanner.hh"
 #include "lookup.hh" 

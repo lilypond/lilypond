@@ -9,7 +9,7 @@
 #include "dimensions.hh"
 #include "ly-module.hh"
 #include "page.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-outputter.hh"
 #include "paper-line.hh"
 #include "stencil.hh"
@@ -19,13 +19,13 @@
 int Page::page_count_ = 0;
 Real Page::MIN_COVERAGE_ = 0.66;
 
-Book_paper_def *
+Book_output_def *
 Page::bookpaper () const
 {
-  return paper_->bookpaper_;
+  return dynamic_cast<Book_output_def*> ( paper_->parent_);
 }
 
-Page::Page (Paper_def *paper, int number)
+Page::Page (Output_def *paper, int number)
 {
   copyright_ = SCM_EOL;
   footer_ = SCM_EOL;

@@ -11,7 +11,7 @@
 #include "warn.hh"
 #include "font-metric.hh"
 #include "spanner.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "system.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"

@@ -15,19 +15,19 @@
 #include "global-context.hh"
 #include "score-context.hh"
 #include "context-def.hh"
-#include "music-output-def.hh"
+#include "output-def.hh"
 #include "grace-fixup.hh"
 
-Global_context::Global_context (Music_output_def *o, Moment final)
+Global_context::Global_context (Output_def *o, Moment final)
 {
   output_def_ = o;
   final_mom_ = final;
-  definition_ = o->find_context_def (ly_symbol2scm ("Global"));
+  definition_ = find_context_def (o, ly_symbol2scm ("Global"));
   unsmob_context_def (definition_)->apply_default_property_operations (this);
   accepts_list_ = scm_list_1 (ly_symbol2scm ("Score"));
 }
 
-Music_output_def* 
+Output_def* 
 Global_context::get_output_def () const
 {
   return output_def_;
@@ -145,8 +145,7 @@ Global_context::run_iterator_on_me (Music_iterator * iter)
       if (!get_score_context ()) 
 	{
 	  SCM key = ly_symbol2scm ("Score");
-	  Context_def * t = unsmob_context_def (get_output_def ()
-						->find_context_def (key));
+	  Context_def * t = unsmob_context_def (find_context_def (get_output_def (), key));
 	  if (!t)
 	    error (_f ("can't find `%s' context", "Score"));
 

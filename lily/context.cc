@@ -11,7 +11,7 @@
 #include "context-def.hh"
 #include "context.hh"
 #include "warn.hh"
-#include "music-output-def.hh"
+#include "output-def.hh"
 #include "scm-hash.hh"
 #include "main.hh"
 #include "ly-smobs.icc"
@@ -193,7 +193,7 @@ Context::get_default_interpreter ()
   if (!is_bottom_context ())
     {
       SCM nm = default_child_context_name ();
-      SCM st = get_output_def ()->find_context_def (nm);
+      SCM st = find_context_def (get_output_def (), nm);
 
       Context_def *t = unsmob_context_def (st);
       if (!t)
@@ -344,7 +344,7 @@ Context::get_score_context () const
     return 0;
 }
 
-Music_output_def *
+Output_def *
 Context::get_output_def () const
 {
   return  (daddy_context_)

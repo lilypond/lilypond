@@ -1,5 +1,5 @@
 /*
-  midi-def.cc -- implement Midi_def
+  midi-def.cc -- implement midi output def functions
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,23 +7,21 @@
 
 */
 #include <math.h>
+
 #include "misc.hh"
-#include "midi-def.hh"
-#include "performance.hh"
+#include "output-def.hh"
+#include "moment.hh"
 #include "warn.hh"
 #include "scm-hash.hh"
 
-Midi_def::Midi_def ()
-{
-  // ugh
-  set_tempo (Moment (Rational (1, 4)), 60);
-}
+
 
 int
-Midi_def::get_tempo (Moment one_beat_mom)
+get_tempo (Output_def * def,
+	   Moment one_beat_mom)
 {
   SCM wis  = ly_symbol2scm ("whole-in-seconds");
-  Moment *w = unsmob_moment (lookup_variable (wis));
+  Moment *w = unsmob_moment (def->lookup_variable (wis));
 
   Moment wholes_per_min = Moment (60);
   if (!w)
@@ -41,11 +39,13 @@ Midi_def::get_tempo (Moment one_beat_mom)
 }
 
 void
-Midi_def::set_tempo (Moment one_beat_mom, int beats_per_minute_i)
+set_tempo (Output_def * def,
+	   Moment one_beat_mom,
+	   int beats_per_minute_i)
 {
   Moment beats_per_second = Moment (beats_per_minute_i) / Moment (60);
 
   Moment m = Moment (1)/Moment (beats_per_second * one_beat_mom);
-  set_variable (ly_symbol2scm ("whole-in-seconds"), m.smobbed_copy ());
+  def->set_variable (ly_symbol2scm ("whole-in-seconds"), m.smobbed_copy ());
 }
 

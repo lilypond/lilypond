@@ -15,7 +15,7 @@
 #include "score-engraver.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "axis-group-interface.hh"
 #include "context-def.hh"
 #include "staff-spacing.hh"
@@ -105,7 +105,7 @@ Score_engraver::initialize ()
    
 
   pscore_ = new Paper_score;
-  pscore_->paper_ = dynamic_cast<Paper_def*> (get_output_def ());
+  pscore_->paper_ = dynamic_cast<Output_def*> (get_output_def ());
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 

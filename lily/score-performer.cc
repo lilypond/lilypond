@@ -7,7 +7,6 @@
  */
 
 #include "score-performer.hh"
-#include "midi-def.hh"
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "performance.hh"
@@ -15,6 +14,7 @@
 #include "string-convert.hh"
 #include "warn.hh"
 #include "context-def.hh"
+#include "output-def.hh"
 
 
 
@@ -78,7 +78,7 @@ Score_performer::one_time_step ()
 int
 Score_performer::get_tempo () const
 {
-  return performance_->midi_->get_tempo (Moment (Rational (1, 4)));
+  return ::get_tempo (performance_->midi_, Moment (Rational (1, 4)));
 }
 
 
@@ -94,7 +94,7 @@ void
 Score_performer::initialize ()
 {
   performance_ = new Performance;
-  performance_->midi_ = dynamic_cast<Midi_def*> (get_output_def ());
+  performance_->midi_ = get_output_def ();
 
   Translator_group::initialize ();
 }

@@ -16,12 +16,12 @@
 #include "ly-module.hh"
 #include "main.hh"
 #include "music-iterator.hh"
-#include "music-output-def.hh"
+#include "output-def.hh"
 #include "music-output.hh"
 #include "music.hh"
 #include "page.hh"
 #include "paper-book.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "score.hh"
 #include "warn.hh"
 
@@ -62,14 +62,14 @@ Book::print_smob (SCM, SCM p, scm_print_state*)
 }
 
 void
-Book::process (String outname, Music_output_def *default_def, SCM header)
+Book::process (String outname, Output_def *default_def, SCM header)
 {
   Paper_book *paper_book = new Paper_book ();
   paper_book->bookpaper_ = bookpaper_;
   int score_count = scores_.size ();
   for (int i = 0; i < score_count; i++)
     {
-      Paper_def *paper = 0;
+      Output_def *paper = 0;
       SCM systems = scores_[i]->book_rendering (outname,
 						bookpaper_,
 						default_def, &paper);
@@ -89,14 +89,14 @@ Book::process (String outname, Music_output_def *default_def, SCM header)
 
 /* FIXME: WIP, this is a hack.  Return first page as stencil.  */
 SCM
-Book::to_stencil (Music_output_def *default_def, SCM header)
+Book::to_stencil (Output_def *default_def, SCM header)
 {
   Paper_book *paper_book = new Paper_book ();
   paper_book->bookpaper_ = bookpaper_;
   int score_count = scores_.size ();
   for (int i = 0; i < score_count; i++)
     {
-      Paper_def *paper = 0;
+      Output_def *paper = 0;
       SCM systems = scores_[i]->book_rendering ("<markup>",
 						bookpaper_,
 						default_def,

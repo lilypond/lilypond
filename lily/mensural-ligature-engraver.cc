@@ -18,7 +18,7 @@
 #include "rhythmic-head.hh"
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "font-interface.hh"
 
 /*

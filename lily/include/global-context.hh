@@ -16,11 +16,11 @@
 class Global_context : public virtual Context
 {
   PQueue<Moment> extra_mom_pq_;
-  Music_output_def*  output_def_;
+  Output_def*  output_def_;
   
-  friend class Music_output_def;
+  friend class Output_def;
 public:
-  Global_context (Music_output_def*, Moment final);
+  Global_context (Output_def*, Moment final);
   int get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);
@@ -34,7 +34,7 @@ public:
   virtual void prepare (Moment);
   virtual void one_time_step ();
   virtual void finish ();
-  virtual Music_output_def* get_output_def () const; 
+  virtual Output_def* get_output_def () const; 
   virtual Moment now_mom () const;
   virtual Context *get_default_interpreter ();
 

@@ -6,7 +6,7 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "music-output-def.hh"
+#include "output-def.hh"
 #include "translator-group.hh"
 #include "translator.hh"
 #include "warn.hh"

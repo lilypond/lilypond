@@ -35,7 +35,7 @@ Notes:
 #include "misc.hh"
 #include "least-squares.hh"
 #include "stem.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "lookup.hh"
 #include "group-interface.hh"
 #include "staff-symbol-referencer.hh"

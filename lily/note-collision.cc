@@ -13,7 +13,7 @@
 #include "note-column.hh"
 #include "note-head.hh"
 #include "rhythmic-head.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "axis-group-interface.hh"
 #include "item.hh"
 #include "stem.hh"

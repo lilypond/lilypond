@@ -10,7 +10,7 @@
 
 #include "spanner.hh"
 #include "lookup.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "tie.hh"
 #include "rhythmic-head.hh"
 #include "bezier.hh"

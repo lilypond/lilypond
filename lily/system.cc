@@ -13,7 +13,7 @@
 #include "system.hh"
 #include "main.hh"
 #include "paper-column.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-outputter.hh"
 #include "paper-score.hh"
 #include "string.hh"

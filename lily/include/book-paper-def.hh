@@ -1,5 +1,5 @@
 /*
-  book-paper-def.hh -- declare Book_paper_def
+  book-paper-def.hh -- declare Book_output_def
 
   source file of the GNU LilyPond music typesetter
 
@@ -10,27 +10,24 @@
 #define BOOK_PAPER_DEF_HH
 
 #include "lily-proto.hh"
-#include "smobs.hh"
-#include "virtual-methods.hh"
+#include "output-def.hh"
 
-class Book_paper_def
+class Book_output_def : public Output_def
 {
-  DECLARE_SMOBS (Book_paper_def, Music_output_def);
-
 public:
-  VIRTUAL_COPY_CONSTRUCTOR (Book_paper_def, Book_paper_def);
-  Book_paper_def (Book_paper_def const &);
-  SCM scope_;
+  VIRTUAL_COPY_CONSTRUCTOR (Output_def, Book_output_def);
+  Book_output_def (Book_output_def const &);
   SCM scaled_fonts_;
   Real output_scale_;
+  Real output_scale () const;
 
-  Book_paper_def ();
-  SCM c_variable (String id) const;
-  SCM lookup_variable (SCM sym) const;
+  Book_output_def ();
 
+  virtual void derived_mark ();
   Font_metric *find_scaled_font (Font_metric *f, Real m, SCM input_enc_name);
-  Paper_def *scale_paper (Paper_def *pd) const;
+  Output_def *scale_paper (Output_def *pd) const;
 };
-DECLARE_UNSMOB (Book_paper_def, book_paper_def);
+
+Book_output_def *unsmob_book_output_def (SCM bp);
 
 #endif /* BOOK_PAPER_DEF_HH */

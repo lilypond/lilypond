@@ -10,7 +10,7 @@
 #include "separating-group-spanner.hh"
 #include "separation-item.hh"
 #include "paper-column.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "engraver.hh"
 #include "axis-group-interface.hh"
 #include "note-spacing.hh"

@@ -1,5 +1,7 @@
 \version "2.3.2"
+
 \bookpaper {
+#(define-public is-bookpaper #t)
     
 #(define-public (book-title paper scopes)
   "Generate book title from header strings."

@@ -13,14 +13,14 @@
 #include "text-item.hh"
 #include "font-interface.hh"
 #include "virtual-font-metric.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "scaled-font-metric.hh"
 
 MAKE_SCHEME_CALLBACK (Text_item, interpret_string, 4)
 SCM
 Text_item::interpret_string (SCM paper, SCM props, SCM encoding, SCM markup)
 {
-  Paper_def *pap = unsmob_paper (paper);
+  Output_def *pap = unsmob_output_def (paper);
   
   SCM_ASSERT_TYPE(pap, paper, SCM_ARG1, __FUNCTION__, "Paper definition");
   SCM_ASSERT_TYPE(ly_c_string_p (markup), markup, SCM_ARG3, __FUNCTION__, "string");

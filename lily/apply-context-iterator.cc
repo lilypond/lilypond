@@ -1,6 +1,16 @@
+/* 
+  apply-context-iterator.cc --  implement Apply_context_iterator
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  
+*/
+
 #include "simple-music-iterator.hh"
 #include "context.hh"
 #include "music.hh"
+#include "input.hh"
 
 /**
   Iterate a property.  
@@ -19,7 +29,10 @@ Apply_context_iterator::process (Moment m)
 {
   SCM proc = get_music ()->get_property ("procedure");
 
-  scm_call_1 (proc, get_outlet ()->self_scm ());
+  if (ly_c_procedure_p (proc))
+    scm_call_1 (proc, get_outlet ()->self_scm ());
+  else
+    get_music ()->origin ()->warning (_("\\applycontext argument is not a procedure"));
   
   Simple_music_iterator::process (m);
 }

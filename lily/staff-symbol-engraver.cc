@@ -9,7 +9,7 @@
 
 #include "score.hh"
 #include "paper-column.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "moment.hh"

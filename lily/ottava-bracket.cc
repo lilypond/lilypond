@@ -14,7 +14,7 @@
 #include "spanner.hh"
 #include "font-interface.hh"
 #include "dimensions.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "warn.hh"
 #include "paper-column.hh"
 #include "staff-symbol-referencer.hh"
@@ -49,7 +49,7 @@ Ottava_bracket::print (SCM smob)
   Interval span_points;
   
   Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
-  Paper_def * paper = me->get_paper ();
+  Output_def * paper = me->get_paper ();
 
   
   Drul_array<bool> broken;

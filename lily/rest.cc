@@ -7,7 +7,7 @@
 */
 
 #include "stencil.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "font-interface.hh"
 #include "rest.hh"
 #include "dots.hh"

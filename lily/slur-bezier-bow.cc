@@ -7,7 +7,7 @@
 */
 
 #include "warn.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "slur-bezier-bow.hh"
 
 Slur_bezier_bow::Slur_bezier_bow (Array<Offset> encompass, Direction dir,

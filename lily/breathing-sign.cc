@@ -15,7 +15,7 @@
 #include "breathing-sign.hh"
 #include "string.hh"
 #include "stencil.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "lookup.hh"
 
 #include "dimensions.hh"

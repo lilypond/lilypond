@@ -21,7 +21,7 @@
 #include "main.hh"
 #include "page.hh"
 #include "paper-book.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-line.hh"
 #include "paper-outputter.hh"
 #include "file-name.hh"
@@ -56,7 +56,7 @@ Paper_outputter::output_scheme (SCM scm)
 }
 
 void
-Paper_outputter::output_metadata (Book_paper_def *paper, SCM scopes)
+Paper_outputter::output_metadata (Output_def *paper, SCM scopes)
 {
   SCM fields = SCM_EOL;
   for (int i = dump_header_fieldnames_global.size (); i--; )
@@ -76,8 +76,7 @@ Paper_outputter::output_metadata (Book_paper_def *paper, SCM scopes)
 }
 
 void
-Paper_outputter::output_header (Book_paper_def * bookpaper,
-				
+Paper_outputter::output_header (Output_def * bookpaper,
 				SCM scopes,
 				int page_count,
 				bool is_classic)
@@ -146,7 +145,7 @@ Paper_outputter::output_page (Page *p, bool is_last)
 }
 
 void
-Paper_outputter::output_music_output_def (Music_output_def *odef)
+Paper_outputter::output_music_output_def (Output_def *odef)
 {
   output_scheme (scm_list_2 (ly_symbol2scm ("output-paper-def"),
 			      odef->self_scm ()));
@@ -168,3 +167,11 @@ Paper_outputter::output_stencil (Stencil stil)
 			  (void*) this, Offset (0,0));
 }
 
+Paper_outputter*
+get_paper_outputter (String outname) 
+{
+  progress_indication (_f ("paper output to `%s'...",
+			   outname == "-" ? String ("<stdout>") : outname));
+  return new Paper_outputter (outname);
+
+}

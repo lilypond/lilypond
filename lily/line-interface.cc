@@ -12,7 +12,7 @@ source file of the GNU LilyPond music typesetter
 #include "grob.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 
 
 Stencil

@@ -64,7 +64,7 @@ public:
   Global_context * get_global_context () const;
   
   virtual Score_context * get_score_context () const;  
-  virtual Music_output_def *get_output_def () const;
+  virtual Output_def *get_output_def () const;
   virtual Moment now_mom () const;
   virtual Context *get_default_interpreter ();
 
@@ -78,7 +78,7 @@ public:
   Context *find_create_context (SCM context_name,
 				String id, SCM ops);
   Link_array<Context> path_to_acceptable_context (SCM alias,
-						  Music_output_def*) const;
+						  Output_def*) const;
 
 };
 

@@ -8,7 +8,7 @@
 (define-public (page-properties paper)
   (list (append `((linewidth . ,(ly:paper-get-number
 				 paper 'linewidth)))
-		(ly:paper-lookup paper 'text-font-defaults))))
+		(ly:output-def-lookup paper 'text-font-defaults))))
 
 (define-public (plain-header paper page-number)
   (let ((props (page-properties paper) ))

@@ -11,7 +11,7 @@
 #include "box.hh"
 #include "lookup.hh"
 #include "stencil.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "paper-column.hh"
 #include "spanner.hh"
 #include "item.hh"

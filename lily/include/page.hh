@@ -18,8 +18,8 @@ class Page
   DECLARE_SMOBS (Page, );
 
 public:
-  Paper_def *paper_;		// todo: make private? 
-  Book_paper_def * bookpaper () const;
+  Output_def *paper_;		// todo: make private? 
+  Book_output_def * bookpaper () const;
   static int page_count_;
   static Real MIN_COVERAGE_;
   int number_;
@@ -38,7 +38,7 @@ public:
   Real top_margin_;
   Real bottom_margin_;
 
-  Page (Paper_def*, int);
+  Page (Output_def*, int);
 
   /* available area for text.  */
   Real text_height () const;

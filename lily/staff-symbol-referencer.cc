@@ -10,7 +10,7 @@
 
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "libc-extension.hh"
 
 

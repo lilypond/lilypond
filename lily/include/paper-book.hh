@@ -18,7 +18,7 @@ struct Score_lines
   SCM lines_;
   SCM header_;
   SCM global_header_;
-  Paper_def *paper_;
+  Output_def *paper_;
 
   Score_lines () ;
   void gc_mark ();
@@ -34,7 +34,7 @@ class Paper_book
   SCM tagline_;
 public:
   Array<Score_lines> score_lines_;
-  Book_paper_def *bookpaper_;
+  Book_output_def *bookpaper_;
 
   Paper_book ();
 

@@ -82,7 +82,7 @@ public:
   /*
     related classes.
    */
-  Paper_def *get_paper () const;
+  Output_def *get_paper () const;
 
   /**
     add a dependency. It may be the 0 pointer, in which case, it is ignored.

@@ -19,7 +19,7 @@
 #include "lookup.hh"
 #include "box.hh"
 #include "interval.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "warn.hh"
 
 

@@ -91,7 +91,7 @@ melismaEnd = #(make-span-event 'ManualMelismaEvent STOP)
 %
 
 #(define-public $defaultbookpaper (ly:make-bookpaper 1.7573))
-  
+
 \include "book-paper-defaults.ly"
 
 #(set-default-paper-size "a4")

@@ -13,7 +13,7 @@
 #include "font-interface.hh"
 #include "stencil.hh"
 #include "lily-guile.hh"
-#include "paper-def.hh"
+#include "output-def.hh"
 #include "misc.hh"
 
 class Balloon_interface
