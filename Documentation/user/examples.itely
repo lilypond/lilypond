@@ -11,7 +11,7 @@ beautiful printed scores!
 * Suggestions for writing LilyPond files::
 * Single staff::
 * Piano templates::
-* Small ensembles::
+* String quartet::
 * Vocal ensembles::
 * Ancient notation templates::
 * Jazz combo::
@@ -428,45 +428,47 @@ pedal = {
 @end lilypond
 
 
-@node Small ensembles
-@section Small ensembles
+@node String quartet
+@section String quartet
 @subsection String quartet
 
 This template demonstrates a string quartet.  It also uses a @code{\global}
 section for time and key signatures.
 
 @lilypond[quote,verbatim,raggedright]
-\version "2.4.0"
-global = {
-   \time 4/4
-   \key c \major
+version "2.4.0"
+
+global= {
+  \time 4/4
+  \key c \major
 }
 
-violinOne = \relative c''{
-   \set Staff.instrument = "Violin 1  "
-   c2 d
-   e1
-}
+Violinone = \new Voice { \relative c''{
+  \set Staff.instrument = "Violin 1 "
 
-violinTwo = \relative c''{
-   \set Staff.instrument = "Violin 2  "
-   g2 g
-   g1
-}
+  c2 d e1
 
-viola = \relative c'{
-   \set Staff.instrument = "Viola  "
-   \clef alto
-   e2 d
-   c1
-}
+\bar "|." }}
+Violintwo = \new Voice { \relative c''{
+  \set Staff.instrument = "Violin 2 "
 
-cello = \relative c'{
-   \set Staff.instrument = "Cello  "
-   \clef bass
-   c2 g
-   c,1
-}
+  g2 f e1
+
+\bar "|." }}
+Viola = \new Voice { \relative c' {
+  \set Staff.instrument = "Viola "
+  \clef alto
+
+  e2 d c1
+
+\bar "|." }}
+Cello = \new Voice { \relative c' {
+  \set Staff.instrument = "Cello     "
+  \clef bass
+
+  c2 b a1
+
+\bar "|."}}   %**********************************
 
 \score {
    \new StaffGroup <<
@@ -479,6 +481,113 @@ cello = \relative c'{
    \midi { \tempo 4=60}
 }
 @end lilypond
+
+
+@subsection String quartet parts
+
+The previous example produces a nice string quartet, but what if you
+needed to print parts?  This template demonstrates how to use the
+@code{\tag} feature to easily split a piece into individual parts.
+
+You need to split this template into separate files; the filenames
+are contained in comments at the beginning of each file.  @code{piece.ly}
+contains all the music definitions.  The other files -- @code{score.ly},
+@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly}, and
+@code{vlc.ly} -- produce the appropiate part.
+
+@verbatim
+%%%%% piece.ly
+\version "2.4.0"
+
+global= {
+  \time 4/4
+  \key c \major
+}
+
+Violinone = \new Voice { \relative c''{
+  \set Staff.instrument = "Violin 1 "
+
+  c2 d e1
+
+\bar "|." }}   %*********************************
+Violintwo = \new Voice { \relative c''{
+  \set Staff.instrument = "Violin 2 "
+
+  g2 f e1
+
+\bar "|." }}   %*********************************
+Viola = \new Voice { \relative c' {
+  \set Staff.instrument = "Viola "
+  \clef alto
+
+  e2 d c1
+
+\bar "|." }}   %*********************************
+Cello = \new Voice { \relative c' {
+  \set Staff.instrument = "Cello     "
+  \clef bass
+
+  c2 b a1
+
+\bar "|."}}   %**********************************
+
+music = {
+  <<
+    \tag #'(score vn1) \new Staff { << \global \Violinone >> }
+    \tag #'(score vn2) \new Staff { << \global \Violintwo>> }
+    \tag #'(score vla) \new Staff { << \global \Viola>> }
+    \tag #'(score vlc) \new Staff { << \global \Cello>> }
+  >>
+}
+
+
+
+%%%%% score.ly
+\version "2.4.0"
+\include "piece.ly"
+#(set-global-staff-size 14)
+\score {
+  \new StaffGroup \keepWithTag #'score \music
+  \layout { }
+  \midi { \tempo 4 = 60 }
+}
+
+
+%%%%% vn1.ly
+\version "2.4.0"
+\include "piece.ly"
+\score { 
+  \keepWithTag #'vn1 \music
+  \layout { }
+}
+
+
+%%%%% vn2.ly
+\version "2.4.0"
+\include "piece.ly"
+\score { 
+  \keepWithTag #'vn2 \music
+  \layout { }
+}
+
+
+%%%%% vla.ly
+\version "2.4.0"
+\include "piece.ly"
+\score { 
+  \keepWithTag #'vla \music
+  \layout { }
+}
+
+
+%%%%% vlc.ly
+\version "2.4.0"
+\include "piece.ly"
+\score { 
+  \keepWithTag #'vlc \music
+  \layout { }
+}
+@end verbatim
 
 
 @node Vocal ensembles
@@ -1166,6 +1275,7 @@ completely.  This template defines a large number of small segments
 (@code{taor}, @code{grip}, @code{thrd}, etc), which can be reused easily.
 
 @c TODO - replace Bagpipe template with Andrew McNabb's work?
+@c  http://www.mcnabbs.org/andrew/linux/lilypond-ghb/
 
 @lilypond[quote,verbatim]
 taor = { \grace { g32[ d' g e'] } }
