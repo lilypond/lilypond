@@ -2674,9 +2674,8 @@ Patterns of a one and two measures are replaced by percent-like signs,
 patterns that divide the measure length are replaced by slashes
 
 @lilypond[quote,verbatim,raggedright]
-\context Voice { \repeat  "percent" 4  { c'4 }
-  \repeat "percent" 2 { c'2 es'2 f'4 fis'4 g'4 c''4 }
-}
+\repeat  "percent" 4  { c'4 }
+\repeat "percent" 2 { c'2 es'2 f'4 fis'4 g'4 c''4 }
 @end lilypond
 
 @seealso
