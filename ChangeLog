@@ -1,3 +1,8 @@
+2005-01-18  Graham Percival  <gperlist@shaw.ca>
+
+	* Documentation/user/changing-defaults: added info on
+	creating a copyright symbol.
+
 2005-01-18  Erlend Aasland  <erlenda@gmail.com>
 
 	* scm/auto-beam.scm: Simplify score-override-auto-beam-setting
