@@ -39,8 +39,8 @@ Gardner Read. ``Modern Rhythmic Notation.'' Indiana University Press,
 [Sound (boring) review of the various hairy rhythmic notations used by
 avant-garde composers HWN]
 
-Gardner Read. ``Music Notation'' (2nd edition). Taplinger Publishing,
-New York.
+Gardner Read. ``Music Notation: a Manual of Modern Practice'' (2nd
+edition). Taplinger Publishing, New York.
 
 [This is as close to the ``standard'' reference work for music
 notation issues as one is likely to get. MB]
@@ -238,6 +238,12 @@ http://obenamots.cc.colorado.edu/Musicpress/engraving.html
 
 [Webpages about engraving (designed with finale users in mind) (sic) HWN]
 
+Richard Rastall. ``The Notation of Western Music: an
+Introduction''. J. M. Dent & Sons London, 1983
+
+[Interesting account of the evolution and origin of common notation
+starting from neumes, and ending with modern innovations HWN]
+
 Anthony Donato. Preparing Music Manuscript. Englewood Cliffs:
 Prentice-Hall, 1963.
 
@@ -272,7 +278,11 @@ your nuclear plant supervisor to use AC/DC for checking the reactor HWN]
 
 =head2 File formats
 
-Tablature: http://wabakimi.carleton.ca/~phacket2/guitar/tabfaq.html
+Howard Wright <Howard.Wright@ed.ac.uk>, how to read and write tab: a
+guide to tab notation,
+http://wabakimi.carleton.ca/~phacket2/guitar/tabfaq.html
+
+[FAQ (with answers) about TAB, the ASCII variant of Tablature. HWN]
 
 Cindy Grande, NIFF6a Notation Interchange File Format.  Grande
 Software Inc., 1995.  ftp://blackbox.cartah.washington.edu/pub/,

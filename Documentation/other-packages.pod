@@ -115,7 +115,7 @@ Notation editor for W95 and Mac
 =item Sibelius, http://www.acorn.co.uk/developers/sibelius/Home
 
 Notation editor on Acorn machines.  Their developers call it ``best
-notation program available''.
+notation program available''.  In any case, they are good at bragging.
 
 =item ? [``EDV-Notensatz'']
 
