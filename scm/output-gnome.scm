@@ -46,12 +46,13 @@
 ;;; move this into workbook?
 
 "
-## install gnome-devel
+## 1.  install gnome-devel (Debian/unstable: apt-get install gnome-devel)
 
-## use guile-1.6 for g-wrap/guile-gnome
+## 2.  *** NOTE: use guile-1.6 for g-wrap and guile-gnome ***
 PATH=/usr/bin:$PATH
 
-## get g-wrap 2.0
+
+## 3.  get g-wrap 2.0
 tla register-archive a.rottmann@gmx.at--2004-main http://people.debian.org/~rotty/arch/a.rottmann@gmx.at/2004-main || true
 
 rm -rf gw-pristine
@@ -66,7 +67,7 @@ make install
 
 cd ../..
 
-## get guile-gnome
+## 4.  get guile-gnome
 tla register-archive guile-gnome-devel@gnu.org--2004 http://people.debian.org/~rotty/arch/guile-gnome-devel@gnu.org/2004/ || true
 rm -rf guile-gnome
 tla guile-gnome-devel@gnu.org--2004/dists--dev guile-gnome
@@ -85,12 +86,12 @@ export PKG_CONFIG_PATH=$HOME/usr/pkg/g-wrap/lib/pkgconfig:$PKG_CONFIG_PATH
 ../src/configure --prefix=$HOME/usr/pkg/guile-gnome
 
 G_WRAP_MODULE_DIR=$HOME/usr/pkg/g-wrap/share/guile/site make install
-#FIXME: fixup
+#FIXME: fixup -- no longer necessary?
 (cd $HOME/usr/pkg/guile-gnome/share/guile/gnome && mv gtk/g[dt]k.scm gw)
 
 export GUILE_LOAD_PATH=$HOME/usr/pkg/guile-gnome/share/guile:$GUILE_LOAD_PATH
 export LD_LIBRARY_PATH=$HOME/usr/pkg/guile-gnome/lib:$LD_LIBRARY_PATH
-guile -s ../src/gtk/examples/hello.scm
+guile -s ../src/libgnoecanvas/examples/canvas.scm
 
 
 "
