@@ -1,9 +1,8 @@
 COMMENT(-*-text-*-)
 
-DEFINEMACRO(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
+redef(var)(1)(whenlatex(latexcommand({\normalfont\scshape )ARG1+latexcommand(}))\
     whenhtml(sc(ARG1)))
-
-
+def(mycode)(1)(tt(ARG1))
 
 COMMENT( This document contains Mudela fragments.  You need at least
 Yodl-1.30.18 to convert this to tex or html.
@@ -125,14 +124,14 @@ Braces are also used to group arguments for certain commands.
 To assign an identifier you use:
 verb(string = ...)
 To use an identifier, you must preceed it with a backslash: code(\).
-verb(oboe = \melodic { ... }
-\score{ \melodic { \oboe }})
+verb(oboe = \notes { ... }
+\score{ \notes { \oboe }})
 The left-hand part of the assignment is really a string, so 
-verb("Foo bar 4 2 " = \melodic { ... })
+verb("Foo bar 4 2 " = \notes { ... })
 is also a valid assignment (but you would have trouble referencing it)
 If you reuse identifiers, then the previous contents will be thrown
 away after the right hand is evaluated, e.g.
-verb(bla = \melodic { \bla })
+verb(bla = \notes { \bla })
 is legal.
 
 COMMENT(It's not clear to me what things are allowed on the RHS of 
@@ -149,7 +148,7 @@ clear       lyric          header     score         translator
 clef        key            notenames  script        type        
 cm          keysignature   octave     shape         transpose   
 consists    mark           output     skip          version     
-contains    melodic        partial    staff     
+contains    notes        partial    staff     
 duration    musicalpitch   paper      spandynamic)
 
 COMMENT( I don't know  the proper  way to make this kind of table in
@@ -186,7 +185,7 @@ COMMENT(As far as I can tell, the last bit is simply a repetition of
 the information on how to use an identifier, so it should be deleted.
 
 But I'm uncertain about the meaning of \TYPE in the above section.
-Different from \type?  Does it refer to \melodic, \lyric?  In general,
+Different from \type?  Does it refer to \notes, \lyric?  In general,
 the use of the word "type" seems to be a source of confusion.
 )
 
@@ -211,7 +210,7 @@ alphanumeric characters.  If code(word) is encountered on the input it
 is treated as a string. 
 
 dit(Note mode) Note mode is introduced by the keyword
-code(\melodic).  In Note mode, words can only contain alphabetic
+code(\notes).  In Note mode, words can only contain alphabetic
 characters.  If code(word) is encountered, Lilypond first checks for a
 notename of code(word).  If no notename is found, then code(word) is
 treated as a string.  If you mistype a notename, the parser will most
@@ -424,7 +423,7 @@ Two syllables or words that compose a single
 duration entry are bound together using an underscore: 
 code(He_could4 not4).  Here is a full example:
 mudela(verbatim)(\score{ 
-  <  \melodic \transpose c'' {c d e c | c d e c | e f g'2 | 
+  <  \notes \transpose c'' {c d e c | c d e c | e f g'2 | 
                               e'4 f g'2 \bar "|."; }
      \type Lyrics \lyric { 
               DOEXPAND(Fr\)`e-4 re Ja- que DOEXPAND(Fr\)`e- re Ja- que
@@ -504,7 +503,7 @@ A Mudela file needs some red tape
 
 mudela(verbatim)(
 \score{
-        \melodic {
+        \notes {
                 c' d' e' c' |
                 c' d' e' c' |
                 e' f' g'2 |
@@ -596,7 +595,7 @@ something much like one of the examples in this document.  Back in
 section ref(sec:running-lilypond) we told you that the music you
 enter should be encapsulated in something like:
 verb(\score<
-        \melodic\relative c{
+        \notes\relative c{
                 d
         }
         \paper{ }
@@ -616,7 +615,7 @@ If you use the extension file(.fly) for Mudela file file(foo),
 LilyPond will embed your file(foo.fly) nop(in)footnote(Or something very 
 similar.  If you want to know exactly, see file(init/init.fly)):
 verb(\score<
-        \melodic\relative c{
+        \notes\relative c{
                 <<foo.ly>>
         }
         \paper{ }
@@ -646,11 +645,11 @@ have obligatory braces as far as I can tell, which don't contain music.)
 
 description(
 
-dit(code(\absdynamic))
+dit(mycode(\absdynamic))
 
-dit(code(\accepts))
+dit(mycode(\accepts))
 
-dit(code(\bar) var(bartype)) Prints a special bar symbol, or at
+dit(mycode(\bar) var(bartype)) Prints a special bar symbol, or at
 measure boundaries, replaces the regular bar symbol with a special
 symbol.  The argument var(bartype) is a string which specifies the
 kind of bar to print.  Options are code(":|"), code("|:"),
@@ -660,69 +659,69 @@ repeat, a double repeat, a double bar, a start bar, an end bar, or a
 thick double bar.  If var(bartype) is set to "empty" then nothing is
 printed, but a line break is allowed at that spot.
 
-dit(code(\cadenza) var(togglevalue)) Toggles the automatic generation
+dit(mycode(\cadenza) var(togglevalue)) Toggles the automatic generation
 of bar lines.  If var(togglevalue) is 0 then bar line generation is
 turne off.   If var(togglevalue) is  1  then a bar is  immediately
 printed and bar generation is turned  on.
 
-dit(code(\clear))
+dit(mycode(\clear))
 
-dit(code(\clef)  var(clefname)) Sets the current clef.   The argument
+dit(mycode(\clef)  var(clefname)) Sets the current clef.   The argument
 is the name of the clef.  Possibilities are code(bass), code(alto),
 and code(treble).  Treble clef is the default.
 
-dit(code(\cm)) Specify a width in centimeters. 
+dit(mycode(\cm)) Specify a width in centimeters. 
 
-dit(code(\consists))
+dit(mycode(\consists))
 
-dit(code(\contains))
+dit(mycode(\contains))
 
-dit(code(\duration) { var(length) var(dotcount) }) Specify note
+dit(mycode(\duration) { var(length) var(dotcount) }) Specify note
 duration.  The parameter var(length) is the negative logarithm (base
 2) of duration: 1 is a half note, 2 is a quarter note, 3 is an eighth
 note, etc.  The number of dots  after  the  note is given by
 var(dotcount). 
 
-dit(code(\font))
+dit(mycode(\font))
 
-dit(code(\grouping) var(durationlist))  Sets  the  metric structure of
+dit(mycode(\grouping) var(durationlist))  Sets  the  metric structure of
 the measure.  
 COMMENT(elaboration is needed here.)
 
-dit(code(\in)) Specify a width in inches.  
+dit(mycode(\in)) Specify a width in inches.  
 
-dit(code(\include) var(file)) Include the specified file.
+dit(mycode(\include) var(file)) Include the specified file.
 
-dit(code(\lyric) { var(list) } ) Parse var(list) in lyrics mode.
+dit(mycode(\lyric) { var(list) } ) Parse var(list) in lyrics mode.
 
-dit(code(\key) var(pitch)) Change key signature to  that of var(pitch)-major.
+dit(mycode(\key) var(pitch)) Change key signature to  that of var(pitch)-major.
 
-dit(code(\keysignature) var(notelist))
+dit(mycode(\keysignature) var(notelist))
 Specify an arbitrary key signature.  The notes from var(notelist) will
 be printed in the key signature in the order that they appear on the list.
 
-dit(code(\mark))
+dit(mycode(\mark))
 
-dit(code(\melodic) var(music)) Enter note mode and process the
+dit(mycode(\notes) var(music)) Enter note mode and process the
 specified music. 
 
-dit(code(\musicalpitch) { var(octave) var(note) var(shift) }) Specify
+dit(mycode(\musicalpitch) { var(octave) var(note) var(shift) }) Specify
 note pitch.  The octave is specified by an integer, zero for the
 octave containing middle C.  The note is a number from 0 to 7, with 0
 corresponding to C and 7 corresponding to B.  The shift is zero for a
 natural, negative to add flats, or positive to add sharps.
 
-dit(code(\time) var(numerator)code(/)var(denominator)) Change the time
+dit(mycode(\time) var(numerator)mycode(/)var(denominator)) Change the time
 signature.  The default time signature  is 4/4.  
 
-dit(code(\midi)) Produce musical output.  See code(\tempo) for setting
+dit(mycode(\midi)) Produce musical output.  See code(\tempo) for setting
 the tempo.
 
-dit(code(\mm)) Specify a width in millimeters. 
+dit(mycode(\mm)) Specify a width in millimeters. 
 
-dit(code(\multi))
+dit(mycode(\multi))
 
-dit(code(\header) { var(key1) = var(val1); var(key2) = var(val2); ... })
+dit(mycode(\header) { var(key1) = var(val1); var(key2) = var(val2); ... })
 Specifies information about the music.  A header should appear at the
 top of the file describing the file's contents.  If a file has
 multiple code(\score) blocks, then a header should appear in
@@ -730,31 +729,31 @@ each score block describing its contents.  Tools like code(ly2dvi) can
 use this information for generating titles.   Some possible key values
 are: title, opus, description, composer, enteredby, and copyright.
 
-dit(code(\notenames) { var(list) }) Define new note names.  
+dit(mycode(\notenames) { var(list) }) Define new note names.  
 The argument var(list) is a list of  definitions of  the form
 var(name) = var(pitch),  where var(pitch) is specified with the
 code(\musicalpitch) command.  
 
-dit(code(\octave))
-dit(code(\nop(output)))
+dit(mycode(\octave))
+dit(mycode(\nop(output)))
 
-dit(code(\partial) var(duration)) Specify that the first measure of
+dit(mycode(\partial) var(duration)) Specify that the first measure of
 the music lasts only for the specified duration.
 
-dit(code(\paper) code({) [ code(linewidth = )var(width)code(;) ] code(})) 
+dit(mycode(\paper) mycode({) [ mycode(linewidth = )var(width)mycode(;) ] mycode(})) 
 Appears in a score block to indicate that the music should be printed.
 The line width can be set to -1.  in order to prevent justification of
 small fragments of music, or the width can be specified explicitly
 using code(\cm), code(\in), code(\mm), or code(\pt) to specify the
 units.
 
-dit(code(\penalty))
+dit(mycode(\penalty))
 
-dit(code(\property))
+dit(mycode(\property))
 
-dit(code(\pt)) Specify a width in points. 
+dit(mycode(\pt)) Specify a width in points. 
 
-dit(code(\relative) var(pitch) var(music)) Processes the specified
+dit(mycode(\relative) var(pitch) var(music)) Processes the specified
 var(music) in relative pitch
 mode.  In this mode, the octave of a pitch note is chosen so that the
 note is closest to the preceeding note.  
@@ -763,36 +762,34 @@ the starting pitch for this comparision.  In the case of chords, the
 first note of a chord is used as the base for the pitches in the next
 chord.  
 
-dit(code(\score)) Start a music definition.
+dit(mycode(\score)) Start a music definition.
 
-dit(code(\script))
+dit(mycode(\script))
 
-dit(code(\shape))
+dit(mycode(\shape))
 
-dit(code(\skip))
+dit(mycode(\skip))
 
-dit(code(\staff))
+dit(mycode(\staff))
 
-dit(code(\spandynamic))
-dit(code(\symboltables))
-dit(code(\table))
+dit(mycode(\spandynamic))
+dit(mycode(\symboltables))
+dit(mycode(\table))
 
-dit(code(\tempo) var(duration) = var(perminute)) Used when creating
+dit(mycode(\tempo) var(duration) = var(perminute)) Used when creating
 MIDI output to specify the tempo.  For example, 
 `code(\midi { \temp0 4 = 76})' requests output with 76 quarter notes
 per minute.  
 
-dit(code(\translator))
-dit(code(\type))
+dit(mycode(\translator))
+dit(mycode(\type))
 
-dit(code(\transpose) var(pitch) var(music)) Transposes the specified
+dit(mycode(\transpose) var(pitch) var(music)) Transposes the specified
 music.  Middle C is tranposed to var(pitch). 
 
-dit(code(\version) var(string)) Specify the version of Lilypond that
+dit(mycode(\version) var(string)) Specify the version of Lilypond that
 a file was written for.  The argument is the version number,
 for example code("1.0.4").
 
 )
-
-
 
