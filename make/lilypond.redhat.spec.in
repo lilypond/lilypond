@@ -79,7 +79,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/profile.d
 cp buildscripts/out/lilypond-profile $RPM_BUILD_ROOT/etc/profile.d/lilypond.sh
 cp buildscripts/out/lilypond-login $RPM_BUILD_ROOT/etc/profile.d/lilypond.csh
 
-make prefix="$RPM_BUILD_ROOT%{_prefix}" web-doc-install
+make prefix="$RPM_BUILD_ROOT%{_prefix}" install-html-doc
 make -C Documentation/user/  prefix="$RPM_BUILD_ROOT%{_prefix}" omf-install
 
 

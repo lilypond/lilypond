@@ -9,6 +9,7 @@ ATVARIABLES = \
   DATE\
   sharedstatedir\
   GUILE\
+  bindir\
   date\
   datadir\
   lilypond_datadir\

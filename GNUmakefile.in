@@ -54,15 +54,12 @@ web-doc: web-reqs
 pfa-fonts:
 	$(MAKE) MAKE_PFA_FILES=1 -C mf
 
-
-web-doc-install: web-doc top-web
+install-html-doc: web-doc top-web
 	$(INSTALL) -m 755 -d $(local_package_docdir) 
 	tar -C $(local_package_docdir)/ -xzf $(outdir)/web.tar.gz
 
-
 # KPATHSEA=0: Hack for compiling without kpathsea -- not recommended
 my_tfm_path = $(TFM_PATH) /tmp /tmp /tmp /tmp /tmp /tmp 
-
 
 local-install:
 	$(INSTALL) -d $(local_lilypond_datadir)
