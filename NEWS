@@ -1,3 +1,18 @@
+
+pl 25 	
+	- variable stemlength
+	- feta: 32nd, 64th flags
+	- font.ly
+	- dist & tarball made in out/
+	- rewrote release.sh in python
+	- notehead/stem attachment better.
+	- more Stem cleanage
+	- related Beam cleanage
+	- started numeral font (JCN)
+	- bf: whole rest outside staff.
+
+*********
+oct 20
 pl 24
 	- internationalization preps (FP)
 	- rewrote make-patch in python
