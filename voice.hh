@@ -14,7 +14,7 @@ struct Voice {
     Real when(const Voice_element*)const;
     Real last() const;
     Voice();
-        Voice(    Voice const&);
+    Voice(Voice const&);
     void add(Voice_element*);
     void print() const;
 };

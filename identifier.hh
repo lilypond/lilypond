@@ -18,6 +18,7 @@ struct Identifier
     Identifier(String n) ;
     virtual ~Identifier();
     virtual Staff * staff() { assert(false); }
+    virtual Voice * voice() { assert(false); }
 };
 
 struct Staff_id : Identifier {
@@ -26,7 +27,10 @@ struct Staff_id : Identifier {
     ~Staff_id();
 };
 
-
-
+struct Voice_id : Identifier {
+    Voice_id(String s, Voice*st):Identifier(s) { data = st; }
+    virtual Voice * voice() { return (Voice*)data; }
+    ~Voice_id();
+};
 #endif // IDENTIFIER_HH
 
