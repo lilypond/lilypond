@@ -34,12 +34,12 @@ Stem::Stem ()
   beams_left_i_ = 0;
   beams_right_i_ = 0;
 
-  stem_bottom_f_ = stem_top_f_ = 0;
+  yextent_drul_[DOWN] = yextent_drul_[UP] = 0;
   flag_i_ = 2;
   dir_ = CENTER;
+  stem_xdir_ = LEFT;
   staff_size_i_ = 8;
 
-  stem_xoffset_f_ =0;
   beam_gap_i_ = 0;
 }
 
@@ -75,19 +75,19 @@ Stem::do_print () const
 Real 
 Stem::stem_length_f () const
 {
-  return stem_top_f_-stem_bottom_f_ ;
+  return yextent_drul_[UP]-yextent_drul_[DOWN] ;
 }
 
 Real
 Stem::stem_start_f () const
 {
-  return (dir_ < 0)? stem_top_f_ : stem_bottom_f_;
+  return (dir_ < 0)? yextent_drul_[UP] : yextent_drul_[DOWN];
 }
 
 Real
 Stem::stem_end_f () const
 {
-  return (dir_ < 0)? stem_bottom_f_ : stem_top_f_;
+  return (dir_ < 0)? yextent_drul_[DOWN] : yextent_drul_[UP];
 }
 
 
@@ -99,8 +99,8 @@ Stem::set_stemend (Real se)
 	  (se <= min_head_i () && dir_ <0)))	
     warning ("Weird stem size; check for narrow beams");
 
-  stem_top_f_  = (dir_ < 0) ? max_head_i () : se;
-  stem_bottom_f_  = (dir_ < 0) ? se  : min_head_i ();
+  yextent_drul_[UP]  = (dir_ < 0) ? max_head_i () : se;
+  yextent_drul_[DOWN]  = (dir_ < 0) ? se  : min_head_i ();
 }
 
 int
@@ -207,13 +207,11 @@ Stem::set_default_extents ()
 
   set_stemend ((dir_< 0) ? 
 	       max_head_i ()-stem_length_f (): min_head_i () + stem_length_f ());
-  // ugh, a whole ball is wider
+  
+  if (dir_ == UP)
+    stem_xdir_ = RIGHT;
   if (head_l_arr_[0]->balltype_i_ <= 0)
-    stem_xoffset_f_ = paper ()->note_width () / 2;
-  else if (dir_ > 0)	
-    stem_xoffset_f_ = paper ()->note_width () - paper ()->rule_thickness ();
-  else
-    stem_xoffset_f_ = 0;
+    stem_xdir_ = CENTER;
 }
 
 /*
@@ -242,7 +240,7 @@ Stem::set_noteheads ()
       if (dy <= 1) 
 	{
 	  if (parity)
-	    head_l_arr_[i]->x_dir_ = (stem_xoffset_f_>0) ? UP:DOWN;
+	    head_l_arr_[i]->x_dir_ = (stem_xdir_ == LEFT) ? LEFT : RIGHT;
 	  parity = !parity;
 	}
       else
@@ -254,7 +252,7 @@ Stem::set_noteheads ()
 void
 Stem::do_pre_processing ()
 {
-  if (stem_bottom_f_== stem_top_f_)
+  if (yextent_drul_[DOWN]== yextent_drul_[UP])
     set_default_extents ();
   set_noteheads ();
   flag_i_ = flag_i_;
@@ -276,8 +274,8 @@ Stem::do_width () const
   else
     {
       Paper_def*p= paper ();
-      r = p->lookup_l ()->flag (flag_i_, dir_).dim.x ();
-      r+= stem_xoffset_f_;
+      r = p->lookup_l ()->flag (flag_i_, dir_).dim_.x ();
+      r += note_delta_f ();
     }
   return r;
 }
@@ -285,10 +283,10 @@ Stem::do_width () const
 
   
 Molecule
- Stem::abbrev_mol () const
+Stem::abbrev_mol () const
 {
   Real dy = paper ()->interbeam_f ();
-  Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim.x ().length ();
+  Real w = 1.5 * paper ()->lookup_l ()->ball (2).dim_.x ().length ();
   Real beamdy = paper ()->interline_f () / 2;
  
   int beams_i = 0;
@@ -326,8 +324,8 @@ Molecule*
 {
   Molecule *mol_p =new Molecule;
   
-  Real bot  = stem_bottom_f_;
-  Real top = stem_top_f_;
+  Real bot  = yextent_drul_[DOWN];
+  Real top = yextent_drul_[UP];
   
   assert (bot!=top);
   
@@ -336,28 +334,43 @@ Molecule*
   Real dy = p->internote_f ();
   if (!invisible_b ())
     {
-      Symbol ss =p->lookup_l ()->stem (bot*dy,top*dy);
+      Atom ss =p->lookup_l ()->stem (bot*dy,top*dy);
       mol_p->add (Atom (ss));
     }
   
   if (!beam_l_ &&abs (flag_i_) > 2)
     {
-      Symbol fl = p->lookup_l ()->flag (flag_i_, dir_);
+      Atom fl = p->lookup_l ()->flag (flag_i_, dir_);
       mol_p->add_at_edge (Y_AXIS, dir_, Molecule (Atom (fl)));
       assert (!abbrev_flag_i_);
     }
   
   if (abbrev_flag_i_)
     mol_p->add (abbrev_mol ());
-  
-  mol_p->translate (stem_xoffset_f_, X_AXIS);
+
+  if (head_l_arr_.size())
+    {
+      mol_p->translate (note_delta_f (), X_AXIS);
+    }
   return mol_p;
 }
 
-Real
- Stem::hpos_f () const
+Real 
+Stem::note_delta_f () const
 {
-  return Item::hpos_f () + stem_xoffset_f_;
+  Real r=0;
+  if (head_l_arr_.size())
+    {
+      r += head_l_arr_[0]->width ().length() * (stem_xdir_+1.0)/2.0;
+      if (stem_xdir_ == RIGHT)
+	r -= paper ()->rule_thickness ();
+    }
+  return r;
+}
+Real
+Stem::hpos_f () const
+{
+  return note_delta_f () +Item::hpos_f ();
 }
 
 

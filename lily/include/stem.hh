@@ -31,7 +31,7 @@ class Stem : public Item {
 
   Molecule abbrev_mol () const;
     
-  Real stem_bottom_f_, stem_top_f_;
+  Drul_array<Real> yextent_drul_;
     
   /// needed for determining direction/length
   int staff_size_i_;
@@ -45,7 +45,7 @@ class Stem : public Item {
     geen gedonder, jij gaat onder.
     -1 stem points down, +1: stem points up
     */
-  Real stem_xoffset_f_;
+  Direction  stem_xdir_;
 
   Link_array<Note_head> head_l_arr_;
   Link_array<Rest> rest_l_arr_;
@@ -97,6 +97,7 @@ public:
   Real stem_length_f() const;
   Real stem_end_f() const;
   Real stem_start_f() const;
+  Real note_delta_f () const;
 
   bool invisible_b() const;
     
