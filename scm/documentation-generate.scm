@@ -111,6 +111,12 @@
 @end macro
 @end ifinfo
 
+@iftex
+@macro usermanref{NAME}
+@ref{\\NAME\\}@c
+@end macro
+@end iftex
+
 @ifhtml
 @macro glossaryref{NAME}
 @uref{../music-glossary/\\NAME\\.html,\\NAME\\}
