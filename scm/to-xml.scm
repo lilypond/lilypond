@@ -181,8 +181,9 @@ is then separated.
      (if (pitch? p)
 	 (dump-pitch p port))
      (if (pair? es)
-	 (begin
-	   (map (lambda (x) (music-to-xml-helper x port)) es)))
+	 (map (lambda (x) (music-to-xml x port)) es)
+	 )
+
      (if (music? e)
 	 (begin
 	   (music-to-xml-helper e port)))
