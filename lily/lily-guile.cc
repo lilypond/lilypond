@@ -579,17 +579,16 @@ type_check_assignment (SCM sym, SCM val,  SCM type_symbol)
 
   if (type != SCM_EOL && !gh_procedure_p (type))
       {
-	warning (_f ("Can't find property type-check for `%s' (%s).  Perhaps you made a typing error? Doing assignment anyway.",
+	warning (_f ("Can't find property type-check for `%s' (%s).",
 		     ly_symbol2string (sym).to_str0 (),
-		     ly_symbol2string (type_symbol).to_str0 ()
+		     ly_symbol2string (type_symbol).to_str0 ())
+		 + "  " + _ ("Perhaps you made a typing error?"));
 
-		     ));
-
-	/*
-	  Be strict when being anal :)
-	  */
+	/* Be strict when being anal :) */
 	if (internal_type_checking_global_b)
-	  abort();
+	  abort ();
+	
+	warning (_ ("Doing assignment anyway."));
       }
   else
     {

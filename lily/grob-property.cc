@@ -71,19 +71,16 @@ extern void check_interfaces_for_property (Grob const *me, SCM sym);
 void
 Grob::internal_set_grob_property (SCM s, SCM v)
 {
-  /*
-    Perhaps we simply do the assq_set, but what the heck.
-   */
-  if (!live())
-    return ; 
+  /* Perhaps we simply do the assq_set, but what the heck. */
+  if (!live ())
+    return;
 
-#ifndef NDEBUG
   if (internal_type_checking_global_b)
     {
-      assert (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")));
-      check_interfaces_for_property(this, s);
+      if (type_check_assignment (s, v, ly_symbol2scm ("backend-type?")))
+	abort ();
+      check_interfaces_for_property (this, s);
     }
-#endif
 
   mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, s, v);
 }
@@ -98,13 +95,13 @@ Grob::internal_get_grob_property (SCM sym) const
 
   s = scm_sloppy_assq (sym, immutable_property_alist_);
   
-#ifndef NDEBUG
   if (internal_type_checking_global_b && gh_pair_p (s))
     {
-      assert (type_check_assignment (sym, gh_cdr (s), ly_symbol2scm ("backend-type?")));
-      check_interfaces_for_property(this, sym);
+      if (!type_check_assignment (sym, gh_cdr (s),
+				  ly_symbol2scm ("backend-type?")))
+	abort ();
+      check_interfaces_for_property (this, sym);
     }
-#endif
 
   return (s == SCM_BOOL_F) ? SCM_EOL : ly_cdr (s); 
 }
