@@ -171,8 +171,12 @@ usage
 
 Patches do not contain automatically generated files 
 or (urg) empty directories, 
-i.e., you should rerun autoconf, configure
+i.e., you should run
 
+	autogen.sh
+	configure [your options.]
+
+	
 """
 
 
