@@ -16,6 +16,9 @@
 @node midi2ly
 @section midi2ly
 
+@cindex MIDI
+@cindex importing MIDI
+
 Midi2ly translates a MIDI input file to a LilyPond source file. MIDI
 (Music Instrument Digital Interface) is a standard for digital
 instruments: it specifies cabling, a serial protocol and a file format.
@@ -80,6 +83,10 @@ C to parse the MIDI files.
 @node etf2ly
 @section etf2ly
 
+@cindex ETF
+@cindex enigma
+@cindex Finale
+@cindex Coda Technology
 
 ETF (Enigma Transport Format) is a format used by Coda Music
 Technology's Finale product. This program will convert part of an ETF
@@ -116,6 +123,9 @@ etf2ly.
 
 ABC is a fairly simple ASCII based format. It is described at
 @uref{http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt}.
+
+@cindex ABC
+@cindex Importing ABC
 
 @subsection Invoking abc2ly
 
@@ -172,6 +182,9 @@ abc2ly ignores the ABC beaming.
 PMX is a MusiXTeX preprocessor written by Don Simons, see
 @uref{http://icking-music-archive.sunsite.dk/Misc/Music/musixtex/software/pmx/}.
 
+@cindex PMX
+@cindex MusiXTeX
+@cindex Simons, Don
 
 @subsection Invoking pmx2ly
 
@@ -195,6 +208,9 @@ version information
 
 @node musedata2ly
 @section musedata2ly
+
+@cindex Musedata
+@cindex CCARH
 
 Musedata (@uref{http://www.musedata.org/}) is an electronic library of
 classical music scores, currently comprising about 800 composition
@@ -233,6 +249,9 @@ version information
 MUP (Music Publisher) is a shareware music notation program by Arkkra
 Enterprises.  It is also the name of the input format.  Mup2ly will
 convert part of a Mup file to a ready-to-use LilyPond file.
+
+@cindex MUP
+@cindex Arkkra
 
 @subsection Invoking mup2ly
 
