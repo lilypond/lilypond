@@ -10,6 +10,9 @@ local-web:
 footify:
 	$(footify) $(sort $(wildcard $(outdir)/*.html out/*.html out-www/*.html))
 
+deep-footify:
+	$(deep-footify) $(sort $(wildcard $(outdir)/*/*.html))
+
 INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))
 
 INFOINSTALL=$(MAKE) INSTALLATION_OUT_DIR=$(infodir) depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_INSTALL_FILES)" -f $(stepdir)/install-out.sub.make

@@ -1,4 +1,9 @@
-1.3.104.jcn3
+1.3.105.jcn1
+============
+
+* Makeinfo html documentation generation fixes.
+
+1.3.104.jcn1
 ============
 
 * Bit of temporary makefile hacking to stay in sync with makeinfo patch.
