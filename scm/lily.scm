@@ -584,7 +584,7 @@ possibly turned off."
 (define-public (sanitize-command-option str)
   (string-append
    "\""
-   (regexp-substitute/global #f "[^-0-9,.a-zA-Z'\"\\]" str 'pre 'post)
+   (regexp-substitute/global #f "[^- 0-9,.a-zA-Z'\"\\]" str 'pre 'post)
   "\""))
 
 (define-public (postscript->pdf papersizename name)
