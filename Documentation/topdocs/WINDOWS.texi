@@ -1,0 +1,118 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename WINDOWS.info
+@settitle WINDOWS - compiling and installing GNU LilyPond on Windows
+
+@node Top
+@top
+
+@chapter WINDOWS - compiling and installing GNU LilyPond on Windows
+
+This document is a supplement to INSTALL.txt, you may want to read
+that too.
+
+@section Obtaining LilyPond
+
+You can get the latest version of LilyPond at
+@uref{ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/,
+ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/}.
+
+@section Windows build requirements
+You need the following packages to compile Lilypond on Windows.
+
+@table @code
+@item The GNU + Cygnus tools, 1.1.7 or newer.
+Check out the @uref{http://sources.redhat.com/cygwin,Cygwin webpage}.
+@item GUILE 1.4, or newer.
+Check out the @uref{http://www.gnu.org/software/guile.html,GUILE webpage}
+@end table
+
+You can get the latest version of the GNU + Cygnus tools from cygnus
+@uref{http://sources.redhat.com/cygwin/mirrors.html,mirror site}.
+
+@section Windows precompiled binaries
+
+@table @code
+@item LilyPond
+Click @uref{http://appel.lilypond.org/lilypond/gnu-windows/setup.exe,
+here} to install LilyPond, or visit @uref{http://appel.lilypond.org/lilypond/gnu-windows,
+LilyPond on Windows}.
+
+This will install the minimal set of cygwin tools needed to run
+LilyPond.  If you already have cygwin installed, don't worry: nothing
+will be installed twice.
+
+@end table
+
+Note that none of the developers uses Windows, of course.  In fact, we
+recommend you to use GNU/Linux for running LilyPond.  We provide these
+binaries anyway, because it saves us the trouble of helping Windows
+users trying to compile LilyPond themselves.
+
+These binaries are cross compiled for Windows on a GNU/Linux box.  You
+may want to check out the
+@uref{http://appel.lilypond.org/lilypond/gnu-windows/cross.tar.gz,cross
+compilation scripts}.
+
+@section Windows running requirements
+
+GNU LilyPond does use a lot of resources. For operation you need the
+following software
+
+@table @code
+@item GUILE
+Included in binary installation.
+@item TeX
+A full TeX installation.  See /usr/share/doc/tetex-beta for details.
+@item GSView
+Click  @uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum/gsv36w32.exe,here} to
+install GSView (GhostView for Windows), or visit
+@uref{ftp://ftp.cs.wisc.edu/ghost/ghostgum,ftp.cs.wisc.edu}.
+@item Python
+Click @uref{http://www.python.org/ftp/python/win32/py152.exe,here} to
+install Python-1.5.2, or visit @uref{http://www.python.org,www.python.org}.
+@end table
+
+
+@section Windows running setup
+
+If you're lucky, after running @file{setup.exe} you're all set up.
+
+Open a LilyPond shell (or any bash shell), and type
+@example
+lilypond --help
+@end example
+
+If you don't see something similar to
+@example
+Usage: lilypond [OPTION]... [FILE]...
+
+Typeset music and or play MIDI from FILE
+
+LilyPond is a music typesetter.  It produces beautiful sheet music
+using a high level description file as input.  LilyPond is part of 
+the GNU Project.
+
+Options:
+  -h,--help             this help
+[..]
+@end example
+
+you should try adding @file{/usr/lilypond-x.y.z/bin} to your path, do:
+@example
+PATH=/usr/lilypond-1.3.147/bin:$PATH
+@end example
+
+and try again.
+
+[TODO:
+
+* talk about /etc/profile.d/lilypond-profile.sh
+
+* GUILE errors
+
+* TEX errors
+
+]
+
+
+

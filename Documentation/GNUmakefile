@@ -1,7 +1,7 @@
 depth = ..
 
 NAME = documentation
-SUBDIRS=user bibliography pictures topdocs misc
+SUBDIRS=user bibliography pictures topdocs misc windows
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 

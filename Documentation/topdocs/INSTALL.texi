@@ -44,8 +44,8 @@ on the FTP site.
 
 This document describes how to build LilyPond on Unix platforms.  It is
 also known to run and compile on Windows NT/95/98 as well.  More
-information on this topic can be found at
-@uref{http://appel.lilypond.org/lilypond/gnu-windows/, Jan's windows
+information on this topic can be found at the
+@uref{http://appel.lilypond.org/lilypond/gnu-windows/, LilyPond on Windows
 page}.
 
 You need the following packages to compile Lilypond.
