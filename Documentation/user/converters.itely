@@ -35,11 +35,11 @@ version number.  In most cases, to upgrade your input file it is sufficient
 to run
 
 @example
-covert-ly -e MYFILE.ly
+covert-ly -e myfile.ly
 @end example
 
-If there are no changes to MYFILE.ly and if a file called MYFILE.ly.NEW
-is created, then MYFILE.ly is already updated.
+If there are no changes to myfile.ly and file called myfile.ly.NEW
+is created, then myfile.ly is already updated.
 
 To upgrade LilyPond fragments in texinfo files, use
 
