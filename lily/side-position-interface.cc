@@ -219,11 +219,6 @@ Side_position::add_staff_support (Score_element*me)
 void
 Side_position::set_axis (Score_element*me, Axis a)
 {
-  /*
-  // prop transparent ? 
-  if (me->get_elt_property ("side-support-elements") == SCM_UNDEFINED)
-    me->set_elt_property ("side-support-elements" ,SCM_EOL);
-  */
   if (!me->has_offset_callback_b (aligned_side, a))
     me->add_offset_callback (aligned_side, a);
 }
@@ -263,14 +258,14 @@ Side_position::set_padding (Score_element*me, Real p)
 bool
 Side_position::has_interface (Score_element*me) 
 {
-  return me->get_elt_property ("side-support-elements") != SCM_EOL;
+  return me->has_interface (ly_symbol2scm ("side-position-interface"));
 }
 
 bool
 Side_position::supported_b (Score_element*me) 
 {
   SCM s = me->get_elt_property  ("side-support-elements"); 
-  return s != SCM_UNDEFINED && s != SCM_EOL;
+  return gh_pair_p(s);
 }
 
 

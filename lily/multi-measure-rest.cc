@@ -22,10 +22,16 @@
 void
 Multi_measure_rest::set_interface (Score_element*me)
 {
-  me->set_elt_property ("columns", SCM_EOL);
+  me->set_interface (ly_symbol2scm ("multi-measure-rest-interface"));
 }
 
-/*
+bool
+Multi_measure_rest::has_interface (Score_element*me)
+{
+  return me->has_interface (ly_symbol2scm ("multi-measure-rest-interface"));
+}
+
+  /*
    [TODO]                                      17
  * variable-sized multi-measure rest symbol: |====| ??
 */

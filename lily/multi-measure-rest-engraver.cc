@@ -153,8 +153,6 @@ Multi_measure_rest_engraver::do_pre_move_processing ()
 void
 Multi_measure_rest_engraver::do_post_move_processing ()
 {
-  Moment now (now_mom ());
-  
   SCM smp = get_property ("measurePosition");
   Moment mp =  (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
   

@@ -13,18 +13,15 @@
 #include "music-wrapper-iterator.hh"
 #include "direction.hh"
 
-class Auto_change_iterator : public Music_wrapper_iterator
+class Auto_change_iterator  : public Music_wrapper_iterator
 {
-public:
-  VIRTUAL_COPY_CONS (Music_iterator);
-  Auto_change_iterator ();
+  Direction where_dir_;
 
+  void change_to (Music_iterator* , String, String);
 protected:
   virtual void do_process_and_next (Moment);  
-
-private:
-  Direction where_dir_;
-  void change_to (Music_iterator* , String, String);
+public:
+  Auto_change_iterator ();
 };
 
 #endif /* AUTO_CHANGE_ITERATOR_HH */

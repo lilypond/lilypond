@@ -39,7 +39,7 @@ Dot_column::add_head (Score_element * me, Score_element *rh)
 void
 Dot_column::set_interface (Score_element* me)
 {
-  me->set_elt_property  ("dots", SCM_EOL);
+
   Directional_element_interface::set (me, RIGHT);
   
   Axis_group_interface::set_interface (me);

@@ -21,7 +21,6 @@
 class Property_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   // construction  
 protected:
   virtual void do_process_and_next (Moment);
@@ -29,16 +28,12 @@ protected:
 
 class Push_property_iterator : public Music_iterator
 {
-public:
-  VIRTUAL_COPY_CONS (Music_iterator);
 protected:
   virtual void do_process_and_next (Moment);
 };
 
 class Pop_property_iterator : public Music_iterator
 {
-public:
-  VIRTUAL_COPY_CONS (Music_iterator);
 protected:
   virtual void do_process_and_next (Moment);
 };

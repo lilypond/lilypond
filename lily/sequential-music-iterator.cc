@@ -12,37 +12,19 @@
 #include "music-list.hh"
 #include "request-chord-iterator.hh"
 
-Sequential_music_iterator::Sequential_music_iterator ()
-{
-  cursor_ = 0;
-  here_mom_ = 0;
-  iter_p_ =0;
-}
-
-Sequential_music_iterator::Sequential_music_iterator (Sequential_music_iterator const &src)
-  : Music_iterator (src)
-{
-  cursor_ = src.cursor_;
-  here_mom_ = src.here_mom_;
-  iter_p_ = src.iter_p_->clone ();
-}
-
-Sequential_music_iterator::~Sequential_music_iterator()
-{
-  if (iter_p_)
-    {
-      if (iter_p_->ok ())
-	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
-      delete iter_p_;
-      iter_p_ = 0;
-    }
-}
 
 void
 Sequential_music_iterator::do_print() const
 {
   if (iter_p_)
     iter_p_->print();
+}
+
+Sequential_music_iterator::Sequential_music_iterator ()
+{
+  cursor_ = 0;
+  here_mom_ = 0;
+  iter_p_ =0;
 }
 
 void
@@ -93,68 +75,50 @@ Sequential_music_iterator::set_sequential_music_translator()
     set_translator (child_report);
 }
 
-Music*
-Sequential_music_iterator::get_music ()
+Sequential_music_iterator::~Sequential_music_iterator()
 {
-  if (ok ())
-    return unsmob_music (gh_car (cursor_));
-      
-  return 0;
-}
-  
-bool
-Sequential_music_iterator::next ()
-{
-  if (ok ())
+  if (iter_p_)
     {
-      bool b = false;
       if (iter_p_->ok ())
-	b = iter_p_->next ();
-      if (!b)
-	{
-	  set_sequential_music_translator ();
-	  leave_element ();
-	  if (gh_pair_p (cursor_))
-	    start_next_element ();
-	  b = ok ();
-	}
-      return b;
+	music_l_->origin ()->warning (_ ("Must stop before this music ends"));
+      delete iter_p_;
+      iter_p_ = 0;
     }
-  return false;
 }
 
-/*
-  This should use get_music () and next ()
- */
 void
 Sequential_music_iterator::do_process_and_next (Moment until)
 {
-  if (ok ())
+  if (!iter_p_)
+    return;
+
+  while (1) 
     {
-      while (1) 
+      Moment local_until = until - here_mom_;
+      while (iter_p_->ok()) 
 	{
-	  Moment local_until = until - here_mom_;
-	  while (iter_p_->ok ()) 
-	    {
-	      Moment here = iter_p_->next_moment ();
-	      if (here != local_until)
-		return Music_iterator::do_process_and_next (until);
-	      
-	      iter_p_->process_and_next (local_until);
-	    }
+	  Moment here = iter_p_->next_moment();
+	  if (here != local_until)
+	    goto loopexit;
+	    
+	  iter_p_->process_and_next (local_until);
+	}
+      
+      if (!iter_p_->ok()) 
+	{
+	  set_sequential_music_translator();
+	  leave_element();
 	  
-	  if (!iter_p_->ok ()) 
-	    {
-	      set_sequential_music_translator ();
-	      leave_element ();
-	      
-	      if (gh_pair_p (cursor_))
-		start_next_element ();
-	      else 
-		return Music_iterator::do_process_and_next (until);
-	    }
+	  if (gh_pair_p (cursor_))
+	    start_next_element();
+	  else 
+	    goto loopexit;
 	}
     }
+
+loopexit:
+
+  Music_iterator::do_process_and_next (until);
 }
 
 Moment

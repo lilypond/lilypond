@@ -37,30 +37,64 @@ full source code.  You can write to the mailing list
 @unnumberedsubsec Users
 
 Mutopia needs your help. The mutopia project is a collection of public
-domain sheet music. You can help the project by entering music and
-submitting. Point your browser to the
-@uref{http://sca.uwaterloo.ca/Mutopia, Mutopia webpage}
+domain sheet music. You can help the project by entering music (either
+by hand, or by converting from scans or MIDI) and submitting it. Point
+your browser to the @uref{http://sca.uwaterloo.ca/Mutopia, Mutopia
+webpage}.
 
 @unnumberedsubsec Font designers
 
-Our set of glyphs (the Feta font) is far from complete.  If you know  a
-little MetaFont you can contribute a glyph
+Our set of glyphs (the Feta font) is far from complete.  We need the
+following glyphs: segno, coda.  The fonts have been coded in MetaFont,
+so you will need to know MetaFont if you want to contribute a glyph.
 
 @unnumberedsubsec Writers
 
-The documentation of LilyPond and related utilities needs a lot of work.
+The documentation of LilyPond and related utilities needs a lot of
+work. The documentation is written in
+@uref{http://www.gnu.org/software/texinfo,texinfo}. The documentation of
+LilyPond is sorely lacking in terms of completeness, depth and
+organisation.
+
+Write if you know how to write english documentation in texinfo, and
+know about music and music notation.  You must also know how to use
+LilyPond (or be prepared to learn using it).  The task is not especially
+hard, but it is a lot of work, and you must be familiar with LilyPond.
 
 @unnumberedsubsec Translators
 
 LilyPond is completely ready for internationalized messages, but there
-are only three translations so far.
+are only a few translations so far (dutch, italian, german, japanese,
+french, russian).  Translation involves writing a .po file, which is
+relatively easy, and does not even require running LilyPond.
 
 @unnumberedsubsec Hackers
 
-There are lots of possibilities of improving the program itself. There are
-both small projects and big ones. Most of them are listed in the TODO
-file.  A interesting and very big project is writing a GUI frontend to
-LilyPond.
+There are lots of possibilities of improving the program itself. There
+are both small projects and big ones. Most of them are listed in our
+TODO file, listed on the homepage of Jan and
+@uref{http://www.cs.uu.nl/~hanwen/lily-devel,Han-Wen}.  Modifying
+LilyPond almost always requires patches to the C++ part.
+
+There are also numerous other interesting projects that are more or less
+related  to LilyPond
+
+@itemize @bullet
+@item Writing convertors, eg. from NIFF and MIDI (we tried writing one with
+limited success: midi2ly, included with lilypond.)
+
+We found that writing them in Python is the easiest.
+
+@item Writing a GUI frontend to
+LilyPond. At the moment @uref{denemo,denemo.sourceforge.net} is the most
+advanced.
+
+@item Helping write @uref{ http://solfege.sourceforge.net/,solfege
+tools}
+
+@item Helping @uref{primrose.sourceforge.net,primrose}, a tool for
+scanning sheet music.
+@end itemize
 
 
 @chapter LilyPond internals
@@ -68,9 +102,9 @@ LilyPond.
 
 This documents some aspects of the internals of GNU LilyPond. Some of
 this stuff comes from e-mail I wrote, some from e-mail others wrote,
-some are large comments taken away from the headers. This page may be
-a little incoherent.  Unfortunately, it is also quite outdated.  A
-more thorough  and understandable document is in the works.
+some are large comments taken away from the headers. This page may be a
+little incoherent.  Unfortunately, it is also quite outdated.  A more
+thorough and understandable document is in the works.
 
 You should use @code{doc++} to take a peek at the sources.
 

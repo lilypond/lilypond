@@ -53,7 +53,7 @@ Group_interface::set_interface ()
 {
   if (!has_interface ())
     {
-      elt_l_->set_elt_property (name_.ch_C (), SCM_EOL);
+
     }
 }
 

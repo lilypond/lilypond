@@ -39,9 +39,10 @@ inspired by engraved music, so you can expect that same clear and
 elegant look from your LilyPond output.  And if you don't like the
 looks, you can tweak almost everything.
 
-The program also has limited MIDI functionality: you can write MIDI
-files with lilypond, and we have a simple MIDI to lilypond conversion
-tool, @file{midi2ly}.
+The program also has limited MIDI functionality: you can write MIDI files with
+lilypond, and we have a simple MIDI to lilypond conversion tool,
+@file{midi2ly}. Conversion tools for PMX, MUP, ABC, Finale and Musedata are
+also included.
 
 LilyPond is free software. It is licensed under GNU General Public
 License, so you can use, modify and redistribute the program with
@@ -137,25 +138,16 @@ Frequently Asked Questions} first.)
 
 
 @itemize @bullet
-@item @samp{info-gnu-music@@gnu.org} (@uref{http://www.mail-archive.com/info-gnu-music@@gnu.org,archive})
-        is a moderated list for information on the GNU Music project, to
-    subscribe: send mail with subject "subscribe" to
-    info-gnu-music-request@@gnu.org.  
+@item @uref{http://mail.gnu.org/mailman/listinfo/info-gnu-music,info-gnu-music@@gnu.org}
+is a low-volume list for information on the GNU Music project.
     This list is moderated; ask 
     @email{drl@@gnu.org, David R. Linn} or
-    @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this
-list.
+    @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this list.
+@item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music,@samp{help-gnu-music@@gnu.org}}
+    For help with using LilyPond.
+@item @uref{http://mail.gnu.org/mailman/listinfo/bug-gnu-music,bug-gnu-music@@gnu.org}
+If you have bugreports, you should send them to this list.  
 
-
-@item @samp{help-gnu-music@@gnu.org} (@uref{http://www.mail-archive.com/help-gnu-music@@gnu.org,archive}).
-    For help with LilyPond music project. To subscribe: send
-    mail with subject "subscribe" to
-    @email{help-gnu-music-request@@gnu.org} 
-
-@item @samp{bug-gnu-music@@gnu.org} (@uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org,archive})
-    If you have bugreports, you should send them to this list.  If you
-want to know about bugs, subscribe: send mail with subject "subscribe"
-to @email{bug-gnu-music-request@@gnu.org}. 
 
 
         Please include in your bugreport the version of LilyPond that
@@ -164,12 +156,8 @@ input to reproduce the problem. Do not send output files over the list,
 they tend to be very big and don't help with describing the problem.
 
 
-@item @samp{gnu-music-discuss@@gnu.org} (@uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org,archive})
-    For discussions concerning LilyPond, to subscribe: send
-    mail with subject "subscribe" to
-    @email{gnu-music-discuss-request@@gnu.org}.
-
-
+@item @uref{http://mail.gnu.org/mailman/listinfo/gnu-music-discuss,gnu-music-discuss@@gnu.org}
+    For discussions concerning LilyPond.
 @end itemize
 
 If you want to unsubscribe use the same procedure as subscribing, but

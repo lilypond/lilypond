@@ -14,9 +14,10 @@
 void
 Pitch_squash_engraver::acknowledge_element (Score_element_info i)
 {
+  SCM newpos = get_property ("squashedPosition");
   if (Note_head::has_interface (i.elem_l_))
     {
-      Staff_symbol_referencer::set_position (i.elem_l_,0);
+      i.elem_l_->set_elt_property ("staff-position", newpos);
     }
 }
 

@@ -15,7 +15,6 @@
 void
 Separation_item::set_interface (Score_element*s)
 {
-  s->set_elt_property ("elements", SCM_EOL);
   s->set_extent_callback (0, X_AXIS);
   s->set_extent_callback (0,  Y_AXIS);
 }

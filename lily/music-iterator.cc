@@ -37,25 +37,9 @@
 #include "part-combine-music.hh"
 #include "part-combine-music-iterator.hh"
 #include "request.hh"
-#include "simple-music-iterator.hh"
+#include "request-iterator.hh"
 #include "output-property.hh"
 #include "chord-tremolo-iterator.hh"
-
-Music_iterator::Music_iterator ()
-{
-  first_b_ = true;
-}
-
-Music_iterator::Music_iterator (Music_iterator const& src)
-{
-  first_b_ = src.first_b_;
-  handle_ = *src.handle_.clone ();
-  music_l_ = src.music_l_;
-}
-
-Music_iterator::~Music_iterator()
-{
-}
 
 void
 Music_iterator::do_print() const
@@ -110,6 +94,10 @@ Music_iterator::construct_children()
 {
 }
 
+Music_iterator::~Music_iterator()
+{
+}
+
 Moment
 Music_iterator::next_moment() const
 {
@@ -130,24 +118,9 @@ Music_iterator::do_process_and_next (Moment)
 }
 
 bool
-Music_iterator::ok () const
+Music_iterator::ok() const
 {
   return first_b_;
-}
-
-Music*
-Music_iterator::get_music ()
-{
-  if (ok ())
-    return music_l_;
-  return 0;
-}
-
-bool
-Music_iterator::next ()
-{
-  first_b_ = false;
-  return ok ();
 }
 
 Music_iterator*
@@ -227,6 +200,11 @@ Music_iterator::get_iterator_p (Music *m) const
   
   p->construct_children();
   return p;
+}
+
+Music_iterator::Music_iterator()
+{
+  first_b_ = true;
 }
 
 Music_iterator*

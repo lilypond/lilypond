@@ -13,7 +13,11 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "rod.hh"
+/*
+  properties:
 
+  columns -- list of paper-columns
+ */
 class Multi_measure_rest
 {
 public:

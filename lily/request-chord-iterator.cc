@@ -12,17 +12,7 @@
 #include "music-list.hh"
 #include "request.hh"
 
-Request_chord_iterator::Request_chord_iterator ()
-{
-  last_b_ = false;
-}
 
-Request_chord_iterator::Request_chord_iterator (Request_chord_iterator const &src)
-  : Music_iterator (src)
-{
-  last_b_ = src.last_b_;
-  elt_length_mom_ = src.elt_length_mom_;
-}
 
 void
 Request_chord_iterator::construct_children()
@@ -36,6 +26,12 @@ Request_chord_iterator::elt_l () const
 {
   return (Request_chord*) music_l_;
 }
+
+Request_chord_iterator::Request_chord_iterator ()
+{
+  last_b_ = false;
+}
+
 
 bool
 Request_chord_iterator::ok() const
@@ -61,27 +57,12 @@ Request_chord_iterator::do_print() const
 #endif
 }
 
-bool
-Request_chord_iterator::next ()
-{
-  if (first_b_)
-    first_b_ = false;
-  else
-    last_b_ = true;
-  return ok ();
-}
-
 void
 Request_chord_iterator::do_process_and_next (Moment mom)
 {
-#if 0
-  // URG
-  //if (first_b_)
-#else
-  if (ok ())
-#endif
+  if (first_b_)
     {
-      for (SCM s = dynamic_cast<Music_sequence *> (get_music ())->music_list (); gh_pair_p (s);  s = gh_cdr (s))
+      for (SCM s = dynamic_cast<Music_sequence *> (music_l_)->music_list (); gh_pair_p (s);  s = gh_cdr (s))
 	{
 	  Music *mus = unsmob_music (gh_car (s));
 	  if (Request * req_l = dynamic_cast<Request*> (mus))
@@ -94,12 +75,9 @@ Request_chord_iterator::do_process_and_next (Moment mom)
 	    mus->origin ()->warning (_f ("Huh?  Not a Request: `%s'",
 						 classname (mus)));
 		    }
+      first_b_ = false;
     }
 
-  next ();
-#if 0
-  // URG
   if (mom >= elt_length_mom_)
     last_b_ = true;
-#endif
 }

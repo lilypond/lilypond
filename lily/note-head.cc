@@ -68,9 +68,8 @@ Note_head::brew_molecule (SCM smob)
   SCM style  = me->get_elt_property ("style");
   if (!gh_symbol_p (style))
     {
-      style = ly_symbol2scm("default");
+      return SCM_EOL;
     }
-  
 
   // ugh: use gh_call ()
   Molecule out = me->lookup_l()->afm_find (String ("noteheads-") + 

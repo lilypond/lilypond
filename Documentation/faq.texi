@@ -34,11 +34,31 @@ Note: relative paths are meant to be relative to the source directory
 
 @subsubsection I've got a simple question, but this FAQ doesn't help!
 
-Please have a look in the searchable mail achives of
-@uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org/,
-gnu-music-discuss} and
-@uref{http://www.mail-archive.com/help-gnu-music@@gnu.org/, help-gnu-music}.
-Your question may well have been answered before.
+Please have a look in the searchable mail archives of gnu-music-discuss
+and help-gnu-music (see next FAQ entry).  Your question may well have
+been answered before.
+
+@subsubsection Are there archives of the mailing list?
+
+Yes. Currently, all information on the mailing lists is available at
+gnu.org:
+
+@itemize
+@item @uref{http://mail.gnu.org/mailman/listinfo/gnu-music-discuss}
+@item @uref{http://mail.gnu.org/mailman/listinfo/info-gnu-music}
+@item @uref{http://mail.gnu.org/mailman/listinfo/bug-gnu-music}
+@item @uref{http://mail.gnu.org/mailman/listinfo/help-gnu-music}
+@end itemize
+
+Archives of mail before September 12, 2000 are at
+@code{mail-archive.com}:
+
+@itemize
+@item @uref{http://www.mail-archive.com/info-gnu-music@@gnu.org}
+@item @uref{http://www.mail-archive.com/help-gnu-music@@gnu.org}
+@item @uref{http://www.mail-archive.com/bug-gnu-music@@gnu.org})
+@item @uref{http://www.mail-archive.com/gnu-music-discuss@@gnu.org}
+@end itemize
 
 @node Installing,, ,top
 @section Installing
@@ -276,6 +296,25 @@ This also works for crescendi, eg,
 	>
  
 @end example 
+
+@subsubsection How do I get a fermata on a barline
+
+The trick is to specify the fermata as a \mark.  Use the following macro
+before the bar line where you want the fermata:
+
+@example
+barFermata = \mark "\\font\\fetafont=feta20\\fetafont\\char40";
+@end example
+
+The problem is that marks that occur at a line break are typeset only at
+the beginning of the next line, opposite to what you want for the
+fermata. This can be corrected by the following code
+
+@example
+        \property basicMarkProperties \push #'visibility-lambda  = #begin-of-line-i\nvisible
+@end example
+
+You can use a similar trick to put coda signs and comma's on barline.
 
 @subsubsection How do I combine multiple pieces into one document?
 

@@ -15,7 +15,6 @@
 class Simultaneous_music_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
 
   /// make a new context for every child.
   bool separate_contexts_b_;

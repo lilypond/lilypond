@@ -13,7 +13,7 @@
 #include "item.hh"
 #include "musical-request.hh"
 #include "stem.hh"
-#include "note-head.hh"
+#include "rhythmic-head.hh"
 
 /**
    typeset directions that are  plain text.
@@ -48,7 +48,7 @@ Text_engraver::do_try_music (Music *m)
 void
 Text_engraver::acknowledge_element (Score_element_info inf)
 {
-  if (Note_head::has_interface (inf.elem_l_))
+  if (Rhythmic_head::has_interface (inf.elem_l_))
     {
       for (int i=0; i < texts_.size (); i++)
 	{

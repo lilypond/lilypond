@@ -13,6 +13,9 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 
+/*
+  stem -- pointer to the stem object.
+ */
 class Stem_tremolo
 {
 public:

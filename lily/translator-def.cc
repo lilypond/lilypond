@@ -82,7 +82,7 @@ void
 Translator_def::set_acceptor (SCM name, bool add)
 {
   if (add)
-    this->accepts_name_list_ = gh_append2 (this->accepts_name_list_, gh_cons (name, SCM_EOL));
+    this->accepts_name_list_ = gh_cons (name, this->accepts_name_list_);
   else
     this->accepts_name_list_ = scm_delete_x (name, this->accepts_name_list_);
 }
@@ -136,14 +136,14 @@ void
 Translator_def::add_push_property (SCM props, SCM syms,  SCM vals)
 {
   this->property_ops_ = gh_cons (gh_list (push_sym, props, syms, vals, SCM_UNDEFINED),
-				    this->property_ops_);
+				 this->property_ops_);
 }
 
 void
 Translator_def::add_pop_property (SCM props, SCM syms)
 {
   this->property_ops_ = gh_cons (gh_list (push_sym, props, syms, SCM_UNDEFINED),
-				  this->property_ops_);
+				 this->property_ops_);
 }
 
 /*
@@ -174,7 +174,6 @@ Translator_def::path_to_acceptable_translator (SCM type_str, Music_output_def* o
 	continue;
       accepted_arr.push (t);
     }
-
 
   Link_array<Translator_def> best_result;
   for (int i=0; i < accepted_arr.size (); i++)
@@ -240,6 +239,19 @@ Translator_def::instantiate (Music_output_def* md)
   tg->output_def_l_ = md;
   tg->definition_ = self_scm ();
   tg->type_str_ = ly_scm2string (type_name_);
+  SCM l1 = trans_list (consists_name_list_, tg);
+  SCM l2 =trans_list (end_consists_name_list_,tg);
+  l1 = scm_reverse_x (l1, l2);
+  
+  tg->simple_trans_list_ = l1;
+  
+  return tg;
+}
+
+
+void
+Translator_def::apply_property_operations (Translator_group*tg)
+{
   SCM correct_order = scm_reverse (property_ops_); // pity of the mem.
   for (SCM s = correct_order; gh_pair_p (s); s = gh_cdr (s))
     {
@@ -259,14 +271,6 @@ Translator_def::instantiate (Music_output_def* md)
 	  tg->set_property (gh_car(entry), gh_cadr (entry));
 	}
     }
-
-  SCM l1 = trans_list (consists_name_list_, tg);
-  SCM l2 =trans_list (end_consists_name_list_,tg);
-  l1 = scm_reverse_x (l1, l2);
-  
-  tg->simple_trans_list_ = l1;
-  
-  return tg;
 }
 
 SCM
@@ -290,3 +294,13 @@ Translator_def::add_property_assign (SCM nm, SCM val)
 				 this->property_ops_);
 }
 
+/*
+  Default child context as a SCM string, or something else if there is
+  none.
+*/
+SCM
+Translator_def::default_child_context_name ()
+{
+  SCM d = accepts_name_list_;
+  return gh_pair_p (d) ? gh_car (scm_last_pair (d)) : SCM_EOL;
+}

@@ -160,3 +160,9 @@ Molecule::create_scheme () const
 		  gh_cons (ly_interval2scm (dim_[X_AXIS]),
 			   ly_interval2scm (dim_[Y_AXIS])));
 }
+
+Box
+Molecule::extent_box () const
+{
+  return dim_;
+}

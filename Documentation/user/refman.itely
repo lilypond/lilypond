@@ -2732,6 +2732,9 @@ The engravers for paper output are:
     Note that the notes move, but the locations of accidentals stay
     the same.
 
+	Vertical position of squashing can be controlled through
+@indexcode{squashedPosition}.
+
   @item @code{Priority_horizontal_align_engraver}
     @indexcode{Priority_horizontal_align_engraver}
 

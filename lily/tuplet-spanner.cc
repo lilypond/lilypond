@@ -27,8 +27,6 @@
 void
 Tuplet_spanner::set_interface (Score_element*me)
 {
-  me-> set_elt_property ("beams", SCM_EOL);
-  me->set_elt_property ("columns", SCM_EOL);
 }
 
 /*

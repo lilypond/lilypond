@@ -19,7 +19,6 @@
 class Unfolded_repeat_iterator : public Music_iterator
 {
 public:
-  VIRTUAL_COPY_CONS (Music_iterator);
   /**
      How often have we done the body (assuming bodies are interspersed.)?
    */

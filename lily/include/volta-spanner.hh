@@ -10,7 +10,13 @@
 
 #include "spanner.hh"
 
-/** Volta bracket with number */
+/** Volta bracket with number
+
+properties:
+
+bars -- list of barline ptrs.
+
+*/
 
 class Volta_spanner
 {

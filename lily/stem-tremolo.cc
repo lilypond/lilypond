@@ -25,7 +25,6 @@
 void
 Stem_tremolo::set_interface (Score_element *me)
 {
-me->set_elt_property ("stem", SCM_EOL);
 }
 
 
