@@ -93,7 +93,7 @@ top_of_NEWS
 @item @uref{ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex} Debian binary
 @item @uref{http://home.austin.rr.com/jbr/jeff/lilypond/} Windows NT binary
 @item @uref{http://linux.umbc.edu/software/lilypond/rpms/} i386 RPM.
-@item @uref{ftp://freshmeat.net/pub/rpms/lilypond/} i386 RPM.
+@item @uref{ftp://ftp.freshmeat.net/pub/rpms/lilypond/} i386 RPM.
 @end itemize
 
 @unnumberedsubsec Webmaster's Disclaimer
