@@ -1,7 +1,7 @@
 
-\header { texidoc = "Solo/Solo2 also is global: In this example, solo1
-	  should not printed over the 1st note, because the voice
-	  switch would kill the slur."
+\header { texidoc = "In this example, solo1
+	  should not be printed over the 1st note, because of the slur
+	  which is present from the one-voice to the two-voice situation."
 
 }
 

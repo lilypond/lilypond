@@ -1,7 +1,7 @@
 
 
 \header { texidoc= "Rehearsal marks in letter style: the I is skipped,
-and after Z, we continue with double letters.  The mark may be set
+and after Z, double letters are used.  The mark may be set
 with @code{\mark NUMBER}, or with @code{Score.rehearsalMark}."
       }
 

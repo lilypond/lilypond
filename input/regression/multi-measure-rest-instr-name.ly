@@ -1,7 +1,8 @@
 \version "2.1.23"
-\header { texidoc = "This combines instrument names and multimeasure rests (there was an
-interesting bug in 1.3.98). " }
-
+\header { texidoc = "There are both long and short intstrument names.
+Engraving instrument names should not be confused by the
+multimeasure rests. " }
+% (there was an interesting bug in 1.3.98)
 \score{
 	\context Staff <<
 	      \set Staff.instrument = "instrument"

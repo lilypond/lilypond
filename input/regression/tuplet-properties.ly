@@ -1,7 +1,7 @@
 
 \header {
-texidoc = "Tuplet bracket formatting supports numerous options:
-NB should have no bracket, B should have bracket.
+texidoc = "Tuplet bracket formatting supports numerous options,
+for instance, bracketed (B) and non-bracketed (NB).
 "
 }
  

@@ -2,7 +2,7 @@
 \version "2.1.25"
 
 \header {
-    texidoc = "Accidentals don't influence the amount of stretchable space. "
+    texidoc = "Accidentals do not influence the amount of stretchable space. "
 }
 
 \score {

@@ -1,5 +1,5 @@
 \header  {
-texidoc = "With the new markup syntax, text may be written in various manenrs."
+texidoc = "With the new markup syntax, text may be written in various manners."
 }
 
 \version "2.1.22"

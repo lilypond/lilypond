@@ -1,23 +1,21 @@
 
 \version "2.1.22"
 \header{
-  texidoc="Lyric phrasing
+  texidoc="
+  The multiple stanzas of lyric phrasing are aligned according to the start 
+  and end of a phrase.
 
-  The multiple stanzas are aligned according to the start and end of a phrase.
-
-  Also, lyrics at the beginning of a melismata should be left aligned.
-  (is that only lyrics that are followed by `__'?  Because
-  that seems to be the case now -- jcn)
+  By default, lyrics are centered with respect to the corresponding notes.
 
 @example
-	   |        |        |     |      |
-	  x|       x|       x|    x|     x|
+           |        |        |     |      |
+          x|       x|       x|    x|     x|
 
      1:  Start  sentence  melisma      end.
      2:  x         x         x______      x
 @end example
 
-  Only lyrics that are followed by '__' while there is a melisma,
+  While there is a melisma, lyrics are followed by '__' and they
   are left-aligned, in this case the third x."
 }
 

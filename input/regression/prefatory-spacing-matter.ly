@@ -3,7 +3,7 @@
 \header {
 
     texidoc = "Distances between prefatory items (e.g. clef, bar, etc.)
-   are done using engraving standard distances.  These distances
+   are determined by engraving standards.  These distances
    depend on which items are combined."
 
 }

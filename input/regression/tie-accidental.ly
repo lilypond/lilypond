@@ -7,7 +7,7 @@ When tying notes with accidentals across a bar boundary, the
 accidental must not be drawn on the note in the next bar.  Unless the
 tie crosses a line break, in which case the accidental is repeated if
 it would be different from an untied note.  The next note of the same
-pitch in this next bar should always show the accidental (even if it's
+pitch in this next bar should always show the accidental (even if it is
 natural).  Slurring a accidentaled note to a natural one across bar
 boundaries should be explicit.
 

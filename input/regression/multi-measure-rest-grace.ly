@@ -2,7 +2,7 @@
 
 
 \header {
-texidoc= "Grace notes and multi-measure rests."
+texidoc= "Multi-measure rests are centered also in the case of grace notes."
 }
 
 \score   {

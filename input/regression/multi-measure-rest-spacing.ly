@@ -1,7 +1,7 @@
 \header {
 
-    texidoc = "By setting texts starting with a mmrest, an extra spacing 
-column is created. This should not cause problems."
+    texidoc = "By setting texts starting with a multi-measure rest, an 
+extra spacing column is created. This should not cause problems."
     }
 \version "2.1.22"
 

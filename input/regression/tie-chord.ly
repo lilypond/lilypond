@@ -3,8 +3,8 @@
 \header{
 texidoc="
 When tying chords, the outer slurs point outwards, the inner slurs
-point away from the center of the staff.  Override with
-@code{tieVerticalDirection}.
+point away from the center of the staff. The behavior can be overridden 
+by setting explicitly the @code{direction} of a @code{TieColumn}.
 "
 }
 

@@ -1,9 +1,8 @@
 \version "2.1.22"
 
 \header {
-texidoc = "The staff is a grob, and may be adjusted as well: this one
- shows a staff with 6 thick line, and a slightly large staffspace.
-Beams remain correctly quantized."    
+texidoc = "The staff is a grob (graphical object) which may be adjusted as well, for example, to have 6 thick lines and a slightly large @code{staff-space}.
+However, beams remain correctly quantized."    
 
 }
 

@@ -1,7 +1,7 @@
 
 \header {
-texidoc = "Tied accidentaled notes (which cause reminder accidentals) don't wreak havoc in
-the spacing when unbroken."
+texidoc = "Tied accidentaled notes (which cause reminder accidentals) do not 
+wreak havoc in the spacing when unbroken."
 }
 
 \version "2.1.25"

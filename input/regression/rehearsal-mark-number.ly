@@ -1,7 +1,7 @@
 \header { texidoc= "
 
 Marks can be printed as numbers.  
-By setting @code{markFormatter} we may choose a different style of mark printing. Also, marks can be specified manually, with a markup argument" 
+By setting @code{markFormatter} we may choose a different style of mark printing. Also, marks can be specified manually, with a markup argument." 
 	  
       }
 
