@@ -7,6 +7,12 @@
 
 ;;; Inspired on auctex
 
+;;;
+;;; Add this to your .emacs.el
+;;;     (load-library "lilypond-mode.el")
+;;;     (setq auto-mode-alist
+;;;      (append '(("\\.ly$" . LilyPond-mode) auto-mode-alist)))
+;;; 
 
 (load-library "lilypond-font-lock")
 

@@ -791,7 +791,7 @@ either unison, unisilence or soloADue is set"
     needs special interaction with the rest of LilyPond, you should
     not explicitly instantiate it.
 ")
-(LyricVoice . "
+(LyricsVoice . "
     Corresponds to a voice with lyrics.  Handles the printing of a
     single line of lyrics.
 ")
@@ -817,7 +817,7 @@ either unison, unisilence or soloADue is set"
     contexts.")
 
 (Lyrics . "
-    Typesets lyrics.  It can contain @code{LyricVoice} contexts.
+    Typesets lyrics.  It can contain @code{LyricsVoice} contexts.
 ")
 (Staff . "
     Handles clefs, bar lines, keys, accidentals.  It can contain

@@ -51,7 +51,7 @@ Stanza_number_engraver::acknowledge_grob(Grob_info i)
 //       if (i.elem_l_->has_interface (symbol ("lyric-syllable-interface")))
         // Tried catching lyric items to generate stanza numbers, but it spoils lyric spacing.
        if (Bar::has_interface (i.elem_l_) || now_mom() == Moment(0))
-	// Works, but requires bar_engraver in LyricVoice context apart from at beginning.
+	// Works, but requires bar_engraver in LyricsVoice context apart from at beginning.
 	// Is there any score element we can catch that will do the trick?
 //       if (! i.elem_l_->has_interface (symbol ("lyric-syllable-interface")) ||
 // 	  now_mom() == Moment(0))

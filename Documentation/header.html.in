@@ -38,7 +38,7 @@ which substitutes some @AT_VARIABLES@ as well.
       <tr><td bgcolor="#e8e8ff"><a href="@INDEX@"><b>Home</b></a></td></tr>
       <tr><td><font size=-1>
         <a href="http://www.cs.uu.nl/~hanwen/lilypond">Development</a><br>
-        <a href="http://appel.lilypond.org/wiki/index.php3?LilyPond">WikiWikiWeb</a><br>
+        <a href="http://appel.lilypond.org/wiki?LilyPond">WikiWikiWeb</a><br>
         <a href="http://www.gnu.org">GNU Project</a><br>
         <a href="http://www2.iro.umontreal.ca/~pinard/po/registry.cgi?domain=lilypond">Translations</a><br>
         <a href="http://www.lilypond.org">LilyPond dot org</a><br>
@@ -49,10 +49,11 @@ which substitutes some @AT_VARIABLES@ as well.
       </td></tr>
       <tr><td><font size=-1>
     	<a href="@TOP@Documentation/out-www/CHANGES.html">Change Log</a><br>
-    	<a href="http://appel.lilypond.org/wiki/index.php3?LilyPondFaqs">FAQ</a><br>
+    	<a href="@TOP@Documentation/topdocs/out-www/FAQ.html">Small FAQ</a><br>
+    	<a href="http://appel.lilypond.org/wiki?LilyPondFaqs">Full FAQ</a><br>
     	<a href="@TOP@Documentation/user/out-www/lilypond/lilypond.html">User manual</a><br>
     	<a href="@TOP@Documentation/out-www/regression-test.html">Features</a><br>
-	<a href="http://appel.lilypond.org/wiki/index.php3?LilyPondToDo">To do</a><br>
+	<a href="http://appel.lilypond.org/wiki?LilyPondToDo">To do</a><br>
 <br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">
@@ -83,7 +84,7 @@ which substitutes some @AT_VARIABLES@ as well.
 	<a href="@TOP@long-examples.html">Longer examples</a><br>
 	<a href="http://www.mutopiaproject.org/">Mutopia Project</a><br>
 
-	<a href="http://appel.lilypond.org/wiki/index.php?DownloadLilyPondScores">Other URLs</a><br>
+	<a href="http://appel.lilypond.org/wiki?DownloadLilyPondScores">Other URLs</a><br>
 	<br>
       </td></tr>
       <tr><td bgcolor="#e8e8ff">

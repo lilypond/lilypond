@@ -188,14 +188,14 @@ Lyric_phrasing_engraver::acknowledge_grob(Grob_info i)
   /* now try for a lyric */
   if (h->has_interface (ly_symbol2scm ("lyric-syllable-interface"))) {
 
-    /* what's its LyricVoice context name? */
+    /* what's its LyricsVoice context name? */
     String voice_context_id;
     SCM voice_context_scm = i.origin_trans_l_->get_property("associatedVoice");
     if (gh_string_p (voice_context_scm)) {
       voice_context_id = ly_scm2string(voice_context_scm);
     }
     else {
-      voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "LyricVoice");
+      voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "LyricsVoice");
       voice_context_id = trim_suffix(voice_context_id);
     }
     record_lyric(voice_context_id, h);
@@ -216,7 +216,7 @@ Lyric_phrasing_engraver::acknowledge_grob(Grob_info i)
      lyric).
   */
   if(h->has_interface (ly_symbol2scm ("lyric-extender-interface"))) {
-    String voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "LyricVoice");
+    String voice_context_id = get_context_id(i.origin_trans_l_->daddy_trans_l_, "LyricsVoice");
     record_extender(trim_suffix(voice_context_id), h);
     return;
   }

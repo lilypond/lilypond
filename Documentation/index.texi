@@ -14,7 +14,8 @@
 @item @uref{../topdocs/out-www/README.html, Readme file}
 @item @uref{../topdocs/out-www/INSTALL.html, Installation instructions}
 @item @uref{CHANGES.html, Things recently done}
-@item @uref{http://appel.lilypond.org/wiki/index.php3?LilyPondFaqs,Frequently asked questions}, with answers
+@item @uref{../topdocs/out-www/FAQ.html,Very Frequently Asked Questions}, with answers
+@item @uref{http://appel.lilypond.org/wiki?LilyPondFaqs,Full Frequently asked questions}, with answers
 @end itemize
 
 @unnumberedsubsec Manuals

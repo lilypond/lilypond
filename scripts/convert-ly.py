@@ -572,6 +572,15 @@ if 1:
 	
     conversions.append (((1,3,110), conv, '\\push -> \\override, \\pop -> \\revert'))
 
+if 1:
+	def conv (str):
+		str = re.sub ('LyricVoice', 'LyricsVoice', str)
+		% old fix
+		str = re.sub ('ChordNames*.ChordNames*', 'Chordnames.Chordname', str)
+		return str
+	
+    conversions.append (((1,3,113), conv, 'LyricVoice -> LyricsVoice'))
+
 
 ############################
 	
