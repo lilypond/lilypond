@@ -19,60 +19,6 @@ do input for features we don't know how to produce on paper
 
 =head1 REQUIREMENTS
 
-=head2 Parser output 
-
-When I say LilyPond input, I mean the final output of the parsing
-step, which should be roughly the same as it is now: hierarchically,
-using pseudo syntax
-
-	Score {
-		Midi_def
-		Paper_def
-		Staff [multiple] {
-			Voices
-			Stafftype
-			(instrument)
-		}
-	}
-
-
-Voice should stay the same:
-
-	Voice {
-		Voice_elements 
-	}
-
-and
-
-	Voice_elements {
-		requests
-	}
-
-
-=head2 Staffs
-
-We definitely need the concept of staff in the parser output, because
-it is fundamental to LilyPond.  I think the input language should
-allow the user to do something like:
-
-	melody = { c d e f g }
-
-	%At this time I can't think of more than these stafftypes
-	staff { gregorian music { melody } }
-	staff { pianostaff music { melody } }
-	staff { melodic music { melody } }
-	staff { rhythmic music { melody } }
-	staff { lyric music { melody } }	% silly, i admit.
-
-The staff could also define what the instrument would be (both in
-print and in MIDI)
-
-Moreover, if music {} in score equals staff, then how do we do multiple
-voices on one staff?
-
-We might be able to do without the staff{} construct, but I doubt if
-it will make things easier.
-
 =head1 CONCRETE PROPOSALS
 
 
@@ -166,7 +112,7 @@ is very sketchy.
 =head2 Requests
 
 I want to give the user some access to the internals. Technically,
-walkers/registers will happily typeset voices which mix lyrics and
+engravers/performers will happily typeset voices which mix lyrics and
 notes, which combine stem requests and lyricreqs. I want to have a
 
 	\request { melodic name = 5, acc = -10
@@ -175,9 +121,7 @@ notes, which combine stem requests and lyricreqs. I want to have a
 type of syntax. This is the most flexible input format possible, since
 any valid LilyPond input can be made. This strongly implies tying
 mudela to LilyPond. That I don't mind, but it hampers
-portability. Suppose some commercial systems want to read mudela
-too.
-
+portability. Suppose some commercial systems want to read mudela too.
 
 =head2 Command placement:
 
@@ -248,7 +192,6 @@ editions:
 Just ideas:
 
 	|| && !		filter syntax 
-	++		concatenation of voices
 	+		merging of voices
 
 =head2 Quoting
