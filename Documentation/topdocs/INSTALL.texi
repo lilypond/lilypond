@@ -119,10 +119,11 @@ You need the following packages to compile Lilypond.
 @item A reasonably new version of the GNU C++ compiler:  EGCS 1.1, GCC 2.95.2 or
 newer. Check out @uref{ftp://ftp.gnu.org/gnu/gcc/, the gcc site}.
 
-@item Python (version 1.5 or newer; not 2.1.x)
+@item Python (version 1.5 or newer).
 Check out @uref{http://www.python.org, the python website}.
 
-@item GUILE 1.4 or newer,  check out
+@item GUILE (version 1.4 or newer).
+Check out
 @uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 Version 1.4 is recommended for better performance.
 

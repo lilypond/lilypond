@@ -58,11 +58,11 @@ Compiling @file{setup.exe} has been complicated a bit with the
 introduction of the bzip2 feature.  Here's how I did it:
 @quotation
 @example
-    mkdir cygwin-20020129 && cd cygwin-20020129
+    mkdir cygwin-20020218 && cd cygwin-20020218
     export CVSROOT=:pserver:anoncvs@@anoncvs.cygnus.com:/cvs/src
     touch $HOME/.cvspass
     cvs login
-    cvs -z3 co -D20020129 winsup
+    cvs -z3 co -D20020218 winsup
     cd src/winsup/cinstall
     patch < $HOME/usr/src/lilypond/Documentation/windows/cygwin-installer.patch
     (cd ../bz2lib; ./configure; make)
