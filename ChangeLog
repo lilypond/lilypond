@@ -1,3 +1,8 @@
+2003-09-19  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* buildscripts/lilypond.words.py: add drum names as note names to
+	Emacs-mode.
+
 2003-09-19  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* input/regression/hairpin-dashed.ly: new file.
