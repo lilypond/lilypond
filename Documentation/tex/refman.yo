@@ -1425,7 +1425,6 @@ COMMENT(
 Mystery properties:
 
 bar-number-engraver.cc:  "barScriptPadding"  vertical space for numbers
-mark-engraver.cc:        "markScriptPadding" vertical space for marks
 span-bar-engraver.cc:    "singleStaffBracket" do single staffs get a bracket?
 bar-column-engraver.cc:  "barColumnPriority"        
 bar-number-engraver.cc:  "barNumberBreakPriority"   Control horizontal ordering

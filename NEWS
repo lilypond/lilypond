@@ -1,4 +1,12 @@
-pl 24.jcn1
+--- ../lilypond-1.1.24/NEWS	Mon Jan 25 22:38:25 1999
+++ b/NEWS	Mon Jan 25 22:36:28 1999
+@@ -1,3 +1,6 @@
+pl 24.mb1
+        - bf: Correct units now used in the .afm files.
+
+ pl 24, Hacking Apart Together (Jan 25)
+ 
+ pl 23.jbr1pl 24.jcn1
 	- bf: rest collisions
 	- separate tfm-reader
 	- bf: :|: should not have thin lines

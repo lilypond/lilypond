@@ -80,11 +80,8 @@ Lookup::afm_find (String s, bool warn) const
   Atom a;
   if (m.code () < 0)
     return a;
-  
-  a.dim_ = m.B_;
-  a.dim_[X_AXIS] *= 1 / 1000.0;
-  a.dim_[Y_AXIS] *= 1 / 1000.0;
-
+    
+  a.dim_ = m.dimensions();
   
   a.lambda_ = gh_list (ly_symbol ("char"),
 		       gh_int2scm (m.code ()),

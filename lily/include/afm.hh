@@ -21,6 +21,7 @@ struct Adobe_font_char_metric : Character_metric {
   Real WX_;
   String N_;
   Box B_;
+  int size_;
   Box &bbox();
   String &name();
   Real &width();
@@ -53,7 +54,7 @@ struct Adobe_font_metric : Font_metric {
   Adobe_font_char_metric const &find_ascii (int ascii,bool warn) const;
   String str () const;
   Adobe_font_metric ();
-  void read_char_metrics (Data_file &input);
+  void read_char_metrics (Data_file &input, int size);
 
 
   Character_metric *get_char (int, bool) const;
