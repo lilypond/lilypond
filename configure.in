@@ -12,7 +12,9 @@ AC_CONFIG_AUX_DIR([stepmake/bin])
 STEPMAKE_INIT
 
 # List a file that identifies your package.
-AC_CONFIG_SRCDIR([make/lilypond.lsm.in])
+## huh, lsm.in silently [re]moved?
+##AC_CONFIG_SRCDIR([make/lilypond.lsm.in])
+AC_CONFIG_SRCDIR([lily/main.cc])
 # Move to aclocal.m4?
 AC_CONFIG_HEADER([$CONFIGFILE.h:config.hh.in])
 
@@ -24,6 +26,7 @@ AC_CONFIG_SUBDIRS(stepmake)
 # must come before any header checks
 STEPMAKE_COMPILE
 
+STEPMAKE_PYTHON(REQUIRED,2.0)
 STEPMAKE_GCC(REQUIRED, 2.8)
 STEPMAKE_CXX(REQUIRED)
 STEPMAKE_GXX(REQUIRED, 2.95)

@@ -1,3 +1,22 @@
+2003-07-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* configure.in: Use lily/main.cc as identifying source file.
+
+	* lily/accidental-engraver.cc: Compile fix: include protected-scm.hh.
+
+	* config.hh.in: 
+	* python/midi.c: Remove <pyphonX>/Python.h ifdef tree.
+
+	* configure.in: Require PYTHON >= 2.0.
+
+	* stepmake/aclocal.m4 (STEPMAKE_PYTHON_DEVEL): Rewrite.  Ask
+	  $PYTHON for include dir location.
+	(STEPMAKE_PYTHON): New function.  Use
+	
+	    PYTHON=foo ./configure
+
+	  to override.
+
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* make/lilypond.redhat.spec.in (Group): change ftp.cs.uu.nl to

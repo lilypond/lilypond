@@ -17,6 +17,7 @@
 #include "arpeggio.hh"
 #include "warn.hh"
 #include "translator-group.hh"
+#include "protected-scm.hh"
 
 /**
 
