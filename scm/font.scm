@@ -245,19 +245,7 @@
 		  ,(delay (ly:font-load "cmtt10"))
 		  ,(delay (ly:font-load "cmtt12"))))))))
 
-
-
-;;; lmodern: super-cm using metapost
-;;; lm.map: Reencoding, at fontlevel for TeX ?:
-;;; cork-lmb10 LMRomanDemi10-Regular "enccorklm ReEncodeFont" <cork-lm.enc <lmb10.pf
-;;;  
-;;; super-cm, aka lmodern (on Debian) seems rather broken:
-;;; * no usable TFM files  (no lmr10.tfm, only cork-lmr10.tfm)
-;;; * broken AFM files:
-;;;    - invalid keyword 'Generated'
-;;;    - lists FontEncoding Fontspecific  -- duh
-;;  revert to ec-fonts-mftraced for now
-;;; make this easily switchable?
+;; Debian lmodern font support.
 (define-public (add-cork-lm-fonts node factor)
   (for-each
    (lambda (x)
@@ -301,6 +289,7 @@
 		  ,(delay (ly:font-load "lmtt10"))
 		  ,(delay (ly:font-load "lmtt12"))))))))
 
+;; ec-fonts-mftraced font support.
 (define-public (add-ec-fonts node factor)
   (for-each
    (lambda (x) (add-font node
