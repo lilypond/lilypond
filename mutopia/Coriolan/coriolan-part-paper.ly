@@ -28,7 +28,7 @@
 		%% Aargh: absulute dynamics:
 		\remove "Text_engraver";
 	}
-
+	% Hmm
 	\translator {
 		\StaffContext
 		\accepts "VoiceOne";
@@ -37,10 +37,18 @@
       		instrScriptPadding = #35  %% urg, this is in pt
 		maximumRestCount = #1
 	}
-	\translator { \OrchestralPartStaffContext }
+	\translator { 
+		\OrchestralPartStaffContext 
+		\accepts "VoiceOne";
+		\accepts "VoiceTwo";
+      		instrumentScriptPadding = #55  %% urg, this is in pt
+      		instrScriptPadding = #35  %% urg, this is in pt
+		maximumRestCount = #1
+	}
 	\translator { 
 		\ScoreContext skipBars = ##t 
-		textEmptyDimension = ##t
+		%textEmptyDimension = ##t
 		textStyle = #"italic"
+		timeSignatureStyle = #"C"
 	}
 }

@@ -187,7 +187,7 @@ Dynamic_engraver::do_try_music (Music * m)
 void
 Dynamic_engraver::do_process_music ()
 {
-  if ((span_req_l_drul_[START] || text_req_l_)
+  if ((span_req_l_drul_[START] || span_req_l_drul_[STOP] || text_req_l_)
       && !line_spanner_
       && pending_element_arr_.size ())
     {
@@ -211,34 +211,57 @@ Dynamic_engraver::do_process_music ()
     last_request_mom_ = now_mom ();
   else
     {
-      for (int i = 0; i < pending_element_arr_.size (); i++)
-	{
-	  Score_element* e = pending_element_arr_[i];
-	  side_position (e).set_axis (Y_AXIS);
-	  side_position (e).add_staff_support ();
 
-	  /*
-	    UGH UGH 
-	   */
-	  Direction d = directional_element (e).get ();
-	  if (!d)
+#if 1
+      /*
+	Maybe always creating a line-spanner for a (de)crescendo (see
+	below) is not a good idea:
+
+            a\< b\p \!c
+
+	the \p will be centred on the line-spanner, and thus clash
+	with the hairpin.  When axis-group code is in place, the \p
+	should move below the hairpin, which is probably better?
+       */
+      if (now > last_request_mom_)
+#else
+      /*
+	During a (de)crescendo, pending request will not be cleared,
+	and a line-spanner will always be created, as \< \! are already
+	two requests.
+       */
+      if (now > last_request_mom_ && !span_start_req_l_)
+#endif	
+	{
+	  for (int i = 0; i < pending_element_arr_.size (); i++)
 	    {
-	      SCM s = get_property ("dynamicDirection");
-	      if (!isdir_b (s))
-		s = get_property ("verticalDirection");
-	      if (isdir_b (s))
-		d = to_dir (s);
-	      directional_element (e).set (d);
-	    }
+	      Score_element* e = pending_element_arr_[i];
+	      side_position (e).set_axis (Y_AXIS);
+	      side_position (e).add_staff_support ();
+
+	      /*
+		UGH UGH 
+	      */
+	      Direction d = directional_element (e).get ();
+	      if (!d)
+		{
+		  SCM s = get_property ("dynamicDirection");
+		  if (!isdir_b (s))
+		    s = get_property ("verticalDirection");
+		  if (isdir_b (s))
+		    d = to_dir (s);
+		  directional_element (e).set (d);
+		}
 	  
-	  SCM s = get_property ("dynamicPadding");
-	  if (gh_number_p (s))
-	    e->set_elt_property ("padding", s);
-	  s = get_property ("dynamicMinimumSpace");
-	  if (gh_number_p (s))
-	    e->set_elt_property ("minimum-space", s);
+	      SCM s = get_property ("dynamicPadding");
+	      if (gh_number_p (s))
+		e->set_elt_property ("padding", s);
+	      s = get_property ("dynamicMinimumSpace");
+	      if (gh_number_p (s))
+		e->set_elt_property ("minimum-space", s);
+	    }
+	  pending_element_arr_.clear ();
 	}
-      pending_element_arr_.clear ();
     } 
 
   if (text_req_l_)

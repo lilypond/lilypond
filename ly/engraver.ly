@@ -170,6 +170,7 @@ GraceContext=\translator {
 
 	\consists "Rhythmic_column_engraver";
 	\consists "Dynamic_engraver";
+	\consists "Text_engraver";
 
 	\consists "Property_engraver";
 
