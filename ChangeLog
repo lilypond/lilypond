@@ -150,7 +150,7 @@
 	* mf/feta-toevallig.mf ("Double Sharp"): Minor path fix.
 
 	* mf/feta-bolletjes.mf (penposx): New auxiliary macro.
-	(define_triangle_shape): Use it replace `draw' with `fill' and
+	(define_triangle_shape): Use it to replace `draw' with `fill' and
 	`unfill'.  Update all callers.
 	(draw_slash): Replace `filldraw' with `fill'.  Update all callers.
 	(draw_cross): Ditto.
