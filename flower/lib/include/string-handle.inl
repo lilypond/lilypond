@@ -149,8 +149,8 @@ String_handle::length_i() const
 }
 
 INLINE bool
-String_handle::null_terminated_b() const {
-    return data->null_terminated_b();
+String_handle::is_binary_bo() const {
+    return data->is_binary_bo();
 }
 
 #endif

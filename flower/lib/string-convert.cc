@@ -6,6 +6,7 @@
 
 
 #include <assert.h>
+#include "libc-extension.hh"
 #include "string.hh"
 #include "string-convert.hh"
 
@@ -148,7 +149,7 @@ String_convert::i2hex_str( int i, int length_i, char ch )
     if ( !i )
 	str = "0";
     while ( i ) {
-	str = ( i % 16 )["0123456789abcdef"] + str;
+	str = String( ( i % 16 )["0123456789abcdef"] ) + str;
 	i /= 16;
     }
     if ( str.length_i() < length_i )

@@ -1,3 +1,4 @@
+#ifdef STRING_TEST
 /*
   stupid test program to verify stringlib
   stringtest.cc
@@ -112,3 +113,6 @@ main()
 
     cout << String_convert::bin2hex_str( String( (char)0xff ) ) << endl;
 }
+
+#endif STRING_TEST
+

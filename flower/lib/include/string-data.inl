@@ -184,9 +184,10 @@ String_data::trunc(int j)
 }
 
 INLINE bool
-String_data::null_terminated_b()const
+String_data::is_binary_bo()const
 {
-    return !memchr(data_byte_p_, length_i_, 0);
+//    return !memchr(data_byte_p_, length_i_, 0);
+    return ( (int)strlen( (char const*)data_byte_p_ ) != length_i_ );
 }
 
 INLINE Byte&

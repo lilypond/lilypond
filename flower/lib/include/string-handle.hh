@@ -42,7 +42,7 @@ public:
     char const* ch_c_l() const;
     Byte* byte_l();
     char* ch_l();    
-    bool null_terminated_b()const;
+    bool is_binary_bo()const;
     void operator =(String_handle const &src);
     void operator += (char const *s);
     Byte operator[](int j) const;

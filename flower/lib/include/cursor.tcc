@@ -9,7 +9,8 @@ template<class T>
 Cursor<T>::backspace()
 {
     Cursor<T> c(*this);
-    c--;        
+    if ( c.ok() )
+	c--;        
     list_.remove( *this );
 }
 
@@ -18,7 +19,8 @@ template<class T>
 Cursor<T>::del()
 {
     Cursor<T> c(*this);
-    c++;
+    if ( c.ok() )
+	c++;
     list_.remove( *this );    
     *this = c;
 }

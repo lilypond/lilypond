@@ -33,7 +33,7 @@ String::copy_byte_p() const
 void
 String::print_on(ostream& os) const
 {
-    if (strh_.null_terminated_b())
+    if (!strh_.is_binary_bo())
         os << ch_c_l();
     else
 	for ( int i = 0; i < length_i(); i++ )

@@ -1,7 +1,15 @@
+pl 1.1.6
+	- all of 1.1.4-1 and 1.1.5
+Bugfix	
+	- null_terminated -> is_binary test
+
 pl 1.1.5
 	- memmem interface, conditional compilation
 	- snprintf
 
+pl 1.1.4-1
+	- included in new make structure
+	
 pl 1.1.4
 	- great file-renaming.
 	- String cleanup (binary <-> null terminate), several bugfixes

@@ -25,14 +25,15 @@ public:
     Cursor<void*>::ok;
     Cursor<void*>::del;
     Cursor<void*>::backspace;
-    T get_p() {
+    T remove_p() {
 	T p = ptr();
 	Cursor<void*>::del();
 	return p;
     }
-    T get_prev() {
+    T remove_prev_p() {
+    	assert( ok() );
 	(*this)--;
-	return get_p();
+	return remove_p();
     }
     
     PointerList<T> &list() { return (PointerList<T>&)Cursor<void*>::list(); }
