@@ -16,14 +16,14 @@
 #include "p-col.hh"
 
 /**
+  Column with durational info.
+  
+  The columns which contain data have a rhythmical
+  position. Score_column is the type with a rhythmical time attached
+  to it. The calculation of idealspacing is done with data in these
+  columns. (notably: the #durations# field)
 
-    When typesetting hasn't started on PScore yet, the columns which
-    contain data have a rhythmical position. Score_column is the type
-    with a rhythmical time attached to it. The calculation of
-    idealspacing is done with data in these columns. (notably: the
-    #durations# field)
-
-    */
+  */
 
 class Score_column : public PCol {
     friend class Score;
