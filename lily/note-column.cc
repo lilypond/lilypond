@@ -55,6 +55,10 @@ Note_column::head_positions_interval()const
 void
 Note_column::do_pre_processing()
 {
-    if (!dir_i_)
-	dir_i_ = stem_l_->dir_i_;
+    if (!dir_i_){
+	if (stem_l_)
+	    dir_i_ = stem_l_->dir_i_;
+	else 
+	    dir_i_ = (head_positions_interval().center() >=  5) ? -1 : 1;
+    }
 }

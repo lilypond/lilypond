@@ -12,7 +12,7 @@
 % The purpose of this file is to demonstrate features of LilyPond.
 % (there is an accompanying LaTeX file, scsii-menuetto.tex)
 %
-\version "0.0.56";
+\version "0.0.57";
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
 % \tempo{Moderato}
@@ -56,40 +56,40 @@ ii_menuetto = \melodic{
 	< e'2 a2 \f >
 	[ d'( e'16 )f'16 ] |
 %%10
-	< [ e' g > d' cis'_"2" e' a( )g ] |
+	< [ e' g > d' cis'_"2" e' a~  g ] |
 %%11
 	< \multivoice  
-		{\stem 1; a4() d'4 cis'4-. }
+		{\stem 1; a4~  d'4 cis'4-. }
 		{ \stem -1; f2 e4 } > |
 %%12
-	< [ g'^"4" d > f' e' f' d'^"3"( ) c' ] |
+	< [ g'^"4" d > f' e' f' d'^"3"~   c' ] |
 %%13
 	\clef "alto";
 	< \multivoice
 		 { \stem 1; bes2 c'4 }
-		 { \stem -1; g4() f4 e4 }% ugh
+		 { \stem -1; g4~  f4 e4 }% ugh
 	> |
 %%14
 	< [ a f > g a f ] < d'4-\upbow e4 'bes4 > |
 %%15
-	< c'4-\downbow f4 'a4 > [ bes( )a g a ] |
+	< c'4-\downbow f4 'a4 > [ bes~  a g a ] |
 %%16
 	[ f( e )f a-. g-. bes-. ] |
 %%17
 	< a2^"0" fis2_"3" > bes4 |
 %%18
-	< { [ c'( )bes c' a ] } { [ es ] } > fis4 |
+	< { [ c'~  bes c' a ] } { [ es ] } > fis4 |
 %%19
 	< d'4-\downbow g4 'bes4 > < c'4-\upbow g4 c4 > < [ bes d > a ] |
 %%20
-	< { [ c'( bes a )bes g( )bes ] } { [ d ] } { [ g ] } > |
+	< { [ c'( bes a )bes g~  bes ] } { [ d ] } { [ g ] } > |
 %%21
 	< \multivoice  
-		{\stem 1;  d'4(\stem 1; ) cis'4 d'4 }  
+		{\stem 1;  d'4 (\stem 1; ) cis'4 d'4 }  
 		{ \stem -1; g2 f4 } 
 	> |
 %%22
-	< { [ g( )f g e ] } { [ cis ] } > < f4 d4 > |
+	< { [ g~  f g e ] } { [ cis ] } > < f4 d4 > |
 %%23
 	[ 'g g ] < e4. 'a4. > d-\upbow |
 %%24
