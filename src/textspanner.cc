@@ -1,17 +1,17 @@
 #include "molecule.hh"
 #include "boxes.hh"
 #include "textspanner.hh"
-#include "textdef.hh"
+#include "text-def.hh"
 #include "debug.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 
-NAME_METHOD(Text_spanner);
+
 
 void
 Text_spanner::set_support(Directional_spanner*d)
 {
     support = d;
-    add_depedency(d);
+    add_dependency(d);
 }
 
 Text_spanner::Text_spanner()

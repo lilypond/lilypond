@@ -1,24 +1,24 @@
 #include "musicalrequest.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "script.hh"
 #include "stem.hh"
 #include "molecule.hh"
 #include "lookup.hh"
 
-NAME_METHOD(Script);
+
 
 void
 Script::set_stem(Stem*st_l)
 {
     stem_l_ = st_l;
-    add_depedency(st_l);
+    add_dependency(st_l);
 }
 
 void
 Script::set_support(Item*i)
 {
     support.push(i);
-    add_depedency(i);
+    add_dependency(i);
 }
 
 Script::Script(Script_req* rq, int staflen)

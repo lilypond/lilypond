@@ -1,7 +1,7 @@
 #include "stem.hh"
 #include "dimen.hh" 
 #include "debug.hh"
-#include "paperdef.hh"
+#include "paper-def.hh"
 #include "notehead.hh"
 #include "lookup.hh"
 #include "molecule.hh"
@@ -9,7 +9,7 @@
 #include "misc.hh"
 
 const int STEMLEN=7;
-NAME_METHOD(Stem);
+
 
 Stem::Stem(int c) //, Moment len)
 {
@@ -40,7 +40,7 @@ Stem::set_stemend(Real se)
 
     // todo: margins
     if (!  ((dir > 0 && se >= maxnote) || (se <= minnote && dir <0))  )	
- 	WARN << "Weird stem size; check for narrow beams.\n";
+ 	warning("Weird stem size; check for narrow beams",0);
     
     top = (dir < 0) ? maxnote           : se;
     bot = (dir < 0) ? se  : minnote;
@@ -55,12 +55,12 @@ Stem::add(Notehead *n)
     if (n->balltype == 1)
 	return;
     int p = n->position;
-    if ( p < minnote)
+    if (p < minnote)
 	minnote = p;
-    if ( p> maxnote)
+    if (p > maxnote)
 	maxnote = p;
     heads.push(n);
-    n->add_depedency(this);
+    n->add_dependency(this);
 }
 
 
@@ -104,7 +104,11 @@ Stem::set_default_stemlen()
 void
 Stem::set_default_extents()
 {
-    assert(minnote<=maxnote);
+    if (minnote > maxnote) {
+	warning("Empty stem. Ugh!", 0);
+	minnote = -10;
+	maxnote = 20;
+    }
 
     if (!stemlen)
 	set_default_stemlen();
@@ -119,6 +123,8 @@ Stem::set_default_extents()
 void
 Stem::set_noteheads()
 {
+    if(!heads.size())
+	return;
     heads.sort(Notehead::compare);
     heads[0]->extremal = -1;
     heads.top()->extremal = 1;
@@ -151,7 +157,7 @@ Stem::width()const
 {
     if (!print_flag || abs(flag) <= 4)
 	return Interval(0,0);	// TODO!
-    Paperdef*p= paper();
+    Paper_def*p= paper();
     Interval r(p->lookup_p_->flag(flag).dim.x);
     r+= stem_xoffset;
     return r;
@@ -163,7 +169,7 @@ Stem::brew_molecule_p()const return out;
     assert(bot!=top);
  
     
-    Paperdef *p =paper();
+    Paper_def *p =paper();
 
     Real dy = p->internote();
     Symbol ss =p->lookup_p_->stem(bot*dy,top*dy);
