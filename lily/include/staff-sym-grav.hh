@@ -22,8 +22,7 @@ public:
     DECLARE_MY_RUNTIME_TYPEINFO;
 protected:
     virtual ~Staff_sym_engraver();
-    virtual void do_process_requests();
-    virtual void fill_staff_info(Staff_info&);
+    virtual void fill_staff_info (Staff_info&);
     virtual void do_removal_processing();
     virtual void do_creation_processing();
 	
