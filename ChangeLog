@@ -1,4 +1,18 @@
+2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/bibliography/engraving.bib (year): typos.
+
+2003-08-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* Documentation/user/lilypond-book.itely (Invoking lilypond-book):
+	add note about -Ppdf
+
 2003-08-23  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/slur.cc (get_attachment): bugfix: don't crash on non-cons
+	attachment property.
+
+	* Documentation/user/refman.itely: url fixes.
 
 	* po/sv.po: new po
 

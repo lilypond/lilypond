@@ -380,6 +380,15 @@ following to the top of the La@TeX{} file:
 \def\preLilyPondExample@{\def\mustmakelilypondtitle@{@}@}
 @end example
 
+
+For printing the La@TeX{}  document, you will need  to use dvips. For
+producing PS  with scalable fonts, add the following options to the dvips
+command line:
+@example
+ -Ppdf -u +lilypond.map
+@end example 
+
+
 @command{lilypond-book} accepts the following command line options:
 
 @table @code
