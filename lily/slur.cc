@@ -175,7 +175,17 @@ Slur::set_extremities (Grob *me)
   Direction dir = LEFT;
   do 
     {
-      if (!gh_symbol_p (index_cell (me->get_grob_property ("attachment"), dir)))
+      SCM att = me->get_grob_property ("attachment");
+      /*
+       */
+      if (!gh_pair_p (att))
+	{
+	  programming_error ("attachment is not a cons?!");
+	  att = gh_cons (SCM_EOL, SCM_EOL);
+	  me->set_grob_property ("attachment", att);
+	}
+      
+      if (!gh_symbol_p (index_cell (att, dir)))
 	{
 	  for (SCM s = me->get_grob_property ("extremity-rules");
 	       s != SCM_EOL; s = ly_cdr (s))
@@ -184,7 +194,7 @@ Slur::set_extremities (Grob *me)
 				 gh_int2scm ((int)dir));
 	      if (r != SCM_BOOL_F)
 		{
-		  index_set_cell (me->get_grob_property ("attachment"), dir,
+		  index_set_cell (att, dir,
 				  ly_cdar (s));
 		  break;
 		}

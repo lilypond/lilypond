@@ -7,7 +7,6 @@
 ;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
 
-(eval-string (ly-gulp-file "translator-description.scm"))
 
 ;; alist of translater descriptions
 (define (document-translator-property sym)
