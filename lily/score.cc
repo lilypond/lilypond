@@ -24,7 +24,6 @@
 #include "ly-module.hh"
 #include "paper-book.hh"
 #include "paper-score.hh"
-#include "input-file-results.hh"
 
 
 /*

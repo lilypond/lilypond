@@ -26,7 +26,6 @@
 #include "string.hh"
 #include "main.hh"
 #include "file-path.hh"
-#include "input-file-results.hh"
 #include "warn.hh"
 #include "lily-guile.hh"
 #include "paper-def.hh"
@@ -37,12 +36,6 @@
 /*
  * Global options that can be overridden through command line.
  */
-
-/* Write dependencies file? */
-bool dependency_global_b = false;
-
-/* Prepend to dependencies */
-String dependency_prefix_global;
 
 /* Names of header fields to be dumped to a separate file. */
 Array<String> dump_header_fieldnames_global;
@@ -135,10 +128,8 @@ static Long_option_init options_static[] =
     {_i ("FIELD"), "header", 'H',  _i ("write header field to BASENAME.FIELD")},
     {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
     {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
-    {0, "dependencies", 'M',  _i ("write Makefile dependencies")},
     {0, "no-paper", 'm',  _i ("produce MIDI output only")},
     {_i ("FILE"), "output", 'o',  _i ("write output to FILE")},
-    {_i ("DIR"), "dep-prefix", 'P',  _i ("prepend DIR to dependencies")},
     {0, "safe-mode", 's',  _i ("run in safe mode")},
     {0, "version", 'v',  _i ("print version number")},
     {0, "verbose", 'V', _i ("be verbose")},
@@ -364,9 +355,6 @@ parse_argv (int argc, char **argv)
 	    }
 	  output_format_global = option_parser->optional_argument_str0_;
 	  break;
-	case 'P':
-	    dependency_prefix_global = option_parser->optional_argument_str0_;
-	  break;
 	case 'H':
 	  dump_header_fieldnames_global
 	    .push (option_parser->optional_argument_str0_);
@@ -386,9 +374,6 @@ parse_argv (int argc, char **argv)
 	case 's':
 	  safe_global_b = true;
 	  break;
-	case 'M':
-	  dependency_global_b = true;
-	  break; 
 	case 'm':
 	  no_paper_global_b = true;
 	  break;

@@ -82,4 +82,6 @@ private:
   friend int yyparse (void*);
 };
 
+SCM ly_parse_file (SCM);
+
 #endif // MY_LILY_PARSER_HH

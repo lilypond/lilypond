@@ -19,7 +19,6 @@
 #include "scm-hash.hh"
 #include "gourlay-breaking.hh"
 //#include "paper-outputter.hh"
-#include "input-file-results.hh"
 #include "misc.hh"
 #include "all-font-metrics.hh"
 

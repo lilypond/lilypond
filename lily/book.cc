@@ -13,7 +13,6 @@
 #include "book.hh"
 #include "global-context.hh"
 #include "ly-module.hh"
-#include "input-file-results.hh"
 #include "main.hh"
 #include "music-iterator.hh"
 #include "music-output-def.hh"
