@@ -1,3 +1,15 @@
+2004-03-15  Han-Wen Nienhuys   <hanwen@xs4all.nl>
+
+	* GNUmakefile.in: remove stray make out=www
+
+	* input/test/bagpipe.ly (gcdg): octave fixes.
+
+	* scm/define-markup-commands.scm (number): use font-encoding
+	iso. font-family
+
+	* ly/chord-modifiers-init.ly (blackTriangleMarkup): set
+	font-encoding.
+	
 2004-03-15  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lily/parse-scm.cc: compile-bugfix: add missing header files for
