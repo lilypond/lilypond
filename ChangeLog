@@ -1,5 +1,11 @@
 2005-02-04  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
+	* scm/music-functions.scm (has-request-chord): don't use
+	ly:music-name anywhere. Fixes <<\\>> notation. 
+
+	* scm/define-markup-commands.scm (box): use font-size for
+	padding. Fixes boxed-rehearsal-marks.ly
+
 	* lily/parser.yy (assignment_id): allow LYRICS_STRING as
 	identifier definition too, so foo = \lyrics { ...   } bar = #1
 	doesn't complain about "bar" being LYRICS_STRING.

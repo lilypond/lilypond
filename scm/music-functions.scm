@@ -126,7 +126,7 @@ This function replaces all repeats  with unfold repeats. "
   
   (let ((es (ly:music-property music 'elements))
 	(e  (ly:music-property music 'element))
-	(n  (ly:music-name music)))
+	)
     (if (memq 'repeated-music (ly:music-property music 'types))
 	(begin
 	  (if (equal? (ly:music-property music 'iterator-ctor)
@@ -385,7 +385,6 @@ of beat groupings "
   (let ((ts (ly:music-property m 'types)))
     (memq 'separator ts)))
 
-
 ;;; splitting chords into voices.
 (define (voicify-list lst number)
   "Make a list of Musics.
@@ -418,11 +417,14 @@ of beat groupings "
 	     (error "not music!")))
   (let ((es (ly:music-property m 'elements))
 	(e (ly:music-property m 'element)))
+
+    (display (ly:music-property m 'name))
+    
     (if (pair? es)
 	(set! (ly:music-property m 'elements) (map voicify-music es)))
     (if (ly:music? e)
 	(set! (ly:music-property m 'element)  (voicify-music e)))
-    (if (and (equal? (ly:music-name m) "Simultaneous_music")
+    (if (and (equal? (ly:music-property m 'name) 'SimultaneousMusic)
 	     (reduce (lambda (x y ) (or x y)) #f (map music-separator? es)))
 	(set! m (context-spec-music (voicify-chord m) 'Staff)))
     m))
@@ -475,7 +477,7 @@ of beat groupings "
 (define (has-request-chord elts)
   (reduce (lambda (x y) (or x y)) #f
 	  (map (lambda (x)
-		 (equal? (ly:music-name x) "Request_chord"))
+		 (equal? (ly:music-property x 'name) 'RequestChord))
 	       elts)))
 
 (define (ly:music-message music msg)
@@ -489,13 +491,13 @@ of beat groupings "
 without context specification. Called  from parser."
   (let ((es (ly:music-property music 'elements))
 	(e (ly:music-property music 'element))
-	(name (ly:music-name music)))
+	(name (ly:music-property music 'name)))
     (cond ((equal? name "Context_specced_music") #t)
 	  ((equal? name "Simultaneous_music")
 	   (if (has-request-chord es)
 	       (ly:music-message music "Starting score with a chord.\nPlease insert an explicit \\context before chord")
 	       (map check-start-chords es)))
-	  ((equal? name "Sequential_music")
+	  ((equal? name "SequentialMusic")
 	   (if (pair? es)
 	       (check-start-chords (car es))))
 	  (else (if (ly:music? e) (check-start-chords e)))))
