@@ -39,9 +39,6 @@ dit(-F,--headers=)
 dit(-H,--Heigth=)
     Set paper heigth (points). Used together with width and LaTeX name of
     papersize in case of papersize unknown to ly2dvi.
-dit(-F,--headers=)
-    Name of additional LaTeX headers file. This is included in the
-    tex file at the end of the headers, last line before code(\begin{document})
 dit(-K,--keeplilypond)
     Keep LilyPond output after the run.
 dit(-L,--landscape)

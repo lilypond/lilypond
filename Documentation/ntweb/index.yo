@@ -21,23 +21,23 @@ subsect(NEWS) label(news)
 description(
  dit(BUG FIXES)
   itemize(
-   it() Error: Python path: Python installation is required nl()
-	Users reported problems with the installer finding the python
-	path for some versions of Python namely 1.5.  I am using a
-	slightly different approach so that problem should be solved.
-	Thanks to Mats Bengtsson and Wolfgang Fischler reporting and
-	helping with this issue.
-   it() Unable to find lilyponddefs.tex nl()
-	This was due to using version version 1.07 of MiKTeX.  I have
-	add known working versions for all of the required software
-	packages, per Mats suggestion. See link(Required
-	Packages)(packages). 
+   it() os.rename(this.__base + '.' + str(os.getpid()) + '.dvi', outfile) nl()
+        os.error: (2, 'No such file or directory') nl()
+        This problem was reported by many and thoroughly debugged by
+	Wolf Lother.  We have abandoned the use of os.getpid(), which
+	for one reason or another resulted in negative numbers on
+	windows 95, in favor of the tempfile module.  We have also
+        attempted to use only one '.' in naming temporary files.
   )
 )
 
 description(
  dit(NOTES)
   itemize(  
+   it() We have had preliminary reports that the Windows 95
+        installation works on Windows 98.  Many thanks to Christian
+        Mondrup. 
+
    it() Please use the Add/Remove program control panel entry to
         unistall your current version of Lilypond before you attempt to
 	install this one.
@@ -48,44 +48,11 @@ description(
 	file(D:\localtexmf\fonts\pk\ljfour\public\ehrhardt) in the Recyle
 	Bin. Your local font directory may be different, please refer to your
 	local installation of code(TeX).
- )
-)
 
-
-The FAT16, FAT32, and NTFS file system problems have been corrected.
-I have tested various installations that are known to be operational.
-The following configurations that have been tested. 
-
-description(
- dit(Windows NT)
- description(
-  dit(Installed on NTFS)
-  itemize(
-    it()Runs from NTFS partion
-    it()Runs from FAT16 partion
-  )
-  dit(Installed on FAT16)
-  itemize(
-    it()Runs from NTFS partion
-    it()Runs from FAT16 partion
-  )
- )
-)
-
-description(
- dit(Windows 95)
- description(
-  dit(Installed on FAT16)
-  itemize(
-    it()Runs from FAT16 partion
-    it()Runs from FAT32 partion
-  )
-  dit(Installed on FAT32)
-  itemize(
-    it()Runs from FAT16 partion
-    it()Runs from FAT32 partion
-  )
- )
+   it() The FAT16, FAT32, and NTFS file system problems have been
+	corrected.  I have tested various installations that are known
+	to be operational.  
+  ) 
 )
   
 The installer was created with
@@ -122,12 +89,10 @@ itemize(
     it()midi2ly
 )
 
-
-I have also converted the Manual Pages for the above tools to HTML for
-easy browsing.  This release has been tested on Windows NT 4.0sp3 and
-Windows 95 and found to be operational.  If you have any troubles and
-or comments please do not hesitate to drop me a line
-url(Jeffrey B. Reed)(mailto:daboys@austin.rr.com). 
+This release has been tested on Windows NT 4.0sp3 and Windows 95 and
+found to be operational.  If you have any troubles and or comments
+please do not hesitate to drop me a line 
+url(Jeffrey B. Reed)(mailto:daboys@austin.rr.com).
 
 This is what the version @TOPLEVEL_VERSION@ brings:
 
@@ -138,6 +103,18 @@ top_of_NEWS
 link(Back to top)(contents)
 clearpage()
 
+subsect(BUGS) label(news)
+itemize(
+
+  it() Using any text that contains '{}' for the value of the any
+       valid mudela bf(header) construct will cause bf(ly2dvi) to
+       fail.  A work around for the bf(latexheaders) construct is to
+       create a bf(TeX) file and set bf(latexheaders) to "\input
+       foo.tex". 
+)
+
+link(Back to top)(contents)
+clearpage()
 
 subsect(Required Packages) label(packages)
 
