@@ -15,7 +15,6 @@
 #include "moment.hh"
 #include "virtual-methods.hh"
 #include "interpretation-context-handle.hh"
-#include "cxx-function-smob.hh"
 #include "smobs.hh"
 
 /**
