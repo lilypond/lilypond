@@ -1,0 +1,66 @@
+DEFINEMACRO(tops)(0)(../topdocs/DOEXPAND(outdir))
+DEFINEMACRO(pics)(0)(../pictures/DOEXPAND(outdir))
+
+nsect(NAME)
+
+The Documentation of LilyPond -- the GNU Project music typesetter
+
+nsect(DESCRIPTION)
+
+Note: These pages are created from the latest bf(development snapshots)
+of LilyPond.  You can look at the bottom if you want to know which
+version this was.
+
+
+nsubsect(Documentation: Introduction)
+
+itemize(
+it()url(The announcement of 0.1)(ANNOUNCE-0.1.html)
+it()url(DEDICATION)(DEDICATION.html)
+it()url(FAQs)(faq.html)
+it()url(The README)(DOEXPAND(tops)/README.html)
+it()url(The installation instructions)(DOEXPAND(tops)/INSTALL.html)
+it()url(But i'm using Windows, am i concerned now?)(README-W32.html)
+)
+
+nsubsect(Why: Background Information)
+
+itemize(
+it() url(Design criteria)(MANIFESTO.html)
+it()url(The GNU Music project)(gnu-music.html)
+it()url(Mutopia -- Music To the People)(mutopia.html)
+it()url(The lilypond
+  logo (Big, format: .gif))(DOEXPAND(pics)/lelieblond.gif)
+it()url(The lilypond
+  logo (medium size, format: .gif))(DOEXPAND(pics)/lelie_logo.gif)
+)
+
+nsubsect(Documentation: manuals)
+
+
+itemize(
+it()url(Mudela)(../tex/DOEXPAND(outdir)/mudela.html)
+it()url(TeX documents about LilyPond)(../tex/DOEXPAND(outdir)/index.html)
+it()url(Manual pages)(../man/DOEXPAND(outdir)/index.html)
+it()url(Musical vocabulary)(../tex/DOEXPAND(outdir)/vocabulary.html)
+)
+
+nsubsect(The program)
+
+itemize(
+it()url(The TODO list)(TODO.html)
+it()url(The Change log)(NEWS.html)
+it()url(About internal structures)(internals.html)
+it()url(The coding standards of the lilypond project)(CodingStyle.html)
+it()url(The Authors)(DOEXPAND(tops)/AUTHORS.html)
+it()url(Sending and applying Patches)(DOEXPAND(tops)/PATCHES.html)
+)
+
+nsubsect(Links)
+
+itemize(
+it()url(Papers, books and online-resources on music typesetting)
+(../tex/DOEXPAND(outdir)/index.html)
+it()url(Other packages for printing music)(../tex/DOEXPAND(outdir)/index.html)
+it()url(bf(download) LilyPond and other interesting links)(links.html)
+)
