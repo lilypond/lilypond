@@ -4,6 +4,8 @@
 
 	* input/test/knee-mult.ly: removed file (duplicate of beam-isknee.ly)
 
+	* input/test/equaliser.ly: renamed to midi-volume-equaliser.ly.
+
 2003-06-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-functions.scm (make-ottava-set): 

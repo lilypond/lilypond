@@ -1,7 +1,7 @@
 \version "1.7.19"
-% possible rename to midi-volume-equaliser ?
 \header { texidoc = "@cindex Midi Volume Equaliser
-The full orchestra plays a notes, where groups stop one after another. USe this to tune equalizer settings. " }
+The full orchestra plays a notes, where groups stop one after
+another. U se this to tune equalizer settings. " }
 
 flauti = \notes \relative c' {
   \property Staff.midiInstrument = #"flute"
