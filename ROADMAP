@@ -25,14 +25,12 @@ LilyPond's source files.
    midi2ly/			midi2ly source code
      include/
    mutopia/			Larger examples with full music pieces.
-     Coriolan/
-     D.Zipoli/
      E.Satie/
      F.Schubert/
-     Hymns/
      J.S.Bach/
    intl/			library for gettext
    po/				translations
+   ports/
    ps/				postscript library files
    tex/				TeX library files
    scripts/			User scripts
