@@ -1,0 +1,108 @@
+(Oct / 99)
+
+* What is it?
+
+In short, LilyPond does for sheet music what (La)TeX does for printed
+text: the input describes the music you want printed, the program
+processes the input like a compiler, and the output file contains
+printed music.
+
+* Who would use it?
+
+People who want beautifully printed music, but don't have time to
+learn intricacies of music notation.
+
+ * Why would they use it instead of similar projects?
+
+Within the free software movement, LilyPond is unique: free music
+notation software is very scarce, and is either difficult to use,
+clumsy or does not give pretty results.
+
+ * Special features/strengths?
+
+Just like LaTeX, the input format is very abstract, and the output is
+very elegant.  Additionally, most aspects of the formatting can be
+adjusted to taste.
+
+LilyPond also allows very easy integration with TeX: you can write a
+paper that mixes fragments of notation with LaTeX.
+
+* Special problems?
+
+Music notation is very complicated. It is much more difficult than
+typesetting mathematics which is TeX's forte.  Almost everything in
+music notation is a "Special problem".
+
+Generally, the more modern the music is, the more problems it
+contains: classical and baroque music like Mozart and Bach should pose
+no problems for LilyPond. Romantic music like Brahms and Schumann will
+get printed but with some formatting errors.  Twentieth century music
+like Schoenberg and Bartok can be very difficult to typeset.
+
+Luckily for most, Pop-music is relatively uncomplicated: it should not
+be a problem to print that kind of music.
+
+* Who is working on it?
+
+Jan Nieuwenhuizen and me (Han-Wen Nienhuys) have written most of the
+core of the program, but the most elaborate example in the
+distribution (a 40 page orchestral score) was contributed by one of
+our long-time users.  He is a member of a small band of developers
+that contribute small patches.
+
+ * Plans for the close and distant future?
+
+The most concrete development plan for now is to use GUILE much more
+pervasively: LilyPond started out as a C++ program, with lots of
+formatting rules that were hard-wired into the system. We want to
+express those rules in Scheme, so that they can be changed at
+run-time.
+
+A much more interesting development is The Mutopia Project: it is a
+website where you can download sheet music that has passed into the
+public domain.  Just think of Project Gutenberg, but then for sheet
+music.  We hope that in the future you can just point your browser to
+Mutopia if you need classical music.
+
+The Mutopia website has not gone live yet, but you can preview some
+scores at http://sca.uwaterloo.ca/Mutopia/. What we need now is lots
+of help with entering sheet music.  If you like classical music, come
+out and help us!
+
+
+
+ * Interesting/fun stories that might juice up the story?
+
+Jan Nieuwenhuizen and me have been best friends for a some four years
+now. LilyPond development catalyses our friendship, and our friendship
+catalyses LilyPond development. We call each other a few times a week
+to discuss development, and the most revolutionary improvements in
+Lily have often been the result of a long nights of discussions on
+software design over glasses of Whisky
+
+Another question that pops up in outsiders is: ``what do aquatic
+flowers have to do with music typography?  Why the weird name?''
+
+I started Lily (our affectionate name for LilyPond) three years
+ago. Back then, I was in an amateur symphonic orchestra together with
+Jan.  I had a crush on this magnificent girl in the orchestra: her
+name was Suzanne, she played both the flute and the cello, and (of
+course) I thought she was very pretty.
+
+At the time, Jan was dating Roos (Dutch for `Rose' -- she also played
+the cello). I also knew about about a package Rosegarden (a GUI MIDI
+sequencer and notation editor).  When I found out that `Susan' is
+Hebrew for `lily', I decided that calling the package `LilyPond' would
+match make the nomenclature of the rest of my life perfectly.
+
+Some things don't last---the two girls, the cellos and the orchestra,
+all have disappeared from our lives.  LilyPond however has survived
+over time.  It is a big, mature program with a healthy user-base and
+good prospects.  Best of all is, that we still have a good time
+hacking on it
+
+
+* License?!
+
+GPL, of course.
+

@@ -1,0 +1,23 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename index.info
+@settitle index
+
+@node Top, , , (dir)
+@top
+
+Miscellaneous texts
+@itemize
+@item @uref{CHANGES-0.0.txt, Change logs from 0.0 till 0.1 }
+@item @uref{CHANGES-0.1.txt, Change logs from 0.1 till 1.0 }
+@item @uref{CHANGES-1.0.txt, Change logs from 1.0 till 1.1 }
+@item @uref{CHANGES-1.1.txt, Change logs from 1.1 till 1.2 }
+@item @uref{NEWS-1.2.txt, summary of changes from 1.1 till 1.2 }
+@item @uref{ANNOUNCE-0.1.txt, Announcement of 0.1 (includes summary of
+changes)}
+@item @uref{ANNOUNCE-1.0.txt, Announcement of 1.0 (includes summary of
+changes)}
+@item @uref{ANNOUNCE-1.2.txt, Announcement of 1.2 (includes summary of changes)}
+
+@item @uref{AIMS.txt}
+@end itemize
+

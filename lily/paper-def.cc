@@ -108,10 +108,10 @@ Paper_def::line_dimensions_int (int n) const
 {
   if (!shape_int_a_.size ())
     {
-      if (n)
-	return Interval (0, linewidth_f ());
-      else
-	return Interval (get_var ("indent"), linewidth_f ());
+      Real lw =  get_realvar (linewidth_scm_sym);
+      Real ind = n? 0.0:get_var ("indent");
+
+      return Interval (ind, lw);
     }
   
   if (n >= shape_int_a_.size ())
@@ -120,17 +120,6 @@ Paper_def::line_dimensions_int (int n) const
   return shape_int_a_[n];
 }
 
-Real
-Paper_def::beam_thickness_f () const
-{
-  return get_realvar (beam_thickness_scm_sym);
-}
-
-Real
-Paper_def::linewidth_f () const
-{
-  return get_realvar (linewidth_scm_sym);
-}
 
 Real
 Paper_def::length_mom_to_dist (Moment d,Real k) const
@@ -172,24 +161,6 @@ Paper_def::set_lookup (int i, Lookup*l)
 
 
 Real
-Paper_def::rule_thickness () const
-{
-  return get_realvar (rulethickness_scm_sym);
-}
-
-Real
-Paper_def::staffline_f () const
-{
-  return get_realvar (rulethickness_scm_sym);
-    }
-
-Real
-Paper_def::staffheight_f () const
-{
-  return get_realvar (staffheight_scm_sym);
-    }
-
-Real
 Paper_def::interbeam_f (int multiplicity_i) const
 {
   if (multiplicity_i <= 3)
@@ -198,11 +169,6 @@ Paper_def::interbeam_f (int multiplicity_i) const
     return get_realvar (interbeam4_scm_sym);
 }
 
-Real
-Paper_def::note_width () const
-{
-  return get_realvar (notewidth_scm_sym);
-}
 
 void
 Paper_def::print () const

@@ -129,6 +129,25 @@ public:
   Array<void*>::empty;
   Array<void*>::reverse;
   Array<void*>::tighten_maxsize;
+
+  T *& boundary (int d, int i)
+  {
+    assert (d);
+    if (d == 1)
+      return top (i);
+    else
+      return elem_ref (i);
+  }
+  T * boundary (int d, int i)const
+  {
+    assert (d);
+    if (d == 1)
+      return top (i);
+    else
+      return elem_ref (i);
+  }
+
+  
   T ** access_array () const
     {
       return (T**) Array<void*>::access_array();

@@ -157,7 +157,6 @@ Key_change_req::Key_change_req ()
 
 Break_req::Break_req ()
 {
-  penalty_i_ = 0;
 }
 
 Mark_req::Mark_req (String s)

@@ -1,0 +1,2006 @@
+1.2.0
+	- website fixes.
+	- initialize Script::dir_
+
+pl 69.jcn1
+	- doco typos 
+	- tex-rules typo
+	- added missing feta-braces*.mf
+pl 68.lu1
+	- texinfo fixes
+****************
+
+pl 68.jcn2,3
+
+pl 68.hwn1
+	- more tutorial stuff.
+	- note^\dynamic scriptdir.
+	- dynamics listen to verticalDirection as well.
+	- \property automaticMelismas -> \property automaticMelismata
+	- dynamic padding for crescendi.
+
+pl 68.jcn1
+	- small tutorial fixes
+
+*********
+
+pl 67.hwn1
+	- tutorial updates
+	- \property beamAuto -> noAutoBeaming
+
+pl 67.uu1
+	- abc2ly updates
+
+pl 67.jcn1
+	- bfs: refman/parser subtract
+	- chord::find_additions_and_subtractions: termination assurance
+	- bf: refman: chord-inversion examples
+
+
+********
+
+pl 66.hwn1
+	- bf: chord mode unsigned '-' -> unsigned CHORD_MINUS (1 SR conflict).
+	- refman reedit.
+	- dotdown only when verticalDirection is set.
+	- bfs: abc2ly convertor (more or less) successfully converts
+movement 2 of Beethoven 7.
+	- \repeat "semi" -> \repeat "volta"
+	- all spacing params into paper vars.
+	- spacing before grace notes.
+	- warn if font not found.
+	- staccato dot / tenuto centering
+	- spacing for clefs.
+	- bf: Stem_staff_side::do_substitute_element_pointer ();
+	- new screenshot
+
+********
+pl 65.hwn1
+	- refman updates
+	- added \simultaneous { } , \sequential { } syntax, for
+consistency.
+
+pl 65.jcn2
+	- bf: if tie then melisma
+
+pl 65.uu1
+	- bf: squashed 2 sr conflicts in parser.
+
+pl 64.jcn2
+	- stanchen almost without " " hacks
+	- if tie then melisma..?
+	- refman updates
+	- Abbreviation.beam -> Chord_tremolo
+	- bf: chord tremolo vs beam over rests
+	- bf: note width for noteless stem 
+
+
+
+********
+pl 64.jcn1
+	- resurrected abbreviation beam
+	- coriolan fixes
+
+pl 64.hwn1
+	- reference-manual updates.
+	- slurdash -> slurDash, keyoctaviation -> keyOctaviation
+
+pl 64.uu1
+	- \property forceHorizontalShift
+	- bf: denneboom.ly
+	- warn if translator switching  to self.
+	- warn if brace at end of lyric syllable.
+	- bf: Repeated_music::alternatives_length_mom ()
+	- \property automaticMelismas: if slur then melisma
+	- \property noVoltaBraces
+	- bf: star-spangled-banner
+
+pl 63.lu2
+	- very tight: hinterfleisch -> 0 : input/bugs/spacing-very-tight.ly
+	- bfs: neutral beam and tie directions (daar was ik al bang voor:-)
+	- bf: abe: may beam over skip, as long as note present too
+	- bf: scsii-prelude: added slurs using skips
+
+*********
+pl 63.uu1
+	- mutopia updates courtesy Peter Chubb
+	- Don't make Time_scaled_music for c4*2/3 entry, only do the
+time compression.  Should cure spurious Tuplet_brace/spanner warnings.
+
+pl 63.hwn1
+	- bf: Spacing for key/timesig at end of staff.
+	- negative font magnification
+	- slurs on grace notes.
+	- paper var stem_default_neutral_direction
+	- bf: dot-columns.
+	
+pl 63.jcn2
+	- bf: midi2ly/duration-iter/convert: handle durations >= 1
+	- set reasonable default for text/dynamic paddings
+
+pl 63.jcn1
+	- junked some of (my) old metapost stuff
+
+pl 63.lu1
+	- some faq entries
+	- chord input and proceccing fixes
+	- bf: nederlands.ly
+
+**********
+pl 62.jcn4
+	- fixes coriolan
+
+pl 62.hwn1
+	- ps-to-pfa.py: use std modules re, find 
+	- minor input fixes
+	- use mfplain.mp
+	- Metapost does unfill with setgray.  This confuses
+GS.  Do text substitution with eofill.
+
+pl 62.jcn3
+	- bfs: preludes
+	- found more wierd spacing
+
+pl 62.jcn2
+	- bf: don't start auto-beam on stem that contains only a rest
+ 	- bf: rm .ms yodl output
+ 	- bumped stepmake version
+ 
+pl 62.uu1
+	- don't space rhythmic requests coming from Lyrics. 
+
+pl 62.jcn1
+	- bf: auto-beamer: consider starting beam based on new rhythmic head
+	- bfs: preludes-4, cello-suites
+	- \addlyricsified standchen and twinkle (ugh: \repeat and \addlyrics)
+	- bf: interstaff slur slope damping
+	- bf: in-band signaling slur snap
+
+pl 61.jbr1
+        - Documentation/ntweb/GNUmakefile: Made EXTRA_DIST_FILE style fix and
+          added dist-plain target as dependency to the default target.
+        - scripts/ly2dvi.py: getpid does not behave very well across platforms
+          so I am creating temp file names with the Python tempfile module. 
+          The generate lilypond dependency file option was broken and
+          is now operational.  I also changed the dependency switch
+          from -d or -M to match lilypond.
+        - stepmake/bin/package-zip32.sh: Added build of ntweb html 
+          documentation
+
+***********
+pl 61.hwn2
+	- revise / junk various input files.
+	- junk Music_list_iterator
+	- bf: declared paper + \shape
+	- bf: \shape and wordwrap
+	- Busy_playing_req ()
+	- Music_iterator::try_music_in_children (),
+so explicit \context Staff is often not needed for
+	  * tuplets
+	  * repeats
+	- automatic rest detection for \rhythm
+	- regtest tight-spacing.ly
+	- regtest lyric-combine.ly
+	- Melisma_playing_req, Melisma_engraver, Busy_playing_req:
+stuff  for syncing music & lyrics.
+	- simplify Extender_engraver, Hyphen_engraver.  Assume lyrics come in from only one voice.	
+	- docced ambiguities in grammar.
+	- mudela-book -I behavior, verbosity.
+	- state search path when file not found
+
+pl 61.hwn1
+	- bf: \scm with --safe
+	- (ly-gulp-file)
+	- no need to set GS_LIBDIR, .ps files are inlined and directly
+printable.
+	- bf: spacing engine
+	- fixed paper11/13/16/20/23/26.ly
+	- use (header-end) iso {ps,tex}setting
+	- bf: convert-mudela --output
+	- move \version check to lexer.ll
+	- moved repeated-music-iterator.cc to folded-repeat-iterator.cc
+	- bf: broken crescendi
+	- removed delayed Spanner breaking.
+	- new implementation of \rhythm:
+	  * Lyric_combine_music
+	  * Lyric_combine_music_iterator
+	  * \property melismaBusy sets melisma state.
+	  * (commented out in parser.yy -- solution is not good enough yet.)
+	- bf: record def spot of seq/sim music
+	- junk Music_iterator::next_music_l (), Music::to_rhythm () & friends.
+	- junk Re_rhythmed_music & friends
+	- mudela 1.1.62: \shape = -1 -2 -3; -> \shape -1, -2, -3; etc.
+	solves one ambiguity.
+	- grace notes at end of music don't crash Lily.
+
+*******
+pl 60.jcn2
+	- moved creation of $BUILDDIR/share/locale into set-lily.sh
+	- slur slope change constraints when snapping
+	- slur height damping based on bow height
+	- don't typeset unfinished (auto) beams
+
+pl 60.jbr1
+        - Documentation/ntweb/angels.ly, Documentation/ntweb/guile.patch: added
+        - Documentation/ntweb/GNUmakefile: add above to EXTRA_DIST_FILES
+
+pl 59.mb2
+	- Tempo changes in MIDI output!
+	- gallina.ly:auto-beaming
+	- added property articulationScriptVerticalDirection
+	  (useful in N.W.Gade/score.ly)
+	- bf, N.W.Gade: removed some more misprints
+
+pl 60.uu1
+	- bf: hara-kiri.ly
+
+pl 60.jcn1
+	- interstaff slur tuning
+	- added some regtests
+	- removed now silly check in encompass-info
+
+**********
+
+pl 59.uu1
+	- papervar loose_column_distance
+	- scripts don't collide.
+	- bf: midi2ly outputs \context iso \type
+
+pl 59.jbr1
+        - lily/colhpos.cc: fixed typo
+        - Documentation/ntweb: Updated News and added all the files 
+          associated with Windows Distribution web page.
+        - stepmake/bin/package-zip32.sh: added the ntweb page to formated
+          distribution.
+
+pl 59.jcn1
+ 	- bfs: slur damping
+	- papervar slur_interstaff_snap_to_stem
+
+pl 59.hwn1
+	- \property graceAlignPosition : put grace notes after main note.
+	- moved pianobrace stuff into Lookup
+	- moved Local_key_engraver out of Voice context, and
+acknowledge Grace_align_items.  Solves tie + accidental problem.
+
+pl 59.mb1
+	- Some small clean-ups and bug fixes
+
+***********
+
+pl 58.uu1
+	- experimental pdftex support, courtesy Stephen Peters.
+	- --version support
+	- junked complicated loose column handling.
+	- only stretch the extra space after prefatory matter, not the
+entire width of prefatory matter.
+	- standardise(d) switches:-d for debug, -M for Make deps, -m for midi-only.
+	- bf: papervar non_musical_space_strength  now works. Set to 8 (-> Strong! )
+	- bf: space after time_sig.
+	- bf: decrescendi.
+	- bf: barlines on voltas
+
+************
+pl 57.hwn1
+	- bf: accidentals on grace notes.
+	- \property graceAccidentalSpace
+	- bf: ignore grace notes duration for non-grace spacing.
+	- uncommented Key_req::transpose.
+	- Dot_column::do_post_processing (): better dot collisions, see dots.fly.
+	- derive Dot_column from Note_side_item.
+	- renaming of files
+	  * heads-engraver
+	  * request-iterator
+	  * p-score
+	  * engraver-group
+
+pl 57.jcn3
+	- bf: no extension: assume .ly
+	- bf: bow::do_width; which in turn allowed
+	- removed broken interstaff slur damping hack, and
+	- bf: slur height damping fixes damping
+
+pl 57.jcn2
+	- bf: ? priority and snap to stem
+
+pl 56.jcn4
+       - interstaff slur fixes and damping
+
+pl 56.mk1
+       - bf: collision.cc: collisions between chords with different
+         stem directions and close heads.
+
+****************s**************
+
+pl 56.jcn3
+	- slur de-hairification
+	  * slurs always attached to noteheads, by default
+	  * corrections for steep and high slurs
+	  * snap to stem end when close
+	- bow/tie/slur dy/dx fix
+
+pl 56.hwn1
+	- some spacing tweaks.
+ 	- bf: two repeats + alts after each other.
+pl 56.jcn2
+	- tie: bfs + even simpler
+
+pl 56.jcn1
+	- bf: re-added \textflat,sharp to fix chords...
+	- bf: chord-modifier and mandatory dot: c-maj5 
+	- tutorial chord fixes
+	- tie fixes and boldifying:
+	  * removed sloping (dy!=0) code
+	  * use actual note-widths
+	  * y[left] == y[right]
+	  * follow OSU rules, I hope (from comments in text -- must check)
+	  * undetermined direction -> down; inverse of stem
+	- bf: beam: undetermined direction -> up; like stem
+	- slur-symmetry fixes
+	- fix for \rhythm and seq_iter childs (still crude, but more effective)
+*********
+
+pl 55.uu1
+	- use GS' anti aliasing
+
+pl 55.jcn1
+	- auto-beamer: consider current duration first in ending/starting beam
+	  this way, you can have 16ths auto-beamed, in some way, but 8ths never
+	    beamAutoEnd_16 = 1;
+	    beamAutoEnd_8 = 1/8;
+	- added some classes and few lines of doco to .dstreamrc
+	- refman:
+	  * comment out broken
+	  * commented out stale tex macros (tex/* dir too)
+	  * bfs/new syntax: chords
+	- more midi2ly renaming stuff
+	- bf: make info (midi2ly and other renaming)
+
+pl 54.jcn2
+	- bf: auto-beamer: don't beam over skips
+	- update BUGS
+
+
+pl 55.mb2
+	- Font update: added more mensural style time signatures, 
+	  old2/4, old6/8alt, old4/8 thanks to Christian Mondrup.
+	- bf: correct indentation of first line (removed \leavevmode)
+	  plain TeX still gives wrong indentation
+	- bf: volta brackets broken over several lines get open end.
+	  Final bracket gets vertical end if it stops at double bar.
+	- Dashed grace flags also for durations shorter than 8.
+	- N.W.Gade: fixed some details
+
+pl 55.mb1
+	- bf: font magnification also in PS output
+	- bf: set the GS_* variables correctly in buildscripts/lilypond-*.sh
+	- bf, lily.scm: errors in (de)crescendo
+	- bf, lilyponddefs: removed \noindent 
+
+
+pl 55.hwn1
+	- fixes: horn-concerto-3.ly
+	- bf: grace before tuplet.
+	- bf: decrescendo
+	- bf: multimeasrest numbers centered.
+
+****************
+
+pl 53.jbr2
+        - Documentation/ntweb/index.html: Updated nt distribution web page
+
+pl 54.uu1
+	- bf: Stem lens for beams.
+	- move meta doco to Documentation/metadoc
+	- move .bibb to Documentation/bibliography
+	- rename mi2mu to midi2ly
+	- removed other-packages.bib to comply with GNU standards
+
+pl 54.jcn1
+	- mutopia/J.S.Bach/Duette 1&2
+
+pl 54.mb1
+        - Renamed \wheel to the \coda
+	- bf: correct gap in tuplet braces
+
+pl 53.hwn2
+	- move more parameters from PS/TeX to Lily.
+	- PS cleanup
+	- TeX cleanup.
+	- bf: also make (empty) bar at end of voltabracket.
+	- bf: don't put slur over rest. 
+
+
+pl 54.uu1
+	- debian updates (anthony fok).
+
+*************
+pl 54 (july, 8)
+pl 53.jbr1
+	- scripts/ly2dvi.py: A fix for the multitude of file systems supported
+          by windows.  As long as the paths that the cygwin apps use are
+          UNC style and the paths that the native windows apps use are DOS 
+          style everybody is happy.  I add quick and dirty  unc2dos function
+          to facilitate this approach.
+
+pl 53.hwn1
+	- bf mudela-book.
+	- better min distance for multi measure rests.
+	- junk ATOM_SMOB
+	- control tuplet gap size from paper.
+	- bf:  output header as PS strings for PS out.
+	- bf: cached-fontname 
+	- control volta height from paper block.
+
+pl 53.jcn5
+	- \rhythm-ified and text bfs: standchen.ly 
+	- walk rhythm through *_iterator::next_music_l ()
+
+pl 53.jcn4
+	- more abc2ly hacking, including lyrics and \rhythm
+	- bfs: \rhythm
+	- \rhythm-ified input/twinkle.ly
+
+pl 53.jcn3
+	- put rhythm A on pitches/lyrics B: \rhythm MUSICA MUSICB
+	    input/test/rhythm-melody.fly
+	    input/test/rhythm-lyrics.fly
+	- syntax changes:
+o	  * dot-only duration dropped: use c4 c4. iso now invalid: c4 c.
+	  * chords: optional_dot now mandatory:
+	    \chords { c-1.2.3 } iso now invalid: \chords { c-1 2 3 }
+	  * @c@ (notemode_chords) syntax dropped.  rather use:
+	    \notes { c d \chords { e f } }
+
+pl 53.jcn2
+	- \property graceFraction: part of next note taken-up by grace(s).
+	- Note_performer: add moments for delayed notes,
+	  fine for single grace notes: hear gnossienne-4.ly
+
+pl 53.jcn1
+	- grace performance
+	- fixed tie-performance
+	- bf: abe
+  
+pl 53.gp1
+	- added Hyphen-engraver, Hyphen-spanner
+************
+pl 52.jcn3
+	- bf: mi2mu: midi without key
+	- try at grace-performer-group; breaks MIDI output even when no \grace
+	- silly tie-performer
+	- performers play_element () delayed to do_pre_move_processing ()
+
+pl 52.jcn2
+	- bfs standchen + grace, gnossienne-4
+	- decoupled midi output from input
+
+pl 52.jcn1
+	- bf: moved accidental code from Key_engraver to Key_change_req
+	- bf: midi-key
+	- bfs: mi2mu: core-dumps, keys, key-names, key-changes, notenames
+
+pl 52.hwn2
+	- new-beaming.cc: new beaming code
+	  * now does [c8. c32 c32] correct by itself.
+	  * beam over barlines
+	  * non-fitting stems handled gracefully (eg. [c8 c4 c8] ) 
+	- junked rhythmic grouping, \grouping and all associated bits.
+	- bf: do try_visibility_lambda for nonbreakable items as well
+	  (fixes \nobreak on barline)
+	- bf: Cons_list::truncate() 
+
+pl 52.hwn1
+	- repeat-engraver cleanup
+pl 52.gp1
+	- bf: make doc++ corrected to only include *.h and *.hh files.
+pl 52.mb2
+	- Added \repetitions: prints symbol for repeated bars.
+	  Same syntax as multi-measure rests!
+	- Added \segno and \wheel script symbols
+pl 52.mb3
+       - Added barSize property. Junked barsize variable.
+
+************
+pl 51.uu2
+	- grace note flags, move Lookup::flag into Stem
+	- faq updates: doc++, Matt's page
+	- fixes for doc++.
+	- bartype string uses "brace" and "bracket" iso. "{" and "["
+	- some of assert()s  replaced by programming_error ()
+
+pl 51.mb1
+	- N.W.Gade: added real grace notes
+	- feta-banier.mf: added grace note flag
+
+pl 51.uu1
+	- use weAreGraceContext \property to determine self_grace_b_
+	- made more engravers grace aware.
+
+pl 50.jcn2
+	- filed egcs bug report for powerpc.
+	- removed unnecessary #ifdef powerpc 
+	- grace and other fixes for auto-beamer
+	- grace and other fixes for (beam-)stem-lengths
+	- input/test/bugs/hairy-grace.ly (urg)
+	- input/test/bugs/grace-accidents.ly (urg)
+	- input/test/bugs/grace-grace.ly (core)
+	- fixes: gnossienne-4.ly
+
+pl 50.hwn2
+	- Timing_translator: add proccing moments to nearest global translator,
+not to top global translator.
+	- cadenza.ly: grace notes.
+	- bf: auto staff switching
+
+************
+pl 51
+pl 50.hwn1
+	- grace notes:
+	  * Grace_iterator
+	  * Grace_music
+	  * Grace_engraver_group
+	  * move Score::run_translator to Global_translator::run_iterator_on_me
+	  * stemLength property, Stem::length elt property
+	  * Grace_align_item
+	  * Note_head_side baseclasses Local_key_item, Grace_align_item
+	  * Local_key_engraver moved to Voice.
+	  * Grace_position_engraver
+	  * Added Rhythmic_head::stem_l_
+	  * Various other robustifications.
+	- lily.scm: scm->string
+	- folded reps without alts.
+	- Paper_outputter uses scm->string
+	- stem params now in staff positions iso. real dimensions
+	- internal: Junk all G_ and g- prefixes
+
+************
+pl 49.mb1
+	- bf: ly2dvi -N
+	- Added dynamicPadding property (applies only to dynamic marks, 
+	  not (de)crescendi.
+
+pl 49.jcn4
+	- resurrected gnossienne-4
+	- Documentation fixes (for texinfo get yodl-1.31.13, tbr)
+	- minor abc2ly fixes; successfully converted some simple abc files from
+	    http://faeryland.tamu-commerce.edu/joyce/
+	- www.mail-archive.COM
+
+pl 49.jcn1
+	- guile scm_gc_mark () workaround:
+	- via scm output wrapper buildscripts/lilypond.sh, set:
+	    PATH=$LILYPONDPREFIX/buildscripts/out:$PATH
+	- scm output fixes
+
+pl 48.hwn2
+	- bf: rest-collisions.
+	- cleaned up standchen
+	- bf: slur dims.
+	- bf: unfold without enough alternatives.
+	- Use Lily version for \version.
+
+
+pl 49.uu1
+	- ran purify. Fixed some small problems, plugged some leaks.
+	- bf: linebreak at |:
+	- doc updates by Adrian Mariano
+
+pl 49.mk1
+	- Breathing signs by Michael Krause
+
+************
+
+pl 48.hwn1
+	- \property hshift -> \property horizontalNoteShift (mudela 1.0.21)
+	- cleaned up collision.  \property hshift = 2 now supported.
+	- Spacing:
+	  * bf: don't divide strength by distance if distance == 0.0
+	  * cleaned up Spacing_spanner
+	  * simplistic optical illusion spacing for opposite stems.
+	- don't use Protected_scm for Score_element::element_property_alist_
+	- some scsii fixes.
+	- Lookup cleanups; junked Lookup::paper_l_
+	- abc-2-ly: tuplets, guitar chords., chords,
+
+pl 48.mb2
+	- bf: correct accidentals after tied over note.
+
+pl 48.mb1
+	- bf, lookup.cc: Count '{' also directly after a TeX macro
+	- bf: textstyle->textStyle in all examples.
+
+pl 48.jcn1
+	- bd: interstaff slurs at line break
+
+pl 48.uu1
+	- add a WX field to AFM output.
+	- add space before ; in AFM output
+
+*********
+pl 47.jcn1
+	- bf: interstaff slurs (urg: more segfaults in scm_gc_mark ())
+
+pl 45.hwn3
+	- Abbreviation -> Stem_tremolo.
+	- bf: Stem_tremolo in Beam.
+	- bf: Stem_tremolo over whole note.
+	- spacing before clefs.
+	- Spacing_spanner is now on by default
+	- junked most of Spring_spacer
+	- Tunable space after barline. 
+
+*********
+pl 46.mb2
+	- Reintroduced the tupletVisibility property. Same values as
+	  the old version (pletvisibility), see the Reference Manual.
+	  Note: does not work correctly with automatic beams.
+	- Added a tupletDirection property.
+
+pl 46.uu1
+	- bf: {} in texts.
+
+pl 45.hwn2
+ 	- more doc updates.
+ 
+
+pl 46.mb1
+	- Added property articulationScriptPadding
+	- N.W.Gade: layout fixes
+
+*********
+
+pl 45.hwn1
+	- Audio broadcast & acknowledge.
+	- more advanced spacing for prefatory matter
+	- tuplet appearance tweaking
+	- bf: ChoirStaff 
+
+pl 45.uu1
+	- glossary fixes (thanks Dirk).
+
+pl 44.jcn2
+	- bf: auto-beamer: long standing br form AM
+
+
+*********
+
+pl 45 (may 28)
+	- reinstalled Thread (there you are, John)
+	- german vocab.
+
+
+pl 43.hwn2
+ 	- split G_staff_side_item into G_staff_side_element and G_staff_side_item.
+ 	- junked old Staff_side
+ 	- Crescendo also uses G_staff_side_element
+ 	- crescendo_shorten paper var.
+ 	- create horizontal groups for break_aligment inside Break_align_item.
+ 	- more abc-2-ly fudging
+ 
+pl 44.mb1
+	- bf, property.ly: change fontsize->fontSize
+	- N.W.Gade: removed old tie behaviour
+	- bf, ly2dvi: expand .sly extensions
+
+*********
+pl 44
+pl 43.jcn2
+ 	- bf: repeat :| placement + core dump
+ 	  input/test/repeat.ly
+ 	  input/test/coda-kludge.ly
+ 	- bf: mf without ljfour
+ 	  * feta-accordion fix/hack for feta11 at 300dpi
+
+pl 43.hwn1
+       - half assed attempt at ABC convertor.
+       - Spacing_spanner: "decentral" spacing stuff.  Use -t to try.
+       - bf: StaffGroup vertical alignment
+       - \property {slur,tie,}ydirection -> {slurV,tieV,v}erticalDirection (1.0.20)
+       - Spanner now hangs on left endpoint.
+       - \property forgetAccidentals: do not remember accidentals.
+ Every note not in the key triggers typesetting of an accidental.
+       - \property noResetKey: do not reset key at start of measure:
+ accidental remain in effect until overriden
+       - bf: ties & accidentals (fix breaks oldTieBehavior)
+       - junked Tie::same_pitch_b_
+  
+pl 43.jcn1
+	- configure, set-lily.sh, release stuff
+
+pl 42.tca2
+	- lilypond don't put \interstaffline after last line. This to
+	  get really nice vertical spacing for mudela-book.
+	- mudela-book: vertical spacing
+	- lilyponddefs.tex: commented out \parindent=0pt to get correct 
+	  paragraph indent for mudela-book
+
+************
+pl 43
+
+pl 41.hwn3
+       - reinstated \property inheritance
+       - \property SkipBars -> skipBars
+       - \property midi_instrument -> midiInstrument
+       - \property fontsize -> fontSize (mudela 1.0.18).
+       - bf: add a space after lyrics.
+       - junked flower DLL classes
+       - rewrote repeat music and iterators (mudela 1.0.17)
+         * Folded_repeat_iterator
+         * Unfolded_repeat_iterator
+         * New_repeated_music
+         * syntax change: \repeat FOLDSTRING NUMBER Music [ALTERNATIVE Music_se
+quence]
+       - data struct simplification: junked Dynamic_req,
+Absolute_dynamic_req, Span_dynamic_req, Slur_req, Beam_req. Use
+Span_reqs and Text_script_reqs with type fields instead. 
+
+pl 42.tca1
+ 	- updated mudela-book documentation
+ 	- misc mudela-book.py
+ 	- accordion: smaller dots + little script renaming
+
+
+pl 42.jcn1
+	- bf: hp-u(rg)x: user build; sm 73
+ 	- bf: hp-u(rg)x: sm74
+
+pl 41.mb1
+	- convert-mudela: convert textstyle -> textStyle
+	- refman.yo: properties moved to correct contexts.
+	- mudela-book.py: Added singleline, multiline options. 
+	  Fixed default line width bug.
+
+***************
+pl 41.hwn2 (may 10, 1999)
+	- bf: Score bar line thickness.
+	- more paper writing
+	- website tweaks.
+	- Graphical_element::dim_cache_ now alloced separately. 
+	- junked Graphical_element::absgolute_offset
+	- Musique-de-Table 
+	- mmrest_x_minimum now works at begin-of-line.
+	- junked Span_bar::extra_x_off
+	- \property foo.bar = \stringid + \otherstringid
+	- bf: stop on lexer errors as well.
+	- only do vertical alignment at Score level.
+	- tweaked ledger endings a bit.
+	
+
+pl 41.hwn1
+	- small fixes.
+	- mudela-book.py patch (thanks MB)
+
+pl 41.mb1
+	- Added the installation instructions to the top web page.
+	- N.W.Gade: Added triangolo part, minor changes.
+
+pl 41.tca1
+	- Lookup::accordion and removed some accordionfonts
+
+***************
+
+pl 40.uu2
+	- rest ledger lines are dimensionless.
+	- Score_elements are added to the Paper_score directly when
+announce_element () is called.  This makes it possible to init
+molecules from within engravers.
+	- changed \type to \context
+	- \context Contextname = ID Music is now a real separate production
+	  * you can do
+		\context C1 \context C2
+
+	and C1 won't overwrite C2
+
+	  * you need some extra explicit context specs, eg. if you start a
+voice with a chord.
+
+		\score { \notes { <c e g> }  }
+
+	should be
+
+		\score { \notes \context Voice { <c e g > }
+
+	- set staff margins on grandstaffs too. Center staffmargins vertically.
+	- \property values are not inherited anymore, i.e. setting
+Score.minVerticalAlign does not set GrandStaff.minVerticalAlign, Staff.minVerticalAlign and Voice.minVerticalAlign as well.
+	- {Axis_spanner, Hara_kiri}_engraver which can be added at wish.
+Hara_kiri should be working again.
+	- boilerplate for accordion stuff.
+	- some more paper writing.
+	- bf: substitute vertical refpoint as well for broken items.
+(fixes clef^8)
+	- bf: translating molecule without elts but with dims. (bf: accidental
+spacing.)
+	
+pl 40.mb1
+	- bf: ly2dvi set MFINPUTS so standard tree is found before lilypond
+	- bf: lilypond-regtest.doc, ls-latex.py; now finds author/title
+
+pl 40.uu1
+	- large documentation patch by Adrian Mariano
+
+********
+pl 40
+pl 39.mb2
+	- added more mensural style time signatures, old3/4, old6/8, old9/8
+	- redesigned old6/4, old9/4
+	- Updated refman.yo, lilypond-regtest.doc, clefs.ly, time.fly
+
+pl 39.hwn1
+	- consified mi2mu (pl 37.jcn1)
+
+pl 39.mb1
+	- bf: invisible clefs don't take any space, moved _8 below clef
+	- updated incipit example and macro
+
+pl 39.uu1
+	- delete graphical objects  in reverse
+	- faq updates.
+
+********
+pl 39 (april 12)
+	- \property textstyle -> textStyle
+
+pl 38.tca1
+	- added scm/accordion-script.scm and update ly/accordion-defs.ly
+	- renamed some accordion symbols to make them more english and less
+	  norwenglish. 
+	- removed dot from \accBayanbase
+
+pl 37.script4
+	- bf: molecule
+	- bf: tuplet spanner appearance.
+	- bf: less spacing after clef.  Invisible bar has no dims. 
+	- included AIMS.  The why of Lily.
+	- warning if duplicate engraver.
+	- warning if no ties could be created.
+	- bf: \time1/4; .. beams ..
+	- bf: staff switching beams / slurs.
+	- tuplets on multiple beams.
+	- Documentation/tex/lilypond-regtest.doc
+	- bf: nested tuplets
+	- slur cleanups.
+	- bf: multi_measure_rest_engraver in Score_context.
+
+pl 38.uu1
+	- bf: clef_8
+	- bf: barnumbers.
+
+pl 37.script3
+	- fixes for spring_spacer, introduced
+Spacing_engraver
+	- cleanup for rest-collisions. 
+	- hacks for GUILE gc
+	- mudela-book \mudelafile
+	- Documentation/tex/lilypond-regtest.doc
+	- MF rest fixes
+
+
+********
+pl 38 (april 6)
+pl 37.script2
+	- bf: AFM for BlueSky AFM files.
+	- \penalty = 4278 -> \penalty 4278
+	- URG!! fixed major (unnoticed) bug in dependency engine
+	- Further Script hacking:
+	  * G_script_column
+	  * G_script_column_engraver
+
+pl 37.script1
+	- major Script rehack:
+	  * G_stem_staff_side_item
+	  * G_script
+	  * G_script_engraver
+	  * G_script_req
+	- junked Text_def, changed \property textstyle -> \property textStyle
+(todo -> convert-mudela)
+	- Line_of_score is an Axis_group_element, no more overlapping
+lines, hopefully.
+	- mf: whole diamond head tweak 
+  
+pl 37.mb2
+	- Added property clefStyle: "" / "transparent" / "fullSizeChanges"
+	- New example: input/test/incipit.ly
+	- Documented clefStyle and restStyle in refman.tex
+	- Partial bug fix: octaviated clefs. Still broken!!!
+
+ 
+pl 37.mb1
+	- Added property restStyle. 
+ 	- mensural 4th, 8th and 16th rests.
+pl 37.uu1
+	- FreeBSD bf
+
+****
+pl 37 (march 30, 1999)
+	- note head styles, see input/test/noteheadstyle.fly
+	  * \property noteHeadStyle:
+	  * diamond note heads (probably really ugly)
+	  * cross note head.
+	  * harmonic head (mf sources were tweaked)
+	  * transparent for no \heads
+	  * \property noteHeadStyle ="" for normal heads.
+
+pl 36.mb2
+	- bf: timeSignatureStyle
+	- Added dynamic fz (forzando) to Lilypond
+	- bf: N.W.Gade, sfz -> fz
+
+pl 36.hwn1
+	- debian fixes.
+	- don't insert extra alignment space for empty stuff.
+	- Align_element derives from Axis_group_element
+	- junk cruft for detecting upbeam / downbeam.
+	- junk all *{horizontal,vertical}* Score_element derived classes.
+	- G_staff_side_item::padding_f_ now generic property.
+	- some tweaking of beam & stem. 
+	- junk pointerlist in Sources
+	- junk Stem::mult_i_, Stem::beam_gap_i_, G_staff_side_item::padding, 
+	Bar::at_line_start_b_, Key_item::c_position_, Note_head::type_str_,
+	Note_head::staff_size, Stem::xdir_
+	
+pl 36.mb1
+	- bf: N.W.Gade
+
+**************
+
+pl 35.uu1
+	- more memory tweaks: don't do Score_element::line_l () when deleting lines.
+	- more generic properties.
+	- change ridic. dims assert into warning.
+	- tex/ midi fixes (thanks, Mats).
+	- bf: don't crash when no Stem_infos are set.
+	- extender-spanner simplification
+	- working MIDI chords (Thanks Dscho)
+
+pl 35.jcn1
+	- some ps fixes
+
+************
+pl 35
+
+pl 34.hwn2
+	- "Lily Was Here" is def'd as \mudelatagline, override with
+	\header { tagline = "... " ; }
+	- \property currentBarNumber: set
+	current bar number.
+	- \property postBreakPadding: tune extra
+	space padding after linebreaks.
+	- \property textEmptyDimension: disregard script text
+	dimensions (untested)
+	- \property staffLineLeading: set the staff space
+	- adjustable staff space size (per staff)
+	- Staff_symbol_referencer as base class for elements that use
+	info of the staff symbol.  \property numberOfStaffLines also works  OK
+	with ledger lines. (Is that useful? dunno.)
+	- warning  if someone does \translator with no name
+	- junk Item::breakable_b_
+	- junk PointerList<Music*>, use Killing_cons
+	- bf: Auto_beam_engraver.
+	- bf: mmrest engraver.
+	- use callbacks for Dimension_cache.
+	- lots of small cleanups. Junk various members of
+	Score_element & derived classes:
+	  * Item::original_l_,
+	  * Spanner::original_l_,
+	  * Score_element::transparent_b_,
+	  * Item::break_priority_i_,
+	  * Item::break_status_dir_,
+	- merge Score_priority_engraver / Score_horizontal_align_engraver
+	- Use more generic element properties. 
+	- precompute SCM symbols. 
+	- remove_elt_property (): Try to junk an element property, if not
+	needed anymore.
+
+
+
+pl 34.uu1
+	- more PointerList junkings.
+	- MIDI bugfix.
+	- be more conservative with Dicts/Hashes mem usage
+
+*********
+pl 34
+
+pl 33.uu2
+	- some performance cleanups: junked PointerList instance, plugged some leaks.
+	- style -> fontname now in scheme.
+	- minor Score_element brainsurgery:
+		* generic element properties.
+		* junked Score_element::junk_links, Score_element::unlink
+		* junked Directed_graph_node as superclass of
+Score_element, this should reduce mem usage a bit.
+
+pl 33.jcn2
+	- fixed autobeamer's beam->unlink ()
+
+pl 33.jcn1
+	- allow autobeaming according to duration iso (crude) multiplicity
+
+pl 33.jbr1
+	 - change my email address
+	 - Windows platform does a cp -r instead of a ln -s
+
+pl 33.uu1
+	- bf: ^ and _
+	- junked poor man's dynamics.
+
+*********
+pl 33
+
+pl 32.mb1
+	- bf: \> and \< were interchanged!!
+	- Added property: textScriptPadding
+	- Changed copyright text on the Gade score.
+
+pl 32.uu1
+	- really include Gade score now.
+	- fixes: install-[out-]targets, INSTALLATION_[OUT_]SUFFIXES
+	- install TFMs in separate dir.
+pl 31.hwn3
+	- Span_bar bugfix (there you go, Mats).
+	- bf: Score copy ctor (-> bf declaring score)
+	- new Tie behavior: only tie identical pitches, switchable with
+	  oldTieBehavior
+	- junked cautionary_b_ from Musical_pitch
+
+pl 32.jcn1
+	- set-lily: set weird locale links for $LILYPONDPREFIX 
+
+**********
+pl 31.mb2
+	- Added example: "Imellan Fjeldene" by Niels W. Gade.
+	- bf: don't attach staff margin text to clef changes within the
+	lines. (Still not perfect: no text when a clef change happens
+
+pl 31.hwn2
+	- be somewhat lazy in break/object multiplication.
+	- print # elements for memory usage impression (try  -t)
+	- Paper_score cleanup
+	- junked various Pointer_list instances. Executable now is smaller.
+	- junked various cruft
+	- merged do_substitute_dependen{t,cy} to
+do_substitute_element_pointer ()
+  	- more parser cleanup
+	- Interval uses Drul_array
+  	- bf: I've been drinking too much
+	- delete break helpers before object breaking/multiplication.  Try
+to save some memory.
+  
+pl 31.jcn4
+	- bf: toplevel install, kpsewhich
+	- sm 71, require yodl-1.31.11
+	- fix: slur macros
+	- bf: info in rpm, if available
+	- fix: rat != float
+	- bf: slur-follow-music
+
+pl 31.uu1
+	- config.make: include GUILE_LDFLAGS
+
+******
+pl 31 (feb 16)
+
+pl 30.jcn1
+	- sm fixes, intl/ fixes
+
+pl 30.mb1
+	- Added support for magnification of TeX fonts ==> 
+	  larger dynamics in 20pt scores. (Doesn't work in Postscript)
+
+pl 30.hwn1
+	- Debian patches (thanks, Anthony)
+	- Italian support (thanks, Maurizio)
+	- parser cleanup
+	- minor chord.cc cleanups.
+	- bf: \rc \rced 
+	- hara kiri doesn't do suicide with normal rests.
+	- Hara_kiri_vertical_group_spanner generalised
+	- extender engraver rewrite, now __ is like ~ [] |, ie. in between
+notes/lyrics.
+	- lyric engraver now engraves only single voices.  Use
+separate LyricVoices to get stacked lyrics.
+	- bf: bar(Non)Auto first barline  
+	- barAuto -> barNonAuto
+
+
+*******
+
+pl 30 (feb 15)
+
+pl 29.uu1
+	- typewriter font
+	- star-spangled-banner bf (slur.cc).
+
+
+pl 29.jcn3
+	- fix: slur-case3.ly 
+	- init.sly: .fly with linewidt=-1
+
+pl 29.jcn2
+	- resurrected ps output
+
+pl 29.hwn1
+	- bf: coord relative to self.
+	- bf: error msg if no AFM found
+	- bf: hang script on bar in other axis too (fixes staff-side-slur bug)
+	- hang on scripts on clef as well (more to left for single staffs)
+
+
+pl 29.jcn1
+ 	- bf: volta sizes
+ 	- GNU stuff on home page
+
+*******
+pl 29
+
+pl 28.hwn1
+	- bf: mid measure clefs (breakable  items in non-breakable columns.)
+	- spanner.cc assert changed to warning
+	- (c) 1998 -> 1999 search replace.
+
+pl 28.jcn1
+	- new outline TODO + .emacs setup
+*******
+pl 28
+pl 27.hwn2
+	- un-SMOB Atom.  Cons and Killing_cons as simple cons replacements.
+
+pl 27.jcn5
+	- outline TODO
+
+pl 27.jcn4
+ 	- measure-end hinterfleish patch
+ 	- input/test/coda-kludge.ly
+ 	- bf: volta-number placement
+ 	- volta: support for "1.-2."  "3"
+ 
+pl 27.jcn3
+	- bf's: zero-length repeats
+	- Auto beamer:
+	  * turned on by default
+	  * input/test/auto-beam*.ly
+	  * support for time-defaults
+	- Chords:
+	  * input/just-friends.ly
+	  * ChordNameContext
+	  * bf's: chord mode: accept STRINGS, rests
+	  * bf's: banter_str
+	- new bool \property Score.barAtLineStart
+
+pl 27.hwn1
+	- global ctors
+	- read lily.scm before all .lys
+	- Link_array derives from Array<void*>
+	- search repl: Array<X*> -> Link_array<X>
+	- junked most static casts
+	- revamped Atom / Molecule: Molecule now is the public interface.
+Atom is a GUILE smob. Guile takes care of allocation and list stuff.
+	- bar scripts on score bars (there you are, Mats)
+	- :||: span bar fixed
+	- using generic ledger lines now (regenerate fonts!)
+	- refman updates (Thanks, Adrian!)
+	- Molecule::operator = (), Molecule::do_center ()
+	- junked Span_score_bar, Score_bar, Staff_bracket, Piano_brace. Folded functionality into Span_bar
+	- textstyle property for textual scripts.
+	- lookup cleanups (time_signature, text, stem, junked extender, filledbox, simple_bar)
+	- junked obsolete TeX stuff.
+	- ly2dvi-testpage.ly
+	- only make AFMs for feta[0-9]+.mf
+	- using strings for abs loudness.
+
+	
+pl 27.jcn2
+ 	- grand renaming: Duration vs Moment / Rational
+
+pl 27.uu1
+	- extra beam warning
+
+pl 27.jcn1
+	- complete redo of chord and chord name code
+	- small fixes
+
+*************
+pl 27 (feb 3)
+
+pl 26.uu1 
+	- make TFMs too. 
+	- bf: dynamics.  (Don't hang on spanner!)
+	- read TFM before AFM.
+	- fix din-MF stuff (UGH)
+
+pl 26.jcn4
+	- Chord: handle all chord stuff; lots of chord fixes
+	- bf: Chord-name-engraver: find tonic
+	- bf: my-lily-parser: get_chord
+
+
+pl 26.jcn3
+	- bf's: spring spacer end of measure
+	- bf: tie/slur rods (dankje, lieverd)
+	- bf's: intl/ compile, install, uninstall
+
+pl 26.jcn2
+	- enforce {slur,tie}_x_minimum (urg, paper vars?)
+	- tie listens to tieydirection/ydirection
+	- bf: tie placement
+
+pl 26.jcn1
+	- tutorial fixes
+	- bf: OrchestralScore should do hara-kiri..
+	- bf: makeinfo: 
+	  - info in rpm again 
+	  - update to yodl pl10, yodl2texinfo fixes
+	  - use --force, .info should always be generated
+
+*********
+pl 26 (feb 1, 99)
+
+25.jcn2
+	- bf: staffside axis init
+	- bf: staffmargin stuff.
+	- Timesig C fixes
+
+
+pl 25.uu2
+	- junked Scarlatti clef
+	- fixed clef^8
+	- Interpretation_context_handle is interface to interpretation context 
+	- Staff_switching_translator: automatic staff switching for Piano staffs.
+
+pl25.jcn1
+	- volta-spanner: junked dot_p_; not so handy after all: kerning??
+	- feta-nummer: added : ,-.
+	- volta/tuplet thickness
+	- bf: scs-paper
+	- bf: ".|", and bar-thicknesses
+
+pl 25.uu1
+	- bf: default duration is 4
+
+**********
+pl 25
+
+pl 23.ms2
+	- property noteheadStyle
+	- first attempt to make harmonics : see input/test/harmonics.fly
+
+pl 23.ms1
+	- sinfonia.ly: several fixes
+  	- dynamics
+	 * increased range pppppp to ffffff
+	 * added sp, spp, sff, rfz
+	 * example see input/test/tchaikovsky.ly
+	 * updated dynamics in refman
+
+
+pl 24.jcn2
+	- website fixes
+	- bf's: chords:
+  	  * reverted c1*2, collides with \times {}
+	  * should use: c\breve, c\longa for long chords
+	  * addition: c-9, subtraction: c^5
+	  * multiple -add, ^sub: c-7+.9-^3.5
+	- bf: lyric chord
+	- bf: lookup text height
+	- bf's: autobeamer
+
+ pl 24.jcn1
+	- bf: rest collisions
+	- separate tfm-reader
+	- bf: :|: should not have thin lines
+
+
+pl 24.mb1
+	- bf: Correct units now used in the .afm files.
+
+******
+
+pl 24, Hacking Apart Together (Jan 25)
+
+pl 23.jcn9
+	- bf's: preludes-* (found a \meter and \transpose c`` there!)
+	- bf: ly2dvi: don't barf on 'linewidth = -1.;'
+	- bf: lily-version
+
+pl 23.jbr1
+	- scripts/ly2dvi.py: Windows 95 shell does not support redivrection 
+	  of stderr.  We now distribute ash and use it when needed.
+	- stepmake/bin/package-zip32.sh: distribute ash, and guild ice-9/
+	  directory.  We build and distribute manpages in html format instead
+	  of text format.
+	- Documentation/ntweb: Updated doco and now distributing as a self
+	  extracted binary with install script.
+
+pl 23.hwn4
+	- bugfixes
+	- changed All_font_metrics to do TFM as well.
+	- changed init/ to ly/
+
+pl 23.jcn8
+	- tfm reader; revamped code from fontutils-0.6
+
+pl 23.hwn3
+	- {Bar numbers|staff margin stuff|marks} fixed using
+Bar_script_engraver as base class
+	- bf: PS points != Lily \pt 
+	- junked Bar_column_engraver
+	- junked Text_item and some old files.
+
+
+pl 23.jcn7
+	- bf: piano-brace size (veels te simpel: kruis vingers tegen reject)
+	- crude autobeam stuff in mi2mu
+	- brevis, longa chords: c1*2,*4
+	- mutopia/E.Satie/petite-ouverture-a-danser.ly
+	- prop: voltaVisibility
+	- more cello-suite-ii fixes:
+	  * nice repeats
+	  * removed all beams ifo auto-beamer
+	- bf's: autobeam
+	- junked dur2real; beamAutoEndx now as rational string: "1/2" 
+
+pl 23.hwn2
+	- _8 clef 
+	- junked #args symtable def.
+	- junked Text_item.
+	- moved Bar assembling into LilyPond
+	- junked symtables reads
+	- Lookup cleanups
+	- junked Symtable from init/table*
+
+pl 23.hwn1
+	- revamped Scarlatti K3-L378
+	- some more doco
+	- use interning/SCM for Scopes
+	- hanging on now works for breakables too.
+
+pl 23.jcn6
+	- chord fixes; notemode chord syntax changed: @c@ @c-7@
+	- fixed cello-suite ii
+	- bf's: auto-beamer; but nasty bug remains: input/bug/auto-beam.ly
+	- bf: extender
+	- (bit ugly) fix for lyric-chords
+	- fixed repeats (dankjewel lieverd)
+	  * input/twinkle.ly
+	  * input/star*.ly
+
+pl 23.jcn3
+	- succussfully removed []s from wtk1-fugue2.ly
+	- bf + smarter autobeamer
+
+pl 23.jcn2
+	- mi2mu: d-minor: des->cis, g-minor ges->fis
+
+pl 23.mb1
+	- bf: Position and possible SIGSEGV in Mark_engraver
+	- Added padding support in G_staff_side_item
+	- bf: Correct direction of textual scripts. 
+	- bf, lookup.cc: Fewer warnings about missing text styles. 
+	     Same units used in all .afm files.
+
+pl 22.jcn5
+	- auto-beaming v0: input/test/auto-beam.ly
+
+
+
+***********
+
+pl 22.jcn4
+	- bf's: repeat-engraver; \bar "|:", ":|" now deprecated for repeats
+	- bf: :|, |:
+	- property barAlways changed to boolean (0/1)
+	- added boolean property: barAuto
+
+pl 22.jcn3
+	- bf: mmrest
+
+pl 22.jcn2
+	- updated mi2mu
+	- bf: multi-measure-rest (input/test/m.ly)
+	- half fix for staff-margin-engraver
+
+pl 22.jcn1
+	- bf's: cross-staff slur
+	- bf: gnossienne-4
+pl 22.tca1
+ 	- buxfix, \mudela{ \times 2/3{ ...} } works now
+
+******
+  
+pl 22
+	- fixed "already have a Beam" error
+
+pl 21.jcn2
+	- gnossienne: hmm, how to 
+	  * undisplay bars
+	  * don't put 'grace notes' in beam
+	  * put separator between  "] \translator Staff=x" 
+
+pl 21.jcn1
+	- gnossienne-4.ly (start of)
+
+pl 20.jcn2
+	- mutopia fixes; see preludes-1.ly for cross-staff beams and slurs
+	- bf: broken interstaff slur
+	- sm66: check for gmake
+
+*******
+pl 20.jcn1
+	- interstaff slurs v0: preludes-1.ly
+	- warnings for silly interbeam settings
+
+pl 20.hwn1
+	- inclusion of WIP article about LilyPond.
+	- L.Mozart sinfonfia
+	- bf: [c8 [c8 c8]
+
+********
+pl 20
+
+pl 19.jcn5
+	- interstaff beams v0: see beam-interstaff.ly and wtk1-fugue2.ly
+
+pl 19.jcn4
+	- new stem/beam parameters
+	- bf: forced stem shorten
+
+pl 19.jcn3
+	- dehairification of beam code; cleanup and bugfixes
+	  * stemlength
+	  * forced stem shorten
+	  * slope calculation
+	  * damping and correction
+	  * catch for silly beams: input/test/beam-suspect.ly
+
+pl 19.jcn2
+	- multi-measure-rest is now spanner SkipBars=0 is broken
+
+pl 19.jcn1
+	- hmm, almost centered whole-bar rests -- NOT
+
+********
+pl 18.jcn5
+	- bf: beamtrend
+	- bf: vv-duet
+
+pl 18.mb1
+	 - \mark now works, using G_staff_side_item.
+ 	- Improved layout of multi-bar rests, including a new
+ 	  font symbol.
+
+pl 18.jcn4
+	- beam length adjustments
+	- ugly beamtrend fix: input/test/beam-trend.ly
+
+pl 18.jcn3
+	- bf: (beamed) forced stem shorten
+	- bf: broken slurs and ties; minimal slur/tie length setting ignored
+	- bf: separators on cygwin
+
+pl 18.jcn2
+ 	- bf: stem-length algorithm
+ 	- bf: beam direction algorithm
+ 	- bf's: wtk1-fugue2.ly
+
+pl 18.jcn1
+ 	- stepmake update
+ 	- small fixes: spacing.ly, wtk1-fugue2-ly, violino-viola duet.
+ 
+*******
+pl 18 (jan 4 '99)
+
+pl 17.jbr2
+	- Documentation/README-W32: Brought my stuff up to date
+	- Documentation/ntweb: updated for realease
+	- stepmake/bin/package-zip32.sh: cygwin-b20 changes
+	- scripts/ly2dvi.py: LILYPONDPREFIX fixes
+
+pl 17.jbr1
+	- scripts/ly2dvi.py root is now the shared directory path not the
+	  root of the lily installation.  Environment variable LILYPONDPREFIX
+	  is also the path to shared directory.
+	- lily/main.cc WINNT conditional added to avoid a casting of 
+	  main_prog
+
+pl 17.hwn1
+	- bfs wtk1-fugue1
+	- spacing tweak: very widely and tightly spaced lines look
+better.
+	- allow Beam settings to be overriden: property
+	stemLeftBeamCount, stemRightBeamCount
+	- junked Assoc, Assoc_iter
+	- junked Graphical_element::{width,height}
+	- junked Plet_swallow_engraver, Plet_engraver
+	- Command_tie_engraver -> Tie_engraver, Command_beam_engraver -> Beam_engraver
+	- naming  brew_molecule_p / do_brew_molecule -> output_processing,  do_brew_molecule_p 
+	- experimental Text_item, Staff_side
+	- junked old Beam_engraver and old Tie_engraver.
+	- AFM administration cleanup.
+	- cache brewed molecules.  Speed up ?
+ 	- rehacked Graphical_element, introduced Dimension_cache
+
+********
+
+pl 17
+pl 16.jcn2
+	- fix: TEMPO 4., well urg, "TEMPO 4 ."
+	- beginning of violino/violoncello (viola) duet
+
+pl 16.jcn1
+	- resurrected po-stuff
+
+*********
+pl 16
+
+pl 15.uu1
+	- dynamic fix.	
+	- junked abbrev stuff from parser.
+
+pl15.tca1
+	- fixed verbatim option behaviour for mudela-book.
+	- added mudela-book option intertext="some text" 
+	- mudela-book now understand latex \begin{verbatim}
+  
+pl 15.jcn1
+	- chord inversion: 
+	  * enter C/E
+	  * display chord names according to boolean property
+	    \property Score.chordInversion; 
+
+*********
+pl 15
+
+pl 14.hwn1
+ 	- new beam syntax: { [<c e> <c e>] }, changed in lilypond,
+parser, lilypond (mudela 1.0.14), manual
+  	- new tie syntax:  { <c e > ~ <c e > } changed in manual,  
+parser, lilypond (Mudela 1.0.13)
+
+pl 14.jcn1
+	- bf: get_chord C-m5-
+	- typos: chord-name
+
+pl 14.tca2	
+	- move option proccing out of main
+
+**********
+
+pl 14
+
+pl 13.hwn1
+ 	- tutorial fixes.
+ 	- junked find-quarts
+ 	- junked various plet goryness.
+ 	- preps for <c e> ~ <c e> syntax
+	- bib fixes 
+
+pl 12.jcn3
+	- bf's: standchen
+	- added repeat, chord stuff to website
+	- bf: dashed slur
+	- hacks for barlines, dynamics
+
+pl 12.jcn2
+	- bf: package-diff
+	- new chord syntax, again: TONIC [DURATION] ['-' MODIFIERS/ADDITIONS]
+	- shorthand prefix for note-mode: '@', no shorthand for notes in chord
+	   mode...
+ 
+pl 11.jcn6
+	- bf: ly2dvi: better guess LILYPONDPREFIX: <bin>../share/lilypond
+	- chord-table; urg bugs:
+	   * note-collisions
+	   * accidental-placement
+	- bf: cis m (\textsharpm, urg)
+  
+pl 11.jcn5
+	- bib entry, twinkle-pop
+	- bf's: chords
+
+pl 11.jcn4
+
+**********
+pl 13
+	- mutopia stuff (thanks, Peter)
+	- bugfix : \maininput
+
+*********
+
+
+pl 12
+pl 11.jcn3
+	- bf: missing triads
+	- @c @c min (* is taken, <<, <> don't work)
+	- chord-modifiers (urg, "sus" should also subtract 2...)
+
+pl 11.uu3
+	- --safe: security paranoia: disallow untrusted \include,
+disallow untrusted TeX code, disallow named output
+
+pl 11.jcn2
+	- duration with chords + change:  @4 c @c7
+
+pl 11.jcn1
+	- minor chord syntax change: *c6 iso @c6;
+
+**********
+
+pl 11
+
+pl9.tca1
+	- included that missing init/mudela-book-defs.py. Added
+	  one line to init/GNUMakefile to make .py-files be included.
+	- fragment and nonfragment options to override autodetection
+
+pl 10.jcn1
+	- input/test/chords.ly
+	- \type ChordNames and chord-name-engraver.*
+	- chords mode: \chords { <c e g> @c; @d7; }
+
+pl 10.uu1
+	- scm/ directory.  install .scm stuff too.
+	- tuplet bug fixed.
+
+**********
+pl 10
+
+pl 9.jcn3
+	- property: unfoldRepeats; unfolding still broken
+	- volta spanner y-collision
+	- bf: volta number,dot placement
+	- bf's: init/table16,20
+	- small additions to init/lily.scm to enable some testing
+	- junked extra repeat braces
+
+
+pl 9.uu2
+	- bib stuff
+	- removed \output from parser/lexer
+
+pl 9.jcn2
+	- bf/redo: slur.cc, encompass-info: setting of encompass array.  
+	- switched tuplet-engaver off (core dumps)
+
+pl 9.jcn1	
+	- bf (urg): no |: at start of piece
+	- bf?: text defs without width
+	- alignment absolute dynamics
+	- mutopia/opus-130.ly (excerpt, triggered by GUIDO)
+	- bf: crescendo symbol
+
+
+pl 9.uu1
+	- added faq entry
+	- copertina (thanks Maurizio)
+
+*****************
+pl 9
+	- fixed \relative
+
+pl8.tca1
+	- changes to mudela-book. Junked fragment and floating options,
+	  added eps option. Options should not stay as long that you get
+	  comfortable with them. ;)
+	- Also possible to define your own commands with
+	  a syntax like \mudela{c d e}
+	- updated mudela-book-doc.doc
+
+pl 8.jcn3
+	- website: gnuisation of footers
+
+pl 8.jcn2
+	- input/test/vertical-text.ly: urg ydim of text chords
+	- bf: one set of |: :| volta per staff
+	- bf: init/table* braces + more braces
+	- try at score-volta-bracket
+
+pl 8.jcn1
+	- bf: lyric-engraver: handle multiple requests (don't overwrite)
+	- bf: guile-config
+	- music-list-iterator
+
+pl 8.hwn3
+	- coriolan corno 1
+
+pl 8.hwn2
+	- more output revamping.
+
+pl 8.hwn1
+	- Scheme output stuff
+	- tutorial fixes.
+
+*****************
+pl 8
+
+pl7.jcn3
+	- bf's: spanner/volta
+	- volta-support: via Note, Bar, and Paper-column to Bar (item)
+
+pl7.jcn2
+	- note repeats
+
+pl7.jcn1
+	- configure/guile fixes (still no check for 1.2/1.3)
+
+pl7.hwn1
+	- tutorial fixes
+	- tuplets over beams.
+
+*****************
+pl 7
+
+pl6.jcn5
+ 	- repeatbars, volta-spanner work, alternative iteration still broken
+ 	- volta symbol
+
+pl5.szmulewicz2
+ 	- more GUILE stuff.
+	- tutorial doco updates
+
+pl6.jcn4
+ 	- volta-spanner
+ 	- repeat-engraver
+ 	- repeat/alternative music layout (hehe)
+  
+pl6.uu1
+	- Doco of music iterators.
+
+********
+pl 6
+
+pl5.szmulewicz1
+	- rtti stuff
+	- bf's: lily.scm
+
+pl5.mb1
+	- bf: array.hh, don't make copy if resized to the same size
+	- bf: feta.tex
+
+pl5.jcn4
+	- scm additions: plet, hairpin
+	- website fixes
+
+pl5.jcn3
+	- website fixes
+
+pl5.jcn2
+	- extender-*, see input/test/extender.ly
+	- bf: half-beam length (urg)
+	- fixes: standchen, star
+
+pl5.jcn1
+	- tex/lily-ps-defs.tex fixes
+	- lily.ps 
+
+pl 5.hwn1
+	- Tuplet_engraver
+	- lily.ps fix.
+	- junked MY_RTTI stuff, simpler VIRTUAL_COPY_CONS
+
+********
+1.1.5
+
+pl4.jcn4
+	- fixes; preludes, finger
+
+pl4.jcn3
+	- bf: text staff vertical align; see input/test/vertical-text.ly
+	- urg, scaled cmr8 by factor 4/5
+	- apart from end/begin of measure spacing urgs, stars-and-stripes.ly 
+	  is rather cool
+
+pl4.jcn2
+ 	- read (cmrxx)afm for text char widths
+ 	- tfmtoafm.sh (quite urg)
+ 	- alphabet.ly
+ 
+pl 4.uu1
+	- read .scm files. No need for GUILE_LOAD_PATH
+	- .ps hack.  No need for lily.ps on the printer
+	
+	(&$^@M&@^$@^&$@ Damn TeX)
+
+
+	- bf: mudela-book -> \default_paper is obsolete.
+
+pl 3.ms1
+	 - thumb-upgrade
+ 
+pl4.jcn1
+	- bf: dotted slur
+	- bf: text ssb
+	- bf: empty/unknown in ps
+
+pl 4.tca1
+ 	- 40% speedup executing mudela-book on mudela-book-doc.doc
+ 	- change of lilypond's output filenames. Given multiple input
+ 	  files, eg. 'm.ly y.ly', output names will now be 'm.tex y.tex'
+ 	  not 'm.tex y-1.tex', but if m.ly containts two paper definitions
+ 	  output will be 'm.tex m-1.tex y.tex' 
+
+*******
+1.1.4
+
+pl 3.tca1
+ 	- accordion symbols in mf/feta-accordion.mf and
+ 	  init/accordion-defs.ly.
+ 	- small changes to mudela-book and Documentation/man/mudela-book.yo
+ 	- mudela-book example file in Documentation/tex/mudela-book-doc.doc
+
+pl 3.jcn5
+	- bf: dashed-slur
+	- bf: LilyIdString
+	- more star fixes
+	- repeatbar fixes
+
+pl 3.jcn3
+ 	- mup-to-ly.py: version 0.0
+ 	- init/test/stars-and-stripes.ly (from star.mup)
+	- GrandStaffContext
+  
+pl 3.hwn1
+	- junked musical info from key-item
+	- tutorial fixes.
+
+pl 3.jcn2
+ 	- bf: font switch
+ 
+******
+1.1.3
+
+pl 2.jcn2
+
+pl 2.uu1
+	- ly2dvi.py -I fix
+	- obsoleted ly2dvi.sh
+ 	- removed Note_head_engraver
+
+pl 2.hwn1
+ 	- scm cleanups, chop-decimal
+ 	- scarlatti clef.
+
+pl 2.jcn1
+	- commented-out Level-2 PostScript in lily.ps (J. Buehler)
+	- moved tex/*.ps to ps/
+	- merged lilyponddefs.ps, lily-ps-defs: tex/lily.ps
+	- be sure to set:
+	    export GS_LIB=$HOME/usr/src/lilypond/ps
+	- added tex and empty ps-symbols
+
+pl 1.jcn4
+	- more little website fixes
+
+********
+
+pl 2
+
+pl 1.mb1
+	- Support for cautionary accidentals. , i.e. accidentals 
+	  within parantheses. Syntax: 'cis?'. Try input/test/accid.fly
+	  Note that the font has changed.
+	- bf: No unnecessary warnings about time signatures
+	- Added optional second argument of \key. Set to \major or \minor 
+	  to get a major or minor key. Default: major.
+	- bf: Compilation error in midi-walker.cc
+
+pl 1.jcn2
+ 	- fixes for htmldoc, website
+ 	- silly jcn1 fixes
+ 	- junked MODULE stuff from lily/GNUmakefile (again)
+ 
+pl 0.jcn4
+ 	-set:
+ 	   export GUILE_LOAD_PATH=$HOME/usr/src/lilypond/init
+ 	- dstream: Score_element, Column_info
+ 	- -fscm debug hack: lilypond -fscm a; guile a.scm > a.tex; tex a
+ 	- init/lily.scm
+ 
+
+********
+
+pl 1
+pl 0.uu5
+	- fixed MIDI output.
+
+pl 0.jcn3
+	- dropped stepmake/aclocal.m4
+	- removed silly -lguile (BLA_LIBS, EXTRA_LIBS ??)
+	- added debugging output format: -fscm
+	- ly2dvi.py -I fix
+	- Documentation/tex/feta.tex
+	- doco fixes: PATCHES.yo, yodl-1.31.7
+
+pl 0.uu4
+	- Protected_scm to fixup GUILE gc
+
+pl 0.uu3
+	- more RTTI cleaning.
+
+pl 0.uu2
+	- undone type_info::before hack. (Ugh.  RTFM).
+
+pl 0.uu1
+	- more RTTI stuff: is_type_b -> type_info::before
+
+pl 0.jcn1
+pl 17.jcn7
+	- added: set*text, timesig, beam
+	- guile-1.3 is fine; my egcs-1.0.2's -O2 is broken
+pl 17.jbr1
+ 	- stepmake/stepmake/bin/package-zip32.sh: Updated configure statement
+ 	  and modified win32 specific distribution file names to match
+ 	  pl 16.hwn1 changes.
+ 	- scripts/ly2dvi.py: Modified search paths to match the new lilypond
+ 	  installation tree.
+ 	- scripts/convert-mudela.py: Remove the an existing backup file
+ 	  before renaming original.  This is a WINDOWS32 Python requirement.
+ 	- Documentation/ntweb/index.html: Updated documentation to match
+ 	  new lilypond installation tree.
+ 	- lily/main.cc: Fixed LILYPONDPREFIX search paths.
+ 	   
+  
+
+**********
+
+1.1.0
+
+pl 18.exp
+	- use C++ RTTI iso access_Xxx ()
+	- junk Graphical_lisp_element
+	- catalan.ly
+
+pl 17.tca1
+ 	- rewrite of mudela-book
+ 
+pl 17.ms1
+ 	- added \thumb (used very often in cello music) in
+ 	  mf/feta-schrift.mf. 
+ 	- added /input/test/thumb.ly (example)
+
+pl 16.jcn1
+	- dashed-slur through scheme
+
+pl 15.jcn4
+	- more scheme hacks
+
+pl 15.jcn3
+	- try at scheme in Atom
+
+pl 15.jcn2 # rest of
+	- graphical-lisp-element + silly half hook-up with autuplet
+
+pl 17.jcn5
+	- stepmake pl59: templatised install (see mf/)
+	- reasonably ps/tex success (with guile-1.2):
+	  * input/kortjakje.ly
+	- lots more scm stuff
+	- bf: mf/mfplain.ini
+	- stepmake pl58: guile 1.3 configure fix
+	- working font-switch:
+	  guile-1.2 and -lreadline -ldl from 1.3 configure...
+
+pl 17.jcn4
+	- installable stepmake pl57
+	- urg, FIXME guile-1.3: 
+	  * don't install shared libs! configure can't handle
+	  * manually add: EXTRA_LIBS = -lguile -lreadline -ldl
+	  * lily's truely broken, downgrade do 1.2
+
+pl 17.jcn3
+	- lots of stuff still broken, notably font selection, just try 
+	   a()b
+	   or so
+	- tex output support
+	- all output through scheme
+	- option: f, output-format=X
+	- geile placebox 
+	- mf/mfplain.ini
+
+pl 17.jcn2
+	- all paper output through scheme, about half way
+
+pl 17.jcn1
+	- 16.jcn1
+

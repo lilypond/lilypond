@@ -18,8 +18,7 @@
 
 class Break_req : public Request {
 public:
-  enum { DISALLOW = -10000, FORCE = 10000 };
-  int penalty_i_;
+  Real penalty_f_;
   Break_req ();
 protected:
   VIRTUAL_COPY_CONS(Music);

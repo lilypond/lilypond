@@ -20,3 +20,50 @@ Timing_engraver::fill_staff_info (Staff_info &inf)
 
 
 ADD_THIS_TRANSLATOR(Timing_engraver);
+
+
+void
+Timing_engraver::do_post_move_processing( )
+{
+  bar_req_l_ = 0;
+  Timing_translator::do_post_move_processing ();
+}
+
+bool
+Timing_engraver::do_try_music (Music*m)
+{
+  if (Bar_req  * b= dynamic_cast <Bar_req *> (m))
+    {
+      if (bar_req_l_ && bar_req_l_->equal_b (b)) // huh?
+	return false;
+      
+      bar_req_l_ = b;
+      return true;
+    }
+  
+  return Timing_translator::do_try_music (m);
+}
+
+
+String
+Timing_engraver::which_bar ()
+{
+  if (!bar_req_l_)
+    {
+      if (!now_mom ())
+	return "|";
+
+      Scalar nonauto = get_property ("barNonAuto", 0);
+      if (!nonauto.to_bool ())
+	{
+	  Scalar always = get_property ("barAlways", 0);
+	  if (!time_.whole_in_measure_ || always.to_bool ())
+	    return get_property ("defaultBarType" ,0);
+	}
+      return "";
+    }
+  else
+    {
+      return bar_req_l_->type_str_;
+    }
+}

@@ -20,7 +20,6 @@
 
 Score_engraver::Score_engraver()
 {
-  break_penalty_i_ = 0;
   scoreline_l_ =0;
   command_column_l_ =0;
   musical_column_l_ =0;
@@ -33,8 +32,8 @@ Score_engraver::prepare (Moment w)
 {
   Global_translator::prepare (w);
   set_columns (new Score_column (w),  new Score_column (w));
-  
-  break_penalty_i_ = 0;
+
+  command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
   post_move_processing();
 }
 
@@ -89,11 +88,7 @@ Score_engraver::announce_element (Score_element_info info)
 {
   announce_info_arr_.push (info);
   info.origin_trans_l_arr_.push (this);
-
-  if (Spanner *s = dynamic_cast <Spanner *> (info.elem_l_))
-    pscore_p_->typeset_unbroken_spanner (s);
-  else if (Item *i = dynamic_cast<Item*> (info.elem_l_))
-    pscore_p_->typeset_element (i);
+  pscore_p_->typeset_element (info.elem_l_);
 }
 
 /* All elements are propagated to the top upon announcement. If
@@ -174,9 +169,8 @@ Score_engraver::typeset_all()
 void
 Score_engraver::do_pre_move_processing()
 {
-  if (break_penalty_i_ > Break_req::DISALLOW)
+  if (command_column_l_->get_elt_property (breakable_scm_sym) !=  SCM_BOOL_F)
     {
-      command_column_l_->set_elt_property (breakable_scm_sym, SCM_BOOL_T);
       breaks_i_ ++;
       if (! (breaks_i_%8))
 	*mlog << "[" << breaks_i_ << "]" << flush;
@@ -197,10 +191,8 @@ Score_engraver::set_columns (Score_column *new_command_l,
       scoreline_l_->add_column (command_column_l_);
     }
   else 
-    {
-      delete command_column_l_ ;
-      command_column_l_ =0;
-    }
+    command_column_l_ =0;
+
   if (new_command_l) 
     command_column_l_ = new_command_l;
 
@@ -210,10 +202,7 @@ Score_engraver::set_columns (Score_column *new_command_l,
       scoreline_l_->add_column (musical_column_l_);      
     }
   else 
-    {
-      delete musical_column_l_;
-      musical_column_l_ = 0;
-    }
+    musical_column_l_ = 0;
   
   if (new_musical_l) 
     {
@@ -249,16 +238,22 @@ Score_engraver::do_try_music (Music*r)
 
   if (!gotcha)
     {
-      /*
-	UGH! THIS IS NOT SYMMETRIC. CLEAN ME UP!
-       */
       if (Break_req* b = dynamic_cast<Break_req *> (r))
 	{
 	  gotcha = true;
-	  if (b->penalty_i_ <= Break_req::DISALLOW)
-	    break_penalty_i_ = b->penalty_i_;
-	  else if (b->penalty_i_ >= Break_req::FORCE)
-	    command_column_l_->break_penalty_i_ = b->penalty_i_;
+
+
+	  SCM pen = command_column_l_->get_elt_property  (penalty_scm_sym);
+	  Real total_penalty = (pen == SCM_BOOL_F)
+	    ? 0.0
+	    : gh_scm2double (SCM_CDR(pen)); // ugh. Should typecheck.
+
+	  total_penalty += b->penalty_f_;
+	  if (b->penalty_f_ > 10000.0) //  ugh. arbitrary.
+	    forbid_breaks ();
+
+	  command_column_l_->set_elt_property (penalty_scm_sym,
+					       gh_double2scm (total_penalty));
 	}
     }
    return gotcha;
@@ -267,7 +262,7 @@ Score_engraver::do_try_music (Music*r)
 void
 Score_engraver::forbid_breaks ()
 {
-  break_penalty_i_ = Break_req::DISALLOW;
+  SCM junk = command_column_l_->remove_elt_property (breakable_scm_sym);
 }
 
 ADD_THIS_TRANSLATOR(Score_engraver);

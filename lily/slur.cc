@@ -24,8 +24,8 @@
 #include "debug.hh"
 #include "box.hh"
 #include "bezier.hh"
-#include "encompass-info.hh"
 #include "main.hh"
+#include "cross-staff.hh"
 
 Slur::Slur ()
 {
@@ -91,6 +91,51 @@ Note_column_compare (Note_column *const&n1 , Note_column* const&n2)
   return Item::left_right_compare (n1, n2);
 }
 
+
+Offset
+Slur::encompass_offset (Note_column const* col) const
+{
+  Offset o;
+  Stem* stem_l = col->stem_l_;
+  if (!stem_l)
+    {
+      warning (_ ("Slur over rest?"));
+      o[X_AXIS] = col->hpos_f ();
+      o[Y_AXIS] = col->extent (Y_AXIS)[dir_];
+      return o;  
+    }
+  
+  o[X_AXIS] = stem_l->hpos_f ();
+
+  /*
+    Simply set x to middle of notehead
+   */
+
+  o[X_AXIS] -= 0.5 * stem_l->dir_ * col->extent (X_AXIS).length ();
+
+  if ((stem_l->dir_ == dir_)
+      && !stem_l->extent (Y_AXIS).empty_b ())
+    {
+      o[Y_AXIS] = stem_l->extent (Y_AXIS)[dir_];
+    }
+  else
+    {
+      o[Y_AXIS] = col->extent (Y_AXIS)[dir_];
+    }
+
+  /*
+   leave a gap: slur mustn't touch head/stem
+   */
+  o[Y_AXIS] += dir_ * paper_l ()->get_var ("slur_y_free");
+  o[Y_AXIS] += calc_interstaff_dist (stem_l, this);
+  return o;
+}
+
+/*
+  ARGRARGRARGRARGAR!
+
+  Fixme
+ */
 void
 Slur::do_post_processing ()
 {
@@ -198,36 +243,34 @@ Slur::do_post_processing ()
     }
   while (flip (&d) != LEFT);
 
-  int interstaff_i = 0;
-  for (int i = 0; i < encompass_arr_.size (); i++)
-    {
-      Encompass_info info (encompass_arr_[i], dir_, this);
-      if (info.interstaff_f_)
-	{
-	  interstaff_i++;
-	}
-    }
-  bool interstaff_b = interstaff_i && (interstaff_i < encompass_arr_.size ());
+  bool cross_count =  cross_staff_count ();
+  bool interstaff_b = (0 < cross_count) && (cross_count < encompass_arr_.size ());
 
-  Drul_array<Encompass_info> info_drul;
-  info_drul[LEFT] = Encompass_info (encompass_arr_[0], dir_, this);
-  info_drul[RIGHT] = Encompass_info (encompass_arr_.top (), dir_, this);
-  Real interstaff_f = info_drul[RIGHT].interstaff_f_
-    - info_drul[LEFT].interstaff_f_;
+  Drul_array<Offset> info_drul;
+  Interval interstaff_interval;
+
+  do
+    {
+      info_drul[d] = encompass_offset (encompass_arr_.boundary (d, 0));
+      interstaff_interval[d] = calc_interstaff_dist (encompass_arr_.boundary (d,0),
+						     this);
+    }
+  while (flip (&d) != LEFT);
+  
+  Real interstaff_f = interstaff_interval.length ();
 
   if (fix_broken_b)
     {
       Direction d = (encompass_arr_.top () != spanned_drul_[RIGHT]) ?
 	RIGHT : LEFT;
-      dy_f_drul_[d] = info_drul[d].o_[Y_AXIS];
+      dy_f_drul_[d] = info_drul[d][Y_AXIS];
       if (!interstaff_b)
 	{
-	  dy_f_drul_[d] -= info_drul[d].interstaff_f_;
-	  
-	  if (interstaff_i)
+	  dy_f_drul_[d] -= interstaff_interval[d];
+	  if (cross_count)	// interstaff_i  ? 
 	    {
-	      dy_f_drul_[LEFT] += info_drul[d].interstaff_f_;
-	      dy_f_drul_[RIGHT] += info_drul[d].interstaff_f_;
+	      dy_f_drul_[LEFT] += interstaff_interval[d];
+	      dy_f_drul_[RIGHT] += interstaff_interval[d];
 	    }
 	}
     }
@@ -238,25 +281,13 @@ Slur::do_post_processing ()
     Catch and correct some ugly cases
    */
 
-  Real height_damp_f;
-  Real slope_damp_f;
-  Real snap_f;
-  Real snap_max_dy_f;
+  
 
-  if (!interstaff_b)
-    {
-      height_damp_f = paper_l ()->get_var ("slur_height_damping");
-      slope_damp_f = paper_l ()->get_var ("slur_slope_damping");
-      snap_f = paper_l ()->get_var ("slur_snap_to_stem");
-      snap_max_dy_f = paper_l ()->get_var ("slur_snap_max_slope_change");
-    }
-  else
-    {
-      height_damp_f = paper_l ()->get_var ("slur_interstaff_height_damping");
-      slope_damp_f = paper_l ()->get_var ("slur_interstaff_slope_damping");
-      snap_f = paper_l ()->get_var ("slur_interstaff_snap_to_stem");
-      snap_max_dy_f = paper_l ()->get_var ("slur_interstaff_snap_max_slope_change");
-    }
+  String infix = interstaff_b ? "interstaff_" : "";
+  Real height_damp_f = paper_l ()->get_var ("slur_"+infix +"height_damping");
+  Real slope_damp_f = paper_l ()->get_var ("slur_"+infix +"slope_damping");
+  Real snap_f = paper_l ()->get_var ("slur_"+infix +"snap_to_stem");
+  Real snap_max_dy_f = paper_l ()->get_var ("slur_"+infix +"snap_max_slope_change");
 
   if (!fix_broken_b)
     dy_f_drul_[RIGHT] += interstaff_f;
@@ -338,22 +369,24 @@ Slur::do_post_processing ()
   snapped_b_drul[LEFT] = snapped_b_drul[RIGHT] = false;
   do
     {
-      if ((note_column_drul[d] == spanned_drul_[d])
-	  && (note_column_drul[d]->stem_l_)
-	  && (note_column_drul[d]->stem_l_->dir_ == dir_)
-	  && (abs (note_column_drul[d]->stem_l_->extent (Y_AXIS)[dir_]
-		   - dy_f_drul_[d] + (d == LEFT ? 0 : interstaff_f))
-	      <= snap_f))
+      Note_column * nc = note_column_drul[d];
+      if (nc == spanned_drul_[d]
+	  && nc->stem_l_
+	  && nc->stem_l_->dir_ == dir_
+	  && abs (nc->stem_l_->extent (Y_AXIS)[dir_]
+		  - dy_f_drul_[d] + (d == LEFT ? 0 : interstaff_f))
+	      <= snap_f)
 	{
 	  /*
 	    prepare to attach to stem-end
 	  */
-	  Stem* stem_l = note_column_drul[d]->stem_l_;
-	  snapx_f_drul[d] = stem_l->hpos_f ()
+	  snapx_f_drul[d] = nc->stem_l_->hpos_f ()
 	    - spanned_drul_[d]->relative_coordinate (0, X_AXIS);
-	  snapy_f_drul[d] = stem_l->extent (Y_AXIS)[dir_];
-	  snapy_f_drul[d] += info_drul[d].interstaff_f_;
-	  snapy_f_drul[d] += dir_ * 2 * y_gap_f;
+
+	  snapy_f_drul[d] = nc->stem_l_->extent (Y_AXIS)[dir_]
+	    + interstaff_interval[d]
+	    + dir_ * 2 * y_gap_f;
+	  
 	  snapped_b_drul[d] = true;
 	}
     }
@@ -365,38 +398,52 @@ Slur::do_post_processing ()
     */
   if (!fix_broken_b)
     dy_f += interstaff_f;
+
+
+  /*
+    (sigh)
+
+    More refactoring could be done.
+   */
+  Real maxsnap = abs (dy_f * snap_max_dy_f);
   if (snapped_b_drul[LEFT] && snapped_b_drul[RIGHT]
       && ((sign (snapy_f_drul[RIGHT] - snapy_f_drul[LEFT]) == sign (dy_f)))
       && (!dy_f || (abs (snapy_f_drul[RIGHT] - snapy_f_drul[LEFT] - dy_f)
-		    < abs (dy_f * snap_max_dy_f))))
+		    < maxsnap)))
     {
-      do
-	{
-	  dy_f_drul_[d] = snapy_f_drul[d];
-	  dx_f_drul_[d] = snapx_f_drul[d];
-	}
-      while (flip (&d) != LEFT);
-  
+      dy_f_drul_ = snapy_f_drul;
+      dx_f_drul_ = snapx_f_drul;
     }
-  else if (snapped_b_drul[LEFT]
-      && ((sign (dy_f_drul_[RIGHT] - snapy_f_drul[LEFT]) == sign (dy_f)))
-      && (!dy_f || (abs (dy_f_drul_[RIGHT] - snapy_f_drul[LEFT] - dy_f)
-		    < abs (dy_f * snap_max_dy_f))))
-    {
-      Direction d = LEFT;
-      dy_f_drul_[d] = snapy_f_drul[d];
-      dx_f_drul_[d] = snapx_f_drul[d];
-    }
-  else if (snapped_b_drul[RIGHT]
-      && ((sign (snapy_f_drul[RIGHT] - dy_f_drul_[LEFT]) == sign (dy_f)))
-      && (!dy_f || (abs (snapy_f_drul[RIGHT] - dy_f_drul_[LEFT] - dy_f)
-		    < abs (dy_f * snap_max_dy_f))))
-    {
-      Direction d = RIGHT;
-      dy_f_drul_[d] = snapy_f_drul[d];
-      dx_f_drul_[d] = snapx_f_drul[d];
-    }
+  else
+    do
+      {
+	Direction od = (Direction)-d;
+	if (snapped_b_drul[d]
+	    && d * sign (snapy_f_drul[d] - dy_f_drul_[od]) == sign (dy_f)
+	    && (!dy_f || (abs (snapy_f_drul[d] - dy_f_drul_[od]  - d * dy_f)
+			  < maxsnap)))
+	  {
+	    dy_f_drul_[d] = snapy_f_drul[d];
+	    dx_f_drul_[d] = snapx_f_drul[d];
+	  }
+      }
+    while (flip (&d) != LEFT);
 }
+
+
+int
+Slur::cross_staff_count ()const
+{
+  int k=0;
+
+  for (int i = 0; i < encompass_arr_.size (); i++)
+    {
+      if (calc_interstaff_dist (encompass_arr_[i], this))
+	k++;
+    }
+  return k;
+}
+
 
 Array<Offset>
 Slur::get_encompass_offset_arr () const
@@ -411,17 +458,6 @@ Slur::get_encompass_offset_arr () const
   offset_arr.push (Offset (0, dy_f_drul_[RIGHT]));
   return offset_arr;
 #endif
-
-  int interstaff_i = 0;
-  for (int i = 0; i < encompass_arr_.size (); i++)
-    {
-      Encompass_info info (encompass_arr_[i], dir_, this);
-      if (info.interstaff_f_)
-	{
-	  interstaff_i++;
-	}
-    }
-  bool interstaff_b = interstaff_i && (interstaff_i < encompass_arr_.size ());
   
   Offset origin (relative_coordinate (0, X_AXIS), 0);
 
@@ -429,15 +465,19 @@ Slur::get_encompass_offset_arr () const
   int last = encompass_arr_.size () - 2;
 
   offset_arr.push (Offset (dx_f_drul_[LEFT], dy_f_drul_[LEFT]));
+
   /*
     left is broken edge
   */
+
+  int cross_count  = cross_staff_count ();
+  bool cross_b = cross_count && cross_count < encompass_arr_.size ();
   if (encompass_arr_[0] != spanned_drul_[LEFT])
     {
       first--;
-      Encompass_info left_info (encompass_arr_[0], dir_, this);
-      if (interstaff_b)
-	offset_arr[0][Y_AXIS] += left_info.interstaff_f_;
+      Real is   = calc_interstaff_dist (encompass_arr_[0], this);
+      if (cross_b)
+	offset_arr[0][Y_AXIS] += is;
     }
 
   /*
@@ -450,8 +490,8 @@ Slur::get_encompass_offset_arr () const
 
   for (int i = first; i <= last; i++)
     {
-      Encompass_info info (encompass_arr_[i], dir_, this);
-      offset_arr.push (info.o_ - origin);
+      Offset o (encompass_offset (encompass_arr_[i]));
+      offset_arr.push (o - origin);
     }
 
   offset_arr.push (Offset (do_width ().length () + dx_f_drul_[RIGHT],

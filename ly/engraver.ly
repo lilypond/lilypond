@@ -188,7 +188,8 @@ StaffGroupContext= \translator {
 };
 \translator { \StaffGroupContext }
 
-\translator{
+% UGH! JUNKME
+LyricsVoiceContext= \translator{
 	\type "Engraver_group_engraver";
 	\consistsend "Axis_group_engraver";
 
@@ -197,9 +198,10 @@ StaffGroupContext= \translator {
 	\consists "Lyric_engraver";
 	\consists "Extender_engraver";
 	\consists "Hyphen_engraver";
-}
+};
+\translator{ \LyricsVoiceContext }
 
-\translator {
+LyricsContext = \translator {
 	\type "Engraver_group_engraver";
 	\name Lyrics;
 	\consists Vertical_align_engraver;%need this for getting folded repeats right.
@@ -207,7 +209,8 @@ StaffGroupContext= \translator {
 	\consistsend "Axis_group_engraver";
 	
 	\accepts "LyricVoice";
-}
+};
+\translator { \LyricsContext }
 
 \translator{
 	\type "Engraver_group_engraver";
@@ -271,13 +274,14 @@ ScoreContext = \translator {
 	\name Score;
 
 	\consists "Timing_engraver";
+
 	\consists "Span_score_bar_engraver";
 	\consists "Score_priority_engraver";
 	\consists "Spacing_engraver";
 	\consists "Vertical_align_engraver";
 	alignmentReference = \down;
 	defaultClef = treble;
-
+	defaultBarType = "|";
 	\accepts "Staff";
 	\accepts "StaffGroup";
 	\accepts "RhythmicStaff";	

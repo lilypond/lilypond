@@ -76,7 +76,7 @@ Bar::do_pre_processing ()
 	  break;
 	}
     }
-  if (remove_elt_property (at_line_start_scm_sym)!= SCM_BOOL_F
+  if (remove_elt_property (at_line_start_scm_sym) != SCM_BOOL_F	// UGR.
       && (break_status_dir () == RIGHT) && (type_str_ == ""))
     {
       type_str_ = "|";

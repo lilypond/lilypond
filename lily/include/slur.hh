@@ -15,12 +15,14 @@
  */
 class Slur : public Bow
 {
+  int cross_staff_count () const;
+  Offset encompass_offset (Note_column const* )const;
 public:
   Slur ();
   VIRTUAL_COPY_CONS(Score_element);
 
   void add_column (Note_column*);
-  
+
   Link_array<Note_column> encompass_arr_;
 
 protected:

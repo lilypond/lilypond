@@ -164,10 +164,13 @@ handLyrics = \notes \context GrandStaff <
 			\GrandStaffContext
 			\accepts "Lyrics";
 		}
-%		castingalgorithm = \Wordwrap;
+		\translator {
+			\LyricsContext
+			\consists "Bar_engraver";
+		}
 	}
 	\midi {}
 }
 
 
-\version "1.2.0";
+\version "1.2.14";

@@ -31,7 +31,7 @@ public:
     The beams should be prevented to conflict with the stafflines, 
     especially at small slopes.
     */
-  enum Quantisation { NONE, NORMAL, TRADITIONAL, TEST };
+  enum Quantisation { NONE, NORMAL, TRADITIONAL };
   enum Dir_algorithm { /* DOWN=-1, UP=1, */ MAJORITY=2, MEAN, MEDIAN };
 
   Link_array<Stem> stems_;

@@ -25,7 +25,7 @@ class Break_algorithm {
 protected:
 
   Paper_score *pscore_l_;
-  Real linelength;
+  Real linewidth_f_;
 
   /// search all pcols which are breakable.
   Line_of_cols find_breaks() const;

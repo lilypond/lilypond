@@ -23,14 +23,7 @@
 
 class Paper_score : public Music_output
 {
-  /// crescs etc; no particular order
-  Link_array<Spanner> span_p_arr_;
-
-  /// other elements
-  Link_array<Score_element> elem_p_arr_;
-  Link_array<Score_element> break_helpers_arr_;
-
-  SCM protected_scms_;
+  SCM element_smob_list_;
 public:
   Paper_def *paper_l_;
 

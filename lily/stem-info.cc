@@ -9,24 +9,23 @@
 
 #include "proto.hh"
 #include "misc.hh"
-#include "debug.hh"
-#include "dimension-cache.hh"
+#include "cross-staff.hh"
 
-#include "align-element.hh"
 #include "stem.hh"
 #include "paper-def.hh"
 #include "lookup.hh"
 #include "stem-info.hh"
 #include "beam.hh"
-#include "staff-symbol.hh"
+
 
 Stem_info::Stem_info ()
 {
 }
+
+
 /*
   FIXME: y dims should not be in internote.
  */
-
 Stem_info::Stem_info (Stem*s, int mult)
 {
   mult_i_ =mult;
@@ -41,14 +40,8 @@ Stem_info::Stem_info (Stem*s, int mult)
   Paper_def* paper_l = stem_l_->paper_l ();
   Real internote_f = stem_l_->staff_line_leading_f ()/2;
   Real interbeam_f = paper_l->interbeam_f (mult_i_);
-  Real beam_f = paper_l->beam_thickness_f ();
+  Real beam_f = paper_l->get_realvar (beam_thickness_scm_sym);;
          
-  {
-      static int i = 1;
-      DEBUG_OUT << "******" << i++ << "******\n" 
-	   << "begin_f: " << stem_l_->stem_begin_f () * dir_ 
-	   << "\nchord_f/i: " << stem_l_->chord_start_f () * dir_ / internote_f << '\n';
-  }
 
   // strangely enough, dim(chord_start_f) == pt (and not internote!)
   idealy_f_ = stem_l_->chord_start_f () / internote_f;
@@ -105,8 +98,6 @@ Stem_info::Stem_info (Stem*s, int mult)
     /* knee */
     {
       idealy_f_ -= beam_f;
-      // idealy_f_ -= (mult_i_ - 1) * interbeam_f;
-      // idealy_f_ += (mult_i_ - stem_l_->flag_i_ >? 0) * interbeam_f;
       maxy_f_ = idealy_f_;
       miny_f_ = -INT_MAX;
 
@@ -119,51 +110,15 @@ Stem_info::Stem_info (Stem*s, int mult)
   miny_f_ /= internote_f;
   maxy_f_ /= internote_f;
 
-  DEBUG_OUT << "dir_: " << dir_ << '\n';
-  DEBUG_OUT << "mult_i_: " << mult_i_ << '\n';
-  DEBUG_OUT << "idealy_f_: " << idealy_f_ << '\n';
-  DEBUG_OUT << "miny_f_: " << miny_f_ << '\n';
-  DEBUG_OUT << "maxy_f_: " << maxy_f_ << '\n';
-
   idealy_f_ = maxy_f_ <? idealy_f_;
   idealy_f_ = miny_f_ >? idealy_f_;
 
   // interstaff beam
   Beam* beam_l = stem_l_->beam_l_;
   
-  Graphical_element *common = stem_l_->common_refpoint (beam_l, Y_AXIS);
-  Align_element * align = dynamic_cast<Align_element*> (common);
-  if (align && align->axis() == Y_AXIS)
-    {
-      if (align->threshold_interval_[MIN] != 
-	  align->threshold_interval_[MAX])
-	warning (_ ("minVerticalAlign != maxVerticalAlign: interstaff beams/slurs may be broken"));
-
-      interstaff_f_ = align->threshold_interval_[MIN] / internote_f;
-
-      Graphical_element * beam_refpoint = beam_l;
-      Graphical_element * stem_refpoint = stem_l_;
-
-      while (beam_refpoint->parent_l (Y_AXIS) != common)
-	beam_refpoint = beam_refpoint->parent_l (Y_AXIS);
-      while (stem_refpoint->parent_l (Y_AXIS) != common)
-	stem_refpoint = stem_refpoint->parent_l (Y_AXIS);
-
-
-      int beam_prio =
-	align->get_priority (dynamic_cast<Score_element*> (beam_refpoint));
-      int stem_prio =
-	align->get_priority (dynamic_cast<Score_element*> (stem_refpoint));
-
-      /*
-	our staff is lower -> interstaff_f_ *= -1
-       */
-      if (beam_prio < stem_prio)
-	interstaff_f_ *= -1;
-      
-      idealy_f_ += interstaff_f_ * beam_dir_;
-      miny_f_ += interstaff_f_ * beam_dir_;
-      maxy_f_ += interstaff_f_ * beam_dir_;
-    }
+  Real is = calc_interstaff_dist (stem_l_, beam_l);
+  idealy_f_ += is* beam_dir_;
+  miny_f_ += is * beam_dir_;
+  maxy_f_ += is * beam_dir_;
 }
 

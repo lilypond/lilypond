@@ -1,0 +1,515 @@
+pl 17
+	- fixed RPM building.
+
+pl 16.hwn1
+ 	- ridiculous slur dims fixed.
+ 	- ly2dvi32.py -> ly2dvi.py, ly2dvi.sh -> ly2dvi-old
+ 	- use re iso. regex for python stuff.
+ 	- bf: mudela-book.py
+ 	- updated install directions.  Made lilypond-login for csh
+ 	- bf: installdirs of MF stuff
+ 	- Dictionary implementation using hash tables (LilyPond is 3% faster)
+ 	- Cache [non]group_l_arr () calls in translator-group.cc (LilyPond is 4% faster)
+
+pl 16.uu1
+	- debian URLs, make/stepmake.make  patch
+	- further debian fixes.
+	
+pl 14.tca1
+	- partitas
+	- prall{mordent,prall} patch.
+
+******
+pl 16
+	- read property ydirection and tieYDirection for tie direction.
+	- bf: slur over rest.
+	- bf: include path
+	- part of jcn2
+	- configure --enable-guile
+
+pl 15.jcn1
+ 	- autoconf on mf,mfont mp,mpost
+ 
+pl 15.am
+	- Lots of patches from *Adrian* *Mariano*!
+
+**********
+
+pl 15
+pl 14.hwn1
+	- \lyrics iso \lyric (mudela 1.0.7)
+	- cleaned up real_expression syntax.
+	- removed optional_semicolon nonterminal after toplevel assignment
+	- MInterval Music::time_int () -> Moment Music::duration ()
+	- junked Music_iterator::daddy_iter_l_
+	- junked Sequential_music::offset_mom_
+	- tempo compression:
+		* syntax: \times 2/3 Music
+		* Compressed_music, Compressed_music_iterator
+	- flower: init rational to 0
+	- flower: removed P?Cursor<>::P?Cursor (), using pointer iso ref now.
+	- don't install into TeX, but into ${datadir}/{mf,tex,ly} (todo: ps)
+
+
+*********
+pl 14
+
+pl 13.uu1
+	- syntax for \translator: (\name  "Name")
+	- bfs for footer
+	- bf: init/{book,center}-fragment.ly, YODL nofooter stuff. 
+	- bf: redeclaration
+	- bf: doc fixes
+	- bfs: egcs 1.1
+
+pl 13.mb1
+	- bf: Lookup::afm_find, the width was undefined for the feta fonts.
+	- bf: refman.yo
+
+pl 13.jcn5
+	- bf: init/paper* missing `;'
+	- lilyponddefs.ps fixes
+	- crude output name fix, see scores.cc
+
+pl 13.jcn4
+	- some ps output fixes
+	- lilyponddefs.ps: some sane implemenations
+	- removed (some) ghostscript internals
+
+pl 13.jcn3
+	- PostScript output version 0.0; do
+	      export GS_LIB=$HOME/usr/src/lilypond/tex
+	      export GS_FONTPATH=$HOME/usr/src/lilypond/mf/out
+	      make -C mf pfa
+	      lilypond -t example-1  # or try: lilypond -t twinkle :-)
+	      gv lelie.ps
+	- ps:
+	  * lots of output fixes, chars, strings
+	  * tex/lilyponddefs.ps: added rather braindead defs
+
+pl 13.jcn2
+	- tex/lily-ps-defs.ps (./tex?)
+	- grand output rehack
+	  * dropped {dimen,tex}.{cc,hh}
+	  * {ps,tex} stuf to {Ps,Tex}_lookup
+	  * init/table*.ly: added #parameters
+	- ps fonts:
+	  * ps-to-pfa.py generates valid type-3 fonts
+	  * do: make -C mf pfa
+	  * set: GS_FONT=GS_FONTPATH=$HOME/usr/src/lilypond/mf/out
+
+pl 13.jcn1
+	- crude postscript type 3 font: 
+	   make sure to have mfplain.mem metapost precompiled macros
+	   make -C mf ps
+	   gv out/feta20.sp
+
+********
+
+pl 12.mb1
+	- bf: feta-timesig.mf Added horizontal space, minor corrections.
+	- Changed meaning of Staff.timeSignatureStyle:
+		C	Use C and stroked C for 4/4,2/2
+		old	Use old style mensuration marks
+		1	Use single number
+		Cn/m	Set symbol explicitly, n/m=2/2 or 4/4	
+		oldn/m	Set symbol explicitly, n/m=2/2,3/2,3/4,4/4,6/4 or 9/4.
+	  All other time signatures are typeset with the default two-digit
+	  layout.
+		
+
+pl 12.jcn2
+	- Lookup abstract base class
+	- Lookup/Symtable(s): separation of input/output
+
+pl 12.jcn1
+	- preparations for braindead PostScript output
+
+pl 12.hwn3
+	- praeludium-fuga-E to relative mode
+	- bf: mudela-mode.el
+	- bf: BIBINPUTS
+	- more dutch glossary + explanations
+	- table-to-html fixes
+pl 12.hwn2
+	- bf: mymycode in .yo
+	- VERSION to out/
+	- add VPATH to mutopia
+	- access_Identifier (bool): (non)copy arg now explicit.
+	- bf: lilypond-latex.tex
+  
+
+
+pl 12.hwn1
+	- \remove "Engraver_type";
+	- \output "bla" -> output = "bla" (mudela 0.1.6)
+	- \property defaultclef -> \property defaultClef
+	- naming of access_{Engraver,Performer,Translator_group} ()
+	- changed syntax for \translator in \paper{} (mudela 0.1.6)
+	- declared contexts:
+
+		StaffContext = \translator { .. }
+		\translator { \StaffContext }
+
+	- elt_b -> elem_b
+	- bf: add Separating_line_group_engraver to RhythmicStaff.
+
+
+pl 12.am1
+	- large doc patch, ChoireStaff -> ChoirStaff
+
+*******
+pl 12
+
+pl 11.uu2
+	- added Transposed_music for mixing transposition and relative 
+
+pl 11.jcn1
+	- bf: config.make striproff
+	- texinfo
+pl 11.mb2
+ 	- feta-timesig.mf: Added some flesh on C and C2,
+ 	  added old-style mensuration marks.
+ 
+pl 11.mb1
+ 	- Added feta-timesig.mf, font for C and alla breve.
+
+
+pl 11.uu1
+	- new \property: meterSignatureStyle for C and C2 time sigs
+	- bf: BIBINPUTS
+	- stepmake 53
+	- bf: gif vs. png stuff
+
+*******
+pl 11
+
+pl 10.uu2
+	- plet-spanner fix. 
+	- large doc patch (thanks Adrian)
+
+pl 10.jbr1
+        - aclocal.m4, stepmake/aclocal.m4: Choose specific python
+        - stepmake/bin/release.py: Use the same python calling process
+        - make/lilypond-vars.make: PATH should not use PATHSEP.  It is fine 
+          to hard code it to `:' on both Windows NT and UNIX.
+        - stepmake/bin/package-zip32.sh: Perform configure with a specific
+          python, ie cygwin32 python on Windows NT
+
+pl 10.uu1
+	- junked \octave
+	- marginBreakPriority, direction==LEFT
+	- mf-to-table NT fix (JBR)
+	- createKeyOnClefChange property
+
+
+pl 10.jcn1
+ 	- mf-to-xpms for Harmonia
+  
+pl 9.jbr1
+        - scripts/convert-mudela.py: We must close infile and outfile before
+          a rename occurs.  NT Windows locks open files.
+          stepmake/bin/package-zip32.sh: renamed all python bins to:
+          <filename>.py in NT Windows distribution.
+
+
+*********
+pl 10
+
+pl 9.jcn1
+	- started gnuisation of website
+	  * filetype and size
+	  * 'no gifs due to patent problems'
+	- bumped stepmake version nr (again):
+	  please update stepmake/VERSION after making changes to stepmake...
+  
+pl 9.hwn1
+	- do default midi,paper by toplevel \paper / \midi (mudela 1.0.4)
+	- bf: error if no Score context
+	- notename table now can be declared as well.
+	- junked \clear
+
+*********
+pl 9
+	
+pl 8.uu1
+	- junked \staff, \multi
+	- bf Music_list::Music_list (Music_list const&)
+	- AC_SUBST(PATHSEP,DIRSEP)
+	- generate Documentation/tex/out/*.bib (AM)
+	- a4 fixes (AM)
+	- bf: metafont-*.make
+	- parser.yy: intlist mods. (mudela 1.0.2)
+	- \melodic -> \notes (mudela 1.0.3)
+	- typo: calcalute_dependencies ()
+
+pl 8.jcn3
+	- gif -> png
+	    * ps-to-pngs.sh
+	    * stepmake
+	    * website
+	    * yodl-1.31.4 (to be released)
+	- target 'texinfo' -> 'info'
+
+pl 8.jcn2
+	- more doco in texinfo (with yodl pl3)
+	- bf's: package-diff
+
+pl 8.jcn1
+ 	- removed tutorial from texinfo, yodl2texinfo is still rather broken
+ 	- bf: setlocale NUMERIC to 'C'
+ 	- removed ugly space from print-dimen
+
+*******
+pl 8
+	- make website fixes.
+
+pl 7.jcn1
+ 	- minor stepmake/yodl fixes
+ 
+pl 7.uu1
+
+	- changed separator in vocabulary
+	- added barAlways and defaultBarType properties.
+
+pl 7.hwn1
+	- changed header format.  Use a + for concatenation.
+
+		\header { key = "concat" + "string" }
+	
+	(mudela 1.0.2)	
+	- allow computed properties in translator definition
+
+		GrandStaff = \translator {
+			minVerticalAlign = 1.5\staffheight;
+			..
+		}
+
+	- Music inheritance. Datastructure and parser now follow this grammar
+
+		Music_list:
+			| Music_list Music
+			;
+		Simultaneous_music: '<' Music_list '>'
+			;
+		Sequential_music: '{' Music_list '}'
+			;
+
+	- bf: Item::do_unlink () don't iterate on attached_span_l_arr_,
+because it is changed by Spanner::set_bounds () (thanks Thomas)
+	- bf: URL Documentation/index (thanks EP)
+	- bf: twinkle.ly (thanks EP)
+	- bf: mi2mu (thanks Murray)
+	- bf: mudela-book --dependencies
+	- split LaTeX and TeX stuff
+
+pl 7.tca1
+	- more Partita's 
+
+pl 7.jbr1
+        - aclocal.m4,make/lilypond-vars.make: added PATHSEP as AC_SUBST to  
+          help support Windows NT doco build.  
+          Documentation/ntweb/index.yo: minor spelling changes
+
+
+*************
+pl 7
+	- refman updates by Adriano Moriano.
+
+
+pl 6.jbr2
+        - scripts/ly2dvi32.py: Fixed bug with lily input including multiple
+          files.  Also, we now stream out lilypond log one line at a time
+          for better feedback.
+
+pl 6.jbr1
+        - scripts/ly2dvi32.py: Added some doco, add postscript option, set
+          MFINPUTS along with TEXINPUTS, modified initialization sequence. 
+          Made some Python style changes per Han-Wen suggestions.
+        - Documentation/man/ly2dvi32.yo: Added a manpage for ly2dvi32.
+        - stepmake/bin/package-zip32.sh: Added doco distribution.  Removed
+          the installation directory after zip operation.  
+        - Documentation/ntweb/index.yo: LILYPOND -> LILYPONDPREFIX and 
+          comments about MiKTeX-1.11.
+
+pl 6.tca1
+ 	- First movement of Partita II (BWV 826) in 
+ 	  mutopia/J.S.Bach/Cembalo-Partitas. Lilypond output was so
+ 	  beautiful that I'll have to write the rest of the partita.
+
+pl 6.uu2
+	- mudela-book.py --dependencies
+	- more doc fixes (AM)
+	- warn if declaring a keyword.
+	- \grouping 4 2*3; now accepted.
+	- patches to standchen.ly
+
+pl 6.uu1
+
+	- mudela-book handles \input now
+	- vocabulary fixes by Adrian Moriano
+
+********
+pl 6
+	- largish rehack:
+	  * Super_element is now an `abstract' class,
+	  * Paper_score directly contains one Line_of_score.  The
+	breaking/postprocessing/deletion is mixed with the output phase.
+	  * Hopefully this will save memory for large scores. (benchmarks, anyone?)
+	  * bf: Horizontal_vertical_group_item::do_unlink () should call
+
+	Axis_group_item::do_unlink ()
+
+	- changed LILYPOND to LILYPONDPREFIX
+	- added tfm and dvi target for mf/
+	- reincluded english.ly
+	- doc fixes (thanks, Adrian Moriano)
+	- doc fixes.
+	- mf: ex height added.
+
+pl 5.mb1
+      - Mudela 1.0.1: Changed \accidentals -> \keysignature
+      - Identifiers can be used in textual scripts:
+
+
+	tempoString="Allegro molto assai";
+
+		[...]
+
+	c^\tempoString 
+
+
+
+pl 5.jbr2
+        - aclocal.m4,config.h.in,flower/file-path.cc: Added PATHSEP and 
+          DIRSEP to configuration to support windows style path and pathlists.
+        - stepmake/bin/package-zip32.sh,stepmake/stepmake/package.make:
+          zip target now calls package-zip32.sh which creates winnt 
+          binary distribution zip file. xzip target continues to use 
+          package-zip.sh for Jan's cross-compiled version.
+        - lily/main.cc: Added a search for LILYPOND environment variable to
+          better facilitate binary distributions. 
+        - Documentation/README-W32.yo: Updated information on running lilypond
+          on winnt.
+          
+
+
+pl 5.jcn1
+	- (step)make fixes from yodl
+	- minor doco fixes
+	- bf: patch in website after 'make release'
+
+pl 5.jbr1
+	- Documentation/ntweb/Makefile: Used absolute url for LilyPond Homepage
+	- Documentation/ntweb/index.yo: Minor mods per Jan's suggestions
+
+
+
+
+*************
+pl 5
+
+pl 4.jcn1
+	- texinfo docs, lots of yodl TODO
+	- junked some makefiles
+	- ntweb: use BLURB
+	- bf: pletvisibility 
+	- adaptions for yodl-1.31.2's automatic texinfo conversion 
+	- reinclude of 1.jcn2:
+		  - renamed -alto -> viola
+		  - bf: avant-gardish six preludes
+		  - bf: ly2dvi warnings
+
+pl 4.jbr1
+	- stepmake/stepmake/install-outfiles.sub.make: fixed typo
+	- scripts/GNUmakefile: add ly2dvi32 to installation list and fixed
+	  included executable-targets.make to facilate installation of scripts
+	- Documentation/ntweb: Fixes to nt web page and added topdoc like
+	  automation.
+
+*********
+pl 4
+pl 3.mb2
+	- Changed text script alignment: center -> left
+ 	- TeX commands counts as one character when calculating
+	  the length of a Text_def
+
+pl 3.jbr2
+         - Documentation/topdocs/index.yo: Added link to NT dist page
+         - Documentation/ntweb/: Added Makefile and index.yo to build the
+           NT dist page
+
+pl 3.hwn1
+	- stepmake hacking
+
+pl 3.uu1
+	- stepmake MAKEFILES -> STEPMAKE_TEMPLATES
+	- count \texcommands in tex string
+
+
+pl 3.jcn1
+       - bf: website: empty toplevel readme's
+       - bf: xs4all (again?)
+       - can't administer ftp site now: put patch into website
+
+
+pl 3.jbr1
+	- stepmake/stepmake/Executable_targets: UNIX cross-compile doesn't
+	  work with $(DOTEXE) on source of install command.
+	- stepmake/Generic_targets: creating multiple dirs with mkdir 
+	  requires -p option
+	- scripts/ly2dvi32.py: General and Winnt specific fixes
+
+
+*********
+pl 3
+
+pl 2.uu1
+        - solaris 2.6 compile/make website fixes.
+        - rm'd WWW.make
+        - stepmake .43
+        - pcnov095.win.tue.nl -> ftp.cs.uu.nl
+  
+pl 2.hwn1
+	- mi2mu naming of track output
+	- bf: do key restore sign only once
+	- ly2dvi32 preliminary version (JBR)
+	- bf index.html link
+	- bf mudela-book.py
+
+
+**********
+pl 2
+	- scalar compile stuff
+	- bf install directory
+	- YODL note
+	- GUI faq update
+	- bf ly2dvi
+	- stepmake split:  Po.make
+	- make check target
+	- dist AFMs and manpages
+	- split up mudela.yo in glossary.yo, tutorial.yo and refman.yo
+
+pl 1.jcn1
+	- www.digicash.com www.xs4all.nl
+	- fake msgfmt
+	- make uninstall fixes
+
+pl 1.jbr2 - aclocal.m4,stepmake/aclocal.m4,stepmake/stepmake/Variables.make:
+            Support install target for unix, unix cross compile, and 
+            Windows NT
+
+pl 1.jbr1 - stepmake/stepmake/Executable.make: DOTEXE was missplaced
+          - scripts/convert-mudela.py: program_id should write to stderr
+
+**************
+pl 1
+	- mi2mu fix: \key "D"
+	- \hoffset
+	- started new NEWS file 
+	- lots of stepmake hacking
+	- aclocal.m4 copied from stepmake
+	- ly2dvi 0.12
+	- build the doco from the source tree.
+	- include website in RPM
+

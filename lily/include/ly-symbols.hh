@@ -64,6 +64,7 @@ DECLARE_LY_SYMBOL(octave_dir);
 DECLARE_LY_SYMBOL(origin);
 DECLARE_LY_SYMBOL(output);
 DECLARE_LY_SYMBOL(padding);
+DECLARE_LY_SYMBOL(penalty);
 DECLARE_LY_SYMBOL(pianobrace);
 DECLARE_LY_SYMBOL(placebox);
 DECLARE_LY_SYMBOL(rulesym);

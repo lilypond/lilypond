@@ -49,7 +49,7 @@ Unfolded_repeat_iterator::next_element ()
     {
       done_mom_ += mus->repeat_body_p_->length_mom ();
 
-      if (!mus->volta_fold_b_)
+      if (full_unfold_b_)
 	done_count_ ++;
      
       if (alternative_cons_l_)
@@ -57,7 +57,7 @@ Unfolded_repeat_iterator::next_element ()
 	  current_iter_p_ = get_iterator_p (alternative_cons_l_->car_);
 	  do_main_b_ = false;
 	}
-      else if (done_count_ <  mus->repeats_i_ && !mus->volta_fold_b_) 
+      else if (done_count_ <  mus->repeats_i_ && full_unfold_b_)
 	{
 	  current_iter_p_ = get_iterator_p (mus->repeat_body_p_);
 	  do_main_b_ = true;
@@ -73,20 +73,20 @@ Unfolded_repeat_iterator::next_element ()
 	{
 	  done_mom_ += alternative_cons_l_->car_->length_mom ();
 
-	  if (mus->volta_fold_b_ || 
+	  if (!full_unfold_b_ || 
 	      mus->repeats_i_ - done_count_  < alternative_count_i_)
 	    alternative_cons_l_ = alternative_cons_l_->next_;
 	  
 	  /*
 	    we've done the main body as well, but didn't go over the other
 	    increment.  */
-	  if (mus->volta_fold_b_)
+	  if (full_unfold_b_)
 	    done_count_ ++;
 	}
       
       if (done_count_ < mus->repeats_i_ && alternative_cons_l_)
 	{
-	  if (mus->volta_fold_b_)
+	  if (!full_unfold_b_)
 	    current_iter_p_ = get_iterator_p (alternative_cons_l_->car_);
 	  else
 	    {
@@ -114,6 +114,8 @@ void
 Unfolded_repeat_iterator::construct_children ()
 {
   Repeated_music const* mus =dynamic_cast<Repeated_music const*> (music_l_);
+  full_unfold_b_ = playback_b_ || (!mus->volta_fold_b_);
+  
   alternative_cons_l_ = (mus->alternatives_p_)
     ? mus->alternatives_p_->music_p_list_p_->head_
     : 0;

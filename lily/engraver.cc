@@ -12,6 +12,7 @@
 #include "engraver-group-engraver.hh"
 #include "debug.hh"
 #include "paper-def.hh"
+#include "score-element.hh"
 
 void
 Engraver::fill_staff_info (Staff_info&)

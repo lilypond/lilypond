@@ -20,8 +20,8 @@ bigger = 1
 
 center=0
 
-break =  \penalty  10000; 
-nobreak =  \penalty  -10000; 
+break =  \penalty  -1000000; 
+nobreak =  \penalty 1000000; 
 
 major = 0
 minor = 3

@@ -169,10 +169,13 @@ init_functions ()
 }
 
 extern void init_symbols ();
+extern void init_smobs ();	// guh -> .hh
+
 
 void
 init_lily_guile ()
 {
   init_symbols();
   init_functions ();
+  init_smobs ();
 }

@@ -56,7 +56,7 @@ Staff_symbol::do_brew_molecule_p() const
     - spanned_drul_[LEFT]->relative_coordinate (common, X_AXIS)
     ;
 
-  Real t = paper_l ()->get_var ("rulethickness");
+  Real t = paper_l ()->get_var ("stafflinethickness");
   Molecule rule  = lookup_l ()->filledbox (Box (Interval (0,width),
 						Interval (-t/2, t/2)));
 

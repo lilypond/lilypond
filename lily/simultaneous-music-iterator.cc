@@ -31,7 +31,7 @@ Simultaneous_music_iterator::construct_children()
   Cons<Music> *i = (sim->music_p_list_p_) ? sim->music_p_list_p_->head_ : 0;
   for (; i;  i = i->next_, j++)
     {
-      Music_iterator * mi = static_get_iterator_p (i->car_);
+      Music_iterator * mi = static_get_iterator_p (i->car_, playback_b_);
 
       /* if separate_contexts_b_ is set, create a new context with the
 	 number number as name */

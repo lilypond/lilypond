@@ -273,13 +273,12 @@ Beam::get_default_dir () const
      [Ross] states that the majority of the notes dictates the
      direction (and not the mean of "center distance")
 
-     But is that because it really looks better, or because he
-     wants to provide some real simple hands-on rules.
+     But is that because it really looks better, or because he wants
+     to provide some real simple hands-on rules?
      
      We have our doubts, so we simply provide all sensible alternatives.
 
-     If dir is not determined: up (see stem::get_default_dir ())
-  */
+     If dir is not determined: up (see stem::get_default_dir ()) */
 
   Direction beam_dir;
   Direction neutral_dir = (Direction)(int)paper_l ()->get_var ("stem_default_neutral_direction");
@@ -338,7 +337,6 @@ void
 Beam::solve_slope ()
 {
   assert (sinfo_.size () > 1);
-  DEBUG_OUT << "Beam::solve_slope: \n";
 
   Least_squares l;
   for (int i=0; i < sinfo_.size (); i++)
@@ -357,8 +355,8 @@ Beam::check_stemlengths_f (bool set_b)
 {
   Real interbeam_f = paper_l ()->interbeam_f (multiple_i_);
 
-  Real beam_f = paper_l ()->beam_thickness_f ();
-  Real staffline_f = paper_l ()->rule_thickness ();
+  Real beam_f = paper_l ()->get_realvar (beam_thickness_scm_sym);;
+  Real staffline_f = paper_l ()-> get_var ("stafflinethickness");
   Real epsilon_f = staffline_f / 8;
   Real dy_f = 0.0;
   for (int i=0; i < sinfo_.size (); i++)
@@ -524,8 +522,8 @@ Beam::quantise_dy ()
 
   Real interline_f = stems_[0]->staff_line_leading_f ();
   Real internote_f = interline_f / 2;
-  Real staffline_f = paper_l ()->rule_thickness ();
-  Real beam_f = paper_l ()->beam_thickness_f ();
+  Real staffline_f = paper_l ()->get_var ("stafflinethickness");
+  Real beam_f = paper_l ()->get_realvar (beam_thickness_scm_sym);;
 
   Real dx_f = stems_.top ()->hpos_f () - stems_[0]->hpos_f ();
 
@@ -550,9 +548,6 @@ Beam::quantise_dy ()
   slope_f_ = (quanty_f / dx_f) / internote_f * sign (slope_f_);
 }
 
-static int test_pos = 0;
-
-
 /*
   
   Prevent interference from stafflines and beams.  See Documentation/tex/fonts.doc
@@ -566,7 +561,7 @@ Beam::quantise_left_y (bool extend_b)
    if extend_b then stems must *not* get shorter
    */
 
-  if (quantisation_ <= NONE)
+  if (quantisation_ == NONE)
     return;
 
   /*
@@ -582,8 +577,8 @@ Beam::quantise_left_y (bool extend_b)
 
   Real space = stems_[0]->staff_line_leading_f ();
   Real internote_f = space /2;
-  Real staffline_f = paper_l ()->rule_thickness ();
-  Real beam_f = paper_l ()->beam_thickness_f ();
+  Real staffline_f = paper_l ()->get_var ("stafflinethickness");
+  Real beam_f = paper_l ()->get_realvar (beam_thickness_scm_sym);;
 
   /*
     [TODO]
@@ -593,7 +588,6 @@ Beam::quantise_left_y (bool extend_b)
 
   Real straddle = 0;
   Real sit = beam_f / 2 - staffline_f / 2;
-  Real inter = space / 2;
   Real hang = space - beam_f / 2 + staffline_f / 2;
 
   /*
@@ -604,7 +598,8 @@ Beam::quantise_left_y (bool extend_b)
     For simplicity, we'll assume dir = UP and correct if 
     dir = DOWN afterwards.
    */
-
+  // isn't this asymmetric ? --hwn
+  
   // dim(left_y_) = internote
   Real dy_f = dir_ * left_y_ * internote_f;
 
@@ -612,50 +607,25 @@ Beam::quantise_left_y (bool extend_b)
   Real beamdy_f = beamdx_f * slope_f_ * internote_f;
 
   Array<Real> allowed_position;
-  if (quantisation_ != TEST)
+  if (quantisation_ <= NORMAL) 
     {
-      if (quantisation_ <= NORMAL) 
-	{
-	  if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
-	    allowed_position.push (straddle);
-	  if ((multiple_i_ <= 1) || (abs (beamdy_f) >= staffline_f / 2))
-	    allowed_position.push (sit);
-	  allowed_position.push (hang);
-	}
-      else
-        // TODO: check and fix TRADITIONAL
-	{
-	  if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
-	    allowed_position.push (straddle);
-	  if ((multiple_i_ <= 1) && (beamdy_f <= staffline_f / 2))
-	    allowed_position.push (sit);
-	  if (beamdy_f >= -staffline_f / 2)
-	    allowed_position.push (hang);
-	}
+      if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
+	allowed_position.push (straddle);
+      if ((multiple_i_ <= 1) || (abs (beamdy_f) >= staffline_f / 2))
+	allowed_position.push (sit);
+      allowed_position.push (hang);
     }
   else
+    // TODO: check and fix TRADITIONAL
     {
-      if (test_pos == 0)
-        {
-	allowed_position.push (hang);
-	cout << "hang" << hang << "\n";
-	}
-      else if (test_pos==1)
-        {
+      if ((multiple_i_ <= 2) || (abs (beamdy_f) >= staffline_f / 2))
 	allowed_position.push (straddle);
-	cout << "straddle" << straddle << endl;
-	}
-      else if (test_pos==2)
-        {
+      if ((multiple_i_ <= 1) && (beamdy_f <= staffline_f / 2))
 	allowed_position.push (sit);
-	cout << "sit" << sit << endl;
-	}
-      else if (test_pos==3)
-        {
-	allowed_position.push (inter);
-	cout << "inter" << inter << endl;
-	}
+      if (beamdy_f >= -staffline_f / 2)
+	allowed_position.push (hang);
     }
+
 
   Interval iv = quantise_iv (allowed_position, space, dy_f);
 
@@ -670,14 +640,14 @@ Beam::quantise_left_y (bool extend_b)
 void
 Beam::set_stemlens ()
 {
-  Real staffline_f = paper_l ()->rule_thickness ();
+  Real staffline_f = paper_l ()->get_var ("stafflinethickness");
   // enge floots
   Real epsilon_f = staffline_f / 8;
 
 
   // je bent zelf eng --hwn.
   Real dy_f = check_stemlengths_f (false);
-  for (int i = 0; i < 2; i++)
+  for (int i = 0; i < 2; i++)	// 2 ?
     { 
       left_y_ += dy_f * dir_;
       quantise_left_y (dy_f);
@@ -687,9 +657,6 @@ Beam::set_stemlens ()
 	  break;
 	}
     }
-
-  test_pos++;
-  test_pos %= 4;
 }
 
 void
@@ -730,6 +697,8 @@ Beam::do_add_processing ()
 
 /*
   beams to go with one stem.
+
+  clean  me up.
   */
 Molecule
 Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
@@ -738,16 +707,15 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       (prev && !(prev->hpos_f () < here->hpos_f ())))
       programming_error ("Beams are not left-to-right");
 
-  Real staffline_f = paper_l ()->rule_thickness ();
+  Real staffline_f = paper_l ()->get_var ("stafflinethickness");
   Real interbeam_f = paper_l ()->interbeam_f (multiple_i_);
 
   Real internote_f = here->staff_line_leading_f ()/2;
-  Real beam_f = paper_l ()->beam_thickness_f ();
+  Real beam_f = paper_l ()->get_realvar (beam_thickness_scm_sym);;
 
   Real dy = interbeam_f;
   Real stemdx = staffline_f;
   Real sl = slope_f_* internote_f;
-  lookup_l ()->beam (sl, 20 PT, 1 PT);
 
   Molecule leftbeams;
   Molecule rightbeams;
@@ -759,7 +727,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   else if (here->type_i ()== 1)
     nw_f = paper_l ()->get_var ("wholewidth");
   else if (here->type_i () == 2)
-    nw_f = paper_l ()->note_width () * 0.8;
+    nw_f = paper_l ()->get_var ("notewidth") * 0.8;
   else
     nw_f = paper_l ()->get_var ("quartwidth");
 

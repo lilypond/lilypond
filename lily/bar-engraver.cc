@@ -6,13 +6,14 @@
   (c)  1997, 1998, 1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
+
 #include "score-engraver.hh"
 #include "bar-engraver.hh"
 #include "staff-bar.hh"
 #include "musical-request.hh"
 #include "multi-measure-rest.hh"
 #include "command-request.hh"
-#include "time-description.hh"
+#include "timing-engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 
@@ -22,20 +23,6 @@ Bar_engraver::Bar_engraver()
   do_post_move_processing();
 }
 
-bool
-Bar_engraver::do_try_music (Music*r_l)
-{
-  if (Bar_req  * b= dynamic_cast <Bar_req *> (r_l))
-    {
-      if (bar_req_l_ && bar_req_l_->equal_b (b)) // huh?
-	return false;
-      
-      bar_req_l_ = b;
-      return true;
-    }
-  
-  return false;
-}
 
 
 
@@ -68,7 +55,7 @@ Bar_engraver::create_bar ()
 	  bar_p_->set_elt_property (bar_size_scm_sym, 
 				    gh_double2scm (Real(prop)));
 	}
-      announce_element (Score_element_info (bar_p_, bar_req_l_));
+      announce_element (Score_element_info (bar_p_, 0));
     }
 }
 
@@ -103,8 +90,6 @@ Bar_engraver::request_bar (String requested_type)
 void 
 Bar_engraver::do_creation_processing ()
 {
-  create_bar ();
-  bar_p_->type_str_ = "";
 }
 
 void
@@ -120,26 +105,15 @@ Bar_engraver::do_removal_processing ()
 void
 Bar_engraver::do_process_requests()
 {  
-  Time_description const *time = get_staff_info().time_C_;
-  if (bar_req_l_) 
+  Translator * t = daddy_grav_l  ()->get_simple_translator ("Timing_engraver");
+
+  Timing_engraver * te = dynamic_cast<Timing_engraver*>(t);
+  String which = (te) ? te->which_bar () : "";
+
+  if (which.length_i ())
     {
-      create_bar ();    
-      bar_p_->type_str_ = bar_req_l_->type_str_;
-    }
-  else if (!now_mom ())
-    {
-      create_bar ();
-      bar_p_->type_str_ = "|";
-    }
-  else 
-    {
-      Scalar nonauto = get_property ("barNonAuto", 0);
-      if (!nonauto.to_bool ())
-	{
-	  Scalar always = get_property ("barAlways", 0);
-	  if ((time && !time->whole_in_measure_) || always.to_bool ())
-	    create_bar ();
-	}
+      create_bar();
+      bar_p_->type_str_ = which;
     }
   
   if (!bar_p_)
@@ -168,14 +142,6 @@ Bar_engraver::do_pre_move_processing()
       bar_p_ =0;
     }
 }
-
-void
-Bar_engraver::do_post_move_processing()
-{
-  bar_req_l_ = 0;
-}
-
-
 
 ADD_THIS_TRANSLATOR(Bar_engraver);
 

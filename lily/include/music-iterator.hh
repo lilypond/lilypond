@@ -28,6 +28,8 @@ class Music_iterator {
   Interpretation_context_handle handle_;
 
 protected:
+  bool playback_b_;		// Should use SCMs
+  
   Music const * music_l_;
 
   /// ugh. JUNKME
@@ -73,9 +75,9 @@ public:
   void set_translator (Translator_group*);
   
   /** Get an iterator matching the type of MUS, and use TRANS to find
-    an accompanying translation unit
-   */
-  static Music_iterator* static_get_iterator_p (Music const* mus);
+    an accompanying translation unit.  Repeated music can be fully
+    unfolded by setting PLAYING */
+  static Music_iterator* static_get_iterator_p (Music const* mus, bool playing);
   void init_translator (Music const *, Translator_group *); 
 
   Music_iterator();
