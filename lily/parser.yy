@@ -2331,7 +2331,9 @@ markup:
 	| MARKUP_IDENTIFIER {
 		$$ = $1;
 	}
-	
+	| STRING_IDENTIFIER {
+		$$ = $1;
+	}
 	;
 
 markup_list:

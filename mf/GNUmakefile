@@ -31,15 +31,13 @@ FETA_LIST_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%list.ly)
 ENCODING_FILE=$(findstring $(<:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(ENCODING_FILE),)
 
-SAUTER_FONTS = cmr10 \
-	cmbxti6 cmbxti7 cmbxti8 cmbxti12 cmbxti14 \
-        cmcsc7 cmcsc8 cmcsc10 cmcsc12 \
-	cmcsc12 cmbx14 cmbx17 \
-	cmtt5 cmtt6 cmtt7 cmtt17 \
-        cmti5 cmti6 \
-	cmss5 cmss6 cmss7 cmss8
-# in tetex: cmbx5 cmbx6
-# not used: cmxbti14
+SAUTER_FONTS = cmbx14 cmbx17 \
+	 cmbxti12 cmbxti14 \
+	 cmbxti6 cmbxti7 cmbxti8 \
+	 cmcsc12 cmcsc7 cmcsc8 \
+	 cmss5 cmss6 cmss7 \
+	 cmti5 cmti6 \
+	 cmtt17 cmtt5 cmtt6 cmtt7
 
 ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
