@@ -379,6 +379,13 @@ LY_DEFINE(ly_verbose,  "ly:verbose", 0, 0, 0, (),
   return gh_bool2scm (verbose_global_b);
 }
 
+LY_DEFINE(ly_dimension_p,  "ly:dimension?", 1, 0, 0, (SCM d),
+	  "Return @var{d} is a number. Used to distinguish length "
+	  "variables from normal numbers.")
+{
+  return scm_number_p (d);
+}
+
 static void
 init_functions ()
 {

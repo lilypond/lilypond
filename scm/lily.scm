@@ -376,6 +376,7 @@ is the  first to satisfy CRIT
    (,boolean? . "boolean")
    (,ly:pitch? . "pitch")
    (,ly:moment? . "moment")
+   (,ly:dimension? . "dimension, in staff space")
    (,ly:input-location? . "input location")
    (,music-list? . "list of music")
    (,ly:music? . "music")

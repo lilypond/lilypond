@@ -1232,7 +1232,7 @@ after the last note:
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
-    r4 [r8 g' a r8] r8 [g | a] r8
+    r4 r8-[ g' a r8-] r8 g-[ | a-] r8
   }
 @end lilypond
 
@@ -1246,8 +1246,8 @@ property, its value will be used only once, and then it is erased.
 
 @lilypond[fragment,relative,verbatim]
   \context Staff {
-    [f8 r16 f g a]
-    [f8 r16 \property Voice.stemLeftBeamCount = #1 f g a]
+    f8-[ r16 f g a-]
+    f8-[ r16 \property Voice.stemLeftBeamCount = #1 f g a-]
   }
 @end lilypond
 @cindex @code{stemRightBeamCount}
@@ -1260,22 +1260,22 @@ same effect as twiddling with @code{stemLeftBeamCount} and
 
 
 @example
-[c16 c c c c c c c]
+c16-[ c c c c c c c-]
 \property Voice.subdivideBeams = ##t
-[c16 c c c c c c c]
-[c32 c c c c c c c c c c c c c c c]
+c16-[ c c c c c c c-]
+c32-[ c c c c c c c c c c c c c c c-]
 \property Score.beatLength = #(ly:make-moment 1 8)
-[c32 c c c c c c c c c c c c c c c]
+c32-[ c c c c c c c c c c c c c c c-]
 @end example
 @lilypond[noindent,noquote]
 \score {
     \notes \relative c' {
-        [c16 c c c c c c c]
+        c16-[ c c c c c c c-]
         \property Voice.subdivideBeams = ##t
-        [c16 c c c c c c c]
-        [c32 c c c c c c c c c c c c c c c]
+        c16-[ c c c c c c c-]
+        c32-[ c c c c c c c c c c c c c c c-]
         \property Score.beatLength = #(ly:make-moment 1 8)
-        [c32 c c c c c c c c c c c c c c c]
+        c32-[ c c c c c c c c c c c c c c c-]
     }
 }
 @end lilypond
@@ -1416,7 +1416,7 @@ durations, i.e., you'll have to specify manual beams to get:
 @lilypond[singleline,fragment,relative,noverbatim]
   \property Voice.autoBeamSettings
   \override #'(end * * * *) = #(ly:make-moment 3 8)
-  \time 12/8 c'8 c c c16 c c c c c [c c c c] c8 c c4
+  \time 12/8 c'8 c c c16 c c c c c c-[ c c c-] c8 c c4
 @end lilypond
 It is not possible to specify beaming parameters that act differently in
 different parts of a measure. This means that it is not possible to use
@@ -1670,7 +1670,8 @@ accidentals using @code{!} and @code{?}.
 A slur indicates that notes are to be played bound or @emph{legato}.
 They are entered using parentheses:
 @lilypond[fragment,verbatim,center]
-  f'()g'()a' [a'8 b'(] a'4 g'2 )f'4
+  f'-( g'-)-( a'-) [a'8 b'-(-] a'4 g'2 f'4-)
+  <<c' e'>>2-( <<b d'>>2-)
 @end lilypond
 
 See also @seeinternals{Slur}.
@@ -1685,9 +1686,9 @@ the attachment type of the left and right end points.
 @lilypond[fragment,relative,verbatim]
   \slurUp
   \property Voice.Stem \set #'length = #5.5
-  g'8(g)g4
+  g'8-(g g4-)
   \property Voice.Slur \set #'attachment = #'(stem . stem)
-  g8(g)g4
+  g8-( g g4-)
 @end lilypond
 
 If a slur would strike through a stem or beam, the slur will be moved
@@ -1696,9 +1697,9 @@ stems might look better:
 
 @lilypond[fragment,relative,verbatim]
   \stemUp \slurUp
-  d32( d'4 )d8..
+  d32-( d'4 d8..-)
   \property Voice.Slur \set #'attachment = #'(stem . stem)
-  d,32( d'4 )d8..
+  d,32-( d'4 d8..-)
 @end lilypond
 
 @ignore
@@ -1714,10 +1715,10 @@ one.  You can indicate this preference by increasing the
 
 @lilyp ond[verbatim,singleline,relative]
   \stemDown \slurUp
-  c16( a' f' a a f a, )c,
-  c( a' f' a a f d, )c
+  c16-( a' f' a a f a, c,-)
+  c-( a' f' a a f d, c-)
   \property Voice.Slur \override #'beautiful = #5.0
-  c( a' f' a a f d, )c
+  c-( a' f' a a f d, c-)
 @end lilypond
 @end ignore
 
@@ -1747,7 +1748,7 @@ indicate a musical sentence. It is started using @code{\(} and @code{\)}
 respectively.
 
 @lilypond[fragment,verbatim,center,relative]
-  \time 6/4 c' \(  d () e f () e  \) d
+  \time 6/4 c' \(  d ( e-) f ( e-)  d-\) 
 @end lilypond
 
 Typographically, the phrasing slur behaves almost exactly like a normal
