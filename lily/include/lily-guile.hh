@@ -9,11 +9,46 @@
 #ifndef LILY_GUILE_HH
 #define LILY_GUILE_HH
 
-#include <guile/gh.h>
 #include <libguile.h>
+/*
+  TODO: the  GH interface is deprecated as of GUILE 1.6
+
+  Remove all gh_XXX functions.
+ */
+#include <guile/gh.h>
+
+#include "config.h"
+
+
+/* Guile 1.3.4 compatibility */
+#if GUILE_MINOR_VERSION < 4
+
+#define scm_bits_t SCM
 
 #define fix_guile_1_3_4_scm_puts(scm_data, port) scm_puts ((char*)scm_data, port)
 #define scm_puts(scm_data, port) fix_guile_1_3_4_scm_puts (scm_data, port)
+#endif
+
+/* Guile 1.4.x compatibility */
+#if GUILE_MINOR_VERSION < 5
+
+#define scm_t_bits scm_bits_t
+
+#define fix_guile_1_4_gh_scm2newstr(str, lenp) gh_scm2newstr (str, (int*)lenp)
+#define gh_scm2newstr(str, lenp) fix_guile_1_4_gh_scm2newstr (str, lenp)
+
+#define fix_guile_1_4_scm_primitive_eval(form) scm_eval_3 (form, 1, SCM_EOL)
+#define scm_primitive_eval(form) fix_guile_1_4_scm_primitive_eval (form)
+
+#define scm_c_define_gsubr scm_make_gsubr
+#define scm_c_eval_string(str) gh_eval_str ((char*)str)
+#define scm_c_memq scm_sloppy_memq
+#define scm_gc_protect_object scm_protect_object
+#define scm_gc_unprotect_object scm_unprotect_object
+#define scm_list_n scm_listify
+#define SCM_STRING_CHARS SCM_CHARS
+#define SCM_STRING_LENGTH SCM_LENGTH
+#endif
 
 #include "direction.hh"
 #include "flower-proto.hh"
@@ -25,6 +60,10 @@
 #ifndef SCM_UNPACK
 #define SCM_UNPACK(x) ( x)
 #endif
+
+
+
+
 
 /*
   conversion functions follow the GUILE naming convention, i.e.

@@ -52,7 +52,7 @@ Line_of_score::typeset_grob (Grob * elem_p)
 {
   elem_p->pscore_l_ = pscore_l_;
   Pointer_group_interface::add_element (this, "all-elements",elem_p);
-  scm_unprotect_object (elem_p->self_scm ());
+  scm_gc_unprotect_object (elem_p->self_scm ());
 }
 
 void

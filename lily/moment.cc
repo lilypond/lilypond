@@ -69,7 +69,7 @@ make_rational (SCM n, SCM d)
 void
 init_moments ()
 {
-  scm_make_gsubr ("make-moment", 2 , 0, 0, (Scheme_function_unknown) make_rational);
+  scm_c_define_gsubr ("make-moment", 2 , 0, 0, (Scheme_function_unknown) make_rational);
 }
 
 ADD_SCM_INIT_FUNC (moms,init_moments);

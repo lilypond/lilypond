@@ -30,8 +30,8 @@ All_font_metrics::All_font_metrics (String path)
 
 All_font_metrics::~All_font_metrics ()
 {
-  scm_unprotect_object (afm_p_dict_->self_scm ());
-  scm_unprotect_object (tfm_p_dict_->self_scm ());
+  scm_gc_unprotect_object (afm_p_dict_->self_scm ());
+  scm_gc_unprotect_object (tfm_p_dict_->self_scm ());
 }
 
 Adobe_font_metric *
@@ -72,7 +72,7 @@ All_font_metrics::find_afm (String name)
 
       afm_p_dict_->set (sname,val);
 
-      scm_unprotect_object (val);
+      scm_gc_unprotect_object (val);
 
 
       Adobe_font_metric *afm
@@ -145,7 +145,7 @@ All_font_metrics::find_tfm (String name)
       unsmob_metrics (val)->description_ = gh_cons (name_str, gh_double2scm (1.0));
       tfm_p_dict_->set (sname, val);
 
-      scm_unprotect_object (val);
+      scm_gc_unprotect_object (val);
     }
 
   return

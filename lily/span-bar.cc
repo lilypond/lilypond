@@ -92,44 +92,41 @@ Span_bar::brew_molecule (SCM smobbed_me)
 
   // compose span_bar_mol
   Molecule span_bar_mol = Molecule::Molecule ();
-  Grob *prev_staff_bar = 0;
-  Real prev_staff_bar_length = 0.0;
+  Interval prev_extent;
   for (SCM elts = first_elt;
        gh_pair_p (elts);
        elts = gh_cdr (elts))
   {
     SCM smobbed_staff_bar = gh_car (elts);
-    SCM smobbed_staff_bar_molecule =
-      Bar::brew_molecule (smobbed_staff_bar);
     Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
-    Real staff_bar_length =
-      unsmob_molecule (smobbed_staff_bar_molecule)->
-      extent (Y_AXIS).length ();
+    Interval ext = staff_bar->extent (refp, Y_AXIS);
 
-    if (prev_staff_bar) {
+    if (ext.empty_b ())
+      continue; 
+    
+    if (!prev_extent.empty_b ()) {
 
       Interval l;
-      l[LEFT] = prev_staff_bar->extent (refp, Y_AXIS)[UP];
-      l[RIGHT] = staff_bar->extent (refp, Y_AXIS)[DOWN];
-
-      SCM smobbed_staff_bar = gh_car (elts);
-      Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
+      l[LEFT] = prev_extent[UP];
+      l[RIGHT] = ext[DOWN];
+      
+      //SCM smobbed_staff_bar = gh_car (elts);
+      //Grob *staff_bar = unsmob_grob (smobbed_staff_bar);
       SCM smobbed_interstaff_bar_molecule = 
 	Bar::compound_barline (staff_bar, glyph_str, l.length()).
 	smobbed_copy ();
-
+      
       Molecule *interstaff_bar_mol =
 	unsmob_molecule (smobbed_interstaff_bar_molecule);
-
-      yoffs += prev_staff_bar_length; // skip staff bar
+      
+      yoffs += prev_extent.length (); // skip staff bar
       yoffs += 0.5 * (l[RIGHT] - l[LEFT]); // compensate interstaff bar centering
       interstaff_bar_mol->translate_axis (yoffs, Y_AXIS);
       yoffs += 0.5 * (l[RIGHT] - l[LEFT]);
-
+      
       span_bar_mol.add_molecule (*interstaff_bar_mol);
     }
-    prev_staff_bar = staff_bar;
-    prev_staff_bar_length = staff_bar_length;
+    prev_extent = ext;
   }
 
   return span_bar_mol.smobbed_copy ();

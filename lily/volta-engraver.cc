@@ -140,8 +140,11 @@ Volta_engraver::acknowledge_grob (Grob_info i)
 	{
 	  if (volta_span_p_)
 	    Volta_spanner::add_column (volta_span_p_,item);
-	  if (end_volta_span_p_)
-	    Volta_spanner::add_column (end_volta_span_p_,item);      
+
+	  /*
+	    don't add to end_volta_span_p_, since this note is really after the
+	    spanner.
+	   */
 	}
       if (Bar::has_interface (item))
 	{

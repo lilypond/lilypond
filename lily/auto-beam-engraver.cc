@@ -231,7 +231,7 @@ Auto_beam_engraver::create_beam_p ()
        */
       if (Stem::beam_l ((*stem_l_arr_p_)[i]))
 	{
-	  scm_unprotect_object (beam_p->self_scm ());
+	  scm_gc_unprotect_object (beam_p->self_scm ());
 	  return 0;
 	}
       Beam::add_stem (beam_p, (*stem_l_arr_p_)[i]);

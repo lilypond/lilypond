@@ -203,9 +203,15 @@ else {last =0}}
     then
         AC_STEPMAKE_WARN("Guile version "$need_guile_version" or newer is needed")
     fi
+    changequote(<<, >>)dnl
+    GUILE_MAJOR_VERSION=`expr $guile_version : '\([0-9]*\)'`
+    GUILE_MINOR_VERSION=`expr $guile_version : '[0-9]*\.\([0-9]*\)'`
+    changequote([, ])dnl
     GUILE_FLAGS
     AC_PATH_PROG(GUILE, guile, error)
     AC_SUBST(GUILE)
+    AC_DEFINE_UNQUOTED(GUILE_MAJOR_VERSION, $GUILE_MAJOR_VERSION)
+    AC_DEFINE_UNQUOTED(GUILE_MINOR_VERSION, $GUILE_MINOR_VERSION)
 ])
 
 AC_DEFUN(AC_STEPMAKE_INIT, [
@@ -429,17 +435,20 @@ dnl    fi
 AC_DEFUN(AC_STEPMAKE_KPATHSEA, [
 
     kpathsea_b=yes
+    #FIXME --with-xxx is meant for specifying a PATH too,
+    # so this should read: --enable-kpathsea,
+    # or --with-kpathsea-include=PATH --with-kpathsea-lib=PATH
     AC_ARG_WITH(kpathsea,
     [  --with-kpathsea         use kpathsea lib.  Default: on],
-    [kpathsea_b=$enableval])
+    [kpathsea_b=$with_kpathsea])
 
-    if test "$kpathsea_b" = "yes"; then	
+    if test "$kpathsea_b" != "no"; then	
 	AC_HAVE_HEADERS(kpathsea/kpathsea.h)
 	AC_CHECK_LIB(kpathsea, kpse_find_file)
 	AC_CHECK_FUNCS(kpse_find_file,, AC_ERROR(Cannot find kpathsea functions.  You should install kpathsea; see INSTALL.txt.  Rerun ./configure --without-kpathsea only if kpathsea is not available for your platform.))
     fi
     AC_MSG_CHECKING(whether to use kpathsea)
-    if test "$kpathsea_b" = yes; then
+    if test "$kpathsea_b" != no; then
         AC_MSG_RESULT(yes)
 	KPATHSEA=1
     else
@@ -711,7 +720,7 @@ AC_DEFUN(AC_STEPMAKE_TEXMF, [
     #
     # For now let people define these in their environments
     #
-    : ${MFPLAIN_MP=`kpsewhich mp mfplain.mp`}
+    : ${MFPLAIN_MP=`kpsewhich --format mp mfplain.mp`}
     AC_MSG_RESULT($MFPLAIN_MP)
 
     AC_MSG_CHECKING(for inimetapost flags)

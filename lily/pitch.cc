@@ -355,13 +355,13 @@ static void
 add_funcs ()
 {
   // should take list?: (make-pitch ' (octave name accidental))
-  scm_make_gsubr ("make-pitch", 3, 0, 0, (Scheme_function_unknown)make_pitch);
+  scm_c_define_gsubr ("make-pitch", 3, 0, 0, (Scheme_function_unknown)make_pitch);
 
-  scm_make_gsubr ("pitch-octave", 1, 0, 0, (Scheme_function_unknown)pitch_octave);
-  scm_make_gsubr ("pitch-notename", 1, 0, 0, (Scheme_function_unknown)pitch_notename);
-  scm_make_gsubr ("pitch-alteration", 1, 0, 0, (Scheme_function_unknown)pitch_alteration);
-  scm_make_gsubr ("pitch-semitones", 1, 0, 0, (Scheme_function_unknown)pitch_semitones);
-  scm_make_gsubr ("Pitch::transpose", 2, 0, 0, (Scheme_function_unknown) pitch_transpose);
+  scm_c_define_gsubr ("pitch-octave", 1, 0, 0, (Scheme_function_unknown)pitch_octave);
+  scm_c_define_gsubr ("pitch-notename", 1, 0, 0, (Scheme_function_unknown)pitch_notename);
+  scm_c_define_gsubr ("pitch-alteration", 1, 0, 0, (Scheme_function_unknown)pitch_alteration);
+  scm_c_define_gsubr ("pitch-semitones", 1, 0, 0, (Scheme_function_unknown)pitch_semitones);
+  scm_c_define_gsubr ("Pitch::transpose", 2, 0, 0, (Scheme_function_unknown) pitch_transpose);
 }
 
 ADD_SCM_INIT_FUNC (pitch, add_funcs);

@@ -6,8 +6,28 @@
 * po update.
 
 * windows doc update.
-
+  
 * Add mktextfm wrapper for windows (thanks Mats).
+
+
+1.4.7.mb1
+==========
+
+* Bugfix: span-bars and hara-kiri.
+
+* Bugfix: lilypond-book, avoid exception on some geometry options
+
+* Bugfix: fontSize affects also time signatures.
+
+
+1.4.7.hwn1
+==========
+
+* Backported compatibility fixes for GUILE 1.5
+
+* default-neutral-direction -> neutral-direction
+
+* Danish .po file.
 
 1.4.7
 =====

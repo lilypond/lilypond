@@ -51,7 +51,7 @@ Property_engraver::finalize ()
 Property_engraver::~Property_engraver ()
 {
   if (prop_dict_)
-    scm_unprotect_object (prop_dict_->self_scm ());
+    scm_gc_unprotect_object (prop_dict_->self_scm ());
 }
 
 void

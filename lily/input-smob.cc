@@ -48,7 +48,7 @@ void start_input_smobs ()
     = scm_make_smob_type_mfpe ("input", 0,
 			       mark_smob, free_smob,
 			       print_smob, 0);
-  scm_make_gsubr ("ly-input-location?", 1, 0, 0, (Scheme_function_unknown)ly_input_p);
+  scm_c_define_gsubr ("ly-input-location?", 1, 0, 0, (Scheme_function_unknown)ly_input_p);
  
 }
 

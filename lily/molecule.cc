@@ -140,7 +140,7 @@ Molecule::ly_set_molecule_extent_x (SCM mol, SCM axis, SCM np)
   if (m && ly_axis_p (axis) && ly_number_pair_p (np))
     {
       Interval iv = ly_scm2interval (np);
-      m->dim_[Axis (gh_scm2int (axis))] = ly_scm2interval (np);
+      m->dim_[Axis (gh_scm2int (axis))] = iv;
     }
   else
     warning ("ly-set-molecule-extent!: invalid arguments");
@@ -202,10 +202,10 @@ make_molecule (SCM expr, SCM xext, SCM yext)
 static void
 molecule_init ()
 {
-  scm_make_gsubr ("ly-make-molecule", 3, 0, 0, (Scheme_function_unknown) make_molecule);
-  scm_make_gsubr ("ly-combine-molecule-at-edge", 5 , 0, 0, (Scheme_function_unknown) Molecule::ly_molecule_combined_at_edge);
-  scm_make_gsubr ("ly-set-molecule-extent!", 3 , 0, 0, (Scheme_function_unknown) Molecule::ly_set_molecule_extent_x);
-  scm_make_gsubr ("ly-get-molecule-extent", 2 , 0, 0, (Scheme_function_unknown) Molecule::ly_get_molecule_extent);
+  scm_c_define_gsubr ("ly-make-molecule", 3, 0, 0, (Scheme_function_unknown) make_molecule);
+  scm_c_define_gsubr ("ly-combine-molecule-at-edge", 5 , 0, 0, (Scheme_function_unknown) Molecule::ly_molecule_combined_at_edge);
+  scm_c_define_gsubr ("ly-set-molecule-extent!", 3 , 0, 0, (Scheme_function_unknown) Molecule::ly_set_molecule_extent_x);
+  scm_c_define_gsubr ("ly-get-molecule-extent", 2 , 0, 0, (Scheme_function_unknown) Molecule::ly_get_molecule_extent);
 }
 ADD_SCM_INIT_FUNC (molecule,molecule_init);
 
@@ -245,11 +245,13 @@ IMPLEMENT_SIMPLE_SMOBS (Molecule);
 int
 Molecule::print_smob (SCM s, SCM port, scm_print_state *)
 {
-  Molecule  *r = (Molecule *) gh_cdr (s);
-     
   scm_puts ("#<Molecule ", port);
-  /*  String str (r->str ());
+#if 0
+  Molecule  *r = (Molecule *) gh_cdr (s);
+  String str (r->str ());
   scm_puts ((char *)str.ch_C (), port);*/
+#endif
+
   scm_puts (" >", port);
   
   return 1;

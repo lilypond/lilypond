@@ -54,7 +54,7 @@ Scheme_hash_table::print_smob (SCM s, SCM p, scm_print_state*)
 {
   assert (unsmob (s));
   char str[1000];
-  sprintf (str, "#<Scheme_hash_table 0x%0x ", s);
+  sprintf (str, "#<Scheme_hash_table 0x%0x ", SCM_UNPACK (s));
   scm_puts (str, p);      
   Scheme_hash_table *me = unsmob (s);
   for (Scm_stl_map::const_iterator i = me->begin (); i != me->end (); i++)
