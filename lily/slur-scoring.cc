@@ -563,6 +563,24 @@ Slur_score_state::get_base_attachments () const
     }
   while (flip (&d) != LEFT);
 
+
+  do
+    {
+      for (int a = X_AXIS; a < NO_AXES; a++)
+	{
+	  Real &b = base_attachment[d][Axis (a)];
+
+	  if (isinf (b) || isnan (b))
+	    {
+	      b = 0.0;
+	      programming_error ("Slur attachment is inf/nan");
+	    }
+	    
+	}
+    }
+  while (flip (&d) != LEFT);
+  
+  
   return base_attachment;
 }
 
