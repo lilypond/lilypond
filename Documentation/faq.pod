@@ -6,6 +6,40 @@ FAQ - LilyPond FAQs
 
 Some questions that have been answered before.
 
+Q: I can type
+
+	<a c> <e g>
+
+to make a few chords, but why do I have to type
+
+
+	< { a() e } { c () g } >
+
+in stead of
+
+	<a( c(> <)e )g>
+
+to generate  slurs between the chords?
+
+A: When you type 
+
+	<a c> <e g>
+
+this is shorthand for
+
+	< { a } { c } > < { e } { g } >
+
+Slurs have to be confined to `voices', and the a and the e are in
+different {} blocks, so they are in different voices. You should view
+the desired construct as a "generalised chord" (two voices stacked
+vertically). It might help you visualise this by using the following
+formatting:
+
+	< { a () e }
+	  { c () g }
+	>
+
+
 Q: Why are [] around the notes, and () inbetween?
 
 A: [] designate beams, a note can only be in one beam at the same
