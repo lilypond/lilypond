@@ -1,4 +1,4 @@
- @c -*-texinfo-*-
+@c -*-texinfo-*-
 
 @c TODO:
 @c   * LilyPond Lilypond lilypond (sometimes: the program)
@@ -448,19 +448,21 @@ c'4 c'' c''' \clef bass c c,
 @end quotation
 @separate
 
-A tie is created by entering a tilde ``@code{~}'' between the notes to
-be tied.  A tie between two notes means that the second note must not be
-played separately; it just makes the first note sound longer:
-
+A tie is created by adding a tilde ``@code{~}'' to the first note
+being tied.
 @quotation
 @lilypond[fragment,verbatim]
-g'4 ~ g' a'2 ~ a'4
+g'4-~ g' a'2-~ a'4
 @end lilypond
 @end quotation
 @separate
+A tilde is different from a tie. A tie simply makes the first note
+sound longer, and can only be used on pairs of notes with the same
+pitch.
 
-The key signature is set with the command ``@code{\key}''.  One caution:
-you need to specify whether the key is @code{\major} or @code{\minor}.
+The key signature is set with the command ``@code{\key}''.  One
+caution word of caution: you need to specify whether the key is
+@code{\major} or @code{\minor}.
 @quotation
 @example
 \key d \major
@@ -491,8 +493,8 @@ This example shows notes, ties, octave marks, and rests in action.
     \key d \minor
     \clef violin
     r4 r8 d''8 cis''4 e''
-    d''8 a'4. ~ a' b'8
-    cis''4 cis''8 cis'' bis'4 d''8 cis'' ~
+    d''8 a'4.-~ a' b'8
+    cis''4 cis''8 cis'' bis'4 d''8 cis''-~
     cis''2 r2
   @}
   \paper @{ @}
@@ -506,8 +508,8 @@ This example shows notes, ties, octave marks, and rests in action.
     \clef violin
     \key d \minor
     r4 r8 d''8 cis''4 e''
-    d''8 a'4. ~ a' b'8
-    cis''4 cis''8 cis'' bis'4 d''8 cis'' ~
+    d''8 a'4.-~ a' b'8
+    cis''4 cis''8 cis'' bis'4 d''8 cis''-~
     cis''2 r2
   }
   \paper { linewidth = 50*\staffspace }
@@ -692,7 +694,7 @@ A slur is drawn across many notes, and indicates bound articulation
 
 @quotation
 @lilypond[fragment,relative 1, verbatim]
-d4( )c16( cis d e c cis d )e( )d4
+d4-( c16-)-( cis d e c cis d e-)-( d4-)
 @end lilypond
 @end quotation
 @separate
@@ -711,17 +713,17 @@ phrasing), you can also make a phrasing slur with @code{\(} and
 
 @quotation
 @lilypond[fragment,relative 1, verbatim]
-a8(\( ais b ) c cis2 b'2 a4 cis, \) c
+a8-(-\( ais b  c-) cis2 b'2 a4 cis,  c-\)
 @end lilypond
 @end quotation
 @separate
 
 Beams are drawn automatically, but if you don't like the choices, you
-can enter beams by hand. Surround the notes to be grouped with @code{[}
-and @code{]}:
+can enter beams by hand. Mark the first note to be beamed with
+@code{[} and the last one with @code{]}:
 @quotation
 @lilypond[fragment,relative 1, verbatim]
-[a8 ais] [d es r d]
+a8-[ ais-] d-[ es r d-]
 @end lilypond
 @end quotation
 @separate
@@ -755,7 +757,7 @@ We can now typeset a melody with two staves:
   < \context Staff = staffA {
       \time 3/4
       \clef violin
-      \relative c'' { e2 ( d4 c2 b4 [a8 a] [b b] [g g] )a2. }  
+      \relative c'' { e2-( d4 c2 b4 a8-[ a-] b-[ b-] g-[ g-] a2.-) }  
     }
     \context Staff = staffB {
        \clef bass
@@ -791,19 +793,19 @@ c-\ff c-\mf
 @separate
 
 Crescendi and decrescendi are started with the commands @code{\<} and
-@code{\>}. The command @code{\!} finishes a crescendo on the following
-note.
+@code{\>}. The command @code{\!} finishes a crescendo on the note it
+is attached to.
 @quotation
 @lilypond[verbatim,relative 1]
-c2\<  \!c2-\ff  \>c2  \!c2
+c2-\<  c2-\!-\ff  c2-\>  c2-\!
 @end lilypond
 @end quotation
 @separate
 
-Chords can be made by surrounding notes with @code{<} and @code{>}:
+Chords can be made by surrounding notes with @code{<<} and @code{>>}:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
-r4 <c e g> <c f a> 
+r4 <<c e g>>4 <<c f a>>8
 @end lilypond
 @end quotation
 @separate
@@ -820,7 +822,7 @@ You can combine beams and ties with chords.  Beam and tie markings
 must be placed outside the chord markers:
 @quotation
 @lilypond[relative 0, fragment,verbatim]
-r4 [<c8 e g> <c8 f a>] ~ <c8 f a>
+r4 <<c e g>>8-[ <<c f a>>-]-~ <<c f a>>
 @end lilypond
 @end quotation
 
@@ -832,44 +834,11 @@ by the chord @code{< >} and the dynamic @code{\< \>}!
 
 @quotation
 @example
-r4 <c8 e g \> ( > <c e g> <c e g>  < ) \! c8 f a>
+r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-\)
 @end example
 @lilypond[relative 0, fragment]
 \slurUp
-r4 <c8 e g \> ( > <c e g> <c e g>  < ) \! c8 f a>
-@end lilypond
-@end quotation
-@separate
-
-@c   this example is a bit too strongly worded -- there's nothing wrong
-@c   with starting a piece with a chord; you just have to be careful when
-@c   you do so.  I've rephrased this example below.
-@c There is one golden rule that you should keep in mind when writing
-@c LilyPond input:
-@c @quotation
-@c @strong{DO NOT START A PIECE WITH A CHORD}
-@c @end quotation
-@c Of course, it is a allowed, but the result might not be what you expect:
-
-@c   rephrased "don't start with a chord"
-There is one caution when using chords: if you use a chord at the very
-beginning of the piece, LilyPond might not understand what you want:
-
-@quotation
-@lilypond[verbatim,singleline]
-\score { \notes <c'2 e'2> }
-@end lilypond
-@end quotation
-@separate
-
-If you have a piece that begins with a chord, you must explicitly
-state that the notes of the chord are to be put on the same staff, in
-the same voice.  This is done by specifying @code{\context Staff} or
-@code{\context Voice} for the notes:
-
-@quotation
-@lilypond[verbatim,singleline]
-\score { \notes \context Voice <c'2 e'2> }
+r4 <<c e g>>8-\>-( <<c e g>> <<c e g>>  <<c f a>>8-\!-\)
 @end lilypond
 @end quotation
 @separate
@@ -1006,8 +975,8 @@ fragment of The Free Software Song:
 \score  { \notes { \addlyrics
   \notes \relative c' {
     \time 7/4
-    d'2 c4 b16 ( a g a b a b ) c a2
-    b2 c4 b8 ( a16 g ) a4 g2 }
+    d'2 c4 b16-( a g a b a b c-) a2
+    b2 c4 b8-( a16 g a4-) g2 }
   \context Lyrics \lyrics { 
     Join us now __ and
     share the soft -- ware; }
@@ -1085,8 +1054,8 @@ The melody of the song doesn't offer anything new:
 @example
  \notes \relative c' @{
     \time 7/4
-    d'2 c4 b16 ( a g a b a b ) c a2
-    b2 c4 b8 ( a16 g ) a4 g2 @}
+    d'2 c4 b16-( a g a b a b c-) a2
+    b2 c4 b8-( a16 g a4-) g2 @}
 @end example
 
 Both can be combined with the @code{\addlyrics}:
@@ -1945,7 +1914,7 @@ manual staff switch here.
 
 @separate
 @example 
-\context Voice = reallyLow  @{\stemDown g2 ~ | g4 c8 @} > 
+\context Voice = reallyLow  @{\stemDown g2-~ | g4 c8 @} > 
 @end example
 @cindex tie
 @cindex @code{~}

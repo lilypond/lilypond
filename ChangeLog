@@ -1,9 +1,12 @@
 2002-11-02  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/user/tutorial.itely (First steps): change to new
+	chord/tie/slur/beam notation.
+
 	* lily/parser.yy (event_that_take_dir): allow postfix notation for ties.
 
 	* lily/new-tie-engraver.cc (process_acknowledged_grobs): new
-	engraver. process ties in postfix notation, i.e. c8-~ c
+	engraver. Process ties in postfix notation, i.e. c8-~ c
 
 	* lilypond-mode.el (LilyPond-command-alist): run LaTeX by default.
 
