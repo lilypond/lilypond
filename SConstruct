@@ -164,6 +164,11 @@ env = Environment (
 	TOPLEVEL_VERSION = version,
 	)
 
+# Hardcoded usability switch (Anthony Roach).
+# See http://www.scons.org/cgi-bin/wiki/GoFastButton
+# First do: scons realclean .
+GO_FAST_BUTTON = 1
+
 # Add all config_vars to opts, so that they will be read and saved
 # together with the other configure options.
 map (lambda x: opts.AddOptions ((x,)), config_vars)
@@ -172,11 +177,18 @@ Help (usage + opts.GenerateHelpText (env))
 
 opts.Update (env)
 
-# Using content checksums prevents rebuilds after [re]configure if
-# config.hh has not changed.
-if env['checksums']:
+if GO_FAST_BUTTON:
+	env['checksums'] = 0
+	SetOption ('max_drift', 1)
+	# SetOption ('implicit_deps_unchanged', 1)
+	print "If scons feels slow, use --implicit-deps-unchanged"
+elif env['checksums']:
+	# Always use checksums (makes more sense than timestamps).
 	SetOption ('max_drift', 0)
-	TargetSignatures ("content")
+	# Using *content* checksums prevents rebuilds after
+	# [re]configure if config.hh has not changed.  Too bad that it
+	# is unusably slow.
+	TargetSignatures ('content')
 
 absbuild = Dir (env['build']).abspath
 outdir = os.path.join (Dir (env['build']).abspath, env['out'])
@@ -314,7 +326,10 @@ def configure (target, source, env):
 
 	command = r"""python -c 'import sys; sys.stdout.write ("%s/include/python%s" % (sys.prefix, sys.version[:3]))'""" #"
 	PYTHON_INCLUDE = os.popen (command).read ()
-	env.Append (CPPPATH = PYTHON_INCLUDE)
+	if GO_FAST_BUTTON:
+		env.Append (CCFLAGS = ['-I%s ' % PYTHON_INCLUDE])
+	else:
+		env.Append (CPPPATH = PYTHON_INCLUDE)
 
 	headers = ('sys/stat.h', 'assert.h', 'kpathsea/kpathsea.h', 'Python.h')
 	for i in headers:
@@ -349,6 +364,10 @@ def configure (target, source, env):
 	if conf.CheckLib ('kpathsea', 'kpse_find_tfm'):
 		conf.env['DEFINES']['HAVE_KPSE_FIND_TFM'] = '1'
 
+	if GO_FAST_BUTTON:
+		cpppath = []
+		if env.has_key ('CPPPATH'):
+			cpppath = env['CPPPATH']
 	#this could happen after flower...
 	env.ParseConfig ('guile-config compile')
 
@@ -363,6 +382,13 @@ def configure (target, source, env):
 				  'pango_fc_font_map_add_decoder_find_func'):
 			conf.env['DEFINES']['HAVE_PANGO_CVS'] = '1'
 			conf.env['DEFINES']['HAVE_PANGO_FC_FONT_MAP_ADD_DECODER_FIND_FUNC'] = '1'
+
+	if GO_FAST_BUTTON:
+		# Using CCFLAGS = -I<system-dir> rather than CPPPATH = [
+		# <system-dir>] speeds up SCons
+		env['CCFLAGS'] += map (lambda x: '-I' + x,
+				       env['CPPPATH'][len (cpppath):])
+		env['CPPPATH'] = cpppath
 
 	if required:
 		print
@@ -575,7 +601,6 @@ env.Append (
 	LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond'),
 
 	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),],
-	##CPPPATH = [outdir, '#',], # do not read auto*'s header
 	CPPPATH = [outdir, ],
 	LILYPOND_PATH = ['.', '$srcdir/input',
 			 '$srcdir/input/regression',
