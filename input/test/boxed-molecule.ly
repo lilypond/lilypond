@@ -1,5 +1,5 @@
 \version "1.7.18"
-% TODO: check that this file actually works.
+% FIXME: check that this file actually works.
 \header {
 texidoc = "@cindex Boxed Molecule
 You can override the molecule callback to draw a box around

@@ -8,7 +8,8 @@ name needs to be in quotes (such as \"treble^8\").
 
 \score { 
   \context Voice \notes\relative c {
-  \clef "bass_8" c4
+  \clef "bass_8" c4 c c c |
+  \clef "treble^8" c'''4 c''' c''' c''' |
   }
   \paper {
     raggedright = ##t

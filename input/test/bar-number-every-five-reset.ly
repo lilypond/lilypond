@@ -1,6 +1,4 @@
 \version "1.7.18"
-% renamed file to bar-number-every-five-reset.ly from bar-number-every-5-reset.ly
-% so that bar-number-every-fifth.ly will appear before this file.
 
 \header {
     texidoc = "@cindex Bar Number Every Fifth Reset

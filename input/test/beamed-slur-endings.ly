@@ -1,6 +1,8 @@
 \version "1.7.18"
 % this looks like an example of slurs, not beaming.  But we
-% already have lots of examples of slurs.  delete it?
+% already have lots of examples of slurs.  candidate for
+% future remove-ing.
+% rename to slur-something.
 \score{
 	\notes \relative c''{
 		\slurUp c8-(-( c-)-( c4-)-)

@@ -1,6 +1,7 @@
 \version "1.7.18"
+% similiar to beam-position, but keep this one.
 \header{
-    texidoc="@cindex Beam Control
+    texidoc="@cindex Beam Position Control
 Controlling beam positions.
 " }
 \score { 
