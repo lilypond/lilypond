@@ -1,1 +1,1 @@
-default: $(PYTHON_MODULE)
+default: $(OUT_PY_MODULES) $(OUT_SO_MODULES)

@@ -8,7 +8,7 @@ MODULE_NAME = midi2ly-old
 
 SUBDIRS = include
 MODULE_LIBS=$(depth)/flower
-HELP2MAN_EXECS = midi2ly
+HELP2MAN_EXECS = midi2ly-old
 STEPMAKE_TEMPLATES=c++ executable po help2man
 
 include $(depth)/make/stepmake.make 

@@ -67,19 +67,25 @@ import operator
 import tempfile
 import traceback
 
-datadir = ''
-
-if '@datadir@' == ('@' + 'datadir' + '@'):
+# if set, LILYPONDPREFIX must take prevalence
+# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+datadir = '@datadir@'
+if os.environ.has_key ('LILYPONDPREFIX') \
+   or '@datadir@' == '@' + 'datadir' + '@':
 	datadir = os.environ['LILYPONDPREFIX']
 else:
 	datadir = '@datadir@'
 
-while datadir[-1] == os.sep:
-	datadir = datadir[:-1]
-
-
 sys.path.append (os.path.join (datadir, 'python'))
-sys.path.append (os.path.join (datadir, 'buildscripts/out'))	
+sys.path.append (os.path.join (datadir, 'python/out'))
+
+program_name = 'ly2dvi'
+program_version = '@TOPLEVEL_VERSION@'
+original_dir = os.getcwd ()
+temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+errorport = sys.stderr
+keep_temp_dir_p = 0
+verbose_p = 0
 
 try:
 	import gettext
@@ -99,8 +105,6 @@ try:
 except:
        pass
 
-program_name = 'ly2dvi'
-package_name = 'lilypond'
 help_summary = _ ("Generate .dvi with LaTeX for LilyPond")
 
 option_definitions = [
@@ -121,8 +125,6 @@ option_definitions = [
 	]
 
 from lilylib import *
-
-# verbose_p = 1 # arg!
 
 layout_fields = ['dedication', 'title', 'subtitle', 'subsubtitle',
 	  'footer', 'head', 'composer', 'arranger', 'instrument',
@@ -498,7 +500,7 @@ def find_pfa_fonts (name):
 	return pfa
 
 	
-(sh, long) = getopt_args (__main__.option_definitions)
+(sh, long) = getopt_args (option_definitions)
 try:
 	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
 except getopt.error, s:

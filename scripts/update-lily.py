@@ -32,15 +32,38 @@ import sys
 import __main__
 
 
+# if set, LILYPONDPREFIX must take prevalence
+# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+datadir = '@datadir@'
+if os.environ.has_key ('LILYPONDPREFIX') \
+   or '@datadir@' == '@' + 'datadir' + '@':
+	datadir = os.environ['LILYPONDPREFIX']
+else:
+	datadir = '@datadir@'
+
+sys.path.append (os.path.join (datadir, 'python'))
+sys.path.append (os.path.join (datadir, 'python/out'))
+
+program_name = 'build-lily'
+program_version = '@TOPLEVEL_VERSION@'
+
+original_dir = os.getcwd ()
+temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+errorport = sys.stderr
+keep_temp_dir_p = 0
+verbose_p = 0
+remove_previous_p = 0
+
 url = 'file:/home/ftp/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://appel.lilypond.org/pub/gnu/LilyPond/development/lilypond-*.tar.gz'
 url = 'ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/lilypond-*.tar.gz'
 
-remove_previous_p = 0
+
+build_root = os.path.join (os.environ ['HOME'], 'usr', 'src')
+release_dir = build_root + '/releases'
+patch_dir = build_root + '/patches'
 
 
-sys.path.append ('@datadir@/python')
-sys.path.append ('@datadir@/buildscripts/out')
 
 try:
 	import gettext
@@ -61,16 +84,7 @@ except:
        pass
 
 
-program_name = 'build-lily'
-package_name = 'lilypond'
 help_summary = _ ("Fetch and rebuild from latest source package")
-
-build_root = os.path.join (os.environ ['HOME'], 'usr', 'src')
-release_dir = build_root + '/releases'
-patch_dir = build_root + '/patches'
-original_dir = os.getcwd ()
-temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
-
 
 option_definitions = [
 	('DIR', 'b', 'build-root', _ ("unpack and build in DIR [%s]") % build_root),

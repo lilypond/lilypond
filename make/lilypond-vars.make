@@ -16,7 +16,7 @@ export DVIPSMAKEPK := mktexpk --destdir $(topdir)/mf/out
 endif
 
 export LILYPONDPREFIX:=$(depth)/
-export PYTHONPATH:=$(buildscript-dir)/$(outdir):$(PYTHONPATH)
+export PYTHONPATH:=$(topdir)/python:$(PYTHONPATH)
 
 # guile load path?
 

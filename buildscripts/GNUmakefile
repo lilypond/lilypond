@@ -1,10 +1,6 @@
 depth = ..
 
-#STEPMAKE_TEMPLATES=script install install-out po
 STEPMAKE_TEMPLATES=script install po
-
-INSTALLATION_FILES=$(outdir)/gettext.py $(outdir)/lilylib.py
-INSTALLATION_DIR=$(datadir)/python
 
 include $(depth)/make/stepmake.make 
 

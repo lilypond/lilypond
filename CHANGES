@@ -1,3 +1,15 @@
+1.5.18.jcn1
+===========
+
+* Moved python modules to ./python.
+
+* Better python module stepmake support.
+
+* Bugfix ly2dvi etc: LILYPONDPREFIX should override datadir.
+
+1.5.18
+======
+
 1.5.17.jcn6 - aka: `pgwit!  Ah, dacht dat-i zo wel aardig was.'
 ===========
 

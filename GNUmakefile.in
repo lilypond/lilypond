@@ -8,9 +8,10 @@ depth = .
 
 # descent order into subdirectories
 # 
-SUBDIRS = buildscripts scripts flower lily \
+SUBDIRS = buildscripts python scripts \
+	flower lily \
 	mf ly tex ps scm \
-	modules midi2ly po make intl \
+	midi2ly po make intl \
 	debian $(builddir)/stepmake \
 	Documentation input \
 	mutopia ports

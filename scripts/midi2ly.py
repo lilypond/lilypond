@@ -22,37 +22,50 @@ TODO:
      other converters, while leaving midi specific stuff here
 '''
 
+import os
+import sys
+
+# if set, LILYPONDPREFIX must take prevalence
+# if datadir is not set, we're doing a build and LILYPONDPREFIX 
+datadir = '@datadir@'
+if os.environ.has_key ('LILYPONDPREFIX') \
+   or '@datadir@' == '@' + 'datadir' + '@':
+	datadir = os.environ['LILYPONDPREFIX']
+else:
+	datadir = '@datadir@'
+
+sys.path.append (os.path.join (datadir, 'python'))
+sys.path.append (os.path.join (datadir, 'python/out'))
+
+
 import getopt
 import __main__
 import sys
 import string
-
-sys.path.append ('@datadir@/python')
-sys.path.append ('@datadir@/buildscripts/out')
-sys.path.append ('@datadir@/modules/out')
-
 import midi
 
+
+localedir = '@localedir@'
 try:
 	import gettext
-	gettext.bindtextdomain ('lilypond', '@localedir@')
+	gettext.bindtextdomain ('lilypond', localedir)
 	gettext.textdomain ('lilypond')
 	_ = gettext.gettext
 except:
 	def _ (s):
 		return s
 
-# Attempt to fix problems with limited stack size set by Python!
-# Sets unlimited stack size. Note that the resource module only
-# is available on UNIX.
-try:
-       import resource
-       resource.setrlimit (resource.RLIMIT_STACK, (-1, -1))
-except:
-       pass
+program_name = 'midi2ly'
+program_version = '@TOPLEVEL_VERSION@'
 
-program_name = 'midi2ly [experimental]'
-package_name = 'lilypond'
+errorport = sys.stderr
+verbose_p = 0
+
+# temp_dir = os.path.join (original_dir,  '%s.dir' % program_name)
+# original_dir = os.getcwd ()
+# keep_temp_dir_p = 0
+
+
 help_summary = _ ("Convert MIDI to LilyPond source")
 
 option_definitions = [
@@ -70,7 +83,9 @@ option_definitions = [
 	('', 'x', 'text-lyrics', _ ("treat every text as a lyric")),
 	]
 
-from lilylib import *
+# from lilylib import *
+import lilylib
+
 
 
 class Duration:
@@ -796,7 +811,7 @@ def convert_midi (f, o):
 			s = s + '    \\context Lyrics=%s \\%s\n' % (track, track)
 	s = s + '  >\n}\n'
 
- 	progress (_ ("%s output to `%s'...") % ('LY', o))
+ 	lilylib.progress (_ ("%s output to `%s'...") % ('LY', o))
 
 	if o == '-':
 		h = sys.stdout
@@ -807,7 +822,7 @@ def convert_midi (f, o):
 	h.close ()
 
 
-(sh, long) = getopt_args (__main__.option_definitions)
+(sh, long) = lilylib.getopt_args (option_definitions)
 try:
 	(options, files) = getopt.getopt(sys.argv[1:], sh, long)
 except getopt.error, s:
@@ -815,7 +830,7 @@ except getopt.error, s:
 	errorport.write (_ ("error: ") + _ ("getopt says: `%s\'" % s))
 	errorport.write ('\n')
 	errorport.write ('\n')
-	help ()
+	lilylib.help ()
 	sys.exit (2)
 	
 for opt in options:	
@@ -825,7 +840,7 @@ for opt in options:
 	if 0:
 		pass
 	elif o == '--help' or o == '-h':
-		help ()
+		lilylib.help ()
 		errorport.write ('\n')
 		errorport.write (_ ("Example:"))
 		errorport.write  (r'''
@@ -838,7 +853,7 @@ for opt in options:
 	elif o == '--verbose' or o == '-V':
 		verbose_p = 1
 	elif o == '--version' or o == '-v':
-		identify ()
+		lilylib.identify ()
 		sys.exit (0)
 	elif o == '--warranty' or o == '-w':
 		status = system ('lilypond -w', ignore_error = 1)
@@ -882,7 +897,7 @@ for opt in options:
 if not files or files[0] == '-':
 
 	# FIXME: read from stdin when files[0] = '-'
-	help ()
+	lilylib.help ()
 	errorport.write (program_name + ":" + _ ("error: ") + _ ("no files specified on command line.") + '\n')
 	sys.exit (2)
 
@@ -890,9 +905,9 @@ if not files or files[0] == '-':
 for f in files:
 
 	g = f
-	g = strip_extension (g, '.midi')
-	g = strip_extension (g, '.mid')
-	g = strip_extension (g, '.MID')
+	g = lilylib.strip_extension (g, '.midi')
+	g = lilylib.strip_extension (g, '.mid')
+	g = lilylib.strip_extension (g, '.MID')
 	(outdir, outbase) = ('','')
 
 	if not output_name:
