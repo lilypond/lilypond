@@ -1,5 +1,7 @@
 2002-04-21  Han-Wen  <hanwen@cs.uu.nl>
 
+	* VERSION: 1.5.53 released
+
 	* scm/lily.scm (ly-load): use primitive-load for loading.
 
 	* lily/misc.cc: remove quantise_iv()
