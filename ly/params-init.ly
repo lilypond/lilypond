@@ -18,6 +18,7 @@ paperfile = \papersize + "-init.ly"
 \include \paperfile
 \include "paper-init.ly"
 
+unit = "mm"
 staffspace = \staffheight / 4.0
 stafflinethickness = \staffspace / 10.0
 outputscale = \staffheight / 4.0
