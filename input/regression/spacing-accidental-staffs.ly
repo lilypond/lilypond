@@ -7,8 +7,8 @@ spacing of the quarter notes here."
 
 \score { \notes \relative c'' < \context Staff = SA { \time 4/4
 
-[c8 c8 cis8 cis8]
-[cis8 cis8 cis8 cis]
+ c8-[ c8 cis8 cis8]
+ cis8-[ cis8 cis8 cis]
 
 
  }
