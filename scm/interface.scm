@@ -14,13 +14,6 @@
   )
 
 
-(define (merge-interfaces ifs)
-   (list
-    (apply append (map car ifs))
-    (apply append (map cadr ifs))
-    (apply append (map caddr ifs))
-  ))
-
 (define (uniqued-alist  alist acc)
   (if (null? alist) acc
       (if (assoc (caar alist) acc)
@@ -31,6 +24,8 @@
 (define (element-description name . interfaces)
   (let* ((ifs (cons general-element-interface interfaces))
 	 (props (map caddr ifs))
+	 (prop-typep-pairs (map (lambda (x) (cons (car x) (cadr x)))
+					(apply append props)))
 	 (syms (map car ifs))
 	)
     (list (cons 'separator "\n\n\n")	;easy printing.
@@ -39,7 +34,7 @@
 	  (cons 'interface-descriptions ifs)
 	  ; (cons 'interface-descriptions (cadr merged))
 	  ;; description of the element itself?
-	  (cons 'properties (apply append props))
+	  (cons 'properties prop-typep-pairs)
   )))
 
 
@@ -52,7 +47,7 @@
     (property-description 'Y-offset-callbacks list? "see <code> X-offset-callbacks</code>")
     (property-description 'X-extent-callback procedure? "procedure taking an element and axis argument, returning a number-pair. The return value is the extent of the element.")
     (property-description 'Y-extent-callback procedure? "see <code> X-extent-callback </code>")
-    (property-description 'font-size integer? "")
+    (property-description 'font-relative-size integer? "")
     (property-description 'extra-offset number-pair? "pair of reals (a cons) forcing an extra offset   before outputting")
     (property-description 'interfaces  list? "list of symbols indicating the interfaces supported by this object. Is initialized from the <code>meta</code> field.")
     (property-description 'dependencies list? "list of score-element pointers that indicate who to compute first for certain global passes")
@@ -189,7 +184,12 @@ one end of the stem")
     (property-description 'side-relative-direction dir? "if set: get the direction from a different object, and multiply by this.")
     (property-description 'minimum-space number? "minimum distance that the victim should move (after padding)")
     (property-description 'padding number? "add this much extra space between victim and support")
-    (property-description 'self-alignment-X number? "real number: -1 = left aligned, 0 = center, 1 right-aligned in X direction. Set to an element pointer, if you want that element to be the center. ")
+    (property-description 'self-alignment-X number? "real number: -1 =
+left aligned, 0 = center, 1 right-aligned in X direction. <p> Set to
+an element pointer, if you want that element to be the center.  In
+this case, the center element should have this object as a reference
+point.
+")
     (property-description 'self-alignment-Y number? "like self-alignment-X but for Y axis")
     
     )
@@ -286,13 +286,12 @@ This procedure is called (using dependency resolution) after line breaking. Retu
    " Order elements top to bottom/left to right/right to left etc."
    (list
     (property-description 'stacking-dir  dir? "stack contents of elements in which direction ?")
-    (property-description 'align-dir  dir? "Which side to align? -1: left side, 0: centered around center-element if not nil, or around center of width), 1: right side")
+    (property-description 'align-dir  dir? "Which side to align? -1: left side, 0: around center of width, 1: right side")
     (property-description 'threshold  number-pair? "(cons MIN MAX), where MIN and MAX are dimensions in staffspace")
     (property-description 'alignment-done  boolean? "boolean to administrate whether we've done the alignment already (to ensure that the process is done only once)")
     (property-description 'center-element ly-element? "element which will be at the
 center of the group after aligning (when using
-Align_interface::center_on_element). The center element should have
-this object as a reference point.")
+Align_interface::center_on_element). ")
     (property-description 'elements  list? "to be aligned elements ")
     (property-description 'axes  list? "list of axis numbers. Should contain only one number.")
     )))    
@@ -394,21 +393,52 @@ this object as a reference point.")
    'text-interface
    "A scheme markup text"
    (list
-    (property-description 'text (lambda (x) (or (string? x) (list? x))) "the scheme markup text.  Either a string, or a list of which the CAR is a markup '(MARKUP text text ...).  MARKUP is either a CONS: an element property '(key . value) or a symbol: an abbreviation for a list of element properties.  These abbreviations are currently defined: rows lines roman music bold italic named super sub text, as well as all font-style's.")
-    (property-description 'font-style string? "font definition for a special purpose, one of: finger volta timesig mark script large Large dynamic")
-    (property-description 'font-series string? "partial font definition: medium, bold")
-    (property-description 'font-shape string?  "partial font definition: upright or italic")
-    (property-description 'font-family string? "partial font definition: music roman braces dynamic math ...")
-    (property-description 'font-name string? "partial font definition: base name of font file FIXME: should override other partials")
-    (property-description 'font-point string? "partial font definition: exact font size in points FIXME: should override font-size")
-    (property-description 'font-size string? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
+    (property-description 'text (lambda (x) (or (string? x) (list? x))) "
+Scheme markup text.  It is defined as follows:
+<p>
+
+TEXT : STRING | (MARKUP SENTENCE)<br>
+MARKUP: PROPERTY | ABBREV<br>
+SENTENCE: TEXT | SENTENCE TEXT<br>
+PROPERTY: (key . value)<br>
+ABBREV: rows lines roman music bold italic named super sub text, or any font-style
+<p>
+
+So, TEXT is either a string, or a list of which the CAR is a MARKUP.
+MARKUP is either a CONS: an element property '(key . value) or a symbol:
+a predefined abbreviation for a list of element properties.
+<p>
+
+The following abbreviations are currently defined:
+<dl>
+<dt>rows<dd> horizontal mode: set all text on one line (default)
+<dt>lines<dd> vertical mode: set every text on new line
+<dt>roman<dd> select roman font
+<dt>music<dd> select feta font
+<dt>bold<dd> select bold series
+<dt>italic<dd> select italic shape
+<dt>named<dd> lookup by character name
+<dt>text<dd> plain text lookup (by character value)
+<dt>super<dd> superscript
+<dt>sub<dd> subscript
+<dt> any font-style<dd> finger volta timesig mmrest mark script large Large dynamic
+</dl>
+" )
+    (property-description 'font-style symbol? "font definition for a special purpose, one of: finger volta timesig mark script large Large dynamic")
+    (property-description 'font-series symbol? "partial font definition: medium, bold")
+    (property-description 'font-shape symbol?  "partial font definition: upright or italic")
+    (property-description 'font-family symbol? "partial font definition: music roman braces dynamic math ...")
+    (property-description 'font-name symbol? "partial font definition: base name of font file FIXME: should override other partials")
+    (property-description 'font-point-size number? "partial font definition: exact font size in points FIXME: should override font-relative-size")
+    (property-description 'font-relative-size number? "partial font definition: the relative size, 0 is style-sheet's normal size, -1 is smaller, +1 is bigger")
+
+    ;; Should move this somewhere else?  
     (property-description 'align number? "the alignment of the text, 0 is horizontal, 1 is vertical")
     (property-description 'lookup symbol? "lookup method: 'value for plain text, 'name for character-name")
     (property-description 'raise number? "height for text to be raised (a negative value lowers the text")
     (property-description 'kern number? "amount of extra white space to add before text.  This is `relative'(?) to the current alignment.")
     (property-description 'magnify number? "the magnification factor.  FIXME: doesn't work for feta fonts")
     )))
-
 
 (define dot-column-interface
   (lily-interface
@@ -537,6 +567,13 @@ syllables.   The length of the hyphen line should stretch based on the
    'paper-column-interface
    ""
    (list
+    (property-description 'column-space-strength number? "relative strength of space following breakable columns (eg. prefatory matter)")
+    (property-description 'before-musical-spacing-factor number?
+"space before musical columns (eg. taken by accidentals) get this much
+stretched when they follow a musical column, in absence of grace
+notes.  0.0 means no extra space (accidentals are ignored)")
+    (property-description 'stem-spacing-correction number? "optical correction amount.")
+    (property-description 'before-grace-spacing-factor number? " stretch space this much if there are grace notes before the column")
     (property-description 'when moment? "when does this column happen?")
     (property-description 'bounded-by-me list? "list of spanners that have this
 column as start/begin point. Only columns that have elements or act as bounds are spaced.")
@@ -594,6 +631,47 @@ to a pointer to the collision")
    ""
    (list
     (property-description 'maximum-duration-for-spacing moment? "space as if a duration of this type is available in this measure.")
+    (property-description 'arithmetic-basicspace number? "The space taken by a note is determined by the formula 
+
+   SPACE = arithmetic_multiplier * ( C + log2 (TIME) ))
+
+where TIME is the amount of time a note occupies.  The value of C is
+chosen such that the smallest space within a measure is
+arithmetic_basicspace:
+
+  C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) 
+
+The smallest space is the one following the shortest note in the
+measure, or the space following a hypothetical 1/8 note.  Typically
+arithmetic_basicspace is set to a value so that the shortest note
+takes about two noteheads of space (ie, is followed by a notehead of
+space):
+
+   2*quartwidth = arithmetic_multiplier * ( C + log2 (SHORTEST) ))
+
+   { using: C = arithmetic_basicspace - log2 (mininum (SHORTEST, 1/8)) }
+   { assuming: SHORTEST <= 1/8 }
+
+               = arithmetic_multiplier *
+	       ( arithmetic_basicspace - log2 (SHORTEST) + log2 (SHORTEST) )
+
+               = arithmetic_multiplier * arithmetic_basicspace
+
+   { choose: arithmetic_multiplier = 1.0*quartwidth (why?)}
+
+               = quartwidth * arithmetic_basicspace
+
+   =>	       
+
+   arithmetic_basicspace = 2/1 = 2
+
+If you want to space your music wider, use something like:
+
+   arithmetic_basicspace = 4.;
+
+")
+    (property-description 'arithmetic-multiplier number? "see arithmetic-basicspace")    
+    
     )))
 
 (define staff-symbol-interface

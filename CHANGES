@@ -1,3 +1,42 @@
+1.3.98.jcn2
+===========
+
+* Renamed all occurrences of font-size to font-relative-size
+
+* Renamed all occurrences of font-point to font-point-size
+
+* Fixed interface.scm descriptions to use symbols iso strings
+
+* Fixes for chord names, and added jazz style (James Hammons)
+
+* Some font-size fixes.
+
+* Added dynamics font in all staff-sizes.
+
+* Quick fix for regtest.
+
+1.3.98.hwn2
+===========
+
+* Removed all paper vars except linewidth, indent, staffspace and
+stafflinethickness.
+
+* Rewrote Scheme side of font-selection.
+
+* Bugfix: deprecate group-center-element thoroughly.
+
+* Bugfix: LeftEdge must also have Break_align_item::alignment_callback
+X-offset-callback.
+
+* Add use music property "direction" for storing direction in
+Script_req, use music property "text-type" for storing 'dynamic,
+'finger, etc. Remove Dynamic_script_req. Resurrect fingerings.
+
+1.3.98.lec1
+===========
+
+* fixed scale-definition.ly for greek mode names.
+
 1.3.98
 ======
 
