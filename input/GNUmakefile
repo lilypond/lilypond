@@ -4,7 +4,7 @@ depth = ..
 
 SUBDIRS=test bugs
 
-examples=praeludium-fuga-E  twinkle-pop
+examples=praeludium-fuga-E  twinkle-pop star-spangled-banner
 flexamples=
 
 LOCALSTEPMAKE_TEMPLATES=mutopia
