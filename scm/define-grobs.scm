@@ -1134,6 +1134,7 @@
     (TimeSignature
      . (
 	(molecule-callback . ,Time_signature::brew_molecule)
+;	(molecule-callback . ,Text_item::brew_molecule)	
 	(break-align-symbol . time-signature)
 	(break-visibility . ,all-visible)
 	(space-alist . (
@@ -1143,6 +1144,7 @@
 			))
 	(breakable . #t)
 	(style . C)
+;	(text . (,time-signature-glue-markup)) 
 	(font-family . number)
 	(meta . ((interfaces . (time-signature-interface break-aligned-interface font-interface item-interface ))))
 	))

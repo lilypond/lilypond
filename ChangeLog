@@ -1,5 +1,8 @@
 2003-09-14  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/test/time-signature-double.ly: use markups for double time
+	sigs.
+
 	* scm/chord-name.scm: remove new-chord-name-brew-molecule ; use
 	ChordNames.SeparationItem #'padding for adjusting space after chords.
 	

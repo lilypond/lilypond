@@ -450,7 +450,6 @@ for DIR, you can obtain longer or shorter stems."
     (ly:molecule-set-extent! m 0 '(1000 . -1000))
     m))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 

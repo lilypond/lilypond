@@ -118,8 +118,7 @@ LY_DEFINE (ly_get_parent, "ly:get-parent", 2, 0, 0, (SCM grob, SCM axis),
   return par ? par->self_scm () : SCM_EOL;
 }
 
-/* ly prefix? */
-LY_DEFINE (get_system,
+LY_DEFINE (ly_get_system,
 	   "ly:get-system",
 	   1, 0, 0, (SCM grob),
 	   "Return the System Grob of @var{grob}.")
@@ -133,8 +132,7 @@ LY_DEFINE (get_system,
   return SCM_EOL;
 }
 
-/* ly prefix? */
-LY_DEFINE (get_original,
+LY_DEFINE (ly_get_original,
 	   "ly:get-original",
 	   1, 0, 0, (SCM grob),
 	   "Return the original Grob of @var{grob}")
@@ -164,18 +162,3 @@ LY_DEFINE (get_broken_into,
 }
 
 
-
-LY_DEFINE(ly_property_alist_chain, "ly:grob-property-chain",
-	  1,1,0,
-	  (SCM grob, SCM defaults),
-	  "Return all the properties of @code{grob}. Glue @var{defaults} at the end of the chain.")
-{
-  Grob * g = unsmob_grob (grob);
-  SCM_ASSERT_TYPE(g, grob, SCM_ARG1, __FUNCTION__, "grob");
-
-  if (defaults == SCM_UNDEFINED)
-    defaults = SCM_EOL;
-
-  SCM ch = g->get_property_alist_chain (defaults);  
-  return ch;
-}
