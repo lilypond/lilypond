@@ -44,6 +44,8 @@ public:
   ~My_lily_lexer ();
   int yylex ();
 
+  Input here_input () const;
+
   void start_main_input ();
   bool notename_b (String) const;
   bool chordmodifier_b (String) const;

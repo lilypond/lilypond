@@ -18,6 +18,7 @@
 #include "source-file.hh"
 #include "main.hh"
 #include "scope.hh"
+#include "input.hh"
 
 static Keyword_ent the_key_tab[]={
   {"spanrequest", SPANREQUEST},
@@ -230,4 +231,11 @@ My_lily_lexer::escaped_char(char c) const
       return c;
     }
   return 0;
+}
+
+Input
+My_lily_lexer::here_input () const
+{
+  Source_file * f_l= source_file_l();
+  return Input (f_l, here_ch_C());
 }
