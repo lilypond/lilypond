@@ -1,3 +1,8 @@
+2003-07-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/staff-symbol-referencer.cc (LY_DEFINE): add
+	ly:grob-staff-position
+
 2003-07-04  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/to-xml.scm: import srfi-1

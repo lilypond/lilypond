@@ -75,6 +75,22 @@ Staff_symbol_referencer::get_position (Grob*me)
 }
 
 
+LY_DEFINE(ly_grob_staff_position,
+	  "ly:grob-staff-position",
+	  1, 0,0, (SCM sg),
+	  "Return the Y-position of this grob relative to the staff.")
+{
+  Grob * g = unsmob_grob (sg);
+
+  SCM_ASSERT_TYPE (g, sg, SCM_ARG1, __FUNCTION__, "grob");
+  Real pos = Staff_symbol_referencer::get_position (g);
+
+  if (fabs (rint (pos) -pos) < 1e-6) // ugh.
+    return gh_int2scm (lrint (pos));
+  else
+    return gh_double2scm (pos);
+}
+
 
 /*
   should use offset callback!
@@ -92,7 +108,7 @@ Staff_symbol_referencer::callback (SCM element_smob, SCM)
     {
       Real space = Staff_symbol_referencer::staff_space (me);
       off = gh_scm2double (pos) * space/2.0;
-      me->set_grob_property ("staff-position", gh_double2scm (0.0));
+      me->set_grob_property ("staff-position", gh_int2scm (0));
     }
 
   return gh_double2scm (off);
