@@ -10,7 +10,7 @@ hdr=    qlp.hh linespace.hh qlpsolve.hh\
 	misc.hh score.hh notename.hh lexer.hh symtable.hh\
 	symbol.hh main.hh dimen.hh paper.hh lookupsyms.hh\
 	sccol.hh stcol.hh scommands.hh melodicstaff.hh\
-	identifier.hh simplestaff.hh
+	identifier.hh simplestaff.hh spanner.hh stem.hh
 
 mycc=   qlp.cc qlpsolve.cc \
 	break.cc linespace.cc molecule.cc line.cc\
@@ -19,9 +19,11 @@ mycc=   qlp.cc qlpsolve.cc \
 	symbol.cc request.cc notename.cc  voice.cc\
 	keyword.cc linestaff.cc table.cc command.cc\
 	warn.cc debug.cc symtable.cc boxes.cc\
-	pstaff.cc  tstream.cc version.cc\
+	pstaff.cc  tstream.cc\
 	calcideal.cc scores.cc identifier.cc \
 	dimen.cc paper.cc lookupsyms.cc scommands.cc\
 	sccol.cc stcol.cc getcommands.cc simplestaff.cc\
-	melodicstaff.cc simpleprint.cc\
-	template1.cc template2.cc template3.cc
+	melodicstaff.cc simpleprint.cc stem.cc\
+	spanner.cc\
+	template1.cc template2.cc template3.cc\
+	version.cc
