@@ -1,3 +1,7 @@
+2004-01-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Documentation/topdocs/NEWS.texi: Compile fix (thanks Mats).
+
 2004-01-29  Mats Bengtsson  <mabe@drongo.s3.kth.se>
 
 	* buildscripts/lilypond-login.sh: Avoid warning about undefined
