@@ -13,6 +13,18 @@
 #include "protected-scm.hh"
 #include "smobs.hh"
 
+struct Score_lines
+{
+  SCM lines_;
+  SCM header_;
+  SCM global_header_;
+  Paper_def *paper_;
+
+  Score_lines () ;
+  void gc_mark ();
+  SCM scopes ();
+};
+
 class Paper_book
 {
   DECLARE_SMOBS (Paper_book, );
@@ -22,11 +34,8 @@ class Paper_book
   SCM tagline_;
 
 public:
-  Array<SCM> scores_;
-  Array<SCM> headers_;
-  Array<SCM> global_headers_;
-  Link_array<Paper_def> papers_;
-  
+  Array<Score_lines> score_lines_;
+
   Paper_book ();
 
   SCM lines ();

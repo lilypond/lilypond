@@ -35,6 +35,7 @@ extern SCM stencil2line (Stencil* stil, bool is_title = false);
 Paper_outputter::Paper_outputter (String filename)
 {
   filename_ = filename;
+  paper_ = 0;
   file_ = scm_open_file (scm_makfrom0str (filename.to_str0 ()),
 			 scm_makfrom0str ("w"));
 
@@ -78,6 +79,7 @@ void
 Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count,
 				bool is_classic)
 {
+  paper_ = paper;		//  BROKEN BROKEN BROKEN.
   String creator = gnu_lilypond_version_string ();
   creator += " (http://lilypond.org)";
   time_t t (time (0));
@@ -96,16 +98,6 @@ Paper_outputter::output_header (Paper_def *paper, SCM scopes, int page_count,
   output_music_output_def (paper);
 
   output_scheme (scm_list_1 (ly_symbol2scm ("header-end")));
-
-  /* TODO: maybe have Scheme extract the fonts directly from \paper ?
-          
-     Alternatively, we could simply load the fonts on demand in the
-     output, and do away with this define-fonts step.  */
-  SCM fonts = paper->font_descriptions ();
-  output_scheme (scm_list_3 (ly_symbol2scm ("define-fonts"),
-			     paper->self_scm (),
-			     //FIXME:
-			     ly_quote_scm (ly_list_qsort_uniq_x (fonts))));
 }
 
 void
@@ -120,11 +112,13 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
       dim[Y_AXIS] = 50 CM;
     }
 
+  
   output_scheme (scm_list_3 (ly_symbol2scm ("start-system"),
 			     ly_quote_scm (ly_offset2scm (*origin)),
 			     ly_quote_scm (ly_offset2scm (dim))));
 
-  output_stencil (*unsmob_stencil (p->to_stencil ()));
+  
+  output_stencil (p->to_stencil ());
 
   (*origin)[Y_AXIS] += dim[Y_AXIS];
   output_scheme (scm_list_2 (ly_symbol2scm ("stop-system"),
@@ -134,13 +128,14 @@ Paper_outputter::output_line (SCM line, Offset *origin, bool is_last)
 void
 Paper_outputter::output_page (Page *p, bool is_last)
 {
+  Stencil page_stencil =  p->to_stencil ();
   output_scheme (scm_list_1 (ly_symbol2scm ("start-page")));
-
   output_scheme (scm_list_3 (ly_symbol2scm ("start-system"),
 			     ly_quote_scm (ly_offset2scm (Offset (0, 0))),
 			     ly_quote_scm (ly_offset2scm (Offset (0, 0)))));
 
-  output_stencil (*unsmob_stencil (p->to_stencil ()));
+  
+  output_stencil (page_stencil);
 
   output_scheme (scm_list_2 (ly_symbol2scm ("stop-system"), SCM_BOOL_T));
   output_scheme (scm_list_2 (ly_symbol2scm ("stop-page"),
@@ -167,7 +162,13 @@ paper_outputter_dump (void * po, SCM x)
 void
 Paper_outputter::output_stencil (Stencil stil)
 {
-  interpret_stencil_expr (stil.expr (), paper_outputter_dump,
+  SCM fonts = find_expression_fonts (stil.expr ());
+
+  output_scheme (scm_list_3 (ly_symbol2scm ("define-fonts"),
+ 			     paper_->self_scm (),
+ 			     ly_quote_scm (ly_list_qsort_uniq_x (fonts))));
+  
+  interpret_stencil_expression (stil.expr (), paper_outputter_dump,
 			  (void*) this, Offset (0,0));
 }
 

@@ -42,7 +42,7 @@ public:
   /* available area for text.  */
   Real text_height () const;
   Real left_margin () const;
-  SCM to_stencil () const;
+  Stencil to_stencil () const;
 };
 
 DECLARE_UNSMOB (Page, page);
