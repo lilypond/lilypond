@@ -224,30 +224,9 @@ Do:
 	configure
 	make
 
-You might want to edit Variables.make to tailor the compilation flags.
-why G++ >= 2.7? LilyPond & FlowerLib uses:
-
-=over 5
-
-=item *
-builtin bool
-
-=item *
-typeof
-
-=item *
-operator <?, operator >?
-
-=item *
-the new for-scope
-
-=item	 *
-class Rational (libg++)
-
-=item *
-named return values
-
-=back
+You probably want to edit Variables.make to tailor the compilation
+flags. If you're not into debugging C++, then you should go for no
+debugging and C<-O2>
 
 =head1 AUTHORS
 
