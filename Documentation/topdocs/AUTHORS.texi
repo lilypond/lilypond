@@ -55,6 +55,7 @@ list is alphabetically ordered.
     @uref{http://sunsite.unicamp.br/~oliva/}
     testing
 @item @email{pinard@@iro.umontreal.ca, Francois Pinard},
+    @uref{http://www.iro.umontreal.ca/~pinard/}
     parts of Documentation/Vocab*, started internationalization stuff
 @c urg: @c,{} in @email{} barfs.
 @item @email{portnoy@@ai.mit.edu,Stephen Peters}, pdfTeX support

@@ -18,17 +18,8 @@
 Bar::Bar ()
 {
   set_elt_property ("breakable", SCM_BOOL_T);
-  type_str_ = "|";
 }
 
-void
-Bar::do_print () const
-{
-#ifndef NPRINT
-  String s = type_str_;
-  DEBUG_OUT << "type = " << s;
-#endif
-}
 
 Real
 Bar::get_bar_size () const
@@ -40,52 +31,49 @@ Bar::get_bar_size () const
 
 Molecule*
 Bar::do_brew_molecule_p () const
-{    
-  Molecule *output = new Molecule (lookup_l ()->bar (type_str_, get_bar_size (), paper_l ()));
+{
+  String s = ly_scm2string (get_elt_property ("glyph"));
+  Molecule *output
+    = new Molecule (lookup_l ()->bar (s, get_bar_size (), paper_l ()));
   
   return output;
 }
 
-/**
-  Prescriptions for splitting bars.
-  TODO: put this in SCM.
- */
-static char const *bar_breaks[][3] ={
-  {":|", ":|:", "|:"},
-  {"|", "|", ""},
-  {"", "|s", "|"},
-  {"|", "|:", "|:"},
-  {"|.", "|.", ""},
-  {":|", ":|", ""},
-  {"||", "||", ""},
-  {".|.", ".|.", ""},
-  {"", "scorebar", "scorepostbreak"},
-  {"", "brace", "brace"},
-  {"", "bracket", "bracket"},  
-  {0,0,0}
-};
+
 
 void
 Bar::do_pre_processing ()
 {
-  for (int i=0; bar_breaks[i][0]; i++) 
+  SCM g = get_elt_property ("glyph");
+  SCM breakdir = gh_int2scm (break_status_dir ());
+  
+  if (gh_string_p (g))
     {
-      if (bar_breaks[i][1] == type_str_)
-	{
-	  type_str_ = bar_breaks[i][break_status_dir ()+1];
-	  break;
-	}
+      g = scm_eval (gh_list (ly_symbol2scm ("break-barline"),
+			     g,
+			     breakdir,
+			     SCM_UNDEFINED));
     }
-
-
+  else
+    {
+      g = SCM_UNDEFINED;
+    }
+  
+#if 0  
   if (remove_elt_property ("at-line-start") == SCM_BOOL_T	// UGR.
       && (break_status_dir () == RIGHT) && (type_str_ == ""))
     {
       type_str_ = "|";
     }
-
-  if (type_str_ =="")
-    set_empty (X_AXIS);
+#endif
+  
+  if (!gh_string_p (g))
+    {
+      set_elt_property ("transparent", SCM_BOOL_T);
+      set_empty (X_AXIS);      
+    }
+  else
+    set_elt_property ("glyph", g);
 }
   
 

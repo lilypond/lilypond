@@ -18,11 +18,6 @@
  */
 class Crescendo : public Spanner {
 public:
-  int grow_dir_;
-    
-  /// if there is a dynamic at the end, make the sign smaller.
-  Drul_array<bool> dyn_b_drul_;
-
   Crescendo();
 protected:
   VIRTUAL_COPY_CONS(Score_element);

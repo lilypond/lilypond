@@ -24,9 +24,19 @@ Clef_item::do_pre_processing()
   String style;
   if (gh_string_p (style_sym))
     style = ly_scm2string (style_sym);
-  
-  if (break_status_dir() != RIGHT && style != "fullSizeChanges")
-    symbol_ += "_change";
+
+  SCM glyph = get_elt_property ("glyph");
+  if (gh_string_p (glyph))
+    {
+      String s = ly_scm2string (glyph);
+	
+      if (break_status_dir() != RIGHT && style != "fullSizeChanges")
+	{
+	  s += "_change";
+	}
+      s = "clefs-" +  s;
+      set_elt_property ("glyph", ly_str02scm (s.ch_C()));
+    }
   
   if (style == "transparent")	// UGH. JUNKME
     {
@@ -35,13 +45,6 @@ Clef_item::do_pre_processing()
     }
 }
 
-/*
-  JUNKME
-*/
-Clef_item::Clef_item()
-{
-  symbol_ = "treble";
-}
 
 void
 Clef_item::do_add_processing ()
@@ -59,7 +62,7 @@ Clef_item::do_add_processing ()
 	  
 	  pscore_l_->typeset_element (g);
       
-	  g->text_str_ = "8";
+	  g->set_elt_property ("text", ly_str02scm ( "8"));
 	  g->set_elt_property ("style", gh_str02scm ("italic"));
 	  g->set_parent (this, Y_AXIS);
 	  g->set_parent (this, X_AXIS);	  
@@ -74,15 +77,5 @@ Clef_item::do_add_processing ()
 
     }
 }
-
-Molecule*
-Clef_item::do_brew_molecule_p() const
-{
-  Molecule*output = new Molecule (lookup_l ()->afm_find (String ("clefs-" + symbol_)));
-
-  return output;
-}
-
-
 
 

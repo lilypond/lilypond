@@ -12,7 +12,6 @@
 #include "bezier.hh"
 #include "dimensions.hh"
 #include "direction.hh"
-#include "paper-def.hh"
 #include "debug.hh"
 #include "main.hh"
 
@@ -39,20 +38,15 @@ translate (Array<Offset> &c, Offset o)
 }
 
 
-Bezier_bow::Bezier_bow (Paper_def* paper_l,
-			Array<Offset> points, Direction dir)
+Bezier_bow::Bezier_bow (Array<Offset> points, Direction dir)
 {
-  paper_l_ = paper_l;
   dir_ = dir;
   encompass_ = points;
   to_canonic_form ();
-  
-  calc_default (0.0);
-  if (fit_factor () > 1.0)
-    {
-      calc_tangent_controls ();
-      blow_fit ();
-    }
+
+  rc_factor_ = 1.0;
+  height_limit_ = 1.0;
+  ratio_ = 1.0;
 }
 
 void
@@ -66,15 +60,19 @@ Bezier_bow::blow_fit ()
   curve_.check_sanity ();
 }
 
-
-
-
-
-
+void
+Bezier_bow::calculate ()
+{
+  calc_default (0.0);
+  if (fit_factor () > 1.0)
+    {
+      calc_tangent_controls ();
+      blow_fit ();
+    }
+}
 Bezier
 Bezier_bow::get_curve ()const
 {
-
   Bezier rv = curve_;
   if (dir_ == DOWN)
     {
@@ -138,13 +136,13 @@ Bezier_bow::calc_tangent_controls ()
     The curve will always be under line between curve_.control_0 -> curve_.control_1, so
     make it extra steep by slur_rc_factor
   */
-  Real rc_correct = paper_l_->get_var ("slur_rc_factor");
-  
+
+
   Drul_array<Real> angles;
   Direction d = LEFT;
   do
     {
-      maxtan[d] *= -d * rc_correct;
+      maxtan[d] *= -d * rc_factor_;
       angles[d] = atan (maxtan[d]);
     }
   while (flip(&d) != LEFT);
@@ -164,7 +162,7 @@ Bezier_bow::calc_tangent_controls ()
 
 
   // ugh: be less steep
-  rc3 /= 2*rc_correct;
+  rc3 /= 2*rc_factor_;
   
 
   Real c2 = -maxtan[RIGHT] * curve_.control_[3][X_AXIS];
@@ -241,11 +239,8 @@ Bezier_bow::calc_default (Real h)
 {
   Real pi = M_PI;
 
-  Real height_limit = paper_l_->get_var ("slur_height_limit");
-  Real ratio = paper_l_->get_var ("slur_ratio");
-
-  Real alpha = height_limit * 2.0 / pi;
-  Real beta = pi * ratio / (2.0 * height_limit);
+  Real alpha = height_limit_ * 2.0 / pi;
+  Real beta = pi * ratio_ / (2.0 * height_limit_);
 
   Offset delta (encompass_.top ()[X_AXIS] 
     - encompass_[0][X_AXIS], 0);

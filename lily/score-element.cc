@@ -331,10 +331,20 @@ Score_element::do_add_processing()
 Molecule*
 Score_element::do_brew_molecule_p() const
 {
-  Interval emp;
-  emp.set_empty ();
-  Molecule a (lookup_l ()->fill (Box (emp,emp)));
-  return new Molecule (a);
+  SCM glyph = get_elt_property ("glyph");
+  if (gh_string_p (glyph))
+    {
+      Molecule*output = new Molecule (lookup_l ()->afm_find (String (ly_scm2string (glyph))));
+      
+      return output;
+    }
+  else
+    {
+      Interval emp;
+      emp.set_empty ();
+      Molecule a (lookup_l ()->fill (Box (emp,emp)));
+      return new Molecule (a);
+    }
 }
 
 
@@ -540,8 +550,6 @@ Score_element *
 Score_element::common_refpoint (Score_element const* s, Axis a) const
 {
   Dimension_cache *dim = dim_cache_[a]->common_refpoint (s->dim_cache_[a]);
-  if (!dim)
-    programming_error ("No  common reference point");
   return  dim ? dim->element_l () : 0;
 }
 

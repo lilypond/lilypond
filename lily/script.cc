@@ -19,7 +19,7 @@ Molecule
 Script::get_molecule(Direction d) const
 {
   SCM s = get_elt_property ("molecule");
-  assert (s != SCM_UNDEFINED);
+  assert (gh_pair_p (s));
 
   SCM key = gh_car  (s);
   if (key == ly_symbol2scm ("feta"))

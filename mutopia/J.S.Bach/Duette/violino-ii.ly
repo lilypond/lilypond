@@ -64,8 +64,8 @@ $violino_ii = \notes\relative c''{
   c2 e,|f8 e(d)cis d e fis gis|a e a2 gis4(|)a b()c b8 a|b4()cis <d2 d,>~|
 %100
   <d4 d,> c8 b c4 <a a,>~|<a a,> gis8 fis g2\prall|
-  <a2 e a,> <e' a,> <a a,> <a c,>|
-  %<a2 b, d4><gis\prall b,4 d>|
+  <a4 e a,> <e' a,> <a a,> <a c,>|
+  %<a2 b, d4><gis\prall b,4 d>| checkme
   \context Staff<
     \context Voice { 
       \property Voice.verticalDirection=1
@@ -78,7 +78,7 @@ $violino_ii = \notes\relative c''{
     }
     \context Voice=x { 
       \property Voice.verticalDirection=-1
-      d,4 s<b4 d>s|<a2 d> s2|
+      d,4 s<d b'>s|<a2 d> s2|
 %105
       <d g,> s2|s1|
       %e2 d ()\grace c|

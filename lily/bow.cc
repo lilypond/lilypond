@@ -58,9 +58,13 @@ Bow::curve_extent (Axis a) const
 Bezier
 Bow::get_curve () const
 {
-  Bezier_bow b (paper_l (),
-		get_encompass_offset_arr (), directional_element (this).get ());
-  
+  Bezier_bow b (get_encompass_offset_arr (), directional_element (this).get ());
+
+  b.ratio_ = paper_l ()->get_var ("slur_ratio");
+  b.height_limit_ = paper_l ()->get_var ("slur_height_limit");
+  b.rc_factor_ = paper_l ()->get_var ("slur_rc_factor");
+
+  b.calculate ();
   return b.get_curve ();
 }
 

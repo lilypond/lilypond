@@ -72,16 +72,6 @@ Staff_info
 Engraver_group_engraver::get_staff_info() const
 {
   Staff_info inf = Engraver::get_staff_info();
-
-  for (Cons<Translator> *p = trans_p_list_.head_; p; p = p->next_)
-    {
-      if (!dynamic_cast <Engraver_group_engraver *> (p->car_))
-	{
-	  Engraver * eng = dynamic_cast<Engraver*> (p->car_);
-	  if (eng)
-	    eng->fill_staff_info (inf);
-	}
-    }
   return inf;
 }
 

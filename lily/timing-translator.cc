@@ -102,10 +102,8 @@ Timing_translator::do_pre_move_processing()
     {
       Moment barleft = (measure_length () - measure_position ());
 
-      if (barleft < Moment (0))
-	barleft = 0;
-
-      global_l->add_moment_to_process (now_mom () + barleft);
+      if (barleft > Moment (0))
+	global_l->add_moment_to_process (now_mom () + barleft);
     }
 }
 

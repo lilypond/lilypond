@@ -129,6 +129,7 @@ Tie::do_post_processing()
 	    Getting scared a bit by score-element's comment:
 	    // is this a good idea?
 	  */
+	  // FIXME extremal deprecated
 	  && (head (d)->get_elt_property ("extremal")
 	      != SCM_UNDEFINED))
 	{

@@ -25,7 +25,7 @@ protected:
   Protected_scm visibility_lambda_;
   String type_;
   Axis axis_;
-  bool hang_on_clef_b_;
+
 protected:
   /**
     Put the script on #it#

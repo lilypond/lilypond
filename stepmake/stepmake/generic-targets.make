@@ -69,8 +69,8 @@ help: generic-help local-help
   lib         update all libraries\n\
   release     roll tarball and generate patch\n\
   rpm         build RedHat package\n\
-  po          make new po database\n\
-  po-update   update po database\n\
+  po          make new translation Portable Object database\n\
+  po-update   update translation Portable Object database\n\
   tar         same as dist\n\
   TAGS        genarate tagfiles\n\
   zip         build binary doze distribution\n\

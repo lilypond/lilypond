@@ -29,7 +29,6 @@ protected:
   virtual Direction get_default_dir () const;
   virtual void do_post_processing ();
   virtual void do_add_processing ();
-  virtual void do_pre_processing ();
   Array<Rod> get_rods () const;
 };
 

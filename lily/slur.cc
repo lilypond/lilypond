@@ -75,11 +75,6 @@ Slur::do_add_processing ()
     set_bounds (RIGHT, encompass_arr.top ());
 }
 
-void
-Slur::do_pre_processing ()
-{
-  // don't set directions
-}
 
 
 Offset

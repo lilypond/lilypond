@@ -25,7 +25,6 @@ Atom::Atom(SCM s)
 void
 Atom::fontify (Font_metric * met)
 {
-
   SCM desc = ly_quote_scm (met->description ());
   SCM font_switch = gh_list (ly_symbol2scm ("select-font"),
 			     desc,

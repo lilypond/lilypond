@@ -4,6 +4,7 @@
    (c) 1993--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
 
+#include <math.h>
 
 #include "polynomial.hh"
 

@@ -126,11 +126,11 @@ Spacing_spanner::do_measure (Link_array<Paper_column> cols) const
 	  */
 	  if (lc->musical_b () && rc->musical_b ())
 	    {
-	      if (rc->get_elt_property ("contains-grace") == SCM_UNDEFINED)
+	      if (!to_boolean (rc->get_elt_property ("contains-grace")))
 		right_dist *= paper_l ()->get_var ("musical_to_musical_left_spacing_factor");
 	    }
 
-	  if (rc->musical_b () && rc->get_elt_property ("contains-grace") != SCM_UNDEFINED)
+	  if (rc->musical_b () && to_boolean (rc->get_elt_property ("contains-grace")))
 	    right_dist *= paper_l ()->get_var ("before_grace_spacing_factor");
  
  

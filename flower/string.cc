@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <iostream.h>
 #include <assert.h>
 #include <string.h>
 #include <stdarg.h>
@@ -402,3 +402,12 @@ String::value_f () const
   return String_convert::dec2_f (*this);
 }
 
+ostream &
+operator << (ostream& os, String d)
+{
+  d.print_on (os);
+  return os;
+}
+
+
+ 

@@ -14,6 +14,8 @@
     * move paper vars to scm
 
 */
+#include <math.h>		// tanh.
+
 #include "directional-element-interface.hh"
 #include "beaming.hh"
 #include "dimensions.hh"
@@ -371,7 +373,7 @@ Beam::suspect_slope_b (Real y, Real dy) const
   Real steep = paper_l ()->get_var ("beam_steep_slope");
 
   Real dx = last_visible_stem ()->hpos_f () - first_visible_stem ()->hpos_f ();
-  Real dydx = dy/dx;
+  Real dydx = dy && dx ? dy/dx : 0;
 
   if (((y - first_ideal > lengthened) && (dydx > steep))
       || ((y + dy - last_ideal > lengthened) && (dydx < -steep)))
@@ -398,7 +400,7 @@ Beam::calc_slope_damping_f (Real dy) const
     {
       Real dx = last_visible_stem ()->hpos_f ()
 	- first_visible_stem ()->hpos_f ();
-      Real dydx = dy/dx;
+      Real dydx = dy && dx ? dy/dx : 0;
       dydx = 0.6 * tanh (dydx) / damping;
       return dydx * dx;
     }
@@ -415,7 +417,7 @@ Beam::calc_stem_y_f (Stem* s, Real y, Real dy) const
   Real interbeam_f = paper_l ()->interbeam_f (beam_multiplicity);
   Real x0 = first_visible_stem ()->hpos_f ();
   Real dx = last_visible_stem ()->hpos_f () - x0;
-  Real stem_y = (s->hpos_f () - x0) / dx * dy + y;
+  Real stem_y = (dy && dx ? (s->hpos_f () - x0) / dx * dy : 0) + y;
 
   /* knee */
    Direction dir  = directional_element(this).get ();
@@ -593,11 +595,12 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
   Real interbeam_f = paper_l ()->interbeam_f (multiplicity);
   Real thick = gh_scm2double (get_elt_property ("beam-thickness"));;
 
-  Real dy = interbeam_f;
+  Real bdy = interbeam_f;
   Real stemdx = staffline_f;
 
   Real dx = last_visible_stem ()->hpos_f () - first_visible_stem ()->hpos_f ();
-  Real dydx = get_real ("height")/dx;
+  Real dy = get_real ("height");
+  Real dydx = dy && dx ? dy/dx : 0;
 
   Molecule leftbeams;
   Molecule rightbeams;
@@ -634,7 +637,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (int j = 0; j  < lhalfs; j++)
 	{
 	  Molecule b (a);
-	  b.translate_axis (-dir * dy * (lwholebeams+j), Y_AXIS);
+	  b.translate_axis (-dir * bdy * (lwholebeams+j), Y_AXIS);
 	  leftbeams.add_molecule (b);
 	}
     }
@@ -659,7 +662,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
 	  for (; j  < nogap; j++)
 	    {
 	      Molecule b (a);
-	      b.translate_axis (-dir  * dy * j, Y_AXIS);
+	      b.translate_axis (-dir  * bdy * j, Y_AXIS);
 	      rightbeams.add_molecule (b);
 	    }
 	  // TODO: notehead widths differ for different types
@@ -671,7 +674,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (; j  < rwholebeams; j++)
 	{
 	  Molecule b (a);
-	  b.translate (Offset (here->invisible_b () ? 0 : gap_f, -dir * dy * j));
+	  b.translate (Offset (here->invisible_b () ? 0 : gap_f, -dir * bdy * j));
 	  rightbeams.add_molecule (b);
 	}
 
@@ -682,7 +685,7 @@ Beam::stem_beams (Stem *here, Stem *next, Stem *prev) const
       for (; j  < rwholebeams + rhalfs; j++)
 	{
 	  Molecule b (a);
-	  b.translate_axis (- dir * dy * j, Y_AXIS);
+	  b.translate_axis (- dir * bdy * j, Y_AXIS);
 	  rightbeams.add_molecule (b);
 	}
 
@@ -706,7 +709,8 @@ Beam::do_brew_molecule_p () const
   
   Real x0 = first_visible_stem ()->hpos_f ();
   Real dx = last_visible_stem ()->hpos_f () - x0;
-  Real dydx = get_real ("height")/dx;
+  Real dy = get_real ("height");
+  Real dydx = dy && dx ? dy/dx : 0;
   Real y = get_real ("y-position");
   for (int j=0; j <stem_count (); j++)
     {

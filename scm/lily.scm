@@ -208,7 +208,7 @@
 (define (font-command name-mag)
     (cons name-mag
 	  (string-append  "magfont"
-			  (string-encode-integer (hash (car name-mag) 1000000))
+			  (string-encode-integer (hashq (car name-mag) 1000000))
 			  "m"
 			  (string-encode-integer (cdr name-mag)))
 
@@ -736,4 +736,37 @@
    ;; probably: #@quote
    (else (begin (display "programming error: scm->string: ") (newline) "'"))
    ))
+
+(define (index-cell cell dir)
+  (if (equal? dir 1)
+      (cdr cell)
+      (car cell))
+  )
+
+
+;
+; How should a  bar line behave at a break? 
+;
+(define (break-barline glyph dir)
+   (let ((result (assoc glyph 
+			'((":|:" . (":|" . "|:"))
+			  ("|" . ("|" . ""))
+			  ("|s" . (nil . "|"))
+			  ("|:" . ("|" . "|:"))
+			  ("|." . ("|." . nil))
+			  (":|" . (":|" . nil))
+			  ("||" . ("||" . nil))
+			  (".|." . (".|." . nil))
+			  ("scorebar" . (nil . "scorepostbreak"))
+			  ("brace" . (nil . "brace"))
+			  ("bracket" . (nil . "bracket"))  
+			  )
+			)))
+
+     (if (equal? result #f)
+	 (ly-warn (string-append "Unknown bar glyph: `" glyph "'"))
+	 (index-cell (cdr result) dir))
+     )
+   )
+     
 

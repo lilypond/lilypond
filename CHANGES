@@ -1,3 +1,64 @@
+1.3.17.jcn2
+===========
+
+* Bugfix: beams with less than one (visible) stem
+
+* small fixes to pa.ly
+
+1.3.17.jcn1
+===========
+
+* Fixed bug that made multi-measure rest barnumber counts go wild.
+(even more scm2int/int2scm mixups!)
+
+* mutopia/J.S.Bach/pa.ly: organ score (for my father)
+
+* small fix to mutopia/J.S.Bach/Duette/violino-ii.ly
+
+1.3.17.hwn2
+===========
+
+* Remove Paper_def calls in bezier-bow.cc
+
+* Remove data members of Tuplet_spanner,  Volta_spanner
+
+* hang_on_clef, property hangOnClef removed
+
+* Bar::type_str_ mode into element property `glyph'. Use a Scheme
+function to determine breaking behavior.
+
+* More Scheme typechecking.
+
+* Be strict about the difference between strings and symbols for conversion.
+
+* Fixed bug that made 1st line offset to right fixed. Bugfix courtesy
+Laurent Martelli.
+
+* Partial French translation, courtesy Laurent Martelli.
+
+* Small corrections in NL translation. 
+
+1.3.17.hwn1
+===========
+
+* Added mensural note heads (noteHeadStyle = "mensural") Additionally,
+we have a longa note head.  noteHeadStyle = "harmonic" is not
+supported anymore. (for now, that is)  
+
+* Reference manual update. Document \properties with examples
+
+* fix mudela-book --help
+
+* Use element properties for Text_item::text_str_, Clef_item::symbol_,
+Key_item::c0_position_
+
+* Clef_engraver general cleanup. Use alists (\property
+supportedClefTypes, clefPitches) for clef types.
+
+* Use progress_indication () for progress. Don't include <iostream.h> directly 
+Don't include <string.h>, <math.h> from headers.
+
+
 1.3.16.hwn1
 ===========
 

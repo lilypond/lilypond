@@ -39,7 +39,7 @@ void
 Score_engraver::finish()
 {
   if ((breaks_i_%8))
-    *mlog << "[" << breaks_i_ << "]" << flush;
+    progress_indication ("[" + to_str ( breaks_i_) + "]");
    
   check_removal();
   removal_processing();
@@ -142,7 +142,7 @@ Score_engraver::typeset_all()
 
 	  if (!item_p->parent_l (X_AXIS))
 	    {
-	      bool br = (item_p->remove_elt_property ("breakable") != SCM_UNDEFINED);
+	      bool br = to_boolean (item_p->remove_elt_property ("breakable"));
 	      if (br)
 		command_column_l_->add_element(item_p);
 	      else
@@ -158,11 +158,11 @@ Score_engraver::typeset_all()
 void
 Score_engraver::do_pre_move_processing()
 {
-  if (command_column_l_->get_elt_property ("breakable") !=  SCM_UNDEFINED)
+  if (to_boolean (command_column_l_->get_elt_property ("breakable")))
     {
       breaks_i_ ++;
       if (! (breaks_i_%8))
-	*mlog << "[" << breaks_i_ << "]" << flush;
+	progress_indication ("[" + to_str ( breaks_i_) + "]");
     }
   // this generates all items.
   Engraver_group_engraver::do_pre_move_processing();
@@ -199,7 +199,6 @@ Score_engraver::set_columns (Paper_column *new_command_l,
     }
 }
 
-
 Staff_info
 Score_engraver::get_staff_info() const
 {
@@ -210,7 +209,6 @@ Score_engraver::get_staff_info() const
   
   return inf;
 }
-
 
 Music_output*
 Score_engraver::get_output_p ()
@@ -233,9 +231,9 @@ Score_engraver::do_try_music (Music*r)
 
 
 	  SCM pen = command_column_l_->get_elt_property  ("penalty");
-	  Real total_penalty = (pen == SCM_UNDEFINED)
-	    ? 0.0
-	    : gh_scm2double(pen); // ugh. Should typecheck.
+	  Real total_penalty = gh_number_p (pen)
+	    ? gh_scm2double(pen)
+	    : 0.0;
 
 	  total_penalty += b->penalty_f_;
 	  if (b->penalty_f_ > 10000.0) //  ugh. arbitrary.

@@ -22,7 +22,7 @@ Bar_script_engraver::Bar_script_engraver ()
 {
   axis_ = Y_AXIS;
   text_p_ =0;
-  hang_on_clef_b_ = false;
+
   visibility_lambda_ 
     = ly_eval_str ("non-postbreak-visibility");
 }
@@ -30,11 +30,6 @@ Bar_script_engraver::Bar_script_engraver ()
 void
 Bar_script_engraver::do_creation_processing ()
 {
-  SCM prop = get_property (type_ + "HangOnClef", 0);
-  if (to_boolean (prop))
-    {
-      hang_on_clef_b_ = true;
-    }
 }
 
 /*
@@ -73,21 +68,12 @@ Item*
 Bar_script_engraver::cast_to_interesting_item (Score_element *e)
 {
   Item * i =0;
-  if (hang_on_clef_b_)
-    {
-      Clef_item * c = dynamic_cast<Clef_item*> (e);
 
+  /*
+    should do type lookup: if (e ->is_type (hang_on_type))
+   */
+  i = dynamic_cast<Bar*> (e);
 
-      // urg.
-      if (c) //  && c->default_b_)
-	{
-	  i = c;
-	}
-    }
-  else
-    {
-      i = dynamic_cast<Bar*> (e);
-    }
   return i;
 }
 					       

@@ -15,7 +15,7 @@ void
 Script_column::add_staff_sided (Item *i)
 {
   SCM p = i->get_elt_property ("script-priority");
-  if (p == SCM_UNDEFINED)
+  if (!gh_number_p (p))
     return;
   
 

@@ -8,6 +8,8 @@
 
   TODO: This is way too hairy
 */
+#include <math.h>		// m_pi
+
 #include "directional-element-interface.hh"
 #include "dimension-cache.hh"
 #include "stem.hh"
@@ -252,7 +254,7 @@ Stem::get_default_dir () const
 Real
 Stem::get_default_stem_end_position () const
 {
-  bool grace_b = get_elt_property ("grace") != SCM_UNDEFINED;
+  bool grace_b = to_boolean (get_elt_property ("grace"));
   String type_str = grace_b ? "grace-" : "";
   SCM s;
   Array<Real> a;
@@ -411,7 +413,7 @@ Stem::flag () const
 {
   String style;
   SCM st = get_elt_property ("flag-style");
-  if ( st != SCM_UNDEFINED)
+  if ( gh_string_p (st))
     {
       style = ly_scm2string (st);
     }
@@ -430,7 +432,7 @@ Stem::dim_callback (Dimension_cache const* c)
   Stem * s = dynamic_cast<Stem*> (c->element_l ());
   
   Interval r (0, 0);
-  if (s->get_elt_property ("beam") != SCM_UNDEFINED || abs (s->flag_i ()) <= 2)
+  if (unsmob_element (s->get_elt_property ("beam")) || abs (s->flag_i ()) <= 2)
     ;	// TODO!
   else
     {

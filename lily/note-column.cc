@@ -5,6 +5,9 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+#include <math.h>		// ceil
+
+
 #include "dot-column.hh"
 #include "note-column.hh"
 #include "beam.hh"
@@ -141,7 +144,6 @@ Note_column::set_dotcol (Dot_column *d)
   Should lookup
     
     rest -> stem -> beam -> interpolate_y_position ()
-    
 */
 
 void
@@ -170,7 +172,8 @@ Note_column::do_post_processing ()
     beam_y = gh_scm2double (s);
 
   Real x0 = b->first_visible_stem ()->hpos_f ();
-  Real dydx = beam_dy/(b->last_visible_stem ()->hpos_f () - x0);
+  Real dx = b->last_visible_stem ()->hpos_f () - x0;
+  Real dydx = beam_dy && dx ? beam_dy/dx : 0;
 
   Direction d = stem_l ()->get_direction ();
   Real beamy = (stem_l ()->hpos_f () - x0) * dydx + beam_y;

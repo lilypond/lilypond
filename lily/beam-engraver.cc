@@ -84,7 +84,7 @@ Beam_engraver::do_process_requests ()
     {
       if (beam_p_)
 	{
-	  reqs_drul_[START]->warning (_ ("Already have a Beam"));
+	  reqs_drul_[START]->warning (_ ("Already have a beam"));
 	  return;
 	}
 

@@ -20,22 +20,25 @@ StaffContext=\translator {
 
 	%  name, glyph id, c0 position
 	supportedClefTypes = #'(
-	  ("treble" "treble" -2)
-	  ("violin" "treble" -2)
-	  ("G" "treble" -2)
-	  ("G2" "treble" -2)
-	  ("french" "treble" -4 )
-	  ("soprano" "alto" -4 )
-	  ("mezzosoprano" "alto" -2 )
-	  ("alto" "alto" 0 )
-	  ("tenor" "alto" 2 )
-	  ("baritone" "alto" 4 )
-	  ("varbaritone" "bass" 0)
-	  ("bass" "bass" 2 )
-	  ("F" "bass" 2)
-	  ("subbass" "bass" 4)
+	  ("treble" . ("G" -2))
+	  ("violin" . ("G" -2))
+	  ("G" . ("G" -2))
+	  ("G2" . ("G" -2))
+	  ("french" . ("G" -4 ))
+	  ("soprano" . ("C" -4 ))
+	  ("mezzosoprano" . ("C" -2 ))
+	  ("alto" . ("C" 0 ))
+	  ("tenor" . ("C" 2 ))
+	  ("baritone" . ("C" 4 ))
+	  ("varbaritone"  . ("F" 0))
+	  ("bass" . ("F" 2 ))
+	  ("F" . ( "F" 2))
+	  ("subbass" . ("F" 4))
 	)
-	
+	clefPitches = #'(("G" . -4)
+	  ("C" . 0)
+	  ("F" . 4))
+	  
 	\consists "Clef_engraver";
 	\consists "Key_engraver";
 	\consists "Time_signature_engraver";

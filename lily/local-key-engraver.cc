@@ -3,6 +3,7 @@
 
   (c)  1997--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
+// clean up!
 
 #include "musical-request.hh"
 #include "command-request.hh"
@@ -148,7 +149,7 @@ Local_key_engraver::acknowledge_element (Score_element_info info)
   SCM wg= get_property ("weAreGraceContext", 0);
   
   bool selfgr = gh_boolean_p (wg) &&gh_scm2bool (wg);
-  bool he_gr = info.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED;
+  bool he_gr = to_boolean (info.elem_l_->get_elt_property ("grace"));
 
   Grace_align_item * gai = dynamic_cast<Grace_align_item*> (info.elem_l_);  
   if (he_gr && !selfgr && gai)

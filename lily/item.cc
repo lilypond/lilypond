@@ -26,7 +26,7 @@ Item::breakable_b () const
     return false;
   
   Item * i  =dynamic_cast<Item*> (parent_l (X_AXIS));
-  return (i) ?  i->breakable_b () : get_elt_property( "breakable") != SCM_UNDEFINED;
+  return (i) ?  i->breakable_b () : to_boolean (get_elt_property( "breakable"));
 }
 
 Real 

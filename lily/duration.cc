@@ -42,7 +42,7 @@ Duration::length_mom () const
 
   for (int d = dots_i_; d; d--)
     {
-      delta /= 2.0;
+      delta /= Moment (2);
       mom += delta;
     }
 

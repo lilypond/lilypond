@@ -1,3 +1,4 @@
+#include <iostream.h>
 #include "text-stream.hh"
 
 Text_stream::Text_stream (String fn)
@@ -39,3 +40,11 @@ Text_stream::eof_b ()
       // !pushback.size () && 
       feof (f);
 }
+
+Text_stream::~Text_stream()
+{
+    if (!eof_b()) 
+      cerr <<__FUNCTION__<< ": closing unended file";
+    
+    fclose (f);
+  }

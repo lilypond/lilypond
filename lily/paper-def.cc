@@ -204,8 +204,9 @@ Paper_def::paper_stream_p () const
 
   if (outname != "-")
     outname += String (".") + output_global_ch;
-  *mlog << _f ("paper output to %s...", 
-	       outname == "-" ? String ("<stdout>") : outname) << endl;
+  progress_indication (_f ("paper output to %s...",
+			   outname == "-" ? String ("<stdout>") : outname));
+		       
 
   target_str_global_array.push (outname);
   return new Paper_stream (outname);

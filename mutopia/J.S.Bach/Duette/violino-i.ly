@@ -25,7 +25,7 @@ $violino_i = \notes\relative c'' {
 %5
   %%<\grace a,16 \grace d, g'16 > e(fis)d cis d 
   <g16 a, d,> e(fis)d cis d 
-  g,8 <f'4~g, g,> f16 d(e)c b c fis,!8 <e'4 fis,>~|
+  g,8 <f'4 g, g,>~f16 d(e)c b c fis,!8 <e'4 fis,>~|
   <e16 fis,> c(d)b a b e, b'(c)a g a d, a'(b)g fis g c, g'(a)fis e fis |
   b,(d)e fis(g)a b(d)c b(a)g fis(g)a b(c)d e(a)g fis e d |
   g d(e)fis g a b g(fis)g c, a' b, g'(fis)g a, c fis, g(a)b <c8( d, a>~|

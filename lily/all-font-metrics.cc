@@ -33,13 +33,11 @@ All_font_metrics::find_afm (String name)
       path = search_path_.find (path);
       if (path.empty_b ())
 	return 0;
-      
-      *mlog << "[" << path;
+      progress_indication ("[" + path);
       Adobe_font_metric * afm_p = read_afm_file (path);
 
       afm_p->name_str_ = name;
-      
-      *mlog << "]" << flush ;
+      progress_indication ("]");
 
       afm_p_dict_[sname] = afm_p->self_scm_;
       scm_unprotect_object (afm_p->self_scm_);
@@ -80,12 +78,10 @@ All_font_metrics::find_tfm (String name)
       path = search_path_.find (path);
       if (path.empty_b ())
 	return 0;
-
-      *mlog << "[" << path;
+      progress_indication ("[" + path);
       Tex_font_metric	* tfm_p = Tex_font_metric_reader::read_file (path);
       tfm_p->name_str_ = name;
-
-      *mlog << "]" << flush ;
+      progress_indication ("]");
 
       tfm_p_dict_[sname] = tfm_p->self_scm_;
       scm_unprotect_object (tfm_p->self_scm_);      

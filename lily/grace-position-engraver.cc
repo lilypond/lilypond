@@ -45,12 +45,12 @@ Grace_position_engraver::acknowledge_element (Score_element_info i)
     }
   else if (Note_head * n = dynamic_cast <Note_head*> (i.elem_l_))
     {
-      if (n->get_elt_property ("grace") == SCM_UNDEFINED)
+      if (!to_boolean (n->get_elt_property ("grace")))
 	support_.push (n);
     }
   else if (Local_key_item*it = dynamic_cast<Local_key_item*>(i.elem_l_))
     {
-      if (it->get_elt_property ("grace") == SCM_UNDEFINED)
+      if (!to_boolean (it->get_elt_property ("grace")))
 	support_.push (it);
       else if (align_l_) 
 	it->add_dependency (align_l_);

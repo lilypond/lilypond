@@ -34,7 +34,11 @@ Bar_number_engraver::do_process_requests ()
       !time->measure_position () && now_mom () > Moment (0))
     {
       create_items (0);
-      text_p_->text_str_ = to_str (gh_scm2int (bn));
+
+      // guh.
+      text_p_->set_elt_property ("text",
+				 ly_str02scm (to_str (gh_scm2int (bn)).ch_C()));
+				 
     }
 }
 

@@ -52,10 +52,10 @@ Spacing_engraver::do_removal_processing ()
 void
 Spacing_engraver::acknowledge_element (Score_element_info i)
 {
-  if (i.elem_l_->get_elt_property ("grace") != SCM_UNDEFINED)
+  if (to_boolean (i.elem_l_->get_elt_property ("grace")))
     return;
 
-  if (i.elem_l_->get_elt_property ("non-rhythmic") != SCM_UNDEFINED)
+  if (to_boolean (i.elem_l_->get_elt_property ("non-rhythmic")))
     return;
   
   if (Rhythmic_req * r = dynamic_cast<Rhythmic_req*>(i.req_l_))

@@ -24,10 +24,6 @@
 
 Tuplet_spanner::Tuplet_spanner ()
 {
-  /*
-    -> GUILE
-   */
-  parallel_beam_b_ = false;
   set_elt_property ("beams", SCM_EOL);
   set_elt_property ("columns", SCM_EOL);  
 }
@@ -41,10 +37,11 @@ Tuplet_spanner::do_brew_molecule_p () const
   Molecule* mol_p = new Molecule;
 
   // Default behaviour: number always, bracket when no beam!
-  bool bracket_visibility = !parallel_beam_b_;
+  bool par_beam = to_boolean (get_elt_property ("parallel-beam"));
+  bool bracket_visibility = !par_beam;
   bool number_visibility = true;
   SCM visibility_sym =get_elt_property ("tuplet-visibility");
-  if (visibility_sym != SCM_UNDEFINED)
+  if (gh_number_p (visibility_sym))
     {
       /*
 	ARG. Fixme.
@@ -58,9 +55,9 @@ Tuplet_spanner::do_brew_molecule_p () const
 	 4       show number, and bracket
       */
       int value = gh_scm2int ((visibility_sym));
-      bracket_visibility = (value == 4 || (value > 1 && !parallel_beam_b_));
+      bracket_visibility = (value == 4 || (value > 1 && !par_beam));
       number_visibility = (value > 2 || value == 1 || 
-			   (value == 2 && !parallel_beam_b_));
+			   (value == 2 && !par_beam));
     }
   
   if (gh_pair_p (get_elt_property ("columns")))
@@ -70,33 +67,42 @@ Tuplet_spanner::do_brew_molecule_p () const
 	
       Real ncw = column_arr.top ()->extent(X_AXIS).length ();
       Real w = spanner_length () + ncw;
-      Molecule num (lookup_l ()->text ("italic",
-				       number_str_, paper_l ()));
-      num.align_to (X_AXIS, CENTER);
-      num.translate_axis (w/2, X_AXIS);
-      Real interline = paper_l ()->get_var ("interline");
+
+
+      Real staff_space = paper_l ()->get_var ("interline");
+      
 
       Direction dir = directional_element (this).get ();
       Real dy = column_arr.top ()->extent (Y_AXIS) [dir]
-	- column_arr[0]->extent (Y_AXIS) [dir];
-      num.align_to (Y_AXIS, CENTER);
-      num.translate_axis (dir * interline, Y_AXIS);
+	    - column_arr[0]->extent (Y_AXIS) [dir];
+      
+
+      SCM number = get_elt_property ("text");
+      if (gh_string_p (number))
+	{
+
+	  Molecule
+	    num (lookup_l ()->text ("italic",
+				    ly_scm2string (number), paper_l ()));
+	  num.align_to (X_AXIS, CENTER);
+	  num.translate_axis (w/2, X_AXIS);
+	  num.align_to (Y_AXIS, CENTER);
+	  num.translate_axis (dir * staff_space, Y_AXIS);
 	
-      num.translate_axis (dy/2, Y_AXIS);
-    
+	  num.translate_axis (dy/2, Y_AXIS);
+
+	  mol_p->add_molecule (num);
+	}
+      
       Real thick = paper_l ()->get_var ("tuplet_thick");
       if (bracket_visibility)      
 	{
 	  Real gap = paper_l () -> get_var ("tuplet_spanner_gap");
 	
-	  mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, interline, dir));
+	  mol_p->add_molecule (lookup_l ()->tuplet_bracket (dy, w, thick, gap, staff_space, dir));
 	}
 
-      if (number_visibility)
-	{
-	  mol_p->add_molecule (num);
-	}
-      mol_p->translate_axis (dir * interline, Y_AXIS);
+      mol_p->translate_axis (dir * staff_space, Y_AXIS);
     }
   return mol_p;
 }
@@ -140,7 +146,7 @@ Tuplet_spanner::do_post_processing ()
       if (!broken_b () 
 	  && spanned_drul_[LEFT]->column_l () == beam_l->spanned_drul_[LEFT]->column_l ()
 	  && spanned_drul_[RIGHT]->column_l () == beam_l->spanned_drul_[RIGHT]->column_l ())
-	parallel_beam_b_ = true;
+	set_elt_property ("parallel-beam", SCM_BOOL_T);
     }
 }
 

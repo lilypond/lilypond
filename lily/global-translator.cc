@@ -19,6 +19,9 @@ Global_translator::add_moment_to_process (Moment m)
 {
   if (m  > final_mom_)
     return;
+
+  if (m < now_mom_ )
+    programming_error ("Trying to freeze in time.");
   
   for (int i=0; i <  extra_mom_pq_.size(); i++)
     if (extra_mom_pq_[i] == m)

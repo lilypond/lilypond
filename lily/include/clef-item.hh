@@ -27,13 +27,9 @@ class Clef_item : public Item
 {
 protected:
   virtual void do_pre_processing();
-  virtual Molecule* do_brew_molecule_p() const;
   virtual void do_add_processing ();
 public:
-  String symbol_;
-
   VIRTUAL_COPY_CONS(Score_element);
-  Clef_item();
 };
 
 #endif // CLEFITEM_HH

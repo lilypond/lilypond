@@ -1,33 +1,11 @@
 \header {
-  filename =    "praeludium-fuga-E.ly";
-  title =       "praeludium and fuga in E-major";
-  opus =        "BWV 566";
-  composer =    "Johann Sebastian Bach (1685-1750)";
+  title =       "Trip";
   enteredby =   "JCN";
   copyright =   "public domain";
 }
-%{
-  description
-
-  Praeludium 3 bar excerpt,
-	2nd fuga transposed subject -- 4 bar excerpt. 
-        We try to imitate the Griepenkerl/Keller edition which
-	gives the best approximation to Bach's original layout
-%}
-%{
- Tested Features:
- purpose of this file is testing: 
-   * real-life collisions
-   * multi-voice input --- splitting?
-   * organ staff...
-%}
-
-\version "1.3.4";
 
 
-
-praeludium_commands = \notes {
-}
+% todo: clef ch .
 
 praeludiumRight =  \notes {
    \key e;
@@ -42,12 +20,6 @@ praeludiumRight =  \notes {
       a' ~ [a16 gis a b] \shifton dis,4 cis ~ |
       [cis8 dis16 ais] bis4 cis r8 b }
     \context Voice = IV \relative c'' {
-
-      %\stemup
-      %{
-      this is a diversion from the Griepenkerl/Keller
-       edition; a hack to avoid collisions
-      %}
       \stemdown
       \shifton s4 gis }
       
@@ -69,7 +41,12 @@ praeludiumLeft = \notes \relative c {
   \context Staff <
     \context Voice = two { r4 }
     \context Voice = one { \stemup s4 dis' cis cis ~ |
-      [cis8 ( a \translator Staff = treble  \stemdown \shifton d ) cis]
+      [cis8
+         (
+      a \translator Staff = treble  \stemdown \shifton d
+         )
+
+      cis]
       \translator Staff = bass 
       \shiftoff
       [bis gis] cis4 |
@@ -77,11 +54,14 @@ praeludiumLeft = \notes \relative c {
     \context Voice = one { \stemup bis2 }
     \context Voice = three {
     \property Voice.dynamicDirection  = \down
-    \stemup \shifton r4 gis ~ [gis8 \< gis] ~ \stemdown \shiftoff gis4 |
-      a4. fis8 \! gis4. a8 ~ |
-      a4 gis4 gis r8 gis }
-%    { \stemup \shifton s4 fis4 e}
-% a quick hack to avoid some collisons
+    \stemup \shifton r4 gis ~ [gis8
+      \<
+
+     gis] ~ \stemdown \shiftoff gis4 |
+     a4. fis8
+       \!
+     gis4. a8 ~ |
+     a4 gis4 gis r8 gis }
     \context Voice = four { \stemdown \shifton s4 fis4 e}
     \context Voice = two { \stemdown s4 dis4 cis4 }
   > |
@@ -90,13 +70,11 @@ praeludiumLeft = \notes \relative c {
 
 
 
-fugaII_commands = \notes{
-  \time3/4;
-}
 
 fugaIIRight = \notes   \relative c''   {
   \key e;              % E-major
   \clef violin;
+  \time3/4;
 
   %15
   \context Staff <
@@ -142,6 +120,8 @@ fugaIIRight = \notes   \relative c''   {
   %19
 }
 
+gracetest = \notes \grace { [c16 ( cis dis] }
+
 fugaIILeft = \notes {
   \key e;
   \clef bass;
@@ -149,7 +129,7 @@ fugaIILeft = \notes {
   %15
   \context Staff < 
     \context Voice = one { \stemdown
-    \grace { [c16 ( cis dis] }
+    \gracetest
     \relative b, < )b2 dis fis a b cis dis> \stemup ais4 |
       b2 b4 }
     \context Voice = two { \stemdown s2 e4 |
@@ -193,9 +173,12 @@ fugaIIPedal = \notes \relative c {
   %13
   r4 fis,4-\ltoe e4.-\lheel e'8-\rheel | 
   fis4.-\rtoe fis8-\rtoe fis4-\rtoe [e8-\ltoe a-\rtoe] | 
-  dis,4-\ltoe gis-\rtoe [cis,8-\ltoe( b!-\lheel ais-\rtoe gis-\ltoe ~ ] |
-  %16
- \notes { gis8  r4. )c2 }
+  dis,4-\ltoe gis-\rtoe [cis,8-\ltoe
+    (
+     b!-\lheel ais-\rtoe gis-\ltoe ~ ] |
+      gis8  r4.
+    )
+      c2 
  \time 3/4;
 
   \fugaIIPedal }

@@ -9,6 +9,7 @@
 
 #ifndef BREAK_HH
 #define BREAK_HH
+
 #include "array.hh"
 #include "interval.hh"
 #include "lily-proto.hh"
@@ -18,12 +19,9 @@
 /** Class representation of an algorithm which decides where to put
   the column, and where to break lines.
   
-  TODO:  A "parindent", caching of breakpoints
-  
   */
 class Break_algorithm {
 protected:
-
   Paper_score *pscore_l_;
   Real linewidth_f_;
 
@@ -49,9 +47,7 @@ protected:
   virtual void do_set_pscore();
 
 public:
-  
   Simple_spacer* (*get_line_spacer)();
-    
   Break_algorithm();
   void set_pscore (Paper_score*);
 

@@ -47,7 +47,7 @@ Note_name_engraver::do_process_requests ()
   if (s.length_i())
     {
       Text_item * t = new Text_item;
-      t->text_str_ = s;
+      t->set_elt_property ("text", ly_str02scm ( s.ch_C()));
       announce_element (Score_element_info (t, req_l_arr_[0]));
       texts_.push (t);
     }

@@ -84,7 +84,7 @@ Break_align_item::do_pre_processing()
   symbol_list  = gh_cdr (scm_reverse (symbol_list));
   for (int i=0; i <elems.size()-1; i++)
     {
-      String sym_str = ly_scm2string (gh_car  (symbol_list));
+      String sym_str = ly_symbol2string (gh_car  (symbol_list));
       elems[i]->set_elt_property (sym_str,
 				  scm_cons (gh_double2scm (0),
 					    gh_double2scm (dists[i+1])));

@@ -1,6 +1,6 @@
 
 $(outdir)/%.dvi: %.mf
-	$(METAFONT) $<
+	$(METAFONT) "\nonstopmode; input $<;"
 	gftodvi  $(basename $<)
 	mv   $(basename $<).dvi $(outdir)
 	rm $(basename $<).*gf
@@ -11,7 +11,7 @@ $(outdir)/%.log: %.mf
 	rm $(basename $< ).*gf
 
 $(outdir)/%.tfm: %.mf
-	$(METAFONT) "\mode:=$(MFMODE); input $<;"
+	$(METAFONT) "\mode:=$(MFMODE); nonstopmode; input $<;"
 	mv $(@F) $(outdir)
 	rm $(basename $<).*gf $(basename $<).*log
 

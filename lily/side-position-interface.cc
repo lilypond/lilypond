@@ -6,6 +6,7 @@
   (c) 1998--1999 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+#include <math.h>		// ceil.
 
 #include "side-position-interface.hh"
 #include "staff-symbol.hh"

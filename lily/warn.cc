@@ -17,6 +17,10 @@
 #include "input.hh"
 
 ostream &warnout (cerr);
-ostream *mlog (&cerr);
 
+void
+progress_indication (String s)
+{
+  cerr << s << flush;
+}
 

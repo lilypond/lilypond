@@ -6,7 +6,7 @@ c4 c2 c8  c16 c16  c1
 c4 c2 c8  c16 c16  c1
 \property Voice.noteHeadStyle = "cross"
 c4 c2 c8  c16 c16  c1
-\property Voice.noteHeadStyle = "harmonic"
+\property Voice.noteHeadStyle = "mensural"
 c4 c2 c8  c16 c16  c1
 
    \context Voice <
@@ -17,12 +17,16 @@ c4 c2 c8  c16 c16  c1
       { \property Thread.noteHeadStyle = "" a16  }
     
     \context Thread = TC
-      { \property Thread.noteHeadStyle = "harmonic" d16 }
+      { \property Thread.noteHeadStyle = "mensural" d16 }
     
   >
- \context Voice <\context Thread = TA { c4 c4 }
+
+  
+   \context Voice <\context Thread = TA {
+   \property Thread.noteHeadStyle = #'()
+   c4 c4 }
 \context Thread = TB {
-  \property Thread.noteHeadStyle = "harmonic"
+  \property Thread.noteHeadStyle = "mensural"
   c'4 \stemdown c
 } >
 

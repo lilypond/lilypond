@@ -1,6 +1,7 @@
 #!@PYTHON@
 
 # musedata = musedata.stanford.edu
+# musedata = COBOL for musicians.
 
 import re
 import sys

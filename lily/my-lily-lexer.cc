@@ -167,7 +167,7 @@ My_lily_lexer::LexerError (char const *s)
 {
   if (include_stack_.empty())
     {
-      *mlog << _f ("error at EOF: %s", s) << endl;
+      progress_indication (_f ("error at EOF: %s", s)+ String ("\n"));
     }
   else
     {
