@@ -10,7 +10,7 @@
 	  ((script-stencil . (feta . ("thumb"  . "thumb")))
 	   (direction . 1)))
 	 ("accent" .
-	  ((inside-slur . #t) 
+	  ((inside-slur . #f)
 	   (follow-into-staff . #t)
 	   (script-stencil . (feta . ("sforzato" .  "sforzato")))
 	   (side-relative-direction . -1)))	 
