@@ -81,6 +81,7 @@ http://www.zib.de/Visual/software/doc++/index.html
 
 	/*
 		C style comments for multiline comments.
+		They come before the thing to document.
 		[...]
 	*/
 
@@ -247,6 +248,7 @@ use no, or pick less silly, abbrvs.
 =item *
 
 use non-ambiguous postfixes C<identifier_name_type_modifier[_modifier]>
+
 =back
 
 Macros, C<enum>s and C<const>s are all uppercase,
