@@ -31,7 +31,7 @@ $(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
 
 MFTRACE_FORMATS = pfa pfb svg
 $(outdir)/%.pfb $(outdir)/%.svg $(outdir)/%.pfa: %.mf
-	$(MFTRACE) $(MFTRACE_FLAGS) -I $(outdir)/ --formats=pfa,pfb,svg $(basename $(@F))
+	$(MFTRACE) $(MFTRACE_FLAGS) --simplify -I $(outdir)/ --formats=pfa,pfb,svg $(basename $(@F))
 #	-mv $(MFTRACE_FORMATS:%=$(basename $(@F).%)) $(outdir)
 	-mv $(basename $(@F)).pfa $(outdir)
 	-mv $(basename $(@F)).pfb $(outdir)
