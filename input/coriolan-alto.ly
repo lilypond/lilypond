@@ -3,16 +3,17 @@
 % Opus 62
 % Ouverture zu Collins Trauerspiel "Coriolan"
 %
-% a 5 bar fragment of the alto part
+% a 5 \bar fragment of the alto part
 %
 % Copyright (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
 %
-% when lily can handle this, i-ll type the other 304 bars 
+% when lily can handle this, i-ll type the other 304 \bars 
 % (maybe even sooner :-)
 %
 
-alto = music { 
-	$
+alto = \music { 
+	
+		\meter {4/4} \grouping {4*4}
 	\duration{ 8 }
 	\key {bes es as}
 		
@@ -21,8 +22,8 @@ alto = music {
 	% that-s why i-d rather type chords, 
 	% but how to type slurs?
 %30     
-		{ 	
-		\music{ 
+	< 	
+		{ 
 			[ c c-. ] c2.( | 
 %31
 			[ ) c c-. ] c2.( | 
@@ -32,10 +33,10 @@ alto = music {
 			[ ) c c-. ] c4. c-. c4 
 		}
 %30:2
-	  	\music{ 
+	  	{ 
 			\octave{ ` }
 			\textstyle "italic"
-			% this should be a dynamic, rather than text
+			% this should be a \dynamic, rather than text
 	  		[ c c_"cresc. \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
 				- \ \ \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
 				- \ \ \ \ - \ \ \ \ - \ \ \ \ - \ \ \ \
@@ -49,34 +50,32 @@ alto = music {
 			[ ) c c-. ] c4. c-. c4 |
 			\octave{ }
 	  	}
-	}
 %34
-	% these are two voices (i.e. divisi)
+	>
+	% these are two \voices (i.e. divisi)
 	% the c4 and c2, however are really 16th...
 	% e.g.: c16*4 and c16*8  or
 	%       [ c4 c2 ]*16 ?
 	% we-ll say "simile" for now...
 	% 
-		{ \multivoice
-		\music{ \stem{ 1 }[ c16^"div." c16 c16 c16 ] c4 c2 }
-	  	\music  { 
+		< \multivoice
+		{ \stem{ 1 }[ c16^"div." c16 c16 c16 ] c4 c2 }
+	  	  { 
 			\octave{ ` }
 			\textstyle "italic"
 			\stem{ -1 } [ as16_"\ff" as16 as16 as16 ] as4_"simile" as2
 			\textstyle "roman"
 		}
-	}
-	$
+	>
+	
 }
 
-score {
-	staff { melodic music { alto }}
+\score {
+	\staff { \melodic \music { alto }}
 
-	commands { 
-		meter {4*4} grouping {4*4}
-	}
-	paper { 
-		unitspace 14mm
-		geometric 1.4
+	
+	\paper { 
+		\unitspace 14\mm
+		\geometric 1.4
 	}
 }

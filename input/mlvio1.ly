@@ -11,8 +11,8 @@
 % The purpose of this file is to demonstrate features of LilyPond;
 % respect the copyright.
 %
-violin1 = music { 
-	$
+violinI = \music { 
+	
 	\clef "violin"
 	\octave{}
 	\duration{4}
@@ -22,7 +22,7 @@ violin1 = music {
 %2
 	g2 |
 %3
-	g [ a16 b16 'c16 a16 ] |
+	g [ a16 b16 c'16 a16 ] |
 %4
 	g2 |
 %5=1
@@ -40,13 +40,13 @@ violin1 = music {
 %11=4
 	e d |
 %12
-	[ fis8 a8 ] [ g8 'd8 ] |
+	[ fis8 a8 ] [ g8 d'8 ] |
 %13
-	[ 'd8 a8 ] [ 'd8 b8 ] |
+	[ d'8 a8 ] [ d'8 b8 ] |
 %14=10
 	a b |
 %15
-	'c b |
+	c' b |
 %16
 	\textstyle "italic"
 	a g_"fine"
@@ -57,7 +57,7 @@ violin1 = music {
 %18=2
 	g2 |
 %19=3
-	g [ a16 b16 'c16 a16 ] |
+	g [ a16 b16 c'16 a16 ] |
 %20=4
 	g2 |
 %21=5
@@ -67,41 +67,41 @@ violin1 = music {
 %23=4
 	e [ d16 c16 `b16 c16 ] |
 %24
-	cis 'cis |
+	cis cis' |
 %25
-	'd [ 'fis8. 'e16 ] |
+	d' [ fis'8. e'16 ] |
 %first modulation
 %26
-	'd 'c |
+	d' c' |
 %27
 	b a |
 %28
-	[ a8 b16 'cis16 ] 'd |
+	[ a8 b16 cis'16 ] d' |
 %29
-	'cis 'd |
+	cis' d' |
 %30
-	'cis a |
+	cis' a |
 %31
-	[ g8 'd8( ] ) 'd |
+	[ g8 d'8( ] ) d' |
 %32
-	'cis 'c |
-%variant 'a
+	cis' c' |
+%variant a'
 %33
-	\duration{16} [ b8 'd 'd ] [ 'd8 'd 'd ] |
+	\duration{16} [ b8 d' d' ] [ d'8 d' d' ] |
 %34
-	[ 'g8 'd 'd ] b4 |
+	[ g'8 d' d' ] b4 |
 %35
-	[ 'c8 'c 'c ] [ 'c8 'c 'c ] |
+	[ c'8 c' c' ] [ c'8 c' c' ] |
 %36
 	b2 |
 %37
-	[ 'c8 'e 'e ] [ 'e8 'd 'c ] |
+	[ c'8 e' e' ] [ e'8 d' c' ] |
 %38
-	[ b8 'd 'd ] [ 'd8 'd 'd ] |
+	[ b8 d' d' ] [ d'8 d' d' ] |
 %39
-	[ 'e8 'c 'c ] [ 'c8 'd 'c ] |
+	[ e'8 c' c' ] [ c'8 d' c' ] |
 %40
-	'c4 { b4 'd4 } |
+	c'4 < b4 d'4 > |
 %41
 	\textstyle "italic"
 	\duration{8}
@@ -110,17 +110,17 @@ violin1 = music {
 %42
 	r d e4 |
 %43
-	r b r 'd |
+	r b r d' |
 %44
-	r 'e 'c4 |
+	r e' c'4 |
 %45
 	r b r b |
 %46
 	r b [ a b ] |
 %47
-	r b r 'c |
+	r b r c' |
 %48
-	r 'd [ 'd b ] |
+	r d' [ d' b ] |
 %theme 2
 %49
 	\textstyle "italic"
@@ -131,7 +131,7 @@ violin1 = music {
 %51
 	b2 |
 %52
-	'c2 |
+	c'2 |
 %53
 	r4  [ b b b ]2/3  |
 %54
@@ -144,18 +144,18 @@ violin1 = music {
 %57
 	f r f r |
 %58
-	es r 'c r |
+	es r c' r |
 %59
 	b r b r |
 %60
-	'c r 'c4 |
+	c' r c'4 |
 %61
 	\duration{16}
-	 [ as f d f as 'd ]4/6   [ as f d `as d f ]4/6  |
+	 [ as f d f as d' ]4/6   [ as f d `as d f ]4/6  |
 %62
-	 [ g es c `g c es ]4/6   [ g 'c 'es 'c g es ]4/6  |
+	 [ g es c `g c es ]4/6   [ g c' es' c' g es ]4/6  |
 %63
-	 [ g d g bes 'd 'g ]4/6   [ 'f 'd bes g f d ]4/6  |
+	 [ g d g bes d' g' ]4/6   [ f' d' bes g f d ]4/6  |
 %64
 	\duration{8}
 	[ c g ] g4 |
@@ -169,42 +169,42 @@ violin1 = music {
 %68
 	[ b8 b  b ] b4.  |
 %69
-	[ 'c g es ] 'c4.  |
+	[ c' g es ] c'4.  |
 %70
-	'c4. 'es4.  |
+	c'4. es'4.  |
 %71
-	[ 'f 'd b ] [ g a8 b ] |
+	[ f' d' b ] [ g a8 b ] |
 %72
-	'c r4 r4. |
+	c' r4 r4. |
 % \meter{2/4} ||
 %73
 	f r f r |
 %74
-	es r 'c r |
+	es r c' r |
 %75
 	b r b r |
 %76
-	'c r 'c4 |
+	c' r c'4 |
 %77
 	\duration{16}
-	 [ as f d f as 'd ]4/6   [ as f d `as d f ]4/6  |
+	 [ as f d f as d' ]4/6   [ as f d `as d f ]4/6  |
 %78
-	 [ g es c `g c es ]4/6   [ f 'c 'es 'c g es ]4/6  |
+	 [ g es c `g c es ]4/6   [ f c' es' c' g es ]4/6  |
 %79
-	 [ g d f b 'd 'g ]4/6   [ 'f 'd b g f d ]4/6  |
+	 [ g d f b d' g' ]4/6   [ f' d' b g f d ]4/6  |
 %80
 	[ c8 g8 ] g4 |
 %81
 	\duration{2}
-	'c |
+	c' |
 %82
-	'c |
+	c' |
 %83
-	'des |
+	des' |
 %84
-	'c |
+	c' |
 %85
-	'c |
+	c' |
 %86
 	es |
 %87
@@ -215,5 +215,5 @@ violin1 = music {
 	\textstyle "roman"
 	\key{fis} |
 % \key\G ||
-	$
+	
 }
