@@ -44,12 +44,6 @@ Voice_devnull_engraver::try_music (Music *m)
 {
   SCM s = get_property ("devNullVoice");
 
-#if 0
-  /* No need */
-  if (gh_equal_p (s, ly_symbol2scm ("never")))
-    return;
-#endif
-
   if (gh_equal_p (s, ly_symbol2scm ("always"))
       || (s == SCM_EOL
 	  && daddy_trans_->id_string_.left_string (3) == "two"
@@ -92,30 +86,16 @@ void
 Voice_devnull_engraver::acknowledge_grob (Grob_info i)
 {
   SCM s = get_property ("devNullVoice");
-#if 0
-  /* No need, next if will never be true */
-  if (s == ly_symbol2scm ("never"))
-    return;
-#endif
 
-#if 0  /* We used to have have this until 1.5.68.  Not sure about
-	  soloADue requirement */
   if (s == ly_symbol2scm ("always")
       || (s == SCM_EOL
-	  && daddy_trans_->id_string_.left_string (3) == "two"
-	  && (to_boolean (get_property ("unison"))
-	      || to_boolean (get_property ("unisilence")))))
-#else
-    if (s == ly_symbol2scm ("always")
-	|| (s == SCM_EOL
-	    && to_boolean (get_property ("soloADue"))
-	    && ((daddy_trans_->id_string_.left_string (3) == "two"
-		 && (to_boolean (get_property ("unison"))
-		     || to_boolean (get_property ("unisilence"))))
+	  && to_boolean (get_property ("soloADue"))
+	  && ((daddy_trans_->id_string_.left_string (3) == "two"
+	       && (to_boolean (get_property ("unison"))
+		   || to_boolean (get_property ("unisilence"))))
 		
-		/* Maybe this should be optional? */
+	      /* Maybe this should be optional? */
 	      || to_boolean (get_property ("othersolo")))))
-#endif
     
     for (char const **p = junk_interfaces; *p; p++)
       if (i.grob_->internal_has_interface (ly_symbol2scm (*p)))

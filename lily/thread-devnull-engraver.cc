@@ -27,12 +27,6 @@ Thread_devnull_engraver::acknowledge_grob (Grob_info i)
 {
   SCM s = get_property ("devNullThread");
 
-#if 0
-  /* No need, next if will never be true */
-  if (s == ly_symbol2scm ("never"))
-    return;
-#endif
-
   if (s == ly_symbol2scm ("always")
       || (s == SCM_EOL
 	  && to_boolean (get_property ("soloADue"))

@@ -90,7 +90,7 @@ public:
    */
   static SCM get_static_get_iterator (Music * mus);
   void init_translator (Music  *, Translator_group *); 
-void quit ();
+  void quit ();
 
   
   virtual Moment pending_moment () const;
