@@ -1,3 +1,10 @@
+2004-08-11  Heikki Junes  <hjunes@cc.hut.fi>
+
+	* Documentation/user/notation.itely,
+	Documentation/topdocs/NEWS.texi, input/test/ambitus-mixed.ly,
+	input/test/ambitus-mixed.ly: fix plurals:
+	english: ambit, pl. ambits; latin: ambitus, pl. ambitus.
+
 2004-08-11  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* lily/dynamic-engraver.cc (typeset_all):

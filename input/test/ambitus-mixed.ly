@@ -1,7 +1,7 @@
 
 \header {
 
-    texidoc = "Ambituses can be added per voice. In that case, the
+    texidoc = "Ambits can be added per voice. In that case, the
 ambitus must be moved manually to prevent collisions."
 
 }

@@ -4026,13 +4026,13 @@ Program reference: Layout objects @internalsref{LyricText} and
 
 The term @emph{ambitus} denotes a range of pitches for a given voice
 in a part of music.  It also may denote the pitch range that a musical
-instrument is capable of playing.  Ambituses are printed on vocal
+instrument is capable of playing.  Ambits are printed on vocal
 parts, so singers can easily determine if it meets his or her
 capabilities.
 
 It denoted at the beginning of a piece near the initial clef.  The
 range is graphically specified by two note heads, that represent the
-minimum and maximum pitch.  To print such ambituses, add the
+minimum and maximum pitch.  To print such ambits, add the
 @internalsref{Ambitus_engraver} to the @internalsref{Voice} context,
 for example,
 
