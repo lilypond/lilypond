@@ -800,21 +800,23 @@ class Chunk:
 		return 0
 
 class Substring (Chunk):
-	def __init__ (self, source, start, end):
+	def __init__ (self, source, start, end, line_number):
 		self.source = source
 		self.start = start
 		self.end = end
+		self.line_number = line_number
 
 	def replacement_text (self):
 		return self.source[self.start:self.end]
 
 class Snippet (Chunk):
-	def __init__ (self, type, match, format):
+	def __init__ (self, type, match, format, line_number):
 		self.type = type
 		self.match = match
 		self.hash = 0
 		self.options = []
 		self.format = format
+		self.line_number = line_number
 
 	def replacement_text (self):
 		return self.match.group ('match')
@@ -837,8 +839,8 @@ class Include_snippet (Snippet):
 		return re.sub (f, self.processed_filename (), s)
 
 class Lilypond_snippet (Snippet):
-	def __init__ (self, type, match, format):
-		Snippet.__init__ (self, type, match, format)
+	def __init__ (self, type, match, format, line_number):
+		Snippet.__init__ (self, type, match, format, line_number)
 		os = match.group ('options')
 		if os:
 			self.options = split_options (os)
@@ -1033,6 +1035,22 @@ snippet_type_to_class = {
 	'include': Include_snippet,
 }
 
+def find_linestarts (s):
+	nls = [0]
+	start = 0
+	end = len (s)
+	while 1:
+		i = s.find ('\n', start)
+		if i < 0:
+			break
+
+		i = i + 1 
+		nls.append (i)
+		start = i
+
+	nls.append (len (s))
+	return nls
+
 def find_toplevel_snippets (s, types):
 	res = {}
 	for i in types:
@@ -1047,6 +1065,8 @@ def find_toplevel_snippets (s, types):
 	map (lambda x, f = found: f.setdefault (x, None),
 	     types)
 
+	line_starts = find_linestarts (s)
+	line_start_idx = 0
 	# We want to search for multiple regexes, without searching
 	# the string multiple times for one regex.
 	# Hence, we use earlier results to limit the string portion
@@ -1067,7 +1087,13 @@ def find_toplevel_snippets (s, types):
 				cl = Snippet
 				if snippet_type_to_class.has_key (type):
 					cl = snippet_type_to_class[type]
-				snip = cl (type, m, format)
+
+				line_number = line_start_idx
+				while (line_starts[line_number] < index):
+					line_number += 1
+
+				line_number ++
+				snip = cl (type, m, format, line_number)
 				start = index + m.start ('match')
 				found[type] = (start, snip)
 
@@ -1089,11 +1115,14 @@ def find_toplevel_snippets (s, types):
 				endex = found[first][0]
 
 		if not first:
-			snippets.append (Substring (s, index, len (s)))
+			snippets.append (Substring (s, index, len (s), line_start_idx))
 			break
 
+		while (start > line_starts[line_start_idx+1]):
+			line_start_idx += 1
+		
 		(start, snip) = found[first]
-		snippets.append (Substring (s, index, start))
+		snippets.append (Substring (s, index, start, line_start_idx + 1))
 		snippets.append (snip)
 		found[first] = None
 		index = start + len (snip.match.group ('match'))
@@ -1163,12 +1192,12 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
 	# it is too generic for lilypond-book.
 	if texstr_names and re.search ('^[0-9A-Za-z/]*lilypond', cmd):
 
-		my_system (string.join ([cmd + ' --backend texstr ' ] + texstr_names))
+		my_system (string.join ([cmd,'--backend texstr', 'snippet-map.ly'] + texstr_names))
 		for l in texstr_names:
 			my_system ('latex %s.texstr' % l)
 
 	if ly_names:
-		my_system (string.join ([cmd] + ly_names))
+		my_system (string.join ([cmd, 'snippet-map.ly'] + ly_names))
 
 LATEX_DOCUMENT = r'''
 %(preamble)s
@@ -1227,7 +1256,22 @@ format2ext = {
 class Compile_error:
 	pass
 
-def do_process_cmd (chunks):
+def write_file_map (lys, name):
+	snippet_map = open ('snippet-map.ly', 'w')
+	snippet_map.write ("\n#(ly:add-file-name-alist '(")
+	for ly in lys:
+		snippet_map.write ('("%s" . "%s:%d (%s.ly)")\n' % (ly.basename(),
+					   name,
+					   ly.line_number,
+					   ly.basename()))
+
+	snippet_map.write ('))\n')
+
+def do_process_cmd (chunks, input_name):
+	all_lys = filter(lambda x: is_derived_class (x.__class__, Lilypond_snippet),
+			 chunks)
+	
+	write_file_map (all_lys, input_name)
 	ly_outdated = \
 	  filter (lambda x: is_derived_class (x.__class__,
 					      Lilypond_snippet)
@@ -1361,7 +1405,7 @@ def do_file (input_filename):
 						 for c in chunks])
 
 		elif process_cmd:
-			do_process_cmd (chunks)
+			do_process_cmd (chunks, input_fullname)
 			ly.progress (_ ("Compiling %s...") % output_filename)
 			output_file.writelines ([s.replacement_text () \
 						 for s in chunks])

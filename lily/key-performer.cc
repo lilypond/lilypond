@@ -90,10 +90,11 @@ Key_performer::try_music (Music *ev)
 {
   if (Event *kc = dynamic_cast<Event *> (ev))
     {
-      if (key_ev_)
-	warning (_ ("FIXME: key change merge"));
-
-      key_ev_ = kc;
+      if (!key_ev_)
+	{
+	  key_ev_ = kc;
+	}
+      
       return true;
     }
 
