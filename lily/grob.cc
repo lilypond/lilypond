@@ -833,6 +833,8 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "staff-symbol interfaces dependencies X-extent Y-extent extra-X-extent "
 	       "meta layer before-line-breaking-callback "
 	       "after-line-breaking-callback extra-Y-extent minimum-X-extent "
-	       "minimum-Y-extent transparent");
+	       // FIXME: page-penalty?
+	       "minimum-Y-extent page-penalty transparent "
+	       );
 
 
