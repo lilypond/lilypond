@@ -141,7 +141,7 @@ prebuild () {
     # set LDFLAGS to find the python library
     # EXTRABUILDARGS="LDFLAGS=$cygwin_root/usr/bin/libpython2.3.dll"
 
-    addmakeflags LDFLAGS="$cygwin_root/usr/bin/libpython2.3.dll" ' ' "target=i686-pc-cygwin" ' '
+    addmakeflags LDFLAGS="$cygwin_root/usr/bin/libpython2.4.dll" ' ' "target=i686-pc-cygwin" ' '
 
     if iscygwin; then
 	# EXTRABUILDARGS="$EXTRABUILDARGS all doc web"
