@@ -109,7 +109,17 @@ Paper_outputter::output_molecule (Molecule const*m, Offset o, char const *nm)
       if (!i->func_)
 	continue; 
 
-      assert (a_off.length () < 100 CM);
+      if (a_off.length () > 100 CM)
+	{
+	  warning (_f("Improbable dimension for object type `%s\'", nm));
+	  Axis a  =X_AXIS;
+	  while (a < NO_AXES)
+	    {
+	      if (abs(a_off[a]) > 50 CM)
+		a_off[a] = 50 CM;
+	      incr (a);
+	    }
+	}
 	
       if (i->font_)
 	{
