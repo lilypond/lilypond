@@ -1,3 +1,8 @@
+2002-11-16  Heikki Junes <hjunes@cc.hut.fi>
+
+	* Documentation/topdocs/INSTALL.texi: advise how to include source
+	path to Emacs load-path and improve language.
+
 2002-11-16  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* GNUmakefile.in: config.h message fix.
