@@ -221,7 +221,7 @@ String_convert::double_str (double f, char const* fmt)
 }
 
 /**
-  Make a string from a single character.
+Make a string from a single character.
 
   @param
   #n# is a repetition count, default value is 1
@@ -261,3 +261,41 @@ String_convert::pointer_str (void const *l)
   snprintf (buffer, STRING_BUFFER_LEN, "%p", l);     // assume radix 10
   return String (buffer);
 }
+
+/**
+  Convert a double to a string.
+
+  @param
+  #n# is the number of nonzero digits
+ */
+String
+String_convert::precision_str (double x, int n)
+{
+  String format = "%." + String (0 >? n - 1) + "e";
+  String str = double_str (abs (x), format.ch_C ());
+
+  int exp = str.right_str (3).value_i ();
+  str = str.left_str (str.len () - 4);
+
+  while (str[str.len () - 1] == '0')
+    str = str.left_str (str.len () - 1);
+  if (str[str.len () - 1] == '.')
+    str = str.left_str (str.len () - 1);
+
+  if (exp == 0)
+    return (sign (x) > 0 ? str : "-" + str);
+
+  str = str.left_str (1) + str.cut (2, INT_MAX);
+  int dot = 1 + exp;
+  if (dot <= 0)
+    str = "0." + String ('0', -dot) + str;
+  else if (dot >= str.len ())
+    str += String ('0', dot - str.len ());
+  else if (( dot > 0) && (dot < str.len ()))
+    str = str.left_str (dot) + '.' + str.cut (dot, INT_MAX);
+  else
+    assert (0);
+
+  return (sign (x) > 0 ? str : "-" + str);
+}
+

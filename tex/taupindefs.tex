@@ -129,3 +129,17 @@
 %         \musicfnt\char\count0}}
 
 
+
+\def\beamslope#1#2{{\count0=#2\advance\count0 by#1
+        \advance\count0by128
+        {\vetfont\char\count0}}}
+
+\def\slurcharh#1{{\slurhfont\char#1}}
+\def\slurcharu#1{{\slurufont\char#1}}
+\def\slurchard#1{{\slurdfont\char#1}}
+\def\hslurcharh#1{{\hslurhfont\char#1}}
+\def\hslurcharu#1{{\hslurufont\char#1}}
+\def\hslurchard#1{{\hslurdfont\char#1}}
+\def\brace#1{\count0=148\advance\count0 by #1\musicdraw\char\count0}
+\def\crescendosym#1{\count0=84\advance\count0 by #1\musicdraw\char\count0}
+\def\decrescendosym#1{\count0=116\advance\count0 by #1\musicdraw\char\count0}

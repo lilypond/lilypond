@@ -1,15 +1,19 @@
-#!/bin/bash -e
+#!/bin/sh
 #
 # postrm script for the Debian GNU/Linux lilypond package
 #   by Anthony Fok <foka@debian.org>
 #   This is free software; see the GNU General Public Licence
 #   version 2 or later for copying conditions.  There is NO warranty.
-#   Last modified:  Mon, 10 Nov 1997 22:44:37 -0700
+#   Last modified:  Mon,  5 Jan 1998 18:38:11 -0700
+
+set -e
 
 package=lilypond
 font_supplier=public
 font_typeface=lilypond
 std_TEXMF=/usr/lib/texmf
+
+#DEBHELPER#
 
 if [ "`which kpsetool`" ]; then
     TEXMF=`kpsetool -v '$TEXMF'`

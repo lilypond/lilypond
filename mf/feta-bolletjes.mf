@@ -56,7 +56,10 @@ def draw_brevis(expr brevwid) =
 		-- z4l -- z4r -- z3r{left} .. z2r{up} -- cycle;
 
 	addto currentpicture also currentpicture yscaled -1;
-	addto currentpicture also currentpicture reflectedabout(z4r, z4l);
+	show z4r; show z4l;
+	addto currentpicture also currentpicture 
+		shifted (-x4r,0) xscaled -1 shifted (x4l,0);
+
 enddef;
 
 save uitsteek;

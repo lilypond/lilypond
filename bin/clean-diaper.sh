@@ -8,8 +8,8 @@ rm -vf `grep -li "%Creator: dvipsk" *.ps`
 rm -vf `grep -li "Creator: GNU LilyPond" *.midi`
 rm -vf `grep -li "Creator: ly2dvi" *.tex`
 rm -vf `find -name 'core'`
-rm -vf `find -name *.orig`
-rm -vf `find -name *.rej`
+rm -vf `find -name '*.orig'`
+rm -vf `find -name '*.rej'`
 
     
 # docxx mess

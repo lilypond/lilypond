@@ -15,36 +15,12 @@ import regsub
 import os
 import sys
 import time
+from flower import *
 
 begin_autometric_re = regex.compile('@{')
 end_autometric_re = regex.compile('@}')
 autometric_re = regex.compile('@{\(.*\)@}')
-version = '0.4'
-
-class File:
-    """silly wrapper for Python file object."""
-    def __init__(self,nm, mode='r'):
-	if nm:
-	    self.file_ = open(nm, mode);
-	elif mode == 'w':
-	    self.file_ = sys.stdout
-	else:
-	    self.file_ = sys.stdin
-	    
-	self.eof_ = 0;
-    def readline(self):
-    	l=  self.file_.readline();
-	if not l:
-	    self.eof_ = 1;
-	return l;
-    def write(self, str):
-    	self.file_.write(str)
-    def eof(self):
-	return self.eof_
-    def close(self):
-    	self.file_.close()
-    def __del__(self):
-    	self.close();
+version = '0.5'
 
 class Feta_file(File):
     """Read Feta metrics from a metafont log-file."""
@@ -181,8 +157,8 @@ class Log_reader:
 	self.texfile = Indentable_file(texfile_nm, 'w')
 
 
-	headerstr = '%% Creator: %s\n%% Automatically generated on %s\n%% Do not edit' % \
-		   (program_id(), today_str())
+	headerstr = '%% Creator: %s\n%% Automatically generated on\n%% Do not edit' % \
+		   (program_id() )
 
 	self.lyfile.write(headerstr)
 	self.texfile.write(headerstr)

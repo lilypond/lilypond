@@ -43,8 +43,6 @@ enddef;
 def hround_pixels(expr sharped) = hround(sharped * hppp) enddef;
 def vround_pixels(expr sharped) = vround(sharped * vppp) enddef;
 
-
-
 def tand(expr alpha) = 
 	(sind alpha/cosd alpha)
 	enddef;

@@ -4,7 +4,8 @@ FAQ - GNU LilyPond FAQs
 
 =head1 DESCRIPTION
 
-Some questions that have been answered before.
+Some questions that have been answered before. (note: relative paths
+are meant to be relative to the source directory)
 
 =head2 Installing
 
@@ -21,7 +22,8 @@ Q: Some of your neat scripts fail, what directories do you use:
 
 A: [This only applies if you don't do C<make install>, and develop out
 of the source directory]
-	
+I have a directory which contains all music related stuff,
+
 	~/something/
 
 which contains:
@@ -29,10 +31,14 @@ which contains:
 	  lilypond/	# the directory as unpacked from the tarball
 	  releases/	# directory for .tar.gz releases
 	  patches/	# directory for patches between different releases
-	  test/
+	  test/		# create tarballs and do diffs from this directory
 	
 ~/something/lilypond/bin is in the PATH, and contains symlinks to the
-compiled executables.
+compiled executables.  For some of the scripts to work, you have to set
+
+	LILYPOND_SOURCEDIR=/home/myself/something/lilypond
+
+in the environment.
 
 If you don't use patches, you'd probably want to symlink
 
@@ -50,7 +56,7 @@ We're not sure on leaving out this feature. If you think this is a
 good idea, please let us know.
 
 Be warned we will I<not> allow you to leave out the C<#> if the note
-already has an accidental. We won't allow
+already has an accidental, or if the key has a C-sharp. We won't allow
 
 	c# c	% no way! 
 
@@ -126,6 +132,52 @@ specify
 
 	a()a()a
 
+
+Q: I want to insert some TeX commands
+
+A: You shouldn't: it's against LilyPond philosophy to have typesetting
+commands in the mudela source. Moreover, this would be difficult. The
+manner in which Request (the basic building blocks of mudela) are
+translated into printable items is complex: it is not always possible
+to associate one Request with one Item or Spanner.
+
+As a further notice, we want to move away from TeX (and perhaps
+output PostScript or render to an X window too), so  using TeX will
+make sources non-portable at some time.
+
+=head2 Do you support ...
+
+Q: Do you support pop songs (chords, single staff, lyrics)?
+
+A: Yes, see the F<twinkle-pop> example.
+
+Q: Do you support guitar chord diagrams?
+
+A: No, not yet. We ourselves don't play guitar, and don't know the
+fine points of this notation.  We would welcome anyone who could give
+this a try.
+
+Q: Do you support TAB notation?
+
+A: No. The same as for the previous question goes, but TAB is a lot
+more work than diagrams (TAB needs modification of Parser, Lexer,
+Staff, Notehead, Stem code and all the code that creates these graphic
+elements.)
+
+Q: Do you support multiple staff-sizes?
+
+A: Yes and no.  At this time you can choose between 16 or 20 pt
+staff-size (you can have other sizes, but you need to tinker with the
+fonts to get those).  The sizes can't be changed per staff (yet).
+Look at F<standchen.ly> for an example.
+
+
+=head2 How do I ....
+
+Q: How do I change the TeX layout?
+
+A: See F<lilyponddefs.tex>, it has some comments.
+
 Q: How do I place lyrics under I<each> of the staves in a score, as in
 choral music. I can work out how to put lyrics for each line all under
 the top line, or at the bottom but not between!
@@ -145,42 +197,17 @@ staff/lyricline
 	}
 
 
+Q: How do I put more than one marking on a note.
 
+A: You can stack them 
 
-Q: I want to insert some TeX commands
+	c4^"a"^"b"
 
-A: You shouldn't: it's against LilyPond philosophy to have typesetting
-commands in the mudela source. Moreover, this would be difficult. The
-manner in which Request (the basic building blocks of mudela) are
-translated into printable items is complex: it is not always possible
-to associate one Request with one Item or Spanner.
+or use spacing-notes to put markings at different horizontal positions 
 
-As a further notice, we want to move away from TeX (and perhaps
-output PostScript or render to an X window too), so  using TeX will
-make sources non-portable at some time.
-
-=head2 Miscellaneous
-
-Q: Do you support pop songs (chords, single staff, lyrics)?
-
-A: Yes, see the F<twinkle-pop> example
-
-Q: Do you support guitar chord diagrams?
-
-A: No, not yet. We ourselves don't play guitar, and don't know the
-fine points of this notation.  We would welcome anyone who could give
-this a try.
-
-Q: Do you support TAB notation
-
-A: No. The same as for the previous question goes, but TAB is a lot
-more work than diagrams (TAB needs modification of Parser, Lexer,
-Staff, Notehead, Stem code and all the code that creates these graphic
-elements.)
-
-Q: How do I change the TeX layout?
-
-A: See F<lilyponddefs.tex>, it has some comments.
+	< c1
+	  { s4\ff s4^"text" s4-\marcato s4 }
+	>
 
 
 
@@ -220,6 +247,17 @@ A: Your best bet of getting me to include code, is to present it as a
 "fait accompli", ie., to send me a patch.
 
 
+Q: I made some code, how do I get you to include it?
+
+A: Send in a patch:
+
+	diff -urN old-file new-file > patch
+
+or 
+
+	diff -urN old-directory/ new-directory/ > patch 
+
+Alternatively, you can use bin/make-patch.py
 
 Q: How do I learn the C++ code?
 
@@ -258,7 +296,23 @@ saves us a I<lot> of trouble.
 
 =head2 Running
 
-Q: I don't get midi-output, even if I use B<-M>
+Q: There are lots of warning messages for the printing, all
+beginning with: 
+
+	dvilj4l: warning: Invalid keyword or value in \special -
+
+A: You should use dvips and ghostscript to print it: the slurs and
+beams are PS C<\special> commands
+
+
+Q: My symbols are all messed up after I upgraded, and I get
+dvi-checksum errors!
+
+A: We mucked with the fonts in the upgrade.  Remove I<all> previous
+fonts, including the .pk and .tfm fonts in F</var/lib/texmf>.  A
+script automating this has been included, see F<bin/clean-fonts.sh>
+
+Q: I don't get midi-output, even if I use B<-M>!
 
 A: Your \score should include a \midi block, eg.
 

@@ -1,16 +1,20 @@
-%	 "This file is a stub to fool make-website"
-
 \header{
 title= "The Feta font";
 subtitle = "proofsheet"; 
 enteredby =	 "jcn";
 copyright =	 "public domain";
-description = "This file tests the Feta music-font";
+description = "This file tests the Feta music-font in the 20pt version";
 TestedFeatures =	 
 	 "(Feta definitively is not an abbreviation of Font-En-TjA)";
 }
 
-
-
-
-
+\include "paper20.ly"
+\include "font-body.ly"
+\score{
+	\FontBody
+	\paper{
+	    \paper_twenty
+	    linewidth = 17.5 \cm;
+	    gourlay_maxmeasures =5.;
+	}
+	}

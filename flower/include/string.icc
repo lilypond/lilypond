@@ -1,0 +1,35 @@
+/*   
+  string.icc -- implement String inlines
+  
+  source file of the Flower Library
+  
+  (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+  
+ */
+
+#ifndef STRING_ICC
+#define STRING_ICC
+
+
+INLINE 
+char &
+String::operator [](int n)
+{
+  return (char &) strh_[n]; 
+}
+
+INLINE 
+char 
+String::operator [](int n) const
+{
+  return strh_[n]; 
+}
+
+INLINE 
+String::String () 
+{
+}
+
+
+
+#endif /* STRING_ICC */

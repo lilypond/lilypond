@@ -1,6 +1,13 @@
 Document Really Ugly Bugs (coredumps, assert fails, etc)
 
 
+[GNU libc]
+
+The GNU extension memmem() is known to be buggy on linux libc 5.0.9
+and before. Glibc upto 2.0.5 also has problems with memmem (), but
+these should not affect LilyPond.
+
+
 [Linux Intel]
 
 LilyPond occasionally crashes while parsing the initialisation files.

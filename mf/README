@@ -34,7 +34,8 @@ Staffsize	Numbers		Name
 
 This table is partially taken from [Ross].  Most music is set in No.3,
 but the papersizes usually are bigger than standard printer paper
-(such as A4).
+(such as A4).  If you plot these, you'll notice that the sizes (With
+exception of 26) almost (but not quite) form a arithmetic progression.
 
 [Ross] states that the dies (the stamps to make the symbols) come in
 12 different sizes.

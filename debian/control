@@ -1,5 +1,5 @@
 Source: lilypond
-Section: contrib/tex
+Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
 Standards-Version: 2.3.0.1
@@ -7,15 +7,13 @@ Standards-Version: 2.3.0.1
 Package: lilypond
 Architecture: any
 Depends: ${shlibs:Depends}
-Recommends: tetex-base, musixtex | musixtex-fonts
+Recommends: tetex-base
+Conflicts: musixtex-fonts
 Description: A music typesetting program.
  GNU LilyPond is a program which converts a music-script (mudela) into TeX
  output, or MIDI to produce multi-staff scores. Features include multiple
  meters, clefs, keys, lyrics, versatile input-language, cadenzas beams,
  slurs, triplets, multiple voices.
- .
- Note: LilyPond uses the fonts from MusiXTeX.  Please install the package
-       musixtex or musixtex-fonts when you install lilypond.
  .
   URL: http://www.stack.nl/~hanwen/lilypond/
   Authors: Han-Wen Nienhuys <hanwen@stack.nl>

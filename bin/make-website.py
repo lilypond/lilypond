@@ -13,13 +13,24 @@
  The WWW site is my test-suite for LilyPond, I usually don't
  distribute versions that fail to complete this script """
 
+import sys
+import os
+
+lilypath =''
+try:
+    lilypath = os.environ['LILYPOND_SOURCEDIR'] + '/'
+except IndexError:
+    lilypath = os.environ['HOME'] + 'musix/current'
+lilypath = lilypath + '/bin/'
+sys.path.append(lilypath)
+ 
 from lilypython import *
 import __main__
 import glob
 
 depth = ''
 makewebsite_id = "<!make_website!>";
-id_str = "make-website 0.6";
+id_str = "make-website 0.7";
 tar = "tar";
 make = "make";
 mailaddress = "unknown"
@@ -79,7 +90,7 @@ examples=["twinkle-pop",
 		 "gallina",
 		 "twinkle", 
 		 "collisions",
-		 "font",
+		 "font16",
 		 "font20",
 		 #"scales", 
 		 "rhythm", 

@@ -1,3 +1,12 @@
+/*   
+  debug.cc --  implement debugging routines
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 1996,98 Han-Wen Nienhuys <hanwen@stack.nl>
+  
+ */
+#include <malloc.h>
 #include <fstream.h>
 #include <signal.h>
 #include <std/new.h>
@@ -6,7 +15,7 @@
 #include "dstream.hh"
 #include "flower-debug.hh"
 #include "moment.hh"
-
+#include "main.hh"
 Dstream *monitor=0;
 ostream * nulldev =0;
 
@@ -60,9 +69,42 @@ debug_init()
 
 bool check_debug=false;
 
+
+bool check_malloc_b = false;
+
+// #define MEMORY_PARANOID
+
+#ifdef MEMORY_PARANOID
+
+
+void *
+operator new (size_t size)
+{
+  void *result;
+  result = malloc (size);
+  if (check_malloc_b)
+    memfrob (result, size);
+  return result;
+}
+
+
+void 
+operator delete (void *p)
+{
+  if (!p)
+    return ;
+  if (check_malloc_b)
+    memfrob (p, 8);		// ugh.  Need the blocksize.   8 is sysdependant
+
+  free (p);
+}
+#endif // MEMORY_PARANOID
+
 void
 set_debug (bool b)
 {
   check_debug =b;
   set_flower_debug (*monitor, check_debug);
+  check_malloc_b = experimental_features_global_b;
 }
+

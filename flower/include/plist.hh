@@ -55,7 +55,7 @@ class Pointer_list : public Link_list<T> {
     
 public:
   void junk();
-  Pointer_list (Pointer_list const &) { set_empty(); }
+  Pointer_list (Pointer_list const& l) : Link_list<T> (l) { set_empty(); }
   Pointer_list() { }
   ~Pointer_list() { junk (); }
 };

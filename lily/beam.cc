@@ -317,28 +317,34 @@ Beam::quantise_left_y (Beam::Pos pos, bool extend_b)
   Real staffline_thickness = paper ()->rule_thickness ();
   Real beam_thickness = 0.48 * (interline_f - staffline_thickness);
 
-  const int QUANTS = 6;
-  Real qy[QUANTS] = {
+  const int QUANTS = 7;
+  Real qy[QUANTS] = 
+  {
     0,
     beam_thickness / 2,
     beam_thickness,
     interline_f / 2 + beam_thickness / 2 + staffline_thickness / 2,
     interline_f,
     interline_f + beam_thickness / 2,
+    interline_f + beam_thickness
   };
   /* 
    ugh, using i triggers gcc 2.7.2.1 internal compiler error (far down):
    for (int i = 0; i < QUANTS; i++)
    */
+  
+  // fixme!
   for (int ii = 0; ii < QUANTS; ii++)
-    qy[ii] -= beam_thickness / 2;
-  Pos qpos[QUANTS] = {
+    qy[ii] -= 0.5 *beam_thickness;
+  Pos qpos[QUANTS] = 
+  {
     HANG,
     STRADDLE,
     SIT,
     INTER,
     HANG,
-    STRADDLE
+    STRADDLE,
+    SIT
   };
 
   // y-values traditionally use internote dimension
@@ -384,7 +390,7 @@ Beam::quantise_left_y (Beam::Pos pos, bool extend_b)
   if (extend_b)
     left_y_ = (dir_ > 0 ? upper_y : lower_y);
   else
-    left_y_ = (upper_y - left_y_ < y - lower_y ? upper_y : lower_y);
+    left_y_ = (upper_y - y < y - lower_y ? upper_y : lower_y);
 }
 
 void
@@ -436,6 +442,8 @@ Beam::set_stemlens ()
       for (int j=0; j < stems_.size (); j++)
 	{
 	  Stem *s = stems_[j];
+	  if (s->transparent_b_)
+	    continue;
 
 	  Real x = s->hpos_f () - x0;
 	  s->set_stemend (left_y_ + slope_f_ * x);

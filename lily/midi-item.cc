@@ -265,7 +265,11 @@ Midi_instrument::Midi_instrument (int channel_i, String instrument_str)
   instrument_str_.to_lower();
   channel_i_ = channel_i;
 }
-                                    
+
+Midi_item::~Midi_item ()
+{
+}
+
 String
 Midi_instrument::str() const
 {

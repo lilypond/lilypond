@@ -37,7 +37,7 @@ Engraver_group_engraver 0
 Group_change_req	0
 Head_column		0
 Idealspacing		0
-Ineq_constrained_qp 	0
+Ineq_constrained_qp 	1
 Input_translator	0
 Item			0
 Key_item		0
@@ -55,7 +55,7 @@ Note_performer		0
 Note_req		0
 Paper_col			1
 Paper_score			1
-Paper_def		0
+Paper_def		1
 Paperdef		0
 Performer		0
 Performer_group_performer	0
@@ -65,7 +65,7 @@ Rest_collision		0
 Rest_collision_engraver 0
 Rest_req		0
 Rhythmic_req		0
-Score			0
+Score			1
 Score_column		0
 Score_elem		0
 Score_engraver		0

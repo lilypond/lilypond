@@ -61,9 +61,15 @@ Add F<DIRECTORY> to the search path for input files.
 
 Make incompatible mudela version non-fatal.
 
-=item B<--postscript, -p>,
+=item B<--no-postscript, -P>,
 
-Try to use PostScript where possible.
+Don't generate embedded PostScript (or MetaFont) symbols, but resort to
+less beautiful fixed-size versions.
+
+LilyPond uses PostScript for variable symbols where possible.  (For some 
+of these symbols runtime MetaFont source will be genarated too.  These are 
+not used unless you also include the appropriate  TeX file too.  See 
+F<tex/fetdefs.tex>.)
 
 =back
 
@@ -142,8 +148,8 @@ Jan Nieuwenhuizen <jan@digicash.com>,  http://www.digicash.com/~jan.
 =head1 PROBLEMS
 
 
-There is an extensive list of todoes and bugs.  See F<TODO>.  In
-general, try to find out 
+There is an extensive list of todoes and bugs.  See F<TODO>.  If you
+have a problem you should try to find out
 
 =over 4
 
@@ -175,7 +181,8 @@ compile/configure options please).
 Send a description of the bug itself.
 
 =item *
-Send it to bug-gnu-music@gnu.org.
+Send it to bug-gnu-music@gnu.org (you don't have to subscribe
+to this mailinglist).
 
 =back
 

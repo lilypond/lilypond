@@ -1,10 +1,23 @@
 #!@PYTHON@
+
+import sys
+import os
+
+lilypath =''
+try:
+    lilypath = os.environ['LILYPOND_SOURCEDIR'] + '/'
+except IndexError:
+    lilypath = os.environ['HOME'] + 'musix/current'
+lilypath = lilypath + '/bin/'
+sys.path.append(lilypath)
+
+
 from lilypython import *
 import getopt
 import pipes
 
 
-mp_version = '2'
+mp_version = '0.3'
 
 class Options:
     def __init__(self):

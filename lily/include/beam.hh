@@ -16,9 +16,13 @@
   beam and that point in the correct direction */
 class Beam:  public Directional_spanner {
 public:
+  /** The beams (especially at small slopes) should be prevented to
+    conflict with the stafflines.  This necessitates some quantisation
+    of start and end posititons of the beam.
+    */
   enum Pos { NONE, SIT = 1, STRADDLE = 2, HANG = 4, INTER = 8 };
-  // ugh, silly C++
-  enum Quantise { NUN, NORMAL, TRADITIONAL };
+  // ugh, silly C++ (Pos::NONE vs Quantise::NONE)  
+  enum Quantise { NUNE, NORMAL, TRADITIONAL };
 
   Link_array<Stem> stems_;
   /// the slope of the beam in posns / point (dimension)   

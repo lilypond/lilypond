@@ -24,7 +24,8 @@ PPPPRRRREEEERRRREEEEQQQQUUUUIIIISSSSIIIITTTTEE
        For compilation you need.
 
        +o    A GNU system: GNU LilyPond is known to run on these
-            GNU systems: Linux, AIX, Digital Unix and Solaris.
+            GNU systems: Linux, FreeBSD, AIX, Digital Unix and
+            Solaris.
 
             If you have the Cygnus WINDOWS32 port of the GNU
             utils, it will even work in Windows NT/95, but we
@@ -46,7 +47,9 @@ RRRRUUUUNNNNNNNNIIIINNNNGGGG
        +o    TeX
 
        +o    A PostScript printer and/or viewer (such as
-            Ghostscript).
+            Ghostscript) is strongly recommended.  Xdvi will show
+            all embedded PostScript too if you have Ghostscript
+            installed.
 
 RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
        Although not strictly necessary, these are recommended to
@@ -55,13 +58,10 @@ RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
        +o    Perl-5.  Most documentation was created with the
             perl's Plain Old Documentation. (I use 5.003)
 
-       +o    Python.  Although perl is nice, python is better.  We
-            will shift towards python for build scripts
 
 
 
-
-5/Jan/98                 LilyPond 0.1.39                        1
+11/Jan/98                LilyPond 0.1.41                        1
 
 
 
@@ -69,6 +69,9 @@ RRRREEEECCCCOOOOMMMMMMMMEEEENNNNDDDDEEEEDDDD
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+       +o    Python.  Although perl is nice, python is better.  We
+            will shift towards python for build scripts
 
        +o    GNU find
 
@@ -122,12 +125,9 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
                configure --prefix=/usr/local --enable-tex-prefix=/usr/lib/texmf
 
-       Since GNU LilyPond currently is beta, you are advised to
-       also use
 
 
-
-5/Jan/98                 LilyPond 0.1.39                        2
+11/Jan/98                LilyPond 0.1.41                        2
 
 
 
@@ -135,6 +135,9 @@ CCCCOOOONNNNFFFFIIIIGGGGUUUURRRRIIIINNNNGGGG a
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+       Since GNU LilyPond currently is beta, you are advised to
+       also use
 
                --enable-debugging
                --enable-checking
@@ -188,12 +191,9 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
        source-tree, by overriding the setting for the output
        directory.
 
-       Example: on my system, I do debugging and lots compiling.
-       For this I use the configuration as follows:
 
 
-
-5/Jan/98                 LilyPond 0.1.39                        3
+11/Jan/98                LilyPond 0.1.41                        3
 
 
 
@@ -201,6 +201,9 @@ INSTALL(1)            LilyPond documentation           INSTALL(1)
 
 INSTALL(1)            LilyPond documentation           INSTALL(1)
 
+
+       Example: on my system, I do debugging and lots compiling.
+       For this I use the configuration as follows:
 
                configure --prefix=~ --enable-debugging --enable-printing --enable-checking
                make all
@@ -226,6 +229,10 @@ IIIINNNNSSSSTTTTAAAALLLLLLLLIIIINNNNGGGG
 
        should do the trick.
 
+       If you are doing an upgrade, please remember to remove
+       obsolete .pk and .tfm files of the fonts.  A script has
+       been provided to do the work, see _b_i_n_/_c_l_e_a_n_-_f_o_n_t_s_._s_h.
+
 CCCCAAAAVVVVEEEEAAAATTTTSSSS
        +o    The -O2 option to gcc triggers a gcc bug on DEC Alpha
             in dstream.cc. You should turn off this flag for this
@@ -243,6 +250,24 @@ EEEEXXXXAAAAMMMMPPPPLLLLEEEE
 
        This is what the output looks like over here:
 
+
+
+
+
+
+
+
+
+
+11/Jan/98                LilyPond 0.1.41                        4
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
+
                GNU LilyPond 0.0.78 #4/FlowerLib 1.1.24 #0
                Parsing ... [/home/hw/share/lilypond/init//
                        <..etc..>
@@ -256,17 +281,6 @@ EEEEXXXXAAAAMMMMPPPPLLLLEEEE
 
                hw:~/musix/spacer$ xdvi someinput&
                [1] 855
-
-
-
-5/Jan/98                 LilyPond 0.1.39                        4
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
 
        Check out the input files, some of them have comments
        Please refer to the man page for more information.
@@ -305,9 +319,20 @@ MMMMUUUUSSSSIIIIXXXXTTTTEEEEXXXX
        Previous versions (before 0.1.39) used fonts from the TeX
        macro package "MusixTeX".  You can still use these, but
        they are not supported.  Since LilyPond's Feta font is
-       much prettier, you'd be stupid to use them, but anyway,
-       here are the installation instructions for those
-       deprecated fonts.
+       much prettier, you'd be seriously misguided if you used
+       them, but anyway, here are the installation instructions
+       for those deprecated fonts.
+
+
+
+11/Jan/98                LilyPond 0.1.41                        5
+
+
+
+
+
+INSTALL(1)            LilyPond documentation           INSTALL(1)
+
 
        [obsolete] I use the MusixTeX fonts those found in
        MusixTeX T.73. Beware, the clef symbol seems to have
@@ -321,18 +346,6 @@ MMMMUUUUSSSSIIIIXXXXTTTTEEEEXXXX
        ftp://ftp.tex.ac.uk/tex-archive/macros/musixtex/taupin
 
        ftp://ftp.dante.de/tex-archive/macros/musixtex/taupin
-
-
-
-
-5/Jan/98                 LilyPond 0.1.39                        5
-
-
-
-
-
-INSTALL(1)            LilyPond documentation           INSTALL(1)
-
 
        You only need the contents of the _m_f_/ subdirectory of the
        package. The primary site of the Taupin version is
@@ -378,19 +391,6 @@ AAAAUUUUTTTTHHHHOOOORRRRSSSS
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-5/Jan/98                 LilyPond 0.1.39                        6
+11/Jan/98                LilyPond 0.1.41                        6
 
 

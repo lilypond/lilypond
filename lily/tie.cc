@@ -60,15 +60,29 @@ Tie::do_add_processing()
 void
 Tie::do_post_processing()
 {
-  Real nw_f = paper()->note_width ();
-  Real space_f = paper()->interline_f ();
+  Real nw_f = paper ()->note_width ();
+  Real interline_f = paper ()->interline_f ();
   assert (head_l_drul_[LEFT] || head_l_drul_[RIGHT]);
+
+  /* 
+   [OSU]: slur and tie placement
+
+   ties:
+   * x = inner raakpunt - d * gap
+
+   * y = length < 5ss : horizontal raakpunt
+     y = length >= 5ss : y next interline - d * 0.25 ss
+     --> height <= 5 length ?? we use <= 3 length, now...
+
+   * suggested gap = ss / 5;
+   */
+  // jcn: 1/5 seems so small?
+  Real gap_f = interline_f / 2; // 5;
 
   Direction d = LEFT;
   do
     {
-      dy_f_drul_[d] =  
-	.5 *space_f * (head_l_drul_[d] 
+      dy_f_drul_[d] = .5 * interline_f * (head_l_drul_[d] 
 		       ? head_l_drul_[d]->position_i_
 		       : head_l_drul_[(Direction)-d]->position_i_);
     }
@@ -78,22 +92,24 @@ Tie::do_post_processing()
     {
       if (head_l_drul_[d] && head_l_drul_[d]->extremal_i_)
 	{
-	  dy_f_drul_[d] += dir_ * space_f;
-	  dx_f_drul_[d] += d * 0.25 * nw_f;
+	  /* normal tie between noteheads, with gap of space */
+	  dx_f_drul_[d] += -d * (0.5 * nw_f + gap_f);
+	  /* attach to outer 3/4 end of head */
+	  dy_f_drul_[d] += dir_ * 0.25 * interline_f;
 	}
       else if (head_l_drul_[d])
-	dx_f_drul_[d] += d*0.5 * nw_f;
+	{
+	  dx_f_drul_[d] += d*0.5 * nw_f;
+	}
       else
 	{
 	  dy_f_drul_[d] = dy_f_drul_[(Direction) -d];
-	  dx_f_drul_[d] = -d *(spanned_drul_[d]->width ().length () 
-			       -0.5* nw_f);
+	  dx_f_drul_[d] = -d * (spanned_drul_[d]->width ().length () 
+			        -0.5 * nw_f);
 	}
     }
   while ((d *= -1) != LEFT);
 }
-
-
 
 void
 Tie::do_substitute_dependency (Score_elem*o, Score_elem*n)

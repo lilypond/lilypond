@@ -38,7 +38,7 @@ void
 Directed_graph_node::copy_edges_out (Directed_graph_node const &s)
 {
   for (int i=0; i < s.edge_out_l_arr_.size(); i++)
-	add (s.edge_out_l_arr_[i]);
+    add (s.edge_out_l_arr_[i]);
 }
 
 void
@@ -47,11 +47,11 @@ Directed_graph_node::OK() const
 #ifndef NDEBUG
   for (int i=0; i < edge_out_l_arr_.size(); i++) 
     {
-	assert (edge_out_l_arr_[i]->
-	       edge_in_l_arr_.find_l (this));
+      assert (edge_out_l_arr_[i]->
+	      edge_in_l_arr_.find_l (this));
     }
   for (int i=0; i < edge_in_l_arr_.size(); i++)
-	assert (edge_in_l_arr_[i]->contains_b (this));
+    assert (edge_in_l_arr_[i]->contains_b (this));
 #endif
 }
 
@@ -87,10 +87,10 @@ Directed_graph_node::remove_edge_out (Directed_graph_node *d_l)
   PARANOID_OK();
   for (int i=0; i < edge_out_l_arr_.size();) 
     {
-	if (edge_out_l_arr_[i]== d_l)
-	    remove_edge_out_idx (i);
-	else
-	    i++;
+      if (edge_out_l_arr_[i]== d_l)
+	remove_edge_out_idx (i);
+      else
+	i++;
     }
   PARANOID_OK();
 }
@@ -112,21 +112,21 @@ void
 Directed_graph_node::unlink()
 {
 #ifdef PARANOID
-	PARANOID_OK();
+  PARANOID_OK();
 
-	Link_array<Directed_graph_node> t = edge_out_l_arr_;
-	t.concat (edge_in_l_arr_);
+  Link_array<Directed_graph_node> t = edge_out_l_arr_;
+  t.concat (edge_in_l_arr_);
 #endif
 
-	while (edge_out_l_arr_.size())
-	    remove_edge_out_idx (0);
+  while (edge_out_l_arr_.size())
+    remove_edge_out_idx (0);
 	
-	while (edge_in_l_arr_.size())
-	    remove_edge_in (edge_in_l_arr_[0]);
+  while (edge_in_l_arr_.size())
+    remove_edge_in (edge_in_l_arr_[0]);
 
 #ifdef PARANOID
-	for (int i =0; i < t.size(); i++)
-	    t[i]->OK();
+  for (int i =0; i < t.size(); i++)
+    t[i]->OK();
 #endif
 }
 
@@ -141,7 +141,7 @@ Directed_graph_node::add (Directed_graph_node* dep_l)
 {
   PARANOID_OK();
   if (!dep_l)
-	return ;
+    return ;
   dep_l->edge_in_l_arr_.push (this);
   edge_out_l_arr_.push (dep_l);
   PARANOID_OK();

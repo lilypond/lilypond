@@ -1,5 +1,16 @@
 #!@PYTHON@
 
+import sys
+import os
+
+lilypath =''
+try:
+    lilypath = os.environ['LILYPOND_SOURCEDIR'] + '/'
+except IndexError:
+    lilypath = os.environ['HOME'] + 'musix/current'
+lilypath = lilypath + '/bin/'
+sys.path.append(lilypath)
+
 from lilypython import *
 
 os.chdir(lilydirs.topdir)

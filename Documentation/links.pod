@@ -55,7 +55,9 @@ These development releases will also be at
 
 =item ftp://pcnov095.win.tue.nl/pub/lilypond/development
 
-=item ftp://alpha.gnu.org/gnu/lilypond/development
+=item ftp://sca.uwaterloo.ca/pub/lilypond
+
+=item [your mirror here]
 
 =back
 

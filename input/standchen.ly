@@ -13,6 +13,7 @@ copyright =	 "public domain";
 multiple \paper{}s in one \score 
 %}
 
+\include "paper20.ly"
 \version "0.1.7";
 
 commands = \melodic{

@@ -7,8 +7,9 @@ Most of the items are marked in the code as well, with full explanation.
 grep for TODO and ugh/ugr
 
 0.2:
+	* forced breakpoints
 
-	* beam quanting
+	* --metafont
 
 	* disable spaces in TeX stuff
 
@@ -77,6 +78,8 @@ STUFF
 	* Rational infty(HUGE_VAL) on glibc / w32
 
 	* Fix profiling. gprof bugreport?
+
+	* GS: /undefined in draw_beam after XDVI magnification.
 
 PROJECTS
 
@@ -180,6 +183,7 @@ languages:
 	* Documentation
 	- Doc Mutopia (Music To The People) 
 	- Doc (C) stuff of sheet music
+	- a better format?  SGML?  TeX?  Info?
 	- a tutorial
 
 	* TeX spanners , use texbeam.cc as an example (smallish)

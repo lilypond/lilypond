@@ -42,7 +42,7 @@ Molecule*
 Staff_symbol::brew_molecule_p() const
 {
   Paper_def * p = paper();
-  Atom rule  = p->lookup_l ()->rule_symbol (p->get_var ("rule_thickness"), 
+  Atom rule  = p->lookup_l ()->rule_symbol (p->get_var ("rulethickness"), 
 					    width ().length ());
   Real height = (no_lines_i_-1) * inter_note_f();
   Molecule * m = new Molecule;

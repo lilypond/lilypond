@@ -1,61 +1,85 @@
-% feta-sleur.mf 
+% 
+% feta-sleur.mf --  implement runtime MF slurs
+% 
+% source file of LilyPond's pretty-but-neat music font
+% 
+% (c) 1997 Jan Nieuwenhuizen <jan@digicash.com>
+% & Han-Wen Nienhuys <hanwen@stack.nl>
+% 
+
 mode_setup;
-thin:=.2pt;
-thick:=5thin;
-ybow:=.2;
-abow:=1.5;
 
-def draw_slur(expr a,b,d) =
+% staffsize#=16pt#;
+
+pi:=3.14159;
+
+def atan(expr x) = 
+	(angle(1,x)*pi/180)
+	enddef;
+
+%breapth, width, depth, height
+
+% urgh
+% having mf would be nice if only from a "use the source" point of view.
+%
+% getslurcontrol:
+%        slurhtlimit 90 div /slur_alpha exch def
+%        slurratio 60 div slur_alpha div  /slur_beta  exch def
+%        slur_beta mul 1 atan slur_alpha mul
+%
+% draw_slur:
+%        slur_b getslurcontrol 
+%        slur_dir mul /slur_ht exch def
+%        slur_b getslurcontrol /slur_indent exch def       
+%
+
+interline#:=staffsize#/4;
+stafflinethickness#:=0.1interline#;
+sleur_pen#:=stafflinethickness#;
+slurheightlimit#:=staffsize#/2;
+% staffrulethickness 1.5 mul  /slur_thick exch def
+slurthick#:=3/2stafflinethickness#;
+
+define_pixels(staffsize,interline,stafflinethickness);
+define_pixels(sleur_pen,slurheightlimit,slurthick);
+
+sluralpha:=slurheightlimit#*pi/2;
+% slurratio:=1/3;
+slurratio:=0.3333;
+slurbeta:=3/4*pi*slurratio/sluralpha;
+
+def drawslur(expr dxs,dys,d) =
 	beginchar(0,0,0,0) "Embedded mf";
-		% huh, factor 8?
-		z1=8a;
-		z2=8b;
-		save alpha; alpha=angle(z2-z1);
-		save len; len=length(z2-z1);
-		z3=(0,0);
-		z4=(len/2,len*ybow*d);
-		z5=(len,0);
-	 	save beta; beta=abow*angle(z4-z3);
-		penpos3(thin,90+beta);
-		penpos4(thick,90);
-		penpos5(thin,90-beta);
-		pickup pencircle;
+		dx#:=dxs*1pt#;
+		dy#:=dys*1pt#;
+		define_pixels(dx,dy);
+		b#:=length(dx#,dy#);
+%		message "sluralpha: "&decimal (sluralpha);
+%		message "slurbeta: "&decimal (slurbeta);
+%		message "s*b: "&decimal (slurbeta*b#);
+%		indent#:=sluralpha*atan(slurbeta*b#);
+		% ugh: huh? 2/5
+		indent#:=2/5*sluralpha*atan(slurbeta*b#);
+		define_pixels(b,indent);
+		height:=indent*d;
+		z1=(0,0);
+		z2=(b,0);
+		z3=(indent,height);
+		z4=(b-indent,height);
+		z5=z4-(0,d*slurthick);
+		z6=z3-(0,d*slurthick);
 		path boogje;
-		boogje = z3l{dir(beta)}..z4l{right}..z5l{dir(-beta)}
-			..z5r{dir(180-beta)}..z4r{left}
-			..z3r{dir(180+beta)}..cycle;
-		penlabels(1,2,3,4,5);
-		boogje := boogje rotated alpha;
-		% silly mo*tex convenction
-%		boogje := boogje shifted ((x1-x2)/2,0);
-		fill boogje;
+		boogje=z1..controls z3 and z4..z2..controls z5 and z6..cycle;
+		boogje:=boogje rotated angle(dxs,dys);
+		pickup pencircle scaled sleur_pen;
+		filldraw boogje;
+		show z1;
+		show z2;
+		show z3;
+		show z4;
+		show z5;
+		show z6;
 		endchar;
 	enddef;
 
-def sign(expr a) =
-	((abs(a))/(a))
-	enddef;
-
-def xdraw_slur(expr a,b,d) =
-	beginchar(0,0,0,0) "Embedded mf";
-		% huh, factor 8?
-		z1=8a;
-		z3=8b;
-		save alpha; alpha=angle(z3-z1);
-		z2=(1/2[x1,x3],1/2[y1,y3])+d*ybow*(x3-x1)*dir(alpha+90);
-	 	save beta; beta=d*sign(y3-y1)*abow*angle(z2-z1)-alpha;
-%		message "d: "&decimal d;
-%		message "dy: "& decimal sign(y3-y1);
-%		message "alpha: "&decimal alpha;
-%		message "beta: "&decimal beta;
-		penpos1(thin,alpha+beta+90);
-		penpos2(thick,alpha+90);
-		penpos3(thin,alpha-beta+90);
-		pickup pencircle;
-		fill z1l{dir(alpha+beta)}..z2l{dir(alpha)}
-			..z3l{dir(alpha-beta)}..z3r{dir(180+alpha-beta)}
-			..z2r{dir(180+alpha)}..z1r{dir(180+alpha+beta)}
-			..cycle;
-		penlabels(1,2,3);
-		endchar;
-	enddef;
+% draw_slur(10,10,1);

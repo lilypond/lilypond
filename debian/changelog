@@ -1,3 +1,48 @@
+lilypond (0.1.39-2) unstable; urgency=low
+
+  * debian/control:
+     - Description: Remove the note about installing musixtex or
+       musixtex-fonts.
+     - Added "Conflicts: musixtex-fonts".
+
+ -- Anthony Fok <foka@debian.org>  Tue,  6 Jan 1998 02:42:56 -0700
+
+lilypond (0.1.39-1) unstable; urgency=low
+
+  * New upstream LilyPond '98 "New Year Gift" release.
+  * debian/control:
+     - No longer Recommends: "musixtex" or "musixtex-fonts" because
+       LilyPond no longer needs them.
+     - Therefore, Section: is changed from "contrib/tex" to "tex".
+       LilyPond can finally go into the main distribution.  Hurray!
+  * debian/rules: Now also dh_installdocs ANNOUNCE-0.1 and ONEWS.
+  * preinst, postinst, postrm: Added #DEBHELPER#.
+  * preinst, postrm: Changed #!/bin/bash to #!/bin/sh.
+
+ -- Anthony Fok <foka@debian.org>  Mon,  5 Jan 1998 18:42:30 -0700
+
+lilypond (0.1.38-1) unstable; urgency=low
+
+  * New upstream Xmas release.
+  * Applied patch patch-0.1.38.jcn1 from Jan Nieuwenhuizen.
+  * Have fun, Merry Christmas and a Happy 1998. -- Han-Wen Nienhuys
+
+ -- Anthony Fok <foka@debian.org>  Wed, 24 Dec 1997 16:38:14 -0700
+
+lilypond (0.1.37-1) unstable; urgency=low
+
+  * New upstream release
+  * Minor modifications to debian/rules due to changes in
+    debhelper 0.32.
+
+ -- Anthony Fok <foka@debian.org>  Fri, 12 Dec 1997 11:11:12 -0700
+
+lilypond (0.1.36-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Anthony Fok <foka@debian.org>  Tue,  9 Dec 1997 18:33:50 -0700
+
 lilypond (0.1.35-1) unstable; urgency=low
 
   * New upstream release

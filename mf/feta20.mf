@@ -1,4 +1,4 @@
-% font-en-tja20.mf
+% feta20.mf
 % part of LilyPond's pretty-but-neat music font
 
 staffsize#:=20pt#;

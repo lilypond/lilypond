@@ -4,8 +4,8 @@
 
 paper_twenty = \paper {
 	linewidth = 15.0 \cm;
-	rule_thickness = 0.4\pt;
-	bar_size = 20.0 \pt;
+	rulethickness = 0.4\pt;
+	barsize = 20.0 \pt;
 	interline = 5.\pt;
 	notewidth = 7.15\pt; % ugh see table20 for sizes
 	wholewidth = 10.44\pt;

@@ -64,9 +64,6 @@
 % set fonts and primary dimensions
 % ugh
 \def\musixtwentydefs{
-        \staffheight=20pt
-        \notewidth=7.15pt
-        \noteheight=5pt
         \twentyfonts
         \musixcalc
 }
@@ -77,6 +74,8 @@
         \font\musicmathfont=cmsy10
         \font\normaltextfont=cmr10 %\textfont is a primitive
         \font\smalltextfont=cmr8
+        \font\boldfont=cmbx10
+        \font\textmusic=cmmi12
 }
 \def\cmrsixteen{
         \font\smalltextfont=cmr6
@@ -84,18 +83,45 @@
         \font\meterfont=cmbx12
         \font\italicfont=cmti8
         \font\textmusic=cmmi10
+        \font\boldfont=cmbx8
+}
+\def\cmreleven{
+        \font\smalltextfont=cmr5
+        \font\normaltextfont=cmr6
+        \font\meterfont=cmbx8
+        \font\italicfont=cmti6
+        \font\textmusic=cmmi8
+        \font\boldfont=cmbx6
+}
+
+\def\cmrthirteen{
+        \font\smalltextfont=cmr6
+        \font\normaltextfont=cmr7
+        \font\meterfont=cmbx9
+        \font\italicfont=cmti7
+        \font\textmusic=cmmi9
+        \font\boldfont=cmbx7
 }
 \def\musixsixteendefs{
-        \staffheight=16pt
-        \notewidth=5.93pt
-        \noteheight=4pt
         \sixteenfonts
+        \musixcalc
+}
+\def\musixtwentysixdefs{
+        \twentysixfonts
+        \musixcalc
+}
+\def\musixthirteendefs{
+        \thirteenfonts
+        \musixcalc
+}
+\def\musixelevendefs{
+        \elevendefs
         \musixcalc
 }
 
 \def\textsharp{\raise.4ex\hbox{\textmusic\char"5D}}
 \def\textnatural{\raise.4ex\hbox{\textmusic\char"5C}}
-\def\textflat{\raise.2ex\hbox{\mus\char"5B}}
+\def\textflat{\raise.2ex\hbox{\textmusic\char"5B}}
 
 
 
@@ -103,18 +129,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % do derivative calcs
 
-% FIXME: should read from TFM/AFM/fetalog
-%
-
 % this has to be synced with the font definition
 \def\musixcalc{
+        \staffheight=\mudelapaperbarsize pt
+        \interlinedist=\staffheight
+        \divide\interlinedist by 4
+        \notewidth=\mudelapapernotewidth pt
+
         \smallspace=.3\interlinedist
         \interstaffrule=\staffheight
         \divide\interstaffrule by 4
-
-        %  [D.K.Roush & J.S.Gourlay] say this should be 0.072
-        % We know better
-        \staffrulethickness=0.1\interlinedist
+        \staffrulethickness=\mudelapaperrulethickness pt
         \stemthickness=\staffrulethickness
 }
 
@@ -183,12 +208,6 @@
 \def\startbar#1{\leftalign{\thickbar{#1}\kern\smallspace\thinbar{#1}}}
 \def\finishbar#1{\rightalign{\thinbar{#1}\kern\smallspace\thickbar{#1}}}
 
-\def\slurcharh#1{{\slurhfont\char#1}}
-\def\slurcharu#1{{\slurufont\char#1}}
-\def\slurchard#1{{\slurdfont\char#1}}
-\def\hslurcharh#1{{\hslurhfont\char#1}}
-\def\hslurcharu#1{{\hslurufont\char#1}}
-\def\hslurchard#1{{\hslurdfont\char#1}}
 
 \def\stem#1#2{\hbox{\kern -.5\stemthickness
         \vrule width\stemthickness height#2 depth-#1}}
@@ -198,13 +217,11 @@
 }
 
 
-\def\brace#1{\count0=148\advance\count0 by #1\musicdraw\char\count0}
-\def\crescendosym#1{\count0=84\advance\count0 by #1\musicdraw\char\count0}
-\def\decrescendosym#1{\count0=116\advance\count0 by #1\musicdraw\char\count0}
 \def\rulesym#1#2{\dimen0=#1%
         \vrule height .5\dimen0 depth .5\dimen0 width #2}
 \def\settext#1{\normaltextfont #1}
 \def\setitalic#1{\italicfont #1}
+\def\setbold#1{\boldfont #1}
 \def\setdynamic#1{\dynfont #1}
 \def\setfinger#1{\fingerfont #1}
 

@@ -25,7 +25,8 @@ do_scores()
 {
   for (int i=0; i < global_score_array.size(); i++)
     {
-      Score *&is_p = global_score_array[i];
+//      Score *&is_p = global_score_array[i];
+      Score* is_p = global_score_array[i];
       if (!is_p->header_p_)
 	is_p->header_p_ = new Header;
       

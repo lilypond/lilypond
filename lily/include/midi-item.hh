@@ -20,6 +20,7 @@
 struct Midi_item {
     DECLARE_MY_RUNTIME_TYPEINFO;
     Midi_item (Audio_item* audio_item_l); 
+    virtual ~Midi_item ();
     static String i2varint_str (int i);
     void output (Midi_stream* midi_stream_l) const;
     virtual String str() const = 0;

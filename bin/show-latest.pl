@@ -2,7 +2,7 @@
 # -*-Perl-*-
 
 
-$reldir="/home/hw/musix/releases";
+$reldir="/home/hanwen/musix/releases";
 
 use FileHandle;
 use Getopt::Long;

@@ -36,6 +36,7 @@ public:
     static String i2dec_str (int i, int length_i, char ch);
     static String rational_str (Rational);
     static String pointer_str (void const *);
+    static String precision_str (double x, int n);
     static String i64_str (I64, char const * fmt = 0);
 };
 

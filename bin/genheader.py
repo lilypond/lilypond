@@ -111,11 +111,14 @@ def do_file(nm):
 
 
 def extension(ext,nm):
-    ext = '\.' + ext
+    ext = '\\.' + ext
     return regex.search(ext, nm) <> -1
 
+def c_extension(nm):
+    return extension('hh',nm) or extension('cc',nm) \
+	   or extension('icc', nm) or extension('tcc',nm)
 def select_commentification(nm):
-    if extension('hh',nm) or extension('cc',nm):
+    if c_extension (nm):
 	return c_commentify
     elif extension('py',nm) or extension('pl',nm) or extension('sh',nm):
 	return  sh_commentify
@@ -125,7 +128,7 @@ def select_commentification(nm):
 	raise 'help'
 
 for nm in files:
-    if extension('hh', nm): 
+    if extension('hh', nm) or extension('icc', nm) or  extension('tcc', nm): 
 	my_options.add_hdr_def = 1
     if my_options.commentify == None:
 	my_options.commentify = select_commentification(nm)

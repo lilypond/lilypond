@@ -176,7 +176,6 @@ fet_endchar;
 %
 % Inspired by Baerenreiter
 % 
-% FIXME top should be thinner at z8,
 % FIXME bulb should curve (see bass clef)
 % FIXME start (inside) should be little thinner
 % FIXME parametrise.
@@ -260,7 +259,7 @@ def draw_gclef (expr exact_center, reduction)=
 
 	center - z10= whatever * downstroke_dir;
 	center - z11 =  whatever * downstroke_dir;
-
+	center - z14 = .8 (center - z11);
 	penpos1(thinnib, inner_start_angle);
 	penpos2(thickness, 90);
 	penpos3(thinnib, -90 + inner_thick_end);
@@ -272,10 +271,10 @@ def draw_gclef (expr exact_center, reduction)=
 	penpos9(1.4 thickness, -80);  % ugh
 	penpos10(whatever, downstroke_angle + 10);
 	penpos11(thinnib, downstroke_angle + 90);
+	penpos14(thinnib, downstroke_angle + 90);
 	penpos12(thinnib, -90);
 	penpos13(3 thinnib, 180);
 
-	
 	filldraw z2l{right}   .. z3l.. z4l{left} .. z5l{up}  .. z7l{up} 
 		%.. z8l	
 		.. tension 1.2 
@@ -297,7 +296,7 @@ def draw_gclef (expr exact_center, reduction)=
 	draw_bulb(-1,  z13l, lft z13r, 6/14 reduced_il, 1.0);
 
 	pickup pencircle scaled (thinpen);
-	draw z10 --- z11 .. z12{left};
+	draw z10 --- z14 .. z11  .. tension 0.85 ..  z12{left};
 
 	penlabels(range 1 thru 15);
 enddef;

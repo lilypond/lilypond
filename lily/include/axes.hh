@@ -16,7 +16,7 @@ enum Axis {
     NO_AXES=2,
 };
 
-class String;
+#include "string.hh"		// ugh
 
 String axis_name_str (Axis);
 
