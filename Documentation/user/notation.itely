@@ -4271,7 +4271,7 @@ connected.  This is the default for the score.
 @subsection Aligning to cadenzas
 
 
-In an orchestral context, cadenzas bring cause a special probelem:
+In an orchestral context, cadenzas present a special problem:
 when constructing a score that includes a cadenza, all other
 instruments should skip just as many notes as the length of the
 cadenza, otherwise they will start too soon or too late. 
