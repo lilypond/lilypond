@@ -6,6 +6,7 @@
 * American Chords ::            
 * Jazz chords::                 
 * MIDI instruments::            
+* The Feta font::
 @end menu
 
 @node Lyrics mode definition
@@ -200,3 +201,12 @@ scheme = \chords {
 "viola"                     "lead 5 (charang)"     "gunshot"
 "cello"                     "lead 6 (voice)" 
 @end example 
+
+@node The Feta font
+@section The Feta font
+The following symbols are available in the Feta font and may be
+accessed directly using text markup such as 
+@code{g^#'(music "scripts-segno")}, see @ref{Text markup}.
+
+@lilypondfile{feta16.ly}
+
