@@ -796,8 +796,16 @@ AC_DEFUN(STEPMAKE_KPATHSEA, [
     AC_MSG_CHECKING([for shared libkpathsea])
     AC_TRY_LINK([#include <kpathsea/kpathsea.h>],
                  [kpse_var_expand ("\$TEXMF");],
-                 [have_libkpathsea_so=yes],
+                 [have_libkpathsea_so=maybe;
+		  shared_size=`wc -c conftest | sed 's/ .*//g'`]
                  [have_libkpathsea_so=no])
+
+    if test "$have_libkpathsea_so" = "maybe"; then
+	if test $shared_size -lt 40000 ; then
+	  have_libkpathsea_so=yes
+	fi
+    fi
+    
     AC_MSG_RESULT($have_libkpathsea_so)
     if test "$have_libkpathsea_so" = "yes"; then
 	AC_DEFINE(HAVE_LIBKPATHSEA_SO)
