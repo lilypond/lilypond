@@ -1,3 +1,11 @@
+2004-07-05  Carl Sorensen  <carldsorensen@comcast.net>
+
+	* scm/define-grob-properties.scm (all-user-grob-properties): Add
+	descriptions for all fret-diagram properties.
+
+	* scm/define-grob-interfaces.scm (fret-diagram-interface): Add
+	fret-diagram interface code
+
 2004-07-06  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
 	* ly/book-paper-defaults.ly: set default encoding to ec.
@@ -9,10 +17,10 @@
 
 2004-07-06  Heikki Junes  <hjunes@cc.hut.fi>
 
-        * stepmake/bin/add-html-footer.py: use <div> instead of <table>,
-        add a faint, green border line.
+	* stepmake/bin/add-html-footer.py: use <div> instead of <table>,
+	add a faint, green border line.
 
-        * Documentation/index.html.in: drop <table>, add a faint border line.
+	* Documentation/index.html.in: drop <table>, add a faint border line.
 
 2004-07-05  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 

@@ -46,6 +46,8 @@ called first.  The functions take a grob and axis argument. ")
      
      (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
 @code{0}: around center of width, @code{1}: right side.")
+;;TODO -- change to fret-alignment?
+     (alignment ,ly:dir? "Alignment for fret diagram.  See @code {align-dir}.")
      (arch-angle ,number? "Turning angle of the hook of a system brace" )
      (arch-height ,ly:dimension? "Height of the hook of a system brace.")
      (arch-thick ,number? "Thickness of the hook of system brace.")
@@ -80,6 +82,10 @@ original stencil drawer to draw the balloon around.")
 
      (bar-size ,ly:dimension? "size of a bar line.")
      (bar-size-procedure ,procedure? "Procedure that computes the size of a bar line.")
+     (barre-type ,symbol? "Type of barre indication used in a fret diagram.
+Choices include @code{curved} and @code{straight}.")
+     (barre-vertical-offset ,number? "Offset for barre indication on fret
+diagram, from center of dot, in terms of dot radius.")
      (base-shortest-duration ,ly:moment?
 			     "Spacing is based on the shortest notes in a piece. Normally, pieces are spaced as if notes at least as short as this are present.")
      (baseline-skip ,ly:dimension? "Distance between base lines of
@@ -105,6 +111,10 @@ beaming patterns from stem to stem inside a beam.")
 called before line breaking, but after splitting breakable items at
 potential line breaks.")
      (between-cols ,pair? "Where to attach a loose column to")
+     (bezier-height ,number? "Height of bezier sandwich used for curved
+barre indicator in fret diagrams.")
+     (bezier-thick, ,number? "Thickness of bezier sandwich used for curved
+barre indicator in fret diagrams.")
      (bracket-thick ,number? "width of a system start bracket.")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
@@ -186,6 +196,15 @@ mean center distance weighted per note
 ")
      
      (direction ,ly:dir? "Up or down, left or right?")
+     (dot-color ,symbol? "Color of dots in fret diagram.  Options include 
+@code{black} and @code{white}.")
+     (dot-label-font-mag ,number? "Magnification of font used to label dots in
+fret diagram.")
+     (dot-position ,number? "Position of dot for fret diagram, in terms of
+fret spacing. 0.5 is middle of fret space, 1.0 is on bottom fret line, 
+0.0 is on top fret line.  Generally slightly above 0.5.")
+     (dot-radius ,number? "Radius of dots used in fret diagrams, in terms of
+fret spacing.")
      (dot-count ,integer? "The number of dots.")
      (duration-log ,integer? "The 2-log of the note head duration, i.e. 0=whole note, 1 = half note, etc.")
      (edge-height ,pair? "A pair of number specifying the heights of
@@ -219,7 +238,14 @@ Format: alist (attachment stem-dir*dir slur-dir*dir) -> offset.
 
      ;;
      (extremity-function ,procedure? "A function that calculates the
-attachment of  a slur-end. The function takes a slur and direction argument and returns a symbol.")     
+attachment of  a slur-end. The function takes a slur and direction argument and returns a symbol.")  
+     (finger-code ,symbol? "Code for the type of fingering indication in a
+fret diagram.  Options include @code{none}, @code{in-dot}, and @code{below-string}.")
+     (finger-xoffset ,number? "X offset of the text labeling fingering below
+the string of a fret-diagram, in units of string spaces.")
+     (finger-yoffset ,number? "Y offset of the text labeling fingering below
+the string of a fret-diagram, in units of fret spaces.")
+   
      (flag-style ,symbol?
 		 "a string determining what style of flag-glyph is
 typeset on a Stem. Valid options include @code{()} and
@@ -256,7 +282,9 @@ note.  This is used by @internalsref{note-collision-interface}.")
 signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
 stem. The stem will stop at the innermost beams.")
-
+     (fret-count ,integer? "The number of frets in a fret diagram.")
+     (fret-label-vertical-offset ,number? "Vertical offset of text used to
+label the top fret in a fret diagram.")
      ;; ugh: double, change.
      (full-size-change ,boolean? "Don't make a change clef smaller.")
      (non-default ,boolean? "Set for manually specified clefs.")
@@ -292,6 +320,8 @@ bar line, this is the amount of space after a thick line.")
      (knee-spacing-correction ,number? "Factor for the optical
 correction amount for kneed beams. Set between 0 for no correction and
 1 for full correction.")
+     (label-font-magnification ,number? "Magnification of font used to
+label the top fret on a fret diagram")
      (layer ,number? "The output layer [0..2]: layers define the order
 of printing objects. Objects in lower layers are overprinted by
 objects in higher layers.")
@@ -400,6 +430,8 @@ note that starts here.")
 			      "Multiply direction of
 @code{direction-source} with this to get the direction of this
 object.")
+;;TODO -- change size to fret-diagram-size
+     (size ,number? "Size of fret diagram.")
      (slope ,number? "The slope of this object.")
      (slope-limit ,number? "Set slope to zero if slope is running away
 steeper than this.")
@@ -445,20 +477,29 @@ of flags/beams.")
 stems that are placed in tight configurations. For opposite
 directions, this amount is the correction for two normal sized stems
 that overlap completely.")
+     (string-count ,integer? "The number of strings in a fret diagram.")
+     (string-label-font-mag ,number? "Mangification for font used to label
+finger indications below strings in fret diagram")
      (style ,symbol? "This setting determines in what style a grob is
 typeset. Valid choices depend on the @code{print-function} that is
 reading this property.")
      (text ,markup? "Text markup.  See @usermanref{Text markup}.")
+;;FIXME -- Should both be the same?
      (thick-thickness ,number? "Bar line thickness, measured in
 @code{linethickness}.")
      (thickness ,number? "Bar line thickness, measured in
 @code{linethickness}.")
+;;TODO -- change to fret-thickness
+     (thickness ,number? "Thickness of fret and string lines in a fret
+diagram.  Multiplier on bar thickness.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
      (forced-distance ,ly:dimension? "A fixed distance between object
 reference points in an alignment.")
 
      (threshold ,number-pair? "(@var{min} . @var{max}), where
 @var{min} and @var{max} are dimensions in staff space.")
+     (top-fret-thickness ,number? "Thickness of the top fret in a fret
+diagram, as a multiplier of the standard fret thickness.")
      (transparent ,boolean? "This is almost the same as setting
 @code{print-function} to @code{#f}, but this retains the dimensions of
 this grob, which means that grobs can be erased individually.")
@@ -485,6 +526,12 @@ happen?")
 words in texts.")
      (width ,ly:dimension? "The width of a grob measured in staff space.")
      (x-gap ,ly:dimension? "The horizontal gap between note head and tie.")
+     (xo-font-mag ,number? "Magnification for the font used to label mute
+and open strings in a fret diagram.")
+     (xo-horizontal-offset ,number? "Horizontal offset for characters used
+to label mute and open strings in a fret diagram.")
+     (xo-padding ,number? "Vertical padding for mute and open indicators 
+in fret diagram.")
      (y-free ,ly:dimension? "The minimal vertical gap between slur and
 note heads or stems.")
      (y-offset ,ly:dimension? "Extra vertical offset for ties away
