@@ -1,14 +1,14 @@
 %{MudelaHeader
 
  filename: toccata-fuga-E.ly
- title: toccata and fuga in E-major bwv 566
- description:  
+ title: toccata and fuga in E-major 
+ opus: BWV 566
  toccata: 3 bar excerpt
  2nd fuga: transposed subject --- 4 bar excerpt
 
  composers: Johann Sebastian Bach (1685-1750)
  entered-by: JCN
- copyright:
+ copyright: public domain
 
  Tested Features:
  purpose of this file is testing: 
@@ -20,7 +20,7 @@ EndMudelaHeader
 %}
 
 
-\version "0.1.0";
+\version "0.1.1";
 
 toccata_commands = \melodic{
 	\meter 4/4;
@@ -72,6 +72,7 @@ fuga2_commands = \melodic{
 
 fuga2_right = \melodic{
 	\$fuga2_commands  
+	\clef violin;
 	% 15
 	\octave c';
 	<\multi 2;
@@ -151,7 +152,7 @@ break = \melodic{
 	>
 	\paper{}
 	\midi{
-		\tempo 4:96;
+		\tempo 4 = 96;
 	}
 }
 

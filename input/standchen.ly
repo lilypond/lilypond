@@ -2,18 +2,18 @@
 
  filename: standchen.ly
  title: St\"andchen (Serenade) "Leise flehen meine Lieder"
- description:  D.957 No.4
+ opus:  D. 957 No. 4
  composers: Franz Schubert (1797-1828)
 	 Text by Ludwig Rellstab (1799-1860)
  entered-by:JCN
- copyright:
+ copyright: public domain
 
  Tested Features: multivoice, accents, lyrics, chords, piano music
 
 EndMudelaHeader
 %}
 
-\version "0.1.0";
+\version "0.1.1";
 
 commands = \melodic{
 	\skip 2.*4;
@@ -152,8 +152,11 @@ melodie = \melodic{
 %%48
 	\textstyle "italic";
 	< 
-	{ fis2.~  \group "+1"; \stem \down; f2. }
-	{ d'2. ~ \stem \up; d'4 r4_"decresc." d'4 } 
+	{ fis2.~
+	%\group "+1"; 
+		\stem \down; f2. }
+	{ d'2. ~ \stem \up;
+		d'4 r4_"decresc." d'4 } 
 	>
 	\textstyle "roman"; |
 %%50
@@ -485,6 +488,6 @@ tekstII = \lyric{
 		\output "standchen.out";
 	}
 	\midi{
-		\tempo 4:54;
+		\tempo 4 = 54;
 	}
 }

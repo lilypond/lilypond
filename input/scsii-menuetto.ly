@@ -3,6 +3,8 @@
  filename: scsii-menuetto.ly
  title: Solo Cello Suites, Suite II part V, Menuetto I
  description: Cello suite transcribed for Viola
+ source: ?
+ opus: BWV 1008 no. 5
  composers: Johann Sebastian Bach (1685-1750)
  entered-by: JCN
  copyright: public domain
@@ -13,7 +15,7 @@
 EndMudelaHeader
 %}
 
-\version "0.1.0";
+\version "0.1.1";
 
 %% Stuff from MPP version
 % \lefttitle{Menuetto}
@@ -111,7 +113,7 @@ IImenuetto = \melodic{
 		\output "scsii-menuetto.out";
 	}
 	\midi{ 
-		\tempo 4:120;
+		\tempo 4 = 120;
 		\output "scsii-menuetto.midi";
 	}
 }

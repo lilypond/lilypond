@@ -1,7 +1,10 @@
 %{
- title: Das Wohltemperirte Clavier I, Fuga II (c-minor)
- description: following Henle's Urtext
- composer(s): J.S. Bach
+ filename: wohltemperirt.ly
+ title: Fuga a 3
+ description: Das Wohltemperirte Clavier I, Fuga II (c-minor) 
+ Opus: BWV ?
+ source: Henle's Urtext
+ composer(s): Johann Sebastian Bach (1685-1750)
  entered-by: HWN and Werner Lemberg
  copyright: Public Domain 
 
@@ -9,7 +12,7 @@
 
 %}
 
-\version "0.1.0";
+\version "0.1.1";
 
                                     % should add \need{dutch.ini} for
                                     % correct parsing of note names
@@ -17,7 +20,7 @@
 global = 
     \melodic {
          \meter 4/4;                % should be \meter C
-         \key bes es as; 
+         \keyCminor 
     }
   
 dux =
@@ -173,11 +176,9 @@ bassdux =
                  >
              >
 
-    \paper{
-%	castingalgorithm=0.;
-    }
+    \paper{}
     \midi {
-        \tempo 4:84;
+        \tempo 4 = 84;
     }
 }
 
