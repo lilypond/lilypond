@@ -788,7 +788,6 @@ for comments.
 
 
 
-
 @node Printing lyrics
 @section Printing lyrics
 @cindex lyrics
@@ -924,7 +923,7 @@ a lead sheet, for example,
   \paper @{ @}
 @}
 @end example
-@lilypond[singleline]
+@lilypond[]
 \score  {
   < 
    \context ChordNames \chords { r8 c2:sus4 f } 
@@ -935,7 +934,7 @@ a lead sheet, for example,
      \times 2/3 { f g g } \times 2/3 { g4-( a2-) } }
    \context Lyrics  \lyrics { I want to break free __ }
   >
- \paper{ }
+ \paper{ raggedright = ##t }
 }
 @end lilypond
 
@@ -956,7 +955,7 @@ example
 @example 
 \score @{
     @var{..music..}
-    \midi  @{ \tempo 4=72@}
+    \midi  @{ \tempo 4=72 @}
     \paper  @{ @}
 @}
 @end example 
@@ -981,7 +980,7 @@ example,
     tagline = "small is beautiful"
   @}
   
-  \score { @dots{} 
+  \score @{ @dots{} @}
 @end example
 
 @cindex bibliographic information
@@ -1014,12 +1013,12 @@ will be printed before each movement.
     tagline = "small is beautiful"
   @}
   
-  \score { @dots{}
+  \score @{ @dots{}
     \header @{ piece = "Adagio" @}
-  }
-  \score { @dots{}
+  @}
+  \score @{ @dots{}
     \header @{ piece = "Menuetto" @}
-  }
+  @}
 @end example
 
 More information on titling can be found in @ref{Invoking ly2dvi}.
@@ -1187,7 +1186,7 @@ included if you installed a binary distribution.  [TODO: revise for
 new site.]  These HTML pages are also available on the web: go to the
 LilyPond website, click ``Documentation: Index'' on the side bar, look
 in the ``Information for uses'' section, and click on ``Documentation
-of internals''.
+of internals.''
 
 You might want to bookmark either the HTML files on your disk, or the
 one on the web (the HTML on your hard drive will load much faster than
@@ -1345,18 +1344,6 @@ notes), there should be more space.  This space is controlled by
  \property Voice.DynamicLineSpanner \override #'padding = #5.0
 @end example
 
-
-(TODO: huh? what's this: )
-
-This command resembles the one for setting slur attachments, but
-subtly differs in its details.  Grob properties can be manipulated
-with two commands: @code{\override} extends the definition of a grob
-with one setting, and @code{\revert} releases this setting.  This has
-a theoretical appeal: the operations are simple and symmetric.  For
-practical use, it can be cumbersome.  The commands act like
-parentheses: you should carefully balance the use of @code{\override}
-and @code{\revert}.  The @code{\set} command is more friendly: it
-first does a @code{\revert} followed by @code{\override}.
 
 @separate
 
