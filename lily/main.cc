@@ -166,12 +166,13 @@ main (int argc, char **argv)
   debug_init ();		// should be first
 
 
+  
+  path.add ("");
   // must override (come before) "/usr/local/share/lilypond"!
   char const *env_sz = getenv ("LILYINCLUDE");
   if (env_sz)
     path.parse_path (env_sz);
 
-  path.add ("");
   path.add (String (DIR_DATADIR) + "/init/");
 
   path.push (DIR_DATADIR);
