@@ -60,10 +60,27 @@ Request::Request()
     elt_l_ = 0;
     defined_ch_c_l_m = 0;
 }
-Request::Request(Request const&)
+Request::Request(Request const&src)
 {
     elt_l_ = 0;
-    defined_ch_c_l_m = 0;
+    defined_ch_c_l_m = src.defined_ch_c_l_m;
+}
+/****************/
+Spacing_req::Spacing_req()
+{
+    next = 0;
+    distance = 0;
+    strength = 0;
+}
+void
+Spacing_req::do_print()const
+{
+    mtor << "next " << next << "dist " << distance << "strength\n";
+}
+void
+Blank_req::do_print()const
+{
+    Spacing_req::do_print();
 }
 /****************/
 Melodic_req::Melodic_req()
