@@ -24,7 +24,7 @@ struct Lookup {
     void add (String, Symtable*);
     void print() const;
 
-    Atom linestaff (int n, Real w) const;
+    Atom linestaff (int n, Real ss, Real w) const;
     Atom fill (Box b) const;
     Atom beam_element (int,int,Real=0) const;
 
@@ -49,7 +49,7 @@ struct Lookup {
     Atom clef (String) const;
     Atom bar (String, Real height) const;
     
-    Atom dots (int) const;
+    Atom dots () const;
     Atom slur (int dy, Real &dx, Direction dir) const;
     Atom half_slur (int dy, Real &dx, Direction dir, int xpart) const;
     Atom half_slur_middlepart (Real &dx, Direction dir) const;
