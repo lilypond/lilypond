@@ -17,7 +17,7 @@ my $headstr ="/*
 */\n";
 
 my $startdef= $fn;
-$startdef =~ s/\./_/;
+$startdef =~ s/[\.-]/_/g;
 $startdef =~ tr/a-z/A-Z/;
 my $terminatestr="\n";
 if ($hh_q) {
