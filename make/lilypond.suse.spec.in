@@ -185,7 +185,7 @@ fi
 %post
 
 touch /tmp/.lilypond-install
-rm `find /var/lib/texmf -name 'feta*pk -print' -or -name 'feta*tfm -print'` /tmp/.lilypond-install
+rm `find /var/lib/texmf -name 'feta*pk' -or -name 'feta*tfm' -or -name 'parmesan*pk' -or -name 'parmesan*tfm' -print'` /tmp/.lilypond-install
 %if info=="yes"
 /usr/bin/install-info %{_prefix}/info/lilypond.info.gz %{_prefix}/info/dir || true
 %endif

@@ -91,7 +91,7 @@
    ))
 
 					; simple flat slurs
-(define (bezier-sandwich l thick)
+(define (bezier-bow l thick)
   (let (
 	(c0 (cadddr l))
 	(c1 (cadr l))

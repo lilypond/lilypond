@@ -230,6 +230,9 @@ layer('Layer 1',1,1,0,0,(0,0,0))
 (define (invoke-char s i)
   "")
 
+;; TODO: bezier-ending, see ps.scm
+(define (bezier-bow x y l thick)
+  (bezier-sandwich x y l thick))
 
 (define (bezier-sandwich x y l thick)
   (apply

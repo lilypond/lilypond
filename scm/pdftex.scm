@@ -184,6 +184,9 @@
    "\\placebox{"
    (number->dim y) "}{" (number->dim x) "}{" s "}\n"))
 
+(define (bezier-bow l thick)
+  (embedded-pdf (list 'bezier-bow  `(quote ,l) thick)))
+
 (define (bezier-sandwich l thick)
   (embedded-pdf (list 'bezier-sandwich  `(quote ,l) thick)))
 
