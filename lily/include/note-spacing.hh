@@ -3,7 +3,7 @@ note-spacing.hh -- declare Note_spacing
 
 source file of the GNU LilyPond music typesetter
 
-(c) 2001--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+(c) 2001--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
 

@@ -1,7 +1,7 @@
 /*
   cluster-engraver.cc -- implement Cluster_engraver
 
-  (c) 2002--2004 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2005 Juergen Reuter <reuter@ipd.uka.de>
 
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */

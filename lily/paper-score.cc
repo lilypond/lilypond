@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
+  (c) 1996--2005 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 #include "paper-score.hh"

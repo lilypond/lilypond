@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
- (C) 2003 Juergen Reuter <reuter@ipd.uka.de>
+ (c) 2003--2005 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #ifndef VATICANA_LIGATURE_HH
