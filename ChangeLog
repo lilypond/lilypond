@@ -1,3 +1,7 @@
+2002-09-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* scm/chord-name.scm (chord::inner-name-banter): remove space.
+
 2002-09-24  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* lily/beam.cc (connect_beams): don't crash if there are quarter
