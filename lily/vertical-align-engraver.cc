@@ -12,6 +12,7 @@
 #include "axis-align-spanner.hh"
 #include "axis-group-spanner.hh"
 #include "span-bar.hh"
+#include "axis-group-interface.hh"
 
 Vertical_align_engraver::Vertical_align_engraver()
 {
@@ -54,9 +55,11 @@ Vertical_align_engraver::qualifies_b (Score_element_info i) const
 {
   int sz = i.origin_trans_l_arr ((Translator*)this).size()  ;
 
-  Axis_group_element * elt = dynamic_cast<Axis_group_element *> (i.elem_l_);
 
-  return sz > 1 && elt && !elt->parent_l (Y_AXIS) && elt->axis_b (Y_AXIS);
+  Axis_group_interface agi(i.elem_l_);
+
+  return sz > 1 && agi.has_interface_b ()
+    && !i.elem_l_->parent_l (Y_AXIS) && agi.axis_b (Y_AXIS);
 }
 
 void

@@ -30,8 +30,6 @@
   */
 class Music:public Input {
 public:
-    
-
   virtual Musical_pitch to_relative_octave (Musical_pitch);
 
   /// The duration of this piece of music

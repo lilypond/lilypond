@@ -14,11 +14,13 @@
 #include "warn.hh"
 #include "main.hh"
 #include "debug.hh"
+#include "axis-group-interface.hh"
+
 
 Line_of_score::Line_of_score()
 {
   set_elt_property ("columns", SCM_EOL);
-  set_axes (Y_AXIS,X_AXIS);
+  axis_group (this).set_axes (Y_AXIS,X_AXIS);
 }
 
 
@@ -65,7 +67,7 @@ Line_of_score::add_column (Paper_column*p)
 {
   set_elt_property ("columns",
 		    gh_cons (p->self_scm_, get_elt_property ("columns")));
-  add_element (p);
+  axis_group (this).add_element (p);
 }
 
 void

@@ -9,6 +9,7 @@
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "debug.hh"
+#include "axis-group-interface.hh"
 
 void
 Paper_column::add_rod (Paper_column * p, Real d)
@@ -126,7 +127,7 @@ Paper_column::Paper_column (Moment w)
   scm_unprotect_object (when);
   set_elt_property ("when", when);
   
-  set_axes (X_AXIS, X_AXIS);
+  axis_group (this).set_axes (X_AXIS, X_AXIS);
 
   line_l_=0;
   rank_i_ = -1;

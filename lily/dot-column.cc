@@ -13,6 +13,8 @@
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 #include "side-position-interface.hh"
+#include "axis-group-interface.hh"
+
 
 void
 Dot_column::add_dots (Dots *d)
@@ -21,7 +23,7 @@ Dot_column::add_dots (Dots *d)
   gi.add_element (d);
 
   add_dependency (d);
-  add_element (d);
+  axis_group (this).add_element (d);
 }
 
 void
@@ -51,7 +53,7 @@ Dot_column::Dot_column ()
   gi.set_interface ();
   
   directional_element (this).set (RIGHT);
-  set_axes(X_AXIS,X_AXIS);
+  axis_group (this).set_axes(X_AXIS,X_AXIS);
 }
 
 /*

@@ -10,15 +10,12 @@
 #ifndef AXIS_ITEM_HH
 #define AXIS_ITEM_HH
 
-#include "axis-group-element.hh" 
 #include "item.hh"
 
-/**
-  A grouping item. Its special support is in do_breakable_col_processing().
- */
-class Axis_group_item : public virtual Axis_group_element, public virtual Item
+class Axis_group_item :  public virtual Item
 {
 public:
+  Axis_group_item ();
   VIRTUAL_COPY_CONS(Score_element);
 };
 

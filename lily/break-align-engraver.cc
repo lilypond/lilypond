@@ -10,6 +10,7 @@
 #include "protected-scm.hh"
 #include "break-align-item.hh"
 #include "axis-group-item.hh"
+#include "axis-group-interface.hh"
 
 class Break_align_engraver : public Engraver
 {
@@ -111,12 +112,12 @@ Break_align_engraver::acknowledge_element (Score_element_info inf)
       else
 	{
 	  group = new Axis_group_item;
-	  group->set_axes (X_AXIS,X_AXIS);
+	  axis_group(group).set_axes (X_AXIS,X_AXIS);
 	  group->set_elt_property ("origin", name);
 	  group->set_parent (align_l_, Y_AXIS);
 	  announce_element (Score_element_info (group, 0));
 	  column_alist_ = scm_assoc_set_x (column_alist_, name, group->self_scm_);
 	}
-      group->add_element (item_l);
+      axis_group (group).add_element (item_l);
     }
 }

@@ -13,7 +13,6 @@
 #include "lookup.hh"
 #include "rest.hh"
 #include "dots.hh"
-#include "axis-group-element.hh"
 #include "paper-score.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
