@@ -13,7 +13,7 @@ svec<Real>
 PScore::solve_line(svec<const PCol *> curline) const
 {
    Spacing_problem sp;
-   //   mtor << "line of " << curline.sz() << " cols\n";
+   mtor << "line of " << curline.sz() << " cols\n";
    sp.add_column(curline[0], true, 0.0);
    for (int i=1; i< curline.sz()-1; i++)
        sp.add_column(curline[i]);
