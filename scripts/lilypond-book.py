@@ -26,6 +26,7 @@ TODO:
 
 import __main__
 import glob
+import stat
 import string
 import stat
 ################################################################

@@ -1,12 +1,9 @@
 # -*-python-*-
 
-Import ('env')
-sources = env['src_glob'] (env, '*.cc')
-includes = env['src_glob'] (env, '*.hh')
+Import ('env', 'src_glob')
+sources = src_glob ('*.cc')
+includes = src_glob ('*.hh')
 outdir = Dir ('.').path
-
-# abs_srcdir = Dir ('.').srcnode ().abspath
-# abs_outdir = Dir ('.').abspath
 
 name = 'flower'
 e = env.Copy ()

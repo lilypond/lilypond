@@ -1,10 +1,8 @@
 # -*-python-*-
 
-Import ('env')
-sources = env['glob'] (env, '*.mf')
-
+Import ('env', 'base_glob', 'install')
 fonts = reduce (lambda x, y: x + y,
-		map (lambda x: env['glob'] (env, x),
+		map (lambda x: base_glob (x),
 		     ('feta[0-9]*.mf',
 		      'feta-braces-[a-z].mf',
 		      'feta-din*[0-9].mf',
@@ -15,7 +13,9 @@ t = map (env.TFM, fonts)
 a = map (env.AFM, fonts)
 p = map (env.PFA, fonts)
 
+import os
 map (lambda x: env.Depends (x + '.pfa', x + '.enc'), fonts)
+#     map (lambda x: os.path.splitext (x)[0], fonts))
 
 mf_essential = ['feta16', 'feta20', 'parmesan16', ]
 pfa_essential = map (env.PFA, mf_essential)
@@ -24,15 +24,8 @@ env.Alias ('mf-essential', pfa_essential)
 env.Alias ('mf', 'cmr.enc')
 
 # build essential stuff first, that's friendlier
-#env.Depends (mf', pfa_essential)
 env.Alias ('mf', pfa_essential + p)
 
-tfmdir = env['DESTDIR'] + env['lilypondprefix'] + '/fonts/tfm'
-afmdir = env['DESTDIR'] + env['lilypondprefix'] + '/afm'
-pfadir = env['DESTDIR'] + env['lilypondprefix'] + '/fonts/type1'
-ti = map (lambda x: env.Install (tfmdir, x), t)
-ai = map (lambda x: env.Install (afmdir, x), a)
-pi = map (lambda x: env.Install (pfadir, x), p)
-env.Alias ('install', tfmdir)
-env.Alias ('install', afmdir)
-env.Alias ('install', pfadir)
+install (t, env['sharedir_package_version'] + '/fonts/tfm')
+install (a, env['sharedir_package_version'] + '/afm')
+install (p, env['sharedir_package_version'] + '/fonts/type1')

@@ -6,107 +6,172 @@ import string
 
 Import ('env')
 
-# junkme
-srcdir = env['srcdir']
+# utility
 
+def add_suffixes (target, source, env, target_suffixes, src_suffixes):
+	base = os.path.splitext (str (target[0]))[0]
+	return (target + map (lambda x: base + x, target_suffixes),
+		source + map (lambda x: base + x, src_suffixes))
+
+# junkme; see _concat
 def join_path (path, infix=os.pathsep, prefix = ''):
 	def dir (x):
 		if x and x[0] == '#':
-			return srcdir + x[1:]
+			return env['srcdir'] + x[1:]
 		return x
 	return string.join (map (lambda x: prefix + dir (x), path), infix)
 
-env['join_path'] = join_path
 
-env['MAKEINFO_INCLUDES'] = join_path (env['MAKEINFO_PATH'], '', ' -I')
-a = '$MAKEINFO $__verbose $MAKEINFO_INCLUDES --no-split --no-headers \
---output=$TARGET $SOURCE'
-TXT = Builder (action = a, suffix = '.txt', src_suffix = '.texi')
+def src_glob (s):
+	here = os.getcwd ()
+	os.chdir (env.Dir ('.').srcnode ().abspath)
+	result = glob.glob (s)
+	os.chdir (here)
+	return result
+
+Export ('src_glob')
+
+def base_glob (s):
+	return map (lambda x: os.path.splitext (x)[0], src_glob (s))
+
+Export ('base_glob')
+
+def install (target, dir):
+	dest = env['DESTDIR'] + dir
+	if type (target) == type ([]):
+		map (lambda x: env.Install (dir, x), target)
+	else:
+		env.Install (dir, target)
+	env.Alias ('install', dir)
+
+Export ('install')
+
+def _fixme (s):
+	x = string.replace (s, '#', env['srcdir'])
+	x = string.replace (x, '@', env['absbuild'])
+	return x
+
+# Clean separation between generic action + flags and actual
+# configuration and flags in environment for this build.
+
+# Generic builders could/should be part of SCons.
+
+
+HH = Builder (action = 'bison -d -o ${TARGET.base}.cc $SOURCE',
+	      suffix = '.hh', src_suffix = '.yy')
+env.Append (BUILDERS = {'HH' : HH})
+
+
+# Setup LilyPond environment.  For the LilyPond build, we override
+# some of these commands in the ENVironment.
+
+env.Append (
+	_fixme = _fixme,
+	ABC2LY = 'abc2ly',
+	LILYPOND = 'lilypond',
+	LILYPOND_BIN = 'lilypond-bin',
+	LILYOND_BOOK = 'lilypond-book',
+
+	#ugr
+	#LILYPOND_BOOK_FORMAT = 'texi',
+	LILYPOND_BOOK_FORMAT = '',
+	LILYPOND_BOOK_FLAGS = ['--format=$LILYPOND_BOOK_FORMAT'],
+
+	LILYPOND_PATH = [],
+	# The SCons way around FOO_PATH:
+	##LILYPOND_INCFLAGS = '$( ${_concat(INCPREFIX, LILYPOND_PATH, INCSUFFIX, __env__, RDirs)} $)',
+	LILYPOND_INCFLAGS = '$( ${_concat(INCPREFIX, LILYPOND_PATH, INCSUFFIX, __env__)} $)',
+
+	MAKEINFO_PATH = [],
+	MAKEINFO_FLAGS = [],
+	MAKEINFO_INCFLAGS = '$( ${_concat(INCPREFIX, MAKEINFO_PATH, INCSUFFIX, __env__, RDirs)} $)',
+
+	TEXI2DVI_FLAGS = [],
+	_TEXI2DVI_FLAGS = '$( ${_concat(" ", TEXI2DVI_FLAGS,)} $)',
+	)
+
+TXT =\
+    Builder (action = '$MAKEINFO --output=$TARGET $MAKEINFO_INCFLAGS\
+    --no-split --no-headers $SOURCE',
+	       suffix = '.txt', src_suffix = '.texi')
 env.Append (BUILDERS = {'TXT': TXT})
 
-a = '$MAKEINFO $__verbose $MAKEINFO_INCLUDES --output=$TARGET $SOURCE'
-INFO = Builder (action = a, suffix = '.info', src_suffix = '.texi')
+INFO =\
+     Builder (action = '$MAKEINFO --output=$TARGET $MAKEINFO_INCFLAGS $SOURCE',
+	      suffix = '.info', src_suffix = '.texi')
 env.Append (BUILDERS = {'INFO': INFO})
 
-a = '$MAKEINFO $__verbose $MAKEINFO_INCLUDES  --html --no-split --no-headers \
---css-include=$srcdir/Documentation/texinfo.css --output=$TARGET $SOURCE'
-HTML = Builder (action = a, suffix = '.html', src_suffix = '.texi')
+HTML =\
+     Builder (action = '$MAKEINFO --output=$TARGET $MAKEINFO_INCLUDES\
+     --html --no-split --no-headers $MAKEINFO_FLAGS $SOURCE',
+suffix = '.html', src_suffix = '.texi')
 env.Append (BUILDERS = {'HTML': HTML})
 
-
-env['LILYPOND_BOOK_INCLUDES'] = join_path (env['LILYPOND_BOOK_PATH'], '',
-					   ' --include=')
-
-# UGHR, lilypond.py uses lilypond-bin from PATH
-env.PrependENVPath ('PATH',
-		    os.path.join (env['absbuild'], env['out'], 'usr/bin'))
-
-if os.environ.has_key ('TEXMF'):
-	env.Append (ENV = {'TEXMF' : os.environ['TEXMF']})
-env.Append (ENV = {'TEXMF' : '{$LILYPONDPREFIX,' \
-		   + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}' })
-
-#if os.environ.has_key ('GS_LIB'):
-#	env.Append (ENV = {'GS_LIB' : os.environ['GS_LIB'] })
-#
-#env.PrependENVPath ('GS_LIB', ['$run_prefix/share/lilyond/ps',
-#			       '$run_prefix/share/lilypond/fonts/type1/'])
-
-if os.environ.has_key ('LD_LIBRARY_PATH'):
-	env.Append (ENV = {'LD_LIBRARY_PATH' : os.environ['LD_LIBRARY_PATH']})
-if os.environ.has_key ('GUILE_LOAD_PATH'):
-	env.Append (ENV = {'GUILE_LOAD_PATH' : os.environ['GUILE_LOAD_PATH']})
-
-env.Append (PYTHONPATH = [os.path.join (env['absbuild'], env['out'],
-					'usr/lib/python'),
-			  os.path.join (srcdir, 'buildscripts'),
-			  os.path.join (srcdir, 'python')])
-env.Append (ENV = { 'PYTHONPATH' : string.join (env['PYTHONPATH'],
-						os.pathsep) } )
-
-a = ['${__set_x}rm -f $$(grep -LF "\lilypondend" ${TARGET.dir}/lily-*.tex 2>/dev/null);',
-     'LILYPONDPREFIX=$LILYPONDPREFIX \
-     $PYTHON $LILYPOND_BOOK $__verbose \
-     --include=${TARGET.dir} $LILYPOND_BOOK_INCLUDES \
-     --process="$LILYPOND_BIN $LILYPOND_BOOK_INCLUDES" \
-     --output=${TARGET.dir} --format=$LILYPOND_BOOK_FORMAT \
-     $LILYPOND_BOOK_FLAGS \
-     $SOURCE']
-TEXI = Builder (action = a, suffix = '.texi', src_suffix = '.tely')
+TEXI =\
+     Builder (action =
+	      '$LILYPOND_BOOK --output=${TARGET.dir} \
+	      --include=${TARGET.dir} $LILYPOND_INCFLAGS \
+	      --process="$LILYPOND_BIN $LILYPOND_INCFLAGS" \
+	      $LILYPOND_BOOK_FLAGS \
+	      $SOURCE',
+	      suffix = '.texi', src_suffix = '.tely')
 env.Append (BUILDERS = {'TEXI': TEXI})
 
-a = 'cd ${TARGET.dir} \
-&& texi2dvi --batch $TEXINFO_PAPERSIZE_OPTION ${SOURCE.file}'
-texi2dvi = Builder (action = a, suffix = '.dvi', src_suffix = '.texi')
-env.Append (BUILDERS = {'Texi2dvi': texi2dvi})
+TEXIDVI =\
+	Builder (action = 'cd ${TARGET.dir} && \
+	texi2dvi --batch $_TEXI2DVI_FLAGS ${SOURCE.file}',
+		 suffix = '.dvi', src_suffix = '.texi')
+env.Append (BUILDERS = {'TEXIDVI': TEXIDVI})
 
-env.Append (DVIPSFLAGS = '-Ppdf -u+lilypond.map -u+ec-mftrace.map')
+DVIPS =\
+      Builder (action = 'dvips -o $TARGET $DVIPS_FLAGS $SOURCE',
+	       suffix = '.ps', src_suffix = '.dvi')
+env.Append (BUILDERS = {'DVIPS': DVIPS})
 
-env ['DVIPS_PAPERSIZE'] = 'a4'
-a = ['dvips $DVIPSFLAGS -o ${TARGET}.pdfps -t $DVIPS_PAPERSIZE $SOURCE',
-     'ps2pdf -sPAPERSIZE=$DVIPS_PAPERSIZE ${TARGET}.pdfps $TARGET']
-dvi2pdf = Builder (action = a, suffix = '.pdf', src_suffix = '.dvi')
-env.Append (BUILDERS = {'Dvi2pdf': dvi2pdf})
+DVIPDF =\
+      Builder (action = 'dvips -o $TARGET -Ppdf $DVIPS_FLAGS $SOURCE',
+	       suffix = '.pdfps', src_suffix = '.dvi')
+env.Append (BUILDERS = {'DVIPDF': DVIPDF})
 
-a = 'convert $SOURCE $TARGET'
-png2eps = Builder (action = a, suffix = '.eps', src_suffix = '.png')
-env.Append (BUILDERS = {'Png2eps': png2eps})
+PSPDF =\
+      Builder (action = 'ps2pdf $PSPDF_FLAGS $SOURCE $TARGET',
+	       suffix = '.pdf', src_suffix = '.pdfps')
+env.Append (BUILDERS = {'PSPDF': PSPDF})
+
+PNG2EPS =\
+	Builder (action = 'convert $SOURCE $TARGET',
+		 suffix = '.eps', src_suffix = '.png')
+env.Append (BUILDERS = {'PNG2EPS': PNG2EPS})
+
+
+
+
+
+# FIXME: cleanup, see above
+
+
+env.Append (
+
+	#urg
+	BSTINPUTS = '${SOURCE.dir}:${TARGET.dir}:',
+	BIB2HTML = '$PYTHON $srcdir/buildscripts/bib2html.py',
+)
+
 
 def add_ps_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.ps'], source)
 
-a = '${set__x}LILYPONDPREFIX=$LILYPONDPREFIX \
-$PYTHON $LILYPOND_PY${__verbose} \
---include=${TARGET.dir} \
---output=${TARGET.base} $SOURCE'
-lilypond = Builder (action = a, suffix = '.pdf', src_suffix = '.ly')
+# TODO: 
+# FIXME: INCLUDES, FLAGS, use LILYPOND_BIN for building ? 
+lilypond =\
+	 Builder (action = '$LILYPOND --output=${TARGET.base} --include=${TARGET.dir} $SOURCE',
+		  suffix = '.pdf', src_suffix = '.ly')
 ##		    emitter = add_ps_target)
 env.Append (BUILDERS = {'LilyPond': lilypond})
 
-a = '${set__x}LILYPONDPREFIX=$LILYPONDPREFIX $PYTHON $ABC2LY_PY \
---strict --output=${TARGET} $SOURCE'
-ABC = Builder (action = a, suffix = '.ly', src_suffix = '.abc')
+ABC = Builder (action = '$ABC2LY --output=${TARGET} --strict $SOURCE',
+	       suffix = '.ly', src_suffix = '.abc')
 env.Append (BUILDERS = {'ABC': ABC})
 
 def add_log_target (target, source, env):
@@ -117,12 +182,6 @@ def add_enc_ly_tex_target (target, source, env):
 	base = os.path.splitext (str (target[0]))[0]
 	return (target + [base + '.enc', base + '.tex', base + 'list.ly'],
 		source)
-
-def add_suffixes (target, source, env, target_suffixes, src_suffixes):
-	base = os.path.splitext (str (target[0]))[0]
-	return (target + map (lambda x: base + x, target_suffixes),
-		source + map (lambda x: base + x, src_suffixes))
-
 a = 'cd ${TARGET.dir} && \
 MFINPUTS=.:${SOURCE.dir}:$srcdir/${SOURCE.dir} \
 mf "\\mode:=$MFMODE; nonstopmode; input ${SOURCE.filebase};" \
@@ -162,22 +221,11 @@ pfa = Builder (action = a,
 	       emitter = add_enc_src)
 env.Append (BUILDERS = {'PFA': pfa})
 
-env['DIFF_PY'] = os.path.join (srcdir, 'stepmake/bin/package-diff.py')
+# Specific builders
+env['DIFF_PY'] = '$srcdir/stepmake/bin/package-diff.py'
 a = '$PYTHON $DIFF_PY $__verbose --outdir=${TARGET.dir}'
 patch = Builder (action = a, suffix = '.diff', src_suffix = '.tar.gz')
 env.Append (BUILDERS = {'PATCH': patch})
-
-def src_glob (env, s):
-	here = os.getcwd ()
-	os.chdir (env.Dir ('.').srcnode ().abspath)
-	result = glob.glob (s)
-	os.chdir (here)
-	return result
-env['src_glob'] = src_glob
-
-def base_glob (env, s):
-	return map (lambda x: os.path.splitext (x)[0], src_glob (env, s))
-env['glob'] = base_glob
 
 atvars = [
 'BASH',
@@ -230,8 +278,6 @@ a = ugh + 'xgettext --default-domain=lilypond --join \
 --keyword=_ --keyword=_f --keyword=_i $SOURCES'
 PO = Builder (action = a, suffix = '.pot',
 	      src_suffix = ['.cc', '.hh', '.py'], multi = 1)
-##env.Append (BUILDERS = {'PO': PO})
-##env.Command(env['absbuild'] + '/po/' + env['out'] + '/lilypond.pot',
 env['potarget'] = os.path.join (env['absbuild'], 'po', env['out'],
 				'lilypond.pot')
 env['pocommand'] = a
@@ -241,7 +287,8 @@ a = 'msgmerge ${SOURCE} ${SOURCE.dir}/lilypond.pot -o ${TARGET}' + ugh
 POMERGE = Builder (action = a, suffix = '.pom', src_suffix = '.po')
 env.Append (BUILDERS = {'POMERGE': POMERGE})
 
-a = '$PYTHON $srcdir/buildscripts/bib2html.py -o $TARGET $SOURCE'
+#UGRr
+a = 'BSTINPUTS=$BSTINPUTS $BIB2HTML -o $TARGET $SOURCE'
 BIB2HTML = Builder (action = a, suffix = '.html', src_suffix = '.bib')
 env.Append (BUILDERS = {'BIB2HTML': BIB2HTML})
 
@@ -252,20 +299,38 @@ env.Append (BUILDERS = {'LYS2TELY': LYS2TELY})
 
 
 def mutopia (ly = None, abc = None):
+
+	# FIXME: ugr, huh?  The values from ../SConstruct get appended
+	# to the predefined values from this builder context:
+
+	# abc2ly/usr/bin/python ..../abc2.py
+
+	# Override them again to fix web build...
+
+	
+	BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
+	BUILD_LILYPOND = '${set__x}$PYTHON $srcdir/scripts/lilypond.py${__verbose}'
+	e = env.Copy (
+		LILYPOND = BUILD_LILYPOND,
+		ABC2LY = BUILD_ABC2LY,
+	)
+	
 	if not abc:
-		abc = env['glob'] (env, '*.abc')
+		abc = base_glob ('*.abc')
 	if not ly:
-		ly = env['glob'] (env, '*.ly') + map (env.ABC, abc)
-	pdf = map (env.LilyPond, ly)
+		ly = base_glob ('*.ly') + map (e.ABC, abc)
+	pdf = map (e.LilyPond, ly)
+	
 	# We need lily and mf to build these.
 	env.Depends (pdf, ['#/lily', '#/mf'])
 	env.Alias ('doc', pdf)
 
-env['mutopia'] = mutopia
+Export ('mutopia')
 
 
 def collate (title = 'collated files'):
-	ly = env['glob'] (env, '*.ly')
+	ly = base_glob ('*.ly')
+	
 	e = env.Copy (
 		TITLE = title,
 		LILYPOND_BOOK_FLAGS = '''--process="lilypond-bin --header=texidoc -I$srcdir/input/test -e '(ly:set-option (quote internal-type-checking) #t)'"''',
@@ -276,11 +341,14 @@ def collate (title = 'collated files'):
 	texi = e.TEXI (tely)
 	# We need lily and mf to build these.
 	env.Depends (texi, ['#/lily', '#/mf'])
-	dvi = e.Texi2dvi (texi)
-	pdf = e.Dvi2pdf (dvi)
+	dvi = e.TEXIDVI (texi)
+	pspdf = e.DVIPDF (dvi)
+	pdf = e.PSPDF (pspdf)
 	html = e.HTML (texi)
 
 	env.Alias ('doc', pdf)
 	env.Alias ('doc', html)
 
-env['collate'] = collate
+Export ('collate')
+
+Export ('env')

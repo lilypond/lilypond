@@ -38,7 +38,7 @@ Other targets
     scons /                    # build *everything* (including installation)
 
 Options  (see scons -h)
-    scons build=DIR            # clean scrdir build, output below DIR
+    scons build=DIR            # clean srcdir build, output below DIR
     scons out=DIR              # write output for alterative config to DIR
 
 Debugging
@@ -139,7 +139,6 @@ opts.AddOptions (
 	)
 
 srcdir = Dir ('.').srcnode ().abspath
-
 #ugh
 sys.path.append (os.path.join (srcdir, 'stepmake', 'bin'))
 import packagepython
@@ -160,11 +159,6 @@ env = Environment (
 	SH = '/bin/sh',
 
 	MAKEINFO = 'LANG= makeinfo',
-	ABC2LY_PY = srcdir + '/scripts/abc2ly.py',
-	LILYPOND_BOOK = srcdir + '/scripts/lilypond-book.py',
-	LILYPOND_BOOK_FLAGS = '',
-	LILYPOND_BOOK_FORMAT = 'texi-html',
-	LILYPOND_PY = srcdir + '/scripts/lilypond.py',
 	MF_TO_TABLE_PY = srcdir + '/buildscripts/mf-to-table.py',
 	
 	PKG_CONFIG_PATH = [os.path.join (os.environ['HOME'],
@@ -173,7 +167,6 @@ env = Environment (
 					 'usr/pkg/pango/lib')],
 	GZIP='-9v',
 	MFMODE = 'ljfour',
-	TEXINFO_PAPERSIZE_OPTION = '-t @afourpaper',
 	TOPLEVEL_VERSION = version,
 	)
 
@@ -195,6 +188,13 @@ absbuild = Dir (env['build']).abspath
 outdir = os.path.join (Dir (env['build']).abspath, env['out'])
 run_prefix = os.path.join (absbuild, os.path.join (env['out'], 'usr'))
 
+
+config_hh = os.path.join (outdir, 'config.hh')
+version_hh = os.path.join (outdir, 'version.hh')
+
+env.Alias ('config', config_cache)
+
+
 CacheDir (os.path.join (outdir, 'build-cache'))
 
 # No need to set $LILYPONDPREFIX to run lily, but cannot install...
@@ -211,91 +211,18 @@ sharedir_package = os.path.join (sharedir, package.name)
 sharedir_package_version = os.path.join (sharedir_package, version)
 lilypondprefix = sharedir_package_version
 
-# post-option environment-update
+# junkme
 env.Append (
+	absbuild = absbuild,
 	srcdir = srcdir,
-	
-	bindir = bindir,
-	sharedir = sharedir,
-	lilypond_datadir = sharedir_package,
-	localedir = localedir,
-	local_lilypond_datadir = sharedir_package_version,
-	lilypondprefix = lilypondprefix,
-	sharedir_package = sharedir_package,
-	sharedir_doc_package = sharedir_doc_package,
-	sharedir_package_version = sharedir_package_version,
 	)
 
-if env['debugging']:
-	env.Append (CCFLAGS = ['-g', '-pipe'])
-if env['optimising']:
-	env.Append (CCFLAGS = '-O2')
-	env.Append (CXXFLAGS = ['-DSTRING_UTILS_INLINED'])
-if env['warnings']:
-	env.Append (CCFLAGS = ['-W', '-Wall'])
-	env.Append (CXXFLAGS = ['-Wconversion'])
-
-# ugr,huh?
-env.Append (LINKFLAGS = ['-Wl,--export-dynamic'])
-
-if env['verbose']:
-	env['__verbose'] = ' --verbose'
-	env['set__x'] = 'set -x;'
-
-config_hh = os.path.join (outdir, 'config.hh')
-version_hh = os.path.join (outdir, 'version.hh')
-
-env.Alias ('config', config_cache)
-
-
-## Explicit target and dependencies
-
-if 'clean' in COMMAND_LINE_TARGETS:
-	# ugh: prevent reconfigure instead of clean
-	os.system ('touch %s' % config_cache)
-	
-	command = sys.argv[0] + ' -c .'
-	sys.stdout.write ('Running %s ... ' % command)
-	sys.stdout.write ('\n')
-	s = os.system (command)
-	if os.path.exists (config_cache):
-		os.unlink (config_cache)
-	Exit (s)
-
-if 'realclean' in COMMAND_LINE_TARGETS:
-	command = 'rm -rf $(find . -name "out-scons" -o -name ".scon*")'
-	sys.stdout.write ('Running %s ... ' % command)
-	sys.stdout.write ('\n')
-	s = os.system (command)
-	if os.path.exists (config_cache):
-		os.unlink (config_cache)
-	Exit (s)
-
-# Declare SConscript phonies 
-env.Alias ('minimal', config_cache)
-env.Alias ('mf-essential', config_cache)
-
-env.Alias ('minimal', ['lily', 'mf-essential'])
-env.Alias ('all', ['minimal', 'mf', '.'])
-# Do we want the doc/web separation?
-env.Alias ('doc',
-	   ['Documentation',
-	    'Documentation/user',
-	    'Documentation/topdocs',
-	    'Documentation/bibliography',
-	    'input'])
-
-# Without target arguments, do minimal build
-if not COMMAND_LINE_TARGETS:
-	env.Default (['minimal'])
-
-# GNU Make rerouting compat:
-env.Alias ('web', 'doc')
 
 def list_sort (lst):
 	sorted = lst
 	sorted.sort ()
 	return sorted
+
 
 def configure (target, source, env):
 	vre = re.compile ('^.*[^-.0-9]([0-9][0-9]*\.[0-9][.0-9]*).*$', re.DOTALL)
@@ -531,37 +458,140 @@ elif env['checksums']:
 	# just save everything
 	save_config_cache (env)
 
+#urg how does #/ subst work?
+Export ('env')
+SConscript ('buildscripts/builder.py')
+
+env.PrependENVPath ('PATH',
+		    os.path.join (env['absbuild'], env['out'], 'usr/bin'))
+
+if os.environ.has_key ('TEXMF'):
+	env.Append (ENV = {'TEXMF' : os.environ['TEXMF']})
+env.Append (ENV = {'TEXMF' : '{$LILYPONDPREFIX,' \
+		   + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}' })
+
+
+
+BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
+BUILD_LILYPOND = '${set__x}$PYTHON $srcdir/scripts/lilypond.py${__verbose}'
+BUILD_LILYPOND_BIN = '$absbuild/$out/lilypond-bin ${__verbose}'
+BUILD_LILYPOND_BOOK = '$PYTHON $srcdir/scripts/lilypond-book.py --verbose'
+
+
+# post-option environment-update
+env.Append (
+	bindir = bindir,
+	sharedir = sharedir,
+	lilypond_datadir = sharedir_package,
+	localedir = localedir,
+	local_lilypond_datadir = sharedir_package_version,
+	lilypondprefix = lilypondprefix,
+	sharedir_package = sharedir_package,
+	sharedir_doc_package = sharedir_doc_package,
+	sharedir_package_version = sharedir_package_version,
+
+	LILYPOND = BUILD_LILYPOND,
+	ABC2LY = BUILD_ABC2LY,
+	LILYPOND_BOOK = BUILD_LILYPOND_BOOK,
+	LILYPOND_BOOK_FORMAT = 'texi-html',
+	MAKEINFO_FLAGS = '--css-include=$srcdir/Documentation/texinfo.css',
+
+	TEXI2DVI_PAPERSIZE = '@afourpaper',
+	TEXI2DVI_FLAGS = [ '-t $TEXI2DVI_PAPERSIZE'],
+	DVIPS_PAPERSIZE = 'a4',
+	DVIPS_FLAGS = ['-t $DVIPS_PAPERSIZE',
+		       '-u+lilypond.map',
+		       '-u+ec-mftrace.map'],
+	PSPDF_FLAGS = ['-sPAPERSIZE=$DVIPS_PAPERSIZE'],
+	)
+
+if env['debugging']:
+	env.Append (CCFLAGS = ['-g', '-pipe'])
+if env['optimising']:
+	env.Append (CCFLAGS = '-O2')
+	env.Append (CXXFLAGS = ['-DSTRING_UTILS_INLINED'])
+if env['warnings']:
+	env.Append (CCFLAGS = ['-W', '-Wall'])
+	env.Append (CXXFLAGS = ['-Wconversion'])
+
+# ugr,huh?
+env.Append (LINKFLAGS = ['-Wl,--export-dynamic'])
+
+if env['verbose']:
+	env['__verbose'] = ' --verbose'
+	env['set__x'] = 'set -x;'
+
+
+## Explicit target and dependencies
+
+if 'clean' in COMMAND_LINE_TARGETS:
+	# ugh: prevent reconfigure instead of clean
+	os.system ('touch %s' % config_cache)
+	
+	command = sys.argv[0] + ' -c .'
+	sys.stdout.write ('Running %s ... ' % command)
+	sys.stdout.write ('\n')
+	s = os.system (command)
+	if os.path.exists (config_cache):
+		os.unlink (config_cache)
+	Exit (s)
+
+if 'realclean' in COMMAND_LINE_TARGETS:
+	command = 'rm -rf $(find . -name "out-scons" -o -name ".scon*")'
+	sys.stdout.write ('Running %s ... ' % command)
+	sys.stdout.write ('\n')
+	s = os.system (command)
+	if os.path.exists (config_cache):
+		os.unlink (config_cache)
+	Exit (s)
+
+# Declare SConscript phonies 
+env.Alias ('minimal', config_cache)
+env.Alias ('mf-essential', config_cache)
+
+env.Alias ('minimal', ['lily', 'mf-essential'])
+env.Alias ('all', ['minimal', 'mf', '.'])
+# Do we want the doc/web separation?
+env.Alias ('doc',
+	   ['Documentation',
+	    'Documentation/user',
+	    'Documentation/topdocs',
+	    'Documentation/bibliography',
+	    'input'])
+
+# Without target arguments, do minimal build
+if not COMMAND_LINE_TARGETS:
+	env.Default (['minimal'])
+
+# GNU Make rerouting compat:
+env.Alias ('web', 'doc')
+
+
 env.Command (version_hh, '#/VERSION',
 	     '$PYTHON ./stepmake/bin/make-version.py VERSION > $TARGET')
 
 # post-config environment update
 env.Append (
-	absbuild = absbuild,
 	run_prefix = run_prefix,
 	LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond'),
 
 	LIBPATH = [os.path.join (absbuild, 'flower', env['out']),],
 	##CPPPATH = [outdir, '#',], # do not read auto*'s header
 	CPPPATH = [outdir, ],
-	LILYPOND_BIN = os.path.join (absbuild, 'lily', env['out'],
-				     'lilypond-bin'),
-	LILYPOND_BOOK_PATH = ['.', '#/input', '#/input/regression',
-			      '#/input/test', '#/input/tutorial',
-			      os.path.join (absbuild, 'mf', env['out']),
-			      '#/Documentation/user',
-			      os.path.join (absbuild, 'Documentation',
-					    env['out']),
-			      os.path.join (absbuild, 'Documentation/user',
-					    env['out']),
-			      ],
-	MAKEINFO_PATH = ['.', '#/Documentation/user',
-			 os.path.join (absbuild, 'Documentation/user',
-				       env['out'])],
+	LILYPOND_PATH = ['.', '$srcdir/input',
+			 '$srcdir/input/regression',
+			 '$srcdir/input/test',
+			 '$srcdir/input/tutorial',
+			 '$srcdir/Documentation/user',
+			 '$absbuild/mf/$out',
+#			 os.path.join (absbuild, 'Documentation',
+#				       env['out']),
+#			 os.path.join (absbuild, 'Documentation/user',
+#				       env['out']),
+			 ],
+	MAKEINFO_PATH = ['.', '$srcdir/Documentation/user',
+			 '$absbuild/Documentation/user/$out'],
 	)
-
-Export ('env')
-SConscript ('buildscripts/builder.py')
-
 
 def symlink_tree (target, source, env):
 	def mkdirs (dir):

@@ -1,7 +1,7 @@
 # -*-python-*-
 
-Import ('env')
-sources = env['src_glob'] (env, '*.vim') + ['lilypond-words.vim']
+Import ('env', 'install', 'src_glob')
+sources = src_glob ('*.vim') + ['lilypond-words.vim']
 
 e = env.Copy ()
 a = '$PYTHON $srcdir/buildscripts/lilypond-words.py --words --vim --dir=${TARGET.dir}'
@@ -12,5 +12,4 @@ e.Command ('lilypond-words.vim',
 	    '#/ly/engraver-init.ly',],
 	   a)
 
-dir = env['DESTDIR'] + env['sharedir_package_version'] + '/vim'
-env.Install (dir, sources)
+install (sources, env['sharedir_package_version'] + '/vim')

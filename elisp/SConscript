@@ -1,7 +1,7 @@
 # -*-python-*-
 
-Import ('env')
-sources = env['src_glob'] (env, '*.el') + ['lilypond-words.el']
+Import ('env', 'install', 'src_glob')
+sources = src_glob ('*.el') + ['lilypond-words.el']
 
 e = env.Copy ()
 a = '$PYTHON $srcdir/buildscripts/lilypond-words.py --el --dir=${TARGET.dir}'
@@ -12,5 +12,4 @@ e.Command ('lilypond-words.el',
 	    '#/ly/engraver-init.ly',],
 	   a)
 
-dir = env['DESTDIR'] + env['sharedir_package_version'] + '/elisp'
-env.Install (dir, sources)
+install (sources, env['sharedir_package_version'] + '/elisp')

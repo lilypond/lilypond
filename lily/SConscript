@@ -1,38 +1,25 @@
 # -*-python-*-
 
-Import ('env')
+Import ('env', 'src_glob', 'install')
 
 outdir = Dir ('.').abspath
-cc_sources =  env['src_glob'] (env, '*.cc')
+
+cc_sources =  src_glob ('*.cc')
 sources = cc_sources + ['parser.yy', 'lexer.ll']
-includes = env['src_glob'] (env, 'include/*.hh')
+includes = src_glob ('include/*.hh')
 
 e = env.Copy ()
-e.Append (CPPPATH = [outdir, '#/lily/include', '#/flower/include'])
-e.Append (LEXFLAGS = ['-Cfe', '-p', '-p'])
 
-# SCons builds parser.cc and parser.hh automagically with this but
-# keeps removing and rebuilding parser.cc because it wants parser.hpp.
-# e.Append (YACCFLAGS = '-d')
-# e.Depends ('lexer.cc', 'parser.cc')
-# e.Depends ('my-lily-lexer.o', 'parser.cc')
-# e.Depends ('my-lily-parser.o', 'parser.cc')
+e.Append (
+	CPPPATH = [outdir, '#/lily/include', '#/flower/include'],
+	LEXFLAGS = ['-Cfe', '-p', '-p'],
+	LIBS = ['flower'],
+	)
 
-# Adding an explicit Builder works well, we do not even need to list
-# header dependencies.
-HH = Builder (action = 'bison -d -o ${TARGET.base}.cc $SOURCE',
-	      suffix = '.hh', src_suffix = '.yy')
-e.Append (BUILDERS = {'HH' : HH})
 e.HH ('parser.hh', 'parser.yy')
-
-e.Append (LIBS = ['flower'])
 e.ParseConfig ('guile-config link')
-
-name = 'lilypond-bin'
-lily = e.Program (name, sources)
-dir = env['DESTDIR'] + env['bindir']
-env.Install (dir, lily)
-env.Alias ('install', dir)
+lily = e.Program ('lilypond-bin', sources)
+install (lily, env['bindir'])
 
 po = env.Command ('lilypond.po', cc_sources + includes, env['pocommand'])
 env.Alias ('po-update', po)
