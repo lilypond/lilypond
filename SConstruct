@@ -209,12 +209,9 @@ if required:
 for i in required:
 	print '%s:	%s-%s or newer (found: %s-%s)' % i
 
-sys.exit (1)
-	
-
-subdirs = ('mf',)
+#subdirs = ('mf',)
 #subdirs = ('flower', 'lily', 'parser', 'gui', 'main',)
-#subdirs = ('flower', 'lily', 'mf')
+subdirs = ('flower', 'lily', 'mf')
 for d in subdirs:
 	b = os.path.join (build, d, out)
 	# Support clean sourctree build (srcdir build)
