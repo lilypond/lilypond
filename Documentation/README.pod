@@ -123,7 +123,7 @@ add F<FILE> to the search path for input files.
 
 =item B<-M,--midi>
 
-do midi output only
+Do midi output only.
 
 =item B<-d,--debug>,
 
@@ -201,7 +201,7 @@ LilyPond does use a lot of resources. For operation you need the following:
 =over 5
 
 =item *
-a fast computer (a full page of music typically takes 1 minute
+A fast computer (a full page of music typically takes 1 minute
 on my 486/66, using the DEBUG compile. It's lot slower than most
 MusiXTeX preprocessors)
 
@@ -226,7 +226,7 @@ Do:
 
 You probably want to edit Variables.make to tailor the compilation
 flags. If you're not into debugging C++, then you should go for no
-debugging and C<-O2>
+debugging and C<-O2>.
 
 =head1 AUTHORS
 
@@ -236,11 +236,11 @@ debugging and C<-O2>
 Han-Wen Nienhuys <hanwen@stack.nl>, Main author
 
 =item *
-Jan Nieuwenhuizen <jan@digicash.com>, Context errors, Lyrics,
-bits of FlowerLib, general comments.
+Jan C. Nieuwenhuizen <jan@digicash.com>, Context errors, Lyrics, Midi
+output, m2m, bits of FlowerLib, general comments.
 
 =item *
-Mats Bengtsson <matsb@s3.kth.se>, bugfixes, testing, general comments.
+Mats Bengtsson <matsb@s3.kth.se>, bugfixes, testing, criticism, general comments.
 
 =back
 
@@ -326,8 +326,10 @@ includes files from the directory F<init/>.
 
 =head1 SEE ALSO
 
-There are some documentation files  in the subdirectory F<Documentation/>,
-among others: lilygut, lilyinput, error, faq, 
+There are some documentation files in the subdirectory
+F<Documentation/>, among others: lilygut, lilyinput, error, faq. There
+is a rudimentary webpage at the following URL:
+http://www.stack.nl/~hanwen/lilypond/index.html
 
 =head1  REMARKS
 
