@@ -1,6 +1,5 @@
 /*
-  extender-spanner.cc -- implement Extender_spanner
-
+  lyric-extender.cc -- implement Lyric_extender
   source file of the GNU LilyPond music typesetter
 
   (c)  1998--2000 Jan Nieuwenhuizen <janneke@gnu.org>
@@ -20,7 +19,7 @@
 #include "paper-def.hh"
 #include "extender-spanner.hh"
 
-Extender_spanner::Extender_spanner (SCM s)
+Lyric_extender::Lyric_extender (SCM s)
   : Spanner (s)
 
 {
@@ -31,8 +30,9 @@ Extender_spanner::Extender_spanner (SCM s)
 
 
 
+MAKE_SCHEME_SCORE_ELEMENT_CALLBACKS(Lyric_extender)
 Molecule 
-Extender_spanner::do_brew_molecule () const
+Lyric_extender::do_brew_molecule () const
 {
   Molecule  mol;
 
@@ -51,7 +51,7 @@ Extender_spanner::do_brew_molecule () const
 
 
 void
-Extender_spanner::after_line_breaking ()
+Lyric_extender::after_line_breaking ()
 {
   // UGH
   Real gap = paper_l ()->get_var ("interline");
@@ -71,7 +71,7 @@ Extender_spanner::after_line_breaking ()
 
   
 void
-Extender_spanner::set_textitem (Direction d, Item* textitem_l)
+Lyric_extender::set_textitem (Direction d, Item* textitem_l)
 {
   set_bound (d, textitem_l);
   add_dependency (textitem_l);
