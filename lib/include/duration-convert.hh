@@ -41,12 +41,6 @@ struct Duration_convert {
     static int no_smaller_than_i_s;
     static Array<Duration> dur_array_s;
 
-//	/// Most used division in MIDI, all fine with me.
-//	static int const division_1_c_i = 384;
-
-//	/// Return (integer, division) representation.
-//	static int dur2_i (Duration dur, int division_1_i = division_1_c_i );
-
     /// Return number of ticks in (ticks, division_1) representation
     static int dur2ticks_i (Duration dur );
 	
@@ -62,12 +56,6 @@ struct Duration_convert {
 
     /// Return Mudela string representation.
     static String dur2_str (Duration dur );
-
-//	/// Return Moment from (integer, division) representation.
-//	static Moment i2_mom (int i, int division_1_i = division_1_c_i );
-
-//	/// Return Moment (fraction of whole) representation, best guess.
-//	static Duration mom2_dur (Moment mom );
 
     /// Return duration from Moment (fraction of whole) representation.
     static Duration mom2_dur (Moment mom );

@@ -249,7 +249,6 @@ void
 Spring_spacer::make_constraints (Mixed_qp& lp) const
 {
   int dim=cols.size();
-  Real nw_f = paper_l ()->note_width ();
   for (int j=0; j < dim; j++)
     {
       Colinfo c=cols[j];
@@ -635,6 +634,9 @@ Spring_spacer::calc_idealspacing()
 	      dist = dist >? minimum;
 	    }
 
+          // ugh: never let columns touch... try to set over here...
+	  // ugh: use j iso i triggers ice in gcc-2.7.2.3 
+          cols[i].width_[LEFT] -= nw_f / 4;
 	  ideal_arr_[i] = dist;
 	}
     }

@@ -43,12 +43,12 @@ Midi_walker::~Midi_walker()
   Find out if start_note event is needed, and do it if needed.
  */
 void 
-Midi_walker::do_start_note (Midi_note* note_l)
+Midi_walker::do_start_note (Midi_note* note_p)
 {
-  Moment stop_mom = note_l->duration() + ptr ()->audio_column_l_->at_mom ();
+  Moment stop_mom = note_p->duration() + ptr ()->audio_column_l_->at_mom ();
   for (int i=0; i < stop_note_queue.size(); i++) 
     {
-	if (stop_note_queue[ i ].val->pitch_i() == note_l->pitch_i ()) 
+	if (stop_note_queue[ i ].val->pitch_i() == note_p->pitch_i ()) 
 	  {
 	    if (stop_note_queue[ i ].key < stop_mom)
 		stop_note_queue[ i ].ignore_b_ = true;
@@ -58,11 +58,11 @@ Midi_walker::do_start_note (Midi_note* note_l)
     }
 
   Midi_note_event e;
-  e.val = new Midi_note_off (note_l);
+  e.val = new Midi_note_off (note_p);
   e.key = stop_mom;
   stop_note_queue.insert (e);
   
-  output_event (ptr()->audio_column_l_->at_mom (), note_l);
+  output_event (ptr()->audio_column_l_->at_mom (), note_p);
 }
 
 /**
@@ -78,9 +78,9 @@ Midi_walker::do_stop_notes (Moment max_mom)
 	    continue;
 	
 	Moment stop_mom = e.key;
-	Midi_note_off* note_l = e.val;
+	Midi_note_off* note_p = e.val;
 	
-	output_event (stop_mom, note_l);
+	output_event (stop_mom, note_p);
     }
 }
 
@@ -109,7 +109,5 @@ Midi_walker::process()
 	output_event (ptr()->audio_column_l_->at_mom (), p);
   else
 	do_start_note ((Midi_note*)p);
-	
-  delete p;
 }
 

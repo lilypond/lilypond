@@ -12,13 +12,12 @@
 #include "lily-proto.hh"
 #include "input.hh"
 
-class Text_def : public General_script_def {
-protected:
-// 	huh? move to public
-//    virtual Atom get_atom (Paper_def* p, Direction dir_) const;
+class Text_def : public General_script_def 
+{
+public:
     DECLARE_MY_RUNTIME_TYPEINFO;
     VIRTUAL_COPY_CONS(Text_def,General_script_def);
-public:
+
     /**
       centered , or aligned?
 

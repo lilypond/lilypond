@@ -35,7 +35,7 @@ public:
     void process();
 
 private:
-    void do_start_note (Midi_note* note_l);
+    void do_start_note (Midi_note* note_p);
     void do_stop_notes (Moment now_mom);
     void output_event (Moment now_mom, Midi_item* l);
 

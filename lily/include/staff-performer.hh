@@ -20,15 +20,17 @@ public:
   TRANSLATOR_CLONE(Staff_performer);
   DECLARE_MY_RUNTIME_TYPEINFO;
 
-  Staff_performer();
-  ~Staff_performer();
+  Staff_performer ();
+  ~Staff_performer ();
 
-  String instrument_str();
+  String new_instrument_str ();
+  String instrument_str_;
 
 protected:
   virtual void play (Audio_element* p);
-  virtual void do_removal_processing();
-  virtual void do_creation_processing();
+  virtual void do_removal_processing ();
+  virtual void do_creation_processing ();
+  virtual void do_process_requests ();
 
 private:
   Audio_staff* audio_staff_p_;
