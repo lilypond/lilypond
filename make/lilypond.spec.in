@@ -43,3 +43,5 @@ make prefix="$RPM_BUILD_ROOT/usr" install
 /usr/share/lilypond/
 %post
 
+texhash		# takes some time...
+

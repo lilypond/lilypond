@@ -6,7 +6,8 @@ LilyGuts - doco to the internals of GNU LilyPond
 
 This page documents some aspects of the internals of GNU LilyPond. Some of
 this stuff comes from e-mail I wrote, some from e-mail others wrote,
-some are large comments taken away from the headers
+some are large comments taken away from the headers. This is why this
+page may be a little incoherent.
 
 You should use doc++ to take a peek at the sources.
 
@@ -28,20 +29,32 @@ might be integrated in larger systems.
 
 =item Parsing:
 
-No difficult algorithms. Associated datastructures have prefix Input
-(eg Input_score, Input_command). The .ly file is read, and converted
-to 
+No difficult algorithms. The .ly file is read, and converted to a list
+of C<Scores>, which each contain C<Music> and paper/midi-definitions.
 
 =item Creating elements
 
-Requests are processed and used to create elements (like balls, stems,
-slurs etc). This is done by a hierarchy of "brokers" (called
-Translators: the ones for paper output are Engravers, for MIDI
-Performers), which swallow requests, broadcast them and couple
-different elements.
+The music is walked column by column. The iterators which do the
+walking report the Request to Translators which use this information
+to create elements, either MIDI or "visual" elements. The translators
+form a hierarchy; the ones for paper output are Engravers, for MIDI
+Performers).
 
-In this step data-structures for the next steps are created and filled
-with data: Score_elements, PScore, PCol.
+The translators swallow requests, create elements, broadcast them to
+other translators on higher or same level  in the hierarchy:
+
+The stem of a voice A is broadcast to the staff which contains A, but
+not to the noteheads of A, and not to the stems, beams and noteheads
+of a different voice (say B) or a different staff. The stem and
+noteheads of A are coupled, because the the Notehead_engraver
+broadcasts its heads, and the Stem catches these.
+
+The engraver which agrees to handle a request decides whether to to
+honor the request, ignore it, or merge it with other requests. Merging
+of requests is preferably done with other requests done by members of
+the same voicegroups (beams, brackets, stems). In this way you can put
+the voices of 2 instruments in a conductor's score so they make chords
+(the Stem_reqs of both instruments will be merged).
 
 =item Prebreaking
 
@@ -50,34 +63,29 @@ Breakable stuff (eg. clefs and bars) are copied into pre and postbreaks.
 =item Preprocessing
 
 Some dependencies are resolved, such as the direction of stems, beams,
+and "horizontal" placement issues (the order of clefs,  keys etc,
+placement of chords in multi-voice music), 
 
 =item Break calculation:
 
-The lines and horizontal positions of the columns are determined
+The lines and horizontal positions of the columns are determined.
 
 =item Breaking
-
 
 Through some magical interactions with Line_of_score and Super_elem
 (check out the source) the "lines" are produced. 
 
 All other spanners can figure across which lines they are spread. If
 applicable, they break themselves into pieces. After this, each piece
-works (or, if there are no pieces) the spanner throws out any
-dependencies which are in the wrong line.
+(or, if there are no pieces, the original spanner itself) throws out
+any dependencies which are in the wrong line.
 
 =item Postprocesing:
 
 Some items and all spanners need computation after the PCol positions
-are determined.
+are determined. Examples: slurs, vertical positions of staffs.
 
 =item Output paper
-
-
-=item Output midi
-
-The music is run through a translator (called Performer) which 
-creates midi-items from the requests.
 
 =back
 
@@ -92,24 +100,7 @@ In music typesetting, the user might want to cram a lot more symbols
 on the paper than actually fits. To reflect this idea (the user asks
 more than we can do), the container for this data is called Request.
 
-The music (requests) are read/interpreted by a set of objects
-(translators), the Performers/Engravers.  The engraver which agrees to
-handle a request decides whether to to honor the request, ignore it,
-or merge it with other requests. Merging of requests is preferably
-done with other requests done by members of the same voicegroups
-(beams, brackets, stems).
-
-The result of a request will be an C<Item> or a C<Spanner>, which
-will be put on the score.
-
-Different staffs can produce different outputs; a melodious voice
-which is put into a percussion-Staff, will be typeset as the rythm of
-that voice.
-
-After C<Staff> made up her mind, the resultant items and
-spanners are put on the PScore.
-
-Some of the important requests are:
+In a lot of other formats this would be called an 'Event'
 
 =over 4
 
@@ -205,8 +196,8 @@ this to the Staff_engraver. Staff_engraver will tell
 C<Stem_beam_engraver> about the C<Notehead>, which will add the
 C<Notehead> to the C<Stem> it just created.
 
-To decide on merging, C<Complex_staff> has grouped several
-engravers. Please check F<init/engraver.ly>.
+To decide on merging, several engravers have been grouped. Please
+check F<init/engraver.ly>.
 
 
 =head1 ITEMS and SPANNERS
@@ -228,8 +219,7 @@ should be calculated.
 
 =head1 BREAKING
 
-So what's the deal with PREBREAK and POSTBREAK and all this
-stuff?
+So what is this PREBREAK and POSTBREAK stuff?
 
 Let's take text as an example. In German some compound
 words change their spelling if they are broken: "backen" becomes
@@ -258,7 +248,7 @@ on the next line if it is broken.
 
 =head1 SPACING
 
-I think my method is the most elegant algorithm i've seen so far.
+
 Some terminology: I call a vertical group of symbols (notes) which
 start at the same time a "column".  Each line of a score has notes in
 it, grouped in columns. The difference in starting time between those
@@ -267,9 +257,9 @@ columns.
 
 Example:
 
-		time ----->
+	time ----->
 
-		col1    col2    col3    col4
+	cols:   col1    col2    col3    col4
 
 
 	voice1  1               1
@@ -284,8 +274,7 @@ Example:
 	time_difference (col2 , col3) = 0.5 wholes,
 	etc.
 
-these differences are translated into ideal distances (these translations
-have been the subject of discussion in this thread).
+these differences are translated into ideal distances 
 
         distance (col1,col2) = 10 pt
         distance (col1,col3) = 14.1 pt
@@ -326,3 +315,5 @@ springs. This is an area that needs a lot of work, and the optimal
 solution to find is not of a mathematical nature.
 
 Gourlay's solution is used.
+
+

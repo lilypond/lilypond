@@ -12,13 +12,15 @@ const Real EPS = 1e-7;		// so sue me. Hard coded
 // for testing new Matrix_storage.
 //#define PARANOID
 
-Vector
-Choleski_decomposition::solve(Vector rhs)const
+void
+Choleski_decomposition::full_matrix_solve(Vector &out, Vector const &rhs)const
 {
     int n= rhs.dim();
     assert(n == L.dim());
-    Vector y(n);
-
+    Vector y;
+    y.set_dim( n);
+    out.set_dim(n);
+    
     // forward substitution
     for (int i=0; i < n; i++) {
 	Real sum(0.0);
@@ -26,18 +28,67 @@ Choleski_decomposition::solve(Vector rhs)const
 	    sum += y(j) * L(i,j);
 	y(i) = (rhs(i) - sum)/L(i,i);
     }
+    
     for (int i=0; i < n; i++)
 	y(i) /= D(i);
 
     // backward subst
-    Vector &x(rhs);		// using input as return val.
+    Vector &x(out);		// using input as return val.
     for (int i=n-1; i >= 0; i--) {
 	Real sum(0.0);
 	for (int j=i+1; j < n; j++)
 	    sum += L(j,i)*x(j);
 	x(i) = (y(i) - sum)/L(i,i);
     }
-    return x;
+}
+
+void
+Choleski_decomposition::band_matrix_solve(Vector &out, Vector const &rhs)const
+{
+    int n= rhs.dim();
+    int b = L.band_i();
+    assert(n == L.dim());
+
+      out.set_dim(n);
+  
+    Vector y;
+    y.set_dim(n);
+    
+    // forward substitution
+    for (int i=0; i < n; i++) {
+	Real sum(0.0);
+	for (int j= 0 >? i - b; j < i; j++)
+	    sum += y(j) * L(i,j);
+	y(i) = (rhs(i) - sum)/L(i,i);
+    }
+    for (int i=0; i < n; i++)
+	y(i) /= D(i);
+
+    // backward subst
+    Vector &x(out);		// using input as return val.
+    for (int i=n-1; i >= 0; i--) {
+	Real sum(0.0);
+	for (int j=i+1; j <= i + b&&j < n ; j++)
+	    sum += L(j,i)*x(j);
+	x(i) = (y(i) - sum)/L(i,i);
+    }
+}
+
+void
+Choleski_decomposition::solve(Vector &x, Vector const &rhs)const
+{
+    if (L.band_b()) {
+	band_matrix_solve(x,rhs);
+    } else
+	full_matrix_solve(x,rhs);
+}
+
+Vector
+Choleski_decomposition::solve(Vector rhs)const
+{
+    Vector r;
+    solve(r, rhs);
+    return r;
 }
 
 void
@@ -126,9 +177,10 @@ Choleski_decomposition::inverse() const
     int n=L.dim();
     Matrix invm(n);
     Vector e_i(n);
+    Vector inv(n);
     for (int i = 0; i < n; i++) {
 	e_i.set_unit(i);
-	Vector inv(solve(e_i));
+	solve(inv, e_i);
 	for (int j = 0 ; j<n; j++)
 	    invm(i,j) = inv(j);
     }
