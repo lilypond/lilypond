@@ -1,5 +1,7 @@
 2004-09-12  Han-Wen Nienhuys   <hanwen@xs4all.nl>
 
+	* input/tutorial/brahms*.ly: remove.
+
 	* input/*: update all .ly files.
 	 
 	* ly/a4-init.ly (vsize): remove papersize init files.
