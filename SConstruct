@@ -28,6 +28,10 @@ prefix=os.path.join (os.environ['HOME'], 'usr', 'pkg', 'lilypond')
 
 
 # TODO:
+#   * separate environments?
+#     - compile environment checks headers and libraries
+#     - doc environment checks doc stuff
+#
 #   * running from build-dir, without installing?
 #     - scons will not install, if PREFIX lives outside of CWD
 #     - build symlink tree
@@ -337,8 +341,11 @@ env['LILYPOND_BOOK_PATH'] = ['.', '#/input', '#/input/regression',
 			     '#/Documentation/user',
 			     os.path.join (absbuild, 'Documentation', out)]
 			     
+env['MAKEINFO_PATH'] = ['.', '#/Documentation/user',
+			os.path.join (absbuild, 'Documentation', out)]
+
 ## TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
-env['TEXINFO_PAPERSIZE_OPTION'] = '-t@afourpaper'
+env['TEXINFO_PAPERSIZE_OPTION'] = '-t @afourpaper'
 
 SConscript ('buildscripts/builder.py')
 
