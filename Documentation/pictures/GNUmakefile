@@ -10,8 +10,8 @@ OUT_DIST_FILES = $(package-icon)
 
 include $(depth)/make/stepmake.make
 
-default: $(package-icon)
-local-dist: $(package-icon)
+default: # $(package-icon)
+local-dist: # $(package-icon)
 
 xgifs: $(OUTGIF_FILES)
 pngs: $(OUTPNG_FILES)

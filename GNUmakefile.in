@@ -38,6 +38,7 @@ pfa-fonts:
 	(cd $(builddir)/share/lilypond/fonts && \
 		tar czvf ../../../$(outbase)/type1.tar.gz type1/*.pfa type1/fonts.* type1/lilypond.* )
 
+html-doc: web
 install-html-doc: 
 	$(INSTALL) -m 755 -d $(local_package_docdir) 
 	tar -C $(local_package_docdir)/ -xzf $(outdir)/web.tar.gz
