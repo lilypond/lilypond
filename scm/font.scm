@@ -193,7 +193,7 @@
 			 (ly:font-load "parmesan26")))
 		))
        
-       (braces 10 #(,(delay
+       (braces 15 #(,(delay
 		       (ly:make-virtual-font
 			(ly:font-load "feta-braces-a")
 			(ly:font-load "feta-braces-b")
