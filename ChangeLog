@@ -1,5 +1,17 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* input/regression/slur-area.ly: move from test/
+
+	* input/test/: : remove simple-slur-endings slur-attachment
+	slur-broken-cross-staff slur-broken.ly slur-damping.ly
+	slur-follow-music.ly slur-position.ly slur-proof.ly slur-shape.ly
+	slur-symmetry slur-symmetry tie-broken.ly
+
+	* scm/drums.scm (set-drum-kit): add function.
+
+	* Documentation/user/refman.itely (Percussion staves): use
+	set-drum-kit
+
 	* scripts/etf2ly.py (interpret_finale_key_sig): handle minor keys
 	too
 	(Global_measure.set_timesig): handle 3/8 time sig too.

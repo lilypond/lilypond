@@ -2773,7 +2773,7 @@ If you do not like any of the predefined lists you can define your own
 list at the top of your file:
 
 @lilypond[singleline, verbatim]
-#(define mydrums `(
+#(set-drum-kit 'mydrums `(
         (bassdrum     default   #f        ,(ly:make-pitch -1 2 0))
         (snare        default   #f        ,(ly:make-pitch 0 1 0))
         (hihat        cross     #f        ,(ly:make-pitch 0 5 0))

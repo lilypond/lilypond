@@ -1,7 +1,9 @@
 \version "1.7.18"
-% regression or delete.  -gp
-\header {texidoc="
-REGRESSION or DELETE. "}
+\header {
+    
+    texidoc = "The area underneath an (up) slur is minimised to improve the shape. "
+
+}
 
 \score{
 \notes\relative c''{
