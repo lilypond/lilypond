@@ -11,6 +11,7 @@
 *.pdf
 *.png
 *.ps
+*.svg
 *.tely
 *.tex
 *.txt
@@ -36,6 +37,7 @@ ls-R
 lilypond.dir
 out
 out-www
+scons.cache
 share
 tfm
 tfm.[0-9]
