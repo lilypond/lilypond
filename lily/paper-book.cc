@@ -16,14 +16,34 @@
 #include "paper-score.hh"
 #include "stencil.hh"
 
+static SCM
+stencil2line (Stencil* stil)
+{
+  static SCM z = ly_offset2scm (Offset (0, 0));
+  Offset dim = Offset (stil->extent (X_AXIS).length (),
+		       stil->extent (Y_AXIS).length ());
+  return scm_cons (ly_offset2scm (dim),
+		   scm_list_1 (scm_cons (z, stil->smobbed_copy ())));
+}
+
+static SCM
+height2line (Real h)
+{
+  static SCM z = ly_offset2scm (Offset (0, 0));
+  return scm_cons (ly_offset2scm (Offset (0, h)),
+		   scm_list_1 (scm_cons (z, SCM_EOL)));
+}
+
 // WIP -- simplistic page interface
 // Do we need this at all?  SCM, smob?
 class Page
 {
 public:
   Paper_def *paper_;
+  int number_;
 
   SCM lines_;
+  SCM protect_;
   Stencil *header_;
   Stencil *footer_;
 
@@ -33,45 +53,76 @@ public:
   //HMMM all this size stuff to paper/paper-outputter?
   Real hsize_;
   Real vsize_;
+  Real top_margin_;
+  Real bottom_margin_;
   Real foot_sep_;
   Real head_sep_;
 
   /* available area for text.  */
   Real text_height ();
 
-  Page (Paper_def*);
+  Page (Paper_def*, int);
   void output (Paper_outputter*, bool);
 };
 
-Page::Page (Paper_def *paper)
+Page::Page (Paper_def *paper, int number)
 {
   paper_ = paper;
+  number_ = number;
   height_ = 0;
-  header_ = 0;
-  footer_ = 0;
   lines_ = SCM_EOL;
   
   hsize_ = paper->get_realvar (ly_symbol2scm ("hsize"));
   vsize_ = paper->get_realvar (ly_symbol2scm ("vsize"));
-  head_sep_ = 0; //paper->get_realvar (ly_symbol2scm ("head-sep"));
-  foot_sep_ = 0; //paper->get_realvar (ly_symbol2scm ("foot-sep"));
+  top_margin_ = paper->get_realvar (ly_symbol2scm ("top-margin"));
+  bottom_margin_ = paper->get_realvar (ly_symbol2scm ("bottom-margin"));
+  head_sep_ = paper->get_realvar (ly_symbol2scm ("head-sep"));
+  foot_sep_ = paper->get_realvar (ly_symbol2scm ("foot-sep"));
+  
+  SCM make_header = scm_primitive_eval (ly_symbol2scm ("make-header"));
+  SCM make_footer = scm_primitive_eval (ly_symbol2scm ("make-footer"));
+
+  header_ = unsmob_stencil (scm_call_2 (make_header, paper_->smobbed_copy (),
+					scm_int2num (number_)));
+  protect_ = SCM_EOL;
+  // ugh, how to protect a Stencil from the outside?
+  protect_ = scm_cons (header_->get_expr (), protect_);
+  if (header_)
+    header_->align_to (Y_AXIS, UP);
+    
+  // FIXME: tagline/copyright
+  footer_ = unsmob_stencil (scm_call_2 (make_footer, paper_->smobbed_copy (),
+					scm_int2num (number_)));
+  // ugh, how to protect a Stencil from the outside?
+  protect_ = scm_cons (footer_->get_expr (), protect_);
+  if (footer_)
+    footer_->align_to (Y_AXIS, UP);
 }
 
 void
 Page::output (Paper_outputter *out, bool is_last)
 {
-  // TODO: header/footer etc
+  if (header_)
+    {
+      out->output_line (stencil2line (header_), false);
+      out->output_line (height2line (head_sep_), false);
+    }
   out->output_scheme (scm_list_1 (ly_symbol2scm ("start-page")));
   for (SCM s = lines_; gh_pair_p (s); s = ly_cdr (s))
     out->output_line (ly_car (s), is_last && gh_pair_p (ly_cdr (s)));
   out->output_scheme (scm_list_2 (ly_symbol2scm ("stop-page"),
-				  gh_bool2scm (is_last)));
+				  gh_bool2scm (is_last && !footer_)));
+  if (footer_)
+    {
+      out->output_line (height2line (foot_sep_), false);
+      out->output_line (stencil2line (footer_), is_last);
+    }
 }
 
 Real
 Page::text_height ()
 {
-  Real h = vsize_;
+  Real h = vsize_ - top_margin_ - bottom_margin_;
   if (header_)
     h -= header_->extent (Y_AXIS).length () + head_sep_;
   if (footer_)
@@ -151,8 +202,9 @@ Paper_book::get_title (int i)
 }
 
 /* TODO:
-   - decent page breaking algorithm; fill-up page
-   - header / footer (generate per Page, with page#, tagline/copyright)
+   - decent page breaking algorithm
+   - top/bottom & inter-line filling
+   - footer: tagline/copyright
    - override: # pages, or pageBreakLines= #'(3 3 4), ?  */
 Link_array<Page>*
 Paper_book::get_pages ()
@@ -178,7 +230,8 @@ Paper_book::get_pages ()
     }
 
   Paper_def *paper = papers_[0];
-  Page *page = new Page (paper);
+  int page_number = 1;
+  Page *page = new Page (paper, page_number++);
   fprintf (stderr, "book_height: %f\n", book_height);
   fprintf (stderr, "vsize: %f\n", page->vsize_);
   fprintf (stderr, "pages: %f\n", book_height / page->text_height ());
@@ -202,22 +255,12 @@ Paper_book::get_pages ()
 	  if (page->height_ + h > text_height)
 	    {
 	      pages->push (page);
-	      page = new Page (paper);
+	      page = new Page (paper, page_number++);
 	    }
 	  if (page->height_ + h <= text_height || page->height_ == 0)
 	    {
 	      if (j == 0 && title)
-		{
-		  Offset dim = Offset (title->extent (X_AXIS).length (),
-				       title->extent (Y_AXIS).length ());
-		  page->lines_
-		    = ly_snoc (scm_cons (ly_offset2scm (dim),
-					 scm_list_1
-					 (scm_cons
-					  (ly_offset2scm (Offset (0, 0)),
-					   title->smobbed_copy ()))),
-			     page->lines_);
-		}
+		page->lines_ = ly_snoc (stencil2line (title), page->lines_);
 	      page->lines_ = ly_snoc (line, page->lines_);
 	      page->height_ += h;
 	      h = 0;

@@ -7,11 +7,10 @@
 
 (define-public (paper-set-staff-size sz)
   "Function to be called inside a \\paper{} block to set the staff size."
-  (let*
-   ((m (current-module))
-    (ss (/ sz 4))
-    (pt (eval 'pt m)) 
-    (mm (eval 'mm m))  )
+  (let* ((m (current-module))
+	 (ss (/ sz 4))
+	 (pt (eval 'pt m)) 
+	 (mm (eval 'mm m)))
    
     (module-define! m 'fonts (scale-font-list (/  sz (* 20 pt))))
     (module-define! m 'staffheight sz)
@@ -24,9 +23,7 @@
     (module-define! m 'outputscale ss)
     (module-define! m 'ledgerlinethickness (+ (* 0.5 pt) (/ ss 10)))
     (module-define! m 'blotdiameter (* 0.35 pt))
-    (module-define! m 'interscoreline (* 4 mm))
-    ;; REMOVEME
-    (module-define! m 'lineheight (* 14 ss))))
+    (module-define! m 'interscoreline (* 4 mm))))
 
 (define-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
@@ -48,28 +45,29 @@
 
 ;; todo: take dimension arguments.
 
-
 (define (set-paper-dimensions m w h)
   "M is a module (ie. paper->scope_ )"
-  
   (let* ((mm (eval 'mm m)))
     (module-define! m 'hsize w)
     (module-define! m 'vsize h)
     (module-define! m 'linewidth (- w (* 20 mm)))
     (module-define! m 'raggedright #f)
     (module-define! m 'packed #f)
-    (module-define! m 'indent (/ w 14))))
+    (module-define! m 'indent (/ w 14))
 
+    ;; page layout
+    (module-define! m 'top-margin (* 3 mm))
+    (module-define! m 'bottom-margin (* 3 mm))
+    (module-define! m 'head-sep (* 4 mm))
+    (module-define! m 'foot-sep (* 4 mm))))
 
 (define-public (set-paper-size name)
-  (let*
-      ((entry (assoc name paper-alist))
-       (pap (eval '$defaultpaper (current-module)))
-       (new-paper (ly:output-def-clone pap))
-       (m  (ly:output-def-scope new-paper))
-       (mm (eval 'mm m))
-       )
-
+  (let* ((entry (assoc name paper-alist))
+	 (pap (eval '$defaultpaper (current-module)))
+	 (new-paper (ly:output-def-clone pap))
+	 (m (ly:output-def-scope new-paper))
+	 (mm (eval 'mm m)))
+    
     (if (pair? entry)
 	(begin
 	  (set! entry (eval  (cdr entry) m))
@@ -77,7 +75,5 @@
 	  (module-define! m 'papersize name)
 	  (module-define! m 'papersizename name)
 	  (set-paper-dimensions m (car entry) (cdr entry))
-	  (module-define! (current-module) '$defaultpaper new-paper)
-	  )
-	(ly:warning (string-append "Unknown papersize: " name))
-	)))
+	  (module-define! (current-module) '$defaultpaper new-paper))
+	(ly:warning (string-append "Unknown papersize: " name)))))
