@@ -12,6 +12,23 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-public (music-map music function)
+  "Apply @var{function} to @var{music} and all of the music it contains. "
+  (let* ((es (ly:get-mus-property music 'elements))
+         (e (ly:get-mus-property music 'element))
+	 )
+
+    (ly:set-mus-property! music 'elements 
+	(map (lambda (y) (music-map y function)) es))
+	(if (ly:music? e)
+	    (ly:set-mus-property! music 'element (music-map e function)))
+	(function music)
+	))
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (define-public (shift-duration-log music shift dot)
   "Recurse through music, adding SHIFT to ly:duration-log and optionally 
@@ -49,6 +66,8 @@
          (f e)))
     
     music))
+
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

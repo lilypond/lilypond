@@ -64,7 +64,7 @@ Ligature_engraver::try_music (Music *m)
 Spanner *
 Ligature_engraver::create_ligature_spanner ()
 {
-  return new Spanner (SCM_EOL);
+  return 0;
 }
 
 void
@@ -185,7 +185,7 @@ Ligature_engraver::acknowledge_grob (Grob_info info)
 
 ENTER_DESCRIPTION (Ligature_engraver,
 /* descr */       "Abstract class; a concrete subclass handles Ligature_events by engraving Ligatures in a concrete style.",
-/* creats */      "Ligature_engraver",
+/* creats */      "",
 /* accepts */     "ligature-event abort-event",
 /* acks  */      "ligature-head-interface rest-interface",
 /* reads */       "",
