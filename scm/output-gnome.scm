@@ -118,7 +118,7 @@ lilypond -fgnome input/simple-song.ly
 	   (list (+ #xe0 x)
 		 (+ #x80 (quotient y #x40))
 		 (+ #x80 (modulo y #x40))))))
-   (else (begin (stderr "programming-error: utf-8 too big:~x\n" i)
+   (else (begin (stderr "programming-error: utf8 too big:~x\n" i)
 		(list (integer->char 32))))))
 
 (define (integer->utf8-string integer)
@@ -133,26 +133,14 @@ lilypond -fgnome input/simple-song.ly
    (map (lambda (x) (char->utf8-string x)) (string->list string))))
 
 (define (music-font? font)
-  (let ((encoding (ly:font-encoding font))
-	(family (font-family font)))
-    (or (memq encoding '(fetaMusic fetaBraces))
-	(string=? (substring family 0 (min (string-length family) 10))
-		  "emmentaler"))))
-
-;; FIXME
-(define-public (otf-name-mangling font family)
-  ;; Hmm, family is emmentaler20/26?
-  (if (string=? (substring family 0 (min (string-length family) 10))
-		"emmentaler")
-      (string-append "LilyPond " (substring family 10))
-      (if (string=? family "aybabtu")
-	  "LilyPondBraces"
-	  family)))
+  (let ((family (font-family font)))
+    (string=? (substring family 0 (min (string-length family) 10))
+	      "emmentaler")))
 
 (define (pango-font-name font)
   (debugf "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
-  (debugf "FONT-FAMILY:~S:~S\n" (font-family font) (otf-name-mangling font (font-family font)))
-  (otf-name-mangling font (font-family font)))
+  ;;(debugf "FONT-FAMILY:~S:~S\n" (font-family font) (otf-name-mangling font (font-family font)))
+  (font-family font))
 
 (define (pango-font-size font)
   (let* ((designsize (ly:font-design-size font))
@@ -169,9 +157,10 @@ lilypond -fgnome input/simple-song.ly
 	 ;; ugh, experimental sizing
 	 ;; where does factor ops come from?
 	 ;; Hmm, design size: 26/20 
-	 (ops 2.60)
+	 ;;(ops 2.60)
+	 (ops output-scale)
 	 
-	 (scaling (* ops magnification designsize)))
+	 (scaling (* 1.5 ops magnification designsize)))
     (debugf "OPS:~S\n" ops)
     (debugf "scaling:~S\n" scaling)
     (debugf "magnification:~S\n" magnification)
@@ -407,6 +396,8 @@ lilypond -fgnome input/simple-song.ly
       #:join-style 'round)))
 
 (define (text font s)
+  (stderr "FONT:~S\n" font)
+  (stderr "FONT:~S\n" (pango-font-name font))
 
   (make <gnome-canvas-text>
     #:parent (canvas-root)
@@ -421,3 +412,12 @@ lilypond -fgnome input/simple-song.ly
 	       (integer->utf8-string s)
 	       (string->utf8-string s))))
 
+(define (utf8-string pango-font-description string)
+  (make <gnome-canvas-text>
+    #:parent (canvas-root)
+    #:x 0.0 #:y 0.0
+    #:anchor 'west
+    #:font pango-font-description
+    ;;#:size-points 
+    #:size-set #t
+    #:text string))

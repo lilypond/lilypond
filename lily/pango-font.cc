@@ -168,13 +168,14 @@ Pango_font::text_stencil (String str) const
 	For Pango based backends, we take a shortcut.
        */
       SCM exp
-	= scm_list_3 (ly_symbol2scm ("utf-8-string"),
-		      scm_makfrom0str (pango_font_description_to_filename (pango_description_)),
+	= scm_list_3 (ly_symbol2scm ("utf8-string"),
+		      scm_makfrom0str (pango_font_description_to_string (pango_description_)),
 		      scm_makfrom0str (str.to_str0 ()));
 
 
-      return Stencil (dest.extent_box (),
-		      exp);
+      Box b (Interval (0, 0), Interval (0, 0));
+      b.unite (dest.extent_box ());
+      return Stencil (b, exp);
     }
   
 #if 0

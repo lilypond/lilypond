@@ -1,3 +1,14 @@
+2005-01-09  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* scm/output-gnome.scm (utf8-string): New function.
+	(otf-name-mangling): Remove.
+
+	* lily/pango-font.cc (Pango_font): Use font string iso font
+	filename for utf8-text.
+
+	* buildscripts/gen-emmentaler-scripts.py: Remove designsize from
+	name.
+
 2005-01-08  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/notation.itely: add info about
