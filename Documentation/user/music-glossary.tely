@@ -125,7 +125,7 @@ D: A, a,
 NL: a,
 DK: a,
 S: a,
-FI: a,
+FI: A, a,
 N: a.
 
 @aitem{accent}
@@ -183,7 +183,7 @@ D: accelerando, schneller werden,
 NL: accelerando,
 DK: accelerando,
 S: accelerando,
-FI: accelerando,
+FI: accelerando, kiihdytt@"aen,
 N: ?.
 
 Increase tempo.
@@ -273,7 +273,7 @@ D: Andante, Gehend,
 NL: andante,
 DK: andante,
 S: andante,
-FI: andante,
+FI: andante, k@"ayden,
 N: andante.
 
 Walking tempo/character.
@@ -286,7 +286,7 @@ D: Vorschlag,
 NL: voorslag,
 DK: forslag,
 S: f@"orslag,
-FI: appoggiatura,
+FI: appoggiatura, etuhele,
 N: ?.
 
 Ornamental note, usually a second, that is melodically connected with the main
@@ -343,7 +343,7 @@ D: Arpeggio, Akkordbrechungen, gebrochener Akkord,
 NL: gebroken akoord,
 DK: arpeggio, akkordbrydning,
 S: arpeggio,
-FI: arpeggio, murtaen sointu,
+FI: arpeggio, murtosointu,
 N: ?.
 
 @lilypond[13pt]
@@ -444,7 +444,7 @@ D: Bariton,
 NL: bariton,
 DK: baryton,
 S: baryton,
-FI: baritoni,
+FI: baritoni, keskikorkuinen mies@"a@"ani,
 N: baryton.
 
 The male voice intermediate between the @aref{bass} and the
@@ -552,7 +552,7 @@ D: Klammer, Akkolade,
 NL: accolade, teksthaak,
 DK: klamme,
 S: klammer,
-FI: ?,
+FI: yhdist@"av@"a sulkumerkki,
 N: ?.
 
 Symbol at the start of a system connecting staves.  Curly braces are used
@@ -607,7 +607,7 @@ D: Brevis,
 NL: brevis,
 DK: brevis,
 S: brevis,
-FI: breve,
+FI: brevis,
 N: ?.
 
 @aref{note value} twice as long as a whole note.  Mainly used
@@ -682,7 +682,7 @@ D: Kadenz,
 NL: cadens,
 DK: kadence,
 S: kadens,
-FI: kadenssi,
+FI: kadenssi, lopuke,
 N: ?.
 
 An extended, improvisatory style section inserted near the end of
@@ -699,7 +699,7 @@ D: Kanon,
 NL: canon,
 DK: kanon,
 S: kanon,
-FI: kaanon,
+FI: kaanon, tarkka j@"aljittely,
 N: ?.
 
 @aref{counterpoint}.
@@ -712,7 +712,7 @@ D: Cent,
 NL: cent,
 DK: cent,
 S: cent,
-FI: sadasosa,
+FI: sentti, puolis@"avelaskeleen sadasosa tasavireisess@"a viritysj@"arjestelm@"ass@"a,
 N: ?.
 
 Logarithmic unit of measurement.  1 cent is 1/1200 of an octave (1/100 of an
@@ -825,7 +825,7 @@ D: Komma,
 NL: komma,
 DK: komma,
 S: komma,
-FI: comma,
+FI: komma, korvinkuultava ero @"a@"anenkorkeudessa,
 N: ?.
 
 Difference in pitch between a note derived from pure tuning and the same note
@@ -856,7 +856,7 @@ D: Komplement@"arintervall,
 NL: complementair interval,
 DK: komplement@ae{}rinterval,
 S: komplement@"arintervall (?),
-FI: ?,
+FI: t@"aydent@"av@"a intervalli,
 N: ?.
 
 @aref{inverted interval}.
@@ -869,7 +869,7 @@ D: schrittweise, stufenweise Bewegung,
 NL: ?,
 DK: trinvis bev@ae{}gelse,
 S: stegvis r@"orelse,
-FI: ?,
+FI: asteittainen liike,
 N: ?.
 
 Melody moving in the narrow steps of the scale.
@@ -1333,7 +1333,7 @@ D: sprunghafte Bewegung,
 NL: ?,
 DK: springende bev@ae{}gelse,
 S: hoppande r@"orelse,
-FI: hyppiv@"a melodian liike,
+FI: melodian hyppiv@"a liike,
 N: ?.
 
 Melody moving in steps greater than those of the
@@ -1408,7 +1408,7 @@ D: dorisch, dorischer Kirchenton,
 NL: dorische toonladder,
 DK: dorisk skala,
 S: dorisk tonart,
-FI: doorinen asteikko,
+FI: doorinen moodi,
 N: ?.
 
 @aref{diatonic scale}.
@@ -1447,7 +1447,7 @@ D: doppelter Vorschlag,
 NL: dubbele voorslag,
 DK: dobbelt forslag,
 S: dubbelslag,
-FI: kaksoisappogiatura,
+FI: kaksoisappogiatura, kaksoisetuhele,
 N: ?.
 
 @aref{appoggiatura}.
@@ -1605,7 +1605,7 @@ D: Notenstechen, Notendruck
 NL: steken,
 DK: nodestik,
 S: nottryck,
-FI: nuotinnus,
+FI: painatus,
 N: ?.
 
 Engraving means incising or etching a metal plate for
@@ -1664,7 +1664,7 @@ D: Vortragszeichen,
 NL: voordrachtsteken,
 DK: foredragsbetegnelse,
 S: f@"oredragsbeteckning,
-FI: nyanssimerkki, esitysmerkki,
+FI: nyanssiosoitus, esitysmerkki,
 N: ?.
 
 Performance indications concerning 1. volume, dynamics (for example
@@ -2110,7 +2110,7 @@ D: Homophonie,
 NL: homofonie,
 DK: homofoni,
 S: homofoni,
-FI: homofonia,
+FI: homofonia, yksi@"a@"anisyys,
 N: ?.
 
 Music in which one voice leads melodically followed by the other voices more
@@ -2124,7 +2124,7 @@ D: Intervall,
 NL: interval,
 DK: interval,
 S: intervall,
-FI: intervalli, s@"avelien korkeusero,
+FI: intervalli, kahden s@"avelen korkeusero,
 N: ?.
 
 Difference in pitch between two notes.  Intervals may be perfect, minor, major,
@@ -2366,7 +2366,7 @@ D: Linie, Notenlinie,
 NL: lijn,
 DK: nodelinie,
 S: notlinje,
-FI: nuottiviiva,
+FI: viiva, nuottiviiva,
 N: ?.
 
 @aref{staff}.
@@ -2378,7 +2378,7 @@ F: appoggiature longue,
 D: langer Vorschlag,
 DK: langt forslag,
 S: l@aa{}ngt f@"orslag,
-FI: pitk@#@"a appoggiatura,
+FI: pitk@"a appoggiatura, pitk@"a etuhele,
 N: ?.
 
 @aref{appoggiatura}.
@@ -2481,7 +2481,7 @@ NL: mediant,
 D: Mediante,
 DK: mediant,
 S: mediant,
-FI: ?,
+FI: keskis@"avel,
 N: ?.
 
 1. The third @b{scale degree}.
@@ -2558,7 +2558,7 @@ D: Metronomangabe,
 NL: metronoom aanduiding,
 DK: metronomtal,
 S: metronomangivelse,
-FI: metronomi osoitus,
+FI: metronomiosoitus,
 N: ?.
 
 Exact tempo indication (in beats per minute).  Also denoted by
@@ -2586,7 +2586,7 @@ D: eingestrichenes@w{ }c,
 NL: centrale@w{ }c,
 DK: enstreget@w{ }c,
 S: ettstruket@w{ }c,
-FI: keski-c,
+FI: keski-C,
 N: ?.
 
 First C below the 440 Hz A.
@@ -2635,7 +2635,7 @@ D: Modus,
 NL: modus,
 DK: skala,
 S: modus, skala,
-FI: moodi, s@"avelasteikko,
+FI: moodi, kirkkos@"avelasteikko,
 N: ?.
 
 @aref{church mode}, @aref{diatonic scale}.
@@ -2663,7 +2663,7 @@ D: Mordent,
 NL: mordent,
 DK: mordent,
 S: mordent,
-FI: mordent,
+FI: mordent, korukuvio,
 N: ?.
 
 @aref{ornament}.
@@ -2702,7 +2702,7 @@ D: Satz,
 NL: deel,
 DK: sats,
 S: sats,
-FI: liike,
+FI: osa,
 N: ?.
 
 Greater musical works like @aref{symphony} and
@@ -2717,7 +2717,7 @@ NL: meermaats rust,
 D: mehrtaktige Pause,
 DK: flertaktspause,
 S: flertaktspaus,
-FI: monen tahdin pituinen tauko,
+FI: usean tahdin mittainen tauko,
 N: ?.
 
 @lilypond[13pt]
@@ -2964,7 +2964,7 @@ D: Stimme,
 NL: partij,
 DK: stemme,
 S: st@"amma,
-FI: osa,
+FI: stemma, instrumenttiosuus,
 N: ?.
 
 1. In instrumental or choral music the music for the single instrument
@@ -3009,7 +3009,7 @@ D: Phrase,
 NL: frase, zin,
 DK: frase,
 S: fras,
-FI: fraasi,
+FI: fraasi, lause,
 N: ?.
 
 A natural division of the melodic line, comparable to a sentence of speech.
@@ -3022,7 +3022,7 @@ D: Phrasierung,
 NL: frasering,
 DK: frasering,
 S: fra@-se@-ring,
-FI: fraseeraus,
+FI: fraseeraus, j@"asent@"aminen,
 N: ?.
 
 The clear rendering in musical performance of the @aref{phrase}s of
@@ -3061,7 +3061,7 @@ D: pizzicato,
 NL: pizzicato, getokkeld,
 DK: pizzicato,
 S: pizzicato,
-FI: pizzicato,
+FI: pizzicato, n@"app@"aillen,
 N: ?.
 
 Play by plucking the strings.
@@ -3105,7 +3105,7 @@ D: Pythagor@"aisches Komma,
 NL: komma van Pythagoras,
 DK: pythagor@ae{}isk komma,
 S: pytagoreiskt komma,
-FI: pytagorinen pilkku,
+FI: pytagorinen komma,
 N: ?.
 
 A sequence of fifths starting on@w{ }C eventually circles back to@w{ }C,
@@ -3315,7 +3315,7 @@ D: Tonleiterstufe,
 NL: trap [van de toonladder],
 DK: skalatrin,
 S: skalsteg (?),
-FI: s@"avelaste,
+FI: s@"avelaste, asteikon s@"avel,
 N: ?.
 
 Names and symbols used in harmonic analysis to denote tones of the scale as
@@ -3523,7 +3523,7 @@ D: Solmisation,
 NL: solmizatie,
 DK: solmisation,
 S: solmisation,
-FI: ?,
+FI: suhteelliset laulunimet,
 N: ?.
 
 General term for systems of designating the degrees of the
@@ -3592,7 +3592,7 @@ D: staccato,
 NL: staccato,
 DK: staccato,
 S: staccato,
-FI: staccato,
+FI: staccato, lyhyesti, ter@"av@"asti,
 N: ?.
 
 Playing the note(s) short.  Staccato is indicated by a dot above or below the
@@ -3700,7 +3700,7 @@ D: Submediante,
 NL: submediant,
 DK: Submediant,
 S: submediant,
-FI: ?,
+FI: alikeskis@"avel,
 N: ?.
 
 The sixth @aref{scale degree}.
@@ -3713,7 +3713,7 @@ D: Subtonika,
 NL: subtonica,
 DK: Subtonika,
 S: subtonika,
-FI: subtoonika,
+FI: subtoonika, alitoonika,
 N: ?.
 
 The seventh @aref{scale degree}.
@@ -3791,7 +3791,7 @@ D: syntonisches Komma,
 NL: syntonische komma,
 DK: syntonisk komma,
 S: syntoniskt komma,
-FI: ?,
+FI: syntoninen komma, terssin taajuusero luonnollisessa ja Pytagorisessa viritysj@"arjestelm@"ass@"a,
 N: ?.
 
 Difference between the natural third and the third obtained by Pythagorean
@@ -3849,7 +3849,7 @@ D: Tenor,
 NL: tenor,
 DK: tenor,
 S: tenor,
-FI: tenori,
+FI: tenori, korkea mies@"a@"ani,
 N: ?.
 
 The highest voice of men (apart from @aref{counter tenor}).
@@ -3916,7 +3916,7 @@ D: Generalbass, bezifferter Bass,
 NL: basso continuo,
 DK: generalbas,
 S: generalbas,
-FI: kenraalibasso,
+FI: kenraalibasso, numeroitu basso,
 N: ?.
 
 A method of indicating an accompaniment part by the bass notes only, together
@@ -4175,7 +4175,7 @@ D: Doppelschlag,
 NL: dubbelslag,
 DK: dobbeltslag,
 S: dubbelslag,
-FI: ?,
+FI: korukuvio,
 N: ?.
 
 ???
@@ -4188,7 +4188,7 @@ D: unisono,
 NL: unisono,
 DK: unison,
 S: unison,
-FI: unisoni, yksi@"a@"anisesti,
+FI: unisono, yksi@"a@"anisesti,
 N: ?.
 
 Playing of the same notes or the same melody by various instruments (voices)
@@ -4241,7 +4241,7 @@ D: unbetonter Taktteil oder Taktschlag,
 NL: arsis,
 DK: ubetonet taktslag,
 S: obetonat taktslag,
-FI: tahdin heikko osa,
+FI: tahdin heikko isku,
 N: ?.
 
 @aref{beat}, @aref{measure}, @aref{rhythm}.
@@ -4312,62 +4312,62 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @item DURATION NAMES, NOTES AND RESTS
 @end table
 
-@multitable @columnfractions .111 .111 .111 .111 .111 .111 .111 .111 .111
+@multitable @columnfractions .1 .1 .1 .1 .1 .1 .1 .1 .1 .1
 
 @item @tab @strong{UK} @tab @strong{I} @tab @strong{F} @tab @strong{D} @tab
-@strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{N}
+@strong{NL} @tab @strong{DK} @tab @strong{S} @tab {FI} @tab @strong{N}
 
 @item
 
 @item @strong{longa} @tab longa @tab longa @tab longa @tab Longa @tab longa
-@tab longa @tab longa @tab longa
+@tab longa @tab longa @tab longa @tab longa
 
 @item
 
 @item @strong{breve} @tab breve @tab breve @tab br@`eve @tab Brevis @tab
-brevis @tab brevis @tab brevis @tab brevis
+brevis @tab brevis @tab brevis @tab brevis @tab brevis
 
 @item
 
 @item @strong{whole} @tab semi@-breve @tab semi@-breve @tab ronde @tab
-Ganze @tab hele @tab hel @tab hel @tab
+Ganze @tab hele @tab hel @tab hel @tab kokonuotti/-tauko @tab
 
 @item
 
 @item @strong{half} @tab minim @tab minima @tab blanche @tab Halbe @tab
-halve @tab halv @tab halv @tab
+halve @tab halv @tab halv @puoli- @tab
 
 @item
 
 @item @strong{quarter} @tab crotchet @tab semi@-minima @tab noire @tab
-Viertel @tab kwart @tab fjerde@-del @tab fj@"arde@-del @tab
+Viertel @tab kwart @tab fjerde@-del @tab fj@"arde@-del @tab nelj@"annes- @tab
 
 @item
 
 @item @strong{eighth} @tab quaver @tab croma @tab croche @tab Achtel @tab
-achtste @tab ottende@-del @tab @aa{}tton@-del @tab
+achtste @tab ottende@-del @tab @aa{}tton@-del @tab kahdeksasosa- @tab
 
 @item
 
 @item @strong{sixteenth} @tab semi@-quaver @tab semi@-croma @tab double croche
 @tab Sech@-zehntel @tab zes@-ti@-ende @tab seks@-tende@-del @tab sexton@-del
-@tab
+@tab kuudestoistaosa- @tab
 
 @item
 
 @item @strong{thirty-second} @tab demi@-semi@-quaver @tab bis@-croma @tab
 triple croche @tab Zwei@-und@-drei@-@ss{}ig@-stel @tab twee-en@-dertig@-ste
-@tab toog@-tredivte-del @tab trettio@-tv@aa{}on@-del @tab
+@tab toog@-tredivte-del @tab trettio@-tv@aa{}on@-del @tab kolmaskymmeneskahdesosa- @tab
 
 @item
 
 @item @strong{sixty-fourth} @tab hemi@-demi@-semi@-quaver @tab
 semi@-bis@-croma @tab qua@-druple croche @tab Vier@-und@-sechzig@-stel @tab
 vier@-en@-zestig@-ste @tab fireog@-tred@-sinds@-ty@-ven@-de@-del @tab
-sextio@-fj@"arde@-del @tab
+sextio@-fj@"arde@-del @tab kuudeskymmenesnelj@"asosa- @tab
 
 @end multitable
-@c @item @tab @tab @tab @tab @tab @tab @tab @tab
+@c @item @tab @tab @tab @tab @tab @tab @tab @tab @tab
 
 @page
 
@@ -4375,63 +4375,64 @@ sextio@-fj@"arde@-del @tab
 @item PITCH NAMES
 @end table
 
-@multitable @columnfractions .125 .125 .125 .125 .125 .125 .125 .125
+@multitable @columnfractions .111 .111 .111 .111 .111 .111 .111 .111 .111 
 
 @item @tab @strong{I} @tab @strong{F} @tab @strong{D} @tab
-@strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{N}
+@strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI} 
+@tab @strong{N}
 
 @item
 
-@item @strong{c} @tab do @tab ut @tab C @tab c @tab c @tab c @tab c
+@item @strong{c} @tab do @tab ut @tab C @tab c @tab c @tab c @tab C @tab c
 
 @item
 
 @item @strong{c-sharp} @tab do diesis @tab ut di@`ese @tab Cis @tab cis @tab
-cis @tab cis @tab cis
+cis @tab cis @tab Cis @tab cis
 
 @item
 
 @item @strong{d-flat} @tab re bemolle @tab r@'e b@'emol @tab Des @tab des @tab
-des @tab des @tab des
+des @tab des @tab Des @tab des
 
 @item
 
-@item @strong{d} @tab re @tab r@'e @tab D @tab d @tab d @tab d @tab d
+@item @strong{d} @tab re @tab r@'e @tab D @tab d @tab d @tab d @tab D @tab d
 
 @item
 
-@item @strong{e} @tab mi @tab mi @tab E @tab e @tab e @tab e @tab e
+@item @strong{e} @tab mi @tab mi @tab E @tab e @tab e @tab e @tab E @tab e
 
 @item
 
-@item @strong{f} @tab fa @tab fa @tab F @tab f @tab f @tab f @tab f
+@item @strong{f} @tab fa @tab fa @tab F @tab f @tab f @tab f @tab F @tab f
 
 @item
 
-@item @strong{g} @tab sol @tab sol @tab G @tab g @tab g @tab g @tab g
+@item @strong{g} @tab sol @tab sol @tab G @tab g @tab g @tab g @tab G @tab g
 
 @item
 
 @item @strong{a-flat} @tab la bemolle @tab la b@'emol @tab As @tab as @tab as
-@tab as @tab as
+@tab as @tab As @tab as
 
 @item
 
-@item @strong{a} @tab la @tab la @tab A @tab a @tab a @tab a @tab a
+@item @strong{a} @tab la @tab la @tab A @tab a @tab a @tab a @tab A @tab a
 
 @item
 
 @item @strong{a-sharp} @tab la diesis @tab la di@`ese @tab Ais @tab ais @tab
-ais @tab ais @tab ais
+ais @tab ais @tab Ais @tab ais
 
 @item
 
 @item @strong{b-flat} @tab si bemolle @tab si b@'emol @tab B @tab bes @tab b
-@tab b @tab b
+@tab b @tab B @tab b
 
 @item
 
-@item @strong{b} @tab si @tab si @tab H @tab b @tab h @tab h @tab h
+@item @strong{b} @tab si @tab si @tab H @tab b @tab h @tab h @tab H @tab h
 
 @end multitable
 
