@@ -77,7 +77,10 @@ void
 Multi_measure_rest_engraver::do_pre_move_processing ()
 {
   Moment now (now_moment ());
-  if (mmrest_p_ && (now >= rest_start_mom_) && (mmrest_p_->column_arr_.size () >= 2))
+  Time_description const *time = get_staff_info().time_C_;
+  if (mmrest_p_ && (now >= rest_start_mom_) 
+    && !time->whole_in_measure_
+    && (mmrest_p_->column_arr_.size () >= 2))
     {
       typeset_element (mmrest_p_);
       /*
@@ -97,7 +100,7 @@ Multi_measure_rest_engraver::do_post_move_processing ()
   Time_description const *time = get_staff_info().time_C_;
   Moment now (now_moment ());
 
-  if (mmrest_p_)
+  if (mmrest_p_ && !time->whole_in_measure_)
     {
       lastrest_p_ = mmrest_p_;
       lastrest_p_->measures_i_ = time->bars_i_ - start_measure_i_;
