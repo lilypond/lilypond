@@ -15,17 +15,23 @@
 
 class Music_wrapper_iterator : public Music_iterator
 {
-  Music_iterator *child_iter_p_;
-  Music_wrapper *music_wrapper_l();
 public:
   Music_wrapper_iterator ();
-  ~Music_wrapper_iterator ();
+
+protected:
+  virtual ~Music_wrapper_iterator ();
+
   virtual void do_print () const;
   virtual void construct_children  () ;
   virtual void do_process_and_next (Moment) ;
   virtual Moment next_moment () const;
+
+protected:
+  virtual Music_wrapper *music_wrapper_l () const;
   virtual bool ok () const;
-  
+
+private:
+  Music_iterator *child_iter_p_;
 };
 
 #endif /* MUSIC_WRAPPER_ITERATOR_HH */

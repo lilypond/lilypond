@@ -20,11 +20,8 @@
 #include "music-wrapper-iterator.hh"
 #include "compressed-music-iterator.hh"
 #include "compressed-music.hh"
-
-
-
-
-
+#include "repeated-music.hh"
+#include "repeated-music-iterator.hh"
 
 void
 Music_iterator::do_print() const
@@ -150,6 +147,10 @@ Music_iterator::static_get_iterator_p (Music const *m, Translator_group *report_
     p = new Compressed_music_iterator;
   else if (dynamic_cast<Music_wrapper  const *> (m))
     p = new Music_wrapper_iterator;
+  else if (dynamic_cast<Repeated_music const *> (m))
+    p = new Repeated_music_iterator;
+  else
+    assert (0);
 
   p->music_l_ = m;
   if (m->translator_type_str_.length_i ())

@@ -13,6 +13,7 @@
 #include "command-request.hh"
 #include "time-description.hh"
 #include "engraver-group.hh"
+#include "repeated-music.hh"
 
 Bar_engraver::Bar_engraver()
 {
@@ -31,6 +32,13 @@ Bar_engraver::do_try_music (Music*r_l)
       bar_req_l_ = b;
 
       return true;
+    }
+  else if (Repeated_music * m = dynamic_cast<Repeated_music *> (r_l))
+    {
+      if (bar_req_l_ && bar_req_l_->equal_b (b)) // huh?
+        return false;
+      bar_req_l_ = new Bar_req ("|:");
+        return true;
     }
   
   return false;

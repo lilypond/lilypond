@@ -36,10 +36,11 @@ Music_wrapper_iterator::~Music_wrapper_iterator ()
 }
 
 Music_wrapper*
-Music_wrapper_iterator::music_wrapper_l ()
+Music_wrapper_iterator::music_wrapper_l () const
 {
   return (Music_wrapper*) music_l_;
 }
+
 bool
 Music_wrapper_iterator::ok () const
 {
