@@ -3,6 +3,8 @@
 	* Documentation/user/refman.itely: bugfix: remove obsolete link to
 	input/test/custos-style.ly
 
+	* Documentation/index.html.in: bugfix: link to Tutorial.html
+
 2003-08-12  Heikki Junes <hjunes@cc.hut.fi>
 
 	* lilypond-mode.el: split `Insert Tag' if it is long enough.
