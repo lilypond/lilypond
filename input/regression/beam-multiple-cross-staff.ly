@@ -27,3 +27,4 @@ to the last beam.
 	     >
 
 }
+%% new-chords-done %%

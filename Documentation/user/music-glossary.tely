@@ -289,7 +289,7 @@ the duration of the long a. is proportional to that of the main note.
 \time 4/4
 
 \property Score.TextScript \set #'font-style = #'large
-<d4_"notation" a fis> r
+<<d a fis>>4_"notation" r
 { \property Voice.Stem \override #'flag-style = #""
   \grace g16
   \property Voice.Stem \revert #'flag-style
@@ -302,7 +302,7 @@ fis8 e16 fis
 g8 fis16 g |
 \cadenzaOn a4 \bar "||" \cadenzaOff }
 \notes\relative c'' {
-<d4_"performance" a fis> r g16 () fis e fis a () g fis g |
+<<d a fis>>4_"performance" r g16 () fis e fis a () g fis g |
 \cadenzaOn a4 \bar "||" \cadenzaOff }
 @end lilypond
 
@@ -314,8 +314,8 @@ An appoggiatura may have more notes preceding the main note.
   \time 2/4
   \property Score.TextScript \set #'font-style = #'large
   \grace { bes16 } as8_"notation" as16 bes as8 g |
-  \grace { [as16 ( bes] } < ) c4 as >
-  \grace { [as16 ( bes] } < ) c4 as > \bar "||"
+  \grace { [as16-( bes] } << c as >>4-)
+  \grace { [as16-( bes] } << c as >>4-) \bar "||"
   \grace { bes16 } as8_"performance" as16 bes as8 g |
   < \context Voice = va { \stemUp\tieUp as32 bes c8. as32 bes c8. }
     \context Voice = vb { \stemDown\tieDown as16 ~ as8. as16 ~ as8. } >
@@ -712,12 +712,12 @@ chords are denoted open chords
 \property Voice.TextScript \set #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
-  <g1 b d> s s
-  <g bes d> s s
-  <g bes des> s s
-  <g b dis> s s
-  <g b d f> s s
-  <g b d f a> s s
+  <<g b d>>1 s s
+  <<g bes d>> s s
+  <<g bes des>> s s
+  <<g b dis>> s s
+  <<g b d f>> s s
+  <<g b d f a>> s s
 }
 \context Lyrics \lyrics{
   \property Lyrics . LyricText \override #'alignment = #-1
@@ -1521,7 +1521,7 @@ but equal pitch.
 \property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
-  gis1 s s as s s <des g,!> s s <cis g!> s s
+  gis1 s s as s s <<des g,!>> s s <<cis g!>> s s
 }
 \context Lyrics \lyrics {
   \property Lyrics . LyricText \override #'alignment = #-1
@@ -1757,8 +1757,8 @@ variants of the base chords.
 \property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Voice \notes\relative c'' {
-  < g1 e c > < a f d > < b g e >
-  < c a f > < d b g > < e c a > < f d b > }
+  <<g e c >>1 << a f d >> << b g e >>
+  <<c a f >> << d b g >> << e c a >> << f d b >> }
 \context Lyrics \lyrics { T Sp Dp S D Tp "D{\\kern-5pt}$\\mid$" }
 @end lilypond
 
@@ -1907,8 +1907,8 @@ section.  @aref{functional harmony}.
     \time 4/4
     \clef treble
     \context Voice
-    \partial 4 < c4 g e > |
-    < c a f > < b g d > < c2 g e >
+    \partial 4 << c g e >>4 |
+    << c a f >> << b g d >> << c2 g e >>
   }
   \property Score.LyricText \set #'font-style = #'large
   \addlyrics
@@ -1942,13 +1942,13 @@ Consonances:
 \property Score.barNonAuto = ##t
 \property Score.TextScript \set #'font-style = #'large
 \context Voice \notes\relative c'' {
-  <g1_"unisone  " g> s
-  <g1_"third  " b> s
-  <g1_"fourth  " c> s
-  <g1_"fifth  " d'> s
-  <g1_"sixth  " e'> s
-  <g1_"octave  " g'> s
-  <g1_"decime" b'> s s
+  <<g1 g>>_"unisone  " s
+  <<g1 b>>_"third  " s
+  <<g1 c>>_"fourth  " s
+  <<g1 d'>>_"fifth  " s
+  <<g1 e'>>_"sixth  " s
+  <<g1 g'>>_"octave  " s
+  <<g1 b'>>_"decime" s s
 }
 @end lilypond
 
@@ -1958,9 +1958,9 @@ Dissonances:
 \property Score.barNonAuto = ##t
 \property Score.TextScript \set #'font-style = #'large
 \context Voice  \notes\relative c'' {
-  <g1_"second  " a> s s
-  <g1_"seventh  " f'> s s
-  <g1_"ninth" a'> s s
+  <<g1 a>>_"second  " s s
+  <<g1 f'>>_"seventh  " s s
+  <<g1 a'>>_"ninth" s s
 }
 @end lilypond
 
@@ -2001,14 +2001,14 @@ of such two forms an octave.
 \property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Voice \notes\relative c'' {
-  < g1 g > s
-  < g^"minor" as > s
-  < g^"major" a! > s
-  < g^"augm" ais > s
-  < gis^"dimin" bes > s
-  < g!^"minor" bes > s
-  < g^"major" b! > s
-  < g^"augm" bis > s
+  << g g >>1 s
+  << g as >>^"minor" s
+  << g a! >> s
+  << g ais >>^"augm" s
+  << gis bes >>^"dimin" s
+  << g! bes >>^"minor" s
+  << g b! >>^"major" s
+  << g bis >>^"augm" s
 }
 \context Lyrics \lyrics {
   "unisone  " "second  " "second  " "second  "
@@ -2022,14 +2022,14 @@ of such two forms an octave.
 \property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
-  < g1^"perfect" c > s
-  < g^"augm" cis > s
-  < g^"perfect" d' > s
-  < g^"dim" des' > s
-  < gis^"dimin" es' > s
-  < g!^"minor" es' > s
-  < g^"major" e'! > s
-  < g^"augm" eis' > s
+  << g c >>^"perfect" s
+  << g cis >>^"augm"  s
+  << gd' >>^"perfect"  s
+  << g des' >> ^"dim" s
+  << gis es' >>^"dimin"  s
+  << g! es' >>^"minor"  s
+  << g e'! >>^"major"  s
+  << g eis' >>^"augm"  s
 }
 \context Lyrics \lyrics {
   "fourth  " "fourth  " "fifth  " "fifth  "
@@ -2043,14 +2043,14 @@ of such two forms an octave.
 \property Score.TextScript \set #'font-style = #'large
 \addlyrics
 \context Staff \notes\relative c'' {
-  < gis1^"dimin" f'! > s
-  < g!^"minor" f'! > s
-  < g^"major" fis' > s
-  < g g' > s
-  < g^"minor" as' > s
-  < g^"major" a'! > s
-  < g^"minor" bes' > s
-  < g^"major" b'! > s
+  << gis f'! >>1^"dimin"  s
+  << g! f'! >>^"minor"  s
+  << g fis' >>^"major"  s
+  << g g' >> s
+  << g as' >>^"minor"  s
+  << g a'! >>^"major"  s
+  << g bes' >>^"minor"  s
+  << g b'! >>^"major"  s
 }
 \context Lyrics \lyrics {
   "seventh  " "seventh  " "seventh  " "octave  "
@@ -2074,9 +2074,9 @@ The difference between an interval and an octave.
 \property Score.barNonAuto = ##t
 \property Score.TextScript \set #'font-style = #'large
 \context Staff \notes\relative c'' {
-  < g1_"second  " a > s s < g'_"seventh  " a, > s s \bar "||"
-  < g,_"third  " b > s s < g'_"sixth  " b, > s s \bar "||"
-  < g,_"fourth  " c > s s < g'_"fifth  " c, > s s \bar "||"
+  << g  a >>1_"second  s s << g' a, >>_"seventh " s s \bar "||"
+  << g, b >>_"third  " s s << g' b, >>_"sixth  " s s \bar "||"
+  << g, c >>_"fourth  " s s << g' c, >>_"fifth  " s s \bar "||"
 }
 @end lilypond
 
@@ -3695,7 +3695,7 @@ with figures designating the chief @aref{interval}s and
         es4 d c bes | bes }
       \context Voice = rhb {
         \stemDown
-        < bes8 g > as < as f > g < g es > f < d f > es | < g4 es > }
+        << bes g >>8 as << as f >> g << g es >> f << d f >> es | << g es >>4 }
     >
   }
   \addlyrics

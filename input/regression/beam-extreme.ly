@@ -45,3 +45,4 @@ extreme = \notes\relative c'' {
     linewidth = -1
   }
 }
+%% new-chords-done %%

@@ -25,3 +25,4 @@ settings = {
     linewidth = 40 * \staffspace
   }
 }
+%% new-chords-done %%

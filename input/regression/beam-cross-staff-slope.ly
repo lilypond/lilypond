@@ -11,7 +11,7 @@ don't cause extreme slopes"
         {
 	    \stemDown
             f16( \> d \! b \translator Staff = down \stemUp
-            \clef treble g ~ < g8 )e>
+            \clef treble g ~ << g e>>8-)
 	    
 	    [e \translator Staff = up
 	    \stemDown
@@ -31,3 +31,4 @@ don't cause extreme slopes"
     \paper { linewidth = -1. }
 }
 
+%% new-chords-done %%

@@ -194,4 +194,4 @@ Cluster::brew_molecule (SCM smob)
 
 ADD_INTERFACE (Cluster,"cluster-interface",
   "A graphically drawn musical cluster.",
-  "shape padding");
+  "shape padding segments");

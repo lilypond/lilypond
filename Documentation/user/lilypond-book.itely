@@ -80,13 +80,13 @@ produces this music:
 Then the short version:
 
 @example
-@@lilypond[11pt]@{<c' e' g'>@}
+@@lilypond[11pt]@{<<c' e' g'>>@}
 @end example
 
 @noindent
 and its music:
 
-@lilypond[11pt]{<c' e' g'>}
+@lilypond[11pt]{ <<c' e' g'>> }
 
 @command{lilypond-book} knows the default margins and a few paper
 sizes.  One of these commands should be in the beginning of the document:
@@ -147,13 +147,13 @@ produces this music:
 Then the short version:
 
 @example
-\lilypond[11pt]@{<c' e' g'>@}
+\lilypond[11pt]@{<<c' e' g'>>@}
 @end example
 
 @noindent
 and its music:
 
-@lilypond[11pt]{<c' e' g'>}
+@lilypond[11pt]{<<c' e' g'>>}
 
 You can use whatever commands you like in the document preamble,
 the part of the document before @code{\begin@{document@}}.

@@ -235,7 +235,7 @@ Second, contexts are created automatically to be able to interpret the
 music expressions.  Consider the following example.
 
 @lilypond[verbatim, singleline]
-\score { \context Score \notes { c'4 ( d' )e' } }
+\score { \context Score \notes { c'4-( d' e'-) } }
 @end lilypond
 
 @noindent
@@ -245,27 +245,6 @@ note is encountered, contexts are setup to accept that note.  In this
 case, a Thread, Voice, and Staff context are created.  The rest of the
 sequential music is also interpreted with the same Thread, Voice, and
 Staff context, putting the notes on the same staff, in the same voice.
-
-This is a convenient mechanism, but do not expect opening chords to work
-without @code{\context}.  For every note, a separate staff is
-instantiated.
-
-@cindex explicit context
-@cindex starting with chords
-@cindex chords, starting with
-
-@lilypond[verbatim, singleline]
-\score { \notes <c'4 es'> } 
-@end lilypond
-
-Of course, if the chord is preceded by a normal note in sequential
-music, the chord will be interpreted by the Thread of the preceding
-note:
-
-@lilypond[verbatim,singleline]
-\score { \notes { c'4 <c'4 es'> } }
-@end lilypond
-
 
 @node Context properties
 @subsection Context properties
@@ -625,9 +604,15 @@ are expressed in two different ways:
   < { a b c' } { c' d' e' } >
 }
 @end lilypond
+However, using @code{<} and @code{>} for chords turns up various
+syntactical peculiarities. For this reason, a special syntax for
+chords was introduced in version 1.7: @code{<< >>}.
+
+
+
+
 
 Other compound music expressions include
-
 @example
 \repeat @var{expr}
 \transpose @var{from} @var{to} @var{expr}

@@ -12,3 +12,4 @@ texidoc = "Beams and ties may be entered in postfix notation, separating the
        c8-[-~ c-]
    }
 }
+%% new-chords-done %%

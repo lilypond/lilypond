@@ -546,11 +546,12 @@
 	(Y-offset-callbacks . (,Side_position_interface::out_of_staff 
 			       ,Side_position_interface::aligned_side))
 	(molecule-callback . ,Measure_grouping::brew_molecule)
-	(meta . ((interfaces . (spanner-interface measure-grouping-interface))))	(staff-padding . 3)
 	(padding . 2)
 	(direction . 1)
 	(thickness . 1)
 	(height . 2.0)
+	(staff-padding . 3)
+	(meta . ((interfaces . (spanner-interface side-position-interface measure-grouping-interface))))
 	))
     (MultiMeasureRest
      . (
@@ -575,7 +576,7 @@
 	(direction . 1)
 	(padding . 2)
 	(font-family . number)
-	(meta . ((interfaces . (side-position-interface font-interface spanner-interface))))
+	(meta . ((interfaces . (side-position-interface self-alignment-interface font-interface spanner-interface))))
 	))
 
 

@@ -11,3 +11,4 @@
 	[c8 c16 e16 g8]
 
     }}
+%% new-chords-done %%

@@ -28,3 +28,4 @@ hidden just as with breakable bar lines.
 	
 		}}
 
+%% new-chords-done %%

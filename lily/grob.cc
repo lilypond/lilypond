@@ -257,7 +257,6 @@ Grob::get_uncached_molecule ()const
   SCM  mol = SCM_EOL;
   if (gh_procedure_p (proc)) 
     mol = gh_apply (proc, scm_list_n (this->self_scm (), SCM_UNDEFINED));
-
   
   Molecule *m = unsmob_molecule (mol);
   

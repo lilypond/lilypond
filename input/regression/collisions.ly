@@ -23,8 +23,8 @@ twovoicechords = \context Staff \notes <
 		\stemUp e4 d c b a g f
 	}
 	\context Voice = ii \relative c' {
-		\stemDown <a4 c> <a4 c> <a4 c> <a4 c> <a c>
-		<a c> <a c>  
+		\stemDown <<a c>>4 <<a c>>4 <<a c>>4 <<a c>>4 <<a c>>
+		<<a c>> <<a c>>  
 	}
 >
 
@@ -75,3 +75,4 @@ hairyChord =  \context Staff \notes\relative c' <
 	
 %	\midi { \tempo 4:80 }
 }
+%% new-chords-done %%
