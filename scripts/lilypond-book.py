@@ -185,7 +185,7 @@ class LatexPaper:
 		""")
 		f.close()
 		re_dim = re.compile(r"\\(\w+)\s+(\d+\.\d+)")
-		p = os.popen("latex lily-tmp.tex")
+		p = os.popen("latex %s" % fname)
 		ln = p.readline()
 		while ln:
 			ln = string.strip(ln)
