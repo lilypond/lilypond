@@ -1,25 +1,10 @@
 \version "2.3.22"
-\header { texidoc = "The property @code{chordNameExceptions} can used
-    to store a list of special notations for specific chords.
+\header {
 
-Putting the exceptions list encoded as
-@example
-	\ @{ <c f g bes>1\\markup @{ \\super \"7\" \"wahh\" @} @}
-@end example
-into @code{chordNameExceptions} takes a little manoeuvring. The
-following code transforms @code{chExceptionMusic} (which is a
-sequential music) into a list of exceptions.
-@example
-	(sequential-music-to-chord-exceptions chExceptionMusic \#t)
-@end example
-Then,
-@example
-	(append
-	  ... ignatzekExceptions)
-@end example
-adds the new exceptions to the default ones, which are defined in
-@file{ly/chord-modifier-init.ly}.
-" }
+    texidoc = "The property @code{chordNameExceptions} can used
+    to store a list of special notations for specific chords."
+
+}
 
 
 				% 7sus4 denoted with ^7 wahh
@@ -36,6 +21,8 @@ theMusic = \chordmode {
     \set chordNameExceptions = #chExceptions
     c:7sus4 c:dim7/+f
 }
+
+\layout { raggedright = ##t }
 
 << \context ChordNames \theMusic
    \context Voice \theMusic
