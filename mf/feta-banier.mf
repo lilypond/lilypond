@@ -370,8 +370,8 @@ fet_beginchar("64th (down)", "d6", "dsixtyfourthflag")
 	add_flag(flagspace, flare,
 		.97, 1.10, 1.175, hip_thickness, foot_thickness);  
 
-	add_flag(flagspace, flare,
-		.95, 1.03, 1.175, hip_thickness, foot_thickness);  
+	add_flag(.98 flagspace, flare,
+		.91, 1.05, 1.2, hip_thickness, foot_thickness);  
 
 	
 
