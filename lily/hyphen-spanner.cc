@@ -40,8 +40,6 @@ Hyphen_spanner::brew_molecule (SCM smob)
       bounds[d] = sp->get_bound (d)->extent (common, X_AXIS)[-d];
     }
   while (flip (&d) != LEFT);
-
-  
   
   Real ss = sp->paper_l ()->get_var ("staffspace");
   Real lt = sp->paper_l ()->get_var ("stafflinethickness");
@@ -82,7 +80,7 @@ Hyphen_spanner::brew_molecule (SCM smob)
 	}
     }
   Box b  (Interval (-l/2,l/2), Interval (h,h+th));
-  Molecule mol (sp->lookup_l ()->filledbox (b));
+  Molecule mol (Lookup::filledbox (b));
   mol.translate_axis (bounds.center ()
 		      -sp->relative_coordinate (common, X_AXIS),
 		      X_AXIS);

@@ -6,11 +6,12 @@
  (c) 1998--2000 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
  */
+#include <math.h>
 
 #include "debug.hh"
 #include "text-item.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol-referencer.hh"
 #include "main.hh"
@@ -25,55 +26,86 @@
     PROPERTY: (key . value)
     ABBREV: rows lines roman music bold italic named super sub text, or any font-style
  */
+
+/*
+  TODO:
+
+  rewrite routines and syntax to be like
+
+  TEXT: STRING
+      | (head-expression* TEXT*)
+      ;
+
+  head-expression is a list, containing a tag and a variable number of
+  arguments. If necessary, the number of arguments can be stored in a alist,
+
+  '(
+   (tag1 . argcount1)
+   (tag2 . argcount2)
+
+   ... etc
+   
+   )
+
+   or even entries like
+
+   (tag . (argcount function-to-handle-the-tag  ))
+  
+ */
+
 Molecule
-Text_item::text2molecule (Score_element *me, SCM text, SCM properties) 
+Text_item::text2molecule (Score_element *me, SCM text, SCM alist_chain) 
 {
   if (gh_string_p (text))
-    return string2molecule (me, text, properties);
+    return string2molecule (me, text, alist_chain);
   else if (gh_list_p (text))
     {
       if (!gh_pair_p (gh_car (text)) && gh_string_p (gh_car (text)))
-	return string2molecule (me, gh_car (text), properties);
+	return string2molecule (me, gh_car (text), alist_chain);
       else
-	return markup_sentence2molecule (me, text, properties);
+	return markup_sentence2molecule (me, text, alist_chain);
     }
   return Molecule ();
 }
 
-static
 SCM
-get_elt_property (Score_element *me, char const *name)
+ly_assoc_chain (SCM key, SCM achain)
 {
-  SCM s = me->get_elt_property (name);
-  if (s == SCM_EOL)
-    error (_f ("No `%s' defined for %s", name, me->name ()));
-  return s;
-}
-
-Molecule
-Text_item::string2molecule (Score_element *me, SCM text, SCM properties)
-{
-  SCM style = scm_assoc (ly_symbol2scm ("font-style"), properties);
-  SCM paper = me->get_elt_property ("style-sheet");
-  if (paper == SCM_EOL)
-    paper = scm_string_to_symbol (me->paper_l ()->get_scmvar ("style_sheet"));
-
-  // should move fallback to scm
-  SCM font_name = ly_str02scm ("cmr10");
-  if (gh_pair_p (style))
+  if (gh_pair_p (achain))
     {
-      SCM f = get_elt_property (me, "style-to-font-name");
-      if (gh_procedure_p (f))
-	font_name = gh_call2 (f, paper, gh_cdr (style));
+      SCM handle = scm_assoc (key, gh_car (achain));
+      if (gh_pair_p (handle))
+	return handle;
+      else
+	return ly_assoc_chain (key, gh_cdr (achain));
     }
   else
+    return SCM_BOOL_F;
+}
+	     
+Molecule
+Text_item::string2molecule (Score_element *me, SCM text, SCM alist_chain)
+{
+  SCM style = ly_assoc_chain (ly_symbol2scm ("font-style"),
+			      alist_chain);
+  if  (gh_pair_p (style))
+    style = gh_cdr (style);
+  
+  SCM sheet = me->paper_l ()->style_sheet_;
+  
+  if (gh_symbol_p (style))
     {
-      SCM f = get_elt_property (me, "properties-to-font-name");
-      if (gh_procedure_p (f))
-	font_name = gh_call2 (f, paper, properties);
+      SCM style_alist = gh_cdr (scm_assoc (ly_symbol2scm ("style-alist"), sheet));
+      SCM entry = scm_assoc (style, style_alist);
+      entry = gh_pair_p (entry) ? gh_cdr (entry) : SCM_EOL;
+      alist_chain = gh_cons (entry, alist_chain);
     }
-   
-  SCM lookup = scm_assoc (ly_symbol2scm ("lookup"), properties);
+
+  SCM fonts = gh_cdr (scm_assoc (ly_symbol2scm ("fonts"), sheet));
+  SCM proc  = gh_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"), sheet));
+  SCM font_name = gh_call2 (proc, fonts, alist_chain);
+
+  SCM lookup = ly_assoc_chain (ly_symbol2scm ("lookup"), alist_chain);
 
   Molecule mol;
   if (gh_pair_p (lookup) && ly_symbol2string (gh_cdr (lookup)) == "name")
@@ -84,38 +116,22 @@ Text_item::string2molecule (Score_element *me, SCM text, SCM properties)
   return mol;
 }
 
-/*
-  caching / use some form of Lookup without 'paper'?
-*/
 Molecule
 Text_item::lookup_character (Score_element *me, SCM font_name, SCM char_name)
 {
   Adobe_font_metric *afm = all_fonts_global_p->find_afm (ly_scm2string (font_name));
-
+  
   if (!afm)
     {
       warning (_f ("can't find font: `%s'", ly_scm2string (font_name)));
       warning (_f ("(search path: `%s')", global_path.str ().ch_C()));
       error (_ ("Aborting"));
     }
+  Font_metric * fm = afm;
   
-  AFM_CharMetricInfo const *metric =
-    afm->find_char_metric (ly_scm2string (char_name), true);
-
-  if (!metric)
-    {
-      Molecule m;
-      m.set_empty (false);
-      return m;
-    }
-
-  SCM list = gh_list (ly_symbol2scm ("char"),
-		      gh_int2scm (metric->code),
-		      SCM_UNDEFINED);
-  
-  list = fontify_atom (afm, list);
-  return Molecule (afm_bbox_to_box (metric->charBBox), list);
+  return fm->find_by_name (ly_scm2string (char_name));
 }
+
 
 Molecule
 Text_item::lookup_text (Score_element *me, SCM font_name, SCM text)
@@ -123,8 +139,10 @@ Text_item::lookup_text (Score_element *me, SCM font_name, SCM text)
   SCM magnification = me->get_elt_property ("font-magnification");
   Font_metric* metric = 0;
   if (gh_number_p (magnification))
-    metric = all_fonts_global_p->find_scaled (ly_scm2string (font_name),
-					      gh_scm2int (magnification));
+    {
+      Real realmag = pow (1.2, gh_scm2int (magnification));
+      metric = all_fonts_global_p->find_scaled (ly_scm2string (font_name), realmag);
+    }
   else
     metric = all_fonts_global_p->find_font (ly_scm2string (font_name));
   
@@ -136,26 +154,28 @@ Text_item::lookup_text (Score_element *me, SCM font_name, SCM text)
 
 Molecule
 Text_item::markup_sentence2molecule (Score_element *me, SCM markup_sentence,
-				     SCM properties)
+				     SCM alist_chain)
 {
+  SCM sheet = me->paper_l ()->style_sheet_;
+  SCM f = gh_cdr (scm_assoc (ly_symbol2scm ("markup-to-properties"), sheet));
   SCM markup = gh_car (markup_sentence);
   SCM sentence = gh_cdr (markup_sentence);
-  SCM f = get_elt_property (me, "markup-to-properties");
-  SCM p = gh_append2 (gh_call1 (f, markup), properties);
+  
+  SCM p = gh_cons  (gh_call2 (f, sheet, markup), alist_chain);
 
   Axis align = X_AXIS;
-  SCM a = scm_assoc (ly_symbol2scm ("align"), p);
+  SCM a = ly_assoc_chain (ly_symbol2scm ("align"), p);
   if (gh_pair_p (a) && gh_number_p (gh_cdr (a)))
     align = (Axis)gh_scm2int (gh_cdr (a));
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   Real kern = 0;
-  SCM k = scm_assoc (ly_symbol2scm ("kern"), p);
+  SCM k = ly_assoc_chain (ly_symbol2scm ("kern"), p);
   if (gh_pair_p (k) && gh_number_p (gh_cdr (k)))
     kern = gh_scm2double (gh_cdr (k)) * staff_space;
 			     
   Real raise = 0;
-  SCM r = scm_assoc (ly_symbol2scm ("raise"), p);
+  SCM r = ly_assoc_chain (ly_symbol2scm ("raise"), p);
   if (gh_pair_p (r) && gh_number_p (gh_cdr (r)))
     raise = gh_scm2double (gh_cdr (r)) * staff_space;
 
@@ -184,8 +204,8 @@ Text_item::brew_molecule (SCM smob)
   
   SCM text = me->get_elt_property ("text");
 
-  SCM properties = gh_append2 (me->immutable_property_alist_,
-			       me->mutable_property_alist_);
+  SCM properties = gh_list (me->immutable_property_alist_,
+			    me->mutable_property_alist_, SCM_UNDEFINED);
 
   Molecule mol = Text_item::text2molecule (me, text, properties);
 

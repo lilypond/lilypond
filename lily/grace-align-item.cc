@@ -9,7 +9,7 @@
 
 #include "grace-align-item.hh"
 #include "align-interface.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
 

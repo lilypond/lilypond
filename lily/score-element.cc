@@ -10,13 +10,14 @@
 #include <string.h>
 #include <math.h>
 
+#include "all-font-metrics.hh"
 #include "input-smob.hh"
 #include "libc-extension.hh"
 #include "group-interface.hh"
 #include "misc.hh"
 #include "paper-score.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "molecule.hh"
 #include "score-element.hh"
 #include "debug.hh"
@@ -50,7 +51,6 @@ Score_element::Score_element(SCM basicprops)
    */
 
   pscore_l_=0;
-  lookup_l_ =0;
   status_i_ = 0;
   original_l_ = 0;
   immutable_property_alist_ =  basicprops;
@@ -100,7 +100,6 @@ Score_element::Score_element (Score_element const&s)
   mutable_property_alist_ = SCM_EOL;
   
   status_i_ = s.status_i_;
-  lookup_l_ = s.lookup_l_;
   pscore_l_ = s.pscore_l_;
 
   smobify_self ();
@@ -219,25 +218,6 @@ Paper_def*
 Score_element::paper_l ()  const
 {
  return pscore_l_ ? pscore_l_->paper_l_ : 0;
-}
-
-Lookup const *
-Score_element::lookup_l () const
-{
-  /*
-    URG junkthis, caching is clumsy.
-   */
-  if (!lookup_l_)
-    {
-      Score_element * urg = (Score_element*)this;
-      SCM sz = urg->remove_elt_property ("font-relative-size");
-      int i = (gh_number_p (sz))
-	? gh_scm2int  (sz)
-	: 0;
-
-      urg->lookup_l_ =  (Lookup*)pscore_l_->paper_l_->lookup_l (i);
-    }
-  return lookup_l_;
 }
 
 void
@@ -895,3 +875,32 @@ Score_element::set_interface (SCM k)
 
 ADD_SCM_INIT_FUNC(scoreelt, init_functions);
 IMPLEMENT_TYPE_P(Score_element, "ly-element?");
+
+Font_metric *
+Score_element::get_default_font () const
+{
+  Font_metric * fm =  unsmob_metrics (get_elt_property ("font"));
+  if (fm)
+    return fm;
+
+  Score_element *me = (Score_element*)this;
+  SCM ss = me->paper_l ()->style_sheet_;
+
+  SCM proc = gh_cdr (scm_assoc (ly_symbol2scm ("properties-to-font"),
+				ss));
+
+  SCM fonts = gh_cdr (scm_assoc (ly_symbol2scm ("fonts"), ss));
+  SCM defaults = gh_cdr (scm_assoc (ly_symbol2scm ("font-defaults"),
+				    ss));
+
+  assert (gh_procedure_p (proc));
+  SCM font_name = gh_call2 (proc, fonts,
+			    gh_list (me->mutable_property_alist_,
+				     me->immutable_property_alist_,
+				     defaults,
+				     SCM_UNDEFINED));
+
+  fm = find_font (ly_scm2string (font_name));
+  me->set_elt_property ("font", fm->self_scm ());
+  return fm;
+}

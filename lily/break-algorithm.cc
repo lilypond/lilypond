@@ -59,7 +59,7 @@ Simple_spacer*
 Break_algorithm::generate_spacing_problem (Link_array<Score_element> curline, Interval line) const
 {
   Simple_spacer * sp =  new Simple_spacer;
-  Paper_def * d = pscore_l_->paper_l_;
+
   /*
     this is hardcoded, but this shouldn't happen anyway.
     used to be g et_var ("loose_column_distance");        

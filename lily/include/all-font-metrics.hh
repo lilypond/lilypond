@@ -29,7 +29,7 @@ public:
   Adobe_font_metric *find_afm (String name);
   Tex_font_metric *find_tfm (String);
   Font_metric *find_font (String name);  
-  Scaled_font_metric* find_scaled (String , int);
+  Scaled_font_metric* find_scaled (String , Real);
   
   All_font_metrics (String search_path);
   

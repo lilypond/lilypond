@@ -32,9 +32,6 @@ Scheme_hash_table::operator =(Scheme_hash_table const & src)
   // we do not copy the self_scm () field!
 }
 
-
-
-
 SCM
 Scheme_hash_table::mark_smob (SCM s)
 {

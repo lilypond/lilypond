@@ -54,3 +54,10 @@ Box::operator[] (Axis a)const
 {
   return interval_a_[a];
 }
+
+void
+Box::scale (Real s)
+{
+  interval_a_[X_AXIS] *= s;
+  interval_a_[Y_AXIS] *= s;
+}

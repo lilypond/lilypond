@@ -10,7 +10,7 @@
 #include "debug.hh"
 #include "molecule.hh"
 #include "paper-def.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "rest.hh"
 #include "dots.hh"
 #include "paper-score.hh"

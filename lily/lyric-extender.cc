@@ -41,7 +41,7 @@ Lyric_extender::brew_molecule (SCM smob)
   Real w = sp->spanner_length () - leftext - righttrim*ss;
   
   Real h = sl * gh_scm2double (sp->get_elt_property  ("height"));
-  Molecule  mol (sp->lookup_l ()->filledbox ( Box (Interval (0,w), Interval (0,h))));
+  Molecule  mol (Lookup::filledbox ( Box (Interval (0,w), Interval (0,h))));
   mol.translate (Offset (leftext, 0));
   return mol.create_scheme();
 }

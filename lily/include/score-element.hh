@@ -32,12 +32,9 @@ typedef void (Score_element::*Score_element_method_pointer) (void);
    Basic output object.
 */
 class Score_element  {
-  /**
-     The lookup, determined by the font size. Cache this value.
-   */
-  Lookup * lookup_l_;
-
 public:
+  Font_metric * get_default_font ()const;
+  
   SCM immutable_property_alist_;
   SCM mutable_property_alist_;
   Score_element *original_l_;
@@ -78,7 +75,6 @@ public:
     related classes.
    */
   Paper_def *paper_l () const;
-  Lookup const *lookup_l () const;
 
   /**
     add a dependency. It may be the 0 pointer, in which case, it is ignored.

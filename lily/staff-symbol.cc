@@ -16,6 +16,7 @@
 #include "spanner.hh"
 
 
+
 MAKE_SCHEME_CALLBACK(Staff_symbol,brew_molecule,1);
 
 SCM
@@ -40,7 +41,7 @@ Staff_symbol::brew_molecule (SCM smob)
   for (int i=0; i < l; i++)
     {
       Molecule a =
-	me->lookup_l ()->filledbox (Box (Interval (0,width),
+	Lookup::filledbox (Box (Interval (0,width),
 					 Interval (-t/2, t/2)));
 
       a.translate_axis (height - i * staff_space (me), Y_AXIS);

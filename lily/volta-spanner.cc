@@ -9,7 +9,7 @@
 
 #include "box.hh"
 #include "debug.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "molecule.hh"
 #include "paper-column.hh"
 #include "paper-def.hh"
@@ -91,8 +91,7 @@ Volta_spanner::brew_molecule (SCM smob)
   Box b (Interval (0, w), Interval (0, h));
   Molecule mol (b, at);
   SCM text = me->get_elt_property("text");
-  SCM properties = gh_append2 (me->immutable_property_alist_,
-			       me->mutable_property_alist_);
+  SCM properties = gh_list (me->mutable_property_alist_, me->immutable_property_alist_,SCM_UNDEFINED);
   Molecule num = Text_item::text2molecule (me, text, properties);
 
   mol.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()

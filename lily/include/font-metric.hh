@@ -13,17 +13,18 @@
 #include "box.hh"
 #include "lily-guile.hh"
 #include "smobs.hh"
-
+#include "lily-proto.hh"
 
 struct Font_metric
 {
+public:
   SCM name_;
   virtual SCM description () const;
-  virtual Box get_char (int ascii, bool warn) const;
-  virtual ~Font_metric ();
-  virtual Box text_dimension (String) const;
+  virtual Box get_char (int ascii, Real mag) const;
+  virtual Box text_dimension (String, Real mag = 1.0)  const;
+  virtual Molecule find_by_name (String, Real mag = 1.0) const;
 
-  DECLARE_SIMPLE_SMOBS(Font_metric,);
+  DECLARE_SMOBS(Font_metric,);
 private:
   Font_metric (Font_metric const&); // no copy.
 protected:
@@ -34,14 +35,14 @@ protected:
 struct Scaled_font_metric : public Font_metric
 {
   virtual SCM description () const;
-  virtual Box text_dimension (String) const;
-
-  static SCM make_scaled_font_metric (Font_metric*, int);
+  virtual Box text_dimension (String, Real) const;
+  virtual Molecule find_by_name (String, Real) const;
+  static SCM make_scaled_font_metric (Font_metric*, Real);
 protected:
   Font_metric *orig_l_;
-  int magstep_i_;
+  Real magnification_f_;
   
-  Scaled_font_metric (Font_metric*,int);
+  Scaled_font_metric (Font_metric*,Real);
 };
 
 Font_metric * unsmob_metrics (SCM s);

@@ -7,6 +7,7 @@
 */
 #include <math.h>
 
+
 #include "spanner.hh"
 #include "lookup.hh"
 #include "paper-def.hh"
@@ -324,7 +325,7 @@ Tie::brew_molecule (SCM smob)
       i++;
     }
   
-   Molecule a = me->lookup_l ()->slur (b, Directional_element_interface::get (me) * thick, thick);
+   Molecule a = Lookup::slur (b, Directional_element_interface::get (me) * thick, thick);
    
    return a.create_scheme ();
 }

@@ -12,7 +12,7 @@
 #include "misc.hh"
 #include "paper-def.hh"
 #include "debug.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "main.hh"
 #include "scope.hh"
 #include "file-results.hh" // urg? header_global_p
@@ -20,9 +20,8 @@
 
 Paper_def::Paper_def ()
 {
-  lookup_alist_ = SCM_EOL;
+  style_sheet_ = SCM_EOL;
 }
-
 
 Paper_def::~Paper_def ()
 {
@@ -31,13 +30,7 @@ Paper_def::~Paper_def ()
 Paper_def::Paper_def (Paper_def const&src)
   : Music_output_def (src)
 {
-  SCM n  = SCM_EOL;
-  for (SCM s = src.lookup_alist_; gh_pair_p(s); s = gh_cdr (s))
-    {
-      n = scm_acons (gh_caar(s), gh_cdar (s), n);
-    }
-
-  lookup_alist_  = n;
+  style_sheet_ = src.style_sheet_;
 }
 
 
@@ -87,19 +80,7 @@ Paper_def::line_dimensions_int (int n) const
   return Interval (ind, lw);
 }
 
-void
-Paper_def::set_lookup (int i, SCM l)
-{
-  assert (unsmob_lookup (l));
-  lookup_alist_ = scm_assq_set_x(lookup_alist_, gh_int2scm (i), l);
-}
 
-Lookup const *
-Paper_def::lookup_l (int i) const
-{
-  SCM l = scm_assq (gh_int2scm(i), lookup_alist_);
-  return l == SCM_BOOL_F ? 0 :  unsmob_lookup (gh_cdr (l));
-}
 
 int Paper_def::default_count_i_ = 0;
 

@@ -8,7 +8,7 @@
 
 #include "main.hh"
 #include "debug.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "spanner.hh"
 #include "paper-def.hh"
 #include "line-of-score.hh"

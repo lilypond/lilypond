@@ -79,7 +79,7 @@ Stem_tremolo::brew_molecule (SCM smob)
   width *= ss;
   thick *= ss;
   
-  Molecule a (me->lookup_l ()->beam (dydx, width, thick));
+  Molecule a (Lookup::beam (dydx, width, thick));
   a.translate (Offset (-width/2, width / 2 * dydx));
   
   int tremolo_flags;

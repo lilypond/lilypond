@@ -20,7 +20,7 @@
 
 #include <math.h> // tanh.
 
-
+#include "molecule.hh" 
 #include "directional-element-interface.hh"
 #include "beaming.hh"
 #include "beam.hh"
@@ -699,7 +699,7 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
       w = w/2 <? nw_f;
       Molecule a;
       if (lhalfs)		// generates warnings if not
-	a =  me->lookup_l ()->beam (dydx, w, thick);
+	a =  Lookup::beam (dydx, w, thick);
       a.translate (Offset (-w, -w * dydx));
       for (int j = 0; j  < lhalfs; j++)
 	{
@@ -715,7 +715,7 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
       int rwholebeams= Stem::beam_count (here,RIGHT) <? Stem::beam_count (next,LEFT) ;
 
       Real w = next->relative_coordinate (0, X_AXIS) - here->relative_coordinate (0, X_AXIS);
-      Molecule a = me->lookup_l ()->beam (dydx, w + stemdx, thick);
+      Molecule a = Lookup::beam (dydx, w + stemdx, thick);
       a.translate_axis( - stemdx/2, X_AXIS);
       int j = 0;
       Real gap_f = 0;
@@ -735,7 +735,7 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
 	  // TODO: notehead widths differ for different types
 	  gap_f = nw_f / 2;
 	  w -= 2 * gap_f;
-	  a = me->lookup_l ()->beam (dydx, w + stemdx, thick);
+	  a = Lookup::beam (dydx, w + stemdx, thick);
 	}
 
       for (; j  < rwholebeams; j++)
@@ -747,7 +747,7 @@ Beam::stem_beams (Score_element*me,Item *here, Item *next, Item *prev)
 
       w = w/2 <? nw_f;
       if (rhalfs)
-	a = me->lookup_l ()->beam (dydx, w, thick);
+	a = Lookup::beam (dydx, w, thick);
 
       for (; j  < rwholebeams + rhalfs; j++)
 	{

@@ -47,11 +47,12 @@
 */
 class Paper_def : public Music_output_def 
 {
-  Protected_scm lookup_alist_;
 protected:
   VIRTUAL_COPY_CONS(Music_output_def);
 
 public:    
+  Protected_scm style_sheet_;
+  
   virtual ~Paper_def ();
   static int default_count_i_;
   /*
@@ -62,12 +63,10 @@ public:
   SCM get_scmvar (String id)const; 
   void reinit ();
   Paper_def ();
-  void set_lookup (int, SCM lookup_smob);
   Paper_def (Paper_def const&);
 
   Interval line_dimensions_int (int) const;
 
-  Lookup const * lookup_l (int sz) const;	// TODO naming
   virtual int get_next_default_count () const;
   static void reset_default_count();
   void output_settings (Paper_outputter*) const;

@@ -10,32 +10,15 @@
 #ifndef LOOKUP_HH
 #define LOOKUP_HH
 
-#include "smobs.hh"
-#include "lily-guile.hh"
 #include "string.hh"
 #include "molecule.hh"
 #include "flower-proto.hh"
 #include "direction.hh"
 #include "box.hh"
 
-/**
-   handy interface to symbol table
-   TODO: move this into GUILE?
- */
-class Lookup
+struct Lookup
 {
-  Lookup ();
-  Lookup (Lookup const&);
-  DECLARE_SIMPLE_SMOBS(Lookup,);  
-public:
-
-  static SCM make_lookup ();
-  String font_name_;
-  Adobe_font_metric * afm_l_;
-
-  Molecule afm_find (String, bool warn=true) const;
-  Molecule accordion (SCM arg, Real interline_f) const;
-
+  static Molecule accordion (SCM arg, Real interline_f, Font_metric*fm);
   static Molecule frame (Box b, Real thick);
   static Molecule slur (Bezier controls, Real cthick, Real thick) ;
   static Molecule beam (Real, Real, Real) ;
@@ -43,5 +26,5 @@ public:
   static Molecule blank (Box b) ;
   static Molecule filledbox (Box b) ;  
 };
-Lookup* unsmob_lookup (SCM);
+
 #endif // LOOKUP_HH

@@ -11,12 +11,13 @@
 #include <math.h>
 #include <ctype.h>
 
+#include "molecule.hh"
 #include "ly-smobs.icc"
 #include "font-metric.hh"
 #include "string.hh"
 
 Box
-Font_metric::text_dimension (String text) const
+Font_metric::text_dimension (String text, Real mag) const
 {
   Interval ydims;
   Real w=0.0;
@@ -38,11 +39,11 @@ Font_metric::text_dimension (String text) const
 	  break;
 	
 	default: 
-	  Box b = get_char ((unsigned char)text[i],false);
+	  Box b = get_char ((unsigned char)text[i],mag);
 	  
 	  // Ugh, use the width of 'x' for unknown characters
 	  if (b[X_AXIS].length () == 0) 
-	    b = get_char ((unsigned char)'x',false);
+	    b = get_char ((unsigned char)'x',mag);
 	  
 	  w += b[X_AXIS].length ();
 	  ydims.unite (b[Y_AXIS]);
@@ -57,12 +58,12 @@ Font_metric::text_dimension (String text) const
 
 
 Box
-Scaled_font_metric::text_dimension (String t) const
+Scaled_font_metric::text_dimension (String t,Real mag) const
 {
-  Real realmag = pow (1.2, magstep_i_);
   Box b (orig_l_->text_dimension (t));
 
-  return Box(b[X_AXIS]* realmag, b[Y_AXIS]*realmag);
+  b.scale (magnification_f_ * mag);
+  return b;
 }
 
 Font_metric::~Font_metric ()
@@ -72,6 +73,8 @@ Font_metric::~Font_metric ()
 Font_metric::Font_metric ()
 {
   name_ = SCM_EOL;
+
+  smobify_self ();
 }
 
 Font_metric::Font_metric (Font_metric const &)
@@ -80,24 +83,9 @@ Font_metric::Font_metric (Font_metric const &)
 
 
 Box 
-Font_metric::get_char (int, bool)const
+Font_metric::get_char (int, Real )const
 {
   return Box (Interval(0,0),Interval (0,0));
-}
-
-Scaled_font_metric::Scaled_font_metric (Font_metric* m, int s)
-{
-  magstep_i_ = s;
-  orig_l_ = m;
-}
-
-SCM
-Scaled_font_metric::make_scaled_font_metric (Font_metric*m, int s)
-{
-  Scaled_font_metric *sfm = new Scaled_font_metric (m,s);
-  sfm->name_ = m->name_;
-  
-  return sfm->smobbed_self ();
 }
 
 SCM
@@ -105,16 +93,6 @@ Font_metric::description () const
 {
   return gh_cons (name_, gh_int2scm (0));
 }
-
-
-SCM
-Scaled_font_metric::description () const
-{
-  SCM od = orig_l_->description ();
-  gh_set_cdr_x (od, gh_int2scm (magstep_i_));
-  return od;
-}
-
 
 
 SCM
@@ -136,5 +114,12 @@ Font_metric::print_smob (SCM s, SCM port, scm_print_state * )
 
 
 IMPLEMENT_UNSMOB (Font_metric, metrics);
-IMPLEMENT_SIMPLE_SMOBS (Font_metric);
+IMPLEMENT_SMOBS (Font_metric);
 IMPLEMENT_DEFAULT_EQUAL_P(Font_metric);
+IMPLEMENT_TYPE_P (Font_metric, "font-metric?");
+
+Molecule
+Font_metric::find_by_name (String, Real mag ) const
+{
+  assert (false);
+}

@@ -75,14 +75,14 @@ All_font_metrics::find_afm (String name)
 
       afm_p_dict_->set (sname,val);
 
-      
+      scm_unprotect_object (val);      
     }
   
   return dynamic_cast<Adobe_font_metric*> (unsmob_metrics (val));
 }
 
 Scaled_font_metric * 
-All_font_metrics::find_scaled (String nm, int m)
+All_font_metrics::find_scaled (String nm, Real m)
 {
   String index =  nm + "@" + to_str (m);
   SCM sname = ly_symbol2scm (index.ch_C ());
@@ -94,8 +94,9 @@ All_font_metrics::find_scaled (String nm, int m)
       Font_metric *f = find_font (nm);
       val =  Scaled_font_metric::make_scaled_font_metric (f, m);
       scaled_p_dict_->set (sname, val);
+
+      scm_unprotect_object (val);
     }
-  
 
   return dynamic_cast<Scaled_font_metric*> (unsmob_metrics (val));
 }
@@ -130,6 +131,8 @@ All_font_metrics::find_tfm (String name)
 
       unsmob_metrics (val)->name_ = sname;
       tfm_p_dict_->set (sname, val);
+
+      scm_unprotect_object (val);
     }
     
   return
@@ -202,5 +205,5 @@ All_font_metrics::font_descriptions () const
 Font_metric*
 find_font (String name)
 {
-  return   all_fonts_global_p->find_font (name);
+  return all_fonts_global_p->find_font (name);
 }

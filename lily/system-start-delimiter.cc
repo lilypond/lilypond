@@ -12,9 +12,10 @@
 #include "system-start-delimiter.hh"
 #include "paper-def.hh"
 #include "molecule.hh"
-#include "lookup.hh"
+#include "font-metric.hh"
 #include "all-font-metrics.hh"
 #include "score-element.hh"
+#include "lookup.hh"
 
 Molecule
 System_start_delimiter::staff_bracket (Score_element*me,Real height)  
@@ -58,7 +59,7 @@ System_start_delimiter::simple_bar (Score_element*me,Real h)
 {
   Real w = me->paper_l ()->get_var ("stafflinethickness") *
     gh_scm2double (me->get_elt_property ("thickness"));
-  return me->lookup_l ()->filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
+  return Lookup::filledbox (Box (Interval(0,w), Interval(-h/2, h/2)));
 }
 
 MAKE_SCHEME_CALLBACK(System_start_delimiter,after_line_breaking,1);

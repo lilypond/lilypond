@@ -179,6 +179,7 @@ yylex (YYSTYPE *s,  void * v_l)
 %token SCRIPT
 %token SKIP
 %token SPANREQUEST
+%token STYLESHEET
 %token COMMANDSPANREQUEST
 %token TEMPO
 %token OUTPUTPROPERTY
@@ -583,18 +584,15 @@ music_output_def_body:
 	| music_output_def_body translator_spec_block	{
 		$$->assign_translator ($2);
 	}
+	| music_output_def_body STYLESHEET embedded_scm {
+		dynamic_cast<Paper_def*> ($$)-> style_sheet_ = $3;
+	}
 	| music_output_def_body tempo_request semicolon {
 		/*
 			junk this ? there already is tempo stuff in
 			music.
 		*/
 		dynamic_cast<Midi_def*> ($$)->set_tempo ($2->dur_.length_mom (), $2->metronome_i_);
-	}
-	| music_output_def_body bare_int '=' FONT STRING		{ // ugh, what a syntax
-		SCM sl = Lookup::make_lookup();
-		Lookup * l =unsmob_lookup (sl);
-		l->font_name_ = ly_scm2string ($5);
-		dynamic_cast<Paper_def*> ($$)->set_lookup ($2, sl);
 	}
 	| music_output_def_body error {
 
