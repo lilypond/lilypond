@@ -40,8 +40,13 @@ struct Staff_elem {
     void pre_processing();
     void post_processing();
     void molecule_processing();
-    
+    virtual const char *name() const;		// to find out derived classes.
+    virtual Spanner* spanner()  { return 0; }
+    virtual Item * item() { return 0; }
 protected:
+    
+    /// do printing of derived info.
+    virtual void do_print() const=0;
     /// generate the molecule    
     virtual Molecule* brew_molecule_p()const=0;
     ///executed directly after the item is added to the PScore
@@ -69,5 +74,7 @@ private:
   accomplished with the dependencies field of struct Staff_elem.
 
   */
+
+#define NAME_METHOD(c)	const char *c::name()const{ return #c; } struct c
 #endif // STAFFELEM_HH
 
