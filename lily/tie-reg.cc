@@ -21,6 +21,7 @@ Tie_register::Tie_register()
     end_mom_ = -1;
     melodic_req_l_ = 0;
     end_melodic_req_l_ =0;
+    dir_i_ = 0;
 }
 
 void
