@@ -76,6 +76,8 @@ Gourlay_breaking::do_solve () const
       
       Real minimal_demerits = infinity_f;
 
+      bool ragged = to_boolean (pscore_l_->paper_l_->get_scmvar ("raggedright"));
+
       for (int start_idx = break_idx; start_idx--;)
 	{
 	  Link_array<Grob> line = all.slice (breaks[start_idx], breaks[break_idx]+1);
@@ -89,7 +91,7 @@ Gourlay_breaking::do_solve () const
 	  Interval line_dims
 	    = pscore_l_->paper_l_->line_dimensions_int (optimal_paths[start_idx].line_i_);
 	  Simple_spacer * sp = generate_spacing_problem (line, line_dims);
-	  sp->solve (&cp);
+	  sp->solve (&cp, ragged);
 	  delete sp;
 
 	  if (fabs (cp.force_f_) > worst_force)

@@ -160,19 +160,15 @@
   (string-append (numbers->string (list breapth width depth height))
 		 " draw_box" ))
 
+(define (roundfilledbox x width y height blotdiam)
+   (string-append " "
+      (numbers->string
+         (list x width y height blotdiam)) " draw_round_box"))
+
 (define (dot x y radius)
     (string-append " "
      (numbers->string
       (list x y radius)) " draw_dot"))
-
-(define (roundfilledbox x width y height blotdiam)
-   (string-append " "
-      (dot (- 0 x) (- 0 y) (/ blotdiam 2))
-      (dot width (- 0 y) (/ blotdiam 2))
-      (dot width height (/ blotdiam 2))
-      (dot (- 0 x) height (/ blotdiam 2))
-      (filledbox (+ x (/ blotdiam 2)) (+ width (/ blotdiam 2)) y height)
-      (filledbox x width (+ y (/ blotdiam 2)) (+ height (/ blotdiam 2)))))
 
 ;; obsolete?
 (define (font-def i s)

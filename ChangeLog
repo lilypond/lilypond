@@ -1,3 +1,13 @@
+2002-03-31  Juergen Reuter  <reuter@ipd.uka.de>
+
+	* scm/ps.scm, ps/music-drawing-routines.ps, lily/lookup.cc,
+	lily/note-head-engraver: improved implementation of roundfilledbox
+	(according to Han-Wen's request)
+
+	* lily/include/spacing-spanner.hh, lily/spacing-spanner.cc,
+	lily/gourlay-breaking.cc, lily/staff-symbol.cc,
+	lily/simple-spacer.cc: ragged-right alignment
+
 2002-03-29  Han-Wen  <hanwen@cs.uu.nl>
 
 	* input/regression/spacing-note-flags.ly: new file

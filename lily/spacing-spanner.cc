@@ -11,6 +11,7 @@
 #include <stdio.h>
 
 #include "line-of-score.hh"
+#include "paper-def.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
 #include "item.hh"
@@ -554,7 +555,10 @@ Spacing_spanner::musical_column_spacing (Grob *me, Item * lc, Item *rc, Real inc
       max_fixed_note_space = increment;
     }
 
-  Spaceable_grob::add_spring (lc, rc, max_note_space,  1 / (max_note_space -max_fixed_note_space), expand_only);
+  bool ragged = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
+  Real strength = (ragged) ? 1.0 : 1 / (max_note_space - max_fixed_note_space);
+  Real distance = (ragged) ? max_fixed_note_space : max_note_space;
+  Spaceable_grob::add_spring (lc, rc, distance, strength, expand_only);
 }
 
 void
@@ -649,7 +653,10 @@ Spacing_spanner::breakable_column_spacing (Grob*me, Item* l, Item *r,Moment shor
     works on all architectures.
    */
   
-  Spaceable_grob::add_spring (l, r, max_space,  1/(max_space - max_fixed), false);  
+  bool ragged = to_boolean (me->paper_l ()->get_scmvar ("raggedright"));
+  Real strength = (ragged) ? 1.0 : 1 / (max_space - max_fixed);
+  Real distance = (ragged) ? max_fixed : max_space;
+  Spaceable_grob::add_spring (l, r, distance, strength, false);
 }
 
 

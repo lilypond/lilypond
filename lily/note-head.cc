@@ -77,16 +77,13 @@ Note_head::brew_ledger_lines (Grob *me,
       Real blotdiameter = ledgerlinethickness;
       //	(me->paper_l ()->get_var ("blotdiameter"));
       Interval y_extent =
-	Interval (-0.5*(ledgerlinethickness - blotdiameter),
-		  +0.5*(ledgerlinethickness - blotdiameter));
+	Interval (-0.5*(ledgerlinethickness),
+		  +0.5*(ledgerlinethickness));
       Box ledger_line (x_extent, y_extent);
 
-      // FIXME: Currently need blotdiameter factor 2.0 to compensate
-      // for error somewhere else.  (Maybe draw_box confuses radius
-      // and diameter?)
 #if 1
-       Molecule proto_ledger_line =
-         Lookup::roundfilledbox (ledger_line, ledgerlinethickness );
+      Molecule proto_ledger_line =
+	Lookup::roundfilledbox (ledger_line, blotdiameter);
 #else
       Molecule proto_ledger_line = // if you like it the old way
 	Lookup::filledbox (ledger_line);

@@ -42,7 +42,7 @@ struct Simple_spacer
   
   Simple_spacer ();
   
-  void solve (Column_x_positions *) const;
+  void solve (Column_x_positions *, bool) const;
   void add_columns (Link_array<Grob>);
   void my_solve_linelen ();
   void my_solve_natural_len ();
