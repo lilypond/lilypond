@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c)  1997--1998 Han-Wen Nienhuys <hanwen@stack.nl>
+  (c)  1997--1998 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
 
@@ -21,27 +21,27 @@
  */
 class Musical_req  : public virtual Request  {
 public:
-    
-  virtual Lyric_req* lreq_l() { return 0; }
-  virtual Note_req *note() { return 0;}
-  virtual Stem_req *stem() { return 0;}
-  virtual Melodic_req *melodic() { return 0; }
-  virtual Slur_req *slur() { return 0 ; }
-  virtual Beam_req *beam() { return 0 ; }
-  virtual Abbreviation_beam_req* abbrev_beam() { return 0 ; }
-  virtual Rhythmic_req*rhythmic() { return 0; }
-  virtual Musical_script_req*musicalscript() { return 0; }
-  virtual Text_req*text() { return 0; }
-  virtual Rest_req *rest() { return 0; }
-  virtual Skip_req* skip() { return 0; }
-  virtual Dynamic_req* dynamic() { return 0; }
-  virtual Absolute_dynamic_req * absdynamic() { return 0; }
-  virtual Tie_req * tie() { return 0; }
-  virtual Plet_req* plet() { return 0; }
-  virtual Span_dynamic_req * span_dynamic() { return 0; }
-  virtual Abbreviation_req* abbrev() { return 0; }
-  virtual Multi_measure_rest_req* multi_measure() { return 0; }
-  REQUESTMETHODS(Musical_req, musical);
+
+  DEFAULTACCESSOR(Lyric_req)
+  DEFAULTACCESSOR(Note_req )
+  DEFAULTACCESSOR(Stem_req )
+  DEFAULTACCESSOR(Melodic_req )
+  DEFAULTACCESSOR(Slur_req )
+  DEFAULTACCESSOR(Beam_req )
+  DEFAULTACCESSOR(Abbreviation_beam_req)
+  DEFAULTACCESSOR(Rhythmic_req)
+  DEFAULTACCESSOR(Musical_script_req)
+  DEFAULTACCESSOR(Text_req)
+  DEFAULTACCESSOR(Rest_req )
+  DEFAULTACCESSOR(Skip_req)
+  DEFAULTACCESSOR(Dynamic_req)
+  DEFAULTACCESSOR(Absolute_dynamic_req )
+  DEFAULTACCESSOR(Tie_req )
+  DEFAULTACCESSOR(Plet_req)
+  DEFAULTACCESSOR(Span_dynamic_req )
+  DEFAULTACCESSOR(Abbreviation_req)
+  DEFAULTACCESSOR(Multi_measure_rest_req)
+  REQUESTMETHODS(Musical_req);
 };
 
 
@@ -59,12 +59,12 @@ public:
   virtual Moment duration() const;
   Rhythmic_req();
   static int compare (Rhythmic_req const&,Rhythmic_req const&);
-  REQUESTMETHODS(Rhythmic_req, rhythmic);
+  REQUESTMETHODS(Rhythmic_req);
 };
 
 class Skip_req  : public Rhythmic_req  {
 public:
-  REQUESTMETHODS(Skip_req, skip);
+  REQUESTMETHODS(Skip_req);
 };
 
 struct Spacing_req :virtual Request {
@@ -73,18 +73,18 @@ struct Spacing_req :virtual Request {
   Real strength;
   /* *************** */
   Spacing_req();
-  REQUESTMETHODS(Spacing_req, spacing);
+  REQUESTMETHODS(Spacing_req);
 };
 
 struct Abbreviation_req : public Musical_req {
-  REQUESTMETHODS (Abbreviation_req, abbrev);
+  REQUESTMETHODS (Abbreviation_req);
   Abbreviation_req ();
   int type_i_;
 };
 
 class Blank_req  : public Spacing_req, Rhythmic_req  {
 public:
-  REQUESTMETHODS(Spacing_req, spacing);
+  REQUESTMETHODS(Spacing_req);
 };
 
 /// Put a text above or below (?) this staff.
@@ -100,16 +100,15 @@ public:
   ~Text_req();
   Text_req (Text_req const&);
 
-  REQUESTMETHODS(Text_req,text);
+  REQUESTMETHODS(Text_req);
 };
 
-/** Put a text in lyric_staff
-  @see Lyric_staff
+/** a syllable  or lyric is a string with rhythm.
   */
-class Lyric_req  : public  Rhythmic_req, public Text_req  {
+class Lyric_req  : public  Rhythmic_req  {
 public:
-  Lyric_req (Text_def* t_p);
-  REQUESTMETHODS(Lyric_req, lreq_l);
+  String text_str_;
+  REQUESTMETHODS(Lyric_req);
 };
 
 
@@ -123,7 +122,7 @@ struct Melodic_req :virtual Musical_req
   Melodic_req();
   bool do_equal_b (Request*) const;
   static int compare (Melodic_req const&,Melodic_req const&);
-  REQUESTMETHODS(Melodic_req,melodic);
+  REQUESTMETHODS(Melodic_req);
 };
 
 /// Put a note of specified type, height, and with accidental on the staff.
@@ -134,8 +133,8 @@ public:
   bool forceacc_b_;
   Note_req();
   bool do_equal_b (Request*) const;
-  Rhythmic_req* rhythmic() { return Rhythmic_req::rhythmic (); }
-  REQUESTMETHODS(Note_req, note);
+  Rhythmic_req* access_Rhythmic_req () { return Rhythmic_req::access_Rhythmic_req (); }
+  REQUESTMETHODS(Note_req);
 };
 
 /**
@@ -143,7 +142,7 @@ Put a rest on the staff. Why a request? It might be a good idea to not typeset t
 */
 class Rest_req : public Rhythmic_req {
 public:
-  REQUESTMETHODS(Rest_req,rest);
+  REQUESTMETHODS(Rest_req);
 };
 
 /**
@@ -152,7 +151,7 @@ public:
  */
 class Multi_measure_rest_req : public Rhythmic_req  {
 public:
-  REQUESTMETHODS(Multi_measure_rest_req, multi_measure);
+  REQUESTMETHODS(Multi_measure_rest_req);
 
 };
 
@@ -167,7 +166,7 @@ public:
     NOSPAN, START, STOP
   } spantype;
   bool do_equal_b (Request*) const;
-  REQUESTMETHODS(Span_req,span);
+  REQUESTMETHODS(Span_req);
 
   Span_req();
   
@@ -177,7 +176,7 @@ public:
 class Beam_req  : public Span_req  {
 public:
   /* *************** */
-  REQUESTMETHODS(Beam_req,beam);
+  REQUESTMETHODS(Beam_req);
 
   Beam_req();
 };
@@ -187,7 +186,7 @@ public:
  */
 class Abbreviation_beam_req : public Span_req  {
 public:
-  REQUESTMETHODS (Abbreviation_beam_req, abbrev_beam);
+  REQUESTMETHODS (Abbreviation_beam_req);
 
   Abbreviation_beam_req ();
 
@@ -199,13 +198,13 @@ public:
  */
 class Tie_req : public Musical_req {
 public:
-  REQUESTMETHODS(Tie_req, tie);
+  REQUESTMETHODS(Tie_req);
 };
 
 /// a slur
 class Slur_req  : public Span_req  {
 public:
-  REQUESTMETHODS(Slur_req,slur);
+  REQUESTMETHODS(Slur_req);
 
 };
 
@@ -214,14 +213,13 @@ class Plet_req : public Span_req  {
 public:
   int plet_i_;
 
-  REQUESTMETHODS(Plet_req,plet);
-
+  REQUESTMETHODS(Plet_req);
   Plet_req ();
 };
 
 class Musical_script_req : public Musical_req,  public Script_req {
 public:
-  REQUESTMETHODS(Musical_script_req, musicalscript);
+  REQUESTMETHODS(Musical_script_req);
 };
 
 
@@ -237,7 +235,7 @@ public:
     FFF, FF, F, MF, MP, P, PP, PPP, FP, SF, SFZ
   };
   static String loudness_static_str (Loudness);
-  REQUESTMETHODS(Dynamic_req, dynamic);
+  REQUESTMETHODS(Dynamic_req);
 };
 
 class Absolute_dynamic_req  : public Dynamic_req  {
@@ -246,15 +244,16 @@ public:
   virtual bool do_equal_b (Request*) const;
   String loudness_str () const;
   Absolute_dynamic_req();
-  REQUESTMETHODS(Absolute_dynamic_req, absdynamic);
+  REQUESTMETHODS(Absolute_dynamic_req);
 };
 
 class Span_dynamic_req  : public Dynamic_req, public Span_req  {
 public:
+  virtual bool do_equal_b (Request*) const;
   /// Grow or shrink the volume: 1=cresc, -1 = decresc 
   Direction dynamic_dir_;
   Span_dynamic_req();
-  REQUESTMETHODS(Span_dynamic_req, span_dynamic);
+  REQUESTMETHODS(Span_dynamic_req);
 };
 
 #endif // MUSICALREQUESTS_HH
