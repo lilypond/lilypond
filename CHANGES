@@ -1,14 +1,4 @@
---- ../lilypond-1.3.47.jcn2/CHANGES	Wed May  3 09:20:44 2000
-++ b/CHANGES	Mon May  8 21:10:30 2000
-@@ -1,5 +1,7 @@
--1.3.47.jcn2
-1.3.47.jcn3
- ===========
-
-* Rewrite of chord-name production in scheme.
- 
- 1.3.47.mb3
- ===========1.3.47.mb2
+1.3.47.mb2
 ===========
 
 * Corrected glossary.tely
@@ -28,6 +18,13 @@
 * Improved heuristic size calculation of TeX macros. Handles e.g.
   "\\u{a}", "\\"{o}" and "\\^{u}" correctly.
 
+1.3.47.hwn1
+===========
+
+* Bugfix: don't hang on zero-duration.
+
+1.3.47
+======
 
 1.3.46.jcn2
 ===========
@@ -40,7 +37,7 @@
 * Added Bar_number_engraver to standard Score context
 
 * Construct octavation scripts in the clef-engraver; this fixes the
-hara + clef8 problem
+hara-kiri + clef8 problem
 
 1.3.46
 ======

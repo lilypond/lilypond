@@ -45,7 +45,7 @@
 bool
 is_duration_b (int t)
 {
-  return t == 1 << intlog2(t);
+  return t && t == 1 << intlog2(t);
 }
 
 

@@ -76,8 +76,7 @@
 (define generic-chord-name-properties
   (cons "Chord_name" (list
 		      (list 'textScriptWordSpace number? 'word-space)
-		      (list 'chordNameWordSpace number? 'word-space)
-		      (list 'chordNameStyle string? 'style))))
+		      (list 'chordNameWordSpace number? 'word-space))))
 
 (define generic-crescendo-properties
   (cons "Crescendo" (list
