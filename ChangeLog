@@ -1,3 +1,8 @@
+2003-06-12  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* lilypond-indent.el (scan-sexps): Renamed to
+	aargh-this-breaks-other-emacs-modes-scan-sexps.
+
 2003-06-12  Heikki Junes  <hjunes@cc.hut.fi>
 
 	* lilypond-indent.el: Fix: match concurrent one-char opening and 

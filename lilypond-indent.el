@@ -541,7 +541,7 @@ builtin 'blink-matching-open' is not used. In syntax table, see
 		 (forward-char 1))))))
 
 ;;; REDEFINITIONS
-(defun scan-sexps (pos dir) 
+(defun aargh-this-breaks-other-emacs-modes-scan-sexps (pos dir) 
   "This function is redefined to be used in Emacs' show-paren-function and
 in XEmacs' paren-highlight."
   (LilyPond-blink-matching-paren dir))
