@@ -160,7 +160,7 @@
    "/lily-output-units " (number->string mm-to-bigpoint) " def %% milimeter \n"
    (output-entry "staff-line-thickness" 'linethickness)
    (output-entry "line-width" 'linewidth)
-   (output-entry "paper-size" 'papersize)
+   (output-entry "paper-size" 'papersizename)
    (output-entry "staff-height" 'staffheight)	;junkme.
    "/output-scale "
    (number->string (ly:output-def-lookup layout 'outputscale))
@@ -207,8 +207,8 @@
 		 (if (eq? (ly:output-def-lookup paper 'landscape) #t)
 		     "Landscape\n"
 		     "Portrait\n")
-		 "%%DocumentLayoutSizes: "
-		 (ly:output-def-lookup paper 'papersize) "\n"))
+		 "%%DocumentPaperSizes: "
+		 (ly:output-def-lookup paper 'papersizename) "\n"))
 
 (define (preamble paper)
   (list
@@ -216,10 +216,7 @@
    (ly:gulp-file "music-drawing-routines.ps")
    (ly:gulp-file "lilyponddefs.ps")
    (load-fonts paper)
-   (define-fonts paper)
-
-
-   ))
+   (define-fonts paper)))
 
 (define-public (output-framework outputter book scopes fields basename)
   (let* ((paper (ly:paper-book-paper book))
@@ -280,19 +277,17 @@
   (ly:outputter-dump-string outputter "} stop-system\n%%Trailer\n%%EOF\n")))
 
 (define-public (convert-to-pdf book name)
-  (let*
-      ((defs (ly:paper-book-paper book))
-       (size (ly:output-def-lookup defs 'papersize)))
+  (let* ((defs (ly:paper-book-paper book))
+	 (papersizename (ly:output-def-lookup defs 'papersizename)))
 
     (if (equal? name "-")
 	(ly:warn "Can't convert <stdout> to PDF")
-	(postscript->pdf (if (string? size) size "a4")
+	(postscript->pdf (if (string? papersizename) papersizename "a4")
 			 name))))
   
 (define-public (convert-to-png book name)
-  (let*
-      ((defs (ly:paper-book-paper book))
-       (resolution (ly:output-def-lookup defs 'pngresolution)))
+  (let* ((defs (ly:paper-book-paper book))
+	 (resolution (ly:output-def-lookup defs 'pngresolution)))
 
     (postscript->png (if (number? resolution) resolution 90)
 		     name)))

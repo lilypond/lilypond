@@ -562,8 +562,8 @@ possibly turned off."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
-(define-public (postscript->pdf papersize name)
-  (let* ((cmd (string-append "ps2pdf -sPAPERSIZE=" papersize " " name))
+(define-public (postscript->pdf papersizename name)
+  (let* ((cmd (string-append "ps2pdf -sPAPERSIZE=" papersizename " " name))
 	 (output-name
 	  (regexp-substitute/global #f "\\.ps" name 'pre ".pdf" 'post)))
 
