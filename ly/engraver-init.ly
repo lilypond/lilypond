@@ -124,6 +124,7 @@
     localKeySignature = #'()
 
     \consists "Pitch_squash_engraver"
+    squashedPosition = #0
     \consists "Separating_line_group_engraver"	
     \name RhythmicStaff
     \alias "Staff"

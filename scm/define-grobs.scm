@@ -60,6 +60,7 @@
 	(Y-offset-callbacks . (,Staff_symbol_referencer::callback))
 	(X-offset-callbacks . (,Side_position_interface::aligned_side))
 	(direction . -1)
+	(padding . 0.5)  
 	(staff-position . 0.0)
 	(meta . ((interfaces . (arpeggio-interface staff-symbol-referencer-interface side-position-interface item-interface font-interface))))
 	))

@@ -749,11 +749,6 @@ and values. E.g:
       (set-props music-properties)
       m)))
 
-;; TODO remove make-music-by-name
-(define-public (make-music-by-name x)
-  "Deprecated. See make-music."
-  (ly:warn "make-music-by-name is deprecated. Use make-music instead.")
-  (make-music x))
 
 (define-public (make-repeated-music name)
   (let* ((handle (assoc name '(("volta" . VoltaRepeatedMusic)
