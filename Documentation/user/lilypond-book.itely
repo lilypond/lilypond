@@ -38,7 +38,8 @@ documents.
 * Integrating LaTeX and music::  
 * Integrating HTML and music::  
 * Music fragment options::      
-* Invoking lilypond-book::      
+* Invoking lilypond-book::
+* Filename extensions::
 @end menu
 
 
@@ -528,3 +529,23 @@ The size of a music block is limited to 1.5 KB, due to technical
 problems with the Python regular expression engine.  For longer files,
 use @code{\lilypondfile}.
 
+
+@node Filename extensions
+@section Filename extensions
+
+You can use any filename extension, but if you do not use the
+recommended extension, you may need to manually specify what output
+format you want.  See @ref{Invoking lilypond-book} for details.
+
+@code{Lilypond-book} automatically selects the output format based
+on the filename.
+
+@table @code
+
+@item @emph{.html} produces html output
+
+@item @emph{.itely} produces texinfo output
+
+@item @emph{.lytex} produces latex output
+
+@end table
