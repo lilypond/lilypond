@@ -77,7 +77,7 @@ keepWithTag =
 %% doing
 %% def-music-function in a .scm causes crash.
 
-quoteDuring = #
+cueDuring = #
 (def-music-function
   (location what dir main-music)
   (string? ly:dir? ly:music?)
@@ -112,6 +112,16 @@ quoteDuring = #
 		)))
     (set! (ly:music-property quote-music 'element) main-music)
     return-value))
+
+quoteDuring = #
+(def-music-function
+  (location what main-music)
+  (string? ly:music?)
+  (make-music 'NewQuoteMusic
+	      'element main-music
+	      'quoted-music-name what
+	      'origin location))
+
 
 %{
 
