@@ -530,8 +530,11 @@ Simple_spacer_wrapper::add_columns (Link_array<Grob> const &icols)
 	  && !to_boolean  (cols[i]->get_property ("allow-outside-line")))
 	{
 	  Interval e = cols[i]->extent (cols[i], X_AXIS);
-	  spacer_->add_rod (i, cols.size()-1, e[RIGHT]);
-	  spacer_->add_rod (0, i, e[LEFT]);
+	  if (!e.is_empty())
+	    {
+	      spacer_->add_rod (i, cols.size()-1, e[RIGHT]);
+	      spacer_->add_rod (0, i, e[LEFT]);
+	    }
 	}
     }
 }
