@@ -25,9 +25,9 @@ public:
   virtual void announce_element (Audio_element_info);
 protected:
   Array<Audio_element_info> announce_info_arr_;
+  void create_audio_elements ();
 
 private:
-  void create_audio_elements ();
   void acknowledge_audio_elements ();
 };
 

@@ -55,3 +55,13 @@
 ;; 90 == 90/127 == 0.71 is supposed to be the default value
 ;; urg: we should set this at start of track
 (define dynamic-default-volume 0.71)
+
+;; Count number of sharps minus number of flats
+(define (accidentals-in-key pitch-list)
+  (apply + (map cdr pitch-list)))
+
+;; Characterise the key as major if the alteration of the 
+;; third scale note is the same as that of the main note
+;; Note: MIDI cannot handle other tonalities than major/minor.
+(define (major-key pitch-list)
+  (eq? (cdr (list-ref pitch-list 4)) (cdr (list-ref pitch-list 6))))

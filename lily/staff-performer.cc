@@ -85,6 +85,7 @@ Staff_performer::create_audio_elements ()
       instrument_p_ = new Audio_instrument (str);
       announce_element (Audio_element_info (instrument_p_, 0));
     }
+  Performer_group_performer::create_audio_elements ();
 }
 
 void

@@ -6,6 +6,7 @@
   (c)  1997--2001 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "lily-guile.hh"
 #include "command-request.hh"
 #include "audio-item.hh"
 #include "performer.hh"
@@ -43,10 +44,14 @@ Key_performer::~Key_performer ()
 void
 Key_performer::create_audio_elements ()
 {
-  if (key_req_l_ &&
-      gh_list_p (key_req_l_->get_mus_property ("pitch-alist")))
+  if (key_req_l_) 
     {
-      audio_p_ = new Audio_key (); // *key_req_l_->key_);
+      SCM pitchlist = key_req_l_->get_mus_property ("pitch-alist");
+      SCM proc = scm_eval2 (ly_symbol2scm ("accidentals-in-key"), SCM_EOL); 
+      SCM acc = gh_call1 (proc, pitchlist);
+      proc = scm_eval2 (ly_symbol2scm ("major-key"), SCM_EOL);
+      SCM major = gh_call1 (proc, pitchlist);
+      audio_p_ = new Audio_key (gh_scm2int(acc), major == SCM_BOOL_T); 
       Audio_element_info info (audio_p_, key_req_l_);
       announce_element (info);
       key_req_l_ = 0;
