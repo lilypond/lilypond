@@ -280,7 +280,7 @@ for opt in options:
 base = re.sub ('.tex$', '', texfile_nm)
 
 for filenm in files:
-	(g,m, deps) =  parse_logfile (filenm)
+	(g, m, deps) = parse_logfile (filenm)
 	cs = tfm_checksum (re.sub ('.log$', '.tfm', filenm))
 	afm = open (afmfile_nm, 'w')
 
@@ -299,11 +299,13 @@ for filenm in files:
 	elif re.search ('feta-brace', filenm) :
 		enc_name = 'FetaBraceEncoding'
 
-		
 	write_ps_encoding (enc_name, open (enc_nm, 'w'), g, m)
 
-	write_deps (open (depfile_nm, 'wb'), deps, [base + '.dvi', base + '.pfa', base + '.pfb',  texfile_nm, afmfile_nm])
-	if lyfile_nm != '':
+	if depfile_nm:
+		write_deps (open (depfile_nm, 'wb'), deps,
+			    [base + '.dvi', base + '.pfa', base + '.pfb',
+			     texfile_nm, afmfile_nm])
+	if lyfile_nm:
 		write_fontlist(open (lyfile_nm, 'w'), g, m)
 
 

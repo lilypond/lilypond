@@ -1,3 +1,9 @@
+2004-07-07  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* buildscripts/mf-to-table.py: Do not try to open ''.
+
+	* mf/SConscript: New file.
+
 2004-07-06  Carl Sorensen  <carldsorensen@comcast.net>
 
 	* scm/fret-diagrams.scm : Convert many properties to constants,
