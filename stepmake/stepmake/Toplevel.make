@@ -27,9 +27,10 @@ htmldoc:
 	$(MAKE) CONFIGSUFFIX='www' local-WWW
 	$(MAKE) CONFIGSUFFIX='www' -C Documentation WWW
 	rm -f `find . -name \*.html~ -print`
+	-ln -f $(depth)/$(distname).diff.gz out-www
 	find `find Documentation -type d -name 'out-www'` -not -name '*dvi' -not -name '*ly' -not -name '*tex' -not -name '*.ps' -not -name 'out-www' > wwwlist
 
-	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` $(shell ls *.gif $(ERRORLOG))
+	tar cfz $(outdir)/htmldoc.tar.gz  `cat wwwlist` $(shell ls *.gif (ERRORLOG)) `ls out-www/$(distname).diff.gz $(ERRORLOG)`
 
 
 

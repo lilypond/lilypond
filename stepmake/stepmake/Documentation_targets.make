@@ -5,16 +5,20 @@ do-doc: $(OUTTXT_FILES)
 # ugh. FIXME
 ifeq ($(strip $(README_TOP_FILES)),)
 readme-top_FILES-html:
+readme-top_FILES-txt:
 else
 
+readme-top_FILES-txt:
+	$(foreach i, $(README_TOP_FILES), \
+	  cp $(depth)/$(i) $(outdir)/$(i).txt && ) true
+	
 readme-top_FILES-html:
-	for i in $(README_TOP_FILES); do \
-	  $(SHELL) $(step-bindir)/text2html.sh $(outdir)/$$i.txt $(outdir)/$$i.html; \
-	  $(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) --index=$(depth)/../index.html $(outdir)/$$i.html; \
-	done
+	$(foreach i, $(README_TOP_FILES), \
+	  $(SHELL) $(step-bindir)/text2html.sh $(outdir)/$(i).txt $(outdir)/$(i).html && \
+	  $(PYTHON) $(step-bindir)/add-html-footer.py --package=$(topdir) --index=$(depth)/../index.html $(outdir)/$(i).html && ) true
 endif
 
-local-WWW:  readme-top_FILES-html $(OUTHTML_FILES) $(OUTREADME_HTML_FILES) 
+local-WWW: readme-top_FILES-txt readme-top_FILES-html $(OUTHTML_FILES) $(OUTREADME_HTML_FILES) 
 	echo $^ > $(depth)/wwwlist
 
 doc: do-doc

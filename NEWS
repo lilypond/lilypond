@@ -1,3 +1,8 @@
+pl 3.jcn1
+	- bf: website: empty toplevel readme's
+	- bf: xs4all (again?)
+	- can't administer ftp site now: put patch into website
+
 pl 2.uu1
        - solaris 2.6 compile/make website fixes.
        - rm'd WWW.make
