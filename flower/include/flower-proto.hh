@@ -23,7 +23,6 @@ template<class T> struct PQueue;
 #include "real.hh"
 
 typedef Interval_t<Real> Interval;
-typedef Interval_t<int> Slice;	// junkme.
 
 struct Offset;
 struct Long_option_init;

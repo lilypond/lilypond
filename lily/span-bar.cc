@@ -7,14 +7,13 @@
 */
 
 #include "span-bar.hh"
+
 #include "font-interface.hh"
 #include "dimensions.hh"
 #include "output-def.hh"
 #include "stencil.hh"
 #include "warn.hh"
 #include "axis-group-interface.hh"
-#include "group-interface.hh"
-#include "grob.hh"
 #include "bar-line.hh"
 
 void

@@ -7,9 +7,10 @@
                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <stdio.h>
-#include <errno.h>
-#include <limits.h>
+#include "file-name.hh"
+
+#include <cstdio>
+#include <cerrno>
 
 #include "config.hh"
 
@@ -20,8 +21,6 @@
 #ifdef __CYGWIN__
 #include <sys/cygwin.h>
 #endif
-
-#include "file-name.hh"
 
 /* We don't have multiple roots, set this to '\0'? */
 #ifndef ROOTSEP

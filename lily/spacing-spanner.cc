@@ -7,8 +7,8 @@
   
  */
 
-#include <math.h>
-#include <stdio.h>
+#include <cmath>
+#include <cstdio>
 
 #include "main.hh"
 #include "system.hh"
@@ -16,7 +16,6 @@
 #include "output-def.hh"
 #include "paper-score.hh"
 #include "paper-column.hh"
-#include "item.hh"
 #include "moment.hh"
 #include "note-spacing.hh"
 #include "misc.hh"
@@ -27,7 +26,6 @@
 #include "spaceable-grob.hh"
 #include "break-align-interface.hh"
 #include "spacing-interface.hh"
-
 
 /*
   TODO: this file/class is too complex. Should figure out how to chop

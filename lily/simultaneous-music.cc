@@ -8,7 +8,6 @@
 */
 
 #include "input.hh"
-#include "moment.hh"
 #include "pitch.hh"
 #include "music-list.hh"
 #include "scm-option.hh"

@@ -13,8 +13,9 @@
   subclassing proved to be too difficult.
  */
 
-#include "input.hh"
 #include "chord-tremolo-iterator.hh"
+
+#include "input.hh"
 #include "repeated-music.hh"
 
 void

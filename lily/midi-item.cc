@@ -6,17 +6,15 @@
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
  */
 
+#include "midi-item.hh"
+
 #include "warn.hh"
 #include "main.hh"
 #include "misc.hh"
-#include "string.hh"
 #include "string-convert.hh"
-#include "midi-item.hh"
 #include "midi-stream.hh"
-#include "audio-item.hh"
 #include "duration.hh"
 #include "scm-option.hh"
-
 #include "killing-cons.tcc"
 
 #define PITCH_WHEEL_TOP    0x3FFF

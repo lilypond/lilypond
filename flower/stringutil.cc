@@ -22,9 +22,9 @@
 
 #define INLINE
 
-#include "string-handle.hh"
 #include "string-data.hh"
 #include "string.hh"
+
 #include "string-data.icc"
 #include "string-handle.icc"
 #include "string.icc"

@@ -6,14 +6,14 @@
   (c) 2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "paper-book.hh"
+
 #include "ly-module.hh"
 #include "main.hh"
 #include "output-def.hh"
-#include "paper-book.hh"
 #include "paper-outputter.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
-#include "stencil.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"

@@ -13,7 +13,6 @@
 #include "object-key.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
-#include "string.hh"
 
 class Lilypond_grob_key : public Object_key
 {

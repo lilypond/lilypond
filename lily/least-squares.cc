@@ -8,8 +8,8 @@
  */
 
 #include "least-squares.hh"
-#include "warn.hh"
 
+#include "warn.hh"
 
 void
 minimise_least_squares (Real * coef, Real * offset,

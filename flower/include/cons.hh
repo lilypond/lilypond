@@ -11,7 +11,7 @@
 #define CONS_HH
 
 
-#include <assert.h>
+#include <cassert>
 
 template<class T>
 class Cons

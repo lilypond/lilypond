@@ -4,18 +4,16 @@
    this is Copyleft (c) 1996--2004 Han-Wen Nienhuys, <hanwen@cs.uu.nl>
  */
 
-#include <string.h>
-#include <stdio.h>
-#include <assert.h>
-#include <stdlib.h>
+#include "getopt-long.hh"
+
+#include <cstring>
+#include <cassert>
+#include <cstdlib>
 
 #include <iostream>
 
 #include "config.hh"
-#include "getopt-long.hh"
-#include "international.hh"
 #include "string-convert.hh"
-
 
 #if !HAVE_GETTEXT
 inline char*

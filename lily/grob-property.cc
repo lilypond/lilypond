@@ -2,8 +2,8 @@
   Implement storage and manipulation of grob properties.
  */
 
-#include <string.h>
-#include <math.h>
+#include <cstring>
+#include <cmath>
 
 #include "main.hh"
 #include "input-smob.hh"
@@ -11,7 +11,6 @@
 #include "misc.hh"
 #include "paper-score.hh"
 #include "output-def.hh"
-#include "grob.hh"
 #include "spanner.hh"
 #include "item.hh"
 #include "misc.hh"

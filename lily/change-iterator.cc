@@ -7,11 +7,11 @@
 */
 
 #include "change-iterator.hh"
+
 #include "context.hh"
 #include "music.hh"
 #include "warn.hh"
 #include "input.hh"
-
 
 void
 Change_iterator::error (String reason)

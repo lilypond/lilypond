@@ -10,10 +10,8 @@
 #define LILY_GUILE_HH
 
 #include <libguile.h>
-#include "flower-proto.hh"
 
-#include "drul-array.hh"
-#include "direction.hh"
+#include "interval.hh"
 #include "guile-compatibility.hh"
 
 #ifndef SMOB_FREE_RETURN_VAL
@@ -190,7 +188,7 @@ SCM ly_unique (SCM lst);
 SCM ly_list_qsort_uniq_x (SCM lst);
 
 SCM ly_output_formats();
-SCM ly_kpathsea_expand_path (SCM);
+SCM ly_kpathsea_find_file (SCM);
 
 /*
   snarfing.

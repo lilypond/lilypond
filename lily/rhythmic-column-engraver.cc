@@ -6,17 +6,12 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "engraver.hh"
 #include "rhythmic-head.hh"
 #include "stem.hh"
 #include "note-column.hh"
 #include "dot-column.hh"
-#include "event.hh"
-#include "item.hh"
 #include "group-interface.hh"
-
-
 
 /*
   this engraver  glues together stems, rests and note heads into a NoteColumn

@@ -6,11 +6,11 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "includable-lexer.hh"
+
 #include <sstream>
 
 #include "config.hh"
-
-#include "includable-lexer.hh"
 #include "file-path.hh"
 #include "source-file.hh"
 #include "source.hh"

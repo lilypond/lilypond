@@ -6,15 +6,13 @@
   (c) 2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "parse-scm.hh"
 
-#include <stdio.h>
+#include <cstdio>
 
 #include "ly-module.hh"
-#include "lily-guile.hh"
 #include "main.hh"
 #include "paper-book.hh"
-#include "parse-scm.hh"
-#include "string.hh"
 #include "source-file.hh"
 
 /* Pass string to scm parser, evaluate one expression.

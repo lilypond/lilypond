@@ -6,10 +6,9 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "music.hh"
 #include "engraver.hh"
-#include "engraver-group-engraver.hh"
-#include "grob.hh"
+
+#include "music.hh"
 #include "score-engraver.hh"
 #include "warn.hh"
 #include "spanner.hh"

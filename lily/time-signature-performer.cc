@@ -7,9 +7,7 @@
 */
 
 #include "audio-item.hh"
-#include "lily-proto.hh"
 #include "performer.hh"
-
 
 class Time_signature_performer : public Performer
 {

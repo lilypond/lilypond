@@ -13,8 +13,6 @@
 #include "font-interface.hh"
 #include "side-position-interface.hh"
 #include "output-def.hh"
-#include "item.hh"
-#include "stencil.hh"
 #include "lookup.hh"
 #include "stem.hh"
 #include "note-column.hh"

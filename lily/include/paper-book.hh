@@ -8,10 +8,12 @@
 #ifndef PAPER_BOOK_HH
 #define PAPER_BOOK_HH
 
-#include "lily-guile.hh"
 #include "parray.hh"
 #include "protected-scm.hh"
 #include "smobs.hh"
+
+class Output_def;
+class Stencil;
 
 struct Score_systems
 {

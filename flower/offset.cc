@@ -5,13 +5,10 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <math.h>
 
-#ifndef STANDALONE
-#include "string.hh"
-#endif
 #include "offset.hh"
 
+#include <cmath>
 
 #ifndef STANDALONE
 String

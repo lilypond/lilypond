@@ -10,8 +10,8 @@
    a single list of context modifications?  */
 
 #include "context-def.hh"
+
 #include "engraver.hh"
-#include "lily-proto.hh"
 #include "output-def.hh"
 #include "performer.hh"
 #include "score-context.hh"

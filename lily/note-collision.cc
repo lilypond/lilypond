@@ -6,16 +6,16 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <math.h>
+#include "note-collision.hh"
+
+#include <cmath>
 
 #include "warn.hh"
-#include "note-collision.hh"
 #include "note-column.hh"
 #include "note-head.hh"
 #include "rhythmic-head.hh"
 #include "output-def.hh"
 #include "axis-group-interface.hh"
-#include "item.hh"
 #include "stem.hh"
 #include "side-position-interface.hh"
 #include "dot-column.hh"

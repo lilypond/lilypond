@@ -6,20 +6,19 @@
   (c) 1996--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <math.h>
+#include "system.hh"
+
+#include <cmath>
 
 #include "align-interface.hh"
 #include "axis-group-interface.hh"
 #include "warn.hh"
-#include "system.hh"
 #include "main.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "paper-outputter.hh"
 #include "paper-score.hh"
-#include "string.hh"
 #include "warn.hh"
-#include "stencil.hh"
 #include "all-font-metrics.hh"
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"

@@ -11,7 +11,6 @@
 #include "grob.hh"
 #include "context.hh"
 
-
 class Output_property_engraver : public Engraver
 {
 TRANSLATOR_DECLARATIONS (Output_property_engraver);

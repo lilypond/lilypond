@@ -7,9 +7,10 @@
 
  */
 
+#include "measure-grouping-spanner.hh"
+
 #include "output-def.hh"
 #include "spanner.hh"
-#include "measure-grouping-spanner.hh"
 #include "lookup.hh" 
 #include "item.hh"
 #include "staff-symbol-referencer.hh"

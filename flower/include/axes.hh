@@ -10,7 +10,7 @@
 #ifndef AXES_HH
 #define AXES_HH
 
-#include <assert.h>
+#include <cassert>
 
 enum Axis {
     X_AXIS =0,

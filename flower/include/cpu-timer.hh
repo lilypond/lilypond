@@ -10,7 +10,8 @@
 #ifndef CPU_TIMER_HH
 #define CPU_TIMER_HH
 
-#include <time.h>
+#include <ctime>
+
 #include "real.hh"
 
 class Cpu_timer {

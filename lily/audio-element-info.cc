@@ -7,6 +7,7 @@
 */
 
 #include "audio-element-info.hh"
+
 #include "translator-group.hh"
 #include "context.hh"
 

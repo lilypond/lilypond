@@ -9,7 +9,6 @@
 #ifndef VATICANA_LIGATURE_HH
 #define VATICANA_LIGATURE_HH
 
-#include "lily-guile.hh"
 #include "stencil.hh"
 
 struct Vaticana_ligature

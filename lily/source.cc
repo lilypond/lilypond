@@ -6,14 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
-#include <assert.h>
+#include "source.hh"
 
 #include "killing-cons.tcc"
-#include "string.hh"
-#include "flower-proto.hh"
 #include "source-file.hh"
-#include "source.hh"
 #include "file-path.hh"
 
 Sources::Sources ()

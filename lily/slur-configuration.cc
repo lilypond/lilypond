@@ -7,7 +7,9 @@
   
 */
 
-#include <math.h>
+#include "slur-configuration.hh"
+
+#include <cmath>
 
 #include "stem.hh"
 #include "warn.hh"
@@ -16,7 +18,6 @@
 #include "group-interface.hh"
 #include "slur.hh"
 #include "slur-scoring.hh"
-#include "slur-configuration.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "libc-extension.hh"

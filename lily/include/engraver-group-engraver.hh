@@ -11,9 +11,6 @@
 #ifndef ENGRAVERGROUP_HH
 #define ENGRAVERGROUP_HH
 
-#include "lily-proto.hh"
-#include "parray.hh"
-#include "grob-info.hh"
 #include "engraver.hh"
 #include "translator-group.hh"
 

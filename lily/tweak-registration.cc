@@ -7,14 +7,12 @@
 
 */
 
+#include "tweak-registration.hh"
 
 #include "object-key-undumper.hh"
-#include "tweak-registration.hh"
-#include "object-key.hh"
 #include "grob.hh"
 
 #include "ly-smobs.icc"
-
 
 void
 Tweak_registry::clear ()

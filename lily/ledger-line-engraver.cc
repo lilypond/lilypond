@@ -7,7 +7,6 @@
   
 */
 
-
 #include "group-interface.hh"
 #include "spanner.hh"
 #include "engraver.hh"

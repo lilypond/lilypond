@@ -6,13 +6,12 @@
   (c) 2002--2004 Juergen Reuter <reuter@ipd.uka.de>
  */
 
-#include "mensural-ligature.hh"
 #include "coherent-ligature-engraver.hh"
+
+#include "mensural-ligature.hh"
 #include "event.hh"
 #include "warn.hh"
-#include "item.hh"
 #include "spanner.hh"
-#include "rod.hh"
 #include "paper-column.hh"
 #include "note-column.hh"
 #include "rhythmic-head.hh"

@@ -10,11 +10,7 @@
 #ifndef RATIONAL_HH
 #define RATIONAL_HH
 
-#include "compare.hh"
-#include "arithmetic-operator.hh"
-#include "flower-proto.hh"
 #include "string.hh"
-
 
 /**
    Rational numbers.  Included is support for + and - infinity.

@@ -7,12 +7,12 @@
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "hara-kiri-group-spanner.hh"
+
 #include "axis-group-interface.hh"
 #include "spanner.hh"
-#include "hara-kiri-group-spanner.hh"
 #include "warn.hh"
 #include "item.hh"
-
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner,y_extent,2);
 SCM

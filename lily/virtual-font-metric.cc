@@ -7,12 +7,12 @@ source file of the GNU LilyPond music typesetter
 
  */
 
-#include "warn.hh"
 #include "virtual-font-metric.hh"
+
 #include "all-font-metrics.hh"
 #include "stencil.hh"
 #include "output-def.hh"
-
+#include "warn.hh"
 
 /*
   passing DEF is ughish. Should move into layoutdef?

@@ -6,8 +6,10 @@
   (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <stdio.h>
-#include <string.h>
+#include "kpath.hh"
+
+#include <cstdio>
+#include <cstring>
 
 /*
 
@@ -20,7 +22,9 @@ I found a somewhat more elegant patch for this: Just #include
 <unistd.h> before defining YAKLUDGE.
 
 */
+
 #include <unistd.h>	
+
 #include "config.hh"
 
 #define popen REALLYUGLYKLUDGE
@@ -35,9 +39,7 @@ extern "C" {
 #endif
 
 #include "file-path.hh"
-#include "string.hh"
 #include "main.hh"
-#include "kpath.hh"
 #include "source-file.hh"
 #include "warn.hh"
 
@@ -147,12 +149,10 @@ kpathsea_gulp_file_to_string (String name)
   return string;
 }
 
-
-
-LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
+LY_DEFINE (ly_kpathsea_find_file, "ly:kpathsea-find-file",
 	   1, 0, 0, (SCM name),
-	   "Return the expanded path of @var{name}, or"
-	   "@code{#f} if not found.")
+	   "Return the absolute file name of @var{name},"
+	   "or @code{#f} if not found.")
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
 
@@ -160,16 +160,13 @@ LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
   String file_name = global_path.find (nm);
   if (file_name.is_empty ())
     {
-      char *p = kpse_find_file (nm.to_str0 (), kpathsea_find_format (nm),
-	true);
-      if (p)
+      if (char *p = kpse_find_file (nm.to_str0 (), kpathsea_find_format (nm),
+				    true))
 	return scm_makfrom0str (p);
-      else
-	return SCM_BOOL_F;
+      return SCM_BOOL_F;
     }
   return scm_makfrom0str (file_name.to_str0 ());
 }
-
 
 LY_DEFINE (ly_kpathsea_expand_variable, "ly:kpathsea-expand-variable",
 	   1, 0, 0, (SCM var),
@@ -184,7 +181,6 @@ LY_DEFINE (ly_kpathsea_expand_variable, "ly:kpathsea-expand-variable",
 
   return ret;
 }
-
 
 void
 initialize_kpathsea (char *av0)

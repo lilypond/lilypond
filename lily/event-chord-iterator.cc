@@ -6,9 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "event-chord-iterator.hh"
+
 #include "context.hh"
 #include "warn.hh"
-#include "event-chord-iterator.hh"
 #include "music-list.hh"
 #include "event.hh"
 

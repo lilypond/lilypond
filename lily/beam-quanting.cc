@@ -12,10 +12,9 @@
 
 
 
-#include <math.h>
+#include <cmath>
 
 #include "warn.hh"
-#include "grob.hh"
 #include "staff-symbol-referencer.hh"
 #include "beam.hh"
 #include "stem.hh"

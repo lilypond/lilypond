@@ -6,13 +6,13 @@
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <math.h>
-
 #include "staff-symbol-referencer.hh"
+
+#include <cmath>
+
 #include "staff-symbol.hh"
 #include "output-def.hh"
 #include "libc-extension.hh"
-
 
 int
 Staff_symbol_referencer::line_count (Grob *me)

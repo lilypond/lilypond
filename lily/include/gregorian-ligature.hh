@@ -9,6 +9,9 @@
 #ifndef GREGORIAN_LIGATURE_HH
 #define GREGORIAN_LIGATURE_HH
 
+class Grob;
+class String;
+
 class Gregorian_ligature {
 public:
   static bool has_interface (Grob *);

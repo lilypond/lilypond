@@ -1,4 +1,3 @@
-#include "item.hh"
 #include "spanner.hh"
 #include "paper-column.hh"
 

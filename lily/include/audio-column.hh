@@ -7,7 +7,6 @@
 #ifndef AUDIO_COLUMN_HH
 #define AUDIO_COLUMN_HH
 
-#include "flower-proto.hh"
 #include "lily-proto.hh"
 #include "moment.hh"
 #include "parray.hh"

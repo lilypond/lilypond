@@ -10,6 +10,7 @@
 #ifndef STRINGDATA_HH
 #define STRINGDATA_HH
 
+#include "flower-proto.hh"
 
 /**Internal String struct.
    the data itself. Handles simple tasks (resizing, resetting)

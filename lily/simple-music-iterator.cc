@@ -8,6 +8,7 @@
  */
 
 #include "simple-music-iterator.hh"
+
 #include "music.hh"
 #include "input.hh"
 

@@ -7,9 +7,7 @@
   
  */
 
-#include "engraver.hh"
 #include "repeated-music.hh"
-#include "engraver-group-engraver.hh"
 #include "global-context.hh"
 #include "warn.hh"
 #include "misc.hh"
@@ -17,10 +15,7 @@
 #include "item.hh"
 #include "percent-repeat-iterator.hh"
 #include "bar-line.hh"
-
 #include "score-engraver.hh"
-#include "context.hh"
-
 
 /**
   This acknowledges repeated music with "percent" style.  It typesets

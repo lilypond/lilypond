@@ -12,7 +12,6 @@
 #include "input.hh"
 #include "lily-proto.hh"
 #include "parray.hh"
-#include "smobs.hh"
 #include "object-key.hh"
 #include "string.hh"
 

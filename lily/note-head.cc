@@ -5,16 +5,17 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <math.h>
-#include <ctype.h>
+
+#include "note-head.hh"
+
+#include <cmath>
+#include <cctype>
 
 #include "staff-symbol.hh"
 #include "misc.hh"
 #include "dots.hh"
-#include "note-head.hh"
 #include "warn.hh"
 #include "font-interface.hh"
-#include "stencil.hh"
 #include "event.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"

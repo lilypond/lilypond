@@ -7,8 +7,6 @@
 */
 
 #include "performer.hh"
-
-#include "event.hh"
 #include "audio-item.hh"
 
 /*

@@ -9,7 +9,6 @@
 #ifndef CLUSTER_HH
 #define CLUSTER_HH
 
-#include "lily-guile.hh"
 #include "stencil.hh"
 
 class Cluster

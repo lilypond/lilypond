@@ -6,14 +6,13 @@
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "midi-stream.hh"
 
 #include "stream.hh"
-#include "string.hh"
 #include "string-convert.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "midi-item.hh"
-#include "midi-stream.hh"
 #include "warn.hh"
 #include "scm-option.hh"
 

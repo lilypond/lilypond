@@ -11,7 +11,6 @@
 #define LINE_GROUP_GRAV_HH
 
 #include "engraver-group-engraver.hh"
-#include "lily-proto.hh"
 
 /**
   Engravers put elements on the same or lowel level in a line.

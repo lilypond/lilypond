@@ -6,13 +6,11 @@
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <string.h>
+#include <cstring>
 
-#include "box.hh"
 #include "warn.hh"
 #include "font-interface.hh"
 #include "line-interface.hh"
-#include "stencil.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
 #include "text-item.hh"

@@ -7,6 +7,7 @@
  */
 
 #include "score-performer.hh"
+
 #include "audio-column.hh"
 #include "audio-item.hh"
 #include "performance.hh"
@@ -15,8 +16,6 @@
 #include "warn.hh"
 #include "context-def.hh"
 #include "output-def.hh"
-
-
 
 ENTER_DESCRIPTION (Score_performer,
 /* descr */       "",

@@ -10,8 +10,9 @@
 #ifndef INTERVAL_TCC
 #define INTERVAL_TCC
 
-#include <assert.h> 
-#include <math.h>
+#include <cassert> 
+#include <cmath>
+
 #include "interval.hh"
 #include "string.hh"
 

@@ -6,8 +6,8 @@
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "group-interface.hh"
-#include "grob.hh"
 
 void
 Group_interface::add_thing (Grob*me, SCM sym, SCM thing)

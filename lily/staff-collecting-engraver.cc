@@ -6,11 +6,11 @@ source file of the GNU LilyPond music typesetter
 (c) 2001--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
+
 #include "staff-symbol.hh"
 #include "engraver.hh"
 #include "grob.hh"
 #include "context.hh"
-
 
 class Staff_collecting_engraver : public Engraver
 {

@@ -6,11 +6,12 @@
   (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
-#include <stdio.h> 
-#include <math.h>
 
 #include "spaceable-grob.hh"
-#include "grob.hh"
+
+#include <cstdio> 
+#include <cmath>
+
 #include "warn.hh"
 #include "spring.hh"
 #include "group-interface.hh"

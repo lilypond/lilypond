@@ -5,14 +5,15 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <stdio.h>
+
+#include "global-context.hh"
+
+#include <cstdio>
 
 #include "warn.hh"
-#include "music.hh"
 #include "event.hh"
 #include "music-list.hh"
 #include "music-iterator.hh"
-#include "global-context.hh"
 #include "score-context.hh"
 #include "context-def.hh"
 #include "output-def.hh"

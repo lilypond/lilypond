@@ -9,7 +9,6 @@
 
 #include "directional-element-interface.hh"
 
-
 Direction
 get_grob_direction (Grob*me) 
 {

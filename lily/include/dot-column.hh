@@ -12,6 +12,8 @@
 
 #include "lily-guile.hh"
 
+class Grob;
+
 /**
   Group dots.  This is needed because, the dots have to be aligned per voice
  */

@@ -7,12 +7,12 @@
 */
 
 #include "rhythmic-head.hh"
+
 #include "warn.hh"
 #include "rest.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
-
 
 Item*
 Rhythmic_head::get_dots (Grob*me) 

@@ -1,4 +1,3 @@
-
 #include "music-list.hh"
 #include "sequential-music-iterator.hh"
 

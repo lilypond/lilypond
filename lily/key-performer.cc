@@ -6,12 +6,9 @@
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "lily-guile.hh"
-
 #include "audio-item.hh"
 #include "performer.hh"
 #include "warn.hh"
-
 
 class Key_performer : public Performer
 {

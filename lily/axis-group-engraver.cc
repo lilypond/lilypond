@@ -9,7 +9,6 @@
 #include "spanner.hh"
 #include "paper-column.hh"
 #include "axis-group-interface.hh"
-#include "engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "warn.hh"
 #include "context.hh"

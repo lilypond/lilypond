@@ -10,7 +10,6 @@
 #ifndef MINTERVAL_HH
 #define MINTERVAL_HH
 
-#include "interval.hh"
 #include "moment.hh"
 
 typedef Interval_t<Moment> MInterval;

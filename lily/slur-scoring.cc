@@ -7,20 +7,19 @@
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
+#include "slur-scoring.hh"
+
+#include <cmath>
 
 #include "libc-extension.hh"
 #include "slur-configuration.hh"
-#include "slur-scoring.hh"
 #include "beam.hh"
 #include "directional-element-interface.hh"
 #include "group-interface.hh"
-#include "lily-guile.hh"
 #include "slur.hh"
 #include "note-column.hh"
 #include "output-def.hh"
 #include "pitch.hh"
-#include "bezier.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"

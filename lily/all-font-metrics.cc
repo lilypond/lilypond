@@ -8,13 +8,13 @@
   
  */
 
+#include "all-font-metrics.hh"
+
 #include "config.hh"
 #include "main.hh"
-#include "all-font-metrics.hh"
 #include "warn.hh"
 #include "afm.hh"
 #include "tfm.hh"
-#include "lily-guile.hh"
 #include "scm-hash.hh"
 #include "kpath.hh"
 

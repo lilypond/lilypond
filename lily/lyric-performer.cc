@@ -6,11 +6,8 @@
   (c) 1997--2004 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "event.hh"
 #include "audio-item.hh"
-#include "lily-proto.hh"
 #include "performer.hh"
-#include "array.hh"
 
 class Lyric_performer : public Performer {
 public:

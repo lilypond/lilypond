@@ -10,12 +10,8 @@
 #ifndef TRANSLATOR_GROUP_HH
 #define TRANSLATOR_GROUP_HH
 
-#include "string.hh"
-#include "lily-proto.hh"
-#include "virtual-methods.hh"
 #include "translator.hh"
 #include "parray.hh"
-#include "smobs.hh"
 
 typedef void (Translator::*Translator_method) (void);
 

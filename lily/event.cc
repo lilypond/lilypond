@@ -7,9 +7,9 @@
 */
 
 #include "event.hh"
+
 #include "warn.hh"
-#include "event.hh"
-  
+
 Moment
 Event::get_length () const
 {

@@ -12,7 +12,6 @@
 #include "context.hh"
 #include "repeated-music.hh"
 
-
 /*
   Objective:
 

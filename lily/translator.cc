@@ -6,16 +6,14 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-
 #include "translator.hh"
+
 #include "warn.hh"
 #include "translator-group.hh"
 #include "context-def.hh"
 #include "global-context.hh"
-#include "moment.hh"
-#include "context.hh"
-#include "ly-smobs.icc"
 
+#include "ly-smobs.icc"
 
 Translator::~Translator ()
 {

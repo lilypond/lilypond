@@ -11,7 +11,6 @@
 #define BEAMING_HH
 
 #include "parray.hh"
-#include "drul-array.hh"
 #include "moment.hh"
 
 struct Beaming_info

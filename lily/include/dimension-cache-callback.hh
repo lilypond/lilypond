@@ -10,6 +10,7 @@
 #ifndef DIMENSION_CACHE_CALLBACK_HH
 #define DIMENSION_CACHE_CALLBACK_HH
 
+#include "axes.hh"
 
 typedef Interval (*Dim_cache_callback) (Grob *,Axis);
 typedef Real (*Offset_callback) (Grob *,Axis);

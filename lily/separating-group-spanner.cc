@@ -8,6 +8,7 @@
  */
 
 #include "separating-group-spanner.hh"
+
 #include "separation-item.hh"
 #include "paper-column.hh"
 #include "output-def.hh"

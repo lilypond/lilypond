@@ -11,9 +11,6 @@
 
 #include "virtual-methods.hh"
 #include "minterval.hh"
-#include "lily-proto.hh"
-#include "string.hh"
-#include "smobs.hh"
 #include "music-constructor.hh"
 
 #define is_mus_type(x) internal_is_music_type (ly_symbol2scm (x))

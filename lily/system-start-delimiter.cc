@@ -6,16 +6,16 @@
   (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
  */
-#include <math.h>
+
+#include "system-start-delimiter.hh"
+
+#include <cmath>
 
 #include "spanner.hh"
 #include "axis-group-interface.hh"
-#include "system-start-delimiter.hh"
 #include "output-def.hh"
-#include "stencil.hh"
 #include "font-interface.hh"
 #include "all-font-metrics.hh"
-#include "grob.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
 

@@ -6,15 +6,11 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   */
 
-
-
-#include "event.hh"
 #include "item.hh"
 #include "bar-line.hh"
 #include "staff-symbol-referencer.hh"
 #include "context.hh"
 #include "engraver.hh"
-#include "pitch.hh"
 #include "protected-scm.hh"
 #include "clef.hh"
 

@@ -7,6 +7,7 @@
 */
 
 #include "cpu-timer.hh"
+
 #include <unistd.h>
 // nextstep
 #ifndef CLOCKS_PER_SEC
@@ -18,7 +19,6 @@
 #error cannot determine CLOCKS_PER_SEC
 #endif
 #endif
-
 
 Cpu_timer::Cpu_timer ()
 {

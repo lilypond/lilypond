@@ -8,11 +8,10 @@
 #ifndef STENCIL_HH
 #define STENCIL_HH
 
-#include <stdlib.h>		// size_t
+#include <cstdlib>		// size_t
+
 #include "lily-proto.hh"
 #include "box.hh"
-#include "direction.hh"
-#include "lily-guile.hh"
 #include "smobs.hh"
 
 /** a group of individually translated symbols. You can add stencils

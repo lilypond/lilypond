@@ -8,11 +8,8 @@
 #define BEZIER_HH
 
 
-#include "real.hh"
-#include "drul-array.hh"
 #include "interval.hh"
 #include "offset.hh"
-#include "array.hh"
 #include "polynomial.hh"
 
 /**

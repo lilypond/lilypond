@@ -10,9 +10,7 @@
 #ifndef SLUR_CONFIGURATION_HH
 #define SLUR_CONFIGURATION_HH
 
-#include "drul-array.hh"
 #include "bezier.hh"
-#include "lily-proto.hh"
 #include "parray.hh"
 #include "main.hh"
 

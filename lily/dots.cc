@@ -7,8 +7,8 @@
 */
 
 #include "dots.hh"
+
 #include "item.hh"
-#include "stencil.hh"
 #include "output-def.hh"
 #include "font-interface.hh"
 #include "lookup.hh"

@@ -7,8 +7,11 @@
 
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
-#include <math.h>
-#include <ctype.h>
+
+#include "lookup.hh"
+
+#include <cmath>
+#include <cctype>
 
 #include "line-interface.hh"
 #include "warn.hh"
@@ -18,10 +21,7 @@
 #include "file-path.hh"
 #include "main.hh"
 #include "lily-guile.hh"
-#include "stencil.hh"
-#include "lookup.hh"
 #include "font-metric.hh"
-#include "interval.hh"
 
 Stencil
 Lookup::dot (Offset p, Real radius)

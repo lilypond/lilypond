@@ -10,11 +10,7 @@
 #define PAPER_SCORE_HH
 
 #include "column-x-positions.hh"
-#include "parray.hh"
-#include "lily-proto.hh"
 #include "music-output.hh"
-#include "lily-guile.hh"
-#include "protected-scm.hh"
 
 /* LAYOUT output */
 class Paper_score : public Music_output

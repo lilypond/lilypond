@@ -68,13 +68,15 @@ Morten Welinder <terra@diku.dk> September 1999.
  *    - changed (width == 250) to (width = 250) in initializeArray
  */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <sys/file.h>
-#include <math.h>
-#include <string.h>
 #include "parse-afm.hh"
+
+#include <cstdlib>
+#include <cerrno>
+#include <cmath>
+#include <cstring>
+
+#include <sys/file.h>
+
 #include "warn.hh"
 
 #define METATYPE1_BUG   /* Parse Metatype1's (version unknown)

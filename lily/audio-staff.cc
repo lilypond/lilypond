@@ -7,7 +7,7 @@
  */
 
 #include "audio-staff.hh"
-#include "audio-item.hh"
+
 #include "midi-item.hh"
 #include "midi-stream.hh"
 #include "midi-walker.hh"

@@ -11,7 +11,7 @@
 #define REAL_HH
 
 
-#include <limits.h>
+#include <climits>
 
 typedef double Real;
 extern const Real infinity_f;

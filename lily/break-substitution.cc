@@ -1,10 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
-#include  "grob.hh"
 #include "item.hh"
-#include  "spanner.hh"
-#include  "system.hh"
+#include "system.hh"
 
 static SCM break_criterion; 
 void

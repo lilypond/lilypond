@@ -7,18 +7,15 @@
   
  */
 
+#include "engraver.hh"
 #include "beaming.hh"
-#include "event.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"
-#include "engraver-group-engraver.hh"
 #include "bar-line.hh"
 #include "rest.hh"
-#include "engraver.hh"
 #include "item.hh"
 #include "spanner.hh"
-#include "duration.hh"
 #include "context.hh"
 
 class Auto_beam_engraver : public Engraver

@@ -7,7 +7,6 @@
 
  */
 
-#include "stencil.hh"
 #include "text-item.hh"
 #include "line-spanner.hh"
 #include "spanner.hh"

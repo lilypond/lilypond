@@ -6,10 +6,10 @@
   (c) 2002--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "ly-module.hh"
+
 #include "main.hh"
 #include "string.hh"
-#include "lily-guile.hh"
-#include "ly-module.hh"
 #include "protected-scm.hh"
 
 #define FUNC_NAME __FUNCTION__

@@ -7,8 +7,6 @@
 
 */
 
-
-#include "object-key.hh"
 #include "lilypond-key.hh"
 
 Lilypond_grob_key::Lilypond_grob_key (Object_key const *context,

@@ -14,17 +14,17 @@
 
 */
 
+#include "custos.hh"
 
-#include <stdio.h>
+#include <cstdio>
+#include <cmath> // rint
+
 #include "direction.hh"
 #include "staff-symbol-referencer.hh"
-#include "custos.hh"
-#include "stencil.hh"
 #include "warn.hh"
 #include "note-head.hh"
 #include "item.hh"
 #include "font-interface.hh"
-#include "math.h" // rint
 
 MAKE_SCHEME_CALLBACK (Custos,print,1);
 SCM

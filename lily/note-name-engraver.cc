@@ -8,7 +8,6 @@
  */
 
 #include "engraver.hh"
-#include "event.hh"
 #include "item.hh"
 
 class Note_name_engraver : public Engraver

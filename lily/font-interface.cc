@@ -6,13 +6,12 @@
   (c) 2000--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "all-font-metrics.hh"
-#include "font-metric.hh"
 #include "font-interface.hh"
-#include "grob.hh"
+
+#include "all-font-metrics.hh"
 #include "output-def.hh"
 #include "warn.hh"
-
+#include "grob.hh"
 
 /* todo: split up this func, reuse in text_item?  */
 Font_metric *

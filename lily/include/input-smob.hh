@@ -11,7 +11,6 @@
 #define INPUT_SMOB_HH
 
 #include "input.hh"
-#include "lily-guile.hh"
 #include "smobs.hh"
 
 SCM make_input (Input spot);

@@ -10,7 +10,6 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "stem-info.hh"
-#include "drul-array.hh"
 
 class Stem 
 {

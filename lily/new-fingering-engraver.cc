@@ -10,8 +10,6 @@
 #include "warn.hh"
 #include "engraver.hh"
 #include "side-position-interface.hh"
-#include "item.hh"
-#include "event.hh"
 #include "stem.hh"
 #include "rhythmic-head.hh"
 #include "self-alignment-interface.hh"

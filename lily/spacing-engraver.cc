@@ -7,7 +7,6 @@
   
  */
 
-#include "event.hh"
 #include "paper-column.hh"
 #include "engraver.hh"
 #include "pqueue.hh"

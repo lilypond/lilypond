@@ -9,7 +9,6 @@
 #ifndef BOOK_PAPER_DEF_HH
 #define BOOK_PAPER_DEF_HH
 
-#include "lily-proto.hh"
 #include "output-def.hh"
 
 #error

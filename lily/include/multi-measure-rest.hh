@@ -10,7 +10,6 @@
 #ifndef MULTI_MEASURE_REST_HH
 #define MULTI_MEASURE_REST_HH
 
-#include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "rod.hh"
 

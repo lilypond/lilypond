@@ -6,7 +6,9 @@
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
 #include "global-ctor.hh"
+
 #include "array.hh"
 
 static Array<Global_ctor> *ctor_global_statics_;

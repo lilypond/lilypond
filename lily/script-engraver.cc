@@ -9,7 +9,6 @@
 #include "context.hh"
 #include "directional-element-interface.hh"
 #include "engraver.hh"
-#include "event.hh"
 #include "slur.hh"
 #include "note-column.hh"
 #include "paper-column.hh"

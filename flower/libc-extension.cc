@@ -8,12 +8,12 @@
          Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include <math.h>
-
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
 #include "libc-extension.hh"
+
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <cctype>
 
 char* 
 strnlwr (char* start ,int n)

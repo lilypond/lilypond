@@ -7,6 +7,7 @@
 */
 
 #include "property-iterator.hh"
+
 #include "music.hh"
 #include "context-def.hh"
 #include "global-context.hh"

@@ -6,12 +6,11 @@
   (c) 2004 Han-Wen Nienhuys <hanwen@xs4all.nl>
   
 */
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
 
-#include "string.hh"
-#include "lily-guile.hh"
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+
 #include "source-file.hh"
 
 char *

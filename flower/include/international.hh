@@ -10,7 +10,6 @@
 #ifndef INTERNATIONAL_HH
 #define INTERNATIONAL_HH
 
-#include "string.hh"
 
 /**
  Internationalisation: _i ("to be translated") gets an entry in the POT file

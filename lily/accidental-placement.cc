@@ -7,15 +7,15 @@
 
 */
 
-#include <math.h>
+#include "accidental-placement.hh"
+
+#include <cmath>
 
 #include "libc-extension.hh" 	// isinf
-#include "item.hh"
 #include "skyline.hh"
 #include "music.hh"
 #include "pitch.hh"
 #include "warn.hh"
-#include "accidental-placement.hh"
 #include "note-column.hh"
 #include "group-interface.hh"
 #include "note-collision.hh"

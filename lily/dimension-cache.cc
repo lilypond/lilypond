@@ -5,12 +5,13 @@
   
   (c) 1998--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
  */
-#include <math.h>
-#include "warn.hh"
-#include "dimension-cache.hh"
-#include "parray.hh"
-#include "grob.hh"
 
+#include "dimension-cache.hh"
+
+#include <cmath>
+
+#include "warn.hh"
+#include "grob.hh"
 
 Dimension_cache::Dimension_cache (Dimension_cache const &d)
 {

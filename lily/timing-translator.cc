@@ -7,13 +7,12 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "warn.hh"
 #include "timing-translator.hh"
 
+#include "warn.hh"
 #include "translator-group.hh"
 #include "global-context.hh"
 #include "multi-measure-rest.hh"
-
 
 void
 Timing_translator::stop_translation_timestep ()

@@ -7,13 +7,10 @@
 */
 
 
-#include <limits.h>		// INT_MAX
-#include <assert.h>
-
-#include "flower-proto.hh"
-#include "string.hh"
-#include "source-file.hh"
 #include "binary-source-file.hh"
+
+#include <climits>		// INT_MAX
+
 #include "string-convert.hh"
 
 Binary_source_file::Binary_source_file (String& file_name_string)

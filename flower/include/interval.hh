@@ -7,9 +7,7 @@
 #ifndef INTERVAL_HH
 #define INTERVAL_HH
 
-#include <assert.h> 
 #include "flower-proto.hh"
-#include "real.hh"
 #include "drul-array.hh"
 
 /* A T interval.  This represents the closed interval [left,right].

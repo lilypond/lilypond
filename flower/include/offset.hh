@@ -7,10 +7,7 @@
 #ifndef OFFSET_HH
 #define OFFSET_HH
 
-#include "flower-proto.hh"
-#include "real.hh"
 #include "axes.hh"
-#include "arithmetic-operator.hh"
 #include "string.hh"
 
 Offset complex_multiply (Offset, Offset);

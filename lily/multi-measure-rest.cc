@@ -8,12 +8,12 @@
  */
 
 #include "multi-measure-rest.hh"
+
 #include "warn.hh"
 #include "output-def.hh"
 #include "paper-column.hh" // urg
 #include "font-interface.hh"
 #include "rest.hh"
-#include "stencil.hh"
 #include "misc.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"

@@ -9,13 +9,10 @@
 #ifndef MY_LILY_PARSER_HH
 #define MY_LILY_PARSER_HH
 
-#include "array.hh"
 #include "duration.hh"
 #include "input.hh"
 #include "parray.hh"
 #include "pitch.hh"
-#include "smobs.hh"
-#include "string.hh"
 
 /**
    State for the parser.  Do not ever add any variables to parse

@@ -5,11 +5,12 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <math.h>		// rint
-#include <stdio.h>
 
 #include "gourlay-breaking.hh"
-#include "column-x-positions.hh"
+
+#include <cmath>		// rint
+#include <cstdio>
+
 #include "warn.hh"
 #include "main.hh"
 #include "paper-column.hh"

@@ -5,10 +5,12 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <math.h>
-#include <stdlib.h>
+
 #include "rational.hh"
-#include "string.hh"
+
+#include <cmath>
+#include <cstdlib>
+
 #include "string-convert.hh"  
 #include "libc-extension.hh"
 

@@ -7,7 +7,6 @@
 #ifndef NOTEHEAD_HH
 #define NOTEHEAD_HH
 
-#include "lily-guile.hh"
 #include "stencil.hh"
 
 /** ball at the end of the stem. Also takes care of ledger lines.

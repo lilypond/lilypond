@@ -6,11 +6,10 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "output-def.hh"
 #include "translator-group.hh"
-#include "translator.hh"
+
+#include "output-def.hh"
 #include "warn.hh"
-#include "moment.hh"
 #include "scm-hash.hh"
 #include "context-def.hh"
 #include "context.hh"

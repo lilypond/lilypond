@@ -9,7 +9,6 @@
 
 #include "identifier-smob.hh"
 
-
 scm_t_bits package_tag;
 
 static int

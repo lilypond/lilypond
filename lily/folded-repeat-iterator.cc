@@ -7,8 +7,9 @@
   
  */
 
-#include "input.hh"
 #include "folded-repeat-iterator.hh"
+
+#include "input.hh"
 #include "repeated-music.hh"
 #include "music-list.hh"
 #include "simultaneous-music-iterator.hh"

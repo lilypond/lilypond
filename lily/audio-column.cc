@@ -7,6 +7,7 @@
  */
 
 #include "audio-column.hh"
+
 #include "audio-item.hh"
 #include "performance.hh"
 

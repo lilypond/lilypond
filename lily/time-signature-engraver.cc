@@ -8,8 +8,6 @@
 
 #include "time-signature.hh"
 #include "warn.hh"
-
-#include "engraver.hh"
 #include "engraver-group-engraver.hh"
 #include "misc.hh"
 

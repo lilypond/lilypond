@@ -8,7 +8,6 @@
  */
 
 #include "engraver.hh"
-#include "event.hh"
 #include "beam.hh"
 #include "stem.hh"
 #include "warn.hh"

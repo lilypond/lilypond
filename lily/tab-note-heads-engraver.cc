@@ -3,8 +3,9 @@
 
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <ctype.h>
-#include <stdio.h>
+
+#include <cctype>
+#include <cstdio>
 
 #include "rhythmic-head.hh"
 #include "output-def.hh"

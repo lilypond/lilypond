@@ -10,7 +10,6 @@
 #ifndef FONT_INTERFACE_HH
 #define FONT_INTERFACE_HH
 
-#include "lily-proto.hh"
 #include "font-metric.hh"
 
 struct Font_interface

@@ -10,7 +10,6 @@
 #include "engraver.hh"
 #include "context.hh"
 #include "volta-bracket.hh"
-#include "item.hh"
 #include "note-column.hh"
 #include "bar-line.hh"
 #include "side-position-interface.hh"

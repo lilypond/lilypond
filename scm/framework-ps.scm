@@ -52,17 +52,17 @@
 		(lambda (x)
 		
 		  (let* ((aname (string-append x ".pfa"))
-			 (apath (ly:kpathsea-expand-path aname))
+			 (apath (ly:kpathsea-find-file aname))
 			 
 			 (bpath (if (not apath)
-				    (ly:kpathsea-expand-path
+				    (ly:kpathsea-find-file
 				     (string-append x ".pfb"))
 				    #f)))
 		    (cond
 		     (apath (ly:gulp-file apath))
 		     (bpath (ly:pfb->pfa bpath))
 		     (else
-		      (ly:warn "Can't find PFA font ~S" x)
+		      (ly:warn "cannot find PFA font ~S" x)
 		      ""))))
 		(filter string? font-names))))
   
@@ -125,7 +125,7 @@
 
   (define (font-load-encoding encoding)
     (let ((file-name (get-coding-file-name encoding)))
-      (ly:gulp-file (ly:kpathsea-expand-path file-name))))
+      (ly:gulp-file (ly:kpathsea-find-file file-name))))
 
   (let* ((encoding-list (map (lambda (x)
 			       (assoc-get 'input-name

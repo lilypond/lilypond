@@ -6,12 +6,10 @@
   (c) 2001--2004  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "note-spacing.hh"
 
 #include "paper-column.hh"
-#include "item.hh"
 #include "moment.hh"
-#include "note-spacing.hh"
-#include "grob.hh"
 #include "note-column.hh"
 #include "warn.hh"
 #include "stem.hh"
@@ -19,7 +17,6 @@
 #include "staff-spacing.hh"
 #include "accidental-placement.hh"
 #include "output-def.hh"
-
 
 /*
 

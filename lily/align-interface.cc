@@ -8,8 +8,7 @@
  */
 
 #include "align-interface.hh"
-#include "grob.hh"
-#include "group-interface.hh"
+
 #include "axis-group-interface.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "output-def.hh"

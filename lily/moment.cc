@@ -6,10 +6,9 @@
   (c) 1999--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "lily-guile.hh"
 #include "moment.hh"
-#include "warn.hh"
 
+#include "warn.hh"
 
 Moment::Moment ()
 {

@@ -9,7 +9,6 @@ source file of the GNU LilyPond music typesetter
 
 #include "engraver.hh"
 #include "text-item.hh"
-#include "event.hh"
 #include "item.hh"
 #include "context.hh"
 

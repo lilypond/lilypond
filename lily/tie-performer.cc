@@ -9,7 +9,6 @@
 
 #include "context.hh"
 #include "audio-item.hh"
-#include "event.hh"
 #include "pqueue.hh"
 #include "performer.hh"
 

@@ -8,6 +8,7 @@
  */
 
 #include "transposed-music.hh"
+
 #include "warn.hh"
 
 Pitch

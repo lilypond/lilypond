@@ -11,10 +11,8 @@
 #define FONT_METRIC_HH
 
 #include "box.hh"
-#include "lily-guile.hh"
 #include "smobs.hh"
 #include "lily-proto.hh"
-#include "string.hh"
 
 struct Font_metric
 {

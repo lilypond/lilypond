@@ -10,7 +10,8 @@
 #ifndef STRINGHANDLE_INL
 #define STRINGHANDLE_INL
 
-#include <assert.h>
+#include <cassert>
+
 #include <memory.h>
 
 #include "string-data.hh"

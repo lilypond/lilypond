@@ -12,6 +12,8 @@
 
 #include "lily-guile.hh"
 
+class Grob;
+
 /*
   breathing sign (apostrophe within staff, not the comma above staff
   type)

@@ -10,6 +10,7 @@
 #ifndef INTERFACE_HH
 #define INTERFACE_HH
 
+#include <libguile.h> /* SCM */
 
 void add_interface (const char * symbol,
 		    const char * descr,

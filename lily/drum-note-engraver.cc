@@ -3,11 +3,10 @@
   
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
-#include <ctype.h>
+
+#include <cctype>
 
 #include "rhythmic-head.hh"
-#include "event.hh"
-#include "item.hh"
 #include "engraver.hh"
 #include "warn.hh"
 #include "side-position-interface.hh"

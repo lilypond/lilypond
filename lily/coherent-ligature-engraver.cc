@@ -7,7 +7,7 @@
  */
 
 #include "coherent-ligature-engraver.hh"
-#include "item.hh"
+
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"

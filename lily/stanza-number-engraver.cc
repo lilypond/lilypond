@@ -8,7 +8,6 @@
 */
 
 #include "engraver.hh"
-#include "item.hh"
 #include "side-position-interface.hh"
 
 class Stanza_number_engraver : public Engraver

@@ -6,23 +6,20 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <ctype.h>
+#include "lily-lexer.hh"
+
+#include <cctype>
 #include <sstream>
 
-#include "lily-proto.hh"
 #include "scm-hash.hh"
 #include "interval.hh"
-#include "lily-guile.hh"
 #include "parser.hh"
 #include "keyword.hh"
-#include "lily-lexer.hh"
 #include "warn.hh"
 #include "source-file.hh"
 #include "main.hh"
-#include "input.hh"
 #include "moment.hh"
 #include "ly-module.hh"
-
 
 static Keyword_ent the_key_tab[] = {
   {"accepts", ACCEPTS},

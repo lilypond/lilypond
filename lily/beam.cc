@@ -26,13 +26,13 @@ Notes:
 */
 
 
-#include <math.h> // tanh.
+#include "beam.hh"
+
+#include <cmath> // tanh.
 
 #include "interval-set.hh"
-#include "stencil.hh" 
 #include "directional-element-interface.hh"
 #include "beaming.hh"
-#include "beam.hh"
 #include "misc.hh"
 #include "least-squares.hh"
 #include "stem.hh"

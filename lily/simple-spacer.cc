@@ -9,19 +9,20 @@
   - add support for different stretch/shrink constants?
   
 */
-#include <stdio.h>
-#include <math.h>
-#include <libc-extension.hh>	// isinf
 
 #include "simple-spacer.hh"
+
+#include <cstdio>
+#include <cmath>
+
+#include <libc-extension.hh>	// isinf
+
 #include "paper-column.hh"
 #include "spring.hh"
-#include "rod.hh"
 #include "warn.hh"
 #include "column-x-positions.hh"
 #include "spaceable-grob.hh"
 #include "dimensions.hh"
-
 
 /*
    A simple spacing constraint solver. The approach:

@@ -7,6 +7,7 @@
 */
 
 #include "audio-item.hh"
+
 #include "midi-item.hh"
 #include "audio-column.hh"
 

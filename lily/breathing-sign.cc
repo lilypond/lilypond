@@ -10,14 +10,12 @@
   Extensions for ancient notation (c) 2003 by Juergen Reuter
 */
 
+#include "breathing-sign.hh"
+
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
-#include "breathing-sign.hh"
-#include "string.hh"
-#include "stencil.hh"
 #include "output-def.hh"
 #include "lookup.hh"
-
 #include "dimensions.hh"
 #include "direction.hh"
 #include "text-item.hh"

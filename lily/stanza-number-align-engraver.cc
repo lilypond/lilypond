@@ -8,15 +8,12 @@ source file of the GNU LilyPond music typesetter
 
  */
 
-
 #include "context.hh"
 #include "engraver.hh"
 #include "note-head.hh"
 #include "lyric-extender.hh"
-#include "item.hh"
 #include "group-interface.hh"
 #include "side-position-interface.hh"
-
 
 class Stanza_number_align_engraver : public Engraver
 {

@@ -7,17 +7,13 @@
   
  */
 
-#include "spanner.hh"
 #include "tie-column.hh"
+
+#include "spanner.hh"
 #include "group-interface.hh"
 #include "tie.hh"
 #include "directional-element-interface.hh"
 #include "rhythmic-head.hh"
-
-
-
-
-
 
 /*
   tie dir depends on what Tie_column does.

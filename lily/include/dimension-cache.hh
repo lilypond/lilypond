@@ -10,13 +10,10 @@
 #ifndef DIMENSION_CACHE_HH
 #define DIMENSION_CACHE_HH
 
-#include "interval.hh"
-#include "real.hh"
 #include "lily-proto.hh"
 #include "parray.hh"
 #include "dimension-cache-callback.hh"
 #include "lily-guile.hh"
-
 
 /**
   Adminstration of offset dimension info.

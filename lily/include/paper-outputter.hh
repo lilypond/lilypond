@@ -13,8 +13,8 @@
 #include "lily-proto.hh"
 #include "array.hh"
 #include "string.hh"
-#include "lily-guile.hh"
 #include "protected-scm.hh"
+#include "smobs.hh"
 
 /*
   Glue between the backend (grobs, systems, pages) and the output file.

@@ -11,15 +11,11 @@
 #include "arpeggio.hh"
 #include "context.hh"
 #include "engraver.hh"
-#include "event.hh"
-#include "item.hh"
 #include "protected-scm.hh"
 #include "rhythmic-head.hh"
 #include "side-position-interface.hh"
-#include "spanner.hh"
 #include "tie.hh"
 #include "warn.hh"
-
 
 class Accidental_entry
 {

@@ -6,6 +6,9 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
   
  */
+
+#include "stem-tremolo.hh"
+
 #include "spanner.hh"
 #include "beam.hh"
 #include "directional-element-interface.hh"
@@ -13,7 +16,6 @@
 #include "lookup.hh"
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
-#include "stem-tremolo.hh"
 #include "stem.hh"
 #include "warn.hh"
 

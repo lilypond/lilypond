@@ -6,8 +6,9 @@
   (c) 1996--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "paper-score.hh"
+
 #include "all-font-metrics.hh"
-#include "font-metric.hh"
 #include "gourlay-breaking.hh"
 #include "ly-module.hh"
 #include "main.hh"
@@ -15,10 +16,8 @@
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "paper-column.hh"
-#include "paper-score.hh"
 #include "scm-hash.hh"
 #include "score.hh"
-#include "spanner.hh"
 #include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"

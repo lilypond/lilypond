@@ -6,19 +6,16 @@
   Han-Wen Nienhuys
 */
 
-#include <math.h>
+#include "lyric-extender.hh"
 
-#include "box.hh"
+#include <cmath>
+
 #include "warn.hh"
 #include "lookup.hh"
-#include "stencil.hh"
 #include "paper-column.hh"
 #include "output-def.hh"
-#include "lyric-extender.hh"
 #include "note-head.hh"
 #include "group-interface.hh"
-
-
 
 MAKE_SCHEME_CALLBACK (Lyric_extender, print, 1)
 SCM 

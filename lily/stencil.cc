@@ -6,15 +6,15 @@
   (c) 1997--2004 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include <math.h>
+#include "stencil.hh"
+
+#include <cmath>
+
 #include <libc-extension.hh>	// isinf
 
 #include "input-smob.hh"
 #include "font-metric.hh" 
 #include "dimensions.hh"
-#include "interval.hh"
-#include "string.hh"
-#include "stencil.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"

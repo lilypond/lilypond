@@ -5,15 +5,12 @@
        Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "event.hh"
 #include "multi-measure-rest.hh"
 #include "paper-column.hh"
 #include "engraver-group-engraver.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "engraver.hh"
 #include "moment.hh"
-#include "spanner.hh"
 
 /**
    The name says it all: make multi measure rests 

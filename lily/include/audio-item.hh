@@ -7,14 +7,9 @@
 #ifndef AUDIO_ITEM_HH
 #define AUDIO_ITEM_HH
 
-#include <typeinfo>
-#include "lily-proto.hh"
-#include "string.hh"
 #include "audio-element.hh"
-
-#include "pitch.hh"
 #include "moment.hh"
-#include "drul-array.hh"
+#include "pitch.hh"
 
 /**
    

@@ -7,10 +7,9 @@
 */
 
 #include "chord-name.hh"
-#include "stencil.hh"
+
 #include "output-def.hh"
 #include "font-interface.hh"
-#include "grob.hh"
 #include "paper-column.hh"
 #include "system.hh"
 #include "staff-symbol-referencer.hh"

@@ -9,9 +9,10 @@
 #ifndef STRINGDATA_INL
 #define STRINGDATA_INL
 
-#include <assert.h>
+#include <cassert>
+#include <cstring>
+
 #include <memory.h>
-#include <string.h>
 
 #include "string-data.hh"
 const int INITIALMAX=8;

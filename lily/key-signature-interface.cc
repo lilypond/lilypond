@@ -9,14 +9,10 @@
 */
 
 #include "item.hh"
-
-#include "stencil.hh"
 #include "output-def.hh"
 #include "font-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
-#include "lily-guile.hh"
-#include "lily-proto.hh"
 #include "accidental-interface.hh"
 
 struct Key_signature_interface

@@ -7,13 +7,10 @@
                  Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
-#include "grob.hh"
 #include "warn.hh"
-#include "spanner.hh"
 #include "item.hh"
 #include "output-def.hh"
 #include "system.hh"
-
 
 LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 	   3, 0, 0, (SCM grob, SCM sym, SCM val),

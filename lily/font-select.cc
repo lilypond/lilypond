@@ -7,8 +7,7 @@
 
  */
 
-#include <math.h>
-
+#include <cmath>
 
 #include "all-font-metrics.hh"
 #include "output-def.hh"

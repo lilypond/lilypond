@@ -7,11 +7,8 @@
   
  */
 
-#include <stdarg.h>
-
 #include "config.hh"
 #include "string-convert.hh"
-#include "international.hh"
 
 #if !HAVE_GETTEXT
 inline char*

@@ -7,10 +7,11 @@
   Han-Wen Nienhuys <hanwen@cs.uu.nl>
 */
 
+#include "source-file.hh"
+
 #include "config.hh"
 
-#include <stdio.h>
-#include <assert.h>
+#include <cstdio>
 #if HAVE_SSTREAM
 #include <sstream>
 #else
@@ -18,11 +19,7 @@
 #define istringstream(x) istrstream(x, length ()) 
 #endif
 
-#include "string.hh"
-#include "flower-proto.hh"
 #include "warn.hh"
-#include "source-file.hh"
-#include "array.hh"
 
 void
 Source_file::load_stdin ()

@@ -9,9 +9,9 @@
  */
 
 #include "tfm.hh"
+
 #include "tfm-reader.hh"
 #include "string-convert.hh"
-#include "warn.hh"
 #include "warn.hh"
 #include "dimensions.hh"
 
@@ -102,10 +102,9 @@ Tex_font_metric::make_tfm (String file_name)
   tfm->char_metrics_ = reader.char_metrics_;
   tfm->ascii_to_metric_idx_ = reader.ascii_to_metric_idx_;
 
-  
-  tfm->encoding_table_ =
-    scm_call_1 (ly_scheme_function ("get-coding-table"),
-		scm_makfrom0str (tfm->coding_scheme ().to_str0 ()));
+  tfm->encoding_table_
+    = scm_call_1 (ly_scheme_function ("get-coding-table"),
+		  scm_makfrom0str (tfm->coding_scheme ().to_str0 ()));
 
   return tfm->self_scm ();
 }

@@ -17,9 +17,7 @@
 #ifndef TFM_HH
 #define TFM_HH
 
-#include "string.hh"
 #include "array.hh"
-#include "lily-proto.hh"
 #include "font-metric.hh"
 
 /* The type.  */

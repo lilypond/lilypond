@@ -79,7 +79,7 @@
  *	  - fixed typos
  */
 
-#include <stdio.h>
+#include <cstdio>
 
 
 /* your basic constants */
