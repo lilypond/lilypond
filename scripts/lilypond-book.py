@@ -822,8 +822,7 @@ class Lilypond_snippet (Snippet):
 
 	def output_texinfo (self):
 		str = ''
-		# self.output_print_filename (TEXINFO)
-		if self.output_print_filename (0):
+		if self.output_print_filename (TEXINFO):
 			str += ('@html\n' + self.output_print_filename (HTML)
 				+ '\n@end html\n')
 			str += ('@tex\n' + self.output_print_filename (LATEX)
