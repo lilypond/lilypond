@@ -48,6 +48,15 @@ music expression, for example,
 @c FIXME, cannot use toplevel music examples in lilypond-book,
 @c but it works at toplevel too, as shown.
 @lilypond[quote,raggedright]
+\paper {
+   vsize = 60\mm
+   hsize = 60\mm
+   %% FIXME?
+   printpagenumber = ##f
+}
+\header {
+   tagline = ""
+}
 \book {
   \score {
     \relative { c' d e }
