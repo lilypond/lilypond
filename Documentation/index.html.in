@@ -51,6 +51,10 @@
             <li>
 	    <a class="title" href="../topdocs/out-www/NEWS.html">NEWS</a>
  	    <br>(changes since the last major release)
+
+            <li>
+	    <a class="title" href="../topdocs/out-www/INSTALL.html">INSTALL</a>
+ 	    <br>(how to compile)
 	  </ul>
 	  </td>
         </tr>

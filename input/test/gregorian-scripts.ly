@@ -47,8 +47,8 @@ cantus = \notes \relative c' {
     >
   >
   \paper {
-    stafflinethickness = \staffspace / 5.0
     linewidth = 70.0
+    stafflinethickness = \staffspace / 5.0
     width = 60.0
     indent = 0.0
     raggedright = ##t

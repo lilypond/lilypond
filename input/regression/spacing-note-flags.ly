@@ -12,7 +12,6 @@ texidoc = "The flags of 8th notes take some space, but not
     a8 a8 a8 a8
 }
 \paper {
-%stafflinethickness = 0.0
 raggedright = ##t
     }
      }

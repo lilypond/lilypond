@@ -72,7 +72,7 @@ list is alphabetically ordered.
     minor bug fixes, lyric-phrasing.
 @item @email{Roy.Rankin@@alcatel.com.au, Roy R. Rankin},
     major extension, fixes to abc2ly, lilypond bug fixes.
-@item @email{reuter@@ipd.uka.de, J@"{u}rgen Reuter},
+@item @uref{http://www.ipd.uka.de/~reuter, J@"{u}rgen Reuter},
     Ancient notation  support (mensural notation,
     Gregorian chant notation), ambitus, clusters.
 @item @email{august@@infran.ru, August S. Sigov},

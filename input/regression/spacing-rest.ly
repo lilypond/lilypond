@@ -10,7 +10,6 @@ very small.
     r4 c4 c4 c4 r4 r4 c4
 }
 \paper {
-%stafflinethickness = 0.0
 raggedright = ##t
     }
      }

@@ -10,13 +10,7 @@
 
 @contents
 
-@chapter INSTALL - compiling and installing GNU LilyPond
-
-
-This document describes how to build LilyPond on Unix platforms.  It
-is also known to run and compile on Windows NT/95/98/ME/XP as well.
-More information on this topic can be found at the
-@uref{http://www.lilypond.org/cygwin/, LilyPond on Windows page}.
+@chapter Compiling and installing on Unix
 
 
 @html
@@ -34,89 +28,34 @@ site}.
 Building LilyPond is an involved process. We advise to use binary
 packages if these are available for your platform.
 
+
+
 @subsection Source code
 
-  If you want to compile LilyPond from source, download here:
+Download source tarballs from here:
 @itemize @bullet
 @item Download development releases from
-@c Hmm, these won't show up in lilypond.org/stats
-@c Otoh, lilypond.org is not updated when release mail arrives
 @uref{ftp://ftp.lilypond.org/pub/LilyPond/} by FTP and
 @uref{http://www.lilypond.org/ftp/} by HTTP.
 @item @uref{ftp://sca.uwaterloo.ca/pub/} by FTP (Canadian mirror).
 @end itemize
 
 
-For Red Hat Linux and SuSE Linux, @file{.spec} files are included in the
-tarball; see instructions below.
-
-Of course, if your platform supports LilyPond, such as Debian GNU/Linux,
-FreeBSD, OpenBSD or NetBSD, you're encouraged to use the native build
-from source drill.
-
-The latest development version is also available through anonymous
-CVS. See @uref{http://savannah.gnu.org/cvs/?group=lilypond}.
-
-CVS does not contain generated files.  To create @file{configure}, run:
-@quotation
+Use Xdelta to patch tarballs, e.g. to patch  
+@file{lilypond-1.4.2.tar.gz} to @file{lilypond-1.4.3.tar.gz}, do
 @example
-	./autogen.sh
+	xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
 @end example
-@end quotation
 
-@html
-<a name="download-binaries">
-@end html
-
+For information on packaging and CVS, see  
+@uref{http://lilypond.org/}, under ``develoment''.
 
 
 @subsection Precompiled binaries
 
-If you want to track bleeding edge development, try:
+Check out @uref{http://lilypond.org} for up to date information on
+binary packages.
 
-@itemize @bullet
-@item @uref{ftp://ftp.debian.org/debian/pool/main/l/lilypond/, Debian
-GNU/Linux} usually has the latest binaries for the most useful stable
-and development versions, while
-@item @uref{http://rpmfind.net/linux/mandrake/cooker/contrib/RPMS/,
-Mandrake Cooker} also provides fairly recent versions.
-@end itemize
-
-Binaries are made available for other popular platforms, but as we need
-to compile them ourselves, they are not updated for every version
-released.
-
-@itemize @bullet
-@item @uref{http://www-ccrma.stanford.edu/planetccrma/software/soundapps.html#lilypond,Red Hat i386}
-@item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/SuSE, SuSE}
-@item @uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/linuxppc/,
-LinuxPPC}
-@item
-@uref{http://www.lilypond.org/gnu-windows/, Windows}
-@end itemize
-
-@subsection Upgrading
-
-There are two options for upgrading sources:
-
-@itemize
-@item If you have an unpacked source tree of a previous version, you
-may the patches.
-
-@emph{If you upgrade by patching do remember to rerun autoconf after makefilesapplying the patch}.
-
-@item If you have the @code{.tar.gz} file of a previous release, you can
-use
-@uref{http://sourceforge.net/projects/xdelta/, xdelta}.
- This is much safer than using patches, and is the recommended way.
-
-The following command produces @file{lilypond-1.4.3.tar.gz} from
-@file{lilypond-1.4.2.tar.gz} identical (up to compression dates) to the .3
-on the FTP site:
-@example
-	xdelta patch lilypond-1.4.2-1.4.3.xd lilypond-1.4.2.tar.gz
-@end example
-@end itemize
 
 @subsection Font problems
 
@@ -137,37 +76,26 @@ script automating this has been included, see
 You need the following packages to compile LilyPond:
 
 @itemize
-@item The GNU c++ compiler (version 2.95.2 or newer).
+@item
+ @uref{http://gcc.gnu.org/,
+The GNU c++ compiler} (version 3.1 or newer).
 EGCS 1.1 may work, but is no longer supported.
-Check out @uref{ftp://ftp.gnu.org/gnu/gcc/, the gcc site}.
-
-WARNING: if you choose to upgrade to GCC 3.x, enquire if your
-distribution supports g++ 3.x and flex.  At the time of writing (Fri
-Jul 5 2002), @strong{no} distribution that we know of ships a flex
-that generates gcc-3.1.x compliant C++ code.
-
-@item Python (version 2.1 or newer).
-Check out @uref{http://www.python.org, the python website}.
-
-@item GUILE (version 1.6.4 or newer).
 Check out
-@uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
 
-@item GNU Make (version 3.78 or newer).  
-Check out
-@uref{ftp://ftp.gnu.org/gnu/make/, the GNU
-make FTP directory}.
+@item @uref{http://www.python.org,Python} (version 2.1 or newer).
 
-@item Flex (version 2.5.4a or newer). 
-Check out @uref{http://www.gnu.org/software/flex/,the Flex webpage}.
+@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version 1.6.4 or newer).
+
+@item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer),  
+
+@item  @uref{http://www.gnu.org/software/flex/,Flex} (version 2.5.4a or newer). 
 
 WARNING: plain Flex 2.5.4(a) generates invalid C++ code.  GCC 3.x
 chokes on this.  If you wish to use GCC 3.x, make sure that your
 distribution supports g++ 3.x and flex.  For workarounds, see
 lexer-gcc-3.0.patch and lexer-gcc-3.1.sh in the source directory.
 
-@item Bison (version 1.25 or newer).
-Check out @uref{http://www.gnu.org/software/bison/,the bison webpage}.
+@item @uref{http://www.gnu.org/software/bison/,Bison} (version 1.25 or newer).
 
 @item @TeX{}.
 
@@ -178,17 +106,18 @@ Also, @TeX{}'s libkpathsea is used to find the fonts (@file{.mf},
 (1.0.6 is known to work).  You may need to install a tetex-devel (or
 tetex-dev or libkpathsea-dev) package too.
 
-@item Texinfo (version 4.2 or newer).
-The documentation of lily is written in texinfo.  Check out
-@uref{ftp://ftp.gnu.org/gnu/texinfo/,the texinfo FTP directory}.
+@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.2 or newer).
 
-@item The geometry package for LaTeX is needed to use ly2dvi.  
-It is available at
-@uref{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry,the
-FTP directory for @code{geometry}}. This package is normally included
-with the @TeX{} distribution.
+@item The
+@uref{ftp://ftp.ctan.org/tex-archive/macros/latex/contrib/supported/geometry,geometry
+package for LaTeX}.
 
-@item kpathsea, a library for searching (@TeX{}) files.  @code{kpathsea} is
+ This package is normally included with the @TeX{} distribution.
+
+@item kpathsea, a library for searching (@TeX{}) files.
+
+@ignore
+@code{kpathsea} is
 usually included with your installation of @TeX{}.  You may need to
 install a tetex-devel or tetex-dev package too. If kpathsea is not
 installed in a directory where the compiler normally looks, read the
@@ -205,6 +134,7 @@ configure something like:
 	./configure --without-kpathsea --enable-tfm-path=/usr/share/texmf/fonts/tfm/public/cm/:/usr/share/texmf/fonts/tfm/ams/symbols
 @end example
 @end quotation
+@end ignore
 
 @end itemize
 
@@ -216,27 +146,22 @@ following software:
 @itemize @bullet
 @item @TeX{}.
 @item Xdvi and Ghostscript.
-@item GUILE 1.4, or newer.
-Check out
-@uref{http://www.gnu.org/software/guile/guile.html,the GUILE webpage}.
+@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} 1.6.4, or newer.
 @end itemize
 
-For running LilyPond successfully you have to help @TeX{} and MetaFont find
-various files.  The recommended way of doing so is adjusting the
-environment variables in the start-up scripts of your shell. Appropriate
-Csh and bourne sh scripts are left in
-@file{buildscripts/out/lilypond-profile} and
-@file{buildscripts/out/lilypond-login} after compilation.
+For running LilyPond successfully
 
-LilyPond is a big and slow program.  A fast CPU and plenty of RAM is
-recommended for comfortable use.
+You have to help @TeX{} and MetaFont find LilyPond support
+files. After compiling, scripts to do this can be found in
+@file{buildscripts/out/lilypond-profile} and
+@file{buildscripts/out/lilypond-login}.
 
 @subsection Building documentation
 
 You can view the documentation online at
-@uref{http://www.lilypond.org/stable/Documentation/out-www/}, but you
-can also build it locally. This process requires a successful compile of
-lilypond. The documentation is built by issuing:
+@uref{http://www.lilypond.org/doc/}, but you can also build it
+locally. This process requires a successful compile of lilypond. The
+documentation is built by issuing:
 @example 
 	make web
 @end example 
@@ -244,10 +169,13 @@ lilypond. The documentation is built by issuing:
 Building the website requires some additional tools: 
 
 @itemize @bullet
-@item The netpbm utilities, see @uref{http://netpbm.sourceforge.net/}
-@item mftrace 1.0 or newer, needed for generating PostScript Type1
-fonts. Get it from @uref{http://www.cs.uu.nl/~hanwen/mftrace/}.  You
-will need to install some additional packages to get mftrace to work.
+@item The @uref{http://netpbm.sourceforge.net/,netpbm utilities} see 
+@item ImageMagick
+@item @uref{http://www.cs.uu.nl/~hanwen/mftrace/,mftrace} (1.0.17 or
+newer),
+
+  You will need to install some additional packages to get mftrace to
+work.
 @end itemize
 
 @section Building LilyPond
@@ -325,19 +253,15 @@ and for the profiling version, I specify a different configuration:
 
 
 
-
-
 @section Emacs mode
 
 An Emacs mode for entering music and running LilyPond is contained in
 the source archive as @file{lilypond-mode.el},
-@file{lilypond-indent.el}, @file{lilypond-font-lock.el} and 
-@file{lilypond.words}.
-You should install these files to a directory included in your 
-@var{load-path}. File @file{lilypond-init.el} should be placed to 
-@var{load-path}@file{/site-start.d/} or appended to your @file{~/.emacs}
-or @file{~/.emacs.el}. If you have installed a precompiled LilyPond 
-package, these files can be found in @file{/usr/share/doc/lilypond-x.y.z/}. 
+@file{lilypond-indent.el}, @file{lilypond-font-lock.el} and
+@file{lilypond.words}.  You should install these files to a directory
+included in your @var{load-path}. File @file{lilypond-init.el} should
+be placed to @var{load-path}@file{/site-start.d/} or appended to your
+@file{~/.emacs} or @file{~/.emacs.el}.
 
 As a user, you may want add your source path or, e.g., @file{~/site-lisp/} 
 to your @var{load-path}. Append the following line (modified) to your 
@@ -348,9 +272,6 @@ to your @var{load-path}. Append the following line (modified) to your
 @end example
 @end quotation
 
-If you have the latest LilyPond-1.4.x Debian package, LilyPond-mode is
-automatically loaded, you not even need to modify your @code{~/.emacs}
-file.
 
 @section Vim mode
 
@@ -372,267 +293,8 @@ to @file{~/.vim/filetype.vim}:
 @end example
 @end quotation
 
-@section Compiling for distributions 
-
-@subsection Red Hat Linux
 
 
-You can compile RPMS yourself.  For running on a Red Hat system you
-need these packages: guile, tetex, tetex-latex, tetex-dvips,
-libstdc++, python, ghostscript.  A spec file is in
-@file{make/out/lilypond.redhat.spec}. This file is distributed along
-with the sources.  You can make the rpm by issuing:
-@example 
-	cp lilypond-x.y.z.tar.gz /usr/src/redhat/SOURCES/
-	tar xfz lilypond-x.y.z.tar.gz
-	rpm -bb lilypond-x.y.z/make/out/lilypond.redhat.spec
-	rpm -i /usr/src/redhat/RPMS/i386/lilypond-x.y.z
-@end example 
-
-For compilation on a Red Hat system you need these packages, in
-addition to the those needed for running: glibc-devel, gcc-c++,
-libstdc++-devel, guile-devel, flex, bison, texinfo, groff, mftrace,
-netpbm-progs, autotrace, t1utils.
-
-@subsection SuSE
-
-Some SUSE RPMS should available from
-@uref{ftp://ftp.lilypond.org/pub/LilyPond/binaries/SuSE}.
-
-You can also compile a RPM for SUSE yourself.  A spec file is in
-@file{make/out/lilypond.suse.spec}, see the instructions for building
-the Red Hat RPM.
-
-You must have the following packages: guile tcsh tetex te_latex te_kpath
-te_mpost libpng python gpp libgpp gettext autoconf netpbm libnetpb
-gs_serv gs_lib gs_fonts guile
-
-@subsection Slackware
-
-No precompiled packages for Slackware are available.
-
-Problems have been reported with Slackware 7.0; apparently, it ships
-with a faulty compiler. Do not compile LilyPond with -O2 on this
-platform.
-
-At least on Slackware 8.0, you have to manually specify the paths to the
-Kpathsea library, see the section on kpathsea.
-
-
-@subsection Mandrake
-
-Some binaries are available at rpmfind.net. Refer to 
-@uref{http://rpmfind.net/linux/mandrake/cooker/contrib/RPMS/}.
-
-You can also compile a RPM for Mandrake yourself.  A spec file is in
-@file{make/out/lilypond.mandrake.spec}, see the instructions for building
-the Red Hat RPM.
-
-@subsection Debian GNU/Linux
-
-A Debian package is also available.  You may install it easily by running
-@command{apt-get} as root:
-@example
-
-	apt-get install lilypond lilypond-doc
-@end example
-
-You can also compile the .deb for Debian yourself, do:
-@example
-
-	apt-get -b source lilypond
-@end example
-
-If you're real impatient, you may even do:
-@example
-
-	cd lilypond-x.y.z   # a previous version
-	uscan               # download and build latest directly from upstream
-@end example
-
-
-Debian's @TeX{} installation is a bit short on memory, you may want to
-increase it like this:
-@example
---- texmf.cnf.orig	Sun Dec 16 23:47:07 2001
-+++ texmf.cnf	Sun Dec 16 23:46:34 2001
-@@ -411,8 +411,8 @@
- main_memory.context = 1500000
- main_memory.mpost = 1000000
- main_memory = 263000 % words of inimemory available; also applies to inimf&mp
--extra_mem_top = 0    % extra high memory for chars, tokens, etc.
--extra_mem_bot = 0    % extra low memory for boxes, glue, breakpoints, etc.
-+extra_mem_top = 1000000    % extra high memory for chars, tokens, etc.
-+extra_mem_bot = 1000000    % extra low memory for boxes, glue, breakpoints, etc.
- 
- obj_tab_size.context = 300000
- 
-@@ -430,7 +430,7 @@
- % Max number of characters in all strings, including all error messages,
- % help texts, font names, control sequences.  These values apply to TeX and MP.
- pool_size.context = 750000
--pool_size = 125000		
-+pool_size = 250000		
- % Minimum pool space after TeX/MP's own strings; must be at least
- % 25000 less than pool_size, but doesn't need to be nearly that large.
- string_vacancies.context = 45000
-@end example
-
-You could also export @env{extra_mem_top} and @env{extra_mem_bot} as
-environment variables if you do not want to or cannot modify
-@file{/etc/texmf/texmf.cnf}.
-
-Alternatively, visit:
-
-@itemize @bullet
-@item @uref{http://packages.debian.org/lilypond,http://packages.debian.org/lilypond}
-@item @uref{http://people.debian.org/~foka/lilypond/,http://people.debian.org/~foka/lilypond/}
-for latest semi-unofficial build of LilyPond 1.4.2 for Debian 2.2 (potato) users.
-The official stable Debian 2.2 is stuck with the old LilyPond-1.3.24.
-Since LilyPond-1.4 has been released, the older lilypond1.3 Debian
-package is now obsolete.
-@end itemize
-
-Please contact Anthony Fok @email{lilypond@@packages.debian.org} for more
-information.
-
-The build scripts are in the subdirectory @file{debian/}; you can
-make the .deb by doing, for example:
-
-@example
-	$ su - root
-	# dpkg --purge lilypond lilypond1.3
-	# exit
-	$ tar xzf lilypond-1.4.3.tar.gz
-	$ cd lilypond-1.4.3
-	$ dch -p -v 1.4.3-0.local.1 "Local build."
-	$ debuild -B
-	$ su - root
-	# dpkg -i ../lilypond_1.4.3*.deb
-	# exit
-	$
-@end example
-
-Use command @command{debuild} instead of @command{debuild -B} if you have
-a very fast machine and want to build the HTML, PS and DVI documentation
-too.
-
-For compilation on a Debian GNU/Linux system you need these packages,
-in addition to the those needed for running:
-
-@itemize @bullet
-@item g++, cpp, libc6-dev, libstdc++<@var{your-libstdc++-version-here}>-dev
-@item libguile<@var{your-libguile-version-here}>-dev
-@item make, m4, flex, bison
-@item gettext
-@item groff, texinfo
-@item tetex-base, tetex-bin, tetex-extra, libkpathsea-dev or tetex-dev
-@item dpkg-dev, debhelper, fakeroot
-@item gs, netpbm
-@item pnmtopng (only in Debian 2.2; pnmtopng has been merged with netpbm
-  in Debian testing/unstable.)
-@end itemize
-
-Most of these are listed on the @samp{Build-Depends} line in the
-@file{debian/control} file.  To ensure the creation of the lilypond deb is
-trouble-free, we recommend that you first install the following packages
-by running \@command{apt-get} as root before building the package:
-
-For Debian 2.2:
-
-@example
-	apt-get install task-debian-devel task-c++-dev \
-		python-base libguile6-dev tetex-bin tetex-dev \
-		tetex-extra flex bison texinfo groff gs \
-		netpbm pnmtopng m4 gettext
-@end example
-
-For Debian in development ("unstable", the future 2.3 or 3.0):
-
-@example
-	apt-get install binutils cpp gcc libc6-dev \
-		g++ libstdc++2.10-dev \
-		python-base libguile-dev tetex-bin libkpathsea-dev \
-		tetex-extra flex bison texinfo  groff gs \
-		netpbm m4 gettext
-@end example
-
-And, just so that old fonts from previous versions of LilyPond won't
-interfere with your build, you may want to do this before the build too:
-
-@example
-	dpkg --purge lilypond lilypond1.3
-@end example
-
-@subsection MacOS X
-
-LilyPond is available through fink, in the unstable cvs distribution.
-
-You need to:
-@itemize @bullet
-@item Get the Fink package manager from @uref{http://fink.sourceforge.net}.
-@item Get the LilyPond package description by enabling the "unstable" tree
-in fink and executing @command{fink selfupdate-cvs}.
-@end itemize
-
-Then do:
-@quotation
-@example
-	fink install lilypond-unstable
-@end example
-@end quotation
-
-That's it!  The command should compile and install all LilyPond
-prerequisites (python, TeX, X11, ghostscript) and then LilyPond
-itself.
-
-
-@subsection Compiling on MacOS X
-LilyPond has been built on Darwin, to be precise, on:
-@example
-    Darwin buoux.aspiratie.nl 5.3 Darwin Kernel Version 5.3: Thu Jan 24
-    22:06:02 PST 2002; root:xnu/xnu-201.19.obj~1/RELEASE_PPC  Power Macintosh powerpc
-@end example
-
-using:   
-
-@example
-    Apple Computer, Inc. version gcc-932.1, based on gcc version 2.95.2 19991024 (release)
-@end example
-
-To make sure you have all packages needed to build LilyPond installed,
-run as root:
-
-@example
-	apt-get install bash python guile debianutils flex bison texinfo \
-		ghostscript6 netpbm m4 gettext
-@end example        
-
-and:
-                
-@example
-	fink install tetex
-@end example        
-
-For more information about @file{apt-get} and @file{fink}, see
-@uref{http://fink.sf.net,fink.sourceforge.net}.
-
-@c  brokenness of autoconf; don't ask
-Then, configure, patch, make and install LilyPond using these commands:
-
-@example
-	CC="cc -I/sw/include" CXX="c++ -I/sw/include" LDFLAGS="-L/sw/lib" \
-	    ./configure --prefix=/sw
-	make -C lily out/parser.hh out/parser.cc out/config.h
-	patch -p0 < darwin.patch
-	make -C lily out/parser.o
-	make DEPENDENCIES_OUTPUT=/dev/null all
-	make install
-@end example
-
-For installing, you must be root, of course.
-
-@c Why isn't this in BUGS (where it belongs?)
 @section Problems
 
 For help and questions use @email{lilypond-user@@gnu.org}.  Please
@@ -661,8 +323,7 @@ environment variables set during make.
 
 @unnumberedsubsec Gcc-3.0.4
 
-Gcc 3.0.4, is a bit flaky.  Try downgrading to 2.95.x, or if you're
-adventurous (see below), upgrading to 3.1.x.
+Gcc 3.0.4 is flaky;  upgrade GCC.
 
 @unnumberedsubsec Flex-2.5.4a and gcc-3.x
 
@@ -675,8 +336,6 @@ LilyPond with gcc-3.0 you may do:
 	patch -p1 < lexer-gcc-3.0.patch
 	make conf=gcc-3.0 -C lily
 @end example
-
-Note that this is fixed in Debian/unstable for flex >= 2.5.4a-13.
 
 @unnumberedsubsec Flex-2.5.4a and gcc-3.1.x
 
@@ -691,38 +350,21 @@ LilyPond with gcc-3.1.1 you may do:
 	make conf=gcc-3.1
 @end example
 
-This assumes that the GCC 3.1 binaries are called gcc-3.1 and g++-3.1.
-Note that this is @strong{not} fixed in Debian/unstable for flex <=
-2.5.4a-26.
 
-@unnumberedsubsec Linux-2.4.0, Guile-1.4 --with-threads
-
-There's a bug in certain kernels around version 2.4.0, that is
-triggered when using Guile 1.4 compiled with pthreads.  You'll see
-random segmentation fault crashes of LilyPond.  Upgrade to a newer
-version of Linux.  If you can't do that, you may try to recompiling
-Guile without threads (YMMV):
-
-@example
-	 guile-1.4$ ./configure --without-threads; make all install
-@end example
 
 @unnumberedsubsec OpenBSD
 
 @itemize @bullet
-@item By default, gcc on OpenBSD doesn't include
-@file{/usr/local/include} and @file{/usr/local/lib} in the system
-paths.  Depending upon where/how you installed kpathsea and other
-libraries, you may need to refer to the section ``Linking to
-kpathsea''.
-
+@item
+ Refer to the section ``Linking to kpathsea'': GCC on OpenBSD doesn't
+set include paths for kpathsea.
 @end itemize
 
 @unnumberedsubsec NetBSD
 
 @itemize @bullet
 @item The flex precompiled in NetBSD-1.4.2 is broken.
-Download flex-2.5.4a, build, install.
+Upgrade to flex-2.5.4a.
 
 @item The configuration of Gcc (egcs-2.91.60 19981201 (egcs-1.1.1
 release)) does not include @file{/usr/pkg} paths.  Configure using:
@@ -749,10 +391,6 @@ or:
 @example
 	CONFIG_SHELL=/bin/bash bash -c ./configure
 @end example
-
-@item Sparc64/Solaris 2.6, GNU make-3.77
-
-GNU make-3.77 is buggy on this platform, upgrade to 3.78.1 or newer.
 
 @item Sparc64/Solaris 2.6, ld
 
