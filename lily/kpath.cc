@@ -147,15 +147,29 @@ kpathsea_gulp_file_to_string (String name)
   return string;
 }
 
-LY_DEFINE (ly_kpathsea_gulp_file, "ly:kpathsea-gulp-file",
+
+
+LY_DEFINE (ly_kpathsea_expand_path, "ly:kpathsea-expand-path",
 	   1, 0, 0, (SCM name),
-	   "Read the file @var{name}, and return its contents in a string.  "
-	   "The file is looked up using the search path and kpathsea.")
+	   "Read the file @var{name}, and return its expanded path, or "
+	   "@code{#f} if not found.")
 {
   SCM_ASSERT_TYPE (ly_c_string_p (name), name, SCM_ARG1, __FUNCTION__, "string");
-  return scm_makfrom0str
-    (kpathsea_gulp_file_to_string (ly_scm2string (name)).to_str0 ());
+
+  String nm = ly_scm2string (name);
+  String filename = global_path.find (nm);
+  if (filename.is_empty ())
+    {
+      char *p = kpse_find_file (nm.to_str0 (), kpathsea_find_format (nm),
+	true);
+      if (p)
+	return scm_makfrom0str (p);
+      else
+	return SCM_BOOL_F;
+    }
+  return scm_makfrom0str (filename.to_str0 ());
 }
+
 
 void
 initialize_kpathsea (char *av0)
