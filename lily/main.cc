@@ -50,6 +50,9 @@ Array<String> dump_header_fieldnames_global;
 /* Name of initialisation file. */
 String init_name_global;
 
+/* Write midi as formatted ascii stream? */
+bool midi_debug_global_b;
+
 /* Do not calculate and write paper output? */
 bool no_paper_global_b = false;
 
@@ -116,6 +119,7 @@ static Long_option_init options_static[] = {
   {0, "version", 'v',  _i ("print version number")},
   {0, "verbose", 'V', _i("verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
+  {0, "midi-debug", 'X',  _i ("write midi ouput in formatted ascii")},
   {0,0,0,0}
 };
 
@@ -455,6 +459,9 @@ main (int argc, char **argv)
 	  break;
 	case 'T':
 	  no_timestamps_global_b = true;
+	  break;
+	case 'X':
+	  midi_debug_global_b = true;
 	  break;
 	default:
 	  assert (false);

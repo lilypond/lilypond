@@ -48,26 +48,43 @@ Midi_walker::do_start_note (Midi_note* note_p)
 {
   Audio_item* ptr = (*item_l_arr_l_)[index_];
   Moment stop_mom = note_p->length_mom () + ptr->audio_column_l_->at_mom ();
+
+  bool play_start = true;
   for (int i=0; i < stop_note_queue.size(); i++) 
     {
+      /* if this pith already in queue */
       if (stop_note_queue[i].val->pitch_i() == note_p->pitch_i ()) 
 	{
 	  if (stop_note_queue[i].key < stop_mom)
-	    stop_note_queue[i].ignore_b_ = true;
-	  else {
-	    // skip the stopnote
-	    delete note_p;
-	    return;
+	    {
+	      /* let stopnote in queue be ignored,
+	       new stop note wins */
+	      stop_note_queue[i].ignore_b_ = true;
+	      /* don't replay start note, */
+	      play_start = false;
+	      break;
+	    }
+	  else
+	    {
+	      /* skip this stopnote,
+		 don't play the start note */
+	      delete note_p;
+	      note_p = 0;
+	      break;
 	  }
 	}
     }
 
-  Midi_note_event e;
-  e.val = new Midi_note_off (note_p);
-  e.key = stop_mom;
-  stop_note_queue.insert (e);
-      
-  output_event (ptr->audio_column_l_->at_mom (), note_p);
+  if (note_p)
+    {
+      Midi_note_event e;
+      e.val = new Midi_note_off (note_p);
+      e.key = stop_mom;
+      stop_note_queue.insert (e);
+
+      if (play_start)
+	output_event (ptr->audio_column_l_->at_mom (), note_p);
+    }
 }
 
 /**
@@ -111,8 +128,8 @@ Midi_walker::process()
 
   /*
     THIS IS A MEMORY LEAK. FIXME.
-   */
-  //Midi_item* p = ptr->midi_item_p ();
+    where's the leak?  Everything goet to Midi_track, in a killing_cons.
+ */
   if (Midi_item* midi_p = Midi_item::midi_p (audio_p))
     {
       midi_p->channel_i_ = track_l_->number_i_;

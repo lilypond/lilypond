@@ -7,6 +7,7 @@
  */
 
 #include "debug.hh"
+#include "main.hh"
 #include "misc.hh"
 #include "string.hh"
 #include "string-convert.hh"
@@ -450,8 +451,8 @@ Midi_note_off::Midi_note_off (Midi_note* n)
   // Anybody who hears any difference, or knows how this works?
   //  0 should definitely be avoided, notes stick on some sound cards.
   // 64 is supposed to be neutral
+  
   aftertouch_byte_ = 64;
-
 }
 
 String
@@ -598,12 +599,12 @@ String
 Midi_track::data_str () const
 {
   String str = Midi_chunk::data_str ();
-  if (flower_dstream && !flower_dstream->silent_b ("Midistrings"))
+  if (midi_debug_global_b)
     str += "\n";
   for (Cons<Midi_event> *i=event_p_list_.head_; i; i = i->next_) 
     {
       str += i->car_->str ();
-      if (flower_dstream && !flower_dstream->silent_b ("Midistrings"))
+      if (midi_debug_global_b)
         str += "\n";
     }
   return str;

@@ -37,11 +37,10 @@ Midi_stream::operator << (String str)
 Midi_stream&
 Midi_stream::operator << (Midi_item const& midi_c_r)
 {
-//    *this <<midi_c_r.str (); 
   String str = midi_c_r.str ();
-  if (flower_dstream && !flower_dstream->silent_b ("Midistrings")) 
+  if (midi_debug_global_b)
     {
-    str = String_convert::bin2hex_str (str) + "\n";
+     str = String_convert::bin2hex_str (str) + "\n";
     // ugh, should have separate debugging output with Midi*::print routines
     int i = str.index_i ("0a");
     while (i >= 0)
