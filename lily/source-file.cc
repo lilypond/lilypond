@@ -72,15 +72,12 @@ gulp_file (String fn, int* len)
   return str;
 }
 
-
+/*
+  Unused.
+ */
 Source_file::Source_file (String filename, String data)
 {
-#if 1
-  #warning FILENAME junked.  If intentional, add comment here.
-  name_string_ = "";
-#else
   name_string_ = filename;
-#endif
   istream_ = 0;
   contents_str0_ = data.get_copy_str0();
   length_ = data.length();
