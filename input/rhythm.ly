@@ -7,7 +7,7 @@ TestedFeatures	 multiple meters, beaming, unsynced bars, userdefd engravers
 
 
 
-\version "0.1.5";
+\version "0.1.6";
 
 ritme = \melodic{ %\octave ;
 	\partial 8;
@@ -49,7 +49,7 @@ yanother =
 
 
 \score{
-	 < \multi 3;
+	\type Staff_group <
 		\ritme
 		\another
 		\yanother
@@ -79,6 +79,7 @@ yanother =
 	%% add Timing_engraver to the staff
 	Staff = \translator {
 	  \type "Engraver_group_engraver";
+	defaultclef=	violin;
 
 	\consists "Timing_engraver";
 	  \consists "Bar_engraver";
