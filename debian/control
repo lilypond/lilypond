@@ -1,5 +1,5 @@
 Source: lilypond1.3
-Build-Depends: debhelper (>= 2.0.71), python-base (>= 1.5.2-4), libguile6-dev, tetex-bin, tetex-devel, tetex-extra, flex (>= 2.5.4a-1), bison (>= 1:1.28-1), texinfo (>= 4.0-1), groff, gs, netpbm, pnmtopng, m4, gettext (>= 0.10.35-13)
+Build-Depends: debhelper (>= 2.0.71), python-base (>= 1.5.2-4), libguile9-dev, tetex-bin, tetex-devel, tetex-extra, flex (>= 2.5.4a-1), bison (>= 1:1.28-1), texinfo (>= 4.0-1), groff, gs, netpbm, pnmtopng, m4, gettext (>= 0.10.35-13)
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>
