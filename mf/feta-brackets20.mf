@@ -1,15 +1,16 @@
 % 
-% feta-braces20.mf --  implement 
+% feta-brackets20.mf --  implement 
 % 
 % source file of the Feta (Font-En-Tja) music font
 % 
 % (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
+% 	Jan Nieuwenhuizen <jan@digicash.com>
 % 
 
-font_identifier:="feta-braces20";
+font_identifier:="feta-brackets20";
 font_size 20;
 mode_setup;
 
 staffsize#:=20pt#;
-input feta-beugel;
+input feta-haak;
 end.
