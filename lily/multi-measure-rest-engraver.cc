@@ -140,17 +140,22 @@ Multi_measure_rest_engraver::stop_translation_timestep ()
   Moment mp = (unsmob_moment (smp)) ? *unsmob_moment (smp) : Moment (0);
 
   if (mmrest_p_ && (now_mom () >= start_moment_) 
-    && !mp
-    && (scm_ilength (mmrest_p_->get_grob_property ("columns")) >= 2))
+      && !mp
+      && (scm_ilength (mmrest_p_->get_grob_property ("columns")) >= 2))
     {
       typeset_grob (mmrest_p_);
       /*
 	we must keep mmrest_p_ around to set measure-count.
        */
     }
+
   if (lastrest_p_)
     {
-      typeset_grob (lastrest_p_);
+      /* sanity check */
+      if (scm_ilength (lastrest_p_->get_grob_property ("columns")) >= 2
+	  && lastrest_p_->get_bound (LEFT) && lastrest_p_->get_bound (RIGHT)
+	  && lastrest_p_->get_bound (LEFT) != lastrest_p_->get_bound (RIGHT))
+	typeset_grob (lastrest_p_);
       lastrest_p_ = 0;
     }
 

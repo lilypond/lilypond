@@ -347,10 +347,11 @@ warning message will appear and no ties will be created.
 @end lilypond
 
 If you dislike the amount of ties created for a chord, you set
-@code{Thread.sparseTies} to true, resulting in  a smaller number of
+@code{Voice.sparseTies} to true, resulting in  a smaller number of
 ties:
 @lilypond[fragment,verbatim,center]
-  \property Thread.sparseTies = ##t
+%oops: core dump
+%  \property Voice.sparseTies = ##t
   <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
@@ -2366,11 +2367,11 @@ one voice, as common for wind parts in orchestral scores:
 @lilypond[verbatim,singleline,fragment]
   \context Staff <
     \context Voice=one \partcombine Voice
-      \context Thread=one \notes\relative c'' {
-        g g a b r2
+      \context Thread=one \relative c'' {
+        g a b r
       }
-      \context Thread=two \notes\relative c'' {
-        g g r2 g4 f4
+      \context Thread=two \relative c'' {
+        g r2 f4
       }
   >
 @end lilypond
@@ -2383,7 +2384,22 @@ while @code{two} always gets down stems and "Solo II".
 
 If you just want the splitting of Threads and setting of directions, and
 not the textual markings, you may set the property @var{soloADue} to
-false. There are a number of other properties that you can use to tweak
+false.  This mode can be used to set hymns:
+
+@lilypond[verbatim,singleline,fragment]
+  \context Staff <
+    \property Staff.soloADue = ##f
+    \context Voice=one \partcombine Voice
+      \context Thread=one \relative c'' {
+        b4 a c g
+      }
+      \context Thread=two \relative c'' {
+        d,2 a4 g'
+      }
+  >
+@end lilypond
+
+There are a number of other properties that you can use to tweak
 the behavior of part combining, refer to the automatically generated
 documentation. Look for @code{Thread_devnull_engraver}
 @code{Voice_devnull_engraver} and @code{A2_engraver}. 

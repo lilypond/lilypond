@@ -135,7 +135,7 @@ Multi_measure_rest::brew_molecule (SCM smob)
   
   Molecule s;
 
-  int measures = 1;
+  int measures = 0;
   SCM m (me->get_grob_property ("measure-count"));
   if (gh_number_p (m))
     {
@@ -144,6 +144,8 @@ Multi_measure_rest::brew_molecule (SCM smob)
   
 
   SCM limit = me->get_grob_property ("expand-limit");
+  if (measures <= 0)
+    return SCM_EOL;
   if (measures == 1)
     {
       s = musfont->find_by_name (Rest::glyph_name (me, 0, ""));

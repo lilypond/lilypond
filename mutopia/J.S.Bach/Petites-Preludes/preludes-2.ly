@@ -1,4 +1,4 @@
-#(set! point-and-click #t)
+#(set! point-and-click line-column-location)
 
 opus= "BWV 939"
 piece = "2"

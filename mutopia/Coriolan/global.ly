@@ -18,12 +18,12 @@ staffCombinePianoStaffProperties = {
 	\property PianoStaff.soloIIText = #""
 	% This is non-conventional, but currently it is
 	% the only way to tell the difference.
-	\property PianoStaff.aDueText = #"\\`a2"
+	\property PianoStaff.aDueText = #"a2"
 	\property PianoStaff.splitInterval = #'(1 . 0)
 	\property PianoStaff.changeMoment = #`(,(make-moment 1 1) . ,(make-moment 1 1))
 	\property PianoStaff.noDirection = ##t
 }
 
-#(set! point-and-click #t)
+#(set! point-and-click line-column-location)
 #(define text-flat '((font-relative-size . -2) (music "accidentals--1")))
 
