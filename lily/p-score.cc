@@ -25,10 +25,13 @@
 #include "file-results.hh"
 #include "misc.hh"
 
-#if 0				// has w32 advanced?
+#if 1			// has w32 advanced?
+			// nope (cygwin-b20)
+
 // sucking Cygnus egcs - w32
 #include "list.tcc"
 #include "cursor.tcc"
+
 #endif
 
 Paper_score::Paper_score ()
