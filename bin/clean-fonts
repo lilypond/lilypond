@@ -1,5 +1,7 @@
 #!/bin/sh
 
 # remove possibly stale .pk/.tfm files 
-
-rm  `locate font-en-tja| egrep '.*pk$|.*tfm$'`
+echo> /tmp/cleaning-font
+FILES=`find /var/lib/texmf/ -name 'font-en-tja*'` # -or -name 'vette-beam*'`
+echo removing $FILES
+rm  $FILES /tmp/cleaning-font
