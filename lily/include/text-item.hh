@@ -1,5 +1,5 @@
 /*   
-  text-item.hh -- declare Text_item
+  text-item.hh -- declare markup functions
 
   source file of the GNU LilyPond music typesetter
   
@@ -19,7 +19,7 @@ class Text_item
 {
 public:
   DECLARE_SCHEME_CALLBACK (brew_molecule, (SCM));
-  DECLARE_SCHEME_CALLBACK (interpret_markup, (SCM,SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (interpret_markup, (SCM, SCM, SCM));
   static bool has_interface (Grob*);
   static bool markup_p (SCM) ;
 

@@ -91,6 +91,17 @@ attachments to prevent ugly slurs.  [fixme: we need more documentation here].
 where a  horizontal beam fits that is larger than this number,  make a kneed beam.")
 (grob-property-description 'axes list? "list of axis numbers.
 In the case of alignment grobs, this should contain only one number.")
+
+(grob-property-description 'balloon-text markup? "Text to add to help balloon")
+(grob-property-description 'balloon-text-props list? "Font properties
+for balloon text.")
+(grob-property-description 'balloon-text-offset number-pair?
+			   "Where to put text relative to balloon.")
+(grob-property-description 'balloon-padding ly:dimension? "Text to add to help balloon")
+(grob-property-description 'original-callback procedure? "The
+original molecule drawer to draw the balloon around.")
+
+
 (grob-property-description 'bar-size ly:dimension? "size of a bar line.")
 (grob-property-description 'bars grob-list? "list of barline pointers.")
 (grob-property-description 'bar-size-procedure procedure? "Procedure that computes the size of a bar line.")

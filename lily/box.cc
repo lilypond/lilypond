@@ -75,3 +75,10 @@ Box::center () const
   return Offset (interval_a_[X_AXIS].center(),
 		 interval_a_[Y_AXIS].center()); 
 }
+void
+Box::widen (Real x, Real y)
+{
+  interval_a_[X_AXIS].widen (x);
+  interval_a_[Y_AXIS].widen (y);
+  
+}

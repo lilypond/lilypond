@@ -61,7 +61,8 @@ properties:
 @item Music properties
 These are used internally, and most users will not see or use them.
 
-They use Scheme style naming: @code{pitch}, @code{tremolo-type}.
+They use Scheme-style naming, i.e.  lowercase words separated with
+dashes: @code{pitch}, @code{tremolo-type}.
 
 @item Translation properties
 These influence the translation process, and most users will encounter them
