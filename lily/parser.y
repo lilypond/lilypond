@@ -902,7 +902,9 @@ script_req:
 	;
 
 gen_script_def:
-	text_def	{ $$ = $1; }
+	text_def	{ $$ = $1;
+		((Text_def*) $$)->align_i_ = CENTER; /* UGH */
+	}
 	| mudela_script	{ $$ = $1;
 		$$-> set_spot (THIS->here_input ());
 	}

@@ -6,15 +6,18 @@
         \font\vetfont=feta-beams16
         \font\fetanummer=feta-nummer8
         \font\dynfont=feta-din10 scaled \magstep1
-        \font\fingerfont=feta-nummer4
+        \font\bracefont=feta-braces16
+         \font\fingerfont=feta-nummer4
 }
 \def\fettwentydefs{
         \font\fontentja=feta20
         \font\vetfont=feta-beams20
         \font\fetanummer=feta-nummer10
         \font\dynfont=feta-din10 scaled \magstep2
-        \font\fingerfont=feta-nummer5
+        \font\bracefont=feta-braces20
+         \font\fingerfont=feta-nummer5
 }
+
 \def\fetdef#1#2{\def#1{%
         \hbox{\fetchar{#2}}}}
 
@@ -36,6 +39,8 @@
         \nointerlineskip%
         \hbox to0.45\balkheight{\hss\fetanummer #2\hss}%
         \vss}}
+
+\def\pianobrace#1{{\bracefont\char #1}}
 
 \newcount\embedcount\embedcount=0
 \newwrite\checkexists
@@ -195,5 +200,6 @@
         \storeembedcount
         \csname bye\endcsname
 }
+
 
 

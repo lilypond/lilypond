@@ -13,7 +13,8 @@
 \def\thearranger{}
 \def\theinstrument{}
 %
-\newcommand*{\title}[1]{\def\thetitle{#1\\}}
+% duh.  LaTeX has a \title too.
+\renewcommand*{\title}[1]{\def\thetitle{#1\\}}
 \newcommand*{\subtitle}[1]{\def\thesubtitle{#1\\}}
 \newcommand*{\composer}[1]{\def\thecomposer{#1\\}}
 \newcommand*{\arranger}[1]{\def\thearranger{#1}}

@@ -11,19 +11,19 @@ define_pixels(beamheight);
 pen beam_pen;
 beam_pen:=penrazor scaled beamheight rotated 90;
 
-ELEM_TAN:=0.05;
-SLOPES:=20;
-LENGTHS:=6;
-ELEM_FACTOR := 2;
-ELEM_INITIAL_LEN:=2;
+elem_tan:=0.05;
+slopes:=20;
+lengths:=6;
+elem_factor := 2;
+elem_initial_len:=2;
 
-for i := -SLOPES upto SLOPES:
-	width:= ELEM_INITIAL_LEN;
-	for j:=1 upto LENGTHS:
-		beginchar(128 + i * LENGTHS + j -1 ,width,0,0);
+for i := -slopes upto slopes:
+	width:= elem_initial_len;
+	for j:=1 upto lengths:
+		beginchar(128 + i * lengths + j -1 ,width,0,0);
 			pickup beam_pen;
-			draw origin--(lft w,w*i*ELEM_TAN);
+			draw origin--(lft w,w*i*elem_tan);
 			endchar;
-		width:=ELEM_FACTOR *width;
+		width:=elem_factor *width;
 		endfor;
 	endfor;

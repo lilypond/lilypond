@@ -227,27 +227,32 @@ Lookup::stem (Real y1,Real y2) const
 Atom
 Lookup::vbrace (Real &y) const
 {
-  if (y < 2* 20 PT)
+  Atom brace = (*symtables_p_)("param")->lookup ("brace");
+  Interval ydims = brace.dim_[Y_AXIS];
+  Real min_y = ydims[LEFT];
+  Real max_y = ydims[RIGHT];
+  Real step = 2.0 PT;
+ 
+  if (y < min_y)
     {
       warning (_("piano brace too small (") + print_dimen (y)+ ")");
-      y = 2*20 PT;
+      y = min_y;
     }
-  if (y > 67 * 2 PT)
+  if (y > max_y)
     {
       warning (_("piano brace too big (") + print_dimen (y)+ ")");
-      y = 67 *2 PT;
+      y = max_y;
     }
 
-  int idx = int (rint ((y/2.0 - 20) + 148));
-
-  Atom s = (*symtables_p_)("param")->lookup ("brace");
+  
+  int idx = int (rint ((y- min_y)/step)) + 1;
+  
   {
     Array<String> a;
     a.push (idx);
-    s.tex_ = substitute_args (s.tex_,a);
-    s.dim_.y() = Interval (-y/2,y/2);
+    brace.tex_ = substitute_args (brace.tex_,a);
+    brace.dim_[Y_AXIS] = Interval (-y/2,y/2);
   }
 
-
-  return s;
+  return brace;
 }

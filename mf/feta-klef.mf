@@ -130,7 +130,9 @@ def draw_bass_klef(expr exact_center, reduction) =
 	labels(2,4);
 	penlabels(1,2,3,4);
 
-	pickup pencircle scaled (.35 reduced_il);
+	save dot_diam;
+	2 dot_diam = reduction* (interline - stafflinethickness);
+	pickup pencircle scaled dot_diam;
 	draw z5;
 	draw z5 yscaled -1;
 enddef;

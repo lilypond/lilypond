@@ -22,7 +22,7 @@ global =
          \meter 4/4;                % should be \meter C
          \keyCminor 
 	 \skip 1*32;
-	 \bar "|.";
+	 \bar "|."; |
     }
   
 dux =

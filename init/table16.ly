@@ -62,7 +62,8 @@ table_sixteen=
 
      % dims ignored for this table
      "param" = \table {
-	"brace"	"\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
+%	"brace"	"\pianobrace{%}"	0.0\pt	0.0\pt	0.0\pt	0.0\pt
+	"brace"	"\pianobrace{%}"	0.0\pt	0.0\pt	32.0\pt	80.0\pt
 	"meter"	"\generalmeter{%}{%}"	0.0\pt	10.0\pt	-8.0\pt	8.0\pt
 	"stem"	"\stem{%}{%}"
 	"fill"	"\hbox{}"
