@@ -37,7 +37,7 @@ PYTHON_WRAPPERS=\
 
 OUT_PYTHON_WRAPPERS=$(PYTHON_WRAPPERS:%=$(outdir)/%)
 
-TEX_WRAPPERS=dvips latex tex yap
+TEX_WRAPPERS=dvips latex mktextfm tex yap
 OUT_TEX_WRAPPERS=$(TEX_WRAPPERS:%=$(outdir)/%)
 
 # profiles
@@ -55,6 +55,8 @@ $(outdir)/%: python-wrapper.sh
 	cat $< | sed $(sed-atvariables) -e "s!@name@!$(*F)!g" > $@
 	chmod 755 $@
 
+ATVARIABLES += OPTIONS
+
 # tex wrappers
 #$(outdir)/%: %-wrapper.sh
 #	cat $< | sed $(sed-atvariables) -e "s!@name@!$(*F)!g" > $@
@@ -66,6 +68,11 @@ $(outdir)/latex: tex-wrapper.sh
 
 $(outdir)/dvips: tex-wrapper.sh
 	cat $< | sed $(sed-atvariables) -e "s!@name@!dvips!g" > $@
+	chmod 755 $@
+
+MKTEXFTM_OPTIONS=--dest-dir \"$$(cygpath -w \"\"/usr/lilypond/share/lilypond/tfm\"\")\"
+$(outdir)/mktextfm: tex-wrapper.sh
+	cat $< | sed -e 's!@OPTIONS@!$(MKTEXFTM_OPTIONS)!' $(sed-atvariables) -e "s!@name@!maketfm!g" > $@
 	chmod 755 $@
 
 $(outdir)/tex: tex-wrapper.sh
