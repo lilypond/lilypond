@@ -54,7 +54,7 @@ TestedFeatures =	 "This file tests the Feta music-font"
 	    \paper_twenty
 	    linewidth = 17.5 \cm;
 	    gourlay_maxmeasures =5.;
-	    \output "lelie20.tex";
+	    \output "font20.tex";
 	}
 }
 
