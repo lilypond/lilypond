@@ -4315,7 +4315,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @multitable @columnfractions .1 .1 .1 .1 .1 .1 .1 .1 .1 .1
 
 @item @tab @strong{UK} @tab @strong{I} @tab @strong{F} @tab @strong{D} @tab
-@strong{NL} @tab @strong{DK} @tab @strong{S} @tab {FI} @tab @strong{N}
+@strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI} @tab @strong{N}
 
 @item
 
@@ -4335,7 +4335,7 @@ Ganze @tab hele @tab hel @tab hel @tab kokonuotti/-tauko @tab
 @item
 
 @item @strong{half} @tab minim @tab minima @tab blanche @tab Halbe @tab
-halve @tab halv @tab halv @puoli- @tab
+halve @tab halv @tab halv @tab puoli- @tab
 
 @item
 
