@@ -2450,6 +2450,12 @@ def conv (str):
 		sys.stderr.write ('\n')
 		sys.stderr.write ('use (set! VAR (ly:make-stencil (ly:stencil-expr VAR) X-EXT Y-EXT))\n')
 		raise FatalConversionError ()
+	if re.search ("ly:stencil-align-to!", str):
+		sys.stderr.write ('\n')
+		sys.stderr.write (NOT_SMART % "ly:stencil-align-to!")
+		sys.stderr.write ('\n')
+		sys.stderr.write ('use (set! VAR (ly:stencil-aligned-to VAR AXIS DIR))\n')
+		raise FatalConversionError ()
 	return str
 
 conversions.append (((2, 5, 17),
