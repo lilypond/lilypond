@@ -1,39 +1,17 @@
 \header {
 
-texidoc="
-gives
-
-@example
-      |    |
-      |    |
- +--  |  --+
- +----+----+
- |
- |
-
-instead of the desired
-
-      |    |
-      |    |
-      |  --+
- +----+----+
- +--
- |
- |
-
-@end example
+texidoc=" Funky kneed beams with beamlets also work. The beamlets
+should be pointing to the note head.
 "
 
 }
 
 \score {
   \notes\relative c' {
+     c16 c''8 c,,16
      c16 c''8 c16
+     c16 c,,8 c16          
      
-     % it's very helpful to have this one too,
-     % because a fix is likely to break
-
-     c,, c'' c,, cc
   }
   \paper { linewidth = -1 }
 }

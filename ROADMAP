@@ -1,18 +1,14 @@
-
-test1
-
-
 LilyPond development is hosted at http://savannah.gnu.org/projects/lilypond
 
-Here is an attempt at a simple explanation of the directory layout for
-LilyPond's source files.
+Here is a simple explanation of the directory layout for LilyPond's
+source files.
 
    Documentation/
      bibliography/		.bib files with references to books and articles
      windows/			building on windows
      pictures/			.xpms of the logo
-     programmer/		programmers documentation, including a test document
-     topdocs/			sources for the toplevel files (README.txt, INSTALL.txt, etc.)
+     topdocs/			sources for the toplevel files
+				  (README.txt, INSTALL.txt, etc.)
      user/			User manuals
    buildscripts/		Scripts used during the build process
    debian/			Files for building .deb packages
@@ -20,6 +16,7 @@ LilyPond's source files.
      include/
    input/			Various input files
      test/			Test features: one file per feature
+     mutopia/                   Real examples of music.
      bugs/			Show bugs
      no-notation/		Examples or bugs that do not produce output
      regression/		Various features for regression test
@@ -27,18 +24,13 @@ LilyPond's source files.
    lily/			Source code for LilyPond
      include/
    ly/				Standard include files.
-   make/			LilyPond specific Make subroutine files
+   make/			LilyPond specific make subroutine files, spec
+				  files.
    mf/				MetaFont sources for the feta font
-   midi2ly/			midi2ly source code
-     include/
-   mutopia/			Larger examples with full music pieces.
-     E.Satie/
-     F.Schubert/
-     J.S.Bach/
+   python/			python MIDI module
    po/				translations
-   ports/                       access to mutopia archive
    ps/				postscript library files
    tex/				TeX library files
    scm/				Scheme initialisation and subroutine files
-   scripts/			User scripts
+   scripts/			End-user scripts
    stepmake/			Generic make subroutine files

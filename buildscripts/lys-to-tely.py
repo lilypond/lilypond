@@ -73,10 +73,7 @@ if files:
 
 	def name2line (n):
 		# UGR
-		if string.find (n, '+') >= 0:
-			s = "@lilypondfile[printfilename]{%s}" % n
-		else:
-			s = "@lilypondfile[printfilename,verbatim]{%s}" % n
+		s = "@lilypondfile[printfilename]{%s}" % n
 		return s
 
 	s = s + string.join (map (lambda x: name2line (x), files), "\n")

@@ -28,7 +28,7 @@ LilyPond input is @b{plain text}. So, you can use your favorite text
 editor to enter it, you can put it in mail or embed it in an article like
 this:
 @quotation
-@lilypond[fragment,verbatim, relative 1]
+@lilypond[fragment,verbatim,relative 1]
 \key c \minor r8 c16 b c8 g as c16 b c8 d | g,4 
 @end lilypond
 @end quotation

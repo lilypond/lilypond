@@ -173,6 +173,49 @@ Beam::before_line_breaking (SCM smob)
 }
 
 
+/*
+  We want a maximal number of shared beams, but if there is choice, we
+  take the one that is closest to the end of the stem. This is for situations like
+
+       x
+      |
+      |
+  |===|
+  |=
+  |
+  x
+
+  
+ */
+int
+position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
+				    Direction left_dir,
+				    Direction right_dir)
+{
+  Slice lslice = int_list_to_slice (gh_cdr (left_beaming));
+
+  int best_count = 0;
+  int best_start = 0;
+  for (int i = lslice[-left_dir];
+       (i - lslice[left_dir])* left_dir <= 0 ; i+= left_dir) 
+    {
+      int count =0;
+      for ( SCM s = gh_car (right_beaming); gh_pair_p (s); s = gh_cdr (s))
+	{
+	  int k = - right_dir * gh_scm2int (gh_car (s)) + i;
+	  if (scm_memq (gh_int2scm (k), left_beaming) != SCM_BOOL_F)
+	    count ++;
+	}
+
+      if (count >= best_count)
+	{
+	  best_count = count; 
+	  best_start = i;
+	}
+    }
+
+  return best_start;
+}
 
 void
 Beam::connect_beams (Grob *me)
@@ -182,6 +225,8 @@ Beam::connect_beams (Grob *me)
 
   Slice last_int;
   last_int.set_empty();
+  SCM last_beaming = SCM_EOL;
+  Direction last_dir = CENTER;
   for (int i = 0; i< stems.size(); i++)
     {
       Grob *this_stem = stems[i];
@@ -190,7 +235,9 @@ Beam::connect_beams (Grob *me)
       Direction this_dir = Directional_element_interface::get(this_stem);
       if (i > 0)
 	{
-	  int start_point = last_int [this_dir];
+	  int start_point = position_with_maximal_common_beams
+	    (last_beaming, this_beaming,
+	     last_dir, this_dir);
 	  
 	  Direction d = LEFT;
 	  Slice new_slice ; 
@@ -209,6 +256,8 @@ Beam::connect_beams (Grob *me)
 		  new_slice.add_point (new_beam_pos);
 		  gh_set_car_x (s, gh_int2scm (new_beam_pos));
 		}
+
+
 	    }
 	  while (flip (&d) != LEFT);
 
@@ -225,12 +274,15 @@ Beam::connect_beams (Grob *me)
 	      gh_set_car_x (s, gh_int2scm (np));
 	      last_int.add_point (np);
 	    }
+	  
 	}
 
       if (i == stems.size () -1)
 	{
 	  gh_set_cdr_x ( this_beaming, SCM_EOL);
 	}
+      last_beaming = this_beaming;
+      last_dir = this_dir;
     }
  }
 
@@ -1005,6 +1057,10 @@ Beam::slope_damping (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+/*
+  Report slice containing the numbers that are both in (car BEAMING)
+  and (cdr BEAMING)
+ */
 Slice
 where_are_the_whole_beams(SCM beaming)
 {

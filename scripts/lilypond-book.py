@@ -304,8 +304,9 @@ output_dict= {
 %s
 </lilypond>''',
 		'output-filename' : r'''
-
-<pre>%s</pre>:''',	  
+<!-- %s >
+<a href="%s">
+<pre>%s</pre></a>:''',	  
 		  'output-lilypond-fragment': '''<lilypond%s>
 \context Staff\context Voice{ %s }
 </lilypond>''',
@@ -339,8 +340,10 @@ output_dict= {
   >
 \end{lilypond}''',
 		'output-filename' : r'''
-
-\verb+%s+:''',
+\verb+%s+:
+%% %s
+%% %s
+''',
 		'output-lilypond': r'''\begin[%s]{lilypond}
 %s
 \end{lilypond}
@@ -364,8 +367,13 @@ output_dict= {
 @end lilypond 
 ''',
 		'output-filename' : r'''
-
-@file{%s}:''',	  
+@ifnothtml
+@file{%s}:
+@end ifnothtml
+@ifhtml
+@uref{%s,@file{%s}}
+@end ifhtml
+''',	  
 		  'output-lilypond-fragment': '''@lilypond[%s]
 \context Staff\context Voice{ %s }
 @end lilypond ''',
@@ -958,7 +966,7 @@ def schedule_lilypond_block (chunk):
 		for o in opts:
 			m= re.match ("filename=(.*)", o)
 			if m:
-				newbody = newbody + get_output ("output-filename") % m.group(1)
+				newbody = newbody + get_output ("output-filename") % (m.group(1), basename + '.ly', m.group(1))
 				break
 		
 
