@@ -1,5 +1,32 @@
-1.3.111.jcn3
+1.3.112.jcn3
 ============
+
+* Added stems to font for use in markup text.
+
+* Fixed markup text kerning, see input/test/metronome.ly.
+  (Ugh, only feasible if kerning is first markup -- markup text should be revised.)
+
+* Fixed molecule caching problem with stem-tremolo: fixes vertical
+positioning of stem-tremolo.
+
+* Added forced slur direction (stemUp no longer implies slurUp) in
+cross-staff slur example.
+
+* Fixes to Glissando and line-spanner.  Behaves reasonably across line
+breaks.
+
+* Added: Align_interface::fixed_distance_alignment_callback that does
+not compute the extents of the to-be-aligned objects. This delays many
+brew_molecule() calls, because staff-height is no longer needed for
+aligning.
+
+* Bugfix: allows linebreaks for some types of beam.
+
+* Bugfix: add braces in larger size range; prevents "Unknown character
+127" messages, hopefully.
+
+1.3.112
+=======
 
 * Allow two consecutive glissandi.
 
@@ -11,7 +38,7 @@ staff.
 
 * Added simple glissando line.
 
-* Bugfix: broken [crescendo] text spanner.
+* Bugfix: broken text spanner (ie. crescendo)
 
 * Bugfix: chord tremolos
 
