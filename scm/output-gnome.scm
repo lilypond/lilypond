@@ -146,6 +146,7 @@ lilypond -fgnome input/simple-song.ly
 
 (define (pango-font-name font)
   (debugf "FONT-NAME:~S:~S\n" (ly:font-name font) (ly:font-design-size font))
+  (debugf (apply format (append '(#f "PANGO-NAME:~a, ~a\n") (font-name-style font))))
   (apply format (append '(#f "~a, ~a") (font-name-style font))))
 
 (define (pango-font-size font)
