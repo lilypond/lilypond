@@ -350,7 +350,14 @@ def compose_ly (code, options):
 	if RELATIVE in override.keys () and override[RELATIVE]:
 		relative = string.atoi (override[RELATIVE])
 
-	relative_quotes = (",,,", ",,", ",", "", "'", "''", "'''")[relative+4]
+	relative_quotes = ''
+
+	# 1 = central C
+	if relative < 0:
+		relative_quotes += ',' * (- relative - 1)
+	elif relative > 0:
+		relative_quotes += "'" * relative
+		
 	program_name = __main__.program_name
 	paper_string = string.join (paper_options, '\n    ') % override
 	preamble_string = string.join (preamble_options, '\n    ') % override
