@@ -32,8 +32,10 @@
 (let* ((doc (string-append
  	     (document-paper "LilyPond interpretation contexts")
  	     (document-all-engravers "LilyPond engravers")
+ 	     (document-all-engraver-properties "LilyPond context properties")	     
  	     (document-all-elements "LilyPond backend")
  	     (document-all-interfaces "LilyPond interfaces")
+	     (document-all-backend-properties "LilyPond backend properties")
 	     )
        )
        (name "lilypond-internals")
@@ -49,8 +51,12 @@
      "LilyPond internals" name "(lilypond.info)"
      '(("LilyPond interpretation contexts" . "Hierarchy and grouping of Engravers")
        ("LilyPond engravers" . "Engravers create Elements")
+       ("LilyPond context properties" . "context properties")       
        ("LilyPond backend" . "Detailed description of all Elements")
-       ("LilyPond interfaces" . "Element Interfaces")))
+       ("LilyPond interfaces" . "Element Interfaces")
+       ("LilyPond backend properties" . "Element properties")))
+
+    
     
     doc
     "\n@bye")
