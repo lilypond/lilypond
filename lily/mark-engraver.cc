@@ -128,7 +128,7 @@ Mark_engraver::process_music ()
        */
       
       SCM m = mark_req_->get_mus_property ("label");
-      if (gh_pair_p (m) || new_markup_p (m))
+      if (Text_item::markup_p (m))
 	{
 	  text_->set_grob_property ("text",m);
 	}

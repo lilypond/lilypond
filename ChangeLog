@@ -1,5 +1,15 @@
 2003-08-26  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scm/font.scm: remove old markup legacy
+
+	* GNUmakefile.in (web-clean): remake share/ after web-clean.
+
+	* lily/breathing-sign.cc (brew_molecule): remove function
+
+	* lily/text-item.cc: remove old-style markups.
+	(interpret_markup): C++ version of markup function
+	(brew_molecule): idem.
+
 	* lily/my-lily-lexer.cc (start_main_input): define input-file-name
 	as Scheme variable.
 

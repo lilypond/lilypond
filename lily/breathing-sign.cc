@@ -24,35 +24,11 @@
 #include "font-interface.hh"
 
 /*
- * TODO: thickness should be a grob property (unit:
- * stafflinethickness) rather than hardwired to (staff_space / 6).
+  TODO: thickness should be a grob property (unit: stafflinethickness)
+ rather than hardwired to (staff_space / 6).
  */
 
-/*
-  WTF: what does Breathing_sign have to do with text?!
-
-  --hwn
- */
-MAKE_SCHEME_CALLBACK (Breathing_sign,brew_molecule,1);
-SCM 
-Breathing_sign::brew_molecule (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  SCM text = me->get_grob_property ("text");
-  if (text == SCM_EOL)
-    return divisio_minima (smob);
-  SCM properties = Font_interface::font_alist_chain (me);
-  Molecule out = Text_item::interpret_new_markup (smob, properties, text);
-  SCM space_scm = me->get_grob_property ("word-space");
-  if (gh_number_p (space_scm))
-    {
-      Molecule mol;
-      mol.set_empty (false);
-      out.add_at_edge (X_AXIS, RIGHT, mol, gh_scm2double (space_scm) *
-		       Staff_symbol_referencer::staff_space (me), 0);
-    }
-  return out.smobbed_copy ();
-}
+  
 
 /*
   Simplistic caesura.

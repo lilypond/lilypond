@@ -2327,13 +2327,6 @@ My_lily_parser::beam_check (SCM dur)
 
 
 
-bool
-markup_p (SCM x)
-{
-	return gh_pair_p (x)
-		&& SCM_BOOL_F != scm_object_property (gh_car (x), ly_symbol2scm ("markup-signature"));
-}
-
 
 /*
 
@@ -2372,7 +2365,7 @@ My_lily_lexer::try_special_identifiers (SCM * destination, SCM sid)
 
 		*destination = p->self_scm();
 		return MUSIC_OUTPUT_DEF_IDENTIFIER;
-	} else if (new_markup_p (sid)) {
+	} else if (Text_item::markup_p (sid)) {
 		*destination = sid;
 		return MARKUP_IDENTIFIER;
 	}

@@ -115,6 +115,25 @@
 	    handle
 	    (chain-assoc x (cdr alist-list))))))
 
+
+(define (map-alist-vals func list)
+  "map FUNC over the vals of  LIST, leaving the keys."
+  (if (null?  list)
+      '()
+      (cons (cons  (caar list) (func (cdar list)))
+	    (map-alist-vals func (cdr list)))
+      ))
+
+(define (map-alist-keys func list)
+  "map FUNC over the keys of an alist LIST, leaving the vals. "
+  (if (null?  list)
+      '()
+      (cons (cons (func (caar list)) (cdar list))
+	    (map-alist-keys func (cdr list)))
+      ))
+ 
+
+
 ;;;;;;;;;;;;;;;;
 ; list
 

@@ -20,22 +20,6 @@
        ))
 
 
-
-;; most of these routines have been reimplemented in C++ 
-
-;; TODO TODO . (should not use filtering?)
-;; this is bad, since we generate garbage every font-lookup.
-;; otoh, if the qualifiers is narrow enough , we don't generate much garbage.
-
-(define (filter-field field-name value font-descr-alist)
-  "return those descriptions from FONT-DESCR-LIST whose FIELD-NAME matches VALUE"
-      (filter
-       (lambda (x) (let* (field-value (font-field field-name (car x))) 
-		     (or (eq? field-value '*) (eq? value field-value))))
-       font-descr-alist)
-      )
-
-
 (define size-independent-fonts
   `(
     ((* * * braces *) . ("feta-braces00"
@@ -170,28 +154,8 @@
 
 (define (change-rhs-size font-desc from to )
   (cons (car font-desc)
-	(regexp-substitute/global #f from (cdr font-desc) 'pre to 'post))
-
-  )
+	(regexp-substitute/global #f from (cdr font-desc) 'pre to 'post)))
   
-;; 
-(define (map-alist-keys func list)
-  "map a  function FUNC over the keys of an alist LIST, leaving the vals. "
-  (if (null?  list)
-      '()
-      (cons (cons (func (caar list)) (cdar list))
-	    (map-alist-keys func (cdr list)))
-      ))
- 
-
-;; 
-(define (map-alist-vals func list)
-  "map a function FUNC over the vals of  LIST, leaving the keys."
-  (if (null?  list)
-      '()
-      (cons (cons  (caar list) (func (cdar list)))
-	    (map-alist-vals func (cdr list)))
-      ))
 
 (define (change-style-sheet-relative-size sheet x)
   (map-alist-keys (lambda (descr) (change-relative-size descr  x)) sheet))
@@ -207,8 +171,7 @@
 		    (paper20 . 0)
 		    (paper23 . 1)
 		    (paper26 . 2)
-		    ))
-  )
+		    )))
 
 ;;
 ;; make a kludged up paper-19 style sheet. Broken by virtual fonts.
@@ -225,92 +188,6 @@
 (define-public (make-font-list sym)
   (append size-independent-fonts
 	  (cdr (assoc sym font-list-alist))))
-
-
-
-(define (wild-eq? x y)
-  (or (eq? x y)
-      (eq? x '*)
-      (eq? y '*)))
-       
-(define (font-qualifies? qualifiers font-desc)
-  "does FONT-DESC satisfy QUALIFIERS?"
-  (if (null? qualifiers) #t
-      (if (wild-eq? (font-field (caar qualifiers) font-desc) (cdar qualifiers))
-	  (font-qualifies? (cdr qualifiers) font-desc)
-	  #f)))
-
-(define (find-first-font qualifiers fonts)
-  (if (null? fonts)
-      ""
-      (if (font-qualifies? qualifiers (caar fonts))
-	  (cdar fonts)
-	  (find-first-font qualifiers (cdr fonts))
-	)
-      ))
-
-
-(define (select-unique-font qualifiers fonts)
-  "return a single font from FONTS (or a default, if none found)
-and warn if the selected font is not unique.
-"
-  (let*  (
-	  (err (current-error-port))
-	  )
-    
-
-  (if (not (= (length fonts) 1))
-      (begin
-	(display "\ncouldn't find unique font satisfying " err)
-	(write qualifiers err)
-	(display " found " err)
-	(if (null? fonts)
-	    (display "none" err)
-	    (write (map cdr  fonts) err))
-	))
-  
-  (if (null? fonts)
-      "cmr10"
-      (cdar fonts))	; return the topmost.
-  
-  ))
-
-
-; there used to be a Scheme  properties-to-font-name function,
-; but that is  superseeded by the C++ version  out of speed concerns.
-
-
-(define-public (markup-to-properties abbrev-alist style-alist markup)
-  "DOCME."
-  ;; (display "markup: `")
-  ;; (write markup)
-  ;; (display "'\n")
-  
-  (if (pair? markup)
-      ;; This is hairy.  We want to allow:
-      ;;    ((foo bar) "text")
-      ;;    ((foo (bar . 1)) "text")
-      ;;    ((foo . (0 . 1))) 
-      
-      (if (and (symbol? (car markup))
-	       (or (not (pair? (cdr markup)))
-		   (number? (cadr markup))))
-	  (if (equal? '() (cdr markup))
-	      (markup-to-properties abbrev-alist style-alist (car markup))
-	      (list markup))
-	  
-	  (if (equal? '() (cdr markup))
-	      (markup-to-properties abbrev-alist style-alist (car markup))
-	      (append (markup-to-properties abbrev-alist style-alist (car markup))
-		      (markup-to-properties abbrev-alist style-alist (cdr markup)))))
-      
-      ;; markup is single abbreviation
-      (let ((entry (assoc markup
-			  ;; assoc-chain?
-			  (append abbrev-alist style-alist))))
-	(if entry
-	    (cdr entry)
-	    (list (cons markup #t))))))
 
 
 ;;; ascii-script font init
