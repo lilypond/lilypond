@@ -21,7 +21,7 @@ Buildrequires: freetype-devel >= 2.1
 #Buildrequires: fontforge >= 20041211
 
 Requires: tetex  tetex-latex libstdc++ python  tetex-dvips tetex-latex
-Requires: guile >= 1.6.4-8 ec-fonts-mftraced >= 1.0.5
+Requires: guile >= 1.6.4-8 ghostscript >= 8.15
 
 %description
 LilyPond lets you create music notation.  It produces
