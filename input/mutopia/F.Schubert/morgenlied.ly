@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.3.22"
+\version "2.4.0"
 manuscriptBreak = { \break }
 
 
@@ -50,7 +50,7 @@ modernAccidentals = {
 }
 
 
-melody =    \relative c'' \repeat volta 2 \context Voice = singer {
+melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
     \time 6/8
     \autoBeamOff
     s1*0^\markup { \bold \large\bigger\bigger { \hspace #-3.0 Lieblich, etwas geschwind } }

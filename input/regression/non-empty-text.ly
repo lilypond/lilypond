@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 
 \header{
     texidoc=" By default, text is set with empty horizontal dimensions.  

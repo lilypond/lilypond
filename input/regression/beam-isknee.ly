@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 \header{
 	texidoc="@cindex Beam Isknee
 
@@ -10,10 +10,10 @@ Beams can be placed across a @code{PianoStaff}.
 }
 \score{
 	\context PianoStaff <<
-	\context Staff=one \relative c'{
+	\context Staff = "one" \relative c'{
 		s1
 	}
-	\context Staff=two \relative c'{
+	\context Staff = "two" \relative c'{
 		\clef bass
 % no knee
 		\stemUp  c8[ \change Staff=one \stemDown g'16 f]

@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 \header{
 filename = 	 "denneboom.ly"
 enteredby = 	 "jcn"
@@ -66,7 +66,7 @@ verseOne = {
 	\oden
 }
 
-verseOneStaff = \context Lyrics = one 
+verseOneStaff = \context Lyrics = "one" 
 	\verseOne
 
 
@@ -77,7 +77,7 @@ verseTwo = {
 	\oden
 }
 
-verseTwoStaff = \context Lyrics = two 
+verseTwoStaff = \context Lyrics = "two" 
 	\verseTwo
 
 

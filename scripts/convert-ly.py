@@ -2216,14 +2216,23 @@ conversions.append (((2, 3, 22),
 
 
 def conv (str):
-	str = re.sub (r'\\context\s+([a-zA-Z]+)\s*=\s*([a-z]+)',
-		      r'\\context \1 = "\2"',
+	str = re.sub (r'\\context\s+([a-zA-Z]+)\s*=\s*([a-z]+)\s',
+		      r'\\context \1 = "\2" ',
 		      str )
 	return str
 
 conversions.append (((2, 3, 23),
 		     conv,
 		     '''\context Foo = NOTENAME -> \context Foo = "NOTENAME"'''))
+
+
+# nothing, just to make version numbers look good.
+def conv (str):
+	return str
+
+conversions.append (((2, 4, 0),
+		     conv,
+		     ''))
 
 ################################
 #	END OF CONVERSIONS	

@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.22"
+\version "2.4.0"
 \header{
 filename = 	 "twinkle-pop.ly"
 xtitle = 	 "Ah, vous dirais-je, maman "
@@ -48,7 +48,7 @@ text = \lyricmode{
 \score {
         <<  
 	   \context ChordNames \acc
-	   \context Staff=melody \melodie
+	   \context Staff = "melody" \melodie
            \context Lyrics \text
         >>
 	\header{
@@ -60,7 +60,7 @@ text = \lyricmode{
 \score {
         <<  
 	   \context ChordNames \transpose c d\acc
-	   \context Staff=melody \transpose c d\melodie
+	   \context Staff = "melody" \transpose c d\melodie
            \context Lyrics \text
         >>
 	\header{

@@ -10,7 +10,7 @@ the end of the line (regardless of prefatory matter).
 
 }
 
-\version "2.3.22"
+\version "2.4.0"
 
 
 \layout { raggedright = ##t }

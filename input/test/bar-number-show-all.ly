@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 \header{
     texidoc="@cindex Bar Number Show All
 By default, bar numbers are printed only in the first measure.  This 

@@ -44,12 +44,12 @@ to match up.
 %}
 
 
-\version "2.3.22"
+\version "2.4.0"
 
 
 
 
-dux = \context Voice=two  \relative c''{
+dux = \context Voice = "two"  \relative c''{
     \voiceTwo
     \clef violin
 
@@ -111,7 +111,7 @@ dux = \context Voice=two  \relative c''{
 }
 
 
-comes = \context Voice=one  \relative c'' {
+comes = \context Voice = "one"  \relative c'' {
     \voiceOne
     \override MultiMeasureRest  #'staff-position = #6 
     R1 |
@@ -153,7 +153,7 @@ comes = \context Voice=one  \relative c'' {
     f,16 g as4 g16 f e2 |
 }
 
-bassdux = \context Voice=three  \relative c' {
+bassdux = \context Voice = "three"  \relative c' {
     \clef bass
     R1 |
     R |
@@ -207,13 +207,13 @@ bassdux = \context Voice=three  \relative c' {
 	    \override SpacingSpanner #'shortest-duration-space = #1.9	
 	} \context PianoStaff << 
 	    \override Score.TimeSignature  #'style = #'C
-	    \context Staff = treble <<
+	    \context Staff = "treble" <<
 		\key c \minor
 		\dux
 		{ \comes \bar "|." }
 		\time 4/4
 	    >>
-	    \context Staff = bass <<
+	    \context Staff = "bass" <<
 		\key c \minor
 		\bassdux
 	    >>

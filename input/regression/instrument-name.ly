@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 \header{
 texidoc="
 Staff margins are also markings attached to barlines.  They should be
@@ -14,10 +14,10 @@ PianoStaff.
 \score {
 
    \context PianoStaff <<
-    \context Staff = treble    {
+    \context Staff = "treble"    {
       \set PianoStaff.instrument = "Piano "
       \set Staff.instrument = "Right " { c''4 }}
-    \context Staff = bass { \set Staff.instrument = "Left " \clef bass c4 }>>
+    \context Staff = "bass" { \set Staff.instrument = "Left " \clef bass c4 }>>
 
 \layout {
 raggedright = ##t

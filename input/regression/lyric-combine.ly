@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 
 \header{
 
@@ -43,7 +43,7 @@ textII = \lyricmode {
    \context Lyrics = LB { s1 }
    \context Staff = SC \noise
    
-   \context Staff = SB  \context Voice = middle \m 
+   \context Staff = SB  \context Voice = "middle" \m 
    \context Lyrics = LA \lyricsto "middle" \textI
    \context Lyrics = LB \lyricsto "middle" \textII 
 >>

@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 \header
 {
     texidoc = "The autobeamer is not confused by grace notes."

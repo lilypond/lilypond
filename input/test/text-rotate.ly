@@ -16,7 +16,7 @@ output for printing of the source of this example (commenting one line).
 
     }
 
-\version "2.3.22"
+\version "2.4.0"
 
 \score {
 \new Staff  \relative c'' {

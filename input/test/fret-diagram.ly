@@ -3,13 +3,13 @@
   texidoc = "Frets are supported as markup commands."
 }
 
-\version "2.3.22"
+\version "2.4.0"
 
 \score {
     <<
        \chords {d2 d d s fis fis fis s c c c}
        
-     \context Voice=mel {
+     \context Voice = "mel" {
 % simple D chord
 
     d'2 ^\markup \fret-diagram-verbose #'((mute 6) (mute 5) (open 4) (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))

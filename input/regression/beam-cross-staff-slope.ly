@@ -1,11 +1,11 @@
-\version "2.3.22"
+\version "2.4.0"
 \header {
     texidoc = "Cross staff  (kneed) beams do not cause extreme slopes."
 }
 
 \score {
     \context PianoStaff <<
-    \context Staff = up
+    \context Staff = "up"
     \relative c'' <<
         {
 	    \stemDown
@@ -24,7 +24,7 @@
 	    
 	} \\
     >>
-    \context Staff = down {
+    \context Staff = "down" {
         \time 3/8 \clef bass s4.*3 }
     >>
     \layout { raggedright = ##t}

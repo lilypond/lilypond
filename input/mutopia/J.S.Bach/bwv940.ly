@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.22"
+\version "2.4.0"
 
 %{
  Header for Petites Preludes.
@@ -137,16 +137,16 @@ global = {
 \score{
 	% Allegretto
 	\context PianoStaff <<
-		\context Staff = upper <<
+		\context Staff = "upper" <<
 			\global
-			\context Voice = i\one
-			\context Voice = ii \two
+			\context Voice = "i"\one
+			\context Voice = "ii" \two
 		>>
-		\context Staff = lower <<
+		\context Staff = "lower" <<
 			\global
 			\clef "bass"
-			\context Voice= iii \three
-			\context Voice = iv \four
+			\context Voice = "iii" \three
+			\context Voice = "iv" \four
 		>>
 	>>
 	\layout{

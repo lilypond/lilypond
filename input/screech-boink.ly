@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 \header {
     title = "Screech and boink"
     subtitle = "Random complex notation"
@@ -7,7 +7,7 @@
 
 \score {
      \context PianoStaff <<
-	\context Staff = up {
+	\context Staff = "up" {
 	    \time 4/8
 	    \key c \minor
 
@@ -32,7 +32,7 @@
 	   >>
 	}
 
-	\context Staff = down {
+	\context Staff = "down" {
 	    \clef bass
 	    \key c \minor
 	    \set subdivideBeams = ##f

@@ -5,7 +5,7 @@
 
 #(set-global-staff-size 16)
 
-\version "2.3.22"
+\version "2.4.0"
 
 \header {
   title = "Romanzen"
@@ -84,7 +84,7 @@ righta =  \transpose c cis' {
   f) f'-5( e'-5 d'-4 c'-3  f')-5 <f^4 a^5>4( <e^3 g^5>8 |
  <a, f^4>4 <g, e^3>8 f16^4 d'^5~ d'8.[ c'16^4] |
  \forcedBreak 
- << f8)^3_\pp \context Voice = another { \m  a,16[ \u c8 c16] } >> \m  g,[ \u c_3] \m  b,[^\markup { \finger "2-1" } \u c8 c16] \m  a,[ \u c]~ | \stemNeutral
+ << f8)^3_\pp \context Voice = "another" { \m  a,16[ \u c8 c16] } >> \m  g,[ \u c_3] \m  b,[^\markup { \finger "2-1" } \u c8 c16] \m  a,[ \u c]~ | \stemNeutral
  c16 c8_4 c c16~c c8_2 c c16~ |
  c16 c8 c c16~c c8 c c16~ |
  c16 c8 c c16 r4^\fermata r8 | \bar "|."
@@ -164,7 +164,7 @@ lefta =  \transpose c cis {
   g4 a8~a f g | a4 g8~g f e |
   d4 g8~g es f | g4 f8~f es d |
   c4 r8 f4 as8~ | as g b as4 ces'8~ |
-  ces' b des' c'4 \context Voice=another { \stemUp \tieUp <es' es>8~ |
+  ces' b des' c'4 \context Voice = "another" { \stemUp \tieUp <es' es>8~ |
   es' des'4^1~ \stemDown  des'8.[ c'16] }
  }
  \transpose c' c, {
@@ -249,23 +249,23 @@ leftb =  \transpose c cis {
     \override PianoStaff.InstrumentName   #'font-magnification = #3
     
     \set PianoStaff.instrument = "  2."
-    \context Staff = up {
+    \context Staff = "up" {
       \override Staff.DynamicLineSpanner   #'direction = #-1
-      \clef G <<\global \context Voice=upv \righta >>
+      \clef G <<\global \context Voice = "upv" \righta >>
     }
-    \context Staff = mid {
+    \context Staff = "mid" {
     \override Staff.InstrumentName #'font-size = #0
     \override Staff.InstrumentName #'font-shape = #'upright
     \override Staff.InstrumentName #'font-magnification = #1
     \override Staff.InstrumentName #'extra-offset = #'(0 . 6)
    % \set Staff.instrument = "\\begin{turn}{-90}{Rechte Hand}\\end{turn}"
     \set Staff.instrument = \markup { \column < Rechte Hand >  \hspace #2 }
-      \clef F <<\global \context Voice=midv \rightb>>
+      \clef F <<\global \context Voice = "midv" \rightb>>
     }
-      \context Staff = down {
+      \context Staff = "down" {
         \override Staff.DynamicLineSpanner   #'direction = #1
         \clef F
-	<< \global \context Voice=lva \lefta \context Voice=lvb \leftb >>
+	<< \global \context Voice = "lva" \lefta \context Voice = "lvb" \leftb >>
     }
   >>
   \layout {

@@ -1,5 +1,5 @@
 
-\version "2.3.22"
+\version "2.4.0"
 \header {
 
 texidoc = "Automatic fingering tries to put fingering instructions

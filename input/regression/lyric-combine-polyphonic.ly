@@ -1,4 +1,4 @@
-\version "2.3.22"
+\version "2.4.0"
 \header {
 
 texidoc ="Polyphonic rhythms and rests do not disturb
@@ -15,12 +15,12 @@ texidoc ="Polyphonic rhythms and rests do not disturb
 	 \lyricsto "one"  \new Lyrics  {
 	     Do mi nus ex
 	 }
-	   \context Voice = one {
+	   \context Voice = "one" {
 	       \voiceOne
 	       bes'4 bes'4
 	       bes'4 bes'4
 	   }
-	  \context Voice = two {
+	  \context Voice = "two" {
 	      \voiceTwo
 	      ees'8 r8 r8 r8 ees' r8 r8 r8 
           }

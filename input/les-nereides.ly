@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.3.22"
+\version "2.4.0"
 \encoding "latin1"
 \header {
     composer = "ARTHUR GRAY"
@@ -249,14 +249,14 @@ middleDynamics = {
 
 theScore = \score{
     \context PianoStaff <<
-        \context Staff=treble <<
+        \context Staff = "treble" <<
 	    \treble
 	    \trebleTwo
         >>
 	\new Dynamics <<
 	    \middleDynamics
 	>>
-        \context Staff=bass <<
+        \context Staff = "bass" <<
 	    \clef bass
 	    \bass
 	    \bassTwo

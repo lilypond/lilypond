@@ -8,7 +8,7 @@ Currently, this is for testing purposes.  "
 
 }
 
-\version "2.3.22"
+\version "2.4.0"
 
 #(define ((futz-alignment-callback distance count) grob axis)
 
@@ -41,7 +41,7 @@ DISTANCE; then call the original callback.  "
 	\override Beam #'auto-knee-gap = #'()
     } <<
 
-	\context Staff  = up {
+	\context Staff = "up" {
 	    
 	    \time 2/4 
 	    c8[
@@ -60,7 +60,7 @@ DISTANCE; then call the original callback.  "
 		\change Staff = up
 		c c ](
 	}
-	\context Staff = down {
+	\context Staff = "down" {
 	    \skip 1 }
 
     >>
