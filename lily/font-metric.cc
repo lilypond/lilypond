@@ -258,7 +258,7 @@ Font_metric::get_indexed_char_stencil (int code) const
 {
   SCM at = scm_list_3 (ly_symbol2scm ("char"),
 		       self_scm (),
-		       scm_int2num (code));
+		       scm_int2num (index_to_ascii (code)));
   Box b = get_indexed_char (code);
   return Stencil (b, at);
 }
