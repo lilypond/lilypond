@@ -1,5 +1,5 @@
 /*
-  local-key-item.hh -- part of LilyPond
+  local-key-item.hh -- part of GNU LilyPond
 
   (c) 1996,97 Han-Wen Nienhuys
 */
@@ -18,11 +18,14 @@ struct Local_acc {
 
 /**
   Accidentals which can be different for each octave.
+
+  TODO:
+  update item if Items are removed
  */
 struct Local_key_item : Item {
     NAME_MEMBERS(Local_key_item);
     Array<Local_acc> accs;
-    Array<Item*> support_items_;
+    Link_array<Item> support_items_;
     int c0_position;
 
     /* *************** */
@@ -31,8 +34,10 @@ struct Local_key_item : Item {
     void add(Item*);
     void add(int oct, int pitch, int acc);
     void add(Melodic_req*);
-    void do_pre_processing();    
-    Molecule* brew_molecule_p()const;
+public:
+    virtual void do_pre_processing();    
+    virtual void do_substitute_dependency(Score_elem*,Score_elem*);
+    virtual Molecule* brew_molecule_p()const;
 };
 #endif // LOCALKEYITEM_HH
 

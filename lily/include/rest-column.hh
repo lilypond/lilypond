@@ -1,7 +1,7 @@
 /*
   rest-column.hh -- declare Rest_column
 
-  source file of the LilyPond music typesetter
+  source file of the GNU LilyPond music typesetter
 
   (c) 1997 Han-Wen Nienhuys <hanwen@stack.nl>
 */
@@ -17,13 +17,15 @@
   only produce one rest.
   */
 class Rest_column : public Script_column {
-    Array<Notehead*> head_l_arr_;
+    Link_array<Note_head> head_l_arr_;
 public:
     int dir_i_;
-    void add(Notehead *);
+    void add(Note_head *);
     NAME_MEMBERS(Rest_column);
     void translate_y(Real dy);
     Rest_column();
+protected:
+    virtual void do_substitute_dependency(Score_elem*, Score_elem*);
 };
 
 #endif // REST_COLUMN_HH
