@@ -1,3 +1,9 @@
+2005-03-29  David Jedlinsky  <lilypond@ipnh.com>
+
+	* configure.in: Detect libutf8/wchar.h variant.
+
+	* stepmake/aclocal.m4: Modify shared size test.
+
 2005-03-30  Han-Wen Nienhuys  <hanwen@xs4all.nl>
 
 	* make/lilypond.fedora.spec.in (Group): remove texmf profile stuff.

@@ -65,6 +65,7 @@ AC_HEADER_STAT
 AC_FUNC_MEMCMP
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([fopencookie funopen gettext isinf memmem snprintf vsnprintf])
+AC_CHECK_HEADERS([utf8/wchar.h], LIBS="$LIBS -lutf8")
 
 
 if test "$gui_b" = "yes"; then

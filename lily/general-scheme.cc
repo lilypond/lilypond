@@ -13,7 +13,11 @@
 #include <math.h>  /* isinf */
 #include <stdio.h>
 #include <string.h>  /* memset */
-#include <wchar.h>  /* wcrtomb */
+#ifdef HAVE_UTF8_WCHAR_H
+#include <utf8/wchar.h>  /* wcrtomb */
+#else
+#include <wchar.h> /* wcrtomb */
+#endif
 
 #include "libc-extension.hh"
 #include "lily-guile.hh"
