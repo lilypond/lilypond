@@ -23,15 +23,16 @@ public:
     NAME_MEMBERS(Notehead);
 
     bool rest_b_;
-    int position;
+    int position_i_;
+    
     /// -1 = lowest, 0 = inside, 1 = top
-    int extremal;
+    int extremal_i_;
     
     /// needed for the help-lines
-    int staff_size;
-    int dots;
-    int balltype;
-    int x_dir;
+    int staff_size_i_;
+    int dots_i_;
+    int balltype_i_;
+    int x_dir_i_;
     
     /* *************** */
     
