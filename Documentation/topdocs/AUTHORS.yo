@@ -40,6 +40,8 @@ it()nemail(Alexandre Oliva)(oliva@dcc.unicamp.br),
     testing
 it()nemail(Franc,ois Pinard)(pinard@iro.umontreal.ca), 
     parts of Documentation/Vocab*, started internationalization stuff
+it()nemail(Glen Prideaux)(glenprideaux@iname.com),
+    minor bug fix to script used to generate doc++ documentation
 it()nemail(Jeffrey B. Reed)(daboys@austin.rr.com),
     Windows-NT support.
 it()Shay Rojanski

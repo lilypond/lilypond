@@ -1,3 +1,6 @@
+pl 52.gp1
+	- bf: make doc++ corrected to only include *.h and *.hh files.
+************
 pl 51.uu2
 	- grace note flags, move Lookup::flag into Stem
 	- faq updates: doc++, Matt's page
