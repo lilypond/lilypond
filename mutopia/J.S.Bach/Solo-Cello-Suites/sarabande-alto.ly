@@ -1,5 +1,5 @@
 \header{
-filename =	 "sarabande-cello.ly";
+filename =	 "sarabande-alto.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
 piece = "Sarabande";
@@ -19,27 +19,27 @@ copyright =	 "public domain";
 
 \include "sarabande-urtext.ly";
 
-sarabande_cello_global = \melodic{
+sarabande_alto_global = \melodic{
 	\time 3/4;
 	\key f;
-	\clef bass;
+	\clef alto;
 	\skip 2.*12;
 	\bar ":|:";
 	\skip 2.*16;
 	\bar ":|";
 }
 
-sarabande_cello_scripts = \melodic{
+sarabande_alto_scripts = \melodic{
 }
 
-sarabande_cello_staff = \type Staff <
-	\$sarabande
-	\$sarabande_cello_global
-	\$sarabande_cello_scripts
+sarabande_alto_staff = \type Staff <
+	\melodic \transpose c' \$sarabande
+	\$sarabande_alto_global
+	\$sarabande_alto_scripts
 >
 
 \score{
-	\$sarabande_cello_staff
+	\$sarabande_alto_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 40; }
 }

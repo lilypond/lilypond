@@ -2,7 +2,7 @@
 filename =	 "courante-cello.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-% piece = "Courante";
+piece = "Courante";
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -45,6 +45,5 @@ courante_cello_staff = \type Staff <
 	\$courante_cello_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 55; }
-	\header{ piece = "Courante"; }
 }
 

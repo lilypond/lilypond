@@ -1,8 +1,8 @@
 \header{
-filename =	 "allemande-cello.ly";
+filename =	 "gigue-cello.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Allemande";
+piece = "Pr\\'elude";		% duh
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -17,33 +17,34 @@ copyright =	 "public domain";
 
 \version "1.0.0";
 
-\include "allemande-urtext.ly";
+\include "gigue-urtext.ly";
 
-allemande_cello_global = \melodic{
-	\time 4/4;
+gigue_cello_global = \melodic{
+	\time 3/8;
 	\key f;
-	\partial 16;
 	\clef bass;
-	\skip 1*11;
-	s2. s8.
+	\partial 8
+	\skip 4.*31;
+	s4
 	\bar ":|:";
-	\skip 1*11;
-	s2. s4 s8
+	\skip 4.*44;
+	s4
 	\bar ":|";
 }
 
-allemande_cello_scripts = \melodic{
+gigue_cello_scripts = \melodic{
 }
 
-allemande_cello_staff = \type Staff <
-	\$allemande
-	\$allemande_cello_global
-	\$allemande_cello_scripts
+gigue_cello_staff = \type Staff <
+	\melodic \transpose c' \$gigue
+	\$gigue_cello_global
+	\$gigue_cello_scripts
 >
 
 \score{
-	\$allemande_cello_staff
+	\$gigue_cello_staff
 	\include "scs-paper.ly";
-	\midi{ \tempo 4 = 45; }
+%broken
+	\midi{ \tempo 4 = 60; }
 }
 

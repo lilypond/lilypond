@@ -1,8 +1,8 @@
 \header{
-filename =	 "allemande-cello.ly";
+filename =	 "courante-alto.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
-piece = "Allemande";
+piece = "Courante";
 % opus =	 "BWV 1008";
 opus =	 "";
 composer =	 "Johann Sebastian Bach (1685-1750)";
@@ -17,33 +17,33 @@ copyright =	 "public domain";
 
 \version "1.0.0";
 
-\include "allemande-urtext.ly";
+\include "courante-urtext.ly";
 
-allemande_cello_global = \melodic{
-	\time 4/4;
+courante_alto_global = \melodic{
+	\time 3/4;
 	\key f;
 	\partial 16;
-	\clef bass;
-	\skip 1*11;
-	s2. s8.
+	\clef alto;
+	\skip 2.*15;
+	s2 s8.
 	\bar ":|:";
-	\skip 1*11;
-	s2. s4 s8
+	\skip 2.*15;
+	s2 s8.
 	\bar ":|";
 }
 
-allemande_cello_scripts = \melodic{
+courante_alto_scripts = \melodic{
 }
 
-allemande_cello_staff = \type Staff <
-	\$allemande
-	\$allemande_cello_global
-	\$allemande_cello_scripts
+courante_alto_staff = \type Staff <
+	\melodic \transpose c' \$courante
+	\$courante_alto_global
+	\$courante_alto_scripts
 >
 
 \score{
-	\$allemande_cello_staff
+	\$courante_alto_staff
 	\include "scs-paper.ly";
-	\midi{ \tempo 4 = 45; }
+	\midi{ \tempo 4 = 55; }
 }
 

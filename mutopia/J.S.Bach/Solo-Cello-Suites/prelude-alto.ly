@@ -1,5 +1,5 @@
 \header{
-filename =	 "prelude-cello.ly";
+filename =	 "prelude-alto.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
 piece = "Pr\\'elude";		% duh
@@ -19,25 +19,25 @@ copyright =	 "public domain";
 
 \include "prelude-urtext.ly";
 
-prelude_cello_global = \melodic{
+prelude_alto_global = \melodic{
 	\time 3/4;
 	\key f;
-	\clef bass;
+	\clef alto;
 	\skip 2.*63;
 	\bar "|.";
 }
 
-prelude_cello_scripts = \melodic{
+prelude_alto_scripts = \melodic{
 }
 
-prelude_cello_staff = \type Staff <
-	\$prelude
-	\$prelude_cello_global
-	\$prelude_cello_scripts
+prelude_alto_staff = \type Staff <
+	\melodic \transpose c' \$prelude
+	\$prelude_alto_global
+	\$prelude_alto_scripts
 >
 
 \score{
-	\$prelude_cello_staff
+	\$prelude_alto_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 40; }
 }

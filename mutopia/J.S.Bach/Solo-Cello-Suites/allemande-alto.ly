@@ -1,5 +1,5 @@
 \header{
-filename =	 "allemande-cello.ly";
+filename =	 "allemande-alto.ly";
 title =	 "Solo Cello Suites";
 subtitle = "Suite II";
 piece = "Allemande";
@@ -19,11 +19,11 @@ copyright =	 "public domain";
 
 \include "allemande-urtext.ly";
 
-allemande_cello_global = \melodic{
+allemande_alto_global = \melodic{
 	\time 4/4;
 	\key f;
 	\partial 16;
-	\clef bass;
+	\clef alto;
 	\skip 1*11;
 	s2. s8.
 	\bar ":|:";
@@ -32,17 +32,17 @@ allemande_cello_global = \melodic{
 	\bar ":|";
 }
 
-allemande_cello_scripts = \melodic{
+allemande_alto_scripts = \melodic{
 }
 
-allemande_cello_staff = \type Staff <
-	\$allemande
-	\$allemande_cello_global
-	\$allemande_cello_scripts
+allemande_alto_staff = \type Staff <
+	\melodic \transpose c'' \$allemande
+	\$allemande_alto_global
+	\$allemande_alto_scripts
 >
 
 \score{
-	\$allemande_cello_staff
+	\$allemande_alto_staff
 	\include "scs-paper.ly";
 	\midi{ \tempo 4 = 45; }
 }
