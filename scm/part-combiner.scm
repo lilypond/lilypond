@@ -127,7 +127,9 @@ Voice-state objects
 	  active))
 
     (define (analyse-absdyn-end active ev)
-      (if (equal? (ly:music-property ev 'name) 'AbsoluteDynamicEvent)
+      (if (or (equal? (ly:music-property ev 'name) 'AbsoluteDynamicEvent)
+	      (and (equal? (ly:music-property ev 'name) 'CrescendoEvent)
+		   (equal? STOP (ly:music-property ev 'span-direction))))
 	  (assoc-remove! (assoc-remove! active 'cresc) 'decr)
 	  active))
     
@@ -428,7 +430,7 @@ the mark when there are no spanners active."
 
     (analyse-spanner-states voice-state-vec1)
     (analyse-spanner-states voice-state-vec2)
-    (if #f
+    (if #t
 	(begin
 	  (display voice-state-vec1)
 	  (display "***\n")

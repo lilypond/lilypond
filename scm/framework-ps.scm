@@ -383,20 +383,22 @@
 	  )))
 
   (let* ((lines (ly:paper-book-systems book))
-	 (tex-system-port (open-output-file (format "~a-systems.tex" basename)))
-	 (texi-system-port (open-output-file (format "~a-systems.texi" basename)))
+	 (tex-system-name (format "~a-systems.tex" basename))
+	 (texi-system-name (format "~a-systems.texi" basename))
+	 (tex-system-port (open-output-file tex-system-name))
+	 (texi-system-port (open-output-file texi-system-name))
 	 (last-line (car (last-pair lines)))
 	 (pages (ly:paper-book-pages book))
 	 )
 
+    (display (format "Writing ~a\n" tex-system-name))
+    (display (format "Writing ~a\n" texi-system-name))
     (dump-lines lines 1)
     (for-each (lambda (c)
 		(display (format "\\includegraphics{~a-~a.eps}%\n"
 				 basename (1+ c)) tex-system-port)
 		(display (format "@image{~a-~a}%\n"
-				 basename (1+ c)) texi-system-port)
-
-		)
+				 basename (1+ c)) texi-system-port))
 	      (iota (length lines)))
 
     (display "@c eof" texi-system-port)

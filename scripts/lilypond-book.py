@@ -490,6 +490,7 @@ output = {
 @iftex
 @include %(base)s-systems.texi
 @end iftex
+
 @ifnottex
 @image{%(base)s,,,[image of music],%(ext)s}
 @end ifnottex
@@ -857,7 +858,6 @@ class Lilypond_snippet (Snippet):
 		     and os.path.exists (system_file)\
 		     and os.stat (system_file)[stat.ST_SIZE] \
 		     and re.match ('% eof', open (system_file).readlines ()[-1])
-
 		if ok and (use_hash_p \
 			   or self.ly () == open (ly_file).read ()):
 			# TODO: Do something smart with target formats
@@ -927,7 +927,7 @@ class Lilypond_snippet (Snippet):
 		return str
 
 	def output_info (self):
-		str = self.output_print_filename (HTML)
+		str = ''
 		for image in self.get_images ():
 			(base, ext) = os.path.splitext (image)
 

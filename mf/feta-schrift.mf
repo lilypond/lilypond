@@ -460,12 +460,12 @@ def draw_portato =
 enddef;
 
 
-fet_beginchar ("portato/tenuto with staccato", "dportato");
+fet_beginchar ("portato/tenuto with staccato", "uportato");
 	draw_portato;
 fet_endchar;
 
 
-fet_beginchar ("portato/tenuto with staccato", "uportato");
+fet_beginchar ("portato/tenuto with staccato", "dportato");
 	draw_portato;
 	y_mirror_char
 fet_endchar;
