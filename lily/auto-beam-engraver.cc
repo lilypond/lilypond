@@ -61,6 +61,8 @@ private:
   Moment extend_mom_;
   Moment beam_start_moment_;
   Moment beam_start_location_;
+
+  bool subdivide_beams_;
   
   // We act as if beam were created, and start a grouping anyway.
   Beaming_info_list*grouping_p_;  
@@ -247,8 +249,7 @@ Auto_beam_engraver::begin_beam ()
   grouping_p_ = new Beaming_info_list;
   beam_start_moment_ = now_mom ();
   beam_start_location_ = *unsmob_moment (get_property ("measurePosition"));
-
-
+  subdivide_beams_ = gh_scm2bool(get_property("subdivideBeams")); 
 }
 
 
@@ -292,7 +293,7 @@ Auto_beam_engraver::typeset_beam ()
   if (finished_beam_p_)
     {
       finished_grouping_p_->beamify(*unsmob_moment (get_property ("beatLength")),
-				    (bool)gh_scm2bool(get_property("subdivideBeams")));
+				    subdivide_beams_);
       Beam::set_beaming (finished_beam_p_, finished_grouping_p_);
       typeset_grob (finished_beam_p_);
       finished_beam_p_ = 0;
@@ -480,5 +481,5 @@ stemRightBeamCount.
 ",
 /* creats*/       "Beam",
 /* acks  */       "stem-interface rest-interface beam-interface bar-line-interface",
-/* reads */       "noAutoBeaming autoBeamSettings",
+/* reads */       "noAutoBeaming autoBeamSettings subdivideBeams",
 /* write */       "");

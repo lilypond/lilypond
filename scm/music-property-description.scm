@@ -27,7 +27,6 @@
 (music-property-description 'span-type symbol? "What kind of spanner should be created?")
 (music-property-description 'articulation-type symbol? "key for scriptDefinitions alist")
 (music-property-description 'bass boolean? "Set if this note is a bass note in a chord")
-(music-property-description 'body music? "The body of a repeat ")
 (music-property-description 'cautionary boolean? "If set, this alteration needs cautionary accidental")
 (music-property-description 'change-to-id string? "name of the context to change to ")
 (music-property-description 'change-to-type string? "type of the context to change to.")

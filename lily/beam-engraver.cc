@@ -38,7 +38,9 @@ class Beam_engraver : public Engraver
 
   /// moment (global time) where beam started.
   Moment beam_start_mom_;
-  
+
+  bool subdivide_beams_;
+
   void typeset_beam ();
   void set_melisma (bool);
 protected:
@@ -63,6 +65,7 @@ Beam_engraver::Beam_engraver ()
   beam_info_p_ =0;
   reqs_drul_[LEFT] = reqs_drul_[RIGHT] =0;
   prev_start_req_ =0;
+  
 }
 
 bool
@@ -182,7 +185,7 @@ Beam_engraver::typeset_beam ()
   if (finished_beam_p_)
     {
       finished_beam_info_p_->beamify(*unsmob_moment (get_property ("beatLength")),
-				     (bool)gh_scm2bool(get_property("subdivideBeams")));
+				     subdivide_beams_);
 
       Beam::set_beaming (finished_beam_p_, finished_beam_info_p_);
       typeset_grob (finished_beam_p_);
@@ -204,6 +207,7 @@ Beam_engraver::start_translation_timestep ()
     if (to_boolean (m) && to_boolean (b)) {
       set_melisma (true);
     }
+    subdivide_beams_ = gh_scm2bool(get_property("subdivideBeams")); 
   }
 }
 
@@ -292,5 +296,5 @@ ENTER_DESCRIPTION(Beam_engraver,
 printed with flags instead of beams.",
 /* creats*/       "Beam",
 /* acks  */       "stem-interface rest-interface",
-/* reads */       "beamMelismaBusy",
+/* reads */       "beamMelismaBusy subdivideBeams",
 /* write */       "");

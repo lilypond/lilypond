@@ -39,7 +39,6 @@ protected:
   virtual void acknowledge_grob (Grob_info);
   virtual void stop_translation_timestep ();
   virtual void initialize ();
-  virtual int  number_accidentals (SCM sig, Note_req *);
   virtual void create_grobs ();
   virtual void finalize ();
 public:
@@ -74,17 +73,18 @@ Accidental_engraver::initialize ()
   daddy_trans_l_->set_property ("lazyKeySignature",   last_keysig_);  
 }
 
-/** calculates the number of accidentals on basis of the current local time sig
+/** calculates the number of accidentals on basis of the current local key sig
   * (passed as argument).
   * Returns number of accidentals (0, 1 or 2).
   *   Negative (-1 or -2) if accidental has changed.
   **/
-int
-Accidental_engraver::number_accidentals (SCM sig, Note_req * note_l)
+static int
+number_accidentals (SCM sig, Note_req * note_l)
 {
-  int n = unsmob_pitch (note_l->get_mus_property ("pitch"))->notename_i_;
-  int o = unsmob_pitch (note_l->get_mus_property ("pitch"))->octave_i () ;
-  int a = unsmob_pitch (note_l->get_mus_property ("pitch"))->alteration_i_;
+  Pitch *pitch = unsmob_pitch (note_l->get_mus_property ("pitch"));
+  int n = pitch->notename_i_;
+  int o = pitch->octave_i () ;
+  int a = pitch->alteration_i_;
   
   SCM prev = scm_assoc (gh_cons (gh_int2scm (o), gh_int2scm (n)), sig);
   if (prev == SCM_BOOL_F)
@@ -189,20 +189,21 @@ Accidental_engraver::create_grobs ()
 	    always do the correct thing?
 	    (???? -Rune )
 	   */
-	  int n = unsmob_pitch (note_l->get_mus_property ("pitch"))->notename_i_;
-	  int o = unsmob_pitch (note_l->get_mus_property ("pitch"))->octave_i () ;
-	  int a = unsmob_pitch (note_l->get_mus_property ("pitch"))->alteration_i_;
-	  SCM ON = gh_cons (gh_int2scm (o), gh_int2scm (n));
+	  
+	  Pitch *pitch = unsmob_pitch (note_l->get_mus_property ("pitch"));
+	  int n = pitch->notename_i_;
+	  int o = pitch->octave_i () ;
+	  int a = pitch->alteration_i_;
+	  SCM on = gh_cons (gh_int2scm (o), gh_int2scm (n));
 	  bool forget = to_boolean (get_property ("forgetAccidentals"));
 	  if (tie_changes)
 	    {
 	      /*
 		Remember an alteration that is different both from
 		that of the tied note and of the key signature.
-		(????? -Rune )
 	       */
-	      localsig = scm_assoc_set_x (localsig, ON, SCM_BOOL_T); 
-	      lazysig = scm_assoc_set_x  (lazysig,  ON, SCM_BOOL_T); 
+	      localsig = scm_assoc_set_x (localsig, on, SCM_BOOL_T); 
+	      lazysig = scm_assoc_set_x  (lazysig,  on, SCM_BOOL_T); 
 	    }
 	  else if (!forget)
 	    {
@@ -210,8 +211,8 @@ Accidental_engraver::create_grobs ()
 		not really really correct if there are more than one
 		noteheads with the same notename.
 	       */
-	      localsig = scm_assoc_set_x (localsig, ON, gh_int2scm (a)); 
-	      lazysig = scm_assoc_set_x  (lazysig,  ON, gh_int2scm (a)); 
+	      localsig = scm_assoc_set_x (localsig, on, gh_int2scm (a)); 
+	      lazysig = scm_assoc_set_x  (lazysig,  on, gh_int2scm (a)); 
 	    }
         }
   
@@ -319,5 +320,5 @@ events.  Due to interaction with ties (which don't come together
 with note heads), this needs to be in a context higher than Tie_engraver. FIXME",
 /* creats*/       "Accidentals",
 /* acks  */       "rhythmic-head-interface tie-interface arpeggio-interface",
-/* reads */       "localKeySignature forgetAccidentals noResetKey",
+/* reads */       "localKeySignature forgetAccidentals noResetKey autoReminders",
 /* write */       "");

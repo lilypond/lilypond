@@ -171,7 +171,19 @@ Local_key_item::brew_molecule (SCM smob)
 	  oct_b = true; 
 	}
       
+
       lastoct = p.octave_i () ;
+
+      bool cautionary = (scm_memq (ly_symbol2scm ("cautionary"), opts) != SCM_BOOL_F);
+      SCM font_rel_siz = me->get_grob_property("font-relative-size");
+      SCM caut_siz = me->get_grob_property("cautionary-size");
+      int frs = (gh_exact_p(font_rel_siz) ? gh_scm2int(font_rel_siz) : 0);
+      int cs = (gh_exact_p(caut_siz) ? gh_scm2int(caut_siz) : 0);
+
+
+      // Ugh. This will only work if only called once on each grob. --rz
+      if (cautionary && caut_siz!=0)
+	me->set_grob_property ("font-relative-size",gh_int2scm(frs+cs));
 
       SCM c0 =  me->get_grob_property ("c0-position");
       Real dy = (gh_number_p (c0) ? gh_scm2int (c0) : 0 + p.notename_i_)
@@ -189,8 +201,8 @@ Local_key_item::brew_molecule (SCM smob)
 	  acc.add_at_edge (X_AXIS, LEFT, Molecule (prefix), 0);
 	}
 
-      if (scm_memq (ly_symbol2scm ("cautionary"), opts) != SCM_BOOL_F)
-	acc = parenthesize (me, acc);
+      if (cautionary && to_boolean(me->get_grob_property("paren-cautionaries")))
+        acc = parenthesize (me, acc);
 
       acc.translate_axis (dy, Y_AXIS);
       octave_mol.add_at_edge (X_AXIS, RIGHT, acc, 0);
