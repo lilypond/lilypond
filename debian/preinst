@@ -4,7 +4,7 @@
 #   by Anthony Fok <foka@debian.org>
 #   This is free software; see the GNU General Public Licence
 #   version 2 or later for copying conditions.  There is NO warranty.
-#   Last modified:  Mon,  5 Apr 1999 20:30:12 -0600
+#   Last modified:  Sat, 23 Nov 2002 19:08:54 +0800
 
 set -e
 
@@ -35,6 +35,11 @@ case "$1" in
 	if [ "$2" = "1.0.17-1" ]; then
 	    rm -rf $VARTEXFONTS/tfm/$font_supplier/mf
 	    rm -rf $VARTEXFONTS/pk/*/$font_supplier/mf
+	fi
+
+	# Since 1.6.6-2, /etc/texmf/dvips/lilypond.map is no longer a symlink
+	if [ -L /etc/texmf/dvips/lilypond.map ]; then
+	    rm -f /etc/texmf/dvips/lilypond.map
 	fi
     ;;
 

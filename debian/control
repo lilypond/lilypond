@@ -1,6 +1,6 @@
 Source: lilypond
-Build-Depends: debhelper (>= 3.0.5), binutils (>= 2.11.92.0.10-2), libc6-dev (>= 2.2.4-6) | libc6.1-dev (>= 2.2.4-6) | libc0.2-dev (>= 2.2.4-6), python-dev, libguile-dev (>= 1:1.4-9), tetex-bin, libkpathsea-dev, tetex-extra, flex (>= 2.5.4a-14), bison, texinfo (>= 4.0b-2), groff, m4, gettext (>= 0.10.36-1), pktrace (>= 1.0.3-1), pfaedit (>= 0.0.20020312-1), autotrace, t1utils
-Build-Depends-Indep: bibtex2html, gs | gs-aladdin, netpbm (>= 2:9.10-1)
+Build-Depends: debhelper (>= 3.0.5), binutils (>= 2.11.92.0.10-2), libc6-dev (>= 2.2.4-6) | libc6.1-dev (>= 2.2.4-6) | libc0.2-dev (>= 2.2.4-6), python-dev, libguile-dev (>= 1:1.4-9) | guile-1.6-dev (>= 1.6), tetex-bin, libkpathsea-dev, tetex-extra, flex (>= 2.5.4a-14), bison (<< 1:1.50) | bison (>= 1:1.75-1), texinfo (>= 4.0b-2), groff, m4, gettext (>= 0.10.36-1), mftrace (>= 1.0.12-2), pfaedit (>= 0.0.20020312-1), autotrace, t1utils
+Build-Depends-Indep: gs | gs-aladdin
 Section: tex
 Priority: optional
 Maintainer: Anthony Fok <foka@debian.org>

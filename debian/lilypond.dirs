@@ -5,3 +5,4 @@ usr/share/texmf/tex
 usr/share/texmf/fonts/source/public
 usr/share/texmf/fonts/afm/public
 usr/share/texmf/fonts/tfm/public
+etc/texmf/dvips

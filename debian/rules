@@ -1,6 +1,5 @@
 #!/usr/bin/make -f
-# Made with the aid of debhelper by Joey Hess,
-# based on the sample debian/rules file for GNU hello by Ian Jackson.
+# debian/rules for LilyPond in Debian.
 #
 # This is free software; see the GNU General Public Licence
 # version 2 or later for copying conditions.  There is NO warranty.
@@ -17,13 +16,6 @@ d = usr/share/doc/$(package)
 
 include VERSION
 VERSION = $(MAJOR_VERSION).$(MINOR_VERSION).$(PATCH_LEVEL)
-
-#export CC = gcc-3.2
-#export CXX = g++-3.2
-gcc_version = $(shell g++ --version 2>&1 \
-		| grep '[0-9]\.[0-9]' | head -1 \
-		| sed -e 's/.*[^-.0-9]\([0-9][0-9]*\.[0-9][.0-9]*\).*/\1/' \
-		      -e 's/^\([0-9]\+\).*/\1/')
 
 # "main_memory = 263000" in /etc/texmf/texmf.cnf isn't large enough
 # for latex to process standchen.dvi.latex, so adding extra_mem_* ...
@@ -50,16 +42,11 @@ export DH_OPTIONS
 build: build-stamp
 build-stamp:
 	dh_testdir
-
-	if [ "$(gcc_version)" = "3" ]; then ./lexer-gcc-3.1.sh; fi
-	CPPFLAGS=-I`pwd`/lily/out \
 	./configure --enable-checking --enable-debugging \
 		--prefix=/usr --enable-optimise \
 		--infodir='$${prefix}/share/info' \
 		--mandir='$${prefix}/share/man'
-	if [ "$(gcc_version)" = "3" ]; then ./lexer-gcc-3.1.sh; fi
 	$(MAKE) MAKE_PFA_FILES=1
-
 	touch build-stamp
 
 build-doc: build build-doc-stamp
@@ -151,6 +138,9 @@ binary-arch: build install
 #	dh_installman
 #	dh_undocumented
 	dh_installchangelogs ChangeLog
+
+	mv $(r)/usr/share/lilypond/$(VERSION)/dvips/lilypond.map \
+	   $(r)/etc/texmf/dvips/lilypond.map
 	dh_link	usr/share/lilypond/$(VERSION)/tex \
 			usr/share/texmf/tex/lilypond \
 		usr/share/lilypond/$(VERSION)/fonts/source \
@@ -159,8 +149,8 @@ binary-arch: build install
 			usr/share/texmf/fonts/afm/public/lilypond \
 		usr/share/lilypond/$(VERSION)/fonts/tfm \
 			usr/share/texmf/fonts/tfm/public/lilypond \
-		usr/share/lilypond/$(VERSION)/dvips/lilypond.map \
-			usr/share/texmf/dvips/config/lilypond.map
+		etc/texmf/dvips/lilypond.map \
+			usr/share/lilypond/$(VERSION)/dvips/lilypond.map
 	dh_strip
 	dh_compress
 	dh_fixperms
