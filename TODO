@@ -8,9 +8,9 @@ grep for TODO and ugh/ugr/urg
 
 
 BUGS:
-	* --safe:  disallow backslashes, disallow \include.
+	* latex bla.tex broken (titles / \lilyfooter stuff?)
 
-	* fix fontsize switching
+	* --safe:  disallow backslashes, disallow \include.
 
 	* fix rounding stuff in number->string
 

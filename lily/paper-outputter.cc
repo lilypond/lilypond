@@ -174,19 +174,16 @@ Paper_outputter::output_string (String str)
 void
 Paper_outputter::switch_to_font (String fontname)
 {
-  if (fontname.length_i () && (fontname != current_font_))
+  if (fontname.length_i () && fontname != current_font_)
     {
       current_font_ = fontname;
       int i=0;
-      bool new_b = false;
+
       for (; i< font_arr_.size (); i++)
 	if (font_arr_[i] == fontname)
-	  {
-	    new_b = true;
 	    break;
-	  }
 
-      if (new_b)
+      if (i == font_arr_.size ())
 	{
 	  font_arr_.push (fontname);
 	  output_font_def (i, fontname);

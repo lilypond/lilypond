@@ -44,10 +44,10 @@
        (kwregex (mapconcat (lambda (x) (concat "\\\\" x))  keywords "\\|")))
 
     (list 
-     (cons (concat ".\\(" kwregex "\\)[^a-zA-Z]") 1)
-     (cons (concat "^\\(" kwregex "\\)[^a-zA-Z]") 1)
-     '(".\\(\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-variable-name-face)
-     '("^[\t ]*\\([a-zA-Z][_a-zA-Z]*\\) *=" 1 font-lock-variable-name-face)     
+      (concat ".\\(" kwregex "\\)[^a-zA-Z]")
+      (concat "^\\(" kwregex "\\)[^a-zA-Z]")
+      '(".\\(\\\\[a-zA-Z][a-zA-Z]*\\)" 1 font-lock-variable-name-face)
+      '("^[\t ]*\\([a-zA-Z][_a-zA-Z]*\\) *=" 1 font-lock-variable-name-face)     
     ))
   "Additional expressions to highlight in Mudela mode.")
 
@@ -108,7 +108,7 @@
 	    ( ?\_ . "." )	
 	    ( ?\' . "w")	
 	    ( ?\" . "\"" )
-	    ( ?\% . "<")	
+	    ( ?\% . "<")
 	    ( ?\n . ">")
 
 ; FIXME
@@ -117,11 +117,6 @@
 	    ))
 
   )	
-
-(defconst mu-stringlit-re
-   "\"\\([^\"\n\\]\\|\\\\.\\)*\""	; double-quoted
-  "Regexp matching a Mudela string literal.")
-
 
 (defconst mu-blank-or-comment-re "[ \t]*\\($\\|%\\)"
   "Regexp matching blank or comment lines.")
@@ -151,8 +146,15 @@
   (make-local-variable 'paragraph-start)
   (make-local-variable 'require-final-newline)
   (make-local-variable 'comment-start)
-  (setq comment-start "% ")
-  (setq comment-end "")
+  (make-local-variable 'block-comment-start)
+  (make-local-variable 'block-comment-end)  
+
+  (setq comment-end "\n"
+	comment-start          "%"
+	comment-start-skip     "%{? *"
+	block-comment-start	"%{"
+	block-comment-end	"%}"	
+	)
   (make-local-variable 'comment-end)
   (make-local-variable 'comment-start-skip)
   (setf comment-start-skip "%{")
@@ -170,17 +172,15 @@
 	paragraph-separate     "^[ \t]*$"
 	paragraph-start        "^[ \t]*$"
 	require-final-newline  t
-	comment-start          "% "
-	comment-start-skip     "% *"
 	comment-column         40
 	indent-line-function	'indent-relative-maybe
 	)
   (use-local-map mu-mode-map)
 
   ;; run the mode hook. mu-mode-hook use is deprecated
-  (if mudela-mode-hook
-      (run-hooks 'mudela-mode-hook)
-    (run-hooks 'mu-mode-hook)))
+  (run-hooks 'mudela-mode-hook)
+)
+
 
 (defun mu-keep-region-active ()
   ;; do whatever is necessary to keep the region active in XEmacs.

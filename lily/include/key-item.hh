@@ -30,13 +30,7 @@ struct Key_item : Item {
 
   Key_item ();
   void add (int pitch, int acc);
-  void add (const Musical_pitch&);
   void add_old (int pitch, int acc);
-  void add_old (const Musical_pitch&);
-  void set (bool multi_octave_b,
-	    Array<Musical_pitch> const &idx_arr,
-	    Array<Musical_pitch> const &old_idx_arr);
-
   void set_c_position (int);
   int Key_item::calculate_position(int p, int a) const;
 

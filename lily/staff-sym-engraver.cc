@@ -1,5 +1,5 @@
 /*
-  staff-sym-reg.cc -- implement Staff_sym_engraver
+  staff-sym-reg.cc -- implement Staff_symbol_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -13,23 +13,23 @@
 
 
 void
-Staff_sym_engraver::fill_staff_info (Staff_info&i)
+Staff_symbol_engraver::fill_staff_info (Staff_info&i)
 {
   i.staff_sym_l_ = span_p_;
 }
 
-Staff_sym_engraver::~Staff_sym_engraver()
+Staff_symbol_engraver::~Staff_symbol_engraver()
 {
   assert (!span_p_);
 }
 
-Staff_sym_engraver::Staff_sym_engraver()
+Staff_symbol_engraver::Staff_symbol_engraver()
 {
    span_p_ = 0;
 }
 
 void
-Staff_sym_engraver::do_creation_processing()
+Staff_symbol_engraver::do_creation_processing()
 {
   span_p_ = new Staff_symbol;
   span_p_->set_bounds(LEFT,get_staff_info().command_pcol_l ());
@@ -37,7 +37,7 @@ Staff_sym_engraver::do_creation_processing()
 }
 
 void
-Staff_sym_engraver::do_removal_processing()
+Staff_symbol_engraver::do_removal_processing()
 {
   Scalar l (get_property ("nolines"));
   if (l.isnum_b ())
@@ -52,5 +52,5 @@ Staff_sym_engraver::do_removal_processing()
 
 
 
-IMPLEMENT_IS_TYPE_B1(Staff_sym_engraver,Engraver);
-ADD_THIS_TRANSLATOR(Staff_sym_engraver);
+IMPLEMENT_IS_TYPE_B1(Staff_symbol_engraver,Engraver);
+ADD_THIS_TRANSLATOR(Staff_symbol_engraver);

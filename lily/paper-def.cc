@@ -243,7 +243,7 @@ output_header (Paper_outputter* p, Scope *head)
     id_str += ".";
   else
     id_str += String (", ") + lily_version_number_sz ();
-  output_def (p, "lily_id_string", id_str);
+  output_def (p, "LilyIdString", id_str);
   
   for (Dictionary_iter<Identifier*> i (*head); i.ok (); i++)
     {
@@ -251,7 +251,7 @@ output_header (Paper_outputter* p, Scope *head)
 	continue;
       
       String val = *i.val()->access_content_String (false);
-      output_def (p, i.key (), val);
+      output_def (p, "mudela" + i.key (), val);
     }
 }
 

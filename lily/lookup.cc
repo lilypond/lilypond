@@ -178,13 +178,12 @@ Lookup::dashed_slur (Array<Offset> controls, Real thick, Real dash) const
     }
 
   // (lambda (o) (dashed-slur o thick dash '(stuff))
-  a.lambda_ = gh_list (gh_append3 (ly_lambda_o (),
-				  ly_func_o ("dashed-slur"),
-				  gh_list (gh_double2scm (thick),
-					   gh_double2scm (dash),
-					   ly_quote_scm (gh_list (sc[0], sc[1], sc[2], sc[3], SCM_UNDEFINED)),
-					   SCM_UNDEFINED)
-				  ), SCM_UNDEFINED);
+  a.lambda_ = 
+    ly_append (ly_lambda_o (),
+    ly_list1 (ly_append (ly_func_o ("dashed-slur"),
+    gh_cons (gh_double2scm (thick), 
+    gh_cons (gh_double2scm (dash),
+    ly_list1 (ly_quote_scm (gh_list (sc[0], sc[1], sc[2], sc[3], SCM_UNDEFINED))))))));
 
   a.str_ = "dashed_slur";
   return a;
