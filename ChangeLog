@@ -1,3 +1,10 @@
+2005-03-23  Mats Bengtsson  <mabe@drongo.s3.kth.se>
+
+
+	* lily/parser.yy (bass_number),
+	Documentation/user/instrument-notation.itely (Figured bass): 
+	Add the possibility to use text markup in figured bass. 
+
 2005-03-19  Graham Percival  <gperlist@shaw.ca>
 
 	* Documentation/user/global.itely: added info about naming
