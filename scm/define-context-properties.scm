@@ -205,6 +205,8 @@ fingered.")
 changed. Only active for the first clef after the property is set, not
 for the full staff.")
 
+     (harmonicAccidentals ,boolean? "If set, harmonic notes in chords
+get accidentals.")
      (highStringOne ,boolean? "Whether the 1st string is the string with
 highest pitch on the instrument. This used by the automatic string
 selector for tab notation.")

@@ -438,22 +438,21 @@ Accidental_engraver::acknowledge_grob (Grob_info info)
 
   if (note
       && note->is_mus_type ("note-event")
-      && Rhythmic_head::has_interface (info.grob_)
-#if 0
-      /*
-	todo: make tunable.
-       */
-           && !gh_equal_p (info.grob_->get_property ("style"),
-			   ly_symbol2scm ("harmonic"))
-#endif
-      )
+      && Rhythmic_head::has_interface (info.grob_))
     {
-      Accidental_entry entry ;
-      entry.head_ = info.grob_;
-      entry.origin_ = info.origin_trans_->daddy_context_;
-      entry.melodic_ = note;
 
-      accidentals_.push (entry);
+      if (to_boolean ("harmonicAccidentals")
+	  || !gh_equal_p (info.grob_->get_property ("style"),
+			  ly_symbol2scm ("harmonic")))
+	{
+	  
+	  Accidental_entry entry ;
+	  entry.head_ = info.grob_;
+	  entry.origin_ = info.origin_trans_->daddy_context_;
+	  entry.melodic_ = note;
+
+	  accidentals_.push (entry);
+	}
     }
   else if (Tie::has_interface (info.grob_))
     {
@@ -505,5 +504,5 @@ ENTER_DESCRIPTION (Accidental_engraver,
 		   "Accidental",
 		   "",
 	       "finger-interface rhythmic-head-interface tie-interface arpeggio-interface",
-	       "localKeySignature extraNatural autoAccidentals autoCautionaries",
+	       "localKeySignature harmonicAccidentals extraNatural autoAccidentals autoCautionaries",
 		   "localKeySignature");
