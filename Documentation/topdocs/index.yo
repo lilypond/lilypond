@@ -75,7 +75,7 @@ nsect(Sites)
 itemize(
 it()lurl(http://www.cs.uu.nl/people/hanwen/lilypond/) Han-Wen's site
 it()lurl(http://www.xs4all.nl/~jantien/lilypond/) Jan's site
-it()lurl(http://www.realtime.net/~daboys/lilypond/) Jeff's Windows NT Distribution site
+it()lurl(http://home.austin.rr.com/jbr/jeff/lilypond/) Jeff's Windows NT Distribution site
 )
 
 nsubsect(Mirrors)
@@ -83,6 +83,8 @@ description(
 dit(lurl(http://sca.uwaterloo.ca/lilypond/))
     Eric Praetzel was kind enough to provide a mirror of both the website
     and the ftp site.
+dit(lurl(ftp://ftp.lilypond.org/pub/lilypond/))
+	A mirror of the FTP site.  Updated at 12:00 MET daily. 
 )
 
 nsect(NEWS)
@@ -99,7 +101,7 @@ it()lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/development/)
 endbold()
 it()lurl(ftp://ftp.cs.uu.nl/pub/GNU/LilyPond/RedHat/RPMS/) RedHat binary
 it()lurl(ftp://ftp.debian.org/pub/debian/dists/unstable/main/binary-i386/tex) Debian binary
-it()lurl(http://www.realtime.net/~daboys/lilypond/) Windows NT binary
+it()lurl(http://home.austin.rr.com/jbr/jeff/lilypond/) Windows NT binary
 )
 
 @COUNTER_REF@
