@@ -1,5 +1,9 @@
 2003-07-17  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* scripts/etf2ly.py (interpret_finale_key_sig): handle minor keys
+	too
+	(Global_measure.set_timesig): handle 3/8 time sig too.
+
 	* scm/output-lib.scm (note-head-style->attachment-coordinates):
 	note about triangle note heads.
 

@@ -162,7 +162,7 @@ version information
 @refbugs
 
 The list of articulation scripts is incomplete.  Empty measures confuse
-etf2ly.
+etf2ly. Sequences of grace notes are ended improperly sometimes. 
 
 
 @node Invoking abc2ly

@@ -75,19 +75,31 @@ def transpose(orig, delta):
 
 
 
-# find transposition of C-major scale that belongs here. 
 def interpret_finale_key_sig (finale_id):
-	p = (0,0)
-	if 0 <= finale_id < 7:
-		while finale_id > 0:
-			p = transpose (p, (4,0)) # a fifth up
-			finale_id = finale_id - 1
-	elif 248 < finale_id <= 255:
-		while finale_id < 256:
-			p = transpose (p, (3,0))
-			finale_id = finale_id + 1
+	"""
+find the transposition of C-major scale that belongs here.
 
+we are not going to insert the correct major/minor, we only want to
+have the correct number of accidentals
+"""
+
+	p = (0,0)
+
+	
+	bank_number = finale_id >> 8
+	accidental_bits = finale_id & 0xff
+
+	if 0 <= accidental_bits < 7:
+		while accidental_bits > 0:
+			p = transpose (p, (4,0)) # a fifth up
+			accidental_bits = accidental_bits - 1
+	elif 248 < accidental_bits <= 255:
+		while accidental_bits < 256:
+			p = transpose (p, (3,0))
+			accidental_bits = accidental_bits + 1
+			
 	p  = (p[0] % 7, p[1])
+
 	return p
 
 # should cache this.
@@ -244,7 +256,7 @@ class Global_measure:
 	def __init__ (self, number):
 		self.timesig = ''
 		self.number = number
-		self.keysignature = None
+		self.key_signature = None
 		self.scale = None
 		self.force_break = 0
 		
@@ -257,16 +269,22 @@ class Global_measure:
 	def set_timesig (self, finale):
 		(beats, fdur) = finale
 		(log, dots) = EDU_to_duration (fdur)
+
+		if dots == 1:
+			beats = beats * 3
+			log = log * 2
+			dots = 0
+
 		if dots <> 0:
-			sys.stderr.write ("\nHuh? Beat duration has a dot? (EDU Duration = %d)" % fdur) 
+			sys.stderr.write ("\nHuh? Beat duration has  dots? (EDU Duration = %d)" % fdur) 
 		self.timesig = (beats, log)
 
 	def length (self):
 		return self.timesig
 	
-	def set_keysig (self, finale):
+	def set_key_sig (self, finale):
 		k = interpret_finale_key_sig (finale)
-		self.keysignature = k
+		self.key_signature = k
 		self.scale = find_scale (k)
 
 	def set_flags (self,flag1, flag2):
@@ -484,9 +502,11 @@ class Staff:
 			e = ''
 			
 			if g:
-				if last_key <> g.keysignature:
-					e = e + "\\key %s \\major " % lily_notename (g.keysignature)
-					last_key = g.keysignature
+				if last_key <> g.key_signature:
+					pitch= g.key_signature					
+					e = e + "\\key %s \\major " % (lily_notename (pitch))
+					
+					last_key = g.key_signature
 				if last_time <> g.timesig :
 					e = e + "\\time %d/%d " % g.timesig
 					last_time = g.timesig
@@ -938,7 +958,8 @@ class Etf_file:
 		measno = indices[0]
 		keynum = contents[1]
 		meas =self. get_global_measure (measno)
-		meas.set_keysig (keynum)
+
+		meas.set_key_sig (keynum)
 
 		beats = contents[2]
 		beatlen = contents[3]
