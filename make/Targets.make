@@ -57,8 +57,11 @@ SHAREDLIBRARY=$(outdir)/$(LIB_PREFIX)$(NAME).so
 $(SHAREDLIBRARY):  $(build) $(OFILES) $(MODULE_LIBDEPS)
 	$(INCREASE_BUILD)
 	$(MAKE) $(OFILES)  $(SILENT_LOG)
-	$(LD_COMMAND) $(OFILES) -o $@
-#	ln -sf $(outdir)/$(LIB_PREFIX)$(NAME).so.$(VERSION) $(outdir)/$(LIB_PREFIX)$(NAME).so
+	$(LD_COMMAND) $(OFILES) -o $@.$(VERSION)
+	rm -f $@
+	ln -sf $(outdir)/$(LIB_PREFIX)$(NAME).so.$(VERSION) $@.$(MAJOR_VERSION)
+	ln -sf $(LIB_PREFIX)$(NAME).so.$(VERSION) $@
+
 #
 lib: $(LIBRARY)
 #

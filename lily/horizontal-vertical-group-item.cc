@@ -1,5 +1,5 @@
 /*
-  elem-group-item.cc -- implement Horizontal_vertical_group_item
+  horizontal-vertical-group-item.cc -- implement Horizontal_vertical_group_item
 
   source file of the GNU LilyPond music typesetter
 
@@ -7,7 +7,7 @@
 */
 
 
-#include "elem-group-item.hh"
+#include "horizontal-vertical-group-item.hh"
 #include "p-col.hh"
 
 void

@@ -242,13 +242,14 @@ Spring_spacer::set_fixed_cols (Mixed_qp &qp) const
   for (int j=0; j < cols.size(); j++)
     if (cols[j].fixed())
       qp.add_fixed_var (j,cols[j].fixed_position());
-}
+} 
 
 // put the constraints into the LP problem
 void
 Spring_spacer::make_constraints (Mixed_qp& lp) const
 {
   int dim=cols.size();
+  Real nw_f = paper_l ()->note_width ();
   for (int j=0; j < dim; j++)
     {
       Colinfo c=cols[j];
@@ -258,8 +259,9 @@ Spring_spacer::make_constraints (Mixed_qp& lp) const
 
 	  c1(j)=1.0 ;
 	  c1(j-1)=-1.0 ;
-	  lp.add_inequality_cons (c1,
-				  cols[j-1].width_[RIGHT] - cols[j].width_[LEFT]);
+
+	  lp.add_inequality_cons (c1, cols[j-1].width_[RIGHT] 
+				  - cols[j].width_[LEFT]);
 	}
     }
 }
@@ -399,7 +401,8 @@ Spring_spacer::connect (int i, int j, Real d, Real h)
   assert(h >=0);
 
   Idealspacing * s = new Idealspacing;
-  s->left_i_ = i;
+
+  s->left_i_ = i ;
   s->right_i_ = j;
   s->space_f_ = d;
   s->hooke_f_ = h;
@@ -509,6 +512,7 @@ Spring_spacer::calc_idealspacing()
   get_ruling_durations(shortest_playing_arr, context_shortest_arr);
 
   Real interline_f = paper_l ()->interline_f ();
+  Real nw_f = paper_l ()->note_width ();
 
   Array<Real> ideal_arr_;
   Array<Real> hooke_arr_;
@@ -630,6 +634,7 @@ Spring_spacer::calc_idealspacing()
 		+ interline_f / 2;
 	      dist = dist >? minimum;
 	    }
+
 	  ideal_arr_[i] = dist;
 	}
     }

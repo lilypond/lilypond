@@ -11,8 +11,6 @@ grep for TODO and ugh/ugr
 	- configure.in 
 	- clean-fonts.sh
 	
-	* check for abs()
-
 	* forced breakpoints
 
 	* --metafont
@@ -182,11 +180,11 @@ languages:
 	* cautionary accidental
 
 	* Output an output format independent (ofi) typeset file; and 
-	  make ofi2 TeX, MusixTex, Display PostScript, PostScript,
+	  make ofi2 TeX, MusiXTex, Display PostScript, PostScript,
 	  Ascii... interpreters. (difficult)
 
 	- poor man's ascii output possible?
-	- MusixTeX output possible? (would have to be done before break calc.)
+	- MusiXTeX output possible? (would have to be done before break calc.)
 	- NIFF ?
 	- Common Music Notation
 	- PostScript output (esp. Beams, Slurs, etc)

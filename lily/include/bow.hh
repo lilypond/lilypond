@@ -20,7 +20,8 @@ protected:
   Drul_array<Real> dy_f_drul_;
   Drul_array<Real> dx_f_drul_;
 
-  Molecule*brew_molecule_p() const;
+  virtual Real height_f () const;
+  virtual Molecule* brew_molecule_p () const;
 public:
   Bow();
   DECLARE_MY_RUNTIME_TYPEINFO;

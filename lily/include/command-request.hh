@@ -36,6 +36,7 @@ class Command_script_req : public Command_req,  public Script_req {
 public:
     // huh? 
     Command_script_req();
+    ~Command_script_req();
     REQUESTMETHODS(Command_script_req, commandscript);
 };
 

@@ -41,8 +41,8 @@ $(outdir)/%.log: %.mf
 	mv $(@F) $@
 	rm $(basename $< ).*gf
 
-$(lyout)/%.ly $(texout)/%.tex: $(outdir)/%.mf
-	$(PYTHON) $(depth)/bin/mf-to-table.py --ly $(lyout)/$(<F:.mf=.ly) --tex $(texout)/$(<F:.mf=.tex) $<
+$(lyout)/%.ly $(texout)/%.tex: $(outdir)/%.log
+	$(PYTHON) $(depth)/bin/mf-to-table.py --ly $(lyout)/$(<F:.log=.ly) --tex $(texout)/$(<F:.log=.tex) $<
 
 localinstall:
 	$(INSTALL) -d $(MFDIR)/public/lilypond

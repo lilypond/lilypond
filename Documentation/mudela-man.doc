@@ -487,8 +487,15 @@ processed with \verb+{+ and \verb+}+ enclosing the input.
 \subsection{Durations}
 
 A duration always starts with the duration type (1,2,4 etc), and then
-any optional multipliers/dots
+any optional multipliers/dots.  Old fashioned durations can be entered
+as follows
+\begin{verbatim}
+'c\breve
+gis'\longa
+\end{verbatim}
 
+
+        
 \subsection{Meters/groupings}
 
 A meter has this form:

@@ -121,7 +121,7 @@ Clef changes, meter changes, cadenza-mode, key changes, repeat bars.
 
 =head1 DISCLAIMER AND COPYING POLICY
 
-GNU LilyPond is copyright 1996, 1997 by its authors.  GNU LilyPond is
+GNU LilyPond is copyright 1996-1998 by its authors.  GNU LilyPond is
 distributed under the terms of the GNU General Public License.  GNU LilyPond 
 is provided without any warranty what so ever.
 GNU LilyPond may be freely distributed.  For further information consult 

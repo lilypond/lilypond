@@ -164,7 +164,7 @@ Lookup::hairpin (Real &wid, bool decresc, bool continued) const
   Atom ret;  
   if (embedded_b)
     {
-      Real height = 2 PT;
+      Real height = paper_l_->get_var ("barsize") / 6;
       embed = "\\embeddedps{\n" ;
       embed += String (wid) + " " 
 	+ String (height) + " " 

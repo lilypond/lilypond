@@ -59,8 +59,9 @@ INSTALL.txt: check-doc-deps check-mf-deps
 # all machine generated junk resides in out/
 distclean: 
 	set -e; for i in `find -type d -name 'out'`; do \
-		rm -f $$i/*; done		
+		rm -f $$i/* $$i/.build; done		
 	rm -rf *-build-dir
+	( cd flower && rm -f config.cache config.status config.log )
 	rm -f Makefile config.cache config.status config.log
 
 

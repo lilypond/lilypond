@@ -6,6 +6,8 @@ enteredby =	 "jcn";
 copyright =	 "public domain";
 }
 
+\include "paper20.ly"
+
 rh = \melodic{
 	\octave c'';
 	\textstyle "italic";
@@ -53,7 +55,7 @@ rh = \melodic{
 	g4-5\ff
 	\multi 2 <
 		{ \stemup; c2-5 'b4-4 }
-		{ \stemdown; 'g2 'd4 }
+		{ \stemdown; 'g2-2 'd4-1 }
 	>
 	\stemboth;
 	\multi 2 <
@@ -72,7 +74,7 @@ lh = \melodic{
 		{ \stemdown; 'c1 ~ 'c ~ 'c }
 	>
 	\stemboth; |
-	r8 [c-5( e-3 f-1] [e-3 c-5 c' e-4] |
+	r8 [c-5( e-3 g-1] [e-3 c-5 c' e-4] |
 	[)fis-3 d-5( fis-3 a-1] [fis-3 d-5 d' fis-4] |
 	)g2-3 r4 g-2( |
 	[)a8 'a-5( c-4 e-2] [c-4 'a-5 g e-3] |
@@ -111,8 +113,10 @@ global  = \melodic{
 		>
 	>
 	\paper{
+		\paper_twenty
+		linewidth= 195.\mm;
 	}
 	\midi{
-		\tempo 4 = 110;
+		\tempo 4 = 90;
 	}
 }

@@ -16,8 +16,6 @@
 
 	* Automake, libtool
 
-	* version numbering for shared lib.
-
 	* LGPL?
 
 	* disable this auto conv: const pointer -> bool -> string

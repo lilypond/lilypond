@@ -215,6 +215,8 @@ Translator_group::terminate_translator (Translator*r_l)
 Translator *
 Translator_group::remove_translator_p (Translator*trans_l)
 {
+  assert (trans_l);
+  
   PCursor<Translator*> trans_cur (trans_p_list_.find (trans_l));
   Translator * t =  trans_cur.remove_p();
   /*

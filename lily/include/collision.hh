@@ -10,7 +10,7 @@
 #ifndef COLLISION_HH
 #define COLLISION_HH
 #include "lily-proto.hh"
-#include "elem-group-item.hh"
+#include "horizontal-vertical-group-item.hh"
 
 /**
   Resolve conflicts between various Note_columns (chords).

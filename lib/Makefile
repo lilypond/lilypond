@@ -40,6 +40,8 @@ VERSION_DEPENDENCY =#
 EXTRA_DISTFILES = config.hh.in
 #
 
+MODULE_CXXFLAGS += -D_REENTRANT
+
 # list of custom libraries:
 
 LOADLIBES +=

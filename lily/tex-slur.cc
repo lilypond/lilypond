@@ -133,12 +133,13 @@ Lookup::half_slur (int dy, Real &dx, Direction dir, int xpart) const
 }
 
 Atom
-Lookup::ps_slur (Real dy , Real dx, Real dir) const
+Lookup::ps_slur (Real dy , Real dx, Real ht, Real dir) const
 {
   String ps = "\\embeddedps{\n";
   
   ps += String_convert::double_str (dx) + " " 
     + String_convert::double_str (dy) + " "
+    + String_convert::double_str (ht) + " "
     + String_convert::double_str (dir) +
     " draw_slur}";
 
@@ -279,7 +280,7 @@ Lookup::big_slur (int dy , Real &dx, Direction dir) const
 
 
 Atom
-Lookup::slur  (Real &dy_f , Real &dx, Direction dir) const
+Lookup::slur  (Real &dy_f , Real &dx, Real ht, Direction dir) const
 {
   if  (dx < 0)
     {
@@ -289,7 +290,7 @@ Lookup::slur  (Real &dy_f , Real &dx, Direction dir) const
   Atom s;
   
   if (postscript_global_b)
-    s = ps_slur (dy_f, dx, dir);
+    s = ps_slur (dy_f, dx, ht, dir);
   else
     {
       Real nh =  paper_l_->internote_f ();

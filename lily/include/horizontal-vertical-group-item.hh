@@ -1,5 +1,5 @@
 /*
-  elem-group-item.hh -- declare Horizontal_vertical_group_item
+  horizontal-vertical-group-item.hh -- declare Horizontal_vertical_group_item
   
   source file of the GNU LilyPond music typesetter
 
@@ -7,8 +7,8 @@
 */
 
 
-#ifndef ELEM_GROUP_ITEM_HH
-#define ELEM_GROUP_ITEM_HH
+#ifndef HORIZONTAL_VERTICAL_GROUP_ITEM_HH
+#define HORIZONTAL_VERTICAL_GROUP_ITEM_HH
 
 #include "axis-group-item.hh"
 #include "elem-group.hh"
@@ -22,7 +22,7 @@ protected:
   virtual void do_print() const;
   virtual void remove_all() { Horizontal_vertical_group_element::remove_all (); }
   virtual void do_unlink () { Horizontal_vertical_group_element::do_unlink (); }
-  SCORE_ELEM_CLONE(Horizontal_vertical_group_item);
+  SCORE_HORIZONTAL_VERTICAL_CLONE(Horizontal_vertical_group_item);
 public:
   virtual void add_element (Graphical_element*e) { Horizontal_vertical_group_element::add_element (e); }
   virtual void remove_element (Graphical_element*e) { Horizontal_vertical_group_element::remove_element (e); }
@@ -30,4 +30,4 @@ public:
   DECLARE_MY_RUNTIME_TYPEINFO;
 };
 
-#endif // ELEM_GROUP_ITEM_HH
+#endif // HORIZONTAL_VERTICAL_GROUP_ITEM_HH

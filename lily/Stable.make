@@ -5,6 +5,5 @@ stablecc=meter.cc boxes.cc \
 	keyword.cc leastsquares.cc \
 	lookup.cc meter.cc\
 	parser.cc notename-table.cc lexer.cc\
-	qlp.cc qlpsolve.cc\
 	template*.cc  version.cc tex-stream.cc  tex.cc\
 	identifier.cc note.cc

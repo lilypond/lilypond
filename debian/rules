@@ -8,9 +8,9 @@
 # Currently maintained by Anthony Fok <foka@debian.org>
 # for Debian GNU/Linux.
 
-package=lilypond
+package = lilypond
 
-SHELL=/bin/bash
+SHELL = /bin/bash
 
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
@@ -21,7 +21,8 @@ build-stamp:
 	./configure --disable-checking --disable-debugging \
 		--enable-printing --prefix=/usr --enable-optimise \
 		--enable-shared
-	make all
+	$(MAKE) all
+	$(MAKE) -C Documentation gifs
 	touch build-stamp
 
 clean:
@@ -29,10 +30,7 @@ clean:
 	dh_testroot
 	rm -f build-stamp
 	-$(MAKE) distclean
-	# Don't put dh_clean before "make distclean"!  dh_clean is
-	# "too smart" and it deletes too many files!
 	dh_clean
-	rm -f {,*/}out/{*,.build} flower/config.{log,status}
 
 # Build architecture-independent files here.
 binary-indep: build
@@ -41,14 +39,17 @@ binary-indep: build
 binary-arch: build
 	dh_testdir
 	dh_testroot
-	dh_installdirs usr/lib/texmf/doc
-	$(MAKE) prefix=`pwd`/debian/tmp/usr install
+	dh_installdirs usr/lib/texmf/doc usr/lib/emacs/site-lisp
 	ln -fs ../../../doc/lilypond debian/tmp/usr/lib/texmf/doc/lilypond
+	$(MAKE) prefix=`pwd`/debian/tmp/usr install
+	cp -av bin/out/ly2dvi debian/tmp/usr/bin
+	cp -av mudela-mode.el debian/tmp/usr/lib/emacs/site-lisp
 	dh_installdocs ANNOUNCE ANNOUNCE-0.1 README NEWS ONEWS DEDICATION \
 		BUGS TODO \
-		Documentation/out/*.text Documentation/*.doc \
-		Documentation/lelie_logo.xpm bin/ly2dvi.sh
-	dh_installexamples input/*.ly input/*.tex
+		Documentation/*.doc Documentation/out/{*.txt,*.gif}
+	dh_installexamples input/{*.ly,TODO}
+	cp -aPv `find mutopia \( -name '*.ly' -o -name '*.tex' -o -name 'TODO' \)` \
+		debian/tmp/usr/doc/lilypond/examples
 #	dh_installmenu
 #	dh_installcron
 #	dh_installmanpages
@@ -65,6 +66,9 @@ binary-arch: build
 	dh_du
 	dh_md5sums
 	dh_builddeb
+
+source diff:
+	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
 
 binary: binary-indep binary-arch
 .PHONY: build clean binary-indep binary-arch binary
