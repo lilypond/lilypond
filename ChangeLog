@@ -1,5 +1,8 @@
 2003-07-25  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
+	* Documentation/bibliography/computer-notation.bib (pages): prune
+	unscientific language.
+
 	* Documentation/user/GNUmakefile: copy unsplit file to
 	lilypond.html (idem for lilypond-internals).
 

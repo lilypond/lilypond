@@ -59,7 +59,7 @@
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="../user/out-www/lilypond/lilypond.html">User manual</a>
+<a class="title" href="../user/out-www/lilypond/index.html">User manual</a>
 (in <a class="title" href="../user/out-www/lilypond.pdf">PDF</a>, in
 <a class="title" href="../user/out-www/lilypond/lilypond.html">one big page</a>)
 
@@ -85,7 +85,7 @@
           &nbsp;
 	  <ul>
 	    <li>
- <a  class="title" href="../user/out-www/lilypond-internals/lilypond-internals.html">Program reference</a>,
+ <a  class="title" href="../user/out-www/lilypond-internals/index.html">Program reference</a>,
 
      <br>(for LilyPond hackers)
 
