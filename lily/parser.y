@@ -1,5 +1,7 @@
 %{ // -*-Fundamental-*-
 #include <iostream.h>
+
+
 #include "script-def.hh"
 #include "symtable.hh"
 #include "lookup.hh"
@@ -19,26 +21,30 @@
 #include "command-request.hh"
 #include "musical-request.hh"
 #include "voice-element.hh"
+#include "my-lily-parser.hh"
+#include "text-def.hh"
 
 #ifndef NDEBUG
 #define YYDEBUG 1
 #endif
 
-Array<Request*> pre_reqs, post_reqs;
-Array<const char *> define_spots;
-Paper_def*default_paper();
-char const* defined_ch_c_l;
-char const* req_defined_ch_c_l;
-int fatal_error_i = 0;
-bool init_parse_b;
+#define YYERROR_VERBOSE 1
+
+#define YYPARSE_PARAM my_lily_parser_l
+#define YYLEX_PARAM my_lily_parser_l
+#define THIS ((My_lily_parser *) my_lily_parser_l)
+
+#define yyerror THIS->parser_error
+
 %}
 
 
 %union {
-    Array<Melodic_req*> *melreqvec;
+    Array<Melodic_req*> *melreqvec;/* should clean up naming */
     Array<String> * strvec;
     Array<int> *intvec;
     Box *box;
+    Duration *duration;
     Identifier *id;    
     Input_music *music;
     Input_score *score;
@@ -67,12 +73,28 @@ bool init_parse_b;
     int i;
     int ii[10];
 }
+%{
+
+int 
+yylex(YYSTYPE *s,  void * v_l)
+{
+	My_lily_parser	 *pars_l = (My_lily_parser*) v_l;
+	My_lily_lexer * lex_l = pars_l->lexer_p_;
+	lex_l->lexval_l = (void*) s;
+	return lex_l->yylex();
+}
+
+
+%}
+%pure_parser
+
+/* tokens which are not keywords */
+%token CONCAT
 
 %token BAR
 %token CADENZA
 %token CLEF
 %token CM_T
-%token CONCAT
 %token DURATIONCOMMAND
 %token DYNAMIC
 %token END
@@ -124,17 +146,18 @@ bool init_parse_b;
 %token <real>	REAL 
 %token <string>	DURATION RESTNAME
 %token <string>	STRING
+%token <i> 	POST_QUOTES 
+%token <i> 	PRE_QUOTES
+
 
 %type <box>	box
 %type <c>	open_request_parens close_request_parens close_plet_parens
 %type <chord>	music_chord music_chord_body  init_music_chord
 %type <el>	voice_elt full_element lyrics_elt command_elt
 %type <i>	int
-%type <i>	octave_quotes octave_quote
 %type <i>	script_dir
 %type <id>	declaration
-%type <ii>	default_duration explicit_duration notemode_duration
-%type <ii>	mudela_duration
+%type <duration>	explicit_duration notemode_duration
 %type <interval>	dinterval
 %type <intvec>	intastint_list
 %type <lookup>	symtables symtables_body
@@ -155,6 +178,8 @@ bool init_parse_b;
 %type <script>	script_definition script_body mudela_script
 %type <staff>	staff_block staff_init staff_body
 %type <string>	declarable_identifier
+%type <string>	script_abbreviation
+%type <id>	old_identifier
 %type <symbol>	symboldef
 %type <symtable>	symtable symtable_body
 %type <textdef>	mudela_text
@@ -171,6 +196,7 @@ mudela:	/* empty */
 		add_score($2);		
 	}
 	| mudela add_declaration { }
+	| mudela error
 	;
 
 
@@ -178,24 +204,36 @@ mudela:	/* empty */
 	DECLARATIONS
 */
 add_declaration: declaration	{
-		lexer->add_identifier($1);
-		$1->init_b_ = init_parse_b;
-		$1->defined_ch_C_ = define_spots.pop();
+		THIS->lexer_p_->add_identifier($1);
+		$1->init_b_ = THIS->init_parse_b_;
+		$1->defined_ch_C_ = THIS->define_spot_array_.pop();
 	}
 	;
 
 declarable_identifier:
 	STRING {
-		define_spots.push(lexer->here_ch_c_l());
+		THIS->remember_spot();
 	    $$ = $1;
-	    if (lexer->lookup_identifier(*$1))
-		warning("redeclaration of `" + *$1 + "'",
-			lexer->here_ch_c_l());
 	}
-	| IDENTIFIER { 
-		define_spots.push(lexer->here_ch_c_l());
+	| old_identifier { 
+		THIS->remember_spot();
 		$$ = new String($1->name); 
+		warning("redeclaration of `" + *$$ + "'", THIS->here_ch_C());
 	}
+	;
+
+
+old_identifier:
+	IDENTIFIER
+	|	MELODIC_REQUEST_IDENTIFIER 
+	|	CHORD_IDENTIFIER
+	|	VOICE_IDENTIFIER
+	|	POST_REQUEST_IDENTIFIER
+	|	SCRIPT_IDENTIFIER
+	|	STAFF_IDENTIFIER
+	|	REAL_IDENTIFIER
+	|	SCORE_IDENTIFIER
+	|	REQUEST_IDENTIFIER
 	;
 
 declaration:
@@ -231,9 +269,7 @@ declaration:
 		$$ = new Real_id(*$1, new Real($3), REAL_IDENTIFIER);
 		delete $1;
 	}
-	| declarable_identifier error '}' {
-
-	}
+	
 	| declarable_identifier '=' pure_post_request {
 		$$ = new Request_id(*$1, $3, POST_REQUEST_IDENTIFIER);
 		delete $1;
@@ -249,16 +285,16 @@ declaration:
 	SCORE
 */
 score_block:
-	SCORE { define_spots.push(lexer->here_ch_c_l()); }
+	SCORE { THIS->remember_spot(); }
 	/*cont*/ '{' score_body '}' 	{
 		$$ = $4;
-		$$->defined_ch_c_l_ = define_spots.pop();
+		$$->defined_ch_C_ = THIS->define_spot_array_.pop();
 		if (!$$->paper_p_ && ! $$->midi_p_)
-			$$->paper_p_ = default_paper();
+			$$->paper_p_ = THIS->default_paper();
 
 		/* handle error levels. */
-		$$->errorlevel_i_ = lexer->errorlevel_i_;
-		lexer->errorlevel_i_ = 0;
+		$$->errorlevel_i_ = THIS->error_level_i_;
+		THIS->error_level_i_ = 0;
 	}
 	;
 
@@ -294,7 +330,8 @@ paper_block:
 
 paper_body:
 	/* empty */		 	{
-		$$ = default_paper();
+		$$ = THIS->default_paper();
+
 	}
 	| paper_body WIDTH dim		{ $$->linewidth = $3;}
 	| paper_body OUTPUT STRING	{ $$->outfile = *$3;
@@ -324,8 +361,8 @@ midi_body: {
 		$$->outfile_str_ = *$3; 
 		delete $3; 
 	}
-	| midi_body TEMPO mudela_duration ':' int {
-		$$->set_tempo( wholes( $3[0], $3[1] ), $5 );
+	| midi_body TEMPO notemode_duration ':' int {
+		$$->set_tempo( $3->length(), $5 );
 	}
 	| midi_body error {
 
@@ -336,10 +373,10 @@ midi_body: {
 	STAFFs
 */
 staff_block:
-	STAFF 	{ define_spots.push(lexer->here_ch_c_l()); }
+	STAFF 	{ THIS->remember_spot(); }
 /*cont*/	'{' staff_body '}' 	{
 		$$ = $4; 
-		$$-> defined_ch_c_l_ = define_spots.pop();
+		$$-> defined_ch_C_ = THIS->define_spot_array_.pop();
 	}
 	;
 
@@ -376,19 +413,19 @@ init_music:
 	;
 
 init_lyrics_voice:
-	LYRICS { lexer->push_lyric_state(); } 
-	music_voice { $$ = $3; lexer->pop_state(); }
+	LYRICS { THIS->lexer_p_->push_lyric_state(); } 
+	music_voice { $$ = $3; THIS->lexer_p_->pop_state(); }
 	;
 
 init_music_voice:
-	MUSIC { lexer->push_note_state(); } 
+	MUSIC { THIS->lexer_p_->push_note_state(); } 
 	/* cont*/ music_voice
-		{ $$=$3; lexer->pop_state(); }
+		{ $$=$3; THIS->lexer_p_->pop_state(); }
 	;
 init_music_chord:
-	MUSIC { lexer->push_note_state(); } 
+	MUSIC { THIS->lexer_p_->push_note_state(); } 
 	/* cont*/ music_chord
-		  { $$=$3; lexer->pop_state(); }
+		  { $$=$3; THIS->lexer_p_->pop_state(); }
 	;
 /*
 	MUSIC
@@ -431,8 +468,8 @@ music_voice_body:
 	| music_voice_body error {
 	}
 	| music_voice_body '>' {
-		fatal_error_i = 1;
-		yyerror("Confused by errors: bailing out");
+		THIS->fatal_error_i_ = 1;
+		THIS->parser_error("Confused by errors: bailing out");
 	};
 
 music_chord:  '<' music_chord_body '>'	{ $$ = $2; }
@@ -455,8 +492,8 @@ music_chord_body:
 		$$ ->add_elt($2);
 	}
 	| music_chord_body '}' {
-		fatal_error_i = 1;
-		yyerror("Confused by errors: bailing out");
+		THIS->fatal_error_i_ = 1;
+		THIS->parser_error("Confused by errors: bailing out");
 	}
 	| music_chord_body error {
 	}
@@ -466,26 +503,24 @@ music_chord_body:
 	VOICE ELEMENTS
 */
 full_element:	pre_requests voice_elt post_requests {
-		add_requests($2, pre_reqs);
-		add_requests($2, post_reqs);
+		THIS->add_requests($2);
 		$$ = $2;
 	}
  	| pre_requests lyrics_elt post_requests {
- 		add_requests($2, pre_reqs);
- 		add_requests($2, post_reqs);
+	 	THIS->add_requests($2);
  		$$ = $2;
         }
 	| command_elt
-	;
+	;	
 
 command_elt:
 /* empty */ 	{
 		$$ = new Voice_element;
-		$$-> defined_ch_c_l_ = lexer->here_ch_c_l();
+		$$-> defined_ch_C_ = THIS->here_ch_C();
 	}
 /* cont: */
 	command_req	{
-		$2-> defined_ch_c_l_ = $$->defined_ch_c_l_;
+		$2-> defined_ch_C_ = $$->defined_ch_C_;
 		$$->add($2);
 
 	}
@@ -543,16 +578,15 @@ command_req:
 
 post_requests:
 	{
-		assert(post_reqs.empty());
+		assert(THIS->post_reqs.empty());
 	}
 	| post_requests post_request {
-		$2->defined_ch_c_l_ = lexer->here_ch_c_l();
-		post_reqs.push($2);
+		$2->defined_ch_C_ = THIS->here_ch_C();
+		THIS->post_reqs.push($2);
 	}
 	| post_requests close_plet_parens INT '/' INT { 
-		post_reqs.push( get_request($2) ); 
-		req_defined_ch_c_l = lexer->here_ch_c_l();
-		post_reqs.push( get_plet_request( $2, $3, $5 ) ); 
+		THIS->post_reqs.push( THIS->get_parens_request($2) ); 
+		THIS->post_reqs.push( get_plet_request( $2, $3, $5 ) ); 
 	}
 	;
 
@@ -565,7 +599,7 @@ post_request:
 
 pure_post_request:
 	close_request_parens	{ 
-		$$ = get_request($1); 
+		$$ = THIS->get_parens_request($1); 
 	}
 	| script_req
 	| textscript_req
@@ -573,15 +607,6 @@ pure_post_request:
 	;
 
 
-octave_quote:
-	'\''	 	{ $$ = 1; }
-	| '`'		{ $$ = -1 ; }
-	;
-
-octave_quotes:
-	/**/ { $$ = 0; }
-	| octave_quotes octave_quote{ $$ += $2; }
-	;
 
 /*
 	URG!!
@@ -589,14 +614,14 @@ octave_quotes:
 steno_melodic_req:
 	MELODIC_REQUEST_IDENTIFIER	{
 		$$ = $1->request(false)->clone()->melodic();
-		$$->octave_i_ += lexer->prefs.default_octave_i_;
+		$$->octave_i_ += THIS->default_octave_i_;
 	}
-	| steno_melodic_req '\'' 	{  
-		$$-> octave_i_ ++;
+	| steno_melodic_req POST_QUOTES 	{  
+		$$-> octave_i_ += $2;
 	}
-	| '`' steno_melodic_req	 {  
+	| PRE_QUOTES steno_melodic_req	 {  
 		$$ = $2;
-		$2-> octave_i_ --;
+		$2-> octave_i_ -= $1;
 	}
 	;
 
@@ -631,7 +656,7 @@ dynamic_req:
 
 close_plet_parens:
 	']' {
-		req_defined_ch_c_l = lexer->here_ch_c_l();
+		//req_defined_ch_C = THIS->here_ch_C();
 		$$ = ']';
 	}
 	;
@@ -671,9 +696,11 @@ textscript_req:
 
 mudela_text:
 	STRING			{ 
-		defined_ch_c_l = lexer->here_ch_c_l();
-		$$ = get_text(*$1); 
+		//defined_ch_C = THIS->here_ch_C();
+		$$ = new Text_def;
+		$$->text_str_ = *$1; 
 		delete $1;
+		$$->style_str_ = THIS->textstyle_str_;
 	}
 	;
 
@@ -682,25 +709,26 @@ script_req:
 		$$ = get_script_req($1, $2);
 	}
 	;
-
-mudela_script:
-	SCRIPT_IDENTIFIER		{ $$ = $1->script(true); }
-	| script_definition		{ $$ = $1; }
-	| '^'		{ $$ = get_scriptdef('^'); }
+script_abbreviation:
+	'^'		{ $$ = get_scriptdef('^'); }
 	| '+'		{ $$ = get_scriptdef('+'); }
 	| '-'		{ $$ = get_scriptdef('-'); }
  	| '|'		{ $$ = get_scriptdef('|'); }
 	| 'o'		{ $$ = get_scriptdef('o'); }
 	| '>'		{ $$ = get_scriptdef('>'); }
-	| '.' 		{ $$ = get_scriptdef('.'); }
 	| DOTS 		{
 		if ( $1 > 1 ) 
-		    warning( "too many staccato dots", lexer->here_ch_c_l() );
+		    warning( "too many staccato dots", THIS->here_ch_C() );
 		$$ = get_scriptdef('.');
 	}
-	| error {
-		$$ = get_scriptdef('.');
-		yyerrok;
+	;
+	
+mudela_script:
+	SCRIPT_IDENTIFIER		{ $$ = $1->script(true); }
+	| script_definition		{ $$ = $1; }
+	| script_abbreviation		{ 
+		$$ = THIS->lexer_p_->lookup_identifier(*$1)->script(true);
+		delete $1;
 	}
 	;
 
@@ -712,112 +740,96 @@ script_dir:
 
 pre_requests:
 	| pre_requests pre_request {
-		pre_reqs.push($2);
-		$2->defined_ch_c_l_ = lexer->here_ch_c_l();
+		THIS->pre_reqs.push($2);
+		$2->defined_ch_C_ = THIS->here_ch_C();
 	}
 	;
 
 pre_request: 
 	open_request_parens	{ 
-		defined_ch_c_l = lexer->here_ch_c_l();
-		$$ = get_request($1); 
+		//defined_ch_C = THIS->here_ch_C();
+		$$ = THIS->get_parens_request($1); 
 	}
 	;
 
 voice_command:
 	PLET	'{' INT '/' INT '}'		{
-		lexer->prefs.set_plet($3,$5);
+		THIS->default_duration_.set_plet($3,$5);
 	}
 	| DURATIONCOMMAND '{' STRING '}'	{
-		lexer->prefs.set_duration_mode(*$3);
+		THIS->set_duration_mode(*$3);
 		delete $3;
 	}
 	| DURATIONCOMMAND '{' notemode_duration '}'	{
-		lexer->prefs.set_default_duration($3);
+		THIS->default_duration_ = *$3;
+		delete $3;
 	}
-	| OCTAVECOMMAND '{' octave_quotes '}'	{
-		lexer->prefs.default_octave_i_ = $3;
+	| OCTAVECOMMAND '{' int '}'	{
+		THIS->default_octave_i_ = $3;
 	}
 	| TEXTSTYLE STRING 	{
-		lexer->prefs.textstyle_str_ = *$2;
+		THIS->textstyle_str_ = *$2;
 		delete $2;
 	}
 	;
 
 duration_length:	
-	mudela_duration		{
-		$$ = new Moment(wholes($1[0], $1[1]));
+	 {
+		$$ = new Moment(0,1);
 	}
-	|int '*' mudela_duration	{
-		$$ = new Moment(Rational($1) * wholes($3[0], $3[1]));
+	| duration_length explicit_duration		{	
+		*$$ += $2->length();
 	}
 	;
 
 notemode_duration:
-	explicit_duration
-	| default_duration
-	;
-
-mudela_duration:
-	int		{
-		$$[0] = $1;
-		$$[1] = 0;
+	/* */		{ 
+		$$ = new Duration(THIS->default_duration_);
 	}
-	| int DOTS 	{
-		$$[0] = $1;
-		$$[1] = $2;
+	| DOTS		{
+		$$ = new Duration(THIS->default_duration_);
+		$$->dots_i_ = $1;
+	}
+	| explicit_duration	{
+		THIS->set_last_duration($1);
+		$$ = $1;
 	}
 	;
-
 
 explicit_duration:
-	INT		{
-		lexer->prefs.set_last_duration($1);
-		$$[0] = $1;
-		$$[1] = 0;
+	int		{
+		$$ = new Duration;
+		$$->type_i_ = $1;
 	}
-	| INT DOTS 	{
-		lexer->prefs.set_last_duration($1);
-		$$[0] = $1;
-		$$[1] = $2;
+	| explicit_duration DOTS 	{
+		$$->dots_i_ = $2;
 	}
-	| DOTS  {
-                lexer->prefs.get_default_duration($$);
-                $$[1] = $1;
+	| explicit_duration '*' int  {
+		$$->plet_.iso_i_ *= $3; 
 	}
-	| INT '*' INT '/' INT {
-		// ugh, must use Duration
-		lexer->prefs.set_plet( $3, $5 );
-		$$[ 0 ] = $1;
-		$$[ 1 ] = 0;
-		lexer->prefs.set_plet( 1, 1 );
-	}
-	;
-
-default_duration:
-	/* empty */	{
-		lexer->prefs.get_default_duration($$);
+	| explicit_duration '/' int {
+		$$->plet_.type_i_ *= $3; 
 	}
 	;
 
 
 voice_elt:
 	steno_note_req notemode_duration 		{
-		if (!lexer->note_state_b())
-			yyerror("have to be in Note mode for notes");
-		$$ = get_note_element($1, $2);
+		if (!THIS->lexer_p_->note_state_b())
+			THIS->parser_error("have to be in Note mode for notes");
+		$$ = THIS->get_note_element($1, $2);
 	}
 	| RESTNAME notemode_duration		{
-		$$ = get_rest_element(*$1, $2);
+		$$ = THIS->get_rest_element(*$1, $2);
 		delete $1;
 	}
 	;
 
 lyrics_elt:
 	mudela_text notemode_duration 			{
-		if (!lexer->lyric_state_b())
-			yyerror("Have to be in Lyric mode for lyrics");
-		$$ = get_word_element($1, $2);
+		if (!THIS->lexer_p_->lyric_state_b())
+			THIS->parser_error("Have to be in Lyric mode for lyrics");
+		$$ = THIS->get_word_element($1, $2);
 
 	};
 
@@ -930,56 +942,23 @@ dinterval: dim	dim		{
 
 %%
 
-void
-yyerror(const char *s)
+void 
+My_lily_parser::set_yydebug(bool b )
 {
-	lexer->LexerError(s);
-
-	if ( fatal_error_i )
-		exit( fatal_error_i );
+#ifdef YYDEBUG
+	yydebug = b;
+#endif
 }
-
 void
-parse_file(String init, String s)
+My_lily_parser::do_yyparse()
 {
-   *mlog << "Parsing ... ";
-   lexer = new My_lily_lexer;
-
-#ifndef NPRINT
-   yydebug = !monitor->silence("InitParser") && check_debug;
-   lexer->set_debug( !monitor->silence("InitLexer") && check_debug);
-#endif
-	init_parse_b = true;
-   lexer->new_input(init);
-   yyparse();
-
-#ifndef NPRINT
-   if (!monitor->silence("InitDeclarations") && check_debug)
-	lexer->print_init_declarations();
-
-   yydebug = !monitor->silence("Parser") && check_debug;
-   lexer->set_debug( !monitor->silence("Lexer") && check_debug);
-#endif
-	init_parse_b = false;
-   lexer->new_input(s);
-   yyparse();
-
-#ifdef NPRINT
-   if (!monitor->silence("Declarations") && check_debug)
-	lexer->print_user_declarations();
-#endif
-   delete lexer;
-   lexer = 0;
-
-   if(!define_spots.empty())
-	warning("Braces don't match.",0);
+	yyparse((void*)this);
 }
 
 Paper_def*
-default_paper()
+My_lily_parser::default_paper()
 {
     return new Paper_def(
-	lexer->lookup_identifier("default_table")->lookup(true));
+	lexer_p_->lookup_identifier("default_table")->lookup(true));
 }
-
 
