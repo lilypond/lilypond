@@ -41,6 +41,7 @@ elispdir = $(datadir)/emacs/site-lisp
 
 # move out of config.make.in?
 package_datadir = $(datadir)/$(package)
+package_infodir = $(infodir)/$(package)
 package_libdir = $(libdir)/$(package)
 package_docdir = $(docdir)/$(package)
 package_omfdir = $(omfdir)/$(package)
