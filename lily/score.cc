@@ -160,13 +160,13 @@ default_rendering (SCM music, SCM outdef,
 		   SCM book_outputdef,
 		   SCM header, SCM outname)
 {
-  SCM context = ly_run_translator (music, outdef);
-
   Book_paper_def *bpd = unsmob_book_paper_def (book_outputdef);
   if (bpd && unsmob_paper (outdef))
     /* FIXME:  memory leak */
     outdef = bpd->scale_paper (unsmob_paper (outdef))->self_scm ();
   
+  SCM context = ly_run_translator (music, outdef);
+
   if (Global_context *g = dynamic_cast<Global_context*>
       (unsmob_context (context)))
     {

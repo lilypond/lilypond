@@ -489,6 +489,7 @@ leaving a PS file in OUTBASE.ps
 
 	if extra['papersize']:
 		opts = ' -t%s' % extra['papersize'][0]
+		
 	if extra['orientation'] and extra['orientation'][0] == 'landscape':
 		opts = opts + ' -tlandscape'
 
