@@ -161,12 +161,14 @@ class LatexPaper:
 				conv =  dimension_conversion_dict[m.group(2)]
 
 				value = conv(num)
-
-		if name == 'body' or name == 'text':
-			if type(value) == type(""):
-				self.m_geo_textwidth =  value
+				
 			else:
-				self.m_geo_textwidth =  value[0]
+				m = re.match ("^[0-9.]+$",value)
+				if m:
+					value = float(value)
+				
+		if name == 'body' or name == 'text':
+			self.m_geo_textwidth =  value
 			self.__body = 1
 		elif name == 'portrait':
 			self.m_geo_landscape = 0
@@ -180,12 +182,9 @@ class LatexPaper:
 			self.m_geo_x_marginparsep =  value
 			self.m_geo_includemp = 1
 		elif name == 'scale':
-			if type(value) == type(""):
-				self.m_geo_width = self.get_paperwidth() * float(value)
-			else:
-				self.m_geo_width = self.get_paperwidth() * float(value[0])
+			self.m_geo_width = self.get_paperwidth() * value
 		elif name == 'hscale':
-			self.m_geo_width = self.get_paperwidth() * float(value)
+			self.m_geo_width = self.get_paperwidth() * value
 		elif name == 'left' or name == 'lmargin':
 			self.m_geo_lmargin =  value
 		elif name == 'right' or name == 'rmargin':
@@ -198,25 +197,14 @@ class LatexPaper:
 			if value[2] not in ('*', ''):
 				self.m_geo_rmargin =  value[2]
 		elif name == 'hmargin':
-			if type(value) == type(""):
-				self.m_geo_lmargin =  value
-				self.m_geo_rmargin =  value
-			else:
-				self.m_geo_lmargin =  value[0]
-				self.m_geo_rmargin =  value[1]
+			self.m_geo_lmargin =  value
+			self.m_geo_rmargin =  value
 		elif name == 'margin':#ugh there is a bug about this option in
 					# the geometry documentation
-			if type(value) == type(""):
-				self.m_geo_lmargin =  value
-				self.m_geo_rmargin =  value
-			else:
-				self.m_geo_lmargin =  value[0]
-				self.m_geo_rmargin =  value[0]
+			self.m_geo_lmargin =  value
+			self.m_geo_rmargin =  value
 		elif name == 'total':
-			if type(value) == type(""):
-				self.m_geo_width =  value
-			else:
-				self.m_geo_width =  value[0]
+			self.m_geo_width =  value
 		elif name == 'width' or name == 'totalwidth':
 			self.m_geo_width =  value
 		elif name == 'paper' or name == 'papername':
