@@ -52,7 +52,13 @@
 
 (def-markup-command (postscript paper props str) (string?)
 
-  "This inserts @var{str} directly into the output as a PostScript command string."
+  "This inserts @var{str} directly into the output as a PostScript command string. For example,
+
+@cindex rotated text
+@lilypond[verbatim]
+{ c^\\markup { \\postscript #\" /ecrm10 findfont 10 output-scale div scalefont 90 rotate (hello) show \" } } 
+@end lilypond"
+
   (ly:make-stencil
    (list 'embedded-ps str)
    '(0 . 0) '(0 . 0)  ))

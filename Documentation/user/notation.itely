@@ -3206,6 +3206,7 @@ handle this cross-staffing behavior.  In this section we discuss the
 * Pedals::                      
 * Arpeggio::                    
 * Staff switch lines::          
+* Cross staff stems::           
 @end menu 
 
 @refbugs
@@ -7043,6 +7044,7 @@ support for contemporary notation in LilyPond is limited.
 * Polymetric notation::         
 * Clusters::                    
 * Fermatas::                    
+* Feathered beams::             
 @end menu
 
 @node Polymetric notation
