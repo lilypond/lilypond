@@ -10,7 +10,7 @@
 # To use this, do something like:
 cat >/dev/null <<EOC
 
-   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.6/lilypond-1.6.3.tar.gz
+   wget -P/var/tmp ftp://lilypond.org/pub/LilyPond/v1.7/lilypond-1.7.13.tar.gz
    rm -rf /home/netrel/src/lilypond-*
    mkdir -p /home/netrel/src && cd /home/netrel/src
    ## TODO: look at pimport
@@ -29,7 +29,8 @@ patch=$mknetrel_root/patch
 if iscygwin; then
     true
 else    
-    uploads=$here/uploads/$base && mkdir -p $uploads
+    ##uploads=$here/uploads/$base && mkdir -p $uploads
+    uploads=$here/uploads-development/$base && mkdir -p $uploads
     tarstem=$uploads/$package
 fi
 
@@ -295,7 +296,9 @@ prebuild () {
     cd $src && ln -s GNUmakefile.in GNUmakefile
 
     cd $build || exit 1
-    PATH=/bin:/usr/bin:$PATH make conf=for-build all doc html-doc
+    # Ugh.  Fixed in 1.6.8CVS and 1.7.13CVS.
+    # PATH=/bin:/usr/bin:$PATH make DO_O_DEP="echo NO DEPS;" conf=for-build all doc html-doc || exit 1
+    PATH=/bin:/usr/bin:$PATH make conf=for-build all doc html-doc || exit 1
     for i in $(find . -path "out-for-build/*.1"); do
 	cp -pv $i $(dirname $(dirname $i))/$(basename $i)
     done

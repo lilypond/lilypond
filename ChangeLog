@@ -1,3 +1,9 @@
+2003-02-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* cygwin/mknetrel: Exit if doc build fails.
+
+	* lily/GNUmakefile: Add hack for .deps and --srcdir build.
+
 2003-02-27  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* scm/music-types.scm (music-descriptions): add doc strings
