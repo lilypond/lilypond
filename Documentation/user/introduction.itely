@@ -4,7 +4,7 @@
 @node Introduction
 @chapter Introduction
 
-trn
+
 The art of music typography is called @emph{(plate) engraving}. The
 term derives from the traditional process of music printing. Only a
 few decades ago, sheet music was made by cutting and stamping the
@@ -26,17 +26,17 @@ have a bland, mechanical look, which makes them unpleasant to play
 from.
 
 The images below illustrate the difference between traditional
-engraving, typical computer output, and how LilyPond mimicks the
-traditional look. The left picture shows a scan of a flat symbol from
-a Henle edition published in 2000. In the center show symbol from a
-hand engraved B@"{a}renreiter edition of the same music. The left scan
-illustrates typical flaws of computer print: the staff line are thin,
-the weight of the symbol matches the light lines, and the glyph has a
-straight layout with sharp corners. By contrast, the B@"{a}renreiter
-has a bold and almost voluptuous rounded look.  Our flat symbol is
-designed after, among others, this one.  It is rounded, and its weight
-harmonizes with the thickness of our staff lines, which are also much
-thicker than Henle's lines.
+engraving and typical computer output, and the third picture shows how
+LilyPond mimicks the traditional look. The left picture shows a scan
+of a flat symbol from a Henle edition published in 2000. In the center
+show symbol from a hand engraved B@"{a}renreiter edition of the same
+music. The left scan illustrates typical flaws of computer print: the
+staff line are thin, the weight of the symbol matches the light lines,
+and the glyph has a straight layout with sharp corners. By contrast,
+the B@"{a}renreiter has a bold and almost voluptuous rounded look.
+Our flat symbol is designed after, among others, this one.  It is
+rounded, and its weight harmonizes with the thickness of our staff
+lines, which are also much thicker than Henle's lines.
 
 @multitable @columnfractions  .1 .3 .3 .3
 @item @tab
@@ -245,21 +245,17 @@ frag= \notes {
     }
 \paper { raggedright = ##t }
 
-\score {\frag}
-\score { \frag
-        \paper {
-        linethickness = 1.5 \pt
-        \translator {
-        \ScoreContext
+\score {
+<<   \new Staff \frag
+   \new Staff \with {
         \override Beam #'thickness = #0.3
         \override Stem #'thickness = #0.5
         \override Bar #'thickness = #3.6
         \override Tie  #'thickness = #2.2
-
-        %% yes, this dirty.
+        \override StaffSymbol #'thickness = 3.0
         \override Tie #'extra-offset = #'(0 . 0.3)
-        }
-}}
+   }>>
+}
 @end lilypond
 
 Formatting rules are also preset variables: each object has variables
@@ -526,14 +522,14 @@ like symphonies and operas? The structure is formed by the concept of
 music expressions: by combining small fragments of music into larger
 ones, more complex music can be expressed. For example,
 
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,fragment,relative=1]
 c4
 @end lilypond
 
 Combine this simultaneously with two other notes by enclosing in << and >>.
 
 
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,fragment,relative=1]
   <<c4 d4 e4>>
 @end lilypond
 
@@ -545,7 +541,7 @@ This expression is put in sequence by enclosing it in braces, i.e.,
    { <<c4 d4 e4>> f4  }
 @end verbatim
 
-@lilypond[]
+@lilypond[relative=1]
    \new Voice { <<c4 d4 e4>> f4  }
 @end lilypond
 	
@@ -555,7 +551,7 @@ with a simultaneous expression (in this case, a half note).
 @verbatim
   << { <<c4 d4 e4>> f4 } g2 >> 
 @end verbatim
-@lilypond[fragment]
+@lilypond[fragment,relative=1]
 << g2 \\ { <c d e>4 f4 }  >> 
 @end lilypond
 	

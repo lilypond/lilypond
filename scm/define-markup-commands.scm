@@ -18,10 +18,13 @@
 (def-markup-command (simple paper props str) (string?)
   "A simple text-string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
-  (interpret-markup paper props
-		    (make-line-markup
-		     (map make-word-markup (string-tokenize str)))))
-
+  (let ((toks (string-tokenize str)))
+    (if (< 1 (length  toks))
+	(interpret-markup paper props
+			  (make-line-markup
+			   (map make-word-markup toks)))
+	(interpret-markup paper props str))))
+    
 (define (font-markup qualifier value)
   (lambda (paper props arg)
     (interpret-markup paper
