@@ -1,3 +1,8 @@
+2003-09-09  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
+
+	* lily/glissando-engraver.cc (stop_translation_timestep): backport
+	of glissando bugfix.
+
 2003-09-05  Han-Wen Nienhuys  <hanwen@cs.uu.nl>
 
 	* Documentation/user/tutorial.itely (More about pitches and
