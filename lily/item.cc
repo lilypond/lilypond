@@ -15,6 +15,7 @@
 
 Item::Item()
 {
+  break_priority_i_ = 0;
   breakable_b_ = false;
   break_status_i_ = 0;
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT]=0;

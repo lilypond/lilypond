@@ -32,6 +32,8 @@ public:
   /// should be put in a breakable col.
   bool breakable_b_;
   int break_status_i_;
+  int break_priority_i_;
+  
   /// nobreak = 0, pre = -1, post = 1
   int break_status_i() const;
   Item * find_prebroken_piece (int) const;
