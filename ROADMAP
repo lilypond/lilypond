@@ -31,9 +31,6 @@ LilyPond's source files.
      F.Schubert/
      Hymns/
      J.S.Bach/
-     L.Mozart/
-     N.W.Gade/
-     W.A.Mozart/
    intl/			library for gettext
    po/				translations
    ps/				postscript library files

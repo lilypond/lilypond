@@ -27,6 +27,9 @@ struct Dict_initialiser
 };
 
 
+/*
+  DEPRECATED. Use either SCM (preferred) or STL 
+ */
 template<class V>
 class Dictionary : public Hash_table<String, V>
 {

@@ -15,7 +15,10 @@
 
 class Property_engraver : public Engraver
 {
-  Dictionary<Protected_scm> prop_dict_;
+  /*
+    UGH. Junk Dictionary
+  */
+  Dictionary<Protected_scm> prop_dict_;	// junkme
   void apply_properties (SCM, Score_element*);
 
 protected:

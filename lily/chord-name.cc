@@ -25,10 +25,13 @@
    "text"
    ("style" . "text")
  */
+/*
+  UGH. remove Dictionary< >
+ */
 Molecule
 Chord_name::ly_word2molecule (SCM word) const
 {
-  Dictionary<SCM> option_dict;
+  Dictionary<SCM> option_dict;	// junkme
   if (gh_pair_p (word))
     {
       SCM options = gh_cdr (word);

@@ -104,8 +104,10 @@ Text_engraver::do_process_music ()
       
       SCM empty = get_property ("textNonEmpty");
       if (!to_boolean (empty))
-	text->set_extent_callback (0, X_AXIS);
-
+	{
+	  text->set_elt_property ("no-spacing-rods" , SCM_BOOL_T);
+	  text->set_extent_callback (0, X_AXIS);
+	}
       announce_element (Score_element_info (text, r));
       texts_.push (text);
     }

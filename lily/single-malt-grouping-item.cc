@@ -55,6 +55,11 @@ Single_malt_grouping_item::my_width () const
 	  continue;		/*UGH UGH*/ 
 	}
 
+      if (to_boolean (il->get_elt_property ("no-spacing-rods")))
+	{
+	  continue;
+	}
+
       Interval iv (il->extent (X_AXIS));
       if (!iv.empty_b ())
 	{

@@ -15,6 +15,9 @@
   should delete these after exit.
  */
 
+/*
+  UGH. Dictionary is deprecated
+ */
 Dictionary<Translator*> *global_translator_dict_p=0;
 
 void

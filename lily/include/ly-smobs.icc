@@ -31,7 +31,9 @@ return s;\
 }\
 
 
-
+/*
+  should include equal_p ? 
+ */
 #define IMPLEMENT_SMOBS(CL)\
 long CL::smob_tag_;\
 static scm_smobfuns CL ## _funs = {					\

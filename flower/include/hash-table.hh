@@ -43,7 +43,9 @@ struct Hash_table_entry
    A hash table of prime size.
 
    We use quadratic probing.  
- */
+
+  DEPRECATED. Use either SCM (preferred) or STL 
+*/
 template<class K, class V>
 class Fixed_size_hash_table
 {

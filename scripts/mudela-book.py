@@ -19,6 +19,13 @@ dep_prefix = ''
 
 # BUG: does not handle \verb|\begin{verbatim}\end{verbatim}| correctly.
 # Should make a joint RE for \verb and \begin, \end{verbatim}
+
+# TODO: add an option to read the .ly files from a previous run and dump
+# the .tex file, so you can do
+#
+# * mudela-book file.tex
+# * convert-mudela *.ly
+# * mudela-book --read-lys *.ly
 #
 
 default_music_fontsize = 16
