@@ -6,6 +6,11 @@
 # 
 # (c) 1997 Han-Wen Nienhuys <hanwen@cs.uu.nl>
 
+
+#
+# TODO: Should use RE.
+#
+
 import os
 import sys
 import getopt
