@@ -21,7 +21,7 @@
 template<class T>
 class Link_array : private Array<void *>
 {
-  static default_compare (T *const& p1, T  *const&p2) {
+  static int default_compare (T *const& p1, T  *const&p2) {
     /* can't do p1 -p2, since T might be an incomplete type */
     if (p1 < p2)
       return -1 ;

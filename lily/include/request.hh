@@ -28,9 +28,9 @@ class Request : public Music {
 public:
   virtual ~Request(){}
   VIRTUAL_COPY_CONS(Music);
-  bool equal_b (Request*) const;
+  bool equal_b (Request const*) const;
 protected:
-  virtual bool do_equal_b (Request*) const;
+  virtual bool do_equal_b (Request const*) const;
   virtual void do_print() const;
 };
 
@@ -57,7 +57,7 @@ public:
   
   Span_req();
 protected:
-  virtual bool do_equal_b (Request*) const;
+  virtual bool do_equal_b (Request const*) const;
   virtual void do_print() const;
   VIRTUAL_COPY_CONS(Music);
 };

@@ -260,7 +260,7 @@ Chord::Chord (Musical_pitch tonic, Array<Musical_pitch>* add_arr_p, Array<Musica
 }
 
 void
-Chord::find_additions_and_subtractions(Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p)
+Chord::find_additions_and_subtractions(Array<Musical_pitch>* add_arr_p, Array<Musical_pitch>* sub_arr_p) const
 {
   Musical_pitch tonic = pitch_arr_[0];
   /*

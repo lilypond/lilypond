@@ -15,13 +15,13 @@ Request::do_print() const
 }
 
 bool
-Request::equal_b (Request *r) const
+Request::equal_b (Request const* r) const
 {
   return r->do_equal_b (this) || this->do_equal_b (r) ;
 }
 
 bool
-Request::do_equal_b (Request*) const
+Request::do_equal_b (Request const*) const
 {
   return true;
 }

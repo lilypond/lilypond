@@ -47,9 +47,9 @@ Melodic_req::transpose (Musical_pitch delta)
 
 
 bool
-Melodic_req::do_equal_b (Request*r) const
+Melodic_req::do_equal_b (Request const* r) const
 {
-  Melodic_req* m= dynamic_cast <Melodic_req *> (r);
+  Melodic_req const* m= dynamic_cast <Melodic_req const*> (r);
   return m&& !compare (*m, *this);
 }
 
@@ -75,9 +75,9 @@ Rhythmic_req::compare (Rhythmic_req const &r1, Rhythmic_req const &r2)
 }
 
 bool
-Rhythmic_req::do_equal_b (Request*r) const
+Rhythmic_req::do_equal_b (Request const* r) const
 {
-  Rhythmic_req* rh = dynamic_cast <Rhythmic_req *> (r);
+  Rhythmic_req const* rh = dynamic_cast <Rhythmic_req const*> (r);
 
   return rh && !compare (*this, *rh);
 }
@@ -114,9 +114,9 @@ Lyric_req::do_print () const
 
 
 bool
-Note_req::do_equal_b (Request*r) const
+Note_req::do_equal_b (Request const* r) const
 {
-  Note_req *n = dynamic_cast<Note_req*> (r);
+  Note_req const* n = dynamic_cast<Note_req const*> (r);
   return n&& Rhythmic_req::do_equal_b (n) && Melodic_req::do_equal_b (n);
 }
 
@@ -148,9 +148,9 @@ Note_req::do_print () const
 
 
 bool
-Span_req::do_equal_b (Request*r) const
+Span_req::do_equal_b (Request const*r) const
 {
-  Span_req * s = dynamic_cast <Span_req *> (r);
+  Span_req const* s = dynamic_cast <Span_req const*> (r);
   return s && span_dir_ == s->span_dir_;
 }
 
@@ -180,9 +180,9 @@ Text_script_req::do_print () const
 }
 
 bool
-Text_script_req::do_equal_b (Request *r) const
+Text_script_req::do_equal_b (Request const* r) const
 {
-  Text_script_req * t  = dynamic_cast<Text_script_req*>(r);
+  Text_script_req const* t  = dynamic_cast<Text_script_req const*> (r);
   return t && t->text_str_ == text_str_ && t->style_str_ == style_str_;
 }
 
@@ -193,9 +193,9 @@ Articulation_req::do_print () const
 }
 
 bool
-Articulation_req::do_equal_b (Request*r) const
+Articulation_req::do_equal_b (Request const* r) const
 {
-  Articulation_req * a = dynamic_cast<Articulation_req*>(r);
+  Articulation_req const* a = dynamic_cast<Articulation_req const*> (r);
   
   return a &&  articulation_str_ == a->articulation_str_;
 }

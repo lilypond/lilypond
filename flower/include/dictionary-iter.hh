@@ -15,7 +15,7 @@
 
 
 template<class V>
-class Dictionary_iter<V> : public Hash_table_iter<String,V>
+class Dictionary_iter : public Hash_table_iter<String,V>
 {
 public:
   Dictionary_iter (Dictionary<V> const &d)

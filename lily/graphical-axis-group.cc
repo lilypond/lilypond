@@ -17,7 +17,16 @@
   Graphical_axis_group at one time. */
 Graphical_axis_group::Graphical_axis_group(Graphical_axis_group const&s)
 {
+#if 0
+  /*
+  gcc-2.95: huh? why can't i assign a const value to a var?
+  graphical-axis-group.cc:20: incompatible types in assignment of `const Axis[2]' to `Axis[2]'
+  */
   axes_ = s.axes_;
+#else
+  axes_[0] = s.axes_[0];
+  axes_[1] = s.axes_[1];
+#endif 
   ordered_b_ = s.ordered_b_;
 }
 

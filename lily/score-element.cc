@@ -161,13 +161,13 @@ Score_element::lookup_l () const
 {
   if (!lookup_l_)
     {
-      Score_element * me = (Score_element*)this;
-      SCM sz = me->remove_elt_property (fontsize_scm_sym);
+      Score_element * urg = (Score_element*)this;
+      SCM sz = urg->remove_elt_property (fontsize_scm_sym);
       int i = (sz != SCM_BOOL_F)
 	? gh_scm2int (SCM_CDR (sz))
 	: 0;
 
-      me->lookup_l_ =  pscore_l_->paper_l_->lookup_l (i);
+      urg->lookup_l_ =  (Lookup*)pscore_l_->paper_l_->lookup_l (i);
     }
   return lookup_l_;
 }

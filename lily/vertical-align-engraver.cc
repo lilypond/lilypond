@@ -47,7 +47,7 @@ Vertical_align_engraver::do_removal_processing()
   dist = get_property ("alignmentReference",0);
   if (dist.length_i () && dist.isnum_b ())
     {
-      valign_p_->align_dir_ = int (dist);
+      valign_p_->align_dir_ = (Direction)(int)dist;
     }
   valign_p_->set_bounds(RIGHT,get_staff_info().command_pcol_l ());
   typeset_element (valign_p_);
@@ -58,7 +58,9 @@ Vertical_align_engraver::do_removal_processing()
 bool
 Vertical_align_engraver::qualifies_b (Score_element_info i) const
 {
+#if 0
   Translator * t =   i.origin_trans_l_arr_[0];
+#endif
   int sz = i.origin_trans_l_arr_.size()  ;
 
 #if 0 

@@ -7,7 +7,6 @@
 */
 #include "debug.hh"
 #include "crescendo.hh"
-#include "dynamic-engraver.hh"
 #include "musical-request.hh"
 #include "lookup.hh"
 #include "paper-def.hh"

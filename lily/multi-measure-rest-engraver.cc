@@ -75,7 +75,7 @@ Multi_measure_rest_engraver::do_process_requests ()
       mmrest_p_ = new Multi_measure_rest;
       if(dynamic_cast<Repetitions_req *> (multi_measure_req_l_))
 	mmrest_p_->set_elt_property (alt_symbol_scm_sym, 
-				     gh_str02scm("scripts-repeatsign"));
+				     ly_ch_C_to_scm ("scripts-repeatsign"));
       announce_element (Score_element_info (mmrest_p_, multi_measure_req_l_));
       start_measure_i_ = time->bars_i_;
     }

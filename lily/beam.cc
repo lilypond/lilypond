@@ -199,7 +199,7 @@ Beam::get_default_dir () const
   */
 
   Direction beam_dir;
-  Direction neutral_dir = (int)paper_l ()->get_var ("stem_default_neutral_direction");
+  Direction neutral_dir = (Direction)(int)paper_l ()->get_var ("stem_default_neutral_direction");
 
   Dir_algorithm a = (Dir_algorithm)rint(paper_l ()->get_var ("beam_dir_algorithm"));
   switch (a)

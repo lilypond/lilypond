@@ -285,7 +285,7 @@ String::index_any_i (String set) const
       char * found= (char*) memchr (me_l, set[i], n );
       if (found) 
 	{
-	  return found - me_l;
+	  return found - (char const*)me_l;
 	}
     }
   return -1;

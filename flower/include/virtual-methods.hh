@@ -28,6 +28,28 @@ demangle_classname (const char*);
    };
    
  */
-#define VIRTUAL_COPY_CONS(base)   virtual base *clone () const { return new typeof(*this) (*this); }
 
+// fix constness: gcc-2.95 is correct in defining
+//    typeof (*this)
+// in a const member function to be const
+
+#if 0
+#define VIRTUAL_COPY_CONS(base) \
+  virtual base *clone () const \
+  { \
+    return new typeof(*this) (*this); \
+  }
+#else
+#define VIRTUAL_COPY_CONS(base) \
+  virtual base* clone_const_helper () \
+    { \
+      return new typeof (*this) (*this); \
+    } \
+  virtual base* clone () const \
+    { \
+      base* urg = (base*)this; \
+      return urg->clone_const_helper (); \
+    }
 #endif 
+
+#endif /* VIRTUAL_METHODS_HH */

@@ -393,7 +393,7 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
   /*
     UGH.
   */
-  SCM l = gh_eval_str (("(style-to-cmr \"" + style + "\")").ch_C());
+  SCM l = ly_ch_C_eval_scm (("(style-to-cmr \"" + style + "\")").ch_C());
   if (l != SCM_BOOL_F)
     {
       style = ly_scm2string (SCM_CDR(l)) +to_str  ((int)font_h);
@@ -422,7 +422,7 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
 	    brace_count ++;
 	  else if (text[i] == '}')
 	    brace_count --;
-          Character_metric *c = afm_l->get_char ((unsigned char)text[i],false);
+          Character_metric *c = (Character_metric*)afm_l->get_char ((unsigned char)text[i],false);
 
 	  w += c->dimensions()[X_AXIS].length ();
 	  ydims.unite (c->dimensions()[Y_AXIS]);
@@ -449,7 +449,7 @@ Lookup::text (String style, String text, Paper_def *paper_l) const
 
   
   Atom at  (gh_list (text_scm_sym,
-		     gh_str02scm (text.ch_C()),
+		     ly_ch_C_to_scm (text.ch_C()),
 		     SCM_UNDEFINED));
   at.font_ = ly_symbol (style);
   at.magn_ = gh_int2scm (font_mag);

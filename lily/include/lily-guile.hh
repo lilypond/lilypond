@@ -15,6 +15,8 @@
 #include <libguile.h>
 #include "direction.hh"
 
+SCM ly_ch_C_to_scm (char const*c);
+SCM ly_ch_C_eval_scm (char const*c);
 SCM ly_symbol (String name);
 String symbol_to_string (SCM);
 SCM ly_set_scm (String name , SCM val);

@@ -78,7 +78,7 @@ Note_head::do_brew_molecule_p() const
 
   if (streepjes_i) 
     {
-      Direction dir = sign (position_i_);
+      Direction dir = (Direction)sign (position_i_);
       Interval hd = out->dim_[X_AXIS];
       Real hw = hd.length ()/4;
       
