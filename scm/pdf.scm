@@ -151,7 +151,7 @@
 ;;		     (ly-number->string (radius))
 ;;		     " ??? "))) ;; how to draw a circle in PDF?
 ;;
-;;(define (roundfilledbox x width y height blotdiam)
+;;(define (roundfilledbox x y width height blotdiam)
 ;;  (string-append " "
 ;;    (dot x y blotdiam)
 ;;    (dot (+ x width) y blotdiam)
@@ -163,7 +163,7 @@
 ;;
 ;; WORKAROUND:
 ;;
-(define (roundfilledbox breadth width depth height) 
+(define (roundfilledbox breadth width depth height blot) 
   (filledbox breadth width depth height))
 ;;
 

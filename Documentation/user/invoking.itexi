@@ -1,3 +1,4 @@
+@c -*-texinfo-*-
 @node Invoking LilyPond
 @chapter Invoking LilyPond
 
@@ -48,11 +49,21 @@ set various debugging options.
 
 
 
-@item -f,--format=@var{format} Output format for sheet music. Choices
-are @code{tex} (for @TeX{} output, to be processed with plain @TeX{},
-or through ly2dvi), @code{pdftex} for PDF@TeX{} input, @code{ps} (for
-PostScript), @code{scm} (for a Scheme dump), and @code{as} (for
-ASCII-art).
+@item -f,--format=@var{format}
+@c
+@c
+Output format for sheet music. Choices are @code{tex} (for @TeX{}
+output, to be processed with plain @TeX{}, or through ly2dvi),
+@code{pdftex} for PDF@TeX{} input, @code{ps} (for PostScript),
+@code{scm} (for a Scheme dump), @code{sk} (for Sketch) and @code{as}
+(for ASCII-art).
+
+@cindex output format, setting
+@cindex Sketch output
+@cindex ASCII-art output
+@cindex PDFTeX output
+@cindex PostScript output
+@cindex Scheme dump
 
 Unless you have special requirements, you should use @TeX{}
 output. All other options are experimental.

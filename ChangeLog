@@ -1,5 +1,7 @@
 2002-07-23  Han-Wen  <hanwen@cs.uu.nl>
 
+	* scm/sketch.scm: fix roundfilledbox definition
+
 	* lily/lily-guile.cc (robust_list_ref): be sensible with negative
 	argument. This fixes too-long stems on half and quarter notes.
 

@@ -140,7 +140,7 @@
     ("ps" . ,ps-output-expression)
     ("scm" . ,write)
     ("as" . ,as-output-expression)
-    ("pysk" . ,pysk-output-expression)
+;    ("pysk" . ,pysk-output-expression)
     ("sketch" . ,sketch-output-expression)
     ("pdftex" . ,pdftex-output-expression)
 ))
