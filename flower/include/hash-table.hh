@@ -12,6 +12,14 @@
 
 unsigned int int_hash (int);
 unsigned long prime_list (int idx);
+
+template<class K>
+unsigned int
+pointer_hash (K *p)
+{
+  return int_hash ((unsigned int) p);
+}
+
 template<class K, class V>
 struct Hash_table_entry
 {
@@ -71,16 +79,19 @@ public:
   /// remove #s# from the hash table.  
   V remove (K s, unsigned int initial_hash)
     {
-      assert (false);		// Untested routine.
       int sz =dict_arr_.size ();
       int i = initial_hash % sz;
       int j = 0;
       V retval;
+
+      /*
+	duplicate with lookup, but we need value of j
+       */
+      
       while (j <= sz/2 && dict_arr_[i].key_ != s)
 	{
 	  assert (!dict_arr_[i].free_b_);
-	    
-	
+
 	  j ++;
 	  i = (i + j*j) % sz;
 	}
@@ -187,8 +198,8 @@ public:
   V const_elem (K k) const
   {
       V retval;
-      if (elem_b (k))
-	retval = ((Hash_table<K,V>*)this)->elem (k);
+      assert (elem_b (k));
+      retval = ((Hash_table<K,V>*)this)->elem (k);
       return retval;
   }
   V& operator [] (K k)
