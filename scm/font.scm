@@ -84,10 +84,10 @@
 
     ((3 medium italic roman 12) . "cmti12")
     ((2 medium italic roman 12) . "cmti12")
-    ((1 medium italic roman 12) . "cmti12")
-    ((0 medium italic roman 10) . "cmti10")
-    ((-1 medium italic roman 8) . "cmti8")    
-    ((-2 medium italic roman 7) . "cmti7")
+    ((1 medium italic roman 12) . "cmti12") ;;; ugh. Should add magnification here! 
+    ((0 medium italic roman 10) . "cmti12")
+    ((-1 medium italic roman 8) . "cmti10")    
+    ((-2 medium italic roman 7) . "cmti8")
     ((-3 medium italic roman 7) . "cmti7")    
 
     ((4 bold upright roman 17) . "cmbx17")
@@ -172,6 +172,7 @@
 	    (map-alist-keys func (cdr list)))
       ))
  
+
 ;; 
 (define (map-alist-vals func list)
   "map a function FUNC over the vals of  LIST, leaving the keys."
