@@ -9,13 +9,13 @@
 #include "translator.hh"
 #include "event.hh"
 
-class Skip_req_swallow_translator : public virtual Translator
+class Skip_event_swallow_translator : public virtual Translator
 {
 protected:
   virtual bool try_music (Music*) { return true; }
 
 public:  
-  TRANSLATOR_DECLARATIONS(Skip_req_swallow_translator);
+  TRANSLATOR_DECLARATIONS(Skip_event_swallow_translator);
 };
 
 
@@ -29,9 +29,9 @@ public:
 };
 
 
-Skip_req_swallow_translator::Skip_req_swallow_translator(){}
+Skip_event_swallow_translator::Skip_event_swallow_translator(){}
 
-ENTER_DESCRIPTION(Skip_req_swallow_translator,
+ENTER_DESCRIPTION(Skip_event_swallow_translator,
 		  "Swallow \\skip.",
 		  "",
 		  "skip-event",

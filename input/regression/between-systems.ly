@@ -2,7 +2,7 @@
 
 \header{
 texidoc="
-The same mechanism can be  used  to force pagebreaks.
+By inserting @TeX{} commands between systems, you can force pagebreaks.
 "
 }
 

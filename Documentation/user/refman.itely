@@ -3052,11 +3052,10 @@ chord.
 @subsection Non-guitar tablatures
 @cindex Non-guitar tablatures
 
- You can change the number of strings, by setting the number of lines
+You can change the number of strings, by setting the number of lines
 in the @internalsref{TabStaff} (the @code{line-count} property of
 @internalsref{TabStaff} can only be changed using
-@code{\outputproperty}, for more information, see @ref{Tuning
-objects}.
+@code{\outputproperty}, for more information, see @ref{Tuning objects}.
 
 You can change the tuning of the strings. A string tuning is given as
 a Scheme list with one integer number for each string, the number
@@ -3826,6 +3825,8 @@ NoteHead object to @code{mensural}. There is also a note head style
 @node Ancient clefs 
 @subsection Ancient clefs
 
+[TODO: condense clef lists in a convenient chart] 
+
 LilyPond supports a variety of clefs, many of them ancient.
 
 For modern clefs, see section @ref{Clef}.  For the percussion clef, see
@@ -4576,7 +4577,7 @@ properties that specify its direction, length and thickness.
 
 The most direct way of tuning the output is by altering the values of
 these properties. There are two ways of doing that: first, you can
-temporarily change the definition of a certain type of object, thus
+temporarily change the definition of one type of object, thus
 affecting a whole set of objects.  Second, you can select one specific
 object, and set a object property in that object.
 
@@ -5074,8 +5075,10 @@ eighthNote = \markup
 
 @cindex kerning
 
-LilyPond does not account for kerning in its text formatting, so it
-spaces texts slightly too wide.
+
+Text layout is ultimately done by @TeX{}, which does kerning of
+letters.  LilyPond does not account for kerning, so texts will be
+spaced slightly too wide.
 
 Syntax errors for markup mode are confusing.
 
@@ -5084,11 +5087,12 @@ Syntax errors for markup mode are confusing.
 @section Global layout
 
 The global layout determined by three factors: the page layout, the
-line breaks and the spacing. These all influence each other: The
+line breaks and the spacing. These all influence each other. The
 choice of spacing determines how densely each system of music is set,
-where line breaks breaks are chosen, and thus ultimately how many
-pages a piece of music takes. In this section we will explain how the
-lilypond spacing engine works, and how you can tune its results.
+which influences where line breaks breaks are chosen, and thus
+ultimately how many pages a piece of music takes. In this section we
+will explain how the lilypond spacing engine works, and how you can
+tune its results.
 
 Globally spoken, this procedure happens in three steps: first,
 flexible distances (``springs'') are chosen, based on durations. All
@@ -5097,6 +5101,8 @@ best results---a layout that has uniform density and requires as
 little stretching or cramping as possible---is chosen. When the score
 is processed by @TeX{}, page are filled with systems, and page breaks
 are chosen whenever the page gets full.
+
+
 
 @menu
 * Vertical spacing::            
@@ -5133,20 +5139,17 @@ set
 This sets the vertical size of the current staff to 4 staff-space on
 either side of the center staff line.  The argument of
 @code{minimumVerticalExtent} is interpreted as an interval, where the
-center line is the 0, so the first number is generally negative.  you
-could also make the staff larger at the bottom by setting it to
-@code{(-6 . 4)}. The default value is @code{(-6 . 6)}.
-
-Vertical aligment of staves is handled by the
-@internalsref{VerticalAlignment} object, which lives at
-@internalsref{Score} level.
+center line is the 0, so the first number is generally negative.  The
+staff can be made larger at the bottom by setting it to @code{(-6
+. 4)}.
 
 The piano staves are handled a little differently: to make cross-staff
 beaming work correctly, it necessary that the distance between staves
 is fixed.  This is also done with a @internalsref{VerticalAlignment}
-object, created in @internalsref{PianoStaff}, but a forced distance is
-set. This is done with the object property #'forced-distance. If you
-want to override this, use a @code{\translator} block as follows:
+object, created in @internalsref{PianoStaff}. In this object the
+distance between the staves is fixed by setting
+@code{forced-distance}. If you want to override this, use a
+@code{\translator} block as follows:
 @example
   \translator @{
     \PianoStaffContext
@@ -5154,7 +5157,12 @@ want to override this, use a @code{\translator} block as follows:
   @}
 @end example
 This would bring the staves together at a distance of 9 staff spaces,
-and again this is measured from the center line of each staff.
+measured from the center line of each staff.
+
+@seealso
+
+Vertical aligment of staves is handled by the
+@internalsref{VerticalAlignment} object.
 
 
 
@@ -5163,30 +5171,30 @@ and again this is measured from the center line of each staff.
 
 The spacing engine translates differences in durations into
 stretchable distances (``springs'') of differing lengths. Longer
-durations get more space, shorter durations get less.  The basis for
-assigning spaces to durations, is that the shortest durations get a
-fixed amount of space, and the longer durations get more: doubling a
-duration adds a fixed amount of space to the note.
+durations get more space, shorter durations get less.  The shortest
+durations get a fixed amount of space (which is controlled by
+@code{shortest-duration-space} in the @internalsref{SpacingSpanner}
+object). The longer the duration, the more space it gets: doubling a
+duration adds a fixed amount (this amount is controlled by
+@code{spacing-increment}) of space to the note.
 
 For example, the following piece contains lots of half, quarter and
-8th notes, the eighth note is followed by 1 note head width. The The
-quarter note is followed by 2 NHW, the half by 3 NHW, etc.
-@lilypond[fragment, verbatim, relative=1]
- c2 c4. c8 c4. c8 c4. c8 c8 c8 c4 c4 c4
+8th notes, the eighth note is followed by 1 note head width (NHW). The
+The quarter note is followed by 2 NHW, the half by 3 NHW, etc.
+@lilypond[fragment, verbatim, relative=1] c2 c4. c8 c4. c8 c4. c8 c8
+c8 c4 c4 c4
 @end lilypond
 
-These two amounts of space are @code{shortest-duration-space}
-@code{spacing-increment}, object properties of
-@internalsref{SpacingSpanner}. Normally @code{spacing-increment} is
-set to 1.2, which is the width of a note head, and
-@code{shortest-duration-space} is set to 2.0, meaning that the
-shortest note gets 2 noteheads of space. For normal notes, this space
-is always counted from the left edge of the symbol, so the short notes
-in a score is generally followed by one note head width of space.
+Normally, @code{shortest-duration-space} is set to 1.2, which is the
+width of a note head, and @code{shortest-duration-space} is set to
+2.0, meaning that the shortest note gets 2 NHW (2 times
+@code{shortest-duration-space}) of space. For normal notes, this space
+is always counted from the left edge of the symbol, so the shortest
+notes are generally followed by one NHW of space.
 
 If one would follow the above procedure exactly, then adding a single
 32th note to a score that uses 8th and 16th notes, would widen up the
-entire score a lot. The shortest note is no longer a 16th, but a 64th,
+entire score a lot. The shortest note is no longer a 16th, but a 32nd,
 thus adding 2 noteheads of space to every note. To prevent this, the
 shortest duration for spacing is not the shortest note in the score,
 but the most commonly found shortest note.  Notes that are even
@@ -5195,7 +5203,7 @@ duration relative to the common shortest note.  So if we were to add
 only a few 16th notes to the example above, they would be followed by
 half a NHW:
 
-@lilypond[fragment, verbatim, relative=1]
+@lilypond[fragment, verbatim, relative=2]
  c2 c4. c8 c4. [c16 c] c4. c8 c8 c8 c4 c4 c4
 @end lilypond
 
@@ -5216,11 +5224,13 @@ through @code{base-shortest-duration}.
 @cindex @code{spacing}
 
 In the introduction it was explained that stem directions influence
-spacing. This is controlled with @code{stem-spacing-correction} in
-@internalsref{NoteSpacing}. The @code{StaffSpacing} object contains the
-same property for controlling the stem/barline spacing. In the
-following example shows these corrections, once with default settings,
-and once with exaggerated corrections.  
+spacing. This is controlled with @code{stem-spacing-correction}
+property in @internalsref{NoteSpacing}, which are generated for every
+@internalsref{Voice} context. The @code{StaffSpacing} object
+(generated at @internalsref{Staff} context) contains the same property
+for controlling the stem/barline spacing. In the following example
+shows these corrections, once with default settings, and once with
+exaggerated corrections.
 
 @lilypond
     \score { \notes {
@@ -5238,8 +5248,9 @@ and once with exaggerated corrections.
 
 @cindex SpacingSpanner, overriding properties
 
-The @internalsref{SpacingSpanner}, is score wide, so its properties
-must be overriden from the @code{\paper} block, e.g.
+Properties of the  @internalsref{SpacingSpanner} must be overriden
+from the @code{\paper} block, since the @internalsref{SpacingSpanner}
+is created before any @code{\property} statements are interpreted.
 @example
 \paper @{ \translator  @{
   \ScoreContext
@@ -5261,22 +5272,7 @@ changes its character (measured in durations) halfway during the
 score, the part containing the longer durations will be spaced too
 widely.
 
-Generating optically pleasing spacing is black magic. LilyPond tries
-to deal with a number of frequent cases. Here is an example that is
-not handled correctly, due to the combination of chord collisions and
-kneed stems.
-
-@lilypond
-\score {
-     \context PianoStaff \notes \transpose c c'' <
-     \context Staff = up { s1 }
-     \context Staff = down { [c8 c \translator Staff=up <<c d>> c 
-\translator Staff=down c c c] }
-     >
-     \paper { raggedright = ##t }
-}
-@end lilypond
-
+There is no convenient mechanism to manually override spacing.
 
 
 
@@ -5315,15 +5311,15 @@ details, see the file @file{scm/font.scm}.
 @cindex breaking lines
 
 Line breaks are normally computed automatically. They are chosen such
-that it looks neither cramped nor loose, and that consecutive lines have
-similar density.
+that lines look neither cramped nor loose, and that consecutive lines
+have similar density.
 
 Occasionally you might want to override the automatic breaks; you can
 do this by  specifying @code{\break}. This will force a line break at
 this point.  Line breaks can only occur at places where there are bar
 lines.  If you want to have a line break where there is no bar line,
 you can force an invisible bar line by entering @code{\bar
-""}. Similarly, @code{\noBreak} forbids a line break at a certain
+""}. Similarly, @code{\noBreak} forbids a line break at a 
 point.
 
 
@@ -5333,7 +5329,7 @@ point.
 If you want linebreaks at regular intervals, you can use the following:
 @example
 <  \repeat 7 unfold @{ s1 * 4 \break  @}
-   @emph{real music}
+   @emph{the real music}
 > 
 @end  example
 This makes the following 28 measures (assuming 4/4 time) be broken every
@@ -5366,11 +5362,12 @@ spacing is.
 @cindex page layout
 @cindex vertical spacing
 
-The page layout process happens outside lilypond. Ly2dvi sets page
-layout instructions. Ly2dvi responds to the following variables in the
-@code{\paper} block.  The variable @code{textheight} sets the total
-height of the music on each page.  The spacing between systems is
-controlled with @code{interscoreline}, its default is 16pt.
+The page layout process happens outside lilypond: variables
+controlling page layout are passed to the output, and are further
+interpreted by @code{ly2dvi}. @code{ly2dvi} responds to the following
+variables in the @code{\paper} block.  The variable @code{textheight}
+sets the total height of the music on each page.  The spacing between
+systems is controlled with @code{interscoreline}, its default is 16pt.
 The distance between the score lines will stretch in order to fill the
 full page @code{interscorelinefill} is set to a positive number.  In
 that case @code{interscoreline} specifies the minimum spacing.
@@ -5379,22 +5376,22 @@ that case @code{interscoreline} specifies the minimum spacing.
 @cindex @code{interscoreline}
 @cindex @code{interscorelinefill}
 
-If the variable @code{lastpagefill} is defined (that is, it gets any
-value assigned in the @code{\paper} block), systems are evenly
-distributed vertically on the last page.  This might produce ugly
-results in case there are not enough systems on the last page.  Note
-that @command{lilypond-book} ignores @code{lastpagefill}.  See
-@ref{Integrating text and music with lilypond-book} for
-more information.
+If the variable @code{lastpagefill} is defined,
+@c fixme: this should only be done if lastpagefill == #t 
+systems are evenly distributed vertically on the last page.  This
+might produce ugly results in case there are not enough systems on the
+last page.  Note that @command{lilypond-book} ignores
+@code{lastpagefill}.  See @ref{Integrating text and music with
+lilypond-book} for more information.
 
 @cindex @code{lastpagefill}
 
 Page breaks are normally computed by @TeX{}, so they are not under
 direct control of LilyPond.  However, you can insert a commands into
-the @file{.tex} output to instruct @TeX{} where to break pages. You
-can insert a @code{\newpage} from within lilypond. This is done by
-setting the @code{between-systems-strings} on the
+the @file{.tex} output to instruct @TeX{} where to break pages.  This
+is done by setting the @code{between-systems-strings} on the
 @internalsref{NonMusicalPaperColumn} where the system is broken.
+An example is shown in @inputfileref{input/regression,between-systems.ly}.
 
 @cindex paper size
 @cindex page size
@@ -5416,6 +5413,17 @@ will set the paper variables @code{hsize} and @code{vsize} (used by
 Lilypond and @code{ly2dvi})
 
 
+@seealso
+
+@ref{Invoking ly2dvi},
+@inputfileref{input/regression,between-systems.ly},
+@internalsref{NonMusicalPaperColumn}.
+
+@refbugs
+
+There is no concept of page breaking, which makes it difficult to
+choose sensible page breaks in multi-page pieces.
+
 
 
 
@@ -5423,25 +5431,29 @@ Lilypond and @code{ly2dvi})
 @section Sound
 @cindex Sound
 
-LilyPond can produce MIDI output.  The performance lacks lots of
-interesting effects, such as swing, articulation, slurring, etc., but it
-is good enough for proof-hearing the music you have entered.  Ties,
-dynamics and tempo changes are interpreted.
+Entered music can also be converted to MIDI output.  The performance
+is good enough for proof-hearing the music for errors.
 
-Dynamic marks, crescendi and decrescendi translate into MIDI volume
-levels.  Dynamic marks translate to a fixed fraction of the available
-MIDI volume range, crescendi and decrescendi make the the volume vary
-linearly between their two extremities.  The fractions be adjusted by
-overriding the @code{absolute-volume-alist} defined in
-@file{scm/midi.scm}.
+
+Ties, dynamics and tempo changes are interpreted.  Dynamic marks,
+crescendi and decrescendi translate into MIDI volume levels.  Dynamic
+marks translate to a fixed fraction of the available MIDI volume
+range, crescendi and decrescendi make the the volume vary linearly
+between their two extremities.  The fractions be adjusted by
+@code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
 
 For each type of musical instrument (that MIDI supports), a volume range
 can be defined.  This gives you basic equalizer control, which can
-enhance the quality of the MIDI output remarkably.  You can add
-instruments and ranges or change the default settings by overriding the
-@code{instrument-equalizer-alist} defined in @file{scm/midi.scm}.
+enhance the quality of the MIDI output remarkably.  The equalizer
+can be controlled by setting @code{instrumentEqualizer}.
 
 Both loudness controls are combined to produce the final  MIDI volume. 
+
+@refbugs
+
+Many musically interesting effects, such as swing, articulation,
+slurring, etc., are translated to MIDI.
+
 
 @menu
 * MIDI block::                  

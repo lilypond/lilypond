@@ -14,7 +14,6 @@ Midi2ly tuplet test.
       tu.midi 
 @end example
 "
-
 }
 
 
@@ -33,4 +32,5 @@ Midi2ly tuplet test.
   \paper { }  
   \midi { }
 }
+
 %% new-chords-done %%

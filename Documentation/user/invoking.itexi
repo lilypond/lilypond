@@ -57,8 +57,7 @@ output, to be processed with plain @TeX{}, or through ly2dvi),
 (for ASCII-art).
 
 @strong{This option is only for developers}. Only the @TeX{} output of
-these is usable for real work. More information can be found at
-@uref{http://lilypond.org/wiki?OutputFormats}.
+these is usable for real work.
 
 
 @cindex output format, setting
@@ -115,7 +114,7 @@ this:
 
 @itemize @bullet
 @item @file{buildscripts/out/lilypond-profile}
-(for sh shells)
+(for SH shells)
 @item  @file{buildscripts/out/lilypond-login} (for C-shells)
 @end itemize
 
@@ -194,21 +193,21 @@ This selects the language for the warning messages of LilyPond.
 @section Reporting bugs
 
 Since there is no finder's fee which doubles every year, there is no
-need to wait for the prize money to grow. So send a bug report today!
+need to wait for the prize money to grow. Send a bug report today!
 
 LilyPond development moves quickly, so if you have a problem, it is
-wise to check if it has been fixed in a newer release.  If you think
-you found a bug, please send in a bugreport.  When you send us a
-bugreport, we have to diagnose the problem and if possible, duplicate
-it.  To make this possible, it is important that you include the
-following information in your report:
+wise to check if it has been fixed in a newer release.  If not, please
+send in a bugreport.  When you send us a bugreport, we have to
+diagnose the problem and if necessary, duplicate it.  To make this
+possible, it is important that you include the following information
+in your report:
 
 @itemize @bullet
 
 @item A sample input which causes the error.  Please have mercy on the
 developers, send a @emph{small} sample file.
 
-@item The version number of lilypond.
+@item The version number
 
 @item A description of the platform you use (i.e., operating system,
 system libraries, whether you downloaded a binary release)
@@ -226,8 +225,8 @@ mailinglist, but you do not have to be subscribed to it to post.
 @section Website
 
 If you are reading this manual in print, it is possible that the
-website contains updates to the manual. You can find the lilypond
-website at @uref{http://www.lilypond.org/}.
+website contains updates to the manual. You can find the website at
+@uref{http://www.lilypond.org/}.
 
 
 @c .  {Point and click}
@@ -388,7 +387,7 @@ Ly2dvi supports the following options:
     Keep the temporary directory including LilyPond and ly2dvi output
 files. The temporary directory is created in the current directory as @code{ly2dvi.dir}.
 @item -d,--dependencies
-    Write makefile dependencies for every input file.
+    Write @code{Makefile} dependencies for every input file.
 @item -h,--help
     Print usage help.
 @item -I,--include=@var{dir}

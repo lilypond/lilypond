@@ -1163,6 +1163,14 @@ if 1:
 	
 	conversions.append (((1,7,16), conv, "divisiomaior -> divisioMaior"))
 
+if 1:
+	def conv(str):
+		str = re.sub ("Skip_req_swallow_translator",
+			      "Skip_event_swallow_translator", str)
+		return str
+	
+	conversions.append (((1,7,17), conv, "Skip_req  -> Skip_event"))
+
 
 ################################
 #	END OF CONVERSIONS	

@@ -168,7 +168,7 @@ VoiceContext = \translator {
 	\consists "Tuplet_engraver"
 	\consists "A2_engraver"
 
-	\consists "Skip_req_swallow_translator"
+	\consists "Skip_event_swallow_translator"
 	\accepts Thread % bug if you leave out this!
 }
 
@@ -263,7 +263,7 @@ LyricsVoiceContext= \translator{
 	\consists "Extender_engraver"
 	\consists "Hyphen_engraver"
 	\consists "Stanza_number_engraver"
-	\consists "Skip_req_swallow_translator"
+	\consists "Skip_event_swallow_translator"
 	phrasingPunctuation = #".,:!?\""
 	
 }
@@ -305,7 +305,7 @@ ChordNamesContext = \translator {
 	\consists "Output_property_engraver"	
 	\consists "Separating_line_group_engraver"
 	\consists "Chord_name_engraver"
-	\consists "Skip_req_swallow_translator"
+	\consists "Skip_event_swallow_translator"
 	\consistsend "Hara_kiri_engraver"
 	minimumVerticalExtent = #'(0 . 2.5)
 	extraVerticalExtent = ##f
