@@ -64,4 +64,3 @@ archiGroup =  \context StaffGroup = archi_group <
 	\include "coriolan-paper.ly"
 	\include "coriolan-midi.ly"
 }
-

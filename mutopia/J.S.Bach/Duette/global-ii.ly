@@ -1,7 +1,7 @@
-\version "1.3.117";
+\version "1.3.122";
 
 globalIi =  \notes{
 	\time 4/4;
-	\property Staff.timeSignatureStyle = "C2/2"
+	\property Staff.TimeSignature \override #'style = #'C2/2
 	\key a\minor;
 }

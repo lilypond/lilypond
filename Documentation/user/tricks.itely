@@ -252,7 +252,7 @@ Metrome hack...
 
 \score {
   \notes\relative c'' {
-    a1^#`(rows ,dotted-eight-note " = 64")
+    a1^#`((rows (font-relative-size . -1)) ,dotted-eight-note " = 64")
   }
   \paper {
     linewidth = -1.;
@@ -270,6 +270,11 @@ Metrome hack...
 
 @node Apply hacking
 @section Apply hacking
+
+[Add Parenthesed note head example?]
+
+[Add Smart transpose example?]
+
 
 @lilypond[verbatim]
 music = \notes { c'4 d'4( e'4 f'4 }
