@@ -354,7 +354,7 @@ output_dict= {
 		'output-default-post': "\\def\postLilypondExample{}\n",
 		'output-default-pre': "\\def\preLilypondExample{}\n",
 		'usepackage-graphics': '\\usepackage{graphics}\n',
-		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s.eps}}',
+		'output-eps': '\\noindent\\parbox{\\lilypondepswidth{%(fn)s.eps}}{\includegraphics{%(fn)s}}',
 		'output-noinline': r'''
 %% generated: %(fn)s.eps
 ''',
