@@ -90,7 +90,7 @@ def encoding_opt (target):
 	return ''
 
 # UGH, should fix --output option for mftrace
-pfa = Builder (action = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
+xpfa = Builder (action = ('MFINPUTS=.:' + str (Dir ('#/mf')) \
 			 + ' mftrace -I %(outdir)s --pfa' \
 			 + ' --simplify --keep-trying' \
 			 + ' $$(basename $SOURCE .mf) ' \
@@ -112,7 +112,7 @@ def run_mftrace (target, source, env):
 			   % vars ()
 	return os.system (command)
 
-xpfa = Builder (action = run_mftrace,
+pfa = Builder (action = run_mftrace,
 	       suffix = '.pfa',
 	       src_suffix = '.mf',
 	       emitter = add_enc_src)
@@ -124,14 +124,15 @@ e = env.Copy (BUILDERS = {'Tfm' : tfm,
 	      MFINPUTS = '#/mf')
 
 #mf_sources = ('feta16.mf',)
+#mf_sources = ('feta-braces-a.mf',)
 sources = map (lambda x: os.path.splitext (x)[0], mf_sources)
 
 t = map (e.Tfm, sources)
 a = map (e.Afm, sources)
 p = map (e.Pfa, sources)
 
-#map (lambda x: e.Depends (x + '.pfa', x + '.enc'), sources)
-map (lambda x: e.Depends (x + '.pfa', x + '.log'), sources)
+map (lambda x: e.Depends (x + '.pfa', x + '.enc'), sources)
+#map (lambda x: e.Depends (x + '.pfa', x + '.log'), sources)
 
 tfmdir = os.path.join (env['lilypondprefix'], 'fonts/tfm')
 afmdir = os.path.join (env['lilypondprefix'], 'afm')
