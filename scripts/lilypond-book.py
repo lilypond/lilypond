@@ -43,7 +43,6 @@ import string
 import getopt
 import sys
 import __main__
-import operator
 
 # Handle bug in Python 1.6-2.1
 #
@@ -147,10 +146,9 @@ g_extra_opts = ''
 g_here_dir = os.getcwd ()
 g_dep_prefix = ''
 g_outdir = ''
-g_force_lilypond_fontsize = 0
+g_force_music_fontsize = 0
 g_read_lys = 0
 g_do_pictures = 1
-g_num_cols = 1
 g_do_music = 1
 
 format = ''
@@ -161,206 +159,52 @@ default_music_fontsize = 16
 default_text_fontsize = 12
 paperguru = None
 
-# this code is ugly. It should be cleaned
 class LatexPaper:
 	def __init__(self):
-		self.m_paperdef =  {
-			# the dimensions are from geometry.sty
-			'a0paper': (mm2pt(841), mm2pt(1189)),
-			'a1paper': (mm2pt(595), mm2pt(841)),
-			'a2paper': (mm2pt(420), mm2pt(595)),
-			'a3paper': (mm2pt(297), mm2pt(420)),
-			'a4paper': (mm2pt(210), mm2pt(297)),
-			'a5paper': (mm2pt(149), mm2pt(210)),
-			'b0paper': (mm2pt(1000), mm2pt(1414)),
-			'b1paper': (mm2pt(707), mm2pt(1000)),
-			'b2paper': (mm2pt(500), mm2pt(707)),
-			'b3paper': (mm2pt(353), mm2pt(500)),
-			'b4paper': (mm2pt(250), mm2pt(353)),
-			'b5paper': (mm2pt(176), mm2pt(250)),
-			'letterpaper': (in2pt(8.5), in2pt(11)),
-			'legalpaper': (in2pt(8.5), in2pt(14)),
-			'executivepaper': (in2pt(7.25), in2pt(10.5))}
-		self.m_use_geometry = None
-		self.m_papersize = 'letterpaper'
-		self.m_fontsize = 10
+		self.m_document_preamble = []
 		self.m_num_cols = 1
-		self.m_landscape = 0
-		self.m_geo_landscape = 0
-		self.m_geo_width = None
-		self.m_geo_textwidth = None
-		self.m_geo_lmargin = None
-		self.m_geo_rmargin = None
-		self.m_geo_columnsep = 0.0
-		self.m_geo_includemp = None
-		self.m_geo_marginparwidth = {10: 57, 11: 50, 12: 35}
-		self.m_geo_marginparsep = {10: 11, 11: 10, 12: 10}
-		self.m_geo_x_marginparwidth = None
-		self.m_geo_x_marginparsep = None
-		self.__body = None
-	def set_geo_option(self, name, value):
-
-		if type(value) == type([]):
-			value = map(conv_dimen_to_float, value)
+	def find_latex_dims(self):
+		if g_outdir:
+			fname = os.path.join(g_outdir, "lily-tmp.tex")
 		else:
-			value = conv_dimen_to_float(value)
-
-		if name == 'body' or name == 'text':
-			if type(value) == type([]):
-				self.m_geo_textwidth =  value[0]
-			else:
-				self.m_geo_textwidth =  value
-			self.__body = 1
-		elif name == 'portrait':
-			self.m_geo_landscape = 0
-		elif name == 'reversemp' or name == 'reversemarginpar':
-			if self.m_geo_includemp == None:
-				self.m_geo_includemp = 1
-		elif name == 'marginparwidth' or name == 'marginpar':
-			self.m_geo_x_marginparwidth =  value
-			self.m_geo_includemp = 1
-		elif name == 'marginparsep':
-			self.m_geo_x_marginparsep =  value
-			self.m_geo_includemp = 1
-		elif name == 'scale':
-			if type(value) == type([]):
-				self.m_geo_width = self.get_paperwidth() * value[0]
-			else:
-				self.m_geo_width = self.get_paperwidth() * value
-		elif name == 'hscale':
-			self.m_geo_width = self.get_paperwidth() * value
-		elif name == 'left' or name == 'lmargin':
-			self.m_geo_lmargin =  value
-		elif name == 'right' or name == 'rmargin':
-			self.m_geo_rmargin =  value
-		elif name == 'hdivide' or name == 'divide':
-			if value[0] not in ('*', ''):
-				self.m_geo_lmargin =  value[0]
-			if value[1] not in ('*', ''):
-				self.m_geo_width =  value[1]
-			if value[2] not in ('*', ''):
-				self.m_geo_rmargin =  value[2]
-		elif name == 'hmargin':
-			if type(value) == type([]):
-				self.m_geo_lmargin =  value[0]
-				self.m_geo_rmargin =  value[1]
-			else:
-				self.m_geo_lmargin =  value
-				self.m_geo_rmargin =  value
-		elif name == 'margin':#ugh there is a bug about this option in
-					# the geometry documentation
-			if type(value) == type([]):
-				self.m_geo_lmargin =  value[0]
-				self.m_geo_rmargin =  value[0]
-			else:
-				self.m_geo_lmargin =  value
-				self.m_geo_rmargin =  value
-		elif name == 'columnsep':
-			self.m_geo_columnsep = value
-		elif name == 'total':
-			if type(value) == type([]):
-				self.m_geo_width =  value[0]
-			else:
-				self.m_geo_width =  value
-		elif name == 'width' or name == 'totalwidth':
-			self.m_geo_width =  value
-		elif name == 'paper' or name == 'papername':
-			self.m_papersize = value
-		elif name[-5:] == 'paper':
-			self.m_papersize = name
-		else:
+			fname = "lily-tmp.tex"
+		try:
+			f = open(fname, "w")
+		except IOError:
+			error ("Error creating temporary file '%s'" % fname)
+		for s in self.m_document_preamble:
+			f.write(s)
+		f.write(r"""
+\begin{document}
+\typeout{---}
+\typeout{\columnsep \the\columnsep}
+\typeout{\textwidth \the\textwidth}
+\typeout{---}
+\end{document}
+		""")
+		f.close()
+		re_dim = re.compile(r"\\(\w+)\s+(\d+\.\d+)")
+		p = os.popen("latex lily-tmp.tex")
+		ln = p.readline()
+		while ln:
+			ln = string.strip(ln)
+			m = re_dim.match(ln)
+			if m:
+				if m.groups()[0] in ('textwidth', 'columnsep'):
+					self.__dict__['m_%s' % m.groups()[0]] = float(m.groups()[1])
+			ln = p.readline()
+		try:
+			os.remove (fname)
+			os.remove (os.path.splitext(fname)[0]+".aux")
+			os.remove (os.path.splitext(fname)[0]+".log")
+		except:
 			pass
-
-	def __setattr__(self, name, value):
-		if type(value) == type("") and \
-		   dimension_conversion_dict.has_key (value[-2:]):
-			f = dimension_conversion_dict[value[-2:]]
-			self.__dict__[name] = f(float(value[:-2]))
-		else:
-			self.__dict__[name] = value
-			
-	def __str__(self):
-		s =  "LatexPaper:\n-----------"
-		for v in self.__dict__.keys():
-			if v[:2] == 'm_':
-				s = s +  str (v) + ' ' + str (self.__dict__[v])
-		s = s +  "-----------"
-		return s
-	
 	def get_linewidth(self):
-		w = self._calc_linewidth()
 		if self.m_num_cols == 2:
-			return (w - 10) / 2
+			return (self.m_textwidth-self.m_columnsep)/2
 		else:
-			return w
-	def get_paperwidth(self):
-		#if self.m_use_geometry:
-			return self.m_paperdef[self.m_papersize][self.m_landscape or self.m_geo_landscape]
-		#return self.m_paperdef[self.m_papersize][self.m_landscape]
-	
-	def _calc_linewidth(self):
-		# since geometry sometimes ignores 'includemp', this is
-		# more complicated than it should be
-		mp = 0
-		if self.m_geo_includemp:
-			if self.m_geo_x_marginparsep is not None:
-				mp = mp + self.m_geo_x_marginparsep
-			else:
-				mp = mp + self.m_geo_marginparsep[self.m_fontsize]
-			if self.m_geo_x_marginparwidth is not None:
-				mp = mp + self.m_geo_x_marginparwidth
-			else:
-				mp = mp + self.m_geo_marginparwidth[self.m_fontsize]
+			return self.m_textwidth
 
-		#ugh test if this is necessary				
-		if self.__body:
-			mp = 0
-		if self.m_num_cols == 1:
-			self.m_geo_columnsep = 0.0
-
-		if not self.m_use_geometry:
-			return latex_linewidths[self.m_papersize][self.m_fontsize]
-		else:
-			geo_opts = (self.m_geo_lmargin == None,
-				    self.m_geo_width == None,
-				    self.m_geo_rmargin == None)
-
-			if geo_opts == (1, 1, 1):
-				if self.m_geo_textwidth:
-					return self.m_geo_textwidth - self.m_geo_columnsep
-				w = self.get_paperwidth() * 0.8 - self.m_geo_columnsep
-				return w - mp
-			elif geo_opts == (0, 1, 1):
-				if self.m_geo_textwidth:
-					return self.m_geo_textwidth - self.m_geo_columnsep
-				return self.f1(self.m_geo_lmargin, mp)
-			elif geo_opts == (1, 1, 0):
-				if self.m_geo_textwidth:
-					return self.m_geo_textwidth - self.m_geo_columnsep
-				return self.f1(self.m_geo_rmargin, mp)
-			elif geo_opts \
-					in ((0, 0, 1), (1, 0, 0), (1, 0, 1)):
-				if self.m_geo_textwidth:
-					return self.m_geo_textwidth - self.m_geo_columnsep
-				return self.m_geo_width - mp - self.m_geo_columnsep
-			elif geo_opts in ((0, 1, 0), (0, 0, 0)):
-				w = self.get_paperwidth() - self.m_geo_lmargin \
-					- self.m_geo_rmargin - mp - self.m_geo_columnsep
-				if w < 0:
-					w = 0
-				return w
-			raise "Never do this!"
-	def f1(self, m, mp):
-		tmp = self.get_paperwidth() - m * 2 - mp - self.m_geo_columnsep
-		if tmp < 0:
-			tmp = 0
-		return tmp
-	def f2(self):
-		tmp = self.get_paperwidth() - self.m_geo_lmargin \
-			- self.m_geo_rmargin
-		if tmp < 0:
-			return 0
-		return tmp
 
 class HtmlPaper:
 	def __init__(self):
@@ -413,20 +257,6 @@ def conv_dimen_to_float(value):
 			value = float(value)
 
 	return value
-			
-	
-# latex linewidths:
-# indices are no. of columns, papersize,  fontsize
-# Why can't this be calculated?
-latex_linewidths = {
- 	'a4paper':{10: 345, 11: 360, 12: 390},
-	'a4paper-landscape': {10: 598, 11: 596, 12:592},
-	'a5paper':{10: 276, 11: 276, 12: 276},
-	'b5paper':{10: 345, 11: 356, 12: 356},
-	'letterpaper':{10: 345, 11: 360, 12: 390},
-	'letterpaper-landscape':{10: 598, 11: 596, 12:596},
-	'legalpaper': {10: 345, 11: 360, 12: 390},
-	'executivepaper':{10: 345, 11: 360, 12: 379}}
 
 texi_linewidths = {
 	'afourpaper': {12: mm2pt(160)},
@@ -619,8 +449,7 @@ re_dict = {
 	'latex': {'input': r'(?m)^[^%\n]*?(?P<match>\\mbinput{?([^}\t \n}]*))',
 		  'include': r'(?m)^[^%\n]*?(?P<match>\\mbinclude{(?P<filename>[^}]+)})',
 		  'option-sep' : ',\s*',
-		  'header': r"\\documentclass\s*(\[.*?\])?",
-		  'geometry': r"^(?m)[^%\n]*?\\usepackage\s*(\[(?P<options>.*)\])?\s*{geometry}",
+		  'header': r"\n*\\documentclass\s*(\[.*?\])?",
 		  'preamble-end': r'(?P<code>\\begin{document})',
 		  'verbatim': r"(?s)(?P<code>\\begin{verbatim}.*?\\end{verbatim})",
 		  'verb': r"(?P<code>\\verb(?P<del>.).*?(?P=del))",
@@ -628,7 +457,7 @@ re_dict = {
 		  'lilypond' : r'(?m)^[^%\n]*?(?P<match>\\lilypond\s*(\[(?P<options>.*?)\])?\s*{(?P<code>.*?)})',
 		  'lilypond-block': r"(?sm)^[^%\n]*?(?P<match>\\begin\s*(\[(?P<options>.*?)\])?\s*{lilypond}(?P<code>.*?)\\end{lilypond})",
 		  'def-post-re': r"\\def\\postLilypondExample",
-		  'def-pre-re': r"\\def\\preLilypondExample",		  
+		  'def-pre-re': r"\\def\\preLilypondExample",
 		  'usepackage-graphics': r"\usepackage{graphics}",
 		  'intertext': r',?\s*intertext=\".*?\"',
 		  'multiline-comment': no_match,
@@ -717,21 +546,16 @@ def compose_full_body (body, opts):
 	'''Construct the lilypond code to send to Lilypond.
 	Add stuff to BODY using OPTS as options.'''
 	music_size = default_music_fontsize
-	latex_size = default_text_fontsize
+	if g_force_music_fontsize:
+		music_size = g_force_music_fontsize
 	indent = ''
 	linewidth = ''
 	for o in opts:
-		if g_force_lilypond_fontsize:
-			music_size = g_force_lilypond_fontsize
-		else:
+		if not g_force_music_fontsize:
 			m = re.match ('([0-9]+)pt', o)
 			if m:
 				music_size = string.atoi(m.group (1))
 
-		m = re.match ('latexfontsize=([0-9]+)pt', o)
-		if m:
-			latex_size = string.atoi (m.group (1))
-			
 		m = re.match ('indent=([-.0-9]+)(cm|in|mm|pt)', o)
 		if m:
 			f = float (m.group (1))
@@ -803,74 +627,44 @@ def compose_full_body (body, opts):
 	# ughUGH not original options
 	return body
 
-def parse_options_string(s):
-	d = {}
-	r1 = re.compile("((\w+)={(.*?)})((,\s*)|$)")
-	r2 = re.compile("((\w+)=(.*?))((,\s*)|$)")
-	r3 = re.compile("(\w+?)((,\s*)|$)")
-	while s:
-		m = r1.match(s)
-		if m:
-			s = s[m.end():]
-			d[m.group(2)] = re.split(",\s*", m.group(3))
-			continue
-		m = r2.match(s)
-		if m:
-			s = s[m.end():]
-			d[m.group(2)] = m.group(3)
-			continue
-		m = r3.match(s)
-		if m:
-			s = s[m.end():]
-			d[m.group(1)] = 1
-			continue
-		
-		error ("format of option string invalid (was `%')" % s)
-	return d
-
 def scan_html_preamble (chunks):
 	return
 
 def scan_latex_preamble(chunks):
-	# first we want to scan the \documentclass line
-	# it should be the first non-comment line
+	# First we want to scan the \documentclass line
+	# it should be the first non-comment line.
+	# The only thing we really need to know about the \documentclass line
+	# is if there are one or two columns to begin with.
 	idx = 0
 	while 1:
 		if chunks[idx][0] == 'ignore':
 			idx = idx + 1
 			continue
 		m = get_re ('header').match(chunks[idx][1])
-		if m <> None and m.group (1):
+		if not m:
+			error ("Latex documents must start with a \documentclass command")
+		if m.group (1):
 			options = re.split (',[\n \t]*', m.group(1)[1:-1])
 		else:
 			options = []
-		for o in options:
-			if o == 'landscape':
-				paperguru.m_landscape = 1
-			m = re.match("(.*?)paper", o)
-			if m:
-				paperguru.m_papersize = m.group()
-			else:
-				m = re.match("(\d\d)pt", o)
-				if m:
-					paperguru.m_fontsize = int(m.group(1))
+		if 'twocolumn' in options:
+			paperguru.m_num_cols = 2
 		break
-	
+
+	# Then we add everythin before \begin{document} to
+	# paperguru.m_document_preamble so that we can later write this header
+	# to a temporary file in find_latex_dims() to find textwidth.
 	while idx < len(chunks) and chunks[idx][0] != 'preamble-end':
 		if chunks[idx] == 'ignore':
 			idx = idx + 1
 			continue
-		m = get_re ('geometry').search(chunks[idx][1])
-		if m:
-			paperguru.m_use_geometry = 1
-			o = parse_options_string(m.group('options'))
-			for k in o.keys():
-				paperguru.set_geo_option(k, o[k])
+		paperguru.m_document_preamble.append(chunks[idx][1])
 		idx = idx + 1
+	paperguru.find_latex_dims()
 
 def scan_texi_preamble (chunks):
 	# this is not bulletproof..., it checks the first 10 chunks
-	for c in chunks[:10]: 
+	for c in chunks[:10]:
 		if c[0] == 'input':
 			for s in ('afourpaper', 'afourwide', 'letterpaper',
 				  'afourlatex', 'smallbook'):
@@ -1169,7 +963,7 @@ def schedule_lilypond_block (chunk):
 		else:
 			s = 'output-tex'
 	else: # format == 'html' or format == 'texi':
- 		s = 'output-all'
+		s = 'output-all'
 	newbody = newbody + get_output (s) % {'fn': basename }
 	return ('lilypond', newbody, opts, todo, basename)
 
@@ -1534,7 +1328,6 @@ def do_file(input_filename):
 	if do_deps:
 		write_deps (my_depname, foutn, chunks)
 
-
 outname = ''
 try:
 	(sh, long) = getopt_args (__main__.option_definitions)
@@ -1577,10 +1370,10 @@ for opt in options:
 	elif o == '--extra-options':
 		g_extra_opts = a
 	elif o == '--force-music-fontsize':
-		g_force_lilypond_fontsize = string.atoi(a)
+		g_force_music_fontsize = string.atoi(a)
 	elif o == '--force-lilypond-fontsize':
 		print "--force-lilypond-fontsize is deprecated, use --default-lilypond-fontsize"
-		g_force_lilypond_fontsize = string.atoi(a)
+		g_force_music_fontsize = string.atoi(a)
 	elif o == '--dep-prefix':
 		g_dep_prefix = a
 	elif o == '--no-pictures':

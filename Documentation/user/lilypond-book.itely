@@ -111,11 +111,11 @@ or
 \lilypond@{ YOUR LILYPOND CODE @}
 @end example
 
-Lilypond-book know about the @code{\onecolumn} and 
-@code{\twocolumn} commands, the @code{geometry} package
-(all except the following options: paperwidth, papersize,
-hdivide, divide, textwidth, mag, offset) and all the
-standard paper sizes.
+You can use whatever commands you like in the document preamble.
+Lilypond-book will send it to La@TeX{} to find out how wide the text is
+and adjust the linewidth variable in the paper definition of you music
+according to that. Lilypond-book also know about the @code{\onecolumn}
+and @code{\twocolumn} commands.
 
 The music will be surrounded by @code{\preLilypondExample} and
 @code{\postLilypondExample}. The variables are 
